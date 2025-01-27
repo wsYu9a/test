@@ -7,204 +7,207 @@ import android.graphics.PorterDuff;
 import android.graphics.Typeface;
 import android.graphics.drawable.Drawable;
 import android.os.Build;
-import android.os.LocaleList;
-import android.view.inputmethod.EditorInfo;
-import android.view.inputmethod.InputConnection;
 import android.widget.TextView;
-import androidx.annotation.DoNotInline;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.annotation.RequiresApi;
 import androidx.annotation.RestrictTo;
 import androidx.appcompat.R;
 import androidx.core.content.res.ResourcesCompat;
-import androidx.core.view.ViewCompat;
-import androidx.core.view.inputmethod.EditorInfoCompat;
+import androidx.core.widget.AutoSizeableTextView;
 import java.lang.ref.WeakReference;
-import java.util.Locale;
 
 /* loaded from: classes.dex */
 class AppCompatTextHelper {
-    private static final int MONOSPACE = 3;
-    private static final int SANS = 1;
-    private static final int SERIF = 2;
-    private static final int TEXT_FONT_WEIGHT_UNSPECIFIED = -1;
-    private boolean mAsyncFontPending;
+
+    /* renamed from: a */
+    private static final int f764a = -1;
+
+    /* renamed from: b */
+    private static final int f765b = 1;
+
+    /* renamed from: c */
+    private static final int f766c = 2;
+
+    /* renamed from: d */
+    private static final int f767d = 3;
+
+    /* renamed from: e */
+    private final TextView f768e;
+
+    /* renamed from: f */
+    private TintInfo f769f;
+
+    /* renamed from: g */
+    private TintInfo f770g;
+
+    /* renamed from: h */
+    private TintInfo f771h;
+
+    /* renamed from: i */
+    private TintInfo f772i;
+
+    /* renamed from: j */
+    private TintInfo f773j;
+    private TintInfo k;
+    private TintInfo l;
 
     @NonNull
-    private final AppCompatTextViewAutoSizeHelper mAutoSizeTextHelper;
-    private TintInfo mDrawableBottomTint;
-    private TintInfo mDrawableEndTint;
-    private TintInfo mDrawableLeftTint;
-    private TintInfo mDrawableRightTint;
-    private TintInfo mDrawableStartTint;
-    private TintInfo mDrawableTint;
-    private TintInfo mDrawableTopTint;
-    private Typeface mFontTypeface;
+    private final AppCompatTextViewAutoSizeHelper m;
+    private int n = 0;
+    private int o = -1;
+    private Typeface p;
+    private boolean q;
 
-    @NonNull
-    private final TextView mView;
-    private int mStyle = 0;
-    private int mFontWeight = -1;
+    private static class ApplyTextViewCallback extends ResourcesCompat.FontCallback {
 
-    /* renamed from: androidx.appcompat.widget.AppCompatTextHelper$1 */
-    public class AnonymousClass1 extends ResourcesCompat.FontCallback {
-        final /* synthetic */ int val$fontWeight;
-        final /* synthetic */ int val$style;
-        final /* synthetic */ WeakReference val$textViewWeak;
+        /* renamed from: a */
+        private final WeakReference<AppCompatTextHelper> f774a;
 
-        public AnonymousClass1(int i10, int i11, WeakReference weakReference) {
-            i14 = i10;
-            i15 = i11;
-            weakReference = weakReference;
-        }
+        /* renamed from: b */
+        private final int f775b;
 
-        @Override // androidx.core.content.res.ResourcesCompat.FontCallback
-        /* renamed from: onFontRetrievalFailed */
-        public void lambda$callbackFailAsync$1(int i10) {
-        }
+        /* renamed from: c */
+        private final int f776c;
 
-        @Override // androidx.core.content.res.ResourcesCompat.FontCallback
-        /* renamed from: onFontRetrieved */
-        public void lambda$callbackSuccessAsync$0(@NonNull Typeface typeface) {
-            int i10;
-            if (Build.VERSION.SDK_INT >= 28 && (i10 = i14) != -1) {
-                typeface = Api28Impl.create(typeface, i10, (i15 & 2) != 0);
+        private class TypefaceApplyCallback implements Runnable {
+
+            /* renamed from: a */
+            private final WeakReference<AppCompatTextHelper> f777a;
+
+            /* renamed from: b */
+            private final Typeface f778b;
+
+            TypefaceApplyCallback(@NonNull WeakReference<AppCompatTextHelper> weakReference, @NonNull Typeface typeface) {
+                this.f777a = weakReference;
+                this.f778b = typeface;
             }
-            AppCompatTextHelper.this.onAsyncTypefaceReceived(weakReference, typeface);
+
+            @Override // java.lang.Runnable
+            public void run() {
+                AppCompatTextHelper appCompatTextHelper = this.f777a.get();
+                if (appCompatTextHelper == null) {
+                    return;
+                }
+                appCompatTextHelper.setTypefaceByCallback(this.f778b);
+            }
+        }
+
+        ApplyTextViewCallback(@NonNull AppCompatTextHelper appCompatTextHelper, int i2, int i3) {
+            this.f774a = new WeakReference<>(appCompatTextHelper);
+            this.f775b = i2;
+            this.f776c = i3;
+        }
+
+        @Override // androidx.core.content.res.ResourcesCompat.FontCallback
+        public void onFontRetrievalFailed(int i2) {
+        }
+
+        @Override // androidx.core.content.res.ResourcesCompat.FontCallback
+        public void onFontRetrieved(@NonNull Typeface typeface) {
+            int i2;
+            AppCompatTextHelper appCompatTextHelper = this.f774a.get();
+            if (appCompatTextHelper == null) {
+                return;
+            }
+            if (Build.VERSION.SDK_INT >= 28 && (i2 = this.f775b) != -1) {
+                typeface = Typeface.create(typeface, i2, (this.f776c & 2) != 0);
+            }
+            appCompatTextHelper.runOnUiThread(new TypefaceApplyCallback(this.f774a, typeface));
         }
     }
 
-    /* renamed from: androidx.appcompat.widget.AppCompatTextHelper$2 */
-    public class AnonymousClass2 implements Runnable {
-        final /* synthetic */ int val$style;
-        final /* synthetic */ TextView val$textView;
-        final /* synthetic */ Typeface val$typeface;
+    AppCompatTextHelper(TextView textView) {
+        this.f768e = textView;
+        this.m = new AppCompatTextViewAutoSizeHelper(textView);
+    }
 
-        public AnonymousClass2(TextView textView, Typeface typeface, int i10) {
-            textView = textView;
-            typeface = typeface;
-            i10 = i10;
+    private void A(Context context, TintTypedArray tintTypedArray) {
+        String string;
+        this.n = tintTypedArray.getInt(R.styleable.TextAppearance_android_textStyle, this.n);
+        int i2 = Build.VERSION.SDK_INT;
+        if (i2 >= 28) {
+            int i3 = tintTypedArray.getInt(R.styleable.TextAppearance_android_textFontWeight, -1);
+            this.o = i3;
+            if (i3 != -1) {
+                this.n = (this.n & 2) | 0;
+            }
         }
-
-        @Override // java.lang.Runnable
-        public void run() {
-            textView.setTypeface(typeface, i10);
+        int i4 = R.styleable.TextAppearance_android_fontFamily;
+        if (!tintTypedArray.hasValue(i4) && !tintTypedArray.hasValue(R.styleable.TextAppearance_fontFamily)) {
+            int i5 = R.styleable.TextAppearance_android_typeface;
+            if (tintTypedArray.hasValue(i5)) {
+                this.q = false;
+                int i6 = tintTypedArray.getInt(i5, 1);
+                if (i6 == 1) {
+                    this.p = Typeface.SANS_SERIF;
+                    return;
+                } else if (i6 == 2) {
+                    this.p = Typeface.SERIF;
+                    return;
+                } else {
+                    if (i6 != 3) {
+                        return;
+                    }
+                    this.p = Typeface.MONOSPACE;
+                    return;
+                }
+            }
+            return;
+        }
+        this.p = null;
+        int i7 = R.styleable.TextAppearance_fontFamily;
+        if (tintTypedArray.hasValue(i7)) {
+            i4 = i7;
+        }
+        int i8 = this.o;
+        int i9 = this.n;
+        if (!context.isRestricted()) {
+            try {
+                Typeface font = tintTypedArray.getFont(i4, this.n, new ApplyTextViewCallback(this, i8, i9));
+                if (font != null) {
+                    if (i2 < 28 || this.o == -1) {
+                        this.p = font;
+                    } else {
+                        this.p = Typeface.create(Typeface.create(font, 0), this.o, (this.n & 2) != 0);
+                    }
+                }
+                this.q = this.p == null;
+            } catch (Resources.NotFoundException | UnsupportedOperationException unused) {
+            }
+        }
+        if (this.p != null || (string = tintTypedArray.getString(i4)) == null) {
+            return;
+        }
+        if (Build.VERSION.SDK_INT < 28 || this.o == -1) {
+            this.p = Typeface.create(string, this.n);
+        } else {
+            this.p = Typeface.create(Typeface.create(string, 0), this.o, (this.n & 2) != 0);
         }
     }
 
-    @RequiresApi(17)
-    public static class Api17Impl {
-        private Api17Impl() {
-        }
-
-        @DoNotInline
-        public static Drawable[] getCompoundDrawablesRelative(TextView textView) {
-            return textView.getCompoundDrawablesRelative();
-        }
-
-        @DoNotInline
-        public static void setCompoundDrawablesRelativeWithIntrinsicBounds(TextView textView, Drawable drawable, Drawable drawable2, Drawable drawable3, Drawable drawable4) {
-            textView.setCompoundDrawablesRelativeWithIntrinsicBounds(drawable, drawable2, drawable3, drawable4);
-        }
-
-        @DoNotInline
-        public static void setTextLocale(TextView textView, Locale locale) {
-            textView.setTextLocale(locale);
-        }
-    }
-
-    @RequiresApi(21)
-    public static class Api21Impl {
-        private Api21Impl() {
-        }
-
-        @DoNotInline
-        public static Locale forLanguageTag(String str) {
-            return Locale.forLanguageTag(str);
-        }
-    }
-
-    @RequiresApi(24)
-    public static class Api24Impl {
-        private Api24Impl() {
-        }
-
-        @DoNotInline
-        public static LocaleList forLanguageTags(String str) {
-            return LocaleList.forLanguageTags(str);
-        }
-
-        @DoNotInline
-        public static void setTextLocales(TextView textView, LocaleList localeList) {
-            textView.setTextLocales(localeList);
-        }
-    }
-
-    @RequiresApi(26)
-    public static class Api26Impl {
-        private Api26Impl() {
-        }
-
-        @DoNotInline
-        public static int getAutoSizeStepGranularity(TextView textView) {
-            return textView.getAutoSizeStepGranularity();
-        }
-
-        @DoNotInline
-        public static void setAutoSizeTextTypeUniformWithConfiguration(TextView textView, int i10, int i11, int i12, int i13) {
-            textView.setAutoSizeTextTypeUniformWithConfiguration(i10, i11, i12, i13);
-        }
-
-        @DoNotInline
-        public static void setAutoSizeTextTypeUniformWithPresetSizes(TextView textView, int[] iArr, int i10) {
-            textView.setAutoSizeTextTypeUniformWithPresetSizes(iArr, i10);
-        }
-
-        @DoNotInline
-        public static boolean setFontVariationSettings(TextView textView, String str) {
-            return textView.setFontVariationSettings(str);
-        }
-    }
-
-    @RequiresApi(28)
-    public static class Api28Impl {
-        private Api28Impl() {
-        }
-
-        @DoNotInline
-        public static Typeface create(Typeface typeface, int i10, boolean z10) {
-            return Typeface.create(typeface, i10, z10);
-        }
-    }
-
-    public AppCompatTextHelper(@NonNull TextView textView) {
-        this.mView = textView;
-        this.mAutoSizeTextHelper = new AppCompatTextViewAutoSizeHelper(textView);
-    }
-
-    private void applyCompoundDrawableTint(Drawable drawable, TintInfo tintInfo) {
+    private void a(Drawable drawable, TintInfo tintInfo) {
         if (drawable == null || tintInfo == null) {
             return;
         }
-        AppCompatDrawableManager.tintDrawable(drawable, tintInfo, this.mView.getDrawableState());
+        AppCompatDrawableManager.e(drawable, tintInfo, this.f768e.getDrawableState());
     }
 
-    private static TintInfo createTintInfo(Context context, AppCompatDrawableManager appCompatDrawableManager, int i10) {
-        ColorStateList tintList = appCompatDrawableManager.getTintList(context, i10);
-        if (tintList == null) {
+    private static TintInfo d(Context context, AppCompatDrawableManager appCompatDrawableManager, int i2) {
+        ColorStateList c2 = appCompatDrawableManager.c(context, i2);
+        if (c2 == null) {
             return null;
         }
         TintInfo tintInfo = new TintInfo();
         tintInfo.mHasTintList = true;
-        tintInfo.mTintList = tintList;
+        tintInfo.mTintList = c2;
         return tintInfo;
     }
 
-    private void setCompoundDrawables(Drawable drawable, Drawable drawable2, Drawable drawable3, Drawable drawable4, Drawable drawable5, Drawable drawable6) {
-        if (drawable5 != null || drawable6 != null) {
-            Drawable[] compoundDrawablesRelative = Api17Impl.getCompoundDrawablesRelative(this.mView);
-            TextView textView = this.mView;
+    private void w(Drawable drawable, Drawable drawable2, Drawable drawable3, Drawable drawable4, Drawable drawable5, Drawable drawable6) {
+        int i2 = Build.VERSION.SDK_INT;
+        if (i2 >= 17 && (drawable5 != null || drawable6 != null)) {
+            Drawable[] compoundDrawablesRelative = this.f768e.getCompoundDrawablesRelative();
+            TextView textView = this.f768e;
             if (drawable5 == null) {
                 drawable5 = compoundDrawablesRelative[0];
             }
@@ -217,28 +220,30 @@ class AppCompatTextHelper {
             if (drawable4 == null) {
                 drawable4 = compoundDrawablesRelative[3];
             }
-            Api17Impl.setCompoundDrawablesRelativeWithIntrinsicBounds(textView, drawable5, drawable2, drawable6, drawable4);
+            textView.setCompoundDrawablesRelativeWithIntrinsicBounds(drawable5, drawable2, drawable6, drawable4);
             return;
         }
         if (drawable == null && drawable2 == null && drawable3 == null && drawable4 == null) {
             return;
         }
-        Drawable[] compoundDrawablesRelative2 = Api17Impl.getCompoundDrawablesRelative(this.mView);
-        Drawable drawable7 = compoundDrawablesRelative2[0];
-        if (drawable7 != null || compoundDrawablesRelative2[2] != null) {
-            TextView textView2 = this.mView;
-            if (drawable2 == null) {
-                drawable2 = compoundDrawablesRelative2[1];
+        if (i2 >= 17) {
+            Drawable[] compoundDrawablesRelative2 = this.f768e.getCompoundDrawablesRelative();
+            if (compoundDrawablesRelative2[0] != null || compoundDrawablesRelative2[2] != null) {
+                TextView textView2 = this.f768e;
+                Drawable drawable7 = compoundDrawablesRelative2[0];
+                if (drawable2 == null) {
+                    drawable2 = compoundDrawablesRelative2[1];
+                }
+                Drawable drawable8 = compoundDrawablesRelative2[2];
+                if (drawable4 == null) {
+                    drawable4 = compoundDrawablesRelative2[3];
+                }
+                textView2.setCompoundDrawablesRelativeWithIntrinsicBounds(drawable7, drawable2, drawable8, drawable4);
+                return;
             }
-            Drawable drawable8 = compoundDrawablesRelative2[2];
-            if (drawable4 == null) {
-                drawable4 = compoundDrawablesRelative2[3];
-            }
-            Api17Impl.setCompoundDrawablesRelativeWithIntrinsicBounds(textView2, drawable7, drawable2, drawable8, drawable4);
-            return;
         }
-        Drawable[] compoundDrawables = this.mView.getCompoundDrawables();
-        TextView textView3 = this.mView;
+        Drawable[] compoundDrawables = this.f768e.getCompoundDrawables();
+        TextView textView3 = this.f768e;
         if (drawable == null) {
             drawable = compoundDrawables[0];
         }
@@ -254,148 +259,66 @@ class AppCompatTextHelper {
         textView3.setCompoundDrawablesWithIntrinsicBounds(drawable, drawable2, drawable3, drawable4);
     }
 
-    private void setCompoundTints() {
-        TintInfo tintInfo = this.mDrawableTint;
-        this.mDrawableLeftTint = tintInfo;
-        this.mDrawableTopTint = tintInfo;
-        this.mDrawableRightTint = tintInfo;
-        this.mDrawableBottomTint = tintInfo;
-        this.mDrawableStartTint = tintInfo;
-        this.mDrawableEndTint = tintInfo;
+    private void x() {
+        TintInfo tintInfo = this.l;
+        this.f769f = tintInfo;
+        this.f770g = tintInfo;
+        this.f771h = tintInfo;
+        this.f772i = tintInfo;
+        this.f773j = tintInfo;
+        this.k = tintInfo;
     }
 
-    private void setTextSizeInternal(int i10, float f10) {
-        this.mAutoSizeTextHelper.setTextSizeInternal(i10, f10);
+    private void z(int i2, float f2) {
+        this.m.y(i2, f2);
     }
 
-    private void updateTypefaceAndStyle(Context context, TintTypedArray tintTypedArray) {
-        String string;
-        this.mStyle = tintTypedArray.getInt(R.styleable.TextAppearance_android_textStyle, this.mStyle);
-        int i10 = Build.VERSION.SDK_INT;
-        if (i10 >= 28) {
-            int i11 = tintTypedArray.getInt(R.styleable.TextAppearance_android_textFontWeight, -1);
-            this.mFontWeight = i11;
-            if (i11 != -1) {
-                this.mStyle &= 2;
+    void b() {
+        if (this.f769f != null || this.f770g != null || this.f771h != null || this.f772i != null) {
+            Drawable[] compoundDrawables = this.f768e.getCompoundDrawables();
+            a(compoundDrawables[0], this.f769f);
+            a(compoundDrawables[1], this.f770g);
+            a(compoundDrawables[2], this.f771h);
+            a(compoundDrawables[3], this.f772i);
+        }
+        if (Build.VERSION.SDK_INT >= 17) {
+            if (this.f773j == null && this.k == null) {
+                return;
             }
+            Drawable[] compoundDrawablesRelative = this.f768e.getCompoundDrawablesRelative();
+            a(compoundDrawablesRelative[0], this.f773j);
+            a(compoundDrawablesRelative[2], this.k);
         }
-        if (!tintTypedArray.hasValue(R.styleable.TextAppearance_android_fontFamily) && !tintTypedArray.hasValue(R.styleable.TextAppearance_fontFamily)) {
-            if (tintTypedArray.hasValue(R.styleable.TextAppearance_android_typeface)) {
-                this.mAsyncFontPending = false;
-                int i12 = tintTypedArray.getInt(R.styleable.TextAppearance_android_typeface, 1);
-                if (i12 == 1) {
-                    this.mFontTypeface = Typeface.SANS_SERIF;
-                    return;
-                } else if (i12 == 2) {
-                    this.mFontTypeface = Typeface.SERIF;
-                    return;
-                } else {
-                    if (i12 != 3) {
-                        return;
-                    }
-                    this.mFontTypeface = Typeface.MONOSPACE;
-                    return;
-                }
-            }
-            return;
-        }
-        this.mFontTypeface = null;
-        int i13 = tintTypedArray.hasValue(R.styleable.TextAppearance_fontFamily) ? R.styleable.TextAppearance_fontFamily : R.styleable.TextAppearance_android_fontFamily;
-        int i14 = this.mFontWeight;
-        int i15 = this.mStyle;
-        if (!context.isRestricted()) {
-            try {
-                Typeface font = tintTypedArray.getFont(i13, this.mStyle, new ResourcesCompat.FontCallback() { // from class: androidx.appcompat.widget.AppCompatTextHelper.1
-                    final /* synthetic */ int val$fontWeight;
-                    final /* synthetic */ int val$style;
-                    final /* synthetic */ WeakReference val$textViewWeak;
-
-                    public AnonymousClass1(int i142, int i152, WeakReference weakReference) {
-                        i14 = i142;
-                        i15 = i152;
-                        weakReference = weakReference;
-                    }
-
-                    @Override // androidx.core.content.res.ResourcesCompat.FontCallback
-                    /* renamed from: onFontRetrievalFailed */
-                    public void lambda$callbackFailAsync$1(int i102) {
-                    }
-
-                    @Override // androidx.core.content.res.ResourcesCompat.FontCallback
-                    /* renamed from: onFontRetrieved */
-                    public void lambda$callbackSuccessAsync$0(@NonNull Typeface typeface) {
-                        int i102;
-                        if (Build.VERSION.SDK_INT >= 28 && (i102 = i14) != -1) {
-                            typeface = Api28Impl.create(typeface, i102, (i15 & 2) != 0);
-                        }
-                        AppCompatTextHelper.this.onAsyncTypefaceReceived(weakReference, typeface);
-                    }
-                });
-                if (font != null) {
-                    if (i10 < 28 || this.mFontWeight == -1) {
-                        this.mFontTypeface = font;
-                    } else {
-                        this.mFontTypeface = Api28Impl.create(Typeface.create(font, 0), this.mFontWeight, (this.mStyle & 2) != 0);
-                    }
-                }
-                this.mAsyncFontPending = this.mFontTypeface == null;
-            } catch (Resources.NotFoundException | UnsupportedOperationException unused) {
-            }
-        }
-        if (this.mFontTypeface != null || (string = tintTypedArray.getString(i13)) == null) {
-            return;
-        }
-        if (Build.VERSION.SDK_INT < 28 || this.mFontWeight == -1) {
-            this.mFontTypeface = Typeface.create(string, this.mStyle);
-        } else {
-            this.mFontTypeface = Api28Impl.create(Typeface.create(string, 0), this.mFontWeight, (this.mStyle & 2) != 0);
-        }
-    }
-
-    public void applyCompoundDrawablesTints() {
-        if (this.mDrawableLeftTint != null || this.mDrawableTopTint != null || this.mDrawableRightTint != null || this.mDrawableBottomTint != null) {
-            Drawable[] compoundDrawables = this.mView.getCompoundDrawables();
-            applyCompoundDrawableTint(compoundDrawables[0], this.mDrawableLeftTint);
-            applyCompoundDrawableTint(compoundDrawables[1], this.mDrawableTopTint);
-            applyCompoundDrawableTint(compoundDrawables[2], this.mDrawableRightTint);
-            applyCompoundDrawableTint(compoundDrawables[3], this.mDrawableBottomTint);
-        }
-        if (this.mDrawableStartTint == null && this.mDrawableEndTint == null) {
-            return;
-        }
-        Drawable[] compoundDrawablesRelative = Api17Impl.getCompoundDrawablesRelative(this.mView);
-        applyCompoundDrawableTint(compoundDrawablesRelative[0], this.mDrawableStartTint);
-        applyCompoundDrawableTint(compoundDrawablesRelative[2], this.mDrawableEndTint);
     }
 
     @RestrictTo({RestrictTo.Scope.LIBRARY_GROUP_PREFIX})
-    public void autoSizeText() {
-        this.mAutoSizeTextHelper.autoSizeText();
+    void c() {
+        this.m.b();
     }
 
-    public int getAutoSizeMaxTextSize() {
-        return this.mAutoSizeTextHelper.getAutoSizeMaxTextSize();
+    int e() {
+        return this.m.j();
     }
 
-    public int getAutoSizeMinTextSize() {
-        return this.mAutoSizeTextHelper.getAutoSizeMinTextSize();
+    int f() {
+        return this.m.k();
     }
 
-    public int getAutoSizeStepGranularity() {
-        return this.mAutoSizeTextHelper.getAutoSizeStepGranularity();
+    int g() {
+        return this.m.l();
     }
 
-    public int[] getAutoSizeTextAvailableSizes() {
-        return this.mAutoSizeTextHelper.getAutoSizeTextAvailableSizes();
+    int[] h() {
+        return this.m.m();
     }
 
-    public int getAutoSizeTextType() {
-        return this.mAutoSizeTextHelper.getAutoSizeTextType();
+    int i() {
+        return this.m.n();
     }
 
     @Nullable
-    public ColorStateList getCompoundDrawableTintList() {
-        TintInfo tintInfo = this.mDrawableTint;
+    ColorStateList j() {
+        TintInfo tintInfo = this.l;
         if (tintInfo != null) {
             return tintInfo.mTintList;
         }
@@ -403,8 +326,8 @@ class AppCompatTextHelper {
     }
 
     @Nullable
-    public PorterDuff.Mode getCompoundDrawableTintMode() {
-        TintInfo tintInfo = this.mDrawableTint;
+    PorterDuff.Mode k() {
+        TintInfo tintInfo = this.l;
         if (tintInfo != null) {
             return tintInfo.mTintMode;
         }
@@ -412,149 +335,159 @@ class AppCompatTextHelper {
     }
 
     @RestrictTo({RestrictTo.Scope.LIBRARY_GROUP_PREFIX})
-    public boolean isAutoSizeEnabled() {
-        return this.mAutoSizeTextHelper.isAutoSizeEnabled();
+    boolean l() {
+        return this.m.s();
     }
 
-    /* JADX WARN: Removed duplicated region for block: B:152:0x011f  */
-    /* JADX WARN: Removed duplicated region for block: B:39:0x0118  */
+    /* JADX WARN: Removed duplicated region for block: B:104:0x020a  */
+    /* JADX WARN: Removed duplicated region for block: B:108:0x021b  */
+    /* JADX WARN: Removed duplicated region for block: B:114:0x0258  */
+    /* JADX WARN: Removed duplicated region for block: B:117:0x0267  */
+    /* JADX WARN: Removed duplicated region for block: B:120:0x0276  */
+    /* JADX WARN: Removed duplicated region for block: B:123:0x0285  */
+    /* JADX WARN: Removed duplicated region for block: B:126:0x0294  */
+    /* JADX WARN: Removed duplicated region for block: B:129:0x02a3  */
+    /* JADX WARN: Removed duplicated region for block: B:132:0x02bd  */
+    /* JADX WARN: Removed duplicated region for block: B:135:0x02ce  */
+    /* JADX WARN: Removed duplicated region for block: B:138:0x02f6  */
+    /* JADX WARN: Removed duplicated region for block: B:140:0x02fd  */
+    /* JADX WARN: Removed duplicated region for block: B:142:0x0304  */
+    /* JADX WARN: Removed duplicated region for block: B:145:? A[RETURN, SYNTHETIC] */
+    /* JADX WARN: Removed duplicated region for block: B:146:0x02de  */
+    /* JADX WARN: Removed duplicated region for block: B:147:0x02a9  */
+    /* JADX WARN: Removed duplicated region for block: B:148:0x029a  */
+    /* JADX WARN: Removed duplicated region for block: B:149:0x028b  */
+    /* JADX WARN: Removed duplicated region for block: B:150:0x027c  */
+    /* JADX WARN: Removed duplicated region for block: B:151:0x026d  */
+    /* JADX WARN: Removed duplicated region for block: B:152:0x025e  */
+    /* JADX WARN: Removed duplicated region for block: B:157:0x00f9  */
+    /* JADX WARN: Removed duplicated region for block: B:161:0x00e9  */
+    /* JADX WARN: Removed duplicated region for block: B:30:0x00be  */
+    /* JADX WARN: Removed duplicated region for block: B:41:0x00f4  */
+    /* JADX WARN: Removed duplicated region for block: B:43:0x00fc  */
+    /* JADX WARN: Removed duplicated region for block: B:53:0x0136  */
+    /* JADX WARN: Removed duplicated region for block: B:64:0x0165  */
+    /* JADX WARN: Removed duplicated region for block: B:67:0x016d  */
+    /* JADX WARN: Removed duplicated region for block: B:72:0x017d  */
+    /* JADX WARN: Removed duplicated region for block: B:79:0x01a0  */
+    /* JADX WARN: Removed duplicated region for block: B:81:0x01a7  */
+    /* JADX WARN: Removed duplicated region for block: B:83:0x01ae  */
+    /* JADX WARN: Removed duplicated region for block: B:85:0x01b5 A[ADDED_TO_REGION] */
+    /* JADX WARN: Removed duplicated region for block: B:89:0x01be  */
+    /* JADX WARN: Removed duplicated region for block: B:94:0x01d2  */
+    /* JADX WARN: Removed duplicated region for block: B:96:0x01d9  */
     @android.annotation.SuppressLint({"NewApi"})
     /*
         Code decompiled incorrectly, please refer to instructions dump.
         To view partially-correct code enable 'Show inconsistent code' option in preferences
     */
-    public void loadFromAttributes(@androidx.annotation.Nullable android.util.AttributeSet r18, int r19) {
+    void m(android.util.AttributeSet r24, int r25) {
         /*
-            Method dump skipped, instructions count: 823
+            Method dump skipped, instructions count: 778
             To view this dump change 'Code comments level' option to 'DEBUG'
         */
-        throw new UnsupportedOperationException("Method not decompiled: androidx.appcompat.widget.AppCompatTextHelper.loadFromAttributes(android.util.AttributeSet, int):void");
-    }
-
-    public void onAsyncTypefaceReceived(WeakReference<TextView> weakReference, Typeface typeface) {
-        if (this.mAsyncFontPending) {
-            this.mFontTypeface = typeface;
-            TextView textView = weakReference.get();
-            if (textView != null) {
-                if (ViewCompat.isAttachedToWindow(textView)) {
-                    textView.post(new Runnable() { // from class: androidx.appcompat.widget.AppCompatTextHelper.2
-                        final /* synthetic */ int val$style;
-                        final /* synthetic */ TextView val$textView;
-                        final /* synthetic */ Typeface val$typeface;
-
-                        public AnonymousClass2(TextView textView2, Typeface typeface2, int i10) {
-                            textView = textView2;
-                            typeface = typeface2;
-                            i10 = i10;
-                        }
-
-                        @Override // java.lang.Runnable
-                        public void run() {
-                            textView.setTypeface(typeface, i10);
-                        }
-                    });
-                } else {
-                    textView2.setTypeface(typeface2, this.mStyle);
-                }
-            }
-        }
+        throw new UnsupportedOperationException("Method not decompiled: androidx.appcompat.widget.AppCompatTextHelper.m(android.util.AttributeSet, int):void");
     }
 
     @RestrictTo({RestrictTo.Scope.LIBRARY_GROUP_PREFIX})
-    public void onLayout(boolean z10, int i10, int i11, int i12, int i13) {
-        if (ViewUtils.SDK_LEVEL_SUPPORTS_AUTOSIZE) {
+    void n(boolean z, int i2, int i3, int i4, int i5) {
+        if (AutoSizeableTextView.PLATFORM_SUPPORTS_AUTOSIZE) {
             return;
         }
-        autoSizeText();
+        c();
     }
 
-    public void onSetCompoundDrawables() {
-        applyCompoundDrawablesTints();
+    void o() {
+        b();
     }
 
-    public void onSetTextAppearance(Context context, int i10) {
+    void p(Context context, int i2) {
         String string;
         ColorStateList colorStateList;
-        ColorStateList colorStateList2;
-        ColorStateList colorStateList3;
-        TintTypedArray obtainStyledAttributes = TintTypedArray.obtainStyledAttributes(context, i10, R.styleable.TextAppearance);
-        if (obtainStyledAttributes.hasValue(R.styleable.TextAppearance_textAllCaps)) {
-            setAllCaps(obtainStyledAttributes.getBoolean(R.styleable.TextAppearance_textAllCaps, false));
+        TintTypedArray obtainStyledAttributes = TintTypedArray.obtainStyledAttributes(context, i2, R.styleable.TextAppearance);
+        int i3 = R.styleable.TextAppearance_textAllCaps;
+        if (obtainStyledAttributes.hasValue(i3)) {
+            q(obtainStyledAttributes.getBoolean(i3, false));
         }
-        int i11 = Build.VERSION.SDK_INT;
-        if (i11 < 23) {
-            if (obtainStyledAttributes.hasValue(R.styleable.TextAppearance_android_textColor) && (colorStateList3 = obtainStyledAttributes.getColorStateList(R.styleable.TextAppearance_android_textColor)) != null) {
-                this.mView.setTextColor(colorStateList3);
-            }
-            if (obtainStyledAttributes.hasValue(R.styleable.TextAppearance_android_textColorLink) && (colorStateList2 = obtainStyledAttributes.getColorStateList(R.styleable.TextAppearance_android_textColorLink)) != null) {
-                this.mView.setLinkTextColor(colorStateList2);
-            }
-            if (obtainStyledAttributes.hasValue(R.styleable.TextAppearance_android_textColorHint) && (colorStateList = obtainStyledAttributes.getColorStateList(R.styleable.TextAppearance_android_textColorHint)) != null) {
-                this.mView.setHintTextColor(colorStateList);
+        int i4 = Build.VERSION.SDK_INT;
+        if (i4 < 23) {
+            int i5 = R.styleable.TextAppearance_android_textColor;
+            if (obtainStyledAttributes.hasValue(i5) && (colorStateList = obtainStyledAttributes.getColorStateList(i5)) != null) {
+                this.f768e.setTextColor(colorStateList);
             }
         }
-        if (obtainStyledAttributes.hasValue(R.styleable.TextAppearance_android_textSize) && obtainStyledAttributes.getDimensionPixelSize(R.styleable.TextAppearance_android_textSize, -1) == 0) {
-            this.mView.setTextSize(0, 0.0f);
+        int i6 = R.styleable.TextAppearance_android_textSize;
+        if (obtainStyledAttributes.hasValue(i6) && obtainStyledAttributes.getDimensionPixelSize(i6, -1) == 0) {
+            this.f768e.setTextSize(0, 0.0f);
         }
-        updateTypefaceAndStyle(context, obtainStyledAttributes);
-        if (i11 >= 26 && obtainStyledAttributes.hasValue(R.styleable.TextAppearance_fontVariationSettings) && (string = obtainStyledAttributes.getString(R.styleable.TextAppearance_fontVariationSettings)) != null) {
-            Api26Impl.setFontVariationSettings(this.mView, string);
+        A(context, obtainStyledAttributes);
+        if (i4 >= 26) {
+            int i7 = R.styleable.TextAppearance_fontVariationSettings;
+            if (obtainStyledAttributes.hasValue(i7) && (string = obtainStyledAttributes.getString(i7)) != null) {
+                this.f768e.setFontVariationSettings(string);
+            }
         }
         obtainStyledAttributes.recycle();
-        Typeface typeface = this.mFontTypeface;
+        Typeface typeface = this.p;
         if (typeface != null) {
-            this.mView.setTypeface(typeface, this.mStyle);
+            this.f768e.setTypeface(typeface, this.n);
         }
     }
 
-    public void populateSurroundingTextIfNeeded(@NonNull TextView textView, @Nullable InputConnection inputConnection, @NonNull EditorInfo editorInfo) {
-        if (Build.VERSION.SDK_INT >= 30 || inputConnection == null) {
-            return;
+    void q(boolean z) {
+        this.f768e.setAllCaps(z);
+    }
+
+    void r(int i2, int i3, int i4, int i5) throws IllegalArgumentException {
+        this.m.u(i2, i3, i4, i5);
+    }
+
+    @RestrictTo({RestrictTo.Scope.LIBRARY})
+    public void runOnUiThread(@NonNull Runnable runnable) {
+        this.f768e.post(runnable);
+    }
+
+    void s(@NonNull int[] iArr, int i2) throws IllegalArgumentException {
+        this.m.v(iArr, i2);
+    }
+
+    @RestrictTo({RestrictTo.Scope.LIBRARY})
+    public void setTypefaceByCallback(@NonNull Typeface typeface) {
+        if (this.q) {
+            this.f768e.setTypeface(typeface);
+            this.p = typeface;
         }
-        EditorInfoCompat.setInitialSurroundingText(editorInfo, textView.getText());
     }
 
-    public void setAllCaps(boolean z10) {
-        this.mView.setAllCaps(z10);
+    void t(int i2) {
+        this.m.w(i2);
     }
 
-    public void setAutoSizeTextTypeUniformWithConfiguration(int i10, int i11, int i12, int i13) throws IllegalArgumentException {
-        this.mAutoSizeTextHelper.setAutoSizeTextTypeUniformWithConfiguration(i10, i11, i12, i13);
-    }
-
-    public void setAutoSizeTextTypeUniformWithPresetSizes(@NonNull int[] iArr, int i10) throws IllegalArgumentException {
-        this.mAutoSizeTextHelper.setAutoSizeTextTypeUniformWithPresetSizes(iArr, i10);
-    }
-
-    public void setAutoSizeTextTypeWithDefaults(int i10) {
-        this.mAutoSizeTextHelper.setAutoSizeTextTypeWithDefaults(i10);
-    }
-
-    public void setCompoundDrawableTintList(@Nullable ColorStateList colorStateList) {
-        if (this.mDrawableTint == null) {
-            this.mDrawableTint = new TintInfo();
+    void u(@Nullable ColorStateList colorStateList) {
+        if (this.l == null) {
+            this.l = new TintInfo();
         }
-        TintInfo tintInfo = this.mDrawableTint;
+        TintInfo tintInfo = this.l;
         tintInfo.mTintList = colorStateList;
         tintInfo.mHasTintList = colorStateList != null;
-        setCompoundTints();
+        x();
     }
 
-    public void setCompoundDrawableTintMode(@Nullable PorterDuff.Mode mode) {
-        if (this.mDrawableTint == null) {
-            this.mDrawableTint = new TintInfo();
+    void v(@Nullable PorterDuff.Mode mode) {
+        if (this.l == null) {
+            this.l = new TintInfo();
         }
-        TintInfo tintInfo = this.mDrawableTint;
+        TintInfo tintInfo = this.l;
         tintInfo.mTintMode = mode;
         tintInfo.mHasTintMode = mode != null;
-        setCompoundTints();
+        x();
     }
 
     @RestrictTo({RestrictTo.Scope.LIBRARY_GROUP_PREFIX})
-    public void setTextSize(int i10, float f10) {
-        if (ViewUtils.SDK_LEVEL_SUPPORTS_AUTOSIZE || isAutoSizeEnabled()) {
+    void y(int i2, float f2) {
+        if (AutoSizeableTextView.PLATFORM_SUPPORTS_AUTOSIZE || l()) {
             return;
         }
-        setTextSizeInternal(i10, f10);
+        z(i2, f2);
     }
 }

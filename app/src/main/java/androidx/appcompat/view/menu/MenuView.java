@@ -10,19 +10,19 @@ public interface MenuView {
     public interface ItemView {
         MenuItemImpl getItemData();
 
-        void initialize(MenuItemImpl menuItemImpl, int i10);
+        void initialize(MenuItemImpl menuItemImpl, int i2);
 
         boolean prefersCondensedTitle();
 
-        void setCheckable(boolean z10);
+        void setCheckable(boolean z);
 
-        void setChecked(boolean z10);
+        void setChecked(boolean z);
 
-        void setEnabled(boolean z10);
+        void setEnabled(boolean z);
 
         void setIcon(Drawable drawable);
 
-        void setShortcut(boolean z10, char c10);
+        void setShortcut(boolean z, char c2);
 
         void setTitle(CharSequence charSequence);
 

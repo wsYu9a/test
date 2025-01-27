@@ -4,7 +4,7 @@ import android.content.Context;
 import android.view.TextureView;
 import android.view.View;
 
-/* loaded from: classes3.dex */
+/* loaded from: classes2.dex */
 public final class a extends TextureView {
     private int videoHeight;
     private int videoWidth;
@@ -13,79 +13,79 @@ public final class a extends TextureView {
         super(context);
     }
 
-    public final void adaptVideoSize(int i10, int i11) {
-        if (this.videoWidth == i10 || this.videoHeight == i11) {
+    public final void adaptVideoSize(int i2, int i3) {
+        if (this.videoWidth == i2 || this.videoHeight == i3) {
             return;
         }
-        this.videoWidth = i10;
-        this.videoHeight = i11;
+        this.videoWidth = i2;
+        this.videoHeight = i3;
         requestLayout();
     }
 
     @Override // android.view.View
-    public final void onMeasure(int i10, int i11) {
-        int i12;
+    protected final void onMeasure(int i2, int i3) {
+        int i4;
         float rotation = getRotation();
         if (rotation == 90.0f || rotation == 270.0f) {
-            i11 = i10;
-            i10 = i11;
+            i3 = i2;
+            i2 = i3;
         }
-        int defaultSize = View.getDefaultSize(this.videoWidth, i10);
-        int defaultSize2 = View.getDefaultSize(this.videoHeight, i11);
+        int defaultSize = TextureView.getDefaultSize(this.videoWidth, i2);
+        int defaultSize2 = TextureView.getDefaultSize(this.videoHeight, i3);
         if (this.videoWidth > 0 && this.videoHeight > 0) {
-            int mode = View.MeasureSpec.getMode(i10);
-            int size = View.MeasureSpec.getSize(i10);
-            int mode2 = View.MeasureSpec.getMode(i11);
-            int size2 = View.MeasureSpec.getSize(i11);
+            int mode = View.MeasureSpec.getMode(i2);
+            int size = View.MeasureSpec.getSize(i2);
+            int mode2 = View.MeasureSpec.getMode(i3);
+            int size2 = View.MeasureSpec.getSize(i3);
             if (mode == 1073741824 && mode2 == 1073741824) {
-                int i13 = this.videoWidth;
-                int i14 = i13 * size2;
-                int i15 = this.videoHeight;
-                if (i14 < size * i15) {
-                    defaultSize = (i13 * size2) / i15;
-                } else if (i13 * size2 > size * i15) {
-                    defaultSize2 = (i15 * size) / i13;
+                int i5 = this.videoWidth;
+                int i6 = i5 * size2;
+                int i7 = this.videoHeight;
+                if (i6 < size * i7) {
+                    defaultSize = (i5 * size2) / i7;
+                } else if (i5 * size2 > size * i7) {
+                    defaultSize2 = (i7 * size) / i5;
                     defaultSize = size;
                 } else {
                     defaultSize = size;
                 }
                 defaultSize2 = size2;
             } else if (mode == 1073741824) {
-                int i16 = this.videoHeight;
-                int i17 = this.videoWidth;
-                int i18 = (size * i16) / i17;
-                if (mode2 != Integer.MIN_VALUE || i18 <= size2) {
+                int i8 = this.videoHeight;
+                int i9 = this.videoWidth;
+                int i10 = (size * i8) / i9;
+                if (mode2 != Integer.MIN_VALUE || i10 <= size2) {
                     defaultSize = size;
-                    defaultSize2 = i18;
+                    defaultSize2 = i10;
                 } else {
-                    defaultSize = (i17 * size2) / i16;
+                    defaultSize = (i9 * size2) / i8;
                     defaultSize2 = size2;
                 }
             } else {
                 if (mode2 == 1073741824) {
-                    int i19 = this.videoWidth;
-                    int i20 = this.videoHeight;
-                    int i21 = (size2 * i19) / i20;
-                    if (mode != Integer.MIN_VALUE || i21 <= size) {
+                    int i11 = this.videoWidth;
+                    int i12 = this.videoHeight;
+                    int i13 = (size2 * i11) / i12;
+                    if (mode != Integer.MIN_VALUE || i13 <= size) {
                         defaultSize2 = size2;
-                        defaultSize = i21;
+                        defaultSize = i13;
                     } else {
-                        defaultSize2 = (i20 * size) / i19;
+                        defaultSize2 = (i12 * size) / i11;
                     }
                 } else {
-                    int i22 = this.videoWidth;
-                    int i23 = this.videoHeight;
-                    if (mode2 != Integer.MIN_VALUE || i23 <= size2) {
-                        i12 = i22;
-                        size2 = i23;
+                    int i14 = this.videoWidth;
+                    int i15 = this.videoHeight;
+                    if (mode2 != Integer.MIN_VALUE || i15 <= size2) {
+                        i4 = i14;
+                        size2 = i15;
                     } else {
-                        i12 = (size2 * i22) / i23;
+                        i4 = (size2 * i14) / i15;
                     }
-                    if (mode != Integer.MIN_VALUE || i12 <= size) {
-                        defaultSize = i12;
+                    if (mode != Integer.MIN_VALUE || i4 <= size) {
+                        defaultSize = i4;
                         defaultSize2 = size2;
                     } else {
-                        defaultSize2 = (i23 * size) / i22;
+                        defaultSize2 = (i15 * size) / i14;
                     }
                 }
                 defaultSize = size;
@@ -95,9 +95,9 @@ public final class a extends TextureView {
     }
 
     @Override // android.view.View
-    public final void setRotation(float f10) {
-        if (f10 != getRotation()) {
-            super.setRotation(f10);
+    public final void setRotation(float f2) {
+        if (f2 != getRotation()) {
+            super.setRotation(f2);
             requestLayout();
         }
     }

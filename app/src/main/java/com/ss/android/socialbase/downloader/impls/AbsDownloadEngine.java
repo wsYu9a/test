@@ -56,12 +56,12 @@ public abstract class AbsDownloadEngine implements WeakDownloadHandler.IHandler 
     private final IDownloadCache downloadCache = DownloadComponentManager.getDownloadCache();
 
     /* renamed from: com.ss.android.socialbase.downloader.impls.AbsDownloadEngine$1 */
-    public class AnonymousClass1 implements Runnable {
+    class AnonymousClass1 implements Runnable {
         final /* synthetic */ DownloadInfo val$downloadInfo;
         final /* synthetic */ SparseArray val$mainThreadListeners;
         final /* synthetic */ SparseArray val$notificationListeners;
 
-        public AnonymousClass1(SparseArray sparseArray, DownloadInfo downloadInfo, SparseArray sparseArray2) {
+        AnonymousClass1(SparseArray sparseArray, DownloadInfo downloadInfo, SparseArray sparseArray2) {
             downloadListeners = sparseArray;
             downloadInfo = downloadInfo;
             downloadListeners2 = sparseArray2;
@@ -73,13 +73,10 @@ public abstract class AbsDownloadEngine implements WeakDownloadHandler.IHandler 
             SparseArray sparseArray2 = downloadListeners;
             if (sparseArray2 != null) {
                 synchronized (sparseArray2) {
-                    for (int i10 = 0; i10 < downloadListeners.size(); i10++) {
-                        try {
-                            IDownloadListener iDownloadListener = (IDownloadListener) downloadListeners.get(downloadListeners.keyAt(i10));
-                            if (iDownloadListener != null) {
-                                iDownloadListener.onCanceled(downloadInfo);
-                            }
-                        } finally {
+                    for (int i2 = 0; i2 < downloadListeners.size(); i2++) {
+                        IDownloadListener iDownloadListener = (IDownloadListener) downloadListeners.get(downloadListeners.keyAt(i2));
+                        if (iDownloadListener != null) {
+                            iDownloadListener.onCanceled(downloadInfo);
                         }
                     }
                 }
@@ -89,13 +86,10 @@ public abstract class AbsDownloadEngine implements WeakDownloadHandler.IHandler 
                 return;
             }
             synchronized (sparseArray) {
-                for (int i11 = 0; i11 < downloadListeners2.size(); i11++) {
-                    try {
-                        IDownloadListener iDownloadListener2 = (IDownloadListener) downloadListeners2.get(downloadListeners2.keyAt(i11));
-                        if (iDownloadListener2 != null) {
-                            iDownloadListener2.onCanceled(downloadInfo);
-                        }
-                    } finally {
+                for (int i3 = 0; i3 < downloadListeners2.size(); i3++) {
+                    IDownloadListener iDownloadListener2 = (IDownloadListener) downloadListeners2.get(downloadListeners2.keyAt(i3));
+                    if (iDownloadListener2 != null) {
+                        iDownloadListener2.onCanceled(downloadInfo);
                     }
                 }
             }
@@ -103,90 +97,87 @@ public abstract class AbsDownloadEngine implements WeakDownloadHandler.IHandler 
     }
 
     /* renamed from: com.ss.android.socialbase.downloader.impls.AbsDownloadEngine$2 */
-    public class AnonymousClass2 implements Runnable {
+    class AnonymousClass2 implements Runnable {
         final /* synthetic */ int val$id;
 
-        public AnonymousClass2(int i10) {
-            i10 = i10;
+        AnonymousClass2(int i2) {
+            i2 = i2;
         }
 
         @Override // java.lang.Runnable
         public void run() {
-            DownloadNotificationManager.getInstance().cancelNotification(i10);
+            DownloadNotificationManager.getInstance().cancelNotification(i2);
         }
     }
 
     /* renamed from: com.ss.android.socialbase.downloader.impls.AbsDownloadEngine$3 */
-    public class AnonymousClass3 implements Runnable {
+    class AnonymousClass3 implements Runnable {
         final /* synthetic */ boolean val$deleteFile;
         final /* synthetic */ int val$id;
 
-        public AnonymousClass3(int i10, boolean z10) {
-            i10 = i10;
-            z10 = z10;
+        AnonymousClass3(int i2, boolean z) {
+            i2 = i2;
+            z = z;
         }
 
         @Override // java.lang.Runnable
         public void run() {
             DownloadTask downloadTask;
-            if (AbsDownloadEngine.this.doCancel(i10) == null && (downloadTask = AbsDownloadEngine.this.getDownloadTask(i10)) != null) {
+            if (AbsDownloadEngine.this.doCancel(i2) == null && (downloadTask = AbsDownloadEngine.this.getDownloadTask(i2)) != null) {
                 DownloadInfo downloadInfo = downloadTask.getDownloadInfo();
                 SparseArray<IDownloadListener> downloadListeners = downloadTask.getDownloadListeners(ListenerType.SUB);
                 if (downloadListeners != null) {
                     synchronized (downloadListeners) {
-                        for (int i10 = 0; i10 < downloadListeners.size(); i10++) {
-                            try {
-                                IDownloadListener iDownloadListener = downloadListeners.get(downloadListeners.keyAt(i10));
-                                if (iDownloadListener != null) {
-                                    iDownloadListener.onCanceled(downloadInfo);
-                                }
-                            } finally {
+                        for (int i2 = 0; i2 < downloadListeners.size(); i2++) {
+                            IDownloadListener iDownloadListener = downloadListeners.get(downloadListeners.keyAt(i2));
+                            if (iDownloadListener != null) {
+                                iDownloadListener.onCanceled(downloadInfo);
                             }
                         }
                     }
                 }
             }
-            AbsDownloadEngine.this.clearDownloadDataInSubThread(i10, z10);
+            AbsDownloadEngine.this.clearDownloadDataInSubThread(i2, z);
         }
     }
 
     /* renamed from: com.ss.android.socialbase.downloader.impls.AbsDownloadEngine$4 */
-    public class AnonymousClass4 implements Runnable {
+    class AnonymousClass4 implements Runnable {
         final /* synthetic */ int val$id;
 
-        public AnonymousClass4(int i10) {
-            i10 = i10;
+        AnonymousClass4(int i2) {
+            i2 = i2;
         }
 
         @Override // java.lang.Runnable
         public void run() {
-            DownloadNotificationManager.getInstance().cancelNotification(i10);
+            DownloadNotificationManager.getInstance().cancelNotification(i2);
         }
     }
 
     /* renamed from: com.ss.android.socialbase.downloader.impls.AbsDownloadEngine$5 */
-    public class AnonymousClass5 implements Runnable {
+    class AnonymousClass5 implements Runnable {
         final /* synthetic */ boolean val$deleteFile;
         final /* synthetic */ int val$id;
 
-        public AnonymousClass5(int i10, boolean z10) {
-            i10 = i10;
-            z10 = z10;
+        AnonymousClass5(int i2, boolean z) {
+            i2 = i2;
+            z = z;
         }
 
         @Override // java.lang.Runnable
         public void run() {
-            AbsDownloadEngine.this.doCancel(i10);
-            AbsDownloadEngine.this.resetDownloadDataInSubThread(i10, z10);
+            AbsDownloadEngine.this.doCancel(i2);
+            AbsDownloadEngine.this.resetDownloadDataInSubThread(i2, z);
         }
     }
 
     /* renamed from: com.ss.android.socialbase.downloader.impls.AbsDownloadEngine$6 */
-    public class AnonymousClass6 implements Runnable {
+    class AnonymousClass6 implements Runnable {
         final /* synthetic */ DownloadInfo val$downloadInfo;
         final /* synthetic */ IDownloadListener val$listener;
 
-        public AnonymousClass6(IDownloadListener iDownloadListener, DownloadInfo downloadInfo) {
+        AnonymousClass6(IDownloadListener iDownloadListener, DownloadInfo downloadInfo) {
             iDownloadListener = iDownloadListener;
             downloadInfo2 = downloadInfo;
         }
@@ -203,27 +194,29 @@ public abstract class AbsDownloadEngine implements WeakDownloadHandler.IHandler 
         }
     }
 
+    protected AbsDownloadEngine() {
+    }
+
     private void cancelAlarm(DownloadInfo downloadInfo) {
         if (downloadInfo != null) {
             try {
-                if (downloadInfo.getStatus() != 7 && downloadInfo.getRetryDelayStatus() == RetryDelayStatus.DELAY_RETRY_NONE) {
-                    return;
+                if (downloadInfo.getStatus() == 7 || downloadInfo.getRetryDelayStatus() != RetryDelayStatus.DELAY_RETRY_NONE) {
+                    downloadInfo.setStatus(5);
+                    downloadInfo.setRetryDelayStatus(RetryDelayStatus.DELAY_RETRY_NONE);
+                    Logger.d(TAG, "cancelAlarm");
                 }
-                downloadInfo.setStatus(5);
-                downloadInfo.setRetryDelayStatus(RetryDelayStatus.DELAY_RETRY_NONE);
-                Logger.d(TAG, "cancelAlarm");
-            } catch (Throwable th2) {
-                th2.printStackTrace();
+            } catch (Throwable th) {
+                th.printStackTrace();
             }
         }
     }
 
-    public synchronized void clearDownloadDataInSubThread(int i10, boolean z10) {
-        Logger.d(TAG, "clearDownloadDataInSubThread::id=" + i10 + " deleteTargetFile=" + z10);
+    public synchronized void clearDownloadDataInSubThread(int i2, boolean z) {
+        Logger.d(TAG, "clearDownloadDataInSubThread::id=" + i2 + " deleteTargetFile=" + z);
         try {
-            DownloadInfo downloadInfo = this.downloadCache.getDownloadInfo(i10);
+            DownloadInfo downloadInfo = this.downloadCache.getDownloadInfo(i2);
             if (downloadInfo != null) {
-                if (z10) {
+                if (z) {
                     DownloadUtils.deleteAllDownloadFiles(downloadInfo);
                 } else {
                     DownloadUtils.deleteFile(downloadInfo.getTempPath(), downloadInfo.getTempName());
@@ -231,21 +224,21 @@ public abstract class AbsDownloadEngine implements WeakDownloadHandler.IHandler 
                 downloadInfo.erase();
             }
             try {
-                this.downloadCache.removeDownloadTaskData(i10);
-            } catch (SQLiteException e10) {
-                e10.printStackTrace();
+                this.downloadCache.removeDownloadTaskData(i2);
+            } catch (SQLiteException e2) {
+                e2.printStackTrace();
             }
-            refreshDownloadTaskMap(i10, 0, -4);
-            if (this.failedDownloadTaskMap.get(i10) != null) {
-                this.failedDownloadTaskMap.remove(i10);
+            refreshDownloadTaskMap(i2, 0, -4);
+            if (this.failedDownloadTaskMap.get(i2) != null) {
+                this.failedDownloadTaskMap.remove(i2);
             }
-            if (this.successDownloadTaskMap.get(i10) != null) {
-                this.successDownloadTaskMap.remove(i10);
+            if (this.successDownloadTaskMap.get(i2) != null) {
+                this.successDownloadTaskMap.remove(i2);
             }
-            this.pengingTaskCache.remove(Integer.valueOf(i10));
-            DownloadSetting.removeTaskDownloadSetting(i10);
-        } catch (Throwable th2) {
-            th2.printStackTrace();
+            this.pengingTaskCache.remove(Integer.valueOf(i2));
+            DownloadSetting.removeTaskDownloadSetting(i2);
+        } catch (Throwable th) {
+            th.printStackTrace();
         }
     }
 
@@ -293,21 +286,21 @@ public abstract class AbsDownloadEngine implements WeakDownloadHandler.IHandler 
         }
     }
 
-    public DownloadTask getDownloadTask(int i10) {
-        DownloadTask downloadTask = this.downloadTaskMap.get(i10);
+    public DownloadTask getDownloadTask(int i2) {
+        DownloadTask downloadTask = this.downloadTaskMap.get(i2);
         if (downloadTask != null) {
             return downloadTask;
         }
-        DownloadTask downloadTask2 = this.failedDownloadTaskMap.get(i10);
+        DownloadTask downloadTask2 = this.failedDownloadTaskMap.get(i2);
         if (downloadTask2 != null) {
             return downloadTask2;
         }
-        DownloadTask downloadTask3 = this.successDownloadTaskMap.get(i10);
+        DownloadTask downloadTask3 = this.successDownloadTaskMap.get(i2);
         if (downloadTask3 != null) {
             return downloadTask3;
         }
-        DownloadTask downloadTask4 = this.retryDelayDownloadTaskMap.get(i10);
-        return downloadTask4 == null ? this.waitingAsyncDownloadTaskMap.get(i10) : downloadTask4;
+        DownloadTask downloadTask4 = this.retryDelayDownloadTaskMap.get(i2);
+        return downloadTask4 == null ? this.waitingAsyncDownloadTaskMap.get(i2) : downloadTask4;
     }
 
     private boolean isPauseReserveOnWifi(DownloadInfo downloadInfo) {
@@ -317,60 +310,60 @@ public abstract class AbsDownloadEngine implements WeakDownloadHandler.IHandler 
         return false;
     }
 
-    private void notifyDownloadTaskStatus(int i10, BaseException baseException, DownloadTask downloadTask) {
+    private void notifyDownloadTaskStatus(int i2, BaseException baseException, DownloadTask downloadTask) {
         if (downloadTask != null) {
             DownloadInfo downloadInfo = downloadTask.getDownloadInfo();
             SparseArray<IDownloadListener> downloadListeners = downloadTask.getDownloadListeners(ListenerType.MAIN);
             SparseArray<IDownloadListener> downloadListeners2 = downloadTask.getDownloadListeners(ListenerType.NOTIFICATION);
-            boolean z10 = downloadTask.canShowNotification() || downloadInfo.isAutoInstallWithoutNotification();
-            DownloadListenerUtils.notifyListener(i10, downloadListeners, true, downloadInfo, baseException);
-            DownloadListenerUtils.notifyListener(i10, downloadListeners2, z10, downloadInfo, baseException);
+            boolean z = downloadTask.canShowNotification() || downloadInfo.isAutoInstallWithoutNotification();
+            DownloadListenerUtils.notifyListener(i2, downloadListeners, true, downloadInfo, baseException);
+            DownloadListenerUtils.notifyListener(i2, downloadListeners2, z, downloadInfo, baseException);
         }
     }
 
-    private void removeTask(int i10, int i11) {
-        Logger.d(TAG, "removeTask id: " + i10 + " listener hasCode: " + i11);
-        if (i11 == 0) {
-            this.downloadTaskMap.remove(i10);
-            this.downloadTaskWithListenerMap.remove(i10);
+    private void removeTask(int i2, int i3) {
+        Logger.d(TAG, "removeTask id: " + i2 + " listener hasCode: " + i3);
+        if (i3 == 0) {
+            this.downloadTaskMap.remove(i2);
+            this.downloadTaskWithListenerMap.remove(i2);
             return;
         }
-        SparseArray<DownloadTask> sparseArray = this.downloadTaskWithListenerMap.get(i10);
+        SparseArray<DownloadTask> sparseArray = this.downloadTaskWithListenerMap.get(i2);
         if (sparseArray == null) {
-            this.downloadTaskMap.remove(i10);
+            this.downloadTaskMap.remove(i2);
             return;
         }
-        sparseArray.remove(i11);
+        sparseArray.remove(i3);
         Logger.d(TAG, "after downloadTaskWithListenerMap removeTask taskArray.size: " + sparseArray.size());
         if (sparseArray.size() == 0) {
-            this.downloadTaskMap.remove(i10);
-            this.downloadTaskWithListenerMap.remove(i10);
+            this.downloadTaskMap.remove(i2);
+            this.downloadTaskWithListenerMap.remove(i2);
         }
     }
 
-    public void resetDownloadDataInSubThread(int i10, boolean z10) {
+    public void resetDownloadDataInSubThread(int i2, boolean z) {
         try {
-            DownloadInfo downloadInfo = this.downloadCache.getDownloadInfo(i10);
+            DownloadInfo downloadInfo = this.downloadCache.getDownloadInfo(i2);
             if (downloadInfo != null) {
-                DownloadUtils.deleteAllDownloadFiles(downloadInfo, z10);
+                DownloadUtils.deleteAllDownloadFiles(downloadInfo, z);
                 downloadInfo.erase();
             }
             try {
-                this.downloadCache.removeAllDownloadChunk(i10);
+                this.downloadCache.removeAllDownloadChunk(i2);
                 this.downloadCache.updateDownloadInfo(downloadInfo);
-            } catch (SQLiteException e10) {
-                e10.printStackTrace();
+            } catch (SQLiteException e2) {
+                e2.printStackTrace();
             }
-            if (this.failedDownloadTaskMap.get(i10) != null) {
-                this.failedDownloadTaskMap.remove(i10);
+            if (this.failedDownloadTaskMap.get(i2) != null) {
+                this.failedDownloadTaskMap.remove(i2);
             }
-            if (this.successDownloadTaskMap.get(i10) != null) {
-                this.successDownloadTaskMap.remove(i10);
+            if (this.successDownloadTaskMap.get(i2) != null) {
+                this.successDownloadTaskMap.remove(i2);
             }
-            this.pengingTaskCache.remove(Integer.valueOf(i10));
-            DownloadSetting.removeTaskDownloadSetting(i10);
-        } catch (Throwable th2) {
-            th2.printStackTrace();
+            this.pengingTaskCache.remove(Integer.valueOf(i2));
+            DownloadSetting.removeTaskDownloadSetting(i2);
+        } catch (Throwable th) {
+            th.printStackTrace();
         }
     }
 
@@ -391,9 +384,9 @@ public abstract class AbsDownloadEngine implements WeakDownloadHandler.IHandler 
         sparseArray.put(hashCodeForSameTask, downloadTask);
     }
 
-    private void tryDownload(DownloadTask downloadTask, boolean z10) {
+    private void tryDownload(DownloadTask downloadTask, boolean z) {
         DownloadInfo downloadInfo;
-        int i10;
+        int i2;
         DownloadInfo downloadInfo2;
         DownloadTask remove;
         if (downloadTask == null || (downloadInfo = downloadTask.getDownloadInfo()) == null) {
@@ -403,68 +396,68 @@ public abstract class AbsDownloadEngine implements WeakDownloadHandler.IHandler 
             DownloadMonitorHelper.monitorSendWithTaskMonitor(downloadTask.getMonitorDepend(), downloadInfo, new BaseException(1003, "downloadInfo is Invalid, url is " + downloadInfo.getUrl() + " name is " + downloadInfo.getName() + " savePath is " + downloadInfo.getSavePath()), downloadInfo.getStatus());
             return;
         }
-        boolean z11 = false;
+        boolean z2 = false;
         if (DownloadSetting.obtain(downloadInfo.getId()).optInt(DownloadSettingKeys.NO_NET_OPT, 0) == 1 && !DownloadUtils.isNetworkConnected(DownloadComponentManager.getAppContext()) && !downloadInfo.isFirstDownload()) {
             new DownloadStatusHandler(downloadTask, this.mainHandler).onError(new BaseException(DownloadErrorCode.ERROR_NETWORK_NOT_AVAILABLE, "network_not_available"));
             return;
         }
-        int id2 = downloadInfo.getId();
-        if (z10) {
+        int id = downloadInfo.getId();
+        if (z) {
             cancelAlarm(downloadInfo);
         }
-        if (this.failedDownloadTaskMap.get(id2) != null) {
-            this.failedDownloadTaskMap.remove(id2);
+        if (this.failedDownloadTaskMap.get(id) != null) {
+            this.failedDownloadTaskMap.remove(id);
         }
-        if (this.successDownloadTaskMap.get(id2) != null) {
-            this.successDownloadTaskMap.remove(id2);
+        if (this.successDownloadTaskMap.get(id) != null) {
+            this.successDownloadTaskMap.remove(id);
         }
-        if (this.retryDelayDownloadTaskMap.get(id2) != null) {
-            this.retryDelayDownloadTaskMap.remove(id2);
+        if (this.retryDelayDownloadTaskMap.get(id) != null) {
+            this.retryDelayDownloadTaskMap.remove(id);
         }
-        if (this.waitingAsyncDownloadTaskMap.get(id2) != null) {
-            this.waitingAsyncDownloadTaskMap.remove(id2);
+        if (this.waitingAsyncDownloadTaskMap.get(id) != null) {
+            this.waitingAsyncDownloadTaskMap.remove(id);
         }
-        if (isDownloading(id2) && !downloadInfo.canReStartAsyncTask()) {
+        if (isDownloading(id) && !downloadInfo.canReStartAsyncTask()) {
             Logger.d(TAG, "another task with same id is downloading when tryDownload");
             downloadTask.addListenerToDownloadingSameTask();
             DownloadMonitorHelper.monitorSendWithTaskMonitor(downloadTask.getMonitorDepend(), downloadInfo, new BaseException(1003, "downloadInfo is isDownloading and addListenerToSameTask is false"), downloadInfo.getStatus());
             return;
         }
-        Logger.d(TAG, "no downloading task :" + id2);
+        Logger.d(TAG, "no downloading task :" + id);
         if (downloadInfo.canReStartAsyncTask()) {
             downloadInfo.setAsyncHandleStatus(AsyncHandleStatus.ASYNC_HANDLE_RESTART);
         }
-        if (DownloadExpSwitchCode.isSwitchEnable(32768) && (remove = this.pengingTaskCache.remove(Integer.valueOf(id2))) != null) {
+        if (DownloadExpSwitchCode.isSwitchEnable(32768) && (remove = this.pengingTaskCache.remove(Integer.valueOf(id))) != null) {
             downloadTask.copyListenerFromPendingTask(remove);
         }
         long uptimeMillis = SystemClock.uptimeMillis();
-        DownloadTask downloadTask2 = this.downloadTaskMap.get(id2);
+        DownloadTask downloadTask2 = this.downloadTaskMap.get(id);
         if (downloadTask2 == null || (downloadInfo2 = downloadTask2.getDownloadInfo()) == null) {
-            i10 = 0;
+            i2 = 0;
         } else {
-            i10 = downloadInfo2.getStatus();
-            if (DownloadStatus.isDownloading(i10)) {
-                z11 = true;
+            i2 = downloadInfo2.getStatus();
+            if (DownloadStatus.isDownloading(i2)) {
+                z2 = true;
             }
         }
-        Logger.d(TAG, "can add listener " + z11 + " , oldTaskStatus is :" + i10);
-        if (z11) {
+        Logger.d(TAG, "can add listener " + z2 + " , oldTaskStatus is :" + i2);
+        if (z2) {
             downloadTask.addListenerToDownloadingSameTask();
             return;
         }
         tryCacheSameTaskWithListenerHashCode(downloadTask);
-        this.downloadTaskMap.put(id2, downloadTask);
-        this.lastTaskTryDownloadTime.put(id2, Long.valueOf(uptimeMillis));
-        doDownload(id2, downloadTask);
+        this.downloadTaskMap.put(id, downloadTask);
+        this.lastTaskTryDownloadTime.put(id, Long.valueOf(uptimeMillis));
+        doDownload(id, downloadTask);
     }
 
-    private void tryDownloadNextTaskInQueue(int i10) {
+    private void tryDownloadNextTaskInQueue(int i2) {
         DownloadTask first;
         if (this.orderedTaskQueue.isEmpty()) {
             return;
         }
         DownloadTask first2 = this.orderedTaskQueue.getFirst();
-        if (first2 != null && first2.getDownloadId() == i10) {
+        if (first2 != null && first2.getDownloadId() == i2) {
             this.orderedTaskQueue.poll();
         }
         if (this.orderedTaskQueue.isEmpty() || (first = this.orderedTaskQueue.getFirst()) == null) {
@@ -473,181 +466,168 @@ public abstract class AbsDownloadEngine implements WeakDownloadHandler.IHandler 
         tryDownload(first, true);
     }
 
-    public synchronized void addDownloadListener(int i10, int i11, IDownloadListener iDownloadListener, ListenerType listenerType, boolean z10) {
-        addDownloadListener(i10, i11, iDownloadListener, listenerType, z10, true);
+    public synchronized void addDownloadListener(int i2, int i3, IDownloadListener iDownloadListener, ListenerType listenerType, boolean z) {
+        addDownloadListener(i2, i3, iDownloadListener, listenerType, z, true);
     }
 
-    public synchronized boolean cancel(int i10, boolean z10) {
-        try {
-            DownloadTask downloadTask = this.downloadTaskMap.get(i10);
-            if (downloadTask == null && DownloadExpSwitchCode.isSwitchEnable(65536)) {
-                downloadTask = getDownloadTask(i10);
+    public synchronized boolean cancel(int i2, boolean z) {
+        DownloadTask downloadTask = this.downloadTaskMap.get(i2);
+        if (downloadTask == null && DownloadExpSwitchCode.isSwitchEnable(65536)) {
+            downloadTask = getDownloadTask(i2);
+        }
+        if (downloadTask != null) {
+            if (!DownloadSetting.obtain(i2).optBugFix(DownloadSettingKeys.BugFix.FIX_ON_CANCEL_CALL_TWICE, true)) {
+                new DownloadStatusHandler(downloadTask, this.mainHandler).onCancel();
             }
-            if (downloadTask != null) {
-                if (!DownloadSetting.obtain(i10).optBugFix(DownloadSettingKeys.BugFix.FIX_ON_CANCEL_CALL_TWICE, true)) {
-                    new DownloadStatusHandler(downloadTask, this.mainHandler).onCancel();
+            DownloadInfo downloadInfo = downloadTask.getDownloadInfo();
+            this.mainHandler.post(new Runnable() { // from class: com.ss.android.socialbase.downloader.impls.AbsDownloadEngine.1
+                final /* synthetic */ DownloadInfo val$downloadInfo;
+                final /* synthetic */ SparseArray val$mainThreadListeners;
+                final /* synthetic */ SparseArray val$notificationListeners;
+
+                AnonymousClass1(SparseArray sparseArray, DownloadInfo downloadInfo2, SparseArray sparseArray2) {
+                    downloadListeners = sparseArray;
+                    downloadInfo = downloadInfo2;
+                    downloadListeners2 = sparseArray2;
                 }
-                DownloadInfo downloadInfo = downloadTask.getDownloadInfo();
-                this.mainHandler.post(new Runnable() { // from class: com.ss.android.socialbase.downloader.impls.AbsDownloadEngine.1
-                    final /* synthetic */ DownloadInfo val$downloadInfo;
-                    final /* synthetic */ SparseArray val$mainThreadListeners;
-                    final /* synthetic */ SparseArray val$notificationListeners;
 
-                    public AnonymousClass1(SparseArray sparseArray, DownloadInfo downloadInfo2, SparseArray sparseArray2) {
-                        downloadListeners = sparseArray;
-                        downloadInfo = downloadInfo2;
-                        downloadListeners2 = sparseArray2;
-                    }
-
-                    @Override // java.lang.Runnable
-                    public void run() {
-                        SparseArray sparseArray;
-                        SparseArray sparseArray2 = downloadListeners;
-                        if (sparseArray2 != null) {
-                            synchronized (sparseArray2) {
-                                for (int i102 = 0; i102 < downloadListeners.size(); i102++) {
-                                    try {
-                                        IDownloadListener iDownloadListener = (IDownloadListener) downloadListeners.get(downloadListeners.keyAt(i102));
-                                        if (iDownloadListener != null) {
-                                            iDownloadListener.onCanceled(downloadInfo);
-                                        }
-                                    } finally {
-                                    }
-                                }
-                            }
-                        }
-                        DownloadInfo downloadInfo2 = downloadInfo;
-                        if (downloadInfo2 == null || !downloadInfo2.canShowNotification() || (sparseArray = downloadListeners2) == null) {
-                            return;
-                        }
-                        synchronized (sparseArray) {
-                            for (int i11 = 0; i11 < downloadListeners2.size(); i11++) {
-                                try {
-                                    IDownloadListener iDownloadListener2 = (IDownloadListener) downloadListeners2.get(downloadListeners2.keyAt(i11));
-                                    if (iDownloadListener2 != null) {
-                                        iDownloadListener2.onCanceled(downloadInfo);
-                                    }
-                                } finally {
+                @Override // java.lang.Runnable
+                public void run() {
+                    SparseArray sparseArray;
+                    SparseArray sparseArray2 = downloadListeners;
+                    if (sparseArray2 != null) {
+                        synchronized (sparseArray2) {
+                            for (int i22 = 0; i22 < downloadListeners.size(); i22++) {
+                                IDownloadListener iDownloadListener = (IDownloadListener) downloadListeners.get(downloadListeners.keyAt(i22));
+                                if (iDownloadListener != null) {
+                                    iDownloadListener.onCanceled(downloadInfo);
                                 }
                             }
                         }
                     }
-                });
-            }
-            DownloadInfo downloadInfo2 = this.downloadCache.getDownloadInfo(i10);
-            if (DownloadExpSwitchCode.isSwitchEnable(65536)) {
-                if (downloadInfo2 != null) {
-                    downloadInfo2.setStatus(-4);
+                    DownloadInfo downloadInfo2 = downloadInfo;
+                    if (downloadInfo2 == null || !downloadInfo2.canShowNotification() || (sparseArray = downloadListeners2) == null) {
+                        return;
+                    }
+                    synchronized (sparseArray) {
+                        for (int i3 = 0; i3 < downloadListeners2.size(); i3++) {
+                            IDownloadListener iDownloadListener2 = (IDownloadListener) downloadListeners2.get(downloadListeners2.keyAt(i3));
+                            if (iDownloadListener2 != null) {
+                                iDownloadListener2.onCanceled(downloadInfo);
+                            }
+                        }
+                    }
                 }
-            } else if (downloadInfo2 != null && DownloadStatus.isDownloading(downloadInfo2.getStatus())) {
+            });
+        }
+        DownloadInfo downloadInfo2 = this.downloadCache.getDownloadInfo(i2);
+        if (DownloadExpSwitchCode.isSwitchEnable(65536)) {
+            if (downloadInfo2 != null) {
                 downloadInfo2.setStatus(-4);
             }
-            clearDownloadData(i10, z10);
-        } catch (Throwable th2) {
-            throw th2;
+        } else if (downloadInfo2 != null && DownloadStatus.isDownloading(downloadInfo2.getStatus())) {
+            downloadInfo2.setStatus(-4);
         }
+        clearDownloadData(i2, z);
         return true;
     }
 
-    public void clearDownloadData(int i10, boolean z10) {
-        DownloadInfo downloadInfo = this.downloadCache.getDownloadInfo(i10);
+    public void clearDownloadData(int i2, boolean z) {
+        DownloadInfo downloadInfo = this.downloadCache.getDownloadInfo(i2);
         if (downloadInfo != null) {
             cancelAlarm(downloadInfo);
         }
         this.mainHandler.post(new Runnable() { // from class: com.ss.android.socialbase.downloader.impls.AbsDownloadEngine.2
             final /* synthetic */ int val$id;
 
-            public AnonymousClass2(int i102) {
-                i10 = i102;
+            AnonymousClass2(int i22) {
+                i2 = i22;
             }
 
             @Override // java.lang.Runnable
             public void run() {
-                DownloadNotificationManager.getInstance().cancelNotification(i10);
+                DownloadNotificationManager.getInstance().cancelNotification(i2);
             }
         });
         DownloadComponentManager.submitCPUTask(new Runnable() { // from class: com.ss.android.socialbase.downloader.impls.AbsDownloadEngine.3
             final /* synthetic */ boolean val$deleteFile;
             final /* synthetic */ int val$id;
 
-            public AnonymousClass3(int i102, boolean z102) {
-                i10 = i102;
-                z10 = z102;
+            AnonymousClass3(int i22, boolean z2) {
+                i2 = i22;
+                z = z2;
             }
 
             @Override // java.lang.Runnable
             public void run() {
                 DownloadTask downloadTask;
-                if (AbsDownloadEngine.this.doCancel(i10) == null && (downloadTask = AbsDownloadEngine.this.getDownloadTask(i10)) != null) {
+                if (AbsDownloadEngine.this.doCancel(i2) == null && (downloadTask = AbsDownloadEngine.this.getDownloadTask(i2)) != null) {
                     DownloadInfo downloadInfo2 = downloadTask.getDownloadInfo();
                     SparseArray<IDownloadListener> downloadListeners = downloadTask.getDownloadListeners(ListenerType.SUB);
                     if (downloadListeners != null) {
                         synchronized (downloadListeners) {
-                            for (int i102 = 0; i102 < downloadListeners.size(); i102++) {
-                                try {
-                                    IDownloadListener iDownloadListener = downloadListeners.get(downloadListeners.keyAt(i102));
-                                    if (iDownloadListener != null) {
-                                        iDownloadListener.onCanceled(downloadInfo2);
-                                    }
-                                } finally {
+                            for (int i22 = 0; i22 < downloadListeners.size(); i22++) {
+                                IDownloadListener iDownloadListener = downloadListeners.get(downloadListeners.keyAt(i22));
+                                if (iDownloadListener != null) {
+                                    iDownloadListener.onCanceled(downloadInfo2);
                                 }
                             }
                         }
                     }
                 }
-                AbsDownloadEngine.this.clearDownloadDataInSubThread(i10, z10);
+                AbsDownloadEngine.this.clearDownloadDataInSubThread(i2, z);
             }
         }, false);
     }
 
-    public abstract DownloadRunnable doCancel(int i10);
+    protected abstract DownloadRunnable doCancel(int i2);
 
-    public abstract void doDownload(int i10, DownloadTask downloadTask);
+    protected abstract void doDownload(int i2, DownloadTask downloadTask);
 
-    public abstract void doPause(int i10);
+    protected abstract void doPause(int i2);
 
-    public abstract void doSetThrottleNetSpeed(int i10, long j10);
+    public abstract void doSetThrottleNetSpeed(int i2, long j2);
 
-    public synchronized void forceDownloadIgnoreRecommendSize(int i10) {
+    public synchronized void forceDownloadIgnoreRecommendSize(int i2) {
         DownloadInfo downloadInfo;
-        DownloadTask downloadTask = this.downloadTaskMap.get(i10);
+        DownloadTask downloadTask = this.downloadTaskMap.get(i2);
         if (downloadTask != null && (downloadInfo = downloadTask.getDownloadInfo()) != null) {
             downloadInfo.setForceIgnoreRecommendSize(true);
             tryDownload(downloadTask);
         }
     }
 
-    public abstract List<Integer> getAllAliveDownloadIds();
+    protected abstract List<Integer> getAllAliveDownloadIds();
 
-    public synchronized IDownloadFileUriProvider getDownloadFileUriProvider(int i10) {
-        DownloadTask downloadTask = this.downloadTaskMap.get(i10);
+    public synchronized IDownloadFileUriProvider getDownloadFileUriProvider(int i2) {
+        DownloadTask downloadTask = this.downloadTaskMap.get(i2);
         if (downloadTask != null) {
             return downloadTask.getFileUriProvider();
         }
-        DownloadTask downloadTask2 = this.successDownloadTaskMap.get(i10);
+        DownloadTask downloadTask2 = this.successDownloadTaskMap.get(i2);
         if (downloadTask2 != null) {
             return downloadTask2.getFileUriProvider();
         }
-        DownloadTask downloadTask3 = this.failedDownloadTaskMap.get(i10);
+        DownloadTask downloadTask3 = this.failedDownloadTaskMap.get(i2);
         if (downloadTask3 != null) {
             return downloadTask3.getFileUriProvider();
         }
-        DownloadTask downloadTask4 = this.retryDelayDownloadTaskMap.get(i10);
+        DownloadTask downloadTask4 = this.retryDelayDownloadTaskMap.get(i2);
         if (downloadTask4 != null) {
             return downloadTask4.getFileUriProvider();
         }
-        DownloadTask downloadTask5 = this.waitingAsyncDownloadTaskMap.get(i10);
+        DownloadTask downloadTask5 = this.waitingAsyncDownloadTaskMap.get(i2);
         if (downloadTask5 == null) {
             return null;
         }
         return downloadTask5.getFileUriProvider();
     }
 
-    public synchronized DownloadInfo getDownloadInfo(int i10) {
+    public synchronized DownloadInfo getDownloadInfo(int i2) {
         DownloadInfo downloadInfo;
         DownloadTask downloadTask;
-        downloadInfo = this.downloadCache.getDownloadInfo(i10);
-        if (downloadInfo == null && (downloadTask = this.downloadTaskMap.get(i10)) != null) {
+        downloadInfo = this.downloadCache.getDownloadInfo(i2);
+        if (downloadInfo == null && (downloadTask = this.downloadTaskMap.get(i2)) != null) {
             downloadInfo = downloadTask.getDownloadInfo();
         }
         return downloadInfo;
@@ -663,8 +643,8 @@ public abstract class AbsDownloadEngine implements WeakDownloadHandler.IHandler 
         }
         ArrayList arrayList = new ArrayList();
         int size = this.downloadTaskMap.size();
-        for (int i10 = 0; i10 < size; i10++) {
-            DownloadTask valueAt = this.downloadTaskMap.valueAt(i10);
+        for (int i2 = 0; i2 < size; i2++) {
+            DownloadTask valueAt = this.downloadTaskMap.valueAt(i2);
             if (valueAt != null && valueAt.getDownloadInfo() != null && str.equals(valueAt.getDownloadInfo().getUrl())) {
                 arrayList.add(valueAt.getDownloadInfo());
             }
@@ -672,24 +652,24 @@ public abstract class AbsDownloadEngine implements WeakDownloadHandler.IHandler 
         return arrayList;
     }
 
-    public synchronized IDownloadNotificationEventListener getDownloadNotificationEventListener(int i10) {
-        DownloadTask downloadTask = this.downloadTaskMap.get(i10);
+    public synchronized IDownloadNotificationEventListener getDownloadNotificationEventListener(int i2) {
+        DownloadTask downloadTask = this.downloadTaskMap.get(i2);
         if (downloadTask != null) {
             return downloadTask.getNotificationEventListener();
         }
-        DownloadTask downloadTask2 = this.successDownloadTaskMap.get(i10);
+        DownloadTask downloadTask2 = this.successDownloadTaskMap.get(i2);
         if (downloadTask2 != null) {
             return downloadTask2.getNotificationEventListener();
         }
-        DownloadTask downloadTask3 = this.failedDownloadTaskMap.get(i10);
+        DownloadTask downloadTask3 = this.failedDownloadTaskMap.get(i2);
         if (downloadTask3 != null) {
             return downloadTask3.getNotificationEventListener();
         }
-        DownloadTask downloadTask4 = this.retryDelayDownloadTaskMap.get(i10);
+        DownloadTask downloadTask4 = this.retryDelayDownloadTaskMap.get(i2);
         if (downloadTask4 != null) {
             return downloadTask4.getNotificationEventListener();
         }
-        DownloadTask downloadTask5 = this.waitingAsyncDownloadTaskMap.get(i10);
+        DownloadTask downloadTask5 = this.waitingAsyncDownloadTaskMap.get(i2);
         if (downloadTask5 == null) {
             return null;
         }
@@ -711,24 +691,24 @@ public abstract class AbsDownloadEngine implements WeakDownloadHandler.IHandler 
         return arrayList;
     }
 
-    public synchronized INotificationClickCallback getNotificationClickCallback(int i10) {
-        DownloadTask downloadTask = this.downloadTaskMap.get(i10);
+    public synchronized INotificationClickCallback getNotificationClickCallback(int i2) {
+        DownloadTask downloadTask = this.downloadTaskMap.get(i2);
         if (downloadTask != null) {
             return downloadTask.getNotificationClickCallback();
         }
-        DownloadTask downloadTask2 = this.successDownloadTaskMap.get(i10);
+        DownloadTask downloadTask2 = this.successDownloadTaskMap.get(i2);
         if (downloadTask2 != null) {
             return downloadTask2.getNotificationClickCallback();
         }
-        DownloadTask downloadTask3 = this.failedDownloadTaskMap.get(i10);
+        DownloadTask downloadTask3 = this.failedDownloadTaskMap.get(i2);
         if (downloadTask3 != null) {
             return downloadTask3.getNotificationClickCallback();
         }
-        DownloadTask downloadTask4 = this.retryDelayDownloadTaskMap.get(i10);
+        DownloadTask downloadTask4 = this.retryDelayDownloadTaskMap.get(i2);
         if (downloadTask4 != null) {
             return downloadTask4.getNotificationClickCallback();
         }
-        DownloadTask downloadTask5 = this.waitingAsyncDownloadTaskMap.get(i10);
+        DownloadTask downloadTask5 = this.waitingAsyncDownloadTaskMap.get(i2);
         if (downloadTask5 == null) {
             return null;
         }
@@ -737,62 +717,77 @@ public abstract class AbsDownloadEngine implements WeakDownloadHandler.IHandler 
 
     @Override // com.ss.android.socialbase.downloader.thread.WeakDownloadHandler.IHandler
     public void handleMsg(Message message) {
-        int i10 = message.arg1;
-        int i11 = message.arg2;
-        Logger.d(TAG, "handleMsg id: " + i10 + " listener hasCode: " + i11);
+        int i2 = message.arg1;
+        int i3 = message.arg2;
+        Logger.d(TAG, "handleMsg id: " + i2 + " listener hasCode: " + i3);
         Object obj = message.obj;
         DownloadTask downloadTask = null;
         BaseException baseException = obj instanceof Exception ? (BaseException) obj : null;
         synchronized (this) {
-            try {
-                if (i11 == 0) {
-                    downloadTask = this.downloadTaskMap.get(i10);
-                } else {
-                    SparseArray<DownloadTask> sparseArray = this.downloadTaskWithListenerMap.get(i10);
-                    if (sparseArray != null) {
-                        downloadTask = sparseArray.get(i11);
-                    }
+            if (i3 == 0) {
+                downloadTask = this.downloadTaskMap.get(i2);
+            } else {
+                SparseArray<DownloadTask> sparseArray = this.downloadTaskWithListenerMap.get(i2);
+                if (sparseArray != null) {
+                    downloadTask = sparseArray.get(i3);
                 }
-                if (downloadTask == null) {
-                    return;
-                }
-                notifyDownloadTaskStatus(message.what, baseException, downloadTask);
-                refreshDownloadTaskMap(i10, i11, message.what);
-            } catch (Throwable th2) {
-                throw th2;
             }
+            if (downloadTask == null) {
+                return;
+            }
+            notifyDownloadTaskStatus(message.what, baseException, downloadTask);
+            refreshDownloadTaskMap(i2, i3, message.what);
         }
     }
 
-    public abstract boolean isDownloading(int i10);
+    public abstract boolean isDownloading(int i2);
 
-    public synchronized boolean isInDownloadTaskPool(int i10) {
-        boolean z10;
-        if (i10 != 0) {
-            try {
-                if (this.downloadTaskMap.get(i10) == null) {
-                    if (this.failedDownloadTaskMap.get(i10) != null) {
-                    }
-                }
-                z10 = true;
-            } finally {
-            }
-        }
-        z10 = false;
-        return z10;
+    /* JADX WARN: Code restructure failed: missing block: B:11:0x0011, code lost:
+    
+        if (r1.failedDownloadTaskMap.get(r2) != null) goto L25;
+     */
+    /*
+        Code decompiled incorrectly, please refer to instructions dump.
+        To view partially-correct code enable 'Show inconsistent code' option in preferences
+    */
+    public synchronized boolean isInDownloadTaskPool(int r2) {
+        /*
+            r1 = this;
+            monitor-enter(r1)
+            if (r2 == 0) goto L18
+            android.util.SparseArray<com.ss.android.socialbase.downloader.model.DownloadTask> r0 = r1.downloadTaskMap     // Catch: java.lang.Throwable -> L15
+            java.lang.Object r0 = r0.get(r2)     // Catch: java.lang.Throwable -> L15
+            if (r0 != 0) goto L13
+            android.util.SparseArray<com.ss.android.socialbase.downloader.model.DownloadTask> r0 = r1.failedDownloadTaskMap     // Catch: java.lang.Throwable -> L15
+            java.lang.Object r2 = r0.get(r2)     // Catch: java.lang.Throwable -> L15
+            if (r2 == 0) goto L18
+        L13:
+            r2 = 1
+            goto L19
+        L15:
+            r2 = move-exception
+            monitor-exit(r1)
+            throw r2
+        L18:
+            r2 = 0
+        L19:
+            monitor-exit(r1)
+            return r2
+        */
+        throw new UnsupportedOperationException("Method not decompiled: com.ss.android.socialbase.downloader.impls.AbsDownloadEngine.isInDownloadTaskPool(int):boolean");
     }
 
-    public synchronized boolean pause(int i10) {
-        Logger.d(TAG, "pause id=" + i10);
-        DownloadInfo downloadInfo = this.downloadCache.getDownloadInfo(i10);
+    public synchronized boolean pause(int i2) {
+        Logger.d(TAG, "pause id=" + i2);
+        DownloadInfo downloadInfo = this.downloadCache.getDownloadInfo(i2);
         if (downloadInfo != null && downloadInfo.getStatus() == 11) {
             return false;
         }
         synchronized (this.downloadTaskMap) {
-            doPause(i10);
+            doPause(i2);
         }
         if (downloadInfo == null) {
-            DownloadTask downloadTask = this.downloadTaskMap.get(i10);
+            DownloadTask downloadTask = this.downloadTaskMap.get(i2);
             if (downloadTask != null) {
                 new DownloadStatusHandler(downloadTask, this.mainHandler).onPause();
                 return true;
@@ -800,7 +795,7 @@ public abstract class AbsDownloadEngine implements WeakDownloadHandler.IHandler 
         } else {
             cancelAlarm(downloadInfo);
             if (downloadInfo.getStatus() == 1) {
-                DownloadTask downloadTask2 = this.downloadTaskMap.get(i10);
+                DownloadTask downloadTask2 = this.downloadTaskMap.get(i2);
                 if (downloadTask2 != null) {
                     new DownloadStatusHandler(downloadTask2, this.mainHandler).onPause();
                     return true;
@@ -813,151 +808,135 @@ public abstract class AbsDownloadEngine implements WeakDownloadHandler.IHandler 
         return false;
     }
 
-    public synchronized void refreshDownloadTaskMap(int i10, int i11, int i12) {
-        try {
-            if (i12 != -7) {
-                if (i12 == -6) {
-                    this.successDownloadTaskMap.put(i10, this.downloadTaskMap.get(i10));
-                    removeTask(i10, i11);
-                } else if (i12 == -4) {
-                    removeTask(i10, i11);
-                    tryDownloadNextTaskInQueue(i10);
-                } else if (i12 == -3) {
-                    this.successDownloadTaskMap.put(i10, this.downloadTaskMap.get(i10));
-                    removeTask(i10, i11);
-                    tryDownloadNextTaskInQueue(i10);
-                } else if (i12 != -1) {
-                    if (i12 == 7) {
-                        DownloadTask downloadTask = this.downloadTaskMap.get(i10);
-                        if (downloadTask != null) {
-                            if (this.retryDelayDownloadTaskMap.get(i10) == null) {
-                                this.retryDelayDownloadTaskMap.put(i10, downloadTask);
-                            }
-                            removeTask(i10, i11);
+    public synchronized void refreshDownloadTaskMap(int i2, int i3, int i4) {
+        if (i4 != -7) {
+            if (i4 == -6) {
+                this.successDownloadTaskMap.put(i2, this.downloadTaskMap.get(i2));
+                removeTask(i2, i3);
+            } else if (i4 == -4) {
+                removeTask(i2, i3);
+                tryDownloadNextTaskInQueue(i2);
+            } else if (i4 == -3) {
+                this.successDownloadTaskMap.put(i2, this.downloadTaskMap.get(i2));
+                removeTask(i2, i3);
+                tryDownloadNextTaskInQueue(i2);
+            } else if (i4 != -1) {
+                if (i4 == 7) {
+                    DownloadTask downloadTask = this.downloadTaskMap.get(i2);
+                    if (downloadTask != null) {
+                        if (this.retryDelayDownloadTaskMap.get(i2) == null) {
+                            this.retryDelayDownloadTaskMap.put(i2, downloadTask);
                         }
-                        tryDownloadNextTaskInQueue(i10);
-                    } else if (i12 == 8) {
-                        DownloadTask downloadTask2 = this.downloadTaskMap.get(i10);
-                        if (downloadTask2 != null && this.waitingAsyncDownloadTaskMap.get(i10) == null) {
-                            this.waitingAsyncDownloadTaskMap.put(i10, downloadTask2);
-                        }
-                        tryDownloadNextTaskInQueue(i10);
+                        removeTask(i2, i3);
                     }
+                    tryDownloadNextTaskInQueue(i2);
+                } else if (i4 == 8) {
+                    DownloadTask downloadTask2 = this.downloadTaskMap.get(i2);
+                    if (downloadTask2 != null && this.waitingAsyncDownloadTaskMap.get(i2) == null) {
+                        this.waitingAsyncDownloadTaskMap.put(i2, downloadTask2);
+                    }
+                    tryDownloadNextTaskInQueue(i2);
                 }
             }
-            DownloadTask downloadTask3 = this.downloadTaskMap.get(i10);
-            if (downloadTask3 != null) {
-                if (this.failedDownloadTaskMap.get(i10) == null) {
-                    this.failedDownloadTaskMap.put(i10, downloadTask3);
-                }
-                removeTask(i10, i11);
-            }
-            tryDownloadNextTaskInQueue(i10);
-        } catch (Throwable th2) {
-            throw th2;
         }
+        DownloadTask downloadTask3 = this.downloadTaskMap.get(i2);
+        if (downloadTask3 != null) {
+            if (this.failedDownloadTaskMap.get(i2) == null) {
+                this.failedDownloadTaskMap.put(i2, downloadTask3);
+            }
+            removeTask(i2, i3);
+        }
+        tryDownloadNextTaskInQueue(i2);
     }
 
-    public synchronized void removeDownloadListener(int i10, int i11, IDownloadListener iDownloadListener, ListenerType listenerType, boolean z10) {
-        try {
-            DownloadTask downloadTask = getDownloadTask(i10);
-            if (downloadTask == null) {
-                downloadTask = this.pengingTaskCache.get(Integer.valueOf(i10));
-            }
-            if (downloadTask != null) {
-                downloadTask.removeDownloadListener(i11, iDownloadListener, listenerType, z10);
-            }
-        } catch (Throwable th2) {
-            throw th2;
+    public synchronized void removeDownloadListener(int i2, int i3, IDownloadListener iDownloadListener, ListenerType listenerType, boolean z) {
+        DownloadTask downloadTask = getDownloadTask(i2);
+        if (downloadTask == null) {
+            downloadTask = this.pengingTaskCache.get(Integer.valueOf(i2));
+        }
+        if (downloadTask != null) {
+            downloadTask.removeDownloadListener(i3, iDownloadListener, listenerType, z);
         }
     }
 
     public abstract void removeDownloadRunnable(DownloadRunnable downloadRunnable);
 
-    public void resetDownloadData(int i10, boolean z10) {
-        DownloadInfo downloadInfo = this.downloadCache.getDownloadInfo(i10);
+    public void resetDownloadData(int i2, boolean z) {
+        DownloadInfo downloadInfo = this.downloadCache.getDownloadInfo(i2);
         if (downloadInfo != null) {
             cancelAlarm(downloadInfo);
         }
         this.mainHandler.post(new Runnable() { // from class: com.ss.android.socialbase.downloader.impls.AbsDownloadEngine.4
             final /* synthetic */ int val$id;
 
-            public AnonymousClass4(int i102) {
-                i10 = i102;
+            AnonymousClass4(int i22) {
+                i2 = i22;
             }
 
             @Override // java.lang.Runnable
             public void run() {
-                DownloadNotificationManager.getInstance().cancelNotification(i10);
+                DownloadNotificationManager.getInstance().cancelNotification(i2);
             }
         });
         DownloadComponentManager.submitCPUTask(new Runnable() { // from class: com.ss.android.socialbase.downloader.impls.AbsDownloadEngine.5
             final /* synthetic */ boolean val$deleteFile;
             final /* synthetic */ int val$id;
 
-            public AnonymousClass5(int i102, boolean z102) {
-                i10 = i102;
-                z10 = z102;
+            AnonymousClass5(int i22, boolean z2) {
+                i2 = i22;
+                z = z2;
             }
 
             @Override // java.lang.Runnable
             public void run() {
-                AbsDownloadEngine.this.doCancel(i10);
-                AbsDownloadEngine.this.resetDownloadDataInSubThread(i10, z10);
+                AbsDownloadEngine.this.doCancel(i2);
+                AbsDownloadEngine.this.resetDownloadDataInSubThread(i2, z);
             }
         }, false);
     }
 
-    public synchronized boolean restart(int i10) {
-        try {
-            DownloadTask downloadTask = this.failedDownloadTaskMap.get(i10);
-            if (downloadTask == null) {
-                downloadTask = this.retryDelayDownloadTaskMap.get(i10);
-            }
-            if (downloadTask == null) {
-                return false;
-            }
-            DownloadInfo downloadInfo = downloadTask.getDownloadInfo();
-            if (downloadInfo != null) {
-                downloadInfo.setDownloadFromReserveWifi(false);
-            }
-            tryDownload(downloadTask);
-            return true;
-        } catch (Throwable th2) {
-            throw th2;
+    public synchronized boolean restart(int i2) {
+        DownloadTask downloadTask = this.failedDownloadTaskMap.get(i2);
+        if (downloadTask == null) {
+            downloadTask = this.retryDelayDownloadTaskMap.get(i2);
         }
+        if (downloadTask == null) {
+            return false;
+        }
+        DownloadInfo downloadInfo = downloadTask.getDownloadInfo();
+        if (downloadInfo != null) {
+            downloadInfo.setDownloadFromReserveWifi(false);
+        }
+        tryDownload(downloadTask);
+        return true;
     }
 
     public synchronized void restartAllFailedDownloadTasks(List<String> list) {
         DownloadInfo downloadInfo;
         try {
-            try {
-                boolean isWifi = DownloadExpSwitchCode.isSwitchEnable(1048576) ? DownloadUtils.isWifi(DownloadComponentManager.getAppContext()) : true;
-                for (int i10 = 0; i10 < this.failedDownloadTaskMap.size(); i10++) {
-                    DownloadTask downloadTask = this.failedDownloadTaskMap.get(this.failedDownloadTaskMap.keyAt(i10));
-                    if (downloadTask != null && (downloadInfo = downloadTask.getDownloadInfo()) != null && downloadInfo.getMimeType() != null && list.contains(downloadInfo.getMimeType()) && (!downloadInfo.isOnlyWifi() || isWifi)) {
-                        downloadInfo.setAutoResumed(true);
-                        downloadInfo.setShowNotificationForNetworkResumed(true);
-                        tryDownload(downloadTask);
-                    }
+            boolean isWifi = DownloadExpSwitchCode.isSwitchEnable(1048576) ? DownloadUtils.isWifi(DownloadComponentManager.getAppContext()) : true;
+            for (int i2 = 0; i2 < this.failedDownloadTaskMap.size(); i2++) {
+                DownloadTask downloadTask = this.failedDownloadTaskMap.get(this.failedDownloadTaskMap.keyAt(i2));
+                if (downloadTask != null && (downloadInfo = downloadTask.getDownloadInfo()) != null && downloadInfo.getMimeType() != null && list.contains(downloadInfo.getMimeType()) && (!downloadInfo.isOnlyWifi() || isWifi)) {
+                    downloadInfo.setAutoResumed(true);
+                    downloadInfo.setShowNotificationForNetworkResumed(true);
+                    tryDownload(downloadTask);
                 }
-            } catch (Exception e10) {
-                e10.printStackTrace();
             }
-        } catch (Throwable th2) {
-            throw th2;
+        } catch (Exception e2) {
+            e2.printStackTrace();
         }
     }
 
     public synchronized void restartAllPauseReserveOnWifiDownloadTasks(List<String> list) {
         DownloadInfo downloadInfo;
         try {
-        } catch (Exception e10) {
-            e10.printStackTrace();
+        } catch (Exception e2) {
+            e2.printStackTrace();
         }
         if (DownloadUtils.isWifi(DownloadComponentManager.getAppContext())) {
-            for (int i10 = 0; i10 < this.downloadTaskMap.size(); i10++) {
-                DownloadTask downloadTask = this.downloadTaskMap.get(this.downloadTaskMap.keyAt(i10));
+            for (int i2 = 0; i2 < this.downloadTaskMap.size(); i2++) {
+                DownloadTask downloadTask = this.downloadTaskMap.get(this.downloadTaskMap.keyAt(i2));
                 if (downloadTask != null && (downloadInfo = downloadTask.getDownloadInfo()) != null && downloadInfo.getMimeType() != null && list.contains(downloadInfo.getMimeType()) && isPauseReserveOnWifi(downloadInfo)) {
                     downloadInfo.setAutoResumed(true);
                     downloadInfo.setShowNotificationForNetworkResumed(true);
@@ -972,9 +951,9 @@ public abstract class AbsDownloadEngine implements WeakDownloadHandler.IHandler 
         }
     }
 
-    public synchronized boolean restartAsyncWaitingTask(int i10) {
+    public synchronized boolean restartAsyncWaitingTask(int i2) {
         DownloadInfo downloadInfo;
-        DownloadTask downloadTask = this.waitingAsyncDownloadTaskMap.get(i10);
+        DownloadTask downloadTask = this.waitingAsyncDownloadTaskMap.get(i2);
         if (downloadTask == null || (downloadInfo = downloadTask.getDownloadInfo()) == null) {
             return false;
         }
@@ -984,53 +963,49 @@ public abstract class AbsDownloadEngine implements WeakDownloadHandler.IHandler 
         return true;
     }
 
-    public synchronized boolean resume(int i10) {
-        try {
-            DownloadTask downloadTask = this.downloadTaskMap.get(i10);
-            if (downloadTask != null) {
-                DownloadInfo downloadInfo = downloadTask.getDownloadInfo();
-                if (downloadInfo != null) {
-                    downloadInfo.setDownloadFromReserveWifi(false);
-                }
-                tryDownload(downloadTask);
-            } else {
-                restart(i10);
+    public synchronized boolean resume(int i2) {
+        DownloadTask downloadTask = this.downloadTaskMap.get(i2);
+        if (downloadTask != null) {
+            DownloadInfo downloadInfo = downloadTask.getDownloadInfo();
+            if (downloadInfo != null) {
+                downloadInfo.setDownloadFromReserveWifi(false);
             }
-        } catch (Throwable th2) {
-            throw th2;
+            tryDownload(downloadTask);
+        } else {
+            restart(i2);
         }
         return true;
     }
 
-    public synchronized boolean retryDelayStart(int i10) {
+    public synchronized boolean retryDelayStart(int i2) {
         DownloadInfo downloadInfo;
-        DownloadTask downloadTask = this.retryDelayDownloadTaskMap.get(i10);
+        DownloadTask downloadTask = this.retryDelayDownloadTaskMap.get(i2);
         if (downloadTask != null && (downloadInfo = downloadTask.getDownloadInfo()) != null) {
             if (downloadInfo.canStartRetryDelayTask()) {
                 tryDownload(downloadTask, false);
             }
             return true;
         }
-        DownloadInfo downloadInfo2 = this.downloadCache.getDownloadInfo(i10);
+        DownloadInfo downloadInfo2 = this.downloadCache.getDownloadInfo(i2);
         if (downloadInfo2 != null && downloadInfo2.canStartRetryDelayTask()) {
             tryDownload(new DownloadTask(downloadInfo2), false);
         }
         return false;
     }
 
-    public synchronized void setDownloadNotificationEventListener(int i10, IDownloadNotificationEventListener iDownloadNotificationEventListener) {
-        DownloadTask downloadTask = this.downloadTaskMap.get(i10);
+    public synchronized void setDownloadNotificationEventListener(int i2, IDownloadNotificationEventListener iDownloadNotificationEventListener) {
+        DownloadTask downloadTask = this.downloadTaskMap.get(i2);
         if (downloadTask != null) {
             downloadTask.setNotificationEventListener(iDownloadNotificationEventListener);
         }
     }
 
-    public void setThrottleNetSpeed(int i10, long j10) {
-        DownloadInfo downloadInfo = this.downloadCache.getDownloadInfo(i10);
+    public void setThrottleNetSpeed(int i2, long j2) {
+        DownloadInfo downloadInfo = this.downloadCache.getDownloadInfo(i2);
         if (downloadInfo != null) {
-            downloadInfo.setThrottleNetSpeed(j10);
+            downloadInfo.setThrottleNetSpeed(j2);
         }
-        doSetThrottleNetSpeed(i10, j10);
+        doSetThrottleNetSpeed(i2, j2);
     }
 
     public void shutDown() {
@@ -1044,54 +1019,47 @@ public abstract class AbsDownloadEngine implements WeakDownloadHandler.IHandler 
         }
     }
 
-    public synchronized void addDownloadListener(int i10, int i11, IDownloadListener iDownloadListener, ListenerType listenerType, boolean z10, boolean z11) {
+    public synchronized void addDownloadListener(int i2, int i3, IDownloadListener iDownloadListener, ListenerType listenerType, boolean z, boolean z2) {
         DownloadInfo downloadInfo;
-        try {
-            DownloadTask downloadTask = getDownloadTask(i10);
-            if (downloadTask != null) {
-                downloadTask.addDownloadListener(i11, iDownloadListener, listenerType, z10);
-                DownloadInfo downloadInfo2 = downloadTask.getDownloadInfo();
-                if (z11) {
-                    if (downloadInfo2 != null) {
-                        if (!isDownloading(i10)) {
-                            if (listenerType != ListenerType.MAIN) {
-                                if (listenerType == ListenerType.NOTIFICATION) {
+        DownloadTask downloadTask = getDownloadTask(i2);
+        if (downloadTask != null) {
+            downloadTask.addDownloadListener(i3, iDownloadListener, listenerType, z);
+            DownloadInfo downloadInfo2 = downloadTask.getDownloadInfo();
+            if (z2 && downloadInfo2 != null && !isDownloading(i2) && (listenerType == ListenerType.MAIN || listenerType == ListenerType.NOTIFICATION)) {
+                boolean z3 = true;
+                if (listenerType == ListenerType.NOTIFICATION && !downloadInfo2.canShowNotification()) {
+                    z3 = false;
+                }
+                if (z3) {
+                    this.mainHandler.post(new Runnable() { // from class: com.ss.android.socialbase.downloader.impls.AbsDownloadEngine.6
+                        final /* synthetic */ DownloadInfo val$downloadInfo;
+                        final /* synthetic */ IDownloadListener val$listener;
+
+                        AnonymousClass6(IDownloadListener iDownloadListener2, DownloadInfo downloadInfo22) {
+                            iDownloadListener = iDownloadListener2;
+                            downloadInfo2 = downloadInfo22;
+                        }
+
+                        @Override // java.lang.Runnable
+                        public void run() {
+                            if (iDownloadListener != null) {
+                                if (downloadInfo2.getStatus() == -3) {
+                                    iDownloadListener.onSuccessed(downloadInfo2);
+                                } else if (downloadInfo2.getStatus() == -1) {
+                                    iDownloadListener.onFailed(downloadInfo2, new BaseException(1000, "try add listener for failed task"));
                                 }
                             }
-                            if (listenerType != ListenerType.NOTIFICATION || downloadInfo2.canShowNotification()) {
-                                this.mainHandler.post(new Runnable() { // from class: com.ss.android.socialbase.downloader.impls.AbsDownloadEngine.6
-                                    final /* synthetic */ DownloadInfo val$downloadInfo;
-                                    final /* synthetic */ IDownloadListener val$listener;
-
-                                    public AnonymousClass6(IDownloadListener iDownloadListener2, DownloadInfo downloadInfo22) {
-                                        iDownloadListener = iDownloadListener2;
-                                        downloadInfo2 = downloadInfo22;
-                                    }
-
-                                    @Override // java.lang.Runnable
-                                    public void run() {
-                                        if (iDownloadListener != null) {
-                                            if (downloadInfo2.getStatus() == -3) {
-                                                iDownloadListener.onSuccessed(downloadInfo2);
-                                            } else if (downloadInfo2.getStatus() == -1) {
-                                                iDownloadListener.onFailed(downloadInfo2, new BaseException(1000, "try add listener for failed task"));
-                                            }
-                                        }
-                                    }
-                                });
-                            }
                         }
-                    }
+                    });
                 }
-            } else if (DownloadExpSwitchCode.isSwitchEnable(32768) && (downloadInfo = this.downloadCache.getDownloadInfo(i10)) != null && downloadInfo.getStatus() != -3) {
-                DownloadTask downloadTask2 = this.pengingTaskCache.get(Integer.valueOf(i10));
-                if (downloadTask2 == null) {
-                    downloadTask2 = new DownloadTask(downloadInfo);
-                    this.pengingTaskCache.put(Integer.valueOf(i10), downloadTask2);
-                }
-                downloadTask2.addDownloadListener(i11, iDownloadListener2, listenerType, z10);
             }
-        } finally {
+        } else if (DownloadExpSwitchCode.isSwitchEnable(32768) && (downloadInfo = this.downloadCache.getDownloadInfo(i2)) != null && downloadInfo.getStatus() != -3) {
+            DownloadTask downloadTask2 = this.pengingTaskCache.get(Integer.valueOf(i2));
+            if (downloadTask2 == null) {
+                downloadTask2 = new DownloadTask(downloadInfo);
+                this.pengingTaskCache.put(Integer.valueOf(i2), downloadTask2);
+            }
+            downloadTask2.addDownloadListener(i3, iDownloadListener2, listenerType, z);
         }
     }
 
@@ -1099,19 +1067,15 @@ public abstract class AbsDownloadEngine implements WeakDownloadHandler.IHandler 
         if (downloadTask == null) {
             return;
         }
-        try {
-            DownloadInfo downloadInfo = downloadTask.getDownloadInfo();
-            if (downloadInfo == null) {
-                return;
-            }
-            downloadInfo.setDownloadFromReserveWifi(false);
-            if (downloadInfo.getEnqueueType() != EnqueueType.ENQUEUE_NONE) {
-                enqueue(downloadTask);
-            } else {
-                tryDownload(downloadTask, true);
-            }
-        } catch (Throwable th2) {
-            throw th2;
+        DownloadInfo downloadInfo = downloadTask.getDownloadInfo();
+        if (downloadInfo == null) {
+            return;
+        }
+        downloadInfo.setDownloadFromReserveWifi(false);
+        if (downloadInfo.getEnqueueType() != EnqueueType.ENQUEUE_NONE) {
+            enqueue(downloadTask);
+        } else {
+            tryDownload(downloadTask, true);
         }
     }
 }

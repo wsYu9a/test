@@ -8,7 +8,7 @@ import com.kwad.sdk.api.proxy.BaseProxyFragmentActivity;
 import com.kwad.sdk.api.proxy.IFragmentActivityProxy;
 
 @Keep
-/* loaded from: classes3.dex */
+/* loaded from: classes2.dex */
 public abstract class BaseFragmentActivity extends BaseProxyFragmentActivity {
 
     public static class ChannelDetailActivity extends BaseFragmentActivity {

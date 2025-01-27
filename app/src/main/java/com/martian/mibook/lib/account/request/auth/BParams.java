@@ -1,6 +1,6 @@
 package com.martian.mibook.lib.account.request.auth;
 
-import v8.a;
+import com.martian.libcomm.http.requests.d.a;
 
 /* loaded from: classes3.dex */
 public class BParams extends TYAuthParams {
@@ -24,11 +24,11 @@ public class BParams extends TYAuthParams {
         return this.extra;
     }
 
-    public void setBt(Integer num) {
-        this.bt = num;
+    public void setBt(Integer bt) {
+        this.bt = bt;
     }
 
-    public void setExtra(String str) {
-        this.extra = str;
+    public void setExtra(String extra) {
+        this.extra = extra;
     }
 }

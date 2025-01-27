@@ -6,7 +6,7 @@ import androidx.annotation.Nullable;
 import com.bumptech.glide.request.Request;
 import com.bumptech.glide.util.Util;
 
-/* loaded from: classes2.dex */
+/* loaded from: classes.dex */
 public abstract class CustomTarget<T> implements Target<T> {
     private final int height;
 
@@ -58,12 +58,12 @@ public abstract class CustomTarget<T> implements Target<T> {
         this.request = request;
     }
 
-    public CustomTarget(int i10, int i11) {
-        if (Util.isValidDimensions(i10, i11)) {
-            this.width = i10;
-            this.height = i11;
+    public CustomTarget(int i2, int i3) {
+        if (Util.isValidDimensions(i2, i3)) {
+            this.width = i2;
+            this.height = i3;
             return;
         }
-        throw new IllegalArgumentException("Width and height must both be > 0 or Target#SIZE_ORIGINAL, but given width: " + i10 + " and height: " + i11);
+        throw new IllegalArgumentException("Width and height must both be > 0 or Target#SIZE_ORIGINAL, but given width: " + i2 + " and height: " + i3);
     }
 }

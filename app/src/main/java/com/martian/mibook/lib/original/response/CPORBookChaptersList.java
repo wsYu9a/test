@@ -2,7 +2,7 @@ package com.martian.mibook.lib.original.response;
 
 import java.util.List;
 
-/* loaded from: classes3.dex */
+/* loaded from: classes2.dex */
 public class CPORBookChaptersList {
     private List<CPORChapter> orChapterList;
 
@@ -10,7 +10,7 @@ public class CPORBookChaptersList {
         return this.orChapterList;
     }
 
-    public void setOrChapterList(List<CPORChapter> list) {
-        this.orChapterList = list;
+    public void setOrChapterList(List<CPORChapter> orChapterList) {
+        this.orChapterList = orChapterList;
     }
 }

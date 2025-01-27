@@ -1,10 +1,7 @@
 package okhttp3;
 
-import androidx.core.app.NotificationCompat;
-import androidx.exifinterface.media.ExifInterface;
 import java.util.ArrayDeque;
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.Collections;
 import java.util.Deque;
 import java.util.Iterator;
@@ -13,283 +10,184 @@ import java.util.concurrent.ExecutorService;
 import java.util.concurrent.SynchronousQueue;
 import java.util.concurrent.ThreadPoolExecutor;
 import java.util.concurrent.TimeUnit;
-import kotlin.Deprecated;
-import kotlin.DeprecationLevel;
-import kotlin.Metadata;
-import kotlin.ReplaceWith;
-import kotlin.Unit;
-import kotlin.collections.CollectionsKt;
-import kotlin.jvm.JvmName;
-import kotlin.jvm.internal.Intrinsics;
+import javax.annotation.Nullable;
+import okhttp3.RealCall;
 import okhttp3.internal.Util;
-import okhttp3.internal.connection.RealCall;
-import xi.k;
-import xi.l;
-import z2.c;
 
-@Metadata(d1 = {"\u0000\\\n\u0002\u0018\u0002\n\u0002\u0010\u0000\n\u0000\n\u0002\u0018\u0002\n\u0002\b\u0005\n\u0002\u0018\u0002\n\u0002\b\u0006\n\u0002\u0010\b\n\u0002\b\b\n\u0002\u0018\u0002\n\u0002\u0018\u0002\n\u0002\u0018\u0002\n\u0002\b\u0003\n\u0002\u0010\u0002\n\u0002\b\b\n\u0002\u0010\u000e\n\u0002\b\u0003\n\u0002\u0018\u0002\n\u0002\b\u0003\n\u0002\u0010\u000b\n\u0000\n\u0002\u0010 \n\u0002\u0018\u0002\n\u0002\b\u0004\u0018\u00002\u00020\u0001B\u000f\b\u0016\u0012\u0006\u0010\u0002\u001a\u00020\u0003¢\u0006\u0002\u0010\u0004B\u0005¢\u0006\u0002\u0010\u0005J\u0006\u0010\u001e\u001a\u00020\u001fJ\u0019\u0010 \u001a\u00020\u001f2\n\u0010!\u001a\u00060\u001aR\u00020\u001bH\u0000¢\u0006\u0002\b\"J\u0015\u0010#\u001a\u00020\u001f2\u0006\u0010!\u001a\u00020\u001bH\u0000¢\u0006\u0002\b$J\r\u0010\u0002\u001a\u00020\u0003H\u0007¢\u0006\u0002\b%J\u0016\u0010&\u001a\b\u0018\u00010\u001aR\u00020\u001b2\u0006\u0010'\u001a\u00020(H\u0002J)\u0010)\u001a\u00020\u001f\"\u0004\b\u0000\u0010*2\f\u0010+\u001a\b\u0012\u0004\u0012\u0002H*0,2\u0006\u0010!\u001a\u0002H*H\u0002¢\u0006\u0002\u0010-J\u0015\u0010)\u001a\u00020\u001f2\u0006\u0010!\u001a\u00020\u001bH\u0000¢\u0006\u0002\b.J\u0019\u0010)\u001a\u00020\u001f2\n\u0010!\u001a\u00060\u001aR\u00020\u001bH\u0000¢\u0006\u0002\b.J\b\u0010/\u001a\u000200H\u0002J\f\u00101\u001a\b\u0012\u0004\u0012\u00020302J\u0006\u00104\u001a\u00020\u0010J\f\u00105\u001a\b\u0012\u0004\u0012\u00020302J\u0006\u00106\u001a\u00020\u0010R\u0011\u0010\u0002\u001a\u00020\u00038G¢\u0006\u0006\u001a\u0004\b\u0002\u0010\u0006R\u0010\u0010\u0007\u001a\u0004\u0018\u00010\u0003X\u0082\u000e¢\u0006\u0002\n\u0000R*\u0010\n\u001a\u0004\u0018\u00010\t2\b\u0010\b\u001a\u0004\u0018\u00010\t8F@FX\u0086\u000e¢\u0006\u000e\n\u0000\u001a\u0004\b\u000b\u0010\f\"\u0004\b\r\u0010\u000eR&\u0010\u000f\u001a\u00020\u00102\u0006\u0010\u000f\u001a\u00020\u00108F@FX\u0086\u000e¢\u0006\u000e\n\u0000\u001a\u0004\b\u0011\u0010\u0012\"\u0004\b\u0013\u0010\u0014R&\u0010\u0015\u001a\u00020\u00102\u0006\u0010\u0015\u001a\u00020\u00108F@FX\u0086\u000e¢\u0006\u000e\n\u0000\u001a\u0004\b\u0016\u0010\u0012\"\u0004\b\u0017\u0010\u0014R\u0018\u0010\u0018\u001a\f\u0012\b\u0012\u00060\u001aR\u00020\u001b0\u0019X\u0082\u0004¢\u0006\u0002\n\u0000R\u0018\u0010\u001c\u001a\f\u0012\b\u0012\u00060\u001aR\u00020\u001b0\u0019X\u0082\u0004¢\u0006\u0002\n\u0000R\u0014\u0010\u001d\u001a\b\u0012\u0004\u0012\u00020\u001b0\u0019X\u0082\u0004¢\u0006\u0002\n\u0000¨\u00067"}, d2 = {"Lokhttp3/Dispatcher;", "", "executorService", "Ljava/util/concurrent/ExecutorService;", "(Ljava/util/concurrent/ExecutorService;)V", "()V", "()Ljava/util/concurrent/ExecutorService;", "executorServiceOrNull", "<set-?>", "Ljava/lang/Runnable;", "idleCallback", "getIdleCallback", "()Ljava/lang/Runnable;", "setIdleCallback", "(Ljava/lang/Runnable;)V", "maxRequests", "", "getMaxRequests", "()I", "setMaxRequests", "(I)V", "maxRequestsPerHost", "getMaxRequestsPerHost", "setMaxRequestsPerHost", "readyAsyncCalls", "Ljava/util/ArrayDeque;", "Lokhttp3/internal/connection/RealCall$AsyncCall;", "Lokhttp3/internal/connection/RealCall;", "runningAsyncCalls", "runningSyncCalls", "cancelAll", "", "enqueue", NotificationCompat.CATEGORY_CALL, "enqueue$okhttp", "executed", "executed$okhttp", "-deprecated_executorService", "findExistingCallWithHost", c.f33638f, "", "finished", ExifInterface.GPS_DIRECTION_TRUE, "calls", "Ljava/util/Deque;", "(Ljava/util/Deque;Ljava/lang/Object;)V", "finished$okhttp", "promoteAndExecute", "", "queuedCalls", "", "Lokhttp3/Call;", "queuedCallsCount", "runningCalls", "runningCallsCount", "okhttp"}, k = 1, mv = {1, 6, 0}, xi = 48)
-/* loaded from: classes4.dex */
+/* loaded from: classes.dex */
 public final class Dispatcher {
+    static final /* synthetic */ boolean $assertionsDisabled = false;
 
-    @l
-    private ExecutorService executorServiceOrNull;
+    @Nullable
+    private ExecutorService executorService;
 
-    @l
+    @Nullable
     private Runnable idleCallback;
-    private int maxRequests;
-    private int maxRequestsPerHost;
+    private int maxRequests = 64;
+    private int maxRequestsPerHost = 5;
+    private final Deque<RealCall.AsyncCall> readyAsyncCalls = new ArrayDeque();
+    private final Deque<RealCall.AsyncCall> runningAsyncCalls = new ArrayDeque();
+    private final Deque<RealCall> runningSyncCalls = new ArrayDeque();
 
-    @k
-    private final ArrayDeque<RealCall.AsyncCall> readyAsyncCalls;
-
-    @k
-    private final ArrayDeque<RealCall.AsyncCall> runningAsyncCalls;
-
-    @k
-    private final ArrayDeque<RealCall> runningSyncCalls;
-
-    public Dispatcher() {
-        this.maxRequests = 64;
-        this.maxRequestsPerHost = 5;
-        this.readyAsyncCalls = new ArrayDeque<>();
-        this.runningAsyncCalls = new ArrayDeque<>();
-        this.runningSyncCalls = new ArrayDeque<>();
+    public Dispatcher(ExecutorService executorService) {
+        this.executorService = executorService;
     }
 
-    private final RealCall.AsyncCall findExistingCallWithHost(String r42) {
-        Iterator<RealCall.AsyncCall> it = this.runningAsyncCalls.iterator();
-        while (it.hasNext()) {
-            RealCall.AsyncCall next = it.next();
-            if (Intrinsics.areEqual(next.getHost(), r42)) {
-                return next;
-            }
-        }
-        Iterator<RealCall.AsyncCall> it2 = this.readyAsyncCalls.iterator();
-        while (it2.hasNext()) {
-            RealCall.AsyncCall next2 = it2.next();
-            if (Intrinsics.areEqual(next2.getHost(), r42)) {
-                return next2;
-            }
-        }
-        return null;
-    }
-
-    private final <T> void finished(Deque<T> calls, T r22) {
-        Runnable idleCallback;
-        synchronized (this) {
-            if (!calls.remove(r22)) {
-                throw new AssertionError("Call wasn't in-flight!");
-            }
-            idleCallback = getIdleCallback();
-            Unit unit = Unit.INSTANCE;
-        }
-        if (promoteAndExecute() || idleCallback == null) {
-            return;
-        }
-        idleCallback.run();
-    }
-
-    private final boolean promoteAndExecute() {
-        int i10;
-        boolean z10;
-        if (Util.assertionsEnabled && Thread.holdsLock(this)) {
-            throw new AssertionError("Thread " + ((Object) Thread.currentThread().getName()) + " MUST NOT hold lock on " + this);
-        }
+    private boolean promoteAndExecute() {
+        int i2;
+        boolean z;
         ArrayList arrayList = new ArrayList();
         synchronized (this) {
-            try {
-                Iterator<RealCall.AsyncCall> it = this.readyAsyncCalls.iterator();
-                Intrinsics.checkNotNullExpressionValue(it, "readyAsyncCalls.iterator()");
-                while (it.hasNext()) {
-                    RealCall.AsyncCall asyncCall = it.next();
-                    if (this.runningAsyncCalls.size() >= getMaxRequests()) {
-                        break;
-                    }
-                    if (asyncCall.getCallsPerHost().get() < getMaxRequestsPerHost()) {
-                        it.remove();
-                        asyncCall.getCallsPerHost().incrementAndGet();
-                        Intrinsics.checkNotNullExpressionValue(asyncCall, "asyncCall");
-                        arrayList.add(asyncCall);
-                        this.runningAsyncCalls.add(asyncCall);
-                    }
-                }
-                z10 = runningCallsCount() > 0;
-                Unit unit = Unit.INSTANCE;
-            } catch (Throwable th2) {
-                throw th2;
-            }
-        }
-        int size = arrayList.size();
-        for (i10 = 0; i10 < size; i10++) {
-            ((RealCall.AsyncCall) arrayList.get(i10)).executeOn(executorService());
-        }
-        return z10;
-    }
-
-    @Deprecated(level = DeprecationLevel.ERROR, message = "moved to val", replaceWith = @ReplaceWith(expression = "executorService", imports = {}))
-    @k
-    @JvmName(name = "-deprecated_executorService")
-    /* renamed from: -deprecated_executorService */
-    public final ExecutorService m1664deprecated_executorService() {
-        return executorService();
-    }
-
-    public final synchronized void cancelAll() {
-        try {
             Iterator<RealCall.AsyncCall> it = this.readyAsyncCalls.iterator();
             while (it.hasNext()) {
-                it.next().getThis$0().cancel();
+                RealCall.AsyncCall next = it.next();
+                if (this.runningAsyncCalls.size() >= this.maxRequests) {
+                    break;
+                }
+                if (runningCallsForHost(next) < this.maxRequestsPerHost) {
+                    it.remove();
+                    arrayList.add(next);
+                    this.runningAsyncCalls.add(next);
+                }
             }
-            Iterator<RealCall.AsyncCall> it2 = this.runningAsyncCalls.iterator();
-            while (it2.hasNext()) {
-                it2.next().getThis$0().cancel();
+            z = runningCallsCount() > 0;
+        }
+        int size = arrayList.size();
+        for (i2 = 0; i2 < size; i2++) {
+            ((RealCall.AsyncCall) arrayList.get(i2)).executeOn(executorService());
+        }
+        return z;
+    }
+
+    private int runningCallsForHost(RealCall.AsyncCall asyncCall) {
+        int i2 = 0;
+        for (RealCall.AsyncCall asyncCall2 : this.runningAsyncCalls) {
+            if (!asyncCall2.get().forWebSocket && asyncCall2.host().equals(asyncCall.host())) {
+                i2++;
             }
-            Iterator<RealCall> it3 = this.runningSyncCalls.iterator();
-            while (it3.hasNext()) {
-                it3.next().cancel();
-            }
-        } catch (Throwable th2) {
-            throw th2;
+        }
+        return i2;
+    }
+
+    public synchronized void cancelAll() {
+        Iterator<RealCall.AsyncCall> it = this.readyAsyncCalls.iterator();
+        while (it.hasNext()) {
+            it.next().get().cancel();
+        }
+        Iterator<RealCall.AsyncCall> it2 = this.runningAsyncCalls.iterator();
+        while (it2.hasNext()) {
+            it2.next().get().cancel();
+        }
+        Iterator<RealCall> it3 = this.runningSyncCalls.iterator();
+        while (it3.hasNext()) {
+            it3.next().cancel();
         }
     }
 
-    public final void enqueue$okhttp(@k RealCall.AsyncCall r22) {
-        RealCall.AsyncCall findExistingCallWithHost;
-        Intrinsics.checkNotNullParameter(r22, "call");
+    void enqueue(RealCall.AsyncCall asyncCall) {
         synchronized (this) {
-            try {
-                this.readyAsyncCalls.add(r22);
-                if (!r22.getThis$0().getForWebSocket() && (findExistingCallWithHost = findExistingCallWithHost(r22.getHost())) != null) {
-                    r22.reuseCallsPerHostFrom(findExistingCallWithHost);
-                }
-                Unit unit = Unit.INSTANCE;
-            } catch (Throwable th2) {
-                throw th2;
-            }
+            this.readyAsyncCalls.add(asyncCall);
         }
         promoteAndExecute();
     }
 
-    public final synchronized void executed$okhttp(@k RealCall r22) {
-        Intrinsics.checkNotNullParameter(r22, "call");
-        this.runningSyncCalls.add(r22);
+    synchronized void executed(RealCall realCall) {
+        this.runningSyncCalls.add(realCall);
     }
 
-    @k
-    @JvmName(name = "executorService")
-    public final synchronized ExecutorService executorService() {
-        ExecutorService executorService;
-        try {
-            if (this.executorServiceOrNull == null) {
-                this.executorServiceOrNull = new ThreadPoolExecutor(0, Integer.MAX_VALUE, 60L, TimeUnit.SECONDS, new SynchronousQueue(), Util.threadFactory(Intrinsics.stringPlus(Util.okHttpName, " Dispatcher"), false));
-            }
-            executorService = this.executorServiceOrNull;
-            Intrinsics.checkNotNull(executorService);
-        } catch (Throwable th2) {
-            throw th2;
+    public synchronized ExecutorService executorService() {
+        if (this.executorService == null) {
+            this.executorService = new ThreadPoolExecutor(0, Integer.MAX_VALUE, 60L, TimeUnit.SECONDS, new SynchronousQueue(), Util.threadFactory("OkHttp Dispatcher", false));
         }
-        return executorService;
+        return this.executorService;
     }
 
-    public final void finished$okhttp(@k RealCall.AsyncCall r22) {
-        Intrinsics.checkNotNullParameter(r22, "call");
-        r22.getCallsPerHost().decrementAndGet();
-        finished(this.runningAsyncCalls, r22);
+    void finished(RealCall.AsyncCall asyncCall) {
+        finished(this.runningAsyncCalls, asyncCall);
     }
 
-    @l
-    public final synchronized Runnable getIdleCallback() {
-        return this.idleCallback;
-    }
-
-    public final synchronized int getMaxRequests() {
+    public synchronized int getMaxRequests() {
         return this.maxRequests;
     }
 
-    public final synchronized int getMaxRequestsPerHost() {
+    public synchronized int getMaxRequestsPerHost() {
         return this.maxRequestsPerHost;
     }
 
-    @k
-    public final synchronized List<Call> queuedCalls() {
-        List<Call> unmodifiableList;
-        try {
-            ArrayDeque<RealCall.AsyncCall> arrayDeque = this.readyAsyncCalls;
-            ArrayList arrayList = new ArrayList(CollectionsKt.collectionSizeOrDefault(arrayDeque, 10));
-            Iterator<T> it = arrayDeque.iterator();
-            while (it.hasNext()) {
-                arrayList.add(((RealCall.AsyncCall) it.next()).getThis$0());
-            }
-            unmodifiableList = Collections.unmodifiableList(arrayList);
-            Intrinsics.checkNotNullExpressionValue(unmodifiableList, "unmodifiableList(readyAsyncCalls.map { it.call })");
-        } catch (Throwable th2) {
-            throw th2;
+    public synchronized List<Call> queuedCalls() {
+        ArrayList arrayList;
+        arrayList = new ArrayList();
+        Iterator<RealCall.AsyncCall> it = this.readyAsyncCalls.iterator();
+        while (it.hasNext()) {
+            arrayList.add(it.next().get());
         }
-        return unmodifiableList;
+        return Collections.unmodifiableList(arrayList);
     }
 
-    public final synchronized int queuedCallsCount() {
+    public synchronized int queuedCallsCount() {
         return this.readyAsyncCalls.size();
     }
 
-    @k
-    public final synchronized List<Call> runningCalls() {
-        List<Call> unmodifiableList;
-        try {
-            ArrayDeque<RealCall> arrayDeque = this.runningSyncCalls;
-            ArrayDeque<RealCall.AsyncCall> arrayDeque2 = this.runningAsyncCalls;
-            ArrayList arrayList = new ArrayList(CollectionsKt.collectionSizeOrDefault(arrayDeque2, 10));
-            Iterator<T> it = arrayDeque2.iterator();
-            while (it.hasNext()) {
-                arrayList.add(((RealCall.AsyncCall) it.next()).getThis$0());
-            }
-            unmodifiableList = Collections.unmodifiableList(CollectionsKt.plus((Collection) arrayDeque, (Iterable) arrayList));
-            Intrinsics.checkNotNullExpressionValue(unmodifiableList, "unmodifiableList(running…yncCalls.map { it.call })");
-        } catch (Throwable th2) {
-            throw th2;
+    public synchronized List<Call> runningCalls() {
+        ArrayList arrayList;
+        arrayList = new ArrayList();
+        arrayList.addAll(this.runningSyncCalls);
+        Iterator<RealCall.AsyncCall> it = this.runningAsyncCalls.iterator();
+        while (it.hasNext()) {
+            arrayList.add(it.next().get());
         }
-        return unmodifiableList;
+        return Collections.unmodifiableList(arrayList);
     }
 
-    public final synchronized int runningCallsCount() {
+    public synchronized int runningCallsCount() {
         return this.runningAsyncCalls.size() + this.runningSyncCalls.size();
     }
 
-    public final synchronized void setIdleCallback(@l Runnable runnable) {
+    public synchronized void setIdleCallback(@Nullable Runnable runnable) {
         this.idleCallback = runnable;
     }
 
-    public final void setMaxRequests(int i10) {
-        if (i10 < 1) {
-            throw new IllegalArgumentException(Intrinsics.stringPlus("max < 1: ", Integer.valueOf(i10)).toString());
+    public void setMaxRequests(int i2) {
+        if (i2 >= 1) {
+            synchronized (this) {
+                this.maxRequests = i2;
+            }
+            promoteAndExecute();
+        } else {
+            throw new IllegalArgumentException("max < 1: " + i2);
         }
+    }
+
+    public void setMaxRequestsPerHost(int i2) {
+        if (i2 >= 1) {
+            synchronized (this) {
+                this.maxRequestsPerHost = i2;
+            }
+            promoteAndExecute();
+        } else {
+            throw new IllegalArgumentException("max < 1: " + i2);
+        }
+    }
+
+    void finished(RealCall realCall) {
+        finished(this.runningSyncCalls, realCall);
+    }
+
+    private <T> void finished(Deque<T> deque, T t) {
+        Runnable runnable;
         synchronized (this) {
-            this.maxRequests = i10;
-            Unit unit = Unit.INSTANCE;
+            if (deque.remove(t)) {
+                runnable = this.idleCallback;
+            } else {
+                throw new AssertionError("Call wasn't in-flight!");
+            }
         }
-        promoteAndExecute();
+        if (promoteAndExecute() || runnable == null) {
+            return;
+        }
+        runnable.run();
     }
 
-    public final void setMaxRequestsPerHost(int i10) {
-        if (i10 < 1) {
-            throw new IllegalArgumentException(Intrinsics.stringPlus("max < 1: ", Integer.valueOf(i10)).toString());
-        }
-        synchronized (this) {
-            this.maxRequestsPerHost = i10;
-            Unit unit = Unit.INSTANCE;
-        }
-        promoteAndExecute();
-    }
-
-    public final void finished$okhttp(@k RealCall r22) {
-        Intrinsics.checkNotNullParameter(r22, "call");
-        finished(this.runningSyncCalls, r22);
-    }
-
-    /* JADX WARN: 'this' call moved to the top of the method (can break code semantics) */
-    public Dispatcher(@k ExecutorService executorService) {
-        this();
-        Intrinsics.checkNotNullParameter(executorService, "executorService");
-        this.executorServiceOrNull = executorService;
+    public Dispatcher() {
     }
 }

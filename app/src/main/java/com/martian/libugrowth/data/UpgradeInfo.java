@@ -1,21 +1,13 @@
 package com.martian.libugrowth.data;
 
-/* loaded from: classes3.dex */
+/* loaded from: classes.dex */
 public class UpgradeInfo {
     private String content;
     private Long createdOn;
-    private Boolean force;
-
-    /* renamed from: id, reason: collision with root package name */
-    private Integer f13013id;
-    private boolean manual;
+    private Integer id;
     private String name;
     private Integer versionCode;
     private String versionName;
-
-    public boolean forceUpgrade() {
-        return !isManual() && isForce();
-    }
 
     public String getContent() {
         return this.content;
@@ -26,7 +18,7 @@ public class UpgradeInfo {
     }
 
     public Integer getId() {
-        return this.f13013id;
+        return this.id;
     }
 
     public String getName() {
@@ -41,44 +33,27 @@ public class UpgradeInfo {
         return this.versionName;
     }
 
-    public boolean isForce() {
-        Boolean bool = this.force;
-        return bool != null && bool.booleanValue();
+    public void setContent(String content) {
+        this.content = content;
     }
 
-    public boolean isManual() {
-        return this.manual;
+    public void setCreatedOn(Long createdOn) {
+        this.createdOn = createdOn;
     }
 
-    public void setContent(String str) {
-        this.content = str;
+    public void setId(Integer id) {
+        this.id = id;
     }
 
-    public void setCreatedOn(Long l10) {
-        this.createdOn = l10;
+    public void setName(String name) {
+        this.name = name;
     }
 
-    public void setForce(boolean z10) {
-        this.force = Boolean.valueOf(z10);
+    public void setVersionCode(Integer versionCode) {
+        this.versionCode = versionCode;
     }
 
-    public void setId(Integer num) {
-        this.f13013id = num;
-    }
-
-    public void setManual(boolean z10) {
-        this.manual = z10;
-    }
-
-    public void setName(String str) {
-        this.name = str;
-    }
-
-    public void setVersionCode(Integer num) {
-        this.versionCode = num;
-    }
-
-    public void setVersionName(String str) {
-        this.versionName = str;
+    public void setVersionName(String versionName) {
+        this.versionName = versionName;
     }
 }

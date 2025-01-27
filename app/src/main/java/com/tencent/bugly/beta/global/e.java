@@ -18,10 +18,10 @@ import java.util.List;
 public class e {
 
     /* renamed from: a */
-    public static int f22099a;
+    public static int f24620a;
 
     /* renamed from: b */
-    public static e f22100b = new e();
+    public static e f24621b = new e();
     public PackageInfo C;
     public SharedPreferences D;
     public DisplayMetrics E;
@@ -30,81 +30,47 @@ public class e {
     public File J;
     public File K;
     public BetaPatchListener Y;
-
-    /* renamed from: fa */
-    public boolean f22110fa;
+    public boolean fa;
 
     /* renamed from: i */
-    public int f22113i;
+    public int f24628i;
 
     /* renamed from: j */
-    public int f22114j;
-
-    /* renamed from: k */
-    public int f22115k;
-
-    /* renamed from: l */
-    public int f22116l;
-
-    /* renamed from: m */
-    public int f22117m;
-
-    /* renamed from: n */
-    public UILifecycleListener<UpgradeInfo> f22118n;
-
-    /* renamed from: o */
-    public File f22119o;
-
-    /* renamed from: r */
-    public int f22122r;
-
-    /* renamed from: s */
-    public com.tencent.bugly.beta.download.c f22123s;
-
-    /* renamed from: t */
-    public DownloadListener f22124t;
-
-    /* renamed from: u */
-    public File f22125u;
-
-    /* renamed from: v */
-    public Context f22126v;
-
-    /* renamed from: w */
-    public File f22127w;
-
-    /* renamed from: x */
-    public String f22128x;
-
-    /* renamed from: y */
-    public String f22129y;
+    public int f24629j;
+    public int k;
+    public int l;
+    public int m;
+    public UILifecycleListener<UpgradeInfo> n;
+    public File o;
+    public int r;
+    public com.tencent.bugly.beta.download.c s;
+    public DownloadListener t;
+    public File u;
+    public Context v;
+    public File w;
+    public String x;
+    public String y;
 
     /* renamed from: c */
-    public long f22103c = 3000;
+    public long f24622c = 3000;
 
     /* renamed from: d */
-    public long f22105d = 0;
+    public long f24623d = 0;
 
     /* renamed from: e */
-    public boolean f22107e = true;
+    public boolean f24624e = true;
 
     /* renamed from: f */
-    public boolean f22109f = false;
+    public boolean f24625f = false;
 
     /* renamed from: g */
-    public boolean f22111g = false;
+    public boolean f24626g = false;
 
     /* renamed from: h */
-    public boolean f22112h = true;
-
-    /* renamed from: p */
-    public final List<Class<? extends Activity>> f22120p = new ArrayList();
-
-    /* renamed from: q */
-    public final List<Class<? extends Activity>> f22121q = new ArrayList();
-
-    /* renamed from: z */
-    public int f22130z = Integer.MIN_VALUE;
+    public boolean f24627h = true;
+    public final List<Class<? extends Activity>> p = new ArrayList();
+    public final List<Class<? extends Activity>> q = new ArrayList();
+    public int z = Integer.MIN_VALUE;
     public String A = "";
     public String B = "";
     public boolean F = true;
@@ -123,37 +89,33 @@ public class e {
     public boolean W = true;
     public boolean X = true;
     public boolean Z = false;
+    public boolean aa = true;
+    public boolean ba = false;
+    public final List<String> ca = new ArrayList();
+    public boolean da = false;
+    public boolean ea = false;
 
-    /* renamed from: aa */
-    public boolean f22101aa = true;
-
-    /* renamed from: ba */
-    public boolean f22102ba = false;
-
-    /* renamed from: ca */
-    public final List<String> f22104ca = new ArrayList();
-
-    /* renamed from: da */
-    public boolean f22106da = false;
-
-    /* renamed from: ea */
-    public boolean f22108ea = false;
-
-    /* JADX WARN: Code restructure failed: missing block: B:48:0x0151, code lost:
+    /* JADX WARN: Code restructure failed: missing block: B:45:0x013e, code lost:
     
-        if (r11.f22125u.mkdirs() == false) goto L251;
+        if (r8.w.mkdirs() != false) goto L146;
      */
-    /* JADX WARN: Removed duplicated region for block: B:36:0x0124  */
-    /* JADX WARN: Removed duplicated region for block: B:51:0x01d7 A[Catch: all -> 0x002b, TryCatch #1 {all -> 0x002b, blocks: (B:4:0x0004, B:6:0x0012, B:8:0x0026, B:9:0x0030, B:11:0x0038, B:12:0x003e, B:14:0x0052, B:16:0x0056, B:17:0x005c, B:19:0x0060, B:21:0x006a, B:23:0x007a, B:25:0x008b, B:27:0x0091, B:28:0x009a, B:30:0x00b5, B:33:0x00bc, B:34:0x0118, B:38:0x0126, B:40:0x0130, B:42:0x0138, B:45:0x0143, B:47:0x014b, B:49:0x0199, B:51:0x01d7, B:52:0x01dc, B:54:0x01e2, B:55:0x01ea, B:57:0x01f8, B:64:0x0190, B:66:0x0196, B:67:0x0153, B:69:0x0157, B:71:0x0161, B:73:0x016b, B:75:0x0171, B:77:0x0175, B:79:0x017b, B:81:0x017f, B:83:0x0189, B:85:0x00f5, B:88:0x0071, B:90:0x0077), top: B:3:0x0004, inners: #0, #2 }] */
-    /* JADX WARN: Removed duplicated region for block: B:54:0x01e2 A[Catch: all -> 0x002b, TryCatch #1 {all -> 0x002b, blocks: (B:4:0x0004, B:6:0x0012, B:8:0x0026, B:9:0x0030, B:11:0x0038, B:12:0x003e, B:14:0x0052, B:16:0x0056, B:17:0x005c, B:19:0x0060, B:21:0x006a, B:23:0x007a, B:25:0x008b, B:27:0x0091, B:28:0x009a, B:30:0x00b5, B:33:0x00bc, B:34:0x0118, B:38:0x0126, B:40:0x0130, B:42:0x0138, B:45:0x0143, B:47:0x014b, B:49:0x0199, B:51:0x01d7, B:52:0x01dc, B:54:0x01e2, B:55:0x01ea, B:57:0x01f8, B:64:0x0190, B:66:0x0196, B:67:0x0153, B:69:0x0157, B:71:0x0161, B:73:0x016b, B:75:0x0171, B:77:0x0175, B:79:0x017b, B:81:0x017f, B:83:0x0189, B:85:0x00f5, B:88:0x0071, B:90:0x0077), top: B:3:0x0004, inners: #0, #2 }] */
-    /* JADX WARN: Removed duplicated region for block: B:57:0x01f8 A[Catch: all -> 0x002b, TRY_LEAVE, TryCatch #1 {all -> 0x002b, blocks: (B:4:0x0004, B:6:0x0012, B:8:0x0026, B:9:0x0030, B:11:0x0038, B:12:0x003e, B:14:0x0052, B:16:0x0056, B:17:0x005c, B:19:0x0060, B:21:0x006a, B:23:0x007a, B:25:0x008b, B:27:0x0091, B:28:0x009a, B:30:0x00b5, B:33:0x00bc, B:34:0x0118, B:38:0x0126, B:40:0x0130, B:42:0x0138, B:45:0x0143, B:47:0x014b, B:49:0x0199, B:51:0x01d7, B:52:0x01dc, B:54:0x01e2, B:55:0x01ea, B:57:0x01f8, B:64:0x0190, B:66:0x0196, B:67:0x0153, B:69:0x0157, B:71:0x0161, B:73:0x016b, B:75:0x0171, B:77:0x0175, B:79:0x017b, B:81:0x017f, B:83:0x0189, B:85:0x00f5, B:88:0x0071, B:90:0x0077), top: B:3:0x0004, inners: #0, #2 }] */
+    /* JADX WARN: Code restructure failed: missing block: B:49:0x014e, code lost:
+    
+        if (r8.u.mkdirs() != false) goto L172;
+     */
+    /* JADX WARN: Removed duplicated region for block: B:35:0x011e  */
+    /* JADX WARN: Removed duplicated region for block: B:38:0x0124  */
+    /* JADX WARN: Removed duplicated region for block: B:52:0x01d5 A[Catch: all -> 0x01ff, TryCatch #2 {, blocks: (B:3:0x0001, B:5:0x000f, B:7:0x0023, B:8:0x0027, B:10:0x002f, B:11:0x0035, B:13:0x0049, B:15:0x004d, B:16:0x0053, B:18:0x0057, B:20:0x0061, B:22:0x0072, B:24:0x0083, B:26:0x0089, B:27:0x0092, B:29:0x00ad, B:32:0x00b4, B:33:0x0110, B:40:0x0126, B:42:0x0130, B:44:0x0138, B:46:0x0140, B:48:0x0148, B:50:0x0197, B:52:0x01d5, B:53:0x01da, B:55:0x01e0, B:56:0x01e8, B:58:0x01f6, B:64:0x018e, B:66:0x0194, B:67:0x0150, B:69:0x0154, B:71:0x015e, B:73:0x0168, B:75:0x016e, B:77:0x0172, B:79:0x0178, B:81:0x017c, B:83:0x0186, B:86:0x00ed, B:88:0x0069, B:90:0x006f), top: B:2:0x0001, inners: #0, #1 }] */
+    /* JADX WARN: Removed duplicated region for block: B:55:0x01e0 A[Catch: all -> 0x01ff, TryCatch #2 {, blocks: (B:3:0x0001, B:5:0x000f, B:7:0x0023, B:8:0x0027, B:10:0x002f, B:11:0x0035, B:13:0x0049, B:15:0x004d, B:16:0x0053, B:18:0x0057, B:20:0x0061, B:22:0x0072, B:24:0x0083, B:26:0x0089, B:27:0x0092, B:29:0x00ad, B:32:0x00b4, B:33:0x0110, B:40:0x0126, B:42:0x0130, B:44:0x0138, B:46:0x0140, B:48:0x0148, B:50:0x0197, B:52:0x01d5, B:53:0x01da, B:55:0x01e0, B:56:0x01e8, B:58:0x01f6, B:64:0x018e, B:66:0x0194, B:67:0x0150, B:69:0x0154, B:71:0x015e, B:73:0x0168, B:75:0x016e, B:77:0x0172, B:79:0x0178, B:81:0x017c, B:83:0x0186, B:86:0x00ed, B:88:0x0069, B:90:0x006f), top: B:2:0x0001, inners: #0, #1 }] */
+    /* JADX WARN: Removed duplicated region for block: B:58:0x01f6 A[Catch: all -> 0x01ff, TRY_LEAVE, TryCatch #2 {, blocks: (B:3:0x0001, B:5:0x000f, B:7:0x0023, B:8:0x0027, B:10:0x002f, B:11:0x0035, B:13:0x0049, B:15:0x004d, B:16:0x0053, B:18:0x0057, B:20:0x0061, B:22:0x0072, B:24:0x0083, B:26:0x0089, B:27:0x0092, B:29:0x00ad, B:32:0x00b4, B:33:0x0110, B:40:0x0126, B:42:0x0130, B:44:0x0138, B:46:0x0140, B:48:0x0148, B:50:0x0197, B:52:0x01d5, B:53:0x01da, B:55:0x01e0, B:56:0x01e8, B:58:0x01f6, B:64:0x018e, B:66:0x0194, B:67:0x0150, B:69:0x0154, B:71:0x015e, B:73:0x0168, B:75:0x016e, B:77:0x0172, B:79:0x0178, B:81:0x017c, B:83:0x0186, B:86:0x00ed, B:88:0x0069, B:90:0x006f), top: B:2:0x0001, inners: #0, #1 }] */
+    /* JADX WARN: Removed duplicated region for block: B:85:0x0120  */
     /*
         Code decompiled incorrectly, please refer to instructions dump.
         To view partially-correct code enable 'Show inconsistent code' option in preferences
     */
-    public synchronized void a(android.content.Context r12) {
+    public synchronized void a(android.content.Context r9) {
         /*
-            Method dump skipped, instructions count: 515
+            Method dump skipped, instructions count: 514
             To view this dump change 'Code comments level' option to 'DEBUG'
         */
         throw new UnsupportedOperationException("Method not decompiled: com.tencent.bugly.beta.global.e.a(android.content.Context):void");

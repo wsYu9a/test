@@ -8,8 +8,7 @@ import com.qq.e.ads.rewardvideo.ServerSideVerificationOptions;
 import com.qq.e.comm.adevent.ADListener;
 import com.qq.e.comm.constants.LoadAdParams;
 
-@Deprecated
-/* loaded from: classes3.dex */
+/* loaded from: classes4.dex */
 public abstract class BaseSplashAd implements IBaseAd {
     public static final int DEFAULT_PRIORITY = -1;
 
@@ -31,24 +30,24 @@ public abstract class BaseSplashAd implements IBaseAd {
     public abstract boolean isValid();
 
     @Override // com.qq.e.mediation.interfaces.IBaseAd
-    public void sendLossNotification(int i10, int i11, String str) {
+    public void sendLossNotification(int i2, int i3, String str) {
     }
 
     @Override // com.qq.e.mediation.interfaces.IBaseAd
-    public void sendWinNotification(int i10) {
+    public void sendWinNotification(int i2) {
     }
 
     public abstract void setADListener(ADListener aDListener);
 
     @Override // com.qq.e.mediation.interfaces.IBaseAd
-    public void setBidECPM(int i10) {
+    public void setBidECPM(int i2) {
     }
 
-    public abstract void setDeveloperLogo(int i10);
+    public abstract void setDeveloperLogo(int i2);
 
     public abstract void setDeveloperLogo(byte[] bArr);
 
-    public abstract void setFetchDelay(int i10);
+    public abstract void setFetchDelay(int i2);
 
     public abstract void setLoadAdParams(LoadAdParams loadAdParams);
 
@@ -60,7 +59,7 @@ public abstract class BaseSplashAd implements IBaseAd {
 
     public abstract void setSkipView(View view);
 
-    public abstract void setSupportZoomOut(boolean z10);
+    public abstract void setSupportZoomOut(boolean z);
 
     public abstract void showAd(ViewGroup viewGroup);
 

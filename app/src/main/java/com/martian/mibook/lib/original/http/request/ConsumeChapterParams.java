@@ -1,9 +1,9 @@
 package com.martian.mibook.lib.original.http.request;
 
+import com.martian.libcomm.http.requests.d.a;
 import com.martian.mibook.lib.account.request.auth.TYAuthParams;
-import v8.a;
 
-/* loaded from: classes3.dex */
+/* loaded from: classes2.dex */
 public class ConsumeChapterParams extends TYAuthParams {
 
     @a
@@ -46,23 +46,23 @@ public class ConsumeChapterParams extends TYAuthParams {
         return this.subject;
     }
 
-    public void setBookId(String str) {
-        this.bookId = str;
+    public void setBookId(String bookId) {
+        this.bookId = bookId;
     }
 
-    public void setChapterId(Integer num) {
-        this.chapterId = num;
+    public void setChapterId(Integer chapterId) {
+        this.chapterId = chapterId;
     }
 
-    public void setCoins(Integer num) {
-        this.coins = num;
+    public void setCoins(Integer coins) {
+        this.coins = coins;
     }
 
-    public void setContent(String str) {
-        this.content = str;
+    public void setContent(String content) {
+        this.content = content;
     }
 
-    public void setSubject(String str) {
-        this.subject = str;
+    public void setSubject(String subject) {
+        this.subject = subject;
     }
 }

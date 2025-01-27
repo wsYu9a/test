@@ -29,7 +29,7 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 
-/* loaded from: classes2.dex */
+/* loaded from: classes.dex */
 public final class GlideBuilder {
     private GlideExecutor animationExecutor;
     private ArrayPool arrayPool;
@@ -53,7 +53,7 @@ public final class GlideBuilder {
     private final Map<Class<?>, TransitionOptions<?, ?>> defaultTransitionOptions = new ArrayMap();
     private int logLevel = 4;
     private Glide.RequestOptionsFactory defaultRequestOptionsFactory = new Glide.RequestOptionsFactory() { // from class: com.bumptech.glide.GlideBuilder.1
-        public AnonymousClass1() {
+        AnonymousClass1() {
         }
 
         @Override // com.bumptech.glide.Glide.RequestOptionsFactory
@@ -64,8 +64,8 @@ public final class GlideBuilder {
     };
 
     /* renamed from: com.bumptech.glide.GlideBuilder$1 */
-    public class AnonymousClass1 implements Glide.RequestOptionsFactory {
-        public AnonymousClass1() {
+    class AnonymousClass1 implements Glide.RequestOptionsFactory {
+        AnonymousClass1() {
         }
 
         @Override // com.bumptech.glide.Glide.RequestOptionsFactory
@@ -76,10 +76,10 @@ public final class GlideBuilder {
     }
 
     /* renamed from: com.bumptech.glide.GlideBuilder$2 */
-    public class AnonymousClass2 implements Glide.RequestOptionsFactory {
+    class AnonymousClass2 implements Glide.RequestOptionsFactory {
         final /* synthetic */ RequestOptions val$requestOptions;
 
-        public AnonymousClass2(RequestOptions requestOptions) {
+        AnonymousClass2(RequestOptions requestOptions) {
             requestOptions = requestOptions;
         }
 
@@ -101,7 +101,7 @@ public final class GlideBuilder {
     }
 
     @NonNull
-    public Glide build(@NonNull Context context) {
+    Glide build(@NonNull Context context) {
         if (this.sourceExecutor == null) {
             this.sourceExecutor = GlideExecutor.newSourceExecutor();
         }
@@ -175,7 +175,7 @@ public final class GlideBuilder {
         return setDefaultRequestOptions(new Glide.RequestOptionsFactory() { // from class: com.bumptech.glide.GlideBuilder.2
             final /* synthetic */ RequestOptions val$requestOptions;
 
-            public AnonymousClass2(RequestOptions requestOptions2) {
+            AnonymousClass2(RequestOptions requestOptions2) {
                 requestOptions = requestOptions2;
             }
 
@@ -206,36 +206,36 @@ public final class GlideBuilder {
         return this;
     }
 
-    public GlideBuilder setEngine(Engine engine) {
+    GlideBuilder setEngine(Engine engine) {
         this.engine = engine;
         return this;
     }
 
-    public GlideBuilder setImageDecoderEnabledForBitmaps(boolean z10) {
+    public GlideBuilder setImageDecoderEnabledForBitmaps(boolean z) {
         if (!BuildCompat.isAtLeastQ()) {
             return this;
         }
-        this.isImageDecoderEnabledForBitmaps = z10;
+        this.isImageDecoderEnabledForBitmaps = z;
         return this;
     }
 
     @NonNull
-    public GlideBuilder setIsActiveResourceRetentionAllowed(boolean z10) {
-        this.isActiveResourceRetentionAllowed = z10;
+    public GlideBuilder setIsActiveResourceRetentionAllowed(boolean z) {
+        this.isActiveResourceRetentionAllowed = z;
         return this;
     }
 
     @NonNull
-    public GlideBuilder setLogLevel(int i10) {
-        if (i10 < 2 || i10 > 6) {
+    public GlideBuilder setLogLevel(int i2) {
+        if (i2 < 2 || i2 > 6) {
             throw new IllegalArgumentException("Log level must be one of Log.VERBOSE, Log.DEBUG, Log.INFO, Log.WARN, or Log.ERROR");
         }
-        this.logLevel = i10;
+        this.logLevel = i2;
         return this;
     }
 
-    public GlideBuilder setLogRequestOrigins(boolean z10) {
-        this.isLoggingRequestOriginsEnabled = z10;
+    public GlideBuilder setLogRequestOrigins(boolean z) {
+        this.isLoggingRequestOriginsEnabled = z;
         return this;
     }
 
@@ -250,7 +250,7 @@ public final class GlideBuilder {
         return setMemorySizeCalculator(builder.build());
     }
 
-    public void setRequestManagerFactory(@Nullable RequestManagerRetriever.RequestManagerFactory requestManagerFactory) {
+    void setRequestManagerFactory(@Nullable RequestManagerRetriever.RequestManagerFactory requestManagerFactory) {
         this.requestManagerFactory = requestManagerFactory;
     }
 

@@ -1,7 +1,7 @@
 package kotlin;
 
-@Metadata(d1 = {"kotlin/StandardKt__StandardKt", "kotlin/StandardKt__SynchronizedKt"}, k = 4, mv = {1, 9, 0}, xi = 49)
-/* loaded from: classes4.dex */
+@Metadata(bv = {1, 0, 3}, d1 = {"kotlin/StandardKt__StandardKt", "kotlin/StandardKt__SynchronizedKt"}, d2 = {}, k = 4, mv = {1, 4, 0})
+/* loaded from: classes5.dex */
 public final class StandardKt extends StandardKt__SynchronizedKt {
     private StandardKt() {
     }

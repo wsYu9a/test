@@ -1,26 +1,26 @@
 package com.martian.mibook.lib.original.data;
 
-import ba.k;
+import com.martian.libsupport.j;
 import com.martian.mibook.lib.model.data.abs.ChapterContent;
 import com.martian.mibook.lib.model.data.abs.Response;
 
-@k.h(name = "or_chapter_contents")
-/* loaded from: classes3.dex */
+@j.g(name = "or_chapter_contents")
+/* loaded from: classes2.dex */
 public class ORChapterContent extends ChapterContent implements Response {
 
-    @k.g
-    @k.b
+    @j.b
+    @j.f
     private Integer chapterId;
     private Integer coins;
 
-    @k.b
+    @j.b
     private String content;
     private Integer isTaked;
 
-    @k.b
+    @j.b
     private String srcLink;
 
-    @k.b
+    @j.b
     private String title;
 
     public Integer getChapterId() {
@@ -32,8 +32,8 @@ public class ORChapterContent extends ChapterContent implements Response {
     }
 
     @Override // com.martian.mibook.lib.model.data.abs.ChapterContent
-    public String getContent(int i10, int i11) {
-        return this.content.substring(i10, i11);
+    public String getContent(int start, int end) {
+        return this.content.substring(start, end);
     }
 
     @Override // com.martian.mibook.lib.model.data.abs.ChapterContent
@@ -60,32 +60,31 @@ public class ORChapterContent extends ChapterContent implements Response {
         return str == null || str.length() == 0;
     }
 
-    public void setChapterId(Integer num) {
-        this.chapterId = num;
+    public void setChapterId(Integer chapterId) {
+        this.chapterId = chapterId;
     }
 
-    public void setCoins(Integer num) {
-        this.coins = num;
+    public void setCoins(Integer coins) {
+        this.coins = coins;
     }
 
-    public void setContent(String str) {
-        this.content = str;
+    public void setContent(String content) {
+        this.content = content;
     }
 
-    public void setIsTaked(Integer num) {
-        this.isTaked = num;
-    }
-
-    @Override // com.martian.mibook.lib.model.data.abs.ChapterContent
-    public void setSrcLink(String str) {
-        this.srcLink = str;
-    }
-
-    public void setTitle(String str) {
-        this.title = str;
+    public void setIsTaked(Integer isTaked) {
+        this.isTaked = isTaked;
     }
 
     @Override // com.martian.mibook.lib.model.data.abs.ChapterContent
+    public void setSrcLink(String srcLink) {
+        this.srcLink = srcLink;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
+    }
+
     public String getContent() {
         return this.content;
     }

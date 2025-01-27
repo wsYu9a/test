@@ -25,11 +25,11 @@ public interface IDownloadAidlService extends IInterface {
         }
 
         @Override // com.ss.android.socialbase.downloader.downloader.IDownloadAidlService
-        public void addDownloadListener(int i10, int i11, IDownloadAidlListener iDownloadAidlListener, int i12, boolean z10) throws RemoteException {
+        public void addDownloadListener(int i2, int i3, IDownloadAidlListener iDownloadAidlListener, int i4, boolean z) throws RemoteException {
         }
 
         @Override // com.ss.android.socialbase.downloader.downloader.IDownloadAidlService
-        public void addDownloadListener1(int i10, int i11, IDownloadAidlListener iDownloadAidlListener, int i12, boolean z10, boolean z11) throws RemoteException {
+        public void addDownloadListener1(int i2, int i3, IDownloadAidlListener iDownloadAidlListener, int i4, boolean z, boolean z2) throws RemoteException {
         }
 
         @Override // com.ss.android.socialbase.downloader.downloader.IDownloadAidlService
@@ -42,12 +42,12 @@ public interface IDownloadAidlService extends IInterface {
         }
 
         @Override // com.ss.android.socialbase.downloader.downloader.IDownloadAidlService
-        public boolean canResume(int i10) throws RemoteException {
+        public boolean canResume(int i2) throws RemoteException {
             return false;
         }
 
         @Override // com.ss.android.socialbase.downloader.downloader.IDownloadAidlService
-        public void cancel(int i10, boolean z10) throws RemoteException {
+        public void cancel(int i2, boolean z) throws RemoteException {
         }
 
         @Override // com.ss.android.socialbase.downloader.downloader.IDownloadAidlService
@@ -55,15 +55,15 @@ public interface IDownloadAidlService extends IInterface {
         }
 
         @Override // com.ss.android.socialbase.downloader.downloader.IDownloadAidlService
-        public void clearDownloadData(int i10, boolean z10) throws RemoteException {
+        public void clearDownloadData(int i2, boolean z) throws RemoteException {
         }
 
         @Override // com.ss.android.socialbase.downloader.downloader.IDownloadAidlService
-        public void dispatchProcessCallback(int i10, int i11) throws RemoteException {
+        public void dispatchProcessCallback(int i2, int i3) throws RemoteException {
         }
 
         @Override // com.ss.android.socialbase.downloader.downloader.IDownloadAidlService
-        public void forceDownloadIngoreRecommendSize(int i10) throws RemoteException {
+        public void forceDownloadIngoreRecommendSize(int i2) throws RemoteException {
         }
 
         @Override // com.ss.android.socialbase.downloader.downloader.IDownloadAidlService
@@ -72,17 +72,17 @@ public interface IDownloadAidlService extends IInterface {
         }
 
         @Override // com.ss.android.socialbase.downloader.downloader.IDownloadAidlService
-        public long getCurBytes(int i10) throws RemoteException {
+        public long getCurBytes(int i2) throws RemoteException {
             return 0L;
         }
 
         @Override // com.ss.android.socialbase.downloader.downloader.IDownloadAidlService
-        public List<DownloadChunk> getDownloadChunk(int i10) throws RemoteException {
+        public List<DownloadChunk> getDownloadChunk(int i2) throws RemoteException {
             return null;
         }
 
         @Override // com.ss.android.socialbase.downloader.downloader.IDownloadAidlService
-        public IDownloadAidlFileProvider getDownloadFileUriProvider(int i10) throws RemoteException {
+        public IDownloadAidlFileProvider getDownloadFileUriProvider(int i2) throws RemoteException {
             return null;
         }
 
@@ -92,7 +92,7 @@ public interface IDownloadAidlService extends IInterface {
         }
 
         @Override // com.ss.android.socialbase.downloader.downloader.IDownloadAidlService
-        public DownloadInfo getDownloadInfo(int i10) throws RemoteException {
+        public DownloadInfo getDownloadInfo(int i2) throws RemoteException {
             return null;
         }
 
@@ -107,12 +107,12 @@ public interface IDownloadAidlService extends IInterface {
         }
 
         @Override // com.ss.android.socialbase.downloader.downloader.IDownloadAidlService
-        public IDownloadNotificationEventAidlListener getDownloadNotificationEventListener(int i10) throws RemoteException {
+        public IDownloadNotificationEventAidlListener getDownloadNotificationEventListener(int i2) throws RemoteException {
             return null;
         }
 
         @Override // com.ss.android.socialbase.downloader.downloader.IDownloadAidlService
-        public int getDownloadWithIndependentProcessStatus(int i10) throws RemoteException {
+        public int getDownloadWithIndependentProcessStatus(int i2) throws RemoteException {
             return 0;
         }
 
@@ -127,12 +127,12 @@ public interface IDownloadAidlService extends IInterface {
         }
 
         @Override // com.ss.android.socialbase.downloader.downloader.IDownloadAidlService
-        public INotificationClickAidlCallback getNotificationClickCallback(int i10) throws RemoteException {
+        public INotificationClickAidlCallback getNotificationClickCallback(int i2) throws RemoteException {
             return null;
         }
 
         @Override // com.ss.android.socialbase.downloader.downloader.IDownloadAidlService
-        public int getStatus(int i10) throws RemoteException {
+        public int getStatus(int i2) throws RemoteException {
             return 0;
         }
 
@@ -157,7 +157,7 @@ public interface IDownloadAidlService extends IInterface {
         }
 
         @Override // com.ss.android.socialbase.downloader.downloader.IDownloadAidlService
-        public boolean isDownloading(int i10) throws RemoteException {
+        public boolean isDownloading(int i2) throws RemoteException {
             return false;
         }
 
@@ -172,7 +172,7 @@ public interface IDownloadAidlService extends IInterface {
         }
 
         @Override // com.ss.android.socialbase.downloader.downloader.IDownloadAidlService
-        public void pause(int i10) throws RemoteException {
+        public void pause(int i2) throws RemoteException {
         }
 
         @Override // com.ss.android.socialbase.downloader.downloader.IDownloadAidlService
@@ -180,29 +180,29 @@ public interface IDownloadAidlService extends IInterface {
         }
 
         @Override // com.ss.android.socialbase.downloader.downloader.IDownloadAidlService
-        public void removeAllDownloadChunk(int i10) throws RemoteException {
+        public void removeAllDownloadChunk(int i2) throws RemoteException {
         }
 
         @Override // com.ss.android.socialbase.downloader.downloader.IDownloadAidlService
-        public boolean removeDownloadInfo(int i10) throws RemoteException {
+        public boolean removeDownloadInfo(int i2) throws RemoteException {
             return false;
         }
 
         @Override // com.ss.android.socialbase.downloader.downloader.IDownloadAidlService
-        public void removeDownloadListener(int i10, int i11, IDownloadAidlListener iDownloadAidlListener, int i12, boolean z10) throws RemoteException {
+        public void removeDownloadListener(int i2, int i3, IDownloadAidlListener iDownloadAidlListener, int i4, boolean z) throws RemoteException {
         }
 
         @Override // com.ss.android.socialbase.downloader.downloader.IDownloadAidlService
-        public boolean removeDownloadTaskData(int i10) throws RemoteException {
+        public boolean removeDownloadTaskData(int i2) throws RemoteException {
             return false;
         }
 
         @Override // com.ss.android.socialbase.downloader.downloader.IDownloadAidlService
-        public void resetDownloadData(int i10, boolean z10) throws RemoteException {
+        public void resetDownloadData(int i2, boolean z) throws RemoteException {
         }
 
         @Override // com.ss.android.socialbase.downloader.downloader.IDownloadAidlService
-        public void restart(int i10) throws RemoteException {
+        public void restart(int i2) throws RemoteException {
         }
 
         @Override // com.ss.android.socialbase.downloader.downloader.IDownloadAidlService
@@ -214,44 +214,44 @@ public interface IDownloadAidlService extends IInterface {
         }
 
         @Override // com.ss.android.socialbase.downloader.downloader.IDownloadAidlService
-        public void resume(int i10) throws RemoteException {
+        public void resume(int i2) throws RemoteException {
         }
 
         @Override // com.ss.android.socialbase.downloader.downloader.IDownloadAidlService
-        public boolean retryDelayStart(int i10) throws RemoteException {
+        public boolean retryDelayStart(int i2) throws RemoteException {
             return false;
         }
 
         @Override // com.ss.android.socialbase.downloader.downloader.IDownloadAidlService
-        public void setDownloadNotificationEventListener(int i10, IDownloadNotificationEventAidlListener iDownloadNotificationEventAidlListener) throws RemoteException {
+        public void setDownloadNotificationEventListener(int i2, IDownloadNotificationEventAidlListener iDownloadNotificationEventAidlListener) throws RemoteException {
         }
 
         @Override // com.ss.android.socialbase.downloader.downloader.IDownloadAidlService
-        public void setDownloadWithIndependentProcessStatus(int i10, boolean z10) throws RemoteException {
+        public void setDownloadWithIndependentProcessStatus(int i2, boolean z) throws RemoteException {
         }
 
         @Override // com.ss.android.socialbase.downloader.downloader.IDownloadAidlService
-        public void setLogLevel(int i10) throws RemoteException {
+        public void setLogLevel(int i2) throws RemoteException {
         }
 
         @Override // com.ss.android.socialbase.downloader.downloader.IDownloadAidlService
-        public void setThrottleNetSpeed(int i10, long j10) throws RemoteException {
+        public void setThrottleNetSpeed(int i2, long j2) throws RemoteException {
         }
 
         @Override // com.ss.android.socialbase.downloader.downloader.IDownloadAidlService
-        public void startForeground(int i10, Notification notification) throws RemoteException {
+        public void startForeground(int i2, Notification notification) throws RemoteException {
         }
 
         @Override // com.ss.android.socialbase.downloader.downloader.IDownloadAidlService
-        public void stopForeground(boolean z10) throws RemoteException {
+        public void stopForeground(boolean z) throws RemoteException {
         }
 
         @Override // com.ss.android.socialbase.downloader.downloader.IDownloadAidlService
-        public void syncDownloadChunks(int i10, List<DownloadChunk> list) throws RemoteException {
+        public void syncDownloadChunks(int i2, List<DownloadChunk> list) throws RemoteException {
         }
 
         @Override // com.ss.android.socialbase.downloader.downloader.IDownloadAidlService
-        public void syncDownloadInfoFromOtherCache(int i10, List<DownloadChunk> list) throws RemoteException {
+        public void syncDownloadInfoFromOtherCache(int i2, List<DownloadChunk> list) throws RemoteException {
         }
 
         @Override // com.ss.android.socialbase.downloader.downloader.IDownloadAidlService
@@ -259,7 +259,7 @@ public interface IDownloadAidlService extends IInterface {
         }
 
         @Override // com.ss.android.socialbase.downloader.downloader.IDownloadAidlService
-        public void updateDownloadChunk(int i10, int i11, long j10) throws RemoteException {
+        public void updateDownloadChunk(int i2, int i3, long j2) throws RemoteException {
         }
 
         @Override // com.ss.android.socialbase.downloader.downloader.IDownloadAidlService
@@ -268,11 +268,11 @@ public interface IDownloadAidlService extends IInterface {
         }
 
         @Override // com.ss.android.socialbase.downloader.downloader.IDownloadAidlService
-        public void updateSubDownloadChunk(int i10, int i11, int i12, long j10) throws RemoteException {
+        public void updateSubDownloadChunk(int i2, int i3, int i4, long j2) throws RemoteException {
         }
 
         @Override // com.ss.android.socialbase.downloader.downloader.IDownloadAidlService
-        public void updateSubDownloadChunkIndex(int i10, int i11, int i12, int i13) throws RemoteException {
+        public void updateSubDownloadChunkIndex(int i2, int i3, int i4, int i5) throws RemoteException {
         }
     }
 
@@ -335,11 +335,11 @@ public interface IDownloadAidlService extends IInterface {
         static final int TRANSACTION_updateSubDownloadChunk = 43;
         static final int TRANSACTION_updateSubDownloadChunkIndex = 44;
 
-        public static class Proxy implements IDownloadAidlService {
+        private static class Proxy implements IDownloadAidlService {
             public static IDownloadAidlService sDefaultImpl;
             private IBinder mRemote;
 
-            public Proxy(IBinder iBinder) {
+            Proxy(IBinder iBinder) {
                 this.mRemote = iBinder;
             }
 
@@ -357,61 +357,55 @@ public interface IDownloadAidlService extends IInterface {
                     }
                     if (this.mRemote.transact(38, obtain, obtain2, 0) || Stub.getDefaultImpl() == null) {
                         obtain2.readException();
-                        obtain2.recycle();
-                        obtain.recycle();
                     } else {
                         Stub.getDefaultImpl().addDownloadChunk(downloadChunk);
-                        obtain2.recycle();
-                        obtain.recycle();
                     }
-                } catch (Throwable th2) {
+                } finally {
                     obtain2.recycle();
                     obtain.recycle();
-                    throw th2;
                 }
             }
 
             @Override // com.ss.android.socialbase.downloader.downloader.IDownloadAidlService
-            public void addDownloadListener(int i10, int i11, IDownloadAidlListener iDownloadAidlListener, int i12, boolean z10) throws RemoteException {
+            public void addDownloadListener(int i2, int i3, IDownloadAidlListener iDownloadAidlListener, int i4, boolean z) throws RemoteException {
                 Parcel obtain = Parcel.obtain();
                 Parcel obtain2 = Parcel.obtain();
                 try {
                     obtain.writeInterfaceToken(Stub.DESCRIPTOR);
-                    obtain.writeInt(i10);
-                    obtain.writeInt(i11);
+                    obtain.writeInt(i2);
+                    obtain.writeInt(i3);
                     obtain.writeStrongBinder(iDownloadAidlListener != null ? iDownloadAidlListener.asBinder() : null);
-                    obtain.writeInt(i12);
-                    obtain.writeInt(z10 ? 1 : 0);
+                    obtain.writeInt(i4);
+                    obtain.writeInt(z ? 1 : 0);
                     if (this.mRemote.transact(26, obtain, obtain2, 0) || Stub.getDefaultImpl() == null) {
                         obtain2.readException();
-                        obtain2.recycle();
-                        obtain.recycle();
                     } else {
-                        Stub.getDefaultImpl().addDownloadListener(i10, i11, iDownloadAidlListener, i12, z10);
-                        obtain2.recycle();
-                        obtain.recycle();
+                        Stub.getDefaultImpl().addDownloadListener(i2, i3, iDownloadAidlListener, i4, z);
                     }
-                } catch (Throwable th2) {
+                } finally {
                     obtain2.recycle();
                     obtain.recycle();
-                    throw th2;
                 }
             }
 
             @Override // com.ss.android.socialbase.downloader.downloader.IDownloadAidlService
-            public void addDownloadListener1(int i10, int i11, IDownloadAidlListener iDownloadAidlListener, int i12, boolean z10, boolean z11) throws RemoteException {
+            public void addDownloadListener1(int i2, int i3, IDownloadAidlListener iDownloadAidlListener, int i4, boolean z, boolean z2) throws RemoteException {
                 Parcel obtain = Parcel.obtain();
                 Parcel obtain2 = Parcel.obtain();
                 try {
                     obtain.writeInterfaceToken(Stub.DESCRIPTOR);
-                    obtain.writeInt(i10);
-                    obtain.writeInt(i11);
+                    obtain.writeInt(i2);
+                    obtain.writeInt(i3);
                     obtain.writeStrongBinder(iDownloadAidlListener != null ? iDownloadAidlListener.asBinder() : null);
-                    obtain.writeInt(i12);
-                    obtain.writeInt(z10 ? 1 : 0);
-                    obtain.writeInt(z11 ? 1 : 0);
-                } catch (Throwable th2) {
-                    th = th2;
+                    obtain.writeInt(i4);
+                    int i5 = 1;
+                    obtain.writeInt(z ? 1 : 0);
+                    if (!z2) {
+                        i5 = 0;
+                    }
+                    obtain.writeInt(i5);
+                } catch (Throwable th) {
+                    th = th;
                 }
                 try {
                     if (this.mRemote.transact(27, obtain, obtain2, 0) || Stub.getDefaultImpl() == null) {
@@ -419,12 +413,12 @@ public interface IDownloadAidlService extends IInterface {
                         obtain2.recycle();
                         obtain.recycle();
                     } else {
-                        Stub.getDefaultImpl().addDownloadListener1(i10, i11, iDownloadAidlListener, i12, z10, z11);
+                        Stub.getDefaultImpl().addDownloadListener1(i2, i3, iDownloadAidlListener, i4, z, z2);
                         obtain2.recycle();
                         obtain.recycle();
                     }
-                } catch (Throwable th3) {
-                    th = th3;
+                } catch (Throwable th2) {
+                    th = th2;
                     obtain2.recycle();
                     obtain.recycle();
                     throw th;
@@ -440,17 +434,12 @@ public interface IDownloadAidlService extends IInterface {
                     obtain.writeStrongBinder(processAidlCallback != null ? processAidlCallback.asBinder() : null);
                     if (this.mRemote.transact(49, obtain, obtain2, 0) || Stub.getDefaultImpl() == null) {
                         obtain2.readException();
-                        obtain2.recycle();
-                        obtain.recycle();
                     } else {
                         Stub.getDefaultImpl().addProcessCallback(processAidlCallback);
-                        obtain2.recycle();
-                        obtain.recycle();
                     }
-                } catch (Throwable th2) {
+                } finally {
                     obtain2.recycle();
                     obtain.recycle();
-                    throw th2;
                 }
             }
 
@@ -460,14 +449,14 @@ public interface IDownloadAidlService extends IInterface {
             }
 
             @Override // com.ss.android.socialbase.downloader.downloader.IDownloadAidlService
-            public boolean canResume(int i10) throws RemoteException {
+            public boolean canResume(int i2) throws RemoteException {
                 Parcel obtain = Parcel.obtain();
                 Parcel obtain2 = Parcel.obtain();
                 try {
                     obtain.writeInterfaceToken(Stub.DESCRIPTOR);
-                    obtain.writeInt(i10);
+                    obtain.writeInt(i2);
                     if (!this.mRemote.transact(4, obtain, obtain2, 0) && Stub.getDefaultImpl() != null) {
-                        return Stub.getDefaultImpl().canResume(i10);
+                        return Stub.getDefaultImpl().canResume(i2);
                     }
                     obtain2.readException();
                     return obtain2.readInt() != 0;
@@ -478,17 +467,17 @@ public interface IDownloadAidlService extends IInterface {
             }
 
             @Override // com.ss.android.socialbase.downloader.downloader.IDownloadAidlService
-            public void cancel(int i10, boolean z10) throws RemoteException {
+            public void cancel(int i2, boolean z) throws RemoteException {
                 Parcel obtain = Parcel.obtain();
                 Parcel obtain2 = Parcel.obtain();
                 try {
                     obtain.writeInterfaceToken(Stub.DESCRIPTOR);
-                    obtain.writeInt(i10);
-                    obtain.writeInt(z10 ? 1 : 0);
+                    obtain.writeInt(i2);
+                    obtain.writeInt(z ? 1 : 0);
                     if (this.mRemote.transact(3, obtain, obtain2, 0) || Stub.getDefaultImpl() == null) {
                         obtain2.readException();
                     } else {
-                        Stub.getDefaultImpl().cancel(i10, z10);
+                        Stub.getDefaultImpl().cancel(i2, z);
                     }
                 } finally {
                     obtain2.recycle();
@@ -514,17 +503,17 @@ public interface IDownloadAidlService extends IInterface {
             }
 
             @Override // com.ss.android.socialbase.downloader.downloader.IDownloadAidlService
-            public void clearDownloadData(int i10, boolean z10) throws RemoteException {
+            public void clearDownloadData(int i2, boolean z) throws RemoteException {
                 Parcel obtain = Parcel.obtain();
                 Parcel obtain2 = Parcel.obtain();
                 try {
                     obtain.writeInterfaceToken(Stub.DESCRIPTOR);
-                    obtain.writeInt(i10);
-                    obtain.writeInt(z10 ? 1 : 0);
+                    obtain.writeInt(i2);
+                    obtain.writeInt(z ? 1 : 0);
                     if (this.mRemote.transact(22, obtain, obtain2, 0) || Stub.getDefaultImpl() == null) {
                         obtain2.readException();
                     } else {
-                        Stub.getDefaultImpl().clearDownloadData(i10, z10);
+                        Stub.getDefaultImpl().clearDownloadData(i2, z);
                     }
                 } finally {
                     obtain2.recycle();
@@ -533,17 +522,17 @@ public interface IDownloadAidlService extends IInterface {
             }
 
             @Override // com.ss.android.socialbase.downloader.downloader.IDownloadAidlService
-            public void dispatchProcessCallback(int i10, int i11) throws RemoteException {
+            public void dispatchProcessCallback(int i2, int i3) throws RemoteException {
                 Parcel obtain = Parcel.obtain();
                 Parcel obtain2 = Parcel.obtain();
                 try {
                     obtain.writeInterfaceToken(Stub.DESCRIPTOR);
-                    obtain.writeInt(i10);
-                    obtain.writeInt(i11);
+                    obtain.writeInt(i2);
+                    obtain.writeInt(i3);
                     if (this.mRemote.transact(50, obtain, obtain2, 0) || Stub.getDefaultImpl() == null) {
                         obtain2.readException();
                     } else {
-                        Stub.getDefaultImpl().dispatchProcessCallback(i10, i11);
+                        Stub.getDefaultImpl().dispatchProcessCallback(i2, i3);
                     }
                 } finally {
                     obtain2.recycle();
@@ -552,16 +541,16 @@ public interface IDownloadAidlService extends IInterface {
             }
 
             @Override // com.ss.android.socialbase.downloader.downloader.IDownloadAidlService
-            public void forceDownloadIngoreRecommendSize(int i10) throws RemoteException {
+            public void forceDownloadIngoreRecommendSize(int i2) throws RemoteException {
                 Parcel obtain = Parcel.obtain();
                 Parcel obtain2 = Parcel.obtain();
                 try {
                     obtain.writeInterfaceToken(Stub.DESCRIPTOR);
-                    obtain.writeInt(i10);
+                    obtain.writeInt(i2);
                     if (this.mRemote.transact(24, obtain, obtain2, 0) || Stub.getDefaultImpl() == null) {
                         obtain2.readException();
                     } else {
-                        Stub.getDefaultImpl().forceDownloadIngoreRecommendSize(i10);
+                        Stub.getDefaultImpl().forceDownloadIngoreRecommendSize(i2);
                     }
                 } finally {
                     obtain2.recycle();
@@ -587,14 +576,14 @@ public interface IDownloadAidlService extends IInterface {
             }
 
             @Override // com.ss.android.socialbase.downloader.downloader.IDownloadAidlService
-            public long getCurBytes(int i10) throws RemoteException {
+            public long getCurBytes(int i2) throws RemoteException {
                 Parcel obtain = Parcel.obtain();
                 Parcel obtain2 = Parcel.obtain();
                 try {
                     obtain.writeInterfaceToken(Stub.DESCRIPTOR);
-                    obtain.writeInt(i10);
+                    obtain.writeInt(i2);
                     if (!this.mRemote.transact(8, obtain, obtain2, 0) && Stub.getDefaultImpl() != null) {
-                        return Stub.getDefaultImpl().getCurBytes(i10);
+                        return Stub.getDefaultImpl().getCurBytes(i2);
                     }
                     obtain2.readException();
                     return obtain2.readLong();
@@ -605,14 +594,14 @@ public interface IDownloadAidlService extends IInterface {
             }
 
             @Override // com.ss.android.socialbase.downloader.downloader.IDownloadAidlService
-            public List<DownloadChunk> getDownloadChunk(int i10) throws RemoteException {
+            public List<DownloadChunk> getDownloadChunk(int i2) throws RemoteException {
                 Parcel obtain = Parcel.obtain();
                 Parcel obtain2 = Parcel.obtain();
                 try {
                     obtain.writeInterfaceToken(Stub.DESCRIPTOR);
-                    obtain.writeInt(i10);
+                    obtain.writeInt(i2);
                     if (!this.mRemote.transact(13, obtain, obtain2, 0) && Stub.getDefaultImpl() != null) {
-                        return Stub.getDefaultImpl().getDownloadChunk(i10);
+                        return Stub.getDefaultImpl().getDownloadChunk(i2);
                     }
                     obtain2.readException();
                     return obtain2.createTypedArrayList(DownloadChunk.CREATOR);
@@ -623,14 +612,14 @@ public interface IDownloadAidlService extends IInterface {
             }
 
             @Override // com.ss.android.socialbase.downloader.downloader.IDownloadAidlService
-            public IDownloadAidlFileProvider getDownloadFileUriProvider(int i10) throws RemoteException {
+            public IDownloadAidlFileProvider getDownloadFileUriProvider(int i2) throws RemoteException {
                 Parcel obtain = Parcel.obtain();
                 Parcel obtain2 = Parcel.obtain();
                 try {
                     obtain.writeInterfaceToken(Stub.DESCRIPTOR);
-                    obtain.writeInt(i10);
+                    obtain.writeInt(i2);
                     if (!this.mRemote.transact(54, obtain, obtain2, 0) && Stub.getDefaultImpl() != null) {
-                        return Stub.getDefaultImpl().getDownloadFileUriProvider(i10);
+                        return Stub.getDefaultImpl().getDownloadFileUriProvider(i2);
                     }
                     obtain2.readException();
                     return IDownloadAidlFileProvider.Stub.asInterface(obtain2.readStrongBinder());
@@ -660,14 +649,14 @@ public interface IDownloadAidlService extends IInterface {
             }
 
             @Override // com.ss.android.socialbase.downloader.downloader.IDownloadAidlService
-            public DownloadInfo getDownloadInfo(int i10) throws RemoteException {
+            public DownloadInfo getDownloadInfo(int i2) throws RemoteException {
                 Parcel obtain = Parcel.obtain();
                 Parcel obtain2 = Parcel.obtain();
                 try {
                     obtain.writeInterfaceToken(Stub.DESCRIPTOR);
-                    obtain.writeInt(i10);
+                    obtain.writeInt(i2);
                     if (!this.mRemote.transact(11, obtain, obtain2, 0) && Stub.getDefaultImpl() != null) {
-                        return Stub.getDefaultImpl().getDownloadInfo(i10);
+                        return Stub.getDefaultImpl().getDownloadInfo(i2);
                     }
                     obtain2.readException();
                     return obtain2.readInt() != 0 ? DownloadInfo.CREATOR.createFromParcel(obtain2) : null;
@@ -715,14 +704,14 @@ public interface IDownloadAidlService extends IInterface {
             }
 
             @Override // com.ss.android.socialbase.downloader.downloader.IDownloadAidlService
-            public IDownloadNotificationEventAidlListener getDownloadNotificationEventListener(int i10) throws RemoteException {
+            public IDownloadNotificationEventAidlListener getDownloadNotificationEventListener(int i2) throws RemoteException {
                 Parcel obtain = Parcel.obtain();
                 Parcel obtain2 = Parcel.obtain();
                 try {
                     obtain.writeInterfaceToken(Stub.DESCRIPTOR);
-                    obtain.writeInt(i10);
+                    obtain.writeInt(i2);
                     if (!this.mRemote.transact(51, obtain, obtain2, 0) && Stub.getDefaultImpl() != null) {
-                        return Stub.getDefaultImpl().getDownloadNotificationEventListener(i10);
+                        return Stub.getDefaultImpl().getDownloadNotificationEventListener(i2);
                     }
                     obtain2.readException();
                     return IDownloadNotificationEventAidlListener.Stub.asInterface(obtain2.readStrongBinder());
@@ -733,14 +722,14 @@ public interface IDownloadAidlService extends IInterface {
             }
 
             @Override // com.ss.android.socialbase.downloader.downloader.IDownloadAidlService
-            public int getDownloadWithIndependentProcessStatus(int i10) throws RemoteException {
+            public int getDownloadWithIndependentProcessStatus(int i2) throws RemoteException {
                 Parcel obtain = Parcel.obtain();
                 Parcel obtain2 = Parcel.obtain();
                 try {
                     obtain.writeInterfaceToken(Stub.DESCRIPTOR);
-                    obtain.writeInt(i10);
+                    obtain.writeInt(i2);
                     if (!this.mRemote.transact(37, obtain, obtain2, 0) && Stub.getDefaultImpl() != null) {
-                        return Stub.getDefaultImpl().getDownloadWithIndependentProcessStatus(i10);
+                        return Stub.getDefaultImpl().getDownloadWithIndependentProcessStatus(i2);
                     }
                     obtain2.readException();
                     return obtain2.readInt();
@@ -791,14 +780,14 @@ public interface IDownloadAidlService extends IInterface {
             }
 
             @Override // com.ss.android.socialbase.downloader.downloader.IDownloadAidlService
-            public INotificationClickAidlCallback getNotificationClickCallback(int i10) throws RemoteException {
+            public INotificationClickAidlCallback getNotificationClickCallback(int i2) throws RemoteException {
                 Parcel obtain = Parcel.obtain();
                 Parcel obtain2 = Parcel.obtain();
                 try {
                     obtain.writeInterfaceToken(Stub.DESCRIPTOR);
-                    obtain.writeInt(i10);
+                    obtain.writeInt(i2);
                     if (!this.mRemote.transact(52, obtain, obtain2, 0) && Stub.getDefaultImpl() != null) {
-                        return Stub.getDefaultImpl().getNotificationClickCallback(i10);
+                        return Stub.getDefaultImpl().getNotificationClickCallback(i2);
                     }
                     obtain2.readException();
                     return INotificationClickAidlCallback.Stub.asInterface(obtain2.readStrongBinder());
@@ -809,14 +798,14 @@ public interface IDownloadAidlService extends IInterface {
             }
 
             @Override // com.ss.android.socialbase.downloader.downloader.IDownloadAidlService
-            public int getStatus(int i10) throws RemoteException {
+            public int getStatus(int i2) throws RemoteException {
                 Parcel obtain = Parcel.obtain();
                 Parcel obtain2 = Parcel.obtain();
                 try {
                     obtain.writeInterfaceToken(Stub.DESCRIPTOR);
-                    obtain.writeInt(i10);
+                    obtain.writeInt(i2);
                     if (!this.mRemote.transact(9, obtain, obtain2, 0) && Stub.getDefaultImpl() != null) {
-                        return Stub.getDefaultImpl().getStatus(i10);
+                        return Stub.getDefaultImpl().getStatus(i2);
                     }
                     obtain2.readException();
                     return obtain2.readInt();
@@ -892,32 +881,25 @@ public interface IDownloadAidlService extends IInterface {
                         obtain.writeInt(0);
                     }
                     if (!this.mRemote.transact(28, obtain, obtain2, 0) && Stub.getDefaultImpl() != null) {
-                        boolean isDownloadSuccessAndFileNotExist = Stub.getDefaultImpl().isDownloadSuccessAndFileNotExist(downloadInfo);
-                        obtain2.recycle();
-                        obtain.recycle();
-                        return isDownloadSuccessAndFileNotExist;
+                        return Stub.getDefaultImpl().isDownloadSuccessAndFileNotExist(downloadInfo);
                     }
                     obtain2.readException();
-                    boolean z10 = obtain2.readInt() != 0;
+                    return obtain2.readInt() != 0;
+                } finally {
                     obtain2.recycle();
                     obtain.recycle();
-                    return z10;
-                } catch (Throwable th2) {
-                    obtain2.recycle();
-                    obtain.recycle();
-                    throw th2;
                 }
             }
 
             @Override // com.ss.android.socialbase.downloader.downloader.IDownloadAidlService
-            public boolean isDownloading(int i10) throws RemoteException {
+            public boolean isDownloading(int i2) throws RemoteException {
                 Parcel obtain = Parcel.obtain();
                 Parcel obtain2 = Parcel.obtain();
                 try {
                     obtain.writeInterfaceToken(Stub.DESCRIPTOR);
-                    obtain.writeInt(i10);
+                    obtain.writeInt(i2);
                     if (!this.mRemote.transact(10, obtain, obtain2, 0) && Stub.getDefaultImpl() != null) {
-                        return Stub.getDefaultImpl().isDownloading(i10);
+                        return Stub.getDefaultImpl().isDownloading(i2);
                     }
                     obtain2.readException();
                     return obtain2.readInt() != 0;
@@ -962,16 +944,16 @@ public interface IDownloadAidlService extends IInterface {
             }
 
             @Override // com.ss.android.socialbase.downloader.downloader.IDownloadAidlService
-            public void pause(int i10) throws RemoteException {
+            public void pause(int i2) throws RemoteException {
                 Parcel obtain = Parcel.obtain();
                 Parcel obtain2 = Parcel.obtain();
                 try {
                     obtain.writeInterfaceToken(Stub.DESCRIPTOR);
-                    obtain.writeInt(i10);
+                    obtain.writeInt(i2);
                     if (this.mRemote.transact(2, obtain, obtain2, 0) || Stub.getDefaultImpl() == null) {
                         obtain2.readException();
                     } else {
-                        Stub.getDefaultImpl().pause(i10);
+                        Stub.getDefaultImpl().pause(i2);
                     }
                 } finally {
                     obtain2.recycle();
@@ -997,16 +979,16 @@ public interface IDownloadAidlService extends IInterface {
             }
 
             @Override // com.ss.android.socialbase.downloader.downloader.IDownloadAidlService
-            public void removeAllDownloadChunk(int i10) throws RemoteException {
+            public void removeAllDownloadChunk(int i2) throws RemoteException {
                 Parcel obtain = Parcel.obtain();
                 Parcel obtain2 = Parcel.obtain();
                 try {
                     obtain.writeInterfaceToken(Stub.DESCRIPTOR);
-                    obtain.writeInt(i10);
+                    obtain.writeInt(i2);
                     if (this.mRemote.transact(41, obtain, obtain2, 0) || Stub.getDefaultImpl() == null) {
                         obtain2.readException();
                     } else {
-                        Stub.getDefaultImpl().removeAllDownloadChunk(i10);
+                        Stub.getDefaultImpl().removeAllDownloadChunk(i2);
                     }
                 } finally {
                     obtain2.recycle();
@@ -1015,14 +997,14 @@ public interface IDownloadAidlService extends IInterface {
             }
 
             @Override // com.ss.android.socialbase.downloader.downloader.IDownloadAidlService
-            public boolean removeDownloadInfo(int i10) throws RemoteException {
+            public boolean removeDownloadInfo(int i2) throws RemoteException {
                 Parcel obtain = Parcel.obtain();
                 Parcel obtain2 = Parcel.obtain();
                 try {
                     obtain.writeInterfaceToken(Stub.DESCRIPTOR);
-                    obtain.writeInt(i10);
+                    obtain.writeInt(i2);
                     if (!this.mRemote.transact(40, obtain, obtain2, 0) && Stub.getDefaultImpl() != null) {
-                        return Stub.getDefaultImpl().removeDownloadInfo(i10);
+                        return Stub.getDefaultImpl().removeDownloadInfo(i2);
                     }
                     obtain2.readException();
                     return obtain2.readInt() != 0;
@@ -1033,41 +1015,36 @@ public interface IDownloadAidlService extends IInterface {
             }
 
             @Override // com.ss.android.socialbase.downloader.downloader.IDownloadAidlService
-            public void removeDownloadListener(int i10, int i11, IDownloadAidlListener iDownloadAidlListener, int i12, boolean z10) throws RemoteException {
+            public void removeDownloadListener(int i2, int i3, IDownloadAidlListener iDownloadAidlListener, int i4, boolean z) throws RemoteException {
                 Parcel obtain = Parcel.obtain();
                 Parcel obtain2 = Parcel.obtain();
                 try {
                     obtain.writeInterfaceToken(Stub.DESCRIPTOR);
-                    obtain.writeInt(i10);
-                    obtain.writeInt(i11);
+                    obtain.writeInt(i2);
+                    obtain.writeInt(i3);
                     obtain.writeStrongBinder(iDownloadAidlListener != null ? iDownloadAidlListener.asBinder() : null);
-                    obtain.writeInt(i12);
-                    obtain.writeInt(z10 ? 1 : 0);
+                    obtain.writeInt(i4);
+                    obtain.writeInt(z ? 1 : 0);
                     if (this.mRemote.transact(25, obtain, obtain2, 0) || Stub.getDefaultImpl() == null) {
                         obtain2.readException();
-                        obtain2.recycle();
-                        obtain.recycle();
                     } else {
-                        Stub.getDefaultImpl().removeDownloadListener(i10, i11, iDownloadAidlListener, i12, z10);
-                        obtain2.recycle();
-                        obtain.recycle();
+                        Stub.getDefaultImpl().removeDownloadListener(i2, i3, iDownloadAidlListener, i4, z);
                     }
-                } catch (Throwable th2) {
+                } finally {
                     obtain2.recycle();
                     obtain.recycle();
-                    throw th2;
                 }
             }
 
             @Override // com.ss.android.socialbase.downloader.downloader.IDownloadAidlService
-            public boolean removeDownloadTaskData(int i10) throws RemoteException {
+            public boolean removeDownloadTaskData(int i2) throws RemoteException {
                 Parcel obtain = Parcel.obtain();
                 Parcel obtain2 = Parcel.obtain();
                 try {
                     obtain.writeInterfaceToken(Stub.DESCRIPTOR);
-                    obtain.writeInt(i10);
+                    obtain.writeInt(i2);
                     if (!this.mRemote.transact(45, obtain, obtain2, 0) && Stub.getDefaultImpl() != null) {
-                        return Stub.getDefaultImpl().removeDownloadTaskData(i10);
+                        return Stub.getDefaultImpl().removeDownloadTaskData(i2);
                     }
                     obtain2.readException();
                     return obtain2.readInt() != 0;
@@ -1078,17 +1055,17 @@ public interface IDownloadAidlService extends IInterface {
             }
 
             @Override // com.ss.android.socialbase.downloader.downloader.IDownloadAidlService
-            public void resetDownloadData(int i10, boolean z10) throws RemoteException {
+            public void resetDownloadData(int i2, boolean z) throws RemoteException {
                 Parcel obtain = Parcel.obtain();
                 Parcel obtain2 = Parcel.obtain();
                 try {
                     obtain.writeInterfaceToken(Stub.DESCRIPTOR);
-                    obtain.writeInt(i10);
-                    obtain.writeInt(z10 ? 1 : 0);
+                    obtain.writeInt(i2);
+                    obtain.writeInt(z ? 1 : 0);
                     if (this.mRemote.transact(23, obtain, obtain2, 0) || Stub.getDefaultImpl() == null) {
                         obtain2.readException();
                     } else {
-                        Stub.getDefaultImpl().resetDownloadData(i10, z10);
+                        Stub.getDefaultImpl().resetDownloadData(i2, z);
                     }
                 } finally {
                     obtain2.recycle();
@@ -1097,16 +1074,16 @@ public interface IDownloadAidlService extends IInterface {
             }
 
             @Override // com.ss.android.socialbase.downloader.downloader.IDownloadAidlService
-            public void restart(int i10) throws RemoteException {
+            public void restart(int i2) throws RemoteException {
                 Parcel obtain = Parcel.obtain();
                 Parcel obtain2 = Parcel.obtain();
                 try {
                     obtain.writeInterfaceToken(Stub.DESCRIPTOR);
-                    obtain.writeInt(i10);
+                    obtain.writeInt(i2);
                     if (this.mRemote.transact(6, obtain, obtain2, 0) || Stub.getDefaultImpl() == null) {
                         obtain2.readException();
                     } else {
-                        Stub.getDefaultImpl().restart(i10);
+                        Stub.getDefaultImpl().restart(i2);
                     }
                 } finally {
                     obtain2.recycle();
@@ -1151,16 +1128,16 @@ public interface IDownloadAidlService extends IInterface {
             }
 
             @Override // com.ss.android.socialbase.downloader.downloader.IDownloadAidlService
-            public void resume(int i10) throws RemoteException {
+            public void resume(int i2) throws RemoteException {
                 Parcel obtain = Parcel.obtain();
                 Parcel obtain2 = Parcel.obtain();
                 try {
                     obtain.writeInterfaceToken(Stub.DESCRIPTOR);
-                    obtain.writeInt(i10);
+                    obtain.writeInt(i2);
                     if (this.mRemote.transact(5, obtain, obtain2, 0) || Stub.getDefaultImpl() == null) {
                         obtain2.readException();
                     } else {
-                        Stub.getDefaultImpl().resume(i10);
+                        Stub.getDefaultImpl().resume(i2);
                     }
                 } finally {
                     obtain2.recycle();
@@ -1169,14 +1146,14 @@ public interface IDownloadAidlService extends IInterface {
             }
 
             @Override // com.ss.android.socialbase.downloader.downloader.IDownloadAidlService
-            public boolean retryDelayStart(int i10) throws RemoteException {
+            public boolean retryDelayStart(int i2) throws RemoteException {
                 Parcel obtain = Parcel.obtain();
                 Parcel obtain2 = Parcel.obtain();
                 try {
                     obtain.writeInterfaceToken(Stub.DESCRIPTOR);
-                    obtain.writeInt(i10);
+                    obtain.writeInt(i2);
                     if (!this.mRemote.transact(33, obtain, obtain2, 0) && Stub.getDefaultImpl() != null) {
-                        return Stub.getDefaultImpl().retryDelayStart(i10);
+                        return Stub.getDefaultImpl().retryDelayStart(i2);
                     }
                     obtain2.readException();
                     return obtain2.readInt() != 0;
@@ -1187,41 +1164,36 @@ public interface IDownloadAidlService extends IInterface {
             }
 
             @Override // com.ss.android.socialbase.downloader.downloader.IDownloadAidlService
-            public void setDownloadNotificationEventListener(int i10, IDownloadNotificationEventAidlListener iDownloadNotificationEventAidlListener) throws RemoteException {
+            public void setDownloadNotificationEventListener(int i2, IDownloadNotificationEventAidlListener iDownloadNotificationEventAidlListener) throws RemoteException {
                 Parcel obtain = Parcel.obtain();
                 Parcel obtain2 = Parcel.obtain();
                 try {
                     obtain.writeInterfaceToken(Stub.DESCRIPTOR);
-                    obtain.writeInt(i10);
+                    obtain.writeInt(i2);
                     obtain.writeStrongBinder(iDownloadNotificationEventAidlListener != null ? iDownloadNotificationEventAidlListener.asBinder() : null);
                     if (this.mRemote.transact(53, obtain, obtain2, 0) || Stub.getDefaultImpl() == null) {
                         obtain2.readException();
-                        obtain2.recycle();
-                        obtain.recycle();
                     } else {
-                        Stub.getDefaultImpl().setDownloadNotificationEventListener(i10, iDownloadNotificationEventAidlListener);
-                        obtain2.recycle();
-                        obtain.recycle();
+                        Stub.getDefaultImpl().setDownloadNotificationEventListener(i2, iDownloadNotificationEventAidlListener);
                     }
-                } catch (Throwable th2) {
+                } finally {
                     obtain2.recycle();
                     obtain.recycle();
-                    throw th2;
                 }
             }
 
             @Override // com.ss.android.socialbase.downloader.downloader.IDownloadAidlService
-            public void setDownloadWithIndependentProcessStatus(int i10, boolean z10) throws RemoteException {
+            public void setDownloadWithIndependentProcessStatus(int i2, boolean z) throws RemoteException {
                 Parcel obtain = Parcel.obtain();
                 Parcel obtain2 = Parcel.obtain();
                 try {
                     obtain.writeInterfaceToken(Stub.DESCRIPTOR);
-                    obtain.writeInt(i10);
-                    obtain.writeInt(z10 ? 1 : 0);
+                    obtain.writeInt(i2);
+                    obtain.writeInt(z ? 1 : 0);
                     if (this.mRemote.transact(36, obtain, obtain2, 0) || Stub.getDefaultImpl() == null) {
                         obtain2.readException();
                     } else {
-                        Stub.getDefaultImpl().setDownloadWithIndependentProcessStatus(i10, z10);
+                        Stub.getDefaultImpl().setDownloadWithIndependentProcessStatus(i2, z);
                     }
                 } finally {
                     obtain2.recycle();
@@ -1230,16 +1202,16 @@ public interface IDownloadAidlService extends IInterface {
             }
 
             @Override // com.ss.android.socialbase.downloader.downloader.IDownloadAidlService
-            public void setLogLevel(int i10) throws RemoteException {
+            public void setLogLevel(int i2) throws RemoteException {
                 Parcel obtain = Parcel.obtain();
                 Parcel obtain2 = Parcel.obtain();
                 try {
                     obtain.writeInterfaceToken(Stub.DESCRIPTOR);
-                    obtain.writeInt(i10);
+                    obtain.writeInt(i2);
                     if (this.mRemote.transact(34, obtain, obtain2, 0) || Stub.getDefaultImpl() == null) {
                         obtain2.readException();
                     } else {
-                        Stub.getDefaultImpl().setLogLevel(i10);
+                        Stub.getDefaultImpl().setLogLevel(i2);
                     }
                 } finally {
                     obtain2.recycle();
@@ -1248,17 +1220,17 @@ public interface IDownloadAidlService extends IInterface {
             }
 
             @Override // com.ss.android.socialbase.downloader.downloader.IDownloadAidlService
-            public void setThrottleNetSpeed(int i10, long j10) throws RemoteException {
+            public void setThrottleNetSpeed(int i2, long j2) throws RemoteException {
                 Parcel obtain = Parcel.obtain();
                 Parcel obtain2 = Parcel.obtain();
                 try {
                     obtain.writeInterfaceToken(Stub.DESCRIPTOR);
-                    obtain.writeInt(i10);
-                    obtain.writeLong(j10);
+                    obtain.writeInt(i2);
+                    obtain.writeLong(j2);
                     if (this.mRemote.transact(56, obtain, obtain2, 0) || Stub.getDefaultImpl() == null) {
                         obtain2.readException();
                     } else {
-                        Stub.getDefaultImpl().setThrottleNetSpeed(i10, j10);
+                        Stub.getDefaultImpl().setThrottleNetSpeed(i2, j2);
                     }
                 } finally {
                     obtain2.recycle();
@@ -1267,11 +1239,11 @@ public interface IDownloadAidlService extends IInterface {
             }
 
             @Override // com.ss.android.socialbase.downloader.downloader.IDownloadAidlService
-            public void startForeground(int i10, Notification notification) throws RemoteException {
+            public void startForeground(int i2, Notification notification) throws RemoteException {
                 Parcel obtain = Parcel.obtain();
                 try {
                     obtain.writeInterfaceToken(Stub.DESCRIPTOR);
-                    obtain.writeInt(i10);
+                    obtain.writeInt(i2);
                     if (notification != null) {
                         obtain.writeInt(1);
                         notification.writeToParcel(obtain, 0);
@@ -1279,44 +1251,41 @@ public interface IDownloadAidlService extends IInterface {
                         obtain.writeInt(0);
                     }
                     if (this.mRemote.transact(29, obtain, null, 1) || Stub.getDefaultImpl() == null) {
-                        obtain.recycle();
-                    } else {
-                        Stub.getDefaultImpl().startForeground(i10, notification);
-                        obtain.recycle();
-                    }
-                } catch (Throwable th2) {
-                    obtain.recycle();
-                    throw th2;
-                }
-            }
-
-            @Override // com.ss.android.socialbase.downloader.downloader.IDownloadAidlService
-            public void stopForeground(boolean z10) throws RemoteException {
-                Parcel obtain = Parcel.obtain();
-                try {
-                    obtain.writeInterfaceToken(Stub.DESCRIPTOR);
-                    obtain.writeInt(z10 ? 1 : 0);
-                    if (this.mRemote.transact(30, obtain, null, 1) || Stub.getDefaultImpl() == null) {
                         return;
                     }
-                    Stub.getDefaultImpl().stopForeground(z10);
+                    Stub.getDefaultImpl().startForeground(i2, notification);
                 } finally {
                     obtain.recycle();
                 }
             }
 
             @Override // com.ss.android.socialbase.downloader.downloader.IDownloadAidlService
-            public void syncDownloadChunks(int i10, List<DownloadChunk> list) throws RemoteException {
+            public void stopForeground(boolean z) throws RemoteException {
+                Parcel obtain = Parcel.obtain();
+                try {
+                    obtain.writeInterfaceToken(Stub.DESCRIPTOR);
+                    obtain.writeInt(z ? 1 : 0);
+                    if (this.mRemote.transact(30, obtain, null, 1) || Stub.getDefaultImpl() == null) {
+                        return;
+                    }
+                    Stub.getDefaultImpl().stopForeground(z);
+                } finally {
+                    obtain.recycle();
+                }
+            }
+
+            @Override // com.ss.android.socialbase.downloader.downloader.IDownloadAidlService
+            public void syncDownloadChunks(int i2, List<DownloadChunk> list) throws RemoteException {
                 Parcel obtain = Parcel.obtain();
                 Parcel obtain2 = Parcel.obtain();
                 try {
                     obtain.writeInterfaceToken(Stub.DESCRIPTOR);
-                    obtain.writeInt(i10);
+                    obtain.writeInt(i2);
                     obtain.writeTypedList(list);
                     if (this.mRemote.transact(48, obtain, obtain2, 0) || Stub.getDefaultImpl() == null) {
                         obtain2.readException();
                     } else {
-                        Stub.getDefaultImpl().syncDownloadChunks(i10, list);
+                        Stub.getDefaultImpl().syncDownloadChunks(i2, list);
                     }
                 } finally {
                     obtain2.recycle();
@@ -1325,17 +1294,17 @@ public interface IDownloadAidlService extends IInterface {
             }
 
             @Override // com.ss.android.socialbase.downloader.downloader.IDownloadAidlService
-            public void syncDownloadInfoFromOtherCache(int i10, List<DownloadChunk> list) throws RemoteException {
+            public void syncDownloadInfoFromOtherCache(int i2, List<DownloadChunk> list) throws RemoteException {
                 Parcel obtain = Parcel.obtain();
                 Parcel obtain2 = Parcel.obtain();
                 try {
                     obtain.writeInterfaceToken(Stub.DESCRIPTOR);
-                    obtain.writeInt(i10);
+                    obtain.writeInt(i2);
                     obtain.writeTypedList(list);
                     if (this.mRemote.transact(47, obtain, obtain2, 0) || Stub.getDefaultImpl() == null) {
                         obtain2.readException();
                     } else {
-                        Stub.getDefaultImpl().syncDownloadInfoFromOtherCache(i10, list);
+                        Stub.getDefaultImpl().syncDownloadInfoFromOtherCache(i2, list);
                     }
                 } finally {
                     obtain2.recycle();
@@ -1352,33 +1321,28 @@ public interface IDownloadAidlService extends IInterface {
                     obtain.writeStrongBinder(downloadAidlTask != null ? downloadAidlTask.asBinder() : null);
                     if (this.mRemote.transact(1, obtain, obtain2, 0) || Stub.getDefaultImpl() == null) {
                         obtain2.readException();
-                        obtain2.recycle();
-                        obtain.recycle();
                     } else {
                         Stub.getDefaultImpl().tryDownload(downloadAidlTask);
-                        obtain2.recycle();
-                        obtain.recycle();
                     }
-                } catch (Throwable th2) {
+                } finally {
                     obtain2.recycle();
                     obtain.recycle();
-                    throw th2;
                 }
             }
 
             @Override // com.ss.android.socialbase.downloader.downloader.IDownloadAidlService
-            public void updateDownloadChunk(int i10, int i11, long j10) throws RemoteException {
+            public void updateDownloadChunk(int i2, int i3, long j2) throws RemoteException {
                 Parcel obtain = Parcel.obtain();
                 Parcel obtain2 = Parcel.obtain();
                 try {
                     obtain.writeInterfaceToken(Stub.DESCRIPTOR);
-                    obtain.writeInt(i10);
-                    obtain.writeInt(i11);
-                    obtain.writeLong(j10);
+                    obtain.writeInt(i2);
+                    obtain.writeInt(i3);
+                    obtain.writeLong(j2);
                     if (this.mRemote.transact(42, obtain, obtain2, 0) || Stub.getDefaultImpl() == null) {
                         obtain2.readException();
                     } else {
-                        Stub.getDefaultImpl().updateDownloadChunk(i10, i11, j10);
+                        Stub.getDefaultImpl().updateDownloadChunk(i2, i3, j2);
                     }
                 } finally {
                     obtain2.recycle();
@@ -1399,37 +1363,30 @@ public interface IDownloadAidlService extends IInterface {
                         obtain.writeInt(0);
                     }
                     if (!this.mRemote.transact(39, obtain, obtain2, 0) && Stub.getDefaultImpl() != null) {
-                        boolean updateDownloadInfo = Stub.getDefaultImpl().updateDownloadInfo(downloadInfo);
-                        obtain2.recycle();
-                        obtain.recycle();
-                        return updateDownloadInfo;
+                        return Stub.getDefaultImpl().updateDownloadInfo(downloadInfo);
                     }
                     obtain2.readException();
-                    boolean z10 = obtain2.readInt() != 0;
+                    return obtain2.readInt() != 0;
+                } finally {
                     obtain2.recycle();
                     obtain.recycle();
-                    return z10;
-                } catch (Throwable th2) {
-                    obtain2.recycle();
-                    obtain.recycle();
-                    throw th2;
                 }
             }
 
             @Override // com.ss.android.socialbase.downloader.downloader.IDownloadAidlService
-            public void updateSubDownloadChunk(int i10, int i11, int i12, long j10) throws RemoteException {
+            public void updateSubDownloadChunk(int i2, int i3, int i4, long j2) throws RemoteException {
                 Parcel obtain = Parcel.obtain();
                 Parcel obtain2 = Parcel.obtain();
                 try {
                     obtain.writeInterfaceToken(Stub.DESCRIPTOR);
-                    obtain.writeInt(i10);
-                    obtain.writeInt(i11);
-                    obtain.writeInt(i12);
-                    obtain.writeLong(j10);
+                    obtain.writeInt(i2);
+                    obtain.writeInt(i3);
+                    obtain.writeInt(i4);
+                    obtain.writeLong(j2);
                     if (this.mRemote.transact(43, obtain, obtain2, 0) || Stub.getDefaultImpl() == null) {
                         obtain2.readException();
                     } else {
-                        Stub.getDefaultImpl().updateSubDownloadChunk(i10, i11, i12, j10);
+                        Stub.getDefaultImpl().updateSubDownloadChunk(i2, i3, i4, j2);
                     }
                 } finally {
                     obtain2.recycle();
@@ -1438,19 +1395,19 @@ public interface IDownloadAidlService extends IInterface {
             }
 
             @Override // com.ss.android.socialbase.downloader.downloader.IDownloadAidlService
-            public void updateSubDownloadChunkIndex(int i10, int i11, int i12, int i13) throws RemoteException {
+            public void updateSubDownloadChunkIndex(int i2, int i3, int i4, int i5) throws RemoteException {
                 Parcel obtain = Parcel.obtain();
                 Parcel obtain2 = Parcel.obtain();
                 try {
                     obtain.writeInterfaceToken(Stub.DESCRIPTOR);
-                    obtain.writeInt(i10);
-                    obtain.writeInt(i11);
-                    obtain.writeInt(i12);
-                    obtain.writeInt(i13);
+                    obtain.writeInt(i2);
+                    obtain.writeInt(i3);
+                    obtain.writeInt(i4);
+                    obtain.writeInt(i5);
                     if (this.mRemote.transact(44, obtain, obtain2, 0) || Stub.getDefaultImpl() == null) {
                         obtain2.readException();
                     } else {
-                        Stub.getDefaultImpl().updateSubDownloadChunkIndex(i10, i11, i12, i13);
+                        Stub.getDefaultImpl().updateSubDownloadChunkIndex(i2, i3, i4, i5);
                     }
                 } finally {
                     obtain2.recycle();
@@ -1489,12 +1446,12 @@ public interface IDownloadAidlService extends IInterface {
         }
 
         @Override // android.os.Binder
-        public boolean onTransact(int i10, Parcel parcel, Parcel parcel2, int i11) throws RemoteException {
-            if (i10 == 1598968902) {
+        public boolean onTransact(int i2, Parcel parcel, Parcel parcel2, int i3) throws RemoteException {
+            if (i2 == 1598968902) {
                 parcel2.writeString(DESCRIPTOR);
                 return true;
             }
-            switch (i10) {
+            switch (i2) {
                 case 1:
                     parcel.enforceInterface(DESCRIPTOR);
                     tryDownload(DownloadAidlTask.Stub.asInterface(parcel.readStrongBinder()));
@@ -1810,58 +1767,58 @@ public interface IDownloadAidlService extends IInterface {
                     parcel2.writeNoException();
                     return true;
                 default:
-                    return super.onTransact(i10, parcel, parcel2, i11);
+                    return super.onTransact(i2, parcel, parcel2, i3);
             }
         }
     }
 
     void addDownloadChunk(DownloadChunk downloadChunk) throws RemoteException;
 
-    void addDownloadListener(int i10, int i11, IDownloadAidlListener iDownloadAidlListener, int i12, boolean z10) throws RemoteException;
+    void addDownloadListener(int i2, int i3, IDownloadAidlListener iDownloadAidlListener, int i4, boolean z) throws RemoteException;
 
-    void addDownloadListener1(int i10, int i11, IDownloadAidlListener iDownloadAidlListener, int i12, boolean z10, boolean z11) throws RemoteException;
+    void addDownloadListener1(int i2, int i3, IDownloadAidlListener iDownloadAidlListener, int i4, boolean z, boolean z2) throws RemoteException;
 
     void addProcessCallback(ProcessAidlCallback processAidlCallback) throws RemoteException;
 
-    boolean canResume(int i10) throws RemoteException;
+    boolean canResume(int i2) throws RemoteException;
 
-    void cancel(int i10, boolean z10) throws RemoteException;
+    void cancel(int i2, boolean z) throws RemoteException;
 
     void clearData() throws RemoteException;
 
-    void clearDownloadData(int i10, boolean z10) throws RemoteException;
+    void clearDownloadData(int i2, boolean z) throws RemoteException;
 
-    void dispatchProcessCallback(int i10, int i11) throws RemoteException;
+    void dispatchProcessCallback(int i2, int i3) throws RemoteException;
 
-    void forceDownloadIngoreRecommendSize(int i10) throws RemoteException;
+    void forceDownloadIngoreRecommendSize(int i2) throws RemoteException;
 
     List<DownloadInfo> getAllDownloadInfo() throws RemoteException;
 
-    long getCurBytes(int i10) throws RemoteException;
+    long getCurBytes(int i2) throws RemoteException;
 
-    List<DownloadChunk> getDownloadChunk(int i10) throws RemoteException;
+    List<DownloadChunk> getDownloadChunk(int i2) throws RemoteException;
 
-    IDownloadAidlFileProvider getDownloadFileUriProvider(int i10) throws RemoteException;
+    IDownloadAidlFileProvider getDownloadFileUriProvider(int i2) throws RemoteException;
 
     int getDownloadId(String str, String str2) throws RemoteException;
 
-    DownloadInfo getDownloadInfo(int i10) throws RemoteException;
+    DownloadInfo getDownloadInfo(int i2) throws RemoteException;
 
     DownloadInfo getDownloadInfoByUrlAndPath(String str, String str2) throws RemoteException;
 
     List<DownloadInfo> getDownloadInfoList(String str) throws RemoteException;
 
-    IDownloadNotificationEventAidlListener getDownloadNotificationEventListener(int i10) throws RemoteException;
+    IDownloadNotificationEventAidlListener getDownloadNotificationEventListener(int i2) throws RemoteException;
 
-    int getDownloadWithIndependentProcessStatus(int i10) throws RemoteException;
+    int getDownloadWithIndependentProcessStatus(int i2) throws RemoteException;
 
     List<DownloadInfo> getDownloadingDownloadInfosWithMimeType(String str) throws RemoteException;
 
     List<DownloadInfo> getFailedDownloadInfosWithMimeType(String str) throws RemoteException;
 
-    INotificationClickAidlCallback getNotificationClickCallback(int i10) throws RemoteException;
+    INotificationClickAidlCallback getNotificationClickCallback(int i2) throws RemoteException;
 
-    int getStatus(int i10) throws RemoteException;
+    int getStatus(int i2) throws RemoteException;
 
     List<DownloadInfo> getSuccessedDownloadInfosWithMimeType(String str) throws RemoteException;
 
@@ -1871,59 +1828,59 @@ public interface IDownloadAidlService extends IInterface {
 
     boolean isDownloadSuccessAndFileNotExist(DownloadInfo downloadInfo) throws RemoteException;
 
-    boolean isDownloading(int i10) throws RemoteException;
+    boolean isDownloading(int i2) throws RemoteException;
 
     boolean isHttpServiceInit() throws RemoteException;
 
     boolean isServiceForeground() throws RemoteException;
 
-    void pause(int i10) throws RemoteException;
+    void pause(int i2) throws RemoteException;
 
     void pauseAll() throws RemoteException;
 
-    void removeAllDownloadChunk(int i10) throws RemoteException;
+    void removeAllDownloadChunk(int i2) throws RemoteException;
 
-    boolean removeDownloadInfo(int i10) throws RemoteException;
+    boolean removeDownloadInfo(int i2) throws RemoteException;
 
-    void removeDownloadListener(int i10, int i11, IDownloadAidlListener iDownloadAidlListener, int i12, boolean z10) throws RemoteException;
+    void removeDownloadListener(int i2, int i3, IDownloadAidlListener iDownloadAidlListener, int i4, boolean z) throws RemoteException;
 
-    boolean removeDownloadTaskData(int i10) throws RemoteException;
+    boolean removeDownloadTaskData(int i2) throws RemoteException;
 
-    void resetDownloadData(int i10, boolean z10) throws RemoteException;
+    void resetDownloadData(int i2, boolean z) throws RemoteException;
 
-    void restart(int i10) throws RemoteException;
+    void restart(int i2) throws RemoteException;
 
     void restartAllFailedDownloadTasks(List<String> list) throws RemoteException;
 
     void restartAllPauseReserveOnWifiDownloadTasks(List<String> list) throws RemoteException;
 
-    void resume(int i10) throws RemoteException;
+    void resume(int i2) throws RemoteException;
 
-    boolean retryDelayStart(int i10) throws RemoteException;
+    boolean retryDelayStart(int i2) throws RemoteException;
 
-    void setDownloadNotificationEventListener(int i10, IDownloadNotificationEventAidlListener iDownloadNotificationEventAidlListener) throws RemoteException;
+    void setDownloadNotificationEventListener(int i2, IDownloadNotificationEventAidlListener iDownloadNotificationEventAidlListener) throws RemoteException;
 
-    void setDownloadWithIndependentProcessStatus(int i10, boolean z10) throws RemoteException;
+    void setDownloadWithIndependentProcessStatus(int i2, boolean z) throws RemoteException;
 
-    void setLogLevel(int i10) throws RemoteException;
+    void setLogLevel(int i2) throws RemoteException;
 
-    void setThrottleNetSpeed(int i10, long j10) throws RemoteException;
+    void setThrottleNetSpeed(int i2, long j2) throws RemoteException;
 
-    void startForeground(int i10, Notification notification) throws RemoteException;
+    void startForeground(int i2, Notification notification) throws RemoteException;
 
-    void stopForeground(boolean z10) throws RemoteException;
+    void stopForeground(boolean z) throws RemoteException;
 
-    void syncDownloadChunks(int i10, List<DownloadChunk> list) throws RemoteException;
+    void syncDownloadChunks(int i2, List<DownloadChunk> list) throws RemoteException;
 
-    void syncDownloadInfoFromOtherCache(int i10, List<DownloadChunk> list) throws RemoteException;
+    void syncDownloadInfoFromOtherCache(int i2, List<DownloadChunk> list) throws RemoteException;
 
     void tryDownload(DownloadAidlTask downloadAidlTask) throws RemoteException;
 
-    void updateDownloadChunk(int i10, int i11, long j10) throws RemoteException;
+    void updateDownloadChunk(int i2, int i3, long j2) throws RemoteException;
 
     boolean updateDownloadInfo(DownloadInfo downloadInfo) throws RemoteException;
 
-    void updateSubDownloadChunk(int i10, int i11, int i12, long j10) throws RemoteException;
+    void updateSubDownloadChunk(int i2, int i3, int i4, long j2) throws RemoteException;
 
-    void updateSubDownloadChunkIndex(int i10, int i11, int i12, int i13) throws RemoteException;
+    void updateSubDownloadChunkIndex(int i2, int i3, int i4, int i5) throws RemoteException;
 }

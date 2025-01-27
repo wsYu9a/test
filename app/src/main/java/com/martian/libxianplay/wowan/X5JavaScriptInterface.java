@@ -1,6 +1,7 @@
 package com.martian.libxianplay.wowan;
 
 import android.annotation.SuppressLint;
+import android.annotation.TargetApi;
 import android.app.Activity;
 import android.app.DownloadManager;
 import android.content.ClipboardManager;
@@ -13,22 +14,22 @@ import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.content.pm.ResolveInfo;
 import android.net.Uri;
+import android.os.Environment;
 import android.os.Handler;
 import android.text.TextUtils;
 import android.webkit.JavascriptInterface;
 import android.webkit.WebView;
 import android.widget.Toast;
-import ba.g;
-import ba.l;
-import ba.m;
-import com.baidu.mobads.sdk.internal.am;
-import com.martian.libxianplay.util.XianWanSystemUtil;
-import com.martian.libxianplay.wowan.X5JavaScriptInterface;
-import ea.c;
+import com.cdo.oaps.ad.OapsKey;
+import com.cdo.oaps.ad.OapsWrapper;
+import com.martian.libsupport.permission.TipInfo;
+import com.ss.android.downloadad.api.constant.AdBaseConstants;
+import com.ss.android.socialbase.downloader.utils.DownloadExpSwitchCode;
 import java.io.File;
 import java.util.Iterator;
 
 @SuppressLint({"NewApi"})
+@TargetApi(16)
 /* loaded from: classes3.dex */
 public class X5JavaScriptInterface {
     public static final String mStringKey = "fdsmkfshdik423432";
@@ -37,48 +38,76 @@ public class X5JavaScriptInterface {
     private final Handler mHandler = new Handler();
 
     /* renamed from: com.martian.libxianplay.wowan.X5JavaScriptInterface$1 */
-    public class AnonymousClass1 implements ea.b {
+    class AnonymousClass1 implements com.martian.libsupport.permission.f {
         final /* synthetic */ Context val$context;
         final /* synthetic */ File val$file;
 
-        public AnonymousClass1(Context context, File file) {
-            context = context;
-            file = file;
+        AnonymousClass1(final Context val$file, final File val$context) {
+            context = val$file;
+            file = val$context;
         }
 
-        @Override // ea.b
+        @Override // com.martian.libsupport.permission.f
         public void permissionDenied() {
         }
 
-        @Override // ea.b
+        @Override // com.martian.libsupport.permission.f
         public void permissionGranted() {
             X5JavaScriptInterface.this.installApk(context, file);
         }
     }
 
-    public X5JavaScriptInterface(Activity activity, WebView webView) {
-        this.mActivity = activity;
-        mWebView = webView;
+    /* renamed from: com.martian.libxianplay.wowan.X5JavaScriptInterface$2 */
+    class AnonymousClass2 implements com.martian.libsupport.permission.f {
+        final /* synthetic */ int val$isInstall;
+        final /* synthetic */ String val$url;
+        final /* synthetic */ int val$whichTask;
+
+        AnonymousClass2(final int val$url, final int val$isInstall, final String val$whichTask) {
+            whichTask = val$url;
+            isInstall = val$isInstall;
+            url = val$whichTask;
+        }
+
+        @Override // com.martian.libsupport.permission.f
+        public void permissionDenied() {
+            X5JavaScriptInterface.this.showShortToast();
+        }
+
+        @Override // com.martian.libsupport.permission.f
+        public void permissionGranted() {
+            X5JavaScriptInterface.this.downloadFile(whichTask, isInstall, url);
+        }
     }
 
-    private void downloadFile(int i10, int i11, String str) {
+    public X5JavaScriptInterface(Activity activity, WebView webview) {
+        this.mActivity = activity;
+        mWebView = webview;
+    }
+
+    public void downloadFile(final int whichTask, final int isInstall, String url) {
+        String str;
         Uri uriForDownloadedFile;
-        String str2 = str;
+        String str2 = url;
         try {
-            if (!XianWanSystemUtil.hasSD()) {
-                Toast.makeText(this.mActivity, "您还没有没有内存卡哦!", 0).show();
-                return;
-            }
             if (this.mActivity != null && mWebView != null) {
                 if (!str2.contains(".apk")) {
                     str2 = redirectPath(str2);
                 }
-                File i12 = ba.b.i();
-                if (i12 == null) {
+                File externalStorageDirectory = Environment.getExternalStorageState().equals("mounted") ? Environment.getExternalStorageDirectory() : null;
+                if (externalStorageDirectory != null) {
+                    str = externalStorageDirectory.getAbsolutePath() + File.separator + "wowan";
+                } else {
+                    str = "";
+                }
+                if (com.martian.libsupport.k.p(str)) {
                     Toast.makeText(this.mActivity, "请插入SD卡", 1).show();
                     return;
                 }
-                String path = i12.getPath();
+                File file = new File(str);
+                if (!file.exists()) {
+                    file.mkdir();
+                }
                 String[] split = str2.split(File.separator);
                 String str3 = split[split.length - 1];
                 if (!str3.contains(".apk")) {
@@ -89,28 +118,18 @@ public class X5JavaScriptInterface {
                 }
                 DownloadManager downloadManager = (DownloadManager) this.mActivity.getSystemService("download");
                 SharedPreferences sharedPreferences = this.mActivity.getSharedPreferences("wowan", 0);
-                long j10 = sharedPreferences.getLong(i10 + "", 0L);
-                if (j10 != 0 && PlayMeUtils.getBytesAndStatus(j10, downloadManager)[2] == 8 && (uriForDownloadedFile = downloadManager.getUriForDownloadedFile(j10)) != null && !TextUtils.isEmpty(uriForDownloadedFile.toString())) {
-                    File file = new File(path, str3);
-                    if (file.exists()) {
-                        PlayMeUtils.installThroughUri(this.mActivity, file);
+                long j2 = sharedPreferences.getLong(whichTask + "", 0L);
+                if (j2 != 0 && PlayMeUtils.getBytesAndStatus(j2, downloadManager)[2] == 8 && (uriForDownloadedFile = downloadManager.getUriForDownloadedFile(j2)) != null && !TextUtils.isEmpty(uriForDownloadedFile.toString())) {
+                    File file2 = new File(str, str3);
+                    if (file2.exists()) {
+                        PlayMeUtils.installThroughUri(this.mActivity, file2);
                         if (mWebView != null) {
-                            mWebView.post(new Runnable() { // from class: la.d
-
-                                /* renamed from: b */
-                                public final /* synthetic */ String f28056b;
-
-                                /* renamed from: c */
-                                public final /* synthetic */ String f28057c;
-
-                                public /* synthetic */ d(String str4, String str5) {
-                                    string2 = str4;
-                                    string = str5;
-                                }
-
+                            final String string = sharedPreferences.getString(j2 + OapsWrapper.KEY_PATH, "");
+                            final String string2 = sharedPreferences.getString(j2 + OapsKey.KEY_ADID, "");
+                            mWebView.post(new Runnable() { // from class: com.martian.libxianplay.wowan.e
                                 @Override // java.lang.Runnable
                                 public final void run() {
-                                    X5JavaScriptInterface.lambda$downloadFile$2(string2, string);
+                                    X5JavaScriptInterface.mWebView.loadUrl("javascript:downloadApkFileFinishListener(" + string2 + ",'" + string + "')");
                                 }
                             });
                             return;
@@ -123,22 +142,19 @@ public class X5JavaScriptInterface {
                 request.setAllowedNetworkTypes(3);
                 request.setNotificationVisibility(0);
                 request.setVisibleInDownloadsUi(true);
-                if (TextUtils.isEmpty(str3)) {
-                    return;
-                }
-                request.setDestinationUri(Uri.fromFile(new File(ba.b.i(), str3)));
+                request.setDestinationInExternalPublicDir("/wowan/", str3);
                 request.allowScanningByMediaScanner();
                 long enqueue = downloadManager.enqueue(request);
-                sharedPreferences.edit().putLong(i10 + "", enqueue).commit();
-                sharedPreferences.edit().putString(enqueue + t8.a.f30751f, path + "/" + str3).commit();
-                sharedPreferences.edit().putString(enqueue + "adid", i10 + "").commit();
+                sharedPreferences.edit().putLong(whichTask + "", enqueue).commit();
+                sharedPreferences.edit().putString(enqueue + OapsWrapper.KEY_PATH, str + "/" + str3).commit();
+                sharedPreferences.edit().putString(enqueue + OapsKey.KEY_ADID, whichTask + "").commit();
                 Activity activity = this.mActivity;
                 if (activity instanceof WowanDetailActivity) {
                     ((WowanDetailActivity) activity).startCheckProgressStates();
                 }
             }
-        } catch (Exception e10) {
-            e10.printStackTrace();
+        } catch (Exception e2) {
+            e2.printStackTrace();
         }
     }
 
@@ -147,71 +163,51 @@ public class X5JavaScriptInterface {
             return;
         }
         Intent intent = new Intent("android.intent.action.VIEW");
-        Uri z10 = g.z(this.mActivity, file);
-        if (z10 == null) {
+        Uri z = com.martian.libsupport.e.z(this.mActivity, file);
+        if (z == null) {
             return;
         }
-        intent.setFlags(268435456);
-        int i10 = context.getApplicationInfo().targetSdkVersion;
-        if (m.o() && i10 >= 24) {
+        intent.setFlags(DownloadExpSwitchCode.BUGFIX_GETPACKAGEINFO_BY_UNZIP);
+        int i2 = context.getApplicationInfo().targetSdkVersion;
+        if (com.martian.libsupport.l.u() && i2 >= 24) {
             intent.addFlags(1);
         }
-        intent.setDataAndType(z10, "application/vnd.android.package-archive");
+        intent.setDataAndType(z, AdBaseConstants.MIME_APK);
         context.startActivity(intent);
     }
 
-    public static boolean isAPKinstall(Context context, String str) {
-        boolean z10;
+    public static boolean isAPKinstall(Context context, String packageName) {
+        boolean z;
         PackageInfo packageInfo;
         Iterator<PackageInfo> it = context.getPackageManager().getInstalledPackages(8192).iterator();
         while (true) {
             if (!it.hasNext()) {
-                z10 = false;
+                z = false;
                 break;
             }
-            if (str.equalsIgnoreCase(it.next().packageName)) {
-                z10 = true;
+            if (packageName.equalsIgnoreCase(it.next().packageName)) {
+                z = true;
                 break;
             }
         }
-        if (z10) {
-            return z10;
+        if (z) {
+            return z;
         }
         try {
-            packageInfo = context.getPackageManager().getPackageInfo(str, 0);
-        } catch (PackageManager.NameNotFoundException e10) {
-            e10.printStackTrace();
+            packageInfo = context.getPackageManager().getPackageInfo(packageName, 0);
+        } catch (PackageManager.NameNotFoundException e2) {
+            e2.printStackTrace();
             packageInfo = null;
         }
         return packageInfo != null;
     }
 
-    public static /* synthetic */ void lambda$CheckAppIsInstall$0(String str, String[] strArr) {
-        String encrypt = PlayMeUtils.encrypt(str + strArr[0] + mStringKey);
-        mWebView.loadUrl("javascript:CheckAppCallback('" + str + "','" + strArr[0] + "','" + encrypt + "')");
+    static /* synthetic */ void lambda$CheckAppIsInstall$0(final String packageName, final String[] versionCodeArray) {
+        String encrypt = PlayMeUtils.encrypt(packageName + versionCodeArray[0] + mStringKey);
+        mWebView.loadUrl("javascript:CheckAppCallback('" + packageName + "','" + versionCodeArray[0] + "','" + encrypt + "')");
     }
 
-    public static /* synthetic */ void lambda$CheckAppIsInstall$1() {
-        mWebView.loadUrl("javascript:CheckAppNoInstall()");
-    }
-
-    public static /* synthetic */ void lambda$GetCopyContent$7(String str) {
-        mWebView.loadUrl("javascript:APPReturnClipboard('" + str + "')");
-    }
-
-    public static /* synthetic */ void lambda$InstallApk$3(int i10) {
-        mWebView.loadUrl("javascript:InstallApkListener(" + i10 + ",0,'安装路径为空')");
-    }
-
-    public static /* synthetic */ void lambda$InstallApk$4(int i10) {
-        mWebView.loadUrl("javascript:InstallApkListener(" + i10 + ",0,'安装路径不存在')");
-    }
-
-    public static /* synthetic */ void lambda$InstallApk$5(int i10) {
-        mWebView.loadUrl("javascript:InstallApkListener(" + i10 + ",1,'唤起安装成功')");
-    }
-
-    public static /* synthetic */ void lambda$RefreshWeb$6() {
+    static /* synthetic */ void lambda$RefreshWeb$6() {
         String url = mWebView.getUrl();
         if (TextUtils.isEmpty(url)) {
             return;
@@ -219,146 +215,96 @@ public class X5JavaScriptInterface {
         mWebView.loadUrl(url);
     }
 
-    public static /* synthetic */ void lambda$downloadFile$2(String str, String str2) {
-        mWebView.loadUrl("javascript:downloadApkFileFinishListener(" + str + ",'" + str2 + "')");
-    }
-
-    private void showShortToast() {
+    public void showShortToast() {
         Toast.makeText(this.mActivity, "缺少存储权限", 0).show();
     }
 
     @JavascriptInterface
-    public void Browser(String str) {
+    public void Browser(String url) {
         if (this.mActivity == null) {
             return;
         }
         try {
-            Uri parse = Uri.parse(str);
+            Uri parse = Uri.parse(url);
             Intent intent = new Intent();
             intent.setAction("android.intent.action.VIEW");
             intent.setData(parse);
             if (this.mActivity.getPackageManager().resolveActivity(intent, 65536) != null) {
                 this.mActivity.startActivity(intent);
             }
-        } catch (Exception e10) {
-            e10.printStackTrace();
+        } catch (Exception e2) {
+            e2.printStackTrace();
         }
     }
 
     @JavascriptInterface
-    public void CheckAppIsInstall(String str) {
+    public void CheckAppIsInstall(final String packageName) {
         Activity activity = this.mActivity;
         if (activity == null || mWebView == null) {
             return;
         }
-        String[] strArr = new String[1];
-        boolean z10 = false;
+        final String[] strArr = new String[1];
+        boolean z = false;
         for (PackageInfo packageInfo : activity.getPackageManager().getInstalledPackages(8192)) {
-            if (str.equalsIgnoreCase(packageInfo.packageName)) {
+            if (packageName.equalsIgnoreCase(packageInfo.packageName)) {
                 strArr[0] = String.valueOf(packageInfo.versionCode);
-                z10 = true;
+                z = true;
             }
         }
-        if (z10) {
-            mWebView.post(new Runnable() { // from class: la.i
-
-                /* renamed from: b */
-                public final /* synthetic */ String f28062b;
-
-                /* renamed from: c */
-                public final /* synthetic */ String[] f28063c;
-
-                public /* synthetic */ i(String str2, String[] strArr2) {
-                    str = str2;
-                    strArr = strArr2;
-                }
-
+        if (z) {
+            mWebView.post(new Runnable() { // from class: com.martian.libxianplay.wowan.l
                 @Override // java.lang.Runnable
                 public final void run() {
-                    X5JavaScriptInterface.lambda$CheckAppIsInstall$0(str, strArr);
+                    X5JavaScriptInterface.lambda$CheckAppIsInstall$0(packageName, strArr);
                 }
             });
         } else {
-            mWebView.post(new Runnable() { // from class: la.j
+            mWebView.post(new Runnable() { // from class: com.martian.libxianplay.wowan.g
                 @Override // java.lang.Runnable
                 public final void run() {
-                    X5JavaScriptInterface.lambda$CheckAppIsInstall$1();
+                    X5JavaScriptInterface.mWebView.loadUrl("javascript:CheckAppNoInstall()");
                 }
             });
         }
     }
 
-    /*  JADX ERROR: JadxRuntimeException in pass: ProcessVariables
-        jadx.core.utils.exceptions.JadxRuntimeException: Method arg registers not loaded: la.e.<init>(java.lang.String):void, class status: GENERATED_AND_UNLOADED
-        	at jadx.core.dex.nodes.MethodNode.getArgRegs(MethodNode.java:290)
-        	at jadx.core.dex.visitors.regions.variables.ProcessVariables$1.isArgUnused(ProcessVariables.java:146)
-        	at jadx.core.dex.visitors.regions.variables.ProcessVariables$1.lambda$isVarUnused$0(ProcessVariables.java:131)
-        	at jadx.core.utils.ListUtils.allMatch(ListUtils.java:193)
-        	at jadx.core.dex.visitors.regions.variables.ProcessVariables$1.isVarUnused(ProcessVariables.java:131)
-        	at jadx.core.dex.visitors.regions.variables.ProcessVariables$1.processBlock(ProcessVariables.java:82)
-        	at jadx.core.dex.visitors.regions.DepthRegionTraversal.traverseInternal(DepthRegionTraversal.java:64)
-        	at jadx.core.dex.visitors.regions.DepthRegionTraversal.lambda$traverseInternal$0(DepthRegionTraversal.java:68)
-        	at java.base/java.util.ArrayList.forEach(Unknown Source)
-        	at jadx.core.dex.visitors.regions.DepthRegionTraversal.traverseInternal(DepthRegionTraversal.java:68)
-        	at jadx.core.dex.visitors.regions.DepthRegionTraversal.traverse(DepthRegionTraversal.java:19)
-        	at jadx.core.dex.visitors.regions.variables.ProcessVariables.removeUnusedResults(ProcessVariables.java:73)
-        	at jadx.core.dex.visitors.regions.variables.ProcessVariables.visit(ProcessVariables.java:48)
-        */
-    @android.webkit.JavascriptInterface
+    @JavascriptInterface
     public void GetCopyContent() {
-        /*
-            r3 = this;
-            java.lang.String r0 = r3.getCopyBoradContent()
-            android.webkit.WebView r1 = com.martian.libxianplay.wowan.X5JavaScriptInterface.mWebView
-            if (r1 == 0) goto L10
-            la.e r2 = new la.e
-            r2.<init>()
-            r1.post(r2)
-        L10:
-            return
-        */
-        throw new UnsupportedOperationException("Method not decompiled: com.martian.libxianplay.wowan.X5JavaScriptInterface.GetCopyContent():void");
+        final String copyBoradContent = getCopyBoradContent();
+        WebView webView = mWebView;
+        if (webView != null) {
+            webView.post(new Runnable() { // from class: com.martian.libxianplay.wowan.k
+                @Override // java.lang.Runnable
+                public final void run() {
+                    X5JavaScriptInterface.mWebView.loadUrl("javascript:APPReturnClipboard('" + copyBoradContent + "')");
+                }
+            });
+        }
     }
 
     @JavascriptInterface
-    public void InstallApk(int i10, String str) {
-        if (l.q(str)) {
+    public void InstallApk(final int whichTask, String path) {
+        if (com.martian.libsupport.k.p(path)) {
             WebView webView = mWebView;
             if (webView != null) {
-                webView.post(new Runnable() { // from class: la.f
-
-                    /* renamed from: b */
-                    public final /* synthetic */ int f28059b;
-
-                    public /* synthetic */ f(int i102) {
-                        i10 = i102;
-                    }
-
+                webView.post(new Runnable() { // from class: com.martian.libxianplay.wowan.j
                     @Override // java.lang.Runnable
                     public final void run() {
-                        X5JavaScriptInterface.lambda$InstallApk$3(i10);
+                        X5JavaScriptInterface.mWebView.loadUrl("javascript:InstallApkListener(" + whichTask + ",0,'安装路径为空')");
                     }
                 });
                 return;
             }
             return;
         }
-        File file = new File(str);
+        File file = new File(path);
         if (!file.exists()) {
             WebView webView2 = mWebView;
             if (webView2 != null) {
-                webView2.post(new Runnable() { // from class: la.g
-
-                    /* renamed from: b */
-                    public final /* synthetic */ int f28060b;
-
-                    public /* synthetic */ g(int i102) {
-                        i10 = i102;
-                    }
-
+                webView2.post(new Runnable() { // from class: com.martian.libxianplay.wowan.f
                     @Override // java.lang.Runnable
                     public final void run() {
-                        X5JavaScriptInterface.lambda$InstallApk$4(i10);
+                        X5JavaScriptInterface.mWebView.loadUrl("javascript:InstallApkListener(" + whichTask + ",0,'安装路径不存在')");
                     }
                 });
                 return;
@@ -368,18 +314,10 @@ public class X5JavaScriptInterface {
         install(this.mActivity, file);
         WebView webView3 = mWebView;
         if (webView3 != null) {
-            webView3.post(new Runnable() { // from class: la.h
-
-                /* renamed from: b */
-                public final /* synthetic */ int f28061b;
-
-                public /* synthetic */ h(int i102) {
-                    i10 = i102;
-                }
-
+            webView3.post(new Runnable() { // from class: com.martian.libxianplay.wowan.h
                 @Override // java.lang.Runnable
                 public final void run() {
-                    X5JavaScriptInterface.lambda$InstallApk$5(i10);
+                    X5JavaScriptInterface.mWebView.loadUrl("javascript:InstallApkListener(" + whichTask + ",1,'唤起安装成功')");
                 }
             });
         }
@@ -390,7 +328,7 @@ public class X5JavaScriptInterface {
         if (mWebView == null) {
             return;
         }
-        this.mHandler.post(new Runnable() { // from class: la.k
+        this.mHandler.post(new Runnable() { // from class: com.martian.libxianplay.wowan.i
             @Override // java.lang.Runnable
             public final void run() {
                 X5JavaScriptInterface.lambda$RefreshWeb$6();
@@ -399,8 +337,8 @@ public class X5JavaScriptInterface {
     }
 
     @JavascriptInterface
-    public void copyContent(String str, String str2) {
-        if (str == null) {
+    public void copyContent(String officialaccount, String tips) {
+        if (officialaccount == null) {
             return;
         }
         try {
@@ -408,19 +346,40 @@ public class X5JavaScriptInterface {
             if (activity == null) {
                 return;
             }
-            ((ClipboardManager) activity.getSystemService("clipboard")).setText(str);
-            if (TextUtils.isEmpty(str2)) {
+            ((ClipboardManager) activity.getSystemService("clipboard")).setText(officialaccount);
+            if (TextUtils.isEmpty(tips)) {
                 return;
             }
-            Toast.makeText(this.mActivity, str2, 0).show();
-        } catch (Exception e10) {
-            e10.printStackTrace();
+            Toast.makeText(this.mActivity, tips, 0).show();
+        } catch (Exception e2) {
+            e2.printStackTrace();
         }
     }
 
     @JavascriptInterface
-    public void downloadApkFile(int i10, int i11, String str) {
-        downloadFile(i10, i11, str);
+    @TargetApi(11)
+    public void downloadApkFile(final int whichTask, final int isInstall, final String url) {
+        com.martian.libsupport.permission.g.h(this.mActivity, new com.martian.libsupport.permission.f() { // from class: com.martian.libxianplay.wowan.X5JavaScriptInterface.2
+            final /* synthetic */ int val$isInstall;
+            final /* synthetic */ String val$url;
+            final /* synthetic */ int val$whichTask;
+
+            AnonymousClass2(final int whichTask2, final int isInstall2, final String url2) {
+                whichTask = whichTask2;
+                isInstall = isInstall2;
+                url = url2;
+            }
+
+            @Override // com.martian.libsupport.permission.f
+            public void permissionDenied() {
+                X5JavaScriptInterface.this.showShortToast();
+            }
+
+            @Override // com.martian.libsupport.permission.f
+            public void permissionGranted() {
+                X5JavaScriptInterface.this.downloadFile(whichTask, isInstall, url);
+            }
+        }, new String[]{com.kuaishou.weapon.p0.g.f9325j}, true, new TipInfo("权限申请", "需要存储权限才能正常使用下载功能\n \n 请点击 \"前往开启\"-\"权限管理\"-打开所需权限。", "取消", "前往开启"), true);
     }
 
     public String getCopyBoradContent() {
@@ -431,7 +390,7 @@ public class X5JavaScriptInterface {
                 return "";
             }
             ClipboardManager clipboardManager = (ClipboardManager) activity.getSystemService("clipboard");
-            if (!clipboardManager.getPrimaryClipDescription().hasMimeType(am.f6739e) && !clipboardManager.getPrimaryClipDescription().hasMimeType("text/html")) {
+            if (!clipboardManager.getPrimaryClipDescription().hasMimeType("text/plain") && !clipboardManager.getPrimaryClipDescription().hasMimeType("text/html")) {
                 return null;
             }
             try {
@@ -440,27 +399,27 @@ public class X5JavaScriptInterface {
                 str = "";
             }
             return TextUtils.isEmpty(str) ? "" : str;
-        } catch (Exception e10) {
-            e10.printStackTrace();
+        } catch (Exception e2) {
+            e2.printStackTrace();
             return null;
         }
     }
 
-    public void install(Context context, File file) {
-        c.j(this.mActivity, new ea.b() { // from class: com.martian.libxianplay.wowan.X5JavaScriptInterface.1
+    public void install(final Context context, final File file) {
+        com.martian.libsupport.permission.g.f(this.mActivity, new com.martian.libsupport.permission.f() { // from class: com.martian.libxianplay.wowan.X5JavaScriptInterface.1
             final /* synthetic */ Context val$context;
             final /* synthetic */ File val$file;
 
-            public AnonymousClass1(Context context2, File file2) {
+            AnonymousClass1(final Context context2, final File file2) {
                 context = context2;
                 file = file2;
             }
 
-            @Override // ea.b
+            @Override // com.martian.libsupport.permission.f
             public void permissionDenied() {
             }
 
-            @Override // ea.b
+            @Override // com.martian.libsupport.permission.f
             public void permissionGranted() {
                 X5JavaScriptInterface.this.installApk(context, file);
             }
@@ -468,16 +427,15 @@ public class X5JavaScriptInterface {
     }
 
     @JavascriptInterface
-    public void openAdDetail(String str) {
+    public void openAdDetail(String url) {
         Activity activity;
-        if (l.q(str) || (activity = this.mActivity) == null) {
+        if (com.martian.libsupport.k.p(url) || (activity = this.mActivity) == null) {
             return;
         }
-        WowanDetailActivity.startWebViewActivity(activity, str);
+        WowanDetailActivity.startWebViewActivity(activity, url);
     }
 
-    /* JADX WARN: Not initialized variable reg: 1, insn: 0x002f: MOVE (r0 I:??[OBJECT, ARRAY]) = (r1 I:??[OBJECT, ARRAY]) (LINE:48), block:B:18:0x002f */
-    /* JADX WARN: Removed duplicated region for block: B:20:0x0044  */
+    /* JADX WARN: Removed duplicated region for block: B:20:0x0043  */
     /*
         Code decompiled incorrectly, please refer to instructions dump.
         To view partially-correct code enable 'Show inconsistent code' option in preferences
@@ -486,92 +444,91 @@ public class X5JavaScriptInterface {
         /*
             r4 = this;
             r0 = 0
-            java.net.URL r1 = new java.net.URL     // Catch: java.lang.Throwable -> L33 java.lang.Exception -> L35
-            r1.<init>(r5)     // Catch: java.lang.Throwable -> L33 java.lang.Exception -> L35
-            java.net.URLConnection r1 = r1.openConnection()     // Catch: java.lang.Throwable -> L33 java.lang.Exception -> L35
-            java.net.HttpURLConnection r1 = (java.net.HttpURLConnection) r1     // Catch: java.lang.Throwable -> L33 java.lang.Exception -> L35
+            java.net.URL r1 = new java.net.URL     // Catch: java.lang.Throwable -> L30 java.lang.Exception -> L32
+            r1.<init>(r5)     // Catch: java.lang.Throwable -> L30 java.lang.Exception -> L32
+            java.net.URLConnection r1 = r1.openConnection()     // Catch: java.lang.Throwable -> L30 java.lang.Exception -> L32
+            java.net.HttpURLConnection r1 = (java.net.HttpURLConnection) r1     // Catch: java.lang.Throwable -> L30 java.lang.Exception -> L32
             r0 = 30000(0x7530, float:4.2039E-41)
-            r1.setConnectTimeout(r0)     // Catch: java.lang.Throwable -> L2e java.lang.Exception -> L31
-            r1.setReadTimeout(r0)     // Catch: java.lang.Throwable -> L2e java.lang.Exception -> L31
+            r1.setConnectTimeout(r0)     // Catch: java.lang.Exception -> L2e java.lang.Throwable -> L3f
+            r1.setReadTimeout(r0)     // Catch: java.lang.Exception -> L2e java.lang.Throwable -> L3f
             java.lang.String r0 = "User-Agent"
             java.lang.String r2 = "PacificHttpClient"
-            r1.setRequestProperty(r0, r2)     // Catch: java.lang.Throwable -> L2e java.lang.Exception -> L31
+            r1.setRequestProperty(r0, r2)     // Catch: java.lang.Exception -> L2e java.lang.Throwable -> L3f
             r0 = 1
-            r1.setInstanceFollowRedirects(r0)     // Catch: java.lang.Throwable -> L2e java.lang.Exception -> L31
-            r1.getResponseCode()     // Catch: java.lang.Throwable -> L2e java.lang.Exception -> L31
-            java.net.URL r0 = r1.getURL()     // Catch: java.lang.Throwable -> L2e java.lang.Exception -> L31
-            java.lang.String r5 = r0.toString()     // Catch: java.lang.Throwable -> L2e java.lang.Exception -> L31
+            r1.setInstanceFollowRedirects(r0)     // Catch: java.lang.Exception -> L2e java.lang.Throwable -> L3f
+            r1.getResponseCode()     // Catch: java.lang.Exception -> L2e java.lang.Throwable -> L3f
+            java.net.URL r0 = r1.getURL()     // Catch: java.lang.Exception -> L2e java.lang.Throwable -> L3f
+            java.lang.String r5 = r0.toString()     // Catch: java.lang.Exception -> L2e java.lang.Throwable -> L3f
             r1.disconnect()
             return r5
         L2e:
-            r5 = move-exception
-            r0 = r1
-            goto L42
-        L31:
             r0 = move-exception
-            goto L39
-        L33:
+            goto L36
+        L30:
             r5 = move-exception
-            goto L42
-        L35:
+            goto L41
+        L32:
             r1 = move-exception
             r3 = r1
             r1 = r0
             r0 = r3
-        L39:
-            r0.printStackTrace()     // Catch: java.lang.Throwable -> L2e
-            if (r1 == 0) goto L41
+        L36:
+            r0.printStackTrace()     // Catch: java.lang.Throwable -> L3f
+            if (r1 == 0) goto L3e
             r1.disconnect()
-        L41:
+        L3e:
             return r5
-        L42:
-            if (r0 == 0) goto L47
+        L3f:
+            r5 = move-exception
+            r0 = r1
+        L41:
+            if (r0 == 0) goto L46
             r0.disconnect()
-        L47:
+        L46:
             throw r5
         */
         throw new UnsupportedOperationException("Method not decompiled: com.martian.libxianplay.wowan.X5JavaScriptInterface.redirectPath(java.lang.String):java.lang.String");
     }
 
     @JavascriptInterface
-    public void startAnotherApp(String str) {
+    public void startAnotherApp(String packageName) {
         try {
-            if (this.mActivity == null || TextUtils.isEmpty(str) || !isAPKinstall(this.mActivity, str)) {
+            if (this.mActivity == null || TextUtils.isEmpty(packageName) || !isAPKinstall(this.mActivity, packageName)) {
                 return;
             }
-            startAnotherApp(this.mActivity, str);
-        } catch (Exception e10) {
-            e10.printStackTrace();
+            startAnotherApp(this.mActivity, packageName);
+        } catch (Exception e2) {
+            e2.printStackTrace();
         }
     }
 
     @JavascriptInterface
-    public void uninstallApk(String str) {
-        if (TextUtils.isEmpty(str) || this.mActivity == null) {
+    public void uninstallApk(String packName) {
+        if (TextUtils.isEmpty(packName) || this.mActivity == null) {
             return;
         }
-        this.mActivity.startActivity(new Intent("android.intent.action.DELETE", Uri.parse("package:" + str)));
+        this.mActivity.startActivity(new Intent("android.intent.action.DELETE", Uri.parse("package:" + packName)));
     }
 
-    public static void startAnotherApp(Context context, String str) {
+    public static void startAnotherApp(Context context, String packageName) {
         try {
-            PackageInfo packageInfo = context.getPackageManager().getPackageInfo(str, 0);
+            PackageInfo packageInfo = context.getPackageManager().getPackageInfo(packageName, 0);
             Intent intent = new Intent("android.intent.action.MAIN", (Uri) null);
             intent.addCategory("android.intent.category.LAUNCHER");
             intent.setPackage(packageInfo.packageName);
             ResolveInfo next = context.getPackageManager().queryIntentActivities(intent, 0).iterator().next();
             if (next != null) {
                 ActivityInfo activityInfo = next.activityInfo;
-                String str2 = activityInfo.packageName;
-                String str3 = activityInfo.name;
+                String str = activityInfo.packageName;
+                String str2 = activityInfo.name;
                 Intent intent2 = new Intent("android.intent.action.MAIN");
                 intent2.addCategory("android.intent.category.LAUNCHER");
-                intent2.setFlags(268435456);
-                intent2.setComponent(new ComponentName(str2, str3));
+                intent2.setFlags(DownloadExpSwitchCode.BUGFIX_GETPACKAGEINFO_BY_UNZIP);
+                intent2.setComponent(new ComponentName(str, str2));
                 context.startActivity(intent2);
             }
-        } catch (Exception e10) {
-            e10.printStackTrace();
+        } catch (Exception e2) {
+            e2.printStackTrace();
         }
     }
 }

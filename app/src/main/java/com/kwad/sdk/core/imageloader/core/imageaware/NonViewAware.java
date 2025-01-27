@@ -7,7 +7,7 @@ import android.view.View;
 import com.kwad.sdk.core.imageloader.core.assist.ImageSize;
 import com.kwad.sdk.core.imageloader.core.assist.ViewScaleType;
 
-/* loaded from: classes3.dex */
+/* loaded from: classes2.dex */
 public class NonViewAware implements ImageAware {
     protected final ImageSize imageSize;
     protected final String imageUri;
@@ -15,6 +15,18 @@ public class NonViewAware implements ImageAware {
 
     public NonViewAware(ImageSize imageSize, ViewScaleType viewScaleType) {
         this(null, imageSize, viewScaleType);
+    }
+
+    public NonViewAware(String str, ImageSize imageSize, ViewScaleType viewScaleType) {
+        if (imageSize == null) {
+            throw new IllegalArgumentException("imageSize must not be null");
+        }
+        if (viewScaleType == null) {
+            throw new IllegalArgumentException("scaleType must not be null");
+        }
+        this.imageUri = str;
+        this.imageSize = imageSize;
+        this.scaleType = viewScaleType;
     }
 
     @Override // com.kwad.sdk.core.imageloader.core.imageaware.ImageAware
@@ -55,17 +67,5 @@ public class NonViewAware implements ImageAware {
     @Override // com.kwad.sdk.core.imageloader.core.imageaware.ImageAware
     public boolean setImageDrawable(Drawable drawable) {
         return true;
-    }
-
-    public NonViewAware(String str, ImageSize imageSize, ViewScaleType viewScaleType) {
-        if (imageSize == null) {
-            throw new IllegalArgumentException("imageSize must not be null");
-        }
-        if (viewScaleType == null) {
-            throw new IllegalArgumentException("scaleType must not be null");
-        }
-        this.imageUri = str;
-        this.imageSize = imageSize;
-        this.scaleType = viewScaleType;
     }
 }

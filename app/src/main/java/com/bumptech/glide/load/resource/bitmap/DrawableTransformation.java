@@ -11,14 +11,14 @@ import com.bumptech.glide.load.engine.Resource;
 import com.bumptech.glide.load.engine.bitmap_recycle.BitmapPool;
 import java.security.MessageDigest;
 
-/* loaded from: classes2.dex */
+/* loaded from: classes.dex */
 public class DrawableTransformation implements Transformation<Drawable> {
     private final boolean isRequired;
     private final Transformation<Bitmap> wrapped;
 
-    public DrawableTransformation(Transformation<Bitmap> transformation, boolean z10) {
+    public DrawableTransformation(Transformation<Bitmap> transformation, boolean z) {
         this.wrapped = transformation;
-        this.isRequired = z10;
+        this.isRequired = z;
     }
 
     private Resource<Drawable> newDrawableResource(Context context, Resource<Bitmap> resource) {
@@ -44,12 +44,12 @@ public class DrawableTransformation implements Transformation<Drawable> {
 
     @Override // com.bumptech.glide.load.Transformation
     @NonNull
-    public Resource<Drawable> transform(@NonNull Context context, @NonNull Resource<Drawable> resource, int i10, int i11) {
+    public Resource<Drawable> transform(@NonNull Context context, @NonNull Resource<Drawable> resource, int i2, int i3) {
         BitmapPool bitmapPool = Glide.get(context).getBitmapPool();
         Drawable drawable = resource.get();
-        Resource<Bitmap> convert = DrawableToBitmapConverter.convert(bitmapPool, drawable, i10, i11);
+        Resource<Bitmap> convert = DrawableToBitmapConverter.convert(bitmapPool, drawable, i2, i3);
         if (convert != null) {
-            Resource<Bitmap> transform = this.wrapped.transform(context, convert, i10, i11);
+            Resource<Bitmap> transform = this.wrapped.transform(context, convert, i2, i3);
             if (!transform.equals(convert)) {
                 return newDrawableResource(context, transform);
             }

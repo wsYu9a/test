@@ -5,10 +5,17 @@ import com.kwad.components.offline.api.core.network.model.CommonOfflineCompoResu
 import java.io.Serializable;
 import org.json.JSONObject;
 
-/* loaded from: classes3.dex */
+/* loaded from: classes2.dex */
 public class KSAdLiveEndResultData extends CommonOfflineCompoResultData implements Serializable {
     private static final long serialVersionUID = -6047167317852134995L;
     public KSAdLivePushEndInfo mQLivePushEndInfo = new KSAdLivePushEndInfo();
+
+    public void parseJson(KSAdLiveEndResultData kSAdLiveEndResultData, JSONObject jSONObject) {
+        if (jSONObject == null) {
+            return;
+        }
+        kSAdLiveEndResultData.mQLivePushEndInfo.parseJson(jSONObject);
+    }
 
     @Override // com.kwad.components.offline.api.core.network.model.CommonOfflineCompoResultData
     public void parseJson(@Nullable JSONObject jSONObject) {
@@ -21,13 +28,6 @@ public class KSAdLiveEndResultData extends CommonOfflineCompoResultData implemen
         JSONObject json = super.toJson();
         toJson(this, json);
         return json;
-    }
-
-    public void parseJson(KSAdLiveEndResultData kSAdLiveEndResultData, JSONObject jSONObject) {
-        if (jSONObject == null) {
-            return;
-        }
-        kSAdLiveEndResultData.mQLivePushEndInfo.parseJson(jSONObject);
     }
 
     public JSONObject toJson(KSAdLiveEndResultData kSAdLiveEndResultData, JSONObject jSONObject) {

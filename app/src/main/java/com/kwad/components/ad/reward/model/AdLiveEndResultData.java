@@ -1,12 +1,12 @@
 package com.kwad.components.ad.reward.model;
 
 import androidx.annotation.Nullable;
-import com.kwad.sdk.core.response.model.BaseResultData;
-import com.kwad.sdk.utils.x;
+import com.kwad.sdk.core.network.BaseResultData;
+import com.kwad.sdk.utils.t;
 import java.io.Serializable;
 import org.json.JSONObject;
 
-/* loaded from: classes2.dex */
+/* loaded from: classes.dex */
 public class AdLiveEndResultData extends BaseResultData {
     private static final long serialVersionUID = 1126369604146892297L;
     public AdLivePushEndInfo mQLivePushEndInfo = new AdLivePushEndInfo();
@@ -42,17 +42,17 @@ public class AdLiveEndResultData extends BaseResultData {
         @Override // com.kwad.sdk.core.b
         public JSONObject toJson() {
             JSONObject jSONObject = new JSONObject();
-            x.putValue(jSONObject, "totalWatchingDuration", this.mTotalWatchingDuration);
-            x.putValue(jSONObject, "watchingUserCount", this.mWatchingUserCount);
-            x.putValue(jSONObject, "displayWatchingUserCount", this.mDisplayWatchingUserCount);
-            x.putValue(jSONObject, "liveDuration", this.mLiveDuration);
-            x.putValue(jSONObject, "likeUserCount", this.mLikeUserCount);
-            x.putValue(jSONObject, "displayLikeUserCount", this.mDisplayLikeUserCount);
+            t.putValue(jSONObject, "totalWatchingDuration", this.mTotalWatchingDuration);
+            t.putValue(jSONObject, "watchingUserCount", this.mWatchingUserCount);
+            t.putValue(jSONObject, "displayWatchingUserCount", this.mDisplayWatchingUserCount);
+            t.putValue(jSONObject, "liveDuration", this.mLiveDuration);
+            t.putValue(jSONObject, "likeUserCount", this.mLikeUserCount);
+            t.putValue(jSONObject, "displayLikeUserCount", this.mDisplayLikeUserCount);
             return jSONObject;
         }
     }
 
-    @Override // com.kwad.sdk.core.response.model.BaseResultData, com.kwad.sdk.core.b
+    @Override // com.kwad.sdk.core.network.BaseResultData, com.kwad.sdk.core.b
     public void parseJson(@Nullable JSONObject jSONObject) {
         super.parseJson(jSONObject);
         if (jSONObject == null) {
@@ -61,7 +61,7 @@ public class AdLiveEndResultData extends BaseResultData {
         this.mQLivePushEndInfo.parseJson(jSONObject);
     }
 
-    @Override // com.kwad.sdk.core.response.model.BaseResultData, com.kwad.sdk.core.b
+    @Override // com.kwad.sdk.core.network.BaseResultData, com.kwad.sdk.core.b
     public JSONObject toJson() {
         return this.mQLivePushEndInfo.toJson();
     }

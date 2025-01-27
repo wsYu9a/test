@@ -16,10 +16,10 @@ public class TinkerResultService extends DefaultTinkerResultService {
     private static final String TAG = "Tinker.TinkerResultService";
 
     /* renamed from: com.tencent.bugly.beta.tinker.TinkerResultService$1 */
-    public class AnonymousClass1 implements Runnable {
+    class AnonymousClass1 implements Runnable {
         final /* synthetic */ PatchResult val$result;
 
-        public AnonymousClass1(PatchResult patchResult) {
+        AnonymousClass1(PatchResult patchResult) {
             patchResult = patchResult;
         }
 
@@ -34,8 +34,8 @@ public class TinkerResultService extends DefaultTinkerResultService {
     }
 
     /* renamed from: com.tencent.bugly.beta.tinker.TinkerResultService$2 */
-    public class AnonymousClass2 implements TinkerUtils.ScreenState.IOnScreenOff {
-        public AnonymousClass2() {
+    class AnonymousClass2 implements TinkerUtils.ScreenState.IOnScreenOff {
+        AnonymousClass2() {
         }
 
         @Override // com.tencent.bugly.beta.tinker.TinkerUtils.ScreenState.IOnScreenOff
@@ -63,7 +63,7 @@ public class TinkerResultService extends DefaultTinkerResultService {
         new Handler(Looper.getMainLooper()).post(new Runnable() { // from class: com.tencent.bugly.beta.tinker.TinkerResultService.1
             final /* synthetic */ PatchResult val$result;
 
-            public AnonymousClass1(PatchResult patchResult2) {
+            AnonymousClass1(PatchResult patchResult2) {
                 patchResult = patchResult2;
             }
 
@@ -89,7 +89,7 @@ public class TinkerResultService extends DefaultTinkerResultService {
                 } else {
                     TinkerLog.i(TAG, "tinker wait screen to restart process", new Object[0]);
                     new TinkerUtils.ScreenState(getApplicationContext(), new TinkerUtils.ScreenState.IOnScreenOff() { // from class: com.tencent.bugly.beta.tinker.TinkerResultService.2
-                        public AnonymousClass2() {
+                        AnonymousClass2() {
                         }
 
                         @Override // com.tencent.bugly.beta.tinker.TinkerUtils.ScreenState.IOnScreenOff

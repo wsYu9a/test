@@ -1,7 +1,7 @@
 package com.umeng.commonsdk.internal.utils;
 
 import android.os.Build;
-import com.kuaishou.weapon.p0.bi;
+import com.kuaishou.weapon.p0.bh;
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.InputStreamReader;
@@ -12,14 +12,14 @@ import java.util.ArrayList;
 public class e {
 
     public enum a {
-        check_su_binary(new String[]{"/system/xbin/which", bi.f10829y});
+        check_su_binary(new String[]{"/system/xbin/which", bh.y});
 
 
         /* renamed from: b */
-        String[] f24543b;
+        String[] f26233b;
 
         a(String[] strArr) {
-            this.f24543b = strArr;
+            this.f26233b = strArr;
         }
     }
 
@@ -29,7 +29,7 @@ public class e {
             return arrayList;
         }
         try {
-            Process exec = Runtime.getRuntime().exec(aVar.f24543b);
+            Process exec = Runtime.getRuntime().exec(aVar.f26233b);
             new BufferedWriter(new OutputStreamWriter(exec.getOutputStream()));
             BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(exec.getInputStream()));
             while (true) {

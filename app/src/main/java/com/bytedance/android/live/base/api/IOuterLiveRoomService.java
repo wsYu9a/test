@@ -2,21 +2,17 @@ package com.bytedance.android.live.base.api;
 
 import android.content.Context;
 import android.os.Bundle;
-import com.bytedance.android.live.base.api.callback.Callback;
 import com.bytedance.android.live.base.api.outer.ILiveProvider;
 import com.bytedance.android.live.base.api.outer.data.OpenUserInfo;
 import com.bytedance.android.live.base.api.push.ILivePush;
 
-/* loaded from: classes2.dex */
+/* loaded from: classes.dex */
 public interface IOuterLiveRoomService {
     void addEventListener(IEventListener iEventListener);
 
     Object callExpandMethod(String str, Object... objArr);
 
-    @Deprecated
     void enterRoomWithDraw();
-
-    void enterRoomWithDraw(Bundle bundle);
 
     ILiveProvider getLiveProvider();
 
@@ -31,9 +27,7 @@ public interface IOuterLiveRoomService {
     @Deprecated
     void setEventListener(IEventListener iEventListener);
 
-    void setNeedPersonalRecommend(boolean z10);
+    void setNeedPersonalRecommend(boolean z);
 
-    void setUseBlackNavigationBar(boolean z10);
-
-    void updateConsumer(int i10, Callback<Object> callback, boolean z10);
+    void setUseBlackNavigationBar(boolean z);
 }

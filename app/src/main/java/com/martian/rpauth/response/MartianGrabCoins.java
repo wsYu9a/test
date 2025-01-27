@@ -1,6 +1,6 @@
 package com.martian.rpauth.response;
 
-/* loaded from: classes3.dex */
+/* loaded from: classes4.dex */
 public class MartianGrabCoins {
     private Integer coins;
     private Long createdOn;
@@ -15,11 +15,11 @@ public class MartianGrabCoins {
     }
 
     public long getCreateOn() {
-        Long l10 = this.createdOn;
-        if (l10 == null) {
+        Long l = this.createdOn;
+        if (l == null) {
             return -1L;
         }
-        return l10.longValue();
+        return l.longValue();
     }
 
     public int getMoney() {
@@ -30,15 +30,15 @@ public class MartianGrabCoins {
         return num.intValue();
     }
 
-    public void setCoins(Integer num) {
-        this.coins = num;
+    public void setCoins(Integer coins) {
+        this.coins = coins;
     }
 
-    public void setCreatedOn(Long l10) {
-        this.createdOn = l10;
+    public void setCreatedOn(Long createdOn) {
+        this.createdOn = createdOn;
     }
 
-    public void setMoney(Integer num) {
-        this.money = num;
+    public void setMoney(Integer money) {
+        this.money = money;
     }
 }

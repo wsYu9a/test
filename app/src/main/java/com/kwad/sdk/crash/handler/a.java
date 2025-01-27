@@ -8,21 +8,21 @@ import com.kwad.sdk.crash.utils.g;
 import java.util.ArrayList;
 import java.util.UUID;
 
-/* loaded from: classes3.dex */
+/* loaded from: classes2.dex */
 public final class a {
     private static void a(ExceptionMessage exceptionMessage) {
-        com.kwad.sdk.core.d.c.d("AnrAndNativeAdExceptionCollector", "upload msg=" + exceptionMessage);
+        com.kwad.sdk.core.d.b.d("ExceptionCollector", "upload msg=" + exceptionMessage);
         ArrayList arrayList = new ArrayList(1);
         arrayList.add(com.kwad.sdk.crash.report.request.c.d(exceptionMessage));
         com.kwad.sdk.crash.report.request.b.a(arrayList, null);
     }
 
-    public static void p(@NonNull Throwable th2) {
+    public static void i(@NonNull Throwable th) {
         CaughtExceptionMessage caughtExceptionMessage = new CaughtExceptionMessage();
         caughtExceptionMessage.mLogUUID = UUID.randomUUID().toString();
-        caughtExceptionMessage.mCrashDetail = th2.toString();
+        caughtExceptionMessage.mCrashDetail = th.toString();
         caughtExceptionMessage.mCrashSource = 1;
-        g.b(th2, caughtExceptionMessage, e.Jk().getContext());
+        g.b(th, caughtExceptionMessage, e.zy().getContext());
         g.a(caughtExceptionMessage, 2);
         a(caughtExceptionMessage);
     }

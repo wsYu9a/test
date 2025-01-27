@@ -4,59 +4,59 @@ import com.kwad.sdk.pngencrypt.PngjException;
 import java.io.ByteArrayInputStream;
 import java.util.zip.CRC32;
 
-/* loaded from: classes3.dex */
+/* loaded from: classes2.dex */
 public final class d {
-    public final byte[] aQt;
-    private CRC32 aQw;
-    public final String akr;
+    public final byte[] awF;
+    public final String awG;
+    private CRC32 awJ;
     public final int len;
     public byte[] data = null;
-    private long aQu = 0;
-    public byte[] aQv = new byte[4];
+    private long awH = 0;
+    public byte[] awI = new byte[4];
 
-    public d(int i10, String str, boolean z10) {
-        this.len = i10;
-        this.akr = str;
-        this.aQt = b.gv(str);
-        for (int i11 = 0; i11 < 4; i11++) {
-            byte b10 = this.aQt[i11];
-            if (b10 < 65 || b10 > 122 || (b10 > 90 && b10 < 97)) {
-                com.kwad.sdk.core.d.c.printStackTrace(new PngjException("Bad id chunk: must be ascii letters " + str));
+    public d(int i2, String str, boolean z) {
+        this.len = i2;
+        this.awG = str;
+        this.awF = b.el(str);
+        for (int i3 = 0; i3 < 4; i3++) {
+            byte[] bArr = this.awF;
+            if (bArr[i3] < 65 || bArr[i3] > 122 || (bArr[i3] > 90 && bArr[i3] < 97)) {
+                com.kwad.sdk.core.d.b.printStackTrace(new PngjException("Bad id chunk: must be ascii letters " + str));
             }
         }
-        if (z10) {
-            LW();
+        if (z) {
+            BU();
         }
     }
 
-    private void LW() {
+    private void BU() {
         byte[] bArr = this.data;
         if (bArr == null || bArr.length < this.len) {
             this.data = new byte[this.len];
         }
     }
 
-    public final ByteArrayInputStream LX() {
+    final ByteArrayInputStream BV() {
         return new ByteArrayInputStream(this.data);
     }
 
-    public final long LY() {
-        return this.aQu;
+    public final long BW() {
+        return this.awH;
     }
 
-    public final void aM(long j10) {
-        this.aQu = j10;
+    public final void ae(long j2) {
+        this.awH = j2;
     }
 
-    public final void bL(boolean z10) {
-        int value = (int) this.aQw.getValue();
-        int g10 = com.kwad.sdk.pngencrypt.n.g(this.aQv, 0);
-        if (value != g10) {
-            String format = String.format("Bad CRC in chunk: %s (offset:%d). Expected:%x Got:%x", this.akr, Long.valueOf(this.aQu), Integer.valueOf(g10), Integer.valueOf(value));
-            if (z10) {
-                com.kwad.sdk.core.d.c.printStackTrace(new PngjException(format));
+    public final void bo(boolean z) {
+        int value = (int) this.awJ.getValue();
+        int g2 = com.kwad.sdk.pngencrypt.n.g(this.awI, 0);
+        if (value != g2) {
+            String format = String.format("Bad CRC in chunk: %s (offset:%d). Expected:%x Got:%x", this.awG, Long.valueOf(this.awH), Integer.valueOf(g2), Integer.valueOf(value));
+            if (z) {
+                com.kwad.sdk.core.d.b.printStackTrace(new PngjException(format));
             } else {
-                com.kwad.sdk.core.d.c.d("PNG_ENCRYPT", format);
+                com.kwad.sdk.core.d.b.d("PNG_ENCRYPT", format);
             }
         }
     }
@@ -69,32 +69,32 @@ public final class d {
             return false;
         }
         d dVar = (d) obj;
-        String str = this.akr;
+        String str = this.awG;
         if (str == null) {
-            if (dVar.akr != null) {
+            if (dVar.awG != null) {
                 return false;
             }
-        } else if (!str.equals(dVar.akr)) {
+        } else if (!str.equals(dVar.awG)) {
             return false;
         }
-        return this.aQu == dVar.aQu;
+        return this.awH == dVar.awH;
     }
 
-    public final void f(byte[] bArr, int i10, int i11) {
-        if (this.aQw == null) {
-            this.aQw = new CRC32();
+    public final void f(byte[] bArr, int i2, int i3) {
+        if (this.awJ == null) {
+            this.awJ = new CRC32();
         }
-        this.aQw.update(bArr, i10, i11);
+        this.awJ.update(bArr, i2, i3);
     }
 
     public final int hashCode() {
-        String str = this.akr;
+        String str = this.awG;
         int hashCode = str == null ? 0 : str.hashCode();
-        long j10 = this.aQu;
-        return ((hashCode + 31) * 31) + ((int) (j10 ^ (j10 >>> 32)));
+        long j2 = this.awH;
+        return ((hashCode + 31) * 31) + ((int) (j2 ^ (j2 >>> 32)));
     }
 
     public final String toString() {
-        return "chunkid=" + b.i(this.aQt) + " len=" + this.len;
+        return "chunkid=" + b.i(this.awF) + " len=" + this.len;
     }
 }

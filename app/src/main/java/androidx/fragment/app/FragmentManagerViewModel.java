@@ -6,20 +6,19 @@ import androidx.annotation.Nullable;
 import androidx.lifecycle.ViewModel;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.lifecycle.ViewModelStore;
-import androidx.lifecycle.viewmodel.CreationExtras;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Iterator;
 import java.util.Map;
-import k0.i;
 
 /* loaded from: classes.dex */
-final class FragmentManagerViewModel extends ViewModel {
-    private static final ViewModelProvider.Factory FACTORY = new ViewModelProvider.Factory() { // from class: androidx.fragment.app.FragmentManagerViewModel.1
-        @Override // androidx.lifecycle.ViewModelProvider.Factory
-        public /* synthetic */ ViewModel create(Class cls, CreationExtras creationExtras) {
-            return i.b(this, cls, creationExtras);
+class FragmentManagerViewModel extends ViewModel {
+
+    /* renamed from: c */
+    private static final ViewModelProvider.Factory f2399c = new ViewModelProvider.Factory() { // from class: androidx.fragment.app.FragmentManagerViewModel.1
+        AnonymousClass1() {
         }
 
         @Override // androidx.lifecycle.ViewModelProvider.Factory
@@ -28,20 +27,28 @@ final class FragmentManagerViewModel extends ViewModel {
             return new FragmentManagerViewModel(true);
         }
     };
-    private static final String TAG = "FragmentManager";
-    private final boolean mStateAutomaticallySaved;
-    private final HashMap<String, Fragment> mRetainedFragments = new HashMap<>();
-    private final HashMap<String, FragmentManagerViewModel> mChildNonConfigs = new HashMap<>();
-    private final HashMap<String, ViewModelStore> mViewModelStores = new HashMap<>();
-    private boolean mHasBeenCleared = false;
-    private boolean mHasSavedSnapshot = false;
-    private boolean mIsStateSaved = false;
+
+    /* renamed from: g */
+    private final boolean f2403g;
+
+    /* renamed from: d */
+    private final HashSet<Fragment> f2400d = new HashSet<>();
+
+    /* renamed from: e */
+    private final HashMap<String, FragmentManagerViewModel> f2401e = new HashMap<>();
+
+    /* renamed from: f */
+    private final HashMap<String, ViewModelStore> f2402f = new HashMap<>();
+
+    /* renamed from: h */
+    private boolean f2404h = false;
+
+    /* renamed from: i */
+    private boolean f2405i = false;
 
     /* renamed from: androidx.fragment.app.FragmentManagerViewModel$1 */
-    public class AnonymousClass1 implements ViewModelProvider.Factory {
-        @Override // androidx.lifecycle.ViewModelProvider.Factory
-        public /* synthetic */ ViewModel create(Class cls, CreationExtras creationExtras) {
-            return i.b(this, cls, creationExtras);
+    static class AnonymousClass1 implements ViewModelProvider.Factory {
+        AnonymousClass1() {
         }
 
         @Override // androidx.lifecycle.ViewModelProvider.Factory
@@ -51,220 +58,175 @@ final class FragmentManagerViewModel extends ViewModel {
         }
     }
 
-    public FragmentManagerViewModel(boolean z10) {
-        this.mStateAutomaticallySaved = z10;
-    }
-
-    private void clearNonConfigStateInternal(@NonNull String str) {
-        FragmentManagerViewModel fragmentManagerViewModel = this.mChildNonConfigs.get(str);
-        if (fragmentManagerViewModel != null) {
-            fragmentManagerViewModel.onCleared();
-            this.mChildNonConfigs.remove(str);
-        }
-        ViewModelStore viewModelStore = this.mViewModelStores.get(str);
-        if (viewModelStore != null) {
-            viewModelStore.clear();
-            this.mViewModelStores.remove(str);
-        }
+    FragmentManagerViewModel(boolean z) {
+        this.f2403g = z;
     }
 
     @NonNull
-    public static FragmentManagerViewModel getInstance(ViewModelStore viewModelStore) {
-        return (FragmentManagerViewModel) new ViewModelProvider(viewModelStore, FACTORY).get(FragmentManagerViewModel.class);
+    static FragmentManagerViewModel i(ViewModelStore viewModelStore) {
+        return (FragmentManagerViewModel) new ViewModelProvider(viewModelStore, f2399c).get(FragmentManagerViewModel.class);
     }
 
-    public void addRetainedFragment(@NonNull Fragment fragment) {
-        if (this.mIsStateSaved) {
-            if (FragmentManager.isLoggingEnabled(2)) {
-                Log.v("FragmentManager", "Ignoring addRetainedFragment as the state is already saved");
-            }
-        } else {
-            if (this.mRetainedFragments.containsKey(fragment.mWho)) {
-                return;
-            }
-            this.mRetainedFragments.put(fragment.mWho, fragment);
-            if (FragmentManager.isLoggingEnabled(2)) {
-                Log.v("FragmentManager", "Updating retained Fragments: Added " + fragment);
-            }
+    @Override // androidx.lifecycle.ViewModel
+    protected void d() {
+        if (FragmentManagerImpl.f2354c) {
+            Log.d("FragmentManager", "onCleared called for " + this);
         }
-    }
-
-    public void clearNonConfigState(@NonNull Fragment fragment) {
-        if (FragmentManager.isLoggingEnabled(3)) {
-            Log.d("FragmentManager", "Clearing non-config state for " + fragment);
-        }
-        clearNonConfigStateInternal(fragment.mWho);
+        this.f2404h = true;
     }
 
     public boolean equals(Object obj) {
         if (this == obj) {
             return true;
         }
-        if (obj == null || FragmentManagerViewModel.class != obj.getClass()) {
+        if (obj == null || getClass() != obj.getClass()) {
             return false;
         }
         FragmentManagerViewModel fragmentManagerViewModel = (FragmentManagerViewModel) obj;
-        return this.mRetainedFragments.equals(fragmentManagerViewModel.mRetainedFragments) && this.mChildNonConfigs.equals(fragmentManagerViewModel.mChildNonConfigs) && this.mViewModelStores.equals(fragmentManagerViewModel.mViewModelStores);
+        return this.f2400d.equals(fragmentManagerViewModel.f2400d) && this.f2401e.equals(fragmentManagerViewModel.f2401e) && this.f2402f.equals(fragmentManagerViewModel.f2402f);
     }
 
-    @Nullable
-    public Fragment findRetainedFragmentByWho(String str) {
-        return this.mRetainedFragments.get(str);
+    boolean f(@NonNull Fragment fragment) {
+        return this.f2400d.add(fragment);
+    }
+
+    void g(@NonNull Fragment fragment) {
+        if (FragmentManagerImpl.f2354c) {
+            Log.d("FragmentManager", "Clearing non-config state for " + fragment);
+        }
+        FragmentManagerViewModel fragmentManagerViewModel = this.f2401e.get(fragment.mWho);
+        if (fragmentManagerViewModel != null) {
+            fragmentManagerViewModel.d();
+            this.f2401e.remove(fragment.mWho);
+        }
+        ViewModelStore viewModelStore = this.f2402f.get(fragment.mWho);
+        if (viewModelStore != null) {
+            viewModelStore.clear();
+            this.f2402f.remove(fragment.mWho);
+        }
     }
 
     @NonNull
-    public FragmentManagerViewModel getChildNonConfig(@NonNull Fragment fragment) {
-        FragmentManagerViewModel fragmentManagerViewModel = this.mChildNonConfigs.get(fragment.mWho);
+    FragmentManagerViewModel h(@NonNull Fragment fragment) {
+        FragmentManagerViewModel fragmentManagerViewModel = this.f2401e.get(fragment.mWho);
         if (fragmentManagerViewModel != null) {
             return fragmentManagerViewModel;
         }
-        FragmentManagerViewModel fragmentManagerViewModel2 = new FragmentManagerViewModel(this.mStateAutomaticallySaved);
-        this.mChildNonConfigs.put(fragment.mWho, fragmentManagerViewModel2);
+        FragmentManagerViewModel fragmentManagerViewModel2 = new FragmentManagerViewModel(this.f2403g);
+        this.f2401e.put(fragment.mWho, fragmentManagerViewModel2);
         return fragmentManagerViewModel2;
     }
 
+    public int hashCode() {
+        return (((this.f2400d.hashCode() * 31) + this.f2401e.hashCode()) * 31) + this.f2402f.hashCode();
+    }
+
     @NonNull
-    public Collection<Fragment> getRetainedFragments() {
-        return new ArrayList(this.mRetainedFragments.values());
+    Collection<Fragment> j() {
+        return this.f2400d;
     }
 
     @Nullable
     @Deprecated
-    public FragmentManagerNonConfig getSnapshot() {
-        if (this.mRetainedFragments.isEmpty() && this.mChildNonConfigs.isEmpty() && this.mViewModelStores.isEmpty()) {
+    FragmentManagerNonConfig k() {
+        if (this.f2400d.isEmpty() && this.f2401e.isEmpty() && this.f2402f.isEmpty()) {
             return null;
         }
         HashMap hashMap = new HashMap();
-        for (Map.Entry<String, FragmentManagerViewModel> entry : this.mChildNonConfigs.entrySet()) {
-            FragmentManagerNonConfig snapshot = entry.getValue().getSnapshot();
-            if (snapshot != null) {
-                hashMap.put(entry.getKey(), snapshot);
+        for (Map.Entry<String, FragmentManagerViewModel> entry : this.f2401e.entrySet()) {
+            FragmentManagerNonConfig k = entry.getValue().k();
+            if (k != null) {
+                hashMap.put(entry.getKey(), k);
             }
         }
-        this.mHasSavedSnapshot = true;
-        if (this.mRetainedFragments.isEmpty() && hashMap.isEmpty() && this.mViewModelStores.isEmpty()) {
+        this.f2405i = true;
+        if (this.f2400d.isEmpty() && hashMap.isEmpty() && this.f2402f.isEmpty()) {
             return null;
         }
-        return new FragmentManagerNonConfig(new ArrayList(this.mRetainedFragments.values()), hashMap, new HashMap(this.mViewModelStores));
+        return new FragmentManagerNonConfig(new ArrayList(this.f2400d), hashMap, new HashMap(this.f2402f));
     }
 
     @NonNull
-    public ViewModelStore getViewModelStore(@NonNull Fragment fragment) {
-        ViewModelStore viewModelStore = this.mViewModelStores.get(fragment.mWho);
+    ViewModelStore l(@NonNull Fragment fragment) {
+        ViewModelStore viewModelStore = this.f2402f.get(fragment.mWho);
         if (viewModelStore != null) {
             return viewModelStore;
         }
         ViewModelStore viewModelStore2 = new ViewModelStore();
-        this.mViewModelStores.put(fragment.mWho, viewModelStore2);
+        this.f2402f.put(fragment.mWho, viewModelStore2);
         return viewModelStore2;
     }
 
-    public int hashCode() {
-        return (((this.mRetainedFragments.hashCode() * 31) + this.mChildNonConfigs.hashCode()) * 31) + this.mViewModelStores.hashCode();
+    boolean m() {
+        return this.f2404h;
     }
 
-    public boolean isCleared() {
-        return this.mHasBeenCleared;
-    }
-
-    @Override // androidx.lifecycle.ViewModel
-    public void onCleared() {
-        if (FragmentManager.isLoggingEnabled(3)) {
-            Log.d("FragmentManager", "onCleared called for " + this);
-        }
-        this.mHasBeenCleared = true;
-    }
-
-    public void removeRetainedFragment(@NonNull Fragment fragment) {
-        if (this.mIsStateSaved) {
-            if (FragmentManager.isLoggingEnabled(2)) {
-                Log.v("FragmentManager", "Ignoring removeRetainedFragment as the state is already saved");
-            }
-        } else {
-            if (this.mRetainedFragments.remove(fragment.mWho) == null || !FragmentManager.isLoggingEnabled(2)) {
-                return;
-            }
-            Log.v("FragmentManager", "Updating retained Fragments: Removed " + fragment);
-        }
+    boolean n(@NonNull Fragment fragment) {
+        return this.f2400d.remove(fragment);
     }
 
     @Deprecated
-    public void restoreFromSnapshot(@Nullable FragmentManagerNonConfig fragmentManagerNonConfig) {
-        this.mRetainedFragments.clear();
-        this.mChildNonConfigs.clear();
-        this.mViewModelStores.clear();
+    void o(@Nullable FragmentManagerNonConfig fragmentManagerNonConfig) {
+        this.f2400d.clear();
+        this.f2401e.clear();
+        this.f2402f.clear();
         if (fragmentManagerNonConfig != null) {
-            Collection<Fragment> fragments = fragmentManagerNonConfig.getFragments();
-            if (fragments != null) {
-                for (Fragment fragment : fragments) {
-                    if (fragment != null) {
-                        this.mRetainedFragments.put(fragment.mWho, fragment);
-                    }
+            Collection<Fragment> b2 = fragmentManagerNonConfig.b();
+            if (b2 != null) {
+                this.f2400d.addAll(b2);
+            }
+            Map<String, FragmentManagerNonConfig> a2 = fragmentManagerNonConfig.a();
+            if (a2 != null) {
+                for (Map.Entry<String, FragmentManagerNonConfig> entry : a2.entrySet()) {
+                    FragmentManagerViewModel fragmentManagerViewModel = new FragmentManagerViewModel(this.f2403g);
+                    fragmentManagerViewModel.o(entry.getValue());
+                    this.f2401e.put(entry.getKey(), fragmentManagerViewModel);
                 }
             }
-            Map<String, FragmentManagerNonConfig> childNonConfigs = fragmentManagerNonConfig.getChildNonConfigs();
-            if (childNonConfigs != null) {
-                for (Map.Entry<String, FragmentManagerNonConfig> entry : childNonConfigs.entrySet()) {
-                    FragmentManagerViewModel fragmentManagerViewModel = new FragmentManagerViewModel(this.mStateAutomaticallySaved);
-                    fragmentManagerViewModel.restoreFromSnapshot(entry.getValue());
-                    this.mChildNonConfigs.put(entry.getKey(), fragmentManagerViewModel);
-                }
-            }
-            Map<String, ViewModelStore> viewModelStores = fragmentManagerNonConfig.getViewModelStores();
-            if (viewModelStores != null) {
-                this.mViewModelStores.putAll(viewModelStores);
+            Map<String, ViewModelStore> c2 = fragmentManagerNonConfig.c();
+            if (c2 != null) {
+                this.f2402f.putAll(c2);
             }
         }
-        this.mHasSavedSnapshot = false;
+        this.f2405i = false;
     }
 
-    public void setIsStateSaved(boolean z10) {
-        this.mIsStateSaved = z10;
-    }
-
-    public boolean shouldDestroy(@NonNull Fragment fragment) {
-        if (this.mRetainedFragments.containsKey(fragment.mWho)) {
-            return this.mStateAutomaticallySaved ? this.mHasBeenCleared : !this.mHasSavedSnapshot;
+    boolean p(@NonNull Fragment fragment) {
+        if (this.f2400d.contains(fragment)) {
+            return this.f2403g ? this.f2404h : !this.f2405i;
         }
         return true;
     }
 
     @NonNull
     public String toString() {
-        StringBuilder sb2 = new StringBuilder("FragmentManagerViewModel{");
-        sb2.append(Integer.toHexString(System.identityHashCode(this)));
-        sb2.append("} Fragments (");
-        Iterator<Fragment> it = this.mRetainedFragments.values().iterator();
+        StringBuilder sb = new StringBuilder("FragmentManagerViewModel{");
+        sb.append(Integer.toHexString(System.identityHashCode(this)));
+        sb.append("} Fragments (");
+        Iterator<Fragment> it = this.f2400d.iterator();
         while (it.hasNext()) {
-            sb2.append(it.next());
+            sb.append(it.next());
             if (it.hasNext()) {
-                sb2.append(", ");
+                sb.append(", ");
             }
         }
-        sb2.append(") Child Non Config (");
-        Iterator<String> it2 = this.mChildNonConfigs.keySet().iterator();
+        sb.append(") Child Non Config (");
+        Iterator<String> it2 = this.f2401e.keySet().iterator();
         while (it2.hasNext()) {
-            sb2.append(it2.next());
+            sb.append(it2.next());
             if (it2.hasNext()) {
-                sb2.append(", ");
+                sb.append(", ");
             }
         }
-        sb2.append(") ViewModelStores (");
-        Iterator<String> it3 = this.mViewModelStores.keySet().iterator();
+        sb.append(") ViewModelStores (");
+        Iterator<String> it3 = this.f2402f.keySet().iterator();
         while (it3.hasNext()) {
-            sb2.append(it3.next());
+            sb.append(it3.next());
             if (it3.hasNext()) {
-                sb2.append(", ");
+                sb.append(", ");
             }
         }
-        sb2.append(')');
-        return sb2.toString();
-    }
-
-    public void clearNonConfigState(@NonNull String str) {
-        if (FragmentManager.isLoggingEnabled(3)) {
-            Log.d("FragmentManager", "Clearing non-config state for saved state of Fragment " + str);
-        }
-        clearNonConfigStateInternal(str);
+        sb.append(')');
+        return sb.toString();
     }
 }

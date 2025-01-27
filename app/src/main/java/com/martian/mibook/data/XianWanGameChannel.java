@@ -21,11 +21,11 @@ public class XianWanGameChannel {
         return Integer.valueOf(num == null ? -1000 : num.intValue());
     }
 
-    public void setGameList(List<XianWanGame> list) {
-        this.gameList = list;
+    public void setGameList(List<XianWanGame> gameList) {
+        this.gameList = gameList;
     }
 
-    public void setMcid(Integer num) {
-        this.mcid = num;
+    public void setMcid(Integer mcid) {
+        this.mcid = mcid;
     }
 }

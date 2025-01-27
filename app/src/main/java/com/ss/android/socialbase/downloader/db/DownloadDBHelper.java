@@ -24,11 +24,8 @@ public class DownloadDBHelper extends SQLiteOpenHelper {
     public static DownloadDBHelper getInstance() {
         if (instance == null) {
             synchronized (DownloadDBHelper.class) {
-                try {
-                    if (instance == null) {
-                        instance = new DownloadDBHelper();
-                    }
-                } finally {
+                if (instance == null) {
+                    instance = new DownloadDBHelper();
                 }
             }
         }
@@ -48,8 +45,8 @@ public class DownloadDBHelper extends SQLiteOpenHelper {
             }
             super.getReadableDatabase().execSQL("PRAGMA temp_store_directory = tempDir");
             this.tempDirSetted = true;
-        } catch (Exception e10) {
-            e10.printStackTrace();
+        } catch (Exception e2) {
+            e2.printStackTrace();
         }
         return super.getReadableDatabase();
     }
@@ -71,15 +68,15 @@ public class DownloadDBHelper extends SQLiteOpenHelper {
     }
 
     @Override // android.database.sqlite.SQLiteOpenHelper
-    public void onDowngrade(SQLiteDatabase sQLiteDatabase, int i10, int i11) {
+    public void onDowngrade(SQLiteDatabase sQLiteDatabase, int i2, int i3) {
         if (Logger.debug()) {
             Logger.d("onDowngrade");
         }
     }
 
     @Override // android.database.sqlite.SQLiteOpenHelper
-    public void onUpgrade(SQLiteDatabase sQLiteDatabase, int i10, int i11) {
-        switch (i10) {
+    public void onUpgrade(SQLiteDatabase sQLiteDatabase, int i2, int i3) {
+        switch (i2) {
             case 1:
                 sQLiteDatabase.execSQL("ALTER TABLE downloader ADD mimeType TEXT");
                 sQLiteDatabase.execSQL("ALTER TABLE downloader ADD title TEXT");

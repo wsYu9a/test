@@ -4,17 +4,17 @@ import android.content.Context;
 import android.util.AttributeSet;
 import android.widget.GridView;
 
-/* loaded from: classes3.dex */
+/* loaded from: classes4.dex */
 public class BookStoreListView extends GridView {
     public BookStoreListView(Context context) {
         super(context);
     }
 
-    public BookStoreListView(Context context, AttributeSet attributeSet) {
-        super(context, attributeSet);
+    public BookStoreListView(Context context, AttributeSet attrs) {
+        super(context, attrs);
     }
 
-    public BookStoreListView(Context context, AttributeSet attributeSet, int i10) {
-        super(context, attributeSet, i10);
+    public BookStoreListView(Context context, AttributeSet attrs, int defStyle) {
+        super(context, attrs, defStyle);
     }
 }

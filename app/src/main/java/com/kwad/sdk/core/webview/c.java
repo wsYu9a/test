@@ -8,43 +8,69 @@ import android.view.ViewGroup;
 import android.view.ViewParent;
 import android.webkit.WebView;
 import androidx.annotation.RequiresApi;
-import com.kwad.sdk.n.m;
+import com.kwad.sdk.j.k;
 import com.kwad.sdk.service.ServiceProvider;
-import com.kwad.sdk.utils.by;
+import com.kwad.sdk.utils.bn;
 
-/* loaded from: classes3.dex */
+/* loaded from: classes2.dex */
 public class c extends WebView {
-    private boolean aIh;
-    private com.kwad.sdk.core.webview.a.a aIi;
+    private boolean apu;
+    private com.kwad.sdk.core.webview.kwai.a apv;
 
     public c(Context context) {
-        super(bE(context));
-        this.aIh = true;
+        super(be(context));
+        this.apu = true;
         init();
     }
 
-    private static Context bE(Context context) {
-        if (Build.VERSION.SDK_INT < 23) {
+    public c(Context context, AttributeSet attributeSet) {
+        super(be(context), attributeSet);
+        this.apu = true;
+        init();
+    }
+
+    public c(Context context, AttributeSet attributeSet, int i2) {
+        super(be(context), attributeSet, i2);
+        this.apu = true;
+        init();
+    }
+
+    @RequiresApi(api = 21)
+    public c(Context context, AttributeSet attributeSet, int i2, int i3) {
+        super(be(context), attributeSet, i2, i3);
+        this.apu = true;
+        init();
+    }
+
+    public c(Context context, AttributeSet attributeSet, int i2, boolean z) {
+        super(be(context), attributeSet, i2, z);
+        this.apu = true;
+        init();
+    }
+
+    private static Context be(Context context) {
+        int i2 = Build.VERSION.SDK_INT;
+        if (i2 >= 21 && i2 < 23) {
             context = context.createConfigurationContext(new Configuration());
         }
-        Context dJ = m.dJ(context);
-        if (m.dM(dJ)) {
-            return dJ;
+        Context dl = k.dl(context);
+        if (k.m62do(dl)) {
+            return dl;
         }
-        ((com.kwad.sdk.service.a.e) ServiceProvider.get(com.kwad.sdk.service.a.e.class)).gatherException(new IllegalArgumentException("KSApiWebView context not except--context:" + dJ.getClass().getName() + "--classloader:" + dJ.getClass().getClassLoader() + "--context2:" + m.dJ(ServiceProvider.MA()).getClass().getName()));
-        return m.dJ(ServiceProvider.MA());
+        ((com.kwad.sdk.service.kwai.d) ServiceProvider.get(com.kwad.sdk.service.kwai.d.class)).gatherException(new IllegalArgumentException("KSApiWebView context not except--context:" + dl.getClass().getName() + "--classloader:" + dl.getClass().getClassLoader() + "--context2:" + k.dl(ServiceProvider.CA()).getClass().getName()));
+        return k.dl(ServiceProvider.CA());
     }
 
     private void init() {
-        by.a(this);
-        com.kwad.sdk.core.webview.a.a aVar = new com.kwad.sdk.core.webview.a.a();
-        this.aIi = aVar;
+        bn.a(this);
+        com.kwad.sdk.core.webview.kwai.a aVar = new com.kwad.sdk.core.webview.kwai.a();
+        this.apv = aVar;
         setWebViewClient(aVar);
     }
 
     @Override // android.webkit.WebView
     public void destroy() {
-        if (this.aIh) {
+        if (this.apu) {
             release();
         }
     }
@@ -57,41 +83,16 @@ public class c extends WebView {
             }
             removeAllViews();
             super.destroy();
-        } catch (Throwable th2) {
-            com.kwad.sdk.core.d.c.printStackTraceOnly(th2);
+        } catch (Throwable th) {
+            com.kwad.sdk.core.d.b.printStackTraceOnly(th);
         }
     }
 
-    public void setEnableDestroy(boolean z10) {
-        this.aIh = z10;
+    public void setEnableDestroy(boolean z) {
+        this.apu = z;
     }
 
-    public void setNeedHybridLoad(boolean z10) {
-        this.aIi.setNeedHybridLoad(z10);
-    }
-
-    public c(Context context, AttributeSet attributeSet) {
-        super(bE(context), attributeSet);
-        this.aIh = true;
-        init();
-    }
-
-    public c(Context context, AttributeSet attributeSet, int i10) {
-        super(bE(context), attributeSet, i10);
-        this.aIh = true;
-        init();
-    }
-
-    @RequiresApi(api = 21)
-    public c(Context context, AttributeSet attributeSet, int i10, int i11) {
-        super(bE(context), attributeSet, i10, i11);
-        this.aIh = true;
-        init();
-    }
-
-    public c(Context context, AttributeSet attributeSet, int i10, boolean z10) {
-        super(bE(context), attributeSet, i10, z10);
-        this.aIh = true;
-        init();
+    public void setNeedHybridLoad(boolean z) {
+        this.apv.setNeedHybridLoad(z);
     }
 }

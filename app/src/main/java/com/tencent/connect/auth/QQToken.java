@@ -7,65 +7,65 @@ public class QQToken {
     public static final int AUTH_WEB = 1;
 
     /* renamed from: a */
-    private String f22954a;
+    private String f25239a;
 
     /* renamed from: b */
-    private String f22955b;
+    private String f25240b;
 
     /* renamed from: c */
-    private String f22956c;
+    private String f25241c;
 
     /* renamed from: d */
-    private int f22957d = 1;
+    private int f25242d = 1;
 
     /* renamed from: e */
-    private long f22958e = -1;
+    private long f25243e = -1;
 
     public QQToken(String str) {
-        this.f22954a = str;
+        this.f25239a = str;
     }
 
     public String getAccessToken() {
-        return this.f22955b;
+        return this.f25240b;
     }
 
     public String getAppId() {
-        return this.f22954a;
+        return this.f25239a;
     }
 
     public int getAuthSource() {
-        return this.f22957d;
+        return this.f25242d;
     }
 
     public long getExpireTimeInSecond() {
-        return this.f22958e;
+        return this.f25243e;
     }
 
     public String getOpenId() {
-        return this.f22956c;
+        return this.f25241c;
     }
 
     public boolean isSessionValid() {
-        return this.f22955b != null && System.currentTimeMillis() < this.f22958e;
+        return this.f25240b != null && System.currentTimeMillis() < this.f25243e;
     }
 
     public void setAccessToken(String str, String str2) throws NumberFormatException {
-        this.f22955b = str;
-        this.f22958e = 0L;
+        this.f25240b = str;
+        this.f25243e = 0L;
         if (str2 != null) {
-            this.f22958e = System.currentTimeMillis() + (Long.parseLong(str2) * 1000);
+            this.f25243e = System.currentTimeMillis() + (Long.parseLong(str2) * 1000);
         }
     }
 
     public void setAppId(String str) {
-        this.f22954a = str;
+        this.f25239a = str;
     }
 
-    public void setAuthSource(int i10) {
-        this.f22957d = i10;
+    public void setAuthSource(int i2) {
+        this.f25242d = i2;
     }
 
     public void setOpenId(String str) {
-        this.f22956c = str;
+        this.f25241c = str;
     }
 }

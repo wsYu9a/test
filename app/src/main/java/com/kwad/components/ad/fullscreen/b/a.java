@@ -1,53 +1,99 @@
 package com.kwad.components.ad.fullscreen.b;
 
-import android.content.Context;
-import androidx.annotation.Nullable;
-import com.kwad.sdk.core.d.c;
-import com.kwad.sdk.core.response.model.AdTemplate;
-import org.json.JSONObject;
+import com.kwad.components.ad.reward.d;
+import com.kwad.components.ad.reward.d.k;
+import com.kwad.components.core.video.i;
+import com.kwad.components.core.video.j;
+import com.kwad.components.core.webview.a.a.r;
+import com.kwad.components.offline.api.core.adlive.listener.AdLivePlayStateListener;
+import com.kwad.components.offline.api.core.adlive.listener.AdLivePlayStateListenerAdapter;
 
-/* loaded from: classes2.dex */
-public final class a {
-    public static void G(Context context) {
-        b H = H(context);
-        long currentTimeMillis = System.currentTimeMillis();
-        if (H == null) {
-            H = new b(currentTimeMillis, 1);
-        } else if (H.f(currentTimeMillis)) {
-            H.hZ++;
-        } else {
-            H.hY = currentTimeMillis;
-            H.hZ = 1;
+/* loaded from: classes.dex */
+public final class a extends com.kwad.components.ad.reward.presenter.a {
+    private i mVideoPlayStateListener = new j() { // from class: com.kwad.components.ad.fullscreen.b.a.1
+        AnonymousClass1() {
         }
-        a(context, H);
+
+        @Override // com.kwad.components.core.video.j, com.kwad.components.core.video.i
+        public final void onVideoPlayCompleted() {
+            super.onVideoPlayCompleted();
+            a.this.qt.fH();
+        }
+    };
+    private AdLivePlayStateListener mAdLivePlayStateListener = new AdLivePlayStateListenerAdapter() { // from class: com.kwad.components.ad.fullscreen.b.a.2
+        AnonymousClass2() {
+        }
+
+        @Override // com.kwad.components.offline.api.core.adlive.listener.AdLivePlayStateListenerAdapter, com.kwad.components.offline.api.core.adlive.listener.AdLivePlayStateListener
+        public final void onLivePlayCompleted() {
+            super.onLivePlayCompleted();
+            a.this.qt.fH();
+        }
+    };
+    private final k gs = new k() { // from class: com.kwad.components.ad.fullscreen.b.a.3
+        AnonymousClass3() {
+        }
+
+        @Override // com.kwad.components.ad.reward.d.k
+        public final void a(r rVar) {
+            if (rVar == null || rVar.type != 1) {
+                return;
+            }
+            a.this.qt.oN.release();
+            a.this.qt.fH();
+        }
+    };
+
+    /* renamed from: com.kwad.components.ad.fullscreen.b.a$1 */
+    final class AnonymousClass1 extends j {
+        AnonymousClass1() {
+        }
+
+        @Override // com.kwad.components.core.video.j, com.kwad.components.core.video.i
+        public final void onVideoPlayCompleted() {
+            super.onVideoPlayCompleted();
+            a.this.qt.fH();
+        }
     }
 
-    @Nullable
-    private static b H(Context context) {
-        if (context == null) {
-            return null;
+    /* renamed from: com.kwad.components.ad.fullscreen.b.a$2 */
+    final class AnonymousClass2 extends AdLivePlayStateListenerAdapter {
+        AnonymousClass2() {
         }
-        try {
-            JSONObject jSONObject = new JSONObject(context.getSharedPreferences("ksadsdk_fullscreen_local_ad_count", 0).getString("key_local_info", null));
-            b bVar = new b();
-            bVar.parseJson(jSONObject);
-            return bVar;
-        } catch (Exception e10) {
-            c.printStackTraceOnly(e10);
-            return null;
+
+        @Override // com.kwad.components.offline.api.core.adlive.listener.AdLivePlayStateListenerAdapter, com.kwad.components.offline.api.core.adlive.listener.AdLivePlayStateListener
+        public final void onLivePlayCompleted() {
+            super.onLivePlayCompleted();
+            a.this.qt.fH();
         }
     }
 
-    private static void a(Context context, b bVar) {
-        if (context == null || bVar == null) {
-            c.d("FullScreenLocalHelper", "saveFullScreenLocalInfo illegal arguments.");
-        } else {
-            context.getSharedPreferences("ksadsdk_fullscreen_local_ad_count", 0).edit().putString("key_local_info", bVar.toJson().toString()).apply();
+    /* renamed from: com.kwad.components.ad.fullscreen.b.a$3 */
+    final class AnonymousClass3 implements k {
+        AnonymousClass3() {
+        }
+
+        @Override // com.kwad.components.ad.reward.d.k
+        public final void a(r rVar) {
+            if (rVar == null || rVar.type != 1) {
+                return;
+            }
+            a.this.qt.oN.release();
+            a.this.qt.fH();
         }
     }
 
-    public static boolean b(Context context, AdTemplate adTemplate) {
-        b H = H(context);
-        return (H == null || !H.w(com.kwad.components.ad.fullscreen.a.b.ck())) && com.kwad.sdk.core.response.b.b.dq(adTemplate);
+    @Override // com.kwad.components.ad.reward.presenter.a, com.kwad.sdk.mvp.Presenter
+    public final void ar() {
+        super.ar();
+        this.qt.oN.a(this.mVideoPlayStateListener, this.mAdLivePlayStateListener);
+        d.fm().a(this.gs);
+    }
+
+    @Override // com.kwad.sdk.mvp.Presenter
+    public final void onUnbind() {
+        super.onUnbind();
+        this.qt.oN.b(this.mVideoPlayStateListener, this.mAdLivePlayStateListener);
+        d.fm().b(this.gs);
     }
 }

@@ -16,7 +16,7 @@ public interface ProcessAidlCallback extends IInterface {
         }
 
         @Override // com.ss.android.socialbase.downloader.depend.ProcessAidlCallback
-        public void callback(int i10, int i11) throws RemoteException {
+        public void callback(int i2, int i3) throws RemoteException {
         }
     }
 
@@ -24,11 +24,11 @@ public interface ProcessAidlCallback extends IInterface {
         private static final String DESCRIPTOR = "com.ss.android.socialbase.downloader.depend.ProcessAidlCallback";
         static final int TRANSACTION_callback = 1;
 
-        public static class Proxy implements ProcessAidlCallback {
+        private static class Proxy implements ProcessAidlCallback {
             public static ProcessAidlCallback sDefaultImpl;
             private IBinder mRemote;
 
-            public Proxy(IBinder iBinder) {
+            Proxy(IBinder iBinder) {
                 this.mRemote = iBinder;
             }
 
@@ -38,17 +38,17 @@ public interface ProcessAidlCallback extends IInterface {
             }
 
             @Override // com.ss.android.socialbase.downloader.depend.ProcessAidlCallback
-            public void callback(int i10, int i11) throws RemoteException {
+            public void callback(int i2, int i3) throws RemoteException {
                 Parcel obtain = Parcel.obtain();
                 Parcel obtain2 = Parcel.obtain();
                 try {
                     obtain.writeInterfaceToken(Stub.DESCRIPTOR);
-                    obtain.writeInt(i10);
-                    obtain.writeInt(i11);
+                    obtain.writeInt(i2);
+                    obtain.writeInt(i3);
                     if (this.mRemote.transact(1, obtain, obtain2, 0) || Stub.getDefaultImpl() == null) {
                         obtain2.readException();
                     } else {
-                        Stub.getDefaultImpl().callback(i10, i11);
+                        Stub.getDefaultImpl().callback(i2, i3);
                     }
                 } finally {
                     obtain2.recycle();
@@ -91,10 +91,10 @@ public interface ProcessAidlCallback extends IInterface {
         }
 
         @Override // android.os.Binder
-        public boolean onTransact(int i10, Parcel parcel, Parcel parcel2, int i11) throws RemoteException {
-            if (i10 != 1) {
-                if (i10 != 1598968902) {
-                    return super.onTransact(i10, parcel, parcel2, i11);
+        public boolean onTransact(int i2, Parcel parcel, Parcel parcel2, int i3) throws RemoteException {
+            if (i2 != 1) {
+                if (i2 != 1598968902) {
+                    return super.onTransact(i2, parcel, parcel2, i3);
                 }
                 parcel2.writeString(DESCRIPTOR);
                 return true;
@@ -106,5 +106,5 @@ public interface ProcessAidlCallback extends IInterface {
         }
     }
 
-    void callback(int i10, int i11) throws RemoteException;
+    void callback(int i2, int i3) throws RemoteException;
 }

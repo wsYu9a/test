@@ -1,6 +1,6 @@
 package com.kwad.components.offline.api;
 
-/* loaded from: classes3.dex */
+/* loaded from: classes2.dex */
 public final class BuildConfig {
 
     @Deprecated
@@ -9,6 +9,6 @@ public final class BuildConfig {
     public static final boolean DEBUG = false;
     public static final String FLAVOR = "";
     public static final String LIBRARY_PACKAGE_NAME = "com.kwad.components.offline.api";
-    public static final int VERSION_CODE = 3036900;
-    public static final String VERSION_NAME = "3.3.69";
+    public static final int VERSION_CODE = 3034000;
+    public static final String VERSION_NAME = "3.3.40";
 }

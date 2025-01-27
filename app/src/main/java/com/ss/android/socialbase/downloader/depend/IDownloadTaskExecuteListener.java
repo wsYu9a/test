@@ -5,7 +5,7 @@ import com.ss.android.socialbase.downloader.model.DownloadTask;
 
 /* loaded from: classes4.dex */
 public interface IDownloadTaskExecuteListener {
-    void onFinish(DownloadTask downloadTask, @BoundType int i10);
+    void onFinish(DownloadTask downloadTask, @BoundType int i2);
 
-    void onStart(DownloadTask downloadTask, @BoundType int i10);
+    void onStart(DownloadTask downloadTask, @BoundType int i2);
 }

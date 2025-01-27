@@ -10,20 +10,21 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.FrameLayout;
 import android.widget.LinearLayout;
-import com.qq.e.comm.managers.a;
+import com.qq.e.comm.managers.b;
+import com.qq.e.comm.managers.plugin.a;
 import com.qq.e.comm.pi.ACTD;
 import com.qq.e.comm.pi.POFactory;
 import com.qq.e.comm.util.GDTLogger;
 
-/* loaded from: classes3.dex */
+/* loaded from: classes4.dex */
 public class ADActivity extends Activity {
     public static final String NOTCH_CONTAINER_TAG = "NOTCH_CONTAINER";
 
     /* renamed from: a */
-    protected ACTD f16364a;
+    protected ACTD f23857a;
 
     /* renamed from: b */
-    private FrameLayout f16365b;
+    private FrameLayout f23858b;
 
     private void a() {
         LinearLayout linearLayout = new LinearLayout(this);
@@ -34,23 +35,23 @@ public class ADActivity extends Activity {
         frameLayout.setTag(NOTCH_CONTAINER_TAG);
         frameLayout.setLayoutParams(new LinearLayout.LayoutParams(-1, -2));
         linearLayout.addView(frameLayout);
-        this.f16365b = new FrameLayout(this);
-        this.f16365b.setLayoutParams(new LinearLayout.LayoutParams(-1, -1));
-        linearLayout.addView(this.f16365b);
+        this.f23858b = new FrameLayout(this);
+        this.f23858b.setLayoutParams(new LinearLayout.LayoutParams(-1, -1));
+        linearLayout.addView(this.f23858b);
     }
 
     @Override // android.app.Activity
-    public void onActivityResult(int i10, int i11, Intent intent) {
-        super.onActivityResult(i10, i11, intent);
-        ACTD actd = this.f16364a;
+    protected void onActivityResult(int i2, int i3, Intent intent) {
+        super.onActivityResult(i2, i3, intent);
+        ACTD actd = this.f23857a;
         if (actd != null) {
-            actd.onActivityResult(i10, i11, intent);
+            actd.onActivityResult(i2, i3, intent);
         }
     }
 
     @Override // android.app.Activity
     public void onBackPressed() {
-        ACTD actd = this.f16364a;
+        ACTD actd = this.f23857a;
         if (actd != null) {
             actd.onBackPressed();
         }
@@ -59,17 +60,17 @@ public class ADActivity extends Activity {
     @Override // android.app.Activity, android.content.ComponentCallbacks
     public void onConfigurationChanged(Configuration configuration) {
         super.onConfigurationChanged(configuration);
-        ACTD actd = this.f16364a;
+        ACTD actd = this.f23857a;
         if (actd != null) {
             actd.onConfigurationChanged(configuration);
         }
     }
 
     @Override // android.app.Activity
-    public void onCreate(Bundle bundle) {
+    protected void onCreate(Bundle bundle) {
         String str = null;
         try {
-            POFactory pOFactory = a.b().c().getPOFactory();
+            POFactory pOFactory = b.b().c().getPOFactory();
             if (pOFactory != null) {
                 Intent intent = getIntent();
                 intent.setExtrasClassLoader(pOFactory.getClass().getClassLoader());
@@ -77,44 +78,44 @@ public class ADActivity extends Activity {
                 if (extras != null) {
                     str = extras.getString(ACTD.DELEGATE_NAME_KEY);
                     String string = extras.getString("appid");
-                    if (!TextUtils.isEmpty(str) && !TextUtils.isEmpty(string) && a.b().d()) {
+                    if (!TextUtils.isEmpty(str) && !TextUtils.isEmpty(string) && b.b().d()) {
                         ACTD activityDelegate = pOFactory.getActivityDelegate(str, this);
-                        this.f16364a = activityDelegate;
+                        this.f23857a = activityDelegate;
                         if (activityDelegate == null) {
                             GDTLogger.e("创建 ADActivity Delegate " + str + " 失败");
                         }
                     }
                 }
             }
-        } catch (Throwable th2) {
-            GDTLogger.e("创建ADActivity Delegate" + str + "发生异常", th2);
+        } catch (Throwable th) {
+            GDTLogger.e("创建ADActivity Delegate" + str + "发生异常", th);
         }
-        ACTD actd = this.f16364a;
+        ACTD actd = this.f23857a;
         if (actd != null) {
             actd.onBeforeCreate(bundle);
         } else {
             try {
                 finish();
-            } catch (Throwable th3) {
-                GDTLogger.e("ADActivity onCreate 发生异常", th3);
+            } catch (Throwable th2) {
+                GDTLogger.e("ADActivity onCreate 发生异常", th2);
             }
         }
         try {
             super.onCreate(bundle);
-        } catch (Throwable th4) {
-            com.qq.e.comm.managers.plugin.a.a(th4, "ADActivity onCreate 发生异常");
-            GDTLogger.e("ADActivity onCreate 发生异常", th4);
+        } catch (Throwable th3) {
+            a.a(th3, "ADActivity onCreate 发生异常");
+            GDTLogger.e("ADActivity onCreate 发生异常", th3);
         }
-        ACTD actd2 = this.f16364a;
+        ACTD actd2 = this.f23857a;
         if (actd2 != null) {
             actd2.onAfterCreate(bundle);
         }
     }
 
     @Override // android.app.Activity
-    public void onDestroy() {
+    protected void onDestroy() {
         super.onDestroy();
-        ACTD actd = this.f16364a;
+        ACTD actd = this.f23857a;
         if (actd != null) {
             actd.onDestroy();
         }
@@ -122,7 +123,7 @@ public class ADActivity extends Activity {
 
     @Override // android.app.Activity
     public void onPause() {
-        ACTD actd = this.f16364a;
+        ACTD actd = this.f23857a;
         if (actd != null) {
             actd.onPause();
         }
@@ -130,17 +131,17 @@ public class ADActivity extends Activity {
     }
 
     @Override // android.app.Activity
-    public void onResume() {
+    protected void onResume() {
         super.onResume();
-        ACTD actd = this.f16364a;
+        ACTD actd = this.f23857a;
         if (actd != null) {
             actd.onResume();
         }
     }
 
     @Override // android.app.Activity
-    public void onStop() {
-        ACTD actd = this.f16364a;
+    protected void onStop() {
+        ACTD actd = this.f23857a;
         if (actd != null) {
             actd.onStop();
         }
@@ -148,20 +149,20 @@ public class ADActivity extends Activity {
     }
 
     @Override // android.app.Activity
-    public void setContentView(int i10) {
+    public void setContentView(int i2) {
         a();
-        LayoutInflater.from(this).inflate(i10, (ViewGroup) this.f16365b, true);
+        LayoutInflater.from(this).inflate(i2, (ViewGroup) this.f23858b, true);
     }
 
     @Override // android.app.Activity
     public void setContentView(View view) {
         a();
-        this.f16365b.addView(view);
+        this.f23858b.addView(view);
     }
 
     @Override // android.app.Activity
     public void setContentView(View view, ViewGroup.LayoutParams layoutParams) {
         a();
-        this.f16365b.addView(view, layoutParams);
+        this.f23858b.addView(view, layoutParams);
     }
 }

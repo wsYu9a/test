@@ -1,6 +1,6 @@
 package com.bytedance.android.live.base.api.push.model;
 
-/* loaded from: classes2.dex */
+/* loaded from: classes.dex */
 public class PushUIConfig {
     public static final long dismissTime = 5000;
     private Integer horizontalMargin = null;
@@ -38,8 +38,8 @@ public class PushUIConfig {
         this.bgColor = num;
     }
 
-    public void setBorderRadiusWidth(Float f10) {
-        this.borderRadiusWidth = f10;
+    public void setBorderRadiusWidth(Float f2) {
+        this.borderRadiusWidth = f2;
     }
 
     public void setHorizontalMargin(Integer num) {

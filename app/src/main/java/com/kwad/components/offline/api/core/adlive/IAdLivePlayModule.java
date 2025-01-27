@@ -5,7 +5,7 @@ import com.kwad.components.offline.api.core.adlive.listener.AdLivePlayStateListe
 import com.kwad.components.offline.api.core.adlive.listener.OnAdLiveResumeInterceptor;
 import com.kwad.components.offline.api.core.adlive.model.LiveShopItemInfo;
 
-/* loaded from: classes3.dex */
+/* loaded from: classes2.dex */
 public interface IAdLivePlayModule {
     void addInterceptor(OnAdLiveResumeInterceptor onAdLiveResumeInterceptor);
 
@@ -31,9 +31,9 @@ public interface IAdLivePlayModule {
 
     void resume();
 
-    void setAudioEnabled(boolean z10, boolean z11);
+    void setAudioEnabled(boolean z, boolean z2);
 
-    void setForceGetAudioFocus(boolean z10);
+    void setForceGetAudioFocus(boolean z);
 
     void skipToEnd();
 

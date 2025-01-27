@@ -4,7 +4,7 @@ import com.ksad.annotation.invoker.InvokeBy;
 import com.kwad.sdk.api.KsAdVideoPlayConfig;
 import java.io.Serializable;
 
-/* loaded from: classes3.dex */
+/* loaded from: classes2.dex */
 public class KSAdVideoPlayConfigImpl implements KsAdVideoPlayConfig, Serializable {
     private static final long serialVersionUID = -154151744722615768L;
     public boolean dataFlowAutoStart;
@@ -14,9 +14,9 @@ public class KSAdVideoPlayConfigImpl implements KsAdVideoPlayConfig, Serializabl
     private int videoSoundValue = 0;
     private int dataFlowAutoStartValue = 0;
 
-    @InvokeBy(invokerClass = com.kwad.sdk.service.b.class, methodId = "initModeImplForInvoker")
+    @InvokeBy(invokerClass = com.kwad.sdk.service.a.class, methodId = "initModeImplForInvoker")
     public static void register() {
-        com.kwad.sdk.service.b.b(KsAdVideoPlayConfig.class, KSAdVideoPlayConfigImpl.class);
+        com.kwad.sdk.service.a.b(KsAdVideoPlayConfig.class, KSAdVideoPlayConfigImpl.class);
     }
 
     public int getDataFlowAutoStartValue() {
@@ -48,8 +48,8 @@ public class KSAdVideoPlayConfigImpl implements KsAdVideoPlayConfig, Serializabl
     }
 
     @Override // com.kwad.sdk.api.KsAdVideoPlayConfig
-    public void setDataFlowAutoStart(boolean z10) {
-        this.dataFlowAutoStart = z10;
+    public void setDataFlowAutoStart(boolean z) {
+        this.dataFlowAutoStart = z;
         this.dataFlowAutoStartValue = 1;
         this.videoAutoPlayType = 0;
     }
@@ -60,14 +60,14 @@ public class KSAdVideoPlayConfigImpl implements KsAdVideoPlayConfig, Serializabl
     }
 
     @Override // com.kwad.sdk.api.KsAdVideoPlayConfig
-    public void setVideoAutoPlayType(int i10) {
-        this.videoAutoPlayType = i10;
+    public void setVideoAutoPlayType(int i2) {
+        this.videoAutoPlayType = i2;
         this.dataFlowAutoStartValue = 0;
     }
 
     @Override // com.kwad.sdk.api.KsAdVideoPlayConfig
-    public void setVideoSoundEnable(boolean z10) {
-        this.videoSoundEnable = z10;
+    public void setVideoSoundEnable(boolean z) {
+        this.videoSoundEnable = z;
         this.videoSoundValue = 1;
     }
 }

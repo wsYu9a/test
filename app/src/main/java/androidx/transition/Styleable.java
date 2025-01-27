@@ -7,40 +7,50 @@ import androidx.annotation.StyleableRes;
 /* loaded from: classes.dex */
 class Styleable {
 
+    /* renamed from: a, reason: collision with root package name */
     @StyleableRes
-    static final int[] TRANSITION_TARGET = {android.R.attr.targetClass, android.R.attr.targetId, android.R.attr.excludeId, android.R.attr.excludeClass, android.R.attr.targetName, android.R.attr.excludeName};
+    static final int[] f3804a = {android.R.attr.targetClass, android.R.attr.targetId, android.R.attr.excludeId, android.R.attr.excludeClass, android.R.attr.targetName, android.R.attr.excludeName};
+
+    /* renamed from: b, reason: collision with root package name */
+    @StyleableRes
+    static final int[] f3805b = {android.R.attr.fromScene, android.R.attr.toScene, android.R.attr.transition};
+
+    /* renamed from: c, reason: collision with root package name */
+    @StyleableRes
+    static final int[] f3806c = {android.R.attr.interpolator, android.R.attr.duration, android.R.attr.startDelay, android.R.attr.matchOrder};
+
+    /* renamed from: d, reason: collision with root package name */
+    @StyleableRes
+    static final int[] f3807d = {android.R.attr.resizeClip};
+
+    /* renamed from: e, reason: collision with root package name */
+    @StyleableRes
+    static final int[] f3808e = {android.R.attr.transitionVisibilityMode};
+
+    /* renamed from: f, reason: collision with root package name */
+    @StyleableRes
+    static final int[] f3809f = {android.R.attr.fadingMode};
+
+    /* renamed from: g, reason: collision with root package name */
+    @StyleableRes
+    static final int[] f3810g = {android.R.attr.reparent, android.R.attr.reparentWithOverlay};
+
+    /* renamed from: h, reason: collision with root package name */
+    @StyleableRes
+    static final int[] f3811h = {android.R.attr.slideEdge};
+
+    /* renamed from: i, reason: collision with root package name */
+    @StyleableRes
+    static final int[] f3812i = {android.R.attr.transitionOrdering};
+
+    /* renamed from: j, reason: collision with root package name */
+    @StyleableRes
+    static final int[] f3813j = {android.R.attr.minimumHorizontalAngle, android.R.attr.minimumVerticalAngle, android.R.attr.maximumAngle};
 
     @StyleableRes
-    static final int[] TRANSITION_MANAGER = {android.R.attr.fromScene, android.R.attr.toScene, android.R.attr.transition};
+    static final int[] k = {android.R.attr.patternPathData};
 
-    @StyleableRes
-    static final int[] TRANSITION = {android.R.attr.interpolator, android.R.attr.duration, android.R.attr.startDelay, android.R.attr.matchOrder};
-
-    @StyleableRes
-    static final int[] CHANGE_BOUNDS = {android.R.attr.resizeClip};
-
-    @StyleableRes
-    static final int[] VISIBILITY_TRANSITION = {android.R.attr.transitionVisibilityMode};
-
-    @StyleableRes
-    static final int[] FADE = {android.R.attr.fadingMode};
-
-    @StyleableRes
-    static final int[] CHANGE_TRANSFORM = {android.R.attr.reparent, android.R.attr.reparentWithOverlay};
-
-    @StyleableRes
-    static final int[] SLIDE = {android.R.attr.slideEdge};
-
-    @StyleableRes
-    static final int[] TRANSITION_SET = {android.R.attr.transitionOrdering};
-
-    @StyleableRes
-    static final int[] ARC_MOTION = {android.R.attr.minimumHorizontalAngle, android.R.attr.minimumVerticalAngle, android.R.attr.maximumAngle};
-
-    @StyleableRes
-    static final int[] PATTERN_PATH_MOTION = {android.R.attr.patternPathData};
-
-    public interface ArcMotion {
+    interface ArcMotion {
 
         @StyleableRes
         public static final int MAXIMUM_ANGLE = 2;
@@ -52,13 +62,13 @@ class Styleable {
         public static final int MINIMUM_VERTICAL_ANGLE = 1;
     }
 
-    public interface ChangeBounds {
+    interface ChangeBounds {
 
         @StyleableRes
         public static final int RESIZE_CLIP = 0;
     }
 
-    public interface ChangeTransform {
+    interface ChangeTransform {
 
         @StyleableRes
         public static final int REPARENT = 0;
@@ -67,25 +77,25 @@ class Styleable {
         public static final int REPARENT_WITH_OVERLAY = 1;
     }
 
-    public interface Fade {
+    interface Fade {
 
         @StyleableRes
         public static final int FADING_MODE = 0;
     }
 
-    public interface PatternPathMotion {
+    interface PatternPathMotion {
 
         @StyleableRes
         public static final int PATTERN_PATH_DATA = 0;
     }
 
-    public interface Slide {
+    interface Slide {
 
         @StyleableRes
         public static final int SLIDE_EDGE = 0;
     }
 
-    public interface Transition {
+    interface Transition {
 
         @StyleableRes
         public static final int DURATION = 1;
@@ -100,7 +110,7 @@ class Styleable {
         public static final int START_DELAY = 2;
     }
 
-    public interface TransitionManager {
+    interface TransitionManager {
 
         @StyleableRes
         public static final int FROM_SCENE = 0;
@@ -112,13 +122,13 @@ class Styleable {
         public static final int TRANSITION = 2;
     }
 
-    public interface TransitionSet {
+    interface TransitionSet {
 
         @StyleableRes
         public static final int TRANSITION_ORDERING = 0;
     }
 
-    public interface TransitionTarget {
+    interface TransitionTarget {
 
         @StyleableRes
         public static final int EXCLUDE_CLASS = 3;
@@ -139,7 +149,7 @@ class Styleable {
         public static final int TARGET_NAME = 4;
     }
 
-    public interface VisibilityTransition {
+    interface VisibilityTransition {
 
         @StyleableRes
         public static final int TRANSITION_VISIBILITY_MODE = 0;

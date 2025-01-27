@@ -7,11 +7,11 @@ import android.os.Process;
 import java.io.BufferedReader;
 import java.io.FileReader;
 
-/* loaded from: classes2.dex */
+/* loaded from: classes.dex */
 public class ab {
     public static String a() {
         BufferedReader bufferedReader;
-        Throwable th2;
+        Throwable th;
         String readLine;
         BufferedReader bufferedReader2 = null;
         try {
@@ -30,15 +30,15 @@ public class ab {
                     } catch (Exception unused2) {
                         return "";
                     }
-                } catch (Throwable th3) {
-                    th2 = th3;
+                } catch (Throwable th2) {
+                    th = th2;
                     if (bufferedReader != null) {
                         try {
                             bufferedReader.close();
                         } catch (Exception unused3) {
                         }
                     }
-                    throw th2;
+                    throw th;
                 }
             } while (!readLine.contains("TracerPid"));
             String replace = readLine.replace("\t", " ");
@@ -48,15 +48,19 @@ public class ab {
             }
             return replace;
         } catch (Exception unused5) {
-        } catch (Throwable th4) {
+        } catch (Throwable th3) {
             bufferedReader = null;
-            th2 = th4;
+            th = th3;
         }
+    }
+
+    public static boolean a(Context context) {
+        return (context.getPackageManager().getApplicationInfo(context.getPackageName(), 8192).flags & 2) == 1;
     }
 
     public static boolean b() {
         try {
-            return Debug.isDebuggerConnected();
+            return Boolean.valueOf(Debug.isDebuggerConnected()).booleanValue();
         } catch (Throwable unused) {
             return false;
         }
@@ -74,9 +78,5 @@ public class ab {
         } catch (Throwable unused) {
         }
         return false;
-    }
-
-    public static boolean a(Context context) {
-        return (context.getPackageManager().getApplicationInfo(context.getPackageName(), 8192).flags & 2) == 1;
     }
 }

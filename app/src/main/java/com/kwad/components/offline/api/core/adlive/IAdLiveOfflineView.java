@@ -8,7 +8,7 @@ import com.kwad.components.offline.api.core.adlive.listener.AdLiveShopInfoListen
 import com.kwad.components.offline.api.core.adlive.listener.AdLiveShopListener;
 import com.kwad.components.offline.api.core.adlive.listener.KsAdLiveMessageListener;
 
-/* loaded from: classes3.dex */
+/* loaded from: classes2.dex */
 public interface IAdLiveOfflineView {
     TextureView getTextureView();
 

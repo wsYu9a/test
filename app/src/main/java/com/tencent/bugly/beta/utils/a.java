@@ -4,120 +4,118 @@ import android.util.Log;
 import java.io.BufferedInputStream;
 import java.io.FileInputStream;
 import java.io.IOException;
-import okhttp3.internal.ws.WebSocketProtocol;
 
 /* loaded from: classes4.dex */
 public class a {
 
     /* renamed from: a */
-    public static long f22167a = -1;
+    public static long f24658a = -1;
 
     /* renamed from: b */
-    public static long f22168b = 0;
+    public static long f24659b = 0;
 
     /* renamed from: c */
-    public static long f22169c = 1;
+    public static long f24660c = 1;
 
     /* renamed from: d */
-    private byte[] f22170d;
+    private byte[] f24661d;
 
     /* renamed from: e */
-    private byte[] f22171e;
+    private byte[] f24662e;
 
     /* renamed from: f */
-    private byte[] f22172f;
+    private byte[] f24663f;
 
     /* renamed from: g */
-    private long f22173g;
+    private long f24664g;
 
     /* renamed from: h */
-    private String f22174h;
+    private String f24665h;
 
     /* renamed from: i */
-    private BufferedInputStream f22175i;
+    private BufferedInputStream f24666i;
 
     /* renamed from: j */
-    private long f22176j;
-
-    /* renamed from: k */
-    private long f22177k;
+    private long f24667j;
+    private long k;
 
     public a(String str) throws Exception {
-        this.f22170d = new byte[2];
-        this.f22171e = new byte[4];
-        this.f22172f = new byte[8];
-        this.f22173g = f22169c;
-        this.f22175i = null;
-        this.f22176j = 0L;
-        this.f22177k = 0L;
-        this.f22174h = str;
-        this.f22175i = new BufferedInputStream(new FileInputStream(this.f22174h));
-        this.f22176j = 0L;
-        this.f22177k = 0L;
+        this.f24661d = new byte[2];
+        this.f24662e = new byte[4];
+        this.f24663f = new byte[8];
+        this.f24664g = f24660c;
+        this.f24665h = null;
+        this.f24666i = null;
+        this.f24667j = 0L;
+        this.k = 0L;
+        this.f24665h = str;
+        this.f24666i = new BufferedInputStream(new FileInputStream(this.f24665h));
+        this.f24667j = 0L;
+        this.k = 0L;
     }
 
-    public synchronized void a(long j10) {
-        this.f22173g = j10;
+    public synchronized void a(long j2) {
+        this.f24664g = j2;
     }
 
-    public synchronized boolean b(long j10) {
-        if (this.f22175i == null) {
+    public synchronized boolean b(long j2) {
+        if (this.f24666i == null) {
             Log.e("BinaryFileReader", "Please open file first！");
             return false;
         }
-        if (j10 == 0) {
+        if (j2 == 0) {
             return true;
         }
-        long j11 = j10;
-        while (j11 > 0) {
+        long j3 = j2;
+        while (j3 > 0) {
             try {
-                j11 -= this.f22175i.skip(j11);
+                j3 -= this.f24666i.skip(j3);
             } catch (IOException unused) {
                 Log.e("BinaryFileReader", "Failed to skip file pointer！");
                 return false;
             }
         }
-        this.f22176j += j10;
+        this.f24667j += j2;
         return true;
     }
 
     public synchronized int c() throws IOException {
-        BufferedInputStream bufferedInputStream = this.f22175i;
+        BufferedInputStream bufferedInputStream = this.f24666i;
         if (bufferedInputStream == null) {
             Log.e("BinaryFileReader", "Failed to skip file pointer！");
             return 0;
         }
-        bufferedInputStream.read(this.f22171e);
-        int a10 = a(this.f22171e, this.f22173g);
-        this.f22176j += 4;
-        this.f22177k += 4;
-        return a10;
+        bufferedInputStream.read(this.f24662e);
+        int a2 = a(this.f24662e, this.f24664g);
+        this.f24667j += 4;
+        this.k += 4;
+        return a2;
     }
 
     public synchronized long d() throws IOException {
-        BufferedInputStream bufferedInputStream = this.f22175i;
+        BufferedInputStream bufferedInputStream = this.f24666i;
         if (bufferedInputStream == null) {
             Log.e("BinaryFileReader", "Failed to skip file pointer！");
             return 0L;
         }
-        bufferedInputStream.read(this.f22172f);
-        long b10 = b(this.f22172f, this.f22173g);
-        this.f22176j += 8;
-        this.f22177k += 8;
-        return b10;
+        bufferedInputStream.read(this.f24663f);
+        long b2 = b(this.f24663f, this.f24664g);
+        this.f24667j += 8;
+        this.k += 8;
+        return b2;
     }
 
     public synchronized short e() throws IOException {
-        BufferedInputStream bufferedInputStream = this.f22175i;
+        BufferedInputStream bufferedInputStream = this.f24666i;
         if (bufferedInputStream == null) {
             Log.e("BinaryFileReader", "Failed to skip file pointer！");
             return (short) 0;
         }
-        bufferedInputStream.read(this.f22170d);
-        short c10 = c(this.f22170d, this.f22173g);
-        this.f22176j += 2;
-        this.f22177k += 2;
-        return c10;
+        bufferedInputStream.read(this.f24661d);
+        short c2 = c(this.f24661d, this.f24664g);
+        this.f24667j += 2;
+        this.k += 2;
+        return c2;
     }
 
     public synchronized long f() throws IOException {
@@ -133,7 +131,7 @@ public class a {
     }
 
     public synchronized long i() throws IOException {
-        return e() & WebSocketProtocol.PAYLOAD_SHORT_MAX;
+        return e() & 65535;
     }
 
     private static short f(byte[] bArr) {
@@ -152,34 +150,30 @@ public class a {
 
     public synchronized boolean a() {
         try {
-            try {
-                BufferedInputStream bufferedInputStream = this.f22175i;
-                if (bufferedInputStream != null) {
-                    bufferedInputStream.close();
-                }
-                this.f22175i = null;
-                this.f22174h = null;
-                this.f22176j = 0L;
-                this.f22177k = 0L;
-            } catch (IOException e10) {
-                Log.e("BinaryFileReader", e10.getMessage());
-                return false;
+            BufferedInputStream bufferedInputStream = this.f24666i;
+            if (bufferedInputStream != null) {
+                bufferedInputStream.close();
             }
-        } catch (Throwable th2) {
-            throw th2;
+            this.f24666i = null;
+            this.f24665h = null;
+            this.f24667j = 0L;
+            this.k = 0L;
+        } catch (IOException e2) {
+            Log.e("BinaryFileReader", e2.getMessage());
+            return false;
         }
         return true;
     }
 
     public synchronized byte b() throws IOException {
-        BufferedInputStream bufferedInputStream = this.f22175i;
+        BufferedInputStream bufferedInputStream = this.f24666i;
         if (bufferedInputStream == null) {
             Log.e("BinaryFileReader", "Failed to skip file pointer！");
             return (byte) 0;
         }
         byte read = (byte) bufferedInputStream.read();
-        this.f22176j++;
-        this.f22177k++;
+        this.f24667j++;
+        this.k++;
         return read;
     }
 
@@ -194,26 +188,26 @@ public class a {
         if (bArr == null || bArr.length > 8) {
             return -1L;
         }
-        long j10 = 0;
-        for (byte b10 : bArr) {
-            j10 = (j10 << 8) | (b10 & 255);
+        long j2 = 0;
+        for (byte b2 : bArr) {
+            j2 = (j2 << 8) | (b2 & 255);
         }
-        return j10;
+        return j2;
     }
 
     private static long e(byte[] bArr) {
         if (bArr == null || bArr.length > 8) {
             return -1L;
         }
-        long j10 = 0;
+        long j2 = 0;
         for (int length = bArr.length - 1; length >= 0; length--) {
-            j10 = (j10 << 8) | (bArr[length] & 255);
+            j2 = (j2 << 8) | (bArr[length] & 255);
         }
-        return j10;
+        return j2;
     }
 
-    public static short c(byte[] bArr, long j10) {
-        if (j10 == f22169c) {
+    public static short c(byte[] bArr, long j2) {
+        if (j2 == f24660c) {
             return g(bArr);
         }
         return f(bArr);
@@ -221,11 +215,11 @@ public class a {
 
     public synchronized boolean a(byte[] bArr) {
         try {
-            this.f22175i.read(bArr);
-            this.f22176j += bArr.length;
-            this.f22177k += bArr.length;
-        } catch (IOException e10) {
-            Log.e("BinaryFileReader", e10.getMessage());
+            this.f24666i.read(bArr);
+            this.f24667j += bArr.length;
+            this.k += bArr.length;
+        } catch (IOException e2) {
+            Log.e("BinaryFileReader", e2.getMessage());
             return false;
         }
         return true;
@@ -238,31 +232,33 @@ public class a {
         return (int) d(bArr);
     }
 
-    public a(String str, long j10) throws Exception {
-        this.f22170d = new byte[2];
-        this.f22171e = new byte[4];
-        this.f22172f = new byte[8];
-        this.f22175i = null;
-        this.f22176j = 0L;
-        this.f22177k = 0L;
-        this.f22174h = str;
-        this.f22173g = j10;
-        this.f22175i = new BufferedInputStream(new FileInputStream(this.f22174h));
-        this.f22176j = 0L;
-        this.f22177k = 0L;
-    }
-
-    public static int a(byte[] bArr, long j10) {
-        if (j10 == f22169c) {
+    public static int a(byte[] bArr, long j2) {
+        if (j2 == f24660c) {
             return c(bArr);
         }
         return b(bArr);
     }
 
-    public static long b(byte[] bArr, long j10) {
-        if (j10 == f22169c) {
+    public static long b(byte[] bArr, long j2) {
+        if (j2 == f24660c) {
             return e(bArr);
         }
         return d(bArr);
+    }
+
+    public a(String str, long j2) throws Exception {
+        this.f24661d = new byte[2];
+        this.f24662e = new byte[4];
+        this.f24663f = new byte[8];
+        this.f24664g = f24660c;
+        this.f24665h = null;
+        this.f24666i = null;
+        this.f24667j = 0L;
+        this.k = 0L;
+        this.f24665h = str;
+        this.f24664g = j2;
+        this.f24666i = new BufferedInputStream(new FileInputStream(this.f24665h));
+        this.f24667j = 0L;
+        this.k = 0L;
     }
 }

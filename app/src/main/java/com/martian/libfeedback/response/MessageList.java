@@ -2,7 +2,7 @@ package com.martian.libfeedback.response;
 
 import java.util.List;
 
-/* loaded from: classes3.dex */
+/* loaded from: classes2.dex */
 public class MessageList {
     private List<PushMessage> msgs;
 
@@ -10,7 +10,7 @@ public class MessageList {
         return this.msgs;
     }
 
-    public void setMessages(List<PushMessage> list) {
-        this.msgs = list;
+    public void setMessages(List<PushMessage> messages) {
+        this.msgs = messages;
     }
 }

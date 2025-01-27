@@ -5,14 +5,14 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import com.bumptech.glide.load.engine.Resource;
 
-/* loaded from: classes2.dex */
+/* loaded from: classes.dex */
 final class NonOwnedDrawableResource extends DrawableResource<Drawable> {
     private NonOwnedDrawableResource(Drawable drawable) {
         super(drawable);
     }
 
     @Nullable
-    public static Resource<Drawable> newInstance(@Nullable Drawable drawable) {
+    static Resource<Drawable> newInstance(@Nullable Drawable drawable) {
         if (drawable != null) {
             return new NonOwnedDrawableResource(drawable);
         }

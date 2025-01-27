@@ -8,47 +8,51 @@ import android.graphics.Rect;
 import android.graphics.Typeface;
 import android.util.AttributeSet;
 import android.view.View;
-import androidx.constraintlayout.core.widgets.ConstraintWidget;
 import androidx.constraintlayout.widget.ConstraintLayout;
 
 /* loaded from: classes.dex */
 public class Placeholder extends View {
-    private View mContent;
-    private int mContentId;
-    private int mEmptyVisibility;
+
+    /* renamed from: a */
+    private int f1341a;
+
+    /* renamed from: b */
+    private View f1342b;
+
+    /* renamed from: c */
+    private int f1343c;
 
     public Placeholder(Context context) {
         super(context);
-        this.mContentId = -1;
-        this.mContent = null;
-        this.mEmptyVisibility = 4;
-        init(null);
+        this.f1341a = -1;
+        this.f1342b = null;
+        this.f1343c = 4;
+        a(null);
     }
 
-    private void init(AttributeSet attrs) {
-        super.setVisibility(this.mEmptyVisibility);
-        this.mContentId = -1;
-        if (attrs != null) {
-            TypedArray obtainStyledAttributes = getContext().obtainStyledAttributes(attrs, R.styleable.ConstraintLayout_placeholder);
+    private void a(AttributeSet attributeSet) {
+        super.setVisibility(this.f1343c);
+        this.f1341a = -1;
+        if (attributeSet != null) {
+            TypedArray obtainStyledAttributes = getContext().obtainStyledAttributes(attributeSet, R.styleable.ConstraintLayout_placeholder);
             int indexCount = obtainStyledAttributes.getIndexCount();
-            for (int i10 = 0; i10 < indexCount; i10++) {
-                int index = obtainStyledAttributes.getIndex(i10);
+            for (int i2 = 0; i2 < indexCount; i2++) {
+                int index = obtainStyledAttributes.getIndex(i2);
                 if (index == R.styleable.ConstraintLayout_placeholder_content) {
-                    this.mContentId = obtainStyledAttributes.getResourceId(index, this.mContentId);
-                } else if (index == R.styleable.ConstraintLayout_placeholder_placeholder_emptyVisibility) {
-                    this.mEmptyVisibility = obtainStyledAttributes.getInt(index, this.mEmptyVisibility);
+                    this.f1341a = obtainStyledAttributes.getResourceId(index, this.f1341a);
+                } else if (index == R.styleable.ConstraintLayout_placeholder_emptyVisibility) {
+                    this.f1343c = obtainStyledAttributes.getInt(index, this.f1343c);
                 }
             }
-            obtainStyledAttributes.recycle();
         }
     }
 
     public View getContent() {
-        return this.mContent;
+        return this.f1342b;
     }
 
     public int getEmptyVisibility() {
-        return this.mEmptyVisibility;
+        return this.f1343c;
     }
 
     @Override // android.view.View
@@ -70,80 +74,74 @@ public class Placeholder extends View {
         }
     }
 
-    public void setContentId(int id2) {
+    public void setContentId(int i2) {
         View findViewById;
-        if (this.mContentId == id2) {
+        if (this.f1341a == i2) {
             return;
         }
-        View view = this.mContent;
+        View view = this.f1342b;
         if (view != null) {
             view.setVisibility(0);
-            ((ConstraintLayout.LayoutParams) this.mContent.getLayoutParams()).isInPlaceholder = false;
-            this.mContent = null;
+            ((ConstraintLayout.LayoutParams) this.f1342b.getLayoutParams()).f1324h = false;
+            this.f1342b = null;
         }
-        this.mContentId = id2;
-        if (id2 == -1 || (findViewById = ((View) getParent()).findViewById(id2)) == null) {
+        this.f1341a = i2;
+        if (i2 == -1 || (findViewById = ((View) getParent()).findViewById(i2)) == null) {
             return;
         }
         findViewById.setVisibility(8);
     }
 
-    public void setEmptyVisibility(int visibility) {
-        this.mEmptyVisibility = visibility;
+    public void setEmptyVisibility(int i2) {
+        this.f1343c = i2;
     }
 
-    public void updatePostMeasure(ConstraintLayout container) {
-        if (this.mContent == null) {
+    public void updatePostMeasure(ConstraintLayout constraintLayout) {
+        if (this.f1342b == null) {
             return;
         }
         ConstraintLayout.LayoutParams layoutParams = (ConstraintLayout.LayoutParams) getLayoutParams();
-        ConstraintLayout.LayoutParams layoutParams2 = (ConstraintLayout.LayoutParams) this.mContent.getLayoutParams();
-        layoutParams2.widget.setVisibility(0);
-        ConstraintWidget.DimensionBehaviour horizontalDimensionBehaviour = layoutParams.widget.getHorizontalDimensionBehaviour();
-        ConstraintWidget.DimensionBehaviour dimensionBehaviour = ConstraintWidget.DimensionBehaviour.FIXED;
-        if (horizontalDimensionBehaviour != dimensionBehaviour) {
-            layoutParams.widget.setWidth(layoutParams2.widget.getWidth());
-        }
-        if (layoutParams.widget.getVerticalDimensionBehaviour() != dimensionBehaviour) {
-            layoutParams.widget.setHeight(layoutParams2.widget.getHeight());
-        }
-        layoutParams2.widget.setVisibility(8);
+        ConstraintLayout.LayoutParams layoutParams2 = (ConstraintLayout.LayoutParams) this.f1342b.getLayoutParams();
+        layoutParams2.s.setVisibility(0);
+        layoutParams.s.setWidth(layoutParams2.s.getWidth());
+        layoutParams.s.setHeight(layoutParams2.s.getHeight());
+        layoutParams2.s.setVisibility(8);
     }
 
-    public void updatePreLayout(ConstraintLayout container) {
-        if (this.mContentId == -1 && !isInEditMode()) {
-            setVisibility(this.mEmptyVisibility);
+    public void updatePreLayout(ConstraintLayout constraintLayout) {
+        if (this.f1341a == -1 && !isInEditMode()) {
+            setVisibility(this.f1343c);
         }
-        View findViewById = container.findViewById(this.mContentId);
-        this.mContent = findViewById;
+        View findViewById = constraintLayout.findViewById(this.f1341a);
+        this.f1342b = findViewById;
         if (findViewById != null) {
-            ((ConstraintLayout.LayoutParams) findViewById.getLayoutParams()).isInPlaceholder = true;
-            this.mContent.setVisibility(0);
+            ((ConstraintLayout.LayoutParams) findViewById.getLayoutParams()).f1324h = true;
+            this.f1342b.setVisibility(0);
             setVisibility(0);
         }
     }
 
-    public Placeholder(Context context, AttributeSet attrs) {
-        super(context, attrs);
-        this.mContentId = -1;
-        this.mContent = null;
-        this.mEmptyVisibility = 4;
-        init(attrs);
+    public Placeholder(Context context, AttributeSet attributeSet) {
+        super(context, attributeSet);
+        this.f1341a = -1;
+        this.f1342b = null;
+        this.f1343c = 4;
+        a(attributeSet);
     }
 
-    public Placeholder(Context context, AttributeSet attrs, int defStyleAttr) {
-        super(context, attrs, defStyleAttr);
-        this.mContentId = -1;
-        this.mContent = null;
-        this.mEmptyVisibility = 4;
-        init(attrs);
+    public Placeholder(Context context, AttributeSet attributeSet, int i2) {
+        super(context, attributeSet, i2);
+        this.f1341a = -1;
+        this.f1342b = null;
+        this.f1343c = 4;
+        a(attributeSet);
     }
 
-    public Placeholder(Context context, AttributeSet attrs, int defStyleAttr, int defStyleRes) {
-        super(context, attrs, defStyleAttr);
-        this.mContentId = -1;
-        this.mContent = null;
-        this.mEmptyVisibility = 4;
-        init(attrs);
+    public Placeholder(Context context, AttributeSet attributeSet, int i2, int i3) {
+        super(context, attributeSet, i2);
+        this.f1341a = -1;
+        this.f1342b = null;
+        this.f1343c = 4;
+        a(attributeSet);
     }
 }

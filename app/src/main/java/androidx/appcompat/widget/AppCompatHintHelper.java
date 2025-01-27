@@ -10,7 +10,7 @@ class AppCompatHintHelper {
     private AppCompatHintHelper() {
     }
 
-    public static InputConnection onCreateInputConnection(InputConnection inputConnection, EditorInfo editorInfo, View view) {
+    static InputConnection a(InputConnection inputConnection, EditorInfo editorInfo, View view) {
         if (inputConnection != null && editorInfo.hintText == null) {
             ViewParent parent = view.getParent();
             while (true) {

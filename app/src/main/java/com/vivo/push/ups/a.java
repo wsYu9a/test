@@ -8,22 +8,22 @@ import com.vivo.push.PushClient;
 final class a implements IPushActionListener {
 
     /* renamed from: a */
-    final /* synthetic */ UPSRegisterCallback f25098a;
+    final /* synthetic */ UPSRegisterCallback f31062a;
 
     /* renamed from: b */
-    final /* synthetic */ Context f25099b;
+    final /* synthetic */ Context f31063b;
 
     /* renamed from: c */
-    final /* synthetic */ VUpsManager f25100c;
+    final /* synthetic */ VUpsManager f31064c;
 
-    public a(VUpsManager vUpsManager, UPSRegisterCallback uPSRegisterCallback, Context context) {
-        this.f25100c = vUpsManager;
-        this.f25098a = uPSRegisterCallback;
-        this.f25099b = context;
+    a(VUpsManager vUpsManager, UPSRegisterCallback uPSRegisterCallback, Context context) {
+        this.f31064c = vUpsManager;
+        this.f31062a = uPSRegisterCallback;
+        this.f31063b = context;
     }
 
     @Override // com.vivo.push.IPushActionListener
-    public final void onStateChanged(int i10) {
-        this.f25098a.onResult(new TokenResult(i10, PushClient.getInstance(this.f25099b).getRegId()));
+    public final void onStateChanged(int i2) {
+        this.f31062a.onResult(new TokenResult(i2, PushClient.getInstance(this.f31063b).getRegId()));
     }
 }

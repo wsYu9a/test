@@ -20,7 +20,7 @@ import java.io.PrintWriter;
 
 @KsAdSdkDynamicApi
 @Keep
-/* loaded from: classes3.dex */
+/* loaded from: classes2.dex */
 interface IFragment {
     @KsAdSdkDynamicApi
     @Keep
@@ -98,10 +98,10 @@ interface IFragment {
     Object getSharedElementReturnTransition();
 
     @NonNull
-    String getString(@StringRes int i10);
+    String getString(@StringRes int i2);
 
     @NonNull
-    String getString(@StringRes int i10, Object... objArr);
+    String getString(@StringRes int i2, Object... objArr);
 
     @Nullable
     String getTag();
@@ -109,7 +109,7 @@ interface IFragment {
     int getTargetRequestCode();
 
     @NonNull
-    CharSequence getText(@StringRes int i10);
+    CharSequence getText(@StringRes int i2);
 
     @KsAdSdkDynamicApi
     @Keep
@@ -152,15 +152,15 @@ interface IFragment {
     @Keep
     void registerForContextMenu(View view);
 
-    void requestPermissions(@NonNull String[] strArr, int i10);
+    void requestPermissions(@NonNull String[] strArr, int i2);
 
     @KsAdSdkDynamicApi
     @Keep
-    void setAllowEnterTransitionOverlap(boolean z10);
+    void setAllowEnterTransitionOverlap(boolean z);
 
     @KsAdSdkDynamicApi
     @Keep
-    void setAllowReturnTransitionOverlap(boolean z10);
+    void setAllowReturnTransitionOverlap(boolean z);
 
     @KsAdSdkDynamicApi
     @Keep
@@ -176,13 +176,13 @@ interface IFragment {
 
     @KsAdSdkDynamicApi
     @Keep
-    void setHasOptionsMenu(boolean z10);
+    void setHasOptionsMenu(boolean z);
 
     void setInitialSavedState(@Nullable KsSavedState ksSavedState);
 
     @KsAdSdkDynamicApi
     @Keep
-    void setMenuVisibility(boolean z10);
+    void setMenuVisibility(boolean z);
 
     @KsAdSdkDynamicApi
     @Keep
@@ -190,7 +190,7 @@ interface IFragment {
 
     @KsAdSdkDynamicApi
     @Keep
-    void setRetainInstance(boolean z10);
+    void setRetainInstance(boolean z);
 
     @KsAdSdkDynamicApi
     @Keep
@@ -206,7 +206,7 @@ interface IFragment {
 
     @KsAdSdkDynamicApi
     @Keep
-    void setUserVisibleHint(boolean z10);
+    void setUserVisibleHint(boolean z);
 
     @KsAdSdkDynamicApi
     @Keep
@@ -222,15 +222,15 @@ interface IFragment {
 
     @KsAdSdkDynamicApi
     @Keep
-    void startActivityForResult(Intent intent, int i10);
+    void startActivityForResult(Intent intent, int i2);
 
     @KsAdSdkDynamicApi
     @Keep
-    void startActivityForResult(Intent intent, int i10, @Nullable Bundle bundle);
+    void startActivityForResult(Intent intent, int i2, @Nullable Bundle bundle);
 
     @KsAdSdkDynamicApi
     @Keep
-    void startIntentSenderForResult(IntentSender intentSender, int i10, @Nullable Intent intent, int i11, int i12, int i13, Bundle bundle);
+    void startIntentSenderForResult(IntentSender intentSender, int i2, @Nullable Intent intent, int i3, int i4, int i5, Bundle bundle);
 
     @KsAdSdkDynamicApi
     @Keep

@@ -1,6 +1,8 @@
 package com.martian.libmars.widget;
 
+import android.annotation.TargetApi;
 import android.content.Context;
+import android.content.res.Resources;
 import android.content.res.TypedArray;
 import android.graphics.drawable.Drawable;
 import android.text.TextUtils;
@@ -17,81 +19,60 @@ import androidx.annotation.DrawableRes;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import com.martian.libmars.R;
-import com.martian.libmars.widget.ExpandableTextView;
 
-/* loaded from: classes3.dex */
+/* loaded from: classes2.dex */
 public class ExpandableTextView extends RelativeLayout implements View.OnClickListener {
 
-    /* renamed from: r */
-    public static final String f12557r = "ExpandableTextView";
-
-    /* renamed from: s */
-    public static final int f12558s = 8;
-
-    /* renamed from: t */
-    public static final int f12559t = 300;
-
-    /* renamed from: u */
-    public static final float f12560u = 0.7f;
+    /* renamed from: a */
+    private static final String f10321a = ExpandableTextView.class.getSimpleName();
 
     /* renamed from: b */
-    public TextView f12561b;
+    private static final int f10322b = 8;
 
     /* renamed from: c */
-    public ImageButton f12562c;
+    private static final int f10323c = 300;
 
     /* renamed from: d */
-    public boolean f12563d;
+    private static final float f10324d = 0.7f;
 
     /* renamed from: e */
-    public boolean f12564e;
+    protected TextView f10325e;
 
     /* renamed from: f */
-    public int f12565f;
+    protected ImageButton f10326f;
 
     /* renamed from: g */
-    public int f12566g;
+    private boolean f10327g;
 
     /* renamed from: h */
-    public int f12567h;
+    private boolean f10328h;
 
     /* renamed from: i */
-    public int f12568i;
+    private int f10329i;
 
     /* renamed from: j */
-    public Drawable f12569j;
+    private int f10330j;
+    private int k;
+    private int l;
+    private Drawable m;
+    private Drawable n;
+    private int o;
+    private float p;
+    private boolean q;
+    private c r;
+    private SparseBooleanArray s;
+    private int t;
 
-    /* renamed from: k */
-    public Drawable f12570k;
-
-    /* renamed from: l */
-    public int f12571l;
-
-    /* renamed from: m */
-    public float f12572m;
-
-    /* renamed from: n */
-    public boolean f12573n;
-
-    /* renamed from: o */
-    public c f12574o;
-
-    /* renamed from: p */
-    public SparseBooleanArray f12575p;
-
-    /* renamed from: q */
-    public int f12576q;
-
-    public class a implements Animation.AnimationListener {
-        public a() {
+    class a implements Animation.AnimationListener {
+        a() {
         }
 
         @Override // android.view.animation.Animation.AnimationListener
         public void onAnimationEnd(Animation animation) {
             ExpandableTextView.this.clearAnimation();
-            ExpandableTextView.this.f12573n = false;
-            if (ExpandableTextView.this.f12574o != null) {
-                ExpandableTextView.this.f12574o.a(ExpandableTextView.this.f12561b, !r0.f12564e);
+            ExpandableTextView.this.q = false;
+            if (ExpandableTextView.this.r != null) {
+                ExpandableTextView.this.r.a(ExpandableTextView.this.f10325e, !r0.f10328h);
             }
         }
 
@@ -102,45 +83,45 @@ public class ExpandableTextView extends RelativeLayout implements View.OnClickLi
         @Override // android.view.animation.Animation.AnimationListener
         public void onAnimationStart(Animation animation) {
             ExpandableTextView expandableTextView = ExpandableTextView.this;
-            ExpandableTextView.i(expandableTextView.f12561b, expandableTextView.f12572m);
+            ExpandableTextView.h(expandableTextView.f10325e, expandableTextView.p);
         }
     }
 
-    public class b extends Animation {
+    class b extends Animation {
+
+        /* renamed from: a */
+        private final View f10332a;
 
         /* renamed from: b */
-        public final View f12578b;
+        private final int f10333b;
 
         /* renamed from: c */
-        public final int f12579c;
+        private final int f10334c;
 
-        /* renamed from: d */
-        public final int f12580d;
-
-        public b(View view, int i10, int i11) {
-            this.f12578b = view;
-            this.f12579c = i10;
-            this.f12580d = i11;
-            setDuration(ExpandableTextView.this.f12571l);
+        public b(View view, int startHeight, int endHeight) {
+            this.f10332a = view;
+            this.f10333b = startHeight;
+            this.f10334c = endHeight;
+            setDuration(ExpandableTextView.this.o);
         }
 
         @Override // android.view.animation.Animation
-        public void applyTransformation(float f10, Transformation transformation) {
-            int i10 = this.f12580d;
-            int i11 = (int) (((i10 - r0) * f10) + this.f12579c);
+        protected void applyTransformation(float interpolatedTime, Transformation t) {
+            int i2 = this.f10334c;
+            int i3 = (int) (((i2 - r0) * interpolatedTime) + this.f10333b);
             ExpandableTextView expandableTextView = ExpandableTextView.this;
-            expandableTextView.f12561b.setMaxHeight(i11 - expandableTextView.f12568i);
-            if (Float.compare(ExpandableTextView.this.f12572m, 1.0f) != 0) {
+            expandableTextView.f10325e.setMaxHeight(i3 - expandableTextView.l);
+            if (Float.compare(ExpandableTextView.this.p, 1.0f) != 0) {
                 ExpandableTextView expandableTextView2 = ExpandableTextView.this;
-                ExpandableTextView.i(expandableTextView2.f12561b, expandableTextView2.f12572m + (f10 * (1.0f - ExpandableTextView.this.f12572m)));
+                ExpandableTextView.h(expandableTextView2.f10325e, expandableTextView2.p + (interpolatedTime * (1.0f - ExpandableTextView.this.p)));
             }
-            this.f12578b.getLayoutParams().height = i11;
-            this.f12578b.requestLayout();
+            this.f10332a.getLayoutParams().height = i3;
+            this.f10332a.requestLayout();
         }
 
         @Override // android.view.animation.Animation
-        public void initialize(int i10, int i11, int i12, int i13) {
-            super.initialize(i10, i11, i12, i13);
+        public void initialize(int width, int height, int parentWidth, int parentHeight) {
+            super.initialize(width, height, parentWidth, parentHeight);
         }
 
         @Override // android.view.animation.Animation
@@ -150,82 +131,78 @@ public class ExpandableTextView extends RelativeLayout implements View.OnClickLi
     }
 
     public interface c {
-        void a(TextView textView, boolean z10);
+        void a(TextView textView, boolean isExpanded);
     }
 
     public ExpandableTextView(Context context) {
         this(context, null);
     }
 
-    public static void i(View view, float f10) {
-        view.setAlpha(f10);
+    @TargetApi(11)
+    public static void h(View view, float alpha) {
+        view.setAlpha(alpha);
     }
 
-    public static Drawable k(@NonNull Context context, @DrawableRes int i10) {
-        return context.getResources().getDrawable(i10, context.getTheme());
+    private void i() {
+        TextView textView = (TextView) findViewById(R.id.expandable_text);
+        this.f10325e = textView;
+        textView.setOnClickListener(this);
+        ImageButton imageButton = (ImageButton) findViewById(R.id.expand_collapse);
+        this.f10326f = imageButton;
+        imageButton.setImageDrawable(this.f10328h ? this.m : this.n);
+        this.f10326f.setOnClickListener(this);
     }
 
-    public static int l(@NonNull TextView textView) {
+    @TargetApi(21)
+    private static Drawable j(@NonNull Context context, @DrawableRes int resId) {
+        Resources resources = context.getResources();
+        return m() ? resources.getDrawable(resId, context.getTheme()) : resources.getDrawable(resId);
+    }
+
+    private static int k(@NonNull TextView textView) {
         return textView.getLayout().getLineTop(textView.getLineCount()) + textView.getCompoundPaddingTop() + textView.getCompoundPaddingBottom();
     }
 
-    @Nullable
-    public CharSequence getText() {
-        TextView textView = this.f12561b;
-        return textView == null ? "" : textView.getText();
-    }
-
-    public final void j() {
-        TextView textView = (TextView) findViewById(R.id.expandable_text);
-        this.f12561b = textView;
-        textView.setOnClickListener(this);
-        ImageButton imageButton = (ImageButton) findViewById(R.id.expand_collapse);
-        this.f12562c = imageButton;
-        imageButton.setImageDrawable(this.f12564e ? this.f12569j : this.f12570k);
-        this.f12562c.setOnClickListener(this);
-    }
-
-    public final void m(AttributeSet attributeSet) {
-        TypedArray obtainStyledAttributes = getContext().obtainStyledAttributes(attributeSet, R.styleable.ExpandableTextView);
-        this.f12567h = obtainStyledAttributes.getInt(R.styleable.ExpandableTextView_maxCollapsedLines, 8);
-        this.f12571l = obtainStyledAttributes.getInt(R.styleable.ExpandableTextView_animDuration, 300);
-        this.f12572m = obtainStyledAttributes.getFloat(R.styleable.ExpandableTextView_animAlphaStart, 0.7f);
-        this.f12569j = obtainStyledAttributes.getDrawable(R.styleable.ExpandableTextView_expandDrawable);
-        this.f12570k = obtainStyledAttributes.getDrawable(R.styleable.ExpandableTextView_collapseDrawable);
+    private void l(AttributeSet attrs) {
+        TypedArray obtainStyledAttributes = getContext().obtainStyledAttributes(attrs, R.styleable.ExpandableTextView);
+        this.k = obtainStyledAttributes.getInt(R.styleable.ExpandableTextView_maxCollapsedLines, 8);
+        this.o = obtainStyledAttributes.getInt(R.styleable.ExpandableTextView_animDuration, 300);
+        this.p = obtainStyledAttributes.getFloat(R.styleable.ExpandableTextView_animAlphaStart, f10324d);
+        this.m = obtainStyledAttributes.getDrawable(R.styleable.ExpandableTextView_expandDrawable);
+        this.n = obtainStyledAttributes.getDrawable(R.styleable.ExpandableTextView_collapseDrawable);
         obtainStyledAttributes.recycle();
         setVisibility(8);
     }
 
-    public final /* synthetic */ void n() {
-        this.f12568i = getHeight() - this.f12561b.getHeight();
+    private static boolean m() {
+        return com.martian.libsupport.l.r();
     }
 
-    public void o(@Nullable CharSequence charSequence, @NonNull SparseBooleanArray sparseBooleanArray, int i10) {
-        this.f12575p = sparseBooleanArray;
-        this.f12576q = i10;
-        boolean z10 = sparseBooleanArray.get(i10, true);
-        clearAnimation();
-        this.f12564e = z10;
-        this.f12562c.setImageDrawable(z10 ? this.f12569j : this.f12570k);
-        setText(charSequence);
-        getLayoutParams().height = -2;
-        requestLayout();
+    /* renamed from: n */
+    public /* synthetic */ void o() {
+        this.l = getHeight() - this.f10325e.getHeight();
+    }
+
+    @Nullable
+    public CharSequence getText() {
+        TextView textView = this.f10325e;
+        return textView == null ? "" : textView.getText();
     }
 
     @Override // android.view.View.OnClickListener
     public void onClick(View view) {
-        if (this.f12562c.getVisibility() != 0) {
+        if (this.f10326f.getVisibility() != 0) {
             return;
         }
-        boolean z10 = !this.f12564e;
-        this.f12564e = z10;
-        this.f12562c.setImageDrawable(z10 ? this.f12569j : this.f12570k);
-        SparseBooleanArray sparseBooleanArray = this.f12575p;
+        boolean z = !this.f10328h;
+        this.f10328h = z;
+        this.f10326f.setImageDrawable(z ? this.m : this.n);
+        SparseBooleanArray sparseBooleanArray = this.s;
         if (sparseBooleanArray != null) {
-            sparseBooleanArray.put(this.f12576q, this.f12564e);
+            sparseBooleanArray.put(this.t, this.f10328h);
         }
-        this.f12573n = true;
-        b bVar = this.f12564e ? new b(this, getHeight(), this.f12565f) : new b(this, getHeight(), (getHeight() + this.f12566g) - this.f12561b.getHeight());
+        this.q = true;
+        b bVar = this.f10328h ? new b(this, getHeight(), this.f10329i) : new b(this, getHeight(), (getHeight() + this.f10330j) - this.f10325e.getHeight());
         bVar.setFillAfter(true);
         bVar.setAnimationListener(new a());
         clearAnimation();
@@ -233,68 +210,78 @@ public class ExpandableTextView extends RelativeLayout implements View.OnClickLi
     }
 
     @Override // android.view.View
-    public void onFinishInflate() {
+    protected void onFinishInflate() {
         super.onFinishInflate();
-        j();
+        i();
     }
 
     @Override // android.view.ViewGroup
-    public boolean onInterceptTouchEvent(MotionEvent motionEvent) {
-        return this.f12573n;
+    public boolean onInterceptTouchEvent(MotionEvent ev) {
+        return this.q;
     }
 
     @Override // android.widget.RelativeLayout, android.view.View
-    public void onMeasure(int i10, int i11) {
-        if (!this.f12563d || getVisibility() == 8) {
-            super.onMeasure(i10, i11);
+    protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
+        if (!this.f10327g || getVisibility() == 8) {
+            super.onMeasure(widthMeasureSpec, heightMeasureSpec);
             return;
         }
-        this.f12563d = false;
-        this.f12562c.setVisibility(8);
-        this.f12561b.setMaxLines(Integer.MAX_VALUE);
-        super.onMeasure(i10, i11);
-        if (this.f12561b.getLineCount() <= this.f12567h) {
+        this.f10327g = false;
+        this.f10326f.setVisibility(8);
+        this.f10325e.setMaxLines(Integer.MAX_VALUE);
+        super.onMeasure(widthMeasureSpec, heightMeasureSpec);
+        if (this.f10325e.getLineCount() <= this.k) {
             return;
         }
-        this.f12566g = l(this.f12561b);
-        if (this.f12564e) {
-            this.f12561b.setMaxLines(this.f12567h);
+        this.f10330j = k(this.f10325e);
+        if (this.f10328h) {
+            this.f10325e.setMaxLines(this.k);
         }
-        this.f12562c.setVisibility(0);
-        super.onMeasure(i10, i11);
-        if (this.f12564e) {
-            this.f12561b.post(new Runnable() { // from class: n9.e
-                public /* synthetic */ e() {
-                }
-
+        this.f10326f.setVisibility(0);
+        super.onMeasure(widthMeasureSpec, heightMeasureSpec);
+        if (this.f10328h) {
+            this.f10325e.post(new Runnable() { // from class: com.martian.libmars.widget.c
                 @Override // java.lang.Runnable
                 public final void run() {
-                    ExpandableTextView.this.n();
+                    ExpandableTextView.this.o();
                 }
             });
-            this.f12565f = getMeasuredHeight();
+            this.f10329i = getMeasuredHeight();
         }
     }
 
-    public void setOnExpandStateChangeListener(@Nullable c cVar) {
-        this.f12574o = cVar;
+    public void p(@Nullable CharSequence text, @NonNull SparseBooleanArray collapsedStatus, int position) {
+        this.s = collapsedStatus;
+        this.t = position;
+        boolean z = collapsedStatus.get(position, true);
+        clearAnimation();
+        this.f10328h = z;
+        this.f10326f.setImageDrawable(z ? this.m : this.n);
+        setText(text);
+        getLayoutParams().height = -2;
+        requestLayout();
     }
 
-    public void setText(@Nullable CharSequence charSequence) {
-        this.f12563d = true;
-        this.f12561b.setText(charSequence);
-        setVisibility(TextUtils.isEmpty(charSequence) ? 8 : 0);
+    public void setOnExpandStateChangeListener(@Nullable c listener) {
+        this.r = listener;
     }
 
-    public ExpandableTextView(Context context, AttributeSet attributeSet) {
-        super(context, attributeSet);
-        this.f12564e = true;
-        m(attributeSet);
+    public void setText(@Nullable CharSequence text) {
+        this.f10327g = true;
+        this.f10325e.setText(text);
+        setVisibility(TextUtils.isEmpty(text) ? 8 : 0);
     }
 
-    public ExpandableTextView(Context context, AttributeSet attributeSet, int i10) {
-        super(context, attributeSet, i10);
-        this.f12564e = true;
-        m(attributeSet);
+    public ExpandableTextView(Context context, AttributeSet attrs) {
+        super(context, attrs);
+        this.f10328h = true;
+        l(attrs);
+    }
+
+    @TargetApi(11)
+    public ExpandableTextView(Context context, AttributeSet attrs, int defStyle) {
+        super(context, attrs, defStyle);
+        this.f10328h = true;
+        l(attrs);
     }
 }

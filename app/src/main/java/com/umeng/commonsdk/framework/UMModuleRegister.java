@@ -24,18 +24,18 @@ public class UMModuleRegister {
     private static Context mModuleAppContext;
     private static HashMap<String, UMLogDataProtocol> mModuleMap;
 
-    public static String eventType2ModuleName(int i10) {
-        String str = (i10 < PUSH_EVENT_VALUE_LOW || i10 > PUSH_EVENT_VALUE_HIGH) ? "analytics" : "push";
-        if (i10 >= SHARE_EVENT_VALUE_LOW && i10 <= SHARE_EVENT_VALUE_HIGH) {
+    public static String eventType2ModuleName(int i2) {
+        String str = (i2 < PUSH_EVENT_VALUE_LOW || i2 > 20480) ? "analytics" : "push";
+        if (i2 >= SHARE_EVENT_VALUE_LOW && i2 <= SHARE_EVENT_VALUE_HIGH) {
             str = "share";
         }
-        if (i10 >= 32769 && i10 <= INNER_EVENT_VALUE_HIGH) {
+        if (i2 >= 32769 && i2 <= INNER_EVENT_VALUE_HIGH) {
             str = INNER;
         }
-        if (i10 >= 36945 && i10 <= PROCESS_EVENT_VALUE_HIGH) {
+        if (i2 >= 36945 && i2 <= PROCESS_EVENT_VALUE_HIGH) {
             str = PROCESS;
         }
-        return (i10 < APPSTATUS_SWITCH_LOW || i10 > APPSTATUS_SWITCH_HIGH) ? str : APPSTATUS;
+        return (i2 < APPSTATUS_SWITCH_LOW || i2 > APPSTATUS_SWITCH_HIGH) ? str : APPSTATUS;
     }
 
     public static Context getAppContext() {
@@ -55,11 +55,11 @@ public class UMModuleRegister {
         }
     }
 
-    public static boolean registerCallback(int i10, UMLogDataProtocol uMLogDataProtocol) {
+    public static boolean registerCallback(int i2, UMLogDataProtocol uMLogDataProtocol) {
         if (mModuleMap == null) {
             mModuleMap = new HashMap<>();
         }
-        String eventType2ModuleName = eventType2ModuleName(i10);
+        String eventType2ModuleName = eventType2ModuleName(i2);
         if (mModuleMap.containsKey(eventType2ModuleName)) {
             return true;
         }

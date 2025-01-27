@@ -1,10 +1,11 @@
 package com.bytedance.android.live.base.api.outer.data;
 
-/* loaded from: classes2.dex */
+/* loaded from: classes.dex */
 public class City {
     String cityName;
 
-    public City() {
+    public City(String str) {
+        this.cityName = str;
     }
 
     public String getCityName() {
@@ -12,10 +13,6 @@ public class City {
     }
 
     public void setCityName(String str) {
-        this.cityName = str;
-    }
-
-    public City(String str) {
         this.cityName = str;
     }
 }

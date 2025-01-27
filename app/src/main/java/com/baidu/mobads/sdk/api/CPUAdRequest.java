@@ -3,7 +3,7 @@ package com.baidu.mobads.sdk.api;
 import android.text.TextUtils;
 import java.util.HashMap;
 
-/* loaded from: classes2.dex */
+/* loaded from: classes.dex */
 public class CPUAdRequest {
     private static final String TAG = "NativeCPUAd";
     private HashMap<String, Object> mParameters;
@@ -22,8 +22,8 @@ public class CPUAdRequest {
             return new CPUAdRequest(this);
         }
 
-        public Builder setAccessType(int i10) {
-            this.mExtras.put("accessType", Integer.valueOf(i10));
+        public Builder setAccessType(int i2) {
+            this.mExtras.put("accessType", Integer.valueOf(i2));
             return this;
         }
 
@@ -43,9 +43,8 @@ public class CPUAdRequest {
             return this;
         }
 
-        @Deprecated
-        public Builder setDownloadAppConfirmPolicy(int i10) {
-            this.mExtras.put("downloadAppConfirmPolicy", Integer.valueOf(i10));
+        public Builder setDownloadAppConfirmPolicy(int i2) {
+            this.mExtras.put("downloadAppConfirmPolicy", Integer.valueOf(i2));
             return this;
         }
 
@@ -54,13 +53,13 @@ public class CPUAdRequest {
             return this;
         }
 
-        public Builder setListScene(int i10) {
-            this.mExtras.put("listScene", Integer.valueOf(i10));
+        public Builder setListScene(int i2) {
+            this.mExtras.put("listScene", Integer.valueOf(i2));
             return this;
         }
 
-        public Builder setLpDarkMode(boolean z10) {
-            if (z10) {
+        public Builder setLpDarkMode(boolean z) {
+            if (z) {
                 this.mExtras.put("preferscolortheme", "dark");
             } else {
                 this.mExtras.put("preferscolortheme", "light");
@@ -79,7 +78,7 @@ public class CPUAdRequest {
         }
     }
 
-    public /* synthetic */ CPUAdRequest(Builder builder, AnonymousClass1 anonymousClass1) {
+    /* synthetic */ CPUAdRequest(Builder builder, AnonymousClass1 anonymousClass1) {
         this(builder);
     }
 

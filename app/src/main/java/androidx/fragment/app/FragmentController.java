@@ -22,10 +22,12 @@ import java.util.List;
 
 /* loaded from: classes.dex */
 public class FragmentController {
-    private final FragmentHostCallback<?> mHost;
+
+    /* renamed from: a */
+    private final FragmentHostCallback<?> f2345a;
 
     private FragmentController(FragmentHostCallback<?> fragmentHostCallback) {
-        this.mHost = fragmentHostCallback;
+        this.f2345a = fragmentHostCallback;
     }
 
     @NonNull
@@ -34,72 +36,64 @@ public class FragmentController {
     }
 
     public void attachHost(@Nullable Fragment fragment) {
-        FragmentHostCallback<?> fragmentHostCallback = this.mHost;
-        fragmentHostCallback.mFragmentManager.attachController(fragmentHostCallback, fragmentHostCallback, fragment);
+        FragmentHostCallback<?> fragmentHostCallback = this.f2345a;
+        fragmentHostCallback.f2351e.attachController(fragmentHostCallback, fragmentHostCallback, fragment);
     }
 
     public void dispatchActivityCreated() {
-        this.mHost.mFragmentManager.dispatchActivityCreated();
+        this.f2345a.f2351e.dispatchActivityCreated();
     }
 
-    @Deprecated
     public void dispatchConfigurationChanged(@NonNull Configuration configuration) {
-        this.mHost.mFragmentManager.dispatchConfigurationChanged(configuration, true);
+        this.f2345a.f2351e.dispatchConfigurationChanged(configuration);
     }
 
     public boolean dispatchContextItemSelected(@NonNull MenuItem menuItem) {
-        return this.mHost.mFragmentManager.dispatchContextItemSelected(menuItem);
+        return this.f2345a.f2351e.dispatchContextItemSelected(menuItem);
     }
 
     public void dispatchCreate() {
-        this.mHost.mFragmentManager.dispatchCreate();
+        this.f2345a.f2351e.dispatchCreate();
     }
 
-    @Deprecated
     public boolean dispatchCreateOptionsMenu(@NonNull Menu menu, @NonNull MenuInflater menuInflater) {
-        return this.mHost.mFragmentManager.dispatchCreateOptionsMenu(menu, menuInflater);
+        return this.f2345a.f2351e.dispatchCreateOptionsMenu(menu, menuInflater);
     }
 
     public void dispatchDestroy() {
-        this.mHost.mFragmentManager.dispatchDestroy();
+        this.f2345a.f2351e.dispatchDestroy();
     }
 
     public void dispatchDestroyView() {
-        this.mHost.mFragmentManager.dispatchDestroyView();
+        this.f2345a.f2351e.dispatchDestroyView();
     }
 
-    @Deprecated
     public void dispatchLowMemory() {
-        this.mHost.mFragmentManager.dispatchLowMemory(true);
+        this.f2345a.f2351e.dispatchLowMemory();
     }
 
-    @Deprecated
-    public void dispatchMultiWindowModeChanged(boolean z10) {
-        this.mHost.mFragmentManager.dispatchMultiWindowModeChanged(z10, true);
+    public void dispatchMultiWindowModeChanged(boolean z) {
+        this.f2345a.f2351e.dispatchMultiWindowModeChanged(z);
     }
 
-    @Deprecated
     public boolean dispatchOptionsItemSelected(@NonNull MenuItem menuItem) {
-        return this.mHost.mFragmentManager.dispatchOptionsItemSelected(menuItem);
+        return this.f2345a.f2351e.dispatchOptionsItemSelected(menuItem);
     }
 
-    @Deprecated
     public void dispatchOptionsMenuClosed(@NonNull Menu menu) {
-        this.mHost.mFragmentManager.dispatchOptionsMenuClosed(menu);
+        this.f2345a.f2351e.dispatchOptionsMenuClosed(menu);
     }
 
     public void dispatchPause() {
-        this.mHost.mFragmentManager.dispatchPause();
+        this.f2345a.f2351e.dispatchPause();
     }
 
-    @Deprecated
-    public void dispatchPictureInPictureModeChanged(boolean z10) {
-        this.mHost.mFragmentManager.dispatchPictureInPictureModeChanged(z10, true);
+    public void dispatchPictureInPictureModeChanged(boolean z) {
+        this.f2345a.f2351e.dispatchPictureInPictureModeChanged(z);
     }
 
-    @Deprecated
     public boolean dispatchPrepareOptionsMenu(@NonNull Menu menu) {
-        return this.mHost.mFragmentManager.dispatchPrepareOptionsMenu(menu);
+        return this.f2345a.f2351e.dispatchPrepareOptionsMenu(menu);
     }
 
     @Deprecated
@@ -107,15 +101,15 @@ public class FragmentController {
     }
 
     public void dispatchResume() {
-        this.mHost.mFragmentManager.dispatchResume();
+        this.f2345a.f2351e.dispatchResume();
     }
 
     public void dispatchStart() {
-        this.mHost.mFragmentManager.dispatchStart();
+        this.f2345a.f2351e.dispatchStart();
     }
 
     public void dispatchStop() {
-        this.mHost.mFragmentManager.dispatchStop();
+        this.f2345a.f2351e.dispatchStop();
     }
 
     @Deprecated
@@ -131,7 +125,7 @@ public class FragmentController {
     }
 
     @Deprecated
-    public void doLoaderStop(boolean z10) {
+    public void doLoaderStop(boolean z) {
     }
 
     @Deprecated
@@ -139,26 +133,26 @@ public class FragmentController {
     }
 
     public boolean execPendingActions() {
-        return this.mHost.mFragmentManager.execPendingActions(true);
+        return this.f2345a.f2351e.execPendingActions();
     }
 
     @Nullable
     public Fragment findFragmentByWho(@NonNull String str) {
-        return this.mHost.mFragmentManager.findFragmentByWho(str);
+        return this.f2345a.f2351e.findFragmentByWho(str);
     }
 
     @NonNull
     public List<Fragment> getActiveFragments(@SuppressLint({"UnknownNullness"}) List<Fragment> list) {
-        return this.mHost.mFragmentManager.getActiveFragments();
+        return this.f2345a.f2351e.M();
     }
 
     public int getActiveFragmentsCount() {
-        return this.mHost.mFragmentManager.getActiveFragmentCount();
+        return this.f2345a.f2351e.L();
     }
 
     @NonNull
     public FragmentManager getSupportFragmentManager() {
-        return this.mHost.mFragmentManager;
+        return this.f2345a.f2351e;
     }
 
     @SuppressLint({"UnknownNullness"})
@@ -168,12 +162,12 @@ public class FragmentController {
     }
 
     public void noteStateNotSaved() {
-        this.mHost.mFragmentManager.noteStateNotSaved();
+        this.f2345a.f2351e.noteStateNotSaved();
     }
 
     @Nullable
     public View onCreateView(@Nullable View view, @NonNull String str, @NonNull Context context, @NonNull AttributeSet attributeSet) {
-        return this.mHost.mFragmentManager.getLayoutInflaterFactory().onCreateView(view, str, context, attributeSet);
+        return this.f2345a.f2351e.onCreateView(view, str, context, attributeSet);
     }
 
     @Deprecated
@@ -182,20 +176,19 @@ public class FragmentController {
 
     @Deprecated
     public void restoreAllState(@Nullable Parcelable parcelable, @Nullable List<Fragment> list) {
-        this.mHost.mFragmentManager.restoreAllState(parcelable, new FragmentManagerNonConfig(list, null, null));
+        this.f2345a.f2351e.k0(parcelable, new FragmentManagerNonConfig(list, null, null));
     }
 
     @Deprecated
     public void restoreLoaderNonConfig(@SuppressLint({"UnknownNullness"}) SimpleArrayMap<String, LoaderManager> simpleArrayMap) {
     }
 
-    @Deprecated
     public void restoreSaveState(@Nullable Parcelable parcelable) {
-        FragmentHostCallback<?> fragmentHostCallback = this.mHost;
+        FragmentHostCallback<?> fragmentHostCallback = this.f2345a;
         if (!(fragmentHostCallback instanceof ViewModelStoreOwner)) {
             throw new IllegalStateException("Your FragmentHostCallback must implement ViewModelStoreOwner to call restoreSaveState(). Call restoreAllState()  if you're still using retainNestedNonConfig().");
         }
-        fragmentHostCallback.mFragmentManager.restoreSaveState(parcelable);
+        fragmentHostCallback.f2351e.l0(parcelable);
     }
 
     @Nullable
@@ -207,27 +200,26 @@ public class FragmentController {
     @Nullable
     @Deprecated
     public FragmentManagerNonConfig retainNestedNonConfig() {
-        return this.mHost.mFragmentManager.retainNonConfig();
+        return this.f2345a.f2351e.m0();
     }
 
     @Nullable
     @Deprecated
     public List<Fragment> retainNonConfig() {
-        FragmentManagerNonConfig retainNonConfig = this.mHost.mFragmentManager.retainNonConfig();
-        if (retainNonConfig == null || retainNonConfig.getFragments() == null) {
+        FragmentManagerNonConfig m0 = this.f2345a.f2351e.m0();
+        if (m0 == null || m0.b() == null) {
             return null;
         }
-        return new ArrayList(retainNonConfig.getFragments());
+        return new ArrayList(m0.b());
     }
 
     @Nullable
-    @Deprecated
     public Parcelable saveAllState() {
-        return this.mHost.mFragmentManager.saveAllState();
+        return this.f2345a.f2351e.n0();
     }
 
     @Deprecated
     public void restoreAllState(@Nullable Parcelable parcelable, @Nullable FragmentManagerNonConfig fragmentManagerNonConfig) {
-        this.mHost.mFragmentManager.restoreAllState(parcelable, fragmentManagerNonConfig);
+        this.f2345a.f2351e.k0(parcelable, fragmentManagerNonConfig);
     }
 }

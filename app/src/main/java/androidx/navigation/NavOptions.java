@@ -8,101 +8,119 @@ import androidx.annotation.NonNull;
 /* loaded from: classes.dex */
 public final class NavOptions {
 
-    @AnimRes
-    @AnimatorRes
-    private int mEnterAnim;
+    /* renamed from: a, reason: collision with root package name */
+    private boolean f3029a;
 
-    @AnimRes
-    @AnimatorRes
-    private int mExitAnim;
-
-    @AnimRes
-    @AnimatorRes
-    private int mPopEnterAnim;
-
-    @AnimRes
-    @AnimatorRes
-    private int mPopExitAnim;
-
+    /* renamed from: b, reason: collision with root package name */
     @IdRes
-    private int mPopUpTo;
-    private boolean mPopUpToInclusive;
-    private boolean mSingleTop;
+    private int f3030b;
+
+    /* renamed from: c, reason: collision with root package name */
+    private boolean f3031c;
+
+    /* renamed from: d, reason: collision with root package name */
+    @AnimRes
+    @AnimatorRes
+    private int f3032d;
+
+    /* renamed from: e, reason: collision with root package name */
+    @AnimRes
+    @AnimatorRes
+    private int f3033e;
+
+    /* renamed from: f, reason: collision with root package name */
+    @AnimRes
+    @AnimatorRes
+    private int f3034f;
+
+    /* renamed from: g, reason: collision with root package name */
+    @AnimRes
+    @AnimatorRes
+    private int f3035g;
 
     public static final class Builder {
-        boolean mPopUpToInclusive;
-        boolean mSingleTop;
 
+        /* renamed from: a, reason: collision with root package name */
+        boolean f3036a;
+
+        /* renamed from: c, reason: collision with root package name */
+        boolean f3038c;
+
+        /* renamed from: b, reason: collision with root package name */
         @IdRes
-        int mPopUpTo = -1;
+        int f3037b = -1;
 
+        /* renamed from: d, reason: collision with root package name */
         @AnimRes
         @AnimatorRes
-        int mEnterAnim = -1;
+        int f3039d = -1;
 
+        /* renamed from: e, reason: collision with root package name */
         @AnimRes
         @AnimatorRes
-        int mExitAnim = -1;
+        int f3040e = -1;
 
+        /* renamed from: f, reason: collision with root package name */
         @AnimRes
         @AnimatorRes
-        int mPopEnterAnim = -1;
+        int f3041f = -1;
 
+        /* renamed from: g, reason: collision with root package name */
         @AnimRes
         @AnimatorRes
-        int mPopExitAnim = -1;
+        int f3042g = -1;
 
         @NonNull
         public NavOptions build() {
-            return new NavOptions(this.mSingleTop, this.mPopUpTo, this.mPopUpToInclusive, this.mEnterAnim, this.mExitAnim, this.mPopEnterAnim, this.mPopExitAnim);
+            return new NavOptions(this.f3036a, this.f3037b, this.f3038c, this.f3039d, this.f3040e, this.f3041f, this.f3042g);
         }
 
         @NonNull
-        public Builder setEnterAnim(@AnimRes @AnimatorRes int i10) {
-            this.mEnterAnim = i10;
+        public Builder setEnterAnim(@AnimRes @AnimatorRes int i2) {
+            this.f3039d = i2;
             return this;
         }
 
         @NonNull
-        public Builder setExitAnim(@AnimRes @AnimatorRes int i10) {
-            this.mExitAnim = i10;
+        public Builder setExitAnim(@AnimRes @AnimatorRes int i2) {
+            this.f3040e = i2;
             return this;
         }
 
         @NonNull
-        public Builder setLaunchSingleTop(boolean z10) {
-            this.mSingleTop = z10;
+        public Builder setLaunchSingleTop(boolean z) {
+            this.f3036a = z;
             return this;
         }
 
         @NonNull
-        public Builder setPopEnterAnim(@AnimRes @AnimatorRes int i10) {
-            this.mPopEnterAnim = i10;
+        public Builder setPopEnterAnim(@AnimRes @AnimatorRes int i2) {
+            this.f3041f = i2;
             return this;
         }
 
         @NonNull
-        public Builder setPopExitAnim(@AnimRes @AnimatorRes int i10) {
-            this.mPopExitAnim = i10;
+        public Builder setPopExitAnim(@AnimRes @AnimatorRes int i2) {
+            this.f3042g = i2;
             return this;
         }
 
         @NonNull
-        public Builder setPopUpTo(@IdRes int i10, boolean z10) {
-            this.mPopUpTo = i10;
-            this.mPopUpToInclusive = z10;
+        public Builder setPopUpTo(@IdRes int i2, boolean z) {
+            this.f3037b = i2;
+            this.f3038c = z;
             return this;
         }
     }
 
-    public NavOptions(boolean z10, @IdRes int i10, boolean z11, @AnimRes @AnimatorRes int i11, @AnimRes @AnimatorRes int i12, @AnimRes @AnimatorRes int i13, @AnimRes @AnimatorRes int i14) {
-        this.mSingleTop = z10;
-        this.mPopUpTo = i10;
-        this.mPopUpToInclusive = z11;
-        this.mEnterAnim = i11;
-        this.mExitAnim = i12;
-        this.mPopEnterAnim = i13;
-        this.mPopExitAnim = i14;
+    NavOptions(boolean z, @IdRes int i2, boolean z2, @AnimRes @AnimatorRes int i3, @AnimRes @AnimatorRes int i4, @AnimRes @AnimatorRes int i5, @AnimRes @AnimatorRes int i6) {
+        this.f3029a = z;
+        this.f3030b = i2;
+        this.f3031c = z2;
+        this.f3032d = i3;
+        this.f3033e = i4;
+        this.f3034f = i5;
+        this.f3035g = i6;
     }
 
     public boolean equals(Object obj) {
@@ -113,36 +131,36 @@ public final class NavOptions {
             return false;
         }
         NavOptions navOptions = (NavOptions) obj;
-        return this.mSingleTop == navOptions.mSingleTop && this.mPopUpTo == navOptions.mPopUpTo && this.mPopUpToInclusive == navOptions.mPopUpToInclusive && this.mEnterAnim == navOptions.mEnterAnim && this.mExitAnim == navOptions.mExitAnim && this.mPopEnterAnim == navOptions.mPopEnterAnim && this.mPopExitAnim == navOptions.mPopExitAnim;
+        return this.f3029a == navOptions.f3029a && this.f3030b == navOptions.f3030b && this.f3031c == navOptions.f3031c && this.f3032d == navOptions.f3032d && this.f3033e == navOptions.f3033e && this.f3034f == navOptions.f3034f && this.f3035g == navOptions.f3035g;
     }
 
     @AnimRes
     @AnimatorRes
     public int getEnterAnim() {
-        return this.mEnterAnim;
+        return this.f3032d;
     }
 
     @AnimRes
     @AnimatorRes
     public int getExitAnim() {
-        return this.mExitAnim;
+        return this.f3033e;
     }
 
     @AnimRes
     @AnimatorRes
     public int getPopEnterAnim() {
-        return this.mPopEnterAnim;
+        return this.f3034f;
     }
 
     @AnimRes
     @AnimatorRes
     public int getPopExitAnim() {
-        return this.mPopExitAnim;
+        return this.f3035g;
     }
 
     @IdRes
     public int getPopUpTo() {
-        return this.mPopUpTo;
+        return this.f3030b;
     }
 
     public int hashCode() {
@@ -150,10 +168,10 @@ public final class NavOptions {
     }
 
     public boolean isPopUpToInclusive() {
-        return this.mPopUpToInclusive;
+        return this.f3031c;
     }
 
     public boolean shouldLaunchSingleTop() {
-        return this.mSingleTop;
+        return this.f3029a;
     }
 }

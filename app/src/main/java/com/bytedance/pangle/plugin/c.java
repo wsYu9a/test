@@ -19,13 +19,14 @@ import com.bytedance.pangle.a.a;
 import com.bytedance.pangle.c.b;
 import com.bytedance.pangle.d.e;
 import com.bytedance.pangle.e.g;
-import com.bytedance.pangle.i;
+import com.bytedance.pangle.h;
 import com.bytedance.pangle.log.ZeusLogger;
 import com.bytedance.pangle.provider.ContentProviderManager;
 import com.bytedance.pangle.res.PluginResources;
 import com.bytedance.pangle.transform.ZeusTransformUtils;
 import com.bytedance.pangle.util.FieldUtils;
 import com.bytedance.pangle.util.MethodUtils;
+import com.bytedance.pangle.util.i;
 import com.bytedance.pangle.wrapper.PluginApplicationWrapper;
 import com.ss.android.socialbase.downloader.constants.MonitorConstants;
 import dalvik.system.BaseDexClassLoader;
@@ -37,87 +38,87 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-/* loaded from: classes2.dex */
+/* loaded from: classes.dex */
 public final class c {
 
     /* renamed from: a */
-    private static final i f7709a = i.a();
+    private static final h f6202a = h.a();
 
     /* renamed from: com.bytedance.pangle.plugin.c$1 */
-    public class AnonymousClass1 implements a.InterfaceC0226a {
+    final class AnonymousClass1 implements a.InterfaceC0067a {
 
         /* renamed from: a */
-        final /* synthetic */ Plugin f7710a;
+        final /* synthetic */ Plugin f6203a;
 
         /* renamed from: b */
-        final /* synthetic */ String f7711b;
+        final /* synthetic */ String f6204b;
 
         /* renamed from: c */
-        final /* synthetic */ File f7712c;
+        final /* synthetic */ File f6205c;
 
         /* renamed from: d */
-        final /* synthetic */ File f7713d;
+        final /* synthetic */ File f6206d;
 
         /* renamed from: e */
-        final /* synthetic */ StringBuilder f7714e;
+        final /* synthetic */ StringBuilder f6207e;
 
-        public AnonymousClass1(Plugin plugin, String str, File file, File file2, StringBuilder sb2) {
+        AnonymousClass1(Plugin plugin, String str, File file, File file2, StringBuilder sb) {
             r2 = plugin;
             r3 = str;
             r4 = file;
             r5 = file2;
-            r6 = sb2;
+            r6 = sb;
         }
 
-        @Override // com.bytedance.pangle.a.a.InterfaceC0226a
+        @Override // com.bytedance.pangle.a.a.InterfaceC0067a
         public final void a() {
             c.this.a(r2, r3, r4, r5, r6);
         }
     }
 
     /* renamed from: com.bytedance.pangle.plugin.c$2 */
-    public class AnonymousClass2 implements a.InterfaceC0226a {
+    final class AnonymousClass2 implements a.InterfaceC0067a {
 
         /* renamed from: a */
-        final /* synthetic */ PackageInfo[] f7716a;
+        final /* synthetic */ PackageInfo[] f6209a;
 
         /* renamed from: b */
-        final /* synthetic */ String f7717b;
+        final /* synthetic */ String f6210b;
 
         /* renamed from: c */
-        final /* synthetic */ Plugin f7718c;
+        final /* synthetic */ Plugin f6211c;
 
         /* renamed from: d */
-        final /* synthetic */ StringBuilder f7719d;
+        final /* synthetic */ StringBuilder f6212d;
 
         /* renamed from: e */
-        final /* synthetic */ String f7720e;
+        final /* synthetic */ String f6213e;
 
         /* renamed from: f */
-        final /* synthetic */ File f7721f;
+        final /* synthetic */ File f6214f;
 
-        public AnonymousClass2(PackageInfo[] packageInfoArr, String str, Plugin plugin, StringBuilder sb2, String str2, File file) {
+        AnonymousClass2(PackageInfo[] packageInfoArr, String str, Plugin plugin, StringBuilder sb, String str2, File file) {
             r2 = packageInfoArr;
             r3 = str;
             r4 = plugin;
-            r5 = sb2;
+            r5 = sb;
             r6 = str2;
             r7 = file;
         }
 
-        @Override // com.bytedance.pangle.a.a.InterfaceC0226a
+        @Override // com.bytedance.pangle.a.a.InterfaceC0067a
         public final void a() {
             r2[0] = c.this.a(r3, r4, r5, r6, r7);
         }
     }
 
     /* renamed from: com.bytedance.pangle.plugin.c$3 */
-    public class AnonymousClass3 implements ComponentCallbacks {
+    final class AnonymousClass3 implements ComponentCallbacks {
 
         /* renamed from: a */
-        final /* synthetic */ Plugin f7723a;
+        final /* synthetic */ Plugin f6216a;
 
-        public AnonymousClass3(Plugin plugin) {
+        AnonymousClass3(Plugin plugin) {
             plugin = plugin;
         }
 
@@ -132,12 +133,12 @@ public final class c {
     }
 
     /* renamed from: com.bytedance.pangle.plugin.c$4 */
-    public class AnonymousClass4 implements Runnable {
+    final class AnonymousClass4 implements Runnable {
 
         /* renamed from: a */
-        final /* synthetic */ Plugin f7725a;
+        final /* synthetic */ Plugin f6218a;
 
-        public AnonymousClass4(Plugin plugin) {
+        AnonymousClass4(Plugin plugin) {
             plugin = plugin;
         }
 
@@ -151,73 +152,74 @@ public final class c {
         }
     }
 
-    public final boolean a(String str) {
+    c() {
+    }
+
+    final boolean a(String str) {
         Plugin plugin = PluginManager.getInstance().getPlugin(str);
         if (plugin == null) {
             ZeusLogger.w(ZeusLogger.TAG_LOAD, "PluginLoader loadPlugin, plugin == null, pkg = ".concat(String.valueOf(str)));
             return false;
         }
         synchronized (plugin) {
-            try {
-                if (!plugin.isInstalled()) {
-                    ZeusLogger.w(ZeusLogger.TAG_LOAD, "PluginLoader loadPlugin, UN_INSTALLED, ".concat(String.valueOf(str)));
-                    return false;
-                }
-                if (plugin.isLoaded()) {
-                    return true;
-                }
-                i iVar = f7709a;
-                iVar.a(2000, 0, plugin.mPkgName, plugin.getVersion(), null);
-                com.bytedance.pangle.log.a a10 = com.bytedance.pangle.log.a.a(ZeusLogger.TAG_LOAD, "PluginLoader", "loadPlugin:".concat(String.valueOf(str)));
-                a(com.bytedance.pangle.c.b.f7490i, b.a.D, plugin.mPkgName, plugin.getVersion(), -1L, (String) null);
-                ZeusPluginStateListener.postStateChange(str, 8, new Object[0]);
-                StringBuilder sb2 = new StringBuilder();
-                boolean a11 = a(str, plugin, sb2);
-                a10.a("loadPluginInternal:".concat(String.valueOf(a11)));
-                if (a11) {
-                    plugin.setLifeCycle(3);
-                    a(com.bytedance.pangle.c.b.f7491j, b.a.E, plugin.mPkgName, plugin.getVersion(), a10.a(), sb2.toString());
-                    ZeusPluginStateListener.postStateChange(str, 9, new Object[0]);
-                    iVar.a(ZeusPluginEventCallback.EVENT_FINISH_LOAD, 0, plugin.mPkgName, plugin.getVersion(), null);
-                } else {
-                    sb2.append("plugin:");
-                    sb2.append(plugin.mPkgName);
-                    sb2.append(" versionCode:");
-                    sb2.append(plugin.getVersion());
-                    sb2.append("load failed;");
-                    a(com.bytedance.pangle.c.b.f7491j, b.a.F, plugin.mPkgName, plugin.getVersion(), -1L, sb2.toString());
-                    ZeusPluginStateListener.postStateChange(str, 10, new Object[0]);
-                    iVar.a(ZeusPluginEventCallback.EVENT_FINISH_LOAD, -1, plugin.mPkgName, plugin.getVersion(), null);
-                }
-                ZeusLogger.i(ZeusLogger.TAG_LOAD, "PluginLoader loadFinished, ".concat(String.valueOf(plugin)));
-                if (!plugin.isLoaded()) {
-                    return false;
-                }
-                ZeusLogger.d(ZeusLogger.TAG_LOAD, "PluginLoader postResult, LOADED " + plugin.mPkgName);
-                return true;
-            } catch (Throwable th2) {
-                throw th2;
+            if (!plugin.isInstalled()) {
+                ZeusLogger.w(ZeusLogger.TAG_LOAD, "PluginLoader loadPlugin, UN_INSTALLED, ".concat(String.valueOf(str)));
+                return false;
             }
+            if (plugin.isLoaded()) {
+                return true;
+            }
+            h hVar = f6202a;
+            hVar.a(2000, 0, plugin.mPkgName, plugin.getVersion(), null);
+            com.bytedance.pangle.log.a a2 = com.bytedance.pangle.log.a.a(ZeusLogger.TAG_LOAD, "PluginLoader", "loadPlugin:".concat(String.valueOf(str)));
+            a(com.bytedance.pangle.c.b.f6011g, b.a.D, plugin.mPkgName, plugin.getVersion(), -1L, (String) null);
+            ZeusPluginStateListener.postStateChange(str, 8, new Object[0]);
+            StringBuilder sb = new StringBuilder();
+            boolean a3 = a(str, plugin, sb);
+            a2.a("loadPluginInternal:".concat(String.valueOf(a3)));
+            if (a3) {
+                plugin.setLifeCycle(3);
+                a(com.bytedance.pangle.c.b.f6012h, b.a.E, plugin.mPkgName, plugin.getVersion(), a2.a(), sb.toString());
+                ZeusPluginStateListener.postStateChange(str, 9, new Object[0]);
+                hVar.a(ZeusPluginEventCallback.EVENT_FINISH_LOAD, 0, plugin.mPkgName, plugin.getVersion(), null);
+            } else {
+                sb.append("plugin:");
+                sb.append(plugin.mPkgName);
+                sb.append(" versionCode:");
+                sb.append(plugin.getVersion());
+                sb.append("load failed;");
+                a(com.bytedance.pangle.c.b.f6012h, b.a.F, plugin.mPkgName, plugin.getVersion(), -1L, sb.toString());
+                ZeusPluginStateListener.postStateChange(str, 10, new Object[0]);
+                hVar.a(ZeusPluginEventCallback.EVENT_FINISH_LOAD, -1, plugin.mPkgName, plugin.getVersion(), null);
+            }
+            ZeusLogger.i(ZeusLogger.TAG_LOAD, "PluginLoader loadFinished, ".concat(String.valueOf(plugin)));
+            if (!plugin.isLoaded()) {
+                return false;
+            }
+            ZeusLogger.d(ZeusLogger.TAG_LOAD, "PluginLoader postResult, LOADED " + plugin.mPkgName);
+            return true;
         }
     }
 
-    /* JADX WARN: Removed duplicated region for block: B:34:0x01a7 A[Catch: all -> 0x01cd, TryCatch #1 {all -> 0x01cd, blocks: (B:32:0x0183, B:34:0x01a7, B:40:0x01d2, B:42:0x01d8, B:43:0x01db, B:45:0x01e3, B:46:0x0241, B:49:0x0215), top: B:31:0x0183 }] */
-    /* JADX WARN: Removed duplicated region for block: B:40:0x01d2 A[Catch: all -> 0x01cd, TryCatch #1 {all -> 0x01cd, blocks: (B:32:0x0183, B:34:0x01a7, B:40:0x01d2, B:42:0x01d8, B:43:0x01db, B:45:0x01e3, B:46:0x0241, B:49:0x0215), top: B:31:0x0183 }] */
-    /* JADX WARN: Removed duplicated region for block: B:45:0x01e3 A[Catch: all -> 0x01cd, TryCatch #1 {all -> 0x01cd, blocks: (B:32:0x0183, B:34:0x01a7, B:40:0x01d2, B:42:0x01d8, B:43:0x01db, B:45:0x01e3, B:46:0x0241, B:49:0x0215), top: B:31:0x0183 }] */
-    /* JADX WARN: Removed duplicated region for block: B:49:0x0215 A[Catch: all -> 0x01cd, TryCatch #1 {all -> 0x01cd, blocks: (B:32:0x0183, B:34:0x01a7, B:40:0x01d2, B:42:0x01d8, B:43:0x01db, B:45:0x01e3, B:46:0x0241, B:49:0x0215), top: B:31:0x0183 }] */
+    /* JADX WARN: Removed duplicated region for block: B:31:0x0182 A[Catch: all -> 0x021a, TryCatch #0 {all -> 0x021a, blocks: (B:29:0x015e, B:31:0x0182, B:37:0x01aa, B:39:0x01b0, B:40:0x01b3, B:42:0x01bb, B:43:0x0214, B:46:0x01f1), top: B:28:0x015e }] */
+    /* JADX WARN: Removed duplicated region for block: B:37:0x01aa A[Catch: all -> 0x021a, TryCatch #0 {all -> 0x021a, blocks: (B:29:0x015e, B:31:0x0182, B:37:0x01aa, B:39:0x01b0, B:40:0x01b3, B:42:0x01bb, B:43:0x0214, B:46:0x01f1), top: B:28:0x015e }] */
+    /* JADX WARN: Removed duplicated region for block: B:42:0x01bb A[Catch: all -> 0x021a, TryCatch #0 {all -> 0x021a, blocks: (B:29:0x015e, B:31:0x0182, B:37:0x01aa, B:39:0x01b0, B:40:0x01b3, B:42:0x01bb, B:43:0x0214, B:46:0x01f1), top: B:28:0x015e }] */
+    /* JADX WARN: Removed duplicated region for block: B:46:0x01f1 A[Catch: all -> 0x021a, TryCatch #0 {all -> 0x021a, blocks: (B:29:0x015e, B:31:0x0182, B:37:0x01aa, B:39:0x01b0, B:40:0x01b3, B:42:0x01bb, B:43:0x0214, B:46:0x01f1), top: B:28:0x015e }] */
+    /* JADX WARN: Type inference failed for: r15v10 */
+    /* JADX WARN: Type inference failed for: r15v11 */
     /*
         Code decompiled incorrectly, please refer to instructions dump.
         To view partially-correct code enable 'Show inconsistent code' option in preferences
     */
-    private boolean a(java.lang.String r23, com.bytedance.pangle.plugin.Plugin r24, java.lang.StringBuilder r25) {
+    private boolean a(java.lang.String r22, com.bytedance.pangle.plugin.Plugin r23, java.lang.StringBuilder r24) {
         /*
-            Method dump skipped, instructions count: 716
+            Method dump skipped, instructions count: 613
             To view this dump change 'Code comments level' option to 'DEBUG'
         */
         throw new UnsupportedOperationException("Method not decompiled: com.bytedance.pangle.plugin.c.a(java.lang.String, com.bytedance.pangle.plugin.Plugin, java.lang.StringBuilder):boolean");
     }
 
-    private static void a(Plugin plugin, StringBuilder sb2, PackageInfo packageInfo) {
+    private static void a(Plugin plugin, StringBuilder sb, PackageInfo packageInfo) {
         ActivityInfo[] activityInfoArr = packageInfo.activities;
         if (activityInfoArr != null) {
             for (ActivityInfo activityInfo : activityInfoArr) {
@@ -267,23 +269,23 @@ public final class c {
         if (hashMap != null && hashMap.size() > 0) {
             ContentProviderManager.getInstance().installContentProviders(plugin.pluginProvider.values(), plugin);
         }
-        sb2.append("installProvider cost:");
-        sb2.append(System.currentTimeMillis() - currentTimeMillis);
-        sb2.append(";");
+        sb.append("installProvider cost:");
+        sb.append(System.currentTimeMillis() - currentTimeMillis);
+        sb.append(";");
         long currentTimeMillis2 = System.currentTimeMillis();
         if (!TextUtils.isEmpty(packageInfo.applicationInfo.className)) {
             ZeusApplication zeusApplication = (ZeusApplication) plugin.mClassLoader.loadClass(packageInfo.applicationInfo.className).newInstance();
             plugin.mApplication = zeusApplication;
             zeusApplication.attach(plugin, Zeus.getAppApplication());
         }
-        sb2.append("makeApplication cost:");
-        sb2.append(System.currentTimeMillis() - currentTimeMillis2);
-        sb2.append(";");
+        sb.append("makeApplication cost:");
+        sb.append(System.currentTimeMillis() - currentTimeMillis2);
+        sb.append(";");
     }
 
-    public PackageInfo a(String str, Plugin plugin, StringBuilder sb2, String str2, File file) {
+    public PackageInfo a(String str, Plugin plugin, StringBuilder sb, String str2, File file) {
         long currentTimeMillis = System.currentTimeMillis();
-        PackageInfo packageArchiveInfo = Zeus.getAppApplication().getPackageManager().getPackageArchiveInfo(str2, 143);
+        PackageInfo packageArchiveInfo = Zeus.getAppApplication().getPackageManager().getPackageArchiveInfo(str2, org.mozilla.universalchardet.prober.n.a.q);
         plugin.mHostApplication = (PluginApplicationWrapper) ZeusTransformUtils.wrapperContext2Application(Zeus.getAppApplication(), plugin.mPkgName);
         ApplicationInfo applicationInfo = new ApplicationInfo(Zeus.getAppApplication().getApplicationInfo());
         plugin.mHostApplicationInfoHookSomeField = applicationInfo;
@@ -300,9 +302,9 @@ public final class c {
         Zeus.getAppApplication().registerComponentCallbacks(new ComponentCallbacks() { // from class: com.bytedance.pangle.plugin.c.3
 
             /* renamed from: a */
-            final /* synthetic */ Plugin f7723a;
+            final /* synthetic */ Plugin f6216a;
 
-            public AnonymousClass3(Plugin plugin2) {
+            AnonymousClass3(Plugin plugin2) {
                 plugin = plugin2;
             }
 
@@ -315,25 +317,25 @@ public final class c {
             public final void onLowMemory() {
             }
         });
-        sb2.append("makeResources cost:");
-        sb2.append(System.currentTimeMillis() - currentTimeMillis);
-        sb2.append(";");
+        sb.append("makeResources cost:");
+        sb.append(System.currentTimeMillis() - currentTimeMillis);
+        sb.append(";");
         return packageArchiveInfo;
     }
 
-    public void a(Plugin plugin, String str, File file, File file2, StringBuilder sb2) {
+    public void a(Plugin plugin, String str, File file, File file2, StringBuilder sb) {
         long currentTimeMillis = System.currentTimeMillis();
         a(plugin, str, file, file2);
-        sb2.append("classLoader cost:");
-        sb2.append(System.currentTimeMillis() - currentTimeMillis);
-        sb2.append(" ;");
+        sb.append("classLoader cost:");
+        sb.append(System.currentTimeMillis() - currentTimeMillis);
+        sb.append(" ;");
         if (plugin.mOpenLoadClassOpt) {
             e.a(new Runnable() { // from class: com.bytedance.pangle.plugin.c.4
 
                 /* renamed from: a */
-                final /* synthetic */ Plugin f7725a;
+                final /* synthetic */ Plugin f6218a;
 
-                public AnonymousClass4(Plugin plugin2) {
+                AnonymousClass4(Plugin plugin2) {
                     plugin = plugin2;
                 }
 
@@ -354,15 +356,15 @@ public final class c {
                 a(plugin2, str2);
             }
         } catch (ClassNotFoundException unused) {
-        } catch (Throwable th2) {
-            sb2.append("actStubV1 cost:");
-            sb2.append(System.currentTimeMillis() - currentTimeMillis2);
-            sb2.append(";");
-            throw th2;
+        } catch (Throwable th) {
+            sb.append("actStubV1 cost:");
+            sb.append(System.currentTimeMillis() - currentTimeMillis2);
+            sb.append(";");
+            throw th;
         }
-        sb2.append("actStubV1 cost:");
-        sb2.append(System.currentTimeMillis() - currentTimeMillis2);
-        sb2.append(";");
+        sb.append("actStubV1 cost:");
+        sb.append(System.currentTimeMillis() - currentTimeMillis2);
+        sb.append(";");
     }
 
     private static void a(Plugin plugin, String str) {
@@ -382,8 +384,8 @@ public final class c {
         }
         JSONArray optJSONArray = jSONObject.optJSONArray("forceMappings");
         if (optJSONArray != null) {
-            for (int i10 = 0; i10 < optJSONArray.length(); i10++) {
-                JSONObject jSONObject2 = optJSONArray.getJSONObject(i10);
+            for (int i2 = 0; i2 < optJSONArray.length(); i2++) {
+                JSONObject jSONObject2 = optJSONArray.getJSONObject(i2);
                 int optInt = jSONObject2.optInt("minApi", 0);
                 int optInt2 = jSONObject2.optInt("maxApi", Integer.MAX_VALUE);
                 int apiVersionCode = plugin.getApiVersionCode();
@@ -399,60 +401,54 @@ public final class c {
         for (String str2 : hashMap.keySet()) {
             String str3 = (String) hashMap.get(str2);
             String str4 = plugin.mPkgName;
-            StringBuilder sb2 = new StringBuilder();
-            sb2.append((str3 == null || !str3.contains(p1.b.f29697h)) ? plugin.mPkgName + p1.b.f29697h : "");
-            sb2.append((String) hashMap.get(str2));
-            ComponentManager.registerActivity(str4, sb2.toString(), str2);
+            StringBuilder sb = new StringBuilder();
+            sb.append((str3 == null || !str3.contains(".")) ? plugin.mPkgName + "." : "");
+            sb.append((String) hashMap.get(str2));
+            ComponentManager.registerActivity(str4, sb.toString(), str2);
         }
     }
 
-    private static void a(String str, int i10, @NonNull String str2, int i11, long j10, String str3) {
+    private static void a(String str, int i2, @NonNull String str2, int i3, long j2, String str3) {
         JSONObject jSONObject = new JSONObject();
         JSONObject jSONObject2 = new JSONObject();
         JSONObject jSONObject3 = new JSONObject();
         try {
-            jSONObject.putOpt(MonitorConstants.STATUS_CODE, com.bytedance.pangle.log.b.a(Integer.valueOf(i10)));
+            jSONObject.putOpt(MonitorConstants.STATUS_CODE, com.bytedance.pangle.log.b.a(Integer.valueOf(i2)));
             jSONObject.putOpt("plugin_package_name", com.bytedance.pangle.log.b.a(str2));
-            jSONObject.putOpt("version_code", com.bytedance.pangle.log.b.a(Integer.valueOf(i11)));
-            jSONObject3.putOpt("duration", Integer.valueOf(com.bytedance.pangle.log.b.b(Long.valueOf(j10))));
-            jSONObject2.putOpt(b7.d.f1362o, com.bytedance.pangle.log.b.a(str3));
-        } catch (JSONException e10) {
-            e10.printStackTrace();
+            jSONObject.putOpt("version_code", com.bytedance.pangle.log.b.a(Integer.valueOf(i3)));
+            jSONObject3.putOpt("duration", Integer.valueOf(com.bytedance.pangle.log.b.b(Long.valueOf(j2))));
+            jSONObject2.putOpt(com.heytap.mcssdk.n.d.l, com.bytedance.pangle.log.b.a(str3));
+        } catch (JSONException e2) {
+            e2.printStackTrace();
         }
         com.bytedance.pangle.c.b.a().a(str, jSONObject, jSONObject3, jSONObject2);
     }
 
     private static void a(Object obj, String str) {
-        if (str != null) {
-            try {
-                for (String str2 : str.split(File.pathSeparator)) {
-                    new File(str2).setReadOnly();
-                }
-            } catch (Throwable th2) {
-                ZeusLogger.errReport(ZeusLogger.TAG_LOAD, "PluginLoader createPluginClassLoader#addDexPath fail >>>".concat(String.valueOf(str)), th2);
-                return;
-            }
+        try {
+            MethodUtils.getAccessibleMethod(BaseDexClassLoader.class, "addDexPath", String.class).invoke(obj, str);
+            ZeusLogger.i(ZeusLogger.TAG_LOAD, "PluginLoader createPluginClassLoader#addDexPath success >>>".concat(String.valueOf(str)));
+        } catch (Throwable th) {
+            ZeusLogger.errReport(ZeusLogger.TAG_LOAD, "PluginLoader createPluginClassLoader#addDexPath fail >>>".concat(String.valueOf(str)), th);
         }
-        MethodUtils.getAccessibleMethod(BaseDexClassLoader.class, "addDexPath", String.class).invoke(obj, str);
-        ZeusLogger.i(ZeusLogger.TAG_LOAD, "PluginLoader createPluginClassLoader#addDexPath success >>>".concat(String.valueOf(str)));
     }
 
     private static void a(Plugin plugin, String str, File file, File file2) {
-        if (com.bytedance.pangle.util.i.k()) {
+        if (i.k()) {
             PluginClassLoader pluginClassLoader = new PluginClassLoader("", file2, file.getAbsolutePath(), null);
             plugin.mClassLoader = pluginClassLoader;
             a(pluginClassLoader, str);
             return;
         }
-        if (com.bytedance.pangle.util.i.b()) {
-            String a10 = g.a(plugin.mPkgName, plugin.getVersion());
-            String[] split = a10.split(":");
+        if (i.b()) {
+            String a2 = g.a(plugin.mPkgName, plugin.getVersion());
+            String[] split = a2.split(":");
             long currentTimeMillis = System.currentTimeMillis();
-            boolean z10 = !com.bytedance.pangle.e.b.a(file2.getAbsolutePath(), split);
-            ZeusLogger.d(ZeusLogger.TAG_LOAD, "useDirect:" + (System.currentTimeMillis() - currentTimeMillis) + " " + z10);
-            PluginClassLoader pluginClassLoader2 = new PluginClassLoader(z10 ? "" : a10, file2, file.getAbsolutePath(), null);
+            boolean z = !com.bytedance.pangle.e.b.a(file2.getAbsolutePath(), split);
+            ZeusLogger.d(ZeusLogger.TAG_LOAD, "useDirect:" + (System.currentTimeMillis() - currentTimeMillis) + " " + z);
+            PluginClassLoader pluginClassLoader2 = new PluginClassLoader(z ? "" : a2, file2, file.getAbsolutePath(), null);
             plugin.mClassLoader = pluginClassLoader2;
-            if (z10) {
+            if (z) {
                 com.bytedance.pangle.dex.a.a(pluginClassLoader2, plugin.mPkgName, plugin.getVersion());
                 return;
             }

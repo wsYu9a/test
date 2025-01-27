@@ -11,7 +11,7 @@ public class MiRechargeOrderList {
         return this.rechargeOrders;
     }
 
-    public void setRechargeOrders(List<MiRechargeOrder> list) {
-        this.rechargeOrders = list;
+    public void setRechargeOrders(List<MiRechargeOrder> rechargeOrders) {
+        this.rechargeOrders = rechargeOrders;
     }
 }

@@ -10,7 +10,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-/* loaded from: classes2.dex */
+/* loaded from: classes.dex */
 public final class LazyHeaders implements Headers {
     private volatile Map<String, String> combinedHeaders;
     private final Map<String, List<LazyHeaderFactory>> headers;
@@ -59,22 +59,22 @@ public final class LazyHeaders implements Headers {
         }
 
         @VisibleForTesting
-        public static String getSanitizedUserAgent() {
+        static String getSanitizedUserAgent() {
             String property = System.getProperty("http.agent");
             if (TextUtils.isEmpty(property)) {
                 return property;
             }
             int length = property.length();
-            StringBuilder sb2 = new StringBuilder(property.length());
-            for (int i10 = 0; i10 < length; i10++) {
-                char charAt = property.charAt(i10);
+            StringBuilder sb = new StringBuilder(property.length());
+            for (int i2 = 0; i2 < length; i2++) {
+                char charAt = property.charAt(i2);
                 if ((charAt > 31 || charAt == '\t') && charAt < 127) {
-                    sb2.append(charAt);
+                    sb.append(charAt);
                 } else {
-                    sb2.append('?');
+                    sb.append('?');
                 }
             }
-            return sb2.toString();
+            return sb.toString();
         }
 
         public Builder addHeader(@NonNull String str, @NonNull String str2) {
@@ -115,12 +115,12 @@ public final class LazyHeaders implements Headers {
         }
     }
 
-    public static final class StringHeaderFactory implements LazyHeaderFactory {
+    static final class StringHeaderFactory implements LazyHeaderFactory {
 
         @NonNull
         private final String value;
 
-        public StringHeaderFactory(@NonNull String str) {
+        StringHeaderFactory(@NonNull String str) {
             this.value = str;
         }
 
@@ -145,24 +145,24 @@ public final class LazyHeaders implements Headers {
         }
     }
 
-    public LazyHeaders(Map<String, List<LazyHeaderFactory>> map) {
+    LazyHeaders(Map<String, List<LazyHeaderFactory>> map) {
         this.headers = Collections.unmodifiableMap(map);
     }
 
     @NonNull
     private String buildHeaderValue(@NonNull List<LazyHeaderFactory> list) {
-        StringBuilder sb2 = new StringBuilder();
+        StringBuilder sb = new StringBuilder();
         int size = list.size();
-        for (int i10 = 0; i10 < size; i10++) {
-            String buildHeader = list.get(i10).buildHeader();
+        for (int i2 = 0; i2 < size; i2++) {
+            String buildHeader = list.get(i2).buildHeader();
             if (!TextUtils.isEmpty(buildHeader)) {
-                sb2.append(buildHeader);
-                if (i10 != list.size() - 1) {
-                    sb2.append(',');
+                sb.append(buildHeader);
+                if (i2 != list.size() - 1) {
+                    sb.append(',');
                 }
             }
         }
-        return sb2.toString();
+        return sb.toString();
     }
 
     private Map<String, String> generateHeaders() {
@@ -187,11 +187,8 @@ public final class LazyHeaders implements Headers {
     public Map<String, String> getHeaders() {
         if (this.combinedHeaders == null) {
             synchronized (this) {
-                try {
-                    if (this.combinedHeaders == null) {
-                        this.combinedHeaders = Collections.unmodifiableMap(generateHeaders());
-                    }
-                } finally {
+                if (this.combinedHeaders == null) {
+                    this.combinedHeaders = Collections.unmodifiableMap(generateHeaders());
                 }
             }
         }

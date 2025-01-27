@@ -2,12 +2,12 @@ package com.bytedance.android.openliveplugin.stub.activity;
 
 import android.os.Handler;
 import android.os.Looper;
-import com.bytedance.android.dy.sdk.pangle.ZeusPlatformProxyActivity;
-import com.bytedance.android.live.base.api.IOuterLiveService;
+import com.bytedance.android.live.base.api.IOuterLiveRoomService;
 import com.bytedance.android.live.base.api.JavaCallsUtils;
 import com.bytedance.android.openliveplugin.LivePluginHelper;
+import com.bytedance.pangle.activity.GenerateProxyActivity;
 
-/* loaded from: classes2.dex */
+/* loaded from: classes.dex */
 public class StubActivity {
 
     public static class Activity extends SuperActivity {
@@ -17,8 +17,8 @@ public class StubActivity {
         }
 
         @Override // com.bytedance.android.openliveplugin.stub.activity.StubActivity.SuperActivity, com.bytedance.pangle.activity.GenerateProxyActivity, android.app.Activity, android.view.Window.Callback
-        public /* bridge */ /* synthetic */ void onWindowFocusChanged(boolean z10) {
-            super.onWindowFocusChanged(z10);
+        public /* bridge */ /* synthetic */ void onWindowFocusChanged(boolean z) {
+            super.onWindowFocusChanged(z);
         }
     }
 
@@ -29,8 +29,8 @@ public class StubActivity {
         }
 
         @Override // com.bytedance.android.openliveplugin.stub.activity.StubActivity.SuperActivity, com.bytedance.pangle.activity.GenerateProxyActivity, android.app.Activity, android.view.Window.Callback
-        public /* bridge */ /* synthetic */ void onWindowFocusChanged(boolean z10) {
-            super.onWindowFocusChanged(z10);
+        public /* bridge */ /* synthetic */ void onWindowFocusChanged(boolean z) {
+            super.onWindowFocusChanged(z);
         }
     }
 
@@ -41,8 +41,8 @@ public class StubActivity {
         }
 
         @Override // com.bytedance.android.openliveplugin.stub.activity.StubActivity.SuperActivity, com.bytedance.pangle.activity.GenerateProxyActivity, android.app.Activity, android.view.Window.Callback
-        public /* bridge */ /* synthetic */ void onWindowFocusChanged(boolean z10) {
-            super.onWindowFocusChanged(z10);
+        public /* bridge */ /* synthetic */ void onWindowFocusChanged(boolean z) {
+            super.onWindowFocusChanged(z);
         }
     }
 
@@ -53,8 +53,20 @@ public class StubActivity {
         }
 
         @Override // com.bytedance.android.openliveplugin.stub.activity.StubActivity.SuperActivity, com.bytedance.pangle.activity.GenerateProxyActivity, android.app.Activity, android.view.Window.Callback
-        public /* bridge */ /* synthetic */ void onWindowFocusChanged(boolean z10) {
-            super.onWindowFocusChanged(z10);
+        public /* bridge */ /* synthetic */ void onWindowFocusChanged(boolean z) {
+            super.onWindowFocusChanged(z);
+        }
+    }
+
+    public static class Activity_T_SingleTask2 extends SuperActivity {
+        @Override // com.bytedance.android.openliveplugin.stub.activity.StubActivity.SuperActivity, com.bytedance.pangle.activity.GenerateProxyActivity, com.bytedance.pangle.activity.b
+        public /* bridge */ /* synthetic */ String getPluginPkgName() {
+            return super.getPluginPkgName();
+        }
+
+        @Override // com.bytedance.android.openliveplugin.stub.activity.StubActivity.SuperActivity, com.bytedance.pangle.activity.GenerateProxyActivity, android.app.Activity, android.view.Window.Callback
+        public /* bridge */ /* synthetic */ void onWindowFocusChanged(boolean z) {
+            super.onWindowFocusChanged(z);
         }
     }
 
@@ -65,8 +77,8 @@ public class StubActivity {
         }
 
         @Override // com.bytedance.android.openliveplugin.stub.activity.StubActivity.SuperActivity, com.bytedance.pangle.activity.GenerateProxyActivity, android.app.Activity, android.view.Window.Callback
-        public /* bridge */ /* synthetic */ void onWindowFocusChanged(boolean z10) {
-            super.onWindowFocusChanged(z10);
+        public /* bridge */ /* synthetic */ void onWindowFocusChanged(boolean z) {
+            super.onWindowFocusChanged(z);
         }
     }
 
@@ -77,8 +89,8 @@ public class StubActivity {
         }
 
         @Override // com.bytedance.android.openliveplugin.stub.activity.StubActivity.SuperActivity, com.bytedance.pangle.activity.GenerateProxyActivity, android.app.Activity, android.view.Window.Callback
-        public /* bridge */ /* synthetic */ void onWindowFocusChanged(boolean z10) {
-            super.onWindowFocusChanged(z10);
+        public /* bridge */ /* synthetic */ void onWindowFocusChanged(boolean z) {
+            super.onWindowFocusChanged(z);
         }
     }
 
@@ -89,8 +101,8 @@ public class StubActivity {
         }
 
         @Override // com.bytedance.android.openliveplugin.stub.activity.StubActivity.SuperActivity, com.bytedance.pangle.activity.GenerateProxyActivity, android.app.Activity, android.view.Window.Callback
-        public /* bridge */ /* synthetic */ void onWindowFocusChanged(boolean z10) {
-            super.onWindowFocusChanged(z10);
+        public /* bridge */ /* synthetic */ void onWindowFocusChanged(boolean z) {
+            super.onWindowFocusChanged(z);
         }
     }
 
@@ -101,8 +113,8 @@ public class StubActivity {
         }
 
         @Override // com.bytedance.android.openliveplugin.stub.activity.StubActivity.SuperActivity, com.bytedance.pangle.activity.GenerateProxyActivity, android.app.Activity, android.view.Window.Callback
-        public /* bridge */ /* synthetic */ void onWindowFocusChanged(boolean z10) {
-            super.onWindowFocusChanged(z10);
+        public /* bridge */ /* synthetic */ void onWindowFocusChanged(boolean z) {
+            super.onWindowFocusChanged(z);
         }
     }
 
@@ -113,17 +125,17 @@ public class StubActivity {
         }
 
         @Override // com.bytedance.android.openliveplugin.stub.activity.StubActivity.SuperActivity, com.bytedance.pangle.activity.GenerateProxyActivity, android.app.Activity, android.view.Window.Callback
-        public /* bridge */ /* synthetic */ void onWindowFocusChanged(boolean z10) {
-            super.onWindowFocusChanged(z10);
+        public /* bridge */ /* synthetic */ void onWindowFocusChanged(boolean z) {
+            super.onWindowFocusChanged(z);
         }
     }
 
-    public static class SuperActivity extends ZeusPlatformProxyActivity {
+    static class SuperActivity extends GenerateProxyActivity {
         Handler handler;
 
         /* renamed from: com.bytedance.android.openliveplugin.stub.activity.StubActivity$SuperActivity$1 */
         class AnonymousClass1 implements Runnable {
-            public AnonymousClass1() {
+            AnonymousClass1() {
             }
 
             @Override // java.lang.Runnable
@@ -134,40 +146,43 @@ public class StubActivity {
 
         /* renamed from: com.bytedance.android.openliveplugin.stub.activity.StubActivity$SuperActivity$2 */
         class AnonymousClass2 implements Runnable {
-            public AnonymousClass2() {
+            AnonymousClass2() {
             }
 
             @Override // java.lang.Runnable
             public void run() {
-                IOuterLiveService liveRoomService = LivePluginHelper.getLiveRoomService();
+                IOuterLiveRoomService liveRoomService = LivePluginHelper.getLiveRoomService();
                 if (liveRoomService != null) {
                     SuperActivity superActivity = SuperActivity.this;
                     if (superActivity.mTargetActivity != null) {
                         try {
                             liveRoomService.callExpandMethod("report_window_focus_change", JavaCallsUtils.getField(superActivity, "mToken"), SuperActivity.this.mTargetActivity.getClass().getCanonicalName());
-                        } catch (Throwable th2) {
-                            th2.printStackTrace();
+                        } catch (Throwable th) {
+                            th.printStackTrace();
                         }
                     }
                 }
             }
         }
 
+        SuperActivity() {
+        }
+
         public void execAsyncCheckReport() {
             LivePluginHelper.sExecutor.execute(new Runnable() { // from class: com.bytedance.android.openliveplugin.stub.activity.StubActivity.SuperActivity.2
-                public AnonymousClass2() {
+                AnonymousClass2() {
                 }
 
                 @Override // java.lang.Runnable
                 public void run() {
-                    IOuterLiveService liveRoomService = LivePluginHelper.getLiveRoomService();
+                    IOuterLiveRoomService liveRoomService = LivePluginHelper.getLiveRoomService();
                     if (liveRoomService != null) {
                         SuperActivity superActivity = SuperActivity.this;
                         if (superActivity.mTargetActivity != null) {
                             try {
                                 liveRoomService.callExpandMethod("report_window_focus_change", JavaCallsUtils.getField(superActivity, "mToken"), SuperActivity.this.mTargetActivity.getClass().getCanonicalName());
-                            } catch (Throwable th2) {
-                                th2.printStackTrace();
+                            } catch (Throwable th) {
+                                th.printStackTrace();
                             }
                         }
                     }
@@ -181,16 +196,16 @@ public class StubActivity {
         }
 
         @Override // com.bytedance.pangle.activity.GenerateProxyActivity, android.app.Activity, android.view.Window.Callback
-        public void onWindowFocusChanged(boolean z10) {
-            super.onWindowFocusChanged(z10);
-            if (z10) {
+        public void onWindowFocusChanged(boolean z) {
+            super.onWindowFocusChanged(z);
+            if (z) {
                 return;
             }
             if (this.handler == null) {
                 this.handler = new Handler(Looper.getMainLooper());
             }
             this.handler.post(new Runnable() { // from class: com.bytedance.android.openliveplugin.stub.activity.StubActivity.SuperActivity.1
-                public AnonymousClass1() {
+                AnonymousClass1() {
                 }
 
                 @Override // java.lang.Runnable

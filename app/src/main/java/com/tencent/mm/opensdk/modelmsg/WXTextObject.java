@@ -14,10 +14,14 @@ public class WXTextObject implements WXMediaMessage.IMediaObject {
         this(null);
     }
 
+    public WXTextObject(String str) {
+        this.text = str;
+    }
+
     @Override // com.tencent.mm.opensdk.modelmsg.WXMediaMessage.IMediaObject
     public boolean checkArgs() {
         String str = this.text;
-        if (str != null && str.length() != 0 && this.text.length() <= 10240) {
+        if (str != null && str.length() != 0 && this.text.length() <= LENGTH_LIMIT) {
             return true;
         }
         Log.e(TAG, "checkArgs fail, text is invalid");
@@ -37,9 +41,5 @@ public class WXTextObject implements WXMediaMessage.IMediaObject {
     @Override // com.tencent.mm.opensdk.modelmsg.WXMediaMessage.IMediaObject
     public void unserialize(Bundle bundle) {
         this.text = bundle.getString("_wxtextobject_text");
-    }
-
-    public WXTextObject(String str) {
-        this.text = str;
     }
 }

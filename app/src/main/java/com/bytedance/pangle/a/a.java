@@ -3,76 +3,76 @@ package com.bytedance.pangle.a;
 import com.bytedance.pangle.d.e;
 import java.util.concurrent.CountDownLatch;
 
-/* loaded from: classes2.dex */
+/* loaded from: classes.dex */
 public final class a {
 
     /* renamed from: a */
-    final CountDownLatch f7464a;
+    final CountDownLatch f5987a;
 
     /* renamed from: b */
-    Throwable f7465b;
+    Throwable f5988b;
 
     /* renamed from: com.bytedance.pangle.a.a$1 */
-    public class AnonymousClass1 implements Runnable {
+    final class AnonymousClass1 implements Runnable {
 
         /* renamed from: a */
-        final /* synthetic */ InterfaceC0226a f7466a;
+        final /* synthetic */ InterfaceC0067a f5989a;
 
-        public AnonymousClass1(InterfaceC0226a interfaceC0226a) {
-            interfaceC0226a = interfaceC0226a;
+        AnonymousClass1(InterfaceC0067a interfaceC0067a) {
+            interfaceC0067a = interfaceC0067a;
         }
 
         @Override // java.lang.Runnable
         public final void run() {
             try {
-                interfaceC0226a.a();
-            } catch (Throwable th2) {
-                a.this.f7465b = th2;
+                interfaceC0067a.a();
+            } catch (Throwable th) {
+                a.this.f5988b = th;
             }
-            a.this.f7464a.countDown();
+            a.this.f5987a.countDown();
         }
     }
 
     /* renamed from: com.bytedance.pangle.a.a$a */
-    public interface InterfaceC0226a {
+    public interface InterfaceC0067a {
         void a();
     }
 
-    private a(InterfaceC0226a[] interfaceC0226aArr) {
-        this.f7464a = new CountDownLatch(interfaceC0226aArr.length);
-        for (InterfaceC0226a interfaceC0226a : interfaceC0226aArr) {
+    private a(InterfaceC0067a[] interfaceC0067aArr) {
+        this.f5987a = new CountDownLatch(interfaceC0067aArr.length);
+        for (InterfaceC0067a interfaceC0067a : interfaceC0067aArr) {
             e.a(new Runnable() { // from class: com.bytedance.pangle.a.a.1
 
                 /* renamed from: a */
-                final /* synthetic */ InterfaceC0226a f7466a;
+                final /* synthetic */ InterfaceC0067a f5989a;
 
-                public AnonymousClass1(InterfaceC0226a interfaceC0226a2) {
-                    interfaceC0226a = interfaceC0226a2;
+                AnonymousClass1(InterfaceC0067a interfaceC0067a2) {
+                    interfaceC0067a = interfaceC0067a2;
                 }
 
                 @Override // java.lang.Runnable
                 public final void run() {
                     try {
-                        interfaceC0226a.a();
-                    } catch (Throwable th2) {
-                        a.this.f7465b = th2;
+                        interfaceC0067a.a();
+                    } catch (Throwable th) {
+                        a.this.f5988b = th;
                     }
-                    a.this.f7464a.countDown();
+                    a.this.f5987a.countDown();
                 }
             });
         }
     }
 
-    public static void a(InterfaceC0226a... interfaceC0226aArr) {
-        a aVar = new a(interfaceC0226aArr);
+    public static void a(InterfaceC0067a... interfaceC0067aArr) {
+        a aVar = new a(interfaceC0067aArr);
         try {
-            aVar.f7464a.await();
-            Throwable th2 = aVar.f7465b;
-            if (th2 != null) {
-                throw th2;
+            aVar.f5987a.await();
+            Throwable th = aVar.f5988b;
+            if (th != null) {
+                throw th;
             }
-        } catch (InterruptedException e10) {
-            throw new RuntimeException(e10);
+        } catch (InterruptedException e2) {
+            throw new RuntimeException(e2);
         }
     }
 }

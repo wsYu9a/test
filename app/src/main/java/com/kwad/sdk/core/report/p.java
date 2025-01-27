@@ -1,14 +1,47 @@
 package com.kwad.sdk.core.report;
 
-import android.content.Context;
-import androidx.annotation.Nullable;
+import androidx.annotation.NonNull;
+import com.kwad.sdk.core.report.f;
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.LinkedHashMap;
+import java.util.List;
+import java.util.Map;
 
-/* loaded from: classes3.dex */
-public final class p extends c {
-    public static int KP = 1;
-    private static String aDe = "CREATE TABLE IF NOT EXISTS ksad_actions (actionId varchar(60) primary key, aLog TEXT)";
+/* loaded from: classes2.dex */
+public final class p<T extends f> implements n<T> {
+    private final Map<String, T> aiE = new LinkedHashMap();
 
-    public p(@Nullable Context context, int i10) {
-        super(context, "ksadrep.db", i10, aDe);
+    @Override // com.kwad.sdk.core.report.n
+    /* renamed from: b */
+    public synchronized void e(@NonNull T t) {
+        this.aiE.put(t.actionId, t);
+    }
+
+    @Override // com.kwad.sdk.core.report.n
+    public final synchronized void o(List<T> list) {
+        Iterator<T> it = list.iterator();
+        while (it.hasNext()) {
+            this.aiE.remove(it.next().actionId);
+        }
+    }
+
+    @Override // com.kwad.sdk.core.report.n
+    public final synchronized long size() {
+        int size;
+        size = this.aiE.size();
+        com.kwad.sdk.core.d.b.d("MemReportCache", "size() = " + size);
+        return size;
+    }
+
+    @Override // com.kwad.sdk.core.report.n
+    public final synchronized List<T> wV() {
+        ArrayList arrayList;
+        arrayList = new ArrayList(this.aiE.size());
+        Iterator<Map.Entry<String, T>> it = this.aiE.entrySet().iterator();
+        while (it.hasNext()) {
+            arrayList.add(it.next().getValue());
+        }
+        return arrayList;
     }
 }

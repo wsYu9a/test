@@ -11,7 +11,7 @@ import java.util.HashMap;
 import java.util.Map;
 import org.json.JSONObject;
 
-/* loaded from: classes3.dex */
+/* loaded from: classes2.dex */
 public class KSAdLiveEndRequest implements IOfflineCompoRequest {
     private final IAdLiveEndRequest mAdLiveEndRequest;
     private final Map<String, String> mHeader = new HashMap();

@@ -50,12 +50,9 @@ public class DownloaderBuilder {
     public DownloaderBuilder addDownloadCompleteHandler(IDownloadCompleteHandler iDownloadCompleteHandler) {
         synchronized (this.downloadCompleteHandlers) {
             if (iDownloadCompleteHandler != null) {
-                try {
-                    if (!this.downloadCompleteHandlers.contains(iDownloadCompleteHandler)) {
-                        this.downloadCompleteHandlers.add(iDownloadCompleteHandler);
-                        return this;
-                    }
-                } finally {
+                if (!this.downloadCompleteHandlers.contains(iDownloadCompleteHandler)) {
+                    this.downloadCompleteHandlers.add(iDownloadCompleteHandler);
+                    return this;
                 }
             }
             return this;
@@ -101,13 +98,13 @@ public class DownloaderBuilder {
         return this;
     }
 
-    public DownloaderBuilder downloadExpSwitch(int i10) {
-        this.downloadExpSwitch = i10;
+    public DownloaderBuilder downloadExpSwitch(int i2) {
+        this.downloadExpSwitch = i2;
         return this;
     }
 
-    public DownloaderBuilder downloadInMultiProcess(boolean z10) {
-        this.downloadInMultiProcess = z10;
+    public DownloaderBuilder downloadInMultiProcess(boolean z) {
+        this.downloadInMultiProcess = z;
         return this;
     }
 
@@ -254,8 +251,8 @@ public class DownloaderBuilder {
         return this.downloadInMultiProcess;
     }
 
-    public DownloaderBuilder maxDownloadPoolSize(int i10) {
-        this.maxDownloadPoolSize = i10;
+    public DownloaderBuilder maxDownloadPoolSize(int i2) {
+        this.maxDownloadPoolSize = i2;
         return this;
     }
 
@@ -279,8 +276,8 @@ public class DownloaderBuilder {
         return this;
     }
 
-    public DownloaderBuilder needAutoRefreshUnSuccessTask(boolean z10) {
-        this.needAutoRefreshUnSuccessTask = z10;
+    public DownloaderBuilder needAutoRefreshUnSuccessTask(boolean z) {
+        this.needAutoRefreshUnSuccessTask = z;
         return this;
     }
 
@@ -299,8 +296,8 @@ public class DownloaderBuilder {
         return this;
     }
 
-    public DownloaderBuilder writeBufferSize(int i10) {
-        this.writeBufferSize = i10;
+    public DownloaderBuilder writeBufferSize(int i2) {
+        this.writeBufferSize = i2;
         return this;
     }
 

@@ -4,27 +4,20 @@ import android.content.Context;
 import androidx.annotation.NonNull;
 import com.kwad.sdk.api.KsLoadManager;
 import com.kwad.sdk.api.KsScene;
-import com.kwad.sdk.components.e;
-import com.kwad.sdk.l;
 
-/* loaded from: classes2.dex */
-public final class a extends e implements com.kwad.components.ad.b.c {
-    @Override // com.kwad.sdk.components.b
+/* loaded from: classes.dex */
+public final class a extends com.kwad.sdk.components.d implements com.kwad.components.ad.a.b {
+    @Override // com.kwad.sdk.components.a
     public final Class getComponentsType() {
-        return com.kwad.components.ad.b.c.class;
+        return com.kwad.components.ad.a.b.class;
     }
 
-    @Override // com.kwad.sdk.components.b
+    @Override // com.kwad.sdk.components.a
     public final void init(Context context) {
     }
 
-    @Override // com.kwad.components.ad.b.c
+    @Override // com.kwad.components.ad.a.b
     public final void loadDrawAd(KsScene ksScene, @NonNull KsLoadManager.DrawAdListener drawAdListener) {
-        if (l.At().AS()) {
-            d.loadDrawAd(ksScene, drawAdListener);
-        } else {
-            com.kwad.sdk.core.network.e eVar = com.kwad.sdk.core.network.e.azJ;
-            drawAdListener.onError(eVar.errorCode, eVar.msg);
-        }
+        d.loadDrawAd(ksScene, drawAdListener);
     }
 }

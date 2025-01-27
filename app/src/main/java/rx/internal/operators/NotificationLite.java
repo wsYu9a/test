@@ -1,18 +1,20 @@
 package rx.internal.operators;
 
 import java.io.Serializable;
-import qj.b;
 import rx.Notification;
 
 /* loaded from: classes5.dex */
 public final class NotificationLite<T> {
 
     /* renamed from: a */
-    public static final NotificationLite f30454a = new NotificationLite();
+    private static final NotificationLite f35783a = new NotificationLite();
 
     /* renamed from: b */
-    public static final Object f30455b = new Serializable() { // from class: rx.internal.operators.NotificationLite.1
+    private static final Object f35784b = new Serializable() { // from class: rx.internal.operators.NotificationLite.1
         private static final long serialVersionUID = 1;
+
+        AnonymousClass1() {
+        }
 
         public String toString() {
             return "Notification=>Completed";
@@ -20,8 +22,11 @@ public final class NotificationLite<T> {
     };
 
     /* renamed from: c */
-    public static final Object f30456c = new Serializable() { // from class: rx.internal.operators.NotificationLite.2
+    private static final Object f35785c = new Serializable() { // from class: rx.internal.operators.NotificationLite.2
         private static final long serialVersionUID = 2;
+
+        AnonymousClass2() {
+        }
 
         public String toString() {
             return "Notification=>NULL";
@@ -29,8 +34,11 @@ public final class NotificationLite<T> {
     };
 
     /* renamed from: rx.internal.operators.NotificationLite$1 */
-    public static class AnonymousClass1 implements Serializable {
+    static class AnonymousClass1 implements Serializable {
         private static final long serialVersionUID = 1;
+
+        AnonymousClass1() {
+        }
 
         public String toString() {
             return "Notification=>Completed";
@@ -38,39 +46,45 @@ public final class NotificationLite<T> {
     }
 
     /* renamed from: rx.internal.operators.NotificationLite$2 */
-    public static class AnonymousClass2 implements Serializable {
+    static class AnonymousClass2 implements Serializable {
         private static final long serialVersionUID = 2;
+
+        AnonymousClass2() {
+        }
 
         public String toString() {
             return "Notification=>NULL";
         }
     }
 
-    public static class OnErrorSentinel implements Serializable {
+    private static class OnErrorSentinel implements Serializable {
         private static final long serialVersionUID = 3;
 
         /* renamed from: e */
-        private final Throwable f30457e;
+        private final Throwable f35786e;
 
-        public OnErrorSentinel(Throwable th2) {
-            this.f30457e = th2;
+        public OnErrorSentinel(Throwable th) {
+            this.f35786e = th;
         }
 
         public String toString() {
-            return "Notification=>Error:" + this.f30457e;
+            return "Notification=>Error:" + this.f35786e;
         }
+    }
+
+    private NotificationLite() {
     }
 
     public static <T> NotificationLite<T> f() {
-        return f30454a;
+        return f35783a;
     }
 
-    public boolean a(b<? super T> bVar, Object obj) {
-        if (obj == f30455b) {
+    public boolean a(rx.b<? super T> bVar, Object obj) {
+        if (obj == f35784b) {
             bVar.onCompleted();
             return true;
         }
-        if (obj == f30456c) {
+        if (obj == f35785c) {
             bVar.onNext(null);
             return false;
         }
@@ -78,7 +92,7 @@ public final class NotificationLite<T> {
             throw new IllegalArgumentException("The lite notification can not be null");
         }
         if (obj.getClass() == OnErrorSentinel.class) {
-            bVar.onError(((OnErrorSentinel) obj).f30457e);
+            bVar.onError(((OnErrorSentinel) obj).f35786e);
             return true;
         }
         bVar.onNext(obj);
@@ -86,27 +100,27 @@ public final class NotificationLite<T> {
     }
 
     public Object b() {
-        return f30455b;
+        return f35784b;
     }
 
-    public Object c(Throwable th2) {
-        return new OnErrorSentinel(th2);
+    public Object c(Throwable th) {
+        return new OnErrorSentinel(th);
     }
 
     public Throwable d(Object obj) {
-        return ((OnErrorSentinel) obj).f30457e;
+        return ((OnErrorSentinel) obj).f35786e;
     }
 
     /* JADX WARN: Multi-variable type inference failed */
     public T e(Object obj) {
-        if (obj == f30456c) {
+        if (obj == f35785c) {
             return null;
         }
         return obj;
     }
 
     public boolean g(Object obj) {
-        return obj == f30455b;
+        return obj == f35784b;
     }
 
     public boolean h(Object obj) {
@@ -118,17 +132,17 @@ public final class NotificationLite<T> {
     }
 
     public boolean j(Object obj) {
-        return obj == f30456c;
+        return obj == f35785c;
     }
 
     public Notification.Kind k(Object obj) {
         if (obj != null) {
-            return obj == f30455b ? Notification.Kind.OnCompleted : obj instanceof OnErrorSentinel ? Notification.Kind.OnError : Notification.Kind.OnNext;
+            return obj == f35784b ? Notification.Kind.OnCompleted : obj instanceof OnErrorSentinel ? Notification.Kind.OnError : Notification.Kind.OnNext;
         }
         throw new IllegalArgumentException("The lite notification can not be null");
     }
 
-    public Object l(T t10) {
-        return t10 == null ? f30456c : t10;
+    public Object l(T t) {
+        return t == null ? f35785c : t;
     }
 }

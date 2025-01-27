@@ -7,8 +7,7 @@ import com.qq.e.ads.rewardvideo.ServerSideVerificationOptions;
 import com.qq.e.comm.adevent.ADListener;
 import com.qq.e.comm.constants.LoadAdParams;
 
-@Deprecated
-/* loaded from: classes3.dex */
+/* loaded from: classes4.dex */
 public abstract class BaseNativeExpressAd implements IBaseAd {
     public static final int DEFAULT_PRIORITY = -1;
 
@@ -19,29 +18,29 @@ public abstract class BaseNativeExpressAd implements IBaseAd {
         return -1;
     }
 
-    public abstract void loadAD(int i10);
+    public abstract void loadAD(int i2);
 
-    public abstract void loadAD(int i10, LoadAdParams loadAdParams);
+    public abstract void loadAD(int i2, LoadAdParams loadAdParams);
 
     @Override // com.qq.e.mediation.interfaces.IBaseAd
-    public void sendLossNotification(int i10, int i11, String str) {
+    public void sendLossNotification(int i2, int i3, String str) {
     }
 
     @Override // com.qq.e.mediation.interfaces.IBaseAd
-    public void sendWinNotification(int i10) {
+    public void sendWinNotification(int i2) {
     }
 
     public abstract void setAdListener(ADListener aDListener);
 
     @Override // com.qq.e.mediation.interfaces.IBaseAd
-    public void setBidECPM(int i10) {
+    public void setBidECPM(int i2) {
     }
 
     public abstract void setECPMLevel(String str);
 
-    public abstract void setMaxVideoDuration(int i10);
+    public abstract void setMaxVideoDuration(int i2);
 
-    public abstract void setMinVideoDuration(int i10);
+    public abstract void setMinVideoDuration(int i2);
 
     @Override // com.qq.e.mediation.interfaces.IBaseAd
     public void setPayload(String str) {

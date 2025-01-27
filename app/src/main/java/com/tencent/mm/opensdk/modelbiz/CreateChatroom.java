@@ -41,6 +41,10 @@ public class CreateChatroom {
         public Resp() {
         }
 
+        public Resp(Bundle bundle) {
+            fromBundle(bundle);
+        }
+
         @Override // com.tencent.mm.opensdk.modelbase.BaseResp
         public boolean checkArgs() {
             return true;
@@ -61,10 +65,6 @@ public class CreateChatroom {
         public void toBundle(Bundle bundle) {
             super.toBundle(bundle);
             bundle.putString("_wxapi_create_chatroom_ext_msg", this.extMsg);
-        }
-
-        public Resp(Bundle bundle) {
-            fromBundle(bundle);
         }
     }
 

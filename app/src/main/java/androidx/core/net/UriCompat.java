@@ -2,7 +2,9 @@ package androidx.core.net;
 
 import android.net.Uri;
 import androidx.annotation.NonNull;
-import m5.d;
+import b.b.a.b.b;
+import com.cdo.oaps.ad.OapsKey;
+import org.apache.http.HttpHost;
 
 /* loaded from: classes.dex */
 public final class UriCompat {
@@ -15,38 +17,38 @@ public final class UriCompat {
         String schemeSpecificPart = uri.getSchemeSpecificPart();
         if (scheme != null) {
             if (scheme.equalsIgnoreCase("tel") || scheme.equalsIgnoreCase("sip") || scheme.equalsIgnoreCase("sms") || scheme.equalsIgnoreCase("smsto") || scheme.equalsIgnoreCase("mailto") || scheme.equalsIgnoreCase("nfc")) {
-                StringBuilder sb2 = new StringBuilder(64);
-                sb2.append(scheme);
-                sb2.append(d.f28378d);
+                StringBuilder sb = new StringBuilder(64);
+                sb.append(scheme);
+                sb.append(':');
                 if (schemeSpecificPart != null) {
-                    for (int i10 = 0; i10 < schemeSpecificPart.length(); i10++) {
-                        char charAt = schemeSpecificPart.charAt(i10);
+                    for (int i2 = 0; i2 < schemeSpecificPart.length(); i2++) {
+                        char charAt = schemeSpecificPart.charAt(i2);
                         if (charAt == '-' || charAt == '@' || charAt == '.') {
-                            sb2.append(charAt);
+                            sb.append(charAt);
                         } else {
-                            sb2.append('x');
+                            sb.append('x');
                         }
                     }
                 }
-                return sb2.toString();
+                return sb.toString();
             }
-            if (scheme.equalsIgnoreCase("http") || scheme.equalsIgnoreCase("https") || scheme.equalsIgnoreCase("ftp") || scheme.equalsIgnoreCase("rtsp")) {
-                StringBuilder sb3 = new StringBuilder();
-                sb3.append("//");
-                sb3.append(uri.getHost() != null ? uri.getHost() : "");
-                sb3.append(uri.getPort() != -1 ? ":" + uri.getPort() : "");
-                sb3.append("/...");
-                schemeSpecificPart = sb3.toString();
+            if (scheme.equalsIgnoreCase(HttpHost.DEFAULT_SCHEME_NAME) || scheme.equalsIgnoreCase(b.f4198a) || scheme.equalsIgnoreCase(OapsKey.KEY_FILE_TYPE) || scheme.equalsIgnoreCase("rtsp")) {
+                StringBuilder sb2 = new StringBuilder();
+                sb2.append("//");
+                sb2.append(uri.getHost() != null ? uri.getHost() : "");
+                sb2.append(uri.getPort() != -1 ? ":" + uri.getPort() : "");
+                sb2.append("/...");
+                schemeSpecificPart = sb2.toString();
             }
         }
-        StringBuilder sb4 = new StringBuilder(64);
+        StringBuilder sb3 = new StringBuilder(64);
         if (scheme != null) {
-            sb4.append(scheme);
-            sb4.append(d.f28378d);
+            sb3.append(scheme);
+            sb3.append(':');
         }
         if (schemeSpecificPart != null) {
-            sb4.append(schemeSpecificPart);
+            sb3.append(schemeSpecificPart);
         }
-        return sb4.toString();
+        return sb3.toString();
     }
 }

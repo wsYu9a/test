@@ -8,34 +8,34 @@ import java.util.List;
 final class j implements Runnable {
 
     /* renamed from: a */
-    final /* synthetic */ int f25001a;
+    final /* synthetic */ int f30974a;
 
     /* renamed from: b */
-    final /* synthetic */ List f25002b;
+    final /* synthetic */ List f30975b;
 
     /* renamed from: c */
-    final /* synthetic */ List f25003c;
+    final /* synthetic */ List f30976c;
 
     /* renamed from: d */
-    final /* synthetic */ String f25004d;
+    final /* synthetic */ String f30977d;
 
     /* renamed from: e */
-    final /* synthetic */ h f25005e;
+    final /* synthetic */ h f30978e;
 
-    public j(h hVar, int i10, List list, List list2, String str) {
-        this.f25005e = hVar;
-        this.f25001a = i10;
-        this.f25002b = list;
-        this.f25003c = list2;
-        this.f25004d = str;
+    j(h hVar, int i2, List list, List list2, String str) {
+        this.f30978e = hVar;
+        this.f30974a = i2;
+        this.f30975b = list;
+        this.f30976c = list2;
+        this.f30977d = str;
     }
 
     @Override // java.lang.Runnable
     public final void run() {
         Context context;
-        h hVar = this.f25005e;
-        PushMessageCallback pushMessageCallback = ((z) hVar).f25023b;
-        context = ((com.vivo.push.l) hVar).f25064a;
-        pushMessageCallback.onDelAlias(context, this.f25001a, this.f25002b, this.f25003c, this.f25004d);
+        h hVar = this.f30978e;
+        PushMessageCallback pushMessageCallback = ((z) hVar).f30996b;
+        context = ((com.vivo.push.l) hVar).f31028a;
+        pushMessageCallback.onDelAlias(context, this.f30974a, this.f30975b, this.f30976c, this.f30977d);
     }
 }

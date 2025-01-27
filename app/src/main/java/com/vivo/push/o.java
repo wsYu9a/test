@@ -8,91 +8,91 @@ import android.text.TextUtils;
 public abstract class o {
 
     /* renamed from: a */
-    private int f25078a;
+    private int f31042a;
 
     /* renamed from: b */
-    private String f25079b;
+    private String f31043b;
 
-    public o(int i10) {
-        this.f25078a = -1;
-        if (i10 < 0) {
+    public o(int i2) {
+        this.f31042a = -1;
+        if (i2 < 0) {
             throw new IllegalArgumentException("PushCommand: the value of command must > 0.");
         }
-        this.f25078a = i10;
+        this.f31042a = i2;
     }
 
     private void e(a aVar) {
-        aVar.a(b7.b.X, this.f25078a);
-        aVar.a("client_pkgname", this.f25079b);
+        aVar.a(com.heytap.mcssdk.n.b.P, this.f31042a);
+        aVar.a("client_pkgname", this.f31043b);
         c(aVar);
     }
 
     public final String a() {
-        return this.f25079b;
+        return this.f31043b;
     }
 
     public final int b() {
-        return this.f25078a;
+        return this.f31042a;
     }
 
-    public abstract void c(a aVar);
+    protected abstract void c(a aVar);
 
     public boolean c() {
         return false;
     }
 
-    public abstract void d(a aVar);
+    protected abstract void d(a aVar);
 
     public String toString() {
         return getClass().getSimpleName();
     }
 
     public final void a(String str) {
-        this.f25079b = str;
+        this.f31043b = str;
     }
 
     public final void b(Intent intent) {
-        a a10 = a.a(intent);
-        if (a10 == null) {
+        a a2 = a.a(intent);
+        if (a2 == null) {
             com.vivo.push.util.p.b("PushCommand", "bundleWapper is null");
             return;
         }
-        a10.a(h3.e.f26414s, this.f25078a);
-        e(a10);
-        Bundle b10 = a10.b();
-        if (b10 != null) {
-            intent.putExtras(b10);
+        a2.a("method", this.f31042a);
+        e(a2);
+        Bundle b2 = a2.b();
+        if (b2 != null) {
+            intent.putExtras(b2);
         }
     }
 
     public final void a(Intent intent) {
-        a a10 = a.a(intent);
-        if (a10 == null) {
+        a a2 = a.a(intent);
+        if (a2 == null) {
             com.vivo.push.util.p.b("PushCommand", "bundleWapper is null");
             return;
         }
-        a(a10);
-        Bundle b10 = a10.b();
-        if (b10 != null) {
-            intent.putExtras(b10);
+        a(a2);
+        Bundle b2 = a2.b();
+        if (b2 != null) {
+            intent.putExtras(b2);
         }
     }
 
     public final void a(a aVar) {
-        String a10 = p.a(this.f25078a);
-        if (a10 == null) {
-            a10 = "";
+        String a2 = p.a(this.f31042a);
+        if (a2 == null) {
+            a2 = "";
         }
-        aVar.a(h3.e.f26414s, a10);
+        aVar.a("method", a2);
         e(aVar);
     }
 
     public final void b(a aVar) {
-        String a10 = aVar.a();
-        if (!TextUtils.isEmpty(a10)) {
-            this.f25079b = a10;
+        String a2 = aVar.a();
+        if (!TextUtils.isEmpty(a2)) {
+            this.f31043b = a2;
         } else {
-            this.f25079b = aVar.a("client_pkgname");
+            this.f31043b = aVar.a("client_pkgname");
         }
         d(aVar);
     }

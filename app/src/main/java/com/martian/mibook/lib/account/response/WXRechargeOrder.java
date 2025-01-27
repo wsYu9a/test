@@ -2,7 +2,6 @@ package com.martian.mibook.lib.account.response;
 
 /* loaded from: classes3.dex */
 public class WXRechargeOrder {
-    public int money;
     public WXPrepay prepay;
     public MiRechargeOrder rechargeOrder;
 
@@ -14,11 +13,11 @@ public class WXRechargeOrder {
         return this.rechargeOrder;
     }
 
-    public void setPrepay(WXPrepay wXPrepay) {
-        this.prepay = wXPrepay;
+    public void setPrepay(WXPrepay prepay) {
+        this.prepay = prepay;
     }
 
-    public void setRechargeOrder(MiRechargeOrder miRechargeOrder) {
-        this.rechargeOrder = miRechargeOrder;
+    public void setRechargeOrder(MiRechargeOrder rechargeOrder) {
+        this.rechargeOrder = rechargeOrder;
     }
 }

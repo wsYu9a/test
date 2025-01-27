@@ -12,7 +12,7 @@ public class b extends WebView {
     }
 
     @Override // android.webkit.WebView, android.view.ViewGroup, android.view.View
-    public void onAttachedToWindow() {
+    protected void onAttachedToWindow() {
         super.onAttachedToWindow();
         WebSettings settings = getSettings();
         if (settings == null) {

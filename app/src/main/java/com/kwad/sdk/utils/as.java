@@ -1,36 +1,95 @@
 package com.kwad.sdk.utils;
 
-/* loaded from: classes3.dex */
+import android.os.Build;
+import android.text.TextUtils;
+import androidx.core.os.EnvironmentCompat;
+
+/* loaded from: classes2.dex */
 public final class as {
-    /* JADX WARN: Multi-variable type inference failed */
-    /* JADX WARN: Type inference failed for: r0v1 */
-    /* JADX WARN: Type inference failed for: r0v10 */
-    /* JADX WARN: Type inference failed for: r0v17 */
-    /* JADX WARN: Type inference failed for: r0v18 */
-    /* JADX WARN: Type inference failed for: r0v2 */
-    /* JADX WARN: Type inference failed for: r0v3 */
-    /* JADX WARN: Type inference failed for: r0v4 */
-    /* JADX WARN: Type inference failed for: r0v5, types: [int] */
-    /* JADX WARN: Type inference failed for: r0v7 */
-    /* JADX WARN: Type inference failed for: r0v8 */
-    /* JADX WARN: Type inference failed for: r0v9 */
-    public static int a(boolean z10, boolean z11, boolean z12, boolean z13, boolean z14, boolean z15, int i10) {
-        ?? r02 = z10;
-        if (z11) {
-            r02 = (z10 ? 1 : 0) | 2;
+    private static String aAk;
+    private static String aAl;
+
+    public static boolean DQ() {
+        return aV(com.martian.mipush.d.f14902c);
+    }
+
+    public static boolean DR() {
+        return aV(com.martian.mipush.d.f14901b);
+    }
+
+    public static boolean DS() {
+        return aV(com.martian.mipush.d.f14903d);
+    }
+
+    private static boolean aV(String str) {
+        String upperCase;
+        String str2 = aAk;
+        if (str2 != null) {
+            return str2.contains(str);
         }
-        if (z12) {
-            r02 = (r02 == true ? 1 : 0) | 4;
+        String str3 = bc.get("ro.build.version.opporom");
+        aAl = str3;
+        if (TextUtils.isEmpty(str3)) {
+            String str4 = bc.get("ro.vivo.os.version");
+            aAl = str4;
+            if (TextUtils.isEmpty(str4)) {
+                String str5 = bc.get("ro.build.version.emui");
+                aAl = str5;
+                if (TextUtils.isEmpty(str5)) {
+                    String str6 = bc.get("ro.miui.ui.version.name");
+                    aAl = str6;
+                    if (TextUtils.isEmpty(str6)) {
+                        String str7 = bc.get("ro.product.system.manufacturer");
+                        aAl = str7;
+                        if (TextUtils.isEmpty(str7)) {
+                            String str8 = bc.get("ro.smartisan.version");
+                            aAl = str8;
+                            if (TextUtils.isEmpty(str8)) {
+                                String str9 = "SAMSUNG";
+                                if (!bc.get("ro.product.manufacturer").toUpperCase().contains("SAMSUNG")) {
+                                    String str10 = Build.DISPLAY;
+                                    aAl = str10;
+                                    String upperCase2 = str10.toUpperCase();
+                                    str9 = com.martian.mipush.d.f14903d;
+                                    if (!upperCase2.contains(com.martian.mipush.d.f14903d)) {
+                                        aAl = EnvironmentCompat.MEDIA_UNKNOWN;
+                                        upperCase = Build.MANUFACTURER.toUpperCase();
+                                    }
+                                }
+                                aAk = str9;
+                                return aAk.contains(str);
+                            }
+                            upperCase = com.martian.mipush.d.f14905f;
+                        } else {
+                            upperCase = "OnePlus";
+                        }
+                    } else {
+                        upperCase = com.martian.mipush.d.f14901b;
+                    }
+                } else {
+                    upperCase = com.martian.mipush.d.f14902c;
+                }
+            } else {
+                upperCase = "VIVO";
+            }
+        } else {
+            upperCase = "OPPO";
         }
-        if (z13) {
-            r02 = (r02 == true ? 1 : 0) | '\b';
+        aAk = upperCase;
+        return aAk.contains(str);
+    }
+
+    public static String getName() {
+        if (aAk == null) {
+            aV("");
         }
-        if (z14) {
-            r02 = (r02 == true ? 1 : 0) | 16;
+        return aAk;
+    }
+
+    public static String getVersion() {
+        if (aAl == null) {
+            aV("");
         }
-        if (z15) {
-            r02 = (r02 == true ? 1 : 0) | b5.a.O;
-        }
-        return i10 == 2 ? r02 | 64 : r02;
+        return aAl;
     }
 }

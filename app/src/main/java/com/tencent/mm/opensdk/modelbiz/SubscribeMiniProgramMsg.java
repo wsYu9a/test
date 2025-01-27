@@ -16,6 +16,10 @@ public final class SubscribeMiniProgramMsg {
         public Req() {
         }
 
+        public Req(Bundle bundle) {
+            fromBundle(bundle);
+        }
+
         @Override // com.tencent.mm.opensdk.modelbase.BaseReq
         public boolean checkArgs() {
             String str = this.miniProgramAppId;
@@ -42,10 +46,6 @@ public final class SubscribeMiniProgramMsg {
             super.toBundle(bundle);
             bundle.putString("_wxapi_subscribeminiprogram_req_miniprogramappid", this.miniProgramAppId);
         }
-
-        public Req(Bundle bundle) {
-            fromBundle(bundle);
-        }
     }
 
     public static class Resp extends BaseResp {
@@ -54,6 +54,10 @@ public final class SubscribeMiniProgramMsg {
         public String unionId;
 
         public Resp() {
+        }
+
+        public Resp(Bundle bundle) {
+            fromBundle(bundle);
         }
 
         @Override // com.tencent.mm.opensdk.modelbase.BaseResp
@@ -78,10 +82,6 @@ public final class SubscribeMiniProgramMsg {
             super.toBundle(bundle);
             bundle.putString("_wxapi_subscribeminiprogram_resp_unionId", this.unionId);
             bundle.putString("_wxapi_subscribeminiprogram_resp_nickname", this.nickname);
-        }
-
-        public Resp(Bundle bundle) {
-            fromBundle(bundle);
         }
     }
 

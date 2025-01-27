@@ -2,8 +2,11 @@ package org.repackage.com.meizu.flyme.openidsdk;
 
 import android.content.BroadcastReceiver;
 
-/* loaded from: classes4.dex */
+/* loaded from: classes5.dex */
 final class a extends BroadcastReceiver {
+    a() {
+    }
+
     /* JADX WARN: Code restructure failed: missing block: B:33:0x0043, code lost:
     
         if (r0 == 0) goto L47;
@@ -31,9 +34,9 @@ final class a extends BroadcastReceiver {
             java.lang.String r0 = "openIdNotifyFlag"
             r1 = 0
             int r0 = r6.getIntExtra(r0, r1)
-            java.lang.String r2 = "shouldUpdateId, notifyFlag : "
-            java.lang.String r3 = java.lang.String.valueOf(r0)
-            java.lang.String r2 = r2.concat(r3)
+            java.lang.String r2 = java.lang.String.valueOf(r0)
+            java.lang.String r3 = "shouldUpdateId, notifyFlag : "
+            java.lang.String r2 = r3.concat(r2)
             org.repackage.com.meizu.flyme.openidsdk.b.a(r2)
             r2 = 1
             if (r0 != r2) goto L2f
@@ -67,25 +70,25 @@ final class a extends BroadcastReceiver {
             java.lang.String r0 = "oaid"
             boolean r0 = r0.equals(r5)
             if (r0 == 0) goto L5e
-            org.repackage.com.meizu.flyme.openidsdk.OpenId r5 = r6.f29381b
+            org.repackage.com.meizu.flyme.openidsdk.OpenId r5 = r6.f35571b
             goto L80
         L5e:
             java.lang.String r0 = "vaid"
             boolean r0 = r0.equals(r5)
             if (r0 == 0) goto L69
-            org.repackage.com.meizu.flyme.openidsdk.OpenId r5 = r6.f29383d
+            org.repackage.com.meizu.flyme.openidsdk.OpenId r5 = r6.f35573d
             goto L80
         L69:
             java.lang.String r0 = "aaid"
             boolean r0 = r0.equals(r5)
             if (r0 == 0) goto L74
-            org.repackage.com.meizu.flyme.openidsdk.OpenId r5 = r6.f29382c
+            org.repackage.com.meizu.flyme.openidsdk.OpenId r5 = r6.f35572c
             goto L80
         L74:
             java.lang.String r0 = "udid"
             boolean r5 = r0.equals(r5)
             if (r5 == 0) goto L7f
-            org.repackage.com.meizu.flyme.openidsdk.OpenId r5 = r6.f29380a
+            org.repackage.com.meizu.flyme.openidsdk.OpenId r5 = r6.f35570a
             goto L80
         L7f:
             r5 = 0

@@ -8,58 +8,58 @@ import java.util.ConcurrentModificationException;
 import java.util.Iterator;
 import java.util.List;
 
-/* loaded from: classes2.dex */
+/* loaded from: classes.dex */
 final class CompositeOnPageChangeCallback extends ViewPager2.OnPageChangeCallback {
 
     /* renamed from: a */
     @NonNull
-    private final List<ViewPager2.OnPageChangeCallback> f7255a;
+    private final List<ViewPager2.OnPageChangeCallback> f5871a;
 
-    public CompositeOnPageChangeCallback(int i10) {
-        this.f7255a = new ArrayList(i10);
+    CompositeOnPageChangeCallback(int i2) {
+        this.f5871a = new ArrayList(i2);
     }
 
-    public void a(ViewPager2.OnPageChangeCallback onPageChangeCallback) {
-        this.f7255a.add(onPageChangeCallback);
+    void a(ViewPager2.OnPageChangeCallback onPageChangeCallback) {
+        this.f5871a.add(onPageChangeCallback);
     }
 
-    public void b(ViewPager2.OnPageChangeCallback onPageChangeCallback) {
-        this.f7255a.remove(onPageChangeCallback);
+    void b(ViewPager2.OnPageChangeCallback onPageChangeCallback) {
+        this.f5871a.remove(onPageChangeCallback);
     }
 
     @Override // com.baidu.mobads.sdk.internal.widget.ViewPager2.OnPageChangeCallback
-    public void onPageScrollStateChanged(int i10) {
+    public void onPageScrollStateChanged(int i2) {
         try {
-            Iterator<ViewPager2.OnPageChangeCallback> it = this.f7255a.iterator();
+            Iterator<ViewPager2.OnPageChangeCallback> it = this.f5871a.iterator();
             while (it.hasNext()) {
-                it.next().onPageScrollStateChanged(i10);
+                it.next().onPageScrollStateChanged(i2);
             }
-        } catch (ConcurrentModificationException e10) {
-            a(e10);
+        } catch (ConcurrentModificationException e2) {
+            a(e2);
         }
     }
 
     @Override // com.baidu.mobads.sdk.internal.widget.ViewPager2.OnPageChangeCallback
-    public void onPageScrolled(int i10, float f10, @Px int i11) {
+    public void onPageScrolled(int i2, float f2, @Px int i3) {
         try {
-            Iterator<ViewPager2.OnPageChangeCallback> it = this.f7255a.iterator();
+            Iterator<ViewPager2.OnPageChangeCallback> it = this.f5871a.iterator();
             while (it.hasNext()) {
-                it.next().onPageScrolled(i10, f10, i11);
+                it.next().onPageScrolled(i2, f2, i3);
             }
-        } catch (ConcurrentModificationException e10) {
-            a(e10);
+        } catch (ConcurrentModificationException e2) {
+            a(e2);
         }
     }
 
     @Override // com.baidu.mobads.sdk.internal.widget.ViewPager2.OnPageChangeCallback
-    public void onPageSelected(int i10) {
+    public void onPageSelected(int i2) {
         try {
-            Iterator<ViewPager2.OnPageChangeCallback> it = this.f7255a.iterator();
+            Iterator<ViewPager2.OnPageChangeCallback> it = this.f5871a.iterator();
             while (it.hasNext()) {
-                it.next().onPageSelected(i10);
+                it.next().onPageSelected(i2);
             }
-        } catch (ConcurrentModificationException e10) {
-            a(e10);
+        } catch (ConcurrentModificationException e2) {
+            a(e2);
         }
     }
 

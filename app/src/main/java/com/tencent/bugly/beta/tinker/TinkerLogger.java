@@ -18,9 +18,9 @@ public class TinkerLogger implements TinkerLog.TinkerLogImp {
         return level;
     }
 
-    public static void setLevel(int i10) {
-        level = i10;
-        Log.w(TAG, "new log level: " + i10);
+    public static void setLevel(int i2) {
+        level = i2;
+        Log.w(TAG, "new log level: " + i2);
     }
 
     public void d(String str, String str2, Object... objArr) {
@@ -50,14 +50,14 @@ public class TinkerLogger implements TinkerLog.TinkerLogImp {
         }
     }
 
-    public void printErrStackTrace(String str, Throwable th2, String str2, Object... objArr) {
+    public void printErrStackTrace(String str, Throwable th, String str2, Object... objArr) {
         if (objArr != null) {
             str2 = String.format(str2, objArr);
         }
         if (str2 == null) {
             str2 = "";
         }
-        Log.e(str, str2 + "  " + Log.getStackTraceString(th2));
+        Log.e(str, str2 + "  " + Log.getStackTraceString(th));
     }
 
     public void v(String str, String str2, Object... objArr) {

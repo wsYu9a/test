@@ -11,11 +11,11 @@ import android.util.Log;
 import android.view.Window;
 import android.view.WindowManager;
 import androidx.annotation.Nullable;
-import com.ss.android.socialbase.appdownloader.c.c;
-import com.ss.android.socialbase.appdownloader.c.k;
-import com.ss.android.socialbase.appdownloader.c.l;
-import com.ss.android.socialbase.appdownloader.d;
-import com.ss.android.socialbase.appdownloader.i;
+import com.ss.android.socialbase.appdownloader.g;
+import com.ss.android.socialbase.appdownloader.i.i;
+import com.ss.android.socialbase.appdownloader.i.nt;
+import com.ss.android.socialbase.appdownloader.i.t;
+import com.ss.android.socialbase.appdownloader.k;
 import com.ss.android.socialbase.downloader.depend.IDownloadNotificationEventListener;
 import com.ss.android.socialbase.downloader.downloader.DownloadComponentManager;
 import com.ss.android.socialbase.downloader.downloader.Downloader;
@@ -27,15 +27,13 @@ import com.ss.android.socialbase.downloader.utils.DownloadUtils;
 /* loaded from: classes4.dex */
 public class DownloadTaskDeleteActivity extends Activity {
 
-    /* renamed from: a */
-    private k f21950a;
-
-    /* renamed from: b */
-    private Intent f21951b;
+    /* renamed from: j */
+    private t f24494j;
+    private Intent zx;
 
     /* renamed from: com.ss.android.socialbase.appdownloader.view.DownloadTaskDeleteActivity$1 */
-    public class AnonymousClass1 implements DialogInterface.OnCancelListener {
-        public AnonymousClass1() {
+    class AnonymousClass1 implements DialogInterface.OnCancelListener {
+        AnonymousClass1() {
         }
 
         @Override // android.content.DialogInterface.OnCancelListener
@@ -45,47 +43,43 @@ public class DownloadTaskDeleteActivity extends Activity {
     }
 
     /* renamed from: com.ss.android.socialbase.appdownloader.view.DownloadTaskDeleteActivity$2 */
-    public class AnonymousClass2 implements DialogInterface.OnClickListener {
+    class AnonymousClass2 implements DialogInterface.OnClickListener {
 
-        /* renamed from: a */
-        final /* synthetic */ boolean f21953a;
+        /* renamed from: i */
+        final /* synthetic */ int f24497i;
 
-        /* renamed from: b */
-        final /* synthetic */ DownloadInfo f21954b;
+        /* renamed from: j */
+        final /* synthetic */ boolean f24498j;
+        final /* synthetic */ DownloadInfo zx;
 
-        /* renamed from: c */
-        final /* synthetic */ int f21955c;
-
-        public AnonymousClass2(boolean z10, DownloadInfo downloadInfo, int i10) {
-            z10 = z10;
+        AnonymousClass2(boolean z, DownloadInfo downloadInfo, int i2) {
+            z = z;
             downloadInfo = downloadInfo;
-            intExtra = i10;
+            intExtra = i2;
         }
 
         @Override // android.content.DialogInterface.OnClickListener
-        public void onClick(DialogInterface dialogInterface, int i10) {
-            if (z10) {
-                DownloadTaskDeleteActivity.this.a(downloadInfo, intExtra);
+        public void onClick(DialogInterface dialogInterface, int i2) {
+            if (z) {
+                DownloadTaskDeleteActivity.this.j(downloadInfo, intExtra);
             }
             DownloadTaskDeleteActivity.this.finish();
         }
     }
 
     /* renamed from: com.ss.android.socialbase.appdownloader.view.DownloadTaskDeleteActivity$3 */
-    public class AnonymousClass3 implements DialogInterface.OnClickListener {
+    class AnonymousClass3 implements DialogInterface.OnClickListener {
 
-        /* renamed from: a */
-        final /* synthetic */ boolean f21957a;
+        /* renamed from: i */
+        final /* synthetic */ int f24500i;
 
-        /* renamed from: b */
-        final /* synthetic */ DownloadInfo f21958b;
-
-        /* renamed from: c */
-        final /* synthetic */ int f21959c;
+        /* renamed from: j */
+        final /* synthetic */ boolean f24501j;
+        final /* synthetic */ DownloadInfo zx;
 
         /* renamed from: com.ss.android.socialbase.appdownloader.view.DownloadTaskDeleteActivity$3$1 */
-        public class AnonymousClass1 implements Runnable {
-            public AnonymousClass1() {
+        class AnonymousClass1 implements Runnable {
+            AnonymousClass1() {
             }
 
             @Override // java.lang.Runnable
@@ -94,19 +88,19 @@ public class DownloadTaskDeleteActivity extends Activity {
             }
         }
 
-        public AnonymousClass3(boolean z10, DownloadInfo downloadInfo, int i10) {
-            z10 = z10;
+        AnonymousClass3(boolean z, DownloadInfo downloadInfo, int i2) {
+            z = z;
             downloadInfo = downloadInfo;
-            intExtra = i10;
+            intExtra = i2;
         }
 
         @Override // android.content.DialogInterface.OnClickListener
-        public void onClick(DialogInterface dialogInterface, int i10) {
-            if (z10) {
+        public void onClick(DialogInterface dialogInterface, int i2) {
+            if (z) {
                 downloadInfo.setOnlyWifi(true);
                 Downloader.getInstance(DownloadTaskDeleteActivity.this).pause(downloadInfo.getId());
                 new Handler(Looper.getMainLooper()).postDelayed(new Runnable() { // from class: com.ss.android.socialbase.appdownloader.view.DownloadTaskDeleteActivity.3.1
-                    public AnonymousClass1() {
+                    AnonymousClass1() {
                     }
 
                     @Override // java.lang.Runnable
@@ -115,19 +109,19 @@ public class DownloadTaskDeleteActivity extends Activity {
                     }
                 }, 100L);
             } else {
-                DownloadTaskDeleteActivity.this.a(downloadInfo, intExtra);
+                DownloadTaskDeleteActivity.this.j(downloadInfo, intExtra);
             }
             DownloadTaskDeleteActivity.this.finish();
         }
     }
 
-    private void b() {
+    private void zx() {
         Intent intent;
-        boolean z10 = true;
-        if (this.f21950a != null || (intent = this.f21951b) == null) {
+        if (this.f24494j != null || (intent = this.zx) == null) {
             return;
         }
         try {
+            boolean z = false;
             int intExtra = intent.getIntExtra("extra_click_download_ids", 0);
             DownloadInfo downloadInfo = Downloader.getInstance(getApplicationContext()).getDownloadInfo(intExtra);
             if (downloadInfo == null) {
@@ -138,37 +132,35 @@ public class DownloadTaskDeleteActivity extends Activity {
                 Log.w("DeleteActivity", "Missing appName; skipping handle");
                 return;
             }
-            String format = String.format(getString(i.a(this, "tt_appdownloader_notification_download_delete")), title);
-            c a10 = d.j().a();
-            l a11 = a10 != null ? a10.a(this) : null;
-            if (a11 == null) {
-                a11 = new com.ss.android.socialbase.appdownloader.d.a(this);
+            String format = String.format(getString(k.j(this, "tt_appdownloader_notification_download_delete")), title);
+            i j2 = g.pa().j();
+            nt j3 = j2 != null ? j2.j(this) : null;
+            if (j3 == null) {
+                j3 = new com.ss.android.socialbase.appdownloader.g.j(this);
             }
-            int a12 = i.a(this, "tt_appdownloader_tip");
-            int a13 = i.a(this, "tt_appdownloader_label_ok");
-            int a14 = i.a(this, "tt_appdownloader_label_cancel");
-            if (DownloadSetting.obtain(downloadInfo.getId()).optInt(DownloadSettingKeys.CANCEL_WITH_NET_OPT, 0) != 1 || !DownloadUtils.isNoWifiAndInNet() || downloadInfo.getCurBytes() == downloadInfo.getTotalBytes()) {
-                z10 = false;
+            int j4 = k.j(this, "tt_appdownloader_tip");
+            int j5 = k.j(this, "tt_appdownloader_label_ok");
+            int j6 = k.j(this, "tt_appdownloader_label_cancel");
+            if (DownloadSetting.obtain(downloadInfo.getId()).optInt(DownloadSettingKeys.CANCEL_WITH_NET_OPT, 0) == 1 && DownloadUtils.isNoWifiAndInNet() && downloadInfo.getCurBytes() != downloadInfo.getTotalBytes()) {
+                z = true;
             }
-            if (z10) {
-                a13 = i.a(this, "tt_appdownloader_label_reserve_wifi");
-                a14 = i.a(this, "tt_appdownloader_label_cancel_directly");
-                format = getResources().getString(i.a(this, "tt_appdownloader_resume_in_wifi"));
+            if (z) {
+                j5 = k.j(this, "tt_appdownloader_label_reserve_wifi");
+                j6 = k.j(this, "tt_appdownloader_label_cancel_directly");
+                format = getResources().getString(k.j(this, "tt_appdownloader_resume_in_wifi"));
             }
-            a11.a(a12).a(format).a(a13, new DialogInterface.OnClickListener() { // from class: com.ss.android.socialbase.appdownloader.view.DownloadTaskDeleteActivity.3
+            j3.j(j4).j(format).j(j5, new DialogInterface.OnClickListener() { // from class: com.ss.android.socialbase.appdownloader.view.DownloadTaskDeleteActivity.3
 
-                /* renamed from: a */
-                final /* synthetic */ boolean f21957a;
+                /* renamed from: i */
+                final /* synthetic */ int f24500i;
 
-                /* renamed from: b */
-                final /* synthetic */ DownloadInfo f21958b;
-
-                /* renamed from: c */
-                final /* synthetic */ int f21959c;
+                /* renamed from: j */
+                final /* synthetic */ boolean f24501j;
+                final /* synthetic */ DownloadInfo zx;
 
                 /* renamed from: com.ss.android.socialbase.appdownloader.view.DownloadTaskDeleteActivity$3$1 */
-                public class AnonymousClass1 implements Runnable {
-                    public AnonymousClass1() {
+                class AnonymousClass1 implements Runnable {
+                    AnonymousClass1() {
                     }
 
                     @Override // java.lang.Runnable
@@ -177,19 +169,19 @@ public class DownloadTaskDeleteActivity extends Activity {
                     }
                 }
 
-                public AnonymousClass3(boolean z102, DownloadInfo downloadInfo2, int intExtra2) {
-                    z10 = z102;
+                AnonymousClass3(boolean z2, DownloadInfo downloadInfo2, int intExtra2) {
+                    z = z2;
                     downloadInfo = downloadInfo2;
                     intExtra = intExtra2;
                 }
 
                 @Override // android.content.DialogInterface.OnClickListener
-                public void onClick(DialogInterface dialogInterface, int i10) {
-                    if (z10) {
+                public void onClick(DialogInterface dialogInterface, int i2) {
+                    if (z) {
                         downloadInfo.setOnlyWifi(true);
                         Downloader.getInstance(DownloadTaskDeleteActivity.this).pause(downloadInfo.getId());
                         new Handler(Looper.getMainLooper()).postDelayed(new Runnable() { // from class: com.ss.android.socialbase.appdownloader.view.DownloadTaskDeleteActivity.3.1
-                            public AnonymousClass1() {
+                            AnonymousClass1() {
                             }
 
                             @Override // java.lang.Runnable
@@ -198,36 +190,34 @@ public class DownloadTaskDeleteActivity extends Activity {
                             }
                         }, 100L);
                     } else {
-                        DownloadTaskDeleteActivity.this.a(downloadInfo, intExtra);
+                        DownloadTaskDeleteActivity.this.j(downloadInfo, intExtra);
                     }
                     DownloadTaskDeleteActivity.this.finish();
                 }
-            }).b(a14, new DialogInterface.OnClickListener() { // from class: com.ss.android.socialbase.appdownloader.view.DownloadTaskDeleteActivity.2
+            }).zx(j6, new DialogInterface.OnClickListener() { // from class: com.ss.android.socialbase.appdownloader.view.DownloadTaskDeleteActivity.2
 
-                /* renamed from: a */
-                final /* synthetic */ boolean f21953a;
+                /* renamed from: i */
+                final /* synthetic */ int f24497i;
 
-                /* renamed from: b */
-                final /* synthetic */ DownloadInfo f21954b;
+                /* renamed from: j */
+                final /* synthetic */ boolean f24498j;
+                final /* synthetic */ DownloadInfo zx;
 
-                /* renamed from: c */
-                final /* synthetic */ int f21955c;
-
-                public AnonymousClass2(boolean z102, DownloadInfo downloadInfo2, int intExtra2) {
-                    z10 = z102;
+                AnonymousClass2(boolean z2, DownloadInfo downloadInfo2, int intExtra2) {
+                    z = z2;
                     downloadInfo = downloadInfo2;
                     intExtra = intExtra2;
                 }
 
                 @Override // android.content.DialogInterface.OnClickListener
-                public void onClick(DialogInterface dialogInterface, int i10) {
-                    if (z10) {
-                        DownloadTaskDeleteActivity.this.a(downloadInfo, intExtra);
+                public void onClick(DialogInterface dialogInterface, int i2) {
+                    if (z) {
+                        DownloadTaskDeleteActivity.this.j(downloadInfo, intExtra);
                     }
                     DownloadTaskDeleteActivity.this.finish();
                 }
-            }).a(new DialogInterface.OnCancelListener() { // from class: com.ss.android.socialbase.appdownloader.view.DownloadTaskDeleteActivity.1
-                public AnonymousClass1() {
+            }).j(new DialogInterface.OnCancelListener() { // from class: com.ss.android.socialbase.appdownloader.view.DownloadTaskDeleteActivity.1
+                AnonymousClass1() {
                 }
 
                 @Override // android.content.DialogInterface.OnCancelListener
@@ -235,55 +225,55 @@ public class DownloadTaskDeleteActivity extends Activity {
                     DownloadTaskDeleteActivity.this.finish();
                 }
             });
-            this.f21950a = a11.a();
-        } catch (Exception e10) {
-            e10.printStackTrace();
+            this.f24494j = j3.j();
+        } catch (Exception e2) {
+            e2.printStackTrace();
         }
     }
 
     @Override // android.app.Activity
-    public void onCreate(@Nullable Bundle bundle) {
+    protected void onCreate(@Nullable Bundle bundle) {
         super.onCreate(bundle);
-        a();
+        j();
     }
 
     @Override // android.app.Activity
-    public void onNewIntent(Intent intent) {
+    protected void onNewIntent(Intent intent) {
         super.onNewIntent(intent);
         setIntent(intent);
     }
 
     @Override // android.app.Activity
-    public void onResume() {
+    protected void onResume() {
         super.onResume();
-        this.f21951b = getIntent();
-        b();
-        k kVar = this.f21950a;
-        if (kVar != null && !kVar.b()) {
-            this.f21950a.a();
-        } else if (this.f21950a == null) {
+        this.zx = getIntent();
+        zx();
+        t tVar = this.f24494j;
+        if (tVar != null && !tVar.zx()) {
+            this.f24494j.j();
+        } else if (this.f24494j == null) {
             finish();
         }
     }
 
-    private void a() {
+    private void j() {
         Window window = getWindow();
         WindowManager.LayoutParams attributes = window.getAttributes();
         attributes.alpha = 0.0f;
         window.setAttributes(attributes);
     }
 
-    public void a(DownloadInfo downloadInfo, int i10) {
-        com.ss.android.socialbase.appdownloader.c.d b10 = d.j().b();
-        if (b10 != null) {
-            b10.a(downloadInfo);
+    public void j(DownloadInfo downloadInfo, int i2) {
+        com.ss.android.socialbase.appdownloader.i.g zx = g.pa().zx();
+        if (zx != null) {
+            zx.j(downloadInfo);
         }
-        IDownloadNotificationEventListener downloadNotificationEventListener = Downloader.getInstance(DownloadComponentManager.getAppContext()).getDownloadNotificationEventListener(i10);
+        IDownloadNotificationEventListener downloadNotificationEventListener = Downloader.getInstance(DownloadComponentManager.getAppContext()).getDownloadNotificationEventListener(i2);
         if (downloadNotificationEventListener != null) {
             downloadNotificationEventListener.onNotificationEvent(10, downloadInfo, "", "");
         }
         if (DownloadComponentManager.getAppContext() != null) {
-            Downloader.getInstance(DownloadComponentManager.getAppContext()).cancel(i10);
+            Downloader.getInstance(DownloadComponentManager.getAppContext()).cancel(i2);
         }
     }
 }

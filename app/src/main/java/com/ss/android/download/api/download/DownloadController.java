@@ -36,13 +36,13 @@ public interface DownloadController {
     @Deprecated
     boolean isEnableMultipleDownload();
 
-    void setDownloadMode(int i10);
+    void setDownloadMode(int i2);
 
-    void setEnableNewActivity(boolean z10);
+    void setEnableNewActivity(boolean z);
 
-    void setEnableShowComplianceDialog(boolean z10);
+    void setEnableShowComplianceDialog(boolean z);
 
-    void setLinkMode(int i10);
+    void setLinkMode(int i2);
 
     boolean shouldUseNewWebView();
 }

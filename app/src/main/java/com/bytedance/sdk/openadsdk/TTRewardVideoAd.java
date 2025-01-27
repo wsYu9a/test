@@ -5,12 +5,11 @@ import android.os.Bundle;
 import com.bytedance.sdk.openadsdk.TTAdConstant;
 import java.util.Map;
 
-/* loaded from: classes2.dex */
+/* loaded from: classes.dex */
 public interface TTRewardVideoAd extends TTClientBidding {
     public static final String REWARD_EXTRA_KEY_ERROR_CODE = "reward_extra_key_error_code";
     public static final String REWARD_EXTRA_KEY_ERROR_MSG = "reward_extra_key_error_msg";
     public static final String REWARD_EXTRA_KEY_HAS_VIDEO_COMPLETE_REWARD = "reward_extra_key_has_video_complete_reward";
-    public static final String REWARD_EXTRA_KEY_IS_SERVER_VERIFY = "reward_extra_key_is_server_verify";
     public static final String REWARD_EXTRA_KEY_REWARD_AMOUNT = "reward_extra_key_reward_amount";
     public static final String REWARD_EXTRA_KEY_REWARD_NAME = "reward_extra_key_reward_name";
     public static final String REWARD_EXTRA_KEY_REWARD_PROPOSE = "reward_extra_key_reward_propose";
@@ -27,10 +26,10 @@ public interface TTRewardVideoAd extends TTClientBidding {
 
         void onAdVideoBarClick();
 
-        void onRewardArrived(boolean z10, int i10, Bundle bundle);
+        void onRewardArrived(boolean z, int i2, Bundle bundle);
 
         @Deprecated
-        void onRewardVerify(boolean z10, int i10, String str, int i11, String str2);
+        void onRewardVerify(boolean z, int i2, String str, int i3, String str2);
 
         void onSkippedVideo();
 
@@ -48,7 +47,7 @@ public interface TTRewardVideoAd extends TTClientBidding {
             void onConditionReturn(Bundle bundle);
         }
 
-        void getPlayAgainCondition(int i10, Callback callback);
+        void getPlayAgainCondition(int i2, Callback callback);
     }
 
     long getExpirationTimestamp();
@@ -68,7 +67,7 @@ public interface TTRewardVideoAd extends TTClientBidding {
     void setRewardPlayAgainInteractionListener(RewardAdInteractionListener rewardAdInteractionListener);
 
     @Deprecated
-    void setShowDownLoadBar(boolean z10);
+    void setShowDownLoadBar(boolean z);
 
     void showRewardVideoAd(Activity activity);
 

@@ -4,29 +4,29 @@ import android.content.Context;
 
 /* loaded from: classes3.dex */
 public class MResource {
-    public static int getIdByName(Context context, String str, String str2) {
-        Class<?> cls;
+    public static int getIdByName(Context context, String className, String resName) {
         try {
             Class<?>[] classes = Class.forName(context.getPackageName() + ".R").getClasses();
+            Class<?> cls = null;
             int length = classes.length;
-            int i10 = 0;
+            int i2 = 0;
             while (true) {
-                if (i10 >= length) {
-                    cls = null;
+                if (i2 >= length) {
                     break;
                 }
-                cls = classes[i10];
-                if (cls.getName().split("\\$")[1].equals(str)) {
+                Class<?> cls2 = classes[i2];
+                if (cls2.getName().split("\\$")[1].equals(className)) {
+                    cls = cls2;
                     break;
                 }
-                i10++;
+                i2++;
             }
             if (cls != null) {
-                return cls.getField(str2).getInt(cls);
+                return cls.getField(resName).getInt(cls);
             }
             return 0;
-        } catch (Exception e10) {
-            e10.printStackTrace();
+        } catch (Exception e2) {
+            e2.printStackTrace();
             return 0;
         }
     }

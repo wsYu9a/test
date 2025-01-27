@@ -4,9 +4,9 @@ package com.ss.android.socialbase.downloader.exception;
 public class DownloadHttpException extends BaseException {
     private final int httpStatusCode;
 
-    public DownloadHttpException(int i10, int i11, String str) {
-        super(i10, str);
-        this.httpStatusCode = i11;
+    public DownloadHttpException(int i2, int i3, String str) {
+        super(i2, str);
+        this.httpStatusCode = i3;
     }
 
     public int getHttpStatusCode() {

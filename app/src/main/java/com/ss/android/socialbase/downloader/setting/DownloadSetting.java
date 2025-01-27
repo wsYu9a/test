@@ -57,52 +57,46 @@ public class DownloadSetting {
         this.mBugFixDefault = bool;
     }
 
-    public static void addTaskDownloadSetting(int i10, JSONObject jSONObject) {
-        DownloadSetting downloadSetting;
+    public static void addTaskDownloadSetting(int i2, JSONObject jSONObject) {
         if (jSONObject == null || jSONObject == getGlobalSettings() || sTaskSettingDisabled) {
             return;
         }
         LruCache<Integer, DownloadSetting> lruCache = sCache;
         synchronized (lruCache) {
-            try {
-                DownloadSetting downloadSetting2 = sLastSetting;
-                if (downloadSetting2 == null || downloadSetting2.mTaskSetting != jSONObject) {
-                    Iterator<DownloadSetting> it = lruCache.values().iterator();
-                    while (true) {
-                        if (!it.hasNext()) {
-                            downloadSetting = null;
-                            break;
-                        }
-                        downloadSetting = it.next();
-                        if (downloadSetting.mTaskSetting == jSONObject) {
-                            downloadSetting.mDownloadId = i10;
-                            break;
-                        }
+            DownloadSetting downloadSetting = sLastSetting;
+            if (downloadSetting == null || downloadSetting.mTaskSetting != jSONObject) {
+                downloadSetting = null;
+                Iterator<DownloadSetting> it = lruCache.values().iterator();
+                while (true) {
+                    if (!it.hasNext()) {
+                        break;
                     }
-                    if (downloadSetting == null) {
-                        downloadSetting2 = new DownloadSetting(jSONObject);
-                        downloadSetting2.mDownloadId = i10;
-                    } else {
-                        downloadSetting2 = downloadSetting;
+                    DownloadSetting next = it.next();
+                    if (next.mTaskSetting == jSONObject) {
+                        next.mDownloadId = i2;
+                        downloadSetting = next;
+                        break;
                     }
-                    sLastSetting = downloadSetting2;
-                } else {
-                    downloadSetting2.mDownloadId = i10;
                 }
-                sCache.put(Integer.valueOf(i10), downloadSetting2);
-            } catch (Throwable th2) {
-                throw th2;
+                if (downloadSetting == null) {
+                    downloadSetting = new DownloadSetting(jSONObject);
+                    downloadSetting.mDownloadId = i2;
+                }
+                sLastSetting = downloadSetting;
+            } else {
+                downloadSetting.mDownloadId = i2;
             }
+            sCache.put(Integer.valueOf(i2), downloadSetting);
         }
     }
 
-    private static DownloadSetting create(int i10) {
+    private static DownloadSetting create(int i2) {
         DownloadInfo downloadInfo;
         if (sTaskSettingDisabled) {
             return sGlobal;
         }
         Context appContext = DownloadComponentManager.getAppContext();
-        return (appContext == null || (downloadInfo = Downloader.getInstance(appContext).getDownloadInfo(i10)) == null) ? sGlobal : create(downloadInfo);
+        return (appContext == null || (downloadInfo = Downloader.getInstance(appContext).getDownloadInfo(i2)) == null) ? sGlobal : create(downloadInfo);
     }
 
     @NonNull
@@ -111,14 +105,12 @@ public class DownloadSetting {
     }
 
     public static void init() {
-        Boolean bool;
         JSONObject downloadSetting = DownloadComponentManager.getDownloadSetting();
         sTaskSettingDisabled = downloadSetting.optInt(DownloadSettingKeys.DISABLE_TASK_SETTING, 0) == 1;
         sDisabledTaskKeys = downloadSetting.optJSONObject(DownloadSettingKeys.DISABLED_TASK_KEYS);
         JSONObject optJSONObject = downloadSetting.optJSONObject(DownloadSettingKeys.BUG_FIX);
-        if (optJSONObject == null || !optJSONObject.has(DownloadSettingKeys.BugFix.DEFAULT)) {
-            bool = null;
-        } else {
+        Boolean bool = null;
+        if (optJSONObject != null && optJSONObject.has(DownloadSettingKeys.BugFix.DEFAULT)) {
             bool = Boolean.valueOf(optJSONObject.optInt(DownloadSettingKeys.BugFix.DEFAULT, 0) == 1);
         }
         sGlobalBugFixSetting = optJSONObject;
@@ -131,8 +123,8 @@ public class DownloadSetting {
     }
 
     @NonNull
-    public static DownloadSetting obtain(int i10) {
-        return obtain(i10, null);
+    public static DownloadSetting obtain(int i2) {
+        return obtain(i2, null);
     }
 
     @NonNull
@@ -140,23 +132,23 @@ public class DownloadSetting {
         return sGlobal;
     }
 
-    public static void removeTaskDownloadSetting(int i10) {
+    public static void removeTaskDownloadSetting(int i2) {
         DownloadSetting downloadSetting = sLastSetting;
-        if (downloadSetting != null && downloadSetting.mDownloadId == i10) {
+        if (downloadSetting != null && downloadSetting.mDownloadId == i2) {
             sLastSetting = null;
         }
         LruCache<Integer, DownloadSetting> lruCache = sCache;
         synchronized (lruCache) {
-            lruCache.remove(Integer.valueOf(i10));
+            lruCache.remove(Integer.valueOf(i2));
         }
     }
 
-    public static void setGlobalBugFix(String str, boolean z10) {
+    public static void setGlobalBugFix(String str, boolean z) {
         try {
             if (sGlobalBugFixSetting == null) {
                 sGlobalBugFixSetting = new JSONObject();
             }
-            sGlobalBugFixSetting.put(str, z10 ? 1 : 0);
+            sGlobalBugFixSetting.put(str, z ? 1 : 0);
         } catch (JSONException unused) {
         }
     }
@@ -209,15 +201,15 @@ public class DownloadSetting {
         return downloadInfo == null ? sGlobal : obtain(downloadInfo.getId(), downloadInfo);
     }
 
-    public boolean optBoolean(String str, boolean z10) {
+    public boolean optBoolean(String str, boolean z) {
         JSONObject jSONObject = this.mTaskSetting;
-        return (jSONObject == null || !jSONObject.has(str) || isTaskKeyDisabled(str)) ? getGlobalSettings().optBoolean(str, z10) : this.mTaskSetting.optBoolean(str, z10);
+        return (jSONObject == null || !jSONObject.has(str) || isTaskKeyDisabled(str)) ? getGlobalSettings().optBoolean(str, z) : this.mTaskSetting.optBoolean(str, z);
     }
 
-    public boolean optBugFix(String str, boolean z10) {
+    public boolean optBugFix(String str, boolean z) {
         if (this.mBugFixSetting != null && !isTaskKeyDisabled(str)) {
             if (this.mBugFixSetting.has(str)) {
-                return this.mBugFixSetting.optInt(str, z10 ? 1 : 0) == 1;
+                return this.mBugFixSetting.optInt(str, z ? 1 : 0) == 1;
             }
             Boolean bool = this.mBugFixDefault;
             if (bool != null) {
@@ -227,29 +219,29 @@ public class DownloadSetting {
         JSONObject jSONObject = sGlobalBugFixSetting;
         if (jSONObject != null) {
             if (jSONObject.has(str)) {
-                return sGlobalBugFixSetting.optInt(str, z10 ? 1 : 0) == 1;
+                return sGlobalBugFixSetting.optInt(str, z ? 1 : 0) == 1;
             }
             Boolean bool2 = sGlobalBugFixDefault;
             if (bool2 != null) {
                 return bool2.booleanValue();
             }
         }
-        return z10;
+        return z;
     }
 
-    public double optDouble(String str, double d10) {
+    public double optDouble(String str, double d2) {
         JSONObject jSONObject = this.mTaskSetting;
-        return (jSONObject == null || !jSONObject.has(str) || isTaskKeyDisabled(str)) ? getGlobalSettings().optDouble(str, d10) : this.mTaskSetting.optDouble(str, d10);
+        return (jSONObject == null || !jSONObject.has(str) || isTaskKeyDisabled(str)) ? getGlobalSettings().optDouble(str, d2) : this.mTaskSetting.optDouble(str, d2);
     }
 
-    public int optInt(String str, int i10) {
+    public int optInt(String str, int i2) {
         JSONObject jSONObject = this.mTaskSetting;
-        return (jSONObject == null || !jSONObject.has(str) || isTaskKeyDisabled(str)) ? getGlobalSettings().optInt(str, i10) : this.mTaskSetting.optInt(str, i10);
+        return (jSONObject == null || !jSONObject.has(str) || isTaskKeyDisabled(str)) ? getGlobalSettings().optInt(str, i2) : this.mTaskSetting.optInt(str, i2);
     }
 
-    public long optLong(String str, long j10) {
+    public long optLong(String str, long j2) {
         JSONObject jSONObject = this.mTaskSetting;
-        return (jSONObject == null || !jSONObject.has(str) || isTaskKeyDisabled(str)) ? getGlobalSettings().optLong(str, j10) : this.mTaskSetting.optLong(str, j10);
+        return (jSONObject == null || !jSONObject.has(str) || isTaskKeyDisabled(str)) ? getGlobalSettings().optLong(str, j2) : this.mTaskSetting.optLong(str, j2);
     }
 
     public String optString(String str, String str2) {
@@ -257,23 +249,23 @@ public class DownloadSetting {
         return (jSONObject == null || !jSONObject.has(str) || isTaskKeyDisabled(str)) ? getGlobalSettings().optString(str, str2) : this.mTaskSetting.optString(str, str2);
     }
 
-    private static DownloadSetting obtain(int i10, DownloadInfo downloadInfo) {
+    private static DownloadSetting obtain(int i2, DownloadInfo downloadInfo) {
         DownloadSetting downloadSetting;
         DownloadSetting downloadSetting2 = sLastSetting;
-        if (downloadSetting2 != null && downloadSetting2.mDownloadId == i10) {
+        if (downloadSetting2 != null && downloadSetting2.mDownloadId == i2) {
             return downloadSetting2;
         }
         LruCache<Integer, DownloadSetting> lruCache = sCache;
         synchronized (lruCache) {
-            downloadSetting = lruCache.get(Integer.valueOf(i10));
+            downloadSetting = lruCache.get(Integer.valueOf(i2));
         }
         if (downloadSetting == null) {
-            downloadSetting = downloadInfo == null ? create(i10) : create(downloadInfo);
+            downloadSetting = downloadInfo == null ? create(i2) : create(downloadInfo);
             synchronized (lruCache) {
-                lruCache.put(Integer.valueOf(i10), downloadSetting);
+                lruCache.put(Integer.valueOf(i2), downloadSetting);
             }
         }
-        downloadSetting.mDownloadId = i10;
+        downloadSetting.mDownloadId = i2;
         sLastSetting = downloadSetting;
         return downloadSetting;
     }
@@ -287,8 +279,8 @@ public class DownloadSetting {
             if (!TextUtils.isEmpty(downloadSettingString)) {
                 return new DownloadSetting(new JSONObject(downloadSettingString));
             }
-        } catch (Throwable th2) {
-            th2.printStackTrace();
+        } catch (Throwable th) {
+            th.printStackTrace();
         }
         return sGlobal;
     }
@@ -302,19 +294,15 @@ public class DownloadSetting {
             }
             LruCache<Integer, DownloadSetting> lruCache = sCache;
             synchronized (lruCache) {
-                try {
-                    for (DownloadSetting downloadSetting2 : lruCache.values()) {
-                        if (downloadSetting2.mTaskSetting == jSONObject) {
-                            sLastSetting = downloadSetting2;
-                            return downloadSetting2;
-                        }
+                for (DownloadSetting downloadSetting2 : lruCache.values()) {
+                    if (downloadSetting2.mTaskSetting == jSONObject) {
+                        sLastSetting = downloadSetting2;
+                        return downloadSetting2;
                     }
-                    DownloadSetting downloadSetting3 = new DownloadSetting(jSONObject);
-                    sLastSetting = downloadSetting3;
-                    return downloadSetting3;
-                } catch (Throwable th2) {
-                    throw th2;
                 }
+                DownloadSetting downloadSetting3 = new DownloadSetting(jSONObject);
+                sLastSetting = downloadSetting3;
+                return downloadSetting3;
             }
         }
         return sGlobal;

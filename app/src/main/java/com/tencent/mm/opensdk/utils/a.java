@@ -7,5 +7,5 @@ import android.provider.BaseColumns;
 public final class a implements BaseColumns {
 
     /* renamed from: a */
-    public static final Uri f23086a = Uri.parse("content://com.tencent.mm.sdk.plugin.provider/sharedpref");
+    public static final Uri f25362a = Uri.parse("content://com.tencent.mm.sdk.plugin.provider/sharedpref");
 }

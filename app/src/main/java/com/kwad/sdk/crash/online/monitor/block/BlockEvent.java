@@ -5,8 +5,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 @KsJson
-/* loaded from: classes3.dex */
-public class BlockEvent extends com.kwad.sdk.core.response.a.a {
+/* loaded from: classes2.dex */
+public class BlockEvent extends com.kwad.sdk.core.response.kwai.a {
     public long blockTimeThreshold;
     public long blockDuration = 0;
     public long blockLoopInterval = 100;
@@ -16,11 +16,11 @@ public class BlockEvent extends com.kwad.sdk.core.response.a.a {
     public List<a> stackTraceSample = new ArrayList();
 
     @KsJson
-    public static class a extends com.kwad.sdk.core.response.a.a {
-        public long aKX;
-        public boolean aKY = false;
-        public String aKZ;
-        public long aLa;
+    public static class a extends com.kwad.sdk.core.response.kwai.a {
+        public long arN;
+        public boolean arO = false;
+        public String arP;
+        public long arQ;
         public int repeatCount;
     }
 }

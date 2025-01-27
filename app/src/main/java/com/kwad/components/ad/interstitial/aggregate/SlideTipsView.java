@@ -8,9 +8,9 @@ import android.widget.FrameLayout;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import com.kwad.sdk.R;
-import com.kwad.sdk.n.m;
+import com.kwad.sdk.j.k;
 
-/* loaded from: classes2.dex */
+/* loaded from: classes.dex */
 public class SlideTipsView extends FrameLayout {
     public SlideTipsView(@NonNull Context context) {
         this(context, null);
@@ -21,17 +21,11 @@ public class SlideTipsView extends FrameLayout {
     }
 
     @SuppressLint({"CustomViewStyleable"})
-    public SlideTipsView(@NonNull Context context, @Nullable AttributeSet attributeSet, int i10) {
-        super(context, attributeSet, i10);
-        int i11;
-        TypedArray obtainStyledAttributes = context.obtainStyledAttributes(attributeSet, R.styleable.ksad_SlideTipsView, i10, 0);
-        boolean z10 = obtainStyledAttributes.getBoolean(R.styleable.ksad_SlideTipsView_ksad_is_left_slide, true);
+    public SlideTipsView(@NonNull Context context, @Nullable AttributeSet attributeSet, int i2) {
+        super(context, attributeSet, i2);
+        TypedArray obtainStyledAttributes = context.obtainStyledAttributes(attributeSet, R.styleable.ksad_SlideTipsView, i2, 0);
+        boolean z = obtainStyledAttributes.getBoolean(R.styleable.ksad_SlideTipsView_ksad_is_left_slide, true);
         obtainStyledAttributes.recycle();
-        if (z10) {
-            i11 = R.layout.ksad_interstitial_left_slide_to_next;
-        } else {
-            i11 = R.layout.ksad_interstitial_right_slide_to_return;
-        }
-        m.inflate(context, i11, this);
+        k.inflate(context, z ? R.layout.ksad_interstitial_left_slide_to_next : R.layout.ksad_interstitial_right_slide_to_return, this);
     }
 }

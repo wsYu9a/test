@@ -7,7 +7,7 @@ import com.kwad.components.offline.api.core.network.adapter.NormalRequestListene
 import com.kwad.components.offline.api.core.network.model.NormalOfflineCompoResultData;
 import com.kwad.sdk.core.network.c;
 
-/* loaded from: classes3.dex */
+/* loaded from: classes2.dex */
 public abstract class OfflineCompoNormalNetworking<R extends IOfflineCompoRequest, T extends NormalOfflineCompoResultData> implements IOfflineCompoNetworking<R, T> {
     private NormalNetworkingAdapter<R, T> mNetworking = new NormalNetworkingAdapter<>(this);
 
@@ -29,7 +29,7 @@ public abstract class OfflineCompoNormalNetworking<R extends IOfflineCompoReques
     }
 
     @Override // com.kwad.components.offline.api.core.network.IOfflineCompoNetworking
-    public void onResponse(R r10, c cVar) {
+    public void onResponse(R r, c cVar) {
     }
 
     @Override // com.kwad.components.offline.api.core.network.IOfflineCompoNetworking

@@ -8,7 +8,7 @@ import android.database.Cursor;
 import android.net.Uri;
 import me.jessyan.autosize.utils.AutoSizeUtils;
 
-/* loaded from: classes4.dex */
+/* loaded from: classes5.dex */
 public class InitProvider extends ContentProvider {
     @Override // android.content.ContentProvider
     public int delete(Uri uri, String str, String[] strArr) {

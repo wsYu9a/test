@@ -19,78 +19,81 @@ public class BaseDownloader {
     private String globalDefaultSavePath;
     private String globalDefaultSaveTempPath;
 
+    BaseDownloader() {
+    }
+
     public static DownloadTask with(Context context) {
         Downloader.getInstance(context);
         return new DownloadTask();
     }
 
-    public void addMainThreadListener(int i10, IDownloadListener iDownloadListener) {
+    public void addMainThreadListener(int i2, IDownloadListener iDownloadListener) {
         if (iDownloadListener == null) {
             return;
         }
-        DownloadProcessDispatcher.getInstance().addDownloadListener(i10, iDownloadListener, ListenerType.MAIN, false);
+        DownloadProcessDispatcher.getInstance().addDownloadListener(i2, iDownloadListener, ListenerType.MAIN, false);
     }
 
-    public void addNotificationListener(int i10, IDownloadListener iDownloadListener) {
+    public void addNotificationListener(int i2, IDownloadListener iDownloadListener) {
         if (iDownloadListener == null) {
             return;
         }
-        DownloadProcessDispatcher.getInstance().addDownloadListener(i10, iDownloadListener, ListenerType.NOTIFICATION, false);
+        DownloadProcessDispatcher.getInstance().addDownloadListener(i2, iDownloadListener, ListenerType.NOTIFICATION, false);
     }
 
-    public void addSubThreadListener(int i10, IDownloadListener iDownloadListener) {
+    public void addSubThreadListener(int i2, IDownloadListener iDownloadListener) {
         if (iDownloadListener == null) {
             return;
         }
-        DownloadProcessDispatcher.getInstance().addDownloadListener(i10, iDownloadListener, ListenerType.SUB, false);
+        DownloadProcessDispatcher.getInstance().addDownloadListener(i2, iDownloadListener, ListenerType.SUB, false);
     }
 
-    public boolean canResume(int i10) {
-        return DownloadProcessDispatcher.getInstance().canResume(i10);
+    public boolean canResume(int i2) {
+        return DownloadProcessDispatcher.getInstance().canResume(i2);
     }
 
-    public void cancel(int i10) {
-        cancel(i10, true);
+    public void cancel(int i2) {
+        cancel(i2, true);
     }
 
-    public void clearDownloadData(int i10) {
-        DownloadProcessDispatcher.getInstance().clearDownloadData(i10, true);
+    public void clearDownloadData(int i2) {
+        DownloadProcessDispatcher.getInstance().clearDownloadData(i2, true);
     }
 
     public void destoryDownloader() {
         DownloadComponentManager.unRegisterDownloadReceiver();
     }
 
-    public void forceDownloadIngoreRecommendSize(int i10) {
-        DownloadProcessDispatcher.getInstance().forceDownloadIngoreRecommendSize(i10);
+    public void forceDownloadIngoreRecommendSize(int i2) {
+        DownloadProcessDispatcher.getInstance().forceDownloadIngoreRecommendSize(i2);
     }
 
     public List<DownloadInfo> getAllDownloadInfo() {
         return DownloadProcessDispatcher.getInstance().getAllDownloadInfo();
     }
 
-    public long getCurBytes(int i10) {
-        return DownloadProcessDispatcher.getInstance().getCurBytes(i10);
+    public long getCurBytes(int i2) {
+        return DownloadProcessDispatcher.getInstance().getCurBytes(i2);
     }
 
-    public IDownloadFileUriProvider getDownloadFileUriProvider(int i10) {
-        return DownloadProcessDispatcher.getInstance().getDownloadFileUriProvider(i10);
+    public IDownloadFileUriProvider getDownloadFileUriProvider(int i2) {
+        return DownloadProcessDispatcher.getInstance().getDownloadFileUriProvider(i2);
     }
 
     public int getDownloadId(String str, String str2) {
         return DownloadProcessDispatcher.getInstance().getDownloadId(str, str2);
     }
 
-    public DownloadInfo getDownloadInfo(int i10) {
-        return DownloadProcessDispatcher.getInstance().getDownloadInfo(i10);
+    public DownloadInfo getDownloadInfo(int i2) {
+        return DownloadProcessDispatcher.getInstance().getDownloadInfo(i2);
     }
 
     public List<DownloadInfo> getDownloadInfoList(String str) {
         return DownloadProcessDispatcher.getInstance().getDownloadInfoList(str);
     }
 
-    public IDownloadNotificationEventListener getDownloadNotificationEventListener(int i10) {
-        return DownloadProcessDispatcher.getInstance().getDownloadNotificationEventListener(i10);
+    public IDownloadNotificationEventListener getDownloadNotificationEventListener(int i2) {
+        return DownloadProcessDispatcher.getInstance().getDownloadNotificationEventListener(i2);
     }
 
     public List<DownloadInfo> getDownloadingDownloadInfosWithMimeType(String str) {
@@ -113,8 +116,8 @@ public class BaseDownloader {
         return DownloadComponentManager.getReserveWifiStatusListener();
     }
 
-    public int getStatus(int i10) {
-        return DownloadProcessDispatcher.getInstance().getStatus(i10);
+    public int getStatus(int i2) {
+        return DownloadProcessDispatcher.getInstance().getStatus(i2);
     }
 
     public List<DownloadInfo> getSuccessedDownloadInfosWithMimeType(String str) {
@@ -129,21 +132,21 @@ public class BaseDownloader {
         return DownloadProcessDispatcher.getInstance().isDownloadCacheSyncSuccess();
     }
 
-    public boolean isDownloadServiceForeground(int i10) {
-        return DownloadProcessDispatcher.getInstance().getDownloadHandler(i10).isServiceForeground();
+    public boolean isDownloadServiceForeground(int i2) {
+        return DownloadProcessDispatcher.getInstance().getDownloadHandler(i2).isServiceForeground();
     }
 
     public boolean isDownloadSuccessAndFileNotExist(DownloadInfo downloadInfo) {
         return DownloadProcessDispatcher.getInstance().isDownloadSuccessAndFileNotExist(downloadInfo);
     }
 
-    public boolean isDownloading(int i10) {
+    public boolean isDownloading(int i2) {
         boolean isDownloading;
         if (!DownloadExpSwitchCode.isSwitchEnable(4194304)) {
-            return DownloadProcessDispatcher.getInstance().isDownloading(i10);
+            return DownloadProcessDispatcher.getInstance().isDownloading(i2);
         }
         synchronized (this) {
-            isDownloading = DownloadProcessDispatcher.getInstance().isDownloading(i10);
+            isDownloading = DownloadProcessDispatcher.getInstance().isDownloading(i2);
         }
         return isDownloading;
     }
@@ -152,8 +155,8 @@ public class BaseDownloader {
         return DownloadProcessDispatcher.getInstance().isHttpServiceInit();
     }
 
-    public void pause(int i10) {
-        DownloadProcessDispatcher.getInstance().pause(i10);
+    public void pause(int i2) {
+        DownloadProcessDispatcher.getInstance().pause(i2);
     }
 
     public void pauseAll() {
@@ -168,44 +171,44 @@ public class BaseDownloader {
         DownloadProcessDispatcher.getInstance().registerDownloaderProcessConnectedListener(iDownloaderProcessConnectedListener);
     }
 
-    public void removeMainThreadListener(int i10, IDownloadListener iDownloadListener) {
+    public void removeMainThreadListener(int i2, IDownloadListener iDownloadListener) {
         if (iDownloadListener == null) {
             return;
         }
-        DownloadProcessDispatcher.getInstance().removeDownloadListener(i10, iDownloadListener, ListenerType.MAIN, false);
+        DownloadProcessDispatcher.getInstance().removeDownloadListener(i2, iDownloadListener, ListenerType.MAIN, false);
     }
 
-    public void removeNotificationListener(int i10, IDownloadListener iDownloadListener) {
+    public void removeNotificationListener(int i2, IDownloadListener iDownloadListener) {
         if (iDownloadListener == null) {
             return;
         }
-        DownloadProcessDispatcher.getInstance().removeDownloadListener(i10, iDownloadListener, ListenerType.NOTIFICATION, false);
+        DownloadProcessDispatcher.getInstance().removeDownloadListener(i2, iDownloadListener, ListenerType.NOTIFICATION, false);
     }
 
-    public void removeSubThreadListener(int i10, IDownloadListener iDownloadListener) {
+    public void removeSubThreadListener(int i2, IDownloadListener iDownloadListener) {
         if (iDownloadListener == null) {
             return;
         }
-        DownloadProcessDispatcher.getInstance().removeDownloadListener(i10, iDownloadListener, ListenerType.SUB, false);
+        DownloadProcessDispatcher.getInstance().removeDownloadListener(i2, iDownloadListener, ListenerType.SUB, false);
     }
 
     @Deprecated
-    public void removeTaskMainListener(int i10) {
-        DownloadProcessDispatcher.getInstance().removeDownloadListener(i10, null, ListenerType.MAIN, true);
+    public void removeTaskMainListener(int i2) {
+        DownloadProcessDispatcher.getInstance().removeDownloadListener(i2, null, ListenerType.MAIN, true);
     }
 
     @Deprecated
-    public void removeTaskNotificationListener(int i10) {
-        DownloadProcessDispatcher.getInstance().removeDownloadListener(i10, null, ListenerType.NOTIFICATION, true);
+    public void removeTaskNotificationListener(int i2) {
+        DownloadProcessDispatcher.getInstance().removeDownloadListener(i2, null, ListenerType.NOTIFICATION, true);
     }
 
     @Deprecated
-    public void removeTaskSubListener(int i10) {
-        DownloadProcessDispatcher.getInstance().removeDownloadListener(i10, null, ListenerType.SUB, true);
+    public void removeTaskSubListener(int i2) {
+        DownloadProcessDispatcher.getInstance().removeDownloadListener(i2, null, ListenerType.SUB, true);
     }
 
-    public void restart(int i10) {
-        DownloadProcessDispatcher.getInstance().restart(i10);
+    public void restart(int i2) {
+        DownloadProcessDispatcher.getInstance().restart(i2);
     }
 
     public void restartAllFailedDownloadTasks(List<String> list) {
@@ -216,8 +219,8 @@ public class BaseDownloader {
         DownloadProcessDispatcher.getInstance().restartAllPauseReserveOnWifiDownloadTasks(list);
     }
 
-    public void resume(int i10) {
-        DownloadProcessDispatcher.getInstance().resume(i10);
+    public void resume(int i2) {
+        DownloadProcessDispatcher.getInstance().resume(i2);
     }
 
     public void setDefaultSavePath(String str) {
@@ -244,28 +247,28 @@ public class BaseDownloader {
         }
     }
 
-    public void setDownloadNotificationEventListener(int i10, IDownloadNotificationEventListener iDownloadNotificationEventListener) {
-        DownloadProcessDispatcher.getInstance().setDownloadNotificationEventListener(i10, iDownloadNotificationEventListener);
+    public void setDownloadNotificationEventListener(int i2, IDownloadNotificationEventListener iDownloadNotificationEventListener) {
+        DownloadProcessDispatcher.getInstance().setDownloadNotificationEventListener(i2, iDownloadNotificationEventListener);
     }
 
-    public void setLogLevel(int i10) {
-        DownloadProcessDispatcher.getInstance().setLogLevel(i10);
-    }
-
-    @Deprecated
-    public void setMainThreadListener(int i10, IDownloadListener iDownloadListener) {
-        if (iDownloadListener == null) {
-            return;
-        }
-        DownloadProcessDispatcher.getInstance().addDownloadListener(i10, iDownloadListener, ListenerType.MAIN, true);
+    public void setLogLevel(int i2) {
+        DownloadProcessDispatcher.getInstance().setLogLevel(i2);
     }
 
     @Deprecated
-    public void setNotificationListener(int i10, IDownloadListener iDownloadListener) {
+    public void setMainThreadListener(int i2, IDownloadListener iDownloadListener) {
         if (iDownloadListener == null) {
             return;
         }
-        DownloadProcessDispatcher.getInstance().addDownloadListener(i10, iDownloadListener, ListenerType.NOTIFICATION, true);
+        DownloadProcessDispatcher.getInstance().addDownloadListener(i2, iDownloadListener, ListenerType.MAIN, true);
+    }
+
+    @Deprecated
+    public void setNotificationListener(int i2, IDownloadListener iDownloadListener) {
+        if (iDownloadListener == null) {
+            return;
+        }
+        DownloadProcessDispatcher.getInstance().addDownloadListener(i2, iDownloadListener, ListenerType.NOTIFICATION, true);
     }
 
     public void setReserveWifiStatusListener(IReserveWifiStatusListener iReserveWifiStatusListener) {
@@ -273,15 +276,15 @@ public class BaseDownloader {
     }
 
     @Deprecated
-    public void setSubThreadListener(int i10, IDownloadListener iDownloadListener) {
+    public void setSubThreadListener(int i2, IDownloadListener iDownloadListener) {
         if (iDownloadListener == null) {
             return;
         }
-        DownloadProcessDispatcher.getInstance().addDownloadListener(i10, iDownloadListener, ListenerType.SUB, true);
+        DownloadProcessDispatcher.getInstance().addDownloadListener(i2, iDownloadListener, ListenerType.SUB, true);
     }
 
-    public void setThrottleNetSpeed(int i10, long j10) {
-        DownloadProcessDispatcher.getInstance().setThrottleNetSpeed(i10, j10);
+    public void setThrottleNetSpeed(int i2, long j2) {
+        DownloadProcessDispatcher.getInstance().setThrottleNetSpeed(i2, j2);
     }
 
     public void unRegisterDownloadCacheSyncListener(IDownloadCacheSyncStatusListener iDownloadCacheSyncStatusListener) {
@@ -292,7 +295,7 @@ public class BaseDownloader {
         DownloadProcessDispatcher.getInstance().unRegisterDownloaderProcessConnectedListener(iDownloaderProcessConnectedListener);
     }
 
-    private File getGlobalSaveDir(String str, boolean z10) {
+    private File getGlobalSaveDir(String str, boolean z) {
         File file;
         File file2 = null;
         if (TextUtils.isEmpty(str)) {
@@ -306,7 +309,7 @@ public class BaseDownloader {
             if (!file.exists()) {
                 file.mkdirs();
             } else if (!file.isDirectory()) {
-                if (!z10) {
+                if (!z) {
                     return null;
                 }
                 file.delete();
@@ -319,12 +322,12 @@ public class BaseDownloader {
         }
     }
 
-    public void cancel(int i10, boolean z10) {
-        DownloadProcessDispatcher.getInstance().cancel(i10, z10);
+    public void cancel(int i2, boolean z) {
+        DownloadProcessDispatcher.getInstance().cancel(i2, z);
     }
 
-    public void clearDownloadData(int i10, boolean z10) {
-        DownloadProcessDispatcher.getInstance().clearDownloadData(i10, z10);
+    public void clearDownloadData(int i2, boolean z) {
+        DownloadProcessDispatcher.getInstance().clearDownloadData(i2, z);
     }
 
     public DownloadInfo getDownloadInfo(String str, String str2) {
@@ -332,10 +335,10 @@ public class BaseDownloader {
     }
 
     @Deprecated
-    public void setMainThreadListener(int i10, IDownloadListener iDownloadListener, boolean z10) {
+    public void setMainThreadListener(int i2, IDownloadListener iDownloadListener, boolean z) {
         if (iDownloadListener == null) {
             return;
         }
-        DownloadProcessDispatcher.getInstance().addDownloadListener(i10, iDownloadListener, ListenerType.MAIN, true, z10);
+        DownloadProcessDispatcher.getInstance().addDownloadListener(i2, iDownloadListener, ListenerType.MAIN, true, z);
     }
 }

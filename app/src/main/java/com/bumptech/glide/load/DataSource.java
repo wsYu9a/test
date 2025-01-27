@@ -1,6 +1,6 @@
 package com.bumptech.glide.load;
 
-/* loaded from: classes2.dex */
+/* loaded from: classes.dex */
 public enum DataSource {
     LOCAL,
     REMOTE,

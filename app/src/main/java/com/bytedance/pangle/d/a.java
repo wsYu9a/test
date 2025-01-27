@@ -5,22 +5,22 @@ import android.os.Looper;
 import com.bytedance.pangle.log.ZeusLogger;
 import com.bytedance.pangle.util.MethodUtils;
 
-/* loaded from: classes2.dex */
+/* loaded from: classes.dex */
 public class a {
 
     /* renamed from: a */
-    private static Class f7521a;
+    private static Class f6026a;
 
     /* renamed from: b */
-    private static Object f7522b;
+    private static Object f6027b;
 
     /* renamed from: com.bytedance.pangle.d.a$1 */
-    public static class AnonymousClass1 implements Runnable {
+    static class AnonymousClass1 implements Runnable {
 
         /* renamed from: a */
-        final /* synthetic */ Object f7523a;
+        final /* synthetic */ Object f6028a;
 
-        public AnonymousClass1(Object obj) {
+        AnonymousClass1(Object obj) {
             obj = obj;
         }
 
@@ -28,86 +28,83 @@ public class a {
         public final void run() {
             try {
                 try {
-                    Object unused = a.f7522b = MethodUtils.invokeStaticMethod(a.f7521a, "currentActivityThread", new Object[0]);
+                    Object unused = a.f6027b = MethodUtils.invokeStaticMethod(a.f6026a, "currentActivityThread", new Object[0]);
                     synchronized (obj) {
                         obj.notify();
                     }
-                } catch (Exception e10) {
-                    ZeusLogger.errReport(ZeusLogger.TAG, "ActivityThreadHelper main looper invoke currentActivityThread failed.", e10);
+                } catch (Exception e2) {
+                    ZeusLogger.errReport(ZeusLogger.TAG, "ActivityThreadHelper main looper invoke currentActivityThread failed.", e2);
                     synchronized (obj) {
                         obj.notify();
                     }
                 }
-            } catch (Throwable th2) {
+            } catch (Throwable th) {
                 synchronized (obj) {
                     obj.notify();
-                    throw th2;
+                    throw th;
                 }
             }
         }
     }
 
     public static final Object a() {
-        if (f7522b == null) {
+        if (f6027b == null) {
             try {
                 synchronized (a.class) {
-                    try {
-                        if (f7522b == null) {
-                            if (f7521a == null) {
-                                f7521a = Class.forName("android.app.ActivityThread");
-                            }
-                            f7522b = MethodUtils.invokeStaticMethod(f7521a, "currentActivityThread", new Object[0]);
+                    if (f6027b == null) {
+                        if (f6026a == null) {
+                            f6026a = Class.forName("android.app.ActivityThread");
                         }
-                        if (f7522b == null && Looper.myLooper() != Looper.getMainLooper()) {
-                            Object obj = new Object();
-                            new Handler(Looper.getMainLooper()).post(new Runnable() { // from class: com.bytedance.pangle.d.a.1
+                        f6027b = MethodUtils.invokeStaticMethod(f6026a, "currentActivityThread", new Object[0]);
+                    }
+                    if (f6027b == null && Looper.myLooper() != Looper.getMainLooper()) {
+                        Object obj = new Object();
+                        new Handler(Looper.getMainLooper()).post(new Runnable() { // from class: com.bytedance.pangle.d.a.1
 
-                                /* renamed from: a */
-                                final /* synthetic */ Object f7523a;
+                            /* renamed from: a */
+                            final /* synthetic */ Object f6028a;
 
-                                public AnonymousClass1(Object obj2) {
-                                    obj = obj2;
-                                }
+                            AnonymousClass1(Object obj2) {
+                                obj = obj2;
+                            }
 
-                                @Override // java.lang.Runnable
-                                public final void run() {
+                            @Override // java.lang.Runnable
+                            public final void run() {
+                                try {
                                     try {
-                                        try {
-                                            Object unused = a.f7522b = MethodUtils.invokeStaticMethod(a.f7521a, "currentActivityThread", new Object[0]);
-                                            synchronized (obj) {
-                                                obj.notify();
-                                            }
-                                        } catch (Exception e10) {
-                                            ZeusLogger.errReport(ZeusLogger.TAG, "ActivityThreadHelper main looper invoke currentActivityThread failed.", e10);
-                                            synchronized (obj) {
-                                                obj.notify();
-                                            }
-                                        }
-                                    } catch (Throwable th2) {
+                                        Object unused = a.f6027b = MethodUtils.invokeStaticMethod(a.f6026a, "currentActivityThread", new Object[0]);
                                         synchronized (obj) {
                                             obj.notify();
-                                            throw th2;
+                                        }
+                                    } catch (Exception e2) {
+                                        ZeusLogger.errReport(ZeusLogger.TAG, "ActivityThreadHelper main looper invoke currentActivityThread failed.", e2);
+                                        synchronized (obj) {
+                                            obj.notify();
                                         }
                                     }
-                                }
-                            });
-                            if (f7522b == null) {
-                                synchronized (obj2) {
-                                    try {
-                                        obj2.wait(5000L);
-                                    } catch (InterruptedException e10) {
-                                        ZeusLogger.errReport(ZeusLogger.TAG, "ActivityThreadHelper currentActivityThread interruptedException failed.", e10);
+                                } catch (Throwable th) {
+                                    synchronized (obj) {
+                                        obj.notify();
+                                        throw th;
                                     }
                                 }
                             }
+                        });
+                        if (f6027b == null) {
+                            synchronized (obj2) {
+                                try {
+                                    obj2.wait(5000L);
+                                } catch (InterruptedException e2) {
+                                    ZeusLogger.errReport(ZeusLogger.TAG, "ActivityThreadHelper currentActivityThread interruptedException failed.", e2);
+                                }
+                            }
                         }
-                    } finally {
                     }
                 }
-            } catch (Exception e11) {
-                ZeusLogger.errReport(ZeusLogger.TAG, "ActivityThreadHelper currentActivityThread failed.", e11);
+            } catch (Exception e3) {
+                ZeusLogger.errReport(ZeusLogger.TAG, "ActivityThreadHelper currentActivityThread failed.", e3);
             }
         }
-        return f7522b;
+        return f6027b;
     }
 }

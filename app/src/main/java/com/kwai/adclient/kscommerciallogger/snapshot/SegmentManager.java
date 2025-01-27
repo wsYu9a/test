@@ -16,7 +16,7 @@ import java.util.Set;
 import java.util.UUID;
 import org.json.JSONArray;
 
-/* loaded from: classes3.dex */
+/* loaded from: classes2.dex */
 public enum SegmentManager {
     Instance;
 
@@ -27,24 +27,24 @@ public enum SegmentManager {
     private boolean hasInit = false;
 
     /* renamed from: com.kwai.adclient.kscommerciallogger.snapshot.SegmentManager$1 */
-    public class AnonymousClass1 extends LruCache<String, Set<c>> {
-        public AnonymousClass1(int i10) {
-            super(i10);
+    final class AnonymousClass1 extends LruCache<String, Set<c>> {
+        AnonymousClass1(int i2) {
+            super(i2);
         }
 
-        private static int f(Set<c> set) {
+        private static int d(Set<c> set) {
             return set.size();
         }
 
         @Override // android.util.LruCache
-        public final /* synthetic */ int sizeOf(String str, Set<c> set) {
-            return f(set);
+        protected final /* synthetic */ int sizeOf(String str, Set<c> set) {
+            return d(set);
         }
     }
 
     /* renamed from: com.kwai.adclient.kscommerciallogger.snapshot.SegmentManager$2 */
-    public class AnonymousClass2 implements Comparator<Map.Entry<String, Integer>> {
-        public AnonymousClass2() {
+    final class AnonymousClass2 implements Comparator<Map.Entry<String, Integer>> {
+        AnonymousClass2() {
         }
 
         private static int a(Map.Entry<String, Integer> entry, Map.Entry<String, Integer> entry2) {
@@ -73,7 +73,7 @@ public enum SegmentManager {
                 Iterator<c> it = value.iterator();
                 this.mSnapshots.remove(key);
                 while (it.hasNext()) {
-                    if (this.lastAutoClearTime - it.next().Qq() >= 900000) {
+                    if (this.lastAutoClearTime - it.next().Gg() >= 900000) {
                         it.remove();
                     }
                 }
@@ -98,14 +98,28 @@ public enum SegmentManager {
             return;
         }
         synchronized (this) {
-            try {
-                Iterator<Map.Entry<String, Set<c>>> it = this.mSnapshots.snapshot().entrySet().iterator();
-                while (it.hasNext()) {
-                    clearBySegment(it.next().getKey(), str);
-                }
-            } catch (Throwable th2) {
-                throw th2;
+            Iterator<Map.Entry<String, Set<c>>> it = this.mSnapshots.snapshot().entrySet().iterator();
+            while (it.hasNext()) {
+                clearBySegment(it.next().getKey(), str);
             }
+        }
+    }
+
+    public final void clearBySegment(String str, String str2) {
+        if (TextUtils.isEmpty(str) || TextUtils.isEmpty(str2) || this.mSnapshots == null) {
+            return;
+        }
+        synchronized (this) {
+            Set<c> set = this.mSnapshots.get(str);
+            c cVar = new c(str2);
+            if (set != null && set.contains(cVar)) {
+                this.mSnapshots.remove(str);
+                set.remove(cVar);
+                if (set.size() > 0) {
+                    this.mSnapshots.put(str, set);
+                }
+            }
+            autoClear();
         }
     }
 
@@ -119,30 +133,26 @@ public enum SegmentManager {
         }
     }
 
-    public final synchronized void init(int i10, boolean z10) {
-        try {
-            if (!this.hasInit) {
-                this.isDebug = z10;
-                if (i10 > 0) {
-                    this.mSnapshots = new LruCache<String, Set<c>>(i10) { // from class: com.kwai.adclient.kscommerciallogger.snapshot.SegmentManager.1
-                        public AnonymousClass1(int i102) {
-                            super(i102);
-                        }
+    public final synchronized void init(int i2, boolean z) {
+        if (!this.hasInit) {
+            this.isDebug = z;
+            if (i2 > 0) {
+                this.mSnapshots = new LruCache<String, Set<c>>(i2) { // from class: com.kwai.adclient.kscommerciallogger.snapshot.SegmentManager.1
+                    AnonymousClass1(int i22) {
+                        super(i22);
+                    }
 
-                        private static int f(Set<c> set) {
-                            return set.size();
-                        }
+                    private static int d(Set<c> set) {
+                        return set.size();
+                    }
 
-                        @Override // android.util.LruCache
-                        public final /* synthetic */ int sizeOf(String str, Set<c> set) {
-                            return f(set);
-                        }
-                    };
-                }
-                this.hasInit = true;
+                    @Override // android.util.LruCache
+                    protected final /* synthetic */ int sizeOf(String str, Set<c> set) {
+                        return d(set);
+                    }
+                };
             }
-        } catch (Throwable th2) {
-            throw th2;
+            this.hasInit = true;
         }
     }
 
@@ -160,16 +170,12 @@ public enum SegmentManager {
             return jSONArray;
         }
         synchronized (this) {
-            try {
-                Set<c> set = this.mSnapshots.get(str);
-                if (set != null) {
-                    Iterator<c> it = set.iterator();
-                    while (it.hasNext()) {
-                        jSONArray.put(it.next().hB(str));
-                    }
+            Set<c> set = this.mSnapshots.get(str);
+            if (set != null) {
+                Iterator<c> it = set.iterator();
+                while (it.hasNext()) {
+                    jSONArray.put(it.next().fi(str));
                 }
-            } catch (Throwable th2) {
-                throw th2;
             }
         }
         return jSONArray;
@@ -182,23 +188,23 @@ public enum SegmentManager {
             return jSONArray;
         }
         synchronized (this) {
-            try {
-                Set<c> set = this.mSnapshots.get(str);
-                if (set != null) {
-                    Iterator<c> it = set.iterator();
-                    while (it.hasNext()) {
-                        jSONArray.put(it.next().hB(str));
-                    }
-                    this.mSnapshots.remove(str);
+            Set<c> set = this.mSnapshots.get(str);
+            if (set != null) {
+                Iterator<c> it = set.iterator();
+                while (it.hasNext()) {
+                    jSONArray.put(it.next().fi(str));
                 }
-            } catch (Throwable th2) {
-                throw th2;
+                this.mSnapshots.remove(str);
             }
         }
         return jSONArray;
     }
 
-    public final c loadSegment(@NonNull String str, @NonNull String str2, int i10) {
+    public final c loadSegment(@NonNull String str, @NonNull String str2) {
+        return loadSegment(str, str2, 10);
+    }
+
+    public final c loadSegment(@NonNull String str, @NonNull String str2, int i2) {
         if (this.mSnapshots == null) {
             if (this.hasInit || !this.isDebug) {
                 return new a("empty");
@@ -206,30 +212,26 @@ public enum SegmentManager {
             throw new IllegalStateException("you need init first");
         }
         synchronized (this) {
-            try {
-                Set<c> set = this.mSnapshots.get(str);
-                if (set != null) {
-                    for (c cVar : set) {
-                        if (cVar.getName().equals(str2)) {
-                            return cVar;
-                        }
+            Set<c> set = this.mSnapshots.get(str);
+            if (set != null) {
+                for (c cVar : set) {
+                    if (cVar.getName().equals(str2)) {
+                        return cVar;
                     }
                 }
-                c cVar2 = new c(str2, i10);
-                if (set != null) {
-                    this.mSnapshots.remove(str);
-                    set.add(cVar2);
-                    this.mSnapshots.put(str, set);
-                } else {
-                    LinkedHashSet linkedHashSet = new LinkedHashSet();
-                    linkedHashSet.add(cVar2);
-                    this.mSnapshots.put(str, linkedHashSet);
-                }
-                autoClear();
-                return cVar2;
-            } catch (Throwable th2) {
-                throw th2;
             }
+            c cVar2 = new c(str2, i2);
+            if (set != null) {
+                this.mSnapshots.remove(str);
+                set.add(cVar2);
+                this.mSnapshots.put(str, set);
+            } else {
+                LinkedHashSet linkedHashSet = new LinkedHashSet();
+                linkedHashSet.add(cVar2);
+                this.mSnapshots.put(str, linkedHashSet);
+            }
+            autoClear();
+            return cVar2;
         }
     }
 
@@ -241,26 +243,31 @@ public enum SegmentManager {
         return loadSpan(str, str2, "span");
     }
 
+    public final d loadSpan(@NonNull String str, @NonNull String str2, @NonNull String str3) {
+        return loadSegment(str, str2).fh(str3);
+    }
+
     public final synchronized Map.Entry<String, Integer> mostUsedSegmentInfo() {
         HashMap hashMap;
-        try {
-            hashMap = new HashMap();
-            Iterator<Map.Entry<String, Set<c>>> it = this.mSnapshots.snapshot().entrySet().iterator();
-            while (it.hasNext()) {
-                for (c cVar : it.next().getValue()) {
-                    Integer num = (Integer) hashMap.get(cVar.getName());
-                    if (num == null) {
-                        hashMap.put(cVar.getName(), 1);
-                    } else {
-                        hashMap.put(cVar.getName(), Integer.valueOf(num.intValue() + 1));
-                    }
+        String name;
+        int valueOf;
+        hashMap = new HashMap();
+        Iterator<Map.Entry<String, Set<c>>> it = this.mSnapshots.snapshot().entrySet().iterator();
+        while (it.hasNext()) {
+            for (c cVar : it.next().getValue()) {
+                Integer num = (Integer) hashMap.get(cVar.getName());
+                if (num == null) {
+                    name = cVar.getName();
+                    valueOf = 1;
+                } else {
+                    name = cVar.getName();
+                    valueOf = Integer.valueOf(num.intValue() + 1);
                 }
+                hashMap.put(name, valueOf);
             }
-        } catch (Throwable th2) {
-            throw th2;
         }
         return (Map.Entry) Collections.max(new ArrayList(hashMap.entrySet()), new Comparator<Map.Entry<String, Integer>>() { // from class: com.kwai.adclient.kscommerciallogger.snapshot.SegmentManager.2
-            public AnonymousClass2() {
+            AnonymousClass2() {
             }
 
             private static int a(Map.Entry<String, Integer> entry, Map.Entry<String, Integer> entry2) {
@@ -288,35 +295,5 @@ public enum SegmentManager {
             return 0;
         }
         return lruCache.snapshot().size();
-    }
-
-    public final d loadSpan(@NonNull String str, @NonNull String str2, @NonNull String str3) {
-        return loadSegment(str, str2).hA(str3);
-    }
-
-    public final void clearBySegment(String str, String str2) {
-        if (TextUtils.isEmpty(str) || TextUtils.isEmpty(str2) || this.mSnapshots == null) {
-            return;
-        }
-        synchronized (this) {
-            try {
-                Set<c> set = this.mSnapshots.get(str);
-                c cVar = new c(str2);
-                if (set != null && set.contains(cVar)) {
-                    this.mSnapshots.remove(str);
-                    set.remove(cVar);
-                    if (set.size() > 0) {
-                        this.mSnapshots.put(str, set);
-                    }
-                }
-                autoClear();
-            } catch (Throwable th2) {
-                throw th2;
-            }
-        }
-    }
-
-    public final c loadSegment(@NonNull String str, @NonNull String str2) {
-        return loadSegment(str, str2, 10);
     }
 }

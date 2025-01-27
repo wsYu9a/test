@@ -2,7 +2,7 @@ package com.bytedance.sdk.openadsdk;
 
 import java.util.Map;
 
-/* loaded from: classes2.dex */
+/* loaded from: classes.dex */
 public interface ComplianceInfo {
     String getAppName();
 
@@ -10,13 +10,9 @@ public interface ComplianceInfo {
 
     String getDeveloperName();
 
-    String getFunctionDescUrl();
-
     String getPermissionUrl();
 
     Map<String, String> getPermissionsMap();
 
     String getPrivacyUrl();
-
-    String getRegNumber();
 }

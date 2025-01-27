@@ -11,36 +11,40 @@ import androidx.annotation.NonNull;
 import androidx.annotation.RestrictTo;
 import androidx.appcompat.R;
 import androidx.appcompat.content.res.AppCompatResources;
-import androidx.core.view.ViewCompat;
 import androidx.core.widget.ImageViewCompat;
 
 @RestrictTo({RestrictTo.Scope.LIBRARY_GROUP_PREFIX})
 /* loaded from: classes.dex */
 public class AppCompatImageHelper {
-    private TintInfo mImageTint;
-    private TintInfo mInternalImageTint;
-    private int mLevel = 0;
-    private TintInfo mTmpInfo;
 
-    @NonNull
-    private final ImageView mView;
+    /* renamed from: a */
+    private final ImageView f715a;
 
-    public AppCompatImageHelper(@NonNull ImageView imageView) {
-        this.mView = imageView;
+    /* renamed from: b */
+    private TintInfo f716b;
+
+    /* renamed from: c */
+    private TintInfo f717c;
+
+    /* renamed from: d */
+    private TintInfo f718d;
+
+    public AppCompatImageHelper(ImageView imageView) {
+        this.f715a = imageView;
     }
 
-    private boolean applyFrameworkTintUsingColorFilter(@NonNull Drawable drawable) {
-        if (this.mTmpInfo == null) {
-            this.mTmpInfo = new TintInfo();
+    private boolean a(@NonNull Drawable drawable) {
+        if (this.f718d == null) {
+            this.f718d = new TintInfo();
         }
-        TintInfo tintInfo = this.mTmpInfo;
-        tintInfo.clear();
-        ColorStateList imageTintList = ImageViewCompat.getImageTintList(this.mView);
+        TintInfo tintInfo = this.f718d;
+        tintInfo.a();
+        ColorStateList imageTintList = ImageViewCompat.getImageTintList(this.f715a);
         if (imageTintList != null) {
             tintInfo.mHasTintList = true;
             tintInfo.mTintList = imageTintList;
         }
-        PorterDuff.Mode imageTintMode = ImageViewCompat.getImageTintMode(this.mView);
+        PorterDuff.Mode imageTintMode = ImageViewCompat.getImageTintMode(this.f715a);
         if (imageTintMode != null) {
             tintInfo.mHasTintMode = true;
             tintInfo.mTintMode = imageTintMode;
@@ -48,136 +52,124 @@ public class AppCompatImageHelper {
         if (!tintInfo.mHasTintList && !tintInfo.mHasTintMode) {
             return false;
         }
-        AppCompatDrawableManager.tintDrawable(drawable, tintInfo, this.mView.getDrawableState());
+        AppCompatDrawableManager.e(drawable, tintInfo, this.f715a.getDrawableState());
         return true;
     }
 
-    private boolean shouldApplyFrameworkTintUsingColorFilter() {
-        int i10 = Build.VERSION.SDK_INT;
-        return i10 > 21 ? this.mInternalImageTint != null : i10 == 21;
+    private boolean i() {
+        int i2 = Build.VERSION.SDK_INT;
+        return i2 > 21 ? this.f716b != null : i2 == 21;
     }
 
-    public void applyImageLevel() {
-        if (this.mView.getDrawable() != null) {
-            this.mView.getDrawable().setLevel(this.mLevel);
-        }
-    }
-
-    public void applySupportImageTint() {
-        Drawable drawable = this.mView.getDrawable();
+    void b() {
+        Drawable drawable = this.f715a.getDrawable();
         if (drawable != null) {
-            DrawableUtils.fixDrawable(drawable);
+            DrawableUtils.a(drawable);
         }
         if (drawable != null) {
-            if (shouldApplyFrameworkTintUsingColorFilter() && applyFrameworkTintUsingColorFilter(drawable)) {
+            if (i() && a(drawable)) {
                 return;
             }
-            TintInfo tintInfo = this.mImageTint;
+            TintInfo tintInfo = this.f717c;
             if (tintInfo != null) {
-                AppCompatDrawableManager.tintDrawable(drawable, tintInfo, this.mView.getDrawableState());
+                AppCompatDrawableManager.e(drawable, tintInfo, this.f715a.getDrawableState());
                 return;
             }
-            TintInfo tintInfo2 = this.mInternalImageTint;
+            TintInfo tintInfo2 = this.f716b;
             if (tintInfo2 != null) {
-                AppCompatDrawableManager.tintDrawable(drawable, tintInfo2, this.mView.getDrawableState());
+                AppCompatDrawableManager.e(drawable, tintInfo2, this.f715a.getDrawableState());
             }
         }
     }
 
-    public ColorStateList getSupportImageTintList() {
-        TintInfo tintInfo = this.mImageTint;
+    ColorStateList c() {
+        TintInfo tintInfo = this.f717c;
         if (tintInfo != null) {
             return tintInfo.mTintList;
         }
         return null;
     }
 
-    public PorterDuff.Mode getSupportImageTintMode() {
-        TintInfo tintInfo = this.mImageTint;
+    PorterDuff.Mode d() {
+        TintInfo tintInfo = this.f717c;
         if (tintInfo != null) {
             return tintInfo.mTintMode;
         }
         return null;
     }
 
-    public boolean hasOverlappingRendering() {
-        return !(this.mView.getBackground() instanceof RippleDrawable);
+    boolean e() {
+        return Build.VERSION.SDK_INT < 21 || !(this.f715a.getBackground() instanceof RippleDrawable);
     }
 
-    public void loadFromAttributes(AttributeSet attributeSet, int i10) {
-        int resourceId;
-        TintTypedArray obtainStyledAttributes = TintTypedArray.obtainStyledAttributes(this.mView.getContext(), attributeSet, R.styleable.AppCompatImageView, i10, 0);
-        ImageView imageView = this.mView;
-        ViewCompat.saveAttributeDataForStyleable(imageView, imageView.getContext(), R.styleable.AppCompatImageView, attributeSet, obtainStyledAttributes.getWrappedTypeArray(), i10, 0);
-        try {
-            Drawable drawable = this.mView.getDrawable();
-            if (drawable == null && (resourceId = obtainStyledAttributes.getResourceId(R.styleable.AppCompatImageView_srcCompat, -1)) != -1 && (drawable = AppCompatResources.getDrawable(this.mView.getContext(), resourceId)) != null) {
-                this.mView.setImageDrawable(drawable);
-            }
-            if (drawable != null) {
-                DrawableUtils.fixDrawable(drawable);
-            }
-            if (obtainStyledAttributes.hasValue(R.styleable.AppCompatImageView_tint)) {
-                ImageViewCompat.setImageTintList(this.mView, obtainStyledAttributes.getColorStateList(R.styleable.AppCompatImageView_tint));
-            }
-            if (obtainStyledAttributes.hasValue(R.styleable.AppCompatImageView_tintMode)) {
-                ImageViewCompat.setImageTintMode(this.mView, DrawableUtils.parseTintMode(obtainStyledAttributes.getInt(R.styleable.AppCompatImageView_tintMode, -1), null));
-            }
-            obtainStyledAttributes.recycle();
-        } catch (Throwable th2) {
-            obtainStyledAttributes.recycle();
-            throw th2;
-        }
-    }
-
-    public void obtainLevelFromDrawable(@NonNull Drawable drawable) {
-        this.mLevel = drawable.getLevel();
-    }
-
-    public void setImageResource(int i10) {
-        if (i10 != 0) {
-            Drawable drawable = AppCompatResources.getDrawable(this.mView.getContext(), i10);
-            if (drawable != null) {
-                DrawableUtils.fixDrawable(drawable);
-            }
-            this.mView.setImageDrawable(drawable);
-        } else {
-            this.mView.setImageDrawable(null);
-        }
-        applySupportImageTint();
-    }
-
-    public void setInternalImageTint(ColorStateList colorStateList) {
+    void f(ColorStateList colorStateList) {
         if (colorStateList != null) {
-            if (this.mInternalImageTint == null) {
-                this.mInternalImageTint = new TintInfo();
+            if (this.f716b == null) {
+                this.f716b = new TintInfo();
             }
-            TintInfo tintInfo = this.mInternalImageTint;
+            TintInfo tintInfo = this.f716b;
             tintInfo.mTintList = colorStateList;
             tintInfo.mHasTintList = true;
         } else {
-            this.mInternalImageTint = null;
+            this.f716b = null;
         }
-        applySupportImageTint();
+        b();
     }
 
-    public void setSupportImageTintList(ColorStateList colorStateList) {
-        if (this.mImageTint == null) {
-            this.mImageTint = new TintInfo();
+    void g(ColorStateList colorStateList) {
+        if (this.f717c == null) {
+            this.f717c = new TintInfo();
         }
-        TintInfo tintInfo = this.mImageTint;
+        TintInfo tintInfo = this.f717c;
         tintInfo.mTintList = colorStateList;
         tintInfo.mHasTintList = true;
-        applySupportImageTint();
+        b();
     }
 
-    public void setSupportImageTintMode(PorterDuff.Mode mode) {
-        if (this.mImageTint == null) {
-            this.mImageTint = new TintInfo();
+    void h(PorterDuff.Mode mode) {
+        if (this.f717c == null) {
+            this.f717c = new TintInfo();
         }
-        TintInfo tintInfo = this.mImageTint;
+        TintInfo tintInfo = this.f717c;
         tintInfo.mTintMode = mode;
         tintInfo.mHasTintMode = true;
-        applySupportImageTint();
+        b();
+    }
+
+    public void loadFromAttributes(AttributeSet attributeSet, int i2) {
+        int resourceId;
+        TintTypedArray obtainStyledAttributes = TintTypedArray.obtainStyledAttributes(this.f715a.getContext(), attributeSet, R.styleable.AppCompatImageView, i2, 0);
+        try {
+            Drawable drawable = this.f715a.getDrawable();
+            if (drawable == null && (resourceId = obtainStyledAttributes.getResourceId(R.styleable.AppCompatImageView_srcCompat, -1)) != -1 && (drawable = AppCompatResources.getDrawable(this.f715a.getContext(), resourceId)) != null) {
+                this.f715a.setImageDrawable(drawable);
+            }
+            if (drawable != null) {
+                DrawableUtils.a(drawable);
+            }
+            int i3 = R.styleable.AppCompatImageView_tint;
+            if (obtainStyledAttributes.hasValue(i3)) {
+                ImageViewCompat.setImageTintList(this.f715a, obtainStyledAttributes.getColorStateList(i3));
+            }
+            int i4 = R.styleable.AppCompatImageView_tintMode;
+            if (obtainStyledAttributes.hasValue(i4)) {
+                ImageViewCompat.setImageTintMode(this.f715a, DrawableUtils.parseTintMode(obtainStyledAttributes.getInt(i4, -1), null));
+            }
+        } finally {
+            obtainStyledAttributes.recycle();
+        }
+    }
+
+    public void setImageResource(int i2) {
+        if (i2 != 0) {
+            Drawable drawable = AppCompatResources.getDrawable(this.f715a.getContext(), i2);
+            if (drawable != null) {
+                DrawableUtils.a(drawable);
+            }
+            this.f715a.setImageDrawable(drawable);
+        } else {
+            this.f715a.setImageDrawable(null);
+        }
+        b();
     }
 }

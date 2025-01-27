@@ -12,36 +12,41 @@ import androidx.navigation.NavDestination;
 import java.util.Collection;
 import java.util.Iterator;
 import java.util.NoSuchElementException;
-import p3.f;
 
 /* loaded from: classes.dex */
 public class NavGraph extends NavDestination implements Iterable<NavDestination> {
-    final SparseArrayCompat<NavDestination> mNodes;
-    private int mStartDestId;
-    private String mStartDestIdName;
+
+    /* renamed from: j */
+    final SparseArrayCompat<NavDestination> f3017j;
+    private int k;
+    private String l;
 
     /* renamed from: androidx.navigation.NavGraph$1 */
-    public class AnonymousClass1 implements Iterator<NavDestination> {
-        private int mIndex = -1;
-        private boolean mWentToNext = false;
+    class AnonymousClass1 implements Iterator<NavDestination> {
 
-        public AnonymousClass1() {
+        /* renamed from: a */
+        private int f3018a = -1;
+
+        /* renamed from: b */
+        private boolean f3019b = false;
+
+        AnonymousClass1() {
         }
 
         @Override // java.util.Iterator
         public boolean hasNext() {
-            return this.mIndex + 1 < NavGraph.this.mNodes.size();
+            return this.f3018a + 1 < NavGraph.this.f3017j.size();
         }
 
         @Override // java.util.Iterator
         public void remove() {
-            if (!this.mWentToNext) {
+            if (!this.f3019b) {
                 throw new IllegalStateException("You must call next() before you can remove an element");
             }
-            NavGraph.this.mNodes.valueAt(this.mIndex).setParent(null);
-            NavGraph.this.mNodes.removeAt(this.mIndex);
-            this.mIndex--;
-            this.mWentToNext = false;
+            NavGraph.this.f3017j.valueAt(this.f3018a).f(null);
+            NavGraph.this.f3017j.removeAt(this.f3018a);
+            this.f3018a--;
+            this.f3019b = false;
         }
 
         @Override // java.util.Iterator
@@ -49,17 +54,17 @@ public class NavGraph extends NavDestination implements Iterable<NavDestination>
             if (!hasNext()) {
                 throw new NoSuchElementException();
             }
-            this.mWentToNext = true;
-            SparseArrayCompat<NavDestination> sparseArrayCompat = NavGraph.this.mNodes;
-            int i10 = this.mIndex + 1;
-            this.mIndex = i10;
-            return sparseArrayCompat.valueAt(i10);
+            this.f3019b = true;
+            SparseArrayCompat<NavDestination> sparseArrayCompat = NavGraph.this.f3017j;
+            int i2 = this.f3018a + 1;
+            this.f3018a = i2;
+            return sparseArrayCompat.valueAt(i2);
         }
     }
 
     public NavGraph(@NonNull Navigator<? extends NavGraph> navigator) {
         super(navigator);
-        this.mNodes = new SparseArrayCompat<>();
+        this.f3017j = new SparseArrayCompat<>();
     }
 
     public final void addAll(@NonNull NavGraph navGraph) {
@@ -72,14 +77,14 @@ public class NavGraph extends NavDestination implements Iterable<NavDestination>
     }
 
     public final void addDestination(@NonNull NavDestination navDestination) {
-        int id2 = navDestination.getId();
-        if (id2 == 0) {
+        int id = navDestination.getId();
+        if (id == 0) {
             throw new IllegalArgumentException("Destinations must have an id. Call setId() or include an android:id in your navigation XML.");
         }
-        if (id2 == getId()) {
+        if (id == getId()) {
             throw new IllegalArgumentException("Destination " + navDestination + " cannot have the same id as graph " + this);
         }
-        NavDestination navDestination2 = this.mNodes.get(id2);
+        NavDestination navDestination2 = this.f3017j.get(id);
         if (navDestination2 == navDestination) {
             return;
         }
@@ -87,10 +92,10 @@ public class NavGraph extends NavDestination implements Iterable<NavDestination>
             throw new IllegalStateException("Destination already has a parent set. Call NavGraph.remove() to remove the previous parent.");
         }
         if (navDestination2 != null) {
-            navDestination2.setParent(null);
+            navDestination2.f(null);
         }
-        navDestination.setParent(this);
-        this.mNodes.put(navDestination.getId(), navDestination);
+        navDestination.f(this);
+        this.f3017j.put(navDestination.getId(), navDestination);
     }
 
     public final void addDestinations(@NonNull Collection<NavDestination> collection) {
@@ -109,9 +114,23 @@ public class NavGraph extends NavDestination implements Iterable<NavDestination>
         }
     }
 
+    @Override // androidx.navigation.NavDestination
     @Nullable
-    public final NavDestination findNode(@IdRes int i10) {
-        return findNode(i10, true);
+    NavDestination.DeepLinkMatch d(@NonNull NavDeepLinkRequest navDeepLinkRequest) {
+        NavDestination.DeepLinkMatch d2 = super.d(navDeepLinkRequest);
+        Iterator<NavDestination> it = iterator();
+        while (it.hasNext()) {
+            NavDestination.DeepLinkMatch d3 = it.next().d(navDeepLinkRequest);
+            if (d3 != null && (d2 == null || d3.compareTo(d2) > 0)) {
+                d2 = d3;
+            }
+        }
+        return d2;
+    }
+
+    @Nullable
+    public final NavDestination findNode(@IdRes int i2) {
+        return h(i2, true);
     }
 
     @Override // androidx.navigation.NavDestination
@@ -121,43 +140,59 @@ public class NavGraph extends NavDestination implements Iterable<NavDestination>
         return getId() != 0 ? super.getDisplayName() : "the root navigation";
     }
 
-    @NonNull
-    public String getStartDestDisplayName() {
-        if (this.mStartDestIdName == null) {
-            this.mStartDestIdName = Integer.toString(this.mStartDestId);
-        }
-        return this.mStartDestIdName;
-    }
-
     @IdRes
     public final int getStartDestination() {
-        return this.mStartDestId;
+        return this.k;
+    }
+
+    @Nullable
+    final NavDestination h(@IdRes int i2, boolean z) {
+        NavDestination navDestination = this.f3017j.get(i2);
+        if (navDestination != null) {
+            return navDestination;
+        }
+        if (!z || getParent() == null) {
+            return null;
+        }
+        return getParent().findNode(i2);
+    }
+
+    @NonNull
+    String i() {
+        if (this.l == null) {
+            this.l = Integer.toString(this.k);
+        }
+        return this.l;
     }
 
     @Override // java.lang.Iterable
     @NonNull
     public final Iterator<NavDestination> iterator() {
         return new Iterator<NavDestination>() { // from class: androidx.navigation.NavGraph.1
-            private int mIndex = -1;
-            private boolean mWentToNext = false;
 
-            public AnonymousClass1() {
+            /* renamed from: a */
+            private int f3018a = -1;
+
+            /* renamed from: b */
+            private boolean f3019b = false;
+
+            AnonymousClass1() {
             }
 
             @Override // java.util.Iterator
             public boolean hasNext() {
-                return this.mIndex + 1 < NavGraph.this.mNodes.size();
+                return this.f3018a + 1 < NavGraph.this.f3017j.size();
             }
 
             @Override // java.util.Iterator
             public void remove() {
-                if (!this.mWentToNext) {
+                if (!this.f3019b) {
                     throw new IllegalStateException("You must call next() before you can remove an element");
                 }
-                NavGraph.this.mNodes.valueAt(this.mIndex).setParent(null);
-                NavGraph.this.mNodes.removeAt(this.mIndex);
-                this.mIndex--;
-                this.mWentToNext = false;
+                NavGraph.this.f3017j.valueAt(this.f3018a).f(null);
+                NavGraph.this.f3017j.removeAt(this.f3018a);
+                this.f3018a--;
+                this.f3019b = false;
             }
 
             @Override // java.util.Iterator
@@ -165,27 +200,13 @@ public class NavGraph extends NavDestination implements Iterable<NavDestination>
                 if (!hasNext()) {
                     throw new NoSuchElementException();
                 }
-                this.mWentToNext = true;
-                SparseArrayCompat<NavDestination> sparseArrayCompat = NavGraph.this.mNodes;
-                int i10 = this.mIndex + 1;
-                this.mIndex = i10;
-                return sparseArrayCompat.valueAt(i10);
+                this.f3019b = true;
+                SparseArrayCompat<NavDestination> sparseArrayCompat = NavGraph.this.f3017j;
+                int i2 = this.f3018a + 1;
+                this.f3018a = i2;
+                return sparseArrayCompat.valueAt(i2);
             }
         };
-    }
-
-    @Override // androidx.navigation.NavDestination
-    @Nullable
-    public NavDestination.DeepLinkMatch matchDeepLink(@NonNull NavDeepLinkRequest navDeepLinkRequest) {
-        NavDestination.DeepLinkMatch matchDeepLink = super.matchDeepLink(navDeepLinkRequest);
-        Iterator<NavDestination> it = iterator();
-        while (it.hasNext()) {
-            NavDestination.DeepLinkMatch matchDeepLink2 = it.next().matchDeepLink(navDeepLinkRequest);
-            if (matchDeepLink2 != null && (matchDeepLink == null || matchDeepLink2.compareTo(matchDeepLink) > 0)) {
-                matchDeepLink = matchDeepLink2;
-            }
-        }
-        return matchDeepLink;
     }
 
     @Override // androidx.navigation.NavDestination
@@ -193,60 +214,48 @@ public class NavGraph extends NavDestination implements Iterable<NavDestination>
         super.onInflate(context, attributeSet);
         TypedArray obtainAttributes = context.getResources().obtainAttributes(attributeSet, androidx.navigation.common.R.styleable.NavGraphNavigator);
         setStartDestination(obtainAttributes.getResourceId(androidx.navigation.common.R.styleable.NavGraphNavigator_startDestination, 0));
-        this.mStartDestIdName = NavDestination.getDisplayName(context, this.mStartDestId);
+        this.l = NavDestination.c(context, this.k);
         obtainAttributes.recycle();
     }
 
     public final void remove(@NonNull NavDestination navDestination) {
-        int indexOfKey = this.mNodes.indexOfKey(navDestination.getId());
+        int indexOfKey = this.f3017j.indexOfKey(navDestination.getId());
         if (indexOfKey >= 0) {
-            this.mNodes.valueAt(indexOfKey).setParent(null);
-            this.mNodes.removeAt(indexOfKey);
+            this.f3017j.valueAt(indexOfKey).f(null);
+            this.f3017j.removeAt(indexOfKey);
         }
     }
 
-    public final void setStartDestination(@IdRes int i10) {
-        if (i10 != getId()) {
-            this.mStartDestId = i10;
-            this.mStartDestIdName = null;
+    public final void setStartDestination(@IdRes int i2) {
+        if (i2 != getId()) {
+            this.k = i2;
+            this.l = null;
             return;
         }
-        throw new IllegalArgumentException("Start destination " + i10 + " cannot use the same id as the graph " + this);
+        throw new IllegalArgumentException("Start destination " + i2 + " cannot use the same id as the graph " + this);
     }
 
     @Override // androidx.navigation.NavDestination
     @NonNull
     public String toString() {
-        StringBuilder sb2 = new StringBuilder();
-        sb2.append(super.toString());
-        sb2.append(" startDestination=");
+        StringBuilder sb = new StringBuilder();
+        sb.append(super.toString());
+        sb.append(" startDestination=");
         NavDestination findNode = findNode(getStartDestination());
         if (findNode == null) {
-            String str = this.mStartDestIdName;
+            String str = this.l;
             if (str == null) {
-                sb2.append("0x");
-                sb2.append(Integer.toHexString(this.mStartDestId));
+                sb.append("0x");
+                sb.append(Integer.toHexString(this.k));
             } else {
-                sb2.append(str);
+                sb.append(str);
             }
         } else {
-            sb2.append("{");
-            sb2.append(findNode.toString());
-            sb2.append(f.f29748d);
+            sb.append("{");
+            sb.append(findNode.toString());
+            sb.append("}");
         }
-        return sb2.toString();
-    }
-
-    @Nullable
-    public final NavDestination findNode(@IdRes int i10, boolean z10) {
-        NavDestination navDestination = this.mNodes.get(i10);
-        if (navDestination != null) {
-            return navDestination;
-        }
-        if (!z10 || getParent() == null) {
-            return null;
-        }
-        return getParent().findNode(i10);
+        return sb.toString();
     }
 
     public final void addDestinations(@NonNull NavDestination... navDestinationArr) {

@@ -2,7 +2,7 @@ package com.kwad.sdk.widget;
 
 import android.view.View;
 
-/* loaded from: classes3.dex */
+/* loaded from: classes2.dex */
 public interface i {
-    void C(View view);
+    void onFirstVisible(View view);
 }

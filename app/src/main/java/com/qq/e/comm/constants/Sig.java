@@ -1,6 +1,6 @@
 package com.qq.e.comm.constants;
 
-/* loaded from: classes3.dex */
+/* loaded from: classes4.dex */
 public class Sig {
-    public static String ASSET_PLUGIN_SIG = "GjVnISP18IpKxJPVjO0eMdIAGKNlcjkcYwJgO9SW9iEE9f/Vy9DGbQoDjaCE9NvvwE9A1YHy0wNzqe+aeWYbRR349Not+T/WllInVYo8pH9FINpjJ9T189w96l5GyvyijJ2CJuKWlMBowOjaPcVtWNXpNOSnsQOnN6K+0FDwMqI=";
+    public static String ASSET_PLUGIN_SIG = "RLOxtFJje+Bom9jRGwdaXbgeumUqr3MHHmNG8V2wmymU16XHzk0OxkK+f7IG5iEjqPHjwFkxzlhrQj/QJZIBo94pRPr2URm7d0DpMtEFq9HYKAJAapx9Svy1952/7NffyPU8+bh5gCbVB4Q1aSMaycym1m4sH3qxYFIr+jCFfBg=";
 }

@@ -1,58 +1,58 @@
 package com.martian.mibook.lib.model.data;
 
-import ba.k;
+import com.martian.libsupport.j;
 import com.martian.mibook.lib.model.data.abs.Book;
+import com.martian.mibook.lib.model.manager.d;
 import java.util.Date;
-import vb.e;
 
-@k.h(name = "miarchive_books")
+@j.g(name = "miarchive_books")
 /* loaded from: classes3.dex */
 public class MiArchiveBookItem extends Book {
 
-    @k.a
-    @k.b
-    @k.f(ascend = false)
+    @j.b
+    @j.a
+    @j.e(ascend = false)
     private Integer _id;
 
-    @k.b
+    @j.b
     private Date archiveDate;
 
-    @k.b
+    @j.b
     private String author;
 
-    @k.b
+    @j.b
     private String bookId;
 
-    @k.b
+    @j.b
     private String bookName;
 
-    @k.b
+    @j.b
     private String bookUrl;
     private Integer brtype;
 
-    @k.b
+    @j.b
     private Integer chapterSize;
 
-    @k.b
+    @j.b
     private String coverUrl;
 
-    @k.b
+    @j.b
     private String lastestChapter;
     private Integer rank;
 
-    @k.b
+    @j.b
     private String shortIntro;
 
-    @k.b
+    @j.b
     private String sourceString;
 
-    @k.b
+    @j.b
     private String tag;
 
     @Override // com.martian.mibook.lib.model.data.abs.Book
-    public boolean equals(Object obj) {
-        if (obj instanceof MiArchiveBookItem) {
-            return ((MiArchiveBookItem) obj).getBookId().equals(this.bookId);
+    public boolean equals(Object o) {
+        if (o instanceof MiArchiveBookItem) {
+            return ((MiArchiveBookItem) o).getBookId().equals(this.bookId);
         }
         return false;
     }
@@ -71,7 +71,6 @@ public class MiArchiveBookItem extends Book {
         return this.author;
     }
 
-    @Override // com.martian.mibook.lib.model.data.abs.Book
     public String getBookId() {
         return this.bookId;
     }
@@ -99,7 +98,6 @@ public class MiArchiveBookItem extends Book {
         return "";
     }
 
-    @Override // com.martian.mibook.lib.model.data.abs.Book
     public Integer getChapterSize() {
         return this.chapterSize;
     }
@@ -141,14 +139,14 @@ public class MiArchiveBookItem extends Book {
         return this.shortIntro;
     }
 
-    @Override // com.martian.mibook.lib.model.data.abs.Book, wb.f
+    @Override // com.martian.mibook.lib.model.data.abs.Book, com.martian.mibook.lib.model.c.g
     public String getSourceId() {
-        return e.d(this.sourceString);
+        return d.c(this.sourceString);
     }
 
-    @Override // com.martian.mibook.lib.model.data.abs.Book, wb.f
+    @Override // com.martian.mibook.lib.model.data.abs.Book, com.martian.mibook.lib.model.c.g
     public String getSourceName() {
-        return e.e(this.sourceString);
+        return d.d(this.sourceString);
     }
 
     @Override // com.martian.mibook.lib.model.data.abs.Book
@@ -172,92 +170,72 @@ public class MiArchiveBookItem extends Book {
 
     @Override // com.martian.mibook.lib.model.data.abs.Book
     public int hashCode() {
-        String str = this.bookId;
-        if (str != null) {
-            return str.hashCode();
-        }
-        String str2 = this.sourceString;
-        if (str2 == null) {
-            return 0;
-        }
-        return str2.hashCode();
+        return this.bookId.hashCode();
+    }
+
+    public void setArchiveDate(Date archiveDate) {
+        this.archiveDate = archiveDate;
+    }
+
+    public void setAuthor(String author) {
+        this.author = author;
     }
 
     @Override // com.martian.mibook.lib.model.data.abs.Book
-    public void setAllWords(Integer num) {
+    public void setAuthorName(String authorName) {
+        this.author = authorName;
     }
 
-    public void setArchiveDate(Date date) {
-        this.archiveDate = date;
-    }
-
-    public void setAuthor(String str) {
-        this.author = str;
+    public void setBookId(String bookId) {
+        this.bookId = bookId;
     }
 
     @Override // com.martian.mibook.lib.model.data.abs.Book
-    public void setAuthorName(String str) {
-        this.author = str;
+    public void setBookName(String bookName) {
+        this.bookName = bookName;
     }
 
-    public void setBookId(String str) {
-        this.bookId = str;
+    public void setBookUrl(String bookUrl) {
+        this.bookUrl = bookUrl;
     }
 
-    @Override // com.martian.mibook.lib.model.data.abs.Book
-    public void setBookName(String str) {
-        this.bookName = str;
-    }
-
-    @Override // com.martian.mibook.lib.model.data.abs.Book
-    public void setBookStatus(String str) {
-    }
-
-    public void setBookUrl(String str) {
-        this.bookUrl = str;
+    public void setChapterSize(Integer chapterSize) {
+        this.chapterSize = chapterSize;
     }
 
     @Override // com.martian.mibook.lib.model.data.abs.Book
-    public void setCategoryName(String str) {
-    }
-
-    public void setChapterSize(Integer num) {
-        this.chapterSize = num;
+    public void setCover(String coverUrl) {
+        this.coverUrl = coverUrl;
     }
 
     @Override // com.martian.mibook.lib.model.data.abs.Book
-    public void setCover(String str) {
-        this.coverUrl = str;
+    public void setLastChapter(String lastChapter) {
+        this.lastestChapter = lastChapter;
+    }
+
+    public void setLastestChapter(String lastestChapter) {
+        this.lastestChapter = lastestChapter;
     }
 
     @Override // com.martian.mibook.lib.model.data.abs.Book
-    public void setLastChapter(String str) {
-        this.lastestChapter = str;
-    }
-
-    public void setLastestChapter(String str) {
-        this.lastestChapter = str;
+    public void setLatestChapterUpdateTime(Long latestChapterUpdateTime) {
     }
 
     @Override // com.martian.mibook.lib.model.data.abs.Book
-    public void setLatestChapterUpdateTime(Long l10) {
+    public void setShortIntro(String shortIntro) {
+        this.shortIntro = shortIntro;
     }
 
     @Override // com.martian.mibook.lib.model.data.abs.Book
-    public void setShortIntro(String str) {
-        this.shortIntro = str;
-    }
-
-    @Override // com.martian.mibook.lib.model.data.abs.Book
-    public void setSourceId(String str) {
+    public void setSourceId(String sourceId) {
         throw new UnsupportedOperationException("set Source Id in Archive book.");
     }
 
-    public void setSourceString(String str) {
-        this.sourceString = str;
+    public void setSourceString(String sourceString) {
+        this.sourceString = sourceString;
     }
 
-    public void setTag(String str) {
-        this.tag = str;
+    public void setTag(String tag) {
+        this.tag = tag;
     }
 }

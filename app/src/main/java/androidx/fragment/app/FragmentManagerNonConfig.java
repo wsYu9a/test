@@ -9,38 +9,41 @@ import java.util.Map;
 /* loaded from: classes.dex */
 public class FragmentManagerNonConfig {
 
+    /* renamed from: a */
     @Nullable
-    private final Map<String, FragmentManagerNonConfig> mChildNonConfigs;
+    private final Collection<Fragment> f2391a;
 
+    /* renamed from: b */
     @Nullable
-    private final Collection<Fragment> mFragments;
+    private final Map<String, FragmentManagerNonConfig> f2392b;
 
+    /* renamed from: c */
     @Nullable
-    private final Map<String, ViewModelStore> mViewModelStores;
+    private final Map<String, ViewModelStore> f2393c;
 
-    public FragmentManagerNonConfig(@Nullable Collection<Fragment> collection, @Nullable Map<String, FragmentManagerNonConfig> map, @Nullable Map<String, ViewModelStore> map2) {
-        this.mFragments = collection;
-        this.mChildNonConfigs = map;
-        this.mViewModelStores = map2;
+    FragmentManagerNonConfig(@Nullable Collection<Fragment> collection, @Nullable Map<String, FragmentManagerNonConfig> map, @Nullable Map<String, ViewModelStore> map2) {
+        this.f2391a = collection;
+        this.f2392b = map;
+        this.f2393c = map2;
     }
 
     @Nullable
-    public Map<String, FragmentManagerNonConfig> getChildNonConfigs() {
-        return this.mChildNonConfigs;
+    Map<String, FragmentManagerNonConfig> a() {
+        return this.f2392b;
     }
 
     @Nullable
-    public Collection<Fragment> getFragments() {
-        return this.mFragments;
+    Collection<Fragment> b() {
+        return this.f2391a;
     }
 
     @Nullable
-    public Map<String, ViewModelStore> getViewModelStores() {
-        return this.mViewModelStores;
+    Map<String, ViewModelStore> c() {
+        return this.f2393c;
     }
 
-    public boolean isRetaining(Fragment fragment) {
-        Collection<Fragment> collection = this.mFragments;
+    boolean d(Fragment fragment) {
+        Collection<Fragment> collection = this.f2391a;
         if (collection == null) {
             return false;
         }

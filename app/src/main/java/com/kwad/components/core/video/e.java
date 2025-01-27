@@ -8,183 +8,173 @@ import androidx.annotation.NonNull;
 import com.kwad.components.core.internal.api.KSAdVideoPlayConfigImpl;
 import com.kwad.sdk.api.KsAdVideoPlayConfig;
 import com.kwad.sdk.core.response.model.AdTemplate;
-import com.kwad.sdk.utils.al;
-import com.kwad.sdk.utils.bw;
-import com.kwad.sdk.utils.bx;
+import com.kwad.sdk.utils.ag;
+import com.kwad.sdk.utils.bl;
+import com.kwad.sdk.utils.bm;
 import java.util.concurrent.atomic.AtomicBoolean;
 
 @SuppressLint({"ViewConstructor"})
-/* loaded from: classes3.dex */
-public final class e extends a implements bx.a {
-    private View bN;
-    private final bx bO;
-    private final AtomicBoolean bP;
-    private boolean bQ;
-    private boolean bR;
-    private final KsAdVideoPlayConfig bS;
+/* loaded from: classes2.dex */
+public final class e extends a implements bm.a {
+    private View Ru;
+    private boolean Rv;
+    private boolean Rw;
+    private final KsAdVideoPlayConfig dZ;
+    private final bm gK;
+    private final AtomicBoolean mIsViewDetached;
 
     public e(Context context, AdTemplate adTemplate, @NonNull com.kwad.sdk.core.video.videoview.c cVar, KsAdVideoPlayConfig ksAdVideoPlayConfig) {
         super(context, adTemplate, cVar);
-        this.bO = new bx(this);
-        this.bP = new AtomicBoolean(true);
-        this.bR = true;
-        this.bN = this;
-        this.bS = ksAdVideoPlayConfig;
+        this.gK = new bm(this);
+        this.mIsViewDetached = new AtomicBoolean(true);
+        this.Rw = true;
+        this.Ru = this;
+        this.dZ = ksAdVideoPlayConfig;
     }
 
-    private void Z() {
-        if (this.bP.getAndSet(false)) {
-            com.kwad.sdk.core.d.c.i("FeedVideoPlayerController", "onViewAttached");
-            this.bO.sendEmptyMessage(1);
+    private void onViewAttached() {
+        if (this.mIsViewDetached.getAndSet(false)) {
+            com.kwad.sdk.core.d.b.i("FeedVideoPlayerController", "onViewAttached");
+            this.gK.sendEmptyMessage(1);
         }
     }
 
-    private boolean ac() {
-        KsAdVideoPlayConfig ksAdVideoPlayConfig = this.bS;
+    private boolean qu() {
+        KsAdVideoPlayConfig ksAdVideoPlayConfig = this.dZ;
         if (ksAdVideoPlayConfig instanceof KSAdVideoPlayConfigImpl) {
             KSAdVideoPlayConfigImpl kSAdVideoPlayConfigImpl = (KSAdVideoPlayConfigImpl) ksAdVideoPlayConfig;
             if (kSAdVideoPlayConfigImpl.getVideoAutoPlayType() == 1) {
-                return al.isNetworkConnected(this.mContext);
+                return ag.isNetworkConnected(this.mContext);
             }
             if (kSAdVideoPlayConfigImpl.getVideoAutoPlayType() == 2) {
-                return al.isWifiConnected(this.mContext);
+                return ag.isWifiConnected(this.mContext);
             }
             if (kSAdVideoPlayConfigImpl.getVideoAutoPlayType() == 3) {
                 return false;
             }
             if (kSAdVideoPlayConfigImpl.getDataFlowAutoStartValue() != 0) {
-                return kSAdVideoPlayConfigImpl.isDataFlowAutoStart() ? al.isNetworkConnected(this.mContext) : al.isWifiConnected(this.mContext);
+                return kSAdVideoPlayConfigImpl.isDataFlowAutoStart() ? ag.isNetworkConnected(this.mContext) : ag.isWifiConnected(this.mContext);
             }
         }
-        if (com.kwad.sdk.core.response.b.a.cb(this.mAdInfo)) {
-            return al.isNetworkConnected(this.mContext);
+        if (com.kwad.sdk.core.response.a.a.bH(this.mAdInfo)) {
+            return ag.isNetworkConnected(this.mContext);
         }
-        if (com.kwad.sdk.core.response.b.a.cc(this.mAdInfo)) {
-            return al.isWifiConnected(this.mContext);
+        if (com.kwad.sdk.core.response.a.a.bI(this.mAdInfo)) {
+            return ag.isWifiConnected(this.mContext);
         }
         return false;
     }
 
-    @Override // com.kwad.sdk.utils.bx.a
+    @Override // com.kwad.sdk.utils.bm.a
     public final void a(Message message) {
-        if (!this.Wf && message.what == 1) {
-            if (!bw.o(this.bN, 30)) {
-                ss();
-            } else if (!this.bQ) {
-                ab();
+        if (!this.Ql && message.what == 1) {
+            if (!bl.o(this.Ru, 30)) {
+                qb();
+            } else if (!this.Rv) {
+                pZ();
             }
-            this.bO.sendEmptyMessageDelayed(1, 500L);
-        }
-    }
-
-    public final void aa() {
-        if (this.bP.getAndSet(true)) {
-            return;
-        }
-        com.kwad.sdk.core.d.c.i("FeedVideoPlayerController", "onViewDetached");
-        this.bO.removeCallbacksAndMessages(null);
-        if (this.bR) {
-            release();
-        } else {
-            this.aFX.pause();
-        }
-    }
-
-    @Override // com.kwad.components.core.video.a
-    public final void ab() {
-        if (!this.aFX.isIdle()) {
-            if (this.aFX.isPaused() || this.aFX.HY()) {
-                sr();
-                this.aFX.restart();
-                return;
-            }
-            return;
-        }
-        com.kwad.components.core.video.a.a aVar = this.Wu;
-        if (aVar != null) {
-            aVar.onStart();
-        }
-        if (!al.isNetworkConnected(this.mContext)) {
-            sn();
-            return;
-        }
-        so();
-        if (this.Wf) {
-            sr();
-            this.aFX.start();
-        } else if (ac()) {
-            sr();
-            this.aFX.start();
-        } else if (!this.Wd) {
-            sp();
-        } else {
-            sr();
-            this.aFX.start();
+            this.gK.sendEmptyMessageDelayed(1, 500L);
         }
     }
 
     @Override // android.view.ViewGroup, android.view.View
-    public final void onAttachedToWindow() {
+    protected final void onAttachedToWindow() {
         super.onAttachedToWindow();
-        com.kwad.sdk.core.d.c.i("FeedVideoPlayerController", "onAttachedToWindow");
-        Z();
+        com.kwad.sdk.core.d.b.i("FeedVideoPlayerController", "onAttachedToWindow");
+        onViewAttached();
     }
 
     @Override // android.view.ViewGroup, android.view.View
-    public final void onDetachedFromWindow() {
+    protected final void onDetachedFromWindow() {
         super.onDetachedFromWindow();
-        com.kwad.sdk.core.d.c.i("FeedVideoPlayerController", "onDetachedFromWindow");
-        aa();
+        com.kwad.sdk.core.d.b.i("FeedVideoPlayerController", "onDetachedFromWindow");
+        onViewDetached();
     }
 
     @Override // android.view.View
     public final void onFinishTemporaryDetach() {
         super.onFinishTemporaryDetach();
-        com.kwad.sdk.core.d.c.i("FeedVideoPlayerController", "onFinishTemporaryDetach");
-        Z();
+        com.kwad.sdk.core.d.b.i("FeedVideoPlayerController", "onFinishTemporaryDetach");
+        onViewAttached();
     }
 
     @Override // android.view.View
     public final void onStartTemporaryDetach() {
         super.onStartTemporaryDetach();
-        com.kwad.sdk.core.d.c.i("FeedVideoPlayerController", "onStartTemporaryDetach");
-        aa();
+        com.kwad.sdk.core.d.b.i("FeedVideoPlayerController", "onStartTemporaryDetach");
+        onViewDetached();
     }
 
-    @Override // android.view.View
-    public final void onWindowFocusChanged(boolean z10) {
-        super.onWindowFocusChanged(z10);
-    }
-
-    @Override // android.view.View
-    public final void onWindowVisibilityChanged(int i10) {
-        super.onWindowVisibilityChanged(i10);
-    }
-
-    public final void sL() {
-        this.bO.removeCallbacksAndMessages(null);
-        if (this.bR) {
+    public final void onViewDetached() {
+        if (this.mIsViewDetached.getAndSet(true)) {
+            return;
+        }
+        com.kwad.sdk.core.d.b.i("FeedVideoPlayerController", "onViewDetached");
+        this.gK.removeCallbacksAndMessages(null);
+        if (this.Rw) {
             release();
         } else {
-            this.aFX.pause();
+            this.anr.pause();
         }
     }
 
-    public final void sM() {
-        this.aFX.pause();
-        this.bQ = true;
+    @Override // android.view.View
+    public final void onWindowFocusChanged(boolean z) {
+        super.onWindowFocusChanged(z);
     }
 
-    public final void sN() {
-        ab();
-        this.bQ = false;
+    @Override // android.view.View
+    protected final void onWindowVisibilityChanged(int i2) {
+        super.onWindowVisibilityChanged(i2);
     }
 
-    public final void sO() {
-        this.bQ = false;
+    @Override // com.kwad.components.core.video.a
+    protected final void pZ() {
+        if (!this.anr.isIdle()) {
+            if (this.anr.isPaused() || this.anr.yr()) {
+                qa();
+                this.anr.restart();
+                return;
+            }
+            return;
+        }
+        if (!ag.isNetworkConnected(this.mContext)) {
+            pV();
+            return;
+        }
+        pW();
+        if (!this.Ql && !qu() && !this.Qj) {
+            pX();
+        } else {
+            qa();
+            this.anr.start();
+        }
     }
 
-    public final void setAutoRelease(boolean z10) {
-        this.bR = z10;
+    public final void qt() {
+        this.gK.removeCallbacksAndMessages(null);
+        if (this.Rw) {
+            release();
+        } else {
+            this.anr.pause();
+        }
+    }
+
+    public final void qv() {
+        this.anr.pause();
+        this.Rv = true;
+    }
+
+    public final void qw() {
+        pZ();
+        this.Rv = false;
+    }
+
+    public final void qx() {
+        this.Rv = false;
+    }
+
+    public final void setAutoRelease(boolean z) {
+        this.Rw = z;
     }
 }

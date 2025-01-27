@@ -10,6 +10,7 @@ import androidx.annotation.Nullable;
 import androidx.annotation.RestrictTo;
 import androidx.annotation.StringRes;
 import androidx.appcompat.graphics.drawable.DrawerArrowDrawable;
+import androidx.core.app.NotificationCompat;
 import androidx.customview.widget.Openable;
 import androidx.navigation.FloatingWindow;
 import androidx.navigation.NavController;
@@ -22,57 +23,70 @@ import java.util.regex.Pattern;
 @RestrictTo({RestrictTo.Scope.LIBRARY})
 /* loaded from: classes.dex */
 abstract class AbstractAppBarOnDestinationChangedListener implements NavController.OnDestinationChangedListener {
-    private ValueAnimator mAnimator;
-    private DrawerArrowDrawable mArrowDrawable;
-    private final Context mContext;
 
+    /* renamed from: a */
+    private final Context f3054a;
+
+    /* renamed from: b */
+    private final Set<Integer> f3055b;
+
+    /* renamed from: c */
     @Nullable
-    private final WeakReference<Openable> mOpenableLayoutWeakReference;
-    private final Set<Integer> mTopLevelDestinations;
+    private final WeakReference<Openable> f3056c;
 
-    public AbstractAppBarOnDestinationChangedListener(@NonNull Context context, @NonNull AppBarConfiguration appBarConfiguration) {
-        this.mContext = context;
-        this.mTopLevelDestinations = appBarConfiguration.getTopLevelDestinations();
+    /* renamed from: d */
+    private DrawerArrowDrawable f3057d;
+
+    /* renamed from: e */
+    private ValueAnimator f3058e;
+
+    AbstractAppBarOnDestinationChangedListener(@NonNull Context context, @NonNull AppBarConfiguration appBarConfiguration) {
+        this.f3054a = context;
+        this.f3055b = appBarConfiguration.getTopLevelDestinations();
         Openable openableLayout = appBarConfiguration.getOpenableLayout();
         if (openableLayout != null) {
-            this.mOpenableLayoutWeakReference = new WeakReference<>(openableLayout);
+            this.f3056c = new WeakReference<>(openableLayout);
         } else {
-            this.mOpenableLayoutWeakReference = null;
+            this.f3056c = null;
         }
     }
 
-    private void setActionBarUpIndicator(boolean z10) {
-        boolean z11;
-        if (this.mArrowDrawable == null) {
-            this.mArrowDrawable = new DrawerArrowDrawable(this.mContext);
-            z11 = false;
+    private void a(boolean z) {
+        boolean z2;
+        if (this.f3057d == null) {
+            this.f3057d = new DrawerArrowDrawable(this.f3054a);
+            z2 = false;
         } else {
-            z11 = true;
+            z2 = true;
         }
-        setNavigationIcon(this.mArrowDrawable, z10 ? R.string.nav_app_bar_open_drawer_description : R.string.nav_app_bar_navigate_up_description);
-        float f10 = z10 ? 0.0f : 1.0f;
-        if (!z11) {
-            this.mArrowDrawable.setProgress(f10);
+        b(this.f3057d, z ? R.string.nav_app_bar_open_drawer_description : R.string.nav_app_bar_navigate_up_description);
+        float f2 = z ? 0.0f : 1.0f;
+        if (!z2) {
+            this.f3057d.setProgress(f2);
             return;
         }
-        float progress = this.mArrowDrawable.getProgress();
-        ValueAnimator valueAnimator = this.mAnimator;
+        float progress = this.f3057d.getProgress();
+        ValueAnimator valueAnimator = this.f3058e;
         if (valueAnimator != null) {
             valueAnimator.cancel();
         }
-        ObjectAnimator ofFloat = ObjectAnimator.ofFloat(this.mArrowDrawable, "progress", progress, f10);
-        this.mAnimator = ofFloat;
+        ObjectAnimator ofFloat = ObjectAnimator.ofFloat(this.f3057d, NotificationCompat.CATEGORY_PROGRESS, progress, f2);
+        this.f3058e = ofFloat;
         ofFloat.start();
     }
+
+    protected abstract void b(Drawable drawable, @StringRes int i2);
+
+    protected abstract void c(CharSequence charSequence);
 
     @Override // androidx.navigation.NavController.OnDestinationChangedListener
     public void onDestinationChanged(@NonNull NavController navController, @NonNull NavDestination navDestination, @Nullable Bundle bundle) {
         if (navDestination instanceof FloatingWindow) {
             return;
         }
-        WeakReference<Openable> weakReference = this.mOpenableLayoutWeakReference;
+        WeakReference<Openable> weakReference = this.f3056c;
         Openable openable = weakReference != null ? weakReference.get() : null;
-        if (this.mOpenableLayoutWeakReference != null && openable == null) {
+        if (this.f3056c != null && openable == null) {
             navController.removeOnDestinationChangedListener(this);
             return;
         }
@@ -89,17 +103,13 @@ abstract class AbstractAppBarOnDestinationChangedListener implements NavControll
                 stringBuffer.append(bundle.get(group).toString());
             }
             matcher.appendTail(stringBuffer);
-            setTitle(stringBuffer);
+            c(stringBuffer);
         }
-        boolean matchDestinations = NavigationUI.matchDestinations(navDestination, this.mTopLevelDestinations);
-        if (openable == null && matchDestinations) {
-            setNavigationIcon(null, 0);
+        boolean d2 = NavigationUI.d(navDestination, this.f3055b);
+        if (openable == null && d2) {
+            b(null, 0);
         } else {
-            setActionBarUpIndicator(openable != null && matchDestinations);
+            a(openable != null && d2);
         }
     }
-
-    public abstract void setNavigationIcon(Drawable drawable, @StringRes int i10);
-
-    public abstract void setTitle(CharSequence charSequence);
 }

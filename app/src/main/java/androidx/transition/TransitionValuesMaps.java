@@ -7,8 +7,19 @@ import androidx.collection.LongSparseArray;
 
 /* loaded from: classes.dex */
 class TransitionValuesMaps {
-    final ArrayMap<View, TransitionValues> mViewValues = new ArrayMap<>();
-    final SparseArray<View> mIdValues = new SparseArray<>();
-    final LongSparseArray<View> mItemIdValues = new LongSparseArray<>();
-    final ArrayMap<String, View> mNameValues = new ArrayMap<>();
+
+    /* renamed from: a */
+    final ArrayMap<View, TransitionValues> f3856a = new ArrayMap<>();
+
+    /* renamed from: b */
+    final SparseArray<View> f3857b = new SparseArray<>();
+
+    /* renamed from: c */
+    final LongSparseArray<View> f3858c = new LongSparseArray<>();
+
+    /* renamed from: d */
+    final ArrayMap<String, View> f3859d = new ArrayMap<>();
+
+    TransitionValuesMaps() {
+    }
 }

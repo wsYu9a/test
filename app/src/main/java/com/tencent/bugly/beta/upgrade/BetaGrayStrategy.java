@@ -2,7 +2,7 @@ package com.tencent.bugly.beta.upgrade;
 
 import android.os.Parcel;
 import android.os.Parcelable;
-import com.tencent.bugly.proguard.AbstractC0868m;
+import com.tencent.bugly.proguard.AbstractC0909m;
 import com.tencent.bugly.proguard.B;
 import com.tencent.bugly.proguard.M;
 
@@ -11,30 +11,30 @@ public class BetaGrayStrategy implements Parcelable, Parcelable.Creator<BetaGray
     public static final Parcelable.Creator<BetaGrayStrategy> CREATOR = new BetaGrayStrategy();
 
     /* renamed from: a */
-    public B f22135a;
+    public B f24634a;
 
     /* renamed from: b */
-    public int f22136b;
+    public int f24635b;
 
     /* renamed from: c */
-    public long f22137c;
+    public long f24636c;
 
     /* renamed from: d */
-    public boolean f22138d;
+    public boolean f24637d;
 
     /* renamed from: e */
-    public long f22139e;
+    public long f24638e;
 
     public BetaGrayStrategy(Parcel parcel) {
-        this.f22136b = 0;
-        this.f22137c = -1L;
-        this.f22138d = false;
-        this.f22139e = -1L;
-        this.f22135a = (B) M.a(parcel.createByteArray(), B.class);
-        this.f22136b = parcel.readInt();
-        this.f22137c = parcel.readLong();
-        this.f22138d = 1 == parcel.readByte();
-        this.f22139e = parcel.readLong();
+        this.f24635b = 0;
+        this.f24636c = -1L;
+        this.f24637d = false;
+        this.f24638e = -1L;
+        this.f24634a = (B) M.a(parcel.createByteArray(), B.class);
+        this.f24635b = parcel.readInt();
+        this.f24636c = parcel.readLong();
+        this.f24637d = 1 == parcel.readByte();
+        this.f24638e = parcel.readLong();
     }
 
     @Override // android.os.Parcelable
@@ -43,12 +43,12 @@ public class BetaGrayStrategy implements Parcelable, Parcelable.Creator<BetaGray
     }
 
     @Override // android.os.Parcelable
-    public void writeToParcel(Parcel parcel, int i10) {
-        parcel.writeByteArray(M.a((AbstractC0868m) this.f22135a));
-        parcel.writeInt(this.f22136b);
-        parcel.writeLong(this.f22137c);
-        parcel.writeByte(this.f22138d ? (byte) 1 : (byte) 0);
-        parcel.writeLong(this.f22139e);
+    public void writeToParcel(Parcel parcel, int i2) {
+        parcel.writeByteArray(M.a((AbstractC0909m) this.f24634a));
+        parcel.writeInt(this.f24635b);
+        parcel.writeLong(this.f24636c);
+        parcel.writeByte(this.f24637d ? (byte) 1 : (byte) 0);
+        parcel.writeLong(this.f24638e);
     }
 
     @Override // android.os.Parcelable.Creator
@@ -57,14 +57,14 @@ public class BetaGrayStrategy implements Parcelable, Parcelable.Creator<BetaGray
     }
 
     @Override // android.os.Parcelable.Creator
-    public BetaGrayStrategy[] newArray(int i10) {
-        return new BetaGrayStrategy[i10];
+    public BetaGrayStrategy[] newArray(int i2) {
+        return new BetaGrayStrategy[i2];
     }
 
     public BetaGrayStrategy() {
-        this.f22136b = 0;
-        this.f22137c = -1L;
-        this.f22138d = false;
-        this.f22139e = -1L;
+        this.f24635b = 0;
+        this.f24636c = -1L;
+        this.f24637d = false;
+        this.f24638e = -1L;
     }
 }

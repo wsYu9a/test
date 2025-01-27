@@ -10,13 +10,23 @@ import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
 
-/* loaded from: classes3.dex */
+/* loaded from: classes2.dex */
 public class LimitedAgeDiskCache extends BaseDiskCache {
     private final Map<File, Long> loadingDates;
     private final long maxFileAge;
 
-    public LimitedAgeDiskCache(File file, long j10) {
-        this(file, null, DefaultConfigurationFactory.createFileNameGenerator(), j10);
+    public LimitedAgeDiskCache(File file, long j2) {
+        this(file, null, DefaultConfigurationFactory.createFileNameGenerator(), j2);
+    }
+
+    public LimitedAgeDiskCache(File file, File file2, long j2) {
+        this(file, file2, DefaultConfigurationFactory.createFileNameGenerator(), j2);
+    }
+
+    public LimitedAgeDiskCache(File file, File file2, FileNameGenerator fileNameGenerator, long j2) {
+        super(file, file2, fileNameGenerator);
+        this.loadingDates = Collections.synchronizedMap(new HashMap());
+        this.maxFileAge = j2 * 1000;
     }
 
     private void rememberUsage(String str) {
@@ -34,21 +44,21 @@ public class LimitedAgeDiskCache extends BaseDiskCache {
 
     @Override // com.kwad.sdk.core.imageloader.cache.disc.impl.BaseDiskCache, com.kwad.sdk.core.imageloader.cache.disc.DiskCache
     public File get(String str) {
-        boolean z10;
+        boolean z;
         File file = super.get(str);
         if (file != null && file.exists()) {
-            Long l10 = this.loadingDates.get(file);
-            if (l10 == null) {
-                l10 = Long.valueOf(file.lastModified());
-                z10 = false;
+            Long l = this.loadingDates.get(file);
+            if (l == null) {
+                l = Long.valueOf(file.lastModified());
+                z = false;
             } else {
-                z10 = true;
+                z = true;
             }
-            if (System.currentTimeMillis() - l10.longValue() > this.maxFileAge) {
+            if (System.currentTimeMillis() - l.longValue() > this.maxFileAge) {
                 file.delete();
                 this.loadingDates.remove(file);
-            } else if (!z10) {
-                this.loadingDates.put(file, l10);
+            } else if (!z) {
+                this.loadingDates.put(file, l);
             }
         }
         return file;
@@ -61,25 +71,15 @@ public class LimitedAgeDiskCache extends BaseDiskCache {
     }
 
     @Override // com.kwad.sdk.core.imageloader.cache.disc.impl.BaseDiskCache, com.kwad.sdk.core.imageloader.cache.disc.DiskCache
-    public boolean save(String str, InputStream inputStream, IoUtils.CopyListener copyListener) {
-        boolean save = super.save(str, inputStream, copyListener);
+    public boolean save(String str, Bitmap bitmap) {
+        boolean save = super.save(str, bitmap);
         rememberUsage(str);
         return save;
     }
 
-    public LimitedAgeDiskCache(File file, File file2, long j10) {
-        this(file, file2, DefaultConfigurationFactory.createFileNameGenerator(), j10);
-    }
-
-    public LimitedAgeDiskCache(File file, File file2, FileNameGenerator fileNameGenerator, long j10) {
-        super(file, file2, fileNameGenerator);
-        this.loadingDates = Collections.synchronizedMap(new HashMap());
-        this.maxFileAge = j10 * 1000;
-    }
-
     @Override // com.kwad.sdk.core.imageloader.cache.disc.impl.BaseDiskCache, com.kwad.sdk.core.imageloader.cache.disc.DiskCache
-    public boolean save(String str, Bitmap bitmap) {
-        boolean save = super.save(str, bitmap);
+    public boolean save(String str, InputStream inputStream, IoUtils.CopyListener copyListener) {
+        boolean save = super.save(str, inputStream, copyListener);
         rememberUsage(str);
         return save;
     }

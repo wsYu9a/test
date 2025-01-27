@@ -26,7 +26,7 @@ import java.util.concurrent.locks.Condition;
 import java.util.concurrent.locks.Lock;
 import java.util.concurrent.locks.ReentrantLock;
 
-/* loaded from: classes2.dex */
+/* loaded from: classes.dex */
 public final class TransformationUtils {
     private static final Lock BITMAP_DRAWABLE_LOCK;
     private static final Paint CIRCLE_CROP_BITMAP_PAINT;
@@ -38,51 +38,54 @@ public final class TransformationUtils {
     private static final Paint CIRCLE_CROP_SHAPE_PAINT = new Paint(7);
 
     /* renamed from: com.bumptech.glide.load.resource.bitmap.TransformationUtils$1 */
-    public class AnonymousClass1 implements DrawRoundedCornerFn {
+    class AnonymousClass1 implements DrawRoundedCornerFn {
         final /* synthetic */ int val$roundingRadius;
 
-        public AnonymousClass1(int i10) {
-            i10 = i10;
+        AnonymousClass1(int i2) {
+            i2 = i2;
         }
 
         @Override // com.bumptech.glide.load.resource.bitmap.TransformationUtils.DrawRoundedCornerFn
         public void drawRoundedCorners(Canvas canvas, Paint paint, RectF rectF) {
-            int i10 = i10;
-            canvas.drawRoundRect(rectF, i10, i10, paint);
+            int i2 = i2;
+            canvas.drawRoundRect(rectF, i2, i2, paint);
         }
     }
 
     /* renamed from: com.bumptech.glide.load.resource.bitmap.TransformationUtils$2 */
-    public class AnonymousClass2 implements DrawRoundedCornerFn {
+    class AnonymousClass2 implements DrawRoundedCornerFn {
         final /* synthetic */ float val$bottomLeft;
         final /* synthetic */ float val$bottomRight;
         final /* synthetic */ float val$topLeft;
         final /* synthetic */ float val$topRight;
 
-        public AnonymousClass2(float f10, float f11, float f12, float f13) {
-            f10 = f10;
-            f11 = f11;
-            f12 = f12;
-            f13 = f13;
+        AnonymousClass2(float f2, float f3, float f4, float f5) {
+            f2 = f2;
+            f3 = f3;
+            f4 = f4;
+            f5 = f5;
         }
 
         @Override // com.bumptech.glide.load.resource.bitmap.TransformationUtils.DrawRoundedCornerFn
         public void drawRoundedCorners(Canvas canvas, Paint paint, RectF rectF) {
             Path path = new Path();
-            float f10 = f10;
-            float f11 = f11;
-            float f12 = f12;
-            float f13 = f13;
-            path.addRoundRect(rectF, new float[]{f10, f10, f11, f11, f12, f12, f13, f13}, Path.Direction.CW);
+            float f2 = f2;
+            float f3 = f3;
+            float f4 = f4;
+            float f5 = f5;
+            path.addRoundRect(rectF, new float[]{f2, f2, f3, f3, f4, f4, f5, f5}, Path.Direction.CW);
             canvas.drawPath(path, paint);
         }
     }
 
-    public interface DrawRoundedCornerFn {
+    private interface DrawRoundedCornerFn {
         void drawRoundedCorners(Canvas canvas, Paint paint, RectF rectF);
     }
 
-    public static final class NoLock implements Lock {
+    private static final class NoLock implements Lock {
+        NoLock() {
+        }
+
         @Override // java.util.concurrent.locks.Lock
         public void lock() {
         }
@@ -103,12 +106,12 @@ public final class TransformationUtils {
         }
 
         @Override // java.util.concurrent.locks.Lock
-        public void unlock() {
+        public boolean tryLock(long j2, @NonNull TimeUnit timeUnit) throws InterruptedException {
+            return true;
         }
 
         @Override // java.util.concurrent.locks.Lock
-        public boolean tryLock(long j10, @NonNull TimeUnit timeUnit) throws InterruptedException {
-            return true;
+        public void unlock() {
         }
     }
 
@@ -132,42 +135,42 @@ public final class TransformationUtils {
             canvas.drawBitmap(bitmap, matrix, DEFAULT_PAINT);
             clear(canvas);
             lock.unlock();
-        } catch (Throwable th2) {
+        } catch (Throwable th) {
             BITMAP_DRAWABLE_LOCK.unlock();
-            throw th2;
+            throw th;
         }
     }
 
-    public static Bitmap centerCrop(@NonNull BitmapPool bitmapPool, @NonNull Bitmap bitmap, int i10, int i11) {
+    public static Bitmap centerCrop(@NonNull BitmapPool bitmapPool, @NonNull Bitmap bitmap, int i2, int i3) {
         float width;
         float height;
-        if (bitmap.getWidth() == i10 && bitmap.getHeight() == i11) {
+        if (bitmap.getWidth() == i2 && bitmap.getHeight() == i3) {
             return bitmap;
         }
         Matrix matrix = new Matrix();
-        float f10 = 0.0f;
-        if (bitmap.getWidth() * i11 > bitmap.getHeight() * i10) {
-            width = i11 / bitmap.getHeight();
-            f10 = (i10 - (bitmap.getWidth() * width)) * 0.5f;
+        float f2 = 0.0f;
+        if (bitmap.getWidth() * i3 > bitmap.getHeight() * i2) {
+            width = i3 / bitmap.getHeight();
+            f2 = (i2 - (bitmap.getWidth() * width)) * 0.5f;
             height = 0.0f;
         } else {
-            width = i10 / bitmap.getWidth();
-            height = (i11 - (bitmap.getHeight() * width)) * 0.5f;
+            width = i2 / bitmap.getWidth();
+            height = (i3 - (bitmap.getHeight() * width)) * 0.5f;
         }
         matrix.setScale(width, width);
-        matrix.postTranslate((int) (f10 + 0.5f), (int) (height + 0.5f));
-        Bitmap bitmap2 = bitmapPool.get(i10, i11, getNonNullConfig(bitmap));
+        matrix.postTranslate((int) (f2 + 0.5f), (int) (height + 0.5f));
+        Bitmap bitmap2 = bitmapPool.get(i2, i3, getNonNullConfig(bitmap));
         setAlpha(bitmap, bitmap2);
         applyMatrix(bitmap, bitmap2, matrix);
         return bitmap2;
     }
 
-    public static Bitmap centerInside(@NonNull BitmapPool bitmapPool, @NonNull Bitmap bitmap, int i10, int i11) {
-        if (bitmap.getWidth() > i10 || bitmap.getHeight() > i11) {
+    public static Bitmap centerInside(@NonNull BitmapPool bitmapPool, @NonNull Bitmap bitmap, int i2, int i3) {
+        if (bitmap.getWidth() > i2 || bitmap.getHeight() > i3) {
             if (Log.isLoggable(TAG, 2)) {
                 Log.v(TAG, "requested target size too big for input, fit centering instead");
             }
-            return fitCenter(bitmapPool, bitmap, i10, i11);
+            return fitCenter(bitmapPool, bitmap, i2, i3);
         }
         if (Log.isLoggable(TAG, 2)) {
             Log.v(TAG, "requested target size larger or equal to input, returning input");
@@ -175,18 +178,18 @@ public final class TransformationUtils {
         return bitmap;
     }
 
-    public static Bitmap circleCrop(@NonNull BitmapPool bitmapPool, @NonNull Bitmap bitmap, int i10, int i11) {
-        int min = Math.min(i10, i11);
-        float f10 = min;
-        float f11 = f10 / 2.0f;
+    public static Bitmap circleCrop(@NonNull BitmapPool bitmapPool, @NonNull Bitmap bitmap, int i2, int i3) {
+        int min = Math.min(i2, i3);
+        float f2 = min;
+        float f3 = f2 / 2.0f;
         float width = bitmap.getWidth();
         float height = bitmap.getHeight();
-        float max = Math.max(f10 / width, f10 / height);
-        float f12 = width * max;
-        float f13 = max * height;
-        float f14 = (f10 - f12) / 2.0f;
-        float f15 = (f10 - f13) / 2.0f;
-        RectF rectF = new RectF(f14, f15, f12 + f14, f13 + f15);
+        float max = Math.max(f2 / width, f2 / height);
+        float f4 = width * max;
+        float f5 = max * height;
+        float f6 = (f2 - f4) / 2.0f;
+        float f7 = (f2 - f5) / 2.0f;
+        RectF rectF = new RectF(f6, f7, f4 + f6, f5 + f7);
         Bitmap alphaSafeBitmap = getAlphaSafeBitmap(bitmapPool, bitmap);
         Bitmap bitmap2 = bitmapPool.get(min, min, getAlphaSafeConfig(bitmap));
         bitmap2.setHasAlpha(true);
@@ -194,7 +197,7 @@ public final class TransformationUtils {
         lock.lock();
         try {
             Canvas canvas = new Canvas(bitmap2);
-            canvas.drawCircle(f11, f11, f11, CIRCLE_CROP_SHAPE_PAINT);
+            canvas.drawCircle(f3, f3, f3, CIRCLE_CROP_SHAPE_PAINT);
             canvas.drawBitmap(alphaSafeBitmap, (Rect) null, rectF, CIRCLE_CROP_BITMAP_PAINT);
             clear(canvas);
             lock.unlock();
@@ -202,9 +205,9 @@ public final class TransformationUtils {
                 bitmapPool.put(alphaSafeBitmap);
             }
             return bitmap2;
-        } catch (Throwable th2) {
+        } catch (Throwable th) {
             BITMAP_DRAWABLE_LOCK.unlock();
-            throw th2;
+            throw th;
         }
     }
 
@@ -212,14 +215,14 @@ public final class TransformationUtils {
         canvas.setBitmap(null);
     }
 
-    public static Bitmap fitCenter(@NonNull BitmapPool bitmapPool, @NonNull Bitmap bitmap, int i10, int i11) {
-        if (bitmap.getWidth() == i10 && bitmap.getHeight() == i11) {
+    public static Bitmap fitCenter(@NonNull BitmapPool bitmapPool, @NonNull Bitmap bitmap, int i2, int i3) {
+        if (bitmap.getWidth() == i2 && bitmap.getHeight() == i3) {
             if (Log.isLoggable(TAG, 2)) {
                 Log.v(TAG, "requested target size matches input, returning input");
             }
             return bitmap;
         }
-        float min = Math.min(i10 / bitmap.getWidth(), i11 / bitmap.getHeight());
+        float min = Math.min(i2 / bitmap.getWidth(), i3 / bitmap.getHeight());
         int round = Math.round(bitmap.getWidth() * min);
         int round2 = Math.round(bitmap.getHeight() * min);
         if (bitmap.getWidth() == round && bitmap.getHeight() == round2) {
@@ -231,13 +234,13 @@ public final class TransformationUtils {
         Bitmap bitmap2 = bitmapPool.get((int) (bitmap.getWidth() * min), (int) (bitmap.getHeight() * min), getNonNullConfig(bitmap));
         setAlpha(bitmap, bitmap2);
         if (Log.isLoggable(TAG, 2)) {
-            Log.v(TAG, "request: " + i10 + "x" + i11);
+            Log.v(TAG, "request: " + i2 + "x" + i3);
             Log.v(TAG, "toFit:   " + bitmap.getWidth() + "x" + bitmap.getHeight());
             Log.v(TAG, "toReuse: " + bitmap2.getWidth() + "x" + bitmap2.getHeight());
-            StringBuilder sb2 = new StringBuilder();
-            sb2.append("minPct:   ");
-            sb2.append(min);
-            Log.v(TAG, sb2.toString());
+            StringBuilder sb = new StringBuilder();
+            sb.append("minPct:   ");
+            sb.append(min);
+            Log.v(TAG, sb.toString());
         }
         Matrix matrix = new Matrix();
         matrix.setScale(min, min);
@@ -257,24 +260,15 @@ public final class TransformationUtils {
 
     @NonNull
     private static Bitmap.Config getAlphaSafeConfig(@NonNull Bitmap bitmap) {
-        Bitmap.Config config;
-        Bitmap.Config config2;
-        if (Build.VERSION.SDK_INT >= 26) {
-            config = Bitmap.Config.RGBA_F16;
-            if (config.equals(bitmap.getConfig())) {
-                config2 = Bitmap.Config.RGBA_F16;
-                return config2;
-            }
-        }
-        return Bitmap.Config.ARGB_8888;
+        return (Build.VERSION.SDK_INT < 26 || !Bitmap.Config.RGBA_F16.equals(bitmap.getConfig())) ? Bitmap.Config.ARGB_8888 : Bitmap.Config.RGBA_F16;
     }
 
     public static Lock getBitmapDrawableLock() {
         return BITMAP_DRAWABLE_LOCK;
     }
 
-    public static int getExifOrientationDegrees(int i10) {
-        switch (i10) {
+    public static int getExifOrientationDegrees(int i2) {
+        switch (i2) {
             case 3:
             case 4:
                 return TinkerReport.KEY_APPLIED_VERSION_CHECK;
@@ -295,8 +289,8 @@ public final class TransformationUtils {
     }
 
     @VisibleForTesting
-    public static void initializeMatrixForRotation(int i10, Matrix matrix) {
-        switch (i10) {
+    static void initializeMatrixForRotation(int i2, Matrix matrix) {
+        switch (i2) {
             case 2:
                 matrix.setScale(-1.0f, 1.0f);
                 break;
@@ -324,8 +318,8 @@ public final class TransformationUtils {
         }
     }
 
-    public static boolean isExifOrientationRequired(int i10) {
-        switch (i10) {
+    public static boolean isExifOrientationRequired(int i2) {
+        switch (i2) {
             case 2:
             case 3:
             case 4:
@@ -339,29 +333,29 @@ public final class TransformationUtils {
         }
     }
 
-    public static Bitmap rotateImage(@NonNull Bitmap bitmap, int i10) {
-        if (i10 == 0) {
+    public static Bitmap rotateImage(@NonNull Bitmap bitmap, int i2) {
+        if (i2 == 0) {
             return bitmap;
         }
         try {
             Matrix matrix = new Matrix();
-            matrix.setRotate(i10);
+            matrix.setRotate(i2);
             return Bitmap.createBitmap(bitmap, 0, 0, bitmap.getWidth(), bitmap.getHeight(), matrix, true);
-        } catch (Exception e10) {
+        } catch (Exception e2) {
             if (!Log.isLoggable(TAG, 6)) {
                 return bitmap;
             }
-            Log.e(TAG, "Exception when trying to orient image", e10);
+            Log.e(TAG, "Exception when trying to orient image", e2);
             return bitmap;
         }
     }
 
-    public static Bitmap rotateImageExif(@NonNull BitmapPool bitmapPool, @NonNull Bitmap bitmap, int i10) {
-        if (!isExifOrientationRequired(i10)) {
+    public static Bitmap rotateImageExif(@NonNull BitmapPool bitmapPool, @NonNull Bitmap bitmap, int i2) {
+        if (!isExifOrientationRequired(i2)) {
             return bitmap;
         }
         Matrix matrix = new Matrix();
-        initializeMatrixForRotation(i10, matrix);
+        initializeMatrixForRotation(i2, matrix);
         RectF rectF = new RectF(0.0f, 0.0f, bitmap.getWidth(), bitmap.getHeight());
         matrix.mapRect(rectF);
         Bitmap bitmap2 = bitmapPool.get(Math.round(rectF.width()), Math.round(rectF.height()), getNonNullConfig(bitmap));
@@ -372,53 +366,53 @@ public final class TransformationUtils {
     }
 
     @Deprecated
-    public static Bitmap roundedCorners(@NonNull BitmapPool bitmapPool, @NonNull Bitmap bitmap, int i10, int i11, int i12) {
-        return roundedCorners(bitmapPool, bitmap, i12);
+    public static Bitmap roundedCorners(@NonNull BitmapPool bitmapPool, @NonNull Bitmap bitmap, int i2, int i3, int i4) {
+        return roundedCorners(bitmapPool, bitmap, i4);
     }
 
     public static void setAlpha(Bitmap bitmap, Bitmap bitmap2) {
         bitmap2.setHasAlpha(bitmap.hasAlpha());
     }
 
-    public static Bitmap roundedCorners(@NonNull BitmapPool bitmapPool, @NonNull Bitmap bitmap, int i10) {
-        Preconditions.checkArgument(i10 > 0, "roundingRadius must be greater than 0.");
+    public static Bitmap roundedCorners(@NonNull BitmapPool bitmapPool, @NonNull Bitmap bitmap, int i2) {
+        Preconditions.checkArgument(i2 > 0, "roundingRadius must be greater than 0.");
         return roundedCorners(bitmapPool, bitmap, new DrawRoundedCornerFn() { // from class: com.bumptech.glide.load.resource.bitmap.TransformationUtils.1
             final /* synthetic */ int val$roundingRadius;
 
-            public AnonymousClass1(int i102) {
-                i10 = i102;
+            AnonymousClass1(int i22) {
+                i2 = i22;
             }
 
             @Override // com.bumptech.glide.load.resource.bitmap.TransformationUtils.DrawRoundedCornerFn
             public void drawRoundedCorners(Canvas canvas, Paint paint, RectF rectF) {
-                int i102 = i10;
-                canvas.drawRoundRect(rectF, i102, i102, paint);
+                int i22 = i2;
+                canvas.drawRoundRect(rectF, i22, i22, paint);
             }
         });
     }
 
-    public static Bitmap roundedCorners(@NonNull BitmapPool bitmapPool, @NonNull Bitmap bitmap, float f10, float f11, float f12, float f13) {
+    public static Bitmap roundedCorners(@NonNull BitmapPool bitmapPool, @NonNull Bitmap bitmap, float f2, float f3, float f4, float f5) {
         return roundedCorners(bitmapPool, bitmap, new DrawRoundedCornerFn() { // from class: com.bumptech.glide.load.resource.bitmap.TransformationUtils.2
             final /* synthetic */ float val$bottomLeft;
             final /* synthetic */ float val$bottomRight;
             final /* synthetic */ float val$topLeft;
             final /* synthetic */ float val$topRight;
 
-            public AnonymousClass2(float f102, float f112, float f122, float f132) {
-                f10 = f102;
-                f11 = f112;
-                f12 = f122;
-                f13 = f132;
+            AnonymousClass2(float f22, float f32, float f42, float f52) {
+                f2 = f22;
+                f3 = f32;
+                f4 = f42;
+                f5 = f52;
             }
 
             @Override // com.bumptech.glide.load.resource.bitmap.TransformationUtils.DrawRoundedCornerFn
             public void drawRoundedCorners(Canvas canvas, Paint paint, RectF rectF) {
                 Path path = new Path();
-                float f102 = f10;
-                float f112 = f11;
-                float f122 = f12;
-                float f132 = f13;
-                path.addRoundRect(rectF, new float[]{f102, f102, f112, f112, f122, f122, f132, f132}, Path.Direction.CW);
+                float f22 = f2;
+                float f32 = f3;
+                float f42 = f4;
+                float f52 = f5;
+                path.addRoundRect(rectF, new float[]{f22, f22, f32, f32, f42, f42, f52, f52}, Path.Direction.CW);
                 canvas.drawPath(path, paint);
             }
         });
@@ -447,9 +441,9 @@ public final class TransformationUtils {
                 bitmapPool.put(alphaSafeBitmap);
             }
             return bitmap2;
-        } catch (Throwable th2) {
+        } catch (Throwable th) {
             BITMAP_DRAWABLE_LOCK.unlock();
-            throw th2;
+            throw th;
         }
     }
 }

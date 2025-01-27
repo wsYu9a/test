@@ -18,7 +18,7 @@ public interface IDownloadAidlDepend extends IInterface {
         }
 
         @Override // com.ss.android.socialbase.downloader.depend.IDownloadAidlDepend
-        public void monitorLogSend(DownloadInfo downloadInfo, BaseException baseException, int i10) throws RemoteException {
+        public void monitorLogSend(DownloadInfo downloadInfo, BaseException baseException, int i2) throws RemoteException {
         }
     }
 
@@ -26,11 +26,11 @@ public interface IDownloadAidlDepend extends IInterface {
         private static final String DESCRIPTOR = "com.ss.android.socialbase.downloader.depend.IDownloadAidlDepend";
         static final int TRANSACTION_monitorLogSend = 1;
 
-        public static class Proxy implements IDownloadAidlDepend {
+        private static class Proxy implements IDownloadAidlDepend {
             public static IDownloadAidlDepend sDefaultImpl;
             private IBinder mRemote;
 
-            public Proxy(IBinder iBinder) {
+            Proxy(IBinder iBinder) {
                 this.mRemote = iBinder;
             }
 
@@ -44,7 +44,7 @@ public interface IDownloadAidlDepend extends IInterface {
             }
 
             @Override // com.ss.android.socialbase.downloader.depend.IDownloadAidlDepend
-            public void monitorLogSend(DownloadInfo downloadInfo, BaseException baseException, int i10) throws RemoteException {
+            public void monitorLogSend(DownloadInfo downloadInfo, BaseException baseException, int i2) throws RemoteException {
                 Parcel obtain = Parcel.obtain();
                 Parcel obtain2 = Parcel.obtain();
                 try {
@@ -61,20 +61,15 @@ public interface IDownloadAidlDepend extends IInterface {
                     } else {
                         obtain.writeInt(0);
                     }
-                    obtain.writeInt(i10);
+                    obtain.writeInt(i2);
                     if (this.mRemote.transact(1, obtain, obtain2, 0) || Stub.getDefaultImpl() == null) {
                         obtain2.readException();
-                        obtain2.recycle();
-                        obtain.recycle();
                     } else {
-                        Stub.getDefaultImpl().monitorLogSend(downloadInfo, baseException, i10);
-                        obtain2.recycle();
-                        obtain.recycle();
+                        Stub.getDefaultImpl().monitorLogSend(downloadInfo, baseException, i2);
                     }
-                } catch (Throwable th2) {
+                } finally {
                     obtain2.recycle();
                     obtain.recycle();
-                    throw th2;
                 }
             }
         }
@@ -109,10 +104,10 @@ public interface IDownloadAidlDepend extends IInterface {
         }
 
         @Override // android.os.Binder
-        public boolean onTransact(int i10, Parcel parcel, Parcel parcel2, int i11) throws RemoteException {
-            if (i10 != 1) {
-                if (i10 != 1598968902) {
-                    return super.onTransact(i10, parcel, parcel2, i11);
+        public boolean onTransact(int i2, Parcel parcel, Parcel parcel2, int i3) throws RemoteException {
+            if (i2 != 1) {
+                if (i2 != 1598968902) {
+                    return super.onTransact(i2, parcel, parcel2, i3);
                 }
                 parcel2.writeString(DESCRIPTOR);
                 return true;
@@ -124,5 +119,5 @@ public interface IDownloadAidlDepend extends IInterface {
         }
     }
 
-    void monitorLogSend(DownloadInfo downloadInfo, BaseException baseException, int i10) throws RemoteException;
+    void monitorLogSend(DownloadInfo downloadInfo, BaseException baseException, int i2) throws RemoteException;
 }

@@ -13,12 +13,12 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.io.RandomAccessFile;
 
-/* loaded from: classes3.dex */
+/* loaded from: classes2.dex */
 public final class SystemUtil {
-    private static long aUT;
-    private static long aUU;
-    private static int aUV;
-    private static LEVEL aUW;
+    private static long aAK;
+    private static long aAL;
+    private static int aAM;
+    private static LEVEL aAN;
 
     public enum LEVEL {
         BEST(5),
@@ -30,8 +30,8 @@ public final class SystemUtil {
 
         int value;
 
-        LEVEL(int i10) {
-            this.value = i10;
+        LEVEL(int i2) {
+            this.value = i2;
         }
 
         public final int getValue() {
@@ -40,17 +40,17 @@ public final class SystemUtil {
     }
 
     public static class a {
-        public long aUX;
-        public long aUY;
-        public long aUZ;
-        public long aVa;
-        public long aVb;
+        public long aAO;
+        public long aAP;
+        public long aAQ;
+        public long aAR;
+        public long aAS;
         public int mThreadsCount;
     }
 
-    public static long OP() {
+    public static long EA() {
         BufferedReader bufferedReader;
-        Throwable th2;
+        Throwable th;
         String readLine;
         BufferedReader bufferedReader2 = null;
         try {
@@ -66,28 +66,28 @@ public final class SystemUtil {
                     bufferedReader2 = bufferedReader;
                     com.kwad.sdk.crash.utils.b.closeQuietly(bufferedReader2);
                     return 0L;
-                } catch (Throwable th3) {
-                    th2 = th3;
+                } catch (Throwable th2) {
+                    th = th2;
                     com.kwad.sdk.crash.utils.b.closeQuietly(bufferedReader);
-                    throw th2;
+                    throw th;
                 }
             } while (!readLine.contains("MemTotal"));
             long longValue = Long.valueOf(readLine.split("\\s+")[1]).longValue() << 10;
             com.kwad.sdk.crash.utils.b.closeQuietly(bufferedReader);
             return longValue;
         } catch (Exception unused2) {
-        } catch (Throwable th4) {
+        } catch (Throwable th3) {
             bufferedReader = null;
-            th2 = th4;
+            th = th3;
         }
     }
 
-    public static a OQ() {
-        String ax;
+    public static a EB() {
+        String ai;
         a aVar = new a();
         RandomAccessFile randomAccessFile = null;
         try {
-            RandomAccessFile randomAccessFile2 = new RandomAccessFile("/proc/self/status", com.kuaishou.weapon.p0.t.f11211k);
+            RandomAccessFile randomAccessFile2 = new RandomAccessFile("/proc/self/status", com.kuaishou.weapon.p0.t.k);
             while (true) {
                 try {
                     String readLine = randomAccessFile2.readLine();
@@ -96,25 +96,25 @@ public final class SystemUtil {
                     }
                     if (!TextUtils.isEmpty(readLine)) {
                         if (readLine.startsWith("VmSize") && readLine.contains("kB")) {
-                            String ax2 = ax(readLine, "VmSize");
-                            if (ax2 != null) {
-                                aVar.aUY = Long.valueOf(ax2).longValue();
+                            String ai2 = ai(readLine, "VmSize");
+                            if (ai2 != null) {
+                                aVar.aAP = Long.valueOf(ai2).longValue();
                             }
                         } else if (readLine.startsWith("VmRSS:") && readLine.contains("kB")) {
-                            String ax3 = ax(readLine, "VmRSS:");
-                            if (ax3 != null) {
-                                aVar.aUZ = Long.valueOf(ax3).longValue();
+                            String ai3 = ai(readLine, "VmRSS:");
+                            if (ai3 != null) {
+                                aVar.aAQ = Long.valueOf(ai3).longValue();
                             }
-                        } else if (readLine.startsWith("Threads:") && (ax = ax(readLine, "Threads:")) != null) {
-                            aVar.mThreadsCount = Integer.valueOf(ax).intValue();
+                        } else if (readLine.startsWith("Threads:") && (ai = ai(readLine, "Threads:")) != null) {
+                            aVar.mThreadsCount = Integer.valueOf(ai).intValue();
                         }
                     }
                 } catch (IOException unused) {
                     randomAccessFile = randomAccessFile2;
                     com.kwad.sdk.crash.utils.b.closeQuietly(randomAccessFile);
                     return aVar;
-                } catch (Throwable th2) {
-                    th = th2;
+                } catch (Throwable th) {
+                    th = th;
                     randomAccessFile = randomAccessFile2;
                     com.kwad.sdk.crash.utils.b.closeQuietly(randomAccessFile);
                     throw th;
@@ -122,15 +122,15 @@ public final class SystemUtil {
             }
             com.kwad.sdk.crash.utils.b.closeQuietly(randomAccessFile2);
         } catch (IOException unused2) {
-        } catch (Throwable th3) {
-            th = th3;
+        } catch (Throwable th2) {
+            th = th2;
         }
         return aVar;
     }
 
-    private static String ax(String str, String str2) {
+    private static String ai(String str, String str2) {
         int length = str2.length();
-        int i10 = -1;
+        int i2 = -1;
         while (true) {
             if (length >= str.length()) {
                 length = -1;
@@ -138,25 +138,25 @@ public final class SystemUtil {
             }
             char charAt = str.charAt(length);
             if (charAt < '0' || charAt > '9') {
-                if (i10 != -1) {
+                if (i2 != -1) {
                     break;
                 }
-            } else if (i10 == -1) {
-                i10 = length;
+            } else if (i2 == -1) {
+                i2 = length;
             }
             length++;
         }
-        if (i10 == -1) {
+        if (i2 == -1) {
             return null;
         }
-        return length == -1 ? str.substring(i10) : str.substring(i10, length);
+        return length == -1 ? str.substring(i2) : str.substring(i2, length);
     }
 
     public static boolean b(Context context, @NonNull String... strArr) {
         if (context == null) {
             return false;
         }
-        for (int i10 = 0; i10 <= 0; i10++) {
+        for (int i2 = 0; i2 <= 0; i2++) {
             try {
                 if (context.checkPermission(strArr[0], Process.myPid(), Process.myUid()) == -1) {
                     return false;
@@ -168,26 +168,25 @@ public final class SystemUtil {
         return true;
     }
 
-    public static void checkUiThread() {
-    }
-
-    /* renamed from: do */
-    public static boolean m41do(Context context) {
+    public static boolean cO(Context context) {
         if (Build.VERSION.SDK_INT >= 29) {
             return false;
         }
-        return b(context, com.kuaishou.weapon.p0.g.f11102c);
+        return b(context, com.kuaishou.weapon.p0.g.f9318c);
     }
 
-    public static long dp(Context context) {
+    public static long cP(Context context) {
         ActivityManager activityManager = (ActivityManager) context.getSystemService(TTDownloadField.TT_ACTIVITY);
         ActivityManager.MemoryInfo memoryInfo = new ActivityManager.MemoryInfo();
         activityManager.getMemoryInfo(memoryInfo);
         return memoryInfo.availMem;
     }
 
-    public static boolean el(int i10) {
-        return getApiLevel() >= i10;
+    public static boolean ch(int i2) {
+        return getApiLevel() >= i2;
+    }
+
+    public static void checkUiThread() {
     }
 
     private static int getApiLevel() {
@@ -196,10 +195,10 @@ public final class SystemUtil {
 
     @Nullable
     public static String getProcessName(Context context) {
-        return av.getProcessName(context);
+        return ap.getProcessName(context);
     }
 
     public static boolean isInMainProcess(Context context) {
-        return av.isInMainProcess(context);
+        return ap.isInMainProcess(context);
     }
 }

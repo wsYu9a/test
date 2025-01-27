@@ -1,22 +1,24 @@
 package com.baidu.mobads.sdk.internal;
 
-/* loaded from: classes2.dex */
-class cd extends j {
+import com.baidu.mobads.sdk.internal.an;
 
-    /* renamed from: b */
-    final /* synthetic */ boolean f7016b;
+/* loaded from: classes.dex */
+class cd implements an.a {
 
-    /* renamed from: c */
-    final /* synthetic */ bz f7017c;
+    /* renamed from: a */
+    final /* synthetic */ bw f5691a;
 
-    public cd(bz bzVar, boolean z10) {
-        this.f7017c = bzVar;
-        this.f7016b = z10;
+    cd(bw bwVar) {
+        this.f5691a = bwVar;
     }
 
-    @Override // com.baidu.mobads.sdk.internal.j
-    public Object i() {
-        this.f7017c.c(this.f7016b);
-        return null;
+    @Override // com.baidu.mobads.sdk.internal.an.a
+    public void a() {
+        boolean z;
+        z = this.f5691a.A;
+        if (z) {
+            this.f5691a.A = false;
+            this.f5691a.a(false, "remote update Network access failed");
+        }
     }
 }

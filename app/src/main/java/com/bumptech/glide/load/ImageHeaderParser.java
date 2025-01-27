@@ -6,7 +6,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.nio.ByteBuffer;
 
-/* loaded from: classes2.dex */
+/* loaded from: classes.dex */
 public interface ImageHeaderParser {
     public static final int UNKNOWN_ORIENTATION = -1;
 
@@ -22,8 +22,8 @@ public interface ImageHeaderParser {
 
         private final boolean hasAlpha;
 
-        ImageType(boolean z10) {
-            this.hasAlpha = z10;
+        ImageType(boolean z) {
+            this.hasAlpha = z;
         }
 
         public boolean hasAlpha() {

@@ -2,7 +2,6 @@ package com.ss.android.socialbase.downloader.segment;
 
 import androidx.annotation.NonNull;
 import com.ss.android.socialbase.downloader.setting.DownloadSettingKeys;
-import l5.c;
 import org.json.JSONObject;
 
 /* loaded from: classes4.dex */
@@ -20,16 +19,16 @@ public class SegmentStrategy {
         this.config = jSONObject;
     }
 
-    private int calculateThreadCount(int i10) {
+    private int calculateThreadCount(int i2) {
         int optInt = this.config.optInt(DownloadSettingKeys.SegmentConfig.THREAD_COUNT, 4);
         if (optInt > 16) {
             optInt = 16;
         }
         if (optInt > 0) {
-            return getUrlBalance() == 1 ? Math.min(optInt, i10) : optInt;
+            return getUrlBalance() == 1 ? Math.min(optInt, i2) : optInt;
         }
         if (getUrlBalance() > 0) {
-            return i10;
+            return i2;
         }
         return 1;
     }
@@ -53,7 +52,7 @@ public class SegmentStrategy {
 
     public long getConnectTimeout() {
         long optInt = this.config.optInt(DownloadSettingKeys.SegmentConfig.CONNECT_TIMEOUT, -1);
-        if (optInt >= 2000) {
+        if (optInt >= MIN_CONNECT_TIMEOUT) {
             return optInt;
         }
         return -1L;
@@ -64,11 +63,11 @@ public class SegmentStrategy {
     }
 
     public float getMainRatio() {
-        return (float) this.config.optDouble(DownloadSettingKeys.SegmentConfig.MAIN_RATIO, c.f27899e);
+        return (float) this.config.optDouble(DownloadSettingKeys.SegmentConfig.MAIN_RATIO, 0.0d);
     }
 
     public float getPoorSpeedRatio() {
-        return Math.min(Math.max(0.0f, (float) this.config.optDouble(DownloadSettingKeys.SegmentConfig.POOR_SPEED_RATIO, c.f27899e)), 1.0f);
+        return Math.min(Math.max(0.0f, (float) this.config.optDouble(DownloadSettingKeys.SegmentConfig.POOR_SPEED_RATIO, 0.0d)), 1.0f);
     }
 
     public int getRatioSegmentStrategy() {
@@ -93,10 +92,7 @@ public class SegmentStrategy {
 
     public long getSegmentMinInitSize() {
         long optInt = this.config.optInt(DownloadSettingKeys.SegmentConfig.SEGMENT_MIN_INIT_MB, 10) * 1048576;
-        if (optInt < 5242880) {
-            return 5242880L;
-        }
-        return optInt;
+        return optInt < SEGMENT_MIN_INIT_SIZE ? SEGMENT_MIN_INIT_SIZE : optInt;
     }
 
     public long getSegmentMinSize() {
@@ -115,8 +111,8 @@ public class SegmentStrategy {
         return this.config.optInt(DownloadSettingKeys.SegmentConfig.SEGMENT_MODE, 1) == 0;
     }
 
-    public void updateUrlCount(int i10) {
-        this.threadCount = calculateThreadCount(i10);
+    public void updateUrlCount(int i2) {
+        this.threadCount = calculateThreadCount(i2);
     }
 
     public boolean urlBalance() {

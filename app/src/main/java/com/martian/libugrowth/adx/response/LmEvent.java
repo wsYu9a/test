@@ -7,7 +7,7 @@ public class LmEvent {
     private List<String> clk;
 
     /* renamed from: com */
-    private List<String> f13011com;
+    private List<String> f10662com;
     private List<String> first;
     private List<String> imp;
     private List<String> mid;
@@ -19,7 +19,7 @@ public class LmEvent {
     }
 
     public List<String> getCom() {
-        return this.f13011com;
+        return this.f10662com;
     }
 
     public List<String> getFirst() {
@@ -34,23 +34,23 @@ public class LmEvent {
         return this.mid;
     }
 
-    public List<String> getStepUrls(int i10) {
-        if (i10 == 0) {
+    public List<String> getStepUrls(int step) {
+        if (step == 0) {
             return this.imp;
         }
-        if (i10 == 1) {
+        if (step == 1) {
             return this.first;
         }
-        if (i10 == 2) {
+        if (step == 2) {
             return this.mid;
         }
-        if (i10 == 3) {
+        if (step == 3) {
             return this.third;
         }
-        if (i10 != 4) {
+        if (step != 4) {
             return null;
         }
-        return this.f13011com;
+        return this.f10662com;
     }
 
     public List<String> getThird() {
@@ -63,48 +63,48 @@ public class LmEvent {
 
     public int getValidEvents() {
         List<String> list = this.imp;
-        int i10 = (list == null || list.isEmpty()) ? 0 : 1;
+        int i2 = (list == null || list.isEmpty()) ? 0 : 1;
         List<String> list2 = this.first;
         if (list2 != null && !list2.isEmpty()) {
-            i10++;
+            i2++;
         }
         List<String> list3 = this.mid;
         if (list3 != null && !list3.isEmpty()) {
-            i10++;
+            i2++;
         }
         List<String> list4 = this.third;
         if (list4 != null && !list4.isEmpty()) {
-            i10++;
+            i2++;
         }
-        List<String> list5 = this.f13011com;
-        return (list5 == null || list5.isEmpty()) ? i10 : i10 + 1;
+        List<String> list5 = this.f10662com;
+        return (list5 == null || list5.isEmpty()) ? i2 : i2 + 1;
     }
 
-    public void setClk(List<String> list) {
-        this.clk = list;
+    public void setClk(List<String> clk) {
+        this.clk = clk;
     }
 
-    public void setCom(List<String> list) {
-        this.f13011com = list;
+    public void setCom(List<String> com2) {
+        this.f10662com = com2;
     }
 
-    public void setFirst(List<String> list) {
-        this.first = list;
+    public void setFirst(List<String> first) {
+        this.first = first;
     }
 
-    public void setImp(List<String> list) {
-        this.imp = list;
+    public void setImp(List<String> imp) {
+        this.imp = imp;
     }
 
-    public void setMid(List<String> list) {
-        this.mid = list;
+    public void setMid(List<String> mid) {
+        this.mid = mid;
     }
 
-    public void setThird(List<String> list) {
-        this.third = list;
+    public void setThird(List<String> third) {
+        this.third = third;
     }
 
-    public void setUdef(List<LmUdef> list) {
-        this.udef = list;
+    public void setUdef(List<LmUdef> udef) {
+        this.udef = udef;
     }
 }

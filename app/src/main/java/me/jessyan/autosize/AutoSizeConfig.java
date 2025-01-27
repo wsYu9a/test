@@ -18,9 +18,8 @@ import me.jessyan.autosize.unit.UnitsManager;
 import me.jessyan.autosize.utils.AutoSizeLog;
 import me.jessyan.autosize.utils.Preconditions;
 import me.jessyan.autosize.utils.ScreenUtils;
-import qe.c;
 
-/* loaded from: classes4.dex */
+/* loaded from: classes5.dex */
 public final class AutoSizeConfig {
     public static final boolean DEPENDENCY_ANDROIDX = findClassByClassName("androidx.fragment.app.FragmentActivity");
     public static final boolean DEPENDENCY_SUPPORT = findClassByClassName("androidx.fragment.app.FragmentActivity");
@@ -54,10 +53,10 @@ public final class AutoSizeConfig {
     private boolean isUseDeviceSize = true;
 
     /* renamed from: me.jessyan.autosize.AutoSizeConfig$1 */
-    public class AnonymousClass1 implements ComponentCallbacks {
+    class AnonymousClass1 implements ComponentCallbacks {
         final /* synthetic */ Application val$application;
 
-        public AnonymousClass1(Application application) {
+        AnonymousClass1(Application application) {
             application = application;
         }
 
@@ -81,10 +80,10 @@ public final class AutoSizeConfig {
     }
 
     /* renamed from: me.jessyan.autosize.AutoSizeConfig$2 */
-    public class AnonymousClass2 implements Runnable {
+    class AnonymousClass2 implements Runnable {
         final /* synthetic */ Context val$context;
 
-        public AnonymousClass2(Context context) {
+        AnonymousClass2(Context context) {
             context = context;
         }
 
@@ -102,8 +101,8 @@ public final class AutoSizeConfig {
                 if (applicationInfo.metaData.containsKey(AutoSizeConfig.KEY_DESIGN_HEIGHT_IN_DP)) {
                     AutoSizeConfig.this.mDesignHeightInDp = ((Integer) applicationInfo.metaData.get(AutoSizeConfig.KEY_DESIGN_HEIGHT_IN_DP)).intValue();
                 }
-            } catch (PackageManager.NameNotFoundException e10) {
-                e10.printStackTrace();
+            } catch (PackageManager.NameNotFoundException e2) {
+                e2.printStackTrace();
             }
         }
     }
@@ -123,11 +122,8 @@ public final class AutoSizeConfig {
     public static AutoSizeConfig getInstance() {
         if (sInstance == null) {
             synchronized (AutoSizeConfig.class) {
-                try {
-                    if (sInstance == null) {
-                        sInstance = new AutoSizeConfig();
-                    }
-                } finally {
+                if (sInstance == null) {
+                    sInstance = new AutoSizeConfig();
                 }
             }
         }
@@ -138,7 +134,7 @@ public final class AutoSizeConfig {
         new Thread(new Runnable() { // from class: me.jessyan.autosize.AutoSizeConfig.2
             final /* synthetic */ Context val$context;
 
-            public AnonymousClass2(Context context2) {
+            AnonymousClass2(Context context2) {
                 context = context2;
             }
 
@@ -156,8 +152,8 @@ public final class AutoSizeConfig {
                     if (applicationInfo.metaData.containsKey(AutoSizeConfig.KEY_DESIGN_HEIGHT_IN_DP)) {
                         AutoSizeConfig.this.mDesignHeightInDp = ((Integer) applicationInfo.metaData.get(AutoSizeConfig.KEY_DESIGN_HEIGHT_IN_DP)).intValue();
                     }
-                } catch (PackageManager.NameNotFoundException e10) {
-                    e10.printStackTrace();
+                } catch (PackageManager.NameNotFoundException e2) {
+                    e2.printStackTrace();
                 }
             }
         }).start();
@@ -230,7 +226,7 @@ public final class AutoSizeConfig {
         return this.mUnitsManager;
     }
 
-    public AutoSizeConfig init(Application application) {
+    AutoSizeConfig init(Application application) {
         return init(application, true, null);
     }
 
@@ -265,13 +261,9 @@ public final class AutoSizeConfig {
     public void restart() {
         Preconditions.checkNotNull(this.mActivityLifecycleCallbacks, "Please call the AutoSizeConfig#init() first");
         synchronized (AutoSizeConfig.class) {
-            try {
-                if (this.isStop) {
-                    this.mApplication.registerActivityLifecycleCallbacks(this.mActivityLifecycleCallbacks);
-                    this.isStop = false;
-                }
-            } catch (Throwable th2) {
-                throw th2;
+            if (this.isStop) {
+                this.mApplication.registerActivityLifecycleCallbacks(this.mActivityLifecycleCallbacks);
+                this.isStop = false;
             }
         }
     }
@@ -283,35 +275,35 @@ public final class AutoSizeConfig {
         return this;
     }
 
-    public AutoSizeConfig setBaseOnWidth(boolean z10) {
-        this.isBaseOnWidth = z10;
+    public AutoSizeConfig setBaseOnWidth(boolean z) {
+        this.isBaseOnWidth = z;
         return this;
     }
 
-    public AutoSizeConfig setCustomFragment(boolean z10) {
-        this.isCustomFragment = z10;
+    public AutoSizeConfig setCustomFragment(boolean z) {
+        this.isCustomFragment = z;
         return this;
     }
 
-    public AutoSizeConfig setDesignHeightInDp(int i10) {
-        Preconditions.checkArgument(i10 > 0, "designHeightInDp must be > 0");
-        this.mDesignHeightInDp = i10;
+    public AutoSizeConfig setDesignHeightInDp(int i2) {
+        Preconditions.checkArgument(i2 > 0, "designHeightInDp must be > 0");
+        this.mDesignHeightInDp = i2;
         return this;
     }
 
-    public AutoSizeConfig setDesignWidthInDp(int i10) {
-        Preconditions.checkArgument(i10 > 0, "designWidthInDp must be > 0");
-        this.mDesignWidthInDp = i10;
+    public AutoSizeConfig setDesignWidthInDp(int i2) {
+        Preconditions.checkArgument(i2 > 0, "designWidthInDp must be > 0");
+        this.mDesignWidthInDp = i2;
         return this;
     }
 
-    public AutoSizeConfig setExcludeFontScale(boolean z10) {
-        this.isExcludeFontScale = z10;
+    public AutoSizeConfig setExcludeFontScale(boolean z) {
+        this.isExcludeFontScale = z;
         return this;
     }
 
-    public AutoSizeConfig setLog(boolean z10) {
-        AutoSizeLog.setDebug(z10);
+    public AutoSizeConfig setLog(boolean z) {
+        AutoSizeLog.setDebug(z);
         return this;
     }
 
@@ -321,67 +313,63 @@ public final class AutoSizeConfig {
         return this;
     }
 
-    public AutoSizeConfig setPrivateFontScale(float f10) {
-        this.privateFontScale = f10;
+    public AutoSizeConfig setPrivateFontScale(float f2) {
+        this.privateFontScale = f2;
         return this;
     }
 
-    public AutoSizeConfig setScreenHeight(int i10) {
-        Preconditions.checkArgument(i10 > 0, "screenHeight must be > 0");
-        this.mScreenHeight = i10;
+    public AutoSizeConfig setScreenHeight(int i2) {
+        Preconditions.checkArgument(i2 > 0, "screenHeight must be > 0");
+        this.mScreenHeight = i2;
         return this;
     }
 
-    public AutoSizeConfig setScreenWidth(int i10) {
-        Preconditions.checkArgument(i10 > 0, "screenWidth must be > 0");
-        this.mScreenWidth = i10;
+    public AutoSizeConfig setScreenWidth(int i2) {
+        Preconditions.checkArgument(i2 > 0, "screenWidth must be > 0");
+        this.mScreenWidth = i2;
         return this;
     }
 
-    public AutoSizeConfig setStatusBarHeight(int i10) {
-        Preconditions.checkArgument(i10 > 0, "statusBarHeight must be > 0");
-        this.mStatusBarHeight = i10;
+    public AutoSizeConfig setStatusBarHeight(int i2) {
+        Preconditions.checkArgument(i2 > 0, "statusBarHeight must be > 0");
+        this.mStatusBarHeight = i2;
         return this;
     }
 
-    public AutoSizeConfig setUseDeviceSize(boolean z10) {
-        this.isUseDeviceSize = z10;
+    public AutoSizeConfig setUseDeviceSize(boolean z) {
+        this.isUseDeviceSize = z;
         return this;
     }
 
-    public AutoSizeConfig setVertical(boolean z10) {
-        this.isVertical = z10;
+    public AutoSizeConfig setVertical(boolean z) {
+        this.isVertical = z;
         return this;
     }
 
     public void stop(Activity activity) {
         Preconditions.checkNotNull(this.mActivityLifecycleCallbacks, "Please call the AutoSizeConfig#init() first");
         synchronized (AutoSizeConfig.class) {
-            try {
-                if (!this.isStop) {
-                    this.mApplication.unregisterActivityLifecycleCallbacks(this.mActivityLifecycleCallbacks);
-                    AutoSize.cancelAdapt(activity);
-                    this.isStop = true;
-                }
-            } catch (Throwable th2) {
-                throw th2;
+            if (!this.isStop) {
+                this.mApplication.unregisterActivityLifecycleCallbacks(this.mActivityLifecycleCallbacks);
+                AutoSize.cancelAdapt(activity);
+                this.isStop = true;
             }
         }
     }
 
-    public AutoSizeConfig init(Application application, boolean z10) {
-        return init(application, z10, null);
+    AutoSizeConfig init(Application application, boolean z) {
+        return init(application, z, null);
     }
 
-    public AutoSizeConfig init(Application application, boolean z10, AutoAdaptStrategy autoAdaptStrategy) {
+    AutoSizeConfig init(Application application, boolean z, AutoAdaptStrategy autoAdaptStrategy) {
         Preconditions.checkArgument(this.mInitDensity == -1.0f, "AutoSizeConfig#init() can only be called once");
         Preconditions.checkNotNull(application, "application == null");
         this.mApplication = application;
-        this.isBaseOnWidth = z10;
+        this.isBaseOnWidth = z;
         DisplayMetrics displayMetrics = Resources.getSystem().getDisplayMetrics();
         Configuration configuration = Resources.getSystem().getConfiguration();
         if (getInstance().getUnitsManager().getSupportSubunits() == Subunits.NONE) {
-            this.mDesignWidthInDp = c.f30025o;
+            this.mDesignWidthInDp = 360;
             this.mDesignHeightInDp = 640;
         } else {
             this.mDesignWidthInDp = DownloadErrorCode.ERROR_TTNET_NOT_MODIFIED;
@@ -403,7 +391,7 @@ public final class AutoSizeConfig {
         application.registerComponentCallbacks(new ComponentCallbacks() { // from class: me.jessyan.autosize.AutoSizeConfig.1
             final /* synthetic */ Application val$application;
 
-            public AnonymousClass1(Application application2) {
+            AnonymousClass1(Application application2) {
                 application = application2;
             }
 

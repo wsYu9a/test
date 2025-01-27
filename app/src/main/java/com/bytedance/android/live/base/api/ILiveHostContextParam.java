@@ -4,19 +4,22 @@ import android.app.Application;
 import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
-import com.bytedance.android.live.base.api.param.IUserIdGetter;
+import com.bytedance.android.live.saas.middleware.alog.ALogConfig;
+import com.bytedance.android.live.saas.middleware.applog.AppLogConfig;
 import com.bytedance.android.livehostapi.platform.IHostTokenInjectionAuth;
 import java.lang.reflect.Field;
-import java.util.HashMap;
 import java.util.Map;
 import org.json.JSONObject;
 
-/* loaded from: classes2.dex */
+/* loaded from: classes.dex */
 public interface ILiveHostContextParam {
 
     public static class Builder {
+        private ALogConfig aLogConfig;
+        private IHostActivityProvider activityProvider;
         private int aid;
         private int appIcon;
+        private AppLogConfig appLogConfig;
         private String appName;
         private String channel;
         private Application context;
@@ -27,7 +30,6 @@ public interface ILiveHostContextParam {
         private MethodChannelService methodChannelService;
         private String partner;
         private String partnerSecret;
-        private boolean runInLiveProcess;
         private String ttSDKAppId;
         private String ttSDKCertAssetsPath;
         private String version;
@@ -35,17 +37,19 @@ public interface ILiveHostContextParam {
         private String cjAppId = "";
         private String cjMerchantId = "";
         private String nativeLibraryDir = "";
+        private PartnerExtra partnerExtra = null;
         private Map<String, String> feParamsExtra = null;
         private String ecHostAppId = null;
         private String clientKey = "";
         private JSONObject paramsExtraSettings = null;
-        private HashMap<String, String> hostInitExtra = null;
+        private boolean needInitNetwork = true;
+        private ILiveHostWebViewParam hostWebViewParam = new DefaultHostWebViewParam();
         private IHostTokenInjectionAuth injectionAuth = null;
         private IUserIdGetter userIdGetter = new IUserIdGetter() { // from class: com.bytedance.android.live.base.api.ILiveHostContextParam.Builder.1
-            public AnonymousClass1() {
+            AnonymousClass1() {
             }
 
-            @Override // com.bytedance.android.live.base.api.param.IUserIdGetter
+            @Override // com.bytedance.android.live.base.api.ILiveHostContextParam.IUserIdGetter
             public String getUserId() {
                 return "";
             }
@@ -54,10 +58,10 @@ public interface ILiveHostContextParam {
 
         /* renamed from: com.bytedance.android.live.base.api.ILiveHostContextParam$Builder$1 */
         class AnonymousClass1 implements IUserIdGetter {
-            public AnonymousClass1() {
+            AnonymousClass1() {
             }
 
-            @Override // com.bytedance.android.live.base.api.param.IUserIdGetter
+            @Override // com.bytedance.android.live.base.api.ILiveHostContextParam.IUserIdGetter
             public String getUserId() {
                 return "";
             }
@@ -67,8 +71,13 @@ public interface ILiveHostContextParam {
         class AnonymousClass2 implements ILiveHostContextParam {
             final /* synthetic */ Builder val$selfBuilder;
 
-            public AnonymousClass2(Builder builder) {
+            AnonymousClass2(Builder builder) {
                 this = builder;
+            }
+
+            @Override // com.bytedance.android.live.base.api.ILiveHostContextParam
+            public ALogConfig getALogConfig() {
+                return Builder.this.aLogConfig;
             }
 
             @Override // com.bytedance.android.live.base.api.ILiveHostContextParam
@@ -87,6 +96,11 @@ public interface ILiveHostContextParam {
                     }
                 }
                 return Builder.this.appIcon;
+            }
+
+            @Override // com.bytedance.android.live.base.api.ILiveHostContextParam
+            public AppLogConfig getAppLogConfig() {
+                return Builder.this.appLogConfig;
             }
 
             @Override // com.bytedance.android.live.base.api.ILiveHostContextParam
@@ -153,13 +167,18 @@ public interface ILiveHostContextParam {
             }
 
             @Override // com.bytedance.android.live.base.api.ILiveHostContextParam
-            public Map<String, String> getHostInitExtra() {
-                return Builder.this.hostInitExtra;
+            public Class<?> getHostActivity(int i2) {
+                return Builder.this.activityProvider.getHostActivity(i2);
             }
 
             @Override // com.bytedance.android.live.base.api.ILiveHostContextParam
             public IHostPermission getHostPermission() {
                 return Builder.this.hostPermission;
+            }
+
+            @Override // com.bytedance.android.live.base.api.ILiveHostContextParam
+            public ILiveHostWebViewParam getHostWebViewParam() {
+                return Builder.this.hostWebViewParam;
             }
 
             @Override // com.bytedance.android.live.base.api.ILiveHostContextParam
@@ -178,13 +197,13 @@ public interface ILiveHostContextParam {
             }
 
             @Override // com.bytedance.android.live.base.api.ILiveHostContextParam
-            public String getPartnerSecret() {
-                return Builder.this.partnerSecret;
+            public PartnerExtra getPartnerExtra() {
+                return Builder.this.partnerExtra;
             }
 
             @Override // com.bytedance.android.live.base.api.ILiveHostContextParam
-            public boolean getRunInLiveProcess() {
-                return Builder.this.runInLiveProcess;
+            public String getPartnerSecret() {
+                return Builder.this.partnerSecret;
             }
 
             @Override // com.bytedance.android.live.base.api.ILiveHostContextParam
@@ -232,6 +251,11 @@ public interface ILiveHostContextParam {
             }
 
             @Override // com.bytedance.android.live.base.api.ILiveHostContextParam
+            public boolean isNeedInitNetwork() {
+                return Builder.this.needInitNetwork;
+            }
+
+            @Override // com.bytedance.android.live.base.api.ILiveHostContextParam
             public MethodChannelService provideMethodChannel() {
                 return Builder.this.methodChannelService;
             }
@@ -267,28 +291,23 @@ public interface ILiveHostContextParam {
         public PackageInfo getPackageInfo(Application application) {
             try {
                 return application.getPackageManager().getPackageInfo(application.getPackageName(), 0);
-            } catch (PackageManager.NameNotFoundException e10) {
-                e10.printStackTrace();
+            } catch (PackageManager.NameNotFoundException e2) {
+                e2.printStackTrace();
                 return null;
             }
-        }
-
-        public Builder addHostInitExtra(Map<String, String> map) {
-            if (map != null) {
-                if (this.hostInitExtra == null) {
-                    this.hostInitExtra = new HashMap<>();
-                }
-                this.hostInitExtra.putAll(map);
-            }
-            return this;
         }
 
         public ILiveHostContextParam build() {
             return new ILiveHostContextParam() { // from class: com.bytedance.android.live.base.api.ILiveHostContextParam.Builder.2
                 final /* synthetic */ Builder val$selfBuilder;
 
-                public AnonymousClass2(Builder this) {
+                AnonymousClass2(Builder this) {
                     this = this;
+                }
+
+                @Override // com.bytedance.android.live.base.api.ILiveHostContextParam
+                public ALogConfig getALogConfig() {
+                    return Builder.this.aLogConfig;
                 }
 
                 @Override // com.bytedance.android.live.base.api.ILiveHostContextParam
@@ -307,6 +326,11 @@ public interface ILiveHostContextParam {
                         }
                     }
                     return Builder.this.appIcon;
+                }
+
+                @Override // com.bytedance.android.live.base.api.ILiveHostContextParam
+                public AppLogConfig getAppLogConfig() {
+                    return Builder.this.appLogConfig;
                 }
 
                 @Override // com.bytedance.android.live.base.api.ILiveHostContextParam
@@ -373,13 +397,18 @@ public interface ILiveHostContextParam {
                 }
 
                 @Override // com.bytedance.android.live.base.api.ILiveHostContextParam
-                public Map<String, String> getHostInitExtra() {
-                    return Builder.this.hostInitExtra;
+                public Class<?> getHostActivity(int i2) {
+                    return Builder.this.activityProvider.getHostActivity(i2);
                 }
 
                 @Override // com.bytedance.android.live.base.api.ILiveHostContextParam
                 public IHostPermission getHostPermission() {
                     return Builder.this.hostPermission;
+                }
+
+                @Override // com.bytedance.android.live.base.api.ILiveHostContextParam
+                public ILiveHostWebViewParam getHostWebViewParam() {
+                    return Builder.this.hostWebViewParam;
                 }
 
                 @Override // com.bytedance.android.live.base.api.ILiveHostContextParam
@@ -398,13 +427,13 @@ public interface ILiveHostContextParam {
                 }
 
                 @Override // com.bytedance.android.live.base.api.ILiveHostContextParam
-                public String getPartnerSecret() {
-                    return Builder.this.partnerSecret;
+                public PartnerExtra getPartnerExtra() {
+                    return Builder.this.partnerExtra;
                 }
 
                 @Override // com.bytedance.android.live.base.api.ILiveHostContextParam
-                public boolean getRunInLiveProcess() {
-                    return Builder.this.runInLiveProcess;
+                public String getPartnerSecret() {
+                    return Builder.this.partnerSecret;
                 }
 
                 @Override // com.bytedance.android.live.base.api.ILiveHostContextParam
@@ -452,6 +481,11 @@ public interface ILiveHostContextParam {
                 }
 
                 @Override // com.bytedance.android.live.base.api.ILiveHostContextParam
+                public boolean isNeedInitNetwork() {
+                    return Builder.this.needInitNetwork;
+                }
+
+                @Override // com.bytedance.android.live.base.api.ILiveHostContextParam
                 public MethodChannelService provideMethodChannel() {
                     return Builder.this.methodChannelService;
                 }
@@ -477,13 +511,28 @@ public interface ILiveHostContextParam {
             return this;
         }
 
-        public Builder setAid(int i10) {
-            this.aid = i10;
+        public Builder setALogConfig(ALogConfig aLogConfig) {
+            this.aLogConfig = aLogConfig;
             return this;
         }
 
-        public Builder setAppIcon(int i10) {
-            this.appIcon = i10;
+        public Builder setActivityProvider(IHostActivityProvider iHostActivityProvider) {
+            this.activityProvider = iHostActivityProvider;
+            return this;
+        }
+
+        public Builder setAid(int i2) {
+            this.aid = i2;
+            return this;
+        }
+
+        public Builder setAppIcon(int i2) {
+            this.appIcon = i2;
+            return this;
+        }
+
+        public Builder setAppLogConfig(AppLogConfig appLogConfig) {
+            this.appLogConfig = appLogConfig;
             return this;
         }
 
@@ -544,18 +593,28 @@ public interface ILiveHostContextParam {
             return this;
         }
 
+        public Builder setHostWebViewParam(ILiveHostWebViewParam iLiveHostWebViewParam) {
+            this.hostWebViewParam = iLiveHostWebViewParam;
+            return this;
+        }
+
         public Builder setInjectionAuth(IHostTokenInjectionAuth iHostTokenInjectionAuth) {
             this.injectionAuth = iHostTokenInjectionAuth;
             return this;
         }
 
-        public Builder setIsBoe(boolean z10) {
-            this.isBoe = z10;
+        public Builder setIsBoe(boolean z) {
+            this.isBoe = z;
             return this;
         }
 
-        public Builder setIsDebug(boolean z10) {
-            this.isDebug = z10;
+        public Builder setIsDebug(boolean z) {
+            this.isDebug = z;
+            return this;
+        }
+
+        public Builder setIsNeedInitNetwork(boolean z) {
+            this.needInitNetwork = z;
             return this;
         }
 
@@ -574,13 +633,13 @@ public interface ILiveHostContextParam {
             return this;
         }
 
-        public Builder setPartnerSecret(String str) {
-            this.partnerSecret = str;
+        public Builder setPartnerExtra(PartnerExtra partnerExtra) {
+            this.partnerExtra = partnerExtra;
             return this;
         }
 
-        public Builder setRunInLiveProcess(boolean z10) {
-            this.runInLiveProcess = z10;
+        public Builder setPartnerSecret(String str) {
+            this.partnerSecret = str;
             return this;
         }
 
@@ -604,15 +663,27 @@ public interface ILiveHostContextParam {
             return this;
         }
 
-        public Builder setVersionCode(int i10) {
-            this.versionCode = i10;
+        public Builder setVersionCode(int i2) {
+            this.versionCode = i2;
             return this;
         }
     }
 
+    public interface IHostActivityProvider {
+        Class<?> getHostActivity(@ActivityType int i2);
+    }
+
+    public interface IUserIdGetter {
+        String getUserId();
+    }
+
+    ALogConfig getALogConfig();
+
     int getAid();
 
     int getAppIcon();
+
+    AppLogConfig getAppLogConfig();
 
     String getAppName();
 
@@ -636,9 +707,11 @@ public interface ILiveHostContextParam {
 
     ILiveHostActionParam getHostAction();
 
-    Map<String, String> getHostInitExtra();
+    Class<?> getHostActivity(@ActivityType int i2);
 
     IHostPermission getHostPermission();
+
+    ILiveHostWebViewParam getHostWebViewParam();
 
     String getNativeLibraryDir();
 
@@ -646,9 +719,9 @@ public interface ILiveHostContextParam {
 
     String getPartner();
 
-    String getPartnerSecret();
+    PartnerExtra getPartnerExtra();
 
-    boolean getRunInLiveProcess();
+    String getPartnerSecret();
 
     String getTtSDKAppId();
 
@@ -661,6 +734,8 @@ public interface ILiveHostContextParam {
     IHostTokenInjectionAuth injectAccount();
 
     boolean isBoe();
+
+    boolean isNeedInitNetwork();
 
     MethodChannelService provideMethodChannel();
 

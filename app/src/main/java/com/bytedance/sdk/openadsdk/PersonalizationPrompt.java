@@ -1,7 +1,7 @@
 package com.bytedance.sdk.openadsdk;
 
 @Deprecated
-/* loaded from: classes2.dex */
+/* loaded from: classes.dex */
 public interface PersonalizationPrompt {
     String getName();
 

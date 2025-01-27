@@ -2,7 +2,7 @@ package com.bytedance.pangle.g;
 
 import java.nio.ByteBuffer;
 
-/* loaded from: classes2.dex */
+/* loaded from: classes.dex */
 interface i {
-    ByteBuffer a(int i10);
+    ByteBuffer a(int i2);
 }

@@ -2,6 +2,8 @@ package com.google.zxing.qrcode.detector;
 
 import com.google.zxing.DecodeHintType;
 import com.google.zxing.NotFoundException;
+import com.google.zxing.l;
+import com.google.zxing.m;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -9,48 +11,43 @@ import java.util.Comparator;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
-import t5.l;
-import t5.m;
-import u6.d;
-import u6.e;
-import z5.b;
 
-/* loaded from: classes2.dex */
+/* loaded from: classes.dex */
 public class FinderPatternFinder {
 
-    /* renamed from: f */
-    public static final int f10617f = 2;
-
-    /* renamed from: g */
-    public static final int f10618g = 3;
-
-    /* renamed from: h */
-    public static final int f10619h = 57;
-
     /* renamed from: a */
-    public final b f10620a;
+    private static final int f8770a = 2;
 
     /* renamed from: b */
-    public final List<d> f10621b;
+    protected static final int f8771b = 3;
 
     /* renamed from: c */
-    public boolean f10622c;
+    protected static final int f8772c = 57;
 
     /* renamed from: d */
-    public final int[] f10623d;
+    private final com.google.zxing.common.b f8773d;
 
     /* renamed from: e */
-    public final m f10624e;
+    private final List<d> f8774e;
 
-    public static final class CenterComparator implements Serializable, Comparator<d> {
+    /* renamed from: f */
+    private boolean f8775f;
+
+    /* renamed from: g */
+    private final int[] f8776g;
+
+    /* renamed from: h */
+    private final m f8777h;
+
+    private static final class CenterComparator implements Serializable, Comparator<d> {
         private final float average;
 
-        public /* synthetic */ CenterComparator(float f10, a aVar) {
-            this(f10);
+        /* synthetic */ CenterComparator(float f2, a aVar) {
+            this(f2);
         }
 
-        private CenterComparator(float f10) {
-            this.average = f10;
+        private CenterComparator(float f2) {
+            this.average = f2;
         }
 
         @Override // java.util.Comparator
@@ -67,15 +64,15 @@ public class FinderPatternFinder {
         }
     }
 
-    public static final class FurthestFromAverageComparator implements Serializable, Comparator<d> {
+    private static final class FurthestFromAverageComparator implements Serializable, Comparator<d> {
         private final float average;
 
-        public /* synthetic */ FurthestFromAverageComparator(float f10, a aVar) {
-            this(f10);
+        /* synthetic */ FurthestFromAverageComparator(float f2, a aVar) {
+            this(f2);
         }
 
-        private FurthestFromAverageComparator(float f10) {
-            this.average = f10;
+        private FurthestFromAverageComparator(float f2) {
+            this.average = f2;
         }
 
         @Override // java.util.Comparator
@@ -89,243 +86,206 @@ public class FinderPatternFinder {
         }
     }
 
-    public FinderPatternFinder(b bVar) {
+    public FinderPatternFinder(com.google.zxing.common.b bVar) {
         this(bVar, null);
     }
 
-    public static float a(int[] iArr, int i10) {
-        return ((i10 - iArr[4]) - iArr[3]) - (iArr[2] / 2.0f);
-    }
-
-    public static boolean g(int[] iArr) {
-        int i10 = 0;
-        for (int i11 = 0; i11 < 5; i11++) {
-            int i12 = iArr[i11];
-            if (i12 == 0) {
-                return false;
-            }
-            i10 += i12;
-        }
-        if (i10 < 7) {
-            return false;
-        }
-        float f10 = i10 / 7.0f;
-        float f11 = f10 / 2.0f;
-        return Math.abs(f10 - ((float) iArr[0])) < f11 && Math.abs(f10 - ((float) iArr[1])) < f11 && Math.abs((f10 * 3.0f) - ((float) iArr[2])) < 3.0f * f11 && Math.abs(f10 - ((float) iArr[3])) < f11 && Math.abs(f10 - ((float) iArr[4])) < f11;
+    private static float a(int[] iArr, int i2) {
+        return ((i2 - iArr[4]) - iArr[3]) - (iArr[2] / 2.0f);
     }
 
     /* JADX WARN: Code restructure failed: missing block: B:10:0x002a, code lost:
     
-        if (r18 >= r6) goto L214;
+        if (r18 >= r6) goto L113;
      */
     /* JADX WARN: Code restructure failed: missing block: B:11:0x002e, code lost:
     
-        if (r17 < r6) goto L287;
+        if (r17 < r6) goto L186;
      */
     /* JADX WARN: Code restructure failed: missing block: B:12:0x0030, code lost:
     
-        if (r18 < r6) goto L285;
+        if (r18 < r6) goto L184;
      */
     /* JADX WARN: Code restructure failed: missing block: B:14:0x003c, code lost:
     
-        if (r16.f10620a.e(r18 - r6, r17 - r6) != false) goto L286;
-     */
-    /* JADX WARN: Code restructure failed: missing block: B:15:0x003e, code lost:
-    
-        r9 = r4[1];
+        if (r16.f8773d.e(r18 - r6, r17 - r6) != false) goto L185;
      */
     /* JADX WARN: Code restructure failed: missing block: B:16:0x0040, code lost:
     
-        if (r9 > r19) goto L284;
+        if (r4[1] > r19) goto L183;
      */
     /* JADX WARN: Code restructure failed: missing block: B:17:0x0042, code lost:
     
-        r4[1] = r9 + 1;
+        r4[1] = r4[1] + 1;
         r6 = r6 + 1;
      */
-    /* JADX WARN: Code restructure failed: missing block: B:19:0x0049, code lost:
+    /* JADX WARN: Code restructure failed: missing block: B:19:0x004a, code lost:
     
-        if (r17 < r6) goto L280;
+        if (r17 < r6) goto L179;
      */
-    /* JADX WARN: Code restructure failed: missing block: B:20:0x004b, code lost:
+    /* JADX WARN: Code restructure failed: missing block: B:20:0x004c, code lost:
     
-        if (r18 < r6) goto L280;
+        if (r18 < r6) goto L179;
      */
-    /* JADX WARN: Code restructure failed: missing block: B:22:0x004f, code lost:
+    /* JADX WARN: Code restructure failed: missing block: B:22:0x0050, code lost:
     
-        if (r4[1] <= r19) goto L226;
+        if (r4[1] <= r19) goto L125;
      */
-    /* JADX WARN: Code restructure failed: missing block: B:23:0x0053, code lost:
+    /* JADX WARN: Code restructure failed: missing block: B:23:0x0054, code lost:
     
-        if (r17 < r6) goto L289;
+        if (r17 < r6) goto L188;
      */
-    /* JADX WARN: Code restructure failed: missing block: B:24:0x0055, code lost:
+    /* JADX WARN: Code restructure failed: missing block: B:24:0x0056, code lost:
     
-        if (r18 < r6) goto L291;
+        if (r18 < r6) goto L190;
      */
-    /* JADX WARN: Code restructure failed: missing block: B:26:0x0061, code lost:
+    /* JADX WARN: Code restructure failed: missing block: B:26:0x0062, code lost:
     
-        if (r16.f10620a.e(r18 - r6, r17 - r6) == false) goto L288;
+        if (r16.f8773d.e(r18 - r6, r17 - r6) == false) goto L187;
      */
-    /* JADX WARN: Code restructure failed: missing block: B:27:0x0063, code lost:
+    /* JADX WARN: Code restructure failed: missing block: B:28:0x0066, code lost:
     
-        r9 = r4[0];
+        if (r4[0] > r19) goto L189;
      */
-    /* JADX WARN: Code restructure failed: missing block: B:28:0x0065, code lost:
+    /* JADX WARN: Code restructure failed: missing block: B:29:0x0068, code lost:
     
-        if (r9 > r19) goto L290;
-     */
-    /* JADX WARN: Code restructure failed: missing block: B:29:0x0067, code lost:
-    
-        r4[0] = r9 + 1;
+        r4[0] = r4[0] + 1;
         r6 = r6 + 1;
      */
-    /* JADX WARN: Code restructure failed: missing block: B:32:0x0070, code lost:
+    /* JADX WARN: Code restructure failed: missing block: B:32:0x0072, code lost:
     
-        if (r4[0] <= r19) goto L236;
+        if (r4[0] <= r19) goto L135;
      */
-    /* JADX WARN: Code restructure failed: missing block: B:33:0x0072, code lost:
+    /* JADX WARN: Code restructure failed: missing block: B:33:0x0074, code lost:
     
         return false;
      */
-    /* JADX WARN: Code restructure failed: missing block: B:35:0x0073, code lost:
+    /* JADX WARN: Code restructure failed: missing block: B:35:0x0075, code lost:
     
-        r6 = r16.f10620a.h();
-        r9 = r16.f10620a.l();
+        r6 = r16.f8773d.h();
+        r9 = r16.f8773d.l();
         r10 = 1;
      */
-    /* JADX WARN: Code restructure failed: missing block: B:36:0x0080, code lost:
+    /* JADX WARN: Code restructure failed: missing block: B:36:0x0082, code lost:
     
         r11 = r17 + r10;
      */
-    /* JADX WARN: Code restructure failed: missing block: B:37:0x0082, code lost:
+    /* JADX WARN: Code restructure failed: missing block: B:37:0x0084, code lost:
     
-        if (r11 >= r6) goto L292;
+        if (r11 >= r6) goto L192;
      */
-    /* JADX WARN: Code restructure failed: missing block: B:38:0x0084, code lost:
+    /* JADX WARN: Code restructure failed: missing block: B:38:0x0086, code lost:
     
         r12 = r18 + r10;
      */
-    /* JADX WARN: Code restructure failed: missing block: B:39:0x0086, code lost:
+    /* JADX WARN: Code restructure failed: missing block: B:39:0x0088, code lost:
     
-        if (r12 >= r9) goto L293;
+        if (r12 >= r9) goto L193;
      */
-    /* JADX WARN: Code restructure failed: missing block: B:41:0x008e, code lost:
+    /* JADX WARN: Code restructure failed: missing block: B:41:0x0090, code lost:
     
-        if (r16.f10620a.e(r12, r11) == false) goto L294;
+        if (r16.f8773d.e(r12, r11) == false) goto L191;
      */
-    /* JADX WARN: Code restructure failed: missing block: B:42:0x0090, code lost:
+    /* JADX WARN: Code restructure failed: missing block: B:42:0x0092, code lost:
     
         r4[2] = r4[2] + 1;
         r10 = r10 + 1;
      */
-    /* JADX WARN: Code restructure failed: missing block: B:44:0x0098, code lost:
+    /* JADX WARN: Code restructure failed: missing block: B:44:0x009a, code lost:
     
-        if (r11 >= r6) goto L280;
+        if (r11 >= r6) goto L179;
      */
-    /* JADX WARN: Code restructure failed: missing block: B:46:0x009c, code lost:
+    /* JADX WARN: Code restructure failed: missing block: B:46:0x009e, code lost:
     
-        if ((r18 + r10) < r9) goto L248;
+        if ((r18 + r10) < r9) goto L147;
      */
-    /* JADX WARN: Code restructure failed: missing block: B:47:0x009f, code lost:
+    /* JADX WARN: Code restructure failed: missing block: B:47:0x00a2, code lost:
     
         r11 = r17 + r10;
      */
-    /* JADX WARN: Code restructure failed: missing block: B:48:0x00a2, code lost:
+    /* JADX WARN: Code restructure failed: missing block: B:48:0x00a5, code lost:
     
-        if (r11 >= r6) goto L296;
+        if (r11 >= r6) goto L196;
      */
-    /* JADX WARN: Code restructure failed: missing block: B:49:0x00a4, code lost:
+    /* JADX WARN: Code restructure failed: missing block: B:49:0x00a7, code lost:
     
         r13 = r18 + r10;
      */
-    /* JADX WARN: Code restructure failed: missing block: B:50:0x00a6, code lost:
+    /* JADX WARN: Code restructure failed: missing block: B:50:0x00a9, code lost:
     
-        if (r13 >= r9) goto L297;
+        if (r13 >= r9) goto L197;
      */
-    /* JADX WARN: Code restructure failed: missing block: B:52:0x00ae, code lost:
+    /* JADX WARN: Code restructure failed: missing block: B:52:0x00b1, code lost:
     
-        if (r16.f10620a.e(r13, r11) != false) goto L298;
+        if (r16.f8773d.e(r13, r11) != false) goto L194;
      */
-    /* JADX WARN: Code restructure failed: missing block: B:53:0x00b0, code lost:
+    /* JADX WARN: Code restructure failed: missing block: B:54:0x00b5, code lost:
     
-        r13 = r4[3];
+        if (r4[3] >= r19) goto L195;
      */
-    /* JADX WARN: Code restructure failed: missing block: B:54:0x00b2, code lost:
+    /* JADX WARN: Code restructure failed: missing block: B:55:0x00b7, code lost:
     
-        if (r13 >= r19) goto L295;
-     */
-    /* JADX WARN: Code restructure failed: missing block: B:55:0x00b4, code lost:
-    
-        r4[3] = r13 + 1;
+        r4[3] = r4[3] + 1;
         r10 = r10 + 1;
      */
-    /* JADX WARN: Code restructure failed: missing block: B:57:0x00bb, code lost:
+    /* JADX WARN: Code restructure failed: missing block: B:57:0x00bf, code lost:
     
-        if (r11 >= r6) goto L280;
+        if (r11 >= r6) goto L179;
      */
-    /* JADX WARN: Code restructure failed: missing block: B:59:0x00bf, code lost:
+    /* JADX WARN: Code restructure failed: missing block: B:59:0x00c3, code lost:
     
-        if ((r18 + r10) >= r9) goto L280;
+        if ((r18 + r10) >= r9) goto L179;
      */
-    /* JADX WARN: Code restructure failed: missing block: B:61:0x00c3, code lost:
+    /* JADX WARN: Code restructure failed: missing block: B:61:0x00c7, code lost:
     
-        if (r4[3] < r19) goto L263;
+        if (r4[3] < r19) goto L162;
      */
-    /* JADX WARN: Code restructure failed: missing block: B:62:0x00c6, code lost:
+    /* JADX WARN: Code restructure failed: missing block: B:62:0x00ca, code lost:
     
         r11 = r17 + r10;
      */
-    /* JADX WARN: Code restructure failed: missing block: B:63:0x00c9, code lost:
+    /* JADX WARN: Code restructure failed: missing block: B:63:0x00cd, code lost:
     
-        if (r11 >= r6) goto L301;
+        if (r11 >= r6) goto L201;
      */
-    /* JADX WARN: Code restructure failed: missing block: B:64:0x00cb, code lost:
+    /* JADX WARN: Code restructure failed: missing block: B:64:0x00cf, code lost:
     
         r14 = r18 + r10;
      */
-    /* JADX WARN: Code restructure failed: missing block: B:65:0x00cd, code lost:
+    /* JADX WARN: Code restructure failed: missing block: B:65:0x00d1, code lost:
     
-        if (r14 >= r9) goto L302;
+        if (r14 >= r9) goto L198;
      */
-    /* JADX WARN: Code restructure failed: missing block: B:67:0x00d5, code lost:
+    /* JADX WARN: Code restructure failed: missing block: B:67:0x00d9, code lost:
     
-        if (r16.f10620a.e(r14, r11) == false) goto L299;
+        if (r16.f8773d.e(r14, r11) == false) goto L199;
      */
-    /* JADX WARN: Code restructure failed: missing block: B:68:0x00d7, code lost:
+    /* JADX WARN: Code restructure failed: missing block: B:69:0x00dd, code lost:
     
-        r11 = r4[4];
+        if (r4[4] >= r19) goto L200;
      */
-    /* JADX WARN: Code restructure failed: missing block: B:69:0x00d9, code lost:
+    /* JADX WARN: Code restructure failed: missing block: B:70:0x00df, code lost:
     
-        if (r11 >= r19) goto L300;
-     */
-    /* JADX WARN: Code restructure failed: missing block: B:70:0x00db, code lost:
-    
-        r4[4] = r11 + 1;
+        r4[4] = r4[4] + 1;
         r10 = r10 + 1;
      */
-    /* JADX WARN: Code restructure failed: missing block: B:72:0x00e2, code lost:
+    /* JADX WARN: Code restructure failed: missing block: B:73:0x00e9, code lost:
     
-        r1 = r4[4];
+        if (r4[4] < r19) goto L174;
      */
-    /* JADX WARN: Code restructure failed: missing block: B:73:0x00e4, code lost:
-    
-        if (r1 < r19) goto L275;
-     */
-    /* JADX WARN: Code restructure failed: missing block: B:74:0x00e6, code lost:
+    /* JADX WARN: Code restructure failed: missing block: B:74:0x00eb, code lost:
     
         return false;
      */
-    /* JADX WARN: Code restructure failed: missing block: B:76:0x00fb, code lost:
+    /* JADX WARN: Code restructure failed: missing block: B:76:0x0102, code lost:
     
-        if (java.lang.Math.abs(((((r4[0] + r4[1]) + r4[2]) + r4[3]) + r1) - r20) >= (r20 * 2)) goto L280;
+        if (java.lang.Math.abs(((((r4[0] + r4[1]) + r4[2]) + r4[3]) + r4[4]) - r20) >= (r20 * 2)) goto L179;
      */
-    /* JADX WARN: Code restructure failed: missing block: B:78:0x0101, code lost:
+    /* JADX WARN: Code restructure failed: missing block: B:78:0x0108, code lost:
     
-        if (g(r4) == false) goto L280;
+        if (g(r4) == false) goto L179;
      */
-    /* JADX WARN: Code restructure failed: missing block: B:79:0x0103, code lost:
+    /* JADX WARN: Code restructure failed: missing block: B:79:0x010a, code lost:
     
         return true;
      */
@@ -333,64 +293,131 @@ public class FinderPatternFinder {
         Code decompiled incorrectly, please refer to instructions dump.
         To view partially-correct code enable 'Show inconsistent code' option in preferences
     */
-    public final boolean b(int r17, int r18, int r19, int r20) {
+    private boolean b(int r17, int r18, int r19, int r20) {
         /*
-            Method dump skipped, instructions count: 261
+            Method dump skipped, instructions count: 268
             To view this dump change 'Code comments level' option to 'DEBUG'
         */
         throw new UnsupportedOperationException("Method not decompiled: com.google.zxing.qrcode.detector.FinderPatternFinder.b(int, int, int, int):boolean");
     }
 
-    /* JADX WARN: Code restructure failed: missing block: B:51:0x0082, code lost:
+    /* JADX WARN: Code restructure failed: missing block: B:21:0x003a, code lost:
     
-        if (r2[3] < r13) goto L215;
+        if (r2[1] <= r13) goto L104;
      */
-    /* JADX WARN: Code restructure failed: missing block: B:53:0x0086, code lost:
+    /* JADX WARN: Code restructure failed: missing block: B:23:0x003f, code lost:
     
-        if (r11 >= r1) goto L247;
+        if (r3 < 0) goto L157;
      */
-    /* JADX WARN: Code restructure failed: missing block: B:55:0x008c, code lost:
+    /* JADX WARN: Code restructure failed: missing block: B:25:0x0045, code lost:
     
-        if (r0.e(r11, r12) == false) goto L248;
+        if (r0.e(r3, r12) == false) goto L155;
      */
-    /* JADX WARN: Code restructure failed: missing block: B:56:0x008e, code lost:
+    /* JADX WARN: Code restructure failed: missing block: B:27:0x0049, code lost:
     
-        r9 = r2[4];
+        if (r2[0] > r13) goto L156;
      */
-    /* JADX WARN: Code restructure failed: missing block: B:57:0x0090, code lost:
+    /* JADX WARN: Code restructure failed: missing block: B:28:0x004b, code lost:
     
-        if (r9 >= r13) goto L246;
+        r2[0] = r2[0] + 1;
+        r3 = r3 - 1;
      */
-    /* JADX WARN: Code restructure failed: missing block: B:58:0x0092, code lost:
+    /* JADX WARN: Code restructure failed: missing block: B:31:0x0055, code lost:
     
-        r2[4] = r9 + 1;
+        if (r2[0] <= r13) goto L114;
+     */
+    /* JADX WARN: Code restructure failed: missing block: B:32:0x0057, code lost:
+    
+        return Float.NaN;
+     */
+    /* JADX WARN: Code restructure failed: missing block: B:33:0x0058, code lost:
+    
         r11 = r11 + 1;
      */
-    /* JADX WARN: Code restructure failed: missing block: B:60:0x0099, code lost:
+    /* JADX WARN: Code restructure failed: missing block: B:34:0x0059, code lost:
     
-        r12 = r2[4];
+        if (r11 >= r1) goto L158;
      */
-    /* JADX WARN: Code restructure failed: missing block: B:61:0x009b, code lost:
+    /* JADX WARN: Code restructure failed: missing block: B:36:0x005f, code lost:
     
-        if (r12 < r13) goto L225;
+        if (r0.e(r11, r12) == false) goto L159;
      */
-    /* JADX WARN: Code restructure failed: missing block: B:62:0x009d, code lost:
+    /* JADX WARN: Code restructure failed: missing block: B:37:0x0061, code lost:
+    
+        r2[2] = r2[2] + 1;
+        r11 = r11 + 1;
+     */
+    /* JADX WARN: Code restructure failed: missing block: B:39:0x0069, code lost:
+    
+        if (r11 != r1) goto L121;
+     */
+    /* JADX WARN: Code restructure failed: missing block: B:40:0x006b, code lost:
     
         return Float.NaN;
      */
-    /* JADX WARN: Code restructure failed: missing block: B:64:0x00b1, code lost:
+    /* JADX WARN: Code restructure failed: missing block: B:42:0x006d, code lost:
     
-        if ((java.lang.Math.abs(((((r2[0] + r2[1]) + r2[2]) + r2[3]) + r12) - r14) * 5) < r14) goto L228;
+        if (r11 >= r1) goto L162;
      */
-    /* JADX WARN: Code restructure failed: missing block: B:65:0x00b3, code lost:
+    /* JADX WARN: Code restructure failed: missing block: B:44:0x0073, code lost:
+    
+        if (r0.e(r11, r12) != false) goto L160;
+     */
+    /* JADX WARN: Code restructure failed: missing block: B:46:0x0077, code lost:
+    
+        if (r2[3] >= r13) goto L161;
+     */
+    /* JADX WARN: Code restructure failed: missing block: B:47:0x0079, code lost:
+    
+        r2[3] = r2[3] + 1;
+        r11 = r11 + 1;
+     */
+    /* JADX WARN: Code restructure failed: missing block: B:49:0x0081, code lost:
+    
+        if (r11 == r1) goto L149;
+     */
+    /* JADX WARN: Code restructure failed: missing block: B:51:0x0085, code lost:
+    
+        if (r2[3] < r13) goto L132;
+     */
+    /* JADX WARN: Code restructure failed: missing block: B:53:0x0089, code lost:
+    
+        if (r11 >= r1) goto L164;
+     */
+    /* JADX WARN: Code restructure failed: missing block: B:55:0x008f, code lost:
+    
+        if (r0.e(r11, r12) == false) goto L165;
+     */
+    /* JADX WARN: Code restructure failed: missing block: B:57:0x0093, code lost:
+    
+        if (r2[4] >= r13) goto L163;
+     */
+    /* JADX WARN: Code restructure failed: missing block: B:58:0x0095, code lost:
+    
+        r2[4] = r2[4] + 1;
+        r11 = r11 + 1;
+     */
+    /* JADX WARN: Code restructure failed: missing block: B:61:0x009f, code lost:
+    
+        if (r2[4] < r13) goto L142;
+     */
+    /* JADX WARN: Code restructure failed: missing block: B:62:0x00a1, code lost:
     
         return Float.NaN;
      */
-    /* JADX WARN: Code restructure failed: missing block: B:67:0x00b8, code lost:
+    /* JADX WARN: Code restructure failed: missing block: B:64:0x00b7, code lost:
     
-        if (g(r2) == false) goto L232;
+        if ((java.lang.Math.abs(((((r2[0] + r2[1]) + r2[2]) + r2[3]) + r2[4]) - r14) * 5) < r14) goto L145;
      */
-    /* JADX WARN: Code restructure failed: missing block: B:69:0x00be, code lost:
+    /* JADX WARN: Code restructure failed: missing block: B:65:0x00b9, code lost:
+    
+        return Float.NaN;
+     */
+    /* JADX WARN: Code restructure failed: missing block: B:67:0x00be, code lost:
+    
+        if (g(r2) == false) goto L149;
+     */
+    /* JADX WARN: Code restructure failed: missing block: B:69:0x00c4, code lost:
     
         return a(r2, r11);
      */
@@ -398,178 +425,131 @@ public class FinderPatternFinder {
         Code decompiled incorrectly, please refer to instructions dump.
         To view partially-correct code enable 'Show inconsistent code' option in preferences
     */
-    public final float c(int r11, int r12, int r13, int r14) {
+    private float c(int r11, int r12, int r13, int r14) {
         /*
-            r10 = this;
-            z5.b r0 = r10.f10620a
-            int r1 = r0.l()
-            int[] r2 = r10.h()
-            r3 = r11
-        Lb:
-            r4 = 2
-            r5 = 1
-            if (r3 < 0) goto L1d
-            boolean r6 = r0.e(r3, r12)
-            if (r6 == 0) goto L1d
-            r6 = r2[r4]
-            int r6 = r6 + r5
-            r2[r4] = r6
-            int r3 = r3 + (-1)
-            goto Lb
-        L1d:
-            r6 = 2143289344(0x7fc00000, float:NaN)
-            if (r3 >= 0) goto L22
-            return r6
-        L22:
-            if (r3 < 0) goto L35
-            boolean r7 = r0.e(r3, r12)
-            if (r7 != 0) goto L35
-            r7 = r2[r5]
-            if (r7 > r13) goto L35
-            int r7 = r7 + 1
-            r2[r5] = r7
-            int r3 = r3 + (-1)
-            goto L22
-        L35:
-            if (r3 < 0) goto Lbf
-            r7 = r2[r5]
-            if (r7 <= r13) goto L3d
-            goto Lbf
-        L3d:
-            r7 = 0
-            if (r3 < 0) goto L51
-            boolean r8 = r0.e(r3, r12)
-            if (r8 == 0) goto L51
-            r8 = r2[r7]
-            if (r8 > r13) goto L51
-            int r8 = r8 + 1
-            r2[r7] = r8
-            int r3 = r3 + (-1)
-            goto L3d
-        L51:
-            r3 = r2[r7]
-            if (r3 <= r13) goto L56
-            return r6
-        L56:
-            int r11 = r11 + r5
-        L57:
-            if (r11 >= r1) goto L67
-            boolean r3 = r0.e(r11, r12)
-            if (r3 == 0) goto L67
-            r3 = r2[r4]
-            int r3 = r3 + r5
-            r2[r4] = r3
-            int r11 = r11 + 1
-            goto L57
-        L67:
-            if (r11 != r1) goto L6a
-            return r6
-        L6a:
-            r3 = 3
-            if (r11 >= r1) goto L7e
-            boolean r8 = r0.e(r11, r12)
-            if (r8 != 0) goto L7e
-            r8 = r2[r3]
-            if (r8 >= r13) goto L7e
-            int r8 = r8 + 1
-            r2[r3] = r8
-            int r11 = r11 + 1
-            goto L6a
-        L7e:
-            if (r11 == r1) goto Lbf
-            r8 = r2[r3]
-            if (r8 < r13) goto L85
-            goto Lbf
-        L85:
-            r8 = 4
-            if (r11 >= r1) goto L99
-            boolean r9 = r0.e(r11, r12)
-            if (r9 == 0) goto L99
-            r9 = r2[r8]
-            if (r9 >= r13) goto L99
-            int r9 = r9 + 1
-            r2[r8] = r9
-            int r11 = r11 + 1
-            goto L85
-        L99:
-            r12 = r2[r8]
-            if (r12 < r13) goto L9e
-            return r6
-        L9e:
-            r13 = r2[r7]
-            r0 = r2[r5]
-            int r13 = r13 + r0
-            r0 = r2[r4]
-            int r13 = r13 + r0
-            r0 = r2[r3]
-            int r13 = r13 + r0
-            int r13 = r13 + r12
-            int r13 = r13 - r14
-            int r12 = java.lang.Math.abs(r13)
-            int r12 = r12 * 5
-            if (r12 < r14) goto Lb4
-            return r6
-        Lb4:
-            boolean r12 = g(r2)
-            if (r12 == 0) goto Lbf
-            float r11 = a(r2, r11)
-            return r11
-        Lbf:
-            return r6
+            Method dump skipped, instructions count: 198
+            To view this dump change 'Code comments level' option to 'DEBUG'
         */
         throw new UnsupportedOperationException("Method not decompiled: com.google.zxing.qrcode.detector.FinderPatternFinder.c(int, int, int, int):float");
     }
 
-    /* JADX WARN: Code restructure failed: missing block: B:51:0x0082, code lost:
+    /* JADX WARN: Code restructure failed: missing block: B:21:0x003a, code lost:
     
-        if (r2[3] < r13) goto L215;
+        if (r2[1] <= r13) goto L104;
      */
-    /* JADX WARN: Code restructure failed: missing block: B:53:0x0086, code lost:
+    /* JADX WARN: Code restructure failed: missing block: B:23:0x003f, code lost:
     
-        if (r11 >= r1) goto L247;
+        if (r3 < 0) goto L157;
      */
-    /* JADX WARN: Code restructure failed: missing block: B:55:0x008c, code lost:
+    /* JADX WARN: Code restructure failed: missing block: B:25:0x0045, code lost:
     
-        if (r0.e(r12, r11) == false) goto L248;
+        if (r0.e(r12, r3) == false) goto L155;
      */
-    /* JADX WARN: Code restructure failed: missing block: B:56:0x008e, code lost:
+    /* JADX WARN: Code restructure failed: missing block: B:27:0x0049, code lost:
     
-        r9 = r2[4];
+        if (r2[0] > r13) goto L156;
      */
-    /* JADX WARN: Code restructure failed: missing block: B:57:0x0090, code lost:
+    /* JADX WARN: Code restructure failed: missing block: B:28:0x004b, code lost:
     
-        if (r9 >= r13) goto L246;
+        r2[0] = r2[0] + 1;
+        r3 = r3 - 1;
      */
-    /* JADX WARN: Code restructure failed: missing block: B:58:0x0092, code lost:
+    /* JADX WARN: Code restructure failed: missing block: B:31:0x0055, code lost:
     
-        r2[4] = r9 + 1;
+        if (r2[0] <= r13) goto L114;
+     */
+    /* JADX WARN: Code restructure failed: missing block: B:32:0x0057, code lost:
+    
+        return Float.NaN;
+     */
+    /* JADX WARN: Code restructure failed: missing block: B:33:0x0058, code lost:
+    
         r11 = r11 + 1;
      */
-    /* JADX WARN: Code restructure failed: missing block: B:60:0x0099, code lost:
+    /* JADX WARN: Code restructure failed: missing block: B:34:0x0059, code lost:
     
-        r12 = r2[4];
+        if (r11 >= r1) goto L158;
      */
-    /* JADX WARN: Code restructure failed: missing block: B:61:0x009b, code lost:
+    /* JADX WARN: Code restructure failed: missing block: B:36:0x005f, code lost:
     
-        if (r12 < r13) goto L225;
+        if (r0.e(r12, r11) == false) goto L159;
      */
-    /* JADX WARN: Code restructure failed: missing block: B:62:0x009d, code lost:
+    /* JADX WARN: Code restructure failed: missing block: B:37:0x0061, code lost:
+    
+        r2[2] = r2[2] + 1;
+        r11 = r11 + 1;
+     */
+    /* JADX WARN: Code restructure failed: missing block: B:39:0x0069, code lost:
+    
+        if (r11 != r1) goto L121;
+     */
+    /* JADX WARN: Code restructure failed: missing block: B:40:0x006b, code lost:
     
         return Float.NaN;
      */
-    /* JADX WARN: Code restructure failed: missing block: B:64:0x00b3, code lost:
+    /* JADX WARN: Code restructure failed: missing block: B:42:0x006d, code lost:
     
-        if ((java.lang.Math.abs(((((r2[0] + r2[1]) + r2[2]) + r2[3]) + r12) - r14) * 5) < (r14 * 2)) goto L228;
+        if (r11 >= r1) goto L162;
      */
-    /* JADX WARN: Code restructure failed: missing block: B:65:0x00b5, code lost:
+    /* JADX WARN: Code restructure failed: missing block: B:44:0x0073, code lost:
+    
+        if (r0.e(r12, r11) != false) goto L160;
+     */
+    /* JADX WARN: Code restructure failed: missing block: B:46:0x0077, code lost:
+    
+        if (r2[3] >= r13) goto L161;
+     */
+    /* JADX WARN: Code restructure failed: missing block: B:47:0x0079, code lost:
+    
+        r2[3] = r2[3] + 1;
+        r11 = r11 + 1;
+     */
+    /* JADX WARN: Code restructure failed: missing block: B:49:0x0081, code lost:
+    
+        if (r11 == r1) goto L149;
+     */
+    /* JADX WARN: Code restructure failed: missing block: B:51:0x0085, code lost:
+    
+        if (r2[3] < r13) goto L132;
+     */
+    /* JADX WARN: Code restructure failed: missing block: B:53:0x0089, code lost:
+    
+        if (r11 >= r1) goto L164;
+     */
+    /* JADX WARN: Code restructure failed: missing block: B:55:0x008f, code lost:
+    
+        if (r0.e(r12, r11) == false) goto L165;
+     */
+    /* JADX WARN: Code restructure failed: missing block: B:57:0x0093, code lost:
+    
+        if (r2[4] >= r13) goto L163;
+     */
+    /* JADX WARN: Code restructure failed: missing block: B:58:0x0095, code lost:
+    
+        r2[4] = r2[4] + 1;
+        r11 = r11 + 1;
+     */
+    /* JADX WARN: Code restructure failed: missing block: B:61:0x009f, code lost:
+    
+        if (r2[4] < r13) goto L142;
+     */
+    /* JADX WARN: Code restructure failed: missing block: B:62:0x00a1, code lost:
     
         return Float.NaN;
      */
-    /* JADX WARN: Code restructure failed: missing block: B:67:0x00ba, code lost:
+    /* JADX WARN: Code restructure failed: missing block: B:64:0x00b9, code lost:
     
-        if (g(r2) == false) goto L232;
+        if ((java.lang.Math.abs(((((r2[0] + r2[1]) + r2[2]) + r2[3]) + r2[4]) - r14) * 5) < (r14 * 2)) goto L145;
      */
-    /* JADX WARN: Code restructure failed: missing block: B:69:0x00c0, code lost:
+    /* JADX WARN: Code restructure failed: missing block: B:65:0x00bb, code lost:
+    
+        return Float.NaN;
+     */
+    /* JADX WARN: Code restructure failed: missing block: B:67:0x00c0, code lost:
+    
+        if (g(r2) == false) goto L149;
+     */
+    /* JADX WARN: Code restructure failed: missing block: B:69:0x00c6, code lost:
     
         return a(r2, r11);
      */
@@ -577,218 +557,23 @@ public class FinderPatternFinder {
         Code decompiled incorrectly, please refer to instructions dump.
         To view partially-correct code enable 'Show inconsistent code' option in preferences
     */
-    public final float d(int r11, int r12, int r13, int r14) {
+    private float d(int r11, int r12, int r13, int r14) {
         /*
-            r10 = this;
-            z5.b r0 = r10.f10620a
-            int r1 = r0.h()
-            int[] r2 = r10.h()
-            r3 = r11
-        Lb:
-            r4 = 2
-            r5 = 1
-            if (r3 < 0) goto L1d
-            boolean r6 = r0.e(r12, r3)
-            if (r6 == 0) goto L1d
-            r6 = r2[r4]
-            int r6 = r6 + r5
-            r2[r4] = r6
-            int r3 = r3 + (-1)
-            goto Lb
-        L1d:
-            r6 = 2143289344(0x7fc00000, float:NaN)
-            if (r3 >= 0) goto L22
-            return r6
-        L22:
-            if (r3 < 0) goto L35
-            boolean r7 = r0.e(r12, r3)
-            if (r7 != 0) goto L35
-            r7 = r2[r5]
-            if (r7 > r13) goto L35
-            int r7 = r7 + 1
-            r2[r5] = r7
-            int r3 = r3 + (-1)
-            goto L22
-        L35:
-            if (r3 < 0) goto Lc1
-            r7 = r2[r5]
-            if (r7 <= r13) goto L3d
-            goto Lc1
-        L3d:
-            r7 = 0
-            if (r3 < 0) goto L51
-            boolean r8 = r0.e(r12, r3)
-            if (r8 == 0) goto L51
-            r8 = r2[r7]
-            if (r8 > r13) goto L51
-            int r8 = r8 + 1
-            r2[r7] = r8
-            int r3 = r3 + (-1)
-            goto L3d
-        L51:
-            r3 = r2[r7]
-            if (r3 <= r13) goto L56
-            return r6
-        L56:
-            int r11 = r11 + r5
-        L57:
-            if (r11 >= r1) goto L67
-            boolean r3 = r0.e(r12, r11)
-            if (r3 == 0) goto L67
-            r3 = r2[r4]
-            int r3 = r3 + r5
-            r2[r4] = r3
-            int r11 = r11 + 1
-            goto L57
-        L67:
-            if (r11 != r1) goto L6a
-            return r6
-        L6a:
-            r3 = 3
-            if (r11 >= r1) goto L7e
-            boolean r8 = r0.e(r12, r11)
-            if (r8 != 0) goto L7e
-            r8 = r2[r3]
-            if (r8 >= r13) goto L7e
-            int r8 = r8 + 1
-            r2[r3] = r8
-            int r11 = r11 + 1
-            goto L6a
-        L7e:
-            if (r11 == r1) goto Lc1
-            r8 = r2[r3]
-            if (r8 < r13) goto L85
-            goto Lc1
-        L85:
-            r8 = 4
-            if (r11 >= r1) goto L99
-            boolean r9 = r0.e(r12, r11)
-            if (r9 == 0) goto L99
-            r9 = r2[r8]
-            if (r9 >= r13) goto L99
-            int r9 = r9 + 1
-            r2[r8] = r9
-            int r11 = r11 + 1
-            goto L85
-        L99:
-            r12 = r2[r8]
-            if (r12 < r13) goto L9e
-            return r6
-        L9e:
-            r13 = r2[r7]
-            r0 = r2[r5]
-            int r13 = r13 + r0
-            r0 = r2[r4]
-            int r13 = r13 + r0
-            r0 = r2[r3]
-            int r13 = r13 + r0
-            int r13 = r13 + r12
-            int r13 = r13 - r14
-            int r12 = java.lang.Math.abs(r13)
-            int r12 = r12 * 5
-            int r14 = r14 * 2
-            if (r12 < r14) goto Lb6
-            return r6
-        Lb6:
-            boolean r12 = g(r2)
-            if (r12 == 0) goto Lc1
-            float r11 = a(r2, r11)
-            return r11
-        Lc1:
-            return r6
+            Method dump skipped, instructions count: 200
+            To view this dump change 'Code comments level' option to 'DEBUG'
         */
         throw new UnsupportedOperationException("Method not decompiled: com.google.zxing.qrcode.detector.FinderPatternFinder.d(int, int, int, int):float");
     }
 
-    public final e e(Map<DecodeHintType, ?> map) throws NotFoundException {
-        boolean z10 = map != null && map.containsKey(DecodeHintType.TRY_HARDER);
-        boolean z11 = map != null && map.containsKey(DecodeHintType.PURE_BARCODE);
-        int h10 = this.f10620a.h();
-        int l10 = this.f10620a.l();
-        int i10 = (h10 * 3) / 228;
-        if (i10 < 3 || z10) {
-            i10 = 3;
-        }
-        int[] iArr = new int[5];
-        int i11 = i10 - 1;
-        boolean z12 = false;
-        while (i11 < h10 && !z12) {
-            iArr[0] = 0;
-            iArr[1] = 0;
-            iArr[2] = 0;
-            iArr[3] = 0;
-            iArr[4] = 0;
-            int i12 = 0;
-            int i13 = 0;
-            while (i12 < l10) {
-                if (this.f10620a.e(i12, i11)) {
-                    if ((i13 & 1) == 1) {
-                        i13++;
-                    }
-                    iArr[i13] = iArr[i13] + 1;
-                } else if ((i13 & 1) != 0) {
-                    iArr[i13] = iArr[i13] + 1;
-                } else if (i13 == 4) {
-                    if (!g(iArr)) {
-                        iArr[0] = iArr[2];
-                        iArr[1] = iArr[3];
-                        iArr[2] = iArr[4];
-                        iArr[3] = 1;
-                        iArr[4] = 0;
-                    } else if (k(iArr, i11, i12, z11)) {
-                        if (this.f10622c) {
-                            z12 = l();
-                        } else {
-                            int f10 = f();
-                            int i14 = iArr[2];
-                            if (f10 > i14) {
-                                i11 += (f10 - i14) - 2;
-                                i12 = l10 - 1;
-                            }
-                        }
-                        iArr[0] = 0;
-                        iArr[1] = 0;
-                        iArr[2] = 0;
-                        iArr[3] = 0;
-                        iArr[4] = 0;
-                        i10 = 2;
-                        i13 = 0;
-                    } else {
-                        iArr[0] = iArr[2];
-                        iArr[1] = iArr[3];
-                        iArr[2] = iArr[4];
-                        iArr[3] = 1;
-                        iArr[4] = 0;
-                    }
-                    i13 = 3;
-                } else {
-                    i13++;
-                    iArr[i13] = iArr[i13] + 1;
-                }
-                i12++;
-            }
-            if (g(iArr) && k(iArr, i11, l10, z11)) {
-                i10 = iArr[0];
-                if (this.f10622c) {
-                    z12 = l();
-                }
-            }
-            i11 += i10;
-        }
-        d[] m10 = m();
-        l.e(m10);
-        return new e(m10);
-    }
-
-    public final int f() {
-        if (this.f10621b.size() <= 1) {
+    private int f() {
+        if (this.f8774e.size() <= 1) {
             return 0;
         }
         d dVar = null;
-        for (d dVar2 : this.f10621b) {
+        for (d dVar2 : this.f8774e) {
             if (dVar2.h() >= 2) {
                 if (dVar != null) {
-                    this.f10622c = true;
+                    this.f8775f = true;
                     return ((int) (Math.abs(dVar.c() - dVar2.c()) - Math.abs(dVar.d() - dVar2.d()))) / 2;
                 }
                 dVar = dVar2;
@@ -797,8 +582,25 @@ public class FinderPatternFinder {
         return 0;
     }
 
-    public final int[] h() {
-        int[] iArr = this.f10623d;
+    protected static boolean g(int[] iArr) {
+        int i2 = 0;
+        for (int i3 = 0; i3 < 5; i3++) {
+            int i4 = iArr[i3];
+            if (i4 == 0) {
+                return false;
+            }
+            i2 += i4;
+        }
+        if (i2 < 7) {
+            return false;
+        }
+        float f2 = i2 / 7.0f;
+        float f3 = f2 / 2.0f;
+        return Math.abs(f2 - ((float) iArr[0])) < f3 && Math.abs(f2 - ((float) iArr[1])) < f3 && Math.abs((f2 * 3.0f) - ((float) iArr[2])) < 3.0f * f3 && Math.abs(f2 - ((float) iArr[3])) < f3 && Math.abs(f2 - ((float) iArr[4])) < f3;
+    }
+
+    private int[] h() {
+        int[] iArr = this.f8776g;
         iArr[0] = 0;
         iArr[1] = 0;
         iArr[2] = 0;
@@ -807,39 +609,184 @@ public class FinderPatternFinder {
         return iArr;
     }
 
-    public final b i() {
-        return this.f10620a;
+    private boolean l() {
+        int size = this.f8774e.size();
+        float f2 = 0.0f;
+        int i2 = 0;
+        float f3 = 0.0f;
+        for (d dVar : this.f8774e) {
+            if (dVar.h() >= 2) {
+                i2++;
+                f3 += dVar.i();
+            }
+        }
+        if (i2 < 3) {
+            return false;
+        }
+        float f4 = f3 / size;
+        Iterator<d> it = this.f8774e.iterator();
+        while (it.hasNext()) {
+            f2 += Math.abs(it.next().i() - f4);
+        }
+        return f2 <= f3 * 0.05f;
     }
 
-    public final List<d> j() {
-        return this.f10621b;
+    private d[] m() throws NotFoundException {
+        int size = this.f8774e.size();
+        if (size < 3) {
+            throw NotFoundException.getNotFoundInstance();
+        }
+        float f2 = 0.0f;
+        if (size > 3) {
+            Iterator<d> it = this.f8774e.iterator();
+            float f3 = 0.0f;
+            float f4 = 0.0f;
+            while (it.hasNext()) {
+                float i2 = it.next().i();
+                f3 += i2;
+                f4 += i2 * i2;
+            }
+            float f5 = f3 / size;
+            float sqrt = (float) Math.sqrt((f4 / r0) - (f5 * f5));
+            Collections.sort(this.f8774e, new FurthestFromAverageComparator(f5));
+            float max = Math.max(0.2f * f5, sqrt);
+            int i3 = 0;
+            while (i3 < this.f8774e.size() && this.f8774e.size() > 3) {
+                if (Math.abs(this.f8774e.get(i3).i() - f5) > max) {
+                    this.f8774e.remove(i3);
+                    i3--;
+                }
+                i3++;
+            }
+        }
+        if (this.f8774e.size() > 3) {
+            Iterator<d> it2 = this.f8774e.iterator();
+            while (it2.hasNext()) {
+                f2 += it2.next().i();
+            }
+            Collections.sort(this.f8774e, new CenterComparator(f2 / this.f8774e.size()));
+            List<d> list = this.f8774e;
+            list.subList(3, list.size()).clear();
+        }
+        return new d[]{this.f8774e.get(0), this.f8774e.get(1), this.f8774e.get(2)};
     }
 
-    public final boolean k(int[] iArr, int i10, int i11, boolean z10) {
-        int i12 = 0;
-        int i13 = iArr[0] + iArr[1] + iArr[2] + iArr[3] + iArr[4];
-        int a10 = (int) a(iArr, i11);
-        float d10 = d(i10, a10, iArr[2], i13);
-        if (!Float.isNaN(d10)) {
-            int i14 = (int) d10;
-            float c10 = c(a10, i14, iArr[2], i13);
-            if (!Float.isNaN(c10) && (!z10 || b(i14, (int) c10, iArr[2], i13))) {
-                float f10 = i13 / 7.0f;
-                while (true) {
-                    if (i12 < this.f10621b.size()) {
-                        d dVar = this.f10621b.get(i12);
-                        if (dVar.f(f10, d10, c10)) {
-                            this.f10621b.set(i12, dVar.g(d10, c10, f10));
-                            break;
+    final e e(Map<DecodeHintType, ?> map) throws NotFoundException {
+        boolean z = map != null && map.containsKey(DecodeHintType.TRY_HARDER);
+        boolean z2 = map != null && map.containsKey(DecodeHintType.PURE_BARCODE);
+        int h2 = this.f8773d.h();
+        int l = this.f8773d.l();
+        int i2 = (h2 * 3) / 228;
+        if (i2 < 3 || z) {
+            i2 = 3;
+        }
+        int[] iArr = new int[5];
+        int i3 = i2 - 1;
+        boolean z3 = false;
+        while (i3 < h2 && !z3) {
+            iArr[0] = 0;
+            iArr[1] = 0;
+            iArr[2] = 0;
+            iArr[3] = 0;
+            iArr[4] = 0;
+            int i4 = 0;
+            int i5 = 0;
+            while (i4 < l) {
+                if (this.f8773d.e(i4, i3)) {
+                    if ((i5 & 1) == 1) {
+                        i5++;
+                    }
+                    iArr[i5] = iArr[i5] + 1;
+                } else if ((i5 & 1) != 0) {
+                    iArr[i5] = iArr[i5] + 1;
+                } else if (i5 == 4) {
+                    if (!g(iArr)) {
+                        iArr[0] = iArr[2];
+                        iArr[1] = iArr[3];
+                        iArr[2] = iArr[4];
+                        iArr[3] = 1;
+                        iArr[4] = 0;
+                    } else if (k(iArr, i3, i4, z2)) {
+                        if (this.f8775f) {
+                            z3 = l();
+                        } else {
+                            int f2 = f();
+                            if (f2 > iArr[2]) {
+                                i3 += (f2 - iArr[2]) - 2;
+                                i4 = l - 1;
+                            }
                         }
-                        i12++;
+                        iArr[0] = 0;
+                        iArr[1] = 0;
+                        iArr[2] = 0;
+                        iArr[3] = 0;
+                        iArr[4] = 0;
+                        i2 = 2;
+                        i5 = 0;
                     } else {
-                        d dVar2 = new d(c10, d10, f10);
-                        this.f10621b.add(dVar2);
-                        m mVar = this.f10624e;
-                        if (mVar != null) {
-                            mVar.a(dVar2);
-                        }
+                        iArr[0] = iArr[2];
+                        iArr[1] = iArr[3];
+                        iArr[2] = iArr[4];
+                        iArr[3] = 1;
+                        iArr[4] = 0;
+                    }
+                    i5 = 3;
+                } else {
+                    i5++;
+                    iArr[i5] = iArr[i5] + 1;
+                }
+                i4++;
+            }
+            if (g(iArr) && k(iArr, i3, l, z2)) {
+                i2 = iArr[0];
+                if (this.f8775f) {
+                    z3 = l();
+                }
+            }
+            i3 += i2;
+        }
+        d[] m = m();
+        l.e(m);
+        return new e(m);
+    }
+
+    protected final com.google.zxing.common.b i() {
+        return this.f8773d;
+    }
+
+    protected final List<d> j() {
+        return this.f8774e;
+    }
+
+    protected final boolean k(int[] iArr, int i2, int i3, boolean z) {
+        boolean z2 = false;
+        int i4 = iArr[0] + iArr[1] + iArr[2] + iArr[3] + iArr[4];
+        int a2 = (int) a(iArr, i3);
+        float d2 = d(i2, a2, iArr[2], i4);
+        if (!Float.isNaN(d2)) {
+            int i5 = (int) d2;
+            float c2 = c(a2, i5, iArr[2], i4);
+            if (!Float.isNaN(c2) && (!z || b(i5, (int) c2, iArr[2], i4))) {
+                float f2 = i4 / 7.0f;
+                int i6 = 0;
+                while (true) {
+                    if (i6 >= this.f8774e.size()) {
+                        break;
+                    }
+                    d dVar = this.f8774e.get(i6);
+                    if (dVar.f(f2, d2, c2)) {
+                        this.f8774e.set(i6, dVar.g(d2, c2, f2));
+                        z2 = true;
+                        break;
+                    }
+                    i6++;
+                }
+                if (!z2) {
+                    d dVar2 = new d(c2, d2, f2);
+                    this.f8774e.add(dVar2);
+                    m mVar = this.f8777h;
+                    if (mVar != null) {
+                        mVar.a(dVar2);
                     }
                 }
                 return true;
@@ -848,72 +795,10 @@ public class FinderPatternFinder {
         return false;
     }
 
-    public final boolean l() {
-        int size = this.f10621b.size();
-        float f10 = 0.0f;
-        int i10 = 0;
-        float f11 = 0.0f;
-        for (d dVar : this.f10621b) {
-            if (dVar.h() >= 2) {
-                i10++;
-                f11 += dVar.i();
-            }
-        }
-        if (i10 < 3) {
-            return false;
-        }
-        float f12 = f11 / size;
-        Iterator<d> it = this.f10621b.iterator();
-        while (it.hasNext()) {
-            f10 += Math.abs(it.next().i() - f12);
-        }
-        return f10 <= f11 * 0.05f;
-    }
-
-    public final d[] m() throws NotFoundException {
-        int size = this.f10621b.size();
-        if (size < 3) {
-            throw NotFoundException.getNotFoundInstance();
-        }
-        float f10 = 0.0f;
-        if (size > 3) {
-            Iterator<d> it = this.f10621b.iterator();
-            float f11 = 0.0f;
-            float f12 = 0.0f;
-            while (it.hasNext()) {
-                float i10 = it.next().i();
-                f11 += i10;
-                f12 += i10 * i10;
-            }
-            float f13 = f11 / size;
-            float sqrt = (float) Math.sqrt((f12 / r3) - (f13 * f13));
-            Collections.sort(this.f10621b, new FurthestFromAverageComparator(f13));
-            float max = Math.max(0.2f * f13, sqrt);
-            int i11 = 0;
-            while (i11 < this.f10621b.size() && this.f10621b.size() > 3) {
-                if (Math.abs(this.f10621b.get(i11).i() - f13) > max) {
-                    this.f10621b.remove(i11);
-                    i11--;
-                }
-                i11++;
-            }
-        }
-        if (this.f10621b.size() > 3) {
-            Iterator<d> it2 = this.f10621b.iterator();
-            while (it2.hasNext()) {
-                f10 += it2.next().i();
-            }
-            Collections.sort(this.f10621b, new CenterComparator(f10 / this.f10621b.size()));
-            List<d> list = this.f10621b;
-            list.subList(3, list.size()).clear();
-        }
-        return new d[]{this.f10621b.get(0), this.f10621b.get(1), this.f10621b.get(2)};
-    }
-
-    public FinderPatternFinder(b bVar, m mVar) {
-        this.f10620a = bVar;
-        this.f10621b = new ArrayList();
-        this.f10623d = new int[5];
-        this.f10624e = mVar;
+    public FinderPatternFinder(com.google.zxing.common.b bVar, m mVar) {
+        this.f8773d = bVar;
+        this.f8774e = new ArrayList();
+        this.f8776g = new int[5];
+        this.f8777h = mVar;
     }
 }

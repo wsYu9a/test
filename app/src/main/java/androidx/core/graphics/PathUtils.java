@@ -2,7 +2,6 @@ package androidx.core.graphics;
 
 import android.graphics.Path;
 import android.graphics.PointF;
-import androidx.annotation.DoNotInline;
 import androidx.annotation.FloatRange;
 import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;
@@ -11,18 +10,6 @@ import java.util.Collection;
 
 /* loaded from: classes.dex */
 public final class PathUtils {
-
-    @RequiresApi(26)
-    public static class Api26Impl {
-        private Api26Impl() {
-        }
-
-        @DoNotInline
-        public static float[] approximate(Path path, float f10) {
-            return path.approximate(f10);
-        }
-    }
-
     private PathUtils() {
     }
 
@@ -34,21 +21,21 @@ public final class PathUtils {
 
     @NonNull
     @RequiresApi(26)
-    public static Collection<PathSegment> flatten(@NonNull Path path, @FloatRange(from = 0.0d) float f10) {
-        float[] approximate = Api26Impl.approximate(path, f10);
+    public static Collection<PathSegment> flatten(@NonNull Path path, @FloatRange(from = 0.0d) float f2) {
+        float[] approximate = path.approximate(f2);
         int length = approximate.length / 3;
         ArrayList arrayList = new ArrayList(length);
-        for (int i10 = 1; i10 < length; i10++) {
-            int i11 = i10 * 3;
-            int i12 = (i10 - 1) * 3;
-            float f11 = approximate[i11];
-            float f12 = approximate[i11 + 1];
-            float f13 = approximate[i11 + 2];
-            float f14 = approximate[i12];
-            float f15 = approximate[i12 + 1];
-            float f16 = approximate[i12 + 2];
-            if (f11 != f14 && (f12 != f15 || f13 != f16)) {
-                arrayList.add(new PathSegment(new PointF(f15, f16), f14, new PointF(f12, f13), f11));
+        for (int i2 = 1; i2 < length; i2++) {
+            int i3 = i2 * 3;
+            int i4 = (i2 - 1) * 3;
+            float f3 = approximate[i3];
+            float f4 = approximate[i3 + 1];
+            float f5 = approximate[i3 + 2];
+            float f6 = approximate[i4];
+            float f7 = approximate[i4 + 1];
+            float f8 = approximate[i4 + 2];
+            if (f3 != f6 && (f4 != f7 || f5 != f8)) {
+                arrayList.add(new PathSegment(new PointF(f7, f8), f6, new PointF(f4, f5), f3));
             }
         }
         return arrayList;

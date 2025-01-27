@@ -14,5 +14,5 @@ public interface SupportMenu extends Menu {
     public static final int USER_SHIFT = 0;
 
     @Override // android.view.Menu
-    void setGroupDividerEnabled(boolean z10);
+    void setGroupDividerEnabled(boolean z);
 }

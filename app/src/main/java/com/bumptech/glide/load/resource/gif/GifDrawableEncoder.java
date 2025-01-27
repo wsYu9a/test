@@ -10,7 +10,7 @@ import com.bumptech.glide.util.ByteBufferUtil;
 import java.io.File;
 import java.io.IOException;
 
-/* loaded from: classes2.dex */
+/* loaded from: classes.dex */
 public class GifDrawableEncoder implements ResourceEncoder<GifDrawable> {
     private static final String TAG = "GifEncoder";
 
@@ -25,9 +25,9 @@ public class GifDrawableEncoder implements ResourceEncoder<GifDrawable> {
         try {
             ByteBufferUtil.toFile(resource.get().getBuffer(), file);
             return true;
-        } catch (IOException e10) {
+        } catch (IOException e2) {
             if (Log.isLoggable(TAG, 5)) {
-                Log.w(TAG, "Failed to encode GIF drawable data", e10);
+                Log.w(TAG, "Failed to encode GIF drawable data", e2);
             }
             return false;
         }

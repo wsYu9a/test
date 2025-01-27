@@ -17,7 +17,7 @@ public interface IDownloadServiceHandler<T extends DownloadService> {
 
     void onDestroy();
 
-    void onStartCommand(Intent intent, int i10, int i11);
+    void onStartCommand(Intent intent, int i2, int i3);
 
     void onStartCommandOnMainThread();
 
@@ -25,15 +25,15 @@ public interface IDownloadServiceHandler<T extends DownloadService> {
 
     void setDownloadService(WeakReference<T> weakReference);
 
-    void setLogLevel(int i10);
+    void setLogLevel(int i2);
 
     void setServiceConnectionListener(IDownloadServiceConnectionListener iDownloadServiceConnectionListener);
 
-    void startForeground(int i10, Notification notification);
+    void startForeground(int i2, Notification notification);
 
     void startService();
 
-    void stopForeground(boolean z10);
+    void stopForeground(boolean z);
 
     void tryDownload(DownloadTask downloadTask);
 

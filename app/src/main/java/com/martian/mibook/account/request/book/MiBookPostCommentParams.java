@@ -1,7 +1,7 @@
 package com.martian.mibook.account.request.book;
 
+import com.martian.libcomm.http.requests.d.a;
 import com.martian.mibook.lib.account.request.auth.TYAuthParams;
-import v8.a;
 
 /* loaded from: classes3.dex */
 public class MiBookPostCommentParams extends TYAuthParams {
@@ -16,12 +16,6 @@ public class MiBookPostCommentParams extends TYAuthParams {
     private String content;
 
     @a
-    private String paragraphDesc;
-
-    @a
-    private Integer paragraphIdx;
-
-    @a
     private Integer score;
 
     @a
@@ -29,9 +23,6 @@ public class MiBookPostCommentParams extends TYAuthParams {
 
     @a
     private String sourceName;
-
-    @a
-    private Integer type;
 
     @Override // com.martian.mibook.lib.account.request.auth.TYAuthParams
     public String getAuthMethod() {
@@ -50,14 +41,6 @@ public class MiBookPostCommentParams extends TYAuthParams {
         return this.content;
     }
 
-    public String getParagraphDesc() {
-        return this.paragraphDesc;
-    }
-
-    public Integer getParagraphIdx() {
-        return this.paragraphIdx;
-    }
-
     public Integer getScore() {
         return this.score;
     }
@@ -70,43 +53,27 @@ public class MiBookPostCommentParams extends TYAuthParams {
         return this.sourceName;
     }
 
-    public Integer getType() {
-        return this.type;
+    public void setChapterId(String chapterId) {
+        this.chapterId = chapterId;
     }
 
-    public void setChapterId(String str) {
-        this.chapterId = str;
+    public void setChapterName(String chapterName) {
+        this.chapterName = chapterName;
     }
 
-    public void setChapterName(String str) {
-        this.chapterName = str;
+    public void setContent(String content) {
+        this.content = content;
     }
 
-    public void setContent(String str) {
-        this.content = str;
+    public void setScore(Integer score) {
+        this.score = score;
     }
 
-    public void setParagraphDesc(String str) {
-        this.paragraphDesc = str;
+    public void setSourceId(String sourceId) {
+        this.sourceId = sourceId;
     }
 
-    public void setParagraphIdx(Integer num) {
-        this.paragraphIdx = num;
-    }
-
-    public void setScore(Integer num) {
-        this.score = num;
-    }
-
-    public void setSourceId(String str) {
-        this.sourceId = str;
-    }
-
-    public void setSourceName(String str) {
-        this.sourceName = str;
-    }
-
-    public void setType(Integer num) {
-        this.type = num;
+    public void setSourceName(String sourceName) {
+        this.sourceName = sourceName;
     }
 }

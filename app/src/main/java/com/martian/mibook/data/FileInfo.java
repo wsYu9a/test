@@ -28,23 +28,23 @@ public class FileInfo {
         return this.isChecked;
     }
 
-    public void setFileDate(String str) {
-        this.fileDate = str;
+    public void setFileDate(String fileDate) {
+        this.fileDate = fileDate;
     }
 
-    public void setFileName(String str) {
-        this.fileName = str;
+    public void setFileName(String fileName) {
+        this.fileName = fileName;
     }
 
-    public void setFilePath(String str) {
-        this.filePath = str;
+    public void setFilePath(String filePath) {
+        this.filePath = filePath;
     }
 
-    public void setFileSize(String str) {
-        this.fileSize = str;
+    public void setFileSize(String fileSize) {
+        this.fileSize = fileSize;
     }
 
-    public void setIsChecked(boolean z10) {
-        this.isChecked = z10;
+    public void setIsChecked(boolean isChecked) {
+        this.isChecked = isChecked;
     }
 }

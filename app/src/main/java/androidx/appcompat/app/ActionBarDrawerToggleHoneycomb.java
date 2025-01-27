@@ -4,6 +4,7 @@ import android.R;
 import android.app.Activity;
 import android.content.res.TypedArray;
 import android.graphics.drawable.Drawable;
+import android.os.Build;
 import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,15 +13,19 @@ import java.lang.reflect.Method;
 
 /* loaded from: classes.dex */
 class ActionBarDrawerToggleHoneycomb {
-    private static final String TAG = "ActionBarDrawerToggleHC";
-    private static final int[] THEME_ATTRS = {R.attr.homeAsUpIndicator};
 
-    public static class SetIndicatorInfo {
+    /* renamed from: a, reason: collision with root package name */
+    private static final String f177a = "ActionBarDrawerToggleHC";
+
+    /* renamed from: b, reason: collision with root package name */
+    private static final int[] f178b = {R.attr.homeAsUpIndicator};
+
+    static class SetIndicatorInfo {
         public Method setHomeActionContentDescription;
         public Method setHomeAsUpIndicator;
         public ImageView upIndicatorView;
 
-        public SetIndicatorInfo(Activity activity) {
+        SetIndicatorInfo(Activity activity) {
             try {
                 this.setHomeAsUpIndicator = android.app.ActionBar.class.getDeclaredMethod("setHomeAsUpIndicator", Drawable.class);
                 this.setHomeActionContentDescription = android.app.ActionBar.class.getDeclaredMethod("setHomeActionContentDescription", Integer.TYPE);
@@ -46,42 +51,46 @@ class ActionBarDrawerToggleHoneycomb {
     }
 
     public static Drawable getThemeUpIndicator(Activity activity) {
-        TypedArray obtainStyledAttributes = activity.obtainStyledAttributes(THEME_ATTRS);
+        TypedArray obtainStyledAttributes = activity.obtainStyledAttributes(f178b);
         Drawable drawable = obtainStyledAttributes.getDrawable(0);
         obtainStyledAttributes.recycle();
         return drawable;
     }
 
-    public static SetIndicatorInfo setActionBarDescription(SetIndicatorInfo setIndicatorInfo, Activity activity, int i10) {
+    public static SetIndicatorInfo setActionBarDescription(SetIndicatorInfo setIndicatorInfo, Activity activity, int i2) {
         if (setIndicatorInfo == null) {
             setIndicatorInfo = new SetIndicatorInfo(activity);
         }
         if (setIndicatorInfo.setHomeAsUpIndicator != null) {
             try {
-                setIndicatorInfo.setHomeActionContentDescription.invoke(activity.getActionBar(), Integer.valueOf(i10));
-            } catch (Exception e10) {
-                Log.w(TAG, "Couldn't set content description via JB-MR2 API", e10);
+                android.app.ActionBar actionBar = activity.getActionBar();
+                setIndicatorInfo.setHomeActionContentDescription.invoke(actionBar, Integer.valueOf(i2));
+                if (Build.VERSION.SDK_INT <= 19) {
+                    actionBar.setSubtitle(actionBar.getSubtitle());
+                }
+            } catch (Exception e2) {
+                Log.w(f177a, "Couldn't set content description via JB-MR2 API", e2);
             }
         }
         return setIndicatorInfo;
     }
 
-    public static SetIndicatorInfo setActionBarUpIndicator(Activity activity, Drawable drawable, int i10) {
+    public static SetIndicatorInfo setActionBarUpIndicator(Activity activity, Drawable drawable, int i2) {
         SetIndicatorInfo setIndicatorInfo = new SetIndicatorInfo(activity);
         if (setIndicatorInfo.setHomeAsUpIndicator != null) {
             try {
                 android.app.ActionBar actionBar = activity.getActionBar();
                 setIndicatorInfo.setHomeAsUpIndicator.invoke(actionBar, drawable);
-                setIndicatorInfo.setHomeActionContentDescription.invoke(actionBar, Integer.valueOf(i10));
-            } catch (Exception e10) {
-                Log.w(TAG, "Couldn't set home-as-up indicator via JB-MR2 API", e10);
+                setIndicatorInfo.setHomeActionContentDescription.invoke(actionBar, Integer.valueOf(i2));
+            } catch (Exception e2) {
+                Log.w(f177a, "Couldn't set home-as-up indicator via JB-MR2 API", e2);
             }
         } else {
             ImageView imageView = setIndicatorInfo.upIndicatorView;
             if (imageView != null) {
                 imageView.setImageDrawable(drawable);
             } else {
-                Log.w(TAG, "Couldn't set home-as-up indicator");
+                Log.w(f177a, "Couldn't set home-as-up indicator");
             }
         }
         return setIndicatorInfo;

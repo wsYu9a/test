@@ -10,26 +10,28 @@ import androidx.appcompat.app.AppCompatActivity;
 @RestrictTo({RestrictTo.Scope.LIBRARY})
 /* loaded from: classes.dex */
 class ActionBarOnDestinationChangedListener extends AbstractAppBarOnDestinationChangedListener {
-    private final AppCompatActivity mActivity;
 
-    public ActionBarOnDestinationChangedListener(@NonNull AppCompatActivity appCompatActivity, @NonNull AppBarConfiguration appBarConfiguration) {
+    /* renamed from: f */
+    private final AppCompatActivity f3059f;
+
+    ActionBarOnDestinationChangedListener(@NonNull AppCompatActivity appCompatActivity, @NonNull AppBarConfiguration appBarConfiguration) {
         super(appCompatActivity.getDrawerToggleDelegate().getActionBarThemedContext(), appBarConfiguration);
-        this.mActivity = appCompatActivity;
+        this.f3059f = appCompatActivity;
     }
 
     @Override // androidx.navigation.ui.AbstractAppBarOnDestinationChangedListener
-    public void setNavigationIcon(Drawable drawable, @StringRes int i10) {
-        ActionBar supportActionBar = this.mActivity.getSupportActionBar();
+    protected void b(Drawable drawable, @StringRes int i2) {
+        ActionBar supportActionBar = this.f3059f.getSupportActionBar();
         if (drawable == null) {
             supportActionBar.setDisplayHomeAsUpEnabled(false);
         } else {
             supportActionBar.setDisplayHomeAsUpEnabled(true);
-            this.mActivity.getDrawerToggleDelegate().setActionBarUpIndicator(drawable, i10);
+            this.f3059f.getDrawerToggleDelegate().setActionBarUpIndicator(drawable, i2);
         }
     }
 
     @Override // androidx.navigation.ui.AbstractAppBarOnDestinationChangedListener
-    public void setTitle(CharSequence charSequence) {
-        this.mActivity.getSupportActionBar().setTitle(charSequence);
+    protected void c(CharSequence charSequence) {
+        this.f3059f.getSupportActionBar().setTitle(charSequence);
     }
 }

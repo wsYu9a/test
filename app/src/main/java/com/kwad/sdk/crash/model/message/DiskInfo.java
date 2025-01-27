@@ -2,11 +2,11 @@ package com.kwad.sdk.crash.model.message;
 
 import androidx.annotation.Nullable;
 import com.kwad.sdk.core.b;
-import com.kwad.sdk.utils.x;
+import com.kwad.sdk.utils.t;
 import java.io.Serializable;
 import org.json.JSONObject;
 
-/* loaded from: classes3.dex */
+/* loaded from: classes2.dex */
 public class DiskInfo implements b, Serializable {
     private static final long serialVersionUID = -154725647775465930L;
     public double mDataAvailableGB;
@@ -28,24 +28,24 @@ public class DiskInfo implements b, Serializable {
     @Override // com.kwad.sdk.core.b
     public JSONObject toJson() {
         JSONObject jSONObject = new JSONObject();
-        x.putValue(jSONObject, "mDataTotalGB", this.mDataTotalGB);
-        x.putValue(jSONObject, "mDataAvailableGB", this.mDataAvailableGB);
-        x.putValue(jSONObject, "mExternalStorageTotalGB", this.mExternalStorageTotalGB);
-        x.putValue(jSONObject, "mExternalStorageAvailableGB", this.mExternalStorageAvailableGB);
+        t.putValue(jSONObject, "mDataTotalGB", this.mDataTotalGB);
+        t.putValue(jSONObject, "mDataAvailableGB", this.mDataAvailableGB);
+        t.putValue(jSONObject, "mExternalStorageTotalGB", this.mExternalStorageTotalGB);
+        t.putValue(jSONObject, "mExternalStorageAvailableGB", this.mExternalStorageAvailableGB);
         return jSONObject;
     }
 
     public String toString() {
-        StringBuilder sb2 = new StringBuilder();
-        sb2.append("\t总存储空间: ");
-        sb2.append(this.mDataTotalGB);
-        sb2.append(" (GB)\n\t可用存储空间: ");
-        sb2.append(this.mDataAvailableGB);
-        sb2.append(" (GB)\n\t总SD卡空间: ");
-        sb2.append(this.mExternalStorageTotalGB);
-        sb2.append(" (GB)\n\t可用SD卡空间: ");
-        sb2.append(this.mExternalStorageAvailableGB);
-        sb2.append(" (GB)\n");
-        return sb2.substring(0);
+        StringBuilder sb = new StringBuilder();
+        sb.append("\t总存储空间: ");
+        sb.append(this.mDataTotalGB);
+        sb.append(" (GB)\n\t可用存储空间: ");
+        sb.append(this.mDataAvailableGB);
+        sb.append(" (GB)\n\t总SD卡空间: ");
+        sb.append(this.mExternalStorageTotalGB);
+        sb.append(" (GB)\n\t可用SD卡空间: ");
+        sb.append(this.mExternalStorageAvailableGB);
+        sb.append(" (GB)\n");
+        return sb.substring(0);
     }
 }

@@ -6,10 +6,6 @@ import android.os.Build;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
-import androidx.annotation.DoNotInline;
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.annotation.RequiresApi;
 import androidx.core.internal.view.SupportMenuItem;
 
 /* loaded from: classes.dex */
@@ -29,11 +25,13 @@ public final class MenuItemCompat {
 
     @Deprecated
     public static final int SHOW_AS_ACTION_WITH_TEXT = 4;
-    private static final String TAG = "MenuItemCompat";
+
+    /* renamed from: a */
+    private static final String f2044a = "MenuItemCompat";
 
     /* renamed from: androidx.core.view.MenuItemCompat$1 */
-    public class AnonymousClass1 implements MenuItem.OnActionExpandListener {
-        public AnonymousClass1() {
+    class AnonymousClass1 implements MenuItem.OnActionExpandListener {
+        AnonymousClass1() {
         }
 
         @Override // android.view.MenuItem.OnActionExpandListener
@@ -44,77 +42,6 @@ public final class MenuItemCompat {
         @Override // android.view.MenuItem.OnActionExpandListener
         public boolean onMenuItemActionExpand(MenuItem menuItem) {
             return OnActionExpandListener.this.onMenuItemActionExpand(menuItem);
-        }
-    }
-
-    @RequiresApi(26)
-    public static class Api26Impl {
-        private Api26Impl() {
-        }
-
-        @DoNotInline
-        public static int getAlphabeticModifiers(MenuItem menuItem) {
-            return menuItem.getAlphabeticModifiers();
-        }
-
-        @DoNotInline
-        public static CharSequence getContentDescription(MenuItem menuItem) {
-            return menuItem.getContentDescription();
-        }
-
-        @DoNotInline
-        public static ColorStateList getIconTintList(MenuItem menuItem) {
-            return menuItem.getIconTintList();
-        }
-
-        @DoNotInline
-        public static PorterDuff.Mode getIconTintMode(MenuItem menuItem) {
-            return menuItem.getIconTintMode();
-        }
-
-        @DoNotInline
-        public static int getNumericModifiers(MenuItem menuItem) {
-            return menuItem.getNumericModifiers();
-        }
-
-        @DoNotInline
-        public static CharSequence getTooltipText(MenuItem menuItem) {
-            return menuItem.getTooltipText();
-        }
-
-        @DoNotInline
-        public static MenuItem setAlphabeticShortcut(MenuItem menuItem, char c10, int i10) {
-            return menuItem.setAlphabeticShortcut(c10, i10);
-        }
-
-        @DoNotInline
-        public static MenuItem setContentDescription(MenuItem menuItem, CharSequence charSequence) {
-            return menuItem.setContentDescription(charSequence);
-        }
-
-        @DoNotInline
-        public static MenuItem setIconTintList(MenuItem menuItem, ColorStateList colorStateList) {
-            return menuItem.setIconTintList(colorStateList);
-        }
-
-        @DoNotInline
-        public static MenuItem setIconTintMode(MenuItem menuItem, PorterDuff.Mode mode) {
-            return menuItem.setIconTintMode(mode);
-        }
-
-        @DoNotInline
-        public static MenuItem setNumericShortcut(MenuItem menuItem, char c10, int i10) {
-            return menuItem.setNumericShortcut(c10, i10);
-        }
-
-        @DoNotInline
-        public static MenuItem setShortcut(MenuItem menuItem, char c10, char c11, int i10, int i11) {
-            return menuItem.setShortcut(c10, c11, i10, i11);
-        }
-
-        @DoNotInline
-        public static MenuItem setTooltipText(MenuItem menuItem, CharSequence charSequence) {
-            return menuItem.setTooltipText(charSequence);
         }
     }
 
@@ -138,12 +65,11 @@ public final class MenuItemCompat {
         return menuItem.expandActionView();
     }
 
-    @Nullable
-    public static ActionProvider getActionProvider(@NonNull MenuItem menuItem) {
+    public static ActionProvider getActionProvider(MenuItem menuItem) {
         if (menuItem instanceof SupportMenuItem) {
             return ((SupportMenuItem) menuItem).getSupportActionProvider();
         }
-        Log.w(TAG, "getActionProvider: item does not implement SupportMenuItem; returning null");
+        Log.w(f2044a, "getActionProvider: item does not implement SupportMenuItem; returning null");
         return null;
     }
 
@@ -152,66 +78,62 @@ public final class MenuItemCompat {
         return menuItem.getActionView();
     }
 
-    public static int getAlphabeticModifiers(@NonNull MenuItem menuItem) {
+    public static int getAlphabeticModifiers(MenuItem menuItem) {
         if (menuItem instanceof SupportMenuItem) {
             return ((SupportMenuItem) menuItem).getAlphabeticModifiers();
         }
         if (Build.VERSION.SDK_INT >= 26) {
-            return Api26Impl.getAlphabeticModifiers(menuItem);
+            return menuItem.getAlphabeticModifiers();
         }
         return 0;
     }
 
-    @Nullable
-    public static CharSequence getContentDescription(@NonNull MenuItem menuItem) {
+    public static CharSequence getContentDescription(MenuItem menuItem) {
         if (menuItem instanceof SupportMenuItem) {
             return ((SupportMenuItem) menuItem).getContentDescription();
         }
         if (Build.VERSION.SDK_INT >= 26) {
-            return Api26Impl.getContentDescription(menuItem);
+            return menuItem.getContentDescription();
         }
         return null;
     }
 
-    @Nullable
-    public static ColorStateList getIconTintList(@NonNull MenuItem menuItem) {
+    public static ColorStateList getIconTintList(MenuItem menuItem) {
         if (menuItem instanceof SupportMenuItem) {
             return ((SupportMenuItem) menuItem).getIconTintList();
         }
         if (Build.VERSION.SDK_INT >= 26) {
-            return Api26Impl.getIconTintList(menuItem);
+            return menuItem.getIconTintList();
         }
         return null;
     }
 
-    @Nullable
-    public static PorterDuff.Mode getIconTintMode(@NonNull MenuItem menuItem) {
+    public static PorterDuff.Mode getIconTintMode(MenuItem menuItem) {
         if (menuItem instanceof SupportMenuItem) {
             return ((SupportMenuItem) menuItem).getIconTintMode();
         }
         if (Build.VERSION.SDK_INT >= 26) {
-            return Api26Impl.getIconTintMode(menuItem);
+            return menuItem.getIconTintMode();
         }
         return null;
     }
 
-    public static int getNumericModifiers(@NonNull MenuItem menuItem) {
+    public static int getNumericModifiers(MenuItem menuItem) {
         if (menuItem instanceof SupportMenuItem) {
             return ((SupportMenuItem) menuItem).getNumericModifiers();
         }
         if (Build.VERSION.SDK_INT >= 26) {
-            return Api26Impl.getNumericModifiers(menuItem);
+            return menuItem.getNumericModifiers();
         }
         return 0;
     }
 
-    @Nullable
-    public static CharSequence getTooltipText(@NonNull MenuItem menuItem) {
+    public static CharSequence getTooltipText(MenuItem menuItem) {
         if (menuItem instanceof SupportMenuItem) {
             return ((SupportMenuItem) menuItem).getTooltipText();
         }
         if (Build.VERSION.SDK_INT >= 26) {
-            return Api26Impl.getTooltipText(menuItem);
+            return menuItem.getTooltipText();
         }
         return null;
     }
@@ -221,12 +143,11 @@ public final class MenuItemCompat {
         return menuItem.isActionViewExpanded();
     }
 
-    @Nullable
-    public static MenuItem setActionProvider(@NonNull MenuItem menuItem, @Nullable ActionProvider actionProvider) {
+    public static MenuItem setActionProvider(MenuItem menuItem, ActionProvider actionProvider) {
         if (menuItem instanceof SupportMenuItem) {
             return ((SupportMenuItem) menuItem).setSupportActionProvider(actionProvider);
         }
-        Log.w(TAG, "setActionProvider: item does not implement SupportMenuItem; ignoring");
+        Log.w(f2044a, "setActionProvider: item does not implement SupportMenuItem; ignoring");
         return menuItem;
     }
 
@@ -235,50 +156,50 @@ public final class MenuItemCompat {
         return menuItem.setActionView(view);
     }
 
-    public static void setAlphabeticShortcut(@NonNull MenuItem menuItem, char c10, int i10) {
+    public static void setAlphabeticShortcut(MenuItem menuItem, char c2, int i2) {
         if (menuItem instanceof SupportMenuItem) {
-            ((SupportMenuItem) menuItem).setAlphabeticShortcut(c10, i10);
+            ((SupportMenuItem) menuItem).setAlphabeticShortcut(c2, i2);
         } else if (Build.VERSION.SDK_INT >= 26) {
-            Api26Impl.setAlphabeticShortcut(menuItem, c10, i10);
+            menuItem.setAlphabeticShortcut(c2, i2);
         }
     }
 
-    public static void setContentDescription(@NonNull MenuItem menuItem, @Nullable CharSequence charSequence) {
+    public static void setContentDescription(MenuItem menuItem, CharSequence charSequence) {
         if (menuItem instanceof SupportMenuItem) {
             ((SupportMenuItem) menuItem).setContentDescription(charSequence);
         } else if (Build.VERSION.SDK_INT >= 26) {
-            Api26Impl.setContentDescription(menuItem, charSequence);
+            menuItem.setContentDescription(charSequence);
         }
     }
 
-    public static void setIconTintList(@NonNull MenuItem menuItem, @Nullable ColorStateList colorStateList) {
+    public static void setIconTintList(MenuItem menuItem, ColorStateList colorStateList) {
         if (menuItem instanceof SupportMenuItem) {
             ((SupportMenuItem) menuItem).setIconTintList(colorStateList);
         } else if (Build.VERSION.SDK_INT >= 26) {
-            Api26Impl.setIconTintList(menuItem, colorStateList);
+            menuItem.setIconTintList(colorStateList);
         }
     }
 
-    public static void setIconTintMode(@NonNull MenuItem menuItem, @Nullable PorterDuff.Mode mode) {
+    public static void setIconTintMode(MenuItem menuItem, PorterDuff.Mode mode) {
         if (menuItem instanceof SupportMenuItem) {
             ((SupportMenuItem) menuItem).setIconTintMode(mode);
         } else if (Build.VERSION.SDK_INT >= 26) {
-            Api26Impl.setIconTintMode(menuItem, mode);
+            menuItem.setIconTintMode(mode);
         }
     }
 
-    public static void setNumericShortcut(@NonNull MenuItem menuItem, char c10, int i10) {
+    public static void setNumericShortcut(MenuItem menuItem, char c2, int i2) {
         if (menuItem instanceof SupportMenuItem) {
-            ((SupportMenuItem) menuItem).setNumericShortcut(c10, i10);
+            ((SupportMenuItem) menuItem).setNumericShortcut(c2, i2);
         } else if (Build.VERSION.SDK_INT >= 26) {
-            Api26Impl.setNumericShortcut(menuItem, c10, i10);
+            menuItem.setNumericShortcut(c2, i2);
         }
     }
 
     @Deprecated
     public static MenuItem setOnActionExpandListener(MenuItem menuItem, OnActionExpandListener onActionExpandListener) {
         return menuItem.setOnActionExpandListener(new MenuItem.OnActionExpandListener() { // from class: androidx.core.view.MenuItemCompat.1
-            public AnonymousClass1() {
+            AnonymousClass1() {
             }
 
             @Override // android.view.MenuItem.OnActionExpandListener
@@ -293,29 +214,29 @@ public final class MenuItemCompat {
         });
     }
 
-    public static void setShortcut(@NonNull MenuItem menuItem, char c10, char c11, int i10, int i11) {
+    public static void setShortcut(MenuItem menuItem, char c2, char c3, int i2, int i3) {
         if (menuItem instanceof SupportMenuItem) {
-            ((SupportMenuItem) menuItem).setShortcut(c10, c11, i10, i11);
+            ((SupportMenuItem) menuItem).setShortcut(c2, c3, i2, i3);
         } else if (Build.VERSION.SDK_INT >= 26) {
-            Api26Impl.setShortcut(menuItem, c10, c11, i10, i11);
+            menuItem.setShortcut(c2, c3, i2, i3);
         }
     }
 
     @Deprecated
-    public static void setShowAsAction(MenuItem menuItem, int i10) {
-        menuItem.setShowAsAction(i10);
+    public static void setShowAsAction(MenuItem menuItem, int i2) {
+        menuItem.setShowAsAction(i2);
     }
 
-    public static void setTooltipText(@NonNull MenuItem menuItem, @Nullable CharSequence charSequence) {
+    public static void setTooltipText(MenuItem menuItem, CharSequence charSequence) {
         if (menuItem instanceof SupportMenuItem) {
             ((SupportMenuItem) menuItem).setTooltipText(charSequence);
         } else if (Build.VERSION.SDK_INT >= 26) {
-            Api26Impl.setTooltipText(menuItem, charSequence);
+            menuItem.setTooltipText(charSequence);
         }
     }
 
     @Deprecated
-    public static MenuItem setActionView(MenuItem menuItem, int i10) {
-        return menuItem.setActionView(i10);
+    public static MenuItem setActionView(MenuItem menuItem, int i2) {
+        return menuItem.setActionView(i2);
     }
 }

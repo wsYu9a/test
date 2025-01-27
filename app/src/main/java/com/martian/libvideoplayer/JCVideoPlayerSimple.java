@@ -12,29 +12,29 @@ public class JCVideoPlayerSimple extends JCVideoPlayer {
         super(context);
     }
 
-    private void c0() {
-        int i10 = this.f13033b;
-        if (i10 == 3) {
-            this.f13039h.setImageResource(R.drawable.jc_click_pause_selector);
-        } else if (i10 == 7) {
-            this.f13039h.setImageResource(R.drawable.jc_click_error_selector);
+    private void b0() {
+        int i2 = this.E;
+        if (i2 == 3) {
+            this.K.setImageResource(R.drawable.jc_click_pause_selector);
+        } else if (i2 == 7) {
+            this.K.setImageResource(R.drawable.jc_click_error_selector);
         } else {
-            this.f13039h.setImageResource(R.drawable.jc_click_play_selector);
+            this.K.setImageResource(R.drawable.jc_click_play_selector);
         }
     }
 
     @Override // com.martian.libvideoplayer.JCVideoPlayer
-    public void O(String str, int i10, Object... objArr) {
-        super.O(str, i10, objArr);
-        b0();
-        this.f13041j.setVisibility(8);
+    public void N(String url, int screen, Object... objects) {
+        super.N(url, screen, objects);
+        a0();
+        this.M.setVisibility(8);
     }
 
-    public void b0() {
-        if (this.f13034c == 2) {
-            this.f13041j.setImageResource(R.drawable.jc_shrink);
+    public void a0() {
+        if (this.F == 2) {
+            this.M.setImageResource(R.drawable.jc_shrink);
         } else {
-            this.f13041j.setImageResource(R.drawable.jc_enlarge);
+            this.M.setImageResource(R.drawable.jc_enlarge);
         }
     }
 
@@ -44,24 +44,24 @@ public class JCVideoPlayerSimple extends JCVideoPlayer {
     }
 
     @Override // com.martian.libvideoplayer.JCVideoPlayer, android.view.View.OnClickListener
-    public void onClick(View view) {
-        if (view.getId() == R.id.fullscreen && this.f13033b == 0) {
+    public void onClick(View v) {
+        if (v.getId() == R.id.fullscreen && this.E == 0) {
             Toast.makeText(getContext(), "Play video first", 0).show();
         } else {
-            super.onClick(view);
+            super.onClick(v);
         }
     }
 
     @Override // com.martian.libvideoplayer.JCVideoPlayer, android.widget.SeekBar.OnSeekBarChangeListener
-    public void onProgressChanged(SeekBar seekBar, int i10, boolean z10) {
-        if (z10 && this.f13033b == 0) {
+    public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
+        if (fromUser && this.E == 0) {
             Toast.makeText(getContext(), "Play video first", 0).show();
         } else {
-            super.onProgressChanged(seekBar, i10, z10);
+            super.onProgressChanged(seekBar, progress, fromUser);
         }
     }
 
-    public JCVideoPlayerSimple(Context context, AttributeSet attributeSet) {
-        super(context, attributeSet);
+    public JCVideoPlayerSimple(Context context, AttributeSet attrs) {
+        super(context, attrs);
     }
 }

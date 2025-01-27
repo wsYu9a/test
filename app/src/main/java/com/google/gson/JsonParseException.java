@@ -1,6 +1,6 @@
 package com.google.gson;
 
-/* loaded from: classes2.dex */
+/* loaded from: classes.dex */
 public class JsonParseException extends RuntimeException {
     static final long serialVersionUID = -4086729973971783390L;
 
@@ -8,11 +8,11 @@ public class JsonParseException extends RuntimeException {
         super(str);
     }
 
-    public JsonParseException(String str, Throwable th2) {
-        super(str, th2);
+    public JsonParseException(String str, Throwable th) {
+        super(str, th);
     }
 
-    public JsonParseException(Throwable th2) {
-        super(th2);
+    public JsonParseException(Throwable th) {
+        super(th);
     }
 }

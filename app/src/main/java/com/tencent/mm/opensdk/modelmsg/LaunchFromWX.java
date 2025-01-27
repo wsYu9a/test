@@ -20,6 +20,10 @@ public class LaunchFromWX {
         public Req() {
         }
 
+        public Req(Bundle bundle) {
+            fromBundle(bundle);
+        }
+
         @Override // com.tencent.mm.opensdk.modelbase.BaseReq
         public boolean checkArgs() {
             String str;
@@ -59,14 +63,14 @@ public class LaunchFromWX {
             bundle.putString("_wxapi_launch_req_lang", this.lang);
             bundle.putString("_wxapi_launch_req_country", this.country);
         }
-
-        public Req(Bundle bundle) {
-            fromBundle(bundle);
-        }
     }
 
     public static class Resp extends BaseResp {
         public Resp() {
+        }
+
+        public Resp(Bundle bundle) {
+            fromBundle(bundle);
         }
 
         @Override // com.tencent.mm.opensdk.modelbase.BaseResp
@@ -77,10 +81,6 @@ public class LaunchFromWX {
         @Override // com.tencent.mm.opensdk.modelbase.BaseResp
         public int getType() {
             return 6;
-        }
-
-        public Resp(Bundle bundle) {
-            fromBundle(bundle);
         }
     }
 

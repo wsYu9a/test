@@ -10,239 +10,236 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import com.kwad.components.ad.widget.AppScoreView;
-import com.kwad.components.core.e.d.a;
+import com.kwad.components.core.d.b.a;
 import com.kwad.components.core.page.widget.TextProgressBar;
 import com.kwad.sdk.R;
 import com.kwad.sdk.api.KsAppDownloadListener;
 import com.kwad.sdk.core.imageloader.KSImageLoader;
-import com.kwad.sdk.core.response.b.d;
-import com.kwad.sdk.core.response.b.e;
+import com.kwad.sdk.core.response.a.d;
 import com.kwad.sdk.core.response.model.AdInfo;
 import com.kwad.sdk.core.response.model.AdTemplate;
-import com.kwad.sdk.n.m;
+import com.kwad.sdk.j.k;
 import com.kwad.sdk.widget.c;
 import com.kwad.sdk.widget.f;
 
 /* loaded from: classes2.dex */
 public class ActionBarAppLandscape extends LinearLayout implements c {
-    private AppScoreView CU;
-    private TextProgressBar CV;
-    private View CW;
-    private a CX;
-    private KsAppDownloadListener dL;
-    private ImageView eT;
-    private TextView eU;
-    private TextView eW;
-
-    /* renamed from: gb */
-    private TextView f11891gb;
+    private AppScoreView AK;
+    private TextProgressBar AL;
+    private View AM;
+    private a AN;
+    private KsAppDownloadListener cE;
+    private ImageView dJ;
+    private TextView dK;
+    private TextView dM;
+    private TextView eE;
     private AdInfo mAdInfo;
     private AdTemplate mAdTemplate;
-    private com.kwad.components.core.e.d.c mApkDownloadHelper;
+    private com.kwad.components.core.d.b.c mApkDownloadHelper;
 
     /* renamed from: com.kwad.components.ad.reward.widget.actionbar.ActionBarAppLandscape$1 */
-    public class AnonymousClass1 extends com.kwad.sdk.core.download.a.a {
-        public AnonymousClass1() {
+    final class AnonymousClass1 extends com.kwad.sdk.core.download.kwai.a {
+        AnonymousClass1() {
         }
 
         @Override // com.kwad.sdk.api.KsAppDownloadListener
         public final void onDownloadFailed() {
-            ActionBarAppLandscape.this.CV.e(com.kwad.sdk.core.response.b.a.aE(ActionBarAppLandscape.this.mAdInfo), 0);
-            ActionBarAppLandscape.this.CW.setVisibility(0);
+            ActionBarAppLandscape.this.AL.f(com.kwad.sdk.core.response.a.a.aw(ActionBarAppLandscape.this.mAdInfo), 0);
+            ActionBarAppLandscape.this.AM.setVisibility(0);
         }
 
         @Override // com.kwad.sdk.api.KsAppDownloadListener
         public final void onDownloadFinished() {
-            ActionBarAppLandscape.this.CV.e(com.kwad.sdk.core.response.b.a.cg(ActionBarAppLandscape.this.mAdTemplate), 0);
-            ActionBarAppLandscape.this.CW.setVisibility(0);
+            ActionBarAppLandscape.this.AL.f(com.kwad.sdk.core.response.a.a.aH(ActionBarAppLandscape.this.mAdTemplate), 0);
+            ActionBarAppLandscape.this.AM.setVisibility(0);
         }
 
         @Override // com.kwad.sdk.api.KsAppDownloadListener
         public final void onIdle() {
-            ActionBarAppLandscape.this.CV.e(com.kwad.sdk.core.response.b.a.aE(ActionBarAppLandscape.this.mAdInfo), 0);
-            ActionBarAppLandscape.this.CW.setVisibility(0);
+            ActionBarAppLandscape.this.AL.f(com.kwad.sdk.core.response.a.a.aw(ActionBarAppLandscape.this.mAdInfo), 0);
+            ActionBarAppLandscape.this.AM.setVisibility(0);
         }
 
         @Override // com.kwad.sdk.api.KsAppDownloadListener
         public final void onInstalled() {
-            ActionBarAppLandscape.this.CV.e(com.kwad.sdk.core.response.b.a.ac(ActionBarAppLandscape.this.mAdInfo), 0);
-            ActionBarAppLandscape.this.CW.setVisibility(0);
+            ActionBarAppLandscape.this.AL.f(com.kwad.sdk.core.response.a.a.T(ActionBarAppLandscape.this.mAdInfo), 0);
+            ActionBarAppLandscape.this.AM.setVisibility(0);
         }
 
-        @Override // com.kwad.sdk.core.download.a.a
-        public final void onPaused(int i10) {
-            ActionBarAppLandscape.this.CV.e(com.kwad.sdk.core.response.b.a.dp(i10), i10);
-            ActionBarAppLandscape.this.CW.setVisibility(8);
+        @Override // com.kwad.sdk.core.download.kwai.a
+        public final void onPaused(int i2) {
+            ActionBarAppLandscape.this.AL.f(com.kwad.sdk.core.response.a.a.bz(i2), i2);
+            ActionBarAppLandscape.this.AM.setVisibility(8);
         }
 
         @Override // com.kwad.sdk.api.KsAppDownloadListener
-        public final void onProgressUpdate(int i10) {
-            ActionBarAppLandscape.this.CV.e(com.kwad.sdk.core.response.b.a.m36do(i10), i10);
-            ActionBarAppLandscape.this.CW.setVisibility(8);
+        public final void onProgressUpdate(int i2) {
+            ActionBarAppLandscape.this.AL.f(com.kwad.sdk.core.response.a.a.by(i2), i2);
+            ActionBarAppLandscape.this.AM.setVisibility(8);
         }
     }
 
     /* renamed from: com.kwad.components.ad.reward.widget.actionbar.ActionBarAppLandscape$2 */
-    public class AnonymousClass2 implements a.b {
-        final /* synthetic */ boolean vU;
+    final class AnonymousClass2 implements a.b {
+        final /* synthetic */ boolean tN;
 
-        public AnonymousClass2(boolean z10) {
-            z10 = z10;
+        AnonymousClass2(boolean z) {
+            z = z;
         }
 
-        @Override // com.kwad.components.core.e.d.a.b
+        @Override // com.kwad.components.core.d.b.a.b
         public final void onAdClicked() {
-            if (ActionBarAppLandscape.this.CX != null) {
-                ActionBarAppLandscape.this.CX.O(z10);
+            if (ActionBarAppLandscape.this.AN != null) {
+                ActionBarAppLandscape.this.AN.R(z);
             }
         }
     }
 
     public interface a {
-        void O(boolean z10);
+        void R(boolean z);
     }
 
     public ActionBarAppLandscape(Context context) {
         this(context, null);
     }
 
-    private KsAppDownloadListener getAppDownloadListener() {
-        if (this.dL == null) {
-            this.dL = new com.kwad.sdk.core.download.a.a() { // from class: com.kwad.components.ad.reward.widget.actionbar.ActionBarAppLandscape.1
-                public AnonymousClass1() {
-                }
-
-                @Override // com.kwad.sdk.api.KsAppDownloadListener
-                public final void onDownloadFailed() {
-                    ActionBarAppLandscape.this.CV.e(com.kwad.sdk.core.response.b.a.aE(ActionBarAppLandscape.this.mAdInfo), 0);
-                    ActionBarAppLandscape.this.CW.setVisibility(0);
-                }
-
-                @Override // com.kwad.sdk.api.KsAppDownloadListener
-                public final void onDownloadFinished() {
-                    ActionBarAppLandscape.this.CV.e(com.kwad.sdk.core.response.b.a.cg(ActionBarAppLandscape.this.mAdTemplate), 0);
-                    ActionBarAppLandscape.this.CW.setVisibility(0);
-                }
-
-                @Override // com.kwad.sdk.api.KsAppDownloadListener
-                public final void onIdle() {
-                    ActionBarAppLandscape.this.CV.e(com.kwad.sdk.core.response.b.a.aE(ActionBarAppLandscape.this.mAdInfo), 0);
-                    ActionBarAppLandscape.this.CW.setVisibility(0);
-                }
-
-                @Override // com.kwad.sdk.api.KsAppDownloadListener
-                public final void onInstalled() {
-                    ActionBarAppLandscape.this.CV.e(com.kwad.sdk.core.response.b.a.ac(ActionBarAppLandscape.this.mAdInfo), 0);
-                    ActionBarAppLandscape.this.CW.setVisibility(0);
-                }
-
-                @Override // com.kwad.sdk.core.download.a.a
-                public final void onPaused(int i10) {
-                    ActionBarAppLandscape.this.CV.e(com.kwad.sdk.core.response.b.a.dp(i10), i10);
-                    ActionBarAppLandscape.this.CW.setVisibility(8);
-                }
-
-                @Override // com.kwad.sdk.api.KsAppDownloadListener
-                public final void onProgressUpdate(int i10) {
-                    ActionBarAppLandscape.this.CV.e(com.kwad.sdk.core.response.b.a.m36do(i10), i10);
-                    ActionBarAppLandscape.this.CW.setVisibility(8);
-                }
-            };
-        }
-        return this.dL;
-    }
-
-    private void initView() {
-        m.inflate(getContext(), R.layout.ksad_video_actionbar_app_landscape, this);
-        this.eT = (ImageView) findViewById(R.id.ksad_app_icon);
-        this.eU = (TextView) findViewById(R.id.ksad_app_title);
-        this.f11891gb = (TextView) findViewById(R.id.ksad_app_desc);
-        this.CU = (AppScoreView) findViewById(R.id.ksad_app_score);
-        this.eW = (TextView) findViewById(R.id.ksad_app_download_count);
-        TextProgressBar textProgressBar = (TextProgressBar) findViewById(R.id.ksad_app_download_btn);
-        this.CV = textProgressBar;
-        textProgressBar.setTextDimen(com.kwad.sdk.c.a.a.a(getContext(), 16.0f));
-        this.CV.setTextColor(-1);
-        this.CW = findViewById(R.id.ksad_download_bar_cover);
-    }
-
-    private void kC() {
-        float aA = com.kwad.sdk.core.response.b.a.aA(this.mAdInfo);
-        boolean z10 = aA >= 3.0f;
-        if (z10) {
-            this.CU.setScore(aA);
-            this.CU.setVisibility(0);
-        }
-        String az = com.kwad.sdk.core.response.b.a.az(this.mAdInfo);
-        boolean isEmpty = true ^ TextUtils.isEmpty(az);
-        if (isEmpty) {
-            this.eW.setText(az);
-            this.eW.setVisibility(0);
-        }
-        if (isEmpty || z10) {
-            this.f11891gb.setVisibility(8);
-            return;
-        }
-        this.f11891gb.setText(com.kwad.sdk.core.response.b.a.au(this.mAdInfo));
-        this.CU.setVisibility(8);
-        this.eW.setVisibility(8);
-        this.f11891gb.setVisibility(0);
-    }
-
     public ActionBarAppLandscape(Context context, @Nullable AttributeSet attributeSet) {
         this(context, attributeSet, 0);
     }
 
-    public final void a(@NonNull AdTemplate adTemplate, @Nullable com.kwad.components.core.e.d.c cVar, a aVar) {
-        this.mAdTemplate = adTemplate;
-        AdInfo eb2 = e.eb(adTemplate);
-        this.mAdInfo = eb2;
-        this.CX = aVar;
-        this.mApkDownloadHelper = cVar;
-        KSImageLoader.loadAppIcon(this.eT, com.kwad.sdk.core.response.b.a.cm(eb2), adTemplate, 12);
-        this.eU.setText(com.kwad.sdk.core.response.b.a.cj(this.mAdInfo));
-        kC();
-        this.CV.e(com.kwad.sdk.core.response.b.a.aE(this.mAdInfo), 0);
-        com.kwad.components.core.e.d.c cVar2 = this.mApkDownloadHelper;
-        if (cVar2 != null) {
-            cVar2.b(getAppDownloadListener());
-        }
-        setClickable(true);
-        new f(this, this);
-        new f(this.CW, this);
-    }
-
-    @Override // com.kwad.sdk.widget.c
-    public final void b(View view) {
-        if (d.dQ(this.mAdTemplate)) {
-            b(view, false);
-        }
-    }
-
-    public ActionBarAppLandscape(Context context, @Nullable AttributeSet attributeSet, int i10) {
-        super(context, attributeSet, i10);
+    public ActionBarAppLandscape(Context context, @Nullable AttributeSet attributeSet, int i2) {
+        super(context, attributeSet, i2);
         initView();
     }
 
-    private void b(View view, boolean z10) {
-        com.kwad.components.core.e.d.a.a(new a.C0427a(view.getContext()).au(this.mAdTemplate).b(this.mApkDownloadHelper).ap(view == this.CV).ao(view == this.CW ? 1 : 2).a(new a.b() { // from class: com.kwad.components.ad.reward.widget.actionbar.ActionBarAppLandscape.2
-            final /* synthetic */ boolean vU;
+    private void b(View view, boolean z) {
+        com.kwad.components.core.d.b.a.a(new a.C0172a(view.getContext()).I(this.mAdTemplate).b(this.mApkDownloadHelper).ao(view == this.AL).ap(view == this.AM ? 1 : 2).a(new a.b() { // from class: com.kwad.components.ad.reward.widget.actionbar.ActionBarAppLandscape.2
+            final /* synthetic */ boolean tN;
 
-            public AnonymousClass2(boolean z102) {
-                z10 = z102;
+            AnonymousClass2(boolean z2) {
+                z = z2;
             }
 
-            @Override // com.kwad.components.core.e.d.a.b
+            @Override // com.kwad.components.core.d.b.a.b
             public final void onAdClicked() {
-                if (ActionBarAppLandscape.this.CX != null) {
-                    ActionBarAppLandscape.this.CX.O(z10);
+                if (ActionBarAppLandscape.this.AN != null) {
+                    ActionBarAppLandscape.this.AN.R(z);
                 }
             }
         }));
     }
 
+    private KsAppDownloadListener getAppDownloadListener() {
+        if (this.cE == null) {
+            this.cE = new com.kwad.sdk.core.download.kwai.a() { // from class: com.kwad.components.ad.reward.widget.actionbar.ActionBarAppLandscape.1
+                AnonymousClass1() {
+                }
+
+                @Override // com.kwad.sdk.api.KsAppDownloadListener
+                public final void onDownloadFailed() {
+                    ActionBarAppLandscape.this.AL.f(com.kwad.sdk.core.response.a.a.aw(ActionBarAppLandscape.this.mAdInfo), 0);
+                    ActionBarAppLandscape.this.AM.setVisibility(0);
+                }
+
+                @Override // com.kwad.sdk.api.KsAppDownloadListener
+                public final void onDownloadFinished() {
+                    ActionBarAppLandscape.this.AL.f(com.kwad.sdk.core.response.a.a.aH(ActionBarAppLandscape.this.mAdTemplate), 0);
+                    ActionBarAppLandscape.this.AM.setVisibility(0);
+                }
+
+                @Override // com.kwad.sdk.api.KsAppDownloadListener
+                public final void onIdle() {
+                    ActionBarAppLandscape.this.AL.f(com.kwad.sdk.core.response.a.a.aw(ActionBarAppLandscape.this.mAdInfo), 0);
+                    ActionBarAppLandscape.this.AM.setVisibility(0);
+                }
+
+                @Override // com.kwad.sdk.api.KsAppDownloadListener
+                public final void onInstalled() {
+                    ActionBarAppLandscape.this.AL.f(com.kwad.sdk.core.response.a.a.T(ActionBarAppLandscape.this.mAdInfo), 0);
+                    ActionBarAppLandscape.this.AM.setVisibility(0);
+                }
+
+                @Override // com.kwad.sdk.core.download.kwai.a
+                public final void onPaused(int i2) {
+                    ActionBarAppLandscape.this.AL.f(com.kwad.sdk.core.response.a.a.bz(i2), i2);
+                    ActionBarAppLandscape.this.AM.setVisibility(8);
+                }
+
+                @Override // com.kwad.sdk.api.KsAppDownloadListener
+                public final void onProgressUpdate(int i2) {
+                    ActionBarAppLandscape.this.AL.f(com.kwad.sdk.core.response.a.a.by(i2), i2);
+                    ActionBarAppLandscape.this.AM.setVisibility(8);
+                }
+            };
+        }
+        return this.cE;
+    }
+
+    private void initView() {
+        k.inflate(getContext(), R.layout.ksad_video_actionbar_app_landscape, this);
+        this.dJ = (ImageView) findViewById(R.id.ksad_app_icon);
+        this.dK = (TextView) findViewById(R.id.ksad_app_title);
+        this.eE = (TextView) findViewById(R.id.ksad_app_desc);
+        this.AK = (AppScoreView) findViewById(R.id.ksad_app_score);
+        this.dM = (TextView) findViewById(R.id.ksad_app_download_count);
+        TextProgressBar textProgressBar = (TextProgressBar) findViewById(R.id.ksad_app_download_btn);
+        this.AL = textProgressBar;
+        textProgressBar.setTextDimen(com.kwad.sdk.c.kwai.a.a(getContext(), 16.0f));
+        this.AL.setTextColor(-1);
+        this.AM = findViewById(R.id.ksad_download_bar_cover);
+    }
+
+    private void kd() {
+        float as = com.kwad.sdk.core.response.a.a.as(this.mAdInfo);
+        boolean z = as >= 3.0f;
+        if (z) {
+            this.AK.setScore(as);
+            this.AK.setVisibility(0);
+        }
+        String ar = com.kwad.sdk.core.response.a.a.ar(this.mAdInfo);
+        boolean isEmpty = true ^ TextUtils.isEmpty(ar);
+        if (isEmpty) {
+            this.dM.setText(ar);
+            this.dM.setVisibility(0);
+        }
+        if (isEmpty || z) {
+            this.eE.setVisibility(8);
+            return;
+        }
+        this.eE.setText(com.kwad.sdk.core.response.a.a.an(this.mAdInfo));
+        this.AK.setVisibility(8);
+        this.dM.setVisibility(8);
+        this.eE.setVisibility(0);
+    }
+
     @Override // com.kwad.sdk.widget.c
     public final void a(View view) {
         b(view, true);
+    }
+
+    public final void a(@NonNull AdTemplate adTemplate, @Nullable com.kwad.components.core.d.b.c cVar, a aVar) {
+        this.mAdTemplate = adTemplate;
+        AdInfo cb = d.cb(adTemplate);
+        this.mAdInfo = cb;
+        this.AN = aVar;
+        this.mApkDownloadHelper = cVar;
+        KSImageLoader.loadAppIcon(this.dJ, com.kwad.sdk.core.response.a.a.bM(cb), adTemplate, 12);
+        this.dK.setText(com.kwad.sdk.core.response.a.a.bK(this.mAdInfo));
+        kd();
+        this.AL.f(com.kwad.sdk.core.response.a.a.aw(this.mAdInfo), 0);
+        com.kwad.components.core.d.b.c cVar2 = this.mApkDownloadHelper;
+        if (cVar2 != null) {
+            cVar2.b(getAppDownloadListener());
+        }
+        setClickable(true);
+        new f(this, this);
+        new f(this.AM, this);
+    }
+
+    @Override // com.kwad.sdk.widget.c
+    public final void b(View view) {
+        if (com.kwad.sdk.core.response.a.c.bQ(this.mAdTemplate)) {
+            b(view, false);
+        }
     }
 }

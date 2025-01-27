@@ -1,85 +1,97 @@
 package kotlin.jvm.internal;
 
 import androidx.exifinterface.media.ExifInterface;
-import id.c;
+import com.cdo.oaps.ad.OapsKey;
+import f.b.a.d;
 import kotlin.Metadata;
-import kotlin.ranges.IntRange;
-import p3.i;
-import xi.k;
 
-@Metadata(d1 = {"\u0000$\n\u0002\u0018\u0002\n\u0000\n\u0002\u0010\u0000\n\u0000\n\u0002\u0010\b\n\u0002\b\u0006\n\u0002\u0010\u0011\n\u0002\b\u0004\n\u0002\u0010\u0002\n\u0002\b\t\b&\u0018\u0000*\b\b\u0000\u0010\u0001*\u00020\u00022\u00020\u0002B\r\u0012\u0006\u0010\u0003\u001a\u00020\u0004¢\u0006\u0002\u0010\u0005J\u0013\u0010\u000f\u001a\u00020\u00102\u0006\u0010\u0011\u001a\u00028\u0000¢\u0006\u0002\u0010\u0012J\b\u0010\u0003\u001a\u00020\u0004H\u0004J\u001d\u0010\u0013\u001a\u00028\u00002\u0006\u0010\u0014\u001a\u00028\u00002\u0006\u0010\u0015\u001a\u00028\u0000H\u0004¢\u0006\u0002\u0010\u0016J\u0011\u0010\u0017\u001a\u00020\u0004*\u00028\u0000H$¢\u0006\u0002\u0010\u0018R\u001a\u0010\u0006\u001a\u00020\u0004X\u0084\u000e¢\u0006\u000e\n\u0000\u001a\u0004\b\u0007\u0010\b\"\u0004\b\t\u0010\u0005R\u000e\u0010\u0003\u001a\u00020\u0004X\u0082\u0004¢\u0006\u0002\n\u0000R\u001e\u0010\n\u001a\n\u0012\u0006\u0012\u0004\u0018\u00018\u00000\u000bX\u0082\u0004¢\u0006\n\n\u0002\u0010\u000e\u0012\u0004\b\f\u0010\r¨\u0006\u0019"}, d2 = {"Lkotlin/jvm/internal/PrimitiveSpreadBuilder;", ExifInterface.GPS_DIRECTION_TRUE, "", "size", "", "(I)V", c.f26972i, "getPosition", "()I", "setPosition", "spreads", "", "getSpreads$annotations", "()V", "[Ljava/lang/Object;", "addSpread", "", "spreadArgument", "(Ljava/lang/Object;)V", "toArray", "values", i.f29758c, "(Ljava/lang/Object;Ljava/lang/Object;)Ljava/lang/Object;", "getSize", "(Ljava/lang/Object;)I", "kotlin-stdlib"}, k = 1, mv = {1, 9, 0}, xi = 48)
-/* loaded from: classes4.dex */
+@Metadata(bv = {1, 0, 3}, d1 = {"\u0000\"\n\u0002\u0018\u0002\n\u0002\u0010\u0000\n\u0000\n\u0002\u0010\b\n\u0002\b\u0003\n\u0002\u0010\u0002\n\u0002\b\r\n\u0002\u0010\u0011\n\u0002\b\u0006\b&\u0018\u0000*\b\b\u0000\u0010\u0002*\u00020\u00012\u00020\u0001B\u000f\u0012\u0006\u0010\n\u001a\u00020\u0003¢\u0006\u0004\b\u001a\u0010\u0014J\u0013\u0010\u0004\u001a\u00020\u0003*\u00028\u0000H$¢\u0006\u0004\b\u0004\u0010\u0005J\u0015\u0010\b\u001a\u00020\u00072\u0006\u0010\u0006\u001a\u00028\u0000¢\u0006\u0004\b\b\u0010\tJ\u000f\u0010\n\u001a\u00020\u0003H\u0004¢\u0006\u0004\b\n\u0010\u000bJ\u001f\u0010\u000e\u001a\u00028\u00002\u0006\u0010\f\u001a\u00028\u00002\u0006\u0010\r\u001a\u00028\u0000H\u0004¢\u0006\u0004\b\u000e\u0010\u000fR\"\u0010\u0010\u001a\u00020\u00038\u0004@\u0004X\u0084\u000e¢\u0006\u0012\n\u0004\b\u0010\u0010\u0011\u001a\u0004\b\u0012\u0010\u000b\"\u0004\b\u0013\u0010\u0014R\u0016\u0010\n\u001a\u00020\u00038\u0002@\u0002X\u0082\u0004¢\u0006\u0006\n\u0004\b\n\u0010\u0011R$\u0010\u0016\u001a\n\u0012\u0006\u0012\u0004\u0018\u00018\u00000\u00158\u0002@\u0002X\u0082\u0004¢\u0006\f\n\u0004\b\u0016\u0010\u0017\u0012\u0004\b\u0018\u0010\u0019¨\u0006\u001b"}, d2 = {"Lkotlin/jvm/internal/PrimitiveSpreadBuilder;", "", ExifInterface.GPS_DIRECTION_TRUE, "", "getSize", "(Ljava/lang/Object;)I", "spreadArgument", "", "addSpread", "(Ljava/lang/Object;)V", OapsKey.KEY_SIZE, "()I", "values", "result", "toArray", "(Ljava/lang/Object;Ljava/lang/Object;)Ljava/lang/Object;", "position", "I", "getPosition", "setPosition", "(I)V", "", "spreads", "[Ljava/lang/Object;", "spreads$annotations", "()V", "<init>", "kotlin-stdlib"}, k = 1, mv = {1, 4, 0})
+/* loaded from: classes5.dex */
 public abstract class PrimitiveSpreadBuilder<T> {
     private int position;
     private final int size;
-
-    @k
     private final T[] spreads;
 
-    public PrimitiveSpreadBuilder(int i10) {
-        this.size = i10;
-        this.spreads = (T[]) new Object[i10];
+    public PrimitiveSpreadBuilder(int i2) {
+        this.size = i2;
+        this.spreads = (T[]) new Object[i2];
     }
 
-    private static /* synthetic */ void getSpreads$annotations() {
+    private static /* synthetic */ void spreads$annotations() {
     }
 
-    public final void addSpread(@k T spreadArgument) {
-        Intrinsics.checkNotNullParameter(spreadArgument, "spreadArgument");
+    public final void addSpread(@d T spreadArgument) {
+        Intrinsics.checkParameterIsNotNull(spreadArgument, "spreadArgument");
         T[] tArr = this.spreads;
-        int i10 = this.position;
-        this.position = i10 + 1;
-        tArr[i10] = spreadArgument;
+        int i2 = this.position;
+        this.position = i2 + 1;
+        tArr[i2] = spreadArgument;
     }
 
-    public final int getPosition() {
+    protected final int getPosition() {
         return this.position;
     }
 
-    public abstract int getSize(@k T t10);
+    protected abstract int getSize(@d T t);
 
-    public final void setPosition(int i10) {
-        this.position = i10;
+    protected final void setPosition(int i2) {
+        this.position = i2;
     }
 
-    /* JADX WARN: Type inference failed for: r0v1, types: [java.util.Iterator, kotlin.collections.IntIterator] */
-    public final int size() {
-        int i10 = 0;
-        ?? it = new IntRange(0, this.size - 1).iterator();
-        while (it.hasNext()) {
-            T t10 = this.spreads[it.nextInt()];
-            i10 += t10 != null ? getSize(t10) : 1;
-        }
-        return i10;
-    }
-
-    /* JADX WARN: Type inference failed for: r0v3, types: [java.util.Iterator, kotlin.collections.IntIterator] */
-    @k
-    public final T toArray(@k T values, @k T r92) {
-        Intrinsics.checkNotNullParameter(values, "values");
-        Intrinsics.checkNotNullParameter(r92, "result");
-        ?? it = new IntRange(0, this.size - 1).iterator();
-        int i10 = 0;
-        int i11 = 0;
-        while (it.hasNext()) {
-            int nextInt = it.nextInt();
-            T t10 = this.spreads[nextInt];
-            if (t10 != null) {
-                if (i10 < nextInt) {
-                    int i12 = nextInt - i10;
-                    System.arraycopy(values, i10, r92, i11, i12);
-                    i11 += i12;
+    protected final int size() {
+        int i2 = this.size - 1;
+        int i3 = 0;
+        if (i2 >= 0) {
+            int i4 = 0;
+            while (true) {
+                T t = this.spreads[i4];
+                i3 += t != null ? getSize(t) : 1;
+                if (i4 == i2) {
+                    break;
                 }
-                int size = getSize(t10);
-                System.arraycopy(t10, 0, r92, i11, size);
-                i11 += size;
-                i10 = nextInt + 1;
+                i4++;
             }
         }
-        int i13 = this.size;
-        if (i10 < i13) {
-            System.arraycopy(values, i10, r92, i11, i13 - i10);
+        return i3;
+    }
+
+    @d
+    protected final T toArray(@d T values, @d T result) {
+        int i2;
+        Intrinsics.checkParameterIsNotNull(values, "values");
+        Intrinsics.checkParameterIsNotNull(result, "result");
+        int i3 = this.size - 1;
+        int i4 = 0;
+        if (i3 >= 0) {
+            int i5 = 0;
+            int i6 = 0;
+            i2 = 0;
+            while (true) {
+                T t = this.spreads[i5];
+                if (t != null) {
+                    if (i6 < i5) {
+                        int i7 = i5 - i6;
+                        System.arraycopy(values, i6, result, i2, i7);
+                        i2 += i7;
+                    }
+                    int size = getSize(t);
+                    System.arraycopy(t, 0, result, i2, size);
+                    i2 += size;
+                    i6 = i5 + 1;
+                }
+                if (i5 == i3) {
+                    break;
+                }
+                i5++;
+            }
+            i4 = i6;
+        } else {
+            i2 = 0;
         }
-        return r92;
+        int i8 = this.size;
+        if (i4 < i8) {
+            System.arraycopy(values, i4, result, i2, i8 - i4);
+        }
+        return result;
     }
 }

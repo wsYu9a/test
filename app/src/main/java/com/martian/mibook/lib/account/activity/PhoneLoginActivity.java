@@ -4,609 +4,949 @@ import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Intent;
 import android.os.Bundle;
-import android.text.TextUtils;
 import android.view.View;
+import android.view.ViewGroup;
 import android.view.inputmethod.InputMethodManager;
-import android.widget.EditText;
 import android.widget.ImageView;
-import android.widget.PopupWindow;
-import android.widget.TextView;
-import androidx.annotation.NonNull;
 import androidx.fragment.app.DialogFragment;
-import ba.l;
-import com.martian.libmars.R;
-import com.martian.libmars.common.ConfigSingleton;
+import com.maritan.libweixin.c;
+import com.martian.dialog.g;
+import com.martian.libmars.activity.j1;
+import com.martian.libmars.utils.h0;
+import com.martian.libmars.utils.k0;
+import com.martian.libmars.utils.n0;
+import com.martian.libmars.utils.q0;
+import com.martian.libqq.QQAPIInstance;
+import com.martian.libqq.QQAuth;
+import com.martian.libqq.QQUserInfo;
 import com.martian.mibook.lib.account.MiUserManager;
+import com.martian.mibook.lib.account.R;
 import com.martian.mibook.lib.account.activity.PhoneLoginActivity;
-import com.martian.mibook.lib.account.databinding.ActivityPhoneLoginBinding;
-import com.martian.mibook.lib.account.databinding.BindWeixinDialogBinding;
+import com.martian.mibook.lib.account.d.q.d0;
+import com.martian.mibook.lib.account.request.MiUserRegisterParams;
 import com.martian.mibook.lib.account.request.PhoneLoginParams;
 import com.martian.mibook.lib.account.request.RequestPhoneCodeCaptchaParams;
 import com.martian.mibook.lib.account.request.RequestPhoneCodeParams;
+import com.martian.mibook.lib.account.request.WXRegisterParams;
 import com.martian.mibook.lib.account.request.auth.BindPhoneParams;
 import com.martian.mibook.lib.account.request.auth.BindWeixinParams;
 import com.martian.mibook.lib.account.request.auth.GetUserInfoParams;
+import com.martian.mibook.lib.account.request.auth.TryWeixinBindParams;
+import com.martian.mibook.lib.account.response.MiTaskAccount;
 import com.martian.mibook.lib.account.response.MiUser;
 import com.martian.mibook.lib.account.response.PhoneCodeCaptchaResponse;
 import com.martian.mibook.lib.account.response.PhoneCodeResponse;
 import com.martian.mibook.lib.account.response.TYBonus;
-import com.martian.mibook.lib.model.activity.MiBackableActivity;
+import com.martian.mibook.lib.account.response.UserDetail;
 import com.martian.rpauth.MartianIUserManager;
-import java.lang.ref.WeakReference;
+import com.martian.rpauth.MartianRPUserManager;
+import com.martian.rpauth.response.MartianRPAccount;
+import java.util.List;
 import java.util.Locale;
-import kb.o;
-import l9.i0;
-import l9.m0;
-import lb.c;
-import z7.b;
 
 /* loaded from: classes3.dex */
-public class PhoneLoginActivity extends MiBackableActivity {
-    public static final String J = "PHONE_TYPE";
-    public static final String K = "PHONE_VERFIYHINT";
-    public int A;
-    public String B;
-    public ActivityPhoneLoginBinding C;
-    public PopupWindow D;
-    public boolean E = false;
-    public final j F = new j();
-    public int G = 60;
-    public int H = 0;
-    public ImageView I;
+public class PhoneLoginActivity extends com.martian.mibook.lib.model.b.a {
+    private static final String F = "PHONE_TYPE";
+    private static final String G = "PHONE_VERFIYHINT";
+    private int H;
+    private String I;
+    private com.martian.mibook.lib.account.b.b J;
+    private boolean K = false;
+    private final k L = new k();
+    private int M = 60;
+    private int N = 0;
+    private ImageView O;
 
-    public class a extends jb.j {
-
-        /* renamed from: i */
-        public final /* synthetic */ WeakReference f13863i;
-
-        /* renamed from: j */
-        public final /* synthetic */ WeakReference f13864j;
-
-        /* renamed from: k */
-        public final /* synthetic */ WeakReference f13865k;
-
-        public a(WeakReference weakReference, WeakReference weakReference2, WeakReference weakReference3) {
-            this.f13863i = weakReference;
-            this.f13864j = weakReference2;
-            this.f13865k = weakReference3;
+    class a extends d0<TryWeixinBindParams, UserDetail> {
+        a(Class aClass, Class dataType, Activity activity) {
+            super(aClass, dataType, activity);
         }
 
-        @Override // y8.a
-        public void onResultError(x8.c cVar) {
-            PhoneLoginActivity.this.C.f13914d.setVisibility(8);
-            if (cVar.c() == 2006) {
-                PhoneLoginActivity.this.e3(false);
-                return;
-            }
-            String d10 = cVar.d();
-            if (TextUtils.isEmpty(d10)) {
-                return;
-            }
-            EditText editText = (EditText) this.f13864j.get();
-            TextView textView = (TextView) this.f13865k.get();
-            if (textView == null || editText == null) {
-                PhoneLoginActivity.this.P1(d10);
-                return;
-            }
-            editText.getText().clear();
-            textView.setText(d10);
-            textView.setVisibility(0);
+        /* renamed from: t */
+        public /* synthetic */ void u(final MiUser miUser) {
+            MiWebViewBaseActivity.h4(PhoneLoginActivity.this, com.martian.libmars.d.h.F().l(), miUser.getUid().toString(), miUser.getToken(), com.martian.libmars.d.h.F().f().f9879a, PopupLoginActivity.f13754a);
         }
 
-        @Override // y8.a
-        /* renamed from: q */
-        public void onDataReceived(PhoneCodeResponse phoneCodeResponse) {
-            PhoneLoginActivity.this.C.f13914d.setVisibility(8);
-            if (phoneCodeResponse != null && phoneCodeResponse.getRequestIntervalSeconds() > 0) {
-                PhoneLoginActivity.this.G = phoneCodeResponse.getRequestIntervalSeconds();
-            }
-            AlertDialog alertDialog = (AlertDialog) this.f13863i.get();
-            if (alertDialog != null) {
-                alertDialog.dismiss();
-            }
-            PhoneLoginActivity phoneLoginActivity = PhoneLoginActivity.this;
-            phoneLoginActivity.P1(phoneLoginActivity.getString(R.string.send_verification_code_success));
-            PhoneLoginActivity.this.x3();
-        }
-
-        @Override // y8.f
-        public void showLoading(boolean z10) {
-            if (z10) {
-                PhoneLoginActivity.this.t3("验证码发送中...");
-            }
-        }
-    }
-
-    public class b extends kb.d {
-        public b(Activity activity) {
-            super(activity);
-        }
-
-        @Override // jb.k
-        public void s(x8.c cVar) {
-            PhoneLoginActivity.this.s3(cVar.d(), false);
-        }
-
-        @Override // y8.f
-        public void showLoading(boolean z10) {
-            if (z10) {
-                PhoneLoginActivity.this.t3("验证中...");
-            }
-        }
-
-        @Override // y8.a
         /* renamed from: v */
-        public void onDataReceived(TYBonus tYBonus) {
-            PhoneLoginActivity.this.C.f13914d.setVisibility(8);
-            PhoneLoginActivity.this.setResult(-1);
-            PhoneLoginActivity.this.z3();
-            PhoneLoginActivity.this.u3("手机号验证成功");
-        }
-    }
-
-    public class c extends kb.d {
-        public c(Activity activity) {
-            super(activity);
+        public /* synthetic */ void w() {
+            PhoneLoginActivity.this.k1("登录取消");
+            PhoneLoginActivity.this.finish();
         }
 
-        @Override // jb.k
-        public void s(x8.c cVar) {
-            if (cVar.c() == 20015) {
-                PopupLoginActivity.q1(PhoneLoginActivity.this, 202, true);
-            }
-            PhoneLoginActivity.this.s3(cVar.d(), false);
+        @Override // com.martian.mibook.lib.account.d.q.d0, b.d.c.c.b
+        public void onResultError(b.d.c.b.c errorResult) {
+            q0.f("zzz", "同步失败");
+            PhoneLoginActivity.this.d3("登录失败，请重试" + errorResult.toString(), true);
         }
 
-        @Override // y8.f
-        public void showLoading(boolean z10) {
-            if (z10) {
-                PhoneLoginActivity.this.t3("绑定中...");
-            }
-        }
-
-        @Override // y8.a
-        /* renamed from: v */
-        public void onDataReceived(TYBonus tYBonus) {
-            PhoneLoginActivity.this.C.f13914d.setVisibility(8);
-            PhoneLoginActivity.this.setResult(-1);
-            PhoneLoginActivity.this.P1("绑定成功");
-            PhoneLoginActivity.this.z3();
-            if (tYBonus == null) {
+        @Override // b.d.c.c.i, b.d.c.c.c
+        public void onUDDataReceived(List<UserDetail> userDetails) {
+            PhoneLoginActivity.this.J.f13824d.setVisibility(8);
+            if (userDetails == null || userDetails.isEmpty()) {
+                PhoneLoginActivity.this.k1("登录失败");
                 PhoneLoginActivity.this.finish();
                 return;
             }
-            PhoneLoginActivity.this.u3("获得奖励" + tYBonus.getCoins() + "金币");
+            q0.f("zzz", "同步成功");
+            UserDetail userDetail = userDetails.get(0);
+            final MiUser userInfo = userDetail.getUserInfo();
+            MiTaskAccount taskAccount = userDetail.getTaskAccount();
+            MartianRPAccount account = userDetail.getAccount();
+            if (userInfo == null) {
+                PhoneLoginActivity.this.finish();
+                return;
+            }
+            if (userInfo.getLoggingOff().booleanValue()) {
+                PhoneLoginActivity phoneLoginActivity = PhoneLoginActivity.this;
+                k0.Q(phoneLoginActivity, "确认信息", "该账号正在注销审核中，继续登录将会放弃注销", phoneLoginActivity.getString(R.string.cancel), PhoneLoginActivity.this.getString(R.string.cancel_logout), true, new k0.l() { // from class: com.martian.mibook.lib.account.activity.c
+                    @Override // com.martian.libmars.utils.k0.l
+                    public final void a() {
+                        PhoneLoginActivity.a.this.u(userInfo);
+                    }
+                }, new k0.j() { // from class: com.martian.mibook.lib.account.activity.b
+                    @Override // com.martian.libmars.utils.k0.j
+                    public final void a() {
+                        PhoneLoginActivity.a.this.w();
+                    }
+                });
+                return;
+            }
+            if (!userInfo.getUid().equals(MiUserManager.s().e().getUid())) {
+                com.martian.mibook.lib.account.e.d.e(PhoneLoginActivity.this, userInfo, taskAccount, account);
+                return;
+            }
+            PhoneLoginActivity.this.a3(userInfo);
+            if (taskAccount != null) {
+                MiUserManager.s().l(taskAccount);
+            }
+            if (account != null && MartianRPUserManager.u() != null) {
+                MartianRPUserManager.u().k(account);
+            }
+            PhoneLoginActivity.this.setResult(-1);
+            PhoneLoginActivity.this.k1("登录成功");
+            PhoneLoginActivity.this.finish();
+        }
+
+        @Override // b.d.c.c.g
+        protected void showLoading(boolean show) {
+            if (show) {
+                PhoneLoginActivity.this.J.f13824d.setVisibility(0);
+            }
         }
     }
 
-    public class d extends jb.g {
-        public d() {
+    class b extends com.martian.mibook.lib.account.d.l {
+        b() {
         }
 
-        @Override // y8.a
-        public void onResultError(x8.c cVar) {
-            PhoneLoginActivity.this.C.f13914d.setVisibility(8);
-            if (cVar.c() == 2008 || cVar.c() == 20008 || cVar.c() == 20015) {
-                PhoneLoginActivity.this.q3(null);
+        @Override // b.d.c.c.b
+        public void onResultError(b.d.c.b.c errorResult) {
+            PhoneLoginActivity.this.J.f13824d.setVisibility(8);
+            if (errorResult.c() == 2006) {
+                PhoneLoginActivity.this.G2(false);
             } else {
-                PhoneLoginActivity.this.P1(cVar.d());
+                PhoneLoginActivity.this.k1(errorResult.toString());
             }
         }
 
-        public final /* synthetic */ void s(MiUser miUser) {
-            MiWebViewBaseActivity.E4(PhoneLoginActivity.this, ConfigSingleton.D().q(), miUser.getUid().toString(), miUser.getToken(), ConfigSingleton.D().l().f26178a, PopupLoginActivity.f13884f);
+        @Override // b.d.c.c.b
+        /* renamed from: p */
+        public void onDataReceived(PhoneCodeResponse phoneCodeResponse) {
+            PhoneLoginActivity.this.J.f13824d.setVisibility(8);
+            if (phoneCodeResponse != null && phoneCodeResponse.getRequestIntervalSeconds() > 0) {
+                PhoneLoginActivity.this.M = phoneCodeResponse.getRequestIntervalSeconds();
+            }
+            PhoneLoginActivity.this.k1("获取验证码成功！");
+            PhoneLoginActivity.this.i3();
         }
 
-        @Override // y8.f
-        public void showLoading(boolean z10) {
-            if (z10) {
-                PhoneLoginActivity.this.t3("登录中...");
+        @Override // b.d.c.c.g
+        protected void showLoading(boolean show) {
+            if (show) {
+                PhoneLoginActivity.this.e3("验证码发送中...");
+            }
+        }
+    }
+
+    class c extends com.martian.mibook.lib.account.d.q.d {
+        c(j1 activity) {
+            super(activity);
+        }
+
+        @Override // com.martian.mibook.lib.account.d.n
+        protected void r(b.d.c.b.c errorResult) {
+            PhoneLoginActivity.this.d3(errorResult.d(), false);
+        }
+
+        @Override // b.d.c.c.g
+        protected void showLoading(boolean show) {
+            if (show) {
+                PhoneLoginActivity.this.e3("验证中...");
             }
         }
 
-        public final /* synthetic */ void t() {
-            PhoneLoginActivity.this.P1("登录取消");
-        }
-
-        @Override // y8.a
+        @Override // b.d.c.c.b
         /* renamed from: u */
-        public void onDataReceived(MiUser miUser) {
-            PhoneLoginActivity.this.C.f13914d.setVisibility(8);
+        public void onDataReceived(TYBonus tyBonus) {
+            PhoneLoginActivity.this.J.f13824d.setVisibility(8);
+            PhoneLoginActivity.this.setResult(-1);
+            PhoneLoginActivity.this.m3();
+            PhoneLoginActivity.this.f3("恭喜您", "手机号验证成功", "知道了");
+        }
+    }
+
+    class d extends com.martian.mibook.lib.account.d.q.d {
+        d(j1 activity) {
+            super(activity);
+        }
+
+        @Override // com.martian.mibook.lib.account.d.n
+        protected void r(b.d.c.b.c errorResult) {
+            if (errorResult.c() == 20015) {
+                PopupLoginActivity.x0(PhoneLoginActivity.this, 202, true);
+            }
+            PhoneLoginActivity.this.d3(errorResult.d(), false);
+        }
+
+        @Override // b.d.c.c.g
+        protected void showLoading(boolean show) {
+            if (show) {
+                PhoneLoginActivity.this.e3("绑定中...");
+            }
+        }
+
+        @Override // b.d.c.c.b
+        /* renamed from: u */
+        public void onDataReceived(TYBonus tyBonus) {
+            PhoneLoginActivity.this.J.f13824d.setVisibility(8);
+            PhoneLoginActivity.this.setResult(-1);
+            PhoneLoginActivity.this.k1("绑定成功");
+            PhoneLoginActivity.this.m3();
+            if (tyBonus == null) {
+                PhoneLoginActivity.this.finish();
+                return;
+            }
+            PhoneLoginActivity.this.f3("恭喜您", "获得奖励" + tyBonus.getCoins() + "金币", "知道了");
+        }
+    }
+
+    class e extends com.martian.mibook.lib.account.d.i {
+        e() {
+        }
+
+        /* renamed from: p */
+        public /* synthetic */ void q(final MiUser miUser) {
+            MiWebViewBaseActivity.h4(PhoneLoginActivity.this, com.martian.libmars.d.h.F().l(), miUser.getUid().toString(), miUser.getToken(), com.martian.libmars.d.h.F().f().f9879a, PopupLoginActivity.f13754a);
+        }
+
+        /* renamed from: r */
+        public /* synthetic */ void s() {
+            PhoneLoginActivity.this.k1("登录取消");
+        }
+
+        @Override // b.d.c.c.b
+        public void onResultError(b.d.c.b.c errorResult) {
+            PhoneLoginActivity.this.J.f13824d.setVisibility(8);
+            if (errorResult.c() == 2008 || errorResult.c() == 20008 || errorResult.c() == 20015) {
+                PhoneLoginActivity.this.b3(null);
+            } else {
+                PhoneLoginActivity.this.k1(errorResult.toString());
+            }
+        }
+
+        @Override // b.d.c.c.g
+        protected void showLoading(boolean show) {
+            if (show) {
+                PhoneLoginActivity.this.e3("登录中...");
+            }
+        }
+
+        @Override // b.d.c.c.b
+        /* renamed from: t */
+        public void onDataReceived(final MiUser miUser) {
+            PhoneLoginActivity.this.J.f13824d.setVisibility(8);
             if (miUser == null) {
                 return;
             }
             if (miUser.getLoggingOff().booleanValue()) {
                 PhoneLoginActivity phoneLoginActivity = PhoneLoginActivity.this;
-                i0.x0(phoneLoginActivity, "确认信息", "账号正在注销审核中，继续登录将会放弃注销", phoneLoginActivity.getString(com.martian.mibook.lib.account.R.string.cancel), PhoneLoginActivity.this.getString(com.martian.mibook.lib.account.R.string.cancel_logout), true, new i0.l() { // from class: ib.i
-
-                    /* renamed from: b */
-                    public final /* synthetic */ MiUser f26956b;
-
-                    public /* synthetic */ i(MiUser miUser2) {
-                        miUser = miUser2;
-                    }
-
-                    @Override // l9.i0.l
+                k0.Q(phoneLoginActivity, "确认信息", "账号正在注销审核中，继续登录将会放弃注销", phoneLoginActivity.getString(R.string.cancel), PhoneLoginActivity.this.getString(R.string.cancel_logout), true, new k0.l() { // from class: com.martian.mibook.lib.account.activity.f
+                    @Override // com.martian.libmars.utils.k0.l
                     public final void a() {
-                        PhoneLoginActivity.d.this.s(miUser);
+                        PhoneLoginActivity.e.this.q(miUser);
                     }
-                }, new i0.k() { // from class: ib.j
-                    public /* synthetic */ j() {
-                    }
-
-                    @Override // l9.i0.k
+                }, new k0.j() { // from class: com.martian.mibook.lib.account.activity.g
+                    @Override // com.martian.libmars.utils.k0.j
                     public final void a() {
-                        PhoneLoginActivity.d.this.t();
+                        PhoneLoginActivity.e.this.s();
                     }
                 });
-                return;
+            } else {
+                if (!miUser.getWeixinBound()) {
+                    PhoneLoginActivity.this.b3(miUser);
+                    return;
+                }
+                PhoneLoginActivity.this.a3(miUser);
+                PhoneLoginActivity.this.setResult(-1);
+                PhoneLoginActivity.this.k1("登录成功");
+                PhoneLoginActivity.this.finish();
             }
-            PhoneLoginActivity.this.p3(miUser2);
-            e9.c.e(e9.d.f25790b, null);
-            PhoneLoginActivity.this.setResult(-1);
-            ConfigSingleton.D().g1(lb.c.f28067a, true);
-            PhoneLoginActivity.this.P1("登录成功");
-            PhoneLoginActivity.this.finish();
         }
     }
 
-    public class e implements c.h {
-        public e() {
-        }
+    class f implements QQAPIInstance.OnLoginListener {
 
-        @Override // lb.c.h
-        public void a(MiUser miUser) {
-            PhoneLoginActivity.this.p3(miUser);
-            e9.c.e(e9.d.f25790b, null);
-            PhoneLoginActivity.this.P1("登录成功");
-            PhoneLoginActivity.this.setResult(-1);
-            ConfigSingleton.D().g1(lb.c.f28067a, true);
-            PhoneLoginActivity.this.finish();
-        }
+        class a implements QQAPIInstance.QQUserInfoReceiver {
 
-        @Override // lb.c.h
-        public void b(boolean z10) {
-            if (PhoneLoginActivity.this.isFinishing() || PhoneLoginActivity.this.isDestroyed()) {
-                return;
+            /* renamed from: a */
+            final /* synthetic */ QQAuth f13737a;
+
+            /* renamed from: com.martian.mibook.lib.account.activity.PhoneLoginActivity$f$a$a */
+            class C0267a extends com.martian.mibook.lib.account.d.j {
+                C0267a() {
+                }
+
+                @Override // b.d.c.c.b
+                public void onResultError(b.d.c.b.c errorResult) {
+                    PhoneLoginActivity.this.d3("登录失败，请重试" + errorResult.toString(), true);
+                }
+
+                @Override // b.d.c.c.b
+                /* renamed from: p */
+                public void onDataReceived(MiUser miUser) {
+                    PhoneLoginActivity.this.a3(miUser);
+                    PhoneLoginActivity.this.J.f13824d.setVisibility(8);
+                    PhoneLoginActivity.this.k1("登录成功");
+                    PhoneLoginActivity.this.setResult(-1);
+                    PhoneLoginActivity.this.finish();
+                }
+
+                @Override // b.d.c.c.g
+                protected void showLoading(boolean show) {
+                    if (show) {
+                        return;
+                    }
+                    PhoneLoginActivity.this.J.f13824d.setVisibility(0);
+                }
             }
-            PhoneLoginActivity.this.C.f13914d.setVisibility(z10 ? 0 : 8);
+
+            a(final QQAuth val$auth) {
+                this.f13737a = val$auth;
+            }
+
+            @Override // com.martian.libqq.QQAPIInstance.QQUserInfoReceiver
+            public void onCancelled() {
+                PhoneLoginActivity.this.d3("登录取消", false);
+            }
+
+            @Override // com.martian.libqq.QQAPIInstance.QQUserInfoReceiver
+            public void onErrorReceived(int errcode, String errStr) {
+                PhoneLoginActivity.this.d3("登录失败，请重试" + errStr, true);
+            }
+
+            /* JADX WARN: Multi-variable type inference failed */
+            @Override // com.martian.libqq.QQAPIInstance.QQUserInfoReceiver
+            public void onUserInfoReceived(QQUserInfo user) {
+                C0267a c0267a = new C0267a();
+                ((MiUserRegisterParams) c0267a.k()).setCity(user.getCity());
+                ((MiUserRegisterParams) c0267a.k()).setCountry(user.getCountry());
+                ((MiUserRegisterParams) c0267a.k()).setQQGender(user.getGender());
+                ((MiUserRegisterParams) c0267a.k()).setHeader(user.getHeaderUrl());
+                ((MiUserRegisterParams) c0267a.k()).setNickname(user.getNickname());
+                ((MiUserRegisterParams) c0267a.k()).setProvince(user.getProvince());
+                ((MiUserRegisterParams) c0267a.k()).setQq_openid(this.f13737a.openid);
+                ((MiUserRegisterParams) c0267a.k()).setQq_access_token(this.f13737a.access_token);
+                ((MiUserRegisterParams) c0267a.k()).setQq_pf(this.f13737a.pf);
+                ((MiUserRegisterParams) c0267a.k()).setQq_appid(com.martian.libmars.d.h.F().e0().f9892a);
+                c0267a.j();
+            }
         }
 
-        @Override // lb.c.h
-        public void onResultError(x8.c cVar) {
-            PhoneLoginActivity.this.s3(cVar.d(), true);
+        f() {
+        }
+
+        @Override // com.martian.libqq.QQAPIInstance.OnLoginListener
+        public void onLoginCancelled() {
+            PhoneLoginActivity.this.d3("登录取消", false);
+        }
+
+        @Override // com.martian.libqq.QQAPIInstance.OnLoginListener
+        public void onLoginError(int errcode, String errStr) {
+            PhoneLoginActivity.this.d3("登录失败，请重试" + errStr, true);
+        }
+
+        @Override // com.martian.libqq.QQAPIInstance.OnLoginListener
+        public void onLoginSuccess(final QQAuth auth) {
+            QQAPIInstance.getInstance().getUserInfo(PhoneLoginActivity.this, new a(auth));
         }
     }
 
-    public class f implements b.a {
+    class g implements c.InterfaceC0253c {
 
         /* renamed from: a */
-        public final /* synthetic */ MiUser f13871a;
+        final /* synthetic */ String f13740a;
 
-        public class a extends kb.e {
-            public a(Activity activity) {
+        class a extends com.martian.mibook.lib.account.d.p {
+            a() {
+            }
+
+            @Override // b.d.c.c.b
+            public void onResultError(b.d.c.b.c errorResult) {
+                PhoneLoginActivity.this.d3("登录失败：" + errorResult.toString(), false);
+            }
+
+            @Override // b.d.c.c.b
+            /* renamed from: p */
+            public void onDataReceived(MiUser miUser) {
+                PhoneLoginActivity.this.J.f13824d.setVisibility(8);
+                PhoneLoginActivity.this.a3(miUser);
+                PhoneLoginActivity.this.k1("登录成功");
+                PhoneLoginActivity.this.setResult(-1);
+                PhoneLoginActivity.this.finish();
+            }
+
+            @Override // b.d.c.c.g
+            protected void showLoading(boolean show) {
+            }
+        }
+
+        g(final String val$phone) {
+            this.f13740a = val$phone;
+        }
+
+        /* JADX WARN: Multi-variable type inference failed */
+        @Override // com.maritan.libweixin.c.InterfaceC0253c
+        public void a(String authorizationCode) {
+            if (MiUserManager.s().f()) {
+                PhoneLoginActivity.this.l3(authorizationCode);
+                return;
+            }
+            a aVar = new a();
+            aVar.n();
+            ((WXRegisterParams) aVar.k()).setWx_appid(com.martian.libmars.d.h.F().y0().f9577a);
+            ((WXRegisterParams) aVar.k()).setWx_code(authorizationCode);
+            if (!com.martian.libsupport.k.p(this.f13740a)) {
+                ((WXRegisterParams) aVar.k()).setPhone(this.f13740a);
+            }
+            aVar.j();
+        }
+
+        @Override // com.maritan.libweixin.c.InterfaceC0253c
+        public void b(String errStr) {
+            PhoneLoginActivity.this.d3("登录失败：" + errStr, false);
+        }
+
+        @Override // com.maritan.libweixin.c.InterfaceC0253c
+        public void onLoginCancelled() {
+            PhoneLoginActivity.this.d3("登录取消", false);
+        }
+    }
+
+    class h implements c.InterfaceC0253c {
+
+        /* renamed from: a */
+        final /* synthetic */ MiUser f13743a;
+
+        class a extends com.martian.mibook.lib.account.d.q.e {
+            a(j1 activity) {
                 super(activity);
             }
 
-            @Override // jb.k
-            public void s(x8.c cVar) {
-                PhoneLoginActivity.this.P1("登录失败：" + cVar.d());
+            @Override // com.martian.mibook.lib.account.d.n
+            protected void r(b.d.c.b.c errorResult) {
+                PhoneLoginActivity.this.k1("登录失败：" + errorResult.d());
             }
 
-            @Override // y8.f
-            public void showLoading(boolean z10) {
+            @Override // b.d.c.c.g
+            protected void showLoading(boolean show) {
             }
 
-            @Override // y8.a
-            /* renamed from: v */
-            public void onDataReceived(Boolean bool) {
-                if (bool == null || !bool.booleanValue()) {
-                    PhoneLoginActivity.this.P1("登录失败");
+            @Override // b.d.c.c.b
+            /* renamed from: u */
+            public void onDataReceived(Boolean success) {
+                if (success == null || !success.booleanValue()) {
+                    PhoneLoginActivity.this.k1("登录失败");
                     return;
                 }
-                f fVar = f.this;
-                PhoneLoginActivity.this.h3(fVar.f13871a);
-                e9.c.e(e9.d.f25790b, null);
+                h hVar = h.this;
+                PhoneLoginActivity.this.I2(hVar.f13743a);
                 PhoneLoginActivity.this.setResult(-1);
-                ConfigSingleton.D().g1(lb.c.f28067a, true);
-                PhoneLoginActivity.this.P1("登录成功");
+                PhoneLoginActivity.this.k1("登录成功");
                 PhoneLoginActivity.this.finish();
             }
         }
 
-        public f(MiUser miUser) {
-            this.f13871a = miUser;
+        h(final MiUser val$miUser) {
+            this.f13743a = val$miUser;
         }
 
         /* JADX WARN: Multi-variable type inference failed */
-        @Override // z7.b.a
-        public void a(String str) {
+        @Override // com.maritan.libweixin.c.InterfaceC0253c
+        public void a(String authorizationCode) {
             a aVar = new a(PhoneLoginActivity.this);
-            ((BindWeixinParams) aVar.k()).setWx_code(str);
-            ((BindWeixinParams) aVar.k()).setWx_appid(ConfigSingleton.D().q0().f33705a);
-            ((BindWeixinParams) aVar.k()).setUid(this.f13871a.getUid());
-            ((BindWeixinParams) aVar.k()).setToken(this.f13871a.getToken());
+            ((BindWeixinParams) aVar.k()).setWx_code(authorizationCode);
+            ((BindWeixinParams) aVar.k()).setWx_appid(com.martian.libmars.d.h.F().y0().f9577a);
+            ((BindWeixinParams) aVar.k()).setUid(this.f13743a.getUid());
+            ((BindWeixinParams) aVar.k()).setToken(this.f13743a.getToken());
             aVar.j();
         }
 
-        @Override // z7.b.a
-        public void b(String str) {
-            PhoneLoginActivity.this.P1("绑定失败：" + str);
+        @Override // com.maritan.libweixin.c.InterfaceC0253c
+        public void b(String errStr) {
+            PhoneLoginActivity.this.k1("绑定失败：" + errStr);
         }
 
-        @Override // z7.b.a
+        @Override // com.maritan.libweixin.c.InterfaceC0253c
         public void onLoginCancelled() {
-            PhoneLoginActivity.this.P1("绑定取消");
+            PhoneLoginActivity.this.k1("绑定取消");
         }
     }
 
-    public class h extends jb.i {
+    class i extends com.martian.mibook.lib.account.d.q.t {
 
-        /* renamed from: i */
-        public final /* synthetic */ boolean f13876i;
+        /* renamed from: j */
+        final /* synthetic */ MiUser f13746j;
 
-        public h(boolean z10) {
-            this.f13876i = z10;
+        /* JADX WARN: 'super' call moved to the top of the method (can break code semantics) */
+        i(j1 activity, final MiUser val$user) {
+            super(activity);
+            this.f13746j = val$user;
         }
 
-        @Override // y8.a
-        public void onResultError(x8.c cVar) {
-            String cVar2 = cVar.toString();
-            if (TextUtils.isEmpty(cVar2)) {
+        @Override // com.martian.mibook.lib.account.d.n
+        protected void r(b.d.c.b.c errorResult) {
+        }
+
+        @Override // b.d.c.c.g
+        protected void showLoading(boolean show) {
+        }
+
+        @Override // b.d.c.c.b
+        /* renamed from: t */
+        public void onDataReceived(MiUser miUser) {
+            if (miUser != null) {
+                PhoneLoginActivity.this.a3(miUser);
                 return;
             }
-            PhoneLoginActivity.this.P1(cVar2);
+            MiUser miUser2 = this.f13746j;
+            if (miUser2 != null) {
+                PhoneLoginActivity.this.a3(miUser2);
+            }
+        }
+    }
+
+    class j extends com.martian.mibook.lib.account.d.k {
+
+        /* renamed from: h */
+        final /* synthetic */ boolean f13747h;
+
+        j(final boolean val$refresh) {
+            this.f13747h = val$refresh;
         }
 
-        @Override // y8.a
-        /* renamed from: q */
+        @Override // b.d.c.c.b
+        public void onResultError(b.d.c.b.c errorResult) {
+            PhoneLoginActivity.this.k1(errorResult.toString());
+        }
+
+        @Override // b.d.c.c.b
+        /* renamed from: p */
         public void onDataReceived(PhoneCodeCaptchaResponse phoneCodeCaptchaResponse) {
-            if (phoneCodeCaptchaResponse == null || TextUtils.isEmpty(phoneCodeCaptchaResponse.getToken())) {
+            if (phoneCodeCaptchaResponse == null || com.martian.libsupport.k.p(phoneCodeCaptchaResponse.getToken())) {
                 return;
             }
             PhoneLoginActivity phoneLoginActivity = PhoneLoginActivity.this;
-            phoneLoginActivity.r3(phoneLoginActivity.f3(phoneCodeCaptchaResponse.getToken()), this.f13876i);
+            phoneLoginActivity.c3(phoneLoginActivity.F2(phoneCodeCaptchaResponse.getToken()), this.f13747h);
         }
 
-        @Override // y8.f
-        public void showLoading(boolean z10) {
-        }
-    }
-
-    public class i implements i0.p {
-        public i() {
-        }
-
-        @Override // l9.i0.p
-        public void a(AlertDialog alertDialog, EditText editText, TextView textView) {
-            String obj = editText.getText().toString();
-            if (TextUtils.isEmpty(obj)) {
-                PhoneLoginActivity phoneLoginActivity = PhoneLoginActivity.this;
-                phoneLoginActivity.P1(phoneLoginActivity.getString(R.string.verification_code_empty_tips));
-            } else {
-                PhoneLoginActivity.this.g3(obj, new WeakReference<>(alertDialog), new WeakReference<>(editText), new WeakReference<>(textView));
-            }
-        }
-
-        @Override // l9.i0.p
-        public void b(EditText editText, TextView textView) {
-            editText.getText().clear();
-            textView.setVisibility(4);
-            PhoneLoginActivity.this.e3(true);
+        @Override // b.d.c.c.g
+        protected void showLoading(boolean show) {
         }
     }
 
-    public class j implements Runnable {
+    class k implements Runnable {
 
-        /* renamed from: b */
-        public int f13879b = 0;
+        /* renamed from: a */
+        public int f13749a = 0;
 
-        public j() {
+        k() {
         }
 
         @Override // java.lang.Runnable
         public void run() {
-            int i10 = this.f13879b;
-            if (i10 > 0) {
-                PhoneLoginActivity.this.A3(i10 - 1);
+            int i2 = this.f13749a;
+            if (i2 > 0) {
+                PhoneLoginActivity.this.n3(i2 - 1);
             }
         }
     }
 
-    public interface k {
+    public interface l {
 
         /* renamed from: a */
-        public static final int f13881a = 0;
+        public static final int f13751a = 0;
 
         /* renamed from: b */
-        public static final int f13882b = 1;
+        public static final int f13752b = 1;
 
         /* renamed from: c */
-        public static final int f13883c = 2;
-    }
-
-    private void i3() {
-        ((InputMethodManager) getSystemService("input_method")).hideSoftInputFromWindow(this.C.f13916f.getWindowToken(), 0);
-    }
-
-    public void t3(String str) {
-        this.C.f13914d.setVisibility(0);
-        this.C.f13913c.setText(str);
-    }
-
-    public static void y3(Activity activity, int i10, String str, int i11) {
-        Intent intent = new Intent(activity, (Class<?>) PhoneLoginActivity.class);
-        intent.putExtra(J, i10);
-        intent.putExtra(K, str);
-        activity.startActivityForResult(intent, i11);
-    }
-
-    public final void A3(int i10) {
-        this.F.f13879b = i10;
-        this.H = i10;
-        if (i10 <= 0) {
-            this.C.f13920j.setText(getString(com.martian.mibook.lib.account.R.string.get_code));
-            return;
-        }
-        this.C.f13920j.setText(ConfigSingleton.D().s("重新发送(" + String.format(Locale.getDefault(), "%02d", Integer.valueOf(i10)) + "S)"));
-        this.C.f13920j.removeCallbacks(this.F);
-        this.C.f13920j.postDelayed(this.F, 1000L);
-    }
-
-    public void OnLoginClick(View view) {
-        if (d3()) {
-            return;
-        }
-        if (l.q(this.C.f13915e.getText().toString())) {
-            P1("验证码不能为空");
-            return;
-        }
-        int i10 = this.A;
-        if (i10 == 0) {
-            b3();
-        } else if (i10 == 1) {
-            a3();
-        } else if (i10 == 2) {
-            c3();
-        }
-    }
-
-    public void OnPhoneCodeClick(View view) {
-        if (d3()) {
-            return;
-        }
-        if (this.H <= 0) {
-            g3("", null, null, null);
-            return;
-        }
-        P1(this.H + "秒后重新获取");
+        public static final int f13753c = 2;
     }
 
     /* JADX WARN: Multi-variable type inference failed */
-    public final void a3() {
-        c cVar = new c(this);
-        ((BindPhoneParams) cVar.k()).setPhone(this.C.f13916f.getText().toString());
-        ((BindPhoneParams) cVar.k()).setCode(this.C.f13915e.getText().toString());
-        cVar.j();
-    }
-
-    /* JADX WARN: Multi-variable type inference failed */
-    public final void b3() {
-        d dVar = new d();
-        ((PhoneLoginParams) dVar.k()).setPhone(this.C.f13916f.getText().toString());
-        ((PhoneLoginParams) dVar.k()).setCode(this.C.f13915e.getText().toString());
+    private void B2() {
+        d dVar = new d(this);
+        ((BindPhoneParams) dVar.k()).setPhone(this.J.f13826f.getText().toString());
+        ((BindPhoneParams) dVar.k()).setCode(this.J.f13825e.getText().toString());
         dVar.j();
     }
 
     /* JADX WARN: Multi-variable type inference failed */
-    public final void c3() {
-        b bVar = new b(this);
-        ((BindPhoneParams) bVar.k()).setPhone(this.C.f13916f.getText().toString());
-        ((BindPhoneParams) bVar.k()).setCode(this.C.f13915e.getText().toString());
-        bVar.j();
+    private void C2() {
+        e eVar = new e();
+        ((PhoneLoginParams) eVar.k()).setPhone(this.J.f13826f.getText().toString());
+        ((PhoneLoginParams) eVar.k()).setCode(this.J.f13825e.getText().toString());
+        eVar.j();
     }
 
-    public final boolean d3() {
-        if (l.q(this.C.f13916f.getText().toString())) {
-            P1("手机号码不能为空");
+    /* JADX WARN: Multi-variable type inference failed */
+    private void D2() {
+        c cVar = new c(this);
+        ((BindPhoneParams) cVar.k()).setPhone(this.J.f13826f.getText().toString());
+        ((BindPhoneParams) cVar.k()).setCode(this.J.f13825e.getText().toString());
+        cVar.j();
+    }
+
+    private boolean E2() {
+        if (com.martian.libsupport.k.p(this.J.f13826f.getText().toString())) {
+            k1("手机号码不能为空");
             return true;
         }
-        if (oe.a.a(this.C.f13916f.getText().toString())) {
+        if (com.martian.rpauth.d.g.a(this.J.f13826f.getText().toString())) {
             return false;
         }
-        P1("错误的手机号格式");
+        k1("错误的手机号格式");
         return true;
     }
 
     /* JADX WARN: Multi-variable type inference failed */
-    public void e3(boolean z10) {
-        h hVar = new h(z10);
-        ((RequestPhoneCodeCaptchaParams) hVar.k()).setPhone(this.C.f13916f.getText().toString());
-        hVar.j();
+    public void I2(final MiUser user) {
+        i iVar = new i(this, user);
+        ((GetUserInfoParams) iVar.k()).setUid(user.getUid());
+        ((GetUserInfoParams) iVar.k()).setToken(user.getToken());
+        iVar.j();
     }
 
-    public String f3(String str) {
-        StringBuilder sb2;
-        String str2;
-        if (ConfigSingleton.D().J0()) {
-            sb2 = new StringBuilder();
-            str2 = "http://testcaptcha.qianhongkeji.cn/get_captcha.do?token=";
-        } else {
-            sb2 = new StringBuilder();
-            str2 = "http://captcha.qianhongkeji.cn/get_captcha.do?token=";
+    private void J2() {
+        ((InputMethodManager) getSystemService("input_method")).hideSoftInputFromWindow(this.J.f13826f.getWindowToken(), 0);
+    }
+
+    /* renamed from: K2 */
+    public /* synthetic */ void L2(final MiUser miUser, final DialogFragment fragment, final com.martian.mibook.lib.account.b.d binding, View v) {
+        if (!this.K) {
+            k1("请先同意用户隐私协议");
+            h0.e(binding.f13838e);
+            return;
         }
-        sb2.append(str2);
-        sb2.append(str);
-        return sb2.toString();
+        k1("跳转微信中...");
+        if (miUser == null) {
+            h3(this.J.f13826f.getText().toString());
+        } else {
+            g3(miUser);
+        }
+        if (fragment != null) {
+            fragment.dismiss();
+        }
+    }
+
+    /* renamed from: M2 */
+    public /* synthetic */ void N2(final com.martian.mibook.lib.account.b.d binding, View v) {
+        boolean z = !this.K;
+        this.K = z;
+        binding.f13839f.setImageResource(z ? R.drawable.icon_checked : R.drawable.icon_checkin_unselected);
+    }
+
+    /* renamed from: O2 */
+    public /* synthetic */ void P2(final DialogFragment fragment, View v) {
+        if (fragment != null) {
+            this.K = false;
+            fragment.dismiss();
+        }
+    }
+
+    /* renamed from: Q2 */
+    public /* synthetic */ void R2(View v) {
+        com.martian.mibook.lib.account.e.c.i(this);
+    }
+
+    /* renamed from: S2 */
+    public /* synthetic */ void T2(View v) {
+        com.martian.mibook.lib.account.e.c.f(this);
+    }
+
+    /* renamed from: U2 */
+    public /* synthetic */ void V2(String text, AlertDialog alertDialog) {
+        if (com.martian.libsupport.k.p(text)) {
+            k1("验证码不能为空");
+            return;
+        }
+        H2(text);
+        if (alertDialog != null) {
+            alertDialog.dismiss();
+        }
+    }
+
+    /* renamed from: W2 */
+    public /* synthetic */ void X2(View v) {
+        G2(true);
+    }
+
+    /* renamed from: Y2 */
+    public /* synthetic */ void Z2() {
+        n3(this.M);
+    }
+
+    public void a3(final MiUser miUser) {
+        if (miUser != null) {
+            miUser.setGuest(Boolean.FALSE);
+        }
+        MartianIUserManager.b().m(miUser);
+        m3();
+    }
+
+    public void d3(String errorStr, boolean isFinish) {
+        this.J.f13824d.setVisibility(8);
+        k1(errorStr);
+        if (isFinish) {
+            finish();
+        }
+    }
+
+    public void e3(String hintStr) {
+        this.J.f13824d.setVisibility(0);
+        this.J.f13823c.setText(hintStr);
+    }
+
+    public void f3(String title, String desc, String postive) {
+        k0.W(this, title, desc, postive, new k0.j() { // from class: com.martian.mibook.lib.account.activity.s
+            @Override // com.martian.libmars.utils.k0.j
+            public final void a() {
+                PhoneLoginActivity.this.finish();
+            }
+        }, new k0.l() { // from class: com.martian.mibook.lib.account.activity.a
+            @Override // com.martian.libmars.utils.k0.l
+            public final void a() {
+                PhoneLoginActivity.this.finish();
+            }
+        });
+    }
+
+    private void g3(final MiUser miUser) {
+        if (miUser == null || miUser.getUid() == null) {
+            return;
+        }
+        com.maritan.libweixin.c.g().B(new h(miUser));
+    }
+
+    public void i3() {
+        runOnUiThread(new Runnable() { // from class: com.martian.mibook.lib.account.activity.k
+            @Override // java.lang.Runnable
+            public final void run() {
+                PhoneLoginActivity.this.Z2();
+            }
+        });
+    }
+
+    public static void j3(Activity activity, int phoneType, String verfiyHint, int requestCode) {
+        Intent intent = new Intent(activity, (Class<?>) PhoneLoginActivity.class);
+        intent.putExtra(F, phoneType);
+        intent.putExtra(G, verfiyHint);
+        activity.startActivityForResult(intent, requestCode);
     }
 
     /* JADX WARN: Multi-variable type inference failed */
-    public void g3(String str, WeakReference<AlertDialog> weakReference, WeakReference<EditText> weakReference2, WeakReference<TextView> weakReference3) {
-        a aVar = new a(weakReference, weakReference2, weakReference3);
-        ((RequestPhoneCodeParams) aVar.k()).setPhone(this.C.f13916f.getText().toString());
-        if (!l.q(str)) {
-            ((RequestPhoneCodeParams) aVar.k()).setCaptcha(str);
-        }
+    public void l3(String authorizationCode) {
+        a aVar = new a(TryWeixinBindParams.class, UserDetail.class, this);
+        ((TryWeixinBindParams) aVar.k()).setWx_code(authorizationCode);
+        ((TryWeixinBindParams) aVar.k()).setWx_appid(com.martian.libmars.d.h.F().y0().f9577a);
         aVar.j();
     }
 
-    /* JADX WARN: Multi-variable type inference failed */
-    public final void h3(MiUser miUser) {
-        g gVar = new g(this, miUser);
-        ((GetUserInfoParams) gVar.k()).setUid(miUser.getUid());
-        ((GetUserInfoParams) gVar.k()).setToken(miUser.getToken());
-        gVar.j();
-    }
-
-    public final /* synthetic */ void j3(MiUser miUser, DialogFragment dialogFragment, BindWeixinDialogBinding bindWeixinDialogBinding, View view) {
-        if (!this.E) {
-            P1("请先同意用户隐私协议");
-            l9.a.f(bindWeixinDialogBinding.f13935e);
+    public void n3(final int seconds) {
+        this.L.f13749a = seconds;
+        this.N = seconds;
+        if (seconds <= 0) {
+            this.J.f13830j.setText(getString(R.string.get_code));
             return;
         }
-        P1("跳转微信中...");
-        if (miUser == null) {
-            w3(this.C.f13916f.getText().toString());
+        this.J.f13830j.setText("重新发送(" + String.format(Locale.getDefault(), "%02d", Integer.valueOf(seconds)) + "S)");
+        this.J.f13830j.removeCallbacks(this.L);
+        this.J.f13830j.postDelayed(this.L, 1000L);
+    }
+
+    public String F2(String token) {
+        StringBuilder sb;
+        String str;
+        if (com.martian.libmars.d.h.F().Q0()) {
+            sb = new StringBuilder();
+            str = "http://testcaptcha.qianhongkeji.cn/get_captcha.do?token=";
         } else {
-            v3(miUser);
+            sb = new StringBuilder();
+            str = "http://captcha.qianhongkeji.cn/get_captcha.do?token=";
         }
-        if (dialogFragment != null) {
-            dialogFragment.dismiss();
+        sb.append(str);
+        sb.append(token);
+        return sb.toString();
+    }
+
+    /* JADX WARN: Multi-variable type inference failed */
+    public void G2(final boolean refresh) {
+        j jVar = new j(refresh);
+        ((RequestPhoneCodeCaptchaParams) jVar.k()).setPhone(this.J.f13826f.getText().toString());
+        jVar.j();
+    }
+
+    /* JADX WARN: Multi-variable type inference failed */
+    public void H2(String captcha) {
+        b bVar = new b();
+        ((RequestPhoneCodeParams) bVar.k()).setPhone(this.J.f13826f.getText().toString());
+        if (!com.martian.libsupport.k.p(captcha)) {
+            ((RequestPhoneCodeParams) bVar.k()).setCaptcha(captcha);
+        }
+        bVar.j();
+    }
+
+    public void OnLoginClick(View view) {
+        if (E2()) {
+            return;
+        }
+        if (com.martian.libsupport.k.p(this.J.f13825e.getText().toString())) {
+            k1("验证码不能为空");
+            return;
+        }
+        int i2 = this.H;
+        if (i2 == 0) {
+            C2();
+        } else if (i2 == 1) {
+            B2();
+        } else if (i2 == 2) {
+            D2();
         }
     }
 
-    public final /* synthetic */ void k3(BindWeixinDialogBinding bindWeixinDialogBinding, View view) {
-        boolean z10 = !this.E;
-        this.E = z10;
-        bindWeixinDialogBinding.f13936f.setImageResource(z10 ? R.drawable.icon_checked : R.drawable.icon_checkin_unselected);
+    public void OnPhoneCodeClick(View view) {
+        if (E2()) {
+            return;
+        }
+        if (this.N <= 0) {
+            H2("");
+            return;
+        }
+        k1(this.N + "秒后重新获取");
     }
 
-    public final /* synthetic */ void l3(DialogFragment dialogFragment, View view) {
-        if (dialogFragment != null) {
-            this.E = false;
-            dialogFragment.dismiss();
+    public void OnWxLgoinClick(View view) {
+        k0.Q(this, getString(R.string.loading_qq_title), getString(R.string.loading_qq_message), getString(R.string.cancel), getString(R.string.confirm), true, new k0.l() { // from class: com.martian.mibook.lib.account.activity.t
+            @Override // com.martian.libmars.utils.k0.l
+            public final void a() {
+                PhoneLoginActivity.this.k3();
+            }
+        }, null);
+    }
+
+    @Override // com.martian.libmars.activity.j1, com.martian.libmars.activity.h1
+    protected void Q0() {
+        super.Q0();
+        overridePendingTransition(0, R.anim.activity_pop_out);
+    }
+
+    /* JADX WARN: Multi-variable type inference failed */
+    public void b3(final MiUser miUser) {
+        View inflate = getLayoutInflater().inflate(R.layout.bind_weixin_dialog, (ViewGroup) null);
+        final com.martian.mibook.lib.account.b.d a2 = com.martian.mibook.lib.account.b.d.a(inflate);
+        a2.f13836c.setText(getString(R.string.phone_login_bind_wx_hint));
+        final com.martian.dialog.e k2 = ((g.a) ((g.a) com.martian.dialog.g.i(this).R(inflate).f(false)).j(true)).k();
+        a2.f13835b.setOnClickListener(new View.OnClickListener() { // from class: com.martian.mibook.lib.account.activity.l
+            @Override // android.view.View.OnClickListener
+            public final void onClick(View view) {
+                PhoneLoginActivity.this.L2(miUser, k2, a2, view);
+            }
+        });
+        a2.f13838e.setOnClickListener(new View.OnClickListener() { // from class: com.martian.mibook.lib.account.activity.i
+            @Override // android.view.View.OnClickListener
+            public final void onClick(View view) {
+                PhoneLoginActivity.this.N2(a2, view);
+            }
+        });
+        a2.f13837d.setOnClickListener(new View.OnClickListener() { // from class: com.martian.mibook.lib.account.activity.h
+            @Override // android.view.View.OnClickListener
+            public final void onClick(View view) {
+                PhoneLoginActivity.this.P2(k2, view);
+            }
+        });
+        a2.f13841h.setOnClickListener(new View.OnClickListener() { // from class: com.martian.mibook.lib.account.activity.j
+            @Override // android.view.View.OnClickListener
+            public final void onClick(View view) {
+                PhoneLoginActivity.this.R2(view);
+            }
+        });
+        a2.f13840g.setOnClickListener(new View.OnClickListener() { // from class: com.martian.mibook.lib.account.activity.d
+            @Override // android.view.View.OnClickListener
+            public final void onClick(View view) {
+                PhoneLoginActivity.this.T2(view);
+            }
+        });
+    }
+
+    public void c3(String url, boolean refresh) {
+        ImageView imageView;
+        if (isFinishing() || com.martian.libsupport.k.p(url)) {
+            return;
+        }
+        if (refresh && (imageView = this.O) != null) {
+            n0.l(this, url, imageView, R.drawable.image_loading_default_horizontal);
+            return;
+        }
+        ImageView M = k0.M(this, "请输入图形验证码", url, new k0.h() { // from class: com.martian.mibook.lib.account.activity.e
+            @Override // com.martian.libmars.utils.k0.h
+            public final void a(String str, AlertDialog alertDialog) {
+                PhoneLoginActivity.this.V2(str, alertDialog);
+            }
+        });
+        this.O = M;
+        if (M != null) {
+            M.setOnClickListener(new View.OnClickListener() { // from class: com.martian.mibook.lib.account.activity.m
+                @Override // android.view.View.OnClickListener
+                public final void onClick(View view) {
+                    PhoneLoginActivity.this.X2(view);
+                }
+            });
         }
     }
 
-    public final /* synthetic */ void m3(View view) {
-        lb.c.q(this);
+    public void h3(final String phone) {
+        this.J.f13824d.setVisibility(0);
+        com.maritan.libweixin.c.g().B(new g(phone));
     }
 
-    public final /* synthetic */ void n3(View view) {
-        lb.c.n(this);
+    public void k3() {
+        this.J.f13824d.setVisibility(0);
+        QQAPIInstance.getInstance().startLogin(this, new f());
     }
 
-    public final /* synthetic */ void o3() {
-        A3(this.G);
+    public void m3() {
+        com.martian.mibook.lib.account.e.c.l(this, null);
+        if (this.H == 0) {
+            com.martian.mibook.lib.account.e.c.k(this, null);
+        }
     }
 
-    @Override // com.martian.libmars.activity.BaseActivity, androidx.fragment.app.FragmentActivity, androidx.activity.ComponentActivity, android.app.Activity
-    public void onActivityResult(int i10, int i11, Intent intent) {
-        super.onActivityResult(i10, i11, intent);
-        MiUserManager.x(i10, i11, intent);
-        if (i10 == PopupLoginActivity.f13884f && i11 == -1) {
-            ac.a.P(this, "放弃注销账号");
-            P1("请重新登录");
+    @Override // com.martian.libmars.activity.h1, androidx.fragment.app.FragmentActivity, android.app.Activity
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        MiUserManager.j(requestCode, resultCode, data);
+        if (requestCode == PopupLoginActivity.f13754a && resultCode == -1) {
+            com.martian.mibook.lib.model.g.b.Z(this, "放弃注销账号");
+            k1("请重新登录");
         }
     }
 
@@ -614,234 +954,48 @@ public class PhoneLoginActivity extends MiBackableActivity {
         finish();
     }
 
-    @Override // com.martian.mibook.lib.model.activity.MiBackableActivity, com.martian.libmars.activity.MartianActivity, com.martian.libmars.activity.BaseActivity, me.imid.swipebacklayout.lib.app.SwipeBackActivity, androidx.fragment.app.FragmentActivity, androidx.activity.ComponentActivity, androidx.core.app.ComponentActivity, android.app.Activity
-    public void onCreate(Bundle bundle) {
-        super.onCreate(bundle);
+    @Override // com.martian.mibook.lib.model.b.a, com.martian.libmars.activity.j1, com.martian.libmars.activity.h1, me.imid.swipebacklayout.lib.d.a, androidx.appcompat.app.AppCompatActivity, androidx.fragment.app.FragmentActivity, androidx.activity.ComponentActivity, androidx.core.app.ComponentActivity, android.app.Activity
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
         overridePendingTransition(R.anim.activity_pop_in, R.anim.activity_fade_out);
-        J2(false);
-        ActivityPhoneLoginBinding c10 = ActivityPhoneLoginBinding.c(getLayoutInflater());
-        this.C = c10;
-        setContentView(c10.getRoot());
-        if (bundle != null) {
-            this.A = bundle.getInt(J, 0);
-            this.B = bundle.getString(K, "");
+        p2(false);
+        com.martian.mibook.lib.account.b.b c2 = com.martian.mibook.lib.account.b.b.c(getLayoutInflater());
+        this.J = c2;
+        setContentView(c2.getRoot());
+        if (savedInstanceState != null) {
+            this.H = savedInstanceState.getInt(F, 0);
+            this.I = savedInstanceState.getString(G, "");
         } else {
-            this.A = getIntent().getIntExtra(J, 0);
-            this.B = getIntent().getStringExtra(K);
+            this.H = getIntent().getIntExtra(F, 0);
+            this.I = getIntent().getStringExtra(G);
         }
-        this.C.f13917g.setPadding(0, p1(), 0, 0);
-        int i10 = this.A;
-        if (i10 == 0) {
-            this.C.f13918h.setText(getString(com.martian.mibook.lib.account.R.string.phone_login_hint));
-        } else if (i10 == 1) {
-            this.C.f13918h.setText(getString(com.martian.mibook.lib.account.R.string.phone_bind));
-        } else if (i10 == 2) {
-            this.C.f13918h.setText(getString(com.martian.mibook.lib.account.R.string.phone_verify));
+        this.J.f13827g.setPadding(0, F0(), 0, 0);
+        int i2 = this.H;
+        if (i2 == 0) {
+            this.J.f13828h.setText(getString(R.string.phone_login_hint));
+        } else if (i2 == 1) {
+            this.J.f13828h.setText(getString(R.string.phone_bind));
+        } else if (i2 == 2) {
+            this.J.f13828h.setText(getString(R.string.phone_verify));
         }
-        if (this.A != 2 || l.q(this.B)) {
-            this.C.f13912b.setVisibility(8);
+        if (this.H != 2 || com.martian.libsupport.k.p(this.I)) {
+            this.J.f13822b.setVisibility(8);
         } else {
-            this.C.f13912b.setVisibility(0);
-            this.C.f13912b.setText(this.B);
+            this.J.f13822b.setVisibility(0);
+            this.J.f13822b.setText(this.I);
         }
     }
 
-    @Override // com.martian.libmars.activity.MartianActivity, com.martian.libmars.activity.BaseActivity, androidx.appcompat.app.AppCompatActivity, androidx.fragment.app.FragmentActivity, android.app.Activity
-    public void onDestroy() {
-        super.onDestroy();
-        PopupWindow popupWindow = this.D;
-        if (popupWindow != null) {
-            popupWindow.dismiss();
-            this.D = null;
-        }
-    }
-
-    @Override // com.martian.libmars.activity.MartianActivity, com.martian.libmars.activity.BaseActivity, androidx.fragment.app.FragmentActivity, android.app.Activity
-    public void onPause() {
-        i3();
+    @Override // com.martian.libmars.activity.j1, com.martian.libmars.activity.h1, androidx.fragment.app.FragmentActivity, android.app.Activity
+    protected void onPause() {
+        J2();
         super.onPause();
     }
 
-    @Override // androidx.activity.ComponentActivity, androidx.core.app.ComponentActivity, android.app.Activity
-    public void onSaveInstanceState(@NonNull Bundle bundle) {
-        super.onSaveInstanceState(bundle);
-        bundle.putInt(J, this.A);
-        bundle.putString(K, this.B);
-    }
-
-    public final void p3(MiUser miUser) {
-        if (miUser != null) {
-            miUser.setGuest(Boolean.FALSE);
-        }
-        MartianIUserManager.b().l(miUser);
-        z3();
-    }
-
-    /*  JADX ERROR: JadxRuntimeException in pass: ProcessVariables
-        jadx.core.utils.exceptions.JadxRuntimeException: Method arg registers not loaded: ib.d.<init>(com.martian.mibook.lib.account.activity.PhoneLoginActivity, com.martian.mibook.lib.account.response.MiUser, androidx.fragment.app.DialogFragment, com.martian.mibook.lib.account.databinding.BindWeixinDialogBinding):void, class status: GENERATED_AND_UNLOADED
-        	at jadx.core.dex.nodes.MethodNode.getArgRegs(MethodNode.java:290)
-        	at jadx.core.dex.visitors.regions.variables.ProcessVariables$1.isArgUnused(ProcessVariables.java:146)
-        	at jadx.core.dex.visitors.regions.variables.ProcessVariables$1.lambda$isVarUnused$0(ProcessVariables.java:131)
-        	at jadx.core.utils.ListUtils.allMatch(ListUtils.java:193)
-        	at jadx.core.dex.visitors.regions.variables.ProcessVariables$1.isVarUnused(ProcessVariables.java:131)
-        	at jadx.core.dex.visitors.regions.variables.ProcessVariables$1.processBlock(ProcessVariables.java:82)
-        	at jadx.core.dex.visitors.regions.DepthRegionTraversal.traverseInternal(DepthRegionTraversal.java:64)
-        	at jadx.core.dex.visitors.regions.DepthRegionTraversal.lambda$traverseInternal$0(DepthRegionTraversal.java:68)
-        	at java.base/java.util.ArrayList.forEach(Unknown Source)
-        	at jadx.core.dex.visitors.regions.DepthRegionTraversal.traverseInternal(DepthRegionTraversal.java:68)
-        	at jadx.core.dex.visitors.regions.DepthRegionTraversal.traverse(DepthRegionTraversal.java:19)
-        	at jadx.core.dex.visitors.regions.variables.ProcessVariables.removeUnusedResults(ProcessVariables.java:73)
-        	at jadx.core.dex.visitors.regions.variables.ProcessVariables.visit(ProcessVariables.java:48)
-        */
-    public void q3(com.martian.mibook.lib.account.response.MiUser r5) {
-        /*
-            r4 = this;
-            android.view.LayoutInflater r0 = r4.getLayoutInflater()
-            int r1 = com.martian.mibook.lib.account.R.layout.bind_weixin_dialog
-            r2 = 0
-            android.view.View r0 = r0.inflate(r1, r2)
-            com.martian.mibook.lib.account.databinding.BindWeixinDialogBinding r1 = com.martian.mibook.lib.account.databinding.BindWeixinDialogBinding.a(r0)
-            android.widget.TextView r2 = r1.f13933c
-            int r3 = com.martian.mibook.lib.account.R.string.phone_login_bind_wx_hint
-            java.lang.String r3 = r4.getString(r3)
-            r2.setText(r3)
-            com.martian.libmars.widget.dialog.MartianDialogFragment$a r2 = com.martian.libmars.widget.dialog.MartianDialogFragment.INSTANCE
-            com.martian.libmars.widget.dialog.b r2 = r2.a()
-            com.martian.libmars.widget.dialog.b r0 = r2.Q(r0)
-            r2 = 0
-            com.martian.libmars.widget.dialog.b r0 = r0.J(r2)
-            com.martian.libmars.widget.dialog.MartianDialogFragment r0 = r0.E(r4)
-            android.widget.LinearLayout r2 = r1.f13932b
-            ib.d r3 = new ib.d
-            r3.<init>()
-            r2.setOnClickListener(r3)
-            android.widget.LinearLayout r5 = r1.f13935e
-            ib.e r2 = new ib.e
-            r2.<init>()
-            r5.setOnClickListener(r2)
-            android.widget.ImageView r5 = r1.f13934d
-            ib.f r2 = new ib.f
-            r2.<init>()
-            r5.setOnClickListener(r2)
-            android.widget.TextView r5 = r1.f13938h
-            ib.g r0 = new ib.g
-            r0.<init>()
-            r5.setOnClickListener(r0)
-            android.widget.TextView r5 = r1.f13937g
-            ib.h r0 = new ib.h
-            r0.<init>()
-            r5.setOnClickListener(r0)
-            return
-        */
-        throw new UnsupportedOperationException("Method not decompiled: com.martian.mibook.lib.account.activity.PhoneLoginActivity.q3(com.martian.mibook.lib.account.response.MiUser):void");
-    }
-
-    public void r3(String str, boolean z10) {
-        ImageView imageView;
-        if (isFinishing() || l.q(str)) {
-            return;
-        }
-        if (!z10 || (imageView = this.I) == null) {
-            this.I = i0.t0(this, getString(R.string.captcha_code), str, new i());
-        } else {
-            m0.k(this, str, imageView);
-        }
-    }
-
-    public final void s3(String str, boolean z10) {
-        this.C.f13914d.setVisibility(8);
-        P1(str);
-        if (z10) {
-            finish();
-        }
-    }
-
-    public final void u3(String str) {
-        i0.F0(this, ConfigSingleton.D().s("恭喜您"), ConfigSingleton.D().s(str), ConfigSingleton.D().s("知道了"), new i0.k() { // from class: ib.b
-            public /* synthetic */ b() {
-            }
-
-            @Override // l9.i0.k
-            public final void a() {
-                PhoneLoginActivity.this.finish();
-            }
-        }, new i0.l() { // from class: ib.c
-            public /* synthetic */ c() {
-            }
-
-            @Override // l9.i0.l
-            public final void a() {
-                PhoneLoginActivity.this.finish();
-            }
-        });
-    }
-
-    @Override // com.martian.libmars.activity.MartianActivity, com.martian.libmars.activity.BaseActivity
-    public void v1() {
-        super.v1();
-        overridePendingTransition(0, R.anim.activity_pop_out);
-    }
-
-    public final void v3(MiUser miUser) {
-        if (miUser == null || miUser.getUid() == null) {
-            return;
-        }
-        z7.b.d().w(new f(miUser));
-    }
-
-    public void w3(String str) {
-        lb.c.k(this, str, new e());
-    }
-
-    public final void x3() {
-        runOnUiThread(new Runnable() { // from class: ib.a
-            public /* synthetic */ a() {
-            }
-
-            @Override // java.lang.Runnable
-            public final void run() {
-                PhoneLoginActivity.this.o3();
-            }
-        });
-    }
-
-    public void z3() {
-        lb.c.x(this, null);
-        if (this.A == 0) {
-            lb.c.w(this, null);
-        }
-    }
-
-    public class g extends o {
-
-        /* renamed from: k */
-        public final /* synthetic */ MiUser f13874k;
-
-        /* JADX WARN: 'super' call moved to the top of the method (can break code semantics) */
-        public g(Activity activity, MiUser miUser) {
-            super(activity);
-            this.f13874k = miUser;
-        }
-
-        @Override // y8.f
-        public void showLoading(boolean z10) {
-        }
-
-        @Override // y8.a
-        /* renamed from: u */
-        public void onDataReceived(MiUser miUser) {
-            if (miUser != null) {
-                PhoneLoginActivity.this.p3(miUser);
-                return;
-            }
-            MiUser miUser2 = this.f13874k;
-            if (miUser2 != null) {
-                PhoneLoginActivity.this.p3(miUser2);
-            }
-        }
-
-        @Override // jb.k
-        public void s(x8.c cVar) {
-        }
+    @Override // androidx.appcompat.app.AppCompatActivity, androidx.fragment.app.FragmentActivity, androidx.activity.ComponentActivity, androidx.core.app.ComponentActivity, android.app.Activity
+    protected void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+        outState.putInt(F, this.H);
+        outState.putString(G, this.I);
     }
 }

@@ -7,82 +7,83 @@ import android.content.ServiceConnection;
 import android.content.pm.PackageManager;
 import android.os.IBinder;
 import android.os.RemoteException;
+import com.martian.libmars.utils.q0;
 import com.opos.ads.IRemoteOposAdsInterface;
 
-/* loaded from: classes3.dex */
+/* loaded from: classes.dex */
 public abstract class SplashSwitchClient {
 
-    /* renamed from: e */
-    public static final String f13591e = "com.opos.ads";
-
-    /* renamed from: f */
-    public static final String f13592f = "com.opos.ads.OposAdsRemoteService";
-
     /* renamed from: a */
-    public final Context f13593a;
+    static final String f11637a = "com.opos.ads";
 
     /* renamed from: b */
-    public ServiceConnection f13594b;
+    static final String f11638b = "com.opos.ads.OposAdsRemoteService";
 
     /* renamed from: c */
-    public volatile boolean f13595c;
+    private final Context f11639c;
 
     /* renamed from: d */
-    public IRemoteOposAdsInterface f13596d;
+    private ServiceConnection f11640d;
 
-    public class a implements ServiceConnection {
+    /* renamed from: e */
+    private volatile boolean f11641e;
 
-        /* renamed from: b */
-        public final /* synthetic */ boolean f13597b;
+    /* renamed from: f */
+    IRemoteOposAdsInterface f11642f;
 
-        public a(boolean z10) {
-            this.f13597b = z10;
+    /* loaded from: classes3.dex */
+    class a implements ServiceConnection {
+
+        /* renamed from: a */
+        final /* synthetic */ boolean f11643a;
+
+        a(final boolean val$showSplash) {
+            this.f11643a = val$showSplash;
         }
 
         @Override // android.content.ServiceConnection
         public void onServiceConnected(ComponentName componentName, IBinder iBinder) {
+            q0.e("onServiceConnected:" + componentName);
             try {
-                try {
-                    SplashSwitchClient.this.f13595c = true;
-                    SplashSwitchClient.this.f13596d = IRemoteOposAdsInterface.Stub.asInterface(iBinder);
-                    SplashSwitchClient.this.f13596d.setShowSplashFlag(this.f13597b);
-                } catch (RemoteException e10) {
-                    e10.printStackTrace();
-                }
-            } finally {
-                SplashSwitchClient.this.e();
+                SplashSwitchClient.this.f11641e = true;
+                SplashSwitchClient.this.f11642f = IRemoteOposAdsInterface.Stub.asInterface(iBinder);
+                SplashSwitchClient.this.f11642f.setShowSplashFlag(this.f11643a);
+            } catch (RemoteException e2) {
+                e2.printStackTrace();
             }
         }
 
         @Override // android.content.ServiceConnection
         public void onServiceDisconnected(ComponentName componentName) {
-            SplashSwitchClient.this.f13596d = null;
-            SplashSwitchClient.this.f13595c = false;
+            q0.e("onServiceDisconnected:" + componentName);
+            SplashSwitchClient splashSwitchClient = SplashSwitchClient.this;
+            splashSwitchClient.f11642f = null;
+            splashSwitchClient.f11641e = false;
         }
     }
 
     public SplashSwitchClient(Context context) {
-        this.f13593a = context;
+        this.f11639c = context;
     }
 
-    public static boolean d(Context context) {
+    public static boolean b(Context context) {
         PackageManager packageManager = context.getPackageManager();
         Intent intent = new Intent();
-        intent.setComponent(new ComponentName(f13591e, f13592f));
+        intent.setComponent(new ComponentName(f11637a, f11638b));
         return packageManager.queryIntentServices(intent, 65536).size() > 0;
     }
 
-    public void bindService(boolean z10) {
-        this.f13594b = new a(z10);
+    public void bindService(boolean showSplash) {
+        this.f11640d = new a(showSplash);
         Intent intent = new Intent();
-        intent.setComponent(new ComponentName(f13591e, f13592f));
-        this.f13593a.bindService(intent, this.f13594b, 1);
+        intent.setComponent(new ComponentName(f11637a, f11638b));
+        this.f11639c.bindService(intent, this.f11640d, 1);
     }
 
-    public void e() {
-        if (this.f13595c) {
-            this.f13593a.unbindService(this.f13594b);
-            this.f13595c = false;
+    public void c() {
+        if (this.f11641e) {
+            this.f11639c.unbindService(this.f11640d);
+            this.f11641e = false;
         }
     }
 }

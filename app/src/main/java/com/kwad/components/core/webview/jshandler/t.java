@@ -1,52 +1,57 @@
 package com.kwad.components.core.webview.jshandler;
 
-import android.text.TextUtils;
+import android.os.Handler;
+import android.os.Looper;
 import androidx.annotation.NonNull;
-import com.ksad.json.annotation.KsJson;
-import com.kwad.sdk.service.ServiceProvider;
-import org.json.JSONException;
-import org.json.JSONObject;
 
-/* loaded from: classes3.dex */
-public final class t implements com.kwad.sdk.core.webview.c.a {
+/* loaded from: classes2.dex */
+public final class t implements com.kwad.sdk.core.webview.b.a {
+    private a SD;
+    private final com.kwad.sdk.core.webview.b mBridgeContext;
+    private Handler mHandler = new Handler(Looper.getMainLooper());
 
-    @KsJson
-    public static class a extends com.kwad.sdk.core.response.a.a {
-        public String key;
-        public String value;
-    }
-
-    private static boolean aP(String str) {
-        a aVar = new a();
-        try {
-            aVar.parseJson(new JSONObject(str));
-        } catch (JSONException unused) {
+    /* renamed from: com.kwad.components.core.webview.jshandler.t$1 */
+    final class AnonymousClass1 implements Runnable {
+        AnonymousClass1() {
         }
-        if (TextUtils.isEmpty(aVar.key) || TextUtils.isEmpty(aVar.value)) {
-            return false;
-        }
-        com.kwad.sdk.utils.ad.a(ServiceProvider.getContext(), "ksadsdk_js_storage_cache_name", aVar.key, aVar.value);
-        return true;
-    }
 
-    @Override // com.kwad.sdk.core.webview.c.a
-    public final void a(String str, @NonNull com.kwad.sdk.core.webview.c.c cVar) {
-        if (TextUtils.isEmpty(str)) {
-            cVar.onError(-1, "data is empty");
-        } else if (aP(str)) {
-            cVar.a(null);
-        } else {
-            cVar.onError(-1, "");
+        @Override // java.lang.Runnable
+        public final void run() {
+            t.this.SD.bI();
         }
     }
 
-    @Override // com.kwad.sdk.core.webview.c.a
+    public interface a {
+        void bI();
+    }
+
+    public t(com.kwad.sdk.core.webview.b bVar, a aVar) {
+        this.mBridgeContext = bVar;
+        this.SD = aVar;
+    }
+
+    @Override // com.kwad.sdk.core.webview.b.a
     @NonNull
     public final String getKey() {
-        return "setStorageItem";
+        return "dislike";
     }
 
-    @Override // com.kwad.sdk.core.webview.c.a
+    @Override // com.kwad.sdk.core.webview.b.a
+    public final void handleJsCall(String str, @NonNull com.kwad.sdk.core.webview.b.c cVar) {
+        this.mHandler.post(new Runnable() { // from class: com.kwad.components.core.webview.jshandler.t.1
+            AnonymousClass1() {
+            }
+
+            @Override // java.lang.Runnable
+            public final void run() {
+                t.this.SD.bI();
+            }
+        });
+        cVar.a(null);
+    }
+
+    @Override // com.kwad.sdk.core.webview.b.a
     public final void onDestroy() {
+        this.mHandler.removeCallbacksAndMessages(null);
     }
 }

@@ -4,7 +4,7 @@ import com.qq.e.ads.dfa.GDTAppDialogClickListener;
 import com.qq.e.comm.managers.devtool.DevTools;
 import java.util.Map;
 
-/* loaded from: classes3.dex */
+/* loaded from: classes4.dex */
 public interface IGDTAdManager {
     String getBuyerId(Map<String, Object> map);
 

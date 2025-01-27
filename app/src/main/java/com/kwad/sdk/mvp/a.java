@@ -3,7 +3,7 @@ package com.kwad.sdk.mvp;
 import androidx.annotation.NonNull;
 import com.kwad.sdk.core.response.model.AdTemplate;
 
-/* loaded from: classes3.dex */
+/* loaded from: classes2.dex */
 public abstract class a {
 
     @NonNull

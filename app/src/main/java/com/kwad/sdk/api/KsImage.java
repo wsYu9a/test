@@ -5,7 +5,7 @@ import com.kwad.sdk.api.core.KsAdSdkApi;
 
 @KsAdSdkApi
 @Keep
-/* loaded from: classes3.dex */
+/* loaded from: classes2.dex */
 public interface KsImage {
     @KsAdSdkApi
     @Keep

@@ -1,36 +1,31 @@
 package com.martian.mibook.lib.local.txt.data;
 
-import ba.k;
-import ba.l;
+import com.martian.libsupport.j;
+import com.martian.libsupport.k;
 import com.martian.mibook.lib.model.data.abs.Chapter;
 
-@k.h(name = "txtchapters")
+@j.g(name = "txtchapters")
 /* loaded from: classes3.dex */
 public class TXTChapter extends Chapter {
 
-    @k.a
-    @k.b
+    @j.b
+    @j.a
     private Integer _id;
 
-    @k.b
+    @j.b
     private String charset;
 
-    @k.b
+    @j.b
     private Long endOffset;
 
-    @k.b
+    @j.b
     private String filepath;
 
-    @k.b
+    @j.b
     private Long startOffset;
 
-    @k.b
+    @j.b
     private String title;
-
-    @Override // com.martian.mibook.lib.model.data.abs.Chapter
-    public String getChapterId() {
-        return "" + this._id;
-    }
 
     public String getCharset() {
         return this.charset;
@@ -58,28 +53,28 @@ public class TXTChapter extends Chapter {
         return this.title;
     }
 
-    public void setCharset(String str) {
-        this.charset = str;
+    public void setCharset(String charset) {
+        this.charset = charset;
     }
 
-    public void setEndOffset(Long l10) {
-        this.endOffset = l10;
+    public void setEndOffset(Long endOffset) {
+        this.endOffset = endOffset;
     }
 
-    public void setFilepath(String str) {
-        this.filepath = str;
+    public void setFilepath(String filepath) {
+        this.filepath = filepath;
     }
 
     @Override // com.martian.mibook.lib.model.data.abs.Chapter
-    public void setSrcLink(String str) {
+    public void setSrcLink(String link) {
         throw new UnsupportedOperationException();
     }
 
-    public void setStartOffset(Long l10) {
-        this.startOffset = l10;
+    public void setStartOffset(Long startOffset) {
+        this.startOffset = startOffset;
     }
 
-    public void setTitle(String str) {
-        this.title = l.B(str);
+    public void setTitle(String title) {
+        this.title = k.x(title);
     }
 }

@@ -15,47 +15,47 @@ public interface ISqlDownloadCacheAidl extends IInterface {
 
     public static class Default implements ISqlDownloadCacheAidl {
         @Override // com.ss.android.socialbase.downloader.db.ISqlDownloadCacheAidl
-        public DownloadInfo OnDownloadTaskCancel(int i10, long j10) throws RemoteException {
+        public DownloadInfo OnDownloadTaskCancel(int i2, long j2) throws RemoteException {
             return null;
         }
 
         @Override // com.ss.android.socialbase.downloader.db.ISqlDownloadCacheAidl
-        public DownloadInfo OnDownloadTaskCompleted(int i10, long j10) throws RemoteException {
+        public DownloadInfo OnDownloadTaskCompleted(int i2, long j2) throws RemoteException {
             return null;
         }
 
         @Override // com.ss.android.socialbase.downloader.db.ISqlDownloadCacheAidl
-        public DownloadInfo OnDownloadTaskConnected(int i10, long j10, String str, String str2) throws RemoteException {
+        public DownloadInfo OnDownloadTaskConnected(int i2, long j2, String str, String str2) throws RemoteException {
             return null;
         }
 
         @Override // com.ss.android.socialbase.downloader.db.ISqlDownloadCacheAidl
-        public DownloadInfo OnDownloadTaskError(int i10, long j10) throws RemoteException {
+        public DownloadInfo OnDownloadTaskError(int i2, long j2) throws RemoteException {
             return null;
         }
 
         @Override // com.ss.android.socialbase.downloader.db.ISqlDownloadCacheAidl
-        public DownloadInfo OnDownloadTaskIntercept(int i10) throws RemoteException {
+        public DownloadInfo OnDownloadTaskIntercept(int i2) throws RemoteException {
             return null;
         }
 
         @Override // com.ss.android.socialbase.downloader.db.ISqlDownloadCacheAidl
-        public DownloadInfo OnDownloadTaskPause(int i10, long j10) throws RemoteException {
+        public DownloadInfo OnDownloadTaskPause(int i2, long j2) throws RemoteException {
             return null;
         }
 
         @Override // com.ss.android.socialbase.downloader.db.ISqlDownloadCacheAidl
-        public DownloadInfo OnDownloadTaskPrepare(int i10) throws RemoteException {
+        public DownloadInfo OnDownloadTaskPrepare(int i2) throws RemoteException {
             return null;
         }
 
         @Override // com.ss.android.socialbase.downloader.db.ISqlDownloadCacheAidl
-        public DownloadInfo OnDownloadTaskProgress(int i10, long j10) throws RemoteException {
+        public DownloadInfo OnDownloadTaskProgress(int i2, long j2) throws RemoteException {
             return null;
         }
 
         @Override // com.ss.android.socialbase.downloader.db.ISqlDownloadCacheAidl
-        public DownloadInfo OnDownloadTaskRetry(int i10) throws RemoteException {
+        public DownloadInfo OnDownloadTaskRetry(int i2) throws RemoteException {
             return null;
         }
 
@@ -73,7 +73,7 @@ public interface ISqlDownloadCacheAidl extends IInterface {
         }
 
         @Override // com.ss.android.socialbase.downloader.db.ISqlDownloadCacheAidl
-        public boolean cacheExist(int i10) throws RemoteException {
+        public boolean cacheExist(int i2) throws RemoteException {
             return false;
         }
 
@@ -92,12 +92,12 @@ public interface ISqlDownloadCacheAidl extends IInterface {
         }
 
         @Override // com.ss.android.socialbase.downloader.db.ISqlDownloadCacheAidl
-        public List<DownloadChunk> getDownloadChunk(int i10) throws RemoteException {
+        public List<DownloadChunk> getDownloadChunk(int i2) throws RemoteException {
             return null;
         }
 
         @Override // com.ss.android.socialbase.downloader.db.ISqlDownloadCacheAidl
-        public DownloadInfo getDownloadInfo(int i10) throws RemoteException {
+        public DownloadInfo getDownloadInfo(int i2) throws RemoteException {
             return null;
         }
 
@@ -131,21 +131,21 @@ public interface ISqlDownloadCacheAidl extends IInterface {
         }
 
         @Override // com.ss.android.socialbase.downloader.db.ISqlDownloadCacheAidl
-        public DownloadInfo onDownloadTaskStart(int i10) throws RemoteException {
+        public DownloadInfo onDownloadTaskStart(int i2) throws RemoteException {
             return null;
         }
 
         @Override // com.ss.android.socialbase.downloader.db.ISqlDownloadCacheAidl
-        public void removeAllDownloadChunk(int i10) throws RemoteException {
+        public void removeAllDownloadChunk(int i2) throws RemoteException {
         }
 
         @Override // com.ss.android.socialbase.downloader.db.ISqlDownloadCacheAidl
-        public boolean removeDownloadInfo(int i10) throws RemoteException {
+        public boolean removeDownloadInfo(int i2) throws RemoteException {
             return false;
         }
 
         @Override // com.ss.android.socialbase.downloader.db.ISqlDownloadCacheAidl
-        public boolean removeDownloadTaskData(int i10) throws RemoteException {
+        public boolean removeDownloadTaskData(int i2) throws RemoteException {
             return false;
         }
 
@@ -154,7 +154,7 @@ public interface ISqlDownloadCacheAidl extends IInterface {
         }
 
         @Override // com.ss.android.socialbase.downloader.db.ISqlDownloadCacheAidl
-        public void syncDownloadChunks(int i10, List<DownloadChunk> list) throws RemoteException {
+        public void syncDownloadChunks(int i2, List<DownloadChunk> list) throws RemoteException {
         }
 
         @Override // com.ss.android.socialbase.downloader.db.ISqlDownloadCacheAidl
@@ -162,16 +162,16 @@ public interface ISqlDownloadCacheAidl extends IInterface {
         }
 
         @Override // com.ss.android.socialbase.downloader.db.ISqlDownloadCacheAidl
-        public void syncDownloadInfoFromOtherCache(int i10, List<DownloadChunk> list) throws RemoteException {
+        public void syncDownloadInfoFromOtherCache(int i2, List<DownloadChunk> list) throws RemoteException {
         }
 
         @Override // com.ss.android.socialbase.downloader.db.ISqlDownloadCacheAidl
-        public DownloadInfo updateChunkCount(int i10, int i11) throws RemoteException {
+        public DownloadInfo updateChunkCount(int i2, int i3) throws RemoteException {
             return null;
         }
 
         @Override // com.ss.android.socialbase.downloader.db.ISqlDownloadCacheAidl
-        public void updateDownloadChunk(int i10, int i11, long j10) throws RemoteException {
+        public void updateDownloadChunk(int i2, int i3, long j2) throws RemoteException {
         }
 
         @Override // com.ss.android.socialbase.downloader.db.ISqlDownloadCacheAidl
@@ -180,11 +180,11 @@ public interface ISqlDownloadCacheAidl extends IInterface {
         }
 
         @Override // com.ss.android.socialbase.downloader.db.ISqlDownloadCacheAidl
-        public void updateSubDownloadChunk(int i10, int i11, int i12, long j10) throws RemoteException {
+        public void updateSubDownloadChunk(int i2, int i3, int i4, long j2) throws RemoteException {
         }
 
         @Override // com.ss.android.socialbase.downloader.db.ISqlDownloadCacheAidl
-        public void updateSubDownloadChunkIndex(int i10, int i11, int i12, int i13) throws RemoteException {
+        public void updateSubDownloadChunkIndex(int i2, int i3, int i4, int i5) throws RemoteException {
         }
     }
 
@@ -227,24 +227,24 @@ public interface ISqlDownloadCacheAidl extends IInterface {
         static final int TRANSACTION_updateSubDownloadChunk = 14;
         static final int TRANSACTION_updateSubDownloadChunkIndex = 15;
 
-        public static class Proxy implements ISqlDownloadCacheAidl {
+        private static class Proxy implements ISqlDownloadCacheAidl {
             public static ISqlDownloadCacheAidl sDefaultImpl;
             private IBinder mRemote;
 
-            public Proxy(IBinder iBinder) {
+            Proxy(IBinder iBinder) {
                 this.mRemote = iBinder;
             }
 
             @Override // com.ss.android.socialbase.downloader.db.ISqlDownloadCacheAidl
-            public DownloadInfo OnDownloadTaskCancel(int i10, long j10) throws RemoteException {
+            public DownloadInfo OnDownloadTaskCancel(int i2, long j2) throws RemoteException {
                 Parcel obtain = Parcel.obtain();
                 Parcel obtain2 = Parcel.obtain();
                 try {
                     obtain.writeInterfaceToken(Stub.DESCRIPTOR);
-                    obtain.writeInt(i10);
-                    obtain.writeLong(j10);
+                    obtain.writeInt(i2);
+                    obtain.writeLong(j2);
                     if (!this.mRemote.transact(28, obtain, obtain2, 0) && Stub.getDefaultImpl() != null) {
-                        return Stub.getDefaultImpl().OnDownloadTaskCancel(i10, j10);
+                        return Stub.getDefaultImpl().OnDownloadTaskCancel(i2, j2);
                     }
                     obtain2.readException();
                     return obtain2.readInt() != 0 ? DownloadInfo.CREATOR.createFromParcel(obtain2) : null;
@@ -255,15 +255,15 @@ public interface ISqlDownloadCacheAidl extends IInterface {
             }
 
             @Override // com.ss.android.socialbase.downloader.db.ISqlDownloadCacheAidl
-            public DownloadInfo OnDownloadTaskCompleted(int i10, long j10) throws RemoteException {
+            public DownloadInfo OnDownloadTaskCompleted(int i2, long j2) throws RemoteException {
                 Parcel obtain = Parcel.obtain();
                 Parcel obtain2 = Parcel.obtain();
                 try {
                     obtain.writeInterfaceToken(Stub.DESCRIPTOR);
-                    obtain.writeInt(i10);
-                    obtain.writeLong(j10);
+                    obtain.writeInt(i2);
+                    obtain.writeLong(j2);
                     if (!this.mRemote.transact(26, obtain, obtain2, 0) && Stub.getDefaultImpl() != null) {
-                        return Stub.getDefaultImpl().OnDownloadTaskCompleted(i10, j10);
+                        return Stub.getDefaultImpl().OnDownloadTaskCompleted(i2, j2);
                     }
                     obtain2.readException();
                     return obtain2.readInt() != 0 ? DownloadInfo.CREATOR.createFromParcel(obtain2) : null;
@@ -274,17 +274,17 @@ public interface ISqlDownloadCacheAidl extends IInterface {
             }
 
             @Override // com.ss.android.socialbase.downloader.db.ISqlDownloadCacheAidl
-            public DownloadInfo OnDownloadTaskConnected(int i10, long j10, String str, String str2) throws RemoteException {
+            public DownloadInfo OnDownloadTaskConnected(int i2, long j2, String str, String str2) throws RemoteException {
                 Parcel obtain = Parcel.obtain();
                 Parcel obtain2 = Parcel.obtain();
                 try {
                     obtain.writeInterfaceToken(Stub.DESCRIPTOR);
-                    obtain.writeInt(i10);
-                    obtain.writeLong(j10);
+                    obtain.writeInt(i2);
+                    obtain.writeLong(j2);
                     obtain.writeString(str);
                     obtain.writeString(str2);
                     if (!this.mRemote.transact(22, obtain, obtain2, 0) && Stub.getDefaultImpl() != null) {
-                        return Stub.getDefaultImpl().OnDownloadTaskConnected(i10, j10, str, str2);
+                        return Stub.getDefaultImpl().OnDownloadTaskConnected(i2, j2, str, str2);
                     }
                     obtain2.readException();
                     return obtain2.readInt() != 0 ? DownloadInfo.CREATOR.createFromParcel(obtain2) : null;
@@ -295,15 +295,15 @@ public interface ISqlDownloadCacheAidl extends IInterface {
             }
 
             @Override // com.ss.android.socialbase.downloader.db.ISqlDownloadCacheAidl
-            public DownloadInfo OnDownloadTaskError(int i10, long j10) throws RemoteException {
+            public DownloadInfo OnDownloadTaskError(int i2, long j2) throws RemoteException {
                 Parcel obtain = Parcel.obtain();
                 Parcel obtain2 = Parcel.obtain();
                 try {
                     obtain.writeInterfaceToken(Stub.DESCRIPTOR);
-                    obtain.writeInt(i10);
-                    obtain.writeLong(j10);
+                    obtain.writeInt(i2);
+                    obtain.writeLong(j2);
                     if (!this.mRemote.transact(24, obtain, obtain2, 0) && Stub.getDefaultImpl() != null) {
-                        return Stub.getDefaultImpl().OnDownloadTaskError(i10, j10);
+                        return Stub.getDefaultImpl().OnDownloadTaskError(i2, j2);
                     }
                     obtain2.readException();
                     return obtain2.readInt() != 0 ? DownloadInfo.CREATOR.createFromParcel(obtain2) : null;
@@ -314,14 +314,14 @@ public interface ISqlDownloadCacheAidl extends IInterface {
             }
 
             @Override // com.ss.android.socialbase.downloader.db.ISqlDownloadCacheAidl
-            public DownloadInfo OnDownloadTaskIntercept(int i10) throws RemoteException {
+            public DownloadInfo OnDownloadTaskIntercept(int i2) throws RemoteException {
                 Parcel obtain = Parcel.obtain();
                 Parcel obtain2 = Parcel.obtain();
                 try {
                     obtain.writeInterfaceToken(Stub.DESCRIPTOR);
-                    obtain.writeInt(i10);
+                    obtain.writeInt(i2);
                     if (!this.mRemote.transact(30, obtain, obtain2, 0) && Stub.getDefaultImpl() != null) {
-                        return Stub.getDefaultImpl().OnDownloadTaskIntercept(i10);
+                        return Stub.getDefaultImpl().OnDownloadTaskIntercept(i2);
                     }
                     obtain2.readException();
                     return obtain2.readInt() != 0 ? DownloadInfo.CREATOR.createFromParcel(obtain2) : null;
@@ -332,15 +332,15 @@ public interface ISqlDownloadCacheAidl extends IInterface {
             }
 
             @Override // com.ss.android.socialbase.downloader.db.ISqlDownloadCacheAidl
-            public DownloadInfo OnDownloadTaskPause(int i10, long j10) throws RemoteException {
+            public DownloadInfo OnDownloadTaskPause(int i2, long j2) throws RemoteException {
                 Parcel obtain = Parcel.obtain();
                 Parcel obtain2 = Parcel.obtain();
                 try {
                     obtain.writeInterfaceToken(Stub.DESCRIPTOR);
-                    obtain.writeInt(i10);
-                    obtain.writeLong(j10);
+                    obtain.writeInt(i2);
+                    obtain.writeLong(j2);
                     if (!this.mRemote.transact(27, obtain, obtain2, 0) && Stub.getDefaultImpl() != null) {
-                        return Stub.getDefaultImpl().OnDownloadTaskPause(i10, j10);
+                        return Stub.getDefaultImpl().OnDownloadTaskPause(i2, j2);
                     }
                     obtain2.readException();
                     return obtain2.readInt() != 0 ? DownloadInfo.CREATOR.createFromParcel(obtain2) : null;
@@ -351,14 +351,14 @@ public interface ISqlDownloadCacheAidl extends IInterface {
             }
 
             @Override // com.ss.android.socialbase.downloader.db.ISqlDownloadCacheAidl
-            public DownloadInfo OnDownloadTaskPrepare(int i10) throws RemoteException {
+            public DownloadInfo OnDownloadTaskPrepare(int i2) throws RemoteException {
                 Parcel obtain = Parcel.obtain();
                 Parcel obtain2 = Parcel.obtain();
                 try {
                     obtain.writeInterfaceToken(Stub.DESCRIPTOR);
-                    obtain.writeInt(i10);
+                    obtain.writeInt(i2);
                     if (!this.mRemote.transact(29, obtain, obtain2, 0) && Stub.getDefaultImpl() != null) {
-                        return Stub.getDefaultImpl().OnDownloadTaskPrepare(i10);
+                        return Stub.getDefaultImpl().OnDownloadTaskPrepare(i2);
                     }
                     obtain2.readException();
                     return obtain2.readInt() != 0 ? DownloadInfo.CREATOR.createFromParcel(obtain2) : null;
@@ -369,15 +369,15 @@ public interface ISqlDownloadCacheAidl extends IInterface {
             }
 
             @Override // com.ss.android.socialbase.downloader.db.ISqlDownloadCacheAidl
-            public DownloadInfo OnDownloadTaskProgress(int i10, long j10) throws RemoteException {
+            public DownloadInfo OnDownloadTaskProgress(int i2, long j2) throws RemoteException {
                 Parcel obtain = Parcel.obtain();
                 Parcel obtain2 = Parcel.obtain();
                 try {
                     obtain.writeInterfaceToken(Stub.DESCRIPTOR);
-                    obtain.writeInt(i10);
-                    obtain.writeLong(j10);
+                    obtain.writeInt(i2);
+                    obtain.writeLong(j2);
                     if (!this.mRemote.transact(23, obtain, obtain2, 0) && Stub.getDefaultImpl() != null) {
-                        return Stub.getDefaultImpl().OnDownloadTaskProgress(i10, j10);
+                        return Stub.getDefaultImpl().OnDownloadTaskProgress(i2, j2);
                     }
                     obtain2.readException();
                     return obtain2.readInt() != 0 ? DownloadInfo.CREATOR.createFromParcel(obtain2) : null;
@@ -388,14 +388,14 @@ public interface ISqlDownloadCacheAidl extends IInterface {
             }
 
             @Override // com.ss.android.socialbase.downloader.db.ISqlDownloadCacheAidl
-            public DownloadInfo OnDownloadTaskRetry(int i10) throws RemoteException {
+            public DownloadInfo OnDownloadTaskRetry(int i2) throws RemoteException {
                 Parcel obtain = Parcel.obtain();
                 Parcel obtain2 = Parcel.obtain();
                 try {
                     obtain.writeInterfaceToken(Stub.DESCRIPTOR);
-                    obtain.writeInt(i10);
+                    obtain.writeInt(i2);
                     if (!this.mRemote.transact(25, obtain, obtain2, 0) && Stub.getDefaultImpl() != null) {
-                        return Stub.getDefaultImpl().OnDownloadTaskRetry(i10);
+                        return Stub.getDefaultImpl().OnDownloadTaskRetry(i2);
                     }
                     obtain2.readException();
                     return obtain2.readInt() != 0 ? DownloadInfo.CREATOR.createFromParcel(obtain2) : null;
@@ -419,17 +419,12 @@ public interface ISqlDownloadCacheAidl extends IInterface {
                     }
                     if (this.mRemote.transact(11, obtain, obtain2, 0) || Stub.getDefaultImpl() == null) {
                         obtain2.readException();
-                        obtain2.recycle();
-                        obtain.recycle();
                     } else {
                         Stub.getDefaultImpl().addDownloadChunk(downloadChunk);
-                        obtain2.recycle();
-                        obtain.recycle();
                     }
-                } catch (Throwable th2) {
+                } finally {
                     obtain2.recycle();
                     obtain.recycle();
-                    throw th2;
                 }
             }
 
@@ -447,17 +442,12 @@ public interface ISqlDownloadCacheAidl extends IInterface {
                     }
                     if (this.mRemote.transact(12, obtain, obtain2, 0) || Stub.getDefaultImpl() == null) {
                         obtain2.readException();
-                        obtain2.recycle();
-                        obtain.recycle();
                     } else {
                         Stub.getDefaultImpl().addSubDownloadChunk(downloadChunk);
-                        obtain2.recycle();
-                        obtain.recycle();
                     }
-                } catch (Throwable th2) {
+                } finally {
                     obtain2.recycle();
                     obtain.recycle();
-                    throw th2;
                 }
             }
 
@@ -467,14 +457,14 @@ public interface ISqlDownloadCacheAidl extends IInterface {
             }
 
             @Override // com.ss.android.socialbase.downloader.db.ISqlDownloadCacheAidl
-            public boolean cacheExist(int i10) throws RemoteException {
+            public boolean cacheExist(int i2) throws RemoteException {
                 Parcel obtain = Parcel.obtain();
                 Parcel obtain2 = Parcel.obtain();
                 try {
                     obtain.writeInterfaceToken(Stub.DESCRIPTOR);
-                    obtain.writeInt(i10);
+                    obtain.writeInt(i2);
                     if (!this.mRemote.transact(2, obtain, obtain2, 0) && Stub.getDefaultImpl() != null) {
-                        return Stub.getDefaultImpl().cacheExist(i10);
+                        return Stub.getDefaultImpl().cacheExist(i2);
                     }
                     obtain2.readException();
                     return obtain2.readInt() != 0;
@@ -536,14 +526,14 @@ public interface ISqlDownloadCacheAidl extends IInterface {
             }
 
             @Override // com.ss.android.socialbase.downloader.db.ISqlDownloadCacheAidl
-            public List<DownloadChunk> getDownloadChunk(int i10) throws RemoteException {
+            public List<DownloadChunk> getDownloadChunk(int i2) throws RemoteException {
                 Parcel obtain = Parcel.obtain();
                 Parcel obtain2 = Parcel.obtain();
                 try {
                     obtain.writeInterfaceToken(Stub.DESCRIPTOR);
-                    obtain.writeInt(i10);
+                    obtain.writeInt(i2);
                     if (!this.mRemote.transact(9, obtain, obtain2, 0) && Stub.getDefaultImpl() != null) {
-                        return Stub.getDefaultImpl().getDownloadChunk(i10);
+                        return Stub.getDefaultImpl().getDownloadChunk(i2);
                     }
                     obtain2.readException();
                     return obtain2.createTypedArrayList(DownloadChunk.CREATOR);
@@ -554,14 +544,14 @@ public interface ISqlDownloadCacheAidl extends IInterface {
             }
 
             @Override // com.ss.android.socialbase.downloader.db.ISqlDownloadCacheAidl
-            public DownloadInfo getDownloadInfo(int i10) throws RemoteException {
+            public DownloadInfo getDownloadInfo(int i2) throws RemoteException {
                 Parcel obtain = Parcel.obtain();
                 Parcel obtain2 = Parcel.obtain();
                 try {
                     obtain.writeInterfaceToken(Stub.DESCRIPTOR);
-                    obtain.writeInt(i10);
+                    obtain.writeInt(i2);
                     if (!this.mRemote.transact(3, obtain, obtain2, 0) && Stub.getDefaultImpl() != null) {
-                        return Stub.getDefaultImpl().getDownloadInfo(i10);
+                        return Stub.getDefaultImpl().getDownloadInfo(i2);
                     }
                     obtain2.readException();
                     return obtain2.readInt() != 0 ? DownloadInfo.CREATOR.createFromParcel(obtain2) : null;
@@ -682,14 +672,14 @@ public interface ISqlDownloadCacheAidl extends IInterface {
             }
 
             @Override // com.ss.android.socialbase.downloader.db.ISqlDownloadCacheAidl
-            public DownloadInfo onDownloadTaskStart(int i10) throws RemoteException {
+            public DownloadInfo onDownloadTaskStart(int i2) throws RemoteException {
                 Parcel obtain = Parcel.obtain();
                 Parcel obtain2 = Parcel.obtain();
                 try {
                     obtain.writeInterfaceToken(Stub.DESCRIPTOR);
-                    obtain.writeInt(i10);
+                    obtain.writeInt(i2);
                     if (!this.mRemote.transact(21, obtain, obtain2, 0) && Stub.getDefaultImpl() != null) {
-                        return Stub.getDefaultImpl().onDownloadTaskStart(i10);
+                        return Stub.getDefaultImpl().onDownloadTaskStart(i2);
                     }
                     obtain2.readException();
                     return obtain2.readInt() != 0 ? DownloadInfo.CREATOR.createFromParcel(obtain2) : null;
@@ -700,16 +690,16 @@ public interface ISqlDownloadCacheAidl extends IInterface {
             }
 
             @Override // com.ss.android.socialbase.downloader.db.ISqlDownloadCacheAidl
-            public void removeAllDownloadChunk(int i10) throws RemoteException {
+            public void removeAllDownloadChunk(int i2) throws RemoteException {
                 Parcel obtain = Parcel.obtain();
                 Parcel obtain2 = Parcel.obtain();
                 try {
                     obtain.writeInterfaceToken(Stub.DESCRIPTOR);
-                    obtain.writeInt(i10);
+                    obtain.writeInt(i2);
                     if (this.mRemote.transact(10, obtain, obtain2, 0) || Stub.getDefaultImpl() == null) {
                         obtain2.readException();
                     } else {
-                        Stub.getDefaultImpl().removeAllDownloadChunk(i10);
+                        Stub.getDefaultImpl().removeAllDownloadChunk(i2);
                     }
                 } finally {
                     obtain2.recycle();
@@ -718,14 +708,14 @@ public interface ISqlDownloadCacheAidl extends IInterface {
             }
 
             @Override // com.ss.android.socialbase.downloader.db.ISqlDownloadCacheAidl
-            public boolean removeDownloadInfo(int i10) throws RemoteException {
+            public boolean removeDownloadInfo(int i2) throws RemoteException {
                 Parcel obtain = Parcel.obtain();
                 Parcel obtain2 = Parcel.obtain();
                 try {
                     obtain.writeInterfaceToken(Stub.DESCRIPTOR);
-                    obtain.writeInt(i10);
+                    obtain.writeInt(i2);
                     if (!this.mRemote.transact(18, obtain, obtain2, 0) && Stub.getDefaultImpl() != null) {
-                        return Stub.getDefaultImpl().removeDownloadInfo(i10);
+                        return Stub.getDefaultImpl().removeDownloadInfo(i2);
                     }
                     obtain2.readException();
                     return obtain2.readInt() != 0;
@@ -736,14 +726,14 @@ public interface ISqlDownloadCacheAidl extends IInterface {
             }
 
             @Override // com.ss.android.socialbase.downloader.db.ISqlDownloadCacheAidl
-            public boolean removeDownloadTaskData(int i10) throws RemoteException {
+            public boolean removeDownloadTaskData(int i2) throws RemoteException {
                 Parcel obtain = Parcel.obtain();
                 Parcel obtain2 = Parcel.obtain();
                 try {
                     obtain.writeInterfaceToken(Stub.DESCRIPTOR);
-                    obtain.writeInt(i10);
+                    obtain.writeInt(i2);
                     if (!this.mRemote.transact(19, obtain, obtain2, 0) && Stub.getDefaultImpl() != null) {
-                        return Stub.getDefaultImpl().removeDownloadTaskData(i10);
+                        return Stub.getDefaultImpl().removeDownloadTaskData(i2);
                     }
                     obtain2.readException();
                     return obtain2.readInt() != 0;
@@ -762,32 +752,27 @@ public interface ISqlDownloadCacheAidl extends IInterface {
                     obtain.writeStrongBinder(iSqlCacheLoadCompleteCallbackAidl != null ? iSqlCacheLoadCompleteCallbackAidl.asBinder() : null);
                     if (this.mRemote.transact(36, obtain, obtain2, 0) || Stub.getDefaultImpl() == null) {
                         obtain2.readException();
-                        obtain2.recycle();
-                        obtain.recycle();
                     } else {
                         Stub.getDefaultImpl().setInitCallback(iSqlCacheLoadCompleteCallbackAidl);
-                        obtain2.recycle();
-                        obtain.recycle();
                     }
-                } catch (Throwable th2) {
+                } finally {
                     obtain2.recycle();
                     obtain.recycle();
-                    throw th2;
                 }
             }
 
             @Override // com.ss.android.socialbase.downloader.db.ISqlDownloadCacheAidl
-            public void syncDownloadChunks(int i10, List<DownloadChunk> list) throws RemoteException {
+            public void syncDownloadChunks(int i2, List<DownloadChunk> list) throws RemoteException {
                 Parcel obtain = Parcel.obtain();
                 Parcel obtain2 = Parcel.obtain();
                 try {
                     obtain.writeInterfaceToken(Stub.DESCRIPTOR);
-                    obtain.writeInt(i10);
+                    obtain.writeInt(i2);
                     obtain.writeTypedList(list);
                     if (this.mRemote.transact(34, obtain, obtain2, 0) || Stub.getDefaultImpl() == null) {
                         obtain2.readException();
                     } else {
-                        Stub.getDefaultImpl().syncDownloadChunks(i10, list);
+                        Stub.getDefaultImpl().syncDownloadChunks(i2, list);
                     }
                 } finally {
                     obtain2.recycle();
@@ -809,32 +794,8 @@ public interface ISqlDownloadCacheAidl extends IInterface {
                     }
                     if (this.mRemote.transact(33, obtain, obtain2, 0) || Stub.getDefaultImpl() == null) {
                         obtain2.readException();
-                        obtain2.recycle();
-                        obtain.recycle();
                     } else {
                         Stub.getDefaultImpl().syncDownloadInfo(downloadInfo);
-                        obtain2.recycle();
-                        obtain.recycle();
-                    }
-                } catch (Throwable th2) {
-                    obtain2.recycle();
-                    obtain.recycle();
-                    throw th2;
-                }
-            }
-
-            @Override // com.ss.android.socialbase.downloader.db.ISqlDownloadCacheAidl
-            public void syncDownloadInfoFromOtherCache(int i10, List<DownloadChunk> list) throws RemoteException {
-                Parcel obtain = Parcel.obtain();
-                Parcel obtain2 = Parcel.obtain();
-                try {
-                    obtain.writeInterfaceToken(Stub.DESCRIPTOR);
-                    obtain.writeInt(i10);
-                    obtain.writeTypedList(list);
-                    if (this.mRemote.transact(35, obtain, obtain2, 0) || Stub.getDefaultImpl() == null) {
-                        obtain2.readException();
-                    } else {
-                        Stub.getDefaultImpl().syncDownloadInfoFromOtherCache(i10, list);
                     }
                 } finally {
                     obtain2.recycle();
@@ -843,15 +804,34 @@ public interface ISqlDownloadCacheAidl extends IInterface {
             }
 
             @Override // com.ss.android.socialbase.downloader.db.ISqlDownloadCacheAidl
-            public DownloadInfo updateChunkCount(int i10, int i11) throws RemoteException {
+            public void syncDownloadInfoFromOtherCache(int i2, List<DownloadChunk> list) throws RemoteException {
                 Parcel obtain = Parcel.obtain();
                 Parcel obtain2 = Parcel.obtain();
                 try {
                     obtain.writeInterfaceToken(Stub.DESCRIPTOR);
-                    obtain.writeInt(i10);
-                    obtain.writeInt(i11);
+                    obtain.writeInt(i2);
+                    obtain.writeTypedList(list);
+                    if (this.mRemote.transact(35, obtain, obtain2, 0) || Stub.getDefaultImpl() == null) {
+                        obtain2.readException();
+                    } else {
+                        Stub.getDefaultImpl().syncDownloadInfoFromOtherCache(i2, list);
+                    }
+                } finally {
+                    obtain2.recycle();
+                    obtain.recycle();
+                }
+            }
+
+            @Override // com.ss.android.socialbase.downloader.db.ISqlDownloadCacheAidl
+            public DownloadInfo updateChunkCount(int i2, int i3) throws RemoteException {
+                Parcel obtain = Parcel.obtain();
+                Parcel obtain2 = Parcel.obtain();
+                try {
+                    obtain.writeInterfaceToken(Stub.DESCRIPTOR);
+                    obtain.writeInt(i2);
+                    obtain.writeInt(i3);
                     if (!this.mRemote.transact(16, obtain, obtain2, 0) && Stub.getDefaultImpl() != null) {
-                        return Stub.getDefaultImpl().updateChunkCount(i10, i11);
+                        return Stub.getDefaultImpl().updateChunkCount(i2, i3);
                     }
                     obtain2.readException();
                     return obtain2.readInt() != 0 ? DownloadInfo.CREATOR.createFromParcel(obtain2) : null;
@@ -862,18 +842,18 @@ public interface ISqlDownloadCacheAidl extends IInterface {
             }
 
             @Override // com.ss.android.socialbase.downloader.db.ISqlDownloadCacheAidl
-            public void updateDownloadChunk(int i10, int i11, long j10) throws RemoteException {
+            public void updateDownloadChunk(int i2, int i3, long j2) throws RemoteException {
                 Parcel obtain = Parcel.obtain();
                 Parcel obtain2 = Parcel.obtain();
                 try {
                     obtain.writeInterfaceToken(Stub.DESCRIPTOR);
-                    obtain.writeInt(i10);
-                    obtain.writeInt(i11);
-                    obtain.writeLong(j10);
+                    obtain.writeInt(i2);
+                    obtain.writeInt(i3);
+                    obtain.writeLong(j2);
                     if (this.mRemote.transact(13, obtain, obtain2, 0) || Stub.getDefaultImpl() == null) {
                         obtain2.readException();
                     } else {
-                        Stub.getDefaultImpl().updateDownloadChunk(i10, i11, j10);
+                        Stub.getDefaultImpl().updateDownloadChunk(i2, i3, j2);
                     }
                 } finally {
                     obtain2.recycle();
@@ -894,37 +874,30 @@ public interface ISqlDownloadCacheAidl extends IInterface {
                         obtain.writeInt(0);
                     }
                     if (!this.mRemote.transact(17, obtain, obtain2, 0) && Stub.getDefaultImpl() != null) {
-                        boolean updateDownloadInfo = Stub.getDefaultImpl().updateDownloadInfo(downloadInfo);
-                        obtain2.recycle();
-                        obtain.recycle();
-                        return updateDownloadInfo;
+                        return Stub.getDefaultImpl().updateDownloadInfo(downloadInfo);
                     }
                     obtain2.readException();
-                    boolean z10 = obtain2.readInt() != 0;
+                    return obtain2.readInt() != 0;
+                } finally {
                     obtain2.recycle();
                     obtain.recycle();
-                    return z10;
-                } catch (Throwable th2) {
-                    obtain2.recycle();
-                    obtain.recycle();
-                    throw th2;
                 }
             }
 
             @Override // com.ss.android.socialbase.downloader.db.ISqlDownloadCacheAidl
-            public void updateSubDownloadChunk(int i10, int i11, int i12, long j10) throws RemoteException {
+            public void updateSubDownloadChunk(int i2, int i3, int i4, long j2) throws RemoteException {
                 Parcel obtain = Parcel.obtain();
                 Parcel obtain2 = Parcel.obtain();
                 try {
                     obtain.writeInterfaceToken(Stub.DESCRIPTOR);
-                    obtain.writeInt(i10);
-                    obtain.writeInt(i11);
-                    obtain.writeInt(i12);
-                    obtain.writeLong(j10);
+                    obtain.writeInt(i2);
+                    obtain.writeInt(i3);
+                    obtain.writeInt(i4);
+                    obtain.writeLong(j2);
                     if (this.mRemote.transact(14, obtain, obtain2, 0) || Stub.getDefaultImpl() == null) {
                         obtain2.readException();
                     } else {
-                        Stub.getDefaultImpl().updateSubDownloadChunk(i10, i11, i12, j10);
+                        Stub.getDefaultImpl().updateSubDownloadChunk(i2, i3, i4, j2);
                     }
                 } finally {
                     obtain2.recycle();
@@ -933,19 +906,19 @@ public interface ISqlDownloadCacheAidl extends IInterface {
             }
 
             @Override // com.ss.android.socialbase.downloader.db.ISqlDownloadCacheAidl
-            public void updateSubDownloadChunkIndex(int i10, int i11, int i12, int i13) throws RemoteException {
+            public void updateSubDownloadChunkIndex(int i2, int i3, int i4, int i5) throws RemoteException {
                 Parcel obtain = Parcel.obtain();
                 Parcel obtain2 = Parcel.obtain();
                 try {
                     obtain.writeInterfaceToken(Stub.DESCRIPTOR);
-                    obtain.writeInt(i10);
-                    obtain.writeInt(i11);
-                    obtain.writeInt(i12);
-                    obtain.writeInt(i13);
+                    obtain.writeInt(i2);
+                    obtain.writeInt(i3);
+                    obtain.writeInt(i4);
+                    obtain.writeInt(i5);
                     if (this.mRemote.transact(15, obtain, obtain2, 0) || Stub.getDefaultImpl() == null) {
                         obtain2.readException();
                     } else {
-                        Stub.getDefaultImpl().updateSubDownloadChunkIndex(i10, i11, i12, i13);
+                        Stub.getDefaultImpl().updateSubDownloadChunkIndex(i2, i3, i4, i5);
                     }
                 } finally {
                     obtain2.recycle();
@@ -984,12 +957,12 @@ public interface ISqlDownloadCacheAidl extends IInterface {
         }
 
         @Override // android.os.Binder
-        public boolean onTransact(int i10, Parcel parcel, Parcel parcel2, int i11) throws RemoteException {
-            if (i10 == 1598968902) {
+        public boolean onTransact(int i2, Parcel parcel, Parcel parcel2, int i3) throws RemoteException {
+            if (i2 == 1598968902) {
                 parcel2.writeString(DESCRIPTOR);
                 return true;
             }
-            switch (i10) {
+            switch (i2) {
                 case 1:
                     parcel.enforceInterface(DESCRIPTOR);
                     init();
@@ -1255,34 +1228,34 @@ public interface ISqlDownloadCacheAidl extends IInterface {
                     parcel2.writeNoException();
                     return true;
                 default:
-                    return super.onTransact(i10, parcel, parcel2, i11);
+                    return super.onTransact(i2, parcel, parcel2, i3);
             }
         }
     }
 
-    DownloadInfo OnDownloadTaskCancel(int i10, long j10) throws RemoteException;
+    DownloadInfo OnDownloadTaskCancel(int i2, long j2) throws RemoteException;
 
-    DownloadInfo OnDownloadTaskCompleted(int i10, long j10) throws RemoteException;
+    DownloadInfo OnDownloadTaskCompleted(int i2, long j2) throws RemoteException;
 
-    DownloadInfo OnDownloadTaskConnected(int i10, long j10, String str, String str2) throws RemoteException;
+    DownloadInfo OnDownloadTaskConnected(int i2, long j2, String str, String str2) throws RemoteException;
 
-    DownloadInfo OnDownloadTaskError(int i10, long j10) throws RemoteException;
+    DownloadInfo OnDownloadTaskError(int i2, long j2) throws RemoteException;
 
-    DownloadInfo OnDownloadTaskIntercept(int i10) throws RemoteException;
+    DownloadInfo OnDownloadTaskIntercept(int i2) throws RemoteException;
 
-    DownloadInfo OnDownloadTaskPause(int i10, long j10) throws RemoteException;
+    DownloadInfo OnDownloadTaskPause(int i2, long j2) throws RemoteException;
 
-    DownloadInfo OnDownloadTaskPrepare(int i10) throws RemoteException;
+    DownloadInfo OnDownloadTaskPrepare(int i2) throws RemoteException;
 
-    DownloadInfo OnDownloadTaskProgress(int i10, long j10) throws RemoteException;
+    DownloadInfo OnDownloadTaskProgress(int i2, long j2) throws RemoteException;
 
-    DownloadInfo OnDownloadTaskRetry(int i10) throws RemoteException;
+    DownloadInfo OnDownloadTaskRetry(int i2) throws RemoteException;
 
     void addDownloadChunk(DownloadChunk downloadChunk) throws RemoteException;
 
     void addSubDownloadChunk(DownloadChunk downloadChunk) throws RemoteException;
 
-    boolean cacheExist(int i10) throws RemoteException;
+    boolean cacheExist(int i2) throws RemoteException;
 
     void clearData() throws RemoteException;
 
@@ -1290,9 +1263,9 @@ public interface ISqlDownloadCacheAidl extends IInterface {
 
     List<DownloadInfo> getAllDownloadInfo() throws RemoteException;
 
-    List<DownloadChunk> getDownloadChunk(int i10) throws RemoteException;
+    List<DownloadChunk> getDownloadChunk(int i2) throws RemoteException;
 
-    DownloadInfo getDownloadInfo(int i10) throws RemoteException;
+    DownloadInfo getDownloadInfo(int i2) throws RemoteException;
 
     List<DownloadInfo> getDownloadInfoList(String str) throws RemoteException;
 
@@ -1306,29 +1279,29 @@ public interface ISqlDownloadCacheAidl extends IInterface {
 
     boolean isDownloadCacheSyncSuccess() throws RemoteException;
 
-    DownloadInfo onDownloadTaskStart(int i10) throws RemoteException;
+    DownloadInfo onDownloadTaskStart(int i2) throws RemoteException;
 
-    void removeAllDownloadChunk(int i10) throws RemoteException;
+    void removeAllDownloadChunk(int i2) throws RemoteException;
 
-    boolean removeDownloadInfo(int i10) throws RemoteException;
+    boolean removeDownloadInfo(int i2) throws RemoteException;
 
-    boolean removeDownloadTaskData(int i10) throws RemoteException;
+    boolean removeDownloadTaskData(int i2) throws RemoteException;
 
     void setInitCallback(ISqlCacheLoadCompleteCallbackAidl iSqlCacheLoadCompleteCallbackAidl) throws RemoteException;
 
-    void syncDownloadChunks(int i10, List<DownloadChunk> list) throws RemoteException;
+    void syncDownloadChunks(int i2, List<DownloadChunk> list) throws RemoteException;
 
     void syncDownloadInfo(DownloadInfo downloadInfo) throws RemoteException;
 
-    void syncDownloadInfoFromOtherCache(int i10, List<DownloadChunk> list) throws RemoteException;
+    void syncDownloadInfoFromOtherCache(int i2, List<DownloadChunk> list) throws RemoteException;
 
-    DownloadInfo updateChunkCount(int i10, int i11) throws RemoteException;
+    DownloadInfo updateChunkCount(int i2, int i3) throws RemoteException;
 
-    void updateDownloadChunk(int i10, int i11, long j10) throws RemoteException;
+    void updateDownloadChunk(int i2, int i3, long j2) throws RemoteException;
 
     boolean updateDownloadInfo(DownloadInfo downloadInfo) throws RemoteException;
 
-    void updateSubDownloadChunk(int i10, int i11, int i12, long j10) throws RemoteException;
+    void updateSubDownloadChunk(int i2, int i3, int i4, long j2) throws RemoteException;
 
-    void updateSubDownloadChunkIndex(int i10, int i11, int i12, int i13) throws RemoteException;
+    void updateSubDownloadChunkIndex(int i2, int i3, int i4, int i5) throws RemoteException;
 }

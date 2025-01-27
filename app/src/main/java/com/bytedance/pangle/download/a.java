@@ -6,23 +6,23 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.concurrent.CopyOnWriteArrayList;
 
-/* loaded from: classes2.dex */
+/* loaded from: classes.dex */
 public class a {
 
     /* renamed from: b */
-    private static volatile a f7540b;
+    private static volatile a f6045b;
 
     /* renamed from: a */
-    public final List<String> f7541a = new CopyOnWriteArrayList();
+    public final List<String> f6046a = new CopyOnWriteArrayList();
 
     /* renamed from: com.bytedance.pangle.download.a$1 */
-    public class AnonymousClass1 extends com.bytedance.pangle.a {
-        public AnonymousClass1() {
+    final class AnonymousClass1 extends com.bytedance.pangle.a {
+        AnonymousClass1() {
         }
 
         @Override // com.bytedance.pangle.a, android.app.Application.ActivityLifecycleCallbacks
         public final void onActivityResumed(Activity activity) {
-            Iterator it = a.this.f7541a.iterator();
+            Iterator it = a.this.f6046a.iterator();
             while (it.hasNext()) {
                 it.next();
                 b.a();
@@ -32,12 +32,12 @@ public class a {
 
     public a() {
         Zeus.getAppApplication().registerActivityLifecycleCallbacks(new com.bytedance.pangle.a() { // from class: com.bytedance.pangle.download.a.1
-            public AnonymousClass1() {
+            AnonymousClass1() {
             }
 
             @Override // com.bytedance.pangle.a, android.app.Application.ActivityLifecycleCallbacks
             public final void onActivityResumed(Activity activity) {
-                Iterator it = a.this.f7541a.iterator();
+                Iterator it = a.this.f6046a.iterator();
                 while (it.hasNext()) {
                     it.next();
                     b.a();
@@ -47,16 +47,13 @@ public class a {
     }
 
     public static a a() {
-        if (f7540b == null) {
+        if (f6045b == null) {
             synchronized (a.class) {
-                try {
-                    if (f7540b == null) {
-                        f7540b = new a();
-                    }
-                } finally {
+                if (f6045b == null) {
+                    f6045b = new a();
                 }
             }
         }
-        return f7540b;
+        return f6045b;
     }
 }

@@ -9,44 +9,23 @@ import android.content.pm.PackageManager;
 import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
-import androidx.annotation.DoNotInline;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.annotation.RequiresApi;
 
 /* loaded from: classes.dex */
 public final class NavUtils {
     public static final String PARENT_ACTIVITY = "android.support.PARENT_ACTIVITY";
-    private static final String TAG = "NavUtils";
 
-    @RequiresApi(16)
-    public static class Api16Impl {
-        private Api16Impl() {
-        }
-
-        @DoNotInline
-        public static Intent getParentActivityIntent(Activity activity) {
-            return activity.getParentActivityIntent();
-        }
-
-        @DoNotInline
-        public static boolean navigateUpTo(Activity activity, Intent intent) {
-            return activity.navigateUpTo(intent);
-        }
-
-        @DoNotInline
-        public static boolean shouldUpRecreateTask(Activity activity, Intent intent) {
-            return activity.shouldUpRecreateTask(intent);
-        }
-    }
+    /* renamed from: a, reason: collision with root package name */
+    private static final String f1450a = "NavUtils";
 
     private NavUtils() {
     }
 
     @Nullable
     public static Intent getParentActivityIntent(@NonNull Activity activity) {
-        Intent parentActivityIntent = Api16Impl.getParentActivityIntent(activity);
-        if (parentActivityIntent != null) {
+        Intent parentActivityIntent;
+        if (Build.VERSION.SDK_INT >= 16 && (parentActivityIntent = activity.getParentActivityIntent()) != null) {
             return parentActivityIntent;
         }
         String parentActivityName = getParentActivityName(activity);
@@ -57,7 +36,7 @@ public final class NavUtils {
         try {
             return getParentActivityName(activity, componentName) == null ? Intent.makeMainActivity(componentName) : new Intent().setComponent(componentName);
         } catch (PackageManager.NameNotFoundException unused) {
-            Log.e(TAG, "getParentActivityIntent: bad parentActivityName '" + parentActivityName + "' in manifest");
+            Log.e(f1450a, "getParentActivityIntent: bad parentActivityName '" + parentActivityName + "' in manifest");
             return null;
         }
     }
@@ -66,8 +45,8 @@ public final class NavUtils {
     public static String getParentActivityName(@NonNull Activity activity) {
         try {
             return getParentActivityName(activity, activity.getComponentName());
-        } catch (PackageManager.NameNotFoundException e10) {
-            throw new IllegalArgumentException(e10);
+        } catch (PackageManager.NameNotFoundException e2) {
+            throw new IllegalArgumentException(e2);
         }
     }
 
@@ -81,21 +60,37 @@ public final class NavUtils {
     }
 
     public static void navigateUpTo(@NonNull Activity activity, @NonNull Intent intent) {
-        Api16Impl.navigateUpTo(activity, intent);
+        if (Build.VERSION.SDK_INT >= 16) {
+            activity.navigateUpTo(intent);
+            return;
+        }
+        intent.addFlags(67108864);
+        activity.startActivity(intent);
+        activity.finish();
     }
 
     public static boolean shouldUpRecreateTask(@NonNull Activity activity, @NonNull Intent intent) {
-        return Api16Impl.shouldUpRecreateTask(activity, intent);
+        if (Build.VERSION.SDK_INT >= 16) {
+            return activity.shouldUpRecreateTask(intent);
+        }
+        String action = activity.getIntent().getAction();
+        return (action == null || action.equals("android.intent.action.MAIN")) ? false : true;
     }
 
     @Nullable
     public static String getParentActivityName(@NonNull Context context, @NonNull ComponentName componentName) throws PackageManager.NameNotFoundException {
         String string;
+        String str;
         PackageManager packageManager = context.getPackageManager();
-        int i10 = Build.VERSION.SDK_INT;
-        ActivityInfo activityInfo = packageManager.getActivityInfo(componentName, i10 >= 29 ? 269222528 : i10 >= 24 ? 787072 : 640);
-        String str = activityInfo.parentActivityName;
-        if (str != null) {
+        int i2 = Build.VERSION.SDK_INT;
+        int i3 = 640;
+        if (i2 >= 29) {
+            i3 = 269222528;
+        } else if (i2 >= 24) {
+            i3 = 787072;
+        }
+        ActivityInfo activityInfo = packageManager.getActivityInfo(componentName, i3);
+        if (i2 >= 16 && (str = activityInfo.parentActivityName) != null) {
             return str;
         }
         Bundle bundle = activityInfo.metaData;

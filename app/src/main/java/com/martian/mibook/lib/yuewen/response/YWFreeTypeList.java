@@ -3,7 +3,7 @@ package com.martian.mibook.lib.yuewen.response;
 import java.util.ArrayList;
 import java.util.List;
 
-/* loaded from: classes3.dex */
+/* loaded from: classes4.dex */
 public class YWFreeTypeList {
     private List<YWFreeType> freeTypeList;
     private List<TYTagAlias> tyTagList;
@@ -19,11 +19,11 @@ public class YWFreeTypeList {
         return this.tyTagList;
     }
 
-    public void setFreeTypeList(List<YWFreeType> list) {
-        this.freeTypeList = list;
+    public void setFreeTypeList(List<YWFreeType> freeTypeList) {
+        this.freeTypeList = freeTypeList;
     }
 
-    public void setTyTagList(List<TYTagAlias> list) {
-        this.tyTagList = list;
+    public void setTyTagList(List<TYTagAlias> tyTagList) {
+        this.tyTagList = tyTagList;
     }
 }

@@ -1,19 +1,17 @@
 package rx.internal.producers;
 
-import ck.f0;
-import ck.g0;
 import java.util.Queue;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.concurrent.atomic.AtomicLong;
-import qj.b;
-import qj.c;
-import qj.g;
+import rx.c;
 import rx.exceptions.MissingBackpressureException;
 import rx.exceptions.OnErrorThrowable;
-import vj.a;
+import rx.g;
+import rx.internal.util.m.f0;
+import rx.internal.util.m.g0;
 
 /* loaded from: classes5.dex */
-public final class QueuedProducer<T> extends AtomicLong implements c, b<T> {
+public final class QueuedProducer<T> extends AtomicLong implements c, rx.b<T> {
     static final Object NULL_SENTINEL = new Object();
     private static final long serialVersionUID = 7277121710709137047L;
     final g<? super T> child;
@@ -23,23 +21,23 @@ public final class QueuedProducer<T> extends AtomicLong implements c, b<T> {
     final AtomicInteger wip;
 
     public QueuedProducer(g<? super T> gVar) {
-        this(gVar, g0.f() ? new f0() : new bk.c());
+        this(gVar, g0.f() ? new f0() : new rx.internal.util.atomic.c());
     }
 
-    private boolean checkTerminated(boolean z10, boolean z11) {
+    private boolean checkTerminated(boolean z, boolean z2) {
         if (this.child.isUnsubscribed()) {
             return true;
         }
-        if (!z10) {
+        if (!z) {
             return false;
         }
-        Throwable th2 = this.error;
-        if (th2 != null) {
+        Throwable th = this.error;
+        if (th != null) {
             this.queue.clear();
-            this.child.onError(th2);
+            this.child.onError(th);
             return true;
         }
-        if (!z11) {
+        if (!z2) {
             return false;
         }
         this.child.onCompleted();
@@ -52,12 +50,12 @@ public final class QueuedProducer<T> extends AtomicLong implements c, b<T> {
             Queue<Object> queue = this.queue;
             while (!checkTerminated(this.done, queue.isEmpty())) {
                 this.wip.lazySet(1);
-                long j10 = get();
-                long j11 = 0;
-                while (j10 != 0) {
-                    boolean z10 = this.done;
+                long j2 = get();
+                long j3 = 0;
+                while (j2 != 0) {
+                    boolean z = this.done;
                     Object poll = queue.poll();
-                    if (checkTerminated(z10, poll == null)) {
+                    if (checkTerminated(z, poll == null)) {
                         return;
                     }
                     if (poll == null) {
@@ -69,19 +67,19 @@ public final class QueuedProducer<T> extends AtomicLong implements c, b<T> {
                         } else {
                             gVar.onNext(poll);
                         }
-                        j10--;
-                        j11++;
-                    } catch (Throwable th2) {
-                        a.e(th2);
+                        j2--;
+                        j3++;
+                    } catch (Throwable th) {
+                        rx.exceptions.a.e(th);
                         if (poll == NULL_SENTINEL) {
                             poll = null;
                         }
-                        gVar.onError(OnErrorThrowable.addValueAsLastCause(th2, poll));
+                        gVar.onError(OnErrorThrowable.addValueAsLastCause(th, poll));
                         return;
                     }
                 }
-                if (j11 != 0 && get() != Long.MAX_VALUE) {
-                    addAndGet(-j11);
+                if (j3 != 0 && get() != Long.MAX_VALUE) {
+                    addAndGet(-j3);
                 }
                 if (this.wip.decrementAndGet() == 0) {
                     return;
@@ -90,46 +88,46 @@ public final class QueuedProducer<T> extends AtomicLong implements c, b<T> {
         }
     }
 
-    public boolean offer(T t10) {
-        if (t10 == null) {
+    public boolean offer(T t) {
+        if (t == null) {
             if (!this.queue.offer(NULL_SENTINEL)) {
                 return false;
             }
-        } else if (!this.queue.offer(t10)) {
+        } else if (!this.queue.offer(t)) {
             return false;
         }
         drain();
         return true;
     }
 
-    @Override // qj.b
+    @Override // rx.b
     public void onCompleted() {
         this.done = true;
         drain();
     }
 
-    @Override // qj.b
-    public void onError(Throwable th2) {
-        this.error = th2;
+    @Override // rx.b
+    public void onError(Throwable th) {
+        this.error = th;
         this.done = true;
         drain();
     }
 
-    @Override // qj.b
-    public void onNext(T t10) {
-        if (offer(t10)) {
+    @Override // rx.b
+    public void onNext(T t) {
+        if (offer(t)) {
             return;
         }
         onError(new MissingBackpressureException());
     }
 
-    @Override // qj.c
-    public void request(long j10) {
-        if (j10 < 0) {
+    @Override // rx.c
+    public void request(long j2) {
+        if (j2 < 0) {
             throw new IllegalArgumentException("n >= 0 required");
         }
-        if (j10 > 0) {
-            xj.a.a(this, j10);
+        if (j2 > 0) {
+            rx.internal.operators.a.a(this, j2);
             drain();
         }
     }

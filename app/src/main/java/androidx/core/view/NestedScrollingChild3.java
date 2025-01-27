@@ -5,5 +5,5 @@ import androidx.annotation.Nullable;
 
 /* loaded from: classes.dex */
 public interface NestedScrollingChild3 extends NestedScrollingChild2 {
-    void dispatchNestedScroll(int i10, int i11, int i12, int i13, @Nullable int[] iArr, int i14, @NonNull int[] iArr2);
+    void dispatchNestedScroll(int i2, int i3, int i4, int i5, @Nullable int[] iArr, int i6, @NonNull int[] iArr2);
 }

@@ -4,7 +4,7 @@ import androidx.annotation.ColorInt;
 import java.util.ArrayList;
 import java.util.List;
 
-/* loaded from: classes2.dex */
+/* loaded from: classes.dex */
 public class GifHeader {
     public static final int NETSCAPE_LOOP_COUNT_DOES_NOT_EXIST = -1;
     public static final int NETSCAPE_LOOP_COUNT_FOREVER = 0;

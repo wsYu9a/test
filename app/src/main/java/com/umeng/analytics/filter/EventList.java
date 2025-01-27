@@ -2,7 +2,6 @@ package com.umeng.analytics.filter;
 
 import android.content.Context;
 import android.text.TextUtils;
-import com.umeng.analytics.pro.f;
 import com.umeng.commonsdk.debug.UMRTLog;
 import com.umeng.commonsdk.framework.UMEnvelopeBuild;
 import com.umeng.commonsdk.internal.crash.UMCrashManager;
@@ -38,78 +37,75 @@ public class EventList extends c implements FileLockCallback {
     private void deleteDataFile(File file) {
         if (this.mAppContext != null) {
             synchronized (this.mFileLock) {
-                try {
-                    if (file.exists()) {
-                        file.delete();
-                    }
-                } finally {
+                if (file.exists()) {
+                    file.delete();
                 }
             }
         }
     }
 
     private boolean loadEventListFromFile(Context context, File file) {
-        Throwable th2;
+        Throwable th;
         BufferedReader bufferedReader;
-        String sb2;
+        String sb;
         if (file.exists() && TextUtils.isEmpty(this.mEventList)) {
             try {
                 try {
                     bufferedReader = new BufferedReader(new FileReader(file));
-                } catch (Throwable th3) {
-                    th2 = th3;
+                } catch (Throwable th2) {
+                    th = th2;
                     bufferedReader = null;
                 }
                 try {
-                    StringBuilder sb3 = new StringBuilder();
+                    StringBuilder sb2 = new StringBuilder();
                     while (true) {
                         String readLine = bufferedReader.readLine();
                         if (readLine == null) {
                             break;
                         }
-                        sb3.append(readLine);
+                        sb2.append(readLine);
                     }
-                    sb2 = sb3.toString();
-                } catch (Throwable th4) {
-                    th2 = th4;
+                    sb = sb2.toString();
+                } catch (Throwable th3) {
+                    th = th3;
                     try {
-                        UMCrashManager.reportCrash(context, th2);
+                        UMCrashManager.reportCrash(context, th);
                         if (bufferedReader != null) {
                             bufferedReader.close();
                         }
                         return false;
-                    } catch (Throwable th5) {
+                    } catch (Throwable th4) {
                         if (bufferedReader != null) {
                             try {
                                 bufferedReader.close();
-                            } catch (Throwable th6) {
-                                UMCrashManager.reportCrash(context, th6);
+                            } catch (Throwable th5) {
+                                UMCrashManager.reportCrash(context, th5);
                             }
                         }
-                        throw th5;
+                        throw th4;
                     }
                 }
-                if (!TextUtils.isEmpty(sb2)) {
-                    String md5 = HelperUtils.getMD5(sb2);
+                if (!TextUtils.isEmpty(sb)) {
+                    String md5 = HelperUtils.getMD5(sb);
                     String imprintProperty = UMEnvelopeBuild.imprintProperty(context, this.mEventListVersionKey, "");
-                    this.mEventList = sb2;
+                    this.mEventList = sb;
                     eventListChange();
                     UMRTLog.i(UMRTLog.RTLOG_TAG, "--->>> loadEventListFromFile: mEventList = " + this.mEventList);
                     if (!UMUtils.isMainProgress(context)) {
                         if (!md5.equalsIgnoreCase(imprintProperty)) {
                             try {
                                 bufferedReader.close();
-                            } catch (Throwable th7) {
-                                UMCrashManager.reportCrash(context, th7);
+                            } catch (Throwable th6) {
+                                UMCrashManager.reportCrash(context, th6);
                             }
                             return false;
                         }
-                        this.mEventList = sb2;
+                        this.mEventList = sb;
                         eventListChange();
                         try {
                             bufferedReader.close();
-                        } catch (Throwable th8) {
-                            UMCrashManager.reportCrash(context, th8);
+                        } catch (Throwable th7) {
+                            UMCrashManager.reportCrash(context, th7);
                         }
                         return true;
                     }
@@ -117,23 +113,23 @@ public class EventList extends c implements FileLockCallback {
                         setMD5ClearFlag(true);
                         try {
                             bufferedReader.close();
-                        } catch (Throwable th9) {
-                            UMCrashManager.reportCrash(context, th9);
+                        } catch (Throwable th8) {
+                            UMCrashManager.reportCrash(context, th8);
                         }
                         return false;
                     }
-                    this.mEventList = sb2;
+                    this.mEventList = sb;
                     setMD5ClearFlag(false);
                     try {
                         bufferedReader.close();
-                    } catch (Throwable th10) {
-                        UMCrashManager.reportCrash(context, th10);
+                    } catch (Throwable th9) {
+                        UMCrashManager.reportCrash(context, th9);
                     }
                     return true;
                 }
                 bufferedReader.close();
-            } catch (Throwable th11) {
-                UMCrashManager.reportCrash(context, th11);
+            } catch (Throwable th10) {
+                UMCrashManager.reportCrash(context, th10);
             }
         }
         return false;
@@ -144,22 +140,18 @@ public class EventList extends c implements FileLockCallback {
             FileOutputStream fileOutputStream = new FileOutputStream(file);
             fileOutputStream.write(this.mEventList.getBytes());
             fileOutputStream.close();
-        } catch (Throwable th2) {
-            UMCrashManager.reportCrash(context, th2);
+        } catch (Throwable th) {
+            UMCrashManager.reportCrash(context, th);
         }
     }
 
     public boolean enabled() {
         synchronized (this) {
-            try {
-                return this.mEventList != null;
-            } catch (Throwable th2) {
-                throw th2;
-            }
+            return this.mEventList != null;
         }
     }
 
-    public void eventListChange() {
+    protected void eventListChange() {
     }
 
     public boolean matchHit(String str) {
@@ -167,17 +159,45 @@ public class EventList extends c implements FileLockCallback {
     }
 
     @Override // com.umeng.commonsdk.utils.FileLockCallback
+    public boolean onFileLock(File file, int i2) {
+        if (i2 == 0) {
+            synchronized (this) {
+                saveEventListToFile(this.mAppContext, file);
+            }
+        } else if (i2 == 1) {
+            synchronized (this) {
+                if (loadEventListFromFile(this.mAppContext, file)) {
+                    UMRTLog.i(UMRTLog.RTLOG_TAG, "--->>> find event list data file, load it.");
+                } else {
+                    UMRTLog.i(UMRTLog.RTLOG_TAG, "--->>> can't find event list file.");
+                }
+            }
+        } else if (i2 == 2) {
+            synchronized (this) {
+                this.mEventList = null;
+                deleteDataFile(file);
+            }
+        }
+        return true;
+    }
+
+    @Override // com.umeng.commonsdk.utils.FileLockCallback
     public boolean onFileLock(String str) {
+        return false;
+    }
+
+    @Override // com.umeng.commonsdk.utils.FileLockCallback
+    public boolean onFileLock(String str, Object obj) {
         return false;
     }
 
     @Override // com.umeng.analytics.filter.c, com.umeng.commonsdk.statistics.internal.UMImprintChangeCallback
     public void onImprintValueChanged(String str, String str2) {
-        if (f.at.equals(str) && str2 == null) {
+        if (com.umeng.analytics.pro.d.an.equals(str) && str2 == null) {
             UMRTLog.i(UMRTLog.RTLOG_TAG, "--->>> disable black list for ekv.");
             this.mFileLock.doFileOperateion(new File(this.mAppContext.getFilesDir(), this.mEventListName), this, 2);
         }
-        if (f.au.equals(str) && str2 == null) {
+        if (com.umeng.analytics.pro.d.ao.equals(str) && str2 == null) {
             UMRTLog.i(UMRTLog.RTLOG_TAG, "--->>> disable white list for ekv.");
             this.mFileLock.doFileOperateion(new File(this.mAppContext.getFilesDir(), this.mEventListName), this, 2);
         }
@@ -189,10 +209,10 @@ public class EventList extends c implements FileLockCallback {
             return true;
         }
         UMRTLog.i(UMRTLog.RTLOG_TAG, "--->>> onPreProcessImprintKey: key = " + str + "; len of value=" + str2.length());
-        StringBuilder sb2 = new StringBuilder();
-        sb2.append("--->>> onPreProcessImprintKey: value = ");
-        sb2.append(str2);
-        UMRTLog.i(UMRTLog.RTLOG_TAG, sb2.toString());
+        StringBuilder sb = new StringBuilder();
+        sb.append("--->>> onPreProcessImprintKey: value = ");
+        sb.append(str2);
+        UMRTLog.i(UMRTLog.RTLOG_TAG, sb.toString());
         this.mEventList = str2;
         eventListChange();
         File file = new File(this.mAppContext.getFilesDir(), this.mEventListName);
@@ -203,8 +223,8 @@ public class EventList extends c implements FileLockCallback {
                 } catch (IOException unused) {
                     file.createNewFile();
                 }
-            } catch (IOException e10) {
-                UMCrashManager.reportCrash(this.mAppContext, e10);
+            } catch (IOException e2) {
+                UMCrashManager.reportCrash(this.mAppContext, e2);
             }
         }
         this.mFileLock.doFileOperateion(file, this, 0);
@@ -230,57 +250,26 @@ public class EventList extends c implements FileLockCallback {
         }
     }
 
-    public void setMD5ClearFlag(boolean z10) {
+    public void setMD5ClearFlag(boolean z) {
     }
 
     public String toString() {
         if (TextUtils.isEmpty(this.mEventListName) || TextUtils.isEmpty(this.mEventListKey)) {
             return "Uninitialized EventList.";
         }
-        StringBuilder sb2 = new StringBuilder("[");
-        sb2.append("EventListName:" + this.mEventListName + ",");
-        sb2.append("listKey:" + this.mEventListKey + ",");
+        StringBuilder sb = new StringBuilder("[");
+        sb.append("EventListName:" + this.mEventListName + ",");
+        sb.append("listKey:" + this.mEventListKey + ",");
         if (TextUtils.isEmpty(this.mEventList)) {
-            sb2.append("listKeyValue:empty,");
+            sb.append("listKeyValue:empty,");
         } else {
-            sb2.append("listKeyValue:" + this.mEventList + "]");
+            sb.append("listKeyValue:" + this.mEventList + "]");
         }
         if (TextUtils.isEmpty(this.mEventListVersionKey)) {
-            sb2.append("listKeyVer:empty]");
+            sb.append("listKeyVer:empty]");
         } else {
-            sb2.append("listKeyVer:" + this.mEventListVersionKey + "]");
+            sb.append("listKeyVer:" + this.mEventListVersionKey + "]");
         }
-        return sb2.toString();
-    }
-
-    @Override // com.umeng.commonsdk.utils.FileLockCallback
-    public boolean onFileLock(String str, Object obj) {
-        return false;
-    }
-
-    @Override // com.umeng.commonsdk.utils.FileLockCallback
-    public boolean onFileLock(File file, int i10) {
-        if (i10 == 0) {
-            synchronized (this) {
-                saveEventListToFile(this.mAppContext, file);
-            }
-        } else if (i10 == 1) {
-            synchronized (this) {
-                try {
-                    if (loadEventListFromFile(this.mAppContext, file)) {
-                        UMRTLog.i(UMRTLog.RTLOG_TAG, "--->>> find event list data file, load it.");
-                    } else {
-                        UMRTLog.i(UMRTLog.RTLOG_TAG, "--->>> can't find event list file.");
-                    }
-                } finally {
-                }
-            }
-        } else if (i10 == 2) {
-            synchronized (this) {
-                this.mEventList = null;
-                deleteDataFile(file);
-            }
-        }
-        return true;
+        return sb.toString();
     }
 }

@@ -13,9 +13,15 @@ import androidx.appcompat.widget.TintTypedArray;
 @RestrictTo({RestrictTo.Scope.LIBRARY_GROUP_PREFIX})
 /* loaded from: classes.dex */
 public final class ExpandedMenuView extends ListView implements MenuBuilder.ItemInvoker, MenuView, AdapterView.OnItemClickListener {
-    private static final int[] TINT_ATTRS = {R.attr.background, R.attr.divider};
-    private int mAnimations;
-    private MenuBuilder mMenu;
+
+    /* renamed from: a */
+    private static final int[] f496a = {R.attr.background, R.attr.divider};
+
+    /* renamed from: b */
+    private MenuBuilder f497b;
+
+    /* renamed from: c */
+    private int f498c;
 
     public ExpandedMenuView(Context context, AttributeSet attributeSet) {
         this(context, attributeSet, R.attr.listViewStyle);
@@ -23,34 +29,34 @@ public final class ExpandedMenuView extends ListView implements MenuBuilder.Item
 
     @Override // androidx.appcompat.view.menu.MenuView
     public int getWindowAnimations() {
-        return this.mAnimations;
+        return this.f498c;
     }
 
     @Override // androidx.appcompat.view.menu.MenuView
     public void initialize(MenuBuilder menuBuilder) {
-        this.mMenu = menuBuilder;
+        this.f497b = menuBuilder;
     }
 
     @Override // androidx.appcompat.view.menu.MenuBuilder.ItemInvoker
     public boolean invokeItem(MenuItemImpl menuItemImpl) {
-        return this.mMenu.performItemAction(menuItemImpl, 0);
+        return this.f497b.performItemAction(menuItemImpl, 0);
     }
 
     @Override // android.widget.ListView, android.widget.AbsListView, android.widget.AdapterView, android.view.ViewGroup, android.view.View
-    public void onDetachedFromWindow() {
+    protected void onDetachedFromWindow() {
         super.onDetachedFromWindow();
         setChildrenDrawingCacheEnabled(false);
     }
 
     @Override // android.widget.AdapterView.OnItemClickListener
-    public void onItemClick(AdapterView adapterView, View view, int i10, long j10) {
-        invokeItem((MenuItemImpl) getAdapter().getItem(i10));
+    public void onItemClick(AdapterView adapterView, View view, int i2, long j2) {
+        invokeItem((MenuItemImpl) getAdapter().getItem(i2));
     }
 
-    public ExpandedMenuView(Context context, AttributeSet attributeSet, int i10) {
+    public ExpandedMenuView(Context context, AttributeSet attributeSet, int i2) {
         super(context, attributeSet);
         setOnItemClickListener(this);
-        TintTypedArray obtainStyledAttributes = TintTypedArray.obtainStyledAttributes(context, attributeSet, TINT_ATTRS, i10, 0);
+        TintTypedArray obtainStyledAttributes = TintTypedArray.obtainStyledAttributes(context, attributeSet, f496a, i2, 0);
         if (obtainStyledAttributes.hasValue(0)) {
             setBackgroundDrawable(obtainStyledAttributes.getDrawable(0));
         }

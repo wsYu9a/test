@@ -10,18 +10,25 @@ import androidx.annotation.RequiresApi;
 @RequiresApi(21)
 /* loaded from: classes.dex */
 class ViewUtilsApi21 extends ViewUtilsApi19 {
-    private static boolean sTryHiddenSetAnimationMatrix = true;
-    private static boolean sTryHiddenTransformMatrixToGlobal = true;
-    private static boolean sTryHiddenTransformMatrixToLocal = true;
+
+    /* renamed from: i */
+    private static boolean f3893i = true;
+
+    /* renamed from: j */
+    private static boolean f3894j = true;
+    private static boolean k = true;
+
+    ViewUtilsApi21() {
+    }
 
     @Override // androidx.transition.ViewUtilsBase
     @SuppressLint({"NewApi"})
     public void setAnimationMatrix(@NonNull View view, @Nullable Matrix matrix) {
-        if (sTryHiddenSetAnimationMatrix) {
+        if (f3893i) {
             try {
                 view.setAnimationMatrix(matrix);
             } catch (NoSuchMethodError unused) {
-                sTryHiddenSetAnimationMatrix = false;
+                f3893i = false;
             }
         }
     }
@@ -29,11 +36,11 @@ class ViewUtilsApi21 extends ViewUtilsApi19 {
     @Override // androidx.transition.ViewUtilsBase
     @SuppressLint({"NewApi"})
     public void transformMatrixToGlobal(@NonNull View view, @NonNull Matrix matrix) {
-        if (sTryHiddenTransformMatrixToGlobal) {
+        if (f3894j) {
             try {
                 view.transformMatrixToGlobal(matrix);
             } catch (NoSuchMethodError unused) {
-                sTryHiddenTransformMatrixToGlobal = false;
+                f3894j = false;
             }
         }
     }
@@ -41,11 +48,11 @@ class ViewUtilsApi21 extends ViewUtilsApi19 {
     @Override // androidx.transition.ViewUtilsBase
     @SuppressLint({"NewApi"})
     public void transformMatrixToLocal(@NonNull View view, @NonNull Matrix matrix) {
-        if (sTryHiddenTransformMatrixToLocal) {
+        if (k) {
             try {
                 view.transformMatrixToLocal(matrix);
             } catch (NoSuchMethodError unused) {
-                sTryHiddenTransformMatrixToLocal = false;
+                k = false;
             }
         }
     }

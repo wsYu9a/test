@@ -3,189 +3,185 @@ package com.bytedance.pangle.b.b;
 import com.bytedance.pangle.log.ZeusLogger;
 import java.lang.reflect.Method;
 
-/* loaded from: classes2.dex */
+/* loaded from: classes.dex */
 public final class a {
 
     /* renamed from: a */
-    private static Method f7477a;
+    private static Method f6000a;
 
     /* renamed from: b */
-    private static Method f7478b;
+    private static Method f6001b;
 
     /* renamed from: c */
-    private static Method f7479c;
+    private static Method f6002c;
 
     /* renamed from: d */
-    private static Method f7480d;
+    private static Method f6003d;
 
     static {
         try {
-            f7477a = Class.class.getDeclaredMethod("getDeclaredField", String.class);
-            f7478b = Class.class.getDeclaredMethod("getDeclaredMethod", String.class, Class[].class);
-            f7479c = Class.class.getDeclaredMethod("getDeclaredConstructor", Class[].class);
-            f7480d = Class.class.getDeclaredMethod("forName", String.class);
-        } catch (Throwable th2) {
-            ZeusLogger.errReport(ZeusLogger.TAG_INIT, "DoubleReflectorinit failed", th2);
+            f6000a = Class.class.getDeclaredMethod("getDeclaredField", String.class);
+            f6001b = Class.class.getDeclaredMethod("getDeclaredMethod", String.class, Class[].class);
+            f6002c = Class.class.getDeclaredMethod("getDeclaredConstructor", Class[].class);
+            f6003d = Class.class.getDeclaredMethod("forName", String.class);
+        } catch (Throwable th) {
+            ZeusLogger.errReport(ZeusLogger.TAG_INIT, "DoubleReflectorinit failed", th);
         }
     }
 
-    /* JADX WARN: Removed duplicated region for block: B:4:0x0046 A[RETURN] */
-    /* JADX WARN: Removed duplicated region for block: B:6:0x0047  */
+    /* JADX WARN: Removed duplicated region for block: B:17:0x0044 A[RETURN] */
+    /* JADX WARN: Removed duplicated region for block: B:19:0x0045  */
     /*
         Code decompiled incorrectly, please refer to instructions dump.
         To view partially-correct code enable 'Show inconsistent code' option in preferences
     */
     public static java.lang.reflect.Field a(java.lang.Class<?> r8, java.lang.String r9) {
         /*
-            r0 = 0
-            r1 = 1
-            java.lang.reflect.Method r2 = com.bytedance.pangle.b.b.a.f7477a
-            r3 = 0
-            if (r2 == 0) goto L44
-            java.lang.Object[] r4 = new java.lang.Object[r1]     // Catch: java.lang.Throwable -> L1b
-            r4[r0] = r9     // Catch: java.lang.Throwable -> L1b
-            java.lang.Object r2 = r2.invoke(r8, r4)     // Catch: java.lang.Throwable -> L1b
-            java.lang.reflect.Field r2 = (java.lang.reflect.Field) r2     // Catch: java.lang.Throwable -> L1b
-            if (r2 == 0) goto L19
-            r2.setAccessible(r1)     // Catch: java.lang.Throwable -> L17
-            goto L19
+            java.lang.reflect.Method r0 = com.bytedance.pangle.b.b.a.f6000a
+            r1 = 0
+            if (r0 == 0) goto L42
+            r2 = 0
+            r3 = 1
+            java.lang.Object[] r4 = new java.lang.Object[r3]     // Catch: java.lang.Throwable -> L19
+            r4[r2] = r9     // Catch: java.lang.Throwable -> L19
+            java.lang.Object r0 = r0.invoke(r8, r4)     // Catch: java.lang.Throwable -> L19
+            java.lang.reflect.Field r0 = (java.lang.reflect.Field) r0     // Catch: java.lang.Throwable -> L19
+            if (r0 == 0) goto L41
+            r0.setAccessible(r3)     // Catch: java.lang.Throwable -> L17
+            goto L41
         L17:
-            r3 = move-exception
-            goto L1f
+            r1 = move-exception
+            goto L1d
         L19:
-            r3 = r2
-            goto L44
-        L1b:
-            r2 = move-exception
-            r7 = r3
-            r3 = r2
-            r2 = r7
-        L1f:
+            r0 = move-exception
+            r7 = r1
+            r1 = r0
+            r0 = r7
+        L1d:
             java.lang.StringBuilder r4 = new java.lang.StringBuilder
             java.lang.String r5 = "DoubleReflector"
             r4.<init>(r5)
-            java.lang.String r5 = r8.getName()
-            r6 = 2
-            java.lang.Object[] r6 = new java.lang.Object[r6]
-            r6[r0] = r5
-            r6[r1] = r9
-            java.lang.String r0 = "getField %s#%s failed !!!"
-            java.lang.String r0 = java.lang.String.format(r0, r6)
-            r4.append(r0)
-            java.lang.String r0 = r4.toString()
-            java.lang.String r1 = "Zeus_pangle"
-            com.bytedance.pangle.log.ZeusLogger.w(r1, r0, r3)
-            goto L19
-        L44:
-            if (r3 == 0) goto L47
-            return r3
-        L47:
+            r5 = 2
+            java.lang.Object[] r5 = new java.lang.Object[r5]
+            java.lang.String r6 = r8.getName()
+            r5[r2] = r6
+            r5[r3] = r9
+            java.lang.String r2 = "getField %s#%s failed !!!"
+            java.lang.String r2 = java.lang.String.format(r2, r5)
+            r4.append(r2)
+            java.lang.String r2 = r4.toString()
+            java.lang.String r3 = "Zeus_pangle"
+            com.bytedance.pangle.log.ZeusLogger.w(r3, r2, r1)
+        L41:
+            r1 = r0
+        L42:
+            if (r1 == 0) goto L45
+            return r1
+        L45:
             java.lang.reflect.Field r8 = com.bytedance.pangle.b.a.a.a(r8, r9)
             return r8
         */
         throw new UnsupportedOperationException("Method not decompiled: com.bytedance.pangle.b.b.a.a(java.lang.Class, java.lang.String):java.lang.reflect.Field");
     }
 
-    /* JADX WARN: Removed duplicated region for block: B:4:0x0048 A[RETURN] */
-    /* JADX WARN: Removed duplicated region for block: B:6:0x0049  */
+    /* JADX WARN: Removed duplicated region for block: B:17:0x0046 A[RETURN] */
+    /* JADX WARN: Removed duplicated region for block: B:19:0x0047  */
     /*
         Code decompiled incorrectly, please refer to instructions dump.
         To view partially-correct code enable 'Show inconsistent code' option in preferences
     */
     public static java.lang.reflect.Method a(java.lang.Class<?> r8, java.lang.String r9, java.lang.Class<?>... r10) {
         /*
-            r0 = 0
-            r1 = 2
-            r2 = 1
-            java.lang.reflect.Method r3 = com.bytedance.pangle.b.b.a.f7478b
-            r4 = 0
-            if (r3 == 0) goto L46
-            java.lang.Object[] r5 = new java.lang.Object[r1]     // Catch: java.lang.Throwable -> L1e
-            r5[r0] = r9     // Catch: java.lang.Throwable -> L1e
-            r5[r2] = r10     // Catch: java.lang.Throwable -> L1e
-            java.lang.Object r3 = r3.invoke(r8, r5)     // Catch: java.lang.Throwable -> L1e
-            java.lang.reflect.Method r3 = (java.lang.reflect.Method) r3     // Catch: java.lang.Throwable -> L1e
-            if (r3 == 0) goto L1c
-            r3.setAccessible(r2)     // Catch: java.lang.Throwable -> L1a
-            goto L1c
+            java.lang.reflect.Method r0 = com.bytedance.pangle.b.b.a.f6001b
+            r1 = 0
+            if (r0 == 0) goto L44
+            r2 = 0
+            r3 = 2
+            r4 = 1
+            java.lang.Object[] r5 = new java.lang.Object[r3]     // Catch: java.lang.Throwable -> L1c
+            r5[r2] = r9     // Catch: java.lang.Throwable -> L1c
+            r5[r4] = r10     // Catch: java.lang.Throwable -> L1c
+            java.lang.Object r0 = r0.invoke(r8, r5)     // Catch: java.lang.Throwable -> L1c
+            java.lang.reflect.Method r0 = (java.lang.reflect.Method) r0     // Catch: java.lang.Throwable -> L1c
+            if (r0 == 0) goto L43
+            r0.setAccessible(r4)     // Catch: java.lang.Throwable -> L1a
+            goto L43
         L1a:
-            r4 = move-exception
-            goto L22
+            r1 = move-exception
+            goto L20
         L1c:
-            r4 = r3
-            goto L46
-        L1e:
-            r3 = move-exception
-            r7 = r4
-            r4 = r3
-            r3 = r7
-        L22:
+            r0 = move-exception
+            r7 = r1
+            r1 = r0
+            r0 = r7
+        L20:
             java.lang.StringBuilder r5 = new java.lang.StringBuilder
             java.lang.String r6 = "DoubleReflector"
             r5.<init>(r6)
+            java.lang.Object[] r3 = new java.lang.Object[r3]
             java.lang.String r6 = r8.getName()
-            java.lang.Object[] r1 = new java.lang.Object[r1]
-            r1[r0] = r6
-            r1[r2] = r9
-            java.lang.String r0 = "getMethod %s#%s failed !!!"
-            java.lang.String r0 = java.lang.String.format(r0, r1)
-            r5.append(r0)
-            java.lang.String r0 = r5.toString()
-            java.lang.String r1 = "Zeus_pangle"
-            com.bytedance.pangle.log.ZeusLogger.w(r1, r0, r4)
-            goto L1c
-        L46:
-            if (r4 == 0) goto L49
-            return r4
-        L49:
+            r3[r2] = r6
+            r3[r4] = r9
+            java.lang.String r2 = "getMethod %s#%s failed !!!"
+            java.lang.String r2 = java.lang.String.format(r2, r3)
+            r5.append(r2)
+            java.lang.String r2 = r5.toString()
+            java.lang.String r3 = "Zeus_pangle"
+            com.bytedance.pangle.log.ZeusLogger.w(r3, r2, r1)
+        L43:
+            r1 = r0
+        L44:
+            if (r1 == 0) goto L47
+            return r1
+        L47:
             java.lang.reflect.Method r8 = com.bytedance.pangle.b.a.a.a(r8, r9, r10)
             return r8
         */
         throw new UnsupportedOperationException("Method not decompiled: com.bytedance.pangle.b.b.a.a(java.lang.Class, java.lang.String, java.lang.Class[]):java.lang.reflect.Method");
     }
 
-    /* JADX WARN: Removed duplicated region for block: B:5:0x003d A[RETURN] */
-    /* JADX WARN: Removed duplicated region for block: B:7:0x003e  */
+    /* JADX WARN: Removed duplicated region for block: B:7:0x003d A[RETURN] */
+    /* JADX WARN: Removed duplicated region for block: B:9:0x003e  */
     /*
         Code decompiled incorrectly, please refer to instructions dump.
         To view partially-correct code enable 'Show inconsistent code' option in preferences
     */
-    public static java.lang.reflect.Constructor a(java.lang.Class<?> r7, java.lang.Class<?>... r8) {
+    public static java.lang.reflect.Constructor a(java.lang.Class<?> r6, java.lang.Class<?>... r7) {
         /*
-            r0 = 0
-            r1 = 1
-            java.lang.reflect.Method r2 = com.bytedance.pangle.b.b.a.f7479c
-            if (r2 == 0) goto L3a
-            java.lang.Object[] r3 = new java.lang.Object[r1]     // Catch: java.lang.Throwable -> L11
-            r3[r0] = r8     // Catch: java.lang.Throwable -> L11
-            java.lang.Object r2 = r2.invoke(r7, r3)     // Catch: java.lang.Throwable -> L11
-            java.lang.reflect.Constructor r2 = (java.lang.reflect.Constructor) r2     // Catch: java.lang.Throwable -> L11
+            java.lang.reflect.Method r0 = com.bytedance.pangle.b.b.a.f6002c
+            if (r0 == 0) goto L3a
+            r1 = 0
+            r2 = 1
+            java.lang.Object[] r3 = new java.lang.Object[r2]     // Catch: java.lang.Throwable -> L11
+            r3[r1] = r7     // Catch: java.lang.Throwable -> L11
+            java.lang.Object r0 = r0.invoke(r6, r3)     // Catch: java.lang.Throwable -> L11
+            java.lang.reflect.Constructor r0 = (java.lang.reflect.Constructor) r0     // Catch: java.lang.Throwable -> L11
             goto L3b
         L11:
-            r2 = move-exception
+            r0 = move-exception
             java.lang.StringBuilder r3 = new java.lang.StringBuilder
             java.lang.String r4 = "DoubleReflector"
             r3.<init>(r4)
-            java.lang.String r4 = r7.getName()
-            java.lang.Integer r5 = java.lang.Integer.valueOf(r1)
-            r6 = 2
-            java.lang.Object[] r6 = new java.lang.Object[r6]
-            r6[r0] = r4
-            r6[r1] = r5
-            java.lang.String r0 = "getConstructor %s<init>%s failed !!!"
-            java.lang.String r0 = java.lang.String.format(r0, r6)
-            r3.append(r0)
-            java.lang.String r0 = r3.toString()
-            java.lang.String r1 = "Zeus_pangle"
-            com.bytedance.pangle.log.ZeusLogger.w(r1, r0, r2)
+            r4 = 2
+            java.lang.Object[] r4 = new java.lang.Object[r4]
+            java.lang.String r5 = r6.getName()
+            r4[r1] = r5
+            java.lang.Integer r1 = java.lang.Integer.valueOf(r2)
+            r4[r2] = r1
+            java.lang.String r1 = "getConstructor %s<init>%s failed !!!"
+            java.lang.String r1 = java.lang.String.format(r1, r4)
+            r3.append(r1)
+            java.lang.String r1 = r3.toString()
+            java.lang.String r2 = "Zeus_pangle"
+            com.bytedance.pangle.log.ZeusLogger.w(r2, r1, r0)
         L3a:
-            r2 = 0
+            r0 = 0
         L3b:
-            if (r2 == 0) goto L3e
-            return r2
+            if (r0 == 0) goto L3e
+            return r0
         L3e:
-            java.lang.reflect.Constructor r7 = com.bytedance.pangle.b.a.a.a(r7, r8)
-            return r7
+            java.lang.reflect.Constructor r6 = com.bytedance.pangle.b.a.a.a(r6, r7)
+            return r6
         */
         throw new UnsupportedOperationException("Method not decompiled: com.bytedance.pangle.b.b.a.a(java.lang.Class, java.lang.Class[]):java.lang.reflect.Constructor");
     }

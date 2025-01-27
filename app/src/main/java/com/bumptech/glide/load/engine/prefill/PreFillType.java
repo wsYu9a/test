@@ -5,7 +5,7 @@ import androidx.annotation.Nullable;
 import androidx.annotation.VisibleForTesting;
 import com.bumptech.glide.util.Preconditions;
 
-/* loaded from: classes2.dex */
+/* loaded from: classes.dex */
 public final class PreFillType {
 
     @VisibleForTesting
@@ -21,15 +21,15 @@ public final class PreFillType {
         private int weight;
         private final int width;
 
-        public Builder(int i10) {
-            this(i10, i10);
+        public Builder(int i2) {
+            this(i2, i2);
         }
 
-        public PreFillType build() {
+        PreFillType build() {
             return new PreFillType(this.width, this.height, this.config, this.weight);
         }
 
-        public Bitmap.Config getConfig() {
+        Bitmap.Config getConfig() {
             return this.config;
         }
 
@@ -38,32 +38,32 @@ public final class PreFillType {
             return this;
         }
 
-        public Builder setWeight(int i10) {
-            if (i10 <= 0) {
+        public Builder setWeight(int i2) {
+            if (i2 <= 0) {
                 throw new IllegalArgumentException("Weight must be > 0");
             }
-            this.weight = i10;
+            this.weight = i2;
             return this;
         }
 
-        public Builder(int i10, int i11) {
+        public Builder(int i2, int i3) {
             this.weight = 1;
-            if (i10 <= 0) {
+            if (i2 <= 0) {
                 throw new IllegalArgumentException("Width must be > 0");
             }
-            if (i11 <= 0) {
+            if (i3 <= 0) {
                 throw new IllegalArgumentException("Height must be > 0");
             }
-            this.width = i10;
-            this.height = i11;
+            this.width = i2;
+            this.height = i3;
         }
     }
 
-    public PreFillType(int i10, int i11, Bitmap.Config config, int i12) {
+    PreFillType(int i2, int i3, Bitmap.Config config, int i4) {
         this.config = (Bitmap.Config) Preconditions.checkNotNull(config, "Config must not be null");
-        this.width = i10;
-        this.height = i11;
-        this.weight = i12;
+        this.width = i2;
+        this.height = i3;
+        this.weight = i4;
     }
 
     public boolean equals(Object obj) {
@@ -74,19 +74,19 @@ public final class PreFillType {
         return this.height == preFillType.height && this.width == preFillType.width && this.weight == preFillType.weight && this.config == preFillType.config;
     }
 
-    public Bitmap.Config getConfig() {
+    Bitmap.Config getConfig() {
         return this.config;
     }
 
-    public int getHeight() {
+    int getHeight() {
         return this.height;
     }
 
-    public int getWeight() {
+    int getWeight() {
         return this.weight;
     }
 
-    public int getWidth() {
+    int getWidth() {
         return this.width;
     }
 

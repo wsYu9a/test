@@ -59,8 +59,8 @@ public class DefaultDownloadEngine extends AbsDownloadEngine {
                         return runnable;
                     }
                 }
-            } catch (Throwable th2) {
-                Logger.w(TAG, "getUnstartedTask() error: " + th2.toString());
+            } catch (Throwable th) {
+                Logger.w(TAG, "getUnstartedTask() error: " + th.toString());
             }
         }
         return null;
@@ -74,39 +74,39 @@ public class DefaultDownloadEngine extends AbsDownloadEngine {
     }
 
     @Override // com.ss.android.socialbase.downloader.impls.AbsDownloadEngine
-    public DownloadRunnable doCancel(int i10) {
+    protected DownloadRunnable doCancel(int i2) {
         DownloadThreadPool downloadThreadPool2 = downloadThreadPool;
         if (downloadThreadPool2 == null) {
             return null;
         }
-        return downloadThreadPool2.cancel(i10);
+        return downloadThreadPool2.cancel(i2);
     }
 
     @Override // com.ss.android.socialbase.downloader.impls.AbsDownloadEngine
-    public void doDownload(int i10, DownloadTask downloadTask) {
+    public void doDownload(int i2, DownloadTask downloadTask) {
         if (downloadTask == null) {
             return;
         }
-        Logger.d("DownloadTask", "start doDownload for task : " + i10);
+        Logger.d("DownloadTask", "start doDownload for task : " + i2);
         downloadThreadPool.execute(new DownloadRunnable(downloadTask, this.mainHandler));
     }
 
     @Override // com.ss.android.socialbase.downloader.impls.AbsDownloadEngine
-    public void doPause(int i10) {
+    public void doPause(int i2) {
         DownloadThreadPool downloadThreadPool2 = downloadThreadPool;
         if (downloadThreadPool2 == null) {
             return;
         }
-        downloadThreadPool2.pause(i10);
+        downloadThreadPool2.pause(i2);
     }
 
     @Override // com.ss.android.socialbase.downloader.impls.AbsDownloadEngine
-    public void doSetThrottleNetSpeed(int i10, long j10) {
+    public void doSetThrottleNetSpeed(int i2, long j2) {
         DownloadThreadPool downloadThreadPool2 = downloadThreadPool;
         if (downloadThreadPool2 == null) {
             return;
         }
-        downloadThreadPool2.setThrottleNetSpeed(i10, j10);
+        downloadThreadPool2.setThrottleNetSpeed(i2, j2);
     }
 
     @Override // com.ss.android.socialbase.downloader.impls.AbsDownloadEngine
@@ -115,16 +115,16 @@ public class DefaultDownloadEngine extends AbsDownloadEngine {
     }
 
     @Override // com.ss.android.socialbase.downloader.impls.AbsDownloadEngine
-    public boolean isDownloading(int i10) {
+    public boolean isDownloading(int i2) {
         DownloadInfo downloadInfo;
         DownloadThreadPool downloadThreadPool2 = downloadThreadPool;
-        if (downloadThreadPool2 == null || !downloadThreadPool2.containsTask(i10) || (downloadInfo = getDownloadInfo(i10)) == null) {
+        if (downloadThreadPool2 == null || !downloadThreadPool2.containsTask(i2) || (downloadInfo = getDownloadInfo(i2)) == null) {
             return false;
         }
         if (DownloadStatus.isDownloading(downloadInfo.getStatus())) {
             return true;
         }
-        doPause(i10);
+        doPause(i2);
         return false;
     }
 

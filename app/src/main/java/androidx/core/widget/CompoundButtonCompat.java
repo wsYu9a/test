@@ -6,54 +6,21 @@ import android.graphics.drawable.Drawable;
 import android.os.Build;
 import android.util.Log;
 import android.widget.CompoundButton;
-import androidx.annotation.DoNotInline;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.annotation.RequiresApi;
 import java.lang.reflect.Field;
 
 /* loaded from: classes.dex */
 public final class CompoundButtonCompat {
-    private static final String TAG = "CompoundButtonCompat";
-    private static Field sButtonDrawableField;
-    private static boolean sButtonDrawableFieldFetched;
 
-    @RequiresApi(21)
-    public static class Api21Impl {
-        private Api21Impl() {
-        }
+    /* renamed from: a */
+    private static final String f2185a = "CompoundButtonCompat";
 
-        @DoNotInline
-        public static ColorStateList getButtonTintList(CompoundButton compoundButton) {
-            return compoundButton.getButtonTintList();
-        }
+    /* renamed from: b */
+    private static Field f2186b;
 
-        @DoNotInline
-        public static PorterDuff.Mode getButtonTintMode(CompoundButton compoundButton) {
-            return compoundButton.getButtonTintMode();
-        }
-
-        @DoNotInline
-        public static void setButtonTintList(CompoundButton compoundButton, ColorStateList colorStateList) {
-            compoundButton.setButtonTintList(colorStateList);
-        }
-
-        @DoNotInline
-        public static void setButtonTintMode(CompoundButton compoundButton, PorterDuff.Mode mode) {
-            compoundButton.setButtonTintMode(mode);
-        }
-    }
-
-    @RequiresApi(23)
-    public static class Api23Impl {
-        private Api23Impl() {
-        }
-
-        @DoNotInline
-        public static Drawable getButtonDrawable(CompoundButton compoundButton) {
-            return compoundButton.getButtonDrawable();
-        }
-    }
+    /* renamed from: c */
+    private static boolean f2187c;
 
     private CompoundButtonCompat() {
     }
@@ -61,45 +28,69 @@ public final class CompoundButtonCompat {
     @Nullable
     public static Drawable getButtonDrawable(@NonNull CompoundButton compoundButton) {
         if (Build.VERSION.SDK_INT >= 23) {
-            return Api23Impl.getButtonDrawable(compoundButton);
+            return compoundButton.getButtonDrawable();
         }
-        if (!sButtonDrawableFieldFetched) {
+        if (!f2187c) {
             try {
                 Field declaredField = CompoundButton.class.getDeclaredField("mButtonDrawable");
-                sButtonDrawableField = declaredField;
+                f2186b = declaredField;
                 declaredField.setAccessible(true);
-            } catch (NoSuchFieldException e10) {
-                Log.i(TAG, "Failed to retrieve mButtonDrawable field", e10);
+            } catch (NoSuchFieldException e2) {
+                Log.i(f2185a, "Failed to retrieve mButtonDrawable field", e2);
             }
-            sButtonDrawableFieldFetched = true;
+            f2187c = true;
         }
-        Field field = sButtonDrawableField;
+        Field field = f2186b;
         if (field != null) {
             try {
                 return (Drawable) field.get(compoundButton);
-            } catch (IllegalAccessException e11) {
-                Log.i(TAG, "Failed to get button drawable via reflection", e11);
-                sButtonDrawableField = null;
+            } catch (IllegalAccessException e3) {
+                Log.i(f2185a, "Failed to get button drawable via reflection", e3);
+                f2186b = null;
             }
         }
         return null;
     }
 
+    /* JADX WARN: Multi-variable type inference failed */
     @Nullable
     public static ColorStateList getButtonTintList(@NonNull CompoundButton compoundButton) {
-        return Api21Impl.getButtonTintList(compoundButton);
+        if (Build.VERSION.SDK_INT >= 21) {
+            return compoundButton.getButtonTintList();
+        }
+        if (compoundButton instanceof TintableCompoundButton) {
+            return ((TintableCompoundButton) compoundButton).getSupportButtonTintList();
+        }
+        return null;
     }
 
+    /* JADX WARN: Multi-variable type inference failed */
     @Nullable
     public static PorterDuff.Mode getButtonTintMode(@NonNull CompoundButton compoundButton) {
-        return Api21Impl.getButtonTintMode(compoundButton);
+        if (Build.VERSION.SDK_INT >= 21) {
+            return compoundButton.getButtonTintMode();
+        }
+        if (compoundButton instanceof TintableCompoundButton) {
+            return ((TintableCompoundButton) compoundButton).getSupportButtonTintMode();
+        }
+        return null;
     }
 
+    /* JADX WARN: Multi-variable type inference failed */
     public static void setButtonTintList(@NonNull CompoundButton compoundButton, @Nullable ColorStateList colorStateList) {
-        Api21Impl.setButtonTintList(compoundButton, colorStateList);
+        if (Build.VERSION.SDK_INT >= 21) {
+            compoundButton.setButtonTintList(colorStateList);
+        } else if (compoundButton instanceof TintableCompoundButton) {
+            ((TintableCompoundButton) compoundButton).setSupportButtonTintList(colorStateList);
+        }
     }
 
+    /* JADX WARN: Multi-variable type inference failed */
     public static void setButtonTintMode(@NonNull CompoundButton compoundButton, @Nullable PorterDuff.Mode mode) {
-        Api21Impl.setButtonTintMode(compoundButton, mode);
+        if (Build.VERSION.SDK_INT >= 21) {
+            compoundButton.setButtonTintMode(mode);
+        } else if (compoundButton instanceof TintableCompoundButton) {
+            ((TintableCompoundButton) compoundButton).setSupportButtonTintMode(mode);
+        }
     }
 }

@@ -1,20 +1,18 @@
 package kotlin.jvm.internal;
 
+import f.b.a.d;
 import java.util.NoSuchElementException;
 import kotlin.Metadata;
 import kotlin.collections.BooleanIterator;
-import xi.k;
 
-@Metadata(d1 = {"\u0000 \n\u0002\u0018\u0002\n\u0002\u0018\u0002\n\u0000\n\u0002\u0010\u0018\n\u0002\b\u0002\n\u0002\u0010\b\n\u0000\n\u0002\u0010\u000b\n\u0002\b\u0002\b\u0002\u0018\u00002\u00020\u0001B\r\u0012\u0006\u0010\u0002\u001a\u00020\u0003¢\u0006\u0002\u0010\u0004J\t\u0010\u0007\u001a\u00020\bH\u0096\u0002J\b\u0010\t\u001a\u00020\bH\u0016R\u000e\u0010\u0002\u001a\u00020\u0003X\u0082\u0004¢\u0006\u0002\n\u0000R\u000e\u0010\u0005\u001a\u00020\u0006X\u0082\u000e¢\u0006\u0002\n\u0000¨\u0006\n"}, d2 = {"Lkotlin/jvm/internal/ArrayBooleanIterator;", "Lkotlin/collections/BooleanIterator;", "array", "", "([Z)V", "index", "", "hasNext", "", "nextBoolean", "kotlin-stdlib"}, k = 1, mv = {1, 9, 0}, xi = 48)
-/* loaded from: classes4.dex */
+@Metadata(bv = {1, 0, 3}, d1 = {"\u0000 \n\u0002\u0018\u0002\n\u0002\u0018\u0002\n\u0002\u0010\u000b\n\u0002\b\u0003\n\u0002\u0010\u0018\n\u0002\b\u0002\n\u0002\u0010\b\n\u0002\b\u0005\b\u0002\u0018\u00002\u00020\u0001B\u000f\u0012\u0006\u0010\u0007\u001a\u00020\u0006¢\u0006\u0004\b\f\u0010\rJ\u0010\u0010\u0003\u001a\u00020\u0002H\u0096\u0002¢\u0006\u0004\b\u0003\u0010\u0004J\u000f\u0010\u0005\u001a\u00020\u0002H\u0016¢\u0006\u0004\b\u0005\u0010\u0004R\u0016\u0010\u0007\u001a\u00020\u00068\u0002@\u0002X\u0082\u0004¢\u0006\u0006\n\u0004\b\u0007\u0010\bR\u0016\u0010\n\u001a\u00020\t8\u0002@\u0002X\u0082\u000e¢\u0006\u0006\n\u0004\b\n\u0010\u000b¨\u0006\u000e"}, d2 = {"Lkotlin/jvm/internal/ArrayBooleanIterator;", "Lkotlin/collections/BooleanIterator;", "", "hasNext", "()Z", "nextBoolean", "", "array", "[Z", "", "index", "I", "<init>", "([Z)V", "kotlin-stdlib"}, k = 1, mv = {1, 4, 0})
+/* loaded from: classes5.dex */
 final class ArrayBooleanIterator extends BooleanIterator {
-
-    @k
     private final boolean[] array;
     private int index;
 
-    public ArrayBooleanIterator(@k boolean[] array) {
-        Intrinsics.checkNotNullParameter(array, "array");
+    public ArrayBooleanIterator(@d boolean[] array) {
+        Intrinsics.checkParameterIsNotNull(array, "array");
         this.array = array;
     }
 
@@ -27,12 +25,12 @@ final class ArrayBooleanIterator extends BooleanIterator {
     public boolean nextBoolean() {
         try {
             boolean[] zArr = this.array;
-            int i10 = this.index;
-            this.index = i10 + 1;
-            return zArr[i10];
-        } catch (ArrayIndexOutOfBoundsException e10) {
+            int i2 = this.index;
+            this.index = i2 + 1;
+            return zArr[i2];
+        } catch (ArrayIndexOutOfBoundsException e2) {
             this.index--;
-            throw new NoSuchElementException(e10.getMessage());
+            throw new NoSuchElementException(e2.getMessage());
         }
     }
 }

@@ -2,44 +2,44 @@ package com.bykv.vk.openvk.api.proto;
 
 import java.util.Set;
 
-/* loaded from: classes2.dex */
+/* loaded from: classes.dex */
 public interface ValueSet {
 
     public interface ValueGetter<T> {
         T get();
     }
 
-    <T> T[] arrayValue(int i10, Class<T> cls);
+    <T> T[] arrayValue(int i2, Class<T> cls);
 
-    boolean booleanValue(int i10);
+    boolean booleanValue(int i2);
 
-    boolean booleanValue(int i10, boolean z10);
+    boolean booleanValue(int i2, boolean z);
 
-    boolean containsKey(int i10);
+    boolean containsKey(int i2);
 
-    double doubleValue(int i10);
+    double doubleValue(int i2);
 
-    float floatValue(int i10);
+    float floatValue(int i2);
 
-    float floatValue(int i10, float f10);
+    float floatValue(int i2, float f2);
 
-    int intValue(int i10);
+    int intValue(int i2);
 
-    int intValue(int i10, int i11);
+    int intValue(int i2, int i3);
 
     boolean isEmpty();
 
     Set<Integer> keys();
 
-    long longValue(int i10);
+    long longValue(int i2);
 
-    long longValue(int i10, long j10);
+    long longValue(int i2, long j2);
 
-    <T> T objectValue(int i10, Class<T> cls);
+    <T> T objectValue(int i2, Class<T> cls);
 
     int size();
 
-    String stringValue(int i10);
+    String stringValue(int i2);
 
-    String stringValue(int i10, String str);
+    String stringValue(int i2, String str);
 }

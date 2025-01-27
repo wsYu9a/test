@@ -12,7 +12,7 @@ import java.io.InputStream;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipFile;
 
-/* loaded from: classes2.dex */
+/* loaded from: classes.dex */
 public final class g {
 
     public static class a extends File {
@@ -21,21 +21,21 @@ public final class g {
         }
     }
 
-    public static String a(String str, int i10) {
-        int b10 = b(str, i10);
-        StringBuilder sb2 = new StringBuilder();
-        for (int i11 = 1; i11 <= b10; i11++) {
-            sb2.append(new a(new File(com.bytedance.pangle.d.c.i(str, i10)), i11 == 1 ? "classes.dex" : "classes" + i11 + ".dex").getAbsolutePath());
-            sb2.append(":");
+    public static String a(String str, int i2) {
+        int b2 = b(str, i2);
+        StringBuilder sb = new StringBuilder();
+        for (int i3 = 1; i3 <= b2; i3++) {
+            sb.append(new a(new File(com.bytedance.pangle.d.c.i(str, i2)), i3 == 1 ? "classes.dex" : "classes" + i3 + ".dex").getAbsolutePath());
+            sb.append(":");
         }
-        if (sb2.length() != 0) {
-            sb2.delete(sb2.length() - 1, sb2.length());
+        if (sb.length() != 0) {
+            sb.delete(sb.length() - 1, sb.length());
         }
-        return sb2.toString();
+        return sb.toString();
     }
 
-    private static int b(String str, int i10) {
-        return a((str + "-" + i10) + ".dex.number");
+    private static int b(String str, int i2) {
+        return a((str + "-" + i2) + ".dex.number");
     }
 
     public static void a(ZipFile zipFile, ZipEntry zipEntry, a aVar, String str) {
@@ -57,30 +57,27 @@ public final class g {
                 bufferedOutputStream.close();
                 if (createTempFile.setReadOnly()) {
                     if (createTempFile.renameTo(aVar)) {
-                        a(inputStream);
-                        createTempFile.delete();
                         return;
                     }
                     throw new IOException("Failed to rename \"" + createTempFile.getAbsolutePath() + "\" to \"" + aVar.getAbsolutePath() + "\"");
                 }
                 throw new IOException("Failed to mark readonly \"" + createTempFile.getAbsolutePath() + "\" (tmp of \"" + aVar.getAbsolutePath() + "\")");
-            } catch (Throwable th2) {
+            } catch (Throwable th) {
                 bufferedOutputStream.flush();
                 bufferedOutputStream.close();
-                throw th2;
+                throw th;
             }
-        } catch (Throwable th3) {
+        } finally {
             a(inputStream);
             createTempFile.delete();
-            throw th3;
         }
     }
 
     private static void a(Closeable closeable) {
         try {
             closeable.close();
-        } catch (IOException e10) {
-            ZeusLogger.w(ZeusLogger.TAG_INSTALL, "Plugin-MultiDex Failed to close resource", e10);
+        } catch (IOException e2) {
+            ZeusLogger.w(ZeusLogger.TAG_INSTALL, "Plugin-MultiDex Failed to close resource", e2);
         }
     }
 

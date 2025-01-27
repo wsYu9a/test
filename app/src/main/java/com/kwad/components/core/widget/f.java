@@ -1,52 +1,34 @@
 package com.kwad.components.core.widget;
 
-import android.content.Context;
-import android.content.res.Configuration;
-import android.widget.FrameLayout;
-import androidx.annotation.NonNull;
-import com.kwad.sdk.utils.an;
+import android.graphics.Outline;
+import android.view.View;
+import android.view.ViewOutlineProvider;
+import androidx.annotation.RequiresApi;
 
-/* loaded from: classes3.dex */
-public final class f extends FrameLayout {
-    private boolean afx;
-    protected boolean jN;
-    protected g js;
+@RequiresApi(api = 21)
+/* loaded from: classes2.dex */
+public final class f extends ViewOutlineProvider {
+    private float Xb;
 
-    @NonNull
-    protected Context mContext;
-
-    public f(@NonNull Context context) {
-        super(context);
-        this.mContext = context;
-        this.jN = an.NS();
+    private f(float f2) {
+        this.Xb = f2;
     }
 
-    private void uC() {
-        boolean NS = an.NS();
-        if (!this.afx || NS == this.jN) {
-            return;
+    @RequiresApi(api = 21)
+    public static void b(View view, float f2) {
+        boolean z;
+        if (f2 <= 0.0f) {
+            view.setOutlineProvider(null);
+            z = false;
+        } else {
+            view.setOutlineProvider(new f(f2));
+            z = true;
         }
-        this.jN = NS;
-        g gVar = this.js;
-        if (gVar != null) {
-            gVar.k(!NS);
-        }
+        view.setClipToOutline(z);
     }
 
-    @Override // android.view.View
-    public final void onConfigurationChanged(Configuration configuration) {
-        super.onConfigurationChanged(configuration);
-        uC();
-    }
-
-    @Override // android.view.View
-    public final void onWindowVisibilityChanged(int i10) {
-        super.onWindowVisibilityChanged(i10);
-        this.afx = i10 == 0;
-        uC();
-    }
-
-    public final void setOrientationChangeListener(g gVar) {
-        this.js = gVar;
+    @Override // android.view.ViewOutlineProvider
+    public final void getOutline(View view, Outline outline) {
+        outline.setRoundRect(0, 0, view.getWidth(), view.getHeight(), this.Xb);
     }
 }

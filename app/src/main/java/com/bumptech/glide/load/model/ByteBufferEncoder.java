@@ -9,7 +9,7 @@ import java.io.File;
 import java.io.IOException;
 import java.nio.ByteBuffer;
 
-/* loaded from: classes2.dex */
+/* loaded from: classes.dex */
 public class ByteBufferEncoder implements Encoder<ByteBuffer> {
     private static final String TAG = "ByteBufferEncoder";
 
@@ -18,9 +18,9 @@ public class ByteBufferEncoder implements Encoder<ByteBuffer> {
         try {
             ByteBufferUtil.toFile(byteBuffer, file);
             return true;
-        } catch (IOException e10) {
+        } catch (IOException e2) {
             if (Log.isLoggable(TAG, 3)) {
-                Log.d(TAG, "Failed to write data", e10);
+                Log.d(TAG, "Failed to write data", e2);
             }
             return false;
         }

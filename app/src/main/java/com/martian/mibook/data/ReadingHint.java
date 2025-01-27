@@ -6,6 +6,10 @@ public class ReadingHint {
     private String hint;
     private int weight;
 
+    public long getFetchTime() {
+        return this.fetchTime;
+    }
+
     public String getHint() {
         return this.hint;
     }
@@ -18,17 +22,18 @@ public class ReadingHint {
         return System.currentTimeMillis() - this.fetchTime <= 60000;
     }
 
-    public void setFetchTime(long j10) {
-        this.fetchTime = j10;
-    }
-
-    public ReadingHint setHint(String str) {
-        this.hint = str;
+    public ReadingHint setFetchTime(long fetchTime) {
+        this.fetchTime = fetchTime;
         return this;
     }
 
-    public ReadingHint setWeight(int i10) {
-        this.weight = i10;
+    public ReadingHint setHint(String hint) {
+        this.hint = hint;
+        return this;
+    }
+
+    public ReadingHint setWeight(int weight) {
+        this.weight = weight;
         return this;
     }
 }

@@ -1,8 +1,8 @@
 package com.martian.appwall.request;
 
-import v8.a;
+import com.martian.libcomm.http.requests.d.a;
 
-/* loaded from: classes3.dex */
+/* loaded from: classes2.dex */
 public class MartianGetAppwallParams extends MartianAppwallAuthoptParams {
 
     @a
@@ -17,7 +17,7 @@ public class MartianGetAppwallParams extends MartianAppwallAuthoptParams {
         return this.awid;
     }
 
-    public void setAwid(String str) {
-        this.awid = str;
+    public void setAwid(String awid) {
+        this.awid = awid;
     }
 }

@@ -10,7 +10,10 @@ import android.os.Build;
 import android.os.Environment;
 import android.os.SystemClock;
 import android.util.DisplayMetrics;
+import android.view.inputmethod.InputMethodInfo;
+import android.view.inputmethod.InputMethodManager;
 import com.bytedance.sdk.openadsdk.downloadnew.core.TTDownloadField;
+import com.cdo.oaps.ad.wrapper.BaseWrapper;
 import com.umeng.commonsdk.internal.crash.UMCrashManager;
 import com.umeng.commonsdk.statistics.common.HelperUtils;
 import com.umeng.commonsdk.statistics.common.ULog;
@@ -25,13 +28,13 @@ import java.util.List;
 public class a {
 
     /* renamed from: com.umeng.commonsdk.internal.utils.a$a */
-    public static class C0673a {
+    public static class C0543a {
 
         /* renamed from: a */
-        public String f24515a;
+        public String f26207a;
 
         /* renamed from: b */
-        public String f24516b;
+        public String f26208b;
     }
 
     public static long a(Context context, String str) {
@@ -39,14 +42,31 @@ public class a {
             return 0L;
         }
         try {
-            PackageInfo a10 = com.umeng.commonsdk.utils.b.a().a(context, str, 64);
-            if (a10 != null) {
-                return a10.firstInstallTime;
+            PackageInfo a2 = com.umeng.commonsdk.utils.b.a().a(context, str, 64);
+            if (a2 != null) {
+                return a2.firstInstallTime;
             }
             return 0L;
-        } catch (Throwable th2) {
-            UMCrashManager.reportCrash(context, th2);
-            ULog.e("getAppFirstInstallTime" + th2.getMessage());
+        } catch (Throwable th) {
+            UMCrashManager.reportCrash(context, th);
+            ULog.e("getAppFirstInstallTime" + th.getMessage());
+            return 0L;
+        }
+    }
+
+    public static long b(Context context, String str) {
+        if (context == null) {
+            return 0L;
+        }
+        try {
+            PackageInfo a2 = com.umeng.commonsdk.utils.b.a().a(context, str, 64);
+            if (a2 != null) {
+                return a2.lastUpdateTime;
+            }
+            return 0L;
+        } catch (Throwable th) {
+            UMCrashManager.reportCrash(context, th);
+            ULog.e("getAppLastUpdateTime:" + th.getMessage());
             return 0L;
         }
     }
@@ -57,9 +77,9 @@ public class a {
     public static String c(Context context, String str) {
         try {
             return context.getPackageManager().getInstallerPackageName(str);
-        } catch (Exception e10) {
-            UMCrashManager.reportCrash(context, e10);
-            ULog.e("getAppInstaller:" + e10.getMessage());
+        } catch (Exception e2) {
+            UMCrashManager.reportCrash(context, e2);
+            ULog.e("getAppInstaller:" + e2.getMessage());
             return null;
         }
     }
@@ -70,14 +90,14 @@ public class a {
             return 0;
         }
         try {
-            PackageInfo a10 = com.umeng.commonsdk.utils.b.a().a(context, str, 64);
-            if (a10 == null || (applicationInfo = a10.applicationInfo) == null) {
+            PackageInfo a2 = com.umeng.commonsdk.utils.b.a().a(context, str, 64);
+            if (a2 == null || (applicationInfo = a2.applicationInfo) == null) {
                 return 0;
             }
             return applicationInfo.uid;
-        } catch (Throwable th2) {
-            UMCrashManager.reportCrash(context, th2);
-            ULog.e("getAppUid:" + th2.getMessage());
+        } catch (Throwable th) {
+            UMCrashManager.reportCrash(context, th);
+            ULog.e("getAppUid:" + th.getMessage());
             return 0;
         }
     }
@@ -89,7 +109,15 @@ public class a {
         return context.getResources().getDisplayMetrics();
     }
 
-    public static List<C0673a> f(Context context) {
+    public static List<InputMethodInfo> f(Context context) {
+        InputMethodManager inputMethodManager;
+        if (context == null || (inputMethodManager = (InputMethodManager) context.getSystemService("input_method")) == null) {
+            return null;
+        }
+        return inputMethodManager.getInputMethodList();
+    }
+
+    public static List<C0543a> g(Context context) {
         String[] list;
         if (context == null) {
             return null;
@@ -99,21 +127,21 @@ public class a {
             File file = new File(Environment.getExternalStorageDirectory() + "/Android/data/");
             if (file.isDirectory() && (list = file.list()) != null && list.length > 0) {
                 for (String str : list) {
-                    if (str != null && !str.startsWith(p1.b.f29697h)) {
-                        C0673a c0673a = new C0673a();
-                        c0673a.f24515a = str;
-                        c0673a.f24516b = e(context, str);
-                        arrayList.add(c0673a);
+                    if (str != null && !str.startsWith(".")) {
+                        C0543a c0543a = new C0543a();
+                        c0543a.f26207a = str;
+                        c0543a.f26208b = e(context, str);
+                        arrayList.add(c0543a);
                     }
                 }
             }
-        } catch (Exception e10) {
-            ULog.e("getAppList:" + e10.getMessage());
+        } catch (Exception e2) {
+            ULog.e("getAppList:" + e2.getMessage());
         }
         return arrayList;
     }
 
-    public static ActivityManager.MemoryInfo g(Context context) {
+    public static ActivityManager.MemoryInfo h(Context context) {
         ActivityManager activityManager;
         if (context == null || (activityManager = (ActivityManager) context.getSystemService(TTDownloadField.TT_ACTIVITY)) == null) {
             return null;
@@ -123,29 +151,14 @@ public class a {
         return memoryInfo;
     }
 
-    public static String h(Context context) {
-        return null;
-    }
-
     public static String i(Context context) {
+        if (context == null) {
+        }
         return null;
     }
 
-    public static long b(Context context, String str) {
-        if (context == null) {
-            return 0L;
-        }
-        try {
-            PackageInfo a10 = com.umeng.commonsdk.utils.b.a().a(context, str, 64);
-            if (a10 != null) {
-                return a10.lastUpdateTime;
-            }
-            return 0L;
-        } catch (Throwable th2) {
-            UMCrashManager.reportCrash(context, th2);
-            ULog.e("getAppLastUpdateTime:" + th2.getMessage());
-            return 0L;
-        }
+    public static String j(Context context) {
+        return null;
     }
 
     private static String e(Context context, String str) {
@@ -158,8 +171,8 @@ public class a {
                 return (String) applicationInfo.loadLabel(context.getPackageManager());
             }
             return null;
-        } catch (Exception e10) {
-            ULog.e("getLabel:" + e10.getMessage());
+        } catch (Exception e2) {
+            ULog.e("getLabel:" + e2.getMessage());
             return null;
         }
     }
@@ -169,11 +182,15 @@ public class a {
             return 0;
         }
         Resources resources = context.getResources();
-        return resources.getDimensionPixelSize(resources.getIdentifier(com.gyf.immersionbar.b.f10638c, "dimen", "android"));
+        return resources.getDimensionPixelSize(resources.getIdentifier("status_bar_height", "dimen", BaseWrapper.BASE_PKG_SYSTEM));
     }
 
     public static boolean a() {
         return h.a();
+    }
+
+    public static String b() {
+        return new SimpleDateFormat().format(new Date());
     }
 
     public static float a(Context context) {
@@ -184,14 +201,10 @@ public class a {
         try {
             configuration.updateFrom(context.getResources().getConfiguration());
             return configuration.fontScale;
-        } catch (Exception e10) {
-            ULog.e("getFontSize:" + e10.getMessage());
+        } catch (Exception e2) {
+            ULog.e("getFontSize:" + e2.getMessage());
             return 0.0f;
         }
-    }
-
-    public static String b() {
-        return new SimpleDateFormat().format(new Date());
     }
 
     public static int d(Context context) {
@@ -199,7 +212,7 @@ public class a {
             return 0;
         }
         Resources resources = context.getResources();
-        return resources.getDimensionPixelSize(resources.getIdentifier(com.gyf.immersionbar.b.f10639d, "dimen", "android"));
+        return resources.getDimensionPixelSize(resources.getIdentifier("navigation_bar_height", "dimen", BaseWrapper.BASE_PKG_SYSTEM));
     }
 
     public static long c() {
@@ -212,8 +225,8 @@ public class a {
             declaredMethod.setAccessible(true);
             String obj = declaredMethod.invoke(null, "net.hostname").toString();
             return (obj == null || obj.equalsIgnoreCase("")) ? obj : HelperUtils.getUmengMD5(obj);
-        } catch (Exception e10) {
-            ULog.e("getHostName:" + e10.getMessage());
+        } catch (Exception e2) {
+            ULog.e("getHostName:" + e2.getMessage());
             return null;
         }
     }

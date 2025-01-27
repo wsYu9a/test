@@ -10,56 +10,69 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.coordinatorlayout.widget.CoordinatorLayout;
 import androidx.core.view.ViewCompat;
-import com.google.android.material.expandable.ExpandableWidget;
+import com.google.android.material.e.b;
 import java.util.List;
 
 @Deprecated
-/* loaded from: classes2.dex */
+/* loaded from: classes.dex */
 public abstract class ExpandableBehavior extends CoordinatorLayout.Behavior<View> {
-    private static final int STATE_COLLAPSED = 2;
-    private static final int STATE_EXPANDED = 1;
-    private static final int STATE_UNINITIALIZED = 0;
-    private int currentState;
 
-    /* renamed from: com.google.android.material.transformation.ExpandableBehavior$1 */
-    public class AnonymousClass1 implements ViewTreeObserver.OnPreDrawListener {
-        final /* synthetic */ View val$child;
-        final /* synthetic */ ExpandableWidget val$dep;
-        final /* synthetic */ int val$expectedState;
+    /* renamed from: a */
+    private static final int f7965a = 0;
 
-        public AnonymousClass1(View view, int i10, ExpandableWidget expandableWidget) {
-            view = view;
-            i11 = i10;
-            findExpandableWidget = expandableWidget;
+    /* renamed from: b */
+    private static final int f7966b = 1;
+
+    /* renamed from: c */
+    private static final int f7967c = 2;
+
+    /* renamed from: d */
+    private int f7968d;
+
+    class a implements ViewTreeObserver.OnPreDrawListener {
+
+        /* renamed from: a */
+        final /* synthetic */ View f7969a;
+
+        /* renamed from: b */
+        final /* synthetic */ int f7970b;
+
+        /* renamed from: c */
+        final /* synthetic */ b f7971c;
+
+        a(View view, int i2, b bVar) {
+            this.f7969a = view;
+            this.f7970b = i2;
+            this.f7971c = bVar;
         }
 
         /* JADX WARN: Multi-variable type inference failed */
         @Override // android.view.ViewTreeObserver.OnPreDrawListener
         public boolean onPreDraw() {
-            view.getViewTreeObserver().removeOnPreDrawListener(this);
-            if (ExpandableBehavior.this.currentState == i11) {
+            this.f7969a.getViewTreeObserver().removeOnPreDrawListener(this);
+            if (ExpandableBehavior.this.f7968d == this.f7970b) {
                 ExpandableBehavior expandableBehavior = ExpandableBehavior.this;
-                ExpandableWidget expandableWidget = findExpandableWidget;
-                expandableBehavior.onExpandedStateChange((View) expandableWidget, view, expandableWidget.isExpanded(), false);
+                b bVar = this.f7971c;
+                expandableBehavior.e((View) bVar, this.f7969a, bVar.b(), false);
             }
             return false;
         }
     }
 
     public ExpandableBehavior() {
-        this.currentState = 0;
+        this.f7968d = 0;
     }
 
-    private boolean didStateChange(boolean z10) {
-        if (!z10) {
-            return this.currentState == 1;
+    private boolean b(boolean z) {
+        if (!z) {
+            return this.f7968d == 1;
         }
-        int i10 = this.currentState;
-        return i10 == 0 || i10 == 2;
+        int i2 = this.f7968d;
+        return i2 == 0 || i2 == 2;
     }
 
     @Nullable
-    public static <T extends ExpandableBehavior> T from(@NonNull View view, @NonNull Class<T> cls) {
+    public static <T extends ExpandableBehavior> T d(@NonNull View view, @NonNull Class<T> cls) {
         ViewGroup.LayoutParams layoutParams = view.getLayoutParams();
         if (!(layoutParams instanceof CoordinatorLayout.LayoutParams)) {
             throw new IllegalArgumentException("The view is not a child of CoordinatorLayout");
@@ -73,17 +86,19 @@ public abstract class ExpandableBehavior extends CoordinatorLayout.Behavior<View
 
     /* JADX WARN: Multi-variable type inference failed */
     @Nullable
-    public ExpandableWidget findExpandableWidget(@NonNull CoordinatorLayout coordinatorLayout, @NonNull View view) {
+    protected b c(@NonNull CoordinatorLayout coordinatorLayout, @NonNull View view) {
         List<View> dependencies = coordinatorLayout.getDependencies(view);
         int size = dependencies.size();
-        for (int i10 = 0; i10 < size; i10++) {
-            View view2 = dependencies.get(i10);
+        for (int i2 = 0; i2 < size; i2++) {
+            View view2 = dependencies.get(i2);
             if (layoutDependsOn(coordinatorLayout, view, view2)) {
-                return (ExpandableWidget) view2;
+                return (b) view2;
             }
         }
         return null;
     }
+
+    protected abstract boolean e(View view, View view2, boolean z, boolean z2);
 
     @Override // androidx.coordinatorlayout.widget.CoordinatorLayout.Behavior
     public abstract boolean layoutDependsOn(CoordinatorLayout coordinatorLayout, View view, View view2);
@@ -92,53 +107,29 @@ public abstract class ExpandableBehavior extends CoordinatorLayout.Behavior<View
     @Override // androidx.coordinatorlayout.widget.CoordinatorLayout.Behavior
     @CallSuper
     public boolean onDependentViewChanged(CoordinatorLayout coordinatorLayout, View view, View view2) {
-        ExpandableWidget expandableWidget = (ExpandableWidget) view2;
-        if (!didStateChange(expandableWidget.isExpanded())) {
+        b bVar = (b) view2;
+        if (!b(bVar.b())) {
             return false;
         }
-        this.currentState = expandableWidget.isExpanded() ? 1 : 2;
-        return onExpandedStateChange((View) expandableWidget, view, expandableWidget.isExpanded(), true);
+        this.f7968d = bVar.b() ? 1 : 2;
+        return e((View) bVar, view, bVar.b(), true);
     }
-
-    public abstract boolean onExpandedStateChange(View view, View view2, boolean z10, boolean z11);
 
     @Override // androidx.coordinatorlayout.widget.CoordinatorLayout.Behavior
     @CallSuper
-    public boolean onLayoutChild(@NonNull CoordinatorLayout coordinatorLayout, @NonNull View view, int i10) {
-        ExpandableWidget findExpandableWidget;
-        if (ViewCompat.isLaidOut(view) || (findExpandableWidget = findExpandableWidget(coordinatorLayout, view)) == null || !didStateChange(findExpandableWidget.isExpanded())) {
+    public boolean onLayoutChild(@NonNull CoordinatorLayout coordinatorLayout, @NonNull View view, int i2) {
+        b c2;
+        if (ViewCompat.isLaidOut(view) || (c2 = c(coordinatorLayout, view)) == null || !b(c2.b())) {
             return false;
         }
-        int i11 = findExpandableWidget.isExpanded() ? 1 : 2;
-        this.currentState = i11;
-        view.getViewTreeObserver().addOnPreDrawListener(new ViewTreeObserver.OnPreDrawListener() { // from class: com.google.android.material.transformation.ExpandableBehavior.1
-            final /* synthetic */ View val$child;
-            final /* synthetic */ ExpandableWidget val$dep;
-            final /* synthetic */ int val$expectedState;
-
-            public AnonymousClass1(View view2, int i112, ExpandableWidget findExpandableWidget2) {
-                view = view2;
-                i11 = i112;
-                findExpandableWidget = findExpandableWidget2;
-            }
-
-            /* JADX WARN: Multi-variable type inference failed */
-            @Override // android.view.ViewTreeObserver.OnPreDrawListener
-            public boolean onPreDraw() {
-                view.getViewTreeObserver().removeOnPreDrawListener(this);
-                if (ExpandableBehavior.this.currentState == i11) {
-                    ExpandableBehavior expandableBehavior = ExpandableBehavior.this;
-                    ExpandableWidget expandableWidget = findExpandableWidget;
-                    expandableBehavior.onExpandedStateChange((View) expandableWidget, view, expandableWidget.isExpanded(), false);
-                }
-                return false;
-            }
-        });
+        int i3 = c2.b() ? 1 : 2;
+        this.f7968d = i3;
+        view.getViewTreeObserver().addOnPreDrawListener(new a(view, i3, c2));
         return false;
     }
 
     public ExpandableBehavior(Context context, AttributeSet attributeSet) {
         super(context, attributeSet);
-        this.currentState = 0;
+        this.f7968d = 0;
     }
 }

@@ -2,7 +2,7 @@ package com.martian.mibook.lib.yuewen.response;
 
 import java.util.List;
 
-/* loaded from: classes3.dex */
+/* loaded from: classes4.dex */
 public class TYCategoryTagGroup {
     private List<TYCategoryTagItem> items;
     private Integer layoutType;
@@ -24,15 +24,15 @@ public class TYCategoryTagGroup {
         return this.name;
     }
 
-    public void setItems(List<TYCategoryTagItem> list) {
-        this.items = list;
+    public void setItems(List<TYCategoryTagItem> items) {
+        this.items = items;
     }
 
-    public void setLayoutType(Integer num) {
-        this.layoutType = num;
+    public void setLayoutType(Integer layoutType) {
+        this.layoutType = layoutType;
     }
 
-    public void setName(String str) {
-        this.name = str;
+    public void setName(String name) {
+        this.name = name;
     }
 }

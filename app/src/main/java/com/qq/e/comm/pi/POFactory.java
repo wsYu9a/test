@@ -11,9 +11,8 @@ import com.qq.e.ads.hybrid.HybridADSetting;
 import com.qq.e.ads.nativ.ADSize;
 import com.qq.e.comm.adevent.ADListener;
 import java.util.Map;
-import org.json.JSONObject;
 
-/* loaded from: classes3.dex */
+/* loaded from: classes4.dex */
 public interface POFactory extends InnerPOFactory {
     @Override // com.qq.e.comm.pi.InnerPOFactory
     /* synthetic */ SVSD getAPKDownloadServiceDelegate(Service service);
@@ -53,7 +52,4 @@ public interface POFactory extends InnerPOFactory {
 
     @Override // com.qq.e.comm.pi.InnerPOFactory
     /* synthetic */ int showOpenOrInstallAppDialog(GDTAppDialogClickListener gDTAppDialogClickListener);
-
-    @Override // com.qq.e.comm.pi.InnerPOFactory
-    /* synthetic */ void start(JSONObject jSONObject);
 }

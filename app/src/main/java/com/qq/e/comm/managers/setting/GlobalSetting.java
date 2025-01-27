@@ -8,7 +8,7 @@ import java.util.Map;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-/* loaded from: classes3.dex */
+/* loaded from: classes4.dex */
 public final class GlobalSetting {
     public static final String ADMOB_SDK_WRAPPER = "ADMOB";
     public static final String AGREE_PRIVACY_KEY = "agree_privacy";
@@ -16,160 +16,138 @@ public final class GlobalSetting {
     public static final String APPLOVIN_SDK_WRAPPER = "APPLOVIN";
     public static final String BD_SDK_WRAPPER = "BD";
     public static final String CCPA = "ccpa";
-    public static final String CONV_OPTIMIZE_KEY = "conv_opt_info";
     public static final String COPPA = "coppa";
-    public static final String CUSTOM_INFO_KEY = "custom_info";
-    public static final String DARK_MODE_KEY = "dark_mode_info";
     public static final String FACEBOOK_SDK_WRAPPER = "FACEBOOK";
     public static final String GDPR = "gdpr";
     public static final String KS_SDK_WRAPPER = "KS";
-    public static final String NATIVE_EXPRESS_AD = "4";
-    public static final String NATIVE_UNIFIED_AD = "6";
     public static final String OVERSEA_PRIVACY_INFO = "oversea_privacy_info";
     public static final String PAG_SDK_WRAPPER = "PAG";
-    public static final String REWARD_VIDEO_AD = "5";
-    public static final String SPLASH_AD = "3";
     public static final String TT_SDK_WRAPPER = "TT";
-    public static final String UNIFIED_BANNER_AD = "7";
-    public static final String UNIFIED_INTERSTITIAL_FS_AD = "9";
-    public static final String UNIFIED_INTERSTITIAL_HS_AD = "8";
 
     /* renamed from: a */
-    private static volatile Integer f16606a = null;
+    private static volatile Integer f24044a = null;
 
     /* renamed from: b */
-    private static volatile boolean f16607b = false;
+    private static volatile boolean f24045b = false;
 
     /* renamed from: c */
-    private static volatile boolean f16608c = true;
+    private static volatile boolean f24046c = true;
 
     /* renamed from: d */
-    private static volatile Integer f16609d;
+    private static volatile Integer f24047d;
 
     /* renamed from: e */
-    private static volatile Boolean f16610e;
+    private static volatile Boolean f24048e;
 
     /* renamed from: f */
-    private static volatile Boolean f16611f;
+    private static volatile Boolean f24049f;
 
     /* renamed from: g */
-    private static volatile Boolean f16612g;
+    private static volatile Boolean f24050g;
 
     /* renamed from: h */
-    private static volatile Map<String, String> f16613h = new HashMap();
+    private static volatile Map<String, String> f24051h = new HashMap();
 
     /* renamed from: i */
-    private static volatile Map<String, String> f16614i = new HashMap();
+    private static volatile Map<String, String> f24052i = new HashMap();
 
     /* renamed from: j */
-    private static final Map<String, String> f16615j = new HashMap();
-
-    /* renamed from: k */
-    private static final JSONObject f16616k = new JSONObject();
-
-    /* renamed from: l */
-    private static volatile String f16617l = null;
-
-    /* renamed from: m */
-    private static volatile String f16618m = null;
-
-    /* renamed from: n */
-    private static volatile String f16619n = null;
-
-    /* renamed from: o */
-    private static volatile String f16620o = null;
-
-    /* renamed from: p */
-    private static volatile String f16621p = null;
+    private static final Map<String, String> f24053j = new HashMap();
+    private static final JSONObject k = new JSONObject();
+    private static volatile String l = null;
+    private static volatile String m = null;
+    private static volatile String n = null;
+    private static volatile String o = null;
+    private static volatile String p = null;
 
     public static Boolean getAgreeReadAndroidId() {
-        return f16612g;
+        return f24050g;
     }
 
     public static Boolean getAgreeReadDeviceId() {
-        return f16611f;
+        return f24049f;
     }
 
     public static Integer getChannel() {
-        return f16606a;
+        return f24044a;
     }
 
     public static String getCustomADActivityClassName() {
-        return f16617l;
+        return l;
     }
 
     public static String getCustomLandscapeActivityClassName() {
-        return f16620o;
+        return o;
     }
 
     public static String getCustomPortraitActivityClassName() {
-        return f16618m;
+        return m;
     }
 
     public static String getCustomRewardvideoLandscapeActivityClassName() {
-        return f16621p;
+        return p;
     }
 
     public static String getCustomRewardvideoPortraitActivityClassName() {
-        return f16619n;
+        return n;
     }
 
     public static Map<String, String> getExtraUserData() {
-        return Collections.unmodifiableMap(f16613h);
+        return Collections.unmodifiableMap(f24051h);
     }
 
     public static Integer getPersonalizedState() {
-        return f16609d;
+        return f24047d;
     }
 
     public static Map<String, String> getPreloadAdapterMaps() {
-        return f16615j;
+        return f24053j;
     }
 
     public static JSONObject getSettings() {
-        return f16616k;
+        return k;
     }
 
     public static boolean isAgreePrivacyStrategy() {
-        return f16610e == null || f16610e.booleanValue();
+        return f24048e == null || f24048e.booleanValue();
     }
 
     public static boolean isAgreeReadAndroidId() {
-        if (f16612g == null) {
+        if (f24050g == null) {
             return true;
         }
-        return f16612g.booleanValue();
+        return f24050g.booleanValue();
     }
 
     public static boolean isAgreeReadDeviceId() {
-        if (f16611f == null) {
+        if (f24049f == null) {
             return true;
         }
-        return f16611f.booleanValue();
+        return f24049f.booleanValue();
     }
 
     public static boolean isEnableMediationTool() {
-        return f16607b;
+        return f24045b;
     }
 
     public static boolean isEnableVideoDownloadingCache() {
-        return f16608c;
+        return f24046c;
     }
 
-    public static void setAgreePrivacyStrategy(boolean z10) {
-        if (f16610e == null) {
-            f16610e = Boolean.valueOf(z10);
+    public static void setAgreePrivacyStrategy(boolean z) {
+        if (f24048e == null) {
+            f24048e = Boolean.valueOf(z);
         }
     }
 
     @Deprecated
-    public static void setAgreeReadAndroidId(boolean z10) {
-        f16612g = Boolean.valueOf(z10);
+    public static void setAgreeReadAndroidId(boolean z) {
+        f24050g = Boolean.valueOf(z);
     }
 
     @Deprecated
-    public static void setAgreeReadDeviceId(boolean z10) {
-        f16611f = Boolean.valueOf(z10);
+    public static void setAgreeReadDeviceId(boolean z) {
+        f24049f = Boolean.valueOf(z);
     }
 
     public static void setAgreeReadPrivacyInfo(Map<String, Boolean> map) {
@@ -177,73 +155,51 @@ public final class GlobalSetting {
             return;
         }
         try {
-            f16616k.putOpt(AGREE_PRIVACY_KEY, new JSONObject(map));
-        } catch (Exception e10) {
-            GDTLogger.e("setAgreeReadPrivacyInfo错误：" + e10.toString());
+            k.putOpt(AGREE_PRIVACY_KEY, new JSONObject(map));
+        } catch (Exception e2) {
+            GDTLogger.e("setAgreeReadPrivacyInfo错误：" + e2.toString());
         }
     }
 
-    public static void setChannel(int i10) {
-        if (f16606a == null) {
-            f16606a = Integer.valueOf(i10);
-        }
-    }
-
-    public static void setConvOptimizeInfo(Map<String, Boolean> map) {
-        if (map == null || map.size() == 0) {
-            return;
-        }
-        try {
-            f16616k.putOpt(CONV_OPTIMIZE_KEY, new JSONObject(map));
-        } catch (Exception e10) {
-            GDTLogger.e("setConvOptimizeInfo错误：" + e10.toString());
+    public static void setChannel(int i2) {
+        if (f24044a == null) {
+            f24044a = Integer.valueOf(i2);
         }
     }
 
     public static void setCustomADActivityClassName(String str) {
-        f16617l = str;
-    }
-
-    public static void setCustomInfo(Map<String, Map<String, String>> map) {
-        if (map == null || map.isEmpty()) {
-            return;
-        }
-        try {
-            f16616k.putOpt(CUSTOM_INFO_KEY, new JSONObject(map));
-        } catch (Exception e10) {
-            GDTLogger.e("setCustomInfo：" + e10);
-        }
+        l = str;
     }
 
     public static void setCustomLandscapeActivityClassName(String str) {
-        f16620o = str;
+        o = str;
     }
 
     public static void setCustomPortraitActivityClassName(String str) {
-        f16618m = str;
+        m = str;
     }
 
     public static void setCustomRewardvideoLandscapeActivityClassName(String str) {
-        f16621p = str;
+        p = str;
     }
 
     public static void setCustomRewardvideoPortraitActivityClassName(String str) {
-        f16619n = str;
+        n = str;
     }
 
-    public static void setEnableCollectAppInstallStatus(boolean z10) {
+    public static void setEnableCollectAppInstallStatus(boolean z) {
         try {
-            f16616k.putOpt("ecais", Boolean.valueOf(z10));
+            k.putOpt("ecais", Boolean.valueOf(z));
         } catch (JSONException unused) {
         }
     }
 
-    public static void setEnableMediationTool(boolean z10) {
-        f16607b = z10;
+    public static void setEnableMediationTool(boolean z) {
+        f24045b = z;
     }
 
-    public static void setEnableVideoDownloadingCache(boolean z10) {
-        f16608c = z10;
+    public static void setEnableVideoDownloadingCache(boolean z) {
+        f24046c = z;
     }
 
     public static void setExtraUserData(Map<String, String> map) {
@@ -256,36 +212,36 @@ public final class GlobalSetting {
                 return;
             }
         }
-        f16613h = map;
+        f24051h = map;
     }
 
-    public static void setMediaExtData(Map<String, String> map, boolean z10) {
+    public static void setMediaExtData(Map<String, String> map, boolean z) {
         if (map == null) {
             return;
         }
-        if (z10) {
-            f16614i = new HashMap();
+        if (z) {
+            f24052i = new HashMap();
         }
         for (Map.Entry<String, String> entry : map.entrySet()) {
             if (!TextUtils.isEmpty(entry.getKey()) && !TextUtils.isEmpty(entry.getValue())) {
-                f16614i.put(entry.getKey(), entry.getValue());
+                f24052i.put(entry.getKey(), entry.getValue());
             }
         }
         try {
-            f16616k.putOpt("media_ext", new JSONObject(f16614i));
+            k.putOpt("media_ext", new JSONObject(f24052i));
         } catch (JSONException unused) {
             GDTLogger.e("setMediaExtData失败，请检查");
         }
     }
 
-    public static void setPersonalizedState(int i10) {
-        f16609d = Integer.valueOf(i10);
+    public static void setPersonalizedState(int i2) {
+        f24047d = Integer.valueOf(i2);
     }
 
     public static void setPreloadAdapters(Map<String, String> map) {
         if (map == null) {
             return;
         }
-        f16615j.putAll(map);
+        f24053j.putAll(map);
     }
 }

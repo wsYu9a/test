@@ -36,11 +36,11 @@ public interface IDownloadAidlMonitorDepend extends IInterface {
         static final int TRANSACTION_getEventPage = 2;
         static final int TRANSACTION_monitorLogSend = 1;
 
-        public static class Proxy implements IDownloadAidlMonitorDepend {
+        private static class Proxy implements IDownloadAidlMonitorDepend {
             public static IDownloadAidlMonitorDepend sDefaultImpl;
             private IBinder mRemote;
 
-            public Proxy(IBinder iBinder) {
+            Proxy(IBinder iBinder) {
                 this.mRemote = iBinder;
             }
 
@@ -136,23 +136,23 @@ public interface IDownloadAidlMonitorDepend extends IInterface {
         }
 
         @Override // android.os.Binder
-        public boolean onTransact(int i10, Parcel parcel, Parcel parcel2, int i11) throws RemoteException {
-            if (i10 == 1) {
+        public boolean onTransact(int i2, Parcel parcel, Parcel parcel2, int i3) throws RemoteException {
+            if (i2 == 1) {
                 parcel.enforceInterface(DESCRIPTOR);
                 monitorLogSend(parcel.readString());
                 parcel2.writeNoException();
                 return true;
             }
-            if (i10 == 2) {
+            if (i2 == 2) {
                 parcel.enforceInterface(DESCRIPTOR);
                 String eventPage = getEventPage();
                 parcel2.writeNoException();
                 parcel2.writeString(eventPage);
                 return true;
             }
-            if (i10 != 3) {
-                if (i10 != 1598968902) {
-                    return super.onTransact(i10, parcel, parcel2, i11);
+            if (i2 != 3) {
+                if (i2 != 1598968902) {
+                    return super.onTransact(i2, parcel, parcel2, i3);
                 }
                 parcel2.writeString(DESCRIPTOR);
                 return true;

@@ -1,113 +1,105 @@
 package com.martian.mibook.activity.book;
 
-import android.app.Activity;
-import android.content.Intent;
 import android.os.Bundle;
 import androidx.annotation.NonNull;
-import ba.l;
-import com.martian.libsupport.R;
+import com.martian.libmars.activity.j1;
+import com.martian.mibook.activity.book.BookInfoActivity;
 import com.martian.mibook.application.MiConfigSingleton;
-import com.martian.mibook.fragment.AuthorBookListFragment;
-import com.martian.mibook.lib.model.activity.MiBackableActivity;
+import com.martian.mibook.f.n3;
 import com.martian.mibook.lib.model.data.abs.Book;
-import com.martian.mibook.mvvm.book.viewmodel.BookInfo;
-import ya.e0;
+import com.martian.ttbookhd.R;
 
 /* loaded from: classes3.dex */
-public class AuthorBooksActivity extends MiBackableActivity {
-    public static final String H = "book_more_type";
-    public static final String I = "TYPE_AUTHOR_BOOK";
-    public static final String J = "TYPE_AUTHOR_BOOK_SEARCH";
-    public static final String K = "TYPE_SIMILAR_BOOK";
-    public static final String L = "TYPE_SIMILAR_BOOK_EXIT_READING";
-    public String A;
-    public String B;
-    public String C;
-    public String D;
-    public String E;
-    public String F;
-    public int G;
+public class AuthorBooksActivity extends com.martian.mibook.lib.model.b.a {
+    public static final String F = "book_more_type";
+    public static final String G = "TYPE_AUTHOR_BOOK";
+    public static final String H = "TYPE_AUTHOR_BOOK_SEARCH";
+    public static final String I = "TYPE_SIMILAR_BOOK";
+    public static final String J = "TYPE_SIMILAR_BOOK_EXIT_READING";
+    private String K;
+    private String L;
+    private String M;
+    private String N;
+    private String O;
+    private String P;
+    private int Q;
 
-    public static void L2(Activity activity, Book book, String str, int i10) {
-        if (book == null) {
-            return;
-        }
-        Bundle bundle = new Bundle();
-        bundle.putString(MiConfigSingleton.U0, book.getBookName());
-        bundle.putString(e0.f33173r0, book.getSourceName());
-        bundle.putString(e0.f33175s0, book.getSourceId());
-        bundle.putString(e0.f33177t0, book.getSourceString());
-        bundle.putString(MiConfigSingleton.V0, book.getAuthor());
-        bundle.putString(H, str);
-        bundle.putInt(MiConfigSingleton.W0, i10);
-        Intent intent = new Intent(activity, (Class<?>) AuthorBooksActivity.class);
-        intent.putExtras(bundle);
-        activity.startActivity(intent);
-    }
-
-    public static void M2(Activity activity, BookInfo bookInfo) {
+    public static void r2(j1 activity, BookInfoActivity.o bookInfo) {
         if (bookInfo == null) {
             return;
         }
         Bundle bundle = new Bundle();
-        bundle.putString(MiConfigSingleton.U0, bookInfo.getBookName());
-        bundle.putString(e0.f33173r0, bookInfo.getSourceName());
-        bundle.putString(e0.f33175s0, bookInfo.getSourceId());
-        bundle.putString(e0.f33177t0, bookInfo.getSourceString());
-        bundle.putString(H, K);
-        Intent intent = new Intent(activity, (Class<?>) AuthorBooksActivity.class);
-        intent.putExtras(bundle);
-        activity.startActivity(intent);
+        bundle.putString(MiConfigSingleton.L0, bookInfo.c());
+        bundle.putString(MiConfigSingleton.D0, bookInfo.o());
+        bundle.putString(MiConfigSingleton.F0, bookInfo.n());
+        bundle.putString(MiConfigSingleton.G0, bookInfo.p());
+        bundle.putString(F, I);
+        activity.startActivity(AuthorBooksActivity.class, bundle);
     }
 
-    @Override // com.martian.mibook.lib.model.activity.MiBackableActivity, com.martian.libmars.activity.MartianActivity, com.martian.libmars.activity.BaseActivity, me.imid.swipebacklayout.lib.app.SwipeBackActivity, androidx.fragment.app.FragmentActivity, androidx.activity.ComponentActivity, androidx.core.app.ComponentActivity, android.app.Activity
-    public void onCreate(Bundle bundle) {
-        super.onCreate(bundle);
+    public static void s2(j1 activity, Book book, String type, int seed) {
+        if (book == null) {
+            return;
+        }
+        Bundle bundle = new Bundle();
+        bundle.putString(MiConfigSingleton.L0, book.getBookName());
+        bundle.putString(MiConfigSingleton.D0, book.getSourceName());
+        bundle.putString(MiConfigSingleton.F0, book.getSourceId());
+        bundle.putString(MiConfigSingleton.G0, book.getSourceString());
+        bundle.putString(MiConfigSingleton.N0, book.getAuthor());
+        bundle.putString(F, type);
+        bundle.putInt(MiConfigSingleton.O0, seed);
+        activity.startActivity(AuthorBooksActivity.class, bundle);
+    }
+
+    @Override // com.martian.mibook.lib.model.b.a, com.martian.libmars.activity.j1, com.martian.libmars.activity.h1, me.imid.swipebacklayout.lib.d.a, androidx.appcompat.app.AppCompatActivity, androidx.fragment.app.FragmentActivity, androidx.activity.ComponentActivity, androidx.core.app.ComponentActivity, android.app.Activity
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_load_fragment);
-        if (bundle != null) {
-            this.A = bundle.getString(MiConfigSingleton.V0);
-            this.B = bundle.getString(MiConfigSingleton.U0);
-            this.D = bundle.getString(e0.f33175s0);
-            this.C = bundle.getString(e0.f33173r0);
-            this.E = bundle.getString(e0.f33177t0);
-            this.F = bundle.getString(H);
-            this.G = bundle.getInt(MiConfigSingleton.W0);
+        if (savedInstanceState != null) {
+            this.K = savedInstanceState.getString(MiConfigSingleton.N0);
+            this.L = savedInstanceState.getString(MiConfigSingleton.L0);
+            this.N = savedInstanceState.getString(MiConfigSingleton.F0);
+            this.M = savedInstanceState.getString(MiConfigSingleton.D0);
+            this.O = savedInstanceState.getString(MiConfigSingleton.G0);
+            this.P = savedInstanceState.getString(F);
+            this.Q = savedInstanceState.getInt(MiConfigSingleton.O0);
         } else {
-            this.A = q1(MiConfigSingleton.V0);
-            this.B = q1(MiConfigSingleton.U0);
-            this.D = q1(e0.f33175s0);
-            this.C = q1(e0.f33173r0);
-            this.E = q1(e0.f33177t0);
-            this.F = q1(H);
-            this.G = g1(MiConfigSingleton.W0, 0);
+            this.K = G0(MiConfigSingleton.N0);
+            this.L = G0(MiConfigSingleton.L0);
+            this.N = G0(MiConfigSingleton.F0);
+            this.M = G0(MiConfigSingleton.D0);
+            this.O = G0(MiConfigSingleton.G0);
+            this.P = G0(F);
+            this.Q = v0(MiConfigSingleton.O0, 0);
         }
-        if (J.equalsIgnoreCase(this.F)) {
-            if (l.q(this.A)) {
-                t2(getString(com.martian.mibook.R.string.author_books_second));
+        if (H.equalsIgnoreCase(this.P)) {
+            if (com.martian.libsupport.k.p(this.K)) {
+                Z1(getString(R.string.author_books_second));
             } else {
-                t2(this.A + "的作品");
+                Z1(this.K + "的作品");
             }
-        } else if (!I.equalsIgnoreCase(this.F)) {
-            t2(getString(com.martian.mibook.R.string.same_like_books));
-        } else if (l.q(this.A)) {
-            t2(getString(com.martian.mibook.R.string.author_books_second));
+        } else if (!G.equalsIgnoreCase(this.P)) {
+            Z1(getString(R.string.same_like_books));
+        } else if (com.martian.libsupport.k.p(this.K)) {
+            Z1(getString(R.string.author_books_second));
         } else {
-            t2(this.A + "的其他作品");
+            Z1(this.K + "的其他作品");
         }
-        if (((AuthorBookListFragment) getSupportFragmentManager().findFragmentByTag("yw_new_book_list_fragment")) == null) {
-            getSupportFragmentManager().beginTransaction().add(com.martian.mibook.R.id.fragmentContainer, (I.equalsIgnoreCase(this.F) || J.equalsIgnoreCase(this.F)) ? AuthorBookListFragment.Z(this.A, this.B, this.F) : AuthorBookListFragment.a0(this.B, this.D, this.C, this.E, this.F, this.G), "yw_new_book_list_fragment").commit();
+        if (((n3) getSupportFragmentManager().findFragmentByTag("yw_new_book_list_fragment")) == null) {
+            getSupportFragmentManager().beginTransaction().add(R.id.fragmentContainer, (G.equalsIgnoreCase(this.P) || H.equalsIgnoreCase(this.P)) ? n3.D(this.K, this.L, this.P) : n3.E(this.L, this.N, this.M, this.O, this.P, this.Q), "yw_new_book_list_fragment").commit();
         }
     }
 
-    @Override // androidx.activity.ComponentActivity, androidx.core.app.ComponentActivity, android.app.Activity
-    public void onSaveInstanceState(@NonNull Bundle bundle) {
-        super.onSaveInstanceState(bundle);
-        bundle.putString(MiConfigSingleton.V0, this.A);
-        bundle.putString(MiConfigSingleton.U0, this.B);
-        bundle.putString(e0.f33173r0, this.C);
-        bundle.putString(e0.f33175s0, this.D);
-        bundle.putString(e0.f33177t0, this.E);
-        bundle.putString(H, this.F);
-        bundle.putInt(MiConfigSingleton.W0, this.G);
+    @Override // androidx.appcompat.app.AppCompatActivity, androidx.fragment.app.FragmentActivity, androidx.activity.ComponentActivity, androidx.core.app.ComponentActivity, android.app.Activity
+    protected void onSaveInstanceState(@NonNull Bundle outState) {
+        super.onSaveInstanceState(outState);
+        outState.putString(MiConfigSingleton.N0, this.K);
+        outState.putString(MiConfigSingleton.L0, this.L);
+        outState.putString(MiConfigSingleton.D0, this.M);
+        outState.putString(MiConfigSingleton.F0, this.N);
+        outState.putString(MiConfigSingleton.G0, this.O);
+        outState.putString(F, this.P);
+        outState.putInt(MiConfigSingleton.O0, this.Q);
     }
 }

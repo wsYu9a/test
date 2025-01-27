@@ -10,13 +10,12 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import com.kwad.sdk.api.core.KsAdSdkApi;
 import com.kwad.sdk.api.model.AdExposureFailedReason;
-import com.kwad.sdk.api.model.KsLiveInfo;
 import java.util.List;
 import java.util.Map;
 
 @KsAdSdkApi
 @Keep
-/* loaded from: classes3.dex */
+/* loaded from: classes2.dex */
 public interface KsNativeAd extends BaseKSAd {
 
     @KsAdSdkApi
@@ -50,7 +49,7 @@ public interface KsNativeAd extends BaseKSAd {
 
         @KsAdSdkApi
         @Keep
-        void onVideoPlayError(int i10, int i11);
+        void onVideoPlayError(int i2, int i3);
 
         @KsAdSdkApi
         @Keep
@@ -85,7 +84,7 @@ public interface KsNativeAd extends BaseKSAd {
     @Nullable
     @KsAdSdkApi
     @Keep
-    String getAdSourceLogoUrl(int i10);
+    String getAdSourceLogoUrl(int i2);
 
     @Nullable
     @KsAdSdkApi
@@ -143,20 +142,6 @@ public interface KsNativeAd extends BaseKSAd {
     @Keep
     int getInteractionType();
 
-    @Nullable
-    @KsAdSdkApi
-    @Keep
-    String getIntroductionInfo();
-
-    @Nullable
-    @KsAdSdkApi
-    @Keep
-    String getIntroductionInfoUrl();
-
-    @KsAdSdkApi
-    @Keep
-    KsLiveInfo getLiveInfo();
-
     @KsAdSdkApi
     @Keep
     int getMaterialType();
@@ -202,7 +187,7 @@ public interface KsNativeAd extends BaseKSAd {
     @Keep
     @Deprecated
     @Nullable
-    View getVideoView(Context context, boolean z10);
+    View getVideoView(Context context, boolean z);
 
     @KsAdSdkApi
     @Keep
@@ -224,7 +209,7 @@ public interface KsNativeAd extends BaseKSAd {
 
     @KsAdSdkApi
     @Keep
-    void reportAdExposureFailed(int i10, AdExposureFailedReason adExposureFailedReason);
+    void reportAdExposureFailed(int i2, AdExposureFailedReason adExposureFailedReason);
 
     @KsAdSdkApi
     @Keep
@@ -237,11 +222,11 @@ public interface KsNativeAd extends BaseKSAd {
     @KsAdSdkApi
     @Keep
     @Deprecated
-    void setBidEcpm(int i10);
+    void setBidEcpm(int i2);
 
     @KsAdSdkApi
     @Keep
-    void setBidEcpm(long j10, long j11);
+    void setBidEcpm(long j2, long j3);
 
     @KsAdSdkApi
     @Keep

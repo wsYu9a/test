@@ -10,51 +10,48 @@ import java.util.HashMap;
 public class b {
 
     /* renamed from: a */
-    private static HashMap<String, PackageInfo> f24819a = new HashMap<>();
+    private static HashMap<String, PackageInfo> f26480a = new HashMap<>();
 
     /* renamed from: b */
-    private static Object f24820b = new Object();
+    private static Object f26481b = new Object();
 
-    public static class a {
+    private static class a {
 
         /* renamed from: a */
-        private static final b f24821a = new b();
+        private static final b f26482a = new b();
 
         private a() {
         }
     }
 
-    public /* synthetic */ b(AnonymousClass1 anonymousClass1) {
+    /* synthetic */ b(AnonymousClass1 anonymousClass1) {
         this();
     }
 
     public static b a() {
-        return a.f24821a;
+        return a.f26482a;
     }
 
     private b() {
     }
 
-    public PackageInfo a(Context context, String str, int i10) {
+    public PackageInfo a(Context context, String str, int i2) {
         PackageInfo packageInfo;
-        synchronized (f24820b) {
-            try {
-                if (f24819a.containsKey(str)) {
-                    UMRTLog.e(UMRTLog.RTLOG_TAG, "--->>> pkg： " + str + ", pkgInfo缓存命中，直接返回");
-                    packageInfo = f24819a.get(str);
-                } else {
-                    try {
-                        packageInfo = context.getPackageManager().getPackageInfo(str, i10);
-                        UMRTLog.e(UMRTLog.RTLOG_TAG, "--->>> pkg： " + str + ", 获取pkgInfo并缓存");
-                        f24819a.put(str, packageInfo);
-                    } catch (PackageManager.NameNotFoundException unused) {
-                        f24819a.put(str, null);
-                        UMRTLog.e(UMRTLog.RTLOG_TAG, "--->>> pkg: " + str + "，目标包未安装。");
-                        packageInfo = null;
-                    }
+        synchronized (f26481b) {
+            packageInfo = null;
+            if (f26480a.containsKey(str)) {
+                UMRTLog.e(UMRTLog.RTLOG_TAG, "--->>> pkg： " + str + ", pkgInfo缓存命中，直接返回");
+                packageInfo = f26480a.get(str);
+            } else {
+                try {
+                    PackageInfo packageInfo2 = context.getPackageManager().getPackageInfo(str, i2);
+                    UMRTLog.e(UMRTLog.RTLOG_TAG, "--->>> pkg： " + str + ", 获取pkgInfo并缓存");
+                    f26480a.put(str, packageInfo2);
+                    packageInfo = packageInfo2;
+                } catch (PackageManager.NameNotFoundException unused) {
+                    f26480a.put(str, null);
+                    UMRTLog.e(UMRTLog.RTLOG_TAG, "--->>> pkg: " + str + "，目标包未安装。");
                 }
-            } catch (Throwable th2) {
-                throw th2;
             }
         }
         return packageInfo;

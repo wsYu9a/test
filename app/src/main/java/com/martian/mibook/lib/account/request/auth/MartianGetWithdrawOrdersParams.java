@@ -1,6 +1,6 @@
 package com.martian.mibook.lib.account.request.auth;
 
-import v8.a;
+import com.martian.libcomm.http.requests.d.a;
 
 /* loaded from: classes3.dex */
 public class MartianGetWithdrawOrdersParams extends TYAuthParams {
@@ -43,15 +43,15 @@ public class MartianGetWithdrawOrdersParams extends TYAuthParams {
         return num.intValue();
     }
 
-    public void setPage(Integer num) {
-        this.page = num;
+    public void setPage(Integer page) {
+        this.page = page;
     }
 
-    public void setPaseSize(Integer num) {
-        this.paseSize = num;
+    public void setPaseSize(Integer paseSize) {
+        this.paseSize = paseSize;
     }
 
-    public void setType(Integer num) {
-        this.type = num;
+    public void setType(Integer type) {
+        this.type = type;
     }
 }

@@ -1,9 +1,9 @@
 package com.kwad.sdk.crash.utils;
 
-/* loaded from: classes3.dex */
+/* loaded from: classes2.dex */
 public final class d {
     /* JADX WARN: Multi-variable type inference failed */
-    /* JADX WARN: Removed duplicated region for block: B:40:0x00cd  */
+    /* JADX WARN: Removed duplicated region for block: B:40:0x00c6  */
     /* JADX WARN: Type inference failed for: r1v3 */
     /* JADX WARN: Type inference failed for: r1v4 */
     /* JADX WARN: Type inference failed for: r1v6, types: [java.lang.Process] */
@@ -23,7 +23,7 @@ public final class d {
     */
     public static java.util.List<java.lang.String> a(java.lang.String[] r8, int r9) {
         /*
-            Method dump skipped, instructions count: 209
+            Method dump skipped, instructions count: 204
             To view this dump change 'Code comments level' option to 'DEBUG'
         */
         throw new UnsupportedOperationException("Method not decompiled: com.kwad.sdk.crash.utils.d.a(java.lang.String[], int):java.util.List");

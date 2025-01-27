@@ -2,64 +2,58 @@ package com.kwad.sdk.pngencrypt.chunk;
 
 import com.kwad.sdk.pngencrypt.PngjException;
 
-/* loaded from: classes3.dex */
+/* loaded from: classes2.dex */
 public final class j extends t {
-    private boolean aQN;
-    private String aQO;
-    private String aQP;
+    private boolean axa;
+    private String axb;
+    private String axc;
 
     public j(com.kwad.sdk.pngencrypt.k kVar) {
         super("iTXt", kVar);
-        this.aQN = false;
-        this.aQO = "";
-        this.aQP = "";
+        this.axa = false;
+        this.axb = "";
+        this.axc = "";
     }
 
     @Override // com.kwad.sdk.pngencrypt.chunk.PngChunk
     public final void a(d dVar) {
         int[] iArr = new int[3];
-        int i10 = 0;
-        int i11 = 0;
+        int i2 = 0;
+        int i3 = 0;
         while (true) {
             byte[] bArr = dVar.data;
-            if (i10 >= bArr.length) {
+            if (i2 >= bArr.length) {
                 break;
             }
-            if (bArr[i10] == 0) {
-                iArr[i11] = i10;
-                i11++;
-                if (i11 == 1) {
-                    i10 += 2;
+            if (bArr[i2] == 0) {
+                iArr[i3] = i2;
+                i3++;
+                if (i3 == 1) {
+                    i2 += 2;
                 }
-                if (i11 == 3) {
+                if (i3 == 3) {
                     break;
                 }
             }
-            i10++;
+            i2++;
         }
-        if (i11 != 3) {
-            com.kwad.sdk.core.d.c.printStackTrace(new PngjException("Bad formed PngChunkITXT chunk"));
+        if (i3 != 3) {
+            com.kwad.sdk.core.d.b.printStackTrace(new PngjException("Bad formed PngChunkITXT chunk"));
         }
         this.key = b.d(dVar.data, 0, iArr[0]);
-        int i12 = iArr[0];
+        int i4 = iArr[0] + 1;
         byte[] bArr2 = dVar.data;
-        boolean z10 = bArr2[i12 + 1] != 0;
-        this.aQN = z10;
-        int i13 = i12 + 2;
-        if (z10 && bArr2[i13] != 0) {
-            com.kwad.sdk.core.d.c.printStackTrace(new PngjException("Bad formed PngChunkITXT chunk - bad compression method "));
+        boolean z = bArr2[i4] != 0;
+        this.axa = z;
+        int i5 = i4 + 1;
+        if (z && bArr2[i5] != 0) {
+            com.kwad.sdk.core.d.b.printStackTrace(new PngjException("Bad formed PngChunkITXT chunk - bad compression method "));
         }
-        this.aQO = b.d(dVar.data, i13, iArr[1] - i13);
+        this.axb = b.d(dVar.data, i5, iArr[1] - i5);
+        this.axc = b.e(dVar.data, iArr[1] + 1, (iArr[2] - iArr[1]) - 1);
+        int i6 = iArr[2] + 1;
+        boolean z2 = this.axa;
         byte[] bArr3 = dVar.data;
-        int i14 = iArr[1];
-        this.aQP = b.e(bArr3, i14 + 1, (iArr[2] - i14) - 1);
-        int i15 = iArr[2] + 1;
-        if (this.aQN) {
-            byte[] bArr4 = dVar.data;
-            this.aRh = b.j(b.b(bArr4, i15, bArr4.length - i15, false));
-        } else {
-            byte[] bArr5 = dVar.data;
-            this.aRh = b.e(bArr5, i15, bArr5.length - i15);
-        }
+        this.axu = z2 ? b.j(b.b(bArr3, i6, bArr3.length - i6, false)) : b.e(bArr3, i6, bArr3.length - i6);
     }
 }

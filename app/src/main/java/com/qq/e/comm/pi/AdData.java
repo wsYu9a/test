@@ -2,7 +2,7 @@ package com.qq.e.comm.pi;
 
 import java.util.Map;
 
-/* loaded from: classes3.dex */
+/* loaded from: classes4.dex */
 public interface AdData {
 
     public interface VideoPlayer {

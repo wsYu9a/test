@@ -5,17 +5,17 @@ import android.content.IntentFilter;
 import com.tencent.bugly.proguard.X;
 
 /* loaded from: classes4.dex */
-public class a implements Runnable {
+class a implements Runnable {
 
     /* renamed from: a */
-    final /* synthetic */ BuglyBroadcastReceiver f22400a;
+    final /* synthetic */ BuglyBroadcastReceiver f24797a;
 
     /* renamed from: b */
-    final /* synthetic */ BuglyBroadcastReceiver f22401b;
+    final /* synthetic */ BuglyBroadcastReceiver f24798b;
 
-    public a(BuglyBroadcastReceiver buglyBroadcastReceiver, BuglyBroadcastReceiver buglyBroadcastReceiver2) {
-        this.f22401b = buglyBroadcastReceiver;
-        this.f22400a = buglyBroadcastReceiver2;
+    a(BuglyBroadcastReceiver buglyBroadcastReceiver, BuglyBroadcastReceiver buglyBroadcastReceiver2) {
+        this.f24798b = buglyBroadcastReceiver;
+        this.f24797a = buglyBroadcastReceiver2;
     }
 
     @Override // java.lang.Runnable
@@ -25,16 +25,16 @@ public class a implements Runnable {
         BuglyBroadcastReceiver buglyBroadcastReceiver2;
         IntentFilter intentFilter;
         try {
-            buglyBroadcastReceiver = BuglyBroadcastReceiver.f22369a;
+            buglyBroadcastReceiver = BuglyBroadcastReceiver.f24782a;
             X.c(buglyBroadcastReceiver.getClass(), "Register broadcast receiver of Bugly.", new Object[0]);
-            synchronized (this.f22400a) {
-                context = this.f22401b.f22371c;
-                buglyBroadcastReceiver2 = BuglyBroadcastReceiver.f22369a;
-                intentFilter = this.f22401b.f22370b;
+            synchronized (this.f24797a) {
+                context = this.f24798b.f24784c;
+                buglyBroadcastReceiver2 = BuglyBroadcastReceiver.f24782a;
+                intentFilter = this.f24798b.f24783b;
                 context.registerReceiver(buglyBroadcastReceiver2, intentFilter, "com.tencent.bugly.BuglyBroadcastReceiver.permission", null);
             }
-        } catch (Throwable th2) {
-            th2.printStackTrace();
+        } catch (Throwable th) {
+            th.printStackTrace();
         }
     }
 }

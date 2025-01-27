@@ -4,122 +4,120 @@ import com.kwad.sdk.pngencrypt.chunk.w;
 import java.io.Closeable;
 import java.io.InputStream;
 
-/* loaded from: classes3.dex */
+/* loaded from: classes2.dex */
 public final class o implements Closeable {
-    protected ErrorBehaviour aOC = ErrorBehaviour.STRICT;
-    public final k aPC;
-    public final boolean aPY;
-    protected final c aPZ;
-    protected final a aQa;
-    protected final w aQb;
-    protected int aQc;
-    private i<? extends Object> aQd;
+    protected ErrorBehaviour auO = ErrorBehaviour.STRICT;
+    public final k avO;
+    public final boolean awk;
+    protected final c awl;
+    protected final a awm;
+    protected final w awn;
+    protected int awo;
+    private i<? extends Object> awp;
 
-    public o(InputStream inputStream, boolean z10) {
-        this.aQc = -1;
+    public o(InputStream inputStream, boolean z) {
+        this.awo = -1;
         a aVar = new a(inputStream);
-        this.aQa = aVar;
-        boolean z11 = true;
-        aVar.bI(true);
-        c LV = LV();
-        this.aPZ = LV;
+        this.awm = aVar;
+        boolean z2 = true;
+        aVar.bl(true);
+        c BT = BT();
+        this.awl = BT;
         try {
-            if (aVar.b(LV, 36) != 36) {
-                com.kwad.sdk.core.d.c.printStackTrace(new PngjException("Could not read first 36 bytes (PNG signature+IHDR chunk)"));
+            if (aVar.b(BT, 36) != 36) {
+                com.kwad.sdk.core.d.b.printStackTrace(new PngjException("Could not read first 36 bytes (PNG signature+IHDR chunk)"));
             }
-            this.aPC = LV.Lv();
-            if (LV.Lw() == null) {
-                z11 = false;
+            this.avO = BT.Bt();
+            if (BT.Bu() == null) {
+                z2 = false;
             }
-            this.aPY = z11;
-            aL(5024024L);
-            aJ(901001001L);
-            aK(2024024L);
-            this.aQb = new w(LV.aOI);
-            a(m.LO());
-            this.aQc = -1;
-        } catch (RuntimeException e10) {
-            this.aQa.close();
-            this.aPZ.close();
-            throw e10;
+            this.awk = z2;
+            ad(5024024L);
+            ab(901001001L);
+            ac(2024024L);
+            this.awn = new w(BT.auU);
+            a(m.BM());
+            this.awo = -1;
+        } catch (RuntimeException e2) {
+            this.awm.close();
+            this.awl.close();
+            throw e2;
         }
     }
 
-    private void LR() {
+    private void BP() {
         while (true) {
-            c cVar = this.aPZ;
-            if (cVar.aOH >= 4) {
+            c cVar = this.awl;
+            if (cVar.auT >= 4) {
                 return;
             }
-            if (this.aQa.a(cVar) <= 0) {
-                com.kwad.sdk.core.d.c.printStackTrace(new PngjException("Premature ending reading first chunks"));
+            if (this.awm.a(cVar) <= 0) {
+                com.kwad.sdk.core.d.b.printStackTrace(new PngjException("Premature ending reading first chunks"));
             }
         }
     }
 
-    private void LU() {
-        this.aPZ.bK(false);
+    private void BS() {
+        this.awl.bn(false);
     }
 
-    private static c LV() {
+    private static c BT() {
         return new c(false);
     }
 
     private void a(i<? extends Object> iVar) {
-        this.aQd = iVar;
+        this.awp = iVar;
     }
 
-    private void aJ(long j10) {
-        this.aPZ.aJ(901001001L);
+    private void ab(long j2) {
+        this.awl.ab(901001001L);
     }
 
-    private void aK(long j10) {
-        this.aPZ.aK(2024024L);
+    private void ac(long j2) {
+        this.awl.ac(2024024L);
     }
 
-    private void aL(long j10) {
-        this.aPZ.aL(5024024L);
+    private void ad(long j2) {
+        this.awl.ad(5024024L);
     }
 
-    public final w LS() {
-        if (this.aPZ.Lt()) {
-            LR();
+    public final w BQ() {
+        if (this.awl.Br()) {
+            BP();
         }
-        return this.aQb;
+        return this.awn;
     }
 
-    public final void LT() {
-        LU();
-        if (this.aPZ.Lt()) {
-            LR();
+    public final void BR() {
+        BS();
+        if (this.awl.Br()) {
+            BP();
         }
         end();
     }
 
     @Override // java.io.Closeable, java.lang.AutoCloseable
     public final void close() {
-        com.kwad.sdk.crash.utils.b.closeQuietly(this.aPZ);
-        com.kwad.sdk.crash.utils.b.closeQuietly(this.aQa);
+        com.kwad.sdk.crash.utils.b.closeQuietly(this.awl);
+        com.kwad.sdk.crash.utils.b.closeQuietly(this.awm);
     }
 
     public final void end() {
         try {
-            if (this.aPZ.Lt()) {
-                LR();
+            if (this.awl.Br()) {
+                BP();
             }
-            if (this.aPZ.Lu() != null && !this.aPZ.Lu().isDone()) {
-                this.aPZ.Lu().LB();
+            if (this.awl.Bs() != null && !this.awl.Bs().isDone()) {
+                this.awl.Bs().Bz();
             }
-            while (!this.aPZ.isDone() && this.aQa.a(this.aPZ) > 0) {
+            while (!this.awl.isDone() && this.awm.a(this.awl) > 0) {
             }
+        } finally {
             close();
-        } catch (Throwable th2) {
-            close();
-            throw th2;
         }
     }
 
     public final String toString() {
-        return this.aPC.toString() + " interlaced=" + this.aPY;
+        return this.avO.toString() + " interlaced=" + this.awk;
     }
 }

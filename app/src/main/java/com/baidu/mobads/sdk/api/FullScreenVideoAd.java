@@ -1,14 +1,14 @@
 package com.baidu.mobads.sdk.api;
 
 import android.content.Context;
-import com.baidu.mobads.sdk.internal.df;
-import com.baidu.mobads.sdk.internal.dh;
-import java.util.LinkedHashMap;
+import com.baidu.mobads.sdk.internal.de;
+import com.baidu.mobads.sdk.internal.dm;
+import java.util.HashMap;
 
-/* loaded from: classes2.dex */
+/* loaded from: classes.dex */
 public class FullScreenVideoAd {
     private static final String TAG = "FullScreenVideoAd";
-    private dh mAdProd;
+    private dm mAdProd;
     private final Context mContext;
     private RequestParameters mRequestParameters;
 
@@ -17,7 +17,7 @@ public class FullScreenVideoAd {
         void onAdClick();
 
         @Override // com.baidu.mobads.sdk.api.ScreenVideoAdListener
-        void onAdClose(float f10);
+        void onAdClose(float f2);
 
         @Override // com.baidu.mobads.sdk.api.ScreenVideoAdListener
         void onAdFailed(String str);
@@ -26,7 +26,7 @@ public class FullScreenVideoAd {
         void onAdShow();
 
         @Override // com.baidu.mobads.sdk.api.ScreenVideoAdListener
-        void onAdSkip(float f10);
+        void onAdSkip(float f2);
 
         @Override // com.baidu.mobads.sdk.api.ScreenVideoAdListener
         void onVideoDownloadFailed();
@@ -42,109 +42,101 @@ public class FullScreenVideoAd {
         this(context, str, fullScreenVideoAdListener, false);
     }
 
-    public void biddingFail(LinkedHashMap<String, Object> linkedHashMap, BiddingListener biddingListener) {
-        dh dhVar = this.mAdProd;
-        if (dhVar != null) {
-            dhVar.a(false, linkedHashMap, biddingListener);
-        }
+    public void biddingFail(String str) {
+        biddingFail(str, null);
     }
 
-    public void biddingSuccess(LinkedHashMap<String, Object> linkedHashMap, BiddingListener biddingListener) {
-        dh dhVar = this.mAdProd;
-        if (dhVar != null) {
-            dhVar.a(true, linkedHashMap, biddingListener);
+    public void biddingSuccess(String str) {
+        dm dmVar = this.mAdProd;
+        if (dmVar != null) {
+            dmVar.a(true, str);
         }
     }
 
     public String getBiddingToken() {
-        dh dhVar = this.mAdProd;
-        if (dhVar != null) {
-            return dhVar.l();
+        dm dmVar = this.mAdProd;
+        if (dmVar != null) {
+            return dmVar.m();
         }
         return null;
     }
 
     public String getECPMLevel() {
-        dh dhVar = this.mAdProd;
-        return dhVar != null ? dhVar.g() : "";
-    }
-
-    public String getPECPM() {
-        dh dhVar = this.mAdProd;
-        return dhVar != null ? dhVar.x() : "";
+        dm dmVar = this.mAdProd;
+        return dmVar != null ? dmVar.h() : "";
     }
 
     public boolean isReady() {
-        dh dhVar = this.mAdProd;
-        if (dhVar != null) {
-            return dhVar.f();
+        dm dmVar = this.mAdProd;
+        if (dmVar != null) {
+            return dmVar.g();
         }
         return false;
     }
 
     public synchronized void load() {
-        dh dhVar = this.mAdProd;
-        if (dhVar != null) {
-            dhVar.a();
+        dm dmVar = this.mAdProd;
+        if (dmVar != null) {
+            dmVar.a();
         }
     }
 
     public void loadBiddingAd(String str) {
-        dh dhVar = this.mAdProd;
-        if (dhVar != null) {
-            dhVar.c(str);
+        dm dmVar = this.mAdProd;
+        if (dmVar != null) {
+            dmVar.c(str);
         }
     }
 
     public void setAppSid(String str) {
-        dh dhVar = this.mAdProd;
-        if (dhVar != null) {
-            dhVar.h(str);
+        dm dmVar = this.mAdProd;
+        if (dmVar != null) {
+            dmVar.g(str);
         }
     }
 
-    public void setBidFloor(int i10) {
-        dh dhVar = this.mAdProd;
-        if (dhVar != null) {
-            dhVar.f6889r = i10;
+    public void setBidFloor(int i2) {
+        dm dmVar = this.mAdProd;
+        if (dmVar != null) {
+            dmVar.p = i2;
         }
     }
 
     @Deprecated
     public void setBiddingData(String str) {
-        dh dhVar = this.mAdProd;
-        if (dhVar != null) {
-            dhVar.b(str);
+        dm dmVar = this.mAdProd;
+        if (dmVar != null) {
+            dmVar.b(str);
         }
     }
 
     public void setRequestParameters(RequestParameters requestParameters) {
-        dh dhVar;
+        dm dmVar;
         this.mRequestParameters = requestParameters;
-        if (requestParameters == null || (dhVar = this.mAdProd) == null) {
+        if (requestParameters == null || (dmVar = this.mAdProd) == null) {
             return;
         }
-        dhVar.a(requestParameters);
+        dmVar.a(requestParameters);
     }
 
     public synchronized void show() {
-        dh dhVar = this.mAdProd;
-        if (dhVar != null) {
-            dhVar.e();
+        dm dmVar = this.mAdProd;
+        if (dmVar != null) {
+            dmVar.f();
         }
     }
 
-    public FullScreenVideoAd(Context context, String str, FullScreenVideoAdListener fullScreenVideoAdListener, boolean z10) {
+    public FullScreenVideoAd(Context context, String str, FullScreenVideoAdListener fullScreenVideoAdListener, boolean z) {
         this.mContext = context;
-        df dfVar = new df(context, str, z10);
-        this.mAdProd = dfVar;
-        dfVar.a(fullScreenVideoAdListener);
+        de deVar = new de(context, str, z);
+        this.mAdProd = deVar;
+        deVar.a(fullScreenVideoAdListener);
     }
 
-    public synchronized void show(Context context) {
-        dh dhVar = this.mAdProd;
-        if (dhVar != null) {
-            dhVar.a(context);
+    public void biddingFail(String str, HashMap<String, Object> hashMap) {
+        dm dmVar = this.mAdProd;
+        if (dmVar != null) {
+            dmVar.a(false, str, hashMap);
         }
     }
 }

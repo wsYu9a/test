@@ -3,32 +3,13 @@ package androidx.core.net;
 import android.net.TrafficStats;
 import android.os.Build;
 import android.os.ParcelFileDescriptor;
-import androidx.annotation.DoNotInline;
 import androidx.annotation.NonNull;
-import androidx.annotation.RequiresApi;
 import java.net.DatagramSocket;
 import java.net.Socket;
 import java.net.SocketException;
 
 /* loaded from: classes.dex */
 public final class TrafficStatsCompat {
-
-    @RequiresApi(24)
-    public static class Api24Impl {
-        private Api24Impl() {
-        }
-
-        @DoNotInline
-        public static void tagDatagramSocket(DatagramSocket datagramSocket) throws SocketException {
-            TrafficStats.tagDatagramSocket(datagramSocket);
-        }
-
-        @DoNotInline
-        public static void untagDatagramSocket(DatagramSocket datagramSocket) throws SocketException {
-            TrafficStats.untagDatagramSocket(datagramSocket);
-        }
-    }
-
     private TrafficStatsCompat() {
     }
 
@@ -43,18 +24,18 @@ public final class TrafficStatsCompat {
     }
 
     @Deprecated
-    public static void incrementOperationCount(int i10) {
-        TrafficStats.incrementOperationCount(i10);
+    public static void incrementOperationCount(int i2) {
+        TrafficStats.incrementOperationCount(i2);
     }
 
     @Deprecated
-    public static void setThreadStatsTag(int i10) {
-        TrafficStats.setThreadStatsTag(i10);
+    public static void setThreadStatsTag(int i2) {
+        TrafficStats.setThreadStatsTag(i2);
     }
 
     public static void tagDatagramSocket(@NonNull DatagramSocket datagramSocket) throws SocketException {
         if (Build.VERSION.SDK_INT >= 24) {
-            Api24Impl.tagDatagramSocket(datagramSocket);
+            TrafficStats.tagDatagramSocket(datagramSocket);
             return;
         }
         ParcelFileDescriptor fromDatagramSocket = ParcelFileDescriptor.fromDatagramSocket(datagramSocket);
@@ -69,7 +50,7 @@ public final class TrafficStatsCompat {
 
     public static void untagDatagramSocket(@NonNull DatagramSocket datagramSocket) throws SocketException {
         if (Build.VERSION.SDK_INT >= 24) {
-            Api24Impl.untagDatagramSocket(datagramSocket);
+            TrafficStats.untagDatagramSocket(datagramSocket);
             return;
         }
         ParcelFileDescriptor fromDatagramSocket = ParcelFileDescriptor.fromDatagramSocket(datagramSocket);
@@ -83,7 +64,7 @@ public final class TrafficStatsCompat {
     }
 
     @Deprecated
-    public static void incrementOperationCount(int i10, int i11) {
-        TrafficStats.incrementOperationCount(i10, i11);
+    public static void incrementOperationCount(int i2, int i3) {
+        TrafficStats.incrementOperationCount(i2, i3);
     }
 }

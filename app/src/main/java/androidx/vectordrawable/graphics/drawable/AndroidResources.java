@@ -5,16 +5,27 @@ import androidx.annotation.StyleableRes;
 
 /* loaded from: classes.dex */
 class AndroidResources {
+    static final int A = 8;
+    static final int B = 9;
+    static final int C = 10;
+    static final int D = 4;
+    static final int E = 6;
+    static final int F = 7;
     public static final int FAST_OUT_LINEAR_IN = 17563663;
     public static final int FAST_OUT_SLOW_IN = 17563661;
+    static final int G = 5;
+    static final int H = 13;
+    static final int J = 0;
+    static final int K = 1;
+    static final int L = 2;
     public static final int LINEAR_OUT_SLOW_IN = 17563662;
-    static final int STYLEABLE_ANIMATED_VECTOR_DRAWABLE_DRAWABLE = 0;
+    static final int N = 0;
 
     @StyleableRes
-    static final int STYLEABLE_ANIMATED_VECTOR_DRAWABLE_TARGET_ANIMATION = 1;
+    static final int P = 1;
 
     @StyleableRes
-    static final int STYLEABLE_ANIMATED_VECTOR_DRAWABLE_TARGET_NAME = 0;
+    static final int Q = 0;
     public static final int STYLEABLE_ANIMATOR_DURATION = 1;
     public static final int STYLEABLE_ANIMATOR_INTERPOLATOR = 0;
     public static final int STYLEABLE_ANIMATOR_REPEAT_COUNT = 3;
@@ -41,46 +52,55 @@ class AndroidResources {
     public static final int STYLEABLE_PROPERTY_VALUES_HOLDER_VALUE_FROM = 0;
     public static final int STYLEABLE_PROPERTY_VALUES_HOLDER_VALUE_TO = 1;
     public static final int STYLEABLE_PROPERTY_VALUES_HOLDER_VALUE_TYPE = 2;
-    static final int STYLEABLE_VECTOR_DRAWABLE_ALPHA = 4;
-    static final int STYLEABLE_VECTOR_DRAWABLE_AUTO_MIRRORED = 5;
-    static final int STYLEABLE_VECTOR_DRAWABLE_CLIP_PATH_FILLTYPE = 2;
-    static final int STYLEABLE_VECTOR_DRAWABLE_CLIP_PATH_NAME = 0;
-    static final int STYLEABLE_VECTOR_DRAWABLE_CLIP_PATH_PATH_DATA = 1;
-    static final int STYLEABLE_VECTOR_DRAWABLE_GROUP_NAME = 0;
-    static final int STYLEABLE_VECTOR_DRAWABLE_GROUP_PIVOT_X = 1;
-    static final int STYLEABLE_VECTOR_DRAWABLE_GROUP_PIVOT_Y = 2;
-    static final int STYLEABLE_VECTOR_DRAWABLE_GROUP_ROTATION = 5;
-    static final int STYLEABLE_VECTOR_DRAWABLE_GROUP_SCALE_X = 3;
-    static final int STYLEABLE_VECTOR_DRAWABLE_GROUP_SCALE_Y = 4;
-    static final int STYLEABLE_VECTOR_DRAWABLE_GROUP_TRANSLATE_X = 6;
-    static final int STYLEABLE_VECTOR_DRAWABLE_GROUP_TRANSLATE_Y = 7;
-    static final int STYLEABLE_VECTOR_DRAWABLE_HEIGHT = 2;
-    static final int STYLEABLE_VECTOR_DRAWABLE_NAME = 0;
-    static final int STYLEABLE_VECTOR_DRAWABLE_PATH_FILL_ALPHA = 12;
-    static final int STYLEABLE_VECTOR_DRAWABLE_PATH_FILL_COLOR = 1;
-    static final int STYLEABLE_VECTOR_DRAWABLE_PATH_NAME = 0;
-    static final int STYLEABLE_VECTOR_DRAWABLE_PATH_PATH_DATA = 2;
-    static final int STYLEABLE_VECTOR_DRAWABLE_PATH_STROKE_ALPHA = 11;
-    static final int STYLEABLE_VECTOR_DRAWABLE_PATH_STROKE_COLOR = 3;
-    static final int STYLEABLE_VECTOR_DRAWABLE_PATH_STROKE_LINE_CAP = 8;
-    static final int STYLEABLE_VECTOR_DRAWABLE_PATH_STROKE_LINE_JOIN = 9;
-    static final int STYLEABLE_VECTOR_DRAWABLE_PATH_STROKE_MITER_LIMIT = 10;
-    static final int STYLEABLE_VECTOR_DRAWABLE_PATH_STROKE_WIDTH = 4;
-    static final int STYLEABLE_VECTOR_DRAWABLE_PATH_TRIM_PATH_END = 6;
-    static final int STYLEABLE_VECTOR_DRAWABLE_PATH_TRIM_PATH_FILLTYPE = 13;
-    static final int STYLEABLE_VECTOR_DRAWABLE_PATH_TRIM_PATH_OFFSET = 7;
-    static final int STYLEABLE_VECTOR_DRAWABLE_PATH_TRIM_PATH_START = 5;
-    static final int STYLEABLE_VECTOR_DRAWABLE_TINT = 1;
-    static final int STYLEABLE_VECTOR_DRAWABLE_TINT_MODE = 6;
-    static final int STYLEABLE_VECTOR_DRAWABLE_VIEWPORT_HEIGHT = 8;
-    static final int STYLEABLE_VECTOR_DRAWABLE_VIEWPORT_WIDTH = 7;
-    static final int STYLEABLE_VECTOR_DRAWABLE_WIDTH = 3;
-    static final int[] STYLEABLE_VECTOR_DRAWABLE_TYPE_ARRAY = {R.attr.name, R.attr.tint, R.attr.height, R.attr.width, R.attr.alpha, R.attr.autoMirrored, R.attr.tintMode, R.attr.viewportWidth, R.attr.viewportHeight};
-    static final int[] STYLEABLE_VECTOR_DRAWABLE_GROUP = {R.attr.name, R.attr.pivotX, R.attr.pivotY, R.attr.scaleX, R.attr.scaleY, R.attr.rotation, R.attr.translateX, R.attr.translateY};
-    static final int[] STYLEABLE_VECTOR_DRAWABLE_PATH = {R.attr.name, R.attr.fillColor, R.attr.pathData, R.attr.strokeColor, R.attr.strokeWidth, R.attr.trimPathStart, R.attr.trimPathEnd, R.attr.trimPathOffset, R.attr.strokeLineCap, R.attr.strokeLineJoin, R.attr.strokeMiterLimit, R.attr.strokeAlpha, R.attr.fillAlpha, R.attr.fillType};
-    static final int[] STYLEABLE_VECTOR_DRAWABLE_CLIP_PATH = {R.attr.name, R.attr.pathData, R.attr.fillType};
-    static final int[] STYLEABLE_ANIMATED_VECTOR_DRAWABLE = {R.attr.drawable};
-    static final int[] STYLEABLE_ANIMATED_VECTOR_DRAWABLE_TARGET = {R.attr.name, R.attr.animation};
+
+    /* renamed from: b, reason: collision with root package name */
+    static final int f3924b = 4;
+
+    /* renamed from: c, reason: collision with root package name */
+    static final int f3925c = 5;
+
+    /* renamed from: d, reason: collision with root package name */
+    static final int f3926d = 2;
+
+    /* renamed from: e, reason: collision with root package name */
+    static final int f3927e = 0;
+
+    /* renamed from: f, reason: collision with root package name */
+    static final int f3928f = 1;
+
+    /* renamed from: g, reason: collision with root package name */
+    static final int f3929g = 6;
+
+    /* renamed from: h, reason: collision with root package name */
+    static final int f3930h = 8;
+
+    /* renamed from: i, reason: collision with root package name */
+    static final int f3931i = 7;
+
+    /* renamed from: j, reason: collision with root package name */
+    static final int f3932j = 3;
+    static final int l = 0;
+    static final int m = 1;
+    static final int n = 2;
+    static final int o = 5;
+    static final int p = 3;
+    static final int q = 4;
+    static final int r = 6;
+    static final int s = 7;
+    static final int u = 12;
+    static final int v = 1;
+    static final int w = 0;
+    static final int x = 2;
+    static final int y = 11;
+    static final int z = 3;
+
+    /* renamed from: a, reason: collision with root package name */
+    static final int[] f3923a = {R.attr.name, R.attr.tint, R.attr.height, R.attr.width, R.attr.alpha, R.attr.autoMirrored, R.attr.tintMode, R.attr.viewportWidth, R.attr.viewportHeight};
+    static final int[] k = {R.attr.name, R.attr.pivotX, R.attr.pivotY, R.attr.scaleX, R.attr.scaleY, R.attr.rotation, R.attr.translateX, R.attr.translateY};
+    static final int[] t = {R.attr.name, R.attr.fillColor, R.attr.pathData, R.attr.strokeColor, R.attr.strokeWidth, R.attr.trimPathStart, R.attr.trimPathEnd, R.attr.trimPathOffset, R.attr.strokeLineCap, R.attr.strokeLineJoin, R.attr.strokeMiterLimit, R.attr.strokeAlpha, R.attr.fillAlpha, R.attr.fillType};
+    static final int[] I = {R.attr.name, R.attr.pathData, R.attr.fillType};
+    static final int[] M = {R.attr.drawable};
+    static final int[] O = {R.attr.name, R.attr.animation};
     public static final int[] STYLEABLE_ANIMATOR = {R.attr.interpolator, R.attr.duration, R.attr.startOffset, R.attr.repeatCount, R.attr.repeatMode, R.attr.valueFrom, R.attr.valueTo, R.attr.valueType};
     public static final int[] STYLEABLE_ANIMATOR_SET = {R.attr.ordering};
     public static final int[] STYLEABLE_PROPERTY_VALUES_HOLDER = {R.attr.valueFrom, R.attr.valueTo, R.attr.valueType, R.attr.propertyName};

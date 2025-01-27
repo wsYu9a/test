@@ -16,58 +16,72 @@ import java.util.concurrent.atomic.AtomicInteger;
 /* loaded from: classes.dex */
 public class DefaultTaskExecutor extends TaskExecutor {
 
-    @Nullable
-    private volatile Handler mMainHandler;
-    private final Object mLock = new Object();
-    private final ExecutorService mDiskIO = Executors.newFixedThreadPool(4, new ThreadFactory() { // from class: androidx.arch.core.executor.DefaultTaskExecutor.1
-        private static final String THREAD_NAME_STEM = "arch_disk_io_%d";
-        private final AtomicInteger mThreadId = new AtomicInteger(0);
+    /* renamed from: a */
+    private final Object f1053a = new Object();
 
-        public AnonymousClass1() {
+    /* renamed from: b */
+    private final ExecutorService f1054b = Executors.newFixedThreadPool(4, new ThreadFactory() { // from class: androidx.arch.core.executor.DefaultTaskExecutor.1
+
+        /* renamed from: a */
+        private static final String f1056a = "arch_disk_io_%d";
+
+        /* renamed from: b */
+        private final AtomicInteger f1057b = new AtomicInteger(0);
+
+        AnonymousClass1() {
         }
 
         @Override // java.util.concurrent.ThreadFactory
         public Thread newThread(Runnable runnable) {
             Thread thread = new Thread(runnable);
-            thread.setName(String.format(THREAD_NAME_STEM, Integer.valueOf(this.mThreadId.getAndIncrement())));
+            thread.setName(String.format(f1056a, Integer.valueOf(this.f1057b.getAndIncrement())));
             return thread;
         }
     });
 
-    /* renamed from: androidx.arch.core.executor.DefaultTaskExecutor$1 */
-    public class AnonymousClass1 implements ThreadFactory {
-        private static final String THREAD_NAME_STEM = "arch_disk_io_%d";
-        private final AtomicInteger mThreadId = new AtomicInteger(0);
+    /* renamed from: c */
+    @Nullable
+    private volatile Handler f1055c;
 
-        public AnonymousClass1() {
+    /* renamed from: androidx.arch.core.executor.DefaultTaskExecutor$1 */
+    class AnonymousClass1 implements ThreadFactory {
+
+        /* renamed from: a */
+        private static final String f1056a = "arch_disk_io_%d";
+
+        /* renamed from: b */
+        private final AtomicInteger f1057b = new AtomicInteger(0);
+
+        AnonymousClass1() {
         }
 
         @Override // java.util.concurrent.ThreadFactory
         public Thread newThread(Runnable runnable) {
             Thread thread = new Thread(runnable);
-            thread.setName(String.format(THREAD_NAME_STEM, Integer.valueOf(this.mThreadId.getAndIncrement())));
+            thread.setName(String.format(f1056a, Integer.valueOf(this.f1057b.getAndIncrement())));
             return thread;
         }
     }
 
-    private static Handler createAsync(@NonNull Looper looper) {
-        Handler createAsync;
-        if (Build.VERSION.SDK_INT >= 28) {
-            createAsync = Handler.createAsync(looper);
-            return createAsync;
+    private static Handler a(@NonNull Looper looper) {
+        int i2 = Build.VERSION.SDK_INT;
+        if (i2 >= 28) {
+            return Handler.createAsync(looper);
         }
-        try {
-            return (Handler) Handler.class.getDeclaredConstructor(Looper.class, Handler.Callback.class, Boolean.TYPE).newInstance(looper, null, Boolean.TRUE);
-        } catch (IllegalAccessException | InstantiationException | NoSuchMethodException unused) {
-            return new Handler(looper);
-        } catch (InvocationTargetException unused2) {
-            return new Handler(looper);
+        if (i2 >= 16) {
+            try {
+                return (Handler) Handler.class.getDeclaredConstructor(Looper.class, Handler.Callback.class, Boolean.TYPE).newInstance(looper, null, Boolean.TRUE);
+            } catch (IllegalAccessException | InstantiationException | NoSuchMethodException unused) {
+            } catch (InvocationTargetException unused2) {
+                return new Handler(looper);
+            }
         }
+        return new Handler(looper);
     }
 
     @Override // androidx.arch.core.executor.TaskExecutor
     public void executeOnDiskIO(Runnable runnable) {
-        this.mDiskIO.execute(runnable);
+        this.f1054b.execute(runnable);
     }
 
     @Override // androidx.arch.core.executor.TaskExecutor
@@ -77,16 +91,13 @@ public class DefaultTaskExecutor extends TaskExecutor {
 
     @Override // androidx.arch.core.executor.TaskExecutor
     public void postToMainThread(Runnable runnable) {
-        if (this.mMainHandler == null) {
-            synchronized (this.mLock) {
-                try {
-                    if (this.mMainHandler == null) {
-                        this.mMainHandler = createAsync(Looper.getMainLooper());
-                    }
-                } finally {
+        if (this.f1055c == null) {
+            synchronized (this.f1053a) {
+                if (this.f1055c == null) {
+                    this.f1055c = a(Looper.getMainLooper());
                 }
             }
         }
-        this.mMainHandler.post(runnable);
+        this.f1055c.post(runnable);
     }
 }

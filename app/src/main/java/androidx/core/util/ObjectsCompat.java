@@ -1,39 +1,21 @@
 package androidx.core.util;
 
-import androidx.annotation.DoNotInline;
-import androidx.annotation.NonNull;
+import android.os.Build;
 import androidx.annotation.Nullable;
-import androidx.annotation.RequiresApi;
-import java.util.Objects;
+import androidx.core.graphics.a;
+import java.util.Arrays;
 
 /* loaded from: classes.dex */
 public class ObjectsCompat {
-
-    @RequiresApi(19)
-    public static class Api19Impl {
-        private Api19Impl() {
-        }
-
-        @DoNotInline
-        public static boolean equals(Object obj, Object obj2) {
-            return Objects.equals(obj, obj2);
-        }
-
-        @DoNotInline
-        public static int hash(Object... objArr) {
-            return Objects.hash(objArr);
-        }
-    }
-
     private ObjectsCompat() {
     }
 
     public static boolean equals(@Nullable Object obj, @Nullable Object obj2) {
-        return Api19Impl.equals(obj, obj2);
+        return Build.VERSION.SDK_INT >= 19 ? a.a(obj, obj2) : obj == obj2 || (obj != null && obj.equals(obj2));
     }
 
     public static int hash(@Nullable Object... objArr) {
-        return Api19Impl.hash(objArr);
+        return Build.VERSION.SDK_INT >= 19 ? Arrays.hashCode(objArr) : Arrays.hashCode(objArr);
     }
 
     public static int hashCode(@Nullable Object obj) {
@@ -41,24 +23,5 @@ public class ObjectsCompat {
             return obj.hashCode();
         }
         return 0;
-    }
-
-    @NonNull
-    public static <T> T requireNonNull(@Nullable T t10) {
-        t10.getClass();
-        return t10;
-    }
-
-    @Nullable
-    public static String toString(@Nullable Object obj, @Nullable String str) {
-        return obj != null ? obj.toString() : str;
-    }
-
-    @NonNull
-    public static <T> T requireNonNull(@Nullable T t10, @NonNull String str) {
-        if (t10 != null) {
-            return t10;
-        }
-        throw new NullPointerException(str);
     }
 }

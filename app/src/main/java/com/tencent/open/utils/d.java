@@ -7,10 +7,10 @@ import java.io.File;
 public final class d {
 
     /* renamed from: a */
-    private static Context f23261a;
+    private static Context f25527a;
 
     public static final Context a() {
-        Context context = f23261a;
+        Context context = f25527a;
         if (context == null) {
             return null;
         }
@@ -29,6 +29,6 @@ public final class d {
     }
 
     public static final void a(Context context) {
-        f23261a = context;
+        f25527a = context;
     }
 }

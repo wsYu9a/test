@@ -7,13 +7,13 @@ import android.util.AttributeSet;
 import android.view.View;
 import android.widget.RelativeLayout;
 import com.baidu.mobads.sdk.api.NativeResponse;
-import com.baidu.mobads.sdk.internal.bt;
-import com.baidu.mobads.sdk.internal.cp;
+import com.baidu.mobads.sdk.internal.bq;
+import com.baidu.mobads.sdk.internal.cm;
 
-/* loaded from: classes2.dex */
+/* loaded from: classes.dex */
 public class XNativeView extends RelativeLayout implements View.OnClickListener {
     private static final String TAG = "XNativeView";
-    private bt mAdLogger;
+    private bq mAdLogger;
     private XAdNativeResponse mCurrentNativeItem;
     private INativeVideoListener mFeedVideoListener;
     private INativeViewClickListener mNativeViewListener;
@@ -26,7 +26,7 @@ public class XNativeView extends RelativeLayout implements View.OnClickListener 
 
     /* renamed from: com.baidu.mobads.sdk.api.XNativeView$1 */
     class AnonymousClass1 implements IFeedPortraitListener {
-        public AnonymousClass1() {
+        AnonymousClass1() {
         }
 
         @Override // com.baidu.mobads.sdk.api.IFeedPortraitListener
@@ -99,7 +99,7 @@ public class XNativeView extends RelativeLayout implements View.OnClickListener 
         this.mVideoView.systemSetVideoMute(this.videoMute);
     }
 
-    private boolean isVisible(View view, int i10) {
+    private boolean isVisible(View view, int i2) {
         if (view == null || view.getVisibility() != 0 || view.getParent() == null) {
             return false;
         }
@@ -107,7 +107,7 @@ public class XNativeView extends RelativeLayout implements View.OnClickListener 
             return false;
         }
         long height = view.getHeight() * view.getWidth();
-        return height > 0 && (r1.height() * r1.width()) * 100 >= ((long) i10) * height;
+        return height > 0 && (r1.height() * r1.width()) * 100 >= ((long) i2) * height;
     }
 
     private void play() {
@@ -133,7 +133,7 @@ public class XNativeView extends RelativeLayout implements View.OnClickListener 
             this.mVideoView.setProgressHeightInDp(this.mProgressHeight);
             addView(this.mVideoView, new RelativeLayout.LayoutParams(-1, -1));
             this.mVideoView.setFeedPortraitListener(new IFeedPortraitListener() { // from class: com.baidu.mobads.sdk.api.XNativeView.1
-                public AnonymousClass1() {
+                AnonymousClass1() {
                 }
 
                 @Override // com.baidu.mobads.sdk.api.IFeedPortraitListener
@@ -190,11 +190,14 @@ public class XNativeView extends RelativeLayout implements View.OnClickListener 
 
     private boolean shouldAutoPlay() {
         XAdNativeResponse xAdNativeResponse = this.mCurrentNativeItem;
-        boolean z10 = xAdNativeResponse != null && xAdNativeResponse.isAutoPlay();
+        boolean z = xAdNativeResponse != null && xAdNativeResponse.isAutoPlay();
         XAdNativeResponse xAdNativeResponse2 = this.mCurrentNativeItem;
-        boolean z11 = xAdNativeResponse2 == null || xAdNativeResponse2.isNonWifiAutoPlay();
-        Boolean a10 = cp.a().a(getContext().getApplicationContext());
-        return (z10 && a10.booleanValue()) || (z11 && !a10.booleanValue());
+        boolean z2 = xAdNativeResponse2 == null || xAdNativeResponse2.isNonWifiAutoPlay();
+        Boolean a2 = cm.a().a(getContext().getApplicationContext());
+        if (z && a2.booleanValue()) {
+            return true;
+        }
+        return z2 && !a2.booleanValue();
     }
 
     private void showView(XAdNativeResponse xAdNativeResponse) {
@@ -214,7 +217,7 @@ public class XNativeView extends RelativeLayout implements View.OnClickListener 
     }
 
     @Override // android.view.ViewGroup, android.view.View
-    public void onAttachedToWindow() {
+    protected void onAttachedToWindow() {
         super.onAttachedToWindow();
         XNativeViewManager.getInstance().addItem(this);
     }
@@ -224,7 +227,7 @@ public class XNativeView extends RelativeLayout implements View.OnClickListener 
     }
 
     @Override // android.view.ViewGroup, android.view.View
-    public void onDetachedFromWindow() {
+    protected void onDetachedFromWindow() {
         super.onDetachedFromWindow();
         XNativeViewManager.getInstance().removeNativeView(this);
     }
@@ -264,50 +267,50 @@ public class XNativeView extends RelativeLayout implements View.OnClickListener 
         this.mNativeViewListener = iNativeViewClickListener;
     }
 
-    public void setProgressBackgroundColor(int i10) {
-        this.mProgressBg = i10;
+    public void setProgressBackgroundColor(int i2) {
+        this.mProgressBg = i2;
         FeedPortraitVideoView feedPortraitVideoView = this.mVideoView;
         if (feedPortraitVideoView != null) {
-            feedPortraitVideoView.setProgressBackgroundColor(i10);
+            feedPortraitVideoView.setProgressBackgroundColor(i2);
         }
     }
 
-    public void setProgressBarColor(int i10) {
-        this.mProgressColor = i10;
+    public void setProgressBarColor(int i2) {
+        this.mProgressColor = i2;
         FeedPortraitVideoView feedPortraitVideoView = this.mVideoView;
         if (feedPortraitVideoView != null) {
-            feedPortraitVideoView.setProgressBarColor(i10);
+            feedPortraitVideoView.setProgressBarColor(i2);
         }
     }
 
-    public void setProgressHeightInDp(int i10) {
-        this.mProgressHeight = i10;
+    public void setProgressHeightInDp(int i2) {
+        this.mProgressHeight = i2;
         FeedPortraitVideoView feedPortraitVideoView = this.mVideoView;
         if (feedPortraitVideoView != null) {
-            feedPortraitVideoView.setProgressHeightInDp(i10);
+            feedPortraitVideoView.setProgressHeightInDp(i2);
         }
     }
 
-    public void setShowProgress(boolean z10) {
-        this.mShowProgressBar = z10;
+    public void setShowProgress(boolean z) {
+        this.mShowProgressBar = z;
         FeedPortraitVideoView feedPortraitVideoView = this.mVideoView;
         if (feedPortraitVideoView != null) {
-            feedPortraitVideoView.setShowProgress(z10);
+            feedPortraitVideoView.setShowProgress(z);
         }
     }
 
-    public void setUseDownloadFrame(boolean z10) {
+    public void setUseDownloadFrame(boolean z) {
         FeedPortraitVideoView feedPortraitVideoView = this.mVideoView;
         if (feedPortraitVideoView != null) {
-            feedPortraitVideoView.setUseDownloadFrame(z10);
+            feedPortraitVideoView.setUseDownloadFrame(z);
         }
     }
 
-    public void setVideoMute(boolean z10) {
-        this.videoMute = z10;
+    public void setVideoMute(boolean z) {
+        this.videoMute = z;
         FeedPortraitVideoView feedPortraitVideoView = this.mVideoView;
         if (feedPortraitVideoView != null) {
-            feedPortraitVideoView.setVideoMute(z10);
+            feedPortraitVideoView.setVideoMute(z);
         }
     }
 
@@ -322,14 +325,14 @@ public class XNativeView extends RelativeLayout implements View.OnClickListener 
         this(context, attributeSet, 0);
     }
 
-    public XNativeView(Context context, AttributeSet attributeSet, int i10) {
-        super(context, attributeSet, i10);
+    public XNativeView(Context context, AttributeSet attributeSet, int i2) {
+        super(context, attributeSet, i2);
         this.videoMute = true;
         this.mProgressColor = -1;
         this.mProgressBg = -16777216;
         this.mShowProgressBar = false;
         this.mProgressHeight = 1;
-        this.mAdLogger = bt.a();
+        this.mAdLogger = bq.a();
         setBackgroundColor(Color.parseColor("#000000"));
     }
 }

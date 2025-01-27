@@ -1,24 +1,26 @@
 package com.bytedance.pangle;
 
+import android.app.ActivityManager;
 import android.app.Application;
+import android.content.ComponentName;
 import android.content.pm.ProviderInfo;
 import android.content.res.Resources;
 import android.os.RemoteException;
 import android.text.TextUtils;
 import androidx.annotation.Keep;
+import com.bytedance.pangle.Zeus;
 import com.bytedance.pangle.apm.ApmUtils;
-import com.bytedance.pangle.download.b;
-import com.bytedance.pangle.log.IZeusReporter;
 import com.bytedance.pangle.log.ZeusLogger;
 import com.bytedance.pangle.plugin.Plugin;
 import com.bytedance.pangle.plugin.PluginManager;
 import com.bytedance.pangle.util.FieldUtils;
 import com.bytedance.pangle.util.MethodUtils;
+import com.bytedance.sdk.openadsdk.downloadnew.core.TTDownloadField;
 import java.util.HashMap;
 import java.util.List;
 
 @Keep
-/* loaded from: classes2.dex */
+/* loaded from: classes.dex */
 public class Zeus {
     private static Application sApplication;
     private static final HashMap<String, ProviderInfo> serverManagerHashMap = new HashMap<>();
@@ -35,84 +37,53 @@ public class Zeus {
     }
 
     public static void addPluginEventCallback(ZeusPluginEventCallback zeusPluginEventCallback) {
-        i a10 = i.a();
+        h a2 = h.a();
         if (zeusPluginEventCallback != null) {
-            synchronized (a10.f7671c) {
-                a10.f7671c.add(zeusPluginEventCallback);
+            synchronized (a2.f6164c) {
+                a2.f6164c.add(zeusPluginEventCallback);
             }
         }
     }
 
-    public static void fetchPlugin(String str) {
-        com.bytedance.pangle.download.a a10 = com.bytedance.pangle.download.a.a();
+    public static void fetchPlugin(final String str) {
+        com.bytedance.pangle.download.a a2 = com.bytedance.pangle.download.a.a();
         if (com.bytedance.pangle.d.d.a(getAppApplication())) {
             if (!GlobalParam.getInstance().autoFetch()) {
                 com.bytedance.pangle.download.b.a();
                 return;
             }
-            com.bytedance.pangle.download.b a11 = com.bytedance.pangle.download.b.a();
-            Runnable runnable = a11.f7546c.get(str);
+            final com.bytedance.pangle.download.b a3 = com.bytedance.pangle.download.b.a();
+            Runnable runnable = a3.f6051c.get(str);
             if (runnable != null) {
-                a11.f7545b.removeCallbacks(runnable);
+                a3.f6050b.removeCallbacks(runnable);
             }
-            b.AnonymousClass1 anonymousClass1 = new Runnable() { // from class: com.bytedance.pangle.download.b.1
+            Runnable anonymousClass1 = new Runnable() { // from class: com.bytedance.pangle.download.b.1
 
                 /* renamed from: a */
-                final /* synthetic */ String f7548a;
+                final /* synthetic */ String f6053a;
 
-                public AnonymousClass1(String str2) {
+                public AnonymousClass1(final String str2) {
                     str = str2;
                 }
 
-                /* JADX WARN: Code restructure failed: missing block: B:7:0x0023, code lost:
-                
-                    r0 = r0.get(0).topActivity;
-                 */
                 @Override // java.lang.Runnable
-                /*
-                    Code decompiled incorrectly, please refer to instructions dump.
-                    To view partially-correct code enable 'Show inconsistent code' option in preferences
-                */
                 public final void run() {
-                    /*
-                        r3 = this;
-                        android.app.Application r0 = com.bytedance.pangle.Zeus.getAppApplication()
-                        java.lang.String r1 = r0.getPackageName()
-                        boolean r2 = android.text.TextUtils.isEmpty(r1)
-                        if (r2 != 0) goto L46
-                        java.lang.String r2 = "activity"
-                        java.lang.Object r0 = r0.getSystemService(r2)
-                        android.app.ActivityManager r0 = (android.app.ActivityManager) r0
-                        r2 = 1
-                        java.util.List r0 = r0.getRunningTasks(r2)
-                        if (r0 == 0) goto L46
-                        boolean r2 = r0.isEmpty()
-                        if (r2 != 0) goto L46
-                        r2 = 0
-                        java.lang.Object r0 = r0.get(r2)
-                        android.app.ActivityManager$RunningTaskInfo r0 = (android.app.ActivityManager.RunningTaskInfo) r0
-                        android.content.ComponentName r0 = g4.a.a(r0)
-                        if (r0 == 0) goto L46
-                        java.lang.String r0 = r0.getPackageName()
-                        boolean r0 = r1.equals(r0)
-                        if (r0 == 0) goto L46
-                        com.bytedance.pangle.download.b r0 = com.bytedance.pangle.download.b.this
-                        android.os.Handler r0 = com.bytedance.pangle.download.b.a(r0)
-                        r1 = 1800000(0x1b7740, double:8.89318E-318)
-                        r0.postDelayed(r3, r1)
-                    L46:
-                        return
-                    */
-                    throw new UnsupportedOperationException("Method not decompiled: com.bytedance.pangle.download.b.AnonymousClass1.run():void");
+                    List<ActivityManager.RunningTaskInfo> runningTasks;
+                    ComponentName componentName;
+                    Application appApplication = Zeus.getAppApplication();
+                    String packageName = appApplication.getPackageName();
+                    if ((TextUtils.isEmpty(packageName) || (runningTasks = ((ActivityManager) appApplication.getSystemService(TTDownloadField.TT_ACTIVITY)).getRunningTasks(1)) == null || runningTasks.isEmpty() || (componentName = runningTasks.get(0).topActivity) == null || !packageName.equals(componentName.getPackageName())) ? false : true) {
+                        b.this.f6050b.postDelayed(this, 1800000L);
+                    }
                 }
             };
-            a11.f7546c.put(str2, anonymousClass1);
-            a11.f7545b.postDelayed(anonymousClass1, 1800000L);
+            a3.f6051c.put(str2, anonymousClass1);
+            a3.f6050b.postDelayed(anonymousClass1, 1800000L);
             com.bytedance.pangle.download.b.a();
-            if (a10.f7541a.contains(str2)) {
+            if (a2.f6046a.contains(str2)) {
                 return;
             }
-            a10.f7541a.add(str2);
+            a2.f6046a.add(str2);
         }
     }
 
@@ -166,27 +137,15 @@ public class Zeus {
     }
 
     public static boolean hasInit() {
-        return i.a().f7669a;
+        return h.a().f6162a;
     }
 
-    public static void hookHuaWeiVerifier(Application application) {
-        com.bytedance.pangle.receiver.b.a(application);
-    }
-
-    public static void init(Application application, boolean z10) {
-        GlobalParam.getInstance().getReporter().saveRecord(IZeusReporter.ZEUS_STAGE_COMMON, "start init");
-        i.a().a(application, z10);
+    public static void init(Application application, boolean z) {
+        h.a().a(application, z);
         Object obj = wait;
         synchronized (obj) {
             obj.notifyAll();
         }
-        com.bytedance.pangle.service.a.a b10 = com.bytedance.pangle.service.a.a.b();
-        for (Runnable runnable : b10.f7798b) {
-            if (runnable != null) {
-                b10.f7797a.post(runnable);
-            }
-        }
-        b10.f7798b.clear();
     }
 
     public static void installFromDownloadDir() {
@@ -218,32 +177,21 @@ public class Zeus {
         }
     }
 
-    public static void registerPluginInstallListener(ZeusPluginInstallListener zeusPluginInstallListener) {
-        try {
-            c a10 = com.bytedance.pangle.servermanager.b.a();
-            if (a10 != null) {
-                a10.a(zeusPluginInstallListener.hashCode(), new com.bytedance.pangle.f.b(zeusPluginInstallListener));
-            }
-        } catch (RemoteException e10) {
-            ZeusLogger.w(ZeusLogger.TAG_INSTALL, "registerPluginInstallListener error.", e10);
-        }
-    }
-
     public static void registerPluginStateListener(ZeusPluginStateListener zeusPluginStateListener) {
-        i.a().f7670b.add(zeusPluginStateListener);
+        h.a().f6163b.add(zeusPluginStateListener);
     }
 
     public static void removePluginEventCallback(ZeusPluginEventCallback zeusPluginEventCallback) {
-        i a10 = i.a();
+        h a2 = h.a();
         if (zeusPluginEventCallback != null) {
-            synchronized (a10.f7671c) {
-                a10.f7671c.remove(zeusPluginEventCallback);
+            synchronized (a2.f6164c) {
+                a2.f6164c.remove(zeusPluginEventCallback);
             }
         }
     }
 
-    public static void setAllowDownloadPlugin(String str, int i10, boolean z10) {
-        PluginManager.getInstance().setAllowDownloadPlugin(str, i10, z10);
+    public static void setAllowDownloadPlugin(String str, int i2, boolean z) {
+        PluginManager.getInstance().setAllowDownloadPlugin(str, i2, z);
     }
 
     public static void setAppContext(Application application) {
@@ -258,15 +206,14 @@ public class Zeus {
     }
 
     public static boolean syncInstallPlugin(String str, String str2) {
-        GlobalParam.getInstance().getReporter().saveRecord(IZeusReporter.ZEUS_STAGE_PLUGIN_INSTALL, "start");
-        c a10 = com.bytedance.pangle.servermanager.b.a();
-        if (a10 == null) {
+        c a2 = com.bytedance.pangle.servermanager.b.a();
+        if (a2 == null) {
             return false;
         }
         try {
-            return a10.a(str, str2);
-        } catch (RemoteException e10) {
-            ZeusLogger.w(ZeusLogger.TAG_INSTALL, "syncInstallPlugin error.", e10);
+            return a2.a(str, str2);
+        } catch (RemoteException e2) {
+            ZeusLogger.w(ZeusLogger.TAG_INSTALL, "syncInstallPlugin error.", e2);
             return false;
         }
     }
@@ -280,48 +227,33 @@ public class Zeus {
     }
 
     public static void unregisterPluginStateListener(ZeusPluginStateListener zeusPluginStateListener) {
-        List<ZeusPluginStateListener> list = i.a().f7670b;
+        List<ZeusPluginStateListener> list = h.a().f6163b;
         if (list != null) {
             list.remove(zeusPluginStateListener);
         }
     }
 
-    public static boolean waitInit(int i10) {
-        if (i.a().f7669a) {
+    public static boolean waitInit(int i2) {
+        if (h.a().f6162a) {
             return true;
         }
         Object obj = wait;
         synchronized (obj) {
-            try {
-                if (!i.a().f7669a) {
-                    try {
-                        if (i10 == -1) {
-                            obj.wait();
-                        } else {
-                            obj.wait(i10);
-                        }
-                    } catch (InterruptedException unused) {
+            if (!h.a().f6162a) {
+                try {
+                    if (i2 == -1) {
+                        obj.wait();
+                    } else {
+                        obj.wait(i2);
                     }
+                } catch (InterruptedException unused) {
                 }
-            } catch (Throwable th2) {
-                throw th2;
             }
         }
-        return i.a().f7669a;
+        return h.a().f6162a;
     }
 
-    public void unregisterPluginInstallListener(ZeusPluginInstallListener zeusPluginInstallListener) {
-        try {
-            c a10 = com.bytedance.pangle.servermanager.b.a();
-            if (a10 != null) {
-                a10.a(zeusPluginInstallListener.hashCode());
-            }
-        } catch (RemoteException e10) {
-            ZeusLogger.w(ZeusLogger.TAG_INSTALL, "unregisterPluginInstallListener error.", e10);
-        }
-    }
-
-    public static Plugin getPlugin(String str, boolean z10) {
-        return PluginManager.getInstance().getPlugin(str, z10);
+    public static Plugin getPlugin(String str, boolean z) {
+        return PluginManager.getInstance().getPlugin(str, z);
     }
 }

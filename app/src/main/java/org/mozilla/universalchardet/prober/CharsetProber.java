@@ -1,36 +1,34 @@
 package org.mozilla.universalchardet.prober;
 
 import java.nio.ByteBuffer;
+import kotlin.jvm.internal.ByteCompanionObject;
 
-/* loaded from: classes4.dex */
+/* loaded from: classes5.dex */
 public abstract class CharsetProber {
 
+    /* renamed from: a */
+    public static final float f35416a = 0.95f;
+
     /* renamed from: b */
-    public static final float f29246b = 0.95f;
+    public static final int f35417b = 97;
 
     /* renamed from: c */
-    public static final int f29247c = 97;
+    public static final int f35418c = 122;
 
     /* renamed from: d */
-    public static final int f29248d = 122;
+    public static final int f35419d = 65;
 
     /* renamed from: e */
-    public static final int f29249e = 65;
+    public static final int f35420e = 90;
 
     /* renamed from: f */
-    public static final int f29250f = 90;
+    public static final int f35421f = 60;
 
     /* renamed from: g */
-    public static final int f29251g = 60;
+    public static final int f35422g = 62;
 
     /* renamed from: h */
-    public static final int f29252h = 62;
-
-    /* renamed from: i */
-    public static final int f29253i = 32;
-
-    /* renamed from: a */
-    public boolean f29254a = true;
+    public static final int f35423h = 32;
 
     public enum ProbingState {
         DETECTING,
@@ -38,56 +36,65 @@ public abstract class CharsetProber {
         NOT_ME
     }
 
-    public ByteBuffer a(byte[] bArr, int i10, int i11) {
-        ByteBuffer allocate = ByteBuffer.allocate(i11);
-        int i12 = i11 + i10;
-        int i13 = i10;
-        boolean z10 = false;
-        while (i10 < i12) {
-            byte b10 = bArr[i10];
-            if (b10 == 62) {
-                z10 = false;
-            } else if (b10 == 60) {
-                z10 = true;
+    private boolean g(byte b2) {
+        return (b2 & ByteCompanionObject.MIN_VALUE) == 0;
+    }
+
+    private boolean h(byte b2) {
+        int i2 = b2 & 255;
+        return i2 < 65 || (i2 > 90 && i2 < 97) || i2 > 122;
+    }
+
+    public ByteBuffer a(byte[] bArr, int i2, int i3) {
+        ByteBuffer allocate = ByteBuffer.allocate(i3);
+        int i4 = i3 + i2;
+        int i5 = i2;
+        boolean z = false;
+        while (i2 < i4) {
+            byte b2 = bArr[i2];
+            if (b2 == 62) {
+                z = false;
+            } else if (b2 == 60) {
+                z = true;
             }
-            if (h(b10) && i(b10)) {
-                if (i10 > i13 && !z10) {
-                    allocate.put(bArr, i13, i10 - i13);
-                    allocate.put((byte) 32);
+            if (g(b2) && h(b2)) {
+                if (i2 > i5 && !z) {
+                    allocate.put(bArr, i5, i2 - i5);
+                    allocate.put(g.s);
                 }
-                i13 = i10 + 1;
+                i5 = i2 + 1;
             }
-            i10++;
+            i2++;
         }
-        if (!z10 && i10 > i13) {
-            allocate.put(bArr, i13, i10 - i13);
+        if (!z && i2 > i5) {
+            allocate.put(bArr, i5, i2 - i5);
         }
         return allocate;
     }
 
-    public ByteBuffer b(byte[] bArr, int i10, int i11) {
-        ByteBuffer allocate = ByteBuffer.allocate(i11);
-        int i12 = i11 + i10;
-        int i13 = i10;
-        boolean z10 = false;
-        while (i10 < i12) {
-            byte b10 = bArr[i10];
-            if (!h(b10)) {
-                z10 = true;
-            } else if (i(b10)) {
-                if (!z10 || i10 <= i13) {
-                    i13 = i10 + 1;
+    public ByteBuffer b(byte[] bArr, int i2, int i3) {
+        ByteBuffer allocate = ByteBuffer.allocate(i3);
+        int i4 = i3 + i2;
+        int i5 = i2;
+        boolean z = false;
+        while (i2 < i4) {
+            byte b2 = bArr[i2];
+            if (!g(b2)) {
+                z = true;
+            } else if (h(b2)) {
+                if (!z || i2 <= i5) {
+                    i5 = i2 + 1;
                 } else {
-                    allocate.put(bArr, i13, i10 - i13);
-                    allocate.put((byte) 32);
-                    i13 = i10 + 1;
-                    z10 = false;
+                    allocate.put(bArr, i5, i2 - i5);
+                    allocate.put(g.s);
+                    i5 = i2 + 1;
+                    z = false;
                 }
             }
-            i10++;
+            i2++;
         }
-        if (z10 && i10 > i13) {
-            allocate.put(bArr, i13, i10 - i13);
+        if (z && i2 > i5) {
+            allocate.put(bArr, i5, i2 - i5);
         }
         return allocate;
     }
@@ -98,26 +105,9 @@ public abstract class CharsetProber {
 
     public abstract ProbingState e();
 
-    public abstract ProbingState f(byte[] bArr, int i10, int i11);
+    public abstract ProbingState f(byte[] bArr, int i2, int i3);
 
-    public boolean g() {
-        return this.f29254a;
-    }
-
-    public final boolean h(byte b10) {
-        return (b10 & 128) == 0;
-    }
-
-    public final boolean i(byte b10) {
-        int i10 = b10 & 255;
-        return i10 < 65 || (i10 > 90 && i10 < 97) || i10 > 122;
-    }
+    public abstract void i();
 
     public abstract void j();
-
-    public void k(boolean z10) {
-        this.f29254a = z10;
-    }
-
-    public abstract void l();
 }

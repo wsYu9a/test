@@ -2,7 +2,6 @@ package com.umeng.commonsdk;
 
 import android.content.Context;
 import android.content.SharedPreferences;
-import com.umeng.analytics.pro.bd;
 import com.umeng.commonsdk.framework.UMEnvelopeBuild;
 import com.umeng.commonsdk.utils.onMessageSendListener;
 import java.util.Iterator;
@@ -14,43 +13,46 @@ import java.util.concurrent.TimeUnit;
 /* loaded from: classes4.dex */
 public class UMConfigureImpl {
 
+    /* renamed from: a */
+    private static String f26095a = "delayed_transmission_flag_new";
+
     /* renamed from: e */
-    private static final int f24326e = 1000;
+    private static final int f26099e = 1000;
 
     /* renamed from: f */
-    private static ScheduledExecutorService f24327f;
+    private static ScheduledExecutorService f26100f;
 
     /* renamed from: g */
-    private static Context f24328g;
-
-    /* renamed from: a */
-    private static String f24322a = bd.b().b(bd.f23535o);
+    private static Context f26101g;
 
     /* renamed from: b */
-    private static CopyOnWriteArrayList<onMessageSendListener> f24323b = new CopyOnWriteArrayList<>();
+    private static CopyOnWriteArrayList<onMessageSendListener> f26096b = new CopyOnWriteArrayList<>();
 
     /* renamed from: c */
-    private static int f24324c = 0;
+    private static int f26097c = 0;
 
     /* renamed from: d */
-    private static boolean f24325d = false;
+    private static boolean f26098d = false;
 
     /* renamed from: h */
-    private static int f24329h = 0;
+    private static int f26102h = 0;
 
     /* renamed from: i */
-    private static Runnable f24330i = new Runnable() { // from class: com.umeng.commonsdk.UMConfigureImpl.1
+    private static Runnable f26103i = new Runnable() { // from class: com.umeng.commonsdk.UMConfigureImpl.1
+        AnonymousClass1() {
+        }
+
         @Override // java.lang.Runnable
         public void run() {
             try {
-                if (UMConfigureImpl.f24324c == 0 || UMConfigureImpl.f24329h >= 10) {
-                    if (!UMConfigureImpl.f24325d) {
-                        boolean unused = UMConfigureImpl.f24325d = true;
-                        UMConfigureImpl.b(UMConfigureImpl.f24328g);
+                if (UMConfigureImpl.f26097c == 0 || UMConfigureImpl.f26102h >= 10) {
+                    if (!UMConfigureImpl.f26098d) {
+                        boolean unused = UMConfigureImpl.f26098d = true;
+                        UMConfigureImpl.b(UMConfigureImpl.f26101g);
                     }
-                    if (UMConfigureImpl.f24327f != null) {
-                        UMConfigureImpl.f24327f.shutdown();
-                        ScheduledExecutorService unused2 = UMConfigureImpl.f24327f = null;
+                    if (UMConfigureImpl.f26100f != null) {
+                        UMConfigureImpl.f26100f.shutdown();
+                        ScheduledExecutorService unused2 = UMConfigureImpl.f26100f = null;
                     }
                 }
                 UMConfigureImpl.f();
@@ -60,18 +62,21 @@ public class UMConfigureImpl {
     };
 
     /* renamed from: com.umeng.commonsdk.UMConfigureImpl$1 */
-    public static class AnonymousClass1 implements Runnable {
+    static class AnonymousClass1 implements Runnable {
+        AnonymousClass1() {
+        }
+
         @Override // java.lang.Runnable
         public void run() {
             try {
-                if (UMConfigureImpl.f24324c == 0 || UMConfigureImpl.f24329h >= 10) {
-                    if (!UMConfigureImpl.f24325d) {
-                        boolean unused = UMConfigureImpl.f24325d = true;
-                        UMConfigureImpl.b(UMConfigureImpl.f24328g);
+                if (UMConfigureImpl.f26097c == 0 || UMConfigureImpl.f26102h >= 10) {
+                    if (!UMConfigureImpl.f26098d) {
+                        boolean unused = UMConfigureImpl.f26098d = true;
+                        UMConfigureImpl.b(UMConfigureImpl.f26101g);
                     }
-                    if (UMConfigureImpl.f24327f != null) {
-                        UMConfigureImpl.f24327f.shutdown();
-                        ScheduledExecutorService unused2 = UMConfigureImpl.f24327f = null;
+                    if (UMConfigureImpl.f26100f != null) {
+                        UMConfigureImpl.f26100f.shutdown();
+                        ScheduledExecutorService unused2 = UMConfigureImpl.f26100f = null;
                     }
                 }
                 UMConfigureImpl.f();
@@ -80,29 +85,29 @@ public class UMConfigureImpl {
         }
     }
 
-    public static /* synthetic */ int f() {
-        int i10 = f24329h;
-        f24329h = i10 + 1;
-        return i10;
+    static /* synthetic */ int f() {
+        int i2 = f26102h;
+        f26102h = i2 + 1;
+        return i2;
     }
 
     public static void init(Context context) {
         if (context == null) {
             return;
         }
-        f24328g = context;
+        f26101g = context;
         try {
-            if (f24324c < 1) {
+            if (f26097c < 1) {
                 UMEnvelopeBuild.setTransmissionSendFlag(true);
             } else if (d(context)) {
                 UMEnvelopeBuild.setTransmissionSendFlag(true);
             } else {
                 UMEnvelopeBuild.setTransmissionSendFlag(false);
                 c(context);
-                if (f24327f == null) {
+                if (f26100f == null) {
                     ScheduledExecutorService newScheduledThreadPool = Executors.newScheduledThreadPool(1);
-                    f24327f = newScheduledThreadPool;
-                    newScheduledThreadPool.scheduleAtFixedRate(f24330i, 0L, 100L, TimeUnit.MILLISECONDS);
+                    f26100f = newScheduledThreadPool;
+                    newScheduledThreadPool.scheduleAtFixedRate(f26103i, 0L, 100L, TimeUnit.MILLISECONDS);
                 }
             }
         } catch (Exception unused) {
@@ -112,7 +117,7 @@ public class UMConfigureImpl {
     public static synchronized void registerInterruptFlag() {
         synchronized (UMConfigureImpl.class) {
             try {
-                f24324c++;
+                f26097c++;
             } catch (Exception unused) {
             }
         }
@@ -122,19 +127,17 @@ public class UMConfigureImpl {
         CopyOnWriteArrayList<onMessageSendListener> copyOnWriteArrayList;
         synchronized (UMConfigureImpl.class) {
             try {
-                CopyOnWriteArrayList<onMessageSendListener> copyOnWriteArrayList2 = f24323b;
+                CopyOnWriteArrayList<onMessageSendListener> copyOnWriteArrayList2 = f26096b;
                 if (copyOnWriteArrayList2 != null) {
                     copyOnWriteArrayList2.add(onmessagesendlistener);
                 }
-                if (UMEnvelopeBuild.getTransmissionSendFlag() && (copyOnWriteArrayList = f24323b) != null && copyOnWriteArrayList.size() > 0) {
-                    Iterator<onMessageSendListener> it = f24323b.iterator();
+                if (UMEnvelopeBuild.getTransmissionSendFlag() && (copyOnWriteArrayList = f26096b) != null && copyOnWriteArrayList.size() > 0) {
+                    Iterator<onMessageSendListener> it = f26096b.iterator();
                     while (it.hasNext()) {
                         it.next().onMessageSend();
                     }
                 }
             } catch (Exception unused) {
-            } catch (Throwable th2) {
-                throw th2;
             }
         }
     }
@@ -142,7 +145,7 @@ public class UMConfigureImpl {
     public static synchronized void removeInterruptFlag() {
         synchronized (UMConfigureImpl.class) {
             try {
-                f24324c--;
+                f26097c--;
             } catch (Exception unused) {
             }
         }
@@ -151,7 +154,7 @@ public class UMConfigureImpl {
     public static synchronized void removeMessageSendListener(onMessageSendListener onmessagesendlistener) {
         synchronized (UMConfigureImpl.class) {
             try {
-                CopyOnWriteArrayList<onMessageSendListener> copyOnWriteArrayList = f24323b;
+                CopyOnWriteArrayList<onMessageSendListener> copyOnWriteArrayList = f26096b;
                 if (copyOnWriteArrayList != null) {
                     copyOnWriteArrayList.remove(onmessagesendlistener);
                 }
@@ -164,9 +167,9 @@ public class UMConfigureImpl {
         synchronized (UMConfigureImpl.class) {
             try {
                 UMEnvelopeBuild.setTransmissionSendFlag(true);
-                CopyOnWriteArrayList<onMessageSendListener> copyOnWriteArrayList = f24323b;
+                CopyOnWriteArrayList<onMessageSendListener> copyOnWriteArrayList = f26096b;
                 if (copyOnWriteArrayList != null && copyOnWriteArrayList.size() > 0) {
-                    Iterator<onMessageSendListener> it = f24323b.iterator();
+                    Iterator<onMessageSendListener> it = f26096b.iterator();
                     while (it.hasNext()) {
                         it.next().onMessageSend();
                     }
@@ -178,10 +181,10 @@ public class UMConfigureImpl {
 
     private static void c(Context context) {
         try {
-            SharedPreferences sharedPreferences = context.getSharedPreferences(f24322a, 0);
+            SharedPreferences sharedPreferences = context.getSharedPreferences(f26095a, 0);
             if (sharedPreferences != null) {
                 SharedPreferences.Editor edit = sharedPreferences.edit();
-                edit.putBoolean(f24322a, true);
+                edit.putBoolean(f26095a, true);
                 edit.commit();
             }
         } catch (Throwable unused) {
@@ -190,9 +193,9 @@ public class UMConfigureImpl {
 
     private static boolean d(Context context) {
         try {
-            SharedPreferences sharedPreferences = context.getSharedPreferences(f24322a, 0);
+            SharedPreferences sharedPreferences = context.getSharedPreferences(f26095a, 0);
             if (sharedPreferences != null) {
-                return sharedPreferences.getBoolean(f24322a, false);
+                return sharedPreferences.getBoolean(f26095a, false);
             }
             return false;
         } catch (Throwable unused) {

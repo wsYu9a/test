@@ -8,18 +8,18 @@ import android.widget.Toast;
 public class f {
 
     /* renamed from: a */
-    private static Toast f22225a;
+    private static Toast f24704a;
 
     public static void a(Context context, String str) {
         if (TextUtils.isEmpty(str)) {
             return;
         }
-        Toast toast = f22225a;
+        Toast toast = f24704a;
         if (toast == null) {
-            f22225a = Toast.makeText(context, str, 0);
+            f24704a = Toast.makeText(context, str, 0);
         } else {
             toast.setText(str);
         }
-        f22225a.show();
+        f24704a.show();
     }
 }

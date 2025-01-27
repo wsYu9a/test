@@ -1,14 +1,22 @@
 package com.kwad.components.core.b;
 
-/* loaded from: classes3.dex */
-public final class b {
-    private String title;
+import com.kwad.sdk.KsAdSDKImpl;
+import com.kwad.sdk.utils.v;
 
-    public b(String str) {
-        this.title = str;
+/* loaded from: classes2.dex */
+public final class b {
+    private static void ai(String str) {
+        if (!lY() || KsAdSDKImpl.get() == null || KsAdSDKImpl.get().getContext() == null) {
+            return;
+        }
+        v.H(KsAdSDKImpl.get().getContext(), str);
     }
 
-    public final String getTitle() {
-        return this.title;
+    public static void b(e eVar) {
+        ai("使用缓存策略: " + eVar.mg());
+    }
+
+    public static boolean lY() {
+        return false;
     }
 }

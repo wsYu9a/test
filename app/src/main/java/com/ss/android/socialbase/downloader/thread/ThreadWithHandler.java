@@ -13,13 +13,13 @@ public class ThreadWithHandler {
     private Queue<MessageEntity> mCacheQueue = new ConcurrentLinkedQueue();
     private Handler mHandler;
 
-    public class InnerThread extends HandlerThread {
-        public InnerThread(String str) {
+    private class InnerThread extends HandlerThread {
+        InnerThread(String str) {
             super(str);
         }
 
         @Override // android.os.HandlerThread
-        public void onLooperPrepared() {
+        protected void onLooperPrepared() {
             super.onLooperPrepared();
             Looper looper = getLooper();
             synchronized (ThreadWithHandler.this.lock) {
@@ -34,13 +34,13 @@ public class ThreadWithHandler {
         }
     }
 
-    public class MessageEntity {
+    private class MessageEntity {
         public long delayMillis;
         public Runnable target;
 
-        public MessageEntity(Runnable runnable, long j10) {
+        public MessageEntity(Runnable runnable, long j2) {
             this.target = runnable;
-            this.delayMillis = j10;
+            this.delayMillis = j2;
         }
     }
 
@@ -52,19 +52,16 @@ public class ThreadWithHandler {
         postDelayed(runnable, 0L);
     }
 
-    public void postDelayed(Runnable runnable, long j10) {
+    public void postDelayed(Runnable runnable, long j2) {
         if (this.mHandler == null) {
             synchronized (this.lock) {
-                try {
-                    if (this.mHandler == null) {
-                        this.mCacheQueue.add(new MessageEntity(runnable, j10));
-                        return;
-                    }
-                } finally {
+                if (this.mHandler == null) {
+                    this.mCacheQueue.add(new MessageEntity(runnable, j2));
+                    return;
                 }
             }
         }
-        this.mHandler.postDelayed(runnable, j10);
+        this.mHandler.postDelayed(runnable, j2);
     }
 
     public void quit() {

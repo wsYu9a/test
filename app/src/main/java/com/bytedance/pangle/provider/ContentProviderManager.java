@@ -5,27 +5,26 @@ import android.content.ContentValues;
 import android.content.pm.ProviderInfo;
 import android.database.Cursor;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.CancellationSignal;
 import android.text.TextUtils;
 import androidx.annotation.Keep;
 import androidx.annotation.RequiresApi;
 import androidx.core.content.FileProvider;
-import com.bytedance.pangle.GlobalParam;
 import com.bytedance.pangle.Zeus;
 import com.bytedance.pangle.d.d;
-import com.bytedance.pangle.log.IZeusReporter;
 import com.bytedance.pangle.log.ZeusLogger;
 import com.bytedance.pangle.plugin.Plugin;
 import com.bytedance.pangle.transform.ZeusTransformUtils;
+import java.util.Arrays;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.Objects;
 import java.util.Set;
 
 @Keep
-/* loaded from: classes2.dex */
+/* loaded from: classes.dex */
 public class ContentProviderManager {
     public static final String PLUGIN_PKG_NAME = "plugin_pkg_name";
     public static final String PLUGIN_PROCESS_NAME = "process_name";
@@ -41,42 +40,42 @@ public class ContentProviderManager {
     public static final class a {
 
         /* renamed from: a */
-        public final b f7728a;
+        public final b f6221a;
 
         /* renamed from: b */
-        public final ProviderInfo f7729b;
+        public final ProviderInfo f6222b;
 
         /* renamed from: c */
-        public final PluginContentProvider f7730c;
+        public final PluginContentProvider f6223c;
 
         public a(b bVar, ProviderInfo providerInfo, PluginContentProvider pluginContentProvider) {
-            this.f7729b = providerInfo;
-            this.f7728a = bVar;
-            this.f7730c = pluginContentProvider;
+            this.f6222b = providerInfo;
+            this.f6221a = bVar;
+            this.f6223c = pluginContentProvider;
         }
     }
 
     public static class b {
 
         /* renamed from: a */
-        public final String f7731a;
+        public final String f6224a;
 
         /* renamed from: b */
-        public final String f7732b;
+        public final String f6225b;
 
         /* renamed from: c */
-        public final String f7733c;
+        public final String f6226c;
 
         public b(String str, String str2, String str3) {
-            this.f7731a = str2;
-            this.f7732b = str3;
-            this.f7733c = str;
+            this.f6224a = str2;
+            this.f6225b = str3;
+            this.f6226c = str;
         }
 
         public boolean equals(Object obj) {
             if (obj instanceof b) {
                 b bVar = (b) obj;
-                if (TextUtils.equals(this.f7733c, bVar.f7733c) && TextUtils.equals(this.f7732b, bVar.f7732b) && TextUtils.equals(this.f7731a, bVar.f7731a)) {
+                if (TextUtils.equals(this.f6226c, bVar.f6226c) && TextUtils.equals(this.f6225b, bVar.f6225b) && TextUtils.equals(this.f6224a, bVar.f6224a)) {
                     return true;
                 }
             }
@@ -84,18 +83,21 @@ public class ContentProviderManager {
         }
 
         public int hashCode() {
-            return Objects.hash(this.f7731a, this.f7732b, this.f7733c);
+            if (Build.VERSION.SDK_INT >= 19) {
+                return Arrays.hashCode(new Object[]{this.f6224a, this.f6225b, this.f6226c});
+            }
+            return (this.f6224a + this.f6225b + this.f6224a).hashCode();
         }
     }
 
-    public static final class c extends b {
+    protected static final class c extends b {
 
         /* renamed from: d */
-        public final ProviderInfo f7734d;
+        public final ProviderInfo f6227d;
 
         public c(String str, String str2, ProviderInfo providerInfo) {
             super(str, str2, providerInfo.authority);
-            this.f7734d = providerInfo;
+            this.f6227d = providerInfo;
         }
     }
 
@@ -105,11 +107,8 @@ public class ContentProviderManager {
     public static ContentProviderManager getInstance() {
         if (sInstance == null) {
             synchronized (ContentProviderManager.class) {
-                try {
-                    if (sInstance == null) {
-                        sInstance = new ContentProviderManager();
-                    }
-                } finally {
+                if (sInstance == null) {
+                    sInstance = new ContentProviderManager();
                 }
             }
         }
@@ -132,8 +131,8 @@ public class ContentProviderManager {
                 ZeusLogger.v(ZeusLogger.TAG_PROVIDER, "Install plugin provider finish and invoke plugin provider attachInfo(onCreate) method finish [className:" + providerInfo.name + "]");
                 b bVar = new b(providerInfo.packageName, providerInfo.processName, providerInfo.authority);
                 this.mContentProviderMap.put(bVar, new a(bVar, providerInfo, instantiateProvider));
-            } catch (Exception e10) {
-                ZeusLogger.w(ZeusLogger.TAG_PROVIDER, "Instantiating Exception : ", e10);
+            } catch (Exception e2) {
+                ZeusLogger.w(ZeusLogger.TAG_PROVIDER, "Instantiating Exception : ", e2);
                 return;
             }
         }
@@ -170,7 +169,7 @@ public class ContentProviderManager {
         if (aVar == null) {
             return null;
         }
-        return aVar.f7730c;
+        return aVar.f6223c;
     }
 
     public Map<String, c> getSystemProviderInfoMap() {
@@ -183,7 +182,6 @@ public class ContentProviderManager {
 
     public void initSystemContentProviderInfo() {
         String str;
-        GlobalParam.getInstance().getReporter().saveRecord(IZeusReporter.ZEUS_STAGE_CONTENT_PROVIDER, "start");
         try {
             ProviderInfo[] providerInfoArr = Zeus.getAppApplication().getPackageManager().getPackageInfo(Zeus.getAppApplication().getPackageName(), 8).providers;
             if (providerInfoArr == null || providerInfoArr.length == 0) {
@@ -194,17 +192,17 @@ public class ContentProviderManager {
                     try {
                         ZeusLogger.d(ZeusLogger.TAG_PROVIDER, "Need to init system provider info start [packageNam:=" + providerInfo.packageName + "],[processName=" + providerInfo.processName + "],[authority:" + providerInfo.authority + "]");
                         if (providerInfo.authority.contains(Zeus.getAppApplication().getPackageName() + ".pangle.provider.proxy.")) {
-                            String a10 = d.a(providerInfo.processName);
-                            this.mSystemProviderInfoMap.put(a10, new c(Zeus.getAppApplication().getPackageName(), a10, providerInfo));
+                            String a2 = d.a(providerInfo.processName);
+                            this.mSystemProviderInfoMap.put(a2, new c(Zeus.getAppApplication().getPackageName(), a2, providerInfo));
                             ZeusLogger.d(ZeusLogger.TAG_PROVIDER, "Init system provider info finish [packageNam:=" + providerInfo.packageName + "],[processName=" + providerInfo.processName + "],[authority:" + providerInfo.authority + "]");
                         }
-                    } catch (Exception e10) {
-                        ZeusLogger.errReport(ZeusLogger.TAG_PROVIDER, "Init system contentProviderInfo [authority:" + providerInfo.authority + "],exception：", e10);
+                    } catch (Exception e2) {
+                        ZeusLogger.errReport(ZeusLogger.TAG_PROVIDER, "Init system contentProviderInfo [authority:" + providerInfo.authority + "],exception：", e2);
                     }
                 }
             }
-        } catch (Throwable th2) {
-            ZeusLogger.errReport(ZeusLogger.TAG_PROVIDER, "init System ContentProviderInfo exception：", th2);
+        } catch (Throwable th) {
+            ZeusLogger.errReport(ZeusLogger.TAG_PROVIDER, "init System ContentProviderInfo exception：", th);
         }
     }
 
@@ -217,22 +215,22 @@ public class ContentProviderManager {
             return;
         }
         Zeus.getAppApplication();
-        String a10 = d.a(d.a());
+        String a2 = d.a(d.a());
         for (ProviderInfo providerInfo : collection) {
             if (ZeusLogger.isDebug()) {
-                StringBuilder sb2 = new StringBuilder(128);
-                sb2.append("Install plugin provider [authority:");
-                sb2.append(providerInfo.authority);
-                sb2.append("] - [className:");
-                sb2.append(providerInfo.name);
-                sb2.append("]");
-                ZeusLogger.v(ZeusLogger.TAG_PROVIDER, sb2.toString());
+                StringBuilder sb = new StringBuilder(128);
+                sb.append("Install plugin provider [authority:");
+                sb.append(providerInfo.authority);
+                sb.append("] - [className:");
+                sb.append(providerInfo.name);
+                sb.append("]");
+                ZeusLogger.v(ZeusLogger.TAG_PROVIDER, sb.toString());
             }
-            installProvider(a10, providerInfo, plugin);
+            installProvider(a2, providerInfo, plugin);
         }
     }
 
-    public boolean isPluginProvider(Uri uri) {
+    protected boolean isPluginProvider(Uri uri) {
         if (uri == null) {
             return true;
         }

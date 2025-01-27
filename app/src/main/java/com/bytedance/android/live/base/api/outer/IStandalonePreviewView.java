@@ -2,7 +2,7 @@ package com.bytedance.android.live.base.api.outer;
 
 import android.view.View;
 
-/* loaded from: classes2.dex */
+/* loaded from: classes.dex */
 public interface IStandalonePreviewView {
     View getView();
 
@@ -10,7 +10,7 @@ public interface IStandalonePreviewView {
 
     void setLiveStatusListener(ILiveStatusListener iLiveStatusListener);
 
-    void setMute(boolean z10);
+    void setMute(boolean z);
 
     void show();
 

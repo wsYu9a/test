@@ -1,173 +1,170 @@
 package com.google.zxing.qrcode.decoder;
 
 import com.google.zxing.FormatException;
-import t6.d;
-import t6.f;
-import z5.b;
 
-/* loaded from: classes2.dex */
-public final class a {
+/* loaded from: classes.dex */
+final class a {
 
     /* renamed from: a */
-    public final b f10613a;
+    private final com.google.zxing.common.b f8746a;
 
     /* renamed from: b */
-    public f f10614b;
+    private g f8747b;
 
     /* renamed from: c */
-    public d f10615c;
+    private e f8748c;
 
     /* renamed from: d */
-    public boolean f10616d;
+    private boolean f8749d;
 
-    public a(b bVar) throws FormatException {
-        int h10 = bVar.h();
-        if (h10 < 21 || (h10 & 3) != 1) {
+    a(com.google.zxing.common.b bVar) throws FormatException {
+        int h2 = bVar.h();
+        if (h2 < 21 || (h2 & 3) != 1) {
             throw FormatException.getFormatInstance();
         }
-        this.f10613a = bVar;
+        this.f8746a = bVar;
     }
 
-    public final int a(int i10, int i11, int i12) {
-        return this.f10616d ? this.f10613a.e(i11, i10) : this.f10613a.e(i10, i11) ? (i12 << 1) | 1 : i12 << 1;
+    private int a(int i2, int i3, int i4) {
+        return this.f8749d ? this.f8746a.e(i3, i2) : this.f8746a.e(i2, i3) ? (i4 << 1) | 1 : i4 << 1;
     }
 
-    public void b() {
-        int i10 = 0;
-        while (i10 < this.f10613a.l()) {
-            int i11 = i10 + 1;
-            for (int i12 = i11; i12 < this.f10613a.h(); i12++) {
-                if (this.f10613a.e(i10, i12) != this.f10613a.e(i12, i10)) {
-                    this.f10613a.d(i12, i10);
-                    this.f10613a.d(i10, i12);
+    void b() {
+        int i2 = 0;
+        while (i2 < this.f8746a.l()) {
+            int i3 = i2 + 1;
+            for (int i4 = i3; i4 < this.f8746a.h(); i4++) {
+                if (this.f8746a.e(i2, i4) != this.f8746a.e(i4, i2)) {
+                    this.f8746a.d(i4, i2);
+                    this.f8746a.d(i2, i4);
                 }
             }
-            i10 = i11;
+            i2 = i3;
         }
     }
 
-    public byte[] c() throws FormatException {
-        d d10 = d();
-        f e10 = e();
-        DataMask dataMask = DataMask.values()[d10.c()];
-        int h10 = this.f10613a.h();
-        dataMask.unmaskBitMatrix(this.f10613a, h10);
-        b a10 = e10.a();
-        byte[] bArr = new byte[e10.h()];
-        int i10 = h10 - 1;
-        boolean z10 = true;
-        int i11 = i10;
-        int i12 = 0;
-        int i13 = 0;
-        int i14 = 0;
-        while (i11 > 0) {
-            if (i11 == 6) {
-                i11--;
+    byte[] c() throws FormatException {
+        e d2 = d();
+        g e2 = e();
+        DataMask dataMask = DataMask.values()[d2.c()];
+        int h2 = this.f8746a.h();
+        dataMask.unmaskBitMatrix(this.f8746a, h2);
+        com.google.zxing.common.b a2 = e2.a();
+        byte[] bArr = new byte[e2.h()];
+        int i2 = h2 - 1;
+        boolean z = true;
+        int i3 = i2;
+        int i4 = 0;
+        int i5 = 0;
+        int i6 = 0;
+        while (i3 > 0) {
+            if (i3 == 6) {
+                i3--;
             }
-            for (int i15 = 0; i15 < h10; i15++) {
-                int i16 = z10 ? i10 - i15 : i15;
-                for (int i17 = 0; i17 < 2; i17++) {
-                    int i18 = i11 - i17;
-                    if (!a10.e(i18, i16)) {
-                        i13++;
-                        i14 <<= 1;
-                        if (this.f10613a.e(i18, i16)) {
-                            i14 |= 1;
+            for (int i7 = 0; i7 < h2; i7++) {
+                int i8 = z ? i2 - i7 : i7;
+                for (int i9 = 0; i9 < 2; i9++) {
+                    int i10 = i3 - i9;
+                    if (!a2.e(i10, i8)) {
+                        i5++;
+                        i6 <<= 1;
+                        if (this.f8746a.e(i10, i8)) {
+                            i6 |= 1;
                         }
-                        if (i13 == 8) {
-                            bArr[i12] = (byte) i14;
-                            i12++;
-                            i13 = 0;
-                            i14 = 0;
+                        if (i5 == 8) {
+                            bArr[i4] = (byte) i6;
+                            i4++;
+                            i5 = 0;
+                            i6 = 0;
                         }
                     }
                 }
             }
-            z10 = !z10;
-            i11 -= 2;
+            z = !z;
+            i3 -= 2;
         }
-        if (i12 == e10.h()) {
+        if (i4 == e2.h()) {
             return bArr;
         }
         throw FormatException.getFormatInstance();
     }
 
-    public d d() throws FormatException {
-        d dVar = this.f10615c;
-        if (dVar != null) {
-            return dVar;
+    e d() throws FormatException {
+        e eVar = this.f8748c;
+        if (eVar != null) {
+            return eVar;
         }
-        int i10 = 0;
-        int i11 = 0;
-        for (int i12 = 0; i12 < 6; i12++) {
-            i11 = a(i12, 8, i11);
+        int i2 = 0;
+        int i3 = 0;
+        for (int i4 = 0; i4 < 6; i4++) {
+            i3 = a(i4, 8, i3);
         }
-        int a10 = a(8, 7, a(8, 8, a(7, 8, i11)));
-        for (int i13 = 5; i13 >= 0; i13--) {
-            a10 = a(8, i13, a10);
+        int a2 = a(8, 7, a(8, 8, a(7, 8, i3)));
+        for (int i5 = 5; i5 >= 0; i5--) {
+            a2 = a(8, i5, a2);
         }
-        int h10 = this.f10613a.h();
-        int i14 = h10 - 7;
-        for (int i15 = h10 - 1; i15 >= i14; i15--) {
-            i10 = a(8, i15, i10);
+        int h2 = this.f8746a.h();
+        int i6 = h2 - 7;
+        for (int i7 = h2 - 1; i7 >= i6; i7--) {
+            i2 = a(8, i7, i2);
         }
-        for (int i16 = h10 - 8; i16 < h10; i16++) {
-            i10 = a(i16, 8, i10);
+        for (int i8 = h2 - 8; i8 < h2; i8++) {
+            i2 = a(i8, 8, i2);
         }
-        d a11 = d.a(a10, i10);
-        this.f10615c = a11;
-        if (a11 != null) {
-            return a11;
+        e a3 = e.a(a2, i2);
+        this.f8748c = a3;
+        if (a3 != null) {
+            return a3;
         }
         throw FormatException.getFormatInstance();
     }
 
-    public f e() throws FormatException {
-        f fVar = this.f10614b;
-        if (fVar != null) {
-            return fVar;
+    g e() throws FormatException {
+        g gVar = this.f8747b;
+        if (gVar != null) {
+            return gVar;
         }
-        int h10 = this.f10613a.h();
-        int i10 = (h10 - 17) / 4;
-        if (i10 <= 6) {
-            return f.i(i10);
+        int h2 = this.f8746a.h();
+        int i2 = (h2 - 17) / 4;
+        if (i2 <= 6) {
+            return g.i(i2);
         }
-        int i11 = h10 - 11;
-        int i12 = 0;
-        int i13 = 0;
-        for (int i14 = 5; i14 >= 0; i14--) {
-            for (int i15 = h10 - 9; i15 >= i11; i15--) {
-                i13 = a(i15, i14, i13);
+        int i3 = h2 - 11;
+        int i4 = 0;
+        int i5 = 0;
+        for (int i6 = 5; i6 >= 0; i6--) {
+            for (int i7 = h2 - 9; i7 >= i3; i7--) {
+                i5 = a(i7, i6, i5);
             }
         }
-        f c10 = f.c(i13);
-        if (c10 != null && c10.e() == h10) {
-            this.f10614b = c10;
-            return c10;
+        g c2 = g.c(i5);
+        if (c2 != null && c2.e() == h2) {
+            this.f8747b = c2;
+            return c2;
         }
-        for (int i16 = 5; i16 >= 0; i16--) {
-            for (int i17 = h10 - 9; i17 >= i11; i17--) {
-                i12 = a(i16, i17, i12);
+        for (int i8 = 5; i8 >= 0; i8--) {
+            for (int i9 = h2 - 9; i9 >= i3; i9--) {
+                i4 = a(i8, i9, i4);
             }
         }
-        f c11 = f.c(i12);
-        if (c11 == null || c11.e() != h10) {
+        g c3 = g.c(i4);
+        if (c3 == null || c3.e() != h2) {
             throw FormatException.getFormatInstance();
         }
-        this.f10614b = c11;
-        return c11;
+        this.f8747b = c3;
+        return c3;
     }
 
-    public void f() {
-        if (this.f10615c == null) {
+    void f() {
+        if (this.f8748c == null) {
             return;
         }
-        DataMask.values()[this.f10615c.c()].unmaskBitMatrix(this.f10613a, this.f10613a.h());
+        DataMask.values()[this.f8748c.c()].unmaskBitMatrix(this.f8746a, this.f8746a.h());
     }
 
-    public void g(boolean z10) {
-        this.f10614b = null;
-        this.f10615c = null;
-        this.f10616d = z10;
+    void g(boolean z) {
+        this.f8747b = null;
+        this.f8748c = null;
+        this.f8749d = z;
     }
 }

@@ -3,7 +3,7 @@ package com.martian.apptask.data;
 import java.util.ArrayList;
 import java.util.List;
 
-/* loaded from: classes3.dex */
+/* loaded from: classes2.dex */
 public class AppTaskList {
     private List<AppTask> apps;
 
@@ -24,7 +24,7 @@ public class AppTaskList {
         return list == null || list.isEmpty();
     }
 
-    public void setApps(List<AppTask> list) {
-        this.apps = list;
+    public void setApps(List<AppTask> apps) {
+        this.apps = apps;
     }
 }

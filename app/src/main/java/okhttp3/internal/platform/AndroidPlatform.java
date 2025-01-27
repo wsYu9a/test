@@ -1,321 +1,393 @@
 package okhttp3.internal.platform;
 
 import android.os.Build;
-import android.security.NetworkSecurityPolicy;
-import b7.d;
-import com.bytedance.sdk.openadsdk.downloadnew.core.TTDownloadField;
-import com.kwad.sdk.api.model.AdnName;
+import android.util.Log;
+import com.ss.android.socialbase.downloader.constants.MonitorConstants;
 import java.io.IOException;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.net.InetSocketAddress;
 import java.net.Socket;
+import java.security.NoSuchAlgorithmException;
+import java.security.Security;
+import java.security.cert.Certificate;
 import java.security.cert.TrustAnchor;
 import java.security.cert.X509Certificate;
-import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
+import javax.annotation.Nullable;
+import javax.net.ssl.SSLContext;
+import javax.net.ssl.SSLPeerUnverifiedException;
 import javax.net.ssl.SSLSocket;
 import javax.net.ssl.SSLSocketFactory;
 import javax.net.ssl.X509TrustManager;
-import kotlin.Metadata;
-import kotlin.collections.CollectionsKt;
-import kotlin.jvm.internal.DefaultConstructorMarker;
-import kotlin.jvm.internal.Intrinsics;
 import okhttp3.Protocol;
-import okhttp3.internal.SuppressSignatureCheck;
-import okhttp3.internal.platform.android.AndroidCertificateChainCleaner;
-import okhttp3.internal.platform.android.AndroidSocketAdapter;
-import okhttp3.internal.platform.android.BouncyCastleSocketAdapter;
-import okhttp3.internal.platform.android.CloseGuard;
-import okhttp3.internal.platform.android.ConscryptSocketAdapter;
-import okhttp3.internal.platform.android.DeferredSocketAdapter;
-import okhttp3.internal.platform.android.SocketAdapter;
-import okhttp3.internal.platform.android.StandardAndroidSocketAdapter;
+import okhttp3.internal.Util;
 import okhttp3.internal.tls.CertificateChainCleaner;
 import okhttp3.internal.tls.TrustRootIndex;
-import xi.k;
-import xi.l;
 
-@SuppressSignatureCheck
-@Metadata(d1 = {"\u0000x\n\u0002\u0018\u0002\n\u0002\u0018\u0002\n\u0002\b\u0002\n\u0002\u0018\u0002\n\u0000\n\u0002\u0010 \n\u0002\u0018\u0002\n\u0000\n\u0002\u0018\u0002\n\u0000\n\u0002\u0018\u0002\n\u0000\n\u0002\u0018\u0002\n\u0000\n\u0002\u0010\u0002\n\u0000\n\u0002\u0018\u0002\n\u0000\n\u0002\u0010\u000e\n\u0000\n\u0002\u0018\u0002\n\u0002\u0018\u0002\n\u0002\b\u0002\n\u0002\u0018\u0002\n\u0000\n\u0002\u0018\u0002\n\u0000\n\u0002\u0010\b\n\u0002\b\u0002\n\u0002\u0010\u0000\n\u0002\b\u0002\n\u0002\u0010\u000b\n\u0002\b\u0004\n\u0002\u0018\u0002\n\u0002\b\u0003\b\u0007\u0018\u0000 )2\u00020\u0001:\u0002)*B\u0005¢\u0006\u0002\u0010\u0002J\u0010\u0010\b\u001a\u00020\t2\u0006\u0010\n\u001a\u00020\u000bH\u0016J\u0010\u0010\f\u001a\u00020\r2\u0006\u0010\n\u001a\u00020\u000bH\u0016J-\u0010\u000e\u001a\u00020\u000f2\u0006\u0010\u0010\u001a\u00020\u00112\b\u0010\u0012\u001a\u0004\u0018\u00010\u00132\u0011\u0010\u0014\u001a\r\u0012\t\u0012\u00070\u0015¢\u0006\u0002\b\u00160\u0006H\u0016J \u0010\u0017\u001a\u00020\u000f2\u0006\u0010\u0018\u001a\u00020\u00192\u0006\u0010\u001a\u001a\u00020\u001b2\u0006\u0010\u001c\u001a\u00020\u001dH\u0016J\u0012\u0010\u001e\u001a\u0004\u0018\u00010\u00132\u0006\u0010\u0010\u001a\u00020\u0011H\u0016J\u0012\u0010\u001f\u001a\u0004\u0018\u00010 2\u0006\u0010!\u001a\u00020\u0013H\u0016J\u0010\u0010\"\u001a\u00020#2\u0006\u0010\u0012\u001a\u00020\u0013H\u0016J\u001a\u0010$\u001a\u00020\u000f2\u0006\u0010%\u001a\u00020\u00132\b\u0010&\u001a\u0004\u0018\u00010 H\u0016J\u0012\u0010\n\u001a\u0004\u0018\u00010\u000b2\u0006\u0010'\u001a\u00020(H\u0016R\u000e\u0010\u0003\u001a\u00020\u0004X\u0082\u0004¢\u0006\u0002\n\u0000R\u0014\u0010\u0005\u001a\b\u0012\u0004\u0012\u00020\u00070\u0006X\u0082\u0004¢\u0006\u0002\n\u0000¨\u0006+"}, d2 = {"Lokhttp3/internal/platform/AndroidPlatform;", "Lokhttp3/internal/platform/Platform;", "()V", "closeGuard", "Lokhttp3/internal/platform/android/CloseGuard;", "socketAdapters", "", "Lokhttp3/internal/platform/android/SocketAdapter;", "buildCertificateChainCleaner", "Lokhttp3/internal/tls/CertificateChainCleaner;", "trustManager", "Ljavax/net/ssl/X509TrustManager;", "buildTrustRootIndex", "Lokhttp3/internal/tls/TrustRootIndex;", "configureTlsExtensions", "", "sslSocket", "Ljavax/net/ssl/SSLSocket;", "hostname", "", "protocols", "Lokhttp3/Protocol;", "Lkotlin/jvm/JvmSuppressWildcards;", "connectSocket", "socket", "Ljava/net/Socket;", "address", "Ljava/net/InetSocketAddress;", "connectTimeout", "", "getSelectedProtocol", "getStackTraceForCloseable", "", "closer", "isCleartextTrafficPermitted", "", "logCloseableLeak", d.f1362o, "stackTrace", "sslSocketFactory", "Ljavax/net/ssl/SSLSocketFactory;", "Companion", "CustomTrustRootIndex", "okhttp"}, k = 1, mv = {1, 6, 0}, xi = 48)
-/* loaded from: classes4.dex */
-public final class AndroidPlatform extends Platform {
+/* loaded from: classes.dex */
+class AndroidPlatform extends Platform {
+    private static final int MAX_LOG_LENGTH = 4000;
+    private final CloseGuard closeGuard = CloseGuard.get();
+    private final OptionalMethod<Socket> getAlpnSelectedProtocol;
+    private final OptionalMethod<Socket> setAlpnProtocols;
+    private final OptionalMethod<Socket> setHostname;
+    private final OptionalMethod<Socket> setUseSessionTickets;
+    private final Class<?> sslParametersClass;
 
-    /* renamed from: Companion, reason: from kotlin metadata */
-    @k
-    public static final Companion INSTANCE = new Companion(null);
-    private static final boolean isSupported;
+    /* loaded from: classes5.dex */
+    static final class AndroidCertificateChainCleaner extends CertificateChainCleaner {
+        private final Method checkServerTrusted;
+        private final Object x509TrustManagerExtensions;
 
-    @k
-    private final CloseGuard closeGuard;
-
-    @k
-    private final List<SocketAdapter> socketAdapters;
-
-    @Metadata(d1 = {"\u0000\u001a\n\u0002\u0018\u0002\n\u0002\u0010\u0000\n\u0002\b\u0002\n\u0002\u0010\u000b\n\u0002\b\u0002\n\u0002\u0018\u0002\n\u0000\b\u0086\u0003\u0018\u00002\u00020\u0001B\u0007\b\u0002¢\u0006\u0002\u0010\u0002J\b\u0010\u0006\u001a\u0004\u0018\u00010\u0007R\u0011\u0010\u0003\u001a\u00020\u0004¢\u0006\b\n\u0000\u001a\u0004\b\u0003\u0010\u0005¨\u0006\b"}, d2 = {"Lokhttp3/internal/platform/AndroidPlatform$Companion;", "", "()V", "isSupported", "", "()Z", "buildIfSupported", "Lokhttp3/internal/platform/Platform;", "okhttp"}, k = 1, mv = {1, 6, 0}, xi = 48)
-    public static final class Companion {
-        public /* synthetic */ Companion(DefaultConstructorMarker defaultConstructorMarker) {
-            this();
+        AndroidCertificateChainCleaner(Object obj, Method method) {
+            this.x509TrustManagerExtensions = obj;
+            this.checkServerTrusted = method;
         }
 
-        @l
-        public final Platform buildIfSupported() {
-            if (isSupported()) {
-                return new AndroidPlatform();
+        @Override // okhttp3.internal.tls.CertificateChainCleaner
+        public List<Certificate> clean(List<Certificate> list, String str) throws SSLPeerUnverifiedException {
+            try {
+                return (List) this.checkServerTrusted.invoke(this.x509TrustManagerExtensions, (X509Certificate[]) list.toArray(new X509Certificate[list.size()]), "RSA", str);
+            } catch (IllegalAccessException e2) {
+                throw new AssertionError(e2);
+            } catch (InvocationTargetException e3) {
+                SSLPeerUnverifiedException sSLPeerUnverifiedException = new SSLPeerUnverifiedException(e3.getMessage());
+                sSLPeerUnverifiedException.initCause(e3);
+                throw sSLPeerUnverifiedException;
             }
-            return null;
         }
 
-        public final boolean isSupported() {
-            return AndroidPlatform.isSupported;
+        public boolean equals(Object obj) {
+            return obj instanceof AndroidCertificateChainCleaner;
         }
 
-        private Companion() {
+        public int hashCode() {
+            return 0;
         }
     }
 
-    @Metadata(d1 = {"\u00008\n\u0002\u0018\u0002\n\u0002\u0018\u0002\n\u0000\n\u0002\u0018\u0002\n\u0000\n\u0002\u0018\u0002\n\u0002\b\u0005\n\u0002\u0010\u000b\n\u0000\n\u0002\u0010\u0000\n\u0000\n\u0002\u0018\u0002\n\u0002\b\u0002\n\u0002\u0010\b\n\u0000\n\u0002\u0010\u000e\n\u0000\b\u0080\b\u0018\u00002\u00020\u0001B\u0015\u0012\u0006\u0010\u0002\u001a\u00020\u0003\u0012\u0006\u0010\u0004\u001a\u00020\u0005¢\u0006\u0002\u0010\u0006J\t\u0010\u0007\u001a\u00020\u0003HÂ\u0003J\t\u0010\b\u001a\u00020\u0005HÂ\u0003J\u001d\u0010\t\u001a\u00020\u00002\b\b\u0002\u0010\u0002\u001a\u00020\u00032\b\b\u0002\u0010\u0004\u001a\u00020\u0005HÆ\u0001J\u0013\u0010\n\u001a\u00020\u000b2\b\u0010\f\u001a\u0004\u0018\u00010\rHÖ\u0003J\u0012\u0010\u000e\u001a\u0004\u0018\u00010\u000f2\u0006\u0010\u0010\u001a\u00020\u000fH\u0016J\t\u0010\u0011\u001a\u00020\u0012HÖ\u0001J\t\u0010\u0013\u001a\u00020\u0014HÖ\u0001R\u000e\u0010\u0004\u001a\u00020\u0005X\u0082\u0004¢\u0006\u0002\n\u0000R\u000e\u0010\u0002\u001a\u00020\u0003X\u0082\u0004¢\u0006\u0002\n\u0000¨\u0006\u0015"}, d2 = {"Lokhttp3/internal/platform/AndroidPlatform$CustomTrustRootIndex;", "Lokhttp3/internal/tls/TrustRootIndex;", "trustManager", "Ljavax/net/ssl/X509TrustManager;", "findByIssuerAndSignatureMethod", "Ljava/lang/reflect/Method;", "(Ljavax/net/ssl/X509TrustManager;Ljava/lang/reflect/Method;)V", "component1", "component2", "copy", "equals", "", AdnName.OTHER, "", "findByIssuerAndSignature", "Ljava/security/cert/X509Certificate;", "cert", TTDownloadField.TT_HASHCODE, "", "toString", "", "okhttp"}, k = 1, mv = {1, 6, 0}, xi = 48)
-    public static final /* data */ class CustomTrustRootIndex implements TrustRootIndex {
-
-        @k
+    /* loaded from: classes5.dex */
+    static final class AndroidTrustRootIndex implements TrustRootIndex {
         private final Method findByIssuerAndSignatureMethod;
-
-        @k
         private final X509TrustManager trustManager;
 
-        public CustomTrustRootIndex(@k X509TrustManager trustManager, @k Method findByIssuerAndSignatureMethod) {
-            Intrinsics.checkNotNullParameter(trustManager, "trustManager");
-            Intrinsics.checkNotNullParameter(findByIssuerAndSignatureMethod, "findByIssuerAndSignatureMethod");
-            this.trustManager = trustManager;
-            this.findByIssuerAndSignatureMethod = findByIssuerAndSignatureMethod;
+        AndroidTrustRootIndex(X509TrustManager x509TrustManager, Method method) {
+            this.findByIssuerAndSignatureMethod = method;
+            this.trustManager = x509TrustManager;
         }
 
-        /* renamed from: component1, reason: from getter */
-        private final X509TrustManager getTrustManager() {
-            return this.trustManager;
-        }
-
-        /* renamed from: component2, reason: from getter */
-        private final Method getFindByIssuerAndSignatureMethod() {
-            return this.findByIssuerAndSignatureMethod;
-        }
-
-        public static /* synthetic */ CustomTrustRootIndex copy$default(CustomTrustRootIndex customTrustRootIndex, X509TrustManager x509TrustManager, Method method, int i10, Object obj) {
-            if ((i10 & 1) != 0) {
-                x509TrustManager = customTrustRootIndex.trustManager;
-            }
-            if ((i10 & 2) != 0) {
-                method = customTrustRootIndex.findByIssuerAndSignatureMethod;
-            }
-            return customTrustRootIndex.copy(x509TrustManager, method);
-        }
-
-        @k
-        public final CustomTrustRootIndex copy(@k X509TrustManager trustManager, @k Method findByIssuerAndSignatureMethod) {
-            Intrinsics.checkNotNullParameter(trustManager, "trustManager");
-            Intrinsics.checkNotNullParameter(findByIssuerAndSignatureMethod, "findByIssuerAndSignatureMethod");
-            return new CustomTrustRootIndex(trustManager, findByIssuerAndSignatureMethod);
-        }
-
-        public boolean equals(@l Object r52) {
-            if (this == r52) {
+        public boolean equals(Object obj) {
+            if (obj == this) {
                 return true;
             }
-            if (!(r52 instanceof CustomTrustRootIndex)) {
+            if (!(obj instanceof AndroidTrustRootIndex)) {
                 return false;
             }
-            CustomTrustRootIndex customTrustRootIndex = (CustomTrustRootIndex) r52;
-            return Intrinsics.areEqual(this.trustManager, customTrustRootIndex.trustManager) && Intrinsics.areEqual(this.findByIssuerAndSignatureMethod, customTrustRootIndex.findByIssuerAndSignatureMethod);
+            AndroidTrustRootIndex androidTrustRootIndex = (AndroidTrustRootIndex) obj;
+            return this.trustManager.equals(androidTrustRootIndex.trustManager) && this.findByIssuerAndSignatureMethod.equals(androidTrustRootIndex.findByIssuerAndSignatureMethod);
         }
 
         @Override // okhttp3.internal.tls.TrustRootIndex
-        @l
-        public X509Certificate findByIssuerAndSignature(@k X509Certificate cert) {
-            Intrinsics.checkNotNullParameter(cert, "cert");
+        public X509Certificate findByIssuerAndSignature(X509Certificate x509Certificate) {
             try {
-                Object invoke = this.findByIssuerAndSignatureMethod.invoke(this.trustManager, cert);
-                if (invoke != null) {
-                    return ((TrustAnchor) invoke).getTrustedCert();
+                TrustAnchor trustAnchor = (TrustAnchor) this.findByIssuerAndSignatureMethod.invoke(this.trustManager, x509Certificate);
+                if (trustAnchor != null) {
+                    return trustAnchor.getTrustedCert();
                 }
-                throw new NullPointerException("null cannot be cast to non-null type java.security.cert.TrustAnchor");
-            } catch (IllegalAccessException e10) {
-                throw new AssertionError("unable to get issues and signature", e10);
+                return null;
+            } catch (IllegalAccessException e2) {
+                throw Util.assertionError("unable to get issues and signature", e2);
             } catch (InvocationTargetException unused) {
                 return null;
             }
         }
 
         public int hashCode() {
-            return (this.trustManager.hashCode() * 31) + this.findByIssuerAndSignatureMethod.hashCode();
-        }
-
-        @k
-        public String toString() {
-            return "CustomTrustRootIndex(trustManager=" + this.trustManager + ", findByIssuerAndSignatureMethod=" + this.findByIssuerAndSignatureMethod + ')';
+            return this.trustManager.hashCode() + (this.findByIssuerAndSignatureMethod.hashCode() * 31);
         }
     }
 
-    static {
-        boolean z10 = false;
-        if (Platform.INSTANCE.isAndroid() && Build.VERSION.SDK_INT < 30) {
-            z10 = true;
-        }
-        isSupported = z10;
-    }
+    /* loaded from: classes5.dex */
+    static final class CloseGuard {
+        private final Method getMethod;
+        private final Method openMethod;
+        private final Method warnIfOpenMethod;
 
-    public AndroidPlatform() {
-        List listOfNotNull = CollectionsKt.listOfNotNull((Object[]) new SocketAdapter[]{StandardAndroidSocketAdapter.Companion.buildIfSupported$default(StandardAndroidSocketAdapter.INSTANCE, null, 1, null), new DeferredSocketAdapter(AndroidSocketAdapter.INSTANCE.getPlayProviderFactory()), new DeferredSocketAdapter(ConscryptSocketAdapter.INSTANCE.getFactory()), new DeferredSocketAdapter(BouncyCastleSocketAdapter.INSTANCE.getFactory())});
-        ArrayList arrayList = new ArrayList();
-        for (Object obj : listOfNotNull) {
-            if (((SocketAdapter) obj).isSupported()) {
-                arrayList.add(obj);
+        CloseGuard(Method method, Method method2, Method method3) {
+            this.getMethod = method;
+            this.openMethod = method2;
+            this.warnIfOpenMethod = method3;
+        }
+
+        static CloseGuard get() {
+            Method method;
+            Method method2;
+            Method method3 = null;
+            try {
+                Class<?> cls = Class.forName("dalvik.system.CloseGuard");
+                Method method4 = cls.getMethod(MonitorConstants.CONNECT_TYPE_GET, new Class[0]);
+                method2 = cls.getMethod("open", String.class);
+                method = cls.getMethod("warnIfOpen", new Class[0]);
+                method3 = method4;
+            } catch (Exception unused) {
+                method = null;
+                method2 = null;
             }
+            return new CloseGuard(method3, method2, method);
         }
-        this.socketAdapters = arrayList;
-        this.closeGuard = CloseGuard.INSTANCE.get();
-    }
 
-    @Override // okhttp3.internal.platform.Platform
-    @k
-    public CertificateChainCleaner buildCertificateChainCleaner(@k X509TrustManager trustManager) {
-        Intrinsics.checkNotNullParameter(trustManager, "trustManager");
-        AndroidCertificateChainCleaner buildIfSupported = AndroidCertificateChainCleaner.INSTANCE.buildIfSupported(trustManager);
-        return buildIfSupported == null ? super.buildCertificateChainCleaner(trustManager) : buildIfSupported;
-    }
-
-    @Override // okhttp3.internal.platform.Platform
-    @k
-    public TrustRootIndex buildTrustRootIndex(@k X509TrustManager trustManager) {
-        Intrinsics.checkNotNullParameter(trustManager, "trustManager");
-        try {
-            Method method = trustManager.getClass().getDeclaredMethod("findTrustAnchorByIssuerAndSignature", X509Certificate.class);
-            method.setAccessible(true);
-            Intrinsics.checkNotNullExpressionValue(method, "method");
-            return new CustomTrustRootIndex(trustManager, method);
-        } catch (NoSuchMethodException unused) {
-            return super.buildTrustRootIndex(trustManager);
-        }
-    }
-
-    @Override // okhttp3.internal.platform.Platform
-    public void configureTlsExtensions(@k SSLSocket sslSocket, @l String hostname, @k List<Protocol> protocols) {
-        Object obj;
-        Intrinsics.checkNotNullParameter(sslSocket, "sslSocket");
-        Intrinsics.checkNotNullParameter(protocols, "protocols");
-        Iterator<T> it = this.socketAdapters.iterator();
-        while (true) {
-            if (!it.hasNext()) {
-                obj = null;
-                break;
-            } else {
-                obj = it.next();
-                if (((SocketAdapter) obj).matchesSocket(sslSocket)) {
-                    break;
+        Object createAndOpen(String str) {
+            Method method = this.getMethod;
+            if (method != null) {
+                try {
+                    Object invoke = method.invoke(null, new Object[0]);
+                    this.openMethod.invoke(invoke, str);
+                    return invoke;
+                } catch (Exception unused) {
                 }
             }
-        }
-        SocketAdapter socketAdapter = (SocketAdapter) obj;
-        if (socketAdapter == null) {
-            return;
-        }
-        socketAdapter.configureTlsExtensions(sslSocket, hostname, protocols);
-    }
-
-    @Override // okhttp3.internal.platform.Platform
-    public void connectSocket(@k Socket socket, @k InetSocketAddress address, int connectTimeout) throws IOException {
-        Intrinsics.checkNotNullParameter(socket, "socket");
-        Intrinsics.checkNotNullParameter(address, "address");
-        try {
-            socket.connect(address, connectTimeout);
-        } catch (ClassCastException e10) {
-            if (Build.VERSION.SDK_INT != 26) {
-                throw e10;
-            }
-            throw new IOException("Exception in connect", e10);
-        }
-    }
-
-    @Override // okhttp3.internal.platform.Platform
-    @l
-    public String getSelectedProtocol(@k SSLSocket sslSocket) {
-        Object obj;
-        Intrinsics.checkNotNullParameter(sslSocket, "sslSocket");
-        Iterator<T> it = this.socketAdapters.iterator();
-        while (true) {
-            if (!it.hasNext()) {
-                obj = null;
-                break;
-            }
-            obj = it.next();
-            if (((SocketAdapter) obj).matchesSocket(sslSocket)) {
-                break;
-            }
-        }
-        SocketAdapter socketAdapter = (SocketAdapter) obj;
-        if (socketAdapter == null) {
             return null;
         }
-        return socketAdapter.getSelectedProtocol(sslSocket);
-    }
 
-    @Override // okhttp3.internal.platform.Platform
-    @l
-    public Object getStackTraceForCloseable(@k String closer) {
-        Intrinsics.checkNotNullParameter(closer, "closer");
-        return this.closeGuard.createAndOpen(closer);
-    }
-
-    @Override // okhttp3.internal.platform.Platform
-    public boolean isCleartextTrafficPermitted(@k String hostname) {
-        NetworkSecurityPolicy networkSecurityPolicy;
-        boolean isCleartextTrafficPermitted;
-        NetworkSecurityPolicy networkSecurityPolicy2;
-        boolean isCleartextTrafficPermitted2;
-        Intrinsics.checkNotNullParameter(hostname, "hostname");
-        int i10 = Build.VERSION.SDK_INT;
-        if (i10 >= 24) {
-            networkSecurityPolicy2 = NetworkSecurityPolicy.getInstance();
-            isCleartextTrafficPermitted2 = networkSecurityPolicy2.isCleartextTrafficPermitted(hostname);
-            return isCleartextTrafficPermitted2;
+        boolean warnIfOpen(Object obj) {
+            if (obj == null) {
+                return false;
+            }
+            try {
+                this.warnIfOpenMethod.invoke(obj, new Object[0]);
+                return true;
+            } catch (Exception unused) {
+                return false;
+            }
         }
-        if (i10 < 23) {
+    }
+
+    AndroidPlatform(Class<?> cls, OptionalMethod<Socket> optionalMethod, OptionalMethod<Socket> optionalMethod2, OptionalMethod<Socket> optionalMethod3, OptionalMethod<Socket> optionalMethod4) {
+        this.sslParametersClass = cls;
+        this.setUseSessionTickets = optionalMethod;
+        this.setHostname = optionalMethod2;
+        this.getAlpnSelectedProtocol = optionalMethod3;
+        this.setAlpnProtocols = optionalMethod4;
+    }
+
+    private boolean api23IsCleartextTrafficPermitted(String str, Class<?> cls, Object obj) throws InvocationTargetException, IllegalAccessException {
+        try {
+            return ((Boolean) cls.getMethod("isCleartextTrafficPermitted", new Class[0]).invoke(obj, new Object[0])).booleanValue();
+        } catch (NoSuchMethodException unused) {
+            return super.isCleartextTrafficPermitted(str);
+        }
+    }
+
+    private boolean api24IsCleartextTrafficPermitted(String str, Class<?> cls, Object obj) throws InvocationTargetException, IllegalAccessException {
+        try {
+            return ((Boolean) cls.getMethod("isCleartextTrafficPermitted", String.class).invoke(obj, str)).booleanValue();
+        } catch (NoSuchMethodException unused) {
+            return api23IsCleartextTrafficPermitted(str, cls, obj);
+        }
+    }
+
+    public static Platform buildIfSupported() {
+        Class<?> cls;
+        OptionalMethod optionalMethod;
+        OptionalMethod optionalMethod2;
+        try {
+            try {
+                cls = Class.forName("com.android.org.conscrypt.SSLParametersImpl");
+            } catch (ClassNotFoundException unused) {
+                cls = Class.forName("org.apache.harmony.xnet.provider.jsse.SSLParametersImpl");
+            }
+            Class<?> cls2 = cls;
+            OptionalMethod optionalMethod3 = new OptionalMethod(null, "setUseSessionTickets", Boolean.TYPE);
+            OptionalMethod optionalMethod4 = new OptionalMethod(null, "setHostname", String.class);
+            if (supportsAlpn()) {
+                OptionalMethod optionalMethod5 = new OptionalMethod(byte[].class, "getAlpnSelectedProtocol", new Class[0]);
+                optionalMethod2 = new OptionalMethod(null, "setAlpnProtocols", byte[].class);
+                optionalMethod = optionalMethod5;
+            } else {
+                optionalMethod = null;
+                optionalMethod2 = null;
+            }
+            return new AndroidPlatform(cls2, optionalMethod3, optionalMethod4, optionalMethod, optionalMethod2);
+        } catch (ClassNotFoundException unused2) {
+            return null;
+        }
+    }
+
+    private static boolean supportsAlpn() {
+        if (Security.getProvider("GMSCore_OpenSSL") != null) {
             return true;
         }
-        networkSecurityPolicy = NetworkSecurityPolicy.getInstance();
-        isCleartextTrafficPermitted = networkSecurityPolicy.isCleartextTrafficPermitted();
-        return isCleartextTrafficPermitted;
+        try {
+            Class.forName("android.net.Network");
+            return true;
+        } catch (ClassNotFoundException unused) {
+            return false;
+        }
     }
 
     @Override // okhttp3.internal.platform.Platform
-    public void logCloseableLeak(@k String r72, @l Object stackTrace) {
-        Intrinsics.checkNotNullParameter(r72, "message");
-        if (this.closeGuard.warnIfOpen(stackTrace)) {
+    public CertificateChainCleaner buildCertificateChainCleaner(X509TrustManager x509TrustManager) {
+        try {
+            Class<?> cls = Class.forName("android.net.http.X509TrustManagerExtensions");
+            return new AndroidCertificateChainCleaner(cls.getConstructor(X509TrustManager.class).newInstance(x509TrustManager), cls.getMethod("checkServerTrusted", X509Certificate[].class, String.class, String.class));
+        } catch (Exception unused) {
+            return super.buildCertificateChainCleaner(x509TrustManager);
+        }
+    }
+
+    @Override // okhttp3.internal.platform.Platform
+    public TrustRootIndex buildTrustRootIndex(X509TrustManager x509TrustManager) {
+        try {
+            Method declaredMethod = x509TrustManager.getClass().getDeclaredMethod("findTrustAnchorByIssuerAndSignature", X509Certificate.class);
+            declaredMethod.setAccessible(true);
+            return new AndroidTrustRootIndex(x509TrustManager, declaredMethod);
+        } catch (NoSuchMethodException unused) {
+            return super.buildTrustRootIndex(x509TrustManager);
+        }
+    }
+
+    @Override // okhttp3.internal.platform.Platform
+    public void configureTlsExtensions(SSLSocket sSLSocket, String str, List<Protocol> list) {
+        if (str != null) {
+            this.setUseSessionTickets.invokeOptionalWithoutCheckedException(sSLSocket, Boolean.TRUE);
+            this.setHostname.invokeOptionalWithoutCheckedException(sSLSocket, str);
+        }
+        OptionalMethod<Socket> optionalMethod = this.setAlpnProtocols;
+        if (optionalMethod == null || !optionalMethod.isSupported(sSLSocket)) {
             return;
         }
-        Platform.log$default(this, r72, 5, null, 4, null);
+        this.setAlpnProtocols.invokeWithoutCheckedException(sSLSocket, Platform.concatLengthPrefixed(list));
     }
 
     @Override // okhttp3.internal.platform.Platform
-    @l
-    public X509TrustManager trustManager(@k SSLSocketFactory sslSocketFactory) {
-        Object obj;
-        Intrinsics.checkNotNullParameter(sslSocketFactory, "sslSocketFactory");
-        Iterator<T> it = this.socketAdapters.iterator();
-        while (true) {
-            if (!it.hasNext()) {
-                obj = null;
-                break;
+    public void connectSocket(Socket socket, InetSocketAddress inetSocketAddress, int i2) throws IOException {
+        try {
+            socket.connect(inetSocketAddress, i2);
+        } catch (AssertionError e2) {
+            if (!Util.isAndroidGetsocknameError(e2)) {
+                throw e2;
             }
-            obj = it.next();
-            if (((SocketAdapter) obj).matchesSocketFactory(sslSocketFactory)) {
-                break;
+            throw new IOException(e2);
+        } catch (ClassCastException e3) {
+            if (Build.VERSION.SDK_INT != 26) {
+                throw e3;
+            }
+            IOException iOException = new IOException("Exception in connect");
+            iOException.initCause(e3);
+            throw iOException;
+        } catch (SecurityException e4) {
+            IOException iOException2 = new IOException("Exception in connect");
+            iOException2.initCause(e4);
+            throw iOException2;
+        }
+    }
+
+    @Override // okhttp3.internal.platform.Platform
+    public SSLContext getSSLContext() {
+        boolean z = true;
+        try {
+            int i2 = Build.VERSION.SDK_INT;
+            if (i2 < 16 || i2 >= 22) {
+                z = false;
+            }
+        } catch (NoClassDefFoundError unused) {
+        }
+        if (z) {
+            try {
+                return SSLContext.getInstance("TLSv1.2");
+            } catch (NoSuchAlgorithmException unused2) {
             }
         }
-        SocketAdapter socketAdapter = (SocketAdapter) obj;
-        if (socketAdapter == null) {
+        try {
+            return SSLContext.getInstance("TLS");
+        } catch (NoSuchAlgorithmException e2) {
+            throw new IllegalStateException("No TLS provider", e2);
+        }
+    }
+
+    @Override // okhttp3.internal.platform.Platform
+    @Nullable
+    public String getSelectedProtocol(SSLSocket sSLSocket) {
+        byte[] bArr;
+        OptionalMethod<Socket> optionalMethod = this.getAlpnSelectedProtocol;
+        if (optionalMethod == null || !optionalMethod.isSupported(sSLSocket) || (bArr = (byte[]) this.getAlpnSelectedProtocol.invokeWithoutCheckedException(sSLSocket, new Object[0])) == null) {
             return null;
         }
-        return socketAdapter.trustManager(sslSocketFactory);
+        return new String(bArr, Util.UTF_8);
+    }
+
+    @Override // okhttp3.internal.platform.Platform
+    public Object getStackTraceForCloseable(String str) {
+        return this.closeGuard.createAndOpen(str);
+    }
+
+    @Override // okhttp3.internal.platform.Platform
+    public boolean isCleartextTrafficPermitted(String str) {
+        try {
+            Class<?> cls = Class.forName("android.security.NetworkSecurityPolicy");
+            return api24IsCleartextTrafficPermitted(str, cls, cls.getMethod("getInstance", new Class[0]).invoke(null, new Object[0]));
+        } catch (ClassNotFoundException | NoSuchMethodException unused) {
+            return super.isCleartextTrafficPermitted(str);
+        } catch (IllegalAccessException e2) {
+            e = e2;
+            throw Util.assertionError("unable to determine cleartext support", e);
+        } catch (IllegalArgumentException e3) {
+            e = e3;
+            throw Util.assertionError("unable to determine cleartext support", e);
+        } catch (InvocationTargetException e4) {
+            e = e4;
+            throw Util.assertionError("unable to determine cleartext support", e);
+        }
+    }
+
+    @Override // okhttp3.internal.platform.Platform
+    public void log(int i2, String str, @Nullable Throwable th) {
+        int min;
+        int i3 = i2 != 5 ? 3 : 5;
+        if (th != null) {
+            str = str + '\n' + Log.getStackTraceString(th);
+        }
+        int i4 = 0;
+        int length = str.length();
+        while (i4 < length) {
+            int indexOf = str.indexOf(10, i4);
+            if (indexOf == -1) {
+                indexOf = length;
+            }
+            while (true) {
+                min = Math.min(indexOf, i4 + MAX_LOG_LENGTH);
+                Log.println(i3, "OkHttp", str.substring(i4, min));
+                if (min >= indexOf) {
+                    break;
+                } else {
+                    i4 = min;
+                }
+            }
+            i4 = min + 1;
+        }
+    }
+
+    @Override // okhttp3.internal.platform.Platform
+    public void logCloseableLeak(String str, Object obj) {
+        if (this.closeGuard.warnIfOpen(obj)) {
+            return;
+        }
+        log(5, str, null);
+    }
+
+    @Override // okhttp3.internal.platform.Platform
+    @Nullable
+    protected X509TrustManager trustManager(SSLSocketFactory sSLSocketFactory) {
+        Object readFieldOrNull = Platform.readFieldOrNull(sSLSocketFactory, this.sslParametersClass, "sslParameters");
+        if (readFieldOrNull == null) {
+            try {
+                readFieldOrNull = Platform.readFieldOrNull(sSLSocketFactory, Class.forName("com.google.android.gms.org.conscrypt.SSLParametersImpl", false, sSLSocketFactory.getClass().getClassLoader()), "sslParameters");
+            } catch (ClassNotFoundException unused) {
+                return super.trustManager(sSLSocketFactory);
+            }
+        }
+        X509TrustManager x509TrustManager = (X509TrustManager) Platform.readFieldOrNull(readFieldOrNull, X509TrustManager.class, "x509TrustManager");
+        return x509TrustManager != null ? x509TrustManager : (X509TrustManager) Platform.readFieldOrNull(readFieldOrNull, X509TrustManager.class, "trustManager");
     }
 }

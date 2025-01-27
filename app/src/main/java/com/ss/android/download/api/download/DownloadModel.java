@@ -1,7 +1,7 @@
 package com.ss.android.download.api.download;
 
 import com.ss.android.download.api.model.DeepLink;
-import com.ss.android.download.api.model.d;
+import com.ss.android.download.api.model.g;
 import com.ss.android.socialbase.downloader.constants.ExecutorGroup;
 import com.ss.android.socialbase.downloader.depend.IDownloadFileUriProvider;
 import java.util.List;
@@ -69,7 +69,7 @@ public interface DownloadModel {
 
     String getPackageName();
 
-    d getQuickAppModel();
+    g getQuickAppModel();
 
     String getSdkMonitorScene();
 

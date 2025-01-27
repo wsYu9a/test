@@ -11,7 +11,7 @@ import androidx.annotation.RawRes;
 import java.io.File;
 import java.net.URL;
 
-/* loaded from: classes2.dex */
+/* loaded from: classes.dex */
 interface ModelTypes<T> {
     @NonNull
     @CheckResult

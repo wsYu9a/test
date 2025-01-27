@@ -5,84 +5,58 @@ import android.content.res.TypedArray;
 import android.util.AttributeSet;
 import android.widget.RelativeLayout;
 import androidx.core.content.ContextCompat;
-import com.martian.libmars.R;
-import com.martian.libmars.common.ConfigSingleton;
-import k9.a;
+import com.martian.libmars.d.h;
+import com.martian.theme.yellow.R;
+import g.a;
 
-/* loaded from: classes3.dex */
+/* loaded from: classes2.dex */
 public class ThemeRelativeLayout extends RelativeLayout implements a {
 
-    /* renamed from: b */
-    public int f12388b;
+    /* renamed from: a */
+    private int f10103a;
 
     public ThemeRelativeLayout(Context context) {
         super(context);
     }
 
-    private void a(Context context, AttributeSet attributeSet) {
-        TypedArray obtainStyledAttributes = context.obtainStyledAttributes(attributeSet, R.styleable.ThemeRelativeLayout);
-        this.f12388b = obtainStyledAttributes.getColor(R.styleable.ThemeRelativeLayout_relativeBackgroundType, 0);
+    private void a(Context context, AttributeSet attrs) {
+        TypedArray obtainStyledAttributes = context.obtainStyledAttributes(attrs, R.styleable.ThemeLinearLayout);
+        this.f10103a = obtainStyledAttributes.getColor(R.styleable.ThemeLinearLayout_backgroundType, 0);
         obtainStyledAttributes.recycle();
     }
 
-    @Override // android.view.ViewGroup, android.view.View
-    public void onAttachedToWindow() {
-        super.onAttachedToWindow();
-        p();
-        ConfigSingleton.D().h(this);
-    }
-
-    @Override // android.view.ViewGroup, android.view.View
-    public void onDetachedFromWindow() {
-        super.onDetachedFromWindow();
-        ConfigSingleton.D().X0(this);
-    }
-
-    @Override // k9.a
-    public void p() {
-        int i10;
-        if (isInEditMode() || this.f12388b < 0) {
-            return;
-        }
-        if (ConfigSingleton.D().A0()) {
-            int i11 = this.f12388b;
-            if (i11 == 1) {
-                i10 = R.color.night_background_secondary;
-            } else {
-                if (i11 == 3) {
-                    setBackgroundResource(R.drawable.border_background_top_round_night_16dp);
-                    return;
-                }
-                i10 = i11 == 4 ? R.color.night_background_card : R.color.night_background;
-            }
+    @Override // g.a
+    public void g() {
+        int i2;
+        if (h.F().I0()) {
+            i2 = this.f10103a == 1 ? com.martian.libmars.R.color.night_background_secondary : com.martian.libmars.R.color.night_background;
         } else {
-            int i12 = this.f12388b;
-            if (i12 == 1) {
-                i10 = R.color.light_grey;
-            } else if (i12 == 2) {
-                i10 = R.color.light_grey_bg;
-            } else {
-                if (i12 == 3) {
-                    setBackgroundResource(R.drawable.border_background_top_round_day_16dp);
-                    return;
-                }
-                i10 = i12 == 4 ? R.color.white : R.color.white;
-            }
+            int i3 = this.f10103a;
+            i2 = i3 == 1 ? com.martian.libmars.R.color.light_grey : i3 == 2 ? com.martian.libmars.R.color.light_grey_bg : com.martian.libmars.R.color.white;
         }
-        setBackgroundColor(ContextCompat.getColor(getContext(), i10));
+        setBackgroundColor(ContextCompat.getColor(getContext(), i2));
     }
 
-    public void setType(int i10) {
-        this.f12388b = i10;
+    @Override // android.view.ViewGroup, android.view.View
+    protected void onAttachedToWindow() {
+        super.onAttachedToWindow();
+        g();
+        h.F().a(this);
     }
 
-    public ThemeRelativeLayout(Context context, AttributeSet attributeSet) {
-        super(context, attributeSet);
-        a(context, attributeSet);
+    @Override // android.view.ViewGroup, android.view.View
+    protected void onDetachedFromWindow() {
+        super.onDetachedFromWindow();
+        h.F().j1(this);
     }
 
-    public ThemeRelativeLayout(Context context, AttributeSet attributeSet, int i10) {
-        super(context, attributeSet, i10);
-        a(context, attributeSet);
+    public ThemeRelativeLayout(Context context, AttributeSet attrs) {
+        super(context, attrs);
+        a(context, attrs);
+    }
+
+    public ThemeRelativeLayout(Context context, AttributeSet attrs, int defStyleAttr) {
+        super(context, attrs, defStyleAttr);
+        a(context, attrs);
     }
 }

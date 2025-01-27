@@ -6,13 +6,16 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.util.Queue;
 
-/* loaded from: classes2.dex */
+/* loaded from: classes.dex */
 public class ExceptionCatchingInputStream extends InputStream {
     private static final Queue<ExceptionCatchingInputStream> QUEUE = Util.createQueue(0);
     private IOException exception;
     private InputStream wrapped;
 
-    public static void clearQueue() {
+    ExceptionCatchingInputStream() {
+    }
+
+    static void clearQueue() {
         while (true) {
             Queue<ExceptionCatchingInputStream> queue = QUEUE;
             if (queue.isEmpty()) {
@@ -53,8 +56,8 @@ public class ExceptionCatchingInputStream extends InputStream {
     }
 
     @Override // java.io.InputStream
-    public void mark(int i10) {
-        this.wrapped.mark(i10);
+    public void mark(int i2) {
+        this.wrapped.mark(i2);
     }
 
     @Override // java.io.InputStream
@@ -66,8 +69,8 @@ public class ExceptionCatchingInputStream extends InputStream {
     public int read(byte[] bArr) {
         try {
             return this.wrapped.read(bArr);
-        } catch (IOException e10) {
-            this.exception = e10;
+        } catch (IOException e2) {
+            this.exception = e2;
             return -1;
         }
     }
@@ -86,26 +89,26 @@ public class ExceptionCatchingInputStream extends InputStream {
         this.wrapped.reset();
     }
 
-    public void setInputStream(@NonNull InputStream inputStream) {
+    void setInputStream(@NonNull InputStream inputStream) {
         this.wrapped = inputStream;
     }
 
     @Override // java.io.InputStream
-    public long skip(long j10) {
+    public long skip(long j2) {
         try {
-            return this.wrapped.skip(j10);
-        } catch (IOException e10) {
-            this.exception = e10;
+            return this.wrapped.skip(j2);
+        } catch (IOException e2) {
+            this.exception = e2;
             return 0L;
         }
     }
 
     @Override // java.io.InputStream
-    public int read(byte[] bArr, int i10, int i11) {
+    public int read(byte[] bArr, int i2, int i3) {
         try {
-            return this.wrapped.read(bArr, i10, i11);
-        } catch (IOException e10) {
-            this.exception = e10;
+            return this.wrapped.read(bArr, i2, i3);
+        } catch (IOException e2) {
+            this.exception = e2;
             return -1;
         }
     }
@@ -114,8 +117,8 @@ public class ExceptionCatchingInputStream extends InputStream {
     public int read() {
         try {
             return this.wrapped.read();
-        } catch (IOException e10) {
-            this.exception = e10;
+        } catch (IOException e2) {
+            this.exception = e2;
             return -1;
         }
     }

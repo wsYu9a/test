@@ -3,32 +3,31 @@ package com.kwad.sdk.service;
 import android.annotation.SuppressLint;
 import android.content.Context;
 import androidx.annotation.NonNull;
-import com.kwad.components.offline.api.BuildConfig;
 import com.kwad.sdk.api.SdkConfig;
-import com.kwad.sdk.n.m;
-import com.kwad.sdk.service.a.e;
+import com.kwad.sdk.j.k;
+import com.kwad.sdk.service.kwai.d;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.concurrent.CopyOnWriteArrayList;
 
-/* loaded from: classes3.dex */
+/* loaded from: classes2.dex */
 public final class ServiceProvider {
-    private static List<Throwable> LD;
+    private static List<Throwable> Iq;
 
     @SuppressLint({"StaticFieldLeak"})
-    private static Context aSo;
+    private static Context ayL;
 
     @SuppressLint({"StaticFieldLeak"})
-    private static Context aSp;
-    private static SdkConfig aSq;
-    private static boolean aSr;
+    private static Context ayM;
+    private static SdkConfig ayN;
+    private static boolean ayO;
 
     @SuppressLint({"StaticFieldLeak"})
     private static Context mContext;
 
-    public enum ServiceProviderDelegate {
+    enum ServiceProviderDelegate {
         INSTANCE;
 
         private final Map<Class<?>, Object> mProviders = new HashMap(32);
@@ -40,44 +39,31 @@ public final class ServiceProvider {
             return (T) this.mProviders.get(cls);
         }
 
-        public final <T> void put(Class<T> cls, T t10) {
-            this.mProviders.put(cls, t10);
+        public final <T> void put(Class<T> cls, T t) {
+            this.mProviders.put(cls, t);
         }
     }
 
     @NonNull
-    @Deprecated
-    public static Context MA() {
+    public static Context CA() {
         return mContext;
     }
 
     @NonNull
-    public static SdkConfig MB() {
-        return aSq;
+    public static SdkConfig CB() {
+        return ayN;
     }
 
-    public static void Mz() {
-        aSr = true;
+    public static void Cz() {
+        ayO = true;
     }
 
-    private static void b(Throwable th2) {
-        if (LD == null) {
-            LD = new CopyOnWriteArrayList();
-        }
-        LD.add(th2);
+    public static void a(SdkConfig sdkConfig) {
+        ayN = sdkConfig;
     }
 
-    public static void bT(Context context) {
-        aSo = context;
-        mContext = m.dN(context);
-    }
-
-    public static void c(SdkConfig sdkConfig) {
-        aSq = sdkConfig;
-    }
-
-    public static void f(com.kwad.sdk.f.a<Throwable> aVar) {
-        List<Throwable> list = LD;
+    public static void b(com.kwad.sdk.e.a<Throwable> aVar) {
+        List<Throwable> list = Iq;
         if (list == null) {
             return;
         }
@@ -85,47 +71,47 @@ public final class ServiceProvider {
         while (it.hasNext()) {
             aVar.accept(it.next());
         }
-        LD.clear();
-        LD = null;
+        Iq.clear();
+        Iq = null;
+    }
+
+    public static void b(Throwable th) {
+        d dVar = (d) get(d.class);
+        if (dVar != null) {
+            dVar.gatherException(th);
+        } else {
+            c(th);
+        }
+    }
+
+    public static void bt(Context context) {
+        ayL = context;
+        mContext = k.dp(context);
+    }
+
+    private static void c(Throwable th) {
+        if (Iq == null) {
+            Iq = new CopyOnWriteArrayList();
+        }
+        Iq.add(th);
     }
 
     public static <T> T get(Class<T> cls) {
         return (T) ServiceProviderDelegate.INSTANCE.get(cls);
     }
 
-    public static String getAppId() {
-        return aSq.appId;
-    }
-
-    public static String getAppName() {
-        return aSq.appName;
-    }
-
     @NonNull
     public static Context getContext() {
-        if (aSr) {
-            return MA();
+        if (ayO) {
+            return CA();
         }
-        if (aSp == null) {
-            aSp = m.wrapContextIfNeed(mContext);
+        if (ayM == null) {
+            ayM = k.wrapContextIfNeed(mContext);
         }
-        return aSp;
+        return ayM;
     }
 
-    public static String getSdkVersion() {
-        return BuildConfig.VERSION_NAME;
-    }
-
-    public static <T> void put(Class<T> cls, T t10) {
-        ServiceProviderDelegate.INSTANCE.put(cls, t10);
-    }
-
-    public static void reportSdkCaughtException(Throwable th2) {
-        e eVar = (e) get(e.class);
-        if (eVar != null) {
-            eVar.gatherException(th2);
-        } else {
-            b(th2);
-        }
+    public static <T> void put(Class<T> cls, T t) {
+        ServiceProviderDelegate.INSTANCE.put(cls, t);
     }
 }

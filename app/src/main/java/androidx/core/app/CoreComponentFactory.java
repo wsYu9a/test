@@ -21,38 +21,38 @@ public class CoreComponentFactory extends android.app.AppComponentFactory {
         Object getWrapper();
     }
 
-    public static <T> T checkCompatWrapper(T t10) {
-        T t11;
-        return (!(t10 instanceof CompatWrapped) || (t11 = (T) ((CompatWrapped) t10).getWrapper()) == null) ? t10 : t11;
+    static <T> T a(T t) {
+        T t2;
+        return (!(t instanceof CompatWrapped) || (t2 = (T) ((CompatWrapped) t).getWrapper()) == null) ? t : t2;
     }
 
     @Override // android.app.AppComponentFactory
     @NonNull
     public Activity instantiateActivity(@NonNull ClassLoader classLoader, @NonNull String str, @Nullable Intent intent) throws InstantiationException, IllegalAccessException, ClassNotFoundException {
-        return (Activity) checkCompatWrapper(super.instantiateActivity(classLoader, str, intent));
+        return (Activity) a(super.instantiateActivity(classLoader, str, intent));
     }
 
     @Override // android.app.AppComponentFactory
     @NonNull
     public Application instantiateApplication(@NonNull ClassLoader classLoader, @NonNull String str) throws InstantiationException, IllegalAccessException, ClassNotFoundException {
-        return (Application) checkCompatWrapper(super.instantiateApplication(classLoader, str));
+        return (Application) a(super.instantiateApplication(classLoader, str));
     }
 
     @Override // android.app.AppComponentFactory
     @NonNull
     public ContentProvider instantiateProvider(@NonNull ClassLoader classLoader, @NonNull String str) throws InstantiationException, IllegalAccessException, ClassNotFoundException {
-        return (ContentProvider) checkCompatWrapper(super.instantiateProvider(classLoader, str));
+        return (ContentProvider) a(super.instantiateProvider(classLoader, str));
     }
 
     @Override // android.app.AppComponentFactory
     @NonNull
     public BroadcastReceiver instantiateReceiver(@NonNull ClassLoader classLoader, @NonNull String str, @Nullable Intent intent) throws InstantiationException, IllegalAccessException, ClassNotFoundException {
-        return (BroadcastReceiver) checkCompatWrapper(super.instantiateReceiver(classLoader, str, intent));
+        return (BroadcastReceiver) a(super.instantiateReceiver(classLoader, str, intent));
     }
 
     @Override // android.app.AppComponentFactory
     @NonNull
     public Service instantiateService(@NonNull ClassLoader classLoader, @NonNull String str, @Nullable Intent intent) throws InstantiationException, IllegalAccessException, ClassNotFoundException {
-        return (Service) checkCompatWrapper(super.instantiateService(classLoader, str, intent));
+        return (Service) a(super.instantiateService(classLoader, str, intent));
     }
 }

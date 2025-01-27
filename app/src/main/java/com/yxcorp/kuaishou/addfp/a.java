@@ -3,16 +3,16 @@ package com.yxcorp.kuaishou.addfp;
 import android.content.Context;
 import android.os.Build;
 import com.yxcorp.kuaishou.addfp.android.a.c;
-import com.yxcorp.kuaishou.addfp.android.b.e;
+import com.yxcorp.kuaishou.addfp.android.b.f;
 
-/* loaded from: classes4.dex */
+/* loaded from: classes5.dex */
 class a implements Runnable {
 
     /* renamed from: a */
-    final /* synthetic */ KWEGIDDFP f25166a;
+    final /* synthetic */ KWEGIDDFP f34687a;
 
-    public a(KWEGIDDFP kwegiddfp) {
-        this.f25166a = kwegiddfp;
+    a(KWEGIDDFP kwegiddfp) {
+        this.f34687a = kwegiddfp;
     }
 
     @Override // java.lang.Runnable
@@ -24,28 +24,28 @@ class a implements Runnable {
         ResponseDfpCallback responseDfpCallback2;
         Context unused;
         try {
-            context = this.f25166a.mParamContext;
+            context = this.f34687a.mParamContext;
             if (context == null) {
-                responseDfpCallback2 = this.f25166a.mCallBack;
+                responseDfpCallback2 = this.f34687a.mCallBack;
                 responseDfpCallback2.onFailed(-3, "parameter error");
                 return;
             }
-            unused = this.f25166a.mParamContext;
-            int i10 = e.f25186c;
+            unused = this.f34687a.mParamContext;
+            int i2 = f.f34708c;
             if (Build.VERSION.SDK_INT >= 28) {
-                e.a();
+                f.a();
             }
-            KWEGIDDFP kwegiddfp = this.f25166a;
+            KWEGIDDFP kwegiddfp = this.f34687a;
             context2 = kwegiddfp.mParamContext;
             kwegiddfp.mPkgName = context2.getPackageName();
-            c c10 = c.c();
-            str = this.f25166a.mPkgName;
-            c10.b(str);
-            KWEGIDDFP kwegiddfp2 = this.f25166a;
+            c c2 = c.c();
+            str = this.f34687a.mPkgName;
+            c2.b(str);
+            KWEGIDDFP kwegiddfp2 = this.f34687a;
             responseDfpCallback = kwegiddfp2.mCallBack;
             kwegiddfp2.getEGid(responseDfpCallback);
-        } catch (Throwable th2) {
-            th2.printStackTrace();
+        } catch (Throwable th) {
+            th.printStackTrace();
         }
     }
 }

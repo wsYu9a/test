@@ -19,10 +19,12 @@ import java.util.List;
 public class FragmentTransitionSupport extends FragmentTransitionImpl {
 
     /* renamed from: androidx.transition.FragmentTransitionSupport$1 */
-    public class AnonymousClass1 extends Transition.EpicenterCallback {
-        final /* synthetic */ Rect val$epicenter;
+    class AnonymousClass1 extends Transition.EpicenterCallback {
 
-        public AnonymousClass1(Rect rect) {
+        /* renamed from: a */
+        final /* synthetic */ Rect f3747a;
+
+        AnonymousClass1(Rect rect) {
             rect = rect;
         }
 
@@ -33,11 +35,15 @@ public class FragmentTransitionSupport extends FragmentTransitionImpl {
     }
 
     /* renamed from: androidx.transition.FragmentTransitionSupport$2 */
-    public class AnonymousClass2 implements Transition.TransitionListener {
-        final /* synthetic */ ArrayList val$exitingViews;
-        final /* synthetic */ View val$fragmentView;
+    class AnonymousClass2 implements Transition.TransitionListener {
 
-        public AnonymousClass2(View view, ArrayList arrayList) {
+        /* renamed from: a */
+        final /* synthetic */ View f3749a;
+
+        /* renamed from: b */
+        final /* synthetic */ ArrayList f3750b;
+
+        AnonymousClass2(View view, ArrayList arrayList) {
             view = view;
             arrayList = arrayList;
         }
@@ -51,8 +57,8 @@ public class FragmentTransitionSupport extends FragmentTransitionImpl {
             transition.removeListener(this);
             view.setVisibility(8);
             int size = arrayList.size();
-            for (int i10 = 0; i10 < size; i10++) {
-                ((View) arrayList.get(i10)).setVisibility(0);
+            for (int i2 = 0; i2 < size; i2++) {
+                ((View) arrayList.get(i2)).setVisibility(0);
             }
         }
 
@@ -72,15 +78,27 @@ public class FragmentTransitionSupport extends FragmentTransitionImpl {
     }
 
     /* renamed from: androidx.transition.FragmentTransitionSupport$3 */
-    public class AnonymousClass3 extends TransitionListenerAdapter {
-        final /* synthetic */ Object val$enterTransition;
-        final /* synthetic */ ArrayList val$enteringViews;
-        final /* synthetic */ Object val$exitTransition;
-        final /* synthetic */ ArrayList val$exitingViews;
-        final /* synthetic */ Object val$sharedElementTransition;
-        final /* synthetic */ ArrayList val$sharedElementsIn;
+    class AnonymousClass3 extends TransitionListenerAdapter {
 
-        public AnonymousClass3(Object obj, ArrayList arrayList, Object obj2, ArrayList arrayList2, Object obj3, ArrayList arrayList3) {
+        /* renamed from: a */
+        final /* synthetic */ Object f3752a;
+
+        /* renamed from: b */
+        final /* synthetic */ ArrayList f3753b;
+
+        /* renamed from: c */
+        final /* synthetic */ Object f3754c;
+
+        /* renamed from: d */
+        final /* synthetic */ ArrayList f3755d;
+
+        /* renamed from: e */
+        final /* synthetic */ Object f3756e;
+
+        /* renamed from: f */
+        final /* synthetic */ ArrayList f3757f;
+
+        AnonymousClass3(Object obj, ArrayList arrayList, Object obj2, ArrayList arrayList2, Object obj3, ArrayList arrayList3) {
             obj2 = obj;
             arrayList = arrayList;
             obj3 = obj2;
@@ -112,10 +130,12 @@ public class FragmentTransitionSupport extends FragmentTransitionImpl {
     }
 
     /* renamed from: androidx.transition.FragmentTransitionSupport$4 */
-    public class AnonymousClass4 implements CancellationSignal.OnCancelListener {
-        final /* synthetic */ Transition val$realTransition;
+    class AnonymousClass4 implements CancellationSignal.OnCancelListener {
 
-        public AnonymousClass4(Transition transition) {
+        /* renamed from: a */
+        final /* synthetic */ Transition f3759a;
+
+        AnonymousClass4(Transition transition) {
             transition = transition;
         }
 
@@ -126,10 +146,12 @@ public class FragmentTransitionSupport extends FragmentTransitionImpl {
     }
 
     /* renamed from: androidx.transition.FragmentTransitionSupport$5 */
-    public class AnonymousClass5 implements Transition.TransitionListener {
-        final /* synthetic */ Runnable val$transitionCompleteRunnable;
+    class AnonymousClass5 implements Transition.TransitionListener {
 
-        public AnonymousClass5(Runnable runnable) {
+        /* renamed from: a */
+        final /* synthetic */ Runnable f3761a;
+
+        AnonymousClass5(Runnable runnable) {
             runnable = runnable;
         }
 
@@ -156,10 +178,12 @@ public class FragmentTransitionSupport extends FragmentTransitionImpl {
     }
 
     /* renamed from: androidx.transition.FragmentTransitionSupport$6 */
-    public class AnonymousClass6 extends Transition.EpicenterCallback {
-        final /* synthetic */ Rect val$epicenter;
+    class AnonymousClass6 extends Transition.EpicenterCallback {
 
-        public AnonymousClass6(Rect rect) {
+        /* renamed from: a */
+        final /* synthetic */ Rect f3763a;
+
+        AnonymousClass6(Rect rect) {
             rect = rect;
         }
 
@@ -173,8 +197,8 @@ public class FragmentTransitionSupport extends FragmentTransitionImpl {
         }
     }
 
-    private static boolean hasSimpleTarget(Transition transition) {
-        return (FragmentTransitionImpl.isNullOrEmpty(transition.getTargetIds()) && FragmentTransitionImpl.isNullOrEmpty(transition.getTargetNames()) && FragmentTransitionImpl.isNullOrEmpty(transition.getTargetTypes())) ? false : true;
+    private static boolean l(Transition transition) {
+        return (FragmentTransitionImpl.g(transition.getTargetIds()) && FragmentTransitionImpl.g(transition.getTargetNames()) && FragmentTransitionImpl.g(transition.getTargetTypes())) ? false : true;
     }
 
     @Override // androidx.fragment.app.FragmentTransitionImpl
@@ -190,23 +214,23 @@ public class FragmentTransitionSupport extends FragmentTransitionImpl {
         if (transition == null) {
             return;
         }
-        int i10 = 0;
+        int i2 = 0;
         if (transition instanceof TransitionSet) {
             TransitionSet transitionSet = (TransitionSet) transition;
             int transitionCount = transitionSet.getTransitionCount();
-            while (i10 < transitionCount) {
-                addTargets(transitionSet.getTransitionAt(i10), arrayList);
-                i10++;
+            while (i2 < transitionCount) {
+                addTargets(transitionSet.getTransitionAt(i2), arrayList);
+                i2++;
             }
             return;
         }
-        if (hasSimpleTarget(transition) || !FragmentTransitionImpl.isNullOrEmpty(transition.getTargets())) {
+        if (l(transition) || !FragmentTransitionImpl.g(transition.getTargets())) {
             return;
         }
         int size = arrayList.size();
-        while (i10 < size) {
-            transition.addTarget(arrayList.get(i10));
-            i10++;
+        while (i2 < size) {
+            transition.addTarget(arrayList.get(i2));
+            i2++;
         }
     }
 
@@ -223,7 +247,7 @@ public class FragmentTransitionSupport extends FragmentTransitionImpl {
     @Override // androidx.fragment.app.FragmentTransitionImpl
     public Object cloneTransition(Object obj) {
         if (obj != null) {
-            return ((Transition) obj).mo26clone();
+            return ((Transition) obj).mo35clone();
         }
         return null;
     }
@@ -274,25 +298,25 @@ public class FragmentTransitionSupport extends FragmentTransitionImpl {
     @Override // androidx.fragment.app.FragmentTransitionImpl
     public void replaceTargets(Object obj, ArrayList<View> arrayList, ArrayList<View> arrayList2) {
         Transition transition = (Transition) obj;
-        int i10 = 0;
+        int i2 = 0;
         if (transition instanceof TransitionSet) {
             TransitionSet transitionSet = (TransitionSet) transition;
             int transitionCount = transitionSet.getTransitionCount();
-            while (i10 < transitionCount) {
-                replaceTargets(transitionSet.getTransitionAt(i10), arrayList, arrayList2);
-                i10++;
+            while (i2 < transitionCount) {
+                replaceTargets(transitionSet.getTransitionAt(i2), arrayList, arrayList2);
+                i2++;
             }
             return;
         }
-        if (hasSimpleTarget(transition)) {
+        if (l(transition)) {
             return;
         }
         List<View> targets = transition.getTargets();
         if (targets.size() == arrayList.size() && targets.containsAll(arrayList)) {
             int size = arrayList2 == null ? 0 : arrayList2.size();
-            while (i10 < size) {
-                transition.addTarget(arrayList2.get(i10));
-                i10++;
+            while (i2 < size) {
+                transition.addTarget(arrayList2.get(i2));
+                i2++;
             }
             for (int size2 = arrayList.size() - 1; size2 >= 0; size2--) {
                 transition.removeTarget(arrayList.get(size2));
@@ -303,10 +327,14 @@ public class FragmentTransitionSupport extends FragmentTransitionImpl {
     @Override // androidx.fragment.app.FragmentTransitionImpl
     public void scheduleHideFragmentView(Object obj, View view, ArrayList<View> arrayList) {
         ((Transition) obj).addListener(new Transition.TransitionListener() { // from class: androidx.transition.FragmentTransitionSupport.2
-            final /* synthetic */ ArrayList val$exitingViews;
-            final /* synthetic */ View val$fragmentView;
 
-            public AnonymousClass2(View view2, ArrayList arrayList2) {
+            /* renamed from: a */
+            final /* synthetic */ View f3749a;
+
+            /* renamed from: b */
+            final /* synthetic */ ArrayList f3750b;
+
+            AnonymousClass2(View view2, ArrayList arrayList2) {
                 view = view2;
                 arrayList = arrayList2;
             }
@@ -320,8 +348,8 @@ public class FragmentTransitionSupport extends FragmentTransitionImpl {
                 transition.removeListener(this);
                 view.setVisibility(8);
                 int size = arrayList.size();
-                for (int i10 = 0; i10 < size; i10++) {
-                    ((View) arrayList.get(i10)).setVisibility(0);
+                for (int i2 = 0; i2 < size; i2++) {
+                    ((View) arrayList.get(i2)).setVisibility(0);
                 }
             }
 
@@ -344,14 +372,26 @@ public class FragmentTransitionSupport extends FragmentTransitionImpl {
     @Override // androidx.fragment.app.FragmentTransitionImpl
     public void scheduleRemoveTargets(Object obj, Object obj2, ArrayList<View> arrayList, Object obj3, ArrayList<View> arrayList2, Object obj4, ArrayList<View> arrayList3) {
         ((Transition) obj).addListener(new TransitionListenerAdapter() { // from class: androidx.transition.FragmentTransitionSupport.3
-            final /* synthetic */ Object val$enterTransition;
-            final /* synthetic */ ArrayList val$enteringViews;
-            final /* synthetic */ Object val$exitTransition;
-            final /* synthetic */ ArrayList val$exitingViews;
-            final /* synthetic */ Object val$sharedElementTransition;
-            final /* synthetic */ ArrayList val$sharedElementsIn;
 
-            public AnonymousClass3(Object obj22, ArrayList arrayList4, Object obj32, ArrayList arrayList22, Object obj42, ArrayList arrayList32) {
+            /* renamed from: a */
+            final /* synthetic */ Object f3752a;
+
+            /* renamed from: b */
+            final /* synthetic */ ArrayList f3753b;
+
+            /* renamed from: c */
+            final /* synthetic */ Object f3754c;
+
+            /* renamed from: d */
+            final /* synthetic */ ArrayList f3755d;
+
+            /* renamed from: e */
+            final /* synthetic */ Object f3756e;
+
+            /* renamed from: f */
+            final /* synthetic */ ArrayList f3757f;
+
+            AnonymousClass3(Object obj22, ArrayList arrayList4, Object obj32, ArrayList arrayList22, Object obj42, ArrayList arrayList32) {
                 obj2 = obj22;
                 arrayList = arrayList4;
                 obj3 = obj32;
@@ -387,11 +427,13 @@ public class FragmentTransitionSupport extends FragmentTransitionImpl {
     public void setEpicenter(Object obj, View view) {
         if (view != null) {
             Rect rect = new Rect();
-            getBoundsOnScreen(view, rect);
+            f(view, rect);
             ((Transition) obj).setEpicenterCallback(new Transition.EpicenterCallback() { // from class: androidx.transition.FragmentTransitionSupport.1
-                final /* synthetic */ Rect val$epicenter;
 
-                public AnonymousClass1(Rect rect2) {
+                /* renamed from: a */
+                final /* synthetic */ Rect f3747a;
+
+                AnonymousClass1(Rect rect2) {
                     rect = rect2;
                 }
 
@@ -403,13 +445,14 @@ public class FragmentTransitionSupport extends FragmentTransitionImpl {
         }
     }
 
-    @Override // androidx.fragment.app.FragmentTransitionImpl
     public void setListenerForTransitionEnd(@NonNull Fragment fragment, @NonNull Object obj, @NonNull CancellationSignal cancellationSignal, @NonNull Runnable runnable) {
         Transition transition = (Transition) obj;
         cancellationSignal.setOnCancelListener(new CancellationSignal.OnCancelListener() { // from class: androidx.transition.FragmentTransitionSupport.4
-            final /* synthetic */ Transition val$realTransition;
 
-            public AnonymousClass4(Transition transition2) {
+            /* renamed from: a */
+            final /* synthetic */ Transition f3759a;
+
+            AnonymousClass4(Transition transition2) {
                 transition = transition2;
             }
 
@@ -419,9 +462,11 @@ public class FragmentTransitionSupport extends FragmentTransitionImpl {
             }
         });
         transition2.addListener(new Transition.TransitionListener() { // from class: androidx.transition.FragmentTransitionSupport.5
-            final /* synthetic */ Runnable val$transitionCompleteRunnable;
 
-            public AnonymousClass5(Runnable runnable2) {
+            /* renamed from: a */
+            final /* synthetic */ Runnable f3761a;
+
+            AnonymousClass5(Runnable runnable2) {
                 runnable = runnable2;
             }
 
@@ -454,8 +499,8 @@ public class FragmentTransitionSupport extends FragmentTransitionImpl {
         List<View> targets = transitionSet.getTargets();
         targets.clear();
         int size = arrayList.size();
-        for (int i10 = 0; i10 < size; i10++) {
-            FragmentTransitionImpl.bfsAddViewChildren(targets, arrayList.get(i10));
+        for (int i2 = 0; i2 < size; i2++) {
+            FragmentTransitionImpl.a(targets, arrayList.get(i2));
         }
         targets.add(view);
         arrayList.add(view);
@@ -486,9 +531,11 @@ public class FragmentTransitionSupport extends FragmentTransitionImpl {
     public void setEpicenter(Object obj, Rect rect) {
         if (obj != null) {
             ((Transition) obj).setEpicenterCallback(new Transition.EpicenterCallback() { // from class: androidx.transition.FragmentTransitionSupport.6
-                final /* synthetic */ Rect val$epicenter;
 
-                public AnonymousClass6(Rect rect2) {
+                /* renamed from: a */
+                final /* synthetic */ Rect f3763a;
+
+                AnonymousClass6(Rect rect2) {
                     rect = rect2;
                 }
 

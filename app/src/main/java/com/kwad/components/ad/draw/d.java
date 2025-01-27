@@ -3,103 +3,101 @@ package com.kwad.components.ad.draw;
 import android.text.TextUtils;
 import androidx.annotation.NonNull;
 import com.kwad.components.ad.KsAdLoadManager;
-import com.kwad.components.core.request.model.ImpInfo;
-import com.kwad.components.core.request.model.a;
-import com.kwad.components.core.s.m;
+import com.kwad.components.core.n.kwai.a;
+import com.kwad.components.core.r.k;
+import com.kwad.components.core.response.model.AdResultData;
 import com.kwad.sdk.api.KsLoadManager;
 import com.kwad.sdk.api.KsScene;
-import com.kwad.sdk.core.response.b.e;
-import com.kwad.sdk.core.response.model.AdResultData;
+import com.kwad.sdk.core.network.f;
 import com.kwad.sdk.core.response.model.AdTemplate;
 import com.kwad.sdk.internal.api.SceneImpl;
-import com.kwad.sdk.utils.bd;
-import com.kwad.sdk.utils.bt;
+import com.kwad.sdk.utils.bi;
 import java.util.ArrayList;
 import java.util.List;
 
-/* loaded from: classes2.dex */
+/* loaded from: classes.dex */
 public final class d {
 
     /* renamed from: com.kwad.components.ad.draw.d$1 */
-    public class AnonymousClass1 extends com.kwad.components.core.request.d {
+    static class AnonymousClass1 extends com.kwad.components.core.n.c {
 
         /* renamed from: com.kwad.components.ad.draw.d$1$1 */
-        public class C03661 extends bd {
-            final /* synthetic */ int bW;
-            final /* synthetic */ String bX;
+        final class RunnableC01211 implements Runnable {
+            final /* synthetic */ int ck;
+            final /* synthetic */ String cl;
 
-            public C03661(int i10, String str) {
-                i10 = i10;
+            RunnableC01211(int i2, String str) {
+                i2 = i2;
                 str = str;
             }
 
-            @Override // com.kwad.sdk.utils.bd
-            public final void doTask() {
-                com.kwad.sdk.core.d.c.d("KsAdDrawLoadManager", "loadDrawAd onError:" + String.format("code:%s__msg:%s", Integer.valueOf(i10), str));
-                KsLoadManager.DrawAdListener.this.onError(i10, str);
+            @Override // java.lang.Runnable
+            public final void run() {
+                com.kwad.sdk.core.d.b.d("KsAdDrawLoadManager", "loadDrawAd onError:" + String.format("code:%s__msg:%s", Integer.valueOf(i2), str));
+                KsLoadManager.DrawAdListener.this.onError(i2, str);
             }
         }
 
         /* renamed from: com.kwad.components.ad.draw.d$1$2 */
-        public class AnonymousClass2 extends bd {
-            final /* synthetic */ List du;
+        final class AnonymousClass2 implements Runnable {
+            final /* synthetic */ List cn;
 
-            public AnonymousClass2(List list) {
+            AnonymousClass2(List list) {
                 arrayList = list;
             }
 
-            @Override // com.kwad.sdk.utils.bd
-            public final void doTask() {
-                KsAdLoadManager.M().b(arrayList);
+            @Override // java.lang.Runnable
+            public final void run() {
+                KsAdLoadManager.ac().b(arrayList);
                 KsLoadManager.DrawAdListener.this.onDrawAdLoad(arrayList);
             }
         }
 
-        public AnonymousClass1() {
+        AnonymousClass1() {
         }
 
-        @Override // com.kwad.components.core.request.d, com.kwad.components.core.request.k
-        public final void b(@NonNull AdResultData adResultData) {
+        @Override // com.kwad.components.core.n.c, com.kwad.components.core.n.i
+        public final void a(@NonNull AdResultData adResultData) {
             ArrayList arrayList = new ArrayList();
             for (AdTemplate adTemplate : adResultData.getAdTemplateList()) {
-                if (adTemplate != null && !TextUtils.isEmpty(com.kwad.sdk.core.response.b.a.K(e.eb(adTemplate)))) {
+                if (adTemplate != null && !TextUtils.isEmpty(com.kwad.sdk.core.response.a.a.E(com.kwad.sdk.core.response.a.d.cb(adTemplate)))) {
                     arrayList.add(new c(adTemplate));
                 }
             }
             if (!arrayList.isEmpty()) {
-                bt.runOnUiThread(new bd() { // from class: com.kwad.components.ad.draw.d.1.2
-                    final /* synthetic */ List du;
+                bi.runOnUiThread(new Runnable() { // from class: com.kwad.components.ad.draw.d.1.2
+                    final /* synthetic */ List cn;
 
-                    public AnonymousClass2(List arrayList2) {
+                    AnonymousClass2(List arrayList2) {
                         arrayList = arrayList2;
                     }
 
-                    @Override // com.kwad.sdk.utils.bd
-                    public final void doTask() {
-                        KsAdLoadManager.M().b(arrayList);
+                    @Override // java.lang.Runnable
+                    public final void run() {
+                        KsAdLoadManager.ac().b(arrayList);
                         KsLoadManager.DrawAdListener.this.onDrawAdLoad(arrayList);
                     }
                 });
                 return;
             }
-            onError(com.kwad.sdk.core.network.e.azA.errorCode, TextUtils.isEmpty(adResultData.testErrorMsg) ? com.kwad.sdk.core.network.e.azA.msg + "(无视频资源)" : adResultData.testErrorMsg);
+            onError(f.agn.errorCode, TextUtils.isEmpty(adResultData.testErrorMsg) ? f.agn.msg + "(无视频资源)" : adResultData.testErrorMsg);
         }
 
-        @Override // com.kwad.components.core.request.d, com.kwad.components.core.request.k
-        public final void onError(int i10, String str) {
-            bt.runOnUiThread(new bd() { // from class: com.kwad.components.ad.draw.d.1.1
-                final /* synthetic */ int bW;
-                final /* synthetic */ String bX;
+        @Override // com.kwad.components.core.n.c, com.kwad.components.core.n.i
+        public final void onError(int i2, String str) {
+            bi.runOnUiThread(new Runnable() { // from class: com.kwad.components.ad.draw.d.1.1
+                final /* synthetic */ int ck;
+                final /* synthetic */ String cl;
 
-                public C03661(int i102, String str2) {
-                    i10 = i102;
+                RunnableC01211(int i22, String str2) {
+                    i2 = i22;
                     str = str2;
                 }
 
-                @Override // com.kwad.sdk.utils.bd
-                public final void doTask() {
-                    com.kwad.sdk.core.d.c.d("KsAdDrawLoadManager", "loadDrawAd onError:" + String.format("code:%s__msg:%s", Integer.valueOf(i10), str));
-                    KsLoadManager.DrawAdListener.this.onError(i10, str);
+                @Override // java.lang.Runnable
+                public final void run() {
+                    com.kwad.sdk.core.d.b.d("KsAdDrawLoadManager", "loadDrawAd onError:" + String.format("code:%s__msg:%s", Integer.valueOf(i2), str));
+                    KsLoadManager.DrawAdListener.this.onError(i2, str);
                 }
             });
         }
@@ -107,90 +105,91 @@ public final class d {
 
     public static void loadDrawAd(KsScene ksScene, @NonNull KsLoadManager.DrawAdListener drawAdListener) {
         SceneImpl covert = SceneImpl.covert(ksScene);
-        boolean a10 = m.si().a(covert, "loadDrawAd");
+        boolean a2 = k.pP().a(covert, "loadDrawAd");
         covert.setAdStyle(6);
-        KsAdLoadManager.M().a(new a.C0445a().e(new ImpInfo(covert)).aK(a10).a(new com.kwad.components.core.request.d() { // from class: com.kwad.components.ad.draw.d.1
+        KsAdLoadManager.ac();
+        KsAdLoadManager.a(new a.C0180a().e(new com.kwad.components.core.n.kwai.b(covert)).aH(a2).a(new com.kwad.components.core.n.c() { // from class: com.kwad.components.ad.draw.d.1
 
             /* renamed from: com.kwad.components.ad.draw.d$1$1 */
-            public class C03661 extends bd {
-                final /* synthetic */ int bW;
-                final /* synthetic */ String bX;
+            final class RunnableC01211 implements Runnable {
+                final /* synthetic */ int ck;
+                final /* synthetic */ String cl;
 
-                public C03661(int i102, String str2) {
-                    i10 = i102;
+                RunnableC01211(int i22, String str2) {
+                    i2 = i22;
                     str = str2;
                 }
 
-                @Override // com.kwad.sdk.utils.bd
-                public final void doTask() {
-                    com.kwad.sdk.core.d.c.d("KsAdDrawLoadManager", "loadDrawAd onError:" + String.format("code:%s__msg:%s", Integer.valueOf(i10), str));
-                    KsLoadManager.DrawAdListener.this.onError(i10, str);
+                @Override // java.lang.Runnable
+                public final void run() {
+                    com.kwad.sdk.core.d.b.d("KsAdDrawLoadManager", "loadDrawAd onError:" + String.format("code:%s__msg:%s", Integer.valueOf(i2), str));
+                    KsLoadManager.DrawAdListener.this.onError(i2, str);
                 }
             }
 
             /* renamed from: com.kwad.components.ad.draw.d$1$2 */
-            public class AnonymousClass2 extends bd {
-                final /* synthetic */ List du;
+            final class AnonymousClass2 implements Runnable {
+                final /* synthetic */ List cn;
 
-                public AnonymousClass2(List arrayList2) {
+                AnonymousClass2(List arrayList2) {
                     arrayList = arrayList2;
                 }
 
-                @Override // com.kwad.sdk.utils.bd
-                public final void doTask() {
-                    KsAdLoadManager.M().b(arrayList);
+                @Override // java.lang.Runnable
+                public final void run() {
+                    KsAdLoadManager.ac().b(arrayList);
                     KsLoadManager.DrawAdListener.this.onDrawAdLoad(arrayList);
                 }
             }
 
-            public AnonymousClass1() {
+            AnonymousClass1() {
             }
 
-            @Override // com.kwad.components.core.request.d, com.kwad.components.core.request.k
-            public final void b(@NonNull AdResultData adResultData) {
+            @Override // com.kwad.components.core.n.c, com.kwad.components.core.n.i
+            public final void a(@NonNull AdResultData adResultData) {
                 List arrayList2 = new ArrayList();
                 for (AdTemplate adTemplate : adResultData.getAdTemplateList()) {
-                    if (adTemplate != null && !TextUtils.isEmpty(com.kwad.sdk.core.response.b.a.K(e.eb(adTemplate)))) {
+                    if (adTemplate != null && !TextUtils.isEmpty(com.kwad.sdk.core.response.a.a.E(com.kwad.sdk.core.response.a.d.cb(adTemplate)))) {
                         arrayList2.add(new c(adTemplate));
                     }
                 }
                 if (!arrayList2.isEmpty()) {
-                    bt.runOnUiThread(new bd() { // from class: com.kwad.components.ad.draw.d.1.2
-                        final /* synthetic */ List du;
+                    bi.runOnUiThread(new Runnable() { // from class: com.kwad.components.ad.draw.d.1.2
+                        final /* synthetic */ List cn;
 
-                        public AnonymousClass2(List arrayList22) {
+                        AnonymousClass2(List arrayList22) {
                             arrayList = arrayList22;
                         }
 
-                        @Override // com.kwad.sdk.utils.bd
-                        public final void doTask() {
-                            KsAdLoadManager.M().b(arrayList);
+                        @Override // java.lang.Runnable
+                        public final void run() {
+                            KsAdLoadManager.ac().b(arrayList);
                             KsLoadManager.DrawAdListener.this.onDrawAdLoad(arrayList);
                         }
                     });
                     return;
                 }
-                onError(com.kwad.sdk.core.network.e.azA.errorCode, TextUtils.isEmpty(adResultData.testErrorMsg) ? com.kwad.sdk.core.network.e.azA.msg + "(无视频资源)" : adResultData.testErrorMsg);
+                onError(f.agn.errorCode, TextUtils.isEmpty(adResultData.testErrorMsg) ? f.agn.msg + "(无视频资源)" : adResultData.testErrorMsg);
             }
 
-            @Override // com.kwad.components.core.request.d, com.kwad.components.core.request.k
-            public final void onError(int i102, String str2) {
-                bt.runOnUiThread(new bd() { // from class: com.kwad.components.ad.draw.d.1.1
-                    final /* synthetic */ int bW;
-                    final /* synthetic */ String bX;
+            @Override // com.kwad.components.core.n.c, com.kwad.components.core.n.i
+            public final void onError(int i22, String str2) {
+                bi.runOnUiThread(new Runnable() { // from class: com.kwad.components.ad.draw.d.1.1
+                    final /* synthetic */ int ck;
+                    final /* synthetic */ String cl;
 
-                    public C03661(int i1022, String str22) {
-                        i10 = i1022;
+                    RunnableC01211(int i222, String str22) {
+                        i2 = i222;
                         str = str22;
                     }
 
-                    @Override // com.kwad.sdk.utils.bd
-                    public final void doTask() {
-                        com.kwad.sdk.core.d.c.d("KsAdDrawLoadManager", "loadDrawAd onError:" + String.format("code:%s__msg:%s", Integer.valueOf(i10), str));
-                        KsLoadManager.DrawAdListener.this.onError(i10, str);
+                    @Override // java.lang.Runnable
+                    public final void run() {
+                        com.kwad.sdk.core.d.b.d("KsAdDrawLoadManager", "loadDrawAd onError:" + String.format("code:%s__msg:%s", Integer.valueOf(i2), str));
+                        KsLoadManager.DrawAdListener.this.onError(i2, str);
                     }
                 });
             }
-        }).rA());
+        }).pj());
     }
 }

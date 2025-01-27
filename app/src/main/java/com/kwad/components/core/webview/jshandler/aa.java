@@ -1,50 +1,100 @@
 package com.kwad.components.core.webview.jshandler;
 
+import android.os.Handler;
+import android.os.Looper;
+import android.text.TextUtils;
+import androidx.annotation.MainThread;
 import androidx.annotation.NonNull;
-import com.kwad.sdk.commercial.model.WebViewCommercialMsg;
-import com.kwad.sdk.core.response.model.AdTemplate;
-import org.json.JSONException;
+import androidx.annotation.Nullable;
+import com.ksad.json.annotation.KsJson;
 import org.json.JSONObject;
 
-/* loaded from: classes3.dex */
-public final class aa implements com.kwad.sdk.core.webview.c.a {
-    private com.kwad.sdk.core.webview.b YR;
+/* loaded from: classes2.dex */
+public final class aa implements com.kwad.sdk.core.webview.b.a {
+    private final Handler Sw = new Handler(Looper.getMainLooper());
 
-    public aa() {
-    }
+    @Nullable
+    private com.kwad.sdk.core.webview.b.c Sx;
+    private b cY;
 
-    @Override // com.kwad.sdk.core.webview.c.a
-    public final void a(String str, @NonNull com.kwad.sdk.core.webview.c.c cVar) {
-        AdTemplate adTemplate;
-        try {
-            com.kwad.sdk.core.d.c.d("CommercialLogHandler", "handleJsCall : " + str);
-            com.kwad.sdk.core.webview.b bVar = this.YR;
-            WebViewCommercialMsg webViewCommercialMsg = new WebViewCommercialMsg((bVar == null || (adTemplate = bVar.getAdTemplate()) == null) ? null : com.kwad.sdk.core.response.b.e.eb(adTemplate));
-            webViewCommercialMsg.parseJson(new JSONObject(str));
-            a(webViewCommercialMsg);
-            cVar.a(null);
-        } catch (JSONException e10) {
-            com.kwad.sdk.core.d.c.printStackTrace(e10);
-            cVar.onError(-1, e10.getMessage());
+    /* renamed from: com.kwad.components.core.webview.jshandler.aa$1 */
+    final class AnonymousClass1 implements Runnable {
+        final /* synthetic */ a kv;
+
+        AnonymousClass1(a aVar) {
+            aVar = aVar;
+        }
+
+        @Override // java.lang.Runnable
+        public final void run() {
+            if (aa.this.Sx != null) {
+                aa.this.Sx.a(null);
+            }
+            aa.this.b(aVar);
         }
     }
 
-    @Override // com.kwad.sdk.core.webview.c.a
+    @KsJson
+    public static class a extends com.kwad.sdk.core.response.kwai.a {
+        public int Tm = -1;
+        public int type;
+    }
+
+    public interface b {
+        @MainThread
+        void a(a aVar);
+    }
+
+    public aa(b bVar) {
+        this.cY = bVar;
+    }
+
+    public void b(a aVar) {
+        b bVar = this.cY;
+        if (bVar != null) {
+            bVar.a(aVar);
+        }
+    }
+
+    @Override // com.kwad.sdk.core.webview.b.a
     @NonNull
     public final String getKey() {
-        return "commercialLog";
+        return "hide";
     }
 
-    @Override // com.kwad.sdk.core.webview.c.a
+    @Override // com.kwad.sdk.core.webview.b.a
+    public final void handleJsCall(String str, @NonNull com.kwad.sdk.core.webview.b.c cVar) {
+        try {
+            this.Sx = cVar;
+            a aVar = new a();
+            if (!TextUtils.isEmpty(str)) {
+                aVar.parseJson(new JSONObject(str));
+            }
+            this.Sw.post(new Runnable() { // from class: com.kwad.components.core.webview.jshandler.aa.1
+                final /* synthetic */ a kv;
+
+                AnonymousClass1(a aVar2) {
+                    aVar = aVar2;
+                }
+
+                @Override // java.lang.Runnable
+                public final void run() {
+                    if (aa.this.Sx != null) {
+                        aa.this.Sx.a(null);
+                    }
+                    aa.this.b(aVar);
+                }
+            });
+        } catch (Exception e2) {
+            this.Sx.onError(-1, e2.getMessage());
+            com.kwad.sdk.core.d.b.printStackTraceOnly(e2);
+        }
+    }
+
+    @Override // com.kwad.sdk.core.webview.b.a
     public final void onDestroy() {
-    }
-
-    public aa(com.kwad.sdk.core.webview.b bVar) {
-        this.YR = bVar;
-    }
-
-    private static void a(@NonNull WebViewCommercialMsg webViewCommercialMsg) {
-        com.kwad.sdk.core.d.c.d("CommercialLogHandler", "handleH5Log actionType actionType" + webViewCommercialMsg.category);
-        com.kwad.sdk.commercial.b.a(webViewCommercialMsg.category, webViewCommercialMsg);
+        this.cY = null;
+        this.Sx = null;
+        this.Sw.removeCallbacksAndMessages(null);
     }
 }

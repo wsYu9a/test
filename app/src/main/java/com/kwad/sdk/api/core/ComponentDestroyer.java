@@ -11,7 +11,7 @@ import android.webkit.WebView;
 import androidx.fragment.app.Fragment;
 import java.lang.reflect.Field;
 
-/* loaded from: classes3.dex */
+/* loaded from: classes2.dex */
 public class ComponentDestroyer {
     private static final String TAG = "ComponentDestroyer";
 
@@ -20,6 +20,20 @@ public class ComponentDestroyer {
             return;
         }
         destroyActivity(activity, activity.getWindow());
+    }
+
+    public static void destroyActivity(Context context, Window window) {
+        if (window == null) {
+            return;
+        }
+        View decorView = window.getDecorView();
+        destroyWebViewInTree(decorView);
+        fixInputMethodManagerLeak(context, decorView);
+    }
+
+    public static void destroyFragment(Context context, View view) {
+        destroyWebViewInTree(view);
+        fixInputMethodManagerLeak(context, view);
     }
 
     public static void destroyFragment(Fragment fragment) {
@@ -44,8 +58,8 @@ public class ComponentDestroyer {
             } else if (view instanceof ViewGroup) {
                 ViewGroup viewGroup = (ViewGroup) view;
                 int childCount = viewGroup.getChildCount();
-                for (int i10 = 0; i10 < childCount; i10++) {
-                    destroyWebViewInTree(viewGroup.getChildAt(i10));
+                for (int i2 = 0; i2 < childCount; i2++) {
+                    destroyWebViewInTree(viewGroup.getChildAt(i2));
                 }
             }
         }
@@ -57,9 +71,9 @@ public class ComponentDestroyer {
             return;
         }
         String[] strArr = {"mCurRootView", "mServedView", "mNextServedView"};
-        for (int i10 = 0; i10 < 3; i10++) {
+        for (int i2 = 0; i2 < 3; i2++) {
             try {
-                Field declaredField = inputMethodManager.getClass().getDeclaredField(strArr[i10]);
+                Field declaredField = inputMethodManager.getClass().getDeclaredField(strArr[i2]);
                 if (!declaredField.isAccessible()) {
                     declaredField.setAccessible(true);
                 }
@@ -71,23 +85,9 @@ public class ComponentDestroyer {
                 } else {
                     declaredField.set(inputMethodManager, null);
                 }
-            } catch (Throwable th2) {
-                th2.printStackTrace();
+            } catch (Throwable th) {
+                th.printStackTrace();
             }
         }
-    }
-
-    public static void destroyActivity(Context context, Window window) {
-        if (window == null) {
-            return;
-        }
-        View decorView = window.getDecorView();
-        destroyWebViewInTree(decorView);
-        fixInputMethodManagerLeak(context, decorView);
-    }
-
-    public static void destroyFragment(Context context, View view) {
-        destroyWebViewInTree(view);
-        fixInputMethodManagerLeak(context, view);
     }
 }

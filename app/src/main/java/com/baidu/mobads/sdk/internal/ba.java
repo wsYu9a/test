@@ -1,95 +1,95 @@
 package com.baidu.mobads.sdk.internal;
 
-import android.content.Context;
-import android.content.res.Resources;
-import android.graphics.Rect;
-import android.util.DisplayMetrics;
-import android.view.WindowManager;
+import java.util.concurrent.Future;
+import java.util.concurrent.FutureTask;
+import java.util.concurrent.ScheduledThreadPoolExecutor;
+import java.util.concurrent.ThreadPoolExecutor;
+import java.util.concurrent.TimeUnit;
 
-/* loaded from: classes2.dex */
+/* loaded from: classes.dex */
 public class ba {
 
     /* renamed from: a */
-    private static DisplayMetrics f6854a;
+    private static final String f5568a = "TaskScheduler";
+
+    /* renamed from: d */
+    private static volatile ba f5569d;
 
     /* renamed from: b */
-    private static float f6855b;
+    private ThreadPoolExecutor f5570b;
 
-    public static Rect a(Context context) {
-        DisplayMetrics f10 = f(context);
-        try {
-            return f10.widthPixels > f10.heightPixels ? new Rect(0, 0, f10.heightPixels, f10.widthPixels) : new Rect(0, 0, f10.widthPixels, f10.heightPixels);
-        } catch (Exception unused) {
-            return null;
-        }
+    /* renamed from: c */
+    private ScheduledThreadPoolExecutor f5571c;
+
+    private ba() {
+        b();
     }
 
-    public static int b(Context context) {
-        return a(context).width();
-    }
-
-    public static int c(Context context) {
-        return a(context).height();
-    }
-
-    public static Rect d(Context context) {
-        DisplayMetrics f10 = f(context);
-        return new Rect(0, 0, f10.widthPixels, f10.heightPixels);
-    }
-
-    public static float e(Context context) {
-        if (f6855b < 0.01d) {
-            f6855b = f(context).density;
-        }
-        return f6855b;
-    }
-
-    public static DisplayMetrics f(Context context) {
-        try {
-            DisplayMetrics displayMetrics = f6854a;
-            if (displayMetrics != null && displayMetrics.widthPixels > 0) {
-                return displayMetrics;
+    public static ba a() {
+        if (f5569d == null) {
+            synchronized (ba.class) {
+                if (f5569d == null) {
+                    f5569d = new ba();
+                }
             }
-            DisplayMetrics displayMetrics2 = new DisplayMetrics();
-            if (bm.a(context).a() >= 17) {
-                ((WindowManager) context.getSystemService("window")).getDefaultDisplay().getRealMetrics(displayMetrics2);
-            } else {
-                ((WindowManager) context.getSystemService("window")).getDefaultDisplay().getMetrics(displayMetrics2);
+        }
+        return f5569d;
+    }
+
+    private void b() {
+        this.f5570b = bb.a(1, 1);
+        this.f5571c = bb.a(1);
+    }
+
+    public void a(Runnable runnable) {
+        ThreadPoolExecutor threadPoolExecutor;
+        if (runnable == null || (threadPoolExecutor = this.f5570b) == null || threadPoolExecutor.isShutdown()) {
+            return;
+        }
+        try {
+            this.f5570b.submit(runnable);
+        } catch (Throwable unused) {
+        }
+    }
+
+    public void a(h hVar) {
+        ThreadPoolExecutor threadPoolExecutor;
+        if (hVar == null || (threadPoolExecutor = this.f5570b) == null || threadPoolExecutor.isShutdown()) {
+            return;
+        }
+        try {
+            hVar.a(System.currentTimeMillis());
+            FutureTask futureTask = null;
+            ThreadPoolExecutor threadPoolExecutor2 = this.f5570b;
+            if (threadPoolExecutor2 != null && !threadPoolExecutor2.isShutdown()) {
+                futureTask = (FutureTask) this.f5570b.submit(hVar);
             }
-            f6854a = displayMetrics2;
-        } catch (Throwable th2) {
-            f6854a = new DisplayMetrics();
-            bt.a().a(th2);
+            hVar.a((Future) futureTask);
+        } catch (Throwable unused) {
         }
-        return f6854a;
     }
 
-    public static int g(Context context) {
-        Resources resources = context.getResources();
-        return resources.getDimensionPixelSize(resources.getIdentifier(com.gyf.immersionbar.b.f10638c, "dimen", "android"));
-    }
-
-    public static int b(Context context, int i10) {
+    public void a(h hVar, long j2, TimeUnit timeUnit) {
+        ScheduledThreadPoolExecutor scheduledThreadPoolExecutor;
+        if (hVar == null || (scheduledThreadPoolExecutor = this.f5571c) == null || scheduledThreadPoolExecutor.isShutdown()) {
+            return;
+        }
         try {
-            return (int) (i10 * e(context));
-        } catch (Exception unused) {
-            return i10;
+            hVar.a(System.currentTimeMillis());
+            hVar.a((Future) this.f5571c.schedule(hVar, j2, timeUnit));
+        } catch (Throwable unused) {
         }
     }
 
-    public static int b(Context context, float f10) {
-        return (int) ((f10 / context.getResources().getDisplayMetrics().density) + 0.5f);
-    }
-
-    public static int a(Context context, int i10) {
+    public void a(h hVar, long j2, long j3, TimeUnit timeUnit) {
+        ScheduledThreadPoolExecutor scheduledThreadPoolExecutor;
+        if (hVar == null || (scheduledThreadPoolExecutor = this.f5571c) == null || scheduledThreadPoolExecutor.isShutdown()) {
+            return;
+        }
         try {
-            return (int) (i10 / e(context));
-        } catch (Exception unused) {
-            return i10;
+            hVar.a(System.currentTimeMillis());
+            hVar.a((Future) this.f5571c.scheduleAtFixedRate(hVar, j2, j3, timeUnit));
+        } catch (Throwable unused) {
         }
-    }
-
-    public static int a(Context context, float f10) {
-        return (int) ((f10 * context.getResources().getDisplayMetrics().density) + 0.5f);
     }
 }

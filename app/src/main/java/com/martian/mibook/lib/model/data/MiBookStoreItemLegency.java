@@ -1,32 +1,32 @@
 package com.martian.mibook.lib.model.data;
 
-import ba.k;
+import com.martian.libsupport.j;
 
-@k.h(name = "mibookstoreitems")
+@j.g(name = "mibookstoreitems")
 /* loaded from: classes3.dex */
 public class MiBookStoreItemLegency {
 
-    @k.a
-    @k.b
-    @k.f(ascend = false, index = 1)
+    @j.b
+    @j.a
+    @j.e(ascend = false, index = 1)
     private Integer _id;
 
-    @k.i
-    @k.b
+    @j.b
+    @j.h
     private String bookId;
 
-    @k.b
-    @k.f(ascend = false, index = 0)
+    @j.b
+    @j.e(ascend = false, index = 0)
     private Boolean flagTop;
 
-    @k.b
+    @j.b
     private String sourceString;
 
-    public boolean equals(Object obj) {
-        if (!(obj instanceof MiBookStoreItemLegency)) {
+    public boolean equals(Object o) {
+        if (!(o instanceof MiBookStoreItemLegency)) {
             return false;
         }
-        MiBookStoreItemLegency miBookStoreItemLegency = (MiBookStoreItemLegency) obj;
+        MiBookStoreItemLegency miBookStoreItemLegency = (MiBookStoreItemLegency) o;
         String str = this.bookId;
         if (str != null) {
             String str2 = miBookStoreItemLegency.bookId;
@@ -50,14 +50,7 @@ public class MiBookStoreItemLegency {
 
     public int hashCode() {
         String str = this.bookId;
-        if (str != null) {
-            return str.hashCode();
-        }
-        String str2 = this.sourceString;
-        if (str2 == null) {
-            return 0;
-        }
-        return str2.hashCode();
+        return str != null ? str.hashCode() : this.sourceString.hashCode();
     }
 
     public boolean isFlagTop() {
@@ -65,19 +58,19 @@ public class MiBookStoreItemLegency {
         return bool != null && bool.booleanValue();
     }
 
-    public void setBookId(String str) {
-        this.bookId = str;
+    public void setBookId(String bookId) {
+        this.bookId = bookId;
     }
 
-    public void setFlagTop(boolean z10) {
-        this.flagTop = Boolean.valueOf(z10);
+    public void setFlagTop(boolean flagTop) {
+        this.flagTop = Boolean.valueOf(flagTop);
     }
 
-    public void setSourceString(String str) {
-        this.sourceString = str;
+    public void setSourceString(String zsId) {
+        this.sourceString = zsId;
     }
 
-    public void set_id(Integer num) {
-        this._id = num;
+    public void set_id(Integer _id) {
+        this._id = _id;
     }
 }

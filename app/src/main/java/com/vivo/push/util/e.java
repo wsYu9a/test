@@ -6,22 +6,22 @@ import java.util.HashMap;
 
 /* loaded from: classes4.dex */
 public final class e {
-    public static boolean a(Context context, long j10, long j11) {
-        p.d("ClientReportUtil", "report message: " + j10 + ", reportType: " + j11);
-        com.vivo.push.b.x xVar = new com.vivo.push.b.x(j11);
+    public static boolean a(Context context, long j2, long j3) {
+        p.d("ClientReportUtil", "report message: " + j2 + ", reportType: " + j3);
+        com.vivo.push.b.x xVar = new com.vivo.push.b.x(j3);
         HashMap<String, String> hashMap = new HashMap<>();
-        hashMap.put("messageID", String.valueOf(j10));
-        String b10 = z.b(context, context.getPackageName());
-        if (!TextUtils.isEmpty(b10)) {
-            hashMap.put("remoteAppId", b10);
+        hashMap.put(com.heytap.mcssdk.n.d.n, String.valueOf(j2));
+        String b2 = z.b(context, context.getPackageName());
+        if (!TextUtils.isEmpty(b2)) {
+            hashMap.put("remoteAppId", b2);
         }
         xVar.a(hashMap);
         com.vivo.push.e.a().a(xVar);
         return true;
     }
 
-    public static boolean a(long j10, HashMap<String, String> hashMap) {
-        com.vivo.push.b.x xVar = new com.vivo.push.b.x(j10);
+    public static boolean a(long j2, HashMap<String, String> hashMap) {
+        com.vivo.push.b.x xVar = new com.vivo.push.b.x(j2);
         xVar.a(hashMap);
         xVar.d();
         com.vivo.push.e.a().a(xVar);

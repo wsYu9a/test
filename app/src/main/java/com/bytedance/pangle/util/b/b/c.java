@@ -1,41 +1,41 @@
 package com.bytedance.pangle.util.b.b;
 
-/* loaded from: classes2.dex */
+/* loaded from: classes.dex */
 public final class c {
 
     /* renamed from: a, reason: collision with root package name */
-    public int f7839a;
+    public int f6316a;
 
     /* renamed from: e, reason: collision with root package name */
-    public int f7843e;
+    public int f6320e;
 
     /* renamed from: f, reason: collision with root package name */
-    public int f7844f;
+    public int f6321f;
 
     /* renamed from: g, reason: collision with root package name */
-    public int f7845g;
+    public int f6322g;
 
     /* renamed from: h, reason: collision with root package name */
-    public String f7846h;
+    public String f6323h;
 
     /* renamed from: i, reason: collision with root package name */
-    public long f7847i;
+    public long f6324i;
 
     /* renamed from: b, reason: collision with root package name */
-    public long f7840b = 0;
+    public long f6317b = 0;
 
     /* renamed from: c, reason: collision with root package name */
-    public long f7841c = 0;
+    public long f6318c = 0;
 
     /* renamed from: d, reason: collision with root package name */
-    public long f7842d = 0;
+    public long f6319d = 0;
 
     /* renamed from: j, reason: collision with root package name */
-    private final long f7848j = 30;
+    private final long f6325j = 30;
 
     public final long a() {
-        long j10 = this.f7841c;
-        return j10 > 0 ? j10 : this.f7842d;
+        long j2 = this.f6318c;
+        return j2 > 0 ? j2 : this.f6319d;
     }
 
     public final long b() {
@@ -43,6 +43,6 @@ public final class c {
     }
 
     public final long c() {
-        return this.f7843e + 30 + this.f7845g;
+        return this.f6320e + 30 + this.f6322g;
     }
 }

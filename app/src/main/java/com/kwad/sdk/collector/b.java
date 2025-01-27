@@ -10,11 +10,8 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
-/* loaded from: classes3.dex */
+/* loaded from: classes2.dex */
 public final class b {
-    public static com.kwad.sdk.collector.a BS() {
-        return new a();
-    }
 
     public static class a implements com.kwad.sdk.collector.a {
         @Override // com.kwad.sdk.collector.a
@@ -25,51 +22,55 @@ public final class b {
             File file = new File(Environment.getExternalStorageDirectory(), "/Android/data/");
             int size = arrayList2.size();
             long[] jArr = new long[size];
-            for (int i10 = 0; i10 < size; i10++) {
-                com.kwad.sdk.collector.model.a aVar = (com.kwad.sdk.collector.model.a) arrayList2.get(i10);
+            for (int i2 = 0; i2 < size; i2++) {
+                com.kwad.sdk.collector.model.a aVar = (com.kwad.sdk.collector.model.a) arrayList2.get(i2);
                 if (!(aVar instanceof AnalyseTaskNative)) {
                     return arrayList;
                 }
-                jArr[i10] = ((AnalyseTaskNative) aVar).getNativePtr();
+                jArr[i2] = ((AnalyseTaskNative) aVar).getNativePtr();
             }
-            if (d.BU()) {
+            if (d.tF()) {
                 try {
                     long[] analysis = AppStatusNative.analysis(jArr, file.getAbsolutePath() + "/");
-                    StringBuilder sb2 = new StringBuilder("analysisByFile: runningInfoPtrs: ");
-                    sb2.append(analysis);
-                    com.kwad.sdk.core.d.c.d("AppStatusAnalyserNative", sb2.toString());
-                    for (long j10 : analysis) {
-                        arrayList.add(new AppRunningInfoNative(j10));
+                    StringBuilder sb = new StringBuilder("analysisByFile: runningInfoPtrs: ");
+                    sb.append(analysis);
+                    com.kwad.sdk.core.d.b.d("AppStatusAnalyserNative", sb.toString());
+                    for (long j2 : analysis) {
+                        arrayList.add(new AppRunningInfoNative(j2));
                     }
-                } catch (Throwable th2) {
-                    com.kwad.sdk.core.d.c.printStackTraceOnly(th2);
+                } catch (Throwable th) {
+                    com.kwad.sdk.core.d.b.printStackTraceOnly(th);
                 }
             }
-            com.kwad.sdk.core.d.c.d("AppStatusAnalyserNative", "analysisByFile: info size: " + arrayList.size());
+            com.kwad.sdk.core.d.b.d("AppStatusAnalyserNative", "analysisByFile: info size: " + arrayList.size());
             return arrayList;
         }
 
         @Override // com.kwad.sdk.collector.a
-        public final List<com.kwad.sdk.collector.model.e> a(List<com.kwad.sdk.collector.model.d> list, long j10, String str) {
+        public final List<com.kwad.sdk.collector.model.e> a(List<com.kwad.sdk.collector.model.d> list, long j2, String str) {
             int size = list.size();
             long[] jArr = new long[list.size()];
-            for (int i10 = 0; i10 < size; i10++) {
-                com.kwad.sdk.collector.model.d dVar = list.get(i10);
+            for (int i2 = 0; i2 < size; i2++) {
+                com.kwad.sdk.collector.model.d dVar = list.get(i2);
                 if (dVar instanceof RulesTargetNative) {
-                    jArr[i10] = ((RulesTargetNative) dVar).getNativePtr();
+                    jArr[i2] = ((RulesTargetNative) dVar).getNativePtr();
                 }
             }
             ArrayList arrayList = new ArrayList();
-            if (d.BU()) {
+            if (d.tF()) {
                 try {
-                    for (long j11 : AppStatusNative.nativeGetUploadEntry(jArr, j10, str)) {
-                        arrayList.add(new UploadEntryNative(j11));
+                    for (long j3 : AppStatusNative.nativeGetUploadEntry(jArr, j2, str)) {
+                        arrayList.add(new UploadEntryNative(j3));
                     }
-                } catch (Throwable th2) {
-                    com.kwad.sdk.core.d.c.printStackTraceOnly(th2);
+                } catch (Throwable th) {
+                    com.kwad.sdk.core.d.b.printStackTraceOnly(th);
                 }
             }
             return arrayList;
         }
+    }
+
+    public static com.kwad.sdk.collector.a tD() {
+        return new a();
     }
 }

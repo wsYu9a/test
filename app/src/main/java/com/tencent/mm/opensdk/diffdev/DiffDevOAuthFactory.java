@@ -17,13 +17,13 @@ public class DiffDevOAuthFactory {
         return getDiffDevOAuth(1);
     }
 
-    public static IDiffDevOAuth getDiffDevOAuth(int i10) {
-        Log.v(TAG, "getDiffDevOAuth, version = " + i10);
-        if (i10 > 1) {
-            Log.e(TAG, "getDiffDevOAuth fail, unsupported version = " + i10);
+    public static IDiffDevOAuth getDiffDevOAuth(int i2) {
+        Log.v(TAG, "getDiffDevOAuth, version = " + i2);
+        if (i2 > 1) {
+            Log.e(TAG, "getDiffDevOAuth fail, unsupported version = " + i2);
             return null;
         }
-        if (i10 != 1) {
+        if (i2 != 1) {
             return null;
         }
         if (v1Instance == null) {

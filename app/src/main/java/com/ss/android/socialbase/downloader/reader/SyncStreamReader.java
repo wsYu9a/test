@@ -10,9 +10,9 @@ public class SyncStreamReader implements IStreamReader {
     private final Buffer buffer;
     private final InputStream inputStream;
 
-    public SyncStreamReader(InputStream inputStream, int i10) {
+    public SyncStreamReader(InputStream inputStream, int i2) {
         this.inputStream = inputStream;
-        this.buffer = new Buffer(i10);
+        this.buffer = new Buffer(i2);
     }
 
     @Override // com.ss.android.socialbase.downloader.reader.IStreamReader

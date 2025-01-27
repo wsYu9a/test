@@ -2,68 +2,74 @@ package androidx.collection;
 
 /* loaded from: classes.dex */
 class ContainerHelpers {
-    static final int[] EMPTY_INTS = new int[0];
-    static final long[] EMPTY_LONGS = new long[0];
-    static final Object[] EMPTY_OBJECTS = new Object[0];
+
+    /* renamed from: a, reason: collision with root package name */
+    static final int[] f1142a = new int[0];
+
+    /* renamed from: b, reason: collision with root package name */
+    static final long[] f1143b = new long[0];
+
+    /* renamed from: c, reason: collision with root package name */
+    static final Object[] f1144c = new Object[0];
 
     private ContainerHelpers() {
     }
 
-    public static int binarySearch(int[] iArr, int i10, int i11) {
-        int i12 = i10 - 1;
-        int i13 = 0;
-        while (i13 <= i12) {
-            int i14 = (i13 + i12) >>> 1;
-            int i15 = iArr[i14];
-            if (i15 < i11) {
-                i13 = i14 + 1;
+    static int a(int[] iArr, int i2, int i3) {
+        int i4 = i2 - 1;
+        int i5 = 0;
+        while (i5 <= i4) {
+            int i6 = (i5 + i4) >>> 1;
+            int i7 = iArr[i6];
+            if (i7 < i3) {
+                i5 = i6 + 1;
             } else {
-                if (i15 <= i11) {
-                    return i14;
+                if (i7 <= i3) {
+                    return i6;
                 }
-                i12 = i14 - 1;
+                i4 = i6 - 1;
             }
         }
-        return ~i13;
+        return i5 ^ (-1);
+    }
+
+    static int b(long[] jArr, int i2, long j2) {
+        int i3 = i2 - 1;
+        int i4 = 0;
+        while (i4 <= i3) {
+            int i5 = (i4 + i3) >>> 1;
+            long j3 = jArr[i5];
+            if (j3 < j2) {
+                i4 = i5 + 1;
+            } else {
+                if (j3 <= j2) {
+                    return i5;
+                }
+                i3 = i5 - 1;
+            }
+        }
+        return i4 ^ (-1);
     }
 
     public static boolean equal(Object obj, Object obj2) {
         return obj == obj2 || (obj != null && obj.equals(obj2));
     }
 
-    public static int idealByteArraySize(int i10) {
-        for (int i11 = 4; i11 < 32; i11++) {
-            int i12 = (1 << i11) - 12;
-            if (i10 <= i12) {
-                return i12;
+    public static int idealByteArraySize(int i2) {
+        for (int i3 = 4; i3 < 32; i3++) {
+            int i4 = (1 << i3) - 12;
+            if (i2 <= i4) {
+                return i4;
             }
         }
-        return i10;
+        return i2;
     }
 
-    public static int idealIntArraySize(int i10) {
-        return idealByteArraySize(i10 * 4) / 4;
+    public static int idealIntArraySize(int i2) {
+        return idealByteArraySize(i2 * 4) / 4;
     }
 
-    public static int idealLongArraySize(int i10) {
-        return idealByteArraySize(i10 * 8) / 8;
-    }
-
-    public static int binarySearch(long[] jArr, int i10, long j10) {
-        int i11 = i10 - 1;
-        int i12 = 0;
-        while (i12 <= i11) {
-            int i13 = (i12 + i11) >>> 1;
-            long j11 = jArr[i13];
-            if (j11 < j10) {
-                i12 = i13 + 1;
-            } else {
-                if (j11 <= j10) {
-                    return i13;
-                }
-                i11 = i13 - 1;
-            }
-        }
-        return ~i12;
+    public static int idealLongArraySize(int i2) {
+        return idealByteArraySize(i2 * 8) / 8;
     }
 }

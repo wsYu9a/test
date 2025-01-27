@@ -2,13 +2,14 @@ package com.kwad.sdk.commercial.model;
 
 import android.os.Looper;
 import com.ksad.json.annotation.KsJson;
+import com.kwad.sdk.core.response.kwai.a;
 import com.kwad.sdk.service.ServiceProvider;
-import com.kwad.sdk.utils.av;
+import com.kwad.sdk.utils.ap;
 import java.io.Serializable;
 
 @KsJson
-/* loaded from: classes3.dex */
-public class SDKInitMsg extends com.kwad.sdk.commercial.c.a implements Serializable {
+/* loaded from: classes2.dex */
+public class SDKInitMsg extends a implements Serializable {
     private static final int CHILD_PROCESS = 2;
     private static final int DYNAMIC_DISABLE = 2;
     private static final int DYNAMIC_ENABLE = 1;
@@ -16,11 +17,7 @@ public class SDKInitMsg extends com.kwad.sdk.commercial.c.a implements Serializa
     public static final int FINISH = 1;
     private static final int MAIN_PROCESS = 1;
     private static final int MAIN_THREAD = 1;
-    public static final int NEW_FINISH = 3;
-    public static final int NEW_FINISH_MODULE = 6;
     public static final int START = 0;
-    public static final int START_BEGIN = 4;
-    public static final int START_FINISH = 5;
     private static final int WORK_THREAD = 2;
     private static final long serialVersionUID = 368743526206619387L;
     public String errorReason;
@@ -34,10 +31,10 @@ public class SDKInitMsg extends com.kwad.sdk.commercial.c.a implements Serializa
     public long totalDurationTime;
 
     public SDKInitMsg() {
-        this.initProcess = av.isInMainProcess(ServiceProvider.MA()) ? 1 : 2;
+        this.initProcess = ap.isInMainProcess(ServiceProvider.getContext()) ? 1 : 2;
         this.initThread = Looper.getMainLooper() == Looper.myLooper() ? 1 : 2;
-        this.intDynamicSDK = com.kwad.framework.a.a.agP.booleanValue() ? 1 : 2;
-        this.intBuildNumber = 42;
+        this.intDynamicSDK = com.kwad.b.kwai.a.Yg.booleanValue() ? 1 : 2;
+        this.intBuildNumber = 463;
     }
 
     public SDKInitMsg setErrorReason(String str) {
@@ -45,23 +42,23 @@ public class SDKInitMsg extends com.kwad.sdk.commercial.c.a implements Serializa
         return this;
     }
 
-    public SDKInitMsg setInitCount(int i10) {
-        this.initCount = i10;
+    public SDKInitMsg setInitCount(int i2) {
+        this.initCount = i2;
         return this;
     }
 
-    public SDKInitMsg setInitStatus(int i10) {
-        this.initStatus = i10;
+    public SDKInitMsg setInitStatus(int i2) {
+        this.initStatus = i2;
         return this;
     }
 
-    public SDKInitMsg setLaunchIntervalTime(long j10) {
-        this.launchIntervalTime = j10;
+    public SDKInitMsg setLaunchIntervalTime(long j2) {
+        this.launchIntervalTime = j2;
         return this;
     }
 
-    public SDKInitMsg setTotalDurationTime(long j10) {
-        this.totalDurationTime = j10;
+    public SDKInitMsg setTotalDurationTime(long j2) {
+        this.totalDurationTime = j2;
         return this;
     }
 }

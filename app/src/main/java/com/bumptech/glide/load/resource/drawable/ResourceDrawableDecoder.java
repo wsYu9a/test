@@ -13,7 +13,7 @@ import com.bumptech.glide.load.ResourceDecoder;
 import com.bumptech.glide.load.engine.Resource;
 import java.util.List;
 
-/* loaded from: classes2.dex */
+/* loaded from: classes.dex */
 public class ResourceDrawableDecoder implements ResourceDecoder<Uri, Drawable> {
     private static final String ANDROID_PACKAGE_NAME = "android";
     private static final int ID_PATH_SEGMENTS = 1;
@@ -35,11 +35,11 @@ public class ResourceDrawableDecoder implements ResourceDecoder<Uri, Drawable> {
         }
         try {
             return this.context.createPackageContext(str, 0);
-        } catch (PackageManager.NameNotFoundException e10) {
+        } catch (PackageManager.NameNotFoundException e2) {
             if (str.contains(this.context.getPackageName())) {
                 return this.context;
             }
-            throw new IllegalArgumentException("Failed to obtain context or unrecognized Uri format for: " + uri, e10);
+            throw new IllegalArgumentException("Failed to obtain context or unrecognized Uri format for: " + uri, e2);
         }
     }
 
@@ -47,8 +47,8 @@ public class ResourceDrawableDecoder implements ResourceDecoder<Uri, Drawable> {
     private int findResourceIdFromResourceIdUri(Uri uri) {
         try {
             return Integer.parseInt(uri.getPathSegments().get(0));
-        } catch (NumberFormatException e10) {
-            throw new IllegalArgumentException("Unrecognized Uri format: " + uri, e10);
+        } catch (NumberFormatException e2) {
+            throw new IllegalArgumentException("Unrecognized Uri format: " + uri, e2);
         }
     }
 
@@ -60,7 +60,7 @@ public class ResourceDrawableDecoder implements ResourceDecoder<Uri, Drawable> {
         String str2 = pathSegments.get(1);
         int identifier = context.getResources().getIdentifier(str2, str, authority);
         if (identifier == 0) {
-            identifier = Resources.getSystem().getIdentifier(str2, str, ANDROID_PACKAGE_NAME);
+            identifier = Resources.getSystem().getIdentifier(str2, str, "android");
         }
         if (identifier != 0) {
             return identifier;
@@ -82,7 +82,7 @@ public class ResourceDrawableDecoder implements ResourceDecoder<Uri, Drawable> {
 
     @Override // com.bumptech.glide.load.ResourceDecoder
     @Nullable
-    public Resource<Drawable> decode(@NonNull Uri uri, int i10, int i11, @NonNull Options options) {
+    public Resource<Drawable> decode(@NonNull Uri uri, int i2, int i3, @NonNull Options options) {
         Context findContextForPackage = findContextForPackage(uri, uri.getAuthority());
         return NonOwnedDrawableResource.newInstance(DrawableDecoderCompat.getDrawable(this.context, findContextForPackage, findResourceIdFromUri(findContextForPackage, uri)));
     }

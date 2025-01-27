@@ -1,6 +1,6 @@
 package com.kwad.sdk.export.proxy;
 
-/* loaded from: classes3.dex */
+/* loaded from: classes2.dex */
 public interface AdHttpFormDataBuilder {
     void addFormDataPart(String str, String str2);
 

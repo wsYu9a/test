@@ -20,6 +20,17 @@ public class WXEmojiPageSharedObject implements WXMediaMessage.IMediaObject {
     public WXEmojiPageSharedObject() {
     }
 
+    public WXEmojiPageSharedObject(int i2, int i3, String str, String str2, String str3, String str4, int i4, String str5) {
+        this.tid = i3;
+        this.title = str;
+        this.desc = str2;
+        this.iconUrl = str3;
+        this.secondUrl = str4;
+        this.pageType = i4;
+        this.url = str5;
+        this.type = i2;
+    }
+
     @Override // com.tencent.mm.opensdk.modelmsg.WXMediaMessage.IMediaObject
     public boolean checkArgs() {
         if (!b.b(this.title) && !b.b(this.iconUrl)) {
@@ -54,16 +65,5 @@ public class WXEmojiPageSharedObject implements WXMediaMessage.IMediaObject {
         this.secondUrl = bundle.getString("_wxemojisharedobject_secondurl");
         this.pageType = bundle.getInt("_wxemojisharedobject_pagetype");
         this.url = bundle.getString("_wxwebpageobject_url");
-    }
-
-    public WXEmojiPageSharedObject(int i10, int i11, String str, String str2, String str3, String str4, int i12, String str5) {
-        this.tid = i11;
-        this.title = str;
-        this.desc = str2;
-        this.iconUrl = str3;
-        this.secondUrl = str4;
-        this.pageType = i12;
-        this.url = str5;
-        this.type = i10;
     }
 }

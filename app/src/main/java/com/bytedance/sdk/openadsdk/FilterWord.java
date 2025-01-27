@@ -2,7 +2,7 @@ package com.bytedance.sdk.openadsdk;
 
 import java.util.List;
 
-/* loaded from: classes2.dex */
+/* loaded from: classes.dex */
 public interface FilterWord {
     void addOption(FilterWord filterWord);
 
@@ -18,5 +18,5 @@ public interface FilterWord {
 
     boolean isValid();
 
-    void setIsSelected(boolean z10);
+    void setIsSelected(boolean z);
 }

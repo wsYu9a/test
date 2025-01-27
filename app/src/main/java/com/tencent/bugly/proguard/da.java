@@ -8,68 +8,68 @@ import android.os.SystemClock;
 public class da implements Runnable {
 
     /* renamed from: a */
-    private final Handler f22719a;
+    private final Handler f25052a;
 
     /* renamed from: b */
-    private final String f22720b;
+    private final String f25053b;
 
     /* renamed from: c */
-    private long f22721c;
+    private long f25054c;
 
     /* renamed from: d */
-    private final long f22722d;
+    private final long f25055d;
 
     /* renamed from: e */
-    private boolean f22723e = true;
+    private boolean f25056e = true;
 
     /* renamed from: f */
-    private long f22724f;
+    private long f25057f;
 
-    public da(Handler handler, String str, long j10) {
-        this.f22719a = handler;
-        this.f22720b = str;
-        this.f22721c = j10;
-        this.f22722d = j10;
+    da(Handler handler, String str, long j2) {
+        this.f25052a = handler;
+        this.f25053b = str;
+        this.f25054c = j2;
+        this.f25055d = j2;
     }
 
     public int a() {
-        if (this.f22723e) {
+        if (this.f25056e) {
             return 0;
         }
-        return SystemClock.uptimeMillis() - this.f22724f < this.f22721c ? 1 : 3;
+        return SystemClock.uptimeMillis() - this.f25057f < this.f25054c ? 1 : 3;
     }
 
     public Looper b() {
-        return this.f22719a.getLooper();
+        return this.f25052a.getLooper();
     }
 
     public String c() {
-        return this.f22720b;
+        return this.f25053b;
     }
 
     public boolean d() {
-        return !this.f22723e && SystemClock.uptimeMillis() > this.f22724f + this.f22721c;
+        return !this.f25056e && SystemClock.uptimeMillis() > this.f25057f + this.f25054c;
     }
 
     public void e() {
-        this.f22721c = this.f22722d;
+        this.f25054c = this.f25055d;
     }
 
     public void f() {
-        if (this.f22723e) {
-            this.f22723e = false;
-            this.f22724f = SystemClock.uptimeMillis();
-            this.f22719a.post(this);
+        if (this.f25056e) {
+            this.f25056e = false;
+            this.f25057f = SystemClock.uptimeMillis();
+            this.f25052a.post(this);
         }
     }
 
     @Override // java.lang.Runnable
     public void run() {
-        this.f22723e = true;
+        this.f25056e = true;
         e();
     }
 
-    public void a(long j10) {
-        this.f22721c = j10;
+    public void a(long j2) {
+        this.f25054c = j2;
     }
 }

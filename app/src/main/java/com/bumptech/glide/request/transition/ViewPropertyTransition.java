@@ -3,7 +3,7 @@ package com.bumptech.glide.request.transition;
 import android.view.View;
 import com.bumptech.glide.request.transition.Transition;
 
-/* loaded from: classes2.dex */
+/* loaded from: classes.dex */
 public class ViewPropertyTransition<R> implements Transition<R> {
     private final Animator animator;
 
@@ -16,7 +16,7 @@ public class ViewPropertyTransition<R> implements Transition<R> {
     }
 
     @Override // com.bumptech.glide.request.transition.Transition
-    public boolean transition(R r10, Transition.ViewAdapter viewAdapter) {
+    public boolean transition(R r, Transition.ViewAdapter viewAdapter) {
         if (viewAdapter.getView() == null) {
             return false;
         }

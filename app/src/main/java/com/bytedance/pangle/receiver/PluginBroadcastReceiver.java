@@ -5,7 +5,7 @@ import android.content.Intent;
 import androidx.annotation.Keep;
 
 @Keep
-/* loaded from: classes2.dex */
+/* loaded from: classes.dex */
 public abstract class PluginBroadcastReceiver {
     public abstract void onReceive(Context context, Intent intent);
 }

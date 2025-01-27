@@ -1,8 +1,7 @@
 package com.ss.android.downloadad.api.download;
 
-import com.ss.android.download.api.config.DownloadMarketInterceptor;
 import com.ss.android.download.api.download.DownloadController;
-import com.ss.android.downloadlib.addownload.k;
+import com.ss.android.downloadlib.addownload.pa;
 import com.ss.android.socialbase.downloader.constants.DbJsonConstants;
 import org.json.JSONObject;
 
@@ -22,8 +21,6 @@ public class AdDownloadController implements DownloadController {
     protected boolean mEnableNewActivity = true;
     protected boolean mEnableAH = true;
     protected boolean mEnableAM = true;
-    protected boolean mEnableOppoAutoDownload = true;
-    protected DownloadMarketInterceptor mDownloadMarketInterceptor = null;
 
     public static final class Builder {
         AdDownloadController controller = new AdDownloadController();
@@ -33,37 +30,32 @@ public class AdDownloadController implements DownloadController {
         }
 
         @Deprecated
-        public Builder setDowloadChunkCount(int i10) {
+        public Builder setDowloadChunkCount(int i2) {
             return this;
         }
 
-        public Builder setDownloadMode(int i10) {
-            this.controller.mDownloadMode = i10;
+        public Builder setDownloadMode(int i2) {
+            this.controller.mDownloadMode = i2;
             return this;
         }
 
-        public Builder setEnableAH(boolean z10) {
-            this.controller.mEnableAH = z10;
+        public Builder setEnableAH(boolean z) {
+            this.controller.mEnableAH = z;
             return this;
         }
 
-        public Builder setEnableAM(boolean z10) {
-            this.controller.mEnableAM = z10;
+        public Builder setEnableAM(boolean z) {
+            this.controller.mEnableAM = z;
             return this;
         }
 
-        public Builder setEnableNewActivity(boolean z10) {
-            this.controller.mEnableNewActivity = z10;
+        public Builder setEnableNewActivity(boolean z) {
+            this.controller.mEnableNewActivity = z;
             return this;
         }
 
-        public Builder setEnableOppoAutoDownload(boolean z10) {
-            this.controller.mEnableOppoAutoDownload = z10;
-            return this;
-        }
-
-        public Builder setEnableShowComplianceDialog(boolean z10) {
-            this.controller.mEnableShowComplianceDialog = z10;
+        public Builder setEnableShowComplianceDialog(boolean z) {
+            this.controller.mEnableShowComplianceDialog = z;
             return this;
         }
 
@@ -83,38 +75,38 @@ public class AdDownloadController implements DownloadController {
             return this;
         }
 
-        public Builder setInterceptFlag(int i10) {
-            this.controller.mInterceptFlag = i10;
+        public Builder setInterceptFlag(int i2) {
+            this.controller.mInterceptFlag = i2;
             return this;
         }
 
-        public Builder setIsAddToDownloadManage(boolean z10) {
-            this.controller.mIsAddToDownloadManage = z10;
+        public Builder setIsAddToDownloadManage(boolean z) {
+            this.controller.mIsAddToDownloadManage = z;
             return this;
         }
 
-        public Builder setIsAutoDownloadOnCardShow(boolean z10) {
-            this.controller.mIsAutoDownloadOnCardShow = z10;
+        public Builder setIsAutoDownloadOnCardShow(boolean z) {
+            this.controller.mIsAutoDownloadOnCardShow = z;
             return this;
         }
 
-        public Builder setIsEnableBackDialog(boolean z10) {
-            this.controller.mIsEnableBackDialog = z10;
+        public Builder setIsEnableBackDialog(boolean z) {
+            this.controller.mIsEnableBackDialog = z;
             return this;
         }
 
         @Deprecated
-        public Builder setIsEnableMultipleDownload(boolean z10) {
+        public Builder setIsEnableMultipleDownload(boolean z) {
             return this;
         }
 
-        public Builder setLinkMode(int i10) {
-            this.controller.mLinkMode = i10;
+        public Builder setLinkMode(int i2) {
+            this.controller.mLinkMode = i2;
             return this;
         }
 
-        public Builder setShouldUseNewWebView(boolean z10) {
-            this.controller.mShouldUseNewWebView = z10;
+        public Builder setShouldUseNewWebView(boolean z) {
+            this.controller.mShouldUseNewWebView = z;
             return this;
         }
     }
@@ -137,9 +129,8 @@ public class AdDownloadController implements DownloadController {
             builder.setEnableAH(jSONObject.optInt("enable_ah", 1) == 1);
             builder.setEnableAM(jSONObject.optInt("enable_am", 1) == 1);
             builder.setExtraJson(jSONObject.optJSONObject("extra"));
-            builder.setEnableOppoAutoDownload(jSONObject.optInt("enable_oppo_auto_download", 1) == 1);
-        } catch (Exception e10) {
-            k.u().a(e10, "AdDownloadController fromJson");
+        } catch (Exception e2) {
+            pa.v().j(e2, "AdDownloadController fromJson");
         }
         return builder.build();
     }
@@ -159,10 +150,6 @@ public class AdDownloadController implements DownloadController {
         return this.mEnableNewActivity;
     }
 
-    public boolean enableOppoAutoDownload() {
-        return this.mEnableOppoAutoDownload;
-    }
-
     @Override // com.ss.android.download.api.download.DownloadController
     public boolean enableShowComplianceDialog() {
         return this.mEnableShowComplianceDialog;
@@ -171,10 +158,6 @@ public class AdDownloadController implements DownloadController {
     @Override // com.ss.android.download.api.download.DownloadController
     public int getDowloadChunkCount() {
         return 1;
-    }
-
-    public DownloadMarketInterceptor getDownloadMarketInterceptor() {
-        return this.mDownloadMarketInterceptor;
     }
 
     @Override // com.ss.android.download.api.download.DownloadController
@@ -227,27 +210,19 @@ public class AdDownloadController implements DownloadController {
         return false;
     }
 
-    public void setDownloadMarketInterceptor(DownloadMarketInterceptor downloadMarketInterceptor) {
-        this.mDownloadMarketInterceptor = downloadMarketInterceptor;
+    @Override // com.ss.android.download.api.download.DownloadController
+    public void setDownloadMode(int i2) {
+        this.mDownloadMode = i2;
     }
 
     @Override // com.ss.android.download.api.download.DownloadController
-    public void setDownloadMode(int i10) {
-        this.mDownloadMode = i10;
+    public void setEnableNewActivity(boolean z) {
+        this.mEnableNewActivity = z;
     }
 
     @Override // com.ss.android.download.api.download.DownloadController
-    public void setEnableNewActivity(boolean z10) {
-        this.mEnableNewActivity = z10;
-    }
-
-    public void setEnableOppoAutoDownload(boolean z10) {
-        this.mEnableOppoAutoDownload = z10;
-    }
-
-    @Override // com.ss.android.download.api.download.DownloadController
-    public void setEnableShowComplianceDialog(boolean z10) {
-        this.mEnableShowComplianceDialog = z10;
+    public void setEnableShowComplianceDialog(boolean z) {
+        this.mEnableShowComplianceDialog = z;
     }
 
     public void setExtraJson(JSONObject jSONObject) {
@@ -258,13 +233,13 @@ public class AdDownloadController implements DownloadController {
         this.mExtraObject = obj;
     }
 
-    public void setIsAutoDownloadOnCardShow(boolean z10) {
-        this.mIsAutoDownloadOnCardShow = z10;
+    public void setIsAutoDownloadOnCardShow(boolean z) {
+        this.mIsAutoDownloadOnCardShow = z;
     }
 
     @Override // com.ss.android.download.api.download.DownloadController
-    public void setLinkMode(int i10) {
-        this.mLinkMode = i10;
+    public void setLinkMode(int i2) {
+        this.mLinkMode = i2;
     }
 
     @Override // com.ss.android.download.api.download.DownloadController
@@ -277,6 +252,7 @@ public class AdDownloadController implements DownloadController {
         try {
             jSONObject.putOpt(DbJsonConstants.DBJSON_KEY_LINK_MODE, Integer.valueOf(this.mLinkMode));
             jSONObject.putOpt("download_mode", Integer.valueOf(this.mDownloadMode));
+            int i2 = 1;
             jSONObject.putOpt("enable_back_dialog", Integer.valueOf(this.mIsEnableBackDialog ? 1 : 0));
             jSONObject.putOpt("add_to_manage", Integer.valueOf(this.mIsAddToDownloadManage ? 1 : 0));
             jSONObject.putOpt("use_new_webview", Integer.valueOf(this.mShouldUseNewWebView ? 1 : 0));
@@ -286,10 +262,12 @@ public class AdDownloadController implements DownloadController {
             jSONObject.putOpt("extra", this.mExtraJson);
             jSONObject.putOpt("enable_new_activity", Integer.valueOf(this.mEnableNewActivity ? 1 : 0));
             jSONObject.putOpt("enable_ah", Integer.valueOf(this.mEnableAH ? 1 : 0));
-            jSONObject.putOpt("enable_am", Integer.valueOf(this.mEnableAM ? 1 : 0));
-            jSONObject.putOpt("enable_oppo_auto_download", Integer.valueOf(this.mEnableOppoAutoDownload ? 1 : 0));
-        } catch (Exception e10) {
-            k.u().a(e10, "AdDownloadController toJson");
+            if (!this.mEnableAM) {
+                i2 = 0;
+            }
+            jSONObject.putOpt("enable_am", Integer.valueOf(i2));
+        } catch (Exception e2) {
+            pa.v().j(e2, "AdDownloadController toJson");
         }
         return jSONObject;
     }

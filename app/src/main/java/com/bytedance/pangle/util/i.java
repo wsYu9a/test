@@ -2,36 +2,39 @@ package com.bytedance.pangle.util;
 
 import android.os.Build;
 
-/* loaded from: classes2.dex */
+/* loaded from: classes.dex */
 public final class i {
     public static boolean a() {
-        return true;
+        return Build.VERSION.SDK_INT >= 21;
     }
 
     public static boolean b() {
-        return false;
+        return Build.VERSION.SDK_INT < 21;
     }
 
     public static boolean c() {
-        return Build.VERSION.SDK_INT <= 23;
+        int i2 = Build.VERSION.SDK_INT;
+        return i2 >= 21 && i2 <= 23;
     }
 
     public static boolean d() {
-        return Build.VERSION.SDK_INT < 23;
+        int i2 = Build.VERSION.SDK_INT;
+        return i2 >= 21 && i2 < 23;
     }
 
     public static boolean e() {
-        return Build.VERSION.SDK_INT <= 25;
+        int i2 = Build.VERSION.SDK_INT;
+        return i2 >= 21 && i2 <= 25;
     }
 
     public static boolean f() {
-        int i10 = Build.VERSION.SDK_INT;
-        return i10 >= 26 && i10 <= 28;
+        int i2 = Build.VERSION.SDK_INT;
+        return i2 >= 26 && i2 <= 28;
     }
 
     public static boolean g() {
-        int i10 = Build.VERSION.SDK_INT;
-        return i10 >= 29 && i10 <= 30;
+        int i2 = Build.VERSION.SDK_INT;
+        return i2 >= 29 && i2 <= 30;
     }
 
     public static boolean h() {
@@ -43,28 +46,18 @@ public final class i {
     }
 
     public static boolean j() {
-        int i10;
-        int i11 = Build.VERSION.SDK_INT;
-        if (i11 >= 28) {
-            return true;
+        int i2 = Build.VERSION.SDK_INT;
+        if (i2 < 28) {
+            return i2 == 27 && Build.VERSION.PREVIEW_SDK_INT > 0;
         }
-        if (i11 != 27) {
-            return false;
-        }
-        i10 = Build.VERSION.PREVIEW_SDK_INT;
-        return i10 > 0;
+        return true;
     }
 
     public static boolean k() {
-        int i10;
-        int i11 = Build.VERSION.SDK_INT;
-        if (i11 >= 31) {
-            return true;
+        int i2 = Build.VERSION.SDK_INT;
+        if (i2 < 31) {
+            return i2 == 30 && Build.VERSION.PREVIEW_SDK_INT > 0;
         }
-        if (i11 != 30) {
-            return false;
-        }
-        i10 = Build.VERSION.PREVIEW_SDK_INT;
-        return i10 > 0;
+        return true;
     }
 }

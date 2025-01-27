@@ -1,7 +1,7 @@
 package kotlin;
 
-@Metadata(d1 = {"kotlin/PreconditionsKt__AssertionsJVMKt", "kotlin/PreconditionsKt__PreconditionsKt"}, k = 4, mv = {1, 9, 0}, xi = 49)
-/* loaded from: classes4.dex */
+@Metadata(bv = {1, 0, 3}, d1 = {"kotlin/PreconditionsKt__AssertionsJVMKt", "kotlin/PreconditionsKt__PreconditionsKt"}, d2 = {}, k = 4, mv = {1, 4, 0})
+/* loaded from: classes5.dex */
 public final class PreconditionsKt extends PreconditionsKt__PreconditionsKt {
     private PreconditionsKt() {
     }

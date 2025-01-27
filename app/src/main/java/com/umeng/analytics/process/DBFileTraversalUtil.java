@@ -11,24 +11,24 @@ import java.util.concurrent.Executors;
 public class DBFileTraversalUtil {
 
     /* renamed from: a */
-    private static ExecutorService f24179a = Executors.newSingleThreadExecutor();
+    private static ExecutorService f26032a = Executors.newSingleThreadExecutor();
 
     /* renamed from: b */
-    private static FileLockUtil f24180b = new FileLockUtil();
+    private static FileLockUtil f26033b = new FileLockUtil();
 
     /* renamed from: com.umeng.analytics.process.DBFileTraversalUtil$1 */
-    public static class AnonymousClass1 implements Runnable {
+    static class AnonymousClass1 implements Runnable {
 
         /* renamed from: a */
-        final /* synthetic */ File f24181a;
+        final /* synthetic */ File f26034a;
 
         /* renamed from: b */
-        final /* synthetic */ FileLockCallback f24182b;
+        final /* synthetic */ FileLockCallback f26035b;
 
         /* renamed from: c */
-        final /* synthetic */ a f24183c;
+        final /* synthetic */ a f26036c;
 
-        public AnonymousClass1(File file, FileLockCallback fileLockCallback, a aVar) {
+        AnonymousClass1(File file, FileLockCallback fileLockCallback, a aVar) {
             file = file;
             fileLockCallback = fileLockCallback;
             aVar = aVar;
@@ -38,8 +38,8 @@ public class DBFileTraversalUtil {
         public void run() {
             try {
                 for (File file : file.listFiles()) {
-                    if (file.getName().endsWith(com.umeng.analytics.process.a.f24202d)) {
-                        DBFileTraversalUtil.f24180b.doFileOperateion(file, fileLockCallback);
+                    if (file.getName().endsWith(com.umeng.analytics.process.a.f26055d)) {
+                        DBFileTraversalUtil.f26033b.doFileOperateion(file, fileLockCallback);
                         UMRTLog.i(UMRTLog.RTLOG_TAG, "--->>> file: " + file.getName());
                     }
                 }
@@ -60,18 +60,18 @@ public class DBFileTraversalUtil {
     public static void traverseDBFiles(String str, FileLockCallback fileLockCallback, a aVar) {
         File file = new File(str);
         if (file.exists() && file.isDirectory()) {
-            f24179a.execute(new Runnable() { // from class: com.umeng.analytics.process.DBFileTraversalUtil.1
+            f26032a.execute(new Runnable() { // from class: com.umeng.analytics.process.DBFileTraversalUtil.1
 
                 /* renamed from: a */
-                final /* synthetic */ File f24181a;
+                final /* synthetic */ File f26034a;
 
                 /* renamed from: b */
-                final /* synthetic */ FileLockCallback f24182b;
+                final /* synthetic */ FileLockCallback f26035b;
 
                 /* renamed from: c */
-                final /* synthetic */ a f24183c;
+                final /* synthetic */ a f26036c;
 
-                public AnonymousClass1(File file2, FileLockCallback fileLockCallback2, a aVar2) {
+                AnonymousClass1(File file2, FileLockCallback fileLockCallback2, a aVar2) {
                     file = file2;
                     fileLockCallback = fileLockCallback2;
                     aVar = aVar2;
@@ -81,8 +81,8 @@ public class DBFileTraversalUtil {
                 public void run() {
                     try {
                         for (File file2 : file.listFiles()) {
-                            if (file2.getName().endsWith(com.umeng.analytics.process.a.f24202d)) {
-                                DBFileTraversalUtil.f24180b.doFileOperateion(file2, fileLockCallback);
+                            if (file2.getName().endsWith(com.umeng.analytics.process.a.f26055d)) {
+                                DBFileTraversalUtil.f26033b.doFileOperateion(file2, fileLockCallback);
                                 UMRTLog.i(UMRTLog.RTLOG_TAG, "--->>> file: " + file2.getName());
                             }
                         }

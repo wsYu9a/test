@@ -2,163 +2,128 @@ package com.kwad.components.ad.feed;
 
 import android.os.SystemClock;
 import android.text.TextUtils;
-import android.util.Pair;
 import androidx.annotation.NonNull;
 import com.kwad.components.ad.KsAdLoadManager;
 import com.kwad.components.ad.feed.c;
-import com.kwad.components.core.request.model.ImpInfo;
-import com.kwad.components.core.request.model.a;
-import com.kwad.components.core.s.m;
+import com.kwad.components.core.n.kwai.a;
+import com.kwad.components.core.r.k;
+import com.kwad.components.core.response.model.AdResultData;
 import com.kwad.components.model.FeedType;
+import com.kwad.sdk.KsAdSDKImpl;
 import com.kwad.sdk.api.KsFeedAd;
 import com.kwad.sdk.api.KsLoadManager;
 import com.kwad.sdk.api.KsScene;
+import com.kwad.sdk.core.report.KSLoggerReporter;
 import com.kwad.sdk.core.response.model.AdInfo;
-import com.kwad.sdk.core.response.model.AdResultData;
 import com.kwad.sdk.core.response.model.AdTemplate;
 import com.kwad.sdk.internal.api.SceneImpl;
-import com.kwad.sdk.l;
-import com.kwad.sdk.utils.bd;
-import com.kwad.sdk.utils.bt;
+import com.kwad.sdk.utils.bi;
+import com.kwai.adclient.kscommerciallogger.model.BusinessType;
 import java.util.ArrayList;
 import java.util.List;
 
-/* loaded from: classes2.dex */
+/* loaded from: classes.dex */
 public final class e {
 
     /* renamed from: com.kwad.components.ad.feed.e$1 */
-    public class AnonymousClass1 extends bd {
-        public AnonymousClass1() {
+    static class AnonymousClass1 implements Runnable {
+        AnonymousClass1() {
         }
 
-        @Override // com.kwad.sdk.utils.bd
-        public final void doTask() {
-            KsLoadManager.FeedAdListener.this.onError(com.kwad.sdk.core.network.e.azA.errorCode, com.kwad.sdk.core.network.e.azA.msg + "sdk not init");
+        @Override // java.lang.Runnable
+        public final void run() {
+            KsLoadManager.FeedAdListener.this.onError(com.kwad.sdk.core.network.f.agn.errorCode, com.kwad.sdk.core.network.f.agn.msg + "sdk not init");
         }
     }
 
     /* renamed from: com.kwad.components.ad.feed.e$2 */
-    public class AnonymousClass2 extends com.kwad.components.core.request.d {
-        final /* synthetic */ SceneImpl bV;
-        final /* synthetic */ KsLoadManager.FeedAdListener fE;
-        final /* synthetic */ boolean fF;
-        final /* synthetic */ long fG;
+    static class AnonymousClass2 extends com.kwad.components.core.n.c {
+        final /* synthetic */ KsLoadManager.FeedAdListener ek;
+        final /* synthetic */ SceneImpl el;
+        final /* synthetic */ boolean em;
+        final /* synthetic */ long en;
 
         /* renamed from: com.kwad.components.ad.feed.e$2$1 */
-        public class AnonymousClass1 extends bd {
-            final /* synthetic */ int bW;
-            final /* synthetic */ String bX;
+        final class AnonymousClass1 implements Runnable {
+            final /* synthetic */ int ck;
+            final /* synthetic */ String cl;
 
-            public AnonymousClass1(int i10, String str) {
-                i10 = i10;
+            AnonymousClass1(int i2, String str) {
+                i2 = i2;
                 str = str;
             }
 
-            @Override // com.kwad.sdk.utils.bd
-            public final void doTask() {
-                AnonymousClass2.this.fE.onError(i10, str);
+            @Override // java.lang.Runnable
+            public final void run() {
+                com.kwad.sdk.core.d.b.d("KsAdFeedLoadManager", "loadFeedAd onError:" + String.format("code:%s__msg:%s", Integer.valueOf(i2), str));
+                com.kwad.components.ad.feed.monitor.a.d(i2, str);
+                AnonymousClass2.this.ek.onError(i2, str);
             }
         }
 
         /* renamed from: com.kwad.components.ad.feed.e$2$2 */
-        public class C03702 extends bd {
-            final /* synthetic */ List du;
+        final class RunnableC01272 implements Runnable {
+            final /* synthetic */ List cn;
 
-            public C03702(List list) {
-                arrayList = list;
-            }
+            /* renamed from: com.kwad.components.ad.feed.e$2$2$1 */
+            final class AnonymousClass1 implements c.b {
+                final /* synthetic */ c ep;
+                final /* synthetic */ c.a eq;
+                final /* synthetic */ KsFeedAd er;
+                final /* synthetic */ long es;
 
-            @Override // com.kwad.sdk.utils.bd
-            public final void doTask() {
-                com.kwad.components.ad.feed.monitor.b.a(arrayList.size(), SystemClock.elapsedRealtime() - AnonymousClass2.this.fG);
-                KsAdLoadManager.M().b(arrayList);
-                AnonymousClass2.this.fE.onFeedAdLoad(arrayList);
-                com.kwad.components.ad.feed.monitor.b.a(AnonymousClass2.this.bV.getPosId(), (List<KsFeedAd>) arrayList);
-            }
-        }
-
-        /* renamed from: com.kwad.components.ad.feed.e$2$3 */
-        public class AnonymousClass3 extends bd {
-            final /* synthetic */ List du;
-
-            /* renamed from: com.kwad.components.ad.feed.e$2$3$1 */
-            public class AnonymousClass1 implements c.a {
-                final /* synthetic */ c fI;
-                final /* synthetic */ KsFeedAd fJ;
-                final /* synthetic */ int[] fK;
-                final /* synthetic */ int fL;
-                final /* synthetic */ int fp;
-                final /* synthetic */ long fq;
-
-                public AnonymousClass1(c cVar, KsFeedAd ksFeedAd, int i10, long j10, int[] iArr, int i11) {
+                AnonymousClass1(c cVar, c.a aVar, KsFeedAd ksFeedAd, long j2) {
                     cVar = cVar;
+                    aVar = aVar;
                     ksFeedAd = ksFeedAd;
-                    i10 = i10;
-                    elapsedRealtime = j10;
-                    iArr = iArr;
-                    size = i11;
+                    elapsedRealtime = j2;
                 }
 
-                @Override // com.kwad.components.ad.feed.c.a
-                public final void d(int i10, String str) {
-                    com.kwad.sdk.core.d.c.d("KsAdFeedLoadManager", "ksFeedAd onLoadFinished" + cVar);
-                    com.kwad.components.ad.feed.monitor.b.a(((c) ksFeedAd).getAdTemplate(), i10, i10, SystemClock.elapsedRealtime() - elapsedRealtime, str);
-                    int[] iArr = iArr;
-                    int i11 = iArr[0] + 1;
-                    iArr[0] = i11;
-                    int i12 = size;
-                    if (i11 == i12) {
-                        com.kwad.components.ad.feed.monitor.b.a(i12, SystemClock.elapsedRealtime() - AnonymousClass2.this.fG);
-                        KsAdLoadManager.M().b(arrayList);
-                        AnonymousClass3 anonymousClass3 = AnonymousClass3.this;
-                        AnonymousClass2.this.fE.onFeedAdLoad(arrayList);
-                        com.kwad.components.ad.feed.monitor.b.a(AnonymousClass2.this.bV.getPosId(), (List<KsFeedAd>) arrayList);
+                @Override // com.kwad.components.ad.feed.c.b
+                public final void c(int i2, String str) {
+                    com.kwad.sdk.core.d.b.d("KsAdFeedLoadManager", "ksFeedAd onLoadFinished" + cVar + " cnt: " + aVar.aZ());
+                    com.kwad.components.ad.feed.monitor.a.a(((c) ksFeedAd).getAdTemplate(), i2, SystemClock.elapsedRealtime() - elapsedRealtime, str);
+                    if (aVar.ba()) {
+                        com.kwad.components.ad.feed.monitor.a.a(aVar.aZ(), SystemClock.elapsedRealtime() - AnonymousClass2.this.en);
+                        KsAdLoadManager.ac().b(arrayList);
+                        RunnableC01272 runnableC01272 = RunnableC01272.this;
+                        AnonymousClass2.this.ek.onFeedAdLoad(arrayList);
                     }
                 }
             }
 
-            public AnonymousClass3(List list) {
+            RunnableC01272(List list) {
                 arrayList = list;
             }
 
-            @Override // com.kwad.sdk.utils.bd
-            public final void doTask() {
-                int size = arrayList.size();
-                int[] iArr = {0};
+            @Override // java.lang.Runnable
+            public final void run() {
+                c.a aVar = new c.a(arrayList.size());
                 for (KsFeedAd ksFeedAd : arrayList) {
                     c cVar = (c) ksFeedAd;
-                    com.kwad.sdk.core.d.c.d("KsAdFeedLoadManager", "ksFeedAd " + ksFeedAd);
-                    cVar.a(new c.a() { // from class: com.kwad.components.ad.feed.e.2.3.1
-                        final /* synthetic */ c fI;
-                        final /* synthetic */ KsFeedAd fJ;
-                        final /* synthetic */ int[] fK;
-                        final /* synthetic */ int fL;
-                        final /* synthetic */ int fp;
-                        final /* synthetic */ long fq;
+                    com.kwad.sdk.core.d.b.d("KsAdFeedLoadManager", "ksFeedAd " + ksFeedAd);
+                    cVar.a(new c.b() { // from class: com.kwad.components.ad.feed.e.2.2.1
+                        final /* synthetic */ c ep;
+                        final /* synthetic */ c.a eq;
+                        final /* synthetic */ KsFeedAd er;
+                        final /* synthetic */ long es;
 
-                        public AnonymousClass1(c cVar2, KsFeedAd ksFeedAd2, int i10, long j10, int[] iArr2, int size2) {
+                        AnonymousClass1(c cVar2, c.a aVar2, KsFeedAd ksFeedAd2, long j2) {
                             cVar = cVar2;
+                            aVar = aVar2;
                             ksFeedAd = ksFeedAd2;
-                            i10 = i10;
-                            elapsedRealtime = j10;
-                            iArr = iArr2;
-                            size = size2;
+                            elapsedRealtime = j2;
                         }
 
-                        @Override // com.kwad.components.ad.feed.c.a
-                        public final void d(int i10, String str) {
-                            com.kwad.sdk.core.d.c.d("KsAdFeedLoadManager", "ksFeedAd onLoadFinished" + cVar);
-                            com.kwad.components.ad.feed.monitor.b.a(((c) ksFeedAd).getAdTemplate(), i10, i10, SystemClock.elapsedRealtime() - elapsedRealtime, str);
-                            int[] iArr2 = iArr;
-                            int i11 = iArr2[0] + 1;
-                            iArr2[0] = i11;
-                            int i12 = size;
-                            if (i11 == i12) {
-                                com.kwad.components.ad.feed.monitor.b.a(i12, SystemClock.elapsedRealtime() - AnonymousClass2.this.fG);
-                                KsAdLoadManager.M().b(arrayList);
-                                AnonymousClass3 anonymousClass3 = AnonymousClass3.this;
-                                AnonymousClass2.this.fE.onFeedAdLoad(arrayList);
-                                com.kwad.components.ad.feed.monitor.b.a(AnonymousClass2.this.bV.getPosId(), (List<KsFeedAd>) arrayList);
+                        @Override // com.kwad.components.ad.feed.c.b
+                        public final void c(int i2, String str) {
+                            com.kwad.sdk.core.d.b.d("KsAdFeedLoadManager", "ksFeedAd onLoadFinished" + cVar + " cnt: " + aVar.aZ());
+                            com.kwad.components.ad.feed.monitor.a.a(((c) ksFeedAd).getAdTemplate(), i2, SystemClock.elapsedRealtime() - elapsedRealtime, str);
+                            if (aVar.ba()) {
+                                com.kwad.components.ad.feed.monitor.a.a(aVar.aZ(), SystemClock.elapsedRealtime() - AnonymousClass2.this.en);
+                                KsAdLoadManager.ac().b(arrayList);
+                                RunnableC01272 runnableC01272 = RunnableC01272.this;
+                                AnonymousClass2.this.ek.onFeedAdLoad(arrayList);
                             }
                         }
                     });
@@ -166,200 +131,149 @@ public final class e {
             }
         }
 
-        public AnonymousClass2(KsLoadManager.FeedAdListener feedAdListener, SceneImpl sceneImpl, boolean z10, long j10) {
-            this.fE = feedAdListener;
-            this.bV = sceneImpl;
-            this.fF = z10;
-            this.fG = j10;
+        AnonymousClass2(KsLoadManager.FeedAdListener feedAdListener, SceneImpl sceneImpl, boolean z, long j2) {
+            this.ek = feedAdListener;
+            this.el = sceneImpl;
+            this.em = z;
+            this.en = j2;
         }
 
-        @Override // com.kwad.components.core.request.d, com.kwad.components.core.request.k
-        public final void b(@NonNull AdResultData adResultData) {
+        @Override // com.kwad.components.core.n.c, com.kwad.components.core.n.i
+        public final void a(@NonNull AdResultData adResultData) {
             ArrayList arrayList = new ArrayList();
-            List<AdTemplate> adTemplateList = adResultData.getAdTemplateList();
-            com.kwad.sdk.core.d.c.d("KsAdFeedLoadManager", "loadFeedAd onSuccess:" + adTemplateList.size());
-            if (adTemplateList.isEmpty()) {
-                com.kwad.components.ad.feed.monitor.b.bA();
-            }
+            com.kwad.sdk.core.d.b.d("KsAdFeedLoadManager", "loadFeedAd onSuccess:" + adResultData.getAdTemplateList().size());
             String str = null;
-            for (AdTemplate adTemplate : adTemplateList) {
+            for (AdTemplate adTemplate : adResultData.getAdTemplateList()) {
                 if (adTemplate != null) {
-                    AdInfo eb2 = com.kwad.sdk.core.response.b.e.eb(adTemplate);
+                    AdInfo cb = com.kwad.sdk.core.response.a.d.cb(adTemplate);
                     if (FeedType.checkTypeValid(adTemplate)) {
-                        adTemplate.mAdScene = this.bV;
-                        if (!TextUtils.isEmpty(com.kwad.sdk.core.response.b.a.K(eb2))) {
-                            Pair<Integer, String> h10 = com.kwad.components.ad.feed.monitor.a.h(adTemplate);
-                            com.kwad.components.ad.feed.monitor.b.f(((Integer) h10.first).intValue(), (String) h10.second);
-                        }
-                        arrayList.add(new c(com.kwad.sdk.core.response.b.c.a(adResultData, adTemplate), this.fF));
+                        adTemplate.mAdScene = this.el;
+                        arrayList.add(new c(adTemplate, this.em));
                     } else {
-                        str = String.format("(模板不匹配materialType:%s_feedType:%s)", Integer.valueOf(com.kwad.sdk.core.response.b.a.be(eb2)), FeedType.fromInt(adTemplate.type));
-                        com.kwad.components.ad.feed.monitor.b.b(com.kwad.sdk.core.response.b.a.be(eb2), adTemplate.type, adTemplate);
+                        str = String.format("(模板不匹配materialType:%s_feedType:%s)", Integer.valueOf(com.kwad.sdk.core.response.a.a.aW(cb)), FeedType.fromInt(adTemplate.type));
                     }
                 }
             }
-            com.kwad.sdk.core.d.c.d("KsAdFeedLoadManager", "loadFeedAd onSuccess:" + arrayList.size());
-            com.kwad.components.ad.feed.monitor.b.t(arrayList.size());
+            com.kwad.sdk.core.d.b.d("KsAdFeedLoadManager", "loadFeedAd onSuccess:" + arrayList.size());
+            com.kwad.components.ad.feed.monitor.a.x(arrayList.size());
             if (!arrayList.isEmpty()) {
-                com.kwad.sdk.commercial.d.d.a(this.bV, arrayList.size());
-                if (!com.kwad.sdk.core.config.d.CW() || (l.At().zB() && !(l.At().zB() && com.kwad.sdk.core.config.d.CX() == 1))) {
-                    bt.runOnUiThread(new bd() { // from class: com.kwad.components.ad.feed.e.2.3
-                        final /* synthetic */ List du;
+                KSLoggerReporter.ReportClient.CORE_CONVERT.buildMethodCheck(BusinessType.AD_FEED, "dataReady").bw(arrayList.size()).report();
+                bi.runOnUiThread(new Runnable() { // from class: com.kwad.components.ad.feed.e.2.2
+                    final /* synthetic */ List cn;
 
-                        /* renamed from: com.kwad.components.ad.feed.e$2$3$1 */
-                        public class AnonymousClass1 implements c.a {
-                            final /* synthetic */ c fI;
-                            final /* synthetic */ KsFeedAd fJ;
-                            final /* synthetic */ int[] fK;
-                            final /* synthetic */ int fL;
-                            final /* synthetic */ int fp;
-                            final /* synthetic */ long fq;
+                    /* renamed from: com.kwad.components.ad.feed.e$2$2$1 */
+                    final class AnonymousClass1 implements c.b {
+                        final /* synthetic */ c ep;
+                        final /* synthetic */ c.a eq;
+                        final /* synthetic */ KsFeedAd er;
+                        final /* synthetic */ long es;
 
-                            public AnonymousClass1(c cVar2, KsFeedAd ksFeedAd2, int i10, long j10, int[] iArr2, int size2) {
-                                cVar = cVar2;
-                                ksFeedAd = ksFeedAd2;
-                                i10 = i10;
-                                elapsedRealtime = j10;
-                                iArr = iArr2;
-                                size = size2;
+                        AnonymousClass1(c cVar2, c.a aVar2, KsFeedAd ksFeedAd2, long j2) {
+                            cVar = cVar2;
+                            aVar = aVar2;
+                            ksFeedAd = ksFeedAd2;
+                            elapsedRealtime = j2;
+                        }
+
+                        @Override // com.kwad.components.ad.feed.c.b
+                        public final void c(int i2, String str) {
+                            com.kwad.sdk.core.d.b.d("KsAdFeedLoadManager", "ksFeedAd onLoadFinished" + cVar + " cnt: " + aVar.aZ());
+                            com.kwad.components.ad.feed.monitor.a.a(((c) ksFeedAd).getAdTemplate(), i2, SystemClock.elapsedRealtime() - elapsedRealtime, str);
+                            if (aVar.ba()) {
+                                com.kwad.components.ad.feed.monitor.a.a(aVar.aZ(), SystemClock.elapsedRealtime() - AnonymousClass2.this.en);
+                                KsAdLoadManager.ac().b(arrayList);
+                                RunnableC01272 runnableC01272 = RunnableC01272.this;
+                                AnonymousClass2.this.ek.onFeedAdLoad(arrayList);
                             }
+                        }
+                    }
 
-                            @Override // com.kwad.components.ad.feed.c.a
-                            public final void d(int i10, String str) {
-                                com.kwad.sdk.core.d.c.d("KsAdFeedLoadManager", "ksFeedAd onLoadFinished" + cVar);
-                                com.kwad.components.ad.feed.monitor.b.a(((c) ksFeedAd).getAdTemplate(), i10, i10, SystemClock.elapsedRealtime() - elapsedRealtime, str);
-                                int[] iArr2 = iArr;
-                                int i11 = iArr2[0] + 1;
-                                iArr2[0] = i11;
-                                int i12 = size;
-                                if (i11 == i12) {
-                                    com.kwad.components.ad.feed.monitor.b.a(i12, SystemClock.elapsedRealtime() - AnonymousClass2.this.fG);
-                                    KsAdLoadManager.M().b(arrayList);
-                                    AnonymousClass3 anonymousClass3 = AnonymousClass3.this;
-                                    AnonymousClass2.this.fE.onFeedAdLoad(arrayList);
-                                    com.kwad.components.ad.feed.monitor.b.a(AnonymousClass2.this.bV.getPosId(), (List<KsFeedAd>) arrayList);
+                    RunnableC01272(List arrayList2) {
+                        arrayList = arrayList2;
+                    }
+
+                    @Override // java.lang.Runnable
+                    public final void run() {
+                        c.a aVar2 = new c.a(arrayList.size());
+                        for (KsFeedAd ksFeedAd2 : arrayList) {
+                            c cVar2 = (c) ksFeedAd2;
+                            com.kwad.sdk.core.d.b.d("KsAdFeedLoadManager", "ksFeedAd " + ksFeedAd2);
+                            cVar2.a(new c.b() { // from class: com.kwad.components.ad.feed.e.2.2.1
+                                final /* synthetic */ c ep;
+                                final /* synthetic */ c.a eq;
+                                final /* synthetic */ KsFeedAd er;
+                                final /* synthetic */ long es;
+
+                                AnonymousClass1(c cVar22, c.a aVar22, KsFeedAd ksFeedAd22, long j2) {
+                                    cVar = cVar22;
+                                    aVar = aVar22;
+                                    ksFeedAd = ksFeedAd22;
+                                    elapsedRealtime = j2;
                                 }
-                            }
-                        }
 
-                        public AnonymousClass3(List arrayList2) {
-                            arrayList = arrayList2;
-                        }
-
-                        @Override // com.kwad.sdk.utils.bd
-                        public final void doTask() {
-                            int size2 = arrayList.size();
-                            int[] iArr2 = {0};
-                            for (KsFeedAd ksFeedAd2 : arrayList) {
-                                c cVar2 = (c) ksFeedAd2;
-                                com.kwad.sdk.core.d.c.d("KsAdFeedLoadManager", "ksFeedAd " + ksFeedAd2);
-                                cVar2.a(new c.a() { // from class: com.kwad.components.ad.feed.e.2.3.1
-                                    final /* synthetic */ c fI;
-                                    final /* synthetic */ KsFeedAd fJ;
-                                    final /* synthetic */ int[] fK;
-                                    final /* synthetic */ int fL;
-                                    final /* synthetic */ int fp;
-                                    final /* synthetic */ long fq;
-
-                                    public AnonymousClass1(c cVar22, KsFeedAd ksFeedAd22, int i10, long j10, int[] iArr22, int size22) {
-                                        cVar = cVar22;
-                                        ksFeedAd = ksFeedAd22;
-                                        i10 = i10;
-                                        elapsedRealtime = j10;
-                                        iArr = iArr22;
-                                        size = size22;
+                                @Override // com.kwad.components.ad.feed.c.b
+                                public final void c(int i2, String str2) {
+                                    com.kwad.sdk.core.d.b.d("KsAdFeedLoadManager", "ksFeedAd onLoadFinished" + cVar + " cnt: " + aVar.aZ());
+                                    com.kwad.components.ad.feed.monitor.a.a(((c) ksFeedAd).getAdTemplate(), i2, SystemClock.elapsedRealtime() - elapsedRealtime, str2);
+                                    if (aVar.ba()) {
+                                        com.kwad.components.ad.feed.monitor.a.a(aVar.aZ(), SystemClock.elapsedRealtime() - AnonymousClass2.this.en);
+                                        KsAdLoadManager.ac().b(arrayList);
+                                        RunnableC01272 runnableC01272 = RunnableC01272.this;
+                                        AnonymousClass2.this.ek.onFeedAdLoad(arrayList);
                                     }
-
-                                    @Override // com.kwad.components.ad.feed.c.a
-                                    public final void d(int i10, String str2) {
-                                        com.kwad.sdk.core.d.c.d("KsAdFeedLoadManager", "ksFeedAd onLoadFinished" + cVar);
-                                        com.kwad.components.ad.feed.monitor.b.a(((c) ksFeedAd).getAdTemplate(), i10, i10, SystemClock.elapsedRealtime() - elapsedRealtime, str2);
-                                        int[] iArr22 = iArr;
-                                        int i11 = iArr22[0] + 1;
-                                        iArr22[0] = i11;
-                                        int i12 = size;
-                                        if (i11 == i12) {
-                                            com.kwad.components.ad.feed.monitor.b.a(i12, SystemClock.elapsedRealtime() - AnonymousClass2.this.fG);
-                                            KsAdLoadManager.M().b(arrayList);
-                                            AnonymousClass3 anonymousClass3 = AnonymousClass3.this;
-                                            AnonymousClass2.this.fE.onFeedAdLoad(arrayList);
-                                            com.kwad.components.ad.feed.monitor.b.a(AnonymousClass2.this.bV.getPosId(), (List<KsFeedAd>) arrayList);
-                                        }
-                                    }
-                                });
-                            }
+                                }
+                            });
                         }
-                    });
-                    return;
-                } else {
-                    bt.runOnUiThread(new bd() { // from class: com.kwad.components.ad.feed.e.2.2
-                        final /* synthetic */ List du;
-
-                        public C03702(List arrayList2) {
-                            arrayList = arrayList2;
-                        }
-
-                        @Override // com.kwad.sdk.utils.bd
-                        public final void doTask() {
-                            com.kwad.components.ad.feed.monitor.b.a(arrayList.size(), SystemClock.elapsedRealtime() - AnonymousClass2.this.fG);
-                            KsAdLoadManager.M().b(arrayList);
-                            AnonymousClass2.this.fE.onFeedAdLoad(arrayList);
-                            com.kwad.components.ad.feed.monitor.b.a(AnonymousClass2.this.bV.getPosId(), (List<KsFeedAd>) arrayList);
-                        }
-                    });
-                    return;
-                }
+                    }
+                });
+                return;
             }
-            com.kwad.components.ad.feed.monitor.b.e(com.kwad.sdk.core.network.e.azA.errorCode, com.kwad.sdk.core.network.e.azA.msg + str);
-            onError(com.kwad.sdk.core.network.e.azA.errorCode, com.kwad.sdk.core.network.e.azA.msg + str);
-            com.kwad.sdk.core.d.c.d("KsAdFeedLoadManager", "loadFeedAd onError");
+            com.kwad.components.ad.feed.monitor.a.d(com.kwad.sdk.core.network.f.agn.errorCode, TextUtils.isEmpty(adResultData.testErrorMsg) ? com.kwad.sdk.core.network.f.agn.msg + str : adResultData.testErrorMsg);
+            onError(com.kwad.sdk.core.network.f.agn.errorCode, TextUtils.isEmpty(adResultData.testErrorMsg) ? com.kwad.sdk.core.network.f.agn.msg + str : adResultData.testErrorMsg);
+            com.kwad.sdk.core.d.b.d("KsAdFeedLoadManager", "loadFeedAd onError");
         }
 
-        @Override // com.kwad.components.core.request.d, com.kwad.components.core.request.k
-        public final void onError(int i10, String str) {
-            bt.runOnUiThread(new bd() { // from class: com.kwad.components.ad.feed.e.2.1
-                final /* synthetic */ int bW;
-                final /* synthetic */ String bX;
+        @Override // com.kwad.components.core.n.c, com.kwad.components.core.n.i
+        public final void onError(int i2, String str) {
+            bi.runOnUiThread(new Runnable() { // from class: com.kwad.components.ad.feed.e.2.1
+                final /* synthetic */ int ck;
+                final /* synthetic */ String cl;
 
-                public AnonymousClass1(int i102, String str2) {
-                    i10 = i102;
+                AnonymousClass1(int i22, String str2) {
+                    i2 = i22;
                     str = str2;
                 }
 
-                @Override // com.kwad.sdk.utils.bd
-                public final void doTask() {
-                    AnonymousClass2.this.fE.onError(i10, str);
+                @Override // java.lang.Runnable
+                public final void run() {
+                    com.kwad.sdk.core.d.b.d("KsAdFeedLoadManager", "loadFeedAd onError:" + String.format("code:%s__msg:%s", Integer.valueOf(i2), str));
+                    com.kwad.components.ad.feed.monitor.a.d(i2, str);
+                    AnonymousClass2.this.ek.onError(i2, str);
                 }
             });
-            com.kwad.sdk.core.d.c.d("KsAdFeedLoadManager", "loadFeedAd onError:" + String.format("code:%s__msg:%s", Integer.valueOf(i102), str2));
-            com.kwad.components.ad.feed.monitor.b.e(i102, str2);
-            if (i102 == com.kwad.sdk.core.network.e.azv.errorCode || i102 == com.kwad.sdk.core.network.e.azA.errorCode) {
-                return;
-            }
-            com.kwad.components.ad.feed.monitor.b.g(i102, str2);
         }
     }
 
-    public static void a(KsScene ksScene, @NonNull KsLoadManager.FeedAdListener feedAdListener, boolean z10) {
-        if (!l.At().zE()) {
-            com.kwad.sdk.core.d.c.e("KsAdFeedLoadManager", "loadConfigFeedAd please init sdk first");
-            bt.runOnUiThread(new bd() { // from class: com.kwad.components.ad.feed.e.1
-                public AnonymousClass1() {
+    public static void a(KsScene ksScene, @NonNull KsLoadManager.FeedAdListener feedAdListener, boolean z) {
+        if (!KsAdSDKImpl.get().hasInitFinish()) {
+            com.kwad.sdk.core.d.b.e("KsAdFeedLoadManager", "loadConfigFeedAd please init sdk first");
+            bi.runOnUiThread(new Runnable() { // from class: com.kwad.components.ad.feed.e.1
+                AnonymousClass1() {
                 }
 
-                @Override // com.kwad.sdk.utils.bd
-                public final void doTask() {
-                    KsLoadManager.FeedAdListener.this.onError(com.kwad.sdk.core.network.e.azA.errorCode, com.kwad.sdk.core.network.e.azA.msg + "sdk not init");
+                @Override // java.lang.Runnable
+                public final void run() {
+                    KsLoadManager.FeedAdListener.this.onError(com.kwad.sdk.core.network.f.agn.errorCode, com.kwad.sdk.core.network.f.agn.msg + "sdk not init");
                 }
             });
             return;
         }
         SceneImpl covert = SceneImpl.covert(ksScene);
-        com.kwad.sdk.commercial.d.d.b(covert);
         long elapsedRealtime = SystemClock.elapsedRealtime();
-        com.kwad.components.ad.feed.monitor.b.s(covert.getAdNum());
-        boolean a10 = m.si().a(covert, "loadConfigFeedAd");
+        com.kwad.components.ad.feed.monitor.a.w(covert.getAdNum());
+        boolean a2 = k.pP().a(covert, "loadConfigFeedAd");
         covert.setAdStyle(1);
-        KsAdLoadManager.M().a(new a.C0445a().e(new ImpInfo(covert)).aK(a10).a(new AnonymousClass2(feedAdListener, covert, z10, elapsedRealtime)).rA());
+        KsAdLoadManager.ac();
+        KsAdLoadManager.a(new a.C0180a().e(new com.kwad.components.core.n.kwai.b(covert)).aH(a2).a(new AnonymousClass2(feedAdListener, covert, z, elapsedRealtime)).pj());
     }
 }

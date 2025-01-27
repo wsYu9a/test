@@ -1,80 +1,133 @@
 package com.kwad.sdk.utils;
 
-import android.app.ActivityManager;
-import android.app.Application;
 import android.content.Context;
-import android.os.Build;
-import android.os.Process;
+import android.os.Environment;
 import android.text.TextUtils;
-import androidx.annotation.NonNull;
-import com.bytedance.sdk.openadsdk.downloadnew.core.TTDownloadField;
-import java.util.List;
+import java.io.File;
 
-/* loaded from: classes3.dex */
+/* loaded from: classes2.dex */
 public final class av {
-    private static String aUk = "";
-    private static volatile Boolean aUl;
+    private static String aAn;
+    private static File aAo;
 
-    private static String NV() {
-        String processName;
-        if (Build.VERSION.SDK_INT < 28) {
-            return "";
-        }
-        processName = Application.getProcessName();
-        return processName;
-    }
-
-    private static String NW() {
+    private static boolean Eo() {
         try {
-            Object callStaticMethod = w.callStaticMethod(Class.forName("android.app.ActivityThread", false, Application.class.getClassLoader()), "currentProcessName", new Object[0]);
-            return callStaticMethod instanceof String ? (String) callStaticMethod : "";
-        } catch (Throwable th2) {
-            th2.printStackTrace();
-            return "";
+            if ("mounted".equals(Environment.getExternalStorageState())) {
+                return true;
+            }
+            return !Environment.isExternalStorageRemovable();
+        } catch (Throwable th) {
+            com.kwad.sdk.core.d.b.printStackTraceOnly(th);
+            return false;
         }
     }
 
-    private static String cL(@NonNull Context context) {
-        List<ActivityManager.RunningAppProcessInfo> runningAppProcesses;
+    public static File cA(Context context) {
+        File file = aAo;
+        if (file != null) {
+            return file;
+        }
+        String str = null;
+        if (Eo()) {
+            try {
+                File externalCacheDir = context.getExternalCacheDir();
+                if (externalCacheDir != null) {
+                    str = externalCacheDir.getPath();
+                }
+            } catch (Exception e2) {
+                com.kwad.sdk.core.d.b.printStackTrace(e2);
+            }
+        }
+        if (TextUtils.isEmpty(str)) {
+            str = context.getCacheDir().getPath();
+        }
+        File file2 = new File(str + File.separator + "ksadsdk");
+        aAo = file2;
+        if (!file2.exists()) {
+            aAo.mkdirs();
+        }
+        return aAo;
+    }
+
+    public static File cB(Context context) {
+        File file = new File(cz(context) + File.separator + "Download");
+        if (!file.exists()) {
+            file.mkdirs();
+        }
+        return file;
+    }
+
+    public static File cC(Context context) {
+        File file = new File(cz(context) + File.separator + "downloadFileSync/.temp");
+        if (!file.exists()) {
+            file.mkdirs();
+        }
+        return file;
+    }
+
+    public static File cD(Context context) {
+        String str;
+        if (com.kwad.b.kwai.a.bI.booleanValue()) {
+            str = cz(context);
+        } else {
+            str = context.getFilesDir().getAbsolutePath() + File.separator + "ksadsdk";
+        }
+        return new File(str + File.separator + "ksadlog");
+    }
+
+    public static String cE(Context context) {
         if (context == null) {
             return "";
         }
-        int myPid = Process.myPid();
-        ActivityManager activityManager = (ActivityManager) context.getSystemService(TTDownloadField.TT_ACTIVITY);
-        if (activityManager != null && (runningAppProcesses = activityManager.getRunningAppProcesses()) != null) {
-            for (ActivityManager.RunningAppProcessInfo runningAppProcessInfo : runningAppProcesses) {
-                if (runningAppProcessInfo.pid == myPid) {
-                    return runningAppProcessInfo.processName;
+        return context.getFilesDir().getPath() + File.separator + "ksadsdk";
+    }
+
+    public static String cF(Context context) {
+        return cA(context).getPath() + "/cookie";
+    }
+
+    private static String cz(Context context) {
+        if (!TextUtils.isEmpty(aAn)) {
+            return aAn;
+        }
+        String str = null;
+        if (Eo()) {
+            try {
+                File externalFilesDir = context.getExternalFilesDir(null);
+                if (externalFilesDir != null) {
+                    str = externalFilesDir.getPath();
                 }
+            } catch (Exception e2) {
+                com.kwad.sdk.core.d.b.printStackTrace(e2);
             }
         }
-        return "";
+        if (TextUtils.isEmpty(str)) {
+            str = context.getFilesDir().getPath();
+        }
+        String str2 = str + File.separator + "ksadsdk";
+        aAn = str2;
+        return str2;
     }
 
-    public static String getProcessName(@NonNull Context context) {
-        if (!TextUtils.isEmpty(aUk)) {
-            return aUk;
+    public static String getTkJsFileDir(Context context, String str) {
+        if (context == null) {
+            return "";
         }
-        String NV = NV();
-        aUk = NV;
-        if (!TextUtils.isEmpty(NV)) {
-            return aUk;
-        }
-        String NW = NW();
-        aUk = NW;
-        if (!TextUtils.isEmpty(NW)) {
-            return aUk;
-        }
-        String cL = cL(context);
-        aUk = cL;
-        return cL;
+        String cE = cE(context);
+        StringBuilder sb = new StringBuilder();
+        sb.append(cE);
+        String str2 = File.separator;
+        sb.append(str2);
+        sb.append("ksad/download/js");
+        sb.append(str2);
+        sb.append(str);
+        return sb.toString();
     }
 
-    public static boolean isInMainProcess(Context context) {
-        if (aUl == null) {
-            String processName = getProcessName(context);
-            aUl = Boolean.valueOf(!TextUtils.isEmpty(processName) && processName.equals(context.getPackageName()));
+    public static String getTkJsRootDir(Context context) {
+        if (context == null) {
+            return "";
         }
-        return aUl.booleanValue();
+        return cE(context) + File.separator + "ksad/download/js";
     }
 }

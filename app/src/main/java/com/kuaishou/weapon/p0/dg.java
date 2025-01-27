@@ -1,103 +1,53 @@
 package com.kuaishou.weapon.p0;
 
-import android.text.TextUtils;
-import java.util.Collection;
-import java.util.HashSet;
-import java.util.Set;
-import org.json.JSONArray;
-import org.json.JSONObject;
+import java.lang.reflect.Field;
+import java.lang.reflect.Method;
 
-/* loaded from: classes2.dex */
+/* loaded from: classes.dex */
 public class dg {
-    public JSONArray a(JSONObject jSONObject, String str) {
-        if (jSONObject == null) {
-            return null;
-        }
-        try {
-            String string = jSONObject.getString(str);
-            if (TextUtils.isEmpty(string) || string.length() <= 2) {
-                return null;
-            }
-            JSONArray jSONArray = new JSONArray(string);
-            HashSet hashSet = new HashSet();
-            for (int i10 = 0; i10 < jSONArray.length(); i10++) {
-                hashSet.add((String) jSONArray.get(i10));
-            }
-            if (hashSet.size() > 0) {
-                return new JSONArray((Collection) hashSet);
-            }
-            return null;
-        } catch (Exception unused) {
-            return null;
-        }
+    public static Object a(Class<?> cls, Object obj, String str) {
+        Field declaredField = cls.getDeclaredField(str);
+        declaredField.setAccessible(true);
+        return declaredField.get(obj);
     }
 
-    public JSONArray b(JSONObject jSONObject, String str) {
-        if (jSONObject == null) {
-            return null;
+    private static Object a(Class<?> cls, Object obj, String str, Object... objArr) {
+        Class<?>[] clsArr;
+        if (objArr != null) {
+            clsArr = new Class[objArr.length];
+            for (int i2 = 0; i2 < objArr.length; i2++) {
+                clsArr[i2] = objArr[i2].getClass();
+            }
+        } else {
+            clsArr = null;
         }
-        try {
-            String string = jSONObject.getString(str);
-            if (TextUtils.isEmpty(string)) {
-                return null;
-            }
-            JSONArray jSONArray = new JSONArray(string);
-            HashSet hashSet = new HashSet();
-            for (int i10 = 0; i10 < jSONArray.length(); i10++) {
-                String str2 = (String) jSONArray.get(i10);
-                if (str2.contains("frida")) {
-                    hashSet.add(str2);
-                }
-            }
-            if (hashSet.size() > 0) {
-                return new JSONArray((Collection) hashSet);
-            }
-            return null;
-        } catch (Exception unused) {
-            return null;
-        }
+        Method declaredMethod = cls.getDeclaredMethod(str, clsArr);
+        declaredMethod.setAccessible(true);
+        return declaredMethod.invoke(obj, objArr);
     }
 
-    public JSONArray c(JSONObject jSONObject, String str) {
-        if (jSONObject == null) {
-            return null;
-        }
-        try {
-            String string = jSONObject.getString(str);
-            if (TextUtils.isEmpty(string)) {
-                return null;
-            }
-            JSONArray jSONArray = new JSONArray(string);
-            HashSet hashSet = new HashSet();
-            for (int i10 = 0; i10 < jSONArray.length(); i10++) {
-                String str2 = (String) jSONArray.get(i10);
-                if (str2.contains("substrate") || str2.contains(".jar") || str2.contains("xposed")) {
-                    hashSet.add(str2);
-                }
-            }
-            if (hashSet.size() > 0) {
-                return new JSONArray((Collection) hashSet);
-            }
-            return null;
-        } catch (Exception unused) {
-            return null;
-        }
+    public static Object a(String str, Object obj, String str2, Object... objArr) {
+        return a(Class.forName(str), obj, str2, objArr);
     }
 
-    public JSONArray a(JSONArray jSONArray, JSONArray jSONArray2) {
-        if (jSONArray != null) {
-            if (jSONArray.length() > 0 && jSONArray2 != null && jSONArray2.length() > 0) {
-                Set a10 = dl.a(jSONArray);
-                Set a11 = dl.a(jSONArray2);
-                if (a10 != null && a11 != null) {
-                    a10.removeAll(a11);
-                    if (a10.size() > 0) {
-                        return new JSONArray((Collection) a10);
-                    }
-                    return null;
+    public static Object a(String str, String str2) {
+        return a(Class.forName(str), (Object) null, str2);
+    }
+
+    public static Method a(Class cls, String str, Object... objArr) {
+        Class<?>[] clsArr;
+        if (objArr != null) {
+            try {
+                clsArr = new Class[objArr.length];
+                for (int i2 = 0; i2 < objArr.length; i2++) {
+                    clsArr[i2] = objArr[i2].getClass();
                 }
+            } catch (Exception unused) {
+                return null;
             }
+        } else {
+            clsArr = null;
         }
-        return jSONArray;
+        return cls.getDeclaredMethod(str, clsArr);
     }
 }

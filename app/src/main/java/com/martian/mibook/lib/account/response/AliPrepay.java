@@ -13,11 +13,11 @@ public class AliPrepay {
         return this.orderString;
     }
 
-    public void setOrderId(String str) {
-        this.orderId = str;
+    public void setOrderId(String orderId) {
+        this.orderId = orderId;
     }
 
-    public void setOrderString(String str) {
-        this.orderString = str;
+    public void setOrderString(String orderString) {
+        this.orderString = orderString;
     }
 }

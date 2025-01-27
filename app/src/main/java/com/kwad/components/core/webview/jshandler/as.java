@@ -3,49 +3,39 @@ package com.kwad.components.core.webview.jshandler;
 import androidx.annotation.NonNull;
 import com.ksad.json.annotation.KsJson;
 
-/* loaded from: classes3.dex */
-public final class as implements com.kwad.sdk.core.webview.c.a {
-    private com.kwad.sdk.core.webview.c.c YI;
-    private a aaA = new a();
+/* loaded from: classes2.dex */
+public final class as implements com.kwad.sdk.core.webview.b.a {
+    private com.kwad.sdk.core.webview.b.c Sb;
 
     @KsJson
-    public class a extends com.kwad.sdk.core.response.a.a implements com.kwad.sdk.core.b {
+    public static class a extends com.kwad.sdk.core.response.kwai.a {
+        public int Ub;
 
-        /* renamed from: id */
-        public int f11951id;
-        public int status;
-
-        public a() {
+        public a(int i2) {
+            this.Ub = i2;
         }
     }
 
-    private void r(int i10, int i11) {
-        com.kwad.sdk.core.webview.c.c cVar = this.YI;
-        if (cVar != null) {
-            a aVar = this.aaA;
-            aVar.f11951id = i10;
-            aVar.status = 2;
-            cVar.a(aVar);
+    public final void al(boolean z) {
+        if (this.Sb != null) {
+            this.Sb.a(new a(z ? 1 : 0));
+        } else {
+            com.kwad.sdk.core.d.b.d("WebCardRewardTaskStatusHandler", "notifyTaskStatus , status:" + (z ? 1 : 0));
         }
     }
 
-    @Override // com.kwad.sdk.core.webview.c.a
-    public final void a(String str, @NonNull com.kwad.sdk.core.webview.c.c cVar) {
-        this.YI = cVar;
-    }
-
-    public final void aQ(int i10) {
-        r(1, 2);
-    }
-
-    @Override // com.kwad.sdk.core.webview.c.a
+    @Override // com.kwad.sdk.core.webview.b.a
     @NonNull
     public final String getKey() {
-        return "registerAnimationListener";
+        return "rewardTaskStatus";
     }
 
-    @Override // com.kwad.sdk.core.webview.c.a
+    @Override // com.kwad.sdk.core.webview.b.a
+    public final void handleJsCall(String str, @NonNull com.kwad.sdk.core.webview.b.c cVar) {
+        this.Sb = cVar;
+    }
+
+    @Override // com.kwad.sdk.core.webview.b.a
     public final void onDestroy() {
-        this.YI = null;
     }
 }

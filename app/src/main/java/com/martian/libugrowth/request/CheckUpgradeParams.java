@@ -1,8 +1,8 @@
 package com.martian.libugrowth.request;
 
-import v8.a;
+import com.martian.libcomm.http.requests.d.a;
 
-/* loaded from: classes3.dex */
+/* loaded from: classes.dex */
 public class CheckUpgradeParams extends UGrowthHttpPostParams {
 
     @a
@@ -12,12 +12,12 @@ public class CheckUpgradeParams extends UGrowthHttpPostParams {
         return this.force;
     }
 
-    @Override // u8.b
+    @Override // com.martian.libcomm.http.requests.b
     public String getRequestMethod() {
         return "upgrade/check";
     }
 
-    public void setForce(Boolean bool) {
-        this.force = bool;
+    public void setForce(Boolean force) {
+        this.force = force;
     }
 }

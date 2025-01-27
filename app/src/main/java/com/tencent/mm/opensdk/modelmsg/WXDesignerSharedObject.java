@@ -17,6 +17,13 @@ public class WXDesignerSharedObject implements WXMediaMessage.IMediaObject {
     public WXDesignerSharedObject() {
     }
 
+    public WXDesignerSharedObject(String str, int i2, String str2, String str3) {
+        this.url = str2;
+        this.thumburl = str;
+        this.designerUIN = i2;
+        this.designerName = str3;
+    }
+
     @Override // com.tencent.mm.opensdk.modelmsg.WXMediaMessage.IMediaObject
     public boolean checkArgs() {
         if (this.designerUIN != 0 && !TextUtils.isEmpty(this.thumburl) && !TextUtils.isEmpty(this.url)) {
@@ -47,12 +54,5 @@ public class WXDesignerSharedObject implements WXMediaMessage.IMediaObject {
         this.designerName = bundle.getString("_wxemojisharedobject_designer_name");
         this.designerRediretctUrl = bundle.getString("_wxemojisharedobject_designer_rediretcturl");
         this.url = bundle.getString("_wxwebpageobject_url");
-    }
-
-    public WXDesignerSharedObject(String str, int i10, String str2, String str3) {
-        this.url = str2;
-        this.thumburl = str;
-        this.designerUIN = i10;
-        this.designerName = str3;
     }
 }

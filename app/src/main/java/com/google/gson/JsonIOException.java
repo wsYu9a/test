@@ -1,6 +1,6 @@
 package com.google.gson;
 
-/* loaded from: classes2.dex */
+/* loaded from: classes.dex */
 public final class JsonIOException extends JsonParseException {
     private static final long serialVersionUID = 1;
 
@@ -8,11 +8,11 @@ public final class JsonIOException extends JsonParseException {
         super(str);
     }
 
-    public JsonIOException(String str, Throwable th2) {
-        super(str, th2);
+    public JsonIOException(String str, Throwable th) {
+        super(str, th);
     }
 
-    public JsonIOException(Throwable th2) {
-        super(th2);
+    public JsonIOException(Throwable th) {
+        super(th);
     }
 }

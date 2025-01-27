@@ -1,8 +1,8 @@
 package com.kwad.components.core.liveEnd;
 
-import com.kwad.sdk.core.response.model.BaseResultData;
+import com.kwad.sdk.core.network.BaseResultData;
 
-/* loaded from: classes3.dex */
+/* loaded from: classes2.dex */
 public class AdLiveEndCommonResultData extends BaseResultData {
     private static final long serialVersionUID = 1126369604146892297L;
     public int likeUserCount;

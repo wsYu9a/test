@@ -1,35 +1,35 @@
 package kotlin.jvm.internal;
 
+import com.cdo.oaps.ad.OapsKey;
+import com.vivo.ic.dm.Downloads;
+import f.b.a.d;
 import kotlin.Metadata;
-import xi.k;
 
-@Metadata(d1 = {"\u0000$\n\u0002\u0018\u0002\n\u0002\u0018\u0002\n\u0002\u0010\u0012\n\u0000\n\u0002\u0010\b\n\u0002\b\u0003\n\u0002\u0010\u0002\n\u0000\n\u0002\u0010\u0005\n\u0002\b\u0003\u0018\u00002\b\u0012\u0004\u0012\u00020\u00020\u0001B\r\u0012\u0006\u0010\u0003\u001a\u00020\u0004¢\u0006\u0002\u0010\u0005J\u000e\u0010\u0007\u001a\u00020\b2\u0006\u0010\t\u001a\u00020\nJ\u0006\u0010\u000b\u001a\u00020\u0002J\f\u0010\f\u001a\u00020\u0004*\u00020\u0002H\u0014R\u000e\u0010\u0006\u001a\u00020\u0002X\u0082\u0004¢\u0006\u0002\n\u0000¨\u0006\r"}, d2 = {"Lkotlin/jvm/internal/ByteSpreadBuilder;", "Lkotlin/jvm/internal/PrimitiveSpreadBuilder;", "", "size", "", "(I)V", "values", "add", "", "value", "", "toArray", "getSize", "kotlin-stdlib"}, k = 1, mv = {1, 9, 0}, xi = 48)
-/* loaded from: classes4.dex */
+@Metadata(bv = {1, 0, 3}, d1 = {"\u0000\"\n\u0002\u0018\u0002\n\u0002\u0018\u0002\n\u0002\u0010\u0012\n\u0002\u0010\b\n\u0002\b\u0002\n\u0002\u0010\u0005\n\u0000\n\u0002\u0010\u0002\n\u0002\b\n\u0018\u00002\b\u0012\u0004\u0012\u00020\u00020\u0001B\u000f\u0012\u0006\u0010\u000f\u001a\u00020\u0003¢\u0006\u0004\b\u0010\u0010\u0011J\u0013\u0010\u0004\u001a\u00020\u0003*\u00020\u0002H\u0014¢\u0006\u0004\b\u0004\u0010\u0005J\u0015\u0010\t\u001a\u00020\b2\u0006\u0010\u0007\u001a\u00020\u0006¢\u0006\u0004\b\t\u0010\nJ\r\u0010\u000b\u001a\u00020\u0002¢\u0006\u0004\b\u000b\u0010\fR\u0016\u0010\r\u001a\u00020\u00028\u0002@\u0002X\u0082\u0004¢\u0006\u0006\n\u0004\b\r\u0010\u000e¨\u0006\u0012"}, d2 = {"Lkotlin/jvm/internal/ByteSpreadBuilder;", "Lkotlin/jvm/internal/PrimitiveSpreadBuilder;", "", "", "getSize", "([B)I", "", Downloads.RequestHeaders.COLUMN_VALUE, "", "add", "(B)V", "toArray", "()[B", "values", "[B", OapsKey.KEY_SIZE, "<init>", "(I)V", "kotlin-stdlib"}, k = 1, mv = {1, 4, 0})
+/* loaded from: classes5.dex */
 public final class ByteSpreadBuilder extends PrimitiveSpreadBuilder<byte[]> {
-
-    @k
     private final byte[] values;
 
-    public ByteSpreadBuilder(int i10) {
-        super(i10);
-        this.values = new byte[i10];
+    public ByteSpreadBuilder(int i2) {
+        super(i2);
+        this.values = new byte[i2];
     }
 
-    public final void add(byte value) {
+    public final void add(byte r4) {
         byte[] bArr = this.values;
         int position = getPosition();
         setPosition(position + 1);
-        bArr[position] = value;
+        bArr[position] = r4;
     }
 
-    @k
+    @d
     public final byte[] toArray() {
         return toArray(this.values, new byte[size()]);
     }
 
     @Override // kotlin.jvm.internal.PrimitiveSpreadBuilder
-    public int getSize(@k byte[] bArr) {
-        Intrinsics.checkNotNullParameter(bArr, "<this>");
-        return bArr.length;
+    public int getSize(@d byte[] getSize) {
+        Intrinsics.checkParameterIsNotNull(getSize, "$this$getSize");
+        return getSize.length;
     }
 }

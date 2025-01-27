@@ -39,7 +39,7 @@ import kotlin.jvm.internal.markers.KMutableListIterator;
 import kotlin.jvm.internal.markers.KMutableMap;
 import kotlin.jvm.internal.markers.KMutableSet;
 
-/* loaded from: classes4.dex */
+/* loaded from: classes5.dex */
 public class TypeIntrinsics {
     public static Collection asMutableCollection(Object obj) {
         if ((obj instanceof KMappedMarker) && !(obj instanceof KMutableCollection)) {
@@ -97,9 +97,9 @@ public class TypeIntrinsics {
         return castToSet(obj);
     }
 
-    public static Object beforeCheckcastToFunctionOfArity(Object obj, int i10) {
-        if (obj != null && !isFunctionOfArity(obj, i10)) {
-            throwCce(obj, "kotlin.jvm.functions.Function" + i10);
+    public static Object beforeCheckcastToFunctionOfArity(Object obj, int i2) {
+        if (obj != null && !isFunctionOfArity(obj, i2)) {
+            throwCce(obj, "kotlin.jvm.functions.Function" + i2);
         }
         return obj;
     }
@@ -107,64 +107,64 @@ public class TypeIntrinsics {
     public static Collection castToCollection(Object obj) {
         try {
             return (Collection) obj;
-        } catch (ClassCastException e10) {
-            throw throwCce(e10);
+        } catch (ClassCastException e2) {
+            throw throwCce(e2);
         }
     }
 
     public static Iterable castToIterable(Object obj) {
         try {
             return (Iterable) obj;
-        } catch (ClassCastException e10) {
-            throw throwCce(e10);
+        } catch (ClassCastException e2) {
+            throw throwCce(e2);
         }
     }
 
     public static Iterator castToIterator(Object obj) {
         try {
             return (Iterator) obj;
-        } catch (ClassCastException e10) {
-            throw throwCce(e10);
+        } catch (ClassCastException e2) {
+            throw throwCce(e2);
         }
     }
 
     public static List castToList(Object obj) {
         try {
             return (List) obj;
-        } catch (ClassCastException e10) {
-            throw throwCce(e10);
+        } catch (ClassCastException e2) {
+            throw throwCce(e2);
         }
     }
 
     public static ListIterator castToListIterator(Object obj) {
         try {
             return (ListIterator) obj;
-        } catch (ClassCastException e10) {
-            throw throwCce(e10);
+        } catch (ClassCastException e2) {
+            throw throwCce(e2);
         }
     }
 
     public static Map castToMap(Object obj) {
         try {
             return (Map) obj;
-        } catch (ClassCastException e10) {
-            throw throwCce(e10);
+        } catch (ClassCastException e2) {
+            throw throwCce(e2);
         }
     }
 
     public static Map.Entry castToMapEntry(Object obj) {
         try {
             return (Map.Entry) obj;
-        } catch (ClassCastException e10) {
-            throw throwCce(e10);
+        } catch (ClassCastException e2) {
+            throw throwCce(e2);
         }
     }
 
     public static Set castToSet(Object obj) {
         try {
             return (Set) obj;
-        } catch (ClassCastException e10) {
-            throw throwCce(e10);
+        } catch (ClassCastException e2) {
+            throw throwCce(e2);
         }
     }
 
@@ -241,8 +241,8 @@ public class TypeIntrinsics {
         return obj instanceof Function22 ? 22 : -1;
     }
 
-    public static boolean isFunctionOfArity(Object obj, int i10) {
-        return (obj instanceof Function) && getFunctionArity(obj) == i10;
+    public static boolean isFunctionOfArity(Object obj, int i2) {
+        return (obj instanceof Function) && getFunctionArity(obj) == i2;
     }
 
     public static boolean isMutableCollection(Object obj) {
@@ -277,16 +277,16 @@ public class TypeIntrinsics {
         return (obj instanceof Set) && (!(obj instanceof KMappedMarker) || (obj instanceof KMutableSet));
     }
 
-    private static <T extends Throwable> T sanitizeStackTrace(T t10) {
-        return (T) Intrinsics.sanitizeStackTrace(t10, TypeIntrinsics.class.getName());
+    private static <T extends Throwable> T sanitizeStackTrace(T t) {
+        return (T) Intrinsics.sanitizeStackTrace(t, TypeIntrinsics.class.getName());
     }
 
     public static void throwCce(Object obj, String str) {
         throwCce((obj == null ? "null" : obj.getClass().getName()) + " cannot be cast to " + str);
     }
 
-    public static Object beforeCheckcastToFunctionOfArity(Object obj, int i10, String str) {
-        if (obj != null && !isFunctionOfArity(obj, i10)) {
+    public static Object beforeCheckcastToFunctionOfArity(Object obj, int i2, String str) {
+        if (obj != null && !isFunctionOfArity(obj, i2)) {
             throwCce(str);
         }
         return obj;

@@ -1,13 +1,17 @@
 package com.bytedance.android.livehostapi.platform;
 
-/* loaded from: classes2.dex */
+/* loaded from: classes.dex */
 public class TokenInfo {
     public String accessToken;
     public long expireAt;
     public String name;
     public String openId;
 
-    public TokenInfo() {
+    public TokenInfo(String str, String str2, String str3, long j2) {
+        this.name = str;
+        this.openId = str2;
+        this.accessToken = str3;
+        this.expireAt = j2;
     }
 
     public String getAccessToken() {
@@ -30,8 +34,8 @@ public class TokenInfo {
         this.accessToken = str;
     }
 
-    public void setExpireAt(long j10) {
-        this.expireAt = j10;
+    public void setExpireAt(long j2) {
+        this.expireAt = j2;
     }
 
     public void setName(String str) {
@@ -40,12 +44,5 @@ public class TokenInfo {
 
     public void setOpenId(String str) {
         this.openId = str;
-    }
-
-    public TokenInfo(String str, String str2, String str3, long j10) {
-        this.name = str;
-        this.openId = str2;
-        this.accessToken = str3;
-        this.expireAt = j10;
     }
 }

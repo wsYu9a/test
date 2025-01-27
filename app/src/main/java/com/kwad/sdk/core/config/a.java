@@ -4,30 +4,30 @@ import android.text.TextUtils;
 import java.net.URI;
 import java.util.Iterator;
 
-/* loaded from: classes3.dex */
+/* loaded from: classes2.dex */
 public final class a {
-    private static final String[] atZ = {"gifshow.com", "kuaishou.com", "static.yximgs.com"};
+    private static final String[] abE = {"gifshow.com", "kuaishou.com", "static.yximgs.com"};
 
-    public static boolean cb(String str) {
+    public static boolean aY(String str) {
         if (TextUtils.isEmpty(str)) {
             return false;
         }
         try {
             String host = new URI(str).getHost();
-            if (ds(host)) {
+            if (by(host)) {
                 return true;
             }
-            return dt(host);
+            return bz(host);
         } catch (Exception unused) {
             return false;
         }
     }
 
-    private static boolean ds(String str) {
+    private static boolean by(String str) {
         if (TextUtils.isEmpty(str)) {
             return false;
         }
-        for (String str2 : atZ) {
+        for (String str2 : abE) {
             if (str.contains(str2)) {
                 return true;
             }
@@ -35,11 +35,11 @@ public final class a {
         return false;
     }
 
-    private static boolean dt(String str) {
+    private static boolean bz(String str) {
         if (TextUtils.isEmpty(str)) {
             return false;
         }
-        Iterator<String> it = d.Dd().iterator();
+        Iterator<String> it = d.ua().iterator();
         while (it.hasNext()) {
             if (str.contains(it.next())) {
                 return true;

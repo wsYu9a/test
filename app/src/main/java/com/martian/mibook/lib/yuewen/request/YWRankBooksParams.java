@@ -1,9 +1,9 @@
 package com.martian.mibook.lib.yuewen.request;
 
+import com.martian.libcomm.http.requests.d.a;
 import com.martian.mibook.lib.account.request.TYHttpGetParams;
-import v8.a;
 
-/* loaded from: classes3.dex */
+/* loaded from: classes4.dex */
 public class YWRankBooksParams extends TYHttpGetParams {
 
     @a
@@ -61,7 +61,7 @@ public class YWRankBooksParams extends TYHttpGetParams {
         return this.pageSize.intValue();
     }
 
-    @Override // u8.b
+    @Override // com.martian.libcomm.http.requests.b
     public String getRequestMethod() {
         return "book_mall/book_rank";
     }
@@ -71,27 +71,27 @@ public class YWRankBooksParams extends TYHttpGetParams {
         return Integer.valueOf(num == null ? 0 : num.intValue());
     }
 
-    public void setBrtype(Integer num) {
-        this.brtype = num;
+    public void setBrtype(Integer brtype) {
+        this.brtype = brtype;
     }
 
-    public void setCategory(String str) {
-        this.category = str;
+    public void setCategory(String category) {
+        this.category = category;
     }
 
-    public void setCtype(Integer num) {
-        this.ctype = num;
+    public void setCtype(Integer ctype) {
+        this.ctype = ctype;
     }
 
-    public void setPage(Integer num) {
-        this.page = num;
+    public void setPage(Integer page) {
+        this.page = page;
     }
 
-    public void setPageSize(Integer num) {
-        this.pageSize = num;
+    public void setPageSize(Integer pageSize) {
+        this.pageSize = pageSize;
     }
 
-    public void setStatus(Integer num) {
-        this.status = num;
+    public void setStatus(Integer status) {
+        this.status = status;
     }
 }

@@ -1,5 +1,6 @@
 package com.umeng.commonsdk.framework;
 
+import android.app.ActivityManager;
 import android.app.Application;
 import android.content.Context;
 import android.content.SharedPreferences;
@@ -8,11 +9,11 @@ import android.net.NetworkInfo;
 import android.os.Build;
 import android.os.Process;
 import android.text.TextUtils;
-import com.kuaishou.weapon.p0.bi;
+import com.bytedance.sdk.openadsdk.downloadnew.core.TTDownloadField;
+import com.kuaishou.weapon.p0.bh;
 import com.kuaishou.weapon.p0.g;
 import com.kuaishou.weapon.p0.t;
-import com.umeng.analytics.pro.bd;
-import com.umeng.analytics.pro.bt;
+import com.umeng.analytics.pro.am;
 import com.umeng.commonsdk.framework.UMLogDataProtocol;
 import com.umeng.commonsdk.internal.crash.UMCrashManager;
 import com.umeng.commonsdk.statistics.common.ULog;
@@ -27,21 +28,24 @@ import java.nio.MappedByteBuffer;
 import java.nio.channels.FileChannel;
 import java.util.Arrays;
 import java.util.Comparator;
-import m5.d;
-import p1.b;
+import java.util.Iterator;
+import java.util.List;
 
 /* loaded from: classes4.dex */
 public class UMFrUtils {
     private static final String KEY_LAST_INSTANT_SUCC_BUILD_TIME = "last_instant_build_time";
     private static final String KEY_LAST_SUCC_BUILD_TIME = "last_successful_build_time";
-    private static Object mEnvelopeBuildTimeLock = new Object();
-    private static String mDefaultEnvelopeDir = bd.b().b(bd.f23521a);
+    private static String mDefaultEnvelopeDir = "envelope";
     private static String mDefaultEnvelopeDirPath = null;
+    private static Object mEnvelopeBuildTimeLock = new Object();
     private static Object mEnvelopeFileLock = new Object();
     private static String sCurrentProcessName = "";
 
     /* renamed from: com.umeng.commonsdk.framework.UMFrUtils$1 */
-    public static class AnonymousClass1 implements Comparator<File> {
+    static class AnonymousClass1 implements Comparator<File> {
+        AnonymousClass1() {
+        }
+
         @Override // java.util.Comparator
         /* renamed from: a */
         public int compare(File file, File file2) {
@@ -54,7 +58,10 @@ public class UMFrUtils {
     }
 
     /* renamed from: com.umeng.commonsdk.framework.UMFrUtils$2 */
-    public static class AnonymousClass2 implements Comparator<File> {
+    static class AnonymousClass2 implements Comparator<File> {
+        AnonymousClass2() {
+        }
+
         @Override // java.util.Comparator
         /* renamed from: a */
         public int compare(File file, File file2) {
@@ -66,71 +73,31 @@ public class UMFrUtils {
         }
     }
 
-    /* JADX WARN: Code restructure failed: missing block: B:10:?, code lost:
-    
-        return r0;
-     */
-    /* JADX WARN: Code restructure failed: missing block: B:18:0x0045, code lost:
-    
-        if (r2.getPackageManager().checkPermission(r8, r2.getPackageName()) == 0) goto L62;
-     */
-    /* JADX WARN: Code restructure failed: missing block: B:7:0x002e, code lost:
-    
-        if (((java.lang.Integer) java.lang.Class.forName("android.content.Context").getMethod("checkSelfPermission", java.lang.String.class).invoke(r7, r8)).intValue() == 0) goto L62;
-     */
-    /* JADX WARN: Code restructure failed: missing block: B:8:0x0031, code lost:
-    
-        r0 = false;
-     */
-    /*
-        Code decompiled incorrectly, please refer to instructions dump.
-        To view partially-correct code enable 'Show inconsistent code' option in preferences
-    */
-    private static boolean checkPermission(android.content.Context r7, java.lang.String r8) {
-        /*
-            r0 = 1
-            r1 = 0
-            if (r7 == 0) goto L4c
-            android.content.Context r2 = r7.getApplicationContext()
-            int r3 = android.os.Build.VERSION.SDK_INT
-            r4 = 23
-            if (r3 < r4) goto L39
-            java.lang.String r3 = "android.content.Context"
-            java.lang.Class r3 = java.lang.Class.forName(r3)     // Catch: java.lang.Throwable -> L34
-            java.lang.String r4 = "checkSelfPermission"
-            java.lang.Class[] r5 = new java.lang.Class[r0]     // Catch: java.lang.Throwable -> L34
-            java.lang.Class<java.lang.String> r6 = java.lang.String.class
-            r5[r1] = r6     // Catch: java.lang.Throwable -> L34
-            java.lang.reflect.Method r3 = r3.getMethod(r4, r5)     // Catch: java.lang.Throwable -> L34
-            java.lang.Object[] r4 = new java.lang.Object[r0]     // Catch: java.lang.Throwable -> L34
-            r4[r1] = r8     // Catch: java.lang.Throwable -> L34
-            java.lang.Object r7 = r3.invoke(r7, r4)     // Catch: java.lang.Throwable -> L34
-            java.lang.Integer r7 = (java.lang.Integer) r7     // Catch: java.lang.Throwable -> L34
-            int r7 = r7.intValue()     // Catch: java.lang.Throwable -> L34
-            if (r7 != 0) goto L31
-            goto L32
-        L31:
-            r0 = 0
-        L32:
-            r1 = r0
-            goto L4c
-        L34:
-            r7 = move-exception
-            com.umeng.commonsdk.internal.crash.UMCrashManager.reportCrash(r2, r7)
-            goto L4c
-        L39:
-            android.content.pm.PackageManager r7 = r2.getPackageManager()     // Catch: java.lang.Throwable -> L48
-            java.lang.String r3 = r2.getPackageName()     // Catch: java.lang.Throwable -> L48
-            int r7 = r7.checkPermission(r8, r3)     // Catch: java.lang.Throwable -> L48
-            if (r7 != 0) goto L31
-            goto L32
-        L48:
-            r7 = move-exception
-            com.umeng.commonsdk.internal.crash.UMCrashManager.reportCrash(r2, r7)
-        L4c:
-            return r1
-        */
-        throw new UnsupportedOperationException("Method not decompiled: com.umeng.commonsdk.framework.UMFrUtils.checkPermission(android.content.Context, java.lang.String):boolean");
+    private static boolean checkPermission(Context context, String str) {
+        if (context == null) {
+            return false;
+        }
+        Context applicationContext = context.getApplicationContext();
+        if (Build.VERSION.SDK_INT >= 23) {
+            try {
+                if (((Integer) Class.forName("android.content.Context").getMethod("checkSelfPermission", String.class).invoke(context, str)).intValue() != 0) {
+                    return false;
+                }
+            } catch (Throwable th) {
+                UMCrashManager.reportCrash(applicationContext, th);
+                return false;
+            }
+        } else {
+            try {
+                if (applicationContext.getPackageManager().checkPermission(str, applicationContext.getPackageName()) != 0) {
+                    return false;
+                }
+            } catch (Throwable th2) {
+                UMCrashManager.reportCrash(applicationContext, th2);
+                return false;
+            }
+        }
+        return true;
     }
 
     public static int envelopeFileNumber(Context context) {
@@ -139,48 +106,62 @@ public class UMFrUtils {
             try {
                 File file = new File(getEnvelopeDirPath(context));
                 synchronized (mEnvelopeFileLock) {
-                    try {
-                        if (file.isDirectory() && (list = file.list()) != null) {
-                            return list.length;
-                        }
-                    } finally {
+                    if (file.isDirectory() && (list = file.list()) != null) {
+                        return list.length;
                     }
                 }
-            } catch (Throwable th2) {
-                UMCrashManager.reportCrash(context, th2);
+            } catch (Throwable th) {
+                UMCrashManager.reportCrash(context, th);
             }
         }
         return 0;
     }
 
     public static String getCurrentProcessName(Context context) {
+        List<ActivityManager.RunningAppProcessInfo> runningAppProcesses;
         if (TextUtils.isEmpty(sCurrentProcessName)) {
             try {
                 String processName = Build.VERSION.SDK_INT >= 28 ? Application.getProcessName() : "";
                 if (TextUtils.isEmpty(processName)) {
-                    String processName2 = getProcessName(Process.myPid());
-                    if (!TextUtils.isEmpty(processName2)) {
+                    int myPid = Process.myPid();
+                    String processName2 = getProcessName(myPid);
+                    if (TextUtils.isEmpty(processName2)) {
+                        ActivityManager activityManager = (ActivityManager) context.getSystemService(TTDownloadField.TT_ACTIVITY);
+                        if (activityManager != null && (runningAppProcesses = activityManager.getRunningAppProcesses()) != null && runningAppProcesses.size() > 0) {
+                            Iterator<ActivityManager.RunningAppProcessInfo> it = runningAppProcesses.iterator();
+                            while (true) {
+                                if (!it.hasNext()) {
+                                    break;
+                                }
+                                ActivityManager.RunningAppProcessInfo next = it.next();
+                                if (next.pid == myPid) {
+                                    sCurrentProcessName = next.processName;
+                                    break;
+                                }
+                            }
+                        }
+                    } else {
                         sCurrentProcessName = processName2;
                     }
                 } else {
                     sCurrentProcessName = processName;
                 }
-            } catch (Throwable th2) {
-                UMCrashManager.reportCrash(context.getApplicationContext(), th2);
+            } catch (Throwable th) {
+                UMCrashManager.reportCrash(context.getApplicationContext(), th);
             }
         }
         return sCurrentProcessName;
     }
 
-    private static long getDistanceDays(long j10, long j11) {
-        return (j10 < j11 ? j11 - j10 : j10 - j11) / 86400000;
+    private static long getDistanceDays(long j2, long j3) {
+        return (j2 < j3 ? j3 - j2 : j2 - j3) / 86400000;
     }
 
     public static String getEnvelopeDirPath(Context context) {
         synchronized (mEnvelopeFileLock) {
             try {
                 if (mDefaultEnvelopeDirPath == null) {
-                    mDefaultEnvelopeDirPath = context.getFilesDir().getAbsolutePath() + File.separator + b.f29697h + mDefaultEnvelopeDir;
+                    mDefaultEnvelopeDirPath = context.getFilesDir().getAbsolutePath() + File.separator + "." + mDefaultEnvelopeDir;
                 }
                 File file = new File(mDefaultEnvelopeDirPath);
                 if (!file.exists() && !file.mkdir()) {
@@ -199,84 +180,83 @@ public class UMFrUtils {
         }
         File file = new File(getEnvelopeDirPath(context));
         synchronized (mEnvelopeFileLock) {
-            try {
-                File[] listFiles = file.listFiles();
-                if (listFiles != null && listFiles.length != 0) {
-                    Arrays.sort(listFiles, new Comparator<File>() { // from class: com.umeng.commonsdk.framework.UMFrUtils.2
-                        @Override // java.util.Comparator
-                        /* renamed from: a */
-                        public int compare(File file2, File file22) {
-                            long lastModified = file2.lastModified() - file22.lastModified();
-                            if (lastModified > 0) {
-                                return 1;
-                            }
-                            return lastModified == 0 ? 0 : -1;
+            File[] listFiles = file.listFiles();
+            if (listFiles != null && listFiles.length != 0) {
+                Arrays.sort(listFiles, new Comparator<File>() { // from class: com.umeng.commonsdk.framework.UMFrUtils.2
+                    AnonymousClass2() {
+                    }
+
+                    @Override // java.util.Comparator
+                    /* renamed from: a */
+                    public int compare(File file2, File file22) {
+                        long lastModified = file2.lastModified() - file22.lastModified();
+                        if (lastModified > 0) {
+                            return 1;
                         }
-                    });
-                    return listFiles[0];
-                }
-                return null;
-            } finally {
+                        return lastModified == 0 ? 0 : -1;
+                    }
+                });
+                return listFiles[0];
             }
+            return null;
         }
     }
 
     public static long getLastInstantBuildTime(Context context) {
-        long j10;
+        long j2;
         synchronized (mEnvelopeBuildTimeLock) {
-            j10 = PreferenceWrapper.getDefault(context).getLong(KEY_LAST_INSTANT_SUCC_BUILD_TIME, 0L);
+            j2 = PreferenceWrapper.getDefault(context).getLong(KEY_LAST_INSTANT_SUCC_BUILD_TIME, 0L);
         }
-        return j10;
+        return j2;
     }
 
     public static long getLastSuccessfulBuildTime(Context context) {
-        long j10;
+        long j2;
         synchronized (mEnvelopeBuildTimeLock) {
-            j10 = PreferenceWrapper.getDefault(context).getLong(KEY_LAST_SUCC_BUILD_TIME, 0L);
+            j2 = PreferenceWrapper.getDefault(context).getLong(KEY_LAST_SUCC_BUILD_TIME, 0L);
         }
-        return j10;
+        return j2;
     }
 
     public static String getLegacyEnvelopeDir(Context context) {
         try {
             String currentProcessName = getCurrentProcessName(context);
             if (!TextUtils.isEmpty(currentProcessName)) {
-                String b10 = bd.b().b(bd.B);
-                String replace = currentProcessName.replace(d.f28378d, '_');
+                String replace = currentProcessName.replace(':', '_');
                 ULog.d("--->>> getEnvelopeDir: use current process name as envelope directory.");
-                return b10 + replace;
+                return replace;
             }
-        } catch (Throwable th2) {
-            UMCrashManager.reportCrash(context, th2);
+        } catch (Throwable th) {
+            UMCrashManager.reportCrash(context, th);
         }
         return mDefaultEnvelopeDir;
     }
 
-    private static String getProcessName(int i10) {
+    private static String getProcessName(int i2) {
         BufferedReader bufferedReader;
         try {
-            bufferedReader = new BufferedReader(new FileReader("/proc/" + i10 + "/cmdline"));
-        } catch (Throwable unused) {
-            bufferedReader = null;
-        }
-        try {
-            String readLine = bufferedReader.readLine();
-            if (!TextUtils.isEmpty(readLine)) {
-                readLine = readLine.trim();
-            }
+            bufferedReader = new BufferedReader(new FileReader("/proc/" + i2 + "/cmdline"));
             try {
-                bufferedReader.close();
-            } catch (Throwable unused2) {
-            }
-            return readLine;
-        } catch (Throwable unused3) {
-            if (bufferedReader != null) {
+                String readLine = bufferedReader.readLine();
+                if (!TextUtils.isEmpty(readLine)) {
+                    readLine = readLine.trim();
+                }
                 try {
                     bufferedReader.close();
-                } catch (Throwable unused4) {
+                } catch (Throwable unused) {
                 }
+                return readLine;
+            } catch (Throwable unused2) {
+                if (bufferedReader != null) {
+                    try {
+                        bufferedReader.close();
+                    } catch (Throwable unused3) {
+                    }
+                }
+                return null;
             }
-            return null;
+        } catch (Throwable unused4) {
+            bufferedReader = null;
         }
     }
 
@@ -291,8 +271,8 @@ public class UMFrUtils {
                 String packageName = context.getPackageName();
                 return currentProcessName.length() > packageName.length() ? currentProcessName.substring(packageName.length() + 1, currentProcessName.length()) : currentProcessName;
             }
-        } catch (Throwable th2) {
-            UMCrashManager.reportCrash(context.getApplicationContext(), th2);
+        } catch (Throwable th) {
+            UMCrashManager.reportCrash(context.getApplicationContext(), th);
         }
         return str;
     }
@@ -301,7 +281,7 @@ public class UMFrUtils {
         File[] listFiles;
         String str = uMBusinessType == UMLogDataProtocol.UMBusinessType.U_INTERNAL ? "i" : "a";
         if (uMBusinessType == UMLogDataProtocol.UMBusinessType.U_ZeroEnv) {
-            str = bt.aJ;
+            str = am.aD;
         }
         if (uMBusinessType == UMLogDataProtocol.UMBusinessType.U_Silent) {
             str = "h";
@@ -314,9 +294,8 @@ public class UMFrUtils {
         synchronized (mEnvelopeFileLock) {
             try {
                 listFiles = file.listFiles();
-            } catch (Throwable th2) {
-                UMCrashManager.reportCrash(context, th2);
-            } finally {
+            } catch (Throwable th) {
+                UMCrashManager.reportCrash(context, th);
             }
             if (listFiles != null && listFiles.length != 0) {
                 for (File file2 : listFiles) {
@@ -334,12 +313,12 @@ public class UMFrUtils {
         ConnectivityManager connectivityManager;
         NetworkInfo activeNetworkInfo;
         try {
-            if (!checkPermission(context, g.f11101b) || (connectivityManager = (ConnectivityManager) context.getSystemService("connectivity")) == null || (activeNetworkInfo = connectivityManager.getActiveNetworkInfo()) == null) {
+            if (!checkPermission(context, g.f9317b) || (connectivityManager = (ConnectivityManager) context.getSystemService("connectivity")) == null || (activeNetworkInfo = connectivityManager.getActiveNetworkInfo()) == null) {
                 return false;
             }
             return activeNetworkInfo.isConnectedOrConnecting();
-        } catch (Throwable th2) {
-            UMCrashManager.reportCrash(context.getApplicationContext(), th2);
+        } catch (Throwable th) {
+            UMCrashManager.reportCrash(context.getApplicationContext(), th);
             return false;
         }
     }
@@ -347,35 +326,28 @@ public class UMFrUtils {
     public static boolean removeEnvelopeFile(File file) {
         Context appContext = UMModuleRegister.getAppContext();
         synchronized (mEnvelopeFileLock) {
-            try {
-                if (file != null) {
-                    try {
-                        if (file.exists()) {
-                            return file.delete();
-                        }
-                    } catch (Throwable th2) {
-                        UMCrashManager.reportCrash(appContext, th2);
+            if (file != null) {
+                try {
+                    if (file.exists()) {
+                        return file.delete();
                     }
+                } catch (Throwable th) {
+                    UMCrashManager.reportCrash(appContext, th);
                 }
-                return true;
-            } catch (Throwable th3) {
-                throw th3;
             }
+            return true;
         }
     }
 
-    public static void removeRedundantEnvelopeFiles(Context context, int i10) {
-        File[] listFiles;
+    public static void removeRedundantEnvelopeFiles(Context context, int i2) {
         File file = new File(getEnvelopeDirPath(context));
         synchronized (mEnvelopeFileLock) {
-            try {
-                listFiles = file.listFiles();
-            } catch (Throwable th2) {
-                UMCrashManager.reportCrash(context, th2);
-            } finally {
-            }
-            if (listFiles != null && listFiles.length > i10) {
+            File[] listFiles = file.listFiles();
+            if (listFiles != null && listFiles.length > i2) {
                 Arrays.sort(listFiles, new Comparator<File>() { // from class: com.umeng.commonsdk.framework.UMFrUtils.1
+                    AnonymousClass1() {
+                    }
+
                     @Override // java.util.Comparator
                     /* renamed from: a */
                     public int compare(File file2, File file22) {
@@ -386,10 +358,14 @@ public class UMFrUtils {
                         return lastModified == 0 ? 0 : -1;
                     }
                 });
-                if (listFiles.length > i10) {
-                    for (int i11 = 0; i11 < listFiles.length - i10; i11++) {
-                        if (!listFiles[i11].delete()) {
-                            ULog.d("--->>> remove [" + i11 + "] file fail.");
+                if (listFiles.length > i2) {
+                    for (int i3 = 0; i3 < listFiles.length - i2; i3++) {
+                        try {
+                            if (!listFiles[i3].delete()) {
+                                ULog.d("--->>> remove [" + i3 + "] file fail.");
+                            }
+                        } catch (Throwable th) {
+                            UMCrashManager.reportCrash(context, th);
                         }
                     }
                 }
@@ -406,52 +382,48 @@ public class UMFrUtils {
             FileOutputStream fileOutputStream = null;
             try {
                 try {
+                    FileOutputStream fileOutputStream2 = new FileOutputStream(file);
                     try {
-                        FileOutputStream fileOutputStream2 = new FileOutputStream(file);
-                        try {
-                            fileOutputStream2.write(bArr);
-                            fileOutputStream2.close();
-                            boolean a10 = com.umeng.commonsdk.statistics.internal.a.a(context).a(str);
-                            boolean b10 = com.umeng.commonsdk.statistics.internal.a.a(context).b(str);
-                            if (a10) {
-                                updateLastSuccessfulBuildTime(context);
-                            }
-                            if (b10) {
-                                updateLastInstantBuildTime(context);
-                            }
-                            return 0;
-                        } catch (IOException e10) {
-                            e = e10;
-                            fileOutputStream = fileOutputStream2;
-                            UMCrashManager.reportCrash(context, e);
-                            if (fileOutputStream != null) {
-                                try {
-                                    fileOutputStream.close();
-                                } catch (Throwable th2) {
-                                    UMCrashManager.reportCrash(context, th2);
-                                }
-                            }
-                            return 101;
-                        } catch (Throwable th3) {
-                            th = th3;
-                            fileOutputStream = fileOutputStream2;
-                            if (fileOutputStream != null) {
-                                try {
-                                    fileOutputStream.close();
-                                } catch (Throwable th4) {
-                                    UMCrashManager.reportCrash(context, th4);
-                                }
-                            }
-                            throw th;
+                        fileOutputStream2.write(bArr);
+                        fileOutputStream2.close();
+                        boolean a2 = com.umeng.commonsdk.statistics.internal.a.a(context).a(str);
+                        boolean b2 = com.umeng.commonsdk.statistics.internal.a.a(context).b(str);
+                        if (a2) {
+                            updateLastSuccessfulBuildTime(context);
                         }
-                    } catch (Throwable th5) {
-                        th = th5;
+                        if (b2) {
+                            updateLastInstantBuildTime(context);
+                        }
+                        return 0;
+                    } catch (IOException e2) {
+                        e = e2;
+                        fileOutputStream = fileOutputStream2;
+                        UMCrashManager.reportCrash(context, e);
+                        if (fileOutputStream != null) {
+                            try {
+                                fileOutputStream.close();
+                            } catch (Throwable th) {
+                                UMCrashManager.reportCrash(context, th);
+                            }
+                        }
+                        return 101;
+                    } catch (Throwable th2) {
+                        th = th2;
+                        fileOutputStream = fileOutputStream2;
+                        if (fileOutputStream != null) {
+                            try {
+                                fileOutputStream.close();
+                            } catch (Throwable th3) {
+                                UMCrashManager.reportCrash(context, th3);
+                            }
+                        }
+                        throw th;
                     }
-                } catch (IOException e11) {
-                    e = e11;
+                } catch (IOException e3) {
+                    e = e3;
                 }
-            } catch (Throwable th6) {
-                throw th6;
+            } catch (Throwable th4) {
+                th = th4;
             }
         }
     }
@@ -463,13 +435,13 @@ public class UMFrUtils {
         }
         try {
             legacyEnvelopeDir = getLegacyEnvelopeDir(context);
-        } catch (Throwable th2) {
-            UMCrashManager.reportCrash(context, th2);
+        } catch (Throwable th) {
+            UMCrashManager.reportCrash(context, th);
         }
         if (TextUtils.isEmpty(legacyEnvelopeDir) || legacyEnvelopeDir.equals(mDefaultEnvelopeDir)) {
             return;
         }
-        File file = new File(context.getFilesDir().getAbsolutePath() + bi.f10814j + legacyEnvelopeDir);
+        File file = new File(context.getFilesDir().getAbsolutePath() + bh.f9116j + legacyEnvelopeDir);
         if (file.exists()) {
             File[] listFiles = file.listFiles();
             if (listFiles == null || listFiles.length == 0) {
@@ -479,26 +451,26 @@ public class UMFrUtils {
                         return;
                     }
                     return;
-                } catch (Throwable th3) {
-                    UMCrashManager.reportCrash(context, th3);
+                } catch (Throwable th2) {
+                    UMCrashManager.reportCrash(context, th2);
                     return;
                 }
             }
             try {
                 String envelopeDirPath = getEnvelopeDirPath(context);
-                for (int i10 = 0; i10 < listFiles.length; i10++) {
-                    listFiles[i10].renameTo(new File(envelopeDirPath + File.separator + listFiles[i10].getName()));
+                for (int i2 = 0; i2 < listFiles.length; i2++) {
+                    listFiles[i2].renameTo(new File(envelopeDirPath + File.separator + listFiles[i2].getName()));
                 }
                 if (file.isDirectory()) {
                     file.delete();
                     return;
                 }
                 return;
-            } catch (Throwable th4) {
-                UMCrashManager.reportCrash(context, th4);
+            } catch (Throwable th3) {
+                UMCrashManager.reportCrash(context, th3);
                 return;
             }
-            UMCrashManager.reportCrash(context, th2);
+            UMCrashManager.reportCrash(context, th);
         }
     }
 
@@ -509,21 +481,21 @@ public class UMFrUtils {
             FileChannel fileChannel = null;
             try {
                 try {
-                    fileChannel = new RandomAccessFile(str, t.f11211k).getChannel();
+                    fileChannel = new RandomAccessFile(str, t.k).getChannel();
                     MappedByteBuffer load = fileChannel.map(FileChannel.MapMode.READ_ONLY, 0L, fileChannel.size()).load();
                     bArr = new byte[(int) fileChannel.size()];
                     if (load.remaining() > 0) {
                         load.get(bArr, 0, load.remaining());
                     }
-                } catch (IOException e10) {
-                    UMCrashManager.reportCrash(appContext, e10);
-                    throw e10;
+                } catch (IOException e2) {
+                    UMCrashManager.reportCrash(appContext, e2);
+                    throw e2;
                 }
             } finally {
                 try {
                     fileChannel.close();
-                } catch (Throwable th2) {
-                    UMCrashManager.reportCrash(appContext, th2);
+                } catch (Throwable th) {
+                    UMCrashManager.reportCrash(appContext, th);
                 }
             }
         }

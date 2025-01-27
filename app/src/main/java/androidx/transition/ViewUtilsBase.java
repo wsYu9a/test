@@ -12,28 +12,45 @@ import java.lang.reflect.Method;
 
 /* loaded from: classes.dex */
 class ViewUtilsBase {
-    private static final String TAG = "ViewUtilsBase";
-    private static final int VISIBILITY_MASK = 12;
-    private static boolean sSetFrameFetched;
-    private static Method sSetFrameMethod;
-    private static Field sViewFlagsField;
-    private static boolean sViewFlagsFieldFetched;
-    private float[] mMatrixValues;
+
+    /* renamed from: a */
+    private static final String f3895a = "ViewUtilsBase";
+
+    /* renamed from: b */
+    private static Method f3896b = null;
+
+    /* renamed from: c */
+    private static boolean f3897c = false;
+
+    /* renamed from: d */
+    private static Field f3898d = null;
+
+    /* renamed from: e */
+    private static boolean f3899e = false;
+
+    /* renamed from: f */
+    private static final int f3900f = 12;
+
+    /* renamed from: g */
+    private float[] f3901g;
+
+    ViewUtilsBase() {
+    }
 
     @SuppressLint({"PrivateApi"})
-    private void fetchSetFrame() {
-        if (sSetFrameFetched) {
+    private void a() {
+        if (f3897c) {
             return;
         }
         try {
             Class cls = Integer.TYPE;
             Method declaredMethod = View.class.getDeclaredMethod("setFrame", cls, cls, cls, cls);
-            sSetFrameMethod = declaredMethod;
+            f3896b = declaredMethod;
             declaredMethod.setAccessible(true);
-        } catch (NoSuchMethodException e10) {
-            Log.i(TAG, "Failed to retrieve setFrame method", e10);
+        } catch (NoSuchMethodException e2) {
+            Log.i(f3895a, "Failed to retrieve setFrame method", e2);
         }
-        sSetFrameFetched = true;
+        f3897c = true;
     }
 
     public void clearNonTransitionAlpha(@NonNull View view) {
@@ -43,13 +60,14 @@ class ViewUtilsBase {
     }
 
     public float getTransitionAlpha(@NonNull View view) {
-        Float f10 = (Float) view.getTag(R.id.save_non_transition_alpha);
-        return f10 != null ? view.getAlpha() / f10.floatValue() : view.getAlpha();
+        Float f2 = (Float) view.getTag(R.id.save_non_transition_alpha);
+        return f2 != null ? view.getAlpha() / f2.floatValue() : view.getAlpha();
     }
 
     public void saveNonTransitionAlpha(@NonNull View view) {
-        if (view.getTag(R.id.save_non_transition_alpha) == null) {
-            view.setTag(R.id.save_non_transition_alpha, Float.valueOf(view.getAlpha()));
+        int i2 = R.id.save_non_transition_alpha;
+        if (view.getTag(i2) == null) {
+            view.setTag(i2, Float.valueOf(view.getAlpha()));
         }
     }
 
@@ -64,65 +82,65 @@ class ViewUtilsBase {
             view.setRotation(0.0f);
             return;
         }
-        float[] fArr = this.mMatrixValues;
+        float[] fArr = this.f3901g;
         if (fArr == null) {
             fArr = new float[9];
-            this.mMatrixValues = fArr;
+            this.f3901g = fArr;
         }
         matrix.getValues(fArr);
-        float f10 = fArr[3];
-        float sqrt = ((float) Math.sqrt(1.0f - (f10 * f10))) * (fArr[0] < 0.0f ? -1 : 1);
-        float degrees = (float) Math.toDegrees(Math.atan2(f10, sqrt));
-        float f11 = fArr[0] / sqrt;
-        float f12 = fArr[4] / sqrt;
-        float f13 = fArr[2];
-        float f14 = fArr[5];
+        float f2 = fArr[3];
+        float sqrt = ((float) Math.sqrt(1.0f - (f2 * f2))) * (fArr[0] < 0.0f ? -1 : 1);
+        float degrees = (float) Math.toDegrees(Math.atan2(f2, sqrt));
+        float f3 = fArr[0] / sqrt;
+        float f4 = fArr[4] / sqrt;
+        float f5 = fArr[2];
+        float f6 = fArr[5];
         view.setPivotX(0.0f);
         view.setPivotY(0.0f);
-        view.setTranslationX(f13);
-        view.setTranslationY(f14);
+        view.setTranslationX(f5);
+        view.setTranslationY(f6);
         view.setRotation(degrees);
-        view.setScaleX(f11);
-        view.setScaleY(f12);
+        view.setScaleX(f3);
+        view.setScaleY(f4);
     }
 
-    public void setLeftTopRightBottom(@NonNull View view, int i10, int i11, int i12, int i13) {
-        fetchSetFrame();
-        Method method = sSetFrameMethod;
+    public void setLeftTopRightBottom(@NonNull View view, int i2, int i3, int i4, int i5) {
+        a();
+        Method method = f3896b;
         if (method != null) {
             try {
-                method.invoke(view, Integer.valueOf(i10), Integer.valueOf(i11), Integer.valueOf(i12), Integer.valueOf(i13));
+                method.invoke(view, Integer.valueOf(i2), Integer.valueOf(i3), Integer.valueOf(i4), Integer.valueOf(i5));
             } catch (IllegalAccessException unused) {
-            } catch (InvocationTargetException e10) {
-                throw new RuntimeException(e10.getCause());
+            } catch (InvocationTargetException e2) {
+                throw new RuntimeException(e2.getCause());
             }
         }
     }
 
-    public void setTransitionAlpha(@NonNull View view, float f10) {
-        Float f11 = (Float) view.getTag(R.id.save_non_transition_alpha);
-        if (f11 != null) {
-            view.setAlpha(f11.floatValue() * f10);
+    public void setTransitionAlpha(@NonNull View view, float f2) {
+        Float f3 = (Float) view.getTag(R.id.save_non_transition_alpha);
+        if (f3 != null) {
+            view.setAlpha(f3.floatValue() * f2);
         } else {
-            view.setAlpha(f10);
+            view.setAlpha(f2);
         }
     }
 
-    public void setTransitionVisibility(@NonNull View view, int i10) {
-        if (!sViewFlagsFieldFetched) {
+    public void setTransitionVisibility(@NonNull View view, int i2) {
+        if (!f3899e) {
             try {
                 Field declaredField = View.class.getDeclaredField("mViewFlags");
-                sViewFlagsField = declaredField;
+                f3898d = declaredField;
                 declaredField.setAccessible(true);
             } catch (NoSuchFieldException unused) {
-                Log.i(TAG, "fetchViewFlagsField: ");
+                Log.i(f3895a, "fetchViewFlagsField: ");
             }
-            sViewFlagsFieldFetched = true;
+            f3899e = true;
         }
-        Field field = sViewFlagsField;
+        Field field = f3898d;
         if (field != null) {
             try {
-                sViewFlagsField.setInt(view, i10 | (field.getInt(view) & (-13)));
+                f3898d.setInt(view, i2 | (field.getInt(view) & (-13)));
             } catch (IllegalAccessException unused2) {
             }
         }

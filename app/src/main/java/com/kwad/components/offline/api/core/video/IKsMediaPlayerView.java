@@ -1,6 +1,6 @@
 package com.kwad.components.offline.api.core.video;
 
-/* loaded from: classes3.dex */
+/* loaded from: classes2.dex */
 public interface IKsMediaPlayerView {
 
     public interface VideoViewClickListener {
@@ -9,23 +9,23 @@ public interface IKsMediaPlayerView {
         void onClickVideoView();
     }
 
-    void adaptVideoSize(int i10, int i11);
+    void adaptVideoSize(int i2, int i3);
 
-    void fixWidth(boolean z10);
+    void fixWidth(boolean z);
 
     int getTextureViewGravity();
 
-    void setAd(boolean z10);
+    void setAd(boolean z);
 
     void setClickListener(VideoViewClickListener videoViewClickListener);
 
-    void setForce(boolean z10);
+    void setForce(boolean z);
 
-    void setHorizontalVideo(boolean z10);
+    void setHorizontalVideo(boolean z);
 
     void setMediaPlayer(IKsMediaPlayer iKsMediaPlayer);
 
-    void setRadius(float f10);
+    void setRadius(float f2);
 
-    void updateTextureViewGravity(int i10);
+    void updateTextureViewGravity(int i2);
 }

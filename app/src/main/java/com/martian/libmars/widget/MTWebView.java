@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.graphics.Bitmap;
 import android.net.Uri;
 import android.net.http.SslError;
+import android.os.Build;
 import android.os.Message;
 import android.util.AttributeSet;
 import android.webkit.CookieManager;
@@ -19,171 +20,192 @@ import android.webkit.WebView;
 import android.webkit.WebViewClient;
 import androidx.annotation.NonNull;
 import com.martian.libcomm.utils.GsonUtils;
-import com.martian.libmars.widget.MTWebView;
 import com.martian.libsupport.data.WebEvent;
 import com.martian.libsupport.data.WebParams;
+import com.ss.android.socialbase.downloader.utils.DownloadExpSwitchCode;
+import org.apache.http.HttpHost;
 
-/* loaded from: classes3.dex */
+/* loaded from: classes2.dex */
 public class MTWebView extends WebView {
 
-    /* renamed from: b */
-    public c f12655b;
+    /* renamed from: a */
+    private c f10348a;
 
-    /* renamed from: c */
-    public boolean f12656c;
+    /* renamed from: b */
+    private boolean f10349b;
 
     public class a extends WebChromeClient {
+
+        /* renamed from: com.martian.libmars.widget.MTWebView$a$a */
+        class C0259a extends WebViewClient {
+            C0259a() {
+            }
+
+            @Override // android.webkit.WebViewClient
+            public boolean shouldOverrideUrlLoading(WebView view, String url) {
+                if (MTWebView.this.f10348a == null) {
+                    return true;
+                }
+                MTWebView.this.f10348a.g(url);
+                return true;
+            }
+        }
+
         public a() {
         }
 
-        public void a(ValueCallback<Uri> valueCallback) {
-            if (MTWebView.this.f12655b != null) {
-                MTWebView.this.f12655b.K0(valueCallback, "image/*", "filesystem");
+        public void a(ValueCallback<Uri> uploadMsg) {
+            if (MTWebView.this.f10348a != null) {
+                MTWebView.this.f10348a.t(uploadMsg, "image/*", "filesystem");
             }
         }
 
-        public void b(ValueCallback<Uri> valueCallback, String str) {
-            if (MTWebView.this.f12655b != null) {
-                MTWebView.this.f12655b.K0(valueCallback, str, "filesystem");
+        public void b(ValueCallback<Uri> uploadMsg, String acceptType) {
+            if (MTWebView.this.f10348a != null) {
+                MTWebView.this.f10348a.t(uploadMsg, acceptType, "filesystem");
             }
         }
 
-        public void c(ValueCallback<Uri> valueCallback, String str, String str2) {
-            if (MTWebView.this.f12655b != null) {
-                MTWebView.this.f12655b.K0(valueCallback, str, str2);
+        public void c(ValueCallback<Uri> uploadMsg, String acceptType, String capture) {
+            if (MTWebView.this.f10348a != null) {
+                MTWebView.this.f10348a.t(uploadMsg, acceptType, capture);
             }
         }
 
         @Override // android.webkit.WebChromeClient
-        public boolean onCreateWindow(WebView webView, boolean z10, boolean z11, Message message) {
-            return false;
-        }
-
-        @Override // android.webkit.WebChromeClient
-        public boolean onJsAlert(WebView webView, String str, String str2, JsResult jsResult) {
-            jsResult.confirm();
+        public boolean onCreateWindow(WebView view, boolean isDialog, boolean isUserGesture, Message resultMsg) {
+            WebView webView = new WebView(view.getContext());
+            webView.setWebViewClient(new C0259a());
+            ((WebView.WebViewTransport) resultMsg.obj).setWebView(webView);
+            resultMsg.sendToTarget();
             return true;
         }
 
         @Override // android.webkit.WebChromeClient
-        public void onProgressChanged(WebView webView, int i10) {
-            super.onProgressChanged(webView, i10);
-            if (MTWebView.this.f12655b != null) {
-                MTWebView.this.f12655b.V(webView, i10);
+        public boolean onJsAlert(WebView view, String url, String message, JsResult result) {
+            result.confirm();
+            return true;
+        }
+
+        @Override // android.webkit.WebChromeClient
+        public void onProgressChanged(WebView view, int newProgress) {
+            super.onProgressChanged(view, newProgress);
+            if (MTWebView.this.f10348a != null) {
+                MTWebView.this.f10348a.p(view, newProgress);
             }
         }
 
         @Override // android.webkit.WebChromeClient
-        public void onReceivedTitle(WebView webView, String str) {
-            super.onReceivedTitle(webView, str);
-            if (MTWebView.this.f12655b != null) {
-                MTWebView.this.f12655b.b(webView, str);
+        public void onReceivedTitle(WebView view, String title) {
+            super.onReceivedTitle(view, title);
+            if (MTWebView.this.f10348a != null) {
+                MTWebView.this.f10348a.c(view, title);
             }
         }
 
         @Override // android.webkit.WebChromeClient
-        public boolean onShowFileChooser(WebView webView, ValueCallback<Uri[]> valueCallback, WebChromeClient.FileChooserParams fileChooserParams) {
-            if (MTWebView.this.f12655b == null) {
+        public boolean onShowFileChooser(WebView webView, ValueCallback<Uri[]> uploadMsg, WebChromeClient.FileChooserParams fileChooserParams) {
+            if (MTWebView.this.f10348a == null) {
                 return true;
             }
-            MTWebView.this.f12655b.S0(webView, valueCallback, fileChooserParams);
+            MTWebView.this.f10348a.u(webView, uploadMsg, fileChooserParams);
             return true;
         }
     }
 
-    public class b extends WebViewClient {
+    class b extends WebViewClient {
 
         /* renamed from: a */
-        public boolean f12658a = false;
+        private boolean f10352a = false;
 
-        public b() {
+        b() {
         }
 
         @Override // android.webkit.WebViewClient
-        public void onPageFinished(WebView webView, String str) {
-            if (MTWebView.this.f12655b != null) {
-                MTWebView.this.f12655b.N0(str);
+        public void onPageFinished(WebView view, String url) {
+            if (MTWebView.this.f10348a != null) {
+                MTWebView.this.f10348a.onPageFinished(url);
             }
-            super.onPageFinished(webView, str);
+            super.onPageFinished(view, url);
         }
 
         @Override // android.webkit.WebViewClient
-        public void onPageStarted(WebView webView, String str, Bitmap bitmap) {
-            super.onPageStarted(webView, str, bitmap);
-            if (!this.f12658a) {
-                shouldOverrideUrlLoading(webView, str);
+        public void onPageStarted(WebView view, String url, Bitmap favicon) {
+            super.onPageStarted(view, url, favicon);
+            if (!this.f10352a) {
+                shouldOverrideUrlLoading(view, url);
             }
-            if (MTWebView.this.f12655b != null) {
-                MTWebView.this.f12655b.c0(str, bitmap);
-            }
-        }
-
-        @Override // android.webkit.WebViewClient
-        public void onReceivedError(WebView webView, int i10, String str, String str2) {
-            super.onReceivedError(webView, i10, str, str2);
-            if (MTWebView.this.f12655b != null) {
-                MTWebView.this.f12655b.L(i10, str, str2);
+            if (MTWebView.this.f10348a != null) {
+                MTWebView.this.f10348a.q(url, favicon);
             }
         }
 
         @Override // android.webkit.WebViewClient
-        public void onReceivedSslError(WebView webView, SslErrorHandler sslErrorHandler, SslError sslError) {
-            if (MTWebView.this.f12655b != null) {
-                MTWebView.this.f12655b.onReceivedSslError(webView, sslErrorHandler, sslError);
+        public void onReceivedError(WebView view, int errorCode, String description, String failingUrl) {
+            super.onReceivedError(view, errorCode, description, failingUrl);
+            if (MTWebView.this.f10348a != null) {
+                MTWebView.this.f10348a.l(errorCode, description, failingUrl);
             }
         }
 
         @Override // android.webkit.WebViewClient
-        public boolean shouldOverrideUrlLoading(WebView webView, String str) {
-            this.f12658a = true;
-            if (MTWebView.this.e(webView, str) || MTWebView.h(str)) {
+        public void onReceivedSslError(WebView view, final SslErrorHandler handler, SslError error) {
+            if (MTWebView.this.f10348a != null) {
+                MTWebView.this.f10348a.onReceivedSslError(view, handler, error);
+            }
+        }
+
+        @Override // android.webkit.WebViewClient
+        public boolean shouldOverrideUrlLoading(WebView view, String url) {
+            this.f10352a = true;
+            if (MTWebView.this.d(view, url) || MTWebView.g(url)) {
                 return true;
             }
-            if (MTWebView.this.f12655b != null) {
-                return MTWebView.this.f12655b.shouldOverrideUrlLoading(webView, str);
+            if (MTWebView.this.f10348a != null) {
+                return MTWebView.this.f10348a.shouldOverrideUrlLoading(view, url);
             }
             return false;
         }
     }
 
     public interface c {
-        void D(String str);
+        void c(WebView view, String title);
 
-        void E(WebView webView, String str, boolean z10);
+        void g(String url);
 
-        boolean F(WebView webView, String str, String str2);
+        void h(WebView view, String deeplink, boolean canHandle);
 
-        void J(String str, String str2, String str3);
+        boolean i(WebView view, String url, String message);
 
-        void K0(ValueCallback<Uri> valueCallback, String str, String str2);
+        void k(String url, String contentDisposition, String mimetype);
 
-        void L(int i10, String str, String str2);
+        void l(int errorCode, String description, String failingUrl);
 
-        void N0(String str);
+        void onPageFinished(String url);
 
-        void S0(WebView webView, ValueCallback<Uri[]> valueCallback, WebChromeClient.FileChooserParams fileChooserParams);
+        void onReceivedSslError(WebView view, final SslErrorHandler handler, SslError error);
 
-        void V(WebView webView, int i10);
+        void onScrollChanged(int l, int t, int oldl, int oldt);
 
-        void b(WebView webView, String str);
+        void p(WebView view, int newProgress);
 
-        void c0(String str, Bitmap bitmap);
+        void q(String url, Bitmap favicon);
 
-        void onReceivedSslError(WebView webView, SslErrorHandler sslErrorHandler, SslError sslError);
+        boolean shouldOverrideUrlLoading(WebView view, String url);
 
-        void onScrollChanged(int i10, int i11, int i12, int i13);
+        void t(ValueCallback<Uri> callback, String acceptType, String capture);
 
-        boolean shouldOverrideUrlLoading(WebView webView, String str);
+        void u(WebView webView, ValueCallback<Uri[]> uploadMsg, WebChromeClient.FileChooserParams fileChooserParams);
     }
 
     public MTWebView(Context context) {
         super(context);
-        this.f12655b = null;
-        this.f12656c = true;
-        f();
+        this.f10348a = null;
+        this.f10349b = true;
+        e();
     }
 
-    public static boolean c(Context context, Intent intent) {
+    public static boolean b(final Context context, final Intent intent) {
         try {
             return !context.getPackageManager().queryIntentActivities(intent, 0).isEmpty();
         } catch (NullPointerException unused) {
@@ -191,51 +213,59 @@ public class MTWebView extends WebView {
         }
     }
 
-    public static boolean h(String str) {
-        return !i(str);
+    public static boolean g(final String url) {
+        return !h(url);
     }
 
-    public static boolean i(String str) {
-        if (str == null) {
+    public static boolean h(final String url) {
+        if (url == null) {
             return false;
         }
-        if (str.startsWith("about:blank") || str.equals("")) {
+        if (url.startsWith("about:blank") || url.equals("")) {
             return true;
         }
-        String scheme = Uri.parse(str).getScheme();
-        return "http".equalsIgnoreCase(scheme) || "https".equalsIgnoreCase(scheme);
+        String scheme = Uri.parse(url).getScheme();
+        return HttpHost.DEFAULT_SCHEME_NAME.equalsIgnoreCase(scheme) || b.b.a.b.b.f4198a.equalsIgnoreCase(scheme);
     }
 
-    public String d(@NonNull WebParams webParams) {
+    /* renamed from: i */
+    public /* synthetic */ void j(String url, String userAgent, String contentDisposition, String mimetype, long contentLength) {
+        c cVar = this.f10348a;
+        if (cVar != null) {
+            cVar.k(url, contentDisposition, mimetype);
+        }
+    }
+
+    public String c(@NonNull WebParams webParams) {
         WebEvent webEvent = new WebEvent();
         webEvent.setType(webParams.getType());
         webEvent.setParams(webParams);
         return "javascript:if (typeof(tyWebEvent) === 'function') { tyWebEvent(" + GsonUtils.b().toJson(webEvent) + ") }";
     }
 
-    public boolean e(WebView webView, String str) {
-        if (!this.f12656c) {
+    protected boolean d(WebView view, String url) {
+        if (!this.f10349b) {
             return false;
         }
-        Intent intent = new Intent("android.intent.action.VIEW", Uri.parse(str));
-        intent.setFlags(268435456);
-        if (!h(str)) {
+        Intent intent = new Intent("android.intent.action.VIEW", Uri.parse(url));
+        intent.setFlags(DownloadExpSwitchCode.BUGFIX_GETPACKAGEINFO_BY_UNZIP);
+        if (!g(url)) {
             return false;
         }
-        if (c(getContext(), intent)) {
+        if (b(getContext(), intent)) {
             try {
                 getContext().startActivity(intent);
-                c cVar = this.f12655b;
+                c cVar = this.f10348a;
                 if (cVar != null) {
-                    cVar.E(webView, str, true);
+                    cVar.h(view, url, true);
                     return true;
                 }
             } catch (Exception unused) {
             }
         } else {
-            c cVar2 = this.f12655b;
+            c cVar2 = this.f10348a;
             if (cVar2 != null) {
-                cVar2.E(webView, str, false);
+                cVar2.h(view, url, false);
                 return false;
             }
         }
@@ -243,7 +273,7 @@ public class MTWebView extends WebView {
     }
 
     @SuppressLint({"SetJavaScriptEnabled"})
-    public void f() {
+    protected void e() {
         WebSettings settings = getSettings();
         settings.setJavaScriptEnabled(true);
         settings.setJavaScriptCanOpenWindowsAutomatically(true);
@@ -254,7 +284,9 @@ public class MTWebView extends WebView {
         settings.setSaveFormData(true);
         settings.setCacheMode(2);
         settings.setAllowFileAccess(true);
-        settings.setAllowUniversalAccessFromFileURLs(true);
+        if (Build.VERSION.SDK_INT >= 16) {
+            settings.setAllowUniversalAccessFromFileURLs(true);
+        }
         settings.setDefaultTextEncodingName("utf-8");
         CookieManager.getInstance().setAcceptCookie(true);
         settings.setSupportZoom(true);
@@ -262,67 +294,62 @@ public class MTWebView extends WebView {
         setScrollbarFadingEnabled(true);
         setScrollBarStyle(0);
         setDrawingCacheEnabled(true);
-        settings.setCacheMode(-1);
+        settings.setAppCacheEnabled(true);
+        settings.setAppCachePath(getContext().getDir("cache", 0).getPath());
         settings.setDatabaseEnabled(true);
         settings.setDomStorageEnabled(true);
-        settings.setMediaPlaybackRequiresUserGesture(false);
-        settings.setMixedContentMode(0);
-        setDownloadListener(new DownloadListener() { // from class: n9.k
-            public /* synthetic */ k() {
-            }
-
+        if (com.martian.libsupport.l.n()) {
+            settings.setMediaPlaybackRequiresUserGesture(false);
+        }
+        if (com.martian.libsupport.l.r()) {
+            settings.setMixedContentMode(0);
+        }
+        setDownloadListener(new DownloadListener() { // from class: com.martian.libmars.widget.f
             @Override // android.webkit.DownloadListener
-            public final void onDownloadStart(String str, String str2, String str3, String str4, long j10) {
-                MTWebView.this.j(str, str2, str3, str4, j10);
+            public final void onDownloadStart(String str, String str2, String str3, String str4, long j2) {
+                MTWebView.this.j(str, str2, str3, str4, j2);
             }
         });
         setWebViewClient(new b());
         setWebChromeClient(new a());
     }
 
-    public boolean g() {
-        return this.f12656c;
-    }
-
-    public final /* synthetic */ void j(String str, String str2, String str3, String str4, long j10) {
-        c cVar = this.f12655b;
-        if (cVar != null) {
-            cVar.J(str, str3, str4);
-        }
+    public boolean f() {
+        return this.f10349b;
     }
 
     @Override // android.webkit.WebView, android.view.View
-    public void onScrollChanged(int i10, int i11, int i12, int i13) {
-        super.onScrollChanged(i10, i11, i12, i13);
-        c cVar = this.f12655b;
+    protected void onScrollChanged(int l, int t, int oldl, int oldt) {
+        super.onScrollChanged(l, t, oldl, oldt);
+        c cVar = this.f10348a;
         if (cVar != null) {
-            cVar.onScrollChanged(i10, i11, i12, i13);
+            cVar.onScrollChanged(l, t, oldl, oldt);
         }
     }
 
-    public void setBlockImage(boolean z10) {
-        getSettings().setBlockNetworkImage(z10);
+    public void setBlockImage(boolean block) {
+        getSettings().setBlockNetworkImage(block);
     }
 
-    public void setCanHandleDeepLink(boolean z10) {
-        this.f12656c = z10;
+    public void setCanHandleDeepLink(boolean canHandleDeepLink) {
+        this.f10349b = canHandleDeepLink;
     }
 
-    public void setOnPageStateChangedListener(c cVar) {
-        this.f12655b = cVar;
+    public void setOnPageStateChangedListener(c l) {
+        this.f10348a = l;
     }
 
-    public MTWebView(Context context, AttributeSet attributeSet) {
-        super(context, attributeSet);
-        this.f12655b = null;
-        this.f12656c = true;
-        f();
+    public MTWebView(Context context, AttributeSet attrs) {
+        super(context, attrs);
+        this.f10348a = null;
+        this.f10349b = true;
+        e();
     }
 
-    public MTWebView(Context context, AttributeSet attributeSet, int i10) {
-        super(context, attributeSet, i10);
-        this.f12655b = null;
-        this.f12656c = true;
-        f();
+    public MTWebView(Context context, AttributeSet attrs, int defStyle) {
+        super(context, attrs, defStyle);
+        this.f10348a = null;
+        this.f10349b = true;
+        e();
     }
 }

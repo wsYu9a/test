@@ -37,32 +37,32 @@ public class TinkerPatchReflectApplication extends TinkerApplication {
         this.isReflectFailure = false;
     }
 
-    public void attachBaseContext(Context context) {
+    protected void attachBaseContext(Context context) {
         super.attachBaseContext(context);
         try {
             String rawApplicationName = getRawApplicationName(context);
             if (rawApplicationName == null) {
                 throw new RuntimeException("can get real realApplication from manifest!");
             }
-            Application application = (Application) Class.forName(rawApplicationName, false, getClassLoader()).getConstructor(null).newInstance(null);
+            Application application = (Application) Class.forName(rawApplicationName, false, getClassLoader()).getConstructor(new Class[0]).newInstance(new Object[0]);
             this.realApplication = application;
             if (application != null) {
                 try {
                     Method declaredMethod = ContextWrapper.class.getDeclaredMethod("attachBaseContext", Context.class);
                     declaredMethod.setAccessible(true);
                     declaredMethod.invoke(this.realApplication, context);
-                } catch (Exception e10) {
-                    throw new IllegalStateException(e10);
+                } catch (Exception e2) {
+                    throw new IllegalStateException(e2);
                 }
             }
-        } catch (Exception e11) {
-            throw new IllegalStateException(e11);
+        } catch (Exception e3) {
+            throw new IllegalStateException(e3);
         }
     }
 
-    public boolean bindService(Intent intent, ServiceConnection serviceConnection, int i10) {
+    public boolean bindService(Intent intent, ServiceConnection serviceConnection, int i2) {
         Application application;
-        return (!this.isReflectFailure || (application = this.realApplication) == null) ? super.bindService(intent, serviceConnection, i10) : application.bindService(intent, serviceConnection, i10);
+        return (!this.isReflectFailure || (application = this.realApplication) == null) ? super.bindService(intent, serviceConnection, i2) : application.bindService(intent, serviceConnection, i2);
     }
 
     public AssetManager getAssets() {
@@ -94,8 +94,8 @@ public class TinkerPatchReflectApplication extends TinkerApplication {
             }
             Log.i(TAG, "with app realApplication from manifest applicationName:" + this.rawApplicationName);
             return this.rawApplicationName;
-        } catch (Exception e10) {
-            Log.e(TAG, "getManifestApplication exception:" + e10.getMessage());
+        } catch (Exception e2) {
+            Log.e(TAG, "getManifestApplication exception:" + e2.getMessage());
             return null;
         }
     }
@@ -117,7 +117,6 @@ public class TinkerPatchReflectApplication extends TinkerApplication {
     /* JADX WARN: Multi-variable type inference failed */
     public void onCreate() {
         Class<?> cls;
-        Field field;
         if (this.realApplication != null) {
             try {
                 Class<?> cls2 = Class.forName("android.app.ActivityThread");
@@ -133,9 +132,9 @@ public class TinkerPatchReflectApplication extends TinkerApplication {
                     Field declaredField2 = cls2.getDeclaredField("mAllApplications");
                     declaredField2.setAccessible(true);
                     List list = (List) declaredField2.get(activityThread);
-                    for (int i10 = 0; i10 < list.size(); i10++) {
-                        if (list.get(i10) == this) {
-                            list.set(i10, this.realApplication);
+                    for (int i2 = 0; i2 < list.size(); i2++) {
+                        if (list.get(i2) == this) {
+                            list.set(i2, this.realApplication);
                         }
                     }
                 }
@@ -146,15 +145,17 @@ public class TinkerPatchReflectApplication extends TinkerApplication {
                 }
                 Field declaredField3 = cls.getDeclaredField("mApplication");
                 declaredField3.setAccessible(true);
+                Field field = null;
                 try {
                     field = Application.class.getDeclaredField("mLoadedApk");
-                } catch (NoSuchFieldException e10) {
-                    e10.printStackTrace();
-                    field = null;
+                } catch (NoSuchFieldException e2) {
+                    e2.printStackTrace();
                 }
-                String[] strArr = {"mPackages", "mResourcePackages"};
-                for (int i11 = 0; i11 < 2; i11++) {
-                    Field declaredField4 = cls2.getDeclaredField(strArr[i11]);
+                String[] strArr = new String[2];
+                strArr[0] = "mPackages";
+                strArr[1] = "mResourcePackages";
+                for (int i3 = 0; i3 < 2; i3++) {
+                    Field declaredField4 = cls2.getDeclaredField(strArr[i3]);
                     declaredField4.setAccessible(true);
                     Iterator it = ((Map) declaredField4.get(activityThread)).entrySet().iterator();
                     while (it.hasNext()) {
@@ -171,20 +172,20 @@ public class TinkerPatchReflectApplication extends TinkerApplication {
                         }
                     }
                 }
-            } catch (Throwable th2) {
-                Log.e(TAG, "Error, reflect Application fail, result:" + th2);
+            } catch (Throwable th) {
+                Log.e(TAG, "Error, reflect Application fail, result:" + th);
                 this.isReflectFailure = true;
             }
             if (!this.isReflectFailure) {
                 try {
                     Class<?> cls3 = Class.forName("com.tencent.bugly.beta.tinker.TinkerApplicationLike", false, getClassLoader());
-                    StringBuilder sb2 = new StringBuilder();
-                    sb2.append("replaceApplicationLike delegateClass:");
-                    sb2.append(cls3);
-                    Log.e(TAG, sb2.toString());
-                    ShareReflectUtil.findField(cls3, "application").set(cls3.getDeclaredMethod("getTinkerPatchApplicationLike", null).invoke(cls3, null), this.realApplication);
-                } catch (Throwable th3) {
-                    Log.e(TAG, "replaceApplicationLike exception:" + th3.getMessage());
+                    StringBuilder sb = new StringBuilder();
+                    sb.append("replaceApplicationLike delegateClass:");
+                    sb.append(cls3);
+                    Log.e(TAG, sb.toString());
+                    ShareReflectUtil.findField(cls3, "application").set(cls3.getDeclaredMethod("getTinkerPatchApplicationLike", new Class[0]).invoke(cls3, new Object[0]), this.realApplication);
+                } catch (Throwable th2) {
+                    Log.e(TAG, "replaceApplicationLike exception:" + th2.getMessage());
                 }
             }
         }
@@ -214,12 +215,12 @@ public class TinkerPatchReflectApplication extends TinkerApplication {
     }
 
     @TargetApi(14)
-    public void onTrimMemory(int i10) {
+    public void onTrimMemory(int i2) {
         Application application;
         if (!this.isReflectFailure || (application = this.realApplication) == null) {
-            super.onTrimMemory(i10);
+            super.onTrimMemory(i2);
         } else {
-            application.onTrimMemory(i10);
+            application.onTrimMemory(i2);
         }
     }
 

@@ -4,22 +4,15 @@ import android.content.SharedPreferences;
 import androidx.annotation.NonNull;
 import org.json.JSONObject;
 
-/* loaded from: classes3.dex */
+/* loaded from: classes2.dex */
 public final class d extends a<Boolean> {
-    public d(String str) {
-        this(str, false);
-    }
-
-    @Override // com.kwad.sdk.core.config.item.b
-    @NonNull
-    /* renamed from: Em */
-    public final Boolean getValue() {
-        return (Boolean) super.getValue();
+    public d(String str, boolean z) {
+        super(str, Boolean.valueOf(z));
     }
 
     @Override // com.kwad.sdk.core.config.item.b
     public final void a(@NonNull SharedPreferences sharedPreferences) {
-        setValue(Boolean.valueOf(sharedPreferences.getBoolean(getKey(), El().booleanValue())));
+        setValue(Boolean.valueOf(sharedPreferences.getBoolean(getKey(), uX().booleanValue())));
     }
 
     @Override // com.kwad.sdk.core.config.item.b
@@ -28,15 +21,14 @@ public final class d extends a<Boolean> {
     }
 
     @Override // com.kwad.sdk.core.config.item.b
-    public final void k(JSONObject jSONObject) {
-        if (jSONObject != null) {
-            setValue(Boolean.valueOf(jSONObject.optBoolean(getKey(), El().booleanValue())));
-        } else {
-            setValue(El());
-        }
+    public final void g(JSONObject jSONObject) {
+        setValue(jSONObject != null ? Boolean.valueOf(jSONObject.optBoolean(getKey(), uX().booleanValue())) : uX());
     }
 
-    public d(String str, boolean z10) {
-        super(str, Boolean.valueOf(z10));
+    @Override // com.kwad.sdk.core.config.item.b
+    @NonNull
+    /* renamed from: uY */
+    public final Boolean getValue() {
+        return (Boolean) super.getValue();
     }
 }

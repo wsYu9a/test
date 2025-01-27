@@ -8,268 +8,252 @@ import androidx.annotation.NonNull;
 import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-import ba.l;
-import com.martian.libmars.R;
-import com.martian.libmars.activity.RetryLoadingActivity;
-import com.martian.libmars.common.ConfigSingleton;
+import com.martian.libmars.activity.k1;
 import com.martian.libmars.widget.recyclerview.LoadMoreFooterView;
 import com.martian.libmars.widget.recyclerview.LoadingTip;
-import com.martian.mibook.activity.SimilarityBookActivity;
-import com.martian.mibook.activity.base.MiRetryLoadingActivity;
 import com.martian.mibook.application.MiBookManager;
 import com.martian.mibook.application.MiConfigSingleton;
-import com.martian.mibook.databinding.ActivitySimilarityBookBinding;
-import com.martian.mibook.databinding.SimilarityBookHeaderBinding;
+import com.martian.mibook.e.b7;
 import com.martian.mibook.lib.model.data.BookWrapper;
 import com.martian.mibook.lib.model.data.TYBookItem;
 import com.martian.mibook.lib.model.data.abs.Book;
-import com.martian.mibook.ui.adapter.SimilarityBookBannerAdapter;
-import com.martian.mibook.ui.adapter.TYBookItemListAdapter;
+import com.martian.mibook.ui.o.l4;
+import com.martian.mibook.ui.o.n4;
 import com.martian.mibook.ui.recybanner.BannerLayout;
+import com.martian.ttbookhd.R;
 import java.util.List;
 import java.util.Random;
-import l9.m0;
-import x8.c;
-import xb.h;
 
 /* loaded from: classes3.dex */
-public class SimilarityBookActivity extends MiRetryLoadingActivity implements s9.a {
-    public ActivitySimilarityBookBinding L;
-    public TYBookItemListAdapter M;
-    public SimilarityBookHeaderBinding O;
-    public List<BookWrapper> P;
-    public RecyclerView S;
-    public MiBookManager.j0 T;
-    public int N = 0;
-    public int Q = 0;
-    public boolean R = true;
+public class SimilarityBookActivity extends com.martian.mibook.activity.base.n implements com.martian.libmars.widget.recyclerview.f.a {
+    private com.martian.mibook.e.u Q;
+    private n4 R;
+    private b7 T;
+    private List<BookWrapper> U;
+    private RecyclerView X;
+    private MiBookManager.m0 Y;
+    private int S = 0;
+    private int V = 0;
+    private boolean W = true;
 
-    public class a extends RecyclerView.OnScrollListener {
-        public a() {
+    class a extends RecyclerView.OnScrollListener {
+        a() {
         }
 
         @Override // androidx.recyclerview.widget.RecyclerView.OnScrollListener
-        public void onScrolled(@NonNull RecyclerView recyclerView, int i10, int i11) {
-            super.onScrolled(recyclerView, i10, i11);
-            SimilarityBookActivity.this.Q += i11;
-            boolean z10 = SimilarityBookActivity.this.Q < ConfigSingleton.i(16.0f);
-            if (z10 == SimilarityBookActivity.this.R) {
+        public void onScrolled(@NonNull RecyclerView recyclerView, int dx, int dy) {
+            super.onScrolled(recyclerView, dx, dy);
+            SimilarityBookActivity.this.V += dy;
+            boolean z = SimilarityBookActivity.this.V < com.martian.libmars.d.h.b(16.0f);
+            if (z == SimilarityBookActivity.this.W) {
                 return;
             }
-            SimilarityBookActivity.this.R = z10;
-            if (!z10) {
-                SimilarityBookActivity.this.f2(!MiConfigSingleton.b2().A0());
-                SimilarityBookActivity.this.M2(ConfigSingleton.D().h0());
-                SimilarityBookActivity.this.L2(ConfigSingleton.D().n());
+            SimilarityBookActivity.this.W = z;
+            if (!z) {
+                SimilarityBookActivity.this.A1(!MiConfigSingleton.V3().I0());
+                SimilarityBookActivity.this.q2(com.martian.libmars.d.h.F().p0());
+                SimilarityBookActivity.this.p2(com.martian.libmars.d.h.F().g());
             } else {
-                SimilarityBookActivity.this.f2(false);
+                SimilarityBookActivity.this.A1(false);
                 SimilarityBookActivity similarityBookActivity = SimilarityBookActivity.this;
-                similarityBookActivity.M2(ContextCompat.getColor(similarityBookActivity, R.color.white));
+                similarityBookActivity.q2(ContextCompat.getColor(similarityBookActivity, R.color.white));
                 SimilarityBookActivity similarityBookActivity2 = SimilarityBookActivity.this;
-                similarityBookActivity2.L2(ContextCompat.getColor(similarityBookActivity2, R.color.transparent));
+                similarityBookActivity2.p2(ContextCompat.getColor(similarityBookActivity2, R.color.transparent));
             }
         }
     }
 
-    public class b extends h {
-        public b() {
+    class b extends com.martian.mibook.lib.model.d.h {
+        b() {
         }
 
-        @Override // xb.h
-        public void a(boolean z10) {
+        @Override // com.martian.mibook.lib.model.d.h
+        public void a(boolean loading) {
         }
 
-        @Override // xb.h
-        public void c(List<TYBookItem> list) {
-            SimilarityBookActivity.this.t3(list);
+        @Override // com.martian.mibook.lib.model.d.h
+        public void c(List<TYBookItem> books) {
+            SimilarityBookActivity.this.Y2(books);
         }
 
-        @Override // xb.h
-        public void d(c cVar) {
-            SimilarityBookActivity.this.u3(cVar);
+        @Override // com.martian.mibook.lib.model.d.h
+        public void d(b.d.c.b.c errorResult) {
+            SimilarityBookActivity.this.Z2(errorResult);
         }
-    }
-
-    public void u3(c cVar) {
-        X2();
-        v3(cVar.d());
-    }
-
-    @Override // com.martian.libmars.activity.RetryLoadingActivity
-    public void J2() {
-        if (m0.C(this)) {
-            this.M.l().setRefresh(true);
-            p3(this.P.get(this.N).book);
-        }
-    }
-
-    @Override // com.martian.mibook.activity.base.MiRetryLoadingActivity, com.martian.libmars.activity.RetryLoadingActivity, com.martian.libmars.activity.MartianActivity, com.martian.libmars.activity.BaseActivity, me.imid.swipebacklayout.lib.app.SwipeBackActivity, androidx.fragment.app.FragmentActivity, androidx.activity.ComponentActivity, androidx.core.app.ComponentActivity, android.app.Activity
-    public void onCreate(Bundle bundle) {
-        super.onCreate(bundle);
-        setContentView(com.martian.mibook.R.layout.activity_similarity_book);
-        S2(RetryLoadingActivity.K);
-        f2(false);
-        MiBookManager.j0 j0Var = new MiBookManager.j0();
-        this.T = j0Var;
-        j0Var.l(0);
-        this.T.n(3);
-        this.T.o(new Random().nextInt(10000));
-        ActivitySimilarityBookBinding bind = ActivitySimilarityBookBinding.bind(C2());
-        this.L = bind;
-        bind.similarityBookRecyclerView.setLayoutManager(new LinearLayoutManager(this));
-        TYBookItemListAdapter tYBookItemListAdapter = new TYBookItemListAdapter(this);
-        this.M = tYBookItemListAdapter;
-        this.L.similarityBookRecyclerView.setAdapter(tYBookItemListAdapter);
-        this.L.similarityBookRecyclerView.setOnLoadMoreListener(this);
-        this.L.similarityBookRecyclerView.setLoadMoreStatus(LoadMoreFooterView.Status.GONE);
-        this.L.similarityLoadingTip.setOnReloadListener(new LoadingTip.b() { // from class: qa.x
-            public /* synthetic */ x() {
-            }
-
-            @Override // com.martian.libmars.widget.recyclerview.LoadingTip.b
-            public final void a() {
-                SimilarityBookActivity.this.J2();
-            }
-        });
-        this.L.similarityBookRecyclerView.addOnScrollListener(new a());
-        this.P = MiConfigSingleton.b2().M1().C(false);
-        s3();
-    }
-
-    @Override // s9.a
-    public void onLoadMore(View view) {
-        if (m0.C(this)) {
-            this.M.l().setRefresh(this.M.getSize() <= 0);
-            this.L.similarityBookRecyclerView.setLoadMoreStatus(LoadMoreFooterView.Status.LOADING);
-            p3(this.P.get(this.N).book);
-        }
-    }
-
-    @Override // com.martian.libmars.activity.MartianActivity
-    public void p2(boolean z10) {
-        super.p2(z10);
-        if (this.R) {
-            return;
-        }
-        M2(ConfigSingleton.D().h0());
-        L2(ConfigSingleton.D().n());
     }
 
     @SuppressLint({"SetTextI18n"})
-    public final void p3(Book book) {
-        if (book == null) {
-            v3("");
+    private void S2(Book ywBook) {
+        if (ywBook == null) {
+            a3("");
             return;
         }
-        this.T.q(book.getSourceName());
-        this.T.p(book.getSourceId());
-        this.T.j(book.getSourceName());
-        this.O.similarityBookName.setText("《" + book.getBookName() + "》" + getString(com.martian.mibook.R.string.find_similar_book_hint));
-        if (y2()) {
-            MiConfigSingleton.b2().M1().j1(this.T, new b());
+        this.Y.q(ywBook.getSourceName());
+        this.Y.p(ywBook.getSourceId());
+        this.Y.j(ywBook.getSourceName());
+        this.T.f11772c.setText("《" + ywBook.getBookName() + "》" + getString(R.string.find_similar_book_hint));
+        if (g2()) {
+            MiConfigSingleton.V3().l3().T1(this.Y, new b());
         }
     }
 
-    public final View q3() {
-        View inflate = View.inflate(this, com.martian.mibook.R.layout.similarity_book_header, null);
-        SimilarityBookHeaderBinding bind = SimilarityBookHeaderBinding.bind(inflate);
-        this.O = bind;
-        this.S = bind.recyclerViewBanner.getRecyclerView();
-        SimilarityBookBannerAdapter similarityBookBannerAdapter = new SimilarityBookBannerAdapter(this, this.P);
-        similarityBookBannerAdapter.m(new BannerLayout.c() { // from class: qa.y
-            public /* synthetic */ y() {
-            }
-
-            @Override // com.martian.mibook.ui.recybanner.BannerLayout.c
-            public final void a(int i10) {
-                SimilarityBookActivity.this.r3(i10);
-            }
-        });
-        ((RelativeLayout.LayoutParams) this.O.recyclerViewBanner.getLayoutParams()).setMargins(0, ConfigSingleton.i(60.0f) + p1(), 0, 0);
-        this.O.recyclerViewBanner.setOnPageChangeListener(new BannerLayout.d() { // from class: qa.z
-            public /* synthetic */ z() {
-            }
-
+    private View T2() {
+        View inflate = View.inflate(this, R.layout.similarity_book_header, null);
+        b7 a2 = b7.a(inflate);
+        this.T = a2;
+        this.X = a2.f11771b.getRecyclerView();
+        l4 l4Var = new l4(this, this.U);
+        l4Var.f(new BannerLayout.d() { // from class: com.martian.mibook.activity.v0
             @Override // com.martian.mibook.ui.recybanner.BannerLayout.d
-            public final void onPageSelected(int i10) {
-                SimilarityBookActivity.this.x3(i10);
+            public final void a(int i2) {
+                SimilarityBookActivity.this.W2(i2);
             }
         });
-        this.O.recyclerViewBanner.setAdapter(similarityBookBannerAdapter);
-        this.O.recyclerViewBanner.setItemSpace(ConfigSingleton.i(24.0f));
+        ((RelativeLayout.LayoutParams) this.T.f11771b.getLayoutParams()).setMargins(0, com.martian.libmars.d.h.b(60.0f) + F0(), 0, 0);
+        this.T.f11771b.setOnPageChangeListener(new BannerLayout.e() { // from class: com.martian.mibook.activity.w0
+            @Override // com.martian.mibook.ui.recybanner.BannerLayout.e
+            public final void onPageSelected(int i2) {
+                SimilarityBookActivity.this.c3(i2);
+            }
+        });
+        this.T.f11771b.setAdapter(l4Var);
+        this.T.f11771b.setItemSpace(com.martian.libmars.d.h.b(24.0f));
         return inflate;
     }
 
-    public final /* synthetic */ void r3(int i10) {
-        this.S.smoothScrollToPosition(i10);
-        x3(i10);
+    /* renamed from: V2 */
+    public /* synthetic */ void W2(int position) {
+        this.X.smoothScrollToPosition(position);
+        c3(position);
     }
 
-    public final void s3() {
-        View q32 = q3();
-        this.L.similarityBookRecyclerView.k(q32);
-        q32.measure(0, 0);
-        this.L.similarityLoadingTip.setPadding(0, q32.getMeasuredHeight(), 0, 0);
-        p3(this.P.get(0).book);
+    private void X2() {
+        View T2 = T2();
+        this.Q.f12757c.m(T2);
+        T2.measure(0, 0);
+        this.Q.f12758d.setPadding(0, T2.getMeasuredHeight(), 0, 0);
+        S2(this.U.get(0).book);
     }
 
-    public final void t3(List<TYBookItem> list) {
-        X2();
-        if (list == null || list.isEmpty()) {
-            v3("");
+    public void Y2(List<TYBookItem> bookList) {
+        B2();
+        if (bookList == null || bookList.isEmpty()) {
+            a3("");
             return;
         }
-        this.L.similarityLoadingTip.setLoadingTip(LoadingTip.LoadStatus.finish);
-        if (this.M.l().isRefresh()) {
-            this.M.a(list);
-            this.M.x(this.L.similarityBookRecyclerView);
+        this.Q.f12758d.setLoadingTip(LoadingTip.LoadStatus.finish);
+        if (this.R.E().isRefresh()) {
+            this.R.a(bookList);
+            this.R.Q(this.Q.f12757c);
         } else {
-            this.M.h(list);
+            this.R.m(bookList);
         }
-        this.T.h();
+        this.Y.h();
     }
 
-    public void v3(String str) {
-        TYBookItemListAdapter tYBookItemListAdapter = this.M;
-        if (tYBookItemListAdapter != null && tYBookItemListAdapter.getSize() > 0) {
-            this.L.similarityLoadingTip.setLoadingTip(LoadingTip.LoadStatus.finish);
-            if (this.M.getSize() >= 10) {
-                this.L.similarityBookRecyclerView.setLoadMoreStatus(LoadMoreFooterView.Status.THE_END);
+    public void Z2(b.d.c.b.c errorResult) {
+        B2();
+        a3(errorResult.d());
+    }
+
+    public void c3(int position) {
+        if (this.S == position) {
+            return;
+        }
+        this.S = position;
+        this.R.E().setRefresh(true);
+        this.Y.l(0);
+        S2(this.U.get(this.S).book);
+    }
+
+    @Override // com.martian.libmars.activity.j1
+    protected void U1(boolean nightMode) {
+        super.U1(nightMode);
+        if (this.W) {
+            return;
+        }
+        q2(com.martian.libmars.d.h.F().p0());
+        p2(com.martian.libmars.d.h.F().g());
+    }
+
+    public void a3(String msg) {
+        n4 n4Var = this.R;
+        if (n4Var != null && n4Var.getSize() > 0) {
+            this.Q.f12758d.setLoadingTip(LoadingTip.LoadStatus.finish);
+            if (this.R.getSize() >= 10) {
+                this.Q.f12757c.setLoadMoreStatus(LoadMoreFooterView.Status.THE_END);
                 return;
             } else {
-                this.L.similarityBookRecyclerView.setLoadMoreStatus(LoadMoreFooterView.Status.GONE);
+                this.Q.f12757c.setLoadMoreStatus(LoadMoreFooterView.Status.GONE);
                 return;
             }
         }
-        if (l.q(str)) {
-            this.L.similarityLoadingTip.setLoadingTip(LoadingTip.LoadStatus.empty);
+        if (com.martian.libsupport.k.p(msg)) {
+            this.Q.f12758d.setLoadingTip(LoadingTip.LoadStatus.empty);
         } else {
-            this.L.similarityLoadingTip.setLoadingTip(LoadingTip.LoadStatus.network_error);
-            if (!l.q(str) && str.length() < 20) {
-                this.L.similarityLoadingTip.setTips(str);
+            this.Q.f12758d.setLoadingTip(LoadingTip.LoadStatus.error);
+            if (!com.martian.libsupport.k.p(msg) && msg.length() < 20) {
+                this.Q.f12758d.setTips(msg);
             }
         }
-        this.L.similarityBookRecyclerView.setLoadMoreStatus(LoadMoreFooterView.Status.GONE);
+        this.Q.f12757c.setLoadMoreStatus(LoadMoreFooterView.Status.GONE);
     }
 
-    public void w3(String str) {
-        TYBookItemListAdapter tYBookItemListAdapter = this.M;
-        if (tYBookItemListAdapter == null || tYBookItemListAdapter.getSize() <= 0) {
-            this.L.similarityLoadingTip.setLoadingTip(LoadingTip.LoadStatus.loading);
-            if (l.q(str)) {
+    public void b3(String title) {
+        n4 n4Var = this.R;
+        if (n4Var == null || n4Var.getSize() <= 0) {
+            this.Q.f12758d.setLoadingTip(LoadingTip.LoadStatus.loading);
+            if (com.martian.libsupport.k.p(title)) {
                 return;
             }
-            this.L.similarityLoadingTip.setTips(str);
+            this.Q.f12758d.setTips(title);
         }
     }
 
-    public final void x3(int i10) {
-        if (this.N == i10) {
-            return;
+    @Override // com.martian.libmars.activity.k1
+    public void n2() {
+        if (com.martian.libmars.utils.n0.C(this)) {
+            this.R.E().setRefresh(true);
+            S2(this.U.get(this.S).book);
         }
-        this.N = i10;
-        this.M.l().setRefresh(true);
-        this.T.l(0);
-        p3(this.P.get(this.N).book);
+    }
+
+    @Override // com.martian.mibook.activity.base.n, com.martian.libmars.activity.k1, com.martian.libmars.activity.j1, com.martian.libmars.activity.h1, me.imid.swipebacklayout.lib.d.a, androidx.appcompat.app.AppCompatActivity, androidx.fragment.app.FragmentActivity, androidx.activity.ComponentActivity, androidx.core.app.ComponentActivity, android.app.Activity
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_similarity_book);
+        w2(k1.E);
+        A1(false);
+        MiBookManager.m0 m0Var = new MiBookManager.m0();
+        this.Y = m0Var;
+        m0Var.l(0);
+        this.Y.n(3);
+        this.Y.o(new Random().nextInt(10000));
+        com.martian.mibook.e.u a2 = com.martian.mibook.e.u.a(h2());
+        this.Q = a2;
+        a2.f12757c.setLayoutManager(new LinearLayoutManager(this));
+        n4 n4Var = new n4(this);
+        this.R = n4Var;
+        this.Q.f12757c.setAdapter(n4Var);
+        this.Q.f12757c.setOnLoadMoreListener(this);
+        this.Q.f12757c.setLoadMoreStatus(LoadMoreFooterView.Status.GONE);
+        this.Q.f12758d.setOnReloadListener(new LoadingTip.b() { // from class: com.martian.mibook.activity.c1
+            @Override // com.martian.libmars.widget.recyclerview.LoadingTip.b
+            public final void a() {
+                SimilarityBookActivity.this.n2();
+            }
+        });
+        this.Q.f12757c.addOnScrollListener(new a());
+        this.U = MiConfigSingleton.V3().l3().L(false, false);
+        X2();
+    }
+
+    @Override // com.martian.libmars.widget.recyclerview.f.a
+    public void onLoadMore(View loadMoreView) {
+        if (com.martian.libmars.utils.n0.C(this)) {
+            this.R.E().setRefresh(this.R.getSize() <= 0);
+            this.Q.f12757c.setLoadMoreStatus(LoadMoreFooterView.Status.LOADING);
+            S2(this.U.get(this.S).book);
+        }
     }
 }

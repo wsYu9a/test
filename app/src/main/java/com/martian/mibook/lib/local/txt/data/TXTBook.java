@@ -1,53 +1,53 @@
 package com.martian.mibook.lib.local.txt.data;
 
-import ba.k;
+import com.martian.libsupport.j;
 import com.martian.mibook.lib.local.base.data.LocalBook;
+import com.martian.mibook.lib.model.manager.d;
 import java.util.Date;
-import vb.e;
 
-@k.h(name = "txtbooks")
+@j.g(name = "txtbooks")
 /* loaded from: classes3.dex */
 public class TXTBook extends LocalBook {
 
-    @k.b
+    @j.b
     private String author;
 
-    @k.b
+    @j.b
     private String bookName;
     private Integer brtype;
 
-    @k.b
+    @j.b
     private Integer chapterCount;
 
-    @k.b
+    @j.b
     private Integer chapterIndex;
 
-    @k.b
+    @j.b
     private String charset;
 
-    @k.b
+    @j.b
     private Integer contentIndex;
 
-    @k.b
+    @j.b
     private String coverUrl;
 
-    @k.b
+    @j.b
     private Long fileSize;
 
-    @k.g
-    @k.b
+    @j.b
+    @j.f
     private String filepath;
 
-    @k.b
+    @j.b
     private Boolean flagTop;
 
-    @k.b
+    @j.b
     private Long insertTime;
 
-    @k.b
+    @j.b
     private String lastChapter;
 
-    @k.b
+    @j.b
     private Long lastReadingTime;
     private Integer rank;
 
@@ -77,7 +77,7 @@ public class TXTBook extends LocalBook {
 
     @Override // com.martian.mibook.lib.model.data.abs.Book
     public String getCategory() {
-        return e.f31296c;
+        return d.f14056h;
     }
 
     public Integer getChapterCount() {
@@ -86,11 +86,6 @@ public class TXTBook extends LocalBook {
 
     public Integer getChapterIndex() {
         return this.chapterIndex;
-    }
-
-    @Override // com.martian.mibook.lib.model.data.abs.Book
-    public Integer getChapterSize() {
-        return this.chapterCount;
     }
 
     @Override // com.martian.mibook.lib.local.base.data.LocalBook
@@ -157,9 +152,9 @@ public class TXTBook extends LocalBook {
         return null;
     }
 
-    @Override // com.martian.mibook.lib.model.data.abs.Book, wb.f
+    @Override // com.martian.mibook.lib.model.data.abs.Book, com.martian.mibook.lib.model.c.g
     public String getSourceName() {
-        return e.f31296c;
+        return d.f14056h;
     }
 
     @Override // com.martian.mibook.lib.model.data.abs.Book
@@ -172,84 +167,72 @@ public class TXTBook extends LocalBook {
         return null;
     }
 
-    @Override // com.martian.mibook.lib.model.data.abs.Book
-    public void setAllWords(Integer num) {
-    }
-
-    public void setAuthor(String str) {
-        this.author = str;
+    public void setAuthor(String author) {
+        this.author = author;
     }
 
     @Override // com.martian.mibook.lib.model.data.abs.Book
-    public void setAuthorName(String str) {
-        this.author = str;
+    public void setAuthorName(String authorName) {
+        this.author = authorName;
     }
 
     @Override // com.martian.mibook.lib.model.data.abs.Book
-    public void setBookName(String str) {
-        this.bookName = str;
+    public void setBookName(String bookName) {
+        this.bookName = bookName;
+    }
+
+    public void setChapterCount(Integer chapterCount) {
+        this.chapterCount = chapterCount;
+    }
+
+    public void setChapterIndex(Integer chapterIndex) {
+        this.chapterIndex = chapterIndex;
+    }
+
+    public void setCharset(String charset) {
+        this.charset = charset;
+    }
+
+    public void setContentIndex(Integer contentIndex) {
+        this.contentIndex = contentIndex;
     }
 
     @Override // com.martian.mibook.lib.model.data.abs.Book
-    public void setBookStatus(String str) {
+    public void setCover(String coverUrl) {
+        this.coverUrl = coverUrl;
+    }
+
+    public void setFilePath(String filepath) {
+        this.filepath = filepath;
+    }
+
+    public void setFileSize(Long fileSize) {
+        this.fileSize = fileSize;
+    }
+
+    public void setFlagTop(Boolean flagTop) {
+        this.flagTop = flagTop;
+    }
+
+    public void setInsertTime(Long insertTime) {
+        this.insertTime = insertTime;
     }
 
     @Override // com.martian.mibook.lib.model.data.abs.Book
-    public void setCategoryName(String str) {
+    public void setLastChapter(String lastChapter) {
+        this.lastChapter = lastChapter;
     }
 
-    public void setChapterCount(Integer num) {
-        this.chapterCount = num;
-    }
-
-    public void setChapterIndex(Integer num) {
-        this.chapterIndex = num;
-    }
-
-    public void setCharset(String str) {
-        this.charset = str;
-    }
-
-    public void setContentIndex(Integer num) {
-        this.contentIndex = num;
+    public void setLastReadingTime(Long lastReadingTime) {
+        this.lastReadingTime = lastReadingTime;
     }
 
     @Override // com.martian.mibook.lib.model.data.abs.Book
-    public void setCover(String str) {
-        this.coverUrl = str;
-    }
-
-    public void setFilePath(String str) {
-        this.filepath = str;
-    }
-
-    public void setFileSize(Long l10) {
-        this.fileSize = l10;
-    }
-
-    public void setFlagTop(Boolean bool) {
-        this.flagTop = bool;
-    }
-
-    public void setInsertTime(Long l10) {
-        this.insertTime = l10;
+    public void setLatestChapterUpdateTime(Long latestChapterUpdateTime) {
     }
 
     @Override // com.martian.mibook.lib.model.data.abs.Book
-    public void setLastChapter(String str) {
-        this.lastChapter = str;
-    }
-
-    public void setLastReadingTime(Long l10) {
-        this.lastReadingTime = l10;
-    }
-
-    @Override // com.martian.mibook.lib.model.data.abs.Book
-    public void setLatestChapterUpdateTime(Long l10) {
-    }
-
-    @Override // com.martian.mibook.lib.model.data.abs.Book
-    public void setSourceId(String str) {
-        this.filepath = str;
+    public void setSourceId(String sourceId) {
+        throw new UnsupportedOperationException("Cannot call set Source Id in TXTBook.");
     }
 }

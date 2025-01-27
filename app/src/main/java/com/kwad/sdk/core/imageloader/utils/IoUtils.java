@@ -6,14 +6,14 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.OutputStream;
 
-/* loaded from: classes3.dex */
+/* loaded from: classes2.dex */
 public final class IoUtils {
     public static final int CONTINUE_LOADING_PERCENTAGE = 75;
     public static final int DEFAULT_BUFFER_SIZE = 32768;
     public static final int DEFAULT_IMAGE_TOTAL_SIZE = 512000;
 
     public interface CopyListener {
-        boolean onBytesCopied(int i10, int i11);
+        boolean onBytesCopied(int i2, int i3);
     }
 
     private IoUtils() {
@@ -23,10 +23,32 @@ public final class IoUtils {
         return copyStream(inputStream, outputStream, copyListener, 32768);
     }
 
+    public static boolean copyStream(InputStream inputStream, OutputStream outputStream, CopyListener copyListener, int i2) {
+        int available = inputStream.available();
+        if (available <= 0) {
+            available = 512000;
+        }
+        byte[] bArr = new byte[i2];
+        if (shouldStopLoading(copyListener, 0, available)) {
+            return false;
+        }
+        int i3 = 0;
+        do {
+            int read = inputStream.read(bArr, 0, i2);
+            if (read == -1) {
+                outputStream.flush();
+                return true;
+            }
+            outputStream.write(bArr, 0, read);
+            i3 += read;
+        } while (!shouldStopLoading(copyListener, i3, available));
+        return false;
+    }
+
     public static String inputStreamToString(InputStream inputStream) {
         InputStreamReader inputStreamReader;
         char[] cArr = new char[1024];
-        StringBuilder sb2 = new StringBuilder();
+        StringBuilder sb = new StringBuilder();
         InputStreamReader inputStreamReader2 = null;
         try {
             inputStreamReader = new InputStreamReader(inputStream, "UTF-8");
@@ -35,14 +57,14 @@ public final class IoUtils {
                     int read = inputStreamReader.read(cArr, 0, 1024);
                     if (read < 0) {
                         b.closeQuietly(inputStreamReader);
-                        return sb2.toString();
+                        return sb.toString();
                     }
-                    sb2.append(cArr, 0, read);
+                    sb.append(cArr, 0, read);
                 } catch (Exception unused) {
                     b.closeQuietly(inputStreamReader);
                     return null;
-                } catch (Throwable th2) {
-                    th = th2;
+                } catch (Throwable th) {
+                    th = th;
                     inputStreamReader2 = inputStreamReader;
                     b.closeQuietly(inputStreamReader2);
                     throw th;
@@ -50,8 +72,8 @@ public final class IoUtils {
             }
         } catch (Exception unused2) {
             inputStreamReader = null;
-        } catch (Throwable th3) {
-            th = th3;
+        } catch (Throwable th2) {
+            th = th2;
         }
     }
 
@@ -66,29 +88,7 @@ public final class IoUtils {
         } while (inputStream.read(new byte[32768], 0, 32768) != -1);
     }
 
-    private static boolean shouldStopLoading(CopyListener copyListener, int i10, int i11) {
-        return (copyListener == null || copyListener.onBytesCopied(i10, i11) || (i10 * 100) / i11 >= 75) ? false : true;
-    }
-
-    public static boolean copyStream(InputStream inputStream, OutputStream outputStream, CopyListener copyListener, int i10) {
-        int available = inputStream.available();
-        if (available <= 0) {
-            available = 512000;
-        }
-        byte[] bArr = new byte[i10];
-        if (shouldStopLoading(copyListener, 0, available)) {
-            return false;
-        }
-        int i11 = 0;
-        do {
-            int read = inputStream.read(bArr, 0, i10);
-            if (read == -1) {
-                outputStream.flush();
-                return true;
-            }
-            outputStream.write(bArr, 0, read);
-            i11 += read;
-        } while (!shouldStopLoading(copyListener, i11, available));
-        return false;
+    private static boolean shouldStopLoading(CopyListener copyListener, int i2, int i3) {
+        return (copyListener == null || copyListener.onBytesCopied(i2, i3) || (i2 * 100) / i3 >= 75) ? false : true;
     }
 }

@@ -2,7 +2,7 @@ package com.qq.e.ads.nativ;
 
 import com.qq.e.comm.util.AdError;
 
-/* loaded from: classes3.dex */
+/* loaded from: classes4.dex */
 public interface NativeExpressMediaListener {
     void onVideoCached(NativeExpressADView nativeExpressADView);
 
@@ -20,7 +20,7 @@ public interface NativeExpressMediaListener {
 
     void onVideoPause(NativeExpressADView nativeExpressADView);
 
-    void onVideoReady(NativeExpressADView nativeExpressADView, long j10);
+    void onVideoReady(NativeExpressADView nativeExpressADView, long j2);
 
     void onVideoStart(NativeExpressADView nativeExpressADView);
 }

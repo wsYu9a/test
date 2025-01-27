@@ -5,7 +5,7 @@ import androidx.core.content.FileProvider;
 import com.kwad.sdk.api.core.KSLifecycleObserver;
 
 @Keep
-/* loaded from: classes3.dex */
+/* loaded from: classes2.dex */
 public class AdSdkFileProvider extends FileProvider {
     public static long sLaunchTime;
 

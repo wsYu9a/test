@@ -1,140 +1,163 @@
 package com.kuaishou.weapon.p0;
 
-import android.content.Context;
-import android.text.TextUtils;
-import org.json.JSONObject;
+import android.os.Build;
 
-/* loaded from: classes2.dex */
+/* loaded from: classes.dex */
 public class cp {
 
-    /* renamed from: com.kuaishou.weapon.p0.cp$1 */
-    public static class AnonymousClass1 implements j {
+    /* renamed from: a */
+    static cp f9216a;
 
-        /* renamed from: a */
-        final /* synthetic */ String f10949a;
+    /* renamed from: b */
+    static cp f9217b;
 
-        /* renamed from: b */
-        final /* synthetic */ Context f10950b;
+    /* renamed from: c */
+    static cp f9218c;
+
+    /* renamed from: d */
+    private long f9219d;
+
+    /* renamed from: e */
+    private a f9220e;
+
+    enum a {
+        DWORD(4),
+        QWORD(8);
+
 
         /* renamed from: c */
-        final /* synthetic */ boolean f10951c;
+        int f9224c;
 
-        public AnonymousClass1(String str, Context context, boolean z10) {
-            str2 = str;
-            context = context;
-            z10 = z10;
-        }
-
-        @Override // com.kuaishou.weapon.p0.j
-        public final void a(String str) {
-            if (TextUtils.isEmpty(str2)) {
-                return;
-            }
-            try {
-                if (str2.equals(ck.f10906b)) {
-                    df.a(context).a(System.currentTimeMillis());
-                } else if (str2.equals(ck.f10907c)) {
-                    df.a(context).a(df.f11047bj, System.currentTimeMillis());
-                } else if (str2.equals(ck.f10908d)) {
-                    df.a(context).a(df.f11046bi, System.currentTimeMillis());
-                } else if (str2.equals(ck.f10911g)) {
-                    df.a(context).a(df.bm, System.currentTimeMillis());
-                } else if (str2.equals(ck.f10913i)) {
-                    df.a(context).a(df.f11045bh, System.currentTimeMillis());
-                }
-            } catch (Exception unused) {
-            }
-        }
-
-        @Override // com.kuaishou.weapon.p0.j
-        public final void b(String str) {
-            if (z10) {
-                TextUtils.isEmpty(str2);
-            }
+        a(int i2) {
+            this.f9224c = i2;
         }
     }
 
-    public static void a(Context context, String str) {
-        try {
-            a(context, str, null, false, true);
-        } catch (Throwable unused) {
+    static {
+        c();
+    }
+
+    private static void c() {
+        f9216a = new cp();
+        f9217b = new cp();
+        f9218c = new cp();
+        cp cpVar = f9217b;
+        a aVar = a.DWORD;
+        cpVar.a(aVar);
+        int i2 = Build.VERSION.SDK_INT;
+        if (cq.a()) {
+            cp cpVar2 = f9216a;
+            a aVar2 = a.QWORD;
+            cpVar2.a(aVar2);
+            f9218c.a(aVar2);
+            switch (i2) {
+                case 19:
+                    f9216a.a(32L);
+                    f9217b.a(28L);
+                    return;
+                case 20:
+                default:
+                    throw new RuntimeException("API LEVEL: " + i2 + " is not supported now : (");
+                case 21:
+                    f9216a.a(40L);
+                    f9216a.a(aVar2);
+                    f9218c.a(32L);
+                    f9218c.a(aVar2);
+                    f9217b.a(56L);
+                    return;
+                case 22:
+                    f9216a.a(52L);
+                    f9218c.a(44L);
+                    f9217b.a(20L);
+                    return;
+                case 23:
+                    f9216a.a(48L);
+                    f9218c.a(40L);
+                    f9217b.a(12L);
+                    return;
+                case 24:
+                case 25:
+                    f9216a.a(48L);
+                    f9218c.a(40L);
+                    f9217b.a(4L);
+                    return;
+                case 26:
+                case 27:
+                    f9216a.a(40L);
+                    f9218c.a(32L);
+                    f9217b.a(4L);
+                    return;
+                case 28:
+                case 29:
+                    f9216a.a(32L);
+                    f9218c.a(24L);
+                    f9217b.a(4L);
+                    return;
+            }
+        }
+        f9216a.a(aVar);
+        f9218c.a(aVar);
+        switch (i2) {
+            case 19:
+                f9216a.a(32L);
+                f9217b.a(28L);
+                return;
+            case 20:
+            default:
+                throw new RuntimeException("API LEVEL: " + i2 + " is not supported now : (");
+            case 21:
+                f9216a.a(40L);
+                cp cpVar3 = f9216a;
+                a aVar3 = a.QWORD;
+                cpVar3.a(aVar3);
+                f9218c.a(32L);
+                f9218c.a(aVar3);
+                f9217b.a(56L);
+                return;
+            case 22:
+                f9216a.a(44L);
+                f9218c.a(40L);
+                f9217b.a(20L);
+                return;
+            case 23:
+                f9216a.a(36L);
+                f9218c.a(32L);
+                f9217b.a(12L);
+                return;
+            case 24:
+            case 25:
+                f9216a.a(32L);
+                f9218c.a(28L);
+                f9217b.a(4L);
+                return;
+            case 26:
+            case 27:
+                f9216a.a(28L);
+                f9218c.a(24L);
+                f9217b.a(4L);
+                return;
+            case 28:
+            case 29:
+                f9216a.a(24L);
+                f9218c.a(20L);
+                f9217b.a(4L);
+                return;
         }
     }
 
-    public static void a(Context context, String str, String str2, boolean z10, boolean z11) {
-        JSONObject jSONObject;
-        try {
-            String str3 = cu.f10966a + cu.f10970e;
-            String a10 = cv.a(context);
-            if (!TextUtils.isEmpty(a10)) {
-                if (!cu.a() || str2 == null) {
-                    str3 = str3 + "?" + a10;
-                } else {
-                    str3 = str3 + "?logId=" + str2 + "&" + a10;
-                }
-            }
-            if (TextUtils.isEmpty(str)) {
-                return;
-            }
-            if (z11) {
-                jSONObject = new JSONObject();
-                String c10 = new bn(context).c(str);
-                if (!TextUtils.isEmpty(c10)) {
-                    jSONObject.put(h3.e.f26408m, c10);
-                }
-            } else {
-                jSONObject = new JSONObject(str);
-            }
-            l a11 = l.a(context);
-            m mVar = new m(str3, jSONObject);
-            mVar.a(WeaponHI.cookieData);
-            mVar.b(WeaponHI.encryENV);
-            a11.b(mVar, new j() { // from class: com.kuaishou.weapon.p0.cp.1
+    public long a() {
+        return this.f9219d;
+    }
 
-                /* renamed from: a */
-                final /* synthetic */ String f10949a;
+    public void a(long j2) {
+        this.f9219d = j2;
+    }
 
-                /* renamed from: b */
-                final /* synthetic */ Context f10950b;
+    public void a(a aVar) {
+        this.f9220e = aVar;
+    }
 
-                /* renamed from: c */
-                final /* synthetic */ boolean f10951c;
-
-                public AnonymousClass1(String str22, Context context2, boolean z102) {
-                    str2 = str22;
-                    context = context2;
-                    z10 = z102;
-                }
-
-                @Override // com.kuaishou.weapon.p0.j
-                public final void a(String str4) {
-                    if (TextUtils.isEmpty(str2)) {
-                        return;
-                    }
-                    try {
-                        if (str2.equals(ck.f10906b)) {
-                            df.a(context).a(System.currentTimeMillis());
-                        } else if (str2.equals(ck.f10907c)) {
-                            df.a(context).a(df.f11047bj, System.currentTimeMillis());
-                        } else if (str2.equals(ck.f10908d)) {
-                            df.a(context).a(df.f11046bi, System.currentTimeMillis());
-                        } else if (str2.equals(ck.f10911g)) {
-                            df.a(context).a(df.bm, System.currentTimeMillis());
-                        } else if (str2.equals(ck.f10913i)) {
-                            df.a(context).a(df.f11045bh, System.currentTimeMillis());
-                        }
-                    } catch (Exception unused) {
-                    }
-                }
-
-                @Override // com.kuaishou.weapon.p0.j
-                public final void b(String str4) {
-                    if (z10) {
-                        TextUtils.isEmpty(str2);
-                    }
-                }
-            });
-        } catch (Throwable unused) {
-        }
+    public a b() {
+        return this.f9220e;
     }
 }

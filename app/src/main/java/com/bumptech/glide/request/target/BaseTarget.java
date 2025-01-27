@@ -5,7 +5,7 @@ import androidx.annotation.Nullable;
 import com.bumptech.glide.request.Request;
 
 @Deprecated
-/* loaded from: classes2.dex */
+/* loaded from: classes.dex */
 public abstract class BaseTarget<Z> implements Target<Z> {
     private Request request;
 

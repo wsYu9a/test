@@ -55,7 +55,7 @@ import java.util.List;
 import java.util.function.Consumer;
 
 @Keep
-/* loaded from: classes2.dex */
+/* loaded from: classes.dex */
 public abstract class GenerateActivityWrapper extends Activity implements a {
     public Activity mOriginActivity;
     public PluginContext pluginContext;
@@ -76,8 +76,8 @@ public abstract class GenerateActivityWrapper extends Activity implements a {
     }
 
     @Override // android.app.Activity
-    public PendingIntent createPendingResult(int i10, Intent intent, int i11) {
-        return this.mOriginActivity.createPendingResult(i10, intent, i11);
+    public PendingIntent createPendingResult(int i2, Intent intent, int i3) {
+        return this.mOriginActivity.createPendingResult(i2, intent, i3);
     }
 
     @Override // android.app.Activity, android.view.Window.Callback
@@ -121,8 +121,8 @@ public abstract class GenerateActivityWrapper extends Activity implements a {
     }
 
     @Override // android.app.Activity
-    public View findViewById(int i10) {
-        return this.mOriginActivity.findViewById(i10);
+    public View findViewById(int i2) {
+        return this.mOriginActivity.findViewById(i2);
     }
 
     @Override // android.app.Activity
@@ -131,13 +131,13 @@ public abstract class GenerateActivityWrapper extends Activity implements a {
     }
 
     @Override // android.app.Activity
-    public void finishActivity(int i10) {
-        this.mOriginActivity.finishActivity(i10);
+    public void finishActivity(int i2) {
+        this.mOriginActivity.finishActivity(i2);
     }
 
     @Override // android.app.Activity
-    public void finishActivityFromChild(Activity activity, int i10) {
-        this.mOriginActivity.finishActivityFromChild(activity, i10);
+    public void finishActivityFromChild(Activity activity, int i2) {
+        this.mOriginActivity.finishActivityFromChild(activity, i2);
     }
 
     @Override // android.app.Activity
@@ -232,9 +232,7 @@ public abstract class GenerateActivityWrapper extends Activity implements a {
 
     @Override // android.app.Activity
     public int getMaxNumPictureInPictureActions() {
-        int maxNumPictureInPictureActions;
-        maxNumPictureInPictureActions = this.mOriginActivity.getMaxNumPictureInPictureActions();
-        return maxNumPictureInPictureActions;
+        return this.mOriginActivity.getMaxNumPictureInPictureActions();
     }
 
     @Override // android.app.Activity
@@ -248,15 +246,13 @@ public abstract class GenerateActivityWrapper extends Activity implements a {
     }
 
     @Override // android.app.Activity
-    public SharedPreferences getPreferences(int i10) {
-        return this.mOriginActivity.getPreferences(i10);
+    public SharedPreferences getPreferences(int i2) {
+        return this.mOriginActivity.getPreferences(i2);
     }
 
     @Override // android.app.Activity
     public Uri getReferrer() {
-        Uri referrer;
-        referrer = this.mOriginActivity.getReferrer();
-        return referrer;
+        return this.mOriginActivity.getReferrer();
     }
 
     @Override // android.app.Activity
@@ -276,9 +272,7 @@ public abstract class GenerateActivityWrapper extends Activity implements a {
 
     @Override // android.app.Activity
     public VoiceInteractor getVoiceInteractor() {
-        VoiceInteractor voiceInteractor;
-        voiceInteractor = this.mOriginActivity.getVoiceInteractor();
-        return voiceInteractor;
+        return this.mOriginActivity.getVoiceInteractor();
     }
 
     @Override // android.app.Activity
@@ -307,9 +301,7 @@ public abstract class GenerateActivityWrapper extends Activity implements a {
 
     @Override // android.app.Activity
     public boolean isActivityTransitionRunning() {
-        boolean isActivityTransitionRunning;
-        isActivityTransitionRunning = this.mOriginActivity.isActivityTransitionRunning();
-        return isActivityTransitionRunning;
+        return this.mOriginActivity.isActivityTransitionRunning();
     }
 
     @Override // android.app.Activity
@@ -334,23 +326,17 @@ public abstract class GenerateActivityWrapper extends Activity implements a {
 
     @Override // android.app.Activity
     public boolean isInMultiWindowMode() {
-        boolean isInMultiWindowMode;
-        isInMultiWindowMode = this.mOriginActivity.isInMultiWindowMode();
-        return isInMultiWindowMode;
+        return this.mOriginActivity.isInMultiWindowMode();
     }
 
     @Override // android.app.Activity
     public boolean isInPictureInPictureMode() {
-        boolean isInPictureInPictureMode;
-        isInPictureInPictureMode = this.mOriginActivity.isInPictureInPictureMode();
-        return isInPictureInPictureMode;
+        return this.mOriginActivity.isInPictureInPictureMode();
     }
 
     @Override // android.app.Activity
     public boolean isLocalVoiceInteractionSupported() {
-        boolean isLocalVoiceInteractionSupported;
-        isLocalVoiceInteractionSupported = this.mOriginActivity.isLocalVoiceInteractionSupported();
-        return isLocalVoiceInteractionSupported;
+        return this.mOriginActivity.isLocalVoiceInteractionSupported();
     }
 
     @Override // android.app.Activity
@@ -360,21 +346,17 @@ public abstract class GenerateActivityWrapper extends Activity implements a {
 
     @Override // android.app.Activity
     public boolean isVoiceInteraction() {
-        boolean isVoiceInteraction;
-        isVoiceInteraction = this.mOriginActivity.isVoiceInteraction();
-        return isVoiceInteraction;
+        return this.mOriginActivity.isVoiceInteraction();
     }
 
     @Override // android.app.Activity
     public boolean isVoiceInteractionRoot() {
-        boolean isVoiceInteractionRoot;
-        isVoiceInteractionRoot = this.mOriginActivity.isVoiceInteractionRoot();
-        return isVoiceInteractionRoot;
+        return this.mOriginActivity.isVoiceInteractionRoot();
     }
 
     @Override // android.app.Activity
-    public boolean moveTaskToBack(boolean z10) {
-        return this.mOriginActivity.moveTaskToBack(z10);
+    public boolean moveTaskToBack(boolean z) {
+        return this.mOriginActivity.moveTaskToBack(z);
     }
 
     @Override // android.app.Activity
@@ -398,8 +380,8 @@ public abstract class GenerateActivityWrapper extends Activity implements a {
     }
 
     @Override // android.app.Activity
-    public void onActivityReenter(int i10, Intent intent) {
-        this.mOriginActivity.onActivityReenter(i10, intent);
+    public void onActivityReenter(int i2, Intent intent) {
+        this.mOriginActivity.onActivityReenter(i2, intent);
     }
 
     @Override // android.app.Activity
@@ -463,13 +445,13 @@ public abstract class GenerateActivityWrapper extends Activity implements a {
     }
 
     @Override // android.app.Activity, android.view.Window.Callback
-    public boolean onCreatePanelMenu(int i10, Menu menu) {
-        return this.mOriginActivity.onCreatePanelMenu(i10, menu);
+    public boolean onCreatePanelMenu(int i2, Menu menu) {
+        return this.mOriginActivity.onCreatePanelMenu(i2, menu);
     }
 
     @Override // android.app.Activity, android.view.Window.Callback
-    public View onCreatePanelView(int i10) {
-        return this.mOriginActivity.onCreatePanelView(i10);
+    public View onCreatePanelView(int i2) {
+        return this.mOriginActivity.onCreatePanelView(i2);
     }
 
     @Override // android.app.Activity
@@ -503,28 +485,28 @@ public abstract class GenerateActivityWrapper extends Activity implements a {
     }
 
     @Override // android.app.Activity, android.view.KeyEvent.Callback
-    public boolean onKeyDown(int i10, KeyEvent keyEvent) {
-        return this.mOriginActivity.onKeyDown(i10, keyEvent);
+    public boolean onKeyDown(int i2, KeyEvent keyEvent) {
+        return this.mOriginActivity.onKeyDown(i2, keyEvent);
     }
 
     @Override // android.app.Activity, android.view.KeyEvent.Callback
-    public boolean onKeyLongPress(int i10, KeyEvent keyEvent) {
-        return this.mOriginActivity.onKeyLongPress(i10, keyEvent);
+    public boolean onKeyLongPress(int i2, KeyEvent keyEvent) {
+        return this.mOriginActivity.onKeyLongPress(i2, keyEvent);
     }
 
     @Override // android.app.Activity, android.view.KeyEvent.Callback
-    public boolean onKeyMultiple(int i10, int i11, KeyEvent keyEvent) {
-        return this.mOriginActivity.onKeyMultiple(i10, i11, keyEvent);
+    public boolean onKeyMultiple(int i2, int i3, KeyEvent keyEvent) {
+        return this.mOriginActivity.onKeyMultiple(i2, i3, keyEvent);
     }
 
     @Override // android.app.Activity
-    public boolean onKeyShortcut(int i10, KeyEvent keyEvent) {
-        return this.mOriginActivity.onKeyShortcut(i10, keyEvent);
+    public boolean onKeyShortcut(int i2, KeyEvent keyEvent) {
+        return this.mOriginActivity.onKeyShortcut(i2, keyEvent);
     }
 
     @Override // android.app.Activity, android.view.KeyEvent.Callback
-    public boolean onKeyUp(int i10, KeyEvent keyEvent) {
-        return this.mOriginActivity.onKeyUp(i10, keyEvent);
+    public boolean onKeyUp(int i2, KeyEvent keyEvent) {
+        return this.mOriginActivity.onKeyUp(i2, keyEvent);
     }
 
     @Override // android.app.Activity
@@ -543,18 +525,18 @@ public abstract class GenerateActivityWrapper extends Activity implements a {
     }
 
     @Override // android.app.Activity, android.view.Window.Callback
-    public boolean onMenuItemSelected(int i10, MenuItem menuItem) {
-        return this.mOriginActivity.onMenuItemSelected(i10, menuItem);
+    public boolean onMenuItemSelected(int i2, MenuItem menuItem) {
+        return this.mOriginActivity.onMenuItemSelected(i2, menuItem);
     }
 
     @Override // android.app.Activity, android.view.Window.Callback
-    public boolean onMenuOpened(int i10, Menu menu) {
-        return this.mOriginActivity.onMenuOpened(i10, menu);
+    public boolean onMenuOpened(int i2, Menu menu) {
+        return this.mOriginActivity.onMenuOpened(i2, menu);
     }
 
     @Override // android.app.Activity
-    public void onMultiWindowModeChanged(boolean z10, Configuration configuration) {
-        this.mOriginActivity.onMultiWindowModeChanged(z10, configuration);
+    public void onMultiWindowModeChanged(boolean z, Configuration configuration) {
+        this.mOriginActivity.onMultiWindowModeChanged(z, configuration);
     }
 
     @Override // android.app.Activity
@@ -578,8 +560,8 @@ public abstract class GenerateActivityWrapper extends Activity implements a {
     }
 
     @Override // android.app.Activity, android.view.Window.Callback
-    public void onPanelClosed(int i10, Menu menu) {
-        this.mOriginActivity.onPanelClosed(i10, menu);
+    public void onPanelClosed(int i2, Menu menu) {
+        this.mOriginActivity.onPanelClosed(i2, menu);
     }
 
     @Override // android.app.Activity
@@ -588,15 +570,13 @@ public abstract class GenerateActivityWrapper extends Activity implements a {
     }
 
     @Override // android.app.Activity
-    public void onPictureInPictureModeChanged(boolean z10, Configuration configuration) {
-        this.mOriginActivity.onPictureInPictureModeChanged(z10, configuration);
+    public void onPictureInPictureModeChanged(boolean z, Configuration configuration) {
+        this.mOriginActivity.onPictureInPictureModeChanged(z, configuration);
     }
 
     @Override // android.app.Activity
     public boolean onPictureInPictureRequested() {
-        boolean onPictureInPictureRequested;
-        onPictureInPictureRequested = this.mOriginActivity.onPictureInPictureRequested();
-        return onPictureInPictureRequested;
+        return this.mOriginActivity.onPictureInPictureRequested();
     }
 
     @Override // android.app.Activity
@@ -615,8 +595,8 @@ public abstract class GenerateActivityWrapper extends Activity implements a {
     }
 
     @Override // android.app.Activity, android.view.Window.Callback
-    public boolean onPreparePanel(int i10, View view, Menu menu) {
-        return this.mOriginActivity.onPreparePanel(i10, view, menu);
+    public boolean onPreparePanel(int i2, View view, Menu menu) {
+        return this.mOriginActivity.onPreparePanel(i2, view, menu);
     }
 
     @Override // android.app.Activity
@@ -630,20 +610,18 @@ public abstract class GenerateActivityWrapper extends Activity implements a {
     }
 
     @Override // android.app.Activity, android.view.Window.Callback
-    public void onProvideKeyboardShortcuts(List list, Menu menu, int i10) {
-        this.mOriginActivity.onProvideKeyboardShortcuts(list, menu, i10);
+    public void onProvideKeyboardShortcuts(List list, Menu menu, int i2) {
+        this.mOriginActivity.onProvideKeyboardShortcuts(list, menu, i2);
     }
 
     @Override // android.app.Activity
     public Uri onProvideReferrer() {
-        Uri onProvideReferrer;
-        onProvideReferrer = this.mOriginActivity.onProvideReferrer();
-        return onProvideReferrer;
+        return this.mOriginActivity.onProvideReferrer();
     }
 
     @Override // android.app.Activity
-    public void onRequestPermissionsResult(int i10, String[] strArr, int[] iArr) {
-        this.mOriginActivity.onRequestPermissionsResult(i10, strArr, iArr);
+    public void onRequestPermissionsResult(int i2, String[] strArr, int[] iArr) {
+        this.mOriginActivity.onRequestPermissionsResult(i2, strArr, iArr);
     }
 
     @Override // android.app.Activity
@@ -663,9 +641,7 @@ public abstract class GenerateActivityWrapper extends Activity implements a {
 
     @Override // android.app.Activity, android.view.Window.Callback
     public boolean onSearchRequested(SearchEvent searchEvent) {
-        boolean onSearchRequested;
-        onSearchRequested = this.mOriginActivity.onSearchRequested(searchEvent);
-        return onSearchRequested;
+        return this.mOriginActivity.onSearchRequested(searchEvent);
     }
 
     @Override // android.app.Activity
@@ -674,8 +650,8 @@ public abstract class GenerateActivityWrapper extends Activity implements a {
     }
 
     @Override // android.app.Activity
-    public void onTopResumedActivityChanged(boolean z10) {
-        this.mOriginActivity.onTopResumedActivityChanged(z10);
+    public void onTopResumedActivityChanged(boolean z) {
+        this.mOriginActivity.onTopResumedActivityChanged(z);
     }
 
     @Override // android.app.Activity
@@ -689,8 +665,8 @@ public abstract class GenerateActivityWrapper extends Activity implements a {
     }
 
     @Override // android.app.Activity, android.content.ComponentCallbacks2
-    public void onTrimMemory(int i10) {
-        this.mOriginActivity.onTrimMemory(i10);
+    public void onTrimMemory(int i2) {
+        this.mOriginActivity.onTrimMemory(i2);
     }
 
     @Override // android.app.Activity
@@ -704,8 +680,8 @@ public abstract class GenerateActivityWrapper extends Activity implements a {
     }
 
     @Override // android.app.Activity, android.view.Window.Callback
-    public void onWindowFocusChanged(boolean z10) {
-        this.mOriginActivity.onWindowFocusChanged(z10);
+    public void onWindowFocusChanged(boolean z) {
+        this.mOriginActivity.onWindowFocusChanged(z);
     }
 
     @Override // android.app.Activity, android.view.Window.Callback
@@ -724,8 +700,8 @@ public abstract class GenerateActivityWrapper extends Activity implements a {
     }
 
     @Override // android.app.Activity
-    public void overridePendingTransition(int i10, int i11) {
-        this.mOriginActivity.overridePendingTransition(i10, i11);
+    public void overridePendingTransition(int i2, int i3) {
+        this.mOriginActivity.overridePendingTransition(i2, i3);
     }
 
     @Override // android.app.Activity
@@ -760,14 +736,12 @@ public abstract class GenerateActivityWrapper extends Activity implements a {
 
     @Override // android.app.Activity
     public DragAndDropPermissions requestDragAndDropPermissions(DragEvent dragEvent) {
-        DragAndDropPermissions requestDragAndDropPermissions;
-        requestDragAndDropPermissions = this.mOriginActivity.requestDragAndDropPermissions(dragEvent);
-        return requestDragAndDropPermissions;
+        return this.mOriginActivity.requestDragAndDropPermissions(dragEvent);
     }
 
     @Override // android.app.Activity
-    public boolean requestVisibleBehind(boolean z10) {
-        return this.mOriginActivity.requestVisibleBehind(z10);
+    public boolean requestVisibleBehind(boolean z) {
+        return this.mOriginActivity.requestVisibleBehind(z);
     }
 
     @Override // android.app.Activity
@@ -781,8 +755,8 @@ public abstract class GenerateActivityWrapper extends Activity implements a {
     }
 
     @Override // android.app.Activity
-    public void setContentView(int i10) {
-        this.mOriginActivity.setContentView(i10);
+    public void setContentView(int i2) {
+        this.mOriginActivity.setContentView(i2);
     }
 
     @Override // android.app.Activity
@@ -796,18 +770,18 @@ public abstract class GenerateActivityWrapper extends Activity implements a {
     }
 
     @Override // android.app.Activity
-    public void setFinishOnTouchOutside(boolean z10) {
-        this.mOriginActivity.setFinishOnTouchOutside(z10);
+    public void setFinishOnTouchOutside(boolean z) {
+        this.mOriginActivity.setFinishOnTouchOutside(z);
     }
 
     @Override // android.app.Activity
-    public void setImmersive(boolean z10) {
-        this.mOriginActivity.setImmersive(z10);
+    public void setImmersive(boolean z) {
+        this.mOriginActivity.setImmersive(z);
     }
 
     @Override // android.app.Activity
-    public void setInheritShowWhenLocked(boolean z10) {
-        this.mOriginActivity.setInheritShowWhenLocked(z10);
+    public void setInheritShowWhenLocked(boolean z) {
+        this.mOriginActivity.setInheritShowWhenLocked(z);
     }
 
     @Override // android.app.Activity
@@ -826,13 +800,13 @@ public abstract class GenerateActivityWrapper extends Activity implements a {
     }
 
     @Override // android.app.Activity
-    public void setRequestedOrientation(int i10) {
-        this.mOriginActivity.setRequestedOrientation(i10);
+    public void setRequestedOrientation(int i2) {
+        this.mOriginActivity.setRequestedOrientation(i2);
     }
 
     @Override // android.app.Activity
-    public void setShowWhenLocked(boolean z10) {
-        this.mOriginActivity.setShowWhenLocked(z10);
+    public void setShowWhenLocked(boolean z) {
+        this.mOriginActivity.setShowWhenLocked(z);
     }
 
     @Override // android.app.Activity
@@ -841,8 +815,8 @@ public abstract class GenerateActivityWrapper extends Activity implements a {
     }
 
     @Override // android.app.Activity, android.view.ContextThemeWrapper, android.content.ContextWrapper, android.content.Context
-    public void setTheme(int i10) {
-        this.mOriginActivity.setTheme(i10);
+    public void setTheme(int i2) {
+        this.mOriginActivity.setTheme(i2);
     }
 
     @Override // android.app.Activity
@@ -851,45 +825,41 @@ public abstract class GenerateActivityWrapper extends Activity implements a {
     }
 
     @Override // android.app.Activity
-    public void setTitleColor(int i10) {
-        this.mOriginActivity.setTitleColor(i10);
+    public void setTitleColor(int i2) {
+        this.mOriginActivity.setTitleColor(i2);
     }
 
     @Override // android.app.Activity
-    public boolean setTranslucent(boolean z10) {
-        boolean translucent;
-        translucent = this.mOriginActivity.setTranslucent(z10);
-        return translucent;
+    public boolean setTranslucent(boolean z) {
+        return this.mOriginActivity.setTranslucent(z);
     }
 
     @Override // android.app.Activity
-    public void setTurnScreenOn(boolean z10) {
-        this.mOriginActivity.setTurnScreenOn(z10);
+    public void setTurnScreenOn(boolean z) {
+        this.mOriginActivity.setTurnScreenOn(z);
     }
 
     @Override // android.app.Activity
-    public void setVisible(boolean z10) {
-        this.mOriginActivity.setVisible(z10);
+    public void setVisible(boolean z) {
+        this.mOriginActivity.setVisible(z);
     }
 
     @Override // android.app.Activity
-    public void setVrModeEnabled(boolean z10, ComponentName componentName) {
-        this.mOriginActivity.setVrModeEnabled(z10, componentName);
+    public void setVrModeEnabled(boolean z, ComponentName componentName) {
+        this.mOriginActivity.setVrModeEnabled(z, componentName);
     }
 
     @Override // com.bytedance.pangle.wrapper.a
-    public void setWrapperActivityTheme(int i10) {
+    public void setWrapperActivityTheme(int i2) {
         try {
-            super.setTheme(i10);
+            super.setTheme(i2);
         } catch (Exception unused) {
         }
     }
 
     @Override // android.app.Activity
     public boolean shouldShowRequestPermissionRationale(String str) {
-        boolean shouldShowRequestPermissionRationale;
-        shouldShowRequestPermissionRationale = this.mOriginActivity.shouldShowRequestPermissionRationale(str);
-        return shouldShowRequestPermissionRationale;
+        return this.mOriginActivity.shouldShowRequestPermissionRationale(str);
     }
 
     @Override // android.app.Activity
@@ -899,9 +869,7 @@ public abstract class GenerateActivityWrapper extends Activity implements a {
 
     @Override // android.app.Activity
     public boolean showAssist(Bundle bundle) {
-        boolean showAssist;
-        showAssist = this.mOriginActivity.showAssist(bundle);
-        return showAssist;
+        return this.mOriginActivity.showAssist(bundle);
     }
 
     @Override // android.app.Activity
@@ -925,38 +893,38 @@ public abstract class GenerateActivityWrapper extends Activity implements a {
     }
 
     @Override // android.app.Activity
-    public void startActivityForResult(Intent intent, int i10) {
-        this.mOriginActivity.startActivityForResult(intent, i10);
+    public void startActivityForResult(Intent intent, int i2) {
+        this.mOriginActivity.startActivityForResult(intent, i2);
     }
 
     @Override // android.app.Activity
-    public void startActivityFromChild(Activity activity, Intent intent, int i10) {
-        this.mOriginActivity.startActivityFromChild(activity, intent, i10);
+    public void startActivityFromChild(Activity activity, Intent intent, int i2) {
+        this.mOriginActivity.startActivityFromChild(activity, intent, i2);
     }
 
     @Override // android.app.Activity
-    public void startActivityFromFragment(Fragment fragment, Intent intent, int i10) {
-        this.mOriginActivity.startActivityFromFragment(fragment, intent, i10);
+    public void startActivityFromFragment(Fragment fragment, Intent intent, int i2) {
+        this.mOriginActivity.startActivityFromFragment(fragment, intent, i2);
     }
 
     @Override // android.app.Activity
-    public boolean startActivityIfNeeded(Intent intent, int i10) {
-        return this.mOriginActivity.startActivityIfNeeded(intent, i10);
+    public boolean startActivityIfNeeded(Intent intent, int i2) {
+        return this.mOriginActivity.startActivityIfNeeded(intent, i2);
     }
 
     @Override // android.app.Activity, android.content.ContextWrapper, android.content.Context
-    public void startIntentSender(IntentSender intentSender, Intent intent, int i10, int i11, int i12) {
-        this.mOriginActivity.startIntentSender(intentSender, intent, i10, i11, i12);
+    public void startIntentSender(IntentSender intentSender, Intent intent, int i2, int i3, int i4) {
+        this.mOriginActivity.startIntentSender(intentSender, intent, i2, i3, i4);
     }
 
     @Override // android.app.Activity
-    public void startIntentSenderForResult(IntentSender intentSender, int i10, Intent intent, int i11, int i12, int i13) {
-        this.mOriginActivity.startIntentSenderForResult(intentSender, i10, intent, i11, i12, i13);
+    public void startIntentSenderForResult(IntentSender intentSender, int i2, Intent intent, int i3, int i4, int i5) {
+        this.mOriginActivity.startIntentSenderForResult(intentSender, i2, intent, i3, i4, i5);
     }
 
     @Override // android.app.Activity
-    public void startIntentSenderFromChild(Activity activity, IntentSender intentSender, int i10, Intent intent, int i11, int i12, int i13) {
-        this.mOriginActivity.startIntentSenderFromChild(activity, intentSender, i10, intent, i11, i12, i13);
+    public void startIntentSenderFromChild(Activity activity, IntentSender intentSender, int i2, Intent intent, int i3, int i4, int i5) {
+        this.mOriginActivity.startIntentSenderFromChild(activity, intentSender, i2, intent, i3, i4, i5);
     }
 
     @Override // android.app.Activity
@@ -985,8 +953,8 @@ public abstract class GenerateActivityWrapper extends Activity implements a {
     }
 
     @Override // android.app.Activity
-    public void startSearch(String str, boolean z10, Bundle bundle, boolean z11) {
-        this.mOriginActivity.startSearch(str, z10, bundle, z11);
+    public void startSearch(String str, boolean z, Bundle bundle, boolean z2) {
+        this.mOriginActivity.startSearch(str, z, bundle, z2);
     }
 
     @Override // android.app.Activity
@@ -1005,8 +973,8 @@ public abstract class GenerateActivityWrapper extends Activity implements a {
     }
 
     @Override // android.app.Activity
-    public void takeKeyEvents(boolean z10) {
-        this.mOriginActivity.takeKeyEvents(z10);
+    public void takeKeyEvents(boolean z) {
+        this.mOriginActivity.takeKeyEvents(z);
     }
 
     @Override // android.app.Activity
@@ -1026,9 +994,7 @@ public abstract class GenerateActivityWrapper extends Activity implements a {
 
     @Override // android.app.Activity
     public boolean enterPictureInPictureMode(PictureInPictureParams pictureInPictureParams) {
-        boolean enterPictureInPictureMode;
-        enterPictureInPictureMode = this.mOriginActivity.enterPictureInPictureMode(pictureInPictureParams);
-        return enterPictureInPictureMode;
+        return this.mOriginActivity.enterPictureInPictureMode(pictureInPictureParams);
     }
 
     @Override // android.app.Activity, android.view.LayoutInflater.Factory2
@@ -1037,13 +1003,13 @@ public abstract class GenerateActivityWrapper extends Activity implements a {
     }
 
     @Override // android.app.Activity
-    public void onMultiWindowModeChanged(boolean z10) {
-        this.mOriginActivity.onMultiWindowModeChanged(z10);
+    public void onMultiWindowModeChanged(boolean z) {
+        this.mOriginActivity.onMultiWindowModeChanged(z);
     }
 
     @Override // android.app.Activity
-    public void onPictureInPictureModeChanged(boolean z10) {
-        this.mOriginActivity.onPictureInPictureModeChanged(z10);
+    public void onPictureInPictureModeChanged(boolean z) {
+        this.mOriginActivity.onPictureInPictureModeChanged(z);
     }
 
     @Override // android.app.Activity, android.view.Window.Callback
@@ -1052,10 +1018,8 @@ public abstract class GenerateActivityWrapper extends Activity implements a {
     }
 
     @Override // android.app.Activity, android.view.Window.Callback
-    public ActionMode onWindowStartingActionMode(ActionMode.Callback callback, int i10) {
-        ActionMode onWindowStartingActionMode;
-        onWindowStartingActionMode = this.mOriginActivity.onWindowStartingActionMode(callback, i10);
-        return onWindowStartingActionMode;
+    public ActionMode onWindowStartingActionMode(ActionMode.Callback callback, int i2) {
+        return this.mOriginActivity.onWindowStartingActionMode(callback, i2);
     }
 
     @Override // android.app.Activity
@@ -1064,15 +1028,13 @@ public abstract class GenerateActivityWrapper extends Activity implements a {
     }
 
     @Override // android.app.Activity
-    public void setTitle(int i10) {
-        this.mOriginActivity.setTitle(i10);
+    public void setTitle(int i2) {
+        this.mOriginActivity.setTitle(i2);
     }
 
     @Override // android.app.Activity
-    public ActionMode startActionMode(ActionMode.Callback callback, int i10) {
-        ActionMode startActionMode;
-        startActionMode = this.mOriginActivity.startActionMode(callback, i10);
-        return startActionMode;
+    public ActionMode startActionMode(ActionMode.Callback callback, int i2) {
+        return this.mOriginActivity.startActionMode(callback, i2);
     }
 
     @Override // android.app.Activity, android.content.ContextWrapper, android.content.Context
@@ -1086,38 +1048,38 @@ public abstract class GenerateActivityWrapper extends Activity implements a {
     }
 
     @Override // android.app.Activity
-    public void startActivityForResult(Intent intent, int i10, Bundle bundle) {
-        this.mOriginActivity.startActivityForResult(intent, i10, bundle);
+    public void startActivityForResult(Intent intent, int i2, Bundle bundle) {
+        this.mOriginActivity.startActivityForResult(intent, i2, bundle);
     }
 
     @Override // android.app.Activity
-    public void startActivityFromChild(Activity activity, Intent intent, int i10, Bundle bundle) {
-        this.mOriginActivity.startActivityFromChild(activity, intent, i10, bundle);
+    public void startActivityFromChild(Activity activity, Intent intent, int i2, Bundle bundle) {
+        this.mOriginActivity.startActivityFromChild(activity, intent, i2, bundle);
     }
 
     @Override // android.app.Activity
-    public void startActivityFromFragment(Fragment fragment, Intent intent, int i10, Bundle bundle) {
-        this.mOriginActivity.startActivityFromFragment(fragment, intent, i10, bundle);
+    public void startActivityFromFragment(Fragment fragment, Intent intent, int i2, Bundle bundle) {
+        this.mOriginActivity.startActivityFromFragment(fragment, intent, i2, bundle);
     }
 
     @Override // android.app.Activity
-    public boolean startActivityIfNeeded(Intent intent, int i10, Bundle bundle) {
-        return this.mOriginActivity.startActivityIfNeeded(intent, i10, bundle);
+    public boolean startActivityIfNeeded(Intent intent, int i2, Bundle bundle) {
+        return this.mOriginActivity.startActivityIfNeeded(intent, i2, bundle);
     }
 
     @Override // android.app.Activity, android.content.ContextWrapper, android.content.Context
-    public void startIntentSender(IntentSender intentSender, Intent intent, int i10, int i11, int i12, Bundle bundle) {
-        this.mOriginActivity.startIntentSender(intentSender, intent, i10, i11, i12, bundle);
+    public void startIntentSender(IntentSender intentSender, Intent intent, int i2, int i3, int i4, Bundle bundle) {
+        this.mOriginActivity.startIntentSender(intentSender, intent, i2, i3, i4, bundle);
     }
 
     @Override // android.app.Activity
-    public void startIntentSenderForResult(IntentSender intentSender, int i10, Intent intent, int i11, int i12, int i13, Bundle bundle) {
-        this.mOriginActivity.startIntentSenderForResult(intentSender, i10, intent, i11, i12, i13, bundle);
+    public void startIntentSenderForResult(IntentSender intentSender, int i2, Intent intent, int i3, int i4, int i5, Bundle bundle) {
+        this.mOriginActivity.startIntentSenderForResult(intentSender, i2, intent, i3, i4, i5, bundle);
     }
 
     @Override // android.app.Activity
-    public void startIntentSenderFromChild(Activity activity, IntentSender intentSender, int i10, Intent intent, int i11, int i12, int i13, Bundle bundle) {
-        this.mOriginActivity.startIntentSenderFromChild(activity, intentSender, i10, intent, i11, i12, i13, bundle);
+    public void startIntentSenderFromChild(Activity activity, IntentSender intentSender, int i2, Intent intent, int i3, int i4, int i5, Bundle bundle) {
+        this.mOriginActivity.startIntentSenderFromChild(activity, intentSender, i2, intent, i3, i4, i5, bundle);
     }
 
     @Override // android.app.Activity

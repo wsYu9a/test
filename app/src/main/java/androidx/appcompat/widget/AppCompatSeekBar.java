@@ -4,45 +4,44 @@ import android.content.Context;
 import android.graphics.Canvas;
 import android.util.AttributeSet;
 import android.widget.SeekBar;
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.appcompat.R;
 
 /* loaded from: classes.dex */
 public class AppCompatSeekBar extends SeekBar {
-    private final AppCompatSeekBarHelper mAppCompatSeekBarHelper;
 
-    public AppCompatSeekBar(@NonNull Context context) {
+    /* renamed from: a */
+    private final AppCompatSeekBarHelper f731a;
+
+    public AppCompatSeekBar(Context context) {
         this(context, null);
     }
 
     @Override // android.widget.AbsSeekBar, android.widget.ProgressBar, android.view.View
-    public void drawableStateChanged() {
+    protected void drawableStateChanged() {
         super.drawableStateChanged();
-        this.mAppCompatSeekBarHelper.drawableStateChanged();
+        this.f731a.h();
     }
 
     @Override // android.widget.AbsSeekBar, android.widget.ProgressBar, android.view.View
     public void jumpDrawablesToCurrentState() {
         super.jumpDrawablesToCurrentState();
-        this.mAppCompatSeekBarHelper.jumpDrawablesToCurrentState();
+        this.f731a.l();
     }
 
     @Override // android.widget.AbsSeekBar, android.widget.ProgressBar, android.view.View
-    public synchronized void onDraw(Canvas canvas) {
+    protected synchronized void onDraw(Canvas canvas) {
         super.onDraw(canvas);
-        this.mAppCompatSeekBarHelper.drawTickMarks(canvas);
+        this.f731a.g(canvas);
     }
 
-    public AppCompatSeekBar(@NonNull Context context, @Nullable AttributeSet attributeSet) {
+    public AppCompatSeekBar(Context context, AttributeSet attributeSet) {
         this(context, attributeSet, R.attr.seekBarStyle);
     }
 
-    public AppCompatSeekBar(@NonNull Context context, @Nullable AttributeSet attributeSet, int i10) {
-        super(context, attributeSet, i10);
-        ThemeUtils.checkAppCompatTheme(this, getContext());
+    public AppCompatSeekBar(Context context, AttributeSet attributeSet, int i2) {
+        super(context, attributeSet, i2);
         AppCompatSeekBarHelper appCompatSeekBarHelper = new AppCompatSeekBarHelper(this);
-        this.mAppCompatSeekBarHelper = appCompatSeekBarHelper;
-        appCompatSeekBarHelper.loadFromAttributes(attributeSet, i10);
+        this.f731a = appCompatSeekBarHelper;
+        appCompatSeekBarHelper.c(attributeSet, i2);
     }
 }

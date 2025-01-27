@@ -4,58 +4,44 @@ import android.content.Context;
 import java.util.Date;
 import java.util.List;
 
-/* loaded from: classes2.dex */
+/* loaded from: classes.dex */
 public class db {
 
     /* renamed from: b */
-    private static volatile db f11008b;
+    private static volatile db f9271b;
 
     /* renamed from: a */
-    private Context f11009a;
+    private Context f9272a;
 
     /* renamed from: com.kuaishou.weapon.p0.db$1 */
-    public class AnonymousClass1 implements Runnable {
+    class AnonymousClass1 implements Runnable {
 
         /* renamed from: a */
-        final /* synthetic */ int f11010a;
+        final /* synthetic */ int f9273a;
 
-        /* renamed from: b */
-        final /* synthetic */ int f11011b;
-
-        public AnonymousClass1(int i10, int i11) {
-            i10 = i10;
-            i11 = i11;
+        AnonymousClass1(int i2) {
+            i2 = i2;
         }
 
         @Override // java.lang.Runnable
         public void run() {
-            long j10;
-            int i10;
             try {
-                h a10 = h.a(db.this.f11009a, "re_po_rt");
-                if (a10.b(df.P, 1) == 1) {
-                    long a11 = df.a(db.this.f11009a).a(df.f11047bj);
+                if (h.a(db.this.f9272a, "re_po_rt").b(de.au, 1) == 1) {
+                    long a2 = de.a(db.this.f9272a).a();
                     long currentTimeMillis = System.currentTimeMillis();
-                    long b10 = a10.b(df.R, 1) * 3600000;
-                    long b11 = a10.b(df.S, 5) * 60000;
-                    int b12 = a10.b(df.T, 0);
-                    if (a11 > 0) {
-                        j10 = a11;
-                        if (currentTimeMillis - a11 < WeaponHI.f10723ii * 3600000 && WeaponHI.isList != null) {
-                            int hours = new Date(currentTimeMillis).getHours();
-                            List<Integer> list = WeaponHI.isList;
-                            StringBuilder sb2 = new StringBuilder();
-                            sb2.append(hours);
-                            if (list.contains(sb2.toString())) {
-                                return;
-                            }
+                    long b2 = r0.b(de.aw, 8) * 3600000;
+                    if (a2 > 0 && currentTimeMillis - a2 < WeaponHI.ii * 3600000 && WeaponHI.isList != null) {
+                        int hours = new Date(currentTimeMillis).getHours();
+                        List<Integer> list = WeaponHI.isList;
+                        StringBuilder sb = new StringBuilder();
+                        sb.append(hours);
+                        if (list.contains(sb.toString())) {
+                            return;
                         }
-                    } else {
-                        j10 = a11;
                     }
-                    long j11 = currentTimeMillis - j10;
-                    if (j11 >= b10 || (((i10 = i10) == 100 && b12 == 1) || i10 == 106 || (i10 != 100 && i10 > 0 && j11 >= b11))) {
-                        cp.a(db.this.f11009a, new cl(db.this.f11009a, i10, i11).a(ck.f10907c), ck.f10907c, true, true);
+                    if (currentTimeMillis - a2 >= b2) {
+                        co.a(db.this.f9272a, new cm(db.this.f9272a, i2).a(cj.f9189b), cj.f9189b, true, true);
+                        de.a(db.this.f9272a).a(currentTimeMillis);
                     }
                 }
             } catch (Throwable unused) {
@@ -64,66 +50,49 @@ public class db {
     }
 
     private db(Context context) {
-        this.f11009a = context;
+        this.f9272a = context;
     }
 
     public static db a(Context context) {
-        if (f11008b == null) {
+        if (f9271b == null) {
             synchronized (db.class) {
-                try {
-                    if (f11008b == null) {
-                        f11008b = new db(context);
-                    }
-                } finally {
+                if (f9271b == null) {
+                    f9271b = new db(context);
                 }
             }
         }
-        return f11008b;
+        return f9271b;
     }
 
-    public void a(int i10, int i11) {
+    public void a(int i2) {
         n.a().a(new Runnable() { // from class: com.kuaishou.weapon.p0.db.1
 
             /* renamed from: a */
-            final /* synthetic */ int f11010a;
+            final /* synthetic */ int f9273a;
 
-            /* renamed from: b */
-            final /* synthetic */ int f11011b;
-
-            public AnonymousClass1(int i102, int i112) {
-                i10 = i102;
-                i11 = i112;
+            AnonymousClass1(int i22) {
+                i2 = i22;
             }
 
             @Override // java.lang.Runnable
             public void run() {
-                long j10;
-                int i102;
                 try {
-                    h a10 = h.a(db.this.f11009a, "re_po_rt");
-                    if (a10.b(df.P, 1) == 1) {
-                        long a11 = df.a(db.this.f11009a).a(df.f11047bj);
+                    if (h.a(db.this.f9272a, "re_po_rt").b(de.au, 1) == 1) {
+                        long a2 = de.a(db.this.f9272a).a();
                         long currentTimeMillis = System.currentTimeMillis();
-                        long b10 = a10.b(df.R, 1) * 3600000;
-                        long b11 = a10.b(df.S, 5) * 60000;
-                        int b12 = a10.b(df.T, 0);
-                        if (a11 > 0) {
-                            j10 = a11;
-                            if (currentTimeMillis - a11 < WeaponHI.f10723ii * 3600000 && WeaponHI.isList != null) {
-                                int hours = new Date(currentTimeMillis).getHours();
-                                List<Integer> list = WeaponHI.isList;
-                                StringBuilder sb2 = new StringBuilder();
-                                sb2.append(hours);
-                                if (list.contains(sb2.toString())) {
-                                    return;
-                                }
+                        long b2 = r0.b(de.aw, 8) * 3600000;
+                        if (a2 > 0 && currentTimeMillis - a2 < WeaponHI.ii * 3600000 && WeaponHI.isList != null) {
+                            int hours = new Date(currentTimeMillis).getHours();
+                            List<Integer> list = WeaponHI.isList;
+                            StringBuilder sb = new StringBuilder();
+                            sb.append(hours);
+                            if (list.contains(sb.toString())) {
+                                return;
                             }
-                        } else {
-                            j10 = a11;
                         }
-                        long j11 = currentTimeMillis - j10;
-                        if (j11 >= b10 || (((i102 = i10) == 100 && b12 == 1) || i102 == 106 || (i102 != 100 && i102 > 0 && j11 >= b11))) {
-                            cp.a(db.this.f11009a, new cl(db.this.f11009a, i10, i11).a(ck.f10907c), ck.f10907c, true, true);
+                        if (currentTimeMillis - a2 >= b2) {
+                            co.a(db.this.f9272a, new cm(db.this.f9272a, i2).a(cj.f9189b), cj.f9189b, true, true);
+                            de.a(db.this.f9272a).a(currentTimeMillis);
                         }
                     }
                 } catch (Throwable unused) {

@@ -6,7 +6,6 @@ import com.umeng.commonsdk.framework.UMEnvelopeBuild;
 import com.umeng.commonsdk.framework.UMFrUtils;
 import com.umeng.commonsdk.framework.UMLogDataProtocol;
 import com.umeng.commonsdk.framework.UMWorkDispatch;
-import com.umeng.commonsdk.internal.a;
 import com.umeng.commonsdk.internal.b;
 
 /* loaded from: classes4.dex */
@@ -14,12 +13,12 @@ public class UMConfigureInternation {
     private static boolean isInternal = false;
 
     /* renamed from: com.umeng.commonsdk.UMConfigureInternation$1 */
-    public static class AnonymousClass1 implements Runnable {
+    static class AnonymousClass1 implements Runnable {
 
         /* renamed from: a */
-        final /* synthetic */ Context f24331a;
+        final /* synthetic */ Context f26104a;
 
-        public AnonymousClass1(Context context) {
+        AnonymousClass1(Context context) {
             context = context;
         }
 
@@ -32,7 +31,7 @@ public class UMConfigureInternation {
                     return;
                 }
                 Context context = context;
-                UMWorkDispatch.sendEvent(context, a.f24478n, b.a(context).a(), null, 5000L);
+                UMWorkDispatch.sendEvent(context, com.umeng.commonsdk.internal.a.n, b.a(context).a(), null, 5000L);
             } catch (Throwable unused) {
             }
         }
@@ -45,7 +44,7 @@ public class UMConfigureInternation {
             if (TextUtils.isEmpty(currentProcessName) || TextUtils.isEmpty(packageName) || !currentProcessName.equals(packageName)) {
                 return;
             }
-            UMWorkDispatch.sendEvent(context, a.C, b.a(context).a(), null);
+            UMWorkDispatch.sendEvent(context, com.umeng.commonsdk.internal.a.C, b.a(context).a(), null);
         } catch (Throwable unused) {
         }
     }
@@ -58,9 +57,9 @@ public class UMConfigureInternation {
                         new Thread(new Runnable() { // from class: com.umeng.commonsdk.UMConfigureInternation.1
 
                             /* renamed from: a */
-                            final /* synthetic */ Context f24331a;
+                            final /* synthetic */ Context f26104a;
 
-                            public AnonymousClass1(Context context2) {
+                            AnonymousClass1(Context context2) {
                                 context = context2;
                             }
 
@@ -73,7 +72,7 @@ public class UMConfigureInternation {
                                         return;
                                     }
                                     Context context2 = context;
-                                    UMWorkDispatch.sendEvent(context2, a.f24478n, b.a(context2).a(), null, 5000L);
+                                    UMWorkDispatch.sendEvent(context2, com.umeng.commonsdk.internal.a.n, b.a(context2).a(), null, 5000L);
                                 } catch (Throwable unused) {
                                 }
                             }

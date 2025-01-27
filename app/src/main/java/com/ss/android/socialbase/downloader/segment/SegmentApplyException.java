@@ -13,9 +13,9 @@ class SegmentApplyException extends BaseException {
     public static final int SEGMENT_NOT_EXIST = 2;
     private int applyCode;
 
-    public SegmentApplyException(int i10, String str) {
-        super(DownloadErrorCode.ERROR_SEGMENT_APPLY, "applyCode=" + i10 + ", " + str);
-        this.applyCode = i10;
+    SegmentApplyException(int i2, String str) {
+        super(DownloadErrorCode.ERROR_SEGMENT_APPLY, "applyCode=" + i2 + ", " + str);
+        this.applyCode = i2;
     }
 
     public int getSegmentApplyErrorCode() {

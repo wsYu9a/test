@@ -10,7 +10,9 @@ import java.util.Map;
 public class TransitionValues {
     public View view;
     public final Map<String, Object> values = new HashMap();
-    final ArrayList<Transition> mTargetedTransitions = new ArrayList<>();
+
+    /* renamed from: a */
+    final ArrayList<Transition> f3855a = new ArrayList<>();
 
     @Deprecated
     public TransitionValues() {

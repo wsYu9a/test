@@ -1,9 +1,9 @@
 package com.martian.mibook.lib.original.request;
 
+import com.martian.libcomm.http.requests.d.a;
 import com.martian.mibook.lib.account.request.TYHttpGetParams;
-import v8.a;
 
-/* loaded from: classes3.dex */
+/* loaded from: classes2.dex */
 public class CPORBooksListParams extends TYHttpGetParams {
 
     @a
@@ -27,20 +27,20 @@ public class CPORBooksListParams extends TYHttpGetParams {
         return this.pageSize;
     }
 
-    @Override // u8.b
+    @Override // com.martian.libcomm.http.requests.b
     public String getRequestMethod() {
         return "ty/free_orbooks";
     }
 
-    public void setCtype(int i10) {
-        this.ctype = i10;
+    public void setCtype(int ctype) {
+        this.ctype = ctype;
     }
 
-    public void setPage(int i10) {
-        this.page = i10;
+    public void setPage(int page) {
+        this.page = page;
     }
 
-    public void setPageSize(int i10) {
-        this.pageSize = i10;
+    public void setPageSize(int pageSize) {
+        this.pageSize = pageSize;
     }
 }

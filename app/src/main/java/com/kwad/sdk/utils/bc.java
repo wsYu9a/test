@@ -1,63 +1,37 @@
 package com.kwad.sdk.utils;
 
-import java.io.File;
-import java.io.FileInputStream;
-import java.nio.charset.StandardCharsets;
-import java.security.MessageDigest;
-import java.security.NoSuchAlgorithmException;
+import android.annotation.SuppressLint;
+import com.ss.android.socialbase.downloader.constants.MonitorConstants;
+import java.io.IOException;
 
-/* loaded from: classes3.dex */
+/* loaded from: classes2.dex */
 public final class bc {
-    public static String ad(File file) {
-        FileInputStream fileInputStream;
-        MessageDigest messageDigest;
-        FileInputStream fileInputStream2 = null;
-        if (file == null) {
-            return null;
-        }
+    private static Class<?> aAJ;
+
+    private static String eQ(String str) {
         try {
-            messageDigest = MessageDigest.getInstance("SHA-256");
-            fileInputStream = new FileInputStream(file);
-        } catch (Exception e10) {
-            e = e10;
-            fileInputStream = null;
-        } catch (Throwable th2) {
-            th = th2;
-            com.kwad.sdk.crash.utils.b.closeQuietly(fileInputStream2);
-            throw th;
-        }
-        try {
-            try {
-                byte[] bArr = new byte[4096];
-                while (true) {
-                    int read = fileInputStream.read(bArr);
-                    if (read == -1) {
-                        String m10 = ai.m(messageDigest.digest());
-                        com.kwad.sdk.crash.utils.b.closeQuietly(fileInputStream);
-                        return m10;
-                    }
-                    messageDigest.update(bArr, 0, read);
-                }
-            } catch (Throwable th3) {
-                th = th3;
-                fileInputStream2 = fileInputStream;
-                com.kwad.sdk.crash.utils.b.closeQuietly(fileInputStream2);
-                throw th;
-            }
-        } catch (Exception e11) {
-            e = e11;
-            com.kwad.sdk.core.d.c.printStackTraceOnly(e);
-            com.kwad.sdk.crash.utils.b.closeQuietly(fileInputStream);
+            return com.kwad.sdk.crash.utils.h.c(Runtime.getRuntime().exec("getprop " + str).getInputStream());
+        } catch (IOException e2) {
+            com.kwad.sdk.core.d.b.printStackTrace(e2);
             return null;
         }
     }
 
-    public static String gX(String str) {
+    @SuppressLint({"PrivateApi"})
+    private static Object g(String str, Object... objArr) {
         try {
-            return ai.m(MessageDigest.getInstance("SHA-256").digest(str.getBytes(StandardCharsets.UTF_8)));
-        } catch (NoSuchAlgorithmException e10) {
-            com.kwad.sdk.core.d.c.printStackTrace(e10);
+            if (aAJ == null) {
+                aAJ = Class.forName("android.os.SystemProperties");
+            }
+            return s.c(aAJ, str, objArr);
+        } catch (Throwable th) {
+            com.kwad.sdk.core.d.b.printStackTrace(th);
             return null;
         }
+    }
+
+    public static String get(String str) {
+        Object g2 = g(MonitorConstants.CONNECT_TYPE_GET, str);
+        return g2 instanceof String ? (String) g2 : eQ(str);
     }
 }

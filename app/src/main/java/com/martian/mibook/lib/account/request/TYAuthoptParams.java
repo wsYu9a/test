@@ -1,10 +1,10 @@
 package com.martian.mibook.lib.account.request;
 
-/* loaded from: classes3.dex */
+/* loaded from: classes.dex */
 public abstract class TYAuthoptParams extends TYHttpGetParams {
     public abstract String getAuthoptMethod();
 
-    @Override // u8.b
+    @Override // com.martian.libcomm.http.requests.b
     public String getRequestMethod() {
         String authoptMethod = getAuthoptMethod();
         if (authoptMethod.startsWith("/")) {

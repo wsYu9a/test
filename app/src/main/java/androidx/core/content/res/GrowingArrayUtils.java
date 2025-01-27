@@ -9,102 +9,102 @@ final class GrowingArrayUtils {
 
     /* JADX WARN: Multi-variable type inference failed */
     /* JADX WARN: Type inference failed for: r0v4, types: [java.lang.Object, java.lang.Object[]] */
-    public static <T> T[] append(T[] tArr, int i10, T t10) {
-        if (i10 + 1 > tArr.length) {
-            ?? r02 = (Object[]) Array.newInstance(tArr.getClass().getComponentType(), growSize(i10));
-            System.arraycopy(tArr, 0, r02, 0, i10);
-            tArr = r02;
+    public static <T> T[] append(T[] tArr, int i2, T t) {
+        if (i2 + 1 > tArr.length) {
+            ?? r0 = (Object[]) Array.newInstance(tArr.getClass().getComponentType(), growSize(i2));
+            System.arraycopy(tArr, 0, r0, 0, i2);
+            tArr = r0;
         }
-        tArr[i10] = t10;
+        tArr[i2] = t;
         return tArr;
     }
 
-    public static int growSize(int i10) {
-        if (i10 <= 4) {
+    public static int growSize(int i2) {
+        if (i2 <= 4) {
             return 8;
         }
-        return i10 * 2;
+        return i2 * 2;
     }
 
-    public static <T> T[] insert(T[] tArr, int i10, int i11, T t10) {
-        if (i10 + 1 <= tArr.length) {
-            System.arraycopy(tArr, i11, tArr, i11 + 1, i10 - i11);
-            tArr[i11] = t10;
+    public static <T> T[] insert(T[] tArr, int i2, int i3, T t) {
+        if (i2 + 1 <= tArr.length) {
+            System.arraycopy(tArr, i3, tArr, i3 + 1, i2 - i3);
+            tArr[i3] = t;
             return tArr;
         }
-        T[] tArr2 = (T[]) ((Object[]) Array.newInstance(tArr.getClass().getComponentType(), growSize(i10)));
-        System.arraycopy(tArr, 0, tArr2, 0, i11);
-        tArr2[i11] = t10;
-        System.arraycopy(tArr, i11, tArr2, i11 + 1, tArr.length - i11);
+        T[] tArr2 = (T[]) ((Object[]) Array.newInstance(tArr.getClass().getComponentType(), growSize(i2)));
+        System.arraycopy(tArr, 0, tArr2, 0, i3);
+        tArr2[i3] = t;
+        System.arraycopy(tArr, i3, tArr2, i3 + 1, tArr.length - i3);
         return tArr2;
     }
 
-    public static int[] append(int[] iArr, int i10, int i11) {
-        if (i10 + 1 > iArr.length) {
-            int[] iArr2 = new int[growSize(i10)];
-            System.arraycopy(iArr, 0, iArr2, 0, i10);
+    public static int[] append(int[] iArr, int i2, int i3) {
+        if (i2 + 1 > iArr.length) {
+            int[] iArr2 = new int[growSize(i2)];
+            System.arraycopy(iArr, 0, iArr2, 0, i2);
             iArr = iArr2;
         }
-        iArr[i10] = i11;
+        iArr[i2] = i3;
         return iArr;
     }
 
-    public static int[] insert(int[] iArr, int i10, int i11, int i12) {
-        if (i10 + 1 <= iArr.length) {
-            System.arraycopy(iArr, i11, iArr, i11 + 1, i10 - i11);
-            iArr[i11] = i12;
+    public static int[] insert(int[] iArr, int i2, int i3, int i4) {
+        if (i2 + 1 <= iArr.length) {
+            System.arraycopy(iArr, i3, iArr, i3 + 1, i2 - i3);
+            iArr[i3] = i4;
             return iArr;
         }
-        int[] iArr2 = new int[growSize(i10)];
-        System.arraycopy(iArr, 0, iArr2, 0, i11);
-        iArr2[i11] = i12;
-        System.arraycopy(iArr, i11, iArr2, i11 + 1, iArr.length - i11);
+        int[] iArr2 = new int[growSize(i2)];
+        System.arraycopy(iArr, 0, iArr2, 0, i3);
+        iArr2[i3] = i4;
+        System.arraycopy(iArr, i3, iArr2, i3 + 1, iArr.length - i3);
         return iArr2;
     }
 
-    public static long[] append(long[] jArr, int i10, long j10) {
-        if (i10 + 1 > jArr.length) {
-            long[] jArr2 = new long[growSize(i10)];
-            System.arraycopy(jArr, 0, jArr2, 0, i10);
+    public static long[] append(long[] jArr, int i2, long j2) {
+        if (i2 + 1 > jArr.length) {
+            long[] jArr2 = new long[growSize(i2)];
+            System.arraycopy(jArr, 0, jArr2, 0, i2);
             jArr = jArr2;
         }
-        jArr[i10] = j10;
+        jArr[i2] = j2;
         return jArr;
     }
 
-    public static boolean[] append(boolean[] zArr, int i10, boolean z10) {
-        if (i10 + 1 > zArr.length) {
-            boolean[] zArr2 = new boolean[growSize(i10)];
-            System.arraycopy(zArr, 0, zArr2, 0, i10);
+    public static boolean[] append(boolean[] zArr, int i2, boolean z) {
+        if (i2 + 1 > zArr.length) {
+            boolean[] zArr2 = new boolean[growSize(i2)];
+            System.arraycopy(zArr, 0, zArr2, 0, i2);
             zArr = zArr2;
         }
-        zArr[i10] = z10;
+        zArr[i2] = z;
         return zArr;
     }
 
-    public static long[] insert(long[] jArr, int i10, int i11, long j10) {
-        if (i10 + 1 <= jArr.length) {
-            System.arraycopy(jArr, i11, jArr, i11 + 1, i10 - i11);
-            jArr[i11] = j10;
+    public static long[] insert(long[] jArr, int i2, int i3, long j2) {
+        if (i2 + 1 <= jArr.length) {
+            System.arraycopy(jArr, i3, jArr, i3 + 1, i2 - i3);
+            jArr[i3] = j2;
             return jArr;
         }
-        long[] jArr2 = new long[growSize(i10)];
-        System.arraycopy(jArr, 0, jArr2, 0, i11);
-        jArr2[i11] = j10;
-        System.arraycopy(jArr, i11, jArr2, i11 + 1, jArr.length - i11);
+        long[] jArr2 = new long[growSize(i2)];
+        System.arraycopy(jArr, 0, jArr2, 0, i3);
+        jArr2[i3] = j2;
+        System.arraycopy(jArr, i3, jArr2, i3 + 1, jArr.length - i3);
         return jArr2;
     }
 
-    public static boolean[] insert(boolean[] zArr, int i10, int i11, boolean z10) {
-        if (i10 + 1 <= zArr.length) {
-            System.arraycopy(zArr, i11, zArr, i11 + 1, i10 - i11);
-            zArr[i11] = z10;
+    public static boolean[] insert(boolean[] zArr, int i2, int i3, boolean z) {
+        if (i2 + 1 <= zArr.length) {
+            System.arraycopy(zArr, i3, zArr, i3 + 1, i2 - i3);
+            zArr[i3] = z;
             return zArr;
         }
-        boolean[] zArr2 = new boolean[growSize(i10)];
-        System.arraycopy(zArr, 0, zArr2, 0, i11);
-        zArr2[i11] = z10;
-        System.arraycopy(zArr, i11, zArr2, i11 + 1, zArr.length - i11);
+        boolean[] zArr2 = new boolean[growSize(i2)];
+        System.arraycopy(zArr, 0, zArr2, 0, i3);
+        zArr2[i3] = z;
+        System.arraycopy(zArr, i3, zArr2, i3 + 1, zArr.length - i3);
         return zArr2;
     }
 }

@@ -1,111 +1,82 @@
 package com.kuaishou.weapon.p0;
 
-import android.location.Location;
-import android.net.wifi.WifiInfo;
-import android.telephony.TelephonyManager;
-import org.json.JSONObject;
+import android.os.Build;
+import com.kuaishou.weapon.p0.jni.Engine;
+import java.lang.reflect.Method;
 
-/* loaded from: classes2.dex */
+/* loaded from: classes.dex */
 public class cs {
 
     /* renamed from: a */
-    private ct f10963a = new ct();
+    private static int f9228a;
 
-    public JSONObject a() {
+    /* renamed from: b */
+    private static boolean f9229b;
+
+    public cs() {
+        b();
+    }
+
+    private int a(Method method) {
         try {
-            JSONObject jSONObject = new JSONObject();
-            ct ctVar = new ct();
-            int a10 = ctVar.a(TelephonyManager.class, "getDeviceId", new Object[0]);
-            if (a10 > 0) {
-                jSONObject.put("0", a10);
+            int i2 = f9228a;
+            if (i2 <= 1 || method == null) {
+                return 0;
             }
-            int a11 = ctVar.a(TelephonyManager.class, "getSubscriberId", new Object[0]);
-            if (a11 > 0) {
-                jSONObject.put("1", a11);
-            }
-            int a12 = ctVar.a(TelephonyManager.class, "getSimSerialNumber", new Object[0]);
-            if (a12 > 0) {
-                jSONObject.put("2", a12);
-            }
-            int a13 = ctVar.a(Location.class, "getLatitude", new Object[0]);
-            if (a13 > 0) {
-                jSONObject.put("3", a13);
-            }
-            int a14 = ctVar.a(Location.class, "getLongitude", new Object[0]);
-            if (a14 > 0) {
-                jSONObject.put("4", a14);
-            }
-            int a15 = ctVar.a(WifiInfo.class, "getMacAddress", new Object[0]);
-            if (a15 > 0) {
-                jSONObject.put("6", a15);
-            }
-            int a16 = ctVar.a(WifiInfo.class, "getBSSID", new Object[0]);
-            if (a16 > 0) {
-                jSONObject.put("7", a16);
-            }
-            int a17 = ctVar.a(WifiInfo.class, "getRssi", new Object[0]);
-            if (a17 > 0) {
-                jSONObject.put("8", a17);
-            }
-            int a18 = ctVar.a(JSONObject.class, "toString", new Object[0]);
-            if (a18 > 0) {
-                jSONObject.put("9", a18);
-            }
-            if (jSONObject.length() > 0) {
-                return jSONObject;
-            }
-            return null;
+            return Engine.mmo(method, i2, method.getModifiers());
         } catch (Exception unused) {
-            return null;
+            return 0;
         }
     }
 
-    public JSONObject b() {
+    private void b() {
+        if (!Engine.loadSuccess || f9229b) {
+            return;
+        }
+        boolean b2 = cq.b();
+        int i2 = Build.VERSION.SDK_INT;
+        if (b2 && i2 < 29 && i2 > 22) {
+            f9228a = Engine.off();
+        }
+        f9229b = true;
+    }
+
+    private boolean c() {
+        return f9229b && f9228a > 1;
+    }
+
+    public int a() {
+        if (!c()) {
+            return -1;
+        }
+        long a2 = cp.f9217b.a();
+        long a3 = cp.f9216a.a();
+        if (f9228a == a2) {
+            return (int) a3;
+        }
+        return -1;
+    }
+
+    public int a(int i2, Class cls, String str, Object... objArr) {
+        Method a2;
         try {
-            JSONObject jSONObject = new JSONObject();
-            int a10 = this.f10963a.a();
-            if (a10 <= 0) {
-                return null;
+            if (!c() || (a2 = dg.a(cls, str, objArr)) == null) {
+                return 0;
             }
-            int a11 = this.f10963a.a(a10, TelephonyManager.class, "getDeviceId", new Object[0]);
-            if (a11 > 0) {
-                jSONObject.put("0", a11);
-            }
-            int a12 = this.f10963a.a(a10, TelephonyManager.class, "getSubscriberId", new Object[0]);
-            if (a12 > 0) {
-                jSONObject.put("1", a12);
-            }
-            int a13 = this.f10963a.a(a10, TelephonyManager.class, "getSimSerialNumber", new Object[0]);
-            if (a13 > 0) {
-                jSONObject.put("2", a13);
-            }
-            int a14 = this.f10963a.a(a10, Location.class, "getLatitude", new Object[0]);
-            if (a14 > 0) {
-                jSONObject.put("3", a14);
-            }
-            int a15 = this.f10963a.a(a10, Location.class, "getLongitude", new Object[0]);
-            if (a15 > 0) {
-                jSONObject.put("4", a15);
-            }
-            int a16 = this.f10963a.a(a10, WifiInfo.class, "getMacAddress", new Object[0]);
-            if (a16 > 0) {
-                jSONObject.put("6", a16);
-            }
-            int a17 = this.f10963a.a(a10, WifiInfo.class, "getBSSID", new Object[0]);
-            if (a17 > 0) {
-                jSONObject.put("7", a17);
-            }
-            int a18 = this.f10963a.a(a10, WifiInfo.class, "getRssi", new Object[0]);
-            if (a18 > 0) {
-                jSONObject.put("8", a18);
-            }
-            int a19 = this.f10963a.a(a10, JSONObject.class, "toString", new Object[0]);
-            if (a19 > 0) {
-                jSONObject.put("9", a19);
-            }
-            return jSONObject;
+            return Engine.mqc(a2, i2);
         } catch (Exception unused) {
-            return null;
+            return 0;
+        }
+    }
+
+    public int a(Class cls, String str, Object... objArr) {
+        try {
+            if (c()) {
+                return a(dg.a(cls, str, objArr));
+            }
+            return 0;
+        } catch (Exception unused) {
+            return 0;
         }
     }
 }

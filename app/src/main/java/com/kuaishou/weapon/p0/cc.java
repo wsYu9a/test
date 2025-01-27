@@ -5,28 +5,27 @@ import android.text.TextUtils;
 import com.kuaishou.weapon.p0.jni.Engine;
 import org.json.JSONObject;
 
-/* loaded from: classes2.dex */
+/* loaded from: classes.dex */
 public class cc {
 
     /* renamed from: a */
-    private JSONObject f10895a;
+    private JSONObject f9179a;
 
     public cc(Context context) {
         if (Engine.loadSuccess) {
-            Engine.getInstance(context);
-            String bcd = Engine.bcd();
-            if (TextUtils.isEmpty(bcd) || bcd.length() <= 2) {
+            String hij = Engine.getInstance(context).hij();
+            if (TextUtils.isEmpty(hij)) {
                 return;
             }
             try {
-                this.f10895a = new JSONObject(bcd);
+                this.f9179a = new JSONObject(hij);
             } catch (Exception unused) {
             }
         }
     }
 
     public String a(String str) {
-        JSONObject jSONObject = this.f10895a;
+        JSONObject jSONObject = this.f9179a;
         if (jSONObject == null) {
             return null;
         }

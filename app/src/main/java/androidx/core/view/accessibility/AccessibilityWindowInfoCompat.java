@@ -1,14 +1,9 @@
 package androidx.core.view.accessibility;
 
 import android.graphics.Rect;
-import android.graphics.Region;
 import android.os.Build;
-import android.view.accessibility.AccessibilityNodeInfo;
 import android.view.accessibility.AccessibilityWindowInfo;
-import androidx.annotation.DoNotInline;
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.annotation.RequiresApi;
 
 /* loaded from: classes.dex */
 public class AccessibilityWindowInfoCompat {
@@ -17,138 +12,31 @@ public class AccessibilityWindowInfoCompat {
     public static final int TYPE_INPUT_METHOD = 2;
     public static final int TYPE_SPLIT_SCREEN_DIVIDER = 5;
     public static final int TYPE_SYSTEM = 3;
-    private static final int UNDEFINED = -1;
-    private final Object mInfo;
 
-    @RequiresApi(21)
-    public static class Api21Impl {
-        private Api21Impl() {
-        }
+    /* renamed from: a */
+    private static final int f2139a = -1;
 
-        @DoNotInline
-        public static void getBoundsInScreen(AccessibilityWindowInfo accessibilityWindowInfo, Rect rect) {
-            accessibilityWindowInfo.getBoundsInScreen(rect);
-        }
-
-        @DoNotInline
-        public static AccessibilityWindowInfo getChild(AccessibilityWindowInfo accessibilityWindowInfo, int i10) {
-            return accessibilityWindowInfo.getChild(i10);
-        }
-
-        @DoNotInline
-        public static int getChildCount(AccessibilityWindowInfo accessibilityWindowInfo) {
-            return accessibilityWindowInfo.getChildCount();
-        }
-
-        @DoNotInline
-        public static int getId(AccessibilityWindowInfo accessibilityWindowInfo) {
-            return accessibilityWindowInfo.getId();
-        }
-
-        @DoNotInline
-        public static int getLayer(AccessibilityWindowInfo accessibilityWindowInfo) {
-            return accessibilityWindowInfo.getLayer();
-        }
-
-        @DoNotInline
-        public static AccessibilityWindowInfo getParent(AccessibilityWindowInfo accessibilityWindowInfo) {
-            return accessibilityWindowInfo.getParent();
-        }
-
-        @DoNotInline
-        public static AccessibilityNodeInfo getRoot(AccessibilityWindowInfo accessibilityWindowInfo) {
-            return accessibilityWindowInfo.getRoot();
-        }
-
-        @DoNotInline
-        public static int getType(AccessibilityWindowInfo accessibilityWindowInfo) {
-            return accessibilityWindowInfo.getType();
-        }
-
-        @DoNotInline
-        public static boolean isAccessibilityFocused(AccessibilityWindowInfo accessibilityWindowInfo) {
-            return accessibilityWindowInfo.isAccessibilityFocused();
-        }
-
-        @DoNotInline
-        public static boolean isActive(AccessibilityWindowInfo accessibilityWindowInfo) {
-            return accessibilityWindowInfo.isActive();
-        }
-
-        @DoNotInline
-        public static boolean isFocused(AccessibilityWindowInfo accessibilityWindowInfo) {
-            return accessibilityWindowInfo.isFocused();
-        }
-
-        @DoNotInline
-        public static AccessibilityWindowInfo obtain() {
-            return AccessibilityWindowInfo.obtain();
-        }
-
-        @DoNotInline
-        public static void recycle(AccessibilityWindowInfo accessibilityWindowInfo) {
-            accessibilityWindowInfo.recycle();
-        }
-
-        @DoNotInline
-        public static AccessibilityWindowInfo obtain(AccessibilityWindowInfo accessibilityWindowInfo) {
-            return AccessibilityWindowInfo.obtain(accessibilityWindowInfo);
-        }
-    }
-
-    @RequiresApi(24)
-    public static class Api24Impl {
-        private Api24Impl() {
-        }
-
-        @DoNotInline
-        public static AccessibilityNodeInfo getAnchor(AccessibilityWindowInfo accessibilityWindowInfo) {
-            return accessibilityWindowInfo.getAnchor();
-        }
-
-        @DoNotInline
-        public static CharSequence getTitle(AccessibilityWindowInfo accessibilityWindowInfo) {
-            return accessibilityWindowInfo.getTitle();
-        }
-    }
-
-    @RequiresApi(33)
-    public static class Api33Impl {
-        private Api33Impl() {
-        }
-
-        @DoNotInline
-        public static int getDisplayId(AccessibilityWindowInfo accessibilityWindowInfo) {
-            return accessibilityWindowInfo.getDisplayId();
-        }
-
-        @DoNotInline
-        public static void getRegionInScreen(AccessibilityWindowInfo accessibilityWindowInfo, Region region) {
-            accessibilityWindowInfo.getRegionInScreen(region);
-        }
-
-        @DoNotInline
-        public static boolean isInPictureInPictureMode(AccessibilityWindowInfo accessibilityWindowInfo) {
-            return accessibilityWindowInfo.isInPictureInPictureMode();
-        }
-    }
+    /* renamed from: b */
+    private Object f2140b;
 
     private AccessibilityWindowInfoCompat(Object obj) {
-        this.mInfo = obj;
+        this.f2140b = obj;
     }
 
-    @Nullable
-    public static AccessibilityWindowInfoCompat obtain() {
-        return wrapNonNullInstance(Api21Impl.obtain());
+    private static String a(int i2) {
+        return i2 != 1 ? i2 != 2 ? i2 != 3 ? i2 != 4 ? "<UNKNOWN>" : "TYPE_ACCESSIBILITY_OVERLAY" : "TYPE_SYSTEM" : "TYPE_INPUT_METHOD" : "TYPE_APPLICATION";
     }
 
-    private static String typeToString(int i10) {
-        return i10 != 1 ? i10 != 2 ? i10 != 3 ? i10 != 4 ? "<UNKNOWN>" : "TYPE_ACCESSIBILITY_OVERLAY" : "TYPE_SYSTEM" : "TYPE_INPUT_METHOD" : "TYPE_APPLICATION";
-    }
-
-    public static AccessibilityWindowInfoCompat wrapNonNullInstance(Object obj) {
+    static AccessibilityWindowInfoCompat b(Object obj) {
         if (obj != null) {
             return new AccessibilityWindowInfoCompat(obj);
+        }
+        return null;
+    }
+
+    public static AccessibilityWindowInfoCompat obtain() {
+        if (Build.VERSION.SDK_INT >= 21) {
+            return b(AccessibilityWindowInfo.obtain());
         }
         return null;
     }
@@ -161,80 +49,88 @@ public class AccessibilityWindowInfoCompat {
             return false;
         }
         AccessibilityWindowInfoCompat accessibilityWindowInfoCompat = (AccessibilityWindowInfoCompat) obj;
-        Object obj2 = this.mInfo;
-        return obj2 == null ? accessibilityWindowInfoCompat.mInfo == null : obj2.equals(accessibilityWindowInfoCompat.mInfo);
+        Object obj2 = this.f2140b;
+        if (obj2 == null) {
+            if (accessibilityWindowInfoCompat.f2140b != null) {
+                return false;
+            }
+        } else if (!obj2.equals(accessibilityWindowInfoCompat.f2140b)) {
+            return false;
+        }
+        return true;
     }
 
-    @Nullable
     public AccessibilityNodeInfoCompat getAnchor() {
         if (Build.VERSION.SDK_INT >= 24) {
-            return AccessibilityNodeInfoCompat.wrapNonNullInstance(Api24Impl.getAnchor((AccessibilityWindowInfo) this.mInfo));
+            return AccessibilityNodeInfoCompat.l(((AccessibilityWindowInfo) this.f2140b).getAnchor());
         }
         return null;
     }
 
-    public void getBoundsInScreen(@NonNull Rect rect) {
-        Api21Impl.getBoundsInScreen((AccessibilityWindowInfo) this.mInfo, rect);
+    public void getBoundsInScreen(Rect rect) {
+        if (Build.VERSION.SDK_INT >= 21) {
+            ((AccessibilityWindowInfo) this.f2140b).getBoundsInScreen(rect);
+        }
     }
 
-    @Nullable
-    public AccessibilityWindowInfoCompat getChild(int i10) {
-        return wrapNonNullInstance(Api21Impl.getChild((AccessibilityWindowInfo) this.mInfo, i10));
+    public AccessibilityWindowInfoCompat getChild(int i2) {
+        if (Build.VERSION.SDK_INT >= 21) {
+            return b(((AccessibilityWindowInfo) this.f2140b).getChild(i2));
+        }
+        return null;
     }
 
     public int getChildCount() {
-        return Api21Impl.getChildCount((AccessibilityWindowInfo) this.mInfo);
-    }
-
-    public int getDisplayId() {
-        if (Build.VERSION.SDK_INT >= 33) {
-            return Api33Impl.getDisplayId((AccessibilityWindowInfo) this.mInfo);
+        if (Build.VERSION.SDK_INT >= 21) {
+            return ((AccessibilityWindowInfo) this.f2140b).getChildCount();
         }
         return 0;
     }
 
     public int getId() {
-        return Api21Impl.getId((AccessibilityWindowInfo) this.mInfo);
+        if (Build.VERSION.SDK_INT >= 21) {
+            return ((AccessibilityWindowInfo) this.f2140b).getId();
+        }
+        return -1;
     }
 
     public int getLayer() {
-        return Api21Impl.getLayer((AccessibilityWindowInfo) this.mInfo);
-    }
-
-    @Nullable
-    public AccessibilityWindowInfoCompat getParent() {
-        return wrapNonNullInstance(Api21Impl.getParent((AccessibilityWindowInfo) this.mInfo));
-    }
-
-    public void getRegionInScreen(@NonNull Region region) {
-        if (Build.VERSION.SDK_INT >= 33) {
-            Api33Impl.getRegionInScreen((AccessibilityWindowInfo) this.mInfo, region);
-            return;
+        if (Build.VERSION.SDK_INT >= 21) {
+            return ((AccessibilityWindowInfo) this.f2140b).getLayer();
         }
-        Rect rect = new Rect();
-        Api21Impl.getBoundsInScreen((AccessibilityWindowInfo) this.mInfo, rect);
-        region.set(rect);
+        return -1;
     }
 
-    @Nullable
+    public AccessibilityWindowInfoCompat getParent() {
+        if (Build.VERSION.SDK_INT >= 21) {
+            return b(((AccessibilityWindowInfo) this.f2140b).getParent());
+        }
+        return null;
+    }
+
     public AccessibilityNodeInfoCompat getRoot() {
-        return AccessibilityNodeInfoCompat.wrapNonNullInstance(Api21Impl.getRoot((AccessibilityWindowInfo) this.mInfo));
+        if (Build.VERSION.SDK_INT >= 21) {
+            return AccessibilityNodeInfoCompat.l(((AccessibilityWindowInfo) this.f2140b).getRoot());
+        }
+        return null;
     }
 
-    @Nullable
     public CharSequence getTitle() {
         if (Build.VERSION.SDK_INT >= 24) {
-            return Api24Impl.getTitle((AccessibilityWindowInfo) this.mInfo);
+            return ((AccessibilityWindowInfo) this.f2140b).getTitle();
         }
         return null;
     }
 
     public int getType() {
-        return Api21Impl.getType((AccessibilityWindowInfo) this.mInfo);
+        if (Build.VERSION.SDK_INT >= 21) {
+            return ((AccessibilityWindowInfo) this.f2140b).getType();
+        }
+        return -1;
     }
 
     public int hashCode() {
-        Object obj = this.mInfo;
+        Object obj = this.f2140b;
         if (obj == null) {
             return 0;
         }
@@ -242,64 +138,62 @@ public class AccessibilityWindowInfoCompat {
     }
 
     public boolean isAccessibilityFocused() {
-        return Api21Impl.isAccessibilityFocused((AccessibilityWindowInfo) this.mInfo);
+        if (Build.VERSION.SDK_INT >= 21) {
+            return ((AccessibilityWindowInfo) this.f2140b).isAccessibilityFocused();
+        }
+        return true;
     }
 
     public boolean isActive() {
-        return Api21Impl.isActive((AccessibilityWindowInfo) this.mInfo);
+        if (Build.VERSION.SDK_INT >= 21) {
+            return ((AccessibilityWindowInfo) this.f2140b).isActive();
+        }
+        return true;
     }
 
     public boolean isFocused() {
-        return Api21Impl.isFocused((AccessibilityWindowInfo) this.mInfo);
-    }
-
-    public boolean isInPictureInPictureMode() {
-        if (Build.VERSION.SDK_INT >= 33) {
-            return Api33Impl.isInPictureInPictureMode((AccessibilityWindowInfo) this.mInfo);
+        if (Build.VERSION.SDK_INT >= 21) {
+            return ((AccessibilityWindowInfo) this.f2140b).isFocused();
         }
-        return false;
+        return true;
     }
 
     public void recycle() {
-        Api21Impl.recycle((AccessibilityWindowInfo) this.mInfo);
+        if (Build.VERSION.SDK_INT >= 21) {
+            ((AccessibilityWindowInfo) this.f2140b).recycle();
+        }
     }
 
     @NonNull
     public String toString() {
-        StringBuilder sb2 = new StringBuilder();
+        StringBuilder sb = new StringBuilder();
         Rect rect = new Rect();
         getBoundsInScreen(rect);
-        sb2.append("AccessibilityWindowInfo[");
-        sb2.append("id=");
-        sb2.append(getId());
-        sb2.append(", type=");
-        sb2.append(typeToString(getType()));
-        sb2.append(", layer=");
-        sb2.append(getLayer());
-        sb2.append(", bounds=");
-        sb2.append(rect);
-        sb2.append(", focused=");
-        sb2.append(isFocused());
-        sb2.append(", active=");
-        sb2.append(isActive());
-        sb2.append(", hasParent=");
-        sb2.append(getParent() != null);
-        sb2.append(", hasChildren=");
-        sb2.append(getChildCount() > 0);
-        sb2.append(']');
-        return sb2.toString();
+        sb.append("AccessibilityWindowInfo[");
+        sb.append("id=");
+        sb.append(getId());
+        sb.append(", type=");
+        sb.append(a(getType()));
+        sb.append(", layer=");
+        sb.append(getLayer());
+        sb.append(", bounds=");
+        sb.append(rect);
+        sb.append(", focused=");
+        sb.append(isFocused());
+        sb.append(", active=");
+        sb.append(isActive());
+        sb.append(", hasParent=");
+        sb.append(getParent() != null);
+        sb.append(", hasChildren=");
+        sb.append(getChildCount() > 0);
+        sb.append(']');
+        return sb.toString();
     }
 
-    @Nullable
-    public AccessibilityWindowInfo unwrap() {
-        return (AccessibilityWindowInfo) this.mInfo;
-    }
-
-    @Nullable
-    public static AccessibilityWindowInfoCompat obtain(@Nullable AccessibilityWindowInfoCompat accessibilityWindowInfoCompat) {
-        if (accessibilityWindowInfoCompat == null) {
+    public static AccessibilityWindowInfoCompat obtain(AccessibilityWindowInfoCompat accessibilityWindowInfoCompat) {
+        if (Build.VERSION.SDK_INT < 21 || accessibilityWindowInfoCompat == null) {
             return null;
         }
-        return wrapNonNullInstance(Api21Impl.obtain((AccessibilityWindowInfo) accessibilityWindowInfoCompat.mInfo));
+        return b(AccessibilityWindowInfo.obtain((AccessibilityWindowInfo) accessibilityWindowInfoCompat.f2140b));
     }
 }

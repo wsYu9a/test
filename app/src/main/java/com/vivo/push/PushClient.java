@@ -23,14 +23,10 @@ public class PushClient {
     public static synchronized PushClient getInstance(Context context) {
         PushClient pushClient;
         synchronized (PushClient.class) {
-            try {
-                if (sPushClient == null) {
-                    sPushClient = new PushClient(context.getApplicationContext());
-                }
-                pushClient = sPushClient;
-            } catch (Throwable th2) {
-                throw th2;
+            if (sPushClient == null) {
+                sPushClient = new PushClient(context.getApplicationContext());
             }
+            pushClient = sPushClient;
         }
         return pushClient;
     }
@@ -75,8 +71,8 @@ public class PushClient {
         return e.a().d();
     }
 
-    public void setSystemModel(boolean z10) {
-        e.a().a(z10);
+    public void setSystemModel(boolean z) {
+        e.a().a(z);
     }
 
     public void setTopic(String str, IPushActionListener iPushActionListener) {

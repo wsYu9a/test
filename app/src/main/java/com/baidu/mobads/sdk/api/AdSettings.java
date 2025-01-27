@@ -1,19 +1,10 @@
 package com.baidu.mobads.sdk.api;
 
-import androidx.annotation.DrawableRes;
-import com.baidu.mobads.sdk.internal.cm;
+import com.baidu.mobads.sdk.internal.cj;
 
-/* loaded from: classes2.dex */
+/* loaded from: classes.dex */
 public class AdSettings {
     public static String getSDKVersion() {
-        return cm.c() + "";
-    }
-
-    public static void setNotificationChannel(String str) {
-        CustomNotification.setNotificationChannel(str);
-    }
-
-    public static void setNotificationIcon(@DrawableRes int i10) {
-        CustomNotification.setNotificationIcon(i10);
+        return cj.c() + "";
     }
 }

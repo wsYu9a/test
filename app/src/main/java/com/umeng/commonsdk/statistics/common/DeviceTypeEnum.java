@@ -1,11 +1,9 @@
 package com.umeng.commonsdk.statistics.common;
 
-import com.shu.priory.config.AdKeys;
-
 /* loaded from: classes4.dex */
 public enum DeviceTypeEnum {
     IMEI("imei", "imei"),
-    OAID(AdKeys.OAID, AdKeys.OAID),
+    OAID("oaid", "oaid"),
     ANDROIDID("android_id", "android_id"),
     MAC("mac", "mac"),
     SERIALNO("serial_no", "serial_no"),

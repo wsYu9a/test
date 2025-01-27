@@ -17,11 +17,13 @@ import android.view.KeyEvent;
 import android.view.MenuItem;
 import android.view.SubMenu;
 import android.view.View;
+import android.view.ViewConfiguration;
 import androidx.annotation.NonNull;
 import androidx.annotation.RestrictTo;
 import androidx.core.content.ContextCompat;
 import androidx.core.internal.view.SupportMenu;
 import androidx.core.view.ActionProvider;
+import androidx.core.view.ViewConfigurationCompat;
 import java.lang.ref.WeakReference;
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -31,43 +33,64 @@ import java.util.concurrent.CopyOnWriteArrayList;
 @RestrictTo({RestrictTo.Scope.LIBRARY_GROUP_PREFIX})
 /* loaded from: classes.dex */
 public class MenuBuilder implements SupportMenu {
-    private static final String ACTION_VIEW_STATES_KEY = "android:menu:actionviewstates";
-    private static final String EXPANDED_ACTION_VIEW_ID = "android:menu:expandedactionview";
-    private static final String PRESENTER_KEY = "android:menu:presenters";
-    private static final String TAG = "MenuBuilder";
-    private static final int[] sCategoryToOrder = {1, 4, 5, 3, 2, 0};
-    private Callback mCallback;
-    private final Context mContext;
-    private ContextMenu.ContextMenuInfo mCurrentMenuInfo;
-    private MenuItemImpl mExpandedItem;
-    Drawable mHeaderIcon;
-    CharSequence mHeaderTitle;
-    View mHeaderView;
-    private boolean mOverrideVisibleItems;
-    private boolean mQwertyMode;
-    private final Resources mResources;
-    private boolean mShortcutsVisible;
-    private int mDefaultShowAsAction = 0;
-    private boolean mPreventDispatchingItemsChanged = false;
-    private boolean mItemsChangedWhileDispatchPrevented = false;
-    private boolean mStructureChangedWhileDispatchPrevented = false;
-    private boolean mOptionalIconsVisible = false;
-    private boolean mIsClosing = false;
-    private ArrayList<MenuItemImpl> mTempShortcutItemList = new ArrayList<>();
-    private CopyOnWriteArrayList<WeakReference<MenuPresenter>> mPresenters = new CopyOnWriteArrayList<>();
-    private boolean mGroupDividerEnabled = false;
-    private ArrayList<MenuItemImpl> mItems = new ArrayList<>();
-    private ArrayList<MenuItemImpl> mVisibleItems = new ArrayList<>();
-    private boolean mIsVisibleItemsStale = true;
-    private ArrayList<MenuItemImpl> mActionItems = new ArrayList<>();
-    private ArrayList<MenuItemImpl> mNonActionItems = new ArrayList<>();
-    private boolean mIsActionItemsStale = true;
+
+    /* renamed from: a */
+    private static final String f527a = "MenuBuilder";
+
+    /* renamed from: b */
+    private static final String f528b = "android:menu:presenters";
+
+    /* renamed from: c */
+    private static final String f529c = "android:menu:actionviewstates";
+
+    /* renamed from: d */
+    private static final String f530d = "android:menu:expandedactionview";
+
+    /* renamed from: e */
+    private static final int[] f531e = {1, 4, 5, 3, 2, 0};
+    private MenuItemImpl D;
+    private boolean F;
+
+    /* renamed from: f */
+    private final Context f532f;
+
+    /* renamed from: g */
+    private final Resources f533g;
+
+    /* renamed from: h */
+    private boolean f534h;
+
+    /* renamed from: i */
+    private boolean f535i;
+
+    /* renamed from: j */
+    private Callback f536j;
+    private ContextMenu.ContextMenuInfo r;
+    CharSequence s;
+    Drawable t;
+    View u;
+    private SparseArray<Parcelable> v;
+    private int q = 0;
+    private boolean w = false;
+    private boolean x = false;
+    private boolean y = false;
+    private boolean z = false;
+    private boolean A = false;
+    private ArrayList<MenuItemImpl> B = new ArrayList<>();
+    private CopyOnWriteArrayList<WeakReference<MenuPresenter>> C = new CopyOnWriteArrayList<>();
+    private boolean E = false;
+    private ArrayList<MenuItemImpl> k = new ArrayList<>();
+    private ArrayList<MenuItemImpl> l = new ArrayList<>();
+    private boolean m = true;
+    private ArrayList<MenuItemImpl> n = new ArrayList<>();
+    private ArrayList<MenuItemImpl> o = new ArrayList<>();
+    private boolean p = true;
 
     @RestrictTo({RestrictTo.Scope.LIBRARY_GROUP_PREFIX})
     public interface Callback {
-        boolean onMenuItemSelected(@NonNull MenuBuilder menuBuilder, @NonNull MenuItem menuItem);
+        boolean onMenuItemSelected(MenuBuilder menuBuilder, MenuItem menuItem);
 
-        void onMenuModeChange(@NonNull MenuBuilder menuBuilder);
+        void onMenuModeChange(MenuBuilder menuBuilder);
     }
 
     @RestrictTo({RestrictTo.Scope.LIBRARY_GROUP_PREFIX})
@@ -76,87 +99,87 @@ public class MenuBuilder implements SupportMenu {
     }
 
     public MenuBuilder(Context context) {
-        this.mContext = context;
-        this.mResources = context.getResources();
-        setShortcutsVisibleInner(true);
+        this.f532f = context;
+        this.f533g = context.getResources();
+        w(true);
     }
 
-    private MenuItemImpl createNewMenuItem(int i10, int i11, int i12, int i13, CharSequence charSequence, int i14) {
-        return new MenuItemImpl(this, i10, i11, i12, i13, charSequence, i14);
+    private MenuItemImpl b(int i2, int i3, int i4, int i5, CharSequence charSequence, int i6) {
+        return new MenuItemImpl(this, i2, i3, i4, i5, charSequence, i6);
     }
 
-    private void dispatchPresenterUpdate(boolean z10) {
-        if (this.mPresenters.isEmpty()) {
+    private void d(boolean z) {
+        if (this.C.isEmpty()) {
             return;
         }
         stopDispatchingItemsChanged();
-        Iterator<WeakReference<MenuPresenter>> it = this.mPresenters.iterator();
+        Iterator<WeakReference<MenuPresenter>> it = this.C.iterator();
         while (it.hasNext()) {
             WeakReference<MenuPresenter> next = it.next();
             MenuPresenter menuPresenter = next.get();
             if (menuPresenter == null) {
-                this.mPresenters.remove(next);
+                this.C.remove(next);
             } else {
-                menuPresenter.updateMenuView(z10);
+                menuPresenter.updateMenuView(z);
             }
         }
         startDispatchingItemsChanged();
     }
 
-    private void dispatchRestoreInstanceState(Bundle bundle) {
+    private void e(Bundle bundle) {
         Parcelable parcelable;
-        SparseArray sparseParcelableArray = bundle.getSparseParcelableArray(PRESENTER_KEY);
-        if (sparseParcelableArray == null || this.mPresenters.isEmpty()) {
+        SparseArray sparseParcelableArray = bundle.getSparseParcelableArray(f528b);
+        if (sparseParcelableArray == null || this.C.isEmpty()) {
             return;
         }
-        Iterator<WeakReference<MenuPresenter>> it = this.mPresenters.iterator();
+        Iterator<WeakReference<MenuPresenter>> it = this.C.iterator();
         while (it.hasNext()) {
             WeakReference<MenuPresenter> next = it.next();
             MenuPresenter menuPresenter = next.get();
             if (menuPresenter == null) {
-                this.mPresenters.remove(next);
+                this.C.remove(next);
             } else {
-                int id2 = menuPresenter.getId();
-                if (id2 > 0 && (parcelable = (Parcelable) sparseParcelableArray.get(id2)) != null) {
+                int id = menuPresenter.getId();
+                if (id > 0 && (parcelable = (Parcelable) sparseParcelableArray.get(id)) != null) {
                     menuPresenter.onRestoreInstanceState(parcelable);
                 }
             }
         }
     }
 
-    private void dispatchSaveInstanceState(Bundle bundle) {
+    private void f(Bundle bundle) {
         Parcelable onSaveInstanceState;
-        if (this.mPresenters.isEmpty()) {
+        if (this.C.isEmpty()) {
             return;
         }
         SparseArray<? extends Parcelable> sparseArray = new SparseArray<>();
-        Iterator<WeakReference<MenuPresenter>> it = this.mPresenters.iterator();
+        Iterator<WeakReference<MenuPresenter>> it = this.C.iterator();
         while (it.hasNext()) {
             WeakReference<MenuPresenter> next = it.next();
             MenuPresenter menuPresenter = next.get();
             if (menuPresenter == null) {
-                this.mPresenters.remove(next);
+                this.C.remove(next);
             } else {
-                int id2 = menuPresenter.getId();
-                if (id2 > 0 && (onSaveInstanceState = menuPresenter.onSaveInstanceState()) != null) {
-                    sparseArray.put(id2, onSaveInstanceState);
+                int id = menuPresenter.getId();
+                if (id > 0 && (onSaveInstanceState = menuPresenter.onSaveInstanceState()) != null) {
+                    sparseArray.put(id, onSaveInstanceState);
                 }
             }
         }
-        bundle.putSparseParcelableArray(PRESENTER_KEY, sparseArray);
+        bundle.putSparseParcelableArray(f528b, sparseArray);
     }
 
-    private boolean dispatchSubMenuSelected(SubMenuBuilder subMenuBuilder, MenuPresenter menuPresenter) {
-        if (this.mPresenters.isEmpty()) {
+    private boolean g(SubMenuBuilder subMenuBuilder, MenuPresenter menuPresenter) {
+        if (this.C.isEmpty()) {
             return false;
         }
         boolean onSubMenuSelected = menuPresenter != null ? menuPresenter.onSubMenuSelected(subMenuBuilder) : false;
-        Iterator<WeakReference<MenuPresenter>> it = this.mPresenters.iterator();
+        Iterator<WeakReference<MenuPresenter>> it = this.C.iterator();
         while (it.hasNext()) {
             WeakReference<MenuPresenter> next = it.next();
             MenuPresenter menuPresenter2 = next.get();
             if (menuPresenter2 == null) {
-                this.mPresenters.remove(next);
+                this.C.remove(next);
             } else if (!onSubMenuSelected) {
                 onSubMenuSelected = menuPresenter2.onSubMenuSelected(subMenuBuilder);
             }
@@ -164,133 +187,105 @@ public class MenuBuilder implements SupportMenu {
         return onSubMenuSelected;
     }
 
-    private static int findInsertIndex(ArrayList<MenuItemImpl> arrayList, int i10) {
+    private static int h(ArrayList<MenuItemImpl> arrayList, int i2) {
         for (int size = arrayList.size() - 1; size >= 0; size--) {
-            if (arrayList.get(size).getOrdering() <= i10) {
+            if (arrayList.get(size).getOrdering() <= i2) {
                 return size + 1;
             }
         }
         return 0;
     }
 
-    private static int getOrdering(int i10) {
-        int i11 = ((-65536) & i10) >> 16;
-        if (i11 >= 0) {
-            int[] iArr = sCategoryToOrder;
-            if (i11 < iArr.length) {
-                return (i10 & 65535) | (iArr[i11] << 16);
+    private static int l(int i2) {
+        int i3 = ((-65536) & i2) >> 16;
+        if (i3 >= 0) {
+            int[] iArr = f531e;
+            if (i3 < iArr.length) {
+                return (i2 & 65535) | (iArr[i3] << 16);
             }
         }
         throw new IllegalArgumentException("order does not contain a valid category.");
     }
 
-    private void removeItemAtInt(int i10, boolean z10) {
-        if (i10 < 0 || i10 >= this.mItems.size()) {
+    private void o(int i2, boolean z) {
+        if (i2 < 0 || i2 >= this.k.size()) {
             return;
         }
-        this.mItems.remove(i10);
-        if (z10) {
+        this.k.remove(i2);
+        if (z) {
             onItemsChanged(true);
         }
     }
 
-    private void setHeaderInternal(int i10, CharSequence charSequence, int i11, Drawable drawable, View view) {
+    private void s(int i2, CharSequence charSequence, int i3, Drawable drawable, View view) {
         Resources resources = getResources();
         if (view != null) {
-            this.mHeaderView = view;
-            this.mHeaderTitle = null;
-            this.mHeaderIcon = null;
+            this.u = view;
+            this.s = null;
+            this.t = null;
         } else {
-            if (i10 > 0) {
-                this.mHeaderTitle = resources.getText(i10);
+            if (i2 > 0) {
+                this.s = resources.getText(i2);
             } else if (charSequence != null) {
-                this.mHeaderTitle = charSequence;
+                this.s = charSequence;
             }
-            if (i11 > 0) {
-                this.mHeaderIcon = ContextCompat.getDrawable(getContext(), i11);
+            if (i3 > 0) {
+                this.t = ContextCompat.getDrawable(getContext(), i3);
             } else if (drawable != null) {
-                this.mHeaderIcon = drawable;
+                this.t = drawable;
             }
-            this.mHeaderView = null;
+            this.u = null;
         }
         onItemsChanged(false);
     }
 
-    /* JADX WARN: Code restructure failed: missing block: B:5:0x0019, code lost:
-    
-        if (androidx.core.view.ViewConfigurationCompat.shouldShowMenuShortcutsWhenKeyboardPresent(android.view.ViewConfiguration.get(r2.mContext), r2.mContext) != false) goto L31;
-     */
-    /*
-        Code decompiled incorrectly, please refer to instructions dump.
-        To view partially-correct code enable 'Show inconsistent code' option in preferences
-    */
-    private void setShortcutsVisibleInner(boolean r3) {
-        /*
-            r2 = this;
-            if (r3 == 0) goto L1c
-            android.content.res.Resources r3 = r2.mResources
-            android.content.res.Configuration r3 = r3.getConfiguration()
-            int r3 = r3.keyboard
-            r0 = 1
-            if (r3 == r0) goto L1c
-            android.content.Context r3 = r2.mContext
-            android.view.ViewConfiguration r3 = android.view.ViewConfiguration.get(r3)
-            android.content.Context r1 = r2.mContext
-            boolean r3 = androidx.core.view.ViewConfigurationCompat.shouldShowMenuShortcutsWhenKeyboardPresent(r3, r1)
-            if (r3 == 0) goto L1c
-            goto L1d
-        L1c:
-            r0 = 0
-        L1d:
-            r2.mShortcutsVisible = r0
-            return
-        */
-        throw new UnsupportedOperationException("Method not decompiled: androidx.appcompat.view.menu.MenuBuilder.setShortcutsVisibleInner(boolean):void");
+    private void w(boolean z) {
+        this.f535i = z && this.f533g.getConfiguration().keyboard != 1 && ViewConfigurationCompat.shouldShowMenuShortcutsWhenKeyboardPresent(ViewConfiguration.get(this.f532f), this.f532f);
+    }
+
+    protected MenuItem a(int i2, int i3, int i4, CharSequence charSequence) {
+        int l = l(i4);
+        MenuItemImpl b2 = b(i2, i3, i4, l, charSequence, this.q);
+        ContextMenu.ContextMenuInfo contextMenuInfo = this.r;
+        if (contextMenuInfo != null) {
+            b2.h(contextMenuInfo);
+        }
+        ArrayList<MenuItemImpl> arrayList = this.k;
+        arrayList.add(h(arrayList, l), b2);
+        onItemsChanged(true);
+        return b2;
     }
 
     @Override // android.view.Menu
     public MenuItem add(CharSequence charSequence) {
-        return addInternal(0, 0, 0, charSequence);
+        return a(0, 0, 0, charSequence);
     }
 
     @Override // android.view.Menu
-    public int addIntentOptions(int i10, int i11, int i12, ComponentName componentName, Intent[] intentArr, Intent intent, int i13, MenuItem[] menuItemArr) {
-        int i14;
-        PackageManager packageManager = this.mContext.getPackageManager();
+    public int addIntentOptions(int i2, int i3, int i4, ComponentName componentName, Intent[] intentArr, Intent intent, int i5, MenuItem[] menuItemArr) {
+        int i6;
+        PackageManager packageManager = this.f532f.getPackageManager();
         List<ResolveInfo> queryIntentActivityOptions = packageManager.queryIntentActivityOptions(componentName, intentArr, intent, 0);
         int size = queryIntentActivityOptions != null ? queryIntentActivityOptions.size() : 0;
-        if ((i13 & 1) == 0) {
-            removeGroup(i10);
+        if ((i5 & 1) == 0) {
+            removeGroup(i2);
         }
-        for (int i15 = 0; i15 < size; i15++) {
-            ResolveInfo resolveInfo = queryIntentActivityOptions.get(i15);
-            int i16 = resolveInfo.specificIndex;
-            Intent intent2 = new Intent(i16 < 0 ? intent : intentArr[i16]);
+        for (int i7 = 0; i7 < size; i7++) {
+            ResolveInfo resolveInfo = queryIntentActivityOptions.get(i7);
+            int i8 = resolveInfo.specificIndex;
+            Intent intent2 = new Intent(i8 < 0 ? intent : intentArr[i8]);
             ActivityInfo activityInfo = resolveInfo.activityInfo;
             intent2.setComponent(new ComponentName(activityInfo.applicationInfo.packageName, activityInfo.name));
-            MenuItem intent3 = add(i10, i11, i12, resolveInfo.loadLabel(packageManager)).setIcon(resolveInfo.loadIcon(packageManager)).setIntent(intent2);
-            if (menuItemArr != null && (i14 = resolveInfo.specificIndex) >= 0) {
-                menuItemArr[i14] = intent3;
+            MenuItem intent3 = add(i2, i3, i4, resolveInfo.loadLabel(packageManager)).setIcon(resolveInfo.loadIcon(packageManager)).setIntent(intent2);
+            if (menuItemArr != null && (i6 = resolveInfo.specificIndex) >= 0) {
+                menuItemArr[i6] = intent3;
             }
         }
         return size;
     }
 
-    public MenuItem addInternal(int i10, int i11, int i12, CharSequence charSequence) {
-        int ordering = getOrdering(i12);
-        MenuItemImpl createNewMenuItem = createNewMenuItem(i10, i11, i12, ordering, charSequence, this.mDefaultShowAsAction);
-        ContextMenu.ContextMenuInfo contextMenuInfo = this.mCurrentMenuInfo;
-        if (contextMenuInfo != null) {
-            createNewMenuItem.setMenuInfo(contextMenuInfo);
-        }
-        ArrayList<MenuItemImpl> arrayList = this.mItems;
-        arrayList.add(findInsertIndex(arrayList, ordering), createNewMenuItem);
-        onItemsChanged(true);
-        return createNewMenuItem;
-    }
-
     public void addMenuPresenter(MenuPresenter menuPresenter) {
-        addMenuPresenter(menuPresenter, this.mContext);
+        addMenuPresenter(menuPresenter, this.f532f);
     }
 
     @Override // android.view.Menu
@@ -298,8 +293,13 @@ public class MenuBuilder implements SupportMenu {
         return addSubMenu(0, 0, 0, charSequence);
     }
 
+    boolean c(MenuBuilder menuBuilder, MenuItem menuItem) {
+        Callback callback = this.f536j;
+        return callback != null && callback.onMenuItemSelected(menuBuilder, menuItem);
+    }
+
     public void changeMenuMode() {
-        Callback callback = this.mCallback;
+        Callback callback = this.f536j;
         if (callback != null) {
             callback.onMenuModeChange(this);
         }
@@ -307,140 +307,249 @@ public class MenuBuilder implements SupportMenu {
 
     @Override // android.view.Menu
     public void clear() {
-        MenuItemImpl menuItemImpl = this.mExpandedItem;
+        MenuItemImpl menuItemImpl = this.D;
         if (menuItemImpl != null) {
             collapseItemActionView(menuItemImpl);
         }
-        this.mItems.clear();
+        this.k.clear();
         onItemsChanged(true);
     }
 
     public void clearAll() {
-        this.mPreventDispatchingItemsChanged = true;
+        this.w = true;
         clear();
         clearHeader();
-        this.mPresenters.clear();
-        this.mPreventDispatchingItemsChanged = false;
-        this.mItemsChangedWhileDispatchPrevented = false;
-        this.mStructureChangedWhileDispatchPrevented = false;
+        this.C.clear();
+        this.w = false;
+        this.x = false;
+        this.y = false;
         onItemsChanged(true);
     }
 
     public void clearHeader() {
-        this.mHeaderIcon = null;
-        this.mHeaderTitle = null;
-        this.mHeaderView = null;
+        this.t = null;
+        this.s = null;
+        this.u = null;
         onItemsChanged(false);
     }
 
-    public final void close(boolean z10) {
-        if (this.mIsClosing) {
+    public final void close(boolean z) {
+        if (this.A) {
             return;
         }
-        this.mIsClosing = true;
-        Iterator<WeakReference<MenuPresenter>> it = this.mPresenters.iterator();
+        this.A = true;
+        Iterator<WeakReference<MenuPresenter>> it = this.C.iterator();
         while (it.hasNext()) {
             WeakReference<MenuPresenter> next = it.next();
             MenuPresenter menuPresenter = next.get();
             if (menuPresenter == null) {
-                this.mPresenters.remove(next);
+                this.C.remove(next);
             } else {
-                menuPresenter.onCloseMenu(this, z10);
+                menuPresenter.onCloseMenu(this, z);
             }
         }
-        this.mIsClosing = false;
+        this.A = false;
     }
 
     public boolean collapseItemActionView(MenuItemImpl menuItemImpl) {
-        boolean z10 = false;
-        if (!this.mPresenters.isEmpty() && this.mExpandedItem == menuItemImpl) {
+        boolean z = false;
+        if (!this.C.isEmpty() && this.D == menuItemImpl) {
             stopDispatchingItemsChanged();
-            Iterator<WeakReference<MenuPresenter>> it = this.mPresenters.iterator();
+            Iterator<WeakReference<MenuPresenter>> it = this.C.iterator();
             while (it.hasNext()) {
                 WeakReference<MenuPresenter> next = it.next();
                 MenuPresenter menuPresenter = next.get();
                 if (menuPresenter == null) {
-                    this.mPresenters.remove(next);
+                    this.C.remove(next);
                 } else {
-                    z10 = menuPresenter.collapseItemActionView(this, menuItemImpl);
-                    if (z10) {
+                    z = menuPresenter.collapseItemActionView(this, menuItemImpl);
+                    if (z) {
                         break;
                     }
                 }
             }
             startDispatchingItemsChanged();
-            if (z10) {
-                this.mExpandedItem = null;
+            if (z) {
+                this.D = null;
             }
         }
-        return z10;
-    }
-
-    public boolean dispatchMenuItemSelected(@NonNull MenuBuilder menuBuilder, @NonNull MenuItem menuItem) {
-        Callback callback = this.mCallback;
-        return callback != null && callback.onMenuItemSelected(menuBuilder, menuItem);
+        return z;
     }
 
     public boolean expandItemActionView(MenuItemImpl menuItemImpl) {
-        boolean z10 = false;
-        if (this.mPresenters.isEmpty()) {
+        boolean z = false;
+        if (this.C.isEmpty()) {
             return false;
         }
         stopDispatchingItemsChanged();
-        Iterator<WeakReference<MenuPresenter>> it = this.mPresenters.iterator();
+        Iterator<WeakReference<MenuPresenter>> it = this.C.iterator();
         while (it.hasNext()) {
             WeakReference<MenuPresenter> next = it.next();
             MenuPresenter menuPresenter = next.get();
             if (menuPresenter == null) {
-                this.mPresenters.remove(next);
+                this.C.remove(next);
             } else {
-                z10 = menuPresenter.expandItemActionView(this, menuItemImpl);
-                if (z10) {
+                z = menuPresenter.expandItemActionView(this, menuItemImpl);
+                if (z) {
                     break;
                 }
             }
         }
         startDispatchingItemsChanged();
-        if (z10) {
-            this.mExpandedItem = menuItemImpl;
+        if (z) {
+            this.D = menuItemImpl;
         }
-        return z10;
+        return z;
     }
 
-    public int findGroupIndex(int i10) {
-        return findGroupIndex(i10, 0);
+    public int findGroupIndex(int i2) {
+        return findGroupIndex(i2, 0);
     }
 
     @Override // android.view.Menu
-    public MenuItem findItem(int i10) {
+    public MenuItem findItem(int i2) {
         MenuItem findItem;
         int size = size();
-        for (int i11 = 0; i11 < size; i11++) {
-            MenuItemImpl menuItemImpl = this.mItems.get(i11);
-            if (menuItemImpl.getItemId() == i10) {
+        for (int i3 = 0; i3 < size; i3++) {
+            MenuItemImpl menuItemImpl = this.k.get(i3);
+            if (menuItemImpl.getItemId() == i2) {
                 return menuItemImpl;
             }
-            if (menuItemImpl.hasSubMenu() && (findItem = menuItemImpl.getSubMenu().findItem(i10)) != null) {
+            if (menuItemImpl.hasSubMenu() && (findItem = menuItemImpl.getSubMenu().findItem(i2)) != null) {
                 return findItem;
             }
         }
         return null;
     }
 
-    public int findItemIndex(int i10) {
+    public int findItemIndex(int i2) {
         int size = size();
-        for (int i11 = 0; i11 < size; i11++) {
-            if (this.mItems.get(i11).getItemId() == i10) {
-                return i11;
+        for (int i3 = 0; i3 < size; i3++) {
+            if (this.k.get(i3).getItemId() == i2) {
+                return i3;
             }
         }
         return -1;
     }
 
-    public MenuItemImpl findItemWithShortcutForKey(int i10, KeyEvent keyEvent) {
-        ArrayList<MenuItemImpl> arrayList = this.mTempShortcutItemList;
+    public void flagActionItems() {
+        ArrayList<MenuItemImpl> visibleItems = getVisibleItems();
+        if (this.p) {
+            Iterator<WeakReference<MenuPresenter>> it = this.C.iterator();
+            boolean z = false;
+            while (it.hasNext()) {
+                WeakReference<MenuPresenter> next = it.next();
+                MenuPresenter menuPresenter = next.get();
+                if (menuPresenter == null) {
+                    this.C.remove(next);
+                } else {
+                    z |= menuPresenter.flagActionItems();
+                }
+            }
+            if (z) {
+                this.n.clear();
+                this.o.clear();
+                int size = visibleItems.size();
+                for (int i2 = 0; i2 < size; i2++) {
+                    MenuItemImpl menuItemImpl = visibleItems.get(i2);
+                    if (menuItemImpl.isActionButton()) {
+                        this.n.add(menuItemImpl);
+                    } else {
+                        this.o.add(menuItemImpl);
+                    }
+                }
+            } else {
+                this.n.clear();
+                this.o.clear();
+                this.o.addAll(getVisibleItems());
+            }
+            this.p = false;
+        }
+    }
+
+    public ArrayList<MenuItemImpl> getActionItems() {
+        flagActionItems();
+        return this.n;
+    }
+
+    protected String getActionViewStatesKey() {
+        return f529c;
+    }
+
+    public Context getContext() {
+        return this.f532f;
+    }
+
+    public MenuItemImpl getExpandedItem() {
+        return this.D;
+    }
+
+    public Drawable getHeaderIcon() {
+        return this.t;
+    }
+
+    public CharSequence getHeaderTitle() {
+        return this.s;
+    }
+
+    public View getHeaderView() {
+        return this.u;
+    }
+
+    @Override // android.view.Menu
+    public MenuItem getItem(int i2) {
+        return this.k.get(i2);
+    }
+
+    public ArrayList<MenuItemImpl> getNonActionItems() {
+        flagActionItems();
+        return this.o;
+    }
+
+    Resources getResources() {
+        return this.f533g;
+    }
+
+    public MenuBuilder getRootMenu() {
+        return this;
+    }
+
+    @NonNull
+    public ArrayList<MenuItemImpl> getVisibleItems() {
+        if (!this.m) {
+            return this.l;
+        }
+        this.l.clear();
+        int size = this.k.size();
+        for (int i2 = 0; i2 < size; i2++) {
+            MenuItemImpl menuItemImpl = this.k.get(i2);
+            if (menuItemImpl.isVisible()) {
+                this.l.add(menuItemImpl);
+            }
+        }
+        this.m = false;
+        this.p = true;
+        return this.l;
+    }
+
+    @Override // android.view.Menu
+    public boolean hasVisibleItems() {
+        if (this.F) {
+            return true;
+        }
+        int size = size();
+        for (int i2 = 0; i2 < size; i2++) {
+            if (this.k.get(i2).isVisible()) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    MenuItemImpl i(int i2, KeyEvent keyEvent) {
+        ArrayList<MenuItemImpl> arrayList = this.B;
         arrayList.clear();
-        findItemsWithShortcutForKey(arrayList, i10, keyEvent);
+        j(arrayList, i2, keyEvent);
         if (arrayList.isEmpty()) {
             return null;
         }
@@ -452,32 +561,49 @@ public class MenuBuilder implements SupportMenu {
             return arrayList.get(0);
         }
         boolean isQwertyMode = isQwertyMode();
-        for (int i11 = 0; i11 < size; i11++) {
-            MenuItemImpl menuItemImpl = arrayList.get(i11);
+        for (int i3 = 0; i3 < size; i3++) {
+            MenuItemImpl menuItemImpl = arrayList.get(i3);
             char alphabeticShortcut = isQwertyMode ? menuItemImpl.getAlphabeticShortcut() : menuItemImpl.getNumericShortcut();
             char[] cArr = keyData.meta;
-            if ((alphabeticShortcut == cArr[0] && (metaState & 2) == 0) || ((alphabeticShortcut == cArr[2] && (metaState & 2) != 0) || (isQwertyMode && alphabeticShortcut == '\b' && i10 == 67))) {
+            if ((alphabeticShortcut == cArr[0] && (metaState & 2) == 0) || ((alphabeticShortcut == cArr[2] && (metaState & 2) != 0) || (isQwertyMode && alphabeticShortcut == '\b' && i2 == 67))) {
                 return menuItemImpl;
             }
         }
         return null;
     }
 
-    public void findItemsWithShortcutForKey(List<MenuItemImpl> list, int i10, KeyEvent keyEvent) {
+    public boolean isGroupDividerEnabled() {
+        return this.E;
+    }
+
+    boolean isQwertyMode() {
+        return this.f534h;
+    }
+
+    @Override // android.view.Menu
+    public boolean isShortcutKey(int i2, KeyEvent keyEvent) {
+        return i(i2, keyEvent) != null;
+    }
+
+    public boolean isShortcutsVisible() {
+        return this.f535i;
+    }
+
+    void j(List<MenuItemImpl> list, int i2, KeyEvent keyEvent) {
         boolean isQwertyMode = isQwertyMode();
         int modifiers = keyEvent.getModifiers();
         KeyCharacterMap.KeyData keyData = new KeyCharacterMap.KeyData();
-        if (keyEvent.getKeyData(keyData) || i10 == 67) {
-            int size = this.mItems.size();
-            for (int i11 = 0; i11 < size; i11++) {
-                MenuItemImpl menuItemImpl = this.mItems.get(i11);
+        if (keyEvent.getKeyData(keyData) || i2 == 67) {
+            int size = this.k.size();
+            for (int i3 = 0; i3 < size; i3++) {
+                MenuItemImpl menuItemImpl = this.k.get(i3);
                 if (menuItemImpl.hasSubMenu()) {
-                    ((MenuBuilder) menuItemImpl.getSubMenu()).findItemsWithShortcutForKey(list, i10, keyEvent);
+                    ((MenuBuilder) menuItemImpl.getSubMenu()).j(list, i2, keyEvent);
                 }
                 char alphabeticShortcut = isQwertyMode ? menuItemImpl.getAlphabeticShortcut() : menuItemImpl.getNumericShortcut();
-                if ((modifiers & SupportMenu.SUPPORTED_MODIFIERS_MASK) == ((isQwertyMode ? menuItemImpl.getAlphabeticModifiers() : menuItemImpl.getNumericModifiers()) & SupportMenu.SUPPORTED_MODIFIERS_MASK) && alphabeticShortcut != 0) {
+                if (((modifiers & SupportMenu.SUPPORTED_MODIFIERS_MASK) == ((isQwertyMode ? menuItemImpl.getAlphabeticModifiers() : menuItemImpl.getNumericModifiers()) & SupportMenu.SUPPORTED_MODIFIERS_MASK)) && alphabeticShortcut != 0) {
                     char[] cArr = keyData.meta;
-                    if ((alphabeticShortcut == cArr[0] || alphabeticShortcut == cArr[2] || (isQwertyMode && alphabeticShortcut == '\b' && i10 == 67)) && menuItemImpl.isEnabled()) {
+                    if ((alphabeticShortcut == cArr[0] || alphabeticShortcut == cArr[2] || (isQwertyMode && alphabeticShortcut == '\b' && i2 == 67)) && menuItemImpl.isEnabled()) {
                         list.add(menuItemImpl);
                     }
                 }
@@ -485,220 +611,112 @@ public class MenuBuilder implements SupportMenu {
         }
     }
 
-    public void flagActionItems() {
-        ArrayList<MenuItemImpl> visibleItems = getVisibleItems();
-        if (this.mIsActionItemsStale) {
-            Iterator<WeakReference<MenuPresenter>> it = this.mPresenters.iterator();
-            boolean z10 = false;
-            while (it.hasNext()) {
-                WeakReference<MenuPresenter> next = it.next();
-                MenuPresenter menuPresenter = next.get();
-                if (menuPresenter == null) {
-                    this.mPresenters.remove(next);
-                } else {
-                    z10 |= menuPresenter.flagActionItems();
-                }
-            }
-            if (z10) {
-                this.mActionItems.clear();
-                this.mNonActionItems.clear();
-                int size = visibleItems.size();
-                for (int i10 = 0; i10 < size; i10++) {
-                    MenuItemImpl menuItemImpl = visibleItems.get(i10);
-                    if (menuItemImpl.isActionButton()) {
-                        this.mActionItems.add(menuItemImpl);
-                    } else {
-                        this.mNonActionItems.add(menuItemImpl);
-                    }
-                }
-            } else {
-                this.mActionItems.clear();
-                this.mNonActionItems.clear();
-                this.mNonActionItems.addAll(getVisibleItems());
-            }
-            this.mIsActionItemsStale = false;
-        }
+    boolean k() {
+        return this.z;
     }
 
-    public ArrayList<MenuItemImpl> getActionItems() {
-        flagActionItems();
-        return this.mActionItems;
-    }
-
-    public String getActionViewStatesKey() {
-        return ACTION_VIEW_STATES_KEY;
-    }
-
-    public Context getContext() {
-        return this.mContext;
-    }
-
-    public MenuItemImpl getExpandedItem() {
-        return this.mExpandedItem;
-    }
-
-    public Drawable getHeaderIcon() {
-        return this.mHeaderIcon;
-    }
-
-    public CharSequence getHeaderTitle() {
-        return this.mHeaderTitle;
-    }
-
-    public View getHeaderView() {
-        return this.mHeaderView;
-    }
-
-    @Override // android.view.Menu
-    public MenuItem getItem(int i10) {
-        return this.mItems.get(i10);
-    }
-
-    public ArrayList<MenuItemImpl> getNonActionItems() {
-        flagActionItems();
-        return this.mNonActionItems;
-    }
-
-    public boolean getOptionalIconsVisible() {
-        return this.mOptionalIconsVisible;
-    }
-
-    public Resources getResources() {
-        return this.mResources;
-    }
-
-    public MenuBuilder getRootMenu() {
-        return this;
-    }
-
-    @NonNull
-    public ArrayList<MenuItemImpl> getVisibleItems() {
-        if (!this.mIsVisibleItemsStale) {
-            return this.mVisibleItems;
-        }
-        this.mVisibleItems.clear();
-        int size = this.mItems.size();
-        for (int i10 = 0; i10 < size; i10++) {
-            MenuItemImpl menuItemImpl = this.mItems.get(i10);
-            if (menuItemImpl.isVisible()) {
-                this.mVisibleItems.add(menuItemImpl);
-            }
-        }
-        this.mIsVisibleItemsStale = false;
-        this.mIsActionItemsStale = true;
-        return this.mVisibleItems;
-    }
-
-    @Override // android.view.Menu
-    public boolean hasVisibleItems() {
-        if (this.mOverrideVisibleItems) {
-            return true;
-        }
-        int size = size();
-        for (int i10 = 0; i10 < size; i10++) {
-            if (this.mItems.get(i10).isVisible()) {
-                return true;
-            }
-        }
-        return false;
-    }
-
-    public boolean isGroupDividerEnabled() {
-        return this.mGroupDividerEnabled;
-    }
-
-    public boolean isQwertyMode() {
-        return this.mQwertyMode;
-    }
-
-    @Override // android.view.Menu
-    public boolean isShortcutKey(int i10, KeyEvent keyEvent) {
-        return findItemWithShortcutForKey(i10, keyEvent) != null;
-    }
-
-    public boolean isShortcutsVisible() {
-        return this.mShortcutsVisible;
-    }
-
-    public void onItemActionRequestChanged(MenuItemImpl menuItemImpl) {
-        this.mIsActionItemsStale = true;
+    void m(MenuItemImpl menuItemImpl) {
+        this.p = true;
         onItemsChanged(true);
     }
 
-    public void onItemVisibleChanged(MenuItemImpl menuItemImpl) {
-        this.mIsVisibleItemsStale = true;
+    void n(MenuItemImpl menuItemImpl) {
+        this.m = true;
         onItemsChanged(true);
     }
 
-    public void onItemsChanged(boolean z10) {
-        if (this.mPreventDispatchingItemsChanged) {
-            this.mItemsChangedWhileDispatchPrevented = true;
-            if (z10) {
-                this.mStructureChangedWhileDispatchPrevented = true;
+    public void onItemsChanged(boolean z) {
+        if (this.w) {
+            this.x = true;
+            if (z) {
+                this.y = true;
                 return;
             }
             return;
         }
-        if (z10) {
-            this.mIsVisibleItemsStale = true;
-            this.mIsActionItemsStale = true;
+        if (z) {
+            this.m = true;
+            this.p = true;
         }
-        dispatchPresenterUpdate(z10);
+        d(z);
+    }
+
+    void p(MenuItem menuItem) {
+        int groupId = menuItem.getGroupId();
+        int size = this.k.size();
+        stopDispatchingItemsChanged();
+        for (int i2 = 0; i2 < size; i2++) {
+            MenuItemImpl menuItemImpl = this.k.get(i2);
+            if (menuItemImpl.getGroupId() == groupId && menuItemImpl.isExclusiveCheckable() && menuItemImpl.isCheckable()) {
+                menuItemImpl.g(menuItemImpl == menuItem);
+            }
+        }
+        startDispatchingItemsChanged();
     }
 
     @Override // android.view.Menu
-    public boolean performIdentifierAction(int i10, int i11) {
-        return performItemAction(findItem(i10), i11);
+    public boolean performIdentifierAction(int i2, int i3) {
+        return performItemAction(findItem(i2), i3);
     }
 
-    public boolean performItemAction(MenuItem menuItem, int i10) {
-        return performItemAction(menuItem, null, i10);
+    public boolean performItemAction(MenuItem menuItem, int i2) {
+        return performItemAction(menuItem, null, i2);
     }
 
     @Override // android.view.Menu
-    public boolean performShortcut(int i10, KeyEvent keyEvent, int i11) {
-        MenuItemImpl findItemWithShortcutForKey = findItemWithShortcutForKey(i10, keyEvent);
-        boolean performItemAction = findItemWithShortcutForKey != null ? performItemAction(findItemWithShortcutForKey, i11) : false;
-        if ((i11 & 2) != 0) {
+    public boolean performShortcut(int i2, KeyEvent keyEvent, int i3) {
+        MenuItemImpl i4 = i(i2, keyEvent);
+        boolean performItemAction = i4 != null ? performItemAction(i4, i3) : false;
+        if ((i3 & 2) != 0) {
             close(true);
         }
         return performItemAction;
     }
 
+    protected MenuBuilder q(int i2) {
+        s(0, null, i2, null, null);
+        return this;
+    }
+
+    protected MenuBuilder r(Drawable drawable) {
+        s(0, null, 0, drawable, null);
+        return this;
+    }
+
     @Override // android.view.Menu
-    public void removeGroup(int i10) {
-        int findGroupIndex = findGroupIndex(i10);
+    public void removeGroup(int i2) {
+        int findGroupIndex = findGroupIndex(i2);
         if (findGroupIndex >= 0) {
-            int size = this.mItems.size() - findGroupIndex;
-            int i11 = 0;
+            int size = this.k.size() - findGroupIndex;
+            int i3 = 0;
             while (true) {
-                int i12 = i11 + 1;
-                if (i11 >= size || this.mItems.get(findGroupIndex).getGroupId() != i10) {
+                int i4 = i3 + 1;
+                if (i3 >= size || this.k.get(findGroupIndex).getGroupId() != i2) {
                     break;
                 }
-                removeItemAtInt(findGroupIndex, false);
-                i11 = i12;
+                o(findGroupIndex, false);
+                i3 = i4;
             }
             onItemsChanged(true);
         }
     }
 
     @Override // android.view.Menu
-    public void removeItem(int i10) {
-        removeItemAtInt(findItemIndex(i10), true);
+    public void removeItem(int i2) {
+        o(findItemIndex(i2), true);
     }
 
-    public void removeItemAt(int i10) {
-        removeItemAtInt(i10, true);
+    public void removeItemAt(int i2) {
+        o(i2, true);
     }
 
     public void removeMenuPresenter(MenuPresenter menuPresenter) {
-        Iterator<WeakReference<MenuPresenter>> it = this.mPresenters.iterator();
+        Iterator<WeakReference<MenuPresenter>> it = this.C.iterator();
         while (it.hasNext()) {
             WeakReference<MenuPresenter> next = it.next();
             MenuPresenter menuPresenter2 = next.get();
             if (menuPresenter2 == null || menuPresenter2 == menuPresenter) {
-                this.mPresenters.remove(next);
+                this.C.remove(next);
             }
         }
     }
@@ -710,8 +728,8 @@ public class MenuBuilder implements SupportMenu {
         }
         SparseArray<Parcelable> sparseParcelableArray = bundle.getSparseParcelableArray(getActionViewStatesKey());
         int size = size();
-        for (int i10 = 0; i10 < size; i10++) {
-            MenuItem item = getItem(i10);
+        for (int i2 = 0; i2 < size; i2++) {
+            MenuItem item = getItem(i2);
             View actionView = item.getActionView();
             if (actionView != null && actionView.getId() != -1) {
                 actionView.restoreHierarchyState(sparseParcelableArray);
@@ -720,22 +738,22 @@ public class MenuBuilder implements SupportMenu {
                 ((SubMenuBuilder) item.getSubMenu()).restoreActionViewStates(bundle);
             }
         }
-        int i11 = bundle.getInt(EXPANDED_ACTION_VIEW_ID);
-        if (i11 <= 0 || (findItem = findItem(i11)) == null) {
+        int i3 = bundle.getInt(f530d);
+        if (i3 <= 0 || (findItem = findItem(i3)) == null) {
             return;
         }
         findItem.expandActionView();
     }
 
     public void restorePresenterStates(Bundle bundle) {
-        dispatchRestoreInstanceState(bundle);
+        e(bundle);
     }
 
     public void saveActionViewStates(Bundle bundle) {
         int size = size();
         SparseArray<? extends Parcelable> sparseArray = null;
-        for (int i10 = 0; i10 < size; i10++) {
-            MenuItem item = getItem(i10);
+        for (int i2 = 0; i2 < size; i2++) {
+            MenuItem item = getItem(i2);
             View actionView = item.getActionView();
             if (actionView != null && actionView.getId() != -1) {
                 if (sparseArray == null) {
@@ -743,7 +761,7 @@ public class MenuBuilder implements SupportMenu {
                 }
                 actionView.saveHierarchyState(sparseArray);
                 if (item.isActionViewExpanded()) {
-                    bundle.putInt(EXPANDED_ACTION_VIEW_ID, item.getItemId());
+                    bundle.putInt(f530d, item.getItemId());
                 }
             }
             if (item.hasSubMenu()) {
@@ -756,232 +774,209 @@ public class MenuBuilder implements SupportMenu {
     }
 
     public void savePresenterStates(Bundle bundle) {
-        dispatchSaveInstanceState(bundle);
+        f(bundle);
     }
 
     public void setCallback(Callback callback) {
-        this.mCallback = callback;
+        this.f536j = callback;
     }
 
     public void setCurrentMenuInfo(ContextMenu.ContextMenuInfo contextMenuInfo) {
-        this.mCurrentMenuInfo = contextMenuInfo;
+        this.r = contextMenuInfo;
     }
 
-    public MenuBuilder setDefaultShowAsAction(int i10) {
-        this.mDefaultShowAsAction = i10;
+    public MenuBuilder setDefaultShowAsAction(int i2) {
+        this.q = i2;
         return this;
     }
 
-    public void setExclusiveItemChecked(MenuItem menuItem) {
-        int groupId = menuItem.getGroupId();
-        int size = this.mItems.size();
-        stopDispatchingItemsChanged();
-        for (int i10 = 0; i10 < size; i10++) {
-            MenuItemImpl menuItemImpl = this.mItems.get(i10);
-            if (menuItemImpl.getGroupId() == groupId && menuItemImpl.isExclusiveCheckable() && menuItemImpl.isCheckable()) {
-                menuItemImpl.setCheckedInt(menuItemImpl == menuItem);
-            }
-        }
-        startDispatchingItemsChanged();
-    }
-
     @Override // android.view.Menu
-    public void setGroupCheckable(int i10, boolean z10, boolean z11) {
-        int size = this.mItems.size();
-        for (int i11 = 0; i11 < size; i11++) {
-            MenuItemImpl menuItemImpl = this.mItems.get(i11);
-            if (menuItemImpl.getGroupId() == i10) {
-                menuItemImpl.setExclusiveCheckable(z11);
-                menuItemImpl.setCheckable(z10);
+    public void setGroupCheckable(int i2, boolean z, boolean z2) {
+        int size = this.k.size();
+        for (int i3 = 0; i3 < size; i3++) {
+            MenuItemImpl menuItemImpl = this.k.get(i3);
+            if (menuItemImpl.getGroupId() == i2) {
+                menuItemImpl.setExclusiveCheckable(z2);
+                menuItemImpl.setCheckable(z);
             }
         }
     }
 
     @Override // androidx.core.internal.view.SupportMenu, android.view.Menu
-    public void setGroupDividerEnabled(boolean z10) {
-        this.mGroupDividerEnabled = z10;
+    public void setGroupDividerEnabled(boolean z) {
+        this.E = z;
     }
 
     @Override // android.view.Menu
-    public void setGroupEnabled(int i10, boolean z10) {
-        int size = this.mItems.size();
-        for (int i11 = 0; i11 < size; i11++) {
-            MenuItemImpl menuItemImpl = this.mItems.get(i11);
-            if (menuItemImpl.getGroupId() == i10) {
-                menuItemImpl.setEnabled(z10);
+    public void setGroupEnabled(int i2, boolean z) {
+        int size = this.k.size();
+        for (int i3 = 0; i3 < size; i3++) {
+            MenuItemImpl menuItemImpl = this.k.get(i3);
+            if (menuItemImpl.getGroupId() == i2) {
+                menuItemImpl.setEnabled(z);
             }
         }
     }
 
     @Override // android.view.Menu
-    public void setGroupVisible(int i10, boolean z10) {
-        int size = this.mItems.size();
-        boolean z11 = false;
-        for (int i11 = 0; i11 < size; i11++) {
-            MenuItemImpl menuItemImpl = this.mItems.get(i11);
-            if (menuItemImpl.getGroupId() == i10 && menuItemImpl.setVisibleInt(z10)) {
-                z11 = true;
+    public void setGroupVisible(int i2, boolean z) {
+        int size = this.k.size();
+        boolean z2 = false;
+        for (int i3 = 0; i3 < size; i3++) {
+            MenuItemImpl menuItemImpl = this.k.get(i3);
+            if (menuItemImpl.getGroupId() == i2 && menuItemImpl.i(z)) {
+                z2 = true;
             }
         }
-        if (z11) {
+        if (z2) {
             onItemsChanged(true);
         }
     }
 
-    public MenuBuilder setHeaderIconInt(Drawable drawable) {
-        setHeaderInternal(0, null, 0, drawable, null);
-        return this;
+    public void setOptionalIconsVisible(boolean z) {
+        this.z = z;
     }
 
-    public MenuBuilder setHeaderTitleInt(CharSequence charSequence) {
-        setHeaderInternal(0, charSequence, 0, null, null);
-        return this;
-    }
-
-    public MenuBuilder setHeaderViewInt(View view) {
-        setHeaderInternal(0, null, 0, null, view);
-        return this;
-    }
-
-    public void setOptionalIconsVisible(boolean z10) {
-        this.mOptionalIconsVisible = z10;
-    }
-
-    public void setOverrideVisibleItems(boolean z10) {
-        this.mOverrideVisibleItems = z10;
+    public void setOverrideVisibleItems(boolean z) {
+        this.F = z;
     }
 
     @Override // android.view.Menu
-    public void setQwertyMode(boolean z10) {
-        this.mQwertyMode = z10;
+    public void setQwertyMode(boolean z) {
+        this.f534h = z;
         onItemsChanged(false);
     }
 
-    public void setShortcutsVisible(boolean z10) {
-        if (this.mShortcutsVisible == z10) {
+    public void setShortcutsVisible(boolean z) {
+        if (this.f535i == z) {
             return;
         }
-        setShortcutsVisibleInner(z10);
+        w(z);
         onItemsChanged(false);
     }
 
     @Override // android.view.Menu
     public int size() {
-        return this.mItems.size();
+        return this.k.size();
     }
 
     public void startDispatchingItemsChanged() {
-        this.mPreventDispatchingItemsChanged = false;
-        if (this.mItemsChangedWhileDispatchPrevented) {
-            this.mItemsChangedWhileDispatchPrevented = false;
-            onItemsChanged(this.mStructureChangedWhileDispatchPrevented);
+        this.w = false;
+        if (this.x) {
+            this.x = false;
+            onItemsChanged(this.y);
         }
     }
 
     public void stopDispatchingItemsChanged() {
-        if (this.mPreventDispatchingItemsChanged) {
+        if (this.w) {
             return;
         }
-        this.mPreventDispatchingItemsChanged = true;
-        this.mItemsChangedWhileDispatchPrevented = false;
-        this.mStructureChangedWhileDispatchPrevented = false;
+        this.w = true;
+        this.x = false;
+        this.y = false;
+    }
+
+    protected MenuBuilder t(int i2) {
+        s(i2, null, 0, null, null);
+        return this;
+    }
+
+    protected MenuBuilder u(CharSequence charSequence) {
+        s(0, charSequence, 0, null, null);
+        return this;
+    }
+
+    protected MenuBuilder v(View view) {
+        s(0, null, 0, null, view);
+        return this;
     }
 
     @Override // android.view.Menu
-    public MenuItem add(int i10) {
-        return addInternal(0, 0, 0, this.mResources.getString(i10));
+    public MenuItem add(int i2) {
+        return a(0, 0, 0, this.f533g.getString(i2));
     }
 
     public void addMenuPresenter(MenuPresenter menuPresenter, Context context) {
-        this.mPresenters.add(new WeakReference<>(menuPresenter));
+        this.C.add(new WeakReference<>(menuPresenter));
         menuPresenter.initForMenu(context, this);
-        this.mIsActionItemsStale = true;
+        this.p = true;
     }
 
     @Override // android.view.Menu
-    public SubMenu addSubMenu(int i10) {
-        return addSubMenu(0, 0, 0, this.mResources.getString(i10));
+    public SubMenu addSubMenu(int i2) {
+        return addSubMenu(0, 0, 0, this.f533g.getString(i2));
     }
 
-    public int findGroupIndex(int i10, int i11) {
+    public int findGroupIndex(int i2, int i3) {
         int size = size();
-        if (i11 < 0) {
-            i11 = 0;
+        if (i3 < 0) {
+            i3 = 0;
         }
-        while (i11 < size) {
-            if (this.mItems.get(i11).getGroupId() == i10) {
-                return i11;
+        while (i3 < size) {
+            if (this.k.get(i3).getGroupId() == i2) {
+                return i3;
             }
-            i11++;
+            i3++;
         }
         return -1;
     }
 
-    public boolean performItemAction(MenuItem menuItem, MenuPresenter menuPresenter, int i10) {
+    public boolean performItemAction(MenuItem menuItem, MenuPresenter menuPresenter, int i2) {
         MenuItemImpl menuItemImpl = (MenuItemImpl) menuItem;
         if (menuItemImpl == null || !menuItemImpl.isEnabled()) {
             return false;
         }
         boolean invoke = menuItemImpl.invoke();
         ActionProvider supportActionProvider = menuItemImpl.getSupportActionProvider();
-        boolean z10 = supportActionProvider != null && supportActionProvider.hasSubMenu();
+        boolean z = supportActionProvider != null && supportActionProvider.hasSubMenu();
         if (menuItemImpl.hasCollapsibleActionView()) {
             invoke |= menuItemImpl.expandActionView();
             if (invoke) {
                 close(true);
             }
-        } else if (menuItemImpl.hasSubMenu() || z10) {
-            if ((i10 & 4) == 0) {
+        } else if (menuItemImpl.hasSubMenu() || z) {
+            if ((i2 & 4) == 0) {
                 close(false);
             }
             if (!menuItemImpl.hasSubMenu()) {
                 menuItemImpl.setSubMenu(new SubMenuBuilder(getContext(), this, menuItemImpl));
             }
             SubMenuBuilder subMenuBuilder = (SubMenuBuilder) menuItemImpl.getSubMenu();
-            if (z10) {
+            if (z) {
                 supportActionProvider.onPrepareSubMenu(subMenuBuilder);
             }
-            invoke |= dispatchSubMenuSelected(subMenuBuilder, menuPresenter);
+            invoke |= g(subMenuBuilder, menuPresenter);
             if (!invoke) {
                 close(true);
             }
-        } else if ((i10 & 1) == 0) {
+        } else if ((i2 & 1) == 0) {
             close(true);
         }
         return invoke;
     }
 
-    public MenuBuilder setHeaderIconInt(int i10) {
-        setHeaderInternal(0, null, i10, null, null);
-        return this;
-    }
-
-    public MenuBuilder setHeaderTitleInt(int i10) {
-        setHeaderInternal(i10, null, 0, null, null);
-        return this;
+    @Override // android.view.Menu
+    public MenuItem add(int i2, int i3, int i4, CharSequence charSequence) {
+        return a(i2, i3, i4, charSequence);
     }
 
     @Override // android.view.Menu
-    public MenuItem add(int i10, int i11, int i12, CharSequence charSequence) {
-        return addInternal(i10, i11, i12, charSequence);
-    }
-
-    @Override // android.view.Menu
-    public SubMenu addSubMenu(int i10, int i11, int i12, CharSequence charSequence) {
-        MenuItemImpl menuItemImpl = (MenuItemImpl) addInternal(i10, i11, i12, charSequence);
-        SubMenuBuilder subMenuBuilder = new SubMenuBuilder(this.mContext, this, menuItemImpl);
+    public SubMenu addSubMenu(int i2, int i3, int i4, CharSequence charSequence) {
+        MenuItemImpl menuItemImpl = (MenuItemImpl) a(i2, i3, i4, charSequence);
+        SubMenuBuilder subMenuBuilder = new SubMenuBuilder(this.f532f, this, menuItemImpl);
         menuItemImpl.setSubMenu(subMenuBuilder);
         return subMenuBuilder;
     }
 
     @Override // android.view.Menu
-    public MenuItem add(int i10, int i11, int i12, int i13) {
-        return addInternal(i10, i11, i12, this.mResources.getString(i13));
+    public MenuItem add(int i2, int i3, int i4, int i5) {
+        return a(i2, i3, i4, this.f533g.getString(i5));
     }
 
     @Override // android.view.Menu
-    public SubMenu addSubMenu(int i10, int i11, int i12, int i13) {
-        return addSubMenu(i10, i11, i12, this.mResources.getString(i13));
+    public SubMenu addSubMenu(int i2, int i3, int i4, int i5) {
+        return addSubMenu(i2, i3, i4, this.f533g.getString(i5));
     }
 
     @Override // android.view.Menu

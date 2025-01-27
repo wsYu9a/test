@@ -2,10 +2,10 @@ package kotlin.jvm.internal;
 
 import java.util.Arrays;
 import java.util.Collections;
+import java.util.List;
 import kotlin.SinceKotlin;
-import kotlin.collections.ArraysKt;
+import kotlin.collections.ArraysKt___ArraysKt;
 import kotlin.reflect.KClass;
-import kotlin.reflect.KClassifier;
 import kotlin.reflect.KDeclarationContainer;
 import kotlin.reflect.KFunction;
 import kotlin.reflect.KMutableProperty0;
@@ -15,11 +15,9 @@ import kotlin.reflect.KProperty0;
 import kotlin.reflect.KProperty1;
 import kotlin.reflect.KProperty2;
 import kotlin.reflect.KType;
-import kotlin.reflect.KTypeParameter;
 import kotlin.reflect.KTypeProjection;
-import kotlin.reflect.KVariance;
 
-/* loaded from: classes4.dex */
+/* loaded from: classes5.dex */
 public class Reflection {
     private static final KClass[] EMPTY_K_CLASS_ARRAY;
     static final String REFLECTION_NOT_AVAILABLE = " (Kotlin reflection is not available)";
@@ -56,20 +54,14 @@ public class Reflection {
             return EMPTY_K_CLASS_ARRAY;
         }
         KClass[] kClassArr = new KClass[length];
-        for (int i10 = 0; i10 < length; i10++) {
-            kClassArr[i10] = getOrCreateKotlinClass(clsArr[i10]);
+        for (int i2 = 0; i2 < length; i2++) {
+            kClassArr[i2] = getOrCreateKotlinClass(clsArr[i2]);
         }
         return kClassArr;
     }
 
-    @SinceKotlin(version = "1.4")
-    public static KDeclarationContainer getOrCreateKotlinPackage(Class cls) {
-        return factory.getOrCreateKotlinPackage(cls, "");
-    }
-
-    @SinceKotlin(version = "1.6")
-    public static KType mutableCollectionType(KType kType) {
-        return factory.mutableCollectionType(kType);
+    public static KDeclarationContainer getOrCreateKotlinPackage(Class cls, String str) {
+        return factory.getOrCreateKotlinPackage(cls, str);
     }
 
     public static KMutableProperty0 mutableProperty0(MutablePropertyReference0 mutablePropertyReference0) {
@@ -84,19 +76,9 @@ public class Reflection {
         return factory.mutableProperty2(mutablePropertyReference2);
     }
 
-    @SinceKotlin(version = "1.6")
-    public static KType nothingType(KType kType) {
-        return factory.nothingType(kType);
-    }
-
     @SinceKotlin(version = "1.4")
-    public static KType nullableTypeOf(KClassifier kClassifier) {
-        return factory.typeOf(kClassifier, Collections.emptyList(), true);
-    }
-
-    @SinceKotlin(version = "1.6")
-    public static KType platformType(KType kType, KType kType2) {
-        return factory.platformType(kType, kType2);
+    public static KType nullableTypeOf(Class cls) {
+        return factory.typeOf(getOrCreateKotlinClass(cls), Collections.emptyList(), true);
     }
 
     public static KProperty0 property0(PropertyReference0 propertyReference0) {
@@ -117,18 +99,8 @@ public class Reflection {
     }
 
     @SinceKotlin(version = "1.4")
-    public static void setUpperBounds(KTypeParameter kTypeParameter, KType kType) {
-        factory.setUpperBounds(kTypeParameter, Collections.singletonList(kType));
-    }
-
-    @SinceKotlin(version = "1.4")
-    public static KType typeOf(KClassifier kClassifier) {
-        return factory.typeOf(kClassifier, Collections.emptyList(), false);
-    }
-
-    @SinceKotlin(version = "1.4")
-    public static KTypeParameter typeParameter(Object obj, String str, KVariance kVariance, boolean z10) {
-        return factory.typeParameter(obj, str, kVariance, z10);
+    public static KType typeOf(Class cls) {
+        return factory.typeOf(getOrCreateKotlinClass(cls), Collections.emptyList(), false);
     }
 
     public static KClass createKotlinClass(Class cls, String str) {
@@ -139,33 +111,14 @@ public class Reflection {
         return factory.getOrCreateKotlinClass(cls, str);
     }
 
-    public static KDeclarationContainer getOrCreateKotlinPackage(Class cls, String str) {
-        return factory.getOrCreateKotlinPackage(cls, str);
-    }
-
     @SinceKotlin(version = "1.4")
-    public static KType nullableTypeOf(Class cls) {
-        return factory.typeOf(getOrCreateKotlinClass(cls), Collections.emptyList(), true);
+    public static KType nullableTypeOf(Class cls, KTypeProjection kTypeProjection) {
+        return factory.typeOf(getOrCreateKotlinClass(cls), Collections.singletonList(kTypeProjection), true);
     }
 
     @SinceKotlin(version = "1.3")
     public static String renderLambdaToString(FunctionBase functionBase) {
         return factory.renderLambdaToString(functionBase);
-    }
-
-    @SinceKotlin(version = "1.4")
-    public static void setUpperBounds(KTypeParameter kTypeParameter, KType... kTypeArr) {
-        factory.setUpperBounds(kTypeParameter, ArraysKt.toList(kTypeArr));
-    }
-
-    @SinceKotlin(version = "1.4")
-    public static KType typeOf(Class cls) {
-        return factory.typeOf(getOrCreateKotlinClass(cls), Collections.emptyList(), false);
-    }
-
-    @SinceKotlin(version = "1.4")
-    public static KType nullableTypeOf(Class cls, KTypeProjection kTypeProjection) {
-        return factory.typeOf(getOrCreateKotlinClass(cls), Collections.singletonList(kTypeProjection), true);
     }
 
     @SinceKotlin(version = "1.4")
@@ -185,11 +138,19 @@ public class Reflection {
 
     @SinceKotlin(version = "1.4")
     public static KType nullableTypeOf(Class cls, KTypeProjection... kTypeProjectionArr) {
-        return factory.typeOf(getOrCreateKotlinClass(cls), ArraysKt.toList(kTypeProjectionArr), true);
+        List<KTypeProjection> list;
+        ReflectionFactory reflectionFactory = factory;
+        KClass orCreateKotlinClass = getOrCreateKotlinClass(cls);
+        list = ArraysKt___ArraysKt.toList(kTypeProjectionArr);
+        return reflectionFactory.typeOf(orCreateKotlinClass, list, true);
     }
 
     @SinceKotlin(version = "1.4")
     public static KType typeOf(Class cls, KTypeProjection... kTypeProjectionArr) {
-        return factory.typeOf(getOrCreateKotlinClass(cls), ArraysKt.toList(kTypeProjectionArr), false);
+        List<KTypeProjection> list;
+        ReflectionFactory reflectionFactory = factory;
+        KClass orCreateKotlinClass = getOrCreateKotlinClass(cls);
+        list = ArraysKt___ArraysKt.toList(kTypeProjectionArr);
+        return reflectionFactory.typeOf(orCreateKotlinClass, list, false);
     }
 }

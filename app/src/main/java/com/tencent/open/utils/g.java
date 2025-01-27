@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.content.pm.Signature;
+import com.baidu.mobads.sdk.internal.bu;
 import com.tencent.connect.common.Constants;
 import java.io.IOException;
 import java.io.InputStream;
@@ -13,6 +14,31 @@ import java.security.MessageDigest;
 
 /* loaded from: classes4.dex */
 public class g {
+    public static String a(int i2) {
+        if (i2 == 10103) {
+            return "shareToQQ";
+        }
+        if (i2 == 10104) {
+            return "shareToQzone";
+        }
+        if (i2 == 10105) {
+            return "addToQQFavorites";
+        }
+        if (i2 == 10106) {
+            return "sendToMyComputer";
+        }
+        if (i2 == 10107) {
+            return "shareToTroopBar";
+        }
+        if (i2 == 11101) {
+            return "action_login";
+        }
+        if (i2 == 10100) {
+            return "action_request";
+        }
+        return null;
+    }
+
     public static String a(Context context, String str) {
         try {
             return context.getPackageManager().getPackageInfo(str, 0).versionName;
@@ -22,27 +48,27 @@ public class g {
     }
 
     public static String b(Context context, String str) {
-        com.tencent.open.a.f.a("openSDK_LOG.SystemUtils", "OpenUi, getSignValidString");
         String str2 = "";
+        com.tencent.open.a.f.a("openSDK_LOG.SystemUtils", "OpenUi, getSignValidString");
         try {
             String packageName = context.getPackageName();
             Signature[] signatureArr = context.getPackageManager().getPackageInfo(packageName, 64).signatures;
-            MessageDigest messageDigest = MessageDigest.getInstance("MD5");
+            MessageDigest messageDigest = MessageDigest.getInstance(bu.f5659a);
             messageDigest.update(signatureArr[0].toByteArray());
-            String a10 = i.a(messageDigest.digest());
+            String a2 = i.a(messageDigest.digest());
             messageDigest.reset();
-            com.tencent.open.a.f.a("openSDK_LOG.SystemUtils", "-->sign: " + a10);
-            messageDigest.update(i.i(packageName + hf.e.f26694a + a10 + hf.e.f26694a + str + ""));
+            com.tencent.open.a.f.a("openSDK_LOG.SystemUtils", "-->sign: " + a2);
+            messageDigest.update(i.i(packageName + "_" + a2 + "_" + str + ""));
             str2 = i.a(messageDigest.digest());
             messageDigest.reset();
-            StringBuilder sb2 = new StringBuilder();
-            sb2.append("-->signEncryped: ");
-            sb2.append(str2);
-            com.tencent.open.a.f.a("openSDK_LOG.SystemUtils", sb2.toString());
+            StringBuilder sb = new StringBuilder();
+            sb.append("-->signEncryped: ");
+            sb.append(str2);
+            com.tencent.open.a.f.a("openSDK_LOG.SystemUtils", sb.toString());
             return str2;
-        } catch (Exception e10) {
-            e10.printStackTrace();
-            com.tencent.open.a.f.b("openSDK_LOG.SystemUtils", "OpenUi, getSignValidString error", e10);
+        } catch (Exception e2) {
+            e2.printStackTrace();
+            com.tencent.open.a.f.b("openSDK_LOG.SystemUtils", "OpenUi, getSignValidString error", e2);
             return str2;
         }
     }
@@ -63,26 +89,26 @@ public class g {
         }
         String[] split = str.split("\\.");
         String[] split2 = str2.split("\\.");
-        int i10 = 0;
-        while (i10 < split.length && i10 < split2.length) {
+        int i2 = 0;
+        while (i2 < split.length && i2 < split2.length) {
             try {
-                int parseInt = Integer.parseInt(split[i10]);
-                int parseInt2 = Integer.parseInt(split2[i10]);
+                int parseInt = Integer.parseInt(split[i2]);
+                int parseInt2 = Integer.parseInt(split2[i2]);
                 if (parseInt < parseInt2) {
                     return -1;
                 }
                 if (parseInt > parseInt2) {
                     return 1;
                 }
-                i10++;
+                i2++;
             } catch (NumberFormatException unused) {
                 return str.compareTo(str2);
             }
         }
-        if (split.length > i10) {
+        if (split.length > i2) {
             return 1;
         }
-        return split2.length > i10 ? -1 : 0;
+        return split2.length > i2 ? -1 : 0;
     }
 
     public static boolean a(Context context, String str, String str2) {
@@ -106,9 +132,9 @@ public class g {
         PackageInfo packageInfo;
         try {
             packageInfo = context.getPackageManager().getPackageInfo("com.tencent.mobileqq", 0);
-        } catch (PackageManager.NameNotFoundException e10) {
-            com.tencent.open.a.f.b("openSDK_LOG.SystemUtils", "checkMobileQQ NameNotFoundException", e10);
-            e10.printStackTrace();
+        } catch (PackageManager.NameNotFoundException e2) {
+            com.tencent.open.a.f.b("openSDK_LOG.SystemUtils", "checkMobileQQ NameNotFoundException", e2);
+            e2.printStackTrace();
             packageInfo = null;
         }
         if (packageInfo != null) {
@@ -118,9 +144,9 @@ public class g {
                 String[] split = str.split("\\.");
                 int parseInt = Integer.parseInt(split[0]);
                 return parseInt > 4 || (parseInt == 4 && Integer.parseInt(split[1]) >= 1);
-            } catch (Exception e11) {
-                com.tencent.open.a.f.b("openSDK_LOG.SystemUtils", "checkMobileQQ Exception", e11);
-                e11.printStackTrace();
+            } catch (Exception e3) {
+                com.tencent.open.a.f.b("openSDK_LOG.SystemUtils", "checkMobileQQ Exception", e3);
+                e3.printStackTrace();
             }
         }
         return false;
@@ -255,15 +281,15 @@ public class g {
 
     private static long a(InputStream inputStream, OutputStream outputStream) throws IOException {
         byte[] bArr = new byte[8192];
-        long j10 = 0;
+        long j2 = 0;
         while (true) {
             int read = inputStream.read(bArr, 0, 8192);
             if (read != -1) {
                 outputStream.write(bArr, 0, read);
-                j10 += read;
+                j2 += read;
             } else {
-                com.tencent.open.a.f.c("openSDK_LOG.SystemUtils", "-->copy, copyed size is: " + j10);
-                return j10;
+                com.tencent.open.a.f.c("openSDK_LOG.SystemUtils", "-->copy, copyed size is: " + j2);
+                return j2;
             }
         }
     }
@@ -291,30 +317,5 @@ public class g {
             return Constants.REQUEST_API;
         }
         return -1;
-    }
-
-    public static String a(int i10) {
-        if (i10 == 10103) {
-            return "shareToQQ";
-        }
-        if (i10 == 10104) {
-            return "shareToQzone";
-        }
-        if (i10 == 10105) {
-            return "addToQQFavorites";
-        }
-        if (i10 == 10106) {
-            return "sendToMyComputer";
-        }
-        if (i10 == 10107) {
-            return "shareToTroopBar";
-        }
-        if (i10 == 11101) {
-            return "action_login";
-        }
-        if (i10 == 10100) {
-            return "action_request";
-        }
-        return null;
     }
 }

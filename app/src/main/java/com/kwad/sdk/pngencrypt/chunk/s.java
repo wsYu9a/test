@@ -1,34 +1,34 @@
 package com.kwad.sdk.pngencrypt.chunk;
 
-/* loaded from: classes3.dex */
+/* loaded from: classes2.dex */
 public final class s extends p {
-    private int aRc;
-    private int aRd;
-    private int aRe;
-    private int aRf;
-    private int[] aRg;
+    private int axp;
+    private int axq;
+    private int axr;
+    private int axs;
+    private int[] axt;
 
     public s(com.kwad.sdk.pngencrypt.k kVar) {
         super("tRNS", kVar);
-        this.aRg = new int[0];
+        this.axt = new int[0];
     }
 
     @Override // com.kwad.sdk.pngencrypt.chunk.PngChunk
     public final void a(d dVar) {
-        com.kwad.sdk.pngencrypt.k kVar = this.aPC;
-        if (kVar.aPJ) {
-            this.aRc = com.kwad.sdk.pngencrypt.n.f(dVar.data, 0);
+        com.kwad.sdk.pngencrypt.k kVar = this.avO;
+        if (kVar.avV) {
+            this.axp = com.kwad.sdk.pngencrypt.n.f(dVar.data, 0);
             return;
         }
-        if (!kVar.aPK) {
-            this.aRd = com.kwad.sdk.pngencrypt.n.f(dVar.data, 0);
-            this.aRe = com.kwad.sdk.pngencrypt.n.f(dVar.data, 2);
-            this.aRf = com.kwad.sdk.pngencrypt.n.f(dVar.data, 4);
+        if (!kVar.avW) {
+            this.axq = com.kwad.sdk.pngencrypt.n.f(dVar.data, 0);
+            this.axr = com.kwad.sdk.pngencrypt.n.f(dVar.data, 2);
+            this.axs = com.kwad.sdk.pngencrypt.n.f(dVar.data, 4);
         } else {
             int length = dVar.data.length;
-            this.aRg = new int[length];
-            for (int i10 = 0; i10 < length; i10++) {
-                this.aRg[i10] = dVar.data[i10] & 255;
+            this.axt = new int[length];
+            for (int i2 = 0; i2 < length; i2++) {
+                this.axt[i2] = dVar.data[i2] & 255;
             }
         }
     }

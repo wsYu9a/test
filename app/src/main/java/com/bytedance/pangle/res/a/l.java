@@ -1,6 +1,6 @@
 package com.bytedance.pangle.res.a;
 
-/* loaded from: classes2.dex */
+/* loaded from: classes.dex */
 public final class l {
     public static void a(g gVar) {
         gVar.b(0);
@@ -18,19 +18,19 @@ public final class l {
         if (readInt5 == 0) {
             return;
         }
-        int i10 = readInt - readInt5;
-        gVar.skipBytes(i10);
-        int i11 = i10 % 4;
-        if (i11 <= 0) {
+        int i2 = readInt - readInt5;
+        gVar.skipBytes(i2);
+        int i3 = i2 % 4;
+        if (i3 <= 0) {
             return;
         }
         while (true) {
-            int i12 = i11 - 1;
-            if (i11 <= 0) {
+            int i4 = i3 - 1;
+            if (i3 <= 0) {
                 return;
             }
             gVar.readByte();
-            i11 = i12;
+            i3 = i4;
         }
     }
 }

@@ -37,9 +37,8 @@ import java.net.URL;
 import java.util.Iterator;
 import java.util.List;
 import java.util.concurrent.CopyOnWriteArrayList;
-import p3.f;
 
-/* loaded from: classes2.dex */
+/* loaded from: classes.dex */
 public class RequestManager implements ComponentCallbacks2, LifecycleListener, ModelTypes<RequestBuilder<Drawable>> {
     private static final RequestOptions DECODE_TYPE_BITMAP = RequestOptions.decodeTypeOf(Bitmap.class).lock();
     private static final RequestOptions DECODE_TYPE_GIF = RequestOptions.decodeTypeOf(GifDrawable.class).lock();
@@ -66,8 +65,8 @@ public class RequestManager implements ComponentCallbacks2, LifecycleListener, M
     private final RequestManagerTreeNode treeNode;
 
     /* renamed from: com.bumptech.glide.RequestManager$1 */
-    public class AnonymousClass1 implements Runnable {
-        public AnonymousClass1() {
+    class AnonymousClass1 implements Runnable {
+        AnonymousClass1() {
         }
 
         @Override // java.lang.Runnable
@@ -77,8 +76,8 @@ public class RequestManager implements ComponentCallbacks2, LifecycleListener, M
         }
     }
 
-    public static class ClearTarget extends CustomViewTarget<View, Object> {
-        public ClearTarget(@NonNull View view) {
+    private static class ClearTarget extends CustomViewTarget<View, Object> {
+        ClearTarget(@NonNull View view) {
             super(view);
         }
 
@@ -87,7 +86,7 @@ public class RequestManager implements ComponentCallbacks2, LifecycleListener, M
         }
 
         @Override // com.bumptech.glide.request.target.CustomViewTarget
-        public void onResourceCleared(@Nullable Drawable drawable) {
+        protected void onResourceCleared(@Nullable Drawable drawable) {
         }
 
         @Override // com.bumptech.glide.request.target.Target
@@ -95,18 +94,18 @@ public class RequestManager implements ComponentCallbacks2, LifecycleListener, M
         }
     }
 
-    public class RequestManagerConnectivityListener implements ConnectivityMonitor.ConnectivityListener {
+    private class RequestManagerConnectivityListener implements ConnectivityMonitor.ConnectivityListener {
 
         @GuardedBy("RequestManager.this")
         private final RequestTracker requestTracker;
 
-        public RequestManagerConnectivityListener(@NonNull RequestTracker requestTracker) {
+        RequestManagerConnectivityListener(@NonNull RequestTracker requestTracker) {
             this.requestTracker = requestTracker;
         }
 
         @Override // com.bumptech.glide.manager.ConnectivityMonitor.ConnectivityListener
-        public void onConnectivityChanged(boolean z10) {
-            if (z10) {
+        public void onConnectivityChanged(boolean z) {
+            if (z) {
                 synchronized (RequestManager.this) {
                     this.requestTracker.restartRequests();
                 }
@@ -180,7 +179,7 @@ public class RequestManager implements ComponentCallbacks2, LifecycleListener, M
     @NonNull
     @CheckResult
     public RequestBuilder<File> download(@Nullable Object obj) {
-        return downloadOnly().load2(obj);
+        return downloadOnly().load(obj);
     }
 
     @NonNull
@@ -189,16 +188,16 @@ public class RequestManager implements ComponentCallbacks2, LifecycleListener, M
         return as(File.class).apply((BaseRequestOptions<?>) DOWNLOAD_ONLY_OPTIONS);
     }
 
-    public List<RequestListener<Object>> getDefaultRequestListeners() {
+    List<RequestListener<Object>> getDefaultRequestListeners() {
         return this.defaultRequestListeners;
     }
 
-    public synchronized RequestOptions getDefaultRequestOptions() {
+    synchronized RequestOptions getDefaultRequestOptions() {
         return this.requestOptions;
     }
 
     @NonNull
-    public <T> TransitionOptions<?, T> getDefaultTransitionOptions(Class<T> cls) {
+    <T> TransitionOptions<?, T> getDefaultTransitionOptions(Class<T> cls) {
         return this.glide.getGlideContext().getDefaultTransitionOptions(cls);
     }
 
@@ -212,21 +211,17 @@ public class RequestManager implements ComponentCallbacks2, LifecycleListener, M
 
     @Override // com.bumptech.glide.manager.LifecycleListener
     public synchronized void onDestroy() {
-        try {
-            this.targetTracker.onDestroy();
-            Iterator<Target<?>> it = this.targetTracker.getAll().iterator();
-            while (it.hasNext()) {
-                clear(it.next());
-            }
-            this.targetTracker.clear();
-            this.requestTracker.clearRequests();
-            this.lifecycle.removeListener(this);
-            this.lifecycle.removeListener(this.connectivityMonitor);
-            this.mainHandler.removeCallbacks(this.addSelfToLifecycle);
-            this.glide.unregisterRequestManager(this);
-        } catch (Throwable th2) {
-            throw th2;
+        this.targetTracker.onDestroy();
+        Iterator<Target<?>> it = this.targetTracker.getAll().iterator();
+        while (it.hasNext()) {
+            clear(it.next());
         }
+        this.targetTracker.clear();
+        this.requestTracker.clearRequests();
+        this.lifecycle.removeListener(this);
+        this.lifecycle.removeListener(this.connectivityMonitor);
+        this.mainHandler.removeCallbacks(this.addSelfToLifecycle);
+        this.glide.unregisterRequestManager(this);
     }
 
     @Override // android.content.ComponentCallbacks
@@ -246,8 +241,8 @@ public class RequestManager implements ComponentCallbacks2, LifecycleListener, M
     }
 
     @Override // android.content.ComponentCallbacks2
-    public void onTrimMemory(int i10) {
-        if (i10 == 60 && this.pauseAllRequestsOnTrimMemoryModerate) {
+    public void onTrimMemory(int i2) {
+        if (i2 == 60 && this.pauseAllRequestsOnTrimMemoryModerate) {
             pauseAllRequestsRecursive();
         }
     }
@@ -295,24 +290,24 @@ public class RequestManager implements ComponentCallbacks2, LifecycleListener, M
         return this;
     }
 
-    public void setPauseAllRequestsOnTrimMemoryModerate(boolean z10) {
-        this.pauseAllRequestsOnTrimMemoryModerate = z10;
+    public void setPauseAllRequestsOnTrimMemoryModerate(boolean z) {
+        this.pauseAllRequestsOnTrimMemoryModerate = z;
     }
 
-    public synchronized void setRequestOptions(@NonNull RequestOptions requestOptions) {
-        this.requestOptions = requestOptions.mo29clone().autoClone();
+    protected synchronized void setRequestOptions(@NonNull RequestOptions requestOptions) {
+        this.requestOptions = requestOptions.mo37clone().autoClone();
     }
 
     public synchronized String toString() {
-        return super.toString() + "{tracker=" + this.requestTracker + ", treeNode=" + this.treeNode + f.f29748d;
+        return super.toString() + "{tracker=" + this.requestTracker + ", treeNode=" + this.treeNode + "}";
     }
 
-    public synchronized void track(@NonNull Target<?> target, @NonNull Request request) {
+    synchronized void track(@NonNull Target<?> target, @NonNull Request request) {
         this.targetTracker.track(target);
         this.requestTracker.runRequest(request);
     }
 
-    public synchronized boolean untrack(@NonNull Target<?> target) {
+    synchronized boolean untrack(@NonNull Target<?> target) {
         Request request = target.getRequest();
         if (request == null) {
             return true;
@@ -332,10 +327,10 @@ public class RequestManager implements ComponentCallbacks2, LifecycleListener, M
         untrackOrDelegate(target);
     }
 
-    public RequestManager(Glide glide, Lifecycle lifecycle, RequestManagerTreeNode requestManagerTreeNode, RequestTracker requestTracker, ConnectivityMonitorFactory connectivityMonitorFactory, Context context) {
+    RequestManager(Glide glide, Lifecycle lifecycle, RequestManagerTreeNode requestManagerTreeNode, RequestTracker requestTracker, ConnectivityMonitorFactory connectivityMonitorFactory, Context context) {
         this.targetTracker = new TargetTracker();
         AnonymousClass1 anonymousClass1 = new Runnable() { // from class: com.bumptech.glide.RequestManager.1
-            public AnonymousClass1() {
+            AnonymousClass1() {
             }
 
             @Override // java.lang.Runnable
@@ -368,72 +363,63 @@ public class RequestManager implements ComponentCallbacks2, LifecycleListener, M
     @Override // com.bumptech.glide.ModelTypes
     @NonNull
     @CheckResult
-    /* renamed from: load */
-    public RequestBuilder<Drawable> load2(@Nullable Bitmap bitmap) {
-        return asDrawable().load2(bitmap);
+    public RequestBuilder<Drawable> load(@Nullable Bitmap bitmap) {
+        return asDrawable().load(bitmap);
     }
 
     @Override // com.bumptech.glide.ModelTypes
     @NonNull
     @CheckResult
-    /* renamed from: load */
-    public RequestBuilder<Drawable> load2(@Nullable Drawable drawable) {
-        return asDrawable().load2(drawable);
+    public RequestBuilder<Drawable> load(@Nullable Drawable drawable) {
+        return asDrawable().load(drawable);
     }
 
     @Override // com.bumptech.glide.ModelTypes
     @NonNull
     @CheckResult
-    /* renamed from: load */
-    public RequestBuilder<Drawable> load2(@Nullable String str) {
-        return asDrawable().load2(str);
+    public RequestBuilder<Drawable> load(@Nullable String str) {
+        return asDrawable().load(str);
     }
 
     @Override // com.bumptech.glide.ModelTypes
     @NonNull
     @CheckResult
-    /* renamed from: load */
-    public RequestBuilder<Drawable> load2(@Nullable Uri uri) {
-        return asDrawable().load2(uri);
+    public RequestBuilder<Drawable> load(@Nullable Uri uri) {
+        return asDrawable().load(uri);
     }
 
     @Override // com.bumptech.glide.ModelTypes
     @NonNull
     @CheckResult
-    /* renamed from: load */
-    public RequestBuilder<Drawable> load2(@Nullable File file) {
-        return asDrawable().load2(file);
+    public RequestBuilder<Drawable> load(@Nullable File file) {
+        return asDrawable().load(file);
     }
 
     @Override // com.bumptech.glide.ModelTypes
     @NonNull
     @CheckResult
-    /* renamed from: load */
-    public RequestBuilder<Drawable> load2(@Nullable @DrawableRes @RawRes Integer num) {
-        return asDrawable().load2(num);
+    public RequestBuilder<Drawable> load(@Nullable @DrawableRes @RawRes Integer num) {
+        return asDrawable().load(num);
     }
 
     @Override // com.bumptech.glide.ModelTypes
     @CheckResult
     @Deprecated
-    /* renamed from: load */
-    public RequestBuilder<Drawable> load2(@Nullable URL url) {
-        return asDrawable().load2(url);
+    public RequestBuilder<Drawable> load(@Nullable URL url) {
+        return asDrawable().load(url);
     }
 
     @Override // com.bumptech.glide.ModelTypes
     @NonNull
     @CheckResult
-    /* renamed from: load */
-    public RequestBuilder<Drawable> load2(@Nullable byte[] bArr) {
-        return asDrawable().load2(bArr);
+    public RequestBuilder<Drawable> load(@Nullable byte[] bArr) {
+        return asDrawable().load(bArr);
     }
 
     @Override // com.bumptech.glide.ModelTypes
     @NonNull
     @CheckResult
-    /* renamed from: load */
-    public RequestBuilder<Drawable> load2(@Nullable Object obj) {
-        return asDrawable().load2(obj);
+    public RequestBuilder<Drawable> load(@Nullable Object obj) {
+        return asDrawable().load(obj);
     }
 }

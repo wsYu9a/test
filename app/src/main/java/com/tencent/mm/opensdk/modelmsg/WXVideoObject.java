@@ -20,9 +20,9 @@ public class WXVideoObject implements WXMediaMessage.IMediaObject {
             str2 = "both arguments are null";
         } else {
             String str4 = this.videoUrl;
-            if (str4 == null || str4.length() <= 10240) {
+            if (str4 == null || str4.length() <= LENGTH_LIMIT) {
                 String str5 = this.videoLowBandUrl;
-                if (str5 == null || str5.length() <= 10240) {
+                if (str5 == null || str5.length() <= LENGTH_LIMIT) {
                     return true;
                 }
                 str2 = "checkArgs fail, videoLowBandUrl is too long";

@@ -16,56 +16,52 @@ import com.kwad.components.ad.widget.AppScoreView;
 import com.kwad.components.ad.widget.KsAppTagsView;
 import com.kwad.components.core.page.widget.TextProgressBar;
 import com.kwad.sdk.R;
-import com.kwad.sdk.core.config.d;
 import com.kwad.sdk.core.imageloader.KSImageLoader;
-import com.kwad.sdk.core.response.b.e;
+import com.kwad.sdk.core.response.a.c;
+import com.kwad.sdk.core.response.a.d;
 import com.kwad.sdk.core.response.model.AdInfo;
 import com.kwad.sdk.core.response.model.AdTemplate;
-import com.kwad.sdk.n.m;
+import com.kwad.sdk.j.k;
 import java.util.List;
 
 /* loaded from: classes2.dex */
 public abstract class a extends LinearLayout {
-    protected AppScoreView CU;
-    protected TextProgressBar Dk;
-    protected View Jh;
-    protected TextView Kr;
-    protected TextView eW;
-    protected ValueAnimator ky;
-
-    /* renamed from: mi */
-    protected ImageView f11910mi;
-
-    /* renamed from: mj */
-    protected TextView f11911mj;
-    protected View zD;
-    protected Button zE;
-    protected Button zF;
-    protected KsAppTagsView zL;
-    protected com.kwad.components.ad.k.a zO;
-    private Runnable zP;
+    protected AppScoreView AK;
+    protected TextProgressBar Ba;
+    protected View FY;
+    protected TextView Hi;
+    protected TextView dM;
+    protected ValueAnimator iW;
+    protected ImageView lv;
+    protected TextView lw;
+    protected View xF;
+    protected Button xG;
+    protected Button xH;
+    protected KsAppTagsView xN;
+    protected com.kwad.components.ad.g.a xQ;
+    private Runnable xR;
 
     /* renamed from: com.kwad.components.ad.widget.tailframe.appbar.a$1 */
-    public class AnonymousClass1 implements Runnable {
-        public AnonymousClass1() {
+    final class AnonymousClass1 implements Runnable {
+        AnonymousClass1() {
         }
 
         @Override // java.lang.Runnable
         public final void run() {
-            a.this.zO.io();
+            a.this.xQ.lB();
         }
     }
 
     /* renamed from: com.kwad.components.ad.widget.tailframe.appbar.a$2 */
-    public class AnonymousClass2 implements ValueAnimator.AnimatorUpdateListener {
-        public AnonymousClass2() {
+    final class AnonymousClass2 implements ValueAnimator.AnimatorUpdateListener {
+        AnonymousClass2() {
         }
 
         @Override // android.animation.ValueAnimator.AnimatorUpdateListener
         public final void onAnimationUpdate(ValueAnimator valueAnimator) {
             float floatValue = ((Float) valueAnimator.getAnimatedValue()).floatValue();
-            a.this.Dk.setScaleY(floatValue);
-            a.this.Dk.setScaleX(floatValue);
+            a.this.Ba.setScaleY(floatValue);
+            a.this.Ba.setScaleX(floatValue);
         }
     }
 
@@ -73,155 +69,160 @@ public abstract class a extends LinearLayout {
         this(context, null);
     }
 
-    private void initView() {
-        this.Jh = m.inflate(getContext(), getLayoutId(), this);
-        this.f11910mi = (ImageView) findViewById(R.id.ksad_app_icon);
-        this.f11911mj = (TextView) findViewById(R.id.ksad_app_name);
-        this.CU = (AppScoreView) findViewById(R.id.ksad_app_score);
-        this.eW = (TextView) findViewById(R.id.ksad_app_download_count);
-        this.Kr = (TextView) findViewById(R.id.ksad_app_introduce);
-        TextProgressBar textProgressBar = (TextProgressBar) findViewById(R.id.ksad_download_bar);
-        this.Dk = textProgressBar;
-        textProgressBar.setTextDimen(com.kwad.sdk.c.a.a.a(getContext(), 16.0f));
-        this.Dk.setTextColor(-1);
-        this.zL = (KsAppTagsView) findViewById(R.id.ksad_reward_apk_info_tags);
-        this.zE = (Button) findViewById(R.id.ksad_reward_apk_info_install_action);
-        this.zF = (Button) findViewById(R.id.ksad_reward_apk_info_install_start);
-        this.zD = findViewById(R.id.ksad_reward_apk_info_install_container);
-        this.zO = new com.kwad.components.ad.k.a(this.Jh);
+    public a(Context context, @Nullable AttributeSet attributeSet) {
+        this(context, attributeSet, 0);
     }
 
-    private void ng() {
-        ValueAnimator valueAnimator = this.ky;
+    public a(Context context, @Nullable AttributeSet attributeSet, int i2) {
+        super(k.wrapContextIfNeed(context), attributeSet, i2);
+        initView();
+    }
+
+    private void initView() {
+        this.FY = k.inflate(getContext(), getLayoutId(), this);
+        this.lv = (ImageView) findViewById(R.id.ksad_app_icon);
+        this.lw = (TextView) findViewById(R.id.ksad_app_name);
+        this.AK = (AppScoreView) findViewById(R.id.ksad_app_score);
+        this.dM = (TextView) findViewById(R.id.ksad_app_download_count);
+        this.Hi = (TextView) findViewById(R.id.ksad_app_introduce);
+        TextProgressBar textProgressBar = (TextProgressBar) findViewById(R.id.ksad_download_bar);
+        this.Ba = textProgressBar;
+        textProgressBar.setTextDimen(com.kwad.sdk.c.kwai.a.a(getContext(), 16.0f));
+        this.Ba.setTextColor(-1);
+        this.xN = (KsAppTagsView) findViewById(R.id.ksad_reward_apk_info_tags);
+        this.xG = (Button) findViewById(R.id.ksad_reward_apk_info_install_action);
+        this.xH = (Button) findViewById(R.id.ksad_reward_apk_info_install_start);
+        this.xF = findViewById(R.id.ksad_reward_apk_info_install_container);
+        this.xQ = new com.kwad.components.ad.g.a(this.FY);
+    }
+
+    private void lS() {
+        ValueAnimator valueAnimator = this.iW;
         if (valueAnimator == null || !valueAnimator.isRunning()) {
             ValueAnimator ofFloat = ValueAnimator.ofFloat(1.0f, 1.2f, 1.0f);
-            this.ky = ofFloat;
+            this.iW = ofFloat;
             ofFloat.setDuration(1200L);
-            this.ky.setRepeatCount(-1);
-            this.ky.setRepeatMode(1);
-            this.ky.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() { // from class: com.kwad.components.ad.widget.tailframe.appbar.a.2
-                public AnonymousClass2() {
+            this.iW.setRepeatCount(-1);
+            this.iW.setRepeatMode(1);
+            this.iW.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() { // from class: com.kwad.components.ad.widget.tailframe.appbar.a.2
+                AnonymousClass2() {
                 }
 
                 @Override // android.animation.ValueAnimator.AnimatorUpdateListener
                 public final void onAnimationUpdate(ValueAnimator valueAnimator2) {
                     float floatValue = ((Float) valueAnimator2.getAnimatedValue()).floatValue();
-                    a.this.Dk.setScaleY(floatValue);
-                    a.this.Dk.setScaleX(floatValue);
+                    a.this.Ba.setScaleY(floatValue);
+                    a.this.Ba.setScaleX(floatValue);
                 }
             });
-            this.ky.start();
+            this.iW.start();
         }
     }
 
-    public final void D(@NonNull AdInfo adInfo) {
-        int i10 = adInfo.status;
-        if (i10 == 1 || i10 == 2 || i10 == 3) {
-            kH();
+    public void bindView(@NonNull AdTemplate adTemplate) {
+        ImageView imageView;
+        String bM;
+        AdInfo cb = d.cb(adTemplate);
+        if (d.p(adTemplate)) {
+            imageView = this.lv;
+            bM = com.kwad.sdk.core.response.a.a.cn(cb);
         } else {
-            ng();
+            imageView = this.lv;
+            bM = com.kwad.sdk.core.response.a.a.bM(cb);
         }
-    }
-
-    public void f(@NonNull AdTemplate adTemplate) {
-        AdInfo eb2 = e.eb(adTemplate);
-        if (e.J(adTemplate)) {
-            KSImageLoader.loadAppIcon(this.f11910mi, com.kwad.sdk.core.response.b.a.cP(eb2), adTemplate, 12);
-        } else {
-            KSImageLoader.loadAppIcon(this.f11910mi, com.kwad.sdk.core.response.b.a.cm(eb2), adTemplate, 12);
-        }
-        this.f11911mj.setText(com.kwad.sdk.core.response.b.a.cj(eb2));
-        if (!e.J(adTemplate)) {
-            float aA = com.kwad.sdk.core.response.b.a.aA(eb2);
-            if (aA >= 3.0f) {
-                this.CU.setScore(aA);
-                this.CU.setVisibility(0);
+        KSImageLoader.loadAppIcon(imageView, bM, adTemplate, 12);
+        this.lw.setText(com.kwad.sdk.core.response.a.a.bK(cb));
+        if (!d.p(adTemplate)) {
+            float as = com.kwad.sdk.core.response.a.a.as(cb);
+            if (as >= 3.0f) {
+                this.AK.setScore(as);
+                this.AK.setVisibility(0);
             } else {
-                this.CU.setVisibility(8);
+                this.AK.setVisibility(8);
             }
-            String az = com.kwad.sdk.core.response.b.a.az(eb2);
-            if (TextUtils.isEmpty(az)) {
-                this.eW.setVisibility(8);
+            String ar = com.kwad.sdk.core.response.a.a.ar(cb);
+            if (TextUtils.isEmpty(ar)) {
+                this.dM.setVisibility(8);
             } else {
-                this.eW.setText(az);
-                this.eW.setVisibility(0);
+                this.dM.setText(ar);
+                this.dM.setVisibility(0);
             }
         }
-        this.Kr.setText(com.kwad.sdk.core.response.b.a.au(eb2));
-        if (e.J(adTemplate)) {
-            this.Dk.setVisibility(8);
-            this.zD.setVisibility(0);
-            this.zF.setText("查看详情");
-            Button button = this.zE;
-            StringBuilder sb2 = new StringBuilder();
-            sb2.append(d.DG());
-            button.setText(String.format("浏览详情页%s秒，领取奖励", sb2.toString()));
+        this.Hi.setText(com.kwad.sdk.core.response.a.a.an(cb));
+        if (d.p(adTemplate)) {
+            this.Ba.setVisibility(8);
+            this.xF.setVisibility(0);
+            this.xH.setText("查看详情");
+            Button button = this.xG;
+            StringBuilder sb = new StringBuilder();
+            sb.append(com.kwad.sdk.core.config.d.uA());
+            button.setText(String.format("浏览详情页%s秒，领取奖励", sb.toString()));
             if (!adTemplate.mRewardVerifyCalled) {
-                if (this.zP == null) {
-                    this.zP = new Runnable() { // from class: com.kwad.components.ad.widget.tailframe.appbar.a.1
-                        public AnonymousClass1() {
+                if (this.xR == null) {
+                    this.xR = new Runnable() { // from class: com.kwad.components.ad.widget.tailframe.appbar.a.1
+                        AnonymousClass1() {
                         }
 
                         @Override // java.lang.Runnable
                         public final void run() {
-                            a.this.zO.io();
+                            a.this.xQ.lB();
                         }
                     };
                 }
-                this.zD.postDelayed(this.zP, 1600L);
+                this.xF.postDelayed(this.xR, 1600L);
             }
         } else {
-            this.Dk.setVisibility(0);
-            this.zD.setVisibility(8);
-            Runnable runnable = this.zP;
+            this.Ba.setVisibility(0);
+            this.xF.setVisibility(8);
+            Runnable runnable = this.xR;
             if (runnable != null) {
-                this.zD.removeCallbacks(runnable);
-                this.zP = null;
+                this.xF.removeCallbacks(runnable);
+                this.xR = null;
             }
-            D(e.eb(adTemplate));
+            x(d.cb(adTemplate));
         }
-        if (e.J(adTemplate)) {
-            List<String> dS = com.kwad.sdk.core.response.b.d.dS(adTemplate);
-            if (dS.size() > 0) {
-                this.zL.setVisibility(0);
+        if (d.p(adTemplate)) {
+            List<String> bS = c.bS(adTemplate);
+            if (bS.size() > 0) {
+                this.xN.setVisibility(0);
             } else {
-                this.zL.setVisibility(8);
+                this.xN.setVisibility(8);
             }
-            this.zL.setAppTags(dS);
+            this.xN.setAppTags(bS);
         }
     }
 
     public View getBtnInstallContainer() {
-        return this.zD;
+        return this.xF;
     }
 
     @LayoutRes
     public abstract int getLayoutId();
 
     public TextProgressBar getTextProgressBar() {
-        return this.Dk;
+        return this.Ba;
     }
 
-    public final void kH() {
-        ValueAnimator valueAnimator = this.ky;
+    public final void ki() {
+        ValueAnimator valueAnimator = this.iW;
         if (valueAnimator != null && valueAnimator.isRunning()) {
-            this.ky.cancel();
-            this.ky.end();
+            this.iW.cancel();
+            this.iW.end();
         }
-        Runnable runnable = this.zP;
+        Runnable runnable = this.xR;
         if (runnable != null) {
-            this.zD.removeCallbacks(runnable);
-            this.zP = null;
+            this.xF.removeCallbacks(runnable);
+            this.xR = null;
         }
-        this.zO.mR();
+        this.xQ.lC();
     }
 
-    public a(Context context, @Nullable AttributeSet attributeSet) {
-        this(context, attributeSet, 0);
-    }
-
-    public a(Context context, @Nullable AttributeSet attributeSet, int i10) {
-        super(m.wrapContextIfNeed(context), attributeSet, i10);
-        initView();
+    public final void x(@NonNull AdInfo adInfo) {
+        int i2 = adInfo.status;
+        if (i2 == 1 || i2 == 2 || i2 == 3) {
+            ki();
+        } else {
+            lS();
+        }
     }
 }

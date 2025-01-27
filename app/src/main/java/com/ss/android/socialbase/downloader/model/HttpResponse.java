@@ -44,7 +44,7 @@ public class HttpResponse {
     }
 
     public String getEtag() {
-        return this.connection.getResponseHeaderField("Etag");
+        return this.connection.getResponseHeaderField(DownloadUtils.ETAG);
     }
 
     public String getLastModified() {

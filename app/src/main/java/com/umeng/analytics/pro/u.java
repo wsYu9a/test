@@ -1,623 +1,483 @@
 package com.umeng.analytics.pro;
 
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.text.TextUtils;
+import com.umeng.analytics.AnalyticsConfig;
 import com.umeng.analytics.CoreProtocol;
-import com.umeng.analytics.pro.q;
-import com.umeng.commonsdk.debug.UMLog;
-import com.umeng.commonsdk.framework.UMEnvelopeBuild;
+import com.umeng.analytics.pro.e;
+import com.umeng.analytics.pro.i;
+import com.umeng.analytics.pro.o;
+import com.umeng.analytics.pro.y;
+import com.umeng.analytics.process.UMProcessDBDatasSender;
+import com.umeng.commonsdk.config.FieldManager;
+import com.umeng.commonsdk.debug.UMRTLog;
 import com.umeng.commonsdk.framework.UMWorkDispatch;
 import com.umeng.commonsdk.service.UMGlobalContext;
-import com.umeng.commonsdk.statistics.common.HelperUtils;
+import com.umeng.commonsdk.statistics.AnalyticsConstants;
 import com.umeng.commonsdk.statistics.common.MLog;
-import com.umeng.commonsdk.statistics.common.ULog;
 import com.umeng.commonsdk.statistics.internal.PreferenceWrapper;
 import com.umeng.commonsdk.utils.UMUtils;
-import java.util.Arrays;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Map;
-import org.json.JSONArray;
-import org.json.JSONException;
+import java.lang.reflect.Method;
 import org.json.JSONObject;
 
 /* loaded from: classes4.dex */
-public class u {
+public class u implements y.a {
 
     /* renamed from: a */
-    private static final String f24149a = "fs_lc_tl_uapp";
-
-    /* renamed from: f */
-    private static final String f24150f = "-1";
-
-    /* renamed from: g */
-    private static Context f24151g;
+    public static final String f26009a = "session_start_time";
 
     /* renamed from: b */
-    private final int f24152b;
+    public static final String f26010b = "session_end_time";
 
     /* renamed from: c */
-    private final int f24153c;
+    public static final String f26011c = "session_id";
 
     /* renamed from: d */
-    private final int f24154d;
+    public static final String f26012d = "pre_session_id";
 
     /* renamed from: e */
-    private final int f24155e;
+    public static final String f26013e = "a_start_time";
+
+    /* renamed from: f */
+    public static final String f26014f = "a_end_time";
+
+    /* renamed from: g */
+    public static final String f26015g = "fg_count";
 
     /* renamed from: h */
-    private JSONObject f24156h;
+    private static String f26016h = null;
 
-    public static class a {
+    /* renamed from: i */
+    private static Context f26017i = null;
+
+    /* renamed from: j */
+    private static boolean f26018j = false;
+    private static long k = 0;
+    private static boolean l = true;
+    private static long m;
+
+    private static class a {
 
         /* renamed from: a */
-        private static final u f24157a = new u();
+        private static final u f26019a = new u();
 
         private a() {
         }
     }
 
-    public /* synthetic */ u(AnonymousClass1 anonymousClass1) {
+    /* synthetic */ u(AnonymousClass1 anonymousClass1) {
         this();
     }
 
-    public static u a(Context context) {
-        if (f24151g == null && context != null) {
-            f24151g = context.getApplicationContext();
-        }
-        return a.f24157a;
+    public static u a() {
+        return a.f26019a;
     }
 
-    private void b(Context context) {
-        try {
-            String string = PreferenceWrapper.getDefault(context).getString(f24149a, null);
-            if (!TextUtils.isEmpty(string)) {
-                this.f24156h = new JSONObject(string);
+    public static void b(Context context) {
+        SharedPreferences sharedPreferences = PreferenceWrapper.getDefault(f26017i);
+        if (sharedPreferences != null) {
+            long j2 = sharedPreferences.getLong(f26015g, 0L);
+            SharedPreferences.Editor edit = sharedPreferences.edit();
+            if (edit != null) {
+                edit.putLong(f26015g, j2 + 1);
+                edit.commit();
             }
-            a();
-        } catch (Exception unused) {
         }
     }
 
-    private void c(Context context) {
+    private void d(Context context) {
         try {
-            if (this.f24156h != null) {
-                PreferenceWrapper.getDefault(f24151g).edit().putString(f24149a, this.f24156h.toString()).commit();
+            SharedPreferences.Editor edit = PreferenceWrapper.getDefault(context).edit();
+            edit.putLong(f26015g, 0L);
+            edit.commit();
+        } catch (Throwable unused) {
+        }
+    }
+
+    private String e(Context context) {
+        if (f26017i == null && context != null) {
+            f26017i = context.getApplicationContext();
+        }
+        String d2 = y.a().d(f26017i);
+        try {
+            f(context);
+            o.a(f26017i).d((Object) null);
+        } catch (Throwable unused) {
+        }
+        return d2;
+    }
+
+    private void f(Context context) {
+        o.a(context).b(context);
+        o.a(context).d();
+    }
+
+    public void c(Context context, Object obj) {
+        try {
+            if (f26017i == null && context != null) {
+                f26017i = context.getApplicationContext();
             }
+            long longValue = ((Long) obj).longValue();
+            SharedPreferences sharedPreferences = PreferenceWrapper.getDefault(context);
+            if (sharedPreferences == null) {
+                return;
+            }
+            if (sharedPreferences.getLong(f26013e, 0L) == 0) {
+                MLog.e("onPause called before onResume");
+                return;
+            }
+            SharedPreferences.Editor edit = sharedPreferences.edit();
+            UMRTLog.i(UMRTLog.RTLOG_TAG, "--->>> onEndSessionInternal: write activity end time = " + longValue);
+            edit.putLong(f26014f, longValue);
+            edit.putLong(f26010b, longValue);
+            edit.commit();
         } catch (Throwable unused) {
         }
     }
 
     private u() {
-        this.f24152b = 128;
-        this.f24153c = 256;
-        this.f24154d = 1024;
-        this.f24155e = 10;
-        this.f24156h = null;
+        y.a().a(this);
+    }
+
+    public static long a(Context context) {
         try {
-            b(f24151g);
+            return PreferenceWrapper.getDefault(context).getLong(f26015g, 0L);
+        } catch (Throwable unused) {
+            return 0L;
+        }
+    }
+
+    public void a(Context context, long j2) {
+        SharedPreferences.Editor edit;
+        SharedPreferences sharedPreferences = PreferenceWrapper.getDefault(f26017i);
+        if (sharedPreferences == null || (edit = sharedPreferences.edit()) == null) {
+            return;
+        }
+        edit.putLong(f26009a, j2);
+        edit.commit();
+    }
+
+    public void b(Context context, Object obj) {
+        long longValue;
+        try {
+            if (f26017i == null) {
+                f26017i = UMGlobalContext.getAppContext(context);
+            }
+            if (obj == null) {
+                longValue = System.currentTimeMillis();
+            } else {
+                longValue = ((Long) obj).longValue();
+            }
+            SharedPreferences sharedPreferences = PreferenceWrapper.getDefault(f26017i);
+            if (sharedPreferences == null) {
+                return;
+            }
+            k = sharedPreferences.getLong(f26014f, 0L);
+            UMRTLog.i(UMRTLog.RTLOG_TAG, "------>>> lastActivityEndTime: " + k);
+            String string = sharedPreferences.getString(d.az, "");
+            String appVersionName = UMUtils.getAppVersionName(f26017i);
+            SharedPreferences.Editor edit = sharedPreferences.edit();
+            if (edit == null) {
+                return;
+            }
+            if (!TextUtils.isEmpty(string) && !string.equals(appVersionName)) {
+                UMRTLog.i(UMRTLog.RTLOG_TAG, "--->>> requestNewInstantSessionIf: version upgrade");
+                edit.putLong(f26009a, longValue);
+                edit.commit();
+                o.a(f26017i).a((Object) null, true);
+                UMRTLog.i(UMRTLog.RTLOG_TAG, "--->>> force generate new session: session id = " + y.a().c(f26017i));
+                f26018j = true;
+                a(f26017i, longValue, true);
+                return;
+            }
+            if (y.a().e(f26017i)) {
+                UMRTLog.i(UMRTLog.RTLOG_TAG, "--->>> More then 30 sec from last session.");
+                f26018j = true;
+                edit.putLong(f26009a, longValue);
+                edit.commit();
+                a(f26017i, longValue, false);
+                return;
+            }
+            UMRTLog.i(UMRTLog.RTLOG_TAG, "--->>> less then 30 sec from last session, do nothing.");
+            f26018j = false;
         } catch (Throwable unused) {
         }
     }
 
-    private boolean c(String str) {
-        if (str == null) {
-            return true;
-        }
+    public void a(Context context, Object obj) {
+        SharedPreferences.Editor edit;
         try {
-            return str.trim().getBytes().length <= 1024;
-        } catch (Exception unused) {
+            if (f26017i == null && context != null) {
+                f26017i = context.getApplicationContext();
+            }
+            long longValue = ((Long) obj).longValue();
+            SharedPreferences sharedPreferences = PreferenceWrapper.getDefault(f26017i);
+            if (sharedPreferences == null || (edit = sharedPreferences.edit()) == null) {
+                return;
+            }
+            String string = sharedPreferences.getString(d.az, "");
+            String appVersionName = UMUtils.getAppVersionName(f26017i);
+            if (TextUtils.isEmpty(string)) {
+                edit.putInt("versioncode", Integer.parseInt(UMUtils.getAppVersionCode(context)));
+                edit.putString(d.az, appVersionName);
+                edit.commit();
+            } else if (!string.equals(appVersionName)) {
+                UMRTLog.i(UMRTLog.RTLOG_TAG, "--->>> onStartSessionInternal: upgrade version: " + string + "-> " + appVersionName);
+                int i2 = sharedPreferences.getInt("versioncode", 0);
+                String string2 = sharedPreferences.getString("pre_date", "");
+                String string3 = sharedPreferences.getString("pre_version", "");
+                String string4 = sharedPreferences.getString(d.az, "");
+                edit.putInt("versioncode", Integer.parseInt(UMUtils.getAppVersionCode(context)));
+                edit.putString(d.az, appVersionName);
+                edit.putString("vers_date", string2);
+                edit.putString("vers_pre_version", string3);
+                edit.putString("cur_version", string4);
+                edit.putInt("vers_code", i2);
+                edit.putString("vers_name", string);
+                edit.commit();
+                if (l) {
+                    l = false;
+                }
+                if (f26018j) {
+                    f26018j = false;
+                    b(f26017i, longValue, true);
+                    b(f26017i, longValue);
+                    return;
+                }
+                return;
+            }
+            if (f26018j) {
+                f26018j = false;
+                if (l) {
+                    l = false;
+                }
+                f26016h = e(context);
+                MLog.d("创建新会话: " + f26016h);
+                UMRTLog.i(UMRTLog.RTLOG_TAG, "mSessionChanged flag has been set, Start new session: " + f26016h);
+                return;
+            }
+            f26016h = sharedPreferences.getString("session_id", null);
+            edit.putLong(f26013e, longValue);
+            edit.putLong(f26014f, 0L);
+            edit.commit();
+            MLog.d("延续上一个会话: " + f26016h);
+            UMRTLog.i(UMRTLog.RTLOG_TAG, "Extend current session: " + f26016h);
+            if (l) {
+                l = false;
+                if (FieldManager.allow(com.umeng.commonsdk.utils.d.E)) {
+                    Context context2 = f26017i;
+                    UMWorkDispatch.sendEventEx(context2, o.a.D, CoreProtocol.getInstance(context2), null, 0L);
+                }
+            }
+            f(context);
+            o.a(f26017i).a(false);
+        } catch (Throwable unused) {
+        }
+    }
+
+    public String c(Context context) {
+        try {
+            if (f26016h == null) {
+                return PreferenceWrapper.getDefault(context).getString("session_id", null);
+            }
+        } catch (Throwable unused) {
+        }
+        return f26016h;
+    }
+
+    public String c() {
+        return c(f26017i);
+    }
+
+    public boolean b(Context context, long j2, boolean z) {
+        SharedPreferences sharedPreferences;
+        String a2;
+        long j3;
+        boolean z2 = false;
+        try {
+            sharedPreferences = PreferenceWrapper.getDefault(context);
+        } catch (Throwable unused) {
+        }
+        if (sharedPreferences == null || (a2 = y.a().a(f26017i)) == null) {
             return false;
         }
-    }
-
-    public void a(String str, String str2, long j10, int i10, String str3) {
-        String a10;
-        try {
-            if (a(str) && b(str2)) {
-                if (Arrays.asList(f.aM).contains(str)) {
-                    MLog.e("key is " + str + ", please check key, illegal");
-                    UMLog.aq(l.f24037m, 0, "\\|");
-                    return;
-                }
-                long currentTimeMillis = System.currentTimeMillis();
-                JSONObject jSONObject = new JSONObject();
-                jSONObject.put("id", str);
-                jSONObject.put("ts", currentTimeMillis);
-                if (j10 > 0) {
-                    jSONObject.put(f.f23885ac, j10);
-                }
-                jSONObject.put("__t", k.f23994a);
-                if (!TextUtils.isEmpty(str2)) {
-                    jSONObject.put(str, str2);
-                }
-                if (UMUtils.isMainProgress(f24151g)) {
-                    a10 = aa.a().d(UMGlobalContext.getAppContext(f24151g));
+        long j4 = sharedPreferences.getLong(f26013e, 0L);
+        long j5 = sharedPreferences.getLong(f26014f, 0L);
+        if (j4 > 0 && j5 == 0) {
+            z2 = true;
+            if (z) {
+                j3 = k;
+                if (j3 == 0) {
+                    UMRTLog.i(UMRTLog.RTLOG_TAG, "------>>> lastActivityEndTime = 0, In-app upgrade, use currentTime: = " + j2);
+                    j3 = j2;
                 } else {
-                    a10 = aa.a().a(UMGlobalContext.getAppContext(f24151g), currentTimeMillis);
+                    UMRTLog.i(UMRTLog.RTLOG_TAG, "------>>> lastActivityEndTime != 0, app upgrade, use lastActivityEndTime: = " + k);
                 }
-                if (TextUtils.isEmpty(a10)) {
-                    a10 = f24150f;
-                }
-                jSONObject.put("__i", a10);
-                if (!TextUtils.isEmpty(str3)) {
-                    try {
-                        JSONObject jSONObject2 = new JSONObject(str3);
-                        if (jSONObject2.length() > 0) {
-                            jSONObject.put(f.aA, jSONObject2);
-                        }
-                    } catch (JSONException unused) {
-                    }
-                }
-                jSONObject.put("ds", 0);
-                jSONObject.put("pn", UMGlobalContext.getInstance(f24151g).getProcessName(f24151g));
-                a();
-                JSONObject jSONObject3 = this.f24156h;
-                if (jSONObject3 != null && jSONObject3.has(str) && !((Boolean) this.f24156h.get(str)).booleanValue()) {
-                    jSONObject.put(f.f23887ae, 1);
-                    this.f24156h.put(str, true);
-                    c(f24151g);
-                }
-                Context context = f24151g;
-                UMWorkDispatch.sendEvent(context, 4097, CoreProtocol.getInstance(context), jSONObject);
-                return;
-            }
-            UMLog.aq(l.f24036l, 0, "\\|");
-        } catch (Throwable unused2) {
-        }
-    }
-
-    private boolean b(String str) {
-        if (str == null) {
-            return true;
-        }
-        try {
-            if (str.trim().getBytes().length <= 256) {
-                return true;
-            }
-        } catch (Exception unused) {
-        }
-        MLog.e("value is " + str + ", please check value, illegal");
-        return false;
-    }
-
-    private boolean b(Map<String, Object> map) {
-        if (map != null) {
-            try {
-                if (!map.isEmpty()) {
-                    for (Map.Entry<String, Object> entry : map.entrySet()) {
-                        if (!a(entry.getKey())) {
-                            UMLog.aq(l.f24032h, 0, "\\|");
-                            return false;
-                        }
-                        if (entry.getValue() == null) {
-                            UMLog.aq(l.f24033i, 0, "\\|");
-                            return false;
-                        }
-                        if (entry.getValue() instanceof String) {
-                            if (f.aK.equals(entry.getKey())) {
-                                if (!c(entry.getValue().toString())) {
-                                    UMLog.aq(l.P, 0, "\\|");
-                                    return false;
-                                }
-                            } else if ("_$!url".equals(entry.getKey())) {
-                                if (!c(entry.getValue().toString())) {
-                                    UMLog.aq("url参数长度超过限制。|参数url长度不能超过1024字符。", 0, "\\|");
-                                    return false;
-                                }
-                            } else if (!b(entry.getValue().toString())) {
-                                UMLog.aq(l.f24034j, 0, "\\|");
-                                return false;
-                            }
-                        }
-                    }
-                    return true;
-                }
-            } catch (Exception unused) {
-                return true;
-            }
-        }
-        UMLog.aq(l.f24031g, 0, "\\|");
-        return false;
-    }
-
-    public void a(String str, Map<String, Object> map, long j10, String str2, boolean z10) {
-        String a10;
-        try {
-            if (!a(str)) {
-                UMLog.aq(l.f24030f, 0, "\\|");
-                return;
-            }
-            if (b(map)) {
-                if (map.size() > 100) {
-                    MLog.e("map size is " + map.size() + ", please check");
-                    return;
-                }
-                if (Arrays.asList(f.aM).contains(str)) {
-                    MLog.e("key is " + str + ", please check key, illegal");
-                    UMLog.aq(l.f24026b, 0, "\\|");
-                    return;
-                }
-                JSONObject jSONObject = new JSONObject();
-                jSONObject.put("id", str);
-                jSONObject.put("ts", System.currentTimeMillis());
-                if (j10 > 0) {
-                    jSONObject.put(f.f23885ac, j10);
-                }
-                jSONObject.put("__t", k.f23994a);
-                ULog.i("befort ekv map, event is " + jSONObject.toString());
-                for (Map.Entry<String, Object> entry : map.entrySet()) {
-                    if (!Arrays.asList(f.aM).contains(entry.getKey())) {
-                        Object value = entry.getValue();
-                        if (!(value instanceof String) && !(value instanceof Integer) && !(value instanceof Long) && !(value instanceof Short) && !(value instanceof Float) && !(value instanceof Double)) {
-                            if (value.getClass().isArray()) {
-                                if (value instanceof int[]) {
-                                    int[] iArr = (int[]) value;
-                                    if (iArr.length > 10) {
-                                        MLog.e("please check key or value, size overlength!");
-                                        return;
-                                    }
-                                    JSONArray jSONArray = new JSONArray();
-                                    for (int i10 : iArr) {
-                                        jSONArray.put(i10);
-                                    }
-                                    jSONObject.put(entry.getKey(), jSONArray);
-                                } else if (value instanceof double[]) {
-                                    double[] dArr = (double[]) value;
-                                    if (dArr.length > 10) {
-                                        MLog.e("please check key or value, size overlength!");
-                                        return;
-                                    }
-                                    JSONArray jSONArray2 = new JSONArray();
-                                    for (double d10 : dArr) {
-                                        jSONArray2.put(d10);
-                                    }
-                                    jSONObject.put(entry.getKey(), jSONArray2);
-                                } else if (value instanceof long[]) {
-                                    long[] jArr = (long[]) value;
-                                    if (jArr.length > 10) {
-                                        MLog.e("please check key or value, size overlength!");
-                                        return;
-                                    }
-                                    JSONArray jSONArray3 = new JSONArray();
-                                    for (long j11 : jArr) {
-                                        jSONArray3.put(j11);
-                                    }
-                                    jSONObject.put(entry.getKey(), jSONArray3);
-                                } else if (value instanceof float[]) {
-                                    float[] fArr = (float[]) value;
-                                    if (fArr.length > 10) {
-                                        MLog.e("please check key or value, size overlength!");
-                                        return;
-                                    }
-                                    JSONArray jSONArray4 = new JSONArray();
-                                    for (float f10 : fArr) {
-                                        jSONArray4.put(f10);
-                                    }
-                                    jSONObject.put(entry.getKey(), jSONArray4);
-                                } else if (value instanceof short[]) {
-                                    short[] sArr = (short[]) value;
-                                    if (sArr.length > 10) {
-                                        MLog.e("please check key or value, size overlength!");
-                                        return;
-                                    }
-                                    JSONArray jSONArray5 = new JSONArray();
-                                    for (short s10 : sArr) {
-                                        jSONArray5.put((int) s10);
-                                    }
-                                    jSONObject.put(entry.getKey(), jSONArray5);
-                                } else if (value instanceof String[]) {
-                                    String[] strArr = (String[]) value;
-                                    if (strArr.length > 10) {
-                                        MLog.e("please check key or value, size overlength!");
-                                        return;
-                                    }
-                                    JSONArray jSONArray6 = new JSONArray();
-                                    for (int i11 = 0; i11 < strArr.length; i11++) {
-                                        String str3 = strArr[i11];
-                                        if (str3 == null) {
-                                            MLog.e("please check array, null item!");
-                                            return;
-                                        } else {
-                                            if (!b(str3)) {
-                                                return;
-                                            }
-                                            jSONArray6.put(strArr[i11]);
-                                        }
-                                    }
-                                    jSONObject.put(entry.getKey(), jSONArray6);
-                                } else {
-                                    MLog.e("please check key or value, illegal type!");
-                                    return;
-                                }
-                            } else {
-                                MLog.e("please check key or value, illegal type!");
-                                return;
-                            }
-                        }
-                        jSONObject.put(entry.getKey(), value);
-                    } else {
-                        UMLog.aq(l.f24029e, 0, "\\|");
-                        return;
-                    }
-                }
-                if (!UMUtils.isMainProgress(f24151g)) {
-                    a10 = aa.a().a(UMGlobalContext.getAppContext(f24151g), jSONObject.getLong("ts"));
-                } else {
-                    a10 = aa.a().d(UMGlobalContext.getAppContext(f24151g));
-                }
-                if (TextUtils.isEmpty(a10)) {
-                    a10 = f24150f;
-                }
-                jSONObject.put("__i", a10);
-                if (!TextUtils.isEmpty(str2)) {
-                    try {
-                        JSONObject jSONObject2 = new JSONObject(str2);
-                        if (jSONObject2.length() > 0) {
-                            jSONObject.put(f.aA, jSONObject2);
-                        }
-                    } catch (JSONException unused) {
-                    }
-                }
-                jSONObject.put("ds", 0);
-                jSONObject.put("pn", UMGlobalContext.getInstance(f24151g).getProcessName(f24151g));
-                a();
-                JSONObject jSONObject3 = this.f24156h;
-                if (jSONObject3 != null && jSONObject3.has(str) && !((Boolean) this.f24156h.get(str)).booleanValue()) {
-                    jSONObject.put(f.f23887ae, 1);
-                    this.f24156h.put(str, true);
-                    c(f24151g);
-                }
-                ULog.i("----->>>>>ekv event json is " + jSONObject.toString());
-                if (!z10) {
-                    Context context = f24151g;
-                    UMWorkDispatch.sendEvent(context, 4097, CoreProtocol.getInstance(context), jSONObject);
-                } else {
-                    Context context2 = f24151g;
-                    UMWorkDispatch.sendEvent(context2, q.a.f24117n, CoreProtocol.getInstance(context2), jSONObject);
-                }
-            }
-        } catch (Throwable unused2) {
-        }
-    }
-
-    public void a(String str, Map<String, Object> map, String str2) {
-        try {
-            if (a(str)) {
-                JSONObject jSONObject = new JSONObject();
-                jSONObject.put("id", str);
-                jSONObject.put("ts", System.currentTimeMillis());
-                jSONObject.put(f.f23885ac, 0);
-                jSONObject.put("__t", k.f23995b);
-                ULog.i("befort gkv map, event is " + jSONObject.toString());
-                Iterator<Map.Entry<String, Object>> it = map.entrySet().iterator();
-                for (int i10 = 0; i10 < 10 && it.hasNext(); i10++) {
-                    Map.Entry<String, Object> next = it.next();
-                    if (!f.f23887ae.equals(next.getKey()) && !f.f23885ac.equals(next.getKey()) && !"id".equals(next.getKey()) && !"ts".equals(next.getKey())) {
-                        Object value = next.getValue();
-                        if ((value instanceof String) || (value instanceof Integer) || (value instanceof Long)) {
-                            jSONObject.put(next.getKey(), value);
-                        }
-                    }
-                }
-                String d10 = aa.a().d(UMGlobalContext.getAppContext(f24151g));
-                if (TextUtils.isEmpty(d10)) {
-                    d10 = f24150f;
-                }
-                jSONObject.put("__i", d10);
-                if (!TextUtils.isEmpty(str2)) {
-                    try {
-                        JSONObject jSONObject2 = new JSONObject(str2);
-                        if (jSONObject2.length() > 0) {
-                            jSONObject.put(f.aA, jSONObject2);
-                        }
-                    } catch (JSONException unused) {
-                    }
-                }
-                jSONObject.put("ds", 0);
-                jSONObject.put("pn", UMGlobalContext.getInstance(f24151g).getProcessName(f24151g));
-                ULog.i("----->>>>>gkv event json is " + jSONObject.toString());
-                Context context = f24151g;
-                UMWorkDispatch.sendEvent(context, 4098, CoreProtocol.getInstance(context), jSONObject);
-            }
-        } catch (Throwable unused2) {
-        }
-    }
-
-    private void a() {
-        try {
-            String imprintProperty = UMEnvelopeBuild.imprintProperty(f24151g, "track_list", "");
-            if (TextUtils.isEmpty(imprintProperty)) {
-                return;
-            }
-            String[] split = imprintProperty.split("!");
-            JSONObject jSONObject = new JSONObject();
-            int i10 = 0;
-            if (this.f24156h != null) {
-                for (String str : split) {
-                    String subStr = HelperUtils.subStr(str, 128);
-                    if (this.f24156h.has(subStr)) {
-                        jSONObject.put(subStr, this.f24156h.get(subStr));
-                    }
-                }
-            }
-            this.f24156h = new JSONObject();
-            if (split.length >= 10) {
-                while (i10 < 10) {
-                    a(split[i10], jSONObject);
-                    i10++;
-                }
+                c(f26017i, Long.valueOf(j3));
             } else {
-                while (i10 < split.length) {
-                    a(split[i10], jSONObject);
-                    i10++;
-                }
+                c(f26017i, Long.valueOf(j2));
+                j3 = j2;
             }
-            c(f24151g);
+            JSONObject jSONObject = new JSONObject();
+            if (z) {
+                jSONObject.put(e.d.a.f25890g, j3);
+            } else {
+                jSONObject.put(e.d.a.f25890g, j2);
+            }
+            JSONObject b2 = com.umeng.analytics.b.a().b();
+            if (b2 != null && b2.length() > 0) {
+                jSONObject.put("__sp", b2);
+            }
+            JSONObject c2 = com.umeng.analytics.b.a().c();
+            if (c2 != null && c2.length() > 0) {
+                jSONObject.put("__pp", c2);
+            }
+            if (FieldManager.allow(com.umeng.commonsdk.utils.d.E)) {
+                UMRTLog.e(UMRTLog.RTLOG_TAG, "--->>>*** foregroundCount = " + m);
+                jSONObject.put(e.d.a.f25891h, m);
+                m = 0L;
+            } else {
+                jSONObject.put(e.d.a.f25891h, 0L);
+            }
+            i.a(context).a(a2, jSONObject, i.a.END);
+            o.a(f26017i).e();
+        }
+        return z2;
+    }
+
+    public void b(Context context, long j2) {
+        if (PreferenceWrapper.getDefault(context) == null) {
+            return;
+        }
+        try {
+            o.a(f26017i).c((Object) null);
+        } catch (Throwable unused) {
+        }
+    }
+
+    public String a(Context context, long j2, boolean z) {
+        String b2 = y.a().b(context);
+        UMRTLog.i(UMRTLog.RTLOG_TAG, "--->>> onInstantSessionInternal: current session id = " + b2);
+        if (TextUtils.isEmpty(b2)) {
+            return null;
+        }
+        try {
+            JSONObject jSONObject = new JSONObject();
+            jSONObject.put("__e", j2);
+            JSONObject b3 = com.umeng.analytics.b.a().b();
+            if (b3 != null && b3.length() > 0) {
+                jSONObject.put("__sp", b3);
+            }
+            JSONObject c2 = com.umeng.analytics.b.a().c();
+            if (c2 != null && c2.length() > 0) {
+                jSONObject.put("__pp", c2);
+            }
+            i.a(context).a(b2, jSONObject, i.a.INSTANTSESSIONBEGIN);
+            o.a(context).a(jSONObject, z);
+        } catch (Throwable unused) {
+        }
+        return b2;
+    }
+
+    public String b() {
+        return f26016h;
+    }
+
+    @Override // com.umeng.analytics.pro.y.a
+    public void a(String str, String str2, long j2, long j3, long j4) {
+        a(f26017i, str2, j2, j3, j4);
+        UMRTLog.i(UMRTLog.RTLOG_TAG, "saveSessionToDB: complete");
+        if (AnalyticsConstants.SUB_PROCESS_EVENT) {
+            Context context = f26017i;
+            UMWorkDispatch.sendEvent(context, UMProcessDBDatasSender.UM_PROCESS_EVENT_KEY, UMProcessDBDatasSender.getInstance(context), Long.valueOf(System.currentTimeMillis()));
+        }
+    }
+
+    @Override // com.umeng.analytics.pro.y.a
+    public void a(String str, long j2, long j3, long j4) {
+        if (TextUtils.isEmpty(str)) {
+            return;
+        }
+        a(str, j2);
+    }
+
+    private void a(Context context, String str, long j2, long j3, long j4) {
+        if (TextUtils.isEmpty(f26016h)) {
+            f26016h = y.a().a(f26017i);
+        }
+        if (TextUtils.isEmpty(str) || str.equals(f26016h)) {
+            return;
+        }
+        try {
+            JSONObject jSONObject = new JSONObject();
+            jSONObject.put(e.d.a.f25890g, j3);
+            jSONObject.put(e.d.a.f25891h, j4);
+            JSONObject b2 = com.umeng.analytics.b.a().b();
+            if (b2 != null && b2.length() > 0) {
+                jSONObject.put("__sp", b2);
+            }
+            JSONObject c2 = com.umeng.analytics.b.a().c();
+            if (c2 != null && c2.length() > 0) {
+                jSONObject.put("__pp", c2);
+            }
+            i.a(context).a(f26016h, jSONObject, i.a.END);
         } catch (Exception unused) {
         }
-    }
-
-    private void a(String str, JSONObject jSONObject) throws JSONException {
-        String subStr = HelperUtils.subStr(str, 128);
-        if (jSONObject.has(subStr)) {
-            a(subStr, ((Boolean) jSONObject.get(subStr)).booleanValue());
-        } else {
-            a(subStr, false);
-        }
-    }
-
-    private void a(String str, boolean z10) {
         try {
-            if (f.f23887ae.equals(str) || f.f23885ac.equals(str) || "id".equals(str) || "ts".equals(str) || this.f24156h.has(str)) {
+            JSONObject jSONObject2 = new JSONObject();
+            jSONObject2.put("__e", j2);
+            i.a(context).a(str, jSONObject2, i.a.BEGIN);
+            if (FieldManager.allow(com.umeng.commonsdk.utils.d.E)) {
+                m = j4;
+                d(context);
+                Context context2 = f26017i;
+                UMWorkDispatch.sendEventEx(context2, o.a.D, CoreProtocol.getInstance(context2), null, 0L);
+            }
+        } catch (Exception unused2) {
+        }
+        f26016h = str;
+    }
+
+    private void a(String str, long j2) {
+        SharedPreferences sharedPreferences = PreferenceWrapper.getDefault(f26017i);
+        if (sharedPreferences == null) {
+            return;
+        }
+        long j3 = sharedPreferences.getLong(f26010b, 0L);
+        try {
+            JSONObject jSONObject = new JSONObject();
+            jSONObject.put("__ii", str);
+            jSONObject.put("__e", j2);
+            jSONObject.put(e.d.a.f25890g, j3);
+            double[] location = AnalyticsConfig.getLocation();
+            if (location != null) {
+                JSONObject jSONObject2 = new JSONObject();
+                jSONObject2.put(d.C, location[0]);
+                jSONObject2.put(d.D, location[1]);
+                jSONObject2.put("ts", System.currentTimeMillis());
+                jSONObject.put(e.d.a.f25888e, jSONObject2);
+            }
+            Class<?> cls = Class.forName("android.net.TrafficStats");
+            Class<?> cls2 = Integer.TYPE;
+            Method method = cls.getMethod("getUidRxBytes", cls2);
+            Method method2 = cls.getMethod("getUidTxBytes", cls2);
+            int i2 = f26017i.getApplicationInfo().uid;
+            if (i2 == -1) {
                 return;
             }
-            this.f24156h.put(str, z10);
-        } catch (Exception unused) {
-        }
-    }
-
-    public void a(List<String> list) {
-        if (list != null) {
-            try {
-                if (list.size() > 0) {
-                    a();
-                    JSONObject jSONObject = this.f24156h;
-                    if (jSONObject == null) {
-                        this.f24156h = new JSONObject();
-                        int size = list.size();
-                        for (int i10 = 0; i10 < size; i10++) {
-                            JSONObject jSONObject2 = this.f24156h;
-                            if (jSONObject2 == null) {
-                                this.f24156h = new JSONObject();
-                            } else if (jSONObject2.length() >= 5) {
-                                break;
-                            }
-                            String str = list.get(i10);
-                            if (!TextUtils.isEmpty(str)) {
-                                a(HelperUtils.subStr(str, 128), false);
-                            }
-                        }
-                        c(f24151g);
-                        return;
-                    }
-                    if (jSONObject.length() >= 5) {
-                        MLog.d("already setFistLaunchEvent, igone.");
-                        return;
-                    }
-                    for (int i11 = 0; i11 < list.size(); i11++) {
-                        if (this.f24156h.length() >= 5) {
-                            MLog.d(" add setFistLaunchEvent over.");
-                            return;
-                        }
-                        a(HelperUtils.subStr(list.get(i11), 128), false);
-                    }
-                    c(f24151g);
-                    return;
-                }
-            } catch (Exception unused) {
-                return;
+            long longValue = ((Long) method.invoke(null, Integer.valueOf(i2))).longValue();
+            long longValue2 = ((Long) method2.invoke(null, Integer.valueOf(i2))).longValue();
+            if (longValue > 0 && longValue2 > 0) {
+                JSONObject jSONObject3 = new JSONObject();
+                jSONObject3.put(d.H, longValue);
+                jSONObject3.put(d.G, longValue2);
+                jSONObject.put(e.d.a.f25887d, jSONObject3);
             }
+            i.a(f26017i).a(str, jSONObject, i.a.NEWSESSION);
+            v.a(f26017i);
+            l.c(f26017i);
+        } catch (Throwable unused) {
         }
-        UMLog.aq(l.f24025ak, 0, "\\|");
-    }
-
-    private JSONObject a(Map<String, Object> map) {
-        JSONObject jSONObject = new JSONObject();
-        try {
-            for (Map.Entry<String, Object> entry : map.entrySet()) {
-                try {
-                    String key = entry.getKey();
-                    if (key != null) {
-                        String subStr = HelperUtils.subStr(key, 128);
-                        Object value = entry.getValue();
-                        if (value != null) {
-                            int i10 = 0;
-                            if (value.getClass().isArray()) {
-                                if (value instanceof int[]) {
-                                    int[] iArr = (int[]) value;
-                                    JSONArray jSONArray = new JSONArray();
-                                    while (i10 < iArr.length) {
-                                        jSONArray.put(iArr[i10]);
-                                        i10++;
-                                    }
-                                    jSONObject.put(subStr, jSONArray);
-                                } else if (value instanceof double[]) {
-                                    double[] dArr = (double[]) value;
-                                    JSONArray jSONArray2 = new JSONArray();
-                                    while (i10 < dArr.length) {
-                                        jSONArray2.put(dArr[i10]);
-                                        i10++;
-                                    }
-                                    jSONObject.put(subStr, jSONArray2);
-                                } else if (value instanceof long[]) {
-                                    long[] jArr = (long[]) value;
-                                    JSONArray jSONArray3 = new JSONArray();
-                                    while (i10 < jArr.length) {
-                                        jSONArray3.put(jArr[i10]);
-                                        i10++;
-                                    }
-                                    jSONObject.put(subStr, jSONArray3);
-                                } else if (value instanceof float[]) {
-                                    float[] fArr = (float[]) value;
-                                    JSONArray jSONArray4 = new JSONArray();
-                                    while (i10 < fArr.length) {
-                                        jSONArray4.put(fArr[i10]);
-                                        i10++;
-                                    }
-                                    jSONObject.put(subStr, jSONArray4);
-                                } else if (value instanceof short[]) {
-                                    short[] sArr = (short[]) value;
-                                    JSONArray jSONArray5 = new JSONArray();
-                                    while (i10 < sArr.length) {
-                                        jSONArray5.put((int) sArr[i10]);
-                                        i10++;
-                                    }
-                                    jSONObject.put(subStr, jSONArray5);
-                                }
-                            } else if (value instanceof List) {
-                                List list = (List) value;
-                                JSONArray jSONArray6 = new JSONArray();
-                                while (i10 < list.size()) {
-                                    Object obj = list.get(i10);
-                                    if ((obj instanceof String) || (obj instanceof Long) || (obj instanceof Integer) || (obj instanceof Float) || (obj instanceof Double) || (obj instanceof Short)) {
-                                        jSONArray6.put(list.get(i10));
-                                    }
-                                    i10++;
-                                }
-                                if (jSONArray6.length() > 0) {
-                                    jSONObject.put(subStr, jSONArray6);
-                                }
-                            } else if (value instanceof String) {
-                                jSONObject.put(subStr, HelperUtils.subStr(value.toString(), 256));
-                            } else {
-                                if (!(value instanceof Long) && !(value instanceof Integer) && !(value instanceof Float) && !(value instanceof Double) && !(value instanceof Short)) {
-                                    MLog.e("The param has not support type. please check !");
-                                }
-                                jSONObject.put(subStr, value);
-                            }
-                        }
-                    }
-                } catch (Exception e10) {
-                    MLog.e(e10);
-                }
-            }
-        } catch (Exception unused) {
-        }
-        return jSONObject;
-    }
-
-    private boolean a(String str) {
-        if (str != null) {
-            try {
-                int length = str.trim().getBytes().length;
-                if (length > 0 && length <= 128) {
-                    return true;
-                }
-            } catch (Exception unused) {
-            }
-        }
-        MLog.e("key is " + str + ", please check key, illegal");
-        return false;
     }
 }

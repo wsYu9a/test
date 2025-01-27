@@ -7,30 +7,27 @@ import android.text.TextUtils;
 import android.view.View;
 import androidx.annotation.Nullable;
 import com.ksad.annotation.invoker.InvokeBy;
-import com.kwad.components.core.b.a;
+import com.kwad.components.core.a.a;
 import com.kwad.components.core.playable.PlayableSource;
-import com.kwad.components.core.proxy.i;
-import com.kwad.components.core.webview.jshandler.ar;
+import com.kwad.components.core.webview.jshandler.ai;
 import com.kwad.sdk.R;
 import com.kwad.sdk.api.proxy.app.BaseFragmentActivity;
+import com.kwad.sdk.core.report.i;
 import com.kwad.sdk.core.response.model.AdTemplate;
 import com.kwad.sdk.core.view.AdBaseFrameLayout;
 import com.kwad.sdk.core.webview.KsAdWebView;
-import com.kwad.sdk.service.ServiceProvider;
 import org.json.JSONObject;
 
-/* loaded from: classes3.dex */
-public class a extends i implements a.InterfaceC0416a, ar.b {
-    private boolean Qb = true;
+/* loaded from: classes2.dex */
+public class a extends com.kwad.components.core.l.a implements a.InterfaceC0162a, ai.b {
+    private boolean Lb = true;
     private AdTemplate mAdTemplate;
-    private com.kwad.components.core.e.d.c mApkDownloadHelper;
+    private com.kwad.components.core.d.b.c mApkDownloadHelper;
     private AdBaseFrameLayout mRootContainer;
-    private com.kwad.components.core.b.a mTitleBarHelper;
+    private com.kwad.components.core.a.a mTitleBarHelper;
+    private com.kwad.components.core.playable.a oP;
 
-    /* renamed from: qh */
-    private com.kwad.components.core.playable.a f11929qh;
-
-    private void b(Intent intent) {
+    private void d(Intent intent) {
         String stringExtra = intent.getStringExtra("key_template_json");
         if (TextUtils.isEmpty(stringExtra)) {
             return;
@@ -38,74 +35,66 @@ public class a extends i implements a.InterfaceC0416a, ar.b {
         try {
             this.mAdTemplate = new AdTemplate();
             this.mAdTemplate.parseJson(new JSONObject(stringExtra));
-            this.mApkDownloadHelper = new com.kwad.components.core.e.d.c(this.mAdTemplate);
-        } catch (Exception e10) {
-            com.kwad.sdk.core.d.c.printStackTraceOnly(e10);
+            this.mApkDownloadHelper = new com.kwad.components.core.d.b.c(this.mAdTemplate);
+        } catch (Exception e2) {
+            com.kwad.sdk.core.d.b.printStackTraceOnly(e2);
         }
     }
 
     public static void launch(Context context, AdTemplate adTemplate) {
-        com.kwad.sdk.service.b.a(BaseFragmentActivity.FragmentActivity8.class, a.class);
+        com.kwad.sdk.service.a.a(BaseFragmentActivity.FragmentActivity8.class, a.class);
         Intent intent = new Intent(context, (Class<?>) BaseFragmentActivity.FragmentActivity8.class);
         intent.putExtra("key_template_json", adTemplate.toJson().toString());
         context.startActivity(intent);
     }
 
-    private void pQ() {
-        com.kwad.components.core.b.a aVar = new com.kwad.components.core.b.a(this.mRootContainer);
+    private void nW() {
+        com.kwad.components.core.a.a aVar = new com.kwad.components.core.a.a(this.mRootContainer);
         this.mTitleBarHelper = aVar;
         aVar.a(this);
-        this.mTitleBarHelper.a(new com.kwad.components.core.b.b(""));
+        this.mTitleBarHelper.a(new com.kwad.components.core.a.b(""));
     }
 
-    @InvokeBy(invokerClass = com.kwad.sdk.service.b.class, methodId = "initComponentProxyForInvoker")
+    @InvokeBy(invokerClass = com.kwad.sdk.service.a.class, methodId = "initComponentProxyForInvoker")
     public static void register() {
-        com.kwad.sdk.service.b.a(BaseFragmentActivity.FragmentActivity8.class, a.class);
+        com.kwad.sdk.service.a.a(BaseFragmentActivity.FragmentActivity8.class, a.class);
     }
 
-    @Override // com.kwad.components.core.webview.jshandler.ar.b
-    public final void a(ar.a aVar) {
+    @Override // com.kwad.components.core.webview.jshandler.ai.b
+    public final void a(ai.a aVar) {
         com.kwad.components.core.playable.a aVar2;
-        com.kwad.sdk.core.d.c.d("AdPlayableActivityProxy", "updatePageStatus status: " + aVar);
-        if (aVar.status != 1 || (aVar2 = this.f11929qh) == null) {
+        com.kwad.sdk.core.d.b.d("AdPlayableActivityProxy", "updatePageStatus status: " + aVar);
+        if (aVar.status != 1 || (aVar2 = this.oP) == null) {
             return;
         }
         aVar2.e(PlayableSource.UNKNOWN_TRYPLAY_ENTRY_SOURCE);
     }
 
-    @Override // com.kwad.components.core.proxy.i
+    @Override // com.kwad.components.core.l.a
     public String getPageName() {
         return "AdPlayableActivityProxy";
     }
 
-    @Override // com.kwad.components.core.proxy.i, com.kwad.sdk.api.proxy.IActivityProxy
+    @Override // com.kwad.components.core.l.a, com.kwad.sdk.api.proxy.IActivityProxy
     public void onCreate(@Nullable Bundle bundle) {
-        try {
-            super.onCreate(bundle);
-            getActivity().setTheme(R.style.Theme_AppCompat_Light_NoActionBar);
-            setContentView(R.layout.ksad_activity_playable);
-            b(getIntent());
-            this.mRootContainer = (AdBaseFrameLayout) findViewById(R.id.ksad_playable_activity_root);
-            KsAdWebView ksAdWebView = (KsAdWebView) findViewById(R.id.ksad_playable_webview);
-            pQ();
-            com.kwad.components.core.playable.a aVar = new com.kwad.components.core.playable.a(ksAdWebView);
-            this.f11929qh = aVar;
-            aVar.a(this.mAdTemplate, this.mRootContainer, this.mApkDownloadHelper);
-            this.f11929qh.a(this);
-            this.f11929qh.qV();
-        } catch (Throwable th2) {
-            ServiceProvider.reportSdkCaughtException(th2);
-        }
+        super.onCreate(bundle);
+        getActivity().setTheme(R.style.Theme_AppCompat_Light_NoActionBar);
+        setContentView(R.layout.ksad_activity_playable);
+        d(getIntent());
+        this.mRootContainer = (AdBaseFrameLayout) findViewById(R.id.ksad_playable_activity_root);
+        KsAdWebView ksAdWebView = (KsAdWebView) findViewById(R.id.ksad_playable_webview);
+        nW();
+        com.kwad.components.core.playable.a aVar = new com.kwad.components.core.playable.a(ksAdWebView);
+        this.oP = aVar;
+        aVar.a(this.mAdTemplate, this.mRootContainer, this.mApkDownloadHelper);
+        this.oP.a(this);
+        this.oP.oX();
     }
 
-    @Override // com.kwad.components.core.proxy.i, com.kwad.sdk.api.proxy.IActivityProxy
+    @Override // com.kwad.components.core.l.a, com.kwad.sdk.api.proxy.IActivityProxy
     public void onDestroy() {
-        try {
-            super.onDestroy();
-            this.f11929qh.b(this);
-        } catch (Throwable th2) {
-            ServiceProvider.reportSdkCaughtException(th2);
-        }
+        super.onDestroy();
+        this.oP.b(this);
     }
 
     @Override // com.kwad.sdk.api.proxy.IActivityProxy
@@ -118,19 +107,19 @@ public class a extends i implements a.InterfaceC0416a, ar.b {
         super.onRestart();
     }
 
-    @Override // com.kwad.components.core.proxy.i, com.kwad.sdk.api.proxy.IActivityProxy
+    @Override // com.kwad.components.core.l.a, com.kwad.sdk.api.proxy.IActivityProxy
     public void onResume() {
         super.onResume();
     }
 
-    @Override // com.kwad.components.core.b.a.InterfaceC0416a
-    public final void v(View view) {
+    @Override // com.kwad.components.core.a.a.InterfaceC0162a
+    public final void t(View view) {
         onBackPressed();
     }
 
-    @Override // com.kwad.components.core.b.a.InterfaceC0416a
-    public final void w(View view) {
-        com.kwad.sdk.core.adlog.c.b(this.mAdTemplate, new com.kwad.sdk.core.adlog.c.b().cM(6), (JSONObject) null);
+    @Override // com.kwad.components.core.a.a.InterfaceC0162a
+    public final void u(View view) {
+        com.kwad.sdk.core.report.a.b(this.mAdTemplate, new i().bk(6), (JSONObject) null);
         finish();
     }
 }

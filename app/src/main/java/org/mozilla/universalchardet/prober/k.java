@@ -3,94 +3,86 @@ package org.mozilla.universalchardet.prober;
 import java.util.Arrays;
 import org.mozilla.universalchardet.prober.CharsetProber;
 
-/* loaded from: classes4.dex */
+/* loaded from: classes5.dex */
 public class k extends CharsetProber {
 
-    /* renamed from: o */
-    public static final cj.m f29329o = new cj.l();
-
-    /* renamed from: k */
-    public CharsetProber.ProbingState f29331k;
+    /* renamed from: i */
+    private static final org.mozilla.universalchardet.prober.q.m f35444i = new org.mozilla.universalchardet.prober.q.l();
+    private CharsetProber.ProbingState k;
 
     /* renamed from: j */
-    public cj.b f29330j = new cj.b(f29329o);
-
-    /* renamed from: l */
-    public zi.c f29332l = new zi.c();
-
-    /* renamed from: m */
-    public aj.h f29333m = new aj.h();
-
-    /* renamed from: n */
-    public byte[] f29334n = new byte[2];
+    private org.mozilla.universalchardet.prober.q.b f35445j = new org.mozilla.universalchardet.prober.q.b(f35444i);
+    private org.mozilla.universalchardet.prober.n.c l = new org.mozilla.universalchardet.prober.n.c();
+    private org.mozilla.universalchardet.prober.o.h m = new org.mozilla.universalchardet.prober.o.h();
+    private byte[] n = new byte[2];
 
     public k() {
-        j();
+        i();
     }
 
     @Override // org.mozilla.universalchardet.prober.CharsetProber
     public String c() {
-        return yi.b.f33515l;
+        return org.mozilla.universalchardet.b.l;
     }
 
     @Override // org.mozilla.universalchardet.prober.CharsetProber
     public float d() {
-        return Math.max(this.f29332l.a(), this.f29333m.a());
+        return Math.max(this.l.a(), this.m.a());
     }
 
     @Override // org.mozilla.universalchardet.prober.CharsetProber
     public CharsetProber.ProbingState e() {
-        return this.f29331k;
+        return this.k;
     }
 
     @Override // org.mozilla.universalchardet.prober.CharsetProber
-    public CharsetProber.ProbingState f(byte[] bArr, int i10, int i11) {
-        int i12 = i11 + i10;
-        int i13 = i10;
+    public CharsetProber.ProbingState f(byte[] bArr, int i2, int i3) {
+        int i4 = i3 + i2;
+        int i5 = i2;
         while (true) {
-            if (i13 >= i12) {
+            if (i5 >= i4) {
                 break;
             }
-            int c10 = this.f29330j.c(bArr[i13]);
-            if (c10 == 1) {
-                this.f29331k = CharsetProber.ProbingState.NOT_ME;
+            int c2 = this.f35445j.c(bArr[i5]);
+            if (c2 == 1) {
+                this.k = CharsetProber.ProbingState.NOT_ME;
                 break;
             }
-            if (c10 == 2) {
-                this.f29331k = CharsetProber.ProbingState.FOUND_IT;
+            if (c2 == 2) {
+                this.k = CharsetProber.ProbingState.FOUND_IT;
                 break;
             }
-            if (c10 == 0) {
-                int b10 = this.f29330j.b();
-                if (i13 == i10) {
-                    byte[] bArr2 = this.f29334n;
-                    bArr2[1] = bArr[i10];
-                    this.f29332l.f(bArr2, 2 - b10, b10);
-                    this.f29333m.e(this.f29334n, 0, b10);
+            if (c2 == 0) {
+                int b2 = this.f35445j.b();
+                if (i5 == i2) {
+                    byte[] bArr2 = this.n;
+                    bArr2[1] = bArr[i2];
+                    this.l.f(bArr2, 2 - b2, b2);
+                    this.m.e(this.n, 0, b2);
                 } else {
-                    this.f29332l.f(bArr, (i13 + 1) - b10, b10);
-                    this.f29333m.e(bArr, i13 - 1, b10);
+                    this.l.f(bArr, (i5 + 1) - b2, b2);
+                    this.m.e(bArr, i5 - 1, b2);
                 }
             }
-            i13++;
+            i5++;
         }
-        this.f29334n[0] = bArr[i12 - 1];
-        if (this.f29331k == CharsetProber.ProbingState.DETECTING && this.f29332l.d() && d() > 0.95f) {
-            this.f29331k = CharsetProber.ProbingState.FOUND_IT;
+        this.n[0] = bArr[i4 - 1];
+        if (this.k == CharsetProber.ProbingState.DETECTING && this.l.d() && d() > 0.95f) {
+            this.k = CharsetProber.ProbingState.FOUND_IT;
         }
-        return this.f29331k;
+        return this.k;
     }
 
     @Override // org.mozilla.universalchardet.prober.CharsetProber
-    public final void j() {
-        this.f29330j.d();
-        this.f29331k = CharsetProber.ProbingState.DETECTING;
-        this.f29332l.g();
-        this.f29333m.f();
-        Arrays.fill(this.f29334n, (byte) 0);
+    public void i() {
+        this.f35445j.d();
+        this.k = CharsetProber.ProbingState.DETECTING;
+        this.l.g();
+        this.m.f();
+        Arrays.fill(this.n, (byte) 0);
     }
 
     @Override // org.mozilla.universalchardet.prober.CharsetProber
-    public void l() {
+    public void j() {
     }
 }

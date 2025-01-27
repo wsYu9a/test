@@ -1,33 +1,20 @@
 package com.kwad.sdk.utils;
 
-import androidx.annotation.NonNull;
-import java.util.Iterator;
-import java.util.Map;
+import com.kwad.sdk.service.ServiceProvider;
 
-/* loaded from: classes3.dex */
-public final class aw {
-    public static String appendUrl(@NonNull String str, Map<String, String> map) {
-        if (map == null || map.size() <= 0) {
-            return str;
-        }
-        StringBuilder sb2 = new StringBuilder();
-        Iterator<String> it = map.keySet().iterator();
-        while (true) {
-            if (!it.hasNext()) {
-                break;
-            }
-            String next = it.next();
-            if (map.get(next) != null) {
-                sb2.append(next);
-                sb2.append("=");
-                sb2.append(map.get(next));
-                sb2.append("&");
+/* loaded from: classes2.dex */
+public abstract class aw implements Runnable {
+    public abstract void doTask();
+
+    @Override // java.lang.Runnable
+    public final void run() {
+        try {
+            doTask();
+        } catch (Throwable th) {
+            com.kwad.sdk.service.kwai.d dVar = (com.kwad.sdk.service.kwai.d) ServiceProvider.get(com.kwad.sdk.service.kwai.d.class);
+            if (dVar != null) {
+                dVar.gatherException(th);
             }
         }
-        String substring = sb2.toString().substring(0, r6.length() - 1);
-        StringBuilder sb3 = new StringBuilder();
-        sb3.append(str);
-        sb3.append(str.contains("?") ? "&" : "?");
-        return sb3.toString() + substring;
     }
 }

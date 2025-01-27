@@ -8,8 +8,12 @@ import androidx.annotation.RestrictTo;
 
 /* loaded from: classes.dex */
 public abstract class ActionMode {
-    private Object mTag;
-    private boolean mTitleOptionalHint;
+
+    /* renamed from: a, reason: collision with root package name */
+    private Object f402a;
+
+    /* renamed from: b, reason: collision with root package name */
+    private boolean f403b;
 
     public interface Callback {
         boolean onActionItemClicked(ActionMode actionMode, MenuItem menuItem);
@@ -32,13 +36,13 @@ public abstract class ActionMode {
     public abstract CharSequence getSubtitle();
 
     public Object getTag() {
-        return this.mTag;
+        return this.f402a;
     }
 
     public abstract CharSequence getTitle();
 
     public boolean getTitleOptionalHint() {
-        return this.mTitleOptionalHint;
+        return this.f403b;
     }
 
     public abstract void invalidate();
@@ -54,19 +58,19 @@ public abstract class ActionMode {
 
     public abstract void setCustomView(View view);
 
-    public abstract void setSubtitle(int i10);
+    public abstract void setSubtitle(int i2);
 
     public abstract void setSubtitle(CharSequence charSequence);
 
     public void setTag(Object obj) {
-        this.mTag = obj;
+        this.f402a = obj;
     }
 
-    public abstract void setTitle(int i10);
+    public abstract void setTitle(int i2);
 
     public abstract void setTitle(CharSequence charSequence);
 
-    public void setTitleOptionalHint(boolean z10) {
-        this.mTitleOptionalHint = z10;
+    public void setTitleOptionalHint(boolean z) {
+        this.f403b = z;
     }
 }

@@ -10,10 +10,10 @@ import com.tencent.bugly.beta.global.e;
 import com.tencent.bugly.beta.global.f;
 import com.tencent.bugly.beta.ui.UpgradeDialog;
 import com.tencent.bugly.proguard.B;
-import com.tencent.bugly.proguard.C0871p;
-import com.tencent.bugly.proguard.C0878x;
-import com.tencent.bugly.proguard.C0879y;
-import com.tencent.bugly.proguard.C0880z;
+import com.tencent.bugly.proguard.C0912p;
+import com.tencent.bugly.proguard.C0919x;
+import com.tencent.bugly.proguard.C0920y;
+import com.tencent.bugly.proguard.C0921z;
 import com.tencent.bugly.proguard.X;
 import com.tencent.bugly.proguard.ca;
 import com.tencent.bugly.proguard.ra;
@@ -25,329 +25,312 @@ import java.util.Map;
 public class d {
 
     /* renamed from: a */
-    public static d f22149a = new d();
+    public static d f24648a = new d();
 
     /* renamed from: b */
-    public BetaGrayStrategy f22150b;
+    public BetaGrayStrategy f24649b;
 
     /* renamed from: c */
-    public DownloadTask f22151c;
+    public DownloadTask f24650c;
 
     /* renamed from: d */
-    public DownloadListener f22152d;
+    public DownloadListener f24651d;
 
     /* renamed from: e */
-    public UpgradeListener f22153e;
+    public UpgradeListener f24652e;
 
     /* renamed from: f */
-    public UpgradeStateListener f22154f;
+    public UpgradeStateListener f24653f;
 
     /* renamed from: g */
-    public boolean f22155g;
+    public boolean f24654g;
 
     /* renamed from: h */
-    public boolean f22156h;
+    public boolean f24655h;
 
     /* renamed from: i */
-    public com.tencent.bugly.beta.global.d f22157i;
+    public com.tencent.bugly.beta.global.d f24656i;
 
     /* renamed from: j */
-    public com.tencent.bugly.beta.global.d f22158j;
-
-    /* renamed from: k */
-    public int f22159k;
-
-    /* renamed from: l */
-    private final Object f22160l = new Object();
-
-    /* renamed from: m */
-    private final Object f22161m = new Object();
-
-    /* renamed from: n */
-    private DownloadListener f22162n = new com.tencent.bugly.beta.download.a(3, this, 0);
-
-    /* renamed from: o */
-    private a f22163o = null;
-
-    /* renamed from: p */
-    private com.tencent.bugly.beta.global.d f22164p;
-
-    /* renamed from: q */
-    private boolean f22165q;
-
-    /* renamed from: r */
-    private int f22166r;
+    public com.tencent.bugly.beta.global.d f24657j;
+    public int k;
+    private final Object l = new Object();
+    private final Object m = new Object();
+    private DownloadListener n = new com.tencent.bugly.beta.download.a(3, this, 0);
+    private a o = null;
+    private com.tencent.bugly.beta.global.d p;
+    private boolean q;
+    private int r;
 
     private B b() {
-        BetaGrayStrategy betaGrayStrategy = this.f22150b;
+        BetaGrayStrategy betaGrayStrategy = this.f24649b;
         if (betaGrayStrategy == null) {
             return null;
         }
-        return betaGrayStrategy.f22135a;
+        return betaGrayStrategy.f24634a;
     }
 
     private DownloadTask c() {
-        B b10 = b();
-        if (b10 == null) {
+        B b2 = b();
+        if (b2 == null) {
             return null;
         }
-        if (this.f22151c == null) {
-            e eVar = e.f22100b;
-            DownloadTask a10 = eVar.f22123s.a(b10.f22563k.f22890c, eVar.f22127w.getAbsolutePath(), null, this.f22150b.f22135a.f22563k.f22889b);
-            this.f22151c = a10;
-            a10.setDownloadType(1);
+        if (this.f24650c == null) {
+            e eVar = e.f24621b;
+            DownloadTask a2 = eVar.s.a(b2.k.f25178c, eVar.w.getAbsolutePath(), null, this.f24649b.f24634a.k.f25177b);
+            this.f24650c = a2;
+            a2.setDownloadType(1);
         }
-        return this.f22151c;
+        return this.f24650c;
     }
 
-    private void b(boolean z10) {
-        new Handler(Looper.getMainLooper()).post(new c(this, z10));
+    private void b(boolean z) {
+        new Handler(Looper.getMainLooper()).post(new c(this, z));
     }
 
-    public BetaGrayStrategy a(B b10) {
+    public BetaGrayStrategy a(B b2) {
         BetaGrayStrategy betaGrayStrategy;
         BetaGrayStrategy betaGrayStrategy2;
-        C0879y c0879y;
-        int i10;
+        C0920y c0920y;
+        int i2;
         e eVar;
-        int i11;
-        B b11;
-        C0879y c0879y2;
-        int i12;
+        int i3;
+        B b3;
+        C0920y c0920y2;
+        int i4;
         e eVar2;
-        int i13;
-        C0878x c0878x;
-        B b12 = b10;
-        synchronized (this.f22160l) {
-            try {
-                BetaGrayStrategy betaGrayStrategy3 = (BetaGrayStrategy) com.tencent.bugly.beta.global.a.a("app.upgrade.strategy.bch", BetaGrayStrategy.CREATOR);
-                betaGrayStrategy = null;
-                if (betaGrayStrategy3 != null && betaGrayStrategy3.f22135a == null) {
-                    com.tencent.bugly.beta.global.a.a("app.upgrade.strategy.bch");
+        int i5;
+        C0919x c0919x;
+        B b4 = b2;
+        synchronized (this.l) {
+            BetaGrayStrategy betaGrayStrategy3 = (BetaGrayStrategy) com.tencent.bugly.beta.global.a.a("app.upgrade.strategy.bch", BetaGrayStrategy.CREATOR);
+            betaGrayStrategy = null;
+            if (betaGrayStrategy3 != null && betaGrayStrategy3.f24634a == null) {
+                com.tencent.bugly.beta.global.a.a("app.upgrade.strategy.bch");
+                betaGrayStrategy3 = null;
+            }
+            if (betaGrayStrategy3 != null && (b3 = betaGrayStrategy3.f24634a) != null && ((i4 = (c0920y2 = b3.f24932j).f25185d) < (i5 = (eVar2 = e.f24621b).z) || ((i4 == i5 && c0920y2.f25187f <= eVar2.r) || b3.s != 1 || ((c0919x = b3.k) != null && TextUtils.equals(eVar2.y, c0919x.f25177b))))) {
+                com.tencent.bugly.beta.global.a.a("app.upgrade.strategy.bch");
+                this.f24650c = null;
+                betaGrayStrategy3 = null;
+            }
+            if (b4 != null && ((i2 = (c0920y = b4.f24932j).f25185d) < (i3 = (eVar = e.f24621b).z) || (i2 == i3 && c0920y.f25187f <= eVar.r))) {
+                X.c("versionCode is too small, discard remote strategy: [new: %d buildno: %d] [current: %d buildno: %d]", Integer.valueOf(i2), Integer.valueOf(b4.f24932j.f25187f), Integer.valueOf(e.f24621b.z), Integer.valueOf(e.f24621b.r));
+                b4 = null;
+            }
+            if (b4 != null) {
+                if (b4.s == 2 && betaGrayStrategy3 != null && betaGrayStrategy3.f24634a != null && !TextUtils.isEmpty(b4.r) && !TextUtils.isEmpty(betaGrayStrategy3.f24634a.r) && TextUtils.equals(b4.r, betaGrayStrategy3.f24634a.r)) {
+                    X.c("撤回 strategy: %s", b4.r);
                     betaGrayStrategy3 = null;
                 }
-                if (betaGrayStrategy3 != null && (b11 = betaGrayStrategy3.f22135a) != null && ((i12 = (c0879y2 = b11.f22562j).f22897d) < (i13 = (eVar2 = e.f22100b).f22130z) || ((i12 == i13 && c0879y2.f22899f <= eVar2.f22122r) || b11.f22571s != 1 || ((c0878x = b11.f22563k) != null && TextUtils.equals(eVar2.f22129y, c0878x.f22889b))))) {
-                    com.tencent.bugly.beta.global.a.a("app.upgrade.strategy.bch");
-                    this.f22151c = null;
-                    betaGrayStrategy3 = null;
+                if (b4.s != 1) {
+                    X.c("invalid strategy: %s", b4.r);
+                    b4 = null;
                 }
-                if (b12 != null && ((i10 = (c0879y = b12.f22562j).f22897d) < (i11 = (eVar = e.f22100b).f22130z) || (i10 == i11 && c0879y.f22899f <= eVar.f22122r))) {
-                    X.c("versionCode is too small, discard remote strategy: [new: %d buildno: %d] [current: %d buildno: %d]", Integer.valueOf(i10), Integer.valueOf(b12.f22562j.f22899f), Integer.valueOf(e.f22100b.f22130z), Integer.valueOf(e.f22100b.f22122r));
-                    b12 = null;
+            }
+            if (b4 != null) {
+                if (betaGrayStrategy3 == null || betaGrayStrategy3.f24634a == null || TextUtils.isEmpty(b4.r) || TextUtils.isEmpty(betaGrayStrategy3.f24634a.r) || !TextUtils.equals(b4.r, betaGrayStrategy3.f24634a.r)) {
+                    betaGrayStrategy2 = new BetaGrayStrategy();
+                } else {
+                    betaGrayStrategy2 = new BetaGrayStrategy(ca.d(ca.a(betaGrayStrategy3)));
+                    X.c("same strategyId:[new: %s] [current: %s] keep has popup times: %d, interval: %d", b4.r, betaGrayStrategy3.f24634a.r, Integer.valueOf(betaGrayStrategy2.f24635b), Long.valueOf(b4.n));
                 }
-                if (b12 != null) {
-                    if (b12.f22571s == 2 && betaGrayStrategy3 != null && betaGrayStrategy3.f22135a != null && !TextUtils.isEmpty(b12.f22570r) && !TextUtils.isEmpty(betaGrayStrategy3.f22135a.f22570r) && TextUtils.equals(b12.f22570r, betaGrayStrategy3.f22135a.f22570r)) {
-                        X.c("撤回 strategy: %s", b12.f22570r);
-                        betaGrayStrategy3 = null;
-                    }
-                    if (b12.f22571s != 1) {
-                        X.c("invalid strategy: %s", b12.f22570r);
-                        b12 = null;
-                    }
-                }
-                if (b12 != null) {
-                    if (betaGrayStrategy3 == null || betaGrayStrategy3.f22135a == null || TextUtils.isEmpty(b12.f22570r) || TextUtils.isEmpty(betaGrayStrategy3.f22135a.f22570r) || !TextUtils.equals(b12.f22570r, betaGrayStrategy3.f22135a.f22570r)) {
-                        betaGrayStrategy2 = new BetaGrayStrategy();
-                    } else {
-                        BetaGrayStrategy betaGrayStrategy4 = new BetaGrayStrategy(ca.d(ca.a(betaGrayStrategy3)));
-                        X.c("same strategyId:[new: %s] [current: %s] keep has popup times: %d, interval: %d", b12.f22570r, betaGrayStrategy3.f22135a.f22570r, Integer.valueOf(betaGrayStrategy4.f22136b), Long.valueOf(b12.f22566n));
-                        betaGrayStrategy2 = betaGrayStrategy4;
-                    }
-                    betaGrayStrategy2.f22135a = b12;
-                    betaGrayStrategy2.f22139e = System.currentTimeMillis();
-                    if (betaGrayStrategy3 != null && !betaGrayStrategy3.f22135a.f22563k.f22890c.equals(b12.f22563k.f22890c)) {
-                        DownloadTask downloadTask = this.f22151c;
-                        if (downloadTask == null) {
-                            e eVar3 = e.f22100b;
-                            DownloadTask a10 = eVar3.f22123s.a(betaGrayStrategy3.f22135a.f22563k.f22890c, eVar3.f22127w.getAbsolutePath(), null, null);
-                            this.f22151c = a10;
-                            a10.setDownloadType(1);
-                            this.f22151c.delete(true);
-                            for (File file : e.f22100b.f22127w.listFiles()) {
-                                if (!file.delete()) {
-                                    X.b("cannot deleteCache file:%s", file.getAbsolutePath());
-                                }
+                betaGrayStrategy2.f24634a = b4;
+                betaGrayStrategy2.f24638e = System.currentTimeMillis();
+                if (betaGrayStrategy3 != null && !betaGrayStrategy3.f24634a.k.f25178c.equals(b4.k.f25178c)) {
+                    DownloadTask downloadTask = this.f24650c;
+                    if (downloadTask == null) {
+                        e eVar3 = e.f24621b;
+                        DownloadTask a2 = eVar3.s.a(betaGrayStrategy3.f24634a.k.f25178c, eVar3.w.getAbsolutePath(), null, null);
+                        this.f24650c = a2;
+                        a2.setDownloadType(1);
+                        this.f24650c.delete(true);
+                        for (File file : e.f24621b.w.listFiles()) {
+                            if (!file.delete()) {
+                                X.b("cannot deleteCache file:%s", file.getAbsolutePath());
                             }
-                            this.f22151c = null;
-                        } else {
-                            BetaReceiver.netListeners.remove(downloadTask.getDownloadUrl());
-                            this.f22151c.delete(true);
-                            this.f22151c = null;
                         }
+                        this.f24650c = null;
+                    } else {
+                        BetaReceiver.netListeners.remove(downloadTask.getDownloadUrl());
+                        this.f24650c.delete(true);
+                        this.f24650c = null;
                     }
-                    a(betaGrayStrategy2);
-                    X.c("onUpgradeReceived: %s [type: %d]", b12, Integer.valueOf(b12.f22564l));
-                    C0871p.f22799a.a(new C0880z("rcv", System.currentTimeMillis(), (byte) 0, 0L, b12.f22562j, b12.f22570r, b12.f22573u, null));
-                    betaGrayStrategy = betaGrayStrategy2;
                 }
-            } catch (Throwable th2) {
-                throw th2;
+                a(betaGrayStrategy2);
+                X.c("onUpgradeReceived: %s [type: %d]", b4, Integer.valueOf(b4.l));
+                C0912p.f25111a.a(new C0921z("rcv", System.currentTimeMillis(), (byte) 0, 0L, b4.f24932j, b4.r, b4.u, null));
+                betaGrayStrategy = betaGrayStrategy2;
             }
         }
         return betaGrayStrategy;
     }
 
-    /* JADX WARN: Code restructure failed: missing block: B:21:0x0064, code lost:
+    /* JADX WARN: Code restructure failed: missing block: B:22:0x0060, code lost:
     
-        if ((r11.f22135a.f22565m - r11.f22136b) <= 0) goto L261;
+        if ((r5.f24634a.m - r5.f24635b) <= 0) goto L141;
      */
-    /* JADX WARN: Code restructure failed: missing block: B:90:0x01a2, code lost:
+    /* JADX WARN: Code restructure failed: missing block: B:91:0x01a4, code lost:
     
-        if (r4.f22564l != 3) goto L332;
+        if (r5.l != 3) goto L212;
      */
     /*
         Code decompiled incorrectly, please refer to instructions dump.
         To view partially-correct code enable 'Show inconsistent code' option in preferences
     */
-    public void a(boolean r17, boolean r18, int r19, com.tencent.bugly.proguard.B r20, java.lang.String r21) {
+    public void a(boolean r16, boolean r17, int r18, com.tencent.bugly.proguard.B r19, java.lang.String r20) {
         /*
-            Method dump skipped, instructions count: 519
+            Method dump skipped, instructions count: 523
             To view this dump change 'Code comments level' option to 'DEBUG'
         */
         throw new UnsupportedOperationException("Method not decompiled: com.tencent.bugly.beta.upgrade.d.a(boolean, boolean, int, com.tencent.bugly.proguard.B, java.lang.String):void");
     }
 
     private void a() {
-        B b10 = b();
-        if (b10 == null) {
+        B b2 = b();
+        if (b2 == null) {
             return;
         }
-        if (this.f22151c == null) {
-            this.f22151c = c();
+        if (this.f24650c == null) {
+            this.f24650c = c();
         }
-        if (this.f22151c == null) {
+        if (this.f24650c == null) {
             return;
         }
-        a(this.f22150b);
-        BetaReceiver.addTask(this.f22151c);
-        if (this.f22151c.getStatus() == 1 && !this.f22156h) {
-            if (this.f22155g && com.tencent.bugly.beta.global.a.a(e.f22100b.f22126v, this.f22151c.getSaveFile(), b10.f22563k.f22889b)) {
-                C0871p.f22799a.a(new C0880z("install", System.currentTimeMillis(), (byte) 0, 0L, b10.f22562j, b10.f22570r, b10.f22573u, null));
+        a(this.f24649b);
+        BetaReceiver.addTask(this.f24650c);
+        if (this.f24650c.getStatus() == 1 && !this.f24655h) {
+            if (this.f24654g && com.tencent.bugly.beta.global.a.a(e.f24621b.v, this.f24650c.getSaveFile(), b2.k.f25177b)) {
+                C0912p.f25111a.a(new C0921z("install", System.currentTimeMillis(), (byte) 0, 0L, b2.f24932j, b2.r, b2.u, null));
                 return;
             } else {
-                b(this.f22155g);
+                b(this.f24654g);
                 return;
             }
         }
-        this.f22151c.download();
+        this.f24650c.download();
     }
 
-    public void a(boolean z10) {
-        B b10 = b();
-        if (b10 == null) {
+    public void a(boolean z) {
+        B b2 = b();
+        if (b2 == null) {
             return;
         }
-        if (System.currentTimeMillis() <= b10.b() - 86400000) {
+        if (System.currentTimeMillis() <= b2.b() - 86400000) {
             X.b(System.currentTimeMillis() + "ms", new Object[0]);
             return;
         }
-        f.f22131a.a(e.f22100b.f22123s, b10.f22569q);
-        if (this.f22151c == null) {
-            this.f22151c = c();
+        f.f24630a.a(e.f24621b.s, b2.q);
+        if (this.f24650c == null) {
+            this.f24650c = c();
         }
-        DownloadTask downloadTask = this.f22151c;
+        DownloadTask downloadTask = this.f24650c;
         if (downloadTask == null) {
             return;
         }
-        if (!z10 && downloadTask.getStatus() == 2) {
-            X.c("Task is downloading %s %s", b10.f22570r, this.f22151c.getDownloadUrl());
+        if (!z && downloadTask.getStatus() == 2) {
+            X.c("Task is downloading %s %s", b2.r, this.f24650c.getDownloadUrl());
             return;
         }
-        this.f22151c.addListener(this.f22162n);
-        DownloadListener downloadListener = this.f22152d;
+        this.f24650c.addListener(this.n);
+        DownloadListener downloadListener = this.f24651d;
         if (downloadListener != null) {
-            this.f22151c.addListener(downloadListener);
+            this.f24650c.addListener(downloadListener);
         }
         UpgradeDialog upgradeDialog = UpgradeDialog.instance;
-        upgradeDialog.setUpgradeInfo(b10, this.f22151c);
-        upgradeDialog.upgradeRunnable = new com.tencent.bugly.beta.global.d(3, this.f22150b, this.f22151c);
-        upgradeDialog.cancelRunnable = new com.tencent.bugly.beta.global.d(4, this.f22150b, this.f22151c, Boolean.valueOf(z10));
-        this.f22150b.f22137c = System.currentTimeMillis();
-        a(this.f22150b);
-        if (z10) {
-            f.f22131a.a(new com.tencent.bugly.beta.global.d(2, upgradeDialog, Boolean.valueOf(z10)), 3000);
-        } else {
-            f.f22131a.a(new com.tencent.bugly.beta.global.d(2, upgradeDialog, Boolean.valueOf(z10 || b10.f22564l == 2)));
+        upgradeDialog.setUpgradeInfo(b2, this.f24650c);
+        upgradeDialog.upgradeRunnable = new com.tencent.bugly.beta.global.d(3, this.f24649b, this.f24650c);
+        upgradeDialog.cancelRunnable = new com.tencent.bugly.beta.global.d(4, this.f24649b, this.f24650c, Boolean.valueOf(z));
+        this.f24649b.f24636c = System.currentTimeMillis();
+        a(this.f24649b);
+        if (z) {
+            f.f24630a.a(new com.tencent.bugly.beta.global.d(2, upgradeDialog, Boolean.valueOf(z)), 3000);
+            return;
         }
+        f fVar = f.f24630a;
+        Object[] objArr = new Object[2];
+        objArr[0] = upgradeDialog;
+        objArr[1] = Boolean.valueOf(z || b2.l == 2);
+        fVar.a(new com.tencent.bugly.beta.global.d(2, objArr));
     }
 
+    /* JADX WARN: Code restructure failed: missing block: B:80:0x0070, code lost:
+    
+        if (r4 == null) goto L145;
+     */
+    /* JADX WARN: Code restructure failed: missing block: B:81:0x0072, code lost:
+    
+        r5 = r4.f24634a;
+     */
     /* JADX WARN: Code restructure failed: missing block: B:82:0x0074, code lost:
     
-        if (r4 == null) goto L254;
-     */
-    /* JADX WARN: Code restructure failed: missing block: B:83:0x0076, code lost:
-    
-        r5 = r4.f22135a;
+        if (r5 == null) goto L145;
      */
     /* JADX WARN: Code restructure failed: missing block: B:84:0x0078, code lost:
     
-        if (r5 == null) goto L254;
+        if (r5.u != 3) goto L145;
      */
-    /* JADX WARN: Code restructure failed: missing block: B:86:0x007c, code lost:
-    
-        if (r5.f22573u != 3) goto L254;
-     */
-    /* JADX WARN: Removed duplicated region for block: B:12:0x0085 A[Catch: all -> 0x0034, TryCatch #1 {, blocks: (B:5:0x001c, B:8:0x002b, B:10:0x0081, B:12:0x0085, B:14:0x0089, B:16:0x008d, B:19:0x0092, B:23:0x00a8, B:26:0x016b, B:27:0x0177, B:31:0x0163, B:33:0x0167, B:38:0x00b4, B:39:0x00b5, B:41:0x00bb, B:42:0x00bd, B:59:0x0154, B:61:0x015a, B:69:0x003c, B:71:0x0046, B:73:0x004e, B:76:0x0054, B:78:0x0058, B:83:0x0076, B:85:0x007a, B:90:0x0063, B:94:0x006a, B:21:0x0093, B:22:0x00a7, B:63:0x00eb, B:65:0x00ef, B:47:0x00ff, B:49:0x0106, B:51:0x010d, B:53:0x011c, B:55:0x0133), top: B:4:0x001c, inners: #0, #2 }] */
-    /* JADX WARN: Removed duplicated region for block: B:20:0x0093 A[EXC_TOP_SPLITTER, SYNTHETIC] */
-    /* JADX WARN: Removed duplicated region for block: B:25:0x015f A[ADDED_TO_REGION] */
-    /* JADX WARN: Removed duplicated region for block: B:41:0x00bb A[Catch: all -> 0x0034, TryCatch #1 {, blocks: (B:5:0x001c, B:8:0x002b, B:10:0x0081, B:12:0x0085, B:14:0x0089, B:16:0x008d, B:19:0x0092, B:23:0x00a8, B:26:0x016b, B:27:0x0177, B:31:0x0163, B:33:0x0167, B:38:0x00b4, B:39:0x00b5, B:41:0x00bb, B:42:0x00bd, B:59:0x0154, B:61:0x015a, B:69:0x003c, B:71:0x0046, B:73:0x004e, B:76:0x0054, B:78:0x0058, B:83:0x0076, B:85:0x007a, B:90:0x0063, B:94:0x006a, B:21:0x0093, B:22:0x00a7, B:63:0x00eb, B:65:0x00ef, B:47:0x00ff, B:49:0x0106, B:51:0x010d, B:53:0x011c, B:55:0x0133), top: B:4:0x001c, inners: #0, #2 }] */
-    /* JADX WARN: Removed duplicated region for block: B:62:0x00eb A[EXC_TOP_SPLITTER, SYNTHETIC] */
+    /* JADX WARN: Removed duplicated region for block: B:13:0x0083 A[Catch: all -> 0x0175, TryCatch #1 {, blocks: (B:5:0x001a, B:9:0x002b, B:11:0x007e, B:13:0x0083, B:15:0x0087, B:17:0x008b, B:20:0x0090, B:24:0x00a6, B:27:0x0167, B:28:0x0173, B:32:0x015f, B:34:0x0163, B:39:0x00b2, B:40:0x00b3, B:42:0x00b9, B:43:0x00bb, B:58:0x0150, B:60:0x0156, B:67:0x0038, B:69:0x0042, B:71:0x004a, B:74:0x0050, B:76:0x0054, B:81:0x0072, B:83:0x0076, B:89:0x005f, B:93:0x0066, B:22:0x0091, B:23:0x00a5, B:62:0x00eb, B:64:0x00ef, B:47:0x00f9, B:49:0x0101, B:51:0x0108, B:53:0x0117, B:55:0x012e), top: B:4:0x001a, inners: #0, #2 }] */
+    /* JADX WARN: Removed duplicated region for block: B:21:0x0091 A[EXC_TOP_SPLITTER, SYNTHETIC] */
+    /* JADX WARN: Removed duplicated region for block: B:26:0x015b A[ADDED_TO_REGION] */
+    /* JADX WARN: Removed duplicated region for block: B:42:0x00b9 A[Catch: all -> 0x0175, TryCatch #1 {, blocks: (B:5:0x001a, B:9:0x002b, B:11:0x007e, B:13:0x0083, B:15:0x0087, B:17:0x008b, B:20:0x0090, B:24:0x00a6, B:27:0x0167, B:28:0x0173, B:32:0x015f, B:34:0x0163, B:39:0x00b2, B:40:0x00b3, B:42:0x00b9, B:43:0x00bb, B:58:0x0150, B:60:0x0156, B:67:0x0038, B:69:0x0042, B:71:0x004a, B:74:0x0050, B:76:0x0054, B:81:0x0072, B:83:0x0076, B:89:0x005f, B:93:0x0066, B:22:0x0091, B:23:0x00a5, B:62:0x00eb, B:64:0x00ef, B:47:0x00f9, B:49:0x0101, B:51:0x0108, B:53:0x0117, B:55:0x012e), top: B:4:0x001a, inners: #0, #2 }] */
+    /* JADX WARN: Removed duplicated region for block: B:61:0x00eb A[EXC_TOP_SPLITTER, SYNTHETIC] */
     /*
         Code decompiled incorrectly, please refer to instructions dump.
         To view partially-correct code enable 'Show inconsistent code' option in preferences
     */
     public void a(boolean r17, boolean r18, int r19) {
         /*
-            Method dump skipped, instructions count: 379
+            Method dump skipped, instructions count: 376
             To view this dump change 'Code comments level' option to 'DEBUG'
         */
         throw new UnsupportedOperationException("Method not decompiled: com.tencent.bugly.beta.upgrade.d.a(boolean, boolean, int):void");
     }
 
     public void a(sa saVar) {
-        e eVar = e.f22100b;
+        e eVar = e.f24621b;
         if (eVar.H == null) {
             eVar.H = new BetaUploadStrategy();
         }
         if (saVar != null) {
-            BetaUploadStrategy betaUploadStrategy = e.f22100b.H;
-            long j10 = betaUploadStrategy.f22141b;
-            long j11 = saVar.f22860k;
-            if (j10 == j11) {
+            BetaUploadStrategy betaUploadStrategy = e.f24621b.H;
+            long j2 = betaUploadStrategy.f24640b;
+            long j3 = saVar.k;
+            if (j2 == j3) {
                 return;
             }
-            betaUploadStrategy.f22141b = j11;
-            sa saVar2 = betaUploadStrategy.f22140a;
-            saVar2.f22854e = saVar.f22854e;
-            saVar2.f22855f = saVar.f22855f;
-            saVar2.f22860k = j11;
-            if (ca.c(saVar.f22856g)) {
-                e.f22100b.H.f22140a.f22856g = saVar.f22856g;
+            betaUploadStrategy.f24640b = j3;
+            sa saVar2 = betaUploadStrategy.f24639a;
+            saVar2.f25150e = saVar.f25150e;
+            saVar2.f25151f = saVar.f25151f;
+            saVar2.k = j3;
+            if (ca.c(saVar.f25152g)) {
+                e.f24621b.H.f24639a.f25152g = saVar.f25152g;
             }
-            if (ca.c(saVar.f22857h)) {
-                e.f22100b.H.f22140a.f22857h = saVar.f22857h;
+            if (ca.c(saVar.f25153h)) {
+                e.f24621b.H.f24639a.f25153h = saVar.f25153h;
             }
-            ra raVar = saVar.f22858i;
-            if (raVar != null && !TextUtils.isEmpty(raVar.f22847a)) {
-                e.f22100b.H.f22140a.f22858i.f22847a = saVar.f22858i.f22847a;
+            ra raVar = saVar.f25154i;
+            if (raVar != null && !TextUtils.isEmpty(raVar.f25143a)) {
+                e.f24621b.H.f24639a.f25154i.f25143a = saVar.f25154i.f25143a;
             }
-            Map<String, String> map = saVar.f22859j;
+            Map<String, String> map = saVar.f25155j;
             if (map != null && map.size() > 0) {
-                e.f22100b.H.f22140a.f22859j = saVar.f22859j;
+                e.f24621b.H.f24639a.f25155j = saVar.f25155j;
             }
-            if (ca.c(saVar.f22861l)) {
-                e.f22100b.H.f22140a.f22861l = saVar.f22861l;
+            if (ca.c(saVar.l)) {
+                e.f24621b.H.f24639a.l = saVar.l;
             }
-            if (ca.c(saVar.f22862m)) {
-                e.f22100b.H.f22140a.f22862m = saVar.f22862m;
+            if (ca.c(saVar.m)) {
+                e.f24621b.H.f24639a.m = saVar.m;
             }
-            com.tencent.bugly.beta.global.a.a("us.bch", e.f22100b.H);
+            com.tencent.bugly.beta.global.a.a("us.bch", e.f24621b.H);
         }
     }
 
     private void a(BetaGrayStrategy betaGrayStrategy) {
-        B b10 = betaGrayStrategy.f22135a;
-        if (b10 == null || b10.f22573u != 1) {
+        B b2 = betaGrayStrategy.f24634a;
+        if (b2 == null || b2.u != 1) {
             return;
         }
         com.tencent.bugly.beta.global.a.a("app.upgrade.strategy.bch", betaGrayStrategy);

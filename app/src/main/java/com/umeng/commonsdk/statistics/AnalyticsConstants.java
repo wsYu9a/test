@@ -16,14 +16,14 @@ public class AnalyticsConstants {
     private static int commonDeviceType = 1;
 
     public static synchronized int getDeviceType() {
-        int i10;
+        int i2;
         synchronized (AnalyticsConstants.class) {
-            i10 = commonDeviceType;
+            i2 = commonDeviceType;
         }
-        return i10;
+        return i2;
     }
 
-    public static void setDeviceType(int i10) {
-        commonDeviceType = i10;
+    public static void setDeviceType(int i2) {
+        commonDeviceType = i2;
     }
 }

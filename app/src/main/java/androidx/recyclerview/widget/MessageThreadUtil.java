@@ -13,232 +13,265 @@ import java.util.concurrent.atomic.AtomicBoolean;
 class MessageThreadUtil<T> implements ThreadUtil<T> {
 
     /* renamed from: androidx.recyclerview.widget.MessageThreadUtil$1 */
-    public class AnonymousClass1 implements ThreadUtil.MainThreadCallback<T> {
-        static final int ADD_TILE = 2;
-        static final int REMOVE_TILE = 3;
-        static final int UPDATE_ITEM_COUNT = 1;
-        final /* synthetic */ ThreadUtil.MainThreadCallback val$callback;
-        final MessageQueue mQueue = new MessageQueue();
-        private final Handler mMainThreadHandler = new Handler(Looper.getMainLooper());
-        private Runnable mMainThreadRunnable = new Runnable() { // from class: androidx.recyclerview.widget.MessageThreadUtil.1.1
-            public RunnableC00101() {
+    class AnonymousClass1 implements ThreadUtil.MainThreadCallback<T> {
+
+        /* renamed from: a */
+        static final int f3365a = 1;
+
+        /* renamed from: b */
+        static final int f3366b = 2;
+
+        /* renamed from: c */
+        static final int f3367c = 3;
+
+        /* renamed from: d */
+        final MessageQueue f3368d = new MessageQueue();
+
+        /* renamed from: e */
+        private final Handler f3369e = new Handler(Looper.getMainLooper());
+
+        /* renamed from: f */
+        private Runnable f3370f = new Runnable() { // from class: androidx.recyclerview.widget.MessageThreadUtil.1.1
+            RunnableC00121() {
             }
 
             @Override // java.lang.Runnable
             public void run() {
-                SyncQueueItem next = AnonymousClass1.this.mQueue.next();
-                while (next != null) {
-                    int i10 = next.what;
-                    if (i10 == 1) {
-                        AnonymousClass1.this.val$callback.updateItemCount(next.arg1, next.arg2);
-                    } else if (i10 == 2) {
-                        AnonymousClass1.this.val$callback.addTile(next.arg1, (TileList.Tile) next.data);
-                    } else if (i10 != 3) {
-                        Log.e("ThreadUtil", "Unsupported message, what=" + next.what);
+                SyncQueueItem a2 = AnonymousClass1.this.f3368d.a();
+                while (a2 != null) {
+                    int i2 = a2.what;
+                    if (i2 == 1) {
+                        AnonymousClass1.this.f3371g.updateItemCount(a2.arg1, a2.arg2);
+                    } else if (i2 == 2) {
+                        AnonymousClass1.this.f3371g.addTile(a2.arg1, (TileList.Tile) a2.data);
+                    } else if (i2 != 3) {
+                        Log.e("ThreadUtil", "Unsupported message, what=" + a2.what);
                     } else {
-                        AnonymousClass1.this.val$callback.removeTile(next.arg1, next.arg2);
+                        AnonymousClass1.this.f3371g.removeTile(a2.arg1, a2.arg2);
                     }
-                    next = AnonymousClass1.this.mQueue.next();
+                    a2 = AnonymousClass1.this.f3368d.a();
                 }
             }
         };
 
+        /* renamed from: g */
+        final /* synthetic */ ThreadUtil.MainThreadCallback f3371g;
+
         /* renamed from: androidx.recyclerview.widget.MessageThreadUtil$1$1 */
-        public class RunnableC00101 implements Runnable {
-            public RunnableC00101() {
+        class RunnableC00121 implements Runnable {
+            RunnableC00121() {
             }
 
             @Override // java.lang.Runnable
             public void run() {
-                SyncQueueItem next = AnonymousClass1.this.mQueue.next();
-                while (next != null) {
-                    int i10 = next.what;
-                    if (i10 == 1) {
-                        AnonymousClass1.this.val$callback.updateItemCount(next.arg1, next.arg2);
-                    } else if (i10 == 2) {
-                        AnonymousClass1.this.val$callback.addTile(next.arg1, (TileList.Tile) next.data);
-                    } else if (i10 != 3) {
-                        Log.e("ThreadUtil", "Unsupported message, what=" + next.what);
+                SyncQueueItem a2 = AnonymousClass1.this.f3368d.a();
+                while (a2 != null) {
+                    int i2 = a2.what;
+                    if (i2 == 1) {
+                        AnonymousClass1.this.f3371g.updateItemCount(a2.arg1, a2.arg2);
+                    } else if (i2 == 2) {
+                        AnonymousClass1.this.f3371g.addTile(a2.arg1, (TileList.Tile) a2.data);
+                    } else if (i2 != 3) {
+                        Log.e("ThreadUtil", "Unsupported message, what=" + a2.what);
                     } else {
-                        AnonymousClass1.this.val$callback.removeTile(next.arg1, next.arg2);
+                        AnonymousClass1.this.f3371g.removeTile(a2.arg1, a2.arg2);
                     }
-                    next = AnonymousClass1.this.mQueue.next();
+                    a2 = AnonymousClass1.this.f3368d.a();
                 }
             }
         }
 
-        public AnonymousClass1(ThreadUtil.MainThreadCallback mainThreadCallback) {
-            this.val$callback = mainThreadCallback;
+        AnonymousClass1(ThreadUtil.MainThreadCallback mainThreadCallback) {
+            this.f3371g = mainThreadCallback;
         }
 
-        private void sendMessage(SyncQueueItem syncQueueItem) {
-            this.mQueue.sendMessage(syncQueueItem);
-            this.mMainThreadHandler.post(this.mMainThreadRunnable);
-        }
-
-        @Override // androidx.recyclerview.widget.ThreadUtil.MainThreadCallback
-        public void addTile(int i10, TileList.Tile<T> tile) {
-            sendMessage(SyncQueueItem.obtainMessage(2, i10, tile));
+        private void a(SyncQueueItem syncQueueItem) {
+            this.f3368d.c(syncQueueItem);
+            this.f3369e.post(this.f3370f);
         }
 
         @Override // androidx.recyclerview.widget.ThreadUtil.MainThreadCallback
-        public void removeTile(int i10, int i11) {
-            sendMessage(SyncQueueItem.obtainMessage(3, i10, i11));
+        public void addTile(int i2, TileList.Tile<T> tile) {
+            a(SyncQueueItem.c(2, i2, tile));
         }
 
         @Override // androidx.recyclerview.widget.ThreadUtil.MainThreadCallback
-        public void updateItemCount(int i10, int i11) {
-            sendMessage(SyncQueueItem.obtainMessage(1, i10, i11));
+        public void removeTile(int i2, int i3) {
+            a(SyncQueueItem.a(3, i2, i3));
+        }
+
+        @Override // androidx.recyclerview.widget.ThreadUtil.MainThreadCallback
+        public void updateItemCount(int i2, int i3) {
+            a(SyncQueueItem.a(1, i2, i3));
         }
     }
 
     /* renamed from: androidx.recyclerview.widget.MessageThreadUtil$2 */
-    public class AnonymousClass2 implements ThreadUtil.BackgroundCallback<T> {
-        static final int LOAD_TILE = 3;
-        static final int RECYCLE_TILE = 4;
-        static final int REFRESH = 1;
-        static final int UPDATE_RANGE = 2;
-        final /* synthetic */ ThreadUtil.BackgroundCallback val$callback;
-        final MessageQueue mQueue = new MessageQueue();
-        private final Executor mExecutor = AsyncTask.THREAD_POOL_EXECUTOR;
-        AtomicBoolean mBackgroundRunning = new AtomicBoolean(false);
-        private Runnable mBackgroundRunnable = new Runnable() { // from class: androidx.recyclerview.widget.MessageThreadUtil.2.1
-            public AnonymousClass1() {
+    class AnonymousClass2 implements ThreadUtil.BackgroundCallback<T> {
+
+        /* renamed from: a */
+        static final int f3374a = 1;
+
+        /* renamed from: b */
+        static final int f3375b = 2;
+
+        /* renamed from: c */
+        static final int f3376c = 3;
+
+        /* renamed from: d */
+        static final int f3377d = 4;
+
+        /* renamed from: e */
+        final MessageQueue f3378e = new MessageQueue();
+
+        /* renamed from: f */
+        private final Executor f3379f = AsyncTask.THREAD_POOL_EXECUTOR;
+
+        /* renamed from: g */
+        AtomicBoolean f3380g = new AtomicBoolean(false);
+
+        /* renamed from: h */
+        private Runnable f3381h = new Runnable() { // from class: androidx.recyclerview.widget.MessageThreadUtil.2.1
+            AnonymousClass1() {
             }
 
             @Override // java.lang.Runnable
             public void run() {
                 while (true) {
-                    SyncQueueItem next = AnonymousClass2.this.mQueue.next();
-                    if (next == null) {
-                        AnonymousClass2.this.mBackgroundRunning.set(false);
+                    SyncQueueItem a2 = AnonymousClass2.this.f3378e.a();
+                    if (a2 == null) {
+                        AnonymousClass2.this.f3380g.set(false);
                         return;
                     }
-                    int i10 = next.what;
-                    if (i10 == 1) {
-                        AnonymousClass2.this.mQueue.removeMessages(1);
-                        AnonymousClass2.this.val$callback.refresh(next.arg1);
-                    } else if (i10 == 2) {
-                        AnonymousClass2.this.mQueue.removeMessages(2);
-                        AnonymousClass2.this.mQueue.removeMessages(3);
-                        AnonymousClass2.this.val$callback.updateRange(next.arg1, next.arg2, next.arg3, next.arg4, next.arg5);
-                    } else if (i10 == 3) {
-                        AnonymousClass2.this.val$callback.loadTile(next.arg1, next.arg2);
-                    } else if (i10 != 4) {
-                        Log.e("ThreadUtil", "Unsupported message, what=" + next.what);
+                    int i2 = a2.what;
+                    if (i2 == 1) {
+                        AnonymousClass2.this.f3378e.b(1);
+                        AnonymousClass2.this.f3382i.refresh(a2.arg1);
+                    } else if (i2 == 2) {
+                        AnonymousClass2.this.f3378e.b(2);
+                        AnonymousClass2.this.f3378e.b(3);
+                        AnonymousClass2.this.f3382i.updateRange(a2.arg1, a2.arg2, a2.arg3, a2.arg4, a2.arg5);
+                    } else if (i2 == 3) {
+                        AnonymousClass2.this.f3382i.loadTile(a2.arg1, a2.arg2);
+                    } else if (i2 != 4) {
+                        Log.e("ThreadUtil", "Unsupported message, what=" + a2.what);
                     } else {
-                        AnonymousClass2.this.val$callback.recycleTile((TileList.Tile) next.data);
+                        AnonymousClass2.this.f3382i.recycleTile((TileList.Tile) a2.data);
                     }
                 }
             }
         };
 
+        /* renamed from: i */
+        final /* synthetic */ ThreadUtil.BackgroundCallback f3382i;
+
         /* renamed from: androidx.recyclerview.widget.MessageThreadUtil$2$1 */
-        public class AnonymousClass1 implements Runnable {
-            public AnonymousClass1() {
+        class AnonymousClass1 implements Runnable {
+            AnonymousClass1() {
             }
 
             @Override // java.lang.Runnable
             public void run() {
                 while (true) {
-                    SyncQueueItem next = AnonymousClass2.this.mQueue.next();
-                    if (next == null) {
-                        AnonymousClass2.this.mBackgroundRunning.set(false);
+                    SyncQueueItem a2 = AnonymousClass2.this.f3378e.a();
+                    if (a2 == null) {
+                        AnonymousClass2.this.f3380g.set(false);
                         return;
                     }
-                    int i10 = next.what;
-                    if (i10 == 1) {
-                        AnonymousClass2.this.mQueue.removeMessages(1);
-                        AnonymousClass2.this.val$callback.refresh(next.arg1);
-                    } else if (i10 == 2) {
-                        AnonymousClass2.this.mQueue.removeMessages(2);
-                        AnonymousClass2.this.mQueue.removeMessages(3);
-                        AnonymousClass2.this.val$callback.updateRange(next.arg1, next.arg2, next.arg3, next.arg4, next.arg5);
-                    } else if (i10 == 3) {
-                        AnonymousClass2.this.val$callback.loadTile(next.arg1, next.arg2);
-                    } else if (i10 != 4) {
-                        Log.e("ThreadUtil", "Unsupported message, what=" + next.what);
+                    int i2 = a2.what;
+                    if (i2 == 1) {
+                        AnonymousClass2.this.f3378e.b(1);
+                        AnonymousClass2.this.f3382i.refresh(a2.arg1);
+                    } else if (i2 == 2) {
+                        AnonymousClass2.this.f3378e.b(2);
+                        AnonymousClass2.this.f3378e.b(3);
+                        AnonymousClass2.this.f3382i.updateRange(a2.arg1, a2.arg2, a2.arg3, a2.arg4, a2.arg5);
+                    } else if (i2 == 3) {
+                        AnonymousClass2.this.f3382i.loadTile(a2.arg1, a2.arg2);
+                    } else if (i2 != 4) {
+                        Log.e("ThreadUtil", "Unsupported message, what=" + a2.what);
                     } else {
-                        AnonymousClass2.this.val$callback.recycleTile((TileList.Tile) next.data);
+                        AnonymousClass2.this.f3382i.recycleTile((TileList.Tile) a2.data);
                     }
                 }
             }
         }
 
-        public AnonymousClass2(ThreadUtil.BackgroundCallback backgroundCallback) {
-            this.val$callback = backgroundCallback;
+        AnonymousClass2(ThreadUtil.BackgroundCallback backgroundCallback) {
+            this.f3382i = backgroundCallback;
         }
 
-        private void maybeExecuteBackgroundRunnable() {
-            if (this.mBackgroundRunning.compareAndSet(false, true)) {
-                this.mExecutor.execute(this.mBackgroundRunnable);
+        private void a() {
+            if (this.f3380g.compareAndSet(false, true)) {
+                this.f3379f.execute(this.f3381h);
             }
         }
 
-        private void sendMessage(SyncQueueItem syncQueueItem) {
-            this.mQueue.sendMessage(syncQueueItem);
-            maybeExecuteBackgroundRunnable();
+        private void b(SyncQueueItem syncQueueItem) {
+            this.f3378e.c(syncQueueItem);
+            a();
         }
 
-        private void sendMessageAtFrontOfQueue(SyncQueueItem syncQueueItem) {
-            this.mQueue.sendMessageAtFrontOfQueue(syncQueueItem);
-            maybeExecuteBackgroundRunnable();
+        private void c(SyncQueueItem syncQueueItem) {
+            this.f3378e.d(syncQueueItem);
+            a();
         }
 
         @Override // androidx.recyclerview.widget.ThreadUtil.BackgroundCallback
-        public void loadTile(int i10, int i11) {
-            sendMessage(SyncQueueItem.obtainMessage(3, i10, i11));
+        public void loadTile(int i2, int i3) {
+            b(SyncQueueItem.a(3, i2, i3));
         }
 
         @Override // androidx.recyclerview.widget.ThreadUtil.BackgroundCallback
         public void recycleTile(TileList.Tile<T> tile) {
-            sendMessage(SyncQueueItem.obtainMessage(4, 0, tile));
+            b(SyncQueueItem.c(4, 0, tile));
         }
 
         @Override // androidx.recyclerview.widget.ThreadUtil.BackgroundCallback
-        public void refresh(int i10) {
-            sendMessageAtFrontOfQueue(SyncQueueItem.obtainMessage(1, i10, (Object) null));
+        public void refresh(int i2) {
+            c(SyncQueueItem.c(1, i2, null));
         }
 
         @Override // androidx.recyclerview.widget.ThreadUtil.BackgroundCallback
-        public void updateRange(int i10, int i11, int i12, int i13, int i14) {
-            sendMessageAtFrontOfQueue(SyncQueueItem.obtainMessage(2, i10, i11, i12, i13, i14, null));
+        public void updateRange(int i2, int i3, int i4, int i5, int i6) {
+            c(SyncQueueItem.b(2, i2, i3, i4, i5, i6, null));
         }
     }
 
-    public static class MessageQueue {
-        private SyncQueueItem mRoot;
+    static class MessageQueue {
 
-        public synchronized SyncQueueItem next() {
-            SyncQueueItem syncQueueItem = this.mRoot;
+        /* renamed from: a */
+        private SyncQueueItem f3385a;
+
+        MessageQueue() {
+        }
+
+        synchronized SyncQueueItem a() {
+            SyncQueueItem syncQueueItem = this.f3385a;
             if (syncQueueItem == null) {
                 return null;
             }
-            this.mRoot = syncQueueItem.next;
+            this.f3385a = syncQueueItem.f3388c;
             return syncQueueItem;
         }
 
-        public synchronized void removeMessages(int i10) {
+        synchronized void b(int i2) {
             SyncQueueItem syncQueueItem;
             while (true) {
-                try {
-                    syncQueueItem = this.mRoot;
-                    if (syncQueueItem == null || syncQueueItem.what != i10) {
-                        break;
-                    }
-                    this.mRoot = syncQueueItem.next;
-                    syncQueueItem.recycle();
-                } catch (Throwable th2) {
-                    throw th2;
+                syncQueueItem = this.f3385a;
+                if (syncQueueItem == null || syncQueueItem.what != i2) {
+                    break;
                 }
+                this.f3385a = syncQueueItem.f3388c;
+                syncQueueItem.d();
             }
             if (syncQueueItem != null) {
-                SyncQueueItem syncQueueItem2 = syncQueueItem.next;
+                SyncQueueItem syncQueueItem2 = syncQueueItem.f3388c;
                 while (syncQueueItem2 != null) {
-                    SyncQueueItem syncQueueItem3 = syncQueueItem2.next;
-                    if (syncQueueItem2.what == i10) {
-                        syncQueueItem.next = syncQueueItem3;
-                        syncQueueItem2.recycle();
+                    SyncQueueItem syncQueueItem3 = syncQueueItem2.f3388c;
+                    if (syncQueueItem2.what == i2) {
+                        syncQueueItem.f3388c = syncQueueItem3;
+                        syncQueueItem2.d();
                     } else {
                         syncQueueItem = syncQueueItem2;
                     }
@@ -247,26 +280,98 @@ class MessageThreadUtil<T> implements ThreadUtil<T> {
             }
         }
 
-        public synchronized void sendMessage(SyncQueueItem syncQueueItem) {
-            SyncQueueItem syncQueueItem2 = this.mRoot;
+        synchronized void c(SyncQueueItem syncQueueItem) {
+            SyncQueueItem syncQueueItem2 = this.f3385a;
             if (syncQueueItem2 == null) {
-                this.mRoot = syncQueueItem;
+                this.f3385a = syncQueueItem;
                 return;
             }
             while (true) {
-                SyncQueueItem syncQueueItem3 = syncQueueItem2.next;
+                SyncQueueItem syncQueueItem3 = syncQueueItem2.f3388c;
                 if (syncQueueItem3 == null) {
-                    syncQueueItem2.next = syncQueueItem;
+                    syncQueueItem2.f3388c = syncQueueItem;
                     return;
                 }
                 syncQueueItem2 = syncQueueItem3;
             }
         }
 
-        public synchronized void sendMessageAtFrontOfQueue(SyncQueueItem syncQueueItem) {
-            syncQueueItem.next = this.mRoot;
-            this.mRoot = syncQueueItem;
+        synchronized void d(SyncQueueItem syncQueueItem) {
+            syncQueueItem.f3388c = this.f3385a;
+            this.f3385a = syncQueueItem;
         }
+    }
+
+    static class SyncQueueItem {
+
+        /* renamed from: a */
+        private static SyncQueueItem f3386a;
+
+        /* renamed from: b */
+        private static final Object f3387b = new Object();
+        public int arg1;
+        public int arg2;
+        public int arg3;
+        public int arg4;
+        public int arg5;
+
+        /* renamed from: c */
+        SyncQueueItem f3388c;
+        public Object data;
+        public int what;
+
+        SyncQueueItem() {
+        }
+
+        static SyncQueueItem a(int i2, int i3, int i4) {
+            return b(i2, i3, i4, 0, 0, 0, null);
+        }
+
+        static SyncQueueItem b(int i2, int i3, int i4, int i5, int i6, int i7, Object obj) {
+            SyncQueueItem syncQueueItem;
+            synchronized (f3387b) {
+                syncQueueItem = f3386a;
+                if (syncQueueItem == null) {
+                    syncQueueItem = new SyncQueueItem();
+                } else {
+                    f3386a = syncQueueItem.f3388c;
+                    syncQueueItem.f3388c = null;
+                }
+                syncQueueItem.what = i2;
+                syncQueueItem.arg1 = i3;
+                syncQueueItem.arg2 = i4;
+                syncQueueItem.arg3 = i5;
+                syncQueueItem.arg4 = i6;
+                syncQueueItem.arg5 = i7;
+                syncQueueItem.data = obj;
+            }
+            return syncQueueItem;
+        }
+
+        static SyncQueueItem c(int i2, int i3, Object obj) {
+            return b(i2, i3, 0, 0, 0, 0, obj);
+        }
+
+        void d() {
+            this.f3388c = null;
+            this.arg5 = 0;
+            this.arg4 = 0;
+            this.arg3 = 0;
+            this.arg2 = 0;
+            this.arg1 = 0;
+            this.what = 0;
+            this.data = null;
+            synchronized (f3387b) {
+                SyncQueueItem syncQueueItem = f3386a;
+                if (syncQueueItem != null) {
+                    this.f3388c = syncQueueItem;
+                }
+                f3386a = this;
+            }
+        }
+    }
+
+    MessageThreadUtil() {
     }
 
     @Override // androidx.recyclerview.widget.ThreadUtil
@@ -277,73 +382,5 @@ class MessageThreadUtil<T> implements ThreadUtil<T> {
     @Override // androidx.recyclerview.widget.ThreadUtil
     public ThreadUtil.MainThreadCallback<T> getMainThreadProxy(ThreadUtil.MainThreadCallback<T> mainThreadCallback) {
         return new AnonymousClass1(mainThreadCallback);
-    }
-
-    public static class SyncQueueItem {
-        private static SyncQueueItem sPool;
-        private static final Object sPoolLock = new Object();
-        public int arg1;
-        public int arg2;
-        public int arg3;
-        public int arg4;
-        public int arg5;
-        public Object data;
-        SyncQueueItem next;
-        public int what;
-
-        public static SyncQueueItem obtainMessage(int i10, int i11, int i12, int i13, int i14, int i15, Object obj) {
-            SyncQueueItem syncQueueItem;
-            synchronized (sPoolLock) {
-                try {
-                    syncQueueItem = sPool;
-                    if (syncQueueItem == null) {
-                        syncQueueItem = new SyncQueueItem();
-                    } else {
-                        sPool = syncQueueItem.next;
-                        syncQueueItem.next = null;
-                    }
-                    syncQueueItem.what = i10;
-                    syncQueueItem.arg1 = i11;
-                    syncQueueItem.arg2 = i12;
-                    syncQueueItem.arg3 = i13;
-                    syncQueueItem.arg4 = i14;
-                    syncQueueItem.arg5 = i15;
-                    syncQueueItem.data = obj;
-                } catch (Throwable th2) {
-                    throw th2;
-                }
-            }
-            return syncQueueItem;
-        }
-
-        public void recycle() {
-            this.next = null;
-            this.arg5 = 0;
-            this.arg4 = 0;
-            this.arg3 = 0;
-            this.arg2 = 0;
-            this.arg1 = 0;
-            this.what = 0;
-            this.data = null;
-            synchronized (sPoolLock) {
-                try {
-                    SyncQueueItem syncQueueItem = sPool;
-                    if (syncQueueItem != null) {
-                        this.next = syncQueueItem;
-                    }
-                    sPool = this;
-                } catch (Throwable th2) {
-                    throw th2;
-                }
-            }
-        }
-
-        public static SyncQueueItem obtainMessage(int i10, int i11, int i12) {
-            return obtainMessage(i10, i11, i12, 0, 0, 0, null);
-        }
-
-        public static SyncQueueItem obtainMessage(int i10, int i11, Object obj) {
-            return obtainMessage(i10, i11, 0, 0, 0, 0, obj);
-        }
     }
 }

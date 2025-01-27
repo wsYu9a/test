@@ -1,75 +1,78 @@
 package com.kwad.components.core.webview.jshandler;
 
+import android.content.Context;
 import androidx.annotation.NonNull;
 import com.ksad.json.annotation.KsJson;
-import com.kwad.sdk.core.response.model.AdTemplate;
-import java.util.List;
-import org.json.JSONException;
-import org.json.JSONObject;
+import com.kwad.sdk.service.ServiceProvider;
+import com.kwad.sdk.utils.bd;
 
-/* loaded from: classes3.dex */
-public final class x implements com.kwad.sdk.core.webview.c.a {
-    private List<AdTemplate> Zc;
-
-    /* renamed from: eb */
-    private com.kwad.sdk.core.webview.b f11955eb;
-    private b pZ;
+/* loaded from: classes2.dex */
+public final class x implements com.kwad.sdk.core.webview.b.a {
 
     @KsJson
-    public static class a extends com.kwad.sdk.core.response.a.a {
-        public long creativeId = -1;
-        public int adStyle = -1;
-    }
+    public static final class a extends com.kwad.sdk.core.response.kwai.a {
+        public String SK;
+        public int SL;
+        public String SM;
+        public int SN;
+        public int SO;
+        public String SP;
+        public String SQ;
+        public String SR;
+        public int SS;
+        public String ST;
+        public int SU;
+        public String SV;
+        public String SW;
+        public int SX;
+        public int SY;
+        public int SZ;
+        public int Ta;
+        public String appId;
+        public String appName;
+        public String appVersion;
+        public String model;
 
-    public interface b {
-        void R(AdTemplate adTemplate);
-    }
-
-    public x(List<AdTemplate> list) {
-        this.Zc = list;
-    }
-
-    private List<AdTemplate> tq() {
-        List<AdTemplate> list = this.Zc;
-        if (list != null) {
-            return list;
+        public static a qW() {
+            a aVar = new a();
+            aVar.SK = "3.3.40";
+            aVar.SL = 3034000;
+            aVar.SM = ((com.kwad.sdk.service.kwai.e) ServiceProvider.get(com.kwad.sdk.service.kwai.e.class)).getApiVersion();
+            aVar.SN = ((com.kwad.sdk.service.kwai.e) ServiceProvider.get(com.kwad.sdk.service.kwai.e.class)).getApiVersionCode();
+            aVar.SO = 1;
+            Context context = ((com.kwad.sdk.service.kwai.e) ServiceProvider.get(com.kwad.sdk.service.kwai.e.class)).getContext();
+            aVar.appVersion = com.kwad.sdk.utils.k.bH(context);
+            aVar.appName = ((com.kwad.sdk.service.kwai.e) ServiceProvider.get(com.kwad.sdk.service.kwai.e.class)).getAppName();
+            aVar.appId = ((com.kwad.sdk.service.kwai.e) ServiceProvider.get(com.kwad.sdk.service.kwai.e.class)).getAppId();
+            aVar.SP = String.valueOf(com.kwad.sdk.utils.ag.ca(context));
+            aVar.SQ = bd.EO();
+            aVar.model = bd.EF();
+            aVar.SR = bd.EH();
+            aVar.SS = 1;
+            aVar.ST = bd.getOsVersion();
+            aVar.SU = bd.ER();
+            aVar.SV = bd.getLanguage();
+            aVar.SW = bd.getLocale();
+            aVar.SX = bd.getScreenWidth(context);
+            aVar.SY = bd.getScreenHeight(context);
+            aVar.SZ = com.kwad.sdk.c.kwai.a.getStatusBarHeight(context);
+            aVar.Ta = com.kwad.sdk.c.kwai.a.a(context, 50.0f);
+            return aVar;
         }
-        com.kwad.sdk.core.webview.b bVar = this.f11955eb;
-        if (bVar != null) {
-            return bVar.IB();
-        }
-        return null;
     }
 
-    public final void a(b bVar) {
-        this.pZ = bVar;
-    }
-
-    @Override // com.kwad.sdk.core.webview.c.a
+    @Override // com.kwad.sdk.core.webview.b.a
     @NonNull
     public final String getKey() {
-        return "adImpression";
+        return "getKsPlayableDeviceInfo";
     }
 
-    @Override // com.kwad.sdk.core.webview.c.a
+    @Override // com.kwad.sdk.core.webview.b.a
+    public final void handleJsCall(String str, @NonNull com.kwad.sdk.core.webview.b.c cVar) {
+        cVar.a(a.qW());
+    }
+
+    @Override // com.kwad.sdk.core.webview.b.a
     public final void onDestroy() {
-    }
-
-    @Override // com.kwad.sdk.core.webview.c.a
-    public final void a(String str, @NonNull com.kwad.sdk.core.webview.c.c cVar) {
-        try {
-            a aVar = new a();
-            aVar.parseJson(new JSONObject(str));
-            AdTemplate a10 = com.kwad.sdk.core.response.b.e.a(tq(), aVar.creativeId, aVar.adStyle);
-            b bVar = this.pZ;
-            if (bVar != null) {
-                bVar.R(a10);
-            }
-        } catch (JSONException unused) {
-        }
-    }
-
-    public x(com.kwad.sdk.core.webview.b bVar) {
-        this.f11955eb = bVar;
     }
 }

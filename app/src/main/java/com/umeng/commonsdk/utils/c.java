@@ -3,7 +3,6 @@ package com.umeng.commonsdk.utils;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.text.TextUtils;
-import com.umeng.analytics.pro.bd;
 import com.umeng.commonsdk.framework.UMEnvelopeBuild;
 import com.umeng.commonsdk.service.UMGlobalContext;
 import java.util.Calendar;
@@ -12,132 +11,128 @@ import java.util.Date;
 /* loaded from: classes4.dex */
 public class c {
 
+    /* renamed from: a */
+    private static final String f26483a = "um_slmode_sp";
+
     /* renamed from: b */
-    private static final String f24823b = "lastReqTime";
+    private static final String f26484b = "lastReqTime";
 
     /* renamed from: c */
-    private static final int f24824c = 48;
+    private static final int f26485c = 48;
 
     /* renamed from: d */
-    private static final int f24825d = 1;
+    private static final int f26486d = 1;
 
     /* renamed from: e */
-    private static final int f24826e = 720;
+    private static final int f26487e = 720;
 
     /* renamed from: f */
-    private static final String f24827f = "iss";
+    private static final String f26488f = "iss";
 
     /* renamed from: g */
-    private static final String f24828g = "sinr";
+    private static final String f26489g = "sinr";
 
     /* renamed from: h */
-    private static final String f24829h = "clean";
+    private static final String f26490h = "clean";
 
     /* renamed from: i */
-    private static boolean f24830i;
+    private static boolean f26491i = false;
 
     /* renamed from: j */
-    private static int f24831j;
-
-    /* renamed from: a */
-    private static final String f24822a = bd.b().b(bd.f23546z);
-
-    /* renamed from: k */
-    private static Object f24832k = new Object();
+    private static int f26492j = 720;
+    private static Object k = new Object();
 
     static {
-        f24830i = false;
-        f24831j = f24826e;
         Context appContext = UMGlobalContext.getAppContext();
         if (appContext != null) {
-            String imprintProperty = UMEnvelopeBuild.imprintProperty(appContext, f24827f, "");
+            String imprintProperty = UMEnvelopeBuild.imprintProperty(appContext, f26488f, "");
             if (TextUtils.isEmpty(imprintProperty) || !"1".equals(imprintProperty)) {
                 return;
             }
-            synchronized (f24832k) {
-                f24830i = true;
+            synchronized (k) {
+                f26491i = true;
             }
-            String imprintProperty2 = UMEnvelopeBuild.imprintProperty(appContext, f24828g, "");
+            String imprintProperty2 = UMEnvelopeBuild.imprintProperty(appContext, f26489g, "");
             if (TextUtils.isEmpty(imprintProperty)) {
-                f24831j = 48;
+                f26492j = 48;
                 return;
             }
             try {
-                f24831j = a(Integer.parseInt(imprintProperty2));
+                f26492j = a(Integer.parseInt(imprintProperty2));
             } catch (Throwable unused) {
-                f24831j = 48;
+                f26492j = 48;
             }
         }
     }
 
-    private static int a(int i10) {
-        if (i10 > f24826e) {
-            return f24826e;
+    private static int a(int i2) {
+        if (i2 > f26487e) {
+            return f26487e;
         }
-        if (i10 < 1) {
+        if (i2 < 1) {
             return 1;
         }
-        return i10;
+        return i2;
+    }
+
+    public static boolean a() {
+        boolean z;
+        synchronized (k) {
+            z = f26491i;
+        }
+        return z;
     }
 
     public static long b(Context context) {
-        SharedPreferences sharedPreferences = context.getApplicationContext().getSharedPreferences(f24822a, 0);
+        SharedPreferences sharedPreferences = context.getApplicationContext().getSharedPreferences(f26483a, 0);
         if (sharedPreferences != null) {
-            return sharedPreferences.getLong(f24823b, 0L);
+            return sharedPreferences.getLong(f26484b, 0L);
         }
         return 0L;
     }
 
     public static void c(Context context) {
-        SharedPreferences sharedPreferences = context.getApplicationContext().getSharedPreferences(f24822a, 0);
+        SharedPreferences sharedPreferences = context.getApplicationContext().getSharedPreferences(f26483a, 0);
         if (sharedPreferences != null) {
-            sharedPreferences.edit().putBoolean(f24829h, true).commit();
+            sharedPreferences.edit().putBoolean(f26490h, true).commit();
         }
     }
 
     public static void d(Context context) {
-        SharedPreferences sharedPreferences = context.getApplicationContext().getSharedPreferences(f24822a, 0);
+        SharedPreferences sharedPreferences = context.getApplicationContext().getSharedPreferences(f26483a, 0);
         if (sharedPreferences != null) {
-            sharedPreferences.edit().putBoolean(f24829h, false).commit();
+            sharedPreferences.edit().putBoolean(f26490h, false).commit();
         }
     }
 
     public static boolean e(Context context) {
-        SharedPreferences sharedPreferences = context.getApplicationContext().getSharedPreferences(f24822a, 0);
+        SharedPreferences sharedPreferences = context.getApplicationContext().getSharedPreferences(f26483a, 0);
         if (sharedPreferences != null) {
-            return sharedPreferences.getBoolean(f24829h, false);
+            return sharedPreferences.getBoolean(f26490h, false);
         }
         return false;
     }
 
-    public static boolean a() {
-        boolean z10;
-        synchronized (f24832k) {
-            z10 = f24830i;
-        }
-        return z10;
-    }
-
     public static int a(Context context) {
-        int i10;
-        synchronized (f24832k) {
-            i10 = f24831j;
+        int i2;
+        synchronized (k) {
+            i2 = f26492j;
         }
-        return i10;
+        return i2;
     }
 
-    public static boolean a(long j10, long j11, int i10) {
-        Date date = new Date(j11);
+    public static boolean a(long j2, long j3, int i2) {
+        Date date = new Date(j3);
         Calendar calendar = Calendar.getInstance();
-        calendar.setTime(new Date(j10));
-        calendar.add(10, i10);
+        calendar.setTime(new Date(j2));
+        calendar.add(10, i2);
         return date.after(calendar.getTime());
     }
 
-    public static void a(Context context, long j10) {
-        SharedPreferences sharedPreferences = context.getApplicationContext().getSharedPreferences(f24822a, 0);
+    public static void a(Context context, long j2) {
+        SharedPreferences sharedPreferences = context.getApplicationContext().getSharedPreferences(f26483a, 0);
         if (sharedPreferences != null) {
-            sharedPreferences.edit().putLong(f24823b, j10).commit();
+            sharedPreferences.edit().putLong(f26484b, j2).commit();
         }
     }
 }

@@ -33,35 +33,35 @@ public class ShowWealthResult {
     }
 
     public Long getExtraId() {
-        Long l10 = this.extraId;
-        return Long.valueOf(l10 == null ? 0L : l10.longValue());
+        Long l = this.extraId;
+        return Long.valueOf(l == null ? 0L : l.longValue());
     }
 
     public long getUid() {
         return this.uid.longValue();
     }
 
-    public void setCoins(Integer num) {
-        this.coins = num;
+    public void setCoins(Integer coins) {
+        this.coins = coins;
     }
 
-    public void setDuration(Integer num) {
-        this.duration = num;
+    public void setDuration(Integer duration) {
+        this.duration = duration;
     }
 
-    public void setExtraCoins(Integer num) {
-        this.extraCoins = num;
+    public void setExtraCoins(Integer extraCoins) {
+        this.extraCoins = extraCoins;
     }
 
-    public void setExtraDuration(Integer num) {
-        this.extraDuration = num;
+    public void setExtraDuration(Integer extraDuration) {
+        this.extraDuration = extraDuration;
     }
 
-    public void setExtraId(Long l10) {
-        this.extraId = l10;
+    public void setExtraId(Long extraId) {
+        this.extraId = extraId;
     }
 
-    public void setUid(Long l10) {
-        this.uid = l10;
+    public void setUid(Long uid) {
+        this.uid = uid;
     }
 }

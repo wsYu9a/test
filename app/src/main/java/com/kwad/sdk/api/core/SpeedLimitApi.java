@@ -5,7 +5,7 @@ import java.io.InputStream;
 
 @KsAdSdkDynamicApi
 @Keep
-/* loaded from: classes3.dex */
+/* loaded from: classes2.dex */
 public interface SpeedLimitApi {
     @KsAdSdkDynamicApi
     @Keep

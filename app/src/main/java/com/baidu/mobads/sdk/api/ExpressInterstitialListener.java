@@ -1,6 +1,6 @@
 package com.baidu.mobads.sdk.api;
 
-/* loaded from: classes2.dex */
+/* loaded from: classes.dex */
 public interface ExpressInterstitialListener {
     void onADExposed();
 
@@ -16,11 +16,11 @@ public interface ExpressInterstitialListener {
 
     void onAdClose();
 
-    void onAdFailed(int i10, String str);
+    void onAdFailed(int i2, String str);
 
     void onLpClosed();
 
-    void onNoAd(int i10, String str);
+    void onNoAd(int i2, String str);
 
     @Deprecated
     void onVideoDownloadFailed();

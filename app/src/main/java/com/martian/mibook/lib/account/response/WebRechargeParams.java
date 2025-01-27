@@ -27,19 +27,19 @@ public class WebRechargeParams {
         return this.productId;
     }
 
-    public void setExtra(String str) {
-        this.extra = str;
+    public void setExtra(String extra) {
+        this.extra = extra;
     }
 
-    public void setMethod(Integer num) {
-        this.method = num;
+    public void setMethod(Integer method) {
+        this.method = method;
     }
 
-    public void setMoney(Integer num) {
-        this.money = num;
+    public void setMoney(Integer money) {
+        this.money = money;
     }
 
-    public void setProductId(String str) {
-        this.productId = str;
+    public void setProductId(String productId) {
+        this.productId = productId;
     }
 }

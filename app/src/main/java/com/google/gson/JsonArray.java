@@ -6,16 +6,15 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
-/* loaded from: classes2.dex */
+/* loaded from: classes.dex */
 public final class JsonArray extends JsonElement implements Iterable<JsonElement> {
-    private final List<JsonElement> elements;
+    private final List<JsonElement> elements = new ArrayList();
 
-    public JsonArray() {
-        this.elements = new ArrayList();
-    }
-
-    public void add(Boolean bool) {
-        this.elements.add(bool == null ? JsonNull.INSTANCE : new JsonPrimitive(bool));
+    public void add(JsonElement jsonElement) {
+        if (jsonElement == null) {
+            jsonElement = JsonNull.INSTANCE;
+        }
+        this.elements.add(jsonElement);
     }
 
     public void addAll(JsonArray jsonArray) {
@@ -30,8 +29,8 @@ public final class JsonArray extends JsonElement implements Iterable<JsonElement
         return obj == this || ((obj instanceof JsonArray) && ((JsonArray) obj).elements.equals(this.elements));
     }
 
-    public JsonElement get(int i10) {
-        return this.elements.get(i10);
+    public JsonElement get(int i2) {
+        return this.elements.get(i2);
     }
 
     @Override // com.google.gson.JsonElement
@@ -67,7 +66,6 @@ public final class JsonArray extends JsonElement implements Iterable<JsonElement
     }
 
     @Override // com.google.gson.JsonElement
-    @Deprecated
     public char getAsCharacter() {
         if (this.elements.size() == 1) {
             return this.elements.get(0).getAsCharacter();
@@ -135,10 +133,6 @@ public final class JsonArray extends JsonElement implements Iterable<JsonElement
         return this.elements.hashCode();
     }
 
-    public boolean isEmpty() {
-        return this.elements.isEmpty();
-    }
-
     @Override // java.lang.Iterable
     public Iterator<JsonElement> iterator() {
         return this.elements.iterator();
@@ -148,24 +142,17 @@ public final class JsonArray extends JsonElement implements Iterable<JsonElement
         return this.elements.remove(jsonElement);
     }
 
-    public JsonElement set(int i10, JsonElement jsonElement) {
-        return this.elements.set(i10, jsonElement);
+    public JsonElement set(int i2, JsonElement jsonElement) {
+        return this.elements.set(i2, jsonElement);
     }
 
     public int size() {
         return this.elements.size();
     }
 
-    public void add(Character ch2) {
-        this.elements.add(ch2 == null ? JsonNull.INSTANCE : new JsonPrimitive(ch2));
-    }
-
     @Override // com.google.gson.JsonElement
     public JsonArray deepCopy() {
-        if (this.elements.isEmpty()) {
-            return new JsonArray();
-        }
-        JsonArray jsonArray = new JsonArray(this.elements.size());
+        JsonArray jsonArray = new JsonArray();
         Iterator<JsonElement> it = this.elements.iterator();
         while (it.hasNext()) {
             jsonArray.add(it.next().deepCopy());
@@ -173,26 +160,7 @@ public final class JsonArray extends JsonElement implements Iterable<JsonElement
         return jsonArray;
     }
 
-    public JsonElement remove(int i10) {
-        return this.elements.remove(i10);
-    }
-
-    public JsonArray(int i10) {
-        this.elements = new ArrayList(i10);
-    }
-
-    public void add(Number number) {
-        this.elements.add(number == null ? JsonNull.INSTANCE : new JsonPrimitive(number));
-    }
-
-    public void add(String str) {
-        this.elements.add(str == null ? JsonNull.INSTANCE : new JsonPrimitive(str));
-    }
-
-    public void add(JsonElement jsonElement) {
-        if (jsonElement == null) {
-            jsonElement = JsonNull.INSTANCE;
-        }
-        this.elements.add(jsonElement);
+    public JsonElement remove(int i2) {
+        return this.elements.remove(i2);
     }
 }

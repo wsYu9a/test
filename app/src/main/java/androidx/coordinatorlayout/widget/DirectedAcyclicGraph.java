@@ -12,91 +12,103 @@ import java.util.List;
 @RestrictTo({RestrictTo.Scope.LIBRARY})
 /* loaded from: classes.dex */
 public final class DirectedAcyclicGraph<T> {
-    private final Pools.Pool<ArrayList<T>> mListPool = new Pools.SimplePool(10);
-    private final SimpleArrayMap<T, ArrayList<T>> mGraph = new SimpleArrayMap<>();
-    private final ArrayList<T> mSortResult = new ArrayList<>();
-    private final HashSet<T> mSortTmpMarked = new HashSet<>();
 
-    private void dfs(T t10, ArrayList<T> arrayList, HashSet<T> hashSet) {
-        if (arrayList.contains(t10)) {
+    /* renamed from: a */
+    private final Pools.Pool<ArrayList<T>> f1368a = new Pools.SimplePool(10);
+
+    /* renamed from: b */
+    private final SimpleArrayMap<T, ArrayList<T>> f1369b = new SimpleArrayMap<>();
+
+    /* renamed from: c */
+    private final ArrayList<T> f1370c = new ArrayList<>();
+
+    /* renamed from: d */
+    private final HashSet<T> f1371d = new HashSet<>();
+
+    private void a(T t, ArrayList<T> arrayList, HashSet<T> hashSet) {
+        if (arrayList.contains(t)) {
             return;
         }
-        if (hashSet.contains(t10)) {
+        if (hashSet.contains(t)) {
             throw new RuntimeException("This graph contains cyclic dependencies");
         }
-        hashSet.add(t10);
-        ArrayList<T> arrayList2 = this.mGraph.get(t10);
+        hashSet.add(t);
+        ArrayList<T> arrayList2 = this.f1369b.get(t);
         if (arrayList2 != null) {
             int size = arrayList2.size();
-            for (int i10 = 0; i10 < size; i10++) {
-                dfs(arrayList2.get(i10), arrayList, hashSet);
+            for (int i2 = 0; i2 < size; i2++) {
+                a(arrayList2.get(i2), arrayList, hashSet);
             }
         }
-        hashSet.remove(t10);
-        arrayList.add(t10);
+        hashSet.remove(t);
+        arrayList.add(t);
     }
 
     @NonNull
-    private ArrayList<T> getEmptyList() {
-        ArrayList<T> acquire = this.mListPool.acquire();
+    private ArrayList<T> b() {
+        ArrayList<T> acquire = this.f1368a.acquire();
         return acquire == null ? new ArrayList<>() : acquire;
     }
 
-    private void poolList(@NonNull ArrayList<T> arrayList) {
+    private void c(@NonNull ArrayList<T> arrayList) {
         arrayList.clear();
-        this.mListPool.release(arrayList);
+        this.f1368a.release(arrayList);
     }
 
-    public void addEdge(@NonNull T t10, @NonNull T t11) {
-        if (!this.mGraph.containsKey(t10) || !this.mGraph.containsKey(t11)) {
+    public void addEdge(@NonNull T t, @NonNull T t2) {
+        if (!this.f1369b.containsKey(t) || !this.f1369b.containsKey(t2)) {
             throw new IllegalArgumentException("All nodes must be present in the graph before being added as an edge");
         }
-        ArrayList<T> arrayList = this.mGraph.get(t10);
+        ArrayList<T> arrayList = this.f1369b.get(t);
         if (arrayList == null) {
-            arrayList = getEmptyList();
-            this.mGraph.put(t10, arrayList);
+            arrayList = b();
+            this.f1369b.put(t, arrayList);
         }
-        arrayList.add(t11);
+        arrayList.add(t2);
     }
 
-    public void addNode(@NonNull T t10) {
-        if (this.mGraph.containsKey(t10)) {
+    public void addNode(@NonNull T t) {
+        if (this.f1369b.containsKey(t)) {
             return;
         }
-        this.mGraph.put(t10, null);
+        this.f1369b.put(t, null);
     }
 
     public void clear() {
-        int size = this.mGraph.size();
-        for (int i10 = 0; i10 < size; i10++) {
-            ArrayList<T> valueAt = this.mGraph.valueAt(i10);
+        int size = this.f1369b.size();
+        for (int i2 = 0; i2 < size; i2++) {
+            ArrayList<T> valueAt = this.f1369b.valueAt(i2);
             if (valueAt != null) {
-                poolList(valueAt);
+                c(valueAt);
             }
         }
-        this.mGraph.clear();
+        this.f1369b.clear();
     }
 
-    public boolean contains(@NonNull T t10) {
-        return this.mGraph.containsKey(t10);
+    public boolean contains(@NonNull T t) {
+        return this.f1369b.containsKey(t);
+    }
+
+    int d() {
+        return this.f1369b.size();
     }
 
     @Nullable
-    public List getIncomingEdges(@NonNull T t10) {
-        return this.mGraph.get(t10);
+    public List getIncomingEdges(@NonNull T t) {
+        return this.f1369b.get(t);
     }
 
     @Nullable
-    public List<T> getOutgoingEdges(@NonNull T t10) {
-        int size = this.mGraph.size();
+    public List<T> getOutgoingEdges(@NonNull T t) {
+        int size = this.f1369b.size();
         ArrayList arrayList = null;
-        for (int i10 = 0; i10 < size; i10++) {
-            ArrayList<T> valueAt = this.mGraph.valueAt(i10);
-            if (valueAt != null && valueAt.contains(t10)) {
+        for (int i2 = 0; i2 < size; i2++) {
+            ArrayList<T> valueAt = this.f1369b.valueAt(i2);
+            if (valueAt != null && valueAt.contains(t)) {
                 if (arrayList == null) {
                     arrayList = new ArrayList();
                 }
-                arrayList.add(this.mGraph.keyAt(i10));
+                arrayList.add(this.f1369b.keyAt(i2));
             }
         }
         return arrayList;
@@ -104,27 +116,23 @@ public final class DirectedAcyclicGraph<T> {
 
     @NonNull
     public ArrayList<T> getSortedList() {
-        this.mSortResult.clear();
-        this.mSortTmpMarked.clear();
-        int size = this.mGraph.size();
-        for (int i10 = 0; i10 < size; i10++) {
-            dfs(this.mGraph.keyAt(i10), this.mSortResult, this.mSortTmpMarked);
+        this.f1370c.clear();
+        this.f1371d.clear();
+        int size = this.f1369b.size();
+        for (int i2 = 0; i2 < size; i2++) {
+            a(this.f1369b.keyAt(i2), this.f1370c, this.f1371d);
         }
-        return this.mSortResult;
+        return this.f1370c;
     }
 
-    public boolean hasOutgoingEdges(@NonNull T t10) {
-        int size = this.mGraph.size();
-        for (int i10 = 0; i10 < size; i10++) {
-            ArrayList<T> valueAt = this.mGraph.valueAt(i10);
-            if (valueAt != null && valueAt.contains(t10)) {
+    public boolean hasOutgoingEdges(@NonNull T t) {
+        int size = this.f1369b.size();
+        for (int i2 = 0; i2 < size; i2++) {
+            ArrayList<T> valueAt = this.f1369b.valueAt(i2);
+            if (valueAt != null && valueAt.contains(t)) {
                 return true;
             }
         }
         return false;
-    }
-
-    public int size() {
-        return this.mGraph.size();
     }
 }

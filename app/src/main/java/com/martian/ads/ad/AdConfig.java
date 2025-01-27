@@ -1,51 +1,68 @@
 package com.martian.ads.ad;
 
 import androidx.annotation.NonNull;
-import b8.j;
-import ba.l;
+import com.bytedance.sdk.openadsdk.TTAdLoadType;
 import com.martian.ads.data.AdSlot;
 import com.martian.apptask.data.AppTask;
-import l5.c;
+import com.martian.libsupport.k;
+import org.mozilla.universalchardet.prober.g;
 
-/* loaded from: classes3.dex */
+/* loaded from: classes2.dex */
 public class AdConfig {
     public static final int ERROR_CODE_AD_BLOCK = 808;
-    public static final int ERROR_CODE_CSJ_LIMIT = 20001;
-    public static final int ERROR_CODE_GDT_LIMIT = 109502;
-    public static final int ERROR_CODE_TIMEOUT = -100;
-    public static final String ERROR_REASON_CSJ_LIMIT = "112";
     private AdInfo adInfo;
-    private String adNameInfo;
+    private TTAdLoadType adLoadType;
     private String adTag;
     private String adsId;
+    private String adsPosition;
     private String aliasUnion;
+    private String apiUrl;
     private String appid;
-    private long availableTime;
-    private j baeArticleInfo;
+    private b.d.a.a baeArticleInfo;
     private int bidding;
-    private Integer coolDuration;
-    private boolean coolPlatForm;
-    private Integer coolThreshold;
-    private boolean dynamicUnion;
     private int ecpm;
     private Double ecpmPercent;
-    private int failTimes;
+    private boolean fullAdOnly;
     private int group;
     private int height;
-    private boolean isExpress;
-    private int minEcpm;
-    private String pid;
+    private boolean isWifiEnv;
     private String primeRit;
-    private int shakeMinEcpm;
+    private int reward;
+    private String rewardExtra;
+    private String rewardName;
     private boolean shakeStyle;
+    private long showTime;
     private String source;
+    private Object tag;
     private String type;
+    private String uid;
     private int weight;
     private int width;
-    private boolean withMisClick;
+    private String wxAppid;
+    private int adsCount = 1;
+    private boolean chapterEndAd = false;
+    private boolean chapterMiddleAd = false;
+    private int adLoadSeq = 1;
     private String gid = "";
     private boolean adCompliance = false;
-    private int adLoadSeq = 1;
+    private boolean needNativeCompliance = false;
+
+    public interface Action {
+        public static final String CLICK = "CLICK";
+        public static final String ESHOW = "ESHOW";
+        public static final String FAIL = "FAIL";
+        public static final String REQUEST = "REQUEST";
+        public static final String SHOW = "SHOW";
+        public static final String SUCCESS = "RESPONSE";
+    }
+
+    public interface ActionString {
+        public static final String CLICK = "点击";
+        public static final String FAIL = "失败";
+        public static final String REQUEST = "请求";
+        public static final String SHOW = "曝光";
+        public static final String SUCCESS = "成功";
+    }
 
     public static class AdInfo {
         private int ecpm;
@@ -59,41 +76,24 @@ public class AdConfig {
             return this.source;
         }
 
-        public void setEcpm(int i10) {
-            this.ecpm = i10;
+        public void setEcpm(int ecpm) {
+            this.ecpm = ecpm;
         }
 
-        public void setSource(String str) {
-            this.source = str;
+        public void setSource(String source) {
+            this.source = source;
         }
     }
 
     public interface AdType {
         public static final String BANNER = "banner";
         public static final String BANNER_TT = "banner_tt";
-        public static final String DRAW = "draw";
         public static final String EXPRESS = "express";
         public static final String FULL_VIDEO = "full_video";
         public static final String INTERSTITIAL = "interstitial";
         public static final String NATIVE = "native";
         public static final String REWARD_VIDEO = "reward_video";
         public static final String SPLASH = "splash";
-        public static final String STREAM = "stream";
-    }
-
-    public interface Type {
-        public static final String CLICK = "CLICK";
-        public static final String DOWNLOAD = "DOWNLOAD";
-        public static final String ESHOW = "ESHOW";
-        public static final String FAIL = "FAIL";
-        public static final String FILTER = "FILTER";
-        public static final String INSTALL = "INSTALL";
-        public static final String MCLICK = "MCLICK";
-        public static final String MSHOW = "MSHOW";
-        public static final String REQUEST = "REQUEST";
-        public static final String RESPONSE = "RESPONSE";
-        public static final String SHOW = "SHOW";
-        public static final String TIMEOUT = "TIMEOUT";
     }
 
     public interface UnionType {
@@ -107,10 +107,8 @@ public class AdConfig {
         public static final String GDT = "GDT";
         public static final String HW = "HW";
         public static final String KS = "KS";
-        public static final String MENTA = "MENTA";
         public static final String MI = "MI";
         public static final String OPPO = "OPPO";
-        public static final String SIGMOB = "SIGMOB";
         public static final String VIVO = "VIVO";
     }
 
@@ -118,20 +116,55 @@ public class AdConfig {
         AdConfig adConfig = new AdConfig();
         adConfig.setType(adSlot.getType());
         adConfig.setSource(adSlot.getUnion());
+        adConfig.setAppid(adSlot.getAppid());
         adConfig.setBidding(adSlot.getBidding());
         adConfig.setAdsId(adSlot.getSid());
         adConfig.setWeight(adSlot.getWeight());
         adConfig.setEcpm(adSlot.getEcpm());
         adConfig.setAliasUnion(adSlot.getAliasUnion());
-        adConfig.setAppid(adSlot.getAppid());
         return adConfig;
     }
 
-    public static AdConfig toAdConfig(AppTask appTask) {
-        if (appTask == null) {
-            return null;
+    public static int getAdsDefaultHeight(String source) {
+        if (k.p(source)) {
+            return g.n;
         }
-        return buildAdConfig(new AdSlot().setType(appTask.adsType).setUnion(appTask.source).setSid(appTask.f12000id).setWeight(1).setEcpm(Integer.valueOf(appTask.getEcpm()))).setGid(appTask.getGid()).setBidding(appTask.getBidding()).setAdTag(appTask.getAdTag()).setPid(appTask.pid).setGroup(appTask.getGroup()).setAliasUnion(appTask.getAliasUnion()).setDynamicUnion(appTask.isDynamicUnion()).setWithMisClick(appTask.isWithMisClick()).setAdNameInfo(appTask.getAdNameInfo());
+        source.hashCode();
+        if (source.equals(UnionType.BQT)) {
+            return 230;
+        }
+        if (source.equals(UnionType.GDT)) {
+            return 288;
+        }
+        return g.n;
+    }
+
+    public static boolean isAdFailed(String event) {
+        return event.contains(ActionString.FAIL);
+    }
+
+    public static boolean isAdSuccess(String event) {
+        return ActionString.SUCCESS.equalsIgnoreCase(event);
+    }
+
+    public static boolean isUploadAction(String event) {
+        return ActionString.SUCCESS.equalsIgnoreCase(event) || ActionString.REQUEST.equalsIgnoreCase(event) || ActionString.SHOW.equalsIgnoreCase(event) || ActionString.CLICK.equalsIgnoreCase(event) || event.contains(ActionString.FAIL);
+    }
+
+    public String getAction(String event) {
+        event.hashCode();
+        switch (event) {
+            case "成功":
+                return Action.SUCCESS;
+            case "曝光":
+                return Action.SHOW;
+            case "点击":
+                return Action.CLICK;
+            case "请求":
+                return Action.REQUEST;
+            default:
+                return Action.FAIL;
+        }
     }
 
     public AdInfo getAdInfo() {
@@ -142,8 +175,8 @@ public class AdConfig {
         return this.adLoadSeq;
     }
 
-    public String getAdNameInfo() {
-        return this.adNameInfo;
+    public TTAdLoadType getAdLoadType() {
+        return this.adLoadType;
     }
 
     public String getAdTag() {
@@ -151,11 +184,15 @@ public class AdConfig {
     }
 
     public int getAdsCount() {
-        return 1;
+        return this.adsCount;
     }
 
     public String getAdsId() {
         return this.adsId;
+    }
+
+    public String getAdsPosition() {
+        return this.adsPosition;
     }
 
     public String getAliasUnion() {
@@ -163,18 +200,14 @@ public class AdConfig {
     }
 
     public String getApiUrl() {
-        return "";
+        return this.apiUrl;
     }
 
     public String getAppid() {
         return this.appid;
     }
 
-    public long getAvailableTime() {
-        return this.availableTime;
-    }
-
-    public j getBaeArticleInfo() {
+    public b.d.a.a getBaeArticleInfo() {
         return this.baeArticleInfo;
     }
 
@@ -182,40 +215,23 @@ public class AdConfig {
         return this.bidding;
     }
 
-    public int getCoolDuration() {
-        Integer num = this.coolDuration;
-        if (num == null) {
-            return 600000;
-        }
-        return num.intValue() * 1000;
-    }
-
-    public int getCoolThreshold() {
-        Integer num = this.coolThreshold;
-        if (num == null) {
-            return 0;
-        }
-        return num.intValue();
-    }
-
     public int getEcpm() {
         return this.ecpm;
     }
 
     public double getEcpmPercent() {
-        Double d10 = this.ecpmPercent;
-        return d10 == null ? c.f27899e : d10.doubleValue();
+        Double d2 = this.ecpmPercent;
+        if (d2 == null) {
+            return 0.0d;
+        }
+        return d2.doubleValue();
     }
 
-    public int getEventEcpm(String str) {
-        if (isBidding() && (Type.SHOW.equalsIgnoreCase(str) || Type.MSHOW.equalsIgnoreCase(str) || Type.CLICK.equalsIgnoreCase(str) || Type.MCLICK.equalsIgnoreCase(str))) {
+    public int getEventEcpm(String event) {
+        if (isBidding() && ActionString.SHOW.equalsIgnoreCase(event) && ActionString.SHOW.equalsIgnoreCase(event)) {
             return this.ecpm;
         }
         return 0;
-    }
-
-    public int getFailTimes() {
-        return this.failTimes;
     }
 
     public String getGid() {
@@ -230,36 +246,40 @@ public class AdConfig {
         return this.height;
     }
 
-    public int getMinEcpm() {
-        return this.minEcpm;
-    }
-
-    public String getPid() {
-        return this.pid;
-    }
-
-    public double getPrice() {
-        return this.ecpm / 100.0d;
-    }
-
     public String getPrimeRit() {
         return this.primeRit;
     }
 
-    public String getRealSource() {
-        return !l.q(this.aliasUnion) ? this.aliasUnion : this.source;
+    public int getReward() {
+        return this.reward;
     }
 
-    public int getShakeMinEcpm() {
-        return this.shakeMinEcpm;
+    public String getRewardExtra() {
+        return this.rewardExtra;
+    }
+
+    public String getRewardName() {
+        return this.rewardName;
+    }
+
+    public long getShowTime() {
+        return this.showTime;
     }
 
     public String getSource() {
         return this.source;
     }
 
+    public Object getTag() {
+        return this.tag;
+    }
+
     public String getType() {
         return this.type;
+    }
+
+    public String getUid() {
+        return this.uid;
     }
 
     public int getWeight() {
@@ -270,16 +290,8 @@ public class AdConfig {
         return this.width;
     }
 
-    public void increaseFailTimes() {
-        if (!isCoolPlatForm() || getCoolThreshold() <= 0) {
-            return;
-        }
-        int i10 = this.failTimes + 1;
-        this.failTimes = i10;
-        if (i10 >= getCoolThreshold()) {
-            this.failTimes = 0;
-            this.availableTime = System.currentTimeMillis() + getCoolDuration();
-        }
+    public String getWxAppid() {
+        return this.wxAppid;
     }
 
     public boolean isAdCompliance() {
@@ -287,240 +299,231 @@ public class AdConfig {
     }
 
     public boolean isBidding() {
-        int i10 = this.bidding;
-        return i10 == 1 || i10 == 3;
+        int i2 = this.bidding;
+        return i2 == 1 || i2 == 3;
     }
 
     public boolean isBqtAd() {
         return UnionType.BQT.equalsIgnoreCase(this.source);
     }
 
-    public boolean isCoolPlatForm() {
-        return this.coolPlatForm;
+    public boolean isChapterEndAd() {
+        return this.chapterEndAd;
     }
 
-    public boolean isCsjAd() {
-        return UnionType.CSJ.equalsIgnoreCase(this.source);
+    public boolean isChapterMiddleAd() {
+        return this.chapterMiddleAd;
     }
 
-    public boolean isDxAd() {
-        return UnionType.DX.equalsIgnoreCase(this.source);
-    }
-
-    public boolean isDynamicUnion() {
-        return this.dynamicUnion;
-    }
-
-    public boolean isExpress() {
-        return this.isExpress;
-    }
-
-    public boolean isGdtAd() {
-        return UnionType.GDT.equalsIgnoreCase(this.source);
-    }
-
-    public boolean isHwAd() {
-        return UnionType.HW.equalsIgnoreCase(this.source);
+    public boolean isFullAdOnly() {
+        return this.fullAdOnly;
     }
 
     public boolean isKsAd() {
         return "KS".equalsIgnoreCase(this.source);
     }
 
-    public boolean isMentaAd() {
-        return UnionType.MENTA.equalsIgnoreCase(this.source);
-    }
-
-    public boolean isNativeAd() {
-        return AdType.NATIVE.equalsIgnoreCase(this.type) || "draw".equalsIgnoreCase(this.type) || AdType.STREAM.equalsIgnoreCase(this.type);
+    public boolean isNeedNativeCompliance() {
+        return this.needNativeCompliance;
     }
 
     public boolean isShakeStyle() {
         return this.shakeStyle;
     }
 
-    public boolean isWithMisClick() {
-        return this.withMisClick;
+    public boolean isWifiEnv() {
+        return this.isWifiEnv;
     }
 
-    public boolean pauseAdRequest() {
-        return this.availableTime > System.currentTimeMillis();
+    public AdConfig setAdCompliance(boolean adCompliance) {
+        this.adCompliance = adCompliance;
+        return this;
     }
 
-    public void setAdCompliance(boolean z10) {
-        this.adCompliance = z10;
-    }
-
-    public void setAdInfo(AdInfo adInfo) {
+    public AdConfig setAdInfo(AdInfo adInfo) {
         this.adInfo = adInfo;
-    }
-
-    public void setAdLoadSeq(int i10) {
-        this.adLoadSeq = i10;
-    }
-
-    public AdConfig setAdNameInfo(String str) {
-        this.adNameInfo = str;
         return this;
     }
 
-    public AdConfig setAdTag(String str) {
-        this.adTag = str;
+    public AdConfig setAdLoadSeq(int adLoadSeq) {
+        this.adLoadSeq = adLoadSeq;
         return this;
     }
 
-    public void setAdsId(String str) {
-        this.adsId = str;
-    }
-
-    public AdConfig setAliasUnion(String str) {
-        this.aliasUnion = str;
+    public AdConfig setAdLoadType(TTAdLoadType adLoadType) {
+        this.adLoadType = adLoadType;
         return this;
     }
 
-    public AdConfig setAppid(String str) {
-        this.appid = str;
+    public AdConfig setAdTag(String adTag) {
+        this.adTag = adTag;
         return this;
     }
 
-    public void setAvailableTime(long j10) {
-        this.availableTime = j10;
-    }
-
-    public AdConfig setBaeArticleInfo(j jVar) {
-        this.baeArticleInfo = jVar;
+    public AdConfig setAdsCount(int adsCount) {
+        this.adsCount = adsCount;
         return this;
     }
 
-    public AdConfig setBidding(int i10) {
-        this.bidding = i10;
+    public AdConfig setAdsId(String adsId) {
+        this.adsId = adsId;
         return this;
     }
 
-    public void setCoolDuration(Integer num) {
-        this.coolDuration = num;
-    }
-
-    public void setCoolPlatForm(boolean z10) {
-        this.coolPlatForm = z10;
-    }
-
-    public void setCoolThreshold(Integer num) {
-        this.coolThreshold = num;
-    }
-
-    public AdConfig setDynamicUnion(boolean z10) {
-        this.dynamicUnion = z10;
+    public AdConfig setAdsPosition(String adsPosition) {
+        this.adsPosition = adsPosition;
         return this;
     }
 
-    public AdConfig setEcpm(int i10) {
-        this.ecpm = i10;
+    public void setAliasUnion(String aliasUnion) {
+        this.aliasUnion = aliasUnion;
+    }
+
+    public AdConfig setApiUrl(String apiUrl) {
+        this.apiUrl = apiUrl;
         return this;
     }
 
-    public void setEcpmPercent(double d10) {
-        this.ecpmPercent = Double.valueOf(d10);
-    }
-
-    public AdConfig setExpress(boolean z10) {
-        this.isExpress = z10;
+    public AdConfig setAppid(String appid) {
+        this.appid = appid;
         return this;
     }
 
-    public void setFailTimes(int i10) {
-        this.failTimes = i10;
-    }
-
-    public AdConfig setGid(String str) {
-        this.gid = str;
+    public AdConfig setBaeArticleInfo(b.d.a.a baeArticleInfo) {
+        this.baeArticleInfo = baeArticleInfo;
         return this;
     }
 
-    public AdConfig setGroup(int i10) {
-        this.group = i10;
+    public AdConfig setBidding(int bidding) {
+        this.bidding = bidding;
         return this;
     }
 
-    public AdConfig setHeight(int i10) {
-        this.height = i10;
+    public AdConfig setChapterEndAd(boolean chapterEndAd) {
+        this.chapterEndAd = chapterEndAd;
         return this;
     }
 
-    public void setMinEcpm(int i10) {
-        this.minEcpm = i10;
-    }
-
-    public AdConfig setPid(String str) {
-        this.pid = str;
+    public AdConfig setChapterMiddleAd(boolean chapterMiddleAd) {
+        this.chapterMiddleAd = chapterMiddleAd;
         return this;
     }
 
-    public void setPrimeRit(String str) {
-        this.primeRit = str;
-    }
-
-    public AdConfig setShakeMinEcpm(int i10) {
-        this.shakeMinEcpm = i10;
+    public AdConfig setEcpm(int ecpm) {
+        this.ecpm = ecpm;
         return this;
     }
 
-    public AdConfig setShakeStyle(boolean z10) {
-        this.shakeStyle = z10;
+    public AdConfig setEcpmPercent(double ecpmPercent) {
+        this.ecpmPercent = Double.valueOf(ecpmPercent);
         return this;
     }
 
-    public AdConfig setSource(String str) {
-        this.source = str;
+    public AdConfig setFullAdOnly(boolean fullAdOnly) {
+        this.fullAdOnly = fullAdOnly;
         return this;
     }
 
-    public AdConfig setType(String str) {
-        this.type = str;
+    public AdConfig setGid(String gid) {
+        this.gid = gid;
         return this;
     }
 
-    public void setWeight(int i10) {
-        this.weight = i10;
+    public void setGroup(int group) {
+        this.group = group;
     }
 
-    public AdConfig setWidth(int i10) {
-        this.width = i10;
+    public AdConfig setHeight(int height) {
+        this.height = height;
         return this;
     }
 
-    public AdConfig setWithMisClick(boolean z10) {
-        this.withMisClick = z10;
+    public void setNeedNativeCompliance(boolean needNativeCompliance) {
+        this.needNativeCompliance = needNativeCompliance;
+    }
+
+    public AdConfig setPrimeRit(String primeRit) {
+        this.primeRit = primeRit;
+        return this;
+    }
+
+    public AdConfig setReward(int reward) {
+        this.reward = reward;
+        return this;
+    }
+
+    public AdConfig setRewardExtra(String rewardExtra) {
+        this.rewardExtra = rewardExtra;
+        return this;
+    }
+
+    public AdConfig setRewardName(String rewardName) {
+        this.rewardName = rewardName;
+        return this;
+    }
+
+    public AdConfig setShakeStyle(boolean shakeStyle) {
+        this.shakeStyle = shakeStyle;
+        return this;
+    }
+
+    public AdConfig setShowTime(long showTime) {
+        this.showTime = showTime;
+        return this;
+    }
+
+    public AdConfig setSource(String source) {
+        this.source = source;
+        return this;
+    }
+
+    public AdConfig setTag(Object tag) {
+        this.tag = tag;
+        return this;
+    }
+
+    public AdConfig setType(String type) {
+        this.type = type;
+        return this;
+    }
+
+    public AdConfig setUid(String uid) {
+        this.uid = uid;
+        return this;
+    }
+
+    public AdConfig setWeight(int weight) {
+        this.weight = weight;
+        return this;
+    }
+
+    public AdConfig setWidth(int width) {
+        this.width = width;
+        return this;
+    }
+
+    public AdConfig setWifiEnv(boolean wifiEnv) {
+        this.isWifiEnv = wifiEnv;
+        return this;
+    }
+
+    public AdConfig setWxAppid(String wxAppid) {
+        this.wxAppid = wxAppid;
         return this;
     }
 
     public AppTask toAppTask() {
         AppTask appTask = new AppTask();
-        appTask.f12000id = getAdsId();
+        appTask.id = getAdsId();
         appTask.source = getSource();
-        appTask.pid = getPid();
+        appTask.adsPosition = getAdsPosition();
         appTask.adsType = getType();
         appTask.gid = getGid();
         appTask.setBidding(getBidding());
         appTask.setEcpm(getEcpm());
         appTask.setGroup(getGroup());
         appTask.setShakeStyle(isShakeStyle());
-        appTask.setShakeMinEcpm(getShakeMinEcpm());
         appTask.setAdTag(getAdTag());
-        appTask.setMinEcpm(getMinEcpm());
-        appTask.setDynamicUnion(isDynamicUnion());
-        appTask.setCsjExpress(isExpress());
-        appTask.setWithMisClick(isWithMisClick());
         return appTask;
-    }
-
-    public static AdConfig buildAdConfig(String str, String str2, String str3, int i10, int i11) {
-        AdConfig adConfig = new AdConfig();
-        adConfig.setType(str);
-        adConfig.setSource(str2);
-        adConfig.setAdsId(str3);
-        adConfig.setWeight(i10);
-        adConfig.setEcpm(i11);
-        return adConfig;
     }
 }

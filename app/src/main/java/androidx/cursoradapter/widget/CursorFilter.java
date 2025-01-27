@@ -5,9 +5,11 @@ import android.widget.Filter;
 
 /* loaded from: classes.dex */
 class CursorFilter extends Filter {
-    CursorFilterClient mClient;
 
-    public interface CursorFilterClient {
+    /* renamed from: a, reason: collision with root package name */
+    CursorFilterClient f2235a;
+
+    interface CursorFilterClient {
         void changeCursor(Cursor cursor);
 
         CharSequence convertToString(Cursor cursor);
@@ -17,18 +19,18 @@ class CursorFilter extends Filter {
         Cursor runQueryOnBackgroundThread(CharSequence charSequence);
     }
 
-    public CursorFilter(CursorFilterClient cursorFilterClient) {
-        this.mClient = cursorFilterClient;
+    CursorFilter(CursorFilterClient cursorFilterClient) {
+        this.f2235a = cursorFilterClient;
     }
 
     @Override // android.widget.Filter
     public CharSequence convertResultToString(Object obj) {
-        return this.mClient.convertToString((Cursor) obj);
+        return this.f2235a.convertToString((Cursor) obj);
     }
 
     @Override // android.widget.Filter
-    public Filter.FilterResults performFiltering(CharSequence charSequence) {
-        Cursor runQueryOnBackgroundThread = this.mClient.runQueryOnBackgroundThread(charSequence);
+    protected Filter.FilterResults performFiltering(CharSequence charSequence) {
+        Cursor runQueryOnBackgroundThread = this.f2235a.runQueryOnBackgroundThread(charSequence);
         Filter.FilterResults filterResults = new Filter.FilterResults();
         if (runQueryOnBackgroundThread != null) {
             filterResults.count = runQueryOnBackgroundThread.getCount();
@@ -41,12 +43,12 @@ class CursorFilter extends Filter {
     }
 
     @Override // android.widget.Filter
-    public void publishResults(CharSequence charSequence, Filter.FilterResults filterResults) {
-        Cursor cursor = this.mClient.getCursor();
+    protected void publishResults(CharSequence charSequence, Filter.FilterResults filterResults) {
+        Cursor cursor = this.f2235a.getCursor();
         Object obj = filterResults.values;
         if (obj == null || obj == cursor) {
             return;
         }
-        this.mClient.changeCursor((Cursor) obj);
+        this.f2235a.changeCursor((Cursor) obj);
     }
 }

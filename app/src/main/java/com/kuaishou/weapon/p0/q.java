@@ -3,81 +3,84 @@ package com.kuaishou.weapon.p0;
 import android.content.Context;
 import android.content.pm.PackageInfo;
 import android.text.TextUtils;
+import com.bytedance.sdk.openadsdk.TTAdConstant;
+import com.cdo.oaps.ad.OapsKey;
 import java.io.File;
+import java.util.HashMap;
 import java.util.Timer;
 import java.util.TimerTask;
 
-/* loaded from: classes2.dex */
+/* loaded from: classes.dex */
 public class q {
 
     /* renamed from: a */
-    public static final int f11156a = 3;
+    public static final int f9368a = 3;
 
     /* renamed from: b */
-    private static q f11157b = null;
+    private static q f9369b = null;
 
     /* renamed from: g */
-    private static final String f11158g = "1";
+    private static final String f9370g = "1";
 
     /* renamed from: c */
-    private volatile boolean f11159c = false;
+    private volatile boolean f9371c = false;
 
     /* renamed from: d */
-    private dp f11160d;
+    private Cdo f9372d;
 
     /* renamed from: e */
-    private Context f11161e;
+    private Context f9373e;
 
     /* renamed from: f */
-    private t f11162f;
+    private t f9374f;
 
     /* renamed from: com.kuaishou.weapon.p0.q$1 */
-    public class AnonymousClass1 implements Runnable {
+    class AnonymousClass1 implements Runnable {
 
         /* renamed from: a */
-        final /* synthetic */ String f11163a;
+        final /* synthetic */ String f9375a;
 
         /* renamed from: com.kuaishou.weapon.p0.q$1$1 */
-        public class C03611 extends TimerTask {
+        class C01181 extends TimerTask {
 
             /* renamed from: a */
-            final /* synthetic */ r f11165a;
+            final /* synthetic */ r f9377a;
 
             /* renamed from: b */
-            final /* synthetic */ s f11166b;
+            final /* synthetic */ s f9378b;
 
-            public C03611(r rVar, s sVar) {
-                a10 = rVar;
-                d10 = sVar;
+            C01181(r rVar, s sVar) {
+                a2 = rVar;
+                d2 = sVar;
             }
 
             @Override // java.util.TimerTask, java.lang.Runnable
             public void run() {
-                a10.b(str);
-                q.this.f11162f.a(str);
-                File file = new File(d10.f11180e);
+                a2.b(str);
+                q.this.f9374f.a(str);
+                File file = new File(d2.f9395e);
                 if (file.exists()) {
                     file.delete();
                 }
             }
         }
 
-        public AnonymousClass1(String str) {
+        AnonymousClass1(String str) {
             str = str;
         }
 
         @Override // java.lang.Runnable
         public void run() {
-            r a10;
+            r a2;
             try {
-                if (TextUtils.isEmpty(str) || (a10 = r.a(q.this.f11161e.getApplicationContext(), true)) == null) {
+                if (TextUtils.isEmpty(str) || (a2 = r.a(q.this.f9373e.getApplicationContext(), true)) == null) {
                     return;
                 }
-                s d10 = a10.d(str);
-                if (d10 == null) {
-                    s b10 = q.this.f11162f.b(str);
-                    if (b10 != null) {
-                        q.this.a(str, b10.f11180e);
+                s d2 = a2.d(str);
+                if (d2 == null) {
+                    s b2 = q.this.f9374f.b(str);
+                    if (b2 != null) {
+                        q.this.a(str, b2.f9395e);
                         return;
                     }
                     return;
@@ -85,29 +88,29 @@ public class q {
                 new Timer().schedule(new TimerTask() { // from class: com.kuaishou.weapon.p0.q.1.1
 
                     /* renamed from: a */
-                    final /* synthetic */ r f11165a;
+                    final /* synthetic */ r f9377a;
 
                     /* renamed from: b */
-                    final /* synthetic */ s f11166b;
+                    final /* synthetic */ s f9378b;
 
-                    public C03611(r a102, s d102) {
-                        a10 = a102;
-                        d10 = d102;
+                    C01181(r a22, s d22) {
+                        a2 = a22;
+                        d2 = d22;
                     }
 
                     @Override // java.util.TimerTask, java.lang.Runnable
                     public void run() {
-                        a10.b(str);
-                        q.this.f11162f.a(str);
-                        File file = new File(d10.f11180e);
+                        a2.b(str);
+                        q.this.f9374f.a(str);
+                        File file = new File(d2.f9395e);
                         if (file.exists()) {
                             file.delete();
                         }
                     }
-                }, 600000L);
-                a102.b(str);
-                q.this.f11162f.a(str);
-                File file = new File(d102.f11180e);
+                }, TTAdConstant.AD_MAX_EVENT_TIME);
+                a22.b(str);
+                q.this.f9374f.a(str);
+                File file = new File(d22.f9395e);
                 if (file.exists()) {
                     file.delete();
                 }
@@ -117,141 +120,93 @@ public class q {
     }
 
     private q(Context context) {
-        this.f11161e = context;
-        this.f11160d = dp.a(context);
-        this.f11162f = t.a(context);
-    }
-
-    private static void d() {
-        try {
-            dp a10 = dp.a();
-            if (a10 != null) {
-                a10.b("W_S_V", "1");
-            }
-        } catch (Exception unused) {
-        }
-    }
-
-    public void c() {
-        for (s sVar : this.f11162f.a()) {
-            r a10 = r.a();
-            if ((a10 != null ? a10.d(sVar.f11178c) : null) == null) {
-                a(sVar.f11176a, sVar.f11179d, (PackageInfo) null);
-            }
-        }
+        this.f9373e = context;
+        this.f9372d = Cdo.a(context);
+        this.f9374f = t.a(context);
     }
 
     public static synchronized q a(Context context) {
         q qVar;
         synchronized (q.class) {
             try {
-                if (f11157b == null) {
-                    f11157b = new q(context);
+                if (f9369b == null) {
+                    f9369b = new q(context);
                 }
-                qVar = f11157b;
+                qVar = f9369b;
             } catch (Exception unused) {
                 return null;
-            } catch (Throwable th2) {
-                throw th2;
             }
         }
         return qVar;
     }
 
-    public synchronized void b() {
-        String str;
+    private synchronized boolean a(int i2, String str, String str2, boolean z, PackageInfo packageInfo) {
+        if (z) {
+            if (this.f9374f.c(i2) != 1) {
+                return false;
+            }
+        }
+        s a2 = this.f9374f.a(i2);
+        if (a2 == null) {
+            this.f9374f.b(i2, -1);
+            HashMap hashMap = new HashMap();
+            StringBuilder sb = new StringBuilder();
+            sb.append(i2);
+            hashMap.put(OapsKey.KEY_PAGEKEY, sb.toString());
+            hashMap.put("pv", str);
+            hashMap.put(com.kwad.sdk.ranger.e.TAG, cj.m);
+            bg.a(this.f9373e, "1002001", hashMap);
+            return false;
+        }
+        if (!dm.a(new File(a2.f9395e))) {
+            this.f9374f.b(i2, -1);
+            HashMap hashMap2 = new HashMap();
+            StringBuilder sb2 = new StringBuilder();
+            sb2.append(i2);
+            hashMap2.put(OapsKey.KEY_PAGEKEY, sb2.toString());
+            hashMap2.put("pv", str);
+            hashMap2.put(com.kwad.sdk.ranger.e.TAG, cj.n);
+            hashMap2.put(t.f9404d, "CBH");
+            bg.a(this.f9373e, "1002001", hashMap2);
+            return false;
+        }
+        if (packageInfo != null) {
+            a2.r = packageInfo;
+        }
+        r a3 = r.a(this.f9373e.getApplicationContext(), true);
+        if (a3.a(a2, false)) {
+            s c2 = a3.c(a2.f9395e);
+            c2.f9392b = 1;
+            c2.p = 1;
+            this.f9374f.a(c2);
+            return true;
+        }
+        this.f9374f.b(i2, -1);
+        a3.a(a2.f9395e);
+        HashMap hashMap3 = new HashMap();
+        StringBuilder sb3 = new StringBuilder();
+        sb3.append(i2);
+        hashMap3.put(OapsKey.KEY_PAGEKEY, sb3.toString());
+        hashMap3.put("pv", str);
+        hashMap3.put(com.kwad.sdk.ranger.e.TAG, cj.o);
+        hashMap3.put(t.f9404d, "CBH");
+        bg.a(this.f9373e, "1002001", hashMap3);
+        return false;
+    }
+
+    private static void d() {
         try {
-            if (this.f11159c) {
-                return;
+            Cdo a2 = Cdo.a();
+            if (a2 != null) {
+                a2.b("W_S_V", "1");
             }
-            this.f11159c = true;
-            for (s sVar : this.f11162f.a()) {
-                try {
-                    str = this.f11161e.getFilesDir().getCanonicalPath();
-                } catch (Throwable unused) {
-                    str = null;
-                }
-                if (str != null) {
-                    sVar.f11188m = str + bi.f10814j + sVar.f11176a;
-                    StringBuilder sb2 = new StringBuilder();
-                    sb2.append(sVar.f11188m);
-                    sb2.append("/lib");
-                    dn.c(sb2.toString());
-                    dn.c(sVar.f11188m);
-                }
-            }
-            this.f11162f.b();
-            if (this.f11160d.b(dp.f11084d)) {
-                this.f11162f.c();
-            } else {
-                this.f11160d.a(dp.f11084d, Boolean.TRUE, true);
-            }
-            n.a().a(new u(this.f11161e, 1, false));
-        } catch (Throwable unused2) {
+        } catch (Exception unused) {
         }
     }
 
     public void a() {
         d();
-        if (WeaponHI.isLoad) {
-            b();
-        } else {
-            WeaponHI.iD();
-        }
-    }
-
-    public synchronized boolean a(int i10, String str, PackageInfo packageInfo) {
-        return a(i10, str, null, false, packageInfo);
-    }
-
-    private synchronized boolean a(int i10, String str, String str2, boolean z10, PackageInfo packageInfo) {
-        if (z10) {
-            if (this.f11162f.c(i10) != 1) {
-                return false;
-            }
-        }
-        s a10 = this.f11162f.a(i10);
-        if (a10 == null) {
-            this.f11162f.b(i10, -1);
-            return false;
-        }
-        if (!dn.a(new File(a10.f11180e))) {
-            this.f11162f.b(i10, -1);
-            return false;
-        }
-        if (packageInfo != null) {
-            a10.f11193r = packageInfo;
-        }
-        r a11 = r.a(this.f11161e.getApplicationContext(), true);
-        if (!a11.a(a10, false)) {
-            this.f11162f.b(i10, -1);
-            a11.a(a10.f11180e);
-            return false;
-        }
-        s c10 = a11.c(a10.f11180e);
-        c10.f11177b = 1;
-        c10.f11191p = 1;
-        this.f11162f.a(c10);
-        return true;
-    }
-
-    public void b(String str) {
-        r a10;
-        try {
-            if (TextUtils.isEmpty(str) || (a10 = r.a()) == null) {
-                return;
-            }
-            a10.b(str);
-        } catch (Throwable unused) {
-        }
-    }
-
-    public void a(String str, String str2) {
-        this.f11162f.a(str);
-        File file = new File(str2);
-        if (file.exists()) {
-            file.delete();
-        }
+        b();
     }
 
     public void a(String str) {
@@ -259,49 +214,49 @@ public class q {
             n.a().a(new Runnable() { // from class: com.kuaishou.weapon.p0.q.1
 
                 /* renamed from: a */
-                final /* synthetic */ String f11163a;
+                final /* synthetic */ String f9375a;
 
                 /* renamed from: com.kuaishou.weapon.p0.q$1$1 */
-                public class C03611 extends TimerTask {
+                class C01181 extends TimerTask {
 
                     /* renamed from: a */
-                    final /* synthetic */ r f11165a;
+                    final /* synthetic */ r f9377a;
 
                     /* renamed from: b */
-                    final /* synthetic */ s f11166b;
+                    final /* synthetic */ s f9378b;
 
-                    public C03611(r a102, s d102) {
-                        a10 = a102;
-                        d10 = d102;
+                    C01181(r a22, s d22) {
+                        a2 = a22;
+                        d2 = d22;
                     }
 
                     @Override // java.util.TimerTask, java.lang.Runnable
                     public void run() {
-                        a10.b(str);
-                        q.this.f11162f.a(str);
-                        File file = new File(d10.f11180e);
+                        a2.b(str);
+                        q.this.f9374f.a(str);
+                        File file = new File(d2.f9395e);
                         if (file.exists()) {
                             file.delete();
                         }
                     }
                 }
 
-                public AnonymousClass1(String str2) {
+                AnonymousClass1(String str2) {
                     str = str2;
                 }
 
                 @Override // java.lang.Runnable
                 public void run() {
-                    r a102;
+                    r a22;
                     try {
-                        if (TextUtils.isEmpty(str) || (a102 = r.a(q.this.f11161e.getApplicationContext(), true)) == null) {
+                        if (TextUtils.isEmpty(str) || (a22 = r.a(q.this.f9373e.getApplicationContext(), true)) == null) {
                             return;
                         }
-                        s d102 = a102.d(str);
-                        if (d102 == null) {
-                            s b10 = q.this.f11162f.b(str);
-                            if (b10 != null) {
-                                q.this.a(str, b10.f11180e);
+                        s d22 = a22.d(str);
+                        if (d22 == null) {
+                            s b2 = q.this.f9374f.b(str);
+                            if (b2 != null) {
+                                q.this.a(str, b2.f9395e);
                                 return;
                             }
                             return;
@@ -309,29 +264,29 @@ public class q {
                         new Timer().schedule(new TimerTask() { // from class: com.kuaishou.weapon.p0.q.1.1
 
                             /* renamed from: a */
-                            final /* synthetic */ r f11165a;
+                            final /* synthetic */ r f9377a;
 
                             /* renamed from: b */
-                            final /* synthetic */ s f11166b;
+                            final /* synthetic */ s f9378b;
 
-                            public C03611(r a1022, s d1022) {
-                                a10 = a1022;
-                                d10 = d1022;
+                            C01181(r a222, s d222) {
+                                a2 = a222;
+                                d2 = d222;
                             }
 
                             @Override // java.util.TimerTask, java.lang.Runnable
                             public void run() {
-                                a10.b(str);
-                                q.this.f11162f.a(str);
-                                File file = new File(d10.f11180e);
+                                a2.b(str);
+                                q.this.f9374f.a(str);
+                                File file = new File(d2.f9395e);
                                 if (file.exists()) {
                                     file.delete();
                                 }
                             }
-                        }, 600000L);
-                        a1022.b(str);
-                        q.this.f11162f.a(str);
-                        File file = new File(d1022.f11180e);
+                        }, TTAdConstant.AD_MAX_EVENT_TIME);
+                        a222.b(str);
+                        q.this.f9374f.a(str);
+                        File file = new File(d222.f9395e);
                         if (file.exists()) {
                             file.delete();
                         }
@@ -343,47 +298,137 @@ public class q {
         }
     }
 
+    public void a(String str, String str2) {
+        this.f9374f.a(str);
+        File file = new File(str2);
+        if (file.exists()) {
+            file.delete();
+        }
+    }
+
+    public synchronized boolean a(int i2, String str, PackageInfo packageInfo) {
+        return a(i2, str, null, false, packageInfo);
+    }
+
     public boolean a(s sVar, String str, String str2) {
-        r a10;
+        s sVar2;
+        r a2;
+        HashMap hashMap;
+        String str3;
         if (sVar == null) {
-            return false;
-        }
-        File file = new File(sVar.f11180e);
-        if (!dn.a(file)) {
-            return false;
-        }
-        try {
-            if (!this.f11162f.b(sVar.f11176a)) {
-                this.f11162f.a(sVar);
+            hashMap = new HashMap();
+            str3 = cj.r;
+        } else {
+            File file = new File(sVar.f9395e);
+            if (dm.a(file)) {
+                try {
+                    if (!this.f9374f.b(sVar.f9391a)) {
+                        this.f9374f.a(sVar);
+                    }
+                    a2 = r.a(this.f9373e.getApplicationContext(), true);
+                    this.f9374f.a(sVar.f9391a, 1);
+                    b(sVar.f9393c);
+                } catch (Throwable unused) {
+                    sVar2 = sVar;
+                }
+                if (!a2.a(sVar, true)) {
+                    file.delete();
+                    a(sVar.f9391a, sVar.f9394d, null, true, null);
+                    this.f9374f.a(sVar.f9391a, 0);
+                    HashMap hashMap2 = new HashMap();
+                    hashMap2.put(com.kwad.sdk.ranger.e.TAG, cj.u);
+                    hashMap2.put(t.f9404d, "CBH");
+                    hashMap2.put("apk", sVar.toString());
+                    bg.a(this.f9373e, "1002001", hashMap2);
+                    return false;
+                }
+                sVar2 = a2.c(sVar.f9395e);
+                if (sVar2 == null) {
+                    try {
+                        this.f9374f.a(sVar2.f9391a, 0);
+                        HashMap hashMap3 = new HashMap();
+                        hashMap3.put(com.kwad.sdk.ranger.e.TAG, cj.s);
+                        hashMap3.put(t.f9404d, "CBH");
+                        bg.a(this.f9373e, "1002001", hashMap3);
+                        return false;
+                    } catch (Throwable unused2) {
+                    }
+                }
+                try {
+                    s a3 = this.f9374f.a(sVar2.f9391a);
+                    File file2 = null;
+                    if (a3 != null && !a3.f9394d.equals(sVar2.f9394d)) {
+                        file2 = new File(a3.f9395e);
+                    }
+                    sVar2.f9392b = 1;
+                    sVar2.p = 1;
+                    if (this.f9374f.a(sVar2) > 0 && file2 != null && file2.exists()) {
+                        file2.delete();
+                    }
+                    this.f9374f.a(sVar2.f9391a, 0);
+                    return true;
+                } catch (Throwable unused3) {
+                    return false;
+                }
             }
-            a10 = r.a(this.f11161e.getApplicationContext(), true);
-            this.f11162f.a(sVar.f11176a, 1);
-            b(sVar.f11178c);
+            hashMap = new HashMap();
+            str3 = cj.t;
+        }
+        hashMap.put(com.kwad.sdk.ranger.e.TAG, str3);
+        hashMap.put(t.f9404d, "CBH");
+        bg.a(this.f9373e, "1002001", hashMap);
+        return false;
+    }
+
+    public synchronized void b() {
+        try {
+            if (this.f9371c) {
+                return;
+            }
+            this.f9371c = true;
+            for (s sVar : this.f9374f.a()) {
+                String str = null;
+                try {
+                    str = this.f9373e.getFilesDir().getCanonicalPath();
+                } catch (Throwable unused) {
+                }
+                if (str != null) {
+                    sVar.m = str + bh.f9116j + sVar.f9391a;
+                    StringBuilder sb = new StringBuilder();
+                    sb.append(sVar.m);
+                    sb.append("/lib");
+                    dm.c(sb.toString());
+                    dm.b(sVar.m);
+                }
+            }
+            this.f9374f.b();
+            if (this.f9372d.b(Cdo.f9300d)) {
+                this.f9374f.c();
+            } else {
+                this.f9372d.a(Cdo.f9300d, Boolean.TRUE, true);
+            }
+            n.a().a(new u(this.f9373e, 1, false));
+        } catch (Throwable unused2) {
+        }
+    }
+
+    public void b(String str) {
+        r a2;
+        try {
+            if (TextUtils.isEmpty(str) || (a2 = r.a()) == null) {
+                return;
+            }
+            a2.b(str);
         } catch (Throwable unused) {
         }
-        if (!a10.a(sVar, true)) {
-            file.delete();
-            a(sVar.f11176a, sVar.f11179d, null, true, null);
-            this.f11162f.a(sVar.f11176a, 0);
-            return false;
-        }
-        sVar = a10.c(sVar.f11180e);
-        if (sVar == null) {
-            this.f11162f.a(sVar.f11176a, 0);
-            return false;
-        }
-        try {
-            s a11 = this.f11162f.a(sVar.f11176a);
-            File file2 = (a11 == null || a11.f11179d.equals(sVar.f11179d)) ? null : new File(a11.f11180e);
-            sVar.f11177b = 1;
-            sVar.f11191p = 1;
-            if (this.f11162f.a(sVar) > 0 && file2 != null && file2.exists()) {
-                file2.delete();
+    }
+
+    public void c() {
+        for (s sVar : this.f9374f.a()) {
+            r a2 = r.a();
+            if ((a2 != null ? a2.d(sVar.f9393c) : null) == null) {
+                a(sVar.f9391a, sVar.f9394d, (PackageInfo) null);
             }
-            this.f11162f.a(sVar.f11176a, 0);
-            return true;
-        } catch (Throwable unused2) {
-            return false;
         }
     }
 }

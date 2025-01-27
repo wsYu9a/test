@@ -1,12 +1,9 @@
 package com.martian.libfeedback.request.url;
 
-import v8.a;
+import com.martian.libcomm.http.requests.d.a;
 
-/* loaded from: classes3.dex */
+/* loaded from: classes2.dex */
 public class FeedbackReportUrlParams extends FeedbacklUrlHttpGetParams {
-
-    @a
-    private Integer categoryId;
 
     @a
     private String chapterId;
@@ -24,14 +21,7 @@ public class FeedbackReportUrlParams extends FeedbacklUrlHttpGetParams {
     private String sourceName;
 
     @a
-    private Integer subCategoryId;
-
-    @a
     private String title;
-
-    public Integer getCategoryId() {
-        return this.categoryId;
-    }
 
     public String getChapterId() {
         return this.chapterId;
@@ -45,7 +35,7 @@ public class FeedbackReportUrlParams extends FeedbacklUrlHttpGetParams {
         return this.enableNotification;
     }
 
-    @Override // u8.b
+    @Override // com.martian.libcomm.http.requests.b
     public String getRequestMethod() {
         return "#/feedback_submit";
     }
@@ -58,43 +48,31 @@ public class FeedbackReportUrlParams extends FeedbacklUrlHttpGetParams {
         return this.sourceName;
     }
 
-    public Integer getSubCategoryId() {
-        return this.subCategoryId;
-    }
-
     public String getTitle() {
         return this.title;
     }
 
-    public void setCategoryId(Integer num) {
-        this.categoryId = num;
+    public void setChapterId(String chapterId) {
+        this.chapterId = chapterId;
     }
 
-    public void setChapterId(String str) {
-        this.chapterId = str;
+    public void setCid(Integer cid) {
+        this.cid = cid;
     }
 
-    public void setCid(Integer num) {
-        this.cid = num;
+    public void setEnableNotification(boolean enableNotification) {
+        this.enableNotification = enableNotification;
     }
 
-    public void setEnableNotification(boolean z10) {
-        this.enableNotification = z10;
+    public void setSourceId(String sourceId) {
+        this.sourceId = sourceId;
     }
 
-    public void setSourceId(String str) {
-        this.sourceId = str;
+    public void setSourceName(String souceName) {
+        this.sourceName = souceName;
     }
 
-    public void setSourceName(String str) {
-        this.sourceName = str;
-    }
-
-    public void setSubCategoryId(Integer num) {
-        this.subCategoryId = num;
-    }
-
-    public void setTitle(String str) {
-        this.title = str;
+    public void setTitle(String title) {
+        this.title = title;
     }
 }

@@ -7,13 +7,13 @@ import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.KeyEvent;
 import android.view.MotionEvent;
-import com.baidu.mobads.sdk.internal.au;
-import com.baidu.mobads.sdk.internal.bs;
-import com.baidu.mobads.sdk.internal.bt;
+import com.baidu.mobads.sdk.internal.ar;
+import com.baidu.mobads.sdk.internal.bp;
+import com.baidu.mobads.sdk.internal.bq;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-/* loaded from: classes2.dex */
+/* loaded from: classes.dex */
 public class AppActivity extends Activity {
     private static Activity activity;
     public static String activityName;
@@ -23,8 +23,8 @@ public class AppActivity extends Activity {
     private static ActionBarColorTheme mSActionBarColorTheme = ActionBarColorTheme.ACTION_BAR_WHITE_THEME;
     private static boolean mIsShowActionBarTitle = true;
 
-    public static void canLpShowWhenLocked(boolean z10) {
-        canShowWhenLock = z10;
+    public static void canLpShowWhenLocked(boolean z) {
+        canShowWhenLock = z;
     }
 
     public static Activity getActivity() {
@@ -32,14 +32,15 @@ public class AppActivity extends Activity {
     }
 
     public static Class<?> getActivityClass() {
-        if (!TextUtils.isEmpty(activityName)) {
-            try {
-                return Class.forName(activityName);
-            } catch (Exception e10) {
-                bt.a().c(e10);
-            }
+        if (TextUtils.isEmpty(activityName)) {
+            return AppActivity.class;
         }
-        return AppActivity.class;
+        try {
+            return Class.forName(activityName);
+        } catch (Exception e2) {
+            bq.a().c(e2);
+            return AppActivity.class;
+        }
     }
 
     public static boolean getLpShowWhenLocked() {
@@ -60,8 +61,8 @@ public class AppActivity extends Activity {
         activityName = str;
     }
 
-    public static void setIsShowActionBarTitle(boolean z10) {
-        mIsShowActionBarTitle = z10;
+    public static void setIsShowActionBarTitle(boolean z) {
+        mIsShowActionBarTitle = z;
     }
 
     @Override // android.app.Activity, android.view.Window.Callback
@@ -83,12 +84,12 @@ public class AppActivity extends Activity {
     }
 
     @Override // android.app.Activity
-    public void onActivityResult(int i10, int i11, Intent intent) {
+    protected void onActivityResult(int i2, int i3, Intent intent) {
         IActivityImpl iActivityImpl = this.mProxyActivity;
         if (iActivityImpl != null) {
-            iActivityImpl.onActivityResult(i10, i11, intent);
+            iActivityImpl.onActivityResult(i2, i3, intent);
         }
-        super.onActivityResult(i10, i11, intent);
+        super.onActivityResult(i2, i3, intent);
     }
 
     @Override // android.app.Activity, android.view.Window.Callback
@@ -119,24 +120,24 @@ public class AppActivity extends Activity {
     }
 
     @Override // android.app.Activity
-    public void onCreate(Bundle bundle) {
-        Class<?> a10;
+    protected void onCreate(Bundle bundle) {
+        Class<?> a2;
         activity = this;
         super.onCreate(bundle);
         Intent intent = getIntent();
         try {
-            ClassLoader a11 = bs.a(this);
-            this.mLoader = a11;
+            ClassLoader a3 = bp.a(this);
+            this.mLoader = a3;
             if (intent != null) {
-                intent.setExtrasClassLoader(a11);
+                intent.setExtrasClassLoader(a3);
             }
             String stringExtra = intent != null ? intent.getStringExtra("activityImplName") : "";
             Object obj = null;
-            if (!TextUtils.isEmpty(stringExtra) && (a10 = au.a(stringExtra, this.mLoader)) != null) {
+            if (!TextUtils.isEmpty(stringExtra) && (a2 = ar.a(stringExtra, this.mLoader)) != null) {
                 try {
-                    obj = a10.getConstructor(null).newInstance(null);
-                } catch (Throwable th2) {
-                    th2.printStackTrace();
+                    obj = a2.getConstructor(new Class[0]).newInstance(new Object[0]);
+                } catch (Throwable th) {
+                    th.printStackTrace();
                 }
             }
             if (obj != null) {
@@ -151,8 +152,8 @@ public class AppActivity extends Activity {
                     jSONObject.put("bar_bg_color", mSActionBarColorTheme.mBackgroundColor);
                     jSONObject.put("showWhenLocked", canShowWhenLock);
                     jSONObject.put("isShowActionBarTit", mIsShowActionBarTitle);
-                } catch (JSONException e10) {
-                    e10.printStackTrace();
+                } catch (JSONException e2) {
+                    e2.printStackTrace();
                 }
                 this.mProxyActivity.setLpBussParam(jSONObject);
                 this.mProxyActivity.setActivity(this);
@@ -160,13 +161,13 @@ public class AppActivity extends Activity {
                     this.mProxyActivity.onCreate(bundle);
                 }
             }
-        } catch (Exception e11) {
-            bt.a().c(e11);
+        } catch (Exception e3) {
+            bq.a().c(e3);
         }
     }
 
     @Override // android.app.Activity
-    public void onDestroy() {
+    protected void onDestroy() {
         IActivityImpl iActivityImpl = this.mProxyActivity;
         if (iActivityImpl != null) {
             iActivityImpl.onDestroy();
@@ -185,25 +186,25 @@ public class AppActivity extends Activity {
     }
 
     @Override // android.app.Activity, android.view.KeyEvent.Callback
-    public boolean onKeyDown(int i10, KeyEvent keyEvent) {
+    public boolean onKeyDown(int i2, KeyEvent keyEvent) {
         IActivityImpl iActivityImpl = this.mProxyActivity;
-        if (iActivityImpl != null ? iActivityImpl.onKeyDown(i10, keyEvent) : false) {
+        if (iActivityImpl != null ? iActivityImpl.onKeyDown(i2, keyEvent) : false) {
             return true;
         }
-        return super.onKeyDown(i10, keyEvent);
+        return super.onKeyDown(i2, keyEvent);
     }
 
     @Override // android.app.Activity, android.view.KeyEvent.Callback
-    public boolean onKeyUp(int i10, KeyEvent keyEvent) {
+    public boolean onKeyUp(int i2, KeyEvent keyEvent) {
         IActivityImpl iActivityImpl = this.mProxyActivity;
-        if (iActivityImpl != null ? iActivityImpl.onKeyUp(i10, keyEvent) : false) {
+        if (iActivityImpl != null ? iActivityImpl.onKeyUp(i2, keyEvent) : false) {
             return true;
         }
-        return super.onKeyUp(i10, keyEvent);
+        return super.onKeyUp(i2, keyEvent);
     }
 
     @Override // android.app.Activity
-    public void onNewIntent(Intent intent) {
+    protected void onNewIntent(Intent intent) {
         IActivityImpl iActivityImpl = this.mProxyActivity;
         if (iActivityImpl != null) {
             iActivityImpl.onNewIntent(intent);
@@ -212,7 +213,7 @@ public class AppActivity extends Activity {
     }
 
     @Override // android.app.Activity
-    public void onPause() {
+    protected void onPause() {
         IActivityImpl iActivityImpl = this.mProxyActivity;
         if (iActivityImpl != null) {
             iActivityImpl.onPause();
@@ -221,7 +222,7 @@ public class AppActivity extends Activity {
     }
 
     @Override // android.app.Activity
-    public void onRestoreInstanceState(Bundle bundle) {
+    protected void onRestoreInstanceState(Bundle bundle) {
         super.onRestoreInstanceState(bundle);
         IActivityImpl iActivityImpl = this.mProxyActivity;
         if (iActivityImpl != null) {
@@ -230,7 +231,7 @@ public class AppActivity extends Activity {
     }
 
     @Override // android.app.Activity
-    public void onResume() {
+    protected void onResume() {
         super.onResume();
         IActivityImpl iActivityImpl = this.mProxyActivity;
         if (iActivityImpl != null) {
@@ -239,7 +240,7 @@ public class AppActivity extends Activity {
     }
 
     @Override // android.app.Activity
-    public void onSaveInstanceState(Bundle bundle) {
+    protected void onSaveInstanceState(Bundle bundle) {
         super.onSaveInstanceState(bundle);
         IActivityImpl iActivityImpl = this.mProxyActivity;
         if (iActivityImpl != null) {
@@ -248,7 +249,7 @@ public class AppActivity extends Activity {
     }
 
     @Override // android.app.Activity
-    public void onStart() {
+    protected void onStart() {
         super.onStart();
         IActivityImpl iActivityImpl = this.mProxyActivity;
         if (iActivityImpl != null) {
@@ -257,7 +258,7 @@ public class AppActivity extends Activity {
     }
 
     @Override // android.app.Activity
-    public void onStop() {
+    protected void onStop() {
         super.onStop();
         IActivityImpl iActivityImpl = this.mProxyActivity;
         if (iActivityImpl != null) {
@@ -275,20 +276,20 @@ public class AppActivity extends Activity {
     }
 
     @Override // android.app.Activity, android.view.Window.Callback
-    public void onWindowFocusChanged(boolean z10) {
-        super.onWindowFocusChanged(z10);
+    public void onWindowFocusChanged(boolean z) {
+        super.onWindowFocusChanged(z);
         IActivityImpl iActivityImpl = this.mProxyActivity;
         if (iActivityImpl != null) {
-            iActivityImpl.onWindowFocusChanged(z10);
+            iActivityImpl.onWindowFocusChanged(z);
         }
     }
 
     @Override // android.app.Activity
-    public void overridePendingTransition(int i10, int i11) {
-        super.overridePendingTransition(i10, i11);
+    public void overridePendingTransition(int i2, int i3) {
+        super.overridePendingTransition(i2, i3);
         IActivityImpl iActivityImpl = this.mProxyActivity;
         if (iActivityImpl != null) {
-            iActivityImpl.overridePendingTransition(i10, i11);
+            iActivityImpl.overridePendingTransition(i2, i3);
         }
     }
 }

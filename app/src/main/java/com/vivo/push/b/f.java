@@ -7,11 +7,11 @@ public final class f extends com.vivo.push.o {
     }
 
     @Override // com.vivo.push.o
-    public final void c(com.vivo.push.a aVar) {
+    protected final void c(com.vivo.push.a aVar) {
     }
 
     @Override // com.vivo.push.o
-    public final void d(com.vivo.push.a aVar) {
+    protected final void d(com.vivo.push.a aVar) {
     }
 
     @Override // com.vivo.push.o

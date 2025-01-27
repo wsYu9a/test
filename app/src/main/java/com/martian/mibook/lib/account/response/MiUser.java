@@ -1,108 +1,108 @@
 package com.martian.mibook.lib.account.response;
 
 import android.text.TextUtils;
-import ba.j;
+import com.martian.libsupport.h;
+import com.martian.rpauth.b;
 import java.util.Date;
 import java.util.List;
-import me.b;
 
-/* loaded from: classes3.dex */
+/* loaded from: classes.dex */
 public class MiUser implements b {
     private Date createdOn;
 
-    @j.a
+    @h.a
     private Boolean guest;
 
-    @j.a
+    @h.a
     private Integer vcontributed;
 
-    @j.a
+    @h.a
     private List<MiVContributor> vcontributors;
 
-    @j.a
+    @h.a
     private Boolean weixinBound;
 
-    @j.a
+    @h.a
     private Long uid = -1L;
 
-    @j.a
+    @h.a
     private String username = "";
 
-    @j.a
+    @h.a
     private Character gender = 'N';
 
-    @j.a
+    @h.a
     private String header = "";
     private String wx_openid = "";
     private String qq_openid = "";
 
-    @j.a
+    @h.a
     private String mobile = "";
 
-    @j.a
+    @h.a
     private String email = "";
 
-    @j.a
+    @h.a
     private String device_id = "";
     private String password = "";
 
-    @j.a
+    @h.a
     private String nickname = "";
 
-    @j.a
+    @h.a
     private String province = "";
 
-    @j.a
+    @h.a
     private String city = "";
 
-    @j.a
+    @h.a
     private String country = "";
 
-    @j.a
+    @h.a
     private String token = "";
 
-    @j.a
+    @h.a
     private Integer vcount = 0;
 
-    @j.a
+    @h.a
     private Boolean loggingOff = Boolean.FALSE;
 
-    @Override // me.b
+    @Override // com.martian.rpauth.b
     public String getCity() {
         return this.city;
     }
 
-    @Override // me.b
+    @Override // com.martian.rpauth.b
     public String getCountry() {
         return this.country;
     }
 
-    @Override // me.b
+    @Override // com.martian.rpauth.b
     public Date getCreatedOn() {
         return this.createdOn;
     }
 
-    @Override // me.b
+    @Override // com.martian.rpauth.b
     public Long getDeadline() {
         return null;
     }
 
-    @Override // me.b
+    @Override // com.martian.rpauth.b
     public String getDevice_id() {
         return this.device_id;
     }
 
-    @Override // me.b
+    @Override // com.martian.rpauth.b
     public String getEmail() {
         return this.email;
     }
 
-    @Override // me.b
+    @Override // com.martian.rpauth.b
     public Character getGender() {
         return this.gender;
     }
 
-    @Override // me.b
+    @Override // com.martian.rpauth.b
     public String getHeader() {
         return this.header;
     }
@@ -111,57 +111,57 @@ public class MiUser implements b {
         return this.loggingOff;
     }
 
-    @Override // me.b
+    @Override // com.martian.rpauth.b
     public String getMobile() {
         return this.mobile;
     }
 
-    @Override // me.b
+    @Override // com.martian.rpauth.b
     public String getNickname() {
         return this.nickname;
     }
 
-    @Override // me.b
+    @Override // com.martian.rpauth.b
     public String getPassword() {
         return this.password;
     }
 
-    @Override // me.b
+    @Override // com.martian.rpauth.b
     public String getProvince() {
         return this.province;
     }
 
-    @Override // me.b
+    @Override // com.martian.rpauth.b
     public String getQQ_openid() {
         return this.qq_openid;
     }
 
-    @Override // me.b
+    @Override // com.martian.rpauth.b
     public String getToken() {
         return this.token;
     }
 
-    @Override // me.b
+    @Override // com.martian.rpauth.b
     public Long getUid() {
         return this.uid;
     }
 
-    @Override // me.b
+    @Override // com.martian.rpauth.b
     public String getUsername() {
         return this.username;
     }
 
-    @Override // me.b
+    @Override // com.martian.rpauth.b
     public Integer getVcontributed() {
         return this.vcontributed;
     }
 
-    @Override // me.b
+    @Override // com.martian.rpauth.b
     public Integer getVcount() {
         return this.vcount;
     }
 
-    @Override // me.b
+    @Override // com.martian.rpauth.b
     public Long getVipStartTime() {
         return null;
     }
@@ -171,12 +171,12 @@ public class MiUser implements b {
         return bool == null || bool.booleanValue();
     }
 
-    @Override // me.b
+    @Override // com.martian.rpauth.b
     public String getWx_openid() {
         return this.wx_openid;
     }
 
-    @Override // me.b
+    @Override // com.martian.rpauth.b
     public boolean isFemale() {
         return this.gender.charValue() == 'F';
     }
@@ -186,153 +186,153 @@ public class MiUser implements b {
         return bool != null && bool.booleanValue();
     }
 
-    @Override // me.b
+    @Override // com.martian.rpauth.b
     public boolean isMale() {
         return this.gender.charValue() == 'M';
     }
 
-    @Override // me.b
+    @Override // com.martian.rpauth.b
     public boolean isUnknownGender() {
         return this.gender.charValue() == 'N';
     }
 
-    @Override // me.b
-    public void setCity(String str) {
-        this.city = str;
+    @Override // com.martian.rpauth.b
+    public void setCity(String city) {
+        this.city = city;
     }
 
-    @Override // me.b
-    public void setCountry(String str) {
-        this.country = str;
+    @Override // com.martian.rpauth.b
+    public void setCountry(String country) {
+        this.country = country;
     }
 
-    @Override // me.b
-    public void setCreatedOn(Date date) {
-        this.createdOn = date;
+    @Override // com.martian.rpauth.b
+    public void setCreatedOn(Date createdOn) {
+        this.createdOn = createdOn;
     }
 
-    @Override // me.b
-    public void setDeadline(Long l10) {
+    @Override // com.martian.rpauth.b
+    public void setDeadline(Long deadline) {
     }
 
-    @Override // me.b
-    public void setDevice_id(String str) {
-        this.device_id = str;
+    @Override // com.martian.rpauth.b
+    public void setDevice_id(String device_id) {
+        this.device_id = device_id;
     }
 
-    @Override // me.b
-    public void setEmail(String str) {
-        this.email = str;
+    @Override // com.martian.rpauth.b
+    public void setEmail(String email) {
+        this.email = email;
     }
 
-    @Override // me.b
-    public void setGender(char c10) {
-        this.gender = Character.valueOf(c10);
+    @Override // com.martian.rpauth.b
+    public void setGender(char gender) {
+        this.gender = Character.valueOf(gender);
     }
 
-    public void setGuest(Boolean bool) {
-        this.guest = bool;
+    public void setGuest(Boolean guest) {
+        this.guest = guest;
     }
 
-    @Override // me.b
-    public void setHeader(String str) {
-        this.header = str;
+    @Override // com.martian.rpauth.b
+    public void setHeader(String header) {
+        this.header = header;
     }
 
-    public void setLoggingOff(Boolean bool) {
-        this.loggingOff = bool;
+    public void setLoggingOff(Boolean loggingOff) {
+        this.loggingOff = loggingOff;
     }
 
-    @Override // me.b
-    public void setMobile(String str) {
-        this.mobile = str;
+    @Override // com.martian.rpauth.b
+    public void setMobile(String mobile) {
+        this.mobile = mobile;
     }
 
-    @Override // me.b
-    public void setNickname(String str) {
-        this.nickname = str;
+    @Override // com.martian.rpauth.b
+    public void setNickname(String nickname) {
+        this.nickname = nickname;
     }
 
-    @Override // me.b
-    public void setPassword(String str) {
-        this.password = str;
+    @Override // com.martian.rpauth.b
+    public void setPassword(String password) {
+        this.password = password;
     }
 
-    @Override // me.b
-    public void setProvince(String str) {
-        this.province = str;
+    @Override // com.martian.rpauth.b
+    public void setProvince(String province) {
+        this.province = province;
     }
 
-    @Override // me.b
-    public void setQQGender(String str) {
-        if (TextUtils.isEmpty(str)) {
+    @Override // com.martian.rpauth.b
+    public void setQQGender(String qqGender) {
+        if (TextUtils.isEmpty(qqGender)) {
             this.gender = 'M';
             return;
         }
-        if (str.equals("男")) {
+        if (qqGender.equals("男")) {
             this.gender = 'M';
-        } else if (str.equals("女")) {
+        } else if (qqGender.equals("女")) {
             this.gender = 'F';
         } else {
             this.gender = 'N';
         }
     }
 
-    @Override // me.b
-    public void setQQ_openid(String str) {
-        this.qq_openid = str;
+    @Override // com.martian.rpauth.b
+    public void setQQ_openid(String qq_openid) {
+        this.qq_openid = qq_openid;
     }
 
-    @Override // me.b
-    public void setToken(String str) {
-        this.token = str;
+    @Override // com.martian.rpauth.b
+    public void setToken(String token) {
+        this.token = token;
     }
 
-    @Override // me.b
-    public void setUid(Long l10) {
-        this.uid = l10;
+    @Override // com.martian.rpauth.b
+    public void setUid(Long uid) {
+        this.uid = uid;
     }
 
-    @Override // me.b
-    public void setUsername(String str) {
-        this.username = str;
+    @Override // com.martian.rpauth.b
+    public void setUsername(String username) {
+        this.username = username;
     }
 
-    @Override // me.b
-    public void setVcontributed(Integer num) {
-        this.vcontributed = num;
+    @Override // com.martian.rpauth.b
+    public void setVcontributed(Integer vcontributed) {
+        this.vcontributed = vcontributed;
     }
 
-    public void setVcontributors(List<MiVContributor> list) {
-        this.vcontributors = list;
+    public void setVcontributors(List<MiVContributor> vcontributors) {
+        this.vcontributors = vcontributors;
     }
 
-    @Override // me.b
-    public void setVcount(Integer num) {
-        this.vcount = num;
+    @Override // com.martian.rpauth.b
+    public void setVcount(Integer vcount) {
+        this.vcount = vcount;
     }
 
-    @Override // me.b
-    public void setVipStartTime(Long l10) {
+    @Override // com.martian.rpauth.b
+    public void setVipStartTime(Long vip_start_time) {
     }
 
-    @Override // me.b
-    public void setWXGender(int i10) {
-        if (i10 == 1) {
+    @Override // com.martian.rpauth.b
+    public void setWXGender(int intGender) {
+        if (intGender == 1) {
             this.gender = 'M';
-        } else if (i10 == 2) {
+        } else if (intGender == 2) {
             this.gender = 'F';
         } else {
             this.gender = 'N';
         }
     }
 
-    public void setWeixinBound(Boolean bool) {
-        this.weixinBound = bool;
+    public void setWeixinBound(Boolean weixinBound) {
+        this.weixinBound = weixinBound;
     }
 
-    @Override // me.b
-    public void setWx_openid(String str) {
-        this.wx_openid = str;
+    @Override // com.martian.rpauth.b
+    public void setWx_openid(String wx_openid) {
+        this.wx_openid = wx_openid;
     }
 }

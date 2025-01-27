@@ -30,15 +30,15 @@ public class TYBonus {
         return num.intValue();
     }
 
-    public void setCoins(Integer num) {
-        this.coins = num;
+    public void setCoins(Integer coins) {
+        this.coins = coins;
     }
 
-    public void setDuration(Integer num) {
-        this.duration = num;
+    public void setDuration(Integer duration) {
+        this.duration = duration;
     }
 
-    public void setMoney(Integer num) {
-        this.money = num;
+    public void setMoney(Integer money) {
+        this.money = money;
     }
 }

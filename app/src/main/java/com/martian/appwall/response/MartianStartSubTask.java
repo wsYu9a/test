@@ -1,6 +1,6 @@
 package com.martian.appwall.response;
 
-/* loaded from: classes3.dex */
+/* loaded from: classes2.dex */
 public class MartianStartSubTask {
     private Integer coins;
     private Long startTime;
@@ -15,11 +15,11 @@ public class MartianStartSubTask {
     }
 
     public long getStartTime() {
-        Long l10 = this.startTime;
-        if (l10 == null) {
+        Long l = this.startTime;
+        if (l == null) {
             return 0L;
         }
-        return l10.longValue();
+        return l.longValue();
     }
 
     public int getStindex() {
@@ -30,15 +30,15 @@ public class MartianStartSubTask {
         return num.intValue();
     }
 
-    public void setCoins(Integer num) {
-        this.coins = num;
+    public void setCoins(Integer coins) {
+        this.coins = coins;
     }
 
-    public void setStartTime(Long l10) {
-        this.startTime = l10;
+    public void setStartTime(Long startTime) {
+        this.startTime = startTime;
     }
 
-    public void setStindex(Integer num) {
-        this.stindex = num;
+    public void setStindex(Integer stindex) {
+        this.stindex = stindex;
     }
 }

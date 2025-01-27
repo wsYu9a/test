@@ -1,21 +1,21 @@
 package com.qq.e.comm.constants;
 
-/* loaded from: classes3.dex */
+/* loaded from: classes4.dex */
 public enum LoginType {
     Unknow(0),
     WeiXin(1),
     QQ(2);
 
 
-    /* renamed from: a, reason: collision with root package name */
-    private int f16556a;
+    /* renamed from: a */
+    private int f24007a;
 
-    LoginType(int i10) {
-        this.f16556a = i10;
+    LoginType(int i2) {
+        this.f24007a = i2;
         ordinal();
     }
 
     public int getValue() {
-        return this.f16556a;
+        return this.f24007a;
     }
 }

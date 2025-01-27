@@ -11,7 +11,7 @@ import com.ss.android.socialbase.downloader.impls.DefaultDownloadCache;
 
 /* loaded from: classes4.dex */
 public class SqlDownloadCacheService extends Service {
-    private static final String TAG = "SqlDownloadCacheService";
+    private static final String TAG = SqlDownloadCacheService.class.getSimpleName();
 
     public static void startServiceAndBind(Context context, ServiceConnection serviceConnection) {
         if (context != null) {
@@ -21,8 +21,8 @@ public class SqlDownloadCacheService extends Service {
                     context.bindService(intent, serviceConnection, 1);
                 }
                 context.startService(intent);
-            } catch (Throwable th2) {
-                Log.w(TAG, "startServiceAndBind fail", th2);
+            } catch (Throwable th) {
+                Log.w(TAG, "startServiceAndBind fail", th);
             }
         }
     }
@@ -41,8 +41,8 @@ public class SqlDownloadCacheService extends Service {
     }
 
     @Override // android.app.Service
-    public int onStartCommand(Intent intent, int i10, int i11) {
-        int onStartCommand = super.onStartCommand(intent, i10, i11);
+    public int onStartCommand(Intent intent, int i2, int i3) {
+        int onStartCommand = super.onStartCommand(intent, i2, i3);
         if (DownloadComponentManager.notAutoRebootService()) {
             return 2;
         }

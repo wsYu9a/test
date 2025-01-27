@@ -1,70 +1,123 @@
 package com.kwad.components.ad.interstitial.c;
 
 import android.content.Context;
-import android.text.TextUtils;
-import com.ksad.json.annotation.KsJson;
-import com.kwad.sdk.core.d.c;
-import com.kwad.sdk.utils.ad;
-import java.text.SimpleDateFormat;
-import java.util.Date;
-import org.json.JSONObject;
+import android.view.OrientationEventListener;
+import android.view.View;
+import com.kwad.components.ad.interstitial.c.c;
+import com.kwad.components.core.widget.ComplianceTextView;
+import com.kwad.components.core.widget.KsAutoCloseView;
+import com.kwad.sdk.R;
+import com.kwad.sdk.utils.ai;
 
-@KsJson
-/* loaded from: classes2.dex */
-public class a extends com.kwad.sdk.core.response.a.a {
-    private static SimpleDateFormat hX = new SimpleDateFormat("yyyy-MM-dd");
-    public long hY = -1;
-    public int kK = 0;
+/* loaded from: classes.dex */
+public final class a extends b {
+    private ComplianceTextView jo;
+    private OrientationEventListener jp;
+    private KsAutoCloseView jq;
 
-    public static void I(Context context) {
-        String Nu = ad.Nu();
-        a aVar = new a();
-        if (TextUtils.isEmpty(Nu)) {
-            aVar.kK = 1;
-            aVar.hY = System.currentTimeMillis();
-            ad.aa(context, aVar.toJson().toString());
-            return;
+    /* renamed from: com.kwad.components.ad.interstitial.c.a$1 */
+    final class AnonymousClass1 implements c.e {
+        final /* synthetic */ c jr;
+
+        AnonymousClass1(c cVar) {
+            cVar = cVar;
         }
-        try {
-            aVar.parseJson(new JSONObject(Nu));
-            if (c(aVar.hY, System.currentTimeMillis())) {
-                aVar.kK++;
-            } else {
-                aVar.kK = 1;
-                aVar.hY = System.currentTimeMillis();
-            }
-            ad.aa(context, aVar.toJson().toString());
-        } catch (Exception e10) {
-            c.printStackTraceOnly(e10);
+
+        @Override // com.kwad.components.ad.interstitial.c.c.e
+        public final void onError() {
+            a.this.b(cVar);
+            a.this.a(cVar);
         }
     }
 
-    private static boolean c(long j10, long j11) {
-        if (j10 > 0 && j11 > 0) {
-            try {
-                return hX.format(new Date(j10)).equals(hX.format(new Date(j11)));
-            } catch (Exception e10) {
-                c.printStackTraceOnly(e10);
-            }
+    /* renamed from: com.kwad.components.ad.interstitial.c.a$2 */
+    final class AnonymousClass2 extends OrientationEventListener {
+        final /* synthetic */ c jr;
+
+        /* JADX WARN: 'super' call moved to the top of the method (can break code semantics) */
+        AnonymousClass2(Context context, c cVar) {
+            super(context);
+            cVar = cVar;
         }
-        return false;
+
+        @Override // android.view.OrientationEventListener
+        public final void onOrientationChanged(int i2) {
+            a.this.b(cVar);
+        }
     }
 
-    public static int di() {
-        String Nu = ad.Nu();
-        if (TextUtils.isEmpty(Nu)) {
-            return 0;
-        }
-        a aVar = new a();
-        try {
-            aVar.parseJson(new JSONObject(Nu));
-            if (c(aVar.hY, System.currentTimeMillis())) {
-                return aVar.kK;
+    public void a(c cVar) {
+        AnonymousClass2 anonymousClass2 = new OrientationEventListener(cVar.hU.getContext()) { // from class: com.kwad.components.ad.interstitial.c.a.2
+            final /* synthetic */ c jr;
+
+            /* JADX WARN: 'super' call moved to the top of the method (can break code semantics) */
+            AnonymousClass2(Context context, c cVar2) {
+                super(context);
+                cVar = cVar2;
             }
-            return 0;
-        } catch (Exception e10) {
-            c.printStackTraceOnly(e10);
-            return 0;
+
+            @Override // android.view.OrientationEventListener
+            public final void onOrientationChanged(int i2) {
+                a.this.b(cVar);
+            }
+        };
+        this.jp = anonymousClass2;
+        if (anonymousClass2.canDetectOrientation()) {
+            this.jp.enable();
+        } else {
+            this.jp.disable();
+        }
+    }
+
+    public void b(c cVar) {
+        h(this.jo);
+        if (ai.DM()) {
+            com.kwad.sdk.c.kwai.a.b(this.jq, 0, com.kwad.sdk.c.kwai.a.a(getContext(), 25.0f), 0, 0);
+        } else {
+            com.kwad.sdk.c.kwai.a.b(this.jq, 0, 0, 0, 0);
+        }
+        this.jo.setVisibility(0);
+        this.jo.setAdTemplate(cVar.mAdTemplate);
+    }
+
+    private void h(View view) {
+        int a2 = com.kwad.sdk.c.kwai.a.a(getContext(), 4.0f);
+        int a3 = com.kwad.sdk.c.kwai.a.a(getContext(), 4.0f);
+        com.kwad.sdk.c.kwai.a.b(view, a3, a2, a3, 0);
+    }
+
+    @Override // com.kwad.components.ad.interstitial.c.b, com.kwad.sdk.mvp.Presenter
+    public final void ar() {
+        super.ar();
+        c cVar = (c) Bh();
+        cVar.a(new c.e() { // from class: com.kwad.components.ad.interstitial.c.a.1
+            final /* synthetic */ c jr;
+
+            AnonymousClass1(c cVar2) {
+                cVar = cVar2;
+            }
+
+            @Override // com.kwad.components.ad.interstitial.c.c.e
+            public final void onError() {
+                a.this.b(cVar);
+                a.this.a(cVar);
+            }
+        });
+    }
+
+    @Override // com.kwad.sdk.mvp.Presenter
+    public final void onCreate() {
+        super.onCreate();
+        this.jo = (ComplianceTextView) findViewById(R.id.ksad_compliance_view);
+        this.jq = (KsAutoCloseView) findViewById(R.id.ksad_interstitial_auto_close);
+    }
+
+    @Override // com.kwad.sdk.mvp.Presenter
+    public final void onUnbind() {
+        super.onUnbind();
+        OrientationEventListener orientationEventListener = this.jp;
+        if (orientationEventListener != null) {
+            orientationEventListener.disable();
         }
     }
 }

@@ -1,140 +1,161 @@
 package androidx.core.view;
 
-import android.annotation.SuppressLint;
 import android.content.Context;
+import android.os.Build;
 import android.os.Handler;
 import android.os.Message;
 import android.view.GestureDetector;
 import android.view.MotionEvent;
 import android.view.VelocityTracker;
 import android.view.ViewConfiguration;
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 
 /* loaded from: classes.dex */
 public final class GestureDetectorCompat {
-    private final GestureDetectorCompatImpl mImpl;
 
-    public interface GestureDetectorCompatImpl {
+    /* renamed from: a, reason: collision with root package name */
+    private final GestureDetectorCompatImpl f2023a;
+
+    interface GestureDetectorCompatImpl {
         boolean isLongpressEnabled();
 
         boolean onTouchEvent(MotionEvent motionEvent);
 
-        void setIsLongpressEnabled(boolean z10);
+        void setIsLongpressEnabled(boolean z);
 
         void setOnDoubleTapListener(GestureDetector.OnDoubleTapListener onDoubleTapListener);
     }
 
-    public static class GestureDetectorCompatImplBase implements GestureDetectorCompatImpl {
-        private static final int LONG_PRESS = 2;
-        private static final int SHOW_PRESS = 1;
-        private static final int TAP = 3;
-        private boolean mAlwaysInBiggerTapRegion;
-        private boolean mAlwaysInTapRegion;
-        MotionEvent mCurrentDownEvent;
-        boolean mDeferConfirmSingleTap;
-        GestureDetector.OnDoubleTapListener mDoubleTapListener;
-        private int mDoubleTapSlopSquare;
-        private float mDownFocusX;
-        private float mDownFocusY;
-        private final Handler mHandler;
-        private boolean mInLongPress;
-        private boolean mIsDoubleTapping;
-        private boolean mIsLongpressEnabled;
-        private float mLastFocusX;
-        private float mLastFocusY;
-        final GestureDetector.OnGestureListener mListener;
-        private int mMaximumFlingVelocity;
-        private int mMinimumFlingVelocity;
-        private MotionEvent mPreviousUpEvent;
-        boolean mStillDown;
-        private int mTouchSlopSquare;
-        private VelocityTracker mVelocityTracker;
-        private static final int TAP_TIMEOUT = ViewConfiguration.getTapTimeout();
-        private static final int DOUBLE_TAP_TIMEOUT = ViewConfiguration.getDoubleTapTimeout();
+    static class GestureDetectorCompatImplBase implements GestureDetectorCompatImpl {
 
-        public GestureDetectorCompatImplBase(Context context, GestureDetector.OnGestureListener onGestureListener, Handler handler) {
+        /* renamed from: a, reason: collision with root package name */
+        private static final int f2024a = ViewConfiguration.getLongPressTimeout();
+
+        /* renamed from: b, reason: collision with root package name */
+        private static final int f2025b = ViewConfiguration.getTapTimeout();
+
+        /* renamed from: c, reason: collision with root package name */
+        private static final int f2026c = ViewConfiguration.getDoubleTapTimeout();
+
+        /* renamed from: d, reason: collision with root package name */
+        private static final int f2027d = 1;
+
+        /* renamed from: e, reason: collision with root package name */
+        private static final int f2028e = 2;
+
+        /* renamed from: f, reason: collision with root package name */
+        private static final int f2029f = 3;
+        private VelocityTracker A;
+
+        /* renamed from: g, reason: collision with root package name */
+        private int f2030g;
+
+        /* renamed from: h, reason: collision with root package name */
+        private int f2031h;
+
+        /* renamed from: i, reason: collision with root package name */
+        private int f2032i;
+
+        /* renamed from: j, reason: collision with root package name */
+        private int f2033j;
+        private final Handler k;
+        final GestureDetector.OnGestureListener l;
+        GestureDetector.OnDoubleTapListener m;
+        boolean n;
+        boolean o;
+        private boolean p;
+        private boolean q;
+        private boolean r;
+        MotionEvent s;
+        private MotionEvent t;
+        private boolean u;
+        private float v;
+        private float w;
+        private float x;
+        private float y;
+        private boolean z;
+
+        GestureDetectorCompatImplBase(Context context, GestureDetector.OnGestureListener onGestureListener, Handler handler) {
             if (handler != null) {
-                this.mHandler = new GestureHandler(handler);
+                this.k = new GestureHandler(handler);
             } else {
-                this.mHandler = new GestureHandler();
+                this.k = new GestureHandler();
             }
-            this.mListener = onGestureListener;
+            this.l = onGestureListener;
             if (onGestureListener instanceof GestureDetector.OnDoubleTapListener) {
                 setOnDoubleTapListener((GestureDetector.OnDoubleTapListener) onGestureListener);
             }
-            init(context);
+            d(context);
         }
 
-        private void cancel() {
-            this.mHandler.removeMessages(1);
-            this.mHandler.removeMessages(2);
-            this.mHandler.removeMessages(3);
-            this.mVelocityTracker.recycle();
-            this.mVelocityTracker = null;
-            this.mIsDoubleTapping = false;
-            this.mStillDown = false;
-            this.mAlwaysInTapRegion = false;
-            this.mAlwaysInBiggerTapRegion = false;
-            this.mDeferConfirmSingleTap = false;
-            if (this.mInLongPress) {
-                this.mInLongPress = false;
+        private void a() {
+            this.k.removeMessages(1);
+            this.k.removeMessages(2);
+            this.k.removeMessages(3);
+            this.A.recycle();
+            this.A = null;
+            this.u = false;
+            this.n = false;
+            this.q = false;
+            this.r = false;
+            this.o = false;
+            if (this.p) {
+                this.p = false;
             }
         }
 
-        private void cancelTaps() {
-            this.mHandler.removeMessages(1);
-            this.mHandler.removeMessages(2);
-            this.mHandler.removeMessages(3);
-            this.mIsDoubleTapping = false;
-            this.mAlwaysInTapRegion = false;
-            this.mAlwaysInBiggerTapRegion = false;
-            this.mDeferConfirmSingleTap = false;
-            if (this.mInLongPress) {
-                this.mInLongPress = false;
+        private void b() {
+            this.k.removeMessages(1);
+            this.k.removeMessages(2);
+            this.k.removeMessages(3);
+            this.u = false;
+            this.q = false;
+            this.r = false;
+            this.o = false;
+            if (this.p) {
+                this.p = false;
             }
         }
 
-        private void init(Context context) {
+        private void d(Context context) {
             if (context == null) {
                 throw new IllegalArgumentException("Context must not be null");
             }
-            if (this.mListener == null) {
+            if (this.l == null) {
                 throw new IllegalArgumentException("OnGestureListener must not be null");
             }
-            this.mIsLongpressEnabled = true;
+            this.z = true;
             ViewConfiguration viewConfiguration = ViewConfiguration.get(context);
             int scaledTouchSlop = viewConfiguration.getScaledTouchSlop();
             int scaledDoubleTapSlop = viewConfiguration.getScaledDoubleTapSlop();
-            this.mMinimumFlingVelocity = viewConfiguration.getScaledMinimumFlingVelocity();
-            this.mMaximumFlingVelocity = viewConfiguration.getScaledMaximumFlingVelocity();
-            this.mTouchSlopSquare = scaledTouchSlop * scaledTouchSlop;
-            this.mDoubleTapSlopSquare = scaledDoubleTapSlop * scaledDoubleTapSlop;
+            this.f2032i = viewConfiguration.getScaledMinimumFlingVelocity();
+            this.f2033j = viewConfiguration.getScaledMaximumFlingVelocity();
+            this.f2030g = scaledTouchSlop * scaledTouchSlop;
+            this.f2031h = scaledDoubleTapSlop * scaledDoubleTapSlop;
         }
 
-        private boolean isConsideredDoubleTap(MotionEvent motionEvent, MotionEvent motionEvent2, MotionEvent motionEvent3) {
-            if (!this.mAlwaysInBiggerTapRegion || motionEvent3.getEventTime() - motionEvent2.getEventTime() > DOUBLE_TAP_TIMEOUT) {
+        private boolean e(MotionEvent motionEvent, MotionEvent motionEvent2, MotionEvent motionEvent3) {
+            if (!this.r || motionEvent3.getEventTime() - motionEvent2.getEventTime() > f2026c) {
                 return false;
             }
-            int x10 = ((int) motionEvent.getX()) - ((int) motionEvent3.getX());
-            int y10 = ((int) motionEvent.getY()) - ((int) motionEvent3.getY());
-            return (x10 * x10) + (y10 * y10) < this.mDoubleTapSlopSquare;
+            int x = ((int) motionEvent.getX()) - ((int) motionEvent3.getX());
+            int y = ((int) motionEvent.getY()) - ((int) motionEvent3.getY());
+            return (x * x) + (y * y) < this.f2031h;
         }
 
-        public void dispatchLongPress() {
-            this.mHandler.removeMessages(3);
-            this.mDeferConfirmSingleTap = false;
-            this.mInLongPress = true;
-            this.mListener.onLongPress(this.mCurrentDownEvent);
+        void c() {
+            this.k.removeMessages(3);
+            this.o = false;
+            this.p = true;
+            this.l.onLongPress(this.s);
         }
 
         @Override // androidx.core.view.GestureDetectorCompat.GestureDetectorCompatImpl
         public boolean isLongpressEnabled() {
-            return this.mIsLongpressEnabled;
+            return this.z;
         }
 
-        /* JADX WARN: Removed duplicated region for block: B:114:0x0205  */
-        /* JADX WARN: Removed duplicated region for block: B:117:0x021c  */
+        /* JADX WARN: Removed duplicated region for block: B:114:0x0208  */
+        /* JADX WARN: Removed duplicated region for block: B:117:0x021f  */
         @Override // androidx.core.view.GestureDetectorCompat.GestureDetectorCompatImpl
         /*
             Code decompiled incorrectly, please refer to instructions dump.
@@ -142,108 +163,113 @@ public final class GestureDetectorCompat {
         */
         public boolean onTouchEvent(android.view.MotionEvent r13) {
             /*
-                Method dump skipped, instructions count: 590
+                Method dump skipped, instructions count: 591
                 To view this dump change 'Code comments level' option to 'DEBUG'
             */
             throw new UnsupportedOperationException("Method not decompiled: androidx.core.view.GestureDetectorCompat.GestureDetectorCompatImplBase.onTouchEvent(android.view.MotionEvent):boolean");
         }
 
         @Override // androidx.core.view.GestureDetectorCompat.GestureDetectorCompatImpl
-        public void setIsLongpressEnabled(boolean z10) {
-            this.mIsLongpressEnabled = z10;
+        public void setIsLongpressEnabled(boolean z) {
+            this.z = z;
         }
 
         @Override // androidx.core.view.GestureDetectorCompat.GestureDetectorCompatImpl
         public void setOnDoubleTapListener(GestureDetector.OnDoubleTapListener onDoubleTapListener) {
-            this.mDoubleTapListener = onDoubleTapListener;
+            this.m = onDoubleTapListener;
         }
 
-        public class GestureHandler extends Handler {
-            public GestureHandler() {
+        private class GestureHandler extends Handler {
+            GestureHandler() {
             }
 
             @Override // android.os.Handler
             public void handleMessage(Message message) {
-                int i10 = message.what;
-                if (i10 == 1) {
+                int i2 = message.what;
+                if (i2 == 1) {
                     GestureDetectorCompatImplBase gestureDetectorCompatImplBase = GestureDetectorCompatImplBase.this;
-                    gestureDetectorCompatImplBase.mListener.onShowPress(gestureDetectorCompatImplBase.mCurrentDownEvent);
+                    gestureDetectorCompatImplBase.l.onShowPress(gestureDetectorCompatImplBase.s);
                     return;
                 }
-                if (i10 == 2) {
-                    GestureDetectorCompatImplBase.this.dispatchLongPress();
+                if (i2 == 2) {
+                    GestureDetectorCompatImplBase.this.c();
                     return;
                 }
-                if (i10 != 3) {
+                if (i2 != 3) {
                     throw new RuntimeException("Unknown message " + message);
                 }
                 GestureDetectorCompatImplBase gestureDetectorCompatImplBase2 = GestureDetectorCompatImplBase.this;
-                GestureDetector.OnDoubleTapListener onDoubleTapListener = gestureDetectorCompatImplBase2.mDoubleTapListener;
+                GestureDetector.OnDoubleTapListener onDoubleTapListener = gestureDetectorCompatImplBase2.m;
                 if (onDoubleTapListener != null) {
-                    if (gestureDetectorCompatImplBase2.mStillDown) {
-                        gestureDetectorCompatImplBase2.mDeferConfirmSingleTap = true;
+                    if (gestureDetectorCompatImplBase2.n) {
+                        gestureDetectorCompatImplBase2.o = true;
                     } else {
-                        onDoubleTapListener.onSingleTapConfirmed(gestureDetectorCompatImplBase2.mCurrentDownEvent);
+                        onDoubleTapListener.onSingleTapConfirmed(gestureDetectorCompatImplBase2.s);
                     }
                 }
             }
 
-            public GestureHandler(Handler handler) {
+            GestureHandler(Handler handler) {
                 super(handler.getLooper());
             }
         }
     }
 
-    public static class GestureDetectorCompatImplJellybeanMr2 implements GestureDetectorCompatImpl {
-        private final GestureDetector mDetector;
+    static class GestureDetectorCompatImplJellybeanMr2 implements GestureDetectorCompatImpl {
 
-        public GestureDetectorCompatImplJellybeanMr2(Context context, GestureDetector.OnGestureListener onGestureListener, Handler handler) {
-            this.mDetector = new GestureDetector(context, onGestureListener, handler);
+        /* renamed from: a, reason: collision with root package name */
+        private final GestureDetector f2035a;
+
+        GestureDetectorCompatImplJellybeanMr2(Context context, GestureDetector.OnGestureListener onGestureListener, Handler handler) {
+            this.f2035a = new GestureDetector(context, onGestureListener, handler);
         }
 
         @Override // androidx.core.view.GestureDetectorCompat.GestureDetectorCompatImpl
         public boolean isLongpressEnabled() {
-            return this.mDetector.isLongpressEnabled();
+            return this.f2035a.isLongpressEnabled();
         }
 
         @Override // androidx.core.view.GestureDetectorCompat.GestureDetectorCompatImpl
         public boolean onTouchEvent(MotionEvent motionEvent) {
-            return this.mDetector.onTouchEvent(motionEvent);
+            return this.f2035a.onTouchEvent(motionEvent);
         }
 
         @Override // androidx.core.view.GestureDetectorCompat.GestureDetectorCompatImpl
-        public void setIsLongpressEnabled(boolean z10) {
-            this.mDetector.setIsLongpressEnabled(z10);
+        public void setIsLongpressEnabled(boolean z) {
+            this.f2035a.setIsLongpressEnabled(z);
         }
 
         @Override // androidx.core.view.GestureDetectorCompat.GestureDetectorCompatImpl
         public void setOnDoubleTapListener(GestureDetector.OnDoubleTapListener onDoubleTapListener) {
-            this.mDetector.setOnDoubleTapListener(onDoubleTapListener);
+            this.f2035a.setOnDoubleTapListener(onDoubleTapListener);
         }
     }
 
-    public GestureDetectorCompat(@NonNull Context context, @NonNull GestureDetector.OnGestureListener onGestureListener) {
+    public GestureDetectorCompat(Context context, GestureDetector.OnGestureListener onGestureListener) {
         this(context, onGestureListener, null);
     }
 
     public boolean isLongpressEnabled() {
-        return this.mImpl.isLongpressEnabled();
+        return this.f2023a.isLongpressEnabled();
     }
 
-    public boolean onTouchEvent(@NonNull MotionEvent motionEvent) {
-        return this.mImpl.onTouchEvent(motionEvent);
+    public boolean onTouchEvent(MotionEvent motionEvent) {
+        return this.f2023a.onTouchEvent(motionEvent);
     }
 
-    @SuppressLint({"KotlinPropertyAccess"})
-    public void setIsLongpressEnabled(boolean z10) {
-        this.mImpl.setIsLongpressEnabled(z10);
+    public void setIsLongpressEnabled(boolean z) {
+        this.f2023a.setIsLongpressEnabled(z);
     }
 
-    public void setOnDoubleTapListener(@Nullable GestureDetector.OnDoubleTapListener onDoubleTapListener) {
-        this.mImpl.setOnDoubleTapListener(onDoubleTapListener);
+    public void setOnDoubleTapListener(GestureDetector.OnDoubleTapListener onDoubleTapListener) {
+        this.f2023a.setOnDoubleTapListener(onDoubleTapListener);
     }
 
-    public GestureDetectorCompat(@NonNull Context context, @NonNull GestureDetector.OnGestureListener onGestureListener, @Nullable Handler handler) {
-        this.mImpl = new GestureDetectorCompatImplJellybeanMr2(context, onGestureListener, handler);
+    public GestureDetectorCompat(Context context, GestureDetector.OnGestureListener onGestureListener, Handler handler) {
+        if (Build.VERSION.SDK_INT > 17) {
+            this.f2023a = new GestureDetectorCompatImplJellybeanMr2(context, onGestureListener, handler);
+        } else {
+            this.f2023a = new GestureDetectorCompatImplBase(context, onGestureListener, handler);
+        }
     }
 }

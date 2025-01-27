@@ -1,6 +1,6 @@
 package com.bytedance.sdk.openadsdk;
 
-/* loaded from: classes2.dex */
+/* loaded from: classes.dex */
 public interface CSJSplashCloseType {
     public static final int CLICK_JUMP = 3;
     public static final int CLICK_SKIP = 1;

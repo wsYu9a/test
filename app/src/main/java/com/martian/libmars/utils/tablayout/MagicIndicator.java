@@ -11,219 +11,235 @@ import androidx.core.content.ContextCompat;
 import androidx.viewpager.widget.PagerAdapter;
 import androidx.viewpager.widget.ViewPager;
 import com.martian.libmars.R;
-import com.martian.libmars.common.ConfigSingleton;
-import com.martian.libmars.utils.SectionsPagerAdapter;
+import com.martian.libmars.utils.v0;
 import java.util.List;
-import m9.e;
-import m9.f;
-import m9.g;
 
-/* loaded from: classes3.dex */
-public class MagicIndicator extends FrameLayout implements k9.a {
+/* loaded from: classes2.dex */
+public class MagicIndicator extends FrameLayout implements g.a {
 
-    /* renamed from: e */
-    public static final String f12461e = "PAGE_INDEX";
-
-    /* renamed from: f */
-    public static final int f12462f = 0;
-
-    /* renamed from: g */
-    public static final int f12463g = 1;
+    /* renamed from: a */
+    public static final String f10218a = "PAGE_INDEX";
 
     /* renamed from: b */
-    public f f12464b;
+    public static final int f10219b = 0;
 
     /* renamed from: c */
-    public int f12465c;
+    public static final int f10220c = 1;
 
     /* renamed from: d */
-    public int f12466d;
+    public static final int f10221d = 2;
 
-    public class a extends m9.b {
+    /* renamed from: e */
+    public static final int f10222e = 3;
+
+    /* renamed from: f */
+    public static final int f10223f = 4;
+
+    /* renamed from: g */
+    private i f10224g;
+
+    /* renamed from: h */
+    private int f10225h;
+
+    /* renamed from: i */
+    private int f10226i;
+
+    /* renamed from: j */
+    private int f10227j;
+
+    class a extends f {
 
         /* renamed from: b */
-        public final /* synthetic */ List f12467b;
+        final /* synthetic */ List f10228b;
 
         /* renamed from: c */
-        public final /* synthetic */ boolean f12468c;
+        final /* synthetic */ boolean f10229c;
 
         /* renamed from: d */
-        public final /* synthetic */ ViewPager f12469d;
+        final /* synthetic */ ViewPager f10230d;
 
-        public a(List list, boolean z10, ViewPager viewPager) {
-            this.f12467b = list;
-            this.f12468c = z10;
-            this.f12469d = viewPager;
+        a(final List val$viewPager, final boolean val$changeFont, final ViewPager val$fragmentSections) {
+            this.f10228b = val$viewPager;
+            this.f10229c = val$changeFont;
+            this.f10230d = val$fragmentSections;
         }
 
-        @Override // m9.b
+        @Override // com.martian.libmars.utils.tablayout.f
         public int a() {
-            return this.f12467b.size();
+            return this.f10228b.size();
         }
 
-        @Override // m9.b
-        public e b(Context context) {
+        @Override // com.martian.libmars.utils.tablayout.f
+        public h b(Context context) {
             LinePagerIndicator linePagerIndicator = new LinePagerIndicator(context);
-            linePagerIndicator.i(2).l(ConfigSingleton.i(5.0f)).f(ConfigSingleton.i(2.0f)).g(ConfigSingleton.i(16.0f)).j(ConfigSingleton.i(2.0f)).k(new AccelerateInterpolator()).e(new DecelerateInterpolator(2.0f)).d(Integer.valueOf(ContextCompat.getColor(context, R.color.theme_default)));
+            linePagerIndicator.g(2).j(com.martian.libmars.d.h.b(5.0f)).e(com.martian.libmars.d.h.b(2.0f)).f(com.martian.libmars.d.h.b(16.0f)).h(com.martian.libmars.d.h.b(2.0f)).i(new AccelerateInterpolator()).d(new DecelerateInterpolator(2.0f)).c(Integer.valueOf(ContextCompat.getColor(context, R.color.theme_default)));
             return linePagerIndicator;
         }
 
-        @Override // m9.b
-        public g c(Context context, int i10) {
-            ScaleTransitionPagerTitleView scaleTransitionPagerTitleView = new ScaleTransitionPagerTitleView(context, this.f12468c);
-            scaleTransitionPagerTitleView.setText(((SectionsPagerAdapter.a) this.f12467b.get(i10)).b());
-            scaleTransitionPagerTitleView.setTextSize(16.0f);
-            scaleTransitionPagerTitleView.setMaxScale(1.125f);
-            scaleTransitionPagerTitleView.setNormalColor(ConfigSingleton.D().h0());
-            scaleTransitionPagerTitleView.setSelectedColor(ContextCompat.getColor(MagicIndicator.this.getContext(), R.color.theme_default));
-            scaleTransitionPagerTitleView.setOnClickListener(new View.OnClickListener() { // from class: m9.h
-
-                /* renamed from: c */
-                public final /* synthetic */ int f28542c;
-
-                public /* synthetic */ h(int i102) {
-                    i10 = i102;
-                }
-
+        @Override // com.martian.libmars.utils.tablayout.f
+        public j c(Context context, final int index) {
+            m mVar = new m(context, this.f10229c);
+            mVar.setText(((v0.a) this.f10228b.get(index)).b());
+            mVar.setTextSize(16.0f);
+            mVar.setMaxScale(1.125f);
+            mVar.setNormalColor(com.martian.libmars.d.h.F().p0());
+            mVar.setSelectedColor(MagicIndicator.this.f10227j);
+            final ViewPager viewPager = this.f10230d;
+            mVar.setOnClickListener(new View.OnClickListener() { // from class: com.martian.libmars.utils.tablayout.b
                 @Override // android.view.View.OnClickListener
                 public final void onClick(View view) {
-                    ViewPager.this.setCurrentItem(i10);
+                    ViewPager.this.setCurrentItem(index);
                 }
             });
-            return scaleTransitionPagerTitleView;
+            return mVar;
         }
     }
 
-    public class b implements ViewPager.OnPageChangeListener {
-        public b() {
+    class b implements ViewPager.OnPageChangeListener {
+        b() {
         }
 
         @Override // androidx.viewpager.widget.ViewPager.OnPageChangeListener
-        public void onPageScrollStateChanged(int i10) {
-            MagicIndicator.this.a(i10);
+        public void onPageScrollStateChanged(int state) {
+            MagicIndicator.this.b(state);
         }
 
         @Override // androidx.viewpager.widget.ViewPager.OnPageChangeListener
-        public void onPageScrolled(int i10, float f10, int i11) {
-            MagicIndicator.this.b(i10, f10, i11);
+        public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+            MagicIndicator.this.c(position, positionOffset, positionOffsetPixels);
         }
 
         @Override // androidx.viewpager.widget.ViewPager.OnPageChangeListener
-        public void onPageSelected(int i10) {
-            MagicIndicator.this.c(i10);
+        public void onPageSelected(int position) {
+            MagicIndicator.this.d(position);
         }
     }
 
     public MagicIndicator(Context context) {
         super(context);
-        this.f12465c = 0;
+        this.f10225h = 0;
+        this.f10227j = ContextCompat.getColor(getContext(), R.color.theme_default);
     }
 
-    private void d(Context context, AttributeSet attributeSet) {
-        TypedArray obtainStyledAttributes = context.obtainStyledAttributes(attributeSet, R.styleable.MagicIndicator);
-        this.f12466d = obtainStyledAttributes.getInteger(R.styleable.MagicIndicator_indicatorTextColorType, -1);
+    private void e(Context context, AttributeSet attrs) {
+        TypedArray obtainStyledAttributes = context.obtainStyledAttributes(attrs, R.styleable.MagicIndicator);
+        this.f10226i = obtainStyledAttributes.getInteger(R.styleable.MagicIndicator_textColorType, -1);
         obtainStyledAttributes.recycle();
     }
 
-    public void a(int i10) {
-        f fVar = this.f12464b;
-        if (fVar != null) {
-            fVar.onPageScrollStateChanged(i10);
+    public void b(int state) {
+        i iVar = this.f10224g;
+        if (iVar != null) {
+            iVar.onPageScrollStateChanged(state);
         }
     }
 
-    public void b(int i10, float f10, int i11) {
-        f fVar = this.f12464b;
-        if (fVar != null) {
-            fVar.onPageScrolled(i10, f10, i11);
+    public void c(int position, float positionOffset, int positionOffsetPixels) {
+        i iVar = this.f10224g;
+        if (iVar != null) {
+            iVar.onPageScrolled(position, positionOffset, positionOffsetPixels);
         }
     }
 
-    public void c(int i10) {
-        this.f12465c = i10;
-        f fVar = this.f12464b;
-        if (fVar != null) {
-            fVar.onPageSelected(i10);
+    public void d(int position) {
+        this.f10225h = position;
+        i iVar = this.f10224g;
+        if (iVar != null) {
+            iVar.onPageSelected(position);
         }
     }
 
-    public void e(ViewPager viewPager, boolean z10) {
+    public void f(final ViewPager viewPager, final boolean changeFont) {
         if (viewPager == null) {
             return;
         }
         PagerAdapter adapter = viewPager.getAdapter();
-        if (adapter instanceof SectionsPagerAdapter) {
-            List<SectionsPagerAdapter.a> a10 = ((SectionsPagerAdapter) adapter).a();
+        if (adapter instanceof v0) {
+            List<v0.a> b2 = ((v0) adapter).b();
             CommonNavigator commonNavigator = new CommonNavigator(getContext());
-            commonNavigator.setAdapter(new a(a10, z10, viewPager));
+            commonNavigator.setAdapter(new a(b2, changeFont, viewPager));
             setNavigator(commonNavigator);
             viewPager.addOnPageChangeListener(new b());
         }
     }
 
-    public f getNavigator() {
-        return this.f12464b;
+    @Override // g.a
+    public void g() {
+        i iVar;
+        if (this.f10226i <= 0 || (iVar = this.f10224g) == null || !(iVar instanceof CommonNavigator)) {
+            return;
+        }
+        ((CommonNavigator) this.f10224g).x(ContextCompat.getColor(getContext(), com.martian.libmars.d.h.F().I0() ? R.color.night_text_color_primary : R.color.day_text_color_primary), this.f10227j);
+    }
+
+    public i getNavigator() {
+        return this.f10224g;
     }
 
     public int getSelectPosition() {
-        return this.f12465c;
+        return this.f10225h;
+    }
+
+    public void h(int indicatorColor) {
+        i iVar = this.f10224g;
+        if (iVar == null || !(iVar instanceof CommonNavigator)) {
+            return;
+        }
+        ((CommonNavigator) iVar).w(indicatorColor);
     }
 
     @Override // android.view.ViewGroup, android.view.View
-    public void onAttachedToWindow() {
+    protected void onAttachedToWindow() {
         super.onAttachedToWindow();
-        p();
-        ConfigSingleton.D().h(this);
+        g();
+        com.martian.libmars.d.h.F().a(this);
     }
 
     @Override // android.view.ViewGroup, android.view.View
-    public void onDetachedFromWindow() {
+    protected void onDetachedFromWindow() {
         super.onDetachedFromWindow();
-        ConfigSingleton.D().X0(this);
+        com.martian.libmars.d.h.F().j1(this);
     }
 
-    @Override // k9.a
-    public void p() {
-        f fVar;
-        if (this.f12466d <= 0 || (fVar = this.f12464b) == null || !(fVar instanceof CommonNavigator)) {
+    public void setNavigator(i navigator) {
+        i iVar = this.f10224g;
+        if (iVar == navigator) {
             return;
         }
-        ((CommonNavigator) this.f12464b).o(ContextCompat.getColor(getContext(), ConfigSingleton.D().A0() ? R.color.night_text_color_primary : R.color.day_text_color_primary), ContextCompat.getColor(getContext(), R.color.theme_default));
-    }
-
-    public void setNavigator(f fVar) {
-        f fVar2 = this.f12464b;
-        if (fVar2 == fVar) {
-            return;
+        if (iVar != null) {
+            iVar.h();
         }
-        if (fVar2 != null) {
-            fVar2.g();
-        }
-        this.f12464b = fVar;
+        this.f10224g = navigator;
         removeAllViews();
-        if (this.f12464b instanceof View) {
-            addView((View) this.f12464b, new FrameLayout.LayoutParams(-1, -1));
-            this.f12464b.f();
+        if (this.f10224g instanceof View) {
+            addView((View) this.f10224g, new FrameLayout.LayoutParams(-1, -1));
+            this.f10224g.f();
         }
     }
 
-    public void setTextColorType(int i10) {
-        this.f12466d = i10;
+    public void setTextColorType(int textColorType) {
+        this.f10226i = textColorType;
     }
 
-    public MagicIndicator(Context context, AttributeSet attributeSet) {
-        super(context, attributeSet);
-        this.f12465c = 0;
-        d(context, attributeSet);
+    public void setTitleSelectedColor(int color) {
+        this.f10227j = color;
     }
 
-    public MagicIndicator(Context context, AttributeSet attributeSet, int i10) {
-        super(context, attributeSet, i10);
-        this.f12465c = 0;
-        d(context, attributeSet);
+    public MagicIndicator(Context context, AttributeSet attrs) {
+        super(context, attrs);
+        this.f10225h = 0;
+        this.f10227j = ContextCompat.getColor(getContext(), R.color.theme_default);
+        e(context, attrs);
+    }
+
+    public MagicIndicator(Context context, AttributeSet attrs, int defStyleAttr) {
+        super(context, attrs, defStyleAttr);
+        this.f10225h = 0;
+        this.f10227j = ContextCompat.getColor(getContext(), R.color.theme_default);
+        e(context, attrs);
     }
 
     public void setNavigator(ViewPager viewPager) {
-        e(viewPager, false);
+        f(viewPager, false);
     }
 }

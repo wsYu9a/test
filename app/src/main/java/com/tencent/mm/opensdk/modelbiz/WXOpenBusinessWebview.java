@@ -44,6 +44,10 @@ public class WXOpenBusinessWebview {
         public Resp() {
         }
 
+        public Resp(Bundle bundle) {
+            fromBundle(bundle);
+        }
+
         @Override // com.tencent.mm.opensdk.modelbase.BaseResp
         public boolean checkArgs() {
             return true;
@@ -66,10 +70,6 @@ public class WXOpenBusinessWebview {
             super.toBundle(bundle);
             bundle.putString("_wxapi_open_business_webview_result", this.resultInfo);
             bundle.putInt("_wxapi_open_business_webview_query_type", this.businessType);
-        }
-
-        public Resp(Bundle bundle) {
-            fromBundle(bundle);
         }
     }
 }

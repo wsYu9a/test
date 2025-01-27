@@ -16,362 +16,341 @@ import android.view.ViewGroup;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 import androidx.annotation.NonNull;
-import androidx.core.internal.view.SupportMenu;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.PagerSnapHelper;
 import androidx.recyclerview.widget.RecyclerView;
 import com.google.android.material.badge.BadgeDrawable;
 import com.martian.mibook.R;
 import com.martian.mibook.ui.recybanner.BannerLayout;
+import com.vivo.advv.Color;
 
-/* loaded from: classes3.dex */
+/* loaded from: classes4.dex */
 public class BannerLayout extends FrameLayout {
 
+    /* renamed from: a */
+    private int f14847a;
+
     /* renamed from: b */
-    public int f16079b;
+    private boolean f14848b;
 
     /* renamed from: c */
-    public boolean f16080c;
+    private RecyclerView f14849c;
 
     /* renamed from: d */
-    public RecyclerView f16081d;
+    private Drawable f14850d;
 
     /* renamed from: e */
-    public Drawable f16082e;
+    private Drawable f14851e;
 
     /* renamed from: f */
-    public Drawable f16083f;
+    private c f14852f;
 
     /* renamed from: g */
-    public IndicatorAdapter f16084g;
+    private int f14853g;
 
     /* renamed from: h */
-    public int f16085h;
+    private RecyclerView f14854h;
 
     /* renamed from: i */
-    public RecyclerView f16086i;
+    private BannerLayoutManager f14855i;
 
     /* renamed from: j */
-    public BannerLayoutManager f16087j;
+    private final int f14856j;
+    private boolean k;
+    private int l;
+    private int m;
+    private boolean n;
+    private boolean o;
+    int p;
+    float q;
+    float r;
+    private e s;
+    protected final Handler t;
 
-    /* renamed from: k */
-    public final int f16088k;
-
-    /* renamed from: l */
-    public boolean f16089l;
-
-    /* renamed from: m */
-    public int f16090m;
-
-    /* renamed from: n */
-    public int f16091n;
-
-    /* renamed from: o */
-    public boolean f16092o;
-
-    /* renamed from: p */
-    public boolean f16093p;
-
-    /* renamed from: q */
-    public int f16094q;
-
-    /* renamed from: r */
-    public float f16095r;
-
-    /* renamed from: s */
-    public float f16096s;
-
-    /* renamed from: t */
-    public d f16097t;
-
-    /* renamed from: u */
-    public final Handler f16098u;
-
-    public class IndicatorAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
-
-        /* renamed from: c */
-        public int f16099c = 0;
-
-        public class a extends RecyclerView.ViewHolder {
-            public a(View view) {
-                super(view);
-            }
-        }
-
-        public IndicatorAdapter() {
-        }
-
-        @Override // androidx.recyclerview.widget.RecyclerView.Adapter
-        /* renamed from: getItemCount */
-        public int getPageSize() {
-            return BannerLayout.this.f16090m;
-        }
-
-        public void i(int i10) {
-            this.f16099c = i10;
-        }
-
-        @Override // androidx.recyclerview.widget.RecyclerView.Adapter
-        public void onBindViewHolder(RecyclerView.ViewHolder viewHolder, int i10) {
-            ((ImageView) viewHolder.itemView).setImageDrawable(this.f16099c == i10 ? BannerLayout.this.f16082e : BannerLayout.this.f16083f);
-        }
-
-        @Override // androidx.recyclerview.widget.RecyclerView.Adapter
-        @NonNull
-        public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i10) {
-            ImageView imageView = new ImageView(BannerLayout.this.getContext());
-            RecyclerView.LayoutParams layoutParams = new RecyclerView.LayoutParams(-2, -2);
-            layoutParams.setMargins(BannerLayout.this.f16085h, BannerLayout.this.f16085h, BannerLayout.this.f16085h, BannerLayout.this.f16085h);
-            imageView.setLayoutParams(layoutParams);
-            return new a(imageView);
-        }
-    }
-
-    public class a implements Handler.Callback {
-        public a() {
+    class a implements Handler.Callback {
+        a() {
         }
 
         @Override // android.os.Handler.Callback
-        public boolean handleMessage(@NonNull Message message) {
-            if (message.what != 1000 || BannerLayout.this.f16091n != BannerLayout.this.f16087j.q()) {
+        public boolean handleMessage(@NonNull Message msg) {
+            if (msg.what != 1000 || BannerLayout.this.m != BannerLayout.this.f14855i.g()) {
                 return false;
             }
-            BannerLayout.this.f16091n++;
-            BannerLayout.this.f16086i.smoothScrollToPosition(BannerLayout.this.f16091n);
-            BannerLayout.this.f16098u.sendEmptyMessageDelayed(1000, r5.f16079b);
-            BannerLayout.this.n();
+            BannerLayout.c(BannerLayout.this);
+            BannerLayout.this.f14854h.smoothScrollToPosition(BannerLayout.this.m);
+            BannerLayout.this.t.sendEmptyMessageDelayed(1000, r5.f14847a);
+            BannerLayout.this.o();
             return false;
         }
     }
 
-    public class b extends RecyclerView.OnScrollListener {
-        public b() {
+    class b extends RecyclerView.OnScrollListener {
+        b() {
         }
 
-        public final /* synthetic */ void m() {
-            BannerLayout.this.f16086i.smoothScrollToPosition(BannerLayout.this.f16091n);
+        /* renamed from: m */
+        public /* synthetic */ void n() {
+            BannerLayout.this.f14854h.smoothScrollToPosition(BannerLayout.this.m);
         }
 
         @Override // androidx.recyclerview.widget.RecyclerView.OnScrollListener
-        public void onScrollStateChanged(@NonNull RecyclerView recyclerView, int i10) {
-            int q10 = BannerLayout.this.f16087j.q();
-            if (BannerLayout.this.f16091n != q10) {
-                BannerLayout.this.f16091n = q10;
+        public void onScrollStateChanged(@NonNull RecyclerView recyclerView, int newState) {
+            int g2 = BannerLayout.this.f14855i.g();
+            if (BannerLayout.this.m != g2) {
+                BannerLayout.this.m = g2;
             }
-            if (i10 == 0) {
-                new Handler().post(new Runnable() { // from class: he.a
-                    public /* synthetic */ a() {
-                    }
-
+            if (newState == 0) {
+                new Handler().post(new Runnable() { // from class: com.martian.mibook.ui.recybanner.a
                     @Override // java.lang.Runnable
                     public final void run() {
-                        BannerLayout.b.this.m();
+                        BannerLayout.b.this.n();
                     }
                 });
-                if (BannerLayout.this.f16097t != null) {
-                    BannerLayout.this.f16097t.onPageSelected(BannerLayout.this.f16091n);
+                if (BannerLayout.this.s != null) {
+                    BannerLayout.this.s.onPageSelected(BannerLayout.this.m);
                 }
             }
         }
 
         @Override // androidx.recyclerview.widget.RecyclerView.OnScrollListener
-        public void onScrolled(@NonNull RecyclerView recyclerView, int i10, int i11) {
-            if (i10 != 0) {
+        public void onScrolled(@NonNull RecyclerView recyclerView, int dx, int dy) {
+            if (dx != 0) {
                 BannerLayout.this.setPlaying(false);
             }
         }
     }
 
-    public interface c {
-        void a(int i10);
+    protected class c extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
+
+        /* renamed from: a */
+        int f14859a = 0;
+
+        class a extends RecyclerView.ViewHolder {
+            a(View arg0) {
+                super(arg0);
+            }
+        }
+
+        protected c() {
+        }
+
+        @Override // androidx.recyclerview.widget.RecyclerView.Adapter
+        public int getItemCount() {
+            return BannerLayout.this.l;
+        }
+
+        public void n(int currentPosition) {
+            this.f14859a = currentPosition;
+        }
+
+        @Override // androidx.recyclerview.widget.RecyclerView.Adapter
+        public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
+            ((ImageView) holder.itemView).setImageDrawable(this.f14859a == position ? BannerLayout.this.f14850d : BannerLayout.this.f14851e);
+        }
+
+        @Override // androidx.recyclerview.widget.RecyclerView.Adapter
+        @NonNull
+        public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+            ImageView imageView = new ImageView(BannerLayout.this.getContext());
+            RecyclerView.LayoutParams layoutParams = new RecyclerView.LayoutParams(-2, -2);
+            layoutParams.setMargins(BannerLayout.this.f14853g, BannerLayout.this.f14853g, BannerLayout.this.f14853g, BannerLayout.this.f14853g);
+            imageView.setLayoutParams(layoutParams);
+            return new a(imageView);
+        }
     }
 
     public interface d {
-        void onPageSelected(int i10);
+        void a(int position);
+    }
+
+    public interface e {
+        void onPageSelected(int position);
     }
 
     public BannerLayout(Context context) {
         this(context, null);
     }
 
+    static /* synthetic */ int c(BannerLayout bannerLayout) {
+        int i2 = bannerLayout.m + 1;
+        bannerLayout.m = i2;
+        return i2;
+    }
+
     @Override // android.view.ViewGroup, android.view.View
-    public boolean dispatchTouchEvent(MotionEvent motionEvent) {
-        int action = motionEvent.getAction();
+    public boolean dispatchTouchEvent(MotionEvent ev) {
+        int action = ev.getAction();
         if (action == 0) {
             setPlaying(false);
         } else if (action == 1 || action == 3) {
             setPlaying(true);
         }
-        return super.dispatchTouchEvent(motionEvent);
+        return super.dispatchTouchEvent(ev);
     }
 
     public RecyclerView getRecyclerView() {
-        return this.f16086i;
+        return this.f14854h;
     }
 
-    public int k(int i10) {
-        return (int) TypedValue.applyDimension(1, i10, Resources.getSystem().getDisplayMetrics());
+    protected int l(int dp) {
+        return (int) TypedValue.applyDimension(1, dp, Resources.getSystem().getDisplayMetrics());
     }
 
-    public void l(Context context, AttributeSet attributeSet) {
-        TypedArray obtainStyledAttributes = context.obtainStyledAttributes(attributeSet, R.styleable.BannerLayout);
-        this.f16080c = obtainStyledAttributes.getBoolean(R.styleable.BannerLayout_showIndicator, true);
-        this.f16079b = obtainStyledAttributes.getInt(R.styleable.BannerLayout_interval, 4000);
-        this.f16093p = obtainStyledAttributes.getBoolean(R.styleable.BannerLayout_autoPlaying, true);
-        this.f16094q = obtainStyledAttributes.getInt(R.styleable.BannerLayout_itemSpace, 20);
-        this.f16095r = obtainStyledAttributes.getFloat(R.styleable.BannerLayout_centerScale, 1.2f);
-        this.f16096s = obtainStyledAttributes.getFloat(R.styleable.BannerLayout_moveSpeed, 1.0f);
-        if (this.f16082e == null) {
+    protected void m(Context context, AttributeSet attrs) {
+        TypedArray obtainStyledAttributes = context.obtainStyledAttributes(attrs, R.styleable.BannerLayout);
+        this.f14848b = obtainStyledAttributes.getBoolean(6, true);
+        this.f14847a = obtainStyledAttributes.getInt(2, 4000);
+        this.o = obtainStyledAttributes.getBoolean(0, true);
+        this.p = obtainStyledAttributes.getInt(3, 20);
+        this.q = obtainStyledAttributes.getFloat(1, 1.2f);
+        this.r = obtainStyledAttributes.getFloat(4, 1.0f);
+        if (this.f14850d == null) {
             GradientDrawable gradientDrawable = new GradientDrawable();
             gradientDrawable.setShape(1);
-            gradientDrawable.setColor(SupportMenu.CATEGORY_MASK);
-            gradientDrawable.setSize(k(5), k(5));
-            gradientDrawable.setCornerRadius(k(5) / 2.0f);
-            this.f16082e = new LayerDrawable(new Drawable[]{gradientDrawable});
+            gradientDrawable.setColor(-65536);
+            gradientDrawable.setSize(l(5), l(5));
+            gradientDrawable.setCornerRadius(l(5) / 2.0f);
+            this.f14850d = new LayerDrawable(new Drawable[]{gradientDrawable});
         }
-        if (this.f16083f == null) {
+        if (this.f14851e == null) {
             GradientDrawable gradientDrawable2 = new GradientDrawable();
             gradientDrawable2.setShape(1);
-            gradientDrawable2.setColor(-7829368);
-            gradientDrawable2.setSize(k(5), k(5));
-            gradientDrawable2.setCornerRadius(k(5) / 2.0f);
-            this.f16083f = new LayerDrawable(new Drawable[]{gradientDrawable2});
+            gradientDrawable2.setColor(Color.GRAY);
+            gradientDrawable2.setSize(l(5), l(5));
+            gradientDrawable2.setCornerRadius(l(5) / 2.0f);
+            this.f14851e = new LayerDrawable(new Drawable[]{gradientDrawable2});
         }
-        this.f16085h = k(4);
-        int k10 = k(16);
-        int k11 = k(0);
-        int k12 = k(11);
-        int i10 = obtainStyledAttributes.getInt(R.styleable.BannerLayout_orientations, 0) != 1 ? 0 : 1;
+        this.f14853g = l(4);
+        int l = l(16);
+        int l2 = l(0);
+        int l3 = l(11);
+        int i2 = obtainStyledAttributes.getInt(5, 0) != 1 ? 0 : 1;
         obtainStyledAttributes.recycle();
-        this.f16086i = new RecyclerView(context);
-        addView(this.f16086i, new FrameLayout.LayoutParams(-1, -1));
-        BannerLayoutManager bannerLayoutManager = new BannerLayoutManager(getContext(), i10);
-        this.f16087j = bannerLayoutManager;
-        bannerLayoutManager.S(this.f16094q);
-        this.f16087j.O(this.f16095r);
-        this.f16087j.V(this.f16096s);
-        this.f16086i.setLayoutManager(this.f16087j);
-        new PagerSnapHelper().attachToRecyclerView(this.f16086i);
-        this.f16081d = new RecyclerView(context);
-        this.f16081d.setLayoutManager(new LinearLayoutManager(context, i10, false));
-        IndicatorAdapter indicatorAdapter = new IndicatorAdapter();
-        this.f16084g = indicatorAdapter;
-        this.f16081d.setAdapter(indicatorAdapter);
+        this.f14854h = new RecyclerView(context);
+        addView(this.f14854h, new FrameLayout.LayoutParams(-1, -1));
+        BannerLayoutManager bannerLayoutManager = new BannerLayoutManager(getContext(), i2);
+        this.f14855i = bannerLayoutManager;
+        bannerLayoutManager.I(this.p);
+        this.f14855i.E(this.q);
+        this.f14855i.L(this.r);
+        this.f14854h.setLayoutManager(this.f14855i);
+        new PagerSnapHelper().attachToRecyclerView(this.f14854h);
+        this.f14849c = new RecyclerView(context);
+        this.f14849c.setLayoutManager(new LinearLayoutManager(context, i2, false));
+        c cVar = new c();
+        this.f14852f = cVar;
+        this.f14849c.setAdapter(cVar);
         FrameLayout.LayoutParams layoutParams = new FrameLayout.LayoutParams(-2, -2);
-        layoutParams.gravity = BadgeDrawable.BOTTOM_START;
-        layoutParams.setMargins(k10, 0, k11, k12);
-        addView(this.f16081d, layoutParams);
-        if (this.f16080c) {
+        layoutParams.gravity = BadgeDrawable.f6715d;
+        layoutParams.setMargins(l, 0, l2, l3);
+        addView(this.f14849c, layoutParams);
+        if (this.f14848b) {
             return;
         }
-        this.f16081d.setVisibility(8);
+        this.f14849c.setVisibility(8);
     }
 
-    public boolean m() {
-        return this.f16092o;
+    public boolean n() {
+        return this.n;
     }
 
-    public synchronized void n() {
-        int i10;
-        if (this.f16080c && (i10 = this.f16090m) > 1) {
-            this.f16084g.i(this.f16091n % i10);
-            this.f16084g.notifyDataSetChanged();
+    protected synchronized void o() {
+        int i2;
+        if (this.f14848b && (i2 = this.l) > 1) {
+            this.f14852f.n(this.m % i2);
+            this.f14852f.notifyDataSetChanged();
         }
     }
 
     @Override // android.view.ViewGroup, android.view.View
-    public void onAttachedToWindow() {
+    protected void onAttachedToWindow() {
         super.onAttachedToWindow();
         setPlaying(true);
     }
 
     @Override // android.view.ViewGroup, android.view.View
-    public void onDetachedFromWindow() {
+    protected void onDetachedFromWindow() {
         super.onDetachedFromWindow();
         setPlaying(false);
     }
 
     @Override // android.view.View
-    public void onWindowVisibilityChanged(int i10) {
-        super.onWindowVisibilityChanged(i10);
-        setPlaying(i10 == 0);
+    protected void onWindowVisibilityChanged(int visibility) {
+        super.onWindowVisibilityChanged(visibility);
+        setPlaying(visibility == 0);
     }
 
     public void setAdapter(RecyclerView.Adapter<?> adapter) {
-        this.f16089l = false;
-        this.f16086i.setAdapter(adapter);
-        this.f16090m = adapter.getPageSize();
-        this.f16087j.R(false);
+        this.k = false;
+        this.f14854h.setAdapter(adapter);
+        this.l = adapter.getItemCount();
+        this.f14855i.H(false);
         setPlaying(true);
-        this.f16086i.addOnScrollListener(new b());
-        this.f16089l = true;
+        this.f14854h.addOnScrollListener(new b());
+        this.k = true;
     }
 
-    public void setAutoPlayDuration(int i10) {
-        this.f16079b = i10;
+    public void setAutoPlayDuration(int autoPlayDuration) {
+        this.f14847a = autoPlayDuration;
     }
 
-    public void setAutoPlaying(boolean z10) {
-        this.f16093p = z10;
-        setPlaying(z10);
+    public void setAutoPlaying(boolean isAutoPlaying) {
+        this.o = isAutoPlaying;
+        setPlaying(isAutoPlaying);
     }
 
-    public void setCenterScale(float f10) {
-        this.f16095r = f10;
-        this.f16087j.O(f10);
+    public void setCenterScale(float centerScale) {
+        this.q = centerScale;
+        this.f14855i.E(centerScale);
     }
 
-    public void setItemSpace(int i10) {
-        this.f16094q = i10;
-        this.f16087j.S(i10);
+    public void setItemSpace(int itemSpace) {
+        this.p = itemSpace;
+        this.f14855i.I(itemSpace);
     }
 
-    public void setMoveSpeed(float f10) {
-        this.f16096s = f10;
-        this.f16087j.V(f10);
+    public void setMoveSpeed(float moveSpeed) {
+        this.r = moveSpeed;
+        this.f14855i.L(moveSpeed);
     }
 
-    public void setOnPageChangeListener(d dVar) {
-        this.f16097t = dVar;
+    public void setOnPageChangeListener(e onPageChangeListener) {
+        this.s = onPageChangeListener;
     }
 
-    public void setOrientation(int i10) {
-        this.f16087j.setOrientation(i10);
+    public void setOrientation(int orientation) {
+        this.f14855i.setOrientation(orientation);
     }
 
-    public synchronized void setPlaying(boolean z10) {
-        try {
-            if (this.f16093p && this.f16089l) {
-                boolean z11 = this.f16092o;
-                if (!z11 && z10) {
-                    this.f16098u.sendEmptyMessageDelayed(1000, this.f16079b);
-                    this.f16092o = true;
-                } else if (z11 && !z10) {
-                    this.f16098u.removeMessages(1000);
-                    this.f16092o = false;
-                }
+    protected synchronized void setPlaying(boolean playing) {
+        if (this.o && this.k) {
+            boolean z = this.n;
+            if (!z && playing) {
+                this.t.sendEmptyMessageDelayed(1000, this.f14847a);
+                this.n = true;
+            } else if (z && !playing) {
+                this.t.removeMessages(1000);
+                this.n = false;
             }
-        } catch (Throwable th2) {
-            throw th2;
         }
     }
 
-    public void setShowIndicator(boolean z10) {
-        this.f16080c = z10;
-        this.f16081d.setVisibility(z10 ? 0 : 8);
+    public void setShowIndicator(boolean showIndicator) {
+        this.f14848b = showIndicator;
+        this.f14849c.setVisibility(showIndicator ? 0 : 8);
     }
 
-    public BannerLayout(Context context, AttributeSet attributeSet) {
-        this(context, attributeSet, 0);
+    public BannerLayout(Context context, AttributeSet attrs) {
+        this(context, attrs, 0);
     }
 
-    public BannerLayout(Context context, AttributeSet attributeSet, int i10) {
-        super(context, attributeSet, i10);
-        this.f16088k = 1000;
-        this.f16090m = 1;
-        this.f16092o = false;
-        this.f16093p = true;
-        this.f16098u = new Handler(new a());
-        l(context, attributeSet);
+    public BannerLayout(Context context, AttributeSet attrs, int defStyleAttr) {
+        super(context, attrs, defStyleAttr);
+        this.f14856j = 1000;
+        this.l = 1;
+        this.n = false;
+        this.o = true;
+        this.t = new Handler(new a());
+        m(context, attrs);
     }
 }

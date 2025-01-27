@@ -1,17 +1,17 @@
 package com.tencent.bugly.crashreport.crash.anr;
 
 /* loaded from: classes4.dex */
-public class e implements Runnable {
+class e implements Runnable {
 
     /* renamed from: a */
-    final /* synthetic */ h f22417a;
+    final /* synthetic */ h f24814a;
 
-    public e(h hVar) {
-        this.f22417a = hVar;
+    e(h hVar) {
+        this.f24814a = hVar;
     }
 
     @Override // java.lang.Runnable
     public void run() {
-        this.f22417a.d();
+        this.f24814a.d();
     }
 }

@@ -8,7 +8,7 @@ import org.json.JSONObject;
 
 @KsAdSdkApi
 @Keep
-/* loaded from: classes3.dex */
+/* loaded from: classes.dex */
 public class SdkConfig {
     public static final String DEF_NIGHT_THEME_STYLE_FILE_NAME = "ks_adsdk_night_styles.xml";
 
@@ -69,9 +69,6 @@ public class SdkConfig {
     public KsInitCallback ksInitCallback;
 
     @Nullable
-    public KsInitCallback ksStartCallback;
-
-    @Nullable
     @KsAdSdkApi
     @Keep
     public String nightThemeStyleAssetsFileName;
@@ -103,9 +100,6 @@ public class SdkConfig {
 
         @Nullable
         private KsInitCallback ksInitCallback;
-
-        @Nullable
-        private KsInitCallback ksStartCallback;
         private boolean showNotification = true;
         private boolean canReadMacAddress = true;
         private boolean canReadNearbyWifiList = true;
@@ -154,23 +148,23 @@ public class SdkConfig {
         @KsAdSdkApi
         @Keep
         @Deprecated
-        public Builder canReadICCID(boolean z10) {
-            this.canReadICCID = z10;
+        public Builder canReadICCID(boolean z) {
+            this.canReadICCID = z;
             return this;
         }
 
         @KsAdSdkApi
         @Keep
         @Deprecated
-        public Builder canReadMacAddress(boolean z10) {
-            this.canReadMacAddress = z10;
+        public Builder canReadMacAddress(boolean z) {
+            this.canReadMacAddress = z;
             return this;
         }
 
         @KsAdSdkApi
         @Keep
-        public Builder canReadNearbyWifiList(boolean z10) {
-            this.canReadNearbyWifiList = z10;
+        public Builder canReadNearbyWifiList(boolean z) {
+            this.canReadNearbyWifiList = z;
             return this;
         }
 
@@ -183,8 +177,8 @@ public class SdkConfig {
 
         @KsAdSdkApi
         @Keep
-        public Builder debug(boolean z10) {
-            this.enableDebug = z10;
+        public Builder debug(boolean z) {
+            this.enableDebug = z;
             return this;
         }
 
@@ -204,20 +198,30 @@ public class SdkConfig {
 
         @KsAdSdkApi
         @Keep
-        public Builder setStartCallback(@Nullable KsInitCallback ksInitCallback) {
-            this.ksStartCallback = ksInitCallback;
-            return this;
-        }
-
-        @KsAdSdkApi
-        @Keep
-        public Builder showNotification(boolean z10) {
-            this.showNotification = z10;
+        public Builder showNotification(boolean z) {
+            this.showNotification = z;
             return this;
         }
     }
 
-    public /* synthetic */ SdkConfig(Builder builder, AnonymousClass1 anonymousClass1) {
+    @KsAdSdkApi
+    @Keep
+    private SdkConfig(Builder builder) {
+        this.enableDebug = builder.enableDebug;
+        this.appId = builder.appId;
+        this.appName = builder.appName;
+        this.appKey = builder.appKey;
+        this.appWebKey = builder.appWebKey;
+        this.showNotification = builder.showNotification;
+        this.canReadMacAddress = builder.canReadMacAddress;
+        this.canReadNearbyWifiList = builder.canReadNearbyWifiList;
+        this.canReadICCID = builder.canReadICCID;
+        this.nightThemeStyleAssetsFileName = builder.nightThemeStyleAssetsFileName;
+        this.ksCustomController = builder.ksCustomController;
+        this.ksInitCallback = builder.ksInitCallback;
+    }
+
+    /* synthetic */ SdkConfig(Builder builder, AnonymousClass1 anonymousClass1) {
         this(builder);
     }
 
@@ -228,15 +232,15 @@ public class SdkConfig {
             builder.enableDebug = jSONObject.optBoolean("enableDebug");
             builder.appId = jSONObject.optString("appId");
             builder.appName = jSONObject.optString("appName");
-            builder.appKey = jSONObject.optString(b7.b.Y);
+            builder.appKey = jSONObject.optString(com.heytap.mcssdk.n.b.Q);
             builder.appWebKey = jSONObject.optString("appWebKey");
             builder.showNotification = jSONObject.optBoolean("showNotification");
             builder.canReadMacAddress = jSONObject.optBoolean("canReadMacAddress");
             builder.canReadNearbyWifiList = jSONObject.optBoolean("canReadNearbyWifiList");
             builder.canReadICCID = jSONObject.optBoolean("canReadICCID");
             builder.nightThemeStyleAssetsFileName = jSONObject.optString("nightThemeStyleAssetsFileName");
-        } catch (JSONException e10) {
-            e10.printStackTrace();
+        } catch (JSONException e2) {
+            e2.printStackTrace();
         }
         return builder.build();
     }
@@ -265,34 +269,16 @@ public class SdkConfig {
             jSONObject.put("enableDebug", this.enableDebug);
             jSONObject.put("appId", this.appId);
             jSONObject.put("appName", this.appName);
-            jSONObject.put(b7.b.Y, this.appKey);
+            jSONObject.put(com.heytap.mcssdk.n.b.Q, this.appKey);
             jSONObject.put("appWebKey", this.appWebKey);
             jSONObject.put("showNotification", this.showNotification);
             jSONObject.put("canReadMacAddress", this.canReadMacAddress);
             jSONObject.put("canReadNearbyWifiList", this.canReadNearbyWifiList);
             jSONObject.put("canReadICCID", this.canReadICCID);
             jSONObject.put("nightThemeStyleAssetsFileName", this.nightThemeStyleAssetsFileName);
-        } catch (JSONException e10) {
-            e10.printStackTrace();
+        } catch (JSONException e2) {
+            e2.printStackTrace();
         }
         return jSONObject.toString();
-    }
-
-    @KsAdSdkApi
-    @Keep
-    private SdkConfig(Builder builder) {
-        this.enableDebug = builder.enableDebug;
-        this.appId = builder.appId;
-        this.appName = builder.appName;
-        this.appKey = builder.appKey;
-        this.appWebKey = builder.appWebKey;
-        this.showNotification = builder.showNotification;
-        this.canReadMacAddress = builder.canReadMacAddress;
-        this.canReadNearbyWifiList = builder.canReadNearbyWifiList;
-        this.canReadICCID = builder.canReadICCID;
-        this.nightThemeStyleAssetsFileName = builder.nightThemeStyleAssetsFileName;
-        this.ksCustomController = builder.ksCustomController;
-        this.ksInitCallback = builder.ksInitCallback;
-        this.ksStartCallback = builder.ksStartCallback;
     }
 }

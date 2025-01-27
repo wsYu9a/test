@@ -22,18 +22,18 @@ public class TextInfo {
         return this.pStart;
     }
 
-    public TextInfo setLine(String str) {
-        this.line = str;
+    public TextInfo setLine(String line) {
+        this.line = line;
         return this;
     }
 
-    public TextInfo setWidthExtra(float f10) {
-        this.widthExtra = f10;
+    public TextInfo setWidthExtra(float widthExtra) {
+        this.widthExtra = widthExtra;
         return this;
     }
 
-    public TextInfo setpStart(boolean z10) {
-        this.pStart = z10;
+    public TextInfo setpStart(boolean pStart) {
+        this.pStart = pStart;
         return this;
     }
 }

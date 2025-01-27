@@ -7,11 +7,11 @@ import java.io.FileInputStream;
 import java.io.InputStreamReader;
 import java.util.HashSet;
 
-/* loaded from: classes2.dex */
+/* loaded from: classes.dex */
 public class af {
 
     /* renamed from: a, reason: collision with root package name */
-    private String[] f10734a = {"/sbin/.magisk/", "/sbin/.core/mirror", "/sbin/.core/img", "/sbin/.core/db-0/magisk.db"};
+    private String[] f9054a = {"/sbin/.magisk/", "/sbin/.core/mirror", "/sbin/.core/img", "/sbin/.core/db-0/magisk.db"};
 
     public int a() {
         File file = new File(String.format("/proc/%d/mounts", Integer.valueOf(Process.myPid())));
@@ -26,18 +26,18 @@ public class af {
                     fileInputStream.close();
                     return hashSet.size();
                 }
-                String[] strArr = this.f10734a;
+                String[] strArr = this.f9054a;
                 int length = strArr.length;
-                int i10 = 0;
+                int i2 = 0;
                 while (true) {
-                    if (i10 >= length) {
+                    if (i2 >= length) {
                         break;
                     }
-                    if (readLine.contains(strArr[i10])) {
+                    if (readLine.contains(strArr[i2])) {
                         hashSet.add(readLine);
                         break;
                     }
-                    i10++;
+                    i2++;
                 }
             }
         } catch (Exception unused) {

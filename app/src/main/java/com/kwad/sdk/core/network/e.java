@@ -1,34 +1,64 @@
 package com.kwad.sdk.core.network;
 
-import androidx.media3.session.SessionCommand;
+import androidx.annotation.Nullable;
+import androidx.annotation.WorkerThread;
+import com.kwad.sdk.service.ServiceProvider;
+import com.kwad.sdk.utils.av;
+import com.kwad.sdk.utils.bb;
+import java.io.File;
+import java.nio.charset.Charset;
 
-/* loaded from: classes3.dex */
-public final class e {
-    public final int errorCode;
-    public final String msg;
-    public static e azv = new e(-1, "请求超时事件");
-    public static e azw = new e(-2, "请求异常");
-    public static e azx = new e(-1000, "该业务组件未加载");
-    public static e azy = new e(40001, "网络错误");
-    public static e azz = new e(40002, "数据解析错误");
-    public static e azA = new e(40003, "数据为空");
-    public static e azB = new e(40004, "视频资源缓存失败");
-    public static e azC = new e(40005, "网络超时");
-    public static e azD = new e(40007, "图片下载失败");
-    public static e azE = new e(40008, "广告场景不匹配");
-    public static e azF = new e(40009, "广告加载异常");
-    public static e azG = new e(SessionCommand.COMMAND_CODE_SESSION_SET_RATING, "activity场景不匹配");
-    public static e azH = new e(40011, "sdk初始化失败");
-    public static e azI = new e(40012, "权限未开启");
-    public static e azJ = new e(40013, "SDK未调用start方法");
-    public static e azK = new e(100006, "更多视频请前往快手App查看");
-    public static e azL = new e(100007, "复制链接失败，请稍后重试");
-    public static e azM = new e(100008, "内容有点敏感，不可以发送哦");
-    public static e azN = new e(130001, "数据不存在");
-    public static e azO = new e(0, "网络超时");
+/* loaded from: classes2.dex */
+public class e {
+    private static volatile e agg;
+    private String agh = we();
 
-    private e(int i10, String str) {
-        this.errorCode = i10;
-        this.msg = str;
+    private e() {
+    }
+
+    @WorkerThread
+    private static void cd(String str) {
+        try {
+            com.kwad.sdk.utils.q.a(new File(av.cF(((com.kwad.sdk.service.kwai.e) ServiceProvider.get(com.kwad.sdk.service.kwai.e.class)).getContext())), str, Charset.forName("UTF-8"), false);
+        } catch (Exception e2) {
+            com.kwad.sdk.core.d.b.printStackTraceOnly(e2);
+        }
+    }
+
+    public static e wc() {
+        if (agg == null) {
+            synchronized (e.class) {
+                if (agg == null) {
+                    agg = new e();
+                }
+            }
+        }
+        return agg;
+    }
+
+    @Nullable
+    @WorkerThread
+    private static String we() {
+        try {
+            return com.kwad.sdk.utils.q.a(new File(av.cF(((com.kwad.sdk.service.kwai.e) ServiceProvider.get(com.kwad.sdk.service.kwai.e.class)).getContext())), Charset.forName("UTF-8"));
+        } catch (Exception e2) {
+            com.kwad.sdk.core.d.b.printStackTraceOnly(e2);
+            return null;
+        }
+    }
+
+    @WorkerThread
+    public final void cc(String str) {
+        if (bb.isEquals(this.agh, str)) {
+            return;
+        }
+        this.agh = str;
+        cd(str);
+    }
+
+    @Nullable
+    @WorkerThread
+    public final String wd() {
+        return this.agh;
     }
 }

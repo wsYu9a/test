@@ -5,15 +5,15 @@ import android.view.View;
 
 /* loaded from: classes4.dex */
 public interface UILifecycleListener<T> {
-    void onCreate(Context context, View view, T t10);
+    void onCreate(Context context, View view, T t);
 
-    void onDestroy(Context context, View view, T t10);
+    void onDestroy(Context context, View view, T t);
 
-    void onPause(Context context, View view, T t10);
+    void onPause(Context context, View view, T t);
 
-    void onResume(Context context, View view, T t10);
+    void onResume(Context context, View view, T t);
 
-    void onStart(Context context, View view, T t10);
+    void onStart(Context context, View view, T t);
 
-    void onStop(Context context, View view, T t10);
+    void onStop(Context context, View view, T t);
 }

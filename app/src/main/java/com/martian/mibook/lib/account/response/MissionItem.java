@@ -1,7 +1,7 @@
 package com.martian.mibook.lib.account.response;
 
-import ba.l;
-import com.martian.apptask.R;
+import com.martian.libsupport.k;
+import com.martian.mibook.lib.account.R;
 
 /* loaded from: classes3.dex */
 public class MissionItem {
@@ -80,7 +80,7 @@ public class MissionItem {
     }
 
     public String getButtonText() {
-        return l.q(this.buttonText) ? "立即前往" : this.buttonText;
+        return k.p(this.buttonText) ? "立即前往" : this.buttonText;
     }
 
     public int getClickTimes() {
@@ -116,7 +116,7 @@ public class MissionItem {
     }
 
     public String getDescOrTitle() {
-        return l.q(this.desc) ? this.title : this.desc;
+        return k.p(this.desc) ? this.title : this.desc;
     }
 
     public int getDuration() {
@@ -155,8 +155,8 @@ public class MissionItem {
     }
 
     public int getIconRes() {
-        int i10 = this.iconRes;
-        return i10 > 0 ? i10 : R.drawable.icon_ads_bae;
+        int i2 = this.iconRes;
+        return i2 > 0 ? i2 : R.drawable.icon_ads_bae;
     }
 
     public String getIntro() {
@@ -248,270 +248,270 @@ public class MissionItem {
         return this.exposed;
     }
 
-    public void setAuthShow(Boolean bool) {
-        this.authShow = bool;
+    public void setAuthShow(Boolean authShow) {
+        this.authShow = authShow;
     }
 
-    public void setBonusCount(Integer num) {
-        this.bonusCount = num;
+    public void setBonusCount(Integer bonusCount) {
+        this.bonusCount = bonusCount;
     }
 
-    public void setBonusString(String str) {
-        this.bonusStr = str;
+    public void setBonusString(String bonusString) {
+        this.bonusStr = bonusString;
     }
 
-    public void setBookCoins(Integer num) {
-        this.bookCoins = num;
+    public void setBookCoins(Integer bookCoins) {
+        this.bookCoins = bookCoins;
     }
 
-    public void setBubbleCoins(Integer num) {
-        this.bubbleCoins = num;
+    public void setBubbleCoins(Integer bubbleCoins) {
+        this.bubbleCoins = bubbleCoins;
     }
 
-    public void setBubbleCount(Integer num) {
-        this.bubbleCount = num;
+    public void setBubbleCount(Integer bubbleCount) {
+        this.bubbleCount = bubbleCount;
     }
 
-    public MissionItem setBubbleTitle(String str) {
-        this.bubbleTitle = str;
+    public MissionItem setBubbleTitle(String bubbleTitle) {
+        this.bubbleTitle = bubbleTitle;
         return this;
     }
 
-    public void setButtonText(String str) {
-        this.buttonText = str;
+    public void setButtonText(String buttonText) {
+        this.buttonText = buttonText;
     }
 
-    public void setClickTimes(Integer num) {
-        this.clickTimes = num;
+    public void setClickTimes(Integer clickTimes) {
+        this.clickTimes = clickTimes;
     }
 
-    public void setClickType(Integer num) {
-        this.clickType = num;
+    public void setClickType(Integer clickType) {
+        this.clickType = clickType;
     }
 
-    public void setCoins(Integer num) {
-        this.coins = num;
+    public void setCoins(Integer coins) {
+        this.coins = coins;
     }
 
-    public void setDeeplink(String str) {
-        this.deeplink = str;
+    public void setDeeplink(String deeplink) {
+        this.deeplink = deeplink;
     }
 
-    public void setDesc(String str) {
-        this.desc = str;
+    public void setDesc(String desc) {
+        this.desc = desc;
     }
 
-    public void setDiractForward(boolean z10) {
-        this.diractForward = z10;
+    public void setDiractForward(boolean diractForward) {
+        this.diractForward = diractForward;
     }
 
-    public void setDuration(Integer num) {
-        this.duration = num;
+    public void setDuration(Integer duration) {
+        this.duration = duration;
     }
 
-    public void setExposed(boolean z10) {
-        this.exposed = z10;
+    public void setExposed(boolean exposed) {
+        this.exposed = exposed;
     }
 
-    public void setFinished(Boolean bool) {
-        this.finished = bool;
+    public void setFinished(Boolean finished) {
+        this.finished = finished;
     }
 
-    public void setFoldable(Boolean bool) {
-        this.foldable = bool;
+    public void setFoldable(Boolean foldable) {
+        this.foldable = foldable;
     }
 
-    public void setHide(Boolean bool) {
-        this.hide = bool;
+    public void setHide(Boolean hide) {
+        this.hide = hide;
     }
 
-    public void setHintOpened(Boolean bool) {
-        this.isHintOpened = bool;
+    public void setHintOpened(Boolean hintOpened) {
+        this.isHintOpened = hintOpened;
     }
 
-    public MissionItem setIcon(String str) {
-        this.icon = str;
+    public MissionItem setIcon(String icon) {
+        this.icon = icon;
         return this;
     }
 
-    public void setIconRes(int i10) {
-        this.iconRes = i10;
+    public void setIconRes(int iconRes) {
+        this.iconRes = iconRes;
     }
 
-    public void setIntro(String str) {
-        this.intro = str;
+    public void setIntro(String intro) {
+        this.intro = intro;
     }
 
-    public void setIsHintOpened(Boolean bool) {
-        this.isHintOpened = bool;
+    public void setIsHintOpened(Boolean isHintOpened) {
+        this.isHintOpened = isHintOpened;
     }
 
-    public MissionItem setJumpUrl(String str) {
-        this.jumpUrl = str;
+    public MissionItem setJumpUrl(String jumpUrl) {
+        this.jumpUrl = jumpUrl;
         return this;
     }
 
-    public void setMiniProgramId(String str) {
-        this.miniProgramId = str;
+    public void setMiniProgramId(String miniProgramId) {
+        this.miniProgramId = miniProgramId;
     }
 
-    public void setMoney(Integer num) {
-        this.money = num;
+    public void setMoney(Integer money) {
+        this.money = money;
     }
 
-    public void setNightIcon(String str) {
-        this.nightIcon = str;
+    public void setNightIcon(String nightIcon) {
+        this.nightIcon = nightIcon;
     }
 
-    public void setNightIconRes(int i10) {
-        this.nightIconRes = i10;
+    public void setNightIconRes(int nightIconRes) {
+        this.nightIconRes = nightIconRes;
     }
 
-    public void setOrigin(Object obj) {
-        this.origin = obj;
+    public void setOrigin(Object origin) {
+        this.origin = origin;
     }
 
-    public void setPriority(Integer num) {
-        this.priority = num;
+    public void setPriority(Integer priority) {
+        this.priority = priority;
     }
 
-    public void setRecommend(String str) {
-        this.recommend = str;
+    public void setRecommend(String recommend) {
+        this.recommend = recommend;
     }
 
-    public void setRuntimes(Integer num) {
-        this.runtimes = num;
+    public void setRuntimes(Integer runtimes) {
+        this.runtimes = runtimes;
     }
 
-    public void setTitle(String str) {
-        this.title = str;
+    public void setTitle(String title) {
+        this.title = title;
     }
 
-    public void setType(Integer num) {
-        this.type = num;
+    public void setType(Integer type) {
+        this.type = type;
     }
 
-    public MissionItem setUrl(String str) {
-        this.url = str;
+    public MissionItem setUrl(String url) {
+        this.url = url;
         return this;
     }
 
-    public void setWxAppid(String str) {
-        this.wxAppid = str;
+    public void setWxAppid(String wxAppid) {
+        this.wxAppid = wxAppid;
     }
 
-    public MissionItem(int i10, String str, int i11, int i12, boolean z10, int i13, String str2) {
+    public MissionItem(int type, String title, int clickType, int clickTimes, boolean authShow, int priority, String buttonText) {
         this.diractForward = true;
         this.hide = Boolean.FALSE;
         this.exposed = false;
-        this.type = Integer.valueOf(i10);
-        this.title = str;
-        this.clickType = Integer.valueOf(i11);
-        this.clickTimes = Integer.valueOf(i12);
-        this.authShow = Boolean.valueOf(z10);
-        this.priority = Integer.valueOf(i13);
-        this.buttonText = str2;
+        this.type = Integer.valueOf(type);
+        this.title = title;
+        this.clickType = Integer.valueOf(clickType);
+        this.clickTimes = Integer.valueOf(clickTimes);
+        this.authShow = Boolean.valueOf(authShow);
+        this.priority = Integer.valueOf(priority);
+        this.buttonText = buttonText;
     }
 
-    public MissionItem(int i10, String str, String str2, String str3, boolean z10, int i11, int i12, boolean z11, int i13, int i14, boolean z12, boolean z13) {
+    public MissionItem(int type, String title, String desc, String buttonText, boolean foldable, int iconRes, int nightIconRes, boolean finished, int coins, int money, boolean authShow, boolean diractForward) {
         this.diractForward = true;
         Boolean bool = Boolean.FALSE;
         this.hide = bool;
         this.exposed = false;
-        this.type = Integer.valueOf(i10);
-        this.title = str;
-        this.desc = str2;
-        this.buttonText = str3;
-        this.foldable = Boolean.valueOf(z10);
-        this.iconRes = i11;
-        this.nightIconRes = i12;
+        this.type = Integer.valueOf(type);
+        this.title = title;
+        this.desc = desc;
+        this.buttonText = buttonText;
+        this.foldable = Boolean.valueOf(foldable);
+        this.iconRes = iconRes;
+        this.nightIconRes = nightIconRes;
         this.isHintOpened = bool;
-        this.finished = Boolean.valueOf(z11);
-        this.coins = Integer.valueOf(i13);
-        this.money = Integer.valueOf(i14);
-        this.authShow = Boolean.valueOf(z12);
-        this.diractForward = z13;
+        this.finished = Boolean.valueOf(finished);
+        this.coins = Integer.valueOf(coins);
+        this.money = Integer.valueOf(money);
+        this.authShow = Boolean.valueOf(authShow);
+        this.diractForward = diractForward;
     }
 
-    public MissionItem(int i10, String str, String str2, String str3, boolean z10, int i11, boolean z11, int i12, int i13, boolean z12, boolean z13) {
+    public MissionItem(int type, String title, String desc, String buttonText, boolean foldable, int iconRes, boolean finished, int coins, int money, boolean authShow, boolean diractForward) {
         this.diractForward = true;
         Boolean bool = Boolean.FALSE;
         this.hide = bool;
         this.exposed = false;
-        this.type = Integer.valueOf(i10);
-        this.title = str;
-        this.desc = str2;
-        this.buttonText = str3;
-        this.foldable = Boolean.valueOf(z10);
-        this.iconRes = i11;
+        this.type = Integer.valueOf(type);
+        this.title = title;
+        this.desc = desc;
+        this.buttonText = buttonText;
+        this.foldable = Boolean.valueOf(foldable);
+        this.iconRes = iconRes;
         this.isHintOpened = bool;
-        this.finished = Boolean.valueOf(z11);
-        this.coins = Integer.valueOf(i12);
-        this.money = Integer.valueOf(i13);
-        this.authShow = Boolean.valueOf(z12);
-        this.diractForward = z13;
+        this.finished = Boolean.valueOf(finished);
+        this.coins = Integer.valueOf(coins);
+        this.money = Integer.valueOf(money);
+        this.authShow = Boolean.valueOf(authShow);
+        this.diractForward = diractForward;
     }
 
-    public MissionItem(int i10, String str, String str2, String str3, boolean z10, int i11, boolean z11, int i12, int i13, boolean z12, String str4, String str5) {
+    public MissionItem(int type, String title, String desc, String buttonText, boolean foldable, int iconRes, boolean finished, int coins, int money, boolean authShow, String icon, String url) {
         this.diractForward = true;
         Boolean bool = Boolean.FALSE;
         this.hide = bool;
         this.exposed = false;
-        this.type = Integer.valueOf(i10);
-        this.title = str;
-        this.desc = str2;
-        this.buttonText = str3;
-        this.foldable = Boolean.valueOf(z10);
-        this.iconRes = i11;
+        this.type = Integer.valueOf(type);
+        this.title = title;
+        this.desc = desc;
+        this.buttonText = buttonText;
+        this.foldable = Boolean.valueOf(foldable);
+        this.iconRes = iconRes;
         this.isHintOpened = bool;
-        this.finished = Boolean.valueOf(z11);
-        this.coins = Integer.valueOf(i12);
-        this.money = Integer.valueOf(i13);
-        this.authShow = Boolean.valueOf(z12);
-        this.icon = str4;
-        this.url = str5;
+        this.finished = Boolean.valueOf(finished);
+        this.coins = Integer.valueOf(coins);
+        this.money = Integer.valueOf(money);
+        this.authShow = Boolean.valueOf(authShow);
+        this.icon = icon;
+        this.url = url;
     }
 
-    public MissionItem(int i10, String str, String str2, String str3, boolean z10, int i11, boolean z11, int i12, int i13, boolean z12, String str4, String str5, String str6, String str7, String str8) {
+    public MissionItem(int type, String title, String desc, String buttonText, boolean foldable, int iconRes, boolean finished, int coins, int money, boolean authShow, String icon, String wxAppid, String miniProgramId, String jumpUrl, String bonusString) {
         this.diractForward = true;
         Boolean bool = Boolean.FALSE;
         this.hide = bool;
         this.exposed = false;
-        this.type = Integer.valueOf(i10);
-        this.title = str;
-        this.desc = str2;
-        this.buttonText = str3;
-        this.foldable = Boolean.valueOf(z10);
-        this.iconRes = i11;
+        this.type = Integer.valueOf(type);
+        this.title = title;
+        this.desc = desc;
+        this.buttonText = buttonText;
+        this.foldable = Boolean.valueOf(foldable);
+        this.iconRes = iconRes;
         this.isHintOpened = bool;
-        this.finished = Boolean.valueOf(z11);
-        this.coins = Integer.valueOf(i12);
-        this.money = Integer.valueOf(i13);
-        this.authShow = Boolean.valueOf(z12);
-        this.icon = str4;
-        this.wxAppid = str5;
-        this.miniProgramId = str6;
-        this.jumpUrl = str7;
-        this.bonusStr = str8;
+        this.finished = Boolean.valueOf(finished);
+        this.coins = Integer.valueOf(coins);
+        this.money = Integer.valueOf(money);
+        this.authShow = Boolean.valueOf(authShow);
+        this.icon = icon;
+        this.wxAppid = wxAppid;
+        this.miniProgramId = miniProgramId;
+        this.jumpUrl = jumpUrl;
+        this.bonusStr = bonusString;
     }
 
-    public MissionItem(int i10, String str, String str2, String str3, boolean z10, int i11, boolean z11, int i12, int i13, int i14, boolean z12, boolean z13) {
+    public MissionItem(int type, String title, String desc, String buttonText, boolean foldable, int iconRes, boolean finished, int coins, int money, int bookCoins, boolean authShow, boolean diractForward) {
         this.diractForward = true;
         Boolean bool = Boolean.FALSE;
         this.hide = bool;
         this.exposed = false;
-        this.type = Integer.valueOf(i10);
-        this.title = str;
-        this.desc = str2;
-        this.buttonText = str3;
-        this.foldable = Boolean.valueOf(z10);
-        this.iconRes = i11;
+        this.type = Integer.valueOf(type);
+        this.title = title;
+        this.desc = desc;
+        this.buttonText = buttonText;
+        this.foldable = Boolean.valueOf(foldable);
+        this.iconRes = iconRes;
         this.isHintOpened = bool;
-        this.finished = Boolean.valueOf(z11);
-        this.coins = Integer.valueOf(i12);
-        this.money = Integer.valueOf(i13);
-        this.bookCoins = Integer.valueOf(i14);
-        this.authShow = Boolean.valueOf(z12);
-        this.diractForward = z13;
+        this.finished = Boolean.valueOf(finished);
+        this.coins = Integer.valueOf(coins);
+        this.money = Integer.valueOf(money);
+        this.bookCoins = Integer.valueOf(bookCoins);
+        this.authShow = Boolean.valueOf(authShow);
+        this.diractForward = diractForward;
     }
 }

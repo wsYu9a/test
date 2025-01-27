@@ -16,12 +16,12 @@ public class UMInnerImpl {
     private static boolean isInternal = false;
 
     /* renamed from: com.umeng.commonsdk.UMInnerImpl$1 */
-    public static class AnonymousClass1 implements Runnable {
+    static class AnonymousClass1 implements Runnable {
 
         /* renamed from: a */
-        final /* synthetic */ Context f24332a;
+        final /* synthetic */ Context f26105a;
 
-        public AnonymousClass1(Context context) {
+        AnonymousClass1(Context context) {
             context = context;
         }
 
@@ -33,23 +33,23 @@ public class UMInnerImpl {
                 if (!TextUtils.isEmpty(currentProcessName) && !TextUtils.isEmpty(packageName) && currentProcessName.equals(packageName)) {
                     try {
                         d.b(context);
-                    } catch (Throwable th2) {
-                        ULog.e(UMModuleRegister.INNER, "e is " + th2);
+                    } catch (Throwable th) {
+                        ULog.e(UMModuleRegister.INNER, "e is " + th);
                     }
                 }
-            } catch (Throwable th3) {
-                UMCrashManager.reportCrash(context, th3);
+            } catch (Throwable th2) {
+                UMCrashManager.reportCrash(context, th2);
             }
         }
     }
 
     /* renamed from: com.umeng.commonsdk.UMInnerImpl$2 */
-    public static class AnonymousClass2 implements Runnable {
+    static class AnonymousClass2 implements Runnable {
 
         /* renamed from: a */
-        final /* synthetic */ Context f24333a;
+        final /* synthetic */ Context f26106a;
 
-        public AnonymousClass2(Context context) {
+        AnonymousClass2(Context context) {
             context = context;
         }
 
@@ -62,19 +62,19 @@ public class UMInnerImpl {
                     return;
                 }
                 try {
-                    if (FieldManager.allow(com.umeng.commonsdk.utils.d.aq) && !c.a(context).a()) {
+                    if (FieldManager.allow(com.umeng.commonsdk.utils.d.ao) && !c.a(context).a()) {
                         c.a(context).b();
                     }
-                } catch (Throwable th2) {
-                    ULog.e(UMModuleRegister.INNER, "e is " + th2);
+                } catch (Throwable th) {
+                    ULog.e(UMModuleRegister.INNER, "e is " + th);
                 }
                 try {
                     k.b(context);
-                } catch (Throwable th3) {
-                    ULog.e(UMModuleRegister.INNER, "e is " + th3);
+                } catch (Throwable th2) {
+                    ULog.e(UMModuleRegister.INNER, "e is " + th2);
                 }
-            } catch (Throwable th4) {
-                UMCrashManager.reportCrash(context, th4);
+            } catch (Throwable th3) {
+                UMCrashManager.reportCrash(context, th3);
             }
         }
     }
@@ -87,9 +87,9 @@ public class UMInnerImpl {
                         new Thread(new Runnable() { // from class: com.umeng.commonsdk.UMInnerImpl.2
 
                             /* renamed from: a */
-                            final /* synthetic */ Context f24333a;
+                            final /* synthetic */ Context f26106a;
 
-                            public AnonymousClass2(Context context2) {
+                            AnonymousClass2(Context context2) {
                                 context = context2;
                             }
 
@@ -102,19 +102,19 @@ public class UMInnerImpl {
                                         return;
                                     }
                                     try {
-                                        if (FieldManager.allow(com.umeng.commonsdk.utils.d.aq) && !c.a(context).a()) {
+                                        if (FieldManager.allow(com.umeng.commonsdk.utils.d.ao) && !c.a(context).a()) {
                                             c.a(context).b();
                                         }
-                                    } catch (Throwable th2) {
-                                        ULog.e(UMModuleRegister.INNER, "e is " + th2);
+                                    } catch (Throwable th) {
+                                        ULog.e(UMModuleRegister.INNER, "e is " + th);
                                     }
                                     try {
                                         k.b(context);
-                                    } catch (Throwable th3) {
-                                        ULog.e(UMModuleRegister.INNER, "e is " + th3);
+                                    } catch (Throwable th2) {
+                                        ULog.e(UMModuleRegister.INNER, "e is " + th2);
                                     }
-                                } catch (Throwable th4) {
-                                    UMCrashManager.reportCrash(context, th4);
+                                } catch (Throwable th3) {
+                                    UMCrashManager.reportCrash(context, th3);
                                 }
                             }
                         }).start();
@@ -134,9 +134,9 @@ public class UMInnerImpl {
                     new Thread(new Runnable() { // from class: com.umeng.commonsdk.UMInnerImpl.1
 
                         /* renamed from: a */
-                        final /* synthetic */ Context f24332a;
+                        final /* synthetic */ Context f26105a;
 
-                        public AnonymousClass1(Context context2) {
+                        AnonymousClass1(Context context2) {
                             context = context2;
                         }
 
@@ -148,12 +148,12 @@ public class UMInnerImpl {
                                 if (!TextUtils.isEmpty(currentProcessName) && !TextUtils.isEmpty(packageName) && currentProcessName.equals(packageName)) {
                                     try {
                                         d.b(context);
-                                    } catch (Throwable th2) {
-                                        ULog.e(UMModuleRegister.INNER, "e is " + th2);
+                                    } catch (Throwable th) {
+                                        ULog.e(UMModuleRegister.INNER, "e is " + th);
                                     }
                                 }
-                            } catch (Throwable th3) {
-                                UMCrashManager.reportCrash(context, th3);
+                            } catch (Throwable th2) {
+                                UMCrashManager.reportCrash(context, th2);
                             }
                         }
                     }).start();

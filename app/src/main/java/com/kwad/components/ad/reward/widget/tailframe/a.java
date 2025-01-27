@@ -5,237 +5,97 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 import androidx.annotation.NonNull;
-import com.kwad.components.ad.reward.g;
-import com.kwad.components.core.e.d.a;
+import com.kwad.components.ad.reward.j;
+import com.kwad.components.core.d.b.a;
 import com.kwad.components.core.page.widget.TextProgressBar;
 import com.kwad.components.core.widget.KsLogoView;
 import com.kwad.sdk.R;
-import com.kwad.sdk.core.response.b.d;
-import com.kwad.sdk.core.response.b.e;
+import com.kwad.sdk.core.response.a.d;
 import com.kwad.sdk.core.response.model.AdInfo;
 import com.kwad.sdk.core.response.model.AdTemplate;
-import com.kwad.sdk.n.m;
+import com.kwad.sdk.j.k;
 import com.kwad.sdk.widget.c;
 import com.kwad.sdk.widget.f;
 import org.json.JSONObject;
 
 /* loaded from: classes2.dex */
 public abstract class a implements c {
-    protected View Df;
-    protected ImageView Dg;
-    private com.kwad.components.ad.widget.tailframe.appbar.a Dh;
-    private TailFrameBarH5View Di;
-    private b Dj;
-    private TextProgressBar Dk;
-    private View Dl;
-    private int Dm;
-
-    /* renamed from: fb */
-    private TextView f11896fb;
+    protected View AV;
+    protected ImageView AW;
+    private com.kwad.components.ad.widget.tailframe.appbar.a AX;
+    private TailFrameBarH5View AY;
+    private b AZ;
+    private TextProgressBar Ba;
+    private View Bb;
+    private int Bc;
+    private TextView dR;
     protected AdInfo mAdInfo;
     protected AdTemplate mAdTemplate;
-    private com.kwad.components.core.e.d.c mApkDownloadHelper;
+    private com.kwad.components.core.d.b.c mApkDownloadHelper;
     protected KsLogoView mLogoView;
     private JSONObject mReportExtData;
-    private g rO;
+    private j qt;
 
     /* renamed from: com.kwad.components.ad.reward.widget.tailframe.a$1 */
-    public class AnonymousClass1 extends com.kwad.sdk.core.download.a.a {
-        public AnonymousClass1() {
+    final class AnonymousClass1 extends com.kwad.sdk.core.download.kwai.a {
+        AnonymousClass1() {
         }
 
         @Override // com.kwad.sdk.api.KsAppDownloadListener
         public final void onDownloadFailed() {
-            a.this.Dh.D(a.this.mAdInfo);
-            a.this.Dk.e(com.kwad.sdk.core.response.b.a.aE(a.this.mAdInfo), 0);
+            a.this.AX.x(a.this.mAdInfo);
+            a.this.Ba.f(com.kwad.sdk.core.response.a.a.aw(a.this.mAdInfo), 0);
         }
 
         @Override // com.kwad.sdk.api.KsAppDownloadListener
         public final void onDownloadFinished() {
-            a.this.Dh.D(a.this.mAdInfo);
-            a.this.Dk.e(com.kwad.sdk.core.response.b.a.cg(a.this.mAdTemplate), 0);
+            a.this.AX.x(a.this.mAdInfo);
+            a.this.Ba.f(com.kwad.sdk.core.response.a.a.aH(a.this.mAdTemplate), 0);
         }
 
         @Override // com.kwad.sdk.api.KsAppDownloadListener
         public final void onIdle() {
-            a.this.Dh.D(a.this.mAdInfo);
-            a.this.Dk.e(com.kwad.sdk.core.response.b.a.aE(a.this.mAdInfo), 0);
+            a.this.AX.x(a.this.mAdInfo);
+            a.this.Ba.f(com.kwad.sdk.core.response.a.a.aw(a.this.mAdInfo), 0);
         }
 
         @Override // com.kwad.sdk.api.KsAppDownloadListener
         public final void onInstalled() {
-            a.this.Dh.D(a.this.mAdInfo);
-            a.this.Dk.e(com.kwad.sdk.core.response.b.a.ac(a.this.mAdInfo), 0);
+            a.this.AX.x(a.this.mAdInfo);
+            a.this.Ba.f(com.kwad.sdk.core.response.a.a.T(a.this.mAdInfo), 0);
         }
 
-        @Override // com.kwad.sdk.core.download.a.a
-        public final void onPaused(int i10) {
-            a.this.Dh.D(a.this.mAdInfo);
-            a.this.Dk.e(com.kwad.sdk.core.response.b.a.dp(i10), i10);
+        @Override // com.kwad.sdk.core.download.kwai.a
+        public final void onPaused(int i2) {
+            a.this.AX.x(a.this.mAdInfo);
+            a.this.Ba.f(com.kwad.sdk.core.response.a.a.bz(i2), i2);
         }
 
         @Override // com.kwad.sdk.api.KsAppDownloadListener
-        public final void onProgressUpdate(int i10) {
-            a.this.Dh.D(a.this.mAdInfo);
-            a.this.Dk.e(com.kwad.sdk.core.response.b.a.m36do(i10), i10);
+        public final void onProgressUpdate(int i2) {
+            a.this.AX.x(a.this.mAdInfo);
+            a.this.Ba.f(com.kwad.sdk.core.response.a.a.by(i2), i2);
         }
     }
 
     /* renamed from: com.kwad.components.ad.reward.widget.tailframe.a$2 */
-    public class AnonymousClass2 implements a.b {
-        final /* synthetic */ boolean vU;
+    final class AnonymousClass2 implements a.b {
+        final /* synthetic */ boolean tN;
 
-        public AnonymousClass2(boolean z10) {
-            r2 = z10;
+        AnonymousClass2(boolean z) {
+            r2 = z;
         }
 
-        @Override // com.kwad.components.core.e.d.a.b
+        @Override // com.kwad.components.core.d.b.a.b
         public final void onAdClicked() {
-            if (a.this.Dj != null) {
-                a.this.Dj.O(r2);
+            if (a.this.AZ != null) {
+                a.this.AZ.R(r2);
             }
         }
     }
 
-    public a(int i10) {
-        this.Dm = i10;
-    }
-
-    private void bindDownloadListener() {
-        this.mApkDownloadHelper = new com.kwad.components.core.e.d.c(this.mAdTemplate, this.mReportExtData, new com.kwad.sdk.core.download.a.a() { // from class: com.kwad.components.ad.reward.widget.tailframe.a.1
-            public AnonymousClass1() {
-            }
-
-            @Override // com.kwad.sdk.api.KsAppDownloadListener
-            public final void onDownloadFailed() {
-                a.this.Dh.D(a.this.mAdInfo);
-                a.this.Dk.e(com.kwad.sdk.core.response.b.a.aE(a.this.mAdInfo), 0);
-            }
-
-            @Override // com.kwad.sdk.api.KsAppDownloadListener
-            public final void onDownloadFinished() {
-                a.this.Dh.D(a.this.mAdInfo);
-                a.this.Dk.e(com.kwad.sdk.core.response.b.a.cg(a.this.mAdTemplate), 0);
-            }
-
-            @Override // com.kwad.sdk.api.KsAppDownloadListener
-            public final void onIdle() {
-                a.this.Dh.D(a.this.mAdInfo);
-                a.this.Dk.e(com.kwad.sdk.core.response.b.a.aE(a.this.mAdInfo), 0);
-            }
-
-            @Override // com.kwad.sdk.api.KsAppDownloadListener
-            public final void onInstalled() {
-                a.this.Dh.D(a.this.mAdInfo);
-                a.this.Dk.e(com.kwad.sdk.core.response.b.a.ac(a.this.mAdInfo), 0);
-            }
-
-            @Override // com.kwad.sdk.core.download.a.a
-            public final void onPaused(int i10) {
-                a.this.Dh.D(a.this.mAdInfo);
-                a.this.Dk.e(com.kwad.sdk.core.response.b.a.dp(i10), i10);
-            }
-
-            @Override // com.kwad.sdk.api.KsAppDownloadListener
-            public final void onProgressUpdate(int i10) {
-                a.this.Dh.D(a.this.mAdInfo);
-                a.this.Dk.e(com.kwad.sdk.core.response.b.a.m36do(i10), i10);
-            }
-        });
-    }
-
-    private void kD() {
-        this.Df.setOnClickListener(null);
-        this.mApkDownloadHelper = null;
-    }
-
-    private void kF() {
-        if (!com.kwad.sdk.core.response.b.a.aF(this.mAdInfo) && !e.J(this.mAdTemplate)) {
-            this.Di.f(this.mAdTemplate);
-            TextView h5OpenBtn = this.Di.getH5OpenBtn();
-            this.f11896fb = h5OpenBtn;
-            h5OpenBtn.setClickable(true);
-            this.Di.setVisibility(0);
-            new f(this.f11896fb, this);
-            return;
-        }
-        this.Dh.f(this.mAdTemplate);
-        this.Dh.setVisibility(0);
-        this.Dk = this.Dh.getTextProgressBar();
-        if (!e.J(this.mAdTemplate)) {
-            this.Dk.setClickable(true);
-            new f(this.Dk, this);
-            bindDownloadListener();
-        } else {
-            View btnInstallContainer = this.Dh.getBtnInstallContainer();
-            this.Dl = btnInstallContainer;
-            btnInstallContainer.setClickable(true);
-            new f(this.Dl, this);
-        }
-    }
-
-    public void A(Context context) {
-        View a10 = m.a(context, this.Dm, null, false);
-        this.Df = a10;
-        this.Dg = (ImageView) a10.findViewById(R.id.ksad_video_thumb_img);
-        this.mLogoView = (KsLogoView) this.Df.findViewById(R.id.ksad_video_tf_logo);
-        this.Dh = (com.kwad.components.ad.widget.tailframe.appbar.a) this.Df.findViewById(R.id.ksad_video_app_tail_frame);
-        this.Di = (TailFrameBarH5View) this.Df.findViewById(R.id.ksad_video_h5_tail_frame);
-    }
-
-    public final void destroy() {
-        com.kwad.components.ad.widget.tailframe.appbar.a aVar = this.Dh;
-        if (aVar != null) {
-            aVar.kH();
-            this.Dh.setVisibility(8);
-        }
-        TailFrameBarH5View tailFrameBarH5View = this.Di;
-        if (tailFrameBarH5View != null) {
-            tailFrameBarH5View.kH();
-            this.Di.setVisibility(8);
-        }
-        kD();
-    }
-
-    public final void g(boolean z10, boolean z11) {
-        this.Di.h(z10, z11);
-    }
-
-    public final View kE() {
-        return this.Df;
-    }
-
-    public final void kl() {
-        com.kwad.components.ad.widget.tailframe.appbar.a aVar = this.Dh;
-        if (aVar != null) {
-            aVar.kH();
-        }
-        TailFrameBarH5View tailFrameBarH5View = this.Di;
-        if (tailFrameBarH5View != null) {
-            tailFrameBarH5View.kH();
-        }
-    }
-
-    public final void setCallerContext(g gVar) {
-        this.rO = gVar;
-    }
-
-    public void a(@NonNull AdTemplate adTemplate, JSONObject jSONObject, b bVar) {
-        this.mAdTemplate = adTemplate;
-        this.mAdInfo = e.eb(adTemplate);
-        this.mReportExtData = jSONObject;
-        this.Dj = bVar;
-        this.mLogoView.aK(this.mAdTemplate);
-        kF();
-        this.Df.setClickable(true);
-        new f(this.Df, this);
-    }
-
-    @Override // com.kwad.sdk.widget.c
-    public final void b(View view) {
-        if (d.dQ(this.mAdTemplate)) {
-            b(view, false);
-        }
+    public a(int i2) {
+        this.Bc = i2;
     }
 
     /* JADX WARN: Code restructure failed: missing block: B:16:0x002d, code lost:
@@ -253,7 +113,7 @@ public abstract class a implements c {
         /*
             r5 = this;
             com.kwad.sdk.core.response.model.AdTemplate r0 = r5.mAdTemplate
-            boolean r0 = com.kwad.sdk.core.response.b.e.J(r0)
+            boolean r0 = com.kwad.sdk.core.response.a.d.p(r0)
             r1 = 2
             r2 = 1
             if (r0 == 0) goto L21
@@ -263,10 +123,10 @@ public abstract class a implements c {
         Le:
             r7 = 153(0x99, float:2.14E-43)
         L10:
-            com.kwad.components.ad.reward.g r0 = r5.rO
-            android.view.View r3 = r5.Df
+            com.kwad.components.ad.reward.j r0 = r5.qt
+            android.view.View r3 = r5.AV
             android.content.Context r3 = r3.getContext()
-            android.view.View r4 = r5.Dl
+            android.view.View r4 = r5.Bb
             if (r6 != r4) goto L1d
             r1 = 1
         L1d:
@@ -274,25 +134,25 @@ public abstract class a implements c {
             return
         L21:
             com.kwad.sdk.core.response.model.AdInfo r0 = r5.mAdInfo
-            boolean r0 = com.kwad.sdk.core.response.b.a.aF(r0)
+            boolean r0 = com.kwad.sdk.core.response.a.a.ax(r0)
             if (r0 == 0) goto L2f
-            com.kwad.components.core.page.widget.TextProgressBar r0 = r5.Dk
+            com.kwad.components.core.page.widget.TextProgressBar r0 = r5.Ba
             if (r6 != r0) goto L34
         L2d:
             r1 = 1
             goto L34
         L2f:
-            android.widget.TextView r0 = r5.f11896fb
+            android.widget.TextView r0 = r5.dR
             if (r6 != r0) goto L34
             goto L2d
         L34:
-            com.kwad.components.core.e.d.a$a r0 = new com.kwad.components.core.e.d.a$a
+            com.kwad.components.core.d.b.a$a r0 = new com.kwad.components.core.d.b.a$a
             android.content.Context r3 = r6.getContext()
             r0.<init>(r3)
             com.kwad.sdk.core.response.model.AdTemplate r3 = r5.mAdTemplate
-            com.kwad.components.core.e.d.a$a r0 = r0.au(r3)
-            com.kwad.components.core.e.d.c r3 = r5.mApkDownloadHelper
-            com.kwad.components.core.e.d.a$a r0 = r0.b(r3)
+            com.kwad.components.core.d.b.a$a r0 = r0.I(r3)
+            com.kwad.components.core.d.b.c r3 = r5.mApkDownloadHelper
+            com.kwad.components.core.d.b.a$a r0 = r0.b(r3)
             r3 = 0
             if (r1 != r2) goto L4e
             r4 = 1
@@ -300,27 +160,164 @@ public abstract class a implements c {
         L4e:
             r4 = 0
         L4f:
-            com.kwad.components.core.e.d.a$a r0 = r0.an(r4)
-            com.kwad.components.core.e.d.a$a r0 = r0.am(r2)
-            com.kwad.components.core.page.widget.TextProgressBar r4 = r5.Dk
+            com.kwad.components.core.d.b.a$a r0 = r0.ao(r4)
+            com.kwad.components.core.d.b.a$a r0 = r0.an(r2)
+            com.kwad.components.core.page.widget.TextProgressBar r4 = r5.Ba
             if (r6 != r4) goto L5c
             goto L5d
         L5c:
             r2 = 0
         L5d:
-            com.kwad.components.core.e.d.a$a r6 = r0.ap(r2)
-            com.kwad.components.core.e.d.a$a r6 = r6.ao(r1)
+            com.kwad.components.core.d.b.a$a r6 = r0.ao(r2)
+            com.kwad.components.core.d.b.a$a r6 = r6.ap(r1)
             com.kwad.components.ad.reward.widget.tailframe.a$2 r0 = new com.kwad.components.ad.reward.widget.tailframe.a$2
             r0.<init>()
-            com.kwad.components.core.e.d.a$a r6 = r6.a(r0)
-            com.kwad.components.core.e.d.a.a(r6)
+            com.kwad.components.core.d.b.a$a r6 = r6.a(r0)
+            com.kwad.components.core.d.b.a.a(r6)
             return
         */
         throw new UnsupportedOperationException("Method not decompiled: com.kwad.components.ad.reward.widget.tailframe.a.b(android.view.View, boolean):void");
     }
 
+    private void bindDownloadListener() {
+        this.mApkDownloadHelper = new com.kwad.components.core.d.b.c(this.mAdTemplate, this.mReportExtData, new com.kwad.sdk.core.download.kwai.a() { // from class: com.kwad.components.ad.reward.widget.tailframe.a.1
+            AnonymousClass1() {
+            }
+
+            @Override // com.kwad.sdk.api.KsAppDownloadListener
+            public final void onDownloadFailed() {
+                a.this.AX.x(a.this.mAdInfo);
+                a.this.Ba.f(com.kwad.sdk.core.response.a.a.aw(a.this.mAdInfo), 0);
+            }
+
+            @Override // com.kwad.sdk.api.KsAppDownloadListener
+            public final void onDownloadFinished() {
+                a.this.AX.x(a.this.mAdInfo);
+                a.this.Ba.f(com.kwad.sdk.core.response.a.a.aH(a.this.mAdTemplate), 0);
+            }
+
+            @Override // com.kwad.sdk.api.KsAppDownloadListener
+            public final void onIdle() {
+                a.this.AX.x(a.this.mAdInfo);
+                a.this.Ba.f(com.kwad.sdk.core.response.a.a.aw(a.this.mAdInfo), 0);
+            }
+
+            @Override // com.kwad.sdk.api.KsAppDownloadListener
+            public final void onInstalled() {
+                a.this.AX.x(a.this.mAdInfo);
+                a.this.Ba.f(com.kwad.sdk.core.response.a.a.T(a.this.mAdInfo), 0);
+            }
+
+            @Override // com.kwad.sdk.core.download.kwai.a
+            public final void onPaused(int i2) {
+                a.this.AX.x(a.this.mAdInfo);
+                a.this.Ba.f(com.kwad.sdk.core.response.a.a.bz(i2), i2);
+            }
+
+            @Override // com.kwad.sdk.api.KsAppDownloadListener
+            public final void onProgressUpdate(int i2) {
+                a.this.AX.x(a.this.mAdInfo);
+                a.this.Ba.f(com.kwad.sdk.core.response.a.a.by(i2), i2);
+            }
+        });
+    }
+
+    private void ke() {
+        this.AV.setOnClickListener(null);
+        this.mApkDownloadHelper = null;
+    }
+
+    private void kg() {
+        if (!com.kwad.sdk.core.response.a.a.ax(this.mAdInfo) && !d.p(this.mAdTemplate)) {
+            this.AY.bindView(this.mAdTemplate);
+            TextView h5OpenBtn = this.AY.getH5OpenBtn();
+            this.dR = h5OpenBtn;
+            h5OpenBtn.setClickable(true);
+            this.AY.setVisibility(0);
+            new f(this.dR, this);
+            return;
+        }
+        this.AX.bindView(this.mAdTemplate);
+        this.AX.setVisibility(0);
+        this.Ba = this.AX.getTextProgressBar();
+        if (!d.p(this.mAdTemplate)) {
+            this.Ba.setClickable(true);
+            new f(this.Ba, this);
+            bindDownloadListener();
+        } else {
+            View btnInstallContainer = this.AX.getBtnInstallContainer();
+            this.Bb = btnInstallContainer;
+            btnInstallContainer.setClickable(true);
+            new f(this.Bb, this);
+        }
+    }
+
+    public void D(Context context) {
+        View a2 = k.a(context, this.Bc, null, false);
+        this.AV = a2;
+        this.AW = (ImageView) a2.findViewById(R.id.ksad_video_thumb_img);
+        this.mLogoView = (KsLogoView) this.AV.findViewById(R.id.ksad_video_tf_logo);
+        this.AX = (com.kwad.components.ad.widget.tailframe.appbar.a) this.AV.findViewById(R.id.ksad_video_app_tail_frame);
+        this.AY = (TailFrameBarH5View) this.AV.findViewById(R.id.ksad_video_h5_tail_frame);
+    }
+
     @Override // com.kwad.sdk.widget.c
     public final void a(View view) {
         b(view, true);
+    }
+
+    public void a(@NonNull AdTemplate adTemplate, JSONObject jSONObject, b bVar) {
+        this.mAdTemplate = adTemplate;
+        this.mAdInfo = d.cb(adTemplate);
+        this.mReportExtData = jSONObject;
+        this.AZ = bVar;
+        this.mLogoView.S(this.mAdTemplate);
+        kg();
+        this.AV.setClickable(true);
+        new f(this.AV, this);
+    }
+
+    @Override // com.kwad.sdk.widget.c
+    public final void b(View view) {
+        if (com.kwad.sdk.core.response.a.c.bQ(this.mAdTemplate)) {
+            b(view, false);
+        }
+    }
+
+    public final void d(boolean z, boolean z2) {
+        this.AY.e(z, z2);
+    }
+
+    public final void destroy() {
+        com.kwad.components.ad.widget.tailframe.appbar.a aVar = this.AX;
+        if (aVar != null) {
+            aVar.ki();
+            this.AX.setVisibility(8);
+        }
+        TailFrameBarH5View tailFrameBarH5View = this.AY;
+        if (tailFrameBarH5View != null) {
+            tailFrameBarH5View.ki();
+            this.AY.setVisibility(8);
+        }
+        ke();
+    }
+
+    public final void jJ() {
+        com.kwad.components.ad.widget.tailframe.appbar.a aVar = this.AX;
+        if (aVar != null) {
+            aVar.ki();
+        }
+        TailFrameBarH5View tailFrameBarH5View = this.AY;
+        if (tailFrameBarH5View != null) {
+            tailFrameBarH5View.ki();
+        }
+    }
+
+    public final View kf() {
+        return this.AV;
+    }
+
+    public final void setCallerContext(j jVar) {
+        this.qt = jVar;
     }
 }

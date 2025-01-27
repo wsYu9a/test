@@ -9,122 +9,130 @@ import android.widget.TextView;
 import androidx.annotation.Nullable;
 import com.kwad.components.ad.splashscreen.local.SplashSkipViewModel;
 import com.kwad.sdk.R;
+import com.kwad.sdk.core.config.d;
 import com.kwad.sdk.core.response.model.AdInfo;
-import com.kwad.sdk.n.m;
+import com.kwad.sdk.j.k;
 
 /* loaded from: classes2.dex */
-public class SkipView extends LinearLayout implements com.kwad.components.ad.splashscreen.widget.b {
-    private Runnable HI;
-    private a Hw;
-    private final b IW;
-    private View IX;
-    private TextView IY;
-    private TextView IZ;
-    private int Ja;
-    private boolean oY;
-
-    /* renamed from: ue */
-    private boolean f11909ue;
+public class SkipView extends LinearLayout implements com.kwad.components.ad.splashscreen.widget.a {
+    private Runnable EF;
+    private a Et;
+    private final b FN;
+    private View FO;
+    private TextView FP;
+    private TextView FQ;
+    private int FR;
+    private boolean nY;
+    private boolean sp;
 
     /* renamed from: com.kwad.components.ad.splashscreen.widget.SkipView$1 */
-    public class AnonymousClass1 implements Runnable {
-        public AnonymousClass1() {
+    final class AnonymousClass1 implements Runnable {
+        AnonymousClass1() {
         }
 
         @Override // java.lang.Runnable
         public final void run() {
-            if (SkipView.this.oY) {
+            if (SkipView.this.nY) {
                 SkipView.this.postDelayed(this, 300L);
                 return;
             }
             SkipView skipView = SkipView.this;
-            skipView.a(skipView.IW);
+            skipView.a(skipView.FN);
             SkipView skipView2 = SkipView.this;
-            skipView2.Y(skipView2.IW.Je - SkipView.this.IW.HD);
-            if (!SkipView.this.IW.mP()) {
+            skipView2.ab(skipView2.FN.FV - SkipView.this.FN.EA);
+            if (!SkipView.this.FN.lz()) {
                 SkipView.this.postDelayed(this, 1000L);
-                b.d(SkipView.this.IW);
-            } else if (SkipView.this.Hw != null) {
-                SkipView.this.Hw.ls();
+                b.d(SkipView.this.FN);
+            } else if (SkipView.this.Et != null) {
+                SkipView.this.Et.kJ();
             }
         }
     }
 
     /* renamed from: com.kwad.components.ad.splashscreen.widget.SkipView$2 */
-    public class AnonymousClass2 implements View.OnClickListener {
-        public AnonymousClass2() {
+    final class AnonymousClass2 implements View.OnClickListener {
+        AnonymousClass2() {
         }
 
         @Override // android.view.View.OnClickListener
         public final void onClick(View view) {
-            if (SkipView.this.Hw != null) {
-                SkipView.this.Hw.lr();
+            if (SkipView.this.Et != null) {
+                SkipView.this.Et.kI();
             }
         }
     }
 
     public interface a {
-        void Z(int i10);
+        void ac(int i2);
 
-        void lr();
+        void kI();
 
-        void ls();
+        void kJ();
     }
 
-    public static class b {
-        private int HD;
-        private String Jc;
-        private String Jd;
-        private int Je;
-        private boolean Jf;
-        private boolean Jg;
+    static class b {
+        private int EA;
+        private String FT;
+        private String FU;
+        private int FV;
+        private boolean FW;
+        private boolean FX;
 
         private b() {
-            this.Jc = "跳过";
-            this.Jd = "";
-            this.Je = 5;
-            this.HD = 5;
-            this.Jf = true;
-            this.Jg = true;
+            this.FT = "跳过";
+            this.FU = "";
+            this.FV = 5;
+            this.EA = 5;
+            this.FW = true;
+            this.FX = true;
         }
 
-        public static /* synthetic */ int d(b bVar) {
-            int i10 = bVar.HD;
-            bVar.HD = i10 - 1;
-            return i10;
-        }
-
-        public boolean mQ() {
-            return this.Jf && this.Jg;
-        }
-
-        public final void Y(String str) {
-            this.HD = -1;
-            this.Jd = str;
-        }
-
-        public final void ae(int i10) {
-            this.Je = i10;
-            this.HD = i10;
-        }
-
-        public final String mO() {
-            int i10 = this.HD;
-            if (i10 < 0) {
-                return this.Jd;
-            }
-            if (i10 == 0) {
-                return this.Jd + 1;
-            }
-            return this.Jd + this.HD;
-        }
-
-        public final boolean mP() {
-            return this.HD <= 0;
-        }
-
-        public /* synthetic */ b(byte b10) {
+        /* synthetic */ b(byte b2) {
             this();
+        }
+
+        static /* synthetic */ int d(b bVar) {
+            int i2 = bVar.EA;
+            bVar.EA = i2 - 1;
+            return i2;
+        }
+
+        public boolean lA() {
+            return this.FW && this.FX;
+        }
+
+        public final void ag(String str) {
+            this.EA = -1;
+            this.FU = str;
+        }
+
+        public final void ai(int i2) {
+            this.FV = i2;
+            this.EA = i2;
+        }
+
+        public final String ly() {
+            StringBuilder sb;
+            int i2;
+            int i3 = this.EA;
+            if (i3 < 0) {
+                return this.FU;
+            }
+            if (i3 == 0) {
+                sb = new StringBuilder();
+                sb.append(this.FU);
+                i2 = 1;
+            } else {
+                sb = new StringBuilder();
+                sb.append(this.FU);
+                i2 = this.EA;
+            }
+            sb.append(i2);
+            return sb.toString();
+        }
+
+        public final boolean lz() {
+            return this.EA <= 0;
         }
     }
 
@@ -132,44 +140,112 @@ public class SkipView extends LinearLayout implements com.kwad.components.ad.spl
         this(context, null);
     }
 
-    private void C(AdInfo adInfo) {
-        setTimerBtnVisible(com.kwad.sdk.core.response.b.a.cF(adInfo));
+    public SkipView(Context context, @Nullable AttributeSet attributeSet) {
+        this(context, attributeSet, 0);
     }
 
-    public void Y(int i10) {
-        a aVar = this.Hw;
-        if (aVar != null) {
-            aVar.Z(i10);
+    public SkipView(Context context, @Nullable AttributeSet attributeSet, int i2) {
+        super(k.wrapContextIfNeed(context), attributeSet, i2);
+        this.FN = new b((byte) 0);
+        this.FR = -1;
+        this.nY = false;
+        this.sp = true;
+        this.EF = new Runnable() { // from class: com.kwad.components.ad.splashscreen.widget.SkipView.1
+            AnonymousClass1() {
+            }
+
+            @Override // java.lang.Runnable
+            public final void run() {
+                if (SkipView.this.nY) {
+                    SkipView.this.postDelayed(this, 300L);
+                    return;
+                }
+                SkipView skipView = SkipView.this;
+                skipView.a(skipView.FN);
+                SkipView skipView2 = SkipView.this;
+                skipView2.ab(skipView2.FN.FV - SkipView.this.FN.EA);
+                if (!SkipView.this.FN.lz()) {
+                    SkipView.this.postDelayed(this, 1000L);
+                    b.d(SkipView.this.FN);
+                } else if (SkipView.this.Et != null) {
+                    SkipView.this.Et.kJ();
+                }
+            }
+        };
+        init();
+    }
+
+    public void a(b bVar) {
+        if (bVar == null) {
+            return;
+        }
+        if (this.FP != null) {
+            if (bVar.FT != null) {
+                this.FP.setText(bVar.FT);
+            }
+            this.FP.setVisibility(this.FN.FW ? 0 : 8);
+        }
+        String ly = bVar.ly();
+        TextView textView = this.FQ;
+        if (textView != null) {
+            if (ly != null) {
+                textView.setText(ly);
+            }
+            this.FQ.setVisibility(this.FN.FX ? 0 : 8);
+        }
+        if (this.FO != null) {
+            boolean lA = this.FN.lA();
+            this.FO.setVisibility(lA ? 0 : 8);
+            ViewGroup.LayoutParams layoutParams = getLayoutParams();
+            if (layoutParams != null) {
+                if (!lA) {
+                    layoutParams.width = -2;
+                    invalidate();
+                    return;
+                }
+                int i2 = this.FR;
+                if (i2 > 0) {
+                    layoutParams.width = i2;
+                    invalidate();
+                }
+            }
         }
     }
 
-    private void at() {
-        a(this.IW);
-        post(this.HI);
+    public void ab(int i2) {
+        a aVar = this.Et;
+        if (aVar != null) {
+            aVar.ac(i2);
+        }
     }
 
-    private void fa() {
-        this.oY = true;
+    private void fc() {
+        a(this.FN);
+        post(this.EF);
     }
 
-    private void fb() {
-        this.oY = false;
+    private void fd() {
+        this.nY = true;
+    }
+
+    private void fe() {
+        this.nY = false;
     }
 
     private void init() {
         setOrientation(0);
-        m.inflate(getContext(), R.layout.ksad_skip_view, this);
-        this.IY = (TextView) findViewById(R.id.ksad_skip_view_skip);
-        this.IZ = (TextView) findViewById(R.id.ksad_skip_view_timer);
-        this.IX = findViewById(R.id.ksad_skip_view_divider);
+        k.inflate(getContext(), R.layout.ksad_skip_view, this);
+        this.FP = (TextView) findViewById(R.id.ksad_skip_view_skip);
+        this.FQ = (TextView) findViewById(R.id.ksad_skip_view_timer);
+        this.FO = findViewById(R.id.ksad_skip_view_divider);
         setOnClickListener(new View.OnClickListener() { // from class: com.kwad.components.ad.splashscreen.widget.SkipView.2
-            public AnonymousClass2() {
+            AnonymousClass2() {
             }
 
             @Override // android.view.View.OnClickListener
             public final void onClick(View view) {
-                if (SkipView.this.Hw != null) {
-                    SkipView.this.Hw.lr();
+                if (SkipView.this.Et != null) {
+                    SkipView.this.Et.kI();
                 }
             }
         });
@@ -177,7 +253,7 @@ public class SkipView extends LinearLayout implements com.kwad.components.ad.spl
         setTimerBtnVisible(true);
     }
 
-    private void mN() {
+    private void lx() {
         if (getVisibility() == 0) {
             return;
         }
@@ -186,36 +262,42 @@ public class SkipView extends LinearLayout implements com.kwad.components.ad.spl
         animate().alpha(1.0f).setDuration(500L).start();
     }
 
-    @Override // com.kwad.components.ad.splashscreen.widget.b
-    public final void A(AdInfo adInfo) {
-        if (com.kwad.sdk.core.response.b.a.bc(adInfo)) {
-            return;
-        }
-        fa();
+    private void w(AdInfo adInfo) {
+        setTimerBtnVisible(com.kwad.sdk.core.response.a.a.cf(adInfo));
     }
 
-    @Override // com.kwad.components.ad.splashscreen.widget.b
-    public final void B(AdInfo adInfo) {
-        if (this.f11909ue) {
-            mN();
+    @Override // com.kwad.components.ad.splashscreen.widget.a
+    public final void a(SplashSkipViewModel splashSkipViewModel, AdInfo adInfo) {
+        this.sp = com.kwad.sdk.core.response.a.a.ce(adInfo);
+        setTimerPrefixText(d.a(com.kwad.components.ad.splashscreen.a.a.BQ));
+        setTimerSecond(splashSkipViewModel.skipSecond);
+        if (!com.kwad.sdk.core.response.a.a.aU(adInfo)) {
+            fc();
         }
-        if (com.kwad.sdk.core.response.b.a.bc(adInfo)) {
-            return;
-        }
-        fb();
+        setSkipText(com.kwad.sdk.core.response.a.a.bO(adInfo));
+        setVisibility(8);
+        w(adInfo);
     }
 
-    @Override // com.kwad.components.ad.splashscreen.widget.b
-    public final int ab(int i10) {
+    @Override // com.kwad.components.ad.splashscreen.widget.a
+    public final int af(int i2) {
         ViewGroup.LayoutParams layoutParams = getLayoutParams();
-        layoutParams.height = com.kwad.sdk.c.a.a.a(getContext(), 35.0f);
+        layoutParams.height = com.kwad.sdk.c.kwai.a.a(getContext(), 35.0f);
         int width = getWidth();
         setLayoutParams(layoutParams);
         return width;
     }
 
-    @Override // com.kwad.components.ad.splashscreen.widget.b
-    public final void bH() {
+    public final void ag(String str) {
+        if (str == null) {
+            return;
+        }
+        this.FN.ag(str);
+        a(this.FN);
+    }
+
+    @Override // com.kwad.components.ad.splashscreen.widget.a
+    public final void bn() {
         if (getHandler() != null) {
             getHandler().removeCallbacksAndMessages(null);
         }
@@ -224,129 +306,55 @@ public class SkipView extends LinearLayout implements com.kwad.components.ad.spl
     @Override // android.view.View
     public void setLayoutParams(ViewGroup.LayoutParams layoutParams) {
         super.setLayoutParams(layoutParams);
-        this.Ja = layoutParams.width;
+        this.FR = layoutParams.width;
     }
 
-    @Override // com.kwad.components.ad.splashscreen.widget.b
+    @Override // com.kwad.components.ad.splashscreen.widget.a
     public void setOnViewListener(a aVar) {
-        this.Hw = aVar;
+        this.Et = aVar;
     }
 
-    public void setSkipBtnVisible(boolean z10) {
-        this.IW.Jf = z10;
-        a(this.IW);
+    public void setSkipBtnVisible(boolean z) {
+        this.FN.FW = z;
+        a(this.FN);
     }
 
     public void setSkipText(String str) {
-        this.IW.Jc = str;
-        a(this.IW);
+        this.FN.FT = str;
+        a(this.FN);
     }
 
-    public void setTimerBtnVisible(boolean z10) {
-        this.IW.Jg = z10;
-        a(this.IW);
+    public void setTimerBtnVisible(boolean z) {
+        this.FN.FX = z;
+        a(this.FN);
     }
 
     public void setTimerPrefixText(String str) {
-        this.IW.Jd = str;
-        a(this.IW);
+        this.FN.FU = str;
+        a(this.FN);
     }
 
-    public void setTimerSecond(int i10) {
-        this.IW.ae(i10);
-        a(this.IW);
+    public void setTimerSecond(int i2) {
+        this.FN.ai(i2);
+        a(this.FN);
     }
 
-    public SkipView(Context context, @Nullable AttributeSet attributeSet) {
-        this(context, attributeSet, 0);
-    }
-
-    public SkipView(Context context, @Nullable AttributeSet attributeSet, int i10) {
-        super(m.wrapContextIfNeed(context), attributeSet, i10);
-        this.IW = new b((byte) 0);
-        this.Ja = -1;
-        this.oY = false;
-        this.f11909ue = true;
-        this.HI = new Runnable() { // from class: com.kwad.components.ad.splashscreen.widget.SkipView.1
-            public AnonymousClass1() {
-            }
-
-            @Override // java.lang.Runnable
-            public final void run() {
-                if (SkipView.this.oY) {
-                    SkipView.this.postDelayed(this, 300L);
-                    return;
-                }
-                SkipView skipView = SkipView.this;
-                skipView.a(skipView.IW);
-                SkipView skipView2 = SkipView.this;
-                skipView2.Y(skipView2.IW.Je - SkipView.this.IW.HD);
-                if (!SkipView.this.IW.mP()) {
-                    SkipView.this.postDelayed(this, 1000L);
-                    b.d(SkipView.this.IW);
-                } else if (SkipView.this.Hw != null) {
-                    SkipView.this.Hw.ls();
-                }
-            }
-        };
-        init();
-    }
-
-    public final void Y(String str) {
-        if (str == null) {
+    @Override // com.kwad.components.ad.splashscreen.widget.a
+    public final void u(AdInfo adInfo) {
+        if (com.kwad.sdk.core.response.a.a.aU(adInfo)) {
             return;
         }
-        this.IW.Y(str);
-        a(this.IW);
+        fd();
     }
 
-    public void a(b bVar) {
-        if (bVar == null) {
+    @Override // com.kwad.components.ad.splashscreen.widget.a
+    public final void v(AdInfo adInfo) {
+        if (this.sp) {
+            lx();
+        }
+        if (com.kwad.sdk.core.response.a.a.aU(adInfo)) {
             return;
         }
-        if (this.IY != null) {
-            if (bVar.Jc != null) {
-                this.IY.setText(bVar.Jc);
-            }
-            this.IY.setVisibility(this.IW.Jf ? 0 : 8);
-        }
-        String mO = bVar.mO();
-        TextView textView = this.IZ;
-        if (textView != null) {
-            if (mO != null) {
-                textView.setText(mO);
-            }
-            this.IZ.setVisibility(this.IW.Jg ? 0 : 8);
-        }
-        if (this.IX != null) {
-            boolean mQ = this.IW.mQ();
-            this.IX.setVisibility(mQ ? 0 : 8);
-            ViewGroup.LayoutParams layoutParams = getLayoutParams();
-            if (layoutParams != null) {
-                if (!mQ) {
-                    layoutParams.width = -2;
-                    invalidate();
-                    return;
-                }
-                int i10 = this.Ja;
-                if (i10 > 0) {
-                    layoutParams.width = i10;
-                    invalidate();
-                }
-            }
-        }
-    }
-
-    @Override // com.kwad.components.ad.splashscreen.widget.b
-    public final void a(SplashSkipViewModel splashSkipViewModel, AdInfo adInfo) {
-        this.f11909ue = com.kwad.sdk.core.response.b.a.cE(adInfo);
-        setTimerPrefixText(com.kwad.sdk.core.config.d.a(com.kwad.components.ad.splashscreen.b.a.Eq));
-        setTimerSecond(splashSkipViewModel.skipSecond);
-        if (!com.kwad.sdk.core.response.b.a.bc(adInfo)) {
-            at();
-        }
-        setSkipText(com.kwad.sdk.core.response.b.a.cq(adInfo));
-        setVisibility(8);
-        C(adInfo);
+        fe();
     }
 }

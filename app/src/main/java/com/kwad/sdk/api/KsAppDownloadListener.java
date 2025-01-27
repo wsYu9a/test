@@ -5,7 +5,7 @@ import com.kwad.sdk.api.core.KsAdSdkApi;
 
 @KsAdSdkApi
 @Keep
-/* loaded from: classes3.dex */
+/* loaded from: classes2.dex */
 public interface KsAppDownloadListener {
     @KsAdSdkApi
     @Keep
@@ -29,5 +29,5 @@ public interface KsAppDownloadListener {
 
     @KsAdSdkApi
     @Keep
-    void onProgressUpdate(int i10);
+    void onProgressUpdate(int i2);
 }

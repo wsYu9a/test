@@ -1,11 +1,10 @@
 package com.baidu.mobads.sdk.api;
 
-import com.baidu.mobads.sdk.internal.bt;
-import l5.c;
+import com.baidu.mobads.sdk.internal.bq;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-/* loaded from: classes2.dex */
+/* loaded from: classes.dex */
 public class SplashFocusParams {
     private final Builder mBuilder;
 
@@ -15,36 +14,36 @@ public class SplashFocusParams {
         private int iconSizeDp = 44;
         private boolean autoAnimOffset = true;
         private int animOffsetPx = 0;
-        private double darkAlpha = c.f27899e;
+        private double darkAlpha = 0.0d;
 
         public SplashFocusParams build() {
             return new SplashFocusParams(this);
         }
 
         @Deprecated
-        public Builder setAnimOffsetPx(int i10) {
+        public Builder setAnimOffsetPx(int i2) {
             this.autoAnimOffset = false;
-            this.animOffsetPx = i10;
+            this.animOffsetPx = i2;
             return this;
         }
 
-        public Builder setDarkAlpha(double d10) {
-            this.darkAlpha = d10;
+        public Builder setDarkAlpha(double d2) {
+            this.darkAlpha = d2;
             return this;
         }
 
-        public Builder setIconBottomMarginDp(int i10) {
-            this.iconBottomMarginDp = i10;
+        public Builder setIconBottomMarginDp(int i2) {
+            this.iconBottomMarginDp = i2;
             return this;
         }
 
-        public Builder setIconRightMarginDp(int i10) {
-            this.iconRightMarginDp = i10;
+        public Builder setIconRightMarginDp(int i2) {
+            this.iconRightMarginDp = i2;
             return this;
         }
 
-        public Builder setIconSizeDp(int i10) {
-            this.iconSizeDp = i10;
+        public Builder setIconSizeDp(int i2) {
+            this.iconSizeDp = i2;
             return this;
         }
     }
@@ -63,8 +62,8 @@ public class SplashFocusParams {
                 jSONObject.put("anim_offset_y", this.mBuilder.animOffsetPx);
             }
             jSONObject.put("icon_dark_alpha", this.mBuilder.darkAlpha);
-        } catch (JSONException e10) {
-            bt.a().a(e10);
+        } catch (JSONException e2) {
+            bq.a().a(e2);
         }
         return jSONObject;
     }

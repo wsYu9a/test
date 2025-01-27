@@ -13,41 +13,34 @@ import java.security.PublicKey;
 public abstract class z extends com.vivo.push.l {
 
     /* renamed from: b */
-    protected PushMessageCallback f25023b;
+    protected PushMessageCallback f30996b;
 
-    public z(com.vivo.push.o oVar) {
+    z(com.vivo.push.o oVar) {
         super(oVar);
     }
 
     public final void a(PushMessageCallback pushMessageCallback) {
-        this.f25023b = pushMessageCallback;
+        this.f30996b = pushMessageCallback;
     }
 
     public final int b() {
-        NotificationChannel notificationChannel;
-        int importance;
-        boolean areNotificationsEnabled;
-        int i10 = Build.VERSION.SDK_INT;
-        if (i10 < 24) {
+        int i2 = Build.VERSION.SDK_INT;
+        if (i2 < 24) {
             return 0;
         }
-        NotificationManager notificationManager = (NotificationManager) this.f25064a.getSystemService("notification");
-        if (notificationManager != null) {
-            areNotificationsEnabled = notificationManager.areNotificationsEnabled();
-            if (!areNotificationsEnabled) {
-                return 2104;
-            }
+        NotificationManager notificationManager = (NotificationManager) this.f31028a.getSystemService("notification");
+        if (notificationManager != null && !notificationManager.areNotificationsEnabled()) {
+            return 2104;
         }
-        if (i10 < 26 || notificationManager == null) {
+        if (i2 < 26 || notificationManager == null) {
             return 0;
         }
         try {
-            notificationChannel = notificationManager.getNotificationChannel(NotifyAdapterUtil.PRIMARY_CHANNEL);
-            if (notificationChannel == null) {
-                return 0;
+            NotificationChannel notificationChannel = notificationManager.getNotificationChannel(NotifyAdapterUtil.PRIMARY_CHANNEL);
+            if (notificationChannel != null) {
+                return notificationChannel.getImportance() == 0 ? 2121 : 0;
             }
-            importance = notificationChannel.getImportance();
-            return importance == 0 ? 2121 : 0;
+            return 0;
         } catch (Exception unused) {
             com.vivo.push.util.p.b("OnVerifyCallBackCommand", "判断通知通道出现系统错误");
             return 0;
@@ -78,10 +71,10 @@ public abstract class z extends com.vivo.push.l {
                 return true;
             }
             com.vivo.push.util.p.d("OnVerifyCallBackCommand", "vertify fail srcDigest is ".concat(str));
-            com.vivo.push.util.p.c(this.f25064a, "vertify fail srcDigest is ".concat(str));
+            com.vivo.push.util.p.c(this.f31028a, "vertify fail srcDigest is ".concat(str));
             return false;
-        } catch (Exception e10) {
-            e10.printStackTrace();
+        } catch (Exception e2) {
+            e2.printStackTrace();
             com.vivo.push.util.p.d("OnVerifyCallBackCommand", "vertify exception");
             return false;
         }

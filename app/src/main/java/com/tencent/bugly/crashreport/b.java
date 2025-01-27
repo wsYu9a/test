@@ -6,5 +6,5 @@ public interface b {
 
     String getLogFromNative();
 
-    boolean setNativeIsAppForeground(boolean z10);
+    boolean setNativeIsAppForeground(boolean z);
 }

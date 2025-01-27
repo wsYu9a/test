@@ -6,323 +6,260 @@ import android.view.ViewGroup;
 import android.webkit.WebView;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import com.kwad.components.core.e.c.b;
+import com.kwad.components.core.d.a.b;
 import com.kwad.components.core.page.AdWebViewActivityProxy;
+import com.kwad.components.core.webview.a.a.g;
+import com.kwad.components.core.webview.a.a.n;
+import com.kwad.components.core.webview.a.a.t;
+import com.kwad.components.core.webview.a.kwai.d;
+import com.kwad.components.core.webview.a.kwai.j;
+import com.kwad.components.core.webview.a.kwai.k;
+import com.kwad.components.core.webview.a.kwai.l;
+import com.kwad.components.core.webview.a.kwai.s;
 import com.kwad.components.core.webview.jshandler.ab;
-import com.kwad.components.core.webview.jshandler.ad;
-import com.kwad.components.core.webview.jshandler.ae;
+import com.kwad.components.core.webview.jshandler.ac;
 import com.kwad.components.core.webview.jshandler.ah;
 import com.kwad.components.core.webview.jshandler.ai;
 import com.kwad.components.core.webview.jshandler.ak;
-import com.kwad.components.core.webview.jshandler.al;
+import com.kwad.components.core.webview.jshandler.am;
+import com.kwad.components.core.webview.jshandler.an;
 import com.kwad.components.core.webview.jshandler.aq;
-import com.kwad.components.core.webview.jshandler.ar;
-import com.kwad.components.core.webview.jshandler.at;
-import com.kwad.components.core.webview.jshandler.av;
-import com.kwad.components.core.webview.jshandler.ay;
-import com.kwad.components.core.webview.jshandler.bb;
-import com.kwad.components.core.webview.jshandler.bg;
+import com.kwad.components.core.webview.jshandler.au;
 import com.kwad.components.core.webview.jshandler.h;
 import com.kwad.components.core.webview.jshandler.m;
 import com.kwad.components.core.webview.jshandler.p;
 import com.kwad.components.core.webview.jshandler.q;
-import com.kwad.components.core.webview.jshandler.r;
-import com.kwad.components.core.webview.jshandler.t;
 import com.kwad.components.core.webview.jshandler.u;
-import com.kwad.components.core.webview.jshandler.v;
 import com.kwad.components.core.webview.jshandler.y;
-import com.kwad.components.core.webview.tachikoma.a.f;
-import com.kwad.components.core.webview.tachikoma.a.j;
-import com.kwad.components.core.webview.tachikoma.a.k;
-import com.kwad.components.core.webview.tachikoma.a.l;
-import com.kwad.components.core.webview.tachikoma.a.s;
-import com.kwad.components.core.webview.tachikoma.b.g;
-import com.kwad.components.core.webview.tachikoma.b.n;
+import com.kwad.components.core.webview.jshandler.z;
 import com.kwad.sdk.commercial.model.WebCloseStatus;
-import com.kwad.sdk.core.download.d;
 import com.kwad.sdk.core.download.e;
+import com.kwad.sdk.core.download.f;
+import com.kwad.sdk.core.report.y;
 import com.kwad.sdk.core.response.model.AdTemplate;
 import com.kwad.sdk.core.webview.KsAdWebView;
-import com.kwad.sdk.utils.z;
-import org.json.JSONObject;
+import com.kwad.sdk.utils.v;
 
-/* loaded from: classes3.dex */
+/* loaded from: classes2.dex */
 public final class b {
-    private KsAdWebView Jx;
-    private KsAdWebView.c QN;
-    private ViewGroup Yi;
-    private com.kwad.components.core.webview.a.a Yj;
-    private av Yk;
-    private d Yl;
-    private boolean Ym;
-    private com.kwad.components.core.webview.jshandler.a.c Yn;
-    private ar.b Yo = new ar.b() { // from class: com.kwad.components.core.webview.b.13
-        public AnonymousClass13() {
+    private KsAdWebView Go;
+    private KsAdWebView.c LI;
+    private c Mj;
+    private ViewGroup RN;
+    private com.kwad.components.core.webview.kwai.a RO;
+    private am RP;
+    private ai.b RQ = new ai.b() { // from class: com.kwad.components.core.webview.b.10
+        AnonymousClass10() {
         }
 
-        @Override // com.kwad.components.core.webview.jshandler.ar.b
-        public final void a(ar.a aVar) {
-            if (b.this.hl != null) {
-                b.this.hl.a(aVar);
+        @Override // com.kwad.components.core.webview.jshandler.ai.b
+        public final void a(ai.a aVar) {
+            if (b.this.Mj != null) {
+                b.this.Mj.a(aVar);
             }
         }
     };
-
-    /* renamed from: ea */
-    private com.kwad.components.core.webview.a f11942ea;
-
-    /* renamed from: eb */
-    private com.kwad.sdk.core.webview.b f11943eb;
-    private c hl;
+    private com.kwad.components.core.webview.a cU;
+    private com.kwad.sdk.core.webview.b cV;
     private AdTemplate mAdTemplate;
-    private com.kwad.components.core.e.d.c mApkDownloadHelper;
+    private e mDownloadSyncInterfaceAdapter;
     private String mPageUrl;
 
     /* renamed from: com.kwad.components.core.webview.b$1 */
-    public class AnonymousClass1 implements bg.a {
-        public AnonymousClass1() {
+    final class AnonymousClass1 implements au.a {
+        AnonymousClass1() {
         }
 
-        @Override // com.kwad.components.core.webview.jshandler.bg.a
-        public final void tj() {
-            if (com.kwad.sdk.core.response.b.b.dg(b.this.mAdTemplate)) {
-                com.kwad.components.core.e.c.b.a(b.this.f11943eb.Qc.getContext(), new b.a().at(b.this.mAdTemplate).ag(com.kwad.sdk.core.response.b.b.df(b.this.mAdTemplate)).oi());
+        @Override // com.kwad.components.core.webview.jshandler.au.a
+        public final void qQ() {
+            if (com.kwad.sdk.core.response.a.b.bB(b.this.mAdTemplate)) {
+                com.kwad.components.core.d.a.b.a(b.this.cV.Lc.getContext(), new b.a().H(b.this.mAdTemplate).ao(com.kwad.sdk.core.response.a.b.bA(b.this.mAdTemplate)).mI());
             }
         }
     }
 
     /* renamed from: com.kwad.components.core.webview.b$10 */
-    public class AnonymousClass10 extends j {
-        public AnonymousClass10() {
+    final class AnonymousClass10 implements ai.b {
+        AnonymousClass10() {
         }
 
-        @Override // com.kwad.components.core.webview.tachikoma.a.j
-        public final void a(n nVar) {
-            super.a(nVar);
-            AdWebViewActivityProxy.launch(b.this.f11943eb.Qc.getContext(), new AdWebViewActivityProxy.a.C0438a().au(nVar.title).av(nVar.url).aD(true).aw(b.this.mAdTemplate).qa());
+        @Override // com.kwad.components.core.webview.jshandler.ai.b
+        public final void a(ai.a aVar) {
+            if (b.this.Mj != null) {
+                b.this.Mj.a(aVar);
+            }
         }
     }
 
     /* renamed from: com.kwad.components.core.webview.b$11 */
-    public class AnonymousClass11 implements ad.b {
-        public AnonymousClass11() {
+    final class AnonymousClass11 implements com.kwad.sdk.core.webview.c.kwai.a {
+        AnonymousClass11() {
         }
 
-        @Override // com.kwad.components.core.webview.jshandler.ad.b
-        public final void c(ad.a aVar) {
-            if (b.this.hl != null) {
-                b.this.hl.b(aVar);
-            }
-        }
-    }
-
-    /* renamed from: com.kwad.components.core.webview.b$12 */
-    public class AnonymousClass12 implements ak.b {
-        public AnonymousClass12() {
-        }
-
-        @Override // com.kwad.components.core.webview.jshandler.ak.b
-        public final void a(ak.a aVar) {
-            if (b.this.hl != null) {
-                b.this.hl.a(aVar);
-            }
-        }
-    }
-
-    /* renamed from: com.kwad.components.core.webview.b$13 */
-    public class AnonymousClass13 implements ar.b {
-        public AnonymousClass13() {
-        }
-
-        @Override // com.kwad.components.core.webview.jshandler.ar.b
-        public final void a(ar.a aVar) {
-            if (b.this.hl != null) {
-                b.this.hl.a(aVar);
-            }
+        @Override // com.kwad.sdk.core.webview.c.kwai.a
+        public final void onAdClicked(com.kwad.sdk.core.webview.c.a.a aVar) {
         }
     }
 
     /* renamed from: com.kwad.components.core.webview.b$2 */
-    public class AnonymousClass2 implements com.kwad.sdk.core.webview.d.a.a {
-        public AnonymousClass2() {
-        }
-
-        @Override // com.kwad.sdk.core.webview.d.a.a
-        public final void a(com.kwad.sdk.core.webview.d.b.a aVar) {
-            if (b.this.hl != null) {
-                b.this.hl.a(aVar);
-            }
-        }
-    }
-
-    /* renamed from: com.kwad.components.core.webview.b$3 */
-    public class AnonymousClass3 implements al.a {
-        public AnonymousClass3() {
-        }
-
-        @Override // com.kwad.components.core.webview.jshandler.al.a
-        public final void onAdShow() {
-            if (b.this.hl != null) {
-                b.this.hl.onAdShow();
-            }
-        }
-    }
-
-    /* renamed from: com.kwad.components.core.webview.b$4 */
-    public class AnonymousClass4 implements KsAdWebView.b {
-        public AnonymousClass4() {
+    final class AnonymousClass2 implements KsAdWebView.b {
+        AnonymousClass2() {
         }
 
         @Override // com.kwad.sdk.core.webview.KsAdWebView.b
         public final void onFailed() {
-            if (b.this.Yk != null) {
-                b.this.Yk.onFailed();
+            if (b.this.RP != null) {
+                b.this.RP.onFailed();
             }
         }
 
         @Override // com.kwad.sdk.core.webview.KsAdWebView.b
         public final void onSuccess() {
-            if (b.this.Yk != null) {
-                b.this.Yk.onSuccess();
+            if (b.this.RP != null) {
+                b.this.RP.onSuccess();
+            }
+        }
+    }
+
+    /* renamed from: com.kwad.components.core.webview.b$3 */
+    final class AnonymousClass3 implements KsAdWebView.d {
+        AnonymousClass3() {
+        }
+
+        @Override // com.kwad.sdk.core.webview.KsAdWebView.d
+        public final void onPageFinished() {
+            if (b.this.Mj != null) {
+                b.this.Mj.onPageFinished();
+            }
+        }
+
+        @Override // com.kwad.sdk.core.webview.KsAdWebView.d
+        public final void onPageStart() {
+        }
+
+        @Override // com.kwad.sdk.core.webview.KsAdWebView.d
+        public final void onReceivedHttpError(int i2, String str, String str2) {
+            if (b.this.Mj != null) {
+                b.this.Mj.oA();
+            }
+        }
+    }
+
+    /* renamed from: com.kwad.components.core.webview.b$4 */
+    final class AnonymousClass4 implements com.kwad.sdk.core.webview.c.kwai.b {
+        AnonymousClass4() {
+        }
+
+        @Override // com.kwad.sdk.core.webview.c.kwai.b
+        public final void a(WebCloseStatus webCloseStatus) {
+            if (b.this.Mj != null) {
+                b.this.Mj.pageClose(webCloseStatus);
             }
         }
     }
 
     /* renamed from: com.kwad.components.core.webview.b$5 */
-    public class AnonymousClass5 implements KsAdWebView.e {
-        public AnonymousClass5() {
+    final class AnonymousClass5 implements s.a {
+        AnonymousClass5() {
         }
 
-        @Override // com.kwad.sdk.core.webview.KsAdWebView.e
-        public final void onPageFinished() {
-            if (b.this.hl != null) {
-                b.this.hl.onPageFinished();
+        @Override // com.kwad.components.core.webview.a.kwai.s.a
+        public final void a(t tVar) {
+            if (TextUtils.isEmpty(tVar.message)) {
+                return;
             }
-        }
-
-        @Override // com.kwad.sdk.core.webview.KsAdWebView.e
-        public final void onPageStart() {
-        }
-
-        @Override // com.kwad.sdk.core.webview.KsAdWebView.e
-        public final void onReceivedHttpError(int i10, String str, String str2) {
-            if (b.this.hl != null) {
-                b.this.hl.h(i10, str);
-            }
+            v.d(b.this.cV.Lc.getContext(), tVar.message, 0L);
         }
     }
 
     /* renamed from: com.kwad.components.core.webview.b$6 */
-    public class AnonymousClass6 implements com.kwad.sdk.core.webview.d.a.b {
-        public AnonymousClass6() {
-        }
-
-        @Override // com.kwad.sdk.core.webview.d.a.b
-        public final void b(WebCloseStatus webCloseStatus) {
-            if (b.this.hl != null) {
-                b.this.hl.a(webCloseStatus);
-            }
-        }
-    }
-
-    /* renamed from: com.kwad.components.core.webview.b$7 */
-    public class AnonymousClass7 implements s.a {
-        public AnonymousClass7() {
-        }
-
-        @Override // com.kwad.components.core.webview.tachikoma.a.s.a
-        public final void a(com.kwad.components.core.webview.tachikoma.b.s sVar) {
-            if (TextUtils.isEmpty(sVar.message)) {
-                return;
-            }
-            z.d(b.this.f11943eb.Qc.getContext(), sVar.message, 0L);
-        }
-    }
-
-    /* renamed from: com.kwad.components.core.webview.b$8 */
-    public class AnonymousClass8 extends d {
-        final /* synthetic */ l Yq;
+    final class AnonymousClass6 extends e {
+        final /* synthetic */ l RS;
 
         /* JADX WARN: 'super' call moved to the top of the method (can break code semantics) */
-        public AnonymousClass8(AdTemplate adTemplate, l lVar) {
+        AnonymousClass6(AdTemplate adTemplate, l lVar) {
             super(adTemplate);
             lVar = lVar;
         }
 
-        @Override // com.kwad.sdk.core.download.d, com.kwad.sdk.core.download.c
-        public final void b(String str, String str2, e eVar) {
-            super.b(str, str2, eVar);
-            com.kwad.components.core.webview.tachikoma.b.b bVar = new com.kwad.components.core.webview.tachikoma.b.b();
-            bVar.adl = 1;
+        @Override // com.kwad.sdk.core.download.e, com.kwad.sdk.core.download.d
+        public final void a(String str, int i2, f fVar) {
+            super.a(str, i2, fVar);
+            com.kwad.components.core.webview.a.a.b bVar = new com.kwad.components.core.webview.a.a.b();
+            bVar.UW = 1;
             lVar.a(bVar);
         }
     }
 
-    /* renamed from: com.kwad.components.core.webview.b$9 */
-    public class AnonymousClass9 extends com.kwad.components.core.webview.tachikoma.a.d {
-        public AnonymousClass9() {
+    /* renamed from: com.kwad.components.core.webview.b$7 */
+    final class AnonymousClass7 extends d {
+        AnonymousClass7() {
         }
 
-        @Override // com.kwad.components.core.webview.tachikoma.a.d
+        @Override // com.kwad.components.core.webview.a.kwai.d
         public final void a(g gVar) {
-            com.kwad.components.core.o.a.ri().a(gVar.actionType, b.this.mAdTemplate, gVar.MI);
+            super.a(gVar);
+            com.kwad.components.core.m.a.pb().a(gVar.Tr, b.this.mAdTemplate, gVar.Ts);
+        }
+    }
+
+    /* renamed from: com.kwad.components.core.webview.b$8 */
+    final class AnonymousClass8 extends j {
+        AnonymousClass8() {
+        }
+
+        @Override // com.kwad.components.core.webview.a.kwai.j
+        public final void a(n nVar) {
+            super.a(nVar);
+            AdWebViewActivityProxy.launch(b.this.cV.Lc.getContext(), new AdWebViewActivityProxy.a.C0182a().au(nVar.title).av(nVar.url).aA(true).L(b.this.mAdTemplate).oc());
+        }
+    }
+
+    /* renamed from: com.kwad.components.core.webview.b$9 */
+    final class AnonymousClass9 implements ab.b {
+        AnonymousClass9() {
+        }
+
+        @Override // com.kwad.components.core.webview.jshandler.ab.b
+        public final void a(ab.a aVar) {
         }
     }
 
     public static class a {
-        private KsAdWebView Jx;
-        private KsAdWebView.c QN;
-        private ViewGroup Yi;
-        private boolean Ym;
-        private com.kwad.components.core.webview.jshandler.a.c Yn;
-        private c hl;
+        private KsAdWebView Go;
+        private KsAdWebView.c LI;
+        private c Mj;
+        private ViewGroup RN;
         private AdTemplate mAdTemplate;
-        private com.kwad.components.core.e.d.c mApkDownloadHelper;
         private String mPageUrl;
-        private JSONObject mReportExtData;
 
         @Nullable
-        public final a a(c cVar) {
-            this.hl = cVar;
-            return this;
-        }
-
-        @Nullable
-        public final a aG(AdTemplate adTemplate) {
+        public final a Q(AdTemplate adTemplate) {
             this.mAdTemplate = adTemplate;
             return this;
         }
 
-        @NonNull
-        public final a aI(String str) {
-            this.mPageUrl = str;
+        @Nullable
+        public final a a(c cVar) {
+            this.Mj = cVar;
             return this;
         }
 
-        public final a aT(boolean z10) {
-            this.Ym = z10;
+        @NonNull
+        public final a aH(String str) {
+            this.mPageUrl = str;
             return this;
         }
 
         @Nullable
         public final a b(KsAdWebView.c cVar) {
-            this.QN = cVar;
+            this.LI = cVar;
             return this;
         }
 
         @NonNull
         public final a d(KsAdWebView ksAdWebView) {
-            this.Jx = ksAdWebView;
-            return this;
-        }
-
-        public final a e(JSONObject jSONObject) {
-            this.mReportExtData = jSONObject;
-            return this;
-        }
-
-        public final a f(com.kwad.components.core.e.d.c cVar) {
-            this.mApkDownloadHelper = cVar;
+            this.Go = ksAdWebView;
             return this;
         }
 
@@ -330,379 +267,317 @@ public final class b {
             return this.mAdTemplate;
         }
 
-        public final com.kwad.components.core.e.d.c hu() {
-            return this.mApkDownloadHelper;
-        }
-
         @NonNull
-        public final a k(ViewGroup viewGroup) {
-            this.Yi = viewGroup;
+        public final a j(ViewGroup viewGroup) {
+            this.RN = viewGroup;
             return this;
         }
 
-        public final String pV() {
+        public final String nZ() {
             return this.mPageUrl;
         }
 
-        public final KsAdWebView.c qq() {
-            return this.QN;
+        public final KsAdWebView.c os() {
+            return this.LI;
         }
 
-        public final ViewGroup tk() {
-            return this.Yi;
+        public final ViewGroup qR() {
+            return this.RN;
         }
 
-        public final KsAdWebView tl() {
-            return this.Jx;
+        public final KsAdWebView qS() {
+            return this.Go;
         }
 
-        public final c tm() {
-            return this.hl;
-        }
-
-        public final boolean tn() {
-            return this.Ym;
-        }
-
-        public final com.kwad.components.core.webview.jshandler.a.c to() {
-            return this.Yn;
-        }
-
-        public final a a(com.kwad.components.core.webview.jshandler.a.c cVar) {
-            this.Yn = cVar;
-            return this;
+        public final c qT() {
+            return this.Mj;
         }
     }
 
-    private void aW() {
+    private static void a(c cVar, WebView webView) {
+        if (cVar == null || !cVar.oy()) {
+            return;
+        }
+        webView.getSettings().setAllowFileAccess(true);
+    }
+
+    private void aF() {
         com.kwad.sdk.core.webview.b bVar = new com.kwad.sdk.core.webview.b();
-        this.f11943eb = bVar;
+        this.cV = bVar;
         bVar.setAdTemplate(this.mAdTemplate);
-        com.kwad.sdk.core.webview.b bVar2 = this.f11943eb;
+        com.kwad.sdk.core.webview.b bVar2 = this.cV;
         bVar2.mScreenOrientation = 0;
-        bVar2.Qc = this.Jx;
-        bVar2.QI = this.Yi;
+        bVar2.Lc = this.Go;
+        bVar2.LD = this.RN;
     }
 
-    private void aZ() {
-        com.kwad.components.core.webview.a aVar = this.f11942ea;
+    private void aI() {
+        com.kwad.components.core.webview.a aVar = this.cU;
         if (aVar != null) {
             aVar.destroy();
-            this.f11942ea = null;
+            this.cU = null;
         }
-        com.kwad.components.core.webview.a.a aVar2 = this.Yj;
+        com.kwad.components.core.webview.kwai.a aVar2 = this.RO;
         if (aVar2 != null) {
             aVar2.destroy();
-            this.Yj = null;
+            this.RO = null;
         }
     }
 
-    private void eM() {
-        this.Jx.setClientConfig(this.Jx.getClientConfig().ex(this.mAdTemplate).dB(ti()).b(th()).a(tg()).c(this.QN));
+    private void b(com.kwad.components.core.webview.a aVar, com.kwad.sdk.core.webview.b bVar) {
+        an anVar = new an();
+        aVar.a(anVar);
+        onRegisterLifecycleLisener(anVar);
+        aVar.a(new ac(bVar));
+        aVar.a(new com.kwad.components.core.webview.jshandler.v(bVar));
+        aVar.a(new com.kwad.components.core.webview.a.kwai.f());
+        com.kwad.components.core.d.b.c cVar = new com.kwad.components.core.d.b.c(this.mAdTemplate);
+        aVar.a(new com.kwad.components.core.webview.jshandler.s(this.cV, cVar, getClickListener(), qK(), false));
+        aVar.a(new p(this.cV, cVar, getClickListener(), qK(), 0, qL()));
+        aVar.a(new aq(this.cV, cVar));
+        aVar.a(new ak(this.cV));
+        aVar.a(new ah(this.cV.Lc.getContext(), this.mAdTemplate));
+        aVar.a(new au(new au.a() { // from class: com.kwad.components.core.webview.b.1
+            AnonymousClass1() {
+            }
+
+            @Override // com.kwad.components.core.webview.jshandler.au.a
+            public final void qQ() {
+                if (com.kwad.sdk.core.response.a.b.bB(b.this.mAdTemplate)) {
+                    com.kwad.components.core.d.a.b.a(b.this.cV.Lc.getContext(), new b.a().H(b.this.mAdTemplate).ao(com.kwad.sdk.core.response.a.b.bA(b.this.mAdTemplate)).mI());
+                }
+            }
+        }));
+        aVar.a(new z(this.cV));
+        aVar.a(new ai(this.RQ, this.mPageUrl));
+        am amVar = new am();
+        this.RP = amVar;
+        aVar.a(amVar);
+        aVar.a(new q(new com.kwad.sdk.core.webview.c.kwai.b() { // from class: com.kwad.components.core.webview.b.4
+            AnonymousClass4() {
+            }
+
+            @Override // com.kwad.sdk.core.webview.c.kwai.b
+            public final void a(WebCloseStatus webCloseStatus) {
+                if (b.this.Mj != null) {
+                    b.this.Mj.pageClose(webCloseStatus);
+                }
+            }
+        }));
+        s sVar = new s();
+        sVar.a(new s.a() { // from class: com.kwad.components.core.webview.b.5
+            AnonymousClass5() {
+            }
+
+            @Override // com.kwad.components.core.webview.a.kwai.s.a
+            public final void a(t tVar) {
+                if (TextUtils.isEmpty(tVar.message)) {
+                    return;
+                }
+                v.d(b.this.cV.Lc.getContext(), tVar.message, 0L);
+            }
+        });
+        aVar.a(sVar);
+        aVar.a(new k());
+        aVar.a(new y(bVar));
+        if (com.kwad.sdk.core.response.a.a.ax(com.kwad.sdk.core.response.a.d.cb(this.mAdTemplate))) {
+            l lVar = new l();
+            aVar.a(lVar);
+            this.mDownloadSyncInterfaceAdapter = new e(this.mAdTemplate) { // from class: com.kwad.components.core.webview.b.6
+                final /* synthetic */ l RS;
+
+                /* JADX WARN: 'super' call moved to the top of the method (can break code semantics) */
+                AnonymousClass6(AdTemplate adTemplate, l lVar2) {
+                    super(adTemplate);
+                    lVar = lVar2;
+                }
+
+                @Override // com.kwad.sdk.core.download.e, com.kwad.sdk.core.download.d
+                public final void a(String str, int i2, f fVar) {
+                    super.a(str, i2, fVar);
+                    com.kwad.components.core.webview.a.a.b bVar2 = new com.kwad.components.core.webview.a.a.b();
+                    bVar2.UW = 1;
+                    lVar.a(bVar2);
+                }
+            };
+            com.kwad.sdk.core.download.c.vu().a(this.mDownloadSyncInterfaceAdapter, this.mAdTemplate);
+        }
+        aVar.a(new d() { // from class: com.kwad.components.core.webview.b.7
+            AnonymousClass7() {
+            }
+
+            @Override // com.kwad.components.core.webview.a.kwai.d
+            public final void a(g gVar) {
+                super.a(gVar);
+                com.kwad.components.core.m.a.pb().a(gVar.Tr, b.this.mAdTemplate, gVar.Ts);
+            }
+        });
+        aVar.a(new j() { // from class: com.kwad.components.core.webview.b.8
+            AnonymousClass8() {
+            }
+
+            @Override // com.kwad.components.core.webview.a.kwai.j
+            public final void a(n nVar) {
+                super.a(nVar);
+                AdWebViewActivityProxy.launch(b.this.cV.Lc.getContext(), new AdWebViewActivityProxy.a.C0182a().au(nVar.title).av(nVar.url).aA(true).L(b.this.mAdTemplate).oc());
+            }
+        });
+        aVar.a(new com.kwad.components.core.webview.jshandler.b());
+        aVar.a(new com.kwad.components.core.webview.jshandler.d());
+        aVar.a(new com.kwad.components.core.webview.jshandler.g());
+        aVar.a(new com.kwad.components.core.webview.jshandler.a());
+        aVar.a(new u(this.cV));
+        aVar.a(new h(this.cV.Lc.getContext(), this.mAdTemplate));
+        aVar.a(new ab(this.cV, new ab.b() { // from class: com.kwad.components.core.webview.b.9
+            AnonymousClass9() {
+            }
+
+            @Override // com.kwad.components.core.webview.jshandler.ab.b
+            public final void a(ab.a aVar2) {
+            }
+        }));
+        aVar.a(new com.kwad.components.core.webview.jshandler.f());
+        aVar.a(new m());
+        aVar.a(new com.kwad.components.core.webview.jshandler.l());
+        aVar.a(new com.kwad.components.core.webview.jshandler.k());
+    }
+
+    @SuppressLint({"SetJavaScriptEnabled", "AddJavascriptInterface", "JavascriptInterface"})
+    private void b(KsAdWebView ksAdWebView) {
+        aI();
+        com.kwad.components.core.webview.a aVar = new com.kwad.components.core.webview.a(ksAdWebView);
+        this.cU = aVar;
+        b(aVar, this.cV);
+        c cVar = this.Mj;
+        if (cVar != null) {
+            cVar.a(this.cU, this.cV);
+        }
+        ksAdWebView.addJavascriptInterface(this.cU, "KwaiAd");
+    }
+
+    private void c(KsAdWebView ksAdWebView) {
+        aI();
+        com.kwad.components.core.webview.kwai.a aVar = new com.kwad.components.core.webview.kwai.a(ksAdWebView, this.cV);
+        this.RO = aVar;
+        ksAdWebView.addJavascriptInterface(aVar, "KwaiAdForThird");
+    }
+
+    private void eP() {
+        this.Go.setClientConfig(this.Go.getClientConfig().ct(this.mAdTemplate).b(qN()).b(qO()).a(qM()).c(this.LI));
     }
 
     @NonNull
-    private com.kwad.sdk.core.webview.d.a.a getClickListener() {
-        return new com.kwad.sdk.core.webview.d.a.a() { // from class: com.kwad.components.core.webview.b.2
-            public AnonymousClass2() {
+    private com.kwad.sdk.core.webview.c.kwai.a getClickListener() {
+        return new com.kwad.sdk.core.webview.c.kwai.a() { // from class: com.kwad.components.core.webview.b.11
+            AnonymousClass11() {
             }
 
-            @Override // com.kwad.sdk.core.webview.d.a.a
-            public final void a(com.kwad.sdk.core.webview.d.b.a aVar) {
-                if (b.this.hl != null) {
-                    b.this.hl.a(aVar);
-                }
+            @Override // com.kwad.sdk.core.webview.c.kwai.a
+            public final void onAdClicked(com.kwad.sdk.core.webview.c.a.a aVar) {
             }
         };
     }
 
-    private boolean td() {
-        c cVar = this.hl;
+    private void onRegisterLifecycleLisener(an anVar) {
+        c cVar = this.Mj;
+        if (cVar == null) {
+            return;
+        }
+        cVar.onRegisterLifecycleLisener(anVar);
+    }
+
+    private boolean qK() {
+        c cVar = this.Mj;
         if (cVar == null) {
             return false;
         }
-        return cVar.qy();
+        return cVar.oz();
     }
 
-    private boolean te() {
+    private boolean qL() {
+        c cVar = this.Mj;
         return false;
     }
 
-    private al.a tf() {
-        return new al.a() { // from class: com.kwad.components.core.webview.b.3
-            public AnonymousClass3() {
-            }
-
-            @Override // com.kwad.components.core.webview.jshandler.al.a
-            public final void onAdShow() {
-                if (b.this.hl != null) {
-                    b.this.hl.onAdShow();
-                }
-            }
-        };
-    }
-
     @NonNull
-    private KsAdWebView.b tg() {
-        return new KsAdWebView.b() { // from class: com.kwad.components.core.webview.b.4
-            public AnonymousClass4() {
+    private KsAdWebView.b qM() {
+        return new KsAdWebView.b() { // from class: com.kwad.components.core.webview.b.2
+            AnonymousClass2() {
             }
 
             @Override // com.kwad.sdk.core.webview.KsAdWebView.b
             public final void onFailed() {
-                if (b.this.Yk != null) {
-                    b.this.Yk.onFailed();
+                if (b.this.RP != null) {
+                    b.this.RP.onFailed();
                 }
             }
 
             @Override // com.kwad.sdk.core.webview.KsAdWebView.b
             public final void onSuccess() {
-                if (b.this.Yk != null) {
-                    b.this.Yk.onSuccess();
+                if (b.this.RP != null) {
+                    b.this.RP.onSuccess();
                 }
             }
         };
     }
 
-    private KsAdWebView.e th() {
-        return new KsAdWebView.e() { // from class: com.kwad.components.core.webview.b.5
-            public AnonymousClass5() {
+    private y.b qN() {
+        y.b bVar = new y.b();
+        bVar.akv = 0;
+        bVar.akH = qP();
+        return bVar;
+    }
+
+    private KsAdWebView.d qO() {
+        return new KsAdWebView.d() { // from class: com.kwad.components.core.webview.b.3
+            AnonymousClass3() {
             }
 
-            @Override // com.kwad.sdk.core.webview.KsAdWebView.e
+            @Override // com.kwad.sdk.core.webview.KsAdWebView.d
             public final void onPageFinished() {
-                if (b.this.hl != null) {
-                    b.this.hl.onPageFinished();
+                if (b.this.Mj != null) {
+                    b.this.Mj.onPageFinished();
                 }
             }
 
-            @Override // com.kwad.sdk.core.webview.KsAdWebView.e
+            @Override // com.kwad.sdk.core.webview.KsAdWebView.d
             public final void onPageStart() {
             }
 
-            @Override // com.kwad.sdk.core.webview.KsAdWebView.e
-            public final void onReceivedHttpError(int i10, String str, String str2) {
-                if (b.this.hl != null) {
-                    b.this.hl.h(i10, str);
+            @Override // com.kwad.sdk.core.webview.KsAdWebView.d
+            public final void onReceivedHttpError(int i2, String str, String str2) {
+                if (b.this.Mj != null) {
+                    b.this.Mj.oA();
                 }
             }
         };
     }
 
-    private int ti() {
-        return com.kwad.sdk.core.response.b.a.S(com.kwad.sdk.core.response.b.e.eb(this.mAdTemplate)) ? 5 : 1;
-    }
-
-    public final void jK() {
-        aZ();
-        if (this.Yl != null) {
-            com.kwad.sdk.core.download.b.EI().a(this.Yl);
-        }
-        this.Yn = null;
-    }
-
-    @SuppressLint({"SetJavaScriptEnabled", "AddJavascriptInterface", "JavascriptInterface"})
-    private void b(KsAdWebView ksAdWebView) {
-        aZ();
-        com.kwad.components.core.webview.a aVar = new com.kwad.components.core.webview.a(ksAdWebView);
-        this.f11942ea = aVar;
-        b(aVar, this.f11943eb);
-        c cVar = this.hl;
-        if (cVar != null) {
-            cVar.a(this.f11942ea, this.f11943eb);
-        }
-        ksAdWebView.addJavascriptInterface(this.f11942ea, "KwaiAd");
-    }
-
-    private void c(KsAdWebView ksAdWebView) {
-        aZ();
-        com.kwad.components.core.webview.a.a aVar = new com.kwad.components.core.webview.a.a(ksAdWebView, this.f11943eb);
-        this.Yj = aVar;
-        ksAdWebView.addJavascriptInterface(aVar, "KwaiAdForThird");
+    private int qP() {
+        return com.kwad.sdk.core.response.a.a.M(com.kwad.sdk.core.response.a.d.cb(this.mAdTemplate)) ? 5 : 1;
     }
 
     public final void a(a aVar) {
-        this.mPageUrl = aVar.pV();
+        this.mPageUrl = aVar.nZ();
         this.mAdTemplate = aVar.getAdTemplate();
-        this.Yi = aVar.tk();
-        this.Jx = aVar.tl();
-        this.hl = aVar.tm();
-        this.mApkDownloadHelper = aVar.hu();
-        this.Ym = aVar.tn();
-        this.QN = aVar.qq();
-        this.Yn = aVar.to();
-        eM();
-        a(this.hl, this.Jx);
-        aW();
-        if (com.kwad.sdk.core.response.b.a.P(com.kwad.sdk.core.response.b.e.eb(this.mAdTemplate))) {
-            c(this.Jx);
-        } else if (com.kwad.sdk.core.response.b.b.eB(this.mPageUrl)) {
-            b(this.Jx);
+        this.RN = aVar.qR();
+        this.Go = aVar.qS();
+        this.Mj = aVar.qT();
+        this.LI = aVar.os();
+        eP();
+        a(this.Mj, this.Go);
+        aF();
+        if (com.kwad.sdk.core.response.a.a.I(com.kwad.sdk.core.response.a.d.cb(this.mAdTemplate))) {
+            c(this.Go);
+        } else if (com.kwad.sdk.core.response.a.b.cI(this.mPageUrl)) {
+            b(this.Go);
         }
     }
 
-    private void b(com.kwad.components.core.webview.a aVar, com.kwad.sdk.core.webview.b bVar) {
-        ay ayVar = new ay();
-        aVar.a(ayVar);
-        a(ayVar);
-        aVar.a(new u());
-        aVar.a(new com.kwad.components.core.webview.jshandler.c());
-        aVar.a(new v());
-        aVar.a(new p());
-        aVar.a(new q());
-        al alVar = new al(bVar);
-        aVar.b(new com.kwad.components.core.webview.jshandler.n(bVar));
-        aVar.b(new m(bVar));
-        alVar.a(tf());
-        aVar.a(alVar);
-        aVar.a(new ae(bVar));
-        aVar.a(new f());
-        if (this.mApkDownloadHelper == null) {
-            this.mApkDownloadHelper = new com.kwad.components.core.e.d.c(this.mAdTemplate);
+    public final void unBind() {
+        aI();
+        if (this.mDownloadSyncInterfaceAdapter != null) {
+            com.kwad.sdk.core.download.c.vu().a(this.mDownloadSyncInterfaceAdapter);
         }
-        if (!this.Ym) {
-            aVar.a(new ab(this.f11943eb, this.mApkDownloadHelper, getClickListener(), td(), false, true));
-            aVar.a(new y(this.f11943eb, this.mApkDownloadHelper, getClickListener(), td(), 0, te(), true));
-        }
-        aVar.a(new bb(this.f11943eb, this.mApkDownloadHelper));
-        aVar.a(new at(this.f11943eb));
-        aVar.a(new aq(this.f11943eb.Qc.getContext(), this.mAdTemplate));
-        aVar.a(new bg(new bg.a() { // from class: com.kwad.components.core.webview.b.1
-            public AnonymousClass1() {
-            }
-
-            @Override // com.kwad.components.core.webview.jshandler.bg.a
-            public final void tj() {
-                if (com.kwad.sdk.core.response.b.b.dg(b.this.mAdTemplate)) {
-                    com.kwad.components.core.e.c.b.a(b.this.f11943eb.Qc.getContext(), new b.a().at(b.this.mAdTemplate).ag(com.kwad.sdk.core.response.b.b.df(b.this.mAdTemplate)).oi());
-                }
-            }
-        }));
-        aVar.a(new ai(this.f11943eb));
-        aVar.a(new ar(this.Yo, this.mPageUrl));
-        av avVar = new av();
-        this.Yk = avVar;
-        aVar.a(avVar);
-        aVar.a(new com.kwad.components.core.webview.jshandler.z(new com.kwad.sdk.core.webview.d.a.b() { // from class: com.kwad.components.core.webview.b.6
-            public AnonymousClass6() {
-            }
-
-            @Override // com.kwad.sdk.core.webview.d.a.b
-            public final void b(WebCloseStatus webCloseStatus) {
-                if (b.this.hl != null) {
-                    b.this.hl.a(webCloseStatus);
-                }
-            }
-        }));
-        s sVar = new s();
-        sVar.a(new s.a() { // from class: com.kwad.components.core.webview.b.7
-            public AnonymousClass7() {
-            }
-
-            @Override // com.kwad.components.core.webview.tachikoma.a.s.a
-            public final void a(com.kwad.components.core.webview.tachikoma.b.s sVar2) {
-                if (TextUtils.isEmpty(sVar2.message)) {
-                    return;
-                }
-                z.d(b.this.f11943eb.Qc.getContext(), sVar2.message, 0L);
-            }
-        });
-        aVar.a(sVar);
-        aVar.a(new k());
-        aVar.a(new ah(bVar));
-        if (com.kwad.sdk.core.response.b.a.aF(com.kwad.sdk.core.response.b.e.eb(this.mAdTemplate))) {
-            l lVar = new l();
-            aVar.a(lVar);
-            this.Yl = new d(this.mAdTemplate) { // from class: com.kwad.components.core.webview.b.8
-                final /* synthetic */ l Yq;
-
-                /* JADX WARN: 'super' call moved to the top of the method (can break code semantics) */
-                public AnonymousClass8(AdTemplate adTemplate, l lVar2) {
-                    super(adTemplate);
-                    lVar = lVar2;
-                }
-
-                @Override // com.kwad.sdk.core.download.d, com.kwad.sdk.core.download.c
-                public final void b(String str, String str2, e eVar) {
-                    super.b(str, str2, eVar);
-                    com.kwad.components.core.webview.tachikoma.b.b bVar2 = new com.kwad.components.core.webview.tachikoma.b.b();
-                    bVar2.adl = 1;
-                    lVar.a(bVar2);
-                }
-            };
-            com.kwad.sdk.core.download.b.EI().a(this.Yl, this.mAdTemplate);
-        }
-        aVar.a(new com.kwad.components.core.webview.tachikoma.a.d() { // from class: com.kwad.components.core.webview.b.9
-            public AnonymousClass9() {
-            }
-
-            @Override // com.kwad.components.core.webview.tachikoma.a.d
-            public final void a(g gVar) {
-                com.kwad.components.core.o.a.ri().a(gVar.actionType, b.this.mAdTemplate, gVar.MI);
-            }
-        });
-        aVar.a(new j() { // from class: com.kwad.components.core.webview.b.10
-            public AnonymousClass10() {
-            }
-
-            @Override // com.kwad.components.core.webview.tachikoma.a.j
-            public final void a(n nVar) {
-                super.a(nVar);
-                AdWebViewActivityProxy.launch(b.this.f11943eb.Qc.getContext(), new AdWebViewActivityProxy.a.C0438a().au(nVar.title).av(nVar.url).aD(true).aw(b.this.mAdTemplate).qa());
-            }
-        });
-        aVar.a(new com.kwad.components.core.webview.jshandler.e());
-        aVar.a(new h());
-        aVar.a(new com.kwad.components.core.webview.jshandler.k());
-        aVar.a(new com.kwad.components.core.webview.jshandler.d());
-        ad adVar = new ad(this.f11943eb);
-        adVar.a(new ad.b() { // from class: com.kwad.components.core.webview.b.11
-            public AnonymousClass11() {
-            }
-
-            @Override // com.kwad.components.core.webview.jshandler.ad.b
-            public final void c(ad.a aVar2) {
-                if (b.this.hl != null) {
-                    b.this.hl.b(aVar2);
-                }
-            }
-        });
-        aVar.a(adVar);
-        aVar.a(new com.kwad.components.core.webview.jshandler.l(this.f11943eb.Qc.getContext(), this.mAdTemplate));
-        aVar.a(new ak(this.f11943eb, new ak.b() { // from class: com.kwad.components.core.webview.b.12
-            public AnonymousClass12() {
-            }
-
-            @Override // com.kwad.components.core.webview.jshandler.ak.b
-            public final void a(ak.a aVar2) {
-                if (b.this.hl != null) {
-                    b.this.hl.a(aVar2);
-                }
-            }
-        }));
-        aVar.a(new com.kwad.components.core.webview.jshandler.j());
-        aVar.a(new t());
-        aVar.a(new com.kwad.components.core.webview.jshandler.s());
-        aVar.a(new r());
-        aVar.a(new com.kwad.components.core.webview.jshandler.a.f(this.f11943eb.getContext()));
-        aVar.a(new com.kwad.components.core.webview.jshandler.a.d(this.f11943eb.getContext()));
-        aVar.a(new com.kwad.components.core.webview.jshandler.a.b(this.Yn));
-        aVar.a(new com.kwad.components.core.webview.jshandler.a.a());
-        aVar.a(new com.kwad.components.core.webview.jshandler.a.e(this.f11943eb.getContext()));
-    }
-
-    private void a(ay ayVar) {
-        c cVar = this.hl;
-        if (cVar == null) {
-            return;
-        }
-        cVar.a(ayVar);
-    }
-
-    private static void a(c cVar, WebView webView) {
-        if (cVar == null || !cVar.qx()) {
-            return;
-        }
-        webView.getSettings().setAllowFileAccess(true);
     }
 }

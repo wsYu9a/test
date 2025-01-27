@@ -2,14 +2,14 @@ package com.kwad.sdk.api.core;
 
 import android.text.TextUtils;
 
-/* loaded from: classes3.dex */
+/* loaded from: classes2.dex */
 public final class RequestParamsUtils {
     public static final String USER_AGENT_KEY = "User-Agent";
     private static String sUserAgent;
 
     public static String getUserAgent() {
         if (TextUtils.isEmpty(sUserAgent)) {
-            sUserAgent = getUserAgentParams() + "ksad-android-3.3.69";
+            sUserAgent = getUserAgentParams() + "ksad-android-3.3.40";
         }
         return sUserAgent;
     }
@@ -20,17 +20,17 @@ public final class RequestParamsUtils {
             if (TextUtils.isEmpty(property)) {
                 return property;
             }
-            StringBuilder sb2 = new StringBuilder();
+            StringBuilder sb = new StringBuilder();
             int length = property.length();
-            for (int i10 = 0; i10 < length; i10++) {
-                char charAt = property.charAt(i10);
+            for (int i2 = 0; i2 < length; i2++) {
+                char charAt = property.charAt(i2);
                 if (charAt > 31 && charAt < 127) {
-                    sb2.append(charAt);
+                    sb.append(charAt);
                 }
-                sb2.append(String.format("\\u%04x", Integer.valueOf(charAt)));
+                sb.append(String.format("\\u%04x", Integer.valueOf(charAt)));
             }
-            sb2.append("-");
-            return sb2.toString();
+            sb.append("-");
+            return sb.toString();
         } catch (Throwable unused) {
             return "";
         }

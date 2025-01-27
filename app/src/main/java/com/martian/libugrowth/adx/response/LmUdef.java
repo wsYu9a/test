@@ -4,13 +4,11 @@ import java.util.List;
 
 /* loaded from: classes3.dex */
 public class LmUdef {
-
-    /* renamed from: t, reason: collision with root package name */
-    private Integer f13012t;
+    private Integer t;
     private List<String> url;
 
     public int getT() {
-        Integer num = this.f13012t;
+        Integer num = this.t;
         if (num == null) {
             return -1;
         }
@@ -21,11 +19,11 @@ public class LmUdef {
         return this.url;
     }
 
-    public void setT(Integer num) {
-        this.f13012t = num;
+    public void setT(Integer t) {
+        this.t = t;
     }
 
-    public void setUrl(List<String> list) {
-        this.url = list;
+    public void setUrl(List<String> url) {
+        this.url = url;
     }
 }

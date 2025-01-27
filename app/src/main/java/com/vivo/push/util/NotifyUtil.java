@@ -38,19 +38,15 @@ public class NotifyUtil {
 
     private static synchronized void initAdapter(Context context) {
         synchronized (NotifyUtil.class) {
-            try {
-                if (sNotifyData == null) {
-                    BaseNotifyDataAdapter baseNotifyDataAdapter = (BaseNotifyDataAdapter) getObjectByReflect(sNotifyDataAdapter, new h());
-                    sNotifyData = baseNotifyDataAdapter;
-                    baseNotifyDataAdapter.init(context);
-                }
-                if (sNotifyLayout == null) {
-                    BaseNotifyLayoutAdapter baseNotifyLayoutAdapter = (BaseNotifyLayoutAdapter) getObjectByReflect(sNotifyLayoutAdapter, new i());
-                    sNotifyLayout = baseNotifyLayoutAdapter;
-                    baseNotifyLayoutAdapter.init(context);
-                }
-            } catch (Throwable th2) {
-                throw th2;
+            if (sNotifyData == null) {
+                BaseNotifyDataAdapter baseNotifyDataAdapter = (BaseNotifyDataAdapter) getObjectByReflect(sNotifyDataAdapter, new h());
+                sNotifyData = baseNotifyDataAdapter;
+                baseNotifyDataAdapter.init(context);
+            }
+            if (sNotifyLayout == null) {
+                BaseNotifyLayoutAdapter baseNotifyLayoutAdapter = (BaseNotifyLayoutAdapter) getObjectByReflect(sNotifyLayoutAdapter, new i());
+                sNotifyLayout = baseNotifyLayoutAdapter;
+                baseNotifyLayoutAdapter.init(context);
             }
         }
     }

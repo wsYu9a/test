@@ -1,10 +1,9 @@
 package rx.internal.producers;
 
 import java.util.concurrent.atomic.AtomicBoolean;
-import qj.c;
-import qj.g;
+import rx.c;
 import rx.exceptions.OnErrorThrowable;
-import vj.a;
+import rx.g;
 
 /* loaded from: classes5.dex */
 public final class SingleProducer<T> extends AtomicBoolean implements c {
@@ -12,31 +11,31 @@ public final class SingleProducer<T> extends AtomicBoolean implements c {
     final g<? super T> child;
     final T value;
 
-    public SingleProducer(g<? super T> gVar, T t10) {
+    public SingleProducer(g<? super T> gVar, T t) {
         this.child = gVar;
-        this.value = t10;
+        this.value = t;
     }
 
-    @Override // qj.c
-    public void request(long j10) {
-        if (j10 < 0) {
+    @Override // rx.c
+    public void request(long j2) {
+        if (j2 < 0) {
             throw new IllegalArgumentException("n >= 0 required");
         }
-        if (j10 != 0 && compareAndSet(false, true)) {
+        if (j2 != 0 && compareAndSet(false, true)) {
             g<? super T> gVar = this.child;
-            T t10 = this.value;
+            T t = this.value;
             if (gVar.isUnsubscribed()) {
                 return;
             }
             try {
-                gVar.onNext(t10);
+                gVar.onNext(t);
                 if (gVar.isUnsubscribed()) {
                     return;
                 }
                 gVar.onCompleted();
-            } catch (Throwable th2) {
-                a.e(th2);
-                gVar.onError(OnErrorThrowable.addValueAsLastCause(th2, t10));
+            } catch (Throwable th) {
+                rx.exceptions.a.e(th);
+                gVar.onError(OnErrorThrowable.addValueAsLastCause(th, t));
             }
         }
     }

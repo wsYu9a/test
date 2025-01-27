@@ -6,17 +6,17 @@ import android.content.Context;
 public interface o {
     int a(String str, String str2);
 
-    int a(String str, String str2, Throwable th2);
+    int a(String str, String str2, Throwable th);
 
-    int a(String str, Throwable th2);
+    int a(String str, Throwable th);
 
-    String a(Throwable th2);
+    String a(Throwable th);
 
     void a(Context context, String str);
 
     int b(String str, String str2);
 
-    int b(String str, String str2, Throwable th2);
+    int b(String str, String str2, Throwable th);
 
     void b(Context context, String str);
 

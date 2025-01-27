@@ -20,7 +20,7 @@ interface ISegmentCallback {
 
     void onSegmentFailed(SegmentReader segmentReader, UrlRecord urlRecord, Segment segment, BaseException baseException);
 
-    void onSegmentRetry(SegmentReader segmentReader, UrlRecord urlRecord, Segment segment, BaseException baseException, int i10, int i11);
+    void onSegmentRetry(SegmentReader segmentReader, UrlRecord urlRecord, Segment segment, BaseException baseException, int i2, int i3);
 
     void unApplySegment(SegmentReader segmentReader, Segment segment);
 

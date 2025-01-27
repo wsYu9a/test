@@ -17,7 +17,7 @@ import com.bumptech.glide.request.target.ViewTarget;
 import java.util.List;
 import java.util.Map;
 
-/* loaded from: classes2.dex */
+/* loaded from: classes.dex */
 public class GlideContext extends ContextWrapper {
 
     @VisibleForTesting
@@ -36,7 +36,7 @@ public class GlideContext extends ContextWrapper {
     private final int logLevel;
     private final Registry registry;
 
-    public GlideContext(@NonNull Context context, @NonNull ArrayPool arrayPool, @NonNull Registry registry, @NonNull ImageViewTargetFactory imageViewTargetFactory, @NonNull Glide.RequestOptionsFactory requestOptionsFactory, @NonNull Map<Class<?>, TransitionOptions<?, ?>> map, @NonNull List<RequestListener<Object>> list, @NonNull Engine engine, boolean z10, int i10) {
+    public GlideContext(@NonNull Context context, @NonNull ArrayPool arrayPool, @NonNull Registry registry, @NonNull ImageViewTargetFactory imageViewTargetFactory, @NonNull Glide.RequestOptionsFactory requestOptionsFactory, @NonNull Map<Class<?>, TransitionOptions<?, ?>> map, @NonNull List<RequestListener<Object>> list, @NonNull Engine engine, boolean z, int i2) {
         super(context.getApplicationContext());
         this.arrayPool = arrayPool;
         this.registry = registry;
@@ -45,8 +45,8 @@ public class GlideContext extends ContextWrapper {
         this.defaultRequestListeners = list;
         this.defaultTransitionOptions = map;
         this.engine = engine;
-        this.isLoggingRequestOriginsEnabled = z10;
-        this.logLevel = i10;
+        this.isLoggingRequestOriginsEnabled = z;
+        this.logLevel = i2;
     }
 
     @NonNull
@@ -64,12 +64,8 @@ public class GlideContext extends ContextWrapper {
     }
 
     public synchronized RequestOptions getDefaultRequestOptions() {
-        try {
-            if (this.defaultRequestOptions == null) {
-                this.defaultRequestOptions = this.defaultRequestOptionsFactory.build().lock();
-            }
-        } catch (Throwable th2) {
-            throw th2;
+        if (this.defaultRequestOptions == null) {
+            this.defaultRequestOptions = this.defaultRequestOptionsFactory.build().lock();
         }
         return this.defaultRequestOptions;
     }

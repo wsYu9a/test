@@ -4,14 +4,14 @@ import androidx.annotation.Keep;
 import androidx.fragment.app.FragmentActivity;
 
 @Keep
-/* loaded from: classes2.dex */
+/* loaded from: classes.dex */
 public class HostPartUtils {
     private Class fragmentActivityClazz;
 
-    public static class a {
+    static class a {
 
         /* renamed from: a */
-        private static final HostPartUtils f7829a = new HostPartUtils();
+        private static final HostPartUtils f6306a = new HostPartUtils();
     }
 
     public HostPartUtils() {
@@ -26,6 +26,6 @@ public class HostPartUtils {
     }
 
     public static final Class getFragmentActivityClass() {
-        return a.f7829a.fragmentActivityClazz;
+        return a.f6306a.fragmentActivityClazz;
     }
 }

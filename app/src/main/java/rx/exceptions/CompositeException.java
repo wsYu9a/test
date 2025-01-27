@@ -10,16 +10,19 @@ import java.util.Iterator;
 import java.util.LinkedHashSet;
 import java.util.List;
 
-/* loaded from: classes4.dex */
+/* loaded from: classes5.dex */
 public final class CompositeException extends RuntimeException {
     private static final long serialVersionUID = 3026362227162912146L;
     private Throwable cause;
     private final List<Throwable> exceptions;
     private final String message;
 
-    public static final class CompositeExceptionCausalChain extends RuntimeException {
+    static final class CompositeExceptionCausalChain extends RuntimeException {
         static String MESSAGE = "Chain of Causes for CompositeException In Order Received =>";
         private static final long serialVersionUID = 3875212506787802066L;
+
+        CompositeExceptionCausalChain() {
+        }
 
         @Override // java.lang.Throwable
         public String getMessage() {
@@ -27,58 +30,58 @@ public final class CompositeException extends RuntimeException {
         }
     }
 
-    public static abstract class b {
-        public b() {
+    private static abstract class b {
+        private b() {
         }
 
-        public abstract Object a();
+        abstract Object a();
 
-        public abstract void b(Object obj);
+        abstract void b(Object obj);
 
-        public /* synthetic */ b(a aVar) {
+        /* synthetic */ b(a aVar) {
             this();
         }
     }
 
-    public static class c extends b {
+    private static class c extends b {
 
         /* renamed from: a */
-        public final PrintStream f30451a;
+        private final PrintStream f35758a;
 
-        public c(PrintStream printStream) {
+        c(PrintStream printStream) {
             super();
-            this.f30451a = printStream;
+            this.f35758a = printStream;
         }
 
         @Override // rx.exceptions.CompositeException.b
-        public Object a() {
-            return this.f30451a;
+        Object a() {
+            return this.f35758a;
         }
 
         @Override // rx.exceptions.CompositeException.b
-        public void b(Object obj) {
-            this.f30451a.println(obj);
+        void b(Object obj) {
+            this.f35758a.println(obj);
         }
     }
 
-    public static class d extends b {
+    private static class d extends b {
 
         /* renamed from: a */
-        public final PrintWriter f30452a;
+        private final PrintWriter f35759a;
 
-        public d(PrintWriter printWriter) {
+        d(PrintWriter printWriter) {
             super();
-            this.f30452a = printWriter;
+            this.f35759a = printWriter;
         }
 
         @Override // rx.exceptions.CompositeException.b
-        public Object a() {
-            return this.f30452a;
+        Object a() {
+            return this.f35759a;
         }
 
         @Override // rx.exceptions.CompositeException.b
-        public void b(Object obj) {
-            this.f30452a.println(obj);
+        void b(Object obj) {
+            this.f35759a.println(obj);
         }
     }
 
@@ -87,11 +90,11 @@ public final class CompositeException extends RuntimeException {
         LinkedHashSet linkedHashSet = new LinkedHashSet();
         ArrayList arrayList = new ArrayList();
         if (collection != null) {
-            for (Throwable th2 : collection) {
-                if (th2 instanceof CompositeException) {
-                    linkedHashSet.addAll(((CompositeException) th2).getExceptions());
-                } else if (th2 != null) {
-                    linkedHashSet.add(th2);
+            for (Throwable th : collection) {
+                if (th instanceof CompositeException) {
+                    linkedHashSet.addAll(((CompositeException) th).getExceptions());
+                } else if (th != null) {
+                    linkedHashSet.add(th);
                 } else {
                     linkedHashSet.add(new NullPointerException());
                 }
@@ -105,24 +108,24 @@ public final class CompositeException extends RuntimeException {
         this.message = unmodifiableList.size() + " exceptions occurred. ";
     }
 
-    private void appendStackTrace(StringBuilder sb2, Throwable th2, String str) {
-        sb2.append(str);
-        sb2.append(th2);
-        sb2.append("\n");
-        for (StackTraceElement stackTraceElement : th2.getStackTrace()) {
-            sb2.append("\t\tat ");
-            sb2.append(stackTraceElement);
-            sb2.append("\n");
+    private void appendStackTrace(StringBuilder sb, Throwable th, String str) {
+        sb.append(str);
+        sb.append(th);
+        sb.append("\n");
+        for (StackTraceElement stackTraceElement : th.getStackTrace()) {
+            sb.append("\t\tat ");
+            sb.append(stackTraceElement);
+            sb.append("\n");
         }
-        if (th2.getCause() != null) {
-            sb2.append("\tCaused by: ");
-            appendStackTrace(sb2, th2.getCause(), "");
+        if (th.getCause() != null) {
+            sb.append("\tCaused by: ");
+            appendStackTrace(sb, th.getCause(), "");
         }
     }
 
-    private final List<Throwable> getListOfCauses(Throwable th2) {
+    private final List<Throwable> getListOfCauses(Throwable th) {
         ArrayList arrayList = new ArrayList();
-        Throwable cause = th2.getCause();
+        Throwable cause = th.getCause();
         if (cause == null) {
             return arrayList;
         }
@@ -137,34 +140,30 @@ public final class CompositeException extends RuntimeException {
 
     @Override // java.lang.Throwable
     public synchronized Throwable getCause() {
-        try {
-            if (this.cause == null) {
-                CompositeExceptionCausalChain compositeExceptionCausalChain = new CompositeExceptionCausalChain();
-                HashSet hashSet = new HashSet();
-                Iterator<Throwable> it = this.exceptions.iterator();
-                Throwable th2 = compositeExceptionCausalChain;
-                while (it.hasNext()) {
-                    Throwable next = it.next();
-                    if (!hashSet.contains(next)) {
-                        hashSet.add(next);
-                        for (Throwable th3 : getListOfCauses(next)) {
-                            if (hashSet.contains(th3)) {
-                                next = new RuntimeException("Duplicate found in causal chain so cropping to prevent loop ...");
-                            } else {
-                                hashSet.add(th3);
-                            }
+        if (this.cause == null) {
+            CompositeExceptionCausalChain compositeExceptionCausalChain = new CompositeExceptionCausalChain();
+            HashSet hashSet = new HashSet();
+            Iterator<Throwable> it = this.exceptions.iterator();
+            Throwable th = compositeExceptionCausalChain;
+            while (it.hasNext()) {
+                Throwable next = it.next();
+                if (!hashSet.contains(next)) {
+                    hashSet.add(next);
+                    for (Throwable th2 : getListOfCauses(next)) {
+                        if (hashSet.contains(th2)) {
+                            next = new RuntimeException("Duplicate found in causal chain so cropping to prevent loop ...");
+                        } else {
+                            hashSet.add(th2);
                         }
-                        try {
-                            th2.initCause(next);
-                        } catch (Throwable unused) {
-                        }
-                        th2 = th2.getCause();
                     }
+                    try {
+                        th.initCause(next);
+                    } catch (Throwable unused) {
+                    }
+                    th = th.getCause();
                 }
-                this.cause = compositeExceptionCausalChain;
             }
-        } catch (Throwable th4) {
-            throw th4;
+            this.cause = compositeExceptionCausalChain;
         }
         return this.cause;
     }
@@ -194,25 +193,25 @@ public final class CompositeException extends RuntimeException {
     }
 
     private void printStackTrace(b bVar) {
-        StringBuilder sb2 = new StringBuilder();
-        sb2.append(this);
-        sb2.append("\n");
+        StringBuilder sb = new StringBuilder();
+        sb.append(this);
+        sb.append("\n");
         for (StackTraceElement stackTraceElement : getStackTrace()) {
-            sb2.append("\tat ");
-            sb2.append(stackTraceElement);
-            sb2.append("\n");
+            sb.append("\tat ");
+            sb.append(stackTraceElement);
+            sb.append("\n");
         }
-        int i10 = 1;
-        for (Throwable th2 : this.exceptions) {
-            sb2.append("  ComposedException ");
-            sb2.append(i10);
-            sb2.append(" :");
-            sb2.append("\n");
-            appendStackTrace(sb2, th2, "\t");
-            i10++;
+        int i2 = 1;
+        for (Throwable th : this.exceptions) {
+            sb.append("  ComposedException ");
+            sb.append(i2);
+            sb.append(" :");
+            sb.append("\n");
+            appendStackTrace(sb, th, "\t");
+            i2++;
         }
         synchronized (bVar.a()) {
-            bVar.b(sb2.toString());
+            bVar.b(sb.toString());
         }
     }
 

@@ -13,575 +13,501 @@ import android.view.WindowManager;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.core.app.ActivityCompat;
-import com.ss.android.download.api.config.t;
-import com.ss.android.download.api.model.b;
-import com.ss.android.downloadad.api.a.b;
-import com.ss.android.downloadad.api.constant.AdBaseConstants;
-import com.ss.android.downloadlib.addownload.a.e;
-import com.ss.android.downloadlib.addownload.b.f;
-import com.ss.android.downloadlib.addownload.k;
-import com.ss.android.downloadlib.addownload.n;
-import com.ss.android.downloadlib.g.h;
-import com.ss.android.downloadlib.g.j;
-import com.ss.android.downloadlib.g.m;
-import com.ss.android.downloadlib.guide.install.a;
-import com.ss.android.downloadlib.i;
-import com.ss.android.socialbase.appdownloader.c;
+import com.alipay.sdk.authjs.a;
+import com.ss.android.download.api.config.gm;
+import com.ss.android.download.api.constant.BaseConstants;
+import com.ss.android.download.api.model.zx;
+import com.ss.android.downloadad.api.j.zx;
+import com.ss.android.downloadlib.addownload.j.g;
+import com.ss.android.downloadlib.addownload.nt;
+import com.ss.android.downloadlib.addownload.pa;
+import com.ss.android.downloadlib.addownload.zx.gv;
+import com.ss.android.downloadlib.guide.install.j;
+import com.ss.android.downloadlib.y;
+import com.ss.android.socialbase.appdownloader.i;
 import com.ss.android.socialbase.downloader.downloader.Downloader;
 import com.ss.android.socialbase.downloader.model.DownloadInfo;
 import com.ss.android.socialbase.downloader.setting.DownloadSetting;
+import com.ss.android.socialbase.downloader.utils.DownloadExpSwitchCode;
 import java.lang.ref.WeakReference;
+import org.json.JSONException;
 import org.json.JSONObject;
 
 /* loaded from: classes4.dex */
 public class TTDelegateActivity extends Activity implements ActivityCompat.OnRequestPermissionsResultCallback {
 
-    /* renamed from: d */
-    private static a f21129d;
+    /* renamed from: g */
+    private static j f24098g;
 
-    /* renamed from: a */
-    protected Intent f21130a = null;
+    /* renamed from: i */
+    private zx f24099i;
 
-    /* renamed from: b */
-    private boolean f21131b;
-
-    /* renamed from: c */
-    private b f21132c;
+    /* renamed from: j */
+    protected Intent f24100j = null;
+    private boolean zx;
 
     /* renamed from: com.ss.android.downloadlib.activity.TTDelegateActivity$2 */
-    public class AnonymousClass2 implements b.InterfaceC0631b {
+    class AnonymousClass2 implements zx.InterfaceC0493zx {
 
-        /* renamed from: a */
-        final /* synthetic */ com.ss.android.downloadad.api.a.b f21136a;
+        /* renamed from: j */
+        final /* synthetic */ com.ss.android.downloadad.api.j.zx f24103j;
 
-        public AnonymousClass2(com.ss.android.downloadad.api.a.b bVar) {
-            d10 = bVar;
+        AnonymousClass2(com.ss.android.downloadad.api.j.zx zxVar) {
+            g2 = zxVar;
         }
 
-        @Override // com.ss.android.download.api.model.b.InterfaceC0631b
-        public void a(DialogInterface dialogInterface) {
-            com.ss.android.downloadlib.b.a.b(d10);
+        @Override // com.ss.android.download.api.model.zx.InterfaceC0493zx
+        public void i(DialogInterface dialogInterface) {
+            i.j((Activity) TTDelegateActivity.this);
+        }
+
+        @Override // com.ss.android.download.api.model.zx.InterfaceC0493zx
+        public void j(DialogInterface dialogInterface) {
+            com.ss.android.downloadlib.zx.j.zx(g2);
             TTDelegateActivity tTDelegateActivity = TTDelegateActivity.this;
             if (tTDelegateActivity != null && !tTDelegateActivity.isFinishing()) {
                 dialogInterface.dismiss();
             }
-            c.a((Activity) TTDelegateActivity.this);
+            i.j((Activity) TTDelegateActivity.this);
         }
 
-        @Override // com.ss.android.download.api.model.b.InterfaceC0631b
-        public void b(DialogInterface dialogInterface) {
-            com.ss.android.downloadlib.d.a.a().b("market_openapp_cancel", d10);
+        @Override // com.ss.android.download.api.model.zx.InterfaceC0493zx
+        public void zx(DialogInterface dialogInterface) {
+            com.ss.android.downloadlib.g.j.j().zx("market_openapp_cancel", g2);
             TTDelegateActivity tTDelegateActivity = TTDelegateActivity.this;
             if (tTDelegateActivity != null && !tTDelegateActivity.isFinishing()) {
                 dialogInterface.dismiss();
             }
-            c.a((Activity) TTDelegateActivity.this);
-        }
-
-        @Override // com.ss.android.download.api.model.b.InterfaceC0631b
-        public void c(DialogInterface dialogInterface) {
-            c.a((Activity) TTDelegateActivity.this);
+            i.j((Activity) TTDelegateActivity.this);
         }
     }
 
-    public static void a(String str, String[] strArr) {
-        Intent intent = new Intent(k.a(), (Class<?>) TTDelegateActivity.class);
-        intent.addFlags(268435456);
+    private void g(long j2) {
+        new com.ss.android.downloadlib.addownload.compliance.j(this, j2).show();
+    }
+
+    private static Intent i(@NonNull com.ss.android.downloadad.api.j.j jVar) {
+        return new Intent(pa.getContext(), (Class<?>) TTDelegateActivity.class);
+    }
+
+    public static void j(String str, String[] strArr) {
+        Intent intent = new Intent(pa.getContext(), (Class<?>) TTDelegateActivity.class);
+        intent.addFlags(DownloadExpSwitchCode.BUGFIX_GETPACKAGEINFO_BY_UNZIP);
         intent.putExtra("type", 1);
         intent.putExtra("permission_id_key", str);
         intent.putExtra("permission_content_key", strArr);
-        if (k.a() != null) {
-            k.a().startActivity(intent);
+        if (pa.getContext() != null) {
+            pa.getContext().startActivity(intent);
         }
     }
 
-    public static void b(String str, com.ss.android.downloadad.api.a.a aVar) {
-        Intent c10 = c(aVar);
-        c10.addFlags(268435456);
-        c10.putExtra("type", 11);
-        c10.putExtra("package_name", str);
-        if (k.a() != null) {
-            k.a().startActivity(c10);
+    public static void zx(String str, com.ss.android.downloadad.api.j.j jVar) {
+        Intent i2 = i(jVar);
+        i2.addFlags(DownloadExpSwitchCode.BUGFIX_GETPACKAGEINFO_BY_UNZIP);
+        i2.putExtra("type", 11);
+        i2.putExtra("package_name", str);
+        if (pa.getContext() != null) {
+            pa.getContext().startActivity(i2);
         }
-    }
-
-    private static Intent c(@NonNull com.ss.android.downloadad.api.a.a aVar) {
-        return new Intent(k.a(), (Class<?>) TTDelegateActivity.class);
     }
 
     @Override // android.app.Activity
-    public void onCreate(@Nullable Bundle bundle) {
+    protected void onCreate(@Nullable Bundle bundle) {
         super.onCreate(bundle);
-        b();
-        this.f21130a = getIntent();
-        k.b(this);
-        a();
+        zx();
+        this.f24100j = getIntent();
+        pa.zx(this);
+        j();
     }
 
     @Override // android.app.Activity
-    public void onNewIntent(Intent intent) {
+    protected void onNewIntent(Intent intent) {
         super.onNewIntent(intent);
         setIntent(intent);
-        this.f21130a = intent;
-        k.b(this);
-        a();
+        this.f24100j = intent;
+        pa.zx(this);
+        j();
     }
 
     @Override // android.app.Activity, androidx.core.app.ActivityCompat.OnRequestPermissionsResultCallback
-    public void onRequestPermissionsResult(int i10, @NonNull String[] strArr, @NonNull int[] iArr) {
-        super.onRequestPermissionsResult(i10, strArr, iArr);
-        k.f().a(this, i10, strArr, iArr);
+    public void onRequestPermissionsResult(int i2, @NonNull String[] strArr, @NonNull int[] iArr) {
+        super.onRequestPermissionsResult(i2, strArr, iArr);
+        pa.q().j(this, i2, strArr, iArr);
     }
 
     @Override // android.app.Activity
-    public void onStop() {
-        com.ss.android.downloadad.api.a.b bVar;
+    protected void onStop() {
+        DownloadInfo zx;
         super.onStop();
-        if (!this.f21131b || (bVar = this.f21132c) == null) {
-            return;
-        }
-        DownloadInfo a10 = !TextUtils.isEmpty(bVar.af()) ? i.a(k.a()).a(this.f21132c.af(), null, true) : i.a(k.a()).b(this.f21132c.a());
-        if (a10 == null || a10.getCurBytes() < a10.getTotalBytes() || isFinishing()) {
+        if (!this.zx || this.f24099i == null || (zx = y.j((Context) null).zx(this.f24099i.j())) == null || zx.getCurBytes() < zx.getTotalBytes() || isFinishing()) {
             return;
         }
         finish();
     }
 
     /* renamed from: com.ss.android.downloadlib.activity.TTDelegateActivity$1 */
-    public class AnonymousClass1 implements t {
+    class AnonymousClass1 implements gm {
 
-        /* renamed from: a */
-        final /* synthetic */ String f21133a;
+        /* renamed from: i */
+        private WeakReference<Activity> f24101i;
 
-        /* renamed from: c */
-        private WeakReference<Activity> f21135c;
+        /* renamed from: j */
+        final /* synthetic */ String f24102j;
 
-        public AnonymousClass1(String str) {
+        AnonymousClass1(String str) {
             str = str;
-            this.f21135c = new WeakReference<>(TTDelegateActivity.this);
+            this.f24101i = new WeakReference<>(TTDelegateActivity.this);
         }
 
-        @Override // com.ss.android.download.api.config.t
-        public void a() {
-            j.a(str);
-            c.a(this.f21135c.get());
+        @Override // com.ss.android.download.api.config.gm
+        public void j() {
+            com.ss.android.downloadlib.lg.pa.j(str);
+            i.j(this.f24101i.get());
         }
 
-        @Override // com.ss.android.download.api.config.t
-        public void a(String str) {
-            j.a(str, str);
-            c.a(this.f21135c.get());
-        }
-    }
-
-    /* JADX WARN: Removed duplicated region for block: B:14:0x00bf  */
-    /* JADX WARN: Removed duplicated region for block: B:21:0x0157  */
-    /* JADX WARN: Removed duplicated region for block: B:40:? A[RETURN, SYNTHETIC] */
-    /* JADX WARN: Removed duplicated region for block: B:41:0x00d7  */
-    /*
-        Code decompiled incorrectly, please refer to instructions dump.
-        To view partially-correct code enable 'Show inconsistent code' option in preferences
-    */
-    private void c() {
-        /*
-            Method dump skipped, instructions count: 440
-            To view this dump change 'Code comments level' option to 'DEBUG'
-        */
-        throw new UnsupportedOperationException("Method not decompiled: com.ss.android.downloadlib.activity.TTDelegateActivity.c():void");
-    }
-
-    public static void b(String str, long j10, String str2) {
-        Intent intent = new Intent(k.a(), (Class<?>) TTDelegateActivity.class);
-        intent.addFlags(268435456);
-        intent.putExtra("type", 14);
-        intent.putExtra("package_name", str);
-        intent.putExtra("model_id", j10);
-        intent.putExtra("market_app_id", str2);
-        if (k.a() != null) {
-            k.a().startActivity(intent);
+        @Override // com.ss.android.download.api.config.gm
+        public void j(String str) {
+            com.ss.android.downloadlib.lg.pa.j(str, str);
+            i.j(this.f24101i.get());
         }
     }
 
-    public static void a(String str, com.ss.android.downloadad.api.a.a aVar) {
-        Intent c10 = c(aVar);
-        c10.addFlags(268435456);
-        c10.putExtra("type", 2);
-        c10.putExtra(AdBaseConstants.MARKET_OPEN_INTENT_OPEN_URL, str);
-        if (k.a() != null) {
-            k.a().startActivity(c10);
+    private void i() {
+        String str;
+        long longExtra = this.f24100j.getLongExtra("model_id", 0L);
+        String stringExtra = this.f24100j.getStringExtra("message_text");
+        String stringExtra2 = this.f24100j.getStringExtra("positive_button_text");
+        String stringExtra3 = this.f24100j.getStringExtra("negative_button_text");
+        int intExtra = this.f24100j.getIntExtra("type", 0);
+        com.ss.android.downloadad.api.j.zx g2 = gv.j().g(longExtra);
+        g.j i2 = new g.j(this).j(false).j(stringExtra).zx(stringExtra2).i(stringExtra3);
+        if (intExtra == 7) {
+            if (com.ss.android.downloadlib.addownload.g.zx.j() == null) {
+                return;
+            }
+            i2.j(com.ss.android.downloadlib.addownload.g.zx.j());
+            i2.j().show();
+            str = "download_percent";
+        } else if (intExtra != 8) {
+            str = "";
+        } else {
+            if (com.ss.android.downloadlib.addownload.g.j.j() == null) {
+                return;
+            }
+            i2.j(com.ss.android.downloadlib.addownload.g.j.j());
+            i2.j().show();
+            str = "apk_size";
+        }
+        if (TextUtils.isEmpty(str)) {
+            return;
+        }
+        this.zx = true;
+        this.f24099i = g2;
+        JSONObject jSONObject = new JSONObject();
+        try {
+            jSONObject.putOpt("pause_optimise_type", str);
+            jSONObject.putOpt("pause_optimise_action", "show_dialog");
+        } catch (JSONException e2) {
+            e2.printStackTrace();
+        }
+        com.ss.android.downloadlib.g.j.j().j("pause_optimise", jSONObject, g2);
+    }
+
+    public static void zx(@NonNull com.ss.android.downloadad.api.j.j jVar) {
+        j(jVar, 5, "", "", "");
+    }
+
+    public static void j(String str, com.ss.android.downloadad.api.j.j jVar) {
+        Intent i2 = i(jVar);
+        i2.addFlags(DownloadExpSwitchCode.BUGFIX_GETPACKAGEINFO_BY_UNZIP);
+        i2.putExtra("type", 2);
+        i2.putExtra("open_url", str);
+        if (pa.getContext() != null) {
+            pa.getContext().startActivity(i2);
         }
     }
 
-    public static void a(com.ss.android.downloadad.api.a.a aVar) {
-        Intent c10 = c(aVar);
-        c10.addFlags(268435456);
-        c10.putExtra("type", 4);
-        c10.putExtra("model_id", aVar.b());
-        if (k.a() != null) {
-            k.a().startActivity(c10);
-        }
+    public static void zx(@NonNull com.ss.android.downloadad.api.j.j jVar, String str, String str2, String str3) {
+        j(jVar, 7, str, str2, str3);
     }
 
-    public static void b(@NonNull com.ss.android.downloadad.api.a.a aVar) {
-        a(aVar, 5, "", "", "", "");
-    }
-
-    public static void b(@NonNull com.ss.android.downloadad.api.a.a aVar, String str, String str2, String str3) {
-        a(aVar, 7, str, str2, str3, "");
-    }
-
-    public static void b(@NonNull com.ss.android.downloadad.api.a.a aVar, String str, String str2, String str3, String str4) {
-        a(aVar, 20, str, str2, str3, str4);
-    }
-
-    private void b() {
+    private void zx() {
         Window window = getWindow();
         WindowManager.LayoutParams attributes = window.getAttributes();
         attributes.alpha = 0.0f;
         window.setAttributes(attributes);
     }
 
-    public static void a(com.ss.android.downloadad.api.a.a aVar, a aVar2) {
-        Intent c10 = c(aVar);
-        c10.addFlags(268435456);
-        c10.putExtra("type", 9);
-        f21129d = aVar2;
-        if (k.a() != null) {
-            k.a().startActivity(c10);
+    private void zx(long j2) {
+        if (nt.j() == null) {
+            return;
+        }
+        com.ss.android.downloadad.api.j.zx g2 = gv.j().g(j2);
+        if (g2 != null) {
+            DownloadInfo downloadInfo = Downloader.getInstance(pa.getContext()).getDownloadInfo(g2.v());
+            JSONObject jSONObject = new JSONObject();
+            try {
+                jSONObject.putOpt("time_after_click", Long.valueOf(System.currentTimeMillis() - g2.az()));
+                jSONObject.putOpt("click_download_size", Long.valueOf(g2.vy()));
+                if (downloadInfo != null) {
+                    jSONObject.putOpt("download_length", Long.valueOf(downloadInfo.getCurBytes()));
+                    jSONObject.putOpt("download_percent", Long.valueOf(downloadInfo.getCurBytes() / downloadInfo.getTotalBytes()));
+                    jSONObject.putOpt("download_apk_size", Long.valueOf(downloadInfo.getTotalBytes()));
+                }
+            } catch (Exception e2) {
+                e2.printStackTrace();
+            }
+            com.ss.android.downloadlib.g.j.j().zx("pause_reserve_wifi_dialog_show", jSONObject, g2);
+        }
+        new g.j(this).j(false).j(nt.j()).j().show();
+        this.zx = true;
+        this.f24099i = g2;
+    }
+
+    public static void j(com.ss.android.downloadad.api.j.j jVar) {
+        Intent i2 = i(jVar);
+        i2.addFlags(DownloadExpSwitchCode.BUGFIX_GETPACKAGEINFO_BY_UNZIP);
+        i2.putExtra("type", 4);
+        i2.putExtra("model_id", jVar.zx());
+        if (pa.getContext() != null) {
+            pa.getContext().startActivity(i2);
         }
     }
 
-    private void b(String str, String[] strArr) {
+    public static void j(com.ss.android.downloadad.api.j.j jVar, j jVar2) {
+        Intent i2 = i(jVar);
+        i2.addFlags(DownloadExpSwitchCode.BUGFIX_GETPACKAGEINFO_BY_UNZIP);
+        i2.putExtra("type", 9);
+        f24098g = jVar2;
+        if (pa.getContext() != null) {
+            pa.getContext().startActivity(i2);
+        }
+    }
+
+    public static void j(long j2) {
+        Intent intent = new Intent(pa.getContext(), (Class<?>) TTDelegateActivity.class);
+        intent.addFlags(DownloadExpSwitchCode.BUGFIX_GETPACKAGEINFO_BY_UNZIP);
+        intent.putExtra("type", 10);
+        intent.putExtra("app_info_id", j2);
+        if (pa.getContext() != null) {
+            pa.getContext().startActivity(intent);
+        }
+    }
+
+    private void i(long j2) {
+        com.ss.android.downloadad.api.j.zx g2 = gv.j().g(j2);
+        if (g2 == null) {
+            com.ss.android.downloadlib.q.i.j().j("showOpenAppDialogInner nativeModel null");
+            i.j((Activity) this);
+            return;
+        }
+        com.ss.android.download.api.config.nt i2 = pa.i();
+        zx.j j3 = new zx.j(this).j("已安装完成");
+        Object[] objArr = new Object[1];
+        objArr[0] = TextUtils.isEmpty(g2.um()) ? "刚刚下载的应用" : g2.um();
+        i2.zx(j3.zx(String.format("%1$s已安装完成，是否立即打开？", objArr)).i("打开").g("取消").j(false).j(com.ss.android.downloadlib.lg.nt.i(this, g2.q())).j(new zx.InterfaceC0493zx() { // from class: com.ss.android.downloadlib.activity.TTDelegateActivity.2
+
+            /* renamed from: j */
+            final /* synthetic */ com.ss.android.downloadad.api.j.zx f24103j;
+
+            AnonymousClass2(com.ss.android.downloadad.api.j.zx g22) {
+                g2 = g22;
+            }
+
+            @Override // com.ss.android.download.api.model.zx.InterfaceC0493zx
+            public void i(DialogInterface dialogInterface) {
+                i.j((Activity) TTDelegateActivity.this);
+            }
+
+            @Override // com.ss.android.download.api.model.zx.InterfaceC0493zx
+            public void j(DialogInterface dialogInterface) {
+                com.ss.android.downloadlib.zx.j.zx(g2);
+                TTDelegateActivity tTDelegateActivity = TTDelegateActivity.this;
+                if (tTDelegateActivity != null && !tTDelegateActivity.isFinishing()) {
+                    dialogInterface.dismiss();
+                }
+                i.j((Activity) TTDelegateActivity.this);
+            }
+
+            @Override // com.ss.android.download.api.model.zx.InterfaceC0493zx
+            public void zx(DialogInterface dialogInterface) {
+                com.ss.android.downloadlib.g.j.j().zx("market_openapp_cancel", g2);
+                TTDelegateActivity tTDelegateActivity = TTDelegateActivity.this;
+                if (tTDelegateActivity != null && !tTDelegateActivity.isFinishing()) {
+                    dialogInterface.dismiss();
+                }
+                i.j((Activity) TTDelegateActivity.this);
+            }
+        }).j(2).j());
+        com.ss.android.downloadlib.g.j.j().zx("market_openapp_window_show", g22);
+    }
+
+    private void zx(String str, String[] strArr) {
         if (!TextUtils.isEmpty(str) && strArr != null && strArr.length > 0) {
-            AnonymousClass1 anonymousClass1 = new t() { // from class: com.ss.android.downloadlib.activity.TTDelegateActivity.1
+            AnonymousClass1 anonymousClass1 = new gm() { // from class: com.ss.android.downloadlib.activity.TTDelegateActivity.1
 
-                /* renamed from: a */
-                final /* synthetic */ String f21133a;
+                /* renamed from: i */
+                private WeakReference<Activity> f24101i;
 
-                /* renamed from: c */
-                private WeakReference<Activity> f21135c;
+                /* renamed from: j */
+                final /* synthetic */ String f24102j;
 
-                public AnonymousClass1(String str2) {
+                AnonymousClass1(String str2) {
                     str = str2;
-                    this.f21135c = new WeakReference<>(TTDelegateActivity.this);
+                    this.f24101i = new WeakReference<>(TTDelegateActivity.this);
                 }
 
-                @Override // com.ss.android.download.api.config.t
-                public void a() {
-                    j.a(str);
-                    c.a(this.f21135c.get());
+                @Override // com.ss.android.download.api.config.gm
+                public void j() {
+                    com.ss.android.downloadlib.lg.pa.j(str);
+                    i.j(this.f24101i.get());
                 }
 
-                @Override // com.ss.android.download.api.config.t
-                public void a(String str2) {
-                    j.a(str, str2);
-                    c.a(this.f21135c.get());
+                @Override // com.ss.android.download.api.config.gm
+                public void j(String str2) {
+                    com.ss.android.downloadlib.lg.pa.j(str, str2);
+                    i.j(this.f24101i.get());
                 }
             };
             if (Build.VERSION.SDK_INT >= 23) {
                 try {
-                    k.f().a(this, strArr, anonymousClass1);
+                    pa.q().j(this, strArr, anonymousClass1);
                     return;
-                } catch (Exception e10) {
-                    k.u().a(e10, "requestPermission");
-                    anonymousClass1.a();
+                } catch (Exception e2) {
+                    pa.v().j(e2, "requestPermission");
+                    anonymousClass1.j();
                     return;
                 }
             }
-            anonymousClass1.a();
+            anonymousClass1.j();
             return;
         }
-        c.a((Activity) this);
+        i.j((Activity) this);
     }
 
-    public static void a(long j10) {
-        Intent intent = new Intent(k.a(), (Class<?>) TTDelegateActivity.class);
-        intent.addFlags(268435456);
-        intent.putExtra("type", 10);
-        intent.putExtra("app_info_id", j10);
-        if (k.a() != null) {
-            k.a().startActivity(intent);
+    public static void j(String str, long j2, String str2, @NonNull JSONObject jSONObject) {
+        Intent intent = new Intent(pa.getContext(), (Class<?>) TTDelegateActivity.class);
+        intent.addFlags(DownloadExpSwitchCode.BUGFIX_GETPACKAGEINFO_BY_UNZIP);
+        intent.putExtra("type", 12);
+        intent.putExtra("package_name", str);
+        intent.putExtra("model_id", j2);
+        intent.putExtra(a.f5379f, str2);
+        intent.putExtra("ext_json", jSONObject.toString());
+        if (pa.getContext() != null) {
+            pa.getContext().startActivity(intent);
         }
     }
 
-    private void b(String str) {
-        Intent g10 = m.g(this, str);
-        if (g10 == null) {
+    private void zx(String str) {
+        Intent gv = com.ss.android.downloadlib.lg.nt.gv(this, str);
+        if (gv == null) {
             return;
         }
         try {
             try {
-                g10.addFlags(268435456);
-                g10.putExtra("start_only_for_android", true);
-                startActivity(g10);
-            } catch (Exception e10) {
-                e10.printStackTrace();
+                gv.addFlags(DownloadExpSwitchCode.BUGFIX_GETPACKAGEINFO_BY_UNZIP);
+                gv.putExtra(BaseConstants.START_ONLY_FOR_ANDROID, true);
+                startActivity(gv);
+            } catch (Exception e2) {
+                e2.printStackTrace();
             }
         } finally {
-            c.a((Activity) this);
+            i.j((Activity) this);
         }
     }
 
-    public static void a(String str, long j10, String str2, @NonNull JSONObject jSONObject) {
-        Intent intent = new Intent(k.a(), (Class<?>) TTDelegateActivity.class);
-        intent.addFlags(268435456);
-        intent.putExtra("type", 12);
-        intent.putExtra("package_name", str);
-        intent.putExtra("model_id", j10);
-        intent.putExtra("param", str2);
-        intent.putExtra("ext_json", jSONObject.toString());
-        if (k.a() != null) {
-            k.a().startActivity(intent);
-        }
+    public static void j(@NonNull com.ss.android.downloadad.api.j.j jVar, String str, String str2, String str3) {
+        j(jVar, 8, str, str2, str3);
     }
 
-    private void b(long j10) {
-        com.ss.android.downloadad.api.a.b d10 = f.a().d(j10);
-        if (d10 == null) {
-            com.ss.android.downloadlib.e.c.a().a("showOpenAppDialogInner nativeModel null");
-            c.a((Activity) this);
-        } else {
-            k.d().b(new b.a(this).a("已安装完成").b(String.format("%1$s已安装完成，是否立即打开？", TextUtils.isEmpty(d10.N()) ? "刚刚下载的应用" : d10.N())).c("打开").d("取消").a(false).a(m.d(this, d10.e())).a(new b.InterfaceC0631b() { // from class: com.ss.android.downloadlib.activity.TTDelegateActivity.2
-
-                /* renamed from: a */
-                final /* synthetic */ com.ss.android.downloadad.api.a.b f21136a;
-
-                public AnonymousClass2(com.ss.android.downloadad.api.a.b d102) {
-                    d10 = d102;
-                }
-
-                @Override // com.ss.android.download.api.model.b.InterfaceC0631b
-                public void a(DialogInterface dialogInterface) {
-                    com.ss.android.downloadlib.b.a.b(d10);
-                    TTDelegateActivity tTDelegateActivity = TTDelegateActivity.this;
-                    if (tTDelegateActivity != null && !tTDelegateActivity.isFinishing()) {
-                        dialogInterface.dismiss();
-                    }
-                    c.a((Activity) TTDelegateActivity.this);
-                }
-
-                @Override // com.ss.android.download.api.model.b.InterfaceC0631b
-                public void b(DialogInterface dialogInterface) {
-                    com.ss.android.downloadlib.d.a.a().b("market_openapp_cancel", d10);
-                    TTDelegateActivity tTDelegateActivity = TTDelegateActivity.this;
-                    if (tTDelegateActivity != null && !tTDelegateActivity.isFinishing()) {
-                        dialogInterface.dismiss();
-                    }
-                    c.a((Activity) TTDelegateActivity.this);
-                }
-
-                @Override // com.ss.android.download.api.model.b.InterfaceC0631b
-                public void c(DialogInterface dialogInterface) {
-                    c.a((Activity) TTDelegateActivity.this);
-                }
-            }).a(2).a());
-            com.ss.android.downloadlib.d.a.a().b("market_openapp_window_show", d102);
-        }
-    }
-
-    public static void a(String str, long j10, String str2) {
-        Intent intent = new Intent(k.a(), (Class<?>) TTDelegateActivity.class);
-        intent.addFlags(268435456);
-        intent.putExtra("type", 13);
-        intent.putExtra("package_name", str);
-        intent.putExtra("model_id", j10);
-        intent.putExtra("need_comment", str2);
-        if (k.a() != null) {
-            k.a().startActivity(intent);
-        }
-    }
-
-    public static void a(String str, long j10) {
-        Intent intent = new Intent(k.a(), (Class<?>) TTDelegateActivity.class);
-        intent.addFlags(268435456);
-        intent.putExtra("type", 15);
-        intent.putExtra("package_name", str);
-        intent.putExtra("model_id", j10);
-        if (k.a() != null) {
-            k.a().startActivity(intent);
-        }
-    }
-
-    private void c(long j10) {
-        new com.ss.android.downloadlib.addownload.compliance.a(this, j10).show();
-    }
-
-    public static void a(Context context, String str, long j10) {
-        Intent intent = new Intent(context, (Class<?>) TTDelegateActivity.class);
-        intent.addFlags(268435456);
-        intent.putExtra("type", 16);
-        intent.putExtra("package_name", str);
-        intent.putExtra("model_id", j10);
-        if (context != null) {
-            context.startActivity(intent);
-        }
-    }
-
-    public static void a(@NonNull com.ss.android.downloadad.api.a.a aVar, String str) {
-        a(aVar, 19, "", "", "", str);
-    }
-
-    public static void a(@NonNull com.ss.android.downloadad.api.a.a aVar, String str, String str2, String str3) {
-        a(aVar, 8, str, str2, str3, "");
-    }
-
-    public static void a(@NonNull com.ss.android.downloadad.api.a.a aVar, String str, String str2, String str3, String str4) {
-        a(aVar, 21, str, str2, str3, str4);
-    }
-
-    private static void a(@NonNull com.ss.android.downloadad.api.a.a aVar, int i10, String str, String str2, String str3, String str4) {
-        Intent c10 = c(aVar);
-        c10.addFlags(268435456);
-        c10.putExtra("type", i10);
+    private static void j(@NonNull com.ss.android.downloadad.api.j.j jVar, int i2, String str, String str2, String str3) {
+        Intent i3 = i(jVar);
+        i3.addFlags(DownloadExpSwitchCode.BUGFIX_GETPACKAGEINFO_BY_UNZIP);
+        i3.putExtra("type", i2);
         if (!TextUtils.isEmpty(str2)) {
-            c10.putExtra("positive_button_text", str2);
+            i3.putExtra("positive_button_text", str2);
         }
         if (!TextUtils.isEmpty(str3)) {
-            c10.putExtra("negative_button_text", str3);
-        }
-        if (!TextUtils.isEmpty(str4)) {
-            c10.putExtra("delete_button_text", str4);
+            i3.putExtra("negative_button_text", str3);
         }
         if (!TextUtils.isEmpty(str)) {
-            c10.putExtra("message_text", str);
+            i3.putExtra("message_text", str);
         }
-        c10.putExtra("model_id", aVar.b());
-        if (k.a() != null) {
-            k.a().startActivity(c10);
+        i3.putExtra("model_id", jVar.zx());
+        if (pa.getContext() != null) {
+            pa.getContext().startActivity(i3);
         }
     }
 
-    public void a() {
-        Intent intent = this.f21130a;
+    protected void j() {
+        Intent intent = this.f24100j;
         if (intent == null) {
             return;
         }
         switch (intent.getIntExtra("type", 0)) {
             case 1:
-                b(this.f21130a.getStringExtra("permission_id_key"), this.f21130a.getStringArrayExtra("permission_content_key"));
+                zx(this.f24100j.getStringExtra("permission_id_key"), this.f24100j.getStringArrayExtra("permission_content_key"));
                 break;
             case 2:
-                a(this.f21130a.getStringExtra(AdBaseConstants.MARKET_OPEN_INTENT_OPEN_URL));
+                j(this.f24100j.getStringExtra("open_url"));
                 break;
             case 3:
             case 6:
-            case 17:
-            case 18:
             default:
-                c.a((Activity) this);
+                i.j((Activity) this);
                 break;
             case 4:
-                b(this.f21130a.getLongExtra("model_id", 0L));
+                i(this.f24100j.getLongExtra("model_id", 0L));
                 break;
             case 5:
-                a(this.f21130a.getLongExtra("model_id", 0L), "");
+                zx(this.f24100j.getLongExtra("model_id", 0L));
                 break;
             case 7:
             case 8:
-            case 20:
-            case 21:
-                c();
+                i();
                 break;
             case 9:
-                a aVar = f21129d;
-                if (aVar != null) {
-                    aVar.a();
+                j jVar = f24098g;
+                if (jVar != null) {
+                    jVar.j();
                 }
-                c.a((Activity) this);
+                i.j((Activity) this);
                 break;
             case 10:
-                c(this.f21130a.getLongExtra("app_info_id", 0L));
+                g(this.f24100j.getLongExtra("app_info_id", 0L));
                 break;
             case 11:
-                b(this.f21130a.getStringExtra("package_name"));
+                zx(this.f24100j.getStringExtra("package_name"));
                 break;
             case 12:
-                h.a(this, this.f21130a.getStringExtra("package_name"), this.f21130a.getLongExtra("model_id", 0L), this.f21130a.getStringExtra("param"), this.f21130a.getStringExtra("ext_json"));
-                c.a((Activity) this);
-                break;
-            case 13:
-                h.a(this, this.f21130a.getStringExtra("package_name"), this.f21130a.getLongExtra("model_id", 0L), this.f21130a.getStringExtra("need_comment"));
-                c.a((Activity) this);
-                break;
-            case 14:
-                h.b(this, this.f21130a.getStringExtra("package_name"), this.f21130a.getLongExtra("model_id", 0L), this.f21130a.getStringExtra("market_app_id"));
-                c.a((Activity) this);
-                break;
-            case 15:
-                h.a(this, this.f21130a.getStringExtra("package_name"), this.f21130a.getLongExtra("model_id", 0L));
-                c.a((Activity) this);
-                break;
-            case 16:
-                h.b(this, this.f21130a.getStringExtra("package_name"), this.f21130a.getLongExtra("model_id", 0L));
-                c.a((Activity) this);
-                break;
-            case 19:
-                a(this.f21130a.getLongExtra("model_id", 0L), this.f21130a.getStringExtra("delete_button_text"));
+                com.ss.android.downloadlib.lg.y.j(this, this.f24100j.getStringExtra("package_name"), this.f24100j.getLongExtra("model_id", 0L), this.f24100j.getStringExtra(a.f5379f), this.f24100j.getStringExtra("ext_json"));
+                i.j((Activity) this);
                 break;
         }
-        this.f21130a = null;
+        this.f24100j = null;
     }
 
-    private void a(long j10, String str) {
-        if (n.a() == null) {
+    private void j(String str) {
+        if (TextUtils.isEmpty(str)) {
             return;
         }
-        com.ss.android.downloadad.api.a.b d10 = f.a().d(j10);
-        if (d10 != null) {
-            DownloadInfo downloadInfo = Downloader.getInstance(k.a()).getDownloadInfo(d10.s());
-            JSONObject jSONObject = new JSONObject();
-            try {
-                jSONObject.putOpt("time_after_click", Long.valueOf(System.currentTimeMillis() - d10.T()));
-                jSONObject.putOpt("click_download_size", Long.valueOf(d10.U()));
-                if (downloadInfo != null) {
-                    jSONObject.putOpt("download_length", Long.valueOf(downloadInfo.getCurBytes()));
-                    jSONObject.putOpt("download_percent", Long.valueOf(downloadInfo.getCurBytes() / downloadInfo.getTotalBytes()));
-                    jSONObject.putOpt("download_apk_size", Long.valueOf(downloadInfo.getTotalBytes()));
-                    jSONObject.putOpt("download_current_bytes", Integer.valueOf((int) (downloadInfo.getCurBytes() / 1048576)));
-                    jSONObject.putOpt("download_total_bytes", Integer.valueOf((int) (downloadInfo.getTotalBytes() / 1048576)));
-                }
-            } catch (Exception e10) {
-                e10.printStackTrace();
-            }
-            if (!TextUtils.isEmpty(str)) {
-                com.ss.android.downloadlib.d.a.a().a("cancel_pause_reserve_wifi_dialog_show", jSONObject, d10);
-            } else {
-                com.ss.android.downloadlib.d.a.a().b("pause_reserve_wifi_dialog_show", jSONObject, d10);
-            }
-        }
-        e.a a10 = new e.a(this).a(false).a(n.a());
-        if (!TextUtils.isEmpty(str)) {
-            a10.d(str).a(n.b());
-        }
-        a10.a().show();
-        this.f21131b = true;
-        this.f21132c = d10;
-    }
-
-    private void a(String str) {
         try {
-            if (TextUtils.isEmpty(str)) {
-                c.a((Activity) this);
-                return;
-            }
             try {
                 Uri parse = Uri.parse(str);
                 Intent intent = new Intent("android.intent.action.VIEW");
                 intent.setData(parse);
-                intent.putExtra(AdBaseConstants.MARKET_OPEN_INTENT_OPEN_URL, str);
-                intent.addFlags(268435456);
+                intent.putExtra("open_url", str);
+                intent.addFlags(DownloadExpSwitchCode.BUGFIX_GETPACKAGEINFO_BY_UNZIP);
                 if (DownloadSetting.obtainGlobal().optBugFix("fix_app_link_flag")) {
                     intent.addFlags(67108864);
                 }
-                intent.putExtra("start_only_for_android", true);
+                intent.putExtra(BaseConstants.START_ONLY_FOR_ANDROID, true);
                 startActivity(intent);
-            } catch (Exception e10) {
-                e10.printStackTrace();
+            } catch (Exception e2) {
+                e2.printStackTrace();
             }
-            c.a((Activity) this);
-        } catch (Throwable th2) {
-            c.a((Activity) this);
-            throw th2;
+        } finally {
+            i.j((Activity) this);
         }
     }
 }

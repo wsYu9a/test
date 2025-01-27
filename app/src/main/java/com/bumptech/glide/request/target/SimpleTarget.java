@@ -4,7 +4,7 @@ import androidx.annotation.NonNull;
 import com.bumptech.glide.util.Util;
 
 @Deprecated
-/* loaded from: classes2.dex */
+/* loaded from: classes.dex */
 public abstract class SimpleTarget<Z> extends BaseTarget<Z> {
     private final int height;
     private final int width;
@@ -26,8 +26,8 @@ public abstract class SimpleTarget<Z> extends BaseTarget<Z> {
     public void removeCallback(@NonNull SizeReadyCallback sizeReadyCallback) {
     }
 
-    public SimpleTarget(int i10, int i11) {
-        this.width = i10;
-        this.height = i11;
+    public SimpleTarget(int i2, int i3) {
+        this.width = i2;
+        this.height = i3;
     }
 }

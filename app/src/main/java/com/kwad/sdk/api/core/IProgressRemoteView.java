@@ -7,7 +7,7 @@ import androidx.annotation.Keep;
 
 @KsAdSdkDynamicApi
 @Keep
-/* loaded from: classes3.dex */
+/* loaded from: classes2.dex */
 public interface IProgressRemoteView {
     @KsAdSdkDynamicApi
     @Keep
@@ -15,11 +15,11 @@ public interface IProgressRemoteView {
 
     @KsAdSdkDynamicApi
     @Keep
-    void setControlBtnPaused(boolean z10);
+    void setControlBtnPaused(boolean z);
 
     @KsAdSdkDynamicApi
     @Keep
-    void setIcon(@DrawableRes int i10);
+    void setIcon(@DrawableRes int i2);
 
     @KsAdSdkDynamicApi
     @Keep
@@ -35,7 +35,7 @@ public interface IProgressRemoteView {
 
     @KsAdSdkDynamicApi
     @Keep
-    void setProgress(int i10, int i11, boolean z10);
+    void setProgress(int i2, int i3, boolean z);
 
     @KsAdSdkDynamicApi
     @Keep

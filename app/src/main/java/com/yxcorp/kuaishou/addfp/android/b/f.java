@@ -1,53 +1,44 @@
 package com.yxcorp.kuaishou.addfp.android.b;
 
-import android.content.Context;
-import android.os.Process;
-import android.text.TextUtils;
-import java.io.PrintWriter;
-import java.io.StringWriter;
-import java.net.UnknownHostException;
+import android.os.Build;
+import java.lang.reflect.Method;
 
-/* loaded from: classes4.dex */
+/* loaded from: classes5.dex */
 public class f {
 
     /* renamed from: a */
-    private static boolean f25187a = false;
+    private static Object f34706a;
 
-    public static String a(String str) {
-        return TextUtils.isEmpty(str) ? "KWE_N" : str;
-    }
+    /* renamed from: b */
+    private static Method f34707b;
 
-    public static String a(Throwable th2) {
-        for (Throwable th3 = th2; th3 != null; th3 = th3.getCause()) {
-            if (th3 instanceof UnknownHostException) {
-                return "UnknownHostException";
-            }
+    /* renamed from: c */
+    public static final /* synthetic */ int f34708c = 0;
+
+    static {
+        if (Build.VERSION.SDK_INT >= 28) {
             try {
-            } catch (Throwable th4) {
-                th4.printStackTrace();
-                return "";
+                Method declaredMethod = Class.class.getDeclaredMethod("forName", String.class);
+                Method declaredMethod2 = Class.class.getDeclaredMethod("getDeclaredMethod", String.class, Class[].class);
+                Class cls = (Class) declaredMethod.invoke(null, "dalvik.system.VMRuntime");
+                Method method = (Method) declaredMethod2.invoke(cls, "getRuntime", null);
+                f34707b = (Method) declaredMethod2.invoke(cls, "setHiddenApiExemptions", new Class[]{String[].class});
+                f34706a = method.invoke(null, new Object[0]);
+            } catch (Throwable unused) {
             }
         }
-        StringWriter stringWriter = new StringWriter();
-        PrintWriter printWriter = new PrintWriter(stringWriter);
-        th2.printStackTrace(printWriter);
-        String stringWriter2 = stringWriter.toString();
-        printWriter.close();
-        return stringWriter2;
     }
 
-    public static void a(boolean z10) {
-        f25187a = z10;
-    }
-
-    public static boolean a(Context context, String[] strArr) {
-        try {
-            for (String str : strArr) {
-                if (context.checkPermission(str, Process.myPid(), Process.myUid()) == 0) {
-                    return true;
-                }
+    public static boolean a() {
+        Method method;
+        String[] strArr = {"L"};
+        Object obj = f34706a;
+        if (obj != null && (method = f34707b) != null) {
+            try {
+                method.invoke(obj, strArr);
+                return true;
+            } catch (Throwable unused) {
             }
-        } catch (Throwable unused) {
         }
         return false;
     }

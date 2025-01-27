@@ -4,7 +4,7 @@ import android.graphics.drawable.Drawable;
 import android.view.View;
 import androidx.annotation.Nullable;
 
-/* loaded from: classes2.dex */
+/* loaded from: classes.dex */
 public interface Transition<R> {
 
     public interface ViewAdapter {
@@ -16,5 +16,5 @@ public interface Transition<R> {
         void setDrawable(Drawable drawable);
     }
 
-    boolean transition(R r10, ViewAdapter viewAdapter);
+    boolean transition(R r, ViewAdapter viewAdapter);
 }

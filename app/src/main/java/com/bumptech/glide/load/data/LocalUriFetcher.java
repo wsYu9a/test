@@ -10,7 +10,7 @@ import com.bumptech.glide.load.data.DataFetcher;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 
-/* loaded from: classes2.dex */
+/* loaded from: classes.dex */
 public abstract class LocalUriFetcher<T> implements DataFetcher<T> {
     private static final String TAG = "LocalUriFetcher";
     private final ContentResolver contentResolver;
@@ -28,16 +28,16 @@ public abstract class LocalUriFetcher<T> implements DataFetcher<T> {
 
     @Override // com.bumptech.glide.load.data.DataFetcher
     public void cleanup() {
-        T t10 = this.data;
-        if (t10 != null) {
+        T t = this.data;
+        if (t != null) {
             try {
-                close(t10);
+                close(t);
             } catch (IOException unused) {
             }
         }
     }
 
-    public abstract void close(T t10) throws IOException;
+    protected abstract void close(T t) throws IOException;
 
     @Override // com.bumptech.glide.load.data.DataFetcher
     @NonNull
@@ -51,13 +51,13 @@ public abstract class LocalUriFetcher<T> implements DataFetcher<T> {
             T loadResource = loadResource(this.uri, this.contentResolver);
             this.data = loadResource;
             dataCallback.onDataReady(loadResource);
-        } catch (FileNotFoundException e10) {
+        } catch (FileNotFoundException e2) {
             if (Log.isLoggable(TAG, 3)) {
-                Log.d(TAG, "Failed to open Uri", e10);
+                Log.d(TAG, "Failed to open Uri", e2);
             }
-            dataCallback.onLoadFailed(e10);
+            dataCallback.onLoadFailed(e2);
         }
     }
 
-    public abstract T loadResource(Uri uri, ContentResolver contentResolver) throws FileNotFoundException;
+    protected abstract T loadResource(Uri uri, ContentResolver contentResolver) throws FileNotFoundException;
 }

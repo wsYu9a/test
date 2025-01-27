@@ -1,7 +1,7 @@
 package com.umeng.commonsdk.internal.utils;
 
 import android.os.Build;
-import com.kuaishou.weapon.p0.bi;
+import com.kuaishou.weapon.p0.bh;
 import com.umeng.commonsdk.internal.utils.e;
 import java.io.File;
 
@@ -36,8 +36,8 @@ public class h {
 
     private static boolean e() {
         String[] strArr = {"/bin", "/system/bin/", "/system/xbin/", "/system/sbin/", "/sbin/", "/vendor/bin/", "/su/bin/", "/data/local/xbin/", "/data/local/bin/", "/system/sd/xbin/", "/system/bin/failsafe/", "/data/local/"};
-        for (int i10 = 0; i10 < 12; i10++) {
-            if (new File(strArr[i10] + bi.f10829y).exists()) {
+        for (int i2 = 0; i2 < 12; i2++) {
+            if (new File(strArr[i2] + bh.y).exists()) {
                 return true;
             }
         }

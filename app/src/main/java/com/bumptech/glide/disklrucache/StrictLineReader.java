@@ -8,7 +8,7 @@ import java.io.InputStream;
 import java.io.UnsupportedEncodingException;
 import java.nio.charset.Charset;
 
-/* loaded from: classes2.dex */
+/* loaded from: classes.dex */
 class StrictLineReader implements Closeable {
     private static final byte CR = 13;
     private static final byte LF = 10;
@@ -19,21 +19,21 @@ class StrictLineReader implements Closeable {
     private int pos;
 
     /* renamed from: com.bumptech.glide.disklrucache.StrictLineReader$1 */
-    public class AnonymousClass1 extends ByteArrayOutputStream {
-        public AnonymousClass1(int i10) {
-            super(i10);
+    class AnonymousClass1 extends ByteArrayOutputStream {
+        AnonymousClass1(int i2) {
+            super(i2);
         }
 
         @Override // java.io.ByteArrayOutputStream
         public String toString() {
-            int i10 = ((ByteArrayOutputStream) this).count;
-            if (i10 > 0 && ((ByteArrayOutputStream) this).buf[i10 - 1] == 13) {
-                i10--;
+            int i2 = ((ByteArrayOutputStream) this).count;
+            if (i2 > 0 && ((ByteArrayOutputStream) this).buf[i2 - 1] == 13) {
+                i2--;
             }
             try {
-                return new String(((ByteArrayOutputStream) this).buf, 0, i10, StrictLineReader.this.charset.name());
-            } catch (UnsupportedEncodingException e10) {
-                throw new AssertionError(e10);
+                return new String(((ByteArrayOutputStream) this).buf, 0, i2, StrictLineReader.this.charset.name());
+            } catch (UnsupportedEncodingException e2) {
+                throw new AssertionError(e2);
             }
         }
     }
@@ -56,13 +56,9 @@ class StrictLineReader implements Closeable {
     @Override // java.io.Closeable, java.lang.AutoCloseable
     public void close() throws IOException {
         synchronized (this.in) {
-            try {
-                if (this.buf != null) {
-                    this.buf = null;
-                    this.in.close();
-                }
-            } catch (Throwable th2) {
-                throw th2;
+            if (this.buf != null) {
+                this.buf = null;
+                this.in.close();
             }
         }
     }
@@ -72,85 +68,84 @@ class StrictLineReader implements Closeable {
     }
 
     public String readLine() throws IOException {
-        int i10;
+        int i2;
         byte[] bArr;
-        int i11;
+        int i3;
         synchronized (this.in) {
-            try {
-                if (this.buf == null) {
-                    throw new IOException("LineReader is closed");
-                }
-                if (this.pos >= this.end) {
-                    fillBuf();
-                }
-                for (int i12 = this.pos; i12 != this.end; i12++) {
-                    byte[] bArr2 = this.buf;
-                    if (bArr2[i12] == 10) {
-                        int i13 = this.pos;
-                        if (i12 != i13) {
-                            i11 = i12 - 1;
-                            if (bArr2[i11] == 13) {
-                                String str = new String(bArr2, i13, i11 - i13, this.charset.name());
-                                this.pos = i12 + 1;
-                                return str;
-                            }
-                        }
-                        i11 = i12;
-                        String str2 = new String(bArr2, i13, i11 - i13, this.charset.name());
-                        this.pos = i12 + 1;
-                        return str2;
-                    }
-                }
-                AnonymousClass1 anonymousClass1 = new ByteArrayOutputStream((this.end - this.pos) + 80) { // from class: com.bumptech.glide.disklrucache.StrictLineReader.1
-                    public AnonymousClass1(int i102) {
-                        super(i102);
-                    }
-
-                    @Override // java.io.ByteArrayOutputStream
-                    public String toString() {
-                        int i102 = ((ByteArrayOutputStream) this).count;
-                        if (i102 > 0 && ((ByteArrayOutputStream) this).buf[i102 - 1] == 13) {
-                            i102--;
-                        }
-                        try {
-                            return new String(((ByteArrayOutputStream) this).buf, 0, i102, StrictLineReader.this.charset.name());
-                        } catch (UnsupportedEncodingException e10) {
-                            throw new AssertionError(e10);
-                        }
-                    }
-                };
-                loop1: while (true) {
-                    byte[] bArr3 = this.buf;
-                    int i14 = this.pos;
-                    anonymousClass1.write(bArr3, i14, this.end - i14);
-                    this.end = -1;
-                    fillBuf();
-                    i10 = this.pos;
-                    while (i10 != this.end) {
-                        bArr = this.buf;
-                        if (bArr[i10] == 10) {
-                            break loop1;
-                        }
-                        i10++;
-                    }
-                }
-                int i15 = this.pos;
-                if (i10 != i15) {
-                    anonymousClass1.write(bArr, i15, i10 - i15);
-                }
-                this.pos = i10 + 1;
-                return anonymousClass1.toString();
-            } catch (Throwable th2) {
-                throw th2;
+            if (this.buf == null) {
+                throw new IOException("LineReader is closed");
             }
+            if (this.pos >= this.end) {
+                fillBuf();
+            }
+            for (int i4 = this.pos; i4 != this.end; i4++) {
+                byte[] bArr2 = this.buf;
+                if (bArr2[i4] == 10) {
+                    if (i4 != this.pos) {
+                        i3 = i4 - 1;
+                        if (bArr2[i3] == 13) {
+                            byte[] bArr3 = this.buf;
+                            int i5 = this.pos;
+                            String str = new String(bArr3, i5, i3 - i5, this.charset.name());
+                            this.pos = i4 + 1;
+                            return str;
+                        }
+                    }
+                    i3 = i4;
+                    byte[] bArr32 = this.buf;
+                    int i52 = this.pos;
+                    String str2 = new String(bArr32, i52, i3 - i52, this.charset.name());
+                    this.pos = i4 + 1;
+                    return str2;
+                }
+            }
+            AnonymousClass1 anonymousClass1 = new ByteArrayOutputStream((this.end - this.pos) + 80) { // from class: com.bumptech.glide.disklrucache.StrictLineReader.1
+                AnonymousClass1(int i22) {
+                    super(i22);
+                }
+
+                @Override // java.io.ByteArrayOutputStream
+                public String toString() {
+                    int i22 = ((ByteArrayOutputStream) this).count;
+                    if (i22 > 0 && ((ByteArrayOutputStream) this).buf[i22 - 1] == 13) {
+                        i22--;
+                    }
+                    try {
+                        return new String(((ByteArrayOutputStream) this).buf, 0, i22, StrictLineReader.this.charset.name());
+                    } catch (UnsupportedEncodingException e2) {
+                        throw new AssertionError(e2);
+                    }
+                }
+            };
+            loop1: while (true) {
+                byte[] bArr4 = this.buf;
+                int i6 = this.pos;
+                anonymousClass1.write(bArr4, i6, this.end - i6);
+                this.end = -1;
+                fillBuf();
+                i2 = this.pos;
+                while (i2 != this.end) {
+                    bArr = this.buf;
+                    if (bArr[i2] == 10) {
+                        break loop1;
+                    }
+                    i2++;
+                }
+            }
+            int i7 = this.pos;
+            if (i2 != i7) {
+                anonymousClass1.write(bArr, i7, i2 - i7);
+            }
+            this.pos = i2 + 1;
+            return anonymousClass1.toString();
         }
     }
 
-    public StrictLineReader(InputStream inputStream, int i10, Charset charset) {
+    public StrictLineReader(InputStream inputStream, int i2, Charset charset) {
         if (inputStream == null || charset == null) {
             throw null;
         }
-        if (i10 < 0) {
+        if (i2 < 0) {
             throw new IllegalArgumentException("capacity <= 0");
         }
         if (!charset.equals(Util.US_ASCII)) {
@@ -158,6 +153,6 @@ class StrictLineReader implements Closeable {
         }
         this.in = inputStream;
         this.charset = charset;
-        this.buf = new byte[i10];
+        this.buf = new byte[i2];
     }
 }

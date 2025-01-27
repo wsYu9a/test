@@ -20,28 +20,24 @@ public class ABTest implements d {
     private float mProb07 = 0.0f;
     private String mPoli = null;
 
-    private ABTest(Context context, String str, int i10) {
+    private ABTest(Context context, String str, int i2) {
+        this.context = null;
         this.context = context;
-        onExperimentChanged(str, i10);
+        onExperimentChanged(str, i2);
     }
 
     public static synchronized ABTest getService(Context context) {
         ABTest aBTest;
         synchronized (ABTest.class) {
-            try {
-                if (instance == null) {
-                    instance = new ABTest(context, UMEnvelopeBuild.imprintProperty(context, "client_test", null), Integer.valueOf(UMEnvelopeBuild.imprintProperty(context, "test_report_interval", "0")).intValue());
-                }
-                aBTest = instance;
-            } catch (Throwable th2) {
-                throw th2;
+            if (instance == null) {
+                instance = new ABTest(context, UMEnvelopeBuild.imprintProperty(context, "client_test", null), Integer.valueOf(UMEnvelopeBuild.imprintProperty(context, "test_report_interval", "0")).intValue());
             }
+            aBTest = instance;
         }
         return aBTest;
     }
 
     private void parseFIXED(String str) {
-        int[] iArr;
         if (str == null) {
             return;
         }
@@ -51,30 +47,25 @@ public class ABTest implements d {
             return;
         }
         int intValue = split[0].equals("FIXED") ? Integer.valueOf(split[1]).intValue() : -1;
+        int[] iArr = null;
         if (split[4].equals("RPT")) {
             this.mPoli = "RPT";
             String[] split2 = split[5].split(",");
             iArr = new int[split2.length];
-            for (int i10 = 0; i10 < split2.length; i10++) {
-                iArr[i10] = Integer.valueOf(split2[i10]).intValue();
+            for (int i2 = 0; i2 < split2.length; i2++) {
+                iArr[i2] = Integer.valueOf(split2[i2]).intValue();
             }
-        } else {
-            if (split[4].equals("DOM")) {
-                this.mPoli = "DOM";
-                this.isInTest = true;
-                try {
-                    String[] split3 = split[5].split(",");
-                    iArr = new int[split3.length];
-                    for (int i11 = 0; i11 < split3.length; i11++) {
-                        try {
-                            iArr[i11] = Integer.valueOf(split3[i11]).intValue();
-                        } catch (Exception unused) {
-                        }
-                    }
-                } catch (Exception unused2) {
+        } else if (split[4].equals("DOM")) {
+            this.mPoli = "DOM";
+            this.isInTest = true;
+            try {
+                String[] split3 = split[5].split(",");
+                iArr = new int[split3.length];
+                for (int i3 = 0; i3 < split3.length; i3++) {
+                    iArr[i3] = Integer.valueOf(split3[i3]).intValue();
                 }
+            } catch (Exception unused) {
             }
-            iArr = null;
         }
         if (intValue == -1) {
             this.isInTest = false;
@@ -93,7 +84,7 @@ public class ABTest implements d {
             return;
         }
         String[] split = str.split("\\|");
-        float f10 = 0.0f;
+        float f2 = 0.0f;
         if (this.mProb13 > (split[2].equals("SIG13") ? Float.valueOf(split[3]).floatValue() : 0.0f)) {
             this.isInTest = false;
             return;
@@ -102,8 +93,8 @@ public class ABTest implements d {
         if (split[0].equals("SIG7")) {
             String[] split2 = split[1].split(",");
             fArr = new float[split2.length];
-            for (int i10 = 0; i10 < split2.length; i10++) {
-                fArr[i10] = Float.valueOf(split2[i10]).floatValue();
+            for (int i2 = 0; i2 < split2.length; i2++) {
+                fArr[i2] = Float.valueOf(split2[i2]).floatValue();
             }
         } else {
             fArr = null;
@@ -112,8 +103,8 @@ public class ABTest implements d {
             this.mPoli = "RPT";
             String[] split3 = split[5].split(",");
             iArr = new int[split3.length];
-            for (int i11 = 0; i11 < split3.length; i11++) {
-                iArr[i11] = Integer.valueOf(split3[i11]).intValue();
+            for (int i3 = 0; i3 < split3.length; i3++) {
+                iArr[i3] = Integer.valueOf(split3[i3]).intValue();
             }
         } else if (split[4].equals("DOM")) {
             this.isInTest = true;
@@ -121,42 +112,42 @@ public class ABTest implements d {
             try {
                 String[] split4 = split[5].split(",");
                 iArr = new int[split4.length];
-                for (int i12 = 0; i12 < split4.length; i12++) {
-                    iArr[i12] = Integer.valueOf(split4[i12]).intValue();
+                for (int i4 = 0; i4 < split4.length; i4++) {
+                    iArr[i4] = Integer.valueOf(split4[i4]).intValue();
                 }
             } catch (Exception unused) {
             }
         }
-        int i13 = 0;
+        int i5 = 0;
         while (true) {
-            if (i13 >= fArr.length) {
-                i13 = -1;
+            if (i5 >= fArr.length) {
+                i5 = -1;
                 break;
             }
-            f10 += fArr[i13];
-            if (this.mProb07 < f10) {
+            f2 += fArr[i5];
+            if (this.mProb07 < f2) {
                 break;
             } else {
-                i13++;
+                i5++;
             }
         }
-        if (i13 == -1) {
+        if (i5 == -1) {
             this.isInTest = false;
             return;
         }
         this.isInTest = true;
-        this.mGroup = i13 + 1;
+        this.mGroup = i5 + 1;
         if (iArr != null) {
-            this.mPolicy = iArr[i13];
+            this.mPolicy = iArr[i5];
         }
     }
 
-    private float prob(String str, int i10) {
-        int i11 = i10 * 2;
+    private float prob(String str, int i2) {
+        int i3 = i2 * 2;
         if (str == null) {
             return 0.0f;
         }
-        return Integer.valueOf(str.substring(i11, i11 + 5), 16).intValue() / 1048576.0f;
+        return Integer.valueOf(str.substring(i3, i3 + 5), 16).intValue() / 1048576.0f;
     }
 
     public static boolean validate(String str) {
@@ -204,8 +195,8 @@ public class ABTest implements d {
         return this.isInTest;
     }
 
-    public void onExperimentChanged(String str, int i10) {
-        this.mInterval = i10;
+    public void onExperimentChanged(String str, int i2) {
+        this.mInterval = i2;
         String signature = Envelope.getSignature(this.context);
         if (TextUtils.isEmpty(signature) || TextUtils.isEmpty(str)) {
             this.isInTest = false;
@@ -219,9 +210,9 @@ public class ABTest implements d {
             } else if (str.startsWith("FIXED")) {
                 parseFIXED(str);
             }
-        } catch (Exception e10) {
+        } catch (Exception e2) {
             this.isInTest = false;
-            MLog.e("v:" + str, e10);
+            MLog.e("v:" + str, e2);
         }
     }
 

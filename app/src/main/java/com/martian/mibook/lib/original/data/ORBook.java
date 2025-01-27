@@ -1,58 +1,57 @@
 package com.martian.mibook.lib.original.data;
 
 import android.text.TextUtils;
-import ba.f;
-import ba.k;
+import com.martian.libsupport.d;
+import com.martian.libsupport.j;
 import com.martian.mibook.lib.model.data.abs.Book;
 import java.util.Date;
-import vb.e;
 
-@k.h(name = "or_books")
-/* loaded from: classes3.dex */
+@j.g(name = "or_books")
+/* loaded from: classes2.dex */
 public class ORBook extends Book {
 
-    @k.b
+    @j.b
     public Integer authorId;
 
-    @k.b
+    @j.b
     public String authorName;
 
-    @k.g
-    @k.b
+    @j.b
+    @j.f
     public String bookId;
 
-    @k.b
+    @j.b
     public String bookName;
     private Integer brtype;
 
-    @k.b
+    @j.b
     public String categoryName;
 
-    @k.b
+    @j.b
     public Integer chapterCount;
 
-    @k.b
+    @j.b
     public String coverUrl;
     private Long createdOn;
 
-    @k.b
+    @j.b
     private String keyword;
 
-    @k.b
+    @j.b
     public String latestChapter;
 
-    @k.b
+    @j.b
     public Long latestChapterUpdateTime;
 
-    @k.b
+    @j.b
     public String longDesc;
     private Integer rank;
     public Integer readCount;
 
-    @k.b
+    @j.b
     public Integer status;
 
-    @k.b
+    @j.b
     public Integer wordCount;
 
     @Override // com.martian.mibook.lib.model.data.abs.Book
@@ -73,7 +72,6 @@ public class ORBook extends Book {
         return this.authorName;
     }
 
-    @Override // com.martian.mibook.lib.model.data.abs.Book
     public String getBookId() {
         return this.bookId;
     }
@@ -107,11 +105,6 @@ public class ORBook extends Book {
     }
 
     @Override // com.martian.mibook.lib.model.data.abs.Book
-    public Integer getChapterSize() {
-        return this.chapterCount;
-    }
-
-    @Override // com.martian.mibook.lib.model.data.abs.Book
     public String getCover() {
         return this.coverUrl;
     }
@@ -137,9 +130,8 @@ public class ORBook extends Book {
     @Override // com.martian.mibook.lib.model.data.abs.Book
     public Date getLastUpdated() {
         try {
-            return f.f(this.latestChapterUpdateTime.longValue());
-        } catch (Exception e10) {
-            e10.printStackTrace();
+            return d.f(this.latestChapterUpdateTime.longValue());
+        } catch (Exception unused) {
             return null;
         }
     }
@@ -175,14 +167,14 @@ public class ORBook extends Book {
         return TextUtils.isEmpty(this.longDesc) ? "" : this.longDesc;
     }
 
-    @Override // com.martian.mibook.lib.model.data.abs.Book, wb.f
+    @Override // com.martian.mibook.lib.model.data.abs.Book, com.martian.mibook.lib.model.c.g
     public String getSourceId() {
         return this.bookId + "";
     }
 
-    @Override // com.martian.mibook.lib.model.data.abs.Book, wb.f
+    @Override // com.martian.mibook.lib.model.data.abs.Book, com.martian.mibook.lib.model.c.g
     public String getSourceName() {
-        return e.f31295b;
+        return com.martian.mibook.lib.model.manager.d.f14055g;
     }
 
     @Override // com.martian.mibook.lib.model.data.abs.Book
@@ -206,97 +198,86 @@ public class ORBook extends Book {
         return false;
     }
 
-    @Override // com.martian.mibook.lib.model.data.abs.Book
-    public void setAllWords(Integer num) {
-        this.wordCount = num;
-    }
-
-    public void setAuthorId(Integer num) {
-        this.authorId = num;
+    public void setAuthorId(Integer authorId) {
+        this.authorId = authorId;
     }
 
     @Override // com.martian.mibook.lib.model.data.abs.Book
-    public void setAuthorName(String str) {
-        this.authorName = str;
+    public void setAuthorName(String authorName) {
+        this.authorName = authorName;
     }
 
-    public void setBookId(String str) {
-        this.bookId = str;
-    }
-
-    @Override // com.martian.mibook.lib.model.data.abs.Book
-    public void setBookName(String str) {
-        this.bookName = str;
+    public void setBookId(String bookId) {
+        this.bookId = bookId;
     }
 
     @Override // com.martian.mibook.lib.model.data.abs.Book
-    public void setBookStatus(String str) {
-        this.status = Integer.valueOf(Book.STATUS_UNFINISHED.equals(str) ? 1 : 0);
+    public void setBookName(String bookName) {
+        this.bookName = bookName;
+    }
+
+    public void setCategoryName(String categoryName) {
+        this.categoryName = categoryName;
+    }
+
+    public void setChapterCount(Integer chapterCount) {
+        this.chapterCount = chapterCount;
     }
 
     @Override // com.martian.mibook.lib.model.data.abs.Book
-    public void setCategoryName(String str) {
-        this.categoryName = str;
+    public void setCover(String cover) {
+        this.coverUrl = cover;
     }
 
-    public void setChapterCount(Integer num) {
-        this.chapterCount = num;
+    public void setCoverUrl(String coverUrl) {
+        this.coverUrl = coverUrl;
     }
 
-    @Override // com.martian.mibook.lib.model.data.abs.Book
-    public void setCover(String str) {
-        this.coverUrl = str;
+    public void setCreatedOn(Long createdOn) {
+        this.createdOn = createdOn;
     }
 
-    public void setCoverUrl(String str) {
-        this.coverUrl = str;
-    }
-
-    public void setCreatedOn(Long l10) {
-        this.createdOn = l10;
-    }
-
-    public void setKeyword(String str) {
-        this.keyword = str;
+    public void setKeyword(String keyword) {
+        this.keyword = keyword;
     }
 
     @Override // com.martian.mibook.lib.model.data.abs.Book
-    public void setLastChapter(String str) {
-        this.latestChapter = str;
+    public void setLastChapter(String chapter) {
+        this.latestChapter = chapter;
     }
 
-    public void setLatestChapter(String str) {
-        this.latestChapter = str;
-    }
-
-    @Override // com.martian.mibook.lib.model.data.abs.Book
-    public void setLatestChapterUpdateTime(Long l10) {
-        this.latestChapterUpdateTime = l10;
-    }
-
-    public void setLongDesc(String str) {
-        this.longDesc = str;
-    }
-
-    public void setReadCount(Integer num) {
-        this.readCount = num;
+    public void setLatestChapter(String latestChapter) {
+        this.latestChapter = latestChapter;
     }
 
     @Override // com.martian.mibook.lib.model.data.abs.Book
-    public void setShortIntro(String str) {
-        this.longDesc = str;
+    public void setLatestChapterUpdateTime(Long latestChapterUpdateTime) {
+        this.latestChapterUpdateTime = latestChapterUpdateTime;
+    }
+
+    public void setLongDesc(String longDesc) {
+        this.longDesc = longDesc;
+    }
+
+    public void setReadCount(Integer readCount) {
+        this.readCount = readCount;
     }
 
     @Override // com.martian.mibook.lib.model.data.abs.Book
-    public void setSourceId(String str) {
-        this.bookId = str;
+    public void setShortIntro(String intro) {
+        this.longDesc = intro;
     }
 
-    public void setStatus(Integer num) {
-        this.status = num;
+    @Override // com.martian.mibook.lib.model.data.abs.Book
+    public void setSourceId(String sourceId) {
+        this.bookId = sourceId;
     }
 
-    public void setWordCount(Integer num) {
-        this.wordCount = num;
+    public void setStatus(Integer status) {
+        this.status = status;
+    }
+
+    public void setWordCount(Integer wordCount) {
+        this.wordCount = wordCount;
     }
 }

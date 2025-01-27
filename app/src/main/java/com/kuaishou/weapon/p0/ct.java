@@ -1,82 +1,52 @@
 package com.kuaishou.weapon.p0;
 
-import android.os.Build;
-import com.kuaishou.weapon.p0.jni.Engine;
-import java.lang.reflect.Method;
-
-/* loaded from: classes2.dex */
+/* loaded from: classes.dex */
 public class ct {
 
-    /* renamed from: a */
-    private static int f10964a;
-
     /* renamed from: b */
-    private static boolean f10965b;
+    public static final int f9231b = 16;
 
-    public ct() {
-        b();
+    /* renamed from: c */
+    public static final String f9232c = "a3NyaXNrY3RsYnVzaW5zc3Z4cHprd3NwYWlvcXBrc3M=";
+
+    /* renamed from: a */
+    public static String f9230a = b();
+
+    /* renamed from: d */
+    public static String f9233d = c.b(f9233d, 2);
+
+    /* renamed from: d */
+    public static String f9233d = c.b(f9233d, 2);
+
+    /* renamed from: e */
+    public static String f9234e = c.b(f9234e, 2);
+
+    /* renamed from: e */
+    public static String f9234e = c.b(f9234e, 2);
+
+    /* renamed from: f */
+    public static String f9235f = c.b(f9235f, 2);
+
+    /* renamed from: f */
+    public static String f9235f = c.b(f9235f, 2);
+
+    /* renamed from: g */
+    public static String f9236g = c.b(f9236g, 2);
+
+    /* renamed from: g */
+    public static String f9236g = c.b(f9236g, 2);
+
+    /* renamed from: h */
+    public static String f9237h = c.b(f9237h, 2);
+
+    /* renamed from: h */
+    public static String f9237h = c.b(f9237h, 2);
+
+    public static boolean a() {
+        return false;
     }
 
-    private int a(Method method) {
-        try {
-            int i10 = f10964a;
-            if (i10 <= 1 || method == null) {
-                return 0;
-            }
-            return Engine.mmo(method, i10, method.getModifiers());
-        } catch (Exception unused) {
-            return 0;
-        }
-    }
-
-    private void b() {
-        if (!Engine.loadSuccess || f10965b) {
-            return;
-        }
-        boolean b10 = cr.b();
-        int i10 = Build.VERSION.SDK_INT;
-        if (b10 && i10 < 29 && i10 > 22) {
-            f10964a = Engine.off();
-        }
-        f10965b = true;
-    }
-
-    private boolean c() {
-        return f10965b && f10964a > 1;
-    }
-
-    public int a(Class cls, String str, Object... objArr) {
-        try {
-            if (c()) {
-                return a(dh.a(cls, str, objArr));
-            }
-            return 0;
-        } catch (Exception unused) {
-            return 0;
-        }
-    }
-
-    public int a(int i10, Class cls, String str, Object... objArr) {
-        Method a10;
-        try {
-            if (!c() || (a10 = dh.a(cls, str, objArr)) == null) {
-                return 0;
-            }
-            return Engine.mqc(a10, i10);
-        } catch (Exception unused) {
-            return 0;
-        }
-    }
-
-    public int a() {
-        if (!c()) {
-            return -1;
-        }
-        long a10 = cq.f10953b.a();
-        long a11 = cq.f10952a.a();
-        if (f10964a == a10) {
-            return (int) a11;
-        }
-        return -1;
+    public static String b() {
+        return bm.b(a() ? "Y1dRJlUS0ggA8rDIzmTuSb18fETpsUSliIb8eUc8Cs7Tg08T72W0GoR0htlL8mwiuorXs9F6RhwIlueUNq7egw==" : "Y1dRJlUS0ggA8rDIzmTuSdNPHbegnkXofklx4RRLaYJoK5uDjDZ2N7h9QqyTv9Qg");
     }
 }

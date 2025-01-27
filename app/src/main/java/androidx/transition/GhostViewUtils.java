@@ -13,15 +13,15 @@ class GhostViewUtils {
     }
 
     @Nullable
-    public static GhostView addGhost(@NonNull View view, @NonNull ViewGroup viewGroup, @Nullable Matrix matrix) {
-        return Build.VERSION.SDK_INT == 28 ? GhostViewPlatform.addGhost(view, viewGroup, matrix) : GhostViewPort.addGhost(view, viewGroup, matrix);
+    static GhostView a(@NonNull View view, @NonNull ViewGroup viewGroup, @Nullable Matrix matrix) {
+        return Build.VERSION.SDK_INT == 28 ? GhostViewPlatform.a(view, viewGroup, matrix) : GhostViewPort.a(view, viewGroup, matrix);
     }
 
-    public static void removeGhost(View view) {
+    static void b(View view) {
         if (Build.VERSION.SDK_INT == 28) {
-            GhostViewPlatform.removeGhost(view);
+            GhostViewPlatform.e(view);
         } else {
-            GhostViewPort.removeGhost(view);
+            GhostViewPort.e(view);
         }
     }
 }

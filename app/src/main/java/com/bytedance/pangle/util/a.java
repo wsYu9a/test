@@ -6,23 +6,23 @@ import android.os.Build;
 import com.bytedance.pangle.activity.IPluginActivity;
 import com.bytedance.pangle.log.ZeusLogger;
 
-/* loaded from: classes2.dex */
+/* loaded from: classes.dex */
 public final class a {
     public static void a(com.bytedance.pangle.wrapper.a aVar, Activity activity) {
         try {
             FieldUtils.writeField(aVar, "mTheme", (Object) null);
             FieldUtils.writeField((Object) aVar, "mThemeResource", (Object) 0);
-            int[] a10 = a(activity);
-            if (a10 == null) {
+            int[] a2 = a(activity);
+            if (a2 == null) {
                 return;
             }
-            for (int i10 : a10) {
-                if (i10 != 0) {
-                    aVar.setWrapperActivityTheme(i10);
+            for (int i2 : a2) {
+                if (i2 != 0) {
+                    aVar.setWrapperActivityTheme(i2);
                 }
             }
-        } catch (Exception e10) {
-            e10.printStackTrace();
+        } catch (Exception e2) {
+            e2.printStackTrace();
         }
     }
 
@@ -44,7 +44,7 @@ public final class a {
                     }
                 } catch (Exception unused) {
                 }
-                Object invoke = com.bytedance.pangle.b.b.a.a(readField.getClass(), "getKey", new Class[0]).invoke(readField, null);
+                Object invoke = com.bytedance.pangle.b.b.a.a(readField.getClass(), "getKey", new Class[0]).invoke(readField, new Object[0]);
                 if (invoke == null) {
                     ZeusLogger.d(ZeusLogger.TAG_ACTIVITY, "getKey failed!");
                     return null;
@@ -65,12 +65,12 @@ public final class a {
             }
             String[] split = str.trim().replace("!", "").split(" ");
             int[] iArr = new int[split.length];
-            for (int i10 = 0; i10 < split.length; i10++) {
-                iArr[i10] = Integer.parseInt(split[i10], 16);
+            for (int i2 = 0; i2 < split.length; i2++) {
+                iArr[i2] = Integer.parseInt(split[i2], 16);
             }
             return iArr;
-        } catch (Throwable th2) {
-            ZeusLogger.d(ZeusLogger.TAG_ACTIVITY, "getKey exception!" + th2.getMessage());
+        } catch (Throwable th) {
+            ZeusLogger.d(ZeusLogger.TAG_ACTIVITY, "getKey exception!" + th.getMessage());
             return null;
         }
     }
@@ -79,17 +79,17 @@ public final class a {
         try {
             FieldUtils.writeField(iPluginActivity, "mTheme", (Object) null);
             FieldUtils.writeField((Object) iPluginActivity, "mThemeResource", (Object) 0);
-            int[] a10 = a(activity);
-            if (a10 == null) {
+            int[] a2 = a(activity);
+            if (a2 == null) {
                 return;
             }
-            for (int i10 : a10) {
-                if (i10 != 0) {
-                    iPluginActivity.setProxyTheme2Plugin(i10);
+            for (int i2 : a2) {
+                if (i2 != 0) {
+                    iPluginActivity.setProxyTheme2Plugin(i2);
                 }
             }
-        } catch (Exception e10) {
-            e10.printStackTrace();
+        } catch (Exception e2) {
+            e2.printStackTrace();
         }
     }
 }

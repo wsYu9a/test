@@ -108,8 +108,8 @@ public class UPSNotificationMessage {
         this.mAdClickCheckUrl = str;
     }
 
-    public void setCompatibleType(int i10) {
-        this.mCompatibleType = i10;
+    public void setCompatibleType(int i2) {
+        this.mCompatibleType = i2;
     }
 
     public void setContent(String str) {
@@ -124,16 +124,16 @@ public class UPSNotificationMessage {
         this.mIconUrl = str;
     }
 
-    public void setIsMacroReplace(int i10) {
-        this.mIsMacroReplace = i10;
+    public void setIsMacroReplace(int i2) {
+        this.mIsMacroReplace = i2;
     }
 
-    public void setMsgId(long j10) {
-        this.mMsgId = j10;
+    public void setMsgId(long j2) {
+        this.mMsgId = j2;
     }
 
-    public void setNotifyType(int i10) {
-        this.mNotifyType = i10;
+    public void setNotifyType(int i2) {
+        this.mNotifyType = i2;
     }
 
     public void setParams(Map<String, String> map) {
@@ -144,20 +144,20 @@ public class UPSNotificationMessage {
         this.mPurePicUrl = str;
     }
 
-    public void setShowTime(boolean z10) {
-        this.mShowTime = z10;
+    public void setShowTime(boolean z) {
+        this.mShowTime = z;
     }
 
     public void setSkipContent(String str) {
         this.mSkipContent = str;
     }
 
-    public void setSkipType(int i10) {
-        this.mSkipType = i10;
+    public void setSkipType(int i2) {
+        this.mSkipType = i2;
     }
 
-    public void setTargetType(int i10) {
-        this.mTargetType = i10;
+    public void setTargetType(int i2) {
+        this.mTargetType = i2;
     }
 
     public void setTitle(String str) {

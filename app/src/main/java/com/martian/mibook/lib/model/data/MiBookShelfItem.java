@@ -2,9 +2,7 @@ package com.martian.mibook.lib.model.data;
 
 /* loaded from: classes3.dex */
 public class MiBookShelfItem {
-
-    /* renamed from: ca, reason: collision with root package name */
-    public String f13983ca;
+    public String ca;
     public Integer cl;
     public Integer cp;
     public Integer cx;
@@ -17,7 +15,7 @@ public class MiBookShelfItem {
     }
 
     public String getClassify() {
-        return this.f13983ca;
+        return this.ca;
     }
 
     public Integer getContentLength() {
@@ -40,31 +38,31 @@ public class MiBookShelfItem {
         return this.top;
     }
 
-    public void setCidx(Integer num) {
-        this.cx = num;
+    public void setCidx(Integer cidx) {
+        this.cx = cidx;
     }
 
-    public void setClassify(String str) {
-        this.f13983ca = str;
+    public void setClassify(String ca) {
+        this.ca = ca;
     }
 
-    public void setContentLength(Integer num) {
-        this.cl = num;
+    public void setContentLength(Integer cl) {
+        this.cl = cl;
     }
 
-    public void setContentPosition(Integer num) {
-        this.cp = num;
+    public void setContentPosition(Integer cp) {
+        this.cp = cp;
     }
 
-    public void setDate(Long l10) {
-        this.opt = l10;
+    public void setDate(Long opt) {
+        this.opt = opt;
     }
 
-    public void setSourceString(String str) {
-        this.ss = str;
+    public void setSourceString(String ss) {
+        this.ss = ss;
     }
 
-    public void setTop(Integer num) {
-        this.top = num;
+    public void setTop(Integer top) {
+        this.top = top;
     }
 }

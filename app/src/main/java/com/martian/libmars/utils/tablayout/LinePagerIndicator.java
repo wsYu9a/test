@@ -7,219 +7,227 @@ import android.graphics.RectF;
 import android.view.View;
 import android.view.animation.Interpolator;
 import android.view.animation.LinearInterpolator;
-import com.martian.libmars.common.ConfigSingleton;
 import java.util.Arrays;
 import java.util.List;
-import m9.e;
-import m9.i;
 
-/* loaded from: classes3.dex */
-public class LinePagerIndicator extends View implements e {
+/* loaded from: classes2.dex */
+public class LinePagerIndicator extends View implements h {
 
-    /* renamed from: p */
-    public static final int f12444p = 0;
-
-    /* renamed from: q */
-    public static final int f12445q = 1;
-
-    /* renamed from: r */
-    public static final int f12446r = 2;
+    /* renamed from: a */
+    public static final int f10208a = 0;
 
     /* renamed from: b */
-    public int f12447b;
+    public static final int f10209b = 1;
 
     /* renamed from: c */
-    public Interpolator f12448c;
+    public static final int f10210c = 2;
 
     /* renamed from: d */
-    public Interpolator f12449d;
+    private int f10211d;
 
     /* renamed from: e */
-    public float f12450e;
+    private Interpolator f10212e;
 
     /* renamed from: f */
-    public float f12451f;
+    private Interpolator f10213f;
 
     /* renamed from: g */
-    public float f12452g;
+    private float f10214g;
 
     /* renamed from: h */
-    public float f12453h;
+    private float f10215h;
 
     /* renamed from: i */
-    public float f12454i;
+    private float f10216i;
 
     /* renamed from: j */
-    public float f12455j;
-
-    /* renamed from: k */
-    public Paint f12456k;
-
-    /* renamed from: l */
-    public List<i> f12457l;
-
-    /* renamed from: m */
-    public List<Integer> f12458m;
-
-    /* renamed from: n */
-    public int f12459n;
-
-    /* renamed from: o */
-    public final RectF f12460o;
+    private float f10217j;
+    private float k;
+    private Paint l;
+    private List<l> m;
+    private List<Integer> n;
+    private final RectF o;
 
     public LinePagerIndicator(Context context) {
         super(context);
-        this.f12448c = new LinearInterpolator();
-        this.f12449d = new LinearInterpolator();
-        this.f12460o = new RectF();
+        this.f10212e = new LinearInterpolator();
+        this.f10213f = new LinearInterpolator();
+        this.o = new RectF();
         b();
     }
 
-    @Override // m9.e
-    public void a(List<i> list) {
-        this.f12457l = list;
-    }
-
-    public final void b() {
+    private void b() {
         Paint paint = new Paint(1);
-        this.f12456k = paint;
+        this.l = paint;
         paint.setStyle(Paint.Style.FILL);
-        this.f12451f = ConfigSingleton.i(3.0f);
-        this.f12454i = ConfigSingleton.i(10.0f);
+        this.f10215h = com.martian.libmars.d.h.b(3.0f);
+        this.f10217j = com.martian.libmars.d.h.b(10.0f);
     }
 
-    public LinePagerIndicator c(int i10) {
-        this.f12459n = i10;
+    @Override // com.martian.libmars.utils.tablayout.h
+    public void a(List<l> dataList) {
+        this.m = dataList;
+    }
+
+    public LinePagerIndicator c(Integer... colors) {
+        this.n = Arrays.asList(colors);
         return this;
     }
 
-    public LinePagerIndicator d(Integer... numArr) {
-        this.f12458m = Arrays.asList(numArr);
-        return this;
-    }
-
-    public LinePagerIndicator e(Interpolator interpolator) {
-        this.f12449d = interpolator;
-        if (interpolator == null) {
-            this.f12449d = new LinearInterpolator();
+    public LinePagerIndicator d(Interpolator endInterpolator) {
+        this.f10213f = endInterpolator;
+        if (endInterpolator == null) {
+            this.f10213f = new LinearInterpolator();
         }
         return this;
     }
 
-    public LinePagerIndicator f(float f10) {
-        this.f12451f = f10;
+    public LinePagerIndicator e(float lineHeight) {
+        this.f10215h = lineHeight;
         return this;
     }
 
-    public LinePagerIndicator g(float f10) {
-        this.f12454i = f10;
+    public LinePagerIndicator f(float lineWidth) {
+        this.f10217j = lineWidth;
         return this;
+    }
+
+    public LinePagerIndicator g(int mode) {
+        if (mode == 2 || mode == 0 || mode == 1) {
+            this.f10211d = mode;
+            return this;
+        }
+        throw new IllegalArgumentException("mode " + mode + " not supported.");
     }
 
     public List<Integer> getColors() {
-        return this.f12458m;
+        return this.n;
     }
 
     public Interpolator getEndInterpolator() {
-        return this.f12449d;
+        return this.f10213f;
     }
 
     public float getLineHeight() {
-        return this.f12451f;
+        return this.f10215h;
     }
 
     public float getLineWidth() {
-        return this.f12454i;
+        return this.f10217j;
     }
 
     public int getMode() {
-        return this.f12447b;
+        return this.f10211d;
     }
 
     public Paint getPaint() {
-        return this.f12456k;
+        return this.l;
     }
 
     public float getRoundRadius() {
-        return this.f12455j;
+        return this.k;
     }
 
     public Interpolator getStartInterpolator() {
-        return this.f12448c;
+        return this.f10212e;
     }
 
     public float getXOffset() {
-        return this.f12453h;
+        return this.f10216i;
     }
 
     public float getYOffset() {
-        return this.f12450e;
+        return this.f10214g;
     }
 
-    public LinePagerIndicator h(float f10) {
-        this.f12451f = -1.0f;
-        this.f12452g = f10;
-        this.f12450e = f10;
+    public LinePagerIndicator h(float roundRadius) {
+        this.k = roundRadius;
         return this;
     }
 
-    public LinePagerIndicator i(int i10) {
-        if (i10 == 2 || i10 == 0 || i10 == 1) {
-            this.f12447b = i10;
-            return this;
-        }
-        throw new IllegalArgumentException("mode " + i10 + " not supported.");
-    }
-
-    public LinePagerIndicator j(float f10) {
-        this.f12455j = f10;
-        return this;
-    }
-
-    public LinePagerIndicator k(Interpolator interpolator) {
-        this.f12448c = interpolator;
-        if (interpolator == null) {
-            this.f12448c = new LinearInterpolator();
+    public LinePagerIndicator i(Interpolator startInterpolator) {
+        this.f10212e = startInterpolator;
+        if (startInterpolator == null) {
+            this.f10212e = new LinearInterpolator();
         }
         return this;
     }
 
-    public LinePagerIndicator l(float f10) {
-        this.f12450e = f10;
+    public LinePagerIndicator j(float yOffset) {
+        this.f10214g = yOffset;
         return this;
     }
 
     @Override // android.view.View
-    public void onDraw(Canvas canvas) {
-        RectF rectF = this.f12460o;
-        float f10 = this.f12455j;
-        canvas.drawRoundRect(rectF, f10, f10, this.f12456k);
+    protected void onDraw(Canvas canvas) {
+        RectF rectF = this.o;
+        float f2 = this.k;
+        canvas.drawRoundRect(rectF, f2, f2, this.l);
     }
 
-    @Override // m9.e
-    public void onPageScrollStateChanged(int i10) {
+    @Override // com.martian.libmars.utils.tablayout.h
+    public void onPageScrollStateChanged(int state) {
     }
 
-    /* JADX WARN: Removed duplicated region for block: B:16:0x00ea  */
-    /* JADX WARN: Removed duplicated region for block: B:20:0x00f6  */
-    @Override // m9.e
-    /*
-        Code decompiled incorrectly, please refer to instructions dump.
-        To view partially-correct code enable 'Show inconsistent code' option in preferences
-    */
-    public void onPageScrolled(int r6, float r7, int r8) {
-        /*
-            Method dump skipped, instructions count: 277
-            To view this dump change 'Code comments level' option to 'DEBUG'
-        */
-        throw new UnsupportedOperationException("Method not decompiled: com.martian.libmars.utils.tablayout.LinePagerIndicator.onPageScrolled(int, float, int):void");
+    @Override // com.martian.libmars.utils.tablayout.h
+    public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+        float f2;
+        float f3;
+        float f4;
+        float f5;
+        float f6;
+        int i2;
+        List<l> list = this.m;
+        if (list == null || list.isEmpty()) {
+            return;
+        }
+        List<Integer> list2 = this.n;
+        if (list2 != null && list2.size() > 0) {
+            this.l.setColor(c.a(positionOffset, this.n.get(Math.abs(position) % this.n.size()).intValue(), this.n.get(Math.abs(position + 1) % this.n.size()).intValue()));
+        }
+        l g2 = g.g(this.m, position);
+        l g3 = g.g(this.m, position + 1);
+        int i3 = this.f10211d;
+        if (i3 == 0) {
+            float f7 = g2.f10255a;
+            f6 = this.f10216i;
+            f2 = f7 + f6;
+            f5 = g3.f10255a + f6;
+            f3 = g2.f10257c - f6;
+            i2 = g3.f10257c;
+        } else {
+            if (i3 != 1) {
+                f2 = g2.f10255a + ((g2.f() - this.f10217j) / 2.0f);
+                float f8 = g3.f10255a + ((g3.f() - this.f10217j) / 2.0f);
+                f3 = ((g2.f() + this.f10217j) / 2.0f) + g2.f10255a;
+                f4 = ((g3.f() + this.f10217j) / 2.0f) + g3.f10255a;
+                f5 = f8;
+                this.o.left = f2 + ((f5 - f2) * this.f10212e.getInterpolation(positionOffset));
+                this.o.right = f3 + ((f4 - f3) * this.f10213f.getInterpolation(positionOffset));
+                this.o.top = (getHeight() - this.f10215h) - this.f10214g;
+                this.o.bottom = getHeight() - this.f10214g;
+                invalidate();
+            }
+            float f9 = g2.f10259e;
+            f6 = this.f10216i;
+            f2 = f9 + f6;
+            f5 = g3.f10259e + f6;
+            f3 = g2.f10261g - f6;
+            i2 = g3.f10261g;
+        }
+        f4 = i2 - f6;
+        this.o.left = f2 + ((f5 - f2) * this.f10212e.getInterpolation(positionOffset));
+        this.o.right = f3 + ((f4 - f3) * this.f10213f.getInterpolation(positionOffset));
+        this.o.top = (getHeight() - this.f10215h) - this.f10214g;
+        this.o.bottom = getHeight() - this.f10214g;
+        invalidate();
     }
 
-    @Override // m9.e
-    public void onPageSelected(int i10) {
+    @Override // com.martian.libmars.utils.tablayout.h
+    public void onPageSelected(int position) {
     }
 
-    public void setXOffset(float f10) {
-        this.f12453h = f10;
+    public void setXOffset(float xOffset) {
+        this.f10216i = xOffset;
     }
 }

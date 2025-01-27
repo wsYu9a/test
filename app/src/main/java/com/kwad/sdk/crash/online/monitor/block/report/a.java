@@ -3,57 +3,53 @@ package com.kwad.sdk.crash.online.monitor.block.report;
 import android.content.Context;
 import android.database.Cursor;
 import androidx.annotation.NonNull;
-import com.kwad.sdk.core.d.c;
+import com.kwad.sdk.core.d.b;
 import com.kwad.sdk.core.report.d;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-/* loaded from: classes3.dex */
+/* loaded from: classes2.dex */
 public class a extends d {
-    public static int KP = 1;
-    private static volatile a aLm;
+    public static int HE = 1;
+    private static volatile a asd;
 
     private a(Context context) {
-        super(new com.kwad.sdk.crash.online.monitor.block.a.a(context, KP));
+        super(new com.kwad.sdk.crash.online.monitor.block.kwai.a(context, HE));
     }
 
-    public static a bN(Context context) {
-        if (aLm == null) {
+    public static a bn(Context context) {
+        if (asd == null) {
             synchronized (a.class) {
-                try {
-                    if (aLm == null) {
-                        aLm = new a(context);
-                    }
-                } finally {
+                if (asd == null) {
+                    asd = new a(context);
                 }
             }
         }
-        return aLm;
+        return asd;
     }
 
     @Override // com.kwad.sdk.core.report.d
-    /* renamed from: j */
-    public synchronized BlockReportAction g(@NonNull Cursor cursor) {
-        try {
-        } catch (JSONException e10) {
-            c.printStackTrace(e10);
+    /* renamed from: h */
+    public synchronized BlockReportAction e(@NonNull Cursor cursor) {
+        int columnIndex = cursor.getColumnIndex("aLog");
+        if (columnIndex < 0) {
             return new BlockReportAction("");
         }
-        return new BlockReportAction(new JSONObject(cursor.getString(0)));
-    }
-
-    @Override // com.kwad.sdk.core.report.d
-    public final String Gm() {
-        return "ksad_block_actions";
-    }
-
-    @Override // com.kwad.sdk.core.report.d
-    public final String Gn() {
-        return "select aLog from " + Gm();
+        try {
+            return new BlockReportAction(new JSONObject(cursor.getString(columnIndex)));
+        } catch (JSONException e2) {
+            b.printStackTrace(e2);
+            return new BlockReportAction("");
+        }
     }
 
     @Override // com.kwad.sdk.core.report.d
     public final String getTag() {
         return "perfMonitor.BlockReportDBManager";
+    }
+
+    @Override // com.kwad.sdk.core.report.d
+    public final String wU() {
+        return "ksad_block_actions";
     }
 }

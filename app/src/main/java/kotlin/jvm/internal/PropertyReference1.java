@@ -4,13 +4,13 @@ import kotlin.SinceKotlin;
 import kotlin.reflect.KCallable;
 import kotlin.reflect.KProperty1;
 
-/* loaded from: classes4.dex */
+/* loaded from: classes5.dex */
 public abstract class PropertyReference1 extends PropertyReference implements KProperty1 {
     public PropertyReference1() {
     }
 
     @Override // kotlin.jvm.internal.CallableReference
-    public KCallable computeReflected() {
+    protected KCallable computeReflected() {
         return Reflection.property1(this);
     }
 
@@ -33,10 +33,5 @@ public abstract class PropertyReference1 extends PropertyReference implements KP
     @Override // kotlin.reflect.KProperty
     public KProperty1.Getter getGetter() {
         return ((KProperty1) getReflected()).getGetter();
-    }
-
-    @SinceKotlin(version = "1.4")
-    public PropertyReference1(Object obj, Class cls, String str, String str2, int i10) {
-        super(obj, cls, str, str2, i10);
     }
 }

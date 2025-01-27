@@ -7,87 +7,99 @@ import androidx.annotation.ColorInt;
 import androidx.annotation.NonNull;
 import androidx.core.graphics.ColorUtils;
 import com.google.android.material.R;
-import com.google.android.material.color.MaterialColors;
-import com.google.android.material.internal.ViewUtils;
-import com.google.android.material.resources.MaterialAttributes;
+import com.google.android.material.c.a;
+import com.google.android.material.g.b;
+import com.google.android.material.internal.u;
 
-/* loaded from: classes2.dex */
+/* loaded from: classes.dex */
 public class ElevationOverlayProvider {
-    private static final float FORMULA_MULTIPLIER = 4.5f;
-    private static final float FORMULA_OFFSET = 2.0f;
-    private final int colorSurface;
-    private final float displayDensity;
-    private final int elevationOverlayColor;
-    private final boolean elevationOverlayEnabled;
+
+    /* renamed from: a */
+    private static final float f7132a = 4.5f;
+
+    /* renamed from: b */
+    private static final float f7133b = 2.0f;
+
+    /* renamed from: c */
+    private final boolean f7134c;
+
+    /* renamed from: d */
+    private final int f7135d;
+
+    /* renamed from: e */
+    private final int f7136e;
+
+    /* renamed from: f */
+    private final float f7137f;
 
     public ElevationOverlayProvider(@NonNull Context context) {
-        this.elevationOverlayEnabled = MaterialAttributes.resolveBoolean(context, R.attr.elevationOverlayEnabled, false);
-        this.elevationOverlayColor = MaterialColors.getColor(context, R.attr.elevationOverlayColor, 0);
-        this.colorSurface = MaterialColors.getColor(context, R.attr.colorSurface, 0);
-        this.displayDensity = context.getResources().getDisplayMetrics().density;
+        this.f7134c = b.b(context, R.attr.elevationOverlayEnabled, false);
+        this.f7135d = a.b(context, R.attr.elevationOverlayColor, 0);
+        this.f7136e = a.b(context, R.attr.colorSurface, 0);
+        this.f7137f = context.getResources().getDisplayMetrics().density;
     }
 
-    private boolean isThemeSurfaceColor(@ColorInt int i10) {
-        return ColorUtils.setAlphaComponent(i10, 255) == this.colorSurface;
+    private boolean m(@ColorInt int i2) {
+        return ColorUtils.setAlphaComponent(i2, 255) == this.f7136e;
     }
 
-    public int calculateOverlayAlpha(float f10) {
-        return Math.round(calculateOverlayAlphaFraction(f10) * 255.0f);
+    public int a(float f2) {
+        return Math.round(b(f2) * 255.0f);
     }
 
-    public float calculateOverlayAlphaFraction(float f10) {
-        if (this.displayDensity <= 0.0f || f10 <= 0.0f) {
+    public float b(float f2) {
+        if (this.f7137f <= 0.0f || f2 <= 0.0f) {
             return 0.0f;
         }
-        return Math.min(((((float) Math.log1p(f10 / r0)) * FORMULA_MULTIPLIER) + 2.0f) / 100.0f, 1.0f);
+        return Math.min(((((float) Math.log1p(f2 / r0)) * f7132a) + f7133b) / 100.0f, 1.0f);
     }
 
     @ColorInt
-    public int compositeOverlay(@ColorInt int i10, float f10, @NonNull View view) {
-        return compositeOverlay(i10, f10 + getParentAbsoluteElevation(view));
+    public int c(@ColorInt int i2, float f2) {
+        float b2 = b(f2);
+        return ColorUtils.setAlphaComponent(a.g(ColorUtils.setAlphaComponent(i2, 255), this.f7135d, b2), Color.alpha(i2));
     }
 
     @ColorInt
-    public int compositeOverlayIfNeeded(@ColorInt int i10, float f10, @NonNull View view) {
-        return compositeOverlayIfNeeded(i10, f10 + getParentAbsoluteElevation(view));
+    public int d(@ColorInt int i2, float f2, @NonNull View view) {
+        return c(i2, f2 + i(view));
     }
 
     @ColorInt
-    public int compositeOverlayWithThemeSurfaceColorIfNeeded(float f10, @NonNull View view) {
-        return compositeOverlayWithThemeSurfaceColorIfNeeded(f10 + getParentAbsoluteElevation(view));
-    }
-
-    public float getParentAbsoluteElevation(@NonNull View view) {
-        return ViewUtils.getParentAbsoluteElevation(view);
+    public int e(@ColorInt int i2, float f2) {
+        return (this.f7134c && m(i2)) ? c(i2, f2) : i2;
     }
 
     @ColorInt
-    public int getThemeElevationOverlayColor() {
-        return this.elevationOverlayColor;
+    public int f(@ColorInt int i2, float f2, @NonNull View view) {
+        return e(i2, f2 + i(view));
     }
 
     @ColorInt
-    public int getThemeSurfaceColor() {
-        return this.colorSurface;
-    }
-
-    public boolean isThemeElevationOverlayEnabled() {
-        return this.elevationOverlayEnabled;
+    public int g(float f2) {
+        return e(this.f7136e, f2);
     }
 
     @ColorInt
-    public int compositeOverlay(@ColorInt int i10, float f10) {
-        float calculateOverlayAlphaFraction = calculateOverlayAlphaFraction(f10);
-        return ColorUtils.setAlphaComponent(MaterialColors.layer(ColorUtils.setAlphaComponent(i10, 255), this.elevationOverlayColor, calculateOverlayAlphaFraction), Color.alpha(i10));
+    public int h(float f2, @NonNull View view) {
+        return g(f2 + i(view));
+    }
+
+    public float i(@NonNull View view) {
+        return u.h(view);
     }
 
     @ColorInt
-    public int compositeOverlayIfNeeded(@ColorInt int i10, float f10) {
-        return (this.elevationOverlayEnabled && isThemeSurfaceColor(i10)) ? compositeOverlay(i10, f10) : i10;
+    public int j() {
+        return this.f7135d;
     }
 
     @ColorInt
-    public int compositeOverlayWithThemeSurfaceColorIfNeeded(float f10) {
-        return compositeOverlayIfNeeded(this.colorSurface, f10);
+    public int k() {
+        return this.f7136e;
+    }
+
+    public boolean l() {
+        return this.f7134c;
     }
 }

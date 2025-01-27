@@ -19,67 +19,70 @@ import java.lang.reflect.Method;
 @RequiresApi(21)
 /* loaded from: classes.dex */
 class WrappedDrawableApi21 extends WrappedDrawableApi14 {
-    private static final String TAG = "WrappedDrawableApi21";
-    private static Method sIsProjectedDrawableMethod;
 
-    public WrappedDrawableApi21(Drawable drawable) {
+    /* renamed from: h */
+    private static final String f1798h = "WrappedDrawableApi21";
+
+    /* renamed from: i */
+    private static Method f1799i;
+
+    WrappedDrawableApi21(Drawable drawable) {
         super(drawable);
-        findAndCacheIsProjectedDrawableMethod();
+        e();
     }
 
-    private void findAndCacheIsProjectedDrawableMethod() {
-        if (sIsProjectedDrawableMethod == null) {
+    private void e() {
+        if (f1799i == null) {
             try {
-                sIsProjectedDrawableMethod = Drawable.class.getDeclaredMethod("isProjected", null);
-            } catch (Exception e10) {
-                Log.w(TAG, "Failed to retrieve Drawable#isProjected() method", e10);
+                f1799i = Drawable.class.getDeclaredMethod("isProjected", new Class[0]);
+            } catch (Exception e2) {
+                Log.w(f1798h, "Failed to retrieve Drawable#isProjected() method", e2);
             }
         }
+    }
+
+    @Override // androidx.core.graphics.drawable.WrappedDrawableApi14
+    protected boolean a() {
+        if (Build.VERSION.SDK_INT != 21) {
+            return false;
+        }
+        Drawable drawable = this.f1797g;
+        return (drawable instanceof GradientDrawable) || (drawable instanceof DrawableContainer) || (drawable instanceof InsetDrawable) || (drawable instanceof RippleDrawable);
     }
 
     @Override // android.graphics.drawable.Drawable
     @NonNull
     public Rect getDirtyBounds() {
-        return this.mDrawable.getDirtyBounds();
+        return this.f1797g.getDirtyBounds();
     }
 
     @Override // android.graphics.drawable.Drawable
     public void getOutline(@NonNull Outline outline) {
-        this.mDrawable.getOutline(outline);
-    }
-
-    @Override // androidx.core.graphics.drawable.WrappedDrawableApi14
-    public boolean isCompatTintEnabled() {
-        if (Build.VERSION.SDK_INT != 21) {
-            return false;
-        }
-        Drawable drawable = this.mDrawable;
-        return (drawable instanceof GradientDrawable) || (drawable instanceof DrawableContainer) || (drawable instanceof InsetDrawable) || (drawable instanceof RippleDrawable);
+        this.f1797g.getOutline(outline);
     }
 
     @Override // android.graphics.drawable.Drawable
     public boolean isProjected() {
         Method method;
-        Drawable drawable = this.mDrawable;
-        if (drawable == null || (method = sIsProjectedDrawableMethod) == null) {
-            return false;
+        Drawable drawable = this.f1797g;
+        if (drawable != null && (method = f1799i) != null) {
+            try {
+                return ((Boolean) method.invoke(drawable, new Object[0])).booleanValue();
+            } catch (Exception e2) {
+                Log.w(f1798h, "Error calling Drawable#isProjected() method", e2);
+            }
         }
-        try {
-            return ((Boolean) method.invoke(drawable, null)).booleanValue();
-        } catch (Exception e10) {
-            Log.w(TAG, "Error calling Drawable#isProjected() method", e10);
-            return false;
-        }
+        return false;
     }
 
     @Override // android.graphics.drawable.Drawable
-    public void setHotspot(float f10, float f11) {
-        this.mDrawable.setHotspot(f10, f11);
+    public void setHotspot(float f2, float f3) {
+        this.f1797g.setHotspot(f2, f3);
     }
 
     @Override // android.graphics.drawable.Drawable
-    public void setHotspotBounds(int i10, int i11, int i12, int i13) {
-        this.mDrawable.setHotspotBounds(i10, i11, i12, i13);
+    public void setHotspotBounds(int i2, int i3, int i4, int i5) {
+        this.f1797g.setHotspotBounds(i2, i3, i4, i5);
     }
 
     @Override // androidx.core.graphics.drawable.WrappedDrawableApi14, android.graphics.drawable.Drawable
@@ -92,34 +95,34 @@ class WrappedDrawableApi21 extends WrappedDrawableApi14 {
     }
 
     @Override // androidx.core.graphics.drawable.WrappedDrawableApi14, android.graphics.drawable.Drawable, androidx.core.graphics.drawable.TintAwareDrawable
-    public void setTint(int i10) {
-        if (isCompatTintEnabled()) {
-            super.setTint(i10);
+    public void setTint(int i2) {
+        if (a()) {
+            super.setTint(i2);
         } else {
-            this.mDrawable.setTint(i10);
+            this.f1797g.setTint(i2);
         }
     }
 
     @Override // androidx.core.graphics.drawable.WrappedDrawableApi14, android.graphics.drawable.Drawable, androidx.core.graphics.drawable.TintAwareDrawable
     public void setTintList(ColorStateList colorStateList) {
-        if (isCompatTintEnabled()) {
+        if (a()) {
             super.setTintList(colorStateList);
         } else {
-            this.mDrawable.setTintList(colorStateList);
+            this.f1797g.setTintList(colorStateList);
         }
     }
 
     @Override // androidx.core.graphics.drawable.WrappedDrawableApi14, android.graphics.drawable.Drawable, androidx.core.graphics.drawable.TintAwareDrawable
     public void setTintMode(@NonNull PorterDuff.Mode mode) {
-        if (isCompatTintEnabled()) {
+        if (a()) {
             super.setTintMode(mode);
         } else {
-            this.mDrawable.setTintMode(mode);
+            this.f1797g.setTintMode(mode);
         }
     }
 
-    public WrappedDrawableApi21(WrappedDrawableState wrappedDrawableState, Resources resources) {
+    WrappedDrawableApi21(WrappedDrawableState wrappedDrawableState, Resources resources) {
         super(wrappedDrawableState, resources);
-        findAndCacheIsProjectedDrawableMethod();
+        e();
     }
 }

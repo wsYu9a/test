@@ -2,6 +2,7 @@ package com.bumptech.glide.util;
 
 import android.annotation.TargetApi;
 import android.graphics.Bitmap;
+import android.os.Build;
 import android.os.Looper;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -12,7 +13,7 @@ import java.util.Collection;
 import java.util.List;
 import java.util.Queue;
 
-/* loaded from: classes2.dex */
+/* loaded from: classes.dex */
 public final class Util {
     private static final int HASH_ACCUMULATOR = 17;
     private static final int HASH_MULTIPLIER = 31;
@@ -20,11 +21,10 @@ public final class Util {
     private static final char[] SHA_256_CHARS = new char[64];
 
     /* renamed from: com.bumptech.glide.util.Util$1 */
-    public static /* synthetic */ class AnonymousClass1 {
+    static /* synthetic */ class AnonymousClass1 {
         static final /* synthetic */ int[] $SwitchMap$android$graphics$Bitmap$Config;
 
         static {
-            Bitmap.Config config;
             int[] iArr = new int[Bitmap.Config.values().length];
             $SwitchMap$android$graphics$Bitmap$Config = iArr;
             try {
@@ -40,9 +40,7 @@ public final class Util {
             } catch (NoSuchFieldError unused3) {
             }
             try {
-                int[] iArr2 = $SwitchMap$android$graphics$Bitmap$Config;
-                config = Bitmap.Config.RGBA_F16;
-                iArr2[config.ordinal()] = 4;
+                $SwitchMap$android$graphics$Bitmap$Config[Bitmap.Config.RGBA_F16.ordinal()] = 4;
             } catch (NoSuchFieldError unused4) {
             }
             try {
@@ -77,29 +75,31 @@ public final class Util {
 
     @NonNull
     private static String bytesToHex(@NonNull byte[] bArr, @NonNull char[] cArr) {
-        for (int i10 = 0; i10 < bArr.length; i10++) {
-            byte b10 = bArr[i10];
-            int i11 = i10 * 2;
+        for (int i2 = 0; i2 < bArr.length; i2++) {
+            int i3 = bArr[i2] & 255;
+            int i4 = i2 * 2;
             char[] cArr2 = HEX_CHAR_ARRAY;
-            cArr[i11] = cArr2[(b10 & 255) >>> 4];
-            cArr[i11 + 1] = cArr2[b10 & 15];
+            cArr[i4] = cArr2[i3 >>> 4];
+            cArr[i4 + 1] = cArr2[i3 & 15];
         }
         return new String(cArr);
     }
 
     @NonNull
-    public static <T> Queue<T> createQueue(int i10) {
-        return new ArrayDeque(i10);
+    public static <T> Queue<T> createQueue(int i2) {
+        return new ArrayDeque(i2);
     }
 
     @TargetApi(19)
     public static int getBitmapByteSize(@NonNull Bitmap bitmap) {
         if (!bitmap.isRecycled()) {
-            try {
-                return bitmap.getAllocationByteCount();
-            } catch (NullPointerException unused) {
-                return bitmap.getHeight() * bitmap.getRowBytes();
+            if (Build.VERSION.SDK_INT >= 19) {
+                try {
+                    return bitmap.getAllocationByteCount();
+                } catch (NullPointerException unused) {
+                }
             }
+            return bitmap.getHeight() * bitmap.getRowBytes();
         }
         throw new IllegalStateException("Cannot obtain size for recycled Bitmap: " + bitmap + "[" + bitmap.getWidth() + "x" + bitmap.getHeight() + "] " + bitmap.getConfig());
     }
@@ -108,14 +108,14 @@ public final class Util {
         if (config == null) {
             config = Bitmap.Config.ARGB_8888;
         }
-        int i10 = AnonymousClass1.$SwitchMap$android$graphics$Bitmap$Config[config.ordinal()];
-        if (i10 == 1) {
+        int i2 = AnonymousClass1.$SwitchMap$android$graphics$Bitmap$Config[config.ordinal()];
+        if (i2 == 1) {
             return 1;
         }
-        if (i10 == 2 || i10 == 3) {
+        if (i2 == 2 || i2 == 3) {
             return 2;
         }
-        return i10 != 4 ? 4 : 8;
+        return i2 != 4 ? 4 : 8;
     }
 
     @Deprecated
@@ -126,16 +126,20 @@ public final class Util {
     @NonNull
     public static <T> List<T> getSnapshot(@NonNull Collection<T> collection) {
         ArrayList arrayList = new ArrayList(collection.size());
-        for (T t10 : collection) {
-            if (t10 != null) {
-                arrayList.add(t10);
+        for (T t : collection) {
+            if (t != null) {
+                arrayList.add(t);
             }
         }
         return arrayList;
     }
 
-    public static int hashCode(int i10, int i11) {
-        return (i11 * 31) + i10;
+    public static int hashCode(int i2) {
+        return hashCode(i2, 17);
+    }
+
+    public static int hashCode(int i2, int i3) {
+        return (i3 * 31) + i2;
     }
 
     public static boolean isOnBackgroundThread() {
@@ -146,12 +150,12 @@ public final class Util {
         return Looper.myLooper() == Looper.getMainLooper();
     }
 
-    private static boolean isValidDimension(int i10) {
-        return i10 > 0 || i10 == Integer.MIN_VALUE;
+    private static boolean isValidDimension(int i2) {
+        return i2 > 0 || i2 == Integer.MIN_VALUE;
     }
 
-    public static boolean isValidDimensions(int i10, int i11) {
-        return isValidDimension(i10) && isValidDimension(i11);
+    public static boolean isValidDimensions(int i2, int i3) {
+        return isValidDimension(i2) && isValidDimension(i3);
     }
 
     @NonNull
@@ -164,31 +168,27 @@ public final class Util {
         return bytesToHex;
     }
 
-    public static int hashCode(int i10) {
-        return hashCode(i10, 17);
+    public static int hashCode(float f2) {
+        return hashCode(f2, 17);
     }
 
-    public static int hashCode(float f10) {
-        return hashCode(f10, 17);
+    public static int hashCode(float f2, int i2) {
+        return hashCode(Float.floatToIntBits(f2), i2);
     }
 
-    public static int hashCode(float f10, int i10) {
-        return hashCode(Float.floatToIntBits(f10), i10);
+    public static int hashCode(@Nullable Object obj, int i2) {
+        return hashCode(obj == null ? 0 : obj.hashCode(), i2);
     }
 
-    public static int hashCode(@Nullable Object obj, int i10) {
-        return hashCode(obj == null ? 0 : obj.hashCode(), i10);
+    public static int hashCode(boolean z, int i2) {
+        return hashCode(z ? 1 : 0, i2);
     }
 
-    public static int hashCode(boolean z10, int i10) {
-        return hashCode(z10 ? 1 : 0, i10);
+    public static int hashCode(boolean z) {
+        return hashCode(z, 17);
     }
 
-    public static int hashCode(boolean z10) {
-        return hashCode(z10, 17);
-    }
-
-    public static int getBitmapByteSize(int i10, int i11, @Nullable Bitmap.Config config) {
-        return i10 * i11 * getBytesPerPixel(config);
+    public static int getBitmapByteSize(int i2, int i3, @Nullable Bitmap.Config config) {
+        return i2 * i3 * getBytesPerPixel(config);
     }
 }

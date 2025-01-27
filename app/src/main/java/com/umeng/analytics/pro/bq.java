@@ -1,20 +1,20 @@
 package com.umeng.analytics.pro;
 
-import android.content.Context;
-import org.repackage.com.miui.deviceid.IdentifierManager;
-
 /* loaded from: classes4.dex */
-class bq implements be {
-    @Override // com.umeng.analytics.pro.be
-    public String a(Context context) {
-        if (context == null) {
-            return null;
-        }
-        boolean a10 = IdentifierManager.a();
-        bs.a("getOAID", "isSupported", Boolean.valueOf(a10));
-        if (a10) {
-            return IdentifierManager.b(context);
-        }
-        return null;
+public final class bq {
+
+    /* renamed from: a */
+    public final byte f25782a;
+
+    /* renamed from: b */
+    public final int f25783b;
+
+    public bq() {
+        this((byte) 0, 0);
+    }
+
+    public bq(byte b2, int i2) {
+        this.f25782a = b2;
+        this.f25783b = i2;
     }
 }

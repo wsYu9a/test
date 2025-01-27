@@ -4,20 +4,23 @@ import com.google.gson.internal.LinkedTreeMap;
 import java.util.Map;
 import java.util.Set;
 
-/* loaded from: classes2.dex */
+/* loaded from: classes.dex */
 public final class JsonObject extends JsonElement {
     private final LinkedTreeMap<String, JsonElement> members = new LinkedTreeMap<>();
 
+    private JsonElement createJsonElement(Object obj) {
+        return obj == null ? JsonNull.INSTANCE : new JsonPrimitive(obj);
+    }
+
     public void add(String str, JsonElement jsonElement) {
-        LinkedTreeMap<String, JsonElement> linkedTreeMap = this.members;
         if (jsonElement == null) {
             jsonElement = JsonNull.INSTANCE;
         }
-        linkedTreeMap.put(str, jsonElement);
+        this.members.put(str, jsonElement);
     }
 
     public void addProperty(String str, String str2) {
-        add(str, str2 == null ? JsonNull.INSTANCE : new JsonPrimitive(str2));
+        add(str, createJsonElement(str2));
     }
 
     public Set<Map.Entry<String, JsonElement>> entrySet() {
@@ -52,20 +55,12 @@ public final class JsonObject extends JsonElement {
         return this.members.hashCode();
     }
 
-    public Set<String> keySet() {
-        return this.members.keySet();
-    }
-
     public JsonElement remove(String str) {
         return this.members.remove(str);
     }
 
-    public int size() {
-        return this.members.size();
-    }
-
     public void addProperty(String str, Number number) {
-        add(str, number == null ? JsonNull.INSTANCE : new JsonPrimitive(number));
+        add(str, createJsonElement(number));
     }
 
     @Override // com.google.gson.JsonElement
@@ -78,10 +73,10 @@ public final class JsonObject extends JsonElement {
     }
 
     public void addProperty(String str, Boolean bool) {
-        add(str, bool == null ? JsonNull.INSTANCE : new JsonPrimitive(bool));
+        add(str, createJsonElement(bool));
     }
 
-    public void addProperty(String str, Character ch2) {
-        add(str, ch2 == null ? JsonNull.INSTANCE : new JsonPrimitive(ch2));
+    public void addProperty(String str, Character ch) {
+        add(str, createJsonElement(ch));
     }
 }

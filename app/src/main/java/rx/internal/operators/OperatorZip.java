@@ -1,31 +1,18 @@
 package rx.internal.operators;
 
-import ak.e;
 import java.util.concurrent.atomic.AtomicLong;
 import java.util.concurrent.atomic.AtomicLongFieldUpdater;
-import qj.a;
-import qj.c;
-import qj.g;
+import rx.a;
 import rx.exceptions.MissingBackpressureException;
 import rx.exceptions.OnErrorThrowable;
-import wj.p;
-import wj.q;
-import wj.r;
-import wj.s;
-import wj.t;
-import wj.u;
-import wj.v;
-import wj.w;
-import wj.x;
-import wj.z;
 
 /* loaded from: classes5.dex */
-public final class OperatorZip<R> implements a.n0<R, qj.a<?>[]> {
+public final class OperatorZip<R> implements a.n0<R, rx.a<?>[]> {
 
-    /* renamed from: b */
-    public final x<? extends R> f30521b;
+    /* renamed from: a */
+    final rx.k.x<? extends R> f35832a;
 
-    public static final class ZipProducer<R> extends AtomicLong implements c {
+    private static final class ZipProducer<R> extends AtomicLong implements rx.c {
         private static final long serialVersionUID = -1216676403723546796L;
         private a<R> zipper;
 
@@ -33,248 +20,254 @@ public final class OperatorZip<R> implements a.n0<R, qj.a<?>[]> {
             this.zipper = aVar;
         }
 
-        @Override // qj.c
-        public void request(long j10) {
-            xj.a.a(this, j10);
+        @Override // rx.c
+        public void request(long j2) {
+            rx.internal.operators.a.a(this, j2);
             this.zipper.c();
         }
     }
 
-    public static final class a<R> {
-
-        /* renamed from: h */
-        public static final AtomicLongFieldUpdater<a> f30522h = AtomicLongFieldUpdater.newUpdater(a.class, "d");
-
-        /* renamed from: i */
-        public static final int f30523i = (int) (e.f246h * 0.7d);
+    private static final class a<R> {
 
         /* renamed from: a */
-        public final qj.b<? super R> f30524a;
+        static final AtomicLongFieldUpdater<a> f35833a = AtomicLongFieldUpdater.newUpdater(a.class, "f");
 
         /* renamed from: b */
-        public final x<? extends R> f30525b;
+        static final int f35834b;
 
         /* renamed from: c */
-        public final ik.b f30526c;
+        private final rx.b<? super R> f35835c;
 
         /* renamed from: d */
-        public volatile long f30527d;
+        private final rx.k.x<? extends R> f35836d;
 
         /* renamed from: e */
-        public int f30528e;
+        private final rx.p.b f35837e;
 
         /* renamed from: f */
-        public Object[] f30529f;
+        volatile long f35838f;
 
         /* renamed from: g */
-        public AtomicLong f30530g;
+        int f35839g;
+
+        /* renamed from: h */
+        private Object[] f35840h;
+
+        /* renamed from: i */
+        private AtomicLong f35841i;
 
         /* renamed from: rx.internal.operators.OperatorZip$a$a */
-        public final class C0785a extends g {
+        final class C0847a extends rx.g {
 
-            /* renamed from: g */
-            public final e f30531g = e.f();
+            /* renamed from: f */
+            final rx.internal.util.e f35842f = rx.internal.util.e.f();
 
-            public C0785a() {
+            C0847a() {
             }
 
-            @Override // qj.g
+            @Override // rx.g
             public void d() {
-                e(e.f246h);
+                e(rx.internal.util.e.f36784c);
             }
 
-            public void g(long j10) {
-                e(j10);
+            public void g(long j2) {
+                e(j2);
             }
 
-            @Override // qj.b
+            @Override // rx.b
             public void onCompleted() {
-                this.f30531g.l();
+                this.f35842f.l();
                 a.this.c();
             }
 
-            @Override // qj.b
-            public void onError(Throwable th2) {
-                a.this.f30524a.onError(th2);
+            @Override // rx.b
+            public void onError(Throwable th) {
+                a.this.f35835c.onError(th);
             }
 
-            @Override // qj.b
+            @Override // rx.b
             public void onNext(Object obj) {
                 try {
-                    this.f30531g.n(obj);
-                } catch (MissingBackpressureException e10) {
-                    onError(e10);
+                    this.f35842f.n(obj);
+                } catch (MissingBackpressureException e2) {
+                    onError(e2);
                 }
                 a.this.c();
             }
         }
 
-        public a(g<? super R> gVar, x<? extends R> xVar) {
-            ik.b bVar = new ik.b();
-            this.f30526c = bVar;
-            this.f30528e = 0;
-            this.f30524a = gVar;
-            this.f30525b = xVar;
+        static {
+            double d2 = rx.internal.util.e.f36784c;
+            Double.isNaN(d2);
+            f35834b = (int) (d2 * 0.7d);
+        }
+
+        public a(rx.g<? super R> gVar, rx.k.x<? extends R> xVar) {
+            rx.p.b bVar = new rx.p.b();
+            this.f35837e = bVar;
+            this.f35839g = 0;
+            this.f35835c = gVar;
+            this.f35836d = xVar;
             gVar.b(bVar);
         }
 
-        public void b(qj.a[] aVarArr, AtomicLong atomicLong) {
-            this.f30529f = new Object[aVarArr.length];
-            this.f30530g = atomicLong;
-            for (int i10 = 0; i10 < aVarArr.length; i10++) {
-                C0785a c0785a = new C0785a();
-                this.f30529f[i10] = c0785a;
-                this.f30526c.a(c0785a);
+        public void b(rx.a[] aVarArr, AtomicLong atomicLong) {
+            this.f35840h = new Object[aVarArr.length];
+            this.f35841i = atomicLong;
+            for (int i2 = 0; i2 < aVarArr.length; i2++) {
+                C0847a c0847a = new C0847a();
+                this.f35840h[i2] = c0847a;
+                this.f35837e.a(c0847a);
             }
-            for (int i11 = 0; i11 < aVarArr.length; i11++) {
-                aVarArr[i11].T4((C0785a) this.f30529f[i11]);
+            for (int i3 = 0; i3 < aVarArr.length; i3++) {
+                aVarArr[i3].T4((C0847a) this.f35840h[i3]);
             }
         }
 
-        public void c() {
-            Object[] objArr = this.f30529f;
-            if (objArr == null || f30522h.getAndIncrement(this) != 0) {
+        void c() {
+            Object[] objArr = this.f35840h;
+            if (objArr == null || f35833a.getAndIncrement(this) != 0) {
                 return;
             }
             int length = objArr.length;
-            qj.b<? super R> bVar = this.f30524a;
-            AtomicLong atomicLong = this.f30530g;
+            rx.b<? super R> bVar = this.f35835c;
+            AtomicLong atomicLong = this.f35841i;
             while (true) {
                 Object[] objArr2 = new Object[length];
-                boolean z10 = true;
-                for (int i10 = 0; i10 < length; i10++) {
-                    e eVar = ((C0785a) objArr[i10]).f30531g;
-                    Object o10 = eVar.o();
-                    if (o10 == null) {
-                        z10 = false;
+                boolean z = true;
+                for (int i2 = 0; i2 < length; i2++) {
+                    rx.internal.util.e eVar = ((C0847a) objArr[i2]).f35842f;
+                    Object o = eVar.o();
+                    if (o == null) {
+                        z = false;
                     } else {
-                        if (eVar.i(o10)) {
+                        if (eVar.i(o)) {
                             bVar.onCompleted();
-                            this.f30526c.unsubscribe();
+                            this.f35837e.unsubscribe();
                             return;
                         }
-                        objArr2[i10] = eVar.h(o10);
+                        objArr2[i2] = eVar.h(o);
                     }
                 }
-                if (atomicLong.get() > 0 && z10) {
+                if (atomicLong.get() > 0 && z) {
                     try {
-                        bVar.onNext(this.f30525b.call(objArr2));
+                        bVar.onNext(this.f35836d.call(objArr2));
                         atomicLong.decrementAndGet();
-                        this.f30528e++;
+                        this.f35839g++;
                         for (Object obj : objArr) {
-                            e eVar2 = ((C0785a) obj).f30531g;
+                            rx.internal.util.e eVar2 = ((C0847a) obj).f35842f;
                             eVar2.p();
                             if (eVar2.i(eVar2.o())) {
                                 bVar.onCompleted();
-                                this.f30526c.unsubscribe();
+                                this.f35837e.unsubscribe();
                                 return;
                             }
                         }
-                        if (this.f30528e > f30523i) {
+                        if (this.f35839g > f35834b) {
                             for (Object obj2 : objArr) {
-                                ((C0785a) obj2).g(this.f30528e);
+                                ((C0847a) obj2).g(this.f35839g);
                             }
-                            this.f30528e = 0;
+                            this.f35839g = 0;
                         }
-                    } catch (Throwable th2) {
-                        bVar.onError(OnErrorThrowable.addValueAsLastCause(th2, objArr2));
+                    } catch (Throwable th) {
+                        bVar.onError(OnErrorThrowable.addValueAsLastCause(th, objArr2));
                         return;
                     }
-                } else if (f30522h.decrementAndGet(this) <= 0) {
+                } else if (f35833a.decrementAndGet(this) <= 0) {
                     return;
                 }
             }
         }
     }
 
-    public final class b extends g<qj.a[]> {
+    private final class b extends rx.g<rx.a[]> {
+
+        /* renamed from: f */
+        final rx.g<? super R> f35844f;
 
         /* renamed from: g */
-        public final g<? super R> f30533g;
+        final a<R> f35845g;
 
         /* renamed from: h */
-        public final a<R> f30534h;
+        final ZipProducer<R> f35846h;
 
         /* renamed from: i */
-        public final ZipProducer<R> f30535i;
+        boolean f35847i;
 
-        /* renamed from: j */
-        public boolean f30536j;
-
-        public b(g<? super R> gVar, a<R> aVar, ZipProducer<R> zipProducer) {
+        public b(rx.g<? super R> gVar, a<R> aVar, ZipProducer<R> zipProducer) {
             super(gVar);
-            this.f30536j = false;
-            this.f30533g = gVar;
-            this.f30534h = aVar;
-            this.f30535i = zipProducer;
+            this.f35847i = false;
+            this.f35844f = gVar;
+            this.f35845g = aVar;
+            this.f35846h = zipProducer;
         }
 
-        @Override // qj.b
+        @Override // rx.b
         /* renamed from: g */
-        public void onNext(qj.a[] aVarArr) {
+        public void onNext(rx.a[] aVarArr) {
             if (aVarArr == null || aVarArr.length == 0) {
-                this.f30533g.onCompleted();
+                this.f35844f.onCompleted();
             } else {
-                this.f30536j = true;
-                this.f30534h.b(aVarArr, this.f30535i);
+                this.f35847i = true;
+                this.f35845g.b(aVarArr, this.f35846h);
             }
         }
 
-        @Override // qj.b
+        @Override // rx.b
         public void onCompleted() {
-            if (this.f30536j) {
+            if (this.f35847i) {
                 return;
             }
-            this.f30533g.onCompleted();
+            this.f35844f.onCompleted();
         }
 
-        @Override // qj.b
-        public void onError(Throwable th2) {
-            this.f30533g.onError(th2);
+        @Override // rx.b
+        public void onError(Throwable th) {
+            this.f35844f.onError(th);
         }
     }
 
-    public OperatorZip(x<? extends R> xVar) {
-        this.f30521b = xVar;
+    public OperatorZip(rx.k.x<? extends R> xVar) {
+        this.f35832a = xVar;
     }
 
-    @Override // wj.o
-    public g<? super qj.a[]> call(g<? super R> gVar) {
-        a aVar = new a(gVar, this.f30521b);
+    @Override // rx.k.o
+    public rx.g<? super rx.a[]> call(rx.g<? super R> gVar) {
+        a aVar = new a(gVar, this.f35832a);
         ZipProducer zipProducer = new ZipProducer(aVar);
         gVar.f(zipProducer);
         return new b(gVar, aVar, zipProducer);
     }
 
-    public OperatorZip(p pVar) {
-        this.f30521b = z.g(pVar);
+    public OperatorZip(rx.k.p pVar) {
+        this.f35832a = rx.k.z.g(pVar);
     }
 
-    public OperatorZip(q qVar) {
-        this.f30521b = z.h(qVar);
+    public OperatorZip(rx.k.q qVar) {
+        this.f35832a = rx.k.z.h(qVar);
     }
 
-    public OperatorZip(r rVar) {
-        this.f30521b = z.i(rVar);
+    public OperatorZip(rx.k.r rVar) {
+        this.f35832a = rx.k.z.i(rVar);
     }
 
-    public OperatorZip(s sVar) {
-        this.f30521b = z.j(sVar);
+    public OperatorZip(rx.k.s sVar) {
+        this.f35832a = rx.k.z.j(sVar);
     }
 
-    public OperatorZip(t tVar) {
-        this.f30521b = z.k(tVar);
+    public OperatorZip(rx.k.t tVar) {
+        this.f35832a = rx.k.z.k(tVar);
     }
 
-    public OperatorZip(u uVar) {
-        this.f30521b = z.l(uVar);
+    public OperatorZip(rx.k.u uVar) {
+        this.f35832a = rx.k.z.l(uVar);
     }
 
-    public OperatorZip(v vVar) {
-        this.f30521b = z.m(vVar);
+    public OperatorZip(rx.k.v vVar) {
+        this.f35832a = rx.k.z.m(vVar);
     }
 
-    public OperatorZip(w wVar) {
-        this.f30521b = z.n(wVar);
+    public OperatorZip(rx.k.w wVar) {
+        this.f35832a = rx.k.z.n(wVar);
     }
 }

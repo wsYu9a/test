@@ -9,18 +9,21 @@ import androidx.annotation.RequiresApi;
 @RequiresApi(23)
 /* loaded from: classes.dex */
 class ViewUtilsApi23 extends ViewUtilsApi22 {
-    private static boolean sTryHiddenSetTransitionVisibility = true;
+    private static boolean m = true;
+
+    ViewUtilsApi23() {
+    }
 
     @Override // androidx.transition.ViewUtilsBase
     @SuppressLint({"NewApi"})
-    public void setTransitionVisibility(@NonNull View view, int i10) {
+    public void setTransitionVisibility(@NonNull View view, int i2) {
         if (Build.VERSION.SDK_INT == 28) {
-            super.setTransitionVisibility(view, i10);
-        } else if (sTryHiddenSetTransitionVisibility) {
+            super.setTransitionVisibility(view, i2);
+        } else if (m) {
             try {
-                view.setTransitionVisibility(i10);
+                view.setTransitionVisibility(i2);
             } catch (NoSuchMethodError unused) {
-                sTryHiddenSetTransitionVisibility = false;
+                m = false;
             }
         }
     }

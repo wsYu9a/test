@@ -76,47 +76,47 @@ public class LmAds {
         return r0.intValue() * 1000;
     }
 
-    public void setAds(List<LmAd> list) {
-        this.ads = list;
+    public void setAds(List<LmAd> ads) {
+        this.ads = ads;
     }
 
-    public void setClickRate(Double d10) {
-        this.clickRate = d10;
+    public void setClickRate(Double clickRate) {
+        this.clickRate = clickRate;
     }
 
-    public void setEnv(LmEnv lmEnv) {
-        this.env = lmEnv;
+    public void setEnv(LmEnv env) {
+        this.env = env;
     }
 
-    public void setExposeRate(List<Float> list) {
-        this.exposeRate = list;
+    public void setExposeRate(List<Float> exposeRate) {
+        this.exposeRate = exposeRate;
     }
 
-    public void setInternal(Integer num) {
-        this.internal = num;
+    public void setInternal(Integer internal) {
+        this.internal = internal;
     }
 
-    public void setIpControl(Boolean bool) {
-        this.ipControl = bool;
+    public void setIpControl(Boolean ipControl) {
+        this.ipControl = ipControl;
     }
 
-    public void setMaxPageDuration(Integer num) {
-        this.maxPageDuration = num;
+    public void setMaxPageDuration(Integer maxPageDuration) {
+        this.maxPageDuration = maxPageDuration;
     }
 
-    public void setMinPageDuration(Integer num) {
-        this.minPageDuration = num;
+    public void setMinPageDuration(Integer minPageDuration) {
+        this.minPageDuration = minPageDuration;
     }
 
-    public void setPageRate(Integer num) {
-        this.pageRate = num;
+    public void setPageRate(Integer pageRate) {
+        this.pageRate = pageRate;
     }
 
-    public void setPlanId(String str) {
-        this.planId = str;
+    public void setPlanId(String planId) {
+        this.planId = planId;
     }
 
-    public void setReportTimeout(Integer num) {
-        this.reportTimeout = num;
+    public void setReportTimeout(Integer reportTimeout) {
+        this.reportTimeout = reportTimeout;
     }
 }

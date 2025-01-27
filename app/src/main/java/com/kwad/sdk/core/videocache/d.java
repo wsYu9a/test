@@ -1,52 +1,52 @@
 package com.kwad.sdk.core.videocache;
 
 import android.text.TextUtils;
-import com.kwad.sdk.utils.au;
+import com.kwad.sdk.utils.ao;
 import java.io.BufferedReader;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-/* loaded from: classes3.dex */
+/* loaded from: classes2.dex */
 final class d {
-    private static final Pattern aGg = Pattern.compile("[R,r]ange:[ ]?bytes=(\\d*)-");
-    private static final Pattern aGh = Pattern.compile("GET /(.*) HTTP");
-    public final long aGi;
-    public final boolean aGj;
+    private static final Pattern any = Pattern.compile("[R,r]ange:[ ]?bytes=(\\d*)-");
+    private static final Pattern anz = Pattern.compile("GET /(.*) HTTP");
+    public final long anA;
+    public final boolean anB;
     public final String uri;
 
     private d(String str) {
-        au.gV(str);
-        long eK = eK(str);
-        this.aGi = Math.max(0L, eK);
-        this.aGj = eK >= 0;
-        this.uri = eL(str);
+        ao.eK(str);
+        long cQ = cQ(str);
+        this.anA = Math.max(0L, cQ);
+        this.anB = cQ >= 0;
+        this.uri = cR(str);
     }
 
     public static d b(InputStream inputStream) {
         BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(inputStream, "UTF-8"));
-        StringBuilder sb2 = new StringBuilder();
+        StringBuilder sb = new StringBuilder();
         while (true) {
             String readLine = bufferedReader.readLine();
             if (TextUtils.isEmpty(readLine)) {
-                return new d(sb2.toString());
+                return new d(sb.toString());
             }
-            sb2.append(readLine);
-            sb2.append('\n');
+            sb.append(readLine);
+            sb.append('\n');
         }
     }
 
-    private static long eK(String str) {
-        Matcher matcher = aGg.matcher(str);
+    private static long cQ(String str) {
+        Matcher matcher = any.matcher(str);
         if (matcher.find()) {
             return Long.parseLong(matcher.group(1));
         }
         return -1L;
     }
 
-    private static String eL(String str) {
-        Matcher matcher = aGh.matcher(str);
+    private static String cR(String str) {
+        Matcher matcher = anz.matcher(str);
         if (matcher.find()) {
             return matcher.group(1);
         }
@@ -54,6 +54,6 @@ final class d {
     }
 
     public final String toString() {
-        return "GetRequest{rangeOffset=" + this.aGi + ", partial=" + this.aGj + ", uri='" + this.uri + "'}";
+        return "GetRequest{rangeOffset=" + this.anA + ", partial=" + this.anB + ", uri='" + this.uri + "'}";
     }
 }

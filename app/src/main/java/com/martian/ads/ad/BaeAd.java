@@ -1,83 +1,64 @@
 package com.martian.ads.ad;
 
 import android.app.Activity;
-import android.content.Context;
 import android.os.Build;
-import android.os.Handler;
-import android.text.TextUtils;
-import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.FrameLayout;
 import androidx.annotation.NonNull;
 import androidx.exifinterface.media.ExifInterface;
-import b8.j;
-import b8.k;
-import ba.l;
 import com.baidu.mobads.sdk.api.ArticleInfo;
 import com.baidu.mobads.sdk.api.BaiduNativeManager;
-import com.baidu.mobads.sdk.api.BiddingListener;
 import com.baidu.mobads.sdk.api.ExpressInterstitialAd;
 import com.baidu.mobads.sdk.api.ExpressInterstitialListener;
-import com.baidu.mobads.sdk.api.ExpressResponse;
+import com.baidu.mobads.sdk.api.FeedPortraitVideoView;
 import com.baidu.mobads.sdk.api.NativeResponse;
 import com.baidu.mobads.sdk.api.RequestParameters;
 import com.baidu.mobads.sdk.api.RewardVideoAd;
 import com.baidu.mobads.sdk.api.SplashAd;
-import com.baidu.mobads.sdk.api.SplashAdListener;
 import com.baidu.mobads.sdk.api.SplashInteractionListener;
 import com.baidu.mobads.sdk.api.XNativeView;
-import com.bytedance.sdk.openadsdk.downloadnew.core.TTDownloadField;
-import com.bytedance.sdk.openadsdk.mediation.MediationConstant;
+import com.bytedance.sdk.openadsdk.TTAdConstant;
 import com.martian.ads.ad.AdConfig;
-import com.martian.ads.ad.BaeAd;
-import com.martian.ads.ad.GroMoreAd;
 import com.martian.apptask.data.AppTask;
-import com.martian.apptask.data.ComplianceInfo;
-import com.martian.libmars.common.ConfigSingleton;
+import com.martian.libmars.d.h;
+import com.martian.libsupport.k;
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.LinkedHashMap;
 import java.util.List;
-import l9.p0;
-import x8.c;
 
-/* loaded from: classes3.dex */
+/* loaded from: classes2.dex */
 public class BaeAd extends BaseAd {
     public static String BIDDING_FAIL_LOW_PRICE = "203";
+    private boolean cancelLoading;
     public RewardVideoAd mRewardVideoAd;
 
     /* renamed from: com.martian.ads.ad.BaeAd$1 */
-    public class AnonymousClass1 implements SplashAdListener {
-        public AnonymousClass1() {
+    class AnonymousClass1 implements SplashInteractionListener {
+        AnonymousClass1() {
         }
 
         @Override // com.baidu.mobads.sdk.api.SplashAdListener
         public void onADLoaded() {
-            if (BaeAd.this.adConfig.isBidding()) {
-                AppTask appTask = BaeAd.this.getAppTaskList().getApps().get(0);
-                BaeAd.this.setBiddingEcpm(appTask, ((SplashAd) appTask.origin).getECPMLevel());
+            AppTask appTask = BaeAd.this.getAppTaskList().getApps().get(0);
+            SplashAd splashAd = (SplashAd) appTask.origin;
+            if (!k.p(splashAd.getECPMLevel())) {
+                try {
+                    int parseInt = Integer.parseInt(splashAd.getECPMLevel());
+                    if (BaeAd.this.adConfig.isBidding() || parseInt > 0) {
+                        if (BaeAd.this.adConfig.getEcpmPercent() > 0.0d) {
+                            double d2 = parseInt;
+                            double ecpmPercent = BaeAd.this.adConfig.getEcpmPercent();
+                            Double.isNaN(d2);
+                            parseInt = (int) ((d2 * ecpmPercent) / 100.0d);
+                        }
+                        appTask.setEcpm(parseInt);
+                        BaeAd.this.adConfig.setEcpm(parseInt);
+                    }
+                } catch (Exception unused) {
+                }
             }
             BaeAd.this.onAdReceived();
-        }
-
-        @Override // com.baidu.mobads.sdk.api.SplashAdListener
-        public void onAdFailed(String str) {
-            BaeAd.this.onError(new c(-1, str));
-        }
-    }
-
-    /* renamed from: com.martian.ads.ad.BaeAd$2 */
-    public class AnonymousClass2 implements SplashInteractionListener {
-        final /* synthetic */ AdConfig val$adConfig;
-
-        public AnonymousClass2(AdConfig adConfig) {
-            adConfig = adConfig;
-        }
-
-        @Override // com.baidu.mobads.sdk.api.SplashAdListener
-        public void onADLoaded() {
         }
 
         @Override // com.baidu.mobads.sdk.api.SplashInteractionListener
@@ -90,52 +71,36 @@ public class BaeAd extends BaseAd {
 
         @Override // com.baidu.mobads.sdk.api.SplashInteractionListener
         public void onAdClick() {
-            d8.b bVar = d8.b.this;
-            if (bVar != null) {
-                bVar.l(adConfig);
-            }
+            BaeAd.this.onClick();
         }
 
         @Override // com.baidu.mobads.sdk.api.SplashInteractionListener
         public void onAdDismissed() {
-            d8.b bVar = d8.b.this;
-            if (bVar != null) {
-                bVar.g(adConfig);
-            }
-        }
-
-        @Override // com.baidu.mobads.sdk.api.SplashInteractionListener
-        public void onAdExposed() {
-            d8.b bVar = d8.b.this;
-            if (bVar != null) {
-                bVar.b(adConfig);
-            }
+            BaeAd.this.onDismiss();
         }
 
         @Override // com.baidu.mobads.sdk.api.SplashAdListener
-        public void onAdFailed(String str) {
+        public void onAdFailed(String arg0) {
+            BaeAd.this.onError(new b.d.c.b.c(-1, arg0));
         }
 
         @Override // com.baidu.mobads.sdk.api.SplashInteractionListener
         public void onAdPresent() {
-        }
-
-        @Override // com.baidu.mobads.sdk.api.SplashInteractionListener
-        public void onAdSkip() {
+            BaeAd.this.onExpose();
         }
 
         @Override // com.baidu.mobads.sdk.api.SplashInteractionListener
         public void onLpClosed() {
-            d8.b bVar = d8.b.this;
-            if (bVar != null) {
-                bVar.d(adConfig);
-            }
+            BaeAd.this.onClose();
         }
     }
 
-    /* renamed from: com.martian.ads.ad.BaeAd$3 */
-    public class AnonymousClass3 implements BaiduNativeManager.PortraitVideoAdListener {
-        public AnonymousClass3() {
+    /* renamed from: com.martian.ads.ad.BaeAd$2 */
+    class AnonymousClass2 implements BaiduNativeManager.PortraitVideoAdListener {
+        final /* synthetic */ Activity val$activity;
+
+        AnonymousClass2(final Activity val$activity) {
+            activity = val$activity;
         }
 
         @Override // com.baidu.mobads.sdk.api.BaiduNativeManager.PortraitVideoAdListener
@@ -148,23 +113,78 @@ public class BaeAd extends BaseAd {
         }
 
         @Override // com.baidu.mobads.sdk.api.BaiduNativeManager.FeedAdListener
-        public void onNativeFail(int i10, String str, NativeResponse nativeResponse) {
-            BaeAd.this.onError(new c(i10, str));
+        public void onNativeFail(int i2, String s) {
+            BaeAd.this.onError(null);
+        }
+
+        @Override // com.baidu.mobads.sdk.api.BaiduNativeManager.FeedAdListener
+        public void onNativeLoad(final List<NativeResponse> nativeResponses) {
+            if (nativeResponses == null || nativeResponses.isEmpty()) {
+                BaeAd.this.onError(null);
+                return;
+            }
+            for (NativeResponse nativeResponse : nativeResponses) {
+                AppTask appTask = BaeAd.this.toAppTask(activity, nativeResponse);
+                if (nativeResponse.getMaterialType() == NativeResponse.MaterialType.VIDEO) {
+                    appTask.isVideoAd = true;
+                    FeedPortraitVideoView feedPortraitVideoView = new FeedPortraitVideoView(activity);
+                    feedPortraitVideoView.setCanClickVideo(true ^ BaeAd.this.adConfig.isAdCompliance());
+                    feedPortraitVideoView.setAdData(nativeResponse);
+                    appTask.videoView = new b.d.a.c(feedPortraitVideoView);
+                }
+                BaeAd.this.getAppTaskList().addAppTask(appTask);
+            }
+            BaeAd.this.onAdReceived();
+        }
+
+        @Override // com.baidu.mobads.sdk.api.BaiduNativeManager.FeedAdListener
+        public void onNoAd(int i2, String s) {
+            BaeAd.this.onError(null);
+        }
+
+        @Override // com.baidu.mobads.sdk.api.BaiduNativeManager.FeedAdListener
+        public void onVideoDownloadFailed() {
+        }
+
+        @Override // com.baidu.mobads.sdk.api.BaiduNativeManager.FeedAdListener
+        public void onVideoDownloadSuccess() {
+        }
+    }
+
+    /* renamed from: com.martian.ads.ad.BaeAd$3 */
+    class AnonymousClass3 implements BaiduNativeManager.FeedAdListener {
+        final /* synthetic */ Activity val$activity;
+
+        AnonymousClass3(final Activity val$activity) {
+            activity = val$activity;
+        }
+
+        @Override // com.baidu.mobads.sdk.api.BaiduNativeManager.FeedAdListener
+        public void onLpClosed() {
+        }
+
+        @Override // com.baidu.mobads.sdk.api.BaiduNativeManager.FeedAdListener
+        public void onNativeFail(int i2, String s) {
+            BaeAd.this.onError(new b.d.c.b.c(i2, s));
         }
 
         @Override // com.baidu.mobads.sdk.api.BaiduNativeManager.FeedAdListener
         public void onNativeLoad(List<NativeResponse> list) {
             if (list == null || list.isEmpty()) {
                 BaeAd.this.onError(null);
-            } else {
-                BaeAd.this.getAppTaskList().addAppTask(BaeAd.this.toAppTask(list.get(0)));
-                BaeAd.this.onAdReceived();
+                return;
             }
+            for (NativeResponse nativeResponse : list) {
+                if (nativeResponse != null) {
+                    BaeAd.this.getAppTaskList().addAppTask(BaeAd.this.toAppTask(activity, nativeResponse));
+                }
+            }
+            BaeAd.this.onAdReceived();
         }
 
         @Override // com.baidu.mobads.sdk.api.BaiduNativeManager.FeedAdListener
-        public void onNoAd(int i10, String str, NativeResponse nativeResponse) {
-            BaeAd.this.onError(new c(i10, str));
+        public void onNoAd(int i2, String s) {
+            BaeAd.this.onError(new b.d.c.b.c(i2, s));
         }
 
         @Override // com.baidu.mobads.sdk.api.BaiduNativeManager.FeedAdListener
@@ -177,183 +197,10 @@ public class BaeAd extends BaseAd {
     }
 
     /* renamed from: com.martian.ads.ad.BaeAd$4 */
-    public class AnonymousClass4 implements BaiduNativeManager.FeedAdListener {
-        public AnonymousClass4() {
-        }
-
-        @Override // com.baidu.mobads.sdk.api.BaiduNativeManager.FeedAdListener
-        public void onLpClosed() {
-        }
-
-        @Override // com.baidu.mobads.sdk.api.BaiduNativeManager.FeedAdListener
-        public void onNativeFail(int i10, String str, NativeResponse nativeResponse) {
-            BaeAd.this.onError(new c(i10, str));
-        }
-
-        @Override // com.baidu.mobads.sdk.api.BaiduNativeManager.FeedAdListener
-        public void onNativeLoad(List<NativeResponse> list) {
-            if (list == null || list.isEmpty()) {
-                BaeAd.this.onError(null);
-                return;
-            }
-            for (NativeResponse nativeResponse : list) {
-                if (nativeResponse != null) {
-                    BaeAd.this.getAppTaskList().addAppTask(BaeAd.this.toAppTask(nativeResponse));
-                }
-            }
-            BaeAd.this.onAdReceived();
-        }
-
-        @Override // com.baidu.mobads.sdk.api.BaiduNativeManager.FeedAdListener
-        public void onNoAd(int i10, String str, NativeResponse nativeResponse) {
-            BaeAd.this.onError(new c(i10, str));
-        }
-
-        @Override // com.baidu.mobads.sdk.api.BaiduNativeManager.FeedAdListener
-        public void onVideoDownloadFailed() {
-        }
-
-        @Override // com.baidu.mobads.sdk.api.BaiduNativeManager.FeedAdListener
-        public void onVideoDownloadSuccess() {
-        }
-    }
-
-    /* renamed from: com.martian.ads.ad.BaeAd$5 */
-    public class AnonymousClass5 implements BaiduNativeManager.ExpressAdListener {
-
-        /* renamed from: com.martian.ads.ad.BaeAd$5$1 */
-        public class AnonymousClass1 implements ExpressResponse.ExpressInteractionListener {
-            public AnonymousClass1() {
-            }
-
-            @Override // com.baidu.mobads.sdk.api.ExpressResponse.ExpressInteractionListener
-            public void onAdClick() {
-                BaeAd baeAd = BaeAd.this;
-                d8.a aVar = baeAd.receiver;
-                if (aVar != null) {
-                    aVar.l(baeAd.adConfig);
-                }
-            }
-
-            @Override // com.baidu.mobads.sdk.api.ExpressResponse.ExpressInteractionListener
-            public void onAdExposed() {
-                BaeAd baeAd = BaeAd.this;
-                d8.a aVar = baeAd.receiver;
-                if (aVar != null) {
-                    aVar.b(baeAd.adConfig);
-                }
-            }
-
-            @Override // com.baidu.mobads.sdk.api.ExpressResponse.ExpressInteractionListener
-            public void onAdRenderFail(View view, String str, int i10) {
-                BaeAd baeAd = BaeAd.this;
-                d8.a aVar = baeAd.receiver;
-                if (aVar != null) {
-                    aVar.c(baeAd.adConfig, new c(-1, ""));
-                }
-            }
-
-            @Override // com.baidu.mobads.sdk.api.ExpressResponse.ExpressInteractionListener
-            public void onAdRenderSuccess(View view, float f10, float f11) {
-            }
-
-            @Override // com.baidu.mobads.sdk.api.ExpressResponse.ExpressInteractionListener
-            public void onAdUnionClick() {
-            }
-        }
-
-        public AnonymousClass5() {
-        }
-
-        @Override // com.baidu.mobads.sdk.api.BaiduNativeManager.ExpressAdListener
-        public void onLpClosed() {
-        }
-
-        @Override // com.baidu.mobads.sdk.api.BaiduNativeManager.ExpressAdListener
-        public void onNativeFail(int i10, String str, ExpressResponse expressResponse) {
-            BaeAd.this.onError(new c(i10, str));
-        }
-
-        @Override // com.baidu.mobads.sdk.api.BaiduNativeManager.ExpressAdListener
-        public void onNativeLoad(List<ExpressResponse> list) {
-            if (list == null || list.isEmpty()) {
-                BaeAd.this.onError(null);
-                return;
-            }
-            ExpressResponse expressResponse = list.get(0);
-            if (expressResponse == null) {
-                BaeAd.this.onError(null);
-                return;
-            }
-            expressResponse.setInteractionListener(new ExpressResponse.ExpressInteractionListener() { // from class: com.martian.ads.ad.BaeAd.5.1
-                public AnonymousClass1() {
-                }
-
-                @Override // com.baidu.mobads.sdk.api.ExpressResponse.ExpressInteractionListener
-                public void onAdClick() {
-                    BaeAd baeAd = BaeAd.this;
-                    d8.a aVar = baeAd.receiver;
-                    if (aVar != null) {
-                        aVar.l(baeAd.adConfig);
-                    }
-                }
-
-                @Override // com.baidu.mobads.sdk.api.ExpressResponse.ExpressInteractionListener
-                public void onAdExposed() {
-                    BaeAd baeAd = BaeAd.this;
-                    d8.a aVar = baeAd.receiver;
-                    if (aVar != null) {
-                        aVar.b(baeAd.adConfig);
-                    }
-                }
-
-                @Override // com.baidu.mobads.sdk.api.ExpressResponse.ExpressInteractionListener
-                public void onAdRenderFail(View view, String str, int i10) {
-                    BaeAd baeAd = BaeAd.this;
-                    d8.a aVar = baeAd.receiver;
-                    if (aVar != null) {
-                        aVar.c(baeAd.adConfig, new c(-1, ""));
-                    }
-                }
-
-                @Override // com.baidu.mobads.sdk.api.ExpressResponse.ExpressInteractionListener
-                public void onAdRenderSuccess(View view, float f10, float f11) {
-                }
-
-                @Override // com.baidu.mobads.sdk.api.ExpressResponse.ExpressInteractionListener
-                public void onAdUnionClick() {
-                }
-            });
-            AppTask appTask = BaeAd.this.adConfig.toAppTask();
-            appTask.customView = new k(expressResponse);
-            appTask.setPicWidth(1184);
-            appTask.setPicHeight(1898);
-            if (BaeAd.this.adConfig.isBidding()) {
-                BaeAd.this.setBiddingEcpm(appTask, expressResponse.getECPMLevel());
-            }
-            BaeAd.this.getAppTaskList().addAppTask(appTask);
-            BaeAd.this.onAdReceived();
-        }
-
-        @Override // com.baidu.mobads.sdk.api.BaiduNativeManager.ExpressAdListener
-        public void onNoAd(int i10, String str, ExpressResponse expressResponse) {
-            BaeAd.this.onError(new c(i10, str));
-        }
-
-        @Override // com.baidu.mobads.sdk.api.BaiduNativeManager.ExpressAdListener
-        public void onVideoDownloadFailed() {
-        }
-
-        @Override // com.baidu.mobads.sdk.api.BaiduNativeManager.ExpressAdListener
-        public void onVideoDownloadSuccess() {
-        }
-    }
-
-    /* renamed from: com.martian.ads.ad.BaeAd$6 */
-    public class AnonymousClass6 implements RewardVideoAd.RewardVideoAdListener {
+    class AnonymousClass4 implements RewardVideoAd.RewardVideoAdListener {
         private boolean verify = false;
 
-        public AnonymousClass6() {
+        AnonymousClass4() {
         }
 
         @Override // com.baidu.mobads.sdk.api.RewardVideoAd.RewardVideoAdListener, com.baidu.mobads.sdk.api.ScreenVideoAdListener
@@ -362,14 +209,14 @@ public class BaeAd extends BaseAd {
         }
 
         @Override // com.baidu.mobads.sdk.api.RewardVideoAd.RewardVideoAdListener, com.baidu.mobads.sdk.api.ScreenVideoAdListener
-        public void onAdClose(float f10) {
+        public void onAdClose(float v) {
             BaeAd.this.onClose();
             BaeAd.this.onRewardVerify(this.verify);
         }
 
         @Override // com.baidu.mobads.sdk.api.RewardVideoAd.RewardVideoAdListener, com.baidu.mobads.sdk.api.ScreenVideoAdListener
-        public void onAdFailed(String str) {
-            BaeAd.this.onError(new c(-1, str));
+        public void onAdFailed(String s) {
+            BaeAd.this.onError(new b.d.c.b.c(-1, s));
         }
 
         @Override // com.baidu.mobads.sdk.api.RewardVideoAd.RewardVideoAdListener, com.baidu.mobads.sdk.api.ScreenVideoAdListener
@@ -382,12 +229,12 @@ public class BaeAd extends BaseAd {
         }
 
         @Override // com.baidu.mobads.sdk.api.RewardVideoAd.RewardVideoAdListener, com.baidu.mobads.sdk.api.ScreenVideoAdListener
-        public void onAdSkip(float f10) {
+        public void onAdSkip(float v) {
         }
 
         @Override // com.baidu.mobads.sdk.api.RewardVideoAd.RewardVideoAdListener
-        public void onRewardVerify(boolean z10) {
-            this.verify = z10;
+        public void onRewardVerify(boolean rewardVerify) {
+            this.verify = rewardVerify;
         }
 
         @Override // com.baidu.mobads.sdk.api.RewardVideoAd.RewardVideoAdListener, com.baidu.mobads.sdk.api.ScreenVideoAdListener
@@ -403,11 +250,21 @@ public class BaeAd extends BaseAd {
                 return;
             }
             AppTask appTask = baeAd.adConfig.toAppTask();
-            BaeAd baeAd2 = BaeAd.this;
-            appTask.origin = baeAd2.mRewardVideoAd;
-            if (baeAd2.adConfig.isBidding()) {
-                BaeAd baeAd3 = BaeAd.this;
-                baeAd3.setBiddingEcpm(appTask, baeAd3.mRewardVideoAd.getECPMLevel());
+            RewardVideoAd rewardVideoAd = BaeAd.this.mRewardVideoAd;
+            appTask.origin = rewardVideoAd;
+            if (!k.p(rewardVideoAd.getECPMLevel())) {
+                try {
+                    int parseInt = Integer.parseInt(BaeAd.this.mRewardVideoAd.getECPMLevel());
+                    if (BaeAd.this.adConfig.getEcpmPercent() > 0.0d) {
+                        double d2 = parseInt;
+                        double ecpmPercent = BaeAd.this.adConfig.getEcpmPercent();
+                        Double.isNaN(d2);
+                        parseInt = (int) ((d2 * ecpmPercent) / 100.0d);
+                    }
+                    appTask.setEcpm(parseInt);
+                    BaeAd.this.adConfig.setEcpm(parseInt);
+                } catch (Exception unused) {
+                }
             }
             BaeAd.this.getAppTaskList().addAppTask(appTask);
             BaeAd.this.onAdReceived();
@@ -418,12 +275,12 @@ public class BaeAd extends BaseAd {
         }
     }
 
-    /* renamed from: com.martian.ads.ad.BaeAd$7 */
-    public class AnonymousClass7 implements ExpressInterstitialListener {
+    /* renamed from: com.martian.ads.ad.BaeAd$5 */
+    class AnonymousClass5 implements ExpressInterstitialListener {
         final /* synthetic */ ExpressInterstitialAd val$expressInterstitialAd;
 
-        public AnonymousClass7(ExpressInterstitialAd expressInterstitialAd) {
-            expressInterstitialAd = expressInterstitialAd;
+        AnonymousClass5(final ExpressInterstitialAd val$expressInterstitialAd) {
+            expressInterstitialAd = val$expressInterstitialAd;
         }
 
         @Override // com.baidu.mobads.sdk.api.ExpressInterstitialListener
@@ -448,9 +305,21 @@ public class BaeAd extends BaseAd {
         @Override // com.baidu.mobads.sdk.api.ExpressInterstitialListener
         public void onAdCacheSuccess() {
             AppTask appTask = BaeAd.this.adConfig.toAppTask();
+            ExpressInterstitialAd expressInterstitialAd = expressInterstitialAd;
             appTask.origin = expressInterstitialAd;
-            if (BaeAd.this.adConfig.isBidding()) {
-                BaeAd.this.setBiddingEcpm(appTask, expressInterstitialAd.getECPMLevel());
+            if (!k.p(expressInterstitialAd.getECPMLevel())) {
+                try {
+                    int parseInt = Integer.parseInt(expressInterstitialAd.getECPMLevel());
+                    if (BaeAd.this.adConfig.getEcpmPercent() > 0.0d) {
+                        double d2 = parseInt;
+                        double ecpmPercent = BaeAd.this.adConfig.getEcpmPercent();
+                        Double.isNaN(d2);
+                        parseInt = (int) ((d2 * ecpmPercent) / 100.0d);
+                    }
+                    appTask.setEcpm(parseInt);
+                    BaeAd.this.adConfig.setEcpm(parseInt);
+                } catch (Exception unused) {
+                }
             }
             BaeAd.this.getAppTaskList().addAppTask(appTask);
             BaeAd.this.onAdReceived();
@@ -470,8 +339,8 @@ public class BaeAd extends BaseAd {
         }
 
         @Override // com.baidu.mobads.sdk.api.ExpressInterstitialListener
-        public void onAdFailed(int i10, String str) {
-            BaeAd.this.onError(new c(i10, str));
+        public void onAdFailed(int i2, String s) {
+            BaeAd.this.onError(new b.d.c.b.c(i2, s));
         }
 
         @Override // com.baidu.mobads.sdk.api.ExpressInterstitialListener
@@ -479,8 +348,8 @@ public class BaeAd extends BaseAd {
         }
 
         @Override // com.baidu.mobads.sdk.api.ExpressInterstitialListener
-        public void onNoAd(int i10, String str) {
-            BaeAd.this.onError(new c(i10, str));
+        public void onNoAd(int i2, String s) {
+            BaeAd.this.onError(new b.d.c.b.c(i2, s));
         }
 
         @Override // com.baidu.mobads.sdk.api.ExpressInterstitialListener
@@ -492,9 +361,9 @@ public class BaeAd extends BaseAd {
         }
     }
 
-    /* renamed from: com.martian.ads.ad.BaeAd$8 */
-    public class AnonymousClass8 implements ExpressInterstitialAd.InterAdDownloadWindowListener {
-        public AnonymousClass8() {
+    /* renamed from: com.martian.ads.ad.BaeAd$6 */
+    class AnonymousClass6 implements ExpressInterstitialAd.InterAdDownloadWindowListener {
+        AnonymousClass6() {
         }
 
         @Override // com.baidu.mobads.sdk.api.ExpressInterstitialAd.InterAdDownloadWindowListener
@@ -522,64 +391,31 @@ public class BaeAd extends BaseAd {
         }
     }
 
-    /* renamed from: com.martian.ads.ad.BaeAd$9 */
-    public class AnonymousClass9 implements NativeResponse.AdInteractionListener {
-        final /* synthetic */ AdConfig val$adConfig;
-        final /* synthetic */ NativeResponse val$nativeResponse;
-        final /* synthetic */ GroMoreAd.AdViewHolder val$viewHolder;
+    /* renamed from: com.martian.ads.ad.BaeAd$7 */
+    static class AnonymousClass7 implements NativeResponse.AdInteractionListener {
+        final /* synthetic */ AppTask val$appTask;
 
-        public AnonymousClass9(AdConfig adConfig, GroMoreAd.AdViewHolder adViewHolder, NativeResponse nativeResponse) {
-            adConfig = adConfig;
-            adViewHolder = adViewHolder;
-            nativeResponse = nativeResponse;
+        AnonymousClass7(final AppTask val$innerListener) {
+            appTask = val$innerListener;
         }
 
         @Override // com.baidu.mobads.sdk.api.NativeResponse.AdInteractionListener
         public void onADExposed() {
-            d8.a aVar = d8.a.this;
-            if (aVar != null) {
-                aVar.b(adConfig);
-            }
+            b.d.a.j.b.J(appTask, b.d.a.k.a.this);
         }
 
         @Override // com.baidu.mobads.sdk.api.NativeResponse.AdInteractionListener
-        public void onADExposureFailed(int i10) {
-            d8.a aVar = d8.a.this;
-            if (aVar != null) {
-                aVar.j(new c(i10, "曝光失败"));
-            }
+        public void onADExposureFailed(int reason) {
+            b.d.a.k.a.this.f(new b.d.c.b.c(reason, "曝光失败"));
         }
 
         @Override // com.baidu.mobads.sdk.api.NativeResponse.AdInteractionListener
         public void onADStatusChanged() {
-            GroMoreAd.AdViewHolder adViewHolder = adViewHolder;
-            if (adViewHolder == null || adViewHolder.mCreativeButton == null || nativeResponse.getAdActionType() != 2) {
-                return;
-            }
-            int downloadStatus = nativeResponse.getDownloadStatus();
-            if (downloadStatus == 101) {
-                adViewHolder.mCreativeButton.setText(ConfigSingleton.D().s("点击安装"));
-                return;
-            }
-            if (downloadStatus == 102) {
-                adViewHolder.mCreativeButton.setText(ConfigSingleton.D().s("继续下载"));
-                return;
-            }
-            if (downloadStatus == 103) {
-                adViewHolder.mCreativeButton.setText(ConfigSingleton.D().s("点击启动"));
-            } else if (downloadStatus == 104) {
-                adViewHolder.mCreativeButton.setText(ConfigSingleton.D().s("重新下载"));
-            } else {
-                adViewHolder.mCreativeButton.setText(ConfigSingleton.D().s("立即下载"));
-            }
         }
 
         @Override // com.baidu.mobads.sdk.api.NativeResponse.AdInteractionListener
         public void onAdClick() {
-            d8.a aVar = d8.a.this;
-            if (aVar != null) {
-                aVar.l(adConfig);
-            }
+            b.d.a.k.a.this.j(b.d.a.j.b.Q(appTask));
         }
 
         @Override // com.baidu.mobads.sdk.api.NativeResponse.AdInteractionListener
@@ -587,129 +423,61 @@ public class BaeAd extends BaseAd {
         }
     }
 
-    public BaeAd(AdConfig adConfig, @NonNull d8.a aVar, Handler handler) {
-        super(adConfig, aVar, handler);
+    public BaeAd(AdConfig config, @NonNull b.d.a.k.a receiver) {
+        super(config, receiver);
+        this.cancelLoading = false;
     }
 
-    public static void bindFlowAd(Activity activity, AppTask appTask, ViewGroup viewGroup, View view, GroMoreAd.AdViewHolder adViewHolder, boolean z10, d8.a aVar) {
+    public static void bindFlowAd(AppTask appTask, ViewGroup adContainer, View adView, View creativeView, b.d.a.k.a innerListener) {
         View renderShakeView;
-        NativeResponse nativeResponse = (NativeResponse) appTask.origin;
-        if (appTask.isBidding()) {
-            nativeResponse.biddingSuccess(getSecondInfo(appTask), new BiddingListener() { // from class: c8.d
-                @Override // com.baidu.mobads.sdk.api.BiddingListener
-                public final void onBiddingResult(boolean z11, String str, HashMap hashMap) {
-                    BaeAd.lambda$bindFlowAd$8(z11, str, hashMap);
-                }
-            });
-        }
         ArrayList arrayList = new ArrayList();
-        ArrayList arrayList2 = new ArrayList();
-        if (adViewHolder != null) {
-            if (z10 || appTask.getComplianceInfo() == null || adViewHolder.complianceView == null) {
-                Button button = adViewHolder.mCreativeButton;
-                if (button != null) {
-                    arrayList.add(button);
-                }
-                View view2 = adViewHolder.mCreativeButtonView;
-                if (view2 != null) {
-                    arrayList.add(view2);
-                }
-                arrayList.add(viewGroup);
-                arrayList.add(view);
-            } else {
-                Button button2 = adViewHolder.mCreativeButton;
-                if (button2 != null) {
-                    arrayList2.add(button2);
-                }
-                View view3 = adViewHolder.mCreativeButtonView;
-                if (view3 != null) {
-                    arrayList2.add(view3);
-                }
-                arrayList2.add(viewGroup);
-                arrayList2.add(view);
-            }
-            if (nativeResponse.getMaterialType() == NativeResponse.MaterialType.VIDEO && activity != null && adViewHolder.videoView != null) {
-                XNativeView xNativeView = new XNativeView(activity);
-                xNativeView.setNativeItem(nativeResponse);
-                xNativeView.setVideoMute(true);
-                xNativeView.setUseDownloadFrame(z10);
-                xNativeView.render();
-                adViewHolder.videoView.setVisibility(0);
-                adViewHolder.videoView.removeAllViews();
-                adViewHolder.videoView.addView(xNativeView);
-            }
-        } else {
-            arrayList.add(viewGroup);
-            arrayList.add(view);
+        if (adView == null) {
+            adView = adContainer;
         }
-        if (appTask.isShakeStyle() && adViewHolder != null && (renderShakeView = nativeResponse.renderShakeView(100, TTDownloadField.CALL_DOWNLOAD_MODEL_SET_DEEP_LINK, new NativeResponse.AdShakeViewListener() { // from class: c8.e
+        ArrayList arrayList2 = new ArrayList();
+        if (appTask.isAdCompliance()) {
+            arrayList.add(adView);
+        } else {
+            arrayList2.add(adView);
+            if (creativeView != null) {
+                arrayList2.add(creativeView);
+            }
+        }
+        if (appTask.isShakeStyle() && (renderShakeView = ((NativeResponse) appTask.origin).renderShakeView(100, 138, new NativeResponse.AdShakeViewListener() { // from class: com.martian.ads.ad.d
             @Override // com.baidu.mobads.sdk.api.NativeResponse.AdShakeViewListener
             public final void onDismiss() {
-                BaeAd.lambda$bindFlowAd$9();
+                BaeAd.lambda$bindFlowAd$0();
             }
         })) != null) {
             FrameLayout.LayoutParams layoutParams = new FrameLayout.LayoutParams(-1, -2);
-            layoutParams.height = ConfigSingleton.i(138.0f);
+            layoutParams.height = h.b(138.0f);
             layoutParams.gravity = 17;
-            viewGroup.addView(renderShakeView, layoutParams);
+            adContainer.addView(renderShakeView, layoutParams);
         }
-        nativeResponse.registerViewForInteraction(viewGroup, arrayList, arrayList2, new NativeResponse.AdInteractionListener() { // from class: com.martian.ads.ad.BaeAd.9
-            final /* synthetic */ AdConfig val$adConfig;
-            final /* synthetic */ NativeResponse val$nativeResponse;
-            final /* synthetic */ GroMoreAd.AdViewHolder val$viewHolder;
+        ((NativeResponse) appTask.origin).registerViewForInteraction(adContainer, arrayList, arrayList2, new NativeResponse.AdInteractionListener() { // from class: com.martian.ads.ad.BaeAd.7
+            final /* synthetic */ AppTask val$appTask;
 
-            public AnonymousClass9(AdConfig adConfig, GroMoreAd.AdViewHolder adViewHolder2, NativeResponse nativeResponse2) {
-                adConfig = adConfig;
-                adViewHolder = adViewHolder2;
-                nativeResponse = nativeResponse2;
+            AnonymousClass7(AppTask appTask2) {
+                appTask = appTask2;
             }
 
             @Override // com.baidu.mobads.sdk.api.NativeResponse.AdInteractionListener
             public void onADExposed() {
-                d8.a aVar2 = d8.a.this;
-                if (aVar2 != null) {
-                    aVar2.b(adConfig);
-                }
+                b.d.a.j.b.J(appTask, b.d.a.k.a.this);
             }
 
             @Override // com.baidu.mobads.sdk.api.NativeResponse.AdInteractionListener
-            public void onADExposureFailed(int i10) {
-                d8.a aVar2 = d8.a.this;
-                if (aVar2 != null) {
-                    aVar2.j(new c(i10, "曝光失败"));
-                }
+            public void onADExposureFailed(int reason) {
+                b.d.a.k.a.this.f(new b.d.c.b.c(reason, "曝光失败"));
             }
 
             @Override // com.baidu.mobads.sdk.api.NativeResponse.AdInteractionListener
             public void onADStatusChanged() {
-                GroMoreAd.AdViewHolder adViewHolder2 = adViewHolder;
-                if (adViewHolder2 == null || adViewHolder2.mCreativeButton == null || nativeResponse.getAdActionType() != 2) {
-                    return;
-                }
-                int downloadStatus = nativeResponse.getDownloadStatus();
-                if (downloadStatus == 101) {
-                    adViewHolder.mCreativeButton.setText(ConfigSingleton.D().s("点击安装"));
-                    return;
-                }
-                if (downloadStatus == 102) {
-                    adViewHolder.mCreativeButton.setText(ConfigSingleton.D().s("继续下载"));
-                    return;
-                }
-                if (downloadStatus == 103) {
-                    adViewHolder.mCreativeButton.setText(ConfigSingleton.D().s("点击启动"));
-                } else if (downloadStatus == 104) {
-                    adViewHolder.mCreativeButton.setText(ConfigSingleton.D().s("重新下载"));
-                } else {
-                    adViewHolder.mCreativeButton.setText(ConfigSingleton.D().s("立即下载"));
-                }
             }
 
             @Override // com.baidu.mobads.sdk.api.NativeResponse.AdInteractionListener
             public void onAdClick() {
-                d8.a aVar2 = d8.a.this;
-                if (aVar2 != null) {
-                    aVar2.l(adConfig);
-                }
+                b.d.a.k.a.this.j(b.d.a.j.b.Q(appTask));
             }
 
             @Override // com.baidu.mobads.sdk.api.NativeResponse.AdInteractionListener
@@ -718,9 +486,9 @@ public class BaeAd extends BaseAd {
         });
     }
 
-    private static String getAdSource(String str) {
-        str.hashCode();
-        switch (str) {
+    private static String getAdSource(String source) {
+        source.hashCode();
+        switch (source) {
             case "KS":
                 return "4";
             case "BQT":
@@ -734,124 +502,41 @@ public class BaeAd extends BaseAd {
         }
     }
 
-    private static int getAdn(String str) {
-        if (TextUtils.isEmpty(str)) {
-            return 10;
+    private static int getAdn(String source) {
+        source.hashCode();
+        switch (source) {
+            case "KS":
+                return 3;
+            case "CSJ":
+                return 1;
+            case "GDT":
+                return 2;
+            default:
+                return 10;
         }
-        str.hashCode();
-        switch (str) {
-        }
-        return 10;
-    }
-
-    @NonNull
-    private static ComplianceInfo getComplianceInfo(NativeResponse nativeResponse) {
-        ComplianceInfo complianceInfo = new ComplianceInfo();
-        complianceInfo.setAppName(nativeResponse.getBrandName());
-        complianceInfo.setAppVersion(nativeResponse.getAppVersion());
-        complianceInfo.setAppDeveloperName(nativeResponse.getPublisher());
-        complianceInfo.setAppPermissionUrl(nativeResponse.getAppPermissionLink());
-        complianceInfo.setAppPrivacyUrl(nativeResponse.getAppPrivacyLink());
-        complianceInfo.setAppFunctionDescUrl(nativeResponse.getAppFunctionLink());
-        return complianceInfo;
-    }
-
-    public static LinkedHashMap<String, Object> getSecondInfo(AppTask appTask) {
-        LinkedHashMap<String, Object> linkedHashMap = new LinkedHashMap<>();
-        linkedHashMap.put("ecpm", Integer.valueOf(appTask.getLoseEcpm()));
-        linkedHashMap.put(SplashAd.KEY_BIDFAIL_ADN, Integer.valueOf(getAdn(appTask.getLoseSource())));
-        linkedHashMap.put("ad_time", Long.valueOf(System.currentTimeMillis() / 1000));
-        linkedHashMap.put("bid_t", Integer.valueOf(appTask.getLoseIsBidding() ? 3 : 1));
-        return linkedHashMap;
-    }
-
-    public static LinkedHashMap<String, Object> getWinInfo(int i10, String str) {
-        LinkedHashMap<String, Object> linkedHashMap = new LinkedHashMap<>();
-        linkedHashMap.put("ecpm", Integer.valueOf(i10));
-        linkedHashMap.put(SplashAd.KEY_BIDFAIL_ADN, Integer.valueOf(getAdn(str)));
-        linkedHashMap.put("ad_time", Long.valueOf(System.currentTimeMillis() / 1000));
-        return linkedHashMap;
     }
 
     public static boolean isBaeFlowAd(AppTask appTask) {
         return appTask != null && (appTask.origin instanceof NativeResponse);
     }
 
-    public static boolean isBaeSplashAd(AppTask appTask) {
-        return appTask.origin instanceof SplashAd;
+    static /* synthetic */ void lambda$bindFlowAd$0() {
     }
 
-    public static /* synthetic */ void lambda$bindFlowAd$8(boolean z10, String str, HashMap hashMap) {
-        Log.i("adtag", "onBiddingResult-win: " + z10 + " msg信息：" + str);
-    }
-
-    public static /* synthetic */ void lambda$bindFlowAd$9() {
-    }
-
-    public /* synthetic */ void lambda$loadInteractionAd$5() {
-        onError(null);
-    }
-
-    public /* synthetic */ void lambda$loadVideoAd$2() {
-        onError(null);
-    }
-
-    public static /* synthetic */ void lambda$sendInterstitialLossNotification$7(boolean z10, String str, HashMap hashMap) {
-        Log.i("adtag", "onBiddingResult-lose: " + z10 + " msg信息：" + str);
-    }
-
-    public static /* synthetic */ void lambda$sendLossNotification$10(boolean z10, String str, HashMap hashMap) {
-        Log.i("adtag", "onBiddingResult-lose: " + z10 + " msg信息：" + str);
-    }
-
-    public static /* synthetic */ void lambda$sendSplashLossNotification$1(boolean z10, String str, HashMap hashMap) {
-        Log.i("adtag", "onBiddingResult-lose: " + z10 + " msg信息：" + str);
-    }
-
-    public static /* synthetic */ void lambda$sendVideoLossNotification$4(boolean z10, String str, HashMap hashMap) {
-        Log.i("adtag", "onBiddingResult-lose: " + z10 + " msg信息：" + str);
-    }
-
-    public static /* synthetic */ void lambda$showInterstitialAd$6(boolean z10, String str, HashMap hashMap) {
-        Log.i("adtag", "onBiddingResult-win: " + z10 + " msg信息：" + str);
-    }
-
-    public static /* synthetic */ void lambda$showSplashAd$0(boolean z10, String str, HashMap hashMap) {
-        Log.i("adtag", "onBiddingResult-win: " + z10 + " msg信息：" + str);
-    }
-
-    public static /* synthetic */ void lambda$showVideoAd$3(boolean z10, String str, HashMap hashMap) {
-        Log.i("adtag", "onBiddingResult-win: " + z10 + " msg信息：" + str);
-    }
-
-    private void loadInteractionAd(Context context) {
+    private void loadInteractionAd(Activity activity) {
         if (Build.VERSION.SDK_INT <= 23) {
-            Handler handler = this.handler;
-            if (handler != null) {
-                handler.postDelayed(new Runnable() { // from class: c8.c
-                    public /* synthetic */ c() {
-                    }
-
-                    @Override // java.lang.Runnable
-                    public final void run() {
-                        BaeAd.this.lambda$loadInteractionAd$5();
-                    }
-                }, 100L);
-                return;
-            } else {
-                onError(null);
-                return;
-            }
+            onError(null);
+            return;
         }
-        ExpressInterstitialAd expressInterstitialAd = new ExpressInterstitialAd(context, this.adConfig.getAdsId());
-        if (!l.q(this.adConfig.getAppid())) {
+        ExpressInterstitialAd expressInterstitialAd = new ExpressInterstitialAd(activity, this.adConfig.getAdsId());
+        if (!k.p(this.adConfig.getAppid())) {
             expressInterstitialAd.setAppSid(this.adConfig.getAppid());
         }
         expressInterstitialAd.setDialogFrame(true);
-        expressInterstitialAd.setLoadListener(new ExpressInterstitialListener() { // from class: com.martian.ads.ad.BaeAd.7
+        expressInterstitialAd.setLoadListener(new ExpressInterstitialListener() { // from class: com.martian.ads.ad.BaeAd.5
             final /* synthetic */ ExpressInterstitialAd val$expressInterstitialAd;
 
-            public AnonymousClass7(ExpressInterstitialAd expressInterstitialAd2) {
+            AnonymousClass5(ExpressInterstitialAd expressInterstitialAd2) {
                 expressInterstitialAd = expressInterstitialAd2;
             }
 
@@ -877,9 +562,21 @@ public class BaeAd extends BaseAd {
             @Override // com.baidu.mobads.sdk.api.ExpressInterstitialListener
             public void onAdCacheSuccess() {
                 AppTask appTask = BaeAd.this.adConfig.toAppTask();
-                appTask.origin = expressInterstitialAd;
-                if (BaeAd.this.adConfig.isBidding()) {
-                    BaeAd.this.setBiddingEcpm(appTask, expressInterstitialAd.getECPMLevel());
+                ExpressInterstitialAd expressInterstitialAd2 = expressInterstitialAd;
+                appTask.origin = expressInterstitialAd2;
+                if (!k.p(expressInterstitialAd2.getECPMLevel())) {
+                    try {
+                        int parseInt = Integer.parseInt(expressInterstitialAd.getECPMLevel());
+                        if (BaeAd.this.adConfig.getEcpmPercent() > 0.0d) {
+                            double d2 = parseInt;
+                            double ecpmPercent = BaeAd.this.adConfig.getEcpmPercent();
+                            Double.isNaN(d2);
+                            parseInt = (int) ((d2 * ecpmPercent) / 100.0d);
+                        }
+                        appTask.setEcpm(parseInt);
+                        BaeAd.this.adConfig.setEcpm(parseInt);
+                    } catch (Exception unused) {
+                    }
                 }
                 BaeAd.this.getAppTaskList().addAppTask(appTask);
                 BaeAd.this.onAdReceived();
@@ -899,8 +596,8 @@ public class BaeAd extends BaseAd {
             }
 
             @Override // com.baidu.mobads.sdk.api.ExpressInterstitialListener
-            public void onAdFailed(int i10, String str) {
-                BaeAd.this.onError(new c(i10, str));
+            public void onAdFailed(int i2, String s) {
+                BaeAd.this.onError(new b.d.c.b.c(i2, s));
             }
 
             @Override // com.baidu.mobads.sdk.api.ExpressInterstitialListener
@@ -908,8 +605,8 @@ public class BaeAd extends BaseAd {
             }
 
             @Override // com.baidu.mobads.sdk.api.ExpressInterstitialListener
-            public void onNoAd(int i10, String str) {
-                BaeAd.this.onError(new c(i10, str));
+            public void onNoAd(int i2, String s) {
+                BaeAd.this.onError(new b.d.c.b.c(i2, s));
             }
 
             @Override // com.baidu.mobads.sdk.api.ExpressInterstitialListener
@@ -920,8 +617,8 @@ public class BaeAd extends BaseAd {
             public void onVideoDownloadSuccess() {
             }
         });
-        expressInterstitialAd2.setDownloadListener(new ExpressInterstitialAd.InterAdDownloadWindowListener() { // from class: com.martian.ads.ad.BaeAd.8
-            public AnonymousClass8() {
+        expressInterstitialAd2.setDownloadListener(new ExpressInterstitialAd.InterAdDownloadWindowListener() { // from class: com.martian.ads.ad.BaeAd.6
+            AnonymousClass6() {
             }
 
             @Override // com.baidu.mobads.sdk.api.ExpressInterstitialAd.InterAdDownloadWindowListener
@@ -950,26 +647,110 @@ public class BaeAd extends BaseAd {
         });
         AdConfig.AdInfo adInfo = this.adConfig.getAdInfo();
         if (adInfo != null) {
-            expressInterstitialAd2.setRequestParameters(new RequestParameters.Builder().addCustExt(ExifInterface.GPS_MEASUREMENT_IN_PROGRESS, getAdSource(adInfo.getSource())).addCustExt("B", "" + (adInfo.getEcpm() * 1.2d)).build());
+            expressInterstitialAd2.setRequestParameters(new RequestParameters.Builder().addCustExt(ExifInterface.GPS_MEASUREMENT_IN_PROGRESS, getAdSource(adInfo.getSource())).addCustExt("B", "" + adInfo.getEcpm()).build());
         }
         expressInterstitialAd2.load();
     }
 
-    private void loadPortraitTempFlowAds(Context context) {
+    private void loadSplashAds(Activity activity) {
+        AnonymousClass1 anonymousClass1 = new SplashInteractionListener() { // from class: com.martian.ads.ad.BaeAd.1
+            AnonymousClass1() {
+            }
+
+            @Override // com.baidu.mobads.sdk.api.SplashAdListener
+            public void onADLoaded() {
+                AppTask appTask = BaeAd.this.getAppTaskList().getApps().get(0);
+                SplashAd splashAd = (SplashAd) appTask.origin;
+                if (!k.p(splashAd.getECPMLevel())) {
+                    try {
+                        int parseInt = Integer.parseInt(splashAd.getECPMLevel());
+                        if (BaeAd.this.adConfig.isBidding() || parseInt > 0) {
+                            if (BaeAd.this.adConfig.getEcpmPercent() > 0.0d) {
+                                double d2 = parseInt;
+                                double ecpmPercent = BaeAd.this.adConfig.getEcpmPercent();
+                                Double.isNaN(d2);
+                                parseInt = (int) ((d2 * ecpmPercent) / 100.0d);
+                            }
+                            appTask.setEcpm(parseInt);
+                            BaeAd.this.adConfig.setEcpm(parseInt);
+                        }
+                    } catch (Exception unused) {
+                    }
+                }
+                BaeAd.this.onAdReceived();
+            }
+
+            @Override // com.baidu.mobads.sdk.api.SplashInteractionListener
+            public void onAdCacheFailed() {
+            }
+
+            @Override // com.baidu.mobads.sdk.api.SplashInteractionListener
+            public void onAdCacheSuccess() {
+            }
+
+            @Override // com.baidu.mobads.sdk.api.SplashInteractionListener
+            public void onAdClick() {
+                BaeAd.this.onClick();
+            }
+
+            @Override // com.baidu.mobads.sdk.api.SplashInteractionListener
+            public void onAdDismissed() {
+                BaeAd.this.onDismiss();
+            }
+
+            @Override // com.baidu.mobads.sdk.api.SplashAdListener
+            public void onAdFailed(String arg0) {
+                BaeAd.this.onError(new b.d.c.b.c(-1, arg0));
+            }
+
+            @Override // com.baidu.mobads.sdk.api.SplashInteractionListener
+            public void onAdPresent() {
+                BaeAd.this.onExpose();
+            }
+
+            @Override // com.baidu.mobads.sdk.api.SplashInteractionListener
+            public void onLpClosed() {
+                BaeAd.this.onClose();
+            }
+        };
+        RequestParameters.Builder builder = new RequestParameters.Builder();
+        builder.addExtra("timeout", "4000");
+        builder.addExtra(SplashAd.KEY_DISPLAY_DOWNLOADINFO, "true");
+        builder.addExtra(SplashAd.KEY_POPDIALOG_DOWNLOAD, "true");
+        if (this.adConfig.getAdInfo() != null) {
+            AdConfig.AdInfo adInfo = this.adConfig.getAdInfo();
+            builder.addCustExt(ExifInterface.GPS_MEASUREMENT_IN_PROGRESS, getAdSource(adInfo.getSource())).addCustExt("B", "" + adInfo.getEcpm());
+        }
+        SplashAd splashAd = new SplashAd(activity.getApplicationContext(), this.adConfig.getAdsId(), builder.build(), anonymousClass1);
+        if (!k.p(this.adConfig.getAppid())) {
+            splashAd.setAppSid(this.adConfig.getAppid());
+        }
+        AppTask appTask = this.adConfig.toAppTask();
+        appTask.origin = splashAd;
+        appTask.setPicWidth(720);
+        appTask.setPicHeight(TTAdConstant.EXT_PLUGIN_UNINSTALL);
+        getAppTaskList().addAppTask(appTask);
+        splashAd.load();
+    }
+
+    private void loadTempFlowAds(Activity activity) {
         RequestParameters build;
-        j baeArticleInfo = this.adConfig.getBaeArticleInfo();
+        b.d.a.a baeArticleInfo = this.adConfig.getBaeArticleInfo();
         if (baeArticleInfo != null) {
             build = new RequestParameters.Builder().downloadAppConfirmPolicy(1).setWidth(this.adConfig.getWidth()).setHeight(this.adConfig.getHeight()).addExtra(ArticleInfo.USER_SEX, baeArticleInfo.f()).addExtra(ArticleInfo.FAVORITE_BOOK, baeArticleInfo.c()).addExtra(ArticleInfo.PAGE_TITLE, baeArticleInfo.e()).addExtra(ArticleInfo.PAGE_ID, baeArticleInfo.d()).addExtra(ArticleInfo.CONTENT_CATEGORY, baeArticleInfo.a()).addExtra(ArticleInfo.CONTENT_LABEL, baeArticleInfo.b()).build();
         } else {
-            build = new RequestParameters.Builder().downloadAppConfirmPolicy(1).setWidth(this.adConfig.getWidth()).setHeight(this.adConfig.getHeight()).addExtra(ArticleInfo.USER_SEX, ConfigSingleton.D().p() + "").build();
+            build = new RequestParameters.Builder().downloadAppConfirmPolicy(1).setWidth(this.adConfig.getWidth()).setHeight(this.adConfig.getHeight()).addExtra(ArticleInfo.USER_SEX, h.F().k() + "").build();
         }
-        BaiduNativeManager baiduNativeManager = new BaiduNativeManager(context, this.adConfig.getAdsId());
-        if (!l.q(this.adConfig.getAppid())) {
+        BaiduNativeManager baiduNativeManager = new BaiduNativeManager(activity, this.adConfig.getAdsId());
+        if (!k.p(this.adConfig.getAppid())) {
             baiduNativeManager.setAppSid(this.adConfig.getAppid());
         }
         baiduNativeManager.setCacheVideoOnlyWifi(true);
-        baiduNativeManager.loadPortraitVideoAd(build, (BaiduNativeManager.PortraitVideoAdListener) new BaiduNativeManager.PortraitVideoAdListener() { // from class: com.martian.ads.ad.BaeAd.3
-            public AnonymousClass3() {
+        baiduNativeManager.loadPortraitVideoAd(build, (BaiduNativeManager.PortraitVideoAdListener) new BaiduNativeManager.PortraitVideoAdListener() { // from class: com.martian.ads.ad.BaeAd.2
+            final /* synthetic */ Activity val$activity;
+
+            AnonymousClass2(Activity activity2) {
+                activity = activity2;
             }
 
             @Override // com.baidu.mobads.sdk.api.BaiduNativeManager.PortraitVideoAdListener
@@ -982,23 +763,33 @@ public class BaeAd extends BaseAd {
             }
 
             @Override // com.baidu.mobads.sdk.api.BaiduNativeManager.FeedAdListener
-            public void onNativeFail(int i10, String str, NativeResponse nativeResponse) {
-                BaeAd.this.onError(new c(i10, str));
+            public void onNativeFail(int i2, String s) {
+                BaeAd.this.onError(null);
             }
 
             @Override // com.baidu.mobads.sdk.api.BaiduNativeManager.FeedAdListener
-            public void onNativeLoad(List<NativeResponse> list) {
-                if (list == null || list.isEmpty()) {
+            public void onNativeLoad(final List<NativeResponse> nativeResponses) {
+                if (nativeResponses == null || nativeResponses.isEmpty()) {
                     BaeAd.this.onError(null);
-                } else {
-                    BaeAd.this.getAppTaskList().addAppTask(BaeAd.this.toAppTask(list.get(0)));
-                    BaeAd.this.onAdReceived();
+                    return;
                 }
+                for (NativeResponse nativeResponse : nativeResponses) {
+                    AppTask appTask = BaeAd.this.toAppTask(activity, nativeResponse);
+                    if (nativeResponse.getMaterialType() == NativeResponse.MaterialType.VIDEO) {
+                        appTask.isVideoAd = true;
+                        FeedPortraitVideoView feedPortraitVideoView = new FeedPortraitVideoView(activity);
+                        feedPortraitVideoView.setCanClickVideo(true ^ BaeAd.this.adConfig.isAdCompliance());
+                        feedPortraitVideoView.setAdData(nativeResponse);
+                        appTask.videoView = new b.d.a.c(feedPortraitVideoView);
+                    }
+                    BaeAd.this.getAppTaskList().addAppTask(appTask);
+                }
+                BaeAd.this.onAdReceived();
             }
 
             @Override // com.baidu.mobads.sdk.api.BaiduNativeManager.FeedAdListener
-            public void onNoAd(int i10, String str, NativeResponse nativeResponse) {
-                BaeAd.this.onError(new c(i10, str));
+            public void onNoAd(int i2, String s) {
+                BaeAd.this.onError(null);
             }
 
             @Override // com.baidu.mobads.sdk.api.BaiduNativeManager.FeedAdListener
@@ -1011,211 +802,15 @@ public class BaeAd extends BaseAd {
         });
     }
 
-    private void loadSplashAds(Context context) {
-        AnonymousClass1 anonymousClass1 = new SplashAdListener() { // from class: com.martian.ads.ad.BaeAd.1
-            public AnonymousClass1() {
-            }
-
-            @Override // com.baidu.mobads.sdk.api.SplashAdListener
-            public void onADLoaded() {
-                if (BaeAd.this.adConfig.isBidding()) {
-                    AppTask appTask = BaeAd.this.getAppTaskList().getApps().get(0);
-                    BaeAd.this.setBiddingEcpm(appTask, ((SplashAd) appTask.origin).getECPMLevel());
-                }
-                BaeAd.this.onAdReceived();
-            }
-
-            @Override // com.baidu.mobads.sdk.api.SplashAdListener
-            public void onAdFailed(String str) {
-                BaeAd.this.onError(new c(-1, str));
-            }
-        };
-        RequestParameters.Builder builder = new RequestParameters.Builder();
-        builder.addExtra("timeout", "4000");
-        builder.addExtra(SplashAd.KEY_DISPLAY_DOWNLOADINFO, "true");
-        builder.addExtra(SplashAd.KEY_POPDIALOG_DOWNLOAD, "true");
-        if (this.adConfig.getAdInfo() != null) {
-            builder.addCustExt(ExifInterface.GPS_MEASUREMENT_IN_PROGRESS, getAdSource(this.adConfig.getAdInfo().getSource())).addCustExt("B", "" + (r2.getEcpm() * 1.2d));
-        }
-        SplashAd splashAd = new SplashAd(context, this.adConfig.getAdsId(), builder.build(), anonymousClass1);
-        if (!l.q(this.adConfig.getAppid())) {
-            splashAd.setAppSid(this.adConfig.getAppid());
-        }
-        AppTask appTask = this.adConfig.toAppTask();
-        appTask.origin = splashAd;
-        appTask.setPicWidth(720);
-        appTask.setPicHeight(1280);
-        getAppTaskList().addAppTask(appTask);
-        splashAd.load();
-    }
-
-    private void loadTempFlowAds(Context context) {
-        RequestParameters build;
-        j baeArticleInfo = this.adConfig.getBaeArticleInfo();
-        if (baeArticleInfo != null) {
-            build = new RequestParameters.Builder().downloadAppConfirmPolicy(1).setWidth(this.adConfig.getWidth()).setHeight(this.adConfig.getHeight()).addExtra(ArticleInfo.USER_SEX, baeArticleInfo.f()).addExtra(ArticleInfo.FAVORITE_BOOK, baeArticleInfo.c()).addExtra(ArticleInfo.PAGE_TITLE, baeArticleInfo.e()).addExtra(ArticleInfo.PAGE_ID, baeArticleInfo.d()).addExtra(ArticleInfo.CONTENT_CATEGORY, baeArticleInfo.a()).addExtra(ArticleInfo.CONTENT_LABEL, baeArticleInfo.b()).build();
-        } else {
-            build = new RequestParameters.Builder().downloadAppConfirmPolicy(1).setWidth(this.adConfig.getWidth()).setHeight(this.adConfig.getHeight()).addExtra(ArticleInfo.USER_SEX, ConfigSingleton.D().p() + "").build();
-        }
-        BaiduNativeManager baiduNativeManager = new BaiduNativeManager(context, this.adConfig.getAdsId());
-        if (!l.q(this.adConfig.getAppid())) {
-            baiduNativeManager.setAppSid(this.adConfig.getAppid());
-        }
-        baiduNativeManager.setCacheVideoOnlyWifi(true);
-        baiduNativeManager.loadExpressAd(build, new BaiduNativeManager.ExpressAdListener() { // from class: com.martian.ads.ad.BaeAd.5
-
-            /* renamed from: com.martian.ads.ad.BaeAd$5$1 */
-            public class AnonymousClass1 implements ExpressResponse.ExpressInteractionListener {
-                public AnonymousClass1() {
-                }
-
-                @Override // com.baidu.mobads.sdk.api.ExpressResponse.ExpressInteractionListener
-                public void onAdClick() {
-                    BaeAd baeAd = BaeAd.this;
-                    d8.a aVar = baeAd.receiver;
-                    if (aVar != null) {
-                        aVar.l(baeAd.adConfig);
-                    }
-                }
-
-                @Override // com.baidu.mobads.sdk.api.ExpressResponse.ExpressInteractionListener
-                public void onAdExposed() {
-                    BaeAd baeAd = BaeAd.this;
-                    d8.a aVar = baeAd.receiver;
-                    if (aVar != null) {
-                        aVar.b(baeAd.adConfig);
-                    }
-                }
-
-                @Override // com.baidu.mobads.sdk.api.ExpressResponse.ExpressInteractionListener
-                public void onAdRenderFail(View view, String str, int i10) {
-                    BaeAd baeAd = BaeAd.this;
-                    d8.a aVar = baeAd.receiver;
-                    if (aVar != null) {
-                        aVar.c(baeAd.adConfig, new c(-1, ""));
-                    }
-                }
-
-                @Override // com.baidu.mobads.sdk.api.ExpressResponse.ExpressInteractionListener
-                public void onAdRenderSuccess(View view, float f10, float f11) {
-                }
-
-                @Override // com.baidu.mobads.sdk.api.ExpressResponse.ExpressInteractionListener
-                public void onAdUnionClick() {
-                }
-            }
-
-            public AnonymousClass5() {
-            }
-
-            @Override // com.baidu.mobads.sdk.api.BaiduNativeManager.ExpressAdListener
-            public void onLpClosed() {
-            }
-
-            @Override // com.baidu.mobads.sdk.api.BaiduNativeManager.ExpressAdListener
-            public void onNativeFail(int i10, String str, ExpressResponse expressResponse) {
-                BaeAd.this.onError(new c(i10, str));
-            }
-
-            @Override // com.baidu.mobads.sdk.api.BaiduNativeManager.ExpressAdListener
-            public void onNativeLoad(List<ExpressResponse> list) {
-                if (list == null || list.isEmpty()) {
-                    BaeAd.this.onError(null);
-                    return;
-                }
-                ExpressResponse expressResponse = list.get(0);
-                if (expressResponse == null) {
-                    BaeAd.this.onError(null);
-                    return;
-                }
-                expressResponse.setInteractionListener(new ExpressResponse.ExpressInteractionListener() { // from class: com.martian.ads.ad.BaeAd.5.1
-                    public AnonymousClass1() {
-                    }
-
-                    @Override // com.baidu.mobads.sdk.api.ExpressResponse.ExpressInteractionListener
-                    public void onAdClick() {
-                        BaeAd baeAd = BaeAd.this;
-                        d8.a aVar = baeAd.receiver;
-                        if (aVar != null) {
-                            aVar.l(baeAd.adConfig);
-                        }
-                    }
-
-                    @Override // com.baidu.mobads.sdk.api.ExpressResponse.ExpressInteractionListener
-                    public void onAdExposed() {
-                        BaeAd baeAd = BaeAd.this;
-                        d8.a aVar = baeAd.receiver;
-                        if (aVar != null) {
-                            aVar.b(baeAd.adConfig);
-                        }
-                    }
-
-                    @Override // com.baidu.mobads.sdk.api.ExpressResponse.ExpressInteractionListener
-                    public void onAdRenderFail(View view, String str, int i10) {
-                        BaeAd baeAd = BaeAd.this;
-                        d8.a aVar = baeAd.receiver;
-                        if (aVar != null) {
-                            aVar.c(baeAd.adConfig, new c(-1, ""));
-                        }
-                    }
-
-                    @Override // com.baidu.mobads.sdk.api.ExpressResponse.ExpressInteractionListener
-                    public void onAdRenderSuccess(View view, float f10, float f11) {
-                    }
-
-                    @Override // com.baidu.mobads.sdk.api.ExpressResponse.ExpressInteractionListener
-                    public void onAdUnionClick() {
-                    }
-                });
-                AppTask appTask = BaeAd.this.adConfig.toAppTask();
-                appTask.customView = new k(expressResponse);
-                appTask.setPicWidth(1184);
-                appTask.setPicHeight(1898);
-                if (BaeAd.this.adConfig.isBidding()) {
-                    BaeAd.this.setBiddingEcpm(appTask, expressResponse.getECPMLevel());
-                }
-                BaeAd.this.getAppTaskList().addAppTask(appTask);
-                BaeAd.this.onAdReceived();
-            }
-
-            @Override // com.baidu.mobads.sdk.api.BaiduNativeManager.ExpressAdListener
-            public void onNoAd(int i10, String str, ExpressResponse expressResponse) {
-                BaeAd.this.onError(new c(i10, str));
-            }
-
-            @Override // com.baidu.mobads.sdk.api.BaiduNativeManager.ExpressAdListener
-            public void onVideoDownloadFailed() {
-            }
-
-            @Override // com.baidu.mobads.sdk.api.BaiduNativeManager.ExpressAdListener
-            public void onVideoDownloadSuccess() {
-            }
-        });
-    }
-
-    private void loadVideoAd(Context context) {
+    private void loadVideoAd(Activity activity) {
         if (Build.VERSION.SDK_INT <= 23) {
-            Handler handler = this.handler;
-            if (handler != null) {
-                handler.postDelayed(new Runnable() { // from class: c8.g
-                    public /* synthetic */ g() {
-                    }
-
-                    @Override // java.lang.Runnable
-                    public final void run() {
-                        BaeAd.this.lambda$loadVideoAd$2();
-                    }
-                }, 100L);
-                return;
-            } else {
-                onError(null);
-                return;
-            }
+            onError(null);
+            return;
         }
-        this.mRewardVideoAd = new RewardVideoAd(context, this.adConfig.getAdsId(), new RewardVideoAd.RewardVideoAdListener() { // from class: com.martian.ads.ad.BaeAd.6
+        this.mRewardVideoAd = new RewardVideoAd(activity, this.adConfig.getAdsId(), new RewardVideoAd.RewardVideoAdListener() { // from class: com.martian.ads.ad.BaeAd.4
             private boolean verify = false;
 
-            public AnonymousClass6() {
+            AnonymousClass4() {
             }
 
             @Override // com.baidu.mobads.sdk.api.RewardVideoAd.RewardVideoAdListener, com.baidu.mobads.sdk.api.ScreenVideoAdListener
@@ -1224,14 +819,14 @@ public class BaeAd extends BaseAd {
             }
 
             @Override // com.baidu.mobads.sdk.api.RewardVideoAd.RewardVideoAdListener, com.baidu.mobads.sdk.api.ScreenVideoAdListener
-            public void onAdClose(float f10) {
+            public void onAdClose(float v) {
                 BaeAd.this.onClose();
                 BaeAd.this.onRewardVerify(this.verify);
             }
 
             @Override // com.baidu.mobads.sdk.api.RewardVideoAd.RewardVideoAdListener, com.baidu.mobads.sdk.api.ScreenVideoAdListener
-            public void onAdFailed(String str) {
-                BaeAd.this.onError(new c(-1, str));
+            public void onAdFailed(String s) {
+                BaeAd.this.onError(new b.d.c.b.c(-1, s));
             }
 
             @Override // com.baidu.mobads.sdk.api.RewardVideoAd.RewardVideoAdListener, com.baidu.mobads.sdk.api.ScreenVideoAdListener
@@ -1244,12 +839,12 @@ public class BaeAd extends BaseAd {
             }
 
             @Override // com.baidu.mobads.sdk.api.RewardVideoAd.RewardVideoAdListener, com.baidu.mobads.sdk.api.ScreenVideoAdListener
-            public void onAdSkip(float f10) {
+            public void onAdSkip(float v) {
             }
 
             @Override // com.baidu.mobads.sdk.api.RewardVideoAd.RewardVideoAdListener
-            public void onRewardVerify(boolean z10) {
-                this.verify = z10;
+            public void onRewardVerify(boolean rewardVerify) {
+                this.verify = rewardVerify;
             }
 
             @Override // com.baidu.mobads.sdk.api.RewardVideoAd.RewardVideoAdListener, com.baidu.mobads.sdk.api.ScreenVideoAdListener
@@ -1265,11 +860,21 @@ public class BaeAd extends BaseAd {
                     return;
                 }
                 AppTask appTask = baeAd.adConfig.toAppTask();
-                BaeAd baeAd2 = BaeAd.this;
-                appTask.origin = baeAd2.mRewardVideoAd;
-                if (baeAd2.adConfig.isBidding()) {
-                    BaeAd baeAd3 = BaeAd.this;
-                    baeAd3.setBiddingEcpm(appTask, baeAd3.mRewardVideoAd.getECPMLevel());
+                RewardVideoAd rewardVideoAd = BaeAd.this.mRewardVideoAd;
+                appTask.origin = rewardVideoAd;
+                if (!k.p(rewardVideoAd.getECPMLevel())) {
+                    try {
+                        int parseInt = Integer.parseInt(BaeAd.this.mRewardVideoAd.getECPMLevel());
+                        if (BaeAd.this.adConfig.getEcpmPercent() > 0.0d) {
+                            double d2 = parseInt;
+                            double ecpmPercent = BaeAd.this.adConfig.getEcpmPercent();
+                            Double.isNaN(d2);
+                            parseInt = (int) ((d2 * ecpmPercent) / 100.0d);
+                        }
+                        appTask.setEcpm(parseInt);
+                        BaeAd.this.adConfig.setEcpm(parseInt);
+                    } catch (Exception unused) {
+                    }
                 }
                 BaeAd.this.getAppTaskList().addAppTask(appTask);
                 BaeAd.this.onAdReceived();
@@ -1281,289 +886,174 @@ public class BaeAd extends BaseAd {
         });
         AdConfig.AdInfo adInfo = this.adConfig.getAdInfo();
         if (adInfo != null) {
-            this.mRewardVideoAd.setRequestParameters(new RequestParameters.Builder().addCustExt(ExifInterface.GPS_MEASUREMENT_IN_PROGRESS, getAdSource(adInfo.getSource())).addCustExt("B", "" + (adInfo.getEcpm() * 1.2d)).build());
+            this.mRewardVideoAd.setRequestParameters(new RequestParameters.Builder().addCustExt(ExifInterface.GPS_MEASUREMENT_IN_PROGRESS, getAdSource(adInfo.getSource())).addCustExt("B", "" + adInfo.getEcpm()).build());
         }
-        if (!l.q(this.adConfig.getAppid())) {
+        if (!k.p(this.adConfig.getAppid())) {
             this.mRewardVideoAd.setAppSid(this.adConfig.getAppid());
         }
         this.mRewardVideoAd.load();
     }
 
-    public static void sendInterstitialLossNotification(int i10, String str, @NonNull ExpressInterstitialAd expressInterstitialAd) {
-        expressInterstitialAd.biddingFail(getWinInfo(i10, str), new BiddingListener() { // from class: c8.j
-            @Override // com.baidu.mobads.sdk.api.BiddingListener
-            public final void onBiddingResult(boolean z10, String str2, HashMap hashMap) {
-                BaeAd.lambda$sendInterstitialLossNotification$7(z10, str2, hashMap);
-            }
-        });
+    public static void sendInterstitialLossNotification(@NonNull ExpressInterstitialAd expressInterstitialAd) {
+        expressInterstitialAd.biddingFail(BIDDING_FAIL_LOW_PRICE);
     }
 
-    public static void sendLossNotification(int i10, String str, @NonNull NativeResponse nativeResponse, String str2) {
-        LinkedHashMap<String, Object> linkedHashMap = new LinkedHashMap<>();
-        linkedHashMap.put("ecpm", Integer.valueOf(i10));
-        linkedHashMap.put(SplashAd.KEY_BIDFAIL_ADN, Integer.valueOf(getAdn(str)));
-        linkedHashMap.put("ad_time", Long.valueOf(System.currentTimeMillis() / 1000));
-        linkedHashMap.put(MediationConstant.KEY_REASON, str2);
-        nativeResponse.biddingFail(linkedHashMap, new BiddingListener() { // from class: c8.b
-            @Override // com.baidu.mobads.sdk.api.BiddingListener
-            public final void onBiddingResult(boolean z10, String str3, HashMap hashMap) {
-                BaeAd.lambda$sendLossNotification$10(z10, str3, hashMap);
-            }
-        });
+    public static void sendLossNotification(AppTask winAppTask, @NonNull NativeResponse nativeResponse, String reason) {
+        HashMap<String, Object> hashMap = new HashMap<>();
+        hashMap.put(SplashAd.KEY_BIDFAIL_ECPM, Integer.valueOf(winAppTask.getEcpm()));
+        hashMap.put(SplashAd.KEY_BIDFAIL_ADN, Integer.valueOf(getAdn(winAppTask.source)));
+        nativeResponse.biddingFail(reason, hashMap);
     }
 
-    public static void sendSplashLossNotification(int i10, String str, @NonNull SplashAd splashAd) {
-        splashAd.biddingFail(getWinInfo(i10, str), new BiddingListener() { // from class: c8.k
-            @Override // com.baidu.mobads.sdk.api.BiddingListener
-            public final void onBiddingResult(boolean z10, String str2, HashMap hashMap) {
-                BaeAd.lambda$sendSplashLossNotification$1(z10, str2, hashMap);
-            }
-        });
+    public static void sendSplashLossNotification(@NonNull SplashAd splashAd) {
+        splashAd.biddingFail(BIDDING_FAIL_LOW_PRICE);
     }
 
-    public static void sendVideoLossNotification(int i10, String str, @NonNull RewardVideoAd rewardVideoAd) {
-        rewardVideoAd.biddingFail(getWinInfo(i10, str), new BiddingListener() { // from class: c8.i
-            @Override // com.baidu.mobads.sdk.api.BiddingListener
-            public final void onBiddingResult(boolean z10, String str2, HashMap hashMap) {
-                BaeAd.lambda$sendVideoLossNotification$4(z10, str2, hashMap);
-            }
-        });
+    public static void sendVideoLossNotification(@NonNull RewardVideoAd rewardVideoAd) {
+        rewardVideoAd.biddingFail(BIDDING_FAIL_LOW_PRICE);
     }
 
-    public void setBiddingEcpm(AppTask appTask, String str) {
-        if (!l.q(str)) {
-            try {
-                int parseInt = Integer.parseInt(str);
-                if (parseInt > 0 && this.adConfig.getEcpmPercent() > l5.c.f27899e) {
-                    appTask.setOriginalEcpm(parseInt);
-                    parseInt = (int) ((parseInt * this.adConfig.getEcpmPercent()) / 100.0d);
-                }
-                appTask.setEcpm(parseInt);
-                this.adConfig.setEcpm(parseInt);
-                return;
-            } catch (Exception e10) {
-                p0.b(e10.getMessage());
-            }
-        }
-        appTask.setEcpm(0);
-        this.adConfig.setEcpm(0);
+    public static void sendWinNotification(@NonNull NativeResponse nativeResponse) {
+        nativeResponse.biddingSuccess(nativeResponse.getECPMLevel());
     }
 
-    public static void showInterstitialAd(Activity activity, @NonNull AppTask appTask) {
-        ExpressInterstitialAd expressInterstitialAd = (ExpressInterstitialAd) appTask.origin;
-        if (appTask.isBidding()) {
-            expressInterstitialAd.biddingSuccess(getSecondInfo(appTask), new BiddingListener() { // from class: c8.h
-                @Override // com.baidu.mobads.sdk.api.BiddingListener
-                public final void onBiddingResult(boolean z10, String str, HashMap hashMap) {
-                    BaeAd.lambda$showInterstitialAd$6(z10, str, hashMap);
-                }
-            });
+    public static void showInterstitialAd(Activity activity, @NonNull ExpressInterstitialAd expressInterstitialAd, boolean isBidding) {
+        if (isBidding) {
+            expressInterstitialAd.biddingSuccess(expressInterstitialAd.getECPMLevel());
         }
         if (expressInterstitialAd.isReady()) {
             expressInterstitialAd.show(activity);
         }
     }
 
-    public static void showSplashAd(AppTask appTask, ViewGroup viewGroup, d8.b bVar) {
-        SplashAd splashAd = (SplashAd) appTask.origin;
-        AdConfig adConfig = AdConfig.toAdConfig(appTask);
-        if (appTask.isBidding()) {
-            splashAd.biddingSuccess(getSecondInfo(appTask), new BiddingListener() { // from class: c8.a
-                @Override // com.baidu.mobads.sdk.api.BiddingListener
-                public final void onBiddingResult(boolean z10, String str, HashMap hashMap) {
-                    BaeAd.lambda$showSplashAd$0(z10, str, hashMap);
-                }
-            });
+    public static void showSplashAd(@NonNull SplashAd splashAd, ViewGroup viewGroup, boolean isBidding) {
+        if (isBidding) {
+            splashAd.biddingSuccess(splashAd.getECPMLevel());
         }
-        splashAd.setListener(new SplashInteractionListener() { // from class: com.martian.ads.ad.BaeAd.2
-            final /* synthetic */ AdConfig val$adConfig;
-
-            public AnonymousClass2(AdConfig adConfig2) {
-                adConfig = adConfig2;
-            }
-
-            @Override // com.baidu.mobads.sdk.api.SplashAdListener
-            public void onADLoaded() {
-            }
-
-            @Override // com.baidu.mobads.sdk.api.SplashInteractionListener
-            public void onAdCacheFailed() {
-            }
-
-            @Override // com.baidu.mobads.sdk.api.SplashInteractionListener
-            public void onAdCacheSuccess() {
-            }
-
-            @Override // com.baidu.mobads.sdk.api.SplashInteractionListener
-            public void onAdClick() {
-                d8.b bVar2 = d8.b.this;
-                if (bVar2 != null) {
-                    bVar2.l(adConfig);
-                }
-            }
-
-            @Override // com.baidu.mobads.sdk.api.SplashInteractionListener
-            public void onAdDismissed() {
-                d8.b bVar2 = d8.b.this;
-                if (bVar2 != null) {
-                    bVar2.g(adConfig);
-                }
-            }
-
-            @Override // com.baidu.mobads.sdk.api.SplashInteractionListener
-            public void onAdExposed() {
-                d8.b bVar2 = d8.b.this;
-                if (bVar2 != null) {
-                    bVar2.b(adConfig);
-                }
-            }
-
-            @Override // com.baidu.mobads.sdk.api.SplashAdListener
-            public void onAdFailed(String str) {
-            }
-
-            @Override // com.baidu.mobads.sdk.api.SplashInteractionListener
-            public void onAdPresent() {
-            }
-
-            @Override // com.baidu.mobads.sdk.api.SplashInteractionListener
-            public void onAdSkip() {
-            }
-
-            @Override // com.baidu.mobads.sdk.api.SplashInteractionListener
-            public void onLpClosed() {
-                d8.b bVar2 = d8.b.this;
-                if (bVar2 != null) {
-                    bVar2.d(adConfig);
-                }
-            }
-        });
         splashAd.show(viewGroup);
     }
 
-    public static void showVideoAd(AppTask appTask) {
-        RewardVideoAd rewardVideoAd = (RewardVideoAd) appTask.origin;
-        if (appTask.isBidding()) {
-            rewardVideoAd.biddingSuccess(getSecondInfo(appTask), new BiddingListener() { // from class: c8.f
-                @Override // com.baidu.mobads.sdk.api.BiddingListener
-                public final void onBiddingResult(boolean z10, String str, HashMap hashMap) {
-                    BaeAd.lambda$showVideoAd$3(z10, str, hashMap);
-                }
-            });
+    public static void showVideoAd(@NonNull RewardVideoAd rewardVideoAd, boolean isBidding) {
+        if (isBidding) {
+            rewardVideoAd.biddingSuccess(rewardVideoAd.getECPMLevel());
         }
         rewardVideoAd.show();
     }
 
-    public AppTask toAppTask(NativeResponse nativeResponse) {
+    public AppTask toAppTask(Activity activity, NativeResponse adData) {
         AppTask appTask = this.adConfig.toAppTask();
-        appTask.origin = nativeResponse;
-        appTask.title = ConfigSingleton.D().s(nativeResponse.getTitle());
-        appTask.desc = ConfigSingleton.D().s(nativeResponse.getDesc());
-        if (!l.q(nativeResponse.getIconUrl())) {
-            appTask.iconUrl = nativeResponse.getIconUrl();
+        appTask.origin = adData;
+        appTask.title = h.F().n(adData.getTitle());
+        appTask.desc = h.F().n(adData.getDesc());
+        if (!k.p(adData.getIconUrl())) {
+            appTask.iconUrl = adData.getIconUrl();
         }
-        if (!l.q(nativeResponse.getMarketingPendant())) {
-            appTask.marketUrl = nativeResponse.getMarketingPendant();
+        if (!k.p(adData.getActButtonString())) {
+            appTask.buttonText = h.F().n(adData.getActButtonString());
         }
-        appTask.appPromote = ConfigSingleton.D().s("赞助正版章节");
-        if (this.adConfig.isBidding()) {
-            setBiddingEcpm(appTask, nativeResponse.getECPMLevel());
+        if (!k.p(adData.getMarketingPendant())) {
+            appTask.marketUrl = adData.getMarketingPendant();
         }
-        List<String> multiPicUrls = nativeResponse.getMultiPicUrls();
-        if (multiPicUrls != null && !multiPicUrls.isEmpty()) {
+        appTask.appPromote = h.F().n("赞助正版章节");
+        if (!k.p(adData.getECPMLevel())) {
+            try {
+                int parseInt = Integer.parseInt(adData.getECPMLevel());
+                if (this.adConfig.getEcpmPercent() > 0.0d) {
+                    double d2 = parseInt;
+                    double ecpmPercent = this.adConfig.getEcpmPercent();
+                    Double.isNaN(d2);
+                    parseInt = (int) ((d2 * ecpmPercent) / 100.0d);
+                }
+                appTask.setEcpm(parseInt);
+                this.adConfig.setEcpm(parseInt);
+            } catch (Exception unused) {
+            }
+        }
+        List<String> multiPicUrls = adData.getMultiPicUrls();
+        if (multiPicUrls != null && multiPicUrls.size() > 0) {
             for (String str : multiPicUrls) {
-                if (!appTask.getPosterUrls().isEmpty() && l.q(appTask.iconUrl)) {
+                if (appTask.getPosterUrls().size() > 0 && k.p(appTask.iconUrl)) {
                     appTask.iconUrl = str;
                 }
                 appTask.addPosterUrl(str);
             }
-        } else if (l.q(nativeResponse.getImageUrl())) {
-            appTask.addPosterUrl(nativeResponse.getIconUrl());
+        } else if (k.p(adData.getImageUrl())) {
+            appTask.addPosterUrl(adData.getIconUrl());
         } else {
-            appTask.addPosterUrl(nativeResponse.getImageUrl());
+            appTask.addPosterUrl(adData.getImageUrl());
         }
-        if (l.q(appTask.iconUrl)) {
+        if (k.p(appTask.iconUrl)) {
             appTask.iconUrl = appTask.getPosterUrl();
         }
-        if (nativeResponse.getAdActionType() == 2) {
-            int downloadStatus = nativeResponse.getDownloadStatus();
-            if (downloadStatus == 101) {
-                appTask.buttonText = "点击安装";
-            } else if (downloadStatus == 103) {
-                appTask.buttonText = "点击启动";
-            } else {
-                if (downloadStatus == 102) {
-                    appTask.buttonText = "继续下载";
-                } else if (downloadStatus == 104) {
-                    appTask.buttonText = "重新下载";
-                } else {
-                    appTask.buttonText = "立即下载";
-                }
-                if (!l.q(nativeResponse.getBrandName()) && !l.q(nativeResponse.getPublisher()) && !l.q(nativeResponse.getAppPrivacyLink())) {
-                    appTask.setComplianceInfo(getComplianceInfo(nativeResponse));
-                }
-            }
-        } else if (!l.q(nativeResponse.getActButtonString())) {
-            appTask.buttonText = ConfigSingleton.D().s(nativeResponse.getActButtonString());
+        if (this.adConfig.isWifiEnv() && adData.getMaterialType() == NativeResponse.MaterialType.VIDEO && activity != null) {
+            appTask.isVideoAd = true;
+            XNativeView xNativeView = new XNativeView(activity);
+            xNativeView.setNativeItem(adData);
+            xNativeView.setVideoMute(true);
+            xNativeView.setUseDownloadFrame(this.adConfig.isAdCompliance());
+            appTask.videoView = new b.d.a.b(xNativeView);
         }
-        appTask.packageName = nativeResponse.getAppPackage();
-        appTask.name = nativeResponse.getBrandName();
-        appTask.setPicWidth(nativeResponse.getMainPicWidth());
-        appTask.setPicHeight(nativeResponse.getMainPicHeight());
-        this.adConfig.setAdNameInfo(appTask.getAdNameInfo());
+        appTask.packageName = adData.getAppPackage();
+        appTask.name = adData.getBrandName();
+        appTask.setPicWidth(adData.getMainPicWidth());
+        appTask.setPicHeight(adData.getMainPicHeight());
+        appTask.baseUrl = adData.getBaiduLogoUrl();
+        appTask.setAdCompliance(this.adConfig.isAdCompliance());
         return appTask;
     }
 
     @Override // com.martian.ads.ad.BaseAd
-    public void loadAds(Context context) {
-        onAdRequest();
-        String type = this.adConfig.getType();
-        type.hashCode();
-        switch (type) {
-            case "express":
-                loadPortraitTempFlowAds(context);
-                break;
-            case "native":
-                loadFlowAds(context);
-                break;
-            case "splash":
-                loadSplashAds(context);
-                break;
-            case "draw":
-                loadTempFlowAds(context);
-                break;
-            case "interstitial":
-                loadInteractionAd(context);
-                break;
-            case "reward_video":
-                loadVideoAd(context);
-                break;
-            default:
-                onError(null);
-                break;
+    protected boolean adCanceled() {
+        return this.cancelLoading;
+    }
+
+    @Override // com.martian.ads.ad.BaseAd
+    public void cancelLoading() {
+        this.cancelLoading = true;
+    }
+
+    @Override // com.martian.ads.ad.BaseAd
+    public void loadAds(Activity activity) {
+        if ("splash".equalsIgnoreCase(this.adConfig.getType())) {
+            loadSplashAds(activity);
+            return;
+        }
+        if (AdConfig.AdType.REWARD_VIDEO.equalsIgnoreCase(this.adConfig.getType())) {
+            loadVideoAd(activity);
+            return;
+        }
+        if (AdConfig.AdType.INTERSTITIAL.equalsIgnoreCase(this.adConfig.getType())) {
+            loadInteractionAd(activity);
+        } else if (AdConfig.AdType.EXPRESS.equalsIgnoreCase(this.adConfig.getType())) {
+            loadTempFlowAds(activity);
+        } else {
+            loadFlowAds(activity);
         }
     }
 
-    public void loadFlowAds(Context context) {
+    protected void loadFlowAds(Activity activity) {
         RequestParameters build;
-        j baeArticleInfo = this.adConfig.getBaeArticleInfo();
+        b.d.a.a baeArticleInfo = this.adConfig.getBaeArticleInfo();
         if (baeArticleInfo != null) {
             AdConfig.AdInfo adInfo = this.adConfig.getAdInfo();
             if (adInfo == null) {
                 build = new RequestParameters.Builder().downloadAppConfirmPolicy(1).addExtra(ArticleInfo.USER_SEX, baeArticleInfo.f()).addExtra(ArticleInfo.FAVORITE_BOOK, baeArticleInfo.c()).addExtra(ArticleInfo.PAGE_TITLE, baeArticleInfo.e()).addExtra(ArticleInfo.PAGE_ID, baeArticleInfo.d()).addExtra(ArticleInfo.CONTENT_CATEGORY, baeArticleInfo.a()).addExtra(ArticleInfo.CONTENT_LABEL, baeArticleInfo.b()).build();
             } else {
-                build = new RequestParameters.Builder().downloadAppConfirmPolicy(1).addExtra(ArticleInfo.USER_SEX, baeArticleInfo.f()).addExtra(ArticleInfo.FAVORITE_BOOK, baeArticleInfo.c()).addExtra(ArticleInfo.PAGE_TITLE, baeArticleInfo.e()).addExtra(ArticleInfo.PAGE_ID, baeArticleInfo.d()).addCustExt(ExifInterface.GPS_MEASUREMENT_IN_PROGRESS, getAdSource(adInfo.getSource())).addCustExt("B", "" + (adInfo.getEcpm() * 1.2d)).addExtra(ArticleInfo.CONTENT_CATEGORY, baeArticleInfo.a()).addExtra(ArticleInfo.CONTENT_LABEL, baeArticleInfo.b()).build();
+                build = new RequestParameters.Builder().downloadAppConfirmPolicy(1).addExtra(ArticleInfo.USER_SEX, baeArticleInfo.f()).addExtra(ArticleInfo.FAVORITE_BOOK, baeArticleInfo.c()).addExtra(ArticleInfo.PAGE_TITLE, baeArticleInfo.e()).addExtra(ArticleInfo.PAGE_ID, baeArticleInfo.d()).addCustExt(ExifInterface.GPS_MEASUREMENT_IN_PROGRESS, getAdSource(adInfo.getSource())).addCustExt("B", "" + adInfo.getEcpm()).addExtra(ArticleInfo.CONTENT_CATEGORY, baeArticleInfo.a()).addExtra(ArticleInfo.CONTENT_LABEL, baeArticleInfo.b()).build();
             }
         } else {
-            build = new RequestParameters.Builder().downloadAppConfirmPolicy(1).addExtra(ArticleInfo.USER_SEX, ConfigSingleton.D().p() + "").build();
+            build = new RequestParameters.Builder().downloadAppConfirmPolicy(1).addExtra(ArticleInfo.USER_SEX, h.F().k() + "").build();
         }
-        BaiduNativeManager baiduNativeManager = new BaiduNativeManager(context, this.adConfig.getAdsId());
-        if (!l.q(this.adConfig.getAppid())) {
+        BaiduNativeManager baiduNativeManager = new BaiduNativeManager(activity, this.adConfig.getAdsId());
+        if (!k.p(this.adConfig.getAppid())) {
             baiduNativeManager.setAppSid(this.adConfig.getAppid());
         }
         baiduNativeManager.setCacheVideoOnlyWifi(true);
-        baiduNativeManager.loadFeedAd(build, new BaiduNativeManager.FeedAdListener() { // from class: com.martian.ads.ad.BaeAd.4
-            public AnonymousClass4() {
+        baiduNativeManager.loadFeedAd(build, new BaiduNativeManager.FeedAdListener() { // from class: com.martian.ads.ad.BaeAd.3
+            final /* synthetic */ Activity val$activity;
+
+            AnonymousClass3(Activity activity2) {
+                activity = activity2;
             }
 
             @Override // com.baidu.mobads.sdk.api.BaiduNativeManager.FeedAdListener
@@ -1571,8 +1061,8 @@ public class BaeAd extends BaseAd {
             }
 
             @Override // com.baidu.mobads.sdk.api.BaiduNativeManager.FeedAdListener
-            public void onNativeFail(int i10, String str, NativeResponse nativeResponse) {
-                BaeAd.this.onError(new c(i10, str));
+            public void onNativeFail(int i2, String s) {
+                BaeAd.this.onError(new b.d.c.b.c(i2, s));
             }
 
             @Override // com.baidu.mobads.sdk.api.BaiduNativeManager.FeedAdListener
@@ -1583,15 +1073,15 @@ public class BaeAd extends BaseAd {
                 }
                 for (NativeResponse nativeResponse : list) {
                     if (nativeResponse != null) {
-                        BaeAd.this.getAppTaskList().addAppTask(BaeAd.this.toAppTask(nativeResponse));
+                        BaeAd.this.getAppTaskList().addAppTask(BaeAd.this.toAppTask(activity, nativeResponse));
                     }
                 }
                 BaeAd.this.onAdReceived();
             }
 
             @Override // com.baidu.mobads.sdk.api.BaiduNativeManager.FeedAdListener
-            public void onNoAd(int i10, String str, NativeResponse nativeResponse) {
-                BaeAd.this.onError(new c(i10, str));
+            public void onNoAd(int i2, String s) {
+                BaeAd.this.onError(new b.d.c.b.c(i2, s));
             }
 
             @Override // com.baidu.mobads.sdk.api.BaiduNativeManager.FeedAdListener

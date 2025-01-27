@@ -1,24 +1,25 @@
 package kotlin.collections;
 
-import id.c;
+import f.b.a.d;
 import java.util.ListIterator;
 import java.util.NoSuchElementException;
 import kotlin.Metadata;
 import kotlin.jvm.internal.markers.KMappedMarker;
-import xi.k;
 
-@Metadata(d1 = {"\u0000 \n\u0002\u0018\u0002\n\u0002\u0010*\n\u0002\u0010\u0001\n\u0002\b\u0002\n\u0002\u0010\u000b\n\u0002\b\u0003\n\u0002\u0010\b\n\u0002\b\u0003\bÀ\u0002\u0018\u00002\b\u0012\u0004\u0012\u00020\u00020\u0001B\u0007\b\u0002¢\u0006\u0002\u0010\u0003J\t\u0010\u0004\u001a\u00020\u0005H\u0096\u0002J\b\u0010\u0006\u001a\u00020\u0005H\u0016J\t\u0010\u0007\u001a\u00020\u0002H\u0096\u0002J\b\u0010\b\u001a\u00020\tH\u0016J\b\u0010\n\u001a\u00020\u0002H\u0016J\b\u0010\u000b\u001a\u00020\tH\u0016¨\u0006\f"}, d2 = {"Lkotlin/collections/EmptyIterator;", "", "", "()V", "hasNext", "", "hasPrevious", c.f26970g, "nextIndex", "", "previous", "previousIndex", "kotlin-stdlib"}, k = 1, mv = {1, 9, 0}, xi = 48)
-/* loaded from: classes4.dex */
+@Metadata(bv = {1, 0, 3}, d1 = {"\u0000\u001c\n\u0002\u0018\u0002\n\u0002\u0010*\n\u0002\u0010\u0001\n\u0002\u0010\u000b\n\u0002\b\u0003\n\u0002\u0010\b\n\u0002\b\t\bÀ\u0002\u0018\u00002\b\u0012\u0004\u0012\u00020\u00020\u0001B\t\b\u0002¢\u0006\u0004\b\u000e\u0010\u000fJ\u0010\u0010\u0004\u001a\u00020\u0003H\u0096\u0002¢\u0006\u0004\b\u0004\u0010\u0005J\u000f\u0010\u0006\u001a\u00020\u0003H\u0016¢\u0006\u0004\b\u0006\u0010\u0005J\u000f\u0010\b\u001a\u00020\u0007H\u0016¢\u0006\u0004\b\b\u0010\tJ\u000f\u0010\n\u001a\u00020\u0007H\u0016¢\u0006\u0004\b\n\u0010\tJ\u0010\u0010\u000b\u001a\u00020\u0002H\u0096\u0002¢\u0006\u0004\b\u000b\u0010\fJ\u000f\u0010\r\u001a\u00020\u0002H\u0016¢\u0006\u0004\b\r\u0010\f¨\u0006\u0010"}, d2 = {"Lkotlin/collections/EmptyIterator;", "", "", "", "hasNext", "()Z", "hasPrevious", "", "nextIndex", "()I", "previousIndex", "next", "()Ljava/lang/Void;", "previous", "<init>", "()V", "kotlin-stdlib"}, k = 1, mv = {1, 4, 0})
+/* loaded from: classes5.dex */
 public final class EmptyIterator implements ListIterator, KMappedMarker {
-
-    @k
     public static final EmptyIterator INSTANCE = new EmptyIterator();
 
     private EmptyIterator() {
     }
 
     @Override // java.util.ListIterator
-    public /* bridge */ /* synthetic */ void add(Object obj) {
+    public /* synthetic */ void add(Object obj) {
+        throw new UnsupportedOperationException("Operation is not supported for read-only collection");
+    }
+
+    public void add(Void r2) {
         throw new UnsupportedOperationException("Operation is not supported for read-only collection");
     }
 
@@ -48,27 +49,23 @@ public final class EmptyIterator implements ListIterator, KMappedMarker {
     }
 
     @Override // java.util.ListIterator
-    public /* bridge */ /* synthetic */ void set(Object obj) {
+    public /* synthetic */ void set(Object obj) {
         throw new UnsupportedOperationException("Operation is not supported for read-only collection");
     }
 
-    public void add(Void r22) {
+    public void set(Void r2) {
         throw new UnsupportedOperationException("Operation is not supported for read-only collection");
     }
 
     @Override // java.util.ListIterator, java.util.Iterator
-    @k
+    @d
     public Void next() {
         throw new NoSuchElementException();
     }
 
     @Override // java.util.ListIterator
-    @k
+    @d
     public Void previous() {
         throw new NoSuchElementException();
-    }
-
-    public void set(Void r22) {
-        throw new UnsupportedOperationException("Operation is not supported for read-only collection");
     }
 }

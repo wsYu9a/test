@@ -6,26 +6,26 @@ import java.io.File;
 import java.io.RandomAccessFile;
 import java.util.zip.ZipException;
 
-/* loaded from: classes2.dex */
+/* loaded from: classes.dex */
 public final class a {
 
     /* renamed from: a */
-    final d f7832a;
+    final d f6309a;
 
     /* renamed from: b */
-    final com.bytedance.pangle.util.b.a.b f7833b = new com.bytedance.pangle.util.b.a.b();
+    final com.bytedance.pangle.util.b.a.b f6310b = new com.bytedance.pangle.util.b.a.b();
 
     public a(d dVar) {
-        this.f7832a = dVar;
+        this.f6309a = dVar;
     }
 
-    public static void a(File file) {
+    static void a(File file) {
         if (file.exists() && !file.delete()) {
             throw new ZipException("Could not delete temporary file");
         }
     }
 
-    public static void a(RandomAccessFile randomAccessFile, RandomAccessFile randomAccessFile2, long j10, long j11, String str) {
-        g.a(randomAccessFile, randomAccessFile2, j10, j10 + j11, str);
+    static void a(RandomAccessFile randomAccessFile, RandomAccessFile randomAccessFile2, long j2, long j3, String str) {
+        g.a(randomAccessFile, randomAccessFile2, j2, j2 + j3, str);
     }
 }

@@ -30,7 +30,7 @@ import java.util.Collections;
 import java.util.Iterator;
 import java.util.List;
 
-/* loaded from: classes2.dex */
+/* loaded from: classes.dex */
 public class Registry {
     private static final String BUCKET_APPEND_ALL = "legacy_append";
     public static final String BUCKET_BITMAP = "Bitmap";
@@ -65,8 +65,8 @@ public class Registry {
             super("Failed to find any ModelLoaders registered for model class: " + obj.getClass());
         }
 
-        public <M> NoModelLoaderAvailableException(@NonNull M m10, @NonNull List<ModelLoader<M, ?>> list) {
-            super("Found ModelLoaders for model class: " + list + ", but none that handle this specific model instance: " + m10);
+        public <M> NoModelLoaderAvailableException(@NonNull M m, @NonNull List<ModelLoader<M, ?>> list) {
+            super("Found ModelLoaders for model class: " + list + ", but none that handle this specific model instance: " + m);
         }
 
         public NoModelLoaderAvailableException(@NonNull Class<?> cls, @NonNull Class<?> cls2) {
@@ -172,17 +172,17 @@ public class Registry {
     }
 
     @NonNull
-    public <X> DataRewinder<X> getRewinder(@NonNull X x10) {
-        return this.dataRewinderRegistry.build(x10);
+    public <X> DataRewinder<X> getRewinder(@NonNull X x) {
+        return this.dataRewinderRegistry.build(x);
     }
 
     @NonNull
-    public <X> Encoder<X> getSourceEncoder(@NonNull X x10) throws NoSourceEncoderAvailableException {
-        Encoder<X> encoder = this.encoderRegistry.getEncoder(x10.getClass());
+    public <X> Encoder<X> getSourceEncoder(@NonNull X x) throws NoSourceEncoderAvailableException {
+        Encoder<X> encoder = this.encoderRegistry.getEncoder(x.getClass());
         if (encoder != null) {
             return encoder;
         }
-        throw new NoSourceEncoderAvailableException(x10.getClass());
+        throw new NoSourceEncoderAvailableException(x.getClass());
     }
 
     public boolean isResourceEncoderAvailable(@NonNull Resource<?> resource) {

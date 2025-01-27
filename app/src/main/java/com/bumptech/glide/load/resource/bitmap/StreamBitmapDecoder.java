@@ -13,16 +13,16 @@ import com.bumptech.glide.util.MarkEnforcingInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 
-/* loaded from: classes2.dex */
+/* loaded from: classes.dex */
 public class StreamBitmapDecoder implements ResourceDecoder<InputStream, Bitmap> {
     private final ArrayPool byteArrayPool;
     private final Downsampler downsampler;
 
-    public static class UntrustedCallbacks implements Downsampler.DecodeCallbacks {
+    static class UntrustedCallbacks implements Downsampler.DecodeCallbacks {
         private final RecyclableBufferedInputStream bufferedStream;
         private final ExceptionCatchingInputStream exceptionStream;
 
-        public UntrustedCallbacks(RecyclableBufferedInputStream recyclableBufferedInputStream, ExceptionCatchingInputStream exceptionCatchingInputStream) {
+        UntrustedCallbacks(RecyclableBufferedInputStream recyclableBufferedInputStream, ExceptionCatchingInputStream exceptionCatchingInputStream) {
             this.bufferedStream = recyclableBufferedInputStream;
             this.exceptionStream = exceptionCatchingInputStream;
         }
@@ -51,22 +51,22 @@ public class StreamBitmapDecoder implements ResourceDecoder<InputStream, Bitmap>
     }
 
     @Override // com.bumptech.glide.load.ResourceDecoder
-    public Resource<Bitmap> decode(@NonNull InputStream inputStream, int i10, int i11, @NonNull Options options) throws IOException {
+    public Resource<Bitmap> decode(@NonNull InputStream inputStream, int i2, int i3, @NonNull Options options) throws IOException {
         RecyclableBufferedInputStream recyclableBufferedInputStream;
-        boolean z10;
+        boolean z;
         if (inputStream instanceof RecyclableBufferedInputStream) {
             recyclableBufferedInputStream = (RecyclableBufferedInputStream) inputStream;
-            z10 = false;
+            z = false;
         } else {
             recyclableBufferedInputStream = new RecyclableBufferedInputStream(inputStream, this.byteArrayPool);
-            z10 = true;
+            z = true;
         }
         ExceptionCatchingInputStream obtain = ExceptionCatchingInputStream.obtain(recyclableBufferedInputStream);
         try {
-            return this.downsampler.decode(new MarkEnforcingInputStream(obtain), i10, i11, options, new UntrustedCallbacks(recyclableBufferedInputStream, obtain));
+            return this.downsampler.decode(new MarkEnforcingInputStream(obtain), i2, i3, options, new UntrustedCallbacks(recyclableBufferedInputStream, obtain));
         } finally {
             obtain.release();
-            if (z10) {
+            if (z) {
                 recyclableBufferedInputStream.release();
             }
         }

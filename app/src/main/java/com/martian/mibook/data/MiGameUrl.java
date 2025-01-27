@@ -30,15 +30,15 @@ public class MiGameUrl {
         return this.enabled && !TextUtils.isEmpty(this.url);
     }
 
-    public void setEnabled(boolean z10) {
-        this.enabled = z10;
+    public void setEnabled(boolean enabled) {
+        this.enabled = enabled;
     }
 
-    public void setGames(List<MiApp> list) {
-        this.games = list;
+    public void setGames(List<MiApp> games) {
+        this.games = games;
     }
 
-    public void setUrl(String str) {
-        this.url = str;
+    public void setUrl(String url) {
+        this.url = url;
     }
 }

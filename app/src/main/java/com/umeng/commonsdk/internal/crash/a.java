@@ -5,16 +5,16 @@ import java.io.StringWriter;
 
 /* loaded from: classes4.dex */
 public class a {
-    public static String a(Throwable th2) {
+    public static String a(Throwable th) {
         String str = null;
-        if (th2 == null) {
+        if (th == null) {
             return null;
         }
         try {
             StringWriter stringWriter = new StringWriter();
             PrintWriter printWriter = new PrintWriter(stringWriter);
-            th2.printStackTrace(printWriter);
-            for (Throwable cause = th2.getCause(); cause != null; cause = cause.getCause()) {
+            th.printStackTrace(printWriter);
+            for (Throwable cause = th.getCause(); cause != null; cause = cause.getCause()) {
                 cause.printStackTrace(printWriter);
             }
             str = stringWriter.toString();

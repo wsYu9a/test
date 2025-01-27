@@ -1,10 +1,10 @@
 package com.baidu.mobads.sdk.api;
 
-/* loaded from: classes2.dex */
+/* loaded from: classes.dex */
 public interface ScreenVideoAdListener {
     void onAdClick();
 
-    void onAdClose(float f10);
+    void onAdClose(float f2);
 
     void onAdFailed(String str);
 
@@ -12,7 +12,7 @@ public interface ScreenVideoAdListener {
 
     void onAdShow();
 
-    void onAdSkip(float f10);
+    void onAdSkip(float f2);
 
     void onVideoDownloadFailed();
 

@@ -1,16 +1,16 @@
 package com.kwad.sdk.core.videocache;
 
-/* loaded from: classes3.dex */
+/* loaded from: classes2.dex */
 public interface a {
-    long Id();
-
-    int a(byte[] bArr, long j10, int i10);
+    int a(byte[] bArr, long j2, int i2);
 
     void close();
 
     void complete();
 
-    void d(byte[] bArr, int i10);
+    void d(byte[] bArr, int i2);
 
     boolean isCompleted();
+
+    long yw();
 }

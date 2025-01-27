@@ -8,7 +8,7 @@ import com.bumptech.glide.load.engine.Resource;
 import com.bumptech.glide.load.resource.bytes.BytesResource;
 import java.io.ByteArrayOutputStream;
 
-/* loaded from: classes2.dex */
+/* loaded from: classes.dex */
 public class BitmapBytesTranscoder implements ResourceTranscoder<Bitmap, byte[]> {
     private final Bitmap.CompressFormat compressFormat;
     private final int quality;
@@ -26,8 +26,8 @@ public class BitmapBytesTranscoder implements ResourceTranscoder<Bitmap, byte[]>
         return new BytesResource(byteArrayOutputStream.toByteArray());
     }
 
-    public BitmapBytesTranscoder(@NonNull Bitmap.CompressFormat compressFormat, int i10) {
+    public BitmapBytesTranscoder(@NonNull Bitmap.CompressFormat compressFormat, int i2) {
         this.compressFormat = compressFormat;
-        this.quality = i10;
+        this.quality = i2;
     }
 }

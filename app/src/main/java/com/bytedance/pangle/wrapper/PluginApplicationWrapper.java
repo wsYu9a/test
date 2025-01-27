@@ -16,7 +16,7 @@ import java.io.File;
 
 @Keep
 @SuppressLint({"MissingSuperCall", "NewApi"})
-/* loaded from: classes2.dex */
+/* loaded from: classes.dex */
 public class PluginApplicationWrapper extends Application {
     public Application mOriginApplication;
     public PluginContext mPluginContext;
@@ -30,8 +30,8 @@ public class PluginApplicationWrapper extends Application {
                 return;
             }
             FieldUtils.writeField(FieldUtils.getField(ContextWrapper.class, "mBase"), this, pluginContext);
-        } catch (IllegalAccessException e10) {
-            e10.printStackTrace();
+        } catch (IllegalAccessException e2) {
+            e2.printStackTrace();
         }
     }
 
@@ -61,8 +61,8 @@ public class PluginApplicationWrapper extends Application {
     }
 
     @Override // android.app.Application, android.content.ComponentCallbacks2
-    public void onTrimMemory(int i10) {
-        this.mOriginApplication.onTrimMemory(i10);
+    public void onTrimMemory(int i2) {
+        this.mOriginApplication.onTrimMemory(i2);
     }
 
     @Override // android.app.Application
@@ -76,8 +76,8 @@ public class PluginApplicationWrapper extends Application {
     }
 
     @Override // android.content.ContextWrapper, android.content.Context
-    public void setTheme(int i10) {
-        this.mOriginApplication.setTheme(i10);
+    public void setTheme(int i2) {
+        this.mOriginApplication.setTheme(i2);
     }
 
     @Override // android.content.ContextWrapper, android.content.Context
@@ -91,8 +91,8 @@ public class PluginApplicationWrapper extends Application {
     }
 
     @Override // android.content.ContextWrapper, android.content.Context
-    public void startIntentSender(IntentSender intentSender, Intent intent, int i10, int i11, int i12) {
-        this.mOriginApplication.startIntentSender(intentSender, intent, i10, i11, i12);
+    public void startIntentSender(IntentSender intentSender, Intent intent, int i2, int i3, int i4) {
+        this.mOriginApplication.startIntentSender(intentSender, intent, i2, i3, i4);
     }
 
     @Override // android.app.Application
@@ -116,7 +116,7 @@ public class PluginApplicationWrapper extends Application {
     }
 
     @Override // android.content.ContextWrapper, android.content.Context
-    public void startIntentSender(IntentSender intentSender, Intent intent, int i10, int i11, int i12, Bundle bundle) {
-        this.mOriginApplication.startIntentSender(intentSender, intent, i10, i11, i12, bundle);
+    public void startIntentSender(IntentSender intentSender, Intent intent, int i2, int i3, int i4, Bundle bundle) {
+        this.mOriginApplication.startIntentSender(intentSender, intent, i2, i3, i4, bundle);
     }
 }

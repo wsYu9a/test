@@ -1,17 +1,17 @@
 package com.kuaishou.weapon.p0.jni;
 
 import android.content.Context;
-import com.kuaishou.weapon.p0.dp;
+import com.kuaishou.weapon.p0.Cdo;
 import com.kuaishou.weapon.p0.w;
 import org.json.JSONArray;
 
-/* loaded from: classes2.dex */
+/* loaded from: classes.dex */
 public class A {
     private static int flag;
     private static JSONArray jsonObject;
 
-    public A(Context context, int i10) {
-        flag = i10;
+    public A(Context context, int i2) {
+        flag = i2;
         if (Engine.loadSuccess) {
             Engine.getInstance(context).qrs();
         } else {
@@ -21,9 +21,9 @@ public class A {
 
     public static String getE(String str) {
         try {
-            dp a10 = dp.a();
-            if (a10 != null) {
-                return a10.a(str, "");
+            Cdo a2 = Cdo.a();
+            if (a2 != null) {
+                return a2.a(str, "");
             }
             return null;
         } catch (Exception unused) {
@@ -43,9 +43,9 @@ public class A {
 
     public static void setE(String str, String str2) {
         try {
-            dp a10 = dp.a();
-            if (a10 != null) {
-                a10.b(str, str2);
+            Cdo a2 = Cdo.a();
+            if (a2 != null) {
+                a2.b(str, str2);
             }
         } catch (Exception unused) {
         }

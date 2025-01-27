@@ -6,7 +6,7 @@ import java.lang.annotation.RetentionPolicy;
 
 @Keep
 @Retention(RetentionPolicy.SOURCE)
-/* loaded from: classes3.dex */
+/* loaded from: classes.dex */
 public @interface AdnName {
     public static final String BAIDU = "baidu";
     public static final String CHUANSHANJIA = "chuanshanjia";

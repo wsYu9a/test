@@ -8,7 +8,7 @@ import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
 
-/* loaded from: classes2.dex */
+/* loaded from: classes.dex */
 public class ad {
     private String a(String str) {
         int read;
@@ -51,10 +51,12 @@ public class ad {
             }
             bufferedReader.close();
             String lowerCase = stringBuffer.toString().toLowerCase();
-            if (lowerCase.contains("intel") || lowerCase.contains("x86")) {
-                return true;
+            if (!lowerCase.contains("intel") && !lowerCase.contains("x86")) {
+                if (!lowerCase.contains("amd")) {
+                    return false;
+                }
             }
-            return lowerCase.contains("amd");
+            return true;
         } catch (IOException unused) {
             return false;
         }
@@ -62,17 +64,17 @@ public class ad {
 
     public boolean a() {
         try {
-            String a10 = a("/proc/tty/drivers");
-            boolean z10 = !TextUtils.isEmpty(a10) && a10.contains("goldfish");
-            if (!z10) {
-                String a11 = a("/proc/cpuinfo");
-                if (!TextUtils.isEmpty(a11)) {
-                    if (a11.contains("goldfish")) {
+            String a2 = a("/proc/tty/drivers");
+            boolean z = !TextUtils.isEmpty(a2) && a2.contains("goldfish");
+            if (!z) {
+                String a3 = a("/proc/cpuinfo");
+                if (!TextUtils.isEmpty(a3)) {
+                    if (a3.contains("goldfish")) {
                         return true;
                     }
                 }
             }
-            return z10;
+            return z;
         } catch (Exception unused) {
             return false;
         }

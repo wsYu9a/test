@@ -16,15 +16,14 @@ import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ThreadFactory;
 
-/* loaded from: classes2.dex */
+/* loaded from: classes.dex */
 final class ActiveResources {
 
     @VisibleForTesting
     final Map<Key, ResourceWeakReference> activeEngineResources;
 
-    /* renamed from: cb */
     @Nullable
-    private volatile DequeuedResourceCallback f7400cb;
+    private volatile DequeuedResourceCallback cb;
     private final boolean isActiveResourceRetentionAllowed;
     private volatile boolean isShutdown;
     private EngineResource.ResourceListener listener;
@@ -32,13 +31,13 @@ final class ActiveResources {
     private final ReferenceQueue<EngineResource<?>> resourceReferenceQueue;
 
     /* renamed from: com.bumptech.glide.load.engine.ActiveResources$1 */
-    public class AnonymousClass1 implements ThreadFactory {
+    class AnonymousClass1 implements ThreadFactory {
 
         /* renamed from: com.bumptech.glide.load.engine.ActiveResources$1$1 */
-        public class RunnableC02211 implements Runnable {
+        class RunnableC00651 implements Runnable {
             final /* synthetic */ Runnable val$r;
 
-            public RunnableC02211(Runnable runnable) {
+            RunnableC00651(Runnable runnable) {
                 runnable = runnable;
             }
 
@@ -49,12 +48,15 @@ final class ActiveResources {
             }
         }
 
+        AnonymousClass1() {
+        }
+
         @Override // java.util.concurrent.ThreadFactory
         public Thread newThread(@NonNull Runnable runnable) {
             return new Thread(new Runnable() { // from class: com.bumptech.glide.load.engine.ActiveResources.1.1
                 final /* synthetic */ Runnable val$r;
 
-                public RunnableC02211(Runnable runnable2) {
+                RunnableC00651(Runnable runnable2) {
                     runnable = runnable2;
                 }
 
@@ -68,8 +70,8 @@ final class ActiveResources {
     }
 
     /* renamed from: com.bumptech.glide.load.engine.ActiveResources$2 */
-    public class AnonymousClass2 implements Runnable {
-        public AnonymousClass2() {
+    class AnonymousClass2 implements Runnable {
+        AnonymousClass2() {
         }
 
         @Override // java.lang.Runnable
@@ -79,39 +81,39 @@ final class ActiveResources {
     }
 
     @VisibleForTesting
-    public interface DequeuedResourceCallback {
+    interface DequeuedResourceCallback {
         void onResourceDequeued();
     }
 
     @VisibleForTesting
-    public static final class ResourceWeakReference extends WeakReference<EngineResource<?>> {
+    static final class ResourceWeakReference extends WeakReference<EngineResource<?>> {
         final boolean isCacheable;
         final Key key;
 
         @Nullable
         Resource<?> resource;
 
-        public ResourceWeakReference(@NonNull Key key, @NonNull EngineResource<?> engineResource, @NonNull ReferenceQueue<? super EngineResource<?>> referenceQueue, boolean z10) {
+        ResourceWeakReference(@NonNull Key key, @NonNull EngineResource<?> engineResource, @NonNull ReferenceQueue<? super EngineResource<?>> referenceQueue, boolean z) {
             super(engineResource, referenceQueue);
             this.key = (Key) Preconditions.checkNotNull(key);
-            this.resource = (engineResource.isMemoryCacheable() && z10) ? (Resource) Preconditions.checkNotNull(engineResource.getResource()) : null;
+            this.resource = (engineResource.isMemoryCacheable() && z) ? (Resource) Preconditions.checkNotNull(engineResource.getResource()) : null;
             this.isCacheable = engineResource.isMemoryCacheable();
         }
 
-        public void reset() {
+        void reset() {
             this.resource = null;
             clear();
         }
     }
 
-    public ActiveResources(boolean z10) {
-        this(z10, Executors.newSingleThreadExecutor(new ThreadFactory() { // from class: com.bumptech.glide.load.engine.ActiveResources.1
+    ActiveResources(boolean z) {
+        this(z, Executors.newSingleThreadExecutor(new ThreadFactory() { // from class: com.bumptech.glide.load.engine.ActiveResources.1
 
             /* renamed from: com.bumptech.glide.load.engine.ActiveResources$1$1 */
-            public class RunnableC02211 implements Runnable {
+            class RunnableC00651 implements Runnable {
                 final /* synthetic */ Runnable val$r;
 
-                public RunnableC02211(Runnable runnable2) {
+                RunnableC00651(Runnable runnable2) {
                     runnable = runnable2;
                 }
 
@@ -122,12 +124,15 @@ final class ActiveResources {
                 }
             }
 
+            AnonymousClass1() {
+            }
+
             @Override // java.util.concurrent.ThreadFactory
             public Thread newThread(@NonNull Runnable runnable2) {
                 return new Thread(new Runnable() { // from class: com.bumptech.glide.load.engine.ActiveResources.1.1
                     final /* synthetic */ Runnable val$r;
 
-                    public RunnableC02211(Runnable runnable22) {
+                    RunnableC00651(Runnable runnable22) {
                         runnable = runnable22;
                     }
 
@@ -141,18 +146,18 @@ final class ActiveResources {
         }));
     }
 
-    public synchronized void activate(Key key, EngineResource<?> engineResource) {
+    synchronized void activate(Key key, EngineResource<?> engineResource) {
         ResourceWeakReference put = this.activeEngineResources.put(key, new ResourceWeakReference(key, engineResource, this.resourceReferenceQueue, this.isActiveResourceRetentionAllowed));
         if (put != null) {
             put.reset();
         }
     }
 
-    public void cleanReferenceQueue() {
+    void cleanReferenceQueue() {
         while (!this.isShutdown) {
             try {
                 cleanupActiveReference((ResourceWeakReference) this.resourceReferenceQueue.remove());
-                DequeuedResourceCallback dequeuedResourceCallback = this.f7400cb;
+                DequeuedResourceCallback dequeuedResourceCallback = this.cb;
                 if (dequeuedResourceCallback != null) {
                     dequeuedResourceCallback.onResourceDequeued();
                 }
@@ -162,7 +167,7 @@ final class ActiveResources {
         }
     }
 
-    public void cleanupActiveReference(@NonNull ResourceWeakReference resourceWeakReference) {
+    void cleanupActiveReference(@NonNull ResourceWeakReference resourceWeakReference) {
         Resource<?> resource;
         synchronized (this) {
             this.activeEngineResources.remove(resourceWeakReference.key);
@@ -172,7 +177,7 @@ final class ActiveResources {
         }
     }
 
-    public synchronized void deactivate(Key key) {
+    synchronized void deactivate(Key key) {
         ResourceWeakReference remove = this.activeEngineResources.remove(key);
         if (remove != null) {
             remove.reset();
@@ -180,7 +185,7 @@ final class ActiveResources {
     }
 
     @Nullable
-    public synchronized EngineResource<?> get(Key key) {
+    synchronized EngineResource<?> get(Key key) {
         ResourceWeakReference resourceWeakReference = this.activeEngineResources.get(key);
         if (resourceWeakReference == null) {
             return null;
@@ -193,11 +198,11 @@ final class ActiveResources {
     }
 
     @VisibleForTesting
-    public void setDequeuedResourceCallback(DequeuedResourceCallback dequeuedResourceCallback) {
-        this.f7400cb = dequeuedResourceCallback;
+    void setDequeuedResourceCallback(DequeuedResourceCallback dequeuedResourceCallback) {
+        this.cb = dequeuedResourceCallback;
     }
 
-    public void setListener(EngineResource.ResourceListener resourceListener) {
+    void setListener(EngineResource.ResourceListener resourceListener) {
         synchronized (resourceListener) {
             synchronized (this) {
                 this.listener = resourceListener;
@@ -206,7 +211,7 @@ final class ActiveResources {
     }
 
     @VisibleForTesting
-    public void shutdown() {
+    void shutdown() {
         this.isShutdown = true;
         Executor executor = this.monitorClearedResourcesExecutor;
         if (executor instanceof ExecutorService) {
@@ -215,13 +220,13 @@ final class ActiveResources {
     }
 
     @VisibleForTesting
-    public ActiveResources(boolean z10, Executor executor) {
+    ActiveResources(boolean z, Executor executor) {
         this.activeEngineResources = new HashMap();
         this.resourceReferenceQueue = new ReferenceQueue<>();
-        this.isActiveResourceRetentionAllowed = z10;
+        this.isActiveResourceRetentionAllowed = z;
         this.monitorClearedResourcesExecutor = executor;
         executor.execute(new Runnable() { // from class: com.bumptech.glide.load.engine.ActiveResources.2
-            public AnonymousClass2() {
+            AnonymousClass2() {
             }
 
             @Override // java.lang.Runnable

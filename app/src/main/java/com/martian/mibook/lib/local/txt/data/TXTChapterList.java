@@ -23,11 +23,11 @@ public class TXTChapterList implements ChapterList {
     }
 
     @Override // com.martian.mibook.lib.model.data.abs.ChapterList
-    public Chapter getItem(int i10) {
-        return this.chapters.get(i10);
+    public Chapter getItem(int position) {
+        return this.chapters.get(position);
     }
 
-    public void setChapters(List<TXTChapter> list) {
-        this.chapters = list;
+    public void setChapters(List<TXTChapter> chapters) {
+        this.chapters = chapters;
     }
 }

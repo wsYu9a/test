@@ -10,71 +10,93 @@ import java.util.Map;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-/* loaded from: classes2.dex */
+/* loaded from: classes.dex */
 public class HumeSDK {
     public static final String TAG = "HumeSDK";
 
     /* renamed from: a */
-    private static final int f7423a = 1903654776;
+    private static final int f5947a = 1903654776;
 
     /* renamed from: b */
-    private static final int f7424b = -1721342362;
+    private static final int f5948b = -1721342362;
 
     /* renamed from: c */
-    private static final int f7425c = 1903654775;
+    private static final int f5949c = 1903654775;
 
     /* renamed from: d */
-    private static String[] f7426d = new String[3];
+    private static String[] f5950d = new String[3];
 
     /* renamed from: e */
-    private static volatile boolean f7427e = false;
+    private static volatile boolean f5951e;
 
     private static String a(Context context) {
-        if (!f7427e) {
+        if (!f5951e) {
             c(context);
-            f7427e = true;
+            f5951e = true;
         }
-        return !TextUtils.isEmpty(f7426d[0]) ? f7426d[0] : !TextUtils.isEmpty(f7426d[1]) ? f7426d[1] : "";
+        return !TextUtils.isEmpty(f5950d[0]) ? f5950d[0] : !TextUtils.isEmpty(f5950d[1]) ? f5950d[1] : "";
+    }
+
+    private static Map<String, String> a(String str) {
+        if (TextUtils.isEmpty(str)) {
+            return null;
+        }
+        try {
+            JSONObject jSONObject = new JSONObject(str);
+            Iterator<String> keys = jSONObject.keys();
+            HashMap hashMap = new HashMap();
+            while (keys.hasNext()) {
+                String obj = keys.next().toString();
+                hashMap.put(obj, jSONObject.getString(obj));
+            }
+            return hashMap;
+        } catch (JSONException e2) {
+            e2.printStackTrace();
+            return null;
+        } catch (Exception e3) {
+            e3.printStackTrace();
+            return null;
+        }
     }
 
     private static Map<String, String> b(Context context) {
-        if (!f7427e) {
+        if (!f5951e) {
             c(context);
-            f7427e = true;
+            f5951e = true;
         }
-        Map<String, String> a10 = a(f7426d[2]);
-        return a10 == null ? new HashMap() : a10;
+        Map<String, String> a2 = a(f5950d[2]);
+        return a2 == null ? new HashMap() : a2;
     }
 
     private static void c(Context context) {
-        int[] iArr = {f7424b, f7425c, f7423a};
-        String d10 = d(context);
-        if (TextUtils.isEmpty(d10)) {
-            f7426d = new String[]{"", "", ""};
+        int[] iArr = {f5948b, f5949c, f5947a};
+        String d2 = d(context);
+        if (TextUtils.isEmpty(d2)) {
+            f5950d = new String[]{"", "", ""};
         }
-        File file = new File(d10);
-        String[] a10 = d.a(file, iArr);
-        if (a10 == null) {
-            a10 = f7426d;
+        File file = new File(d2);
+        String[] a2 = d.a(file, iArr);
+        if (a2 == null) {
+            a2 = f5950d;
         }
-        f7426d = a10;
-        if (a10.length >= 2 && TextUtils.isEmpty(a10[0]) && TextUtils.isEmpty(f7426d[1])) {
-            String a11 = com.bytedance.hume.readapk.a.a.a(file);
-            String[] strArr = f7426d;
-            if (a11 == null) {
-                a11 = "";
+        f5950d = a2;
+        if (a2.length >= 2 && TextUtils.isEmpty(a2[0]) && TextUtils.isEmpty(f5950d[1])) {
+            String a3 = com.bytedance.hume.readapk.a.a.a(file);
+            String[] strArr = f5950d;
+            if (a3 == null) {
+                a3 = "";
             }
-            strArr[0] = a11;
+            strArr[0] = a3;
         }
-        String[] strArr2 = f7426d;
+        String[] strArr2 = f5950d;
         if (strArr2.length < 3 || TextUtils.isEmpty(strArr2[2])) {
             return;
         }
-        int length = f7426d[2].length();
+        int length = f5950d[2].length();
         if (length <= 4) {
-            f7426d[2] = "";
+            f5950d[2] = "";
         } else {
-            String[] strArr3 = f7426d;
+            String[] strArr3 = f5950d;
             strArr3[2] = strArr3[2].substring(2, length - 2);
         }
     }
@@ -92,34 +114,15 @@ public class HumeSDK {
     }
 
     public static String getChannel(Context context) {
-        if (!f7427e) {
+        if (!f5951e) {
             c(context);
-            f7427e = true;
+            f5951e = true;
         }
-        Map<String, String> a10 = a(a(context));
-        return (a10 == null || a10.size() <= 0) ? "" : a10.get("hume_channel_id");
+        Map<String, String> a2 = a(a(context));
+        return (a2 == null || a2.size() <= 0) ? "" : a2.get("hume_channel_id");
     }
 
     public static String getVersion() {
         return "1.0.0";
-    }
-
-    private static Map<String, String> a(String str) {
-        if (TextUtils.isEmpty(str)) {
-            return null;
-        }
-        try {
-            JSONObject jSONObject = new JSONObject(str);
-            Iterator<String> keys = jSONObject.keys();
-            HashMap hashMap = new HashMap();
-            while (keys.hasNext()) {
-                String obj = keys.next().toString();
-                hashMap.put(obj, jSONObject.getString(obj));
-            }
-            return hashMap;
-        } catch (JSONException | Exception e10) {
-            e10.printStackTrace();
-            return null;
-        }
     }
 }

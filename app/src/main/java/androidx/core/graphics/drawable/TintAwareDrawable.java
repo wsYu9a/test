@@ -8,7 +8,7 @@ import androidx.annotation.RestrictTo;
 @RestrictTo({RestrictTo.Scope.LIBRARY_GROUP_PREFIX})
 /* loaded from: classes.dex */
 public interface TintAwareDrawable {
-    void setTint(@ColorInt int i10);
+    void setTint(@ColorInt int i2);
 
     void setTintList(ColorStateList colorStateList);
 

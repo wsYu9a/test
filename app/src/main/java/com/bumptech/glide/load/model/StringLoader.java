@@ -11,7 +11,7 @@ import com.bumptech.glide.load.model.ModelLoader;
 import java.io.File;
 import java.io.InputStream;
 
-/* loaded from: classes2.dex */
+/* loaded from: classes.dex */
 public class StringLoader<Data> implements ModelLoader<String, Data> {
     private final ModelLoader<Uri, Data> uriLoader;
 
@@ -76,11 +76,11 @@ public class StringLoader<Data> implements ModelLoader<String, Data> {
     }
 
     @Override // com.bumptech.glide.load.model.ModelLoader
-    public ModelLoader.LoadData<Data> buildLoadData(@NonNull String str, int i10, int i11, @NonNull Options options) {
+    public ModelLoader.LoadData<Data> buildLoadData(@NonNull String str, int i2, int i3, @NonNull Options options) {
         Uri parseUri = parseUri(str);
         if (parseUri == null || !this.uriLoader.handles(parseUri)) {
             return null;
         }
-        return this.uriLoader.buildLoadData(parseUri, i10, i11, options);
+        return this.uriLoader.buildLoadData(parseUri, i2, i3, options);
     }
 }

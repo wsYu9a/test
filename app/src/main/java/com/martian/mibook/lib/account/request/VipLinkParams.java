@@ -1,6 +1,6 @@
 package com.martian.mibook.lib.account.request;
 
-import v8.a;
+import com.martian.libcomm.http.requests.d.a;
 
 /* loaded from: classes3.dex */
 public class VipLinkParams extends TYBookHttpGetParams {
@@ -15,7 +15,7 @@ public class VipLinkParams extends TYBookHttpGetParams {
     private Boolean night_mode;
 
     @a
-    private int hideNaviBar = 1;
+    private final int hideNaviBar = 1;
 
     @a
     private int notchHeight = 0;
@@ -29,21 +29,9 @@ public class VipLinkParams extends TYBookHttpGetParams {
     @a
     private String sourceId = "";
 
-    @a
-    private Boolean enableGuest = Boolean.TRUE;
-
     public boolean getDialog() {
         Boolean bool = this.isDialog;
         return bool != null && bool.booleanValue();
-    }
-
-    public boolean getEnableGuest() {
-        Boolean bool = this.enableGuest;
-        return bool != null && bool.booleanValue();
-    }
-
-    public int getHideNaviBar() {
-        return this.hideNaviBar;
     }
 
     public Integer getMethod() {
@@ -54,11 +42,7 @@ public class VipLinkParams extends TYBookHttpGetParams {
         return this.night_mode;
     }
 
-    public int getNotchHeight() {
-        return this.notchHeight;
-    }
-
-    @Override // u8.b
+    @Override // com.martian.libcomm.http.requests.b
     public String getRequestMethod() {
         return "vip";
     }
@@ -75,39 +59,31 @@ public class VipLinkParams extends TYBookHttpGetParams {
         return this.sourceName;
     }
 
-    public void setDialog(Boolean bool) {
-        this.isDialog = bool;
+    public void setDialog(Boolean dialog) {
+        this.isDialog = dialog;
     }
 
-    public void setEnableGuest(Boolean bool) {
-        this.enableGuest = bool;
+    public void setMethod(Integer method) {
+        this.method = method;
     }
 
-    public void setHideNaviBar(int i10) {
-        this.hideNaviBar = i10;
+    public void setNight_mode(Boolean night_mode) {
+        this.night_mode = night_mode;
     }
 
-    public void setMethod(Integer num) {
-        this.method = num;
+    public void setNotchHeight(int notchHeight) {
+        this.notchHeight = notchHeight;
     }
 
-    public void setNight_mode(Boolean bool) {
-        this.night_mode = bool;
+    public void setSource(String source) {
+        this.source = source;
     }
 
-    public void setNotchHeight(int i10) {
-        this.notchHeight = i10;
+    public void setSourceId(String sourceId) {
+        this.sourceId = sourceId;
     }
 
-    public void setSource(String str) {
-        this.source = str;
-    }
-
-    public void setSourceId(String str) {
-        this.sourceId = str;
-    }
-
-    public void setSourceName(String str) {
-        this.sourceName = str;
+    public void setSourceName(String sourceName) {
+        this.sourceName = sourceName;
     }
 }

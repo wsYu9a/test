@@ -5,25 +5,24 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.os.AsyncTask;
-import android.os.Build;
 import android.util.Log;
 import androidx.annotation.Keep;
 import java.io.File;
 import java.util.concurrent.atomic.AtomicBoolean;
 
 @Keep
-/* loaded from: classes3.dex */
+/* loaded from: classes2.dex */
 public class DynamicInstallReceiver extends BroadcastReceiver {
     private static final AtomicBoolean HAS_REGISTER = new AtomicBoolean(false);
-    private static final String TAG = "KSAd_DYI";
+    private static final String TAG = "DynamicInstallReceiver";
 
     /* renamed from: com.kwad.sdk.api.loader.DynamicInstallReceiver$1 */
-    public class AnonymousClass1 implements Runnable {
-        final /* synthetic */ File aqb;
-        final /* synthetic */ String aqc;
-        final /* synthetic */ Context hB;
+    final class AnonymousClass1 implements Runnable {
+        final /* synthetic */ File ZD;
+        final /* synthetic */ String ZE;
+        final /* synthetic */ Context jN;
 
-        public AnonymousClass1(Context context, File file, String str) {
+        AnonymousClass1(Context context, File file, String str) {
             context = context;
             file = file;
             stringExtra2 = str;
@@ -32,14 +31,14 @@ public class DynamicInstallReceiver extends BroadcastReceiver {
         @Override // java.lang.Runnable
         public final void run() {
             try {
-                if (d.a(context, AnonymousClass1.class.getClassLoader(), file.getPath(), stringExtra2)) {
+                if (b.a(context, getClass().getClassLoader(), file.getPath(), stringExtra2)) {
                     Log.i(DynamicInstallReceiver.TAG, "onReceive ApkInstaller installApk success");
-                    i.p(context, stringExtra2);
-                    j.h(file);
+                    g.i(context, stringExtra2);
+                    h.c(file);
                 }
-            } catch (Exception e10) {
-                Log.i(DynamicInstallReceiver.TAG, "onReceive ApkInstaller installApk error:" + e10);
-                e10.printStackTrace();
+            } catch (Exception e2) {
+                Log.i(DynamicInstallReceiver.TAG, "onReceive ApkInstaller installApk error:" + e2);
+                e2.printStackTrace();
             }
         }
     }
@@ -53,13 +52,7 @@ public class DynamicInstallReceiver extends BroadcastReceiver {
             }
             String str = context.getPackageName() + ".loader.install.DynamicApk";
             Log.i(TAG, "registerToApp action:" + str);
-            IntentFilter intentFilter = new IntentFilter(str);
-            Context applicationContext = context.getApplicationContext();
-            if (Build.VERSION.SDK_INT >= 33) {
-                applicationContext.registerReceiver(new DynamicInstallReceiver(), intentFilter, 2);
-            } else {
-                applicationContext.registerReceiver(new DynamicInstallReceiver(), intentFilter);
-            }
+            context.getApplicationContext().registerReceiver(new DynamicInstallReceiver(), new IntentFilter(str));
             atomicBoolean.set(true);
         }
     }
@@ -68,22 +61,19 @@ public class DynamicInstallReceiver extends BroadcastReceiver {
     public void onReceive(Context context, Intent intent) {
         Log.i(TAG, "onReceive success");
         if (intent == null) {
-            Log.i(TAG, "intent is null");
             return;
         }
         String stringExtra = intent.getStringExtra("apkPath");
-        String stringExtra2 = intent.getStringExtra(b7.b.f1305b0);
+        String stringExtra2 = intent.getStringExtra("sdkVersion");
         File file = new File(stringExtra);
-        if (!file.exists()) {
-            Log.i(TAG, "downloadFile not exists: " + file);
-        } else {
+        if (file.exists()) {
             Log.i(TAG, "downloadFile is exists, apkPath :" + stringExtra + " sdkVersion:" + stringExtra2);
             AsyncTask.execute(new Runnable() { // from class: com.kwad.sdk.api.loader.DynamicInstallReceiver.1
-                final /* synthetic */ File aqb;
-                final /* synthetic */ String aqc;
-                final /* synthetic */ Context hB;
+                final /* synthetic */ File ZD;
+                final /* synthetic */ String ZE;
+                final /* synthetic */ Context jN;
 
-                public AnonymousClass1(Context context2, File file2, String stringExtra22) {
+                AnonymousClass1(Context context2, File file2, String stringExtra22) {
                     context = context2;
                     file = file2;
                     stringExtra2 = stringExtra22;
@@ -92,14 +82,14 @@ public class DynamicInstallReceiver extends BroadcastReceiver {
                 @Override // java.lang.Runnable
                 public final void run() {
                     try {
-                        if (d.a(context, AnonymousClass1.class.getClassLoader(), file.getPath(), stringExtra2)) {
+                        if (b.a(context, getClass().getClassLoader(), file.getPath(), stringExtra2)) {
                             Log.i(DynamicInstallReceiver.TAG, "onReceive ApkInstaller installApk success");
-                            i.p(context, stringExtra2);
-                            j.h(file);
+                            g.i(context, stringExtra2);
+                            h.c(file);
                         }
-                    } catch (Exception e10) {
-                        Log.i(DynamicInstallReceiver.TAG, "onReceive ApkInstaller installApk error:" + e10);
-                        e10.printStackTrace();
+                    } catch (Exception e2) {
+                        Log.i(DynamicInstallReceiver.TAG, "onReceive ApkInstaller installApk error:" + e2);
+                        e2.printStackTrace();
                     }
                 }
             });

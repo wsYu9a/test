@@ -1,9 +1,9 @@
 package com.bumptech.glide.manager;
 
-/* loaded from: classes2.dex */
+/* loaded from: classes.dex */
 public interface ConnectivityMonitor extends LifecycleListener {
 
     public interface ConnectivityListener {
-        void onConnectivityChanged(boolean z10);
+        void onConnectivityChanged(boolean z);
     }
 }

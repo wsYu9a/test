@@ -9,7 +9,7 @@ import com.bumptech.glide.load.engine.Resource;
 import com.bumptech.glide.load.engine.bitmap_recycle.BitmapPool;
 import com.bumptech.glide.load.resource.bitmap.BitmapResource;
 
-/* loaded from: classes2.dex */
+/* loaded from: classes.dex */
 public final class GifFrameResourceDecoder implements ResourceDecoder<GifDecoder, Bitmap> {
     private final BitmapPool bitmapPool;
 
@@ -23,7 +23,7 @@ public final class GifFrameResourceDecoder implements ResourceDecoder<GifDecoder
     }
 
     @Override // com.bumptech.glide.load.ResourceDecoder
-    public Resource<Bitmap> decode(@NonNull GifDecoder gifDecoder, int i10, int i11, @NonNull Options options) {
+    public Resource<Bitmap> decode(@NonNull GifDecoder gifDecoder, int i2, int i3, @NonNull Options options) {
         return BitmapResource.obtain(gifDecoder.getNextFrame(), this.bitmapPool);
     }
 }

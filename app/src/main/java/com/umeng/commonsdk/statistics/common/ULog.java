@@ -24,123 +24,124 @@ public class ULog {
     public static void d(Locale locale, String str, Object... objArr) {
         try {
             d(TAG, new Formatter(locale).format(str, objArr).toString(), (Throwable) null);
-        } catch (Throwable th2) {
-            e(th2);
+        } catch (Throwable th) {
+            e(th);
         }
     }
 
     public static void e(Locale locale, String str, Object... objArr) {
         try {
             e(TAG, new Formatter(locale).format(str, objArr).toString(), (Throwable) null);
-        } catch (Throwable th2) {
-            e(th2);
+        } catch (Throwable th) {
+            e(th);
         }
     }
 
-    public static String getStackTrace(Throwable th2) {
+    public static String getStackTrace(Throwable th) {
         PrintWriter printWriter;
-        StringWriter stringWriter = null;
+        StringWriter stringWriter;
+        StringWriter stringWriter2 = null;
         try {
-            StringWriter stringWriter2 = new StringWriter();
+            stringWriter = new StringWriter();
             try {
-                printWriter = new PrintWriter(stringWriter2);
-                try {
-                    th2.printStackTrace(printWriter);
-                    printWriter.flush();
-                    stringWriter2.flush();
-                    String stringWriter3 = stringWriter2.toString();
-                    try {
-                        stringWriter2.close();
-                    } catch (Throwable unused) {
-                    }
-                    printWriter.close();
-                    return stringWriter3;
-                } catch (Throwable unused2) {
-                    stringWriter = stringWriter2;
-                    if (stringWriter != null) {
-                        try {
-                            stringWriter.close();
-                        } catch (Throwable unused3) {
-                        }
-                    }
-                    if (printWriter != null) {
-                        printWriter.close();
-                    }
-                    return "";
-                }
-            } catch (Throwable unused4) {
+                printWriter = new PrintWriter(stringWriter);
+            } catch (Throwable unused) {
                 printWriter = null;
             }
-        } catch (Throwable unused5) {
+        } catch (Throwable unused2) {
             printWriter = null;
+        }
+        try {
+            th.printStackTrace(printWriter);
+            printWriter.flush();
+            stringWriter.flush();
+            String stringWriter3 = stringWriter.toString();
+            try {
+                stringWriter.close();
+            } catch (Throwable unused3) {
+            }
+            printWriter.close();
+            return stringWriter3;
+        } catch (Throwable unused4) {
+            stringWriter2 = stringWriter;
+            if (stringWriter2 != null) {
+                try {
+                    stringWriter2.close();
+                } catch (Throwable unused5) {
+                }
+            }
+            if (printWriter != null) {
+                printWriter.close();
+            }
+            return "";
         }
     }
 
     public static void i(Locale locale, String str, Object... objArr) {
         try {
             i(TAG, new Formatter(locale).format(str, objArr).toString(), (Throwable) null);
-        } catch (Throwable th2) {
-            e(th2);
+        } catch (Throwable th) {
+            e(th);
         }
     }
 
-    private static void print(int i10, String str, String str2, Throwable th2) {
+    private static void print(int i2, String str, String str2, Throwable th) {
         if (!TextUtils.isEmpty(str2)) {
             int length = str2.length();
-            int i11 = LOG_MAXLENGTH;
-            int i12 = 0;
-            int i13 = 0;
+            int i3 = LOG_MAXLENGTH;
+            int i4 = 0;
+            int i5 = 0;
             while (true) {
-                if (i12 >= 100) {
+                if (i4 >= 100) {
                     break;
                 }
-                if (length > i11) {
-                    if (i10 == 1) {
-                        Log.v(str, str2.substring(i13, i11));
-                    } else if (i10 == 2) {
-                        Log.d(str, str2.substring(i13, i11));
-                    } else if (i10 == 3) {
-                        Log.i(str, str2.substring(i13, i11));
-                    } else if (i10 == 4) {
-                        Log.w(str, str2.substring(i13, i11));
-                    } else if (i10 == 5) {
-                        Log.e(str, str2.substring(i13, i11));
+                if (length > i3) {
+                    if (i2 == 1) {
+                        Log.v(str, str2.substring(i5, i3));
+                    } else if (i2 == 2) {
+                        Log.d(str, str2.substring(i5, i3));
+                    } else if (i2 == 3) {
+                        Log.i(str, str2.substring(i5, i3));
+                    } else if (i2 == 4) {
+                        Log.w(str, str2.substring(i5, i3));
+                    } else if (i2 == 5) {
+                        Log.e(str, str2.substring(i5, i3));
                     }
-                    i12++;
-                    i13 = i11;
-                    i11 = LOG_MAXLENGTH + i11;
-                } else if (i10 == 1) {
-                    Log.v(str, str2.substring(i13, length));
-                } else if (i10 == 2) {
-                    Log.d(str, str2.substring(i13, length));
-                } else if (i10 == 3) {
-                    Log.i(str, str2.substring(i13, length));
-                } else if (i10 == 4) {
-                    Log.w(str, str2.substring(i13, length));
-                } else if (i10 == 5) {
-                    Log.e(str, str2.substring(i13, length));
+                    i4++;
+                    i5 = i3;
+                    i3 = LOG_MAXLENGTH + i3;
+                } else if (i2 == 1) {
+                    Log.v(str, str2.substring(i5, length));
+                } else if (i2 == 2) {
+                    Log.d(str, str2.substring(i5, length));
+                } else if (i2 == 3) {
+                    Log.i(str, str2.substring(i5, length));
+                } else if (i2 == 4) {
+                    Log.w(str, str2.substring(i5, length));
+                } else if (i2 == 5) {
+                    Log.e(str, str2.substring(i5, length));
                 }
             }
         }
-        if (th2 != null) {
-            String stackTrace = getStackTrace(th2);
+        if (th != null) {
+            String stackTrace = getStackTrace(th);
             if (TextUtils.isEmpty(stackTrace)) {
                 return;
             }
-            if (i10 == 1) {
+            if (i2 == 1) {
                 Log.v(str, stackTrace);
                 return;
             }
-            if (i10 == 2) {
+            if (i2 == 2) {
                 Log.d(str, stackTrace);
                 return;
             }
-            if (i10 == 3) {
+            if (i2 == 3) {
                 Log.i(str, stackTrace);
-            } else if (i10 == 4) {
+            } else if (i2 == 4) {
                 Log.w(str, stackTrace);
             } else {
-                if (i10 != 5) {
+                if (i2 != 5) {
                     return;
                 }
                 Log.e(str, stackTrace);
@@ -151,137 +152,117 @@ public class ULog {
     public static void v(Locale locale, String str, Object... objArr) {
         try {
             v(TAG, new Formatter(locale).format(str, objArr).toString(), (Throwable) null);
-        } catch (Throwable th2) {
-            e(th2);
+        } catch (Throwable th) {
+            e(th);
         }
     }
 
     public static void w(Locale locale, String str, Object... objArr) {
         try {
             w(TAG, new Formatter(locale).format(str, objArr).toString(), (Throwable) null);
-        } catch (Throwable th2) {
-            e(th2);
+        } catch (Throwable th) {
+            e(th);
         }
     }
 
     public static void d(String str, Object... objArr) {
         try {
-            String str2 = "";
             if (str.contains("%")) {
                 d(TAG, new Formatter().format(str, objArr).toString(), (Throwable) null);
             } else {
-                if (objArr != null) {
-                    str2 = (String) objArr[0];
-                }
-                d(str, str2, (Throwable) null);
+                d(str, objArr != null ? (String) objArr[0] : "", (Throwable) null);
             }
-        } catch (Throwable th2) {
-            e(th2);
+        } catch (Throwable th) {
+            e(th);
         }
     }
 
     public static void e(String str, Object... objArr) {
         try {
-            String str2 = "";
             if (str.contains("%")) {
                 e(TAG, new Formatter().format(str, objArr).toString(), (Throwable) null);
             } else {
-                if (objArr != null) {
-                    str2 = (String) objArr[0];
-                }
-                e(str, str2, (Throwable) null);
+                e(str, objArr != null ? (String) objArr[0] : "", (Throwable) null);
             }
-        } catch (Throwable th2) {
-            e(th2);
+        } catch (Throwable th) {
+            e(th);
         }
     }
 
     public static void i(String str, Object... objArr) {
         try {
-            String str2 = "";
             if (str.contains("%")) {
                 i(TAG, new Formatter().format(str, objArr).toString(), (Throwable) null);
             } else {
-                if (objArr != null) {
-                    str2 = (String) objArr[0];
-                }
-                i(str, str2, (Throwable) null);
+                i(str, objArr != null ? (String) objArr[0] : "", (Throwable) null);
             }
-        } catch (Throwable th2) {
-            e(th2);
+        } catch (Throwable th) {
+            e(th);
         }
     }
 
     public static void v(String str, Object... objArr) {
         try {
-            String str2 = "";
             if (str.contains("%")) {
                 v(TAG, new Formatter().format(str, objArr).toString(), (Throwable) null);
             } else {
-                if (objArr != null) {
-                    str2 = (String) objArr[0];
-                }
-                v(str, str2, (Throwable) null);
+                v(str, objArr != null ? (String) objArr[0] : "", (Throwable) null);
             }
-        } catch (Throwable th2) {
-            e(th2);
+        } catch (Throwable th) {
+            e(th);
         }
     }
 
     public static void w(String str, Object... objArr) {
         try {
-            String str2 = "";
             if (str.contains("%")) {
                 w(TAG, new Formatter().format(str, objArr).toString(), (Throwable) null);
             } else {
-                if (objArr != null) {
-                    str2 = (String) objArr[0];
-                }
-                w(str, str2, (Throwable) null);
+                w(str, objArr != null ? (String) objArr[0] : "", (Throwable) null);
             }
-        } catch (Throwable th2) {
-            e(th2);
+        } catch (Throwable th) {
+            e(th);
         }
     }
 
-    public static void d(Throwable th2) {
-        d(TAG, (String) null, th2);
+    public static void d(Throwable th) {
+        d(TAG, (String) null, th);
     }
 
-    public static void e(Throwable th2) {
-        e(TAG, (String) null, th2);
+    public static void e(Throwable th) {
+        e(TAG, (String) null, th);
     }
 
-    public static void i(Throwable th2) {
-        i(TAG, (String) null, th2);
+    public static void i(Throwable th) {
+        i(TAG, (String) null, th);
     }
 
-    public static void v(Throwable th2) {
-        v(TAG, (String) null, th2);
+    public static void v(Throwable th) {
+        v(TAG, (String) null, th);
     }
 
-    public static void w(Throwable th2) {
-        w(TAG, (String) null, th2);
+    public static void w(Throwable th) {
+        w(TAG, (String) null, th);
     }
 
-    public static void d(String str, Throwable th2) {
-        d(TAG, str, th2);
+    public static void d(String str, Throwable th) {
+        d(TAG, str, th);
     }
 
-    public static void e(String str, Throwable th2) {
-        e(TAG, str, th2);
+    public static void e(String str, Throwable th) {
+        e(TAG, str, th);
     }
 
-    public static void i(String str, Throwable th2) {
-        i(TAG, str, th2);
+    public static void i(String str, Throwable th) {
+        i(TAG, str, th);
     }
 
-    public static void v(String str, Throwable th2) {
-        v(TAG, str, th2);
+    public static void v(String str, Throwable th) {
+        v(TAG, str, th);
     }
 
-    public static void w(String str, Throwable th2) {
-        w(TAG, str, th2);
+    public static void w(String str, Throwable th) {
+        w(TAG, str, th);
     }
 
     public static void d(String str) {
@@ -304,33 +285,33 @@ public class ULog {
         w(TAG, str, (Throwable) null);
     }
 
-    public static void d(String str, String str2, Throwable th2) {
+    public static void d(String str, String str2, Throwable th) {
         if (DEBUG) {
-            print(2, str, str2, th2);
+            print(2, str, str2, th);
         }
     }
 
-    public static void e(String str, String str2, Throwable th2) {
+    public static void e(String str, String str2, Throwable th) {
         if (DEBUG) {
-            print(5, str, str2, th2);
+            print(5, str, str2, th);
         }
     }
 
-    public static void i(String str, String str2, Throwable th2) {
+    public static void i(String str, String str2, Throwable th) {
         if (DEBUG) {
-            print(3, str, str2, th2);
+            print(3, str, str2, th);
         }
     }
 
-    public static void v(String str, String str2, Throwable th2) {
+    public static void v(String str, String str2, Throwable th) {
         if (DEBUG) {
-            print(1, str, str2, th2);
+            print(1, str, str2, th);
         }
     }
 
-    public static void w(String str, String str2, Throwable th2) {
+    public static void w(String str, String str2, Throwable th) {
         if (DEBUG) {
-            print(4, str, str2, th2);
+            print(4, str, str2, th);
         }
     }
 }

@@ -4,40 +4,40 @@ package com.umeng.commonsdk.vchannel;
 public class a {
 
     /* renamed from: a */
-    public static String f24870a = "https://pslog.umeng.com";
+    public static String f26504a = "https://pslog.umeng.com";
 
     /* renamed from: b */
-    public static String f24871b = "https://pslog.umeng.com/";
+    public static String f26505b = "https://pslog.umeng.com/";
 
     /* renamed from: c */
-    public static String f24872c = "explog";
+    public static String f26506c = "explog";
 
     /* renamed from: d */
-    public static final String f24873d = "analytics";
+    public static final String f26507d = "analytics";
 
     /* renamed from: e */
-    public static final String f24874e = "ekv";
+    public static final String f26508e = "ekv";
 
     /* renamed from: f */
-    public static final String f24875f = "id";
+    public static final String f26509f = "id";
 
     /* renamed from: g */
-    public static final String f24876g = "ts";
+    public static final String f26510g = "ts";
 
     /* renamed from: h */
-    public static final String f24877h = "ds";
+    public static final String f26511h = "ds";
 
     /* renamed from: i */
-    public static final String f24878i = "pn";
+    public static final String f26512i = "pn";
 
     /* renamed from: j */
-    public static String f24879j = "";
+    public static String f26513j = "";
 
     static {
         String str = "SUB" + System.currentTimeMillis();
-        StringBuilder sb2 = new StringBuilder();
-        sb2.append(str);
-        sb2.append(String.format("%0" + (32 - str.length()) + "d", 0));
-        f24879j = sb2.toString();
+        StringBuilder sb = new StringBuilder();
+        sb.append(str);
+        sb.append(String.format("%0" + (32 - str.length()) + "d", 0));
+        f26513j = sb.toString();
     }
 }

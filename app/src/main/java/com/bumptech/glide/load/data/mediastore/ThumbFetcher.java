@@ -13,23 +13,24 @@ import com.bumptech.glide.Priority;
 import com.bumptech.glide.load.DataSource;
 import com.bumptech.glide.load.data.DataFetcher;
 import com.bumptech.glide.load.data.ExifOrientationStream;
+import com.vivo.ic.dm.Downloads;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
 
-/* loaded from: classes2.dex */
+/* loaded from: classes.dex */
 public class ThumbFetcher implements DataFetcher<InputStream> {
     private static final String TAG = "MediaStoreThumbFetcher";
     private InputStream inputStream;
     private final Uri mediaStoreImageUri;
     private final ThumbnailStreamOpener opener;
 
-    public static class ImageThumbnailQuery implements ThumbnailQuery {
-        private static final String[] PATH_PROJECTION = {"_data"};
+    static class ImageThumbnailQuery implements ThumbnailQuery {
+        private static final String[] PATH_PROJECTION = {Downloads.Column.DATA};
         private static final String PATH_SELECTION = "kind = 1 AND image_id = ?";
         private final ContentResolver contentResolver;
 
-        public ImageThumbnailQuery(ContentResolver contentResolver) {
+        ImageThumbnailQuery(ContentResolver contentResolver) {
             this.contentResolver = contentResolver;
         }
 
@@ -39,12 +40,12 @@ public class ThumbFetcher implements DataFetcher<InputStream> {
         }
     }
 
-    public static class VideoThumbnailQuery implements ThumbnailQuery {
-        private static final String[] PATH_PROJECTION = {"_data"};
+    static class VideoThumbnailQuery implements ThumbnailQuery {
+        private static final String[] PATH_PROJECTION = {Downloads.Column.DATA};
         private static final String PATH_SELECTION = "kind = 1 AND video_id = ?";
         private final ContentResolver contentResolver;
 
-        public VideoThumbnailQuery(ContentResolver contentResolver) {
+        VideoThumbnailQuery(ContentResolver contentResolver) {
             this.contentResolver = contentResolver;
         }
 
@@ -55,7 +56,7 @@ public class ThumbFetcher implements DataFetcher<InputStream> {
     }
 
     @VisibleForTesting
-    public ThumbFetcher(Uri uri, ThumbnailStreamOpener thumbnailStreamOpener) {
+    ThumbFetcher(Uri uri, ThumbnailStreamOpener thumbnailStreamOpener) {
         this.mediaStoreImageUri = uri;
         this.opener = thumbnailStreamOpener;
     }
@@ -111,11 +112,11 @@ public class ThumbFetcher implements DataFetcher<InputStream> {
             InputStream openThumbInputStream = openThumbInputStream();
             this.inputStream = openThumbInputStream;
             dataCallback.onDataReady(openThumbInputStream);
-        } catch (FileNotFoundException e10) {
+        } catch (FileNotFoundException e2) {
             if (Log.isLoggable(TAG, 3)) {
-                Log.d(TAG, "Failed to find thumbnail file", e10);
+                Log.d(TAG, "Failed to find thumbnail file", e2);
             }
-            dataCallback.onLoadFailed(e10);
+            dataCallback.onLoadFailed(e2);
         }
     }
 }

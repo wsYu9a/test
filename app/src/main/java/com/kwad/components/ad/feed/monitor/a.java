@@ -1,47 +1,81 @@
 package com.kwad.components.ad.feed.monitor;
 
-import android.text.TextUtils;
-import android.util.Pair;
-import androidx.annotation.NonNull;
-import com.kwad.sdk.core.config.d;
-import com.kwad.sdk.core.network.a.a;
-import com.kwad.sdk.core.response.b.e;
+import com.kwad.components.offline.api.core.api.ILoggerReporter;
+import com.kwad.sdk.core.report.KSLoggerReporter;
+import com.kwad.sdk.core.report.o;
+import com.kwad.sdk.core.response.a.d;
+import com.kwad.sdk.core.response.model.AdInfo;
 import com.kwad.sdk.core.response.model.AdTemplate;
-import com.kwad.sdk.core.videocache.f;
-import com.kwad.sdk.service.ServiceProvider;
-import com.kwad.sdk.utils.u;
-import java.io.File;
+import com.kwai.adclient.kscommerciallogger.model.BusinessType;
+import com.kwai.adclient.kscommerciallogger.model.SubBusinessType;
+import org.json.JSONObject;
 
-/* loaded from: classes2.dex */
+/* loaded from: classes.dex */
 public final class a {
-    public static Pair<Integer, String> h(@NonNull AdTemplate adTemplate) {
-        String K = com.kwad.sdk.core.response.b.a.K(e.eb(adTemplate));
-        if (TextUtils.isEmpty(K)) {
-            return new Pair<>(2, "empty videoUrl");
+    public static void a(int i2, long j2) {
+        c(new FeedPageInfo().setStatus(6).setAdNum(i2).setLoadDataDuration(j2).toJson());
+    }
+
+    public static void a(AdTemplate adTemplate, int i2) {
+        c(new FeedPageInfo().setStatus(7).setType(adTemplate.type).setMaterialType(com.kwad.sdk.core.response.a.a.aW(d.cb(adTemplate))).setRenderType(i2).setExpectedRenderType(2).toJson());
+    }
+
+    public static void a(AdTemplate adTemplate, int i2, int i3, String str, String str2, long j2) {
+        if (i3 == 1 && adTemplate.mHasReportVideoLoad) {
+            return;
         }
-        int Ag = d.Ag();
-        int i10 = 1;
-        String str = "";
-        if (Ag < 0) {
-            File ca2 = com.kwad.sdk.core.diskcache.b.a.EG().ca(K);
-            if (!u.M(ca2)) {
-                a.C0497a c0497a = new a.C0497a();
-                int i11 = com.kwad.sdk.core.diskcache.b.a.EG().a(K, c0497a) ? 1 : 2;
-                str = c0497a.msg;
-                i10 = i11;
-            }
-            adTemplate.setDownloadSize(ca2 != null ? ca2.length() : 0L);
-        } else if (Ag > 0) {
-            a.C0497a c0497a2 = new a.C0497a();
-            f bC = com.kwad.sdk.core.videocache.c.a.bC(ServiceProvider.getContext());
-            if (!bC.eO(K)) {
-                i10 = bC.a(K, (long) (Ag * 1024), c0497a2, null) ? 1 : 2;
-            }
-            str = c0497a2.msg;
-            adTemplate.setDownloadSize(Ag * 1024);
-        } else {
-            adTemplate.setDownloadSize(0L);
+        if (i3 == 1) {
+            adTemplate.mHasReportVideoLoad = true;
         }
-        return new Pair<>(Integer.valueOf(i10), str);
+        a(new FeedPageInfo().setStatus(3).setType(adTemplate.type).setLoadStatus(i2).setResourceLoadDuration(j2).setMaterialType(i3).setMaterialUrl(str).setErrorMsg(str2).toJson(), i2 == 2);
+    }
+
+    public static void a(AdTemplate adTemplate, int i2, long j2) {
+        c(new FeedPageInfo().setStatus(8).setType(adTemplate.type).setMaterialType(com.kwad.sdk.core.response.a.a.aW(d.cb(adTemplate))).setRenderType(i2).setConvertDuration(j2).toJson());
+    }
+
+    public static void a(AdTemplate adTemplate, int i2, long j2, String str) {
+        AdInfo cb = d.cb(adTemplate);
+        a(new FeedPageInfo().setStatus(5).setType(adTemplate.type).setMaterialType(com.kwad.sdk.core.response.a.a.aW(cb)).setRenderType(i2).setExpectedRenderType(2).setErrorMsg(str).setRenderDuration(j2).setExtMsg(cb.adStyleInfo.feedAdInfo.toString()).toJson(), i2 != 2);
+    }
+
+    public static void a(String str, long j2, int i2) {
+        KSLoggerReporter.j(new FeedWebViewInfo().setEvent("webview_timeout").setSceneId("ad_feed").setTimeType(i2).setDurationMs(j2).setUrl(str).toJson());
+    }
+
+    private static void a(JSONObject jSONObject, boolean z) {
+        KSLoggerReporter.a(new o.a().cE(z ? ILoggerReporter.Category.ERROR_LOG : ILoggerReporter.Category.APM_LOG).b(BusinessType.AD_FEED).a(SubBusinessType.OTHER).a(com.kwai.adclient.kscommerciallogger.model.a.aEg).cF("ad_sdk_feed_load").A(jSONObject).xa());
+    }
+
+    public static void bg() {
+        KSLoggerReporter.j(new FeedWebViewInfo().setEvent("ad_show").setSceneId("ad_feed").toJson());
+    }
+
+    public static void bh() {
+        KSLoggerReporter.j(new FeedWebViewInfo().setEvent("webview_init").setSceneId("ad_feed").toJson());
+    }
+
+    public static void c(String str, long j2) {
+        KSLoggerReporter.j(new FeedWebViewInfo().setEvent("webview_load_finish").setSceneId("ad_feed").setDurationMs(j2).setUrl(str).toJson());
+    }
+
+    private static void c(JSONObject jSONObject) {
+        a(jSONObject, false);
+    }
+
+    public static void d(int i2, String str) {
+        a(new FeedPageInfo().setStatus(9).setErrorCode(i2).setErrorMsg(str).toJson(), true);
+    }
+
+    public static void s(String str) {
+        KSLoggerReporter.j(new FeedWebViewInfo().setEvent("webview_load_url").setSceneId("ad_feed").setUrl(str).toJson());
+    }
+
+    public static void w(int i2) {
+        c(new FeedPageInfo().setStatus(1).setAdNum(i2).toJson());
+    }
+
+    public static void x(int i2) {
+        c(new FeedPageInfo().setStatus(2).setAdNum(i2).toJson());
     }
 }

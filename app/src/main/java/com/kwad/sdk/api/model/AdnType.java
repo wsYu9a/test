@@ -6,7 +6,7 @@ import java.lang.annotation.RetentionPolicy;
 
 @Keep
 @Retention(RetentionPolicy.SOURCE)
-/* loaded from: classes3.dex */
+/* loaded from: classes.dex */
 public @interface AdnType {
     public static final int INDIVIDUAL_AD = 3;
     public static final int KS_AD = 1;

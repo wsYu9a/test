@@ -1,27 +1,23 @@
 package com.umeng.analytics.pro;
 
+import android.content.Context;
+import org.repackage.com.meizu.flyme.openidsdk.OpenIdHelper;
+
 /* loaded from: classes4.dex */
-public class af implements ac {
-
-    /* renamed from: a */
-    private long f23398a;
-
-    public af(long j10) {
-        this.f23398a = j10;
+class af implements z {
+    af() {
     }
 
-    @Override // com.umeng.analytics.pro.ac
-    public boolean a() {
-        return true;
-    }
-
-    @Override // com.umeng.analytics.pro.ac
-    public boolean b() {
-        return !a();
-    }
-
-    @Override // com.umeng.analytics.pro.ac
-    public long c() {
-        return this.f23398a;
+    @Override // com.umeng.analytics.pro.z
+    public String a(Context context) {
+        if (context == null) {
+            return null;
+        }
+        boolean a2 = OpenIdHelper.a();
+        al.a("getOAID", "isSupported", Boolean.valueOf(a2));
+        if (a2) {
+            return OpenIdHelper.b(context);
+        }
+        return null;
     }
 }

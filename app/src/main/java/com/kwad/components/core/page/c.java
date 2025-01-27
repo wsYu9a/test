@@ -3,121 +3,108 @@ package com.kwad.components.core.page;
 import android.content.Context;
 import androidx.annotation.NonNull;
 import com.kwad.components.core.page.AdWebViewActivityProxy;
-import com.kwad.components.core.page.c.a.e;
-import com.kwad.components.core.page.c.a.f;
-import com.kwad.components.core.page.c.a.g;
+import com.kwad.components.core.page.a.kwai.e;
+import com.kwad.components.core.page.a.kwai.f;
+import com.kwad.components.core.page.a.kwai.g;
 import com.kwad.sdk.R;
 import com.kwad.sdk.core.response.model.AdTemplate;
 import com.kwad.sdk.core.webview.KsAdWebView;
 import com.kwad.sdk.mvp.Presenter;
 
-/* loaded from: classes3.dex */
-public final class c extends com.kwad.components.core.l.c<com.kwad.components.core.page.c.a.b> {
-    private AdWebViewActivityProxy.a Qw;
+/* loaded from: classes2.dex */
+public final class c extends com.kwad.components.core.j.c<com.kwad.components.core.page.a.kwai.b> {
     private AdTemplate mAdTemplate;
     private KsAdWebView mAdWebView;
     private boolean mAutoShow;
     private Context mContext;
-    private com.kwad.components.core.page.a.a mLandPageViewListener;
+    private com.kwad.components.core.page.kwai.a mLandPageViewListener;
     private String mPageTitle;
     private String mPageUrl;
     private boolean mShowPermission;
-    private com.kwad.sdk.core.webview.d.a.b mWebCardCloseListener;
+    private com.kwad.sdk.core.webview.c.kwai.b mWebCardCloseListener;
 
     private c(Context context) {
         super(context);
     }
 
-    public static c a(Context context, AdWebViewActivityProxy.a aVar) {
+    public static c b(Context context, AdWebViewActivityProxy.a aVar) {
         c cVar = new c(context);
-        cVar.b(context, aVar);
+        cVar.c(context, aVar);
         return cVar;
     }
 
-    private void b(Context context, AdWebViewActivityProxy.a aVar) {
-        this.Qw = aVar;
+    private void c(Context context, AdWebViewActivityProxy.a aVar) {
         this.mContext = context;
         this.mAdTemplate = aVar.getAdTemplate();
-        this.mPageUrl = aVar.pV();
-        this.mPageTitle = aVar.pU();
-        this.mShowPermission = aVar.pX();
-        this.mAutoShow = aVar.pZ();
+        this.mPageUrl = aVar.nZ();
+        this.mPageTitle = aVar.nY();
+        this.mShowPermission = aVar.oa();
+        this.mAutoShow = aVar.ob();
     }
 
-    @Override // com.kwad.components.core.l.c
-    /* renamed from: qb */
-    public com.kwad.components.core.page.c.a.b ak() {
-        com.kwad.components.core.page.c.a.b bVar = new com.kwad.components.core.page.c.a.b();
+    @Override // com.kwad.components.core.j.c
+    /* renamed from: od */
+    public com.kwad.components.core.page.a.kwai.b kp() {
+        com.kwad.components.core.page.a.kwai.b bVar = new com.kwad.components.core.page.a.kwai.b();
         bVar.mContext = this.mContext;
         bVar.mAdTemplate = this.mAdTemplate;
-        bVar.Qw = this.Qw;
         bVar.mPageTitle = this.mPageTitle;
         bVar.mPageUrl = this.mPageUrl;
         bVar.mAutoShow = this.mAutoShow;
         bVar.mShowPermission = this.mShowPermission;
-        bVar.QM = this.mLandPageViewListener;
+        bVar.LH = this.mLandPageViewListener;
         bVar.setWebCardCloseListener(this.mWebCardCloseListener);
-        bVar.f8if = this.mR;
+        bVar.gv = this.lW;
         return bVar;
     }
 
-    @Override // com.kwad.components.core.l.c, com.kwad.sdk.widget.KSFrameLayout
-    public final void aa() {
-        super.aa();
-        KsAdWebView ksAdWebView = this.mAdWebView;
-        if (ksAdWebView != null) {
-            ksAdWebView.release();
-            this.mAdWebView = null;
-        }
-    }
-
-    @Override // com.kwad.components.core.l.c
-    public final void aj() {
-        this.mAdWebView = (KsAdWebView) findViewById(R.id.ksad_video_webview);
-    }
-
     public final boolean getCanInterceptBackClick() {
-        return ((com.kwad.components.core.page.c.a.b) this.mPresenter.Lj()).qi();
+        return ((com.kwad.components.core.page.a.kwai.b) this.mPresenter.Bh()).ok();
     }
 
-    @Override // com.kwad.components.core.l.c
+    @Override // com.kwad.components.core.j.c
     public final int getLayoutId() {
         return R.layout.ksad_activity_ad_webview;
     }
 
-    @Override // com.kwad.components.core.l.c
+    @Override // com.kwad.components.core.j.c
     public final void initData() {
     }
 
-    @Override // com.kwad.components.core.l.c
+    @Override // com.kwad.components.core.j.c
+    public final void kn() {
+        this.mAdWebView = (KsAdWebView) findViewById(R.id.ksad_video_webview);
+    }
+
+    public final void oe() {
+        ((com.kwad.components.core.page.a.kwai.b) this.mPresenter.Bh()).oe();
+    }
+
+    @Override // com.kwad.components.core.j.c
     @NonNull
     public final Presenter onCreatePresenter() {
         Presenter presenter = new Presenter();
         presenter.a(new f());
         presenter.a(new e());
-        if (com.kwad.sdk.core.response.b.e.J(((com.kwad.components.core.page.c.a.b) this.Ox).mAdTemplate)) {
-            presenter.a(new com.kwad.components.core.page.c.a.c());
+        if (com.kwad.sdk.core.response.a.d.p(((com.kwad.components.core.page.a.kwai.b) this.JV).mAdTemplate)) {
+            presenter.a(new com.kwad.components.core.page.a.kwai.c());
         }
-        if (com.kwad.sdk.core.response.b.a.aO(com.kwad.sdk.core.response.b.e.eb(((com.kwad.components.core.page.c.a.b) this.Ox).mAdTemplate)) && com.kwad.components.core.q.a.rJ().rP() && com.kwad.components.core.q.a.rJ().rK() == 1) {
-            presenter.a(new com.kwad.components.core.page.c.a.d());
+        if (com.kwad.sdk.core.response.a.a.aG(com.kwad.sdk.core.response.a.d.cb(((com.kwad.components.core.page.a.kwai.b) this.JV).mAdTemplate)) && com.kwad.components.core.p.a.pt().pz() && com.kwad.components.core.p.a.pt().pu() == 1) {
+            presenter.a(new com.kwad.components.core.page.a.kwai.d());
         }
         presenter.a(new g());
         return presenter;
     }
 
-    public final void qc() {
-        ((com.kwad.components.core.page.c.a.b) this.mPresenter.Lj()).qc();
-    }
-
-    public final void setLandPageViewListener(com.kwad.components.core.page.a.a aVar) {
+    public final void setLandPageViewListener(com.kwad.components.core.page.kwai.a aVar) {
         this.mLandPageViewListener = aVar;
     }
 
-    public final void setWebCardCloseListener(com.kwad.sdk.core.webview.d.a.b bVar) {
+    public final void setWebCardCloseListener(com.kwad.sdk.core.webview.c.kwai.b bVar) {
         this.mWebCardCloseListener = bVar;
         if (this.mAdWebView != null || bVar == null) {
             return;
         }
-        bVar.b(null);
+        bVar.a(null);
     }
 }

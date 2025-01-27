@@ -1,8 +1,8 @@
 package com.martian.appwall.request.auth;
 
-import v8.a;
+import com.martian.libcomm.http.requests.d.a;
 
-/* loaded from: classes3.dex */
+/* loaded from: classes2.dex */
 public class MartianPlayxianAppwallParams extends MartianAppwallAuthParams {
 
     @a
@@ -17,7 +17,7 @@ public class MartianPlayxianAppwallParams extends MartianAppwallAuthParams {
         return this.platform;
     }
 
-    public void setPlatform(String str) {
-        this.platform = str;
+    public void setPlatform(String platform) {
+        this.platform = platform;
     }
 }

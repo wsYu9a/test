@@ -1,6 +1,6 @@
 package com.martian.mibook.lib.account.request;
 
-import v8.a;
+import com.martian.libcomm.http.requests.d.a;
 
 /* loaded from: classes3.dex */
 public class PhoneLoginParams extends TYHttpGetParams {
@@ -19,16 +19,16 @@ public class PhoneLoginParams extends TYHttpGetParams {
         return this.phone;
     }
 
-    @Override // u8.b
+    @Override // com.martian.libcomm.http.requests.b
     public String getRequestMethod() {
         return "phone_login.do";
     }
 
-    public void setCode(String str) {
-        this.code = str;
+    public void setCode(String code) {
+        this.code = code;
     }
 
-    public void setPhone(String str) {
-        this.phone = str;
+    public void setPhone(String phone) {
+        this.phone = phone;
     }
 }

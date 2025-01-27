@@ -3,17 +3,17 @@ package com.kwad.components.core.internal.api;
 import com.ksad.annotation.invoker.InvokeBy;
 import com.kwad.sdk.api.KsVideoPlayConfig;
 
-/* loaded from: classes3.dex */
+/* loaded from: classes2.dex */
 public class VideoPlayConfigImpl implements KsVideoPlayConfig {
     private static final long serialVersionUID = -7203854889686049813L;
     private boolean showLandscape;
     private String showScene;
     private boolean skipThirtySecond;
-    private boolean videoSoundEnable = true;
+    public boolean videoSoundEnable = true;
 
-    @InvokeBy(invokerClass = com.kwad.sdk.service.b.class, methodId = "initModeImplForInvoker")
+    @InvokeBy(invokerClass = com.kwad.sdk.service.a.class, methodId = "initModeImplForInvoker")
     public static void register() {
-        com.kwad.sdk.service.b.b(KsVideoPlayConfig.class, VideoPlayConfigImpl.class);
+        com.kwad.sdk.service.a.b(KsVideoPlayConfig.class, VideoPlayConfigImpl.class);
     }
 
     @Override // com.kwad.sdk.api.KsVideoPlayConfig
@@ -37,8 +37,8 @@ public class VideoPlayConfigImpl implements KsVideoPlayConfig {
     }
 
     @Override // com.kwad.sdk.api.KsVideoPlayConfig
-    public void setShowLandscape(boolean z10) {
-        this.showLandscape = z10;
+    public void setShowLandscape(boolean z) {
+        this.showLandscape = z;
     }
 
     @Override // com.kwad.sdk.api.KsVideoPlayConfig
@@ -47,12 +47,12 @@ public class VideoPlayConfigImpl implements KsVideoPlayConfig {
     }
 
     @Override // com.kwad.sdk.api.KsVideoPlayConfig
-    public void setSkipThirtySecond(boolean z10) {
-        this.skipThirtySecond = z10;
+    public void setSkipThirtySecond(boolean z) {
+        this.skipThirtySecond = z;
     }
 
     @Override // com.kwad.sdk.api.KsVideoPlayConfig
-    public void setVideoSoundEnable(boolean z10) {
-        this.videoSoundEnable = z10;
+    public void setVideoSoundEnable(boolean z) {
+        this.videoSoundEnable = z;
     }
 }

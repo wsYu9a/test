@@ -11,48 +11,47 @@ import androidx.annotation.RequiresApi;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.view.ViewCompat;
 import com.google.android.material.R;
-import com.google.android.material.shape.MaterialShapeDrawable;
-import com.google.android.material.shape.MaterialShapeUtils;
-import com.google.android.material.theme.overlay.MaterialThemeOverlay;
+import com.google.android.material.j.j;
+import com.google.android.material.j.k;
 
-/* loaded from: classes2.dex */
+/* loaded from: classes.dex */
 public class MaterialToolbar extends Toolbar {
-    private static final int DEF_STYLE_RES = R.style.Widget_MaterialComponents_Toolbar;
+    private static final int Q = R.style.Widget_MaterialComponents_Toolbar;
 
     public MaterialToolbar(@NonNull Context context) {
         this(context, null);
     }
 
-    private void initBackground(Context context) {
+    private void B(Context context) {
         Drawable background = getBackground();
         if (background == null || (background instanceof ColorDrawable)) {
-            MaterialShapeDrawable materialShapeDrawable = new MaterialShapeDrawable();
-            materialShapeDrawable.setFillColor(ColorStateList.valueOf(background != null ? ((ColorDrawable) background).getColor() : 0));
-            materialShapeDrawable.initializeElevationOverlay(context);
-            materialShapeDrawable.setElevation(ViewCompat.getElevation(this));
-            ViewCompat.setBackground(this, materialShapeDrawable);
+            j jVar = new j();
+            jVar.n0(ColorStateList.valueOf(background != null ? ((ColorDrawable) background).getColor() : 0));
+            jVar.Y(context);
+            jVar.m0(ViewCompat.getElevation(this));
+            ViewCompat.setBackground(this, jVar);
         }
     }
 
-    @Override // androidx.appcompat.widget.Toolbar, android.view.ViewGroup, android.view.View
-    public void onAttachedToWindow() {
+    @Override // android.view.ViewGroup, android.view.View
+    protected void onAttachedToWindow() {
         super.onAttachedToWindow();
-        MaterialShapeUtils.setParentAbsoluteElevation(this);
+        k.e(this);
     }
 
     @Override // android.view.View
     @RequiresApi(21)
-    public void setElevation(float f10) {
-        super.setElevation(f10);
-        MaterialShapeUtils.setElevation(this, f10);
+    public void setElevation(float f2) {
+        super.setElevation(f2);
+        k.d(this, f2);
     }
 
     public MaterialToolbar(@NonNull Context context, @Nullable AttributeSet attributeSet) {
         this(context, attributeSet, R.attr.toolbarStyle);
     }
 
-    public MaterialToolbar(@NonNull Context context, @Nullable AttributeSet attributeSet, int i10) {
-        super(MaterialThemeOverlay.wrap(context, attributeSet, i10, DEF_STYLE_RES), attributeSet, i10);
-        initBackground(getContext());
+    public MaterialToolbar(@NonNull Context context, @Nullable AttributeSet attributeSet, int i2) {
+        super(com.google.android.material.theme.a.a.c(context, attributeSet, i2, Q), attributeSet, i2);
+        B(getContext());
     }
 }

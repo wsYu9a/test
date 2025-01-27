@@ -25,12 +25,9 @@ public class Downloader extends BaseDownloader {
     public static Downloader getInstance(Context context) {
         if (instance == null) {
             synchronized (Downloader.class) {
-                try {
-                    if (instance == null) {
-                        DownloadComponentManager.setAppContext(context);
-                        instance = new Downloader();
-                    }
-                } finally {
+                if (instance == null) {
+                    DownloadComponentManager.setAppContext(context);
+                    instance = new Downloader();
                 }
             }
         }
@@ -43,53 +40,49 @@ public class Downloader extends BaseDownloader {
         }
     }
 
-    public static synchronized void initOrCover(DownloaderBuilder downloaderBuilder, boolean z10) {
+    public static synchronized void initOrCover(DownloaderBuilder downloaderBuilder, boolean z) {
         synchronized (Downloader.class) {
             if (downloaderBuilder == null) {
                 return;
             }
-            try {
-                if (instance == null) {
-                    instance = downloaderBuilder.build();
-                } else if (!DownloadComponentManager.isInit()) {
-                    DownloadComponentManager.initComponent(downloaderBuilder);
-                } else if (z10) {
-                    DownloadComponentManager.coverComponent(downloaderBuilder);
-                }
-            } catch (Throwable th2) {
-                throw th2;
+            if (instance == null) {
+                instance = downloaderBuilder.build();
+            } else if (!DownloadComponentManager.isInit()) {
+                DownloadComponentManager.initComponent(downloaderBuilder);
+            } else if (z) {
+                DownloadComponentManager.coverComponent(downloaderBuilder);
             }
         }
     }
 
     @Override // com.ss.android.socialbase.downloader.downloader.BaseDownloader
-    public /* bridge */ /* synthetic */ void addMainThreadListener(int i10, IDownloadListener iDownloadListener) {
-        super.addMainThreadListener(i10, iDownloadListener);
+    public /* bridge */ /* synthetic */ void addMainThreadListener(int i2, IDownloadListener iDownloadListener) {
+        super.addMainThreadListener(i2, iDownloadListener);
     }
 
     @Override // com.ss.android.socialbase.downloader.downloader.BaseDownloader
-    public /* bridge */ /* synthetic */ void addNotificationListener(int i10, IDownloadListener iDownloadListener) {
-        super.addNotificationListener(i10, iDownloadListener);
+    public /* bridge */ /* synthetic */ void addNotificationListener(int i2, IDownloadListener iDownloadListener) {
+        super.addNotificationListener(i2, iDownloadListener);
     }
 
     @Override // com.ss.android.socialbase.downloader.downloader.BaseDownloader
-    public /* bridge */ /* synthetic */ void addSubThreadListener(int i10, IDownloadListener iDownloadListener) {
-        super.addSubThreadListener(i10, iDownloadListener);
+    public /* bridge */ /* synthetic */ void addSubThreadListener(int i2, IDownloadListener iDownloadListener) {
+        super.addSubThreadListener(i2, iDownloadListener);
     }
 
     @Override // com.ss.android.socialbase.downloader.downloader.BaseDownloader
-    public /* bridge */ /* synthetic */ boolean canResume(int i10) {
-        return super.canResume(i10);
+    public /* bridge */ /* synthetic */ boolean canResume(int i2) {
+        return super.canResume(i2);
     }
 
     @Override // com.ss.android.socialbase.downloader.downloader.BaseDownloader
-    public /* bridge */ /* synthetic */ void cancel(int i10) {
-        super.cancel(i10);
+    public /* bridge */ /* synthetic */ void cancel(int i2) {
+        super.cancel(i2);
     }
 
     @Override // com.ss.android.socialbase.downloader.downloader.BaseDownloader
-    public /* bridge */ /* synthetic */ void clearDownloadData(int i10) {
-        super.clearDownloadData(i10);
+    public /* bridge */ /* synthetic */ void clearDownloadData(int i2) {
+        super.clearDownloadData(i2);
     }
 
     @Override // com.ss.android.socialbase.downloader.downloader.BaseDownloader
@@ -98,8 +91,8 @@ public class Downloader extends BaseDownloader {
     }
 
     @Override // com.ss.android.socialbase.downloader.downloader.BaseDownloader
-    public /* bridge */ /* synthetic */ void forceDownloadIngoreRecommendSize(int i10) {
-        super.forceDownloadIngoreRecommendSize(i10);
+    public /* bridge */ /* synthetic */ void forceDownloadIngoreRecommendSize(int i2) {
+        super.forceDownloadIngoreRecommendSize(i2);
     }
 
     @Override // com.ss.android.socialbase.downloader.downloader.BaseDownloader
@@ -108,13 +101,13 @@ public class Downloader extends BaseDownloader {
     }
 
     @Override // com.ss.android.socialbase.downloader.downloader.BaseDownloader
-    public /* bridge */ /* synthetic */ long getCurBytes(int i10) {
-        return super.getCurBytes(i10);
+    public /* bridge */ /* synthetic */ long getCurBytes(int i2) {
+        return super.getCurBytes(i2);
     }
 
     @Override // com.ss.android.socialbase.downloader.downloader.BaseDownloader
-    public /* bridge */ /* synthetic */ IDownloadFileUriProvider getDownloadFileUriProvider(int i10) {
-        return super.getDownloadFileUriProvider(i10);
+    public /* bridge */ /* synthetic */ IDownloadFileUriProvider getDownloadFileUriProvider(int i2) {
+        return super.getDownloadFileUriProvider(i2);
     }
 
     @Override // com.ss.android.socialbase.downloader.downloader.BaseDownloader
@@ -123,8 +116,8 @@ public class Downloader extends BaseDownloader {
     }
 
     @Override // com.ss.android.socialbase.downloader.downloader.BaseDownloader
-    public /* bridge */ /* synthetic */ DownloadInfo getDownloadInfo(int i10) {
-        return super.getDownloadInfo(i10);
+    public /* bridge */ /* synthetic */ DownloadInfo getDownloadInfo(int i2) {
+        return super.getDownloadInfo(i2);
     }
 
     @Override // com.ss.android.socialbase.downloader.downloader.BaseDownloader
@@ -133,8 +126,8 @@ public class Downloader extends BaseDownloader {
     }
 
     @Override // com.ss.android.socialbase.downloader.downloader.BaseDownloader
-    public /* bridge */ /* synthetic */ IDownloadNotificationEventListener getDownloadNotificationEventListener(int i10) {
-        return super.getDownloadNotificationEventListener(i10);
+    public /* bridge */ /* synthetic */ IDownloadNotificationEventListener getDownloadNotificationEventListener(int i2) {
+        return super.getDownloadNotificationEventListener(i2);
     }
 
     @Override // com.ss.android.socialbase.downloader.downloader.BaseDownloader
@@ -163,8 +156,8 @@ public class Downloader extends BaseDownloader {
     }
 
     @Override // com.ss.android.socialbase.downloader.downloader.BaseDownloader
-    public /* bridge */ /* synthetic */ int getStatus(int i10) {
-        return super.getStatus(i10);
+    public /* bridge */ /* synthetic */ int getStatus(int i2) {
+        return super.getStatus(i2);
     }
 
     @Override // com.ss.android.socialbase.downloader.downloader.BaseDownloader
@@ -183,8 +176,8 @@ public class Downloader extends BaseDownloader {
     }
 
     @Override // com.ss.android.socialbase.downloader.downloader.BaseDownloader
-    public /* bridge */ /* synthetic */ boolean isDownloadServiceForeground(int i10) {
-        return super.isDownloadServiceForeground(i10);
+    public /* bridge */ /* synthetic */ boolean isDownloadServiceForeground(int i2) {
+        return super.isDownloadServiceForeground(i2);
     }
 
     @Override // com.ss.android.socialbase.downloader.downloader.BaseDownloader
@@ -193,8 +186,8 @@ public class Downloader extends BaseDownloader {
     }
 
     @Override // com.ss.android.socialbase.downloader.downloader.BaseDownloader
-    public /* bridge */ /* synthetic */ boolean isDownloading(int i10) {
-        return super.isDownloading(i10);
+    public /* bridge */ /* synthetic */ boolean isDownloading(int i2) {
+        return super.isDownloading(i2);
     }
 
     @Override // com.ss.android.socialbase.downloader.downloader.BaseDownloader
@@ -203,8 +196,8 @@ public class Downloader extends BaseDownloader {
     }
 
     @Override // com.ss.android.socialbase.downloader.downloader.BaseDownloader
-    public /* bridge */ /* synthetic */ void pause(int i10) {
-        super.pause(i10);
+    public /* bridge */ /* synthetic */ void pause(int i2) {
+        super.pause(i2);
     }
 
     @Override // com.ss.android.socialbase.downloader.downloader.BaseDownloader
@@ -223,41 +216,41 @@ public class Downloader extends BaseDownloader {
     }
 
     @Override // com.ss.android.socialbase.downloader.downloader.BaseDownloader
-    public /* bridge */ /* synthetic */ void removeMainThreadListener(int i10, IDownloadListener iDownloadListener) {
-        super.removeMainThreadListener(i10, iDownloadListener);
+    public /* bridge */ /* synthetic */ void removeMainThreadListener(int i2, IDownloadListener iDownloadListener) {
+        super.removeMainThreadListener(i2, iDownloadListener);
     }
 
     @Override // com.ss.android.socialbase.downloader.downloader.BaseDownloader
-    public /* bridge */ /* synthetic */ void removeNotificationListener(int i10, IDownloadListener iDownloadListener) {
-        super.removeNotificationListener(i10, iDownloadListener);
+    public /* bridge */ /* synthetic */ void removeNotificationListener(int i2, IDownloadListener iDownloadListener) {
+        super.removeNotificationListener(i2, iDownloadListener);
     }
 
     @Override // com.ss.android.socialbase.downloader.downloader.BaseDownloader
-    public /* bridge */ /* synthetic */ void removeSubThreadListener(int i10, IDownloadListener iDownloadListener) {
-        super.removeSubThreadListener(i10, iDownloadListener);
-    }
-
-    @Override // com.ss.android.socialbase.downloader.downloader.BaseDownloader
-    @Deprecated
-    public /* bridge */ /* synthetic */ void removeTaskMainListener(int i10) {
-        super.removeTaskMainListener(i10);
+    public /* bridge */ /* synthetic */ void removeSubThreadListener(int i2, IDownloadListener iDownloadListener) {
+        super.removeSubThreadListener(i2, iDownloadListener);
     }
 
     @Override // com.ss.android.socialbase.downloader.downloader.BaseDownloader
     @Deprecated
-    public /* bridge */ /* synthetic */ void removeTaskNotificationListener(int i10) {
-        super.removeTaskNotificationListener(i10);
+    public /* bridge */ /* synthetic */ void removeTaskMainListener(int i2) {
+        super.removeTaskMainListener(i2);
     }
 
     @Override // com.ss.android.socialbase.downloader.downloader.BaseDownloader
     @Deprecated
-    public /* bridge */ /* synthetic */ void removeTaskSubListener(int i10) {
-        super.removeTaskSubListener(i10);
+    public /* bridge */ /* synthetic */ void removeTaskNotificationListener(int i2) {
+        super.removeTaskNotificationListener(i2);
     }
 
     @Override // com.ss.android.socialbase.downloader.downloader.BaseDownloader
-    public /* bridge */ /* synthetic */ void restart(int i10) {
-        super.restart(i10);
+    @Deprecated
+    public /* bridge */ /* synthetic */ void removeTaskSubListener(int i2) {
+        super.removeTaskSubListener(i2);
+    }
+
+    @Override // com.ss.android.socialbase.downloader.downloader.BaseDownloader
+    public /* bridge */ /* synthetic */ void restart(int i2) {
+        super.restart(i2);
     }
 
     @Override // com.ss.android.socialbase.downloader.downloader.BaseDownloader
@@ -271,8 +264,8 @@ public class Downloader extends BaseDownloader {
     }
 
     @Override // com.ss.android.socialbase.downloader.downloader.BaseDownloader
-    public /* bridge */ /* synthetic */ void resume(int i10) {
-        super.resume(i10);
+    public /* bridge */ /* synthetic */ void resume(int i2) {
+        super.resume(i2);
     }
 
     @Override // com.ss.android.socialbase.downloader.downloader.BaseDownloader
@@ -291,25 +284,25 @@ public class Downloader extends BaseDownloader {
     }
 
     @Override // com.ss.android.socialbase.downloader.downloader.BaseDownloader
-    public /* bridge */ /* synthetic */ void setDownloadNotificationEventListener(int i10, IDownloadNotificationEventListener iDownloadNotificationEventListener) {
-        super.setDownloadNotificationEventListener(i10, iDownloadNotificationEventListener);
+    public /* bridge */ /* synthetic */ void setDownloadNotificationEventListener(int i2, IDownloadNotificationEventListener iDownloadNotificationEventListener) {
+        super.setDownloadNotificationEventListener(i2, iDownloadNotificationEventListener);
     }
 
     @Override // com.ss.android.socialbase.downloader.downloader.BaseDownloader
-    public /* bridge */ /* synthetic */ void setLogLevel(int i10) {
-        super.setLogLevel(i10);
-    }
-
-    @Override // com.ss.android.socialbase.downloader.downloader.BaseDownloader
-    @Deprecated
-    public /* bridge */ /* synthetic */ void setMainThreadListener(int i10, IDownloadListener iDownloadListener) {
-        super.setMainThreadListener(i10, iDownloadListener);
+    public /* bridge */ /* synthetic */ void setLogLevel(int i2) {
+        super.setLogLevel(i2);
     }
 
     @Override // com.ss.android.socialbase.downloader.downloader.BaseDownloader
     @Deprecated
-    public /* bridge */ /* synthetic */ void setNotificationListener(int i10, IDownloadListener iDownloadListener) {
-        super.setNotificationListener(i10, iDownloadListener);
+    public /* bridge */ /* synthetic */ void setMainThreadListener(int i2, IDownloadListener iDownloadListener) {
+        super.setMainThreadListener(i2, iDownloadListener);
+    }
+
+    @Override // com.ss.android.socialbase.downloader.downloader.BaseDownloader
+    @Deprecated
+    public /* bridge */ /* synthetic */ void setNotificationListener(int i2, IDownloadListener iDownloadListener) {
+        super.setNotificationListener(i2, iDownloadListener);
     }
 
     @Override // com.ss.android.socialbase.downloader.downloader.BaseDownloader
@@ -319,13 +312,13 @@ public class Downloader extends BaseDownloader {
 
     @Override // com.ss.android.socialbase.downloader.downloader.BaseDownloader
     @Deprecated
-    public /* bridge */ /* synthetic */ void setSubThreadListener(int i10, IDownloadListener iDownloadListener) {
-        super.setSubThreadListener(i10, iDownloadListener);
+    public /* bridge */ /* synthetic */ void setSubThreadListener(int i2, IDownloadListener iDownloadListener) {
+        super.setSubThreadListener(i2, iDownloadListener);
     }
 
     @Override // com.ss.android.socialbase.downloader.downloader.BaseDownloader
-    public /* bridge */ /* synthetic */ void setThrottleNetSpeed(int i10, long j10) {
-        super.setThrottleNetSpeed(i10, j10);
+    public /* bridge */ /* synthetic */ void setThrottleNetSpeed(int i2, long j2) {
+        super.setThrottleNetSpeed(i2, j2);
     }
 
     @Override // com.ss.android.socialbase.downloader.downloader.BaseDownloader
@@ -338,18 +331,18 @@ public class Downloader extends BaseDownloader {
         super.unRegisterDownloaderProcessConnectedListener(iDownloaderProcessConnectedListener);
     }
 
-    public Downloader(DownloaderBuilder downloaderBuilder) {
+    Downloader(DownloaderBuilder downloaderBuilder) {
         DownloadComponentManager.initComponent(downloaderBuilder);
     }
 
     @Override // com.ss.android.socialbase.downloader.downloader.BaseDownloader
-    public /* bridge */ /* synthetic */ void cancel(int i10, boolean z10) {
-        super.cancel(i10, z10);
+    public /* bridge */ /* synthetic */ void cancel(int i2, boolean z) {
+        super.cancel(i2, z);
     }
 
     @Override // com.ss.android.socialbase.downloader.downloader.BaseDownloader
-    public /* bridge */ /* synthetic */ void clearDownloadData(int i10, boolean z10) {
-        super.clearDownloadData(i10, z10);
+    public /* bridge */ /* synthetic */ void clearDownloadData(int i2, boolean z) {
+        super.clearDownloadData(i2, z);
     }
 
     @Override // com.ss.android.socialbase.downloader.downloader.BaseDownloader
@@ -359,7 +352,7 @@ public class Downloader extends BaseDownloader {
 
     @Override // com.ss.android.socialbase.downloader.downloader.BaseDownloader
     @Deprecated
-    public /* bridge */ /* synthetic */ void setMainThreadListener(int i10, IDownloadListener iDownloadListener, boolean z10) {
-        super.setMainThreadListener(i10, iDownloadListener, z10);
+    public /* bridge */ /* synthetic */ void setMainThreadListener(int i2, IDownloadListener iDownloadListener, boolean z) {
+        super.setMainThreadListener(i2, iDownloadListener, z);
     }
 }

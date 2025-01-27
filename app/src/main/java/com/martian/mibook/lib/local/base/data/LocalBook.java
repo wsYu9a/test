@@ -15,7 +15,7 @@ public abstract class LocalBook extends Book {
 
     public abstract Long getFileSize();
 
-    @Override // com.martian.mibook.lib.model.data.abs.Book, wb.f
+    @Override // com.martian.mibook.lib.model.data.abs.Book, com.martian.mibook.lib.model.c.g
     public String getSourceId() {
         return getFilePath();
     }
@@ -26,6 +26,6 @@ public abstract class LocalBook extends Book {
     }
 
     @Override // com.martian.mibook.lib.model.data.abs.Book
-    public void setShortIntro(String str) {
+    public void setShortIntro(String intro) {
     }
 }

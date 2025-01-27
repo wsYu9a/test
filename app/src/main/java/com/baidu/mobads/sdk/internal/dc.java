@@ -1,110 +1,170 @@
 package com.baidu.mobads.sdk.internal;
 
+import android.content.Context;
 import android.text.TextUtils;
+import com.baidu.mobads.sdk.api.BaiduNativeAdPlacement;
+import com.baidu.mobads.sdk.api.BaiduNativeH5AdView;
+import com.baidu.mobads.sdk.api.IAdInterListener;
+import com.baidu.mobads.sdk.api.IOAdEvent;
+import com.baidu.mobads.sdk.api.RequestParameters;
+import org.json.JSONException;
+import org.json.JSONObject;
 
-/* loaded from: classes2.dex */
-public class dc {
+/* loaded from: classes.dex */
+public class dc extends bf {
+    private boolean A;
+    private BaiduNativeAdPlacement B;
 
     /* renamed from: a */
-    public static final String f7142a = "error_message";
+    a f5778a;
+    private String q;
+    private String r;
+    private int s;
+    private int t;
+    private BaiduNativeH5AdView u;
+    private int v;
+    private int w;
+    private int x;
+    private BaiduNativeH5AdView.BaiduNativeH5EventListner y;
+    private boolean z;
 
-    /* renamed from: b */
-    public static final String f7143b = "error_code";
-
-    /* renamed from: d */
-    private static volatile dc f7144d;
-
-    /* renamed from: c */
-    protected final bt f7145c = bt.a();
-
-    private dc() {
+    public dc(Context context, String str, BaiduNativeH5AdView baiduNativeH5AdView) {
+        super(context);
+        this.v = 1;
+        this.w = 1;
+        this.x = 1;
+        this.z = false;
+        this.f5778a = null;
+        this.A = false;
+        this.u = baiduNativeH5AdView;
+        this.r = baiduNativeH5AdView.getAdPlacement().getApId();
+        this.q = str;
+        this.f5587g = baiduNativeH5AdView.getAdPlacement().getAdView();
     }
 
-    public static dc a() {
-        if (f7144d == null) {
-            synchronized (dc.class) {
-                try {
-                    if (f7144d == null) {
-                        f7144d = new dc();
-                    }
-                } finally {
-                }
+    public void a(BaiduNativeH5AdView.BaiduNativeH5EventListner baiduNativeH5EventListner) {
+        this.y = baiduNativeH5EventListner;
+    }
+
+    @Override // com.baidu.mobads.sdk.internal.bf
+    protected void b(String str, int i2) {
+        this.B.setRequestStarted(false);
+        BaiduNativeH5AdView.BaiduNativeH5EventListner baiduNativeH5EventListner = this.y;
+        if (baiduNativeH5EventListner != null) {
+            baiduNativeH5EventListner.onAdFail(str);
+        }
+    }
+
+    public void c(boolean z) {
+        this.z = z;
+    }
+
+    public void d(int i2) {
+        this.x = i2;
+    }
+
+    @Override // com.baidu.mobads.sdk.internal.bf
+    protected void e(IOAdEvent iOAdEvent) {
+        this.B.setWinSended(true);
+    }
+
+    public boolean f() {
+        return this.z;
+    }
+
+    public boolean g() {
+        return this.A;
+    }
+
+    @Override // com.baidu.mobads.sdk.internal.bf
+    protected void h(IOAdEvent iOAdEvent) {
+        this.B.setClicked(true);
+        BaiduNativeH5AdView.BaiduNativeH5EventListner baiduNativeH5EventListner = this.y;
+        if (baiduNativeH5EventListner != null) {
+            baiduNativeH5EventListner.onAdClick();
+        }
+    }
+
+    @Override // com.baidu.mobads.sdk.internal.bf
+    protected void q() {
+        this.z = true;
+        this.B.setRequestStarted(false);
+        BaiduNativeH5AdView.BaiduNativeH5EventListner baiduNativeH5EventListner = this.y;
+        if (baiduNativeH5EventListner != null) {
+            baiduNativeH5EventListner.onAdShow();
+        }
+    }
+
+    public void a(RequestParameters requestParameters) {
+        int width = requestParameters.getWidth();
+        int height = requestParameters.getHeight();
+        if (width <= 0 || height <= 0) {
+            return;
+        }
+        this.s = width;
+        this.t = height;
+    }
+
+    public void c(int i2) {
+        this.w = i2;
+    }
+
+    public void a(int i2) {
+        this.v = i2;
+    }
+
+    public void a(BaiduNativeAdPlacement baiduNativeAdPlacement) {
+        this.B = baiduNativeAdPlacement;
+    }
+
+    @Override // com.baidu.mobads.sdk.internal.bf
+    public void a() {
+        if (this.k == null) {
+            this.l = false;
+            return;
+        }
+        this.l = true;
+        JSONObject jSONObject = new JSONObject();
+        JSONObject jSONObject2 = new JSONObject();
+        try {
+            JSONObject jSONObject3 = new JSONObject();
+            jSONObject3.put(IAdInterListener.AdReqParam.PROD, this.q);
+            this.k.createProdHandler(jSONObject3);
+            this.k.setAdContainer(this.f5587g);
+            n();
+            jSONObject.put(IAdInterListener.AdReqParam.PROD, this.q);
+            jSONObject.put(IAdInterListener.AdReqParam.APID, this.r);
+            jSONObject.put("n", "1");
+            if (!TextUtils.isEmpty(this.o)) {
+                jSONObject.put("appid", this.o);
             }
+            jSONObject.put("at", "2");
+            jSONObject.put(IAdInterListener.AdReqParam.WIDTH, "" + this.s);
+            jSONObject.put("h", "" + this.t);
+            jSONObject = j.a(jSONObject, b(this.m));
+        } catch (JSONException e2) {
+            e2.printStackTrace();
         }
-        return f7144d;
+        this.k.loadAd(jSONObject, jSONObject2);
     }
 
-    public String a(bp bpVar, String str) {
-        if (bpVar == null) {
-            return "";
+    @Override // com.baidu.mobads.sdk.internal.bf
+    protected void a(IOAdEvent iOAdEvent) {
+        this.A = true;
+        this.u.getAdPlacement().setAdResponse(b.a(iOAdEvent.getMessage()).a().get(0));
+        BaiduNativeH5AdView.BaiduNativeH5EventListner baiduNativeH5EventListner = this.y;
+        if (baiduNativeH5EventListner != null) {
+            baiduNativeH5EventListner.onAdDataLoaded();
         }
-        return a(bpVar.b() + "", bpVar.c(), str);
     }
 
-    public String a(String str, String str2, String str3) {
-        StringBuilder sb2 = new StringBuilder();
-        if (!TextUtils.isEmpty(str)) {
-            sb2.append("ErrorCode: [");
-            sb2.append(str);
-            sb2.append("];");
+    @Override // com.baidu.mobads.sdk.internal.bf
+    protected void a(int i2, String str) {
+        r();
+        this.B.setRequestStarted(false);
+        BaiduNativeH5AdView.BaiduNativeH5EventListner baiduNativeH5EventListner = this.y;
+        if (baiduNativeH5EventListner != null) {
+            baiduNativeH5EventListner.onAdFail(str);
         }
-        if (!TextUtils.isEmpty(str2)) {
-            sb2.append("ErrorDesc: [");
-            sb2.append(str2);
-            sb2.append("];");
-        }
-        if (!TextUtils.isEmpty(str3)) {
-            sb2.append(" Extra: [");
-            sb2.append(str3);
-            sb2.append("];");
-        }
-        return sb2.toString();
-    }
-
-    /*  JADX ERROR: JadxRuntimeException in pass: RegionMakerVisitor
-        jadx.core.utils.exceptions.JadxRuntimeException: Can't find top splitter block for handler:B:9:0x0019
-        	at jadx.core.utils.BlockUtils.getTopSplitterForHandler(BlockUtils.java:1179)
-        	at jadx.core.dex.visitors.regions.maker.ExcHandlersRegionMaker.collectHandlerRegions(ExcHandlersRegionMaker.java:53)
-        	at jadx.core.dex.visitors.regions.maker.ExcHandlersRegionMaker.process(ExcHandlersRegionMaker.java:38)
-        	at jadx.core.dex.visitors.regions.RegionMakerVisitor.visit(RegionMakerVisitor.java:27)
-        */
-    /* JADX WARN: Removed duplicated region for block: B:10:? A[RETURN, SYNTHETIC] */
-    /* JADX WARN: Removed duplicated region for block: B:5:0x002c  */
-    /*
-        Code decompiled incorrectly, please refer to instructions dump.
-        To view partially-correct code enable 'Show inconsistent code' option in preferences
-    */
-    public java.lang.String a(java.util.Map<java.lang.String, java.lang.Object> r5) {
-        /*
-            r4 = this;
-            java.lang.String r0 = "error_message"
-            java.lang.String r1 = "msg"
-            java.lang.String r2 = ""
-            if (r5 == 0) goto L28
-            boolean r3 = r5.containsKey(r1)     // Catch: java.lang.Exception -> L19
-            if (r3 == 0) goto L1b
-            java.lang.Object r5 = r5.get(r1)     // Catch: java.lang.Exception -> L19
-            com.baidu.mobads.sdk.internal.bp r5 = (com.baidu.mobads.sdk.internal.bp) r5     // Catch: java.lang.Exception -> L19
-            java.lang.String r5 = r4.a(r5, r2)     // Catch: java.lang.Exception -> L19
-            goto L29
-        L19:
-            goto L28
-        L1b:
-            boolean r1 = r5.containsKey(r0)     // Catch: java.lang.Exception -> L19
-            if (r1 == 0) goto L28
-            java.lang.Object r5 = r5.get(r0)     // Catch: java.lang.Exception -> L19
-            java.lang.String r5 = (java.lang.String) r5     // Catch: java.lang.Exception -> L19
-            goto L29
-        L28:
-            r5 = r2
-        L29:
-            if (r5 != 0) goto L2c
-            goto L2d
-        L2c:
-            r2 = r5
-        L2d:
-            return r2
-        */
-        throw new UnsupportedOperationException("Method not decompiled: com.baidu.mobads.sdk.internal.dc.a(java.util.Map):java.lang.String");
     }
 }

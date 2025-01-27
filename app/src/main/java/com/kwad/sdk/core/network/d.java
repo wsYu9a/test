@@ -1,78 +1,59 @@
 package com.kwad.sdk.core.network;
 
-import androidx.annotation.Nullable;
-import com.kwad.components.offline.api.BuildConfig;
+import android.util.Log;
 import com.kwad.sdk.components.DevelopMangerComponents;
 import com.kwad.sdk.core.request.model.StatusInfo;
 import com.kwad.sdk.internal.api.SceneImpl;
 import com.kwad.sdk.service.ServiceProvider;
-import com.kwad.sdk.utils.az;
 
-/* loaded from: classes3.dex */
+/* loaded from: classes2.dex */
 public abstract class d extends b {
     public static final String TRACK_ID_KEY = "kuaishou-tracing-token";
+    private static int sLiveSupportMode;
 
     public d() {
         this(0, null);
     }
 
-    @Override // com.kwad.sdk.core.network.b
-    public void buildBaseBody() {
-        try {
-            putBody("protocolVersion", "2.0");
-            putBody("SDKVersion", BuildConfig.VERSION_NAME);
-            putBody("SDKVersionCode", BuildConfig.VERSION_CODE);
-            putBody("sdkApiVersion", ((com.kwad.sdk.service.a.f) ServiceProvider.get(com.kwad.sdk.service.a.f.class)).getApiVersion());
-            putBody("sdkApiVersionCode", ((com.kwad.sdk.service.a.f) ServiceProvider.get(com.kwad.sdk.service.a.f.class)).getApiVersionCode());
-            putBody("sdkType", 1);
-            putBody("appInfo", com.kwad.sdk.core.request.model.a.GF());
-            putBody("tkVersion", "6.1.2");
-            putBody("adSdkVersion", BuildConfig.VERSION_NAME);
-            putBody("networkInfo", com.kwad.sdk.core.request.model.d.GJ());
-            putBody("liveSupportMode", ((com.kwad.sdk.service.a.f) ServiceProvider.get(com.kwad.sdk.service.a.f.class)).pz() ? 1 : 0);
-            putBody("userInfo", com.kwad.sdk.core.request.model.g.GM());
-            putBody("requestSessionData", q.Fv().eb(getUrl()));
-            putBody(o3.a.f29032k, System.currentTimeMillis());
-            if (enablePrivateInfoObtain()) {
-                buildBaseBodyWithPrivateInfo();
-            }
-        } catch (Throwable th2) {
-            reportSdkCaughtException(th2);
-        }
-        putBody("mediumDisableSensor", az.Oo());
-    }
-
-    public void buildBaseBodyWithPrivateInfo() {
-        try {
-            putBody("geoInfo", com.kwad.sdk.core.request.model.c.GI());
-            putBody("kGeoInfo", ((com.kwad.sdk.service.a.f) ServiceProvider.get(com.kwad.sdk.service.a.f.class)).zG());
-            putBody("ext", com.kwad.sdk.core.request.model.e.GL());
-        } catch (Throwable th2) {
-            reportSdkCaughtException(th2);
-        }
+    public d(int i2, SceneImpl sceneImpl) {
+        putBody(com.alipay.mobilesecuritysdk.deviceID.c.v, com.kwad.sdk.core.request.model.b.g(needAppList(), i2));
+        putBody("statusInfo", StatusInfo.b(sceneImpl));
     }
 
     @Override // com.kwad.sdk.core.network.b
-    public void buildBaseHeader() {
-        if (com.kwad.framework.a.a.ns.booleanValue()) {
-            com.kwad.sdk.components.d.f(DevelopMangerComponents.class);
-            addHeader("trace-context", "{\"laneId\":\"STAGING.online.u\"}");
-            com.kwad.sdk.components.d.f(DevelopMangerComponents.class);
+    protected void buildBaseBody() {
+        putBody("protocolVersion", "2.0");
+        putBody("SDKVersion", "3.3.40");
+        putBody("SDKVersionCode", 3034000);
+        putBody("sdkApiVersion", ((com.kwad.sdk.service.kwai.e) ServiceProvider.get(com.kwad.sdk.service.kwai.e.class)).getApiVersion());
+        putBody("sdkApiVersionCode", ((com.kwad.sdk.service.kwai.e) ServiceProvider.get(com.kwad.sdk.service.kwai.e.class)).getApiVersionCode());
+        putBody("sdkType", 1);
+        putBody("appInfo", com.kwad.sdk.core.request.model.a.xo());
+        putBody("tkVersion", "5.0.1");
+        putBody("networkInfo", com.kwad.sdk.core.request.model.d.xs());
+        if (sLiveSupportMode == 0 && ((com.kwad.sdk.service.kwai.e) ServiceProvider.get(com.kwad.sdk.service.kwai.e.class)).hasLiveCompoReady()) {
+            sLiveSupportMode = 1;
         }
+        Log.d("CommonBaseRequest", "sLiveSupportMode :" + sLiveSupportMode);
+        putBody("liveSupportMode", sLiveSupportMode);
+        putBody("geoInfo", com.kwad.sdk.core.request.model.c.xr());
+        putBody("ext", com.kwad.sdk.core.request.model.e.xu());
+        putBody("userInfo", com.kwad.sdk.core.request.model.g.xv());
+        putBody("requestSessionData", r.wi().ce(getUrl()));
     }
 
-    public boolean enablePrivateInfoObtain() {
-        return true;
+    @Override // com.kwad.sdk.core.network.b
+    protected void buildBaseHeader() {
+        String url = getUrl();
+        if (!com.kwad.b.kwai.a.bI.booleanValue() || url == null || url.contains(com.kwad.sdk.c.sg())) {
+            return;
+        }
+        com.kwad.sdk.components.c.f(DevelopMangerComponents.class);
+        addHeader("trace-context", "{\"laneId\":\"STAGING.online.u\"}");
+        com.kwad.sdk.components.c.f(DevelopMangerComponents.class);
     }
 
-    public boolean needAppList() {
+    protected boolean needAppList() {
         return false;
-    }
-
-    public d(int i10, @Nullable SceneImpl sceneImpl) {
-        putBody("deviceInfo", com.kwad.sdk.core.request.model.b.h(needAppList(), i10));
-        if (sceneImpl != null) {
-            putBody("statusInfo", StatusInfo.c(sceneImpl));
-        }
     }
 }

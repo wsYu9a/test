@@ -5,13 +5,13 @@ import com.ksad.json.annotation.KsJson;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-/* loaded from: classes3.dex */
+/* loaded from: classes2.dex */
 public final class j extends b<a> {
 
     @KsJson
-    public static class a extends com.kwad.sdk.core.response.a.a {
-        public int axk = 180000;
-        public int axl = 90000;
+    public static class a extends com.kwad.sdk.core.response.kwai.a {
+        public int adX = 180000;
+        public int adY = 90000;
     }
 
     public j(String str) {
@@ -20,16 +20,15 @@ public final class j extends b<a> {
 
     @Override // com.kwad.sdk.core.config.item.b
     public final void a(SharedPreferences sharedPreferences) {
-        JSONObject jSONObject;
         a value = getValue();
         if (value == null) {
             value = new a();
         }
+        JSONObject jSONObject = null;
         try {
             jSONObject = new JSONObject(sharedPreferences.getString(getKey(), ""));
-        } catch (JSONException e10) {
-            com.kwad.sdk.core.d.c.printStackTraceOnly(e10);
-            jSONObject = null;
+        } catch (JSONException e2) {
+            com.kwad.sdk.core.d.b.printStackTraceOnly(e2);
         }
         if (jSONObject != null) {
             value.parseJson(jSONObject);
@@ -39,18 +38,23 @@ public final class j extends b<a> {
 
     @Override // com.kwad.sdk.core.config.item.b
     public final void b(SharedPreferences.Editor editor) {
+        String key;
+        String str;
         if (getValue() == null || getValue().toJson() == null) {
-            editor.putString(getKey(), "");
+            key = getKey();
+            str = "";
         } else {
-            editor.putString(getKey(), getValue().toJson().toString());
+            key = getKey();
+            str = getValue().toJson().toString();
         }
+        editor.putString(key, str);
     }
 
     @Override // com.kwad.sdk.core.config.item.b
-    public final void k(JSONObject jSONObject) {
+    public final void g(JSONObject jSONObject) {
         JSONObject optJSONObject;
         if (jSONObject == null || (optJSONObject = jSONObject.optJSONObject(getKey())) == null) {
-            setValue(El());
+            setValue(uX());
             return;
         }
         a aVar = new a();

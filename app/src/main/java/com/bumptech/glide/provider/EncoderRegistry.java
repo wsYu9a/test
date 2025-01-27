@@ -6,20 +6,20 @@ import com.bumptech.glide.load.Encoder;
 import java.util.ArrayList;
 import java.util.List;
 
-/* loaded from: classes2.dex */
+/* loaded from: classes.dex */
 public class EncoderRegistry {
     private final List<Entry<?>> encoders = new ArrayList();
 
-    public static final class Entry<T> {
+    private static final class Entry<T> {
         private final Class<T> dataClass;
         final Encoder<T> encoder;
 
-        public Entry(@NonNull Class<T> cls, @NonNull Encoder<T> encoder) {
+        Entry(@NonNull Class<T> cls, @NonNull Encoder<T> encoder) {
             this.dataClass = cls;
             this.encoder = encoder;
         }
 
-        public boolean handles(@NonNull Class<?> cls) {
+        boolean handles(@NonNull Class<?> cls) {
             return this.dataClass.isAssignableFrom(cls);
         }
     }

@@ -23,7 +23,7 @@ import java.util.HashSet;
 import java.util.List;
 
 @Keep
-/* loaded from: classes2.dex */
+/* loaded from: classes.dex */
 public class PluginResources extends Resources {
     public String pluginPkg;
 
@@ -33,21 +33,21 @@ public class PluginResources extends Resources {
     }
 
     public static AssetManager appendHostRes(Resources resources) {
-        String a10 = g.a(Zeus.getAppApplication());
-        String b10 = g.b(Zeus.getAppApplication());
-        List<String> b11 = j.b();
+        String a2 = g.a(Zeus.getAppApplication());
+        String b2 = g.b(Zeus.getAppApplication());
+        List<String> b3 = j.b();
         a aVar = new a();
         AssetManager assets = resources.getAssets();
         AssetManager assets2 = Zeus.getAppApplication().getAssets();
         HashSet hashSet = new HashSet(j.a(assets));
-        List<String> a11 = j.a(assets2);
-        for (String str : b11) {
+        List<String> a3 = j.a(assets2);
+        for (String str : b3) {
             if (!hashSet.contains(str)) {
                 assets = aVar.a(assets, str, true);
             }
         }
-        for (String str2 : a11) {
-            if (!isOtherPlugin(str2, a10, b10) && !hashSet.contains(str2) && !b11.contains(str2)) {
+        for (String str2 : a3) {
+            if (!isOtherPlugin(str2, a2, b2) && !hashSet.contains(str2) && !b3.contains(str2)) {
                 assets = aVar.a(assets, str2, false);
             }
         }
@@ -77,390 +77,390 @@ public class PluginResources extends Resources {
 
     @Override // android.content.res.Resources
     @NonNull
-    public XmlResourceParser getAnimation(int i10) {
+    public XmlResourceParser getAnimation(int i2) {
         try {
-            return super.getAnimation(i10);
-        } catch (Resources.NotFoundException e10) {
-            throw handleException(e10);
+            return super.getAnimation(i2);
+        } catch (Resources.NotFoundException e2) {
+            throw handleException(e2);
         }
     }
 
     @Override // android.content.res.Resources
-    public boolean getBoolean(int i10) {
+    public boolean getBoolean(int i2) {
         try {
-            return super.getBoolean(i10);
-        } catch (Resources.NotFoundException e10) {
-            throw handleException(e10);
+            return super.getBoolean(i2);
+        } catch (Resources.NotFoundException e2) {
+            throw handleException(e2);
         }
     }
 
     @Override // android.content.res.Resources
-    public int getColor(int i10) {
+    public int getColor(int i2) {
         try {
-            return super.getColor(i10);
-        } catch (Resources.NotFoundException e10) {
-            throw handleException(e10);
+            return super.getColor(i2);
+        } catch (Resources.NotFoundException e2) {
+            throw handleException(e2);
         }
     }
 
     @Override // android.content.res.Resources
     @NonNull
-    public ColorStateList getColorStateList(int i10) {
+    public ColorStateList getColorStateList(int i2) {
         try {
-            return super.getColorStateList(i10);
-        } catch (Resources.NotFoundException e10) {
-            throw handleException(e10);
+            return super.getColorStateList(i2);
+        } catch (Resources.NotFoundException e2) {
+            throw handleException(e2);
         }
     }
 
     @Override // android.content.res.Resources
-    public float getDimension(int i10) {
+    public float getDimension(int i2) {
         try {
-            return super.getDimension(i10);
-        } catch (Resources.NotFoundException e10) {
-            throw handleException(e10);
+            return super.getDimension(i2);
+        } catch (Resources.NotFoundException e2) {
+            throw handleException(e2);
         }
     }
 
     @Override // android.content.res.Resources
-    public int getDimensionPixelOffset(int i10) {
+    public int getDimensionPixelOffset(int i2) {
         try {
-            return super.getDimensionPixelOffset(i10);
-        } catch (Resources.NotFoundException e10) {
-            throw handleException(e10);
+            return super.getDimensionPixelOffset(i2);
+        } catch (Resources.NotFoundException e2) {
+            throw handleException(e2);
         }
     }
 
     @Override // android.content.res.Resources
-    public int getDimensionPixelSize(int i10) {
+    public int getDimensionPixelSize(int i2) {
         try {
-            return super.getDimensionPixelSize(i10);
-        } catch (Resources.NotFoundException e10) {
-            throw handleException(e10);
+            return super.getDimensionPixelSize(i2);
+        } catch (Resources.NotFoundException e2) {
+            throw handleException(e2);
         }
     }
 
     @Override // android.content.res.Resources
-    public Drawable getDrawable(int i10) {
+    public Drawable getDrawable(int i2) {
         try {
-            return super.getDrawable(i10);
-        } catch (Resources.NotFoundException e10) {
-            throw handleException(e10);
+            return super.getDrawable(i2);
+        } catch (Resources.NotFoundException e2) {
+            throw handleException(e2);
         }
     }
 
     @Override // android.content.res.Resources
     @Nullable
-    public Drawable getDrawableForDensity(int i10, int i11) {
+    public Drawable getDrawableForDensity(int i2, int i3) {
         try {
-            return super.getDrawableForDensity(i10, i11);
-        } catch (Resources.NotFoundException e10) {
-            throw handleException(e10);
+            return super.getDrawableForDensity(i2, i3);
+        } catch (Resources.NotFoundException e2) {
+            throw handleException(e2);
         }
     }
 
     @Override // android.content.res.Resources
-    public float getFloat(int i10) {
+    public float getFloat(int i2) {
         try {
-            return super.getFloat(i10);
-        } catch (Resources.NotFoundException e10) {
-            throw handleException(e10);
-        }
-    }
-
-    @Override // android.content.res.Resources
-    @NonNull
-    public Typeface getFont(int i10) {
-        try {
-            return super.getFont(i10);
-        } catch (Resources.NotFoundException e10) {
-            throw handleException(e10);
-        }
-    }
-
-    @Override // android.content.res.Resources
-    public float getFraction(int i10, int i11, int i12) {
-        try {
-            return super.getFraction(i10, i11, i12);
-        } catch (Resources.NotFoundException e10) {
-            throw handleException(e10);
+            return super.getFloat(i2);
+        } catch (Resources.NotFoundException e2) {
+            throw handleException(e2);
         }
     }
 
     @Override // android.content.res.Resources
     @NonNull
-    public int[] getIntArray(int i10) {
+    public Typeface getFont(int i2) {
         try {
-            return super.getIntArray(i10);
-        } catch (Resources.NotFoundException e10) {
-            throw handleException(e10);
+            return super.getFont(i2);
+        } catch (Resources.NotFoundException e2) {
+            throw handleException(e2);
         }
     }
 
     @Override // android.content.res.Resources
-    public int getInteger(int i10) {
+    public float getFraction(int i2, int i3, int i4) {
         try {
-            return super.getInteger(i10);
-        } catch (Resources.NotFoundException e10) {
-            throw handleException(e10);
-        }
-    }
-
-    @Override // android.content.res.Resources
-    @NonNull
-    public XmlResourceParser getLayout(int i10) {
-        try {
-            return super.getLayout(i10);
-        } catch (Resources.NotFoundException e10) {
-            throw handleException(e10);
-        }
-    }
-
-    @Override // android.content.res.Resources
-    public Movie getMovie(int i10) {
-        try {
-            return super.getMovie(i10);
-        } catch (Resources.NotFoundException e10) {
-            throw handleException(e10);
+            return super.getFraction(i2, i3, i4);
+        } catch (Resources.NotFoundException e2) {
+            throw handleException(e2);
         }
     }
 
     @Override // android.content.res.Resources
     @NonNull
-    public String getQuantityString(int i10, int i11, Object... objArr) {
+    public int[] getIntArray(int i2) {
         try {
-            return super.getQuantityString(i10, i11, objArr);
-        } catch (Resources.NotFoundException e10) {
-            throw handleException(e10);
+            return super.getIntArray(i2);
+        } catch (Resources.NotFoundException e2) {
+            throw handleException(e2);
+        }
+    }
+
+    @Override // android.content.res.Resources
+    public int getInteger(int i2) {
+        try {
+            return super.getInteger(i2);
+        } catch (Resources.NotFoundException e2) {
+            throw handleException(e2);
         }
     }
 
     @Override // android.content.res.Resources
     @NonNull
-    public CharSequence getQuantityText(int i10, int i11) {
+    public XmlResourceParser getLayout(int i2) {
         try {
-            return super.getQuantityText(i10, i11);
-        } catch (Resources.NotFoundException e10) {
-            throw handleException(e10);
+            return super.getLayout(i2);
+        } catch (Resources.NotFoundException e2) {
+            throw handleException(e2);
         }
     }
 
     @Override // android.content.res.Resources
-    public String getResourceEntryName(int i10) {
+    public Movie getMovie(int i2) {
         try {
-            return super.getResourceEntryName(i10);
-        } catch (Resources.NotFoundException e10) {
-            throw handleException(e10);
-        }
-    }
-
-    @Override // android.content.res.Resources
-    public String getResourceName(int i10) {
-        try {
-            return super.getResourceName(i10);
-        } catch (Resources.NotFoundException e10) {
-            throw handleException(e10);
-        }
-    }
-
-    @Override // android.content.res.Resources
-    public String getResourcePackageName(int i10) {
-        try {
-            return super.getResourcePackageName(i10);
-        } catch (Resources.NotFoundException e10) {
-            throw handleException(e10);
-        }
-    }
-
-    @Override // android.content.res.Resources
-    public String getResourceTypeName(int i10) {
-        try {
-            return super.getResourceTypeName(i10);
-        } catch (Resources.NotFoundException e10) {
-            throw handleException(e10);
+            return super.getMovie(i2);
+        } catch (Resources.NotFoundException e2) {
+            throw handleException(e2);
         }
     }
 
     @Override // android.content.res.Resources
     @NonNull
-    public String getString(int i10) {
+    public String getQuantityString(int i2, int i3, Object... objArr) {
         try {
-            return super.getString(i10);
-        } catch (Resources.NotFoundException e10) {
-            throw handleException(e10);
+            return super.getQuantityString(i2, i3, objArr);
+        } catch (Resources.NotFoundException e2) {
+            throw handleException(e2);
         }
     }
 
     @Override // android.content.res.Resources
     @NonNull
-    public String[] getStringArray(int i10) {
+    public CharSequence getQuantityText(int i2, int i3) {
         try {
-            return super.getStringArray(i10);
-        } catch (Resources.NotFoundException e10) {
-            throw handleException(e10);
+            return super.getQuantityText(i2, i3);
+        } catch (Resources.NotFoundException e2) {
+            throw handleException(e2);
+        }
+    }
+
+    @Override // android.content.res.Resources
+    public String getResourceEntryName(int i2) {
+        try {
+            return super.getResourceEntryName(i2);
+        } catch (Resources.NotFoundException e2) {
+            throw handleException(e2);
+        }
+    }
+
+    @Override // android.content.res.Resources
+    public String getResourceName(int i2) {
+        try {
+            return super.getResourceName(i2);
+        } catch (Resources.NotFoundException e2) {
+            throw handleException(e2);
+        }
+    }
+
+    @Override // android.content.res.Resources
+    public String getResourcePackageName(int i2) {
+        try {
+            return super.getResourcePackageName(i2);
+        } catch (Resources.NotFoundException e2) {
+            throw handleException(e2);
+        }
+    }
+
+    @Override // android.content.res.Resources
+    public String getResourceTypeName(int i2) {
+        try {
+            return super.getResourceTypeName(i2);
+        } catch (Resources.NotFoundException e2) {
+            throw handleException(e2);
         }
     }
 
     @Override // android.content.res.Resources
     @NonNull
-    public CharSequence getText(int i10) {
+    public String getString(int i2) {
         try {
-            return super.getText(i10);
-        } catch (Resources.NotFoundException e10) {
-            throw handleException(e10);
+            return super.getString(i2);
+        } catch (Resources.NotFoundException e2) {
+            throw handleException(e2);
         }
     }
 
     @Override // android.content.res.Resources
     @NonNull
-    public CharSequence[] getTextArray(int i10) {
+    public String[] getStringArray(int i2) {
         try {
-            return super.getTextArray(i10);
-        } catch (Resources.NotFoundException e10) {
-            throw handleException(e10);
-        }
-    }
-
-    @Override // android.content.res.Resources
-    public void getValue(int i10, TypedValue typedValue, boolean z10) {
-        try {
-            super.getValue(i10, typedValue, z10);
-        } catch (Resources.NotFoundException e10) {
-            throw handleException(e10);
-        }
-    }
-
-    @Override // android.content.res.Resources
-    public void getValueForDensity(int i10, int i11, TypedValue typedValue, boolean z10) {
-        try {
-            super.getValueForDensity(i10, i11, typedValue, z10);
-        } catch (Resources.NotFoundException e10) {
-            throw handleException(e10);
+            return super.getStringArray(i2);
+        } catch (Resources.NotFoundException e2) {
+            throw handleException(e2);
         }
     }
 
     @Override // android.content.res.Resources
     @NonNull
-    public XmlResourceParser getXml(int i10) {
+    public CharSequence getText(int i2) {
         try {
-            return super.getXml(i10);
-        } catch (Resources.NotFoundException e10) {
-            throw handleException(e10);
+            return super.getText(i2);
+        } catch (Resources.NotFoundException e2) {
+            throw handleException(e2);
         }
     }
 
     @Override // android.content.res.Resources
     @NonNull
-    public TypedArray obtainTypedArray(int i10) {
+    public CharSequence[] getTextArray(int i2) {
         try {
-            return super.obtainTypedArray(i10);
-        } catch (Resources.NotFoundException e10) {
-            throw handleException(e10);
+            return super.getTextArray(i2);
+        } catch (Resources.NotFoundException e2) {
+            throw handleException(e2);
+        }
+    }
+
+    @Override // android.content.res.Resources
+    public void getValue(int i2, TypedValue typedValue, boolean z) {
+        try {
+            super.getValue(i2, typedValue, z);
+        } catch (Resources.NotFoundException e2) {
+            throw handleException(e2);
+        }
+    }
+
+    @Override // android.content.res.Resources
+    public void getValueForDensity(int i2, int i3, TypedValue typedValue, boolean z) {
+        try {
+            super.getValueForDensity(i2, i3, typedValue, z);
+        } catch (Resources.NotFoundException e2) {
+            throw handleException(e2);
         }
     }
 
     @Override // android.content.res.Resources
     @NonNull
-    public InputStream openRawResource(int i10) {
+    public XmlResourceParser getXml(int i2) {
         try {
-            return super.openRawResource(i10);
-        } catch (Resources.NotFoundException e10) {
-            throw handleException(e10);
-        }
-    }
-
-    @Override // android.content.res.Resources
-    public AssetFileDescriptor openRawResourceFd(int i10) {
-        try {
-            return super.openRawResourceFd(i10);
-        } catch (Resources.NotFoundException e10) {
-            throw handleException(e10);
-        }
-    }
-
-    @Override // android.content.res.Resources
-    public int getColor(int i10, @Nullable Resources.Theme theme) {
-        try {
-            return super.getColor(i10, theme);
-        } catch (Resources.NotFoundException e10) {
-            throw handleException(e10);
+            return super.getXml(i2);
+        } catch (Resources.NotFoundException e2) {
+            throw handleException(e2);
         }
     }
 
     @Override // android.content.res.Resources
     @NonNull
-    public ColorStateList getColorStateList(int i10, @Nullable Resources.Theme theme) {
+    public TypedArray obtainTypedArray(int i2) {
         try {
-            return super.getColorStateList(i10, theme);
-        } catch (Resources.NotFoundException e10) {
-            throw handleException(e10);
+            return super.obtainTypedArray(i2);
+        } catch (Resources.NotFoundException e2) {
+            throw handleException(e2);
         }
     }
 
     @Override // android.content.res.Resources
-    public Drawable getDrawable(int i10, @Nullable Resources.Theme theme) {
+    @NonNull
+    public InputStream openRawResource(int i2) {
         try {
-            return super.getDrawable(i10, theme);
-        } catch (Resources.NotFoundException e10) {
-            throw handleException(e10);
+            return super.openRawResource(i2);
+        } catch (Resources.NotFoundException e2) {
+            throw handleException(e2);
+        }
+    }
+
+    @Override // android.content.res.Resources
+    public AssetFileDescriptor openRawResourceFd(int i2) {
+        try {
+            return super.openRawResourceFd(i2);
+        } catch (Resources.NotFoundException e2) {
+            throw handleException(e2);
+        }
+    }
+
+    @Override // android.content.res.Resources
+    public int getColor(int i2, @Nullable Resources.Theme theme) {
+        try {
+            return super.getColor(i2, theme);
+        } catch (Resources.NotFoundException e2) {
+            throw handleException(e2);
+        }
+    }
+
+    @Override // android.content.res.Resources
+    @NonNull
+    public ColorStateList getColorStateList(int i2, @Nullable Resources.Theme theme) {
+        try {
+            return super.getColorStateList(i2, theme);
+        } catch (Resources.NotFoundException e2) {
+            throw handleException(e2);
+        }
+    }
+
+    @Override // android.content.res.Resources
+    public Drawable getDrawable(int i2, @Nullable Resources.Theme theme) {
+        try {
+            return super.getDrawable(i2, theme);
+        } catch (Resources.NotFoundException e2) {
+            throw handleException(e2);
         }
     }
 
     @Override // android.content.res.Resources
     @Nullable
-    public Drawable getDrawableForDensity(int i10, int i11, @Nullable Resources.Theme theme) {
+    public Drawable getDrawableForDensity(int i2, int i3, @Nullable Resources.Theme theme) {
         try {
-            return super.getDrawableForDensity(i10, i11, theme);
-        } catch (Resources.NotFoundException e10) {
-            throw handleException(e10);
+            return super.getDrawableForDensity(i2, i3, theme);
+        } catch (Resources.NotFoundException e2) {
+            throw handleException(e2);
         }
     }
 
     @Override // android.content.res.Resources
     @NonNull
-    public String getQuantityString(int i10, int i11) {
+    public String getQuantityString(int i2, int i3) {
         try {
-            return super.getQuantityString(i10, i11);
-        } catch (Resources.NotFoundException e10) {
-            throw handleException(e10);
+            return super.getQuantityString(i2, i3);
+        } catch (Resources.NotFoundException e2) {
+            throw handleException(e2);
         }
     }
 
     @Override // android.content.res.Resources
     @NonNull
-    public String getString(int i10, Object... objArr) {
+    public String getString(int i2, Object... objArr) {
         try {
-            return super.getString(i10, objArr);
-        } catch (Resources.NotFoundException e10) {
-            throw handleException(e10);
+            return super.getString(i2, objArr);
+        } catch (Resources.NotFoundException e2) {
+            throw handleException(e2);
         }
     }
 
     @Override // android.content.res.Resources
-    public CharSequence getText(int i10, CharSequence charSequence) {
+    public CharSequence getText(int i2, CharSequence charSequence) {
         try {
-            return super.getText(i10, charSequence);
-        } catch (Resources.NotFoundException e10) {
-            throw handleException(e10);
+            return super.getText(i2, charSequence);
+        } catch (Resources.NotFoundException e2) {
+            throw handleException(e2);
         }
     }
 
     @Override // android.content.res.Resources
-    public void getValue(String str, TypedValue typedValue, boolean z10) {
+    public void getValue(String str, TypedValue typedValue, boolean z) {
         try {
-            super.getValue(str, typedValue, z10);
-        } catch (Resources.NotFoundException e10) {
-            throw handleException(e10);
+            super.getValue(str, typedValue, z);
+        } catch (Resources.NotFoundException e2) {
+            throw handleException(e2);
         }
     }
 
     @Override // android.content.res.Resources
     @NonNull
-    public InputStream openRawResource(int i10, TypedValue typedValue) {
+    public InputStream openRawResource(int i2, TypedValue typedValue) {
         try {
-            return super.openRawResource(i10, typedValue);
-        } catch (Resources.NotFoundException e10) {
-            throw handleException(e10);
+            return super.openRawResource(i2, typedValue);
+        } catch (Resources.NotFoundException e2) {
+            throw handleException(e2);
         }
     }
 }

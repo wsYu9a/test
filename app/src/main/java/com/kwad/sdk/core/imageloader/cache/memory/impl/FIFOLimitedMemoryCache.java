@@ -8,12 +8,12 @@ import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
 
-/* loaded from: classes3.dex */
+/* loaded from: classes2.dex */
 public class FIFOLimitedMemoryCache extends LimitedMemoryCache {
     private final List<DecodedResult> queue;
 
-    public FIFOLimitedMemoryCache(int i10) {
-        super(i10);
+    public FIFOLimitedMemoryCache(int i2) {
+        super(i2);
         this.queue = Collections.synchronizedList(new LinkedList());
     }
 

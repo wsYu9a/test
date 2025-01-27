@@ -13,7 +13,6 @@ import android.util.Xml;
 import androidx.annotation.NavigationRes;
 import androidx.annotation.NonNull;
 import androidx.annotation.RestrictTo;
-import androidx.constraintlayout.core.motion.utils.TypedValues;
 import androidx.navigation.NavArgument;
 import androidx.navigation.NavDeepLink;
 import androidx.navigation.NavOptions;
@@ -25,27 +24,72 @@ public final class NavInflater {
 
     @RestrictTo({RestrictTo.Scope.LIBRARY_GROUP})
     public static final String APPLICATION_ID_PLACEHOLDER = "${applicationId}";
-    private static final String TAG_ACTION = "action";
-    private static final String TAG_ARGUMENT = "argument";
-    private static final String TAG_DEEP_LINK = "deepLink";
-    private static final String TAG_INCLUDE = "include";
-    private static final ThreadLocal<TypedValue> sTmpValue = new ThreadLocal<>();
-    private Context mContext;
-    private NavigatorProvider mNavigatorProvider;
+
+    /* renamed from: a */
+    private static final String f3022a = "argument";
+
+    /* renamed from: b */
+    private static final String f3023b = "deepLink";
+
+    /* renamed from: c */
+    private static final String f3024c = "action";
+
+    /* renamed from: d */
+    private static final String f3025d = "include";
+
+    /* renamed from: e */
+    private static final ThreadLocal<TypedValue> f3026e = new ThreadLocal<>();
+
+    /* renamed from: f */
+    private Context f3027f;
+
+    /* renamed from: g */
+    private NavigatorProvider f3028g;
 
     public NavInflater(@NonNull Context context, @NonNull NavigatorProvider navigatorProvider) {
-        this.mContext = context;
-        this.mNavigatorProvider = navigatorProvider;
+        this.f3027f = context;
+        this.f3028g = navigatorProvider;
     }
 
-    private static NavType checkNavType(TypedValue typedValue, NavType navType, NavType navType2, String str, String str2) throws XmlPullParserException {
+    private static NavType a(TypedValue typedValue, NavType navType, NavType navType2, String str, String str2) throws XmlPullParserException {
         if (navType == null || navType == navType2) {
             return navType != null ? navType : navType2;
         }
         throw new XmlPullParserException("Type is " + str + " but found " + str2 + ": " + typedValue.data);
     }
 
-    private void inflateAction(@NonNull Resources resources, @NonNull NavDestination navDestination, @NonNull AttributeSet attributeSet, XmlResourceParser xmlResourceParser, int i10) throws IOException, XmlPullParserException {
+    @NonNull
+    private NavDestination b(@NonNull Resources resources, @NonNull XmlResourceParser xmlResourceParser, @NonNull AttributeSet attributeSet, int i2) throws XmlPullParserException, IOException {
+        int depth;
+        NavDestination createDestination = this.f3028g.getNavigator(xmlResourceParser.getName()).createDestination();
+        createDestination.onInflate(this.f3027f, attributeSet);
+        int depth2 = xmlResourceParser.getDepth() + 1;
+        while (true) {
+            int next = xmlResourceParser.next();
+            if (next == 1 || ((depth = xmlResourceParser.getDepth()) < depth2 && next == 3)) {
+                break;
+            }
+            if (next == 2 && depth <= depth2) {
+                String name = xmlResourceParser.getName();
+                if (f3022a.equals(name)) {
+                    f(resources, createDestination, attributeSet, i2);
+                } else if (f3023b.equals(name)) {
+                    g(resources, createDestination, attributeSet);
+                } else if ("action".equals(name)) {
+                    c(resources, createDestination, attributeSet, xmlResourceParser, i2);
+                } else if (f3025d.equals(name) && (createDestination instanceof NavGraph)) {
+                    TypedArray obtainAttributes = resources.obtainAttributes(attributeSet, R.styleable.NavInclude);
+                    ((NavGraph) createDestination).addDestination(inflate(obtainAttributes.getResourceId(R.styleable.NavInclude_graph, 0)));
+                    obtainAttributes.recycle();
+                } else if (createDestination instanceof NavGraph) {
+                    ((NavGraph) createDestination).addDestination(b(resources, xmlResourceParser, attributeSet, i2));
+                }
+            }
+        }
+        return createDestination;
+    }
+
+    private void c(@NonNull Resources resources, @NonNull NavDestination navDestination, @NonNull AttributeSet attributeSet, XmlResourceParser xmlResourceParser, int i2) throws IOException, XmlPullParserException {
         int depth;
         TypedArray obtainAttributes = resources.obtainAttributes(attributeSet, androidx.navigation.common.R.styleable.NavAction);
         int resourceId = obtainAttributes.getResourceId(androidx.navigation.common.R.styleable.NavAction_android_id, 0);
@@ -65,8 +109,8 @@ public final class NavInflater {
             if (next == 1 || ((depth = xmlResourceParser.getDepth()) < depth2 && next == 3)) {
                 break;
             }
-            if (next == 2 && depth <= depth2 && TAG_ARGUMENT.equals(xmlResourceParser.getName())) {
-                inflateArgumentForBundle(resources, bundle, attributeSet, i10);
+            if (next == 2 && depth <= depth2 && f3022a.equals(xmlResourceParser.getName())) {
+                e(resources, bundle, attributeSet, i2);
             }
         }
         if (!bundle.isEmpty()) {
@@ -77,10 +121,10 @@ public final class NavInflater {
     }
 
     @NonNull
-    private NavArgument inflateArgument(@NonNull TypedArray typedArray, @NonNull Resources resources, int i10) throws XmlPullParserException {
+    private NavArgument d(@NonNull TypedArray typedArray, @NonNull Resources resources, int i2) throws XmlPullParserException {
         NavArgument.Builder builder = new NavArgument.Builder();
         builder.setIsNullable(typedArray.getBoolean(androidx.navigation.common.R.styleable.NavArgument_nullable, false));
-        ThreadLocal<TypedValue> threadLocal = sTmpValue;
+        ThreadLocal<TypedValue> threadLocal = f3026e;
         TypedValue typedValue = threadLocal.get();
         if (typedValue == null) {
             typedValue = new TypedValue();
@@ -88,13 +132,14 @@ public final class NavInflater {
         }
         String string = typedArray.getString(androidx.navigation.common.R.styleable.NavArgument_argType);
         Object obj = null;
-        NavType<?> fromArgType = string != null ? NavType.fromArgType(string, resources.getResourcePackageName(i10)) : null;
-        if (typedArray.getValue(androidx.navigation.common.R.styleable.NavArgument_android_defaultValue, typedValue)) {
+        NavType<?> fromArgType = string != null ? NavType.fromArgType(string, resources.getResourcePackageName(i2)) : null;
+        int i3 = androidx.navigation.common.R.styleable.NavArgument_android_defaultValue;
+        if (typedArray.getValue(i3, typedValue)) {
             NavType<Integer> navType = NavType.ReferenceType;
             if (fromArgType == navType) {
-                int i11 = typedValue.resourceId;
-                if (i11 != 0) {
-                    obj = Integer.valueOf(i11);
+                int i4 = typedValue.resourceId;
+                if (i4 != 0) {
+                    obj = Integer.valueOf(i4);
                 } else {
                     if (typedValue.type != 16 || typedValue.data != 0) {
                         throw new XmlPullParserException("unsupported value '" + ((Object) typedValue.string) + "' for " + fromArgType.getName() + ". Must be a reference to a resource.");
@@ -102,37 +147,37 @@ public final class NavInflater {
                     obj = 0;
                 }
             } else {
-                int i12 = typedValue.resourceId;
-                if (i12 != 0) {
+                int i5 = typedValue.resourceId;
+                if (i5 != 0) {
                     if (fromArgType != null) {
                         throw new XmlPullParserException("unsupported value '" + ((Object) typedValue.string) + "' for " + fromArgType.getName() + ". You must use a \"" + navType.getName() + "\" type to reference other resources.");
                     }
                     fromArgType = navType;
-                    obj = Integer.valueOf(i12);
+                    obj = Integer.valueOf(i5);
                 } else if (fromArgType == NavType.StringType) {
-                    obj = typedArray.getString(androidx.navigation.common.R.styleable.NavArgument_android_defaultValue);
+                    obj = typedArray.getString(i3);
                 } else {
-                    int i13 = typedValue.type;
-                    if (i13 == 3) {
+                    int i6 = typedValue.type;
+                    if (i6 == 3) {
                         String charSequence = typedValue.string.toString();
                         if (fromArgType == null) {
-                            fromArgType = NavType.inferFromValue(charSequence);
+                            fromArgType = NavType.a(charSequence);
                         }
                         obj = fromArgType.parseValue(charSequence);
-                    } else if (i13 == 4) {
-                        fromArgType = checkNavType(typedValue, fromArgType, NavType.FloatType, string, TypedValues.Custom.S_FLOAT);
+                    } else if (i6 == 4) {
+                        fromArgType = a(typedValue, fromArgType, NavType.FloatType, string, "float");
                         obj = Float.valueOf(typedValue.getFloat());
-                    } else if (i13 == 5) {
-                        fromArgType = checkNavType(typedValue, fromArgType, NavType.IntType, string, TypedValues.Custom.S_DIMENSION);
+                    } else if (i6 == 5) {
+                        fromArgType = a(typedValue, fromArgType, NavType.IntType, string, "dimension");
                         obj = Integer.valueOf((int) typedValue.getDimension(resources.getDisplayMetrics()));
-                    } else if (i13 == 18) {
-                        fromArgType = checkNavType(typedValue, fromArgType, NavType.BoolType, string, TypedValues.Custom.S_BOOLEAN);
+                    } else if (i6 == 18) {
+                        fromArgType = a(typedValue, fromArgType, NavType.BoolType, string, "boolean");
                         obj = Boolean.valueOf(typedValue.data != 0);
                     } else {
-                        if (i13 < 16 || i13 > 31) {
+                        if (i6 < 16 || i6 > 31) {
                             throw new XmlPullParserException("unsupported argument type " + typedValue.type);
                         }
-                        fromArgType = checkNavType(typedValue, fromArgType, NavType.IntType, string, TypedValues.Custom.S_INT);
+                        fromArgType = a(typedValue, fromArgType, NavType.IntType, string, "integer");
                         obj = Integer.valueOf(typedValue.data);
                     }
                 }
@@ -147,30 +192,30 @@ public final class NavInflater {
         return builder.build();
     }
 
-    private void inflateArgumentForBundle(@NonNull Resources resources, @NonNull Bundle bundle, @NonNull AttributeSet attributeSet, int i10) throws XmlPullParserException {
+    private void e(@NonNull Resources resources, @NonNull Bundle bundle, @NonNull AttributeSet attributeSet, int i2) throws XmlPullParserException {
         TypedArray obtainAttributes = resources.obtainAttributes(attributeSet, androidx.navigation.common.R.styleable.NavArgument);
         String string = obtainAttributes.getString(androidx.navigation.common.R.styleable.NavArgument_android_name);
         if (string == null) {
             throw new XmlPullParserException("Arguments must have a name");
         }
-        NavArgument inflateArgument = inflateArgument(obtainAttributes, resources, i10);
-        if (inflateArgument.isDefaultValuePresent()) {
-            inflateArgument.putDefaultValue(string, bundle);
+        NavArgument d2 = d(obtainAttributes, resources, i2);
+        if (d2.isDefaultValuePresent()) {
+            d2.a(string, bundle);
         }
         obtainAttributes.recycle();
     }
 
-    private void inflateArgumentForDestination(@NonNull Resources resources, @NonNull NavDestination navDestination, @NonNull AttributeSet attributeSet, int i10) throws XmlPullParserException {
+    private void f(@NonNull Resources resources, @NonNull NavDestination navDestination, @NonNull AttributeSet attributeSet, int i2) throws XmlPullParserException {
         TypedArray obtainAttributes = resources.obtainAttributes(attributeSet, androidx.navigation.common.R.styleable.NavArgument);
         String string = obtainAttributes.getString(androidx.navigation.common.R.styleable.NavArgument_android_name);
         if (string == null) {
             throw new XmlPullParserException("Arguments must have a name");
         }
-        navDestination.addArgument(string, inflateArgument(obtainAttributes, resources, i10));
+        navDestination.addArgument(string, d(obtainAttributes, resources, i2));
         obtainAttributes.recycle();
     }
 
-    private void inflateDeepLink(@NonNull Resources resources, @NonNull NavDestination navDestination, @NonNull AttributeSet attributeSet) throws XmlPullParserException {
+    private void g(@NonNull Resources resources, @NonNull NavDestination navDestination, @NonNull AttributeSet attributeSet) throws XmlPullParserException {
         TypedArray obtainAttributes = resources.obtainAttributes(attributeSet, androidx.navigation.common.R.styleable.NavDeepLink);
         String string = obtainAttributes.getString(androidx.navigation.common.R.styleable.NavDeepLink_uri);
         String string2 = obtainAttributes.getString(androidx.navigation.common.R.styleable.NavDeepLink_action);
@@ -180,13 +225,13 @@ public final class NavInflater {
         }
         NavDeepLink.Builder builder = new NavDeepLink.Builder();
         if (string != null) {
-            builder.setUriPattern(string.replace(APPLICATION_ID_PLACEHOLDER, this.mContext.getPackageName()));
+            builder.setUriPattern(string.replace(APPLICATION_ID_PLACEHOLDER, this.f3027f.getPackageName()));
         }
         if (!TextUtils.isEmpty(string2)) {
-            builder.setAction(string2.replace(APPLICATION_ID_PLACEHOLDER, this.mContext.getPackageName()));
+            builder.setAction(string2.replace(APPLICATION_ID_PLACEHOLDER, this.f3027f.getPackageName()));
         }
         if (string3 != null) {
-            builder.setMimeType(string3.replace(APPLICATION_ID_PLACEHOLDER, this.mContext.getPackageName()));
+            builder.setMimeType(string3.replace(APPLICATION_ID_PLACEHOLDER, this.f3027f.getPackageName()));
         }
         navDestination.addDeepLink(builder.build());
         obtainAttributes.recycle();
@@ -194,10 +239,10 @@ public final class NavInflater {
 
     @NonNull
     @SuppressLint({"ResourceType"})
-    public NavGraph inflate(@NavigationRes int i10) {
+    public NavGraph inflate(@NavigationRes int i2) {
         int next;
-        Resources resources = this.mContext.getResources();
-        XmlResourceParser xml = resources.getXml(i10);
+        Resources resources = this.f3027f.getResources();
+        XmlResourceParser xml = resources.getXml(i2);
         AttributeSet asAttributeSet = Xml.asAttributeSet(xml);
         do {
             try {
@@ -206,8 +251,8 @@ public final class NavInflater {
                     if (next == 2) {
                         break;
                     }
-                } catch (Exception e10) {
-                    throw new RuntimeException("Exception inflating " + resources.getResourceName(i10) + " line " + xml.getLineNumber(), e10);
+                } catch (Exception e2) {
+                    throw new RuntimeException("Exception inflating " + resources.getResourceName(i2) + " line " + xml.getLineNumber(), e2);
                 }
             } finally {
                 xml.close();
@@ -217,41 +262,10 @@ public final class NavInflater {
             throw new XmlPullParserException("No start tag found");
         }
         String name = xml.getName();
-        NavDestination inflate = inflate(resources, xml, asAttributeSet, i10);
-        if (inflate instanceof NavGraph) {
-            return (NavGraph) inflate;
+        NavDestination b2 = b(resources, xml, asAttributeSet, i2);
+        if (b2 instanceof NavGraph) {
+            return (NavGraph) b2;
         }
         throw new IllegalArgumentException("Root element <" + name + "> did not inflate into a NavGraph");
-    }
-
-    @NonNull
-    private NavDestination inflate(@NonNull Resources resources, @NonNull XmlResourceParser xmlResourceParser, @NonNull AttributeSet attributeSet, int i10) throws XmlPullParserException, IOException {
-        int depth;
-        NavDestination createDestination = this.mNavigatorProvider.getNavigator(xmlResourceParser.getName()).createDestination();
-        createDestination.onInflate(this.mContext, attributeSet);
-        int depth2 = xmlResourceParser.getDepth() + 1;
-        while (true) {
-            int next = xmlResourceParser.next();
-            if (next == 1 || ((depth = xmlResourceParser.getDepth()) < depth2 && next == 3)) {
-                break;
-            }
-            if (next == 2 && depth <= depth2) {
-                String name = xmlResourceParser.getName();
-                if (TAG_ARGUMENT.equals(name)) {
-                    inflateArgumentForDestination(resources, createDestination, attributeSet, i10);
-                } else if (TAG_DEEP_LINK.equals(name)) {
-                    inflateDeepLink(resources, createDestination, attributeSet);
-                } else if ("action".equals(name)) {
-                    inflateAction(resources, createDestination, attributeSet, xmlResourceParser, i10);
-                } else if (TAG_INCLUDE.equals(name) && (createDestination instanceof NavGraph)) {
-                    TypedArray obtainAttributes = resources.obtainAttributes(attributeSet, R.styleable.NavInclude);
-                    ((NavGraph) createDestination).addDestination(inflate(obtainAttributes.getResourceId(R.styleable.NavInclude_graph, 0)));
-                    obtainAttributes.recycle();
-                } else if (createDestination instanceof NavGraph) {
-                    ((NavGraph) createDestination).addDestination(inflate(resources, xmlResourceParser, attributeSet, i10));
-                }
-            }
-        }
-        return createDestination;
     }
 }

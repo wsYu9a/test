@@ -1,6 +1,6 @@
 package com.google.zxing;
 
-/* loaded from: classes2.dex */
+/* loaded from: classes.dex */
 public abstract class ReaderException extends Exception {
     protected static final StackTraceElement[] NO_TRACE;
     protected static final boolean isStackTrace;
@@ -10,7 +10,7 @@ public abstract class ReaderException extends Exception {
         NO_TRACE = new StackTraceElement[0];
     }
 
-    public ReaderException() {
+    ReaderException() {
     }
 
     @Override // java.lang.Throwable
@@ -18,7 +18,7 @@ public abstract class ReaderException extends Exception {
         return null;
     }
 
-    public ReaderException(Throwable th2) {
-        super(th2);
+    ReaderException(Throwable th) {
+        super(th);
     }
 }

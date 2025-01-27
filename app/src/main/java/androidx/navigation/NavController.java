@@ -36,46 +36,66 @@ import java.util.concurrent.CopyOnWriteArrayList;
 
 /* loaded from: classes.dex */
 public class NavController {
-    private static final String KEY_BACK_STACK = "android-support-nav:controller:backStack";
-    static final String KEY_DEEP_LINK_EXTRAS = "android-support-nav:controller:deepLinkExtras";
-    static final String KEY_DEEP_LINK_HANDLED = "android-support-nav:controller:deepLinkHandled";
-    static final String KEY_DEEP_LINK_IDS = "android-support-nav:controller:deepLinkIds";
 
     @NonNull
     public static final String KEY_DEEP_LINK_INTENT = "android-support-nav:controller:deepLinkIntent";
-    private static final String KEY_NAVIGATOR_STATE = "android-support-nav:controller:navigatorState";
-    private static final String KEY_NAVIGATOR_STATE_NAMES = "android-support-nav:controller:navigatorState:names";
-    private static final String TAG = "NavController";
-    private Activity mActivity;
-    private Parcelable[] mBackStackToRestore;
-    private final Context mContext;
-    private boolean mDeepLinkHandled;
-    NavGraph mGraph;
-    private NavInflater mInflater;
-    private LifecycleOwner mLifecycleOwner;
-    private Bundle mNavigatorStateToRestore;
-    private NavControllerViewModel mViewModel;
-    final Deque<NavBackStackEntry> mBackStack = new ArrayDeque();
-    private NavigatorProvider mNavigatorProvider = new NavigatorProvider();
-    private final CopyOnWriteArrayList<OnDestinationChangedListener> mOnDestinationChangedListeners = new CopyOnWriteArrayList<>();
-    private final LifecycleObserver mLifecycleObserver = new LifecycleEventObserver() { // from class: androidx.navigation.NavController.1
-        public AnonymousClass1() {
+
+    /* renamed from: a */
+    private static final String f2959a = "NavController";
+
+    /* renamed from: b */
+    private static final String f2960b = "android-support-nav:controller:navigatorState";
+
+    /* renamed from: c */
+    private static final String f2961c = "android-support-nav:controller:navigatorState:names";
+
+    /* renamed from: d */
+    private static final String f2962d = "android-support-nav:controller:backStack";
+
+    /* renamed from: e */
+    static final String f2963e = "android-support-nav:controller:deepLinkIds";
+
+    /* renamed from: f */
+    static final String f2964f = "android-support-nav:controller:deepLinkExtras";
+
+    /* renamed from: g */
+    static final String f2965g = "android-support-nav:controller:deepLinkHandled";
+
+    /* renamed from: h */
+    private final Context f2966h;
+
+    /* renamed from: i */
+    private Activity f2967i;
+
+    /* renamed from: j */
+    private NavInflater f2968j;
+    NavGraph k;
+    private Bundle l;
+    private Parcelable[] m;
+    private boolean n;
+    private LifecycleOwner p;
+    private NavControllerViewModel q;
+    final Deque<NavBackStackEntry> o = new ArrayDeque();
+    private NavigatorProvider r = new NavigatorProvider();
+    private final CopyOnWriteArrayList<OnDestinationChangedListener> s = new CopyOnWriteArrayList<>();
+    private final LifecycleObserver t = new LifecycleEventObserver() { // from class: androidx.navigation.NavController.1
+        AnonymousClass1() {
         }
 
         @Override // androidx.lifecycle.LifecycleEventObserver
         public void onStateChanged(@NonNull LifecycleOwner lifecycleOwner, @NonNull Lifecycle.Event event) {
             NavController navController = NavController.this;
-            if (navController.mGraph != null) {
-                Iterator<NavBackStackEntry> it = navController.mBackStack.iterator();
+            if (navController.k != null) {
+                Iterator<NavBackStackEntry> it = navController.o.iterator();
                 while (it.hasNext()) {
-                    it.next().handleLifecycleEvent(event);
+                    it.next().c(event);
                 }
             }
         }
     };
-    private final OnBackPressedCallback mOnBackPressedCallback = new OnBackPressedCallback(false) { // from class: androidx.navigation.NavController.2
-        public AnonymousClass2(boolean z10) {
-            super(z10);
+    private final OnBackPressedCallback u = new OnBackPressedCallback(false) { // from class: androidx.navigation.NavController.2
+        AnonymousClass2(boolean z) {
+            super(z);
         }
 
         @Override // androidx.activity.OnBackPressedCallback
@@ -83,29 +103,29 @@ public class NavController {
             NavController.this.popBackStack();
         }
     };
-    private boolean mEnableOnBackPressedCallback = true;
+    private boolean v = true;
 
     /* renamed from: androidx.navigation.NavController$1 */
-    public class AnonymousClass1 implements LifecycleEventObserver {
-        public AnonymousClass1() {
+    class AnonymousClass1 implements LifecycleEventObserver {
+        AnonymousClass1() {
         }
 
         @Override // androidx.lifecycle.LifecycleEventObserver
         public void onStateChanged(@NonNull LifecycleOwner lifecycleOwner, @NonNull Lifecycle.Event event) {
             NavController navController = NavController.this;
-            if (navController.mGraph != null) {
-                Iterator<NavBackStackEntry> it = navController.mBackStack.iterator();
+            if (navController.k != null) {
+                Iterator<NavBackStackEntry> it = navController.o.iterator();
                 while (it.hasNext()) {
-                    it.next().handleLifecycleEvent(event);
+                    it.next().c(event);
                 }
             }
         }
     }
 
     /* renamed from: androidx.navigation.NavController$2 */
-    public class AnonymousClass2 extends OnBackPressedCallback {
-        public AnonymousClass2(boolean z10) {
-            super(z10);
+    class AnonymousClass2 extends OnBackPressedCallback {
+        AnonymousClass2(boolean z) {
+            super(z);
         }
 
         @Override // androidx.activity.OnBackPressedCallback
@@ -119,76 +139,79 @@ public class NavController {
     }
 
     public NavController(@NonNull Context context) {
-        this.mContext = context;
+        this.f2966h = context;
         while (true) {
             if (!(context instanceof ContextWrapper)) {
                 break;
             }
             if (context instanceof Activity) {
-                this.mActivity = (Activity) context;
+                this.f2967i = (Activity) context;
                 break;
             }
             context = ((ContextWrapper) context).getBaseContext();
         }
-        NavigatorProvider navigatorProvider = this.mNavigatorProvider;
+        NavigatorProvider navigatorProvider = this.r;
         navigatorProvider.addNavigator(new NavGraphNavigator(navigatorProvider));
-        this.mNavigatorProvider.addNavigator(new ActivityNavigator(this.mContext));
+        this.r.addNavigator(new ActivityNavigator(this.f2966h));
     }
 
-    private boolean dispatchOnDestinationChanged() {
-        NavDestination navDestination;
-        while (!this.mBackStack.isEmpty() && (this.mBackStack.peekLast().getDestination() instanceof NavGraph) && popBackStackInternal(this.mBackStack.peekLast().getDestination().getId(), true)) {
+    private boolean a() {
+        while (!this.o.isEmpty() && (this.o.peekLast().getDestination() instanceof NavGraph) && g(this.o.peekLast().getDestination().getId(), true)) {
         }
-        if (this.mBackStack.isEmpty()) {
+        if (this.o.isEmpty()) {
             return false;
         }
-        NavDestination destination = this.mBackStack.peekLast().getDestination();
+        NavDestination destination = this.o.peekLast().getDestination();
+        NavDestination navDestination = null;
         if (destination instanceof FloatingWindow) {
-            Iterator<NavBackStackEntry> descendingIterator = this.mBackStack.descendingIterator();
-            while (descendingIterator.hasNext()) {
-                navDestination = descendingIterator.next().getDestination();
-                if (!(navDestination instanceof NavGraph) && !(navDestination instanceof FloatingWindow)) {
+            Iterator<NavBackStackEntry> descendingIterator = this.o.descendingIterator();
+            while (true) {
+                if (!descendingIterator.hasNext()) {
+                    break;
+                }
+                NavDestination destination2 = descendingIterator.next().getDestination();
+                if (!(destination2 instanceof NavGraph) && !(destination2 instanceof FloatingWindow)) {
+                    navDestination = destination2;
                     break;
                 }
             }
         }
-        navDestination = null;
         HashMap hashMap = new HashMap();
-        Iterator<NavBackStackEntry> descendingIterator2 = this.mBackStack.descendingIterator();
+        Iterator<NavBackStackEntry> descendingIterator2 = this.o.descendingIterator();
         while (descendingIterator2.hasNext()) {
             NavBackStackEntry next = descendingIterator2.next();
-            Lifecycle.State maxLifecycle = next.getMaxLifecycle();
-            NavDestination destination2 = next.getDestination();
-            if (destination != null && destination2.getId() == destination.getId()) {
+            Lifecycle.State a2 = next.a();
+            NavDestination destination3 = next.getDestination();
+            if (destination != null && destination3.getId() == destination.getId()) {
                 Lifecycle.State state = Lifecycle.State.RESUMED;
-                if (maxLifecycle != state) {
+                if (a2 != state) {
                     hashMap.put(next, state);
                 }
                 destination = destination.getParent();
-            } else if (navDestination == null || destination2.getId() != navDestination.getId()) {
-                next.setMaxLifecycle(Lifecycle.State.CREATED);
+            } else if (navDestination == null || destination3.getId() != navDestination.getId()) {
+                next.f(Lifecycle.State.CREATED);
             } else {
-                if (maxLifecycle == Lifecycle.State.RESUMED) {
-                    next.setMaxLifecycle(Lifecycle.State.STARTED);
+                if (a2 == Lifecycle.State.RESUMED) {
+                    next.f(Lifecycle.State.STARTED);
                 } else {
                     Lifecycle.State state2 = Lifecycle.State.STARTED;
-                    if (maxLifecycle != state2) {
+                    if (a2 != state2) {
                         hashMap.put(next, state2);
                     }
                 }
                 navDestination = navDestination.getParent();
             }
         }
-        for (NavBackStackEntry navBackStackEntry : this.mBackStack) {
+        for (NavBackStackEntry navBackStackEntry : this.o) {
             Lifecycle.State state3 = (Lifecycle.State) hashMap.get(navBackStackEntry);
             if (state3 != null) {
-                navBackStackEntry.setMaxLifecycle(state3);
+                navBackStackEntry.f(state3);
             } else {
-                navBackStackEntry.updateState();
+                navBackStackEntry.g();
             }
         }
-        NavBackStackEntry peekLast = this.mBackStack.peekLast();
-        Iterator<OnDestinationChangedListener> it = this.mOnDestinationChangedListeners.iterator();
+        NavBackStackEntry peekLast = this.o.peekLast();
+        Iterator<OnDestinationChangedListener> it = this.s.iterator();
         while (it.hasNext()) {
             it.next().onDestinationChanged(this, peekLast.getDestination(), peekLast.getArguments());
         }
@@ -196,25 +219,25 @@ public class NavController {
     }
 
     @Nullable
-    private String findInvalidDestinationDisplayNameInDeepLink(@NonNull int[] iArr) {
+    private String c(@NonNull int[] iArr) {
         NavGraph navGraph;
-        NavGraph navGraph2 = this.mGraph;
-        int i10 = 0;
+        NavGraph navGraph2 = this.k;
+        int i2 = 0;
         while (true) {
             NavDestination navDestination = null;
-            if (i10 >= iArr.length) {
+            if (i2 >= iArr.length) {
                 return null;
             }
-            int i11 = iArr[i10];
-            if (i10 != 0) {
-                navDestination = navGraph2.findNode(i11);
-            } else if (this.mGraph.getId() == i11) {
-                navDestination = this.mGraph;
+            int i3 = iArr[i2];
+            if (i2 != 0) {
+                navDestination = navGraph2.findNode(i3);
+            } else if (this.k.getId() == i3) {
+                navDestination = this.k;
             }
             if (navDestination == null) {
-                return NavDestination.getDisplayName(this.mContext, i11);
+                return NavDestination.c(this.f2966h, i3);
             }
-            if (i10 != iArr.length - 1) {
+            if (i2 != iArr.length - 1) {
                 while (true) {
                     navGraph = (NavGraph) navDestination;
                     if (!(navGraph.findNode(navGraph.getStartDestination()) instanceof NavGraph)) {
@@ -224,93 +247,146 @@ public class NavController {
                 }
                 navGraph2 = navGraph;
             }
-            i10++;
+            i2++;
         }
     }
 
-    private int getDestinationCountOnBackStack() {
-        Iterator<NavBackStackEntry> it = this.mBackStack.iterator();
-        int i10 = 0;
+    private int d() {
+        Iterator<NavBackStackEntry> it = this.o.iterator();
+        int i2 = 0;
         while (it.hasNext()) {
             if (!(it.next().getDestination() instanceof NavGraph)) {
-                i10++;
+                i2++;
             }
         }
-        return i10;
+        return i2;
     }
 
-    private void onGraphCreated(@Nullable Bundle bundle) {
+    private void e(@NonNull NavDestination navDestination, @Nullable Bundle bundle, @Nullable NavOptions navOptions, @Nullable Navigator.Extras extras) {
+        boolean z = false;
+        boolean g2 = (navOptions == null || navOptions.getPopUpTo() == -1) ? false : g(navOptions.getPopUpTo(), navOptions.isPopUpToInclusive());
+        Navigator navigator = this.r.getNavigator(navDestination.getNavigatorName());
+        Bundle a2 = navDestination.a(bundle);
+        NavDestination navigate = navigator.navigate(navDestination, a2, navOptions, extras);
+        if (navigate != null) {
+            if (!(navigate instanceof FloatingWindow)) {
+                while (!this.o.isEmpty() && (this.o.peekLast().getDestination() instanceof FloatingWindow) && g(this.o.peekLast().getDestination().getId(), true)) {
+                }
+            }
+            ArrayDeque arrayDeque = new ArrayDeque();
+            if (navDestination instanceof NavGraph) {
+                NavDestination navDestination2 = navigate;
+                while (true) {
+                    NavGraph parent = navDestination2.getParent();
+                    if (parent != null) {
+                        arrayDeque.addFirst(new NavBackStackEntry(this.f2966h, parent, a2, this.p, this.q));
+                        if (!this.o.isEmpty() && this.o.getLast().getDestination() == parent) {
+                            g(parent.getId(), true);
+                        }
+                    }
+                    if (parent == null || parent == navDestination) {
+                        break;
+                    } else {
+                        navDestination2 = parent;
+                    }
+                }
+            }
+            NavDestination destination = arrayDeque.isEmpty() ? navigate : ((NavBackStackEntry) arrayDeque.getFirst()).getDestination();
+            while (destination != null && b(destination.getId()) == null) {
+                destination = destination.getParent();
+                if (destination != null) {
+                    arrayDeque.addFirst(new NavBackStackEntry(this.f2966h, destination, a2, this.p, this.q));
+                }
+            }
+            NavDestination destination2 = arrayDeque.isEmpty() ? navigate : ((NavBackStackEntry) arrayDeque.getLast()).getDestination();
+            while (!this.o.isEmpty() && (this.o.getLast().getDestination() instanceof NavGraph) && ((NavGraph) this.o.getLast().getDestination()).h(destination2.getId(), false) == null && g(this.o.getLast().getDestination().getId(), true)) {
+            }
+            this.o.addAll(arrayDeque);
+            if (this.o.isEmpty() || this.o.getFirst().getDestination() != this.k) {
+                this.o.addFirst(new NavBackStackEntry(this.f2966h, this.k, a2, this.p, this.q));
+            }
+            this.o.add(new NavBackStackEntry(this.f2966h, navigate, navigate.a(a2), this.p, this.q));
+        } else if (navOptions != null && navOptions.shouldLaunchSingleTop()) {
+            NavBackStackEntry peekLast = this.o.peekLast();
+            if (peekLast != null) {
+                peekLast.d(a2);
+            }
+            z = true;
+        }
+        h();
+        if (g2 || navigate != null || z) {
+            a();
+        }
+    }
+
+    private void f(@Nullable Bundle bundle) {
         Activity activity;
         ArrayList<String> stringArrayList;
-        Bundle bundle2 = this.mNavigatorStateToRestore;
-        if (bundle2 != null && (stringArrayList = bundle2.getStringArrayList(KEY_NAVIGATOR_STATE_NAMES)) != null) {
+        Bundle bundle2 = this.l;
+        if (bundle2 != null && (stringArrayList = bundle2.getStringArrayList(f2961c)) != null) {
             Iterator<String> it = stringArrayList.iterator();
             while (it.hasNext()) {
                 String next = it.next();
-                Navigator navigator = this.mNavigatorProvider.getNavigator(next);
-                Bundle bundle3 = this.mNavigatorStateToRestore.getBundle(next);
+                Navigator navigator = this.r.getNavigator(next);
+                Bundle bundle3 = this.l.getBundle(next);
                 if (bundle3 != null) {
                     navigator.onRestoreState(bundle3);
                 }
             }
         }
-        Parcelable[] parcelableArr = this.mBackStackToRestore;
+        Parcelable[] parcelableArr = this.m;
+        boolean z = false;
         if (parcelableArr != null) {
             for (Parcelable parcelable : parcelableArr) {
                 NavBackStackEntryState navBackStackEntryState = (NavBackStackEntryState) parcelable;
-                NavDestination findDestination = findDestination(navBackStackEntryState.getDestinationId());
-                if (findDestination == null) {
-                    throw new IllegalStateException("Restoring the Navigation back stack failed: destination " + NavDestination.getDisplayName(this.mContext, navBackStackEntryState.getDestinationId()) + " cannot be found from the current destination " + getCurrentDestination());
+                NavDestination b2 = b(navBackStackEntryState.b());
+                if (b2 == null) {
+                    throw new IllegalStateException("Restoring the Navigation back stack failed: destination " + NavDestination.c(this.f2966h, navBackStackEntryState.b()) + " cannot be found from the current destination " + getCurrentDestination());
                 }
-                Bundle args = navBackStackEntryState.getArgs();
-                if (args != null) {
-                    args.setClassLoader(this.mContext.getClassLoader());
+                Bundle a2 = navBackStackEntryState.a();
+                if (a2 != null) {
+                    a2.setClassLoader(this.f2966h.getClassLoader());
                 }
-                this.mBackStack.add(new NavBackStackEntry(this.mContext, findDestination, args, this.mLifecycleOwner, this.mViewModel, navBackStackEntryState.getUUID(), navBackStackEntryState.getSavedState()));
+                this.o.add(new NavBackStackEntry(this.f2966h, b2, a2, this.p, this.q, navBackStackEntryState.e(), navBackStackEntryState.d()));
             }
-            updateOnBackPressedCallbackEnabled();
-            this.mBackStackToRestore = null;
+            h();
+            this.m = null;
         }
-        if (this.mGraph == null || !this.mBackStack.isEmpty()) {
-            dispatchOnDestinationChanged();
-        } else if (this.mDeepLinkHandled || (activity = this.mActivity) == null || !handleDeepLink(activity.getIntent())) {
-            navigate(this.mGraph, bundle, (NavOptions) null, (Navigator.Extras) null);
+        if (this.k == null || !this.o.isEmpty()) {
+            a();
+            return;
         }
+        if (!this.n && (activity = this.f2967i) != null && handleDeepLink(activity.getIntent())) {
+            z = true;
+        }
+        if (z) {
+            return;
+        }
+        e(this.k, bundle, null, null);
     }
 
-    /* JADX WARN: Code restructure failed: missing block: B:4:0x000b, code lost:
-    
-        if (getDestinationCountOnBackStack() > 1) goto L28;
-     */
-    /*
-        Code decompiled incorrectly, please refer to instructions dump.
-        To view partially-correct code enable 'Show inconsistent code' option in preferences
-    */
-    private void updateOnBackPressedCallbackEnabled() {
-        /*
-            r3 = this;
-            androidx.activity.OnBackPressedCallback r0 = r3.mOnBackPressedCallback
-            boolean r1 = r3.mEnableOnBackPressedCallback
-            if (r1 == 0) goto Le
-            int r1 = r3.getDestinationCountOnBackStack()
-            r2 = 1
-            if (r1 <= r2) goto Le
-            goto Lf
-        Le:
-            r2 = 0
-        Lf:
-            r0.setEnabled(r2)
-            return
-        */
-        throw new UnsupportedOperationException("Method not decompiled: androidx.navigation.NavController.updateOnBackPressedCallbackEnabled():void");
+    private void h() {
+        this.u.setEnabled(this.v && d() > 1);
     }
 
     public void addOnDestinationChangedListener(@NonNull OnDestinationChangedListener onDestinationChangedListener) {
-        if (!this.mBackStack.isEmpty()) {
-            NavBackStackEntry peekLast = this.mBackStack.peekLast();
+        if (!this.o.isEmpty()) {
+            NavBackStackEntry peekLast = this.o.peekLast();
             onDestinationChangedListener.onDestinationChanged(this, peekLast.getDestination(), peekLast.getArguments());
         }
-        this.mOnDestinationChangedListeners.add(onDestinationChangedListener);
+        this.s.add(onDestinationChangedListener);
+    }
+
+    NavDestination b(@IdRes int i2) {
+        NavGraph navGraph = this.k;
+        if (navGraph == null) {
+            return null;
+        }
+        if (navGraph.getId() == i2) {
+            return this.k;
+        }
+        NavGraph destination = this.o.isEmpty() ? this.k : this.o.getLast().getDestination();
+        return (destination instanceof NavGraph ? destination : destination.getParent()).findNode(i2);
     }
 
     @NonNull
@@ -318,60 +394,89 @@ public class NavController {
         return new NavDeepLinkBuilder(this);
     }
 
-    public void enableOnBackPressed(boolean z10) {
-        this.mEnableOnBackPressedCallback = z10;
-        updateOnBackPressedCallbackEnabled();
+    void enableOnBackPressed(boolean z) {
+        this.v = z;
+        h();
     }
 
-    public NavDestination findDestination(@IdRes int i10) {
-        NavGraph navGraph = this.mGraph;
-        if (navGraph == null) {
-            return null;
+    boolean g(@IdRes int i2, boolean z) {
+        boolean z2;
+        boolean z3 = false;
+        if (this.o.isEmpty()) {
+            return false;
         }
-        if (navGraph.getId() == i10) {
-            return this.mGraph;
+        ArrayList arrayList = new ArrayList();
+        Iterator<NavBackStackEntry> descendingIterator = this.o.descendingIterator();
+        while (true) {
+            if (!descendingIterator.hasNext()) {
+                z2 = false;
+                break;
+            }
+            NavDestination destination = descendingIterator.next().getDestination();
+            Navigator navigator = this.r.getNavigator(destination.getNavigatorName());
+            if (z || destination.getId() != i2) {
+                arrayList.add(navigator);
+            }
+            if (destination.getId() == i2) {
+                z2 = true;
+                break;
+            }
         }
-        NavGraph destination = this.mBackStack.isEmpty() ? this.mGraph : this.mBackStack.getLast().getDestination();
-        return (destination instanceof NavGraph ? destination : destination.getParent()).findNode(i10);
+        if (!z2) {
+            Log.i(f2959a, "Ignoring popBackStack to destination " + NavDestination.c(this.f2966h, i2) + " as it was not found on the current back stack");
+            return false;
+        }
+        Iterator it = arrayList.iterator();
+        while (it.hasNext() && ((Navigator) it.next()).popBackStack()) {
+            NavBackStackEntry removeLast = this.o.removeLast();
+            removeLast.f(Lifecycle.State.DESTROYED);
+            NavControllerViewModel navControllerViewModel = this.q;
+            if (navControllerViewModel != null) {
+                navControllerViewModel.f(removeLast.f2948f);
+            }
+            z3 = true;
+        }
+        h();
+        return z3;
     }
 
     @NonNull
     @RestrictTo({RestrictTo.Scope.LIBRARY_GROUP})
     public Deque<NavBackStackEntry> getBackStack() {
-        return this.mBackStack;
+        return this.o;
     }
 
     @NonNull
-    public NavBackStackEntry getBackStackEntry(@IdRes int i10) {
+    public NavBackStackEntry getBackStackEntry(@IdRes int i2) {
         NavBackStackEntry navBackStackEntry;
-        Iterator<NavBackStackEntry> descendingIterator = this.mBackStack.descendingIterator();
+        Iterator<NavBackStackEntry> descendingIterator = this.o.descendingIterator();
         while (true) {
             if (!descendingIterator.hasNext()) {
                 navBackStackEntry = null;
                 break;
             }
             navBackStackEntry = descendingIterator.next();
-            if (navBackStackEntry.getDestination().getId() == i10) {
+            if (navBackStackEntry.getDestination().getId() == i2) {
                 break;
             }
         }
         if (navBackStackEntry != null) {
             return navBackStackEntry;
         }
-        throw new IllegalArgumentException("No destination with ID " + i10 + " is on the NavController's back stack. The current destination is " + getCurrentDestination());
+        throw new IllegalArgumentException("No destination with ID " + i2 + " is on the NavController's back stack. The current destination is " + getCurrentDestination());
     }
 
     @NonNull
-    public Context getContext() {
-        return this.mContext;
+    Context getContext() {
+        return this.f2966h;
     }
 
     @Nullable
     public NavBackStackEntry getCurrentBackStackEntry() {
-        if (this.mBackStack.isEmpty()) {
+        if (this.o.isEmpty()) {
             return null;
         }
-        return this.mBackStack.getLast();
+        return this.o.getLast();
     }
 
     @Nullable
@@ -385,7 +490,7 @@ public class NavController {
 
     @NonNull
     public NavGraph getGraph() {
-        NavGraph navGraph = this.mGraph;
+        NavGraph navGraph = this.k;
         if (navGraph != null) {
             return navGraph;
         }
@@ -394,20 +499,20 @@ public class NavController {
 
     @NonNull
     public NavInflater getNavInflater() {
-        if (this.mInflater == null) {
-            this.mInflater = new NavInflater(this.mContext, this.mNavigatorProvider);
+        if (this.f2968j == null) {
+            this.f2968j = new NavInflater(this.f2966h, this.r);
         }
-        return this.mInflater;
+        return this.f2968j;
     }
 
     @NonNull
     public NavigatorProvider getNavigatorProvider() {
-        return this.mNavigatorProvider;
+        return this.r;
     }
 
     @Nullable
     public NavBackStackEntry getPreviousBackStackEntry() {
-        Iterator<NavBackStackEntry> descendingIterator = this.mBackStack.descendingIterator();
+        Iterator<NavBackStackEntry> descendingIterator = this.o.descendingIterator();
         if (descendingIterator.hasNext()) {
             descendingIterator.next();
         }
@@ -421,83 +526,83 @@ public class NavController {
     }
 
     @NonNull
-    public ViewModelStoreOwner getViewModelStoreOwner(@IdRes int i10) {
-        if (this.mViewModel == null) {
+    public ViewModelStoreOwner getViewModelStoreOwner(@IdRes int i2) {
+        if (this.q == null) {
             throw new IllegalStateException("You must call setViewModelStore() before calling getViewModelStoreOwner().");
         }
-        NavBackStackEntry backStackEntry = getBackStackEntry(i10);
+        NavBackStackEntry backStackEntry = getBackStackEntry(i2);
         if (backStackEntry.getDestination() instanceof NavGraph) {
             return backStackEntry;
         }
-        throw new IllegalArgumentException("No NavGraph with ID " + i10 + " is on the NavController's back stack");
+        throw new IllegalArgumentException("No NavGraph with ID " + i2 + " is on the NavController's back stack");
     }
 
     public boolean handleDeepLink(@Nullable Intent intent) {
-        NavDestination.DeepLinkMatch matchDeepLink;
+        NavDestination.DeepLinkMatch d2;
         NavGraph navGraph;
         if (intent == null) {
             return false;
         }
         Bundle extras = intent.getExtras();
-        int[] intArray = extras != null ? extras.getIntArray(KEY_DEEP_LINK_IDS) : null;
+        int[] intArray = extras != null ? extras.getIntArray(f2963e) : null;
         Bundle bundle = new Bundle();
-        Bundle bundle2 = extras != null ? extras.getBundle(KEY_DEEP_LINK_EXTRAS) : null;
+        Bundle bundle2 = extras != null ? extras.getBundle(f2964f) : null;
         if (bundle2 != null) {
             bundle.putAll(bundle2);
         }
-        if ((intArray == null || intArray.length == 0) && intent.getData() != null && (matchDeepLink = this.mGraph.matchDeepLink(new NavDeepLinkRequest(intent))) != null) {
-            NavDestination destination = matchDeepLink.getDestination();
-            int[] buildDeepLinkIds = destination.buildDeepLinkIds();
-            bundle.putAll(destination.addInDefaultArgs(matchDeepLink.getMatchingArgs()));
-            intArray = buildDeepLinkIds;
+        if ((intArray == null || intArray.length == 0) && intent.getData() != null && (d2 = this.k.d(new NavDeepLinkRequest(intent))) != null) {
+            NavDestination a2 = d2.a();
+            int[] b2 = a2.b();
+            bundle.putAll(a2.a(d2.b()));
+            intArray = b2;
         }
         if (intArray == null || intArray.length == 0) {
             return false;
         }
-        String findInvalidDestinationDisplayNameInDeepLink = findInvalidDestinationDisplayNameInDeepLink(intArray);
-        if (findInvalidDestinationDisplayNameInDeepLink != null) {
-            Log.i(TAG, "Could not find destination " + findInvalidDestinationDisplayNameInDeepLink + " in the navigation graph, ignoring the deep link from " + intent);
+        String c2 = c(intArray);
+        if (c2 != null) {
+            Log.i(f2959a, "Could not find destination " + c2 + " in the navigation graph, ignoring the deep link from " + intent);
             return false;
         }
         bundle.putParcelable(KEY_DEEP_LINK_INTENT, intent);
         int flags = intent.getFlags();
-        int i10 = 268435456 & flags;
-        if (i10 != 0 && (flags & 32768) == 0) {
+        int i2 = 268435456 & flags;
+        if (i2 != 0 && (flags & 32768) == 0) {
             intent.addFlags(32768);
-            TaskStackBuilder.create(this.mContext).addNextIntentWithParentStack(intent).startActivities();
-            Activity activity = this.mActivity;
+            TaskStackBuilder.create(this.f2966h).addNextIntentWithParentStack(intent).startActivities();
+            Activity activity = this.f2967i;
             if (activity != null) {
                 activity.finish();
-                this.mActivity.overridePendingTransition(0, 0);
+                this.f2967i.overridePendingTransition(0, 0);
             }
             return true;
         }
-        if (i10 != 0) {
-            if (!this.mBackStack.isEmpty()) {
-                popBackStackInternal(this.mGraph.getId(), true);
+        if (i2 != 0) {
+            if (!this.o.isEmpty()) {
+                g(this.k.getId(), true);
             }
-            int i11 = 0;
-            while (i11 < intArray.length) {
-                int i12 = i11 + 1;
-                int i13 = intArray[i11];
-                NavDestination findDestination = findDestination(i13);
-                if (findDestination == null) {
-                    throw new IllegalStateException("Deep Linking failed: destination " + NavDestination.getDisplayName(this.mContext, i13) + " cannot be found from the current destination " + getCurrentDestination());
+            int i3 = 0;
+            while (i3 < intArray.length) {
+                int i4 = i3 + 1;
+                int i5 = intArray[i3];
+                NavDestination b3 = b(i5);
+                if (b3 == null) {
+                    throw new IllegalStateException("Deep Linking failed: destination " + NavDestination.c(this.f2966h, i5) + " cannot be found from the current destination " + getCurrentDestination());
                 }
-                navigate(findDestination, bundle, new NavOptions.Builder().setEnterAnim(0).setExitAnim(0).build(), (Navigator.Extras) null);
-                i11 = i12;
+                e(b3, bundle, new NavOptions.Builder().setEnterAnim(0).setExitAnim(0).build(), null);
+                i3 = i4;
             }
             return true;
         }
-        NavGraph navGraph2 = this.mGraph;
-        int i14 = 0;
-        while (i14 < intArray.length) {
-            int i15 = intArray[i14];
-            NavDestination findNode = i14 == 0 ? this.mGraph : navGraph2.findNode(i15);
+        NavGraph navGraph2 = this.k;
+        int i6 = 0;
+        while (i6 < intArray.length) {
+            int i7 = intArray[i6];
+            NavDestination findNode = i6 == 0 ? this.k : navGraph2.findNode(i7);
             if (findNode == null) {
-                throw new IllegalStateException("Deep Linking failed: destination " + NavDestination.getDisplayName(this.mContext, i15) + " cannot be found in graph " + navGraph2);
+                throw new IllegalStateException("Deep Linking failed: destination " + NavDestination.c(this.f2966h, i7) + " cannot be found in graph " + navGraph2);
             }
-            if (i14 != intArray.length - 1) {
+            if (i6 != intArray.length - 1) {
                 while (true) {
                     navGraph = (NavGraph) findNode;
                     if (!(navGraph.findNode(navGraph.getStartDestination()) instanceof NavGraph)) {
@@ -507,88 +612,56 @@ public class NavController {
                 }
                 navGraph2 = navGraph;
             } else {
-                navigate(findNode, findNode.addInDefaultArgs(bundle), new NavOptions.Builder().setPopUpTo(this.mGraph.getId(), true).setEnterAnim(0).setExitAnim(0).build(), (Navigator.Extras) null);
+                e(findNode, findNode.a(bundle), new NavOptions.Builder().setPopUpTo(this.k.getId(), true).setEnterAnim(0).setExitAnim(0).build(), null);
             }
-            i14++;
+            i6++;
         }
-        this.mDeepLinkHandled = true;
+        this.n = true;
         return true;
     }
 
-    public void navigate(@IdRes int i10) {
-        navigate(i10, (Bundle) null);
+    public void navigate(@IdRes int i2) {
+        navigate(i2, (Bundle) null);
     }
 
     public boolean navigateUp() {
-        if (getDestinationCountOnBackStack() != 1) {
+        if (d() != 1) {
             return popBackStack();
         }
         NavDestination currentDestination = getCurrentDestination();
-        int id2 = currentDestination.getId();
+        int id = currentDestination.getId();
         for (NavGraph parent = currentDestination.getParent(); parent != null; parent = parent.getParent()) {
-            if (parent.getStartDestination() != id2) {
+            if (parent.getStartDestination() != id) {
                 Bundle bundle = new Bundle();
-                Activity activity = this.mActivity;
-                if (activity != null && activity.getIntent() != null && this.mActivity.getIntent().getData() != null) {
-                    bundle.putParcelable(KEY_DEEP_LINK_INTENT, this.mActivity.getIntent());
-                    NavDestination.DeepLinkMatch matchDeepLink = this.mGraph.matchDeepLink(new NavDeepLinkRequest(this.mActivity.getIntent()));
-                    if (matchDeepLink != null) {
-                        bundle.putAll(matchDeepLink.getDestination().addInDefaultArgs(matchDeepLink.getMatchingArgs()));
+                Activity activity = this.f2967i;
+                if (activity != null && activity.getIntent() != null && this.f2967i.getIntent().getData() != null) {
+                    bundle.putParcelable(KEY_DEEP_LINK_INTENT, this.f2967i.getIntent());
+                    NavDestination.DeepLinkMatch d2 = this.k.d(new NavDeepLinkRequest(this.f2967i.getIntent()));
+                    if (d2 != null) {
+                        bundle.putAll(d2.a().a(d2.b()));
                     }
                 }
                 new NavDeepLinkBuilder(this).setDestination(parent.getId()).setArguments(bundle).createTaskStackBuilder().startActivities();
-                Activity activity2 = this.mActivity;
+                Activity activity2 = this.f2967i;
                 if (activity2 != null) {
                     activity2.finish();
                 }
                 return true;
             }
-            id2 = parent.getId();
+            id = parent.getId();
         }
         return false;
     }
 
     public boolean popBackStack() {
-        if (this.mBackStack.isEmpty()) {
+        if (this.o.isEmpty()) {
             return false;
         }
         return popBackStack(getCurrentDestination().getId(), true);
     }
 
-    public boolean popBackStackInternal(@IdRes int i10, boolean z10) {
-        boolean z11 = false;
-        if (this.mBackStack.isEmpty()) {
-            return false;
-        }
-        ArrayList arrayList = new ArrayList();
-        Iterator<NavBackStackEntry> descendingIterator = this.mBackStack.descendingIterator();
-        while (descendingIterator.hasNext()) {
-            NavDestination destination = descendingIterator.next().getDestination();
-            Navigator navigator = this.mNavigatorProvider.getNavigator(destination.getNavigatorName());
-            if (z10 || destination.getId() != i10) {
-                arrayList.add(navigator);
-            }
-            if (destination.getId() == i10) {
-                Iterator it = arrayList.iterator();
-                while (it.hasNext() && ((Navigator) it.next()).popBackStack()) {
-                    NavBackStackEntry removeLast = this.mBackStack.removeLast();
-                    removeLast.setMaxLifecycle(Lifecycle.State.DESTROYED);
-                    NavControllerViewModel navControllerViewModel = this.mViewModel;
-                    if (navControllerViewModel != null) {
-                        navControllerViewModel.clear(removeLast.mId);
-                    }
-                    z11 = true;
-                }
-                updateOnBackPressedCallbackEnabled();
-                return z11;
-            }
-        }
-        Log.i(TAG, "Ignoring popBackStack to destination " + NavDestination.getDisplayName(this.mContext, i10) + " as it was not found on the current back stack");
-        return false;
-    }
-
     public void removeOnDestinationChangedListener(@NonNull OnDestinationChangedListener onDestinationChangedListener) {
-        this.mOnDestinationChangedListeners.remove(onDestinationChangedListener);
+        this.s.remove(onDestinationChangedListener);
     }
 
     @CallSuper
@@ -596,10 +669,10 @@ public class NavController {
         if (bundle == null) {
             return;
         }
-        bundle.setClassLoader(this.mContext.getClassLoader());
-        this.mNavigatorStateToRestore = bundle.getBundle(KEY_NAVIGATOR_STATE);
-        this.mBackStackToRestore = bundle.getParcelableArray(KEY_BACK_STACK);
-        this.mDeepLinkHandled = bundle.getBoolean(KEY_DEEP_LINK_HANDLED);
+        bundle.setClassLoader(this.f2966h.getClassLoader());
+        this.l = bundle.getBundle(f2960b);
+        this.m = bundle.getParcelableArray(f2962d);
+        this.n = bundle.getBoolean(f2965g);
     }
 
     @Nullable
@@ -608,7 +681,7 @@ public class NavController {
         Bundle bundle;
         ArrayList<String> arrayList = new ArrayList<>();
         Bundle bundle2 = new Bundle();
-        for (Map.Entry<String, Navigator<? extends NavDestination>> entry : this.mNavigatorProvider.getNavigators().entrySet()) {
+        for (Map.Entry<String, Navigator<? extends NavDestination>> entry : this.r.b().entrySet()) {
             String key = entry.getKey();
             Bundle onSaveState = entry.getValue().onSaveState();
             if (onSaveState != null) {
@@ -620,79 +693,79 @@ public class NavController {
             bundle = null;
         } else {
             bundle = new Bundle();
-            bundle2.putStringArrayList(KEY_NAVIGATOR_STATE_NAMES, arrayList);
-            bundle.putBundle(KEY_NAVIGATOR_STATE, bundle2);
+            bundle2.putStringArrayList(f2961c, arrayList);
+            bundle.putBundle(f2960b, bundle2);
         }
-        if (!this.mBackStack.isEmpty()) {
+        if (!this.o.isEmpty()) {
             if (bundle == null) {
                 bundle = new Bundle();
             }
-            Parcelable[] parcelableArr = new Parcelable[this.mBackStack.size()];
-            Iterator<NavBackStackEntry> it = this.mBackStack.iterator();
-            int i10 = 0;
+            Parcelable[] parcelableArr = new Parcelable[this.o.size()];
+            int i2 = 0;
+            Iterator<NavBackStackEntry> it = this.o.iterator();
             while (it.hasNext()) {
-                parcelableArr[i10] = new NavBackStackEntryState(it.next());
-                i10++;
+                parcelableArr[i2] = new NavBackStackEntryState(it.next());
+                i2++;
             }
-            bundle.putParcelableArray(KEY_BACK_STACK, parcelableArr);
+            bundle.putParcelableArray(f2962d, parcelableArr);
         }
-        if (this.mDeepLinkHandled) {
+        if (this.n) {
             if (bundle == null) {
                 bundle = new Bundle();
             }
-            bundle.putBoolean(KEY_DEEP_LINK_HANDLED, this.mDeepLinkHandled);
+            bundle.putBoolean(f2965g, this.n);
         }
         return bundle;
     }
 
     @CallSuper
-    public void setGraph(@NavigationRes int i10) {
-        setGraph(i10, (Bundle) null);
+    public void setGraph(@NavigationRes int i2) {
+        setGraph(i2, (Bundle) null);
     }
 
-    public void setLifecycleOwner(@NonNull LifecycleOwner lifecycleOwner) {
-        this.mLifecycleOwner = lifecycleOwner;
-        lifecycleOwner.getLifecycle().addObserver(this.mLifecycleObserver);
+    void setLifecycleOwner(@NonNull LifecycleOwner lifecycleOwner) {
+        this.p = lifecycleOwner;
+        lifecycleOwner.getLifecycle().addObserver(this.t);
     }
 
     @RestrictTo({RestrictTo.Scope.LIBRARY_GROUP})
     public void setNavigatorProvider(@NonNull NavigatorProvider navigatorProvider) {
-        if (!this.mBackStack.isEmpty()) {
+        if (!this.o.isEmpty()) {
             throw new IllegalStateException("NavigatorProvider must be set before setGraph call");
         }
-        this.mNavigatorProvider = navigatorProvider;
+        this.r = navigatorProvider;
     }
 
-    public void setOnBackPressedDispatcher(@NonNull OnBackPressedDispatcher onBackPressedDispatcher) {
-        if (this.mLifecycleOwner == null) {
+    void setOnBackPressedDispatcher(@NonNull OnBackPressedDispatcher onBackPressedDispatcher) {
+        if (this.p == null) {
             throw new IllegalStateException("You must call setLifecycleOwner() before calling setOnBackPressedDispatcher()");
         }
-        this.mOnBackPressedCallback.remove();
-        onBackPressedDispatcher.addCallback(this.mLifecycleOwner, this.mOnBackPressedCallback);
+        this.u.remove();
+        onBackPressedDispatcher.addCallback(this.p, this.u);
     }
 
-    public void setViewModelStore(@NonNull ViewModelStore viewModelStore) {
-        if (!this.mBackStack.isEmpty()) {
+    void setViewModelStore(@NonNull ViewModelStore viewModelStore) {
+        if (!this.o.isEmpty()) {
             throw new IllegalStateException("ViewModelStore should be set before setGraph call");
         }
-        this.mViewModel = NavControllerViewModel.getInstance(viewModelStore);
+        this.q = NavControllerViewModel.g(viewModelStore);
     }
 
-    public void navigate(@IdRes int i10, @Nullable Bundle bundle) {
-        navigate(i10, bundle, (NavOptions) null);
+    public void navigate(@IdRes int i2, @Nullable Bundle bundle) {
+        navigate(i2, bundle, (NavOptions) null);
     }
 
     @CallSuper
-    public void setGraph(@NavigationRes int i10, @Nullable Bundle bundle) {
-        setGraph(getNavInflater().inflate(i10), bundle);
+    public void setGraph(@NavigationRes int i2, @Nullable Bundle bundle) {
+        setGraph(getNavInflater().inflate(i2), bundle);
     }
 
-    public void navigate(@IdRes int i10, @Nullable Bundle bundle, @Nullable NavOptions navOptions) {
-        navigate(i10, bundle, navOptions, (Navigator.Extras) null);
+    public void navigate(@IdRes int i2, @Nullable Bundle bundle, @Nullable NavOptions navOptions) {
+        navigate(i2, bundle, navOptions, null);
     }
 
-    public boolean popBackStack(@IdRes int i10, boolean z10) {
-        return popBackStackInternal(i10, z10) && dispatchOnDestinationChanged();
+    public boolean popBackStack(@IdRes int i2, boolean z) {
+        return g(i2, z) && a();
     }
 
     @CallSuper
@@ -700,29 +773,29 @@ public class NavController {
         setGraph(navGraph, (Bundle) null);
     }
 
-    public void navigate(@IdRes int i10, @Nullable Bundle bundle, @Nullable NavOptions navOptions, @Nullable Navigator.Extras extras) {
+    public void navigate(@IdRes int i2, @Nullable Bundle bundle, @Nullable NavOptions navOptions, @Nullable Navigator.Extras extras) {
         NavDestination destination;
-        int i11;
-        if (this.mBackStack.isEmpty()) {
-            destination = this.mGraph;
+        int i3;
+        if (this.o.isEmpty()) {
+            destination = this.k;
         } else {
-            destination = this.mBackStack.getLast().getDestination();
+            destination = this.o.getLast().getDestination();
         }
         if (destination != null) {
-            NavAction action = destination.getAction(i10);
+            NavAction action = destination.getAction(i2);
             Bundle bundle2 = null;
             if (action != null) {
                 if (navOptions == null) {
                     navOptions = action.getNavOptions();
                 }
-                i11 = action.getDestinationId();
+                i3 = action.getDestinationId();
                 Bundle defaultArguments = action.getDefaultArguments();
                 if (defaultArguments != null) {
                     bundle2 = new Bundle();
                     bundle2.putAll(defaultArguments);
                 }
             } else {
-                i11 = i10;
+                i3 = i2;
             }
             if (bundle != null) {
                 if (bundle2 == null) {
@@ -730,20 +803,20 @@ public class NavController {
                 }
                 bundle2.putAll(bundle);
             }
-            if (i11 == 0 && navOptions != null && navOptions.getPopUpTo() != -1) {
+            if (i3 == 0 && navOptions != null && navOptions.getPopUpTo() != -1) {
                 popBackStack(navOptions.getPopUpTo(), navOptions.isPopUpToInclusive());
                 return;
             }
-            if (i11 != 0) {
-                NavDestination findDestination = findDestination(i11);
-                if (findDestination == null) {
-                    String displayName = NavDestination.getDisplayName(this.mContext, i11);
-                    if (action == null) {
-                        throw new IllegalArgumentException("Navigation action/destination " + displayName + " cannot be found from the current destination " + destination);
+            if (i3 != 0) {
+                NavDestination b2 = b(i3);
+                if (b2 == null) {
+                    String c2 = NavDestination.c(this.f2966h, i3);
+                    if (action != null) {
+                        throw new IllegalArgumentException("Navigation destination " + c2 + " referenced from action " + NavDestination.c(this.f2966h, i2) + " cannot be found from the current destination " + destination);
                     }
-                    throw new IllegalArgumentException("Navigation destination " + displayName + " referenced from action " + NavDestination.getDisplayName(this.mContext, i10) + " cannot be found from the current destination " + destination);
+                    throw new IllegalArgumentException("Navigation action/destination " + c2 + " cannot be found from the current destination " + destination);
                 }
-                navigate(findDestination, bundle2, navOptions, extras);
+                e(b2, bundle2, navOptions, extras);
                 return;
             }
             throw new IllegalArgumentException("Destination id == 0 can only be used in conjunction with a valid navOptions.popUpTo");
@@ -753,12 +826,12 @@ public class NavController {
 
     @CallSuper
     public void setGraph(@NonNull NavGraph navGraph, @Nullable Bundle bundle) {
-        NavGraph navGraph2 = this.mGraph;
+        NavGraph navGraph2 = this.k;
         if (navGraph2 != null) {
-            popBackStackInternal(navGraph2.getId(), true);
+            g(navGraph2.getId(), true);
         }
-        this.mGraph = navGraph;
-        onGraphCreated(bundle);
+        this.k = navGraph;
+        f(bundle);
     }
 
     public void navigate(@NonNull Uri uri) {
@@ -782,69 +855,12 @@ public class NavController {
     }
 
     public void navigate(@NonNull NavDeepLinkRequest navDeepLinkRequest, @Nullable NavOptions navOptions, @Nullable Navigator.Extras extras) {
-        NavDestination.DeepLinkMatch matchDeepLink = this.mGraph.matchDeepLink(navDeepLinkRequest);
-        if (matchDeepLink != null) {
-            navigate(matchDeepLink.getDestination(), matchDeepLink.getDestination().addInDefaultArgs(matchDeepLink.getMatchingArgs()), navOptions, extras);
+        NavDestination.DeepLinkMatch d2 = this.k.d(navDeepLinkRequest);
+        if (d2 != null) {
+            e(d2.a(), d2.a().a(d2.b()), navOptions, extras);
             return;
         }
-        throw new IllegalArgumentException("Navigation destination that matches request " + navDeepLinkRequest + " cannot be found in the navigation graph " + this.mGraph);
-    }
-
-    private void navigate(@NonNull NavDestination navDestination, @Nullable Bundle bundle, @Nullable NavOptions navOptions, @Nullable Navigator.Extras extras) {
-        boolean z10 = false;
-        boolean popBackStackInternal = (navOptions == null || navOptions.getPopUpTo() == -1) ? false : popBackStackInternal(navOptions.getPopUpTo(), navOptions.isPopUpToInclusive());
-        Navigator navigator = this.mNavigatorProvider.getNavigator(navDestination.getNavigatorName());
-        Bundle addInDefaultArgs = navDestination.addInDefaultArgs(bundle);
-        NavDestination navigate = navigator.navigate(navDestination, addInDefaultArgs, navOptions, extras);
-        if (navigate != null) {
-            if (!(navigate instanceof FloatingWindow)) {
-                while (!this.mBackStack.isEmpty() && (this.mBackStack.peekLast().getDestination() instanceof FloatingWindow) && popBackStackInternal(this.mBackStack.peekLast().getDestination().getId(), true)) {
-                }
-            }
-            ArrayDeque arrayDeque = new ArrayDeque();
-            if (navDestination instanceof NavGraph) {
-                NavDestination navDestination2 = navigate;
-                while (true) {
-                    NavGraph parent = navDestination2.getParent();
-                    if (parent != null) {
-                        arrayDeque.addFirst(new NavBackStackEntry(this.mContext, parent, addInDefaultArgs, this.mLifecycleOwner, this.mViewModel));
-                        if (!this.mBackStack.isEmpty() && this.mBackStack.getLast().getDestination() == parent) {
-                            popBackStackInternal(parent.getId(), true);
-                        }
-                    }
-                    if (parent == null || parent == navDestination) {
-                        break;
-                    } else {
-                        navDestination2 = parent;
-                    }
-                }
-            }
-            NavDestination destination = arrayDeque.isEmpty() ? navigate : ((NavBackStackEntry) arrayDeque.getFirst()).getDestination();
-            while (destination != null && findDestination(destination.getId()) == null) {
-                destination = destination.getParent();
-                if (destination != null) {
-                    arrayDeque.addFirst(new NavBackStackEntry(this.mContext, destination, addInDefaultArgs, this.mLifecycleOwner, this.mViewModel));
-                }
-            }
-            NavDestination destination2 = arrayDeque.isEmpty() ? navigate : ((NavBackStackEntry) arrayDeque.getLast()).getDestination();
-            while (!this.mBackStack.isEmpty() && (this.mBackStack.getLast().getDestination() instanceof NavGraph) && ((NavGraph) this.mBackStack.getLast().getDestination()).findNode(destination2.getId(), false) == null && popBackStackInternal(this.mBackStack.getLast().getDestination().getId(), true)) {
-            }
-            this.mBackStack.addAll(arrayDeque);
-            if (this.mBackStack.isEmpty() || this.mBackStack.getFirst().getDestination() != this.mGraph) {
-                this.mBackStack.addFirst(new NavBackStackEntry(this.mContext, this.mGraph, addInDefaultArgs, this.mLifecycleOwner, this.mViewModel));
-            }
-            this.mBackStack.add(new NavBackStackEntry(this.mContext, navigate, navigate.addInDefaultArgs(addInDefaultArgs), this.mLifecycleOwner, this.mViewModel));
-        } else if (navOptions != null && navOptions.shouldLaunchSingleTop()) {
-            NavBackStackEntry peekLast = this.mBackStack.peekLast();
-            if (peekLast != null) {
-                peekLast.replaceArguments(addInDefaultArgs);
-            }
-            z10 = true;
-        }
-        updateOnBackPressedCallbackEnabled();
-        if (popBackStackInternal || navigate != null || z10) {
-            dispatchOnDestinationChanged();
-        }
+        throw new IllegalArgumentException("Navigation destination that matches request " + navDeepLinkRequest + " cannot be found in the navigation graph " + this.k);
     }
 
     public void navigate(@NonNull NavDirections navDirections) {
@@ -856,6 +872,6 @@ public class NavController {
     }
 
     public void navigate(@NonNull NavDirections navDirections, @NonNull Navigator.Extras extras) {
-        navigate(navDirections.getActionId(), navDirections.getArguments(), (NavOptions) null, extras);
+        navigate(navDirections.getActionId(), navDirections.getArguments(), null, extras);
     }
 }

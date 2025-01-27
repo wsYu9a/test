@@ -7,13 +7,13 @@ import com.bumptech.glide.util.Util;
 import java.nio.ByteBuffer;
 import java.security.MessageDigest;
 
-/* loaded from: classes2.dex */
+/* loaded from: classes.dex */
 public final class AndroidResourceSignature implements Key {
     private final Key applicationVersion;
     private final int nightMode;
 
-    private AndroidResourceSignature(int i10, Key key) {
-        this.nightMode = i10;
+    private AndroidResourceSignature(int i2, Key key) {
+        this.nightMode = i2;
         this.applicationVersion = key;
     }
 

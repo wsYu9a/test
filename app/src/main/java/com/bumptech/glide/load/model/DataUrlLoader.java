@@ -12,7 +12,7 @@ import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 
-/* loaded from: classes2.dex */
+/* loaded from: classes.dex */
 public final class DataUrlLoader<Model, Data> implements ModelLoader<Model, Data> {
     private static final String BASE64_TAG = ";base64";
     private static final String DATA_SCHEME_IMAGE = "data:image";
@@ -26,12 +26,12 @@ public final class DataUrlLoader<Model, Data> implements ModelLoader<Model, Data
         Class<Data> getDataClass();
     }
 
-    public static final class DataUriFetcher<Data> implements DataFetcher<Data> {
+    private static final class DataUriFetcher<Data> implements DataFetcher<Data> {
         private Data data;
         private final String dataUri;
         private final DataDecoder<Data> reader;
 
-        public DataUriFetcher(String str, DataDecoder<Data> dataDecoder) {
+        DataUriFetcher(String str, DataDecoder<Data> dataDecoder) {
             this.dataUri = str;
             this.reader = dataDecoder;
         }
@@ -67,15 +67,15 @@ public final class DataUrlLoader<Model, Data> implements ModelLoader<Model, Data
                 Data decode = this.reader.decode(this.dataUri);
                 this.data = decode;
                 dataCallback.onDataReady(decode);
-            } catch (IllegalArgumentException e10) {
-                dataCallback.onLoadFailed(e10);
+            } catch (IllegalArgumentException e2) {
+                dataCallback.onLoadFailed(e2);
             }
         }
     }
 
     public static final class StreamFactory<Model> implements ModelLoaderFactory<Model, InputStream> {
         private final DataDecoder<InputStream> opener = new DataDecoder<InputStream>() { // from class: com.bumptech.glide.load.model.DataUrlLoader.StreamFactory.1
-            public AnonymousClass1() {
+            AnonymousClass1() {
             }
 
             @Override // com.bumptech.glide.load.model.DataUrlLoader.DataDecoder
@@ -105,8 +105,8 @@ public final class DataUrlLoader<Model, Data> implements ModelLoader<Model, Data
         };
 
         /* renamed from: com.bumptech.glide.load.model.DataUrlLoader$StreamFactory$1 */
-        public class AnonymousClass1 implements DataDecoder<InputStream> {
-            public AnonymousClass1() {
+        class AnonymousClass1 implements DataDecoder<InputStream> {
+            AnonymousClass1() {
             }
 
             @Override // com.bumptech.glide.load.model.DataUrlLoader.DataDecoder
@@ -151,7 +151,7 @@ public final class DataUrlLoader<Model, Data> implements ModelLoader<Model, Data
     }
 
     @Override // com.bumptech.glide.load.model.ModelLoader
-    public ModelLoader.LoadData<Data> buildLoadData(@NonNull Model model, int i10, int i11, @NonNull Options options) {
+    public ModelLoader.LoadData<Data> buildLoadData(@NonNull Model model, int i2, int i3, @NonNull Options options) {
         return new ModelLoader.LoadData<>(new ObjectKey(model), new DataUriFetcher(model.toString(), this.dataDecoder));
     }
 

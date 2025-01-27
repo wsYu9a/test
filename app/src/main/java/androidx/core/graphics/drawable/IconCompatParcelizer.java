@@ -17,7 +17,6 @@ public class IconCompatParcelizer {
         iconCompat.mInt2 = versionedParcel.readInt(iconCompat.mInt2, 5);
         iconCompat.mTintList = (ColorStateList) versionedParcel.readParcelable(iconCompat.mTintList, 6);
         iconCompat.mTintModeStr = versionedParcel.readString(iconCompat.mTintModeStr, 7);
-        iconCompat.mString1 = versionedParcel.readString(iconCompat.mString1, 8);
         iconCompat.onPostParceling();
         return iconCompat;
     }
@@ -25,9 +24,9 @@ public class IconCompatParcelizer {
     public static void write(IconCompat iconCompat, VersionedParcel versionedParcel) {
         versionedParcel.setSerializationFlags(true, true);
         iconCompat.onPreParceling(versionedParcel.isStream());
-        int i10 = iconCompat.mType;
-        if (-1 != i10) {
-            versionedParcel.writeInt(i10, 1);
+        int i2 = iconCompat.mType;
+        if (-1 != i2) {
+            versionedParcel.writeInt(i2, 1);
         }
         byte[] bArr = iconCompat.mData;
         if (bArr != null) {
@@ -37,13 +36,13 @@ public class IconCompatParcelizer {
         if (parcelable != null) {
             versionedParcel.writeParcelable(parcelable, 3);
         }
-        int i11 = iconCompat.mInt1;
-        if (i11 != 0) {
-            versionedParcel.writeInt(i11, 4);
+        int i3 = iconCompat.mInt1;
+        if (i3 != 0) {
+            versionedParcel.writeInt(i3, 4);
         }
-        int i12 = iconCompat.mInt2;
-        if (i12 != 0) {
-            versionedParcel.writeInt(i12, 5);
+        int i4 = iconCompat.mInt2;
+        if (i4 != 0) {
+            versionedParcel.writeInt(i4, 5);
         }
         ColorStateList colorStateList = iconCompat.mTintList;
         if (colorStateList != null) {
@@ -52,10 +51,6 @@ public class IconCompatParcelizer {
         String str = iconCompat.mTintModeStr;
         if (str != null) {
             versionedParcel.writeString(str, 7);
-        }
-        String str2 = iconCompat.mString1;
-        if (str2 != null) {
-            versionedParcel.writeString(str2, 8);
         }
     }
 }

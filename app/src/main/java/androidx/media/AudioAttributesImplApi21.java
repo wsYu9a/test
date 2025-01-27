@@ -1,139 +1,136 @@
 package androidx.media;
 
-import android.annotation.SuppressLint;
+import android.annotation.TargetApi;
 import android.media.AudioAttributes;
+import android.os.Build;
+import android.os.Bundle;
+import android.util.Log;
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.annotation.RequiresApi;
-import androidx.annotation.RestrictTo;
-import androidx.media.AudioAttributesImpl;
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
 
-@RequiresApi(21)
-@RestrictTo({RestrictTo.Scope.LIBRARY})
+@TargetApi(21)
 /* loaded from: classes.dex */
-public class AudioAttributesImplApi21 implements AudioAttributesImpl {
+class AudioAttributesImplApi21 implements AudioAttributesImpl {
 
-    @RestrictTo({RestrictTo.Scope.LIBRARY})
-    public AudioAttributes mAudioAttributes;
+    /* renamed from: a */
+    private static final String f2731a = "AudioAttributesCompat21";
 
-    @RestrictTo({RestrictTo.Scope.LIBRARY})
-    public int mLegacyStreamType;
+    /* renamed from: b */
+    static Method f2732b;
 
-    @RequiresApi(21)
-    public static class Builder implements AudioAttributesImpl.Builder {
-        final AudioAttributes.Builder mFwkBuilder;
+    /* renamed from: c */
+    AudioAttributes f2733c;
 
-        public Builder() {
-            this.mFwkBuilder = new AudioAttributes.Builder();
-        }
+    /* renamed from: d */
+    int f2734d;
 
-        @Override // androidx.media.AudioAttributesImpl.Builder
-        @NonNull
-        public AudioAttributesImpl build() {
-            return new AudioAttributesImplApi21(this.mFwkBuilder.build());
-        }
+    AudioAttributesImplApi21() {
+        this.f2734d = -1;
+    }
 
-        @Override // androidx.media.AudioAttributesImpl.Builder
-        @NonNull
-        public Builder setContentType(int i10) {
-            this.mFwkBuilder.setContentType(i10);
-            return this;
-        }
-
-        @Override // androidx.media.AudioAttributesImpl.Builder
-        @NonNull
-        public Builder setFlags(int i10) {
-            this.mFwkBuilder.setFlags(i10);
-            return this;
-        }
-
-        @Override // androidx.media.AudioAttributesImpl.Builder
-        @NonNull
-        public Builder setLegacyStreamType(int i10) {
-            this.mFwkBuilder.setLegacyStreamType(i10);
-            return this;
-        }
-
-        @Override // androidx.media.AudioAttributesImpl.Builder
-        @NonNull
-        @SuppressLint({"WrongConstant"})
-        public Builder setUsage(int i10) {
-            if (i10 == 16) {
-                i10 = 12;
+    static Method a() {
+        try {
+            if (f2732b == null) {
+                f2732b = AudioAttributes.class.getMethod("toLegacyStreamType", AudioAttributes.class);
             }
-            this.mFwkBuilder.setUsage(i10);
-            return this;
-        }
-
-        public Builder(Object obj) {
-            this.mFwkBuilder = new AudioAttributes.Builder((AudioAttributes) obj);
+            return f2732b;
+        } catch (NoSuchMethodException unused) {
+            return null;
         }
     }
 
-    @RestrictTo({RestrictTo.Scope.LIBRARY})
-    public AudioAttributesImplApi21() {
-        this.mLegacyStreamType = -1;
+    public static AudioAttributesImpl fromBundle(Bundle bundle) {
+        AudioAttributes audioAttributes;
+        if (bundle == null || (audioAttributes = (AudioAttributes) bundle.getParcelable("androidx.media.audio_attrs.FRAMEWORKS")) == null) {
+            return null;
+        }
+        return new AudioAttributesImplApi21(audioAttributes, bundle.getInt("androidx.media.audio_attrs.LEGACY_STREAM_TYPE", -1));
     }
 
     public boolean equals(Object obj) {
         if (obj instanceof AudioAttributesImplApi21) {
-            return this.mAudioAttributes.equals(((AudioAttributesImplApi21) obj).mAudioAttributes);
+            return this.f2733c.equals(((AudioAttributesImplApi21) obj).f2733c);
         }
         return false;
     }
 
     @Override // androidx.media.AudioAttributesImpl
-    @Nullable
     public Object getAudioAttributes() {
-        return this.mAudioAttributes;
+        return this.f2733c;
     }
 
     @Override // androidx.media.AudioAttributesImpl
     public int getContentType() {
-        return this.mAudioAttributes.getContentType();
+        return this.f2733c.getContentType();
     }
 
     @Override // androidx.media.AudioAttributesImpl
     public int getFlags() {
-        return this.mAudioAttributes.getFlags();
+        return this.f2733c.getFlags();
     }
 
     @Override // androidx.media.AudioAttributesImpl
     public int getLegacyStreamType() {
-        int i10 = this.mLegacyStreamType;
-        return i10 != -1 ? i10 : AudioAttributesCompat.toVolumeStreamType(false, getFlags(), getUsage());
+        int i2 = this.f2734d;
+        if (i2 != -1) {
+            return i2;
+        }
+        Method a2 = a();
+        if (a2 == null) {
+            Log.w(f2731a, "No AudioAttributes#toLegacyStreamType() on API: " + Build.VERSION.SDK_INT);
+            return -1;
+        }
+        try {
+            return ((Integer) a2.invoke(null, this.f2733c)).intValue();
+        } catch (IllegalAccessException | InvocationTargetException e2) {
+            Log.w(f2731a, "getLegacyStreamType() failed on API: " + Build.VERSION.SDK_INT, e2);
+            return -1;
+        }
     }
 
     @Override // androidx.media.AudioAttributesImpl
     public int getRawLegacyStreamType() {
-        return this.mLegacyStreamType;
+        return this.f2734d;
     }
 
     @Override // androidx.media.AudioAttributesImpl
     public int getUsage() {
-        return this.mAudioAttributes.getUsage();
+        return this.f2733c.getUsage();
     }
 
     @Override // androidx.media.AudioAttributesImpl
     public int getVolumeControlStream() {
-        return AudioAttributesCompat.toVolumeStreamType(true, getFlags(), getUsage());
+        return Build.VERSION.SDK_INT >= 26 ? this.f2733c.getVolumeControlStream() : AudioAttributesCompat.a(true, getFlags(), getUsage());
     }
 
     public int hashCode() {
-        return this.mAudioAttributes.hashCode();
+        return this.f2733c.hashCode();
     }
 
+    @Override // androidx.media.AudioAttributesImpl
     @NonNull
-    public String toString() {
-        return "AudioAttributesCompat: audioattributes=" + this.mAudioAttributes;
+    public Bundle toBundle() {
+        Bundle bundle = new Bundle();
+        bundle.putParcelable("androidx.media.audio_attrs.FRAMEWORKS", this.f2733c);
+        int i2 = this.f2734d;
+        if (i2 != -1) {
+            bundle.putInt("androidx.media.audio_attrs.LEGACY_STREAM_TYPE", i2);
+        }
+        return bundle;
     }
 
-    public AudioAttributesImplApi21(AudioAttributes audioAttributes) {
+    public String toString() {
+        return "AudioAttributesCompat: audioattributes=" + this.f2733c;
+    }
+
+    AudioAttributesImplApi21(AudioAttributes audioAttributes) {
         this(audioAttributes, -1);
     }
 
-    public AudioAttributesImplApi21(AudioAttributes audioAttributes, int i10) {
-        this.mAudioAttributes = audioAttributes;
-        this.mLegacyStreamType = i10;
+    AudioAttributesImplApi21(AudioAttributes audioAttributes, int i2) {
+        this.f2734d = -1;
+        this.f2733c = audioAttributes;
+        this.f2734d = i2;
     }
 }

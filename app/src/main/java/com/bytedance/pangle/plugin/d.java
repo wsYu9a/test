@@ -6,12 +6,12 @@ import com.bytedance.pangle.util.g;
 import java.io.File;
 import java.io.FileFilter;
 
-/* loaded from: classes2.dex */
+/* loaded from: classes.dex */
 final class d implements Runnable {
 
     /* renamed from: com.bytedance.pangle.plugin.d$1 */
-    public class AnonymousClass1 implements FileFilter {
-        public AnonymousClass1() {
+    final class AnonymousClass1 implements FileFilter {
+        AnonymousClass1() {
         }
 
         @Override // java.io.FileFilter
@@ -19,7 +19,7 @@ final class d implements Runnable {
             if (file == null) {
                 return false;
             }
-            if (file.getName().endsWith(".apk") || g.b(file) || file.getName().endsWith(".7z.zip") || file.getName().endsWith(".jar")) {
+            if (file.getName().endsWith(".apk") || file.getName().endsWith(".jar")) {
                 PluginManager.getInstance().asyncInstall(null, file);
                 return true;
             }
@@ -33,10 +33,13 @@ final class d implements Runnable {
         }
     }
 
+    d() {
+    }
+
     private void a(File file) {
         ZeusLogger.i(ZeusLogger.TAG_INIT, "ZeusScanRunnable listPluginDownloadDir, dir = ".concat(String.valueOf(file)));
         file.listFiles(new FileFilter() { // from class: com.bytedance.pangle.plugin.d.1
-            public AnonymousClass1() {
+            AnonymousClass1() {
             }
 
             @Override // java.io.FileFilter
@@ -44,7 +47,7 @@ final class d implements Runnable {
                 if (file2 == null) {
                     return false;
                 }
-                if (file2.getName().endsWith(".apk") || g.b(file2) || file2.getName().endsWith(".7z.zip") || file2.getName().endsWith(".jar")) {
+                if (file2.getName().endsWith(".apk") || file2.getName().endsWith(".jar")) {
                     PluginManager.getInstance().asyncInstall(null, file2);
                     return true;
                 }
@@ -62,10 +65,10 @@ final class d implements Runnable {
     @Override // java.lang.Runnable
     public final void run() {
         a(new File(com.bytedance.pangle.d.c.a()));
-        String c10 = com.bytedance.pangle.d.c.c();
-        if (TextUtils.isEmpty(c10)) {
+        String c2 = com.bytedance.pangle.d.c.c();
+        if (TextUtils.isEmpty(c2)) {
             return;
         }
-        a(new File(c10));
+        a(new File(c2));
     }
 }

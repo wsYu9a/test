@@ -1,23 +1,23 @@
 package com.umeng.commonsdk.statistics.proto;
 
-import com.umeng.analytics.pro.Cdo;
+import com.umeng.analytics.pro.as;
+import com.umeng.analytics.pro.av;
+import com.umeng.analytics.pro.bb;
+import com.umeng.analytics.pro.bc;
+import com.umeng.analytics.pro.bh;
+import com.umeng.analytics.pro.bi;
+import com.umeng.analytics.pro.bo;
+import com.umeng.analytics.pro.bp;
+import com.umeng.analytics.pro.bu;
+import com.umeng.analytics.pro.bv;
+import com.umeng.analytics.pro.bx;
+import com.umeng.analytics.pro.bz;
+import com.umeng.analytics.pro.ca;
+import com.umeng.analytics.pro.cc;
+import com.umeng.analytics.pro.cd;
 import com.umeng.analytics.pro.ce;
-import com.umeng.analytics.pro.ch;
-import com.umeng.analytics.pro.cn;
-import com.umeng.analytics.pro.co;
-import com.umeng.analytics.pro.ct;
-import com.umeng.analytics.pro.cu;
-import com.umeng.analytics.pro.da;
-import com.umeng.analytics.pro.db;
-import com.umeng.analytics.pro.dg;
-import com.umeng.analytics.pro.dh;
-import com.umeng.analytics.pro.dj;
-import com.umeng.analytics.pro.dl;
-import com.umeng.analytics.pro.dm;
-import com.umeng.analytics.pro.dp;
-import com.umeng.analytics.pro.dq;
-import com.umeng.analytics.pro.dr;
-import com.umeng.analytics.pro.ds;
+import com.umeng.analytics.pro.cf;
+import com.umeng.analytics.pro.cg;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
@@ -31,348 +31,338 @@ import java.util.Iterator;
 import java.util.Map;
 
 /* loaded from: classes4.dex */
-public class a implements ch<a, e>, Serializable, Cloneable {
+public class a implements av<a, e>, Serializable, Cloneable {
 
     /* renamed from: e */
-    public static final Map<e, ct> f24710e;
+    public static final Map<e, bh> f26385e;
 
     /* renamed from: f */
-    private static final long f24711f = 9132678615281394583L;
+    private static final long f26386f = 9132678615281394583L;
 
     /* renamed from: g */
-    private static final dl f24712g = new dl("IdJournal");
+    private static final bz f26387g = new bz("IdJournal");
 
     /* renamed from: h */
-    private static final db f24713h = new db("domain", (byte) 11, 1);
+    private static final bp f26388h = new bp("domain", (byte) 11, 1);
 
     /* renamed from: i */
-    private static final db f24714i = new db("old_id", (byte) 11, 2);
+    private static final bp f26389i = new bp("old_id", (byte) 11, 2);
 
     /* renamed from: j */
-    private static final db f24715j = new db("new_id", (byte) 11, 3);
-
-    /* renamed from: k */
-    private static final db f24716k = new db("ts", (byte) 10, 4);
-
-    /* renamed from: l */
-    private static final Map<Class<? extends Cdo>, dp> f24717l;
-
-    /* renamed from: m */
-    private static final int f24718m = 0;
+    private static final bp f26390j = new bp("new_id", (byte) 11, 3);
+    private static final bp k = new bp("ts", (byte) 10, 4);
+    private static final Map<Class<? extends cc>, cd> l;
+    private static final int m = 0;
 
     /* renamed from: a */
-    public String f24719a;
+    public String f26391a;
 
     /* renamed from: b */
-    public String f24720b;
+    public String f26392b;
 
     /* renamed from: c */
-    public String f24721c;
+    public String f26393c;
 
     /* renamed from: d */
-    public long f24722d;
-
-    /* renamed from: n */
-    private byte f24723n;
-
-    /* renamed from: o */
-    private e[] f24724o;
+    public long f26394d;
+    private byte n;
+    private e[] o;
 
     /* renamed from: com.umeng.commonsdk.statistics.proto.a$a */
-    public static class C0676a extends dq<a> {
-        private C0676a() {
+    private static class C0546a extends ce<a> {
+        private C0546a() {
         }
 
-        public /* synthetic */ C0676a(AnonymousClass1 anonymousClass1) {
+        /* synthetic */ C0546a(AnonymousClass1 anonymousClass1) {
             this();
         }
 
-        @Override // com.umeng.analytics.pro.Cdo
+        @Override // com.umeng.analytics.pro.cc
         /* renamed from: a */
-        public void b(dg dgVar, a aVar) throws cn {
-            dgVar.j();
+        public void b(bu buVar, a aVar) throws bb {
+            buVar.j();
             while (true) {
-                db l10 = dgVar.l();
-                byte b10 = l10.f23828b;
-                if (b10 == 0) {
+                bp l = buVar.l();
+                byte b2 = l.f25780b;
+                if (b2 == 0) {
                     break;
                 }
-                short s10 = l10.f23829c;
-                if (s10 != 1) {
-                    if (s10 != 2) {
-                        if (s10 != 3) {
-                            if (s10 != 4) {
-                                dj.a(dgVar, b10);
-                            } else if (b10 == 10) {
-                                aVar.f24722d = dgVar.x();
+                short s = l.f25781c;
+                if (s != 1) {
+                    if (s != 2) {
+                        if (s != 3) {
+                            if (s != 4) {
+                                bx.a(buVar, b2);
+                            } else if (b2 == 10) {
+                                aVar.f26394d = buVar.x();
                                 aVar.d(true);
                             } else {
-                                dj.a(dgVar, b10);
+                                bx.a(buVar, b2);
                             }
-                        } else if (b10 == 11) {
-                            aVar.f24721c = dgVar.z();
+                        } else if (b2 == 11) {
+                            aVar.f26393c = buVar.z();
                             aVar.c(true);
                         } else {
-                            dj.a(dgVar, b10);
+                            bx.a(buVar, b2);
                         }
-                    } else if (b10 == 11) {
-                        aVar.f24720b = dgVar.z();
+                    } else if (b2 == 11) {
+                        aVar.f26392b = buVar.z();
                         aVar.b(true);
                     } else {
-                        dj.a(dgVar, b10);
+                        bx.a(buVar, b2);
                     }
-                } else if (b10 == 11) {
-                    aVar.f24719a = dgVar.z();
+                } else if (b2 == 11) {
+                    aVar.f26391a = buVar.z();
                     aVar.a(true);
                 } else {
-                    dj.a(dgVar, b10);
+                    bx.a(buVar, b2);
                 }
-                dgVar.m();
+                buVar.m();
             }
-            dgVar.k();
+            buVar.k();
             if (aVar.m()) {
                 aVar.n();
                 return;
             }
-            throw new dh("Required field 'ts' was not found in serialized data! Struct: " + toString());
+            throw new bv("Required field 'ts' was not found in serialized data! Struct: " + toString());
         }
 
-        @Override // com.umeng.analytics.pro.Cdo
+        @Override // com.umeng.analytics.pro.cc
         /* renamed from: b */
-        public void a(dg dgVar, a aVar) throws cn {
+        public void a(bu buVar, a aVar) throws bb {
             aVar.n();
-            dgVar.a(a.f24712g);
-            if (aVar.f24719a != null) {
-                dgVar.a(a.f24713h);
-                dgVar.a(aVar.f24719a);
-                dgVar.c();
+            buVar.a(a.f26387g);
+            if (aVar.f26391a != null) {
+                buVar.a(a.f26388h);
+                buVar.a(aVar.f26391a);
+                buVar.c();
             }
-            if (aVar.f24720b != null && aVar.g()) {
-                dgVar.a(a.f24714i);
-                dgVar.a(aVar.f24720b);
-                dgVar.c();
+            if (aVar.f26392b != null && aVar.g()) {
+                buVar.a(a.f26389i);
+                buVar.a(aVar.f26392b);
+                buVar.c();
             }
-            if (aVar.f24721c != null) {
-                dgVar.a(a.f24715j);
-                dgVar.a(aVar.f24721c);
-                dgVar.c();
+            if (aVar.f26393c != null) {
+                buVar.a(a.f26390j);
+                buVar.a(aVar.f26393c);
+                buVar.c();
             }
-            dgVar.a(a.f24716k);
-            dgVar.a(aVar.f24722d);
-            dgVar.c();
-            dgVar.d();
-            dgVar.b();
+            buVar.a(a.k);
+            buVar.a(aVar.f26394d);
+            buVar.c();
+            buVar.d();
+            buVar.b();
         }
     }
 
-    public static class b implements dp {
+    private static class b implements cd {
         private b() {
         }
 
-        @Override // com.umeng.analytics.pro.dp
+        @Override // com.umeng.analytics.pro.cd
         /* renamed from: a */
-        public C0676a b() {
-            return new C0676a();
+        public C0546a b() {
+            return new C0546a();
         }
 
-        public /* synthetic */ b(AnonymousClass1 anonymousClass1) {
+        /* synthetic */ b(AnonymousClass1 anonymousClass1) {
             this();
         }
     }
 
-    public static class c extends dr<a> {
+    private static class c extends cf<a> {
         private c() {
         }
 
-        public /* synthetic */ c(AnonymousClass1 anonymousClass1) {
+        /* synthetic */ c(AnonymousClass1 anonymousClass1) {
             this();
         }
 
-        @Override // com.umeng.analytics.pro.Cdo
-        public void a(dg dgVar, a aVar) throws cn {
-            dm dmVar = (dm) dgVar;
-            dmVar.a(aVar.f24719a);
-            dmVar.a(aVar.f24721c);
-            dmVar.a(aVar.f24722d);
+        @Override // com.umeng.analytics.pro.cc
+        public void a(bu buVar, a aVar) throws bb {
+            ca caVar = (ca) buVar;
+            caVar.a(aVar.f26391a);
+            caVar.a(aVar.f26393c);
+            caVar.a(aVar.f26394d);
             BitSet bitSet = new BitSet();
             if (aVar.g()) {
                 bitSet.set(0);
             }
-            dmVar.a(bitSet, 1);
+            caVar.a(bitSet, 1);
             if (aVar.g()) {
-                dmVar.a(aVar.f24720b);
+                caVar.a(aVar.f26392b);
             }
         }
 
-        @Override // com.umeng.analytics.pro.Cdo
-        public void b(dg dgVar, a aVar) throws cn {
-            dm dmVar = (dm) dgVar;
-            aVar.f24719a = dmVar.z();
+        @Override // com.umeng.analytics.pro.cc
+        public void b(bu buVar, a aVar) throws bb {
+            ca caVar = (ca) buVar;
+            aVar.f26391a = caVar.z();
             aVar.a(true);
-            aVar.f24721c = dmVar.z();
+            aVar.f26393c = caVar.z();
             aVar.c(true);
-            aVar.f24722d = dmVar.x();
+            aVar.f26394d = caVar.x();
             aVar.d(true);
-            if (dmVar.b(1).get(0)) {
-                aVar.f24720b = dmVar.z();
+            if (caVar.b(1).get(0)) {
+                aVar.f26392b = caVar.z();
                 aVar.b(true);
             }
         }
     }
 
-    public static class d implements dp {
+    private static class d implements cd {
         private d() {
         }
 
-        @Override // com.umeng.analytics.pro.dp
+        @Override // com.umeng.analytics.pro.cd
         /* renamed from: a */
         public c b() {
             return new c();
         }
 
-        public /* synthetic */ d(AnonymousClass1 anonymousClass1) {
+        /* synthetic */ d(AnonymousClass1 anonymousClass1) {
             this();
         }
     }
 
     static {
         HashMap hashMap = new HashMap();
-        f24717l = hashMap;
-        hashMap.put(dq.class, new b());
-        hashMap.put(dr.class, new d());
+        l = hashMap;
+        hashMap.put(ce.class, new b());
+        hashMap.put(cf.class, new d());
         EnumMap enumMap = new EnumMap(e.class);
-        enumMap.put((EnumMap) e.DOMAIN, (e) new ct("domain", (byte) 1, new cu((byte) 11)));
-        enumMap.put((EnumMap) e.OLD_ID, (e) new ct("old_id", (byte) 2, new cu((byte) 11)));
-        enumMap.put((EnumMap) e.NEW_ID, (e) new ct("new_id", (byte) 1, new cu((byte) 11)));
-        enumMap.put((EnumMap) e.TS, (e) new ct("ts", (byte) 1, new cu((byte) 10)));
-        Map<e, ct> unmodifiableMap = Collections.unmodifiableMap(enumMap);
-        f24710e = unmodifiableMap;
-        ct.a(a.class, unmodifiableMap);
+        enumMap.put((EnumMap) e.DOMAIN, (e) new bh("domain", (byte) 1, new bi((byte) 11)));
+        enumMap.put((EnumMap) e.OLD_ID, (e) new bh("old_id", (byte) 2, new bi((byte) 11)));
+        enumMap.put((EnumMap) e.NEW_ID, (e) new bh("new_id", (byte) 1, new bi((byte) 11)));
+        enumMap.put((EnumMap) e.TS, (e) new bh("ts", (byte) 1, new bi((byte) 10)));
+        Map<e, bh> unmodifiableMap = Collections.unmodifiableMap(enumMap);
+        f26385e = unmodifiableMap;
+        bh.a(a.class, unmodifiableMap);
     }
 
     public a() {
-        this.f24723n = (byte) 0;
-        this.f24724o = new e[]{e.OLD_ID};
+        this.n = (byte) 0;
+        this.o = new e[]{e.OLD_ID};
     }
 
-    @Override // com.umeng.analytics.pro.ch
+    @Override // com.umeng.analytics.pro.av
     /* renamed from: a */
     public a deepCopy() {
         return new a(this);
     }
 
     public String b() {
-        return this.f24719a;
+        return this.f26391a;
     }
 
     public void c() {
-        this.f24719a = null;
+        this.f26391a = null;
     }
 
-    @Override // com.umeng.analytics.pro.ch
+    @Override // com.umeng.analytics.pro.av
     public void clear() {
-        this.f24719a = null;
-        this.f24720b = null;
-        this.f24721c = null;
+        this.f26391a = null;
+        this.f26392b = null;
+        this.f26393c = null;
         d(false);
-        this.f24722d = 0L;
+        this.f26394d = 0L;
     }
 
     public boolean d() {
-        return this.f24719a != null;
+        return this.f26391a != null;
     }
 
     public String e() {
-        return this.f24720b;
+        return this.f26392b;
     }
 
     public void f() {
-        this.f24720b = null;
+        this.f26392b = null;
     }
 
     public boolean g() {
-        return this.f24720b != null;
+        return this.f26392b != null;
     }
 
     public String h() {
-        return this.f24721c;
+        return this.f26393c;
     }
 
     public void i() {
-        this.f24721c = null;
+        this.f26393c = null;
     }
 
     public boolean j() {
-        return this.f24721c != null;
+        return this.f26393c != null;
     }
 
     public long k() {
-        return this.f24722d;
+        return this.f26394d;
     }
 
     public void l() {
-        this.f24723n = ce.b(this.f24723n, 0);
+        this.n = as.b(this.n, 0);
     }
 
     public boolean m() {
-        return ce.a(this.f24723n, 0);
+        return as.a(this.n, 0);
     }
 
-    public void n() throws cn {
-        if (this.f24719a == null) {
-            throw new dh("Required field 'domain' was not present! Struct: " + toString());
+    public void n() throws bb {
+        if (this.f26391a == null) {
+            throw new bv("Required field 'domain' was not present! Struct: " + toString());
         }
-        if (this.f24721c != null) {
+        if (this.f26393c != null) {
             return;
         }
-        throw new dh("Required field 'new_id' was not present! Struct: " + toString());
+        throw new bv("Required field 'new_id' was not present! Struct: " + toString());
     }
 
-    @Override // com.umeng.analytics.pro.ch
-    public void read(dg dgVar) throws cn {
-        f24717l.get(dgVar.D()).b().b(dgVar, this);
+    @Override // com.umeng.analytics.pro.av
+    public void read(bu buVar) throws bb {
+        l.get(buVar.D()).b().b(buVar, this);
     }
 
     public String toString() {
-        StringBuilder sb2 = new StringBuilder("IdJournal(");
-        sb2.append("domain:");
-        String str = this.f24719a;
+        StringBuilder sb = new StringBuilder("IdJournal(");
+        sb.append("domain:");
+        String str = this.f26391a;
         if (str == null) {
-            sb2.append("null");
+            sb.append("null");
         } else {
-            sb2.append(str);
+            sb.append(str);
         }
         if (g()) {
-            sb2.append(", ");
-            sb2.append("old_id:");
-            String str2 = this.f24720b;
+            sb.append(", ");
+            sb.append("old_id:");
+            String str2 = this.f26392b;
             if (str2 == null) {
-                sb2.append("null");
+                sb.append("null");
             } else {
-                sb2.append(str2);
+                sb.append(str2);
             }
         }
-        sb2.append(", ");
-        sb2.append("new_id:");
-        String str3 = this.f24721c;
+        sb.append(", ");
+        sb.append("new_id:");
+        String str3 = this.f26393c;
         if (str3 == null) {
-            sb2.append("null");
+            sb.append("null");
         } else {
-            sb2.append(str3);
+            sb.append(str3);
         }
-        sb2.append(", ");
-        sb2.append("ts:");
-        sb2.append(this.f24722d);
-        sb2.append(")");
-        return sb2.toString();
+        sb.append(", ");
+        sb.append("ts:");
+        sb.append(this.f26394d);
+        sb.append(")");
+        return sb.toString();
     }
 
-    @Override // com.umeng.analytics.pro.ch
-    public void write(dg dgVar) throws cn {
-        f24717l.get(dgVar.D()).b().a(dgVar, this);
+    @Override // com.umeng.analytics.pro.av
+    public void write(bu buVar) throws bb {
+        l.get(buVar.D()).b().a(buVar, this);
     }
 
-    public enum e implements co {
+    public enum e implements bc {
         DOMAIN(1, "domain"),
         OLD_ID(2, "old_id"),
         NEW_ID(3, "new_id"),
@@ -380,156 +370,156 @@ public class a implements ch<a, e>, Serializable, Cloneable {
 
 
         /* renamed from: e */
-        private static final Map<String, e> f24729e = new HashMap();
+        private static final Map<String, e> f26399e = new HashMap();
 
         /* renamed from: f */
-        private final short f24731f;
+        private final short f26401f;
 
         /* renamed from: g */
-        private final String f24732g;
+        private final String f26402g;
 
         static {
             Iterator it = EnumSet.allOf(e.class).iterator();
             while (it.hasNext()) {
                 e eVar = (e) it.next();
-                f24729e.put(eVar.b(), eVar);
+                f26399e.put(eVar.b(), eVar);
             }
         }
 
-        e(short s10, String str) {
-            this.f24731f = s10;
-            this.f24732g = str;
+        e(short s, String str) {
+            this.f26401f = s;
+            this.f26402g = str;
         }
 
-        public static e a(int i10) {
-            if (i10 == 1) {
+        public static e a(int i2) {
+            if (i2 == 1) {
                 return DOMAIN;
             }
-            if (i10 == 2) {
+            if (i2 == 2) {
                 return OLD_ID;
             }
-            if (i10 == 3) {
+            if (i2 == 3) {
                 return NEW_ID;
             }
-            if (i10 != 4) {
+            if (i2 != 4) {
                 return null;
             }
             return TS;
         }
 
-        public static e b(int i10) {
-            e a10 = a(i10);
-            if (a10 != null) {
-                return a10;
+        public static e b(int i2) {
+            e a2 = a(i2);
+            if (a2 != null) {
+                return a2;
             }
-            throw new IllegalArgumentException("Field " + i10 + " doesn't exist!");
+            throw new IllegalArgumentException("Field " + i2 + " doesn't exist!");
         }
 
-        @Override // com.umeng.analytics.pro.co
+        @Override // com.umeng.analytics.pro.bc
         public String b() {
-            return this.f24732g;
+            return this.f26402g;
         }
 
         public static e a(String str) {
-            return f24729e.get(str);
+            return f26399e.get(str);
         }
 
-        @Override // com.umeng.analytics.pro.co
+        @Override // com.umeng.analytics.pro.bc
         public short a() {
-            return this.f24731f;
+            return this.f26401f;
         }
     }
 
     public a a(String str) {
-        this.f24719a = str;
+        this.f26391a = str;
         return this;
     }
 
     public a b(String str) {
-        this.f24720b = str;
+        this.f26392b = str;
         return this;
     }
 
     public a c(String str) {
-        this.f24721c = str;
+        this.f26393c = str;
         return this;
     }
 
-    public void d(boolean z10) {
-        this.f24723n = ce.a(this.f24723n, 0, z10);
+    public void d(boolean z) {
+        this.n = as.a(this.n, 0, z);
     }
 
-    public void a(boolean z10) {
-        if (z10) {
+    public void a(boolean z) {
+        if (z) {
             return;
         }
-        this.f24719a = null;
+        this.f26391a = null;
     }
 
-    public void b(boolean z10) {
-        if (z10) {
+    public void b(boolean z) {
+        if (z) {
             return;
         }
-        this.f24720b = null;
+        this.f26392b = null;
     }
 
-    public void c(boolean z10) {
-        if (z10) {
+    public void c(boolean z) {
+        if (z) {
             return;
         }
-        this.f24721c = null;
+        this.f26393c = null;
     }
 
-    public a(String str, String str2, long j10) {
+    public a(String str, String str2, long j2) {
         this();
-        this.f24719a = str;
-        this.f24721c = str2;
-        this.f24722d = j10;
+        this.f26391a = str;
+        this.f26393c = str2;
+        this.f26394d = j2;
         d(true);
     }
 
-    public a a(long j10) {
-        this.f24722d = j10;
+    public a a(long j2) {
+        this.f26394d = j2;
         d(true);
         return this;
     }
 
-    @Override // com.umeng.analytics.pro.ch
+    @Override // com.umeng.analytics.pro.av
     /* renamed from: a */
-    public e fieldForId(int i10) {
-        return e.a(i10);
+    public e fieldForId(int i2) {
+        return e.a(i2);
     }
 
     private void a(ObjectOutputStream objectOutputStream) throws IOException {
         try {
-            write(new da(new ds(objectOutputStream)));
-        } catch (cn e10) {
-            throw new IOException(e10.getMessage());
+            write(new bo(new cg(objectOutputStream)));
+        } catch (bb e2) {
+            throw new IOException(e2.getMessage());
         }
     }
 
     public a(a aVar) {
-        this.f24723n = (byte) 0;
-        this.f24724o = new e[]{e.OLD_ID};
-        this.f24723n = aVar.f24723n;
+        this.n = (byte) 0;
+        this.o = new e[]{e.OLD_ID};
+        this.n = aVar.n;
         if (aVar.d()) {
-            this.f24719a = aVar.f24719a;
+            this.f26391a = aVar.f26391a;
         }
         if (aVar.g()) {
-            this.f24720b = aVar.f24720b;
+            this.f26392b = aVar.f26392b;
         }
         if (aVar.j()) {
-            this.f24721c = aVar.f24721c;
+            this.f26393c = aVar.f26393c;
         }
-        this.f24722d = aVar.f24722d;
+        this.f26394d = aVar.f26394d;
     }
 
     private void a(ObjectInputStream objectInputStream) throws IOException, ClassNotFoundException {
         try {
-            this.f24723n = (byte) 0;
-            read(new da(new ds(objectInputStream)));
-        } catch (cn e10) {
-            throw new IOException(e10.getMessage());
+            this.n = (byte) 0;
+            read(new bo(new cg(objectInputStream)));
+        } catch (bb e2) {
+            throw new IOException(e2.getMessage());
         }
     }
 }

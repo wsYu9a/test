@@ -7,14 +7,17 @@ import com.ss.android.socialbase.downloader.utils.DownloadUtils;
 /* loaded from: classes4.dex */
 public class BaseException extends Exception implements Parcelable {
     public static final Parcelable.Creator<BaseException> CREATOR = new Parcelable.Creator<BaseException>() { // from class: com.ss.android.socialbase.downloader.exception.BaseException.1
+        AnonymousClass1() {
+        }
+
         @Override // android.os.Parcelable.Creator
         public BaseException createFromParcel(Parcel parcel) {
             return new BaseException(parcel);
         }
 
         @Override // android.os.Parcelable.Creator
-        public BaseException[] newArray(int i10) {
-            return new BaseException[i10];
+        public BaseException[] newArray(int i2) {
+            return new BaseException[i2];
         }
     };
     private static final String TAG = "[d-ex]:";
@@ -23,15 +26,18 @@ public class BaseException extends Exception implements Parcelable {
     private String extraInfo;
 
     /* renamed from: com.ss.android.socialbase.downloader.exception.BaseException$1 */
-    public static class AnonymousClass1 implements Parcelable.Creator<BaseException> {
+    static class AnonymousClass1 implements Parcelable.Creator<BaseException> {
+        AnonymousClass1() {
+        }
+
         @Override // android.os.Parcelable.Creator
         public BaseException createFromParcel(Parcel parcel) {
             return new BaseException(parcel);
         }
 
         @Override // android.os.Parcelable.Creator
-        public BaseException[] newArray(int i10) {
-            return new BaseException[i10];
+        public BaseException[] newArray(int i2) {
+            return new BaseException[i2];
         }
     }
 
@@ -76,31 +82,31 @@ public class BaseException extends Exception implements Parcelable {
     }
 
     @Override // android.os.Parcelable
-    public void writeToParcel(Parcel parcel, int i10) {
+    public void writeToParcel(Parcel parcel, int i2) {
         parcel.writeInt(this.errorCode);
         parcel.writeString(this.errorMsg);
         parcel.writeString(this.extraInfo);
     }
 
-    public BaseException(int i10, String str) {
+    public BaseException(int i2, String str) {
         super(TAG + str);
         this.extraInfo = "";
         this.errorMsg = TAG + str;
-        this.errorCode = i10;
+        this.errorCode = i2;
     }
 
-    public BaseException(int i10, Throwable th2) {
-        this(i10, DownloadUtils.getThrowableMsg(th2));
+    public BaseException(int i2, Throwable th) {
+        this(i2, DownloadUtils.getThrowableMsg(th));
     }
 
-    public BaseException(int i10, String str, Throwable th2) {
-        super(TAG + str, th2);
+    public BaseException(int i2, String str, Throwable th) {
+        super(TAG + str, th);
         this.extraInfo = "";
         this.errorMsg = TAG + str;
-        this.errorCode = i10;
+        this.errorCode = i2;
     }
 
-    public BaseException(Parcel parcel) {
+    protected BaseException(Parcel parcel) {
         this.extraInfo = "";
         readFromParcel(parcel);
     }

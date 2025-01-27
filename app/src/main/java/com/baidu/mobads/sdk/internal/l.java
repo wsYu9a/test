@@ -1,45 +1,50 @@
 package com.baidu.mobads.sdk.internal;
 
-import android.text.TextUtils;
+import android.content.Context;
+import com.baidu.mobads.sdk.api.CpuChannelListManager;
+import com.baidu.mobads.sdk.api.IAdInterListener;
+import org.json.JSONObject;
 
-/* loaded from: classes2.dex */
-public enum l {
-    NEWS("news", 0),
-    IMAGE("image", 1),
-    VIDEO("video", 2),
-    TOPIC("topic", 3),
-    AD("ad", 4),
-    HOTDOC("hotkey", 5),
-    SMALLVIDEO("smallvideo", 6),
-    RECALLNEWS("recallNews", 8),
-    POLICETASK("policetask", 9);
+/* loaded from: classes.dex */
+public class l extends ad {
+    private CpuChannelListManager.CpuChannelListListener q;
+    private String r;
+    private int s;
 
-
-    /* renamed from: j, reason: collision with root package name */
-    String f7221j;
-
-    /* renamed from: k, reason: collision with root package name */
-    int f7222k;
-
-    l(String str, int i10) {
-        this.f7221j = str;
-        this.f7222k = i10;
+    public l(Context context) {
+        super(context);
     }
 
-    public String b() {
-        return this.f7221j;
+    public void a(CpuChannelListManager.CpuChannelListListener cpuChannelListListener) {
+        this.q = cpuChannelListListener;
     }
 
-    public int c() {
-        return this.f7222k;
+    public void a(String str, int i2) {
+        this.r = str;
+        this.s = i2;
     }
 
-    public static l b(String str) {
-        for (l lVar : values()) {
-            if (lVar != null && TextUtils.isEmpty(lVar.f7221j) && lVar.f7221j.equals(str)) {
-                return lVar;
-            }
+    @Override // com.baidu.mobads.sdk.internal.ad, com.baidu.mobads.sdk.internal.bf
+    public void a() {
+        if (this.k == null) {
+            this.l = false;
+            return;
         }
-        return null;
+        this.l = true;
+        JSONObject jSONObject = new JSONObject();
+        try {
+            JSONObject jSONObject2 = new JSONObject();
+            jSONObject2.put(IAdInterListener.AdReqParam.PROD, "cpu");
+            this.k.createProdHandler(jSONObject2);
+            m mVar = new m(this);
+            this.k.addEventListener(w.an, mVar);
+            this.k.addEventListener(w.ao, mVar);
+            jSONObject.put("appsid", this.r);
+            jSONObject.put("subChannelId", this.s);
+            jSONObject.put("event_type", "cpu_channelIds");
+        } catch (Exception e2) {
+            e2.printStackTrace();
+        }
+        a(jSONObject);
     }
 }

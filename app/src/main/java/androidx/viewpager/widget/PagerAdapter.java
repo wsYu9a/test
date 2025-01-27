@@ -15,12 +15,16 @@ public abstract class PagerAdapter {
     private final DataSetObservable mObservable = new DataSetObservable();
     private DataSetObserver mViewPagerObserver;
 
-    public void destroyItem(@NonNull ViewGroup viewGroup, int i10, @NonNull Object obj) {
-        destroyItem((View) viewGroup, i10, obj);
+    public void destroyItem(@NonNull ViewGroup viewGroup, int i2, @NonNull Object obj) {
+        destroyItem((View) viewGroup, i2, obj);
     }
 
     @Deprecated
     public void finishUpdate(@NonNull View view) {
+    }
+
+    public void finishUpdate(@NonNull ViewGroup viewGroup) {
+        finishUpdate((View) viewGroup);
     }
 
     public abstract int getCount();
@@ -30,30 +34,26 @@ public abstract class PagerAdapter {
     }
 
     @Nullable
-    public CharSequence getPageTitle(int i10) {
+    public CharSequence getPageTitle(int i2) {
         return null;
     }
 
-    public float getPageWidth(int i10) {
+    public float getPageWidth(int i2) {
         return 1.0f;
     }
 
     @NonNull
-    public Object instantiateItem(@NonNull ViewGroup viewGroup, int i10) {
-        return instantiateItem((View) viewGroup, i10);
+    public Object instantiateItem(@NonNull ViewGroup viewGroup, int i2) {
+        return instantiateItem((View) viewGroup, i2);
     }
 
     public abstract boolean isViewFromObject(@NonNull View view, @NonNull Object obj);
 
     public void notifyDataSetChanged() {
         synchronized (this) {
-            try {
-                DataSetObserver dataSetObserver = this.mViewPagerObserver;
-                if (dataSetObserver != null) {
-                    dataSetObserver.onChanged();
-                }
-            } catch (Throwable th2) {
-                throw th2;
+            DataSetObserver dataSetObserver = this.mViewPagerObserver;
+            if (dataSetObserver != null) {
+                dataSetObserver.onChanged();
             }
         }
         this.mObservable.notifyChanged();
@@ -72,10 +72,14 @@ public abstract class PagerAdapter {
     }
 
     @Deprecated
-    public void setPrimaryItem(@NonNull View view, int i10, @NonNull Object obj) {
+    public void setPrimaryItem(@NonNull View view, int i2, @NonNull Object obj) {
     }
 
-    public void setViewPagerObserver(DataSetObserver dataSetObserver) {
+    public void setPrimaryItem(@NonNull ViewGroup viewGroup, int i2, @NonNull Object obj) {
+        setPrimaryItem((View) viewGroup, i2, obj);
+    }
+
+    void setViewPagerObserver(DataSetObserver dataSetObserver) {
         synchronized (this) {
             this.mViewPagerObserver = dataSetObserver;
         }
@@ -85,30 +89,22 @@ public abstract class PagerAdapter {
     public void startUpdate(@NonNull View view) {
     }
 
+    public void startUpdate(@NonNull ViewGroup viewGroup) {
+        startUpdate((View) viewGroup);
+    }
+
     public void unregisterDataSetObserver(@NonNull DataSetObserver dataSetObserver) {
         this.mObservable.unregisterObserver(dataSetObserver);
     }
 
     @Deprecated
-    public void destroyItem(@NonNull View view, int i10, @NonNull Object obj) {
+    public void destroyItem(@NonNull View view, int i2, @NonNull Object obj) {
         throw new UnsupportedOperationException("Required method destroyItem was not overridden");
-    }
-
-    public void finishUpdate(@NonNull ViewGroup viewGroup) {
-        finishUpdate((View) viewGroup);
     }
 
     @NonNull
     @Deprecated
-    public Object instantiateItem(@NonNull View view, int i10) {
+    public Object instantiateItem(@NonNull View view, int i2) {
         throw new UnsupportedOperationException("Required method instantiateItem was not overridden");
-    }
-
-    public void setPrimaryItem(@NonNull ViewGroup viewGroup, int i10, @NonNull Object obj) {
-        setPrimaryItem((View) viewGroup, i10, obj);
-    }
-
-    public void startUpdate(@NonNull ViewGroup viewGroup) {
-        startUpdate((View) viewGroup);
     }
 }

@@ -3,135 +3,114 @@ package androidx.core.os;
 import android.os.Build;
 import android.os.Trace;
 import android.util.Log;
-import androidx.annotation.DoNotInline;
 import androidx.annotation.NonNull;
-import androidx.annotation.RequiresApi;
 import java.lang.reflect.Method;
 
-@Deprecated
 /* loaded from: classes.dex */
 public final class TraceCompat {
-    private static final String TAG = "TraceCompat";
-    private static Method sAsyncTraceBeginMethod;
-    private static Method sAsyncTraceEndMethod;
-    private static Method sIsTagEnabledMethod;
-    private static Method sTraceCounterMethod;
-    private static long sTraceTagApp;
 
-    @RequiresApi(18)
-    public static class Api18Impl {
-        private Api18Impl() {
-        }
+    /* renamed from: a, reason: collision with root package name */
+    private static final String f1830a = "TraceCompat";
 
-        @DoNotInline
-        public static void beginSection(String str) {
-            Trace.beginSection(str);
-        }
+    /* renamed from: b, reason: collision with root package name */
+    private static long f1831b;
 
-        @DoNotInline
-        public static void endSection() {
-            Trace.endSection();
-        }
-    }
+    /* renamed from: c, reason: collision with root package name */
+    private static Method f1832c;
 
-    @RequiresApi(29)
-    public static class Api29Impl {
-        private Api29Impl() {
-        }
+    /* renamed from: d, reason: collision with root package name */
+    private static Method f1833d;
 
-        @DoNotInline
-        public static void beginAsyncSection(String str, int i10) {
-            Trace.beginAsyncSection(str, i10);
-        }
+    /* renamed from: e, reason: collision with root package name */
+    private static Method f1834e;
 
-        @DoNotInline
-        public static void endAsyncSection(String str, int i10) {
-            Trace.endAsyncSection(str, i10);
-        }
-
-        @DoNotInline
-        public static boolean isEnabled() {
-            return Trace.isEnabled();
-        }
-
-        @DoNotInline
-        public static void setCounter(String str, long j10) {
-            Trace.setCounter(str, j10);
-        }
-    }
+    /* renamed from: f, reason: collision with root package name */
+    private static Method f1835f;
 
     static {
-        if (Build.VERSION.SDK_INT < 29) {
-            try {
-                sTraceTagApp = Trace.class.getField("TRACE_TAG_APP").getLong(null);
-                Class cls = Long.TYPE;
-                sIsTagEnabledMethod = Trace.class.getMethod("isTagEnabled", cls);
-                Class cls2 = Integer.TYPE;
-                sAsyncTraceBeginMethod = Trace.class.getMethod("asyncTraceBegin", cls, String.class, cls2);
-                sAsyncTraceEndMethod = Trace.class.getMethod("asyncTraceEnd", cls, String.class, cls2);
-                sTraceCounterMethod = Trace.class.getMethod("traceCounter", cls, String.class, cls2);
-            } catch (Exception e10) {
-                Log.i(TAG, "Unable to initialize via reflection.", e10);
-            }
+        int i2 = Build.VERSION.SDK_INT;
+        if (i2 < 18 || i2 >= 29) {
+            return;
+        }
+        try {
+            f1831b = Trace.class.getField("TRACE_TAG_APP").getLong(null);
+            Class cls = Long.TYPE;
+            f1832c = Trace.class.getMethod("isTagEnabled", cls);
+            Class cls2 = Integer.TYPE;
+            f1833d = Trace.class.getMethod("asyncTraceBegin", cls, String.class, cls2);
+            f1834e = Trace.class.getMethod("asyncTraceEnd", cls, String.class, cls2);
+            f1835f = Trace.class.getMethod("traceCounter", cls, String.class, cls2);
+        } catch (Exception e2) {
+            Log.i(f1830a, "Unable to initialize via reflection.", e2);
         }
     }
 
     private TraceCompat() {
     }
 
-    public static void beginAsyncSection(@NonNull String str, int i10) {
-        if (Build.VERSION.SDK_INT >= 29) {
-            Api29Impl.beginAsyncSection(str, i10);
-            return;
-        }
-        try {
-            sAsyncTraceBeginMethod.invoke(null, Long.valueOf(sTraceTagApp), str, Integer.valueOf(i10));
-        } catch (Exception unused) {
-            Log.v(TAG, "Unable to invoke asyncTraceBegin() via reflection.");
+    public static void beginAsyncSection(@NonNull String str, int i2) {
+        int i3 = Build.VERSION.SDK_INT;
+        if (i3 >= 29) {
+            Trace.beginAsyncSection(str, i2);
+        } else if (i3 >= 18) {
+            try {
+                f1833d.invoke(null, Long.valueOf(f1831b), str, Integer.valueOf(i2));
+            } catch (Exception unused) {
+                Log.v(f1830a, "Unable to invoke asyncTraceBegin() via reflection.");
+            }
         }
     }
 
     public static void beginSection(@NonNull String str) {
-        Api18Impl.beginSection(str);
+        if (Build.VERSION.SDK_INT >= 18) {
+            Trace.beginSection(str);
+        }
     }
 
-    public static void endAsyncSection(@NonNull String str, int i10) {
-        if (Build.VERSION.SDK_INT >= 29) {
-            Api29Impl.endAsyncSection(str, i10);
-            return;
-        }
-        try {
-            sAsyncTraceEndMethod.invoke(null, Long.valueOf(sTraceTagApp), str, Integer.valueOf(i10));
-        } catch (Exception unused) {
-            Log.v(TAG, "Unable to invoke endAsyncSection() via reflection.");
+    public static void endAsyncSection(@NonNull String str, int i2) {
+        int i3 = Build.VERSION.SDK_INT;
+        if (i3 >= 29) {
+            Trace.endAsyncSection(str, i2);
+        } else if (i3 >= 18) {
+            try {
+                f1834e.invoke(null, Long.valueOf(f1831b), str, Integer.valueOf(i2));
+            } catch (Exception unused) {
+                Log.v(f1830a, "Unable to invoke endAsyncSection() via reflection.");
+            }
         }
     }
 
     public static void endSection() {
-        Api18Impl.endSection();
+        if (Build.VERSION.SDK_INT >= 18) {
+            Trace.endSection();
+        }
     }
 
     public static boolean isEnabled() {
-        if (Build.VERSION.SDK_INT >= 29) {
-            return Api29Impl.isEnabled();
+        int i2 = Build.VERSION.SDK_INT;
+        if (i2 >= 29) {
+            return Trace.isEnabled();
         }
-        try {
-            return ((Boolean) sIsTagEnabledMethod.invoke(null, Long.valueOf(sTraceTagApp))).booleanValue();
-        } catch (Exception unused) {
-            Log.v(TAG, "Unable to invoke isTagEnabled() via reflection.");
-            return false;
+        if (i2 >= 18) {
+            try {
+                return ((Boolean) f1832c.invoke(null, Long.valueOf(f1831b))).booleanValue();
+            } catch (Exception unused) {
+                Log.v(f1830a, "Unable to invoke isTagEnabled() via reflection.");
+            }
         }
+        return false;
     }
 
-    public static void setCounter(@NonNull String str, int i10) {
-        if (Build.VERSION.SDK_INT >= 29) {
-            Api29Impl.setCounter(str, i10);
-            return;
-        }
-        try {
-            sTraceCounterMethod.invoke(null, Long.valueOf(sTraceTagApp), str, Integer.valueOf(i10));
-        } catch (Exception unused) {
-            Log.v(TAG, "Unable to invoke traceCounter() via reflection.");
+    public static void setCounter(@NonNull String str, int i2) {
+        int i3 = Build.VERSION.SDK_INT;
+        if (i3 >= 29) {
+            Trace.setCounter(str, i2);
+        } else if (i3 >= 18) {
+            try {
+                f1835f.invoke(null, Long.valueOf(f1831b), str, Integer.valueOf(i2));
+            } catch (Exception unused) {
+                Log.v(f1830a, "Unable to invoke traceCounter() via reflection.");
+            }
         }
     }
 }

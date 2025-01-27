@@ -1,166 +1,65 @@
 package com.kuaishou.weapon.p0;
 
-import android.accessibilityservice.AccessibilityServiceInfo;
 import android.content.Context;
-import android.content.res.Configuration;
-import android.provider.Settings;
-import android.text.TextUtils;
-import android.view.accessibility.AccessibilityManager;
-import android.view.inputmethod.InputMethodInfo;
-import android.view.inputmethod.InputMethodManager;
-import java.io.BufferedReader;
-import java.io.FileInputStream;
-import java.io.InputStreamReader;
-import java.text.SimpleDateFormat;
-import java.util.HashSet;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Set;
-import org.json.JSONArray;
+import android.os.Build;
+import android.os.Process;
 
-/* loaded from: classes2.dex */
-public class dl {
-    public static String a(String str) {
-        if (str.contains("http")) {
-            str = str.replace("https://", "").replace("http://", "");
-        }
-        return str.contains("/") ? str.substring(0, str.indexOf("/")) : str;
+/* loaded from: classes.dex */
+public final class dl {
+
+    /* renamed from: a, reason: collision with root package name */
+    private static a f9292a;
+
+    public enum a {
+        UNKNOWN,
+        ARMEABI_V7A,
+        ARM64_V8A
     }
 
-    public static Set b(Context context) {
-        try {
-            List<InputMethodInfo> inputMethodList = ((InputMethodManager) context.getSystemService("input_method")).getInputMethodList();
-            HashSet hashSet = new HashSet();
-            Iterator<InputMethodInfo> it = inputMethodList.iterator();
-            while (it.hasNext()) {
-                hashSet.add(it.next().getId().split("/")[0]);
-            }
-            if (hashSet.size() <= 0) {
-                return null;
-            }
-            return hashSet;
-        } catch (Exception unused) {
-            return null;
-        }
+    private dl() {
     }
 
-    public static int c(Context context) {
-        try {
-            return a(context, "show_touches");
-        } catch (Exception unused) {
-            return 0;
-        }
+    public static String a(Context context) {
+        return b(context) ? "arm64-v8a" : "armeabi-v7a";
     }
 
-    public static int d(Context context) {
-        try {
-            return a(context, "pointer_location");
-        } catch (Exception unused) {
-            return 0;
-        }
+    public static boolean b(Context context) {
+        return c(context) == a.ARM64_V8A;
     }
 
-    public static int e(Context context) {
-        try {
-            Configuration configuration = context.getResources().getConfiguration();
-            if (configuration.keyboard != 1) {
-                return configuration.hardKeyboardHidden == 2 ? 0 : 1;
-            }
-            return 0;
-        } catch (Throwable unused) {
-            return -1;
+    private static a c(Context context) {
+        a aVar;
+        a aVar2 = f9292a;
+        if (aVar2 != null) {
+            return aVar2;
         }
-    }
-
-    public static String a(long j10) {
-        try {
-            return new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(Long.valueOf(j10));
-        } catch (Exception unused) {
-            return "";
-        }
-    }
-
-    public static Set a(Context context) {
-        try {
-            List<AccessibilityServiceInfo> installedAccessibilityServiceList = ((AccessibilityManager) context.getSystemService("accessibility")).getInstalledAccessibilityServiceList();
-            HashSet hashSet = new HashSet();
-            for (AccessibilityServiceInfo accessibilityServiceInfo : installedAccessibilityServiceList) {
-                if (accessibilityServiceInfo != null && !TextUtils.isEmpty(accessibilityServiceInfo.getId())) {
-                    hashSet.add(accessibilityServiceInfo.getId());
-                }
-            }
-            if (hashSet.size() > 0) {
-                return hashSet;
-            }
-            return null;
-        } catch (Exception unused) {
-            return null;
-        }
-    }
-
-    private static int a(Context context, String str) {
-        try {
-            return Settings.System.getInt(context.getContentResolver(), str, 0);
-        } catch (Exception unused) {
-            return 0;
-        }
-    }
-
-    public static int a() {
-        BufferedReader bufferedReader = null;
-        try {
-            FileInputStream fileInputStream = (FileInputStream) Class.forName("java.io.FileInputStream").getConstructor(String.class).newInstance("/sys/class/power_supply/usb/online");
-            if (fileInputStream != null) {
-                BufferedReader bufferedReader2 = new BufferedReader(new InputStreamReader(fileInputStream), 1000);
-                try {
-                    String readLine = bufferedReader2.readLine();
-                    if (!TextUtils.isEmpty(readLine)) {
-                        if (TextUtils.equals(readLine, "1")) {
-                            try {
-                                bufferedReader2.close();
-                            } catch (Throwable unused) {
-                            }
-                            return 1;
-                        }
-                    }
-                    bufferedReader = bufferedReader2;
-                } catch (Throwable unused2) {
-                    bufferedReader = bufferedReader2;
-                    if (bufferedReader != null) {
+        int i2 = Build.VERSION.SDK_INT;
+        if (i2 >= 21) {
+            if (i2 < 23) {
+                if (i2 >= 21) {
+                    try {
+                        Class<?> cls = Class.forName("dalvik.system.VMRuntime");
+                        f9292a = ((Boolean) cls.getDeclaredMethod("is64Bit", new Class[0]).invoke(cls.getDeclaredMethod("getRuntime", new Class[0]).invoke(cls, new Object[0]), new Object[0])).booleanValue() ? a.ARM64_V8A : a.ARMEABI_V7A;
+                    } catch (Throwable th) {
+                        th.printStackTrace();
                         try {
-                            bufferedReader.close();
-                        } catch (Throwable unused3) {
+                            f9292a = context.getApplicationInfo().nativeLibraryDir.contains("arm64") ? a.ARM64_V8A : a.UNKNOWN;
+                        } catch (Throwable th2) {
+                            th2.printStackTrace();
+                            aVar = a.UNKNOWN;
                         }
                     }
-                    return 0;
                 }
+                return f9292a;
             }
-            if (bufferedReader != null) {
-                try {
-                    bufferedReader.close();
-                } catch (Throwable unused4) {
-                }
+            if (Process.is64Bit()) {
+                aVar = a.ARM64_V8A;
             }
-            return 0;
-        } catch (Throwable unused5) {
+            f9292a = aVar;
+            return f9292a;
         }
-    }
-
-    public static Set a(JSONArray jSONArray) {
-        if (jSONArray == null) {
-            return null;
-        }
-        try {
-            if (jSONArray.length() <= 0) {
-                return null;
-            }
-            HashSet hashSet = new HashSet();
-            for (int i10 = 0; i10 < jSONArray.length(); i10++) {
-                hashSet.add(jSONArray.get(i10));
-            }
-            return hashSet;
-        } catch (Exception unused) {
-            return null;
-        }
+        aVar = a.ARMEABI_V7A;
+        f9292a = aVar;
+        return f9292a;
     }
 }

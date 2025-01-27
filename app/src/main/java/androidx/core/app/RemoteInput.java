@@ -7,7 +7,6 @@ import android.content.Intent;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
-import androidx.annotation.DoNotInline;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.annotation.RequiresApi;
@@ -16,7 +15,6 @@ import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 import java.util.HashMap;
 import java.util.HashSet;
-import java.util.Iterator;
 import java.util.Map;
 import java.util.Set;
 
@@ -25,206 +23,120 @@ public final class RemoteInput {
     public static final int EDIT_CHOICES_BEFORE_SENDING_AUTO = 0;
     public static final int EDIT_CHOICES_BEFORE_SENDING_DISABLED = 1;
     public static final int EDIT_CHOICES_BEFORE_SENDING_ENABLED = 2;
-    private static final String EXTRA_DATA_TYPE_RESULTS_DATA = "android.remoteinput.dataTypeResultsData";
     public static final String EXTRA_RESULTS_DATA = "android.remoteinput.resultsData";
-    private static final String EXTRA_RESULTS_SOURCE = "android.remoteinput.resultsSource";
     public static final String RESULTS_CLIP_LABEL = "android.remoteinput.results";
     public static final int SOURCE_CHOICE = 1;
     public static final int SOURCE_FREE_FORM_INPUT = 0;
-    private final boolean mAllowFreeFormTextInput;
-    private final Set<String> mAllowedDataTypes;
-    private final CharSequence[] mChoices;
-    private final int mEditChoicesBeforeSending;
-    private final Bundle mExtras;
-    private final CharSequence mLabel;
-    private final String mResultKey;
 
-    @RequiresApi(16)
-    public static class Api16Impl {
-        private Api16Impl() {
-        }
+    /* renamed from: a, reason: collision with root package name */
+    private static final String f1629a = "RemoteInput";
 
-        @DoNotInline
-        public static ClipData getClipData(Intent intent) {
-            return intent.getClipData();
-        }
+    /* renamed from: b, reason: collision with root package name */
+    private static final String f1630b = "android.remoteinput.dataTypeResultsData";
 
-        @DoNotInline
-        public static void setClipData(Intent intent, ClipData clipData) {
-            intent.setClipData(clipData);
-        }
-    }
+    /* renamed from: c, reason: collision with root package name */
+    private static final String f1631c = "android.remoteinput.resultsSource";
 
-    @RequiresApi(20)
-    public static class Api20Impl {
-        private Api20Impl() {
-        }
+    /* renamed from: d, reason: collision with root package name */
+    private final String f1632d;
 
-        @DoNotInline
-        public static void addResultsToIntent(Object obj, Intent intent, Bundle bundle) {
-            android.app.RemoteInput.addResultsToIntent((android.app.RemoteInput[]) obj, intent, bundle);
-        }
+    /* renamed from: e, reason: collision with root package name */
+    private final CharSequence f1633e;
 
-        public static android.app.RemoteInput fromCompat(RemoteInput remoteInput) {
-            Set<String> allowedDataTypes;
-            RemoteInput.Builder addExtras = new RemoteInput.Builder(remoteInput.getResultKey()).setLabel(remoteInput.getLabel()).setChoices(remoteInput.getChoices()).setAllowFreeFormInput(remoteInput.getAllowFreeFormInput()).addExtras(remoteInput.getExtras());
-            if (Build.VERSION.SDK_INT >= 26 && (allowedDataTypes = remoteInput.getAllowedDataTypes()) != null) {
-                Iterator<String> it = allowedDataTypes.iterator();
-                while (it.hasNext()) {
-                    Api26Impl.setAllowDataType(addExtras, it.next(), true);
-                }
-            }
-            if (Build.VERSION.SDK_INT >= 29) {
-                Api29Impl.setEditChoicesBeforeSending(addExtras, remoteInput.getEditChoicesBeforeSending());
-            }
-            return addExtras.build();
-        }
+    /* renamed from: f, reason: collision with root package name */
+    private final CharSequence[] f1634f;
 
-        public static RemoteInput fromPlatform(Object obj) {
-            Set<String> allowedDataTypes;
-            android.app.RemoteInput remoteInput = (android.app.RemoteInput) obj;
-            Builder addExtras = new Builder(remoteInput.getResultKey()).setLabel(remoteInput.getLabel()).setChoices(remoteInput.getChoices()).setAllowFreeFormInput(remoteInput.getAllowFreeFormInput()).addExtras(remoteInput.getExtras());
-            if (Build.VERSION.SDK_INT >= 26 && (allowedDataTypes = Api26Impl.getAllowedDataTypes(remoteInput)) != null) {
-                Iterator<String> it = allowedDataTypes.iterator();
-                while (it.hasNext()) {
-                    addExtras.setAllowDataType(it.next(), true);
-                }
-            }
-            if (Build.VERSION.SDK_INT >= 29) {
-                addExtras.setEditChoicesBeforeSending(Api29Impl.getEditChoicesBeforeSending(remoteInput));
-            }
-            return addExtras.build();
-        }
+    /* renamed from: g, reason: collision with root package name */
+    private final boolean f1635g;
 
-        @DoNotInline
-        public static Bundle getResultsFromIntent(Intent intent) {
-            return android.app.RemoteInput.getResultsFromIntent(intent);
-        }
-    }
+    /* renamed from: h, reason: collision with root package name */
+    private final int f1636h;
 
-    @RequiresApi(26)
-    public static class Api26Impl {
-        private Api26Impl() {
-        }
+    /* renamed from: i, reason: collision with root package name */
+    private final Bundle f1637i;
 
-        @DoNotInline
-        public static void addDataResultToIntent(RemoteInput remoteInput, Intent intent, Map<String, Uri> map) {
-            android.app.RemoteInput.addDataResultToIntent(RemoteInput.fromCompat(remoteInput), intent, map);
-        }
-
-        @DoNotInline
-        public static Set<String> getAllowedDataTypes(Object obj) {
-            return ((android.app.RemoteInput) obj).getAllowedDataTypes();
-        }
-
-        @DoNotInline
-        public static Map<String, Uri> getDataResultsFromIntent(Intent intent, String str) {
-            return android.app.RemoteInput.getDataResultsFromIntent(intent, str);
-        }
-
-        @DoNotInline
-        public static RemoteInput.Builder setAllowDataType(RemoteInput.Builder builder, String str, boolean z10) {
-            return builder.setAllowDataType(str, z10);
-        }
-    }
-
-    @RequiresApi(28)
-    public static class Api28Impl {
-        private Api28Impl() {
-        }
-
-        @DoNotInline
-        public static int getResultsSource(Intent intent) {
-            return android.app.RemoteInput.getResultsSource(intent);
-        }
-
-        @DoNotInline
-        public static void setResultsSource(Intent intent, int i10) {
-            android.app.RemoteInput.setResultsSource(intent, i10);
-        }
-    }
-
-    @RequiresApi(29)
-    public static class Api29Impl {
-        private Api29Impl() {
-        }
-
-        @DoNotInline
-        public static int getEditChoicesBeforeSending(Object obj) {
-            return ((android.app.RemoteInput) obj).getEditChoicesBeforeSending();
-        }
-
-        @DoNotInline
-        public static RemoteInput.Builder setEditChoicesBeforeSending(RemoteInput.Builder builder, int i10) {
-            return builder.setEditChoicesBeforeSending(i10);
-        }
-    }
+    /* renamed from: j, reason: collision with root package name */
+    private final Set<String> f1638j;
 
     public static final class Builder {
-        private CharSequence[] mChoices;
-        private CharSequence mLabel;
-        private final String mResultKey;
-        private final Set<String> mAllowedDataTypes = new HashSet();
-        private final Bundle mExtras = new Bundle();
-        private boolean mAllowFreeFormTextInput = true;
-        private int mEditChoicesBeforeSending = 0;
+
+        /* renamed from: a, reason: collision with root package name */
+        private final String f1639a;
+
+        /* renamed from: d, reason: collision with root package name */
+        private CharSequence f1642d;
+
+        /* renamed from: e, reason: collision with root package name */
+        private CharSequence[] f1643e;
+
+        /* renamed from: b, reason: collision with root package name */
+        private final Set<String> f1640b = new HashSet();
+
+        /* renamed from: c, reason: collision with root package name */
+        private final Bundle f1641c = new Bundle();
+
+        /* renamed from: f, reason: collision with root package name */
+        private boolean f1644f = true;
+
+        /* renamed from: g, reason: collision with root package name */
+        private int f1645g = 0;
 
         public Builder(@NonNull String str) {
             if (str == null) {
                 throw new IllegalArgumentException("Result key can't be null");
             }
-            this.mResultKey = str;
+            this.f1639a = str;
         }
 
         @NonNull
         public Builder addExtras(@NonNull Bundle bundle) {
             if (bundle != null) {
-                this.mExtras.putAll(bundle);
+                this.f1641c.putAll(bundle);
             }
             return this;
         }
 
         @NonNull
         public RemoteInput build() {
-            return new RemoteInput(this.mResultKey, this.mLabel, this.mChoices, this.mAllowFreeFormTextInput, this.mEditChoicesBeforeSending, this.mExtras, this.mAllowedDataTypes);
+            return new RemoteInput(this.f1639a, this.f1642d, this.f1643e, this.f1644f, this.f1645g, this.f1641c, this.f1640b);
         }
 
         @NonNull
         public Bundle getExtras() {
-            return this.mExtras;
+            return this.f1641c;
         }
 
         @NonNull
-        public Builder setAllowDataType(@NonNull String str, boolean z10) {
-            if (z10) {
-                this.mAllowedDataTypes.add(str);
+        public Builder setAllowDataType(@NonNull String str, boolean z) {
+            if (z) {
+                this.f1640b.add(str);
             } else {
-                this.mAllowedDataTypes.remove(str);
+                this.f1640b.remove(str);
             }
             return this;
         }
 
         @NonNull
-        public Builder setAllowFreeFormInput(boolean z10) {
-            this.mAllowFreeFormTextInput = z10;
+        public Builder setAllowFreeFormInput(boolean z) {
+            this.f1644f = z;
             return this;
         }
 
         @NonNull
         public Builder setChoices(@Nullable CharSequence[] charSequenceArr) {
-            this.mChoices = charSequenceArr;
+            this.f1643e = charSequenceArr;
             return this;
         }
 
         @NonNull
-        public Builder setEditChoicesBeforeSending(int i10) {
-            this.mEditChoicesBeforeSending = i10;
+        public Builder setEditChoicesBeforeSending(int i2) {
+            this.f1645g = i2;
             return this;
         }
 
         @NonNull
         public Builder setLabel(@Nullable CharSequence charSequence) {
-            this.mLabel = charSequence;
+            this.f1642d = charSequence;
             return this;
         }
     }
@@ -239,84 +151,113 @@ public final class RemoteInput {
     public @interface Source {
     }
 
-    public RemoteInput(String str, CharSequence charSequence, CharSequence[] charSequenceArr, boolean z10, int i10, Bundle bundle, Set<String> set) {
-        this.mResultKey = str;
-        this.mLabel = charSequence;
-        this.mChoices = charSequenceArr;
-        this.mAllowFreeFormTextInput = z10;
-        this.mEditChoicesBeforeSending = i10;
-        this.mExtras = bundle;
-        this.mAllowedDataTypes = set;
+    RemoteInput(String str, CharSequence charSequence, CharSequence[] charSequenceArr, boolean z, int i2, Bundle bundle, Set<String> set) {
+        this.f1632d = str;
+        this.f1633e = charSequence;
+        this.f1634f = charSequenceArr;
+        this.f1635g = z;
+        this.f1636h = i2;
+        this.f1637i = bundle;
+        this.f1638j = set;
         if (getEditChoicesBeforeSending() == 2 && !getAllowFreeFormInput()) {
             throw new IllegalArgumentException("setEditChoicesBeforeSending requires setAllowFreeFormInput");
         }
     }
 
-    public static void addDataResultToIntent(@NonNull RemoteInput remoteInput, @NonNull Intent intent, @NonNull Map<String, Uri> map) {
-        if (Build.VERSION.SDK_INT >= 26) {
-            Api26Impl.addDataResultToIntent(remoteInput, intent, map);
-            return;
+    @RequiresApi(20)
+    static android.app.RemoteInput a(RemoteInput remoteInput) {
+        RemoteInput.Builder addExtras = new RemoteInput.Builder(remoteInput.getResultKey()).setLabel(remoteInput.getLabel()).setChoices(remoteInput.getChoices()).setAllowFreeFormInput(remoteInput.getAllowFreeFormInput()).addExtras(remoteInput.getExtras());
+        if (Build.VERSION.SDK_INT >= 29) {
+            addExtras.setEditChoicesBeforeSending(remoteInput.getEditChoicesBeforeSending());
         }
-        Intent clipDataIntentFromIntent = getClipDataIntentFromIntent(intent);
-        if (clipDataIntentFromIntent == null) {
-            clipDataIntentFromIntent = new Intent();
-        }
-        for (Map.Entry<String, Uri> entry : map.entrySet()) {
-            String key = entry.getKey();
-            Uri value = entry.getValue();
-            if (key != null) {
-                Bundle bundleExtra = clipDataIntentFromIntent.getBundleExtra(getExtraResultsKeyForData(key));
-                if (bundleExtra == null) {
-                    bundleExtra = new Bundle();
-                }
-                bundleExtra.putString(remoteInput.getResultKey(), value.toString());
-                clipDataIntentFromIntent.putExtra(getExtraResultsKeyForData(key), bundleExtra);
-            }
-        }
-        Api16Impl.setClipData(intent, ClipData.newIntent(RESULTS_CLIP_LABEL, clipDataIntentFromIntent));
+        return addExtras.build();
     }
 
-    public static void addResultsToIntent(@NonNull RemoteInput[] remoteInputArr, @NonNull Intent intent, @NonNull Bundle bundle) {
-        if (Build.VERSION.SDK_INT >= 26) {
-            Api20Impl.addResultsToIntent(fromCompat(remoteInputArr), intent, bundle);
+    public static void addDataResultToIntent(RemoteInput remoteInput, Intent intent, Map<String, Uri> map) {
+        int i2 = Build.VERSION.SDK_INT;
+        if (i2 >= 26) {
+            android.app.RemoteInput.addDataResultToIntent(a(remoteInput), intent, map);
             return;
         }
-        Bundle resultsFromIntent = getResultsFromIntent(intent);
-        int resultsSource = getResultsSource(intent);
-        if (resultsFromIntent != null) {
-            resultsFromIntent.putAll(bundle);
-            bundle = resultsFromIntent;
-        }
-        for (RemoteInput remoteInput : remoteInputArr) {
-            Map<String, Uri> dataResultsFromIntent = getDataResultsFromIntent(intent, remoteInput.getResultKey());
-            Api20Impl.addResultsToIntent(fromCompat(new RemoteInput[]{remoteInput}), intent, bundle);
-            if (dataResultsFromIntent != null) {
-                addDataResultToIntent(remoteInput, intent, dataResultsFromIntent);
+        if (i2 >= 16) {
+            Intent c2 = c(intent);
+            if (c2 == null) {
+                c2 = new Intent();
             }
+            for (Map.Entry<String, Uri> entry : map.entrySet()) {
+                String key = entry.getKey();
+                Uri value = entry.getValue();
+                if (key != null) {
+                    Bundle bundleExtra = c2.getBundleExtra(d(key));
+                    if (bundleExtra == null) {
+                        bundleExtra = new Bundle();
+                    }
+                    bundleExtra.putString(remoteInput.getResultKey(), value.toString());
+                    c2.putExtra(d(key), bundleExtra);
+                }
+            }
+            intent.setClipData(ClipData.newIntent(RESULTS_CLIP_LABEL, c2));
         }
-        setResultsSource(intent, resultsSource);
+    }
+
+    public static void addResultsToIntent(RemoteInput[] remoteInputArr, Intent intent, Bundle bundle) {
+        int i2 = Build.VERSION.SDK_INT;
+        if (i2 >= 26) {
+            android.app.RemoteInput.addResultsToIntent(b(remoteInputArr), intent, bundle);
+            return;
+        }
+        if (i2 >= 20) {
+            Bundle resultsFromIntent = getResultsFromIntent(intent);
+            int resultsSource = getResultsSource(intent);
+            if (resultsFromIntent != null) {
+                resultsFromIntent.putAll(bundle);
+                bundle = resultsFromIntent;
+            }
+            for (RemoteInput remoteInput : remoteInputArr) {
+                Map<String, Uri> dataResultsFromIntent = getDataResultsFromIntent(intent, remoteInput.getResultKey());
+                android.app.RemoteInput.addResultsToIntent(b(new RemoteInput[]{remoteInput}), intent, bundle);
+                if (dataResultsFromIntent != null) {
+                    addDataResultToIntent(remoteInput, intent, dataResultsFromIntent);
+                }
+            }
+            setResultsSource(intent, resultsSource);
+            return;
+        }
+        if (i2 >= 16) {
+            Intent c2 = c(intent);
+            if (c2 == null) {
+                c2 = new Intent();
+            }
+            Bundle bundleExtra = c2.getBundleExtra(EXTRA_RESULTS_DATA);
+            if (bundleExtra == null) {
+                bundleExtra = new Bundle();
+            }
+            for (RemoteInput remoteInput2 : remoteInputArr) {
+                Object obj = bundle.get(remoteInput2.getResultKey());
+                if (obj instanceof CharSequence) {
+                    bundleExtra.putCharSequence(remoteInput2.getResultKey(), (CharSequence) obj);
+                }
+            }
+            c2.putExtra(EXTRA_RESULTS_DATA, bundleExtra);
+            intent.setClipData(ClipData.newIntent(RESULTS_CLIP_LABEL, c2));
+        }
     }
 
     @RequiresApi(20)
-    public static android.app.RemoteInput[] fromCompat(RemoteInput[] remoteInputArr) {
+    static android.app.RemoteInput[] b(RemoteInput[] remoteInputArr) {
         if (remoteInputArr == null) {
             return null;
         }
         android.app.RemoteInput[] remoteInputArr2 = new android.app.RemoteInput[remoteInputArr.length];
-        for (int i10 = 0; i10 < remoteInputArr.length; i10++) {
-            remoteInputArr2[i10] = fromCompat(remoteInputArr[i10]);
+        for (int i2 = 0; i2 < remoteInputArr.length; i2++) {
+            remoteInputArr2[i2] = a(remoteInputArr[i2]);
         }
         return remoteInputArr2;
     }
 
-    @RequiresApi(20)
-    public static RemoteInput fromPlatform(android.app.RemoteInput remoteInput) {
-        return Api20Impl.fromPlatform(remoteInput);
-    }
-
     @RequiresApi(16)
-    private static Intent getClipDataIntentFromIntent(Intent intent) {
-        ClipData clipData = Api16Impl.getClipData(intent);
+    private static Intent c(Intent intent) {
+        ClipData clipData = intent.getClipData();
         if (clipData == null) {
             return null;
         }
@@ -327,21 +268,25 @@ public final class RemoteInput {
         return null;
     }
 
-    @Nullable
-    public static Map<String, Uri> getDataResultsFromIntent(@NonNull Intent intent, @NonNull String str) {
+    private static String d(String str) {
+        return f1630b + str;
+    }
+
+    public static Map<String, Uri> getDataResultsFromIntent(Intent intent, String str) {
+        Intent c2;
         String string;
-        if (Build.VERSION.SDK_INT >= 26) {
-            return Api26Impl.getDataResultsFromIntent(intent, str);
+        int i2 = Build.VERSION.SDK_INT;
+        if (i2 >= 26) {
+            return android.app.RemoteInput.getDataResultsFromIntent(intent, str);
         }
-        Intent clipDataIntentFromIntent = getClipDataIntentFromIntent(intent);
-        if (clipDataIntentFromIntent == null) {
+        if (i2 < 16 || (c2 = c(intent)) == null) {
             return null;
         }
         HashMap hashMap = new HashMap();
-        for (String str2 : clipDataIntentFromIntent.getExtras().keySet()) {
-            if (str2.startsWith(EXTRA_DATA_TYPE_RESULTS_DATA)) {
+        for (String str2 : c2.getExtras().keySet()) {
+            if (str2.startsWith(f1630b)) {
                 String substring = str2.substring(39);
-                if (!substring.isEmpty() && (string = clipDataIntentFromIntent.getBundleExtra(str2).getString(str)) != null && !string.isEmpty()) {
+                if (!substring.isEmpty() && (string = c2.getBundleExtra(str2).getString(str)) != null && !string.isEmpty()) {
                     hashMap.put(substring, Uri.parse(string));
                 }
             }
@@ -352,78 +297,75 @@ public final class RemoteInput {
         return hashMap;
     }
 
-    private static String getExtraResultsKeyForData(String str) {
-        return EXTRA_DATA_TYPE_RESULTS_DATA + str;
-    }
-
-    @Nullable
-    public static Bundle getResultsFromIntent(@NonNull Intent intent) {
-        return Api20Impl.getResultsFromIntent(intent);
+    public static Bundle getResultsFromIntent(Intent intent) {
+        Intent c2;
+        int i2 = Build.VERSION.SDK_INT;
+        if (i2 >= 20) {
+            return android.app.RemoteInput.getResultsFromIntent(intent);
+        }
+        if (i2 < 16 || (c2 = c(intent)) == null) {
+            return null;
+        }
+        return (Bundle) c2.getExtras().getParcelable(EXTRA_RESULTS_DATA);
     }
 
     public static int getResultsSource(@NonNull Intent intent) {
-        if (Build.VERSION.SDK_INT >= 28) {
-            return Api28Impl.getResultsSource(intent);
+        Intent c2;
+        int i2 = Build.VERSION.SDK_INT;
+        if (i2 >= 28) {
+            return android.app.RemoteInput.getResultsSource(intent);
         }
-        Intent clipDataIntentFromIntent = getClipDataIntentFromIntent(intent);
-        if (clipDataIntentFromIntent == null) {
+        if (i2 < 16 || (c2 = c(intent)) == null) {
             return 0;
         }
-        return clipDataIntentFromIntent.getExtras().getInt(EXTRA_RESULTS_SOURCE, 0);
+        return c2.getExtras().getInt(f1631c, 0);
     }
 
-    public static void setResultsSource(@NonNull Intent intent, int i10) {
-        if (Build.VERSION.SDK_INT >= 28) {
-            Api28Impl.setResultsSource(intent, i10);
+    public static void setResultsSource(@NonNull Intent intent, int i2) {
+        int i3 = Build.VERSION.SDK_INT;
+        if (i3 >= 28) {
+            android.app.RemoteInput.setResultsSource(intent, i2);
             return;
         }
-        Intent clipDataIntentFromIntent = getClipDataIntentFromIntent(intent);
-        if (clipDataIntentFromIntent == null) {
-            clipDataIntentFromIntent = new Intent();
+        if (i3 >= 16) {
+            Intent c2 = c(intent);
+            if (c2 == null) {
+                c2 = new Intent();
+            }
+            c2.putExtra(f1631c, i2);
+            intent.setClipData(ClipData.newIntent(RESULTS_CLIP_LABEL, c2));
         }
-        clipDataIntentFromIntent.putExtra(EXTRA_RESULTS_SOURCE, i10);
-        Api16Impl.setClipData(intent, ClipData.newIntent(RESULTS_CLIP_LABEL, clipDataIntentFromIntent));
     }
 
     public boolean getAllowFreeFormInput() {
-        return this.mAllowFreeFormTextInput;
+        return this.f1635g;
     }
 
-    @Nullable
     public Set<String> getAllowedDataTypes() {
-        return this.mAllowedDataTypes;
+        return this.f1638j;
     }
 
-    @Nullable
     public CharSequence[] getChoices() {
-        return this.mChoices;
+        return this.f1634f;
     }
 
     public int getEditChoicesBeforeSending() {
-        return this.mEditChoicesBeforeSending;
+        return this.f1636h;
     }
 
-    @NonNull
     public Bundle getExtras() {
-        return this.mExtras;
+        return this.f1637i;
     }
 
-    @Nullable
     public CharSequence getLabel() {
-        return this.mLabel;
+        return this.f1633e;
     }
 
-    @NonNull
     public String getResultKey() {
-        return this.mResultKey;
+        return this.f1632d;
     }
 
     public boolean isDataOnly() {
         return (getAllowFreeFormInput() || (getChoices() != null && getChoices().length != 0) || getAllowedDataTypes() == null || getAllowedDataTypes().isEmpty()) ? false : true;
-    }
-
-    @RequiresApi(20)
-    public static android.app.RemoteInput fromCompat(RemoteInput remoteInput) {
-        return Api20Impl.fromCompat(remoteInput);
     }
 }

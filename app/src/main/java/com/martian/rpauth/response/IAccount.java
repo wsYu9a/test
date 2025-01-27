@@ -1,6 +1,6 @@
 package com.martian.rpauth.response;
 
-/* loaded from: classes3.dex */
+/* loaded from: classes.dex */
 public interface IAccount {
     int getCoins();
 
@@ -20,21 +20,21 @@ public interface IAccount {
 
     Long getVipStartTime();
 
-    void setCoins(Integer num);
+    void setCoins(Integer coins);
 
-    void setDeadline(Long l10);
+    void setDeadline(Long deadline);
 
-    void setDeposit(Integer num);
+    void setDeposit(Integer deposit);
 
-    void setFreshRedpaper(Integer num);
+    void setFreshRedpaper(Integer fresh_Redpaper);
 
-    void setFresh_redpaper(Integer num);
+    void setFresh_redpaper(Integer fresh_Redpaper);
 
-    void setIsVip(Integer num);
+    void setIsVip(Integer isVip);
 
-    void setMoney(Integer num);
+    void setMoney(Integer money);
 
-    void setUid(Long l10);
+    void setUid(Long uid);
 
-    void setVipStartTime(Long l10);
+    void setVipStartTime(Long vip_start_time);
 }

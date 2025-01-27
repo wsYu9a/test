@@ -1,81 +1,80 @@
 package com.kwad.sdk.crash.a;
 
-import android.content.Context;
-import android.os.Build;
-import android.os.Environment;
 import android.text.TextUtils;
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import com.kwad.sdk.service.ServiceProvider;
-import com.kwad.sdk.utils.u;
-import com.kwad.sdk.utils.w;
-import java.io.File;
+import com.kwad.sdk.crash.e;
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.List;
 
-/* loaded from: classes3.dex */
+/* loaded from: classes2.dex */
 public final class a {
-    private static Context aDj;
-    private static String aKl;
-
-    public static boolean A(File file) {
-        if (file == null) {
+    private static boolean a(StackTraceElement[] stackTraceElementArr) {
+        if (stackTraceElementArr == null || stackTraceElementArr.length == 0) {
             return false;
         }
-        return file.exists() || file.mkdirs();
-    }
-
-    public static File Jt() {
-        File file;
-        if (TextUtils.isEmpty(aKl)) {
-            Context context = aDj;
-            if (context == null) {
-                context = ServiceProvider.MA();
+        String[] zz = e.zy().zz();
+        if (zz == null || zz.length == 0) {
+            return true;
+        }
+        boolean z = false;
+        for (String str : zz) {
+            z = a(stackTraceElementArr, str);
+            if (z) {
+                break;
             }
-            if (context == null) {
-                try {
-                    context = w.By();
-                } catch (Throwable unused) {
+        }
+        if (z) {
+            for (String str2 : e.zy().zA()) {
+                if (b(stackTraceElementArr, str2)) {
+                    return false;
                 }
             }
-            file = context != null ? new File(getDataDir(context), "kwad_ex") : null;
-        } else {
-            file = new File(aKl);
         }
-        if (file != null && !file.exists()) {
-            file.mkdir();
-        }
-        return file;
+        return z;
     }
 
-    public static File Ju() {
-        return new File(Jt(), "java_crash/dump");
-    }
-
-    public static File Jv() {
-        return new File(Jt(), "anr_log/dump");
-    }
-
-    public static File Jw() {
-        return new File(Jt(), "native_crash_log/dump");
-    }
-
-    private static File getDataDir(Context context) {
-        int i10 = Build.VERSION.SDK_INT;
-        if (i10 >= 29) {
-            return new File(context.getExternalFilesDir(null).getAbsolutePath());
-        }
-        File dataDir = i10 >= 24 ? context.getDataDir() : null;
-        if (dataDir == null) {
-            dataDir = new File(Environment.getDataDirectory().getPath() + "/data/" + context.getPackageName());
-            if (!dataDir.exists()) {
-                return new File("/data/data/" + context.getPackageName());
+    private static boolean a(@NonNull StackTraceElement[] stackTraceElementArr, String str) {
+        for (StackTraceElement stackTraceElement : stackTraceElementArr) {
+            String className = stackTraceElement.getClassName();
+            if (!TextUtils.isEmpty(className) && className.contains(str)) {
+                com.kwad.sdk.core.d.b.d("ExceptionCollector", "CrashFilter filterTags element className=" + className + " filter tag=" + str);
+                return true;
             }
         }
-        return dataDir;
+        return false;
     }
 
-    public static void init(@NonNull Context context, @Nullable String str) {
-        aDj = context;
-        aKl = str;
-        aKl = u.O(context, "kwad_ex");
+    private static boolean b(StackTraceElement[] stackTraceElementArr, String str) {
+        for (StackTraceElement stackTraceElement : stackTraceElementArr) {
+            String className = stackTraceElement.getClassName();
+            if (!TextUtils.isEmpty(className) && className.contains(str)) {
+                com.kwad.sdk.core.d.b.d("ExceptionCollector", "CrashFilter excludeTags element className=" + className + " exclude tag=" + str);
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public static boolean h(@NonNull Throwable th) {
+        ArrayList arrayList = new ArrayList(5);
+        for (int i2 = 0; i2 < 5; i2++) {
+            arrayList.add(th.getStackTrace());
+            th = th.getCause();
+            if (th == null) {
+                break;
+            }
+        }
+        return v(arrayList);
+    }
+
+    private static boolean v(@NonNull List<StackTraceElement[]> list) {
+        Iterator<StackTraceElement[]> it = list.iterator();
+        while (it.hasNext()) {
+            if (a(it.next())) {
+                return true;
+            }
+        }
+        return false;
     }
 }

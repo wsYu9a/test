@@ -14,35 +14,35 @@ import androidx.annotation.Nullable;
 import com.kwad.components.core.page.widget.TextProgressBar;
 import com.kwad.sdk.R;
 import com.kwad.sdk.api.KsAppDownloadListener;
-import com.kwad.sdk.core.response.b.e;
+import com.kwad.sdk.core.response.a.d;
 import com.kwad.sdk.core.response.model.AdInfo;
 import com.kwad.sdk.core.response.model.AdTemplate;
-import com.kwad.sdk.n.m;
+import com.kwad.sdk.j.k;
 
 /* loaded from: classes2.dex */
 public class DownloadProgressView extends FrameLayout {
-    protected TextView JU;
+    protected TextView GL;
 
     @ColorInt
-    private int JV;
+    private int GM;
 
     @ColorInt
-    private int JW;
+    private int GN;
 
     @ColorInt
-    private int JX;
-    private int JY;
-    private Drawable JZ;
-    private Drawable Ka;
-    private String Kb;
-    private final KsAppDownloadListener dL;
-    protected TextProgressBar ew;
+    private int GO;
+    private int GP;
+    private Drawable GQ;
+    private Drawable GR;
+    private String GS;
+    private final KsAppDownloadListener cE;
+    protected TextProgressBar dm;
     protected AdInfo mAdInfo;
     protected AdTemplate mAdTemplate;
 
     /* renamed from: com.kwad.components.ad.widget.DownloadProgressView$1 */
-    public class AnonymousClass1 implements View.OnClickListener {
-        public AnonymousClass1() {
+    final class AnonymousClass1 implements View.OnClickListener {
+        AnonymousClass1() {
         }
 
         @Override // android.view.View.OnClickListener
@@ -52,53 +52,53 @@ public class DownloadProgressView extends FrameLayout {
     }
 
     /* renamed from: com.kwad.components.ad.widget.DownloadProgressView$2 */
-    public class AnonymousClass2 extends com.kwad.sdk.core.download.a.a {
-        public AnonymousClass2() {
+    final class AnonymousClass2 extends com.kwad.sdk.core.download.kwai.a {
+        AnonymousClass2() {
         }
 
         @Override // com.kwad.sdk.api.KsAppDownloadListener
         public final void onDownloadFailed() {
             DownloadProgressView downloadProgressView = DownloadProgressView.this;
-            downloadProgressView.JU.setText(com.kwad.sdk.core.response.b.a.aE(downloadProgressView.mAdInfo));
-            DownloadProgressView.this.JU.setVisibility(0);
-            DownloadProgressView.this.ew.setVisibility(8);
+            downloadProgressView.GL.setText(com.kwad.sdk.core.response.a.a.aw(downloadProgressView.mAdInfo));
+            DownloadProgressView.this.GL.setVisibility(0);
+            DownloadProgressView.this.dm.setVisibility(8);
         }
 
         @Override // com.kwad.sdk.api.KsAppDownloadListener
         public final void onDownloadFinished() {
-            DownloadProgressView.this.JU.setVisibility(8);
-            DownloadProgressView.this.ew.setVisibility(0);
+            DownloadProgressView.this.GL.setVisibility(8);
+            DownloadProgressView.this.dm.setVisibility(0);
             DownloadProgressView downloadProgressView = DownloadProgressView.this;
-            downloadProgressView.ew.e(com.kwad.sdk.core.response.b.a.cg(downloadProgressView.mAdTemplate), DownloadProgressView.this.ew.getMax());
+            downloadProgressView.dm.f(com.kwad.sdk.core.response.a.a.aH(downloadProgressView.mAdTemplate), DownloadProgressView.this.dm.getMax());
         }
 
         @Override // com.kwad.sdk.api.KsAppDownloadListener
         public final void onIdle() {
             DownloadProgressView downloadProgressView = DownloadProgressView.this;
-            downloadProgressView.JU.setText(com.kwad.sdk.core.response.b.a.aE(downloadProgressView.mAdInfo));
+            downloadProgressView.GL.setText(com.kwad.sdk.core.response.a.a.aw(downloadProgressView.mAdInfo));
         }
 
         @Override // com.kwad.sdk.api.KsAppDownloadListener
         public final void onInstalled() {
-            DownloadProgressView.this.JU.setVisibility(8);
-            DownloadProgressView.this.ew.setVisibility(0);
+            DownloadProgressView.this.GL.setVisibility(8);
+            DownloadProgressView.this.dm.setVisibility(0);
             DownloadProgressView downloadProgressView = DownloadProgressView.this;
-            downloadProgressView.ew.e(com.kwad.sdk.core.response.b.a.ac(downloadProgressView.mAdInfo), DownloadProgressView.this.ew.getMax());
+            downloadProgressView.dm.f(com.kwad.sdk.core.response.a.a.T(downloadProgressView.mAdInfo), DownloadProgressView.this.dm.getMax());
         }
 
-        @Override // com.kwad.sdk.core.download.a.a
-        public final void onPaused(int i10) {
-            DownloadProgressView.this.JU.setVisibility(8);
-            DownloadProgressView.this.ew.setVisibility(0);
-            DownloadProgressView.this.ew.e(com.kwad.sdk.core.response.b.a.GN(), i10);
+        @Override // com.kwad.sdk.core.download.kwai.a
+        public final void onPaused(int i2) {
+            DownloadProgressView.this.GL.setVisibility(8);
+            DownloadProgressView.this.dm.setVisibility(0);
+            DownloadProgressView.this.dm.f(com.kwad.sdk.core.response.a.a.xw(), i2);
         }
 
         @Override // com.kwad.sdk.api.KsAppDownloadListener
-        public final void onProgressUpdate(int i10) {
-            DownloadProgressView.this.JU.setVisibility(8);
-            DownloadProgressView.this.ew.setVisibility(0);
+        public final void onProgressUpdate(int i2) {
+            DownloadProgressView.this.GL.setVisibility(8);
+            DownloadProgressView.this.dm.setVisibility(0);
             DownloadProgressView downloadProgressView = DownloadProgressView.this;
-            downloadProgressView.ew.e(com.kwad.sdk.core.response.b.a.t(i10, downloadProgressView.Kb), i10);
+            downloadProgressView.dm.f(com.kwad.sdk.core.response.a.a.i(i2, downloadProgressView.GS), i2);
         }
     }
 
@@ -106,46 +106,105 @@ public class DownloadProgressView extends FrameLayout {
         this(context, null);
     }
 
+    public DownloadProgressView(@NonNull Context context, @Nullable AttributeSet attributeSet) {
+        this(context, attributeSet, 0);
+    }
+
+    public DownloadProgressView(@NonNull Context context, @Nullable AttributeSet attributeSet, int i2) {
+        super(k.wrapContextIfNeed(context), attributeSet, i2);
+        this.cE = new com.kwad.sdk.core.download.kwai.a() { // from class: com.kwad.components.ad.widget.DownloadProgressView.2
+            AnonymousClass2() {
+            }
+
+            @Override // com.kwad.sdk.api.KsAppDownloadListener
+            public final void onDownloadFailed() {
+                DownloadProgressView downloadProgressView = DownloadProgressView.this;
+                downloadProgressView.GL.setText(com.kwad.sdk.core.response.a.a.aw(downloadProgressView.mAdInfo));
+                DownloadProgressView.this.GL.setVisibility(0);
+                DownloadProgressView.this.dm.setVisibility(8);
+            }
+
+            @Override // com.kwad.sdk.api.KsAppDownloadListener
+            public final void onDownloadFinished() {
+                DownloadProgressView.this.GL.setVisibility(8);
+                DownloadProgressView.this.dm.setVisibility(0);
+                DownloadProgressView downloadProgressView = DownloadProgressView.this;
+                downloadProgressView.dm.f(com.kwad.sdk.core.response.a.a.aH(downloadProgressView.mAdTemplate), DownloadProgressView.this.dm.getMax());
+            }
+
+            @Override // com.kwad.sdk.api.KsAppDownloadListener
+            public final void onIdle() {
+                DownloadProgressView downloadProgressView = DownloadProgressView.this;
+                downloadProgressView.GL.setText(com.kwad.sdk.core.response.a.a.aw(downloadProgressView.mAdInfo));
+            }
+
+            @Override // com.kwad.sdk.api.KsAppDownloadListener
+            public final void onInstalled() {
+                DownloadProgressView.this.GL.setVisibility(8);
+                DownloadProgressView.this.dm.setVisibility(0);
+                DownloadProgressView downloadProgressView = DownloadProgressView.this;
+                downloadProgressView.dm.f(com.kwad.sdk.core.response.a.a.T(downloadProgressView.mAdInfo), DownloadProgressView.this.dm.getMax());
+            }
+
+            @Override // com.kwad.sdk.core.download.kwai.a
+            public final void onPaused(int i22) {
+                DownloadProgressView.this.GL.setVisibility(8);
+                DownloadProgressView.this.dm.setVisibility(0);
+                DownloadProgressView.this.dm.f(com.kwad.sdk.core.response.a.a.xw(), i22);
+            }
+
+            @Override // com.kwad.sdk.api.KsAppDownloadListener
+            public final void onProgressUpdate(int i22) {
+                DownloadProgressView.this.GL.setVisibility(8);
+                DownloadProgressView.this.dm.setVisibility(0);
+                DownloadProgressView downloadProgressView = DownloadProgressView.this;
+                downloadProgressView.dm.f(com.kwad.sdk.core.response.a.a.i(i22, downloadProgressView.GS), i22);
+            }
+        };
+        initAttrs(context, attributeSet);
+        initView();
+    }
+
     @SuppressLint({"CustomViewStyleable"})
     private void initAttrs(@NonNull Context context, @Nullable AttributeSet attributeSet) {
         TypedArray obtainStyledAttributes = context.obtainStyledAttributes(attributeSet, R.styleable.ksad_DownloadProgressView);
-        this.JV = obtainStyledAttributes.getColor(R.styleable.ksad_DownloadProgressView_ksad_downloadTextColor, -117146);
-        this.JW = obtainStyledAttributes.getColor(R.styleable.ksad_DownloadProgressView_ksad_downloadLeftTextColor, -1);
-        this.JX = obtainStyledAttributes.getColor(R.styleable.ksad_DownloadProgressView_ksad_downloadRightTextColor, -117146);
-        this.JY = obtainStyledAttributes.getDimensionPixelSize(R.styleable.ksad_DownloadProgressView_ksad_downloadTextSize, com.kwad.sdk.c.a.a.a(getContext(), 11.0f));
+        this.GM = obtainStyledAttributes.getColor(R.styleable.ksad_DownloadProgressView_ksad_downloadTextColor, -117146);
+        this.GN = obtainStyledAttributes.getColor(R.styleable.ksad_DownloadProgressView_ksad_downloadLeftTextColor, -1);
+        this.GO = obtainStyledAttributes.getColor(R.styleable.ksad_DownloadProgressView_ksad_downloadRightTextColor, -117146);
+        this.GP = obtainStyledAttributes.getDimensionPixelSize(R.styleable.ksad_DownloadProgressView_ksad_downloadTextSize, com.kwad.sdk.c.kwai.a.a(getContext(), 11.0f));
         Drawable drawable = obtainStyledAttributes.getDrawable(R.styleable.ksad_DownloadProgressView_ksad_progressDrawable);
-        this.JZ = drawable;
+        this.GQ = drawable;
         if (drawable == null) {
-            this.JZ = getResources().getDrawable(R.drawable.ksad_feed_download_progress);
+            this.GQ = getResources().getDrawable(R.drawable.ksad_feed_download_progress);
         }
         Drawable drawable2 = obtainStyledAttributes.getDrawable(R.styleable.ksad_DownloadProgressView_ksad_backgroundDrawable);
-        this.Ka = drawable2;
+        this.GR = drawable2;
         if (drawable2 == null) {
-            this.Ka = getResources().getDrawable(R.drawable.ksad_feed_app_download_before_bg);
+            this.GR = getResources().getDrawable(R.drawable.ksad_feed_app_download_before_bg);
         }
         String string = obtainStyledAttributes.getString(R.styleable.ksad_DownloadProgressView_ksad_downloadingFormat);
-        this.Kb = string;
+        this.GS = string;
         if (string == null) {
-            this.Kb = "下载中  %s%%";
+            this.GS = "下载中  %s%%";
         }
         obtainStyledAttributes.recycle();
     }
 
     private void initView() {
-        m.inflate(getContext(), R.layout.ksad_download_progress_layout, this);
+        k.inflate(getContext(), R.layout.ksad_download_progress_layout, this);
         TextProgressBar textProgressBar = (TextProgressBar) findViewById(R.id.ksad_progress_bar);
-        this.ew = textProgressBar;
-        textProgressBar.setTextDimen(this.JY);
-        this.ew.setTextColor(this.JW, this.JX);
-        this.ew.setProgressDrawable(this.JZ);
+        this.dm = textProgressBar;
+        textProgressBar.setTextDimen(this.GP);
+        this.dm.setTextColor(this.GN, this.GO);
+        this.dm.setProgressDrawable(this.GQ);
         TextView textView = (TextView) findViewById(R.id.ksad_normal_text);
-        this.JU = textView;
-        textView.setTextColor(this.JV);
-        this.JU.setTextSize(0, this.JY);
-        this.JU.setVisibility(0);
-        this.JU.setBackground(this.Ka);
+        this.GL = textView;
+        textView.setTextColor(this.GM);
+        this.GL.setTextSize(0, this.GP);
+        this.GL.setVisibility(0);
+        this.GL.setBackground(this.GR);
         findViewById(R.id.ksad_foreground_cover).setOnClickListener(new View.OnClickListener() { // from class: com.kwad.components.ad.widget.DownloadProgressView.1
-            public AnonymousClass1() {
+            AnonymousClass1() {
             }
 
             @Override // android.view.View.OnClickListener
@@ -155,75 +214,16 @@ public class DownloadProgressView extends FrameLayout {
         });
     }
 
-    public final void am(AdTemplate adTemplate) {
+    public final void D(AdTemplate adTemplate) {
         this.mAdTemplate = adTemplate;
-        AdInfo eb2 = e.eb(adTemplate);
-        this.mAdInfo = eb2;
-        this.JU.setText(com.kwad.sdk.core.response.b.a.aE(eb2));
-        this.ew.setVisibility(8);
-        this.JU.setVisibility(0);
+        AdInfo cb = d.cb(adTemplate);
+        this.mAdInfo = cb;
+        this.GL.setText(com.kwad.sdk.core.response.a.a.aw(cb));
+        this.dm.setVisibility(8);
+        this.GL.setVisibility(0);
     }
 
     public KsAppDownloadListener getAppDownloadListener() {
-        return this.dL;
-    }
-
-    public DownloadProgressView(@NonNull Context context, @Nullable AttributeSet attributeSet) {
-        this(context, attributeSet, 0);
-    }
-
-    public DownloadProgressView(@NonNull Context context, @Nullable AttributeSet attributeSet, int i10) {
-        super(m.wrapContextIfNeed(context), attributeSet, i10);
-        this.dL = new com.kwad.sdk.core.download.a.a() { // from class: com.kwad.components.ad.widget.DownloadProgressView.2
-            public AnonymousClass2() {
-            }
-
-            @Override // com.kwad.sdk.api.KsAppDownloadListener
-            public final void onDownloadFailed() {
-                DownloadProgressView downloadProgressView = DownloadProgressView.this;
-                downloadProgressView.JU.setText(com.kwad.sdk.core.response.b.a.aE(downloadProgressView.mAdInfo));
-                DownloadProgressView.this.JU.setVisibility(0);
-                DownloadProgressView.this.ew.setVisibility(8);
-            }
-
-            @Override // com.kwad.sdk.api.KsAppDownloadListener
-            public final void onDownloadFinished() {
-                DownloadProgressView.this.JU.setVisibility(8);
-                DownloadProgressView.this.ew.setVisibility(0);
-                DownloadProgressView downloadProgressView = DownloadProgressView.this;
-                downloadProgressView.ew.e(com.kwad.sdk.core.response.b.a.cg(downloadProgressView.mAdTemplate), DownloadProgressView.this.ew.getMax());
-            }
-
-            @Override // com.kwad.sdk.api.KsAppDownloadListener
-            public final void onIdle() {
-                DownloadProgressView downloadProgressView = DownloadProgressView.this;
-                downloadProgressView.JU.setText(com.kwad.sdk.core.response.b.a.aE(downloadProgressView.mAdInfo));
-            }
-
-            @Override // com.kwad.sdk.api.KsAppDownloadListener
-            public final void onInstalled() {
-                DownloadProgressView.this.JU.setVisibility(8);
-                DownloadProgressView.this.ew.setVisibility(0);
-                DownloadProgressView downloadProgressView = DownloadProgressView.this;
-                downloadProgressView.ew.e(com.kwad.sdk.core.response.b.a.ac(downloadProgressView.mAdInfo), DownloadProgressView.this.ew.getMax());
-            }
-
-            @Override // com.kwad.sdk.core.download.a.a
-            public final void onPaused(int i102) {
-                DownloadProgressView.this.JU.setVisibility(8);
-                DownloadProgressView.this.ew.setVisibility(0);
-                DownloadProgressView.this.ew.e(com.kwad.sdk.core.response.b.a.GN(), i102);
-            }
-
-            @Override // com.kwad.sdk.api.KsAppDownloadListener
-            public final void onProgressUpdate(int i102) {
-                DownloadProgressView.this.JU.setVisibility(8);
-                DownloadProgressView.this.ew.setVisibility(0);
-                DownloadProgressView downloadProgressView = DownloadProgressView.this;
-                downloadProgressView.ew.e(com.kwad.sdk.core.response.b.a.t(i102, downloadProgressView.Kb), i102);
-            }
-        };
-        initAttrs(context, attributeSet);
-        initView();
+        return this.cE;
     }
 }

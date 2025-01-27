@@ -2,47 +2,70 @@ package com.kwad.components.core.page.recycle;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
+import androidx.annotation.CallSuper;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-import com.kwad.components.core.proxy.h;
 import com.kwad.sdk.R;
 
-/* loaded from: classes3.dex */
-public abstract class a extends h {
-    private RecyclerView Rx;
-    private d Ry;
+/* loaded from: classes2.dex */
+public abstract class a extends com.kwad.components.core.l.f {
+    private RecyclerView Mm;
+    private d Mn;
 
-    private void qA() {
-        RecyclerView recyclerView = (RecyclerView) findViewById(qE());
-        this.Rx = recyclerView;
-        recyclerView.setItemAnimator(null);
-        this.Rx.setLayoutManager(qD());
-        this.Ry = a(this.Rx);
+    private View b(LayoutInflater layoutInflater, ViewGroup viewGroup) {
+        return layoutInflater.inflate(nX(), viewGroup, false);
     }
 
-    private void qB() {
-        this.Rx.setAdapter(this.Ry);
+    private void oC() {
+        this.Mm.setItemAnimator(null);
+        this.Mm.setLayoutManager(oF());
+        this.Mn = a(this.Mm);
     }
 
-    private RecyclerView.LayoutManager qD() {
-        return new LinearLayoutManager(this.mContext);
+    private void oD() {
+        this.Mm.setAdapter(this.Mn);
     }
 
-    private static int qE() {
+    private RecyclerView.LayoutManager oF() {
+        return new LinearLayoutManager(getContext());
+    }
+
+    private static int oG() {
         return R.id.ksad_recycler_view;
     }
 
-    public abstract d a(RecyclerView recyclerView);
+    protected abstract d a(RecyclerView recyclerView);
 
-    @Override // com.kwad.sdk.api.core.fragment.KsFragment, com.kwad.sdk.api.core.fragment.AbstractIFragmentLifecycle, com.kwad.sdk.api.core.fragment.IFragmentLifecycle
-    public void onActivityResult(int i10, int i11, Intent intent) {
-        super.onActivityResult(i10, i11, intent);
+    public abstract int nX();
+
+    public final RecyclerView oE() {
+        return this.Mm;
     }
 
-    @Override // com.kwad.components.core.proxy.h, com.kwad.sdk.api.core.fragment.KsFragment, com.kwad.sdk.api.core.fragment.AbstractIFragmentLifecycle, com.kwad.sdk.api.core.fragment.IFragmentLifecycle
+    @Override // com.kwad.sdk.api.core.fragment.KsFragment, com.kwad.sdk.api.core.fragment.AbstractIFragmentLifecycle, com.kwad.sdk.api.core.fragment.IFragmentLifecycle
+    public void onActivityResult(int i2, int i3, Intent intent) {
+        super.onActivityResult(i2, i3, intent);
+    }
+
+    @Override // com.kwad.sdk.api.core.fragment.KsFragment, com.kwad.sdk.api.core.fragment.AbstractIFragmentLifecycle, com.kwad.sdk.api.core.fragment.IFragmentLifecycle
+    public void onCreate(@Nullable Bundle bundle) {
+        super.onCreate(bundle);
+    }
+
+    @Override // com.kwad.sdk.api.core.fragment.KsFragment, com.kwad.sdk.api.core.fragment.AbstractIFragmentLifecycle, com.kwad.sdk.api.core.fragment.IFragmentLifecycle
+    @CallSuper
+    public View onCreateView(@NonNull LayoutInflater layoutInflater, ViewGroup viewGroup, Bundle bundle) {
+        View b2 = b(layoutInflater, viewGroup);
+        this.Mm = (RecyclerView) b2.findViewById(oG());
+        return b2;
+    }
+
+    @Override // com.kwad.components.core.l.f, com.kwad.sdk.api.core.fragment.KsFragment, com.kwad.sdk.api.core.fragment.AbstractIFragmentLifecycle, com.kwad.sdk.api.core.fragment.IFragmentLifecycle
     public void onDestroy() {
         super.onDestroy();
     }
@@ -50,7 +73,7 @@ public abstract class a extends h {
     @Override // com.kwad.sdk.api.core.fragment.KsFragment, com.kwad.sdk.api.core.fragment.AbstractIFragmentLifecycle, com.kwad.sdk.api.core.fragment.IFragmentLifecycle
     public void onDestroyView() {
         super.onDestroyView();
-        this.Rx.clearOnChildAttachStateChangeListeners();
+        this.Mm.clearOnChildAttachStateChangeListeners();
     }
 
     @Override // com.kwad.sdk.api.core.fragment.KsFragment, com.kwad.sdk.api.core.fragment.AbstractIFragmentLifecycle, com.kwad.sdk.api.core.fragment.IFragmentLifecycle
@@ -66,11 +89,7 @@ public abstract class a extends h {
     @Override // com.kwad.sdk.api.core.fragment.KsFragment, com.kwad.sdk.api.core.fragment.AbstractIFragmentLifecycle, com.kwad.sdk.api.core.fragment.IFragmentLifecycle
     public void onViewCreated(@NonNull View view, @Nullable Bundle bundle) {
         super.onViewCreated(view, bundle);
-        qA();
-        qB();
-    }
-
-    public final RecyclerView qC() {
-        return this.Rx;
+        oC();
+        oD();
     }
 }

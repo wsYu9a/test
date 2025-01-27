@@ -34,7 +34,7 @@ public interface DownloadEventConfig {
 
     boolean isEnableV3Event();
 
-    void setDownloadScene(int i10);
+    void setDownloadScene(int i2);
 
     void setRefer(String str);
 }

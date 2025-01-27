@@ -2,61 +2,51 @@ package kotlin.ranges;
 
 import com.bytedance.sdk.openadsdk.downloadnew.core.TTDownloadField;
 import com.kwad.sdk.api.model.AdnName;
-import kotlin.Deprecated;
-import kotlin.ExperimentalStdlibApi;
+import com.vivo.ic.dm.Downloads;
+import f.b.a.d;
+import f.b.a.e;
 import kotlin.Metadata;
-import kotlin.SinceKotlin;
-import kotlin.WasExperimental;
 import kotlin.jvm.internal.DefaultConstructorMarker;
-import xi.k;
-import xi.l;
 
-@Metadata(d1 = {"\u00006\n\u0002\u0018\u0002\n\u0002\u0018\u0002\n\u0002\u0018\u0002\n\u0002\u0010\t\n\u0002\u0018\u0002\n\u0002\b\u000b\n\u0002\u0010\u000b\n\u0002\b\u0003\n\u0002\u0010\u0000\n\u0000\n\u0002\u0010\b\n\u0002\b\u0002\n\u0002\u0010\u000e\n\u0002\b\u0002\u0018\u0000 \u001a2\u00020\u00012\b\u0012\u0004\u0012\u00020\u00030\u00022\b\u0012\u0004\u0012\u00020\u00030\u0004:\u0001\u001aB\u0015\u0012\u0006\u0010\u0005\u001a\u00020\u0003\u0012\u0006\u0010\u0006\u001a\u00020\u0003¢\u0006\u0002\u0010\u0007J\u0011\u0010\u000f\u001a\u00020\u00102\u0006\u0010\u0011\u001a\u00020\u0003H\u0096\u0002J\u0013\u0010\u0012\u001a\u00020\u00102\b\u0010\u0013\u001a\u0004\u0018\u00010\u0014H\u0096\u0002J\b\u0010\u0015\u001a\u00020\u0016H\u0016J\b\u0010\u0017\u001a\u00020\u0010H\u0016J\b\u0010\u0018\u001a\u00020\u0019H\u0016R\u001a\u0010\b\u001a\u00020\u00038VX\u0097\u0004¢\u0006\f\u0012\u0004\b\t\u0010\n\u001a\u0004\b\u000b\u0010\fR\u0014\u0010\u0006\u001a\u00020\u00038VX\u0096\u0004¢\u0006\u0006\u001a\u0004\b\r\u0010\fR\u0014\u0010\u0005\u001a\u00020\u00038VX\u0096\u0004¢\u0006\u0006\u001a\u0004\b\u000e\u0010\f¨\u0006\u001b"}, d2 = {"Lkotlin/ranges/LongRange;", "Lkotlin/ranges/LongProgression;", "Lkotlin/ranges/ClosedRange;", "", "Lkotlin/ranges/OpenEndRange;", "start", "endInclusive", "(JJ)V", "endExclusive", "getEndExclusive$annotations", "()V", "getEndExclusive", "()Ljava/lang/Long;", "getEndInclusive", "getStart", "contains", "", "value", "equals", AdnName.OTHER, "", TTDownloadField.TT_HASHCODE, "", "isEmpty", "toString", "", "Companion", "kotlin-stdlib"}, k = 1, mv = {1, 9, 0}, xi = 48)
-/* loaded from: classes4.dex */
-public final class LongRange extends LongProgression implements ClosedRange<Long>, OpenEndRange<Long> {
+@Metadata(bv = {1, 0, 3}, d1 = {"\u00002\n\u0002\u0018\u0002\n\u0002\u0018\u0002\n\u0002\u0018\u0002\n\u0002\u0010\t\n\u0000\n\u0002\u0010\u000b\n\u0002\b\u0004\n\u0002\u0010\u0000\n\u0002\b\u0003\n\u0002\u0010\b\n\u0002\b\u0002\n\u0002\u0010\u000e\n\u0002\b\u000b\u0018\u0000 \u001b2\u00020\u00012\b\u0012\u0004\u0012\u00020\u00030\u0002:\u0001\u001bB\u0017\u0012\u0006\u0010\u0018\u001a\u00020\u0003\u0012\u0006\u0010\u0016\u001a\u00020\u0003¢\u0006\u0004\b\u0019\u0010\u001aJ\u0018\u0010\u0006\u001a\u00020\u00052\u0006\u0010\u0004\u001a\u00020\u0003H\u0096\u0002¢\u0006\u0004\b\u0006\u0010\u0007J\u000f\u0010\b\u001a\u00020\u0005H\u0016¢\u0006\u0004\b\b\u0010\tJ\u001a\u0010\f\u001a\u00020\u00052\b\u0010\u000b\u001a\u0004\u0018\u00010\nH\u0096\u0002¢\u0006\u0004\b\f\u0010\rJ\u000f\u0010\u000f\u001a\u00020\u000eH\u0016¢\u0006\u0004\b\u000f\u0010\u0010J\u000f\u0010\u0012\u001a\u00020\u0011H\u0016¢\u0006\u0004\b\u0012\u0010\u0013R\u0016\u0010\u0016\u001a\u00020\u00038V@\u0016X\u0096\u0004¢\u0006\u0006\u001a\u0004\b\u0014\u0010\u0015R\u0016\u0010\u0018\u001a\u00020\u00038V@\u0016X\u0096\u0004¢\u0006\u0006\u001a\u0004\b\u0017\u0010\u0015¨\u0006\u001c"}, d2 = {"Lkotlin/ranges/LongRange;", "Lkotlin/ranges/LongProgression;", "Lkotlin/ranges/ClosedRange;", "", Downloads.RequestHeaders.COLUMN_VALUE, "", "contains", "(J)Z", "isEmpty", "()Z", "", AdnName.OTHER, "equals", "(Ljava/lang/Object;)Z", "", TTDownloadField.TT_HASHCODE, "()I", "", "toString", "()Ljava/lang/String;", "getEndInclusive", "()Ljava/lang/Long;", "endInclusive", "getStart", "start", "<init>", "(JJ)V", "Companion", "kotlin-stdlib"}, k = 1, mv = {1, 4, 0})
+/* loaded from: classes5.dex */
+public final class LongRange extends LongProgression implements ClosedRange<Long> {
 
     /* renamed from: Companion, reason: from kotlin metadata */
-    @k
     public static final Companion INSTANCE = new Companion(null);
 
-    @k
+    @d
     private static final LongRange EMPTY = new LongRange(1, 0);
 
-    @Metadata(d1 = {"\u0000\u0014\n\u0002\u0018\u0002\n\u0002\u0010\u0000\n\u0002\b\u0002\n\u0002\u0018\u0002\n\u0002\b\u0003\b\u0086\u0003\u0018\u00002\u00020\u0001B\u0007\b\u0002¢\u0006\u0002\u0010\u0002R\u0011\u0010\u0003\u001a\u00020\u0004¢\u0006\b\n\u0000\u001a\u0004\b\u0005\u0010\u0006¨\u0006\u0007"}, d2 = {"Lkotlin/ranges/LongRange$Companion;", "", "()V", "EMPTY", "Lkotlin/ranges/LongRange;", "getEMPTY", "()Lkotlin/ranges/LongRange;", "kotlin-stdlib"}, k = 1, mv = {1, 9, 0}, xi = 48)
+    @Metadata(bv = {1, 0, 3}, d1 = {"\u0000\u0010\n\u0002\u0018\u0002\n\u0002\u0010\u0000\n\u0002\u0018\u0002\n\u0002\b\u0007\b\u0086\u0003\u0018\u00002\u00020\u0001B\t\b\u0002¢\u0006\u0004\b\u0007\u0010\bR\u0019\u0010\u0003\u001a\u00020\u00028\u0006@\u0006¢\u0006\f\n\u0004\b\u0003\u0010\u0004\u001a\u0004\b\u0005\u0010\u0006¨\u0006\t"}, d2 = {"Lkotlin/ranges/LongRange$Companion;", "", "Lkotlin/ranges/LongRange;", "EMPTY", "Lkotlin/ranges/LongRange;", "getEMPTY", "()Lkotlin/ranges/LongRange;", "<init>", "()V", "kotlin-stdlib"}, k = 1, mv = {1, 4, 0})
     public static final class Companion {
-        public /* synthetic */ Companion(DefaultConstructorMarker defaultConstructorMarker) {
-            this();
+        private Companion() {
         }
 
-        @k
+        @d
         public final LongRange getEMPTY() {
             return LongRange.EMPTY;
         }
 
-        private Companion() {
+        public /* synthetic */ Companion(DefaultConstructorMarker defaultConstructorMarker) {
+            this();
         }
     }
 
-    public LongRange(long j10, long j11) {
-        super(j10, j11, 1L);
-    }
-
-    @Deprecated(message = "Can throw an exception when it's impossible to represent the value with Long type, for example, when the range includes MAX_VALUE. It's recommended to use 'endInclusive' property that doesn't throw.")
-    @SinceKotlin(version = "1.9")
-    @WasExperimental(markerClass = {ExperimentalStdlibApi.class})
-    public static /* synthetic */ void getEndExclusive$annotations() {
+    public LongRange(long j2, long j3) {
+        super(j2, j3, 1L);
     }
 
     @Override // kotlin.ranges.ClosedRange
-    public /* bridge */ /* synthetic */ boolean contains(Long l10) {
-        return contains(l10.longValue());
+    public /* bridge */ /* synthetic */ boolean contains(Long l) {
+        return contains(l.longValue());
     }
 
     @Override // kotlin.ranges.LongProgression
-    public boolean equals(@l Object r62) {
-        if (r62 instanceof LongRange) {
-            if (!isEmpty() || !((LongRange) r62).isEmpty()) {
-                LongRange longRange = (LongRange) r62;
+    public boolean equals(@e Object r6) {
+        if (r6 instanceof LongRange) {
+            if (!isEmpty() || !((LongRange) r6).isEmpty()) {
+                LongRange longRange = (LongRange) r6;
                 if (getFirst() != longRange.getFirst() || getLast() != longRange.getLast()) {
                 }
             }
@@ -79,32 +69,23 @@ public final class LongRange extends LongProgression implements ClosedRange<Long
     }
 
     @Override // kotlin.ranges.LongProgression
-    @k
+    @d
     public String toString() {
         return getFirst() + ".." + getLast();
     }
 
-    public boolean contains(long value) {
-        return getFirst() <= value && value <= getLast();
-    }
-
-    @Override // kotlin.ranges.OpenEndRange
-    @k
-    public Long getEndExclusive() {
-        if (getLast() != Long.MAX_VALUE) {
-            return Long.valueOf(getLast() + 1);
-        }
-        throw new IllegalStateException("Cannot return the exclusive upper bound of a range that includes MAX_VALUE.".toString());
+    public boolean contains(long r4) {
+        return getFirst() <= r4 && r4 <= getLast();
     }
 
     @Override // kotlin.ranges.ClosedRange
-    @k
+    @d
     public Long getEndInclusive() {
         return Long.valueOf(getLast());
     }
 
     @Override // kotlin.ranges.ClosedRange
-    @k
+    @d
     public Long getStart() {
         return Long.valueOf(getFirst());
     }

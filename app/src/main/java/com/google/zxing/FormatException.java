@@ -1,6 +1,6 @@
 package com.google.zxing;
 
-/* loaded from: classes2.dex */
+/* loaded from: classes.dex */
 public final class FormatException extends ReaderException {
     private static final FormatException INSTANCE;
 
@@ -17,11 +17,11 @@ public final class FormatException extends ReaderException {
         return ReaderException.isStackTrace ? new FormatException() : INSTANCE;
     }
 
-    private FormatException(Throwable th2) {
-        super(th2);
+    private FormatException(Throwable th) {
+        super(th);
     }
 
-    public static FormatException getFormatInstance(Throwable th2) {
-        return ReaderException.isStackTrace ? new FormatException(th2) : INSTANCE;
+    public static FormatException getFormatInstance(Throwable th) {
+        return ReaderException.isStackTrace ? new FormatException(th) : INSTANCE;
     }
 }

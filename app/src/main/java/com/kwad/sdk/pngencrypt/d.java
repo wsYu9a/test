@@ -2,51 +2,51 @@ package com.kwad.sdk.pngencrypt;
 
 import com.kwad.sdk.pngencrypt.ChunkReader;
 
-/* loaded from: classes3.dex */
+/* loaded from: classes2.dex */
 public abstract class d extends ChunkReader {
-    protected final DeflatedChunksSet aOU;
-    protected boolean aOV;
-    protected boolean aOW;
-    protected byte[] aOX;
-    protected int aOY;
+    protected final DeflatedChunksSet avg;
+    protected boolean avh;
+    protected boolean avi;
+    protected byte[] avj;
+    protected int avk;
 
-    public d(int i10, String str, long j10, DeflatedChunksSet deflatedChunksSet) {
-        super(i10, str, j10, ChunkReader.ChunkReaderMode.PROCESS);
-        this.aOV = false;
-        this.aOW = false;
-        this.aOY = -1;
-        this.aOU = deflatedChunksSet;
+    public d(int i2, String str, long j2, DeflatedChunksSet deflatedChunksSet) {
+        super(i2, str, j2, ChunkReader.ChunkReaderMode.PROCESS);
+        this.avh = false;
+        this.avi = false;
+        this.avk = -1;
+        this.avg = deflatedChunksSet;
         deflatedChunksSet.a(this);
     }
 
     @Override // com.kwad.sdk.pngencrypt.ChunkReader
-    public void Lm() {
-        int g10;
-        if (!this.aOW || this.aOY < 0 || (g10 = n.g(this.aOX, 0)) == this.aOY) {
+    protected void Bk() {
+        int g2;
+        if (!this.avi || this.avk < 0 || (g2 = n.g(this.avj, 0)) == this.avk) {
             return;
         }
-        com.kwad.sdk.core.d.c.printStackTrace(new PngjException("bad chunk sequence for fDAT chunk " + g10 + " expected " + this.aOY));
+        com.kwad.sdk.core.d.b.printStackTrace(new PngjException("bad chunk sequence for fDAT chunk " + g2 + " expected " + this.avk));
     }
 
     @Override // com.kwad.sdk.pngencrypt.ChunkReader
-    public final void a(int i10, byte[] bArr, int i11, int i12) {
-        if (this.aOW && i10 < 4) {
-            while (i10 < 4 && i12 > 0) {
-                this.aOX[i10] = bArr[i11];
-                i10++;
-                i11++;
-                i12--;
+    protected final void a(int i2, byte[] bArr, int i3, int i4) {
+        if (this.avi && i2 < 4) {
+            while (i2 < 4 && i4 > 0) {
+                this.avj[i2] = bArr[i3];
+                i2++;
+                i3++;
+                i4--;
             }
         }
-        if (i12 > 0) {
-            this.aOU.c(bArr, i11, i12);
-            if (this.aOV) {
-                System.arraycopy(bArr, i11, Ll().data, this.aOn, i12);
+        if (i4 > 0) {
+            this.avg.c(bArr, i3, i4);
+            if (this.avh) {
+                System.arraycopy(bArr, i3, Bj().data, this.auz, i4);
             }
         }
     }
 
-    public final void dH(int i10) {
-        this.aOY = i10;
+    public final void bJ(int i2) {
+        this.avk = i2;
     }
 }

@@ -1,11 +1,12 @@
 package com.kwad.components.offline.api.core.adlive.model;
 
+import com.cdo.oaps.ad.OapsKey;
 import com.kwad.components.offline.api.core.model.BaseOfflineCompoJsonParse;
-import com.kwad.sdk.utils.x;
+import com.kwad.sdk.utils.t;
 import java.io.Serializable;
 import org.json.JSONObject;
 
-/* loaded from: classes3.dex */
+/* loaded from: classes2.dex */
 public class KSAdLiveRoomItemInfo extends BaseOfflineCompoJsonParse<KSAdLiveRoomItemInfo> implements Serializable {
     private static final long serialVersionUID = -6149616231567033413L;
     public String imageUrl;
@@ -19,23 +20,26 @@ public class KSAdLiveRoomItemInfo extends BaseOfflineCompoJsonParse<KSAdLiveRoom
             return;
         }
         kSAdLiveRoomItemInfo.itemId = jSONObject.optString("itemId");
-        Object opt = jSONObject.opt("itemId");
-        Object obj = JSONObject.NULL;
-        if (opt == obj) {
+        if (jSONObject.opt("itemId") == JSONObject.NULL) {
             kSAdLiveRoomItemInfo.itemId = "";
         }
         kSAdLiveRoomItemInfo.imageUrl = jSONObject.optString("imageUrl");
-        if (jSONObject.opt("imageUrl") == obj) {
+        if (jSONObject.opt("imageUrl") == JSONObject.NULL) {
             kSAdLiveRoomItemInfo.imageUrl = "";
         }
         kSAdLiveRoomItemInfo.title = jSONObject.optString("title");
-        if (jSONObject.opt("title") == obj) {
+        if (jSONObject.opt("title") == JSONObject.NULL) {
             kSAdLiveRoomItemInfo.title = "";
         }
         kSAdLiveRoomItemInfo.price = jSONObject.optString("templateVersion");
-        if (jSONObject.opt("price") == obj) {
+        if (jSONObject.opt(OapsKey.KEY_PRICE) == JSONObject.NULL) {
             kSAdLiveRoomItemInfo.price = "";
         }
+    }
+
+    @Override // com.kwad.components.offline.api.core.model.BaseOfflineCompoJsonParse
+    public JSONObject toJson(KSAdLiveRoomItemInfo kSAdLiveRoomItemInfo) {
+        return toJson(kSAdLiveRoomItemInfo, (JSONObject) null);
     }
 
     @Override // com.kwad.components.offline.api.core.model.BaseOfflineCompoJsonParse
@@ -45,25 +49,20 @@ public class KSAdLiveRoomItemInfo extends BaseOfflineCompoJsonParse<KSAdLiveRoom
         }
         String str = kSAdLiveRoomItemInfo.itemId;
         if (str != null && !str.equals("")) {
-            x.putValue(jSONObject, "itemId", kSAdLiveRoomItemInfo.itemId);
+            t.putValue(jSONObject, "itemId", kSAdLiveRoomItemInfo.itemId);
         }
         String str2 = kSAdLiveRoomItemInfo.imageUrl;
         if (str2 != null && !str2.equals("")) {
-            x.putValue(jSONObject, "imageUrl", kSAdLiveRoomItemInfo.imageUrl);
+            t.putValue(jSONObject, "imageUrl", kSAdLiveRoomItemInfo.imageUrl);
         }
         String str3 = kSAdLiveRoomItemInfo.title;
         if (str3 != null && !str3.equals("")) {
-            x.putValue(jSONObject, "title", kSAdLiveRoomItemInfo.title);
+            t.putValue(jSONObject, "title", kSAdLiveRoomItemInfo.title);
         }
         String str4 = kSAdLiveRoomItemInfo.price;
         if (str4 != null && !str4.equals("")) {
-            x.putValue(jSONObject, "price", kSAdLiveRoomItemInfo.price);
+            t.putValue(jSONObject, OapsKey.KEY_PRICE, kSAdLiveRoomItemInfo.price);
         }
         return jSONObject;
-    }
-
-    @Override // com.kwad.components.offline.api.core.model.BaseOfflineCompoJsonParse
-    public JSONObject toJson(KSAdLiveRoomItemInfo kSAdLiveRoomItemInfo) {
-        return toJson(kSAdLiveRoomItemInfo, (JSONObject) null);
     }
 }

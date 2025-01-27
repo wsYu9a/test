@@ -32,23 +32,20 @@ public class DownloadNotificationManager {
     public static DownloadNotificationManager getInstance() {
         if (instance == null) {
             synchronized (DownloadNotificationManager.class) {
-                try {
-                    if (instance == null) {
-                        instance = new DownloadNotificationManager();
-                    }
-                } finally {
+                if (instance == null) {
+                    instance = new DownloadNotificationManager();
                 }
             }
         }
         return instance;
     }
 
-    public static boolean isCompleteAndVisible(DownloadInfo downloadInfo) {
+    static boolean isCompleteAndVisible(DownloadInfo downloadInfo) {
         return downloadInfo.isDownloadOverStatus() && isCompleteVisibility(downloadInfo.getNotificationVisibility());
     }
 
-    public static boolean isCompleteVisibility(int i10) {
-        return i10 == 1 || i10 == 3;
+    static boolean isCompleteVisibility(int i2) {
+        return i2 == 1 || i2 == 3;
     }
 
     public void addNotification(AbsNotificationItem absNotificationItem) {
@@ -60,31 +57,31 @@ public class DownloadNotificationManager {
         }
     }
 
-    public void cancel(int i10) {
+    public void cancel(int i2) {
         Context appContext = DownloadComponentManager.getAppContext();
-        if (appContext == null || i10 == 0) {
+        if (appContext == null || i2 == 0) {
             return;
         }
         try {
             Intent intent = new Intent(appContext, (Class<?>) DownloadNotificationService.class);
             intent.setAction(NotificationConstants.ACTION_NOTIFICATION_CANCEL);
-            intent.putExtra(NotificationConstants.EXTRA_NOTIFICATION_ID, i10);
+            intent.putExtra(NotificationConstants.EXTRA_NOTIFICATION_ID, i2);
             appContext.startService(intent);
-        } catch (Throwable th2) {
-            th2.printStackTrace();
+        } catch (Throwable th) {
+            th.printStackTrace();
         }
     }
 
-    public void cancelCompleteNotification(DownloadInfo downloadInfo) {
+    void cancelCompleteNotification(DownloadInfo downloadInfo) {
         if (isCompleteAndVisible(downloadInfo)) {
             cancelNotification(downloadInfo.getId());
         }
     }
 
-    public void cancelNotification(int i10) {
-        removeNotification(i10);
-        if (i10 != 0) {
-            getInstance().cancel(i10);
+    public void cancelNotification(int i2) {
+        removeNotification(i2);
+        if (i2 != 0) {
+            getInstance().cancel(i2);
         }
     }
 
@@ -94,12 +91,12 @@ public class DownloadNotificationManager {
             clone = this.notificationItemArray.clone();
             this.notificationItemArray.clear();
         }
-        for (int i10 = 0; i10 < clone.size(); i10++) {
-            clone.get(clone.keyAt(i10)).cancel();
+        for (int i2 = 0; i2 < clone.size(); i2++) {
+            clone.get(clone.keyAt(i2)).cancel();
         }
     }
 
-    public SparseArray<AbsNotificationItem> getAllNotificationItems() {
+    SparseArray<AbsNotificationItem> getAllNotificationItems() {
         SparseArray<AbsNotificationItem> sparseArray;
         synchronized (this.notificationItemArray) {
             sparseArray = this.notificationItemArray;
@@ -107,19 +104,19 @@ public class DownloadNotificationManager {
         return sparseArray;
     }
 
-    public AbsNotificationItem getNotificationItem(int i10) {
+    public AbsNotificationItem getNotificationItem(int i2) {
         AbsNotificationItem absNotificationItem;
-        if (i10 == 0) {
+        if (i2 == 0) {
             return null;
         }
         synchronized (this.notificationItemArray) {
-            absNotificationItem = this.notificationItemArray.get(i10);
+            absNotificationItem = this.notificationItemArray.get(i2);
         }
         return absNotificationItem;
     }
 
-    public void hideNotification(int i10) {
-        DownloadInfo downloadInfo = Downloader.getInstance(DownloadComponentManager.getAppContext()).getDownloadInfo(i10);
+    public void hideNotification(int i2) {
+        DownloadInfo downloadInfo = Downloader.getInstance(DownloadComponentManager.getAppContext()).getDownloadInfo(i2);
         if (downloadInfo == null) {
             return;
         }
@@ -127,64 +124,57 @@ public class DownloadNotificationManager {
         cancelCompleteNotification(downloadInfo);
     }
 
-    public void notifyByService(int i10, int i11, Notification notification) {
+    public void notifyByService(int i2, int i3, Notification notification) {
         Context appContext = DownloadComponentManager.getAppContext();
-        if (appContext == null || i10 == 0 || notification == null) {
+        if (appContext == null || i2 == 0 || notification == null) {
             return;
         }
-        if (i11 == 4) {
+        if (i3 == 4) {
             synchronized (this.PROGRESS_NOTIFY_LAST_TIME_INFO) {
-                try {
-                    Long l10 = this.PROGRESS_NOTIFY_LAST_TIME_INFO.get(Integer.valueOf(i10));
-                    long currentTimeMillis = System.currentTimeMillis();
-                    if (l10 != null && Math.abs(currentTimeMillis - l10.longValue()) < 1000) {
-                        return;
-                    } else {
-                        this.PROGRESS_NOTIFY_LAST_TIME_INFO.put(Integer.valueOf(i10), Long.valueOf(currentTimeMillis));
-                    }
-                } finally {
+                Long l = this.PROGRESS_NOTIFY_LAST_TIME_INFO.get(Integer.valueOf(i2));
+                long currentTimeMillis = System.currentTimeMillis();
+                if (l != null && Math.abs(currentTimeMillis - l.longValue()) < 1000) {
+                    return;
+                } else {
+                    this.PROGRESS_NOTIFY_LAST_TIME_INFO.put(Integer.valueOf(i2), Long.valueOf(currentTimeMillis));
                 }
             }
         }
         try {
             Intent intent = new Intent(appContext, (Class<?>) DownloadNotificationService.class);
             intent.setAction(NotificationConstants.ACTION_NOTIFICATION_NOTIFY);
-            intent.putExtra(NotificationConstants.EXTRA_NOTIFICATION_STATUS, i11);
-            intent.putExtra(NotificationConstants.EXTRA_NOTIFICATION_ID, i10);
+            intent.putExtra(NotificationConstants.EXTRA_NOTIFICATION_STATUS, i3);
+            intent.putExtra(NotificationConstants.EXTRA_NOTIFICATION_ID, i2);
             intent.putExtra(NotificationConstants.EXTRA_NOTIFICATION, notification);
             appContext.startService(intent);
-        } catch (Throwable th2) {
-            th2.printStackTrace();
+        } catch (Throwable th) {
+            th.printStackTrace();
         }
     }
 
-    public AbsNotificationItem removeNotification(int i10) {
+    public AbsNotificationItem removeNotification(int i2) {
         AbsNotificationItem absNotificationItem;
-        if (i10 == 0) {
+        if (i2 == 0) {
             return null;
         }
         synchronized (this.notificationItemArray) {
-            try {
-                absNotificationItem = this.notificationItemArray.get(i10);
-                if (absNotificationItem != null) {
-                    this.notificationItemArray.remove(i10);
-                    Logger.d("removeNotificationId " + i10);
-                }
-            } catch (Throwable th2) {
-                throw th2;
+            absNotificationItem = this.notificationItemArray.get(i2);
+            if (absNotificationItem != null) {
+                this.notificationItemArray.remove(i2);
+                Logger.d("removeNotificationId " + i2);
             }
         }
         return absNotificationItem;
     }
 
-    public void updateNotificationState(DownloadInfo downloadInfo) {
+    void updateNotificationState(DownloadInfo downloadInfo) {
         IDownloadCache downloadCache = DownloadComponentManager.getDownloadCache();
         if (downloadCache != null && downloadInfo.isDownloadOverStatus()) {
             downloadInfo.setNotificationVisibility(3);
             try {
                 downloadCache.updateDownloadInfo(downloadInfo);
-            } catch (SQLiteException e10) {
-                e10.printStackTrace();
+            } catch (SQLiteException e2) {
+                e2.printStackTrace();
             }
         }
     }

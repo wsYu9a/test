@@ -2,43 +2,43 @@ package com.kuaishou.weapon.p0;
 
 import org.json.JSONObject;
 
-/* loaded from: classes2.dex */
+/* loaded from: classes.dex */
 public class m {
 
     /* renamed from: a, reason: collision with root package name */
-    public String f11130a;
+    public String f9345a;
 
     /* renamed from: b, reason: collision with root package name */
-    private JSONObject f11131b;
+    private JSONObject f9346b;
 
     /* renamed from: c, reason: collision with root package name */
-    private String f11132c;
+    private String f9347c;
 
     /* renamed from: d, reason: collision with root package name */
-    private String f11133d;
+    private String f9348d;
 
     public m(String str, JSONObject jSONObject) {
-        this.f11130a = str;
-        this.f11131b = jSONObject;
+        this.f9345a = str;
+        this.f9346b = jSONObject;
     }
 
     public JSONObject a() {
-        return this.f11131b;
-    }
-
-    public String b() {
-        return this.f11132c;
-    }
-
-    public String c() {
-        return this.f11133d;
+        return this.f9346b;
     }
 
     public void a(String str) {
-        this.f11132c = str;
+        this.f9347c = str;
+    }
+
+    public String b() {
+        return this.f9347c;
     }
 
     public void b(String str) {
-        this.f11133d = str;
+        this.f9348d = str;
+    }
+
+    public String c() {
+        return this.f9348d;
     }
 }

@@ -11,28 +11,19 @@ import java.io.IOException;
 
 /* loaded from: classes.dex */
 public class AtomicFile {
-    private static final String LOG_TAG = "AtomicFile";
-    private final File mBaseName;
-    private final File mLegacyBackupName;
-    private final File mNewName;
+
+    /* renamed from: a, reason: collision with root package name */
+    private final File f1977a;
+
+    /* renamed from: b, reason: collision with root package name */
+    private final File f1978b;
 
     public AtomicFile(@NonNull File file) {
-        this.mBaseName = file;
-        this.mNewName = new File(file.getPath() + ".new");
-        this.mLegacyBackupName = new File(file.getPath() + ".bak");
+        this.f1977a = file;
+        this.f1978b = new File(file.getPath() + ".bak");
     }
 
-    private static void rename(@NonNull File file, @NonNull File file2) {
-        if (file2.isDirectory() && !file2.delete()) {
-            Log.e(LOG_TAG, "Failed to delete file which is a directory " + file2);
-        }
-        if (file.renameTo(file2)) {
-            return;
-        }
-        Log.e(LOG_TAG, "Failed to rename " + file + " to " + file2);
-    }
-
-    private static boolean sync(@NonNull FileOutputStream fileOutputStream) {
+    private static boolean a(@NonNull FileOutputStream fileOutputStream) {
         try {
             fileOutputStream.getFD().sync();
             return true;
@@ -42,58 +33,47 @@ public class AtomicFile {
     }
 
     public void delete() {
-        this.mBaseName.delete();
-        this.mNewName.delete();
-        this.mLegacyBackupName.delete();
+        this.f1977a.delete();
+        this.f1978b.delete();
     }
 
     public void failWrite(@Nullable FileOutputStream fileOutputStream) {
-        if (fileOutputStream == null) {
-            return;
+        if (fileOutputStream != null) {
+            a(fileOutputStream);
+            try {
+                fileOutputStream.close();
+                this.f1977a.delete();
+                this.f1978b.renameTo(this.f1977a);
+            } catch (IOException e2) {
+                Log.w("AtomicFile", "failWrite: Got exception:", e2);
+            }
         }
-        if (!sync(fileOutputStream)) {
-            Log.e(LOG_TAG, "Failed to sync file output stream");
-        }
-        try {
-            fileOutputStream.close();
-        } catch (IOException e10) {
-            Log.e(LOG_TAG, "Failed to close file output stream", e10);
-        }
-        if (this.mNewName.delete()) {
-            return;
-        }
-        Log.e(LOG_TAG, "Failed to delete new file " + this.mNewName);
     }
 
     public void finishWrite(@Nullable FileOutputStream fileOutputStream) {
-        if (fileOutputStream == null) {
-            return;
+        if (fileOutputStream != null) {
+            a(fileOutputStream);
+            try {
+                fileOutputStream.close();
+                this.f1978b.delete();
+            } catch (IOException e2) {
+                Log.w("AtomicFile", "finishWrite: Got exception:", e2);
+            }
         }
-        if (!sync(fileOutputStream)) {
-            Log.e(LOG_TAG, "Failed to sync file output stream");
-        }
-        try {
-            fileOutputStream.close();
-        } catch (IOException e10) {
-            Log.e(LOG_TAG, "Failed to close file output stream", e10);
-        }
-        rename(this.mNewName, this.mBaseName);
     }
 
     @NonNull
     public File getBaseFile() {
-        return this.mBaseName;
+        return this.f1977a;
     }
 
     @NonNull
     public FileInputStream openRead() throws FileNotFoundException {
-        if (this.mLegacyBackupName.exists()) {
-            rename(this.mLegacyBackupName, this.mBaseName);
+        if (this.f1978b.exists()) {
+            this.f1977a.delete();
+            this.f1978b.renameTo(this.f1977a);
         }
-        if (this.mNewName.exists() && this.mBaseName.exists() && !this.mNewName.delete()) {
-            Log.e(LOG_TAG, "Failed to delete outdated new file " + this.mNewName);
-        }
-        return new FileInputStream(this.mBaseName);
+        return new FileInputStream(this.f1977a);
     }
 
     @NonNull
@@ -101,17 +81,17 @@ public class AtomicFile {
         FileInputStream openRead = openRead();
         try {
             byte[] bArr = new byte[openRead.available()];
-            int i10 = 0;
+            int i2 = 0;
             while (true) {
-                int read = openRead.read(bArr, i10, bArr.length - i10);
+                int read = openRead.read(bArr, i2, bArr.length - i2);
                 if (read <= 0) {
                     return bArr;
                 }
-                i10 += read;
+                i2 += read;
                 int available = openRead.available();
-                if (available > bArr.length - i10) {
-                    byte[] bArr2 = new byte[available + i10];
-                    System.arraycopy(bArr, 0, bArr2, 0, i10);
+                if (available > bArr.length - i2) {
+                    byte[] bArr2 = new byte[available + i2];
+                    System.arraycopy(bArr, 0, bArr2, 0, i2);
                     bArr = bArr2;
                 }
             }
@@ -122,19 +102,23 @@ public class AtomicFile {
 
     @NonNull
     public FileOutputStream startWrite() throws IOException {
-        if (this.mLegacyBackupName.exists()) {
-            rename(this.mLegacyBackupName, this.mBaseName);
+        if (this.f1977a.exists()) {
+            if (this.f1978b.exists()) {
+                this.f1977a.delete();
+            } else if (!this.f1977a.renameTo(this.f1978b)) {
+                Log.w("AtomicFile", "Couldn't rename file " + this.f1977a + " to backup file " + this.f1978b);
+            }
         }
         try {
-            return new FileOutputStream(this.mNewName);
+            return new FileOutputStream(this.f1977a);
         } catch (FileNotFoundException unused) {
-            if (!this.mNewName.getParentFile().mkdirs()) {
-                throw new IOException("Failed to create directory for " + this.mNewName);
+            if (!this.f1977a.getParentFile().mkdirs()) {
+                throw new IOException("Couldn't create directory " + this.f1977a);
             }
             try {
-                return new FileOutputStream(this.mNewName);
-            } catch (FileNotFoundException e10) {
-                throw new IOException("Failed to create new file " + this.mNewName, e10);
+                return new FileOutputStream(this.f1977a);
+            } catch (FileNotFoundException unused2) {
+                throw new IOException("Couldn't create " + this.f1977a);
             }
         }
     }

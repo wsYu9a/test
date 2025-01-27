@@ -1,51 +1,62 @@
 package com.kwad.components.core.webview.jshandler;
 
 import androidx.annotation.NonNull;
-import com.ksad.json.annotation.KsJson;
+import com.kwad.sdk.utils.bi;
 
-/* loaded from: classes3.dex */
-public final class au implements com.kwad.sdk.core.webview.c.a {
-    private com.kwad.sdk.core.webview.c.c YI;
-    private b aaE;
+/* loaded from: classes2.dex */
+public final class au implements com.kwad.sdk.core.webview.b.a {
+    private a Uf;
 
-    @KsJson
-    public static final class a extends com.kwad.sdk.core.response.a.a implements com.kwad.sdk.core.b {
-        public int status;
-    }
+    /* renamed from: com.kwad.components.core.webview.jshandler.au$1 */
+    final class AnonymousClass1 implements Runnable {
+        AnonymousClass1() {
+        }
 
-    public interface b {
-        void qz();
-    }
-
-    public au(b bVar) {
-        this.aaE = bVar;
-    }
-
-    @Override // com.kwad.sdk.core.webview.c.a
-    public final void a(String str, @NonNull com.kwad.sdk.core.webview.c.c cVar) {
-        this.YI = cVar;
-        b bVar = this.aaE;
-        if (bVar != null) {
-            bVar.qz();
+        @Override // java.lang.Runnable
+        public final void run() {
+            if (au.this.Uf != null) {
+                au.this.Uf.qQ();
+            }
         }
     }
 
-    @Override // com.kwad.sdk.core.webview.c.a
+    public interface a {
+        void qQ();
+    }
+
+    public au(a aVar) {
+        this.Uf = aVar;
+    }
+
+    private void rf() {
+        if (com.kwad.components.core.d.a.b.mF()) {
+            return;
+        }
+        bi.runOnUiThread(new Runnable() { // from class: com.kwad.components.core.webview.jshandler.au.1
+            AnonymousClass1() {
+            }
+
+            @Override // java.lang.Runnable
+            public final void run() {
+                if (au.this.Uf != null) {
+                    au.this.Uf.qQ();
+                }
+            }
+        });
+    }
+
+    @Override // com.kwad.sdk.core.webview.b.a
     @NonNull
     public final String getKey() {
-        return "registerBackClickListener";
+        return "showDownloadTips";
     }
 
-    @Override // com.kwad.sdk.core.webview.c.a
+    @Override // com.kwad.sdk.core.webview.b.a
+    public final void handleJsCall(String str, @NonNull com.kwad.sdk.core.webview.b.c cVar) {
+        rf();
+    }
+
+    @Override // com.kwad.sdk.core.webview.b.a
     public final void onDestroy() {
-        this.YI = null;
-    }
-
-    public final void tt() {
-        if (this.YI != null) {
-            a aVar = new a();
-            aVar.status = 1;
-            this.YI.a(aVar);
-        }
     }
 }

@@ -2,7 +2,7 @@ package com.google.gson;
 
 import java.lang.reflect.Type;
 
-/* loaded from: classes2.dex */
+/* loaded from: classes.dex */
 public interface JsonSerializer<T> {
-    JsonElement serialize(T t10, Type type, JsonSerializationContext jsonSerializationContext);
+    JsonElement serialize(T t, Type type, JsonSerializationContext jsonSerializationContext);
 }

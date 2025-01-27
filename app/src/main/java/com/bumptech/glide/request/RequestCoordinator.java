@@ -1,6 +1,6 @@
 package com.bumptech.glide.request;
 
-/* loaded from: classes2.dex */
+/* loaded from: classes.dex */
 public interface RequestCoordinator {
 
     public enum RequestState {
@@ -12,11 +12,11 @@ public interface RequestCoordinator {
 
         private final boolean isComplete;
 
-        RequestState(boolean z10) {
-            this.isComplete = z10;
+        RequestState(boolean z) {
+            this.isComplete = z;
         }
 
-        public boolean isComplete() {
+        boolean isComplete() {
             return this.isComplete;
         }
     }

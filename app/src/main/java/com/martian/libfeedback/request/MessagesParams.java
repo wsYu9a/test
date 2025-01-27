@@ -1,8 +1,8 @@
 package com.martian.libfeedback.request;
 
-import v8.a;
+import com.martian.libcomm.http.requests.d.a;
 
-/* loaded from: classes3.dex */
+/* loaded from: classes2.dex */
 public class MessagesParams extends FeedbacklTaskHttpGetParams {
 
     @a
@@ -21,16 +21,16 @@ public class MessagesParams extends FeedbacklTaskHttpGetParams {
         return Integer.valueOf(num == null ? 5 : num.intValue());
     }
 
-    @Override // u8.b
+    @Override // com.martian.libcomm.http.requests.b
     public String getRequestMethod() {
         return "push/history";
     }
 
-    public void setPage(Integer num) {
-        this.page = num;
+    public void setPage(Integer page) {
+        this.page = page;
     }
 
-    public void setPageSize(Integer num) {
-        this.pageSize = num;
+    public void setPageSize(Integer pageSize) {
+        this.pageSize = pageSize;
     }
 }

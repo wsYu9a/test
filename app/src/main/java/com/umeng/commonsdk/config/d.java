@@ -7,40 +7,36 @@ import java.util.Map;
 public class d {
 
     /* renamed from: a */
-    public static final long f24342a = 1000;
+    public static final long f26117a = 1000;
 
     /* renamed from: b */
-    public static final String f24343b = "_LAST_FIELD";
+    public static final String f26118b = "_LAST_FIELD";
 
     /* renamed from: c */
-    public static final String f24344c = "3749699455";
+    public static final String f26119c = "3749699455";
 
     /* renamed from: d */
-    public static final String f24345d = "2130669566";
+    public static final String f26120d = "2130669566";
 
     /* renamed from: e */
-    public static final String f24346e = "262139";
+    public static final String f26121e = "262139";
 
     /* renamed from: f */
-    public static final String f24347f = "1983";
+    public static final String f26122f = "1983";
 
     /* renamed from: g */
-    public static final int f24348g = 64;
-
-    /* renamed from: l */
-    private static Map<String, String[]> f24353l = new HashMap();
+    public static final int f26123g = 64;
+    private static Map<String, String[]> l = new HashMap();
 
     /* renamed from: h */
-    public static String[] f24349h = new String[a.values().length];
+    public static String[] f26124h = new String[a.values().length];
 
     /* renamed from: i */
-    public static String[] f24350i = new String[b.values().length];
+    public static String[] f26125i = new String[b.values().length];
 
     /* renamed from: j */
-    public static String[] f24351j = new String[c.values().length];
-
-    /* renamed from: k */
-    public static String[] f24352k = new String[EnumC0671d.values().length];
+    public static String[] f26126j = new String[c.values().length];
+    public static String[] k = new String[EnumC0541d.values().length];
 
     public enum a {
         header_utoken,
@@ -78,8 +74,6 @@ public class d {
         header_foreground_count,
         header_first_resume,
         header_sub_os_info,
-        header_ntf_switch,
-        header_ringer_mode,
         _LAST_FIELD
     }
 
@@ -118,10 +112,6 @@ public class d {
         inner_batt2,
         inner_build2,
         inner_cpu2,
-        ccg_switch,
-        check_system_app,
-        check_pus_permission,
-        ekv_smart_check,
         _LAST_FIELD
     }
 
@@ -148,7 +138,7 @@ public class d {
     }
 
     /* renamed from: com.umeng.commonsdk.config.d$d */
-    public enum EnumC0671d {
+    public enum EnumC0541d {
         share_device_id,
         share_imsi,
         share_iccid,
@@ -164,57 +154,57 @@ public class d {
     }
 
     static {
-        String[] strArr = f24349h;
+        String[] strArr = f26124h;
         if (strArr != null && strArr.length > 0) {
-            for (int i10 = 0; i10 < a.values().length; i10++) {
-                f24349h[i10] = a.values()[i10].toString();
+            for (int i2 = 0; i2 < a.values().length; i2++) {
+                f26124h[i2] = a.values()[i2].toString();
             }
-            Map<String, String[]> map = f24353l;
+            Map<String, String[]> map = l;
             if (map != null) {
-                map.put(a.class.getName(), f24349h);
+                map.put(a.class.getName(), f26124h);
             }
         }
-        String[] strArr2 = f24350i;
+        String[] strArr2 = f26125i;
         if (strArr2 != null && strArr2.length > 0) {
-            for (int i11 = 0; i11 < b.values().length; i11++) {
-                f24350i[i11] = b.values()[i11].toString();
+            for (int i3 = 0; i3 < b.values().length; i3++) {
+                f26125i[i3] = b.values()[i3].toString();
             }
-            Map<String, String[]> map2 = f24353l;
+            Map<String, String[]> map2 = l;
             if (map2 != null) {
-                map2.put(b.class.getName(), f24350i);
+                map2.put(b.class.getName(), f26125i);
             }
         }
-        String[] strArr3 = f24351j;
+        String[] strArr3 = f26126j;
         if (strArr3 != null && strArr3.length > 0) {
-            for (int i12 = 0; i12 < c.values().length; i12++) {
-                f24351j[i12] = c.values()[i12].toString();
+            for (int i4 = 0; i4 < c.values().length; i4++) {
+                f26126j[i4] = c.values()[i4].toString();
             }
-            Map<String, String[]> map3 = f24353l;
+            Map<String, String[]> map3 = l;
             if (map3 != null) {
-                map3.put(c.class.getName(), f24351j);
+                map3.put(c.class.getName(), f26126j);
             }
         }
-        String[] strArr4 = f24352k;
+        String[] strArr4 = k;
         if (strArr4 == null || strArr4.length <= 0) {
             return;
         }
-        for (int i13 = 0; i13 < EnumC0671d.values().length; i13++) {
-            f24352k[i13] = EnumC0671d.values()[i13].toString();
+        for (int i5 = 0; i5 < EnumC0541d.values().length; i5++) {
+            k[i5] = EnumC0541d.values()[i5].toString();
         }
-        Map<String, String[]> map4 = f24353l;
+        Map<String, String[]> map4 = l;
         if (map4 != null) {
-            map4.put(EnumC0671d.class.getName(), f24352k);
+            map4.put(EnumC0541d.class.getName(), k);
         }
     }
 
     public static boolean a(String str) {
-        return (str == null || str.length() <= 0 || f24343b.equalsIgnoreCase(str)) ? false : true;
+        return (str == null || str.length() <= 0 || f26118b.equalsIgnoreCase(str)) ? false : true;
     }
 
     public static String[] b(String str) {
-        if (str == null || str.length() <= 0 || !f24353l.containsKey(str)) {
+        if (str == null || str.length() <= 0 || !l.containsKey(str)) {
             return null;
         }
-        return f24353l.get(str);
+        return l.get(str);
     }
 }

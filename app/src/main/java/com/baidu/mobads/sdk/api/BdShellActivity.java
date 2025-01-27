@@ -8,24 +8,23 @@ import android.text.TextUtils;
 import android.view.KeyEvent;
 import android.view.MotionEvent;
 import com.baidu.mobads.proxy.R;
-import com.baidu.mobads.sdk.internal.au;
-import com.baidu.mobads.sdk.internal.bs;
-import com.baidu.mobads.sdk.internal.bt;
-import com.scwang.smart.refresh.header.MaterialHeader;
+import com.baidu.mobads.sdk.internal.ar;
+import com.baidu.mobads.sdk.internal.bp;
+import com.baidu.mobads.sdk.internal.bq;
 import java.io.Serializable;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-/* loaded from: classes2.dex */
+/* loaded from: classes.dex */
 public class BdShellActivity extends Activity {
     private static boolean canShowWhenLock;
     private static ActionBarColorTheme mSActionBarColorTheme = ActionBarColorTheme.ACTION_BAR_WHITE_THEME;
-    private bt mAdLogger = bt.a();
+    private bq mAdLogger = bq.a();
     private ClassLoader mLoader;
     private IActivityImpl mProxyActivity;
 
-    public static void canLpShowWhenLocked(boolean z10) {
-        canShowWhenLock = z10;
+    public static void canLpShowWhenLocked(boolean z) {
+        canShowWhenLock = z;
     }
 
     public static ActionBarColorTheme getActionBarColorTheme() {
@@ -40,8 +39,8 @@ public class BdShellActivity extends Activity {
         return canShowWhenLock;
     }
 
-    public static void setActionBarColor(int i10, int i11, int i12, int i13) {
-        mSActionBarColorTheme = new ActionBarColorTheme(i10, i11, i12, i13);
+    public static void setActionBarColor(int i2, int i3, int i4, int i5) {
+        mSActionBarColorTheme = new ActionBarColorTheme(i2, i3, i4, i5);
     }
 
     public static void setActionBarColorTheme(ActionBarColorTheme actionBarColorTheme) {
@@ -69,12 +68,12 @@ public class BdShellActivity extends Activity {
     }
 
     @Override // android.app.Activity
-    public void onActivityResult(int i10, int i11, Intent intent) {
+    protected void onActivityResult(int i2, int i3, Intent intent) {
         IActivityImpl iActivityImpl = this.mProxyActivity;
         if (iActivityImpl != null) {
-            iActivityImpl.onActivityResult(i10, i11, intent);
+            iActivityImpl.onActivityResult(i2, i3, intent);
         }
-        super.onActivityResult(i10, i11, intent);
+        super.onActivityResult(i2, i3, intent);
     }
 
     @Override // android.app.Activity, android.view.Window.Callback
@@ -105,15 +104,15 @@ public class BdShellActivity extends Activity {
     }
 
     @Override // android.app.Activity
-    public void onCreate(Bundle bundle) {
-        Class<?> a10;
+    protected void onCreate(Bundle bundle) {
+        Class<?> a2;
         super.onCreate(bundle);
         Intent intent = getIntent();
         try {
-            ClassLoader a11 = bs.a(this);
-            this.mLoader = a11;
+            ClassLoader a3 = bp.a(this);
+            this.mLoader = a3;
             if (intent != null) {
-                intent.setExtrasClassLoader(a11);
+                intent.setExtrasClassLoader(a3);
             }
             String str = "";
             if (intent != null) {
@@ -123,11 +122,11 @@ public class BdShellActivity extends Activity {
                 }
             }
             Object obj = null;
-            if (!TextUtils.isEmpty(str) && (a10 = au.a(str, this.mLoader)) != null) {
+            if (!TextUtils.isEmpty(str) && (a2 = ar.a(str, this.mLoader)) != null) {
                 try {
-                    obj = a10.getConstructor(null).newInstance(null);
-                } catch (Throwable th2) {
-                    bt.a().d(th2);
+                    obj = a2.getConstructor(new Class[0]).newInstance(new Object[0]);
+                } catch (Throwable th) {
+                    bq.a().d(th);
                 }
             }
             if (obj != null) {
@@ -140,8 +139,8 @@ public class BdShellActivity extends Activity {
                     jSONObject.put("bar_pro_color", mSActionBarColorTheme.progressColor);
                     jSONObject.put("bar_title_color", mSActionBarColorTheme.titleColor);
                     jSONObject.put("bar_bg_color", mSActionBarColorTheme.backgroundColor);
-                } catch (JSONException e10) {
-                    e10.printStackTrace();
+                } catch (JSONException e2) {
+                    e2.printStackTrace();
                 }
                 this.mProxyActivity.setLpBussParam(jSONObject);
                 this.mProxyActivity.setActivity(this);
@@ -149,13 +148,13 @@ public class BdShellActivity extends Activity {
                     this.mProxyActivity.onCreate(bundle);
                 }
             }
-        } catch (Exception e11) {
-            bt.a().c(e11);
+        } catch (Exception e3) {
+            bq.a().c(e3);
         }
     }
 
     @Override // android.app.Activity
-    public void onDestroy() {
+    protected void onDestroy() {
         IActivityImpl iActivityImpl = this.mProxyActivity;
         if (iActivityImpl != null) {
             iActivityImpl.onDestroy();
@@ -173,25 +172,25 @@ public class BdShellActivity extends Activity {
     }
 
     @Override // android.app.Activity, android.view.KeyEvent.Callback
-    public boolean onKeyDown(int i10, KeyEvent keyEvent) {
+    public boolean onKeyDown(int i2, KeyEvent keyEvent) {
         IActivityImpl iActivityImpl = this.mProxyActivity;
-        if (iActivityImpl != null ? iActivityImpl.onKeyDown(i10, keyEvent) : false) {
+        if (iActivityImpl != null ? iActivityImpl.onKeyDown(i2, keyEvent) : false) {
             return true;
         }
-        return super.onKeyDown(i10, keyEvent);
+        return super.onKeyDown(i2, keyEvent);
     }
 
     @Override // android.app.Activity, android.view.KeyEvent.Callback
-    public boolean onKeyUp(int i10, KeyEvent keyEvent) {
+    public boolean onKeyUp(int i2, KeyEvent keyEvent) {
         IActivityImpl iActivityImpl = this.mProxyActivity;
-        if (iActivityImpl != null ? iActivityImpl.onKeyUp(i10, keyEvent) : false) {
+        if (iActivityImpl != null ? iActivityImpl.onKeyUp(i2, keyEvent) : false) {
             return true;
         }
-        return super.onKeyUp(i10, keyEvent);
+        return super.onKeyUp(i2, keyEvent);
     }
 
     @Override // android.app.Activity
-    public void onNewIntent(Intent intent) {
+    protected void onNewIntent(Intent intent) {
         IActivityImpl iActivityImpl = this.mProxyActivity;
         if (iActivityImpl != null) {
             iActivityImpl.onNewIntent(intent);
@@ -200,7 +199,7 @@ public class BdShellActivity extends Activity {
     }
 
     @Override // android.app.Activity
-    public void onPause() {
+    protected void onPause() {
         IActivityImpl iActivityImpl = this.mProxyActivity;
         if (iActivityImpl != null) {
             iActivityImpl.onPause();
@@ -209,7 +208,7 @@ public class BdShellActivity extends Activity {
     }
 
     @Override // android.app.Activity
-    public void onRestoreInstanceState(Bundle bundle) {
+    protected void onRestoreInstanceState(Bundle bundle) {
         super.onRestoreInstanceState(bundle);
         IActivityImpl iActivityImpl = this.mProxyActivity;
         if (iActivityImpl != null) {
@@ -218,7 +217,7 @@ public class BdShellActivity extends Activity {
     }
 
     @Override // android.app.Activity
-    public void onResume() {
+    protected void onResume() {
         super.onResume();
         IActivityImpl iActivityImpl = this.mProxyActivity;
         if (iActivityImpl != null) {
@@ -227,7 +226,7 @@ public class BdShellActivity extends Activity {
     }
 
     @Override // android.app.Activity
-    public void onSaveInstanceState(Bundle bundle) {
+    protected void onSaveInstanceState(Bundle bundle) {
         super.onSaveInstanceState(bundle);
         IActivityImpl iActivityImpl = this.mProxyActivity;
         if (iActivityImpl != null) {
@@ -236,7 +235,7 @@ public class BdShellActivity extends Activity {
     }
 
     @Override // android.app.Activity
-    public void onStart() {
+    protected void onStart() {
         super.onStart();
         IActivityImpl iActivityImpl = this.mProxyActivity;
         if (iActivityImpl != null) {
@@ -245,7 +244,7 @@ public class BdShellActivity extends Activity {
     }
 
     @Override // android.app.Activity
-    public void onStop() {
+    protected void onStop() {
         super.onStop();
         IActivityImpl iActivityImpl = this.mProxyActivity;
         if (iActivityImpl != null) {
@@ -263,20 +262,20 @@ public class BdShellActivity extends Activity {
     }
 
     @Override // android.app.Activity, android.view.Window.Callback
-    public void onWindowFocusChanged(boolean z10) {
-        super.onWindowFocusChanged(z10);
+    public void onWindowFocusChanged(boolean z) {
+        super.onWindowFocusChanged(z);
         IActivityImpl iActivityImpl = this.mProxyActivity;
         if (iActivityImpl != null) {
-            iActivityImpl.onWindowFocusChanged(z10);
+            iActivityImpl.onWindowFocusChanged(z);
         }
     }
 
     @Override // android.app.Activity
-    public void overridePendingTransition(int i10, int i11) {
-        super.overridePendingTransition(i10, i11);
+    public void overridePendingTransition(int i2, int i3) {
+        super.overridePendingTransition(i2, i3);
         IActivityImpl iActivityImpl = this.mProxyActivity;
         if (iActivityImpl != null) {
-            iActivityImpl.overridePendingTransition(i10, i11);
+            iActivityImpl.overridePendingTransition(i2, i3);
         }
     }
 
@@ -285,7 +284,7 @@ public class BdShellActivity extends Activity {
         public int closeColor;
         public int progressColor;
         public int titleColor;
-        public static final ActionBarColorTheme ACTION_BAR_WHITE_THEME = new ActionBarColorTheme(-5987164, -6842473, -11113262, MaterialHeader.f16667t);
+        public static final ActionBarColorTheme ACTION_BAR_WHITE_THEME = new ActionBarColorTheme(-5987164, -6842473, -11113262, -328966);
         public static final ActionBarColorTheme ACTION_BAR_RED_THEME = new ActionBarColorTheme(-1, -1, -12510, -1294276);
         public static final ActionBarColorTheme ACTION_BAR_GREEN_THEME = new ActionBarColorTheme(-1, -1, -11113262, -14303071);
         public static final ActionBarColorTheme ACTION_BAR_NAVYBLUE_THEME = new ActionBarColorTheme(-1, -1, 16764706, -14210226);
@@ -293,11 +292,11 @@ public class BdShellActivity extends Activity {
         public static final ActionBarColorTheme ACTION_BAR_COFFEE_THEME = new ActionBarColorTheme(-1, -1, -12510, -11255230);
         public static final ActionBarColorTheme ACTION_BAR_BLACK_THEME = new ActionBarColorTheme(-1, -1, -12510, -13749450);
 
-        public ActionBarColorTheme(int i10, int i11, int i12, int i13) {
-            this.closeColor = i10;
-            this.titleColor = i11;
-            this.progressColor = i12;
-            this.backgroundColor = i13;
+        public ActionBarColorTheme(int i2, int i3, int i4, int i5) {
+            this.closeColor = i2;
+            this.titleColor = i3;
+            this.progressColor = i4;
+            this.backgroundColor = i5;
         }
 
         public boolean equals(Object obj) {
@@ -321,20 +320,20 @@ public class BdShellActivity extends Activity {
             return this.titleColor;
         }
 
-        public void setBackgroundColor(int i10) {
-            this.backgroundColor = i10;
+        public void setBackgroundColor(int i2) {
+            this.backgroundColor = i2;
         }
 
-        public void setCloseColor(int i10) {
-            this.closeColor = i10;
+        public void setCloseColor(int i2) {
+            this.closeColor = i2;
         }
 
-        public void setProgressColor(int i10) {
-            this.progressColor = i10;
+        public void setProgressColor(int i2) {
+            this.progressColor = i2;
         }
 
-        public void setTitleColor(int i10) {
-            this.titleColor = i10;
+        public void setTitleColor(int i2) {
+            this.titleColor = i2;
         }
 
         public ActionBarColorTheme(ActionBarColorTheme actionBarColorTheme) {

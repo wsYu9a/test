@@ -52,13 +52,13 @@ public class UpgradeDialog extends BaseDialogFrag {
     @Override // androidx.fragment.app.Fragment
     public void onCreate(Bundle bundle) {
         super.onCreate(bundle);
-        e eVar = e.f22100b;
-        this.mLayoutResId = eVar.f22116l;
-        this.upgradeDialogListener = eVar.f22118n;
+        e eVar = e.f24621b;
+        this.mLayoutResId = eVar.l;
+        this.upgradeDialogListener = eVar.n;
         try {
-            this.mStyle = Integer.parseInt(ResBean.f22088a.a("VAL_style"));
-        } catch (Exception e10) {
-            X.c(e10.getMessage(), new Object[0]);
+            this.mStyle = Integer.parseInt(ResBean.f24609a.a("VAL_style"));
+        } catch (Exception e2) {
+            X.c(e2.getMessage(), new Object[0]);
             this.mStyle = 0;
         }
     }
@@ -75,8 +75,8 @@ public class UpgradeDialog extends BaseDialogFrag {
             linearLayout.setLayoutParams(layoutParams);
             linearLayout.setOrientation(1);
             LinearLayout.LayoutParams layoutParams2 = new LinearLayout.LayoutParams(-1, -2);
-            ResBean resBean = ResBean.f22088a;
-            if (e.f22100b.W) {
+            ResBean resBean = ResBean.f24609a;
+            if (e.f24621b.W) {
                 TextView textView = new TextView(this.mContext);
                 this.tvApkInfoTop = textView;
                 textView.setLayoutParams(layoutParams2);
@@ -92,8 +92,8 @@ public class UpgradeDialog extends BaseDialogFrag {
             textView3.setLayoutParams(layoutParams2);
             resBean.getClass();
             textView3.setTextColor(Color.parseColor("#273238"));
-            float f10 = 14;
-            textView3.setTextSize(f10);
+            float f2 = 14;
+            textView3.setTextSize(f2);
             textView3.setSingleLine();
             textView3.setEllipsize(TextUtils.TruncateAt.END);
             textView3.setText(String.valueOf(Beta.strUpgradeDialogFeatureLabel + ": "));
@@ -103,7 +103,7 @@ public class UpgradeDialog extends BaseDialogFrag {
             this.tvUpgradeInfoBottom = textView4;
             textView4.setLayoutParams(layoutParams2);
             this.tvUpgradeInfoBottom.setTextColor(Color.parseColor("#273238"));
-            this.tvUpgradeInfoBottom.setTextSize(f10);
+            this.tvUpgradeInfoBottom.setTextSize(f2);
             this.tvUpgradeInfoBottom.setTag(Beta.TAG_UPGRADE_FEATURE);
             this.tvUpgradeInfoBottom.setMaxHeight(com.tencent.bugly.beta.global.a.a(this.mContext, 200.0f));
             this.tvUpgradeInfoBottom.setLineSpacing(15.0f, 1.0f);
@@ -113,8 +113,8 @@ public class UpgradeDialog extends BaseDialogFrag {
         UILifecycleListener uILifecycleListener = this.upgradeDialogListener;
         if (uILifecycleListener != null) {
             FragmentActivity activity = getActivity();
-            B b10 = this.strategyDetail;
-            uILifecycleListener.onCreate(activity, onCreateView, b10 != null ? new UpgradeInfo(b10) : null);
+            B b2 = this.strategyDetail;
+            uILifecycleListener.onCreate(activity, onCreateView, b2 != null ? new UpgradeInfo(b2) : null);
         }
         return onCreateView;
     }
@@ -136,19 +136,19 @@ public class UpgradeDialog extends BaseDialogFrag {
             if (uILifecycleListener != null) {
                 Context context = this.mContext;
                 View view = this.mLayoutContainer;
-                B b10 = this.strategyDetail;
-                uILifecycleListener.onDestroy(context, view, b10 != null ? new UpgradeInfo(b10) : null);
+                B b2 = this.strategyDetail;
+                uILifecycleListener.onDestroy(context, view, b2 != null ? new UpgradeInfo(b2) : null);
             }
         } catch (Exception unused) {
         }
     }
 
     @Override // com.tencent.bugly.beta.ui.BaseFrag
-    public boolean onKeyDown(int i10, KeyEvent keyEvent) {
-        if (i10 != 4) {
+    public boolean onKeyDown(int i2, KeyEvent keyEvent) {
+        if (i2 != 4) {
             return false;
         }
-        if (this.strategyDetail.f22564l == 2) {
+        if (this.strategyDetail.l == 2) {
             return true;
         }
         Runnable runnable = this.cancelRunnable;
@@ -171,8 +171,8 @@ public class UpgradeDialog extends BaseDialogFrag {
         if (uILifecycleListener != null) {
             Context context = this.mContext;
             View view = this.mLayoutContainer;
-            B b10 = this.strategyDetail;
-            uILifecycleListener.onPause(context, view, b10 != null ? new UpgradeInfo(b10) : null);
+            B b2 = this.strategyDetail;
+            uILifecycleListener.onPause(context, view, b2 != null ? new UpgradeInfo(b2) : null);
         }
     }
 
@@ -186,14 +186,14 @@ public class UpgradeDialog extends BaseDialogFrag {
         }
         updateView();
         if (this.mStyle != 0 && this.titleBitmap == null) {
-            f.f22131a.a(new d(7, this));
+            f.f24630a.a(new d(7, this));
         }
         UILifecycleListener uILifecycleListener = this.upgradeDialogListener;
         if (uILifecycleListener != null) {
             Context context = this.mContext;
             View view = this.mLayoutContainer;
-            B b10 = this.strategyDetail;
-            uILifecycleListener.onResume(context, view, b10 != null ? new UpgradeInfo(b10) : null);
+            B b2 = this.strategyDetail;
+            uILifecycleListener.onResume(context, view, b2 != null ? new UpgradeInfo(b2) : null);
         }
     }
 
@@ -204,8 +204,8 @@ public class UpgradeDialog extends BaseDialogFrag {
         if (uILifecycleListener != null) {
             Context context = this.mContext;
             View view = this.mLayoutContainer;
-            B b10 = this.strategyDetail;
-            uILifecycleListener.onStart(context, view, b10 != null ? new UpgradeInfo(b10) : null);
+            B b2 = this.strategyDetail;
+            uILifecycleListener.onStart(context, view, b2 != null ? new UpgradeInfo(b2) : null);
         }
     }
 
@@ -216,20 +216,20 @@ public class UpgradeDialog extends BaseDialogFrag {
         if (uILifecycleListener != null) {
             Context context = this.mContext;
             View view = this.mLayoutContainer;
-            B b10 = this.strategyDetail;
-            uILifecycleListener.onStop(context, view, b10 != null ? new UpgradeInfo(b10) : null);
+            B b2 = this.strategyDetail;
+            uILifecycleListener.onStop(context, view, b2 != null ? new UpgradeInfo(b2) : null);
         }
     }
 
-    public synchronized void setUpgradeInfo(B b10, DownloadTask downloadTask) {
-        this.strategyDetail = b10;
+    public synchronized void setUpgradeInfo(B b2, DownloadTask downloadTask) {
+        this.strategyDetail = b2;
         this.strategyTask = downloadTask;
         downloadTask.addListener(this.taskListener);
         com.tencent.bugly.beta.utils.e.a(new d(7, this));
     }
 
-    /* JADX WARN: Removed duplicated region for block: B:14:0x0062  */
-    /* JADX WARN: Removed duplicated region for block: B:17:0x006a  */
+    /* JADX WARN: Removed duplicated region for block: B:15:0x0062  */
+    /* JADX WARN: Removed duplicated region for block: B:18:0x006a  */
     /*
         Code decompiled incorrectly, please refer to instructions dump.
         To view partially-correct code enable 'Show inconsistent code' option in preferences
@@ -237,21 +237,21 @@ public class UpgradeDialog extends BaseDialogFrag {
     public void updateBtn(com.tencent.bugly.beta.download.DownloadTask r8) {
         /*
             r7 = this;
-            r0 = 1
-            int r1 = r8.getStatus()
-            r2 = 2
-            r3 = 0
-            if (r1 == 0) goto L58
-            if (r1 == r0) goto L53
-            if (r1 == r2) goto L24
+            int r0 = r8.getStatus()
+            r1 = 2
+            r2 = 0
+            if (r0 == 0) goto L58
+            r3 = 1
+            if (r0 == r3) goto L53
+            if (r0 == r1) goto L24
             r8 = 3
-            if (r1 == r8) goto L1f
+            if (r0 == r8) goto L1f
             r8 = 4
-            if (r1 == r8) goto L58
+            if (r0 == r8) goto L58
             r8 = 5
-            if (r1 == r8) goto L1a
+            if (r0 == r8) goto L1a
             java.lang.String r8 = ""
-            r0 = r3
+            r0 = r2
             goto L5c
         L1a:
             java.lang.String r8 = com.tencent.bugly.beta.Beta.strUpgradeDialogRetryBtn
@@ -262,7 +262,8 @@ public class UpgradeDialog extends BaseDialogFrag {
             android.view.View$OnClickListener r0 = r7.startTaskListener
             goto L5c
         L24:
-            java.util.Locale r1 = java.util.Locale.getDefault()
+            java.util.Locale r0 = java.util.Locale.getDefault()
+            java.lang.Object[] r3 = new java.lang.Object[r3]
             long r4 = r8.getSavedLength()
             float r4 = (float) r4
             long r5 = r8.getTotalLength()
@@ -271,11 +272,10 @@ public class UpgradeDialog extends BaseDialogFrag {
             r8 = 1120403456(0x42c80000, float:100.0)
             float r4 = r4 * r8
             java.lang.Float r8 = java.lang.Float.valueOf(r4)
-            java.lang.Object[] r0 = new java.lang.Object[r0]
             r4 = 0
-            r0[r4] = r8
+            r3[r4] = r8
             java.lang.String r8 = "%.1f%%"
-            java.lang.String r8 = java.lang.String.format(r1, r8, r0)
+            java.lang.String r8 = java.lang.String.format(r0, r8, r3)
             java.lang.String r0 = "NaN%"
             boolean r0 = r8.equals(r0)
             if (r0 == 0) goto L50
@@ -291,15 +291,15 @@ public class UpgradeDialog extends BaseDialogFrag {
             java.lang.String r8 = com.tencent.bugly.beta.Beta.strUpgradeDialogUpgradeBtn
             android.view.View$OnClickListener r0 = r7.startTaskListener
         L5c:
-            com.tencent.bugly.proguard.B r1 = r7.strategyDetail
-            byte r1 = r1.f22564l
-            if (r1 == r2) goto L6a
+            com.tencent.bugly.proguard.B r3 = r7.strategyDetail
+            byte r3 = r3.l
+            if (r3 == r1) goto L6a
             java.lang.String r1 = com.tencent.bugly.beta.Beta.strUpgradeDialogCancelBtn
             android.view.View$OnClickListener r2 = r7.negListener
             r7.setBtn(r1, r2, r8, r0)
             goto L6d
         L6a:
-            r7.setBtn(r3, r3, r8, r0)
+            r7.setBtn(r2, r2, r8, r0)
         L6d:
             return
         */
@@ -307,49 +307,54 @@ public class UpgradeDialog extends BaseDialogFrag {
     }
 
     public synchronized void updateView() {
-        B b10;
+        B b2;
         try {
-        } catch (Exception e10) {
+        } catch (Exception e2) {
             if (this.mLayoutResId != 0) {
                 X.b("please confirm your argument: [Beta.upgradeDialogLayoutId] is correct", new Object[0]);
             }
-            if (!X.a(e10)) {
-                e10.printStackTrace();
+            if (!X.a(e2)) {
+                e2.printStackTrace();
             }
-        } finally {
         }
-        if (this.mLayoutContainer != null && (b10 = this.strategyDetail) != null && this.strategyTask != null) {
+        if (this.mLayoutContainer != null && (b2 = this.strategyDetail) != null && this.strategyTask != null) {
             Bitmap bitmap = null;
             if (this.mLayoutResId != 0) {
-                this.mTitleTextView.setText(b10.f22558f);
+                this.mTitleTextView.setText(b2.f24928f);
                 ImageView imageView = this.mBannerImageView;
                 if (imageView != null) {
                     imageView.setAdjustViewBounds(true);
                     if (this.mStyle != 0) {
-                        Bitmap a10 = com.tencent.bugly.beta.global.a.a(this.mContext, 0, this.mRes.a("IMG_title"));
-                        this.titleBitmap = a10;
+                        Context context = this.mContext;
+                        Object[] objArr = new Object[1];
+                        objArr[0] = this.mRes.a("IMG_title");
+                        Bitmap a2 = com.tencent.bugly.beta.global.a.a(context, 0, objArr);
+                        this.titleBitmap = a2;
                         this.titleDrawable = null;
-                        if (a10 != null) {
-                            bitmap = a10;
+                        if (a2 != null) {
+                            bitmap = a2;
                         } else {
-                            int i10 = e.f22100b.f22115k;
-                            if (i10 != 0) {
-                                bitmap = com.tencent.bugly.beta.global.a.a(this.mContext, 1, Integer.valueOf(i10));
+                            int i2 = e.f24621b.k;
+                            if (i2 != 0) {
+                                bitmap = com.tencent.bugly.beta.global.a.a(this.mContext, 1, Integer.valueOf(i2));
                             }
                         }
                         this.mBannerImageView.setImageBitmap(bitmap);
                     }
                 }
             } else if (this.mStyle != 0) {
-                Bitmap a11 = com.tencent.bugly.beta.global.a.a(this.mContext, 0, this.mRes.a("IMG_title"));
-                this.titleBitmap = a11;
+                Context context2 = this.mContext;
+                Object[] objArr2 = new Object[1];
+                objArr2[0] = this.mRes.a("IMG_title");
+                Bitmap a3 = com.tencent.bugly.beta.global.a.a(context2, 0, objArr2);
+                this.titleBitmap = a3;
                 this.titleDrawable = null;
-                if (a11 != null) {
-                    bitmap = a11;
+                if (a3 != null) {
+                    bitmap = a3;
                 } else {
-                    int i11 = e.f22100b.f22115k;
-                    if (i11 != 0) {
-                        bitmap = com.tencent.bugly.beta.global.a.a(this.mContext, 1, Integer.valueOf(i11));
+                    int i3 = e.f24621b.k;
+                    if (i3 != 0) {
+                        bitmap = com.tencent.bugly.beta.global.a.a(this.mContext, 1, Integer.valueOf(i3));
                     }
                 }
                 this.mTitleTextView.getViewTreeObserver().removeOnPreDrawListener(this.onPreDraw);
@@ -357,34 +362,34 @@ public class UpgradeDialog extends BaseDialogFrag {
                 this.mTitleTextView.getViewTreeObserver().addOnPreDrawListener(this.onPreDraw);
             } else {
                 this.mTitleTextView.setHeight(com.tencent.bugly.beta.global.a.a(this.mContext, 42.0f));
-                this.mTitleTextView.setText(this.strategyDetail.f22558f);
+                this.mTitleTextView.setText(this.strategyDetail.f24928f);
             }
-            this.tvUpgradeInfoBottom.setText(this.strategyDetail.f22559g.length() > 500 ? this.strategyDetail.f22559g.substring(0, 500) : this.strategyDetail.f22559g);
-            if (e.f22100b.W) {
-                StringBuilder sb2 = new StringBuilder();
-                sb2.append(Beta.strUpgradeDialogVersionLabel);
-                sb2.append(": ");
-                sb2.append(this.strategyDetail.f22562j.f22898e);
-                sb2.append("\n");
-                sb2.append(Beta.strUpgradeDialogFileSizeLabel);
-                sb2.append(": ");
-                float f10 = this.strategyDetail.f22563k.f22892e;
-                if (f10 >= 1048576.0f) {
-                    sb2.append(String.format(Locale.getDefault(), "%.1f", Float.valueOf(f10 / 1048576.0f)));
-                    sb2.append("M");
-                } else if (f10 >= 1024.0f) {
-                    sb2.append(String.format(Locale.getDefault(), "%.1f", Float.valueOf(f10 / 1024.0f)));
-                    sb2.append("K");
+            this.tvUpgradeInfoBottom.setText(this.strategyDetail.f24929g.length() > 500 ? this.strategyDetail.f24929g.substring(0, 500) : this.strategyDetail.f24929g);
+            if (e.f24621b.W) {
+                StringBuilder sb = new StringBuilder();
+                sb.append(Beta.strUpgradeDialogVersionLabel);
+                sb.append(": ");
+                sb.append(this.strategyDetail.f24932j.f25186e);
+                sb.append("\n");
+                sb.append(Beta.strUpgradeDialogFileSizeLabel);
+                sb.append(": ");
+                float f2 = this.strategyDetail.k.f25180e;
+                if (f2 >= 1048576.0f) {
+                    sb.append(String.format(Locale.getDefault(), "%.1f", Float.valueOf(f2 / 1048576.0f)));
+                    sb.append("M");
+                } else if (f2 >= 1024.0f) {
+                    sb.append(String.format(Locale.getDefault(), "%.1f", Float.valueOf(f2 / 1024.0f)));
+                    sb.append("K");
                 } else {
-                    sb2.append(String.format(Locale.getDefault(), "%.1f", Float.valueOf(f10)));
-                    sb2.append("B");
+                    sb.append(String.format(Locale.getDefault(), "%.1f", Float.valueOf(f2)));
+                    sb.append("B");
                 }
-                sb2.append("\n");
+                sb.append("\n");
                 SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm", Locale.CHINA);
-                sb2.append(Beta.strUpgradeDialogUpdateTimeLabel);
-                sb2.append(": ");
-                sb2.append(simpleDateFormat.format(new Date(this.strategyDetail.f22572t)));
-                this.tvApkInfoTop.setText(sb2);
+                sb.append(Beta.strUpgradeDialogUpdateTimeLabel);
+                sb.append(": ");
+                sb.append(simpleDateFormat.format(new Date(this.strategyDetail.t)));
+                this.tvApkInfoTop.setText(sb);
             }
             updateBtn(this.strategyTask);
         }

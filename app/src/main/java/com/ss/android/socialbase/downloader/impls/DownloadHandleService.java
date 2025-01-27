@@ -10,22 +10,22 @@ import com.ss.android.socialbase.downloader.downloader.DownloadProcessDispatcher
 
 /* loaded from: classes4.dex */
 public class DownloadHandleService extends Service {
-    private static final String TAG = "DownloadHandleService";
+    private static final String TAG = DownloadHandleService.class.getSimpleName();
 
     /* renamed from: com.ss.android.socialbase.downloader.impls.DownloadHandleService$1 */
-    public class AnonymousClass1 implements Runnable {
+    class AnonymousClass1 implements Runnable {
         final /* synthetic */ int val$id;
 
-        public AnonymousClass1(int i10) {
-            intExtra = i10;
+        AnonymousClass1(int i2) {
+            intExtra = i2;
         }
 
         @Override // java.lang.Runnable
         public void run() {
             try {
                 DownloadProcessDispatcher.getInstance().retryDelayStart(intExtra);
-            } catch (Exception e10) {
-                e10.printStackTrace();
+            } catch (Exception e2) {
+                e2.printStackTrace();
             }
         }
     }
@@ -43,7 +43,7 @@ public class DownloadHandleService extends Service {
             DownloadComponentManager.getCPUThreadExecutor().execute(new Runnable() { // from class: com.ss.android.socialbase.downloader.impls.DownloadHandleService.1
                 final /* synthetic */ int val$id;
 
-                public AnonymousClass1(int intExtra2) {
+                AnonymousClass1(int intExtra2) {
                     intExtra = intExtra2;
                 }
 
@@ -51,8 +51,8 @@ public class DownloadHandleService extends Service {
                 public void run() {
                     try {
                         DownloadProcessDispatcher.getInstance().retryDelayStart(intExtra);
-                    } catch (Exception e10) {
-                        e10.printStackTrace();
+                    } catch (Exception e2) {
+                        e2.printStackTrace();
                     }
                 }
             });
@@ -75,8 +75,8 @@ public class DownloadHandleService extends Service {
     }
 
     @Override // android.app.Service
-    public int onStartCommand(Intent intent, int i10, int i11) {
-        super.onStartCommand(intent, i10, i11);
+    public int onStartCommand(Intent intent, int i2, int i3) {
+        super.onStartCommand(intent, i2, i3);
         handleIntent(intent);
         return 2;
     }

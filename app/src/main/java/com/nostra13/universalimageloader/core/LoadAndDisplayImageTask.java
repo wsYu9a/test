@@ -2,332 +2,413 @@ package com.nostra13.universalimageloader.core;
 
 import android.graphics.Bitmap;
 import android.os.Handler;
-import com.nostra13.universalimageloader.core.a;
+import b.g.a.b.c;
 import com.nostra13.universalimageloader.core.assist.FailReason;
 import com.nostra13.universalimageloader.core.assist.ImageScaleType;
 import com.nostra13.universalimageloader.core.assist.LoadedFrom;
 import com.nostra13.universalimageloader.core.assist.ViewScaleType;
+import com.nostra13.universalimageloader.core.c;
 import com.nostra13.universalimageloader.core.download.ImageDownloader;
-import hf.c;
 import java.io.File;
 import java.io.IOException;
 import java.util.concurrent.atomic.AtomicBoolean;
-import ze.d;
 
-/* loaded from: classes3.dex */
-public final class LoadAndDisplayImageTask implements Runnable, c.a {
-    public static final String A = "Resize image in disk cache [%s]";
-    public static final String B = "PreProcess image before caching in memory [%s]";
-    public static final String C = "PostProcess image before displaying [%s]";
-    public static final String D = "Cache image in memory [%s]";
-    public static final String E = "Cache image on disk [%s]";
-    public static final String F = "Process image before cache on disk [%s]";
-    public static final String G = "ImageAware is reused for another image. Task is cancelled. [%s]";
-    public static final String H = "ImageAware was collected by GC. Task is cancelled. [%s]";
-    public static final String I = "Task was interrupted [%s]";
-    public static final String J = "Pre-processor returned null [%s]";
-    public static final String K = "Post-processor returned null [%s]";
-    public static final String L = "Bitmap processor for disk cache returned null [%s]";
+/* loaded from: classes4.dex */
+final class LoadAndDisplayImageTask implements Runnable, c.a {
 
-    /* renamed from: s */
-    public static final String f16258s = "ImageLoader is paused. Waiting...  [%s]";
-
-    /* renamed from: t */
-    public static final String f16259t = ".. Resume loading [%s]";
-
-    /* renamed from: u */
-    public static final String f16260u = "Delay %d ms before loading...  [%s]";
-
-    /* renamed from: v */
-    public static final String f16261v = "Start display image task [%s]";
-
-    /* renamed from: w */
-    public static final String f16262w = "Image already is loading. Waiting... [%s]";
-
-    /* renamed from: x */
-    public static final String f16263x = "...Get cached bitmap from memory after waiting. [%s]";
-
-    /* renamed from: y */
-    public static final String f16264y = "Load image from network [%s]";
-
-    /* renamed from: z */
-    public static final String f16265z = "Load image from disk cache [%s]";
+    /* renamed from: a */
+    private static final String f15890a = "ImageLoader is paused. Waiting...  [%s]";
 
     /* renamed from: b */
-    public final ze.c f16266b;
+    private static final String f15891b = ".. Resume loading [%s]";
 
     /* renamed from: c */
-    public final d f16267c;
+    private static final String f15892c = "Delay %d ms before loading...  [%s]";
 
     /* renamed from: d */
-    public final Handler f16268d;
+    private static final String f15893d = "Start display image task [%s]";
 
     /* renamed from: e */
-    public final ImageLoaderConfiguration f16269e;
+    private static final String f15894e = "Image already is loading. Waiting... [%s]";
 
     /* renamed from: f */
-    public final ImageDownloader f16270f;
+    private static final String f15895f = "...Get cached bitmap from memory after waiting. [%s]";
 
     /* renamed from: g */
-    public final ImageDownloader f16271g;
+    private static final String f15896g = "Load image from network [%s]";
 
     /* renamed from: h */
-    public final ImageDownloader f16272h;
+    private static final String f15897h = "Load image from disk cache [%s]";
 
     /* renamed from: i */
-    public final cf.b f16273i;
+    private static final String f15898i = "Resize image in disk cache [%s]";
 
     /* renamed from: j */
-    public final String f16274j;
+    private static final String f15899j = "PreProcess image before caching in memory [%s]";
+    private static final String k = "PostProcess image before displaying [%s]";
+    private static final String l = "Cache image in memory [%s]";
+    private static final String m = "Cache image on disk [%s]";
+    private static final String n = "Process image before cache on disk [%s]";
+    private static final String o = "ImageAware is reused for another image. Task is cancelled. [%s]";
+    private static final String p = "ImageAware was collected by GC. Task is cancelled. [%s]";
+    private static final String q = "Task was interrupted [%s]";
+    private static final String r = "Pre-processor returned null [%s]";
+    private static final String s = "Post-processor returned null [%s]";
+    private static final String t = "Bitmap processor for disk cache returned null [%s]";
+    private final ImageDownloader A;
+    private final com.nostra13.universalimageloader.core.h.b B;
+    final String C;
+    private final String D;
+    final com.nostra13.universalimageloader.core.j.a E;
+    private final com.nostra13.universalimageloader.core.assist.c F;
+    final com.nostra13.universalimageloader.core.c G;
+    final com.nostra13.universalimageloader.core.k.a H;
+    final com.nostra13.universalimageloader.core.k.b I;
+    private final boolean J;
+    private LoadedFrom K = LoadedFrom.NETWORK;
+    private final e u;
+    private final f v;
+    private final Handler w;
+    private final ImageLoaderConfiguration x;
+    private final ImageDownloader y;
+    private final ImageDownloader z;
 
-    /* renamed from: k */
-    public final String f16275k;
-
-    /* renamed from: l */
-    public final ef.a f16276l;
-
-    /* renamed from: m */
-    public final af.c f16277m;
-
-    /* renamed from: n */
-    public final com.nostra13.universalimageloader.core.a f16278n;
-
-    /* renamed from: o */
-    public final ff.a f16279o;
-
-    /* renamed from: p */
-    public final ff.b f16280p;
-
-    /* renamed from: q */
-    public final boolean f16281q;
-
-    /* renamed from: r */
-    public LoadedFrom f16282r = LoadedFrom.NETWORK;
-
-    public class TaskCancelledException extends Exception {
-        public TaskCancelledException() {
+    class TaskCancelledException extends Exception {
+        TaskCancelledException() {
         }
     }
 
-    public class a implements Runnable {
+    class a implements Runnable {
+
+        /* renamed from: a */
+        final /* synthetic */ int f15900a;
 
         /* renamed from: b */
-        public final /* synthetic */ int f16283b;
+        final /* synthetic */ int f15901b;
 
-        /* renamed from: c */
-        public final /* synthetic */ int f16284c;
-
-        public a(int i10, int i11) {
-            this.f16283b = i10;
-            this.f16284c = i11;
+        a(int i2, int i3) {
+            this.f15900a = i2;
+            this.f15901b = i3;
         }
 
         @Override // java.lang.Runnable
         public void run() {
             LoadAndDisplayImageTask loadAndDisplayImageTask = LoadAndDisplayImageTask.this;
-            loadAndDisplayImageTask.f16280p.onProgressUpdate(loadAndDisplayImageTask.f16274j, loadAndDisplayImageTask.f16276l.getWrappedView(), this.f16283b, this.f16284c);
+            loadAndDisplayImageTask.I.onProgressUpdate(loadAndDisplayImageTask.C, loadAndDisplayImageTask.E.getWrappedView(), this.f15900a, this.f15901b);
         }
     }
 
-    public class b implements Runnable {
+    class b implements Runnable {
+
+        /* renamed from: a */
+        final /* synthetic */ FailReason.FailType f15903a;
 
         /* renamed from: b */
-        public final /* synthetic */ FailReason.FailType f16286b;
+        final /* synthetic */ Throwable f15904b;
 
-        /* renamed from: c */
-        public final /* synthetic */ Throwable f16287c;
-
-        public b(FailReason.FailType failType, Throwable th2) {
-            this.f16286b = failType;
-            this.f16287c = th2;
+        b(FailReason.FailType failType, Throwable th) {
+            this.f15903a = failType;
+            this.f15904b = th;
         }
 
         @Override // java.lang.Runnable
         public void run() {
-            if (LoadAndDisplayImageTask.this.f16278n.O()) {
+            if (LoadAndDisplayImageTask.this.G.O()) {
                 LoadAndDisplayImageTask loadAndDisplayImageTask = LoadAndDisplayImageTask.this;
-                loadAndDisplayImageTask.f16276l.setImageDrawable(loadAndDisplayImageTask.f16278n.A(loadAndDisplayImageTask.f16269e.f16209a));
+                loadAndDisplayImageTask.E.setImageDrawable(loadAndDisplayImageTask.G.A(loadAndDisplayImageTask.x.f15867a));
             }
             LoadAndDisplayImageTask loadAndDisplayImageTask2 = LoadAndDisplayImageTask.this;
-            loadAndDisplayImageTask2.f16279o.a(loadAndDisplayImageTask2.f16274j, loadAndDisplayImageTask2.f16276l.getWrappedView(), new FailReason(this.f16286b, this.f16287c));
+            loadAndDisplayImageTask2.H.a(loadAndDisplayImageTask2.C, loadAndDisplayImageTask2.E.getWrappedView(), new FailReason(this.f15903a, this.f15904b));
         }
     }
 
-    public class c implements Runnable {
-        public c() {
+    class c implements Runnable {
+        c() {
         }
 
         @Override // java.lang.Runnable
         public void run() {
             LoadAndDisplayImageTask loadAndDisplayImageTask = LoadAndDisplayImageTask.this;
-            loadAndDisplayImageTask.f16279o.onLoadingCancelled(loadAndDisplayImageTask.f16274j, loadAndDisplayImageTask.f16276l.getWrappedView());
+            loadAndDisplayImageTask.H.onLoadingCancelled(loadAndDisplayImageTask.C, loadAndDisplayImageTask.E.getWrappedView());
         }
     }
 
-    public LoadAndDisplayImageTask(ze.c cVar, d dVar, Handler handler) {
-        this.f16266b = cVar;
-        this.f16267c = dVar;
-        this.f16268d = handler;
-        ImageLoaderConfiguration imageLoaderConfiguration = cVar.f33788a;
-        this.f16269e = imageLoaderConfiguration;
-        this.f16270f = imageLoaderConfiguration.f16224p;
-        this.f16271g = imageLoaderConfiguration.f16227s;
-        this.f16272h = imageLoaderConfiguration.f16228t;
-        this.f16273i = imageLoaderConfiguration.f16225q;
-        this.f16274j = dVar.f33800a;
-        this.f16275k = dVar.f33801b;
-        this.f16276l = dVar.f33802c;
-        this.f16277m = dVar.f33803d;
-        com.nostra13.universalimageloader.core.a aVar = dVar.f33804e;
-        this.f16278n = aVar;
-        this.f16279o = dVar.f33805f;
-        this.f16280p = dVar.f33806g;
-        this.f16281q = aVar.J();
+    public LoadAndDisplayImageTask(e eVar, f fVar, Handler handler) {
+        this.u = eVar;
+        this.v = fVar;
+        this.w = handler;
+        ImageLoaderConfiguration imageLoaderConfiguration = eVar.f15982a;
+        this.x = imageLoaderConfiguration;
+        this.y = imageLoaderConfiguration.p;
+        this.z = imageLoaderConfiguration.s;
+        this.A = imageLoaderConfiguration.t;
+        this.B = imageLoaderConfiguration.q;
+        this.C = fVar.f15994a;
+        this.D = fVar.f15995b;
+        this.E = fVar.f15996c;
+        this.F = fVar.f15997d;
+        com.nostra13.universalimageloader.core.c cVar = fVar.f15998e;
+        this.G = cVar;
+        this.H = fVar.f15999f;
+        this.I = fVar.f16000g;
+        this.J = cVar.J();
     }
 
-    public static void s(Runnable runnable, boolean z10, Handler handler, ze.c cVar) {
-        if (z10) {
-            runnable.run();
-        } else if (handler == null) {
-            cVar.g(runnable);
-        } else {
-            handler.post(runnable);
-        }
-    }
-
-    public final void b() throws TaskCancelledException {
-        if (n()) {
+    private void c() throws TaskCancelledException {
+        if (o()) {
             throw new TaskCancelledException();
         }
     }
 
-    public final void c() throws TaskCancelledException {
-        d();
+    private void d() throws TaskCancelledException {
         e();
+        f();
     }
 
-    public final void d() throws TaskCancelledException {
-        if (p()) {
-            throw new TaskCancelledException();
-        }
-    }
-
-    public final void e() throws TaskCancelledException {
+    private void e() throws TaskCancelledException {
         if (q()) {
             throw new TaskCancelledException();
         }
     }
 
-    public final Bitmap f(String str) throws IOException {
-        return this.f16273i.a(new cf.c(this.f16275k, str, this.f16274j, this.f16277m, this.f16276l.getScaleType(), l(), this.f16278n));
+    private void f() throws TaskCancelledException {
+        if (r()) {
+            throw new TaskCancelledException();
+        }
     }
 
-    public final boolean g() {
-        if (!this.f16278n.K()) {
+    private Bitmap g(String str) throws IOException {
+        return this.B.a(new com.nostra13.universalimageloader.core.h.c(this.D, str, this.C, this.F, this.E.getScaleType(), m(), this.G));
+    }
+
+    private boolean h() {
+        if (!this.G.K()) {
             return false;
         }
-        hf.d.a(f16260u, Integer.valueOf(this.f16278n.v()), this.f16275k);
+        b.g.a.b.d.a(f15892c, Integer.valueOf(this.G.v()), this.D);
         try {
-            Thread.sleep(this.f16278n.v());
-            return o();
+            Thread.sleep(this.G.v());
+            return p();
         } catch (InterruptedException unused) {
-            hf.d.c(I, this.f16275k);
+            b.g.a.b.d.c(q, this.D);
             return true;
         }
     }
 
-    public final boolean h() throws IOException {
-        return this.f16269e.f16223o.a(this.f16274j, l().getStream(this.f16274j, this.f16278n.x()), this);
+    private boolean i() throws IOException {
+        return this.x.o.a(this.C, m().getStream(this.C, this.G.x()), this);
     }
 
-    public final void i() {
-        if (this.f16281q || n()) {
+    private void j() {
+        if (this.J || o()) {
             return;
         }
-        s(new c(), false, this.f16268d, this.f16266b);
+        t(new c(), false, this.w, this.u);
     }
 
-    public final void j(FailReason.FailType failType, Throwable th2) {
-        if (this.f16281q || n() || o()) {
+    private void k(FailReason.FailType failType, Throwable th) {
+        if (this.J || o() || p()) {
             return;
         }
-        s(new b(failType, th2), false, this.f16268d, this.f16266b);
+        t(new b(failType, th), false, this.w, this.u);
     }
 
-    public final boolean k(int i10, int i11) {
-        if (n() || o()) {
+    private boolean l(int i2, int i3) {
+        if (o() || p()) {
             return false;
         }
-        if (this.f16280p == null) {
+        if (this.I == null) {
             return true;
         }
-        s(new a(i10, i11), false, this.f16268d, this.f16266b);
+        t(new a(i2, i3), false, this.w, this.u);
         return true;
     }
 
-    public final ImageDownloader l() {
-        return this.f16266b.n() ? this.f16271g : this.f16266b.o() ? this.f16272h : this.f16270f;
+    private ImageDownloader m() {
+        return this.u.n() ? this.z : this.u.o() ? this.A : this.y;
     }
 
-    public String m() {
-        return this.f16274j;
-    }
-
-    public final boolean n() {
+    private boolean o() {
         if (!Thread.interrupted()) {
             return false;
         }
-        hf.d.a(I, this.f16275k);
+        b.g.a.b.d.a(q, this.D);
         return true;
     }
 
-    public final boolean o() {
-        return p() || q();
+    private boolean p() {
+        return q() || r();
     }
 
-    @Override // hf.c.a
-    public boolean onBytesCopied(int i10, int i11) {
-        return this.f16281q || k(i10, i11);
-    }
-
-    public final boolean p() {
-        if (!this.f16276l.isCollected()) {
+    private boolean q() {
+        if (!this.E.isCollected()) {
             return false;
         }
-        hf.d.a("ImageAware was collected by GC. Task is cancelled. [%s]", this.f16275k);
+        b.g.a.b.d.a(p, this.D);
         return true;
     }
 
-    public final boolean q() {
-        if (!(!this.f16275k.equals(this.f16266b.h(this.f16276l)))) {
+    private boolean r() {
+        if (!(!this.D.equals(this.u.h(this.E)))) {
             return false;
         }
-        hf.d.a("ImageAware is reused for another image. Task is cancelled. [%s]", this.f16275k);
+        b.g.a.b.d.a(o, this.D);
         return true;
     }
 
-    public final boolean r(int i10, int i11) throws IOException {
-        File file = this.f16269e.f16223o.get(this.f16274j);
+    private boolean s(int i2, int i3) throws IOException {
+        File file = this.x.o.get(this.C);
         if (file == null || !file.exists()) {
             return false;
         }
-        Bitmap a10 = this.f16273i.a(new cf.c(this.f16275k, ImageDownloader.Scheme.FILE.wrap(file.getAbsolutePath()), this.f16274j, new af.c(i10, i11), ViewScaleType.FIT_INSIDE, l(), new a.b().A(this.f16278n).H(ImageScaleType.IN_SAMPLE_INT).u()));
-        if (a10 != null && this.f16269e.f16214f != null) {
-            hf.d.a(F, this.f16275k);
-            a10 = this.f16269e.f16214f.process(a10);
-            if (a10 == null) {
-                hf.d.c(L, this.f16275k);
+        Bitmap a2 = this.B.a(new com.nostra13.universalimageloader.core.h.c(this.D, ImageDownloader.Scheme.FILE.wrap(file.getAbsolutePath()), this.C, new com.nostra13.universalimageloader.core.assist.c(i2, i3), ViewScaleType.FIT_INSIDE, m(), new c.b().A(this.G).H(ImageScaleType.IN_SAMPLE_INT).u()));
+        if (a2 != null && this.x.f15872f != null) {
+            b.g.a.b.d.a(n, this.D);
+            a2 = this.x.f15872f.process(a2);
+            if (a2 == null) {
+                b.g.a.b.d.c(t, this.D);
             }
         }
-        if (a10 == null) {
+        if (a2 == null) {
             return false;
         }
-        boolean save = this.f16269e.f16223o.save(this.f16274j, a10);
-        a10.recycle();
+        boolean save = this.x.o.save(this.C, a2);
+        a2.recycle();
         return save;
     }
 
-    /* JADX WARN: Removed duplicated region for block: B:24:0x00d7 A[Catch: all -> 0x005b, TaskCancelledException -> 0x0100, TryCatch #0 {TaskCancelledException -> 0x0100, blocks: (B:13:0x0033, B:15:0x0044, B:18:0x004b, B:20:0x00b8, B:22:0x00c0, B:24:0x00d7, B:25:0x00e2, B:29:0x005e, B:33:0x0068, B:35:0x0076, B:37:0x008d, B:39:0x009a, B:41:0x00a2), top: B:12:0x0033, outer: #1 }] */
+    static void t(Runnable runnable, boolean z, Handler handler, e eVar) {
+        if (z) {
+            runnable.run();
+        } else if (handler == null) {
+            eVar.g(runnable);
+        } else {
+            handler.post(runnable);
+        }
+    }
+
+    private boolean u() throws TaskCancelledException {
+        b.g.a.b.d.a(m, this.D);
+        try {
+            boolean i2 = i();
+            if (i2) {
+                ImageLoaderConfiguration imageLoaderConfiguration = this.x;
+                int i3 = imageLoaderConfiguration.f15870d;
+                int i4 = imageLoaderConfiguration.f15871e;
+                if (i3 > 0 || i4 > 0) {
+                    b.g.a.b.d.a(f15898i, this.D);
+                    s(i3, i4);
+                }
+            }
+            return i2;
+        } catch (IOException e2) {
+            b.g.a.b.d.d(e2);
+            return false;
+        }
+    }
+
+    private Bitmap v() throws TaskCancelledException {
+        Bitmap bitmap;
+        File file;
+        Bitmap bitmap2 = null;
+        try {
+            try {
+                File file2 = this.x.o.get(this.C);
+                if (file2 == null || !file2.exists()) {
+                    bitmap = null;
+                } else {
+                    b.g.a.b.d.a(f15897h, this.D);
+                    this.K = LoadedFrom.DISC_CACHE;
+                    d();
+                    bitmap = g(ImageDownloader.Scheme.FILE.wrap(file2.getAbsolutePath()));
+                }
+                if (bitmap != null) {
+                    try {
+                        if (bitmap.getWidth() > 0 && bitmap.getHeight() > 0) {
+                            return bitmap;
+                        }
+                    } catch (IOException e2) {
+                        Bitmap bitmap3 = bitmap;
+                        e = e2;
+                        bitmap2 = bitmap3;
+                        b.g.a.b.d.d(e);
+                        k(FailReason.FailType.IO_ERROR, e);
+                        return bitmap2;
+                    } catch (IllegalStateException unused) {
+                        k(FailReason.FailType.NETWORK_DENIED, null);
+                        return bitmap;
+                    } catch (OutOfMemoryError e3) {
+                        Bitmap bitmap4 = bitmap;
+                        e = e3;
+                        bitmap2 = bitmap4;
+                        b.g.a.b.d.d(e);
+                        k(FailReason.FailType.OUT_OF_MEMORY, e);
+                        return bitmap2;
+                    } catch (Throwable th) {
+                        Bitmap bitmap5 = bitmap;
+                        th = th;
+                        bitmap2 = bitmap5;
+                        b.g.a.b.d.d(th);
+                        k(FailReason.FailType.UNKNOWN, th);
+                        return bitmap2;
+                    }
+                }
+                b.g.a.b.d.a(f15896g, this.D);
+                this.K = LoadedFrom.NETWORK;
+                String str = this.C;
+                if (this.G.G() && u() && (file = this.x.o.get(this.C)) != null) {
+                    str = ImageDownloader.Scheme.FILE.wrap(file.getAbsolutePath());
+                }
+                d();
+                bitmap = g(str);
+                if (bitmap != null && bitmap.getWidth() > 0 && bitmap.getHeight() > 0) {
+                    return bitmap;
+                }
+                k(FailReason.FailType.DECODING_ERROR, null);
+                return bitmap;
+            } catch (IOException e4) {
+                e = e4;
+            } catch (IllegalStateException unused2) {
+                bitmap = null;
+            } catch (OutOfMemoryError e5) {
+                e = e5;
+            } catch (Throwable th2) {
+                th = th2;
+            }
+        } catch (TaskCancelledException e6) {
+            throw e6;
+        }
+    }
+
+    private boolean w() {
+        AtomicBoolean j2 = this.u.j();
+        if (j2.get()) {
+            synchronized (this.u.k()) {
+                if (j2.get()) {
+                    b.g.a.b.d.a(f15890a, this.D);
+                    try {
+                        this.u.k().wait();
+                        b.g.a.b.d.a(f15891b, this.D);
+                    } catch (InterruptedException unused) {
+                        b.g.a.b.d.c(q, this.D);
+                        return true;
+                    }
+                }
+            }
+        }
+        return p();
+    }
+
+    String n() {
+        return this.C;
+    }
+
+    @Override // b.g.a.b.c.a
+    public boolean onBytesCopied(int i2, int i3) {
+        return this.J || l(i2, i3);
+    }
+
+    /* JADX WARN: Removed duplicated region for block: B:24:0x00d4 A[Catch: all -> 0x00fd, TaskCancelledException -> 0x00ff, Merged into TryCatch #1 {all -> 0x00fd, TaskCancelledException -> 0x00ff, blocks: (B:13:0x0033, B:15:0x0044, B:18:0x004b, B:20:0x00b5, B:22:0x00bd, B:24:0x00d4, B:25:0x00df, B:29:0x005b, B:33:0x0065, B:35:0x0073, B:37:0x008a, B:39:0x0097, B:41:0x009f, B:42:0x00ff), top: B:12:0x0033 }] */
     @Override // java.lang.Runnable
     /*
         Code decompiled incorrectly, please refer to instructions dump.
@@ -335,121 +416,9 @@ public final class LoadAndDisplayImageTask implements Runnable, c.a {
     */
     public void run() {
         /*
-            Method dump skipped, instructions count: 267
+            Method dump skipped, instructions count: 266
             To view this dump change 'Code comments level' option to 'DEBUG'
         */
         throw new UnsupportedOperationException("Method not decompiled: com.nostra13.universalimageloader.core.LoadAndDisplayImageTask.run():void");
-    }
-
-    public final boolean t() throws TaskCancelledException {
-        hf.d.a(E, this.f16275k);
-        try {
-            boolean h10 = h();
-            if (h10) {
-                ImageLoaderConfiguration imageLoaderConfiguration = this.f16269e;
-                int i10 = imageLoaderConfiguration.f16212d;
-                int i11 = imageLoaderConfiguration.f16213e;
-                if (i10 > 0 || i11 > 0) {
-                    hf.d.a(A, this.f16275k);
-                    r(i10, i11);
-                }
-            }
-            return h10;
-        } catch (IOException e10) {
-            hf.d.d(e10);
-            return false;
-        }
-    }
-
-    public final Bitmap u() throws TaskCancelledException {
-        Bitmap bitmap;
-        File file;
-        Bitmap bitmap2 = null;
-        try {
-            try {
-                File file2 = this.f16269e.f16223o.get(this.f16274j);
-                if (file2 == null || !file2.exists()) {
-                    bitmap = null;
-                } else {
-                    hf.d.a(f16265z, this.f16275k);
-                    this.f16282r = LoadedFrom.DISC_CACHE;
-                    c();
-                    bitmap = f(ImageDownloader.Scheme.FILE.wrap(file2.getAbsolutePath()));
-                }
-                if (bitmap != null) {
-                    try {
-                        if (bitmap.getWidth() > 0 && bitmap.getHeight() > 0) {
-                            return bitmap;
-                        }
-                    } catch (IOException e10) {
-                        e = e10;
-                        bitmap2 = bitmap;
-                        hf.d.d(e);
-                        j(FailReason.FailType.IO_ERROR, e);
-                        return bitmap2;
-                    } catch (IllegalStateException unused) {
-                        j(FailReason.FailType.NETWORK_DENIED, null);
-                        return bitmap;
-                    } catch (OutOfMemoryError e11) {
-                        e = e11;
-                        bitmap2 = bitmap;
-                        hf.d.d(e);
-                        j(FailReason.FailType.OUT_OF_MEMORY, e);
-                        return bitmap2;
-                    } catch (Throwable th2) {
-                        th = th2;
-                        bitmap2 = bitmap;
-                        hf.d.d(th);
-                        j(FailReason.FailType.UNKNOWN, th);
-                        return bitmap2;
-                    }
-                }
-                hf.d.a(f16264y, this.f16275k);
-                this.f16282r = LoadedFrom.NETWORK;
-                String str = this.f16274j;
-                if (this.f16278n.G() && t() && (file = this.f16269e.f16223o.get(this.f16274j)) != null) {
-                    str = ImageDownloader.Scheme.FILE.wrap(file.getAbsolutePath());
-                }
-                c();
-                bitmap = f(str);
-                if (bitmap != null && bitmap.getWidth() > 0 && bitmap.getHeight() > 0) {
-                    return bitmap;
-                }
-                j(FailReason.FailType.DECODING_ERROR, null);
-                return bitmap;
-            } catch (IOException e12) {
-                e = e12;
-            } catch (IllegalStateException unused2) {
-                bitmap = null;
-            } catch (OutOfMemoryError e13) {
-                e = e13;
-            } catch (Throwable th3) {
-                th = th3;
-            }
-        } catch (TaskCancelledException e14) {
-            throw e14;
-        }
-    }
-
-    public final boolean v() {
-        AtomicBoolean j10 = this.f16266b.j();
-        if (j10.get()) {
-            synchronized (this.f16266b.k()) {
-                try {
-                    if (j10.get()) {
-                        hf.d.a(f16258s, this.f16275k);
-                        try {
-                            this.f16266b.k().wait();
-                            hf.d.a(f16259t, this.f16275k);
-                        } catch (InterruptedException unused) {
-                            hf.d.c(I, this.f16275k);
-                            return true;
-                        }
-                    }
-                } finally {
-                }
-            }
-        }
-        return o();
     }
 }

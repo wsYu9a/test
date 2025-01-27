@@ -6,28 +6,24 @@ import android.view.MotionEvent;
 import android.view.ViewConfiguration;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
-/* loaded from: classes3.dex */
+/* loaded from: classes2.dex */
 public class VerticalSwipeRefreshLayout extends SwipeRefreshLayout {
+    private final int h0;
+    private float i0;
 
-    /* renamed from: e */
-    public final int f12393e;
-
-    /* renamed from: f */
-    public float f12394f;
-
-    public VerticalSwipeRefreshLayout(Context context, AttributeSet attributeSet) {
-        super(context, attributeSet);
-        this.f12393e = ViewConfiguration.get(context).getScaledTouchSlop();
+    public VerticalSwipeRefreshLayout(Context context, AttributeSet attrs) {
+        super(context, attrs);
+        this.h0 = ViewConfiguration.get(context).getScaledTouchSlop();
     }
 
     @Override // androidx.swiperefreshlayout.widget.SwipeRefreshLayout, android.view.ViewGroup
-    public boolean onInterceptTouchEvent(MotionEvent motionEvent) {
-        int action = motionEvent.getAction();
+    public boolean onInterceptTouchEvent(MotionEvent event) {
+        int action = event.getAction();
         if (action == 0) {
-            this.f12394f = motionEvent.getX();
-        } else if (action == 2 && Math.abs(motionEvent.getX() - this.f12394f) > this.f12393e + 60) {
+            this.i0 = event.getX();
+        } else if (action == 2 && Math.abs(event.getX() - this.i0) > this.h0 + 60) {
             return false;
         }
-        return super.onInterceptTouchEvent(motionEvent);
+        return super.onInterceptTouchEvent(event);
     }
 }

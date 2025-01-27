@@ -11,7 +11,7 @@ import javax.net.ssl.TrustManager;
 import javax.net.ssl.TrustManagerFactory;
 import javax.net.ssl.X509TrustManager;
 
-/* loaded from: classes3.dex */
+/* loaded from: classes2.dex */
 public class TLSConnectionUtils {
     private static SSLSocketFactory systemDefaultSslSocketFactory(X509TrustManager x509TrustManager) {
         if (x509TrustManager == null) {
@@ -31,11 +31,8 @@ public class TLSConnectionUtils {
             TrustManagerFactory trustManagerFactory = TrustManagerFactory.getInstance(TrustManagerFactory.getDefaultAlgorithm());
             trustManagerFactory.init((KeyStore) null);
             TrustManager[] trustManagers = trustManagerFactory.getTrustManagers();
-            if (trustManagers.length == 1) {
-                TrustManager trustManager = trustManagers[0];
-                if (trustManager instanceof X509TrustManager) {
-                    return (X509TrustManager) trustManager;
-                }
+            if (trustManagers.length == 1 && (trustManagers[0] instanceof X509TrustManager)) {
+                return (X509TrustManager) trustManagers[0];
             }
             throw new IllegalStateException("Unexpected default trust managers:" + Arrays.toString(trustManagers));
         } catch (GeneralSecurityException unused) {

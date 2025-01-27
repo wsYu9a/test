@@ -2,7 +2,7 @@ package com.bytedance.sdk.openadsdk.live;
 
 import java.io.Serializable;
 
-/* loaded from: classes2.dex */
+/* loaded from: classes.dex */
 public class TTLiveToken implements Serializable {
     public String accessToken;
     public long expireAt;
@@ -10,11 +10,13 @@ public class TTLiveToken implements Serializable {
     public String openId;
     public String refreshToken;
 
-    public TTLiveToken(String str, String str2, String str3, long j10, String str4) {
+    public TTLiveToken(String str, String str2, String str3, long j2, String str4) {
+        this.expireAt = 0L;
+        this.refreshToken = "";
         this.name = str;
         this.accessToken = str2;
         this.openId = str3;
-        this.expireAt = j10;
+        this.expireAt = j2;
         this.refreshToken = str4;
     }
 

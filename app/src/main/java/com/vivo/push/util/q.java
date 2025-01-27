@@ -61,8 +61,8 @@ public final class q {
     public static InsideNotificationItem a(String str) {
         InsideNotificationItem insideNotificationItem = new InsideNotificationItem();
         try {
-        } catch (JSONException e10) {
-            p.a("MessageConvertUtil", "notify msg pack to obj error", e10);
+        } catch (JSONException e2) {
+            p.a("MessageConvertUtil", "notify msg pack to obj error", e2);
         }
         if (TextUtils.isEmpty(str)) {
             p.a("MessageConvertUtil", "notify msg pack to obj is null");

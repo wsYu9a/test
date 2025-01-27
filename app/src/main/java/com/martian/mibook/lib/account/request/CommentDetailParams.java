@@ -1,6 +1,6 @@
 package com.martian.mibook.lib.account.request;
 
-import v8.a;
+import com.martian.libcomm.http.requests.d.a;
 
 /* loaded from: classes3.dex */
 public class CommentDetailParams extends TYBookHttpGetParams {
@@ -22,7 +22,7 @@ public class CommentDetailParams extends TYBookHttpGetParams {
         return this.cid;
     }
 
-    @Override // u8.b
+    @Override // com.martian.libcomm.http.requests.b
     public String getRequestMethod() {
         return "comment.html";
     }
@@ -31,15 +31,15 @@ public class CommentDetailParams extends TYBookHttpGetParams {
         return this.open_keyboard;
     }
 
-    public void setChapterName(String str) {
-        this.chapterName = str;
+    public void setChapterName(String chapterName) {
+        this.chapterName = chapterName;
     }
 
-    public void setCid(Integer num) {
-        this.cid = num;
+    public void setCid(Integer cid) {
+        this.cid = cid;
     }
 
-    public void setOpen_keyboard(boolean z10) {
-        this.open_keyboard = z10;
+    public void setOpen_keyboard(boolean open_keyboard) {
+        this.open_keyboard = open_keyboard;
     }
 }

@@ -12,9 +12,10 @@ import android.view.ViewGroup;
 import android.view.Window;
 import android.view.WindowManager;
 import androidx.annotation.FloatRange;
-import com.gyf.immersionbar.b;
+import com.cdo.oaps.ad.wrapper.BaseWrapper;
 import com.ss.android.socialbase.downloader.constants.MonitorConstants;
 import java.lang.reflect.Field;
+import java.lang.reflect.Method;
 import java.util.regex.Pattern;
 
 /* loaded from: classes3.dex */
@@ -23,17 +24,17 @@ public class StatusBarUtil {
     public static int DEFAULT_COLOR = 0;
     public static final int MIN_API = 19;
 
-    public static void darkMode(Activity activity, boolean z10) {
+    public static void darkMode(Activity activity, boolean dark) {
         if (isFlyme4Later()) {
-            darkModeForFlyme4(activity.getWindow(), z10);
+            darkModeForFlyme4(activity.getWindow(), dark);
         } else if (isMIUI6Later()) {
-            darkModeForMIUI6(activity.getWindow(), z10);
+            darkModeForMIUI6(activity.getWindow(), dark);
         } else if (Build.VERSION.SDK_INT >= 23) {
-            darkModeForM(activity.getWindow(), z10);
+            darkModeForM(activity.getWindow(), dark);
         }
     }
 
-    public static boolean darkModeForFlyme4(Window window, boolean z10) {
+    public static boolean darkModeForFlyme4(Window window, boolean dark) {
         if (window != null) {
             try {
                 WindowManager.LayoutParams attributes = window.getAttributes();
@@ -41,9 +42,9 @@ public class StatusBarUtil {
                 Field declaredField2 = WindowManager.LayoutParams.class.getDeclaredField("meizuFlags");
                 declaredField.setAccessible(true);
                 declaredField2.setAccessible(true);
-                int i10 = declaredField.getInt(null);
-                int i11 = declaredField2.getInt(attributes);
-                declaredField2.setInt(attributes, z10 ? i11 | i10 : (~i10) & i11);
+                int i2 = declaredField.getInt(null);
+                int i3 = declaredField2.getInt(attributes);
+                declaredField2.setInt(attributes, dark ? i3 | i2 : (i2 ^ (-1)) & i3);
                 window.setAttributes(attributes);
                 return true;
             } catch (Exception unused) {
@@ -53,27 +54,31 @@ public class StatusBarUtil {
         return false;
     }
 
-    private static void darkModeForM(Window window, boolean z10) {
+    private static void darkModeForM(Window window, boolean dark) {
         int systemUiVisibility = window.getDecorView().getSystemUiVisibility();
-        window.getDecorView().setSystemUiVisibility(z10 ? systemUiVisibility | 8192 : systemUiVisibility & (-8193));
+        window.getDecorView().setSystemUiVisibility(dark ? systemUiVisibility | 8192 : systemUiVisibility & (-8193));
     }
 
-    public static boolean darkModeForMIUI6(Window window, boolean z10) {
+    public static boolean darkModeForMIUI6(Window window, boolean darkmode) {
         Class<?> cls = window.getClass();
         try {
             Class<?> cls2 = Class.forName("android.view.MiuiWindowManager$LayoutParams");
-            int i10 = cls2.getField(b.f10652q).getInt(cls2);
+            int i2 = cls2.getField("EXTRA_FLAG_STATUS_BAR_DARK_MODE").getInt(cls2);
             Class<?> cls3 = Integer.TYPE;
-            cls.getMethod("setExtraFlags", cls3, cls3).invoke(window, Integer.valueOf(z10 ? i10 : 0), Integer.valueOf(i10));
+            Method method = cls.getMethod("setExtraFlags", cls3, cls3);
+            Object[] objArr = new Object[2];
+            objArr[0] = Integer.valueOf(darkmode ? i2 : 0);
+            objArr[1] = Integer.valueOf(i2);
+            method.invoke(window, objArr);
             return true;
-        } catch (Exception e10) {
-            e10.printStackTrace();
+        } catch (Exception e2) {
+            e2.printStackTrace();
             return false;
         }
     }
 
     public static int getStatusBarHeight(Context context) {
-        int identifier = context.getResources().getIdentifier(b.f10638c, "dimen", "android");
+        int identifier = context.getResources().getIdentifier("status_bar_height", "dimen", BaseWrapper.BASE_PKG_SYSTEM);
         return identifier > 0 ? context.getResources().getDimensionPixelSize(identifier) : (int) TypedValue.applyDimension(1, 24, Resources.getSystem().getDisplayMetrics());
     }
 
@@ -97,93 +102,119 @@ public class StatusBarUtil {
         }
     }
 
-    public static int mixtureColor(int i10, @FloatRange(from = 0.0d, to = 1.0d) float f10) {
-        return (i10 & 16777215) | (((int) ((((-16777216) & i10) == 0 ? 255 : i10 >>> 24) * f10)) << 24);
+    public static int mixtureColor(int color, @FloatRange(from = 0.0d, to = 1.0d) float alpha) {
+        return (color & 16777215) | (((int) ((((-16777216) & color) == 0 ? 255 : color >>> 24) * alpha)) << 24);
     }
 
     public static void setHeightAndPadding(Context context, View view) {
-        view.getLayoutParams().height += getStatusBarHeight(context);
-        view.setPadding(view.getPaddingLeft(), view.getPaddingTop() + getStatusBarHeight(context), view.getPaddingRight(), view.getPaddingBottom());
+        if (Build.VERSION.SDK_INT >= 19) {
+            view.getLayoutParams().height += getStatusBarHeight(context);
+            view.setPadding(view.getPaddingLeft(), view.getPaddingTop() + getStatusBarHeight(context), view.getPaddingRight(), view.getPaddingBottom());
+        }
     }
 
     public static void setMargin(Context context, View view) {
-        ViewGroup.LayoutParams layoutParams = view.getLayoutParams();
-        if (layoutParams instanceof ViewGroup.MarginLayoutParams) {
-            ((ViewGroup.MarginLayoutParams) layoutParams).topMargin += getStatusBarHeight(context);
+        if (Build.VERSION.SDK_INT >= 19) {
+            ViewGroup.LayoutParams layoutParams = view.getLayoutParams();
+            if (layoutParams instanceof ViewGroup.MarginLayoutParams) {
+                ((ViewGroup.MarginLayoutParams) layoutParams).topMargin += getStatusBarHeight(context);
+            }
+            view.setLayoutParams(layoutParams);
         }
-        view.setLayoutParams(layoutParams);
     }
 
     public static void setPadding(Context context, View view) {
-        view.setPadding(view.getPaddingLeft(), view.getPaddingTop() + getStatusBarHeight(context), view.getPaddingRight(), view.getPaddingBottom());
+        if (Build.VERSION.SDK_INT >= 19) {
+            view.setPadding(view.getPaddingLeft(), view.getPaddingTop() + getStatusBarHeight(context), view.getPaddingRight(), view.getPaddingBottom());
+        }
     }
 
     public static void setPaddingSmart(Context context, View view) {
-        int i10;
-        ViewGroup.LayoutParams layoutParams = view.getLayoutParams();
-        if (layoutParams != null && (i10 = layoutParams.height) > 0) {
-            layoutParams.height = i10 + getStatusBarHeight(context);
-        }
-        view.setPadding(view.getPaddingLeft(), view.getPaddingTop() + getStatusBarHeight(context), view.getPaddingRight(), view.getPaddingBottom());
-    }
-
-    public static void setTranslucentView(ViewGroup viewGroup, int i10, @FloatRange(from = 0.0d, to = 1.0d) float f10) {
-        int mixtureColor = mixtureColor(i10, f10);
-        View findViewById = viewGroup.findViewById(R.id.custom);
-        if (findViewById == null && mixtureColor != 0) {
-            findViewById = new View(viewGroup.getContext());
-            findViewById.setId(R.id.custom);
-            viewGroup.addView(findViewById, new ViewGroup.LayoutParams(-1, getStatusBarHeight(viewGroup.getContext())));
-        }
-        if (findViewById != null) {
-            findViewById.setBackgroundColor(mixtureColor);
+        int i2;
+        if (Build.VERSION.SDK_INT >= 19) {
+            ViewGroup.LayoutParams layoutParams = view.getLayoutParams();
+            if (layoutParams != null && (i2 = layoutParams.height) > 0) {
+                layoutParams.height = i2 + getStatusBarHeight(context);
+            }
+            view.setPadding(view.getPaddingLeft(), view.getPaddingTop() + getStatusBarHeight(context), view.getPaddingRight(), view.getPaddingBottom());
         }
     }
 
-    public static void immersive(Activity activity, int i10, @FloatRange(from = 0.0d, to = 1.0d) float f10) {
-        immersive(activity.getWindow(), i10, f10);
+    public static void setTranslucentView(ViewGroup container, int color, @FloatRange(from = 0.0d, to = 1.0d) float alpha) {
+        if (Build.VERSION.SDK_INT >= 19) {
+            int mixtureColor = mixtureColor(color, alpha);
+            View findViewById = container.findViewById(R.id.custom);
+            if (findViewById == null && mixtureColor != 0) {
+                findViewById = new View(container.getContext());
+                findViewById.setId(R.id.custom);
+                container.addView(findViewById, new ViewGroup.LayoutParams(-1, getStatusBarHeight(container.getContext())));
+            }
+            if (findViewById != null) {
+                findViewById.setBackgroundColor(mixtureColor);
+            }
+        }
     }
 
-    public static void immersive(Activity activity, int i10) {
-        immersive(activity.getWindow(), i10, 1.0f);
+    public static void immersive(Activity activity, int color, @FloatRange(from = 0.0d, to = 1.0d) float alpha) {
+        immersive(activity.getWindow(), color, alpha);
+    }
+
+    public static void immersive(Activity activity, int color) {
+        immersive(activity.getWindow(), color, 1.0f);
     }
 
     public static void immersive(Window window) {
         immersive(window, DEFAULT_COLOR, DEFAULT_ALPHA);
     }
 
-    public static void immersive(Window window, int i10) {
-        immersive(window, i10, 1.0f);
+    public static void immersive(Window window, int color) {
+        immersive(window, color, 1.0f);
     }
 
-    public static void immersive(Window window, int i10, @FloatRange(from = 0.0d, to = 1.0d) float f10) {
+    public static void immersive(Window window, int color, @FloatRange(from = 0.0d, to = 1.0d) float alpha) {
+        int i2 = Build.VERSION.SDK_INT;
+        if (i2 < 21) {
+            if (i2 >= 19) {
+                window.addFlags(67108864);
+                setTranslucentView((ViewGroup) window.getDecorView(), color, alpha);
+                return;
+            }
+            return;
+        }
         window.clearFlags(67108864);
         window.addFlags(Integer.MIN_VALUE);
-        window.setStatusBarColor(mixtureColor(i10, f10));
-        window.getDecorView().setSystemUiVisibility(window.getDecorView().getSystemUiVisibility() | 1280);
+        window.setStatusBarColor(mixtureColor(color, alpha));
+        window.getDecorView().setSystemUiVisibility(window.getDecorView().getSystemUiVisibility() | 1024 | 256);
     }
 
     public static void darkMode(Activity activity) {
         darkMode(activity.getWindow(), DEFAULT_COLOR, DEFAULT_ALPHA);
     }
 
-    public static void darkMode(Activity activity, int i10, @FloatRange(from = 0.0d, to = 1.0d) float f10) {
-        darkMode(activity.getWindow(), i10, f10);
+    public static void darkMode(Activity activity, int color, @FloatRange(from = 0.0d, to = 1.0d) float alpha) {
+        darkMode(activity.getWindow(), color, alpha);
     }
 
-    public static void darkMode(Window window, int i10, @FloatRange(from = 0.0d, to = 1.0d) float f10) {
+    public static void darkMode(Window window, int color, @FloatRange(from = 0.0d, to = 1.0d) float alpha) {
         if (isFlyme4Later()) {
             darkModeForFlyme4(window, true);
-            immersive(window, i10, f10);
-        } else if (isMIUI6Later()) {
+            immersive(window, color, alpha);
+            return;
+        }
+        if (isMIUI6Later()) {
             darkModeForMIUI6(window, true);
-            immersive(window, i10, f10);
-        } else if (Build.VERSION.SDK_INT >= 23) {
+            immersive(window, color, alpha);
+            return;
+        }
+        int i2 = Build.VERSION.SDK_INT;
+        if (i2 >= 23) {
             darkModeForM(window, true);
-            immersive(window, i10, f10);
-        } else {
+            immersive(window, color, alpha);
+        } else if (i2 >= 19) {
             window.addFlags(67108864);
-            setTranslucentView((ViewGroup) window.getDecorView(), i10, f10);
+            setTranslucentView((ViewGroup) window.getDecorView(), color, alpha);
+        } else {
+            immersive(window, color, alpha);
         }
     }
 }

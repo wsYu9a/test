@@ -1,225 +1,125 @@
 package com.kwad.sdk.crash.report;
 
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import com.kwad.sdk.crash.model.message.ExceptionMessage;
-import com.kwad.sdk.crash.model.message.MemoryInfo;
-import com.kwad.sdk.crash.model.message.ThreadInfo;
-import com.kwad.sdk.utils.u;
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileFilter;
-import java.io.FileReader;
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Iterator;
-import java.util.concurrent.CountDownLatch;
-
-/* loaded from: classes3.dex */
+/* loaded from: classes2.dex */
 public final class f extends d {
-
-    /* renamed from: com.kwad.sdk.crash.report.f$1 */
-    public class AnonymousClass1 implements FileFilter {
-        public AnonymousClass1() {
-        }
-
-        @Override // java.io.FileFilter
-        public final boolean accept(File file) {
-            return file.getName().endsWith(".dump");
-        }
-    }
-
-    /* JADX WARN: Multi-variable type inference failed */
-    private static void b(File file, ExceptionMessage exceptionMessage) {
-        String readLine;
-        String str;
-        try {
-            MemoryInfo memoryInfo = new MemoryInfo(exceptionMessage.mMemoryInfo);
-            ArrayList arrayList = new ArrayList();
-            BufferedReader bufferedReader = null;
-            BufferedReader bufferedReader2 = null;
-            try {
-                try {
-                    BufferedReader bufferedReader3 = new BufferedReader(new FileReader(file));
-                    try {
-                        ThreadInfo threadInfo = new ThreadInfo();
-                        while (true) {
-                            readLine = bufferedReader3.readLine();
-                            if (readLine == 0) {
-                                break;
-                            }
-                            if (readLine.isEmpty()) {
-                                arrayList.add(threadInfo);
-                                threadInfo = new ThreadInfo();
-                            } else {
-                                if (!readLine.startsWith("at ") && !readLine.startsWith("(no ")) {
-                                    threadInfo.mName = readLine;
-                                }
-                                if (threadInfo.mTrace == null) {
-                                    str = readLine;
-                                } else {
-                                    str = threadInfo.mTrace + readLine;
-                                }
-                                threadInfo.mTrace = str;
-                                threadInfo.mTrace += "#";
-                            }
-                        }
-                        memoryInfo.mJavaThreads = arrayList;
-                        exceptionMessage.mMemoryInfo = memoryInfo.toJson().toString();
-                        com.kwad.sdk.crash.utils.b.closeQuietly(bufferedReader3);
-                        bufferedReader = readLine;
-                    } catch (IOException e10) {
-                        e = e10;
-                        bufferedReader2 = bufferedReader3;
-                        com.kwad.sdk.core.d.c.printStackTraceOnly(e);
-                        com.kwad.sdk.crash.utils.b.closeQuietly(bufferedReader2);
-                        bufferedReader = bufferedReader2;
-                    } catch (Throwable th2) {
-                        th = th2;
-                        bufferedReader = bufferedReader3;
-                        com.kwad.sdk.crash.utils.b.closeQuietly(bufferedReader);
-                        throw th;
-                    }
-                } catch (IOException e11) {
-                    e = e11;
-                }
-            } catch (Throwable th3) {
-                th = th3;
-            }
-        } catch (Exception e12) {
-            com.kwad.sdk.core.d.c.printStackTraceOnly(e12);
-        }
-    }
-
+    /* JADX WARN: Removed duplicated region for block: B:13:0x00d8  */
+    /* JADX WARN: Removed duplicated region for block: B:6:0x004f  */
     @Override // com.kwad.sdk.crash.report.d
-    public final void D(File file) {
-        com.kwad.sdk.core.d.c.d("AnrAndNativeAdExceptionCollector", "reportException dir =" + file);
-        File[] listFiles = file.listFiles(new FileFilter() { // from class: com.kwad.sdk.crash.report.f.1
-            public AnonymousClass1() {
-            }
-
-            @Override // java.io.FileFilter
-            public final boolean accept(File file2) {
-                return file2.getName().endsWith(".dump");
-            }
-        });
-        if (listFiles != null) {
-            for (File file2 : listFiles) {
-                a(file2, (CountDownLatch) null);
-            }
-        }
-    }
-
-    @Override // com.kwad.sdk.crash.report.d
-    public final ExceptionMessage a(@NonNull File file, File file2, File file3, File file4, File file5) {
-        return null;
-    }
-
-    /* JADX WARN: Removed duplicated region for block: B:13:0x00e7  */
-    /* JADX WARN: Removed duplicated region for block: B:6:0x0050  */
     /*
         Code decompiled incorrectly, please refer to instructions dump.
         To view partially-correct code enable 'Show inconsistent code' option in preferences
     */
-    private com.kwad.sdk.crash.model.message.ExceptionMessage a(@androidx.annotation.NonNull java.io.File r8, java.io.File r9, java.lang.String r10) {
+    protected final com.kwad.sdk.crash.model.message.ExceptionMessage a(@androidx.annotation.NonNull java.io.File r7, java.io.File r8, java.io.File r9, java.lang.String r10) {
         /*
-            Method dump skipped, instructions count: 253
-            To view this dump change 'Code comments level' option to 'DEBUG'
+            r6 = this;
+            java.lang.String r8 = "\n"
+            r0 = 0
+            java.lang.String r1 = com.kwad.sdk.utils.q.Q(r7)     // Catch: java.lang.Exception -> L8
+            goto L20
+        L8:
+            r1 = move-exception
+            java.lang.StringBuilder r2 = new java.lang.StringBuilder
+            r2.<init>()
+            java.lang.String r3 = r6.mErrorMessage
+            r2.append(r3)
+            r2.append(r1)
+            r2.append(r8)
+            java.lang.String r1 = r2.toString()
+            r6.mErrorMessage = r1
+            r1 = r0
+        L20:
+            if (r1 == 0) goto L4d
+            com.kwad.sdk.crash.model.message.JavaExceptionMessage r2 = new com.kwad.sdk.crash.model.message.JavaExceptionMessage     // Catch: java.lang.Exception -> L32
+            r2.<init>()     // Catch: java.lang.Exception -> L32
+            org.json.JSONObject r0 = new org.json.JSONObject     // Catch: java.lang.Exception -> L30
+            r0.<init>(r1)     // Catch: java.lang.Exception -> L30
+            r2.parseJson(r0)     // Catch: java.lang.Exception -> L30
+            goto L4c
+        L30:
+            r0 = move-exception
+            goto L36
+        L32:
+            r2 = move-exception
+            r5 = r2
+            r2 = r0
+            r0 = r5
+        L36:
+            java.lang.StringBuilder r3 = new java.lang.StringBuilder
+            r3.<init>()
+            java.lang.String r4 = r6.mErrorMessage
+            r3.append(r4)
+            r3.append(r0)
+            r3.append(r8)
+            java.lang.String r0 = r3.toString()
+            r6.mErrorMessage = r0
+        L4c:
+            r0 = r2
+        L4d:
+            if (r0 != 0) goto L5c
+            com.kwad.sdk.crash.model.message.JavaExceptionMessage r0 = new com.kwad.sdk.crash.model.message.JavaExceptionMessage
+            r0.<init>()
+            boolean r2 = android.text.TextUtils.isEmpty(r1)
+            if (r2 != 0) goto L5c
+            r0.mCrashDetail = r1
+        L5c:
+            java.lang.String r1 = r7.getName()     // Catch: java.lang.Throwable -> Lb6
+            java.lang.String r1 = com.kwad.sdk.crash.utils.g.dW(r1)     // Catch: java.lang.Throwable -> Lb6
+            r0.mLogUUID = r1     // Catch: java.lang.Throwable -> Lb6
+            java.lang.StringBuilder r1 = new java.lang.StringBuilder     // Catch: java.lang.Throwable -> Lb6
+            java.lang.String r2 = "------ Java Crash Report Begin ------\n"
+            r1.<init>(r2)     // Catch: java.lang.Throwable -> Lb6
+            r1.append(r0)     // Catch: java.lang.Throwable -> Lb6
+            java.io.File r1 = new java.io.File     // Catch: java.lang.Throwable -> Lb6
+            java.lang.StringBuilder r2 = new java.lang.StringBuilder     // Catch: java.lang.Throwable -> Lb6
+            r2.<init>()     // Catch: java.lang.Throwable -> Lb6
+            r2.append(r10)     // Catch: java.lang.Throwable -> Lb6
+            java.lang.String r3 = ".jtrace"
+            r2.append(r3)     // Catch: java.lang.Throwable -> Lb6
+            java.lang.String r2 = r2.toString()     // Catch: java.lang.Throwable -> Lb6
+            r1.<init>(r2)     // Catch: java.lang.Throwable -> Lb6
+            com.kwad.sdk.crash.report.d.a(r1, r0)     // Catch: java.lang.Throwable -> Lb6
+            r6.b(r9, r0)     // Catch: java.lang.Throwable -> Lb6
+            java.lang.String r1 = r0.toString()     // Catch: java.lang.Throwable -> Lb6
+            com.kwad.sdk.crash.utils.g.a(r7, r1)     // Catch: java.lang.Throwable -> Lb6
+            com.kwad.sdk.crash.utils.g.b(r9, r7)     // Catch: java.lang.Throwable -> Lb6
+            r7.renameTo(r9)     // Catch: java.lang.Throwable -> Lb6
+            java.io.File r7 = new java.io.File     // Catch: java.lang.Throwable -> Lb6
+            java.lang.StringBuilder r9 = new java.lang.StringBuilder     // Catch: java.lang.Throwable -> Lb6
+            r9.<init>()     // Catch: java.lang.Throwable -> Lb6
+            r9.append(r10)     // Catch: java.lang.Throwable -> Lb6
+            java.lang.String r10 = ".minfo"
+            r9.append(r10)     // Catch: java.lang.Throwable -> Lb6
+            java.lang.String r9 = r9.toString()     // Catch: java.lang.Throwable -> Lb6
+            r7.<init>(r9)     // Catch: java.lang.Throwable -> Lb6
+            java.lang.String r7 = com.kwad.sdk.utils.q.Q(r7)     // Catch: java.lang.Throwable -> Lb6
+            r0.mDumpsys = r7     // Catch: java.lang.Throwable -> Lb6
+            goto Ld0
+        Lb6:
+            r7 = move-exception
+            java.lang.StringBuilder r9 = new java.lang.StringBuilder
+            r9.<init>()
+            java.lang.String r10 = r6.mErrorMessage
+            r9.append(r10)
+            r9.append(r7)
+            r9.append(r8)
+            java.lang.String r8 = r9.toString()
+            r6.mErrorMessage = r8
+            com.kwad.sdk.core.d.b.printStackTraceOnly(r7)
+        Ld0:
+            java.lang.String r7 = r6.mErrorMessage
+            boolean r7 = android.text.TextUtils.isEmpty(r7)
+            if (r7 != 0) goto Led
+            java.lang.StringBuilder r7 = new java.lang.StringBuilder
+            r7.<init>()
+            java.lang.String r8 = r0.mErrorMessage
+            r7.append(r8)
+            java.lang.String r8 = r6.mErrorMessage
+            r7.append(r8)
+            java.lang.String r7 = r7.toString()
+            r0.mErrorMessage = r7
+        Led:
+            return r0
         */
-        throw new UnsupportedOperationException("Method not decompiled: com.kwad.sdk.crash.report.f.a(java.io.File, java.io.File, java.lang.String):com.kwad.sdk.crash.model.message.ExceptionMessage");
-    }
-
-    @Override // com.kwad.sdk.crash.report.d
-    public final void a(File file, @Nullable CountDownLatch countDownLatch) {
-        String fX = com.kwad.sdk.crash.utils.g.fX(file.getPath());
-        File file2 = new File(fX + ".msg");
-        File file3 = new File(fX + ".log");
-        File file4 = new File(fX + ".blog");
-        File file5 = new File(fX + ".jtrace");
-        File file6 = new File(fX + ".minfo");
-        ArrayList arrayList = new ArrayList();
-        try {
-            ExceptionMessage a10 = a(file, file3, fX);
-            if (a10 == null) {
-                try {
-                    return;
-                } catch (Throwable th2) {
-                    return;
-                }
-            }
-            com.kwad.sdk.core.d.c.d("ExceptionJavaCrashReporter", "message.mCrashSource=" + a10.mCrashSource);
-            if (a10.mCrashSource == 2) {
-                try {
-                    u.delete(file.getPath());
-                    u.delete(file3.getPath());
-                    u.delete(file4.getPath());
-                    u.delete(file2.getPath());
-                    u.delete(file5.getPath());
-                    u.delete(file6.getPath());
-                    Iterator it = arrayList.iterator();
-                    while (it.hasNext()) {
-                        u.delete(((File) it.next()).getPath());
-                    }
-                    com.kwad.sdk.crash.utils.g.G(com.kwad.sdk.crash.handler.b.sBackupDir);
-                    return;
-                } catch (Throwable th3) {
-                    com.kwad.sdk.core.d.c.printStackTraceOnly(th3);
-                    return;
-                }
-            }
-            this.mUploader.a(a10, countDownLatch);
-            com.kwad.sdk.core.d.c.d("ExceptionJavaCrashReporter", " java crash 不上传文件");
-            try {
-                u.delete(file.getPath());
-                u.delete(file3.getPath());
-                u.delete(file4.getPath());
-                u.delete(file2.getPath());
-                u.delete(file5.getPath());
-                u.delete(file6.getPath());
-                Iterator it2 = arrayList.iterator();
-                while (it2.hasNext()) {
-                    u.delete(((File) it2.next()).getPath());
-                }
-                com.kwad.sdk.crash.utils.g.G(com.kwad.sdk.crash.handler.b.sBackupDir);
-            } catch (Throwable th4) {
-                com.kwad.sdk.core.d.c.printStackTraceOnly(th4);
-            }
-        } catch (Throwable th5) {
-            try {
-                com.kwad.sdk.core.d.c.printStackTraceOnly(th5);
-                com.kwad.sdk.crash.utils.g.r(th5);
-                try {
-                    u.delete(file.getPath());
-                    u.delete(file3.getPath());
-                    u.delete(file4.getPath());
-                    u.delete(file2.getPath());
-                    u.delete(file5.getPath());
-                    u.delete(file6.getPath());
-                    Iterator it3 = arrayList.iterator();
-                    while (it3.hasNext()) {
-                        u.delete(((File) it3.next()).getPath());
-                    }
-                    com.kwad.sdk.crash.utils.g.G(com.kwad.sdk.crash.handler.b.sBackupDir);
-                } catch (Throwable th6) {
-                    com.kwad.sdk.core.d.c.printStackTraceOnly(th6);
-                }
-            } finally {
-                try {
-                    u.delete(file.getPath());
-                    u.delete(file3.getPath());
-                    u.delete(file4.getPath());
-                    u.delete(file2.getPath());
-                    u.delete(file5.getPath());
-                    u.delete(file6.getPath());
-                    Iterator it4 = arrayList.iterator();
-                    while (it4.hasNext()) {
-                        u.delete(((File) it4.next()).getPath());
-                    }
-                    com.kwad.sdk.crash.utils.g.G(com.kwad.sdk.crash.handler.b.sBackupDir);
-                } catch (Throwable th22) {
-                    com.kwad.sdk.core.d.c.printStackTraceOnly(th22);
-                }
-            }
-        }
+        throw new UnsupportedOperationException("Method not decompiled: com.kwad.sdk.crash.report.f.a(java.io.File, java.io.File, java.io.File, java.lang.String):com.kwad.sdk.crash.model.message.ExceptionMessage");
     }
 }

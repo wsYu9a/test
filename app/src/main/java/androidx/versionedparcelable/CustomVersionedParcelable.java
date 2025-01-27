@@ -10,6 +10,6 @@ public abstract class CustomVersionedParcelable implements VersionedParcelable {
     }
 
     @RestrictTo({RestrictTo.Scope.LIBRARY_GROUP_PREFIX})
-    public void onPreParceling(boolean z10) {
+    public void onPreParceling(boolean z) {
     }
 }

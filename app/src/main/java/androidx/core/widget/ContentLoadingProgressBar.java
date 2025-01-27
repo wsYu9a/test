@@ -5,126 +5,107 @@ import android.util.AttributeSet;
 import android.widget.ProgressBar;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.annotation.UiThread;
-import androidx.core.widget.ContentLoadingProgressBar;
 
 /* loaded from: classes.dex */
 public class ContentLoadingProgressBar extends ProgressBar {
-    private static final int MIN_DELAY_MS = 500;
-    private static final int MIN_SHOW_TIME_MS = 500;
-    private final Runnable mDelayedHide;
-    private final Runnable mDelayedShow;
-    boolean mDismissed;
-    boolean mPostedHide;
-    boolean mPostedShow;
-    long mStartTime;
+
+    /* renamed from: a, reason: collision with root package name */
+    private static final int f2188a = 500;
+
+    /* renamed from: b, reason: collision with root package name */
+    private static final int f2189b = 500;
+
+    /* renamed from: c, reason: collision with root package name */
+    long f2190c;
+
+    /* renamed from: d, reason: collision with root package name */
+    boolean f2191d;
+
+    /* renamed from: e, reason: collision with root package name */
+    boolean f2192e;
+
+    /* renamed from: f, reason: collision with root package name */
+    boolean f2193f;
+
+    /* renamed from: g, reason: collision with root package name */
+    private final Runnable f2194g;
+
+    /* renamed from: h, reason: collision with root package name */
+    private final Runnable f2195h;
 
     public ContentLoadingProgressBar(@NonNull Context context) {
         this(context, null);
     }
 
-    /* JADX INFO: Access modifiers changed from: private */
-    @UiThread
-    public void hideOnUiThread() {
-        this.mDismissed = true;
-        removeCallbacks(this.mDelayedShow);
-        this.mPostedShow = false;
+    private void a() {
+        removeCallbacks(this.f2194g);
+        removeCallbacks(this.f2195h);
+    }
+
+    public synchronized void hide() {
+        this.f2193f = true;
+        removeCallbacks(this.f2195h);
+        this.f2192e = false;
         long currentTimeMillis = System.currentTimeMillis();
-        long j10 = this.mStartTime;
-        long j11 = currentTimeMillis - j10;
-        if (j11 >= 500 || j10 == -1) {
-            setVisibility(8);
-        } else {
-            if (this.mPostedHide) {
-                return;
+        long j2 = this.f2190c;
+        long j3 = currentTimeMillis - j2;
+        if (j3 < 500 && j2 != -1) {
+            if (!this.f2191d) {
+                postDelayed(this.f2194g, 500 - j3);
+                this.f2191d = true;
             }
-            postDelayed(this.mDelayedHide, 500 - j11);
-            this.mPostedHide = true;
         }
-    }
-
-    /* JADX INFO: Access modifiers changed from: private */
-    public /* synthetic */ void lambda$new$0() {
-        this.mPostedHide = false;
-        this.mStartTime = -1L;
         setVisibility(8);
-    }
-
-    /* JADX INFO: Access modifiers changed from: private */
-    public /* synthetic */ void lambda$new$1() {
-        this.mPostedShow = false;
-        if (this.mDismissed) {
-            return;
-        }
-        this.mStartTime = System.currentTimeMillis();
-        setVisibility(0);
-    }
-
-    private void removeCallbacks() {
-        removeCallbacks(this.mDelayedHide);
-        removeCallbacks(this.mDelayedShow);
-    }
-
-    /* JADX INFO: Access modifiers changed from: private */
-    @UiThread
-    public void showOnUiThread() {
-        this.mStartTime = -1L;
-        this.mDismissed = false;
-        removeCallbacks(this.mDelayedHide);
-        this.mPostedHide = false;
-        if (this.mPostedShow) {
-            return;
-        }
-        postDelayed(this.mDelayedShow, 500L);
-        this.mPostedShow = true;
-    }
-
-    public void hide() {
-        post(new Runnable() { // from class: e0.d
-            @Override // java.lang.Runnable
-            public final void run() {
-                ContentLoadingProgressBar.this.hideOnUiThread();
-            }
-        });
     }
 
     @Override // android.widget.ProgressBar, android.view.View
     public void onAttachedToWindow() {
         super.onAttachedToWindow();
-        removeCallbacks();
+        a();
     }
 
     @Override // android.widget.ProgressBar, android.view.View
     public void onDetachedFromWindow() {
         super.onDetachedFromWindow();
-        removeCallbacks();
+        a();
     }
 
-    public void show() {
-        post(new Runnable() { // from class: e0.c
-            @Override // java.lang.Runnable
-            public final void run() {
-                ContentLoadingProgressBar.this.showOnUiThread();
-            }
-        });
+    public synchronized void show() {
+        this.f2190c = -1L;
+        this.f2193f = false;
+        removeCallbacks(this.f2194g);
+        this.f2191d = false;
+        if (!this.f2192e) {
+            postDelayed(this.f2195h, 500L);
+            this.f2192e = true;
+        }
     }
 
     public ContentLoadingProgressBar(@NonNull Context context, @Nullable AttributeSet attributeSet) {
         super(context, attributeSet, 0);
-        this.mStartTime = -1L;
-        this.mPostedHide = false;
-        this.mPostedShow = false;
-        this.mDismissed = false;
-        this.mDelayedHide = new Runnable() { // from class: e0.a
+        this.f2190c = -1L;
+        this.f2191d = false;
+        this.f2192e = false;
+        this.f2193f = false;
+        this.f2194g = new Runnable() { // from class: androidx.core.widget.ContentLoadingProgressBar.1
             @Override // java.lang.Runnable
-            public final void run() {
-                ContentLoadingProgressBar.this.lambda$new$0();
+            public void run() {
+                ContentLoadingProgressBar contentLoadingProgressBar = ContentLoadingProgressBar.this;
+                contentLoadingProgressBar.f2191d = false;
+                contentLoadingProgressBar.f2190c = -1L;
+                contentLoadingProgressBar.setVisibility(8);
             }
         };
-        this.mDelayedShow = new Runnable() { // from class: e0.b
+        this.f2195h = new Runnable() { // from class: androidx.core.widget.ContentLoadingProgressBar.2
             @Override // java.lang.Runnable
-            public final void run() {
-                ContentLoadingProgressBar.this.lambda$new$1();
+            public void run() {
+                ContentLoadingProgressBar contentLoadingProgressBar = ContentLoadingProgressBar.this;
+                contentLoadingProgressBar.f2192e = false;
+                if (contentLoadingProgressBar.f2193f) {
+                    return;
+                }
+                contentLoadingProgressBar.f2190c = System.currentTimeMillis();
+                ContentLoadingProgressBar.this.setVisibility(0);
             }
         };
     }

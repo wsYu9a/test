@@ -1,25 +1,17 @@
 package com.martian.mibook.ui.reader;
 
 import android.content.Context;
-import android.graphics.Typeface;
-import android.graphics.drawable.Drawable;
 import android.util.AttributeSet;
 import android.widget.CompoundButton;
-import com.martian.libmars.R;
-import com.martian.libmars.common.ConfigSingleton;
+import com.martian.libmars.d.h;
 import com.martian.mibook.application.MiConfigSingleton;
-import com.martian.mibook.data.theme.MiReadingTheme;
-import k9.a;
+import com.martian.mibook.lib.model.data.MiReadingTheme;
+import com.martian.ttbookhd.R;
 
-/* loaded from: classes3.dex */
-public class ReaderThemeSwitchButton extends CompoundButton implements a {
-
-    /* renamed from: b */
-    public Typeface f16044b;
-
+/* loaded from: classes4.dex */
+public class ReaderThemeSwitchButton extends CompoundButton implements g.a {
     public ReaderThemeSwitchButton(Context context) {
         super(context);
-        this.f16044b = Typeface.DEFAULT;
         a();
     }
 
@@ -30,50 +22,45 @@ public class ReaderThemeSwitchButton extends CompoundButton implements a {
         setClickable(true);
     }
 
+    private void b(Context context, AttributeSet attrs) {
+        context.obtainStyledAttributes(attrs, com.martian.theme.yellow.R.styleable.ThemeTextView).recycle();
+    }
+
+    @Override // g.a
+    public void g() {
+        MiReadingTheme r = MiConfigSingleton.V3().J4.r();
+        setCompoundDrawablesWithIntrinsicBounds(0, 0, r.getSelectorRes(), 0);
+        setTextColor(r.getTextColorPrimary());
+    }
+
     @Override // android.widget.TextView, android.view.View
-    public void onAttachedToWindow() {
+    protected void onAttachedToWindow() {
         super.onAttachedToWindow();
-        p();
-        ConfigSingleton.D().h(this);
+        g();
+        h.F().a(this);
     }
 
     @Override // android.view.View
-    public void onDetachedFromWindow() {
+    protected void onDetachedFromWindow() {
         super.onDetachedFromWindow();
-        ConfigSingleton.D().X0(this);
-    }
-
-    @Override // k9.a
-    public void p() {
-        if (isInEditMode()) {
-            return;
-        }
-        MiReadingTheme k10 = MiConfigSingleton.b2().h2().k();
-        setCompoundDrawablesWithIntrinsicBounds((Drawable) null, (Drawable) null, k10.getSwitchButtonSelectorDrawable(getContext()), (Drawable) null);
-        setTextColor(k10.getTextColorPrimary());
-        Typeface g10 = MiConfigSingleton.b2().i2().g();
-        if (this.f16044b != g10) {
-            this.f16044b = g10;
-            setTypeface(g10);
-            setIncludeFontPadding(g10 == Typeface.DEFAULT);
-        }
+        h.F().j1(this);
     }
 
     @Override // android.widget.CompoundButton, android.widget.Checkable
-    public void setChecked(boolean z10) {
-        super.setChecked(z10);
-        setSelected(z10);
+    public void setChecked(boolean checked) {
+        super.setChecked(checked);
+        setSelected(checked);
     }
 
-    public ReaderThemeSwitchButton(Context context, AttributeSet attributeSet) {
-        super(context, attributeSet, 0);
-        this.f16044b = Typeface.DEFAULT;
+    public ReaderThemeSwitchButton(Context context, AttributeSet attrs) {
+        super(context, attrs, 0);
+        b(context, attrs);
         a();
     }
 
-    public ReaderThemeSwitchButton(Context context, AttributeSet attributeSet, int i10) {
-        super(context, attributeSet, i10);
-        this.f16044b = Typeface.DEFAULT;
+    public ReaderThemeSwitchButton(Context context, AttributeSet attrs, int defStyle) {
+        super(context, attrs, defStyle);
+        b(context, attrs);
         a();
     }
 }

@@ -9,7 +9,7 @@ import android.database.Cursor;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
-import com.alimm.tanx.core.ad.event.track.expose.ExposeManager;
+import com.cdo.oaps.ad.OapsWrapper;
 import com.tencent.mm.opensdk.channel.MMessageActV2;
 import com.tencent.mm.opensdk.channel.a.a;
 import com.tencent.mm.opensdk.constants.ConstantsAPI;
@@ -67,7 +67,6 @@ import java.util.HashMap;
 import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.TimeUnit;
 import org.json.JSONObject;
-import t8.a;
 
 /* loaded from: classes4.dex */
 class BaseWXApiImplV10 implements IWXAPI {
@@ -81,10 +80,10 @@ class BaseWXApiImplV10 implements IWXAPI {
     private int wxSdkVersion;
 
     /* renamed from: com.tencent.mm.opensdk.openapi.BaseWXApiImplV10$1 */
-    public class AnonymousClass1 implements Runnable {
+    class AnonymousClass1 implements Runnable {
         final /* synthetic */ CountDownLatch val$countDownWait;
 
-        public AnonymousClass1(CountDownLatch countDownLatch) {
+        AnonymousClass1(CountDownLatch countDownLatch) {
             countDownLatch = countDownLatch;
         }
 
@@ -93,33 +92,33 @@ class BaseWXApiImplV10 implements IWXAPI {
             try {
                 MMSharedPreferences mMSharedPreferences = new MMSharedPreferences(BaseWXApiImplV10.this.context);
                 BaseWXApiImplV10.this.wxSdkVersion = mMSharedPreferences.getInt("_build_info_sdk_int_", 0);
-            } catch (Exception e10) {
-                Log.w(BaseWXApiImplV10.TAG, e10.getMessage());
+            } catch (Exception e2) {
+                Log.w(BaseWXApiImplV10.TAG, e2.getMessage());
             }
             countDownLatch.countDown();
         }
     }
 
     /* renamed from: com.tencent.mm.opensdk.openapi.BaseWXApiImplV10$2 */
-    public class AnonymousClass2 implements PendingIntent.OnFinished {
-        public AnonymousClass2() {
+    class AnonymousClass2 implements PendingIntent.OnFinished {
+        AnonymousClass2() {
         }
 
         @Override // android.app.PendingIntent.OnFinished
-        public void onSendFinished(PendingIntent pendingIntent, Intent intent, int i10, String str, Bundle bundle) {
-            Log.d(BaseWXApiImplV10.TAG, "onSendFinished resultCode: " + i10 + ", resultData: " + str);
+        public void onSendFinished(PendingIntent pendingIntent, Intent intent, int i2, String str, Bundle bundle) {
+            Log.d(BaseWXApiImplV10.TAG, "onSendFinished resultCode: " + i2 + ", resultData: " + str);
         }
     }
 
-    public BaseWXApiImplV10(Context context, String str, boolean z10, int i10) {
+    BaseWXApiImplV10(Context context, String str, boolean z, int i2) {
         this.checkSignature = false;
         this.launchMode = 2;
-        Log.d(TAG, "<init>, appId = " + str + ", checkSignature = " + z10 + ", launchMode = " + i10);
+        Log.d(TAG, "<init>, appId = " + str + ", checkSignature = " + z + ", launchMode = " + i2);
         this.context = context;
         this.appId = str;
-        this.checkSignature = z10;
-        this.launchMode = i10;
-        b.f23087a = context.getApplicationContext();
+        this.checkSignature = z;
+        this.launchMode = i2;
+        b.f25363a = context.getApplicationContext();
     }
 
     private boolean checkSumConsistent(byte[] bArr, byte[] bArr2) {
@@ -128,8 +127,8 @@ class BaseWXApiImplV10 implements IWXAPI {
             str = "checkSumConsistent fail, invalid arguments";
         } else {
             if (bArr.length == bArr2.length) {
-                for (int i10 = 0; i10 < bArr.length; i10++) {
-                    if (bArr[i10] != bArr2[i10]) {
+                for (int i2 = 0; i2 < bArr.length; i2++) {
+                    if (bArr[i2] != bArr2[i2]) {
                         return false;
                     }
                 }
@@ -144,10 +143,9 @@ class BaseWXApiImplV10 implements IWXAPI {
     private boolean createChatroom(Context context, Bundle bundle) {
         launchWXIfNeed();
         Cursor query = context.getContentResolver().query(Uri.parse("content://com.tencent.mm.sdk.comm.provider/createChatroom"), null, null, new String[]{this.appId, bundle.getString("_wxapi_basereq_transaction", ""), bundle.getString("_wxapi_create_chatroom_group_id", ""), bundle.getString("_wxapi_create_chatroom_chatroom_name", ""), bundle.getString("_wxapi_create_chatroom_chatroom_nickname", ""), bundle.getString("_wxapi_create_chatroom_ext_msg", ""), bundle.getString("_wxapi_basereq_openid", "")}, null);
-        if (query == null) {
-            return true;
+        if (query != null) {
+            query.close();
         }
-        query.close();
         return true;
     }
 
@@ -163,7 +161,7 @@ class BaseWXApiImplV10 implements IWXAPI {
                 if (iWXChannelJumpInfo instanceof WXChannelJumpMiniProgramInfo) {
                     jSONObject.put("username", ((WXChannelJumpMiniProgramInfo) iWXChannelJumpInfo).username);
                     str = ((WXChannelJumpMiniProgramInfo) iWXChannelJumpInfo).path;
-                    str2 = a.f30751f;
+                    str2 = OapsWrapper.KEY_PATH;
                 } else if (iWXChannelJumpInfo instanceof WXChannelJumpUrlInfo) {
                     str = ((WXChannelJumpUrlInfo) iWXChannelJumpInfo).url;
                     str2 = "url";
@@ -196,8 +194,8 @@ class BaseWXApiImplV10 implements IWXAPI {
             parse = Uri.parse(str);
             queryParameter = parse.getQueryParameter("wx_internal_resptype");
             Log.i(TAG, "handleWxInternalRespType, respType = " + queryParameter);
-        } catch (Exception e10) {
-            Log.e(TAG, "handleWxInternalRespType fail, ex = " + e10.getMessage());
+        } catch (Exception e2) {
+            Log.e(TAG, "handleWxInternalRespType fail, ex = " + e2.getMessage());
         }
         if (b.b(queryParameter)) {
             Log.e(TAG, "handleWxInternalRespType fail, respType is null");
@@ -210,8 +208,8 @@ class BaseWXApiImplV10 implements IWXAPI {
                 resp.errCode = b.a(queryParameter2, 0);
             }
             resp.openId = parse.getQueryParameter("openid");
-            resp.templateID = parse.getQueryParameter(ExposeManager.UtArgsNames.templateId);
-            resp.scene = b.a(parse.getQueryParameter(com.umeng.ccg.a.f24233j), 0);
+            resp.templateID = parse.getQueryParameter("template_id");
+            resp.scene = b.a(parse.getQueryParameter("scene"), 0);
             resp.action = parse.getQueryParameter("action");
             resp.reserved = parse.getQueryParameter("reserved");
             iWXAPIEventHandler.onResp(resp);
@@ -267,10 +265,9 @@ class BaseWXApiImplV10 implements IWXAPI {
     private boolean joinChatroom(Context context, Bundle bundle) {
         launchWXIfNeed();
         Cursor query = context.getContentResolver().query(Uri.parse("content://com.tencent.mm.sdk.comm.provider/joinChatroom"), null, null, new String[]{this.appId, bundle.getString("_wxapi_basereq_transaction", ""), bundle.getString("_wxapi_join_chatroom_group_id", ""), bundle.getString("_wxapi_join_chatroom_chatroom_nickname", ""), bundle.getString("_wxapi_join_chatroom_ext_msg", ""), bundle.getString("_wxapi_basereq_openid", "")}, null);
-        if (query == null) {
-            return true;
+        if (query != null) {
+            query.close();
         }
-        query.close();
         return true;
     }
 
@@ -293,16 +290,16 @@ class BaseWXApiImplV10 implements IWXAPI {
         try {
             Log.i(TAG, "launchWXUsingPendingIntent");
             PendingIntent.getActivity(this.context, 1, this.context.getPackageManager().getLaunchIntentForPackage("com.tencent.mm"), 134217728).send(this.context, 2, null, new PendingIntent.OnFinished() { // from class: com.tencent.mm.opensdk.openapi.BaseWXApiImplV10.2
-                public AnonymousClass2() {
+                AnonymousClass2() {
                 }
 
                 @Override // android.app.PendingIntent.OnFinished
-                public void onSendFinished(PendingIntent pendingIntent, Intent intent, int i10, String str, Bundle bundle) {
-                    Log.d(BaseWXApiImplV10.TAG, "onSendFinished resultCode: " + i10 + ", resultData: " + str);
+                public void onSendFinished(PendingIntent pendingIntent, Intent intent, int i2, String str, Bundle bundle) {
+                    Log.d(BaseWXApiImplV10.TAG, "onSendFinished resultCode: " + i2 + ", resultData: " + str);
                 }
             }, null);
-        } catch (Exception e10) {
-            Log.e(TAG, "launchWXUsingPendingIntent pendingIntent send failed: " + e10.getMessage());
+        } catch (Exception e2) {
+            Log.e(TAG, "launchWXUsingPendingIntent pendingIntent send failed: " + e2.getMessage());
             openWXApp();
         }
     }
@@ -310,20 +307,18 @@ class BaseWXApiImplV10 implements IWXAPI {
     private boolean sendAddCardToWX(Context context, Bundle bundle) {
         launchWXIfNeed();
         Cursor query = context.getContentResolver().query(Uri.parse("content://com.tencent.mm.sdk.comm.provider/addCardToWX"), null, null, new String[]{this.appId, bundle.getString("_wxapi_add_card_to_wx_card_list"), bundle.getString("_wxapi_basereq_transaction")}, null);
-        if (query == null) {
-            return true;
+        if (query != null) {
+            query.close();
         }
-        query.close();
         return true;
     }
 
     private boolean sendChooseCardFromWX(Context context, Bundle bundle) {
         launchWXIfNeed();
         Cursor query = context.getContentResolver().query(Uri.parse("content://com.tencent.mm.sdk.comm.provider/chooseCardFromWX"), null, null, new String[]{bundle.getString("_wxapi_choose_card_from_wx_card_app_id"), bundle.getString("_wxapi_choose_card_from_wx_card_location_id"), bundle.getString("_wxapi_choose_card_from_wx_card_sign_type"), bundle.getString("_wxapi_choose_card_from_wx_card_card_sign"), bundle.getString("_wxapi_choose_card_from_wx_card_time_stamp"), bundle.getString("_wxapi_choose_card_from_wx_card_nonce_str"), bundle.getString("_wxapi_choose_card_from_wx_card_card_id"), bundle.getString("_wxapi_choose_card_from_wx_card_card_type"), bundle.getString("_wxapi_choose_card_from_wx_card_can_multi_select"), bundle.getString("_wxapi_basereq_transaction")}, null);
-        if (query == null) {
-            return true;
+        if (query != null) {
+            query.close();
         }
-        query.close();
         return true;
     }
 
@@ -332,10 +327,9 @@ class BaseWXApiImplV10 implements IWXAPI {
         Log.i(TAG, "sendFinderOpenFeed");
         WXChannelOpenFeed.Req req = (WXChannelOpenFeed.Req) baseReq;
         Cursor query = context.getContentResolver().query(Uri.parse("content://com.tencent.mm.sdk.comm.provider/finderOpenFeed"), null, null, new String[]{this.appId, req.feedID, req.nonceID, String.valueOf(req.notGetReleatedList)}, null);
-        if (query == null) {
-            return true;
+        if (query != null) {
+            query.close();
         }
-        query.close();
         return true;
     }
 
@@ -344,10 +338,9 @@ class BaseWXApiImplV10 implements IWXAPI {
         Log.i(TAG, "sendFinderOpenLive");
         WXChannelOpenLive.Req req = (WXChannelOpenLive.Req) baseReq;
         Cursor query = context.getContentResolver().query(Uri.parse("content://com.tencent.mm.sdk.comm.provider/finderOpenLive"), null, null, new String[]{this.appId, req.feedID, req.nonceID}, null);
-        if (query == null) {
-            return true;
+        if (query != null) {
+            query.close();
         }
-        query.close();
         return true;
     }
 
@@ -355,10 +348,9 @@ class BaseWXApiImplV10 implements IWXAPI {
         launchWXIfNeed();
         Log.i(TAG, "sendFinderOpenProfile");
         Cursor query = context.getContentResolver().query(Uri.parse("content://com.tencent.mm.sdk.comm.provider/finderOpenProfile"), null, null, new String[]{this.appId, ((WXChannelOpenProfile.Req) baseReq).userName}, null);
-        if (query == null) {
-            return true;
+        if (query != null) {
+            query.close();
         }
-        query.close();
         return true;
     }
 
@@ -367,20 +359,18 @@ class BaseWXApiImplV10 implements IWXAPI {
         Log.i(TAG, "sendFinderShareVideo");
         WXChannelShareVideo.Req req = (WXChannelShareVideo.Req) baseReq;
         Cursor query = context.getContentResolver().query(Uri.parse("content://com.tencent.mm.sdk.comm.provider/finderShareVideo"), null, null, new String[]{this.appId, req.videoPath, "", "", req.extData, finderShareVideoJumpInfoToString(req.jumpInfo)}, null);
-        if (query == null) {
-            return true;
+        if (query != null) {
+            query.close();
         }
-        query.close();
         return true;
     }
 
     private boolean sendHandleScanResult(Context context, Bundle bundle) {
         launchWXIfNeed();
         Cursor query = context.getContentResolver().query(Uri.parse("content://com.tencent.mm.sdk.comm.provider/handleScanResult"), null, null, new String[]{this.appId, bundle.getString("_wxapi_scan_qrcode_result")}, null);
-        if (query == null) {
-            return true;
+        if (query != null) {
+            query.close();
         }
-        query.close();
         return true;
     }
 
@@ -396,10 +386,9 @@ class BaseWXApiImplV10 implements IWXAPI {
     private boolean sendJumpToOfflinePayReq(Context context, Bundle bundle) {
         launchWXIfNeed();
         Cursor query = context.getContentResolver().query(Uri.parse("content://com.tencent.mm.sdk.comm.provider/jumpToOfflinePay"), null, null, new String[]{this.appId}, null);
-        if (query == null) {
-            return true;
+        if (query != null) {
+            query.close();
         }
-        query.close();
         return true;
     }
 
@@ -407,20 +396,18 @@ class BaseWXApiImplV10 implements IWXAPI {
         launchWXIfNeed();
         WXLaunchMiniProgram.Req req = (WXLaunchMiniProgram.Req) baseReq;
         Cursor query = context.getContentResolver().query(Uri.parse("content://com.tencent.mm.sdk.comm.provider/launchWXMiniprogram"), null, null, new String[]{this.appId, req.userName, req.path, req.miniprogramType + "", req.extData}, null);
-        if (query == null) {
-            return true;
+        if (query != null) {
+            query.close();
         }
-        query.close();
         return true;
     }
 
     private boolean sendLaunchWXMiniprogramWithToken(Context context, BaseReq baseReq) {
         launchWXIfNeed();
         Cursor query = context.getContentResolver().query(Uri.parse("content://com.tencent.mm.sdk.comm.provider/launchWXMiniprogramWithToken"), null, null, new String[]{this.appId, ((WXLaunchMiniProgramWithToken.Req) baseReq).token}, null);
-        if (query == null) {
-            return true;
+        if (query != null) {
+            query.close();
         }
-        query.close();
         return true;
     }
 
@@ -436,10 +423,9 @@ class BaseWXApiImplV10 implements IWXAPI {
     private boolean sendOpenBusiLuckyMoney(Context context, Bundle bundle) {
         launchWXIfNeed();
         Cursor query = context.getContentResolver().query(Uri.parse("content://com.tencent.mm.sdk.comm.provider/openBusiLuckyMoney"), null, null, new String[]{this.appId, bundle.getString("_wxapi_open_busi_lucky_money_timeStamp"), bundle.getString("_wxapi_open_busi_lucky_money_nonceStr"), bundle.getString("_wxapi_open_busi_lucky_money_signType"), bundle.getString("_wxapi_open_busi_lucky_money_signature"), bundle.getString("_wxapi_open_busi_lucky_money_package")}, null);
-        if (query == null) {
-            return true;
+        if (query != null) {
+            query.close();
         }
-        query.close();
         return true;
     }
 
@@ -447,10 +433,9 @@ class BaseWXApiImplV10 implements IWXAPI {
         launchWXIfNeed();
         WXOpenBusinessView.Req req = (WXOpenBusinessView.Req) baseReq;
         Cursor query = context.getContentResolver().query(Uri.parse("content://com.tencent.mm.sdk.comm.provider/openBusinessView"), null, null, new String[]{this.appId, req.businessType, req.query, req.extInfo, req.transaction, req.openId}, null);
-        if (query == null) {
-            return true;
+        if (query != null) {
+            query.close();
         }
-        query.close();
         return true;
     }
 
@@ -460,12 +445,10 @@ class BaseWXApiImplV10 implements IWXAPI {
         ContentResolver contentResolver = context.getContentResolver();
         Uri parse = Uri.parse("content://com.tencent.mm.sdk.comm.provider/openBusinessWebview");
         HashMap<String, String> hashMap = req.queryInfo;
-        String jSONObject = (hashMap == null || hashMap.size() <= 0) ? "" : new JSONObject(req.queryInfo).toString();
-        Cursor query = contentResolver.query(parse, null, null, new String[]{this.appId, req.businessType + "", jSONObject}, null);
-        if (query == null) {
-            return true;
+        Cursor query = contentResolver.query(parse, null, null, new String[]{this.appId, req.businessType + "", (hashMap == null || hashMap.size() <= 0) ? "" : new JSONObject(req.queryInfo).toString()}, null);
+        if (query != null) {
+            query.close();
         }
-        query.close();
         return true;
     }
 
@@ -473,10 +456,9 @@ class BaseWXApiImplV10 implements IWXAPI {
         launchWXIfNeed();
         WXOpenCustomerServiceChat.Req req = (WXOpenCustomerServiceChat.Req) baseReq;
         Cursor query = context.getContentResolver().query(Uri.parse("content://com.tencent.mm.sdk.comm.provider/openCustomerServiceChat"), null, null, new String[]{this.appId, req.corpId, req.url}, null);
-        if (query == null) {
-            return true;
+        if (query != null) {
+            query.close();
         }
-        query.close();
         return true;
     }
 
@@ -493,10 +475,9 @@ class BaseWXApiImplV10 implements IWXAPI {
     private boolean sendOpenWebview(Context context, Bundle bundle) {
         launchWXIfNeed();
         Cursor query = context.getContentResolver().query(Uri.parse("content://com.tencent.mm.sdk.comm.provider/openWebview"), null, null, new String[]{this.appId, bundle.getString("_wxapi_jump_to_webview_url"), bundle.getString("_wxapi_basereq_transaction")}, null);
-        if (query == null) {
-            return true;
+        if (query != null) {
+            query.close();
         }
-        query.close();
         return true;
     }
 
@@ -516,8 +497,8 @@ class BaseWXApiImplV10 implements IWXAPI {
             if (wxappPayEntryClassname == null) {
                 try {
                     wxappPayEntryClassname = context.getPackageManager().getApplicationInfo("com.tencent.mm", 128).metaData.getString("com.tencent.mm.BuildInfo.OPEN_SDK_PAY_ENTRY_CLASSNAME", null);
-                } catch (Exception e10) {
-                    Log.e(TAG, "get from metaData failed : " + e10.getMessage());
+                } catch (Exception e2) {
+                    Log.e(TAG, "get from metaData failed : " + e2.getMessage());
                 }
             }
             if (wxappPayEntryClassname == null) {
@@ -535,28 +516,26 @@ class BaseWXApiImplV10 implements IWXAPI {
             if (tokenFromWX != null) {
                 args.token = tokenFromWX;
             }
-        } catch (Exception e11) {
-            Log.e(TAG, "getTokenFromWX fail, exception = " + e11);
+        } catch (Exception e3) {
+            Log.e(TAG, "getTokenFromWX fail, exception = " + e3);
         }
         return MMessageActV2.send(context, args);
     }
 
     private boolean sendPreloadWXMiniProgramEnvironment(Context context, BaseReq baseReq) {
         Cursor query = context.getContentResolver().query(Uri.parse("content://com.tencent.mm.sdk.comm.provider/preloadWXMiniprogramEnvironment"), null, null, new String[]{this.appId, ((WXPreloadMiniProgramEnvironment.Req) baseReq).extData}, null);
-        if (query == null) {
-            return true;
+        if (query != null) {
+            query.close();
         }
-        query.close();
         return true;
     }
 
     private boolean sendPreloadWXMiniprogram(Context context, BaseReq baseReq) {
         WXPreloadMiniProgram.Req req = (WXPreloadMiniProgram.Req) baseReq;
         Cursor query = context.getContentResolver().query(Uri.parse("content://com.tencent.mm.sdk.comm.provider/preloadWXMiniprogram"), null, null, new String[]{this.appId, req.userName, req.path, req.miniprogramType + "", req.extData}, null);
-        if (query == null) {
-            return true;
+        if (query != null) {
+            query.close();
         }
-        query.close();
         return true;
     }
 
@@ -564,10 +543,9 @@ class BaseWXApiImplV10 implements IWXAPI {
         launchWXIfNeed();
         WXQRCodePay.Req req = (WXQRCodePay.Req) baseReq;
         Cursor query = context.getContentResolver().query(Uri.parse("content://com.tencent.mm.sdk.comm.provider/QRCodePay"), null, null, new String[]{this.appId, req.codeContent, req.extraMsg}, null);
-        if (query == null) {
-            return true;
+        if (query != null) {
+            query.close();
         }
-        query.close();
         return true;
     }
 
@@ -584,20 +562,20 @@ class BaseWXApiImplV10 implements IWXAPI {
     private boolean sendSubscribeMiniProgramMsg(Context context, BaseReq baseReq) {
         launchWXIfNeed();
         Cursor query = context.getContentResolver().query(Uri.parse("content://com.tencent.mm.sdk.comm.provider/openTypeWebview"), null, null, new String[]{this.appId, String.valueOf(5), ((SubscribeMiniProgramMsg.Req) baseReq).miniProgramAppId}, null);
-        if (query == null) {
-            return true;
+        if (query != null) {
+            query.close();
         }
-        query.close();
         return true;
     }
 
     private boolean sendToWxaRedirectingPage(Context context, BaseReq baseReq) {
         launchWXIfNeed();
+        WXLaunchWxaRedirectingPage.Req req = (WXLaunchWxaRedirectingPage.Req) baseReq;
         ContentResolver contentResolver = context.getContentResolver();
         Uri parse = Uri.parse("content://com.tencent.mm.sdk.comm.provider/launchWxaOpenApiRedirectingPage");
         ArrayList arrayList = new ArrayList();
         arrayList.add(0, this.appId);
-        arrayList.addAll(Arrays.asList(((WXLaunchWxaRedirectingPage.Req) baseReq).toArray()));
+        arrayList.addAll(Arrays.asList(req.toArray()));
         Cursor query = contentResolver.query(parse, null, null, (String[]) arrayList.toArray(new String[0]), null);
         if (query == null) {
             return true;
@@ -624,10 +602,10 @@ class BaseWXApiImplV10 implements IWXAPI {
         }
         this.wxSdkVersion = 0;
         CountDownLatch countDownLatch = new CountDownLatch(1);
-        b.f23091e.submit(new Runnable() { // from class: com.tencent.mm.opensdk.openapi.BaseWXApiImplV10.1
+        b.f25367e.submit(new Runnable() { // from class: com.tencent.mm.opensdk.openapi.BaseWXApiImplV10.1
             final /* synthetic */ CountDownLatch val$countDownWait;
 
-            public AnonymousClass1(CountDownLatch countDownLatch2) {
+            AnonymousClass1(CountDownLatch countDownLatch2) {
                 countDownLatch = countDownLatch2;
             }
 
@@ -636,24 +614,24 @@ class BaseWXApiImplV10 implements IWXAPI {
                 try {
                     MMSharedPreferences mMSharedPreferences = new MMSharedPreferences(BaseWXApiImplV10.this.context);
                     BaseWXApiImplV10.this.wxSdkVersion = mMSharedPreferences.getInt("_build_info_sdk_int_", 0);
-                } catch (Exception e10) {
-                    Log.w(BaseWXApiImplV10.TAG, e10.getMessage());
+                } catch (Exception e2) {
+                    Log.w(BaseWXApiImplV10.TAG, e2.getMessage());
                 }
                 countDownLatch.countDown();
             }
         });
         try {
             countDownLatch2.await(1000L, TimeUnit.MILLISECONDS);
-        } catch (InterruptedException e10) {
-            Log.w(TAG, e10.getMessage());
+        } catch (InterruptedException e2) {
+            Log.w(TAG, e2.getMessage());
         }
         Log.d(TAG, "wxSdkVersion = " + this.wxSdkVersion);
         if (this.wxSdkVersion == 0) {
             try {
                 this.wxSdkVersion = this.context.getPackageManager().getApplicationInfo("com.tencent.mm", 128).metaData.getInt("com.tencent.mm.BuildInfo.OPEN_SDK_VERSION", 0);
                 Log.d(TAG, "OPEN_SDK_VERSION = " + this.wxSdkVersion);
-            } catch (Exception e11) {
-                Log.e(TAG, "get from metaData failed : " + e11.getMessage());
+            } catch (Exception e3) {
+                Log.e(TAG, "get from metaData failed : " + e3.getMessage());
             }
         }
         return this.wxSdkVersion;
@@ -662,8 +640,8 @@ class BaseWXApiImplV10 implements IWXAPI {
     @Override // com.tencent.mm.opensdk.openapi.IWXAPI
     public boolean handleIntent(Intent intent, IWXAPIEventHandler iWXAPIEventHandler) {
         try {
-        } catch (Exception e10) {
-            Log.e(TAG, "handleIntent fail, ex = " + e10.getMessage());
+        } catch (Exception e2) {
+            Log.e(TAG, "handleIntent fail, ex = " + e2.getMessage());
         }
         if (!WXApiImplComm.isIntentFromWx(intent, ConstantsAPI.Token.WX_TOKEN_VALUE_MSG)) {
             Log.i(TAG, "handleIntent fail, intent not from weixin msg");
@@ -676,7 +654,7 @@ class BaseWXApiImplV10 implements IWXAPI {
         int intExtra = intent.getIntExtra(ConstantsAPI.SDK_VERSION, 0);
         String stringExtra2 = intent.getStringExtra(ConstantsAPI.APP_PACKAGE);
         if (stringExtra2 != null && stringExtra2.length() != 0) {
-            if (!checkSumConsistent(intent.getByteArrayExtra(ConstantsAPI.CHECK_SUM), com.tencent.mm.opensdk.channel.a.a.a(stringExtra, intExtra, stringExtra2))) {
+            if (!checkSumConsistent(intent.getByteArrayExtra(ConstantsAPI.CHECK_SUM), a.a(stringExtra, intExtra, stringExtra2))) {
                 Log.e(TAG, "checksum fail");
                 return false;
             }
@@ -719,8 +697,8 @@ class BaseWXApiImplV10 implements IWXAPI {
                                 return true;
                             }
                             Log.d(TAG, "not openbusinesswebview %" + str);
-                        } catch (Exception e11) {
-                            Log.e(TAG, "parse fail, ex = " + e11.getMessage());
+                        } catch (Exception e3) {
+                            Log.e(TAG, "parse fail, ex = " + e3.getMessage());
                         }
                     }
                     iWXAPIEventHandler.onReq(req);
@@ -843,8 +821,8 @@ class BaseWXApiImplV10 implements IWXAPI {
                 Context context = this.context;
                 context.startActivity(context.getPackageManager().getLaunchIntentForPackage("com.tencent.mm"));
                 return true;
-            } catch (Exception e10) {
-                str = "startActivity fail, exception = " + e10.getMessage();
+            } catch (Exception e2) {
+                str = "startActivity fail, exception = " + e2.getMessage();
             }
         } else {
             str = "open wx app failed, not installed or signature check failed";
@@ -859,11 +837,37 @@ class BaseWXApiImplV10 implements IWXAPI {
     }
 
     @Override // com.tencent.mm.opensdk.openapi.IWXAPI
+    public boolean registerApp(String str, long j2) {
+        if (this.detached) {
+            throw new IllegalStateException("registerApp fail, WXMsgImpl has been detached");
+        }
+        if (!WXApiImplComm.validateAppSignatureForPackage(this.context, "com.tencent.mm", this.checkSignature)) {
+            Log.e(TAG, "register app failed for wechat app signature check failed");
+            return false;
+        }
+        Log.d(TAG, "registerApp, appId = " + str);
+        if (str != null) {
+            this.appId = str;
+        }
+        Log.d(TAG, "registerApp, appId = " + str);
+        if (str != null) {
+            this.appId = str;
+        }
+        Log.d(TAG, "register app " + this.context.getPackageName());
+        a.C0527a c0527a = new a.C0527a();
+        c0527a.f25324a = "com.tencent.mm";
+        c0527a.f25325b = ConstantsAPI.ACTION_HANDLE_APP_REGISTER;
+        c0527a.f25326c = "weixin://registerapp?appid=" + this.appId;
+        c0527a.f25327d = j2;
+        return a.a(this.context, c0527a);
+    }
+
+    @Override // com.tencent.mm.opensdk.openapi.IWXAPI
     public boolean sendReq(BaseReq baseReq) {
-        StringBuilder sb2;
+        StringBuilder sb;
         String str;
         WXWebpageObject wXWebpageObject;
-        int i10;
+        int i2;
         String str2;
         String str3;
         if (this.detached) {
@@ -987,20 +991,20 @@ class BaseWXApiImplV10 implements IWXAPI {
                             if (!b.b(str4)) {
                                 String[] split = str4.split("\\?");
                                 if (split.length > 1) {
-                                    sb2 = new StringBuilder();
-                                    sb2.append(split[0]);
-                                    sb2.append(".html?");
+                                    sb = new StringBuilder();
+                                    sb.append(split[0]);
+                                    sb.append(".html?");
                                     str = split[1];
                                 } else {
-                                    sb2 = new StringBuilder();
-                                    sb2.append(split[0]);
+                                    sb = new StringBuilder();
+                                    sb.append(split[0]);
                                     str = ".html";
                                 }
-                                sb2.append(str);
-                                wXMiniProgramObject.path = sb2.toString();
+                                sb.append(str);
+                                wXMiniProgramObject.path = sb.toString();
                             }
-                            i10 = req2.scene;
-                            if (i10 != 3 && i10 != 1) {
+                            i2 = req2.scene;
+                            if (i2 != 3 && i2 != 1) {
                                 req2.scene = 0;
                             }
                             baseReq.toBundle(bundle);
@@ -1009,8 +1013,8 @@ class BaseWXApiImplV10 implements IWXAPI {
                         }
                         wXWebpageObject.webpageUrl = bundle.getString("_wxminiprogram_webpageurl");
                         req2.message.mediaObject = wXWebpageObject;
-                        i10 = req2.scene;
-                        if (i10 != 3) {
+                        i2 = req2.scene;
+                        if (i2 != 3) {
                             req2.scene = 0;
                         }
                         baseReq.toBundle(bundle);
@@ -1027,8 +1031,8 @@ class BaseWXApiImplV10 implements IWXAPI {
                     if (tokenFromWX != null) {
                         args.token = tokenFromWX;
                     }
-                } catch (Exception e10) {
-                    Log.e(TAG, "getTokenFromWX fail, exception = " + e10);
+                } catch (Exception e2) {
+                    Log.e(TAG, "getTokenFromWX fail, exception = " + e2);
                 }
                 return MMessageActV2.send(this.context, args);
             }
@@ -1062,8 +1066,8 @@ class BaseWXApiImplV10 implements IWXAPI {
                     if (tokenFromWX != null) {
                         args.token = tokenFromWX;
                     }
-                } catch (Exception e10) {
-                    Log.e(TAG, "getTokenFromWX fail, exception = " + e10);
+                } catch (Exception e2) {
+                    Log.e(TAG, "getTokenFromWX fail, exception = " + e2);
                 }
                 return MMessageActV2.send(this.context, args);
             }
@@ -1094,36 +1098,10 @@ class BaseWXApiImplV10 implements IWXAPI {
             return;
         }
         Log.d(TAG, "unregister app " + this.context.getPackageName());
-        a.C0656a c0656a = new a.C0656a();
-        c0656a.f23048a = "com.tencent.mm";
-        c0656a.f23049b = ConstantsAPI.ACTION_HANDLE_APP_UNREGISTER;
-        c0656a.f23050c = "weixin://unregisterapp?appid=" + this.appId;
-        com.tencent.mm.opensdk.channel.a.a.a(this.context, c0656a);
-    }
-
-    @Override // com.tencent.mm.opensdk.openapi.IWXAPI
-    public boolean registerApp(String str, long j10) {
-        if (this.detached) {
-            throw new IllegalStateException("registerApp fail, WXMsgImpl has been detached");
-        }
-        if (!WXApiImplComm.validateAppSignatureForPackage(this.context, "com.tencent.mm", this.checkSignature)) {
-            Log.e(TAG, "register app failed for wechat app signature check failed");
-            return false;
-        }
-        Log.d(TAG, "registerApp, appId = " + str);
-        if (str != null) {
-            this.appId = str;
-        }
-        Log.d(TAG, "registerApp, appId = " + str);
-        if (str != null) {
-            this.appId = str;
-        }
-        Log.d(TAG, "register app " + this.context.getPackageName());
-        a.C0656a c0656a = new a.C0656a();
-        c0656a.f23048a = "com.tencent.mm";
-        c0656a.f23049b = ConstantsAPI.ACTION_HANDLE_APP_REGISTER;
-        c0656a.f23050c = "weixin://registerapp?appid=" + this.appId;
-        c0656a.f23051d = j10;
-        return com.tencent.mm.opensdk.channel.a.a.a(this.context, c0656a);
+        a.C0527a c0527a = new a.C0527a();
+        c0527a.f25324a = "com.tencent.mm";
+        c0527a.f25325b = ConstantsAPI.ACTION_HANDLE_APP_UNREGISTER;
+        c0527a.f25326c = "weixin://unregisterapp?appid=" + this.appId;
+        a.a(this.context, c0527a);
     }
 }

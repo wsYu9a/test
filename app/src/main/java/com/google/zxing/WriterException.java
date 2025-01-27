@@ -1,6 +1,6 @@
 package com.google.zxing;
 
-/* loaded from: classes2.dex */
+/* loaded from: classes.dex */
 public final class WriterException extends Exception {
     public WriterException() {
     }
@@ -9,7 +9,7 @@ public final class WriterException extends Exception {
         super(str);
     }
 
-    public WriterException(Throwable th2) {
-        super(th2);
+    public WriterException(Throwable th) {
+        super(th);
     }
 }

@@ -4,7 +4,7 @@ import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 
 @Retention(RetentionPolicy.SOURCE)
-/* loaded from: classes3.dex */
+/* loaded from: classes.dex */
 public @interface KSAdLiveShopCardChangeType {
     public static final int BARGAIN_CHANGE = 6;
     public static final int END_RECORD = 3;

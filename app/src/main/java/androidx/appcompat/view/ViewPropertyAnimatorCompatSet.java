@@ -12,159 +12,179 @@ import java.util.Iterator;
 @RestrictTo({RestrictTo.Scope.LIBRARY_GROUP_PREFIX})
 /* loaded from: classes.dex */
 public class ViewPropertyAnimatorCompatSet {
-    private Interpolator mInterpolator;
-    private boolean mIsStarted;
-    ViewPropertyAnimatorListener mListener;
-    private long mDuration = -1;
-    private final ViewPropertyAnimatorListenerAdapter mProxyListener = new ViewPropertyAnimatorListenerAdapter() { // from class: androidx.appcompat.view.ViewPropertyAnimatorCompatSet.1
-        private boolean mProxyStarted = false;
-        private int mProxyEndCount = 0;
 
-        public AnonymousClass1() {
+    /* renamed from: c */
+    private Interpolator f442c;
+
+    /* renamed from: d */
+    ViewPropertyAnimatorListener f443d;
+
+    /* renamed from: e */
+    private boolean f444e;
+
+    /* renamed from: b */
+    private long f441b = -1;
+
+    /* renamed from: f */
+    private final ViewPropertyAnimatorListenerAdapter f445f = new ViewPropertyAnimatorListenerAdapter() { // from class: androidx.appcompat.view.ViewPropertyAnimatorCompatSet.1
+
+        /* renamed from: a */
+        private boolean f446a = false;
+
+        /* renamed from: b */
+        private int f447b = 0;
+
+        AnonymousClass1() {
+        }
+
+        void a() {
+            this.f447b = 0;
+            this.f446a = false;
+            ViewPropertyAnimatorCompatSet.this.a();
         }
 
         @Override // androidx.core.view.ViewPropertyAnimatorListenerAdapter, androidx.core.view.ViewPropertyAnimatorListener
         public void onAnimationEnd(View view) {
-            int i10 = this.mProxyEndCount + 1;
-            this.mProxyEndCount = i10;
-            if (i10 == ViewPropertyAnimatorCompatSet.this.mAnimators.size()) {
-                ViewPropertyAnimatorListener viewPropertyAnimatorListener = ViewPropertyAnimatorCompatSet.this.mListener;
+            int i2 = this.f447b + 1;
+            this.f447b = i2;
+            if (i2 == ViewPropertyAnimatorCompatSet.this.f440a.size()) {
+                ViewPropertyAnimatorListener viewPropertyAnimatorListener = ViewPropertyAnimatorCompatSet.this.f443d;
                 if (viewPropertyAnimatorListener != null) {
                     viewPropertyAnimatorListener.onAnimationEnd(null);
                 }
-                onEnd();
+                a();
             }
         }
 
         @Override // androidx.core.view.ViewPropertyAnimatorListenerAdapter, androidx.core.view.ViewPropertyAnimatorListener
         public void onAnimationStart(View view) {
-            if (this.mProxyStarted) {
+            if (this.f446a) {
                 return;
             }
-            this.mProxyStarted = true;
-            ViewPropertyAnimatorListener viewPropertyAnimatorListener = ViewPropertyAnimatorCompatSet.this.mListener;
+            this.f446a = true;
+            ViewPropertyAnimatorListener viewPropertyAnimatorListener = ViewPropertyAnimatorCompatSet.this.f443d;
             if (viewPropertyAnimatorListener != null) {
                 viewPropertyAnimatorListener.onAnimationStart(null);
             }
-        }
-
-        public void onEnd() {
-            this.mProxyEndCount = 0;
-            this.mProxyStarted = false;
-            ViewPropertyAnimatorCompatSet.this.onAnimationsEnded();
         }
     };
-    final ArrayList<ViewPropertyAnimatorCompat> mAnimators = new ArrayList<>();
+
+    /* renamed from: a */
+    final ArrayList<ViewPropertyAnimatorCompat> f440a = new ArrayList<>();
 
     /* renamed from: androidx.appcompat.view.ViewPropertyAnimatorCompatSet$1 */
-    public class AnonymousClass1 extends ViewPropertyAnimatorListenerAdapter {
-        private boolean mProxyStarted = false;
-        private int mProxyEndCount = 0;
+    class AnonymousClass1 extends ViewPropertyAnimatorListenerAdapter {
 
-        public AnonymousClass1() {
+        /* renamed from: a */
+        private boolean f446a = false;
+
+        /* renamed from: b */
+        private int f447b = 0;
+
+        AnonymousClass1() {
+        }
+
+        void a() {
+            this.f447b = 0;
+            this.f446a = false;
+            ViewPropertyAnimatorCompatSet.this.a();
         }
 
         @Override // androidx.core.view.ViewPropertyAnimatorListenerAdapter, androidx.core.view.ViewPropertyAnimatorListener
         public void onAnimationEnd(View view) {
-            int i10 = this.mProxyEndCount + 1;
-            this.mProxyEndCount = i10;
-            if (i10 == ViewPropertyAnimatorCompatSet.this.mAnimators.size()) {
-                ViewPropertyAnimatorListener viewPropertyAnimatorListener = ViewPropertyAnimatorCompatSet.this.mListener;
+            int i2 = this.f447b + 1;
+            this.f447b = i2;
+            if (i2 == ViewPropertyAnimatorCompatSet.this.f440a.size()) {
+                ViewPropertyAnimatorListener viewPropertyAnimatorListener = ViewPropertyAnimatorCompatSet.this.f443d;
                 if (viewPropertyAnimatorListener != null) {
                     viewPropertyAnimatorListener.onAnimationEnd(null);
                 }
-                onEnd();
+                a();
             }
         }
 
         @Override // androidx.core.view.ViewPropertyAnimatorListenerAdapter, androidx.core.view.ViewPropertyAnimatorListener
         public void onAnimationStart(View view) {
-            if (this.mProxyStarted) {
+            if (this.f446a) {
                 return;
             }
-            this.mProxyStarted = true;
-            ViewPropertyAnimatorListener viewPropertyAnimatorListener = ViewPropertyAnimatorCompatSet.this.mListener;
+            this.f446a = true;
+            ViewPropertyAnimatorListener viewPropertyAnimatorListener = ViewPropertyAnimatorCompatSet.this.f443d;
             if (viewPropertyAnimatorListener != null) {
                 viewPropertyAnimatorListener.onAnimationStart(null);
             }
         }
+    }
 
-        public void onEnd() {
-            this.mProxyEndCount = 0;
-            this.mProxyStarted = false;
-            ViewPropertyAnimatorCompatSet.this.onAnimationsEnded();
-        }
+    void a() {
+        this.f444e = false;
     }
 
     public void cancel() {
-        if (this.mIsStarted) {
-            Iterator<ViewPropertyAnimatorCompat> it = this.mAnimators.iterator();
+        if (this.f444e) {
+            Iterator<ViewPropertyAnimatorCompat> it = this.f440a.iterator();
             while (it.hasNext()) {
                 it.next().cancel();
             }
-            this.mIsStarted = false;
+            this.f444e = false;
         }
     }
 
-    public void onAnimationsEnded() {
-        this.mIsStarted = false;
-    }
-
     public ViewPropertyAnimatorCompatSet play(ViewPropertyAnimatorCompat viewPropertyAnimatorCompat) {
-        if (!this.mIsStarted) {
-            this.mAnimators.add(viewPropertyAnimatorCompat);
+        if (!this.f444e) {
+            this.f440a.add(viewPropertyAnimatorCompat);
         }
         return this;
     }
 
     public ViewPropertyAnimatorCompatSet playSequentially(ViewPropertyAnimatorCompat viewPropertyAnimatorCompat, ViewPropertyAnimatorCompat viewPropertyAnimatorCompat2) {
-        this.mAnimators.add(viewPropertyAnimatorCompat);
+        this.f440a.add(viewPropertyAnimatorCompat);
         viewPropertyAnimatorCompat2.setStartDelay(viewPropertyAnimatorCompat.getDuration());
-        this.mAnimators.add(viewPropertyAnimatorCompat2);
+        this.f440a.add(viewPropertyAnimatorCompat2);
         return this;
     }
 
-    public ViewPropertyAnimatorCompatSet setDuration(long j10) {
-        if (!this.mIsStarted) {
-            this.mDuration = j10;
+    public ViewPropertyAnimatorCompatSet setDuration(long j2) {
+        if (!this.f444e) {
+            this.f441b = j2;
         }
         return this;
     }
 
     public ViewPropertyAnimatorCompatSet setInterpolator(Interpolator interpolator) {
-        if (!this.mIsStarted) {
-            this.mInterpolator = interpolator;
+        if (!this.f444e) {
+            this.f442c = interpolator;
         }
         return this;
     }
 
     public ViewPropertyAnimatorCompatSet setListener(ViewPropertyAnimatorListener viewPropertyAnimatorListener) {
-        if (!this.mIsStarted) {
-            this.mListener = viewPropertyAnimatorListener;
+        if (!this.f444e) {
+            this.f443d = viewPropertyAnimatorListener;
         }
         return this;
     }
 
     public void start() {
-        if (this.mIsStarted) {
+        if (this.f444e) {
             return;
         }
-        Iterator<ViewPropertyAnimatorCompat> it = this.mAnimators.iterator();
+        Iterator<ViewPropertyAnimatorCompat> it = this.f440a.iterator();
         while (it.hasNext()) {
             ViewPropertyAnimatorCompat next = it.next();
-            long j10 = this.mDuration;
-            if (j10 >= 0) {
-                next.setDuration(j10);
+            long j2 = this.f441b;
+            if (j2 >= 0) {
+                next.setDuration(j2);
             }
-            Interpolator interpolator = this.mInterpolator;
+            Interpolator interpolator = this.f442c;
             if (interpolator != null) {
                 next.setInterpolator(interpolator);
             }
-            if (this.mListener != null) {
-                next.setListener(this.mProxyListener);
+            if (this.f443d != null) {
+                next.setListener(this.f445f);
             }
             next.start();
         }
-        this.mIsStarted = true;
+        this.f444e = true;
     }
 }

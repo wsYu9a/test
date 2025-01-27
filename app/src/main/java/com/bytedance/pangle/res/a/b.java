@@ -3,114 +3,100 @@ package com.bytedance.pangle.res.a;
 import java.io.IOException;
 import java.util.HashMap;
 
-/* loaded from: classes2.dex */
+/* loaded from: classes.dex */
 public final class b {
 
     /* renamed from: c */
-    g f7760c;
+    g f6253c;
 
     /* renamed from: i */
-    private final h f7766i;
+    private final h f6259i;
 
     /* renamed from: j */
-    private final byte[] f7767j;
-
-    /* renamed from: l */
-    private int[] f7769l;
-
-    /* renamed from: n */
-    private boolean f7771n;
-
-    /* renamed from: o */
-    private int f7772o;
-
-    /* renamed from: p */
-    private int[] f7773p;
-
-    /* renamed from: q */
-    private int f7774q;
+    private final byte[] f6260j;
+    private int[] l;
+    private boolean n;
+    private int o;
+    private int[] p;
+    private int q;
 
     /* renamed from: a */
-    HashMap<Integer, Integer> f7758a = new HashMap<>();
+    HashMap<Integer, Integer> f6251a = new HashMap<>();
 
     /* renamed from: b */
-    boolean f7759b = false;
-
-    /* renamed from: k */
-    private boolean f7768k = false;
-
-    /* renamed from: m */
-    private final a f7770m = new a();
+    boolean f6252b = false;
+    private boolean k = false;
+    private final a m = new a();
 
     /* renamed from: d */
-    int f7761d = 0;
+    int f6254d = 0;
 
     /* renamed from: e */
-    int f7762e = 1;
+    int f6255e = 1;
 
     /* renamed from: f */
-    int f7763f = 2;
+    int f6256f = 2;
 
     /* renamed from: g */
-    int f7764g = 3;
+    int f6257g = 3;
 
     /* renamed from: h */
-    int f7765h = 4;
+    int f6258h = 4;
 
-    public static final class a {
+    static final class a {
 
         /* renamed from: a */
-        int[] f7775a = new int[32];
+        int[] f6261a = new int[32];
 
         /* renamed from: b */
-        int f7776b;
+        int f6262b;
 
         /* renamed from: c */
-        int f7777c;
+        int f6263c;
 
         public final void a() {
             b();
-            int i10 = this.f7776b;
-            int[] iArr = this.f7775a;
-            iArr[i10] = 0;
-            iArr[i10 + 1] = 0;
-            this.f7776b = i10 + 2;
-            this.f7777c++;
+            int i2 = this.f6262b;
+            int[] iArr = this.f6261a;
+            iArr[i2] = 0;
+            iArr[i2 + 1] = 0;
+            this.f6262b = i2 + 2;
+            this.f6263c++;
         }
 
-        public final void b() {
-            int[] iArr = this.f7775a;
+        final void b() {
+            int[] iArr = this.f6261a;
             int length = iArr.length;
-            int i10 = this.f7776b;
-            int i11 = length - i10;
-            if (i11 > 2) {
+            int i2 = this.f6262b;
+            int i3 = length - i2;
+            if (i3 > 2) {
                 return;
             }
-            int[] iArr2 = new int[(iArr.length + i11) * 2];
-            System.arraycopy(iArr, 0, iArr2, 0, i10);
-            this.f7775a = iArr2;
+            int[] iArr2 = new int[(iArr.length + i3) * 2];
+            System.arraycopy(iArr, 0, iArr2, 0, i2);
+            this.f6261a = iArr2;
         }
     }
 
     public b(byte[] bArr, h hVar) {
-        this.f7766i = hVar;
-        this.f7767j = bArr;
+        this.f6259i = hVar;
+        this.f6260j = bArr;
         c();
     }
 
     private void c() {
-        this.f7772o = -1;
-        this.f7773p = null;
-        this.f7774q = -1;
+        this.o = -1;
+        this.p = null;
+        this.q = -1;
     }
 
-    /* JADX WARN: Code restructure failed: missing block: B:117:0x0290, code lost:
+    /* JADX WARN: Code restructure failed: missing block: B:118:0x0297, code lost:
     
-        throw new java.io.IOException("Invalid chunk type (" + r8 + ").");
+        throw new java.io.IOException("Invalid chunk type (" + r6 + ").");
      */
-    /* JADX WARN: Code restructure failed: missing block: B:142:0x012b, code lost:
+    /* JADX WARN: Code restructure failed: missing block: B:143:0x012b, code lost:
     
-        throw new java.io.IOException("Invalid resource ids size (" + r8 + ").");
+        throw new java.io.IOException("Invalid resource ids size (" + r6 + ").");
      */
     /*
         Code decompiled incorrectly, please refer to instructions dump.
@@ -118,34 +104,34 @@ public final class b {
     */
     private void d() {
         /*
-            Method dump skipped, instructions count: 657
+            Method dump skipped, instructions count: 665
             To view this dump change 'Code comments level' option to 'DEBUG'
         */
         throw new UnsupportedOperationException("Method not decompiled: com.bytedance.pangle.res.a.b.d():void");
     }
 
     public final void a() {
-        if (this.f7768k) {
-            this.f7768k = false;
-            this.f7760c = null;
-            this.f7769l = null;
-            a aVar = this.f7770m;
-            aVar.f7776b = 0;
-            aVar.f7777c = 0;
+        if (this.k) {
+            this.k = false;
+            this.f6253c = null;
+            this.l = null;
+            a aVar = this.m;
+            aVar.f6262b = 0;
+            aVar.f6263c = 0;
             c();
         }
     }
 
     public final int b() {
-        if (this.f7760c == null) {
+        if (this.f6253c == null) {
             throw new RuntimeException("Parser is not opened.");
         }
         try {
             d();
-            return this.f7772o;
-        } catch (IOException e10) {
+            return this.o;
+        } catch (IOException e2) {
             a();
-            throw e10;
+            throw e2;
         }
     }
 }

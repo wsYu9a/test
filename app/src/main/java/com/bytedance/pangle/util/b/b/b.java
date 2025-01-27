@@ -1,11 +1,11 @@
 package com.bytedance.pangle.util.b.b;
 
-/* loaded from: classes2.dex */
+/* loaded from: classes.dex */
 public final class b {
 
     /* renamed from: a, reason: collision with root package name */
-    public int f7837a;
+    public int f6314a;
 
     /* renamed from: b, reason: collision with root package name */
-    public long f7838b;
+    public long f6315b;
 }

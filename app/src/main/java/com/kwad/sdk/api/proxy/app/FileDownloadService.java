@@ -8,7 +8,7 @@ import com.kwad.sdk.api.proxy.BaseProxyService;
 import com.kwad.sdk.api.proxy.IServiceProxy;
 
 @Keep
-/* loaded from: classes3.dex */
+/* loaded from: classes2.dex */
 public class FileDownloadService {
 
     @Keep

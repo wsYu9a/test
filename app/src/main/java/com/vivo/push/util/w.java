@@ -6,56 +6,52 @@ import android.content.Context;
 public final class w extends b {
 
     /* renamed from: b */
-    private static w f25149b;
+    private static w f31113b;
 
     public static synchronized w b() {
         w wVar;
         synchronized (w.class) {
-            try {
-                if (f25149b == null) {
-                    f25149b = new w();
-                }
-                wVar = f25149b;
-            } catch (Throwable th2) {
-                throw th2;
+            if (f31113b == null) {
+                f31113b = new w();
             }
+            wVar = f31113b;
         }
         return wVar;
     }
 
     public final synchronized void a(Context context) {
-        if (this.f25111a == null) {
-            this.f25111a = context;
+        if (this.f31075a == null) {
+            this.f31075a = context;
             a(context, "com.vivo.push_preferences");
         }
     }
 
     public final byte[] c() {
-        byte[] c10 = c(b("com.vivo.push.secure_cache_iv", ""));
-        return (c10 == null || c10.length <= 0) ? new byte[]{34, 32, 33, 37, 33, 34, 32, 33, 33, 33, 34, 41, 35, 32, 32, 32} : c10;
+        byte[] c2 = c(b("com.vivo.push.secure_cache_iv", ""));
+        return (c2 == null || c2.length <= 0) ? new byte[]{34, org.mozilla.universalchardet.prober.g.s, 33, 37, 33, 34, org.mozilla.universalchardet.prober.g.s, 33, 33, 33, 34, 41, 35, org.mozilla.universalchardet.prober.g.s, org.mozilla.universalchardet.prober.g.s, org.mozilla.universalchardet.prober.g.s} : c2;
     }
 
     public final byte[] d() {
-        byte[] c10 = c(b("com.vivo.push.secure_cache_key", ""));
-        return (c10 == null || c10.length <= 0) ? new byte[]{33, 34, 35, 36, 37, 38, 39, nf.c.f28885q, 41, 32, 38, 37, 36, 35, 34, 33} : c10;
+        byte[] c2 = c(b("com.vivo.push.secure_cache_key", ""));
+        return (c2 == null || c2.length <= 0) ? new byte[]{33, 34, 35, 36, 37, 38, 39, 40, 41, org.mozilla.universalchardet.prober.g.s, 38, 37, 36, 35, 34, 33} : c2;
     }
 
     private static byte[] c(String str) {
-        int i10;
+        int i2;
         byte[] bArr = null;
         try {
             String[] split = str.split(",");
             if (split.length > 0) {
                 bArr = new byte[split.length];
-                i10 = split.length;
+                i2 = split.length;
             } else {
-                i10 = 0;
+                i2 = 0;
             }
-            for (int i11 = 0; i11 < i10; i11++) {
-                bArr[i11] = Byte.parseByte(split[i11].trim());
+            for (int i3 = 0; i3 < i2; i3++) {
+                bArr[i3] = Byte.parseByte(split[i3].trim());
             }
-        } catch (Exception e10) {
-            p.a("SharePreferenceManager", "getCodeBytes error:" + e10.getMessage());
+        } catch (Exception e2) {
+            p.a("SharePreferenceManager", "getCodeBytes error:" + e2.getMessage());
         }
         return bArr;
     }

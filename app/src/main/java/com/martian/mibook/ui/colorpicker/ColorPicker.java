@@ -5,7 +5,6 @@ import android.content.Context;
 import android.content.res.Resources;
 import android.content.res.TypedArray;
 import android.graphics.Canvas;
-import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.RectF;
 import android.graphics.SweepGradient;
@@ -14,498 +13,472 @@ import android.os.Parcelable;
 import android.util.AttributeSet;
 import android.view.MotionEvent;
 import android.view.View;
-import androidx.core.internal.view.SupportMenu;
-import androidx.core.view.InputDeviceCompat;
 import com.martian.mibook.R;
+import com.vivo.advv.Color;
 
 @SuppressLint({"ClickableViewAccessibility"})
-/* loaded from: classes3.dex */
+/* loaded from: classes4.dex */
 public class ColorPicker extends View {
-    public static final String J = "parent";
-    public static final String K = "angle";
-    public static final String L = "color";
-    public static final String M = "showColor";
-    public static final int[] N = {SupportMenu.CATEGORY_MASK, -65281, -16776961, -16711681, -16711936, InputDeviceCompat.SOURCE_ANY, SupportMenu.CATEGORY_MASK};
-    public Paint A;
-    public final float[] B;
-    public SaturationBar C;
-    public boolean D;
-    public ValueBar E;
-    public a F;
-    public b G;
-    public int H;
-    public int I;
+
+    /* renamed from: a */
+    private static final String f14197a = "parent";
 
     /* renamed from: b */
-    public Paint f15909b;
+    private static final String f14198b = "angle";
 
     /* renamed from: c */
-    public Paint f15910c;
+    private static final String f14199c = "color";
 
     /* renamed from: d */
-    public Paint f15911d;
+    private static final String f14200d = "showColor";
 
     /* renamed from: e */
-    public int f15912e;
+    private static final int[] f14201e = {-65536, Color.MAGENTA, Color.BLUE, Color.CYAN, Color.GREEN, -256, -65536};
+    private float A;
+    private float B;
+    private Paint C;
+    private Paint D;
+    private Paint E;
+    private final float[] F;
+    private SaturationBar G;
+    private boolean H;
+    private ValueBar I;
+    private a J;
+    private b K;
+    private int L;
+    private int M;
 
     /* renamed from: f */
-    public int f15913f;
+    private Paint f14202f;
 
     /* renamed from: g */
-    public int f15914g;
+    private Paint f14203g;
 
     /* renamed from: h */
-    public int f15915h;
+    private Paint f14204h;
 
     /* renamed from: i */
-    public int f15916i;
+    private int f14205i;
 
     /* renamed from: j */
-    public int f15917j;
-
-    /* renamed from: k */
-    public int f15918k;
-
-    /* renamed from: l */
-    public int f15919l;
-
-    /* renamed from: m */
-    public int f15920m;
-
-    /* renamed from: n */
-    public final RectF f15921n;
-
-    /* renamed from: o */
-    public final RectF f15922o;
-
-    /* renamed from: p */
-    public boolean f15923p;
-
-    /* renamed from: q */
-    public int f15924q;
-
-    /* renamed from: r */
-    public int f15925r;
-
-    /* renamed from: s */
-    public boolean f15926s;
-
-    /* renamed from: t */
-    public int f15927t;
-
-    /* renamed from: u */
-    public float f15928u;
-
-    /* renamed from: v */
-    public float f15929v;
-
-    /* renamed from: w */
-    public float f15930w;
-
-    /* renamed from: x */
-    public float f15931x;
-
-    /* renamed from: y */
-    public Paint f15932y;
-
-    /* renamed from: z */
-    public Paint f15933z;
+    private int f14206j;
+    private int k;
+    private int l;
+    private int m;
+    private int n;
+    private int o;
+    private int p;
+    private int q;
+    private final RectF r;
+    private final RectF s;
+    private boolean t;
+    private int u;
+    private int v;
+    private boolean w;
+    private int x;
+    private float y;
+    private float z;
 
     public interface a {
-        void a(int i10);
+        void a(int color);
     }
 
     public interface b {
-        void a(int i10);
+        void a(int color);
     }
 
     public ColorPicker(Context context) {
         super(context);
-        this.f15921n = new RectF();
-        this.f15922o = new RectF();
-        this.f15923p = false;
-        this.B = new float[3];
-        this.C = null;
-        this.D = true;
-        this.E = null;
+        this.r = new RectF();
+        this.s = new RectF();
+        this.t = false;
+        this.F = new float[3];
+        this.G = null;
+        this.H = true;
+        this.I = null;
         k(null, 0);
     }
 
-    public void a(SaturationBar saturationBar) {
-        this.C = saturationBar;
-        saturationBar.setColorPicker(this);
-        this.C.setColor(this.f15924q);
+    private int c(int s, int d2, float p) {
+        return s + Math.round(p * (d2 - s));
     }
 
-    public void b(ValueBar valueBar) {
-        this.E = valueBar;
-        valueBar.setColorPicker(this);
-        this.E.setColor(this.f15924q);
-    }
-
-    public final int c(int i10, int i11, float f10) {
-        return i10 + Math.round(f10 * (i11 - i10));
-    }
-
-    public final int d(float f10) {
-        float f11 = (float) (f10 / 6.283185307179586d);
-        if (f11 < 0.0f) {
-            f11 += 1.0f;
+    private int d(float angle) {
+        double d2 = angle;
+        Double.isNaN(d2);
+        float f2 = (float) (d2 / 6.283185307179586d);
+        if (f2 < 0.0f) {
+            f2 += 1.0f;
         }
-        if (f11 <= 0.0f) {
-            int i10 = N[0];
-            this.f15924q = i10;
-            return i10;
+        if (f2 <= 0.0f) {
+            int[] iArr = f14201e;
+            this.u = iArr[0];
+            return iArr[0];
         }
-        if (f11 >= 1.0f) {
-            int[] iArr = N;
-            this.f15924q = iArr[iArr.length - 1];
-            return iArr[iArr.length - 1];
+        if (f2 >= 1.0f) {
+            int[] iArr2 = f14201e;
+            this.u = iArr2[iArr2.length - 1];
+            return iArr2[iArr2.length - 1];
         }
-        int[] iArr2 = N;
-        float length = f11 * (iArr2.length - 1);
-        int i11 = (int) length;
-        float f12 = length - i11;
-        int i12 = iArr2[i11];
-        int i13 = iArr2[i11 + 1];
-        int c10 = c(Color.alpha(i12), Color.alpha(i13), f12);
-        int c11 = c(Color.red(i12), Color.red(i13), f12);
-        int c12 = c(Color.green(i12), Color.green(i13), f12);
-        int c13 = c(Color.blue(i12), Color.blue(i13), f12);
-        this.f15924q = Color.argb(c10, c11, c12, c13);
-        return Color.argb(c10, c11, c12, c13);
+        int[] iArr3 = f14201e;
+        float length = f2 * (iArr3.length - 1);
+        int i2 = (int) length;
+        float f3 = length - i2;
+        int i3 = iArr3[i2];
+        int i4 = iArr3[i2 + 1];
+        int c2 = c(android.graphics.Color.alpha(i3), android.graphics.Color.alpha(i4), f3);
+        int c3 = c(android.graphics.Color.red(i3), android.graphics.Color.red(i4), f3);
+        int c4 = c(android.graphics.Color.green(i3), android.graphics.Color.green(i4), f3);
+        int c5 = c(android.graphics.Color.blue(i3), android.graphics.Color.blue(i4), f3);
+        this.u = android.graphics.Color.argb(c2, c3, c4, c5);
+        return android.graphics.Color.argb(c2, c3, c4, c5);
     }
 
-    public final float[] e(float f10) {
-        double d10 = f10;
-        return new float[]{(float) (this.f15913f * Math.cos(d10)), (float) (this.f15913f * Math.sin(d10))};
+    private float[] e(float angle) {
+        double d2 = this.f14206j;
+        double d3 = angle;
+        double cos = Math.cos(d3);
+        Double.isNaN(d2);
+        float f2 = (float) (d2 * cos);
+        double d4 = this.f14206j;
+        double sin = Math.sin(d3);
+        Double.isNaN(d4);
+        return new float[]{f2, (float) (d4 * sin)};
     }
 
-    public void f(int i10) {
-        SaturationBar saturationBar = this.C;
+    private float h(int color) {
+        android.graphics.Color.colorToHSV(color, new float[3]);
+        return (float) Math.toRadians(-r0[0]);
+    }
+
+    private void k(AttributeSet attrs, int defStyle) {
+        TypedArray obtainStyledAttributes = getContext().obtainStyledAttributes(attrs, R.styleable.ColorPicker, defStyle, 0);
+        Resources resources = getContext().getResources();
+        this.f14205i = obtainStyledAttributes.getDimensionPixelSize(5, resources.getDimensionPixelSize(com.martian.ttbookhd.R.dimen.color_wheel_thickness));
+        int dimensionPixelSize = obtainStyledAttributes.getDimensionPixelSize(4, resources.getDimensionPixelSize(com.martian.ttbookhd.R.dimen.color_wheel_radius));
+        this.f14206j = dimensionPixelSize;
+        this.k = dimensionPixelSize;
+        int dimensionPixelSize2 = obtainStyledAttributes.getDimensionPixelSize(1, resources.getDimensionPixelSize(com.martian.ttbookhd.R.dimen.color_center_radius));
+        this.l = dimensionPixelSize2;
+        this.m = dimensionPixelSize2;
+        int dimensionPixelSize3 = obtainStyledAttributes.getDimensionPixelSize(0, resources.getDimensionPixelSize(com.martian.ttbookhd.R.dimen.color_center_halo_radius));
+        this.n = dimensionPixelSize3;
+        this.o = dimensionPixelSize3;
+        this.p = obtainStyledAttributes.getDimensionPixelSize(3, resources.getDimensionPixelSize(com.martian.ttbookhd.R.dimen.color_pointer_radius));
+        this.q = obtainStyledAttributes.getDimensionPixelSize(2, resources.getDimensionPixelSize(com.martian.ttbookhd.R.dimen.color_pointer_halo_radius));
+        obtainStyledAttributes.recycle();
+        this.B = -1.5707964f;
+        SweepGradient sweepGradient = new SweepGradient(0.0f, 0.0f, f14201e, (float[]) null);
+        Paint paint = new Paint(1);
+        this.f14202f = paint;
+        paint.setShader(sweepGradient);
+        this.f14202f.setStyle(Paint.Style.STROKE);
+        this.f14202f.setStrokeWidth(this.f14205i);
+        Paint paint2 = new Paint(1);
+        this.f14203g = paint2;
+        paint2.setColor(-16777216);
+        this.f14203g.setAlpha(80);
+        Paint paint3 = new Paint(1);
+        this.f14204h = paint3;
+        paint3.setColor(d(this.B));
+        Paint paint4 = new Paint(1);
+        this.D = paint4;
+        paint4.setColor(d(this.B));
+        this.D.setStyle(Paint.Style.FILL);
+        Paint paint5 = new Paint(1);
+        this.C = paint5;
+        paint5.setColor(d(this.B));
+        this.C.setStyle(Paint.Style.FILL);
+        Paint paint6 = new Paint(1);
+        this.E = paint6;
+        paint6.setColor(-16777216);
+        this.E.setAlpha(0);
+        this.x = d(this.B);
+        this.v = d(this.B);
+        this.w = true;
+    }
+
+    public void a(SaturationBar bar) {
+        this.G = bar;
+        bar.setColorPicker(this);
+        this.G.setColor(this.u);
+    }
+
+    public void b(ValueBar bar) {
+        this.I = bar;
+        bar.setColorPicker(this);
+        this.I.setColor(this.u);
+    }
+
+    public void f(int color) {
+        SaturationBar saturationBar = this.G;
         if (saturationBar != null) {
-            saturationBar.setColor(i10);
+            saturationBar.setColor(color);
         }
     }
 
-    public void g(int i10) {
-        ValueBar valueBar = this.E;
+    public void g(int color) {
+        ValueBar valueBar = this.I;
         if (valueBar != null) {
-            valueBar.setColor(i10);
+            valueBar.setColor(color);
         }
     }
 
     public int getColor() {
-        return this.f15927t;
+        return this.x;
     }
 
     public int getOldCenterColor() {
-        return this.f15925r;
+        return this.v;
     }
 
     public a getOnColorChangedListener() {
-        return this.F;
+        return this.J;
     }
 
     public b getOnColorSelectedListener() {
-        return this.G;
+        return this.K;
     }
 
     public boolean getShowOldCenterColor() {
-        return this.f15926s;
+        return this.w;
     }
 
     public boolean getTouchAnywhereOnColorWheel() {
-        return this.D;
-    }
-
-    public final float h(int i10) {
-        Color.colorToHSV(i10, new float[3]);
-        return (float) Math.toRadians(-r0[0]);
+        return this.H;
     }
 
     public boolean i() {
-        return this.C != null;
+        return this.G != null;
     }
 
     public boolean j() {
-        return this.E != null;
-    }
-
-    public final void k(AttributeSet attributeSet, int i10) {
-        TypedArray obtainStyledAttributes = getContext().obtainStyledAttributes(attributeSet, R.styleable.ColorPicker, i10, 0);
-        Resources resources = getContext().getResources();
-        this.f15912e = obtainStyledAttributes.getDimensionPixelSize(R.styleable.ColorPicker_color_wheel_thickness, resources.getDimensionPixelSize(R.dimen.color_wheel_thickness));
-        int dimensionPixelSize = obtainStyledAttributes.getDimensionPixelSize(R.styleable.ColorPicker_color_wheel_radius, resources.getDimensionPixelSize(R.dimen.color_wheel_radius));
-        this.f15913f = dimensionPixelSize;
-        this.f15914g = dimensionPixelSize;
-        int dimensionPixelSize2 = obtainStyledAttributes.getDimensionPixelSize(R.styleable.ColorPicker_color_center_radius, resources.getDimensionPixelSize(R.dimen.color_center_radius));
-        this.f15915h = dimensionPixelSize2;
-        this.f15916i = dimensionPixelSize2;
-        int dimensionPixelSize3 = obtainStyledAttributes.getDimensionPixelSize(R.styleable.ColorPicker_color_center_halo_radius, resources.getDimensionPixelSize(R.dimen.color_center_halo_radius));
-        this.f15917j = dimensionPixelSize3;
-        this.f15918k = dimensionPixelSize3;
-        this.f15919l = obtainStyledAttributes.getDimensionPixelSize(R.styleable.ColorPicker_color_pointer_radius, resources.getDimensionPixelSize(R.dimen.color_pointer_radius));
-        this.f15920m = obtainStyledAttributes.getDimensionPixelSize(R.styleable.ColorPicker_color_pointer_halo_radius, resources.getDimensionPixelSize(R.dimen.color_pointer_halo_radius));
-        obtainStyledAttributes.recycle();
-        this.f15931x = -1.5707964f;
-        SweepGradient sweepGradient = new SweepGradient(0.0f, 0.0f, N, (float[]) null);
-        Paint paint = new Paint(1);
-        this.f15909b = paint;
-        paint.setShader(sweepGradient);
-        this.f15909b.setStyle(Paint.Style.STROKE);
-        this.f15909b.setStrokeWidth(this.f15912e);
-        Paint paint2 = new Paint(1);
-        this.f15910c = paint2;
-        paint2.setColor(-16777216);
-        this.f15910c.setAlpha(80);
-        Paint paint3 = new Paint(1);
-        this.f15911d = paint3;
-        paint3.setColor(d(this.f15931x));
-        Paint paint4 = new Paint(1);
-        this.f15933z = paint4;
-        paint4.setColor(d(this.f15931x));
-        Paint paint5 = this.f15933z;
-        Paint.Style style = Paint.Style.FILL;
-        paint5.setStyle(style);
-        Paint paint6 = new Paint(1);
-        this.f15932y = paint6;
-        paint6.setColor(d(this.f15931x));
-        this.f15932y.setStyle(style);
-        Paint paint7 = new Paint(1);
-        this.A = paint7;
-        paint7.setColor(-16777216);
-        this.A.setAlpha(0);
-        this.f15927t = d(this.f15931x);
-        this.f15925r = d(this.f15931x);
-        this.f15926s = true;
+        return this.I != null;
     }
 
     @Override // android.view.View
-    public void onDraw(Canvas canvas) {
-        float f10 = this.f15928u;
-        canvas.translate(f10, f10);
-        canvas.drawOval(this.f15921n, this.f15909b);
-        float[] e10 = e(this.f15931x);
-        canvas.drawCircle(e10[0], e10[1], this.f15920m, this.f15910c);
-        canvas.drawCircle(e10[0], e10[1], this.f15919l, this.f15911d);
-        canvas.drawCircle(0.0f, 0.0f, this.f15917j, this.A);
-        if (!this.f15926s) {
-            canvas.drawArc(this.f15922o, 0.0f, 360.0f, true, this.f15933z);
+    protected void onDraw(Canvas canvas) {
+        float f2 = this.y;
+        canvas.translate(f2, f2);
+        canvas.drawOval(this.r, this.f14202f);
+        float[] e2 = e(this.B);
+        canvas.drawCircle(e2[0], e2[1], this.q, this.f14203g);
+        canvas.drawCircle(e2[0], e2[1], this.p, this.f14204h);
+        canvas.drawCircle(0.0f, 0.0f, this.n, this.E);
+        if (!this.w) {
+            canvas.drawArc(this.s, 0.0f, 360.0f, true, this.D);
         } else {
-            canvas.drawArc(this.f15922o, 90.0f, 180.0f, true, this.f15932y);
-            canvas.drawArc(this.f15922o, 270.0f, 180.0f, true, this.f15933z);
+            canvas.drawArc(this.s, 90.0f, 180.0f, true, this.C);
+            canvas.drawArc(this.s, 270.0f, 180.0f, true, this.D);
         }
     }
 
     @Override // android.view.View
-    public void onMeasure(int i10, int i11) {
-        int i12 = (this.f15914g + this.f15920m) * 2;
-        int mode = View.MeasureSpec.getMode(i10);
-        int size = View.MeasureSpec.getSize(i10);
-        int mode2 = View.MeasureSpec.getMode(i11);
-        int size2 = View.MeasureSpec.getSize(i11);
+    protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
+        int i2 = (this.k + this.q) * 2;
+        int mode = View.MeasureSpec.getMode(widthMeasureSpec);
+        int size = View.MeasureSpec.getSize(widthMeasureSpec);
+        int mode2 = View.MeasureSpec.getMode(heightMeasureSpec);
+        int size2 = View.MeasureSpec.getSize(heightMeasureSpec);
         if (mode != 1073741824) {
-            size = mode == Integer.MIN_VALUE ? Math.min(i12, size) : i12;
+            size = mode == Integer.MIN_VALUE ? Math.min(i2, size) : i2;
         }
         if (mode2 == 1073741824) {
-            i12 = size2;
+            i2 = size2;
         } else if (mode2 == Integer.MIN_VALUE) {
-            i12 = Math.min(i12, size2);
+            i2 = Math.min(i2, size2);
         }
-        int min = Math.min(size, i12);
+        int min = Math.min(size, i2);
         setMeasuredDimension(min, min);
-        this.f15928u = min * 0.5f;
-        int i13 = ((min / 2) - this.f15912e) - this.f15920m;
-        this.f15913f = i13;
-        this.f15921n.set(-i13, -i13, i13, i13);
-        float f10 = this.f15916i;
-        int i14 = this.f15913f;
-        int i15 = this.f15914g;
-        int i16 = (int) (f10 * (i14 / i15));
-        this.f15915h = i16;
-        this.f15917j = (int) (this.f15918k * (i14 / i15));
-        this.f15922o.set(-i16, -i16, i16, i16);
+        this.y = min * 0.5f;
+        int i3 = ((min / 2) - this.f14205i) - this.q;
+        this.f14206j = i3;
+        this.r.set(-i3, -i3, i3, i3);
+        float f2 = this.m;
+        int i4 = this.f14206j;
+        int i5 = this.k;
+        int i6 = (int) (f2 * (i4 / i5));
+        this.l = i6;
+        this.n = (int) (this.o * (i4 / i5));
+        this.s.set(-i6, -i6, i6, i6);
     }
 
     @Override // android.view.View
-    public void onRestoreInstanceState(Parcelable parcelable) {
-        Bundle bundle = (Bundle) parcelable;
-        super.onRestoreInstanceState(bundle.getParcelable("parent"));
-        this.f15931x = bundle.getFloat(K);
-        setOldCenterColor(bundle.getInt("color"));
-        this.f15926s = bundle.getBoolean(M);
-        int d10 = d(this.f15931x);
-        this.f15911d.setColor(d10);
-        setNewCenterColor(d10);
+    protected void onRestoreInstanceState(Parcelable state) {
+        Bundle bundle = (Bundle) state;
+        super.onRestoreInstanceState(bundle.getParcelable(f14197a));
+        this.B = bundle.getFloat(f14198b);
+        setOldCenterColor(bundle.getInt(f14199c));
+        this.w = bundle.getBoolean(f14200d);
+        int d2 = d(this.B);
+        this.f14204h.setColor(d2);
+        setNewCenterColor(d2);
     }
 
     @Override // android.view.View
-    public Parcelable onSaveInstanceState() {
+    protected Parcelable onSaveInstanceState() {
         Parcelable onSaveInstanceState = super.onSaveInstanceState();
         Bundle bundle = new Bundle();
-        bundle.putParcelable("parent", onSaveInstanceState);
-        bundle.putFloat(K, this.f15931x);
-        bundle.putInt("color", this.f15925r);
-        bundle.putBoolean(M, this.f15926s);
+        bundle.putParcelable(f14197a, onSaveInstanceState);
+        bundle.putFloat(f14198b, this.B);
+        bundle.putInt(f14199c, this.v);
+        bundle.putBoolean(f14200d, this.w);
         return bundle;
     }
 
     @Override // android.view.View
-    public boolean onTouchEvent(MotionEvent motionEvent) {
-        int i10;
+    public boolean onTouchEvent(MotionEvent event) {
+        int i2;
         b bVar;
-        int i11;
+        int i3;
         getParent().requestDisallowInterceptTouchEvent(true);
-        float x10 = motionEvent.getX() - this.f15928u;
-        float y10 = motionEvent.getY() - this.f15928u;
-        int action = motionEvent.getAction();
+        float x = event.getX() - this.y;
+        float y = event.getY() - this.y;
+        int action = event.getAction();
         if (action == 0) {
-            float[] e10 = e(this.f15931x);
-            double sqrt = Math.sqrt((x10 * x10) + (y10 * y10));
-            float f10 = e10[0];
-            int i12 = this.f15920m;
-            if (x10 >= f10 - i12 && x10 <= i12 + f10) {
-                float f11 = e10[1];
-                if (y10 >= f11 - i12 && y10 <= i12 + f11) {
-                    this.f15929v = x10 - f10;
-                    this.f15930w = y10 - f11;
-                    this.f15923p = true;
+            float[] e2 = e(this.B);
+            double sqrt = Math.sqrt((x * x) + (y * y));
+            float f2 = e2[0];
+            int i4 = this.q;
+            if (x < f2 - i4 || x > e2[0] + i4 || y < e2[1] - i4 || y > e2[1] + i4) {
+                int i5 = this.l;
+                if (x < (-i5) || x > i5 || y < (-i5) || y > i5 || !this.w) {
+                    int i6 = this.f14206j;
+                    if (sqrt > i6 + i4 || sqrt < i6 - i4 || !this.H) {
+                        getParent().requestDisallowInterceptTouchEvent(false);
+                        return false;
+                    }
+                    this.t = true;
+                    invalidate();
+                } else {
+                    this.E.setAlpha(80);
+                    setColor(getOldCenterColor());
                     invalidate();
                 }
-            }
-            int i13 = this.f15915h;
-            if (x10 < (-i13) || x10 > i13 || y10 < (-i13) || y10 > i13 || !this.f15926s) {
-                int i14 = this.f15913f;
-                if (sqrt > i14 + i12 || sqrt < i14 - i12 || !this.D) {
-                    getParent().requestDisallowInterceptTouchEvent(false);
-                    return false;
-                }
-                this.f15923p = true;
-                invalidate();
             } else {
-                this.A.setAlpha(80);
-                setColor(getOldCenterColor());
+                this.z = x - e2[0];
+                this.A = y - e2[1];
+                this.t = true;
                 invalidate();
             }
         } else if (action == 1) {
-            this.f15923p = false;
-            this.A.setAlpha(0);
-            b bVar2 = this.G;
-            if (bVar2 != null && (i10 = this.f15927t) != this.I) {
-                bVar2.a(i10);
-                this.I = this.f15927t;
+            this.t = false;
+            this.E.setAlpha(0);
+            b bVar2 = this.K;
+            if (bVar2 != null && (i2 = this.x) != this.M) {
+                bVar2.a(i2);
+                this.M = this.x;
             }
             invalidate();
         } else if (action != 2) {
-            if (action == 3 && (bVar = this.G) != null && (i11 = this.f15927t) != this.I) {
-                bVar.a(i11);
-                this.I = this.f15927t;
+            if (action == 3 && (bVar = this.K) != null && (i3 = this.x) != this.M) {
+                bVar.a(i3);
+                this.M = this.x;
             }
         } else {
-            if (!this.f15923p) {
+            if (!this.t) {
                 getParent().requestDisallowInterceptTouchEvent(false);
                 return false;
             }
-            float atan2 = (float) Math.atan2(y10 - this.f15930w, x10 - this.f15929v);
-            this.f15931x = atan2;
-            this.f15911d.setColor(d(atan2));
-            int d10 = d(this.f15931x);
-            this.f15927t = d10;
-            setNewCenterColor(d10);
-            ValueBar valueBar = this.E;
+            float atan2 = (float) Math.atan2(y - this.A, x - this.z);
+            this.B = atan2;
+            this.f14204h.setColor(d(atan2));
+            int d2 = d(this.B);
+            this.x = d2;
+            setNewCenterColor(d2);
+            ValueBar valueBar = this.I;
             if (valueBar != null) {
-                valueBar.setColor(this.f15924q);
+                valueBar.setColor(this.u);
             }
-            SaturationBar saturationBar = this.C;
+            SaturationBar saturationBar = this.G;
             if (saturationBar != null) {
-                saturationBar.setColor(this.f15924q);
+                saturationBar.setColor(this.u);
             }
             invalidate();
         }
         return true;
     }
 
-    public void setColor(int i10) {
-        float h10 = h(i10);
-        this.f15931x = h10;
-        this.f15911d.setColor(d(h10));
-        if (this.C != null) {
-            Color.colorToHSV(i10, this.B);
-            this.C.setColor(this.f15924q);
-            this.C.setSaturation(this.B[1]);
+    public void setColor(int color) {
+        float h2 = h(color);
+        this.B = h2;
+        this.f14204h.setColor(d(h2));
+        if (this.G != null) {
+            android.graphics.Color.colorToHSV(color, this.F);
+            this.G.setColor(this.u);
+            this.G.setSaturation(this.F[1]);
         }
-        ValueBar valueBar = this.E;
-        if (valueBar != null && this.C == null) {
-            Color.colorToHSV(i10, this.B);
-            this.E.setColor(this.f15924q);
-            this.E.setValue(this.B[2]);
+        ValueBar valueBar = this.I;
+        if (valueBar != null && this.G == null) {
+            android.graphics.Color.colorToHSV(color, this.F);
+            this.I.setColor(this.u);
+            this.I.setValue(this.F[2]);
         } else if (valueBar != null) {
-            Color.colorToHSV(i10, this.B);
-            this.E.setValue(this.B[2]);
+            android.graphics.Color.colorToHSV(color, this.F);
+            this.I.setValue(this.F[2]);
         }
-        setNewCenterColor(i10);
+        setNewCenterColor(color);
     }
 
-    public void setNewCenterColor(int i10) {
-        this.f15927t = i10;
-        this.f15933z.setColor(i10);
-        if (this.f15925r == 0) {
-            this.f15925r = i10;
-            this.f15932y.setColor(i10);
+    public void setNewCenterColor(int color) {
+        this.x = color;
+        this.D.setColor(color);
+        if (this.v == 0) {
+            this.v = color;
+            this.C.setColor(color);
         }
-        a aVar = this.F;
-        if (aVar != null && i10 != this.H) {
-            aVar.a(i10);
-            this.H = i10;
+        a aVar = this.J;
+        if (aVar != null && color != this.L) {
+            aVar.a(color);
+            this.L = color;
         }
         invalidate();
     }
 
-    public void setOldCenterColor(int i10) {
-        this.f15925r = i10;
-        this.f15932y.setColor(i10);
+    public void setOldCenterColor(int color) {
+        this.v = color;
+        this.C.setColor(color);
         invalidate();
     }
 
-    public void setOnColorChangedListener(a aVar) {
-        this.F = aVar;
+    public void setOnColorChangedListener(a listener) {
+        this.J = listener;
     }
 
-    public void setOnColorSelectedListener(b bVar) {
-        this.G = bVar;
+    public void setOnColorSelectedListener(b listener) {
+        this.K = listener;
     }
 
-    public void setShowOldCenterColor(boolean z10) {
-        this.f15926s = z10;
+    public void setShowOldCenterColor(boolean show) {
+        this.w = show;
         invalidate();
     }
 
-    public void setTouchAnywhereOnColorWheelEnabled(boolean z10) {
-        this.D = z10;
+    public void setTouchAnywhereOnColorWheelEnabled(boolean TouchAnywhereOnColorWheelEnabled) {
+        this.H = TouchAnywhereOnColorWheelEnabled;
     }
 
-    public ColorPicker(Context context, AttributeSet attributeSet) {
-        super(context, attributeSet);
-        this.f15921n = new RectF();
-        this.f15922o = new RectF();
-        this.f15923p = false;
-        this.B = new float[3];
-        this.C = null;
-        this.D = true;
-        this.E = null;
-        k(attributeSet, 0);
+    public ColorPicker(Context context, AttributeSet attrs) {
+        super(context, attrs);
+        this.r = new RectF();
+        this.s = new RectF();
+        this.t = false;
+        this.F = new float[3];
+        this.G = null;
+        this.H = true;
+        this.I = null;
+        k(attrs, 0);
     }
 
-    public ColorPicker(Context context, AttributeSet attributeSet, int i10) {
-        super(context, attributeSet, i10);
-        this.f15921n = new RectF();
-        this.f15922o = new RectF();
-        this.f15923p = false;
-        this.B = new float[3];
-        this.C = null;
-        this.D = true;
-        this.E = null;
-        k(attributeSet, i10);
+    public ColorPicker(Context context, AttributeSet attrs, int defStyle) {
+        super(context, attrs, defStyle);
+        this.r = new RectF();
+        this.s = new RectF();
+        this.t = false;
+        this.F = new float[3];
+        this.G = null;
+        this.H = true;
+        this.I = null;
+        k(attrs, defStyle);
     }
 }

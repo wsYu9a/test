@@ -21,18 +21,24 @@ import org.xmlpull.v1.XmlPullParserException;
 @RestrictTo({RestrictTo.Scope.LIBRARY_GROUP_PREFIX})
 /* loaded from: classes.dex */
 final class GradientColorInflaterCompat {
-    private static final int TILE_MODE_CLAMP = 0;
-    private static final int TILE_MODE_MIRROR = 2;
-    private static final int TILE_MODE_REPEAT = 1;
+
+    /* renamed from: a */
+    private static final int f1709a = 0;
+
+    /* renamed from: b */
+    private static final int f1710b = 1;
+
+    /* renamed from: c */
+    private static final int f1711c = 2;
 
     private GradientColorInflaterCompat() {
     }
 
-    private static ColorStops checkColors(@Nullable ColorStops colorStops, @ColorInt int i10, @ColorInt int i11, boolean z10, @ColorInt int i12) {
-        return colorStops != null ? colorStops : z10 ? new ColorStops(i10, i12, i11) : new ColorStops(i10, i11);
+    private static ColorStops a(@Nullable ColorStops colorStops, @ColorInt int i2, @ColorInt int i3, boolean z, @ColorInt int i4) {
+        return colorStops != null ? colorStops : z ? new ColorStops(i2, i4, i3) : new ColorStops(i2, i3);
     }
 
-    public static Shader createFromXml(@NonNull Resources resources, @NonNull XmlPullParser xmlPullParser, @Nullable Resources.Theme theme) throws XmlPullParserException, IOException {
+    static Shader b(@NonNull Resources resources, @NonNull XmlPullParser xmlPullParser, @Nullable Resources.Theme theme) throws XmlPullParserException, IOException {
         int next;
         AttributeSet asAttributeSet = Xml.asAttributeSet(xmlPullParser);
         do {
@@ -42,12 +48,12 @@ final class GradientColorInflaterCompat {
             }
         } while (next != 1);
         if (next == 2) {
-            return createFromXmlInner(resources, xmlPullParser, asAttributeSet, theme);
+            return c(resources, xmlPullParser, asAttributeSet, theme);
         }
         throw new XmlPullParserException("No start tag found");
     }
 
-    public static Shader createFromXmlInner(@NonNull Resources resources, @NonNull XmlPullParser xmlPullParser, @NonNull AttributeSet attributeSet, @Nullable Resources.Theme theme) throws IOException, XmlPullParserException {
+    static Shader c(@NonNull Resources resources, @NonNull XmlPullParser xmlPullParser, @NonNull AttributeSet attributeSet, @Nullable Resources.Theme theme) throws IOException, XmlPullParserException {
         String name = xmlPullParser.getName();
         if (!name.equals("gradient")) {
             throw new XmlPullParserException(xmlPullParser.getPositionDescription() + ": invalid gradient color tag " + name);
@@ -67,27 +73,27 @@ final class GradientColorInflaterCompat {
         int namedInt2 = TypedArrayUtils.getNamedInt(obtainAttributes, xmlPullParser, "tileMode", R.styleable.GradientColor_android_tileMode, 0);
         float namedFloat7 = TypedArrayUtils.getNamedFloat(obtainAttributes, xmlPullParser, "gradientRadius", R.styleable.GradientColor_android_gradientRadius, 0.0f);
         obtainAttributes.recycle();
-        ColorStops checkColors = checkColors(inflateChildElements(resources, xmlPullParser, attributeSet, theme), namedColor, namedColor3, hasAttribute, namedColor2);
+        ColorStops a2 = a(d(resources, xmlPullParser, attributeSet, theme), namedColor, namedColor3, hasAttribute, namedColor2);
         if (namedInt != 1) {
-            return namedInt != 2 ? new LinearGradient(namedFloat, namedFloat2, namedFloat3, namedFloat4, checkColors.mColors, checkColors.mOffsets, parseTileMode(namedInt2)) : new SweepGradient(namedFloat5, namedFloat6, checkColors.mColors, checkColors.mOffsets);
+            return namedInt != 2 ? new LinearGradient(namedFloat, namedFloat2, namedFloat3, namedFloat4, a2.f1712a, a2.f1713b, e(namedInt2)) : new SweepGradient(namedFloat5, namedFloat6, a2.f1712a, a2.f1713b);
         }
         if (namedFloat7 > 0.0f) {
-            return new RadialGradient(namedFloat5, namedFloat6, namedFloat7, checkColors.mColors, checkColors.mOffsets, parseTileMode(namedInt2));
+            return new RadialGradient(namedFloat5, namedFloat6, namedFloat7, a2.f1712a, a2.f1713b, e(namedInt2));
         }
         throw new XmlPullParserException("<gradient> tag requires 'gradientRadius' attribute with radial type");
     }
 
-    /* JADX WARN: Code restructure failed: missing block: B:31:0x0084, code lost:
+    /* JADX WARN: Code restructure failed: missing block: B:31:0x0080, code lost:
     
-        throw new org.xmlpull.v1.XmlPullParserException(r9.getPositionDescription() + ": <item> tag requires a 'color' attribute and a 'offset' attribute!");
+        throw new org.xmlpull.v1.XmlPullParserException(r10.getPositionDescription() + ": <item> tag requires a 'color' attribute and a 'offset' attribute!");
      */
     /*
         Code decompiled incorrectly, please refer to instructions dump.
         To view partially-correct code enable 'Show inconsistent code' option in preferences
     */
-    private static androidx.core.content.res.GradientColorInflaterCompat.ColorStops inflateChildElements(@androidx.annotation.NonNull android.content.res.Resources r8, @androidx.annotation.NonNull org.xmlpull.v1.XmlPullParser r9, @androidx.annotation.NonNull android.util.AttributeSet r10, @androidx.annotation.Nullable android.content.res.Resources.Theme r11) throws org.xmlpull.v1.XmlPullParserException, java.io.IOException {
+    private static androidx.core.content.res.GradientColorInflaterCompat.ColorStops d(@androidx.annotation.NonNull android.content.res.Resources r9, @androidx.annotation.NonNull org.xmlpull.v1.XmlPullParser r10, @androidx.annotation.NonNull android.util.AttributeSet r11, @androidx.annotation.Nullable android.content.res.Resources.Theme r12) throws org.xmlpull.v1.XmlPullParserException, java.io.IOException {
         /*
-            int r0 = r9.getDepth()
+            int r0 = r10.getDepth()
             r1 = 1
             int r0 = r0 + r1
             java.util.ArrayList r2 = new java.util.ArrayList
@@ -96,94 +102,96 @@ final class GradientColorInflaterCompat {
             java.util.ArrayList r4 = new java.util.ArrayList
             r4.<init>(r3)
         L12:
-            int r3 = r9.next()
-            if (r3 == r1) goto L85
-            int r5 = r9.getDepth()
+            int r3 = r10.next()
+            if (r3 == r1) goto L81
+            int r5 = r10.getDepth()
             if (r5 >= r0) goto L21
             r6 = 3
-            if (r3 == r6) goto L85
+            if (r3 == r6) goto L81
         L21:
             r6 = 2
             if (r3 == r6) goto L25
             goto L12
         L25:
             if (r5 > r0) goto L12
-            java.lang.String r3 = r9.getName()
+            java.lang.String r3 = r10.getName()
             java.lang.String r5 = "item"
             boolean r3 = r3.equals(r5)
             if (r3 != 0) goto L34
             goto L12
         L34:
             int[] r3 = androidx.core.R.styleable.GradientColorItem
-            android.content.res.TypedArray r3 = androidx.core.content.res.TypedArrayUtils.obtainAttributes(r8, r11, r10, r3)
+            android.content.res.TypedArray r3 = androidx.core.content.res.TypedArrayUtils.obtainAttributes(r9, r12, r11, r3)
             int r5 = androidx.core.R.styleable.GradientColorItem_android_color
-            boolean r5 = r3.hasValue(r5)
-            int r6 = androidx.core.R.styleable.GradientColorItem_android_offset
-            boolean r6 = r3.hasValue(r6)
-            if (r5 == 0) goto L6a
-            if (r6 == 0) goto L6a
-            int r5 = androidx.core.R.styleable.GradientColorItem_android_color
+            boolean r6 = r3.hasValue(r5)
+            int r7 = androidx.core.R.styleable.GradientColorItem_android_offset
+            boolean r8 = r3.hasValue(r7)
+            if (r6 == 0) goto L66
+            if (r8 == 0) goto L66
             r6 = 0
             int r5 = r3.getColor(r5, r6)
-            int r6 = androidx.core.R.styleable.GradientColorItem_android_offset
-            r7 = 0
-            float r6 = r3.getFloat(r6, r7)
+            r6 = 0
+            float r6 = r3.getFloat(r7, r6)
             r3.recycle()
             java.lang.Integer r3 = java.lang.Integer.valueOf(r5)
             r4.add(r3)
             java.lang.Float r3 = java.lang.Float.valueOf(r6)
             r2.add(r3)
             goto L12
-        L6a:
-            org.xmlpull.v1.XmlPullParserException r8 = new org.xmlpull.v1.XmlPullParserException
-            java.lang.StringBuilder r10 = new java.lang.StringBuilder
-            r10.<init>()
-            java.lang.String r9 = r9.getPositionDescription()
-            r10.append(r9)
-            java.lang.String r9 = ": <item> tag requires a 'color' attribute and a 'offset' attribute!"
-            r10.append(r9)
-            java.lang.String r9 = r10.toString()
-            r8.<init>(r9)
-            throw r8
-        L85:
-            int r8 = r4.size()
-            if (r8 <= 0) goto L91
-            androidx.core.content.res.GradientColorInflaterCompat$ColorStops r8 = new androidx.core.content.res.GradientColorInflaterCompat$ColorStops
-            r8.<init>(r4, r2)
-            return r8
-        L91:
-            r8 = 0
-            return r8
+        L66:
+            org.xmlpull.v1.XmlPullParserException r9 = new org.xmlpull.v1.XmlPullParserException
+            java.lang.StringBuilder r11 = new java.lang.StringBuilder
+            r11.<init>()
+            java.lang.String r10 = r10.getPositionDescription()
+            r11.append(r10)
+            java.lang.String r10 = ": <item> tag requires a 'color' attribute and a 'offset' attribute!"
+            r11.append(r10)
+            java.lang.String r10 = r11.toString()
+            r9.<init>(r10)
+            throw r9
+        L81:
+            int r9 = r4.size()
+            if (r9 <= 0) goto L8d
+            androidx.core.content.res.GradientColorInflaterCompat$ColorStops r9 = new androidx.core.content.res.GradientColorInflaterCompat$ColorStops
+            r9.<init>(r4, r2)
+            return r9
+        L8d:
+            r9 = 0
+            return r9
         */
-        throw new UnsupportedOperationException("Method not decompiled: androidx.core.content.res.GradientColorInflaterCompat.inflateChildElements(android.content.res.Resources, org.xmlpull.v1.XmlPullParser, android.util.AttributeSet, android.content.res.Resources$Theme):androidx.core.content.res.GradientColorInflaterCompat$ColorStops");
+        throw new UnsupportedOperationException("Method not decompiled: androidx.core.content.res.GradientColorInflaterCompat.d(android.content.res.Resources, org.xmlpull.v1.XmlPullParser, android.util.AttributeSet, android.content.res.Resources$Theme):androidx.core.content.res.GradientColorInflaterCompat$ColorStops");
     }
 
-    private static Shader.TileMode parseTileMode(int i10) {
-        return i10 != 1 ? i10 != 2 ? Shader.TileMode.CLAMP : Shader.TileMode.MIRROR : Shader.TileMode.REPEAT;
+    private static Shader.TileMode e(int i2) {
+        return i2 != 1 ? i2 != 2 ? Shader.TileMode.CLAMP : Shader.TileMode.MIRROR : Shader.TileMode.REPEAT;
     }
 
-    public static final class ColorStops {
-        final int[] mColors;
-        final float[] mOffsets;
+    static final class ColorStops {
 
-        public ColorStops(@NonNull List<Integer> list, @NonNull List<Float> list2) {
+        /* renamed from: a */
+        final int[] f1712a;
+
+        /* renamed from: b */
+        final float[] f1713b;
+
+        ColorStops(@NonNull List<Integer> list, @NonNull List<Float> list2) {
             int size = list.size();
-            this.mColors = new int[size];
-            this.mOffsets = new float[size];
-            for (int i10 = 0; i10 < size; i10++) {
-                this.mColors[i10] = list.get(i10).intValue();
-                this.mOffsets[i10] = list2.get(i10).floatValue();
+            this.f1712a = new int[size];
+            this.f1713b = new float[size];
+            for (int i2 = 0; i2 < size; i2++) {
+                this.f1712a[i2] = list.get(i2).intValue();
+                this.f1713b[i2] = list2.get(i2).floatValue();
             }
         }
 
-        public ColorStops(@ColorInt int i10, @ColorInt int i11) {
-            this.mColors = new int[]{i10, i11};
-            this.mOffsets = new float[]{0.0f, 1.0f};
+        ColorStops(@ColorInt int i2, @ColorInt int i3) {
+            this.f1712a = new int[]{i2, i3};
+            this.f1713b = new float[]{0.0f, 1.0f};
         }
 
-        public ColorStops(@ColorInt int i10, @ColorInt int i11, @ColorInt int i12) {
-            this.mColors = new int[]{i10, i11, i12};
-            this.mOffsets = new float[]{0.0f, 0.5f, 1.0f};
+        ColorStops(@ColorInt int i2, @ColorInt int i3, @ColorInt int i4) {
+            this.f1712a = new int[]{i2, i3, i4};
+            this.f1713b = new float[]{0.0f, 0.5f, 1.0f};
         }
     }
 }

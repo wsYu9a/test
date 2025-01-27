@@ -1,6 +1,6 @@
 package com.ss.android.socialbase.downloader.constants;
 
-/* loaded from: classes4.dex */
+/* loaded from: classes.dex */
 public @interface BoundType {
     public static final int CPU = 1;
     public static final int IO = 2;

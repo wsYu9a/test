@@ -16,65 +16,65 @@ import java.util.Map;
 public class c {
 
     /* renamed from: a */
-    public static int f22361a = 1000;
+    public static int f24774a = 1000;
 
     /* renamed from: b */
-    private static c f22362b;
+    private static c f24775b;
 
     /* renamed from: c */
-    private static String f22363c;
+    private static String f24776c;
 
     /* renamed from: d */
-    private final List<com.tencent.bugly.a> f22364d;
+    private final List<com.tencent.bugly.a> f24777d;
 
     /* renamed from: e */
-    private final W f22365e;
+    private final W f24778e;
 
     /* renamed from: f */
-    private final StrategyBean f22366f;
+    private final StrategyBean f24779f;
 
     /* renamed from: g */
-    private StrategyBean f22367g = null;
+    private StrategyBean f24780g = null;
 
     /* renamed from: h */
-    private Context f22368h;
+    private Context f24781h;
 
-    public c(Context context, List<com.tencent.bugly.a> list) {
-        this.f22368h = context;
+    protected c(Context context, List<com.tencent.bugly.a> list) {
+        this.f24781h = context;
         a(context);
-        this.f22366f = new StrategyBean();
-        this.f22364d = list;
-        this.f22365e = W.c();
+        this.f24779f = new StrategyBean();
+        this.f24777d = list;
+        this.f24778e = W.c();
     }
 
     public StrategyBean c() {
-        StrategyBean strategyBean = this.f22367g;
+        StrategyBean strategyBean = this.f24780g;
         if (strategyBean != null) {
-            if (!ca.c(strategyBean.f22353q)) {
-                this.f22367g.f22353q = StrategyBean.f22337a;
+            if (!ca.c(strategyBean.q)) {
+                this.f24780g.q = StrategyBean.f24763a;
             }
-            if (!ca.c(this.f22367g.f22354r)) {
-                this.f22367g.f22354r = StrategyBean.f22338b;
+            if (!ca.c(this.f24780g.r)) {
+                this.f24780g.r = StrategyBean.f24764b;
             }
-            return this.f22367g;
+            return this.f24780g;
         }
-        if (!ca.b(f22363c) && ca.c(f22363c)) {
-            StrategyBean strategyBean2 = this.f22366f;
-            String str = f22363c;
-            strategyBean2.f22353q = str;
-            strategyBean2.f22354r = str;
+        if (!ca.b(f24776c) && ca.c(f24776c)) {
+            StrategyBean strategyBean2 = this.f24779f;
+            String str = f24776c;
+            strategyBean2.q = str;
+            strategyBean2.r = str;
         }
-        return this.f22366f;
+        return this.f24779f;
     }
 
     public synchronized boolean d() {
-        return this.f22367g != null;
+        return this.f24780g != null;
     }
 
     public StrategyBean e() {
         byte[] bArr;
-        List<L> a10 = J.a().a(2);
-        if (a10 == null || a10.size() <= 0 || (bArr = a10.get(0).f22634g) == null) {
+        List<L> a2 = J.a().a(2);
+        if (a2 == null || a2.size() <= 0 || (bArr = a2.get(0).f24985g) == null) {
             return null;
         }
         return (StrategyBean) ca.a(bArr, StrategyBean.CREATOR);
@@ -83,7 +83,7 @@ public class c {
     public static synchronized c b() {
         c cVar;
         synchronized (c.class) {
-            cVar = f22362b;
+            cVar = f24775b;
         }
         return cVar;
     }
@@ -91,32 +91,28 @@ public class c {
     public static synchronized c a(Context context, List<com.tencent.bugly.a> list) {
         c cVar;
         synchronized (c.class) {
-            try {
-                if (f22362b == null) {
-                    f22362b = new c(context, list);
-                }
-                cVar = f22362b;
-            } catch (Throwable th2) {
-                throw th2;
+            if (f24775b == null) {
+                f24775b = new c(context, list);
             }
+            cVar = f24775b;
         }
         return cVar;
     }
 
-    public void a(long j10) {
-        this.f22365e.a(new b(this), j10);
+    public void a(long j2) {
+        this.f24778e.a(new b(this), j2);
     }
 
-    public void a(StrategyBean strategyBean, boolean z10) {
+    protected void a(StrategyBean strategyBean, boolean z) {
         X.a("[Strategy] Notify %s", f.class.getName());
-        f.a(strategyBean, z10);
-        for (com.tencent.bugly.a aVar : this.f22364d) {
+        f.a(strategyBean, z);
+        for (com.tencent.bugly.a aVar : this.f24777d) {
             try {
                 X.a("[Strategy] Notify %s", aVar.getClass().getName());
                 aVar.onServerStrategyChanged(strategyBean);
-            } catch (Throwable th2) {
-                if (!X.b(th2)) {
-                    th2.printStackTrace();
+            } catch (Throwable th) {
+                if (!X.b(th)) {
+                    th.printStackTrace();
                 }
             }
         }
@@ -124,7 +120,7 @@ public class c {
 
     public static void a(String str) {
         if (!ca.b(str) && ca.c(str)) {
-            f22363c = str;
+            f24776c = str;
         } else {
             X.e("URL user set is invalid.", new Object[0]);
         }
@@ -134,97 +130,97 @@ public class c {
         if (saVar == null) {
             return;
         }
-        StrategyBean strategyBean = this.f22367g;
-        if (strategyBean == null || saVar.f22860k != strategyBean.f22351o) {
+        StrategyBean strategyBean = this.f24780g;
+        if (strategyBean == null || saVar.k != strategyBean.o) {
             StrategyBean strategyBean2 = new StrategyBean();
-            strategyBean2.f22342f = saVar.f22853d;
-            strategyBean2.f22344h = saVar.f22855f;
-            strategyBean2.f22343g = saVar.f22854e;
-            if (ca.b(f22363c) || !ca.c(f22363c)) {
-                if (ca.c(saVar.f22856g)) {
-                    X.a("[Strategy] Upload url changes to %s", saVar.f22856g);
-                    strategyBean2.f22353q = saVar.f22856g;
+            strategyBean2.f24768f = saVar.f25149d;
+            strategyBean2.f24770h = saVar.f25151f;
+            strategyBean2.f24769g = saVar.f25150e;
+            if (ca.b(f24776c) || !ca.c(f24776c)) {
+                if (ca.c(saVar.f25152g)) {
+                    X.a("[Strategy] Upload url changes to %s", saVar.f25152g);
+                    strategyBean2.q = saVar.f25152g;
                 }
-                if (ca.c(saVar.f22857h)) {
-                    X.a("[Strategy] Exception upload url changes to %s", saVar.f22857h);
-                    strategyBean2.f22354r = saVar.f22857h;
+                if (ca.c(saVar.f25153h)) {
+                    X.a("[Strategy] Exception upload url changes to %s", saVar.f25153h);
+                    strategyBean2.r = saVar.f25153h;
                 }
             }
-            ra raVar = saVar.f22858i;
-            if (raVar != null && !ca.b(raVar.f22847a)) {
-                strategyBean2.f22355s = saVar.f22858i.f22847a;
+            ra raVar = saVar.f25154i;
+            if (raVar != null && !ca.b(raVar.f25143a)) {
+                strategyBean2.s = saVar.f25154i.f25143a;
             }
-            long j10 = saVar.f22860k;
-            if (j10 != 0) {
-                strategyBean2.f22351o = j10;
+            long j2 = saVar.k;
+            if (j2 != 0) {
+                strategyBean2.o = j2;
             }
-            Map<String, String> map = saVar.f22859j;
+            Map<String, String> map = saVar.f25155j;
             if (map != null && map.size() > 0) {
-                Map<String, String> map2 = saVar.f22859j;
-                strategyBean2.f22356t = map2;
+                Map<String, String> map2 = saVar.f25155j;
+                strategyBean2.t = map2;
                 String str = map2.get("B11");
                 if (str != null && str.equals("1")) {
-                    strategyBean2.f22345i = true;
+                    strategyBean2.f24771i = true;
                 } else {
-                    strategyBean2.f22345i = false;
+                    strategyBean2.f24771i = false;
                 }
-                String str2 = saVar.f22859j.get("B3");
+                String str2 = saVar.f25155j.get("B3");
                 if (str2 != null) {
-                    strategyBean2.f22359w = Long.valueOf(str2).longValue();
+                    strategyBean2.w = Long.valueOf(str2).longValue();
                 }
-                long j11 = saVar.f22864o;
-                strategyBean2.f22352p = j11;
-                strategyBean2.f22358v = j11;
-                String str3 = saVar.f22859j.get("B27");
+                long j3 = saVar.o;
+                strategyBean2.p = j3;
+                strategyBean2.v = j3;
+                String str3 = saVar.f25155j.get("B27");
                 if (str3 != null && str3.length() > 0) {
                     try {
                         int parseInt = Integer.parseInt(str3);
                         if (parseInt > 0) {
-                            strategyBean2.f22357u = parseInt;
+                            strategyBean2.u = parseInt;
                         }
-                    } catch (Exception e10) {
-                        if (!X.b(e10)) {
-                            e10.printStackTrace();
+                    } catch (Exception e2) {
+                        if (!X.b(e2)) {
+                            e2.printStackTrace();
                         }
                     }
                 }
-                String str4 = saVar.f22859j.get("B25");
+                String str4 = saVar.f25155j.get("B25");
                 if (str4 != null && str4.equals("1")) {
-                    strategyBean2.f22347k = true;
+                    strategyBean2.k = true;
                 } else {
-                    strategyBean2.f22347k = false;
+                    strategyBean2.k = false;
                 }
             }
-            X.c("[Strategy] enableCrashReport:%b, enableQuery:%b, enableUserInfo:%b, enableAnr:%b, enableBlock:%b, enableSession:%b, enableSessionTimer:%b, sessionOverTime:%d, enableCocos:%b, strategyLastUpdateTime:%d", Boolean.valueOf(strategyBean2.f22342f), Boolean.valueOf(strategyBean2.f22344h), Boolean.valueOf(strategyBean2.f22343g), Boolean.valueOf(strategyBean2.f22345i), Boolean.valueOf(strategyBean2.f22346j), Boolean.valueOf(strategyBean2.f22349m), Boolean.valueOf(strategyBean2.f22350n), Long.valueOf(strategyBean2.f22352p), Boolean.valueOf(strategyBean2.f22347k), Long.valueOf(strategyBean2.f22351o));
-            this.f22367g = strategyBean2;
-            if (!ca.c(saVar.f22856g)) {
+            X.c("[Strategy] enableCrashReport:%b, enableQuery:%b, enableUserInfo:%b, enableAnr:%b, enableBlock:%b, enableSession:%b, enableSessionTimer:%b, sessionOverTime:%d, enableCocos:%b, strategyLastUpdateTime:%d", Boolean.valueOf(strategyBean2.f24768f), Boolean.valueOf(strategyBean2.f24770h), Boolean.valueOf(strategyBean2.f24769g), Boolean.valueOf(strategyBean2.f24771i), Boolean.valueOf(strategyBean2.f24772j), Boolean.valueOf(strategyBean2.m), Boolean.valueOf(strategyBean2.n), Long.valueOf(strategyBean2.p), Boolean.valueOf(strategyBean2.k), Long.valueOf(strategyBean2.o));
+            this.f24780g = strategyBean2;
+            if (!ca.c(saVar.f25152g)) {
                 X.a("[Strategy] download url is null", new Object[0]);
-                this.f22367g.f22353q = "";
+                this.f24780g.q = "";
             }
-            if (!ca.c(saVar.f22857h)) {
+            if (!ca.c(saVar.f25153h)) {
                 X.a("[Strategy] download crashurl is null", new Object[0]);
-                this.f22367g.f22354r = "";
+                this.f24780g.r = "";
             }
             J.a().b(2);
-            L l10 = new L();
-            l10.f22629b = 2;
-            l10.f22628a = strategyBean2.f22340d;
-            l10.f22632e = strategyBean2.f22341e;
-            l10.f22634g = ca.a(strategyBean2);
-            J.a().c(l10);
+            L l = new L();
+            l.f24980b = 2;
+            l.f24979a = strategyBean2.f24766d;
+            l.f24983e = strategyBean2.f24767e;
+            l.f24985g = ca.a(strategyBean2);
+            J.a().c(l);
             a(strategyBean2, true);
         }
     }
 
     private static void a(Context context) {
         if (com.tencent.bugly.crashreport.common.info.a.a(context) != null) {
-            String str = com.tencent.bugly.crashreport.common.info.a.a(context).f22293fa;
+            String str = com.tencent.bugly.crashreport.common.info.a.a(context).fa;
             if ("oversea".equals(str)) {
-                StrategyBean.f22337a = "https://astat.bugly.qcloud.com/rqd/async";
-                StrategyBean.f22338b = "https://astat.bugly.qcloud.com/rqd/async";
+                StrategyBean.f24763a = "https://astat.bugly.qcloud.com/rqd/async";
+                StrategyBean.f24764b = "https://astat.bugly.qcloud.com/rqd/async";
             } else if ("na_https".equals(str)) {
-                StrategyBean.f22337a = "https://astat.bugly.cros.wr.pvp.net/:8180/rqd/async";
-                StrategyBean.f22338b = "https://astat.bugly.cros.wr.pvp.net/:8180/rqd/async";
+                StrategyBean.f24763a = "https://astat.bugly.cros.wr.pvp.net/:8180/rqd/async";
+                StrategyBean.f24764b = "https://astat.bugly.cros.wr.pvp.net/:8180/rqd/async";
             }
         }
     }

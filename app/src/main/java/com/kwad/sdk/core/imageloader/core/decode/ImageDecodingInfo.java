@@ -2,6 +2,7 @@ package com.kwad.sdk.core.imageloader.core.decode;
 
 import android.annotation.TargetApi;
 import android.graphics.BitmapFactory;
+import android.os.Build;
 import com.kwad.sdk.core.imageloader.core.DisplayImageOptions;
 import com.kwad.sdk.core.imageloader.core.assist.ImageScaleType;
 import com.kwad.sdk.core.imageloader.core.assist.ImageSize;
@@ -9,7 +10,7 @@ import com.kwad.sdk.core.imageloader.core.assist.ViewScaleType;
 import com.kwad.sdk.core.imageloader.core.download.ImageDownloader;
 import com.kwad.sdk.core.imageloader.core.listener.ImageLoadingListener;
 
-/* loaded from: classes3.dex */
+/* loaded from: classes2.dex */
 public class ImageDecodingInfo {
     private final boolean considerExifParams;
     private final BitmapFactory.Options decodingOptions;
@@ -51,8 +52,13 @@ public class ImageDecodingInfo {
         options2.inScreenDensity = options.inScreenDensity;
         options2.inTargetDensity = options.inTargetDensity;
         options2.inTempStorage = options.inTempStorage;
-        copyOptions10(options, options2);
-        copyOptions11(options, options2);
+        int i2 = Build.VERSION.SDK_INT;
+        if (i2 >= 10) {
+            copyOptions10(options, options2);
+        }
+        if (i2 >= 11) {
+            copyOptions11(options, options2);
+        }
     }
 
     @TargetApi(10)

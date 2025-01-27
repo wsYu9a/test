@@ -2,7 +2,7 @@ package com.bytedance.sdk.openadsdk;
 
 import android.graphics.Bitmap;
 
-/* loaded from: classes2.dex */
+/* loaded from: classes.dex */
 public interface TTDrawFeedAd extends TTFeedAd {
 
     public interface DrawVideoListener {
@@ -11,9 +11,9 @@ public interface TTDrawFeedAd extends TTFeedAd {
         void onClickRetry();
     }
 
-    void setCanInterruptVideoPlay(boolean z10);
+    void setCanInterruptVideoPlay(boolean z);
 
     void setDrawVideoListener(DrawVideoListener drawVideoListener);
 
-    void setPauseIcon(Bitmap bitmap, int i10);
+    void setPauseIcon(Bitmap bitmap, int i2);
 }

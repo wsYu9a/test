@@ -1,64 +1,40 @@
 package com.kwad.sdk.core.report;
 
-import android.text.TextUtils;
-import com.kwad.sdk.utils.x;
-import java.util.Iterator;
-import java.util.List;
-import org.json.JSONArray;
+import androidx.annotation.Nullable;
 import org.json.JSONObject;
 
-/* loaded from: classes3.dex */
-public final class f extends com.kwad.sdk.core.network.d {
-    protected String aBK;
+/* loaded from: classes2.dex */
+public abstract class f extends com.kwad.sdk.core.response.kwai.a {
+    public String actionId;
+    private JSONObject mMergeJsonData;
 
-    public f(List<n> list) {
-        this.aBK = "";
-        if (list == null || list.size() <= 0) {
-            return;
-        }
-        JSONArray jSONArray = new JSONArray();
-        Iterator<n> it = list.iterator();
-        while (it.hasNext()) {
-            x.a(jSONArray, it.next().buildReportData());
-        }
-        putBody("actionList", jSONArray);
-    }
-
-    @Override // com.kwad.sdk.core.network.d
-    public final boolean enablePrivateInfoObtain() {
-        return true;
-    }
-
-    @Override // com.kwad.sdk.core.network.b, com.kwad.sdk.core.network.f
-    public final JSONObject getBody() {
-        if (encryptDisable() && !TextUtils.isEmpty(this.aBK)) {
-            putBody("actionListString", this.aBK);
-        }
-        return super.getBody();
-    }
-
-    @Override // com.kwad.sdk.core.network.b
-    public final String getBodyParamsString() {
-        String bodyParamsString = super.getBodyParamsString();
-        try {
-            if (TextUtils.isEmpty(this.aBK)) {
-                return bodyParamsString;
-            }
-            StringBuilder sb2 = new StringBuilder(bodyParamsString);
-            sb2.insert(sb2.length() - 1, this.aBK);
-            return sb2.toString();
-        } catch (Exception e10) {
-            com.kwad.sdk.core.d.c.printStackTrace(e10);
-            return bodyParamsString;
+    @Override // com.kwad.sdk.core.response.kwai.a
+    public void afterParseJson(@Nullable JSONObject jSONObject) {
+        super.afterParseJson(jSONObject);
+        if (jSONObject != null) {
+            this.mMergeJsonData = jSONObject.optJSONObject("mMergeJsonData");
         }
     }
 
-    @Override // com.kwad.sdk.core.network.b, com.kwad.sdk.core.network.f
-    public final String getUrl() {
-        return com.kwad.sdk.h.zj();
+    @Override // com.kwad.sdk.core.response.kwai.a
+    public void afterToJson(JSONObject jSONObject) {
+        super.afterToJson(jSONObject);
+        JSONObject jSONObject2 = this.mMergeJsonData;
+        if (jSONObject2 != null) {
+            com.kwad.sdk.utils.t.putValue(jSONObject, "mMergeJsonData", jSONObject2);
+        }
     }
 
-    public f(String str) {
-        this.aBK = str;
+    public JSONObject buildReportData() {
+        JSONObject json = toJson();
+        if (this.mMergeJsonData != null) {
+            json.remove("mMergeJsonData");
+            com.kwad.sdk.utils.u.merge(json, this.mMergeJsonData);
+        }
+        return json;
+    }
+
+    public void setJsonMergeData(JSONObject jSONObject) {
+        this.mMergeJsonData = jSONObject;
     }
 }

@@ -5,7 +5,7 @@ import com.kwad.sdk.core.imageloader.utils.IoUtils;
 import java.io.File;
 import java.io.InputStream;
 
-/* loaded from: classes3.dex */
+/* loaded from: classes2.dex */
 public interface DiskCache {
     void clear();
 

@@ -1,8 +1,8 @@
 package com.martian.appwall.request;
 
-import v8.a;
+import com.martian.libcomm.http.requests.d.a;
 
-/* loaded from: classes3.dex */
+/* loaded from: classes2.dex */
 public class WithdrawCommissionParams extends MartianApBaseParams {
 
     @a
@@ -12,12 +12,12 @@ public class WithdrawCommissionParams extends MartianApBaseParams {
         return this.night_mode;
     }
 
-    @Override // u8.b
+    @Override // com.martian.libcomm.http.requests.b
     public String getRequestMethod() {
         return "commission_withdraw";
     }
 
-    public void setNight_mode(Boolean bool) {
-        this.night_mode = bool;
+    public void setNight_mode(Boolean night_mode) {
+        this.night_mode = night_mode;
     }
 }

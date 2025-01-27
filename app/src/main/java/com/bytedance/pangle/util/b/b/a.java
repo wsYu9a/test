@@ -4,19 +4,19 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 
-/* loaded from: classes2.dex */
+/* loaded from: classes.dex */
 public final class a {
 
     /* renamed from: a */
-    public List<c> f7836a = new ArrayList();
+    public List<c> f6313a = new ArrayList();
 
     public final void a(Set<String> set) {
         ArrayList arrayList = new ArrayList();
-        for (c cVar : this.f7836a) {
-            if (!set.contains(cVar.f7846h)) {
+        for (c cVar : this.f6313a) {
+            if (!set.contains(cVar.f6323h)) {
                 arrayList.add(cVar);
             }
         }
-        this.f7836a = arrayList;
+        this.f6313a = arrayList;
     }
 }

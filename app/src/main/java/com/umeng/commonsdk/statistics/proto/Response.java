@@ -1,25 +1,25 @@
 package com.umeng.commonsdk.statistics.proto;
 
-import com.umeng.analytics.pro.Cdo;
-import com.umeng.analytics.pro.bt;
+import com.umeng.analytics.pro.am;
+import com.umeng.analytics.pro.as;
+import com.umeng.analytics.pro.av;
+import com.umeng.analytics.pro.bb;
+import com.umeng.analytics.pro.bc;
+import com.umeng.analytics.pro.bh;
+import com.umeng.analytics.pro.bi;
+import com.umeng.analytics.pro.bm;
+import com.umeng.analytics.pro.bo;
+import com.umeng.analytics.pro.bp;
+import com.umeng.analytics.pro.bu;
+import com.umeng.analytics.pro.bv;
+import com.umeng.analytics.pro.bx;
+import com.umeng.analytics.pro.bz;
+import com.umeng.analytics.pro.ca;
+import com.umeng.analytics.pro.cc;
+import com.umeng.analytics.pro.cd;
 import com.umeng.analytics.pro.ce;
-import com.umeng.analytics.pro.ch;
-import com.umeng.analytics.pro.cn;
-import com.umeng.analytics.pro.co;
-import com.umeng.analytics.pro.ct;
-import com.umeng.analytics.pro.cu;
-import com.umeng.analytics.pro.cy;
-import com.umeng.analytics.pro.da;
-import com.umeng.analytics.pro.db;
-import com.umeng.analytics.pro.dg;
-import com.umeng.analytics.pro.dh;
-import com.umeng.analytics.pro.dj;
-import com.umeng.analytics.pro.dl;
-import com.umeng.analytics.pro.dm;
-import com.umeng.analytics.pro.dp;
-import com.umeng.analytics.pro.dq;
-import com.umeng.analytics.pro.dr;
-import com.umeng.analytics.pro.ds;
+import com.umeng.analytics.pro.cf;
+import com.umeng.analytics.pro.cg;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
@@ -33,124 +33,124 @@ import java.util.Iterator;
 import java.util.Map;
 
 /* loaded from: classes4.dex */
-public class Response implements ch<Response, e>, Serializable, Cloneable {
+public class Response implements av<Response, e>, Serializable, Cloneable {
     private static final int __RESP_CODE_ISSET_ID = 0;
-    public static final Map<e, ct> metaDataMap;
-    private static final Map<Class<? extends Cdo>, dp> schemes;
+    public static final Map<e, bh> metaDataMap;
+    private static final Map<Class<? extends cc>, cd> schemes;
     private static final long serialVersionUID = -4549277923241195391L;
     private byte __isset_bitfield;
     public com.umeng.commonsdk.statistics.proto.d imprint;
     public String msg;
     private e[] optionals;
     public int resp_code;
-    private static final dl STRUCT_DESC = new dl("Response");
-    private static final db RESP_CODE_FIELD_DESC = new db("resp_code", (byte) 8, 1);
-    private static final db MSG_FIELD_DESC = new db("msg", (byte) 11, 2);
-    private static final db IMPRINT_FIELD_DESC = new db(bt.X, (byte) 12, 3);
+    private static final bz STRUCT_DESC = new bz("Response");
+    private static final bp RESP_CODE_FIELD_DESC = new bp("resp_code", (byte) 8, 1);
+    private static final bp MSG_FIELD_DESC = new bp("msg", (byte) 11, 2);
+    private static final bp IMPRINT_FIELD_DESC = new bp(am.X, (byte) 12, 3);
 
-    public static class a extends dq<Response> {
+    private static class a extends ce<Response> {
         private a() {
         }
 
-        public /* synthetic */ a(AnonymousClass1 anonymousClass1) {
+        /* synthetic */ a(AnonymousClass1 anonymousClass1) {
             this();
         }
 
-        @Override // com.umeng.analytics.pro.Cdo
+        @Override // com.umeng.analytics.pro.cc
         /* renamed from: a */
-        public void b(dg dgVar, Response response) throws cn {
-            dgVar.j();
+        public void b(bu buVar, Response response) throws bb {
+            buVar.j();
             while (true) {
-                db l10 = dgVar.l();
-                byte b10 = l10.f23828b;
-                if (b10 == 0) {
+                bp l = buVar.l();
+                byte b2 = l.f25780b;
+                if (b2 == 0) {
                     break;
                 }
-                short s10 = l10.f23829c;
-                if (s10 != 1) {
-                    if (s10 != 2) {
-                        if (s10 != 3) {
-                            dj.a(dgVar, b10);
-                        } else if (b10 == 12) {
+                short s = l.f25781c;
+                if (s != 1) {
+                    if (s != 2) {
+                        if (s != 3) {
+                            bx.a(buVar, b2);
+                        } else if (b2 == 12) {
                             com.umeng.commonsdk.statistics.proto.d dVar = new com.umeng.commonsdk.statistics.proto.d();
                             response.imprint = dVar;
-                            dVar.read(dgVar);
+                            dVar.read(buVar);
                             response.setImprintIsSet(true);
                         } else {
-                            dj.a(dgVar, b10);
+                            bx.a(buVar, b2);
                         }
-                    } else if (b10 == 11) {
-                        response.msg = dgVar.z();
+                    } else if (b2 == 11) {
+                        response.msg = buVar.z();
                         response.setMsgIsSet(true);
                     } else {
-                        dj.a(dgVar, b10);
+                        bx.a(buVar, b2);
                     }
-                } else if (b10 == 8) {
-                    response.resp_code = dgVar.w();
+                } else if (b2 == 8) {
+                    response.resp_code = buVar.w();
                     response.setResp_codeIsSet(true);
                 } else {
-                    dj.a(dgVar, b10);
+                    bx.a(buVar, b2);
                 }
-                dgVar.m();
+                buVar.m();
             }
-            dgVar.k();
+            buVar.k();
             if (response.isSetResp_code()) {
                 response.validate();
                 return;
             }
-            throw new dh("Required field 'resp_code' was not found in serialized data! Struct: " + toString());
+            throw new bv("Required field 'resp_code' was not found in serialized data! Struct: " + toString());
         }
 
-        @Override // com.umeng.analytics.pro.Cdo
+        @Override // com.umeng.analytics.pro.cc
         /* renamed from: b */
-        public void a(dg dgVar, Response response) throws cn {
+        public void a(bu buVar, Response response) throws bb {
             response.validate();
-            dgVar.a(Response.STRUCT_DESC);
-            dgVar.a(Response.RESP_CODE_FIELD_DESC);
-            dgVar.a(response.resp_code);
-            dgVar.c();
+            buVar.a(Response.STRUCT_DESC);
+            buVar.a(Response.RESP_CODE_FIELD_DESC);
+            buVar.a(response.resp_code);
+            buVar.c();
             if (response.msg != null && response.isSetMsg()) {
-                dgVar.a(Response.MSG_FIELD_DESC);
-                dgVar.a(response.msg);
-                dgVar.c();
+                buVar.a(Response.MSG_FIELD_DESC);
+                buVar.a(response.msg);
+                buVar.c();
             }
             if (response.imprint != null && response.isSetImprint()) {
-                dgVar.a(Response.IMPRINT_FIELD_DESC);
-                response.imprint.write(dgVar);
-                dgVar.c();
+                buVar.a(Response.IMPRINT_FIELD_DESC);
+                response.imprint.write(buVar);
+                buVar.c();
             }
-            dgVar.d();
-            dgVar.b();
+            buVar.d();
+            buVar.b();
         }
     }
 
-    public static class b implements dp {
+    private static class b implements cd {
         private b() {
         }
 
-        @Override // com.umeng.analytics.pro.dp
+        @Override // com.umeng.analytics.pro.cd
         /* renamed from: a */
         public a b() {
             return new a();
         }
 
-        public /* synthetic */ b(AnonymousClass1 anonymousClass1) {
+        /* synthetic */ b(AnonymousClass1 anonymousClass1) {
             this();
         }
     }
 
-    public static class c extends dr<Response> {
+    private static class c extends cf<Response> {
         private c() {
         }
 
-        public /* synthetic */ c(AnonymousClass1 anonymousClass1) {
+        /* synthetic */ c(AnonymousClass1 anonymousClass1) {
             this();
         }
 
-        @Override // com.umeng.analytics.pro.Cdo
-        public void a(dg dgVar, Response response) throws cn {
-            dm dmVar = (dm) dgVar;
-            dmVar.a(response.resp_code);
+        @Override // com.umeng.analytics.pro.cc
+        public void a(bu buVar, Response response) throws bb {
+            ca caVar = (ca) buVar;
+            caVar.a(response.resp_code);
             BitSet bitSet = new BitSet();
             if (response.isSetMsg()) {
                 bitSet.set(0);
@@ -158,45 +158,45 @@ public class Response implements ch<Response, e>, Serializable, Cloneable {
             if (response.isSetImprint()) {
                 bitSet.set(1);
             }
-            dmVar.a(bitSet, 2);
+            caVar.a(bitSet, 2);
             if (response.isSetMsg()) {
-                dmVar.a(response.msg);
+                caVar.a(response.msg);
             }
             if (response.isSetImprint()) {
-                response.imprint.write(dmVar);
+                response.imprint.write(caVar);
             }
         }
 
-        @Override // com.umeng.analytics.pro.Cdo
-        public void b(dg dgVar, Response response) throws cn {
-            dm dmVar = (dm) dgVar;
-            response.resp_code = dmVar.w();
+        @Override // com.umeng.analytics.pro.cc
+        public void b(bu buVar, Response response) throws bb {
+            ca caVar = (ca) buVar;
+            response.resp_code = caVar.w();
             response.setResp_codeIsSet(true);
-            BitSet b10 = dmVar.b(2);
-            if (b10.get(0)) {
-                response.msg = dmVar.z();
+            BitSet b2 = caVar.b(2);
+            if (b2.get(0)) {
+                response.msg = caVar.z();
                 response.setMsgIsSet(true);
             }
-            if (b10.get(1)) {
+            if (b2.get(1)) {
                 com.umeng.commonsdk.statistics.proto.d dVar = new com.umeng.commonsdk.statistics.proto.d();
                 response.imprint = dVar;
-                dVar.read(dmVar);
+                dVar.read(caVar);
                 response.setImprintIsSet(true);
             }
         }
     }
 
-    public static class d implements dp {
+    private static class d implements cd {
         private d() {
         }
 
-        @Override // com.umeng.analytics.pro.dp
+        @Override // com.umeng.analytics.pro.cd
         /* renamed from: a */
         public c b() {
             return new c();
         }
 
-        public /* synthetic */ d(AnonymousClass1 anonymousClass1) {
+        /* synthetic */ d(AnonymousClass1 anonymousClass1) {
             this();
         }
     }
@@ -204,15 +204,15 @@ public class Response implements ch<Response, e>, Serializable, Cloneable {
     static {
         HashMap hashMap = new HashMap();
         schemes = hashMap;
-        hashMap.put(dq.class, new b());
-        hashMap.put(dr.class, new d());
+        hashMap.put(ce.class, new b());
+        hashMap.put(cf.class, new d());
         EnumMap enumMap = new EnumMap(e.class);
-        enumMap.put((EnumMap) e.RESP_CODE, (e) new ct("resp_code", (byte) 1, new cu((byte) 8)));
-        enumMap.put((EnumMap) e.MSG, (e) new ct("msg", (byte) 2, new cu((byte) 11)));
-        enumMap.put((EnumMap) e.IMPRINT, (e) new ct(bt.X, (byte) 2, new cy((byte) 12, com.umeng.commonsdk.statistics.proto.d.class)));
-        Map<e, ct> unmodifiableMap = Collections.unmodifiableMap(enumMap);
+        enumMap.put((EnumMap) e.RESP_CODE, (e) new bh("resp_code", (byte) 1, new bi((byte) 8)));
+        enumMap.put((EnumMap) e.MSG, (e) new bh("msg", (byte) 2, new bi((byte) 11)));
+        enumMap.put((EnumMap) e.IMPRINT, (e) new bh(am.X, (byte) 2, new bm((byte) 12, com.umeng.commonsdk.statistics.proto.d.class)));
+        Map<e, bh> unmodifiableMap = Collections.unmodifiableMap(enumMap);
         metaDataMap = unmodifiableMap;
-        ct.a(Response.class, unmodifiableMap);
+        bh.a(Response.class, unmodifiableMap);
     }
 
     public Response() {
@@ -223,21 +223,21 @@ public class Response implements ch<Response, e>, Serializable, Cloneable {
     private void readObject(ObjectInputStream objectInputStream) throws IOException, ClassNotFoundException {
         try {
             this.__isset_bitfield = (byte) 0;
-            read(new da(new ds(objectInputStream)));
-        } catch (cn e10) {
-            throw new IOException(e10.getMessage());
+            read(new bo(new cg(objectInputStream)));
+        } catch (bb e2) {
+            throw new IOException(e2.getMessage());
         }
     }
 
     private void writeObject(ObjectOutputStream objectOutputStream) throws IOException {
         try {
-            write(new da(new ds(objectOutputStream)));
-        } catch (cn e10) {
-            throw new IOException(e10.getMessage());
+            write(new bo(new cg(objectOutputStream)));
+        } catch (bb e2) {
+            throw new IOException(e2.getMessage());
         }
     }
 
-    @Override // com.umeng.analytics.pro.ch
+    @Override // com.umeng.analytics.pro.av
     public void clear() {
         setResp_codeIsSet(false);
         this.resp_code = 0;
@@ -266,12 +266,12 @@ public class Response implements ch<Response, e>, Serializable, Cloneable {
     }
 
     public boolean isSetResp_code() {
-        return ce.a(this.__isset_bitfield, 0);
+        return as.a(this.__isset_bitfield, 0);
     }
 
-    @Override // com.umeng.analytics.pro.ch
-    public void read(dg dgVar) throws cn {
-        schemes.get(dgVar.D()).b().b(dgVar, this);
+    @Override // com.umeng.analytics.pro.av
+    public void read(bu buVar) throws bb {
+        schemes.get(buVar.D()).b().b(buVar, this);
     }
 
     public Response setImprint(com.umeng.commonsdk.statistics.proto.d dVar) {
@@ -279,8 +279,8 @@ public class Response implements ch<Response, e>, Serializable, Cloneable {
         return this;
     }
 
-    public void setImprintIsSet(boolean z10) {
-        if (z10) {
+    public void setImprintIsSet(boolean z) {
+        if (z) {
             return;
         }
         this.imprint = null;
@@ -291,49 +291,49 @@ public class Response implements ch<Response, e>, Serializable, Cloneable {
         return this;
     }
 
-    public void setMsgIsSet(boolean z10) {
-        if (z10) {
+    public void setMsgIsSet(boolean z) {
+        if (z) {
             return;
         }
         this.msg = null;
     }
 
-    public Response setResp_code(int i10) {
-        this.resp_code = i10;
+    public Response setResp_code(int i2) {
+        this.resp_code = i2;
         setResp_codeIsSet(true);
         return this;
     }
 
-    public void setResp_codeIsSet(boolean z10) {
-        this.__isset_bitfield = ce.a(this.__isset_bitfield, 0, z10);
+    public void setResp_codeIsSet(boolean z) {
+        this.__isset_bitfield = as.a(this.__isset_bitfield, 0, z);
     }
 
     public String toString() {
-        StringBuilder sb2 = new StringBuilder("Response(");
-        sb2.append("resp_code:");
-        sb2.append(this.resp_code);
+        StringBuilder sb = new StringBuilder("Response(");
+        sb.append("resp_code:");
+        sb.append(this.resp_code);
         if (isSetMsg()) {
-            sb2.append(", ");
-            sb2.append("msg:");
+            sb.append(", ");
+            sb.append("msg:");
             String str = this.msg;
             if (str == null) {
-                sb2.append("null");
+                sb.append("null");
             } else {
-                sb2.append(str);
+                sb.append(str);
             }
         }
         if (isSetImprint()) {
-            sb2.append(", ");
-            sb2.append("imprint:");
+            sb.append(", ");
+            sb.append("imprint:");
             com.umeng.commonsdk.statistics.proto.d dVar = this.imprint;
             if (dVar == null) {
-                sb2.append("null");
+                sb.append("null");
             } else {
-                sb2.append(dVar);
+                sb.append(dVar);
             }
         }
-        sb2.append(")");
-        return sb2.toString();
+        sb.append(")");
+        return sb.toString();
     }
 
     public void unsetImprint() {
@@ -345,98 +345,98 @@ public class Response implements ch<Response, e>, Serializable, Cloneable {
     }
 
     public void unsetResp_code() {
-        this.__isset_bitfield = ce.b(this.__isset_bitfield, 0);
+        this.__isset_bitfield = as.b(this.__isset_bitfield, 0);
     }
 
-    public void validate() throws cn {
+    public void validate() throws bb {
         com.umeng.commonsdk.statistics.proto.d dVar = this.imprint;
         if (dVar != null) {
             dVar.l();
         }
     }
 
-    @Override // com.umeng.analytics.pro.ch
-    public void write(dg dgVar) throws cn {
-        schemes.get(dgVar.D()).b().a(dgVar, this);
+    @Override // com.umeng.analytics.pro.av
+    public void write(bu buVar) throws bb {
+        schemes.get(buVar.D()).b().a(buVar, this);
     }
 
-    public enum e implements co {
+    public enum e implements bc {
         RESP_CODE(1, "resp_code"),
         MSG(2, "msg"),
-        IMPRINT(3, bt.X);
+        IMPRINT(3, am.X);
 
 
         /* renamed from: d */
-        private static final Map<String, e> f24706d = new HashMap();
+        private static final Map<String, e> f26381d = new HashMap();
 
         /* renamed from: e */
-        private final short f24708e;
+        private final short f26383e;
 
         /* renamed from: f */
-        private final String f24709f;
+        private final String f26384f;
 
         static {
             Iterator it = EnumSet.allOf(e.class).iterator();
             while (it.hasNext()) {
                 e eVar = (e) it.next();
-                f24706d.put(eVar.b(), eVar);
+                f26381d.put(eVar.b(), eVar);
             }
         }
 
-        e(short s10, String str) {
-            this.f24708e = s10;
-            this.f24709f = str;
+        e(short s, String str) {
+            this.f26383e = s;
+            this.f26384f = str;
         }
 
-        public static e a(int i10) {
-            if (i10 == 1) {
+        public static e a(int i2) {
+            if (i2 == 1) {
                 return RESP_CODE;
             }
-            if (i10 == 2) {
+            if (i2 == 2) {
                 return MSG;
             }
-            if (i10 != 3) {
+            if (i2 != 3) {
                 return null;
             }
             return IMPRINT;
         }
 
-        public static e b(int i10) {
-            e a10 = a(i10);
-            if (a10 != null) {
-                return a10;
+        public static e b(int i2) {
+            e a2 = a(i2);
+            if (a2 != null) {
+                return a2;
             }
-            throw new IllegalArgumentException("Field " + i10 + " doesn't exist!");
+            throw new IllegalArgumentException("Field " + i2 + " doesn't exist!");
         }
 
-        @Override // com.umeng.analytics.pro.co
+        @Override // com.umeng.analytics.pro.bc
         public String b() {
-            return this.f24709f;
+            return this.f26384f;
         }
 
         public static e a(String str) {
-            return f24706d.get(str);
+            return f26381d.get(str);
         }
 
-        @Override // com.umeng.analytics.pro.co
+        @Override // com.umeng.analytics.pro.bc
         public short a() {
-            return this.f24708e;
+            return this.f26383e;
         }
     }
 
-    @Override // com.umeng.analytics.pro.ch
-    public ch<Response, e> deepCopy() {
+    @Override // com.umeng.analytics.pro.av
+    public av<Response, e> deepCopy() {
         return new Response(this);
     }
 
-    @Override // com.umeng.analytics.pro.ch
-    public e fieldForId(int i10) {
-        return e.a(i10);
+    @Override // com.umeng.analytics.pro.av
+    public e fieldForId(int i2) {
+        return e.a(i2);
     }
 
-    public Response(int i10) {
+    public Response(int i2) {
         this();
-        this.resp_code = i10;
+        this.resp_code = i2;
         setResp_codeIsSet(true);
     }
 

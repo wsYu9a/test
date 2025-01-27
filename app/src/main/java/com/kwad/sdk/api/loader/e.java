@@ -1,35 +1,61 @@
 package com.kwad.sdk.api.loader;
 
-import android.app.Application;
 import android.content.Context;
-import android.content.pm.ApplicationInfo;
+import android.text.TextUtils;
+import androidx.annotation.NonNull;
+import dalvik.system.DexClassLoader;
+import java.util.ArrayList;
+import java.util.List;
 
-/* loaded from: classes3.dex */
-public final class e {
+/* loaded from: classes2.dex */
+final class e {
+    private static final List<String> Zv;
 
-    public static class a extends Application {
-        private final Context apM;
+    static class a extends DexClassLoader {
+        private final ClassLoader Zw;
 
-        public a(Context context) {
-            this.apM = context;
+        public a(String str, String str2, String str3, ClassLoader classLoader) {
+            super(str, str2, str3, classLoader);
+            this.Zw = classLoader;
+            new StringBuilder("pcl").append(classLoader.getClass().getName());
         }
 
-        @Override // android.content.ContextWrapper, android.content.Context
-        public final Context getApplicationContext() {
-            return this.apM;
+        private static boolean ba(String str) {
+            return !TextUtils.isEmpty(str) && str.startsWith("com.kwad.sdk.api");
         }
 
-        @Override // android.content.ContextWrapper, android.content.Context
-        public final ApplicationInfo getApplicationInfo() {
-            return this.apM.getApplicationInfo();
+        @Override // java.lang.ClassLoader
+        protected final Class<?> loadClass(String str, boolean z) {
+            if (ba(str)) {
+                return getParent().loadClass(str);
+            }
+            Class<?> findLoadedClass = findLoadedClass(str);
+            if (findLoadedClass != null) {
+                return findLoadedClass;
+            }
+            try {
+                findLoadedClass = findClass(str);
+            } catch (ClassNotFoundException unused) {
+            }
+            return findLoadedClass != null ? findLoadedClass : super.loadClass(str, z);
         }
     }
 
-    public static Context aO(Context context) {
-        if (context == null) {
-            return null;
+    static {
+        ArrayList arrayList = new ArrayList();
+        Zv = arrayList;
+        arrayList.add("com.kwad.sdk");
+        arrayList.add("com.ksad");
+        arrayList.add("com.kwai");
+        arrayList.add("kwad.support");
+        arrayList.add("android.support.rastermill");
+    }
+
+    @NonNull
+    static ClassLoader a(Context context, ClassLoader classLoader, String str, String str2, String str3) {
+        if (t.b(context, "useContextClassLoader", false)) {
+            classLoader = context.getClassLoader();
         }
-        Context applicationContext = context.getApplicationContext();
-        return applicationContext == null ? context : !applicationContext.getClassLoader().equals(context.getClassLoader()) ? new a(context) : context.getApplicationContext();
+        return new a(str, str2, str3, classLoader);
     }
 }

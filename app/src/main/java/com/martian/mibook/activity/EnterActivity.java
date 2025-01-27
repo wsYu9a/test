@@ -8,348 +8,394 @@ import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.RelativeLayout;
-import b8.e;
-import ba.h;
-import ba.m;
-import com.bytedance.sdk.openadsdk.TTAdConstant;
+import com.baidu.mobads.sdk.api.SplashAd;
+import com.bytedance.sdk.openadsdk.CSJSplashAd;
+import com.kwad.sdk.api.KsSplashScreenAd;
 import com.martian.ads.ad.AdConfig;
+import com.martian.ads.ad.BaeAd;
+import com.martian.ads.ad.BaseAd;
+import com.martian.ads.ad.DXAd;
+import com.martian.ads.ad.GDTAd;
+import com.martian.ads.ad.KsAd;
+import com.martian.ads.ad.TTAd;
+import com.martian.ads.ad.VivoAd;
+import com.martian.apptask.data.AppTask;
 import com.martian.apptask.data.AppTaskList;
-import com.martian.libmars.activity.MartianActivity;
-import com.martian.libmars.common.ConfigSingleton;
-import com.martian.mibook.R;
+import com.martian.libmars.activity.j1;
+import com.martian.libmars.utils.k0;
 import com.martian.mibook.account.MiCompoundUserManager;
-import com.martian.mibook.activity.EnterActivity;
 import com.martian.mibook.activity.book.TeenagerBookmallActivity;
 import com.martian.mibook.application.MiConfigSingleton;
-import com.martian.mibook.application.SplashAdManager;
-import com.martian.mibook.databinding.ActivityEnterBinding;
-import com.martian.mibook.databinding.ActivityGenderGuideBinding;
 import com.martian.mibook.lib.account.response.MiUser;
-import com.martian.mibook.mvvm.home.activity.HomeActivity;
-import com.sntech.ads.SNAdSdk;
+import com.martian.ttbook.sdk.client.AdController;
+import com.martian.ttbookhd.R;
+import com.qq.e.ads.splash.SplashAD;
 import com.umeng.commonsdk.UMConfigure;
-import je.i;
-import ke.d;
-import l9.i0;
-import l9.m0;
-import org.threeten.bp.LocalTime;
-import ya.i1;
+import com.vivo.mobilead.unified.splash.UnifiedVivoSplashAd;
+import java.lang.ref.WeakReference;
 
-/* loaded from: classes3.dex */
-public class EnterActivity extends MartianActivity {
-    public static final int G = 6200;
-    public static final String H = "SN_PRIVACY_ENABLE";
-    public boolean C;
-    public Handler D;
+/* loaded from: classes.dex */
+public class EnterActivity extends j1 {
+    private static final long B = 6000;
+    private com.martian.mibook.e.j C;
+    private com.martian.mibook.e.k D;
+    private int E;
+    protected boolean F;
+    private boolean G;
+    private boolean J;
+    private AppTask K;
+    private d L;
+    private Handler M;
+    private int H = 0;
+    private int I = 0;
+    private final Runnable N = new c();
+    private int O = 0;
+    private long P = -1;
 
-    /* renamed from: w */
-    public ActivityEnterBinding f13104w;
-
-    /* renamed from: x */
-    public ActivityGenderGuideBinding f13105x;
-
-    /* renamed from: y */
-    public boolean f13106y;
-
-    /* renamed from: z */
-    public boolean f13107z;
-    public int A = 0;
-    public int B = 0;
-    public final Runnable E = new b();
-    public d8.b F = new c();
-
-    public class a implements i0.m {
-        public a() {
+    /* loaded from: classes3.dex */
+    class a implements k0.m {
+        a() {
         }
 
-        @Override // l9.i0.m
+        @Override // com.martian.libmars.utils.k0.m
         public void a() {
-            lb.c.n(EnterActivity.this);
         }
 
-        @Override // l9.i0.m
+        @Override // com.martian.libmars.utils.k0.m
         public void b() {
-            lb.c.q(EnterActivity.this);
+            com.martian.mibook.lib.account.e.c.f(EnterActivity.this);
         }
 
-        @Override // l9.i0.m
+        @Override // com.martian.libmars.utils.k0.m
         public void c() {
+            com.martian.mibook.lib.account.e.c.i(EnterActivity.this);
         }
 
-        @Override // l9.i0.m
+        @Override // com.martian.libmars.utils.k0.m
         public void d() {
-            EnterActivity.this.W2();
+            com.martian.libmars.d.h.F().D0(com.martian.libmars.d.h.f9882a);
+            com.martian.libmars.d.h.F().V();
+            EnterActivity.this.E2();
+            UMConfigure.init(EnterActivity.this, 1, "");
         }
 
-        @Override // l9.i0.m
+        @Override // com.martian.libmars.utils.k0.m
         public void e() {
-            i.h(EnterActivity.this, true);
+            EnterActivity.this.startActivity(BaseFunctionGuideActivity.class);
         }
     }
 
-    public class b implements Runnable {
-        public b() {
+    /* loaded from: classes3.dex */
+    class b implements com.martian.libsupport.permission.f {
+        b() {
+        }
+
+        @Override // com.martian.libsupport.permission.f
+        public void permissionDenied() {
+            EnterActivity.this.z2("权限被拒绝", true);
+        }
+
+        @Override // com.martian.libsupport.permission.f
+        public void permissionGranted() {
+            EnterActivity.this.z2("权限被允许", true);
+        }
+    }
+
+    /* loaded from: classes3.dex */
+    class c implements Runnable {
+        c() {
         }
 
         @Override // java.lang.Runnable
         @SuppressLint({"SetTextI18n"})
         public void run() {
-            EnterActivity.this.A += 1000;
-            if (EnterActivity.this.A < 6200) {
-                EnterActivity.this.D.postDelayed(EnterActivity.this.E, 1000L);
+            EnterActivity.this.H += 1000;
+            if (EnterActivity.this.H < EnterActivity.B) {
+                EnterActivity.this.M.postDelayed(EnterActivity.this.N, 1000L);
             } else {
-                ac.a.T(EnterActivity.this, "开屏-超时");
-                EnterActivity.this.X2();
+                com.martian.mibook.lib.model.g.b.o(EnterActivity.this, "开屏-超时");
+                EnterActivity.this.C2();
             }
         }
     }
 
-    public class c extends d8.b {
-        public c() {
+    /* loaded from: classes3.dex */
+    private static class d extends b.d.a.k.b {
+
+        /* renamed from: a */
+        private final WeakReference<EnterActivity> f10823a;
+
+        public d(EnterActivity activity) {
+            this.f10823a = new WeakReference<>(activity);
         }
 
-        @Override // d8.b, d8.a
-        public void a() {
-            EnterActivity enterActivity = EnterActivity.this;
-            enterActivity.f13106y = true;
-            enterActivity.X2();
-        }
-
-        @Override // d8.b, d8.a
-        public void b(AdConfig adConfig) {
-            EnterActivity.this.f13104w.splashContainer.setBackgroundColor(ConfigSingleton.D().n());
-            EnterActivity.this.f13104w.iconLogo.setVisibility(0);
-            if (EnterActivity.this.D != null) {
-                EnterActivity.this.A = -4000;
-                EnterActivity.this.a3();
+        @Override // b.d.a.k.b, b.d.a.k.a
+        public void a(AdConfig config) {
+            EnterActivity enterActivity = this.f10823a.get();
+            if (enterActivity != null) {
+                enterActivity.B2(config);
             }
-            ac.a.T(EnterActivity.this, "开屏-曝光");
-            if (adConfig == null || !adConfig.isHwAd()) {
-                return;
+        }
+
+        @Override // b.d.a.k.b, b.d.a.k.a
+        public void b(AdConfig config) {
+            EnterActivity enterActivity = this.f10823a.get();
+            if (enterActivity != null) {
+                enterActivity.C2();
             }
-            EnterActivity.this.f13107z = true;
         }
 
-        @Override // d8.b, d8.a
-        public void d(AdConfig adConfig) {
-            EnterActivity enterActivity = EnterActivity.this;
-            enterActivity.f13106y = true;
-            enterActivity.X2();
-        }
-
-        @Override // d8.b, d8.a
-        public void g(AdConfig adConfig) {
-            EnterActivity enterActivity = EnterActivity.this;
-            enterActivity.f13106y = true;
-            enterActivity.X2();
-        }
-
-        @Override // d8.b, d8.a
-        public void i(AdConfig adConfig, AppTaskList appTaskList) {
-            if (EnterActivity.this.D != null) {
-                EnterActivity.this.A = TTAdConstant.INIT_FAILED_LOAD_PLUGIN_FAILED;
-                EnterActivity.this.a3();
+        @Override // b.d.a.k.b, b.d.a.k.a
+        public void c(AdConfig config) {
+            EnterActivity enterActivity = this.f10823a.get();
+            if (enterActivity != null) {
+                enterActivity.C2();
             }
-            SplashAdManager o22 = MiConfigSingleton.b2().o2();
-            EnterActivity enterActivity = EnterActivity.this;
-            o22.j(enterActivity, enterActivity.f13104w.splashContainer);
         }
 
-        @Override // d8.b, d8.a
-        public void l(AdConfig adConfig) {
-            EnterActivity.this.f13107z = true;
+        @Override // b.d.a.k.b, b.d.a.k.a
+        public void d(AdConfig config, AppTaskList appTaskList) {
+            EnterActivity enterActivity = this.f10823a.get();
+            if (enterActivity != null) {
+                enterActivity.G2(appTaskList.getApps().get(0));
+            }
+        }
+
+        @Override // b.d.a.k.b, b.d.a.k.a
+        public void h() {
+            MiConfigSingleton.V3().L4.z0(true);
+            EnterActivity enterActivity = this.f10823a.get();
+            if (enterActivity != null) {
+                enterActivity.C2();
+            }
+        }
+
+        @Override // b.d.a.k.b, b.d.a.k.a
+        public void j(AdConfig config) {
+            EnterActivity enterActivity = this.f10823a.get();
+            if (enterActivity != null) {
+                enterActivity.A2(config);
+            }
+        }
+    }
+
+    private void D2() {
+        if (!(com.martian.libsupport.l.t() && !com.martian.libsupport.l.D())) {
+            z2("未请求权限", false);
+            return;
+        }
+        com.martian.mibook.e.k kVar = this.D;
+        if (kVar != null) {
+            com.martian.libmars.utils.h0.a(this, kVar.l, true, com.martian.libmars.utils.h0.f10145b);
+        }
+        com.martian.libsupport.permission.g.h(this, new b(), new String[]{com.kuaishou.weapon.p0.g.f9318c}, false, null, true);
+    }
+
+    private void F2() {
+        com.martian.libmars.utils.k0.a0(this, getString(R.string.app_name_bak), false, new a());
+    }
+
+    public void G2(final AppTask appTask) {
+        if (appTask == null) {
+            return;
+        }
+        if (isFinishing() || this.E == 1) {
+            MiConfigSingleton.V3().N4.O(appTask);
+        } else {
+            com.martian.libugrowth.b.k().g(appTask.id, AdConfig.Action.ESHOW, appTask.source, appTask.getGid(), appTask.getEcpm());
+            this.K = appTask;
+            appTask.exposed = true;
+            this.C.f12152d.post(new Runnable() { // from class: com.martian.mibook.activity.l
+                @Override // java.lang.Runnable
+                public final void run() {
+                    EnterActivity.this.v2(appTask);
+                }
+            });
+        }
+        if (this.E == 0) {
+            this.E = 1;
         }
     }
 
     @SuppressLint({"SetTextI18n"})
-    public void a3() {
-        if (this.D == null) {
-            this.D = new Handler();
-        } else {
-            b3();
+    private void H2() {
+        if (this.M == null) {
+            this.M = new Handler();
         }
-        this.D.postDelayed(this.E, 1000L);
+        this.M.postDelayed(this.N, 1000L);
     }
 
-    public final void L2(boolean z10) {
-        if (!MiConfigSingleton.b2().F2()) {
-            MiConfigSingleton.b2().u2().o(this, new MiCompoundUserManager.g() { // from class: qa.e
-                public /* synthetic */ e() {
-                }
+    private void I2() {
+        Handler handler = this.M;
+        if (handler != null) {
+            handler.removeCallbacks(this.N);
+        }
+    }
 
-                @Override // com.martian.mibook.account.MiCompoundUserManager.g
-                public final void a(MiUser miUser) {
-                    EnterActivity.this.O2(miUser);
+    private void J2() {
+        if (this.O <= 0 || System.currentTimeMillis() - this.P <= 2000) {
+            this.O++;
+        } else {
+            this.O = 1;
+        }
+        this.P = System.currentTimeMillis();
+        if (this.O >= 8) {
+            this.O = 0;
+            MiConfigSingleton.V3().S8(this);
+        }
+    }
+
+    private void m2(final boolean isFirstIn) {
+        if (!MiConfigSingleton.V3().x5()) {
+            MiConfigSingleton.V3().M4.c(this, new MiCompoundUserManager.e() { // from class: com.martian.mibook.activity.m
+                @Override // com.martian.mibook.account.MiCompoundUserManager.e
+                public final void a() {
+                    EnterActivity.this.p2(isFirstIn);
                 }
             });
         }
-        MiConfigSingleton.b2().f2().e();
-        MiConfigSingleton.b2().f2().d(new i1.c() { // from class: qa.f
-
-            /* renamed from: b */
-            public final /* synthetic */ boolean f29975b;
-
-            public /* synthetic */ f(boolean z102) {
-                z10 = z102;
-            }
-
-            @Override // ya.i1.c
-            public final void a() {
-                EnterActivity.this.P2(z10);
-            }
-        });
-        if (!z102) {
-            ab.a.a().d();
-            if (MiConfigSingleton.b2().S1() < 0) {
-                Y2();
+        MiConfigSingleton.V3().e4().a();
+        if (!isFirstIn) {
+            if (MiConfigSingleton.V3().v3() < 0) {
+                com.martian.mibook.lib.model.g.b.H(this, "性别弹窗-展示");
+                E2();
                 return;
+            } else {
+                w2();
+                H2();
+                MiConfigSingleton.V3().L4.R(this);
+                MiConfigSingleton.V3().L4.o(this, null);
             }
-            MiConfigSingleton.b2().e2().S(this);
         }
-        M2();
+        n2();
     }
 
-    public void M2() {
-        if (!MiConfigSingleton.b2().H2()) {
-            MiConfigSingleton.b2().h3();
-            ac.a.I(this, h.e(this) ? "通知开启" : "通知关闭");
-            d.h().r(true);
-            MiConfigSingleton.b2().M1().M2(MiConfigSingleton.b2().p(), null);
-        }
-        if (getIntent() == null || getIntent().getData() == null) {
+    /* renamed from: o2 */
+    public /* synthetic */ void p2(final boolean isFirstIn) {
+        MiUser C4;
+        if (!isFirstIn || (C4 = MiConfigSingleton.V3().C4()) == null) {
             return;
         }
-        X2();
+        if ((C4.isMale() && this.I == 2) || (C4.isFemale() && this.I == 1)) {
+            MiConfigSingleton.V3().J7(true);
+        }
     }
 
-    public final boolean N2() {
-        if (MiConfigSingleton.b2().G2()) {
-            return false;
-        }
-        if (ConfigSingleton.D().w0()) {
-            return true;
-        }
-        LocalTime now = LocalTime.now();
-        return now.isAfter(LocalTime.of(20, 0)) || now.isBefore(LocalTime.of(7, 0));
+    /* renamed from: q2 */
+    public /* synthetic */ void r2() {
+        y2(this.I, "跳过");
     }
 
-    public final /* synthetic */ void O2(MiUser miUser) {
-        if (miUser == null) {
+    /* renamed from: s2 */
+    public /* synthetic */ void t2(View v) {
+        J2();
+    }
+
+    /* renamed from: u2 */
+    public /* synthetic */ void v2(final AppTask appTask) {
+        Object obj = appTask.origin;
+        if (obj instanceof CSJSplashAd) {
+            TTAd.showSplashAd((CSJSplashAd) obj, this.C.f12152d);
             return;
         }
-        if ((miUser.isMale() && this.B == 2) || (miUser.isFemale() && this.B == 1)) {
-            MiConfigSingleton.b2().g3(true);
-        }
-    }
-
-    public final /* synthetic */ void P2(boolean z10) {
-        MiConfigSingleton.b2().H1().Z();
-        if (z10 || MiConfigSingleton.b2().S1() < 0) {
+        if (obj instanceof KsSplashScreenAd) {
+            KsAd.showSplashAd(this, appTask, this.C.f12152d, this.L);
             return;
         }
-        T2();
-        a3();
-    }
-
-    public final /* synthetic */ void Q2() {
-        U2(0);
-    }
-
-    public final /* synthetic */ void R2(MiUser miUser) {
-        ac.a.v(this, "投放引流-进入");
-        if (miUser == null) {
-            Y2();
+        if (obj instanceof SplashAd) {
+            BaeAd.showSplashAd((SplashAd) obj, this.C.f12152d, appTask.isBidding());
             return;
         }
-        if (!miUser.isMale() && !miUser.isFemale()) {
-            Y2();
+        if (obj instanceof AdController) {
+            DXAd.showSplashAd((AdController) obj, this.C.f12152d);
             return;
         }
-        ac.a.v(this, "投放引流-性别匹配");
-        this.B = miUser.isFemale() ? 2 : 1;
-        this.C = true;
-        MiConfigSingleton.b2().g3(true);
-        U2(this.B);
-    }
-
-    public final /* synthetic */ void S2() {
-        MiConfigSingleton.b2().u2().o(this, new MiCompoundUserManager.g() { // from class: qa.c
-            public /* synthetic */ c() {
-            }
-
-            @Override // com.martian.mibook.account.MiCompoundUserManager.g
-            public final void a(MiUser miUser) {
-                EnterActivity.this.R2(miUser);
-            }
-        });
-    }
-
-    public final void T2() {
-        if (MiConfigSingleton.b2().C1()) {
-            X2();
-        } else {
-            ac.a.T(this, "开屏-请求");
-            MiConfigSingleton.b2().o2().h(this, this.F);
+        if (obj instanceof SplashAD) {
+            GDTAd.showSplashAd((SplashAD) obj, this.C.f12152d, appTask.isBidding());
+        } else if (obj instanceof UnifiedVivoSplashAd) {
+            VivoAd.showSplashAd(appTask, this.C.f12152d);
+        } else if (BaseAd.isOppoSplashAd(appTask)) {
+            BaseAd.showOppoSplashAd(this, appTask);
         }
     }
 
-    public final void U2(int i10) {
-        if (!this.C) {
-            P1(getString(R.string.enter_wait));
+    private void w2() {
+        if (MiConfigSingleton.V3().B2()) {
+            C2();
             return;
         }
-        this.C = false;
-        this.B = i10;
-        MiConfigSingleton.b2().b3(i10);
-        MiConfigSingleton.b2().G1().z(true);
-        ActivityGenderGuideBinding activityGenderGuideBinding = this.f13105x;
-        if (activityGenderGuideBinding != null) {
-            activityGenderGuideBinding.enterHint.setVisibility(0);
+        if (this.L == null) {
+            this.L = new d(this);
         }
-        V2();
+        G2(MiConfigSingleton.V3().N4.y(this, this.L));
     }
 
-    public final void V2() {
-        ActivityGenderGuideBinding activityGenderGuideBinding = this.f13105x;
-        if (activityGenderGuideBinding != null) {
-            activityGenderGuideBinding.permissionGuide.setVisibility(8);
+    private void x2(AdConfig adConfig, String event) {
+        if (adConfig == null || !adConfig.isKsAd()) {
+            return;
+        }
+        com.martian.mibook.b.b.J0(adConfig, event);
+    }
+
+    private void y2(int gender, String event) {
+        if (!this.J) {
+            k1(getString(R.string.enter_wait));
+            return;
+        }
+        this.J = false;
+        this.I = gender;
+        MiConfigSingleton.V3().q7(gender);
+        MiConfigSingleton.V3().K7(true);
+        this.D.f12213b.setVisibility(0);
+        D2();
+    }
+
+    public void z2(String event, boolean fromPermission) {
+        com.martian.mibook.e.k kVar = this.D;
+        if (kVar != null) {
+            kVar.l.setVisibility(8);
         }
         UMConfigure.submitPolicyGrantResult(getApplicationContext(), true);
-        MiConfigSingleton.b2().A2(false);
-        L2(true);
-        this.f13106y = true;
-        X2();
-    }
-
-    public final void W2() {
-        ConfigSingleton.D().v0(ConfigSingleton.f12096z);
-        if (MiConfigSingleton.b2().F2()) {
-            X2();
-            return;
-        }
-        UMConfigure.init(this, 1, "");
-        ConfigSingleton.D().N(new ConfigSingleton.b() { // from class: qa.d
-            public /* synthetic */ d() {
-            }
-
-            @Override // com.martian.libmars.common.ConfigSingleton.b
-            public final void a() {
-                EnterActivity.this.S2();
-            }
-        });
-        ConfigSingleton.D().v0(H);
-        if (e.s().q()) {
-            SNAdSdk.updatePrivacyAgreed(getApplicationContext(), true);
+        MiConfigSingleton.V3().a5(false);
+        com.martian.mibook.lib.model.g.b.Z(this, event);
+        m2(true);
+        this.F = true;
+        if (fromPermission) {
+            new Handler().postDelayed(new Runnable() { // from class: com.martian.mibook.activity.a
+                @Override // java.lang.Runnable
+                public final void run() {
+                    EnterActivity.this.C2();
+                }
+            }, 1000L);
+        } else {
+            C2();
         }
     }
 
-    public void X2() {
-        if (!this.f13106y) {
-            this.f13106y = true;
+    public void A2(AdConfig config) {
+        x2(config, AdConfig.ActionString.CLICK);
+        this.G = true;
+    }
+
+    public void B2(AdConfig config) {
+        x2(config, AdConfig.ActionString.SHOW);
+        this.C.f12152d.setBackgroundColor(com.martian.libmars.d.h.F().g());
+        this.E = 2;
+        this.C.f12151c.setVisibility(0);
+        if (this.M != null) {
+            I2();
+            this.H = 0;
+            H2();
+        }
+    }
+
+    public void C2() {
+        if (!this.F) {
+            this.F = true;
             return;
         }
-        if (m0.C(this)) {
-            Intent intent = new Intent(this, (Class<?>) HomeActivity.class);
+        if (com.martian.libmars.utils.n0.C(this)) {
+            Intent intent = new Intent(this, (Class<?>) Homepage.class);
             Intent intent2 = getIntent();
             if (intent2 != null && intent2.getData() != null) {
                 intent.setData(getIntent().getData());
@@ -359,133 +405,121 @@ public class EnterActivity extends MartianActivity {
         }
     }
 
-    public void Y2() {
-        int i10;
-        if (this.f13105x == null) {
-            this.C = true;
-            this.f13104w.genderGuide.setLayoutResource(R.layout.activity_gender_guide);
-            ActivityGenderGuideBinding bind = ActivityGenderGuideBinding.bind(this.f13104w.genderGuide.inflate());
-            this.f13105x = bind;
-            bind.enterSkip.setVisibility(0);
-            ((RelativeLayout.LayoutParams) this.f13105x.enterSkip.getLayoutParams()).topMargin = p1() + ConfigSingleton.i(12.0f);
-            int i11 = ConfigSingleton.i(28.0f);
-            if (j1() > 0 && (i10 = (int) ((((r1 / 2) - ConfigSingleton.i(230.0f)) - p1()) * 0.4f)) > i11) {
-                i11 = i10;
+    public void E2() {
+        int b2;
+        if (this.D == null) {
+            this.J = true;
+            this.C.f12150b.setLayoutResource(R.layout.activity_gender_guide);
+            com.martian.mibook.e.k a2 = com.martian.mibook.e.k.a(this.C.f12150b.inflate());
+            this.D = a2;
+            a2.f12214c.setVisibility(0);
+            ((RelativeLayout.LayoutParams) this.D.f12214c.getLayoutParams()).topMargin = F0() + com.martian.libmars.d.h.b(12.0f);
+            int b3 = com.martian.libmars.d.h.b(28.0f);
+            if (z0() > 0 && (b2 = (int) ((((r1 / 2) - com.martian.libmars.d.h.b(230.0f)) - F0()) * 0.4f)) > b3) {
+                b3 = b2;
             }
-            ((RelativeLayout.LayoutParams) this.f13105x.genderGuideTitleView.getLayoutParams()).bottomMargin = i11;
-            MiConfigSingleton.b2().H1().B(this, this.f13105x.guideTitle);
+            ((RelativeLayout.LayoutParams) this.D.f12219h.getLayoutParams()).bottomMargin = b3;
+            this.D.k.setOnClickListener(new View.OnClickListener() { // from class: com.martian.mibook.activity.j
+                @Override // android.view.View.OnClickListener
+                public final void onClick(View view) {
+                    EnterActivity.this.t2(view);
+                }
+            });
         }
     }
 
-    public final void Z2() {
-        if (N2()) {
-            W2();
-        } else {
-            i0.J0(this, getString(R.string.app_name_bak), false, new a());
+    protected void n2() {
+        if (!MiConfigSingleton.V3().C5()) {
+            MiConfigSingleton.V3().O7();
+            com.martian.mibook.lib.model.g.b.P(this, com.martian.libsupport.f.d(this) ? "通知开启" : "通知关闭");
+            com.martian.mipush.c.i().s(true);
         }
-    }
-
-    public final void b3() {
-        Handler handler = this.D;
-        if (handler != null) {
-            handler.removeCallbacks(this.E);
+        if (getIntent() == null || getIntent().getData() == null) {
+            return;
         }
+        C2();
     }
 
     public void onBoyClick(View view) {
-        U2(1);
+        y2(1, "男生");
     }
 
-    @Override // com.martian.libmars.activity.MartianActivity, com.martian.libmars.activity.BaseActivity, me.imid.swipebacklayout.lib.app.SwipeBackActivity, androidx.fragment.app.FragmentActivity, androidx.activity.ComponentActivity, androidx.core.app.ComponentActivity, android.app.Activity
-    public void onCreate(Bundle bundle) {
-        super.onCreate(bundle);
-        ActivityEnterBinding inflate = ActivityEnterBinding.inflate(LayoutInflater.from(this));
-        this.f13104w = inflate;
-        setContentView(inflate.getRoot());
-        g(false);
-        if (ConfigSingleton.D().V0()) {
-            if (m.q(this)) {
-                ((RelativeLayout.LayoutParams) this.f13104w.iconLogo.getLayoutParams()).topMargin = p1() + ConfigSingleton.i(4.0f);
+    @Override // com.martian.libmars.activity.j1, com.martian.libmars.activity.h1, me.imid.swipebacklayout.lib.d.a, androidx.appcompat.app.AppCompatActivity, androidx.fragment.app.FragmentActivity, androidx.activity.ComponentActivity, androidx.core.app.ComponentActivity, android.app.Activity
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        com.martian.mibook.e.j c2 = com.martian.mibook.e.j.c(LayoutInflater.from(this));
+        this.C = c2;
+        setContentView(c2.getRoot());
+        d(false);
+        if (com.martian.libmars.d.h.F().h1()) {
+            if (com.martian.libsupport.l.w(this)) {
+                ((RelativeLayout.LayoutParams) this.C.f12151c.getLayoutParams()).topMargin = F0() + com.martian.libmars.d.h.b(4.0f);
             }
-            if (!ConfigSingleton.D().F(H)) {
-                if (e.s().q()) {
-                    SNAdSdk.updatePrivacyAgreed(this, true);
-                }
-                ConfigSingleton.D().v0(H);
-            }
-            L2(false);
+            m2(false);
             return;
         }
-        if (MiConfigSingleton.b2().y0()) {
-            TeenagerBookmallActivity.N2(this, false);
+        if (!MiConfigSingleton.V3().F0()) {
+            F2();
+        } else {
+            TeenagerBookmallActivity.t2(this, false);
             finish();
-            return;
-        }
-        Z2();
-        if (ConfigSingleton.D().Y() == 0 && m.N(this)) {
-            MiConfigSingleton.b2().e1(true);
         }
     }
 
-    @Override // com.martian.libmars.activity.MartianActivity, com.martian.libmars.activity.BaseActivity, androidx.appcompat.app.AppCompatActivity, androidx.fragment.app.FragmentActivity, android.app.Activity
-    public void onDestroy() {
+    @Override // com.martian.libmars.activity.j1, com.martian.libmars.activity.h1, androidx.appcompat.app.AppCompatActivity, androidx.fragment.app.FragmentActivity, android.app.Activity
+    protected void onDestroy() {
         super.onDestroy();
-        this.f13104w.splashContainer.removeAllViews();
-        MiConfigSingleton.b2().o2().f();
-        Handler handler = this.D;
-        if (handler != null) {
-            handler.removeCallbacksAndMessages(null);
+        AppTask appTask = this.K;
+        if (appTask != null && "OPPO".equalsIgnoreCase(appTask.source) && MiConfigSingleton.V3().B6()) {
+            this.K.destroySplashAd();
         }
-        this.F = null;
+        this.C.f12152d.removeAllViews();
     }
 
     public void onGenderSkipClick(View view) {
-        i0.z0(this, getString(R.string.confirm_message), getString(R.string.gender_skip_hint), new i0.l() { // from class: qa.g
-            public /* synthetic */ g() {
-            }
-
-            @Override // l9.i0.l
+        com.martian.libmars.utils.k0.P(this, getString(R.string.confirm_message), getString(R.string.gender_skip_hint), new k0.l() { // from class: com.martian.mibook.activity.k
+            @Override // com.martian.libmars.utils.k0.l
             public final void a() {
-                EnterActivity.this.Q2();
+                EnterActivity.this.r2();
             }
         });
     }
 
     public void onGirlClick(View view) {
-        U2(2);
+        y2(2, "女生");
     }
 
-    @Override // com.martian.libmars.activity.BaseActivity, androidx.appcompat.app.AppCompatActivity, android.app.Activity, android.view.KeyEvent.Callback
-    public boolean onKeyDown(int i10, KeyEvent keyEvent) {
-        if (i10 == 4 || i10 == 3) {
+    @Override // com.martian.libmars.activity.h1, androidx.appcompat.app.AppCompatActivity, android.app.Activity, android.view.KeyEvent.Callback
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+        if (keyCode == 4 || keyCode == 3) {
             return true;
         }
-        return super.onKeyDown(i10, keyEvent);
+        return super.onKeyDown(keyCode, event);
     }
 
-    @Override // com.martian.libmars.activity.MartianActivity, com.martian.libmars.activity.BaseActivity, androidx.fragment.app.FragmentActivity, android.app.Activity
-    public void onPause() {
+    @Override // com.martian.libmars.activity.j1, com.martian.libmars.activity.h1, androidx.fragment.app.FragmentActivity, android.app.Activity
+    protected void onPause() {
         super.onPause();
-        this.f13106y = false;
-        b3();
+        this.F = false;
+        I2();
     }
 
     @Override // android.app.Activity
-    public void onRestart() {
+    protected void onRestart() {
         super.onRestart();
-        if (this.f13107z) {
-            this.f13106y = true;
+        if (this.G) {
+            this.F = true;
         }
     }
 
-    @Override // com.martian.libmars.activity.MartianActivity, com.martian.libmars.activity.BaseActivity, androidx.fragment.app.FragmentActivity, android.app.Activity
-    public void onResume() {
+    @Override // com.martian.libmars.activity.j1, com.martian.libmars.activity.h1, androidx.fragment.app.FragmentActivity, android.app.Activity
+    protected void onResume() {
         super.onResume();
-        if (!this.C) {
-            X2();
+        if (!this.J) {
+            C2();
         }
-        if (this.D != null) {
-            a3();
+        if (this.M != null) {
+            H2();
         }
     }
 }

@@ -1,53 +1,56 @@
 package com.google.zxing.oned.rss.expanded.decoders;
 
-/* loaded from: classes2.dex */
-public final class CurrentParsingState {
+/* loaded from: classes.dex */
+final class CurrentParsingState {
 
     /* renamed from: a, reason: collision with root package name */
-    public int f10586a = 0;
+    private int f8592a = 0;
 
     /* renamed from: b, reason: collision with root package name */
-    public State f10587b = State.NUMERIC;
+    private State f8593b = State.NUMERIC;
 
-    public enum State {
+    private enum State {
         NUMERIC,
         ALPHA,
         ISO_IEC_646
     }
 
-    public int a() {
-        return this.f10586a;
+    CurrentParsingState() {
     }
 
-    public void b(int i10) {
-        this.f10586a += i10;
+    int a() {
+        return this.f8592a;
     }
 
-    public boolean c() {
-        return this.f10587b == State.ALPHA;
+    void b(int i2) {
+        this.f8592a += i2;
     }
 
-    public boolean d() {
-        return this.f10587b == State.ISO_IEC_646;
+    boolean c() {
+        return this.f8593b == State.ALPHA;
     }
 
-    public boolean e() {
-        return this.f10587b == State.NUMERIC;
+    boolean d() {
+        return this.f8593b == State.ISO_IEC_646;
     }
 
-    public void f() {
-        this.f10587b = State.ALPHA;
+    boolean e() {
+        return this.f8593b == State.NUMERIC;
     }
 
-    public void g() {
-        this.f10587b = State.ISO_IEC_646;
+    void f() {
+        this.f8593b = State.ALPHA;
     }
 
-    public void h() {
-        this.f10587b = State.NUMERIC;
+    void g() {
+        this.f8593b = State.ISO_IEC_646;
     }
 
-    public void i(int i10) {
-        this.f10586a = i10;
+    void h() {
+        this.f8593b = State.NUMERIC;
+    }
+
+    void i(int i2) {
+        this.f8592a = i2;
     }
 }

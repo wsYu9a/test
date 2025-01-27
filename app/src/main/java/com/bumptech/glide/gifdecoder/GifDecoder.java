@@ -8,7 +8,7 @@ import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 import java.nio.ByteBuffer;
 
-/* loaded from: classes2.dex */
+/* loaded from: classes.dex */
 public interface GifDecoder {
     public static final int STATUS_FORMAT_ERROR = 1;
     public static final int STATUS_OK = 0;
@@ -18,13 +18,13 @@ public interface GifDecoder {
 
     public interface BitmapProvider {
         @NonNull
-        Bitmap obtain(int i10, int i11, @NonNull Bitmap.Config config);
+        Bitmap obtain(int i2, int i3, @NonNull Bitmap.Config config);
 
         @NonNull
-        byte[] obtainByteArray(int i10);
+        byte[] obtainByteArray(int i2);
 
         @NonNull
-        int[] obtainIntArray(int i10);
+        int[] obtainIntArray(int i2);
 
         void release(@NonNull Bitmap bitmap);
 
@@ -48,7 +48,7 @@ public interface GifDecoder {
     @NonNull
     ByteBuffer getData();
 
-    int getDelay(int i10);
+    int getDelay(int i2);
 
     int getFrameCount();
 
@@ -70,7 +70,7 @@ public interface GifDecoder {
 
     int getWidth();
 
-    int read(@Nullable InputStream inputStream, int i10);
+    int read(@Nullable InputStream inputStream, int i2);
 
     int read(@Nullable byte[] bArr);
 
@@ -78,7 +78,7 @@ public interface GifDecoder {
 
     void setData(@NonNull GifHeader gifHeader, @NonNull ByteBuffer byteBuffer);
 
-    void setData(@NonNull GifHeader gifHeader, @NonNull ByteBuffer byteBuffer, int i10);
+    void setData(@NonNull GifHeader gifHeader, @NonNull ByteBuffer byteBuffer, int i2);
 
     void setData(@NonNull GifHeader gifHeader, @NonNull byte[] bArr);
 

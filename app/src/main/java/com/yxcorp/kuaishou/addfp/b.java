@@ -1,8 +1,8 @@
 package com.yxcorp.kuaishou.addfp;
 
-/* loaded from: classes4.dex */
+/* loaded from: classes5.dex */
 class b {
 
     /* renamed from: a */
-    private static final KWEGIDDFP f25188a = new KWEGIDDFP(null);
+    private static final KWEGIDDFP f34710a = new KWEGIDDFP(null);
 }

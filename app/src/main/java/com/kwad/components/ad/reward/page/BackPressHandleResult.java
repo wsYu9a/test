@@ -1,6 +1,6 @@
 package com.kwad.components.ad.reward.page;
 
-/* loaded from: classes2.dex */
+/* loaded from: classes.dex */
 public enum BackPressHandleResult {
     NOT_HANDLED(1),
     HANDLED(2),
@@ -8,7 +8,7 @@ public enum BackPressHandleResult {
 
     private int value;
 
-    BackPressHandleResult(int i10) {
-        this.value = i10;
+    BackPressHandleResult(int i2) {
+        this.value = i2;
     }
 }

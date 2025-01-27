@@ -3,427 +3,394 @@ package com.kwad.sdk.crash;
 import android.content.Context;
 import android.os.Handler;
 import android.os.Looper;
-import android.text.TextUtils;
-import android.util.Log;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import com.kwad.sdk.core.threads.GlobalThreadPools;
 import com.kwad.sdk.crash.g;
 import com.kwad.sdk.crash.handler.AnrHandler;
 import com.kwad.sdk.crash.handler.NativeCrashHandler;
 import com.kwad.sdk.crash.model.message.ExceptionMessage;
-import com.kwad.sdk.service.ServiceProvider;
-import com.kwad.sdk.utils.ad;
+import com.kwad.sdk.utils.y;
 import java.io.File;
 import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.atomic.AtomicBoolean;
 
-/* loaded from: classes3.dex */
+/* loaded from: classes2.dex */
 public final class b {
-    private static volatile boolean aJv = false;
-    private static volatile boolean aJw = false;
-    private static volatile boolean aJx = false;
-    private static Handler Zm = new Handler(Looper.getMainLooper());
+    private static volatile boolean aqC = false;
+    private static volatile boolean aqD = false;
+    private static Handler Sw = new Handler(Looper.getMainLooper());
     private static final AtomicBoolean ISLOADED = new AtomicBoolean(false);
-    private static final String[] aJy = {"c++_shared", "plt-base", "plt-unwind", "exception-handler"};
-    private static boolean aJz = false;
-    private static boolean aJA = false;
+    private static final String[] aqE = {"c++_shared", "kscutils", "exception-handler"};
+    private static boolean aqF = false;
+    private static boolean aqG = false;
 
     /* renamed from: com.kwad.sdk.crash.b$1 */
-    public class AnonymousClass1 implements g.a {
+    static class AnonymousClass1 implements g.a {
 
         /* renamed from: com.kwad.sdk.crash.b$1$1 */
-        public class RunnableC05051 implements Runnable {
-            public RunnableC05051() {
+        final class RunnableC02251 implements Runnable {
+            RunnableC02251() {
             }
 
             @Override // java.lang.Runnable
             public final void run() {
-                b.IU();
-                b.IX();
+                if (b.aqF) {
+                    b.zj();
+                }
+                if (b.aqG) {
+                    b.c(false, "/sdcard/");
+                }
             }
         }
 
+        AnonymousClass1() {
+        }
+
         @Override // com.kwad.sdk.crash.g.a
-        public final void Jd() {
-            GlobalThreadPools.Hj().execute(new Runnable() { // from class: com.kwad.sdk.crash.b.1.1
-                public RunnableC05051() {
+        public final void zt() {
+            b.Sw.post(new Runnable() { // from class: com.kwad.sdk.crash.b.1.1
+                RunnableC02251() {
                 }
 
                 @Override // java.lang.Runnable
                 public final void run() {
-                    b.IU();
-                    b.IX();
+                    if (b.aqF) {
+                        b.zj();
+                    }
+                    if (b.aqG) {
+                        b.c(false, "/sdcard/");
+                    }
                 }
             });
-        }
-
-        @Override // com.kwad.sdk.crash.g.a
-        public final void Je() {
-            com.kwad.sdk.core.d.c.w("AnrAndNativeExceptionCollector", "ExceptionSoLoadHelper.init fail");
         }
     }
 
     /* renamed from: com.kwad.sdk.crash.b$2 */
-    public class AnonymousClass2 implements Runnable {
-        final /* synthetic */ Throwable aJC;
+    static class AnonymousClass2 implements Runnable {
+        final /* synthetic */ Throwable aqI;
 
-        public AnonymousClass2(Throwable th2) {
-            th2 = th2;
+        AnonymousClass2(Throwable th) {
+            th = th;
         }
 
         @Override // java.lang.Runnable
         public final void run() {
             try {
-                if (com.kwad.sdk.crash.b.a.o(th2)) {
-                    com.kwad.sdk.crash.handler.a.p(th2);
+                if (com.kwad.sdk.crash.a.a.h(th)) {
+                    com.kwad.sdk.crash.handler.a.i(th);
                 }
-            } catch (Throwable th2) {
-                com.kwad.sdk.core.d.c.printStackTrace(th2);
+            } catch (Throwable th) {
+                com.kwad.sdk.core.d.b.printStackTrace(th);
             }
         }
     }
 
     /* renamed from: com.kwad.sdk.crash.b$3 */
-    public class AnonymousClass3 implements f {
+    static class AnonymousClass3 implements f {
+        AnonymousClass3() {
+        }
+
         @Override // com.kwad.sdk.crash.f
-        public final void a(int i10, ExceptionMessage exceptionMessage) {
-            e.Jk().b(i10, exceptionMessage);
+        public final void a(int i2, ExceptionMessage exceptionMessage) {
+            e.zy().b(i2, exceptionMessage);
         }
     }
 
     /* renamed from: com.kwad.sdk.crash.b$4 */
-    public class AnonymousClass4 extends com.kwad.sdk.crash.report.c {
-        @Override // com.kwad.sdk.crash.report.e
-        public final File Jf() {
-            return new File(com.kwad.sdk.crash.a.a.Jt(), "java_crash/upload");
+    static class AnonymousClass4 extends com.kwad.sdk.crash.report.c {
+        AnonymousClass4() {
         }
 
         @Override // com.kwad.sdk.crash.report.e
         public final void a(ExceptionMessage exceptionMessage, @Nullable CountDownLatch countDownLatch) {
             a(exceptionMessage, 1, countDownLatch);
         }
+
+        @Override // com.kwad.sdk.crash.report.e
+        public final File zu() {
+            return new File(com.kwad.sdk.crash.kwai.a.zI(), "java_crash/upload");
+        }
     }
 
     /* renamed from: com.kwad.sdk.crash.b$5 */
-    public class AnonymousClass5 implements f {
+    static class AnonymousClass5 implements f {
+        AnonymousClass5() {
+        }
+
         @Override // com.kwad.sdk.crash.f
-        public final void a(int i10, ExceptionMessage exceptionMessage) {
-            e.Jk().b(i10, exceptionMessage);
+        public final void a(int i2, ExceptionMessage exceptionMessage) {
+            e.zy().b(i2, exceptionMessage);
         }
     }
 
     /* renamed from: com.kwad.sdk.crash.b$6 */
-    public class AnonymousClass6 extends com.kwad.sdk.crash.report.c {
-        @Override // com.kwad.sdk.crash.report.e
-        public final File Jf() {
-            return new File(com.kwad.sdk.crash.a.a.Jt(), "anr_log/upload");
+    static class AnonymousClass6 extends com.kwad.sdk.crash.report.c {
+        AnonymousClass6() {
         }
 
         @Override // com.kwad.sdk.crash.report.e
         public final void a(ExceptionMessage exceptionMessage, @Nullable CountDownLatch countDownLatch) {
-            if (exceptionMessage == null || TextUtils.isEmpty(exceptionMessage.mCrashDetail) || !com.kwad.sdk.crash.b.a.fG(exceptionMessage.mCrashDetail)) {
-                return;
-            }
-            com.kwad.sdk.core.d.c.e("AnrAndNativeExceptionCollector", "ANR true upload:" + exceptionMessage.mCrashDetail);
+            com.kwad.sdk.core.d.b.d("ExceptionCollector", "ANR upload");
             a(exceptionMessage, 3, countDownLatch);
+        }
+
+        @Override // com.kwad.sdk.crash.report.e
+        public final File zu() {
+            return new File(com.kwad.sdk.crash.kwai.a.zI(), "anr_log/upload");
         }
     }
 
     /* renamed from: com.kwad.sdk.crash.b$7 */
-    public class AnonymousClass7 extends com.kwad.sdk.crash.report.c {
-        @Override // com.kwad.sdk.crash.report.e
-        public final File Jf() {
-            return new File(com.kwad.sdk.crash.a.a.Jt(), "native_crash_log/upload");
+    static class AnonymousClass7 extends com.kwad.sdk.crash.report.c {
+        AnonymousClass7() {
         }
 
         @Override // com.kwad.sdk.crash.report.e
         public final void a(ExceptionMessage exceptionMessage, @Nullable CountDownLatch countDownLatch) {
-            try {
-                com.kwad.sdk.core.d.c.d("AnrAndNativeExceptionCollector", "Native upload");
-                if (exceptionMessage == null) {
-                    com.kwad.sdk.core.d.c.w("AnrAndNativeExceptionCollector", "Native upload but msg is null");
-                    return;
-                }
-                if (com.kwad.sdk.crash.b.a.fF(exceptionMessage.mThreadName) || com.kwad.sdk.crash.b.a.fG(exceptionMessage.mCrashDetail)) {
-                    com.kwad.sdk.core.d.c.d("AnrAndNativeExceptionCollector", "true upload msg:" + exceptionMessage.mCrashDetail);
-                    a(exceptionMessage, 4, countDownLatch);
-                }
-            } catch (Throwable unused) {
-            }
+            com.kwad.sdk.core.d.b.d("ExceptionCollector", "Native upload");
+            a(exceptionMessage, 4, countDownLatch);
+        }
+
+        @Override // com.kwad.sdk.crash.report.e
+        public final File zu() {
+            return new File(com.kwad.sdk.crash.kwai.a.zI(), "native_crash_log/upload");
         }
     }
 
     /* renamed from: com.kwad.sdk.crash.b$8 */
-    public class AnonymousClass8 implements Runnable {
+    static class AnonymousClass8 implements Runnable {
+        AnonymousClass8() {
+        }
+
         @Override // java.lang.Runnable
         public final void run() {
             try {
-                b.IY();
+                b.zl();
             } catch (Throwable unused) {
             }
         }
-    }
-
-    /* renamed from: com.kwad.sdk.crash.b$9 */
-    public class AnonymousClass9 implements Runnable {
-        @Override // java.lang.Runnable
-        public final void run() {
-            try {
-                b.IZ();
-            } catch (Throwable unused) {
-            }
-        }
-    }
-
-    public static boolean IT() {
-        if (ISLOADED.get()) {
-            return true;
-        }
-        try {
-            for (String str : aJy) {
-                com.kwad.sdk.core.d.c.d("AnrAndNativeExceptionCollector", "loadExceptionLibSo load " + str);
-                System.loadLibrary(str);
-            }
-            ISLOADED.set(true);
-            return true;
-        } catch (Throwable th2) {
-            ServiceProvider.reportSdkCaughtException(th2);
-            com.kwad.sdk.core.d.c.w("AnrAndNativeExceptionCollector", "loadExceptionLibSo fail\n" + Log.getStackTraceString(th2));
-            ISLOADED.set(false);
-            return false;
-        }
-    }
-
-    public static void IU() {
-        com.kwad.sdk.core.d.c.w("AnrAndNativeExceptionCollector", "ExceptionSoLoadHelper.init onLoad：enableAnrReport:" + aJz + " *enableNativeReport" + aJA);
-        if (aJz) {
-            IV();
-        }
-        if (aJA) {
-            c(false, "/sdcard/");
-        }
-    }
-
-    private static void IV() {
-        AnrHandler.getInstance().init(com.kwad.sdk.crash.a.a.Jv(), new f() { // from class: com.kwad.sdk.crash.b.5
-            @Override // com.kwad.sdk.crash.f
-            public final void a(int i10, ExceptionMessage exceptionMessage) {
-                e.Jk().b(i10, exceptionMessage);
-            }
-        }, new com.kwad.sdk.crash.report.c() { // from class: com.kwad.sdk.crash.b.6
-            @Override // com.kwad.sdk.crash.report.e
-            public final File Jf() {
-                return new File(com.kwad.sdk.crash.a.a.Jt(), "anr_log/upload");
-            }
-
-            @Override // com.kwad.sdk.crash.report.e
-            public final void a(ExceptionMessage exceptionMessage, @Nullable CountDownLatch countDownLatch) {
-                if (exceptionMessage == null || TextUtils.isEmpty(exceptionMessage.mCrashDetail) || !com.kwad.sdk.crash.b.a.fG(exceptionMessage.mCrashDetail)) {
-                    return;
-                }
-                com.kwad.sdk.core.d.c.e("AnrAndNativeExceptionCollector", "ANR true upload:" + exceptionMessage.mCrashDetail);
-                a(exceptionMessage, 3, countDownLatch);
-            }
-        });
-    }
-
-    private static synchronized void IW() {
-        synchronized (b.class) {
-            if (!aJv) {
-                aJv = true;
-                com.kwad.sdk.core.threads.a.Hf().postDelayed(new Runnable() { // from class: com.kwad.sdk.crash.b.8
-                    @Override // java.lang.Runnable
-                    public final void run() {
-                        try {
-                            b.IY();
-                        } catch (Throwable unused) {
-                        }
-                    }
-                }, TimeUnit.SECONDS.toMillis(d.aKd));
-            }
-        }
-    }
-
-    public static synchronized void IX() {
-        synchronized (b.class) {
-            if (!aJw) {
-                aJw = true;
-                com.kwad.sdk.core.threads.a.Hf().postDelayed(new Runnable() { // from class: com.kwad.sdk.crash.b.9
-                    @Override // java.lang.Runnable
-                    public final void run() {
-                        try {
-                            b.IZ();
-                        } catch (Throwable unused) {
-                        }
-                    }
-                }, TimeUnit.SECONDS.toMillis(d.aKd));
-            }
-        }
-    }
-
-    public static void IY() {
-        Ja();
-    }
-
-    public static void IZ() {
-        if (aJz) {
-            Jb();
-        }
-        if (aJA) {
-            Jc();
-        }
-    }
-
-    private static void Ja() {
-        com.kwad.sdk.core.d.c.d("AnrAndNativeExceptionCollector", "reportJavaException");
-        com.kwad.sdk.crash.report.f fVar = new com.kwad.sdk.crash.report.f();
-        fVar.a(com.kwad.sdk.crash.handler.c.Jz().getUploader());
-        fVar.D(com.kwad.sdk.crash.a.a.Ju());
-    }
-
-    private static void Jb() {
-        com.kwad.sdk.core.d.c.d("AnrAndNativeExceptionCollector", "reportAnrException");
-        com.kwad.sdk.crash.report.b bVar = new com.kwad.sdk.crash.report.b();
-        bVar.a(AnrHandler.getInstance().getUploader());
-        bVar.D(com.kwad.sdk.crash.a.a.Jv());
-    }
-
-    private static void Jc() {
-        com.kwad.sdk.core.d.c.d("AnrAndNativeExceptionCollector", "reportNativeException");
-        com.kwad.sdk.crash.report.g gVar = new com.kwad.sdk.crash.report.g();
-        gVar.a(NativeCrashHandler.getInstance().getUploader());
-        gVar.D(com.kwad.sdk.crash.a.a.Jw());
     }
 
     public static void a(@NonNull c cVar) {
-        if (cVar.context == null || aJx) {
+        if (cVar.context == null || aqD) {
             return;
         }
-        aJx = true;
+        aqD = true;
+        aqF = cVar.aqF;
+        aqG = cVar.aqG;
         try {
             com.kwad.sdk.crash.utils.e.init(cVar.context);
-            com.kwad.sdk.crash.a.a.init(cVar.context, cVar.aJO);
-            e.Jk().a(cVar);
-            bL(cVar.context);
-            IW();
-        } catch (Throwable unused) {
-        }
-    }
+            com.kwad.sdk.crash.kwai.a.init(cVar.context, cVar.aqR);
+            e.zy().a(cVar);
+            bl(cVar.context);
+            if (!bk(cVar.context) && (aqF || aqG)) {
+                g.a(cVar, new g.a() { // from class: com.kwad.sdk.crash.b.1
 
-    public static void b(c cVar) {
-        aJz = cVar.aJz;
-        aJA = cVar.aJA;
-        if (bK(cVar.context)) {
-            return;
-        }
-        if (aJz || aJA) {
-            g.a(cVar, new g.a() { // from class: com.kwad.sdk.crash.b.1
-
-                /* renamed from: com.kwad.sdk.crash.b$1$1 */
-                public class RunnableC05051 implements Runnable {
-                    public RunnableC05051() {
-                    }
-
-                    @Override // java.lang.Runnable
-                    public final void run() {
-                        b.IU();
-                        b.IX();
-                    }
-                }
-
-                @Override // com.kwad.sdk.crash.g.a
-                public final void Jd() {
-                    GlobalThreadPools.Hj().execute(new Runnable() { // from class: com.kwad.sdk.crash.b.1.1
-                        public RunnableC05051() {
+                    /* renamed from: com.kwad.sdk.crash.b$1$1 */
+                    final class RunnableC02251 implements Runnable {
+                        RunnableC02251() {
                         }
 
                         @Override // java.lang.Runnable
                         public final void run() {
-                            b.IU();
-                            b.IX();
+                            if (b.aqF) {
+                                b.zj();
+                            }
+                            if (b.aqG) {
+                                b.c(false, "/sdcard/");
+                            }
                         }
-                    });
-                }
+                    }
 
-                @Override // com.kwad.sdk.crash.g.a
-                public final void Je() {
-                    com.kwad.sdk.core.d.c.w("AnrAndNativeExceptionCollector", "ExceptionSoLoadHelper.init fail");
-                }
-            });
+                    AnonymousClass1() {
+                    }
+
+                    @Override // com.kwad.sdk.crash.g.a
+                    public final void zt() {
+                        b.Sw.post(new Runnable() { // from class: com.kwad.sdk.crash.b.1.1
+                            RunnableC02251() {
+                            }
+
+                            @Override // java.lang.Runnable
+                            public final void run() {
+                                if (b.aqF) {
+                                    b.zj();
+                                }
+                                if (b.aqG) {
+                                    b.c(false, "/sdcard/");
+                                }
+                            }
+                        });
+                    }
+                });
+            }
+            zk();
+        } catch (Throwable unused) {
         }
     }
 
-    private static boolean bK(Context context) {
-        return context == null || ad.cs(context) >= 3;
+    private static boolean bk(Context context) {
+        return context == null || y.bR(context) >= 3;
     }
 
-    private static void bL(Context context) {
-        com.kwad.sdk.crash.handler.c.Jz().init(com.kwad.sdk.crash.a.a.Ju(), new f() { // from class: com.kwad.sdk.crash.b.3
+    private static void bl(Context context) {
+        com.kwad.sdk.crash.handler.c.zO().init(com.kwad.sdk.crash.kwai.a.zJ(), new f() { // from class: com.kwad.sdk.crash.b.3
+            AnonymousClass3() {
+            }
+
             @Override // com.kwad.sdk.crash.f
-            public final void a(int i10, ExceptionMessage exceptionMessage) {
-                e.Jk().b(i10, exceptionMessage);
+            public final void a(int i2, ExceptionMessage exceptionMessage) {
+                e.zy().b(i2, exceptionMessage);
             }
         }, new com.kwad.sdk.crash.report.c() { // from class: com.kwad.sdk.crash.b.4
-            @Override // com.kwad.sdk.crash.report.e
-            public final File Jf() {
-                return new File(com.kwad.sdk.crash.a.a.Jt(), "java_crash/upload");
+            AnonymousClass4() {
             }
 
             @Override // com.kwad.sdk.crash.report.e
             public final void a(ExceptionMessage exceptionMessage, @Nullable CountDownLatch countDownLatch) {
                 a(exceptionMessage, 1, countDownLatch);
             }
+
+            @Override // com.kwad.sdk.crash.report.e
+            public final File zu() {
+                return new File(com.kwad.sdk.crash.kwai.a.zI(), "java_crash/upload");
+            }
         });
         Thread.setDefaultUncaughtExceptionHandler(new com.kwad.sdk.crash.handler.d(context));
     }
 
-    private static void c(boolean z10, String str) {
-        if (com.kwad.sdk.crash.a.a.A(com.kwad.sdk.crash.a.a.Jw())) {
-            NativeCrashHandler.getInstance().init(com.kwad.sdk.crash.a.a.Jw(), false, str, new com.kwad.sdk.crash.report.c() { // from class: com.kwad.sdk.crash.b.7
-                @Override // com.kwad.sdk.crash.report.e
-                public final File Jf() {
-                    return new File(com.kwad.sdk.crash.a.a.Jt(), "native_crash_log/upload");
+    public static void c(boolean z, String str) {
+        if (com.kwad.sdk.crash.kwai.a.v(com.kwad.sdk.crash.kwai.a.zL())) {
+            NativeCrashHandler.getInstance().init(com.kwad.sdk.crash.kwai.a.zL(), z, str, new com.kwad.sdk.crash.report.c() { // from class: com.kwad.sdk.crash.b.7
+                AnonymousClass7() {
                 }
 
                 @Override // com.kwad.sdk.crash.report.e
                 public final void a(ExceptionMessage exceptionMessage, @Nullable CountDownLatch countDownLatch) {
-                    try {
-                        com.kwad.sdk.core.d.c.d("AnrAndNativeExceptionCollector", "Native upload");
-                        if (exceptionMessage == null) {
-                            com.kwad.sdk.core.d.c.w("AnrAndNativeExceptionCollector", "Native upload but msg is null");
-                            return;
-                        }
-                        if (com.kwad.sdk.crash.b.a.fF(exceptionMessage.mThreadName) || com.kwad.sdk.crash.b.a.fG(exceptionMessage.mCrashDetail)) {
-                            com.kwad.sdk.core.d.c.d("AnrAndNativeExceptionCollector", "true upload msg:" + exceptionMessage.mCrashDetail);
-                            a(exceptionMessage, 4, countDownLatch);
-                        }
-                    } catch (Throwable unused) {
-                    }
+                    com.kwad.sdk.core.d.b.d("ExceptionCollector", "Native upload");
+                    a(exceptionMessage, 4, countDownLatch);
+                }
+
+                @Override // com.kwad.sdk.crash.report.e
+                public final File zu() {
+                    return new File(com.kwad.sdk.crash.kwai.a.zI(), "native_crash_log/upload");
                 }
             });
         }
     }
 
-    public static void n(@NonNull Throwable th2) {
-        com.kwad.sdk.utils.h.execute(new Runnable() { // from class: com.kwad.sdk.crash.b.2
-            final /* synthetic */ Throwable aJC;
+    public static void g(@NonNull Throwable th) {
+        com.kwad.sdk.utils.g.execute(new Runnable() { // from class: com.kwad.sdk.crash.b.2
+            final /* synthetic */ Throwable aqI;
 
-            public AnonymousClass2(Throwable th22) {
-                th2 = th22;
+            AnonymousClass2(Throwable th2) {
+                th = th2;
             }
 
             @Override // java.lang.Runnable
             public final void run() {
                 try {
-                    if (com.kwad.sdk.crash.b.a.o(th2)) {
-                        com.kwad.sdk.crash.handler.a.p(th2);
+                    if (com.kwad.sdk.crash.a.a.h(th)) {
+                        com.kwad.sdk.crash.handler.a.i(th);
                     }
-                } catch (Throwable th22) {
-                    com.kwad.sdk.core.d.c.printStackTrace(th22);
+                } catch (Throwable th2) {
+                    com.kwad.sdk.core.d.b.printStackTrace(th2);
                 }
             }
         });
+    }
+
+    public static boolean zi() {
+        if (ISLOADED.get()) {
+            return true;
+        }
+        try {
+            for (String str : aqE) {
+                System.loadLibrary(str);
+            }
+            ISLOADED.set(true);
+            return true;
+        } catch (Throwable unused) {
+            ISLOADED.set(false);
+            return false;
+        }
+    }
+
+    public static void zj() {
+        AnrHandler.getInstance().init(com.kwad.sdk.crash.kwai.a.zK(), new f() { // from class: com.kwad.sdk.crash.b.5
+            AnonymousClass5() {
+            }
+
+            @Override // com.kwad.sdk.crash.f
+            public final void a(int i2, ExceptionMessage exceptionMessage) {
+                e.zy().b(i2, exceptionMessage);
+            }
+        }, new com.kwad.sdk.crash.report.c() { // from class: com.kwad.sdk.crash.b.6
+            AnonymousClass6() {
+            }
+
+            @Override // com.kwad.sdk.crash.report.e
+            public final void a(ExceptionMessage exceptionMessage, @Nullable CountDownLatch countDownLatch) {
+                com.kwad.sdk.core.d.b.d("ExceptionCollector", "ANR upload");
+                a(exceptionMessage, 3, countDownLatch);
+            }
+
+            @Override // com.kwad.sdk.crash.report.e
+            public final File zu() {
+                return new File(com.kwad.sdk.crash.kwai.a.zI(), "anr_log/upload");
+            }
+        });
+    }
+
+    private static synchronized void zk() {
+        synchronized (b.class) {
+            if (!aqC) {
+                aqC = true;
+                com.kwad.sdk.core.threads.a.xI().postDelayed(new Runnable() { // from class: com.kwad.sdk.crash.b.8
+                    AnonymousClass8() {
+                    }
+
+                    @Override // java.lang.Runnable
+                    public final void run() {
+                        try {
+                            b.zl();
+                        } catch (Throwable unused) {
+                        }
+                    }
+                }, TimeUnit.SECONDS.toMillis(d.are));
+            }
+        }
+    }
+
+    public static void zl() {
+        zm();
+        if (aqF) {
+            zn();
+        }
+        if (aqG) {
+            zo();
+        }
+    }
+
+    private static void zm() {
+        com.kwad.sdk.core.d.b.d("ExceptionCollector", "reportJavaException");
+        com.kwad.sdk.crash.report.f fVar = new com.kwad.sdk.crash.report.f();
+        fVar.a(com.kwad.sdk.crash.handler.c.zO().getUploader());
+        fVar.x(com.kwad.sdk.crash.kwai.a.zJ());
+    }
+
+    private static void zn() {
+        com.kwad.sdk.core.d.b.d("ExceptionCollector", "reportAnrException");
+        com.kwad.sdk.crash.report.b bVar = new com.kwad.sdk.crash.report.b();
+        bVar.a(AnrHandler.getInstance().getUploader());
+        bVar.x(com.kwad.sdk.crash.kwai.a.zK());
+    }
+
+    private static void zo() {
+        com.kwad.sdk.core.d.b.d("ExceptionCollector", "reportNativeException");
+        com.kwad.sdk.crash.report.g gVar = new com.kwad.sdk.crash.report.g();
+        gVar.a(NativeCrashHandler.getInstance().getUploader());
+        gVar.x(com.kwad.sdk.crash.kwai.a.zL());
     }
 }

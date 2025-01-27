@@ -9,13 +9,15 @@ import androidx.annotation.Nullable;
 @SuppressLint({"BanParcelableUsage"})
 /* loaded from: classes.dex */
 public abstract class AbsSavedState implements Parcelable {
-    private final Parcelable mSuperState;
+
+    /* renamed from: a, reason: collision with root package name */
+    private final Parcelable f2237a;
     public static final AbsSavedState EMPTY_STATE = new AbsSavedState() { // from class: androidx.customview.view.AbsSavedState.1
     };
     public static final Parcelable.Creator<AbsSavedState> CREATOR = new Parcelable.ClassLoaderCreator<AbsSavedState>() { // from class: androidx.customview.view.AbsSavedState.2
         @Override // android.os.Parcelable.Creator
-        public AbsSavedState[] newArray(int i10) {
-            return new AbsSavedState[i10];
+        public AbsSavedState[] newArray(int i2) {
+            return new AbsSavedState[i2];
         }
 
         /* JADX WARN: Can't rename method to resolve collision */
@@ -40,32 +42,32 @@ public abstract class AbsSavedState implements Parcelable {
 
     @Nullable
     public final Parcelable getSuperState() {
-        return this.mSuperState;
+        return this.f2237a;
     }
 
     @Override // android.os.Parcelable
-    public void writeToParcel(Parcel parcel, int i10) {
-        parcel.writeParcelable(this.mSuperState, i10);
+    public void writeToParcel(Parcel parcel, int i2) {
+        parcel.writeParcelable(this.f2237a, i2);
     }
 
     private AbsSavedState() {
-        this.mSuperState = null;
+        this.f2237a = null;
     }
 
-    public AbsSavedState(@NonNull Parcelable parcelable) {
+    protected AbsSavedState(@NonNull Parcelable parcelable) {
         if (parcelable != null) {
-            this.mSuperState = parcelable == EMPTY_STATE ? null : parcelable;
+            this.f2237a = parcelable == EMPTY_STATE ? null : parcelable;
             return;
         }
         throw new IllegalArgumentException("superState must not be null");
     }
 
-    public AbsSavedState(@NonNull Parcel parcel) {
+    protected AbsSavedState(@NonNull Parcel parcel) {
         this(parcel, null);
     }
 
-    public AbsSavedState(@NonNull Parcel parcel, @Nullable ClassLoader classLoader) {
+    protected AbsSavedState(@NonNull Parcel parcel, @Nullable ClassLoader classLoader) {
         Parcelable readParcelable = parcel.readParcelable(classLoader);
-        this.mSuperState = readParcelable == null ? EMPTY_STATE : readParcelable;
+        this.f2237a = readParcelable == null ? EMPTY_STATE : readParcelable;
     }
 }

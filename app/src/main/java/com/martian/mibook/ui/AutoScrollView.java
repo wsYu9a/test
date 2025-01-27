@@ -6,53 +6,59 @@ import android.util.AttributeSet;
 import android.view.MotionEvent;
 import android.widget.ScrollView;
 
-/* loaded from: classes3.dex */
+/* loaded from: classes4.dex */
 public class AutoScrollView extends ScrollView {
 
-    /* renamed from: b, reason: collision with root package name */
-    public boolean f15804b;
+    /* renamed from: a, reason: collision with root package name */
+    private boolean f14139a;
 
-    public AutoScrollView(Context context, AttributeSet attributeSet) {
-        super(context, attributeSet);
+    /* renamed from: b, reason: collision with root package name */
+    private int f14140b;
+
+    /* renamed from: c, reason: collision with root package name */
+    private long f14141c;
+
+    public AutoScrollView(Context context, AttributeSet attrs) {
+        super(context, attrs);
     }
 
     public void a() {
-        boolean z10 = !this.f15804b;
-        this.f15804b = z10;
-        if (z10) {
+        boolean z = !this.f14139a;
+        this.f14139a = z;
+        if (z) {
             computeScroll();
         }
     }
 
     public void b() {
-        this.f15804b = true;
+        this.f14139a = true;
         computeScroll();
     }
 
     public void c() {
-        this.f15804b = false;
+        this.f14139a = false;
     }
 
     @Override // android.widget.ScrollView, android.view.View
     public void computeScroll() {
         super.computeScroll();
-        if (this.f15804b) {
+        if (this.f14139a) {
             scrollBy(0, 1);
         }
     }
 
     @Override // android.widget.ScrollView, android.view.View
     @SuppressLint({"ClickableViewAccessibility"})
-    public boolean onTouchEvent(MotionEvent motionEvent) {
+    public boolean onTouchEvent(MotionEvent ev) {
         c();
-        return super.onTouchEvent(motionEvent);
+        return super.onTouchEvent(ev);
     }
 
     public AutoScrollView(Context context) {
         super(context);
     }
 
-    public AutoScrollView(Context context, AttributeSet attributeSet, int i10) {
-        super(context, attributeSet, i10);
+    public AutoScrollView(Context context, AttributeSet attrs, int defStyle) {
+        super(context, attrs, defStyle);
     }
 }

@@ -1,32 +1,35 @@
 package com.bytedance.pangle.f.a;
 
-/* loaded from: classes2.dex */
+/* loaded from: classes.dex */
 public final class f {
 
     /* renamed from: a, reason: collision with root package name */
-    int[] f7616a;
+    int[] f6114a;
 
     /* renamed from: b, reason: collision with root package name */
-    int[] f7617b;
+    int[] f6115b;
 
-    public final String a(int i10) {
-        int[] iArr;
-        if (i10 < 0 || (iArr = this.f7616a) == null || i10 >= iArr.length) {
-            return null;
-        }
-        int i11 = iArr[i10];
-        int a10 = a(this.f7617b, i11);
-        StringBuilder sb2 = new StringBuilder(a10);
-        while (a10 != 0) {
-            i11 += 2;
-            sb2.append((char) a(this.f7617b, i11));
-            a10--;
-        }
-        return sb2.toString();
+    f() {
     }
 
-    private static final int a(int[] iArr, int i10) {
-        int i11 = iArr[i10 / 4];
-        return (i10 % 4) / 2 == 0 ? i11 & 65535 : i11 >>> 16;
+    public final String a(int i2) {
+        int[] iArr;
+        if (i2 < 0 || (iArr = this.f6114a) == null || i2 >= iArr.length) {
+            return null;
+        }
+        int i3 = iArr[i2];
+        int a2 = a(this.f6115b, i3);
+        StringBuilder sb = new StringBuilder(a2);
+        while (a2 != 0) {
+            i3 += 2;
+            sb.append((char) a(this.f6115b, i3));
+            a2--;
+        }
+        return sb.toString();
+    }
+
+    private static final int a(int[] iArr, int i2) {
+        int i3 = iArr[i2 / 4];
+        return (i2 % 4) / 2 == 0 ? i3 & 65535 : i3 >>> 16;
     }
 }

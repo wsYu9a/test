@@ -1,6 +1,6 @@
 package com.martian.mibook.lib.account.response;
 
-import ba.l;
+import com.martian.libsupport.k;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -13,14 +13,11 @@ public class BookEvent {
     private String recommendId;
     private String sourceId;
     private String sourceName;
-
-    /* renamed from: t */
-    private Long f13981t;
     private Integer value = 1;
 
-    public BookEvent addChapterId(String str) {
-        if (!l.q(str)) {
-            getReadChapterIds().add(str);
+    public BookEvent addChapterId(String ccid) {
+        if (!k.p(ccid)) {
+            getReadChapterIds().add(ccid);
         }
         return this;
     }
@@ -28,7 +25,7 @@ public class BookEvent {
     public String getCcids() {
         String str = "";
         for (String str2 : getReadChapterIds()) {
-            if (!l.q(str)) {
+            if (!k.p(str)) {
                 str = str + ",";
             }
             str = str + str2;
@@ -68,63 +65,54 @@ public class BookEvent {
         return this.sourceName;
     }
 
-    public Long getT() {
-        return this.f13981t;
-    }
-
     public Integer getValue() {
         return this.value;
     }
 
-    public void incrValue(int i10) {
-        this.value = Integer.valueOf(this.value.intValue() + i10);
+    public void incrValue(int adderValue) {
+        this.value = Integer.valueOf(this.value.intValue() + adderValue);
     }
 
-    public BookEvent setChapterIndex(Integer num) {
-        if (num.intValue() >= 0) {
-            this.chapterIndex = num;
+    public BookEvent setChapterIndex(Integer chapterIndex) {
+        if (chapterIndex.intValue() >= 0) {
+            this.chapterIndex = chapterIndex;
         }
         return this;
     }
 
-    public BookEvent setEventType(Integer num) {
-        this.eventType = num;
+    public BookEvent setEventType(Integer eventType) {
+        this.eventType = eventType;
         return this;
     }
 
-    public BookEvent setFirstRead(Boolean bool) {
+    public BookEvent setFirstRead(Boolean firstRead) {
         if (this.firstRead == null) {
-            this.firstRead = bool;
+            this.firstRead = firstRead;
         }
         return this;
     }
 
-    public void setReadChapterIds(List<String> list) {
-        this.readChapterIds = list;
+    public void setReadChapterIds(List<String> readChapterIds) {
+        this.readChapterIds = readChapterIds;
     }
 
-    public BookEvent setRecommendId(String str) {
-        this.recommendId = str;
+    public BookEvent setRecommendId(String recommendId) {
+        this.recommendId = recommendId;
         return this;
     }
 
-    public BookEvent setSourceId(String str) {
-        this.sourceId = str;
+    public BookEvent setSourceId(String sourceId) {
+        this.sourceId = sourceId;
         return this;
     }
 
-    public BookEvent setSourceName(String str) {
-        this.sourceName = str;
+    public BookEvent setSourceName(String sourceName) {
+        this.sourceName = sourceName;
         return this;
     }
 
-    public BookEvent setT(Long l10) {
-        this.f13981t = l10;
-        return this;
-    }
-
-    public BookEvent setValue(Integer num) {
-        this.value = num;
+    public BookEvent setValue(Integer value) {
+        this.value = value;
         return this;
     }
 }

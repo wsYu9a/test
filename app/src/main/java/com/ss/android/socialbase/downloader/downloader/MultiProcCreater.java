@@ -7,6 +7,9 @@ import com.ss.android.socialbase.downloader.impls.IndependentProcessDownloadHand
 
 /* loaded from: classes4.dex */
 class MultiProcCreater implements DownloadComponentManager.IndependentHolderCreator {
+    MultiProcCreater() {
+    }
+
     @Override // com.ss.android.socialbase.downloader.downloader.DownloadComponentManager.IndependentHolderCreator
     public ISqlDownloadCache createCache(DownloadComponentManager.IndependentHolderCreator.OnMainProcessRebindErrorListener onMainProcessRebindErrorListener) {
         SqlDownloadCacheAidlWrapper sqlDownloadCacheAidlWrapper = new SqlDownloadCacheAidlWrapper();

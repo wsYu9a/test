@@ -10,32 +10,32 @@ import java.util.concurrent.atomic.AtomicInteger;
 public class g implements Iterable<String> {
 
     /* renamed from: a */
-    private ConcurrentLinkedQueue<String> f23168a;
+    private ConcurrentLinkedQueue<String> f25435a;
 
     /* renamed from: b */
-    private AtomicInteger f23169b;
+    private AtomicInteger f25436b;
 
     public g() {
-        this.f23168a = null;
-        this.f23169b = null;
-        this.f23168a = new ConcurrentLinkedQueue<>();
-        this.f23169b = new AtomicInteger(0);
+        this.f25435a = null;
+        this.f25436b = null;
+        this.f25435a = new ConcurrentLinkedQueue<>();
+        this.f25436b = new AtomicInteger(0);
     }
 
     public int a(String str) {
         int length = str.length();
-        this.f23168a.add(str);
-        return this.f23169b.addAndGet(length);
+        this.f25435a.add(str);
+        return this.f25436b.addAndGet(length);
     }
 
     public void b() {
-        this.f23168a.clear();
-        this.f23169b.set(0);
+        this.f25435a.clear();
+        this.f25436b.set(0);
     }
 
     @Override // java.lang.Iterable
     public Iterator<String> iterator() {
-        return this.f23168a.iterator();
+        return this.f25435a.iterator();
     }
 
     public void a(Writer writer, char[] cArr) throws IOException {
@@ -44,36 +44,36 @@ public class g implements Iterable<String> {
         }
         int length = cArr.length;
         Iterator<String> it = iterator();
-        int i10 = length;
-        int i11 = 0;
+        int i2 = length;
+        int i3 = 0;
         while (it.hasNext()) {
             String next = it.next();
             int length2 = next.length();
-            int i12 = 0;
+            int i4 = 0;
             while (length2 > 0) {
-                int i13 = i10 > length2 ? length2 : i10;
-                int i14 = i12 + i13;
-                next.getChars(i12, i14, cArr, i11);
-                i10 -= i13;
-                i11 += i13;
-                length2 -= i13;
-                if (i10 == 0) {
+                int i5 = i2 > length2 ? length2 : i2;
+                int i6 = i4 + i5;
+                next.getChars(i4, i6, cArr, i3);
+                i2 -= i5;
+                i3 += i5;
+                length2 -= i5;
+                if (i2 == 0) {
                     writer.write(cArr, 0, length);
-                    i10 = length;
-                    i12 = i14;
-                    i11 = 0;
+                    i2 = length;
+                    i4 = i6;
+                    i3 = 0;
                 } else {
-                    i12 = i14;
+                    i4 = i6;
                 }
             }
         }
-        if (i11 > 0) {
-            writer.write(cArr, 0, i11);
+        if (i3 > 0) {
+            writer.write(cArr, 0, i3);
         }
         writer.flush();
     }
 
     public int a() {
-        return this.f23169b.get();
+        return this.f25436b.get();
     }
 }

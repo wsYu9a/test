@@ -3,7 +3,7 @@ package com.kwad.sdk.collector.model.jni;
 import androidx.annotation.Keep;
 
 @Keep
-/* loaded from: classes3.dex */
+/* loaded from: classes2.dex */
 public abstract class NativeObject {
 
     @Keep

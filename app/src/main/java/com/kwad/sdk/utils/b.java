@@ -1,42 +1,68 @@
 package com.kwad.sdk.utils;
 
-import android.view.MotionEvent;
-import com.kwad.sdk.core.response.model.AdInfo;
-import com.kwad.sdk.core.response.model.AdTemplate;
-import com.kwad.sdk.utils.ag;
-import java.util.List;
+import android.text.TextUtils;
+import com.kwad.sdk.core.request.model.StatusInfo;
+import com.kwad.sdk.internal.api.NativeAdExtraDataImpl;
+import com.kwad.sdk.internal.api.SceneImpl;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import org.json.JSONObject;
 
-/* loaded from: classes3.dex */
+/* loaded from: classes2.dex */
 public final class b {
-    public static boolean a(ag.a aVar, List<Integer> list) {
-        int abs = Math.abs(aVar.NK() - aVar.NM());
-        int abs2 = Math.abs(aVar.NL() - aVar.NN());
-        if (list == null || list.isEmpty() || list.size() < 2) {
-            return abs > 20 || abs2 > 20;
+    public static int CC() {
+        String Ds = y.Ds();
+        if (TextUtils.isEmpty(Ds)) {
+            return 0;
         }
-        int atan2 = (int) ((Math.atan2(abs2, abs) * 180.0d) / 3.141592653589793d);
-        return atan2 > list.get(0).intValue() && atan2 < list.get(1).intValue();
+        try {
+            JSONObject jSONObject = new JSONObject(Ds);
+            int optInt = jSONObject.optInt("currentDailyCount");
+            if (b(jSONObject.optLong("lastShowTimestamp"), System.currentTimeMillis())) {
+                return optInt;
+            }
+            return 0;
+        } catch (Exception e2) {
+            com.kwad.sdk.core.d.b.printStackTraceOnly(e2);
+            return 0;
+        }
     }
 
-    public static boolean a(MotionEvent motionEvent, MotionEvent motionEvent2, AdTemplate adTemplate) {
-        boolean z10 = false;
-        if (adTemplate == null || !com.kwad.sdk.core.response.b.d.dQ(adTemplate)) {
-            return false;
+    private static boolean b(long j2, long j3) {
+        if (j2 > 0 && j3 > 0) {
+            SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
+            try {
+                return simpleDateFormat.format(new Date(j2)).equals(simpleDateFormat.format(new Date(j3)));
+            } catch (Exception e2) {
+                com.kwad.sdk.core.d.b.printStackTraceOnly(e2);
+            }
         }
-        AdInfo eb2 = com.kwad.sdk.core.response.b.e.eb(adTemplate);
-        float abs = Math.abs(motionEvent2.getRawX() - motionEvent.getRawX());
-        float abs2 = Math.abs(motionEvent2.getRawY() - motionEvent.getRawY());
-        List<Integer> U = com.kwad.sdk.core.response.b.a.U(eb2);
-        if (U == null || U.isEmpty() || U.size() < 2) {
-            return abs > 20.0f || abs2 > 20.0f;
+        return false;
+    }
+
+    public static StatusInfo.SplashStyleControl c(SceneImpl sceneImpl) {
+        StatusInfo.SplashStyleControl splashStyleControl = new StatusInfo.SplashStyleControl();
+        if (sceneImpl == null || !e(sceneImpl)) {
+            return null;
         }
-        int atan2 = (int) ((Math.atan2(abs2, abs) * 180.0d) / 3.141592653589793d);
-        if (atan2 > U.get(0).intValue() && atan2 < U.get(1).intValue()) {
-            z10 = true;
+        com.kwad.sdk.internal.api.b bVar = sceneImpl.splashExtraData;
+        splashStyleControl.disableShake = bVar.disableShake;
+        splashStyleControl.disableRotate = bVar.disableRotate;
+        splashStyleControl.disableSlide = bVar.disableSlide;
+        return splashStyleControl;
+    }
+
+    public static StatusInfo.NativeAdStyleControl d(SceneImpl sceneImpl) {
+        NativeAdExtraDataImpl nativeAdExtraDataImpl;
+        StatusInfo.NativeAdStyleControl nativeAdStyleControl = new StatusInfo.NativeAdStyleControl();
+        if (sceneImpl == null || (nativeAdExtraDataImpl = sceneImpl.nativeAdExtraData) == null) {
+            return null;
         }
-        if (z10) {
-            adTemplate.swipeAngle = atan2;
-        }
-        return z10;
+        nativeAdStyleControl.enableShake = nativeAdExtraDataImpl.enableShake;
+        return nativeAdStyleControl;
+    }
+
+    private static boolean e(SceneImpl sceneImpl) {
+        return sceneImpl.splashExtraData != null;
     }
 }

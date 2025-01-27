@@ -5,14 +5,14 @@ import android.graphics.Color;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.RelativeLayout;
-import com.baidu.mobads.sdk.internal.au;
-import com.baidu.mobads.sdk.internal.bs;
-import com.baidu.mobads.sdk.internal.z;
+import com.baidu.mobads.sdk.internal.ar;
+import com.baidu.mobads.sdk.internal.bp;
+import com.baidu.mobads.sdk.internal.w;
 import java.lang.reflect.InvocationHandler;
 import java.lang.reflect.Method;
 import java.lang.reflect.Proxy;
 
-/* loaded from: classes2.dex */
+/* loaded from: classes.dex */
 public class PatchAdView extends RelativeLayout {
     private static final String AD_CLICKED = "onAdClicked";
     private static final String PLAY_END = "playCompletion";
@@ -25,8 +25,8 @@ public class PatchAdView extends RelativeLayout {
     private final String mRemoteClassName;
     private Context mViewContext;
 
-    public class InvocationHandlerImp implements InvocationHandler {
-        public InvocationHandlerImp() {
+    class InvocationHandlerImp implements InvocationHandler {
+        InvocationHandlerImp() {
         }
 
         @Override // java.lang.reflect.InvocationHandler
@@ -56,7 +56,7 @@ public class PatchAdView extends RelativeLayout {
 
     public PatchAdView(Context context) {
         super(context);
-        this.mRemoteClassName = z.f7381i;
+        this.mRemoteClassName = w.f5866i;
         init(context);
         setBackgroundColor(Color.parseColor("#000000"));
     }
@@ -64,9 +64,9 @@ public class PatchAdView extends RelativeLayout {
     private void init(Context context) {
         this.mViewContext = context;
         Object[] objArr = {context};
-        ClassLoader a10 = bs.a(context);
-        this.mLoader = a10;
-        View view = (View) au.a(this.mRemoteClassName, a10, (Class<?>[]) new Class[]{Context.class}, objArr);
+        ClassLoader a2 = bp.a(context);
+        this.mLoader = a2;
+        View view = (View) ar.a(this.mRemoteClassName, a2, (Class<?>[]) new Class[]{Context.class}, objArr);
         this.mAdView = view;
         if (view != null) {
             addView(view, new RelativeLayout.LayoutParams(-1, -1));
@@ -78,9 +78,9 @@ public class PatchAdView extends RelativeLayout {
         if (view == null) {
             return 0L;
         }
-        Object a10 = au.a(this.mRemoteClassName, view, this.mLoader, "getCurrentPosition", new Class[0], new Object[0]);
-        if (a10 instanceof Number) {
-            return ((Long) a10).longValue();
+        Object a2 = ar.a(this.mRemoteClassName, view, this.mLoader, "getCurrentPosition", new Class[0], new Object[0]);
+        if (a2 instanceof Number) {
+            return ((Long) a2).longValue();
         }
         return 0L;
     }
@@ -90,9 +90,9 @@ public class PatchAdView extends RelativeLayout {
         if (view == null) {
             return 0L;
         }
-        Object a10 = au.a(this.mRemoteClassName, view, this.mLoader, "getDuration", new Class[0], new Object[0]);
-        if (a10 instanceof Number) {
-            return ((Long) a10).longValue();
+        Object a2 = ar.a(this.mRemoteClassName, view, this.mLoader, "getDuration", new Class[0], new Object[0]);
+        if (a2 instanceof Number) {
+            return ((Long) a2).longValue();
         }
         return 0L;
     }
@@ -102,28 +102,28 @@ public class PatchAdView extends RelativeLayout {
         if (xAdVideoResponse == null || (view = this.mAdView) == null) {
             return;
         }
-        au.a(this.mRemoteClassName, view, this.mLoader, "setAdData", new Class[]{Object.class}, xAdVideoResponse);
+        ar.a(this.mRemoteClassName, view, this.mLoader, "setAdData", new Class[]{Object.class}, xAdVideoResponse);
     }
 
     public void setPatchAdListener(IPatchAdListener iPatchAdListener) {
         this.mListener = iPatchAdListener;
         try {
-            Class<?> a10 = au.a("com.component.patchad.IPatchAdListener", this.mLoader);
-            if (a10 != null) {
-                Object newProxyInstance = Proxy.newProxyInstance(a10.getClassLoader(), new Class[]{a10}, new InvocationHandlerImp());
+            Class<?> a2 = ar.a("com.component.patchad.IPatchAdListener", this.mLoader);
+            if (a2 != null) {
+                Object newProxyInstance = Proxy.newProxyInstance(a2.getClassLoader(), new Class[]{a2}, new InvocationHandlerImp());
                 View view = this.mAdView;
                 if (view != null) {
-                    au.a(this.mRemoteClassName, view, this.mLoader, "setPatchAdListener", new Class[]{a10}, newProxyInstance);
+                    ar.a(this.mRemoteClassName, view, this.mLoader, "setPatchAdListener", new Class[]{a2}, newProxyInstance);
                 }
             }
         } catch (Throwable unused) {
         }
     }
 
-    public void setVideoVolume(boolean z10) {
+    public void setVideoVolume(boolean z) {
         View view = this.mAdView;
         if (view != null) {
-            au.a(this.mRemoteClassName, view, this.mLoader, "setVideoVolume", new Class[]{Boolean.TYPE}, Boolean.valueOf(z10));
+            ar.a(this.mRemoteClassName, view, this.mLoader, "setVideoVolume", new Class[]{Boolean.TYPE}, Boolean.valueOf(z));
         }
     }
 }

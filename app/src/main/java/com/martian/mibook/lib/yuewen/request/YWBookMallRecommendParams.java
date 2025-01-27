@@ -1,9 +1,9 @@
 package com.martian.mibook.lib.yuewen.request;
 
+import com.martian.libcomm.http.requests.d.a;
 import com.martian.mibook.lib.account.request.TYHttpGetParams;
-import v8.a;
 
-/* loaded from: classes3.dex */
+/* loaded from: classes4.dex */
 public class YWBookMallRecommendParams extends TYHttpGetParams {
 
     @a
@@ -39,7 +39,7 @@ public class YWBookMallRecommendParams extends TYHttpGetParams {
         return this.page;
     }
 
-    @Override // u8.b
+    @Override // com.martian.libcomm.http.requests.b
     public String getRequestMethod() {
         return "book_mall/recommend";
     }
@@ -52,19 +52,19 @@ public class YWBookMallRecommendParams extends TYHttpGetParams {
         return num.intValue();
     }
 
-    public void setCount(Integer num) {
-        this.count = num;
+    public void setCount(Integer count) {
+        this.count = count;
     }
 
-    public void setCtype(Integer num) {
-        this.ctype = num;
+    public void setCtype(Integer ctype) {
+        this.ctype = ctype;
     }
 
-    public void setPage(Integer num) {
-        this.page = num;
+    public void setPage(Integer page) {
+        this.page = page;
     }
 
-    public void setSeed(Integer num) {
-        this.seed = num;
+    public void setSeed(Integer seed) {
+        this.seed = seed;
     }
 }

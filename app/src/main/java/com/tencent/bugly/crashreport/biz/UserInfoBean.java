@@ -2,6 +2,7 @@ package com.tencent.bugly.crashreport.biz;
 
 import android.os.Parcel;
 import android.os.Parcelable;
+import androidx.core.os.EnvironmentCompat;
 import com.tencent.bugly.proguard.ca;
 import java.util.Map;
 
@@ -10,70 +11,52 @@ public class UserInfoBean implements Parcelable {
     public static final Parcelable.Creator<UserInfoBean> CREATOR = new g();
 
     /* renamed from: a */
-    public long f22229a;
+    public long f24707a;
 
     /* renamed from: b */
-    public int f22230b;
+    public int f24708b;
 
     /* renamed from: c */
-    public String f22231c;
+    public String f24709c;
 
     /* renamed from: d */
-    public String f22232d;
+    public String f24710d;
 
     /* renamed from: e */
-    public long f22233e;
+    public long f24711e;
 
     /* renamed from: f */
-    public long f22234f;
+    public long f24712f;
 
     /* renamed from: g */
-    public long f22235g;
+    public long f24713g;
 
     /* renamed from: h */
-    public long f22236h;
+    public long f24714h;
 
     /* renamed from: i */
-    public long f22237i;
+    public long f24715i;
 
     /* renamed from: j */
-    public String f22238j;
-
-    /* renamed from: k */
-    public long f22239k;
-
-    /* renamed from: l */
-    public boolean f22240l;
-
-    /* renamed from: m */
-    public String f22241m;
-
-    /* renamed from: n */
-    public String f22242n;
-
-    /* renamed from: o */
-    public int f22243o;
-
-    /* renamed from: p */
-    public int f22244p;
-
-    /* renamed from: q */
-    public int f22245q;
-
-    /* renamed from: r */
-    public Map<String, String> f22246r;
-
-    /* renamed from: s */
-    public Map<String, String> f22247s;
+    public String f24716j;
+    public long k;
+    public boolean l;
+    public String m;
+    public String n;
+    public int o;
+    public int p;
+    public int q;
+    public Map<String, String> r;
+    public Map<String, String> s;
 
     public UserInfoBean() {
-        this.f22239k = 0L;
-        this.f22240l = false;
-        this.f22241m = "unknown";
-        this.f22244p = -1;
-        this.f22245q = -1;
-        this.f22246r = null;
-        this.f22247s = null;
+        this.k = 0L;
+        this.l = false;
+        this.m = EnvironmentCompat.MEDIA_UNKNOWN;
+        this.p = -1;
+        this.q = -1;
+        this.r = null;
+        this.s = null;
     }
 
     @Override // android.os.Parcelable
@@ -82,52 +65,52 @@ public class UserInfoBean implements Parcelable {
     }
 
     @Override // android.os.Parcelable
-    public void writeToParcel(Parcel parcel, int i10) {
-        parcel.writeInt(this.f22230b);
-        parcel.writeString(this.f22231c);
-        parcel.writeString(this.f22232d);
-        parcel.writeLong(this.f22233e);
-        parcel.writeLong(this.f22234f);
-        parcel.writeLong(this.f22235g);
-        parcel.writeLong(this.f22236h);
-        parcel.writeLong(this.f22237i);
-        parcel.writeString(this.f22238j);
-        parcel.writeLong(this.f22239k);
-        parcel.writeByte(this.f22240l ? (byte) 1 : (byte) 0);
-        parcel.writeString(this.f22241m);
-        parcel.writeInt(this.f22244p);
-        parcel.writeInt(this.f22245q);
-        ca.b(parcel, this.f22246r);
-        ca.b(parcel, this.f22247s);
-        parcel.writeString(this.f22242n);
-        parcel.writeInt(this.f22243o);
+    public void writeToParcel(Parcel parcel, int i2) {
+        parcel.writeInt(this.f24708b);
+        parcel.writeString(this.f24709c);
+        parcel.writeString(this.f24710d);
+        parcel.writeLong(this.f24711e);
+        parcel.writeLong(this.f24712f);
+        parcel.writeLong(this.f24713g);
+        parcel.writeLong(this.f24714h);
+        parcel.writeLong(this.f24715i);
+        parcel.writeString(this.f24716j);
+        parcel.writeLong(this.k);
+        parcel.writeByte(this.l ? (byte) 1 : (byte) 0);
+        parcel.writeString(this.m);
+        parcel.writeInt(this.p);
+        parcel.writeInt(this.q);
+        ca.b(parcel, this.r);
+        ca.b(parcel, this.s);
+        parcel.writeString(this.n);
+        parcel.writeInt(this.o);
     }
 
     public UserInfoBean(Parcel parcel) {
-        this.f22239k = 0L;
-        this.f22240l = false;
-        this.f22241m = "unknown";
-        this.f22244p = -1;
-        this.f22245q = -1;
-        this.f22246r = null;
-        this.f22247s = null;
-        this.f22230b = parcel.readInt();
-        this.f22231c = parcel.readString();
-        this.f22232d = parcel.readString();
-        this.f22233e = parcel.readLong();
-        this.f22234f = parcel.readLong();
-        this.f22235g = parcel.readLong();
-        this.f22236h = parcel.readLong();
-        this.f22237i = parcel.readLong();
-        this.f22238j = parcel.readString();
-        this.f22239k = parcel.readLong();
-        this.f22240l = parcel.readByte() == 1;
-        this.f22241m = parcel.readString();
-        this.f22244p = parcel.readInt();
-        this.f22245q = parcel.readInt();
-        this.f22246r = ca.b(parcel);
-        this.f22247s = ca.b(parcel);
-        this.f22242n = parcel.readString();
-        this.f22243o = parcel.readInt();
+        this.k = 0L;
+        this.l = false;
+        this.m = EnvironmentCompat.MEDIA_UNKNOWN;
+        this.p = -1;
+        this.q = -1;
+        this.r = null;
+        this.s = null;
+        this.f24708b = parcel.readInt();
+        this.f24709c = parcel.readString();
+        this.f24710d = parcel.readString();
+        this.f24711e = parcel.readLong();
+        this.f24712f = parcel.readLong();
+        this.f24713g = parcel.readLong();
+        this.f24714h = parcel.readLong();
+        this.f24715i = parcel.readLong();
+        this.f24716j = parcel.readString();
+        this.k = parcel.readLong();
+        this.l = parcel.readByte() == 1;
+        this.m = parcel.readString();
+        this.p = parcel.readInt();
+        this.q = parcel.readInt();
+        this.r = ca.b(parcel);
+        this.s = ca.b(parcel);
+        this.n = parcel.readString();
+        this.o = parcel.readInt();
     }
 }

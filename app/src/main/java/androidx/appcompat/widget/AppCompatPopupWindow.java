@@ -1,6 +1,7 @@
 package androidx.appcompat.widget;
 
 import android.content.Context;
+import android.os.Build;
 import android.util.AttributeSet;
 import android.view.View;
 import android.widget.PopupWindow;
@@ -13,57 +14,66 @@ import androidx.core.widget.PopupWindowCompat;
 
 /* loaded from: classes.dex */
 class AppCompatPopupWindow extends PopupWindow {
-    private static final boolean COMPAT_OVERLAP_ANCHOR = false;
-    private boolean mOverlapAnchor;
 
-    public AppCompatPopupWindow(@NonNull Context context, @Nullable AttributeSet attributeSet, @AttrRes int i10) {
-        super(context, attributeSet, i10);
-        init(context, attributeSet, i10, 0);
+    /* renamed from: a */
+    private static final boolean f722a;
+
+    /* renamed from: b */
+    private boolean f723b;
+
+    static {
+        f722a = Build.VERSION.SDK_INT < 21;
     }
 
-    private void init(Context context, AttributeSet attributeSet, int i10, int i11) {
-        TintTypedArray obtainStyledAttributes = TintTypedArray.obtainStyledAttributes(context, attributeSet, R.styleable.PopupWindow, i10, i11);
-        if (obtainStyledAttributes.hasValue(R.styleable.PopupWindow_overlapAnchor)) {
-            setSupportOverlapAnchor(obtainStyledAttributes.getBoolean(R.styleable.PopupWindow_overlapAnchor, false));
+    public AppCompatPopupWindow(@NonNull Context context, @Nullable AttributeSet attributeSet, @AttrRes int i2) {
+        super(context, attributeSet, i2);
+        a(context, attributeSet, i2, 0);
+    }
+
+    private void a(Context context, AttributeSet attributeSet, int i2, int i3) {
+        TintTypedArray obtainStyledAttributes = TintTypedArray.obtainStyledAttributes(context, attributeSet, R.styleable.PopupWindow, i2, i3);
+        int i4 = R.styleable.PopupWindow_overlapAnchor;
+        if (obtainStyledAttributes.hasValue(i4)) {
+            b(obtainStyledAttributes.getBoolean(i4, false));
         }
         setBackgroundDrawable(obtainStyledAttributes.getDrawable(R.styleable.PopupWindow_android_popupBackground));
         obtainStyledAttributes.recycle();
     }
 
-    private void setSupportOverlapAnchor(boolean z10) {
-        if (COMPAT_OVERLAP_ANCHOR) {
-            this.mOverlapAnchor = z10;
+    private void b(boolean z) {
+        if (f722a) {
+            this.f723b = z;
         } else {
-            PopupWindowCompat.setOverlapAnchor(this, z10);
+            PopupWindowCompat.setOverlapAnchor(this, z);
         }
     }
 
     @Override // android.widget.PopupWindow
-    public void showAsDropDown(View view, int i10, int i11) {
-        if (COMPAT_OVERLAP_ANCHOR && this.mOverlapAnchor) {
-            i11 -= view.getHeight();
+    public void showAsDropDown(View view, int i2, int i3) {
+        if (f722a && this.f723b) {
+            i3 -= view.getHeight();
         }
-        super.showAsDropDown(view, i10, i11);
+        super.showAsDropDown(view, i2, i3);
     }
 
     @Override // android.widget.PopupWindow
-    public void update(View view, int i10, int i11, int i12, int i13) {
-        if (COMPAT_OVERLAP_ANCHOR && this.mOverlapAnchor) {
-            i11 -= view.getHeight();
+    public void update(View view, int i2, int i3, int i4, int i5) {
+        if (f722a && this.f723b) {
+            i3 -= view.getHeight();
         }
-        super.update(view, i10, i11, i12, i13);
+        super.update(view, i2, i3, i4, i5);
     }
 
-    public AppCompatPopupWindow(@NonNull Context context, @Nullable AttributeSet attributeSet, @AttrRes int i10, @StyleRes int i11) {
-        super(context, attributeSet, i10, i11);
-        init(context, attributeSet, i10, i11);
+    public AppCompatPopupWindow(@NonNull Context context, @Nullable AttributeSet attributeSet, @AttrRes int i2, @StyleRes int i3) {
+        super(context, attributeSet, i2, i3);
+        a(context, attributeSet, i2, i3);
     }
 
     @Override // android.widget.PopupWindow
-    public void showAsDropDown(View view, int i10, int i11, int i12) {
-        if (COMPAT_OVERLAP_ANCHOR && this.mOverlapAnchor) {
-            i11 -= view.getHeight();
+    public void showAsDropDown(View view, int i2, int i3, int i4) {
+        if (f722a && this.f723b) {
+            i3 -= view.getHeight();
         }
-        super.showAsDropDown(view, i10, i11, i12);
+        super.showAsDropDown(view, i2, i3, i4);
     }
 }

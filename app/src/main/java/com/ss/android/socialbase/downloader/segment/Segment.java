@@ -22,41 +22,44 @@ public final class Segment {
     private final long startOffset;
 
     /* renamed from: com.ss.android.socialbase.downloader.segment.Segment$1 */
-    public static class AnonymousClass1 implements Comparator<Segment> {
+    static class AnonymousClass1 implements Comparator<Segment> {
+        AnonymousClass1() {
+        }
+
         @Override // java.util.Comparator
         public int compare(Segment segment, Segment segment2) {
             return (int) (segment.getStartOffset() - segment2.getStartOffset());
         }
     }
 
-    public interface JsonKey {
+    interface JsonKey {
         public static final String CURRENT = "cu";
         public static final String END = "en";
         public static final String START = "st";
     }
 
-    public Segment(long j10) {
-        this(j10, -1L);
+    public Segment(long j2) {
+        this(j2, -1L);
     }
 
-    public void decreaseCompetitor() {
+    void decreaseCompetitor() {
         this.competitor--;
     }
 
-    public int getCompetitor() {
+    int getCompetitor() {
         return this.competitor;
     }
 
     public long getCurrentOffset() {
-        long j10 = this.currentOffset.get();
-        long j11 = this.endOffset;
-        if (j11 > 0) {
-            long j12 = j11 + 1;
-            if (j10 > j12) {
-                return j12;
+        long j2 = this.currentOffset.get();
+        long j3 = this.endOffset;
+        if (j3 > 0) {
+            long j4 = j3 + 1;
+            if (j2 > j4) {
+                return j4;
             }
         }
-        return j10;
+        return j2;
     }
 
     public long getCurrentOffsetRead() {
@@ -87,17 +90,17 @@ public final class Segment {
     }
 
     public long getRemainDownloadBytes() {
-        long j10 = this.endOffset;
-        if (j10 >= this.startOffset) {
-            return (j10 - this.currentOffset.get()) + 1;
+        long j2 = this.endOffset;
+        if (j2 >= this.startOffset) {
+            return (j2 - this.currentOffset.get()) + 1;
         }
         return -1L;
     }
 
     public long getRemainReadBytes() {
-        long j10 = this.endOffset;
-        if (j10 >= this.startOffset) {
-            return (j10 - getCurrentOffsetRead()) + 1;
+        long j2 = this.endOffset;
+        if (j2 >= this.startOffset) {
+            return (j2 - getCurrentOffsetRead()) + 1;
         }
         return -1L;
     }
@@ -106,12 +109,12 @@ public final class Segment {
         return this.startOffset;
     }
 
-    public void increaseCompetitor() {
+    void increaseCompetitor() {
         this.competitor++;
     }
 
-    public void increaseCurrentOffset(long j10) {
-        this.currentOffset.addAndGet(j10);
+    void increaseCurrentOffset(long j2) {
+        this.currentOffset.addAndGet(j2);
     }
 
     public boolean isDownloaded() {
@@ -122,44 +125,44 @@ public final class Segment {
         return this.endOffset >= this.startOffset && getCurrentOffsetRead() > this.endOffset;
     }
 
-    public void setCompetitor(int i10) {
-        this.competitor = i10;
+    void setCompetitor(int i2) {
+        this.competitor = i2;
     }
 
-    public void setCurrentOffset(long j10) {
-        long j11 = this.startOffset;
-        if (j10 < j11) {
-            j10 = j11;
+    public void setCurrentOffset(long j2) {
+        long j3 = this.startOffset;
+        if (j2 < j3) {
+            j2 = j3;
         }
-        long j12 = this.endOffset;
-        if (j12 > 0) {
-            long j13 = j12 + 1;
-            if (j10 > j13) {
-                j10 = j13;
+        long j4 = this.endOffset;
+        if (j4 > 0) {
+            long j5 = j4 + 1;
+            if (j2 > j5) {
+                j2 = j5;
             }
         }
-        this.currentOffset.set(j10);
+        this.currentOffset.set(j2);
     }
 
-    public void setCurrentOffsetRead(long j10) {
-        if (j10 >= this.currentOffset.get()) {
-            this.currentOffsetRead = j10;
+    public void setCurrentOffsetRead(long j2) {
+        if (j2 >= this.currentOffset.get()) {
+            this.currentOffsetRead = j2;
         }
     }
 
-    public void setEndOffset(long j10) {
-        if (j10 >= this.startOffset) {
-            this.endOffset = j10;
+    void setEndOffset(long j2) {
+        if (j2 >= this.startOffset) {
+            this.endOffset = j2;
             return;
         }
-        Log.w(TAG, "setEndOffset: endOffset = " + j10 + ", segment = " + this);
-        if (j10 == -1) {
-            this.endOffset = j10;
+        Log.w(TAG, "setEndOffset: endOffset = " + j2 + ", segment = " + this);
+        if (j2 == -1) {
+            this.endOffset = j2;
         }
     }
 
-    public void setIndex(int i10) {
-        this.index = i10;
+    void setIndex(int i2) {
+        this.index = i2;
     }
 
     public JSONObject toJson() throws JSONException {
@@ -178,15 +181,15 @@ public final class Segment {
         return "Segment{startOffset=" + this.startOffset + ",\t currentOffset=" + this.currentOffset + ",\t currentOffsetRead=" + getCurrentOffsetRead() + ",\t endOffset=" + this.endOffset + '}';
     }
 
-    public Segment(long j10, long j11) {
+    public Segment(long j2, long j3) {
         AtomicLong atomicLong = new AtomicLong();
         this.currentOffset = atomicLong;
         this.competitor = 0;
-        this.startOffset = j10;
-        atomicLong.set(j10);
-        this.currentOffsetRead = j10;
-        if (j11 >= j10) {
-            this.endOffset = j11;
+        this.startOffset = j2;
+        atomicLong.set(j2);
+        this.currentOffsetRead = j2;
+        if (j3 >= j2) {
+            this.endOffset = j3;
         } else {
             this.endOffset = -1L;
         }
@@ -197,18 +200,21 @@ public final class Segment {
             return null;
         }
         Collections.sort(list, new Comparator<Segment>() { // from class: com.ss.android.socialbase.downloader.segment.Segment.1
+            AnonymousClass1() {
+            }
+
             @Override // java.util.Comparator
             public int compare(Segment segment, Segment segment2) {
                 return (int) (segment.getStartOffset() - segment2.getStartOffset());
             }
         });
-        StringBuilder sb2 = new StringBuilder();
+        StringBuilder sb = new StringBuilder();
         Iterator<Segment> it = list.iterator();
         while (it.hasNext()) {
-            sb2.append(it.next());
-            sb2.append("\r\n");
+            sb.append(it.next());
+            sb.append("\r\n");
         }
-        return sb2.toString();
+        return sb.toString();
     }
 
     public Segment(Segment segment) {

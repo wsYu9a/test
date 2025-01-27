@@ -4,7 +4,7 @@ import com.martian.mibook.lib.model.data.abs.Chapter;
 import com.martian.mibook.lib.model.data.abs.ChapterList;
 import java.util.List;
 
-/* loaded from: classes3.dex */
+/* loaded from: classes4.dex */
 public class YWChapterList implements ChapterList {
     private long cbid;
     private List<YWChapter> chapters;
@@ -20,7 +20,7 @@ public class YWChapterList implements ChapterList {
     }
 
     @Override // com.martian.mibook.lib.model.data.abs.ChapterList
-    public Chapter getItem(int i10) {
-        return this.chapters.get(i10);
+    public Chapter getItem(int position) {
+        return this.chapters.get(position);
     }
 }

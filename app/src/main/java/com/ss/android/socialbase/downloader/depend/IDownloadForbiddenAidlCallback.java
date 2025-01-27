@@ -31,11 +31,11 @@ public interface IDownloadForbiddenAidlCallback extends IInterface {
         static final int TRANSACTION_hasCallback = 2;
         static final int TRANSACTION_onCallback = 1;
 
-        public static class Proxy implements IDownloadForbiddenAidlCallback {
+        private static class Proxy implements IDownloadForbiddenAidlCallback {
             public static IDownloadForbiddenAidlCallback sDefaultImpl;
             private IBinder mRemote;
 
-            public Proxy(IBinder iBinder) {
+            Proxy(IBinder iBinder) {
                 this.mRemote = iBinder;
             }
 
@@ -114,16 +114,16 @@ public interface IDownloadForbiddenAidlCallback extends IInterface {
         }
 
         @Override // android.os.Binder
-        public boolean onTransact(int i10, Parcel parcel, Parcel parcel2, int i11) throws RemoteException {
-            if (i10 == 1) {
+        public boolean onTransact(int i2, Parcel parcel, Parcel parcel2, int i3) throws RemoteException {
+            if (i2 == 1) {
                 parcel.enforceInterface(DESCRIPTOR);
                 onCallback(parcel.createStringArrayList());
                 parcel2.writeNoException();
                 return true;
             }
-            if (i10 != 2) {
-                if (i10 != 1598968902) {
-                    return super.onTransact(i10, parcel, parcel2, i11);
+            if (i2 != 2) {
+                if (i2 != 1598968902) {
+                    return super.onTransact(i2, parcel, parcel2, i3);
                 }
                 parcel2.writeString(DESCRIPTOR);
                 return true;

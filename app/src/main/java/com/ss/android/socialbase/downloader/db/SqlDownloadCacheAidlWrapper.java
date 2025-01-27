@@ -9,8 +9,6 @@ import android.os.Looper;
 import android.os.RemoteException;
 import android.util.SparseArray;
 import androidx.annotation.Nullable;
-import androidx.media3.common.C;
-import com.sigmob.sdk.base.common.y;
 import com.ss.android.socialbase.downloader.db.ISqlCacheLoadCompleteCallbackAidl;
 import com.ss.android.socialbase.downloader.db.ISqlDownloadCacheAidl;
 import com.ss.android.socialbase.downloader.downloader.DownloadComponentManager;
@@ -45,7 +43,7 @@ public class SqlDownloadCacheAidlWrapper implements ServiceConnection, ISqlDownl
     private Handler mHandler = new Handler(Looper.getMainLooper());
     private ISqlCacheLoadCompleteCallbackAidl mPengingCallback = null;
     private Runnable mCheckAliveRunnable = new Runnable() { // from class: com.ss.android.socialbase.downloader.db.SqlDownloadCacheAidlWrapper.1
-        public AnonymousClass1() {
+        AnonymousClass1() {
         }
 
         @Override // java.lang.Runnable
@@ -59,8 +57,8 @@ public class SqlDownloadCacheAidlWrapper implements ServiceConnection, ISqlDownl
     private CountDownLatch mInitLock = new CountDownLatch(1);
 
     /* renamed from: com.ss.android.socialbase.downloader.db.SqlDownloadCacheAidlWrapper$1 */
-    public class AnonymousClass1 implements Runnable {
-        public AnonymousClass1() {
+    class AnonymousClass1 implements Runnable {
+        AnonymousClass1() {
         }
 
         @Override // java.lang.Runnable
@@ -73,12 +71,12 @@ public class SqlDownloadCacheAidlWrapper implements ServiceConnection, ISqlDownl
     }
 
     /* renamed from: com.ss.android.socialbase.downloader.db.SqlDownloadCacheAidlWrapper$2 */
-    public class AnonymousClass2 implements Runnable {
+    class AnonymousClass2 implements Runnable {
         final /* synthetic */ IBinder val$service;
 
         /* renamed from: com.ss.android.socialbase.downloader.db.SqlDownloadCacheAidlWrapper$2$1 */
-        public class AnonymousClass1 implements IBinder.DeathRecipient {
-            public AnonymousClass1() {
+        class AnonymousClass1 implements IBinder.DeathRecipient {
+            AnonymousClass1() {
             }
 
             @Override // android.os.IBinder.DeathRecipient
@@ -87,11 +85,11 @@ public class SqlDownloadCacheAidlWrapper implements ServiceConnection, ISqlDownl
                 if (SqlDownloadCacheAidlWrapper.this.bindMainProcessDelayed() || SqlDownloadCacheAidlWrapper.this.mRebindErrorListener == null) {
                     return;
                 }
-                SqlDownloadCacheAidlWrapper.this.mHandler.postDelayed(SqlDownloadCacheAidlWrapper.this.mCheckAliveRunnable, y.f.f18076n);
+                SqlDownloadCacheAidlWrapper.this.mHandler.postDelayed(SqlDownloadCacheAidlWrapper.this.mCheckAliveRunnable, 2000L);
             }
         }
 
-        public AnonymousClass2(IBinder iBinder) {
+        AnonymousClass2(IBinder iBinder) {
             iBinder = iBinder;
         }
 
@@ -107,7 +105,7 @@ public class SqlDownloadCacheAidlWrapper implements ServiceConnection, ISqlDownl
                         }
                         iBinder = iBinder;
                         anonymousClass1 = new IBinder.DeathRecipient() { // from class: com.ss.android.socialbase.downloader.db.SqlDownloadCacheAidlWrapper.2.1
-                            public AnonymousClass1() {
+                            AnonymousClass1() {
                             }
 
                             @Override // android.os.IBinder.DeathRecipient
@@ -116,60 +114,60 @@ public class SqlDownloadCacheAidlWrapper implements ServiceConnection, ISqlDownl
                                 if (SqlDownloadCacheAidlWrapper.this.bindMainProcessDelayed() || SqlDownloadCacheAidlWrapper.this.mRebindErrorListener == null) {
                                     return;
                                 }
-                                SqlDownloadCacheAidlWrapper.this.mHandler.postDelayed(SqlDownloadCacheAidlWrapper.this.mCheckAliveRunnable, y.f.f18076n);
+                                SqlDownloadCacheAidlWrapper.this.mHandler.postDelayed(SqlDownloadCacheAidlWrapper.this.mCheckAliveRunnable, 2000L);
                             }
                         };
-                    } catch (Throwable unused) {
-                    }
-                } catch (Throwable th2) {
-                    try {
-                        Logger.e(SqlDownloadCacheAidlWrapper.TAG, "onServiceConnected fail", th2);
-                        if (SqlDownloadCacheAidlWrapper.this.mRebindErrorListener != null) {
-                            SqlDownloadCacheAidlWrapper.this.mRebindErrorListener.onRebindError();
-                        }
-                        SqlDownloadCacheAidlWrapper.this.mInitLock.countDown();
-                        iBinder = iBinder;
-                        anonymousClass1 = new IBinder.DeathRecipient() { // from class: com.ss.android.socialbase.downloader.db.SqlDownloadCacheAidlWrapper.2.1
-                            public AnonymousClass1() {
-                            }
-
-                            @Override // android.os.IBinder.DeathRecipient
-                            public void binderDied() {
-                                boolean unused2 = SqlDownloadCacheAidlWrapper.sIsMainProcessAlive = false;
-                                if (SqlDownloadCacheAidlWrapper.this.bindMainProcessDelayed() || SqlDownloadCacheAidlWrapper.this.mRebindErrorListener == null) {
-                                    return;
-                                }
-                                SqlDownloadCacheAidlWrapper.this.mHandler.postDelayed(SqlDownloadCacheAidlWrapper.this.mCheckAliveRunnable, y.f.f18076n);
-                            }
-                        };
-                    } finally {
-                        SqlDownloadCacheAidlWrapper.this.mInitLock.countDown();
+                    } catch (Throwable th) {
                         try {
-                            iBinder.linkToDeath(new IBinder.DeathRecipient() { // from class: com.ss.android.socialbase.downloader.db.SqlDownloadCacheAidlWrapper.2.1
-                                public AnonymousClass1() {
+                            Logger.e(SqlDownloadCacheAidlWrapper.TAG, "onServiceConnected fail", th);
+                            if (SqlDownloadCacheAidlWrapper.this.mRebindErrorListener != null) {
+                                SqlDownloadCacheAidlWrapper.this.mRebindErrorListener.onRebindError();
+                            }
+                            SqlDownloadCacheAidlWrapper.this.mInitLock.countDown();
+                            iBinder = iBinder;
+                            anonymousClass1 = new IBinder.DeathRecipient() { // from class: com.ss.android.socialbase.downloader.db.SqlDownloadCacheAidlWrapper.2.1
+                                AnonymousClass1() {
                                 }
 
                                 @Override // android.os.IBinder.DeathRecipient
                                 public void binderDied() {
-                                    boolean unused2 = SqlDownloadCacheAidlWrapper.sIsMainProcessAlive = false;
+                                    boolean unused = SqlDownloadCacheAidlWrapper.sIsMainProcessAlive = false;
                                     if (SqlDownloadCacheAidlWrapper.this.bindMainProcessDelayed() || SqlDownloadCacheAidlWrapper.this.mRebindErrorListener == null) {
                                         return;
                                     }
-                                    SqlDownloadCacheAidlWrapper.this.mHandler.postDelayed(SqlDownloadCacheAidlWrapper.this.mCheckAliveRunnable, y.f.f18076n);
+                                    SqlDownloadCacheAidlWrapper.this.mHandler.postDelayed(SqlDownloadCacheAidlWrapper.this.mCheckAliveRunnable, 2000L);
                                 }
-                            }, 0);
-                        } catch (Throwable unused2) {
+                            };
+                        } finally {
+                            SqlDownloadCacheAidlWrapper.this.mInitLock.countDown();
+                            try {
+                                iBinder.linkToDeath(new IBinder.DeathRecipient() { // from class: com.ss.android.socialbase.downloader.db.SqlDownloadCacheAidlWrapper.2.1
+                                    AnonymousClass1() {
+                                    }
+
+                                    @Override // android.os.IBinder.DeathRecipient
+                                    public void binderDied() {
+                                        boolean unused = SqlDownloadCacheAidlWrapper.sIsMainProcessAlive = false;
+                                        if (SqlDownloadCacheAidlWrapper.this.bindMainProcessDelayed() || SqlDownloadCacheAidlWrapper.this.mRebindErrorListener == null) {
+                                            return;
+                                        }
+                                        SqlDownloadCacheAidlWrapper.this.mHandler.postDelayed(SqlDownloadCacheAidlWrapper.this.mCheckAliveRunnable, 2000L);
+                                    }
+                                }, 0);
+                            } catch (Throwable unused) {
+                            }
                         }
                     }
+                    iBinder.linkToDeath(anonymousClass1, 0);
+                } catch (Throwable unused2) {
                 }
-                iBinder.linkToDeath(anonymousClass1, 0);
             }
         }
     }
 
     /* renamed from: com.ss.android.socialbase.downloader.db.SqlDownloadCacheAidlWrapper$3 */
-    public class AnonymousClass3 implements Runnable {
-        public AnonymousClass3() {
+    class AnonymousClass3 implements Runnable {
+        AnonymousClass3() {
         }
 
         @Override // java.lang.Runnable
@@ -179,14 +177,14 @@ public class SqlDownloadCacheAidlWrapper implements ServiceConnection, ISqlDownl
     }
 
     /* renamed from: com.ss.android.socialbase.downloader.db.SqlDownloadCacheAidlWrapper$4 */
-    public class AnonymousClass4 implements Runnable {
+    class AnonymousClass4 implements Runnable {
         final /* synthetic */ SqlCacheLoadCompleteCallback val$callback;
         final /* synthetic */ SparseArray val$chunkListSparseArray;
         final /* synthetic */ SparseArray val$downloadInfoSparseArray;
 
         /* renamed from: com.ss.android.socialbase.downloader.db.SqlDownloadCacheAidlWrapper$4$1 */
-        public class AnonymousClass1 extends ISqlCacheLoadCompleteCallbackAidl.Stub {
-            public AnonymousClass1() {
+        class AnonymousClass1 extends ISqlCacheLoadCompleteCallbackAidl.Stub {
+            AnonymousClass1() {
             }
 
             @Override // com.ss.android.socialbase.downloader.db.ISqlCacheLoadCompleteCallbackAidl
@@ -198,7 +196,7 @@ public class SqlDownloadCacheAidlWrapper implements ServiceConnection, ISqlDownl
             }
         }
 
-        public AnonymousClass4(SparseArray sparseArray, SparseArray sparseArray2, SqlCacheLoadCompleteCallback sqlCacheLoadCompleteCallback) {
+        AnonymousClass4(SparseArray sparseArray, SparseArray sparseArray2, SqlCacheLoadCompleteCallback sqlCacheLoadCompleteCallback) {
             sparseArray = sparseArray;
             sparseArray2 = sparseArray2;
             sqlCacheLoadCompleteCallback = sqlCacheLoadCompleteCallback;
@@ -206,11 +204,11 @@ public class SqlDownloadCacheAidlWrapper implements ServiceConnection, ISqlDownl
 
         @Override // java.lang.Runnable
         public void run() {
-            boolean z10;
+            boolean z;
             SqlCacheLoadCompleteCallback sqlCacheLoadCompleteCallback;
             Future future;
             SqlDownloadCacheAidlWrapper.this.setInitCallback(new ISqlCacheLoadCompleteCallbackAidl.Stub() { // from class: com.ss.android.socialbase.downloader.db.SqlDownloadCacheAidlWrapper.4.1
-                public AnonymousClass1() {
+                AnonymousClass1() {
                 }
 
                 @Override // com.ss.android.socialbase.downloader.db.ISqlCacheLoadCompleteCallbackAidl
@@ -222,16 +220,16 @@ public class SqlDownloadCacheAidlWrapper implements ServiceConnection, ISqlDownl
                 }
             });
             try {
-                z10 = !SqlDownloadCacheAidlWrapper.this.mInitLock.await(5000L, TimeUnit.MILLISECONDS);
-            } catch (Throwable th2) {
-                th2.printStackTrace();
-                z10 = false;
+                z = !SqlDownloadCacheAidlWrapper.this.mInitLock.await(5000L, TimeUnit.MILLISECONDS);
+            } catch (Throwable th) {
+                th.printStackTrace();
+                z = false;
             }
-            if (z10 && (future = SqlDownloadCacheAidlWrapper.this.mSetInitCallbackFuture) != null) {
+            if (z && (future = SqlDownloadCacheAidlWrapper.this.mSetInitCallbackFuture) != null) {
                 future.cancel(true);
             }
             SqlDownloadCacheAidlWrapper.this.init();
-            if (!z10 || (sqlCacheLoadCompleteCallback = sqlCacheLoadCompleteCallback) == null) {
+            if (!z || (sqlCacheLoadCompleteCallback = sqlCacheLoadCompleteCallback) == null) {
                 return;
             }
             sqlCacheLoadCompleteCallback.callback();
@@ -255,14 +253,14 @@ public class SqlDownloadCacheAidlWrapper implements ServiceConnection, ISqlDownl
             return false;
         }
         long currentTimeMillis = System.currentTimeMillis();
-        if (currentTimeMillis - sLastBindMainProcessTimeMills < C.DEFAULT_SEEK_FORWARD_INCREMENT_MS) {
+        if (currentTimeMillis - sLastBindMainProcessTimeMills < 15000) {
             Logger.w(TAG, "bindMainProcess: time too short since last bind!!! ");
             return false;
         }
         sBindMainProcessTimes++;
         sLastBindMainProcessTimeMills = currentTimeMillis;
         this.mHandler.postDelayed(new Runnable() { // from class: com.ss.android.socialbase.downloader.db.SqlDownloadCacheAidlWrapper.3
-            public AnonymousClass3() {
+            AnonymousClass3() {
             }
 
             @Override // java.lang.Runnable
@@ -274,127 +272,127 @@ public class SqlDownloadCacheAidlWrapper implements ServiceConnection, ISqlDownl
     }
 
     @Override // com.ss.android.socialbase.downloader.downloader.IDownloadCache
-    public DownloadInfo OnDownloadTaskCancel(int i10, long j10) {
+    public DownloadInfo OnDownloadTaskCancel(int i2, long j2) {
         try {
             ISqlDownloadCacheAidl iSqlDownloadCacheAidl = this.mISqlDownloadCache;
             if (iSqlDownloadCacheAidl != null) {
-                return iSqlDownloadCacheAidl.OnDownloadTaskCancel(i10, j10);
+                return iSqlDownloadCacheAidl.OnDownloadTaskCancel(i2, j2);
             }
             return null;
-        } catch (RemoteException e10) {
-            e10.printStackTrace();
+        } catch (RemoteException e2) {
+            e2.printStackTrace();
             return null;
         }
     }
 
     @Override // com.ss.android.socialbase.downloader.downloader.IDownloadCache
-    public DownloadInfo OnDownloadTaskCompleted(int i10, long j10) {
+    public DownloadInfo OnDownloadTaskCompleted(int i2, long j2) {
         try {
             ISqlDownloadCacheAidl iSqlDownloadCacheAidl = this.mISqlDownloadCache;
             if (iSqlDownloadCacheAidl != null) {
-                return iSqlDownloadCacheAidl.OnDownloadTaskCompleted(i10, j10);
+                return iSqlDownloadCacheAidl.OnDownloadTaskCompleted(i2, j2);
             }
             return null;
-        } catch (RemoteException e10) {
-            e10.printStackTrace();
+        } catch (RemoteException e2) {
+            e2.printStackTrace();
             return null;
         }
     }
 
     @Override // com.ss.android.socialbase.downloader.downloader.IDownloadCache
-    public DownloadInfo OnDownloadTaskConnected(int i10, long j10, String str, String str2) {
+    public DownloadInfo OnDownloadTaskConnected(int i2, long j2, String str, String str2) {
         try {
             ISqlDownloadCacheAidl iSqlDownloadCacheAidl = this.mISqlDownloadCache;
             if (iSqlDownloadCacheAidl != null) {
-                return iSqlDownloadCacheAidl.OnDownloadTaskConnected(i10, j10, str, str2);
+                return iSqlDownloadCacheAidl.OnDownloadTaskConnected(i2, j2, str, str2);
             }
             return null;
-        } catch (RemoteException e10) {
-            e10.printStackTrace();
+        } catch (RemoteException e2) {
+            e2.printStackTrace();
             return null;
         }
     }
 
     @Override // com.ss.android.socialbase.downloader.downloader.IDownloadCache
-    public DownloadInfo OnDownloadTaskError(int i10, long j10) {
+    public DownloadInfo OnDownloadTaskError(int i2, long j2) {
         try {
             ISqlDownloadCacheAidl iSqlDownloadCacheAidl = this.mISqlDownloadCache;
             if (iSqlDownloadCacheAidl != null) {
-                return iSqlDownloadCacheAidl.OnDownloadTaskError(i10, j10);
+                return iSqlDownloadCacheAidl.OnDownloadTaskError(i2, j2);
             }
             return null;
-        } catch (RemoteException e10) {
-            e10.printStackTrace();
+        } catch (RemoteException e2) {
+            e2.printStackTrace();
             return null;
         }
     }
 
     @Override // com.ss.android.socialbase.downloader.downloader.IDownloadCache
-    public DownloadInfo OnDownloadTaskIntercept(int i10) {
+    public DownloadInfo OnDownloadTaskIntercept(int i2) {
         try {
             ISqlDownloadCacheAidl iSqlDownloadCacheAidl = this.mISqlDownloadCache;
             if (iSqlDownloadCacheAidl != null) {
-                return iSqlDownloadCacheAidl.OnDownloadTaskIntercept(i10);
+                return iSqlDownloadCacheAidl.OnDownloadTaskIntercept(i2);
             }
             return null;
-        } catch (RemoteException e10) {
-            e10.printStackTrace();
+        } catch (RemoteException e2) {
+            e2.printStackTrace();
             return null;
         }
     }
 
     @Override // com.ss.android.socialbase.downloader.downloader.IDownloadCache
-    public DownloadInfo OnDownloadTaskPause(int i10, long j10) {
+    public DownloadInfo OnDownloadTaskPause(int i2, long j2) {
         try {
             ISqlDownloadCacheAidl iSqlDownloadCacheAidl = this.mISqlDownloadCache;
             if (iSqlDownloadCacheAidl != null) {
-                return iSqlDownloadCacheAidl.OnDownloadTaskPause(i10, j10);
+                return iSqlDownloadCacheAidl.OnDownloadTaskPause(i2, j2);
             }
             return null;
-        } catch (RemoteException e10) {
-            e10.printStackTrace();
+        } catch (RemoteException e2) {
+            e2.printStackTrace();
             return null;
         }
     }
 
     @Override // com.ss.android.socialbase.downloader.downloader.IDownloadCache
-    public DownloadInfo OnDownloadTaskPrepare(int i10) {
+    public DownloadInfo OnDownloadTaskPrepare(int i2) {
         try {
             ISqlDownloadCacheAidl iSqlDownloadCacheAidl = this.mISqlDownloadCache;
             if (iSqlDownloadCacheAidl != null) {
-                return iSqlDownloadCacheAidl.OnDownloadTaskPrepare(i10);
+                return iSqlDownloadCacheAidl.OnDownloadTaskPrepare(i2);
             }
             return null;
-        } catch (RemoteException e10) {
-            e10.printStackTrace();
+        } catch (RemoteException e2) {
+            e2.printStackTrace();
             return null;
         }
     }
 
     @Override // com.ss.android.socialbase.downloader.downloader.IDownloadCache
-    public DownloadInfo OnDownloadTaskProgress(int i10, long j10) {
+    public DownloadInfo OnDownloadTaskProgress(int i2, long j2) {
         try {
             ISqlDownloadCacheAidl iSqlDownloadCacheAidl = this.mISqlDownloadCache;
             if (iSqlDownloadCacheAidl != null) {
-                return iSqlDownloadCacheAidl.OnDownloadTaskProgress(i10, j10);
+                return iSqlDownloadCacheAidl.OnDownloadTaskProgress(i2, j2);
             }
             return null;
-        } catch (RemoteException e10) {
-            e10.printStackTrace();
+        } catch (RemoteException e2) {
+            e2.printStackTrace();
             return null;
         }
     }
 
     @Override // com.ss.android.socialbase.downloader.downloader.IDownloadCache
-    public DownloadInfo OnDownloadTaskRetry(int i10) {
+    public DownloadInfo OnDownloadTaskRetry(int i2) {
         try {
             ISqlDownloadCacheAidl iSqlDownloadCacheAidl = this.mISqlDownloadCache;
             if (iSqlDownloadCacheAidl != null) {
-                return iSqlDownloadCacheAidl.OnDownloadTaskRetry(i10);
+                return iSqlDownloadCacheAidl.OnDownloadTaskRetry(i2);
             }
             return null;
-        } catch (RemoteException e10) {
-            e10.printStackTrace();
+        } catch (RemoteException e2) {
+            e2.printStackTrace();
             return null;
         }
     }
@@ -406,8 +404,8 @@ public class SqlDownloadCacheAidlWrapper implements ServiceConnection, ISqlDownl
             if (iSqlDownloadCacheAidl != null) {
                 iSqlDownloadCacheAidl.addDownloadChunk(downloadChunk);
             }
-        } catch (RemoteException e10) {
-            e10.printStackTrace();
+        } catch (RemoteException e2) {
+            e2.printStackTrace();
         }
     }
 
@@ -418,21 +416,21 @@ public class SqlDownloadCacheAidlWrapper implements ServiceConnection, ISqlDownl
             if (iSqlDownloadCacheAidl != null) {
                 iSqlDownloadCacheAidl.addSubDownloadChunk(downloadChunk);
             }
-        } catch (RemoteException e10) {
-            e10.printStackTrace();
+        } catch (RemoteException e2) {
+            e2.printStackTrace();
         }
     }
 
     @Override // com.ss.android.socialbase.downloader.downloader.IDownloadCache
-    public boolean cacheExist(int i10) {
+    public boolean cacheExist(int i2) {
         try {
             ISqlDownloadCacheAidl iSqlDownloadCacheAidl = this.mISqlDownloadCache;
             if (iSqlDownloadCacheAidl != null) {
-                return iSqlDownloadCacheAidl.cacheExist(i10);
+                return iSqlDownloadCacheAidl.cacheExist(i2);
             }
             return false;
-        } catch (RemoteException e10) {
-            e10.printStackTrace();
+        } catch (RemoteException e2) {
+            e2.printStackTrace();
             return false;
         }
     }
@@ -444,8 +442,8 @@ public class SqlDownloadCacheAidlWrapper implements ServiceConnection, ISqlDownl
             if (iSqlDownloadCacheAidl != null) {
                 iSqlDownloadCacheAidl.clearData();
             }
-        } catch (RemoteException e10) {
-            e10.printStackTrace();
+        } catch (RemoteException e2) {
+            e2.printStackTrace();
         }
     }
 
@@ -457,8 +455,8 @@ public class SqlDownloadCacheAidlWrapper implements ServiceConnection, ISqlDownl
                 return iSqlDownloadCacheAidl.ensureDownloadCacheSyncSuccess();
             }
             return false;
-        } catch (RemoteException e10) {
-            e10.printStackTrace();
+        } catch (RemoteException e2) {
+            e2.printStackTrace();
             return false;
         }
     }
@@ -471,36 +469,36 @@ public class SqlDownloadCacheAidlWrapper implements ServiceConnection, ISqlDownl
                 return iSqlDownloadCacheAidl.getAllDownloadInfo();
             }
             return null;
-        } catch (RemoteException e10) {
-            e10.printStackTrace();
+        } catch (RemoteException e2) {
+            e2.printStackTrace();
             return null;
         }
     }
 
     @Override // com.ss.android.socialbase.downloader.downloader.IDownloadCache
-    public List<DownloadChunk> getDownloadChunk(int i10) {
+    public List<DownloadChunk> getDownloadChunk(int i2) {
         try {
             ISqlDownloadCacheAidl iSqlDownloadCacheAidl = this.mISqlDownloadCache;
             if (iSqlDownloadCacheAidl != null) {
-                return iSqlDownloadCacheAidl.getDownloadChunk(i10);
+                return iSqlDownloadCacheAidl.getDownloadChunk(i2);
             }
             return null;
-        } catch (RemoteException e10) {
-            e10.printStackTrace();
+        } catch (RemoteException e2) {
+            e2.printStackTrace();
             return null;
         }
     }
 
     @Override // com.ss.android.socialbase.downloader.downloader.IDownloadCache
-    public DownloadInfo getDownloadInfo(int i10) {
+    public DownloadInfo getDownloadInfo(int i2) {
         try {
             ISqlDownloadCacheAidl iSqlDownloadCacheAidl = this.mISqlDownloadCache;
             if (iSqlDownloadCacheAidl != null) {
-                return iSqlDownloadCacheAidl.getDownloadInfo(i10);
+                return iSqlDownloadCacheAidl.getDownloadInfo(i2);
             }
             return null;
-        } catch (RemoteException e10) {
-            e10.printStackTrace();
+        } catch (RemoteException e2) {
+            e2.printStackTrace();
             return null;
         }
     }
@@ -513,8 +511,8 @@ public class SqlDownloadCacheAidlWrapper implements ServiceConnection, ISqlDownl
                 return iSqlDownloadCacheAidl.getDownloadInfoList(str);
             }
             return null;
-        } catch (RemoteException e10) {
-            e10.printStackTrace();
+        } catch (RemoteException e2) {
+            e2.printStackTrace();
             return null;
         }
     }
@@ -527,19 +525,19 @@ public class SqlDownloadCacheAidlWrapper implements ServiceConnection, ISqlDownl
                 return iSqlDownloadCacheAidl.getFailedDownloadInfosWithMimeType(str);
             }
             return null;
-        } catch (RemoteException e10) {
-            e10.printStackTrace();
+        } catch (RemoteException e2) {
+            e2.printStackTrace();
             return null;
         }
     }
 
     @Override // com.ss.android.socialbase.downloader.downloader.IDownloadCache
-    public Map<Long, Segment> getSegmentMap(int i10) {
+    public Map<Long, Segment> getSegmentMap(int i2) {
         return null;
     }
 
     @Override // com.ss.android.socialbase.downloader.downloader.IDownloadCache
-    public ArrayList<Segment> getSegments(int i10) {
+    public ArrayList<Segment> getSegments(int i2) {
         return null;
     }
 
@@ -551,8 +549,8 @@ public class SqlDownloadCacheAidlWrapper implements ServiceConnection, ISqlDownl
                 return iSqlDownloadCacheAidl.getSuccessedDownloadInfosWithMimeType(str);
             }
             return null;
-        } catch (RemoteException e10) {
-            e10.printStackTrace();
+        } catch (RemoteException e2) {
+            e2.printStackTrace();
             return null;
         }
     }
@@ -565,8 +563,8 @@ public class SqlDownloadCacheAidlWrapper implements ServiceConnection, ISqlDownl
                 return iSqlDownloadCacheAidl.getUnCompletedDownloadInfosWithMimeType(str);
             }
             return null;
-        } catch (RemoteException e10) {
-            e10.printStackTrace();
+        } catch (RemoteException e2) {
+            e2.printStackTrace();
             return null;
         }
     }
@@ -579,8 +577,8 @@ public class SqlDownloadCacheAidlWrapper implements ServiceConnection, ISqlDownl
             final /* synthetic */ SparseArray val$downloadInfoSparseArray;
 
             /* renamed from: com.ss.android.socialbase.downloader.db.SqlDownloadCacheAidlWrapper$4$1 */
-            public class AnonymousClass1 extends ISqlCacheLoadCompleteCallbackAidl.Stub {
-                public AnonymousClass1() {
+            class AnonymousClass1 extends ISqlCacheLoadCompleteCallbackAidl.Stub {
+                AnonymousClass1() {
                 }
 
                 @Override // com.ss.android.socialbase.downloader.db.ISqlCacheLoadCompleteCallbackAidl
@@ -592,7 +590,7 @@ public class SqlDownloadCacheAidlWrapper implements ServiceConnection, ISqlDownl
                 }
             }
 
-            public AnonymousClass4(SparseArray sparseArray3, SparseArray sparseArray22, SqlCacheLoadCompleteCallback sqlCacheLoadCompleteCallback2) {
+            AnonymousClass4(SparseArray sparseArray3, SparseArray sparseArray22, SqlCacheLoadCompleteCallback sqlCacheLoadCompleteCallback2) {
                 sparseArray = sparseArray3;
                 sparseArray2 = sparseArray22;
                 sqlCacheLoadCompleteCallback = sqlCacheLoadCompleteCallback2;
@@ -600,11 +598,11 @@ public class SqlDownloadCacheAidlWrapper implements ServiceConnection, ISqlDownl
 
             @Override // java.lang.Runnable
             public void run() {
-                boolean z10;
+                boolean z;
                 SqlCacheLoadCompleteCallback sqlCacheLoadCompleteCallback2;
                 Future future;
                 SqlDownloadCacheAidlWrapper.this.setInitCallback(new ISqlCacheLoadCompleteCallbackAidl.Stub() { // from class: com.ss.android.socialbase.downloader.db.SqlDownloadCacheAidlWrapper.4.1
-                    public AnonymousClass1() {
+                    AnonymousClass1() {
                     }
 
                     @Override // com.ss.android.socialbase.downloader.db.ISqlCacheLoadCompleteCallbackAidl
@@ -616,16 +614,16 @@ public class SqlDownloadCacheAidlWrapper implements ServiceConnection, ISqlDownl
                     }
                 });
                 try {
-                    z10 = !SqlDownloadCacheAidlWrapper.this.mInitLock.await(5000L, TimeUnit.MILLISECONDS);
-                } catch (Throwable th2) {
-                    th2.printStackTrace();
-                    z10 = false;
+                    z = !SqlDownloadCacheAidlWrapper.this.mInitLock.await(5000L, TimeUnit.MILLISECONDS);
+                } catch (Throwable th) {
+                    th.printStackTrace();
+                    z = false;
                 }
-                if (z10 && (future = SqlDownloadCacheAidlWrapper.this.mSetInitCallbackFuture) != null) {
+                if (z && (future = SqlDownloadCacheAidlWrapper.this.mSetInitCallbackFuture) != null) {
                     future.cancel(true);
                 }
                 SqlDownloadCacheAidlWrapper.this.init();
-                if (!z10 || (sqlCacheLoadCompleteCallback2 = sqlCacheLoadCompleteCallback) == null) {
+                if (!z || (sqlCacheLoadCompleteCallback2 = sqlCacheLoadCompleteCallback) == null) {
                     return;
                 }
                 sqlCacheLoadCompleteCallback2.callback();
@@ -641,22 +639,22 @@ public class SqlDownloadCacheAidlWrapper implements ServiceConnection, ISqlDownl
                 return iSqlDownloadCacheAidl.isDownloadCacheSyncSuccess();
             }
             return false;
-        } catch (RemoteException e10) {
-            e10.printStackTrace();
+        } catch (RemoteException e2) {
+            e2.printStackTrace();
             return false;
         }
     }
 
     @Override // com.ss.android.socialbase.downloader.downloader.IDownloadCache
-    public DownloadInfo onDownloadTaskStart(int i10) {
+    public DownloadInfo onDownloadTaskStart(int i2) {
         try {
             ISqlDownloadCacheAidl iSqlDownloadCacheAidl = this.mISqlDownloadCache;
             if (iSqlDownloadCacheAidl != null) {
-                return iSqlDownloadCacheAidl.onDownloadTaskStart(i10);
+                return iSqlDownloadCacheAidl.onDownloadTaskStart(i2);
             }
             return null;
-        } catch (RemoteException e10) {
-            e10.printStackTrace();
+        } catch (RemoteException e2) {
+            e2.printStackTrace();
             return null;
         }
     }
@@ -667,28 +665,28 @@ public class SqlDownloadCacheAidlWrapper implements ServiceConnection, ISqlDownl
         this.mHandler.removeCallbacks(this.mCheckAliveRunnable);
         try {
             this.mISqlDownloadCache = ISqlDownloadCacheAidl.Stub.asInterface(iBinder);
-        } catch (Throwable th2) {
-            th2.printStackTrace();
+        } catch (Throwable th) {
+            th.printStackTrace();
         }
         this.mSetInitCallbackFuture = DownloadComponentManager.getCPUThreadExecutor().submit(new Runnable() { // from class: com.ss.android.socialbase.downloader.db.SqlDownloadCacheAidlWrapper.2
             final /* synthetic */ IBinder val$service;
 
             /* renamed from: com.ss.android.socialbase.downloader.db.SqlDownloadCacheAidlWrapper$2$1 */
-            public class AnonymousClass1 implements IBinder.DeathRecipient {
-                public AnonymousClass1() {
+            class AnonymousClass1 implements IBinder.DeathRecipient {
+                AnonymousClass1() {
                 }
 
                 @Override // android.os.IBinder.DeathRecipient
                 public void binderDied() {
-                    boolean unused2 = SqlDownloadCacheAidlWrapper.sIsMainProcessAlive = false;
+                    boolean unused = SqlDownloadCacheAidlWrapper.sIsMainProcessAlive = false;
                     if (SqlDownloadCacheAidlWrapper.this.bindMainProcessDelayed() || SqlDownloadCacheAidlWrapper.this.mRebindErrorListener == null) {
                         return;
                     }
-                    SqlDownloadCacheAidlWrapper.this.mHandler.postDelayed(SqlDownloadCacheAidlWrapper.this.mCheckAliveRunnable, y.f.f18076n);
+                    SqlDownloadCacheAidlWrapper.this.mHandler.postDelayed(SqlDownloadCacheAidlWrapper.this.mCheckAliveRunnable, 2000L);
                 }
             }
 
-            public AnonymousClass2(IBinder iBinder2) {
+            AnonymousClass2(IBinder iBinder2) {
                 iBinder = iBinder2;
             }
 
@@ -704,62 +702,62 @@ public class SqlDownloadCacheAidlWrapper implements ServiceConnection, ISqlDownl
                             }
                             iBinder2 = iBinder;
                             anonymousClass1 = new IBinder.DeathRecipient() { // from class: com.ss.android.socialbase.downloader.db.SqlDownloadCacheAidlWrapper.2.1
-                                public AnonymousClass1() {
+                                AnonymousClass1() {
                                 }
 
                                 @Override // android.os.IBinder.DeathRecipient
                                 public void binderDied() {
-                                    boolean unused2 = SqlDownloadCacheAidlWrapper.sIsMainProcessAlive = false;
+                                    boolean unused = SqlDownloadCacheAidlWrapper.sIsMainProcessAlive = false;
                                     if (SqlDownloadCacheAidlWrapper.this.bindMainProcessDelayed() || SqlDownloadCacheAidlWrapper.this.mRebindErrorListener == null) {
                                         return;
                                     }
-                                    SqlDownloadCacheAidlWrapper.this.mHandler.postDelayed(SqlDownloadCacheAidlWrapper.this.mCheckAliveRunnable, y.f.f18076n);
+                                    SqlDownloadCacheAidlWrapper.this.mHandler.postDelayed(SqlDownloadCacheAidlWrapper.this.mCheckAliveRunnable, 2000L);
                                 }
                             };
-                        } catch (Throwable unused) {
-                        }
-                    } catch (Throwable th22) {
-                        try {
-                            Logger.e(SqlDownloadCacheAidlWrapper.TAG, "onServiceConnected fail", th22);
-                            if (SqlDownloadCacheAidlWrapper.this.mRebindErrorListener != null) {
-                                SqlDownloadCacheAidlWrapper.this.mRebindErrorListener.onRebindError();
-                            }
-                            SqlDownloadCacheAidlWrapper.this.mInitLock.countDown();
-                            iBinder2 = iBinder;
-                            anonymousClass1 = new IBinder.DeathRecipient() { // from class: com.ss.android.socialbase.downloader.db.SqlDownloadCacheAidlWrapper.2.1
-                                public AnonymousClass1() {
-                                }
-
-                                @Override // android.os.IBinder.DeathRecipient
-                                public void binderDied() {
-                                    boolean unused2 = SqlDownloadCacheAidlWrapper.sIsMainProcessAlive = false;
-                                    if (SqlDownloadCacheAidlWrapper.this.bindMainProcessDelayed() || SqlDownloadCacheAidlWrapper.this.mRebindErrorListener == null) {
-                                        return;
-                                    }
-                                    SqlDownloadCacheAidlWrapper.this.mHandler.postDelayed(SqlDownloadCacheAidlWrapper.this.mCheckAliveRunnable, y.f.f18076n);
-                                }
-                            };
-                        } finally {
-                            SqlDownloadCacheAidlWrapper.this.mInitLock.countDown();
+                        } catch (Throwable th2) {
                             try {
-                                iBinder.linkToDeath(new IBinder.DeathRecipient() { // from class: com.ss.android.socialbase.downloader.db.SqlDownloadCacheAidlWrapper.2.1
-                                    public AnonymousClass1() {
+                                Logger.e(SqlDownloadCacheAidlWrapper.TAG, "onServiceConnected fail", th2);
+                                if (SqlDownloadCacheAidlWrapper.this.mRebindErrorListener != null) {
+                                    SqlDownloadCacheAidlWrapper.this.mRebindErrorListener.onRebindError();
+                                }
+                                SqlDownloadCacheAidlWrapper.this.mInitLock.countDown();
+                                iBinder2 = iBinder;
+                                anonymousClass1 = new IBinder.DeathRecipient() { // from class: com.ss.android.socialbase.downloader.db.SqlDownloadCacheAidlWrapper.2.1
+                                    AnonymousClass1() {
                                     }
 
                                     @Override // android.os.IBinder.DeathRecipient
                                     public void binderDied() {
-                                        boolean unused2 = SqlDownloadCacheAidlWrapper.sIsMainProcessAlive = false;
+                                        boolean unused = SqlDownloadCacheAidlWrapper.sIsMainProcessAlive = false;
                                         if (SqlDownloadCacheAidlWrapper.this.bindMainProcessDelayed() || SqlDownloadCacheAidlWrapper.this.mRebindErrorListener == null) {
                                             return;
                                         }
-                                        SqlDownloadCacheAidlWrapper.this.mHandler.postDelayed(SqlDownloadCacheAidlWrapper.this.mCheckAliveRunnable, y.f.f18076n);
+                                        SqlDownloadCacheAidlWrapper.this.mHandler.postDelayed(SqlDownloadCacheAidlWrapper.this.mCheckAliveRunnable, 2000L);
                                     }
-                                }, 0);
-                            } catch (Throwable unused2) {
+                                };
+                            } finally {
+                                SqlDownloadCacheAidlWrapper.this.mInitLock.countDown();
+                                try {
+                                    iBinder.linkToDeath(new IBinder.DeathRecipient() { // from class: com.ss.android.socialbase.downloader.db.SqlDownloadCacheAidlWrapper.2.1
+                                        AnonymousClass1() {
+                                        }
+
+                                        @Override // android.os.IBinder.DeathRecipient
+                                        public void binderDied() {
+                                            boolean unused = SqlDownloadCacheAidlWrapper.sIsMainProcessAlive = false;
+                                            if (SqlDownloadCacheAidlWrapper.this.bindMainProcessDelayed() || SqlDownloadCacheAidlWrapper.this.mRebindErrorListener == null) {
+                                                return;
+                                            }
+                                            SqlDownloadCacheAidlWrapper.this.mHandler.postDelayed(SqlDownloadCacheAidlWrapper.this.mCheckAliveRunnable, 2000L);
+                                        }
+                                    }, 0);
+                                } catch (Throwable unused) {
+                                }
                             }
                         }
+                        iBinder2.linkToDeath(anonymousClass1, 0);
+                    } catch (Throwable unused2) {
                     }
-                    iBinder2.linkToDeath(anonymousClass1, 0);
                 }
             }
         });
@@ -772,47 +770,47 @@ public class SqlDownloadCacheAidlWrapper implements ServiceConnection, ISqlDownl
     }
 
     @Override // com.ss.android.socialbase.downloader.downloader.IDownloadCache
-    public void removeAllDownloadChunk(int i10) {
+    public void removeAllDownloadChunk(int i2) {
         try {
             ISqlDownloadCacheAidl iSqlDownloadCacheAidl = this.mISqlDownloadCache;
             if (iSqlDownloadCacheAidl != null) {
-                iSqlDownloadCacheAidl.removeAllDownloadChunk(i10);
+                iSqlDownloadCacheAidl.removeAllDownloadChunk(i2);
             }
-        } catch (RemoteException e10) {
-            e10.printStackTrace();
+        } catch (RemoteException e2) {
+            e2.printStackTrace();
         }
     }
 
     @Override // com.ss.android.socialbase.downloader.downloader.IDownloadCache
-    public boolean removeDownloadInfo(int i10) {
+    public boolean removeDownloadInfo(int i2) {
         try {
             ISqlDownloadCacheAidl iSqlDownloadCacheAidl = this.mISqlDownloadCache;
             if (iSqlDownloadCacheAidl != null) {
-                return iSqlDownloadCacheAidl.removeDownloadInfo(i10);
+                return iSqlDownloadCacheAidl.removeDownloadInfo(i2);
             }
             return false;
-        } catch (RemoteException e10) {
-            e10.printStackTrace();
-            return false;
-        }
-    }
-
-    @Override // com.ss.android.socialbase.downloader.downloader.IDownloadCache
-    public boolean removeDownloadTaskData(int i10) {
-        try {
-            ISqlDownloadCacheAidl iSqlDownloadCacheAidl = this.mISqlDownloadCache;
-            if (iSqlDownloadCacheAidl != null) {
-                return iSqlDownloadCacheAidl.removeDownloadTaskData(i10);
-            }
-            return false;
-        } catch (RemoteException e10) {
-            e10.printStackTrace();
+        } catch (RemoteException e2) {
+            e2.printStackTrace();
             return false;
         }
     }
 
     @Override // com.ss.android.socialbase.downloader.downloader.IDownloadCache
-    public void removeSegments(int i10) {
+    public boolean removeDownloadTaskData(int i2) {
+        try {
+            ISqlDownloadCacheAidl iSqlDownloadCacheAidl = this.mISqlDownloadCache;
+            if (iSqlDownloadCacheAidl != null) {
+                return iSqlDownloadCacheAidl.removeDownloadTaskData(i2);
+            }
+            return false;
+        } catch (RemoteException e2) {
+            e2.printStackTrace();
+            return false;
+        }
+    }
+
+    @Override // com.ss.android.socialbase.downloader.downloader.IDownloadCache
+    public void removeSegments(int i2) {
     }
 
     @Override // com.ss.android.socialbase.downloader.downloader.ISqlDownloadCache
@@ -822,8 +820,8 @@ public class SqlDownloadCacheAidlWrapper implements ServiceConnection, ISqlDownl
             if (iSqlDownloadCacheAidl != null) {
                 try {
                     iSqlDownloadCacheAidl.setInitCallback(iSqlCacheLoadCompleteCallbackAidl);
-                } catch (RemoteException e10) {
-                    e10.printStackTrace();
+                } catch (RemoteException e2) {
+                    e2.printStackTrace();
                 }
             } else {
                 this.mPengingCallback = iSqlCacheLoadCompleteCallbackAidl;
@@ -836,14 +834,14 @@ public class SqlDownloadCacheAidlWrapper implements ServiceConnection, ISqlDownl
     }
 
     @Override // com.ss.android.socialbase.downloader.downloader.IDownloadCache
-    public void syncDownloadChunks(int i10, List<DownloadChunk> list) {
+    public void syncDownloadChunks(int i2, List<DownloadChunk> list) {
         try {
             ISqlDownloadCacheAidl iSqlDownloadCacheAidl = this.mISqlDownloadCache;
             if (iSqlDownloadCacheAidl != null) {
-                iSqlDownloadCacheAidl.syncDownloadChunks(i10, list);
+                iSqlDownloadCacheAidl.syncDownloadChunks(i2, list);
             }
-        } catch (RemoteException e10) {
-            e10.printStackTrace();
+        } catch (RemoteException e2) {
+            e2.printStackTrace();
         }
     }
 
@@ -854,46 +852,46 @@ public class SqlDownloadCacheAidlWrapper implements ServiceConnection, ISqlDownl
             if (iSqlDownloadCacheAidl != null) {
                 iSqlDownloadCacheAidl.syncDownloadInfo(downloadInfo);
             }
-        } catch (RemoteException e10) {
-            e10.printStackTrace();
+        } catch (RemoteException e2) {
+            e2.printStackTrace();
         }
     }
 
     @Override // com.ss.android.socialbase.downloader.downloader.IDownloadCache
-    public void syncDownloadInfoFromOtherCache(int i10, List<DownloadChunk> list) {
+    public void syncDownloadInfoFromOtherCache(int i2, List<DownloadChunk> list) {
         try {
             ISqlDownloadCacheAidl iSqlDownloadCacheAidl = this.mISqlDownloadCache;
             if (iSqlDownloadCacheAidl != null) {
-                iSqlDownloadCacheAidl.syncDownloadInfoFromOtherCache(i10, list);
+                iSqlDownloadCacheAidl.syncDownloadInfoFromOtherCache(i2, list);
             }
-        } catch (RemoteException e10) {
-            e10.printStackTrace();
+        } catch (RemoteException e2) {
+            e2.printStackTrace();
         }
     }
 
     @Override // com.ss.android.socialbase.downloader.downloader.IDownloadCache
-    public DownloadInfo updateChunkCount(int i10, int i11) {
+    public DownloadInfo updateChunkCount(int i2, int i3) {
         try {
             ISqlDownloadCacheAidl iSqlDownloadCacheAidl = this.mISqlDownloadCache;
             if (iSqlDownloadCacheAidl != null) {
-                return iSqlDownloadCacheAidl.updateChunkCount(i10, i11);
+                return iSqlDownloadCacheAidl.updateChunkCount(i2, i3);
             }
             return null;
-        } catch (RemoteException e10) {
-            e10.printStackTrace();
+        } catch (RemoteException e2) {
+            e2.printStackTrace();
             return null;
         }
     }
 
     @Override // com.ss.android.socialbase.downloader.downloader.IDownloadCache
-    public void updateDownloadChunk(int i10, int i11, long j10) {
+    public void updateDownloadChunk(int i2, int i3, long j2) {
         try {
             ISqlDownloadCacheAidl iSqlDownloadCacheAidl = this.mISqlDownloadCache;
             if (iSqlDownloadCacheAidl != null) {
-                iSqlDownloadCacheAidl.updateDownloadChunk(i10, i11, j10);
+                iSqlDownloadCacheAidl.updateDownloadChunk(i2, i3, j2);
             }
-        } catch (RemoteException e10) {
-            e10.printStackTrace();
+        } catch (RemoteException e2) {
+            e2.printStackTrace();
         }
     }
 
@@ -905,38 +903,38 @@ public class SqlDownloadCacheAidlWrapper implements ServiceConnection, ISqlDownl
                 return iSqlDownloadCacheAidl.updateDownloadInfo(downloadInfo);
             }
             return false;
-        } catch (RemoteException e10) {
-            e10.printStackTrace();
+        } catch (RemoteException e2) {
+            e2.printStackTrace();
             return false;
         }
     }
 
     @Override // com.ss.android.socialbase.downloader.downloader.IDownloadCache
-    public boolean updateSegments(int i10, Map<Long, Segment> map) {
+    public boolean updateSegments(int i2, Map<Long, Segment> map) {
         return false;
     }
 
     @Override // com.ss.android.socialbase.downloader.downloader.IDownloadCache
-    public void updateSubDownloadChunk(int i10, int i11, int i12, long j10) {
+    public void updateSubDownloadChunk(int i2, int i3, int i4, long j2) {
         try {
             ISqlDownloadCacheAidl iSqlDownloadCacheAidl = this.mISqlDownloadCache;
             if (iSqlDownloadCacheAidl != null) {
-                iSqlDownloadCacheAidl.updateSubDownloadChunk(i10, i11, i12, j10);
+                iSqlDownloadCacheAidl.updateSubDownloadChunk(i2, i3, i4, j2);
             }
-        } catch (RemoteException e10) {
-            e10.printStackTrace();
+        } catch (RemoteException e2) {
+            e2.printStackTrace();
         }
     }
 
     @Override // com.ss.android.socialbase.downloader.downloader.IDownloadCache
-    public void updateSubDownloadChunkIndex(int i10, int i11, int i12, int i13) {
+    public void updateSubDownloadChunkIndex(int i2, int i3, int i4, int i5) {
         try {
             ISqlDownloadCacheAidl iSqlDownloadCacheAidl = this.mISqlDownloadCache;
             if (iSqlDownloadCacheAidl != null) {
-                iSqlDownloadCacheAidl.updateSubDownloadChunkIndex(i10, i11, i12, i13);
+                iSqlDownloadCacheAidl.updateSubDownloadChunkIndex(i2, i3, i4, i5);
             }
-        } catch (RemoteException e10) {
-            e10.printStackTrace();
+        } catch (RemoteException e2) {
+            e2.printStackTrace();
         }
     }
 
@@ -947,8 +945,8 @@ public class SqlDownloadCacheAidlWrapper implements ServiceConnection, ISqlDownl
             if (iSqlDownloadCacheAidl != null) {
                 iSqlDownloadCacheAidl.init();
             }
-        } catch (RemoteException e10) {
-            e10.printStackTrace();
+        } catch (RemoteException e2) {
+            e2.printStackTrace();
         }
     }
 }

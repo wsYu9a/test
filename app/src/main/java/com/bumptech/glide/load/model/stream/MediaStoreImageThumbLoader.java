@@ -12,7 +12,7 @@ import com.bumptech.glide.load.model.MultiModelLoaderFactory;
 import com.bumptech.glide.signature.ObjectKey;
 import java.io.InputStream;
 
-/* loaded from: classes2.dex */
+/* loaded from: classes.dex */
 public class MediaStoreImageThumbLoader implements ModelLoader<Uri, InputStream> {
     private final Context context;
 
@@ -39,8 +39,8 @@ public class MediaStoreImageThumbLoader implements ModelLoader<Uri, InputStream>
     }
 
     @Override // com.bumptech.glide.load.model.ModelLoader
-    public ModelLoader.LoadData<InputStream> buildLoadData(@NonNull Uri uri, int i10, int i11, @NonNull Options options) {
-        if (MediaStoreUtil.isThumbnailSize(i10, i11)) {
+    public ModelLoader.LoadData<InputStream> buildLoadData(@NonNull Uri uri, int i2, int i3, @NonNull Options options) {
+        if (MediaStoreUtil.isThumbnailSize(i2, i3)) {
             return new ModelLoader.LoadData<>(new ObjectKey(uri), ThumbFetcher.buildImageFetcher(this.context, uri));
         }
         return null;

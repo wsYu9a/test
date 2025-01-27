@@ -2,20 +2,20 @@ package com.baidu.mobads.sdk.api;
 
 import com.baidu.mobads.sdk.internal.am;
 import com.baidu.mobads.sdk.internal.c;
-import com.baidu.mobads.sdk.internal.f;
-import com.baidu.mobads.sdk.internal.u;
+import com.baidu.mobads.sdk.internal.d;
+import com.baidu.mobads.sdk.internal.r;
 import dalvik.system.DexClassLoader;
 
-@Route(path = c.a.f7012a)
-/* loaded from: classes2.dex */
-public class AdservRemoteLoaderImpl implements u {
-    @Override // com.baidu.mobads.sdk.internal.u
-    public void startLoadRemotePhp(double d10, am.b bVar) {
-        f.a().a(d10, bVar);
+@Route(path = c.a.f5683a)
+/* loaded from: classes.dex */
+public class AdservRemoteLoaderImpl implements r {
+    @Override // com.baidu.mobads.sdk.internal.r
+    public void startLoadRemotePhp(double d2, am.b bVar) {
+        d.a().a(d2, bVar);
     }
 
-    @Override // com.baidu.mobads.sdk.internal.u
+    @Override // com.baidu.mobads.sdk.internal.r
     public DexClassLoader getClassLoaderFromJar(String str, String str2, String str3, ClassLoader classLoader) {
-        return f.a().a(str, str2, str3, classLoader);
+        return d.a().a(str, str2, str3, classLoader);
     }
 }

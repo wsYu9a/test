@@ -4,11 +4,11 @@ import androidx.annotation.NonNull;
 import com.bumptech.glide.request.transition.TransitionFactory;
 import com.bumptech.glide.request.transition.ViewPropertyTransition;
 
-/* loaded from: classes2.dex */
+/* loaded from: classes.dex */
 public final class GenericTransitionOptions<TranscodeType> extends TransitionOptions<GenericTransitionOptions<TranscodeType>, TranscodeType> {
     @NonNull
-    public static <TranscodeType> GenericTransitionOptions<TranscodeType> with(int i10) {
-        return new GenericTransitionOptions().transition(i10);
+    public static <TranscodeType> GenericTransitionOptions<TranscodeType> with(int i2) {
+        return new GenericTransitionOptions().transition(i2);
     }
 
     @NonNull

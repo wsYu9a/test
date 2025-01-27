@@ -1,126 +1,275 @@
 package com.martian.ads.ad;
 
+import android.app.Activity;
 import android.content.Context;
 import android.os.Handler;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.ImageView;
 import androidx.annotation.NonNull;
-import ba.l;
+import com.baidu.mobads.sdk.api.MobRewardVideoActivity;
+import com.bytedance.sdk.openadsdk.stub.activity.Stub_Standard_Portrait_Activity;
+import com.maritan.libads.R;
 import com.martian.ads.ad.AdConfig;
-import com.martian.ads.ad.BaseAd;
 import com.martian.apptask.data.AppTask;
 import com.martian.apptask.data.AppTaskList;
-import hf.e;
-import x8.c;
+import com.martian.libmars.utils.n0;
+import com.martian.libsupport.l;
+import java.lang.reflect.InvocationTargetException;
 
-/* loaded from: classes3.dex */
+/* loaded from: classes.dex */
 public abstract class BaseAd {
+    private static final String CLOSE_VIEW_ID = "icon_ad_float_close";
     protected AdConfig adConfig;
-    private boolean adRequestFinished;
     private AppTaskList appTaskList;
-    private String[] blockAppNames;
-    private String[] blockPkgNames;
-    private boolean clicked;
-    private boolean exposed;
-    public Handler handler;
-    protected d8.a receiver;
-    private long requestTime;
-    private long timeout;
-    private final Runnable timeoutRunnable = new Runnable() { // from class: c8.n
-        public /* synthetic */ n() {
-        }
+    protected boolean exposed = false;
 
-        @Override // java.lang.Runnable
-        public final void run() {
-            BaseAd.this.lambda$new$0();
-        }
-    };
+    @NonNull
+    public b.d.a.k.a receiver;
 
     public BaseAd() {
     }
 
-    private boolean isBlockAd() {
-        c cVar;
-        if (this.adConfig.isNativeAd() && getAppTaskList().getApps() != null && !getAppTaskList().getApps().isEmpty()) {
-            AppTask appTask = getAppTaskList().getApps().get(0);
-            String[] strArr = this.blockAppNames;
-            if (strArr != null) {
-                for (String str : strArr) {
-                    if (appTask.getName().contains(str)) {
-                        cVar = new c(AdConfig.ERROR_CODE_AD_BLOCK, appTask.source + e.f26694a + appTask.getName() + e.f26694a + appTask.f12000id);
-                        break;
-                    }
-                    if (appTask.getTitle().contains(str)) {
-                        cVar = new c(AdConfig.ERROR_CODE_AD_BLOCK, appTask.source + e.f26694a + appTask.getName() + e.f26694a + appTask.getTitle() + e.f26694a + appTask.f12000id);
-                        break;
-                    }
-                    if (appTask.getDesc().contains(str)) {
-                        cVar = new c(AdConfig.ERROR_CODE_AD_BLOCK, appTask.source + e.f26694a + appTask.getName() + e.f26694a + appTask.getDesc() + e.f26694a + appTask.f12000id);
-                        break;
-                    }
+    public static void bindHwFlowAd(Activity activity, final AppTask appTask, ViewGroup adContainer, View adView, ViewGroup videoView) {
+        try {
+            Class<?> cls = Class.forName("ad.HwAd");
+            cls.getDeclaredMethod("bindFlowAd", Activity.class, AppTask.class, ViewGroup.class, View.class, ViewGroup.class).invoke(cls, activity, appTask, adContainer, adView, videoView);
+        } catch (ClassNotFoundException e2) {
+            e2.printStackTrace();
+        } catch (IllegalAccessException e3) {
+            e3.printStackTrace();
+        } catch (NoSuchMethodException e4) {
+            e4.printStackTrace();
+        } catch (InvocationTargetException e5) {
+            e5.printStackTrace();
+        }
+    }
+
+    public static void bindMiFlowAd(final ViewGroup adContainer, final AppTask appTask, final b.d.a.k.a innerListener) {
+        try {
+            Class<?> cls = Class.forName("ad.MiAd");
+            cls.getDeclaredMethod("bindFlowAd", ViewGroup.class, AppTask.class, b.d.a.k.a.class).invoke(cls, adContainer, appTask, innerListener);
+        } catch (ClassNotFoundException e2) {
+            e2.printStackTrace();
+        } catch (IllegalAccessException e3) {
+            e3.printStackTrace();
+        } catch (NoSuchMethodException e4) {
+            e4.printStackTrace();
+        } catch (InvocationTargetException e5) {
+            e5.printStackTrace();
+        }
+    }
+
+    public static void bindOppoFlowAd(Activity activity, final AppTask appTask, ViewGroup adContainer, View adView, ViewGroup videoView, View creativeView, final b.d.a.k.a innerListener) {
+        try {
+            Class<?> cls = Class.forName("ad.OppoAd");
+            cls.getDeclaredMethod("bindFlowAd", Activity.class, AppTask.class, ViewGroup.class, View.class, ViewGroup.class, View.class, b.d.a.k.a.class).invoke(cls, activity, appTask, adContainer, adView, videoView, creativeView, innerListener);
+        } catch (ClassNotFoundException e2) {
+            e2.printStackTrace();
+        } catch (IllegalAccessException e3) {
+            e3.printStackTrace();
+        } catch (NoSuchMethodException e4) {
+            e4.printStackTrace();
+        } catch (InvocationTargetException e5) {
+            e5.printStackTrace();
+        }
+    }
+
+    public static void exitOppoAd(Context context) {
+        try {
+            Class<?> cls = Class.forName("ad.OppoAd");
+            cls.getDeclaredMethod("exit", Context.class).invoke(cls, context);
+        } catch (ClassNotFoundException e2) {
+            e2.printStackTrace();
+        } catch (IllegalAccessException e3) {
+            e3.printStackTrace();
+        } catch (NoSuchMethodException e4) {
+            e4.printStackTrace();
+        } catch (InvocationTargetException e5) {
+            e5.printStackTrace();
+        }
+    }
+
+    public static boolean isHwFlowAd(@NonNull AppTask appTask) {
+        return l.J(appTask.origin, "com.huawei.hms.ads.nativead.NativeAd");
+    }
+
+    public static boolean isMiFlowAd(@NonNull AppTask appTask) {
+        return l.J(appTask.origin, "com.miui.zeus.mimo.sdk.NativeAd");
+    }
+
+    public static boolean isOppoFlowAd(@NonNull AppTask appTask) {
+        return l.J(appTask.origin, "com.heytap.msp.mobad.api.params.INativeAdvanceData");
+    }
+
+    public static boolean isOppoInterstitialAd(@NonNull AppTask appTask) {
+        return l.J(appTask.origin, "com.heytap.msp.mobad.api.ad.InterstitialAd");
+    }
+
+    public static boolean isOppoSplashAd(@NonNull AppTask appTask) {
+        return l.J(appTask.origin, "com.heytap.msp.mobad.api.ad.HotSplashAd");
+    }
+
+    public static boolean isOppoVideoAd(@NonNull AppTask appTask) {
+        return l.J(appTask.origin, "com.heytap.msp.mobad.api.ad.RewardVideoAd");
+    }
+
+    static /* synthetic */ void lambda$showCloseAdIcon$1(final Activity activity) {
+        if (n0.C(activity)) {
+            ImageView imageView = new ImageView(activity);
+            imageView.setId(-513798977);
+            imageView.setImageResource(R.drawable.icon_ad_float_close);
+            imageView.setLayoutParams(new ViewGroup.LayoutParams(144, 84));
+            activity.getWindow().addContentView(imageView, new ViewGroup.LayoutParams(-2, -2));
+            imageView.setOnClickListener(new View.OnClickListener() { // from class: com.martian.ads.ad.e
+                @Override // android.view.View.OnClickListener
+                public final void onClick(View view) {
+                    activity.finish();
                 }
+            });
+        }
+    }
+
+    public static void sendOppoInterstitialLossNotification(int winPrice, AppTask appTask) {
+        try {
+            Class<?> cls = Class.forName("ad.OppoAd");
+            cls.getDeclaredMethod("sendInterstitialLossNotification", Integer.TYPE, AppTask.class).invoke(cls, Integer.valueOf(winPrice), appTask);
+        } catch (ClassNotFoundException e2) {
+            e2.printStackTrace();
+        } catch (IllegalAccessException e3) {
+            e3.printStackTrace();
+        } catch (NoSuchMethodException e4) {
+            e4.printStackTrace();
+        } catch (InvocationTargetException e5) {
+            e5.printStackTrace();
+        }
+    }
+
+    public static void sendOppoLossNotification(int winPrice, AppTask appTask, int reason) {
+        try {
+            Class<?> cls = Class.forName("ad.OppoAd");
+            Class<?> cls2 = Integer.TYPE;
+            cls.getDeclaredMethod("sendLossNotification", cls2, AppTask.class, cls2).invoke(cls, Integer.valueOf(winPrice), appTask, Integer.valueOf(reason));
+        } catch (ClassNotFoundException e2) {
+            e2.printStackTrace();
+        } catch (IllegalAccessException e3) {
+            e3.printStackTrace();
+        } catch (NoSuchMethodException e4) {
+            e4.printStackTrace();
+        } catch (InvocationTargetException e5) {
+            e5.printStackTrace();
+        }
+    }
+
+    public static void sendOppoSplashLossNotification(int winPrice, AppTask appTask) {
+        try {
+            Class<?> cls = Class.forName("ad.OppoAd");
+            cls.getDeclaredMethod("sendSplashLossNotification", Integer.TYPE, AppTask.class).invoke(cls, Integer.valueOf(winPrice), appTask);
+        } catch (ClassNotFoundException e2) {
+            e2.printStackTrace();
+        } catch (IllegalAccessException e3) {
+            e3.printStackTrace();
+        } catch (NoSuchMethodException e4) {
+            e4.printStackTrace();
+        } catch (InvocationTargetException e5) {
+            e5.printStackTrace();
+        }
+    }
+
+    public static void sendOppoVideoLossNotification(int winPrice, AppTask appTask) {
+        try {
+            Class<?> cls = Class.forName("ad.OppoAd");
+            cls.getDeclaredMethod("sendVideoLossNotification", Integer.TYPE, AppTask.class).invoke(cls, Integer.valueOf(winPrice), appTask);
+        } catch (ClassNotFoundException e2) {
+            e2.printStackTrace();
+        } catch (IllegalAccessException e3) {
+            e3.printStackTrace();
+        } catch (NoSuchMethodException e4) {
+            e4.printStackTrace();
+        } catch (InvocationTargetException e5) {
+            e5.printStackTrace();
+        }
+    }
+
+    public static void sendOppoWinNotification(AppTask appTask) {
+        try {
+            Class<?> cls = Class.forName("ad.OppoAd");
+            cls.getDeclaredMethod("sendWinNotification", AppTask.class).invoke(cls, appTask);
+        } catch (ClassNotFoundException e2) {
+            e2.printStackTrace();
+        } catch (IllegalAccessException e3) {
+            e3.printStackTrace();
+        } catch (NoSuchMethodException e4) {
+            e4.printStackTrace();
+        } catch (InvocationTargetException e5) {
+            e5.printStackTrace();
+        }
+    }
+
+    public static boolean showCloseAdIcon(final Activity activity) {
+        if (!(activity instanceof Stub_Standard_Portrait_Activity) && !(activity instanceof MobRewardVideoActivity)) {
+            return false;
+        }
+        if (activity.findViewById(-513798977) != null) {
+            return true;
+        }
+        new Handler().postDelayed(new Runnable() { // from class: com.martian.ads.ad.f
+            @Override // java.lang.Runnable
+            public final void run() {
+                BaseAd.lambda$showCloseAdIcon$1(activity);
             }
-            cVar = null;
-            if (this.blockPkgNames != null && !l.q(appTask.packageName)) {
-                String[] strArr2 = this.blockPkgNames;
-                int length = strArr2.length;
-                int i10 = 0;
-                while (true) {
-                    if (i10 >= length) {
-                        break;
-                    }
-                    if (appTask.packageName.equalsIgnoreCase(strArr2[i10])) {
-                        cVar = new c(AdConfig.ERROR_CODE_AD_BLOCK, appTask.source + e.f26694a + appTask.packageName + e.f26694a + appTask.f12000id);
-                        break;
-                    }
-                    i10++;
-                }
-            }
-            if (cVar != null) {
-                onError(cVar);
-                return true;
-            }
-        }
-        return false;
+        }, 8000L);
+        return true;
     }
 
-    public /* synthetic */ void lambda$new$0() {
-        onError(new c(-100, "timeout"));
-    }
-
-    public void onThreadAdReceived() {
-        if (isBlockAd() || this.adRequestFinished) {
-            return;
-        }
-        this.adRequestFinished = true;
-        removeTimeoutRunnable();
-        if (getAppTaskList().isEmpty()) {
-            onError(new c(-1, "ad null"));
-        } else {
-            b8.e.s().k(this.adConfig, AdConfig.Type.RESPONSE, null, Math.min(System.currentTimeMillis() - this.requestTime, this.timeout));
-            this.receiver.i(this.adConfig, getAppTaskList());
+    public static void showOppoInterstitialAd(final AppTask appTask) {
+        try {
+            Class<?> cls = Class.forName("ad.OppoAd");
+            cls.getDeclaredMethod("showInterstitialAd", AppTask.class).invoke(cls, appTask);
+        } catch (ClassNotFoundException e2) {
+            e2.printStackTrace();
+        } catch (IllegalAccessException e3) {
+            e3.printStackTrace();
+        } catch (NoSuchMethodException e4) {
+            e4.printStackTrace();
+        } catch (InvocationTargetException e5) {
+            e5.printStackTrace();
         }
     }
 
-    /* renamed from: onThreadError */
-    public void lambda$onError$1(c cVar) {
-        if (this.adRequestFinished) {
-            return;
+    public static void showOppoSplashAd(Activity activity, final AppTask appTask) {
+        try {
+            Class<?> cls = Class.forName("ad.OppoAd");
+            cls.getDeclaredMethod("showSplashAd", Activity.class, AppTask.class).invoke(cls, activity, appTask);
+        } catch (ClassNotFoundException e2) {
+            e2.printStackTrace();
+        } catch (IllegalAccessException e3) {
+            e3.printStackTrace();
+        } catch (NoSuchMethodException e4) {
+            e4.printStackTrace();
+        } catch (InvocationTargetException e5) {
+            e5.printStackTrace();
         }
-        this.adRequestFinished = true;
-        removeTimeoutRunnable();
-        if (cVar == null) {
-            cVar = new c(-1, "fail");
-        }
-        b8.e.s().k(this.adConfig, -100 == cVar.c() ? AdConfig.Type.TIMEOUT : AdConfig.Type.FAIL, cVar, Math.min(System.currentTimeMillis() - this.requestTime, this.timeout));
-        this.receiver.c(this.adConfig, cVar);
     }
 
-    private void removeTimeoutRunnable() {
-        Handler handler = this.handler;
-        if (handler == null) {
-            return;
+    public static void showOppoVideoAd(final AppTask appTask) {
+        try {
+            Class<?> cls = Class.forName("ad.OppoAd");
+            cls.getDeclaredMethod("showVideoAd", AppTask.class).invoke(cls, appTask);
+        } catch (ClassNotFoundException e2) {
+            e2.printStackTrace();
+        } catch (IllegalAccessException e3) {
+            e3.printStackTrace();
+        } catch (NoSuchMethodException e4) {
+            e4.printStackTrace();
+        } catch (InvocationTargetException e5) {
+            e5.printStackTrace();
         }
-        handler.removeCallbacks(this.timeoutRunnable);
     }
+
+    protected abstract boolean adCanceled();
+
+    public abstract void cancelLoading();
 
     public AppTaskList getAppTaskList() {
         if (this.appTaskList == null) {
@@ -129,113 +278,70 @@ public abstract class BaseAd {
         return this.appTaskList;
     }
 
-    public void init(AdConfig adConfig, @NonNull d8.a aVar, Handler handler) {
-        this.adConfig = adConfig;
-        this.receiver = aVar;
-        this.handler = handler;
+    public BaseAd init(AdConfig config, @NonNull b.d.a.k.a receiver) {
+        this.adConfig = config;
+        this.receiver = receiver;
+        return this;
     }
 
-    public abstract void loadAds(Context context);
+    public abstract void loadAds(Activity activity);
 
+    /* JADX INFO: Access modifiers changed from: protected */
     public void onAdReceived() {
-        if (this.handler == null) {
+        if (adCanceled()) {
             return;
         }
-        if (Thread.currentThread() == this.handler.getLooper().getThread()) {
-            onThreadAdReceived();
-        } else {
-            this.handler.post(new Runnable() { // from class: c8.m
-                public /* synthetic */ m() {
-                }
-
-                @Override // java.lang.Runnable
-                public final void run() {
-                    BaseAd.this.onThreadAdReceived();
-                }
-            });
-        }
+        cancelLoading();
+        this.receiver.d(this.adConfig, getAppTaskList());
     }
 
-    public void onAdRequest() {
-        if (this.handler == null) {
-            return;
-        }
-        b8.e.s().k(this.adConfig, AdConfig.Type.REQUEST, null, 0L);
-        this.requestTime = System.currentTimeMillis();
-        long j10 = this.timeout;
-        if (j10 > 0) {
-            this.handler.postDelayed(this.timeoutRunnable, j10);
-        }
-    }
-
+    /* JADX INFO: Access modifiers changed from: protected */
     public void onClick() {
-        if (this.clicked) {
-            return;
-        }
-        this.clicked = true;
-        this.receiver.l(this.adConfig);
+        this.receiver.j(this.adConfig);
     }
 
+    /* JADX INFO: Access modifiers changed from: protected */
     public void onClose() {
-        this.receiver.d(this.adConfig);
+        this.receiver.b(this.adConfig);
     }
 
+    /* JADX INFO: Access modifiers changed from: protected */
     public void onDismiss() {
-        this.receiver.g(this.adConfig);
+        this.receiver.c(this.adConfig);
     }
 
-    public void onError(c cVar) {
-        if (this.handler == null) {
+    /* JADX INFO: Access modifiers changed from: protected */
+    public void onError(b.d.c.b.c errorResult) {
+        if (adCanceled()) {
             return;
         }
-        if (Thread.currentThread() == this.handler.getLooper().getThread()) {
-            lambda$onError$1(cVar);
-        } else {
-            this.handler.post(new Runnable() { // from class: c8.l
-
-                /* renamed from: c */
-                public final /* synthetic */ x8.c f1753c;
-
-                public /* synthetic */ l(x8.c cVar2) {
-                    cVar = cVar2;
-                }
-
-                @Override // java.lang.Runnable
-                public final void run() {
-                    BaseAd.this.lambda$onError$1(cVar);
-                }
-            });
+        cancelLoading();
+        if (errorResult == null) {
+            errorResult = new b.d.c.b.c(-1, AdConfig.ActionString.FAIL);
         }
+        this.receiver.g(this.adConfig, errorResult);
     }
 
+    /* JADX INFO: Access modifiers changed from: protected */
     public void onExpose() {
         if (this.exposed) {
             return;
         }
         this.exposed = true;
-        this.receiver.b(this.adConfig);
+        this.receiver.a(this.adConfig);
     }
 
-    public void onRewardVerify(boolean z10) {
-        this.receiver.k(this.adConfig, z10);
+    /* JADX INFO: Access modifiers changed from: protected */
+    public void onRewardVerify(boolean verify) {
+        this.receiver.e(this.adConfig, verify);
     }
 
-    public void setAppTaskList(AppTaskList appTaskList) {
-        this.appTaskList = appTaskList;
+    public void setAppTaskList(AppTaskList list) {
+        this.appTaskList = list;
     }
 
-    public void setBlockInfo(String[] strArr, String[] strArr2) {
-        this.blockAppNames = strArr;
-        this.blockPkgNames = strArr2;
-    }
-
-    public void setTimeout(long j10) {
-        this.timeout = j10;
-    }
-
-    public BaseAd(AdConfig adConfig, @NonNull d8.a aVar, Handler handler) {
-        this.adConfig = adConfig;
-        this.receiver = aVar;
-        this.handler = handler;
+    public BaseAd(AdConfig config, @NonNull b.d.a.k.a receiver) {
+        this.adConfig = config;
+        this.receiver = receiver;
     }
 }

@@ -13,14 +13,14 @@ import java.io.File;
 import java.io.IOException;
 import java.nio.ByteBuffer;
 
-/* loaded from: classes2.dex */
+/* loaded from: classes.dex */
 public class ByteBufferFileLoader implements ModelLoader<File, ByteBuffer> {
     private static final String TAG = "ByteBufferFileLoader";
 
-    public static final class ByteBufferFetcher implements DataFetcher<ByteBuffer> {
+    private static final class ByteBufferFetcher implements DataFetcher<ByteBuffer> {
         private final File file;
 
-        public ByteBufferFetcher(File file) {
+        ByteBufferFetcher(File file) {
             this.file = file;
         }
 
@@ -48,11 +48,11 @@ public class ByteBufferFileLoader implements ModelLoader<File, ByteBuffer> {
         public void loadData(@NonNull Priority priority, @NonNull DataFetcher.DataCallback<? super ByteBuffer> dataCallback) {
             try {
                 dataCallback.onDataReady(ByteBufferUtil.fromFile(this.file));
-            } catch (IOException e10) {
+            } catch (IOException e2) {
                 if (Log.isLoggable(ByteBufferFileLoader.TAG, 3)) {
-                    Log.d(ByteBufferFileLoader.TAG, "Failed to obtain ByteBuffer for file", e10);
+                    Log.d(ByteBufferFileLoader.TAG, "Failed to obtain ByteBuffer for file", e2);
                 }
-                dataCallback.onLoadFailed(e10);
+                dataCallback.onLoadFailed(e2);
             }
         }
     }
@@ -75,7 +75,7 @@ public class ByteBufferFileLoader implements ModelLoader<File, ByteBuffer> {
     }
 
     @Override // com.bumptech.glide.load.model.ModelLoader
-    public ModelLoader.LoadData<ByteBuffer> buildLoadData(@NonNull File file, int i10, int i11, @NonNull Options options) {
+    public ModelLoader.LoadData<ByteBuffer> buildLoadData(@NonNull File file, int i2, int i3, @NonNull Options options) {
         return new ModelLoader.LoadData<>(new ObjectKey(file), new ByteBufferFetcher(file));
     }
 }

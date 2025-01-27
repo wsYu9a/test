@@ -16,6 +16,13 @@ public class WXEmojiSharedObject implements WXMediaMessage.IMediaObject {
     public WXEmojiSharedObject() {
     }
 
+    public WXEmojiSharedObject(String str, int i2, String str2, String str3) {
+        this.thumburl = str;
+        this.packageflag = i2;
+        this.packageid = str2;
+        this.url = str3;
+    }
+
     @Override // com.tencent.mm.opensdk.modelmsg.WXMediaMessage.IMediaObject
     public boolean checkArgs() {
         if (!TextUtils.isEmpty(this.packageid) && !TextUtils.isEmpty(this.thumburl) && !TextUtils.isEmpty(this.url) && this.packageflag != -1) {
@@ -44,12 +51,5 @@ public class WXEmojiSharedObject implements WXMediaMessage.IMediaObject {
         this.packageflag = bundle.getInt("_wxwebpageobject_packageflag");
         this.packageid = bundle.getString("_wxwebpageobject_packageid");
         this.url = bundle.getString("_wxwebpageobject_url");
-    }
-
-    public WXEmojiSharedObject(String str, int i10, String str2, String str3) {
-        this.thumburl = str;
-        this.packageflag = i10;
-        this.packageid = str2;
-        this.url = str3;
     }
 }

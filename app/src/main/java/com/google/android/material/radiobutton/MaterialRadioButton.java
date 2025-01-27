@@ -8,52 +8,59 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.widget.AppCompatRadioButton;
 import androidx.core.widget.CompoundButtonCompat;
 import com.google.android.material.R;
-import com.google.android.material.color.MaterialColors;
+import com.google.android.material.c.a;
 
-/* loaded from: classes2.dex */
+/* loaded from: classes.dex */
 public class MaterialRadioButton extends AppCompatRadioButton {
-    private static final int DEF_STYLE_RES = R.style.Widget_MaterialComponents_CompoundButton_RadioButton;
-    private static final int[][] ENABLED_CHECKED_STATES = {new int[]{android.R.attr.state_enabled, android.R.attr.state_checked}, new int[]{android.R.attr.state_enabled, -16842912}, new int[]{-16842910, android.R.attr.state_checked}, new int[]{-16842910, -16842912}};
 
+    /* renamed from: d */
+    private static final int f7704d = R.style.Widget_MaterialComponents_CompoundButton_RadioButton;
+
+    /* renamed from: e */
+    private static final int[][] f7705e = {new int[]{android.R.attr.state_enabled, android.R.attr.state_checked}, new int[]{android.R.attr.state_enabled, -16842912}, new int[]{-16842910, android.R.attr.state_checked}, new int[]{-16842910, -16842912}};
+
+    /* renamed from: f */
     @Nullable
-    private ColorStateList materialThemeColorsTintList;
-    private boolean useMaterialThemeColors;
+    private ColorStateList f7706f;
+
+    /* renamed from: g */
+    private boolean f7707g;
 
     public MaterialRadioButton(@NonNull Context context) {
         this(context, null);
     }
 
     private ColorStateList getMaterialThemeColorsTintList() {
-        if (this.materialThemeColorsTintList == null) {
-            int color = MaterialColors.getColor(this, R.attr.colorControlActivated);
-            int color2 = MaterialColors.getColor(this, R.attr.colorOnSurface);
-            int color3 = MaterialColors.getColor(this, R.attr.colorSurface);
-            int[][] iArr = ENABLED_CHECKED_STATES;
+        if (this.f7706f == null) {
+            int d2 = a.d(this, R.attr.colorControlActivated);
+            int d3 = a.d(this, R.attr.colorOnSurface);
+            int d4 = a.d(this, R.attr.colorSurface);
+            int[][] iArr = f7705e;
             int[] iArr2 = new int[iArr.length];
-            iArr2[0] = MaterialColors.layer(color3, color, 1.0f);
-            iArr2[1] = MaterialColors.layer(color3, color2, 0.54f);
-            iArr2[2] = MaterialColors.layer(color3, color2, 0.38f);
-            iArr2[3] = MaterialColors.layer(color3, color2, 0.38f);
-            this.materialThemeColorsTintList = new ColorStateList(iArr, iArr2);
+            iArr2[0] = a.g(d4, d2, 1.0f);
+            iArr2[1] = a.g(d4, d3, 0.54f);
+            iArr2[2] = a.g(d4, d3, 0.38f);
+            iArr2[3] = a.g(d4, d3, 0.38f);
+            this.f7706f = new ColorStateList(iArr, iArr2);
         }
-        return this.materialThemeColorsTintList;
+        return this.f7706f;
     }
 
-    public boolean isUseMaterialThemeColors() {
-        return this.useMaterialThemeColors;
+    public boolean a() {
+        return this.f7707g;
     }
 
     @Override // android.widget.TextView, android.view.View
-    public void onAttachedToWindow() {
+    protected void onAttachedToWindow() {
         super.onAttachedToWindow();
-        if (this.useMaterialThemeColors && CompoundButtonCompat.getButtonTintList(this) == null) {
+        if (this.f7707g && CompoundButtonCompat.getButtonTintList(this) == null) {
             setUseMaterialThemeColors(true);
         }
     }
 
-    public void setUseMaterialThemeColors(boolean z10) {
-        this.useMaterialThemeColors = z10;
-        if (z10) {
+    public void setUseMaterialThemeColors(boolean z) {
+        this.f7707g = z;
+        if (z) {
             CompoundButtonCompat.setButtonTintList(this, getMaterialThemeColorsTintList());
         } else {
             CompoundButtonCompat.setButtonTintList(this, null);
@@ -72,8 +79,8 @@ public class MaterialRadioButton extends AppCompatRadioButton {
     public MaterialRadioButton(@androidx.annotation.NonNull android.content.Context r8, @androidx.annotation.Nullable android.util.AttributeSet r9, int r10) {
         /*
             r7 = this;
-            int r4 = com.google.android.material.radiobutton.MaterialRadioButton.DEF_STYLE_RES
-            android.content.Context r8 = com.google.android.material.theme.overlay.MaterialThemeOverlay.wrap(r8, r9, r10, r4)
+            int r4 = com.google.android.material.radiobutton.MaterialRadioButton.f7704d
+            android.content.Context r8 = com.google.android.material.theme.a.a.c(r8, r9, r10, r4)
             r7.<init>(r8, r9, r10)
             android.content.Context r8 = r7.getContext()
             int[] r2 = com.google.android.material.R.styleable.MaterialRadioButton
@@ -82,17 +89,16 @@ public class MaterialRadioButton extends AppCompatRadioButton {
             r0 = r8
             r1 = r9
             r3 = r10
-            android.content.res.TypedArray r9 = com.google.android.material.internal.ThemeEnforcement.obtainStyledAttributes(r0, r1, r2, r3, r4, r5)
+            android.content.res.TypedArray r9 = com.google.android.material.internal.n.j(r0, r1, r2, r3, r4, r5)
             int r10 = com.google.android.material.R.styleable.MaterialRadioButton_buttonTint
-            boolean r10 = r9.hasValue(r10)
-            if (r10 == 0) goto L2a
-            int r10 = com.google.android.material.R.styleable.MaterialRadioButton_buttonTint
-            android.content.res.ColorStateList r8 = com.google.android.material.resources.MaterialResources.getColorStateList(r8, r9, r10)
+            boolean r0 = r9.hasValue(r10)
+            if (r0 == 0) goto L28
+            android.content.res.ColorStateList r8 = com.google.android.material.g.c.a(r8, r9, r10)
             androidx.core.widget.CompoundButtonCompat.setButtonTintList(r7, r8)
-        L2a:
+        L28:
             int r8 = com.google.android.material.R.styleable.MaterialRadioButton_useMaterialThemeColors
             boolean r8 = r9.getBoolean(r8, r6)
-            r7.useMaterialThemeColors = r8
+            r7.f7707g = r8
             r9.recycle()
             return
         */

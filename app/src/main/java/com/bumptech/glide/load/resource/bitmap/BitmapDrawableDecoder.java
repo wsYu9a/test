@@ -12,7 +12,7 @@ import com.bumptech.glide.load.engine.bitmap_recycle.BitmapPool;
 import com.bumptech.glide.util.Preconditions;
 import java.io.IOException;
 
-/* loaded from: classes2.dex */
+/* loaded from: classes.dex */
 public class BitmapDrawableDecoder<DataType> implements ResourceDecoder<DataType, BitmapDrawable> {
     private final ResourceDecoder<DataType, Bitmap> decoder;
     private final Resources resources;
@@ -22,8 +22,8 @@ public class BitmapDrawableDecoder<DataType> implements ResourceDecoder<DataType
     }
 
     @Override // com.bumptech.glide.load.ResourceDecoder
-    public Resource<BitmapDrawable> decode(@NonNull DataType datatype, int i10, int i11, @NonNull Options options) throws IOException {
-        return LazyBitmapDrawableResource.obtain(this.resources, this.decoder.decode(datatype, i10, i11, options));
+    public Resource<BitmapDrawable> decode(@NonNull DataType datatype, int i2, int i3, @NonNull Options options) throws IOException {
+        return LazyBitmapDrawableResource.obtain(this.resources, this.decoder.decode(datatype, i2, i3, options));
     }
 
     @Override // com.bumptech.glide.load.ResourceDecoder

@@ -1,74 +1,52 @@
 package com.kwad.components.core.webview.jshandler;
 
+import android.text.TextUtils;
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import com.kwad.sdk.core.response.model.AdTemplate;
+import com.ksad.json.annotation.KsJson;
+import com.kwad.sdk.service.ServiceProvider;
+import org.json.JSONException;
 import org.json.JSONObject;
 
-/* loaded from: classes3.dex */
-public final class m implements com.kwad.sdk.core.webview.c.a {
-    com.kwad.sdk.core.webview.b YR;
+/* loaded from: classes2.dex */
+public final class m implements com.kwad.sdk.core.webview.b.a {
 
-    public static class a implements com.kwad.sdk.core.b {
-        private String Li;
-        private AdTemplate adTemplate;
-
-        @Override // com.kwad.sdk.core.b
-        public final void parseJson(@Nullable JSONObject jSONObject) {
-            if (jSONObject == null) {
-                return;
-            }
-            this.Li = jSONObject.optString("creativeId");
-            try {
-                if (jSONObject.has("adTemplate")) {
-                    String string = jSONObject.getString("adTemplate");
-                    if (this.adTemplate == null) {
-                        this.adTemplate = new AdTemplate();
-                    }
-                    this.adTemplate.parseJson(new JSONObject(string));
-                }
-            } catch (Exception e10) {
-                com.kwad.sdk.core.d.c.printStackTraceOnly(e10);
-            }
-        }
-
-        @Override // com.kwad.sdk.core.b
-        public final JSONObject toJson() {
-            JSONObject jSONObject = new JSONObject();
-            com.kwad.sdk.utils.x.a(jSONObject, "adTemplate", this.adTemplate);
-            com.kwad.sdk.utils.x.putValue(jSONObject, "creativeId", this.Li);
-            return jSONObject;
-        }
+    @KsJson
+    public static class a extends com.kwad.sdk.core.response.kwai.a {
+        public String key;
+        public String value;
     }
 
-    public m(com.kwad.sdk.core.webview.b bVar) {
-        this.YR = bVar;
-    }
-
-    @Override // com.kwad.sdk.core.webview.c.a
-    public final void a(String str, @NonNull com.kwad.sdk.core.webview.c.c cVar) {
+    private static boolean aM(String str) {
+        a aVar = new a();
         try {
-            a aVar = new a();
             aVar.parseJson(new JSONObject(str));
-            com.kwad.sdk.core.download.a.dJ(com.kwad.sdk.core.response.b.e.eb(a(aVar)).adConversionInfo.appDownloadUrl);
-            cVar.a(null);
-        } catch (Throwable th2) {
-            com.kwad.sdk.core.d.c.printStackTraceOnly(th2);
-            cVar.onError(-1, th2.getMessage());
+        } catch (JSONException unused) {
         }
+        if (TextUtils.isEmpty(aVar.key) || TextUtils.isEmpty(aVar.value)) {
+            return false;
+        }
+        com.kwad.sdk.utils.y.a(ServiceProvider.getContext(), "ksadsdk_js_storage_cache_name", aVar.key, aVar.value);
+        return true;
     }
 
-    @Override // com.kwad.sdk.core.webview.c.a
+    @Override // com.kwad.sdk.core.webview.b.a
     @NonNull
     public final String getKey() {
-        return "cancelAppDownloadForAd";
+        return "setStorageItem";
     }
 
-    @Override // com.kwad.sdk.core.webview.c.a
+    @Override // com.kwad.sdk.core.webview.b.a
+    public final void handleJsCall(String str, @NonNull com.kwad.sdk.core.webview.b.c cVar) {
+        if (TextUtils.isEmpty(str)) {
+            cVar.onError(-1, "data is empty");
+        } else if (aM(str)) {
+            cVar.a(null);
+        } else {
+            cVar.onError(-1, "");
+        }
+    }
+
+    @Override // com.kwad.sdk.core.webview.b.a
     public final void onDestroy() {
-    }
-
-    private AdTemplate a(a aVar) {
-        return aVar.adTemplate != null ? aVar.adTemplate : this.YR.dg(aVar.Li);
     }
 }

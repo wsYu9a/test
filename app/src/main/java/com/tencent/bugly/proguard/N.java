@@ -5,7 +5,10 @@ import java.security.cert.X509Certificate;
 import javax.net.ssl.X509TrustManager;
 
 /* loaded from: classes4.dex */
-public class N implements X509TrustManager {
+class N implements X509TrustManager {
+    N() {
+    }
+
     @Override // javax.net.ssl.X509TrustManager
     public void checkClientTrusted(X509Certificate[] x509CertificateArr, String str) throws CertificateException {
         X.a("checkClientTrusted", new Object[0]);

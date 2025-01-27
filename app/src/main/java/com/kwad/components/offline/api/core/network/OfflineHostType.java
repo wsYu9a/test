@@ -1,6 +1,6 @@
 package com.kwad.components.offline.api.core.network;
 
-/* loaded from: classes3.dex */
+/* loaded from: classes.dex */
 public @interface OfflineHostType {
     public static final String API = "api";
     public static final String CDN = "cdn";

@@ -4,7 +4,7 @@ import android.app.Activity;
 import com.bytedance.sdk.openadsdk.TTAdConstant;
 import java.util.Map;
 
-/* loaded from: classes2.dex */
+/* loaded from: classes.dex */
 public interface TTFullScreenVideoAd extends TTClientBidding {
 
     public interface FullScreenVideoAdInteractionListener {
@@ -31,7 +31,8 @@ public interface TTFullScreenVideoAd extends TTClientBidding {
 
     void setFullScreenVideoAdInteractionListener(FullScreenVideoAdInteractionListener fullScreenVideoAdInteractionListener);
 
-    void setShowDownLoadBar(boolean z10);
+    @Deprecated
+    void setShowDownLoadBar(boolean z);
 
     void showFullScreenVideoAd(Activity activity);
 

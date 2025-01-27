@@ -7,46 +7,46 @@ import com.vivo.push.model.InsideNotificationItem;
 public final class p extends com.vivo.push.o {
 
     /* renamed from: a */
-    private String f24941a;
+    private String f30914a;
 
     /* renamed from: b */
-    private String f24942b;
+    private String f30915b;
 
     /* renamed from: c */
-    private byte[] f24943c;
+    private byte[] f30916c;
 
     /* renamed from: d */
-    private long f24944d;
+    private long f30917d;
 
     /* renamed from: e */
-    private InsideNotificationItem f24945e;
+    private InsideNotificationItem f30918e;
 
-    public p(String str, long j10, InsideNotificationItem insideNotificationItem) {
+    public p(String str, long j2, InsideNotificationItem insideNotificationItem) {
         super(5);
-        this.f24941a = str;
-        this.f24944d = j10;
-        this.f24945e = insideNotificationItem;
+        this.f30914a = str;
+        this.f30917d = j2;
+        this.f30918e = insideNotificationItem;
     }
 
     @Override // com.vivo.push.o
-    public final void c(com.vivo.push.a aVar) {
-        aVar.a("package_name", this.f24941a);
-        aVar.a("notify_id", this.f24944d);
-        aVar.a("notification_v1", com.vivo.push.util.q.b(this.f24945e));
-        aVar.a("open_pkg_name", this.f24942b);
-        aVar.a("open_pkg_name_encode", this.f24943c);
+    protected final void c(com.vivo.push.a aVar) {
+        aVar.a("package_name", this.f30914a);
+        aVar.a("notify_id", this.f30917d);
+        aVar.a("notification_v1", com.vivo.push.util.q.b(this.f30918e));
+        aVar.a("open_pkg_name", this.f30915b);
+        aVar.a("open_pkg_name_encode", this.f30916c);
     }
 
     public final String d() {
-        return this.f24941a;
+        return this.f30914a;
     }
 
     public final long e() {
-        return this.f24944d;
+        return this.f30917d;
     }
 
     public final InsideNotificationItem f() {
-        return this.f24945e;
+        return this.f30918e;
     }
 
     @Override // com.vivo.push.o
@@ -55,18 +55,18 @@ public final class p extends com.vivo.push.o {
     }
 
     @Override // com.vivo.push.o
-    public final void d(com.vivo.push.a aVar) {
-        this.f24941a = aVar.a("package_name");
-        this.f24944d = aVar.b("notify_id", -1L);
-        this.f24942b = aVar.a("open_pkg_name");
-        this.f24943c = aVar.b("open_pkg_name_encode");
-        String a10 = aVar.a("notification_v1");
-        if (!TextUtils.isEmpty(a10)) {
-            this.f24945e = com.vivo.push.util.q.a(a10);
+    protected final void d(com.vivo.push.a aVar) {
+        this.f30914a = aVar.a("package_name");
+        this.f30917d = aVar.b("notify_id", -1L);
+        this.f30915b = aVar.a("open_pkg_name");
+        this.f30916c = aVar.b("open_pkg_name_encode");
+        String a2 = aVar.a("notification_v1");
+        if (!TextUtils.isEmpty(a2)) {
+            this.f30918e = com.vivo.push.util.q.a(a2);
         }
-        InsideNotificationItem insideNotificationItem = this.f24945e;
+        InsideNotificationItem insideNotificationItem = this.f30918e;
         if (insideNotificationItem != null) {
-            insideNotificationItem.setMsgId(this.f24944d);
+            insideNotificationItem.setMsgId(this.f30917d);
         }
     }
 

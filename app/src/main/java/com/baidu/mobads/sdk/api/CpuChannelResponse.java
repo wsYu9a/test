@@ -1,25 +1,25 @@
 package com.baidu.mobads.sdk.api;
 
-import com.baidu.mobads.sdk.internal.n;
+import com.baidu.mobads.sdk.internal.k;
 
-/* loaded from: classes2.dex */
+/* loaded from: classes.dex */
 public class CpuChannelResponse {
-    private n mCpuChannelInfo;
+    private k mCpuChannelInfo;
 
-    public CpuChannelResponse(n nVar) {
-        this.mCpuChannelInfo = nVar;
+    public CpuChannelResponse(k kVar) {
+        this.mCpuChannelInfo = kVar;
     }
 
     public int getChannelId() {
-        n nVar = this.mCpuChannelInfo;
-        if (nVar != null) {
-            return nVar.a();
+        k kVar = this.mCpuChannelInfo;
+        if (kVar != null) {
+            return kVar.a();
         }
         return -1;
     }
 
     public String getChannelName() {
-        n nVar = this.mCpuChannelInfo;
-        return nVar != null ? nVar.b() : "";
+        k kVar = this.mCpuChannelInfo;
+        return kVar != null ? kVar.b() : "";
     }
 }

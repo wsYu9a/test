@@ -13,8 +13,8 @@ public class HistoryDuration {
     }
 
     public Long getCreatedOn() {
-        Long l10 = this.createdOn;
-        return Long.valueOf(l10 == null ? 0L : l10.longValue());
+        Long l = this.createdOn;
+        return Long.valueOf(l == null ? 0L : l.longValue());
     }
 
     public int getDuration() {
@@ -29,19 +29,19 @@ public class HistoryDuration {
         return this.durationType;
     }
 
-    public void setCoins(Integer num) {
-        this.coins = num;
+    public void setCoins(Integer coins) {
+        this.coins = coins;
     }
 
-    public void setCreatedOn(Long l10) {
-        this.createdOn = l10;
+    public void setCreatedOn(Long createdOn) {
+        this.createdOn = createdOn;
     }
 
-    public void setDuration(Integer num) {
-        this.duration = num;
+    public void setDuration(Integer duration) {
+        this.duration = duration;
     }
 
-    public void setType(String str) {
-        this.durationType = str;
+    public void setType(String durationType) {
+        this.durationType = durationType;
     }
 }

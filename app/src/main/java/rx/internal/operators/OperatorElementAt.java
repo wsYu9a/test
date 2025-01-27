@@ -1,111 +1,109 @@
 package rx.internal.operators;
 
 import java.util.concurrent.atomic.AtomicBoolean;
-import qj.a;
-import qj.c;
-import qj.g;
+import rx.a;
 
 /* loaded from: classes5.dex */
 public final class OperatorElementAt<T> implements a.n0<T, T> {
 
+    /* renamed from: a */
+    private final int f35791a;
+
     /* renamed from: b */
-    public final int f30462b;
+    private final boolean f35792b;
 
     /* renamed from: c */
-    public final boolean f30463c;
+    private final T f35793c;
 
-    /* renamed from: d */
-    public final T f30464d;
-
-    public static class InnerProducer extends AtomicBoolean implements c {
+    static class InnerProducer extends AtomicBoolean implements rx.c {
         private static final long serialVersionUID = 1;
-        final c actual;
+        final rx.c actual;
 
-        public InnerProducer(c cVar) {
+        public InnerProducer(rx.c cVar) {
             this.actual = cVar;
         }
 
-        @Override // qj.c
-        public void request(long j10) {
-            if (j10 < 0) {
+        @Override // rx.c
+        public void request(long j2) {
+            if (j2 < 0) {
                 throw new IllegalArgumentException("n >= 0 required");
             }
-            if (j10 <= 0 || !compareAndSet(false, true)) {
+            if (j2 <= 0 || !compareAndSet(false, true)) {
                 return;
             }
             this.actual.request(Long.MAX_VALUE);
         }
     }
 
-    public class a extends g<T> {
+    class a extends rx.g<T> {
+
+        /* renamed from: f */
+        private int f35794f = 0;
 
         /* renamed from: g */
-        public int f30465g = 0;
+        final /* synthetic */ rx.g f35795g;
 
-        /* renamed from: h */
-        public final /* synthetic */ g f30466h;
-
-        public a(g gVar) {
-            this.f30466h = gVar;
+        a(rx.g gVar) {
+            this.f35795g = gVar;
         }
 
-        @Override // qj.g
-        public void f(c cVar) {
-            this.f30466h.f(new InnerProducer(cVar));
+        @Override // rx.g
+        public void f(rx.c cVar) {
+            this.f35795g.f(new InnerProducer(cVar));
         }
 
         /* JADX WARN: Multi-variable type inference failed */
-        @Override // qj.b
+        @Override // rx.b
         public void onCompleted() {
-            if (this.f30465g <= OperatorElementAt.this.f30462b) {
-                if (OperatorElementAt.this.f30463c) {
-                    this.f30466h.onNext(OperatorElementAt.this.f30464d);
-                    this.f30466h.onCompleted();
+            if (this.f35794f <= OperatorElementAt.this.f35791a) {
+                if (OperatorElementAt.this.f35792b) {
+                    this.f35795g.onNext(OperatorElementAt.this.f35793c);
+                    this.f35795g.onCompleted();
                     return;
                 }
-                this.f30466h.onError(new IndexOutOfBoundsException(OperatorElementAt.this.f30462b + " is out of bounds"));
+                this.f35795g.onError(new IndexOutOfBoundsException(OperatorElementAt.this.f35791a + " is out of bounds"));
             }
         }
 
-        @Override // qj.b
-        public void onError(Throwable th2) {
-            this.f30466h.onError(th2);
+        @Override // rx.b
+        public void onError(Throwable th) {
+            this.f35795g.onError(th);
         }
 
-        @Override // qj.b
-        public void onNext(T t10) {
-            int i10 = this.f30465g;
-            this.f30465g = i10 + 1;
-            if (i10 == OperatorElementAt.this.f30462b) {
-                this.f30466h.onNext(t10);
-                this.f30466h.onCompleted();
+        @Override // rx.b
+        public void onNext(T t) {
+            int i2 = this.f35794f;
+            this.f35794f = i2 + 1;
+            if (i2 == OperatorElementAt.this.f35791a) {
+                this.f35795g.onNext(t);
+                this.f35795g.onCompleted();
                 unsubscribe();
             }
         }
     }
 
-    public OperatorElementAt(int i10) {
-        this(i10, null, false);
+    public OperatorElementAt(int i2) {
+        this(i2, null, false);
     }
 
-    public OperatorElementAt(int i10, T t10) {
-        this(i10, t10, true);
+    public OperatorElementAt(int i2, T t) {
+        this(i2, t, true);
     }
 
-    @Override // wj.o
-    public g<? super T> call(g<? super T> gVar) {
+    @Override // rx.k.o
+    public rx.g<? super T> call(rx.g<? super T> gVar) {
         a aVar = new a(gVar);
         gVar.b(aVar);
         return aVar;
     }
 
-    public OperatorElementAt(int i10, T t10, boolean z10) {
-        if (i10 >= 0) {
-            this.f30462b = i10;
-            this.f30464d = t10;
-            this.f30463c = z10;
+    private OperatorElementAt(int i2, T t, boolean z) {
+        if (i2 >= 0) {
+            this.f35791a = i2;
+            this.f35793c = t;
+            this.f35792b = z;
         } else {
-            throw new IndexOutOfBoundsException(i10 + " is out of bounds");
+            throw new IndexOutOfBoundsException(i2 + " is out of bounds");
         }
     }
 }

@@ -14,50 +14,42 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
-/* loaded from: classes3.dex */
+/* loaded from: classes4.dex */
 public class NativeUnifiedAD extends NativeAbstractAD<NUADI> {
 
+    /* renamed from: g */
+    private AdListenerAdapter f23948g;
+
     /* renamed from: h */
-    private AdListenerAdapter f16472h;
+    private NativeADUnifiedListener f23949h;
 
     /* renamed from: i */
-    private NativeADUnifiedListener f16473i;
+    private List<Integer> f23950i = new ArrayList();
 
     /* renamed from: j */
-    private List<Integer> f16474j = new ArrayList();
+    private List<String> f23951j;
+    private volatile int k;
+    private volatile int l;
+    private String m;
+    private LoadAdParams n;
 
-    /* renamed from: k */
-    private List<String> f16475k;
-
-    /* renamed from: l */
-    private volatile int f16476l;
-
-    /* renamed from: m */
-    private volatile int f16477m;
-
-    /* renamed from: n */
-    private String f16478n;
-
-    /* renamed from: o */
-    private LoadAdParams f16479o;
-
-    public static class AdListenerAdapter implements ADListener {
+    private static class AdListenerAdapter implements ADListener {
 
         /* renamed from: a */
-        private NativeADUnifiedListener f16480a;
+        private NativeADUnifiedListener f23952a;
 
         public AdListenerAdapter(NativeADUnifiedListener nativeADUnifiedListener) {
-            this.f16480a = nativeADUnifiedListener;
+            this.f23952a = nativeADUnifiedListener;
         }
 
         @Override // com.qq.e.comm.adevent.ADListener
         public void onADEvent(ADEvent aDEvent) {
             Integer num;
-            if (this.f16480a != null) {
+            if (this.f23952a != null) {
                 int type = aDEvent.getType();
                 if (type != 100) {
                     if (type == 101 && (num = (Integer) aDEvent.getParam(Integer.class)) != null) {
-                        this.f16480a.onNoAD(AdErrorConvertor.formatErrorCode(num.intValue()));
+                        this.f23952a.onNoAD(AdErrorConvertor.formatErrorCode(num.intValue()));
                         return;
                     }
                     return;
@@ -71,88 +63,120 @@ public class NativeUnifiedAD extends NativeAbstractAD<NUADI> {
                 while (it.hasNext()) {
                     arrayList.add(new NativeUnifiedADDataAdapter((NativeUnifiedADData) it.next()));
                 }
-                this.f16480a.onADLoaded(arrayList);
+                this.f23952a.onADLoaded(arrayList);
             }
         }
     }
 
     public NativeUnifiedAD(Context context, String str, NativeADUnifiedListener nativeADUnifiedListener) {
-        this.f16473i = nativeADUnifiedListener;
-        this.f16472h = new AdListenerAdapter(nativeADUnifiedListener);
+        this.f23949h = nativeADUnifiedListener;
+        this.f23948g = new AdListenerAdapter(nativeADUnifiedListener);
         a(context, str);
     }
 
-    private void a(int i10, boolean z10) {
+    public NativeUnifiedAD(Context context, String str, NativeADUnifiedListener nativeADUnifiedListener, String str2) {
+        this.f23949h = nativeADUnifiedListener;
+        this.f23948g = new AdListenerAdapter(nativeADUnifiedListener);
+        a(context, str, str2);
+    }
+
+    private void a(int i2, boolean z) {
         if (a()) {
             if (!b()) {
-                if (z10) {
-                    this.f16474j.add(Integer.valueOf(i10));
+                if (z) {
+                    this.f23950i.add(Integer.valueOf(i2));
                     return;
                 }
                 return;
             }
-            T t10 = this.f16367a;
-            if (t10 != 0) {
-                LoadAdParams loadAdParams = this.f16479o;
-                NUADI nuadi = (NUADI) t10;
+            T t = this.f23859a;
+            if (t != 0) {
+                LoadAdParams loadAdParams = this.n;
+                NUADI nuadi = (NUADI) t;
                 if (loadAdParams != null) {
-                    nuadi.loadData(i10, loadAdParams);
+                    nuadi.loadData(i2, loadAdParams);
                 } else {
-                    nuadi.loadData(i10);
+                    nuadi.loadData(i2);
                 }
             }
         }
     }
 
     @Override // com.qq.e.ads.AbstractAD
-    public void b(int i10) {
-        NativeADUnifiedListener nativeADUnifiedListener = this.f16473i;
+    protected Object a(Context context, POFactory pOFactory, String str, String str2, String str3) {
+        return pOFactory.getNativeAdManagerDelegate(context, str, str2, str3, this.f23948g);
+    }
+
+    @Override // com.qq.e.ads.NativeAbstractAD, com.qq.e.ads.AbstractAD
+    public void a(NUADI nuadi) {
+        super.a((NativeUnifiedAD) nuadi);
+        nuadi.setMinVideoDuration(this.k);
+        nuadi.setMaxVideoDuration(this.l);
+        nuadi.setVastClassName(this.m);
+        List<String> list = this.f23951j;
+        if (list != null) {
+            setCategories(list);
+        }
+        Iterator<Integer> it = this.f23950i.iterator();
+        while (it.hasNext()) {
+            a(it.next().intValue(), false);
+        }
+    }
+
+    @Override // com.qq.e.ads.AbstractAD
+    protected void b(int i2) {
+        NativeADUnifiedListener nativeADUnifiedListener = this.f23949h;
         if (nativeADUnifiedListener != null) {
-            nativeADUnifiedListener.onNoAD(AdErrorConvertor.formatErrorCode(i10));
+            nativeADUnifiedListener.onNoAD(AdErrorConvertor.formatErrorCode(i2));
         }
     }
 
     public String getAdNetWorkName() {
-        T t10 = this.f16367a;
-        if (t10 != 0) {
-            return ((NUADI) t10).getAdNetWorkName();
+        T t = this.f23859a;
+        if (t != 0) {
+            return ((NUADI) t).getAdNetWorkName();
         }
         a("getAdNetWorkName");
         return null;
     }
 
-    public void loadData(int i10) {
-        a(i10, true);
+    public void loadData(int i2) {
+        a(i2, true);
+    }
+
+    public void loadData(int i2, LoadAdParams loadAdParams) {
+        this.n = loadAdParams;
+        loadData(i2);
     }
 
     public void setCategories(List<String> list) {
-        this.f16475k = list;
-        T t10 = this.f16367a;
-        if (t10 == 0 || list == null) {
+        this.f23951j = list;
+        T t = this.f23859a;
+        if (t == 0 || list == null) {
             return;
         }
-        ((NUADI) t10).setCategories(list);
+        ((NUADI) t).setCategories(list);
     }
 
-    public void setMaxVideoDuration(int i10) {
-        this.f16477m = i10;
-        if (this.f16477m > 0 && this.f16476l > this.f16477m) {
+    public void setMaxVideoDuration(int i2) {
+        this.l = i2;
+        if (this.l > 0 && this.k > this.l) {
             GDTLogger.e("maxVideoDuration 设置值非法，不得小于minVideoDuration");
         }
-        T t10 = this.f16367a;
-        if (t10 != 0) {
-            ((NUADI) t10).setMaxVideoDuration(this.f16477m);
+        T t = this.f23859a;
+        if (t != 0) {
+            ((NUADI) t).setMaxVideoDuration(this.l);
         }
     }
 
-    public void setMinVideoDuration(int i10) {
-        this.f16476l = i10;
-        if (this.f16477m > 0 && this.f16476l > this.f16477m) {
+    public void setMinVideoDuration(int i2) {
+        this.k = i2;
+        if (this.l > 0 && this.k > this.l) {
             GDTLogger.e("minVideoDuration 设置值非法，不得大于maxVideoDuration");
         }
-        T t10 = this.f16367a;
-        if (t10 != 0) {
-            ((NUADI) t10).setMinVideoDuration(this.f16476l);
+        T t = this.f23859a;
+        if (t != 0) {
+            ((NUADI) t).setMinVideoDuration(this.k);
         }
     }
 
@@ -161,42 +185,10 @@ public class NativeUnifiedAD extends NativeAbstractAD<NUADI> {
             GDTLogger.e("Vast class name 不能为空");
             return;
         }
-        this.f16478n = str;
-        T t10 = this.f16367a;
-        if (t10 != 0) {
-            ((NUADI) t10).setVastClassName(str);
-        }
-    }
-
-    public NativeUnifiedAD(Context context, String str, NativeADUnifiedListener nativeADUnifiedListener, String str2) {
-        this.f16473i = nativeADUnifiedListener;
-        this.f16472h = new AdListenerAdapter(nativeADUnifiedListener);
-        a(context, str, str2);
-    }
-
-    @Override // com.qq.e.ads.AbstractAD
-    public Object a(Context context, POFactory pOFactory, String str, String str2, String str3) {
-        return pOFactory.getNativeAdManagerDelegate(context, str, str2, str3, this.f16472h);
-    }
-
-    public void loadData(int i10, LoadAdParams loadAdParams) {
-        this.f16479o = loadAdParams;
-        loadData(i10);
-    }
-
-    @Override // com.qq.e.ads.NativeAbstractAD, com.qq.e.ads.AbstractAD
-    public void a(Object obj) {
-        NUADI nuadi = (NUADI) obj;
-        nuadi.setMinVideoDuration(this.f16476l);
-        nuadi.setMaxVideoDuration(this.f16477m);
-        nuadi.setVastClassName(this.f16478n);
-        List<String> list = this.f16475k;
-        if (list != null) {
-            setCategories(list);
-        }
-        Iterator<Integer> it = this.f16474j.iterator();
-        while (it.hasNext()) {
-            a(it.next().intValue(), false);
+        this.m = str;
+        T t = this.f23859a;
+        if (t != 0) {
+            ((NUADI) t).setVastClassName(str);
         }
     }
 }

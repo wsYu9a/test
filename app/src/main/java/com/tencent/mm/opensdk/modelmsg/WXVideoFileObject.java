@@ -20,6 +20,11 @@ public class WXVideoFileObject implements WXMediaMessage.IMediaObject {
         this.filePath = null;
     }
 
+    public WXVideoFileObject(String str) {
+        this.shareScene = 0;
+        this.filePath = str;
+    }
+
     private int getFileSize(String str) {
         return b.a(str);
     }
@@ -57,10 +62,5 @@ public class WXVideoFileObject implements WXMediaMessage.IMediaObject {
         this.filePath = bundle.getString("_wxvideofileobject_filePath");
         this.shareScene = bundle.getInt("_wxvideofileobject_shareScene", 0);
         this.shareTicket = bundle.getString("_wxvideofileobject_shareTicketh");
-    }
-
-    public WXVideoFileObject(String str) {
-        this.shareScene = 0;
-        this.filePath = str;
     }
 }

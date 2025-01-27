@@ -31,11 +31,11 @@ public interface IDownloadCompleteAidlHandler extends IInterface {
         static final int TRANSACTION_handle = 1;
         static final int TRANSACTION_needHandle = 2;
 
-        public static class Proxy implements IDownloadCompleteAidlHandler {
+        private static class Proxy implements IDownloadCompleteAidlHandler {
             public static IDownloadCompleteAidlHandler sDefaultImpl;
             private IBinder mRemote;
 
-            public Proxy(IBinder iBinder) {
+            Proxy(IBinder iBinder) {
                 this.mRemote = iBinder;
             }
 
@@ -62,17 +62,12 @@ public interface IDownloadCompleteAidlHandler extends IInterface {
                     }
                     if (this.mRemote.transact(1, obtain, obtain2, 0) || Stub.getDefaultImpl() == null) {
                         obtain2.readException();
-                        obtain2.recycle();
-                        obtain.recycle();
                     } else {
                         Stub.getDefaultImpl().handle(downloadInfo);
-                        obtain2.recycle();
-                        obtain.recycle();
                     }
-                } catch (Throwable th2) {
+                } finally {
                     obtain2.recycle();
                     obtain.recycle();
-                    throw th2;
                 }
             }
 
@@ -89,20 +84,13 @@ public interface IDownloadCompleteAidlHandler extends IInterface {
                         obtain.writeInt(0);
                     }
                     if (!this.mRemote.transact(2, obtain, obtain2, 0) && Stub.getDefaultImpl() != null) {
-                        boolean needHandle = Stub.getDefaultImpl().needHandle(downloadInfo);
-                        obtain2.recycle();
-                        obtain.recycle();
-                        return needHandle;
+                        return Stub.getDefaultImpl().needHandle(downloadInfo);
                     }
                     obtain2.readException();
-                    boolean z10 = obtain2.readInt() != 0;
+                    return obtain2.readInt() != 0;
+                } finally {
                     obtain2.recycle();
                     obtain.recycle();
-                    return z10;
-                } catch (Throwable th2) {
-                    obtain2.recycle();
-                    obtain.recycle();
-                    throw th2;
                 }
             }
         }
@@ -137,16 +125,16 @@ public interface IDownloadCompleteAidlHandler extends IInterface {
         }
 
         @Override // android.os.Binder
-        public boolean onTransact(int i10, Parcel parcel, Parcel parcel2, int i11) throws RemoteException {
-            if (i10 == 1) {
+        public boolean onTransact(int i2, Parcel parcel, Parcel parcel2, int i3) throws RemoteException {
+            if (i2 == 1) {
                 parcel.enforceInterface(DESCRIPTOR);
                 handle(parcel.readInt() != 0 ? DownloadInfo.CREATOR.createFromParcel(parcel) : null);
                 parcel2.writeNoException();
                 return true;
             }
-            if (i10 != 2) {
-                if (i10 != 1598968902) {
-                    return super.onTransact(i10, parcel, parcel2, i11);
+            if (i2 != 2) {
+                if (i2 != 1598968902) {
+                    return super.onTransact(i2, parcel, parcel2, i3);
                 }
                 parcel2.writeString(DESCRIPTOR);
                 return true;

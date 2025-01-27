@@ -5,11 +5,10 @@ import android.view.View;
 import androidx.annotation.Keep;
 import com.kwad.sdk.api.core.KsAdSdkApi;
 import com.kwad.sdk.api.model.AdExposureFailedReason;
-import com.kwad.sdk.api.model.KSAdInfoData;
 
 @KsAdSdkApi
 @Keep
-/* loaded from: classes3.dex */
+/* loaded from: classes2.dex */
 public interface KsSplashScreenAd extends BaseKSAd {
 
     @KsAdSdkApi
@@ -25,7 +24,7 @@ public interface KsSplashScreenAd extends BaseKSAd {
 
         @KsAdSdkApi
         @Keep
-        void onAdShowError(int i10, String str);
+        void onAdShowError(int i2, String str);
 
         @KsAdSdkApi
         @Keep
@@ -58,10 +57,6 @@ public interface KsSplashScreenAd extends BaseKSAd {
 
     @KsAdSdkApi
     @Keep
-    KSAdInfoData getKSAdInfoData();
-
-    @KsAdSdkApi
-    @Keep
     int getMaterialType();
 
     @KsAdSdkApi
@@ -79,14 +74,14 @@ public interface KsSplashScreenAd extends BaseKSAd {
 
     @KsAdSdkApi
     @Keep
-    void reportAdExposureFailed(int i10, AdExposureFailedReason adExposureFailedReason);
+    void reportAdExposureFailed(int i2, AdExposureFailedReason adExposureFailedReason);
 
     @KsAdSdkApi
     @Keep
     @Deprecated
-    void setBidEcpm(int i10);
+    void setBidEcpm(int i2);
 
     @KsAdSdkApi
     @Keep
-    void setBidEcpm(long j10, long j11);
+    void setBidEcpm(long j2, long j3);
 }

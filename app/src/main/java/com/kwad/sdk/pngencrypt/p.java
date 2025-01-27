@@ -1,62 +1,62 @@
 package com.kwad.sdk.pngencrypt;
 
-/* loaded from: classes3.dex */
+/* loaded from: classes2.dex */
 final class p {
-    public final e aOG;
-    public final k aPC;
-    int aPm;
-    int aPp;
-    int aPq;
-    int aPr;
-    int aPs;
-    public final boolean aQe;
-    int aQf;
-    int aQg;
-    int aQh;
-    int aQi;
-    int aQj;
-    int aQk;
-    int aQl;
+    public final e auS;
+    int avB;
+    int avC;
+    int avD;
+    int avE;
+    public final k avO;
+    int avy;
+    public final boolean awq;
+    int awr;
+    int aws;
+    int awt;
+    int awu;
+    int awv;
+    int aww;
+    int awx;
     byte[] buf;
 
     public p(k kVar, e eVar) {
-        this.aPC = kVar;
-        this.aOG = eVar;
-        this.aQe = eVar != null;
+        this.avO = kVar;
+        this.auS = eVar;
+        this.awq = eVar != null;
     }
 
-    public final void h(byte[] bArr, int i10) {
+    final void h(byte[] bArr, int i2) {
         this.buf = bArr;
-        this.aQl = i10;
+        this.awx = i2;
     }
 
-    public final void update(int i10) {
-        this.aQf = i10;
-        if (!this.aQe) {
-            this.aPm = 1;
-            this.aPp = 1;
-            this.aPq = 1;
-            this.aPr = 0;
-            this.aPs = 0;
-            this.aQh = i10;
-            this.aQg = i10;
-            k kVar = this.aPC;
-            this.aQi = kVar.aPn;
-            this.aQj = kVar.aPo;
-            this.aQk = kVar.aPO;
+    final void update(int i2) {
+        this.awr = i2;
+        if (!this.awq) {
+            this.avy = 1;
+            this.avB = 1;
+            this.avC = 1;
+            this.avD = 0;
+            this.avE = 0;
+            this.awt = i2;
+            this.aws = i2;
+            k kVar = this.avO;
+            this.awu = kVar.avz;
+            this.awv = kVar.avA;
+            this.aww = kVar.awa;
             return;
         }
-        this.aPm = this.aOG.LG();
-        e eVar = this.aOG;
-        this.aPq = eVar.aPq;
-        this.aPp = eVar.aPp;
-        this.aPs = eVar.aPs;
-        this.aPr = eVar.aPr;
-        this.aQg = eVar.LF();
-        this.aQh = this.aOG.LE();
-        this.aQi = this.aOG.LH();
-        int LI = this.aOG.LI();
-        this.aQj = LI;
-        this.aQk = ((this.aPC.aPM * LI) + 7) / 8;
+        this.avy = this.auS.BE();
+        e eVar = this.auS;
+        this.avC = eVar.avC;
+        this.avB = eVar.avB;
+        this.avE = eVar.avE;
+        this.avD = eVar.avD;
+        this.aws = eVar.BD();
+        this.awt = this.auS.BC();
+        this.awu = this.auS.BF();
+        int BG = this.auS.BG();
+        this.awv = BG;
+        this.aww = ((this.avO.avY * BG) + 7) / 8;
     }
 }

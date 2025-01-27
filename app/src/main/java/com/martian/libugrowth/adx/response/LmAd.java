@@ -57,43 +57,43 @@ public class LmAd {
         return this.page;
     }
 
-    public void setAdtype(Integer num) {
-        this.adtype = num;
+    public void setAdtype(Integer adtype) {
+        this.adtype = adtype;
     }
 
-    public void setCreative(String str) {
-        this.creative = str;
+    public void setCreative(String creative) {
+        this.creative = creative;
     }
 
-    public void setCtype(Integer num) {
-        this.ctype = num;
+    public void setCtype(Integer ctype) {
+        this.ctype = ctype;
     }
 
-    public void setDelay(Integer num) {
-        this.delay = num;
+    public void setDelay(Integer delay) {
+        this.delay = delay;
     }
 
-    public void setDuration(Integer num) {
-        this.duration = num;
+    public void setDuration(Integer duration) {
+        this.duration = duration;
     }
 
-    public void setEvent(LmEvent lmEvent) {
-        this.event = lmEvent;
+    public void setEvent(LmEvent event) {
+        this.event = event;
     }
 
-    public void setExt(LmEnv lmEnv) {
-        this.ext = lmEnv;
+    public void setExt(LmEnv ext) {
+        this.ext = ext;
     }
 
-    public void setIdx(Integer num) {
-        this.idx = num;
+    public void setIdx(Integer idx) {
+        this.idx = idx;
     }
 
-    public void setMid(Integer num) {
-        this.mid = num;
+    public void setMid(Integer mid) {
+        this.mid = mid;
     }
 
-    public void setPage(String str) {
-        this.page = str;
+    public void setPage(String page) {
+        this.page = page;
     }
 }

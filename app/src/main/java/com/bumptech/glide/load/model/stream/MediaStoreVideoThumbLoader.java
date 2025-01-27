@@ -14,7 +14,7 @@ import com.bumptech.glide.load.resource.bitmap.VideoDecoder;
 import com.bumptech.glide.signature.ObjectKey;
 import java.io.InputStream;
 
-/* loaded from: classes2.dex */
+/* loaded from: classes.dex */
 public class MediaStoreVideoThumbLoader implements ModelLoader<Uri, InputStream> {
     private final Context context;
 
@@ -41,14 +41,14 @@ public class MediaStoreVideoThumbLoader implements ModelLoader<Uri, InputStream>
     }
 
     private boolean isRequestingDefaultFrame(Options options) {
-        Long l10 = (Long) options.get(VideoDecoder.TARGET_FRAME);
-        return l10 != null && l10.longValue() == -1;
+        Long l = (Long) options.get(VideoDecoder.TARGET_FRAME);
+        return l != null && l.longValue() == -1;
     }
 
     @Override // com.bumptech.glide.load.model.ModelLoader
     @Nullable
-    public ModelLoader.LoadData<InputStream> buildLoadData(@NonNull Uri uri, int i10, int i11, @NonNull Options options) {
-        if (MediaStoreUtil.isThumbnailSize(i10, i11) && isRequestingDefaultFrame(options)) {
+    public ModelLoader.LoadData<InputStream> buildLoadData(@NonNull Uri uri, int i2, int i3, @NonNull Options options) {
+        if (MediaStoreUtil.isThumbnailSize(i2, i3) && isRequestingDefaultFrame(options)) {
             return new ModelLoader.LoadData<>(new ObjectKey(uri), ThumbFetcher.buildVideoFetcher(this.context, uri));
         }
         return null;

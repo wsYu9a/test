@@ -1,207 +1,205 @@
 package com.kwad.components.ad.draw;
 
 import android.content.Context;
+import android.os.Build;
 import android.view.View;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import com.kuaishou.pushad.KsAdGlobalWatcher;
+import com.kwad.sdk.KsAdSDKImpl;
 import com.kwad.sdk.api.KsDrawAd;
 import com.kwad.sdk.api.core.AbstractKsDrawAd;
 import com.kwad.sdk.api.model.AdExposureFailedReason;
 import com.kwad.sdk.core.imageloader.KSImageLoader;
-import com.kwad.sdk.core.response.b.e;
 import com.kwad.sdk.core.response.model.AdTemplate;
-import com.kwad.sdk.l;
-import com.kwad.sdk.n.m;
+import com.kwad.sdk.j.k;
 import java.util.HashMap;
 import java.util.Map;
 
-/* loaded from: classes2.dex */
+/* loaded from: classes.dex */
 public final class c extends AbstractKsDrawAd implements com.kwad.components.core.internal.api.a {
 
-    /* renamed from: de */
     @Nullable
-    private KsDrawAd.AdInteractionListener f11444de;
-    private b dp;
+    private KsDrawAd.AdInteractionListener bV;
+    private b cf;
 
     @NonNull
     private AdTemplate mAdTemplate;
-    private com.kwad.components.core.internal.api.c bz = new com.kwad.components.core.internal.api.c();
-
-    /* renamed from: dk */
-    private final com.kwad.sdk.core.h.b f11445dk = new com.kwad.sdk.core.h.b() { // from class: com.kwad.components.ad.draw.c.1
-        public AnonymousClass1() {
+    private com.kwad.components.core.internal.api.c cg = new com.kwad.components.core.internal.api.c();
+    private final com.kwad.sdk.core.g.b ca = new com.kwad.sdk.core.g.b() { // from class: com.kwad.components.ad.draw.c.1
+        AnonymousClass1() {
         }
 
-        @Override // com.kwad.sdk.core.h.b
-        public final void aH() {
-            c.this.bz.h(c.this);
+        @Override // com.kwad.sdk.core.g.b
+        public final void ap() {
+            c.this.cg.a(c.this);
         }
 
-        @Override // com.kwad.sdk.core.h.b
-        public final void aI() {
-            c.this.bz.i(c.this);
+        @Override // com.kwad.sdk.core.g.b
+        public final void aq() {
+            c.this.cg.b(c.this);
         }
     };
-    private final KsDrawAd.AdInteractionListener dq = new KsDrawAd.AdInteractionListener() { // from class: com.kwad.components.ad.draw.c.2
-        public AnonymousClass2() {
+    private final KsDrawAd.AdInteractionListener ch = new KsDrawAd.AdInteractionListener() { // from class: com.kwad.components.ad.draw.c.2
+        AnonymousClass2() {
         }
 
         @Override // com.kwad.sdk.api.KsDrawAd.AdInteractionListener
         public final void onAdClicked() {
-            if (c.this.f11444de != null) {
-                c.this.f11444de.onAdClicked();
+            if (c.this.bV != null) {
+                c.this.bV.onAdClicked();
             }
         }
 
         @Override // com.kwad.sdk.api.KsDrawAd.AdInteractionListener
         public final void onAdShow() {
-            if (c.this.f11444de != null) {
-                c.this.f11444de.onAdShow();
+            if (c.this.bV != null) {
+                c.this.bV.onAdShow();
             }
         }
 
         @Override // com.kwad.sdk.api.KsDrawAd.AdInteractionListener
         public final void onVideoPlayEnd() {
-            if (c.this.f11444de != null) {
+            if (c.this.bV != null) {
                 try {
-                    c.this.f11444de.onVideoPlayEnd();
-                } catch (Throwable th2) {
-                    com.kwad.sdk.core.d.c.printStackTraceOnly(th2);
+                    c.this.bV.onVideoPlayEnd();
+                } catch (Throwable th) {
+                    com.kwad.sdk.core.d.b.printStackTraceOnly(th);
                 }
             }
         }
 
         @Override // com.kwad.sdk.api.KsDrawAd.AdInteractionListener
         public final void onVideoPlayError() {
-            if (c.this.f11444de != null) {
+            if (c.this.bV != null) {
                 try {
-                    c.this.f11444de.onVideoPlayError();
-                } catch (Throwable th2) {
-                    com.kwad.sdk.core.d.c.printStackTraceOnly(th2);
+                    c.this.bV.onVideoPlayError();
+                } catch (Throwable th) {
+                    com.kwad.sdk.core.d.b.printStackTraceOnly(th);
                 }
             }
         }
 
         @Override // com.kwad.sdk.api.KsDrawAd.AdInteractionListener
         public final void onVideoPlayPause() {
-            if (c.this.f11444de != null) {
+            if (c.this.bV != null) {
                 try {
-                    c.this.f11444de.onVideoPlayPause();
-                } catch (Throwable th2) {
-                    com.kwad.sdk.core.d.c.printStackTraceOnly(th2);
+                    c.this.bV.onVideoPlayPause();
+                } catch (Throwable th) {
+                    com.kwad.sdk.core.d.b.printStackTraceOnly(th);
                 }
             }
         }
 
         @Override // com.kwad.sdk.api.KsDrawAd.AdInteractionListener
         public final void onVideoPlayResume() {
-            if (c.this.f11444de != null) {
+            if (c.this.bV != null) {
                 try {
-                    c.this.f11444de.onVideoPlayResume();
-                } catch (Throwable th2) {
-                    com.kwad.sdk.core.d.c.printStackTraceOnly(th2);
+                    c.this.bV.onVideoPlayResume();
+                } catch (Throwable th) {
+                    com.kwad.sdk.core.d.b.printStackTraceOnly(th);
                 }
             }
         }
 
         @Override // com.kwad.sdk.api.KsDrawAd.AdInteractionListener
         public final void onVideoPlayStart() {
-            if (c.this.f11444de != null) {
+            if (c.this.bV != null) {
                 try {
-                    c.this.f11444de.onVideoPlayStart();
-                } catch (Throwable th2) {
-                    com.kwad.sdk.core.d.c.printStackTraceOnly(th2);
+                    c.this.bV.onVideoPlayStart();
+                } catch (Throwable th) {
+                    com.kwad.sdk.core.d.b.printStackTraceOnly(th);
                 }
             }
         }
     };
 
     /* renamed from: com.kwad.components.ad.draw.c$1 */
-    public class AnonymousClass1 extends com.kwad.sdk.core.h.b {
-        public AnonymousClass1() {
+    final class AnonymousClass1 extends com.kwad.sdk.core.g.b {
+        AnonymousClass1() {
         }
 
-        @Override // com.kwad.sdk.core.h.b
-        public final void aH() {
-            c.this.bz.h(c.this);
+        @Override // com.kwad.sdk.core.g.b
+        public final void ap() {
+            c.this.cg.a(c.this);
         }
 
-        @Override // com.kwad.sdk.core.h.b
-        public final void aI() {
-            c.this.bz.i(c.this);
+        @Override // com.kwad.sdk.core.g.b
+        public final void aq() {
+            c.this.cg.b(c.this);
         }
     }
 
     /* renamed from: com.kwad.components.ad.draw.c$2 */
-    public class AnonymousClass2 implements KsDrawAd.AdInteractionListener {
-        public AnonymousClass2() {
+    final class AnonymousClass2 implements KsDrawAd.AdInteractionListener {
+        AnonymousClass2() {
         }
 
         @Override // com.kwad.sdk.api.KsDrawAd.AdInteractionListener
         public final void onAdClicked() {
-            if (c.this.f11444de != null) {
-                c.this.f11444de.onAdClicked();
+            if (c.this.bV != null) {
+                c.this.bV.onAdClicked();
             }
         }
 
         @Override // com.kwad.sdk.api.KsDrawAd.AdInteractionListener
         public final void onAdShow() {
-            if (c.this.f11444de != null) {
-                c.this.f11444de.onAdShow();
+            if (c.this.bV != null) {
+                c.this.bV.onAdShow();
             }
         }
 
         @Override // com.kwad.sdk.api.KsDrawAd.AdInteractionListener
         public final void onVideoPlayEnd() {
-            if (c.this.f11444de != null) {
+            if (c.this.bV != null) {
                 try {
-                    c.this.f11444de.onVideoPlayEnd();
-                } catch (Throwable th2) {
-                    com.kwad.sdk.core.d.c.printStackTraceOnly(th2);
+                    c.this.bV.onVideoPlayEnd();
+                } catch (Throwable th) {
+                    com.kwad.sdk.core.d.b.printStackTraceOnly(th);
                 }
             }
         }
 
         @Override // com.kwad.sdk.api.KsDrawAd.AdInteractionListener
         public final void onVideoPlayError() {
-            if (c.this.f11444de != null) {
+            if (c.this.bV != null) {
                 try {
-                    c.this.f11444de.onVideoPlayError();
-                } catch (Throwable th2) {
-                    com.kwad.sdk.core.d.c.printStackTraceOnly(th2);
+                    c.this.bV.onVideoPlayError();
+                } catch (Throwable th) {
+                    com.kwad.sdk.core.d.b.printStackTraceOnly(th);
                 }
             }
         }
 
         @Override // com.kwad.sdk.api.KsDrawAd.AdInteractionListener
         public final void onVideoPlayPause() {
-            if (c.this.f11444de != null) {
+            if (c.this.bV != null) {
                 try {
-                    c.this.f11444de.onVideoPlayPause();
-                } catch (Throwable th2) {
-                    com.kwad.sdk.core.d.c.printStackTraceOnly(th2);
+                    c.this.bV.onVideoPlayPause();
+                } catch (Throwable th) {
+                    com.kwad.sdk.core.d.b.printStackTraceOnly(th);
                 }
             }
         }
 
         @Override // com.kwad.sdk.api.KsDrawAd.AdInteractionListener
         public final void onVideoPlayResume() {
-            if (c.this.f11444de != null) {
+            if (c.this.bV != null) {
                 try {
-                    c.this.f11444de.onVideoPlayResume();
-                } catch (Throwable th2) {
-                    com.kwad.sdk.core.d.c.printStackTraceOnly(th2);
+                    c.this.bV.onVideoPlayResume();
+                } catch (Throwable th) {
+                    com.kwad.sdk.core.d.b.printStackTraceOnly(th);
                 }
             }
         }
 
         @Override // com.kwad.sdk.api.KsDrawAd.AdInteractionListener
         public final void onVideoPlayStart() {
-            if (c.this.f11444de != null) {
+            if (c.this.bV != null) {
                 try {
-                    c.this.f11444de.onVideoPlayStart();
-                } catch (Throwable th2) {
-                    com.kwad.sdk.core.d.c.printStackTraceOnly(th2);
+                    c.this.bV.onVideoPlayStart();
+                } catch (Throwable th) {
+                    com.kwad.sdk.core.d.b.printStackTraceOnly(th);
                 }
             }
         }
@@ -209,8 +207,23 @@ public final class c extends AbstractKsDrawAd implements com.kwad.components.cor
 
     public c(@NonNull AdTemplate adTemplate) {
         this.mAdTemplate = adTemplate;
-        KSImageLoader.preloadImage(com.kwad.sdk.core.response.b.a.bt(e.eb(adTemplate)).getUrl(), this.mAdTemplate);
-        com.kwad.components.ad.j.b.fc().a(this);
+        KSImageLoader.preloadImage(com.kwad.sdk.core.response.a.a.bi(com.kwad.sdk.core.response.a.d.cb(adTemplate)).getUrl(), this.mAdTemplate);
+        KsAdGlobalWatcher.getInstance().watch(this);
+    }
+
+    @Override // com.kwad.components.core.internal.api.a
+    public final void a(com.kwad.components.core.internal.api.b bVar) {
+        this.cg.a(bVar);
+    }
+
+    @Override // com.kwad.components.core.internal.api.a
+    public final boolean ao() {
+        return true;
+    }
+
+    @Override // com.kwad.components.core.internal.api.a
+    public final void b(com.kwad.components.core.internal.api.b bVar) {
+        this.cg.b(bVar);
     }
 
     @Override // com.kwad.components.core.internal.api.a
@@ -221,101 +234,76 @@ public final class c extends AbstractKsDrawAd implements com.kwad.components.cor
     @Override // com.kwad.sdk.api.core.AbstractKsDrawAd
     @Nullable
     public final View getDrawView2(Context context) {
-        if (context == null || !l.At().zE()) {
+        if (context == null || !KsAdSDKImpl.get().hasInitFinish()) {
             return null;
         }
         try {
-            context = m.wrapContextIfNeed(context);
-            if (this.dp == null) {
+            context = k.wrapContextIfNeed(context);
+            com.kwad.sdk.g.a.U("draw", "show");
+            if (this.cf == null) {
                 b bVar = new b(context);
-                this.dp = bVar;
-                bVar.setPageExitListener(this.f11445dk);
-                this.dp.setAdInteractionListener(this.f11444de);
-                this.dp.e(this.mAdTemplate);
+                this.cf = bVar;
+                bVar.setPageExitListener(this.ca);
+                this.cf.setAdInteractionListener(this.bV);
+                this.cf.a(this.mAdTemplate);
             } else {
-                com.kwad.sdk.core.d.c.i("KSDrawAdControl", "mDrawVideoView is not null");
+                com.kwad.sdk.core.d.b.i("KSDrawAdControl", "mDrawVideoView is not null");
             }
-        } catch (Throwable th2) {
-            if (!l.At().zB()) {
-                throw th2;
+            com.kwad.sdk.g.a.V("draw", "show");
+        } catch (Throwable th) {
+            if (!KsAdSDKImpl.get().getIsExternal()) {
+                throw th;
             }
             RuntimeException runtimeException = new RuntimeException("context:" + context.getClass().getName() + "--classloader:" + context.getClass().getClassLoader());
-            runtimeException.addSuppressed(th2);
-            com.kwad.components.core.d.a.reportSdkCaughtException(runtimeException);
+            int i2 = Build.VERSION.SDK_INT;
+            com.kwad.components.core.c.a.b(runtimeException);
         }
-        return this.dp;
+        return this.cf;
     }
 
     @Override // com.kwad.sdk.api.KsDrawAd
     public final int getECPM() {
-        return com.kwad.sdk.core.response.b.a.aR(e.eb(this.mAdTemplate));
+        return com.kwad.sdk.core.response.a.a.aJ(com.kwad.sdk.core.response.a.d.cb(this.mAdTemplate));
     }
 
     @Override // com.kwad.sdk.api.KsDrawAd
     public final int getInteractionType() {
-        return com.kwad.sdk.core.response.b.a.aQ(e.eb(this.mAdTemplate));
+        return com.kwad.sdk.core.response.a.a.aI(com.kwad.sdk.core.response.a.d.cb(this.mAdTemplate));
     }
 
     @Override // com.kwad.sdk.api.KsDrawAd
     public final int getMaterialType() {
-        return com.kwad.sdk.core.response.b.a.be(e.eb(this.mAdTemplate));
+        return com.kwad.sdk.core.response.a.a.aW(com.kwad.sdk.core.response.a.d.cb(this.mAdTemplate));
     }
 
     @Override // com.kwad.sdk.api.BaseKSAd
     public final Map<String, Object> getMediaExtraInfo() {
         HashMap hashMap = new HashMap();
-        if (com.kwad.sdk.core.config.d.Dx()) {
+        if (com.kwad.sdk.core.config.d.ur()) {
             hashMap.put("llsid", Long.valueOf(this.mAdTemplate.llsid));
         }
         return hashMap;
     }
 
     @Override // com.kwad.sdk.api.KsDrawAd
-    public final void reportAdExposureFailed(int i10, AdExposureFailedReason adExposureFailedReason) {
-        com.kwad.sdk.core.adlog.c.a(this.mAdTemplate, i10, adExposureFailedReason);
+    public final void reportAdExposureFailed(int i2, AdExposureFailedReason adExposureFailedReason) {
+        com.kwad.sdk.core.report.a.a(this.mAdTemplate, i2, adExposureFailedReason);
     }
 
     @Override // com.kwad.sdk.api.KsDrawAd
     public final void setAdInteractionListener(KsDrawAd.AdInteractionListener adInteractionListener) {
-        this.f11444de = adInteractionListener;
-        b bVar = this.dp;
-        if (bVar != null) {
-            bVar.setAdInteractionListener(adInteractionListener);
-        }
+        this.bV = adInteractionListener;
     }
 
     @Override // com.kwad.sdk.api.KsDrawAd
-    public final void setBidEcpm(int i10) {
-        setBidEcpm(i10, -1L);
+    public final void setBidEcpm(int i2) {
+        setBidEcpm(i2, -1L);
     }
 
     @Override // com.kwad.sdk.api.KsDrawAd
-    public final void setVideoSoundEnable(boolean z10) {
-        b bVar = this.dp;
-        if (bVar != null) {
-            bVar.setVideoSound(z10);
-        }
-    }
-
-    @Override // com.kwad.components.core.internal.api.a
-    public final boolean supportPushAd() {
-        return true;
-    }
-
-    @Override // com.kwad.components.core.internal.api.a
-    public final void a(com.kwad.components.core.internal.api.b bVar) {
-        this.bz.a(bVar);
-    }
-
-    @Override // com.kwad.components.core.internal.api.a
-    public final void b(com.kwad.components.core.internal.api.b bVar) {
-        this.bz.b(bVar);
-    }
-
-    @Override // com.kwad.sdk.api.KsDrawAd
-    public final void setBidEcpm(long j10, long j11) {
+    public final void setBidEcpm(long j2, long j3) {
         AdTemplate adTemplate = this.mAdTemplate;
-        adTemplate.mBidEcpm = j10;
-        com.kwad.sdk.core.adlog.c.l(adTemplate, j11);
+        adTemplate.mBidEcpm = j2;
+        com.kwad.sdk.core.report.a.i(adTemplate, j3);
     }
 }

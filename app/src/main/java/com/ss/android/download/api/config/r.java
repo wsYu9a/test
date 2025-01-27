@@ -2,7 +2,17 @@ package com.ss.android.download.api.config;
 
 /* loaded from: classes4.dex */
 public interface r {
-    void a(String str);
+    boolean g();
 
-    void a(Throwable th2);
+    void i();
+
+    long j();
+
+    void j(long j2);
+
+    boolean j(int i2, String str, boolean z, long j2);
+
+    void q();
+
+    boolean zx();
 }

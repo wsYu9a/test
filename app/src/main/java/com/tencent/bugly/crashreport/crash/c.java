@@ -4,14 +4,17 @@ import android.os.Parcel;
 import android.os.Parcelable;
 
 /* loaded from: classes4.dex */
-public class c implements Parcelable.Creator<CrashDetailBean> {
+class c implements Parcelable.Creator<CrashDetailBean> {
+    c() {
+    }
+
     @Override // android.os.Parcelable.Creator
     public CrashDetailBean createFromParcel(Parcel parcel) {
         return new CrashDetailBean(parcel);
     }
 
     @Override // android.os.Parcelable.Creator
-    public CrashDetailBean[] newArray(int i10) {
-        return new CrashDetailBean[i10];
+    public CrashDetailBean[] newArray(int i2) {
+        return new CrashDetailBean[i2];
     }
 }

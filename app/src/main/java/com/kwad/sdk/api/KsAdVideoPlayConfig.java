@@ -8,7 +8,7 @@ import java.lang.annotation.RetentionPolicy;
 
 @KsAdSdkApi
 @Keep
-/* loaded from: classes3.dex */
+/* loaded from: classes2.dex */
 public interface KsAdVideoPlayConfig {
 
     @KsAdSdkApi
@@ -28,8 +28,8 @@ public interface KsAdVideoPlayConfig {
         @KsAdSdkApi
         @Keep
         @Deprecated
-        public Builder dataFlowAutoStart(boolean z10) {
-            this.config.setDataFlowAutoStart(z10);
+        public Builder dataFlowAutoStart(boolean z) {
+            this.config.setDataFlowAutoStart(z);
             return this;
         }
 
@@ -42,15 +42,15 @@ public interface KsAdVideoPlayConfig {
 
         @KsAdSdkApi
         @Keep
-        public Builder videoAutoPlayType(int i10) {
-            this.config.setVideoAutoPlayType(i10);
+        public Builder videoAutoPlayType(int i2) {
+            this.config.setVideoAutoPlayType(i2);
             return this;
         }
 
         @KsAdSdkApi
         @Keep
-        public Builder videoSoundEnable(boolean z10) {
-            this.config.setVideoSoundEnable(z10);
+        public Builder videoSoundEnable(boolean z) {
+            this.config.setVideoSoundEnable(z);
             return this;
         }
     }
@@ -58,6 +58,7 @@ public interface KsAdVideoPlayConfig {
     @KsAdSdkApi
     @Keep
     @Retention(RetentionPolicy.SOURCE)
+    /* loaded from: classes.dex */
     public @interface VideoAutoPlayType {
         public static final int AUTO_PLAY = 1;
         public static final int AUTO_PLAY_WIFI = 2;
@@ -84,7 +85,7 @@ public interface KsAdVideoPlayConfig {
     @KsAdSdkApi
     @Keep
     @Deprecated
-    void setDataFlowAutoStart(boolean z10);
+    void setDataFlowAutoStart(boolean z);
 
     @KsAdSdkApi
     @Keep
@@ -92,9 +93,9 @@ public interface KsAdVideoPlayConfig {
 
     @KsAdSdkApi
     @Keep
-    void setVideoAutoPlayType(int i10);
+    void setVideoAutoPlayType(int i2);
 
     @KsAdSdkApi
     @Keep
-    void setVideoSoundEnable(boolean z10);
+    void setVideoSoundEnable(boolean z);
 }

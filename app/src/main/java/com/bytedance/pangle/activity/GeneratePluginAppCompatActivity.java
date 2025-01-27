@@ -64,18 +64,18 @@ import java.util.List;
 import java.util.function.Consumer;
 
 @Keep
-/* loaded from: classes2.dex */
+/* loaded from: classes.dex */
 public abstract class GeneratePluginAppCompatActivity extends AppCompatActivity implements IPluginActivity {
     boolean hasInit = true;
     public Plugin mPlugin;
     public GenerateProxyAppCompatActivity mProxyActivity;
 
     @Override // com.bytedance.pangle.activity.IPluginActivity
-    public void _requestPermissions(String[] strArr, int i10) {
-        this.mProxyActivity.requestPermissions(strArr, i10);
+    public void _requestPermissions(String[] strArr, int i2) {
+        this.mProxyActivity.requestPermissions(strArr, i2);
     }
 
-    @Override // androidx.appcompat.app.AppCompatActivity, androidx.activity.ComponentActivity, android.app.Activity
+    @Override // androidx.appcompat.app.AppCompatActivity, android.app.Activity
     public void addContentView(View view, ViewGroup.LayoutParams layoutParams) {
         this.mProxyActivity.zeusSuperAddContentView(view, layoutParams);
     }
@@ -101,8 +101,8 @@ public abstract class GeneratePluginAppCompatActivity extends AppCompatActivity 
     }
 
     @Override // android.app.Activity
-    public PendingIntent createPendingResult(int i10, Intent intent, int i11) {
-        return this.mProxyActivity.zeusSuperCreatePendingResult(i10, intent, i11);
+    public PendingIntent createPendingResult(int i2, Intent intent, int i3) {
+        return this.mProxyActivity.zeusSuperCreatePendingResult(i2, intent, i3);
     }
 
     @Override // android.app.Activity, android.view.Window.Callback
@@ -146,8 +146,8 @@ public abstract class GeneratePluginAppCompatActivity extends AppCompatActivity 
     }
 
     @Override // androidx.appcompat.app.AppCompatActivity, android.app.Activity
-    public View findViewById(int i10) {
-        return this.mProxyActivity.zeusSuperFindViewById(i10);
+    public View findViewById(int i2) {
+        return this.mProxyActivity.zeusSuperFindViewById(i2);
     }
 
     @Override // android.app.Activity
@@ -156,13 +156,13 @@ public abstract class GeneratePluginAppCompatActivity extends AppCompatActivity 
     }
 
     @Override // android.app.Activity
-    public void finishActivity(int i10) {
-        this.mProxyActivity.zeusSuperFinishActivity(i10);
+    public void finishActivity(int i2) {
+        this.mProxyActivity.zeusSuperFinishActivity(i2);
     }
 
     @Override // android.app.Activity
-    public void finishActivityFromChild(Activity activity, int i10) {
-        this.mProxyActivity.zeusSuperFinishActivityFromChild(activity, i10);
+    public void finishActivityFromChild(Activity activity, int i2) {
+        this.mProxyActivity.zeusSuperFinishActivityFromChild(activity, i2);
     }
 
     @Override // android.app.Activity
@@ -251,7 +251,7 @@ public abstract class GeneratePluginAppCompatActivity extends AppCompatActivity 
             try {
                 LifecycleRegistry lifecycleRegistry = new LifecycleRegistry(this);
                 try {
-                    Field declaredField = LifecycleRegistry.class.getDeclaredField("mEnforceMainThread");
+                    Field declaredField = lifecycleRegistry.getClass().getDeclaredField("mEnforceMainThread");
                     declaredField.setAccessible(true);
                     declaredField.set(lifecycleRegistry, Boolean.FALSE);
                 } catch (Throwable unused) {
@@ -289,8 +289,8 @@ public abstract class GeneratePluginAppCompatActivity extends AppCompatActivity 
     }
 
     @Override // android.app.Activity
-    public SharedPreferences getPreferences(int i10) {
-        return this.mProxyActivity.zeusSuperGetPreferences(i10);
+    public SharedPreferences getPreferences(int i2) {
+        return this.mProxyActivity.zeusSuperGetPreferences(i2);
     }
 
     @Override // android.app.Activity
@@ -404,8 +404,8 @@ public abstract class GeneratePluginAppCompatActivity extends AppCompatActivity 
     }
 
     @Override // android.app.Activity
-    public boolean moveTaskToBack(boolean z10) {
-        return this.mProxyActivity.zeusSuperMoveTaskToBack(z10);
+    public boolean moveTaskToBack(boolean z) {
+        return this.mProxyActivity.zeusSuperMoveTaskToBack(z);
     }
 
     @Override // android.app.Activity
@@ -429,18 +429,18 @@ public abstract class GeneratePluginAppCompatActivity extends AppCompatActivity 
     }
 
     @Override // android.app.Activity
-    public void onActivityReenter(int i10, Intent intent) {
-        this.mProxyActivity.zeusSuperOnActivityReenter(i10, intent);
+    public void onActivityReenter(int i2, Intent intent) {
+        this.mProxyActivity.zeusSuperOnActivityReenter(i2, intent);
     }
 
-    @Override // androidx.fragment.app.FragmentActivity, androidx.activity.ComponentActivity, android.app.Activity
-    public void onActivityResult(int i10, int i11, Intent intent) {
-        this.mProxyActivity.zeusSuperOnActivityResult(i10, i11, intent);
+    @Override // androidx.fragment.app.FragmentActivity, android.app.Activity
+    protected void onActivityResult(int i2, int i3, Intent intent) {
+        this.mProxyActivity.zeusSuperOnActivityResult(i2, i3, intent);
     }
 
     @Override // android.app.Activity, android.view.ContextThemeWrapper
-    public void onApplyThemeResource(Resources.Theme theme, int i10, boolean z10) {
-        this.mProxyActivity.zeusSuperOnApplyThemeResource(theme, i10, z10);
+    protected void onApplyThemeResource(Resources.Theme theme, int i2, boolean z) {
+        this.mProxyActivity.zeusSuperOnApplyThemeResource(theme, i2, z);
     }
 
     @Override // android.app.Activity
@@ -459,11 +459,11 @@ public abstract class GeneratePluginAppCompatActivity extends AppCompatActivity 
     }
 
     @Override // android.app.Activity
-    public void onChildTitleChanged(Activity activity, CharSequence charSequence) {
+    protected void onChildTitleChanged(Activity activity, CharSequence charSequence) {
         this.mProxyActivity.zeusSuperOnChildTitleChanged(activity, charSequence);
     }
 
-    @Override // androidx.appcompat.app.AppCompatActivity, androidx.activity.ComponentActivity, android.app.Activity, android.content.ComponentCallbacks
+    @Override // androidx.appcompat.app.AppCompatActivity, androidx.fragment.app.FragmentActivity, android.app.Activity, android.content.ComponentCallbacks
     public void onConfigurationChanged(Configuration configuration) {
         this.mProxyActivity.zeusSuperOnConfigurationChanged(configuration);
     }
@@ -483,7 +483,7 @@ public abstract class GeneratePluginAppCompatActivity extends AppCompatActivity 
         this.mProxyActivity.zeusSuperOnContextMenuClosed(menu);
     }
 
-    @Override // androidx.fragment.app.FragmentActivity, androidx.activity.ComponentActivity, androidx.core.app.ComponentActivity, android.app.Activity
+    @Override // androidx.appcompat.app.AppCompatActivity, androidx.fragment.app.FragmentActivity, androidx.activity.ComponentActivity, androidx.core.app.ComponentActivity, android.app.Activity
     public void onCreate(Bundle bundle) {
         this.mProxyActivity.zeusSuperOnCreate(bundle);
         com.bytedance.pangle.res.b.a(getLayoutInflater());
@@ -500,8 +500,8 @@ public abstract class GeneratePluginAppCompatActivity extends AppCompatActivity 
     }
 
     @Override // android.app.Activity
-    public Dialog onCreateDialog(int i10) {
-        return this.mProxyActivity.zeusSuperOnCreateDialog(i10);
+    protected Dialog onCreateDialog(int i2) {
+        return this.mProxyActivity.zeusSuperOnCreateDialog(i2);
     }
 
     @Override // android.app.Activity
@@ -514,14 +514,14 @@ public abstract class GeneratePluginAppCompatActivity extends AppCompatActivity 
         return this.mProxyActivity.zeusSuperOnCreateOptionsMenu(menu);
     }
 
-    @Override // androidx.activity.ComponentActivity, android.app.Activity, android.view.Window.Callback
-    public boolean onCreatePanelMenu(int i10, Menu menu) {
-        return this.mProxyActivity.zeusSuperOnCreatePanelMenu(i10, menu);
+    @Override // androidx.fragment.app.FragmentActivity, android.app.Activity, android.view.Window.Callback
+    public boolean onCreatePanelMenu(int i2, Menu menu) {
+        return this.mProxyActivity.zeusSuperOnCreatePanelMenu(i2, menu);
     }
 
     @Override // android.app.Activity, android.view.Window.Callback
-    public View onCreatePanelView(int i10) {
-        return this.mProxyActivity.zeusSuperOnCreatePanelView(i10);
+    public View onCreatePanelView(int i2) {
+        return this.mProxyActivity.zeusSuperOnCreatePanelView(i2);
     }
 
     @Override // android.app.Activity
@@ -535,7 +535,7 @@ public abstract class GeneratePluginAppCompatActivity extends AppCompatActivity 
     }
 
     @Override // androidx.appcompat.app.AppCompatActivity, androidx.fragment.app.FragmentActivity, android.app.Activity
-    public void onDestroy() {
+    protected void onDestroy() {
         this.mProxyActivity.zeusSuperOnDestroy();
     }
 
@@ -560,28 +560,28 @@ public abstract class GeneratePluginAppCompatActivity extends AppCompatActivity 
     }
 
     @Override // androidx.appcompat.app.AppCompatActivity, android.app.Activity, android.view.KeyEvent.Callback
-    public boolean onKeyDown(int i10, KeyEvent keyEvent) {
-        return this.mProxyActivity.zeusSuperOnKeyDown(i10, keyEvent);
+    public boolean onKeyDown(int i2, KeyEvent keyEvent) {
+        return this.mProxyActivity.zeusSuperOnKeyDown(i2, keyEvent);
     }
 
     @Override // android.app.Activity, android.view.KeyEvent.Callback
-    public boolean onKeyLongPress(int i10, KeyEvent keyEvent) {
-        return this.mProxyActivity.zeusSuperOnKeyLongPress(i10, keyEvent);
+    public boolean onKeyLongPress(int i2, KeyEvent keyEvent) {
+        return this.mProxyActivity.zeusSuperOnKeyLongPress(i2, keyEvent);
     }
 
     @Override // android.app.Activity, android.view.KeyEvent.Callback
-    public boolean onKeyMultiple(int i10, int i11, KeyEvent keyEvent) {
-        return this.mProxyActivity.zeusSuperOnKeyMultiple(i10, i11, keyEvent);
+    public boolean onKeyMultiple(int i2, int i3, KeyEvent keyEvent) {
+        return this.mProxyActivity.zeusSuperOnKeyMultiple(i2, i3, keyEvent);
     }
 
     @Override // android.app.Activity
-    public boolean onKeyShortcut(int i10, KeyEvent keyEvent) {
-        return this.mProxyActivity.zeusSuperOnKeyShortcut(i10, keyEvent);
+    public boolean onKeyShortcut(int i2, KeyEvent keyEvent) {
+        return this.mProxyActivity.zeusSuperOnKeyShortcut(i2, keyEvent);
     }
 
     @Override // android.app.Activity, android.view.KeyEvent.Callback
-    public boolean onKeyUp(int i10, KeyEvent keyEvent) {
-        return this.mProxyActivity.zeusSuperOnKeyUp(i10, keyEvent);
+    public boolean onKeyUp(int i2, KeyEvent keyEvent) {
+        return this.mProxyActivity.zeusSuperOnKeyUp(i2, keyEvent);
     }
 
     @Override // android.app.Activity
@@ -594,19 +594,19 @@ public abstract class GeneratePluginAppCompatActivity extends AppCompatActivity 
         this.mProxyActivity.zeusSuperOnLocalVoiceInteractionStopped();
     }
 
-    @Override // android.app.Activity, android.content.ComponentCallbacks
+    @Override // androidx.fragment.app.FragmentActivity, android.app.Activity, android.content.ComponentCallbacks
     public void onLowMemory() {
         this.mProxyActivity.zeusSuperOnLowMemory();
     }
 
     @Override // androidx.appcompat.app.AppCompatActivity, android.app.Activity, android.view.Window.Callback
-    public boolean onMenuOpened(int i10, Menu menu) {
-        return this.mProxyActivity.zeusSuperOnMenuOpened(i10, menu);
+    public boolean onMenuOpened(int i2, Menu menu) {
+        return this.mProxyActivity.zeusSuperOnMenuOpened(i2, menu);
     }
 
-    @Override // androidx.activity.ComponentActivity, android.app.Activity
-    public void onMultiWindowModeChanged(boolean z10) {
-        this.mProxyActivity.zeusSuperOnMultiWindowModeChanged(z10);
+    @Override // androidx.fragment.app.FragmentActivity, android.app.Activity
+    public void onMultiWindowModeChanged(boolean z) {
+        this.mProxyActivity.zeusSuperOnMultiWindowModeChanged(z);
     }
 
     @Override // android.app.Activity
@@ -619,8 +619,8 @@ public abstract class GeneratePluginAppCompatActivity extends AppCompatActivity 
         return this.mProxyActivity.zeusSuperOnNavigateUpFromChild(activity);
     }
 
-    @Override // androidx.activity.ComponentActivity, android.app.Activity
-    public void onNewIntent(Intent intent) {
+    @Override // androidx.fragment.app.FragmentActivity, android.app.Activity
+    protected void onNewIntent(Intent intent) {
         this.mProxyActivity.zeusSuperOnNewIntent(intent);
     }
 
@@ -634,13 +634,13 @@ public abstract class GeneratePluginAppCompatActivity extends AppCompatActivity 
         this.mProxyActivity.zeusSuperOnOptionsMenuClosed(menu);
     }
 
-    @Override // androidx.appcompat.app.AppCompatActivity, androidx.activity.ComponentActivity, android.app.Activity, android.view.Window.Callback
-    public void onPanelClosed(int i10, Menu menu) {
-        this.mProxyActivity.zeusSuperOnPanelClosed(i10, menu);
+    @Override // androidx.appcompat.app.AppCompatActivity, androidx.fragment.app.FragmentActivity, android.app.Activity, android.view.Window.Callback
+    public void onPanelClosed(int i2, Menu menu) {
+        this.mProxyActivity.zeusSuperOnPanelClosed(i2, menu);
     }
 
     @Override // androidx.fragment.app.FragmentActivity, android.app.Activity
-    public void onPause() {
+    protected void onPause() {
         this.mProxyActivity.zeusSuperOnPause();
     }
 
@@ -649,9 +649,9 @@ public abstract class GeneratePluginAppCompatActivity extends AppCompatActivity 
         this.mProxyActivity.zeusSuperOnPerformDirectAction(str, bundle, cancellationSignal, consumer);
     }
 
-    @Override // androidx.activity.ComponentActivity, android.app.Activity
-    public void onPictureInPictureModeChanged(boolean z10) {
-        this.mProxyActivity.zeusSuperOnPictureInPictureModeChanged(z10);
+    @Override // androidx.fragment.app.FragmentActivity, android.app.Activity
+    public void onPictureInPictureModeChanged(boolean z) {
+        this.mProxyActivity.zeusSuperOnPictureInPictureModeChanged(z);
     }
 
     @Override // android.app.Activity
@@ -660,18 +660,18 @@ public abstract class GeneratePluginAppCompatActivity extends AppCompatActivity 
     }
 
     @Override // androidx.appcompat.app.AppCompatActivity, android.app.Activity
-    public void onPostCreate(Bundle bundle) {
+    protected void onPostCreate(Bundle bundle) {
         this.mProxyActivity.zeusSuperOnPostCreate(bundle);
     }
 
     @Override // androidx.appcompat.app.AppCompatActivity, androidx.fragment.app.FragmentActivity, android.app.Activity
-    public void onPostResume() {
+    protected void onPostResume() {
         this.mProxyActivity.zeusSuperOnPostResume();
     }
 
     @Override // android.app.Activity
-    public void onPrepareDialog(int i10, Dialog dialog) {
-        this.mProxyActivity.zeusSuperOnPrepareDialog(i10, dialog);
+    protected void onPrepareDialog(int i2, Dialog dialog) {
+        this.mProxyActivity.zeusSuperOnPrepareDialog(i2, dialog);
     }
 
     @Override // android.app.Activity
@@ -684,9 +684,9 @@ public abstract class GeneratePluginAppCompatActivity extends AppCompatActivity 
         return this.mProxyActivity.zeusSuperOnPrepareOptionsMenu(menu);
     }
 
-    @Override // androidx.activity.ComponentActivity, android.app.Activity, android.view.Window.Callback
-    public boolean onPreparePanel(int i10, View view, Menu menu) {
-        return this.mProxyActivity.zeusSuperOnPreparePanel(i10, view, menu);
+    @Override // androidx.fragment.app.FragmentActivity, android.app.Activity, android.view.Window.Callback
+    public boolean onPreparePanel(int i2, View view, Menu menu) {
+        return this.mProxyActivity.zeusSuperOnPreparePanel(i2, view, menu);
     }
 
     @Override // android.app.Activity
@@ -700,8 +700,8 @@ public abstract class GeneratePluginAppCompatActivity extends AppCompatActivity 
     }
 
     @Override // android.app.Activity, android.view.Window.Callback
-    public void onProvideKeyboardShortcuts(List list, Menu menu, int i10) {
-        this.mProxyActivity.zeusSuperOnProvideKeyboardShortcuts(list, menu, i10);
+    public void onProvideKeyboardShortcuts(List list, Menu menu, int i2) {
+        this.mProxyActivity.zeusSuperOnProvideKeyboardShortcuts(list, menu, i2);
     }
 
     @Override // android.app.Activity
@@ -709,18 +709,18 @@ public abstract class GeneratePluginAppCompatActivity extends AppCompatActivity 
         return this.mProxyActivity.zeusSuperOnProvideReferrer();
     }
 
-    @Override // androidx.fragment.app.FragmentActivity, androidx.activity.ComponentActivity, android.app.Activity
-    public void onRequestPermissionsResult(int i10, String[] strArr, int[] iArr) {
-        this.mProxyActivity.zeusSuperOnRequestPermissionsResult(i10, strArr, iArr);
+    @Override // androidx.fragment.app.FragmentActivity, android.app.Activity, androidx.core.app.ActivityCompat.OnRequestPermissionsResultCallback
+    public void onRequestPermissionsResult(int i2, String[] strArr, int[] iArr) {
+        this.mProxyActivity.zeusSuperOnRequestPermissionsResult(i2, strArr, iArr);
     }
 
     @Override // android.app.Activity
-    public void onRestart() {
+    protected void onRestart() {
         this.mProxyActivity.zeusSuperOnRestart();
     }
 
     @Override // android.app.Activity
-    public void onRestoreInstanceState(Bundle bundle) {
+    protected void onRestoreInstanceState(Bundle bundle) {
         try {
             this.mProxyActivity.zeusSuperOnRestoreInstanceState(bundle);
         } catch (Throwable unused) {
@@ -728,12 +728,12 @@ public abstract class GeneratePluginAppCompatActivity extends AppCompatActivity 
     }
 
     @Override // androidx.fragment.app.FragmentActivity, android.app.Activity
-    public void onResume() {
+    protected void onResume() {
         this.mProxyActivity.zeusSuperOnResume();
     }
 
-    @Override // androidx.activity.ComponentActivity, androidx.core.app.ComponentActivity, android.app.Activity
-    public void onSaveInstanceState(Bundle bundle) {
+    @Override // androidx.appcompat.app.AppCompatActivity, androidx.fragment.app.FragmentActivity, androidx.activity.ComponentActivity, androidx.core.app.ComponentActivity, android.app.Activity
+    protected void onSaveInstanceState(Bundle bundle) {
         this.mProxyActivity.zeusSuperOnSaveInstanceState(bundle);
     }
 
@@ -743,7 +743,7 @@ public abstract class GeneratePluginAppCompatActivity extends AppCompatActivity 
     }
 
     @Override // androidx.appcompat.app.AppCompatActivity, androidx.fragment.app.FragmentActivity, android.app.Activity
-    public void onStart() {
+    protected void onStart() {
         this.mProxyActivity.zeusSuperOnStart();
     }
 
@@ -753,18 +753,18 @@ public abstract class GeneratePluginAppCompatActivity extends AppCompatActivity 
     }
 
     @Override // androidx.appcompat.app.AppCompatActivity, androidx.fragment.app.FragmentActivity, android.app.Activity
-    public void onStop() {
+    protected void onStop() {
         this.mProxyActivity.zeusSuperOnStop();
     }
 
     @Override // androidx.appcompat.app.AppCompatActivity, android.app.Activity
-    public void onTitleChanged(CharSequence charSequence, int i10) {
-        this.mProxyActivity.zeusSuperOnTitleChanged(charSequence, i10);
+    protected void onTitleChanged(CharSequence charSequence, int i2) {
+        this.mProxyActivity.zeusSuperOnTitleChanged(charSequence, i2);
     }
 
     @Override // android.app.Activity
-    public void onTopResumedActivityChanged(boolean z10) {
-        this.mProxyActivity.zeusSuperOnTopResumedActivityChanged(z10);
+    public void onTopResumedActivityChanged(boolean z) {
+        this.mProxyActivity.zeusSuperOnTopResumedActivityChanged(z);
     }
 
     @Override // android.app.Activity
@@ -777,9 +777,9 @@ public abstract class GeneratePluginAppCompatActivity extends AppCompatActivity 
         return this.mProxyActivity.zeusSuperOnTrackballEvent(motionEvent);
     }
 
-    @Override // androidx.activity.ComponentActivity, android.app.Activity, android.content.ComponentCallbacks2
-    public void onTrimMemory(int i10) {
-        this.mProxyActivity.zeusSuperOnTrimMemory(i10);
+    @Override // android.app.Activity, android.content.ComponentCallbacks2
+    public void onTrimMemory(int i2) {
+        this.mProxyActivity.zeusSuperOnTrimMemory(i2);
     }
 
     @Override // android.app.Activity
@@ -788,7 +788,7 @@ public abstract class GeneratePluginAppCompatActivity extends AppCompatActivity 
     }
 
     @Override // android.app.Activity
-    public void onUserLeaveHint() {
+    protected void onUserLeaveHint() {
         this.mProxyActivity.zeusSuperOnUserLeaveHint();
     }
 
@@ -803,8 +803,8 @@ public abstract class GeneratePluginAppCompatActivity extends AppCompatActivity 
     }
 
     @Override // android.app.Activity, android.view.Window.Callback
-    public void onWindowFocusChanged(boolean z10) {
-        this.mProxyActivity.zeusSuperOnWindowFocusChanged(z10);
+    public void onWindowFocusChanged(boolean z) {
+        this.mProxyActivity.zeusSuperOnWindowFocusChanged(z);
     }
 
     @Override // android.app.Activity, android.view.Window.Callback
@@ -823,8 +823,8 @@ public abstract class GeneratePluginAppCompatActivity extends AppCompatActivity 
     }
 
     @Override // android.app.Activity
-    public void overridePendingTransition(int i10, int i11) {
-        this.mProxyActivity.zeusSuperOverridePendingTransition(i10, i11);
+    public void overridePendingTransition(int i2, int i3) {
+        this.mProxyActivity.zeusSuperOverridePendingTransition(i2, i3);
     }
 
     @Override // android.app.Activity
@@ -852,7 +852,7 @@ public abstract class GeneratePluginAppCompatActivity extends AppCompatActivity 
         return this.mProxyActivity.zeusSuperReleaseInstance();
     }
 
-    @Override // androidx.activity.ComponentActivity, android.app.Activity
+    @Override // android.app.Activity
     public void reportFullyDrawn() {
         this.mProxyActivity.zeusSuperReportFullyDrawn();
     }
@@ -863,8 +863,8 @@ public abstract class GeneratePluginAppCompatActivity extends AppCompatActivity 
     }
 
     @Override // android.app.Activity
-    public boolean requestVisibleBehind(boolean z10) {
-        return this.mProxyActivity.zeusSuperRequestVisibleBehind(z10);
+    public boolean requestVisibleBehind(boolean z) {
+        return this.mProxyActivity.zeusSuperRequestVisibleBehind(z);
     }
 
     @Override // android.app.Activity
@@ -877,10 +877,10 @@ public abstract class GeneratePluginAppCompatActivity extends AppCompatActivity 
         this.mProxyActivity.zeusSuperSetContentTransitionManager(transitionManager);
     }
 
-    @Override // androidx.appcompat.app.AppCompatActivity, androidx.activity.ComponentActivity, android.app.Activity
-    public void setContentView(int i10) {
+    @Override // androidx.appcompat.app.AppCompatActivity, android.app.Activity
+    public void setContentView(int i2) {
         ZeusTransformUtils.clearConstructorCache();
-        this.mProxyActivity.zeusSuperSetContentView(i10);
+        this.mProxyActivity.zeusSuperSetContentView(i2);
         ZeusTransformUtils.clearConstructorCache();
         c.a(this, findViewById(R.id.content));
     }
@@ -896,18 +896,18 @@ public abstract class GeneratePluginAppCompatActivity extends AppCompatActivity 
     }
 
     @Override // android.app.Activity
-    public void setFinishOnTouchOutside(boolean z10) {
-        this.mProxyActivity.zeusSuperSetFinishOnTouchOutside(z10);
+    public void setFinishOnTouchOutside(boolean z) {
+        this.mProxyActivity.zeusSuperSetFinishOnTouchOutside(z);
     }
 
     @Override // android.app.Activity
-    public void setImmersive(boolean z10) {
-        this.mProxyActivity.zeusSuperSetImmersive(z10);
+    public void setImmersive(boolean z) {
+        this.mProxyActivity.zeusSuperSetImmersive(z);
     }
 
     @Override // android.app.Activity
-    public void setInheritShowWhenLocked(boolean z10) {
-        this.mProxyActivity.zeusSuperSetInheritShowWhenLocked(z10);
+    public void setInheritShowWhenLocked(boolean z) {
+        this.mProxyActivity.zeusSuperSetInheritShowWhenLocked(z);
     }
 
     @Override // android.app.Activity
@@ -932,21 +932,21 @@ public abstract class GeneratePluginAppCompatActivity extends AppCompatActivity 
     }
 
     @Override // com.bytedance.pangle.activity.IPluginActivity
-    public void setProxyTheme2Plugin(int i10) {
+    public void setProxyTheme2Plugin(int i2) {
         try {
-            super.setTheme(i10);
+            super.setTheme(i2);
         } catch (Exception unused) {
         }
     }
 
     @Override // android.app.Activity
-    public void setRequestedOrientation(int i10) {
-        this.mProxyActivity.zeusSuperSetRequestedOrientation(i10);
+    public void setRequestedOrientation(int i2) {
+        this.mProxyActivity.zeusSuperSetRequestedOrientation(i2);
     }
 
     @Override // android.app.Activity
-    public void setShowWhenLocked(boolean z10) {
-        this.mProxyActivity.zeusSuperSetShowWhenLocked(z10);
+    public void setShowWhenLocked(boolean z) {
+        this.mProxyActivity.zeusSuperSetShowWhenLocked(z);
     }
 
     @Override // android.app.Activity
@@ -955,38 +955,38 @@ public abstract class GeneratePluginAppCompatActivity extends AppCompatActivity 
     }
 
     @Override // androidx.appcompat.app.AppCompatActivity, android.app.Activity, android.view.ContextThemeWrapper, android.content.ContextWrapper, android.content.Context
-    public void setTheme(int i10) {
-        this.mProxyActivity.zeusSuperSetTheme(i10);
+    public void setTheme(int i2) {
+        this.mProxyActivity.zeusSuperSetTheme(i2);
     }
 
     @Override // android.app.Activity
-    public void setTitle(int i10) {
-        this.mProxyActivity.zeusSuperSetTitle(i10);
+    public void setTitle(int i2) {
+        this.mProxyActivity.zeusSuperSetTitle(i2);
     }
 
     @Override // android.app.Activity
-    public void setTitleColor(int i10) {
-        this.mProxyActivity.zeusSuperSetTitleColor(i10);
+    public void setTitleColor(int i2) {
+        this.mProxyActivity.zeusSuperSetTitleColor(i2);
     }
 
     @Override // android.app.Activity
-    public boolean setTranslucent(boolean z10) {
-        return this.mProxyActivity.zeusSuperSetTranslucent(z10);
+    public boolean setTranslucent(boolean z) {
+        return this.mProxyActivity.zeusSuperSetTranslucent(z);
     }
 
     @Override // android.app.Activity
-    public void setTurnScreenOn(boolean z10) {
-        this.mProxyActivity.zeusSuperSetTurnScreenOn(z10);
+    public void setTurnScreenOn(boolean z) {
+        this.mProxyActivity.zeusSuperSetTurnScreenOn(z);
     }
 
     @Override // android.app.Activity
-    public void setVisible(boolean z10) {
-        this.mProxyActivity.zeusSuperSetVisible(z10);
+    public void setVisible(boolean z) {
+        this.mProxyActivity.zeusSuperSetVisible(z);
     }
 
     @Override // android.app.Activity
-    public void setVrModeEnabled(boolean z10, ComponentName componentName) {
-        this.mProxyActivity.zeusSuperSetVrModeEnabled(z10, componentName);
+    public void setVrModeEnabled(boolean z, ComponentName componentName) {
+        this.mProxyActivity.zeusSuperSetVrModeEnabled(z, componentName);
     }
 
     @Override // android.app.Activity
@@ -1024,39 +1024,39 @@ public abstract class GeneratePluginAppCompatActivity extends AppCompatActivity 
         this.mProxyActivity.zeusSuperStartActivity(intent);
     }
 
-    @Override // androidx.activity.ComponentActivity, android.app.Activity
-    public void startActivityForResult(Intent intent, int i10) {
-        this.mProxyActivity.zeusSuperStartActivityForResult(intent, i10);
+    @Override // androidx.fragment.app.FragmentActivity, android.app.Activity
+    public void startActivityForResult(Intent intent, int i2) {
+        this.mProxyActivity.zeusSuperStartActivityForResult(intent, i2);
     }
 
     @Override // android.app.Activity
-    public void startActivityFromChild(Activity activity, Intent intent, int i10) {
-        this.mProxyActivity.zeusSuperStartActivityFromChild(activity, intent, i10);
+    public void startActivityFromChild(Activity activity, Intent intent, int i2) {
+        this.mProxyActivity.zeusSuperStartActivityFromChild(activity, intent, i2);
     }
 
     @Override // android.app.Activity
-    public void startActivityFromFragment(Fragment fragment, Intent intent, int i10) {
-        this.mProxyActivity.zeusSuperStartActivityFromFragment(fragment, intent, i10);
+    public void startActivityFromFragment(Fragment fragment, Intent intent, int i2) {
+        this.mProxyActivity.zeusSuperStartActivityFromFragment(fragment, intent, i2);
     }
 
     @Override // android.app.Activity
-    public boolean startActivityIfNeeded(Intent intent, int i10) {
-        return this.mProxyActivity.zeusSuperStartActivityIfNeeded(intent, i10);
+    public boolean startActivityIfNeeded(Intent intent, int i2) {
+        return this.mProxyActivity.zeusSuperStartActivityIfNeeded(intent, i2);
     }
 
     @Override // android.app.Activity, android.content.ContextWrapper, android.content.Context
-    public void startIntentSender(IntentSender intentSender, Intent intent, int i10, int i11, int i12) {
-        this.mProxyActivity.zeusSuperStartIntentSender(intentSender, intent, i10, i11, i12);
+    public void startIntentSender(IntentSender intentSender, Intent intent, int i2, int i3, int i4) {
+        this.mProxyActivity.zeusSuperStartIntentSender(intentSender, intent, i2, i3, i4);
     }
 
-    @Override // androidx.activity.ComponentActivity, android.app.Activity
-    public void startIntentSenderForResult(IntentSender intentSender, int i10, Intent intent, int i11, int i12, int i13) {
-        this.mProxyActivity.zeusSuperStartIntentSenderForResult(intentSender, i10, intent, i11, i12, i13);
+    @Override // androidx.fragment.app.FragmentActivity, android.app.Activity
+    public void startIntentSenderForResult(IntentSender intentSender, int i2, Intent intent, int i3, int i4, int i5) {
+        this.mProxyActivity.zeusSuperStartIntentSenderForResult(intentSender, i2, intent, i3, i4, i5);
     }
 
     @Override // android.app.Activity
-    public void startIntentSenderFromChild(Activity activity, IntentSender intentSender, int i10, Intent intent, int i11, int i12, int i13) {
-        this.mProxyActivity.zeusSuperStartIntentSenderFromChild(activity, intentSender, i10, intent, i11, i12, i13);
+    public void startIntentSenderFromChild(Activity activity, IntentSender intentSender, int i2, Intent intent, int i3, int i4, int i5) {
+        this.mProxyActivity.zeusSuperStartIntentSenderFromChild(activity, intentSender, i2, intent, i3, i4, i5);
     }
 
     @Override // android.app.Activity
@@ -1085,8 +1085,8 @@ public abstract class GeneratePluginAppCompatActivity extends AppCompatActivity 
     }
 
     @Override // android.app.Activity
-    public void startSearch(String str, boolean z10, Bundle bundle, boolean z11) {
-        this.mProxyActivity.zeusSuperStartSearch(str, z10, bundle, z11);
+    public void startSearch(String str, boolean z, Bundle bundle, boolean z2) {
+        this.mProxyActivity.zeusSuperStartSearch(str, z, bundle, z2);
     }
 
     @Override // android.app.Activity
@@ -1105,8 +1105,8 @@ public abstract class GeneratePluginAppCompatActivity extends AppCompatActivity 
     }
 
     @Override // android.app.Activity
-    public void takeKeyEvents(boolean z10) {
-        this.mProxyActivity.zeusSuperTakeKeyEvents(z10);
+    public void takeKeyEvents(boolean z) {
+        this.mProxyActivity.zeusSuperTakeKeyEvents(z);
     }
 
     @Override // android.app.Activity
@@ -1130,8 +1130,8 @@ public abstract class GeneratePluginAppCompatActivity extends AppCompatActivity 
     }
 
     @Override // android.app.Activity
-    public Dialog onCreateDialog(int i10, Bundle bundle) {
-        return this.mProxyActivity.zeusSuperOnCreateDialog(i10, bundle);
+    protected Dialog onCreateDialog(int i2, Bundle bundle) {
+        return this.mProxyActivity.zeusSuperOnCreateDialog(i2, bundle);
     }
 
     @Override // androidx.fragment.app.FragmentActivity, android.app.Activity, android.view.LayoutInflater.Factory
@@ -1139,14 +1139,14 @@ public abstract class GeneratePluginAppCompatActivity extends AppCompatActivity 
         return this.mProxyActivity.zeusSuperOnCreateView(str, context, attributeSet);
     }
 
-    @Override // androidx.activity.ComponentActivity, android.app.Activity
-    public void onMultiWindowModeChanged(boolean z10, Configuration configuration) {
-        this.mProxyActivity.zeusSuperOnMultiWindowModeChanged(z10, configuration);
+    @Override // android.app.Activity
+    public void onMultiWindowModeChanged(boolean z, Configuration configuration) {
+        this.mProxyActivity.zeusSuperOnMultiWindowModeChanged(z, configuration);
     }
 
-    @Override // androidx.activity.ComponentActivity, android.app.Activity
-    public void onPictureInPictureModeChanged(boolean z10, Configuration configuration) {
-        this.mProxyActivity.zeusSuperOnPictureInPictureModeChanged(z10, configuration);
+    @Override // android.app.Activity
+    public void onPictureInPictureModeChanged(boolean z, Configuration configuration) {
+        this.mProxyActivity.zeusSuperOnPictureInPictureModeChanged(z, configuration);
     }
 
     @Override // android.app.Activity
@@ -1155,8 +1155,8 @@ public abstract class GeneratePluginAppCompatActivity extends AppCompatActivity 
     }
 
     @Override // android.app.Activity
-    public void onPrepareDialog(int i10, Dialog dialog, Bundle bundle) {
-        this.mProxyActivity.zeusSuperOnPrepareDialog(i10, dialog, bundle);
+    protected void onPrepareDialog(int i2, Dialog dialog, Bundle bundle) {
+        this.mProxyActivity.zeusSuperOnPrepareDialog(i2, dialog, bundle);
     }
 
     @Override // android.app.Activity
@@ -1178,8 +1178,8 @@ public abstract class GeneratePluginAppCompatActivity extends AppCompatActivity 
     }
 
     @Override // android.app.Activity, android.view.Window.Callback
-    public ActionMode onWindowStartingActionMode(ActionMode.Callback callback, int i10) {
-        return this.mProxyActivity.zeusSuperOnWindowStartingActionMode(callback, i10);
+    public ActionMode onWindowStartingActionMode(ActionMode.Callback callback, int i2) {
+        return this.mProxyActivity.zeusSuperOnWindowStartingActionMode(callback, i2);
     }
 
     @Override // android.app.Activity
@@ -1188,8 +1188,8 @@ public abstract class GeneratePluginAppCompatActivity extends AppCompatActivity 
     }
 
     @Override // android.app.Activity
-    public ActionMode startActionMode(ActionMode.Callback callback, int i10) {
-        return this.mProxyActivity.zeusSuperStartActionMode(callback, i10);
+    public ActionMode startActionMode(ActionMode.Callback callback, int i2) {
+        return this.mProxyActivity.zeusSuperStartActionMode(callback, i2);
     }
 
     @Override // android.app.Activity, android.content.ContextWrapper, android.content.Context
@@ -1202,39 +1202,39 @@ public abstract class GeneratePluginAppCompatActivity extends AppCompatActivity 
         this.mProxyActivity.zeusSuperStartActivity(intent, bundle);
     }
 
-    @Override // androidx.activity.ComponentActivity, android.app.Activity
-    public void startActivityForResult(Intent intent, int i10, Bundle bundle) {
-        this.mProxyActivity.zeusSuperStartActivityForResult(intent, i10, bundle);
+    @Override // androidx.fragment.app.FragmentActivity, android.app.Activity
+    public void startActivityForResult(Intent intent, int i2, Bundle bundle) {
+        this.mProxyActivity.zeusSuperStartActivityForResult(intent, i2, bundle);
     }
 
     @Override // android.app.Activity
-    public void startActivityFromChild(Activity activity, Intent intent, int i10, Bundle bundle) {
-        this.mProxyActivity.zeusSuperStartActivityFromChild(activity, intent, i10, bundle);
+    public void startActivityFromChild(Activity activity, Intent intent, int i2, Bundle bundle) {
+        this.mProxyActivity.zeusSuperStartActivityFromChild(activity, intent, i2, bundle);
     }
 
     @Override // android.app.Activity
-    public void startActivityFromFragment(Fragment fragment, Intent intent, int i10, Bundle bundle) {
-        this.mProxyActivity.zeusSuperStartActivityFromFragment(fragment, intent, i10, bundle);
+    public void startActivityFromFragment(Fragment fragment, Intent intent, int i2, Bundle bundle) {
+        this.mProxyActivity.zeusSuperStartActivityFromFragment(fragment, intent, i2, bundle);
     }
 
     @Override // android.app.Activity
-    public boolean startActivityIfNeeded(Intent intent, int i10, Bundle bundle) {
-        return this.mProxyActivity.zeusSuperStartActivityIfNeeded(intent, i10, bundle);
+    public boolean startActivityIfNeeded(Intent intent, int i2, Bundle bundle) {
+        return this.mProxyActivity.zeusSuperStartActivityIfNeeded(intent, i2, bundle);
     }
 
     @Override // android.app.Activity, android.content.ContextWrapper, android.content.Context
-    public void startIntentSender(IntentSender intentSender, Intent intent, int i10, int i11, int i12, Bundle bundle) {
-        this.mProxyActivity.zeusSuperStartIntentSender(intentSender, intent, i10, i11, i12, bundle);
+    public void startIntentSender(IntentSender intentSender, Intent intent, int i2, int i3, int i4, Bundle bundle) {
+        this.mProxyActivity.zeusSuperStartIntentSender(intentSender, intent, i2, i3, i4, bundle);
     }
 
-    @Override // androidx.activity.ComponentActivity, android.app.Activity
-    public void startIntentSenderForResult(IntentSender intentSender, int i10, Intent intent, int i11, int i12, int i13, Bundle bundle) {
-        this.mProxyActivity.zeusSuperStartIntentSenderForResult(intentSender, i10, intent, i11, i12, i13, bundle);
+    @Override // androidx.fragment.app.FragmentActivity, android.app.Activity
+    public void startIntentSenderForResult(IntentSender intentSender, int i2, Intent intent, int i3, int i4, int i5, Bundle bundle) {
+        this.mProxyActivity.zeusSuperStartIntentSenderForResult(intentSender, i2, intent, i3, i4, i5, bundle);
     }
 
     @Override // android.app.Activity
-    public void startIntentSenderFromChild(Activity activity, IntentSender intentSender, int i10, Intent intent, int i11, int i12, int i13, Bundle bundle) {
-        this.mProxyActivity.zeusSuperStartIntentSenderFromChild(activity, intentSender, i10, intent, i11, i12, i13, bundle);
+    public void startIntentSenderFromChild(Activity activity, IntentSender intentSender, int i2, Intent intent, int i3, int i4, int i5, Bundle bundle) {
+        this.mProxyActivity.zeusSuperStartIntentSenderFromChild(activity, intentSender, i2, intent, i3, i4, i5, bundle);
     }
 
     @Override // android.app.Activity
@@ -1247,16 +1247,12 @@ public abstract class GeneratePluginAppCompatActivity extends AppCompatActivity 
         this.mProxyActivity.zeusSuperOnCreate(bundle, persistableBundle);
     }
 
-    public void startActivityForResult(String str, Intent intent, int i10, Bundle bundle) {
-        this.mProxyActivity.startActivityForResult(str, intent, i10, bundle);
-    }
-
-    @Override // androidx.appcompat.app.AppCompatActivity, androidx.activity.ComponentActivity, android.app.Activity
+    @Override // androidx.appcompat.app.AppCompatActivity, android.app.Activity
     public void setContentView(View view) {
         this.mProxyActivity.zeusSuperSetContentView(view);
     }
 
-    @Override // androidx.appcompat.app.AppCompatActivity, androidx.activity.ComponentActivity, android.app.Activity
+    @Override // androidx.appcompat.app.AppCompatActivity, android.app.Activity
     public void setContentView(View view, ViewGroup.LayoutParams layoutParams) {
         this.mProxyActivity.zeusSuperSetContentView(view, layoutParams);
     }

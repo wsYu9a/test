@@ -8,7 +8,7 @@ import com.tencent.bugly.beta.R;
 /* loaded from: classes4.dex */
 public class BetaActiveAlertActivity extends Activity {
     @Override // android.app.Activity
-    public void onCreate(Bundle bundle) {
+    protected void onCreate(Bundle bundle) {
         super.onCreate(bundle);
         setContentView(R.layout.activity_beta_active_alert);
         try {
@@ -16,8 +16,8 @@ public class BetaActiveAlertActivity extends Activity {
             H5WebView h5WebView = new H5WebView(this);
             addContentView(h5WebView, new ViewGroup.LayoutParams(-1, -1));
             h5WebView.loadUrl(stringExtra);
-        } catch (Exception e10) {
-            e10.printStackTrace();
+        } catch (Exception e2) {
+            e2.printStackTrace();
             finish();
         }
     }

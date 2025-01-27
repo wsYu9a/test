@@ -1,8 +1,6 @@
 package com.google.zxing.qrcode.decoder;
 
-import t6.f;
-
-/* loaded from: classes2.dex */
+/* loaded from: classes.dex */
 public enum Mode {
     TERMINATOR(new int[]{0, 0, 0}, 0),
     NUMERIC(new int[]{10, 12, 14}, 1),
@@ -18,40 +16,40 @@ public enum Mode {
     private final int bits;
     private final int[] characterCountBitsForVersions;
 
-    Mode(int[] iArr, int i10) {
+    Mode(int[] iArr, int i2) {
         this.characterCountBitsForVersions = iArr;
-        this.bits = i10;
+        this.bits = i2;
     }
 
-    public static Mode forBits(int i10) {
-        if (i10 == 0) {
+    public static Mode forBits(int i2) {
+        if (i2 == 0) {
             return TERMINATOR;
         }
-        if (i10 == 1) {
+        if (i2 == 1) {
             return NUMERIC;
         }
-        if (i10 == 2) {
+        if (i2 == 2) {
             return ALPHANUMERIC;
         }
-        if (i10 == 3) {
+        if (i2 == 3) {
             return STRUCTURED_APPEND;
         }
-        if (i10 == 4) {
+        if (i2 == 4) {
             return BYTE;
         }
-        if (i10 == 5) {
+        if (i2 == 5) {
             return FNC1_FIRST_POSITION;
         }
-        if (i10 == 7) {
+        if (i2 == 7) {
             return ECI;
         }
-        if (i10 == 8) {
+        if (i2 == 8) {
             return KANJI;
         }
-        if (i10 == 9) {
+        if (i2 == 9) {
             return FNC1_SECOND_POSITION;
         }
-        if (i10 == 13) {
+        if (i2 == 13) {
             return HANZI;
         }
         throw new IllegalArgumentException();
@@ -61,8 +59,8 @@ public enum Mode {
         return this.bits;
     }
 
-    public int getCharacterCountBits(f fVar) {
-        int j10 = fVar.j();
-        return this.characterCountBitsForVersions[j10 <= 9 ? (char) 0 : j10 <= 26 ? (char) 1 : (char) 2];
+    public int getCharacterCountBits(g gVar) {
+        int j2 = gVar.j();
+        return this.characterCountBitsForVersions[j2 <= 9 ? (char) 0 : j2 <= 26 ? (char) 1 : (char) 2];
     }
 }

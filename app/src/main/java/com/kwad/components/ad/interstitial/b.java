@@ -4,131 +4,176 @@ import android.app.Activity;
 import android.os.SystemClock;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import com.kuaishou.pushad.KsAdGlobalWatcher;
+import com.kwad.sdk.KsAdSDKImpl;
 import com.kwad.sdk.api.KsInterstitialAd;
+import com.kwad.sdk.api.KsScene;
 import com.kwad.sdk.api.KsVideoPlayConfig;
-import com.kwad.sdk.core.response.model.AdResultData;
+import com.kwad.sdk.api.model.AdExposureFailedReason;
+import com.kwad.sdk.components.DevelopMangerComponents;
+import com.kwad.sdk.core.report.KSLoggerReporter;
 import com.kwad.sdk.core.response.model.AdTemplate;
-import com.kwad.sdk.l;
+import com.kwai.adclient.kscommerciallogger.model.BusinessType;
+import com.martian.ads.ad.AdConfig;
+import java.util.HashMap;
+import java.util.Map;
 
-/* loaded from: classes2.dex */
-public final class b extends com.kwad.components.ad.b implements com.kwad.components.core.internal.api.a, KsInterstitialAd {
-    private com.kwad.components.core.internal.api.c bz;
-
-    /* renamed from: jj */
-    private c f11582jj;
-
-    /* renamed from: jk */
-    private d f11583jk;
-
-    @NonNull
-    private final AdResultData mAdResultData;
+/* loaded from: classes.dex */
+public final class b implements com.kwad.components.core.internal.api.a, KsInterstitialAd {
+    private com.kwad.components.core.internal.api.c cg = new com.kwad.components.core.internal.api.c();
+    private KsScene hE;
+    private c hF;
+    private d hG;
 
     @NonNull
     private final AdTemplate mAdTemplate;
 
     /* renamed from: com.kwad.components.ad.interstitial.b$1 */
-    public class AnonymousClass1 extends c {
-        public AnonymousClass1() {
+    final class AnonymousClass1 extends c {
+        AnonymousClass1() {
         }
 
-        @Override // com.kwad.components.ad.interstitial.c, com.kwad.components.ad.fullscreen.h
+        @Override // com.kwad.components.ad.interstitial.c, com.kwad.sdk.api.KsInterstitialAd.AdInteractionListener
         public final void onAdShow() {
             super.onAdShow();
-            com.kwad.components.ad.interstitial.report.a.ei().q(b.this.mAdTemplate);
-            b.this.bz.h(b.this);
+            b.this.cg.a(b.this);
         }
 
-        @Override // com.kwad.components.ad.interstitial.c, com.kwad.sdk.api.KsFullScreenVideoAd.FullScreenVideoAdInteractionListener
+        @Override // com.kwad.components.ad.interstitial.c, com.kwad.sdk.api.KsInterstitialAd.AdInteractionListener
         public final void onPageDismiss() {
             super.onPageDismiss();
-            com.kwad.components.ad.interstitial.report.a.ei().r(b.this.mAdTemplate);
-            b.this.bz.i(b.this);
+            b.this.cg.b(b.this);
         }
     }
 
-    public b(@NonNull AdResultData adResultData) {
-        super(adResultData);
-        this.bz = new com.kwad.components.core.internal.api.c();
-        this.mAdResultData = adResultData;
-        this.mAdTemplate = com.kwad.sdk.core.response.b.c.o(adResultData);
+    public b(@NonNull KsScene ksScene, @NonNull AdTemplate adTemplate) {
+        this.hE = ksScene;
+        this.mAdTemplate = adTemplate;
+        KsAdGlobalWatcher.getInstance().watch(this);
+    }
+
+    @Override // com.kwad.components.core.internal.api.a
+    public final void a(com.kwad.components.core.internal.api.b bVar) {
+        this.cg.a(bVar);
+    }
+
+    @Override // com.kwad.components.core.internal.api.a
+    public final boolean ao() {
+        return true;
+    }
+
+    @Override // com.kwad.components.core.internal.api.a
+    public final void b(com.kwad.components.core.internal.api.b bVar) {
+        this.cg.b(bVar);
+    }
+
+    @Override // com.kwad.components.core.internal.api.a
+    public final AdTemplate getAdTemplate() {
+        return this.mAdTemplate;
+    }
+
+    @Override // com.kwad.sdk.api.KsInterstitialAd
+    public final int getECPM() {
+        return com.kwad.sdk.core.response.a.a.aJ(com.kwad.sdk.core.response.a.d.cb(this.mAdTemplate));
+    }
+
+    @Override // com.kwad.sdk.api.KsInterstitialAd
+    public final int getInteractionType() {
+        return com.kwad.sdk.core.response.a.a.aI(com.kwad.sdk.core.response.a.d.cb(this.mAdTemplate));
+    }
+
+    @Override // com.kwad.sdk.api.KsInterstitialAd
+    public final int getMaterialType() {
+        return com.kwad.sdk.core.response.a.a.aW(com.kwad.sdk.core.response.a.d.cb(this.mAdTemplate));
+    }
+
+    @Override // com.kwad.sdk.api.BaseKSAd
+    public final Map<String, Object> getMediaExtraInfo() {
+        HashMap hashMap = new HashMap();
+        if (com.kwad.sdk.core.config.d.ur()) {
+            hashMap.put("llsid", Long.valueOf(this.mAdTemplate.llsid));
+        }
+        return hashMap;
+    }
+
+    @Override // com.kwad.sdk.api.KsInterstitialAd
+    public final boolean isVideo() {
+        return com.kwad.sdk.core.response.a.a.aU(com.kwad.sdk.core.response.a.d.cb(this.mAdTemplate));
+    }
+
+    @Override // com.kwad.sdk.api.KsInterstitialAd
+    public final void reportAdExposureFailed(int i2, AdExposureFailedReason adExposureFailedReason) {
+        com.kwad.sdk.core.report.a.a(this.mAdTemplate, i2, adExposureFailedReason);
     }
 
     @Override // com.kwad.sdk.api.KsInterstitialAd
     public final void setAdInteractionListener(@NonNull KsInterstitialAd.AdInteractionListener adInteractionListener) {
-        if (this.f11582jj == null) {
-            this.f11582jj = new c() { // from class: com.kwad.components.ad.interstitial.b.1
-                public AnonymousClass1() {
+        if (this.hF == null) {
+            this.hF = new c() { // from class: com.kwad.components.ad.interstitial.b.1
+                AnonymousClass1() {
                 }
 
-                @Override // com.kwad.components.ad.interstitial.c, com.kwad.components.ad.fullscreen.h
+                @Override // com.kwad.components.ad.interstitial.c, com.kwad.sdk.api.KsInterstitialAd.AdInteractionListener
                 public final void onAdShow() {
                     super.onAdShow();
-                    com.kwad.components.ad.interstitial.report.a.ei().q(b.this.mAdTemplate);
-                    b.this.bz.h(b.this);
+                    b.this.cg.a(b.this);
                 }
 
-                @Override // com.kwad.components.ad.interstitial.c, com.kwad.sdk.api.KsFullScreenVideoAd.FullScreenVideoAdInteractionListener
+                @Override // com.kwad.components.ad.interstitial.c, com.kwad.sdk.api.KsInterstitialAd.AdInteractionListener
                 public final void onPageDismiss() {
                     super.onPageDismiss();
-                    com.kwad.components.ad.interstitial.report.a.ei().r(b.this.mAdTemplate);
-                    b.this.bz.i(b.this);
+                    b.this.cg.b(b.this);
                 }
             };
         }
-        this.f11582jj.a(adInteractionListener);
-        d dVar = this.f11583jk;
+        this.hF.a(adInteractionListener);
+        d dVar = this.hG;
         if (dVar != null) {
-            dVar.setAdInteractionListener(this.f11582jj);
+            dVar.setAdInteractionListener(this.hF);
         }
     }
 
     @Override // com.kwad.sdk.api.KsInterstitialAd
+    public final void setBidEcpm(int i2) {
+        setBidEcpm(i2, -1L);
+    }
+
+    @Override // com.kwad.sdk.api.KsInterstitialAd
+    public final void setBidEcpm(long j2, long j3) {
+        AdTemplate adTemplate = this.mAdTemplate;
+        adTemplate.mBidEcpm = j2;
+        com.kwad.sdk.core.report.a.i(adTemplate, j2);
+    }
+
+    @Override // com.kwad.sdk.api.KsInterstitialAd
     public final void showInterstitialAd(Activity activity, @Nullable KsVideoPlayConfig ksVideoPlayConfig) {
-        com.kwad.components.ad.interstitial.report.c.em().t(this.mAdTemplate);
-        if (com.kwad.sdk.core.config.d.CZ() && (activity == null || activity.isFinishing())) {
-            com.kwad.sdk.core.c.b.Fi();
-            activity = com.kwad.sdk.core.c.b.getCurrentActivity();
-        }
         if (activity == null || activity.isFinishing()) {
-            com.kwad.sdk.core.d.c.e("InterstitialAdControl", "showInterstitialAd activity must not be null");
-            com.kwad.components.ad.interstitial.report.realtime.a.eq();
-            com.kwad.components.ad.interstitial.report.realtime.a.B(this.mAdTemplate);
-            com.kwad.components.ad.interstitial.report.c em = com.kwad.components.ad.interstitial.report.c.em();
-            AdTemplate adTemplate = this.mAdTemplate;
-            com.kwad.sdk.core.network.e eVar = com.kwad.sdk.core.network.e.azG;
-            em.a(adTemplate, eVar.errorCode, eVar.msg);
+            com.kwad.sdk.core.d.b.e("StayAdHelper", "showInterstitialAd activity must not be null");
             return;
         }
-        if (!l.At().zE()) {
-            com.kwad.components.ad.interstitial.report.c em2 = com.kwad.components.ad.interstitial.report.c.em();
-            AdTemplate adTemplate2 = this.mAdTemplate;
-            com.kwad.sdk.core.network.e eVar2 = com.kwad.sdk.core.network.e.azH;
-            em2.a(adTemplate2, eVar2.errorCode, eVar2.msg);
-            com.kwad.sdk.core.d.c.e("InterstitialAdControl", "showInterstitialAd please init sdk first");
-            return;
+        if (!KsAdSDKImpl.get().hasInitFinish()) {
+            com.kwad.sdk.core.d.b.e("StayAdHelper", "showInterstitialAd please init sdk first");
         }
         if (ksVideoPlayConfig == null) {
             ksVideoPlayConfig = new KsVideoPlayConfig.Builder().build();
         }
-        com.kwad.sdk.commercial.d.c.bF(this.mAdTemplate);
+        com.kwad.sdk.g.a.U(AdConfig.AdType.INTERSTITIAL, "show");
+        KSLoggerReporter.ReportClient.CORE_CONVERT.buildMethodCheck(BusinessType.AD_INTERSTITIAL, "callShow").report();
+        com.kwad.components.ad.interstitial.monitor.b.cR();
+        com.kwad.components.ad.interstitial.monitor.b.h(this.hE.getPosId());
         this.mAdTemplate.adShowStartTimeStamp = SystemClock.elapsedRealtime();
+        com.kwad.sdk.components.c.f(DevelopMangerComponents.class);
         if (ksVideoPlayConfig.isVideoSoundEnable()) {
             this.mAdTemplate.mInitVoiceStatus = 2;
         } else {
             this.mAdTemplate.mInitVoiceStatus = 1;
         }
-        com.kwad.sdk.a.a.c.Bg().bk(true);
-        if (this.f11583jk == null) {
-            try {
-                d dVar = new d(activity, this.mAdResultData, ksVideoPlayConfig, this.f11582jj);
-                this.f11583jk = dVar;
-                dVar.show();
-                com.kwad.components.ad.interstitial.c.b.I(activity);
-            } catch (Throwable th2) {
-                com.kwad.components.ad.interstitial.report.realtime.a.eq();
-                com.kwad.components.ad.interstitial.report.realtime.a.a(th2.getMessage(), this.mAdTemplate);
-            }
-            com.kwad.components.ad.interstitial.report.c.em().u(this.mAdTemplate);
+        com.kwad.sdk.kwai.kwai.c.sZ().aU(true);
+        if (this.hG == null) {
+            d dVar = new d(activity, this.mAdTemplate, ksVideoPlayConfig, this.hF);
+            this.hG = dVar;
+            dVar.show();
+            com.kwad.components.ad.interstitial.a.b.J(activity);
         }
     }
 }

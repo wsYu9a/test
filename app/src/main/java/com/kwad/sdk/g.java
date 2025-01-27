@@ -1,37 +1,40 @@
 package com.kwad.sdk;
 
-import androidx.annotation.NonNull;
-import com.kwad.sdk.components.DevelopMangerComponents;
-import com.kwad.sdk.export.proxy.AdHttpProxy;
-import java.util.Random;
+import android.os.SystemClock;
+import android.util.Log;
+import com.kwad.sdk.utils.y;
 
-/* loaded from: classes3.dex */
+/* loaded from: classes2.dex */
 public final class g {
-    private static AdHttpProxy anQ;
+    private static boolean Yy;
+    private static long Yz;
 
-    @NonNull
-    public static AdHttpProxy zc() {
-        AdHttpProxy adHttpProxy = anQ;
-        if (adHttpProxy != null) {
-            return adHttpProxy;
-        }
-        if (com.kwad.framework.a.a.ns.booleanValue()) {
-            return zd();
-        }
-        try {
-            if (com.kwad.sdk.core.network.a.c.Fx() != null) {
-                anQ = new com.kwad.sdk.core.network.c.b();
-            } else {
-                anQ = new com.kwad.sdk.core.network.c.a();
-            }
-        } catch (Throwable unused) {
-            anQ = new com.kwad.sdk.core.network.c.a();
-        }
-        return anQ;
+    public static void a(Throwable th, String str) {
+        f.a(com.kwai.adclient.kscommerciallogger.model.a.aEm, str);
+        com.kwad.components.core.c.a.b(th);
+        com.kwad.sdk.core.d.b.d("SDKRevertHelper", "onInitError revert");
     }
 
-    private static AdHttpProxy zd() {
-        com.kwad.sdk.components.d.f(DevelopMangerComponents.class);
-        return new Random().nextInt(5) != 0 ? new com.kwad.sdk.core.network.c.b() : new com.kwad.sdk.core.network.c.a();
+    public static void f(Throwable th) {
+        a(th, Log.getStackTraceString(th));
+    }
+
+    public static void sR() {
+        if (Yy) {
+            return;
+        }
+        Yy = true;
+        Yz = SystemClock.elapsedRealtime();
+    }
+
+    public static void sS() {
+        if (SystemClock.elapsedRealtime() - Yz < 10000) {
+            com.kwad.sdk.core.d.b.d("SDKRevertHelper", "onException revert");
+            sT();
+        }
+    }
+
+    private static void sT() {
+        y.a(KsAdSDKImpl.get().getContext(), "kssdk_api_pref", "curversion", "");
     }
 }

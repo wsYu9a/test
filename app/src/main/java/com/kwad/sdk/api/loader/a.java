@@ -1,65 +1,71 @@
 package com.kwad.sdk.api.loader;
 
-import com.bytedance.sdk.openadsdk.mediation.MediationConstant;
-import com.umeng.analytics.pro.bt;
+import com.martian.mibook.application.MiConfigSingleton;
+import com.umeng.analytics.pro.am;
 import java.io.File;
 import org.json.JSONObject;
 
-/* loaded from: classes3.dex */
+/* loaded from: classes2.dex */
 final class a {
 
     /* renamed from: com.kwad.sdk.api.loader.a$a, reason: collision with other inner class name */
-    public static class C0477a {
-        int apq;
-        String apr;
-        transient File aps;
+    static class C0202a {
+        String Tf;
+        int Zk;
+        String Zl;
+        transient File Zm;
         long interval;
-        String md5;
         String sdkVersion;
 
-        public final boolean Bu() {
-            return this.apq == 1;
-        }
-
-        public final boolean Bv() {
-            return this.apq == -1;
+        C0202a() {
         }
 
         public final void parseJson(JSONObject jSONObject) {
             if (jSONObject == null) {
                 return;
             }
-            this.apq = jSONObject.optInt("dynamicType");
-            this.apr = jSONObject.optString("dynamicUrl");
-            this.md5 = jSONObject.optString("md5");
-            this.interval = jSONObject.optLong(bt.f23596ba);
-            this.sdkVersion = jSONObject.optString(b7.b.f1305b0);
+            this.Zk = jSONObject.optInt("dynamicType");
+            this.Zl = jSONObject.optString("dynamicUrl");
+            this.Tf = jSONObject.optString("md5");
+            this.interval = jSONObject.optLong(am.aU);
+            this.sdkVersion = jSONObject.optString("sdkVersion");
+        }
+
+        public final boolean tl() {
+            return this.Zk == 1;
+        }
+
+        public final boolean tm() {
+            return this.Zk == -1;
         }
 
         public final String toString() {
-            return "Data{dynamicType=" + this.apq + ", dynamicUrl='" + this.apr + "', md5='" + this.md5 + "', interval=" + this.interval + ", sdkVersion='" + this.sdkVersion + "', downloadFile=" + this.aps + '}';
+            return "Data{dynamicType=" + this.Zk + ", dynamicUrl='" + this.Zl + "', md5='" + this.Tf + "', interval=" + this.interval + ", sdkVersion='" + this.sdkVersion + "', downloadFile=" + this.Zm + '}';
         }
     }
 
-    public static class b {
-        long apt;
-        C0477a apu;
+    static class b {
+        long Zn;
+        C0202a Zo;
         String errorMsg;
 
-        public final boolean Bw() {
-            return this.apt == 1 && this.apu != null;
+        b() {
         }
 
         public final void parseJson(JSONObject jSONObject) {
-            this.apt = jSONObject.optLong(p3.i.f29758c);
-            this.errorMsg = jSONObject.optString(MediationConstant.KEY_ERROR_MSG);
-            C0477a c0477a = new C0477a();
-            this.apu = c0477a;
-            c0477a.parseJson(jSONObject.optJSONObject(h3.e.f26408m));
+            this.Zn = jSONObject.optLong("result");
+            this.errorMsg = jSONObject.optString("errorMsg");
+            C0202a c0202a = new C0202a();
+            this.Zo = c0202a;
+            c0202a.parseJson(jSONObject.optJSONObject(MiConfigSingleton.t0));
+        }
+
+        final boolean tn() {
+            return this.Zn == 1 && this.Zo != null;
         }
 
         public final String toString() {
-            return "UpdateData{result=" + this.apt + ", errorMsg='" + this.errorMsg + "', data=" + this.apu + '}';
+            return "UpdateData{result=" + this.Zn + ", errorMsg='" + this.errorMsg + "', data=" + this.Zo + '}';
         }
     }
 }

@@ -2,12 +2,10 @@ package com.ss.android.socialbase.downloader.segment;
 
 import android.text.TextUtils;
 import androidx.annotation.Nullable;
-import hf.e;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 import java.util.concurrent.atomic.AtomicLong;
-import p1.b;
 
 /* loaded from: classes4.dex */
 class UrlRecord {
@@ -22,11 +20,11 @@ class UrlRecord {
     private final List<SegmentReader> readers;
     final String url;
 
-    public UrlRecord(String str, boolean z10) {
+    public UrlRecord(String str, boolean z) {
         this.readers = new ArrayList();
         this.downloadBytes = new AtomicLong();
         this.url = str;
-        this.isMainUrl = z10;
+        this.isMainUrl = z;
         this.ip = null;
         this.ipFamily = null;
     }
@@ -36,30 +34,30 @@ class UrlRecord {
             return null;
         }
         try {
-            int lastIndexOf = str.lastIndexOf(b.f29697h);
+            int lastIndexOf = str.lastIndexOf(".");
             if (lastIndexOf <= 0 || lastIndexOf >= str.length()) {
                 return null;
             }
             return str.substring(0, lastIndexOf);
-        } catch (Throwable th2) {
-            th2.printStackTrace();
+        } catch (Throwable th) {
+            th.printStackTrace();
             return null;
         }
     }
 
     private String getKey() {
         if (this.key == null) {
-            StringBuilder sb2 = new StringBuilder();
-            sb2.append(this.url);
-            sb2.append(e.f26694a);
+            StringBuilder sb = new StringBuilder();
+            sb.append(this.url);
+            sb.append("_");
             String str = this.ip;
             if (str == null) {
                 str = "";
             }
-            sb2.append(str);
-            sb2.append(e.f26694a);
-            sb2.append(this.isMainUrl);
-            this.key = sb2.toString();
+            sb.append(str);
+            sb.append("_");
+            sb.append(this.isMainUrl);
+            this.key = sb.toString();
         }
         return this.key;
     }
@@ -79,12 +77,12 @@ class UrlRecord {
     }
 
     public long getDownloadBytes() {
-        long j10 = this.downloadBytes.get();
+        long j2 = this.downloadBytes.get();
         Iterator<SegmentReader> it = this.readers.iterator();
         while (it.hasNext()) {
-            j10 += it.next().getReadingBytes();
+            j2 += it.next().getReadingBytes();
         }
-        return j10;
+        return j2;
     }
 
     public int hashCode() {
@@ -94,8 +92,8 @@ class UrlRecord {
         return this.hashCode;
     }
 
-    public void increaseDownloadBytes(long j10) {
-        this.downloadBytes.addAndGet(j10);
+    public void increaseDownloadBytes(long j2) {
+        this.downloadBytes.addAndGet(j2);
     }
 
     public synchronized boolean isCurrentFailed() {

@@ -2,7 +2,7 @@ package me.jessyan.autosize;
 
 import android.app.Activity;
 
-/* loaded from: classes4.dex */
+/* loaded from: classes5.dex */
 public class WrapperAutoAdaptStrategy implements AutoAdaptStrategy {
     private final AutoAdaptStrategy mAutoAdaptStrategy;
 

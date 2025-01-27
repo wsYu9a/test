@@ -13,13 +13,13 @@ public class BookRankTab {
         return this.name;
     }
 
-    public BookRankTab setBtype(int i10) {
-        this.btype = i10;
+    public BookRankTab setBtype(int btype) {
+        this.btype = btype;
         return this;
     }
 
-    public BookRankTab setName(String str) {
-        this.name = str;
+    public BookRankTab setName(String name) {
+        this.name = name;
         return this;
     }
 }

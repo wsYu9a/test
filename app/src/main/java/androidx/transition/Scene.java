@@ -11,16 +11,32 @@ import androidx.annotation.Nullable;
 
 /* loaded from: classes.dex */
 public class Scene {
-    private Context mContext;
-    private Runnable mEnterAction;
-    private Runnable mExitAction;
-    private View mLayout;
-    private int mLayoutId;
-    private ViewGroup mSceneRoot;
+
+    /* renamed from: a */
+    private Context f3796a;
+
+    /* renamed from: b */
+    private int f3797b;
+
+    /* renamed from: c */
+    private ViewGroup f3798c;
+
+    /* renamed from: d */
+    private View f3799d;
+
+    /* renamed from: e */
+    private Runnable f3800e;
+
+    /* renamed from: f */
+    private Runnable f3801f;
 
     public Scene(@NonNull ViewGroup viewGroup) {
-        this.mLayoutId = -1;
-        this.mSceneRoot = viewGroup;
+        this.f3797b = -1;
+        this.f3798c = viewGroup;
+    }
+
+    static void b(@NonNull ViewGroup viewGroup, @Nullable Scene scene) {
+        viewGroup.setTag(R.id.transition_current_scene, scene);
     }
 
     @Nullable
@@ -29,44 +45,45 @@ public class Scene {
     }
 
     @NonNull
-    public static Scene getSceneForLayout(@NonNull ViewGroup viewGroup, @LayoutRes int i10, @NonNull Context context) {
-        SparseArray sparseArray = (SparseArray) viewGroup.getTag(R.id.transition_scene_layoutid_cache);
+    public static Scene getSceneForLayout(@NonNull ViewGroup viewGroup, @LayoutRes int i2, @NonNull Context context) {
+        int i3 = R.id.transition_scene_layoutid_cache;
+        SparseArray sparseArray = (SparseArray) viewGroup.getTag(i3);
         if (sparseArray == null) {
             sparseArray = new SparseArray();
-            viewGroup.setTag(R.id.transition_scene_layoutid_cache, sparseArray);
+            viewGroup.setTag(i3, sparseArray);
         }
-        Scene scene = (Scene) sparseArray.get(i10);
+        Scene scene = (Scene) sparseArray.get(i2);
         if (scene != null) {
             return scene;
         }
-        Scene scene2 = new Scene(viewGroup, i10, context);
-        sparseArray.put(i10, scene2);
+        Scene scene2 = new Scene(viewGroup, i2, context);
+        sparseArray.put(i2, scene2);
         return scene2;
     }
 
-    public static void setCurrentScene(@NonNull ViewGroup viewGroup, @Nullable Scene scene) {
-        viewGroup.setTag(R.id.transition_current_scene, scene);
+    boolean a() {
+        return this.f3797b > 0;
     }
 
     public void enter() {
-        if (this.mLayoutId > 0 || this.mLayout != null) {
+        if (this.f3797b > 0 || this.f3799d != null) {
             getSceneRoot().removeAllViews();
-            if (this.mLayoutId > 0) {
-                LayoutInflater.from(this.mContext).inflate(this.mLayoutId, this.mSceneRoot);
+            if (this.f3797b > 0) {
+                LayoutInflater.from(this.f3796a).inflate(this.f3797b, this.f3798c);
             } else {
-                this.mSceneRoot.addView(this.mLayout);
+                this.f3798c.addView(this.f3799d);
             }
         }
-        Runnable runnable = this.mEnterAction;
+        Runnable runnable = this.f3800e;
         if (runnable != null) {
             runnable.run();
         }
-        setCurrentScene(this.mSceneRoot, this);
+        b(this.f3798c, this);
     }
 
     public void exit() {
         Runnable runnable;
-        if (getCurrentScene(this.mSceneRoot) != this || (runnable = this.mExitAction) == null) {
+        if (getCurrentScene(this.f3798c) != this || (runnable = this.f3801f) == null) {
             return;
         }
         runnable.run();
@@ -74,30 +91,27 @@ public class Scene {
 
     @NonNull
     public ViewGroup getSceneRoot() {
-        return this.mSceneRoot;
-    }
-
-    public boolean isCreatedFromLayoutResource() {
-        return this.mLayoutId > 0;
+        return this.f3798c;
     }
 
     public void setEnterAction(@Nullable Runnable runnable) {
-        this.mEnterAction = runnable;
+        this.f3800e = runnable;
     }
 
     public void setExitAction(@Nullable Runnable runnable) {
-        this.mExitAction = runnable;
+        this.f3801f = runnable;
     }
 
-    private Scene(ViewGroup viewGroup, int i10, Context context) {
-        this.mContext = context;
-        this.mSceneRoot = viewGroup;
-        this.mLayoutId = i10;
+    private Scene(ViewGroup viewGroup, int i2, Context context) {
+        this.f3797b = -1;
+        this.f3796a = context;
+        this.f3798c = viewGroup;
+        this.f3797b = i2;
     }
 
     public Scene(@NonNull ViewGroup viewGroup, @NonNull View view) {
-        this.mLayoutId = -1;
-        this.mSceneRoot = viewGroup;
-        this.mLayout = view;
+        this.f3797b = -1;
+        this.f3798c = viewGroup;
+        this.f3799d = view;
     }
 }

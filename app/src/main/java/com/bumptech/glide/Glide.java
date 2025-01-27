@@ -103,7 +103,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
-/* loaded from: classes2.dex */
+/* loaded from: classes.dex */
 public class Glide implements ComponentCallbacks2 {
     private static final String DEFAULT_DISK_CACHE_DIR = "image_manager_disk_cache";
     private static final String TAG = "Glide";
@@ -130,10 +130,9 @@ public class Glide implements ComponentCallbacks2 {
         RequestOptions build();
     }
 
-    public Glide(@NonNull Context context, @NonNull Engine engine, @NonNull MemoryCache memoryCache, @NonNull BitmapPool bitmapPool, @NonNull ArrayPool arrayPool, @NonNull RequestManagerRetriever requestManagerRetriever, @NonNull ConnectivityMonitorFactory connectivityMonitorFactory, int i10, @NonNull RequestOptionsFactory requestOptionsFactory, @NonNull Map<Class<?>, TransitionOptions<?, ?>> map, @NonNull List<RequestListener<Object>> list, boolean z10, boolean z11) {
+    Glide(@NonNull Context context, @NonNull Engine engine, @NonNull MemoryCache memoryCache, @NonNull BitmapPool bitmapPool, @NonNull ArrayPool arrayPool, @NonNull RequestManagerRetriever requestManagerRetriever, @NonNull ConnectivityMonitorFactory connectivityMonitorFactory, int i2, @NonNull RequestOptionsFactory requestOptionsFactory, @NonNull Map<Class<?>, TransitionOptions<?, ?>> map, @NonNull List<RequestListener<Object>> list, boolean z, boolean z2) {
         ResourceDecoder byteBufferBitmapDecoder;
         ResourceDecoder streamBitmapDecoder;
-        Registry registry;
         this.engine = engine;
         this.bitmapPool = bitmapPool;
         this.arrayPool = arrayPool;
@@ -142,18 +141,18 @@ public class Glide implements ComponentCallbacks2 {
         this.connectivityMonitorFactory = connectivityMonitorFactory;
         this.defaultRequestOptionsFactory = requestOptionsFactory;
         Resources resources = context.getResources();
-        Registry registry2 = new Registry();
-        this.registry = registry2;
-        registry2.register(new DefaultImageHeaderParser());
-        int i11 = Build.VERSION.SDK_INT;
-        if (i11 >= 27) {
-            registry2.register(new ExifInterfaceImageHeaderParser());
+        Registry registry = new Registry();
+        this.registry = registry;
+        registry.register(new DefaultImageHeaderParser());
+        int i3 = Build.VERSION.SDK_INT;
+        if (i3 >= 27) {
+            registry.register(new ExifInterfaceImageHeaderParser());
         }
-        List<ImageHeaderParser> imageHeaderParsers = registry2.getImageHeaderParsers();
+        List<ImageHeaderParser> imageHeaderParsers = registry.getImageHeaderParsers();
         ByteBufferGifDecoder byteBufferGifDecoder = new ByteBufferGifDecoder(context, imageHeaderParsers, bitmapPool, arrayPool);
         ResourceDecoder<ParcelFileDescriptor, Bitmap> parcel = VideoDecoder.parcel(bitmapPool);
-        Downsampler downsampler = new Downsampler(registry2.getImageHeaderParsers(), resources.getDisplayMetrics(), bitmapPool, arrayPool);
-        if (!z11 || i11 < 28) {
+        Downsampler downsampler = new Downsampler(registry.getImageHeaderParsers(), resources.getDisplayMetrics(), bitmapPool, arrayPool);
+        if (!z2 || i3 < 28) {
             byteBufferBitmapDecoder = new ByteBufferBitmapDecoder(downsampler);
             streamBitmapDecoder = new StreamBitmapDecoder(downsampler, arrayPool);
         } else {
@@ -169,30 +168,27 @@ public class Glide implements ComponentCallbacks2 {
         BitmapBytesTranscoder bitmapBytesTranscoder = new BitmapBytesTranscoder();
         GifDrawableBytesTranscoder gifDrawableBytesTranscoder = new GifDrawableBytesTranscoder();
         ContentResolver contentResolver = context.getContentResolver();
-        registry2.append(ByteBuffer.class, new ByteBufferEncoder()).append(InputStream.class, new StreamEncoder(arrayPool)).append(Registry.BUCKET_BITMAP, ByteBuffer.class, Bitmap.class, byteBufferBitmapDecoder).append(Registry.BUCKET_BITMAP, InputStream.class, Bitmap.class, streamBitmapDecoder);
+        registry.append(ByteBuffer.class, new ByteBufferEncoder()).append(InputStream.class, new StreamEncoder(arrayPool)).append(Registry.BUCKET_BITMAP, ByteBuffer.class, Bitmap.class, byteBufferBitmapDecoder).append(Registry.BUCKET_BITMAP, InputStream.class, Bitmap.class, streamBitmapDecoder);
         if (ParcelFileDescriptorRewinder.isSupported()) {
-            registry2.append(Registry.BUCKET_BITMAP, ParcelFileDescriptor.class, Bitmap.class, new ParcelFileDescriptorBitmapDecoder(downsampler));
+            registry.append(Registry.BUCKET_BITMAP, ParcelFileDescriptor.class, Bitmap.class, new ParcelFileDescriptorBitmapDecoder(downsampler));
         }
-        registry2.append(Registry.BUCKET_BITMAP, ParcelFileDescriptor.class, Bitmap.class, parcel).append(Registry.BUCKET_BITMAP, AssetFileDescriptor.class, Bitmap.class, VideoDecoder.asset(bitmapPool)).append(Bitmap.class, Bitmap.class, UnitModelLoader.Factory.getInstance()).append(Registry.BUCKET_BITMAP, Bitmap.class, Bitmap.class, new UnitBitmapDecoder()).append(Bitmap.class, (ResourceEncoder) bitmapEncoder).append(Registry.BUCKET_BITMAP_DRAWABLE, ByteBuffer.class, BitmapDrawable.class, new BitmapDrawableDecoder(resources, byteBufferBitmapDecoder)).append(Registry.BUCKET_BITMAP_DRAWABLE, InputStream.class, BitmapDrawable.class, new BitmapDrawableDecoder(resources, streamBitmapDecoder)).append(Registry.BUCKET_BITMAP_DRAWABLE, ParcelFileDescriptor.class, BitmapDrawable.class, new BitmapDrawableDecoder(resources, parcel)).append(BitmapDrawable.class, (ResourceEncoder) new BitmapDrawableEncoder(bitmapPool, bitmapEncoder)).append(Registry.BUCKET_GIF, InputStream.class, GifDrawable.class, new StreamGifDecoder(imageHeaderParsers, byteBufferGifDecoder, arrayPool)).append(Registry.BUCKET_GIF, ByteBuffer.class, GifDrawable.class, byteBufferGifDecoder).append(GifDrawable.class, (ResourceEncoder) new GifDrawableEncoder()).append(GifDecoder.class, GifDecoder.class, UnitModelLoader.Factory.getInstance()).append(Registry.BUCKET_BITMAP, GifDecoder.class, Bitmap.class, new GifFrameResourceDecoder(bitmapPool)).append(Uri.class, Drawable.class, resourceDrawableDecoder).append(Uri.class, Bitmap.class, new ResourceBitmapDecoder(resourceDrawableDecoder, bitmapPool)).register(new ByteBufferRewinder.Factory()).append(File.class, ByteBuffer.class, new ByteBufferFileLoader.Factory()).append(File.class, InputStream.class, new FileLoader.StreamFactory()).append(File.class, File.class, new FileDecoder()).append(File.class, ParcelFileDescriptor.class, new FileLoader.FileDescriptorFactory()).append(File.class, File.class, UnitModelLoader.Factory.getInstance()).register(new InputStreamRewinder.Factory(arrayPool));
+        registry.append(Registry.BUCKET_BITMAP, ParcelFileDescriptor.class, Bitmap.class, parcel).append(Registry.BUCKET_BITMAP, AssetFileDescriptor.class, Bitmap.class, VideoDecoder.asset(bitmapPool)).append(Bitmap.class, Bitmap.class, UnitModelLoader.Factory.getInstance()).append(Registry.BUCKET_BITMAP, Bitmap.class, Bitmap.class, new UnitBitmapDecoder()).append(Bitmap.class, (ResourceEncoder) bitmapEncoder).append(Registry.BUCKET_BITMAP_DRAWABLE, ByteBuffer.class, BitmapDrawable.class, new BitmapDrawableDecoder(resources, byteBufferBitmapDecoder)).append(Registry.BUCKET_BITMAP_DRAWABLE, InputStream.class, BitmapDrawable.class, new BitmapDrawableDecoder(resources, streamBitmapDecoder)).append(Registry.BUCKET_BITMAP_DRAWABLE, ParcelFileDescriptor.class, BitmapDrawable.class, new BitmapDrawableDecoder(resources, parcel)).append(BitmapDrawable.class, (ResourceEncoder) new BitmapDrawableEncoder(bitmapPool, bitmapEncoder)).append(Registry.BUCKET_GIF, InputStream.class, GifDrawable.class, new StreamGifDecoder(imageHeaderParsers, byteBufferGifDecoder, arrayPool)).append(Registry.BUCKET_GIF, ByteBuffer.class, GifDrawable.class, byteBufferGifDecoder).append(GifDrawable.class, (ResourceEncoder) new GifDrawableEncoder()).append(GifDecoder.class, GifDecoder.class, UnitModelLoader.Factory.getInstance()).append(Registry.BUCKET_BITMAP, GifDecoder.class, Bitmap.class, new GifFrameResourceDecoder(bitmapPool)).append(Uri.class, Drawable.class, resourceDrawableDecoder).append(Uri.class, Bitmap.class, new ResourceBitmapDecoder(resourceDrawableDecoder, bitmapPool)).register(new ByteBufferRewinder.Factory()).append(File.class, ByteBuffer.class, new ByteBufferFileLoader.Factory()).append(File.class, InputStream.class, new FileLoader.StreamFactory()).append(File.class, File.class, new FileDecoder()).append(File.class, ParcelFileDescriptor.class, new FileLoader.FileDescriptorFactory()).append(File.class, File.class, UnitModelLoader.Factory.getInstance()).register(new InputStreamRewinder.Factory(arrayPool));
         if (ParcelFileDescriptorRewinder.isSupported()) {
-            registry = registry2;
             registry.register(new ParcelFileDescriptorRewinder.Factory());
-        } else {
-            registry = registry2;
         }
         Class cls = Integer.TYPE;
         registry.append(cls, InputStream.class, streamFactory).append(cls, ParcelFileDescriptor.class, fileDescriptorFactory).append(Integer.class, InputStream.class, streamFactory).append(Integer.class, ParcelFileDescriptor.class, fileDescriptorFactory).append(Integer.class, Uri.class, uriFactory).append(cls, AssetFileDescriptor.class, assetFileDescriptorFactory).append(Integer.class, AssetFileDescriptor.class, assetFileDescriptorFactory).append(cls, Uri.class, uriFactory).append(String.class, InputStream.class, new DataUrlLoader.StreamFactory()).append(Uri.class, InputStream.class, new DataUrlLoader.StreamFactory()).append(String.class, InputStream.class, new StringLoader.StreamFactory()).append(String.class, ParcelFileDescriptor.class, new StringLoader.FileDescriptorFactory()).append(String.class, AssetFileDescriptor.class, new StringLoader.AssetFileDescriptorFactory()).append(Uri.class, InputStream.class, new HttpUriLoader.Factory()).append(Uri.class, InputStream.class, new AssetUriLoader.StreamFactory(context.getAssets())).append(Uri.class, ParcelFileDescriptor.class, new AssetUriLoader.FileDescriptorFactory(context.getAssets())).append(Uri.class, InputStream.class, new MediaStoreImageThumbLoader.Factory(context)).append(Uri.class, InputStream.class, new MediaStoreVideoThumbLoader.Factory(context));
-        if (i11 >= 29) {
+        if (i3 >= 29) {
             registry.append(Uri.class, InputStream.class, new QMediaStoreUriLoader.InputStreamFactory(context));
             registry.append(Uri.class, ParcelFileDescriptor.class, new QMediaStoreUriLoader.FileDescriptorFactory(context));
         }
         registry.append(Uri.class, InputStream.class, new UriLoader.StreamFactory(contentResolver)).append(Uri.class, ParcelFileDescriptor.class, new UriLoader.FileDescriptorFactory(contentResolver)).append(Uri.class, AssetFileDescriptor.class, new UriLoader.AssetFileDescriptorFactory(contentResolver)).append(Uri.class, InputStream.class, new UrlUriLoader.StreamFactory()).append(URL.class, InputStream.class, new UrlLoader.StreamFactory()).append(Uri.class, File.class, new MediaStoreFileLoader.Factory(context)).append(GlideUrl.class, InputStream.class, new HttpGlideUrlLoader.Factory()).append(byte[].class, ByteBuffer.class, new ByteArrayLoader.ByteBufferFactory()).append(byte[].class, InputStream.class, new ByteArrayLoader.StreamFactory()).append(Uri.class, Uri.class, UnitModelLoader.Factory.getInstance()).append(Drawable.class, Drawable.class, UnitModelLoader.Factory.getInstance()).append(Drawable.class, Drawable.class, new UnitDrawableDecoder()).register(Bitmap.class, BitmapDrawable.class, new BitmapDrawableTranscoder(resources)).register(Bitmap.class, byte[].class, bitmapBytesTranscoder).register(Drawable.class, byte[].class, new DrawableBytesTranscoder(bitmapPool, bitmapBytesTranscoder, gifDrawableBytesTranscoder)).register(GifDrawable.class, byte[].class, gifDrawableBytesTranscoder);
-        if (i11 >= 23) {
+        if (i3 >= 23) {
             ResourceDecoder<ByteBuffer, Bitmap> byteBuffer = VideoDecoder.byteBuffer(bitmapPool);
             registry.append(ByteBuffer.class, Bitmap.class, byteBuffer);
             registry.append(ByteBuffer.class, BitmapDrawable.class, new BitmapDrawableDecoder(resources, byteBuffer));
         }
-        this.glideContext = new GlideContext(context, arrayPool, registry, new ImageViewTargetFactory(), requestOptionsFactory, map, list, engine, z10, i10);
+        this.glideContext = new GlideContext(context, arrayPool, registry, new ImageViewTargetFactory(), requestOptionsFactory, map, list, engine, z, i2);
     }
 
     @GuardedBy("Glide.class")
@@ -210,11 +206,8 @@ public class Glide implements ComponentCallbacks2 {
         if (glide == null) {
             GeneratedAppGlideModule annotationGeneratedGlideModules = getAnnotationGeneratedGlideModules(context.getApplicationContext());
             synchronized (Glide.class) {
-                try {
-                    if (glide == null) {
-                        checkAndInitializeGlide(context, annotationGeneratedGlideModules);
-                    }
-                } finally {
+                if (glide == null) {
+                    checkAndInitializeGlide(context, annotationGeneratedGlideModules);
                 }
             }
         }
@@ -224,23 +217,23 @@ public class Glide implements ComponentCallbacks2 {
     @Nullable
     private static GeneratedAppGlideModule getAnnotationGeneratedGlideModules(Context context) {
         try {
-            return (GeneratedAppGlideModule) GeneratedAppGlideModuleImpl.class.getDeclaredConstructor(Context.class).newInstance(context.getApplicationContext());
+            return (GeneratedAppGlideModule) Class.forName("com.bumptech.glide.GeneratedAppGlideModuleImpl").getDeclaredConstructor(Context.class).newInstance(context.getApplicationContext());
         } catch (ClassNotFoundException unused) {
             if (Log.isLoggable(TAG, 5)) {
                 Log.w(TAG, "Failed to find GeneratedAppGlideModule. You should include an annotationProcessor compile dependency on com.github.bumptech.glide:compiler in your application and a @GlideModule annotated AppGlideModule implementation or LibraryGlideModules will be silently ignored");
             }
             return null;
-        } catch (IllegalAccessException e10) {
-            throwIncorrectGlideModule(e10);
+        } catch (IllegalAccessException e2) {
+            throwIncorrectGlideModule(e2);
             return null;
-        } catch (InstantiationException e11) {
-            throwIncorrectGlideModule(e11);
+        } catch (InstantiationException e3) {
+            throwIncorrectGlideModule(e3);
             return null;
-        } catch (NoSuchMethodException e12) {
-            throwIncorrectGlideModule(e12);
+        } catch (NoSuchMethodException e4) {
+            throwIncorrectGlideModule(e4);
             return null;
-        } catch (InvocationTargetException e13) {
-            throwIncorrectGlideModule(e13);
+        } catch (InvocationTargetException e5) {
+            throwIncorrectGlideModule(e5);
             return null;
         }
     }
@@ -260,14 +253,10 @@ public class Glide implements ComponentCallbacks2 {
     @Deprecated
     public static synchronized void init(Glide glide2) {
         synchronized (Glide.class) {
-            try {
-                if (glide != null) {
-                    tearDown();
-                }
-                glide = glide2;
-            } catch (Throwable th2) {
-                throw th2;
+            if (glide != null) {
+                tearDown();
             }
+            glide = glide2;
         }
     }
 
@@ -279,15 +268,11 @@ public class Glide implements ComponentCallbacks2 {
     @VisibleForTesting
     public static synchronized void tearDown() {
         synchronized (Glide.class) {
-            try {
-                if (glide != null) {
-                    glide.getContext().getApplicationContext().unregisterComponentCallbacks(glide);
-                    glide.engine.shutdown();
-                }
-                glide = null;
-            } catch (Throwable th2) {
-                throw th2;
+            if (glide != null) {
+                glide.getContext().getApplicationContext().unregisterComponentCallbacks(glide);
+                glide.engine.shutdown();
             }
+            glide = null;
         }
     }
 
@@ -322,7 +307,7 @@ public class Glide implements ComponentCallbacks2 {
         return this.bitmapPool;
     }
 
-    public ConnectivityMonitorFactory getConnectivityMonitorFactory() {
+    ConnectivityMonitorFactory getConnectivityMonitorFactory() {
         return this.connectivityMonitorFactory;
     }
 
@@ -332,7 +317,7 @@ public class Glide implements ComponentCallbacks2 {
     }
 
     @NonNull
-    public GlideContext getGlideContext() {
+    GlideContext getGlideContext() {
         return this.glideContext;
     }
 
@@ -356,47 +341,35 @@ public class Glide implements ComponentCallbacks2 {
     }
 
     @Override // android.content.ComponentCallbacks2
-    public void onTrimMemory(int i10) {
-        trimMemory(i10);
+    public void onTrimMemory(int i2) {
+        trimMemory(i2);
     }
 
     public synchronized void preFillBitmapPool(@NonNull PreFillType.Builder... builderArr) {
-        try {
-            if (this.bitmapPreFiller == null) {
-                this.bitmapPreFiller = new BitmapPreFiller(this.memoryCache, this.bitmapPool, (DecodeFormat) this.defaultRequestOptionsFactory.build().getOptions().get(Downsampler.DECODE_FORMAT));
+        if (this.bitmapPreFiller == null) {
+            this.bitmapPreFiller = new BitmapPreFiller(this.memoryCache, this.bitmapPool, (DecodeFormat) this.defaultRequestOptionsFactory.build().getOptions().get(Downsampler.DECODE_FORMAT));
+        }
+        this.bitmapPreFiller.preFill(builderArr);
+    }
+
+    void registerRequestManager(RequestManager requestManager) {
+        synchronized (this.managers) {
+            if (this.managers.contains(requestManager)) {
+                throw new IllegalStateException("Cannot register already registered manager");
             }
-            this.bitmapPreFiller.preFill(builderArr);
-        } catch (Throwable th2) {
-            throw th2;
+            this.managers.add(requestManager);
         }
     }
 
-    public void registerRequestManager(RequestManager requestManager) {
+    boolean removeFromManagers(@NonNull Target<?> target) {
         synchronized (this.managers) {
-            try {
-                if (this.managers.contains(requestManager)) {
-                    throw new IllegalStateException("Cannot register already registered manager");
+            Iterator<RequestManager> it = this.managers.iterator();
+            while (it.hasNext()) {
+                if (it.next().untrack(target)) {
+                    return true;
                 }
-                this.managers.add(requestManager);
-            } catch (Throwable th2) {
-                throw th2;
             }
-        }
-    }
-
-    public boolean removeFromManagers(@NonNull Target<?> target) {
-        synchronized (this.managers) {
-            try {
-                Iterator<RequestManager> it = this.managers.iterator();
-                while (it.hasNext()) {
-                    if (it.next().untrack(target)) {
-                        return true;
-                    }
-                }
-                return false;
-            } catch (Throwable th2) {
-                throw th2;
-            }
+            return false;
         }
     }
 
@@ -410,27 +383,23 @@ public class Glide implements ComponentCallbacks2 {
         return memoryCategory2;
     }
 
-    public void trimMemory(int i10) {
+    public void trimMemory(int i2) {
         Util.assertMainThread();
         Iterator<RequestManager> it = this.managers.iterator();
         while (it.hasNext()) {
-            it.next().onTrimMemory(i10);
+            it.next().onTrimMemory(i2);
         }
-        this.memoryCache.trimMemory(i10);
-        this.bitmapPool.trimMemory(i10);
-        this.arrayPool.trimMemory(i10);
+        this.memoryCache.trimMemory(i2);
+        this.bitmapPool.trimMemory(i2);
+        this.arrayPool.trimMemory(i2);
     }
 
-    public void unregisterRequestManager(RequestManager requestManager) {
+    void unregisterRequestManager(RequestManager requestManager) {
         synchronized (this.managers) {
-            try {
-                if (!this.managers.contains(requestManager)) {
-                    throw new IllegalStateException("Cannot unregister not yet registered manager");
-                }
-                this.managers.remove(requestManager);
-            } catch (Throwable th2) {
-                throw th2;
+            if (!this.managers.contains(requestManager)) {
+                throw new IllegalStateException("Cannot unregister not yet registered manager");
             }
+            this.managers.remove(requestManager);
         }
     }
 
@@ -488,8 +457,8 @@ public class Glide implements ComponentCallbacks2 {
         for (GlideModule glideModule : emptyList) {
             try {
                 glideModule.registerComponents(applicationContext, build, build.registry);
-            } catch (AbstractMethodError e10) {
-                throw new IllegalStateException("Attempting to register a Glide v3 module. If you see this, you or one of your dependencies may be including Glide v3 even though you're using Glide v4. You'll need to find and remove (or update) the offending dependency. The v3 module name is: " + glideModule.getClass().getName(), e10);
+            } catch (AbstractMethodError e2) {
+                throw new IllegalStateException("Attempting to register a Glide v3 module. If you see this, you or one of your dependencies may be including Glide v3 even though you're using Glide v4. You'll need to find and remove (or update) the offending dependency. The v3 module name is: " + glideModule.getClass().getName(), e2);
             }
         }
         if (generatedAppGlideModule != null) {
@@ -518,14 +487,10 @@ public class Glide implements ComponentCallbacks2 {
     public static void init(@NonNull Context context, @NonNull GlideBuilder glideBuilder) {
         GeneratedAppGlideModule annotationGeneratedGlideModules = getAnnotationGeneratedGlideModules(context);
         synchronized (Glide.class) {
-            try {
-                if (glide != null) {
-                    tearDown();
-                }
-                initializeGlide(context, glideBuilder, annotationGeneratedGlideModules);
-            } catch (Throwable th2) {
-                throw th2;
+            if (glide != null) {
+                tearDown();
             }
+            initializeGlide(context, glideBuilder, annotationGeneratedGlideModules);
         }
     }
 

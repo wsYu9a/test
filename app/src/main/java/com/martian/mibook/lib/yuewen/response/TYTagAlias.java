@@ -1,6 +1,6 @@
 package com.martian.mibook.lib.yuewen.response;
 
-/* loaded from: classes3.dex */
+/* loaded from: classes4.dex */
 public class TYTagAlias {
     private String femaleAlias;
     private String maleAlias;
@@ -18,15 +18,15 @@ public class TYTagAlias {
         return this.tag;
     }
 
-    public void setFemaleAlias(String str) {
-        this.femaleAlias = str;
+    public void setFemaleAlias(String femaleAlias) {
+        this.femaleAlias = femaleAlias;
     }
 
-    public void setMaleAlias(String str) {
-        this.maleAlias = str;
+    public void setMaleAlias(String maleAlias) {
+        this.maleAlias = maleAlias;
     }
 
-    public void setTag(String str) {
-        this.tag = str;
+    public void setTag(String tag) {
+        this.tag = tag;
     }
 }

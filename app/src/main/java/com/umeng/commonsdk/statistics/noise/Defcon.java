@@ -1,6 +1,7 @@
 package com.umeng.commonsdk.statistics.noise;
 
 import android.content.Context;
+import com.alipay.mobilesecuritysdk.constant.a;
 import com.umeng.commonsdk.framework.UMEnvelopeBuild;
 import com.umeng.commonsdk.statistics.idtracking.ImprintHandler;
 import com.umeng.commonsdk.statistics.internal.d;
@@ -23,15 +24,11 @@ public class Defcon implements d {
     public static synchronized Defcon getService(Context context) {
         Defcon defcon;
         synchronized (Defcon.class) {
-            try {
-                if (instanse == null) {
-                    instanse = new Defcon();
-                    instanse.setLevel(Integer.valueOf(UMEnvelopeBuild.imprintProperty(context, "defcon", "0")).intValue());
-                }
-                defcon = instanse;
-            } catch (Throwable th2) {
-                throw th2;
+            if (instanse == null) {
+                instanse = new Defcon();
+                instanse.setLevel(Integer.valueOf(UMEnvelopeBuild.imprintProperty(context, "defcon", "0")).intValue());
             }
+            defcon = instanse;
         }
         return defcon;
     }
@@ -41,12 +38,15 @@ public class Defcon implements d {
     }
 
     public long getReqInterval() {
-        int i10 = this.mLevel;
-        return i10 != 1 ? i10 != 2 ? i10 != 3 ? 0L : 86400000L : MILLIS_8_HOURS : MILLIS_4_HOURS;
+        int i2 = this.mLevel;
+        return i2 != 1 ? i2 != 2 ? i2 != 3 ? 0L : 86400000L : MILLIS_8_HOURS : MILLIS_4_HOURS;
     }
 
     public long getRetryInterval() {
-        return this.mLevel == 0 ? 0L : 300000L;
+        if (this.mLevel == 0) {
+            return 0L;
+        }
+        return a.k;
     }
 
     public boolean isOpen() {
@@ -58,10 +58,10 @@ public class Defcon implements d {
         setLevel(Integer.valueOf(aVar.a("defcon", String.valueOf(0))).intValue());
     }
 
-    public void setLevel(int i10) {
-        if (i10 < 0 || i10 > 3) {
+    public void setLevel(int i2) {
+        if (i2 < 0 || i2 > 3) {
             return;
         }
-        this.mLevel = i10;
+        this.mLevel = i2;
     }
 }

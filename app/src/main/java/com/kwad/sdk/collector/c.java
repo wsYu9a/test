@@ -3,27 +3,27 @@ package com.kwad.sdk.collector;
 import android.content.Context;
 import androidx.annotation.NonNull;
 import com.kwad.sdk.collector.d;
-import com.kwad.sdk.core.network.l;
-import com.kwad.sdk.core.network.o;
-import com.kwad.sdk.core.response.model.BaseResultData;
-import com.kwad.sdk.utils.bo;
+import com.kwad.sdk.core.network.BaseResultData;
+import com.kwad.sdk.core.network.m;
+import com.kwad.sdk.core.network.p;
+import com.kwad.sdk.utils.bd;
 
-/* loaded from: classes3.dex */
+/* loaded from: classes2.dex */
 public final class c {
 
     /* renamed from: com.kwad.sdk.collector.c$1 */
-    public class AnonymousClass1 implements d.a {
-        final /* synthetic */ a aqX;
-        final /* synthetic */ Context hB;
+    static class AnonymousClass1 implements d.a {
+        final /* synthetic */ a abd;
+        final /* synthetic */ Context jN;
 
-        public AnonymousClass1(Context context, a aVar) {
+        AnonymousClass1(Context context, a aVar) {
             context = context;
             aVar = aVar;
         }
 
         @Override // com.kwad.sdk.collector.d.a
-        public final void cx(String str) {
-            com.kwad.sdk.core.d.c.e("AppStatusFetchConfigManager", "onLoadError: " + str);
+        public final void bo(String str) {
+            com.kwad.sdk.core.d.b.e("AppStatusFetchConfigManager", "onLoadError: " + str);
         }
 
         @Override // com.kwad.sdk.collector.d.a
@@ -33,46 +33,35 @@ public final class c {
     }
 
     /* renamed from: com.kwad.sdk.collector.c$2 */
-    public class AnonymousClass2 extends l<com.kwad.sdk.collector.a.a, AppStatusRules> {
-        final /* synthetic */ Context hB;
+    static class AnonymousClass2 extends m<com.kwad.sdk.collector.kwai.a, AppStatusRules> {
+        final /* synthetic */ Context jN;
 
-        public AnonymousClass2(Context context) {
+        AnonymousClass2(Context context) {
             context = context;
+        }
+
+        @NonNull
+        private static AppStatusRules bp(String str) {
+            return AppStatusRules.createFromJson(str);
         }
 
         @Override // com.kwad.sdk.core.network.a
         @NonNull
-        /* renamed from: BT */
-        public com.kwad.sdk.collector.a.a createRequest() {
-            return new com.kwad.sdk.collector.a.a(bo.dB(context));
+        /* renamed from: tE */
+        public com.kwad.sdk.collector.kwai.a createRequest() {
+            return new com.kwad.sdk.collector.kwai.a(bd.db(context));
         }
 
-        @NonNull
-        private static AppStatusRules cy(String str) {
-            return AppStatusRules.createFromJson(str);
-        }
-
-        @Override // com.kwad.sdk.core.network.l
+        @Override // com.kwad.sdk.core.network.m
         @NonNull
         public final /* synthetic */ AppStatusRules parseData(String str) {
-            return cy(str);
+            return bp(str);
         }
     }
 
     /* renamed from: com.kwad.sdk.collector.c$3 */
-    public class AnonymousClass3 extends o<com.kwad.sdk.collector.a.a, AppStatusRules> {
-        public AnonymousClass3() {
-        }
-
-        @Override // com.kwad.sdk.core.network.o, com.kwad.sdk.core.network.g
-        /* renamed from: a */
-        public void onStartRequest(@NonNull com.kwad.sdk.collector.a.a aVar) {
-            super.onStartRequest(aVar);
-        }
-
-        @Override // com.kwad.sdk.core.network.o, com.kwad.sdk.core.network.g
-        public final /* synthetic */ void onSuccess(@NonNull com.kwad.sdk.core.network.f fVar, @NonNull BaseResultData baseResultData) {
-            a((AppStatusRules) baseResultData);
+    static class AnonymousClass3 extends p<com.kwad.sdk.collector.kwai.a, AppStatusRules> {
+        AnonymousClass3() {
         }
 
         private void a(@NonNull AppStatusRules appStatusRules) {
@@ -82,21 +71,32 @@ public final class c {
             }
         }
 
-        @Override // com.kwad.sdk.core.network.o, com.kwad.sdk.core.network.g
+        @Override // com.kwad.sdk.core.network.p, com.kwad.sdk.core.network.h
         /* renamed from: a */
-        public void onError(@NonNull com.kwad.sdk.collector.a.a aVar, int i10, String str) {
-            super.onError(aVar, i10, str);
+        public void onStartRequest(@NonNull com.kwad.sdk.collector.kwai.a aVar) {
+            super.onStartRequest(aVar);
+        }
+
+        @Override // com.kwad.sdk.core.network.p, com.kwad.sdk.core.network.h
+        /* renamed from: a */
+        public void onError(@NonNull com.kwad.sdk.collector.kwai.a aVar, int i2, String str) {
+            super.onError(aVar, i2, str);
             a aVar2 = a.this;
             if (aVar2 != null) {
-                aVar2.s(i10, str);
+                aVar2.h(i2, str);
             }
+        }
+
+        @Override // com.kwad.sdk.core.network.p, com.kwad.sdk.core.network.h
+        public final /* synthetic */ void onSuccess(@NonNull com.kwad.sdk.core.network.g gVar, @NonNull BaseResultData baseResultData) {
+            a((AppStatusRules) baseResultData);
         }
     }
 
     public interface a {
         void b(AppStatusRules appStatusRules);
 
-        void s(int i10, String str);
+        void h(int i2, String str);
     }
 
     public static void a(Context context, a aVar) {
@@ -104,17 +104,17 @@ public final class c {
             return;
         }
         d.a(context, new d.a() { // from class: com.kwad.sdk.collector.c.1
-            final /* synthetic */ a aqX;
-            final /* synthetic */ Context hB;
+            final /* synthetic */ a abd;
+            final /* synthetic */ Context jN;
 
-            public AnonymousClass1(Context context2, a aVar2) {
+            AnonymousClass1(Context context2, a aVar2) {
                 context = context2;
                 aVar = aVar2;
             }
 
             @Override // com.kwad.sdk.collector.d.a
-            public final void cx(String str) {
-                com.kwad.sdk.core.d.c.e("AppStatusFetchConfigManager", "onLoadError: " + str);
+            public final void bo(String str) {
+                com.kwad.sdk.core.d.b.e("AppStatusFetchConfigManager", "onLoadError: " + str);
             }
 
             @Override // com.kwad.sdk.collector.d.a
@@ -125,43 +125,32 @@ public final class c {
     }
 
     public static void b(Context context, a aVar) {
-        new l<com.kwad.sdk.collector.a.a, AppStatusRules>() { // from class: com.kwad.sdk.collector.c.2
-            final /* synthetic */ Context hB;
+        new m<com.kwad.sdk.collector.kwai.a, AppStatusRules>() { // from class: com.kwad.sdk.collector.c.2
+            final /* synthetic */ Context jN;
 
-            public AnonymousClass2(Context context2) {
+            AnonymousClass2(Context context2) {
                 context = context2;
+            }
+
+            @NonNull
+            private static AppStatusRules bp(String str) {
+                return AppStatusRules.createFromJson(str);
             }
 
             @Override // com.kwad.sdk.core.network.a
             @NonNull
-            /* renamed from: BT */
-            public com.kwad.sdk.collector.a.a createRequest() {
-                return new com.kwad.sdk.collector.a.a(bo.dB(context));
+            /* renamed from: tE */
+            public com.kwad.sdk.collector.kwai.a createRequest() {
+                return new com.kwad.sdk.collector.kwai.a(bd.db(context));
             }
 
-            @NonNull
-            private static AppStatusRules cy(String str) {
-                return AppStatusRules.createFromJson(str);
-            }
-
-            @Override // com.kwad.sdk.core.network.l
+            @Override // com.kwad.sdk.core.network.m
             @NonNull
             public final /* synthetic */ AppStatusRules parseData(String str) {
-                return cy(str);
+                return bp(str);
             }
-        }.request(new o<com.kwad.sdk.collector.a.a, AppStatusRules>() { // from class: com.kwad.sdk.collector.c.3
-            public AnonymousClass3() {
-            }
-
-            @Override // com.kwad.sdk.core.network.o, com.kwad.sdk.core.network.g
-            /* renamed from: a */
-            public void onStartRequest(@NonNull com.kwad.sdk.collector.a.a aVar2) {
-                super.onStartRequest(aVar2);
-            }
-
-            @Override // com.kwad.sdk.core.network.o, com.kwad.sdk.core.network.g
-            public final /* synthetic */ void onSuccess(@NonNull com.kwad.sdk.core.network.f fVar, @NonNull BaseResultData baseResultData) {
-                a((AppStatusRules) baseResultData);
+        }.request(new p<com.kwad.sdk.collector.kwai.a, AppStatusRules>() { // from class: com.kwad.sdk.collector.c.3
+            AnonymousClass3() {
             }
 
             private void a(@NonNull AppStatusRules appStatusRules) {
@@ -171,14 +160,25 @@ public final class c {
                 }
             }
 
-            @Override // com.kwad.sdk.core.network.o, com.kwad.sdk.core.network.g
+            @Override // com.kwad.sdk.core.network.p, com.kwad.sdk.core.network.h
             /* renamed from: a */
-            public void onError(@NonNull com.kwad.sdk.collector.a.a aVar2, int i10, String str) {
-                super.onError(aVar2, i10, str);
+            public void onStartRequest(@NonNull com.kwad.sdk.collector.kwai.a aVar2) {
+                super.onStartRequest(aVar2);
+            }
+
+            @Override // com.kwad.sdk.core.network.p, com.kwad.sdk.core.network.h
+            /* renamed from: a */
+            public void onError(@NonNull com.kwad.sdk.collector.kwai.a aVar2, int i2, String str) {
+                super.onError(aVar2, i2, str);
                 a aVar22 = a.this;
                 if (aVar22 != null) {
-                    aVar22.s(i10, str);
+                    aVar22.h(i2, str);
                 }
+            }
+
+            @Override // com.kwad.sdk.core.network.p, com.kwad.sdk.core.network.h
+            public final /* synthetic */ void onSuccess(@NonNull com.kwad.sdk.core.network.g gVar, @NonNull BaseResultData baseResultData) {
+                a((AppStatusRules) baseResultData);
             }
         });
     }

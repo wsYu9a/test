@@ -16,7 +16,7 @@ public interface IChunkCntAidlCalculator extends IInterface {
         }
 
         @Override // com.ss.android.socialbase.downloader.depend.IChunkCntAidlCalculator
-        public int calculateChunkCount(long j10) throws RemoteException {
+        public int calculateChunkCount(long j2) throws RemoteException {
             return 0;
         }
     }
@@ -25,11 +25,11 @@ public interface IChunkCntAidlCalculator extends IInterface {
         private static final String DESCRIPTOR = "com.ss.android.socialbase.downloader.depend.IChunkCntAidlCalculator";
         static final int TRANSACTION_calculateChunkCount = 1;
 
-        public static class Proxy implements IChunkCntAidlCalculator {
+        private static class Proxy implements IChunkCntAidlCalculator {
             public static IChunkCntAidlCalculator sDefaultImpl;
             private IBinder mRemote;
 
-            public Proxy(IBinder iBinder) {
+            Proxy(IBinder iBinder) {
                 this.mRemote = iBinder;
             }
 
@@ -39,14 +39,14 @@ public interface IChunkCntAidlCalculator extends IInterface {
             }
 
             @Override // com.ss.android.socialbase.downloader.depend.IChunkCntAidlCalculator
-            public int calculateChunkCount(long j10) throws RemoteException {
+            public int calculateChunkCount(long j2) throws RemoteException {
                 Parcel obtain = Parcel.obtain();
                 Parcel obtain2 = Parcel.obtain();
                 try {
                     obtain.writeInterfaceToken(Stub.DESCRIPTOR);
-                    obtain.writeLong(j10);
+                    obtain.writeLong(j2);
                     if (!this.mRemote.transact(1, obtain, obtain2, 0) && Stub.getDefaultImpl() != null) {
-                        return Stub.getDefaultImpl().calculateChunkCount(j10);
+                        return Stub.getDefaultImpl().calculateChunkCount(j2);
                     }
                     obtain2.readException();
                     return obtain2.readInt();
@@ -91,10 +91,10 @@ public interface IChunkCntAidlCalculator extends IInterface {
         }
 
         @Override // android.os.Binder
-        public boolean onTransact(int i10, Parcel parcel, Parcel parcel2, int i11) throws RemoteException {
-            if (i10 != 1) {
-                if (i10 != 1598968902) {
-                    return super.onTransact(i10, parcel, parcel2, i11);
+        public boolean onTransact(int i2, Parcel parcel, Parcel parcel2, int i3) throws RemoteException {
+            if (i2 != 1) {
+                if (i2 != 1598968902) {
+                    return super.onTransact(i2, parcel, parcel2, i3);
                 }
                 parcel2.writeString(DESCRIPTOR);
                 return true;
@@ -107,5 +107,5 @@ public interface IChunkCntAidlCalculator extends IInterface {
         }
     }
 
-    int calculateChunkCount(long j10) throws RemoteException;
+    int calculateChunkCount(long j2) throws RemoteException;
 }

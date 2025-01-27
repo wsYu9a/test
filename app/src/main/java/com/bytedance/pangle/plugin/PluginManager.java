@@ -8,8 +8,7 @@ import com.bytedance.pangle.GlobalParam;
 import com.bytedance.pangle.Zeus;
 import com.bytedance.pangle.ZeusPluginStateListener;
 import com.bytedance.pangle.d.e;
-import com.bytedance.pangle.h;
-import com.bytedance.pangle.log.IZeusReporter;
+import com.bytedance.pangle.g;
 import com.bytedance.pangle.log.ZeusLogger;
 import com.bytedance.pangle.util.l;
 import java.io.File;
@@ -21,7 +20,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 @Keep
-/* loaded from: classes2.dex */
+/* loaded from: classes.dex */
 public class PluginManager {
     private static final String TAG = "PluginManager";
     private static volatile PluginManager sInstance;
@@ -44,11 +43,8 @@ public class PluginManager {
     public static PluginManager getInstance() {
         if (sInstance == null) {
             synchronized (PluginManager.class) {
-                try {
-                    if (sInstance == null) {
-                        sInstance = new PluginManager();
-                    }
-                } finally {
+                if (sInstance == null) {
+                    sInstance = new PluginManager();
                 }
             }
         }
@@ -56,50 +52,42 @@ public class PluginManager {
     }
 
     private synchronized void parsePluginConfig() {
+        if (this.mIsParsePluginConfig) {
+            return;
+        }
+        ZeusLogger.v(ZeusLogger.TAG_INIT, "PluginManager parsePluginsJson");
+        ArrayList<String> arrayList = new ArrayList();
         try {
-            if (this.mIsParsePluginConfig) {
-                return;
-            }
-            ZeusLogger.v(ZeusLogger.TAG_INIT, "PluginManager parsePluginsJson");
-            ArrayList<String> arrayList = new ArrayList();
-            try {
-                Bundle bundle = Zeus.getAppApplication().getPackageManager().getPackageInfo(Zeus.getAppApplication().getPackageName(), 128).applicationInfo.metaData;
-                try {
-                    for (String str : bundle.keySet()) {
-                        String str2 = h.f7667e;
-                        if (str2.startsWith("PANGLE_")) {
-                            if (!str.startsWith(str2) && !str.startsWith("ZEUS_PLUGIN_")) {
-                            }
-                            arrayList.add(bundle.getString(str));
-                        } else if (str.startsWith(str2)) {
-                            arrayList.add(bundle.getString(str));
-                        }
+            Bundle bundle = Zeus.getAppApplication().getPackageManager().getPackageInfo(Zeus.getAppApplication().getPackageName(), 128).applicationInfo.metaData;
+            for (String str : bundle.keySet()) {
+                String str2 = g.f6122e;
+                if (str2.startsWith("PANGLE_")) {
+                    if (str.startsWith(str2) || str.startsWith("ZEUS_PLUGIN_")) {
+                        arrayList.add(bundle.getString(str));
                     }
-                    try {
-                        ConcurrentHashMap concurrentHashMap = new ConcurrentHashMap();
-                        for (String str3 : arrayList) {
-                            try {
-                                Plugin plugin = new Plugin(new JSONObject(str3));
-                                concurrentHashMap.put(plugin.mPkgName, plugin);
-                                ZeusLogger.i(ZeusLogger.TAG_INIT, "PluginManagerparsePluginsJson. find " + plugin.mPkgName);
-                            } catch (JSONException e10) {
-                                ZeusLogger.errReport(ZeusLogger.TAG_INIT, "PluginManager parsePluginsJson failed. " + str3.trim(), e10);
-                            }
-                        }
-                        this.mPlugins = concurrentHashMap;
-                        ZeusLogger.i(ZeusLogger.TAG_INIT, "PluginManager parsePluginsJson success");
-                    } catch (Exception e11) {
-                        ZeusLogger.errReport(ZeusLogger.TAG_INIT, "PluginManager parsePluginsJson failed.", e11);
-                    }
-                    this.mIsParsePluginConfig = true;
-                } catch (Exception e12) {
-                    ZeusLogger.errReport(ZeusLogger.TAG_INIT, "PluginManager iterator metaData failed.", e12);
+                } else if (str.startsWith(str2)) {
+                    arrayList.add(bundle.getString(str));
                 }
-            } catch (Exception e13) {
-                ZeusLogger.errReport(ZeusLogger.TAG_INIT, "PluginManager parsePluginsJson failed.", e13);
             }
-        } catch (Throwable th2) {
-            throw th2;
+            try {
+                ConcurrentHashMap concurrentHashMap = new ConcurrentHashMap();
+                for (String str3 : arrayList) {
+                    try {
+                        Plugin plugin = new Plugin(new JSONObject(str3));
+                        concurrentHashMap.put(plugin.mPkgName, plugin);
+                        ZeusLogger.i(ZeusLogger.TAG_INIT, "PluginManagerparsePluginsJson. find " + plugin.mPkgName);
+                    } catch (JSONException e2) {
+                        ZeusLogger.errReport(ZeusLogger.TAG_INIT, "PluginManager parsePluginsJson failed. " + str3.trim(), e2);
+                    }
+                }
+                this.mPlugins = concurrentHashMap;
+                ZeusLogger.i(ZeusLogger.TAG_INIT, "PluginManager parsePluginsJson success");
+            } catch (Exception e3) {
+                ZeusLogger.errReport(ZeusLogger.TAG_INIT, "PluginManager parsePluginsJson failed.", e3);
+            }
+            this.mIsParsePluginConfig = true;
+        } catch (Exception e4) {
+            ZeusLogger.errReport(ZeusLogger.TAG_INIT, "PluginManager parsePluginsJson failed.", e4);
         }
     }
 
@@ -116,9 +104,9 @@ public class PluginManager {
     public boolean checkPluginInstalled(String str) {
         Plugin plugin = getPlugin(str);
         ensurePluginFileExist(plugin);
-        boolean z10 = plugin != null && plugin.isInstalled();
-        ZeusLogger.d(ZeusLogger.TAG_PPM, "PluginManager checkPluginInstalled, " + str + " = " + z10);
-        return z10;
+        boolean z = plugin != null && plugin.isInstalled();
+        ZeusLogger.d(ZeusLogger.TAG_PPM, "PluginManager checkPluginInstalled, " + str + " = " + z);
+        return z;
     }
 
     public ExecutorService getInstallThreadPool() {
@@ -128,7 +116,7 @@ public class PluginManager {
         return this.mInstallThreadPool;
     }
 
-    public Plugin getPlugin(String str, boolean z10) {
+    public Plugin getPlugin(String str, boolean z) {
         if (!Zeus.hasInit() && com.bytedance.pangle.util.b.a()) {
             throw new RuntimeException("Please init Zeus first!");
         }
@@ -139,7 +127,7 @@ public class PluginManager {
             parsePluginConfig();
         }
         Plugin plugin = this.mPlugins.get(str);
-        if (z10 && plugin != null) {
+        if (z && plugin != null) {
             plugin.init();
         }
         return plugin;
@@ -162,23 +150,22 @@ public class PluginManager {
     }
 
     public boolean loadPlugin(String str) {
-        GlobalParam.getInstance().getReporter().saveRecord(IZeusReporter.ZEUS_STAGE_COMMON, "start load plugin:".concat(String.valueOf(str)));
         return this.pluginLoader.a(str);
     }
 
-    public void setAllowDownloadPlugin(String str, int i10, boolean z10) {
-        ZeusLogger.d(ZeusLogger.TAG_PPM, "PluginManager setAllowDownloadPlugin, " + str + " " + i10 + " " + z10);
+    public void setAllowDownloadPlugin(String str, int i2, boolean z) {
+        ZeusLogger.d(ZeusLogger.TAG_PPM, "PluginManager setAllowDownloadPlugin, " + str + " " + i2 + " " + z);
         if (getPlugin(str) != null) {
-            boolean z11 = !z10;
-            SharedPreferences.Editor edit = l.a().f7862a.edit();
-            String str2 = "DISABLE_DOWNLOAD_" + str + hf.e.f26694a + i10;
-            if (z11) {
+            boolean z2 = !z;
+            SharedPreferences.Editor edit = l.a().f6339a.edit();
+            String str2 = "DISABLE_DOWNLOAD_" + str + "_" + i2;
+            if (z2) {
                 edit.putInt(str2, 0);
             } else {
                 edit.remove(str2);
             }
             edit.apply();
-            ZeusLogger.i(ZeusLogger.TAG_INIT, "ZeusSpUtils markAllowDownloadFlag packageName=" + str + " version=" + i10 + " disable=" + z11);
+            ZeusLogger.i(ZeusLogger.TAG_INIT, "ZeusSpUtils markAllowDownloadFlag packageName=" + str + " version=" + i2 + " disable=" + z2);
         }
     }
 
@@ -187,15 +174,15 @@ public class PluginManager {
         return new a(str, file).a();
     }
 
-    public void tryOfflineInternalPlugin(String str, int i10) {
+    public void tryOfflineInternalPlugin(String str, int i2) {
         Plugin plugin = getPlugin(str);
-        if (plugin == null || plugin.getInternalVersionCode() != i10) {
+        if (plugin == null || plugin.getInternalVersionCode() != i2) {
             return;
         }
-        ZeusLogger.d(ZeusLogger.TAG_PPM, "PluginManager offlineInternalPlugin, pkgName:" + str + " pluginVer:" + i10 + " apiVer:" + plugin.getApiVersionCode());
-        l a10 = l.a();
+        ZeusLogger.d(ZeusLogger.TAG_PPM, "PluginManager offlineInternalPlugin, pkgName:" + str + " pluginVer:" + i2 + " apiVer:" + plugin.getApiVersionCode());
+        l a2 = l.a();
         int apiVersionCode = plugin.getApiVersionCode();
-        SharedPreferences.Editor edit = a10.f7862a.edit();
+        SharedPreferences.Editor edit = a2.f6339a.edit();
         edit.putInt("OFFLINE_INTERNAL_".concat(String.valueOf(str)), apiVersionCode);
         edit.apply();
     }
@@ -203,7 +190,7 @@ public class PluginManager {
     public void unInstallPackage(String str) {
         ZeusLogger.d(ZeusLogger.TAG_PPM, "PluginManager unInstallPackage, ".concat(String.valueOf(str)));
         if (getPlugin(str) != null) {
-            SharedPreferences.Editor edit = l.a().f7862a.edit();
+            SharedPreferences.Editor edit = l.a().f6339a.edit();
             edit.putBoolean("UNINSTALL__".concat(String.valueOf(str)), true);
             edit.apply();
             ZeusLogger.i(ZeusLogger.TAG_INIT, "ZeusSpUtils markUnInstallFlag packageName=".concat(String.valueOf(str)));

@@ -10,53 +10,56 @@ import androidx.constraintlayout.widget.ConstraintLayout;
 /* loaded from: classes.dex */
 public class Constraints extends ViewGroup {
     public static final String TAG = "Constraints";
-    ConstraintSet myConstraintSet;
+
+    /* renamed from: a */
+    ConstraintSet f1340a;
 
     public Constraints(Context context) {
         super(context);
         super.setVisibility(8);
     }
 
-    private void init(AttributeSet attrs) {
+    private void b(AttributeSet attributeSet) {
         Log.v(TAG, " ################# init");
     }
 
-    public ConstraintSet getConstraintSet() {
-        if (this.myConstraintSet == null) {
-            this.myConstraintSet = new ConstraintSet();
-        }
-        this.myConstraintSet.clone(this);
-        return this.myConstraintSet;
-    }
-
-    @Override // android.view.ViewGroup, android.view.View
-    public void onLayout(boolean changed, int l10, int t10, int r10, int b10) {
-    }
-
     @Override // android.view.ViewGroup
+    /* renamed from: a */
     public LayoutParams generateDefaultLayoutParams() {
         return new LayoutParams(-2, -2);
     }
 
-    @Override // android.view.ViewGroup
-    public LayoutParams generateLayoutParams(AttributeSet attrs) {
-        return new LayoutParams(getContext(), attrs);
+    public ConstraintSet getConstraintSet() {
+        if (this.f1340a == null) {
+            this.f1340a = new ConstraintSet();
+        }
+        this.f1340a.clone(this);
+        return this.f1340a;
     }
 
-    public Constraints(Context context, AttributeSet attrs) {
-        super(context, attrs);
-        init(attrs);
+    @Override // android.view.ViewGroup, android.view.View
+    protected void onLayout(boolean z, int i2, int i3, int i4, int i5) {
+    }
+
+    @Override // android.view.ViewGroup
+    public LayoutParams generateLayoutParams(AttributeSet attributeSet) {
+        return new LayoutParams(getContext(), attributeSet);
+    }
+
+    public Constraints(Context context, AttributeSet attributeSet) {
+        super(context, attributeSet);
+        b(attributeSet);
         super.setVisibility(8);
     }
 
     @Override // android.view.ViewGroup
-    public ViewGroup.LayoutParams generateLayoutParams(ViewGroup.LayoutParams p10) {
-        return new ConstraintLayout.LayoutParams(p10);
+    protected ViewGroup.LayoutParams generateLayoutParams(ViewGroup.LayoutParams layoutParams) {
+        return new ConstraintLayout.LayoutParams(layoutParams);
     }
 
-    public Constraints(Context context, AttributeSet attrs, int defStyleAttr) {
-        super(context, attrs, defStyleAttr);
-        init(attrs);
+    public Constraints(Context context, AttributeSet attributeSet, int i2) {
+        super(context, attributeSet, i2);
+        b(attributeSet);
         super.setVisibility(8);
     }
 
@@ -75,8 +78,8 @@ public class Constraints extends ViewGroup {
         public float translationY;
         public float translationZ;
 
-        public LayoutParams(int width, int height) {
-            super(width, height);
+        public LayoutParams(int i2, int i3) {
+            super(i2, i3);
             this.alpha = 1.0f;
             this.applyElevation = false;
             this.elevation = 0.0f;
@@ -92,8 +95,8 @@ public class Constraints extends ViewGroup {
             this.translationZ = 0.0f;
         }
 
-        public LayoutParams(LayoutParams source) {
-            super((ConstraintLayout.LayoutParams) source);
+        public LayoutParams(LayoutParams layoutParams) {
+            super((ConstraintLayout.LayoutParams) layoutParams);
             this.alpha = 1.0f;
             this.applyElevation = false;
             this.elevation = 0.0f;
@@ -109,8 +112,8 @@ public class Constraints extends ViewGroup {
             this.translationZ = 0.0f;
         }
 
-        public LayoutParams(Context c10, AttributeSet attrs) {
-            super(c10, attrs);
+        public LayoutParams(Context context, AttributeSet attributeSet) {
+            super(context, attributeSet);
             this.alpha = 1.0f;
             this.applyElevation = false;
             this.elevation = 0.0f;
@@ -124,10 +127,10 @@ public class Constraints extends ViewGroup {
             this.translationX = 0.0f;
             this.translationY = 0.0f;
             this.translationZ = 0.0f;
-            TypedArray obtainStyledAttributes = c10.obtainStyledAttributes(attrs, R.styleable.ConstraintSet);
+            TypedArray obtainStyledAttributes = context.obtainStyledAttributes(attributeSet, R.styleable.ConstraintSet);
             int indexCount = obtainStyledAttributes.getIndexCount();
-            for (int i10 = 0; i10 < indexCount; i10++) {
-                int index = obtainStyledAttributes.getIndex(i10);
+            for (int i2 = 0; i2 < indexCount; i2++) {
+                int index = obtainStyledAttributes.getIndex(i2);
                 if (index == R.styleable.ConstraintSet_android_alpha) {
                     this.alpha = obtainStyledAttributes.getFloat(index, this.alpha);
                 } else if (index == R.styleable.ConstraintSet_android_elevation) {
@@ -152,10 +155,9 @@ public class Constraints extends ViewGroup {
                 } else if (index == R.styleable.ConstraintSet_android_translationY) {
                     this.translationY = obtainStyledAttributes.getFloat(index, this.translationY);
                 } else if (index == R.styleable.ConstraintSet_android_translationZ) {
-                    this.translationZ = obtainStyledAttributes.getFloat(index, this.translationZ);
+                    this.translationX = obtainStyledAttributes.getFloat(index, this.translationZ);
                 }
             }
-            obtainStyledAttributes.recycle();
         }
     }
 }

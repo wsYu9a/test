@@ -1,21 +1,19 @@
 package rx;
 
-import qj.b;
-
-/* loaded from: classes4.dex */
+/* loaded from: classes5.dex */
 public final class Notification<T> {
 
-    /* renamed from: d */
-    public static final Notification<Void> f30447d = new Notification<>(Kind.OnCompleted, null, null);
-
     /* renamed from: a */
-    public final Kind f30448a;
+    private static final Notification<Void> f35640a = new Notification<>(Kind.OnCompleted, null, null);
 
     /* renamed from: b */
-    public final Throwable f30449b;
+    private final Kind f35641b;
 
     /* renamed from: c */
-    public final T f30450c;
+    private final Throwable f35642c;
+
+    /* renamed from: d */
+    private final T f35643d;
 
     public enum Kind {
         OnNext,
@@ -23,26 +21,26 @@ public final class Notification<T> {
         OnCompleted
     }
 
-    public Notification(Kind kind, T t10, Throwable th2) {
-        this.f30450c = t10;
-        this.f30449b = th2;
-        this.f30448a = kind;
+    private Notification(Kind kind, T t, Throwable th) {
+        this.f35643d = t;
+        this.f35642c = th;
+        this.f35641b = kind;
     }
 
     public static <T> Notification<T> b() {
-        return (Notification<T>) f30447d;
+        return (Notification<T>) f35640a;
     }
 
     public static <T> Notification<T> c(Class<T> cls) {
-        return (Notification<T>) f30447d;
+        return (Notification<T>) f35640a;
     }
 
-    public static <T> Notification<T> d(Throwable th2) {
-        return new Notification<>(Kind.OnError, null, th2);
+    public static <T> Notification<T> d(Throwable th) {
+        return new Notification<>(Kind.OnError, null, th);
     }
 
-    public static <T> Notification<T> e(T t10) {
-        return new Notification<>(Kind.OnNext, t10, null);
+    public static <T> Notification<T> e(T t) {
+        return new Notification<>(Kind.OnNext, t, null);
     }
 
     public void a(b<? super T> bVar) {
@@ -76,15 +74,15 @@ public final class Notification<T> {
     }
 
     public Kind f() {
-        return this.f30448a;
+        return this.f35641b;
     }
 
     public Throwable g() {
-        return this.f30449b;
+        return this.f35642c;
     }
 
     public T h() {
-        return this.f30450c;
+        return this.f35643d;
     }
 
     public int hashCode() {
@@ -96,11 +94,11 @@ public final class Notification<T> {
     }
 
     public boolean i() {
-        return l() && this.f30449b != null;
+        return l() && this.f35642c != null;
     }
 
     public boolean j() {
-        return m() && this.f30450c != null;
+        return m() && this.f35643d != null;
     }
 
     public boolean k() {
@@ -116,19 +114,19 @@ public final class Notification<T> {
     }
 
     public String toString() {
-        StringBuilder sb2 = new StringBuilder("[");
-        sb2.append(super.toString());
-        sb2.append(" ");
-        sb2.append(f());
+        StringBuilder sb = new StringBuilder("[");
+        sb.append(super.toString());
+        sb.append(" ");
+        sb.append(f());
         if (j()) {
-            sb2.append(" ");
-            sb2.append(h());
+            sb.append(" ");
+            sb.append(h());
         }
         if (i()) {
-            sb2.append(" ");
-            sb2.append(g().getMessage());
+            sb.append(" ");
+            sb.append(g().getMessage());
         }
-        sb2.append("]");
-        return sb2.toString();
+        sb.append("]");
+        return sb.toString();
     }
 }

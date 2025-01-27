@@ -2,7 +2,7 @@ package com.kwad.sdk.internal.api;
 
 import java.io.Serializable;
 
-/* loaded from: classes3.dex */
+/* loaded from: classes2.dex */
 public class EcAttribute implements Serializable {
     private static final long serialVersionUID = 5648759570127504312L;
     private String comment;
@@ -40,11 +40,11 @@ public class EcAttribute implements Serializable {
         this.promoteId = str;
     }
 
-    public void setUserCommRateBuying(long j10) {
-        this.userCommRateBuying = j10;
+    public void setUserCommRateBuying(long j2) {
+        this.userCommRateBuying = j2;
     }
 
-    public void setUserCommRateSharing(long j10) {
-        this.userCommRateSharing = j10;
+    public void setUserCommRateSharing(long j2) {
+        this.userCommRateSharing = j2;
     }
 }

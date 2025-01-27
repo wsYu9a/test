@@ -2,7 +2,6 @@ package com.martian.mibook.lib.account.response;
 
 /* loaded from: classes3.dex */
 public class AliRechargeOrder {
-    public int money;
     public AliPrepay prepay;
     public MiRechargeOrder rechargeOrder;
 
@@ -14,11 +13,11 @@ public class AliRechargeOrder {
         return this.rechargeOrder;
     }
 
-    public void setPrepay(AliPrepay aliPrepay) {
-        this.prepay = aliPrepay;
+    public void setPrepay(AliPrepay prepay) {
+        this.prepay = prepay;
     }
 
-    public void setRechargeOrder(MiRechargeOrder miRechargeOrder) {
-        this.rechargeOrder = miRechargeOrder;
+    public void setRechargeOrder(MiRechargeOrder rechargeOrder) {
+        this.rechargeOrder = rechargeOrder;
     }
 }

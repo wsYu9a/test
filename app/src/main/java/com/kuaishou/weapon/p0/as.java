@@ -6,37 +6,70 @@ import com.kuaishou.weapon.p0.jni.Engine;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
-/* loaded from: classes2.dex */
-public class as extends dg {
+/* loaded from: classes.dex */
+public class as extends df {
 
     /* renamed from: a */
-    private JSONObject f10777a;
+    private JSONObject f9081a;
 
-    public as(Context context, int i10) {
+    public as(Context context, int i2) {
         if (Engine.loadSuccess) {
             try {
                 Engine engine = Engine.getInstance(context);
-                int intValue = Integer.valueOf(ck.f10907c).intValue();
-                String a10 = a(context);
-                if (TextUtils.isEmpty(a10)) {
+                int intValue = Integer.valueOf(cj.f9190c).intValue();
+                String a2 = a(context);
+                if (TextUtils.isEmpty(a2)) {
                     return;
                 }
-                String eopq = engine.eopq(intValue, 0, i10, a10);
+                String eopq = engine.eopq(intValue, 0, i2, a2);
                 if (TextUtils.isEmpty(eopq)) {
                     return;
                 }
-                this.f10777a = new JSONObject(eopq);
+                this.f9081a = new JSONObject(eopq);
             } catch (Throwable unused) {
             }
         }
     }
 
+    private String a(Context context) {
+        try {
+            StringBuilder sb = new StringBuilder();
+            h a2 = h.a(context, "re_po_rt");
+            sb.append(a2.b(de.Y, 1));
+            sb.append(a2.b(de.V, 1));
+            sb.append(a2.b(de.T, 1));
+            sb.append(a2.b(de.X, 1));
+            sb.append(a2.b(de.Z, 1));
+            sb.append(a2.b(de.ab, 1));
+            sb.append(a2.b(de.W, 1));
+            sb.append(a2.b(de.S, 1));
+            sb.append(a2.b(de.ae, 1));
+            sb.append(a2.b(de.ac, 1));
+            sb.append(a2.b(de.f9279ad, 1));
+            return sb.toString();
+        } catch (Exception unused) {
+            return "";
+        }
+    }
+
+    public String a(String str) {
+        JSONObject jSONObject = this.f9081a;
+        if (jSONObject == null) {
+            return null;
+        }
+        try {
+            return jSONObject.getString(str);
+        } catch (Exception unused) {
+            return null;
+        }
+    }
+
     public JSONObject a() {
-        return this.f10777a;
+        return this.f9081a;
     }
 
     public String b(String str) {
-        JSONObject jSONObject = this.f10777a;
+        JSONObject jSONObject = this.f9081a;
         if (jSONObject == null) {
             return null;
         }
@@ -49,7 +82,7 @@ public class as extends dg {
     }
 
     public JSONArray c(String str) {
-        JSONObject jSONObject = this.f10777a;
+        JSONObject jSONObject = this.f9081a;
         if (jSONObject == null) {
             return null;
         }
@@ -73,7 +106,7 @@ public class as extends dg {
     }
 
     public JSONObject d(String str) {
-        JSONObject jSONObject = this.f10777a;
+        JSONObject jSONObject = this.f9081a;
         if (jSONObject == null) {
             return null;
         }
@@ -93,7 +126,7 @@ public class as extends dg {
     }
 
     public String e(String str) {
-        JSONObject jSONObject = this.f10777a;
+        JSONObject jSONObject = this.f9081a;
         if (jSONObject == null) {
             return null;
         }
@@ -108,39 +141,6 @@ public class as extends dg {
             return null;
         } catch (Exception unused) {
             return null;
-        }
-    }
-
-    public String a(String str) {
-        JSONObject jSONObject = this.f10777a;
-        if (jSONObject == null) {
-            return null;
-        }
-        try {
-            return jSONObject.getString(str);
-        } catch (Exception unused) {
-            return null;
-        }
-    }
-
-    private String a(Context context) {
-        try {
-            StringBuilder sb2 = new StringBuilder();
-            h a10 = h.a(context, "re_po_rt");
-            sb2.append(a10.b(df.f11026aa, 1));
-            sb2.append(a10.b(df.X, 1));
-            sb2.append(a10.b(df.V, 1));
-            sb2.append(a10.b(df.Z, 1));
-            sb2.append(a10.b(df.f11027ab, 1));
-            sb2.append(a10.b(df.f11035aj, 1));
-            sb2.append(a10.b(df.Y, 1));
-            sb2.append(a10.b(df.U, 1));
-            sb2.append(a10.b(df.am, 1));
-            sb2.append(a10.b(df.f11036ak, 1));
-            sb2.append(a10.b(df.al, 1));
-            return sb2.toString();
-        } catch (Exception unused) {
-            return "";
         }
     }
 }

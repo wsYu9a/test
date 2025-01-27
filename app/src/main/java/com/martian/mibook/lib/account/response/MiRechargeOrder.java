@@ -61,43 +61,43 @@ public class MiRechargeOrder {
         return this.uid;
     }
 
-    public void setBookCoins(Integer num) {
-        this.bookCoins = num;
+    public void setBookCoins(Integer bookCoins) {
+        this.bookCoins = bookCoins;
     }
 
-    public void setCreatedOn(Long l10) {
-        this.createdOn = l10;
+    public void setCreatedOn(Long createdOn) {
+        this.createdOn = createdOn;
     }
 
-    public void setMoney(Integer num) {
-        this.money = num;
+    public void setMoney(Integer money) {
+        this.money = money;
     }
 
-    public void setPaymentTime(Long l10) {
-        this.paymentTime = l10;
+    public void setPaymentTime(Long paymentTime) {
+        this.paymentTime = paymentTime;
     }
 
-    public void setPaymentType(Integer num) {
-        this.paymentType = num;
+    public void setPaymentType(Integer paymentType) {
+        this.paymentType = paymentType;
     }
 
-    public void setRoid(Integer num) {
-        this.roid = num;
+    public void setRoid(Integer roid) {
+        this.roid = roid;
     }
 
-    public void setRotype(Integer num) {
-        this.rotype = num;
+    public void setRotype(Integer rotype) {
+        this.rotype = rotype;
     }
 
-    public void setStatus(Integer num) {
-        this.status = num;
+    public void setStatus(Integer status) {
+        this.status = status;
     }
 
-    public void setSubject(String str) {
-        this.subject = str;
+    public void setSubject(String subject) {
+        this.subject = subject;
     }
 
-    public void setUid(Long l10) {
-        this.uid = l10;
+    public void setUid(Long uid) {
+        this.uid = uid;
     }
 }

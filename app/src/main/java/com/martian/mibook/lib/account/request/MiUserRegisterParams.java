@@ -1,6 +1,6 @@
 package com.martian.mibook.lib.account.request;
 
-import v8.a;
+import com.martian.libcomm.http.requests.d.a;
 
 /* loaded from: classes3.dex */
 public class MiUserRegisterParams extends TYHttpGetParams {
@@ -28,6 +28,9 @@ public class MiUserRegisterParams extends TYHttpGetParams {
 
     @a
     private String qq_access_token;
+
+    @a
+    private String qq_appid;
 
     @a
     private String qq_openid;
@@ -71,6 +74,10 @@ public class MiUserRegisterParams extends TYHttpGetParams {
         return this.qq_access_token;
     }
 
+    public String getQq_appid() {
+        return this.qq_appid;
+    }
+
     public String getQq_openid() {
         return this.qq_openid;
     }
@@ -79,7 +86,7 @@ public class MiUserRegisterParams extends TYHttpGetParams {
         return this.qq_pf;
     }
 
-    @Override // u8.b
+    @Override // com.martian.libcomm.http.requests.b
     public String getRequestMethod() {
         return "qq_login.do";
     }
@@ -88,58 +95,62 @@ public class MiUserRegisterParams extends TYHttpGetParams {
         return this.wx_openid;
     }
 
-    public void setCity(String str) {
-        this.city = str;
+    public void setCity(String city) {
+        this.city = city;
     }
 
-    public void setCountry(String str) {
-        this.country = str;
+    public void setCountry(String country) {
+        this.country = country;
     }
 
     @Override // com.martian.libmars.comm.request.MTHttpGetParams
-    public void setDevice_id(String str) {
-        this.device_id = str;
+    public void setDevice_id(String device_id) {
+        this.device_id = device_id;
     }
 
-    public void setGender(String str) {
-        this.gender = str;
+    public void setGender(String gender) {
+        this.gender = gender;
     }
 
-    public void setHeader(String str) {
-        this.header = str;
+    public void setHeader(String header) {
+        this.header = header;
     }
 
-    public void setNickname(String str) {
-        this.nickname = str;
+    public void setNickname(String nickname) {
+        this.nickname = nickname;
     }
 
-    public void setProvince(String str) {
-        this.province = str;
+    public void setProvince(String province) {
+        this.province = province;
     }
 
-    public void setQQGender(String str) {
-        if (str.equals("男")) {
+    public void setQQGender(String qqGender) {
+        if (qqGender.equals("男")) {
             this.gender = "M";
-        } else if (str.equals("女")) {
+        } else if (qqGender.equals("女")) {
             this.gender = "F";
         } else {
             this.gender = "N";
         }
     }
 
-    public void setQq_access_token(String str) {
-        this.qq_access_token = str;
+    public void setQq_access_token(String qq_access_token) {
+        this.qq_access_token = qq_access_token;
     }
 
-    public void setQq_openid(String str) {
-        this.qq_openid = str;
+    public void setQq_appid(String qq_appid) {
+        this.qq_appid = qq_appid;
     }
 
-    public void setQq_pf(String str) {
-        this.qq_pf = str;
+    public void setQq_openid(String qq_openid) {
+        this.qq_openid = qq_openid;
     }
 
-    public void setWx_openid(String str) {
-        this.wx_openid = str;
+    public void setQq_pf(String qq_pf) {
+        this.qq_pf = qq_pf;
+    }
+
+    public void setWx_openid(String wx_openid) {
+        this.wx_openid = wx_openid;
     }
 }

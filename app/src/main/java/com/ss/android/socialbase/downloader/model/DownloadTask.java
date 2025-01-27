@@ -59,10 +59,10 @@ public class DownloadTask {
     private final SparseArray<IDownloadListener> subThreadListeners;
 
     /* renamed from: com.ss.android.socialbase.downloader.model.DownloadTask$1 */
-    public class AnonymousClass1 implements Runnable {
+    class AnonymousClass1 implements Runnable {
         final /* synthetic */ IDownloadStartCallback val$downloadStartCallback;
 
-        public AnonymousClass1(IDownloadStartCallback iDownloadStartCallback) {
+        AnonymousClass1(IDownloadStartCallback iDownloadStartCallback) {
             iDownloadStartCallback = iDownloadStartCallback;
         }
 
@@ -77,12 +77,12 @@ public class DownloadTask {
     }
 
     /* renamed from: com.ss.android.socialbase.downloader.model.DownloadTask$2 */
-    public class AnonymousClass2 implements IChunkCntCalculator {
-        public AnonymousClass2() {
+    class AnonymousClass2 implements IChunkCntCalculator {
+        AnonymousClass2() {
         }
 
         @Override // com.ss.android.socialbase.downloader.downloader.IChunkCntCalculator
-        public int calculateChunkCount(long j10) {
+        public int calculateChunkCount(long j2) {
             return 1;
         }
     }
@@ -104,16 +104,16 @@ public class DownloadTask {
             return;
         }
         int size = sparseArray.size();
-        for (int i10 = 0; i10 < size; i10++) {
-            int keyAt = sparseArray.keyAt(i10);
+        for (int i2 = 0; i2 < size; i2++) {
+            int keyAt = sparseArray.keyAt(i2);
             sparseArray2.put(keyAt, sparseArray.get(keyAt));
         }
     }
 
     private void copyListeners(SparseArray<IDownloadListener> sparseArray, SparseArray<IDownloadListener> sparseArray2) {
         sparseArray.clear();
-        for (int i10 = 0; i10 < sparseArray2.size(); i10++) {
-            int keyAt = sparseArray2.keyAt(i10);
+        for (int i2 = 0; i2 < sparseArray2.size(); i2++) {
+            int keyAt = sparseArray2.keyAt(i2);
             IDownloadListener iDownloadListener = sparseArray2.get(keyAt);
             if (iDownloadListener != null) {
                 sparseArray.put(keyAt, iDownloadListener);
@@ -126,19 +126,19 @@ public class DownloadTask {
             return;
         }
         int size = sparseArray2.size();
-        for (int i10 = 0; i10 < size; i10++) {
-            sparseArray.remove(sparseArray2.keyAt(i10));
+        for (int i2 = 0; i2 < size; i2++) {
+            sparseArray.remove(sparseArray2.keyAt(i2));
         }
     }
 
     private void setChunkCalculator() {
         if (this.downloadInfo.getThrottleNetSpeed() > 0) {
             chunkStategy(new IChunkCntCalculator() { // from class: com.ss.android.socialbase.downloader.model.DownloadTask.2
-                public AnonymousClass2() {
+                AnonymousClass2() {
                 }
 
                 @Override // com.ss.android.socialbase.downloader.downloader.IChunkCntCalculator
-                public int calculateChunkCount(long j10) {
+                public int calculateChunkCount(long j2) {
                     return 1;
                 }
             });
@@ -148,27 +148,24 @@ public class DownloadTask {
     public DownloadTask addDownloadCompleteHandler(IDownloadCompleteHandler iDownloadCompleteHandler) {
         synchronized (this.downloadCompleteHandlers) {
             if (iDownloadCompleteHandler != null) {
-                try {
-                    if (!this.downloadCompleteHandlers.contains(iDownloadCompleteHandler)) {
-                        this.downloadCompleteHandlers.add(iDownloadCompleteHandler);
-                        return this;
-                    }
-                } finally {
+                if (!this.downloadCompleteHandlers.contains(iDownloadCompleteHandler)) {
+                    this.downloadCompleteHandlers.add(iDownloadCompleteHandler);
+                    return this;
                 }
             }
             return this;
         }
     }
 
-    public void addDownloadListener(int i10, IDownloadListener iDownloadListener, ListenerType listenerType, boolean z10) {
+    public void addDownloadListener(int i2, IDownloadListener iDownloadListener, ListenerType listenerType, boolean z) {
         Map<ListenerType, IDownloadListener> map;
         if (iDownloadListener == null) {
             return;
         }
-        if (z10 && (map = this.singleListenerMap) != null) {
+        if (z && (map = this.singleListenerMap) != null) {
             map.put(listenerType, iDownloadListener);
             synchronized (this.singleListenerHashCodeMap) {
-                this.singleListenerHashCodeMap.put(i10, listenerType);
+                this.singleListenerHashCodeMap.put(i2, listenerType);
             }
         }
         SparseArray<IDownloadListener> downloadListeners = getDownloadListeners(listenerType);
@@ -176,7 +173,7 @@ public class DownloadTask {
             return;
         }
         synchronized (downloadListeners) {
-            downloadListeners.put(i10, iDownloadListener);
+            downloadListeners.put(i2, iDownloadListener);
         }
     }
 
@@ -191,8 +188,8 @@ public class DownloadTask {
         DownloadMonitorHelper.monitorSendWithTaskMonitor(this.monitorDepend, this.downloadInfo, new BaseException(1003, "has another same task, add Listener to old task"), 0);
     }
 
-    public DownloadTask addListenerToSameTask(boolean z10) {
-        this.downloadInfoBuilder.addListenerToSameTask(z10);
+    public DownloadTask addListenerToSameTask(boolean z) {
+        this.downloadInfoBuilder.addListenerToSameTask(z);
         return this;
     }
 
@@ -200,7 +197,7 @@ public class DownloadTask {
         DownloadThreadPool.executeOP(new Runnable() { // from class: com.ss.android.socialbase.downloader.model.DownloadTask.1
             final /* synthetic */ IDownloadStartCallback val$downloadStartCallback;
 
-            public AnonymousClass1(IDownloadStartCallback iDownloadStartCallback2) {
+            AnonymousClass1(IDownloadStartCallback iDownloadStartCallback2) {
                 iDownloadStartCallback = iDownloadStartCallback2;
             }
 
@@ -216,32 +213,28 @@ public class DownloadTask {
     }
 
     public synchronized int autoCalAndGetHashCodeForSameTask() {
-        try {
-            IDownloadListener singleDownloadListener = getSingleDownloadListener(ListenerType.MAIN);
-            if (singleDownloadListener == null) {
-                singleDownloadListener = getSingleDownloadListener(ListenerType.SUB);
-            }
-            if (singleDownloadListener != null) {
-                this.hashCodeForSameTask = singleDownloadListener.hashCode();
-            }
-        } catch (Throwable th2) {
-            throw th2;
+        IDownloadListener singleDownloadListener = getSingleDownloadListener(ListenerType.MAIN);
+        if (singleDownloadListener == null) {
+            singleDownloadListener = getSingleDownloadListener(ListenerType.SUB);
+        }
+        if (singleDownloadListener != null) {
+            this.hashCodeForSameTask = singleDownloadListener.hashCode();
         }
         return this.hashCodeForSameTask;
     }
 
-    public DownloadTask autoResumed(boolean z10) {
-        this.downloadInfoBuilder.autoResumed(z10);
+    public DownloadTask autoResumed(boolean z) {
+        this.downloadInfoBuilder.autoResumed(z);
         return this;
     }
 
-    public DownloadTask autoSetHashCodeForSameTask(boolean z10) {
-        this.autoSetHashCodeForSameTask = z10;
+    public DownloadTask autoSetHashCodeForSameTask(boolean z) {
+        this.autoSetHashCodeForSameTask = z;
         return this;
     }
 
-    public DownloadTask backUpUrlRetryCount(int i10) {
-        this.downloadInfoBuilder.backUpUrlRetryCount(i10);
+    public DownloadTask backUpUrlRetryCount(int i2) {
+        this.downloadInfoBuilder.backUpUrlRetryCount(i2);
         return this;
     }
 
@@ -325,13 +318,13 @@ public class DownloadTask {
                     addAll(downloadTask.notificationListeners, this.notificationListeners);
                 }
             }
-        } catch (Throwable th2) {
-            th2.printStackTrace();
+        } catch (Throwable th) {
+            th.printStackTrace();
         }
     }
 
-    public DownloadTask deleteCacheIfCheckFailed(boolean z10) {
-        this.downloadInfoBuilder.deleteCacheIfCheckFailed(z10);
+    public DownloadTask deleteCacheIfCheckFailed(boolean z) {
+        this.downloadInfoBuilder.deleteCacheIfCheckFailed(z);
         return this;
     }
 
@@ -345,8 +338,8 @@ public class DownloadTask {
         return this;
     }
 
-    public DownloadTask distinctDirectory(boolean z10) {
-        this.downloadInfoBuilder.distinctDirectory(z10);
+    public DownloadTask distinctDirectory(boolean z) {
+        this.downloadInfoBuilder.distinctDirectory(z);
         return this;
     }
 
@@ -378,18 +371,18 @@ public class DownloadTask {
         return this;
     }
 
-    public DownloadTask executorGroup(@ExecutorGroup int i10) {
-        this.downloadInfoBuilder.executorGroup(i10);
+    public DownloadTask executorGroup(@ExecutorGroup int i2) {
+        this.downloadInfoBuilder.executorGroup(i2);
         return this;
     }
 
-    public DownloadTask expectFileLength(long j10) {
-        this.downloadInfoBuilder.expectFileLength(j10);
+    public DownloadTask expectFileLength(long j2) {
+        this.downloadInfoBuilder.expectFileLength(j2);
         return this;
     }
 
-    public DownloadTask expiredRedownload(boolean z10) {
-        this.downloadInfoBuilder.expiredRedownload(z10);
+    public DownloadTask expiredRedownload(boolean z) {
+        this.downloadInfoBuilder.expiredRedownload(z);
         return this;
     }
 
@@ -418,8 +411,8 @@ public class DownloadTask {
         return this;
     }
 
-    public DownloadTask force(boolean z10) {
-        this.downloadInfoBuilder.force(z10);
+    public DownloadTask force(boolean z) {
+        this.downloadInfoBuilder.force(z);
         return this;
     }
 
@@ -439,16 +432,12 @@ public class DownloadTask {
         return this.diskSpaceHandler;
     }
 
-    public IDownloadCompleteHandler getDownloadCompleteHandlerByIndex(int i10) {
+    public IDownloadCompleteHandler getDownloadCompleteHandlerByIndex(int i2) {
         synchronized (this.downloadCompleteHandlers) {
-            try {
-                if (i10 >= this.downloadCompleteHandlers.size()) {
-                    return null;
-                }
-                return this.downloadCompleteHandlers.get(i10);
-            } catch (Throwable th2) {
-                throw th2;
+            if (i2 >= this.downloadCompleteHandlers.size()) {
+                return null;
             }
+            return this.downloadCompleteHandlers.get(i2);
         }
     }
 
@@ -469,20 +458,16 @@ public class DownloadTask {
         return this.downloadInfo;
     }
 
-    public IDownloadListener getDownloadListenerByIndex(ListenerType listenerType, int i10) {
+    public IDownloadListener getDownloadListenerByIndex(ListenerType listenerType, int i2) {
         SparseArray<IDownloadListener> downloadListeners = getDownloadListeners(listenerType);
-        if (downloadListeners == null || i10 < 0) {
+        if (downloadListeners == null || i2 < 0) {
             return null;
         }
         synchronized (downloadListeners) {
-            try {
-                if (i10 >= downloadListeners.size()) {
-                    return null;
-                }
-                return downloadListeners.get(downloadListeners.keyAt(i10));
-            } catch (Throwable th2) {
-                throw th2;
+            if (i2 >= downloadListeners.size()) {
+                return null;
             }
+            return downloadListeners.get(downloadListeners.keyAt(i2));
         }
     }
 
@@ -547,13 +532,13 @@ public class DownloadTask {
         return this.singleListenerMap.get(listenerType);
     }
 
-    public DownloadTask hashCodeForSameTask(int i10) {
-        this.hashCodeForSameTask = i10;
+    public DownloadTask hashCodeForSameTask(int i2) {
+        this.hashCodeForSameTask = i2;
         return this;
     }
 
-    public DownloadTask headConnectionAvailable(boolean z10) {
-        this.downloadInfoBuilder.headConnectionAvailable(z10);
+    public DownloadTask headConnectionAvailable(boolean z) {
+        this.downloadInfoBuilder.headConnectionAvailable(z);
         return this;
     }
 
@@ -562,8 +547,8 @@ public class DownloadTask {
         return this;
     }
 
-    public DownloadTask ignoreDataVerify(boolean z10) {
-        this.downloadInfoBuilder.ignoreDataVerify(z10);
+    public DownloadTask ignoreDataVerify(boolean z) {
+        this.downloadInfoBuilder.ignoreDataVerify(z);
         return this;
     }
 
@@ -580,8 +565,8 @@ public class DownloadTask {
         return this.needDelayForCacheSync;
     }
 
-    public DownloadTask isOpenLimitSpeed(boolean z10) {
-        this.downloadInfoBuilder.isOpenLimitSpeed(z10);
+    public DownloadTask isOpenLimitSpeed(boolean z) {
+        this.downloadInfoBuilder.isOpenLimitSpeed(z);
         return this;
     }
 
@@ -589,28 +574,28 @@ public class DownloadTask {
         return iDownloadListener == null ? this : mainThreadListenerWithHashCode(iDownloadListener.hashCode(), iDownloadListener);
     }
 
-    public DownloadTask mainThreadListenerWithHashCode(int i10, IDownloadListener iDownloadListener) {
+    public DownloadTask mainThreadListenerWithHashCode(int i2, IDownloadListener iDownloadListener) {
         if (iDownloadListener != null) {
             synchronized (this.mainThreadListeners) {
-                this.mainThreadListeners.put(i10, iDownloadListener);
+                this.mainThreadListeners.put(i2, iDownloadListener);
             }
             Map<ListenerType, IDownloadListener> map = this.singleListenerMap;
             ListenerType listenerType = ListenerType.MAIN;
             map.put(listenerType, iDownloadListener);
             synchronized (this.singleListenerHashCodeMap) {
-                this.singleListenerHashCodeMap.put(i10, listenerType);
+                this.singleListenerHashCodeMap.put(i2, listenerType);
             }
         }
         return this;
     }
 
-    public DownloadTask maxBytes(int i10) {
-        this.downloadInfoBuilder.maxBytes(i10);
+    public DownloadTask maxBytes(int i2) {
+        this.downloadInfoBuilder.maxBytes(i2);
         return this;
     }
 
-    public DownloadTask maxProgressCount(int i10) {
-        this.downloadInfoBuilder.maxProgressCount(i10);
+    public DownloadTask maxProgressCount(int i2) {
+        this.downloadInfoBuilder.maxProgressCount(i2);
         return this;
     }
 
@@ -624,8 +609,8 @@ public class DownloadTask {
         return this;
     }
 
-    public DownloadTask minProgressTimeMsInterval(int i10) {
-        this.downloadInfoBuilder.minProgressTimeMsInterval(i10);
+    public DownloadTask minProgressTimeMsInterval(int i2) {
+        this.downloadInfoBuilder.minProgressTimeMsInterval(i2);
         return this;
     }
 
@@ -644,53 +629,53 @@ public class DownloadTask {
         return this;
     }
 
-    public DownloadTask needChunkDowngradeRetry(boolean z10) {
-        this.downloadInfoBuilder.needChunkDowngradeRetry(z10);
+    public DownloadTask needChunkDowngradeRetry(boolean z) {
+        this.downloadInfoBuilder.needChunkDowngradeRetry(z);
         return this;
     }
 
-    public DownloadTask needDefaultHttpServiceBackUp(boolean z10) {
-        this.downloadInfoBuilder.needDefaultHttpServiceBackUp(z10);
+    public DownloadTask needDefaultHttpServiceBackUp(boolean z) {
+        this.downloadInfoBuilder.needDefaultHttpServiceBackUp(z);
         return this;
     }
 
-    public DownloadTask needHttpsToHttpRetry(boolean z10) {
-        this.downloadInfoBuilder.needHttpsToHttpRetry(z10);
+    public DownloadTask needHttpsToHttpRetry(boolean z) {
+        this.downloadInfoBuilder.needHttpsToHttpRetry(z);
         return this;
     }
 
-    public DownloadTask needIndependentProcess(boolean z10) {
-        this.downloadInfoBuilder.needIndependentProcess(z10);
+    public DownloadTask needIndependentProcess(boolean z) {
+        this.downloadInfoBuilder.needIndependentProcess(z);
         return this;
     }
 
-    public DownloadTask needPostProgress(boolean z10) {
-        this.downloadInfoBuilder.needPostProgress(z10);
+    public DownloadTask needPostProgress(boolean z) {
+        this.downloadInfoBuilder.needPostProgress(z);
         return this;
     }
 
-    public DownloadTask needRetryDelay(boolean z10) {
-        this.downloadInfoBuilder.needRetryDelay(z10);
+    public DownloadTask needRetryDelay(boolean z) {
+        this.downloadInfoBuilder.needRetryDelay(z);
         return this;
     }
 
-    public DownloadTask needReuseChunkRunnable(boolean z10) {
-        this.downloadInfoBuilder.needReuseChunkRunnable(z10);
+    public DownloadTask needReuseChunkRunnable(boolean z) {
+        this.downloadInfoBuilder.needReuseChunkRunnable(z);
         return this;
     }
 
-    public DownloadTask needReuseFirstConnection(boolean z10) {
-        this.downloadInfoBuilder.needReuseFirstConnection(z10);
+    public DownloadTask needReuseFirstConnection(boolean z) {
+        this.downloadInfoBuilder.needReuseFirstConnection(z);
         return this;
     }
 
-    public DownloadTask needSDKMonitor(boolean z10) {
-        this.downloadInfoBuilder.needSDKMonitor(z10);
+    public DownloadTask needSDKMonitor(boolean z) {
+        this.downloadInfoBuilder.needSDKMonitor(z);
         return this;
     }
 
     @Deprecated
-    public DownloadTask newSaveTempFileEnable(boolean z10) {
+    public DownloadTask newSaveTempFileEnable(boolean z) {
         return this;
     }
 
@@ -708,23 +693,23 @@ public class DownloadTask {
         return iDownloadListener == null ? this : notificationListenerWithHashCode(iDownloadListener.hashCode(), iDownloadListener);
     }
 
-    public DownloadTask notificationListenerWithHashCode(int i10, IDownloadListener iDownloadListener) {
+    public DownloadTask notificationListenerWithHashCode(int i2, IDownloadListener iDownloadListener) {
         if (iDownloadListener != null) {
             synchronized (this.notificationListeners) {
-                this.notificationListeners.put(i10, iDownloadListener);
+                this.notificationListeners.put(i2, iDownloadListener);
             }
             Map<ListenerType, IDownloadListener> map = this.singleListenerMap;
             ListenerType listenerType = ListenerType.NOTIFICATION;
             map.put(listenerType, iDownloadListener);
             synchronized (this.singleListenerHashCodeMap) {
-                this.singleListenerHashCodeMap.put(i10, listenerType);
+                this.singleListenerHashCodeMap.put(i2, listenerType);
             }
         }
         return this;
     }
 
-    public DownloadTask onlyWifi(boolean z10) {
-        this.downloadInfoBuilder.onlyWifi(z10);
+    public DownloadTask onlyWifi(boolean z) {
+        this.downloadInfoBuilder.onlyWifi(z);
         return this;
     }
 
@@ -743,47 +728,40 @@ public class DownloadTask {
         return this;
     }
 
-    public void removeDownloadListener(int i10, IDownloadListener iDownloadListener, ListenerType listenerType, boolean z10) {
+    public void removeDownloadListener(int i2, IDownloadListener iDownloadListener, ListenerType listenerType, boolean z) {
         int indexOfValue;
         SparseArray<IDownloadListener> downloadListeners = getDownloadListeners(listenerType);
         if (downloadListeners == null) {
-            if (z10 && this.singleListenerMap.containsKey(listenerType)) {
+            if (z && this.singleListenerMap.containsKey(listenerType)) {
                 this.singleListenerMap.remove(listenerType);
                 return;
             }
             return;
         }
         synchronized (downloadListeners) {
-            try {
-                if (z10) {
-                    if (this.singleListenerMap.containsKey(listenerType)) {
-                        iDownloadListener = this.singleListenerMap.get(listenerType);
-                        this.singleListenerMap.remove(listenerType);
-                    }
-                    if (iDownloadListener != null && (indexOfValue = downloadListeners.indexOfValue(iDownloadListener)) >= 0 && indexOfValue < downloadListeners.size()) {
-                        downloadListeners.removeAt(indexOfValue);
-                    }
-                } else {
-                    downloadListeners.remove(i10);
-                    synchronized (this.singleListenerHashCodeMap) {
-                        try {
-                            ListenerType listenerType2 = this.singleListenerHashCodeMap.get(i10);
-                            if (listenerType2 != null && this.singleListenerMap.containsKey(listenerType2)) {
-                                this.singleListenerMap.remove(listenerType2);
-                                this.singleListenerHashCodeMap.remove(i10);
-                            }
-                        } finally {
-                        }
+            if (z) {
+                if (this.singleListenerMap.containsKey(listenerType)) {
+                    iDownloadListener = this.singleListenerMap.get(listenerType);
+                    this.singleListenerMap.remove(listenerType);
+                }
+                if (iDownloadListener != null && (indexOfValue = downloadListeners.indexOfValue(iDownloadListener)) >= 0 && indexOfValue < downloadListeners.size()) {
+                    downloadListeners.removeAt(indexOfValue);
+                }
+            } else {
+                downloadListeners.remove(i2);
+                synchronized (this.singleListenerHashCodeMap) {
+                    ListenerType listenerType2 = this.singleListenerHashCodeMap.get(i2);
+                    if (listenerType2 != null && this.singleListenerMap.containsKey(listenerType2)) {
+                        this.singleListenerMap.remove(listenerType2);
+                        this.singleListenerHashCodeMap.remove(i2);
                     }
                 }
-            } catch (Throwable th2) {
-                throw th2;
             }
         }
     }
 
-    public DownloadTask retryCount(int i10) {
-        this.downloadInfoBuilder.retryCount(i10);
+    public DownloadTask retryCount(int i2) {
+        this.downloadInfoBuilder.retryCount(i2);
         return this;
     }
 
@@ -802,8 +780,8 @@ public class DownloadTask {
         return this;
     }
 
-    public DownloadTask setAutoInstall(boolean z10) {
-        this.downloadInfoBuilder.setAutoInstall(z10);
+    public DownloadTask setAutoInstall(boolean z) {
+        this.downloadInfoBuilder.setAutoInstall(z);
         return this;
     }
 
@@ -841,27 +819,27 @@ public class DownloadTask {
                 }
                 return;
             }
-        } catch (Throwable th2) {
-            th2.printStackTrace();
+        } catch (Throwable th) {
+            th.printStackTrace();
         }
-        th2.printStackTrace();
+        th.printStackTrace();
     }
 
-    public void setNeedDelayForCacheSync(boolean z10) {
-        this.needDelayForCacheSync = z10;
+    public void setNeedDelayForCacheSync(boolean z) {
+        this.needDelayForCacheSync = z;
     }
 
     public void setNotificationEventListener(IDownloadNotificationEventListener iDownloadNotificationEventListener) {
         this.notificationEventListener = iDownloadNotificationEventListener;
     }
 
-    public DownloadTask showNotification(boolean z10) {
-        this.downloadInfoBuilder.showNotification(z10);
+    public DownloadTask showNotification(boolean z) {
+        this.downloadInfoBuilder.showNotification(z);
         return this;
     }
 
-    public DownloadTask showNotificationForAutoResumed(boolean z10) {
-        this.downloadInfoBuilder.showNotificationForAutoResumed(z10);
+    public DownloadTask showNotificationForAutoResumed(boolean z) {
+        this.downloadInfoBuilder.showNotificationForAutoResumed(z);
         return this;
     }
 
@@ -869,23 +847,18 @@ public class DownloadTask {
         return iDownloadListener == null ? this : subThreadListenerWithHashCode(iDownloadListener.hashCode(), iDownloadListener);
     }
 
-    public DownloadTask subThreadListenerWithHashCode(int i10, IDownloadListener iDownloadListener) {
+    public DownloadTask subThreadListenerWithHashCode(int i2, IDownloadListener iDownloadListener) {
         if (iDownloadListener != null) {
             synchronized (this.subThreadListeners) {
-                this.subThreadListeners.put(i10, iDownloadListener);
+                this.subThreadListeners.put(i2, iDownloadListener);
             }
             Map<ListenerType, IDownloadListener> map = this.singleListenerMap;
             ListenerType listenerType = ListenerType.SUB;
             map.put(listenerType, iDownloadListener);
             synchronized (this.singleListenerHashCodeMap) {
-                this.singleListenerHashCodeMap.put(i10, listenerType);
+                this.singleListenerHashCodeMap.put(i2, listenerType);
             }
         }
-        return this;
-    }
-
-    public DownloadTask taskKey(String str) {
-        this.downloadInfoBuilder.taskKey(str);
         return this;
     }
 
@@ -894,8 +867,8 @@ public class DownloadTask {
         return this;
     }
 
-    public DownloadTask throttleNetSpeed(long j10) {
-        this.downloadInfoBuilder.throttleNetSpeed(j10);
+    public DownloadTask throttleNetSpeed(long j2) {
+        this.downloadInfoBuilder.throttleNetSpeed(j2);
         return this;
     }
 
@@ -904,8 +877,8 @@ public class DownloadTask {
         return this;
     }
 
-    public DownloadTask ttnetProtectTimeout(long j10) {
-        this.downloadInfoBuilder.ttnetProtectTimeout(j10);
+    public DownloadTask ttnetProtectTimeout(long j2) {
+        this.downloadInfoBuilder.ttnetProtectTimeout(j2);
         return this;
     }
 
@@ -917,14 +890,10 @@ public class DownloadTask {
     private void addListenerToDownloadingSameTask(ListenerType listenerType) {
         SparseArray<IDownloadListener> downloadListeners = getDownloadListeners(listenerType);
         synchronized (downloadListeners) {
-            for (int i10 = 0; i10 < downloadListeners.size(); i10++) {
-                try {
-                    IDownloadListener iDownloadListener = downloadListeners.get(downloadListeners.keyAt(i10));
-                    if (iDownloadListener != null) {
-                        DownloadProcessDispatcher.getInstance().addDownloadListener(getDownloadId(), iDownloadListener, listenerType, false);
-                    }
-                } catch (Throwable th2) {
-                    throw th2;
+            for (int i2 = 0; i2 < downloadListeners.size(); i2++) {
+                IDownloadListener iDownloadListener = downloadListeners.get(downloadListeners.keyAt(i2));
+                if (iDownloadListener != null) {
+                    DownloadProcessDispatcher.getInstance().addDownloadListener(getDownloadId(), iDownloadListener, listenerType, false);
                 }
             }
         }

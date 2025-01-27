@@ -1,32 +1,24 @@
 package com.martian.mibook.lib.yuewen.response;
 
-import com.martian.mibook.lib.model.data.BookWrapper;
 import com.martian.mibook.lib.model.data.MiReadingRecord;
 import com.martian.mibook.lib.model.data.TYBookItem;
-import com.martian.mibook.lib.model.data.abs.Book;
 import com.martian.rpauth.MartianRPUserManager;
 import java.util.ArrayList;
 import java.util.List;
 
-/* loaded from: classes3.dex */
+/* loaded from: classes4.dex */
 public class YWBookChannel {
-    private TYBookItem bookItem;
     private List<TYBookItem> bookList;
-    private BookWrapper bookWrapper;
     private String bottomDeeplink;
     private Integer bottomType;
     private String bottomUrl;
     private String desc;
     private Boolean exposed;
-    private boolean isLastBookItem;
     private Integer layoutType;
     private Long leftSeconds;
     private Integer mcid;
     private Integer pageIndex;
     private Integer rank;
-    private MiReadingRecord readingRecord;
-    private Book readingRecordBook;
-    private int recommendType;
     private List<MiReadingRecord> records;
     private Integer size;
     private List<SubTab> subtabs;
@@ -38,7 +30,6 @@ public class YWBookChannel {
     public static class SubTab {
         private List<TYBookItem> bookList;
         private List<String> categories;
-        private Boolean exposed = Boolean.FALSE;
         private String ext;
         private String title;
 
@@ -64,45 +55,25 @@ public class YWBookChannel {
             return this.title;
         }
 
-        public boolean isExposed() {
-            Boolean bool = this.exposed;
-            return bool != null && bool.booleanValue();
+        public void setBookList(List<TYBookItem> bookList) {
+            this.bookList = bookList;
         }
 
-        public void setBookList(List<TYBookItem> list) {
-            this.bookList = list;
+        public void setCategories(List<String> categories) {
+            this.categories = categories;
         }
 
-        public void setCategories(List<String> list) {
-            this.categories = list;
+        public void setExt(String ext) {
+            this.ext = ext;
         }
 
-        public void setExposed(Boolean bool) {
-            this.exposed = bool;
+        public void setTitle(String title) {
+            this.title = title;
         }
-
-        public void setExt(String str) {
-            this.ext = str;
-        }
-
-        public void setTitle(String str) {
-            this.title = str;
-        }
-    }
-
-    public TYBookItem getBookItem() {
-        return this.bookItem;
     }
 
     public List<TYBookItem> getBookList() {
-        if (this.bookList == null) {
-            this.bookList = new ArrayList();
-        }
         return this.bookList;
-    }
-
-    public BookWrapper getBookWrapper() {
-        return this.bookWrapper;
     }
 
     public String getBottomDeeplink() {
@@ -134,8 +105,8 @@ public class YWBookChannel {
     }
 
     public Long getLeftSeconds() {
-        Long l10 = this.leftSeconds;
-        return Long.valueOf(l10 == null ? 0L : l10.longValue());
+        Long l = this.leftSeconds;
+        return Long.valueOf(l == null ? 0L : l.longValue());
     }
 
     public Integer getMcid() {
@@ -149,18 +120,6 @@ public class YWBookChannel {
 
     public Integer getRank() {
         return this.rank;
-    }
-
-    public MiReadingRecord getReadingRecord() {
-        return this.readingRecord;
-    }
-
-    public Book getReadingRecordBook() {
-        return this.readingRecordBook;
-    }
-
-    public int getRecommendType() {
-        return this.recommendType;
     }
 
     public List<MiReadingRecord> getRecords() {
@@ -178,7 +137,7 @@ public class YWBookChannel {
 
     public long getTargetTime() {
         if (this.targetTime == null) {
-            this.targetTime = Long.valueOf((getLeftSeconds().longValue() * 1000) + MartianRPUserManager.a());
+            this.targetTime = Long.valueOf((getLeftSeconds().longValue() * 1000) + MartianRPUserManager.t());
         }
         return this.targetTime.longValue();
     }
@@ -200,101 +159,73 @@ public class YWBookChannel {
         return bool != null && bool.booleanValue();
     }
 
-    public boolean isLastBookItem() {
-        return this.isLastBookItem;
+    public void setBookList(List<TYBookItem> bookList) {
+        this.bookList = bookList;
     }
 
-    public void setBookItem(TYBookItem tYBookItem) {
-        this.bookItem = tYBookItem;
+    public void setBottomDeeplink(String bottomDeeplink) {
+        this.bottomDeeplink = bottomDeeplink;
     }
 
-    public void setBookList(List<TYBookItem> list) {
-        this.bookList = list;
+    public void setBottomType(Integer bottomType) {
+        this.bottomType = bottomType;
     }
 
-    public void setBookWrapper(BookWrapper bookWrapper) {
-        this.bookWrapper = bookWrapper;
+    public void setBottomUrl(String bottomUrl) {
+        this.bottomUrl = bottomUrl;
     }
 
-    public void setBottomDeeplink(String str) {
-        this.bottomDeeplink = str;
+    public void setDesc(String desc) {
+        this.desc = desc;
     }
 
-    public void setBottomType(Integer num) {
-        this.bottomType = num;
+    public void setExposed(Boolean exposed) {
+        this.exposed = exposed;
     }
 
-    public void setBottomUrl(String str) {
-        this.bottomUrl = str;
+    public void setLayoutType(Integer layoutType) {
+        this.layoutType = layoutType;
     }
 
-    public void setDesc(String str) {
-        this.desc = str;
+    public void setLeftSeconds(Long leftSeconds) {
+        this.leftSeconds = leftSeconds;
     }
 
-    public void setExposed(Boolean bool) {
-        this.exposed = bool;
-    }
-
-    public void setLastBookItem(boolean z10) {
-        this.isLastBookItem = z10;
-    }
-
-    public void setLayoutType(Integer num) {
-        this.layoutType = num;
-    }
-
-    public void setLeftSeconds(Long l10) {
-        this.leftSeconds = l10;
-    }
-
-    public YWBookChannel setMcid(Integer num) {
-        this.mcid = num;
+    public YWBookChannel setMcid(Integer mcid) {
+        this.mcid = mcid;
         return this;
     }
 
-    public void setPageIndex(Integer num) {
-        this.pageIndex = num;
+    public void setPageIndex(Integer pageIndex) {
+        this.pageIndex = pageIndex;
     }
 
-    public void setRank(Integer num) {
-        this.rank = num;
+    public void setRank(Integer rank) {
+        this.rank = rank;
     }
 
-    public void setReadingRecord(MiReadingRecord miReadingRecord) {
-        this.readingRecord = miReadingRecord;
+    public void setRecords(List<MiReadingRecord> records) {
+        this.records = records;
     }
 
-    public void setReadingRecordBook(Book book) {
-        this.readingRecordBook = book;
+    public void setSize(Integer size) {
+        this.size = size;
     }
 
-    public void setRecommendType(int i10) {
-        this.recommendType = i10;
+    public void setSubtabs(List<SubTab> subtabs) {
+        this.subtabs = subtabs;
     }
 
-    public void setRecords(List<MiReadingRecord> list) {
-        this.records = list;
+    public void setTid(Integer tid) {
+        this.tid = tid;
     }
 
-    public void setSize(Integer num) {
-        this.size = num;
-    }
-
-    public void setSubtabs(List<SubTab> list) {
-        this.subtabs = list;
-    }
-
-    public void setTid(Integer num) {
-        this.tid = num;
-    }
-
-    public YWBookChannel setTitle(String str) {
-        this.title = str;
+    public YWBookChannel setTitle(String title) {
+        this.title = title;
         return this;
     }
 
-    public void setTopBgUrl(String str) {
-        this.topBgUrl = str;
+    public void setTopBgUrl(String topBgUrl) {
+        this.topBgUrl = topBgUrl;
     }
 }

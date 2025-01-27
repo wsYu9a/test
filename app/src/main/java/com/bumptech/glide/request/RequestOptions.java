@@ -16,7 +16,7 @@ import com.bumptech.glide.load.Transformation;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.bumptech.glide.load.resource.bitmap.DownsampleStrategy;
 
-/* loaded from: classes2.dex */
+/* loaded from: classes.dex */
 public class RequestOptions extends BaseRequestOptions<RequestOptions> {
 
     @Nullable
@@ -102,8 +102,8 @@ public class RequestOptions extends BaseRequestOptions<RequestOptions> {
 
     @NonNull
     @CheckResult
-    public static RequestOptions encodeQualityOf(@IntRange(from = 0, to = 100) int i10) {
-        return new RequestOptions().encodeQuality(i10);
+    public static RequestOptions encodeQualityOf(@IntRange(from = 0, to = 100) int i2) {
+        return new RequestOptions().encodeQuality(i2);
     }
 
     @NonNull
@@ -129,8 +129,8 @@ public class RequestOptions extends BaseRequestOptions<RequestOptions> {
 
     @NonNull
     @CheckResult
-    public static RequestOptions frameOf(@IntRange(from = 0) long j10) {
-        return new RequestOptions().frame(j10);
+    public static RequestOptions frameOf(@IntRange(from = 0) long j2) {
+        return new RequestOptions().frame(j2);
     }
 
     @NonNull
@@ -153,14 +153,14 @@ public class RequestOptions extends BaseRequestOptions<RequestOptions> {
 
     @NonNull
     @CheckResult
-    public static <T> RequestOptions option(@NonNull Option<T> option, @NonNull T t10) {
-        return new RequestOptions().set(option, t10);
+    public static <T> RequestOptions option(@NonNull Option<T> option, @NonNull T t) {
+        return new RequestOptions().set(option, t);
     }
 
     @NonNull
     @CheckResult
-    public static RequestOptions overrideOf(int i10, int i11) {
-        return new RequestOptions().override(i10, i11);
+    public static RequestOptions overrideOf(int i2, int i3) {
+        return new RequestOptions().override(i2, i3);
     }
 
     @NonNull
@@ -183,14 +183,14 @@ public class RequestOptions extends BaseRequestOptions<RequestOptions> {
 
     @NonNull
     @CheckResult
-    public static RequestOptions sizeMultiplierOf(@FloatRange(from = 0.0d, to = 1.0d) float f10) {
-        return new RequestOptions().sizeMultiplier(f10);
+    public static RequestOptions sizeMultiplierOf(@FloatRange(from = 0.0d, to = 1.0d) float f2) {
+        return new RequestOptions().sizeMultiplier(f2);
     }
 
     @NonNull
     @CheckResult
-    public static RequestOptions skipMemoryCacheOf(boolean z10) {
-        if (z10) {
+    public static RequestOptions skipMemoryCacheOf(boolean z) {
+        if (z) {
             if (skipMemoryCacheTrueOptions == null) {
                 skipMemoryCacheTrueOptions = new RequestOptions().skipMemoryCache(true).autoClone();
             }
@@ -204,25 +204,25 @@ public class RequestOptions extends BaseRequestOptions<RequestOptions> {
 
     @NonNull
     @CheckResult
-    public static RequestOptions timeoutOf(@IntRange(from = 0) int i10) {
-        return new RequestOptions().timeout(i10);
+    public static RequestOptions timeoutOf(@IntRange(from = 0) int i2) {
+        return new RequestOptions().timeout(i2);
     }
 
     @NonNull
     @CheckResult
-    public static RequestOptions errorOf(@DrawableRes int i10) {
-        return new RequestOptions().error(i10);
+    public static RequestOptions errorOf(@DrawableRes int i2) {
+        return new RequestOptions().error(i2);
     }
 
     @NonNull
     @CheckResult
-    public static RequestOptions overrideOf(int i10) {
-        return overrideOf(i10, i10);
+    public static RequestOptions overrideOf(int i2) {
+        return overrideOf(i2, i2);
     }
 
     @NonNull
     @CheckResult
-    public static RequestOptions placeholderOf(@DrawableRes int i10) {
-        return new RequestOptions().placeholder(i10);
+    public static RequestOptions placeholderOf(@DrawableRes int i2) {
+        return new RequestOptions().placeholder(i2);
     }
 }

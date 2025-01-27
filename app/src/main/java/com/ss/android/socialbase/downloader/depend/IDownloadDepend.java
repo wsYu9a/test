@@ -6,5 +6,5 @@ import com.ss.android.socialbase.downloader.model.DownloadInfo;
 @Deprecated
 /* loaded from: classes4.dex */
 public interface IDownloadDepend {
-    void monitorLogSend(DownloadInfo downloadInfo, BaseException baseException, int i10);
+    void monitorLogSend(DownloadInfo downloadInfo, BaseException baseException, int i2);
 }

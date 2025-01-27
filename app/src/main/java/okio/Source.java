@@ -1,25 +1,21 @@
 package okio;
 
+import f.b.a.d;
 import java.io.IOException;
 import java.io.InputStream;
 import kotlin.Metadata;
 import kotlin.jvm.internal.Intrinsics;
-import xi.k;
 
-@Metadata(d1 = {"\u00002\n\u0002\u0018\u0002\n\u0002\u0018\u0002\n\u0000\n\u0002\u0018\u0002\n\u0000\n\u0002\u0018\u0002\n\u0002\b\u0002\n\u0002\u0010\u0002\n\u0000\n\u0002\u0010\t\n\u0000\n\u0002\u0018\u0002\n\u0002\b\u0002\n\u0002\u0010\u000e\n\u0000\b\u0012\u0018\u00002\u00020\u0001B\u0015\u0012\u0006\u0010\u0002\u001a\u00020\u0003\u0012\u0006\u0010\u0004\u001a\u00020\u0005¢\u0006\u0002\u0010\u0006J\b\u0010\u0007\u001a\u00020\bH\u0016J\u0018\u0010\t\u001a\u00020\n2\u0006\u0010\u000b\u001a\u00020\f2\u0006\u0010\r\u001a\u00020\nH\u0016J\b\u0010\u0004\u001a\u00020\u0005H\u0016J\b\u0010\u000e\u001a\u00020\u000fH\u0016R\u000e\u0010\u0002\u001a\u00020\u0003X\u0082\u0004¢\u0006\u0002\n\u0000R\u000e\u0010\u0004\u001a\u00020\u0005X\u0082\u0004¢\u0006\u0002\n\u0000¨\u0006\u0010"}, d2 = {"Lokio/InputStreamSource;", "Lokio/Source;", "input", "Ljava/io/InputStream;", "timeout", "Lokio/Timeout;", "(Ljava/io/InputStream;Lokio/Timeout;)V", "close", "", "read", "", "sink", "Lokio/Buffer;", "byteCount", "toString", "", "okio"}, k = 1, mv = {1, 6, 0}, xi = 48)
+@Metadata(bv = {1, 0, 3}, d1 = {"\u00006\n\u0002\u0018\u0002\n\u0002\u0018\u0002\n\u0002\u0018\u0002\n\u0000\n\u0002\u0010\t\n\u0002\b\u0003\n\u0002\u0010\u0002\n\u0002\b\u0002\n\u0002\u0018\u0002\n\u0002\b\u0002\n\u0002\u0010\u000e\n\u0002\b\u0003\n\u0002\u0018\u0002\n\u0002\b\u0005\b\u0002\u0018\u00002\u00020\u0001B\u0017\u0012\u0006\u0010\u0013\u001a\u00020\u0012\u0012\u0006\u0010\f\u001a\u00020\u000b¢\u0006\u0004\b\u0015\u0010\u0016J\u001f\u0010\u0006\u001a\u00020\u00042\u0006\u0010\u0003\u001a\u00020\u00022\u0006\u0010\u0005\u001a\u00020\u0004H\u0016¢\u0006\u0004\b\u0006\u0010\u0007J\u000f\u0010\t\u001a\u00020\bH\u0016¢\u0006\u0004\b\t\u0010\nJ\u000f\u0010\f\u001a\u00020\u000bH\u0016¢\u0006\u0004\b\f\u0010\rJ\u000f\u0010\u000f\u001a\u00020\u000eH\u0016¢\u0006\u0004\b\u000f\u0010\u0010R\u0016\u0010\f\u001a\u00020\u000b8\u0002@\u0002X\u0082\u0004¢\u0006\u0006\n\u0004\b\f\u0010\u0011R\u0016\u0010\u0013\u001a\u00020\u00128\u0002@\u0002X\u0082\u0004¢\u0006\u0006\n\u0004\b\u0013\u0010\u0014¨\u0006\u0017"}, d2 = {"Lokio/InputStreamSource;", "Lokio/Source;", "Lokio/Buffer;", "sink", "", "byteCount", "read", "(Lokio/Buffer;J)J", "", "close", "()V", "Lokio/Timeout;", "timeout", "()Lokio/Timeout;", "", "toString", "()Ljava/lang/String;", "Lokio/Timeout;", "Ljava/io/InputStream;", "input", "Ljava/io/InputStream;", "<init>", "(Ljava/io/InputStream;Lokio/Timeout;)V", "okio"}, k = 1, mv = {1, 4, 0})
 /* renamed from: okio.InputStreamSource, reason: from toString */
-/* loaded from: classes4.dex */
-class source implements Source {
-
-    @k
+/* loaded from: classes5.dex */
+final class source implements Source {
     private final InputStream input;
-
-    @k
     private final Timeout timeout;
 
-    public source(@k InputStream input, @k Timeout timeout) {
-        Intrinsics.checkNotNullParameter(input, "input");
-        Intrinsics.checkNotNullParameter(timeout, "timeout");
+    public source(@d InputStream input, @d Timeout timeout) {
+        Intrinsics.checkParameterIsNotNull(input, "input");
+        Intrinsics.checkParameterIsNotNull(timeout, "timeout");
         this.input = input;
         this.timeout = timeout;
     }
@@ -30,12 +26,12 @@ class source implements Source {
     }
 
     @Override // okio.Source
-    public long read(@k Buffer sink, long byteCount) {
-        Intrinsics.checkNotNullParameter(sink, "sink");
+    public long read(@d Buffer sink, long byteCount) {
+        Intrinsics.checkParameterIsNotNull(sink, "sink");
         if (byteCount == 0) {
             return 0L;
         }
-        if (byteCount < 0) {
+        if (!(byteCount >= 0)) {
             throw new IllegalArgumentException(("byteCount < 0: " + byteCount).toString());
         }
         try {
@@ -44,32 +40,32 @@ class source implements Source {
             int read = this.input.read(writableSegment$okio.data, writableSegment$okio.limit, (int) Math.min(byteCount, 8192 - writableSegment$okio.limit));
             if (read != -1) {
                 writableSegment$okio.limit += read;
-                long j10 = read;
-                sink.setSize$okio(sink.size() + j10);
-                return j10;
+                long j2 = read;
+                sink.setSize$okio(sink.size() + j2);
+                return j2;
             }
             if (writableSegment$okio.pos != writableSegment$okio.limit) {
                 return -1L;
             }
             sink.head = writableSegment$okio.pop();
-            SegmentPool.recycle(writableSegment$okio);
+            SegmentPool.INSTANCE.recycle(writableSegment$okio);
             return -1L;
-        } catch (AssertionError e10) {
-            if (Okio.isAndroidGetsocknameError(e10)) {
-                throw new IOException(e10);
+        } catch (AssertionError e2) {
+            if (Okio.isAndroidGetsocknameError(e2)) {
+                throw new IOException(e2);
             }
-            throw e10;
+            throw e2;
         }
     }
 
     @Override // okio.Source
-    @k
+    @d
     /* renamed from: timeout, reason: from getter */
     public Timeout getTimeout() {
         return this.timeout;
     }
 
-    @k
+    @d
     public String toString() {
         return "source(" + this.input + ')';
     }

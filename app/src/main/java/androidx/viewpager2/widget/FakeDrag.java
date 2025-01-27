@@ -9,90 +9,106 @@ import androidx.recyclerview.widget.RecyclerView;
 
 /* loaded from: classes.dex */
 final class FakeDrag {
-    private int mActualDraggedDistance;
-    private long mFakeDragBeginTime;
-    private int mMaximumVelocity;
-    private final RecyclerView mRecyclerView;
-    private float mRequestedDragDistance;
-    private final ScrollEventAdapter mScrollEventAdapter;
-    private VelocityTracker mVelocityTracker;
-    private final ViewPager2 mViewPager;
 
-    public FakeDrag(ViewPager2 viewPager2, ScrollEventAdapter scrollEventAdapter, RecyclerView recyclerView) {
-        this.mViewPager = viewPager2;
-        this.mScrollEventAdapter = scrollEventAdapter;
-        this.mRecyclerView = recyclerView;
+    /* renamed from: a */
+    private final ViewPager2 f4103a;
+
+    /* renamed from: b */
+    private final ScrollEventAdapter f4104b;
+
+    /* renamed from: c */
+    private final RecyclerView f4105c;
+
+    /* renamed from: d */
+    private VelocityTracker f4106d;
+
+    /* renamed from: e */
+    private int f4107e;
+
+    /* renamed from: f */
+    private float f4108f;
+
+    /* renamed from: g */
+    private int f4109g;
+
+    /* renamed from: h */
+    private long f4110h;
+
+    FakeDrag(ViewPager2 viewPager2, ScrollEventAdapter scrollEventAdapter, RecyclerView recyclerView) {
+        this.f4103a = viewPager2;
+        this.f4104b = scrollEventAdapter;
+        this.f4105c = recyclerView;
     }
 
-    private void addFakeMotionEvent(long j10, int i10, float f10, float f11) {
-        MotionEvent obtain = MotionEvent.obtain(this.mFakeDragBeginTime, j10, i10, f10, f11, 0);
-        this.mVelocityTracker.addMovement(obtain);
+    private void a(long j2, int i2, float f2, float f3) {
+        MotionEvent obtain = MotionEvent.obtain(this.f4110h, j2, i2, f2, f3, 0);
+        this.f4106d.addMovement(obtain);
         obtain.recycle();
     }
 
-    private void beginFakeVelocityTracker() {
-        VelocityTracker velocityTracker = this.mVelocityTracker;
+    private void c() {
+        VelocityTracker velocityTracker = this.f4106d;
         if (velocityTracker != null) {
             velocityTracker.clear();
         } else {
-            this.mVelocityTracker = VelocityTracker.obtain();
-            this.mMaximumVelocity = ViewConfiguration.get(this.mViewPager.getContext()).getScaledMaximumFlingVelocity();
+            this.f4106d = VelocityTracker.obtain();
+            this.f4107e = ViewConfiguration.get(this.f4103a.getContext()).getScaledMaximumFlingVelocity();
         }
     }
 
     @UiThread
-    public boolean beginFakeDrag() {
-        if (this.mScrollEventAdapter.isDragging()) {
+    boolean b() {
+        if (this.f4104b.p()) {
             return false;
         }
-        this.mActualDraggedDistance = 0;
-        this.mRequestedDragDistance = 0;
-        this.mFakeDragBeginTime = SystemClock.uptimeMillis();
-        beginFakeVelocityTracker();
-        this.mScrollEventAdapter.notifyBeginFakeDrag();
-        if (!this.mScrollEventAdapter.isIdle()) {
-            this.mRecyclerView.stopScroll();
+        this.f4109g = 0;
+        this.f4108f = 0;
+        this.f4110h = SystemClock.uptimeMillis();
+        c();
+        this.f4104b.t();
+        if (!this.f4104b.r()) {
+            this.f4105c.stopScroll();
         }
-        addFakeMotionEvent(this.mFakeDragBeginTime, 0, 0.0f, 0.0f);
+        a(this.f4110h, 0, 0.0f, 0.0f);
         return true;
     }
 
     @UiThread
-    public boolean endFakeDrag() {
-        if (!this.mScrollEventAdapter.isFakeDragging()) {
+    boolean d() {
+        if (!this.f4104b.q()) {
             return false;
         }
-        this.mScrollEventAdapter.notifyEndFakeDrag();
-        VelocityTracker velocityTracker = this.mVelocityTracker;
-        velocityTracker.computeCurrentVelocity(1000, this.mMaximumVelocity);
-        if (this.mRecyclerView.fling((int) velocityTracker.getXVelocity(), (int) velocityTracker.getYVelocity())) {
+        this.f4104b.v();
+        VelocityTracker velocityTracker = this.f4106d;
+        velocityTracker.computeCurrentVelocity(1000, this.f4107e);
+        if (this.f4105c.fling((int) velocityTracker.getXVelocity(), (int) velocityTracker.getYVelocity())) {
             return true;
         }
-        this.mViewPager.snapToPage();
+        this.f4103a.h();
         return true;
     }
 
     @UiThread
-    public boolean fakeDragBy(float f10) {
-        if (!this.mScrollEventAdapter.isFakeDragging()) {
+    boolean e(float f2) {
+        if (!this.f4104b.q()) {
             return false;
         }
-        float f11 = this.mRequestedDragDistance - f10;
-        this.mRequestedDragDistance = f11;
-        int round = Math.round(f11 - this.mActualDraggedDistance);
-        this.mActualDraggedDistance += round;
+        float f3 = this.f4108f - f2;
+        this.f4108f = f3;
+        int round = Math.round(f3 - this.f4109g);
+        this.f4109g += round;
         long uptimeMillis = SystemClock.uptimeMillis();
-        boolean z10 = this.mViewPager.getOrientation() == 0;
-        int i10 = z10 ? round : 0;
-        int i11 = z10 ? 0 : round;
-        float f12 = z10 ? this.mRequestedDragDistance : 0.0f;
-        float f13 = z10 ? 0.0f : this.mRequestedDragDistance;
-        this.mRecyclerView.scrollBy(i10, i11);
-        addFakeMotionEvent(uptimeMillis, 2, f12, f13);
+        boolean z = this.f4103a.getOrientation() == 0;
+        int i2 = z ? round : 0;
+        int i3 = z ? 0 : round;
+        float f4 = z ? this.f4108f : 0.0f;
+        float f5 = z ? 0.0f : this.f4108f;
+        this.f4105c.scrollBy(i2, i3);
+        a(uptimeMillis, 2, f4, f5);
         return true;
     }
 
-    public boolean isFakeDragging() {
-        return this.mScrollEventAdapter.isFakeDragging();
+    boolean f() {
+        return this.f4104b.q();
     }
 }

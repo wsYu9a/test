@@ -7,7 +7,7 @@ import java.util.Locale;
 
 /* loaded from: classes.dex */
 interface LocaleListInterface {
-    Locale get(int i10);
+    Locale get(int i2);
 
     @Nullable
     Locale getFirstMatch(@NonNull String[] strArr);

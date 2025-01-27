@@ -2,18 +2,18 @@ package com.martian.mibook.data;
 
 import java.util.Set;
 
-/* loaded from: classes3.dex */
+/* loaded from: classes.dex */
 public class MiBookIdItem {
     public String date;
     public final Set<String> mibookId;
 
-    public MiBookIdItem(String str, Set<String> set) {
-        this.date = str;
-        this.mibookId = set;
+    public MiBookIdItem(String date, Set<String> mibookId) {
+        this.date = date;
+        this.mibookId = mibookId;
     }
 
-    public void addMibookId(String str) {
-        this.mibookId.add(str);
+    public void addMibookId(String bookId) {
+        this.mibookId.add(bookId);
     }
 
     public String getDate() {
@@ -24,7 +24,7 @@ public class MiBookIdItem {
         return this.mibookId;
     }
 
-    public void setDate(String str) {
-        this.date = str;
+    public void setDate(String currentDate) {
+        this.date = currentDate;
     }
 }

@@ -1,250 +1,161 @@
 package com.kwad.components.ad.reward.presenter;
 
-import androidx.annotation.Nullable;
-import com.kwad.components.core.page.DownloadLandPageActivity;
+import android.view.View;
+import com.kwad.components.ad.reward.widget.KsToastView;
 import com.kwad.components.core.playable.PlayableSource;
-import com.kwad.components.core.webview.jshandler.ar;
 import com.kwad.sdk.R;
-import com.kwad.sdk.core.response.model.AdInfo;
-import com.kwad.sdk.core.response.model.AdTemplate;
-import com.kwad.sdk.core.webview.KsAdWebView;
+import com.kwad.sdk.utils.bi;
+import com.vivo.ic.dm.Downloads;
+import org.json.JSONObject;
 
-/* loaded from: classes2.dex */
-public final class p extends b {
-
-    /* renamed from: qh */
-    private com.kwad.components.core.playable.a f11811qh;
-    private PlayableSource ul;
-    private final com.kwad.components.ad.reward.e.j um = new com.kwad.components.ad.reward.e.k() { // from class: com.kwad.components.ad.reward.presenter.p.1
-        public AnonymousClass1() {
+/* loaded from: classes.dex */
+public final class p extends a {
+    private Runnable sC;
+    private float sq;
+    private q ss;
+    private KsToastView sz;
+    private boolean sA = false;
+    private boolean sB = false;
+    private boolean sD = false;
+    private boolean st = false;
+    private com.kwad.components.ad.reward.d.f mPlayEndPageListener = new com.kwad.components.ad.reward.d.a() { // from class: com.kwad.components.ad.reward.presenter.p.1
+        AnonymousClass1() {
         }
 
-        @Override // com.kwad.components.ad.reward.e.k, com.kwad.components.ad.reward.e.j
-        public final void a(PlayableSource playableSource, @Nullable com.kwad.components.ad.reward.e.n nVar) {
-            p.this.ul = playableSource;
-            if (p.this.f11811qh != null && p.this.f11811qh.qW()) {
-                p.this.f11811qh.e(playableSource);
-                com.kwad.components.ad.reward.g gVar = p.this.rO;
-                if (gVar != null) {
-                    gVar.d(playableSource);
-                    p.this.rO.C(true);
-                    if (p.this.rO.f11689qf.kh()) {
-                        p.this.rO.f11689qf.ki().pause();
-                    }
-                }
-                com.kwad.components.ad.reward.a.fr().b(playableSource);
-                return;
-            }
-            if (p.this.f11811qh != null) {
-                p.this.f11811qh.hU();
-            }
-            if (nVar != null) {
-                nVar.ho();
-                com.kwad.sdk.core.d.c.d("RewardPlayablePresenter", "onEnterPlayable outer handled");
-            } else if (com.kwad.sdk.core.response.b.a.aF(com.kwad.sdk.core.response.b.e.eb(p.this.rO.mAdTemplate))) {
-                DownloadLandPageActivity.launch(p.this.getActivity(), p.this.rO.mAdTemplate, true);
-            }
-        }
-
-        @Override // com.kwad.components.ad.reward.e.k, com.kwad.components.ad.reward.e.j
-        public final void cu() {
-            p.this.f11811qh.hU();
-            com.kwad.components.ad.reward.g gVar = p.this.rO;
-            if (gVar != null) {
-                gVar.d((PlayableSource) null);
-                if (p.this.rO.f11689qf.kh()) {
-                    p.this.rO.f11689qf.ki().resume();
-                }
-            }
+        @Override // com.kwad.components.ad.reward.d.f
+        public final void bM() {
+            p.this.sz.setVisibility(8);
         }
     };
 
     /* renamed from: com.kwad.components.ad.reward.presenter.p$1 */
-    public class AnonymousClass1 extends com.kwad.components.ad.reward.e.k {
-        public AnonymousClass1() {
+    final class AnonymousClass1 extends com.kwad.components.ad.reward.d.a {
+        AnonymousClass1() {
         }
 
-        @Override // com.kwad.components.ad.reward.e.k, com.kwad.components.ad.reward.e.j
-        public final void a(PlayableSource playableSource, @Nullable com.kwad.components.ad.reward.e.n nVar) {
-            p.this.ul = playableSource;
-            if (p.this.f11811qh != null && p.this.f11811qh.qW()) {
-                p.this.f11811qh.e(playableSource);
-                com.kwad.components.ad.reward.g gVar = p.this.rO;
-                if (gVar != null) {
-                    gVar.d(playableSource);
-                    p.this.rO.C(true);
-                    if (p.this.rO.f11689qf.kh()) {
-                        p.this.rO.f11689qf.ki().pause();
-                    }
-                }
-                com.kwad.components.ad.reward.a.fr().b(playableSource);
-                return;
-            }
-            if (p.this.f11811qh != null) {
-                p.this.f11811qh.hU();
-            }
-            if (nVar != null) {
-                nVar.ho();
-                com.kwad.sdk.core.d.c.d("RewardPlayablePresenter", "onEnterPlayable outer handled");
-            } else if (com.kwad.sdk.core.response.b.a.aF(com.kwad.sdk.core.response.b.e.eb(p.this.rO.mAdTemplate))) {
-                DownloadLandPageActivity.launch(p.this.getActivity(), p.this.rO.mAdTemplate, true);
-            }
-        }
-
-        @Override // com.kwad.components.ad.reward.e.k, com.kwad.components.ad.reward.e.j
-        public final void cu() {
-            p.this.f11811qh.hU();
-            com.kwad.components.ad.reward.g gVar = p.this.rO;
-            if (gVar != null) {
-                gVar.d((PlayableSource) null);
-                if (p.this.rO.f11689qf.kh()) {
-                    p.this.rO.f11689qf.ki().resume();
-                }
-            }
+        @Override // com.kwad.components.ad.reward.d.f
+        public final void bM() {
+            p.this.sz.setVisibility(8);
         }
     }
 
     /* renamed from: com.kwad.components.ad.reward.presenter.p$2 */
-    public class AnonymousClass2 implements ar.b {
-        public AnonymousClass2() {
+    final class AnonymousClass2 implements View.OnClickListener {
+        AnonymousClass2() {
         }
 
-        @Override // com.kwad.components.core.webview.jshandler.ar.b
-        public final void a(ar.a aVar) {
-            if (aVar.isSuccess()) {
-                return;
-            }
-            AdInfo eb2 = com.kwad.sdk.core.response.b.e.eb(p.this.rO.mAdTemplate);
-            long loadTime = p.this.rO.f11691qh.getLoadTime();
-            if (loadTime == -1) {
-                return;
-            }
-            com.kwad.components.ad.reward.g gVar = p.this.rO;
-            com.kwad.components.ad.reward.monitor.c.a(gVar.mAdTemplate, gVar.qu, "playable", com.kwad.sdk.core.response.b.a.bP(eb2), System.currentTimeMillis() - loadTime, 3);
+        @Override // android.view.View.OnClickListener
+        public final void onClick(View view) {
+            p.a(p.this, true);
+            p.this.sz.setVisibility(8);
+            com.kwad.components.ad.reward.b.ff().a(PlayableSource.PENDANT_CLICK_AUTO);
         }
     }
 
     /* renamed from: com.kwad.components.ad.reward.presenter.p$3 */
-    public class AnonymousClass3 implements KsAdWebView.e {
-        public AnonymousClass3() {
+    final class AnonymousClass3 implements Runnable {
+        AnonymousClass3() {
         }
 
-        @Override // com.kwad.sdk.core.webview.KsAdWebView.e
-        public final void onPageFinished() {
-            AdInfo eb2 = com.kwad.sdk.core.response.b.e.eb(p.this.rO.mAdTemplate);
-            long loadTime = p.this.rO.f11691qh.getLoadTime();
-            if (loadTime == -1) {
+        @Override // java.lang.Runnable
+        public final void run() {
+            if (p.this.sD) {
                 return;
             }
-            com.kwad.components.ad.reward.monitor.c.a(p.this.rO.qu, "playable", com.kwad.sdk.core.response.b.a.bP(eb2), System.currentTimeMillis() - loadTime);
-        }
-
-        @Override // com.kwad.sdk.core.webview.KsAdWebView.e
-        public final void onPageStart() {
-        }
-
-        @Override // com.kwad.sdk.core.webview.KsAdWebView.e
-        public final void onReceivedHttpError(int i10, String str, String str2) {
-            com.kwad.components.ad.reward.g gVar = p.this.rO;
-            AdTemplate adTemplate = gVar.mAdTemplate;
-            com.kwad.components.ad.reward.monitor.c.a(adTemplate, gVar.qu, "playable", com.kwad.sdk.core.response.b.a.bP(com.kwad.sdk.core.response.b.e.eb(adTemplate)), System.currentTimeMillis() - p.this.rO.f11691qh.getLoadTime(), 2);
+            if (p.this.sz != null) {
+                p.this.sz.setVisibility(8);
+            }
+            com.kwad.components.ad.reward.b.ff().a(PlayableSource.PENDANT_AUTO);
         }
     }
 
-    @Override // com.kwad.components.ad.reward.presenter.b, com.kwad.sdk.mvp.Presenter
-    public final void as() {
-        super.as();
-        com.kwad.components.ad.reward.g gVar = this.rO;
-        com.kwad.components.core.playable.a aVar = gVar.f11691qh;
-        this.f11811qh = aVar;
-        if (aVar == null) {
+    public p(q qVar) {
+        this.ss = qVar;
+    }
+
+    static /* synthetic */ boolean a(p pVar, boolean z) {
+        pVar.sD = true;
+        return true;
+    }
+
+    private void hD() {
+        this.sC = new Runnable() { // from class: com.kwad.components.ad.reward.presenter.p.3
+            AnonymousClass3() {
+            }
+
+            @Override // java.lang.Runnable
+            public final void run() {
+                if (p.this.sD) {
+                    return;
+                }
+                if (p.this.sz != null) {
+                    p.this.sz.setVisibility(8);
+                }
+                com.kwad.components.ad.reward.b.ff().a(PlayableSource.PENDANT_AUTO);
+            }
+        };
+    }
+
+    private void hE() {
+        bi.b(this.sC);
+        this.sC = null;
+    }
+
+    private synchronized void hy() {
+        if (this.st) {
             return;
         }
-        aVar.a(gVar.mAdTemplate, gVar.mRootContainer, gVar.mApkDownloadHelper);
-        com.kwad.components.ad.reward.monitor.c.a(this.rO.qu, "playable");
-        AdInfo eb2 = com.kwad.sdk.core.response.b.e.eb(this.rO.mAdTemplate);
-        com.kwad.components.ad.reward.g gVar2 = this.rO;
-        com.kwad.components.ad.reward.monitor.c.a(gVar2.mAdTemplate, gVar2.qu, "playable", com.kwad.sdk.core.response.b.a.bP(eb2));
-        this.f11811qh.qV();
-        this.f11811qh.a(new ar.b() { // from class: com.kwad.components.ad.reward.presenter.p.2
-            public AnonymousClass2() {
-            }
-
-            @Override // com.kwad.components.core.webview.jshandler.ar.b
-            public final void a(ar.a aVar2) {
-                if (aVar2.isSuccess()) {
-                    return;
-                }
-                AdInfo eb22 = com.kwad.sdk.core.response.b.e.eb(p.this.rO.mAdTemplate);
-                long loadTime = p.this.rO.f11691qh.getLoadTime();
-                if (loadTime == -1) {
-                    return;
-                }
-                com.kwad.components.ad.reward.g gVar3 = p.this.rO;
-                com.kwad.components.ad.reward.monitor.c.a(gVar3.mAdTemplate, gVar3.qu, "playable", com.kwad.sdk.core.response.b.a.bP(eb22), System.currentTimeMillis() - loadTime, 3);
-            }
-        });
-        this.f11811qh.a(new KsAdWebView.e() { // from class: com.kwad.components.ad.reward.presenter.p.3
-            public AnonymousClass3() {
-            }
-
-            @Override // com.kwad.sdk.core.webview.KsAdWebView.e
-            public final void onPageFinished() {
-                AdInfo eb22 = com.kwad.sdk.core.response.b.e.eb(p.this.rO.mAdTemplate);
-                long loadTime = p.this.rO.f11691qh.getLoadTime();
-                if (loadTime == -1) {
-                    return;
-                }
-                com.kwad.components.ad.reward.monitor.c.a(p.this.rO.qu, "playable", com.kwad.sdk.core.response.b.a.bP(eb22), System.currentTimeMillis() - loadTime);
-            }
-
-            @Override // com.kwad.sdk.core.webview.KsAdWebView.e
-            public final void onPageStart() {
-            }
-
-            @Override // com.kwad.sdk.core.webview.KsAdWebView.e
-            public final void onReceivedHttpError(int i10, String str, String str2) {
-                com.kwad.components.ad.reward.g gVar3 = p.this.rO;
-                AdTemplate adTemplate = gVar3.mAdTemplate;
-                com.kwad.components.ad.reward.monitor.c.a(adTemplate, gVar3.qu, "playable", com.kwad.sdk.core.response.b.a.bP(com.kwad.sdk.core.response.b.e.eb(adTemplate)), System.currentTimeMillis() - p.this.rO.f11691qh.getLoadTime(), 2);
-            }
-        });
-        com.kwad.components.ad.reward.a.fr().a(this.um);
+        com.kwad.sdk.core.report.a.d(this.qt.mAdTemplate, (JSONObject) null, new com.kwad.sdk.core.report.i().bl(Downloads.Impl.STATUS_RUNNING).S(this.qt.oN.getPlayDuration()));
+        this.st = true;
     }
 
-    public final void e(@Nullable PlayableSource playableSource) {
-        com.kwad.components.core.playable.a aVar = this.f11811qh;
-        if (aVar != null) {
-            if (playableSource != null) {
-                aVar.e(playableSource);
-            } else {
-                aVar.e(this.ul);
-            }
-        }
+    @Override // com.kwad.components.ad.reward.presenter.a, com.kwad.sdk.mvp.Presenter
+    public final void ar() {
+        super.ar();
+        this.qt.b(this.mPlayEndPageListener);
     }
 
-    public final void hU() {
-        com.kwad.components.core.playable.a aVar = this.f11811qh;
-        if (aVar != null) {
-            aVar.hU();
+    public final void hB() {
+        if (this.sB) {
+            return;
         }
+        hy();
+        this.sB = true;
+        this.sz.setVisibility(0);
+        this.sz.Y(3);
+        hD();
+        bi.a(this.sC, null, 3000L);
+    }
+
+    public final void hC() {
+        this.sB = false;
+        this.sz.setVisibility(8);
     }
 
     @Override // com.kwad.sdk.mvp.Presenter
     public final void onCreate() {
         super.onCreate();
-        ((KsAdWebView) findViewById(R.id.ksad_playable_webview)).setVisibility(4);
+        KsToastView ksToastView = (KsToastView) findViewById(R.id.ksad_toast_view);
+        this.sz = ksToastView;
+        ksToastView.setOnClickListener(new View.OnClickListener() { // from class: com.kwad.components.ad.reward.presenter.p.2
+            AnonymousClass2() {
+            }
+
+            @Override // android.view.View.OnClickListener
+            public final void onClick(View view) {
+                p.a(p.this, true);
+                p.this.sz.setVisibility(8);
+                com.kwad.components.ad.reward.b.ff().a(PlayableSource.PENDANT_CLICK_AUTO);
+            }
+        });
+        this.sq = com.kwad.components.ad.reward.kwai.b.gC();
+        this.sA = com.kwad.components.ad.reward.kwai.b.gD() && com.kwad.components.ad.reward.kwai.b.gE();
     }
 
     @Override // com.kwad.sdk.mvp.Presenter
     public final void onUnbind() {
         super.onUnbind();
-        com.kwad.components.core.playable.a aVar = this.f11811qh;
-        if (aVar == null) {
-            return;
-        }
-        aVar.qU();
-        this.f11811qh.hU();
-        com.kwad.components.ad.reward.a.fr().b(this.um);
+        hE();
+        this.qt.c(this.mPlayEndPageListener);
     }
 }

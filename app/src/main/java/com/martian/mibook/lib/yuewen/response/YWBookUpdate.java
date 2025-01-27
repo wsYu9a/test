@@ -1,6 +1,6 @@
 package com.martian.mibook.lib.yuewen.response;
 
-/* loaded from: classes3.dex */
+/* loaded from: classes4.dex */
 public class YWBookUpdate {
     private Long cbid;
     private String latestChapter;
@@ -23,19 +23,19 @@ public class YWBookUpdate {
         return this.latestChapterUpdateTime;
     }
 
-    public void setCbid(Long l10) {
-        this.cbid = l10;
+    public void setCbid(Long cbid) {
+        this.cbid = cbid;
     }
 
-    public void setLatestChapter(String str) {
-        this.latestChapter = str;
+    public void setLatestChapter(String latestChapter) {
+        this.latestChapter = latestChapter;
     }
 
-    public void setLatestChapterId(Long l10) {
-        this.latestChapterId = l10;
+    public void setLatestChapterId(Long latestChapterId) {
+        this.latestChapterId = latestChapterId;
     }
 
-    public void setLatestChapterUpdateTime(Long l10) {
-        this.latestChapterUpdateTime = l10;
+    public void setLatestChapterUpdateTime(Long latestChapterUpdateTime) {
+        this.latestChapterUpdateTime = latestChapterUpdateTime;
     }
 }

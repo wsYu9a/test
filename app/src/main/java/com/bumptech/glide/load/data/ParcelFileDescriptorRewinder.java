@@ -1,5 +1,6 @@
 package com.bumptech.glide.load.data;
 
+import android.os.Build;
 import android.os.ParcelFileDescriptor;
 import android.system.ErrnoException;
 import android.system.Os;
@@ -9,7 +10,7 @@ import androidx.annotation.RequiresApi;
 import com.bumptech.glide.load.data.DataRewinder;
 import java.io.IOException;
 
-/* loaded from: classes2.dex */
+/* loaded from: classes.dex */
 public final class ParcelFileDescriptorRewinder implements DataRewinder<ParcelFileDescriptor> {
     private final InternalRewinder rewinder;
 
@@ -29,19 +30,19 @@ public final class ParcelFileDescriptorRewinder implements DataRewinder<ParcelFi
     }
 
     @RequiresApi(21)
-    public static final class InternalRewinder {
+    private static final class InternalRewinder {
         private final ParcelFileDescriptor parcelFileDescriptor;
 
-        public InternalRewinder(ParcelFileDescriptor parcelFileDescriptor) {
+        InternalRewinder(ParcelFileDescriptor parcelFileDescriptor) {
             this.parcelFileDescriptor = parcelFileDescriptor;
         }
 
-        public ParcelFileDescriptor rewind() throws IOException {
+        ParcelFileDescriptor rewind() throws IOException {
             try {
                 Os.lseek(this.parcelFileDescriptor.getFileDescriptor(), 0L, OsConstants.SEEK_SET);
                 return this.parcelFileDescriptor;
-            } catch (ErrnoException e10) {
-                throw new IOException(e10);
+            } catch (ErrnoException e2) {
+                throw new IOException(e2);
             }
         }
     }
@@ -52,7 +53,7 @@ public final class ParcelFileDescriptorRewinder implements DataRewinder<ParcelFi
     }
 
     public static boolean isSupported() {
-        return true;
+        return Build.VERSION.SDK_INT >= 21;
     }
 
     @Override // com.bumptech.glide.load.data.DataRewinder

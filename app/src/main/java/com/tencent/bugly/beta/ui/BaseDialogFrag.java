@@ -43,13 +43,13 @@ public abstract class BaseDialogFrag extends BaseFrag {
     protected TextView mTitleTextView;
 
     /* renamed from: com.tencent.bugly.beta.ui.BaseDialogFrag$1 */
-    public class AnonymousClass1 implements Runnable {
+    class AnonymousClass1 implements Runnable {
         final /* synthetic */ View.OnClickListener val$lListener;
         final /* synthetic */ String val$lText;
         final /* synthetic */ View.OnClickListener val$rListener;
         final /* synthetic */ String val$rText;
 
-        public AnonymousClass1(String str, View.OnClickListener onClickListener, String str2, View.OnClickListener onClickListener2) {
+        AnonymousClass1(String str, View.OnClickListener onClickListener, String str2, View.OnClickListener onClickListener2) {
             str = str;
             onClickListener = onClickListener;
             str2 = str2;
@@ -89,10 +89,10 @@ public abstract class BaseDialogFrag extends BaseFrag {
     }
 
     /* renamed from: com.tencent.bugly.beta.ui.BaseDialogFrag$2 */
-    public class AnonymousClass2 implements Runnable {
+    class AnonymousClass2 implements Runnable {
         final /* synthetic */ Animation val$exitAnim;
 
-        public AnonymousClass2(Animation animation) {
+        AnonymousClass2(Animation animation) {
             alphaAnimation = animation;
         }
 
@@ -106,8 +106,8 @@ public abstract class BaseDialogFrag extends BaseFrag {
     }
 
     /* renamed from: com.tencent.bugly.beta.ui.BaseDialogFrag$3 */
-    public class AnonymousClass3 implements Animation.AnimationListener {
-        public AnonymousClass3() {
+    class AnonymousClass3 implements Animation.AnimationListener {
+        AnonymousClass3() {
         }
 
         @Override // android.view.animation.Animation.AnimationListener
@@ -139,7 +139,7 @@ public abstract class BaseDialogFrag extends BaseFrag {
         e.a(new Runnable() { // from class: com.tencent.bugly.beta.ui.BaseDialogFrag.2
             final /* synthetic */ Animation val$exitAnim;
 
-            public AnonymousClass2(Animation alphaAnimation2) {
+            AnonymousClass2(Animation alphaAnimation2) {
                 alphaAnimation = alphaAnimation2;
             }
 
@@ -152,7 +152,7 @@ public abstract class BaseDialogFrag extends BaseFrag {
             }
         });
         alphaAnimation2.setAnimationListener(new Animation.AnimationListener() { // from class: com.tencent.bugly.beta.ui.BaseDialogFrag.3
-            public AnonymousClass3() {
+            AnonymousClass3() {
             }
 
             @Override // android.view.animation.Animation.AnimationListener
@@ -177,9 +177,9 @@ public abstract class BaseDialogFrag extends BaseFrag {
     @Override // androidx.fragment.app.Fragment
     public View onCreateView(LayoutInflater layoutInflater, ViewGroup viewGroup, Bundle bundle) {
         this.mContext = getActivity();
-        this.mRes = ResBean.f22088a;
-        int i10 = this.mLayoutResId;
-        if (i10 == 0) {
+        this.mRes = ResBean.f24609a;
+        int i2 = this.mLayoutResId;
+        if (i2 == 0) {
             RelativeLayout relativeLayout = new RelativeLayout(this.mContext);
             this.mLayoutContainer = relativeLayout;
             relativeLayout.setGravity(17);
@@ -195,8 +195,8 @@ public abstract class BaseDialogFrag extends BaseFrag {
             this.mCustomLayout.setMinimumWidth(a.a(this.mContext, 280.0f));
             this.mCustomLayout.setOrientation(1);
             if (this.mStyle == 2) {
-                float a10 = a.a(this.mContext, 6.0f);
-                ShapeDrawable shapeDrawable = new ShapeDrawable(new RoundRectShape(new float[]{a10, a10, a10, a10, a10, a10, a10, a10}, null, null));
+                float a2 = a.a(this.mContext, 6.0f);
+                ShapeDrawable shapeDrawable = new ShapeDrawable(new RoundRectShape(new float[]{a2, a2, a2, a2, a2, a2, a2, a2}, null, null));
                 shapeDrawable.getPaint().setColor(-1);
                 shapeDrawable.getPaint().setStyle(Paint.Style.FILL_AND_STROKE);
                 this.mCustomLayout.setBackgroundDrawable(shapeDrawable);
@@ -212,13 +212,13 @@ public abstract class BaseDialogFrag extends BaseFrag {
             this.mTitleTextView.setLayoutParams(layoutParams);
             this.mTitleTextView.setOnClickListener(null);
             this.mTitleTextView.setEllipsize(TextUtils.TruncateAt.END);
-            int a11 = a.a(this.mContext, 16.0f);
-            this.mTitleTextView.setPadding(a11, 0, a11, 0);
+            int a3 = a.a(this.mContext, 16.0f);
+            this.mTitleTextView.setPadding(a3, 0, a3, 0);
             this.mTitleTextView.setTypeface(null, 1);
             this.mTitleTextView.setHeight(a.a(this.mContext, 42.0f));
             this.mTitleTextView.setTag(Beta.TAG_TITLE);
             TextView textView3 = new TextView(this.mContext);
-            textView3.setBackgroundColor(-3355444);
+            textView3.setBackgroundColor(com.vivo.advv.Color.LTGRAY);
             textView3.setHeight(1);
             ScrollView scrollView = new ScrollView(this.mContext);
             LinearLayout.LayoutParams layoutParams2 = new LinearLayout.LayoutParams(-1, -2);
@@ -230,63 +230,66 @@ public abstract class BaseDialogFrag extends BaseFrag {
             this.mContentContainer = new LinearLayout(this.mContext);
             this.mContentContainer.setLayoutParams(new LinearLayout.LayoutParams(-1, -2));
             this.mContentContainer.setOrientation(1);
-            this.mContentContainer.setPadding(a11, a.a(this.mContext, 10.0f), a11, 0);
+            this.mContentContainer.setPadding(a3, a.a(this.mContext, 10.0f), a3, 0);
             LinearLayout linearLayout2 = new LinearLayout(this.mContext);
             linearLayout2.setLayoutParams(layoutParams);
             linearLayout2.setGravity(17);
             linearLayout2.setOrientation(0);
-            int i11 = a11 / 2;
-            linearLayout2.setPadding(i11, a11, i11, a11);
+            int i3 = a3 / 2;
+            linearLayout2.setPadding(i3, a3, i3, a3);
             FrameLayout.LayoutParams layoutParams3 = new FrameLayout.LayoutParams(-1, -2);
             layoutParams3.gravity = 80;
             linearLayout2.setLayoutParams(layoutParams3);
             LinearLayout.LayoutParams layoutParams4 = new LinearLayout.LayoutParams(0, -2, 1.0f);
-            layoutParams4.setMargins(i11, 0, i11, 0);
+            layoutParams4.setMargins(i3, 0, i3, 0);
             TextView textView4 = new TextView(this.mContext);
             this.mLeftBtnTextView = textView4;
             textView4.setSingleLine();
             this.mLeftBtnTextView.setGravity(17);
             this.mLeftBtnTextView.setTag(Beta.TAG_CANCEL_BUTTON);
             new RelativeLayout.LayoutParams(-2, -2);
-            int a12 = a.a(this.mContext, 30.0f);
+            int a4 = a.a(this.mContext, 30.0f);
             if (this.mStyle == 2) {
-                FrameLayout.LayoutParams layoutParams5 = new FrameLayout.LayoutParams(a12, a12);
+                FrameLayout.LayoutParams layoutParams5 = new FrameLayout.LayoutParams(a4, a4);
                 layoutParams5.gravity = 53;
                 this.mLeftBtnTextView.setLayoutParams(layoutParams5);
-                this.mLeftBtnTextView.setTextSize((float) (a12 * 0.3d));
+                TextView textView5 = this.mLeftBtnTextView;
+                double d2 = a4;
+                Double.isNaN(d2);
+                textView5.setTextSize((float) (d2 * 0.3d));
             } else {
                 this.mLeftBtnTextView.setLayoutParams(layoutParams4);
                 this.mLeftBtnTextView.setTextSize(16);
-                TextView textView5 = this.mLeftBtnTextView;
+                TextView textView6 = this.mLeftBtnTextView;
                 this.mRes.getClass();
-                textView5.setTextColor(Color.parseColor("#757575"));
+                textView6.setTextColor(Color.parseColor("#757575"));
                 this.mLeftBtnTextView.setPadding(a.a(this.mContext, 10.0f), a.a(this.mContext, 5.0f), a.a(this.mContext, 10.0f), a.a(this.mContext, 5.0f));
             }
-            TextView textView6 = new TextView(this.mContext);
-            this.mRightBtnTextView = textView6;
-            textView6.setLayoutParams(layoutParams4);
+            TextView textView7 = new TextView(this.mContext);
+            this.mRightBtnTextView = textView7;
+            textView7.setLayoutParams(layoutParams4);
             this.mRightBtnTextView.setGravity(17);
             this.mRightBtnTextView.setTextSize(16);
-            TextView textView7 = this.mRightBtnTextView;
+            TextView textView8 = this.mRightBtnTextView;
             this.mRes.getClass();
-            textView7.setTextColor(Color.parseColor("#273238"));
+            textView8.setTextColor(Color.parseColor("#273238"));
             this.mRightBtnTextView.setSingleLine();
             this.mRightBtnTextView.setPadding(a.a(this.mContext, 10.0f), a.a(this.mContext, 5.0f), a.a(this.mContext, 10.0f), a.a(this.mContext, 5.0f));
             this.mRightBtnTextView.setTypeface(null, 1);
             this.mRightBtnTextView.setTag(Beta.TAG_CONFIRM_BUTTON);
-            int a13 = a.a(this.mContext, 40.0f);
+            int a5 = a.a(this.mContext, 40.0f);
             scrollView.addView(this.mContentContainer);
             if (this.mStyle == 2) {
                 FrameLayout frameLayout = new FrameLayout(this.mContext);
                 frameLayout.setLayoutParams(new FrameLayout.LayoutParams(-2, -2));
-                int i12 = a12 / 2;
-                int i13 = i12 - 5;
-                this.mFrameLayout.setPadding(i12, i13, i13, i12);
+                int i4 = a4 / 2;
+                int i5 = i4 - 5;
+                this.mFrameLayout.setPadding(i4, i5, i5, i4);
                 frameLayout.addView(this.mFrameLayout);
                 frameLayout.addView(this.mLeftBtnTextView);
                 ((RelativeLayout) this.mLayoutContainer).addView(frameLayout);
             } else {
-                this.mLayoutContainer.setPadding(a13, a13, a13, a13);
+                this.mLayoutContainer.setPadding(a5, a5, a5, a5);
                 ((RelativeLayout) this.mLayoutContainer).addView(this.mFrameLayout);
                 linearLayout2.addView(this.mLeftBtnTextView);
             }
@@ -300,31 +303,30 @@ public abstract class BaseDialogFrag extends BaseFrag {
                 Paint paint = new Paint();
                 paint.setStyle(Paint.Style.FILL);
                 paint.setAntiAlias(true);
-                Bitmap.Config config = Bitmap.Config.ARGB_8888;
-                Bitmap createBitmap = Bitmap.createBitmap(a12, a12, config);
-                int i14 = a12 / 2;
+                Bitmap createBitmap = Bitmap.createBitmap(a4, a4, Bitmap.Config.ARGB_8888);
+                int i6 = a4 / 2;
                 Canvas canvas = new Canvas(createBitmap);
-                paint.setColor(-3355444);
-                float f10 = i14;
-                canvas.drawCircle(f10, f10, f10, paint);
-                canvas.rotate(45.0f, f10, f10);
-                paint.setColor(-7829368);
-                int a14 = a.a(this.mContext, 0.8f);
-                float f11 = 0.4f * f10;
-                float f12 = i14 - a14;
-                float f13 = 1.6f * f10;
-                float f14 = i14 + a14;
-                canvas.drawRect(f11, f12, f13, f14, paint);
-                canvas.drawRect(f12, f11, f14, f13, paint);
+                paint.setColor(com.vivo.advv.Color.LTGRAY);
+                float f2 = i6;
+                canvas.drawCircle(f2, f2, f2, paint);
+                canvas.rotate(45.0f, f2, f2);
+                paint.setColor(com.vivo.advv.Color.GRAY);
+                int a6 = a.a(this.mContext, 0.8f);
+                float f3 = f2 * 0.4f;
+                float f4 = i6 - a6;
+                float f5 = f2 * 1.6f;
+                float f6 = i6 + a6;
+                canvas.drawRect(f3, f4, f5, f6, paint);
+                canvas.drawRect(f4, f3, f6, f5, paint);
                 canvas.rotate(-45.0f);
-                Bitmap createBitmap2 = Bitmap.createBitmap(a12, a12, config);
+                Bitmap createBitmap2 = Bitmap.createBitmap(a4, a4, Bitmap.Config.ARGB_8888);
                 Canvas canvas2 = new Canvas(createBitmap2);
-                paint.setColor(-7829368);
-                canvas2.drawCircle(f10, f10, f10, paint);
-                canvas2.rotate(45.0f, f10, f10);
-                paint.setColor(-3355444);
-                canvas2.drawRect(f11, f12, f13, f14, paint);
-                canvas2.drawRect(f12, f11, f14, f13, paint);
+                paint.setColor(com.vivo.advv.Color.GRAY);
+                canvas2.drawCircle(f2, f2, f2, paint);
+                canvas2.rotate(45.0f, f2, f2);
+                paint.setColor(com.vivo.advv.Color.LTGRAY);
+                canvas2.drawRect(f3, f4, f5, f6, paint);
+                canvas2.drawRect(f4, f3, f6, f5, paint);
                 canvas2.rotate(-45.0f);
                 BitmapDrawable bitmapDrawable = new BitmapDrawable(createBitmap);
                 BitmapDrawable bitmapDrawable2 = new BitmapDrawable(createBitmap2);
@@ -336,7 +338,7 @@ public abstract class BaseDialogFrag extends BaseFrag {
             alphaAnimation.setDuration(300L);
             this.mLayoutContainer.startAnimation(alphaAnimation);
         } else {
-            View inflate = layoutInflater.inflate(i10, (ViewGroup) null);
+            View inflate = layoutInflater.inflate(i2, (ViewGroup) null);
             this.mLayoutContainer = inflate;
             this.mBannerImageView = (ImageView) inflate.findViewWithTag(Beta.TAG_IMG_BANNER);
             this.mTitleTextView = (TextView) this.mLayoutContainer.findViewWithTag(Beta.TAG_TITLE);
@@ -365,14 +367,14 @@ public abstract class BaseDialogFrag extends BaseFrag {
         this.mContentContainer = null;
     }
 
-    public void setBtn(String str, View.OnClickListener onClickListener, String str2, View.OnClickListener onClickListener2) {
+    protected void setBtn(String str, View.OnClickListener onClickListener, String str2, View.OnClickListener onClickListener2) {
         e.a(new Runnable() { // from class: com.tencent.bugly.beta.ui.BaseDialogFrag.1
             final /* synthetic */ View.OnClickListener val$lListener;
             final /* synthetic */ String val$lText;
             final /* synthetic */ View.OnClickListener val$rListener;
             final /* synthetic */ String val$rText;
 
-            public AnonymousClass1(String str3, View.OnClickListener onClickListener3, String str22, View.OnClickListener onClickListener22) {
+            AnonymousClass1(String str3, View.OnClickListener onClickListener3, String str22, View.OnClickListener onClickListener22) {
                 str = str3;
                 onClickListener = onClickListener3;
                 str2 = str22;

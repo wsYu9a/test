@@ -1,79 +1,79 @@
 package com.kwad.components.ad.reward;
 
-import androidx.annotation.Nullable;
-import com.kwad.components.core.webview.tachikoma.b.q;
-import com.kwad.sdk.utils.bd;
-import com.kwad.sdk.utils.bt;
+import android.os.Looper;
+import com.kwad.sdk.utils.bi;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.Set;
 
-/* loaded from: classes2.dex */
+/* loaded from: classes.dex */
 public final class c {
-    private final Set<com.kwad.components.ad.reward.e.m> pK;
+    private final Set<com.kwad.components.ad.reward.d.j> of;
 
     /* renamed from: com.kwad.components.ad.reward.c$1 */
-    public class AnonymousClass1 extends bd {
-        final /* synthetic */ q pL;
-
-        public AnonymousClass1(q qVar) {
-            qVar = qVar;
+    final class AnonymousClass1 implements Runnable {
+        AnonymousClass1() {
         }
 
-        @Override // com.kwad.sdk.utils.bd
-        public final void doTask() {
-            c.this.b(qVar);
+        @Override // java.lang.Runnable
+        public final void run() {
+            c.this.notifyRewardVerify();
         }
     }
 
-    public static class a {
-        private static final c pN = new c((byte) 0);
-    }
-
-    public /* synthetic */ c(byte b10) {
-        this();
-    }
-
-    public static c fy() {
-        return a.pN;
-    }
-
-    public final void b(com.kwad.components.ad.reward.e.m mVar) {
-        this.pK.remove(mVar);
-    }
-
-    public final void c(@Nullable q qVar) {
-        bt.runOnUiThread(new bd() { // from class: com.kwad.components.ad.reward.c.1
-            final /* synthetic */ q pL;
-
-            public AnonymousClass1(q qVar2) {
-                qVar = qVar2;
-            }
-
-            @Override // com.kwad.sdk.utils.bd
-            public final void doTask() {
-                c.this.b(qVar);
-            }
-        });
+    static class a {
+        private static final c oh = new c((byte) 0);
     }
 
     private c() {
-        this.pK = new HashSet();
+        this.of = new HashSet();
     }
 
-    public void b(@Nullable q qVar) {
-        if (this.pK.size() == 0) {
+    /* synthetic */ c(byte b2) {
+        this();
+    }
+
+    public static c fj() {
+        return a.oh;
+    }
+
+    private void fk() {
+        if (this.of.size() == 0) {
             return;
         }
-        Iterator<com.kwad.components.ad.reward.e.m> it = this.pK.iterator();
+        Iterator<com.kwad.components.ad.reward.d.j> it = this.of.iterator();
         while (it.hasNext()) {
-            it.next().a(qVar);
+            it.next().onRewardVerify();
         }
     }
 
-    public final void a(com.kwad.components.ad.reward.e.m mVar) {
-        if (mVar != null) {
-            this.pK.add(mVar);
+    private static boolean isMainThread() {
+        return Looper.getMainLooper() == Looper.myLooper();
+    }
+
+    public final void a(com.kwad.components.ad.reward.d.j jVar) {
+        if (jVar != null) {
+            this.of.add(jVar);
+        }
+    }
+
+    public final void b(com.kwad.components.ad.reward.d.j jVar) {
+        this.of.remove(jVar);
+    }
+
+    public final void notifyRewardVerify() {
+        if (isMainThread()) {
+            fk();
+        } else {
+            bi.runOnUiThread(new Runnable() { // from class: com.kwad.components.ad.reward.c.1
+                AnonymousClass1() {
+                }
+
+                @Override // java.lang.Runnable
+                public final void run() {
+                    c.this.notifyRewardVerify();
+                }
+            });
         }
     }
 }

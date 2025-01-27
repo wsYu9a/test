@@ -5,81 +5,86 @@ import androidx.annotation.Nullable;
 import com.kwai.adclient.kscommerciallogger.model.c;
 import org.json.JSONObject;
 
-/* loaded from: classes3.dex */
+/* loaded from: classes2.dex */
 public final class a {
-    private com.kwai.adclient.kscommerciallogger.a.a aYe;
-    private com.kwai.adclient.kscommerciallogger.a.b aYf;
-    private JSONObject aYg;
-    private boolean aYh;
+    private com.kwai.adclient.kscommerciallogger.kwai.a aDQ;
+    private com.kwai.adclient.kscommerciallogger.kwai.b aDR;
+    private JSONObject aDS;
+    private boolean aDT;
     private boolean isDebug;
 
     /* renamed from: com.kwai.adclient.kscommerciallogger.a$a */
-    public static final class C0519a {
-        private static a aYi;
+    static final class C0235a {
+        private static a aDU;
 
-        public static a Qd() {
-            if (aYi == null) {
-                aYi = new a((byte) 0);
+        public static a FS() {
+            if (aDU == null) {
+                aDU = new a((byte) 0);
             }
-            return aYi;
+            return aDU;
         }
-    }
-
-    public /* synthetic */ a(byte b10) {
-        this();
-    }
-
-    public static a Qd() {
-        return C0519a.Qd();
-    }
-
-    private void b(@NonNull c cVar) {
-        if (this.aYe != null) {
-            if (cVar.Qh() != null) {
-                String str = cVar.Qh().value;
-            }
-            if (cVar.Qi() != null) {
-                cVar.Qi().getValue();
-            }
-            cVar.Ql();
-            b.z(cVar.Qj());
-            b.z(cVar.Qk());
-        }
-    }
-
-    public final JSONObject Qe() {
-        return this.aYg;
-    }
-
-    public final boolean Qf() {
-        return this.aYh;
-    }
-
-    public final void a(@NonNull com.kwai.adclient.kscommerciallogger.a.a aVar, @NonNull com.kwai.adclient.kscommerciallogger.a.b bVar, @Nullable JSONObject jSONObject, boolean z10, boolean z11) {
-        this.aYe = aVar;
-        this.aYf = bVar;
-        this.aYg = jSONObject;
-        this.isDebug = z10;
-        this.aYh = z11;
-    }
-
-    public final boolean isDebug() {
-        return this.isDebug;
     }
 
     private a() {
         this.isDebug = false;
-        this.aYh = false;
+        this.aDT = false;
     }
 
-    public final void a(c cVar) {
+    /* synthetic */ a(byte b2) {
+        this();
+    }
+
+    public static a FS() {
+        return C0235a.FS();
+    }
+
+    private void d(@NonNull c cVar) {
+        com.kwai.adclient.kscommerciallogger.kwai.a aVar = this.aDQ;
+        if (aVar != null) {
+            String tag = cVar.getTag();
+            String str = cVar.FW() == null ? "" : cVar.FW().value;
+            if (cVar.FX() != null) {
+                String str2 = cVar.FX().value;
+            }
+            if (cVar.FY() != null) {
+                cVar.FY().getValue();
+            }
+            cVar.Gb();
+            b.O(cVar.FZ());
+            b.O(cVar.Ga());
+            aVar.F(tag, str);
+        }
+    }
+
+    public final JSONObject FT() {
+        return this.aDS;
+    }
+
+    public final boolean FU() {
+        return this.aDT;
+    }
+
+    public final void a(@NonNull com.kwai.adclient.kscommerciallogger.kwai.a aVar, @NonNull com.kwai.adclient.kscommerciallogger.kwai.b bVar, @Nullable JSONObject jSONObject, boolean z, boolean z2) {
+        this.aDQ = aVar;
+        this.aDR = bVar;
+        this.aDS = null;
+        this.isDebug = z;
+        this.aDT = z2;
+    }
+
+    public final void c(c cVar) {
         if (cVar == null) {
+            this.aDQ.G("KSCommercialLogger", "rl rtLog is null please check it");
             return;
         }
-        b(cVar);
-        com.kwai.adclient.kscommerciallogger.a.b bVar = this.aYf;
+        d(cVar);
+        com.kwai.adclient.kscommerciallogger.kwai.b bVar = this.aDR;
         if (bVar != null) {
-            bVar.L(cVar.Qg(), cVar.toString());
+            bVar.H(cVar.FV(), cVar.toString());
         }
+    }
+
+    public final boolean isDebug() {
+        return this.isDebug;
     }
 }

@@ -1,0 +1,21 @@
+package com.martian.mibook.lib.account.d.q;
+
+import com.martian.libmars.activity.j1;
+import com.martian.mibook.lib.account.request.auth.RechargeOrderParams;
+import com.martian.mibook.lib.account.response.MiRechargeOrder;
+
+/* loaded from: classes3.dex */
+public abstract class f0 extends com.martian.mibook.lib.account.d.n<RechargeOrderParams, MiRechargeOrder> {
+    public f0(j1 activity) {
+        super(activity, RechargeOrderParams.class, MiRechargeOrder.class);
+    }
+
+    @Override // b.d.c.c.c, b.d.c.c.b
+    /* renamed from: t */
+    public boolean onPreDataReceived(MiRechargeOrder miRechargeOrder) {
+        if (miRechargeOrder == null) {
+            return false;
+        }
+        return super.onPreDataReceived(miRechargeOrder);
+    }
+}

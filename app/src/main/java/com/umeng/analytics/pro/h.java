@@ -1,184 +1,178 @@
 package com.umeng.analytics.pro;
 
 import android.content.Context;
-import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
-import android.database.sqlite.SQLiteDatabaseCorruptException;
-import android.database.sqlite.SQLiteOpenHelper;
 import android.text.TextUtils;
-import com.umeng.analytics.pro.g;
+import java.io.File;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.List;
 
 /* loaded from: classes4.dex */
-class h extends SQLiteOpenHelper {
-
-    /* renamed from: b */
-    private static Context f23986b;
-
-    /* renamed from: a */
-    private String f23987a;
-
-    public static class a {
-
-        /* renamed from: a */
-        private static final h f23988a = new h(h.f23986b, j.b(h.f23986b), g.f23920b, null, 2);
-
-        private a() {
-        }
+public class h {
+    /* JADX WARN: Code restructure failed: missing block: B:16:0x003f, code lost:
+    
+        if (r1 == null) goto L41;
+     */
+    /*
+        Code decompiled incorrectly, please refer to instructions dump.
+        To view partially-correct code enable 'Show inconsistent code' option in preferences
+    */
+    public static boolean a(java.lang.String r12, android.database.sqlite.SQLiteDatabase r13) {
+        /*
+            r0 = 0
+            if (r12 != 0) goto L4
+            return r0
+        L4:
+            r1 = 0
+            r2 = 1
+            java.lang.String[] r5 = new java.lang.String[r2]     // Catch: java.lang.Throwable -> L37 java.lang.Exception -> L3e
+            java.lang.String r3 = "count(*)"
+            r5[r0] = r3     // Catch: java.lang.Throwable -> L37 java.lang.Exception -> L3e
+            r3 = 2
+            java.lang.String[] r7 = new java.lang.String[r3]     // Catch: java.lang.Throwable -> L37 java.lang.Exception -> L3e
+            java.lang.String r3 = "table"
+            r7[r0] = r3     // Catch: java.lang.Throwable -> L37 java.lang.Exception -> L3e
+            java.lang.String r12 = r12.trim()     // Catch: java.lang.Throwable -> L37 java.lang.Exception -> L3e
+            r7[r2] = r12     // Catch: java.lang.Throwable -> L37 java.lang.Exception -> L3e
+            java.lang.String r4 = "sqlite_master"
+            java.lang.String r6 = "type=? and name=?"
+            r8 = 0
+            r9 = 0
+            r10 = 0
+            r11 = 0
+            r3 = r13
+            android.database.Cursor r1 = r3.query(r4, r5, r6, r7, r8, r9, r10, r11)     // Catch: java.lang.Throwable -> L37 java.lang.Exception -> L3e
+            boolean r12 = r1.moveToNext()     // Catch: java.lang.Throwable -> L37 java.lang.Exception -> L3e
+            if (r12 == 0) goto L33
+            int r12 = r1.getInt(r0)     // Catch: java.lang.Throwable -> L37 java.lang.Exception -> L3e
+            if (r12 <= 0) goto L33
+            r0 = 1
+        L33:
+            r1.close()
+            goto L42
+        L37:
+            r12 = move-exception
+            if (r1 == 0) goto L3d
+            r1.close()
+        L3d:
+            throw r12
+        L3e:
+            if (r1 == 0) goto L42
+            goto L33
+        L42:
+            return r0
+        */
+        throw new UnsupportedOperationException("Method not decompiled: com.umeng.analytics.pro.h.a(java.lang.String, android.database.sqlite.SQLiteDatabase):boolean");
     }
 
-    public /* synthetic */ h(Context context, String str, String str2, SQLiteDatabase.CursorFactory cursorFactory, int i10, AnonymousClass1 anonymousClass1) {
-        this(context, str, str2, cursorFactory, i10);
+    public static String b(Context context) {
+        return context.getDatabasePath(e.f25842b).getParent() + File.separator;
     }
 
-    public static h a(Context context) {
-        if (f23986b == null) {
-            f23986b = context.getApplicationContext();
-        }
-        return a.f23988a;
+    public static String c(Context context) {
+        return b(context) + "subprocess/";
     }
 
-    private void c(SQLiteDatabase sQLiteDatabase) {
+    public static List<String> b(List<String> list) {
+        ArrayList arrayList = new ArrayList();
         try {
-            this.f23987a = "create table if not exists __sd(id INTEGER primary key autoincrement, __ii TEXT unique, __a TEXT, __b TEXT, __c TEXT, __d TEXT, __e TEXT, __f TEXT, __g TEXT, __sp TEXT, __pp TEXT, __av TEXT, __vc TEXT)";
-            sQLiteDatabase.execSQL("create table if not exists __sd(id INTEGER primary key autoincrement, __ii TEXT unique, __a TEXT, __b TEXT, __c TEXT, __d TEXT, __e TEXT, __f TEXT, __g TEXT, __sp TEXT, __pp TEXT, __av TEXT, __vc TEXT)");
-        } catch (SQLException unused) {
-        }
-    }
-
-    private void d(SQLiteDatabase sQLiteDatabase) {
-        try {
-            this.f23987a = "create table if not exists __is(id INTEGER primary key autoincrement, __ii TEXT unique, __e TEXT, __sp TEXT, __pp TEXT, __av TEXT, __vc TEXT)";
-            sQLiteDatabase.execSQL("create table if not exists __is(id INTEGER primary key autoincrement, __ii TEXT unique, __e TEXT, __sp TEXT, __pp TEXT, __av TEXT, __vc TEXT)");
-        } catch (SQLException unused) {
-        }
-    }
-
-    private void e(SQLiteDatabase sQLiteDatabase) {
-        if (!j.a(sQLiteDatabase, g.d.f23961a, "__av")) {
-            j.a(sQLiteDatabase, g.d.f23961a, "__sp", "TEXT");
-            j.a(sQLiteDatabase, g.d.f23961a, "__pp", "TEXT");
-            j.a(sQLiteDatabase, g.d.f23961a, "__av", "TEXT");
-            j.a(sQLiteDatabase, g.d.f23961a, "__vc", "TEXT");
-        }
-        if (!j.a(sQLiteDatabase, g.b.f23935a, "__av")) {
-            j.a(sQLiteDatabase, g.b.f23935a, "__av", "TEXT");
-            j.a(sQLiteDatabase, g.b.f23935a, "__vc", "TEXT");
-        }
-        if (j.a(sQLiteDatabase, g.a.f23924a, "__av")) {
-            return;
-        }
-        j.a(sQLiteDatabase, g.a.f23924a, "__av", "TEXT");
-        j.a(sQLiteDatabase, g.a.f23924a, "__vc", "TEXT");
-    }
-
-    private void f(SQLiteDatabase sQLiteDatabase) {
-        a(sQLiteDatabase, g.d.f23961a);
-        a(sQLiteDatabase, g.b.f23935a);
-        a(sQLiteDatabase, g.a.f23924a);
-        a();
-    }
-
-    @Override // android.database.sqlite.SQLiteOpenHelper
-    public void onCreate(SQLiteDatabase sQLiteDatabase) {
-        try {
-            try {
-                sQLiteDatabase.beginTransaction();
-                c(sQLiteDatabase);
-                d(sQLiteDatabase);
-                b(sQLiteDatabase);
-                a(sQLiteDatabase);
-                sQLiteDatabase.setTransactionSuccessful();
-            } catch (SQLiteDatabaseCorruptException unused) {
-                j.a(f23986b);
-                if (sQLiteDatabase == null) {
-                    return;
-                }
-            } catch (Throwable unused2) {
-                if (sQLiteDatabase == null) {
-                    return;
+            for (String str : list) {
+                if (Collections.frequency(arrayList, str) < 1) {
+                    arrayList.add(str);
                 }
             }
-            try {
-                sQLiteDatabase.endTransaction();
-            } catch (Throwable unused3) {
-            }
-        } catch (Throwable th2) {
-            if (sQLiteDatabase != null) {
-                try {
-                    sQLiteDatabase.endTransaction();
-                } catch (Throwable unused4) {
-                }
-            }
-            throw th2;
+        } catch (Exception e2) {
+            e2.printStackTrace();
         }
+        return arrayList;
     }
 
-    @Override // android.database.sqlite.SQLiteOpenHelper
-    public void onUpgrade(SQLiteDatabase sQLiteDatabase, int i10, int i11) {
-        if (i11 <= i10 || i10 != 1) {
+    public static void a(Context context) {
+        if (context == null) {
             return;
         }
         try {
-            try {
-                e(sQLiteDatabase);
-            } catch (Exception unused) {
-                e(sQLiteDatabase);
+            File databasePath = context.getDatabasePath(e.f25842b);
+            if (databasePath != null && databasePath.exists()) {
+                databasePath.delete();
             }
-        } catch (Exception unused2) {
-            f(sQLiteDatabase);
+            f.a(context).a();
+        } catch (Throwable unused) {
         }
     }
 
-    private h(Context context, String str, String str2, SQLiteDatabase.CursorFactory cursorFactory, int i10) {
-        this(new e(context, str), str2, cursorFactory, i10);
+    public static String a(List<String> list) {
+        return TextUtils.join("!", list);
     }
 
-    private void b(SQLiteDatabase sQLiteDatabase) {
-        try {
-            this.f23987a = "create table if not exists __et(id INTEGER primary key autoincrement, __i TEXT, __e TEXT, __s TEXT, __t INTEGER, __av TEXT, __vc TEXT)";
-            sQLiteDatabase.execSQL("create table if not exists __et(id INTEGER primary key autoincrement, __i TEXT, __e TEXT, __s TEXT, __t INTEGER, __av TEXT, __vc TEXT)");
-        } catch (SQLException unused) {
-        }
+    public static List<String> a(String str) {
+        return new ArrayList(Arrays.asList(str.split("!")));
     }
 
-    private h(Context context, String str, SQLiteDatabase.CursorFactory cursorFactory, int i10) {
-        super(context, TextUtils.isEmpty(str) ? g.f23920b : str, cursorFactory, i10);
-        this.f23987a = null;
-        a();
+    /* JADX WARN: Code restructure failed: missing block: B:12:0x0020, code lost:
+    
+        if (r9.isClosed() == false) goto L39;
+     */
+    /* JADX WARN: Code restructure failed: missing block: B:13:0x0022, code lost:
+    
+        r9.close();
+     */
+    /* JADX WARN: Code restructure failed: missing block: B:19:0x003a, code lost:
+    
+        if (r9.isClosed() == false) goto L39;
+     */
+    /*
+        Code decompiled incorrectly, please refer to instructions dump.
+        To view partially-correct code enable 'Show inconsistent code' option in preferences
+    */
+    public static boolean a(android.database.sqlite.SQLiteDatabase r10, java.lang.String r11, java.lang.String r12) {
+        /*
+            r2 = 0
+            r3 = 0
+            r4 = 0
+            r5 = 0
+            r6 = 0
+            r8 = 0
+            r9 = 0
+            java.lang.String r7 = "LIMIT 0"
+            r0 = r10
+            r1 = r11
+            android.database.Cursor r9 = r0.query(r1, r2, r3, r4, r5, r6, r7)     // Catch: java.lang.Throwable -> L26 java.lang.Exception -> L33
+            if (r9 == 0) goto L1a
+            int r10 = r9.getColumnIndex(r12)     // Catch: java.lang.Throwable -> L26 java.lang.Exception -> L33
+            r11 = -1
+            if (r10 == r11) goto L1a
+            r10 = 1
+            r8 = 1
+        L1a:
+            if (r9 == 0) goto L3d
+            boolean r10 = r9.isClosed()
+            if (r10 != 0) goto L3d
+        L22:
+            r9.close()
+            goto L3d
+        L26:
+            r10 = move-exception
+            if (r9 == 0) goto L32
+            boolean r11 = r9.isClosed()
+            if (r11 != 0) goto L32
+            r9.close()
+        L32:
+            throw r10
+        L33:
+            if (r9 == 0) goto L3d
+            boolean r10 = r9.isClosed()
+            if (r10 != 0) goto L3d
+            goto L22
+        L3d:
+            return r8
+        */
+        throw new UnsupportedOperationException("Method not decompiled: com.umeng.analytics.pro.h.a(android.database.sqlite.SQLiteDatabase, java.lang.String, java.lang.String):boolean");
     }
 
-    public void a() {
-        try {
-            SQLiteDatabase writableDatabase = getWritableDatabase();
-            if (!j.a(g.d.f23961a, writableDatabase)) {
-                c(writableDatabase);
-            }
-            if (!j.a(g.c.f23948a, writableDatabase)) {
-                d(writableDatabase);
-            }
-            if (!j.a(g.b.f23935a, writableDatabase)) {
-                b(writableDatabase);
-            }
-            if (j.a(g.a.f23924a, writableDatabase)) {
-                return;
-            }
-            a(writableDatabase);
-        } catch (Exception unused) {
-        }
-    }
-
-    private void a(SQLiteDatabase sQLiteDatabase) {
-        try {
-            this.f23987a = "create table if not exists __er(id INTEGER primary key autoincrement, __i TEXT, __a TEXT, __t INTEGER, __av TEXT, __vc TEXT)";
-            sQLiteDatabase.execSQL("create table if not exists __er(id INTEGER primary key autoincrement, __i TEXT, __a TEXT, __t INTEGER, __av TEXT, __vc TEXT)");
-        } catch (SQLException unused) {
-        }
-    }
-
-    private void a(SQLiteDatabase sQLiteDatabase, String str) {
-        try {
-            sQLiteDatabase.execSQL("DROP TABLE IF EXISTS " + str);
-        } catch (SQLException unused) {
-        }
+    public static void a(SQLiteDatabase sQLiteDatabase, String str, String str2, String str3) {
+        sQLiteDatabase.execSQL("alter table " + str + " add " + str2 + " " + str3);
     }
 }

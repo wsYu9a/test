@@ -3,7 +3,7 @@ package com.baidu.mobads.sdk.api;
 import java.util.ArrayList;
 import java.util.Iterator;
 
-/* loaded from: classes2.dex */
+/* loaded from: classes.dex */
 public class XNativeViewManager {
     private static XNativeViewManager sInstance;
     private final ArrayList<XNativeView> mViewList = new ArrayList<>();
@@ -14,11 +14,8 @@ public class XNativeViewManager {
     public static XNativeViewManager getInstance() {
         if (sInstance == null) {
             synchronized (XNativeViewManager.class) {
-                try {
-                    if (sInstance == null) {
-                        sInstance = new XNativeViewManager();
-                    }
-                } finally {
+                if (sInstance == null) {
+                    sInstance = new XNativeViewManager();
                 }
             }
         }

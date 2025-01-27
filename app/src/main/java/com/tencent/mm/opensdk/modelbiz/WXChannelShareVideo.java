@@ -44,8 +44,8 @@ public class WXChannelShareVideo {
                     IWXChannelJumpInfo iWXChannelJumpInfo = (IWXChannelJumpInfo) Class.forName(string).newInstance();
                     this.jumpInfo = iWXChannelJumpInfo;
                     iWXChannelJumpInfo.unserialize(bundle);
-                } catch (Exception e10) {
-                    Log.e(TAG, "get WXChannelJumpInfo from bundle failed: unknown ident " + string + ", ex = " + e10.getMessage());
+                } catch (Exception e2) {
+                    Log.e(TAG, "get WXChannelJumpInfo from bundle failed: unknown ident " + string + ", ex = " + e2.getMessage());
                 }
             }
         }
@@ -74,6 +74,10 @@ public class WXChannelShareVideo {
         public Resp() {
         }
 
+        public Resp(Bundle bundle) {
+            fromBundle(bundle);
+        }
+
         @Override // com.tencent.mm.opensdk.modelbase.BaseResp
         public boolean checkArgs() {
             return true;
@@ -94,10 +98,6 @@ public class WXChannelShareVideo {
         public void toBundle(Bundle bundle) {
             super.toBundle(bundle);
             bundle.putString("_wxapi_finder_extMsg", this.extMsg);
-        }
-
-        public Resp(Bundle bundle) {
-            fromBundle(bundle);
         }
     }
 }

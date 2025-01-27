@@ -4,19 +4,22 @@ import androidx.annotation.NonNull;
 import androidx.lifecycle.ClassesInfoCache;
 import androidx.lifecycle.Lifecycle;
 
-@Deprecated
 /* loaded from: classes.dex */
 class ReflectiveGenericLifecycleObserver implements LifecycleEventObserver {
-    private final ClassesInfoCache.CallbackInfo mInfo;
-    private final Object mWrapped;
 
-    public ReflectiveGenericLifecycleObserver(Object obj) {
-        this.mWrapped = obj;
-        this.mInfo = ClassesInfoCache.sInstance.getInfo(obj.getClass());
+    /* renamed from: a */
+    private final Object f2622a;
+
+    /* renamed from: b */
+    private final ClassesInfoCache.CallbackInfo f2623b;
+
+    ReflectiveGenericLifecycleObserver(Object obj) {
+        this.f2622a = obj;
+        this.f2623b = ClassesInfoCache.f2561a.c(obj.getClass());
     }
 
     @Override // androidx.lifecycle.LifecycleEventObserver
     public void onStateChanged(@NonNull LifecycleOwner lifecycleOwner, @NonNull Lifecycle.Event event) {
-        this.mInfo.invokeCallbacks(lifecycleOwner, event, this.mWrapped);
+        this.f2623b.a(lifecycleOwner, event, this.f2622a);
     }
 }

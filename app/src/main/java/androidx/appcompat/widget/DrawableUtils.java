@@ -1,213 +1,186 @@
 package androidx.appcompat.widget;
 
 import android.R;
+import android.annotation.SuppressLint;
 import android.graphics.Insets;
 import android.graphics.PorterDuff;
 import android.graphics.Rect;
 import android.graphics.drawable.Drawable;
+import android.graphics.drawable.DrawableContainer;
+import android.graphics.drawable.GradientDrawable;
+import android.graphics.drawable.InsetDrawable;
+import android.graphics.drawable.LayerDrawable;
+import android.graphics.drawable.ScaleDrawable;
 import android.os.Build;
-import androidx.annotation.DoNotInline;
+import android.util.Log;
 import androidx.annotation.NonNull;
-import androidx.annotation.RequiresApi;
 import androidx.annotation.RestrictTo;
+import androidx.appcompat.graphics.drawable.DrawableWrapper;
 import androidx.core.graphics.drawable.DrawableCompat;
+import androidx.core.graphics.drawable.WrappedDrawable;
 import java.lang.reflect.Field;
-import java.lang.reflect.InvocationTargetException;
-import java.lang.reflect.Method;
 
+@SuppressLint({"RestrictedAPI"})
 @RestrictTo({RestrictTo.Scope.LIBRARY_GROUP_PREFIX})
 /* loaded from: classes.dex */
 public class DrawableUtils {
-    private static final int[] CHECKED_STATE_SET = {R.attr.state_checked};
-    private static final int[] EMPTY_STATE_SET = new int[0];
+
+    /* renamed from: c */
+    private static final String f809c = "DrawableUtils";
+
+    /* renamed from: d */
+    private static Class<?> f810d = null;
+
+    /* renamed from: e */
+    private static final String f811e = "android.graphics.drawable.VectorDrawable";
+
+    /* renamed from: a */
+    private static final int[] f807a = {R.attr.state_checked};
+
+    /* renamed from: b */
+    private static final int[] f808b = new int[0];
     public static final Rect INSETS_NONE = new Rect();
 
-    @RequiresApi(18)
-    public static class Api18Impl {
-        private static final Field sBottom;
-        private static final Method sGetOpticalInsets;
-        private static final Field sLeft;
-        private static final boolean sReflectionSuccessful;
-        private static final Field sRight;
-        private static final Field sTop;
-
-        /* JADX WARN: Removed duplicated region for block: B:16:0x0056  */
-        /* JADX WARN: Removed duplicated region for block: B:19:0x0063  */
-        static {
-            /*
-                r0 = 1
-                r1 = 0
-                r2 = 0
-                java.lang.String r3 = "android.graphics.Insets"
-                java.lang.Class r3 = java.lang.Class.forName(r3)     // Catch: java.lang.NoSuchFieldException -> L46 java.lang.ClassNotFoundException -> L4a java.lang.NoSuchMethodException -> L4e
-                java.lang.Class<android.graphics.drawable.Drawable> r4 = android.graphics.drawable.Drawable.class
-                java.lang.String r5 = "getOpticalInsets"
-                java.lang.reflect.Method r4 = r4.getMethod(r5, r1)     // Catch: java.lang.NoSuchFieldException -> L46 java.lang.ClassNotFoundException -> L4a java.lang.NoSuchMethodException -> L4e
-                java.lang.String r5 = "left"
-                java.lang.reflect.Field r5 = r3.getField(r5)     // Catch: java.lang.NoSuchFieldException -> L3a java.lang.ClassNotFoundException -> L3e java.lang.NoSuchMethodException -> L42
-                java.lang.String r6 = "top"
-                java.lang.reflect.Field r6 = r3.getField(r6)     // Catch: java.lang.NoSuchFieldException -> L30 java.lang.ClassNotFoundException -> L34 java.lang.NoSuchMethodException -> L37
-                java.lang.String r7 = "right"
-                java.lang.reflect.Field r7 = r3.getField(r7)     // Catch: java.lang.Throwable -> L2d
-                java.lang.String r8 = "bottom"
-                java.lang.reflect.Field r3 = r3.getField(r8)     // Catch: java.lang.Throwable -> L2b
-                r8 = 1
-                goto L54
-            L2b:
-                goto L52
-            L2d:
-                r7 = r1
-                goto L52
-            L30:
-                r6 = r1
-            L32:
-                r7 = r6
-                goto L52
-            L34:
-                r6 = r1
-                goto L32
-            L37:
-                r6 = r1
-                goto L32
-            L3a:
-                r5 = r1
-            L3c:
-                r6 = r5
-                goto L32
-            L3e:
-                r5 = r1
-            L40:
-                r6 = r5
-                goto L32
-            L42:
-                r5 = r1
-            L44:
-                r6 = r5
-                goto L32
-            L46:
-                r4 = r1
-                r5 = r4
-                goto L3c
-            L4a:
-                r4 = r1
-                r5 = r4
-                goto L40
-            L4e:
-                r4 = r1
-                r5 = r4
-                goto L44
-            L52:
-                r3 = r1
-                r8 = 0
-            L54:
-                if (r8 == 0) goto L63
-                androidx.appcompat.widget.DrawableUtils.Api18Impl.sGetOpticalInsets = r4
-                androidx.appcompat.widget.DrawableUtils.Api18Impl.sLeft = r5
-                androidx.appcompat.widget.DrawableUtils.Api18Impl.sTop = r6
-                androidx.appcompat.widget.DrawableUtils.Api18Impl.sRight = r7
-                androidx.appcompat.widget.DrawableUtils.Api18Impl.sBottom = r3
-                androidx.appcompat.widget.DrawableUtils.Api18Impl.sReflectionSuccessful = r0
-                goto L6f
-            L63:
-                androidx.appcompat.widget.DrawableUtils.Api18Impl.sGetOpticalInsets = r1
-                androidx.appcompat.widget.DrawableUtils.Api18Impl.sLeft = r1
-                androidx.appcompat.widget.DrawableUtils.Api18Impl.sTop = r1
-                androidx.appcompat.widget.DrawableUtils.Api18Impl.sRight = r1
-                androidx.appcompat.widget.DrawableUtils.Api18Impl.sBottom = r1
-                androidx.appcompat.widget.DrawableUtils.Api18Impl.sReflectionSuccessful = r2
-            L6f:
-                return
-            */
-            throw new UnsupportedOperationException("Method not decompiled: androidx.appcompat.widget.DrawableUtils.Api18Impl.<clinit>():void");
-        }
-
-        private Api18Impl() {
-        }
-
-        @NonNull
-        public static Rect getOpticalInsets(@NonNull Drawable drawable) {
-            if (Build.VERSION.SDK_INT < 29 && sReflectionSuccessful) {
-                try {
-                    Object invoke = sGetOpticalInsets.invoke(drawable, null);
-                    if (invoke != null) {
-                        return new Rect(sLeft.getInt(invoke), sTop.getInt(invoke), sRight.getInt(invoke), sBottom.getInt(invoke));
-                    }
-                } catch (IllegalAccessException | InvocationTargetException unused) {
-                }
+    static {
+        if (Build.VERSION.SDK_INT >= 18) {
+            try {
+                f810d = Class.forName("android.graphics.Insets");
+            } catch (ClassNotFoundException unused) {
             }
-            return DrawableUtils.INSETS_NONE;
-        }
-    }
-
-    @RequiresApi(29)
-    public static class Api29Impl {
-        private Api29Impl() {
-        }
-
-        @DoNotInline
-        public static Insets getOpticalInsets(Drawable drawable) {
-            return drawable.getOpticalInsets();
         }
     }
 
     private DrawableUtils() {
     }
 
-    public static boolean canSafelyMutateDrawable(@NonNull Drawable drawable) {
-        return true;
-    }
-
-    public static void fixDrawable(@NonNull Drawable drawable) {
-        String name = drawable.getClass().getName();
-        int i10 = Build.VERSION.SDK_INT;
-        if (i10 == 21 && "android.graphics.drawable.VectorDrawable".equals(name)) {
-            forceDrawableStateChange(drawable);
-        } else {
-            if (i10 < 29 || i10 >= 31 || !"android.graphics.drawable.ColorStateListDrawable".equals(name)) {
-                return;
-            }
-            forceDrawableStateChange(drawable);
+    static void a(@NonNull Drawable drawable) {
+        if (Build.VERSION.SDK_INT == 21 && f811e.equals(drawable.getClass().getName())) {
+            b(drawable);
         }
     }
 
-    private static void forceDrawableStateChange(Drawable drawable) {
+    private static void b(Drawable drawable) {
         int[] state = drawable.getState();
         if (state == null || state.length == 0) {
-            drawable.setState(CHECKED_STATE_SET);
+            drawable.setState(f807a);
         } else {
-            drawable.setState(EMPTY_STATE_SET);
+            drawable.setState(f808b);
         }
         drawable.setState(state);
     }
 
-    @NonNull
-    public static Rect getOpticalBounds(@NonNull Drawable drawable) {
-        int i10;
-        int i11;
-        int i12;
-        int i13;
-        if (Build.VERSION.SDK_INT < 29) {
-            return Api18Impl.getOpticalInsets(DrawableCompat.unwrap(drawable));
+    /* JADX WARN: Multi-variable type inference failed */
+    public static boolean canSafelyMutateDrawable(@NonNull Drawable drawable) {
+        int i2 = Build.VERSION.SDK_INT;
+        if (i2 < 15 && (drawable instanceof InsetDrawable)) {
+            return false;
         }
-        Insets opticalInsets = Api29Impl.getOpticalInsets(drawable);
-        i10 = opticalInsets.left;
-        i11 = opticalInsets.top;
-        i12 = opticalInsets.right;
-        i13 = opticalInsets.bottom;
-        return new Rect(i10, i11, i12, i13);
+        if (i2 < 15 && (drawable instanceof GradientDrawable)) {
+            return false;
+        }
+        if (i2 < 17 && (drawable instanceof LayerDrawable)) {
+            return false;
+        }
+        if (!(drawable instanceof DrawableContainer)) {
+            if (drawable instanceof WrappedDrawable) {
+                return canSafelyMutateDrawable(((WrappedDrawable) drawable).getWrappedDrawable());
+            }
+            if (drawable instanceof DrawableWrapper) {
+                return canSafelyMutateDrawable(((DrawableWrapper) drawable).getWrappedDrawable());
+            }
+            if (drawable instanceof ScaleDrawable) {
+                return canSafelyMutateDrawable(((ScaleDrawable) drawable).getDrawable());
+            }
+            return true;
+        }
+        Drawable.ConstantState constantState = drawable.getConstantState();
+        if (!(constantState instanceof DrawableContainer.DrawableContainerState)) {
+            return true;
+        }
+        for (Drawable drawable2 : ((DrawableContainer.DrawableContainerState) constantState).getChildren()) {
+            if (!canSafelyMutateDrawable(drawable2)) {
+                return false;
+            }
+        }
+        return true;
     }
 
-    public static PorterDuff.Mode parseTintMode(int i10, PorterDuff.Mode mode) {
-        if (i10 == 3) {
+    /* JADX WARN: Failed to restore switch over string. Please report as a decompilation issue */
+    public static Rect getOpticalBounds(Drawable drawable) {
+        if (Build.VERSION.SDK_INT >= 29) {
+            Insets opticalInsets = drawable.getOpticalInsets();
+            Rect rect = new Rect();
+            rect.left = opticalInsets.left;
+            rect.right = opticalInsets.right;
+            rect.top = opticalInsets.top;
+            rect.bottom = opticalInsets.bottom;
+            return rect;
+        }
+        if (f810d != null) {
+            try {
+                Drawable unwrap = DrawableCompat.unwrap(drawable);
+                Object invoke = unwrap.getClass().getMethod("getOpticalInsets", new Class[0]).invoke(unwrap, new Object[0]);
+                if (invoke != null) {
+                    Rect rect2 = new Rect();
+                    for (Field field : f810d.getFields()) {
+                        String name = field.getName();
+                        char c2 = 65535;
+                        switch (name.hashCode()) {
+                            case -1383228885:
+                                if (name.equals("bottom")) {
+                                    c2 = 3;
+                                    break;
+                                }
+                                break;
+                            case 115029:
+                                if (name.equals("top")) {
+                                    c2 = 1;
+                                    break;
+                                }
+                                break;
+                            case 3317767:
+                                if (name.equals("left")) {
+                                    c2 = 0;
+                                    break;
+                                }
+                                break;
+                            case 108511772:
+                                if (name.equals("right")) {
+                                    c2 = 2;
+                                    break;
+                                }
+                                break;
+                        }
+                        if (c2 == 0) {
+                            rect2.left = field.getInt(invoke);
+                        } else if (c2 == 1) {
+                            rect2.top = field.getInt(invoke);
+                        } else if (c2 == 2) {
+                            rect2.right = field.getInt(invoke);
+                        } else if (c2 == 3) {
+                            rect2.bottom = field.getInt(invoke);
+                        }
+                    }
+                    return rect2;
+                }
+            } catch (Exception unused) {
+                Log.e(f809c, "Couldn't obtain the optical insets. Ignoring.");
+            }
+        }
+        return INSETS_NONE;
+    }
+
+    public static PorterDuff.Mode parseTintMode(int i2, PorterDuff.Mode mode) {
+        if (i2 == 3) {
             return PorterDuff.Mode.SRC_OVER;
         }
-        if (i10 == 5) {
+        if (i2 == 5) {
             return PorterDuff.Mode.SRC_IN;
         }
-        if (i10 == 9) {
+        if (i2 == 9) {
             return PorterDuff.Mode.SRC_ATOP;
         }
-        switch (i10) {
+        switch (i2) {
             case 14:
                 return PorterDuff.Mode.MULTIPLY;
             case 15:

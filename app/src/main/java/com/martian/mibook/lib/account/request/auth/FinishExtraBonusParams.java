@@ -1,6 +1,6 @@
 package com.martian.mibook.lib.account.request.auth;
 
-import v8.a;
+import com.martian.libcomm.http.requests.d.a;
 
 /* loaded from: classes3.dex */
 public class FinishExtraBonusParams extends TYAuthParams {
@@ -14,14 +14,14 @@ public class FinishExtraBonusParams extends TYAuthParams {
     }
 
     public long getExtraId() {
-        Long l10 = this.extraId;
-        if (l10 == null) {
+        Long l = this.extraId;
+        if (l == null) {
             return 0L;
         }
-        return l10.longValue();
+        return l.longValue();
     }
 
-    public void setExtraId(Long l10) {
-        this.extraId = l10;
+    public void setExtraId(Long extraId) {
+        this.extraId = extraId;
     }
 }

@@ -13,8 +13,8 @@ public class NavHostController extends NavController {
     }
 
     @Override // androidx.navigation.NavController
-    public final void enableOnBackPressed(boolean z10) {
-        super.enableOnBackPressed(z10);
+    public final void enableOnBackPressed(boolean z) {
+        super.enableOnBackPressed(z);
     }
 
     @Override // androidx.navigation.NavController

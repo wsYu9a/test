@@ -10,7 +10,7 @@ public class TYCommissionList {
         return this.commissionList;
     }
 
-    public void setCommissionList(List<TYCommission> list) {
-        this.commissionList = list;
+    public void setCommissionList(List<TYCommission> commissionList) {
+        this.commissionList = commissionList;
     }
 }

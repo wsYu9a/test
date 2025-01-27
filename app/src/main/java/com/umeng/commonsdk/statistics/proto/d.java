@@ -1,26 +1,26 @@
 package com.umeng.commonsdk.statistics.proto;
 
-import com.umeng.analytics.pro.Cdo;
+import com.umeng.analytics.pro.as;
+import com.umeng.analytics.pro.av;
+import com.umeng.analytics.pro.bb;
+import com.umeng.analytics.pro.bc;
+import com.umeng.analytics.pro.bh;
+import com.umeng.analytics.pro.bi;
+import com.umeng.analytics.pro.bk;
+import com.umeng.analytics.pro.bm;
+import com.umeng.analytics.pro.bo;
+import com.umeng.analytics.pro.bp;
+import com.umeng.analytics.pro.br;
+import com.umeng.analytics.pro.bu;
+import com.umeng.analytics.pro.bv;
+import com.umeng.analytics.pro.bx;
+import com.umeng.analytics.pro.bz;
+import com.umeng.analytics.pro.ca;
+import com.umeng.analytics.pro.cc;
+import com.umeng.analytics.pro.cd;
 import com.umeng.analytics.pro.ce;
-import com.umeng.analytics.pro.ch;
-import com.umeng.analytics.pro.cn;
-import com.umeng.analytics.pro.co;
-import com.umeng.analytics.pro.ct;
-import com.umeng.analytics.pro.cu;
-import com.umeng.analytics.pro.cw;
-import com.umeng.analytics.pro.cy;
-import com.umeng.analytics.pro.da;
-import com.umeng.analytics.pro.db;
-import com.umeng.analytics.pro.dd;
-import com.umeng.analytics.pro.dg;
-import com.umeng.analytics.pro.dh;
-import com.umeng.analytics.pro.dj;
-import com.umeng.analytics.pro.dl;
-import com.umeng.analytics.pro.dm;
-import com.umeng.analytics.pro.dp;
-import com.umeng.analytics.pro.dq;
-import com.umeng.analytics.pro.dr;
-import com.umeng.analytics.pro.ds;
+import com.umeng.analytics.pro.cf;
+import com.umeng.analytics.pro.cg;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
@@ -33,227 +33,223 @@ import java.util.Iterator;
 import java.util.Map;
 
 /* loaded from: classes4.dex */
-public class d implements ch<d, e>, Serializable, Cloneable {
+public class d implements av<d, e>, Serializable, Cloneable {
 
     /* renamed from: d */
-    public static final Map<e, ct> f24771d;
+    public static final Map<e, bh> f26437d;
 
     /* renamed from: e */
-    private static final long f24772e = 2846460275012375038L;
+    private static final long f26438e = 2846460275012375038L;
 
     /* renamed from: f */
-    private static final dl f24773f = new dl("Imprint");
+    private static final bz f26439f = new bz("Imprint");
 
     /* renamed from: g */
-    private static final db f24774g = new db(b7.e.f1381l, (byte) 13, 1);
+    private static final bp f26440g = new bp("property", (byte) 13, 1);
 
     /* renamed from: h */
-    private static final db f24775h = new db("version", (byte) 8, 2);
+    private static final bp f26441h = new bp("version", (byte) 8, 2);
 
     /* renamed from: i */
-    private static final db f24776i = new db("checksum", (byte) 11, 3);
+    private static final bp f26442i = new bp("checksum", (byte) 11, 3);
 
     /* renamed from: j */
-    private static final Map<Class<? extends Cdo>, dp> f24777j;
-
-    /* renamed from: k */
-    private static final int f24778k = 0;
+    private static final Map<Class<? extends cc>, cd> f26443j;
+    private static final int k = 0;
 
     /* renamed from: a */
-    public Map<String, com.umeng.commonsdk.statistics.proto.e> f24779a;
+    public Map<String, com.umeng.commonsdk.statistics.proto.e> f26444a;
 
     /* renamed from: b */
-    public int f24780b;
+    public int f26445b;
 
     /* renamed from: c */
-    public String f24781c;
+    public String f26446c;
+    private byte l;
 
-    /* renamed from: l */
-    private byte f24782l;
-
-    public static class a extends dq<d> {
+    private static class a extends ce<d> {
         private a() {
         }
 
-        public /* synthetic */ a(AnonymousClass1 anonymousClass1) {
+        /* synthetic */ a(AnonymousClass1 anonymousClass1) {
             this();
         }
 
-        @Override // com.umeng.analytics.pro.Cdo
+        @Override // com.umeng.analytics.pro.cc
         /* renamed from: a */
-        public void b(dg dgVar, d dVar) throws cn {
-            dgVar.j();
+        public void b(bu buVar, d dVar) throws bb {
+            buVar.j();
             while (true) {
-                db l10 = dgVar.l();
-                byte b10 = l10.f23828b;
-                if (b10 == 0) {
+                bp l = buVar.l();
+                byte b2 = l.f25780b;
+                if (b2 == 0) {
                     break;
                 }
-                short s10 = l10.f23829c;
-                if (s10 != 1) {
-                    if (s10 != 2) {
-                        if (s10 != 3) {
-                            dj.a(dgVar, b10);
-                        } else if (b10 == 11) {
-                            dVar.f24781c = dgVar.z();
+                short s = l.f25781c;
+                if (s != 1) {
+                    if (s != 2) {
+                        if (s != 3) {
+                            bx.a(buVar, b2);
+                        } else if (b2 == 11) {
+                            dVar.f26446c = buVar.z();
                             dVar.c(true);
                         } else {
-                            dj.a(dgVar, b10);
+                            bx.a(buVar, b2);
                         }
-                    } else if (b10 == 8) {
-                        dVar.f24780b = dgVar.w();
+                    } else if (b2 == 8) {
+                        dVar.f26445b = buVar.w();
                         dVar.b(true);
                     } else {
-                        dj.a(dgVar, b10);
+                        bx.a(buVar, b2);
                     }
-                } else if (b10 == 13) {
-                    dd n10 = dgVar.n();
-                    dVar.f24779a = new HashMap(n10.f23834c * 2);
-                    for (int i10 = 0; i10 < n10.f23834c; i10++) {
-                        String z10 = dgVar.z();
+                } else if (b2 == 13) {
+                    br n = buVar.n();
+                    dVar.f26444a = new HashMap(n.f25786c * 2);
+                    for (int i2 = 0; i2 < n.f25786c; i2++) {
+                        String z = buVar.z();
                         com.umeng.commonsdk.statistics.proto.e eVar = new com.umeng.commonsdk.statistics.proto.e();
-                        eVar.read(dgVar);
-                        dVar.f24779a.put(z10, eVar);
+                        eVar.read(buVar);
+                        dVar.f26444a.put(z, eVar);
                     }
-                    dgVar.o();
+                    buVar.o();
                     dVar.a(true);
                 } else {
-                    dj.a(dgVar, b10);
+                    bx.a(buVar, b2);
                 }
-                dgVar.m();
+                buVar.m();
             }
-            dgVar.k();
+            buVar.k();
             if (dVar.h()) {
                 dVar.l();
                 return;
             }
-            throw new dh("Required field 'version' was not found in serialized data! Struct: " + toString());
+            throw new bv("Required field 'version' was not found in serialized data! Struct: " + toString());
         }
 
-        @Override // com.umeng.analytics.pro.Cdo
+        @Override // com.umeng.analytics.pro.cc
         /* renamed from: b */
-        public void a(dg dgVar, d dVar) throws cn {
+        public void a(bu buVar, d dVar) throws bb {
             dVar.l();
-            dgVar.a(d.f24773f);
-            if (dVar.f24779a != null) {
-                dgVar.a(d.f24774g);
-                dgVar.a(new dd((byte) 11, (byte) 12, dVar.f24779a.size()));
-                for (Map.Entry<String, com.umeng.commonsdk.statistics.proto.e> entry : dVar.f24779a.entrySet()) {
-                    dgVar.a(entry.getKey());
-                    entry.getValue().write(dgVar);
+            buVar.a(d.f26439f);
+            if (dVar.f26444a != null) {
+                buVar.a(d.f26440g);
+                buVar.a(new br((byte) 11, (byte) 12, dVar.f26444a.size()));
+                for (Map.Entry<String, com.umeng.commonsdk.statistics.proto.e> entry : dVar.f26444a.entrySet()) {
+                    buVar.a(entry.getKey());
+                    entry.getValue().write(buVar);
                 }
-                dgVar.e();
-                dgVar.c();
+                buVar.e();
+                buVar.c();
             }
-            dgVar.a(d.f24775h);
-            dgVar.a(dVar.f24780b);
-            dgVar.c();
-            if (dVar.f24781c != null) {
-                dgVar.a(d.f24776i);
-                dgVar.a(dVar.f24781c);
-                dgVar.c();
+            buVar.a(d.f26441h);
+            buVar.a(dVar.f26445b);
+            buVar.c();
+            if (dVar.f26446c != null) {
+                buVar.a(d.f26442i);
+                buVar.a(dVar.f26446c);
+                buVar.c();
             }
-            dgVar.d();
-            dgVar.b();
+            buVar.d();
+            buVar.b();
         }
     }
 
-    public static class b implements dp {
+    private static class b implements cd {
         private b() {
         }
 
-        @Override // com.umeng.analytics.pro.dp
+        @Override // com.umeng.analytics.pro.cd
         /* renamed from: a */
         public a b() {
             return new a();
         }
 
-        public /* synthetic */ b(AnonymousClass1 anonymousClass1) {
+        /* synthetic */ b(AnonymousClass1 anonymousClass1) {
             this();
         }
     }
 
-    public static class c extends dr<d> {
+    private static class c extends cf<d> {
         private c() {
         }
 
-        public /* synthetic */ c(AnonymousClass1 anonymousClass1) {
+        /* synthetic */ c(AnonymousClass1 anonymousClass1) {
             this();
         }
 
-        @Override // com.umeng.analytics.pro.Cdo
-        public void a(dg dgVar, d dVar) throws cn {
-            dm dmVar = (dm) dgVar;
-            dmVar.a(dVar.f24779a.size());
-            for (Map.Entry<String, com.umeng.commonsdk.statistics.proto.e> entry : dVar.f24779a.entrySet()) {
-                dmVar.a(entry.getKey());
-                entry.getValue().write(dmVar);
+        @Override // com.umeng.analytics.pro.cc
+        public void a(bu buVar, d dVar) throws bb {
+            ca caVar = (ca) buVar;
+            caVar.a(dVar.f26444a.size());
+            for (Map.Entry<String, com.umeng.commonsdk.statistics.proto.e> entry : dVar.f26444a.entrySet()) {
+                caVar.a(entry.getKey());
+                entry.getValue().write(caVar);
             }
-            dmVar.a(dVar.f24780b);
-            dmVar.a(dVar.f24781c);
+            caVar.a(dVar.f26445b);
+            caVar.a(dVar.f26446c);
         }
 
-        @Override // com.umeng.analytics.pro.Cdo
-        public void b(dg dgVar, d dVar) throws cn {
-            dm dmVar = (dm) dgVar;
-            dd ddVar = new dd((byte) 11, (byte) 12, dmVar.w());
-            dVar.f24779a = new HashMap(ddVar.f23834c * 2);
-            for (int i10 = 0; i10 < ddVar.f23834c; i10++) {
-                String z10 = dmVar.z();
+        @Override // com.umeng.analytics.pro.cc
+        public void b(bu buVar, d dVar) throws bb {
+            ca caVar = (ca) buVar;
+            br brVar = new br((byte) 11, (byte) 12, caVar.w());
+            dVar.f26444a = new HashMap(brVar.f25786c * 2);
+            for (int i2 = 0; i2 < brVar.f25786c; i2++) {
+                String z = caVar.z();
                 com.umeng.commonsdk.statistics.proto.e eVar = new com.umeng.commonsdk.statistics.proto.e();
-                eVar.read(dmVar);
-                dVar.f24779a.put(z10, eVar);
+                eVar.read(caVar);
+                dVar.f26444a.put(z, eVar);
             }
             dVar.a(true);
-            dVar.f24780b = dmVar.w();
+            dVar.f26445b = caVar.w();
             dVar.b(true);
-            dVar.f24781c = dmVar.z();
+            dVar.f26446c = caVar.z();
             dVar.c(true);
         }
     }
 
     /* renamed from: com.umeng.commonsdk.statistics.proto.d$d */
-    public static class C0679d implements dp {
-        private C0679d() {
+    private static class C0549d implements cd {
+        private C0549d() {
         }
 
-        @Override // com.umeng.analytics.pro.dp
+        @Override // com.umeng.analytics.pro.cd
         /* renamed from: a */
         public c b() {
             return new c();
         }
 
-        public /* synthetic */ C0679d(AnonymousClass1 anonymousClass1) {
+        /* synthetic */ C0549d(AnonymousClass1 anonymousClass1) {
             this();
         }
     }
 
     static {
         HashMap hashMap = new HashMap();
-        f24777j = hashMap;
-        hashMap.put(dq.class, new b());
-        hashMap.put(dr.class, new C0679d());
+        f26443j = hashMap;
+        hashMap.put(ce.class, new b());
+        hashMap.put(cf.class, new C0549d());
         EnumMap enumMap = new EnumMap(e.class);
-        enumMap.put((EnumMap) e.PROPERTY, (e) new ct(b7.e.f1381l, (byte) 1, new cw((byte) 13, new cu((byte) 11), new cy((byte) 12, com.umeng.commonsdk.statistics.proto.e.class))));
-        enumMap.put((EnumMap) e.VERSION, (e) new ct("version", (byte) 1, new cu((byte) 8)));
-        enumMap.put((EnumMap) e.CHECKSUM, (e) new ct("checksum", (byte) 1, new cu((byte) 11)));
-        Map<e, ct> unmodifiableMap = Collections.unmodifiableMap(enumMap);
-        f24771d = unmodifiableMap;
-        ct.a(d.class, unmodifiableMap);
+        enumMap.put((EnumMap) e.PROPERTY, (e) new bh("property", (byte) 1, new bk((byte) 13, new bi((byte) 11), new bm((byte) 12, com.umeng.commonsdk.statistics.proto.e.class))));
+        enumMap.put((EnumMap) e.VERSION, (e) new bh("version", (byte) 1, new bi((byte) 8)));
+        enumMap.put((EnumMap) e.CHECKSUM, (e) new bh("checksum", (byte) 1, new bi((byte) 11)));
+        Map<e, bh> unmodifiableMap = Collections.unmodifiableMap(enumMap);
+        f26437d = unmodifiableMap;
+        bh.a(d.class, unmodifiableMap);
     }
 
     public d() {
-        this.f24782l = (byte) 0;
+        this.l = (byte) 0;
     }
 
-    @Override // com.umeng.analytics.pro.ch
+    @Override // com.umeng.analytics.pro.av
     /* renamed from: a */
     public d deepCopy() {
         return new d(this);
     }
 
     public int b() {
-        Map<String, com.umeng.commonsdk.statistics.proto.e> map = this.f24779a;
+        Map<String, com.umeng.commonsdk.statistics.proto.e> map = this.f26444a;
         if (map == null) {
             return 0;
         }
@@ -261,242 +257,242 @@ public class d implements ch<d, e>, Serializable, Cloneable {
     }
 
     public Map<String, com.umeng.commonsdk.statistics.proto.e> c() {
-        return this.f24779a;
+        return this.f26444a;
     }
 
-    @Override // com.umeng.analytics.pro.ch
+    @Override // com.umeng.analytics.pro.av
     public void clear() {
-        this.f24779a = null;
+        this.f26444a = null;
         b(false);
-        this.f24780b = 0;
-        this.f24781c = null;
+        this.f26445b = 0;
+        this.f26446c = null;
     }
 
     public void d() {
-        this.f24779a = null;
+        this.f26444a = null;
     }
 
     public boolean e() {
-        return this.f24779a != null;
+        return this.f26444a != null;
     }
 
     public int f() {
-        return this.f24780b;
+        return this.f26445b;
     }
 
     public void g() {
-        this.f24782l = ce.b(this.f24782l, 0);
+        this.l = as.b(this.l, 0);
     }
 
     public boolean h() {
-        return ce.a(this.f24782l, 0);
+        return as.a(this.l, 0);
     }
 
     public String i() {
-        return this.f24781c;
+        return this.f26446c;
     }
 
     public void j() {
-        this.f24781c = null;
+        this.f26446c = null;
     }
 
     public boolean k() {
-        return this.f24781c != null;
+        return this.f26446c != null;
     }
 
-    public void l() throws cn {
-        if (this.f24779a == null) {
-            throw new dh("Required field 'property' was not present! Struct: " + toString());
+    public void l() throws bb {
+        if (this.f26444a == null) {
+            throw new bv("Required field 'property' was not present! Struct: " + toString());
         }
-        if (this.f24781c != null) {
+        if (this.f26446c != null) {
             return;
         }
-        throw new dh("Required field 'checksum' was not present! Struct: " + toString());
+        throw new bv("Required field 'checksum' was not present! Struct: " + toString());
     }
 
-    @Override // com.umeng.analytics.pro.ch
-    public void read(dg dgVar) throws cn {
-        f24777j.get(dgVar.D()).b().b(dgVar, this);
+    @Override // com.umeng.analytics.pro.av
+    public void read(bu buVar) throws bb {
+        f26443j.get(buVar.D()).b().b(buVar, this);
     }
 
     public String toString() {
-        StringBuilder sb2 = new StringBuilder("Imprint(");
-        sb2.append("property:");
-        Map<String, com.umeng.commonsdk.statistics.proto.e> map = this.f24779a;
+        StringBuilder sb = new StringBuilder("Imprint(");
+        sb.append("property:");
+        Map<String, com.umeng.commonsdk.statistics.proto.e> map = this.f26444a;
         if (map == null) {
-            sb2.append("null");
+            sb.append("null");
         } else {
-            sb2.append(map);
+            sb.append(map);
         }
-        sb2.append(", ");
-        sb2.append("version:");
-        sb2.append(this.f24780b);
-        sb2.append(", ");
-        sb2.append("checksum:");
-        String str = this.f24781c;
+        sb.append(", ");
+        sb.append("version:");
+        sb.append(this.f26445b);
+        sb.append(", ");
+        sb.append("checksum:");
+        String str = this.f26446c;
         if (str == null) {
-            sb2.append("null");
+            sb.append("null");
         } else {
-            sb2.append(str);
+            sb.append(str);
         }
-        sb2.append(")");
-        return sb2.toString();
+        sb.append(")");
+        return sb.toString();
     }
 
-    @Override // com.umeng.analytics.pro.ch
-    public void write(dg dgVar) throws cn {
-        f24777j.get(dgVar.D()).b().a(dgVar, this);
+    @Override // com.umeng.analytics.pro.av
+    public void write(bu buVar) throws bb {
+        f26443j.get(buVar.D()).b().a(buVar, this);
     }
 
-    public enum e implements co {
-        PROPERTY(1, b7.e.f1381l),
+    public enum e implements bc {
+        PROPERTY(1, "property"),
         VERSION(2, "version"),
         CHECKSUM(3, "checksum");
 
 
         /* renamed from: d */
-        private static final Map<String, e> f24786d = new HashMap();
+        private static final Map<String, e> f26450d = new HashMap();
 
         /* renamed from: e */
-        private final short f24788e;
+        private final short f26452e;
 
         /* renamed from: f */
-        private final String f24789f;
+        private final String f26453f;
 
         static {
             Iterator it = EnumSet.allOf(e.class).iterator();
             while (it.hasNext()) {
                 e eVar = (e) it.next();
-                f24786d.put(eVar.b(), eVar);
+                f26450d.put(eVar.b(), eVar);
             }
         }
 
-        e(short s10, String str) {
-            this.f24788e = s10;
-            this.f24789f = str;
+        e(short s, String str) {
+            this.f26452e = s;
+            this.f26453f = str;
         }
 
-        public static e a(int i10) {
-            if (i10 == 1) {
+        public static e a(int i2) {
+            if (i2 == 1) {
                 return PROPERTY;
             }
-            if (i10 == 2) {
+            if (i2 == 2) {
                 return VERSION;
             }
-            if (i10 != 3) {
+            if (i2 != 3) {
                 return null;
             }
             return CHECKSUM;
         }
 
-        public static e b(int i10) {
-            e a10 = a(i10);
-            if (a10 != null) {
-                return a10;
+        public static e b(int i2) {
+            e a2 = a(i2);
+            if (a2 != null) {
+                return a2;
             }
-            throw new IllegalArgumentException("Field " + i10 + " doesn't exist!");
+            throw new IllegalArgumentException("Field " + i2 + " doesn't exist!");
         }
 
-        @Override // com.umeng.analytics.pro.co
+        @Override // com.umeng.analytics.pro.bc
         public String b() {
-            return this.f24789f;
+            return this.f26453f;
         }
 
         public static e a(String str) {
-            return f24786d.get(str);
+            return f26450d.get(str);
         }
 
-        @Override // com.umeng.analytics.pro.co
+        @Override // com.umeng.analytics.pro.bc
         public short a() {
-            return this.f24788e;
+            return this.f26452e;
         }
     }
 
     public void a(String str, com.umeng.commonsdk.statistics.proto.e eVar) {
-        if (this.f24779a == null) {
-            this.f24779a = new HashMap();
+        if (this.f26444a == null) {
+            this.f26444a = new HashMap();
         }
-        this.f24779a.put(str, eVar);
+        this.f26444a.put(str, eVar);
     }
 
-    public void b(boolean z10) {
-        this.f24782l = ce.a(this.f24782l, 0, z10);
+    public void b(boolean z) {
+        this.l = as.a(this.l, 0, z);
     }
 
-    public void c(boolean z10) {
-        if (z10) {
+    public void c(boolean z) {
+        if (z) {
             return;
         }
-        this.f24781c = null;
+        this.f26446c = null;
     }
 
-    public d(Map<String, com.umeng.commonsdk.statistics.proto.e> map, int i10, String str) {
+    public d(Map<String, com.umeng.commonsdk.statistics.proto.e> map, int i2, String str) {
         this();
-        this.f24779a = map;
-        this.f24780b = i10;
+        this.f26444a = map;
+        this.f26445b = i2;
         b(true);
-        this.f24781c = str;
+        this.f26446c = str;
     }
 
-    @Override // com.umeng.analytics.pro.ch
+    @Override // com.umeng.analytics.pro.av
     /* renamed from: b */
-    public e fieldForId(int i10) {
-        return e.a(i10);
+    public e fieldForId(int i2) {
+        return e.a(i2);
     }
 
     public d a(Map<String, com.umeng.commonsdk.statistics.proto.e> map) {
-        this.f24779a = map;
+        this.f26444a = map;
         return this;
     }
 
-    public void a(boolean z10) {
-        if (z10) {
+    public void a(boolean z) {
+        if (z) {
             return;
         }
-        this.f24779a = null;
+        this.f26444a = null;
     }
 
-    public d a(int i10) {
-        this.f24780b = i10;
+    public d a(int i2) {
+        this.f26445b = i2;
         b(true);
         return this;
     }
 
     public d(d dVar) {
-        this.f24782l = (byte) 0;
-        this.f24782l = dVar.f24782l;
+        this.l = (byte) 0;
+        this.l = dVar.l;
         if (dVar.e()) {
             HashMap hashMap = new HashMap();
-            for (Map.Entry<String, com.umeng.commonsdk.statistics.proto.e> entry : dVar.f24779a.entrySet()) {
+            for (Map.Entry<String, com.umeng.commonsdk.statistics.proto.e> entry : dVar.f26444a.entrySet()) {
                 hashMap.put(entry.getKey(), new com.umeng.commonsdk.statistics.proto.e(entry.getValue()));
             }
-            this.f24779a = hashMap;
+            this.f26444a = hashMap;
         }
-        this.f24780b = dVar.f24780b;
+        this.f26445b = dVar.f26445b;
         if (dVar.k()) {
-            this.f24781c = dVar.f24781c;
+            this.f26446c = dVar.f26446c;
         }
     }
 
     public d a(String str) {
-        this.f24781c = str;
+        this.f26446c = str;
         return this;
     }
 
     private void a(ObjectOutputStream objectOutputStream) throws IOException {
         try {
-            write(new da(new ds(objectOutputStream)));
-        } catch (cn e10) {
-            throw new IOException(e10.getMessage());
+            write(new bo(new cg(objectOutputStream)));
+        } catch (bb e2) {
+            throw new IOException(e2.getMessage());
         }
     }
 
     private void a(ObjectInputStream objectInputStream) throws IOException, ClassNotFoundException {
         try {
-            this.f24782l = (byte) 0;
-            read(new da(new ds(objectInputStream)));
-        } catch (cn e10) {
-            throw new IOException(e10.getMessage());
+            this.l = (byte) 0;
+            read(new bo(new cg(objectInputStream)));
+        } catch (bb e2) {
+            throw new IOException(e2.getMessage());
         }
     }
 }

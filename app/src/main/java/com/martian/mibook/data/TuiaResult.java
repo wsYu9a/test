@@ -13,11 +13,11 @@ public class TuiaResult {
         return this.click_url;
     }
 
-    public void setAd_title(String str) {
-        this.ad_title = str;
+    public void setAd_title(String ad_title) {
+        this.ad_title = ad_title;
     }
 
-    public void setClick_url(String str) {
-        this.click_url = str;
+    public void setClick_url(String click_url) {
+        this.click_url = click_url;
     }
 }

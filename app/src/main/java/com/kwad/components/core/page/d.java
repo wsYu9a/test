@@ -8,80 +8,77 @@ import android.os.Build;
 import android.os.Bundle;
 import android.text.TextUtils;
 import androidx.annotation.Nullable;
-import com.bytedance.sdk.openadsdk.downloadnew.core.TTDownloadField;
 import com.ksad.annotation.invoker.InvokeBy;
-import com.kwad.components.core.proxy.i;
 import com.kwad.sdk.R;
 import com.kwad.sdk.api.proxy.app.BaseFragmentActivity;
-import com.kwad.sdk.service.ServiceProvider;
-import com.kwad.sdk.utils.ao;
-import com.kwad.sdk.utils.ap;
+import com.kwad.sdk.utils.aj;
+import com.kwad.sdk.utils.ak;
 
-/* loaded from: classes3.dex */
-public class d extends i {
-    private boolean Qx;
+/* loaded from: classes2.dex */
+public class d extends com.kwad.components.core.l.a {
+    private boolean Lt;
 
     /* renamed from: com.kwad.components.core.page.d$1 */
-    public class AnonymousClass1 implements DialogInterface.OnClickListener {
-        public AnonymousClass1() {
+    final class AnonymousClass1 implements DialogInterface.OnClickListener {
+        AnonymousClass1() {
         }
 
         @Override // android.content.DialogInterface.OnClickListener
-        public final void onClick(DialogInterface dialogInterface, int i10) {
+        public final void onClick(DialogInterface dialogInterface, int i2) {
             d.this.finish();
         }
     }
 
     /* renamed from: com.kwad.components.core.page.d$2 */
-    public class AnonymousClass2 implements DialogInterface.OnClickListener {
-        public AnonymousClass2() {
+    final class AnonymousClass2 implements DialogInterface.OnClickListener {
+        AnonymousClass2() {
         }
 
         @Override // android.content.DialogInterface.OnClickListener
-        public final void onClick(DialogInterface dialogInterface, int i10) {
-            d.this.qe();
+        public final void onClick(DialogInterface dialogInterface, int i2) {
+            d.this.og();
         }
     }
 
-    private void aG(boolean z10) {
+    private void aC(boolean z) {
         Intent intent = getIntent();
-        if (z10) {
+        if (z) {
             getActivity().startActivity((Intent) intent.getParcelableExtra("pendingIntent"));
         } else {
-            String stringExtra = intent.getStringExtra(TTDownloadField.TT_FILE_PATH);
+            String stringExtra = intent.getStringExtra("filePath");
             if (TextUtils.isEmpty(stringExtra)) {
                 return;
             }
-            ap.gS(stringExtra);
+            ak.ak(getActivity().getApplicationContext(), stringExtra);
         }
     }
 
-    private void qd() {
+    private void of() {
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
         builder.setTitle(R.string.ksad_request_install_title);
         builder.setMessage(R.string.ksad_request_install_content);
         builder.setNegativeButton(R.string.ksad_request_install_nagative, new DialogInterface.OnClickListener() { // from class: com.kwad.components.core.page.d.1
-            public AnonymousClass1() {
+            AnonymousClass1() {
             }
 
             @Override // android.content.DialogInterface.OnClickListener
-            public final void onClick(DialogInterface dialogInterface, int i10) {
+            public final void onClick(DialogInterface dialogInterface, int i2) {
                 d.this.finish();
             }
         });
         builder.setPositiveButton(R.string.ksad_request_install_positive, new DialogInterface.OnClickListener() { // from class: com.kwad.components.core.page.d.2
-            public AnonymousClass2() {
+            AnonymousClass2() {
             }
 
             @Override // android.content.DialogInterface.OnClickListener
-            public final void onClick(DialogInterface dialogInterface, int i10) {
-                d.this.qe();
+            public final void onClick(DialogInterface dialogInterface, int i2) {
+                d.this.og();
             }
         });
         builder.create().show();
     }
 
-    public void qe() {
+    public void og() {
         if (Build.VERSION.SDK_INT < 26) {
             finish();
             return;
@@ -91,59 +88,55 @@ public class d extends i {
         getActivity().startActivityForResult(intent, 100);
     }
 
-    @InvokeBy(invokerClass = com.kwad.sdk.service.b.class, methodId = "initComponentProxyForInvoker")
+    @InvokeBy(invokerClass = com.kwad.sdk.service.a.class, methodId = "initComponentProxyForInvoker")
     public static void register() {
         try {
-            com.kwad.sdk.service.b.a(BaseFragmentActivity.RequestInstallPermissionActivity.class, d.class);
+            com.kwad.sdk.service.a.a(BaseFragmentActivity.RequestInstallPermissionActivity.class, d.class);
         } catch (Throwable unused) {
         }
     }
 
-    @Override // com.kwad.components.core.proxy.i
+    @Override // com.kwad.components.core.l.a
     public String getPageName() {
         return "RequestInstallPermissionImpl";
     }
 
     @Override // com.kwad.sdk.api.proxy.IActivityProxy
-    public void onActivityResult(int i10, int i11, Intent intent) {
-        if (i10 == 100 && i11 == -1) {
-            aG(this.Qx);
+    public void onActivityResult(int i2, int i3, Intent intent) {
+        if (i2 == 100 && i3 == -1) {
+            aC(this.Lt);
         }
         finish();
     }
 
-    @Override // com.kwad.components.core.proxy.i, com.kwad.sdk.api.proxy.IActivityProxy
+    @Override // com.kwad.components.core.l.a, com.kwad.sdk.api.proxy.IActivityProxy
     public void onCreate(@Nullable Bundle bundle) {
-        try {
-            super.onCreate(bundle);
-            Intent intent = getIntent();
-            if (intent == null) {
-                finish();
-                return;
-            }
-            boolean booleanExtra = intent.getBooleanExtra("fromNotification", false);
-            this.Qx = booleanExtra;
-            if (Build.VERSION.SDK_INT < 26) {
-                aG(booleanExtra);
-                finish();
-            } else {
-                if (booleanExtra) {
-                    if (ao.cH(getActivity())) {
-                        aG(this.Qx);
-                        return;
-                    } else {
-                        qe();
-                        return;
-                    }
-                }
-                if (intent.getBooleanExtra("needAllowDialog", false)) {
-                    qd();
+        super.onCreate(bundle);
+        Intent intent = getIntent();
+        if (intent == null) {
+            finish();
+            return;
+        }
+        boolean booleanExtra = intent.getBooleanExtra("fromNotification", false);
+        this.Lt = booleanExtra;
+        if (Build.VERSION.SDK_INT < 26) {
+            aC(booleanExtra);
+            finish();
+        } else {
+            if (booleanExtra) {
+                if (aj.cf(getActivity())) {
+                    aC(this.Lt);
+                    return;
                 } else {
-                    qe();
+                    og();
+                    return;
                 }
             }
-        } catch (Throwable th2) {
-            ServiceProvider.reportSdkCaughtException(th2);
+            if (intent.getBooleanExtra("needAllowDialog", false)) {
+                of();
+            } else {
+                og();
+            }
         }
     }
 }

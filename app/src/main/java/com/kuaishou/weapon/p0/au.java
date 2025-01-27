@@ -8,30 +8,30 @@ import java.util.List;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
-/* loaded from: classes2.dex */
+/* loaded from: classes.dex */
 public class au {
 
     /* renamed from: a */
-    private JSONObject f10781a;
+    private JSONObject f9085a;
 
     /* renamed from: b */
-    private boolean f10782b;
+    private boolean f9086b;
 
     public au(Context context) {
         if (Engine.loadSuccess) {
             try {
-                String pqr = Engine.getInstance(context).pqr(Integer.valueOf(ck.f10911g).intValue(), 0, 200, "");
+                String pqr = Engine.getInstance(context).pqr(Integer.valueOf(cj.f9194g).intValue(), 0, 200, "");
                 if (TextUtils.isEmpty(pqr)) {
                     return;
                 }
-                this.f10781a = new JSONObject(pqr);
+                this.f9085a = new JSONObject(pqr);
             } catch (Throwable unused) {
             }
         }
     }
 
     public String a(String str) {
-        JSONObject jSONObject = this.f10781a;
+        JSONObject jSONObject = this.f9085a;
         if (jSONObject == null) {
             return null;
         }
@@ -42,8 +42,12 @@ public class au {
         }
     }
 
+    public boolean a() {
+        return this.f9086b;
+    }
+
     public List b(String str) {
-        JSONObject jSONObject = this.f10781a;
+        JSONObject jSONObject = this.f9085a;
         if (jSONObject == null) {
             return null;
         }
@@ -52,13 +56,13 @@ public class au {
             if (TextUtils.isEmpty(string) || string.length() <= 3) {
                 return null;
             }
-            String a10 = i.a("98bb0a15913e0654348b", "0805");
+            String a2 = i.a("98bb0a15913e0654348b", "0805");
             JSONArray jSONArray = new JSONArray(string);
             ArrayList arrayList = new ArrayList();
-            for (int i10 = 0; i10 < jSONArray.length(); i10++) {
-                String string2 = jSONArray.getString(i10);
-                if (string2.contains(a10)) {
-                    this.f10782b = true;
+            for (int i2 = 0; i2 < jSONArray.length(); i2++) {
+                String string2 = jSONArray.getString(i2);
+                if (string2.contains(a2)) {
+                    this.f9086b = true;
                 } else {
                     arrayList.add(string2);
                 }
@@ -70,9 +74,5 @@ public class au {
         } catch (Exception unused) {
             return null;
         }
-    }
-
-    public boolean a() {
-        return this.f10782b;
     }
 }

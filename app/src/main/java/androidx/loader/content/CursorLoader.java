@@ -15,33 +15,40 @@ import java.util.Arrays;
 
 /* loaded from: classes.dex */
 public class CursorLoader extends AsyncTaskLoader<Cursor> {
-    CancellationSignal mCancellationSignal;
-    Cursor mCursor;
-    final Loader<Cursor>.ForceLoadContentObserver mObserver;
-    String[] mProjection;
-    String mSelection;
-    String[] mSelectionArgs;
-    String mSortOrder;
-    Uri mUri;
+    final Loader<Cursor>.ForceLoadContentObserver r;
+    Uri s;
+    String[] t;
+    String u;
+    String[] v;
+    String w;
+    Cursor x;
+    CancellationSignal y;
 
     public CursorLoader(@NonNull Context context) {
         super(context);
-        this.mObserver = new Loader.ForceLoadContentObserver();
+        this.r = new Loader.ForceLoadContentObserver();
     }
 
     @Override // androidx.loader.content.AsyncTaskLoader
     public void cancelLoadInBackground() {
         super.cancelLoadInBackground();
         synchronized (this) {
-            try {
-                CancellationSignal cancellationSignal = this.mCancellationSignal;
-                if (cancellationSignal != null) {
-                    cancellationSignal.cancel();
-                }
-            } catch (Throwable th2) {
-                throw th2;
+            CancellationSignal cancellationSignal = this.y;
+            if (cancellationSignal != null) {
+                cancellationSignal.cancel();
             }
         }
+    }
+
+    @Override // androidx.loader.content.Loader
+    protected void d() {
+        super.d();
+        f();
+        Cursor cursor = this.x;
+        if (cursor != null && !cursor.isClosed()) {
+            this.x.close();
+        }
+        this.x = null;
     }
 
     @Override // androidx.loader.content.AsyncTaskLoader, androidx.loader.content.Loader
@@ -50,97 +57,86 @@ public class CursorLoader extends AsyncTaskLoader<Cursor> {
         super.dump(str, fileDescriptor, printWriter, strArr);
         printWriter.print(str);
         printWriter.print("mUri=");
-        printWriter.println(this.mUri);
+        printWriter.println(this.s);
         printWriter.print(str);
         printWriter.print("mProjection=");
-        printWriter.println(Arrays.toString(this.mProjection));
+        printWriter.println(Arrays.toString(this.t));
         printWriter.print(str);
         printWriter.print("mSelection=");
-        printWriter.println(this.mSelection);
+        printWriter.println(this.u);
         printWriter.print(str);
         printWriter.print("mSelectionArgs=");
-        printWriter.println(Arrays.toString(this.mSelectionArgs));
+        printWriter.println(Arrays.toString(this.v));
         printWriter.print(str);
         printWriter.print("mSortOrder=");
-        printWriter.println(this.mSortOrder);
+        printWriter.println(this.w);
         printWriter.print(str);
         printWriter.print("mCursor=");
-        printWriter.println(this.mCursor);
+        printWriter.println(this.x);
         printWriter.print(str);
         printWriter.print("mContentChanged=");
-        printWriter.println(this.mContentChanged);
-    }
-
-    @Nullable
-    public String[] getProjection() {
-        return this.mProjection;
-    }
-
-    @Nullable
-    public String getSelection() {
-        return this.mSelection;
-    }
-
-    @Nullable
-    public String[] getSelectionArgs() {
-        return this.mSelectionArgs;
-    }
-
-    @Nullable
-    public String getSortOrder() {
-        return this.mSortOrder;
-    }
-
-    @NonNull
-    public Uri getUri() {
-        return this.mUri;
+        printWriter.println(this.f2680h);
     }
 
     @Override // androidx.loader.content.Loader
-    public void onReset() {
-        super.onReset();
-        onStopLoading();
-        Cursor cursor = this.mCursor;
-        if (cursor != null && !cursor.isClosed()) {
-            this.mCursor.close();
-        }
-        this.mCursor = null;
-    }
-
-    @Override // androidx.loader.content.Loader
-    public void onStartLoading() {
-        Cursor cursor = this.mCursor;
+    protected void e() {
+        Cursor cursor = this.x;
         if (cursor != null) {
             deliverResult(cursor);
         }
-        if (takeContentChanged() || this.mCursor == null) {
+        if (takeContentChanged() || this.x == null) {
             forceLoad();
         }
     }
 
     @Override // androidx.loader.content.Loader
-    public void onStopLoading() {
+    protected void f() {
         cancelLoad();
     }
 
+    @Nullable
+    public String[] getProjection() {
+        return this.t;
+    }
+
+    @Nullable
+    public String getSelection() {
+        return this.u;
+    }
+
+    @Nullable
+    public String[] getSelectionArgs() {
+        return this.v;
+    }
+
+    @Nullable
+    public String getSortOrder() {
+        return this.w;
+    }
+
+    @NonNull
+    public Uri getUri() {
+        return this.s;
+    }
+
     public void setProjection(@Nullable String[] strArr) {
-        this.mProjection = strArr;
+        this.t = strArr;
     }
 
     public void setSelection(@Nullable String str) {
-        this.mSelection = str;
+        this.u = str;
     }
 
     public void setSelectionArgs(@Nullable String[] strArr) {
-        this.mSelectionArgs = strArr;
+        this.v = strArr;
     }
 
     public void setSortOrder(@Nullable String str) {
-        this.mSortOrder = str;
+        this.w = str;
     }
 
     public void setUri(@NonNull Uri uri) {
-        this.mUri = uri;
+        this.s = uri;
     }
 
     @Override // androidx.loader.content.Loader
@@ -152,8 +148,8 @@ public class CursorLoader extends AsyncTaskLoader<Cursor> {
             }
             return;
         }
-        Cursor cursor2 = this.mCursor;
-        this.mCursor = cursor;
+        Cursor cursor2 = this.x;
+        this.x = cursor;
         if (isStarted()) {
             super.deliverResult((CursorLoader) cursor);
         }
@@ -169,27 +165,27 @@ public class CursorLoader extends AsyncTaskLoader<Cursor> {
             if (isLoadInBackgroundCanceled()) {
                 throw new OperationCanceledException();
             }
-            this.mCancellationSignal = new CancellationSignal();
+            this.y = new CancellationSignal();
         }
         try {
-            Cursor query = ContentResolverCompat.query(getContext().getContentResolver(), this.mUri, this.mProjection, this.mSelection, this.mSelectionArgs, this.mSortOrder, this.mCancellationSignal);
+            Cursor query = ContentResolverCompat.query(getContext().getContentResolver(), this.s, this.t, this.u, this.v, this.w, this.y);
             if (query != null) {
                 try {
                     query.getCount();
-                    query.registerContentObserver(this.mObserver);
-                } catch (RuntimeException e10) {
+                    query.registerContentObserver(this.r);
+                } catch (RuntimeException e2) {
                     query.close();
-                    throw e10;
+                    throw e2;
                 }
             }
             synchronized (this) {
-                this.mCancellationSignal = null;
+                this.y = null;
             }
             return query;
-        } catch (Throwable th2) {
+        } catch (Throwable th) {
             synchronized (this) {
-                this.mCancellationSignal = null;
-                throw th2;
+                this.y = null;
+                throw th;
             }
         }
     }
@@ -204,11 +200,11 @@ public class CursorLoader extends AsyncTaskLoader<Cursor> {
 
     public CursorLoader(@NonNull Context context, @NonNull Uri uri, @Nullable String[] strArr, @Nullable String str, @Nullable String[] strArr2, @Nullable String str2) {
         super(context);
-        this.mObserver = new Loader.ForceLoadContentObserver();
-        this.mUri = uri;
-        this.mProjection = strArr;
-        this.mSelection = str;
-        this.mSelectionArgs = strArr2;
-        this.mSortOrder = str2;
+        this.r = new Loader.ForceLoadContentObserver();
+        this.s = uri;
+        this.t = strArr;
+        this.u = str;
+        this.v = strArr2;
+        this.w = str2;
     }
 }

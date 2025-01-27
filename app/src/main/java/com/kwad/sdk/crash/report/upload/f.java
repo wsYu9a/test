@@ -2,17 +2,17 @@ package com.kwad.sdk.crash.report.upload;
 
 import java.io.File;
 
-/* loaded from: classes3.dex */
+/* loaded from: classes2.dex */
 public final class f {
-    public String aKC;
-    public String aMf;
-    public String aMh;
-    public String aMi;
-    public String aMk;
-    public String aMl;
-    public String aMm;
-    public File aMn;
+    public String arz;
+    public String asT;
+    public String asV;
+    public String asW;
+    public String asY;
+    public String asZ;
+    public String ata;
+    public File atb;
     public String mTaskId;
-    public String aMg = "kwad.sdk";
-    public String aMj = "Android";
+    public String asU = "kwad.sdk";
+    public String asX = "Android";
 }

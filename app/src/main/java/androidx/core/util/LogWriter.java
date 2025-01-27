@@ -8,39 +8,43 @@ import java.io.Writer;
 @Deprecated
 /* loaded from: classes.dex */
 public class LogWriter extends Writer {
-    private StringBuilder mBuilder = new StringBuilder(128);
-    private final String mTag;
+
+    /* renamed from: a, reason: collision with root package name */
+    private final String f1979a;
+
+    /* renamed from: b, reason: collision with root package name */
+    private StringBuilder f1980b = new StringBuilder(128);
 
     public LogWriter(String str) {
-        this.mTag = str;
+        this.f1979a = str;
     }
 
-    private void flushBuilder() {
-        if (this.mBuilder.length() > 0) {
-            Log.d(this.mTag, this.mBuilder.toString());
-            StringBuilder sb2 = this.mBuilder;
-            sb2.delete(0, sb2.length());
+    private void a() {
+        if (this.f1980b.length() > 0) {
+            Log.d(this.f1979a, this.f1980b.toString());
+            StringBuilder sb = this.f1980b;
+            sb.delete(0, sb.length());
         }
     }
 
     @Override // java.io.Writer, java.io.Closeable, java.lang.AutoCloseable
     public void close() {
-        flushBuilder();
+        a();
     }
 
     @Override // java.io.Writer, java.io.Flushable
     public void flush() {
-        flushBuilder();
+        a();
     }
 
     @Override // java.io.Writer
-    public void write(char[] cArr, int i10, int i11) {
-        for (int i12 = 0; i12 < i11; i12++) {
-            char c10 = cArr[i10 + i12];
-            if (c10 == '\n') {
-                flushBuilder();
+    public void write(char[] cArr, int i2, int i3) {
+        for (int i4 = 0; i4 < i3; i4++) {
+            char c2 = cArr[i2 + i4];
+            if (c2 == '\n') {
+                a();
             } else {
-                this.mBuilder.append(c10);
+                this.f1980b.append(c2);
             }
         }
     }

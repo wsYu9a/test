@@ -1,42 +1,55 @@
 package com.kwad.components.core.webview.jshandler;
 
-import android.text.TextUtils;
 import androidx.annotation.NonNull;
-import com.kwad.components.core.webview.jshandler.t;
-import com.kwad.sdk.service.ServiceProvider;
-import org.json.JSONException;
-import org.json.JSONObject;
+import com.kwad.sdk.utils.bi;
 
-/* loaded from: classes3.dex */
-public final class j implements com.kwad.sdk.core.webview.c.a {
-    private static String aN(String str) {
-        t.a aVar = new t.a();
-        try {
-            aVar.parseJson(new JSONObject(str));
-        } catch (JSONException unused) {
+/* loaded from: classes2.dex */
+public final class j implements com.kwad.sdk.core.webview.b.a {
+    private a Sj;
+
+    /* renamed from: com.kwad.components.core.webview.jshandler.j$1 */
+    final class AnonymousClass1 implements Runnable {
+        AnonymousClass1() {
         }
-        return TextUtils.isEmpty(aVar.key) ? "" : com.kwad.sdk.utils.ad.b(ServiceProvider.getContext(), "ksadsdk_js_storage_cache_name", aVar.key, "");
+
+        @Override // java.lang.Runnable
+        public final void run() {
+            if (j.this.Sj != null) {
+                j.this.Sj.onPlayAgainClick(false);
+            }
+        }
     }
 
-    @Override // com.kwad.sdk.core.webview.c.a
-    public final void a(String str, @NonNull com.kwad.sdk.core.webview.c.c cVar) {
-        if (TextUtils.isEmpty(str)) {
-            cVar.onError(-1, "data is empty");
-            return;
-        }
-        String aN = aN(str);
-        t.a aVar = new t.a();
-        aVar.value = aN;
-        cVar.a(aVar);
+    public interface a {
+        void onPlayAgainClick(boolean z);
     }
 
-    @Override // com.kwad.sdk.core.webview.c.a
+    public final void b(a aVar) {
+        this.Sj = aVar;
+    }
+
+    @Override // com.kwad.sdk.core.webview.b.a
     @NonNull
     public final String getKey() {
-        return "getStorageItem";
+        return "showPlayAgain";
     }
 
-    @Override // com.kwad.sdk.core.webview.c.a
+    @Override // com.kwad.sdk.core.webview.b.a
+    public final void handleJsCall(String str, @NonNull com.kwad.sdk.core.webview.b.c cVar) {
+        bi.runOnUiThread(new Runnable() { // from class: com.kwad.components.core.webview.jshandler.j.1
+            AnonymousClass1() {
+            }
+
+            @Override // java.lang.Runnable
+            public final void run() {
+                if (j.this.Sj != null) {
+                    j.this.Sj.onPlayAgainClick(false);
+                }
+            }
+        });
+    }
+
+    @Override // com.kwad.sdk.core.webview.b.a
     public final void onDestroy() {
     }
 }

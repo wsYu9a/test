@@ -1,7 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<ImageView xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/iv_close"
-    android:background="@drawable/vlion_cn_ad_back"
-    android:layout_width="40dp"
-    android:layout_height="40dp"
-    android:src="@drawable/vlion_cn_ad_close_black"/>

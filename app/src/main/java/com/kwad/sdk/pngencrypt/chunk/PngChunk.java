@@ -1,15 +1,15 @@
 package com.kwad.sdk.pngencrypt.chunk;
 
-/* loaded from: classes3.dex */
+/* loaded from: classes2.dex */
 public abstract class PngChunk {
-    protected final com.kwad.sdk.pngencrypt.k aPC;
-    public final boolean aQC;
-    public final boolean aQD;
-    public final boolean aQE;
-    protected d aQF;
-    private boolean aQG = false;
-    protected int aQH = -1;
-    public final String akr;
+    protected final com.kwad.sdk.pngencrypt.k avO;
+    public final String awG;
+    public final boolean awP;
+    public final boolean awQ;
+    public final boolean awR;
+    protected d awS;
+    private boolean awT = false;
+    protected int awU = -1;
 
     public enum ChunkOrderingConstraint {
         NONE,
@@ -20,11 +20,11 @@ public abstract class PngChunk {
         AFTER_IDAT,
         NA;
 
-        public final boolean isOk(int i10, boolean z10) {
+        public final boolean isOk(int i2, boolean z) {
             if (this == NONE) {
                 return true;
             }
-            return this == BEFORE_IDAT ? i10 < 4 : this == BEFORE_PLTE_AND_IDAT ? i10 < 2 : this == AFTER_PLTE_BEFORE_IDAT ? z10 ? i10 < 4 : i10 < 4 && i10 > 2 : this == AFTER_IDAT && i10 > 4;
+            return this == BEFORE_IDAT ? i2 < 4 : this == BEFORE_PLTE_AND_IDAT ? i2 < 2 : this == AFTER_PLTE_BEFORE_IDAT ? z ? i2 < 4 : i2 < 4 && i2 > 2 : this == AFTER_IDAT && i2 > 4;
         }
 
         public final boolean mustGoAfterIDAT() {
@@ -45,40 +45,40 @@ public abstract class PngChunk {
     }
 
     public PngChunk(String str, com.kwad.sdk.pngencrypt.k kVar) {
-        this.akr = str;
-        this.aPC = kVar;
-        this.aQC = b.gw(str);
-        this.aQD = b.gx(str);
-        this.aQE = b.gy(str);
+        this.awG = str;
+        this.avO = kVar;
+        this.awP = b.em(str);
+        this.awQ = b.en(str);
+        this.awR = b.eo(str);
     }
 
-    private long LY() {
-        d dVar = this.aQF;
+    private long BW() {
+        d dVar = this.awS;
         if (dVar != null) {
-            return dVar.LY();
+            return dVar.BW();
         }
         return -1L;
     }
 
-    private int Ma() {
-        d dVar = this.aQF;
+    private int BY() {
+        d dVar = this.awS;
         if (dVar != null) {
             return dVar.len;
         }
         return -1;
     }
 
-    public abstract void a(d dVar);
+    protected abstract void a(d dVar);
 
-    public final void b(d dVar) {
-        this.aQF = dVar;
+    final void b(d dVar) {
+        this.awS = dVar;
     }
 
-    public final void dS(int i10) {
-        this.aQH = i10;
+    final void bU(int i2) {
+        this.awU = i2;
     }
 
     public String toString() {
-        return "chunk id= " + this.akr + " (len=" + Ma() + " offset=" + LY() + ")";
+        return "chunk id= " + this.awG + " (len=" + BY() + " offset=" + BW() + ")";
     }
 }

@@ -5,7 +5,7 @@ import android.util.AttributeSet;
 import android.widget.FrameLayout;
 import androidx.annotation.Nullable;
 
-/* loaded from: classes3.dex */
+/* loaded from: classes2.dex */
 public abstract class BaseKsMediaPlayerView extends FrameLayout implements IKsMediaPlayerView {
     public BaseKsMediaPlayerView(Context context) {
         super(context);
@@ -15,7 +15,7 @@ public abstract class BaseKsMediaPlayerView extends FrameLayout implements IKsMe
         super(context, attributeSet);
     }
 
-    public BaseKsMediaPlayerView(Context context, @Nullable AttributeSet attributeSet, int i10) {
-        super(context, attributeSet, i10);
+    public BaseKsMediaPlayerView(Context context, @Nullable AttributeSet attributeSet, int i2) {
+        super(context, attributeSet, i2);
     }
 }

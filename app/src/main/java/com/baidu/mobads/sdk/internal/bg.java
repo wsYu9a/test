@@ -1,19 +1,26 @@
 package com.baidu.mobads.sdk.internal;
 
-import java.lang.Thread;
+import com.baidu.mobads.sdk.internal.z;
 
-/* loaded from: classes2.dex */
-class bg implements Thread.UncaughtExceptionHandler {
+/* loaded from: classes.dex */
+class bg implements z.a {
 
-    /* renamed from: a */
-    final /* synthetic */ bf f6871a;
+    /* renamed from: c */
+    final /* synthetic */ bf f5592c;
 
-    public bg(bf bfVar) {
-        this.f6871a = bfVar;
+    bg(bf bfVar) {
+        this.f5592c = bfVar;
     }
 
-    @Override // java.lang.Thread.UncaughtExceptionHandler
-    public void uncaughtException(Thread thread, Throwable th2) {
-        ay.h("ThreadPoolFactory").c("线程名字=" + thread.getName() + "线程crash信息", th2);
+    @Override // com.baidu.mobads.sdk.internal.z.a
+    public void onFailure() {
+        this.f5592c.f5589i.a(bf.f5582b, "AbstractProdTemplate,load-dex请求，回调失败");
+        this.f5592c.j();
+    }
+
+    @Override // com.baidu.mobads.sdk.internal.z.a
+    public void onSuccess() {
+        this.f5592c.f5589i.a(bf.f5582b, "AbstractProdTemplate,load-dex请求，回调成功");
+        this.f5592c.i();
     }
 }

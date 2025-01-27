@@ -11,66 +11,53 @@ import java.io.OutputStreamWriter;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.Map;
+import org.apache.http.HttpHeaders;
 
-/* loaded from: classes2.dex */
+/* loaded from: classes.dex */
 public class am {
 
     /* renamed from: a */
-    public static final String f6735a = "OAdURLConnection";
+    public static final String f5517a = "OAdURLConnection";
 
     /* renamed from: b */
-    public static final String f6736b = "POST";
+    public static final String f5518b = "POST";
 
     /* renamed from: c */
-    public static final String f6737c = "GET";
+    public static final String f5519c = "GET";
 
     /* renamed from: d */
-    public static final String f6738d = "application/json";
+    public static final String f5520d = "application/json";
 
     /* renamed from: e */
-    public static final String f6739e = "text/plain";
+    public static final String f5521e = "text/plain";
 
     /* renamed from: f */
-    private HttpURLConnection f6740f;
+    private HttpURLConnection f5522f;
 
     /* renamed from: g */
-    private bt f6741g;
+    private bq f5523g;
 
     /* renamed from: h */
-    private b f6742h;
+    private b f5524h;
 
     /* renamed from: i */
-    private c f6743i;
+    private c f5525i;
 
     /* renamed from: j */
-    private String f6744j;
+    private String f5526j;
+    private String k;
+    private String l;
+    private String m;
+    private int n;
+    private int o;
+    private boolean p;
+    private Uri.Builder q;
 
-    /* renamed from: k */
-    private String f6745k;
-
-    /* renamed from: l */
-    private String f6746l;
-
-    /* renamed from: m */
-    private String f6747m;
-
-    /* renamed from: n */
-    private int f6748n;
-
-    /* renamed from: o */
-    private int f6749o;
-
-    /* renamed from: p */
-    private boolean f6750p;
-
-    /* renamed from: q */
-    private Uri.Builder f6751q;
-
-    public class a extends j {
-        public a() {
+    class a extends h {
+        a() {
         }
 
-        @Override // com.baidu.mobads.sdk.internal.j
+        @Override // com.baidu.mobads.sdk.internal.h
         public Object i() {
             am.this.e();
             am.this.f();
@@ -79,7 +66,7 @@ public class am {
     }
 
     public interface b {
-        void a(String str, int i10);
+        void a(String str, int i2);
 
         void a(String str, String str2);
     }
@@ -87,7 +74,7 @@ public class am {
     public interface c {
         void a(InputStream inputStream, String str);
 
-        void a(String str, int i10);
+        void a(String str, int i2);
     }
 
     public am(String str) {
@@ -95,40 +82,40 @@ public class am {
     }
 
     public void e() {
-        if (TextUtils.isEmpty(this.f6744j) || !cq.a().f(this.f6744j)) {
+        if (TextUtils.isEmpty(this.f5526j)) {
             return;
         }
         try {
-            HttpURLConnection a10 = cq.a().a(new URL(this.f6744j));
-            this.f6740f = a10;
-            a10.setConnectTimeout(this.f6748n);
-            if (Integer.parseInt(bm.a((Context) null).b()) < 8) {
+            HttpURLConnection a2 = cn.a().a(new URL(this.f5526j));
+            this.f5522f = a2;
+            a2.setConnectTimeout(this.n);
+            if (Integer.parseInt(bj.a((Context) null).b()) < 8) {
                 System.setProperty("http.keepAlive", "false");
             }
-            this.f6740f.setRequestMethod(this.f6745k);
-            this.f6740f.setUseCaches(this.f6750p);
-            if (!TextUtils.isEmpty(this.f6746l)) {
-                this.f6740f.setRequestProperty("User-Agent", this.f6746l);
+            this.f5522f.setRequestMethod(this.k);
+            this.f5522f.setUseCaches(this.p);
+            if (!TextUtils.isEmpty(this.l)) {
+                this.f5522f.setRequestProperty("User-Agent", this.l);
             }
-            this.f6740f.setRequestProperty("Content-type", this.f6747m);
-            this.f6740f.setRequestProperty(m5.c.f28331o, "keep-alive");
-            this.f6740f.setRequestProperty("Cache-Control", "no-cache");
-            if (this.f6745k.equals("POST")) {
-                this.f6740f.setDoInput(true);
-                this.f6740f.setDoOutput(true);
-                Uri.Builder builder = this.f6751q;
+            this.f5522f.setRequestProperty("Content-type", this.m);
+            this.f5522f.setRequestProperty("Connection", "keep-alive");
+            this.f5522f.setRequestProperty("Cache-Control", "no-cache");
+            if (this.k.equals("POST")) {
+                this.f5522f.setDoInput(true);
+                this.f5522f.setDoOutput(true);
+                Uri.Builder builder = this.q;
                 if (builder != null) {
-                    a(builder.build().getEncodedQuery(), this.f6740f);
+                    a(builder.build().getEncodedQuery(), this.f5522f);
                 }
             }
-        } catch (Exception e10) {
-            b bVar = this.f6742h;
+        } catch (Exception e2) {
+            b bVar = this.f5524h;
             if (bVar != null) {
-                bVar.a("Net Create RuntimeError: " + e10.toString(), 0);
+                bVar.a("Net Create RuntimeError: " + e2.toString(), 0);
             }
-            c cVar = this.f6743i;
+            c cVar = this.f5525i;
             if (cVar != null) {
-                cVar.a("Net Create RuntimeError: " + e10.toString(), 0);
+                cVar.a("Net Create RuntimeError: " + e2.toString(), 0);
             }
         }
     }
@@ -137,67 +124,67 @@ public class am {
         HttpURLConnection httpURLConnection;
         try {
             try {
-                this.f6740f.connect();
-                this.f6741g.a(f6735a, this.f6740f.getRequestMethod() + " connect code :" + this.f6740f.getResponseCode());
-                int responseCode = this.f6740f.getResponseCode();
+                this.f5522f.connect();
+                this.f5523g.a(f5517a, this.f5522f.getRequestMethod() + " connect code :" + this.f5522f.getResponseCode());
+                int responseCode = this.f5522f.getResponseCode();
                 if (responseCode == 302 || responseCode == 301) {
-                    this.f6740f.setInstanceFollowRedirects(false);
-                    HttpURLConnection a10 = a(this.f6740f);
-                    this.f6740f = a10;
-                    responseCode = a10.getResponseCode();
+                    this.f5522f.setInstanceFollowRedirects(false);
+                    HttpURLConnection a2 = a(this.f5522f);
+                    this.f5522f = a2;
+                    responseCode = a2.getResponseCode();
                 }
                 if (responseCode / 100 != 2) {
-                    b bVar = this.f6742h;
+                    b bVar = this.f5524h;
                     if (bVar != null) {
-                        bVar.a(this.f6740f.getResponseMessage(), responseCode);
+                        bVar.a(this.f5522f.getResponseMessage(), responseCode);
                     }
-                    c cVar = this.f6743i;
+                    c cVar = this.f5525i;
                     if (cVar != null) {
-                        cVar.a(this.f6740f.getResponseMessage(), responseCode);
+                        cVar.a(this.f5522f.getResponseMessage(), responseCode);
                     }
                 } else {
-                    String g10 = cq.a().g(this.f6744j);
-                    b bVar2 = this.f6742h;
+                    String f2 = cn.a().f(this.f5526j);
+                    b bVar2 = this.f5524h;
                     if (bVar2 != null) {
-                        bVar2.a(c(), g10);
+                        bVar2.a(c(), f2);
                     }
-                    c cVar2 = this.f6743i;
+                    c cVar2 = this.f5525i;
                     if (cVar2 != null) {
-                        cVar2.a(this.f6740f.getInputStream(), g10);
+                        cVar2.a(this.f5522f.getInputStream(), f2);
                     }
                 }
-                httpURLConnection = this.f6740f;
+                httpURLConnection = this.f5522f;
                 if (httpURLConnection == null) {
                     return;
                 }
-            } catch (Exception e10) {
-                b bVar3 = this.f6742h;
+            } catch (Exception e2) {
+                b bVar3 = this.f5524h;
                 if (bVar3 != null) {
-                    bVar3.a("Net Connect RuntimeError: " + e10.toString(), 0);
+                    bVar3.a("Net Connect RuntimeError: " + e2.toString(), 0);
                 }
-                c cVar3 = this.f6743i;
+                c cVar3 = this.f5525i;
                 if (cVar3 != null) {
-                    cVar3.a("Net Connect RuntimeError: " + e10.toString(), 0);
+                    cVar3.a("Net Connect RuntimeError: " + e2.toString(), 0);
                 }
-                httpURLConnection = this.f6740f;
+                httpURLConnection = this.f5522f;
                 if (httpURLConnection == null) {
                     return;
                 }
             }
             httpURLConnection.disconnect();
-        } catch (Throwable th2) {
-            HttpURLConnection httpURLConnection2 = this.f6740f;
+        } catch (Throwable th) {
+            HttpURLConnection httpURLConnection2 = this.f5522f;
             if (httpURLConnection2 != null) {
                 httpURLConnection2.disconnect();
             }
-            throw th2;
+            throw th;
         }
     }
 
     public String c() {
         InputStream inputStream = null;
         try {
-            inputStream = this.f6740f.getInputStream();
+            inputStream = this.f5522f.getInputStream();
             ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
             byte[] bArr = new byte[128];
             while (true) {
@@ -210,61 +197,61 @@ public class am {
                 }
                 byteArrayOutputStream.write(bArr, 0, read);
             }
-        } catch (Throwable th2) {
+        } catch (Throwable th) {
             if (inputStream != null) {
                 inputStream.close();
             }
-            throw th2;
+            throw th;
         }
     }
 
     public void d() {
-        HttpURLConnection httpURLConnection = this.f6740f;
+        HttpURLConnection httpURLConnection = this.f5522f;
         if (httpURLConnection != null) {
             try {
                 InputStream inputStream = httpURLConnection.getInputStream();
                 if (inputStream != null) {
                     inputStream.close();
                 }
-            } catch (Exception e10) {
-                ay.h(f6735a).f(e10.toString());
+            } catch (Exception e2) {
+                av.h(f5517a).f(e2.toString());
             }
         }
     }
 
     public am(String str, String str2) {
-        this.f6741g = bt.a();
-        this.f6742h = null;
-        this.f6743i = null;
-        this.f6747m = f6739e;
-        this.f6748n = 10000;
-        this.f6749o = 10000;
-        this.f6750p = false;
-        this.f6751q = null;
-        this.f6744j = str;
-        this.f6745k = str2;
+        this.f5523g = bq.a();
+        this.f5524h = null;
+        this.f5525i = null;
+        this.m = "text/plain";
+        this.n = 10000;
+        this.o = 10000;
+        this.p = false;
+        this.q = null;
+        this.f5526j = str;
+        this.k = str2;
     }
 
     public String a() {
         e();
-        HttpURLConnection httpURLConnection = this.f6740f;
+        HttpURLConnection httpURLConnection = this.f5522f;
         if (httpURLConnection != null) {
             try {
                 if (httpURLConnection.getResponseCode() / 100 != 2) {
-                    HttpURLConnection httpURLConnection2 = this.f6740f;
+                    HttpURLConnection httpURLConnection2 = this.f5522f;
                     if (httpURLConnection2 != null) {
                         httpURLConnection2.disconnect();
                     }
                     return null;
                 }
-                String c10 = c();
-                HttpURLConnection httpURLConnection3 = this.f6740f;
+                String c2 = c();
+                HttpURLConnection httpURLConnection3 = this.f5522f;
                 if (httpURLConnection3 != null) {
                     httpURLConnection3.disconnect();
                 }
-                return c10;
+                return c2;
             } catch (Throwable unused) {
-                HttpURLConnection httpURLConnection4 = this.f6740f;
+                HttpURLConnection httpURLConnection4 = this.f5522f;
                 if (httpURLConnection4 != null) {
                     httpURLConnection4.disconnect();
                 }
@@ -275,13 +262,13 @@ public class am {
 
     public void b() {
         try {
-            bd.a().a((j) new a());
+            ba.a().a((h) new a());
         } catch (Exception unused) {
         }
     }
 
-    public void b(int i10) {
-        this.f6749o = i10;
+    public void b(int i2) {
+        this.o = i2;
     }
 
     private void a(String str, HttpURLConnection httpURLConnection) {
@@ -292,11 +279,11 @@ public class am {
             outputStream = httpURLConnection.getOutputStream();
             try {
                 bufferedWriter = new BufferedWriter(new OutputStreamWriter(outputStream, "UTF-8"));
-            } catch (Throwable th2) {
-                th = th2;
+            } catch (Throwable th) {
+                th = th;
             }
-        } catch (Throwable th3) {
-            th = th3;
+        } catch (Throwable th2) {
+            th = th2;
             outputStream = null;
         }
         try {
@@ -306,8 +293,8 @@ public class am {
             if (outputStream != null) {
                 outputStream.close();
             }
-        } catch (Throwable th4) {
-            th = th4;
+        } catch (Throwable th3) {
+            th = th3;
             bufferedWriter2 = bufferedWriter;
             if (bufferedWriter2 != null) {
                 bufferedWriter2.close();
@@ -320,9 +307,9 @@ public class am {
     }
 
     public void a(Map<String, String> map) {
-        if (this.f6740f != null) {
+        if (this.f5522f != null) {
             for (Map.Entry<String, String> entry : map.entrySet()) {
-                this.f6740f.setRequestProperty(entry.getKey(), entry.getValue());
+                this.f5522f.setRequestProperty(entry.getKey(), entry.getValue());
             }
         }
     }
@@ -334,11 +321,11 @@ public class am {
                 if (responseCode != 302 && responseCode != 301) {
                     return httpURLConnection;
                 }
-                HttpURLConnection httpURLConnection2 = (HttpURLConnection) new URL(httpURLConnection.getHeaderField(m5.c.f28347t0)).openConnection();
+                HttpURLConnection httpURLConnection2 = (HttpURLConnection) new URL(httpURLConnection.getHeaderField(HttpHeaders.LOCATION)).openConnection();
                 try {
                     httpURLConnection2.setConnectTimeout(httpURLConnection2.getConnectTimeout());
                     httpURLConnection2.setInstanceFollowRedirects(false);
-                    httpURLConnection2.setRequestProperty("Range", "bytes=0-");
+                    httpURLConnection2.setRequestProperty(HttpHeaders.RANGE, "bytes=0-");
                     httpURLConnection = httpURLConnection2;
                 } catch (Exception unused) {
                     return httpURLConnection2;
@@ -350,22 +337,22 @@ public class am {
     }
 
     public void a(b bVar) {
-        this.f6742h = bVar;
+        this.f5524h = bVar;
     }
 
     public void a(c cVar) {
-        this.f6743i = cVar;
+        this.f5525i = cVar;
     }
 
-    public void a(int i10) {
-        this.f6748n = i10;
+    public void a(int i2) {
+        this.n = i2;
     }
 
     public void a(Uri.Builder builder) {
-        this.f6751q = builder;
+        this.q = builder;
     }
 
     public void a(String str) {
-        this.f6747m = str;
+        this.m = str;
     }
 }

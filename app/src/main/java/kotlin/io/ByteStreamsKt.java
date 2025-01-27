@@ -1,7 +1,6 @@
 package kotlin.io;
 
-import androidx.constraintlayout.core.motion.utils.TypedValues;
-import com.sigmob.sdk.videocache.sourcestorage.a;
+import f.b.a.d;
 import java.io.BufferedInputStream;
 import java.io.BufferedOutputStream;
 import java.io.BufferedReader;
@@ -12,136 +11,126 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.OutputStream;
 import java.io.OutputStreamWriter;
+import java.io.Reader;
+import java.io.Writer;
 import java.nio.charset.Charset;
 import java.util.NoSuchElementException;
 import kotlin.Deprecated;
-import kotlin.DeprecatedSinceKotlin;
 import kotlin.Metadata;
 import kotlin.ReplaceWith;
 import kotlin.SinceKotlin;
+import kotlin.TypeCastException;
 import kotlin.collections.ByteIterator;
 import kotlin.internal.InlineOnly;
 import kotlin.jvm.JvmName;
 import kotlin.jvm.internal.Intrinsics;
 import kotlin.text.Charsets;
-import m5.h;
-import xi.k;
 
-@Metadata(d1 = {"\u0000Z\n\u0000\n\u0002\u0018\u0002\n\u0002\u0018\u0002\n\u0000\n\u0002\u0010\b\n\u0002\u0018\u0002\n\u0002\u0018\u0002\n\u0000\n\u0002\u0018\u0002\n\u0000\n\u0002\u0018\u0002\n\u0000\n\u0002\u0018\u0002\n\u0000\n\u0002\u0018\u0002\n\u0002\u0010\u000e\n\u0000\n\u0002\u0010\t\n\u0002\b\u0002\n\u0002\u0010\u0012\n\u0002\b\u0003\n\u0002\u0018\u0002\n\u0002\b\u0003\n\u0002\u0018\u0002\n\u0000\n\u0002\u0018\u0002\n\u0000\u001a\u0017\u0010\u0000\u001a\u00020\u0001*\u00020\u00022\b\b\u0002\u0010\u0003\u001a\u00020\u0004H\u0087\b\u001a\u0017\u0010\u0000\u001a\u00020\u0005*\u00020\u00062\b\b\u0002\u0010\u0003\u001a\u00020\u0004H\u0087\b\u001a\u0017\u0010\u0007\u001a\u00020\b*\u00020\u00022\b\b\u0002\u0010\t\u001a\u00020\nH\u0087\b\u001a\u0017\u0010\u000b\u001a\u00020\f*\u00020\u00062\b\b\u0002\u0010\t\u001a\u00020\nH\u0087\b\u001a\u0017\u0010\r\u001a\u00020\u000e*\u00020\u000f2\b\b\u0002\u0010\t\u001a\u00020\nH\u0087\b\u001a\u001c\u0010\u0010\u001a\u00020\u0011*\u00020\u00022\u0006\u0010\u0012\u001a\u00020\u00062\b\b\u0002\u0010\u0003\u001a\u00020\u0004\u001a\r\u0010\u0013\u001a\u00020\u000e*\u00020\u0014H\u0087\b\u001a\u001d\u0010\u0013\u001a\u00020\u000e*\u00020\u00142\u0006\u0010\u0015\u001a\u00020\u00042\u0006\u0010\u0016\u001a\u00020\u0004H\u0087\b\u001a\r\u0010\u0017\u001a\u00020\u0018*\u00020\u0001H\u0086\u0002\u001a\f\u0010\u0019\u001a\u00020\u0014*\u00020\u0002H\u0007\u001a\u0016\u0010\u0019\u001a\u00020\u0014*\u00020\u00022\b\b\u0002\u0010\u001a\u001a\u00020\u0004H\u0007\u001a\u0017\u0010\u001b\u001a\u00020\u001c*\u00020\u00022\b\b\u0002\u0010\t\u001a\u00020\nH\u0087\b\u001a\u0017\u0010\u001d\u001a\u00020\u001e*\u00020\u00062\b\b\u0002\u0010\t\u001a\u00020\nH\u0087\b¨\u0006\u001f"}, d2 = {"buffered", "Ljava/io/BufferedInputStream;", "Ljava/io/InputStream;", "bufferSize", "", "Ljava/io/BufferedOutputStream;", "Ljava/io/OutputStream;", "bufferedReader", "Ljava/io/BufferedReader;", h.f28414g, "Ljava/nio/charset/Charset;", "bufferedWriter", "Ljava/io/BufferedWriter;", "byteInputStream", "Ljava/io/ByteArrayInputStream;", "", "copyTo", "", "out", "inputStream", "", TypedValues.CycleType.S_WAVE_OFFSET, a.f20681d, "iterator", "Lkotlin/collections/ByteIterator;", "readBytes", "estimatedSize", "reader", "Ljava/io/InputStreamReader;", "writer", "Ljava/io/OutputStreamWriter;", "kotlin-stdlib"}, k = 2, mv = {1, 9, 0}, xi = 48)
+@Metadata(bv = {1, 0, 3}, d1 = {"\u0000h\n\u0002\u0018\u0002\n\u0002\u0018\u0002\n\u0002\b\u0002\n\u0002\u0010\u000e\n\u0002\u0018\u0002\n\u0000\n\u0002\u0018\u0002\n\u0002\b\u0002\n\u0002\u0010\u0012\n\u0002\b\u0002\n\u0002\u0010\b\n\u0002\b\u0003\n\u0002\u0018\u0002\n\u0002\b\u0003\n\u0002\u0018\u0002\n\u0002\b\u0002\n\u0002\u0018\u0002\n\u0002\b\u0002\n\u0002\u0018\u0002\n\u0002\u0018\u0002\n\u0000\n\u0002\u0018\u0002\n\u0002\b\u0002\n\u0002\u0018\u0002\n\u0002\b\u0003\n\u0002\u0010\t\n\u0002\b\u0007\u001a\u0014\u0010\u0002\u001a\u00020\u0001*\u00020\u0000H\u0086\u0002¢\u0006\u0004\b\u0002\u0010\u0003\u001a\u001e\u0010\b\u001a\u00020\u0007*\u00020\u00042\b\b\u0002\u0010\u0006\u001a\u00020\u0005H\u0087\b¢\u0006\u0004\b\b\u0010\t\u001a\u0014\u0010\u000b\u001a\u00020\u0007*\u00020\nH\u0087\b¢\u0006\u0004\b\u000b\u0010\f\u001a$\u0010\u000b\u001a\u00020\u0007*\u00020\n2\u0006\u0010\u000e\u001a\u00020\r2\u0006\u0010\u000f\u001a\u00020\rH\u0087\b¢\u0006\u0004\b\u000b\u0010\u0010\u001a\u001e\u0010\u0013\u001a\u00020\u0000*\u00020\u00112\b\b\u0002\u0010\u0012\u001a\u00020\rH\u0087\b¢\u0006\u0004\b\u0013\u0010\u0014\u001a\u001e\u0010\u0016\u001a\u00020\u0015*\u00020\u00112\b\b\u0002\u0010\u0006\u001a\u00020\u0005H\u0087\b¢\u0006\u0004\b\u0016\u0010\u0017\u001a\u001e\u0010\u0019\u001a\u00020\u0018*\u00020\u00112\b\b\u0002\u0010\u0006\u001a\u00020\u0005H\u0087\b¢\u0006\u0004\b\u0019\u0010\u001a\u001a\u001e\u0010\u0013\u001a\u00020\u001c*\u00020\u001b2\b\b\u0002\u0010\u0012\u001a\u00020\rH\u0087\b¢\u0006\u0004\b\u0013\u0010\u001d\u001a\u001e\u0010\u001f\u001a\u00020\u001e*\u00020\u001b2\b\b\u0002\u0010\u0006\u001a\u00020\u0005H\u0087\b¢\u0006\u0004\b\u001f\u0010 \u001a\u001e\u0010\"\u001a\u00020!*\u00020\u001b2\b\b\u0002\u0010\u0006\u001a\u00020\u0005H\u0087\b¢\u0006\u0004\b\"\u0010#\u001a#\u0010&\u001a\u00020%*\u00020\u00112\u0006\u0010$\u001a\u00020\u001b2\b\b\u0002\u0010\u0012\u001a\u00020\r¢\u0006\u0004\b&\u0010'\u001a\u001d\u0010)\u001a\u00020\n*\u00020\u00112\b\b\u0002\u0010(\u001a\u00020\rH\u0007¢\u0006\u0004\b)\u0010*\u001a\u0013\u0010)\u001a\u00020\n*\u00020\u0011H\u0007¢\u0006\u0004\b)\u0010+¨\u0006,"}, d2 = {"Ljava/io/BufferedInputStream;", "Lkotlin/collections/ByteIterator;", "iterator", "(Ljava/io/BufferedInputStream;)Lkotlin/collections/ByteIterator;", "", "Ljava/nio/charset/Charset;", "charset", "Ljava/io/ByteArrayInputStream;", "byteInputStream", "(Ljava/lang/String;Ljava/nio/charset/Charset;)Ljava/io/ByteArrayInputStream;", "", "inputStream", "([B)Ljava/io/ByteArrayInputStream;", "", "offset", "length", "([BII)Ljava/io/ByteArrayInputStream;", "Ljava/io/InputStream;", "bufferSize", "buffered", "(Ljava/io/InputStream;I)Ljava/io/BufferedInputStream;", "Ljava/io/InputStreamReader;", "reader", "(Ljava/io/InputStream;Ljava/nio/charset/Charset;)Ljava/io/InputStreamReader;", "Ljava/io/BufferedReader;", "bufferedReader", "(Ljava/io/InputStream;Ljava/nio/charset/Charset;)Ljava/io/BufferedReader;", "Ljava/io/OutputStream;", "Ljava/io/BufferedOutputStream;", "(Ljava/io/OutputStream;I)Ljava/io/BufferedOutputStream;", "Ljava/io/OutputStreamWriter;", "writer", "(Ljava/io/OutputStream;Ljava/nio/charset/Charset;)Ljava/io/OutputStreamWriter;", "Ljava/io/BufferedWriter;", "bufferedWriter", "(Ljava/io/OutputStream;Ljava/nio/charset/Charset;)Ljava/io/BufferedWriter;", "out", "", "copyTo", "(Ljava/io/InputStream;Ljava/io/OutputStream;I)J", "estimatedSize", "readBytes", "(Ljava/io/InputStream;I)[B", "(Ljava/io/InputStream;)[B", "kotlin-stdlib"}, k = 2, mv = {1, 4, 0})
 @JvmName(name = "ByteStreamsKt")
-/* loaded from: classes4.dex */
+/* loaded from: classes.dex */
 public final class ByteStreamsKt {
     @InlineOnly
-    private static final BufferedInputStream buffered(InputStream inputStream, int i10) {
-        Intrinsics.checkNotNullParameter(inputStream, "<this>");
-        return inputStream instanceof BufferedInputStream ? (BufferedInputStream) inputStream : new BufferedInputStream(inputStream, i10);
+    private static final BufferedInputStream buffered(@d InputStream inputStream, int i2) {
+        return inputStream instanceof BufferedInputStream ? (BufferedInputStream) inputStream : new BufferedInputStream(inputStream, i2);
     }
 
-    public static /* synthetic */ BufferedInputStream buffered$default(InputStream inputStream, int i10, int i11, Object obj) {
-        if ((i11 & 1) != 0) {
-            i10 = 8192;
+    static /* synthetic */ BufferedInputStream buffered$default(InputStream inputStream, int i2, int i3, Object obj) {
+        if ((i3 & 1) != 0) {
+            i2 = 8192;
         }
-        Intrinsics.checkNotNullParameter(inputStream, "<this>");
-        return inputStream instanceof BufferedInputStream ? (BufferedInputStream) inputStream : new BufferedInputStream(inputStream, i10);
+        return inputStream instanceof BufferedInputStream ? (BufferedInputStream) inputStream : new BufferedInputStream(inputStream, i2);
     }
 
     @InlineOnly
-    private static final BufferedReader bufferedReader(InputStream inputStream, Charset charset) {
-        Intrinsics.checkNotNullParameter(inputStream, "<this>");
-        Intrinsics.checkNotNullParameter(charset, "charset");
-        return new BufferedReader(new InputStreamReader(inputStream, charset), 8192);
+    private static final BufferedReader bufferedReader(@d InputStream inputStream, Charset charset) {
+        Reader inputStreamReader = new InputStreamReader(inputStream, charset);
+        return inputStreamReader instanceof BufferedReader ? (BufferedReader) inputStreamReader : new BufferedReader(inputStreamReader, 8192);
     }
 
-    public static /* synthetic */ BufferedReader bufferedReader$default(InputStream inputStream, Charset charset, int i10, Object obj) {
-        if ((i10 & 1) != 0) {
+    static /* synthetic */ BufferedReader bufferedReader$default(InputStream inputStream, Charset charset, int i2, Object obj) {
+        if ((i2 & 1) != 0) {
             charset = Charsets.UTF_8;
         }
-        Intrinsics.checkNotNullParameter(inputStream, "<this>");
-        Intrinsics.checkNotNullParameter(charset, "charset");
-        return new BufferedReader(new InputStreamReader(inputStream, charset), 8192);
+        Reader inputStreamReader = new InputStreamReader(inputStream, charset);
+        return inputStreamReader instanceof BufferedReader ? (BufferedReader) inputStreamReader : new BufferedReader(inputStreamReader, 8192);
     }
 
     @InlineOnly
-    private static final BufferedWriter bufferedWriter(OutputStream outputStream, Charset charset) {
-        Intrinsics.checkNotNullParameter(outputStream, "<this>");
-        Intrinsics.checkNotNullParameter(charset, "charset");
-        return new BufferedWriter(new OutputStreamWriter(outputStream, charset), 8192);
+    private static final BufferedWriter bufferedWriter(@d OutputStream outputStream, Charset charset) {
+        Writer outputStreamWriter = new OutputStreamWriter(outputStream, charset);
+        return outputStreamWriter instanceof BufferedWriter ? (BufferedWriter) outputStreamWriter : new BufferedWriter(outputStreamWriter, 8192);
     }
 
-    public static /* synthetic */ BufferedWriter bufferedWriter$default(OutputStream outputStream, Charset charset, int i10, Object obj) {
-        if ((i10 & 1) != 0) {
+    static /* synthetic */ BufferedWriter bufferedWriter$default(OutputStream outputStream, Charset charset, int i2, Object obj) {
+        if ((i2 & 1) != 0) {
             charset = Charsets.UTF_8;
         }
-        Intrinsics.checkNotNullParameter(outputStream, "<this>");
-        Intrinsics.checkNotNullParameter(charset, "charset");
-        return new BufferedWriter(new OutputStreamWriter(outputStream, charset), 8192);
+        Writer outputStreamWriter = new OutputStreamWriter(outputStream, charset);
+        return outputStreamWriter instanceof BufferedWriter ? (BufferedWriter) outputStreamWriter : new BufferedWriter(outputStreamWriter, 8192);
     }
 
     @InlineOnly
-    private static final ByteArrayInputStream byteInputStream(String str, Charset charset) {
-        Intrinsics.checkNotNullParameter(str, "<this>");
-        Intrinsics.checkNotNullParameter(charset, "charset");
+    private static final ByteArrayInputStream byteInputStream(@d String str, Charset charset) {
+        if (str == null) {
+            throw new TypeCastException("null cannot be cast to non-null type java.lang.String");
+        }
         byte[] bytes = str.getBytes(charset);
-        Intrinsics.checkNotNullExpressionValue(bytes, "getBytes(...)");
+        Intrinsics.checkExpressionValueIsNotNull(bytes, "(this as java.lang.String).getBytes(charset)");
         return new ByteArrayInputStream(bytes);
     }
 
-    public static /* synthetic */ ByteArrayInputStream byteInputStream$default(String str, Charset charset, int i10, Object obj) {
-        if ((i10 & 1) != 0) {
+    static /* synthetic */ ByteArrayInputStream byteInputStream$default(String str, Charset charset, int i2, Object obj) {
+        if ((i2 & 1) != 0) {
             charset = Charsets.UTF_8;
         }
-        Intrinsics.checkNotNullParameter(str, "<this>");
-        Intrinsics.checkNotNullParameter(charset, "charset");
+        if (str == null) {
+            throw new TypeCastException("null cannot be cast to non-null type java.lang.String");
+        }
         byte[] bytes = str.getBytes(charset);
-        Intrinsics.checkNotNullExpressionValue(bytes, "getBytes(...)");
+        Intrinsics.checkExpressionValueIsNotNull(bytes, "(this as java.lang.String).getBytes(charset)");
         return new ByteArrayInputStream(bytes);
     }
 
-    public static final long copyTo(@k InputStream inputStream, @k OutputStream out, int i10) {
-        Intrinsics.checkNotNullParameter(inputStream, "<this>");
-        Intrinsics.checkNotNullParameter(out, "out");
-        byte[] bArr = new byte[i10];
-        int read = inputStream.read(bArr);
-        long j10 = 0;
+    public static final long copyTo(@d InputStream copyTo, @d OutputStream out, int i2) {
+        Intrinsics.checkParameterIsNotNull(copyTo, "$this$copyTo");
+        Intrinsics.checkParameterIsNotNull(out, "out");
+        byte[] bArr = new byte[i2];
+        int read = copyTo.read(bArr);
+        long j2 = 0;
         while (read >= 0) {
             out.write(bArr, 0, read);
-            j10 += read;
-            read = inputStream.read(bArr);
+            j2 += read;
+            read = copyTo.read(bArr);
         }
-        return j10;
+        return j2;
     }
 
-    public static /* synthetic */ long copyTo$default(InputStream inputStream, OutputStream outputStream, int i10, int i11, Object obj) {
-        if ((i11 & 2) != 0) {
-            i10 = 8192;
+    public static /* synthetic */ long copyTo$default(InputStream inputStream, OutputStream outputStream, int i2, int i3, Object obj) {
+        if ((i3 & 2) != 0) {
+            i2 = 8192;
         }
-        return copyTo(inputStream, outputStream, i10);
+        return copyTo(inputStream, outputStream, i2);
     }
 
     @InlineOnly
-    private static final ByteArrayInputStream inputStream(byte[] bArr) {
-        Intrinsics.checkNotNullParameter(bArr, "<this>");
+    private static final ByteArrayInputStream inputStream(@d byte[] bArr) {
         return new ByteArrayInputStream(bArr);
     }
 
-    @k
-    public static final ByteIterator iterator(@k BufferedInputStream bufferedInputStream) {
-        Intrinsics.checkNotNullParameter(bufferedInputStream, "<this>");
+    @d
+    public static final ByteIterator iterator(@d final BufferedInputStream iterator) {
+        Intrinsics.checkParameterIsNotNull(iterator, "$this$iterator");
         return new ByteIterator() { // from class: kotlin.io.ByteStreamsKt$iterator$1
-            final /* synthetic */ BufferedInputStream $this_iterator;
             private boolean finished;
             private int nextByte = -1;
             private boolean nextPrepared;
-
-            public ByteStreamsKt$iterator$1(BufferedInputStream bufferedInputStream2) {
-                bufferedInputStream = bufferedInputStream2;
-            }
 
             private final void prepareNext() {
                 if (this.nextPrepared || this.finished) {
                     return;
                 }
-                int read = bufferedInputStream.read();
+                int read = iterator.read();
                 this.nextByte = read;
                 this.nextPrepared = true;
                 this.finished = read == -1;
@@ -171,104 +160,92 @@ public final class ByteStreamsKt {
                 if (this.finished) {
                     throw new NoSuchElementException("Input stream is over.");
                 }
-                byte b10 = (byte) this.nextByte;
+                byte b2 = (byte) this.nextByte;
                 this.nextPrepared = false;
-                return b10;
+                return b2;
             }
 
-            public final void setFinished(boolean z10) {
-                this.finished = z10;
+            public final void setFinished(boolean z) {
+                this.finished = z;
             }
 
-            public final void setNextByte(int i10) {
-                this.nextByte = i10;
+            public final void setNextByte(int i2) {
+                this.nextByte = i2;
             }
 
-            public final void setNextPrepared(boolean z10) {
-                this.nextPrepared = z10;
+            public final void setNextPrepared(boolean z) {
+                this.nextPrepared = z;
             }
         };
     }
 
+    @d
     @Deprecated(message = "Use readBytes() overload without estimatedSize parameter", replaceWith = @ReplaceWith(expression = "readBytes()", imports = {}))
-    @k
-    @DeprecatedSinceKotlin(errorSince = "1.5", warningSince = "1.3")
-    public static final byte[] readBytes(@k InputStream inputStream, int i10) {
-        Intrinsics.checkNotNullParameter(inputStream, "<this>");
-        ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream(Math.max(i10, inputStream.available()));
-        copyTo$default(inputStream, byteArrayOutputStream, 0, 2, null);
+    public static final byte[] readBytes(@d InputStream readBytes, int i2) {
+        Intrinsics.checkParameterIsNotNull(readBytes, "$this$readBytes");
+        ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream(Math.max(i2, readBytes.available()));
+        copyTo$default(readBytes, byteArrayOutputStream, 0, 2, null);
         byte[] byteArray = byteArrayOutputStream.toByteArray();
-        Intrinsics.checkNotNullExpressionValue(byteArray, "toByteArray(...)");
+        Intrinsics.checkExpressionValueIsNotNull(byteArray, "buffer.toByteArray()");
         return byteArray;
     }
 
-    public static /* synthetic */ byte[] readBytes$default(InputStream inputStream, int i10, int i11, Object obj) {
-        if ((i11 & 1) != 0) {
-            i10 = 8192;
+    public static /* synthetic */ byte[] readBytes$default(InputStream inputStream, int i2, int i3, Object obj) {
+        if ((i3 & 1) != 0) {
+            i2 = 8192;
         }
-        return readBytes(inputStream, i10);
+        return readBytes(inputStream, i2);
     }
 
     @InlineOnly
-    private static final InputStreamReader reader(InputStream inputStream, Charset charset) {
-        Intrinsics.checkNotNullParameter(inputStream, "<this>");
-        Intrinsics.checkNotNullParameter(charset, "charset");
+    private static final InputStreamReader reader(@d InputStream inputStream, Charset charset) {
         return new InputStreamReader(inputStream, charset);
     }
 
-    public static /* synthetic */ InputStreamReader reader$default(InputStream inputStream, Charset charset, int i10, Object obj) {
-        if ((i10 & 1) != 0) {
+    static /* synthetic */ InputStreamReader reader$default(InputStream inputStream, Charset charset, int i2, Object obj) {
+        if ((i2 & 1) != 0) {
             charset = Charsets.UTF_8;
         }
-        Intrinsics.checkNotNullParameter(inputStream, "<this>");
-        Intrinsics.checkNotNullParameter(charset, "charset");
         return new InputStreamReader(inputStream, charset);
     }
 
     @InlineOnly
-    private static final OutputStreamWriter writer(OutputStream outputStream, Charset charset) {
-        Intrinsics.checkNotNullParameter(outputStream, "<this>");
-        Intrinsics.checkNotNullParameter(charset, "charset");
+    private static final OutputStreamWriter writer(@d OutputStream outputStream, Charset charset) {
         return new OutputStreamWriter(outputStream, charset);
     }
 
-    public static /* synthetic */ OutputStreamWriter writer$default(OutputStream outputStream, Charset charset, int i10, Object obj) {
-        if ((i10 & 1) != 0) {
+    static /* synthetic */ OutputStreamWriter writer$default(OutputStream outputStream, Charset charset, int i2, Object obj) {
+        if ((i2 & 1) != 0) {
             charset = Charsets.UTF_8;
         }
-        Intrinsics.checkNotNullParameter(outputStream, "<this>");
-        Intrinsics.checkNotNullParameter(charset, "charset");
         return new OutputStreamWriter(outputStream, charset);
     }
 
     @InlineOnly
-    private static final BufferedOutputStream buffered(OutputStream outputStream, int i10) {
-        Intrinsics.checkNotNullParameter(outputStream, "<this>");
-        return outputStream instanceof BufferedOutputStream ? (BufferedOutputStream) outputStream : new BufferedOutputStream(outputStream, i10);
+    private static final BufferedOutputStream buffered(@d OutputStream outputStream, int i2) {
+        return outputStream instanceof BufferedOutputStream ? (BufferedOutputStream) outputStream : new BufferedOutputStream(outputStream, i2);
+    }
+
+    static /* synthetic */ BufferedOutputStream buffered$default(OutputStream outputStream, int i2, int i3, Object obj) {
+        if ((i3 & 1) != 0) {
+            i2 = 8192;
+        }
+        return outputStream instanceof BufferedOutputStream ? (BufferedOutputStream) outputStream : new BufferedOutputStream(outputStream, i2);
     }
 
     @InlineOnly
-    private static final ByteArrayInputStream inputStream(byte[] bArr, int i10, int i11) {
-        Intrinsics.checkNotNullParameter(bArr, "<this>");
-        return new ByteArrayInputStream(bArr, i10, i11);
+    private static final ByteArrayInputStream inputStream(@d byte[] bArr, int i2, int i3) {
+        return new ByteArrayInputStream(bArr, i2, i3);
     }
 
-    public static /* synthetic */ BufferedOutputStream buffered$default(OutputStream outputStream, int i10, int i11, Object obj) {
-        if ((i11 & 1) != 0) {
-            i10 = 8192;
-        }
-        Intrinsics.checkNotNullParameter(outputStream, "<this>");
-        return outputStream instanceof BufferedOutputStream ? (BufferedOutputStream) outputStream : new BufferedOutputStream(outputStream, i10);
-    }
-
+    @d
     @SinceKotlin(version = "1.3")
-    @k
-    public static final byte[] readBytes(@k InputStream inputStream) {
-        Intrinsics.checkNotNullParameter(inputStream, "<this>");
-        ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream(Math.max(8192, inputStream.available()));
-        copyTo$default(inputStream, byteArrayOutputStream, 0, 2, null);
+    public static final byte[] readBytes(@d InputStream readBytes) {
+        Intrinsics.checkParameterIsNotNull(readBytes, "$this$readBytes");
+        ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream(Math.max(8192, readBytes.available()));
+        copyTo$default(readBytes, byteArrayOutputStream, 0, 2, null);
         byte[] byteArray = byteArrayOutputStream.toByteArray();
-        Intrinsics.checkNotNullExpressionValue(byteArray, "toByteArray(...)");
+        Intrinsics.checkExpressionValueIsNotNull(byteArray, "buffer.toByteArray()");
         return byteArray;
     }
 }

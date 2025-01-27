@@ -1,39 +1,33 @@
 package kotlin.jvm.internal;
 
+import f.b.a.d;
+import f.b.a.e;
 import java.lang.reflect.Array;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.Iterator;
-import kotlin.Deprecated;
-import kotlin.DeprecatedSinceKotlin;
 import kotlin.Metadata;
+import kotlin.TypeCastException;
 import kotlin.jvm.JvmName;
 import kotlin.jvm.functions.Function0;
 import kotlin.jvm.functions.Function1;
 import kotlin.jvm.functions.Function2;
-import xi.k;
-import xi.l;
 
-@Metadata(d1 = {"\u00002\n\u0000\n\u0002\u0010\u0011\n\u0002\u0010\u0000\n\u0002\b\u0002\n\u0002\u0010\b\n\u0002\b\u0002\n\u0002\u0010\u001e\n\u0002\b\u0006\n\u0002\u0018\u0002\n\u0000\n\u0002\u0018\u0002\n\u0000\n\u0002\u0018\u0002\n\u0002\b\u0002\u001a#\u0010\u0006\u001a\n\u0012\u0006\u0012\u0004\u0018\u00010\u00020\u00012\n\u0010\u0007\u001a\u0006\u0012\u0002\b\u00030\bH\u0007¢\u0006\u0004\b\t\u0010\n\u001a5\u0010\u0006\u001a\n\u0012\u0006\u0012\u0004\u0018\u00010\u00020\u00012\n\u0010\u0007\u001a\u0006\u0012\u0002\b\u00030\b2\u0010\u0010\u000b\u001a\f\u0012\u0006\u0012\u0004\u0018\u00010\u0002\u0018\u00010\u0001H\u0007¢\u0006\u0004\b\t\u0010\f\u001a~\u0010\r\u001a\n\u0012\u0006\u0012\u0004\u0018\u00010\u00020\u00012\n\u0010\u0007\u001a\u0006\u0012\u0002\b\u00030\b2\u0014\u0010\u000e\u001a\u0010\u0012\f\u0012\n\u0012\u0006\u0012\u0004\u0018\u00010\u00020\u00010\u000f2\u001a\u0010\u0010\u001a\u0016\u0012\u0004\u0012\u00020\u0005\u0012\f\u0012\n\u0012\u0006\u0012\u0004\u0018\u00010\u00020\u00010\u00112(\u0010\u0012\u001a$\u0012\f\u0012\n\u0012\u0006\u0012\u0004\u0018\u00010\u00020\u0001\u0012\u0004\u0012\u00020\u0005\u0012\f\u0012\n\u0012\u0006\u0012\u0004\u0018\u00010\u00020\u00010\u0013H\u0082\b¢\u0006\u0002\u0010\u0014\"\u0018\u0010\u0000\u001a\n\u0012\u0006\u0012\u0004\u0018\u00010\u00020\u0001X\u0082\u0004¢\u0006\u0004\n\u0002\u0010\u0003\"\u000e\u0010\u0004\u001a\u00020\u0005X\u0082T¢\u0006\u0002\n\u0000¨\u0006\u0015"}, d2 = {"EMPTY", "", "", "[Ljava/lang/Object;", "MAX_SIZE", "", "collectionToArray", "collection", "", "toArray", "(Ljava/util/Collection;)[Ljava/lang/Object;", "a", "(Ljava/util/Collection;[Ljava/lang/Object;)[Ljava/lang/Object;", "toArrayImpl", "empty", "Lkotlin/Function0;", "alloc", "Lkotlin/Function1;", "trim", "Lkotlin/Function2;", "(Ljava/util/Collection;Lkotlin/jvm/functions/Function0;Lkotlin/jvm/functions/Function1;Lkotlin/jvm/functions/Function2;)[Ljava/lang/Object;", "kotlin-stdlib"}, k = 2, mv = {1, 9, 0}, xi = 48)
+@Metadata(bv = {1, 0, 3}, d1 = {"\u0000*\n\u0002\u0010\u001e\n\u0000\n\u0002\u0010\u0011\n\u0002\u0010\u0000\n\u0002\b\u0005\n\u0002\u0018\u0002\n\u0000\n\u0002\u0018\u0002\n\u0002\u0010\b\n\u0000\n\u0002\u0018\u0002\n\u0002\b\b\u001a#\u0010\u0006\u001a\n\u0012\u0006\u0012\u0004\u0018\u00010\u00030\u00022\n\u0010\u0001\u001a\u0006\u0012\u0002\b\u00030\u0000H\u0007¢\u0006\u0004\b\u0004\u0010\u0005\u001a5\u0010\u0006\u001a\n\u0012\u0006\u0012\u0004\u0018\u00010\u00030\u00022\n\u0010\u0001\u001a\u0006\u0012\u0002\b\u00030\u00002\u0010\u0010\u0007\u001a\f\u0012\u0006\u0012\u0004\u0018\u00010\u0003\u0018\u00010\u0002H\u0007¢\u0006\u0004\b\u0004\u0010\b\u001a\u0080\u0001\u0010\u0010\u001a\n\u0012\u0006\u0012\u0004\u0018\u00010\u00030\u00022\n\u0010\u0001\u001a\u0006\u0012\u0002\b\u00030\u00002\u0014\u0010\n\u001a\u0010\u0012\f\u0012\n\u0012\u0006\u0012\u0004\u0018\u00010\u00030\u00020\t2\u001a\u0010\r\u001a\u0016\u0012\u0004\u0012\u00020\f\u0012\f\u0012\n\u0012\u0006\u0012\u0004\u0018\u00010\u00030\u00020\u000b2(\u0010\u000f\u001a$\u0012\f\u0012\n\u0012\u0006\u0012\u0004\u0018\u00010\u00030\u0002\u0012\u0004\u0012\u00020\f\u0012\f\u0012\n\u0012\u0006\u0012\u0004\u0018\u00010\u00030\u00020\u000eH\u0082\b¢\u0006\u0004\b\u0010\u0010\u0011\"\u001e\u0010\u0012\u001a\n\u0012\u0006\u0012\u0004\u0018\u00010\u00030\u00028\u0002@\u0002X\u0082\u0004¢\u0006\u0006\n\u0004\b\u0012\u0010\u0013\"\u0016\u0010\u0014\u001a\u00020\f8\u0002@\u0002X\u0082T¢\u0006\u0006\n\u0004\b\u0014\u0010\u0015¨\u0006\u0016"}, d2 = {"", "collection", "", "", "toArray", "(Ljava/util/Collection;)[Ljava/lang/Object;", "collectionToArray", "a", "(Ljava/util/Collection;[Ljava/lang/Object;)[Ljava/lang/Object;", "Lkotlin/Function0;", "empty", "Lkotlin/Function1;", "", "alloc", "Lkotlin/Function2;", "trim", "toArrayImpl", "(Ljava/util/Collection;Lkotlin/jvm/functions/Function0;Lkotlin/jvm/functions/Function1;Lkotlin/jvm/functions/Function2;)[Ljava/lang/Object;", "EMPTY", "[Ljava/lang/Object;", "MAX_SIZE", "I", "kotlin-stdlib"}, k = 2, mv = {1, 4, 0})
 @JvmName(name = "CollectionToArray")
-@SourceDebugExtension({"SMAP\nCollectionToArray.kt\nKotlin\n*S Kotlin\n*F\n+ 1 CollectionToArray.kt\nkotlin/jvm/internal/CollectionToArray\n+ 2 ArrayIntrinsics.kt\nkotlin/ArrayIntrinsicsKt\n*L\n1#1,88:1\n63#1,22:89\n63#1,22:111\n26#2:133\n*S KotlinDebug\n*F\n+ 1 CollectionToArray.kt\nkotlin/jvm/internal/CollectionToArray\n*L\n22#1:89,22\n37#1:111,22\n14#1:133\n*E\n"})
-/* loaded from: classes4.dex */
+/* loaded from: classes5.dex */
 public final class CollectionToArray {
-
-    @k
     private static final Object[] EMPTY = new Object[0];
     private static final int MAX_SIZE = 2147483645;
 
-    @k
+    @d
     @JvmName(name = "toArray")
-    @Deprecated(message = "This function will be made internal in a future release")
-    @DeprecatedSinceKotlin(warningSince = "1.9")
-    public static final Object[] toArray(@k Collection<?> collection, @l Object[] objArr) {
+    public static final Object[] toArray(@d Collection<?> collection, @e Object[] objArr) {
         Object[] objArr2;
-        Intrinsics.checkNotNullParameter(collection, "collection");
+        Intrinsics.checkParameterIsNotNull(collection, "collection");
         objArr.getClass();
         int size = collection.size();
-        int i10 = 0;
+        int i2 = 0;
         if (size == 0) {
             if (objArr.length <= 0) {
                 return objArr;
@@ -53,35 +47,37 @@ public final class CollectionToArray {
             objArr2 = objArr;
         } else {
             Object newInstance = Array.newInstance(objArr.getClass().getComponentType(), size);
-            Intrinsics.checkNotNull(newInstance, "null cannot be cast to non-null type kotlin.Array<kotlin.Any?>");
+            if (newInstance == null) {
+                throw new TypeCastException("null cannot be cast to non-null type kotlin.Array<kotlin.Any?>");
+            }
             objArr2 = (Object[]) newInstance;
         }
         while (true) {
-            int i11 = i10 + 1;
-            objArr2[i10] = it.next();
-            if (i11 >= objArr2.length) {
+            int i3 = i2 + 1;
+            objArr2[i2] = it.next();
+            if (i3 >= objArr2.length) {
                 if (!it.hasNext()) {
                     return objArr2;
                 }
-                int i12 = ((i11 * 3) + 1) >>> 1;
-                if (i12 <= i11) {
-                    i12 = MAX_SIZE;
-                    if (i11 >= MAX_SIZE) {
+                int i4 = ((i3 * 3) + 1) >>> 1;
+                if (i4 <= i3) {
+                    if (i3 >= MAX_SIZE) {
                         throw new OutOfMemoryError();
                     }
+                    i4 = MAX_SIZE;
                 }
-                objArr2 = Arrays.copyOf(objArr2, i12);
-                Intrinsics.checkNotNullExpressionValue(objArr2, "copyOf(...)");
+                objArr2 = Arrays.copyOf(objArr2, i4);
+                Intrinsics.checkExpressionValueIsNotNull(objArr2, "Arrays.copyOf(result, newSize)");
             } else if (!it.hasNext()) {
                 if (objArr2 == objArr) {
-                    objArr[i11] = null;
+                    objArr[i3] = null;
                     return objArr;
                 }
-                Object[] copyOf = Arrays.copyOf(objArr2, i11);
-                Intrinsics.checkNotNullExpressionValue(copyOf, "copyOf(...)");
+                Object[] copyOf = Arrays.copyOf(objArr2, i3);
+                Intrinsics.checkExpressionValueIsNotNull(copyOf, "Arrays.copyOf(result, size)");
                 return copyOf;
             }
-            i10 = i11;
+            i2 = i3;
         }
     }
 
@@ -100,66 +96,64 @@ public final class CollectionToArray {
             return function0.invoke();
         }
         Object[] invoke = function1.invoke(Integer.valueOf(size));
-        int i10 = 0;
-        ?? r32 = invoke;
+        int i2 = 0;
+        ?? r3 = invoke;
         while (true) {
-            int i11 = i10 + 1;
-            r32[i10] = it.next();
-            if (i11 >= r32.length) {
+            int i3 = i2 + 1;
+            r3[i2] = it.next();
+            if (i3 >= r3.length) {
                 if (!it.hasNext()) {
-                    return r32;
+                    return r3;
                 }
-                int i12 = ((i11 * 3) + 1) >>> 1;
-                if (i12 <= i11) {
-                    i12 = MAX_SIZE;
-                    if (i11 >= MAX_SIZE) {
+                int i4 = ((i3 * 3) + 1) >>> 1;
+                if (i4 <= i3) {
+                    if (i3 >= MAX_SIZE) {
                         throw new OutOfMemoryError();
                     }
+                    i4 = MAX_SIZE;
                 }
-                r32 = Arrays.copyOf((Object[]) r32, i12);
-                Intrinsics.checkNotNullExpressionValue(r32, "copyOf(...)");
+                r3 = Arrays.copyOf((Object[]) r3, i4);
+                Intrinsics.checkExpressionValueIsNotNull(r3, "Arrays.copyOf(result, newSize)");
             } else if (!it.hasNext()) {
-                return function2.invoke(r32, Integer.valueOf(i11));
+                return function2.invoke(r3, Integer.valueOf(i3));
             }
-            i10 = i11;
-            r32 = r32;
+            i2 = i3;
+            r3 = r3;
         }
     }
 
-    @k
+    @d
     @JvmName(name = "toArray")
-    @Deprecated(message = "This function will be made internal in a future release")
-    @DeprecatedSinceKotlin(warningSince = "1.9")
-    public static final Object[] toArray(@k Collection<?> collection) {
-        Intrinsics.checkNotNullParameter(collection, "collection");
+    public static final Object[] toArray(@d Collection<?> collection) {
+        Intrinsics.checkParameterIsNotNull(collection, "collection");
         int size = collection.size();
         if (size != 0) {
             Iterator<?> it = collection.iterator();
             if (it.hasNext()) {
                 Object[] objArr = new Object[size];
-                int i10 = 0;
+                int i2 = 0;
                 while (true) {
-                    int i11 = i10 + 1;
-                    objArr[i10] = it.next();
-                    if (i11 >= objArr.length) {
+                    int i3 = i2 + 1;
+                    objArr[i2] = it.next();
+                    if (i3 >= objArr.length) {
                         if (!it.hasNext()) {
                             return objArr;
                         }
-                        int i12 = ((i11 * 3) + 1) >>> 1;
-                        if (i12 <= i11) {
-                            i12 = MAX_SIZE;
-                            if (i11 >= MAX_SIZE) {
+                        int i4 = ((i3 * 3) + 1) >>> 1;
+                        if (i4 <= i3) {
+                            if (i3 >= MAX_SIZE) {
                                 throw new OutOfMemoryError();
                             }
+                            i4 = MAX_SIZE;
                         }
-                        objArr = Arrays.copyOf(objArr, i12);
-                        Intrinsics.checkNotNullExpressionValue(objArr, "copyOf(...)");
+                        objArr = Arrays.copyOf(objArr, i4);
+                        Intrinsics.checkExpressionValueIsNotNull(objArr, "Arrays.copyOf(result, newSize)");
                     } else if (!it.hasNext()) {
-                        Object[] copyOf = Arrays.copyOf(objArr, i11);
-                        Intrinsics.checkNotNullExpressionValue(copyOf, "copyOf(...)");
+                        Object[] copyOf = Arrays.copyOf(objArr, i3);
+                        Intrinsics.checkExpressionValueIsNotNull(copyOf, "Arrays.copyOf(result, size)");
                         return copyOf;
                     }
-                    i10 = i11;
+                    i2 = i3;
                 }
             }
         }

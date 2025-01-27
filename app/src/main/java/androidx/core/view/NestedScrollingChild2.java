@@ -4,13 +4,13 @@ import androidx.annotation.Nullable;
 
 /* loaded from: classes.dex */
 public interface NestedScrollingChild2 extends NestedScrollingChild {
-    boolean dispatchNestedPreScroll(int i10, int i11, @Nullable int[] iArr, @Nullable int[] iArr2, int i12);
+    boolean dispatchNestedPreScroll(int i2, int i3, @Nullable int[] iArr, @Nullable int[] iArr2, int i4);
 
-    boolean dispatchNestedScroll(int i10, int i11, int i12, int i13, @Nullable int[] iArr, int i14);
+    boolean dispatchNestedScroll(int i2, int i3, int i4, int i5, @Nullable int[] iArr, int i6);
 
-    boolean hasNestedScrollingParent(int i10);
+    boolean hasNestedScrollingParent(int i2);
 
-    boolean startNestedScroll(int i10, int i11);
+    boolean startNestedScroll(int i2, int i3);
 
-    void stopNestedScroll(int i10);
+    void stopNestedScroll(int i2);
 }

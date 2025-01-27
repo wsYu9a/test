@@ -16,7 +16,7 @@ public class BetaReceiver extends BroadcastReceiver {
 
     public static synchronized void addTask(DownloadTask downloadTask) {
         synchronized (BetaReceiver.class) {
-            netStatus = com.tencent.bugly.beta.global.a.a(e.f22100b.f22126v);
+            netStatus = com.tencent.bugly.beta.global.a.a(e.f24621b.v);
             NetNotifyDialog netNotifyDialog = new NetNotifyDialog();
             netNotifyDialog.task = downloadTask;
             netListeners.put(downloadTask.getDownloadUrl(), new d(2, downloadTask, Boolean.FALSE, netNotifyDialog));

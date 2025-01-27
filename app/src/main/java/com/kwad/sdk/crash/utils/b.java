@@ -6,11 +6,20 @@ import java.net.HttpURLConnection;
 import java.net.URLConnection;
 import java.util.zip.ZipFile;
 
-/* loaded from: classes3.dex */
+/* loaded from: classes2.dex */
 public final class b {
     public static void a(URLConnection uRLConnection) {
         if (uRLConnection instanceof HttpURLConnection) {
             ((HttpURLConnection) uRLConnection).disconnect();
+        }
+    }
+
+    public static void closeQuietly(Closeable closeable) {
+        if (closeable != null) {
+            try {
+                closeable.close();
+            } catch (Throwable unused) {
+            }
         }
     }
 
@@ -21,15 +30,6 @@ public final class b {
         try {
             zipFile.close();
         } catch (IOException unused) {
-        }
-    }
-
-    public static void closeQuietly(Closeable closeable) {
-        if (closeable != null) {
-            try {
-                closeable.close();
-            } catch (Throwable unused) {
-            }
         }
     }
 }

@@ -7,7 +7,7 @@ import java.io.Serializable;
 
 @KsAdSdkApi
 @Keep
-/* loaded from: classes3.dex */
+/* loaded from: classes2.dex */
 public interface KsVideoPlayConfig extends Serializable {
 
     @KsAdSdkApi
@@ -31,8 +31,8 @@ public interface KsVideoPlayConfig extends Serializable {
 
         @KsAdSdkApi
         @Keep
-        public Builder showLandscape(boolean z10) {
-            this.showLandscape = z10;
+        public Builder showLandscape(boolean z) {
+            this.showLandscape = z;
             return this;
         }
 
@@ -45,15 +45,15 @@ public interface KsVideoPlayConfig extends Serializable {
 
         @KsAdSdkApi
         @Keep
-        public Builder skipThirtySecond(boolean z10) {
-            this.skipLongTime = z10;
+        public Builder skipThirtySecond(boolean z) {
+            this.skipLongTime = z;
             return this;
         }
 
         @KsAdSdkApi
         @Keep
-        public Builder videoSoundEnable(boolean z10) {
-            this.videoSoundEnable = z10;
+        public Builder videoSoundEnable(boolean z) {
+            this.videoSoundEnable = z;
             return this;
         }
     }
@@ -76,7 +76,7 @@ public interface KsVideoPlayConfig extends Serializable {
 
     @KsAdSdkApi
     @Keep
-    void setShowLandscape(boolean z10);
+    void setShowLandscape(boolean z);
 
     @KsAdSdkApi
     @Keep
@@ -84,9 +84,9 @@ public interface KsVideoPlayConfig extends Serializable {
 
     @KsAdSdkApi
     @Keep
-    void setSkipThirtySecond(boolean z10);
+    void setSkipThirtySecond(boolean z);
 
     @KsAdSdkApi
     @Keep
-    void setVideoSoundEnable(boolean z10);
+    void setVideoSoundEnable(boolean z);
 }

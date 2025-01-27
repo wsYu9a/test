@@ -3,23 +3,22 @@ package com.kwad.components.ad.fullscreen;
 import com.kwad.sdk.core.response.model.AdInfo;
 import com.kwad.sdk.core.response.model.AdTemplate;
 
-/* loaded from: classes2.dex */
+/* loaded from: classes.dex */
 public final class b {
-    public final boolean hG = com.kwad.components.ad.reward.a.b.gZ();
     private AdInfo mAdInfo;
     private AdTemplate mAdTemplate;
 
     public b(AdTemplate adTemplate) {
         this.mAdTemplate = adTemplate;
-        this.mAdInfo = com.kwad.sdk.core.response.b.e.eb(adTemplate);
+        this.mAdInfo = com.kwad.sdk.core.response.a.d.cb(adTemplate);
     }
 
-    public final AdInfo ce() {
+    public final AdInfo bK() {
         return this.mAdInfo;
     }
 
-    public final boolean cf() {
-        return com.kwad.sdk.core.response.b.e.en(this.mAdTemplate);
+    public final boolean bL() {
+        return com.kwad.sdk.core.response.a.d.co(this.mAdTemplate);
     }
 
     public final AdTemplate getAdTemplate() {

@@ -1,88 +1,82 @@
 package com.martian.mibook.lib.account.response;
 
-import ba.j;
+import com.martian.libsupport.h;
 import com.martian.rpauth.response.IAccount;
 
-/* loaded from: classes3.dex */
+/* loaded from: classes.dex */
 public class MiTaskAccount implements IAccount {
 
-    @j.a
+    @h.a
     private Integer coins;
 
-    @j.a
+    @h.a
     private Integer coinsRate;
 
-    @j.a
+    @h.a
     private Integer commission;
 
-    @j.a
+    @h.a
     private Integer deposit;
 
-    @j.a
+    @h.a
     private Integer duration;
 
-    @j.a
+    @h.a
     private Boolean fiveStar;
 
-    @j.a
+    @h.a
     private Boolean fresh;
 
-    @j.a
+    @h.a
     private Integer money;
 
-    @j.a
+    @h.a
     private Integer mrate;
 
-    @j.a
+    @h.a
     private Boolean phoneBound;
 
-    @j.a
+    @h.a
     private Integer rate;
 
-    @j.a
+    @h.a
     private String rateNotice;
 
-    @j.a
+    @h.a
     private Boolean showCommission;
 
-    @j.a
+    @h.a
     private Integer totalDuration;
 
-    @j.a
+    @h.a
     private Integer totalReadingCoins;
 
-    @j.a
+    @h.a
     private Integer totalReadingDuration;
 
-    @j.a
+    @h.a
     private Integer totalSaleCommission;
 
-    @j.a
+    @h.a
     private Long uid;
 
-    @j.a
+    @h.a
     private Integer valid_invitee_num;
 
-    @j.a
+    @h.a
     private Integer wealth;
 
-    @j.a
+    @h.a
     private Integer freshRedpaper = 1;
 
-    @j.a
+    @h.a
     private Integer alipayMission = 0;
 
-    @j.a
+    @h.a
     private Integer alipayMissionMoney = 0;
 
-    @j.a
+    @h.a
     private Integer videoWithdrawCount = 0;
-
-    @j.a
-    private Integer expLevel = 0;
-
-    @j.a
-    private Integer reward = 0;
 
     public boolean enableVideoWithdraw() {
         Integer num = this.videoWithdrawCount;
@@ -152,14 +146,6 @@ public class MiTaskAccount implements IAccount {
         return num.intValue();
     }
 
-    public int getExpLevel() {
-        Integer num = this.expLevel;
-        if (num == null) {
-            return 0;
-        }
-        return num.intValue();
-    }
-
     public boolean getFiveStar() {
         Boolean bool = this.fiveStar;
         return bool != null && bool.booleanValue();
@@ -221,14 +207,6 @@ public class MiTaskAccount implements IAccount {
 
     public String getRateNotice() {
         return this.rateNotice;
-    }
-
-    public int getReward() {
-        Integer num = this.reward;
-        if (num == null) {
-            return 0;
-        }
-        return num.intValue();
     }
 
     public boolean getShowCommission() {
@@ -299,137 +277,129 @@ public class MiTaskAccount implements IAccount {
         return enableVideoWithdraw() && this.videoWithdrawCount.intValue() == 0;
     }
 
-    public void setAlipayMission(Integer num) {
-        this.alipayMission = num;
+    public void setAlipayMission(Integer alipayMission) {
+        this.alipayMission = alipayMission;
     }
 
-    public void setAlipayMissionMoney(Integer num) {
-        this.alipayMissionMoney = num;
-    }
-
-    @Override // com.martian.rpauth.response.IAccount
-    public void setCoins(Integer num) {
-        this.coins = num;
-    }
-
-    public void setCoinsRate(Integer num) {
-        this.coinsRate = num;
-    }
-
-    public void setCommission(Integer num) {
-        this.commission = num;
+    public void setAlipayMissionMoney(Integer alipayMissionMoney) {
+        this.alipayMissionMoney = alipayMissionMoney;
     }
 
     @Override // com.martian.rpauth.response.IAccount
-    public void setDeadline(Long l10) {
+    public void setCoins(Integer coins) {
+        this.coins = coins;
+    }
+
+    public void setCoinsRate(Integer coinsRate) {
+        this.coinsRate = coinsRate;
+    }
+
+    public void setCommission(Integer commission) {
+        this.commission = commission;
     }
 
     @Override // com.martian.rpauth.response.IAccount
-    public void setDeposit(Integer num) {
-        this.deposit = num;
-    }
-
-    public void setDuration(Integer num) {
-        this.duration = num;
-    }
-
-    public void setExpLevel(Integer num) {
-        this.expLevel = num;
-    }
-
-    public void setFiveStar(Boolean bool) {
-        this.fiveStar = bool;
-    }
-
-    public void setFresh(Boolean bool) {
-        this.fresh = bool;
+    public void setDeadline(Long deadline) {
     }
 
     @Override // com.martian.rpauth.response.IAccount
-    public void setFreshRedpaper(Integer num) {
-        this.freshRedpaper = num;
+    public void setDeposit(Integer deposit) {
+        this.deposit = deposit;
+    }
+
+    public void setDuration(Integer duration) {
+        this.duration = duration;
+    }
+
+    public void setFiveStar(Boolean fiveStar) {
+        this.fiveStar = fiveStar;
+    }
+
+    public void setFresh(Boolean fresh) {
+        this.fresh = fresh;
     }
 
     @Override // com.martian.rpauth.response.IAccount
-    public void setFresh_redpaper(Integer num) {
-        this.freshRedpaper = num;
+    public void setFreshRedpaper(Integer freshRedpaper) {
+        this.freshRedpaper = freshRedpaper;
     }
 
     @Override // com.martian.rpauth.response.IAccount
-    public void setIsVip(Integer num) {
-    }
-
-    public void setMRate(Integer num) {
-        this.mrate = num;
+    public void setFresh_redpaper(Integer fresh_Redpaper) {
+        this.freshRedpaper = fresh_Redpaper;
     }
 
     @Override // com.martian.rpauth.response.IAccount
-    public void setMoney(Integer num) {
-        this.money = num;
+    public void setIsVip(Integer isVip) {
     }
 
-    public void setMrate(Integer num) {
-        this.mrate = num;
-    }
-
-    public void setPhoneBound(Boolean bool) {
-        this.phoneBound = bool;
-    }
-
-    public void setRate(Integer num) {
-        this.rate = num;
-    }
-
-    public void setRateNotice(String str) {
-        this.rateNotice = str;
-    }
-
-    public void setReward(Integer num) {
-        this.reward = num;
-    }
-
-    public void setShowCommission(Boolean bool) {
-        this.showCommission = bool;
-    }
-
-    public void setTotalDuration(Integer num) {
-        this.totalDuration = num;
-    }
-
-    public void setTotalReadingCoins(Integer num) {
-        this.totalReadingCoins = num;
-    }
-
-    public void setTotalReadingDuration(Integer num) {
-        this.totalReadingDuration = num;
-    }
-
-    public void setTotalSaleCommission(Integer num) {
-        this.totalSaleCommission = num;
-    }
-
-    public void setTotal_reading_duration(Integer num) {
-        this.totalReadingDuration = num;
+    public void setMRate(Integer mrate) {
+        this.mrate = mrate;
     }
 
     @Override // com.martian.rpauth.response.IAccount
-    public void setUid(Long l10) {
-        this.uid = l10;
+    public void setMoney(Integer money) {
+        this.money = money;
     }
 
-    public void setValid_invitee_num(Integer num) {
-        this.valid_invitee_num = num;
+    public void setMrate(Integer mrate) {
+        this.mrate = mrate;
     }
 
-    public void setVideoWithdrawCount(Integer num) {
-        this.videoWithdrawCount = num;
+    public void setPhoneBound(Boolean phoneBound) {
+        this.phoneBound = phoneBound;
+    }
+
+    public void setRate(Integer rate) {
+        this.rate = rate;
+    }
+
+    public void setRateNotice(String rateNotice) {
+        this.rateNotice = rateNotice;
+    }
+
+    public void setShowCommission(Boolean showCommission) {
+        this.showCommission = showCommission;
+    }
+
+    public void setTotalDuration(Integer totalDuration) {
+        this.totalDuration = totalDuration;
+    }
+
+    public void setTotalReadingCoins(Integer totalReadingCoins) {
+        this.totalReadingCoins = totalReadingCoins;
+    }
+
+    public void setTotalReadingDuration(Integer totalReadingDuration) {
+        this.totalReadingDuration = totalReadingDuration;
+    }
+
+    public void setTotalSaleCommission(Integer totalSaleCommission) {
+        this.totalSaleCommission = totalSaleCommission;
+    }
+
+    public void setTotal_reading_duration(Integer totalReadingDuration) {
+        this.totalReadingDuration = totalReadingDuration;
     }
 
     @Override // com.martian.rpauth.response.IAccount
-    public void setVipStartTime(Long l10) {
+    public void setUid(Long uid) {
+        this.uid = uid;
     }
 
-    public void setWealth(Integer num) {
-        this.wealth = num;
+    public void setValid_invitee_num(Integer valid_invitee_num) {
+        this.valid_invitee_num = valid_invitee_num;
+    }
+
+    public void setVideoWithdrawCount(Integer videoWithdrawCount) {
+        this.videoWithdrawCount = videoWithdrawCount;
+    }
+
+    @Override // com.martian.rpauth.response.IAccount
+    public void setVipStartTime(Long vip_start_time) {
+    }
+
+    public void setWealth(Integer wealth) {
+        this.wealth = wealth;
     }
 }

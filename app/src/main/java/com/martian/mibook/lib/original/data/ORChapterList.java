@@ -5,12 +5,12 @@ import com.martian.mibook.lib.model.data.abs.ChapterList;
 import java.util.ArrayList;
 import java.util.List;
 
-/* loaded from: classes3.dex */
+/* loaded from: classes2.dex */
 public class ORChapterList implements ChapterList {
     private List<ORChapter> chapterList = new ArrayList();
 
-    public void addChapter(ORChapter oRChapter) {
-        this.chapterList.add(oRChapter);
+    public void addChapter(ORChapter orChapter) {
+        this.chapterList.add(orChapter);
     }
 
     public List<ORChapter> getChapterList() {
@@ -28,11 +28,11 @@ public class ORChapterList implements ChapterList {
     }
 
     @Override // com.martian.mibook.lib.model.data.abs.ChapterList
-    public Chapter getItem(int i10) {
-        return this.chapterList.get(i10);
+    public Chapter getItem(int position) {
+        return this.chapterList.get(position);
     }
 
-    public void setChapterList(List<ORChapter> list) {
-        this.chapterList = list;
+    public void setChapterList(List<ORChapter> chapterList) {
+        this.chapterList = chapterList;
     }
 }

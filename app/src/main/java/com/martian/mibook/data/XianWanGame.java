@@ -1,6 +1,6 @@
 package com.martian.mibook.data;
 
-import ba.l;
+import com.martian.libsupport.k;
 
 /* loaded from: classes3.dex */
 public class XianWanGame {
@@ -13,7 +13,7 @@ public class XianWanGame {
     private String url;
 
     public String getGameName() {
-        return l.q(this.gameName) ? "闲玩游戏" : this.gameName;
+        return k.p(this.gameName) ? "闲玩游戏" : this.gameName;
     }
 
     public String getIcon() {
@@ -41,31 +41,31 @@ public class XianWanGame {
         return this.url;
     }
 
-    public void setGameName(String str) {
-        this.gameName = str;
+    public void setGameName(String gameName) {
+        this.gameName = gameName;
     }
 
-    public void setIcon(String str) {
-        this.icon = str;
+    public void setIcon(String icon) {
+        this.icon = icon;
     }
 
-    public void setMoney(Integer num) {
-        this.money = num;
+    public void setMoney(Integer money) {
+        this.money = money;
     }
 
-    public void setRecommend(String str) {
-        this.recommend = str;
+    public void setRecommend(String recommend) {
+        this.recommend = recommend;
     }
 
-    public void setRecommendId(String str) {
-        this.recommendId = str;
+    public void setRecommendId(String recommendId) {
+        this.recommendId = recommendId;
     }
 
-    public void setSourceId(String str) {
-        this.sourceId = str;
+    public void setSourceId(String sourceId) {
+        this.sourceId = sourceId;
     }
 
-    public void setUrl(String str) {
-        this.url = str;
+    public void setUrl(String url) {
+        this.url = url;
     }
 }

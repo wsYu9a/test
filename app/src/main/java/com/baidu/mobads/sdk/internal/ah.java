@@ -1,33 +1,31 @@
 package com.baidu.mobads.sdk.internal;
 
-import android.app.Activity;
-import android.view.View;
 import android.webkit.WebView;
-import com.baidu.mobads.sdk.api.NativeCPUManager;
 import org.json.JSONObject;
 
-/* loaded from: classes2.dex */
-class ah implements NativeCPUManager.DataPostBackListener {
+/* loaded from: classes.dex */
+class ah implements Runnable {
 
     /* renamed from: a */
-    final /* synthetic */ Object f6715a;
+    final /* synthetic */ JSONObject f5502a;
 
     /* renamed from: b */
-    final /* synthetic */ ae f6716b;
+    final /* synthetic */ WebView f5503b;
 
-    public ah(ae aeVar, Object obj) {
-        this.f6716b = aeVar;
-        this.f6715a = obj;
+    /* renamed from: c */
+    final /* synthetic */ ad f5504c;
+
+    ah(ad adVar, JSONObject jSONObject, WebView webView) {
+        this.f5504c = adVar;
+        this.f5502a = jSONObject;
+        this.f5503b = webView;
     }
 
-    @Override // com.baidu.mobads.sdk.api.NativeCPUManager.DataPostBackListener
-    public void postback(JSONObject jSONObject) {
-        Object obj = this.f6715a;
-        if (obj instanceof Activity) {
-            View findViewById = ((Activity) obj).findViewById(17);
-            if (findViewById instanceof WebView) {
-                this.f6716b.a((WebView) findViewById, jSONObject);
-            }
+    @Override // java.lang.Runnable
+    public void run() {
+        if (this.f5502a == null || this.f5503b == null) {
+            return;
         }
+        this.f5503b.loadUrl("javascript:window.sdkCallback.userInteractCb(\"" + this.f5502a.toString().replace("\"", "\\\"") + "\")");
     }
 }

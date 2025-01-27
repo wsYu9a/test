@@ -1,40 +1,41 @@
 package com.kwad.sdk.core.network.b;
 
-/* loaded from: classes3.dex */
-public interface b {
-    b FH();
+import com.kwad.sdk.core.network.c;
+import com.kwad.sdk.export.proxy.AdHttpBodyBuilder;
+import com.kwad.sdk.export.proxy.AdHttpProxy;
+import java.io.OutputStream;
+import java.util.Map;
+import org.json.JSONObject;
 
-    b FI();
+/* loaded from: classes2.dex */
+public final class b implements AdHttpProxy {
+    @Override // com.kwad.sdk.export.proxy.AdHttpProxy
+    public final c doGet(String str, Map<String, String> map) {
+        return com.kwad.sdk.core.network.kwai.c.doGet(str, map);
+    }
 
-    b FJ();
+    @Override // com.kwad.sdk.export.proxy.AdHttpProxy
+    public final c doGetWithoutResponse(String str, Map<String, String> map) {
+        return com.kwad.sdk.core.network.kwai.c.a(str, map, false);
+    }
 
-    b FK();
+    @Override // com.kwad.sdk.export.proxy.AdHttpProxy
+    public final c doPost(String str, Map<String, String> map, AdHttpBodyBuilder adHttpBodyBuilder) {
+        return com.kwad.sdk.core.network.kwai.c.doPost(str, map, adHttpBodyBuilder);
+    }
 
-    b FL();
+    @Override // com.kwad.sdk.export.proxy.AdHttpProxy
+    public final c doPost(String str, Map<String, String> map, Map<String, String> map2) {
+        return com.kwad.sdk.core.network.kwai.c.doPost(str, map, map2);
+    }
 
-    b FM();
+    @Override // com.kwad.sdk.export.proxy.AdHttpProxy
+    public final c doPost(String str, Map<String, String> map, JSONObject jSONObject) {
+        return com.kwad.sdk.core.network.kwai.c.doPost(str, map, jSONObject);
+    }
 
-    b FN();
-
-    b at(long j10);
-
-    b dg(int i10);
-
-    b dh(int i10);
-
-    b di(int i10);
-
-    b dj(int i10);
-
-    b ej(String str);
-
-    b ek(String str);
-
-    b el(String str);
-
-    b em(String str);
-
-    b en(String str);
-
-    void report();
+    @Override // com.kwad.sdk.export.proxy.AdHttpProxy
+    public final boolean downloadUrlToStream(String str, OutputStream outputStream, int i2) {
+        return com.kwad.sdk.core.network.kwai.c.downloadUrlToStream(str, outputStream, i2);
+    }
 }

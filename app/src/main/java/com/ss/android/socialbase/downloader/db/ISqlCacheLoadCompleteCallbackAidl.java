@@ -25,11 +25,11 @@ public interface ISqlCacheLoadCompleteCallbackAidl extends IInterface {
         private static final String DESCRIPTOR = "com.ss.android.socialbase.downloader.db.ISqlCacheLoadCompleteCallbackAidl";
         static final int TRANSACTION_callback = 1;
 
-        public static class Proxy implements ISqlCacheLoadCompleteCallbackAidl {
+        private static class Proxy implements ISqlCacheLoadCompleteCallbackAidl {
             public static ISqlCacheLoadCompleteCallbackAidl sDefaultImpl;
             private IBinder mRemote;
 
-            public Proxy(IBinder iBinder) {
+            Proxy(IBinder iBinder) {
                 this.mRemote = iBinder;
             }
 
@@ -92,10 +92,10 @@ public interface ISqlCacheLoadCompleteCallbackAidl extends IInterface {
         }
 
         @Override // android.os.Binder
-        public boolean onTransact(int i10, Parcel parcel, Parcel parcel2, int i11) throws RemoteException {
-            if (i10 != 1) {
-                if (i10 != 1598968902) {
-                    return super.onTransact(i10, parcel, parcel2, i11);
+        public boolean onTransact(int i2, Parcel parcel, Parcel parcel2, int i3) throws RemoteException {
+            if (i2 != 1) {
+                if (i2 != 1598968902) {
+                    return super.onTransact(i2, parcel, parcel2, i3);
                 }
                 parcel2.writeString(DESCRIPTOR);
                 return true;

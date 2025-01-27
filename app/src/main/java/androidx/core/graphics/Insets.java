@@ -1,7 +1,6 @@
 package androidx.core.graphics;
 
 import android.graphics.Rect;
-import androidx.annotation.DoNotInline;
 import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;
 import androidx.annotation.RestrictTo;
@@ -16,61 +15,22 @@ public final class Insets {
     public final int right;
     public final int top;
 
-    @RequiresApi(29)
-    public static class Api29Impl {
-        private Api29Impl() {
-        }
-
-        @DoNotInline
-        public static android.graphics.Insets of(int i10, int i11, int i12, int i13) {
-            return android.graphics.Insets.of(i10, i11, i12, i13);
-        }
-    }
-
-    private Insets(int i10, int i11, int i12, int i13) {
-        this.left = i10;
-        this.top = i11;
-        this.right = i12;
-        this.bottom = i13;
+    private Insets(int i2, int i3, int i4, int i5) {
+        this.left = i2;
+        this.top = i3;
+        this.right = i4;
+        this.bottom = i5;
     }
 
     @NonNull
-    public static Insets add(@NonNull Insets insets, @NonNull Insets insets2) {
-        return of(insets.left + insets2.left, insets.top + insets2.top, insets.right + insets2.right, insets.bottom + insets2.bottom);
-    }
-
-    @NonNull
-    public static Insets max(@NonNull Insets insets, @NonNull Insets insets2) {
-        return of(Math.max(insets.left, insets2.left), Math.max(insets.top, insets2.top), Math.max(insets.right, insets2.right), Math.max(insets.bottom, insets2.bottom));
-    }
-
-    @NonNull
-    public static Insets min(@NonNull Insets insets, @NonNull Insets insets2) {
-        return of(Math.min(insets.left, insets2.left), Math.min(insets.top, insets2.top), Math.min(insets.right, insets2.right), Math.min(insets.bottom, insets2.bottom));
-    }
-
-    @NonNull
-    public static Insets of(int i10, int i11, int i12, int i13) {
-        return (i10 == 0 && i11 == 0 && i12 == 0 && i13 == 0) ? NONE : new Insets(i10, i11, i12, i13);
-    }
-
-    @NonNull
-    public static Insets subtract(@NonNull Insets insets, @NonNull Insets insets2) {
-        return of(insets.left - insets2.left, insets.top - insets2.top, insets.right - insets2.right, insets.bottom - insets2.bottom);
+    public static Insets of(int i2, int i3, int i4, int i5) {
+        return (i2 == 0 && i3 == 0 && i4 == 0 && i5 == 0) ? NONE : new Insets(i2, i3, i4, i5);
     }
 
     @NonNull
     @RequiresApi(api = 29)
     public static Insets toCompatInsets(@NonNull android.graphics.Insets insets) {
-        int i10;
-        int i11;
-        int i12;
-        int i13;
-        i10 = insets.left;
-        i11 = insets.top;
-        i12 = insets.right;
-        i13 = insets.bottom;
-        return of(i10, i11, i12, i13);
+        return of(insets.left, insets.top, insets.right, insets.bottom);
     }
 
     @NonNull
@@ -97,12 +57,11 @@ public final class Insets {
     }
 
     @NonNull
-    @RequiresApi(29)
+    @RequiresApi(api = 29)
     public android.graphics.Insets toPlatformInsets() {
-        return Api29Impl.of(this.left, this.top, this.right, this.bottom);
+        return android.graphics.Insets.of(this.left, this.top, this.right, this.bottom);
     }
 
-    @NonNull
     public String toString() {
         return "Insets{left=" + this.left + ", top=" + this.top + ", right=" + this.right + ", bottom=" + this.bottom + '}';
     }

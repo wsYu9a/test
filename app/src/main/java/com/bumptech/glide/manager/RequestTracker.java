@@ -12,9 +12,8 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
 import java.util.WeakHashMap;
-import p3.f;
 
-/* loaded from: classes2.dex */
+/* loaded from: classes.dex */
 public class RequestTracker {
     private static final String TAG = "RequestTracker";
     private boolean isPaused;
@@ -22,23 +21,23 @@ public class RequestTracker {
     private final List<Request> pendingRequests = new ArrayList();
 
     @VisibleForTesting
-    public void addRequest(Request request) {
+    void addRequest(Request request) {
         this.requests.add(request);
     }
 
     public boolean clearAndRemove(@Nullable Request request) {
-        boolean z10 = true;
+        boolean z = true;
         if (request == null) {
             return true;
         }
         boolean remove = this.requests.remove(request);
         if (!this.pendingRequests.remove(request) && !remove) {
-            z10 = false;
+            z = false;
         }
-        if (z10) {
+        if (z) {
             request.clear();
         }
-        return z10;
+        return z;
     }
 
     public void clearRequests() {
@@ -110,6 +109,6 @@ public class RequestTracker {
     }
 
     public String toString() {
-        return super.toString() + "{numRequests=" + this.requests.size() + ", isPaused=" + this.isPaused + f.f29748d;
+        return super.toString() + "{numRequests=" + this.requests.size() + ", isPaused=" + this.isPaused + "}";
     }
 }

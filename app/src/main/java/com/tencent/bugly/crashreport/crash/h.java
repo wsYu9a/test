@@ -17,124 +17,92 @@ import java.util.List;
 public class h {
 
     /* renamed from: a */
-    public static int f22462a = 0;
+    public static int f24855a = 0;
 
     /* renamed from: b */
-    public static boolean f22463b = false;
+    public static boolean f24856b = false;
 
     /* renamed from: c */
-    public static int f22464c = 2;
+    public static int f24857c = 2;
 
     /* renamed from: d */
-    public static boolean f22465d = true;
+    public static boolean f24858d = true;
 
     /* renamed from: e */
-    public static int f22466e = 20480;
+    public static int f24859e = 20480;
 
     /* renamed from: f */
-    public static int f22467f = 20480;
+    public static int f24860f = 20480;
 
     /* renamed from: g */
-    public static long f22468g = 604800000;
+    public static long f24861g = 604800000;
 
     /* renamed from: h */
-    public static String f22469h = null;
+    public static String f24862h = null;
 
     /* renamed from: i */
-    public static boolean f22470i = false;
+    public static boolean f24863i = false;
 
     /* renamed from: j */
-    public static String f22471j = null;
-
-    /* renamed from: k */
-    public static int f22472k = 5000;
-
-    /* renamed from: l */
-    public static boolean f22473l = true;
-
-    /* renamed from: m */
-    public static boolean f22474m = false;
-
-    /* renamed from: n */
-    public static String f22475n;
-
-    /* renamed from: o */
-    public static String f22476o;
-
-    /* renamed from: p */
-    private static h f22477p;
+    public static String f24864j = null;
+    public static int k = 5000;
+    public static boolean l = true;
+    public static boolean m = false;
+    public static String n;
+    public static String o;
+    private static h p;
     private int A = 31;
     private boolean B = false;
+    private final Context q;
+    public final e r;
+    private final l s;
+    private final NativeCrashHandler t;
+    public final com.tencent.bugly.crashreport.common.strategy.c u;
+    public final W v;
+    private final com.tencent.bugly.crashreport.crash.anr.h w;
+    public BuglyStrategy.a x;
+    public m y;
+    private Boolean z;
 
-    /* renamed from: q */
-    private final Context f22478q;
-
-    /* renamed from: r */
-    public final e f22479r;
-
-    /* renamed from: s */
-    private final l f22480s;
-
-    /* renamed from: t */
-    private final NativeCrashHandler f22481t;
-
-    /* renamed from: u */
-    public final com.tencent.bugly.crashreport.common.strategy.c f22482u;
-
-    /* renamed from: v */
-    public final W f22483v;
-
-    /* renamed from: w */
-    private final com.tencent.bugly.crashreport.crash.anr.h f22484w;
-
-    /* renamed from: x */
-    public BuglyStrategy.a f22485x;
-
-    /* renamed from: y */
-    public m f22486y;
-
-    /* renamed from: z */
-    private Boolean f22487z;
-
-    public h(int i10, Context context, W w10, boolean z10, BuglyStrategy.a aVar, m mVar, String str) {
-        f22462a = i10;
-        Context a10 = ca.a(context);
-        this.f22478q = a10;
-        com.tencent.bugly.crashreport.common.strategy.c b10 = com.tencent.bugly.crashreport.common.strategy.c.b();
-        this.f22482u = b10;
-        this.f22483v = w10;
-        this.f22485x = aVar;
-        this.f22486y = mVar;
-        T a11 = T.a();
-        J a12 = J.a();
-        e eVar = new e(i10, a10, a11, a12, b10, aVar, mVar);
-        this.f22479r = eVar;
-        com.tencent.bugly.crashreport.common.info.a a13 = com.tencent.bugly.crashreport.common.info.a.a(a10);
-        this.f22480s = new l(a10, eVar, b10, a13);
-        NativeCrashHandler nativeCrashHandler = NativeCrashHandler.getInstance(a10, a13, eVar, b10, w10, z10, str);
-        this.f22481t = nativeCrashHandler;
-        a13.f22313pa = nativeCrashHandler;
-        this.f22484w = com.tencent.bugly.crashreport.crash.anr.h.a(a10, b10, a13, w10, a12, eVar, aVar);
+    protected h(int i2, Context context, W w, boolean z, BuglyStrategy.a aVar, m mVar, String str) {
+        f24855a = i2;
+        Context a2 = ca.a(context);
+        this.q = a2;
+        com.tencent.bugly.crashreport.common.strategy.c b2 = com.tencent.bugly.crashreport.common.strategy.c.b();
+        this.u = b2;
+        this.v = w;
+        this.x = aVar;
+        this.y = mVar;
+        T a3 = T.a();
+        J a4 = J.a();
+        e eVar = new e(i2, a2, a3, a4, b2, aVar, mVar);
+        this.r = eVar;
+        com.tencent.bugly.crashreport.common.info.a a5 = com.tencent.bugly.crashreport.common.info.a.a(a2);
+        this.s = new l(a2, eVar, b2, a5);
+        NativeCrashHandler nativeCrashHandler = NativeCrashHandler.getInstance(a2, a5, eVar, b2, w, z, str);
+        this.t = nativeCrashHandler;
+        a5.pa = nativeCrashHandler;
+        this.w = com.tencent.bugly.crashreport.crash.anr.h.a(a2, b2, a5, w, a4, eVar, aVar);
     }
 
     public static synchronized h g() {
         h hVar;
         synchronized (h.class) {
-            hVar = f22477p;
+            hVar = p;
         }
         return hVar;
     }
 
     public void c() {
-        this.f22484w.b(false);
+        this.w.b(false);
     }
 
     public void d() {
-        this.f22480s.b();
+        this.s.b();
     }
 
     public void e() {
-        this.f22481t.setUserOpened(false);
+        this.t.setUserOpened(false);
     }
 
     public boolean f() {
@@ -142,21 +110,21 @@ public class h {
     }
 
     public boolean h() {
-        Boolean bool = this.f22487z;
+        Boolean bool = this.z;
         if (bool != null) {
             return bool.booleanValue();
         }
-        String str = com.tencent.bugly.crashreport.common.info.a.m().f22296h;
-        List<L> a10 = J.a().a(1);
+        String str = com.tencent.bugly.crashreport.common.info.a.m().f24755h;
+        List<L> a2 = J.a().a(1);
         ArrayList arrayList = new ArrayList();
-        if (a10 == null || a10.size() <= 0) {
-            this.f22487z = Boolean.FALSE;
+        if (a2 == null || a2.size() <= 0) {
+            this.z = Boolean.FALSE;
             return false;
         }
-        for (L l10 : a10) {
-            if (str.equals(l10.f22630c)) {
-                this.f22487z = Boolean.TRUE;
-                arrayList.add(l10);
+        for (L l2 : a2) {
+            if (str.equals(l2.f24981c)) {
+                this.z = Boolean.TRUE;
+                arrayList.add(l2);
             }
         }
         if (arrayList.size() > 0) {
@@ -166,7 +134,7 @@ public class h {
     }
 
     public boolean i() {
-        return this.f22484w.b();
+        return this.w.b();
     }
 
     public boolean j() {
@@ -196,40 +164,36 @@ public class h {
     }
 
     public void p() {
-        this.f22484w.b(true);
+        this.w.b(true);
     }
 
     public void q() {
-        this.f22481t.enableCatchAnrTrace();
+        this.t.enableCatchAnrTrace();
     }
 
     public void r() {
-        this.f22480s.a();
+        this.s.a();
     }
 
     public void s() {
-        this.f22481t.setUserOpened(true);
+        this.t.setUserOpened(true);
     }
 
     public synchronized void t() {
-        this.f22484w.g();
+        this.w.g();
     }
 
     public void u() {
-        this.f22481t.checkUploadRecordCrash();
+        this.t.checkUploadRecordCrash();
     }
 
-    public static synchronized h a(int i10, Context context, boolean z10, BuglyStrategy.a aVar, m mVar, String str) {
+    public static synchronized h a(int i2, Context context, boolean z, BuglyStrategy.a aVar, m mVar, String str) {
         h hVar;
         synchronized (h.class) {
-            try {
-                if (f22477p == null) {
-                    f22477p = new h(i10, context, W.c(), z10, aVar, mVar, str);
-                }
-                hVar = f22477p;
-            } catch (Throwable th2) {
-                throw th2;
+            if (p == null) {
+                p = new h(i2, context, W.c(), z, aVar, mVar, str);
             }
+            hVar = p;
         }
         return hVar;
     }
@@ -241,39 +205,39 @@ public class h {
     }
 
     public void a(StrategyBean strategyBean) {
-        this.f22480s.a(strategyBean);
-        this.f22481t.onStrategyChanged(strategyBean);
-        this.f22484w.a(strategyBean);
+        this.s.a(strategyBean);
+        this.t.onStrategyChanged(strategyBean);
+        this.w.a(strategyBean);
         a(3000L);
     }
 
-    public synchronized void a(boolean z10, boolean z11, boolean z12) {
-        this.f22481t.testNativeCrash(z10, z11, z12);
+    public synchronized void a(boolean z, boolean z2, boolean z3) {
+        this.t.testNativeCrash(z, z2, z3);
     }
 
-    public void a(Thread thread, Throwable th2, boolean z10, String str, byte[] bArr, boolean z11) {
-        this.f22483v.a(new f(this, z10, thread, th2, str, bArr, z11));
+    public void a(Thread thread, Throwable th, boolean z, String str, byte[] bArr, boolean z2) {
+        this.v.a(new f(this, z, thread, th, str, bArr, z2));
     }
 
     public void a(CrashDetailBean crashDetailBean) {
-        this.f22479r.f(crashDetailBean);
+        this.r.f(crashDetailBean);
     }
 
-    public void a(long j10) {
-        W.c().a(new g(this), j10);
+    public void a(long j2) {
+        W.c().a(new g(this), j2);
     }
 
     public void a() {
-        if (com.tencent.bugly.crashreport.common.info.a.m().f22296h.equals(AppInfo.d(this.f22478q))) {
-            this.f22481t.removeEmptyNativeRecordFiles();
+        if (com.tencent.bugly.crashreport.common.info.a.m().f24755h.equals(AppInfo.d(this.q))) {
+            this.t.removeEmptyNativeRecordFiles();
         }
     }
 
-    public void a(int i10) {
-        this.A = i10;
+    public void a(int i2) {
+        this.A = i2;
     }
 
-    public void a(boolean z10) {
-        this.B = z10;
+    public void a(boolean z) {
+        this.B = z;
     }
 }

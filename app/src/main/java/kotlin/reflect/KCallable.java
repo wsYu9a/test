@@ -1,38 +1,20 @@
 package kotlin.reflect;
 
-import androidx.core.app.NotificationCompat;
+import com.opos.process.bridge.provider.ProcessBridgeProvider;
+import com.vivo.ic.dm.Downloads;
+import f.b.a.d;
+import f.b.a.e;
 import java.util.List;
 import java.util.Map;
 import kotlin.Metadata;
 import kotlin.SinceKotlin;
-import kotlin.internal.IntrinsicConstEvaluation;
-import xi.k;
-import xi.l;
 
-@Metadata(d1 = {"\u0000T\n\u0002\u0018\u0002\n\u0000\n\u0002\u0018\u0002\n\u0000\n\u0002\u0010\u000b\n\u0002\b\n\n\u0002\u0010\u000e\n\u0002\b\u0004\n\u0002\u0010 \n\u0002\u0018\u0002\n\u0002\b\u0004\n\u0002\u0018\u0002\n\u0002\b\u0004\n\u0002\u0018\u0002\n\u0002\b\u0003\n\u0002\u0018\u0002\n\u0002\b\u0005\n\u0002\u0010\u0011\n\u0002\u0010\u0000\n\u0002\b\u0002\n\u0002\u0010$\n\u0002\b\u0002\bf\u0018\u0000*\u0006\b\u0000\u0010\u0001 \u00012\u00020\u0002J%\u0010'\u001a\u00028\u00002\u0016\u0010(\u001a\f\u0012\b\b\u0001\u0012\u0004\u0018\u00010*0)\"\u0004\u0018\u00010*H&¢\u0006\u0002\u0010+J#\u0010,\u001a\u00028\u00002\u0014\u0010(\u001a\u0010\u0012\u0004\u0012\u00020\u0015\u0012\u0006\u0012\u0004\u0018\u00010*0-H&¢\u0006\u0002\u0010.R\u001a\u0010\u0003\u001a\u00020\u00048&X§\u0004¢\u0006\f\u0012\u0004\b\u0005\u0010\u0006\u001a\u0004\b\u0003\u0010\u0007R\u001a\u0010\b\u001a\u00020\u00048&X§\u0004¢\u0006\f\u0012\u0004\b\t\u0010\u0006\u001a\u0004\b\b\u0010\u0007R\u001a\u0010\n\u001a\u00020\u00048&X§\u0004¢\u0006\f\u0012\u0004\b\u000b\u0010\u0006\u001a\u0004\b\n\u0010\u0007R\u001a\u0010\f\u001a\u00020\u00048&X§\u0004¢\u0006\f\u0012\u0004\b\r\u0010\u0006\u001a\u0004\b\f\u0010\u0007R\u001a\u0010\u000e\u001a\u00020\u000f8&X§\u0004¢\u0006\f\u0012\u0004\b\u0010\u0010\u0006\u001a\u0004\b\u0011\u0010\u0012R\u001e\u0010\u0013\u001a\b\u0012\u0004\u0012\u00020\u00150\u0014X¦\u0004¢\u0006\f\u0012\u0004\b\u0016\u0010\u0006\u001a\u0004\b\u0017\u0010\u0018R\u0018\u0010\u0019\u001a\u00020\u001aX¦\u0004¢\u0006\f\u0012\u0004\b\u001b\u0010\u0006\u001a\u0004\b\u001c\u0010\u001dR \u0010\u001e\u001a\b\u0012\u0004\u0012\u00020\u001f0\u00148&X§\u0004¢\u0006\f\u0012\u0004\b \u0010\u0006\u001a\u0004\b!\u0010\u0018R\u001c\u0010\"\u001a\u0004\u0018\u00010#8&X§\u0004¢\u0006\f\u0012\u0004\b$\u0010\u0006\u001a\u0004\b%\u0010&¨\u0006/"}, d2 = {"Lkotlin/reflect/KCallable;", "R", "Lkotlin/reflect/KAnnotatedElement;", "isAbstract", "", "isAbstract$annotations", "()V", "()Z", "isFinal", "isFinal$annotations", "isOpen", "isOpen$annotations", "isSuspend", "isSuspend$annotations", "name", "", "getName$annotations", "getName", "()Ljava/lang/String;", "parameters", "", "Lkotlin/reflect/KParameter;", "getParameters$annotations", "getParameters", "()Ljava/util/List;", "returnType", "Lkotlin/reflect/KType;", "getReturnType$annotations", "getReturnType", "()Lkotlin/reflect/KType;", "typeParameters", "Lkotlin/reflect/KTypeParameter;", "getTypeParameters$annotations", "getTypeParameters", "visibility", "Lkotlin/reflect/KVisibility;", "getVisibility$annotations", "getVisibility", "()Lkotlin/reflect/KVisibility;", NotificationCompat.CATEGORY_CALL, "args", "", "", "([Ljava/lang/Object;)Ljava/lang/Object;", "callBy", "", "(Ljava/util/Map;)Ljava/lang/Object;", "kotlin-stdlib"}, k = 1, mv = {1, 9, 0}, xi = 48)
-/* loaded from: classes4.dex */
+@Metadata(bv = {1, 0, 3}, d1 = {"\u0000N\n\u0002\u0018\u0002\n\u0000\n\u0002\u0018\u0002\n\u0002\u0010\u0011\n\u0002\u0010\u0000\n\u0002\b\u0003\n\u0002\u0010$\n\u0002\u0018\u0002\n\u0002\b\u0002\n\u0002\u0010 \n\u0002\u0018\u0002\n\u0002\b\u0005\n\u0002\u0010\u000e\n\u0002\b\u0003\n\u0002\u0018\u0002\n\u0002\b\u0006\n\u0002\u0010\u000b\n\u0002\b\u0007\n\u0002\u0018\u0002\n\u0002\b\u0006\bf\u0018\u0000*\u0006\b\u0000\u0010\u0001 \u00012\u00020\u0002J'\u0010\u0006\u001a\u00028\u00002\u0016\u0010\u0005\u001a\f\u0012\b\b\u0001\u0012\u0004\u0018\u00010\u00040\u0003\"\u0004\u0018\u00010\u0004H&¢\u0006\u0004\b\u0006\u0010\u0007J%\u0010\n\u001a\u00028\u00002\u0014\u0010\u0005\u001a\u0010\u0012\u0004\u0012\u00020\t\u0012\u0006\u0012\u0004\u0018\u00010\u00040\bH&¢\u0006\u0004\b\n\u0010\u000bR\"\u0010\u0012\u001a\b\u0012\u0004\u0012\u00020\r0\f8&@'X§\u0004¢\u0006\f\u0012\u0004\b\u0010\u0010\u0011\u001a\u0004\b\u000e\u0010\u000fR\u0016\u0010\u0016\u001a\u00020\u00138&@&X¦\u0004¢\u0006\u0006\u001a\u0004\b\u0014\u0010\u0015R\u001e\u0010\u001b\u001a\u0004\u0018\u00010\u00178&@'X§\u0004¢\u0006\f\u0012\u0004\b\u001a\u0010\u0011\u001a\u0004\b\u0018\u0010\u0019R\u001c\u0010\u001d\u001a\b\u0012\u0004\u0012\u00020\t0\f8&@&X¦\u0004¢\u0006\u0006\u001a\u0004\b\u001c\u0010\u000fR\u001c\u0010\u001f\u001a\u00020\u001e8&@'X§\u0004¢\u0006\f\u0012\u0004\b!\u0010\u0011\u001a\u0004\b\u001f\u0010 R\u001c\u0010\"\u001a\u00020\u001e8&@'X§\u0004¢\u0006\f\u0012\u0004\b#\u0010\u0011\u001a\u0004\b\"\u0010 R\u001c\u0010$\u001a\u00020\u001e8&@'X§\u0004¢\u0006\f\u0012\u0004\b%\u0010\u0011\u001a\u0004\b$\u0010 R\u0016\u0010)\u001a\u00020&8&@&X¦\u0004¢\u0006\u0006\u001a\u0004\b'\u0010(R\u001c\u0010*\u001a\u00020\u001e8&@'X§\u0004¢\u0006\f\u0012\u0004\b+\u0010\u0011\u001a\u0004\b*\u0010 ¨\u0006,"}, d2 = {"Lkotlin/reflect/KCallable;", "R", "Lkotlin/reflect/KAnnotatedElement;", "", "", ProcessBridgeProvider.KEY_ARGS, "call", "([Ljava/lang/Object;)Ljava/lang/Object;", "", "Lkotlin/reflect/KParameter;", "callBy", "(Ljava/util/Map;)Ljava/lang/Object;", "", "Lkotlin/reflect/KTypeParameter;", "getTypeParameters", "()Ljava/util/List;", "typeParameters$annotations", "()V", "typeParameters", "", "getName", "()Ljava/lang/String;", "name", "Lkotlin/reflect/KVisibility;", "getVisibility", "()Lkotlin/reflect/KVisibility;", "visibility$annotations", Downloads.Column.VISIBILITY, "getParameters", "parameters", "", "isFinal", "()Z", "isFinal$annotations", "isAbstract", "isAbstract$annotations", "isOpen", "isOpen$annotations", "Lkotlin/reflect/KType;", "getReturnType", "()Lkotlin/reflect/KType;", "returnType", "isSuspend", "isSuspend$annotations", "kotlin-stdlib"}, k = 1, mv = {1, 4, 0})
+/* loaded from: classes5.dex */
 public interface KCallable<R> extends KAnnotatedElement {
 
-    @Metadata(k = 3, mv = {1, 9, 0}, xi = 48)
+    @Metadata(bv = {1, 0, 3}, d1 = {}, d2 = {}, k = 3, mv = {1, 4, 0})
     public static final class DefaultImpls {
-        @IntrinsicConstEvaluation
-        public static /* synthetic */ void getName$annotations() {
-        }
-
-        public static /* synthetic */ void getParameters$annotations() {
-        }
-
-        public static /* synthetic */ void getReturnType$annotations() {
-        }
-
-        @SinceKotlin(version = "1.1")
-        public static /* synthetic */ void getTypeParameters$annotations() {
-        }
-
-        @SinceKotlin(version = "1.1")
-        public static /* synthetic */ void getVisibility$annotations() {
-        }
-
         @SinceKotlin(version = "1.1")
         public static /* synthetic */ void isAbstract$annotations() {
         }
@@ -48,25 +30,33 @@ public interface KCallable<R> extends KAnnotatedElement {
         @SinceKotlin(version = "1.3")
         public static /* synthetic */ void isSuspend$annotations() {
         }
+
+        @SinceKotlin(version = "1.1")
+        public static /* synthetic */ void typeParameters$annotations() {
+        }
+
+        @SinceKotlin(version = "1.1")
+        public static /* synthetic */ void visibility$annotations() {
+        }
     }
 
-    R call(@k Object... objArr);
+    R call(@d Object... r1);
 
-    R callBy(@k Map<KParameter, ? extends Object> args);
+    R callBy(@d Map<KParameter, ? extends Object> r1);
 
-    @k
+    @d
     String getName();
 
-    @k
+    @d
     List<KParameter> getParameters();
 
-    @k
+    @d
     KType getReturnType();
 
-    @k
+    @d
     List<KTypeParameter> getTypeParameters();
 
-    @l
+    @e
     KVisibility getVisibility();
 
     boolean isAbstract();

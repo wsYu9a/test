@@ -1,17 +1,17 @@
 package com.martian.mipush.data;
 
-/* loaded from: classes3.dex */
+/* loaded from: classes.dex */
 public class PushChannelInfo {
     private String channelDesc;
     private String channelId;
     private String channelName;
     private boolean withSound;
 
-    public PushChannelInfo(String str, String str2, String str3, boolean z10) {
-        this.channelId = str;
-        this.channelName = str2;
-        this.channelDesc = str3;
-        this.withSound = z10;
+    public PushChannelInfo(String id, String name, String desc, boolean withSound) {
+        this.channelId = id;
+        this.channelName = name;
+        this.channelDesc = desc;
+        this.withSound = withSound;
     }
 
     public String getChannelDesc() {
@@ -30,19 +30,19 @@ public class PushChannelInfo {
         return this.withSound;
     }
 
-    public void setChannelDesc(String str) {
-        this.channelDesc = str;
+    public void setChannelDesc(String channelDesc) {
+        this.channelDesc = channelDesc;
     }
 
-    public void setChannelId(String str) {
-        this.channelId = str;
+    public void setChannelId(String channelId) {
+        this.channelId = channelId;
     }
 
-    public void setChannelName(String str) {
-        this.channelName = str;
+    public void setChannelName(String channelName) {
+        this.channelName = channelName;
     }
 
-    public void setWithSound(boolean z10) {
-        this.withSound = z10;
+    public void setWithSound(boolean withSound) {
+        this.withSound = withSound;
     }
 }

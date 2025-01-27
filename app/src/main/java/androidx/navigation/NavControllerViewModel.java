@@ -4,18 +4,16 @@ import androidx.annotation.NonNull;
 import androidx.lifecycle.ViewModel;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.lifecycle.ViewModelStore;
-import androidx.lifecycle.viewmodel.CreationExtras;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.UUID;
-import k0.i;
 
 /* loaded from: classes.dex */
 class NavControllerViewModel extends ViewModel {
-    private static final ViewModelProvider.Factory FACTORY = new ViewModelProvider.Factory() { // from class: androidx.navigation.NavControllerViewModel.1
-        @Override // androidx.lifecycle.ViewModelProvider.Factory
-        public /* synthetic */ ViewModel create(Class cls, CreationExtras creationExtras) {
-            return i.b(this, cls, creationExtras);
+
+    /* renamed from: c */
+    private static final ViewModelProvider.Factory f2971c = new ViewModelProvider.Factory() { // from class: androidx.navigation.NavControllerViewModel.1
+        AnonymousClass1() {
         }
 
         @Override // androidx.lifecycle.ViewModelProvider.Factory
@@ -24,13 +22,13 @@ class NavControllerViewModel extends ViewModel {
             return new NavControllerViewModel();
         }
     };
-    private final HashMap<UUID, ViewModelStore> mViewModelStores = new HashMap<>();
+
+    /* renamed from: d */
+    private final HashMap<UUID, ViewModelStore> f2972d = new HashMap<>();
 
     /* renamed from: androidx.navigation.NavControllerViewModel$1 */
-    public class AnonymousClass1 implements ViewModelProvider.Factory {
-        @Override // androidx.lifecycle.ViewModelProvider.Factory
-        public /* synthetic */ ViewModel create(Class cls, CreationExtras creationExtras) {
-            return i.b(this, cls, creationExtras);
+    class AnonymousClass1 implements ViewModelProvider.Factory {
+        AnonymousClass1() {
         }
 
         @Override // androidx.lifecycle.ViewModelProvider.Factory
@@ -40,51 +38,54 @@ class NavControllerViewModel extends ViewModel {
         }
     }
 
-    @NonNull
-    public static NavControllerViewModel getInstance(ViewModelStore viewModelStore) {
-        return (NavControllerViewModel) new ViewModelProvider(viewModelStore, FACTORY).get(NavControllerViewModel.class);
+    NavControllerViewModel() {
     }
 
-    public void clear(@NonNull UUID uuid) {
-        ViewModelStore remove = this.mViewModelStores.remove(uuid);
+    @NonNull
+    static NavControllerViewModel g(ViewModelStore viewModelStore) {
+        return (NavControllerViewModel) new ViewModelProvider(viewModelStore, f2971c).get(NavControllerViewModel.class);
+    }
+
+    @Override // androidx.lifecycle.ViewModel
+    protected void d() {
+        Iterator<ViewModelStore> it = this.f2972d.values().iterator();
+        while (it.hasNext()) {
+            it.next().clear();
+        }
+        this.f2972d.clear();
+    }
+
+    void f(@NonNull UUID uuid) {
+        ViewModelStore remove = this.f2972d.remove(uuid);
         if (remove != null) {
             remove.clear();
         }
     }
 
     @NonNull
-    public ViewModelStore getViewModelStore(@NonNull UUID uuid) {
-        ViewModelStore viewModelStore = this.mViewModelStores.get(uuid);
+    ViewModelStore h(@NonNull UUID uuid) {
+        ViewModelStore viewModelStore = this.f2972d.get(uuid);
         if (viewModelStore != null) {
             return viewModelStore;
         }
         ViewModelStore viewModelStore2 = new ViewModelStore();
-        this.mViewModelStores.put(uuid, viewModelStore2);
+        this.f2972d.put(uuid, viewModelStore2);
         return viewModelStore2;
-    }
-
-    @Override // androidx.lifecycle.ViewModel
-    public void onCleared() {
-        Iterator<ViewModelStore> it = this.mViewModelStores.values().iterator();
-        while (it.hasNext()) {
-            it.next().clear();
-        }
-        this.mViewModelStores.clear();
     }
 
     @NonNull
     public String toString() {
-        StringBuilder sb2 = new StringBuilder("NavControllerViewModel{");
-        sb2.append(Integer.toHexString(System.identityHashCode(this)));
-        sb2.append("} ViewModelStores (");
-        Iterator<UUID> it = this.mViewModelStores.keySet().iterator();
+        StringBuilder sb = new StringBuilder("NavControllerViewModel{");
+        sb.append(Integer.toHexString(System.identityHashCode(this)));
+        sb.append("} ViewModelStores (");
+        Iterator<UUID> it = this.f2972d.keySet().iterator();
         while (it.hasNext()) {
-            sb2.append(it.next());
+            sb.append(it.next());
             if (it.hasNext()) {
-                sb2.append(", ");
+                sb.append(", ");
             }
         }
-        sb2.append(')');
-        return sb2.toString();
+        sb.append(')');
+        return sb.toString();
     }
 }

@@ -1,6 +1,6 @@
 package com.martian.mibook.lib.original.response;
 
-/* loaded from: classes3.dex */
+/* loaded from: classes2.dex */
 public class CPORChapter {
     public Integer bookId;
     public Integer chapterId;
@@ -23,19 +23,19 @@ public class CPORChapter {
         return this.title;
     }
 
-    public void setBookId(Integer num) {
-        this.bookId = num;
+    public void setBookId(Integer bookId) {
+        this.bookId = bookId;
     }
 
-    public void setChapterId(Integer num) {
-        this.chapterId = num;
+    public void setChapterId(Integer chapterId) {
+        this.chapterId = chapterId;
     }
 
-    public void setContent(String str) {
-        this.content = str;
+    public void setContent(String content) {
+        this.content = content;
     }
 
-    public void setTitle(String str) {
-        this.title = str;
+    public void setTitle(String title) {
+        this.title = title;
     }
 }

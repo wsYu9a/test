@@ -6,45 +6,50 @@ import androidx.annotation.Nullable;
 
 /* loaded from: classes.dex */
 public final class NavAction {
-    private Bundle mDefaultArguments;
 
+    /* renamed from: a */
     @IdRes
-    private final int mDestinationId;
-    private NavOptions mNavOptions;
+    private final int f2932a;
 
-    public NavAction(@IdRes int i10) {
-        this(i10, null);
+    /* renamed from: b */
+    private NavOptions f2933b;
+
+    /* renamed from: c */
+    private Bundle f2934c;
+
+    public NavAction(@IdRes int i2) {
+        this(i2, null);
     }
 
     @Nullable
     public Bundle getDefaultArguments() {
-        return this.mDefaultArguments;
+        return this.f2934c;
     }
 
     public int getDestinationId() {
-        return this.mDestinationId;
+        return this.f2932a;
     }
 
     @Nullable
     public NavOptions getNavOptions() {
-        return this.mNavOptions;
+        return this.f2933b;
     }
 
     public void setDefaultArguments(@Nullable Bundle bundle) {
-        this.mDefaultArguments = bundle;
+        this.f2934c = bundle;
     }
 
     public void setNavOptions(@Nullable NavOptions navOptions) {
-        this.mNavOptions = navOptions;
+        this.f2933b = navOptions;
     }
 
-    public NavAction(@IdRes int i10, @Nullable NavOptions navOptions) {
-        this(i10, navOptions, null);
+    public NavAction(@IdRes int i2, @Nullable NavOptions navOptions) {
+        this(i2, navOptions, null);
     }
 
-    public NavAction(@IdRes int i10, @Nullable NavOptions navOptions, @Nullable Bundle bundle) {
-        this.mDestinationId = i10;
-        this.mNavOptions = navOptions;
-        this.mDefaultArguments = bundle;
+    public NavAction(@IdRes int i2, @Nullable NavOptions navOptions, @Nullable Bundle bundle) {
+        this.f2932a = i2;
+        this.f2933b = navOptions;
+        this.f2934c = bundle;
     }
 }

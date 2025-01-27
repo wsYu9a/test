@@ -2,9 +2,9 @@ package com.bytedance.sdk.openadsdk.live;
 
 import java.io.Serializable;
 
-/* loaded from: classes2.dex */
+/* loaded from: classes.dex */
 public interface TTLiveAuthCallback extends Serializable {
     void onAuth(TTLiveToken tTLiveToken);
 
-    void onFailed(Throwable th2);
+    void onFailed(Throwable th);
 }

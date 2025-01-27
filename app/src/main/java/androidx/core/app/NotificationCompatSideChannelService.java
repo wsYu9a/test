@@ -4,6 +4,7 @@ import android.app.Notification;
 import android.app.Service;
 import android.content.Intent;
 import android.os.Binder;
+import android.os.Build;
 import android.os.IBinder;
 import android.os.RemoteException;
 import android.support.v4.app.INotificationSideChannel;
@@ -11,16 +12,16 @@ import android.support.v4.app.INotificationSideChannel;
 /* loaded from: classes.dex */
 public abstract class NotificationCompatSideChannelService extends Service {
 
-    public class NotificationSideChannelStub extends INotificationSideChannel.Stub {
-        public NotificationSideChannelStub() {
+    private class NotificationSideChannelStub extends INotificationSideChannel.Stub {
+        NotificationSideChannelStub() {
         }
 
         @Override // android.support.v4.app.INotificationSideChannel
-        public void cancel(String str, int i10, String str2) throws RemoteException {
-            NotificationCompatSideChannelService.this.checkPermission(Binder.getCallingUid(), str);
+        public void cancel(String str, int i2, String str2) throws RemoteException {
+            NotificationCompatSideChannelService.this.a(Binder.getCallingUid(), str);
             long clearCallingIdentity = Binder.clearCallingIdentity();
             try {
-                NotificationCompatSideChannelService.this.cancel(str, i10, str2);
+                NotificationCompatSideChannelService.this.cancel(str, i2, str2);
             } finally {
                 Binder.restoreCallingIdentity(clearCallingIdentity);
             }
@@ -28,7 +29,7 @@ public abstract class NotificationCompatSideChannelService extends Service {
 
         @Override // android.support.v4.app.INotificationSideChannel
         public void cancelAll(String str) {
-            NotificationCompatSideChannelService.this.checkPermission(Binder.getCallingUid(), str);
+            NotificationCompatSideChannelService.this.a(Binder.getCallingUid(), str);
             long clearCallingIdentity = Binder.clearCallingIdentity();
             try {
                 NotificationCompatSideChannelService.this.cancelAll(str);
@@ -38,35 +39,37 @@ public abstract class NotificationCompatSideChannelService extends Service {
         }
 
         @Override // android.support.v4.app.INotificationSideChannel
-        public void notify(String str, int i10, String str2, Notification notification) throws RemoteException {
-            NotificationCompatSideChannelService.this.checkPermission(Binder.getCallingUid(), str);
+        public void notify(String str, int i2, String str2, Notification notification) throws RemoteException {
+            NotificationCompatSideChannelService.this.a(Binder.getCallingUid(), str);
             long clearCallingIdentity = Binder.clearCallingIdentity();
             try {
-                NotificationCompatSideChannelService.this.notify(str, i10, str2, notification);
+                NotificationCompatSideChannelService.this.notify(str, i2, str2, notification);
             } finally {
                 Binder.restoreCallingIdentity(clearCallingIdentity);
             }
         }
     }
 
-    public abstract void cancel(String str, int i10, String str2);
-
-    public abstract void cancelAll(String str);
-
-    public void checkPermission(int i10, String str) {
-        for (String str2 : getPackageManager().getPackagesForUid(i10)) {
+    void a(int i2, String str) {
+        for (String str2 : getPackageManager().getPackagesForUid(i2)) {
             if (str2.equals(str)) {
                 return;
             }
         }
-        throw new SecurityException("NotificationSideChannelService: Uid " + i10 + " is not authorized for package " + str);
+        throw new SecurityException("NotificationSideChannelService: Uid " + i2 + " is not authorized for package " + str);
     }
 
-    public abstract void notify(String str, int i10, String str2, Notification notification);
+    public abstract void cancel(String str, int i2, String str2);
+
+    public abstract void cancelAll(String str);
+
+    public abstract void notify(String str, int i2, String str2, Notification notification);
 
     @Override // android.app.Service
     public IBinder onBind(Intent intent) {
-        intent.getAction().equals(NotificationManagerCompat.ACTION_BIND_SIDE_CHANNEL);
-        return null;
+        if (!intent.getAction().equals(NotificationManagerCompat.ACTION_BIND_SIDE_CHANNEL) || Build.VERSION.SDK_INT > 19) {
+            return null;
+        }
+        return new NotificationSideChannelStub();
     }
 }

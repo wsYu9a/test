@@ -12,20 +12,20 @@ public class ContextDelegate {
     private static boolean mDelegateEnable = false;
     private static Boolean mIsFbeProject;
 
-    public static class a {
+    private static class a {
 
         /* renamed from: a */
-        private static ContextDelegate f25107a = new ContextDelegate();
+        private static ContextDelegate f31071a = new ContextDelegate();
     }
 
     private static Context createCredentialProtectedStorageContext(Context context) {
         try {
             if (mCreateCredentialProtectedStorageContext == null) {
-                mCreateCredentialProtectedStorageContext = Context.class.getMethod("createCredentialProtectedStorageContext", null);
+                mCreateCredentialProtectedStorageContext = Context.class.getMethod("createCredentialProtectedStorageContext", new Class[0]);
             }
-            return (Context) mCreateCredentialProtectedStorageContext.invoke(context, null);
-        } catch (Exception e10) {
-            e10.printStackTrace();
+            return (Context) mCreateCredentialProtectedStorageContext.invoke(context, new Object[0]);
+        } catch (Exception e2) {
+            e2.printStackTrace();
             return context;
         }
     }
@@ -33,11 +33,11 @@ public class ContextDelegate {
     private static Context createDeviceProtectedStorageContext(Context context) {
         try {
             if (mCreateDeviceProtectedStorageContext == null) {
-                mCreateDeviceProtectedStorageContext = Context.class.getMethod("createDeviceProtectedStorageContext", null);
+                mCreateDeviceProtectedStorageContext = Context.class.getMethod("createDeviceProtectedStorageContext", new Class[0]);
             }
-            return (Context) mCreateDeviceProtectedStorageContext.invoke(context, null);
-        } catch (Exception e10) {
-            e10.printStackTrace();
+            return (Context) mCreateDeviceProtectedStorageContext.invoke(context, new Object[0]);
+        } catch (Exception e2) {
+            e2.printStackTrace();
             return context;
         }
     }
@@ -55,16 +55,16 @@ public class ContextDelegate {
     }
 
     public static ContextDelegate getInstance() {
-        return a.f25107a;
+        return a.f31071a;
     }
 
     public static boolean isFBEProject() {
         if (mIsFbeProject == null) {
             try {
-                mIsFbeProject = Boolean.valueOf(com.sigmob.sdk.base.k.f18193y.equals(j.a("ro.crypto.type", "unknow")));
+                mIsFbeProject = Boolean.valueOf("file".equals(j.a("ro.crypto.type", "unknow")));
                 p.b(TAG, "mIsFbeProject = " + mIsFbeProject.toString());
-            } catch (Exception e10) {
-                p.a(TAG, "mIsFbeProject = " + e10.getMessage());
+            } catch (Exception e2) {
+                p.a(TAG, "mIsFbeProject = " + e2.getMessage());
             }
         }
         Boolean bool = mIsFbeProject;
@@ -90,8 +90,8 @@ public class ContextDelegate {
         }
     }
 
-    public static void setEnable(boolean z10) {
-        mDelegateEnable = z10;
+    public static void setEnable(boolean z) {
+        mDelegateEnable = z;
         setAppContext();
     }
 }

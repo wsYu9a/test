@@ -9,7 +9,7 @@ import android.widget.ImageView;
 import androidx.annotation.Nullable;
 import java.io.InputStream;
 
-/* loaded from: classes3.dex */
+/* loaded from: classes2.dex */
 public interface IImageLoader {
 
     public static final class DisplayImageOptionsCompat {
@@ -74,13 +74,23 @@ public interface IImageLoader {
                 return this;
             }
 
+            public Builder cacheInMemory(boolean z) {
+                this.cacheInMemory = z;
+                return this;
+            }
+
             @Deprecated
             public Builder cacheOnDisc() {
                 return cacheOnDisk(true);
             }
 
-            public Builder cacheOnDisk(boolean z10) {
-                this.cacheOnDisk = z10;
+            @Deprecated
+            public Builder cacheOnDisc(boolean z) {
+                return cacheOnDisk(z);
+            }
+
+            public Builder cacheOnDisk(boolean z) {
+                this.cacheOnDisk = z;
                 return this;
             }
 
@@ -108,28 +118,28 @@ public interface IImageLoader {
                 return this;
             }
 
-            public Builder considerExifParams(boolean z10) {
-                this.considerExifParams = z10;
+            public Builder considerExifParams(boolean z) {
+                this.considerExifParams = z;
                 return this;
             }
 
-            public Builder setBlurRadius(int i10) {
-                this.blurRadius = i10;
+            public Builder setBlurRadius(int i2) {
+                this.blurRadius = i2;
                 return this;
             }
 
-            public Builder setCircle(boolean z10) {
-                this.isCircle = z10;
+            public Builder setCircle(boolean z) {
+                this.isCircle = z;
                 return this;
             }
 
-            public Builder setCornerRound(int i10) {
-                this.cornerRound = i10;
+            public Builder setCornerRound(int i2) {
+                this.cornerRound = i2;
                 return this;
             }
 
-            public Builder setFrameSequence(boolean z10) {
-                this.isFrameSequence = z10;
+            public Builder setFrameSequence(boolean z) {
+                this.isFrameSequence = z;
                 return this;
             }
 
@@ -138,52 +148,31 @@ public interface IImageLoader {
                 return this;
             }
 
-            public Builder setStrokeColor(int i10) {
-                this.strokeColor = i10;
+            public Builder setStrokeColor(int i2) {
+                this.strokeColor = i2;
                 return this;
             }
 
-            public Builder setStrokeWidth(float f10) {
-                if (f10 > 0.0f) {
-                    this.strokeWidth = f10;
+            public Builder setStrokeWidth(float f2) {
+                if (f2 > 0.0f) {
+                    this.strokeWidth = f2;
                     this.isCircle = true;
                 }
                 return this;
             }
 
-            public Builder showImageForEmptyUri(int i10) {
-                this.imageResForEmptyUri = i10;
+            public Builder showImageForEmptyUri(int i2) {
+                this.imageResForEmptyUri = i2;
                 return this;
-            }
-
-            public Builder showImageOnFail(int i10) {
-                this.imageResOnFail = i10;
-                return this;
-            }
-
-            public Builder showImageOnLoading(int i10) {
-                this.imageResOnLoading = i10;
-                return this;
-            }
-
-            @Deprecated
-            public Builder showStubImage(int i10) {
-                this.imageResOnLoading = i10;
-                return this;
-            }
-
-            public Builder cacheInMemory(boolean z10) {
-                this.cacheInMemory = z10;
-                return this;
-            }
-
-            @Deprecated
-            public Builder cacheOnDisc(boolean z10) {
-                return cacheOnDisk(z10);
             }
 
             public Builder showImageForEmptyUri(Drawable drawable) {
                 this.imageForEmptyUri = drawable;
+                return this;
+            }
+
+            public Builder showImageOnFail(int i2) {
+                this.imageResOnFail = i2;
                 return this;
             }
 
@@ -192,10 +181,44 @@ public interface IImageLoader {
                 return this;
             }
 
+            public Builder showImageOnLoading(int i2) {
+                this.imageResOnLoading = i2;
+                return this;
+            }
+
             public Builder showImageOnLoading(Drawable drawable) {
                 this.imageOnLoading = drawable;
                 return this;
             }
+
+            @Deprecated
+            public Builder showStubImage(int i2) {
+                this.imageResOnLoading = i2;
+                return this;
+            }
+        }
+
+        private DisplayImageOptionsCompat(Builder builder) {
+            this.imageResOnLoading = builder.imageResOnLoading;
+            this.imageResForEmptyUri = builder.imageResForEmptyUri;
+            this.imageResOnFail = builder.imageResOnFail;
+            this.imageOnLoading = builder.imageOnLoading;
+            this.imageForEmptyUri = builder.imageForEmptyUri;
+            this.imageOnFail = builder.imageOnFail;
+            this.resetViewBeforeLoading = builder.resetViewBeforeLoading;
+            this.cacheInMemory = builder.cacheInMemory;
+            this.cacheOnDisk = builder.cacheOnDisk;
+            this.decodingOptions = builder.decodingOptions;
+            this.delayBeforeLoading = builder.delayBeforeLoading;
+            this.considerExifParams = builder.considerExifParams;
+            this.isSyncLoading = builder.isSyncLoading;
+            this.blurRadius = builder.blurRadius;
+            this.isFrameSequence = builder.isFrameSequence;
+            this.cornerRound = builder.cornerRound;
+            this.isCircle = builder.isCircle;
+            this.strokeColor = builder.strokeColor;
+            this.strokeWidth = builder.strokeWidth;
+            this.resources = builder.resources;
         }
 
         public static DisplayImageOptionsCompat createSimple() {
@@ -219,18 +242,18 @@ public interface IImageLoader {
         }
 
         public final Drawable getImageForEmptyUri() {
-            int i10 = this.imageResForEmptyUri;
-            return i10 != 0 ? this.resources.getDrawable(i10) : this.imageForEmptyUri;
+            int i2 = this.imageResForEmptyUri;
+            return i2 != 0 ? this.resources.getDrawable(i2) : this.imageForEmptyUri;
         }
 
         public final Drawable getImageOnFail() {
-            int i10 = this.imageResOnFail;
-            return i10 != 0 ? this.resources.getDrawable(i10) : this.imageOnFail;
+            int i2 = this.imageResOnFail;
+            return i2 != 0 ? this.resources.getDrawable(i2) : this.imageOnFail;
         }
 
         public final Drawable getImageOnLoading() {
-            int i10 = this.imageResOnLoading;
-            return i10 != 0 ? this.resources.getDrawable(i10) : this.imageOnLoading;
+            int i2 = this.imageResOnLoading;
+            return i2 != 0 ? this.resources.getDrawable(i2) : this.imageOnLoading;
         }
 
         public final int getStrokeColor() {
@@ -280,29 +303,6 @@ public interface IImageLoader {
         public final boolean shouldShowImageOnLoading() {
             return (this.imageOnLoading == null && this.imageResOnLoading == 0) ? false : true;
         }
-
-        private DisplayImageOptionsCompat(Builder builder) {
-            this.imageResOnLoading = builder.imageResOnLoading;
-            this.imageResForEmptyUri = builder.imageResForEmptyUri;
-            this.imageResOnFail = builder.imageResOnFail;
-            this.imageOnLoading = builder.imageOnLoading;
-            this.imageForEmptyUri = builder.imageForEmptyUri;
-            this.imageOnFail = builder.imageOnFail;
-            this.resetViewBeforeLoading = builder.resetViewBeforeLoading;
-            this.cacheInMemory = builder.cacheInMemory;
-            this.cacheOnDisk = builder.cacheOnDisk;
-            this.decodingOptions = builder.decodingOptions;
-            this.delayBeforeLoading = builder.delayBeforeLoading;
-            this.considerExifParams = builder.considerExifParams;
-            this.isSyncLoading = builder.isSyncLoading;
-            this.blurRadius = builder.blurRadius;
-            this.isFrameSequence = builder.isFrameSequence;
-            this.cornerRound = builder.cornerRound;
-            this.isCircle = builder.isCircle;
-            this.strokeColor = builder.strokeColor;
-            this.strokeWidth = builder.strokeWidth;
-            this.resources = builder.resources;
-        }
     }
 
     public interface ImageLoadingListener {
@@ -312,7 +312,7 @@ public interface IImageLoader {
 
         void onLoadingComplete(String str, View view, Bitmap bitmap);
 
-        void onLoadingFailed(String str, View view, String str2, Throwable th2);
+        void onLoadingFailed(String str, View view, String str2, Throwable th);
 
         void onLoadingStarted(String str, View view);
     }

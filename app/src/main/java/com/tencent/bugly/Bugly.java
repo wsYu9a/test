@@ -11,37 +11,37 @@ import com.tencent.bugly.proguard.X;
 import com.tencent.bugly.proguard.ca;
 import java.util.Map;
 
-/* loaded from: classes4.dex */
+/* loaded from: classes.dex */
 public class Bugly {
 
     /* renamed from: a */
-    private static boolean f22037a = false;
+    private static boolean f24570a = false;
     public static Context applicationContext = null;
     public static boolean enable = true;
 
     public static synchronized String getAppChannel() {
         byte[] bArr;
         synchronized (Bugly.class) {
-            com.tencent.bugly.crashreport.common.info.a m10 = com.tencent.bugly.crashreport.common.info.a.m();
-            if (m10 == null) {
+            com.tencent.bugly.crashreport.common.info.a m = com.tencent.bugly.crashreport.common.info.a.m();
+            if (m == null) {
                 return null;
             }
-            if (TextUtils.isEmpty(m10.I)) {
-                J a10 = J.a();
-                if (a10 == null) {
-                    return m10.I;
+            if (TextUtils.isEmpty(m.I)) {
+                J a2 = J.a();
+                if (a2 == null) {
+                    return m.I;
                 }
-                Map<String, byte[]> a11 = a10.a(556, (I) null, true);
-                if (a11 != null && (bArr = a11.get("app_channel")) != null) {
+                Map<String, byte[]> a3 = a2.a(556, (I) null, true);
+                if (a3 != null && (bArr = a3.get("app_channel")) != null) {
                     return new String(bArr);
                 }
             }
-            return m10.I;
+            return m.I;
         }
     }
 
-    public static void init(Context context, String str, boolean z10) {
-        init(context, str, z10, null);
+    public static void init(Context context, String str, boolean z) {
+        init(context, str, z, null);
     }
 
     public static void putUserData(Context context, String str, String str2) {
@@ -52,34 +52,34 @@ public class Bugly {
         CrashReport.setAppChannel(context, str);
     }
 
-    public static void setIsDevelopmentDevice(Context context, boolean z10) {
-        CrashReport.setIsDevelopmentDevice(context, z10);
+    public static void setIsDevelopmentDevice(Context context, boolean z) {
+        CrashReport.setIsDevelopmentDevice(context, z);
     }
 
     public static void setUserId(Context context, String str) {
         CrashReport.setUserId(context, str);
     }
 
-    public static void setUserTag(Context context, int i10) {
-        CrashReport.setUserSceneTag(context, i10);
+    public static void setUserTag(Context context, int i2) {
+        CrashReport.setUserSceneTag(context, i2);
     }
 
-    public static synchronized void init(Context context, String str, boolean z10, BuglyStrategy buglyStrategy) {
+    public static synchronized void init(Context context, String str, boolean z, BuglyStrategy buglyStrategy) {
         synchronized (Bugly.class) {
-            if (f22037a) {
+            if (f24570a) {
                 return;
             }
-            f22037a = true;
-            Context a10 = ca.a(context);
-            applicationContext = a10;
-            if (a10 == null) {
-                Log.e(X.f22679b, "init arg 'context' should not be null!");
+            f24570a = true;
+            Context a2 = ca.a(context);
+            applicationContext = a2;
+            if (a2 == null) {
+                Log.e(X.f25019b, "init arg 'context' should not be null!");
                 return;
             }
             b.a(CrashModule.getInstance());
             b.a(Beta.getInstance());
-            b.f22064a = enable;
-            b.a(applicationContext, str, z10, buglyStrategy);
+            b.f24586a = enable;
+            b.a(applicationContext, str, z, buglyStrategy);
         }
     }
 }

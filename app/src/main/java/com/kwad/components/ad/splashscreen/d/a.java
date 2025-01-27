@@ -1,265 +1,225 @@
 package com.kwad.components.ad.splashscreen.d;
 
 import android.content.Context;
+import androidx.annotation.MainThread;
 import androidx.annotation.NonNull;
-import com.kwad.components.ad.l.b;
 import com.kwad.components.core.video.DetailVideoView;
+import com.kwad.components.core.video.i;
 import com.kwad.components.offline.api.core.api.OfflineOnAudioConflictListener;
 import com.kwad.sdk.api.KsVideoPlayConfig;
-import com.kwad.sdk.contentalliance.a.a.b;
-import com.kwad.sdk.core.h.c;
-import com.kwad.sdk.core.response.b.e;
-import com.kwad.sdk.core.response.b.h;
+import com.kwad.sdk.contentalliance.kwai.kwai.b;
+import com.kwad.sdk.core.d.b;
+import com.kwad.sdk.core.g.c;
+import com.kwad.sdk.core.response.a.d;
+import com.kwad.sdk.core.response.a.f;
 import com.kwad.sdk.core.response.model.AdTemplate;
 import com.kwad.sdk.core.response.model.VideoPlayerStatus;
-import com.kwad.sdk.core.video.a.c;
-import com.kwad.sdk.utils.bd;
-import com.kwad.sdk.utils.bw;
-import com.kwad.sdk.utils.i;
+import com.kwad.sdk.core.video.kwai.c;
+import com.kwad.sdk.utils.bl;
+import com.kwad.sdk.utils.h;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
 /* loaded from: classes2.dex */
-public final class a extends b implements c {
-    private boolean Hf;
+public final class a extends com.kwad.components.ad.h.a implements c {
+    private boolean Ed;
     private Context mContext;
     private KsVideoPlayConfig mVideoPlayConfig;
     private VideoPlayerStatus mVideoPlayerStatus;
-    private boolean oI;
-    private String zo;
-    private final List<i.a> zr;
-    private OfflineOnAudioConflictListener zt;
+    private boolean nJ;
+    private OfflineOnAudioConflictListener xB;
+    private String xv;
+    private final List<h.a> xz;
 
     /* renamed from: com.kwad.components.ad.splashscreen.d.a$1 */
-    public class AnonymousClass1 implements OfflineOnAudioConflictListener {
-        public AnonymousClass1() {
+    final class AnonymousClass1 implements OfflineOnAudioConflictListener {
+        AnonymousClass1() {
         }
 
         @Override // com.kwad.components.offline.api.core.api.OfflineOnAudioConflictListener
         public final void onAudioBeOccupied() {
-            synchronized (a.this.zr) {
-                try {
-                    Iterator it = a.this.zr.iterator();
-                    while (it.hasNext()) {
-                        ((i.a) it.next()).onAudioBeOccupied();
-                    }
-                } catch (Throwable th2) {
-                    throw th2;
+            synchronized (a.this.xz) {
+                Iterator it = a.this.xz.iterator();
+                while (it.hasNext()) {
+                    ((h.a) it.next()).onAudioBeOccupied();
                 }
             }
         }
 
         @Override // com.kwad.components.offline.api.core.api.OfflineOnAudioConflictListener
         public final void onAudioBeReleased() {
-            synchronized (a.this.zr) {
-                try {
-                    Iterator it = a.this.zr.iterator();
-                    while (it.hasNext()) {
-                        ((i.a) it.next()).onAudioBeReleased();
-                    }
-                } catch (Throwable th2) {
-                    throw th2;
+            synchronized (a.this.xz) {
+                Iterator it = a.this.xz.iterator();
+                while (it.hasNext()) {
+                    ((h.a) it.next()).onAudioBeReleased();
                 }
             }
         }
     }
 
     /* renamed from: com.kwad.components.ad.splashscreen.d.a$2 */
-    public class AnonymousClass2 implements c.e {
-        final /* synthetic */ DetailVideoView Hh;
+    final class AnonymousClass2 implements c.e {
+        final /* synthetic */ DetailVideoView Ef;
 
-        /* renamed from: com.kwad.components.ad.splashscreen.d.a$2$1 */
-        public class AnonymousClass1 extends bd {
-            public AnonymousClass1() {
-            }
-
-            @Override // com.kwad.sdk.utils.bd
-            public final void doTask() {
-                boolean a10 = bw.a(detailVideoView, 50, true);
-                com.kwad.sdk.core.d.c.d("SplashPlayModule", " onPrepared" + a10);
-                if (a10) {
-                    a.this.Js.start();
-                }
-            }
-        }
-
-        public AnonymousClass2(DetailVideoView detailVideoView) {
+        AnonymousClass2(DetailVideoView detailVideoView) {
             detailVideoView = detailVideoView;
         }
 
-        @Override // com.kwad.sdk.core.video.a.c.e
-        public final void a(com.kwad.sdk.core.video.a.c cVar) {
-            com.kwad.sdk.core.d.c.d("SplashPlayModule", " onPrepared");
-            detailVideoView.post(new bd() { // from class: com.kwad.components.ad.splashscreen.d.a.2.1
-                public AnonymousClass1() {
-                }
-
-                @Override // com.kwad.sdk.utils.bd
-                public final void doTask() {
-                    boolean a10 = bw.a(detailVideoView, 50, true);
-                    com.kwad.sdk.core.d.c.d("SplashPlayModule", " onPrepared" + a10);
-                    if (a10) {
-                        a.this.Js.start();
-                    }
-                }
-            });
+        @Override // com.kwad.sdk.core.video.kwai.c.e
+        public final void a(com.kwad.sdk.core.video.kwai.c cVar) {
+            boolean a2 = bl.a(detailVideoView, 50, true);
+            b.d("SplashPlayModule", " onPrepared" + a2);
+            if (a2) {
+                a.this.Gj.start();
+            }
         }
     }
 
     public a(@NonNull AdTemplate adTemplate, @NonNull DetailVideoView detailVideoView, KsVideoPlayConfig ksVideoPlayConfig) {
         super(adTemplate, detailVideoView);
-        this.zr = new ArrayList();
-        this.zt = new OfflineOnAudioConflictListener() { // from class: com.kwad.components.ad.splashscreen.d.a.1
-            public AnonymousClass1() {
+        this.xz = new ArrayList();
+        this.xB = new OfflineOnAudioConflictListener() { // from class: com.kwad.components.ad.splashscreen.d.a.1
+            AnonymousClass1() {
             }
 
             @Override // com.kwad.components.offline.api.core.api.OfflineOnAudioConflictListener
             public final void onAudioBeOccupied() {
-                synchronized (a.this.zr) {
-                    try {
-                        Iterator it = a.this.zr.iterator();
-                        while (it.hasNext()) {
-                            ((i.a) it.next()).onAudioBeOccupied();
-                        }
-                    } catch (Throwable th2) {
-                        throw th2;
+                synchronized (a.this.xz) {
+                    Iterator it = a.this.xz.iterator();
+                    while (it.hasNext()) {
+                        ((h.a) it.next()).onAudioBeOccupied();
                     }
                 }
             }
 
             @Override // com.kwad.components.offline.api.core.api.OfflineOnAudioConflictListener
             public final void onAudioBeReleased() {
-                synchronized (a.this.zr) {
-                    try {
-                        Iterator it = a.this.zr.iterator();
-                        while (it.hasNext()) {
-                            ((i.a) it.next()).onAudioBeReleased();
-                        }
-                    } catch (Throwable th2) {
-                        throw th2;
+                synchronized (a.this.xz) {
+                    Iterator it = a.this.xz.iterator();
+                    while (it.hasNext()) {
+                        ((h.a) it.next()).onAudioBeReleased();
                     }
                 }
             }
         };
         this.mVideoPlayConfig = ksVideoPlayConfig;
         this.mContext = detailVideoView.getContext();
-        String aZ = com.kwad.sdk.core.response.b.a.aZ(e.eb(adTemplate));
+        String aS = com.kwad.sdk.core.response.a.a.aS(d.cb(adTemplate));
         this.mVideoPlayerStatus = adTemplate.mVideoPlayerStatus;
-        File ca2 = com.kwad.sdk.core.diskcache.b.a.EG().ca(aZ);
-        if (ca2 != null && ca2.exists()) {
-            this.zo = ca2.getAbsolutePath();
+        File aX = com.kwad.sdk.core.diskcache.a.a.vs().aX(aS);
+        if (aX != null && aX.exists()) {
+            this.xv = aX.getAbsolutePath();
         }
-        this.Js.a(new c.e() { // from class: com.kwad.components.ad.splashscreen.d.a.2
-            final /* synthetic */ DetailVideoView Hh;
+        this.Gj.a(new c.e() { // from class: com.kwad.components.ad.splashscreen.d.a.2
+            final /* synthetic */ DetailVideoView Ef;
 
-            /* renamed from: com.kwad.components.ad.splashscreen.d.a$2$1 */
-            public class AnonymousClass1 extends bd {
-                public AnonymousClass1() {
-                }
-
-                @Override // com.kwad.sdk.utils.bd
-                public final void doTask() {
-                    boolean a10 = bw.a(detailVideoView, 50, true);
-                    com.kwad.sdk.core.d.c.d("SplashPlayModule", " onPrepared" + a10);
-                    if (a10) {
-                        a.this.Js.start();
-                    }
-                }
-            }
-
-            public AnonymousClass2(DetailVideoView detailVideoView2) {
+            AnonymousClass2(DetailVideoView detailVideoView2) {
                 detailVideoView = detailVideoView2;
             }
 
-            @Override // com.kwad.sdk.core.video.a.c.e
-            public final void a(com.kwad.sdk.core.video.a.c cVar) {
-                com.kwad.sdk.core.d.c.d("SplashPlayModule", " onPrepared");
-                detailVideoView.post(new bd() { // from class: com.kwad.components.ad.splashscreen.d.a.2.1
-                    public AnonymousClass1() {
-                    }
-
-                    @Override // com.kwad.sdk.utils.bd
-                    public final void doTask() {
-                        boolean a10 = bw.a(detailVideoView, 50, true);
-                        com.kwad.sdk.core.d.c.d("SplashPlayModule", " onPrepared" + a10);
-                        if (a10) {
-                            a.this.Js.start();
-                        }
-                    }
-                });
+            @Override // com.kwad.sdk.core.video.kwai.c.e
+            public final void a(com.kwad.sdk.core.video.kwai.c cVar) {
+                boolean a2 = bl.a(detailVideoView, 50, true);
+                b.d("SplashPlayModule", " onPrepared" + a2);
+                if (a2) {
+                    a.this.Gj.start();
+                }
             }
         });
-        com.kwad.components.core.s.a.av(this.mContext).a(this.zt);
+        com.kwad.components.core.r.a.aj(this.mContext).a(this.xB);
     }
 
-    private void bk() {
-        this.Js.a(new b.a(this.mAdTemplate).a(this.mVideoPlayerStatus).dc(this.zo).dd(h.b(e.ec(this.mAdTemplate))).b(com.kwad.sdk.contentalliance.a.a.a.bL(this.mAdTemplate)).Cz(), this.mDetailVideoView);
+    private void aT() {
+        this.Gj.a(new b.a(this.mAdTemplate).a(this.mVideoPlayerStatus).bs(this.xv).bt(f.b(d.cc(this.mAdTemplate))).b(com.kwad.sdk.contentalliance.kwai.kwai.a.ak(this.mAdTemplate)).tR(), this.mDetailVideoView);
         KsVideoPlayConfig ksVideoPlayConfig = this.mVideoPlayConfig;
         if (ksVideoPlayConfig != null) {
             setAudioEnabled(ksVideoPlayConfig.isVideoSoundEnable(), false);
         }
-        this.Js.prepareAsync();
+        this.Gj.prepareAsync();
     }
 
-    public final void af(boolean z10) {
-        this.Hf = true;
-    }
-
-    @Override // com.kwad.sdk.core.h.c
-    public final void bl() {
-        resume();
-    }
-
-    @Override // com.kwad.sdk.core.h.c
-    public final void bm() {
-        pause();
-    }
-
-    public final long getCurrentPosition() {
-        return this.Js.getCurrentPosition();
-    }
-
-    public final void mx() {
-        if (this.Js.sv() == null) {
-            bk();
-        }
-        this.Js.start();
-    }
-
-    @Override // com.kwad.components.ad.l.b, com.kwad.components.ad.l.a
-    public final void release() {
-        super.release();
-        com.kwad.components.core.s.a.av(this.mContext).b(this.zt);
-    }
-
-    @Override // com.kwad.components.ad.l.b, com.kwad.components.ad.l.a
-    public final void resume() {
-        super.resume();
-        if (this.oI && this.Hf) {
-            com.kwad.components.core.s.a.av(this.mContext).aO(false);
-            if (com.kwad.components.core.s.a.av(this.mContext).sa()) {
-                this.oI = false;
+    private void resume() {
+        this.Gj.resume();
+        if (this.nJ && this.Ed) {
+            com.kwad.components.core.r.a.aj(this.mContext).aL(false);
+            if (com.kwad.components.core.r.a.aj(this.mContext).pI()) {
+                this.nJ = false;
                 setAudioEnabled(false, false);
             }
         }
     }
 
-    @Override // com.kwad.components.ad.l.a
-    public final void setAudioEnabled(boolean z10, boolean z11) {
-        this.oI = z10;
-        if (z10 && z11) {
-            com.kwad.components.core.s.a.av(this.mContext).aO(true);
+    @MainThread
+    public final void a(i iVar) {
+        if (iVar == null) {
+            return;
         }
-        this.Js.setAudioEnabled(z10);
+        this.Gj.c(iVar);
     }
 
-    public final void a(i.a aVar) {
-        this.zr.add(aVar);
+    public final void a(h.a aVar) {
+        this.xz.add(aVar);
     }
 
-    public final void b(i.a aVar) {
-        this.zr.remove(aVar);
+    public final void aj(boolean z) {
+        this.Ed = true;
+    }
+
+    @MainThread
+    public final void b(i iVar) {
+        if (iVar == null) {
+            return;
+        }
+        this.Gj.d(iVar);
+    }
+
+    public final void b(h.a aVar) {
+        this.xz.remove(aVar);
+    }
+
+    public final long getCurrentPosition() {
+        return this.Gj.getCurrentPosition();
+    }
+
+    public final void lq() {
+        if (this.Gj.qe() == null) {
+            aT();
+        }
+        this.Gj.start();
+    }
+
+    @Override // com.kwad.sdk.core.g.c
+    public final void onPageInvisible() {
+        pause();
+    }
+
+    @Override // com.kwad.sdk.core.g.c
+    public final void onPageVisible() {
+        resume();
+    }
+
+    public final void pause() {
+        this.Gj.pause();
+    }
+
+    @Override // com.kwad.components.ad.h.a
+    public final void release() {
+        super.release();
+        com.kwad.components.core.video.b bVar = this.Gj;
+        if (bVar != null) {
+            bVar.clear();
+            this.Gj.release();
+        }
+        com.kwad.components.core.r.a.aj(this.mContext).b(this.xB);
+    }
+
+    public final void setAudioEnabled(boolean z, boolean z2) {
+        this.nJ = z;
+        if (z && z2) {
+            com.kwad.components.core.r.a.aj(this.mContext).aL(true);
+        }
+        this.Gj.setAudioEnabled(z);
     }
 }

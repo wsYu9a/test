@@ -7,10 +7,12 @@ import android.widget.OverScroller;
 @Deprecated
 /* loaded from: classes.dex */
 public final class ScrollerCompat {
-    OverScroller mScroller;
 
-    public ScrollerCompat(Context context, Interpolator interpolator) {
-        this.mScroller = interpolator != null ? new OverScroller(context, interpolator) : new OverScroller(context);
+    /* renamed from: a, reason: collision with root package name */
+    OverScroller f2206a;
+
+    ScrollerCompat(Context context, Interpolator interpolator) {
+        this.f2206a = interpolator != null ? new OverScroller(context, interpolator) : new OverScroller(context);
     }
 
     @Deprecated
@@ -20,72 +22,72 @@ public final class ScrollerCompat {
 
     @Deprecated
     public void abortAnimation() {
-        this.mScroller.abortAnimation();
+        this.f2206a.abortAnimation();
     }
 
     @Deprecated
     public boolean computeScrollOffset() {
-        return this.mScroller.computeScrollOffset();
+        return this.f2206a.computeScrollOffset();
     }
 
     @Deprecated
-    public void fling(int i10, int i11, int i12, int i13, int i14, int i15, int i16, int i17) {
-        this.mScroller.fling(i10, i11, i12, i13, i14, i15, i16, i17);
+    public void fling(int i2, int i3, int i4, int i5, int i6, int i7, int i8, int i9) {
+        this.f2206a.fling(i2, i3, i4, i5, i6, i7, i8, i9);
     }
 
     @Deprecated
     public float getCurrVelocity() {
-        return this.mScroller.getCurrVelocity();
+        return this.f2206a.getCurrVelocity();
     }
 
     @Deprecated
     public int getCurrX() {
-        return this.mScroller.getCurrX();
+        return this.f2206a.getCurrX();
     }
 
     @Deprecated
     public int getCurrY() {
-        return this.mScroller.getCurrY();
+        return this.f2206a.getCurrY();
     }
 
     @Deprecated
     public int getFinalX() {
-        return this.mScroller.getFinalX();
+        return this.f2206a.getFinalX();
     }
 
     @Deprecated
     public int getFinalY() {
-        return this.mScroller.getFinalY();
+        return this.f2206a.getFinalY();
     }
 
     @Deprecated
     public boolean isFinished() {
-        return this.mScroller.isFinished();
+        return this.f2206a.isFinished();
     }
 
     @Deprecated
     public boolean isOverScrolled() {
-        return this.mScroller.isOverScrolled();
+        return this.f2206a.isOverScrolled();
     }
 
     @Deprecated
-    public void notifyHorizontalEdgeReached(int i10, int i11, int i12) {
-        this.mScroller.notifyHorizontalEdgeReached(i10, i11, i12);
+    public void notifyHorizontalEdgeReached(int i2, int i3, int i4) {
+        this.f2206a.notifyHorizontalEdgeReached(i2, i3, i4);
     }
 
     @Deprecated
-    public void notifyVerticalEdgeReached(int i10, int i11, int i12) {
-        this.mScroller.notifyVerticalEdgeReached(i10, i11, i12);
+    public void notifyVerticalEdgeReached(int i2, int i3, int i4) {
+        this.f2206a.notifyVerticalEdgeReached(i2, i3, i4);
     }
 
     @Deprecated
-    public boolean springBack(int i10, int i11, int i12, int i13, int i14, int i15) {
-        return this.mScroller.springBack(i10, i11, i12, i13, i14, i15);
+    public boolean springBack(int i2, int i3, int i4, int i5, int i6, int i7) {
+        return this.f2206a.springBack(i2, i3, i4, i5, i6, i7);
     }
 
     @Deprecated
-    public void startScroll(int i10, int i11, int i12, int i13) {
-        this.mScroller.startScroll(i10, i11, i12, i13);
+    public void startScroll(int i2, int i3, int i4, int i5) {
+        this.f2206a.startScroll(i2, i3, i4, i5);
     }
 
     @Deprecated
@@ -94,12 +96,12 @@ public final class ScrollerCompat {
     }
 
     @Deprecated
-    public void fling(int i10, int i11, int i12, int i13, int i14, int i15, int i16, int i17, int i18, int i19) {
-        this.mScroller.fling(i10, i11, i12, i13, i14, i15, i16, i17, i18, i19);
+    public void fling(int i2, int i3, int i4, int i5, int i6, int i7, int i8, int i9, int i10, int i11) {
+        this.f2206a.fling(i2, i3, i4, i5, i6, i7, i8, i9, i10, i11);
     }
 
     @Deprecated
-    public void startScroll(int i10, int i11, int i12, int i13, int i14) {
-        this.mScroller.startScroll(i10, i11, i12, i13, i14);
+    public void startScroll(int i2, int i3, int i4, int i5, int i6) {
+        this.f2206a.startScroll(i2, i3, i4, i5, i6);
     }
 }

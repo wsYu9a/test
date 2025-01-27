@@ -1,6 +1,6 @@
 package com.kwad.sdk.pngencrypt.chunk;
 
-/* loaded from: classes3.dex */
+/* loaded from: classes2.dex */
 public final class u extends k {
     public u(String str, com.kwad.sdk.pngencrypt.k kVar) {
         super(str, kVar);

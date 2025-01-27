@@ -3,86 +3,53 @@ package androidx.appcompat.widget;
 import android.R;
 import android.content.Context;
 import android.content.res.ColorStateList;
-import android.content.res.TypedArray;
 import android.graphics.Color;
 import android.util.AttributeSet;
-import android.util.Log;
 import android.util.TypedValue;
-import android.view.View;
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.annotation.RestrictTo;
 import androidx.core.graphics.ColorUtils;
 
-@RestrictTo({RestrictTo.Scope.LIBRARY})
 /* loaded from: classes.dex */
-public class ThemeUtils {
-    private static final String TAG = "ThemeUtils";
-    private static final ThreadLocal<TypedValue> TL_TYPED_VALUE = new ThreadLocal<>();
-    static final int[] DISABLED_STATE_SET = {-16842910};
-    static final int[] FOCUSED_STATE_SET = {R.attr.state_focused};
-    static final int[] ACTIVATED_STATE_SET = {R.attr.state_activated};
-    static final int[] PRESSED_STATE_SET = {R.attr.state_pressed};
-    static final int[] CHECKED_STATE_SET = {R.attr.state_checked};
-    static final int[] SELECTED_STATE_SET = {R.attr.state_selected};
-    static final int[] NOT_PRESSED_OR_FOCUSED_STATE_SET = {-16842919, -16842908};
-    static final int[] EMPTY_STATE_SET = new int[0];
-    private static final int[] TEMP_ARRAY = new int[1];
+class ThemeUtils {
+
+    /* renamed from: a */
+    private static final ThreadLocal<TypedValue> f961a = new ThreadLocal<>();
+
+    /* renamed from: b */
+    static final int[] f962b = {-16842910};
+
+    /* renamed from: c */
+    static final int[] f963c = {R.attr.state_focused};
+
+    /* renamed from: d */
+    static final int[] f964d = {R.attr.state_activated};
+
+    /* renamed from: e */
+    static final int[] f965e = {R.attr.state_pressed};
+
+    /* renamed from: f */
+    static final int[] f966f = {R.attr.state_checked};
+
+    /* renamed from: g */
+    static final int[] f967g = {R.attr.state_selected};
+
+    /* renamed from: h */
+    static final int[] f968h = {-16842919, -16842908};
+
+    /* renamed from: i */
+    static final int[] f969i = new int[0];
+
+    /* renamed from: j */
+    private static final int[] f970j = new int[1];
 
     private ThemeUtils() {
     }
 
-    public static void checkAppCompatTheme(@NonNull View view, @NonNull Context context) {
-        TypedArray obtainStyledAttributes = context.obtainStyledAttributes(androidx.appcompat.R.styleable.AppCompatTheme);
-        try {
-            if (!obtainStyledAttributes.hasValue(androidx.appcompat.R.styleable.AppCompatTheme_windowActionBar)) {
-                Log.e(TAG, "View " + view.getClass() + " is an AppCompat widget that can only be used with a Theme.AppCompat theme (or descendant).");
-            }
-        } finally {
-            obtainStyledAttributes.recycle();
-        }
+    static int a(Context context, int i2, float f2) {
+        return ColorUtils.setAlphaComponent(getThemeAttrColor(context, i2), Math.round(Color.alpha(r0) * f2));
     }
 
-    @NonNull
-    public static ColorStateList createDisabledStateList(int i10, int i11) {
-        return new ColorStateList(new int[][]{DISABLED_STATE_SET, EMPTY_STATE_SET}, new int[]{i11, i10});
-    }
-
-    public static int getDisabledThemeAttrColor(@NonNull Context context, int i10) {
-        ColorStateList themeAttrColorStateList = getThemeAttrColorStateList(context, i10);
-        if (themeAttrColorStateList != null && themeAttrColorStateList.isStateful()) {
-            return themeAttrColorStateList.getColorForState(DISABLED_STATE_SET, themeAttrColorStateList.getDefaultColor());
-        }
-        TypedValue typedValue = getTypedValue();
-        context.getTheme().resolveAttribute(R.attr.disabledAlpha, typedValue, true);
-        return getThemeAttrColor(context, i10, typedValue.getFloat());
-    }
-
-    public static int getThemeAttrColor(@NonNull Context context, int i10) {
-        int[] iArr = TEMP_ARRAY;
-        iArr[0] = i10;
-        TintTypedArray obtainStyledAttributes = TintTypedArray.obtainStyledAttributes(context, (AttributeSet) null, iArr);
-        try {
-            return obtainStyledAttributes.getColor(0, 0);
-        } finally {
-            obtainStyledAttributes.recycle();
-        }
-    }
-
-    @Nullable
-    public static ColorStateList getThemeAttrColorStateList(@NonNull Context context, int i10) {
-        int[] iArr = TEMP_ARRAY;
-        iArr[0] = i10;
-        TintTypedArray obtainStyledAttributes = TintTypedArray.obtainStyledAttributes(context, (AttributeSet) null, iArr);
-        try {
-            return obtainStyledAttributes.getColorStateList(0);
-        } finally {
-            obtainStyledAttributes.recycle();
-        }
-    }
-
-    private static TypedValue getTypedValue() {
-        ThreadLocal<TypedValue> threadLocal = TL_TYPED_VALUE;
+    private static TypedValue b() {
+        ThreadLocal<TypedValue> threadLocal = f961a;
         TypedValue typedValue = threadLocal.get();
         if (typedValue != null) {
             return typedValue;
@@ -92,7 +59,39 @@ public class ThemeUtils {
         return typedValue2;
     }
 
-    public static int getThemeAttrColor(@NonNull Context context, int i10, float f10) {
-        return ColorUtils.setAlphaComponent(getThemeAttrColor(context, i10), Math.round(Color.alpha(r0) * f10));
+    public static ColorStateList createDisabledStateList(int i2, int i3) {
+        return new ColorStateList(new int[][]{f962b, f969i}, new int[]{i3, i2});
+    }
+
+    public static int getDisabledThemeAttrColor(Context context, int i2) {
+        ColorStateList themeAttrColorStateList = getThemeAttrColorStateList(context, i2);
+        if (themeAttrColorStateList != null && themeAttrColorStateList.isStateful()) {
+            return themeAttrColorStateList.getColorForState(f962b, themeAttrColorStateList.getDefaultColor());
+        }
+        TypedValue b2 = b();
+        context.getTheme().resolveAttribute(R.attr.disabledAlpha, b2, true);
+        return a(context, i2, b2.getFloat());
+    }
+
+    public static int getThemeAttrColor(Context context, int i2) {
+        int[] iArr = f970j;
+        iArr[0] = i2;
+        TintTypedArray obtainStyledAttributes = TintTypedArray.obtainStyledAttributes(context, (AttributeSet) null, iArr);
+        try {
+            return obtainStyledAttributes.getColor(0, 0);
+        } finally {
+            obtainStyledAttributes.recycle();
+        }
+    }
+
+    public static ColorStateList getThemeAttrColorStateList(Context context, int i2) {
+        int[] iArr = f970j;
+        iArr[0] = i2;
+        TintTypedArray obtainStyledAttributes = TintTypedArray.obtainStyledAttributes(context, (AttributeSet) null, iArr);
+        try {
+            return obtainStyledAttributes.getColorStateList(0);
+        } finally {
+            obtainStyledAttributes.recycle();
+        }
     }
 }

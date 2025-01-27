@@ -4,21 +4,21 @@ import android.content.Context;
 import com.tencent.bugly.BuglyStrategy;
 
 /* loaded from: classes4.dex */
-public class d implements Runnable {
+class d implements Runnable {
 
     /* renamed from: a */
-    final /* synthetic */ Context f22261a;
+    final /* synthetic */ Context f24730a;
 
     /* renamed from: b */
-    final /* synthetic */ BuglyStrategy f22262b;
+    final /* synthetic */ BuglyStrategy f24731b;
 
-    public d(Context context, BuglyStrategy buglyStrategy) {
-        this.f22261a = context;
-        this.f22262b = buglyStrategy;
+    d(Context context, BuglyStrategy buglyStrategy) {
+        this.f24730a = context;
+        this.f24731b = buglyStrategy;
     }
 
     @Override // java.lang.Runnable
     public void run() {
-        f.c(this.f22261a, this.f22262b);
+        f.c(this.f24730a, this.f24731b);
     }
 }

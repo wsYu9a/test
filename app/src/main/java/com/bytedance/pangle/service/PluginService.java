@@ -13,13 +13,13 @@ import java.lang.reflect.Method;
 import java.lang.reflect.Proxy;
 
 @Keep
-/* loaded from: classes2.dex */
+/* loaded from: classes.dex */
 public abstract class PluginService extends Service implements a {
     private static final String TAG = "PluginService";
 
     /* renamed from: com.bytedance.pangle.service.PluginService$1 */
-    public class AnonymousClass1 implements InvocationHandler {
-        public AnonymousClass1() {
+    final class AnonymousClass1 implements InvocationHandler {
+        AnonymousClass1() {
         }
 
         @Override // java.lang.reflect.InvocationHandler
@@ -32,9 +32,9 @@ public abstract class PluginService extends Service implements a {
             if (!name.equals("stopServiceToken")) {
                 return null;
             }
-            com.bytedance.pangle.service.a.a b10 = com.bytedance.pangle.service.a.a.b();
+            com.bytedance.pangle.service.a.a b2 = com.bytedance.pangle.service.a.a.b();
             PluginService pluginService = PluginService.this;
-            return Boolean.valueOf(b10.a(new ComponentName(pluginService, pluginService.getClass().getName())));
+            return Boolean.valueOf(b2.a(new ComponentName(pluginService, pluginService.getClass().getName())));
         }
     }
 
@@ -46,14 +46,14 @@ public abstract class PluginService extends Service implements a {
             FieldUtils.writeField(this, "mClassName", getClass().getName());
             FieldUtils.writeField(this, "mApplication", Zeus.getAppApplication());
             FieldUtils.writeField(this, "mStartCompatibility", Boolean.valueOf(getApplicationInfo().targetSdkVersion < 5));
-        } catch (Exception e10) {
-            ZeusLogger.errReport(ZeusLogger.TAG_SERVICE, "hook activityManager failed!", e10);
+        } catch (Exception e2) {
+            ZeusLogger.errReport(ZeusLogger.TAG_SERVICE, "hook activityManager failed!", e2);
         }
     }
 
-    public Object createActivityManagerProxy() {
+    protected Object createActivityManagerProxy() {
         return Proxy.newProxyInstance(getClassLoader(), new Class[]{Class.forName("android.app.IActivityManager")}, new InvocationHandler() { // from class: com.bytedance.pangle.service.PluginService.1
-            public AnonymousClass1() {
+            AnonymousClass1() {
             }
 
             @Override // java.lang.reflect.InvocationHandler
@@ -66,9 +66,9 @@ public abstract class PluginService extends Service implements a {
                 if (!name.equals("stopServiceToken")) {
                     return null;
                 }
-                com.bytedance.pangle.service.a.a b10 = com.bytedance.pangle.service.a.a.b();
+                com.bytedance.pangle.service.a.a b2 = com.bytedance.pangle.service.a.a.b();
                 PluginService pluginService = PluginService.this;
-                return Boolean.valueOf(b10.a(new ComponentName(pluginService, pluginService.getClass().getName())));
+                return Boolean.valueOf(b2.a(new ComponentName(pluginService, pluginService.getClass().getName())));
             }
         });
     }

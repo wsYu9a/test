@@ -22,16 +22,23 @@ import javax.net.ssl.TrustManager;
 public class O {
 
     /* renamed from: a */
-    private static O f22635a;
+    private static O f24986a;
 
     /* renamed from: b */
-    protected Context f22636b;
+    protected Context f24987b;
 
     /* renamed from: c */
-    public Map<String, String> f22637c = null;
+    public Map<String, String> f24988c = null;
 
     private O(Context context) {
-        this.f22636b = context;
+        this.f24987b = context;
+    }
+
+    public static O a(Context context) {
+        if (f24986a == null) {
+            f24986a = new O(context);
+        }
+        return f24986a;
     }
 
     private Map<String, String> b(HttpURLConnection httpURLConnection) {
@@ -49,51 +56,44 @@ public class O {
         return hashMap;
     }
 
-    public boolean a(int i10) {
-        return i10 == 301 || i10 == 302 || i10 == 303 || i10 == 307;
+    protected boolean a(int i2) {
+        return i2 == 301 || i2 == 302 || i2 == 303 || i2 == 307;
     }
 
-    public static O a(Context context) {
-        if (f22635a == null) {
-            f22635a = new O(context);
-        }
-        return f22635a;
-    }
-
-    /* JADX WARN: Code restructure failed: missing block: B:69:0x016d, code lost:
+    /* JADX WARN: Code restructure failed: missing block: B:66:0x015c, code lost:
     
-        if (com.tencent.bugly.proguard.X.b(r7) != false) goto L237;
+        if (com.tencent.bugly.proguard.X.b(r4) != false) goto L236;
      */
-    /* JADX WARN: Code restructure failed: missing block: B:70:0x0196, code lost:
+    /* JADX WARN: Code restructure failed: missing block: B:67:0x017c, code lost:
     
-        r7.printStackTrace();
+        r4.printStackTrace();
      */
-    /* JADX WARN: Code restructure failed: missing block: B:80:0x0194, code lost:
+    /* JADX WARN: Code restructure failed: missing block: B:78:0x017a, code lost:
     
-        if (com.tencent.bugly.proguard.X.b(r7) != false) goto L237;
+        if (com.tencent.bugly.proguard.X.b(r4) != false) goto L236;
      */
-    /* JADX WARN: Removed duplicated region for block: B:74:0x0187 A[Catch: all -> 0x0175, TRY_LEAVE, TryCatch #9 {all -> 0x0175, blocks: (B:61:0x0160, B:72:0x0181, B:74:0x0187), top: B:60:0x0160 }] */
+    /* JADX WARN: Removed duplicated region for block: B:72:0x016d A[Catch: all -> 0x0161, TRY_LEAVE, TryCatch #0 {all -> 0x0161, blocks: (B:24:0x009e, B:26:0x00a6, B:29:0x00b7, B:39:0x00b5, B:40:0x00ca, B:44:0x00d2, B:87:0x00d8, B:89:0x00df, B:48:0x010a, B:51:0x0114, B:54:0x012b, B:56:0x0132, B:59:0x014f, B:70:0x0167, B:72:0x016d), top: B:23:0x009e }] */
     /*
         Code decompiled incorrectly, please refer to instructions dump.
         To view partially-correct code enable 'Show inconsistent code' option in preferences
     */
     public byte[] a(java.lang.String r21, byte[] r22, com.tencent.bugly.proguard.U r23, java.util.Map<java.lang.String, java.lang.String> r24) {
         /*
-            Method dump skipped, instructions count: 447
+            Method dump skipped, instructions count: 425
             To view this dump change 'Code comments level' option to 'DEBUG'
         */
         throw new UnsupportedOperationException("Method not decompiled: com.tencent.bugly.proguard.O.a(java.lang.String, byte[], com.tencent.bugly.proguard.U, java.util.Map):byte[]");
     }
 
-    public byte[] a(HttpURLConnection httpURLConnection) {
+    protected byte[] a(HttpURLConnection httpURLConnection) {
         BufferedInputStream bufferedInputStream;
         if (httpURLConnection == null) {
             return null;
         }
         try {
             bufferedInputStream = new BufferedInputStream(httpURLConnection.getInputStream());
-        } catch (Throwable th2) {
-            th = th2;
+        } catch (Throwable th) {
+            th = th;
             bufferedInputStream = null;
         }
         try {
@@ -110,12 +110,12 @@ public class O {
             byte[] byteArray = byteArrayOutputStream.toByteArray();
             try {
                 bufferedInputStream.close();
-            } catch (Throwable th3) {
-                th3.printStackTrace();
+            } catch (Throwable th2) {
+                th2.printStackTrace();
             }
             return byteArray;
-        } catch (Throwable th4) {
-            th = th4;
+        } catch (Throwable th3) {
+            th = th3;
             try {
                 if (!X.b(th)) {
                     th.printStackTrace();
@@ -125,51 +125,51 @@ public class O {
                 if (bufferedInputStream != null) {
                     try {
                         bufferedInputStream.close();
-                    } catch (Throwable th5) {
-                        th5.printStackTrace();
+                    } catch (Throwable th4) {
+                        th4.printStackTrace();
                     }
                 }
             }
         }
     }
 
-    public HttpURLConnection a(String str, byte[] bArr, String str2, Map<String, String> map) {
+    protected HttpURLConnection a(String str, byte[] bArr, String str2, Map<String, String> map) {
         if (str == null) {
             X.b("destUrl is null.", new Object[0]);
             return null;
         }
         a();
-        HttpURLConnection a10 = a(str2, str);
-        if (a10 == null) {
+        HttpURLConnection a2 = a(str2, str);
+        if (a2 == null) {
             X.b("Failed to get HttpURLConnection object.", new Object[0]);
             return null;
         }
         try {
-            a10.setRequestProperty("wup_version", "3.0");
+            a2.setRequestProperty("wup_version", "3.0");
             if (map != null && map.size() > 0) {
                 for (Map.Entry<String, String> entry : map.entrySet()) {
-                    a10.setRequestProperty(entry.getKey(), URLEncoder.encode(entry.getValue(), "utf-8"));
+                    a2.setRequestProperty(entry.getKey(), URLEncoder.encode(entry.getValue(), "utf-8"));
                 }
             }
-            a10.setRequestProperty("A37", URLEncoder.encode(str2, "utf-8"));
-            a10.setRequestProperty("A38", URLEncoder.encode(str2, "utf-8"));
-            OutputStream outputStream = a10.getOutputStream();
+            a2.setRequestProperty("A37", URLEncoder.encode(str2, "utf-8"));
+            a2.setRequestProperty("A38", URLEncoder.encode(str2, "utf-8"));
+            OutputStream outputStream = a2.getOutputStream();
             if (bArr == null) {
                 outputStream.write(0);
             } else {
                 outputStream.write(bArr);
             }
-            return a10;
-        } catch (Throwable th2) {
-            if (!X.b(th2)) {
-                th2.printStackTrace();
+            return a2;
+        } catch (Throwable th) {
+            if (!X.b(th)) {
+                th.printStackTrace();
             }
             X.b("Failed to upload, please check your network.", new Object[0]);
             return null;
         }
     }
 
-    public HttpURLConnection a(String str, String str2) {
+    protected HttpURLConnection a(String str, String str2) {
         HttpURLConnection httpURLConnection;
         try {
             URL url = new URL(str2);
@@ -188,11 +188,11 @@ public class O {
             httpURLConnection.setUseCaches(false);
             httpURLConnection.setInstanceFollowRedirects(false);
             return httpURLConnection;
-        } catch (Throwable th2) {
-            if (X.b(th2)) {
+        } catch (Throwable th) {
+            if (X.b(th)) {
                 return null;
             }
-            th2.printStackTrace();
+            th.printStackTrace();
             return null;
         }
     }
@@ -203,8 +203,8 @@ public class O {
             SSLContext sSLContext = SSLContext.getInstance("TLS");
             sSLContext.init(null, trustManagerArr, new SecureRandom());
             HttpsURLConnection.setDefaultSSLSocketFactory(sSLContext.getSocketFactory());
-        } catch (Exception e10) {
-            e10.printStackTrace();
+        } catch (Exception e2) {
+            e2.printStackTrace();
         }
     }
 }

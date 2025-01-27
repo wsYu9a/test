@@ -4,52 +4,52 @@ import java.io.ByteArrayOutputStream;
 import java.io.OutputStream;
 import java.io.RandomAccessFile;
 
-/* loaded from: classes2.dex */
+/* loaded from: classes.dex */
 public final class c {
 
     /* renamed from: a, reason: collision with root package name */
-    public final byte[] f7834a = new byte[2];
+    public final byte[] f6311a = new byte[2];
 
     /* renamed from: b, reason: collision with root package name */
-    private final byte[] f7835b = new byte[4];
+    private final byte[] f6312b = new byte[4];
 
     public final int a(RandomAccessFile randomAccessFile) {
-        randomAccessFile.readFully(this.f7835b);
-        return b(this.f7835b);
+        randomAccessFile.readFully(this.f6312b);
+        return b(this.f6312b);
     }
 
     public final int b(RandomAccessFile randomAccessFile) {
-        randomAccessFile.readFully(this.f7834a);
-        return a(this.f7834a);
+        randomAccessFile.readFully(this.f6311a);
+        return a(this.f6311a);
     }
 
     private static int b(byte[] bArr) {
         return ((((bArr[3] & 255) << 8) | (bArr[2] & 255)) << 16) | (bArr[0] & 255) | ((bArr[1] & 255) << 8);
     }
 
-    public final void a(ByteArrayOutputStream byteArrayOutputStream, int i10) {
-        a(this.f7834a, i10);
-        byteArrayOutputStream.write(this.f7834a);
+    public final void a(ByteArrayOutputStream byteArrayOutputStream, int i2) {
+        a(this.f6311a, i2);
+        byteArrayOutputStream.write(this.f6311a);
     }
 
-    private static void b(byte[] bArr, int i10) {
-        bArr[3] = (byte) (i10 >>> 24);
-        bArr[2] = (byte) (i10 >>> 16);
-        bArr[1] = (byte) (i10 >>> 8);
-        bArr[0] = (byte) (i10 & 255);
+    private static void b(byte[] bArr, int i2) {
+        bArr[3] = (byte) (i2 >>> 24);
+        bArr[2] = (byte) (i2 >>> 16);
+        bArr[1] = (byte) (i2 >>> 8);
+        bArr[0] = (byte) (i2 & 255);
     }
 
-    public final void a(OutputStream outputStream, int i10) {
-        b(this.f7835b, i10);
-        outputStream.write(this.f7835b);
+    public final void a(OutputStream outputStream, int i2) {
+        b(this.f6312b, i2);
+        outputStream.write(this.f6312b);
     }
 
     private static int a(byte[] bArr) {
         return ((bArr[1] & 255) << 8) | (bArr[0] & 255);
     }
 
-    public static void a(byte[] bArr, int i10) {
-        bArr[1] = (byte) (i10 >>> 8);
-        bArr[0] = (byte) (i10 & 255);
+    public static void a(byte[] bArr, int i2) {
+        bArr[1] = (byte) (i2 >>> 8);
+        bArr[0] = (byte) (i2 & 255);
     }
 }

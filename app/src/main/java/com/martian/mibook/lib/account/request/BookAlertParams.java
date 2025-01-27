@@ -1,6 +1,6 @@
 package com.martian.mibook.lib.account.request;
 
-import v8.a;
+import com.martian.libcomm.http.requests.d.a;
 
 /* loaded from: classes3.dex */
 public class BookAlertParams extends TYAuthoptParams {
@@ -24,11 +24,11 @@ public class BookAlertParams extends TYAuthoptParams {
         return this.sourceName;
     }
 
-    public void setSourceId(String str) {
-        this.sourceId = str;
+    public void setSourceId(String sourceId) {
+        this.sourceId = sourceId;
     }
 
-    public void setSourceName(String str) {
-        this.sourceName = str;
+    public void setSourceName(String sourceName) {
+        this.sourceName = sourceName;
     }
 }

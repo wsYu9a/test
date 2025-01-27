@@ -1,13 +1,13 @@
 package com.nostra13.universalimageloader.core.assist;
 
-/* loaded from: classes3.dex */
+/* loaded from: classes4.dex */
 public class FailReason {
 
     /* renamed from: a */
-    public final FailType f16328a;
+    private final FailType f15912a;
 
     /* renamed from: b */
-    public final Throwable f16329b;
+    private final Throwable f15913b;
 
     public enum FailType {
         IO_ERROR,
@@ -17,16 +17,16 @@ public class FailReason {
         UNKNOWN
     }
 
-    public FailReason(FailType failType, Throwable th2) {
-        this.f16328a = failType;
-        this.f16329b = th2;
+    public FailReason(FailType failType, Throwable th) {
+        this.f15912a = failType;
+        this.f15913b = th;
     }
 
     public Throwable a() {
-        return this.f16329b;
+        return this.f15913b;
     }
 
     public FailType getType() {
-        return this.f16328a;
+        return this.f15912a;
     }
 }

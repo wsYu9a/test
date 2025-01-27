@@ -5,6 +5,7 @@ import android.text.TextUtils;
 import android.webkit.WebView;
 import com.tencent.open.a;
 import com.tencent.open.a.f;
+import com.vivo.ic.webview.BridgeUtils;
 import java.io.UnsupportedEncodingException;
 import java.net.URLDecoder;
 import java.util.ArrayList;
@@ -14,24 +15,24 @@ import java.util.List;
 /* loaded from: classes4.dex */
 public class b extends com.tencent.open.a {
     @Override // com.tencent.open.a
-    public void a(String str, String str2, List<String> list, a.C0659a c0659a) {
+    public void a(String str, String str2, List<String> list, a.C0530a c0530a) {
         f.a("openSDK_LOG.SecureJsBridge", "-->getResult, objectName: " + str + " | methodName: " + str2);
         int size = list.size();
-        for (int i10 = 0; i10 < size; i10++) {
+        for (int i2 = 0; i2 < size; i2++) {
             try {
-                list.set(i10, URLDecoder.decode(list.get(i10), "UTF-8"));
-            } catch (UnsupportedEncodingException e10) {
-                e10.printStackTrace();
+                list.set(i2, URLDecoder.decode(list.get(i2), "UTF-8"));
+            } catch (UnsupportedEncodingException e2) {
+                e2.printStackTrace();
             }
         }
-        a.b bVar = this.f23121a.get(str);
+        a.b bVar = this.f25393a.get(str);
         if (bVar != null) {
             f.b("openSDK_LOG.SecureJsBridge", "-->handler != null");
-            bVar.call(str2, list, c0659a);
+            bVar.call(str2, list, c0530a);
         } else {
             f.b("openSDK_LOG.SecureJsBridge", "-->handler == null");
-            if (c0659a != null) {
-                c0659a.a();
+            if (c0530a != null) {
+                c0530a.a();
             }
         }
     }
@@ -39,7 +40,7 @@ public class b extends com.tencent.open.a {
     @Override // com.tencent.open.a
     public boolean a(WebView webView, String str) {
         f.a("openSDK_LOG.SecureJsBridge", "-->canHandleUrl---url = " + str);
-        if (str == null || !Uri.parse(str).getScheme().equals("jsbridge")) {
+        if (str == null || !Uri.parse(str).getScheme().equals(BridgeUtils.BRIDGE_SCHEME)) {
             return false;
         }
         ArrayList arrayList = new ArrayList(Arrays.asList((str + "/#").split("/")));

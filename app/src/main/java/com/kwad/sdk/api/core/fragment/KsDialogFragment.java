@@ -10,7 +10,7 @@ import com.kwad.sdk.api.core.KsAdSdkDynamicApi;
 
 @KsAdSdkDynamicApi
 @Keep
-/* loaded from: classes3.dex */
+/* loaded from: classes2.dex */
 public class KsDialogFragment extends KsFragment implements IDialogFragmentLifecycle {
     private DelegateDialogFragment mBase;
 
@@ -21,6 +21,12 @@ public class KsDialogFragment extends KsFragment implements IDialogFragmentLifec
         ResDialogFragment resDialogFragment = new ResDialogFragment(this);
         this.mBase = resDialogFragment;
         setBase(resDialogFragment);
+    }
+
+    @Keep
+    KsDialogFragment(DelegateDialogFragment delegateDialogFragment) {
+        super(delegateDialogFragment);
+        this.mBase = delegateDialogFragment;
     }
 
     @KsAdSdkDynamicApi
@@ -83,33 +89,27 @@ public class KsDialogFragment extends KsFragment implements IDialogFragmentLifec
 
     @KsAdSdkDynamicApi
     @Keep
-    public void setCancelable(boolean z10) {
-        this.mBase.setCancelable(z10);
+    public void setCancelable(boolean z) {
+        this.mBase.setCancelable(z);
     }
 
     @KsAdSdkDynamicApi
     @Keep
-    public void setShowsDialog(boolean z10) {
-        this.mBase.setShowsDialog(z10);
+    public void setShowsDialog(boolean z) {
+        this.mBase.setShowsDialog(z);
     }
 
     @KsAdSdkDynamicApi
     @Keep
-    public void setStyle(int i10, int i11) {
-        this.mBase.setStyle(i10, i11);
+    public void setStyle(int i2, int i3) {
+        this.mBase.setStyle(i2, i3);
     }
 
     @KsAdSdkDynamicApi
     @Keep
     @SuppressLint({"RestrictedApi"})
-    public void setupDialog(Dialog dialog, int i10) {
-        this.mBase.setupDialog(dialog, i10);
-    }
-
-    @KsAdSdkDynamicApi
-    @Keep
-    public void show(KsFragmentManager ksFragmentManager, String str) {
-        this.mBase.show(ksFragmentManager.getBase(), str);
+    public void setupDialog(Dialog dialog, int i2) {
+        this.mBase.setupDialog(dialog, i2);
     }
 
     @KsAdSdkDynamicApi
@@ -118,9 +118,9 @@ public class KsDialogFragment extends KsFragment implements IDialogFragmentLifec
         return this.mBase.show(ksFragmentTransaction.getBase(), str);
     }
 
+    @KsAdSdkDynamicApi
     @Keep
-    public KsDialogFragment(DelegateDialogFragment delegateDialogFragment) {
-        super(delegateDialogFragment);
-        this.mBase = delegateDialogFragment;
+    public void show(KsFragmentManager ksFragmentManager, String str) {
+        this.mBase.show(ksFragmentManager.getBase(), str);
     }
 }

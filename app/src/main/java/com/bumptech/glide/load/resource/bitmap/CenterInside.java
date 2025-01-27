@@ -6,7 +6,7 @@ import com.bumptech.glide.load.Key;
 import com.bumptech.glide.load.engine.bitmap_recycle.BitmapPool;
 import java.security.MessageDigest;
 
-/* loaded from: classes2.dex */
+/* loaded from: classes.dex */
 public class CenterInside extends BitmapTransformation {
     private static final String ID = "com.bumptech.glide.load.resource.bitmap.CenterInside";
     private static final byte[] ID_BYTES = ID.getBytes(Key.CHARSET);
@@ -22,8 +22,8 @@ public class CenterInside extends BitmapTransformation {
     }
 
     @Override // com.bumptech.glide.load.resource.bitmap.BitmapTransformation
-    public Bitmap transform(@NonNull BitmapPool bitmapPool, @NonNull Bitmap bitmap, int i10, int i11) {
-        return TransformationUtils.centerInside(bitmapPool, bitmap, i10, i11);
+    protected Bitmap transform(@NonNull BitmapPool bitmapPool, @NonNull Bitmap bitmap, int i2, int i3) {
+        return TransformationUtils.centerInside(bitmapPool, bitmap, i2, i3);
     }
 
     @Override // com.bumptech.glide.load.Key

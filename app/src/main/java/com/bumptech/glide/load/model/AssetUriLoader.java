@@ -10,10 +10,9 @@ import com.bumptech.glide.load.data.FileDescriptorAssetPathFetcher;
 import com.bumptech.glide.load.data.StreamAssetPathFetcher;
 import com.bumptech.glide.load.model.ModelLoader;
 import com.bumptech.glide.signature.ObjectKey;
-import com.sigmob.sdk.base.k;
 import java.io.InputStream;
 
-/* loaded from: classes2.dex */
+/* loaded from: classes.dex */
 public class AssetUriLoader<Data> implements ModelLoader<Uri, Data> {
     private static final String ASSET_PATH_SEGMENT = "android_asset";
     private static final String ASSET_PREFIX = "file:///android_asset/";
@@ -77,12 +76,12 @@ public class AssetUriLoader<Data> implements ModelLoader<Uri, Data> {
     }
 
     @Override // com.bumptech.glide.load.model.ModelLoader
-    public ModelLoader.LoadData<Data> buildLoadData(@NonNull Uri uri, int i10, int i11, @NonNull Options options) {
+    public ModelLoader.LoadData<Data> buildLoadData(@NonNull Uri uri, int i2, int i3, @NonNull Options options) {
         return new ModelLoader.LoadData<>(new ObjectKey(uri), this.factory.buildFetcher(this.assetManager, uri.toString().substring(ASSET_PREFIX_LENGTH)));
     }
 
     @Override // com.bumptech.glide.load.model.ModelLoader
     public boolean handles(@NonNull Uri uri) {
-        return k.f18193y.equals(uri.getScheme()) && !uri.getPathSegments().isEmpty() && ASSET_PATH_SEGMENT.equals(uri.getPathSegments().get(0));
+        return "file".equals(uri.getScheme()) && !uri.getPathSegments().isEmpty() && ASSET_PATH_SEGMENT.equals(uri.getPathSegments().get(0));
     }
 }

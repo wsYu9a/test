@@ -18,37 +18,39 @@ import java.security.spec.MGF1ParameterSpec;
 import java.security.spec.PSSParameterSpec;
 import java.util.Arrays;
 import java.util.HashMap;
-import java.util.HashSet;
 import java.util.Iterator;
 import java.util.Map;
 
-/* loaded from: classes2.dex */
+/* loaded from: classes.dex */
 final class f {
 
     /* renamed from: a */
-    static final HashMap<String, SparseArray<m>> f7633a = new HashMap<>();
+    static final HashMap<String, SparseArray<m>> f6131a = new HashMap<>();
 
     /* renamed from: com.bytedance.pangle.g.f$1 */
-    public static class AnonymousClass1 implements i {
+    static class AnonymousClass1 implements i {
+        AnonymousClass1() {
+        }
+
         @Override // com.bytedance.pangle.g.i
-        public final ByteBuffer a(int i10) {
-            return ByteBuffer.allocate(i10);
+        public final ByteBuffer a(int i2) {
+            return ByteBuffer.allocate(i2);
         }
     }
 
-    public static class a implements j {
+    static class a implements j {
 
         /* renamed from: a */
-        private final MessageDigest[] f7634a;
+        private final MessageDigest[] f6132a;
 
-        public a(MessageDigest[] messageDigestArr) {
-            this.f7634a = messageDigestArr;
+        a(MessageDigest[] messageDigestArr) {
+            this.f6132a = messageDigestArr;
         }
 
         @Override // com.bytedance.pangle.g.j
         public final void a(ByteBuffer byteBuffer) {
             ByteBuffer slice = byteBuffer.slice();
-            for (MessageDigest messageDigest : this.f7634a) {
+            for (MessageDigest messageDigest : this.f6132a) {
                 slice.position(0);
                 messageDigest.update(slice);
             }
@@ -56,98 +58,101 @@ final class f {
     }
 
     @RequiresApi(api = 21)
-    public static void a(Map<Integer, byte[]> map, RandomAccessFile randomAccessFile, m mVar) {
+    static void a(Map<Integer, byte[]> map, RandomAccessFile randomAccessFile, m mVar) {
         if (map.isEmpty()) {
             throw new SecurityException("No digests provided");
         }
         ArrayMap arrayMap = new ArrayMap();
-        boolean z10 = true;
+        boolean z = true;
         if (map.containsKey(1)) {
             arrayMap.put(1, map.get(1));
         }
         if (map.containsKey(2)) {
             arrayMap.put(2, map.get(2));
         }
-        boolean z11 = false;
+        boolean z2 = false;
         if (!arrayMap.isEmpty()) {
             try {
                 a(arrayMap, randomAccessFile.getFD(), mVar);
-                z10 = false;
-            } catch (IOException e10) {
-                throw new SecurityException("Cannot get FD", e10);
+                z = false;
+            } catch (IOException e2) {
+                throw new SecurityException("Cannot get FD", e2);
             }
         }
         if (map.containsKey(3)) {
             try {
                 if (!Arrays.equals(a(map.get(3), randomAccessFile.length(), mVar), g.a(randomAccessFile, mVar, new i() { // from class: com.bytedance.pangle.g.f.1
-                    @Override // com.bytedance.pangle.g.i
-                    public final ByteBuffer a(int i10) {
-                        return ByteBuffer.allocate(i10);
+                    AnonymousClass1() {
                     }
-                }).f7637b)) {
+
+                    @Override // com.bytedance.pangle.g.i
+                    public final ByteBuffer a(int i2) {
+                        return ByteBuffer.allocate(i2);
+                    }
+                }).f6135b)) {
                     throw new SecurityException("APK verity digest of contents did not verify");
                 }
-            } catch (IOException | DigestException | NoSuchAlgorithmException e11) {
-                throw new SecurityException("Error during verification", e11);
+            } catch (IOException | DigestException | NoSuchAlgorithmException e3) {
+                throw new SecurityException("Error during verification", e3);
             }
         } else {
-            z11 = z10;
+            z2 = z;
         }
-        if (z11) {
+        if (z2) {
             throw new SecurityException("No known digest exists for integrity check");
         }
     }
 
-    public static String b(int i10) {
-        if (i10 == 1) {
+    static String b(int i2) {
+        if (i2 == 1) {
             return "SHA-256";
         }
-        if (i10 == 2) {
+        if (i2 == 2) {
             return "SHA-512";
         }
-        if (i10 == 3) {
+        if (i2 == 3) {
             return "SHA-256";
         }
-        throw new IllegalArgumentException("Unknown content digest algorthm: ".concat(String.valueOf(i10)));
+        throw new IllegalArgumentException("Unknown content digest algorthm: ".concat(String.valueOf(i2)));
     }
 
-    public static String c(int i10) {
-        if (i10 == 513 || i10 == 514) {
+    static String c(int i2) {
+        if (i2 == 513 || i2 == 514) {
             return "EC";
         }
-        if (i10 == 769) {
+        if (i2 == 769) {
             return "DSA";
         }
-        if (i10 == 1057) {
-            return d3.d.f25247a;
+        if (i2 == 1057) {
+            return "RSA";
         }
-        if (i10 == 1059) {
+        if (i2 == 1059) {
             return "EC";
         }
-        if (i10 == 1061) {
+        if (i2 == 1061) {
             return "DSA";
         }
-        switch (i10) {
+        switch (i2) {
             case 257:
             case 258:
             case 259:
             case 260:
-                return d3.d.f25247a;
+                return "RSA";
             default:
-                throw new IllegalArgumentException("Unknown signature algorithm: 0x" + Long.toHexString(i10));
+                throw new IllegalArgumentException("Unknown signature algorithm: 0x" + Long.toHexString(i2 & (-1)));
         }
     }
 
-    public static Pair<String, ? extends AlgorithmParameterSpec> d(int i10) {
-        if (i10 != 513) {
-            if (i10 == 514) {
+    static Pair<String, ? extends AlgorithmParameterSpec> d(int i2) {
+        if (i2 != 513) {
+            if (i2 == 514) {
                 return Pair.create("SHA512withECDSA", null);
             }
-            if (i10 != 769) {
-                if (i10 != 1057) {
-                    if (i10 != 1059) {
-                        if (i10 != 1061) {
-                            switch (i10) {
+            if (i2 != 769) {
+                if (i2 != 1057) {
+                    if (i2 != 1059) {
+                        if (i2 != 1061) {
+                            switch (i2) {
                                 case 257:
                                     return Pair.create("SHA256withRSA/PSS", new PSSParameterSpec("SHA-256", "MGF1", MGF1ParameterSpec.SHA256, 32, 1));
                                 case 258:
@@ -157,7 +162,7 @@ final class f {
                                 case 260:
                                     return Pair.create("SHA512withRSA", null);
                                 default:
-                                    throw new IllegalArgumentException("Unknown signature algorithm: 0x" + Long.toHexString(i10));
+                                    throw new IllegalArgumentException("Unknown signature algorithm: 0x" + Long.toHexString(i2 & (-1)));
                             }
                         }
                     }
@@ -169,205 +174,207 @@ final class f {
         return Pair.create("SHA256withECDSA", null);
     }
 
-    private static int e(int i10) {
-        if (i10 == 1) {
+    private static int e(int i2) {
+        if (i2 == 1) {
             return 32;
         }
-        if (i10 == 2) {
+        if (i2 == 2) {
             return 64;
         }
-        if (i10 == 3) {
+        if (i2 == 3) {
             return 32;
         }
-        throw new IllegalArgumentException("Unknown content digest algorthm: ".concat(String.valueOf(i10)));
+        throw new IllegalArgumentException("Unknown content digest algorthm: ".concat(String.valueOf(i2)));
     }
 
-    private static ByteBuffer b(ByteBuffer byteBuffer, int i10) {
-        if (i10 >= 0) {
-            int limit = byteBuffer.limit();
-            int position = byteBuffer.position();
-            int i11 = i10 + position;
-            if (i11 >= position && i11 <= limit) {
-                byteBuffer.limit(i11);
-                try {
-                    ByteBuffer slice = byteBuffer.slice();
-                    slice.order(byteBuffer.order());
-                    byteBuffer.position(i11);
-                    return slice;
-                } finally {
-                    byteBuffer.limit(limit);
-                }
-            }
+    private static ByteBuffer b(ByteBuffer byteBuffer, int i2) {
+        if (i2 < 0) {
+            throw new IllegalArgumentException("size: ".concat(String.valueOf(i2)));
+        }
+        int limit = byteBuffer.limit();
+        int position = byteBuffer.position();
+        int i3 = i2 + position;
+        if (i3 < position || i3 > limit) {
             throw new BufferUnderflowException();
         }
-        throw new IllegalArgumentException("size: ".concat(String.valueOf(i10)));
+        byteBuffer.limit(i3);
+        try {
+            ByteBuffer slice = byteBuffer.slice();
+            slice.order(byteBuffer.order());
+            byteBuffer.position(i3);
+            return slice;
+        } finally {
+            byteBuffer.limit(limit);
+        }
     }
 
-    public static byte[] b(ByteBuffer byteBuffer) {
-        int i10 = byteBuffer.getInt();
-        if (i10 >= 0) {
-            if (i10 <= byteBuffer.remaining()) {
-                byte[] bArr = new byte[i10];
+    static byte[] b(ByteBuffer byteBuffer) {
+        int i2 = byteBuffer.getInt();
+        if (i2 >= 0) {
+            if (i2 <= byteBuffer.remaining()) {
+                byte[] bArr = new byte[i2];
                 byteBuffer.get(bArr);
                 return bArr;
             }
-            throw new IOException("Underflow while reading length-prefixed value. Length: " + i10 + ", available: " + byteBuffer.remaining());
+            throw new IOException("Underflow while reading length-prefixed value. Length: " + i2 + ", available: " + byteBuffer.remaining());
         }
         throw new IOException("Negative length");
     }
 
     private static void a(Map<Integer, byte[]> map, FileDescriptor fileDescriptor, m mVar) {
-        l lVar = new l(fileDescriptor, 0L, mVar.f7649b);
-        long j10 = mVar.f7650c;
-        l lVar2 = new l(fileDescriptor, j10, mVar.f7651d - j10);
-        ByteBuffer duplicate = mVar.f7652e.duplicate();
+        l lVar = new l(fileDescriptor, 0L, mVar.f6147b);
+        long j2 = mVar.f6148c;
+        l lVar2 = new l(fileDescriptor, j2, mVar.f6149d - j2);
+        ByteBuffer duplicate = mVar.f6150e.duplicate();
         duplicate.order(ByteOrder.LITTLE_ENDIAN);
-        long j11 = mVar.f7649b;
+        long j3 = mVar.f6147b;
         s.a(duplicate);
         int position = duplicate.position() + 16;
-        if (j11 >= 0 && j11 <= 4294967295L) {
-            duplicate.putInt(duplicate.position() + position, (int) j11);
+        if (j3 >= 0 && j3 <= 4294967295L) {
+            duplicate.putInt(duplicate.position() + position, (int) j3);
             h hVar = new h(duplicate);
             int size = map.size();
             int[] iArr = new int[size];
             Iterator<Integer> it = map.keySet().iterator();
-            int i10 = 0;
+            int i2 = 0;
             while (it.hasNext()) {
-                iArr[i10] = it.next().intValue();
-                i10++;
+                iArr[i2] = it.next().intValue();
+                i2++;
             }
             try {
-                byte[][] a10 = a(iArr, new k[]{lVar, lVar2, hVar});
-                for (int i11 = 0; i11 < size; i11++) {
-                    int i12 = iArr[i11];
-                    if (!MessageDigest.isEqual(map.get(Integer.valueOf(i12)), a10[i11])) {
-                        throw new SecurityException(b(i12) + " digest of contents did not verify");
+                byte[][] a2 = a(iArr, new k[]{lVar, lVar2, hVar});
+                for (int i3 = 0; i3 < size; i3++) {
+                    int i4 = iArr[i3];
+                    if (!MessageDigest.isEqual(map.get(Integer.valueOf(i4)), a2[i3])) {
+                        throw new SecurityException(b(i4) + " digest of contents did not verify");
                     }
                 }
                 return;
-            } catch (DigestException e10) {
-                throw new SecurityException("Failed to compute digest(s) of contents", e10);
+            } catch (DigestException e2) {
+                throw new SecurityException("Failed to compute digest(s) of contents", e2);
             }
         }
-        throw new IllegalArgumentException("uint32 value of out range: ".concat(String.valueOf(j11)));
+        throw new IllegalArgumentException("uint32 value of out range: ".concat(String.valueOf(j3)));
     }
 
     private static byte[][] a(int[] iArr, k[] kVarArr) {
-        long j10;
-        int i10;
-        long j11 = 0;
-        long j12 = 0;
-        int i11 = 0;
+        int i2;
+        long j2;
+        long j3 = 0;
+        long j4 = 0;
+        int i3 = 0;
         while (true) {
-            j10 = 1048576;
-            if (i11 >= 3) {
+            i2 = 3;
+            j2 = 1048576;
+            if (i3 >= 3) {
                 break;
             }
-            j12 += (kVarArr[i11].a() + 1048575) / 1048576;
-            i11++;
+            j4 += ((kVarArr[i3].a() + 1048576) - 1) / 1048576;
+            i3++;
         }
-        if (j12 < 2097151) {
-            int i12 = (int) j12;
+        if (j4 < 2097151) {
+            int i4 = (int) j4;
             byte[][] bArr = new byte[iArr.length][];
-            for (int i13 = 0; i13 < iArr.length; i13++) {
-                byte[] bArr2 = new byte[(e(iArr[i13]) * i12) + 5];
+            for (int i5 = 0; i5 < iArr.length; i5++) {
+                byte[] bArr2 = new byte[(e(iArr[i5]) * i4) + 5];
                 bArr2[0] = 90;
-                a(i12, bArr2);
-                bArr[i13] = bArr2;
+                a(i4, bArr2);
+                bArr[i5] = bArr2;
             }
             byte[] bArr3 = new byte[5];
             bArr3[0] = -91;
             int length = iArr.length;
             MessageDigest[] messageDigestArr = new MessageDigest[length];
-            for (int i14 = 0; i14 < iArr.length; i14++) {
-                String b10 = b(iArr[i14]);
+            for (int i6 = 0; i6 < iArr.length; i6++) {
+                String b2 = b(iArr[i6]);
                 try {
-                    messageDigestArr[i14] = MessageDigest.getInstance(b10);
-                } catch (NoSuchAlgorithmException e10) {
-                    throw new RuntimeException(b10 + " digest not supported", e10);
+                    messageDigestArr[i6] = MessageDigest.getInstance(b2);
+                } catch (NoSuchAlgorithmException e2) {
+                    throw new RuntimeException(b2 + " digest not supported", e2);
                 }
             }
             a aVar = new a(messageDigestArr);
-            int i15 = 0;
-            int i16 = 0;
-            int i17 = 0;
-            for (i10 = 3; i15 < i10; i10 = 3) {
-                k kVar = kVarArr[i15];
-                long j13 = j11;
-                int i18 = i17;
+            int i7 = 0;
+            int i8 = 0;
+            int i9 = 0;
+            while (i7 < i2) {
+                k kVar = kVarArr[i7];
+                long j5 = j3;
+                int i10 = i9;
                 a aVar2 = aVar;
-                long a10 = kVar.a();
-                while (a10 > j11) {
-                    int min = (int) Math.min(a10, j10);
+                long a2 = kVar.a();
+                while (a2 > j3) {
+                    int min = (int) Math.min(a2, j2);
                     a(min, bArr3);
-                    for (int i19 = 0; i19 < length; i19++) {
-                        messageDigestArr[i19].update(bArr3);
+                    for (int i11 = 0; i11 < length; i11++) {
+                        messageDigestArr[i11].update(bArr3);
                     }
                     a aVar3 = aVar2;
-                    long j14 = j13;
+                    long j6 = j5;
                     try {
-                        kVar.a(aVar3, j14, min);
+                        kVar.a(aVar3, j6, min);
                         aVar2 = aVar3;
                         k kVar2 = kVar;
-                        int i20 = 0;
-                        while (i20 < iArr.length) {
-                            int i21 = iArr[i20];
+                        int i12 = 0;
+                        while (i12 < iArr.length) {
+                            int i13 = iArr[i12];
                             byte[] bArr4 = bArr3;
-                            byte[] bArr5 = bArr[i20];
-                            int e11 = e(i21);
-                            int i22 = length;
-                            MessageDigest messageDigest = messageDigestArr[i20];
+                            byte[] bArr5 = bArr[i12];
+                            int e3 = e(i13);
+                            int i14 = length;
+                            MessageDigest messageDigest = messageDigestArr[i12];
                             MessageDigest[] messageDigestArr2 = messageDigestArr;
-                            int digest = messageDigest.digest(bArr5, (i18 * e11) + 5, e11);
-                            if (digest != e11) {
+                            int digest = messageDigest.digest(bArr5, (i10 * e3) + 5, e3);
+                            if (digest != e3) {
                                 throw new RuntimeException("Unexpected output size of " + messageDigest.getAlgorithm() + " digest: " + digest);
                             }
-                            i20++;
+                            i12++;
                             bArr3 = bArr4;
-                            length = i22;
+                            length = i14;
                             messageDigestArr = messageDigestArr2;
                         }
-                        long j15 = min;
-                        long j16 = j14 + j15;
-                        a10 -= j15;
-                        i18++;
-                        j11 = 0;
-                        j10 = 1048576;
+                        long j7 = min;
+                        long j8 = j6 + j7;
+                        a2 -= j7;
+                        i10++;
+                        j3 = 0;
+                        j2 = 1048576;
                         kVar = kVar2;
                         bArr3 = bArr3;
-                        j13 = j16;
-                    } catch (IOException e12) {
-                        throw new DigestException("Failed to digest chunk #" + i18 + " of section #" + i16, e12);
+                        j5 = j8;
+                    } catch (IOException e4) {
+                        throw new DigestException("Failed to digest chunk #" + i10 + " of section #" + i8, e4);
                     }
                 }
-                i16++;
-                i15++;
-                i17 = i18;
+                i8++;
+                i7++;
+                i9 = i10;
                 aVar = aVar2;
-                j11 = 0;
-                j10 = 1048576;
+                j3 = 0;
+                i2 = 3;
+                j2 = 1048576;
             }
             byte[][] bArr6 = new byte[iArr.length][];
-            for (int i23 = 0; i23 < iArr.length; i23++) {
-                int i24 = iArr[i23];
-                byte[] bArr7 = bArr[i23];
-                String b11 = b(i24);
+            for (int i15 = 0; i15 < iArr.length; i15++) {
+                int i16 = iArr[i15];
+                byte[] bArr7 = bArr[i15];
+                String b3 = b(i16);
                 try {
-                    bArr6[i23] = MessageDigest.getInstance(b11).digest(bArr7);
-                } catch (NoSuchAlgorithmException e13) {
-                    throw new RuntimeException(b11 + " digest not supported", e13);
+                    bArr6[i15] = MessageDigest.getInstance(b3).digest(bArr7);
+                } catch (NoSuchAlgorithmException e5) {
+                    throw new RuntimeException(b3 + " digest not supported", e5);
                 }
             }
             return bArr6;
         }
-        throw new DigestException("Too many chunks: ".concat(String.valueOf(j12)));
+        throw new DigestException("Too many chunks: ".concat(String.valueOf(j4)));
     }
 
-    public static byte[] a(byte[] bArr, long j10, m mVar) {
+    static byte[] a(byte[] bArr, long j2, m mVar) {
         if (bArr.length == 40) {
             ByteBuffer order = ByteBuffer.wrap(bArr).order(ByteOrder.LITTLE_ENDIAN);
             order.position(32);
-            if (order.getLong() == j10 - (mVar.f7650c - mVar.f7649b)) {
+            if (order.getLong() == j2 - (mVar.f6148c - mVar.f6147b)) {
                 return Arrays.copyOfRange(bArr, 0, 32);
             }
             throw new SecurityException("APK content size did not verify");
@@ -375,58 +382,58 @@ final class f {
         throw new SecurityException("Verity digest size is wrong: " + bArr.length);
     }
 
-    public static int a(int i10, int i11) {
-        int a10 = a(i10);
-        int a11 = a(i11);
-        if (a10 == 1) {
-            if (a11 == 1) {
+    static int a(int i2, int i3) {
+        int a2 = a(i2);
+        int a3 = a(i3);
+        if (a2 == 1) {
+            if (a3 == 1) {
                 return 0;
             }
-            if (a11 == 2 || a11 == 3) {
+            if (a3 == 2 || a3 == 3) {
                 return -1;
             }
-            throw new IllegalArgumentException("Unknown digestAlgorithm2: ".concat(String.valueOf(a11)));
+            throw new IllegalArgumentException("Unknown digestAlgorithm2: ".concat(String.valueOf(a3)));
         }
-        if (a10 == 2) {
-            if (a11 != 1) {
-                if (a11 == 2) {
+        if (a2 == 2) {
+            if (a3 != 1) {
+                if (a3 == 2) {
                     return 0;
                 }
-                if (a11 != 3) {
-                    throw new IllegalArgumentException("Unknown digestAlgorithm2: ".concat(String.valueOf(a11)));
+                if (a3 != 3) {
+                    throw new IllegalArgumentException("Unknown digestAlgorithm2: ".concat(String.valueOf(a3)));
                 }
             }
             return 1;
         }
-        if (a10 != 3) {
-            throw new IllegalArgumentException("Unknown digestAlgorithm1: ".concat(String.valueOf(a10)));
+        if (a2 != 3) {
+            throw new IllegalArgumentException("Unknown digestAlgorithm1: ".concat(String.valueOf(a2)));
         }
-        if (a11 == 1) {
+        if (a3 == 1) {
             return 1;
         }
-        if (a11 == 2) {
+        if (a3 == 2) {
             return -1;
         }
-        if (a11 == 3) {
+        if (a3 == 3) {
             return 0;
         }
-        throw new IllegalArgumentException("Unknown digestAlgorithm2: ".concat(String.valueOf(a11)));
+        throw new IllegalArgumentException("Unknown digestAlgorithm2: ".concat(String.valueOf(a3)));
     }
 
-    public static int a(int i10) {
-        if (i10 == 513) {
+    static int a(int i2) {
+        if (i2 == 513) {
             return 1;
         }
-        if (i10 == 514) {
+        if (i2 == 514) {
             return 2;
         }
-        if (i10 == 769) {
+        if (i2 == 769) {
             return 1;
         }
-        if (i10 == 1057 || i10 == 1059 || i10 == 1061) {
+        if (i2 == 1057 || i2 == 1059 || i2 == 1061) {
             return 3;
         }
-        switch (i10) {
+        switch (i2) {
             case 257:
             case 259:
                 return 1;
@@ -434,19 +441,19 @@ final class f {
             case 260:
                 return 2;
             default:
-                throw new IllegalArgumentException("Unknown signature algorithm: 0x" + Long.toHexString(i10));
+                throw new IllegalArgumentException("Unknown signature algorithm: 0x" + Long.toHexString(i2 & (-1)));
         }
     }
 
-    private static ByteBuffer a(ByteBuffer byteBuffer, int i10) {
-        if (i10 >= 8) {
+    private static ByteBuffer a(ByteBuffer byteBuffer, int i2) {
+        if (i2 >= 8) {
             int capacity = byteBuffer.capacity();
-            if (i10 <= byteBuffer.capacity()) {
+            if (i2 <= byteBuffer.capacity()) {
                 int limit = byteBuffer.limit();
                 int position = byteBuffer.position();
                 try {
                     byteBuffer.position(0);
-                    byteBuffer.limit(i10);
+                    byteBuffer.limit(i2);
                     byteBuffer.position(8);
                     ByteBuffer slice = byteBuffer.slice();
                     slice.order(byteBuffer.order());
@@ -457,139 +464,43 @@ final class f {
                     byteBuffer.position(position);
                 }
             }
-            throw new IllegalArgumentException("end > capacity: " + i10 + " > " + capacity);
+            throw new IllegalArgumentException("end > capacity: " + i2 + " > " + capacity);
         }
-        throw new IllegalArgumentException("end < start: " + i10 + " < 8");
+        throw new IllegalArgumentException("end < start: " + i2 + " < 8");
     }
 
-    public static ByteBuffer a(ByteBuffer byteBuffer) {
+    static ByteBuffer a(ByteBuffer byteBuffer) {
         if (byteBuffer.remaining() >= 4) {
-            int i10 = byteBuffer.getInt();
-            if (i10 >= 0) {
-                if (i10 <= byteBuffer.remaining()) {
-                    return b(byteBuffer, i10);
+            int i2 = byteBuffer.getInt();
+            if (i2 >= 0) {
+                if (i2 <= byteBuffer.remaining()) {
+                    return b(byteBuffer, i2);
                 }
-                throw new IOException("Length-prefixed field longer than remaining buffer. Field length: " + i10 + ", remaining: " + byteBuffer.remaining());
+                throw new IOException("Length-prefixed field longer than remaining buffer. Field length: " + i2 + ", remaining: " + byteBuffer.remaining());
             }
             throw new IllegalArgumentException("Negative length");
         }
         throw new IOException("Remaining buffer too short to contain length of length-prefixed field. Remaining: " + byteBuffer.remaining());
     }
 
-    private static void a(int i10, byte[] bArr) {
-        bArr[1] = (byte) (i10 & 255);
-        bArr[2] = (byte) ((i10 >>> 8) & 255);
-        bArr[3] = (byte) ((i10 >>> 16) & 255);
-        bArr[4] = (byte) ((i10 >>> 24) & 255);
+    private static void a(int i2, byte[] bArr) {
+        bArr[1] = (byte) (i2 & 255);
+        bArr[2] = (byte) ((i2 >>> 8) & 255);
+        bArr[3] = (byte) ((i2 >>> 16) & 255);
+        bArr[4] = (byte) ((i2 >>> 24) & 255);
     }
 
-    public static void a(String str, RandomAccessFile randomAccessFile, int... iArr) {
-        Pair<ByteBuffer, Long> a10;
-        long j10;
-        HashSet hashSet;
-        long j11;
-        String str2 = str;
-        f7633a.put(str2, new SparseArray<>());
-        Pair pair = null;
-        if (randomAccessFile.length() < 22) {
-            a10 = null;
-        } else {
-            a10 = s.a(randomAccessFile, 0);
-            if (a10 == null) {
-                a10 = s.a(randomAccessFile, 65535);
-            }
-        }
-        if (a10 != null) {
-            ByteBuffer byteBuffer = (ByteBuffer) a10.first;
-            long longValue = ((Long) a10.second).longValue();
-            long j12 = longValue - 20;
-            if (j12 >= 0) {
-                randomAccessFile.seek(j12);
-                if (randomAccessFile.readInt() == 1347094023) {
-                    throw new n("ZIP64 APK not supported");
-                }
-            }
-            s.a(byteBuffer);
-            long a11 = s.a(byteBuffer, byteBuffer.position() + 16);
-            if (a11 <= longValue) {
-                s.a(byteBuffer);
-                if (s.a(byteBuffer, byteBuffer.position() + 12) + a11 != longValue) {
-                    throw new n("ZIP Central Directory is not immediately followed by End of Central Directory");
-                }
-                if (a11 >= 32) {
-                    ByteBuffer allocate = ByteBuffer.allocate(24);
-                    ByteOrder byteOrder = ByteOrder.LITTLE_ENDIAN;
-                    allocate.order(byteOrder);
-                    randomAccessFile.seek(a11 - allocate.capacity());
-                    randomAccessFile.readFully(allocate.array(), allocate.arrayOffset(), allocate.capacity());
-                    if (allocate.getLong(8) == com.bytedance.hume.readapk.a.f7429b && allocate.getLong(16) == com.bytedance.hume.readapk.a.f7428a) {
-                        long j13 = allocate.getLong(0);
-                        if (j13 < allocate.capacity() || j13 > 2147483639) {
-                            throw new n("APK Signing Block size out of range: ".concat(String.valueOf(j13)));
-                        }
-                        int i10 = (int) (8 + j13);
-                        long j14 = a11 - i10;
-                        if (j14 >= 0) {
-                            ByteBuffer allocate2 = ByteBuffer.allocate(i10);
-                            allocate2.order(byteOrder);
-                            randomAccessFile.seek(j14);
-                            randomAccessFile.readFully(allocate2.array(), allocate2.arrayOffset(), allocate2.capacity());
-                            long j15 = allocate2.getLong(0);
-                            if (j15 == j13) {
-                                pair = Pair.create(allocate2, Long.valueOf(j14));
-                            } else {
-                                throw new n("APK Signing Block sizes in header and footer do not match: " + j15 + " vs " + j13);
-                            }
-                        } else {
-                            throw new n("APK Signing Block offset out of range: ".concat(String.valueOf(j14)));
-                        }
-                    }
-                    if (pair == null) {
-                        return;
-                    }
-                    ByteBuffer byteBuffer2 = (ByteBuffer) pair.first;
-                    long longValue2 = ((Long) pair.second).longValue();
-                    if (byteBuffer2.order() == byteOrder) {
-                        ByteBuffer a12 = a(byteBuffer2, byteBuffer2.capacity() - 24);
-                        HashSet hashSet2 = new HashSet();
-                        for (int i11 = 0; i11 < 2; i11++) {
-                            hashSet2.add(Integer.valueOf(iArr[i11]));
-                        }
-                        while (a12.hasRemaining() && a12.remaining() >= 8) {
-                            long j16 = a12.getLong();
-                            if (j16 < 4 || j16 > 2147483647L) {
-                                return;
-                            }
-                            int i12 = (int) j16;
-                            int position = a12.position() + i12;
-                            if (i12 > a12.remaining()) {
-                                return;
-                            }
-                            int i13 = a12.getInt();
-                            if (hashSet2.contains(Integer.valueOf(i13))) {
-                                hashSet = hashSet2;
-                                j10 = longValue2;
-                                j11 = a11;
-                                f7633a.get(str2).put(i13, new m(b(a12, i12 - 4), longValue2, a11, longValue, byteBuffer));
-                            } else {
-                                j10 = longValue2;
-                                hashSet = hashSet2;
-                                j11 = a11;
-                            }
-                            a12.position(position);
-                            str2 = str;
-                            hashSet2 = hashSet;
-                            longValue2 = j10;
-                            a11 = j11;
-                        }
-                        return;
-                    }
-                    throw new IllegalArgumentException("ByteBuffer byte order must be little endian");
-                }
-                throw new n("APK too small for APK Signing Block. ZIP Central Directory offset: ".concat(String.valueOf(a11)));
-            }
-            throw new n("ZIP Central Directory offset out of range: " + a11 + ". ZIP End of Central Directory offset: " + longValue);
-        }
-        throw new n("Not an APK file: ZIP End of Central Directory record not found");
+    /* JADX WARN: Removed duplicated region for block: B:11:0x0053  */
+    /* JADX WARN: Removed duplicated region for block: B:81:0x0246  */
+    /*
+        Code decompiled incorrectly, please refer to instructions dump.
+        To view partially-correct code enable 'Show inconsistent code' option in preferences
+    */
+    static void a(java.lang.String r24, java.io.RandomAccessFile r25, int... r26) {
+        /*
+            Method dump skipped, instructions count: 600
+            To view this dump change 'Code comments level' option to 'DEBUG'
+        */
+        throw new UnsupportedOperationException("Method not decompiled: com.bytedance.pangle.g.f.a(java.lang.String, java.io.RandomAccessFile, int[]):void");
     }
 }

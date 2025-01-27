@@ -2,6 +2,7 @@ package androidx.core.accessibilityservice;
 
 import android.accessibilityservice.AccessibilityServiceInfo;
 import android.content.pm.PackageManager;
+import android.os.Build;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import com.martian.ads.ad.AdConfig;
@@ -24,65 +25,65 @@ public final class AccessibilityServiceInfoCompat {
     }
 
     @NonNull
-    public static String capabilityToString(int i10) {
-        return i10 != 1 ? i10 != 2 ? i10 != 4 ? i10 != 8 ? "UNKNOWN" : "CAPABILITY_CAN_FILTER_KEY_EVENTS" : "CAPABILITY_CAN_REQUEST_ENHANCED_WEB_ACCESSIBILITY" : "CAPABILITY_CAN_REQUEST_TOUCH_EXPLORATION" : "CAPABILITY_CAN_RETRIEVE_WINDOW_CONTENT";
+    public static String capabilityToString(int i2) {
+        return i2 != 1 ? i2 != 2 ? i2 != 4 ? i2 != 8 ? "UNKNOWN" : "CAPABILITY_CAN_FILTER_KEY_EVENTS" : "CAPABILITY_CAN_REQUEST_ENHANCED_WEB_ACCESSIBILITY" : "CAPABILITY_CAN_REQUEST_TOUCH_EXPLORATION" : "CAPABILITY_CAN_RETRIEVE_WINDOW_CONTENT";
     }
 
     @NonNull
-    public static String feedbackTypeToString(int i10) {
-        StringBuilder sb2 = new StringBuilder();
-        sb2.append("[");
-        while (i10 > 0) {
-            int numberOfTrailingZeros = 1 << Integer.numberOfTrailingZeros(i10);
-            i10 &= ~numberOfTrailingZeros;
-            if (sb2.length() > 1) {
-                sb2.append(", ");
+    public static String feedbackTypeToString(int i2) {
+        StringBuilder sb = new StringBuilder();
+        sb.append("[");
+        while (i2 > 0) {
+            int numberOfTrailingZeros = 1 << Integer.numberOfTrailingZeros(i2);
+            i2 &= numberOfTrailingZeros ^ (-1);
+            if (sb.length() > 1) {
+                sb.append(", ");
             }
             if (numberOfTrailingZeros == 1) {
-                sb2.append("FEEDBACK_SPOKEN");
+                sb.append("FEEDBACK_SPOKEN");
             } else if (numberOfTrailingZeros == 2) {
-                sb2.append("FEEDBACK_HAPTIC");
+                sb.append("FEEDBACK_HAPTIC");
             } else if (numberOfTrailingZeros == 4) {
-                sb2.append("FEEDBACK_AUDIBLE");
+                sb.append("FEEDBACK_AUDIBLE");
             } else if (numberOfTrailingZeros == 8) {
-                sb2.append("FEEDBACK_VISUAL");
+                sb.append("FEEDBACK_VISUAL");
             } else if (numberOfTrailingZeros == 16) {
-                sb2.append("FEEDBACK_GENERIC");
+                sb.append("FEEDBACK_GENERIC");
             }
         }
-        sb2.append("]");
-        return sb2.toString();
+        sb.append("]");
+        return sb.toString();
     }
 
     @Nullable
-    public static String flagToString(int i10) {
-        if (i10 == 1) {
+    public static String flagToString(int i2) {
+        if (i2 == 1) {
             return AdConfig.UnionType.DEFAULT;
         }
-        if (i10 == 2) {
+        if (i2 == 2) {
             return "FLAG_INCLUDE_NOT_IMPORTANT_VIEWS";
         }
-        if (i10 == 4) {
+        if (i2 == 4) {
             return "FLAG_REQUEST_TOUCH_EXPLORATION_MODE";
         }
-        if (i10 == 8) {
+        if (i2 == 8) {
             return "FLAG_REQUEST_ENHANCED_WEB_ACCESSIBILITY";
         }
-        if (i10 == 16) {
+        if (i2 == 16) {
             return "FLAG_REPORT_VIEW_IDS";
         }
-        if (i10 != 32) {
+        if (i2 != 32) {
             return null;
         }
         return "FLAG_REQUEST_FILTER_KEY_EVENTS";
     }
 
     public static int getCapabilities(@NonNull AccessibilityServiceInfo accessibilityServiceInfo) {
-        return accessibilityServiceInfo.getCapabilities();
+        return Build.VERSION.SDK_INT >= 18 ? accessibilityServiceInfo.getCapabilities() : accessibilityServiceInfo.getCanRetrieveWindowContent() ? 1 : 0;
     }
 
     @Nullable
     public static String loadDescription(@NonNull AccessibilityServiceInfo accessibilityServiceInfo, @NonNull PackageManager packageManager) {
-        return accessibilityServiceInfo.loadDescription(packageManager);
+        return Build.VERSION.SDK_INT >= 16 ? accessibilityServiceInfo.loadDescription(packageManager) : accessibilityServiceInfo.getDescription();
     }
 }

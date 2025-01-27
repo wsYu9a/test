@@ -2,42 +2,37 @@ package kotlin.coroutines;
 
 import androidx.exifinterface.media.ExifInterface;
 import com.bytedance.sdk.openadsdk.downloadnew.core.TTDownloadField;
+import com.cdo.oaps.ad.OapsKey;
 import com.kwad.sdk.api.model.AdnName;
-import com.martian.libmars.activity.PermissionActivity;
 import com.ss.android.socialbase.downloader.constants.MonitorConstants;
-import com.umeng.analytics.pro.f;
+import f.b.a.d;
+import f.b.a.e;
 import java.io.Serializable;
 import kotlin.Metadata;
 import kotlin.SinceKotlin;
+import kotlin.TypeCastException;
+import kotlin.Unit;
 import kotlin.coroutines.CoroutineContext;
 import kotlin.jvm.functions.Function2;
 import kotlin.jvm.internal.Intrinsics;
-import kotlin.jvm.internal.SourceDebugExtension;
-import xi.k;
-import xi.l;
+import kotlin.jvm.internal.Ref;
 
 @SinceKotlin(version = "1.3")
-@Metadata(d1 = {"\u0000L\n\u0002\u0018\u0002\n\u0002\u0018\u0002\n\u0002\u0018\u0002\n\u0002\u0018\u0002\n\u0002\b\u0002\n\u0002\u0018\u0002\n\u0002\b\u0002\n\u0002\u0010\u000b\n\u0002\b\u0004\n\u0002\u0010\u0000\n\u0002\b\u0004\n\u0002\u0018\u0002\n\u0002\b\u0004\n\u0002\u0018\u0002\n\u0002\b\u0002\n\u0002\u0010\b\n\u0002\b\u0003\n\u0002\u0010\u000e\n\u0002\b\u0003\b\u0001\u0018\u00002\u00020\u00012\u00060\u0002j\u0002`\u0003:\u0001!B\u0015\u0012\u0006\u0010\u0004\u001a\u00020\u0001\u0012\u0006\u0010\u0005\u001a\u00020\u0006¢\u0006\u0002\u0010\u0007J\u0010\u0010\b\u001a\u00020\t2\u0006\u0010\u0005\u001a\u00020\u0006H\u0002J\u0010\u0010\n\u001a\u00020\t2\u0006\u0010\u000b\u001a\u00020\u0000H\u0002J\u0013\u0010\f\u001a\u00020\t2\b\u0010\r\u001a\u0004\u0018\u00010\u000eH\u0096\u0002J5\u0010\u000f\u001a\u0002H\u0010\"\u0004\b\u0000\u0010\u00102\u0006\u0010\u0011\u001a\u0002H\u00102\u0018\u0010\u0012\u001a\u0014\u0012\u0004\u0012\u0002H\u0010\u0012\u0004\u0012\u00020\u0006\u0012\u0004\u0012\u0002H\u00100\u0013H\u0016¢\u0006\u0002\u0010\u0014J(\u0010\u0015\u001a\u0004\u0018\u0001H\u0016\"\b\b\u0000\u0010\u0016*\u00020\u00062\f\u0010\u0017\u001a\b\u0012\u0004\u0012\u0002H\u00160\u0018H\u0096\u0002¢\u0006\u0002\u0010\u0019J\b\u0010\u001a\u001a\u00020\u001bH\u0016J\u0014\u0010\u001c\u001a\u00020\u00012\n\u0010\u0017\u001a\u0006\u0012\u0002\b\u00030\u0018H\u0016J\b\u0010\u001d\u001a\u00020\u001bH\u0002J\b\u0010\u001e\u001a\u00020\u001fH\u0016J\b\u0010 \u001a\u00020\u000eH\u0002R\u000e\u0010\u0005\u001a\u00020\u0006X\u0082\u0004¢\u0006\u0002\n\u0000R\u000e\u0010\u0004\u001a\u00020\u0001X\u0082\u0004¢\u0006\u0002\n\u0000¨\u0006\""}, d2 = {"Lkotlin/coroutines/CombinedContext;", "Lkotlin/coroutines/CoroutineContext;", "Ljava/io/Serializable;", "Lkotlin/io/Serializable;", "left", "element", "Lkotlin/coroutines/CoroutineContext$Element;", "(Lkotlin/coroutines/CoroutineContext;Lkotlin/coroutines/CoroutineContext$Element;)V", "contains", "", "containsAll", f.X, "equals", AdnName.OTHER, "", "fold", "R", "initial", "operation", "Lkotlin/Function2;", "(Ljava/lang/Object;Lkotlin/jvm/functions/Function2;)Ljava/lang/Object;", MonitorConstants.CONNECT_TYPE_GET, ExifInterface.LONGITUDE_EAST, PermissionActivity.f12046p, "Lkotlin/coroutines/CoroutineContext$Key;", "(Lkotlin/coroutines/CoroutineContext$Key;)Lkotlin/coroutines/CoroutineContext$Element;", TTDownloadField.TT_HASHCODE, "", "minusKey", "size", "toString", "", "writeReplace", "Serialized", "kotlin-stdlib"}, k = 1, mv = {1, 9, 0}, xi = 48)
-@SourceDebugExtension({"SMAP\nCoroutineContextImpl.kt\nKotlin\n*S Kotlin\n*F\n+ 1 CoroutineContextImpl.kt\nkotlin/coroutines/CombinedContext\n+ 2 fake.kt\nkotlin/jvm/internal/FakeKt\n*L\n1#1,196:1\n1#2:197\n*E\n"})
-/* loaded from: classes4.dex */
+@Metadata(bv = {1, 0, 3}, d1 = {"\u0000F\n\u0002\u0018\u0002\n\u0002\u0018\u0002\n\u0002\u0018\u0002\n\u0002\u0018\u0002\n\u0002\u0010\b\n\u0002\b\u0002\n\u0002\u0018\u0002\n\u0000\n\u0002\u0010\u000b\n\u0002\b\u0005\n\u0002\u0010\u0000\n\u0002\b\u0003\n\u0002\u0018\u0002\n\u0002\b\u0005\n\u0002\u0018\u0002\n\u0002\b\t\n\u0002\u0010\u000e\n\u0002\b\t\b\u0001\u0018\u00002\u00020\u00012\u00060\u0002j\u0002`\u0003:\u0001+B\u0017\u0012\u0006\u0010&\u001a\u00020\u0001\u0012\u0006\u0010\b\u001a\u00020\u0007¢\u0006\u0004\b)\u0010*J\u000f\u0010\u0005\u001a\u00020\u0004H\u0002¢\u0006\u0004\b\u0005\u0010\u0006J\u0017\u0010\n\u001a\u00020\t2\u0006\u0010\b\u001a\u00020\u0007H\u0002¢\u0006\u0004\b\n\u0010\u000bJ\u0017\u0010\r\u001a\u00020\t2\u0006\u0010\f\u001a\u00020\u0000H\u0002¢\u0006\u0004\b\r\u0010\u000eJ\u000f\u0010\u0010\u001a\u00020\u000fH\u0002¢\u0006\u0004\b\u0010\u0010\u0011J*\u0010\u0015\u001a\u0004\u0018\u00018\u0000\"\b\b\u0000\u0010\u0012*\u00020\u00072\f\u0010\u0014\u001a\b\u0012\u0004\u0012\u00028\u00000\u0013H\u0096\u0002¢\u0006\u0004\b\u0015\u0010\u0016J7\u0010\u001b\u001a\u00028\u0000\"\u0004\b\u0000\u0010\u00172\u0006\u0010\u0018\u001a\u00028\u00002\u0018\u0010\u001a\u001a\u0014\u0012\u0004\u0012\u00028\u0000\u0012\u0004\u0012\u00020\u0007\u0012\u0004\u0012\u00028\u00000\u0019H\u0016¢\u0006\u0004\b\u001b\u0010\u001cJ\u001b\u0010\u001d\u001a\u00020\u00012\n\u0010\u0014\u001a\u0006\u0012\u0002\b\u00030\u0013H\u0016¢\u0006\u0004\b\u001d\u0010\u001eJ\u001a\u0010 \u001a\u00020\t2\b\u0010\u001f\u001a\u0004\u0018\u00010\u000fH\u0096\u0002¢\u0006\u0004\b \u0010!J\u000f\u0010\"\u001a\u00020\u0004H\u0016¢\u0006\u0004\b\"\u0010\u0006J\u000f\u0010$\u001a\u00020#H\u0016¢\u0006\u0004\b$\u0010%R\u0016\u0010&\u001a\u00020\u00018\u0002@\u0002X\u0082\u0004¢\u0006\u0006\n\u0004\b&\u0010'R\u0016\u0010\b\u001a\u00020\u00078\u0002@\u0002X\u0082\u0004¢\u0006\u0006\n\u0004\b\b\u0010(¨\u0006,"}, d2 = {"Lkotlin/coroutines/CombinedContext;", "Lkotlin/coroutines/CoroutineContext;", "Ljava/io/Serializable;", "Lkotlin/io/Serializable;", "", OapsKey.KEY_SIZE, "()I", "Lkotlin/coroutines/CoroutineContext$Element;", "element", "", "contains", "(Lkotlin/coroutines/CoroutineContext$Element;)Z", "context", "containsAll", "(Lkotlin/coroutines/CombinedContext;)Z", "", "writeReplace", "()Ljava/lang/Object;", ExifInterface.LONGITUDE_EAST, "Lkotlin/coroutines/CoroutineContext$Key;", "key", MonitorConstants.CONNECT_TYPE_GET, "(Lkotlin/coroutines/CoroutineContext$Key;)Lkotlin/coroutines/CoroutineContext$Element;", "R", "initial", "Lkotlin/Function2;", "operation", "fold", "(Ljava/lang/Object;Lkotlin/jvm/functions/Function2;)Ljava/lang/Object;", "minusKey", "(Lkotlin/coroutines/CoroutineContext$Key;)Lkotlin/coroutines/CoroutineContext;", AdnName.OTHER, "equals", "(Ljava/lang/Object;)Z", TTDownloadField.TT_HASHCODE, "", "toString", "()Ljava/lang/String;", "left", "Lkotlin/coroutines/CoroutineContext;", "Lkotlin/coroutines/CoroutineContext$Element;", "<init>", "(Lkotlin/coroutines/CoroutineContext;Lkotlin/coroutines/CoroutineContext$Element;)V", "Serialized", "kotlin-stdlib"}, k = 1, mv = {1, 4, 0})
+/* loaded from: classes5.dex */
 public final class CombinedContext implements CoroutineContext, Serializable {
-
-    @k
     private final CoroutineContext.Element element;
-
-    @k
     private final CoroutineContext left;
 
-    @Metadata(d1 = {"\u0000\"\n\u0002\u0018\u0002\n\u0002\u0018\u0002\n\u0002\u0018\u0002\n\u0000\n\u0002\u0010\u0011\n\u0002\u0018\u0002\n\u0002\b\u0005\n\u0002\u0010\u0000\n\u0002\b\u0002\b\u0002\u0018\u0000 \f2\u00060\u0001j\u0002`\u0002:\u0001\fB\u0013\u0012\f\u0010\u0003\u001a\b\u0012\u0004\u0012\u00020\u00050\u0004¢\u0006\u0002\u0010\u0006J\b\u0010\n\u001a\u00020\u000bH\u0002R\u0019\u0010\u0003\u001a\b\u0012\u0004\u0012\u00020\u00050\u0004¢\u0006\n\n\u0002\u0010\t\u001a\u0004\b\u0007\u0010\b¨\u0006\r"}, d2 = {"Lkotlin/coroutines/CombinedContext$Serialized;", "Ljava/io/Serializable;", "Lkotlin/io/Serializable;", "elements", "", "Lkotlin/coroutines/CoroutineContext;", "([Lkotlin/coroutines/CoroutineContext;)V", "getElements", "()[Lkotlin/coroutines/CoroutineContext;", "[Lkotlin/coroutines/CoroutineContext;", "readResolve", "", "Companion", "kotlin-stdlib"}, k = 1, mv = {1, 9, 0}, xi = 48)
-    @SourceDebugExtension({"SMAP\nCoroutineContextImpl.kt\nKotlin\n*S Kotlin\n*F\n+ 1 CoroutineContextImpl.kt\nkotlin/coroutines/CombinedContext$Serialized\n+ 2 _Arrays.kt\nkotlin/collections/ArraysKt___ArraysKt\n*L\n1#1,196:1\n12720#2,3:197\n*S KotlinDebug\n*F\n+ 1 CoroutineContextImpl.kt\nkotlin/coroutines/CombinedContext$Serialized\n*L\n193#1:197,3\n*E\n"})
-    public static final class Serialized implements Serializable {
+    @Metadata(bv = {1, 0, 3}, d1 = {"\u0000 \n\u0002\u0018\u0002\n\u0002\u0018\u0002\n\u0002\u0018\u0002\n\u0002\u0010\u0000\n\u0002\b\u0002\n\u0002\u0010\u0011\n\u0002\u0018\u0002\n\u0002\b\b\b\u0002\u0018\u0000 \u000e2\u00060\u0001j\u0002`\u0002:\u0001\u000eB\u0015\u0012\f\u0010\b\u001a\b\u0012\u0004\u0012\u00020\u00070\u0006¢\u0006\u0004\b\f\u0010\rJ\u000f\u0010\u0004\u001a\u00020\u0003H\u0002¢\u0006\u0004\b\u0004\u0010\u0005R\u001f\u0010\b\u001a\b\u0012\u0004\u0012\u00020\u00070\u00068\u0006@\u0006¢\u0006\f\n\u0004\b\b\u0010\t\u001a\u0004\b\n\u0010\u000b¨\u0006\u000f"}, d2 = {"Lkotlin/coroutines/CombinedContext$Serialized;", "Ljava/io/Serializable;", "Lkotlin/io/Serializable;", "", "readResolve", "()Ljava/lang/Object;", "", "Lkotlin/coroutines/CoroutineContext;", "elements", "[Lkotlin/coroutines/CoroutineContext;", "getElements", "()[Lkotlin/coroutines/CoroutineContext;", "<init>", "([Lkotlin/coroutines/CoroutineContext;)V", "Companion", "kotlin-stdlib"}, k = 1, mv = {1, 4, 0})
+    private static final class Serialized implements Serializable {
         private static final long serialVersionUID = 0;
 
-        @k
+        @d
         private final CoroutineContext[] elements;
 
-        public Serialized(@k CoroutineContext[] elements) {
-            Intrinsics.checkNotNullParameter(elements, "elements");
+        public Serialized(@d CoroutineContext[] elements) {
+            Intrinsics.checkParameterIsNotNull(elements, "elements");
             this.elements = elements;
         }
 
@@ -50,15 +45,15 @@ public final class CombinedContext implements CoroutineContext, Serializable {
             return coroutineContext;
         }
 
-        @k
+        @d
         public final CoroutineContext[] getElements() {
             return this.elements;
         }
     }
 
-    public CombinedContext(@k CoroutineContext left, @k CoroutineContext.Element element) {
-        Intrinsics.checkNotNullParameter(left, "left");
-        Intrinsics.checkNotNullParameter(element, "element");
+    public CombinedContext(@d CoroutineContext left, @d CoroutineContext.Element element) {
+        Intrinsics.checkParameterIsNotNull(left, "left");
+        Intrinsics.checkParameterIsNotNull(element, "element");
         this.left = left;
         this.element = element;
     }
@@ -67,77 +62,74 @@ public final class CombinedContext implements CoroutineContext, Serializable {
         return Intrinsics.areEqual(get(element.getKey()), element);
     }
 
-    private final boolean containsAll(CombinedContext r22) {
-        while (contains(r22.element)) {
-            CoroutineContext coroutineContext = r22.left;
+    private final boolean containsAll(CombinedContext context) {
+        while (contains(context.element)) {
+            CoroutineContext coroutineContext = context.left;
             if (!(coroutineContext instanceof CombinedContext)) {
-                Intrinsics.checkNotNull(coroutineContext, "null cannot be cast to non-null type kotlin.coroutines.CoroutineContext.Element");
-                return contains((CoroutineContext.Element) coroutineContext);
+                if (coroutineContext != null) {
+                    return contains((CoroutineContext.Element) coroutineContext);
+                }
+                throw new TypeCastException("null cannot be cast to non-null type kotlin.coroutines.CoroutineContext.Element");
             }
-            r22 = (CombinedContext) coroutineContext;
+            context = (CombinedContext) coroutineContext;
         }
         return false;
     }
 
     private final int size() {
-        int i10 = 2;
+        int i2 = 2;
         CombinedContext combinedContext = this;
         while (true) {
             CoroutineContext coroutineContext = combinedContext.left;
-            combinedContext = coroutineContext instanceof CombinedContext ? (CombinedContext) coroutineContext : null;
-            if (combinedContext == null) {
-                return i10;
+            if (!(coroutineContext instanceof CombinedContext)) {
+                coroutineContext = null;
             }
-            i10++;
+            combinedContext = (CombinedContext) coroutineContext;
+            if (combinedContext == null) {
+                return i2;
+            }
+            i2++;
         }
     }
 
-    /*  JADX ERROR: JadxRuntimeException in pass: ProcessVariables
-        jadx.core.utils.exceptions.JadxRuntimeException: Method arg registers not loaded: kotlin.coroutines.CombinedContext$writeReplace$1.<init>(kotlin.coroutines.CoroutineContext[], kotlin.jvm.internal.Ref$IntRef):void, class status: GENERATED_AND_UNLOADED
-        	at jadx.core.dex.nodes.MethodNode.getArgRegs(MethodNode.java:290)
-        	at jadx.core.dex.visitors.regions.variables.ProcessVariables$1.isArgUnused(ProcessVariables.java:146)
-        	at jadx.core.dex.visitors.regions.variables.ProcessVariables$1.lambda$isVarUnused$0(ProcessVariables.java:131)
-        	at jadx.core.utils.ListUtils.allMatch(ListUtils.java:193)
-        	at jadx.core.dex.visitors.regions.variables.ProcessVariables$1.isVarUnused(ProcessVariables.java:131)
-        	at jadx.core.dex.visitors.regions.variables.ProcessVariables$1.processBlock(ProcessVariables.java:82)
-        	at jadx.core.dex.visitors.regions.DepthRegionTraversal.traverseInternal(DepthRegionTraversal.java:64)
-        	at jadx.core.dex.visitors.regions.DepthRegionTraversal.lambda$traverseInternal$0(DepthRegionTraversal.java:68)
-        	at java.base/java.util.ArrayList.forEach(Unknown Source)
-        	at jadx.core.dex.visitors.regions.DepthRegionTraversal.traverseInternal(DepthRegionTraversal.java:68)
-        	at jadx.core.dex.visitors.regions.DepthRegionTraversal.traverse(DepthRegionTraversal.java:19)
-        	at jadx.core.dex.visitors.regions.variables.ProcessVariables.removeUnusedResults(ProcessVariables.java:73)
-        	at jadx.core.dex.visitors.regions.variables.ProcessVariables.visit(ProcessVariables.java:48)
-        */
-    private final java.lang.Object writeReplace() {
-        /*
-            r5 = this;
-            int r0 = r5.size()
-            kotlin.coroutines.CoroutineContext[] r1 = new kotlin.coroutines.CoroutineContext[r0]
-            kotlin.jvm.internal.Ref$IntRef r2 = new kotlin.jvm.internal.Ref$IntRef
-            r2.<init>()
-            kotlin.Unit r3 = kotlin.Unit.INSTANCE
-            kotlin.coroutines.CombinedContext$writeReplace$1 r4 = new kotlin.coroutines.CombinedContext$writeReplace$1
-            r4.<init>()
-            r5.fold(r3, r4)
-            int r2 = r2.element
-            if (r2 != r0) goto L1f
-            kotlin.coroutines.CombinedContext$Serialized r0 = new kotlin.coroutines.CombinedContext$Serialized
-            r0.<init>(r1)
-            return r0
-        L1f:
-            java.lang.IllegalStateException r0 = new java.lang.IllegalStateException
-            java.lang.String r1 = "Check failed."
-            java.lang.String r1 = r1.toString()
-            r0.<init>(r1)
-            throw r0
-        */
-        throw new UnsupportedOperationException("Method not decompiled: kotlin.coroutines.CombinedContext.writeReplace():java.lang.Object");
+    private final Object writeReplace() {
+        int size = size();
+        final CoroutineContext[] coroutineContextArr = new CoroutineContext[size];
+        final Ref.IntRef intRef = new Ref.IntRef();
+        intRef.element = 0;
+        fold(Unit.INSTANCE, new Function2<Unit, CoroutineContext.Element, Unit>() { // from class: kotlin.coroutines.CombinedContext$writeReplace$1
+            /* JADX WARN: 'super' call moved to the top of the method (can break code semantics) */
+            {
+                super(2);
+            }
+
+            @Override // kotlin.jvm.functions.Function2
+            public /* bridge */ /* synthetic */ Unit invoke(Unit unit, CoroutineContext.Element element) {
+                invoke2(unit, element);
+                return Unit.INSTANCE;
+            }
+
+            /* renamed from: invoke, reason: avoid collision after fix types in other method */
+            public final void invoke2(@d Unit unit, @d CoroutineContext.Element element) {
+                Intrinsics.checkParameterIsNotNull(unit, "<anonymous parameter 0>");
+                Intrinsics.checkParameterIsNotNull(element, "element");
+                CoroutineContext[] coroutineContextArr2 = coroutineContextArr;
+                Ref.IntRef intRef2 = intRef;
+                int i2 = intRef2.element;
+                intRef2.element = i2 + 1;
+                coroutineContextArr2[i2] = element;
+            }
+        });
+        if (intRef.element == size) {
+            return new Serialized(coroutineContextArr);
+        }
+        throw new IllegalStateException("Check failed.".toString());
     }
 
-    public boolean equals(@l Object r32) {
-        if (this != r32) {
-            if (r32 instanceof CombinedContext) {
-                CombinedContext combinedContext = (CombinedContext) r32;
+    public boolean equals(@e Object r3) {
+        if (this != r3) {
+            if (r3 instanceof CombinedContext) {
+                CombinedContext combinedContext = (CombinedContext) r3;
                 if (combinedContext.size() != size() || !combinedContext.containsAll(this)) {
                 }
             }
@@ -147,20 +139,20 @@ public final class CombinedContext implements CoroutineContext, Serializable {
     }
 
     @Override // kotlin.coroutines.CoroutineContext
-    public <R> R fold(R initial, @k Function2<? super R, ? super CoroutineContext.Element, ? extends R> operation) {
-        Intrinsics.checkNotNullParameter(operation, "operation");
+    public <R> R fold(R initial, @d Function2<? super R, ? super CoroutineContext.Element, ? extends R> operation) {
+        Intrinsics.checkParameterIsNotNull(operation, "operation");
         return operation.invoke((Object) this.left.fold(initial, operation), this.element);
     }
 
     @Override // kotlin.coroutines.CoroutineContext
-    @l
-    public <E extends CoroutineContext.Element> E get(@k CoroutineContext.Key<E> key) {
-        Intrinsics.checkNotNullParameter(key, "key");
+    @e
+    public <E extends CoroutineContext.Element> E get(@d CoroutineContext.Key<E> key) {
+        Intrinsics.checkParameterIsNotNull(key, "key");
         CombinedContext combinedContext = this;
         while (true) {
-            E e10 = (E) combinedContext.element.get(key);
-            if (e10 != null) {
-                return e10;
+            E e2 = (E) combinedContext.element.get(key);
+            if (e2 != null) {
+                return e2;
             }
             CoroutineContext coroutineContext = combinedContext.left;
             if (!(coroutineContext instanceof CombinedContext)) {
@@ -175,24 +167,36 @@ public final class CombinedContext implements CoroutineContext, Serializable {
     }
 
     @Override // kotlin.coroutines.CoroutineContext
-    @k
-    public CoroutineContext minusKey(@k CoroutineContext.Key<?> r32) {
-        Intrinsics.checkNotNullParameter(r32, "key");
-        if (this.element.get(r32) != null) {
+    @d
+    public CoroutineContext minusKey(@d CoroutineContext.Key<?> key) {
+        Intrinsics.checkParameterIsNotNull(key, "key");
+        if (this.element.get(key) != null) {
             return this.left;
         }
-        CoroutineContext minusKey = this.left.minusKey(r32);
+        CoroutineContext minusKey = this.left.minusKey(key);
         return minusKey == this.left ? this : minusKey == EmptyCoroutineContext.INSTANCE ? this.element : new CombinedContext(minusKey, this.element);
     }
 
     @Override // kotlin.coroutines.CoroutineContext
-    @k
-    public CoroutineContext plus(@k CoroutineContext coroutineContext) {
-        return CoroutineContext.DefaultImpls.plus(this, coroutineContext);
+    @d
+    public CoroutineContext plus(@d CoroutineContext context) {
+        Intrinsics.checkParameterIsNotNull(context, "context");
+        return CoroutineContext.DefaultImpls.plus(this, context);
     }
 
-    @k
+    @d
     public String toString() {
-        return '[' + ((String) fold("", CombinedContext$toString$1.INSTANCE)) + ']';
+        return "[" + ((String) fold("", new Function2<String, CoroutineContext.Element, String>() { // from class: kotlin.coroutines.CombinedContext$toString$1
+            @Override // kotlin.jvm.functions.Function2
+            @d
+            public final String invoke(@d String acc, @d CoroutineContext.Element element) {
+                Intrinsics.checkParameterIsNotNull(acc, "acc");
+                Intrinsics.checkParameterIsNotNull(element, "element");
+                if (acc.length() == 0) {
+                    return element.toString();
+                }
+                return acc + ", " + element;
+            }
+        })) + "]";
     }
 }

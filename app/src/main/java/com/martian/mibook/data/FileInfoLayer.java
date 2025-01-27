@@ -19,7 +19,7 @@ public class FileInfoLayer {
         this.file = file;
     }
 
-    public void setFileLayer(int i10) {
-        this.fileLayer = i10;
+    public void setFileLayer(int fileLayer) {
+        this.fileLayer = fileLayer;
     }
 }

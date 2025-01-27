@@ -5,9 +5,9 @@ import java.util.HashMap;
 
 /* loaded from: classes2.dex */
 public final class SplashPlayModuleCache {
-    private HashMap<String, WeakReference<com.kwad.components.ad.splashscreen.d.a>> DO;
+    private HashMap<String, WeakReference<com.kwad.components.ad.splashscreen.d.a>> BF;
 
-    public enum Holder {
+    enum Holder {
         INSTANCE;
 
         private SplashPlayModuleCache mInstance = new SplashPlayModuleCache((byte) 0);
@@ -15,16 +15,16 @@ public final class SplashPlayModuleCache {
         Holder() {
         }
 
-        public final SplashPlayModuleCache getInstance() {
+        final SplashPlayModuleCache getInstance() {
             return this.mInstance;
         }
     }
 
-    public /* synthetic */ SplashPlayModuleCache(byte b10) {
-        this();
+    private SplashPlayModuleCache() {
+        this.BF = new HashMap<>(1);
     }
 
-    private SplashPlayModuleCache() {
-        this.DO = new HashMap<>(1);
+    /* synthetic */ SplashPlayModuleCache(byte b2) {
+        this();
     }
 }

@@ -1,106 +1,45 @@
 package com.kwad.components.core.webview.jshandler;
 
-import android.text.TextUtils;
+import android.content.Context;
 import androidx.annotation.NonNull;
-import com.ksad.json.annotation.KsJson;
-import com.kwad.components.core.webview.jshandler.WebCardRegisterFeedMonitorListenerHandler;
-import org.json.JSONObject;
+import com.kwad.sdk.core.response.model.AdTemplate;
 
-/* loaded from: classes3.dex */
-public final class aw implements com.kwad.sdk.core.webview.c.a {
-    private final b aaF;
+/* loaded from: classes2.dex */
+public class aw implements com.kwad.sdk.core.webview.b.a {
+    private a Un;
+    private AdTemplate mAdTemplate;
+    protected Context mContext;
 
-    /* renamed from: com.kwad.components.core.webview.jshandler.aw$1 */
-    public class AnonymousClass1 implements com.kwad.components.core.webview.tachikoma.e.d {
-        final /* synthetic */ com.kwad.sdk.core.webview.c.c YV;
-        final /* synthetic */ a aaG;
-
-        public AnonymousClass1(a aVar, com.kwad.sdk.core.webview.c.c cVar) {
-            aVar = aVar;
-            cVar = cVar;
-        }
-
-        @Override // com.kwad.components.core.webview.tachikoma.e.d
-        public final void p(int i10, String str) {
-            a aVar = aVar;
-            aVar.aaK = str;
-            aVar.aaJ = i10;
-            cVar.a(aVar);
-        }
+    public interface a {
+        boolean dC();
     }
 
-    @KsJson
-    public class a extends com.kwad.sdk.core.response.a.a {
-
-        @WebCardRegisterFeedMonitorListenerHandler.FeedMotionType
-        public int aaI;
-        public int aaJ;
-        public String aaK;
-
-        public a() {
-        }
+    public aw(Context context, AdTemplate adTemplate) {
+        this.mContext = com.kwad.sdk.j.k.wrapContextIfNeed(context);
+        this.mAdTemplate = adTemplate;
     }
 
-    public interface b {
-        void c(com.kwad.components.core.webview.tachikoma.e.d dVar);
-
-        void d(com.kwad.components.core.webview.tachikoma.e.d dVar);
-
-        void e(com.kwad.components.core.webview.tachikoma.e.d dVar);
+    public final void a(a aVar) {
+        this.Un = aVar;
     }
 
-    public aw(b bVar) {
-        this.aaF = bVar;
-    }
-
-    @Override // com.kwad.sdk.core.webview.c.a
-    public final void a(String str, @NonNull com.kwad.sdk.core.webview.c.c cVar) {
-        if (TextUtils.isEmpty(str)) {
-            return;
-        }
-        a aVar = new a();
-        try {
-            aVar.parseJson(new JSONObject(str));
-        } catch (Throwable th2) {
-            com.kwad.sdk.core.d.c.printStackTraceOnly(th2);
-        }
-        AnonymousClass1 anonymousClass1 = new com.kwad.components.core.webview.tachikoma.e.d() { // from class: com.kwad.components.core.webview.jshandler.aw.1
-            final /* synthetic */ com.kwad.sdk.core.webview.c.c YV;
-            final /* synthetic */ a aaG;
-
-            public AnonymousClass1(a aVar2, com.kwad.sdk.core.webview.c.c cVar2) {
-                aVar = aVar2;
-                cVar = cVar2;
-            }
-
-            @Override // com.kwad.components.core.webview.tachikoma.e.d
-            public final void p(int i10, String str2) {
-                a aVar2 = aVar;
-                aVar2.aaK = str2;
-                aVar2.aaJ = i10;
-                cVar.a(aVar2);
-            }
-        };
-        int i10 = aVar2.aaI;
-        if (i10 == 1) {
-            this.aaF.d(anonymousClass1);
-        } else if (i10 == 2) {
-            this.aaF.c(anonymousClass1);
-        } else {
-            if (i10 != 3) {
-                return;
-            }
-            this.aaF.e(anonymousClass1);
-        }
-    }
-
-    @Override // com.kwad.sdk.core.webview.c.a
+    @Override // com.kwad.sdk.core.webview.b.a
     @NonNull
-    public final String getKey() {
-        return "registerFeedMotionListener";
+    public String getKey() {
+        return "showPlayable";
     }
 
-    @Override // com.kwad.sdk.core.webview.c.a
-    public final void onDestroy() {
+    @Override // com.kwad.sdk.core.webview.b.a
+    public void handleJsCall(String str, @NonNull com.kwad.sdk.core.webview.b.c cVar) {
+        a aVar = this.Un;
+        boolean dC = aVar != null ? aVar.dC() : true;
+        com.kwad.sdk.core.d.b.d("WebShowPlayableHandler", "handleJsCall launch AdPlayableActivityProxy : " + dC);
+        if (dC) {
+            com.kwad.components.core.page.a.launch(this.mContext, this.mAdTemplate);
+        }
+    }
+
+    @Override // com.kwad.sdk.core.webview.b.a
+    public void onDestroy() {
     }
 }

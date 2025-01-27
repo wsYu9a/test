@@ -10,91 +10,91 @@ import android.view.View;
 /* loaded from: classes3.dex */
 public class JCResizeTextureView extends TextureView {
 
-    /* renamed from: c, reason: collision with root package name */
-    public static final String f13015c = "JCResizeTextureView";
+    /* renamed from: a, reason: collision with root package name */
+    protected static final String f10677a = "JCResizeTextureView";
 
     /* renamed from: b, reason: collision with root package name */
-    public Point f13016b;
+    protected Point f10678b;
 
     public JCResizeTextureView(Context context) {
         super(context);
         a();
     }
 
-    public final void a() {
-        this.f13016b = new Point(0, 0);
+    private void a() {
+        this.f10678b = new Point(0, 0);
     }
 
     @Override // android.view.View
-    public void onMeasure(int i10, int i11) {
-        int i12;
-        int i13;
-        Log.i(f13015c, "onMeasure  [" + hashCode() + "] ");
+    protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
+        int i2;
+        int i3;
+        Log.i(f10677a, "onMeasure  [" + hashCode() + "] ");
         int rotation = (int) getRotation();
-        Point point = this.f13016b;
-        int i14 = point.x;
-        int i15 = point.y;
-        Log.i(f13015c, "videoWidth = " + i14 + ", videoHeight = " + i15);
-        StringBuilder sb2 = new StringBuilder();
-        sb2.append("viewRotation = ");
-        sb2.append(rotation);
-        Log.i(f13015c, sb2.toString());
+        Point point = this.f10678b;
+        int i4 = point.x;
+        int i5 = point.y;
+        Log.i(f10677a, "videoWidth = " + i4 + ", videoHeight = " + i5);
+        StringBuilder sb = new StringBuilder();
+        sb.append("viewRotation = ");
+        sb.append(rotation);
+        Log.i(f10677a, sb.toString());
         if (rotation == 90 || rotation == 270) {
-            i11 = i10;
-            i10 = i11;
+            heightMeasureSpec = widthMeasureSpec;
+            widthMeasureSpec = heightMeasureSpec;
         }
-        int defaultSize = View.getDefaultSize(i14, i10);
-        int defaultSize2 = View.getDefaultSize(i15, i11);
-        if (i14 > 0 && i15 > 0) {
-            int mode = View.MeasureSpec.getMode(i10);
-            int size = View.MeasureSpec.getSize(i10);
-            int mode2 = View.MeasureSpec.getMode(i11);
-            int size2 = View.MeasureSpec.getSize(i11);
-            Log.i(f13015c, "widthMeasureSpec  [" + View.MeasureSpec.toString(i10) + "]");
-            Log.i(f13015c, "heightMeasureSpec [" + View.MeasureSpec.toString(i11) + "]");
+        int defaultSize = TextureView.getDefaultSize(i4, widthMeasureSpec);
+        int defaultSize2 = TextureView.getDefaultSize(i5, heightMeasureSpec);
+        if (i4 > 0 && i5 > 0) {
+            int mode = View.MeasureSpec.getMode(widthMeasureSpec);
+            int size = View.MeasureSpec.getSize(widthMeasureSpec);
+            int mode2 = View.MeasureSpec.getMode(heightMeasureSpec);
+            int size2 = View.MeasureSpec.getSize(heightMeasureSpec);
+            Log.i(f10677a, "widthMeasureSpec  [" + View.MeasureSpec.toString(widthMeasureSpec) + "]");
+            Log.i(f10677a, "heightMeasureSpec [" + View.MeasureSpec.toString(heightMeasureSpec) + "]");
             if (mode == 1073741824 && mode2 == 1073741824) {
-                int i16 = i14 * size2;
-                int i17 = size * i15;
-                if (i16 < i17) {
-                    defaultSize = i16 / i15;
-                } else if (i16 > i17) {
-                    i13 = i17 / i14;
+                int i6 = i4 * size2;
+                int i7 = size * i5;
+                if (i6 < i7) {
+                    defaultSize = i6 / i5;
+                } else if (i6 > i7) {
+                    i3 = i7 / i4;
                     defaultSize = size;
-                    defaultSize2 = i13;
+                    defaultSize2 = i3;
                 } else {
                     defaultSize = size;
                 }
                 defaultSize2 = size2;
             } else if (mode == 1073741824) {
-                i13 = (size * i15) / i14;
-                if (mode2 == Integer.MIN_VALUE && i13 > size2) {
-                    defaultSize = (i14 * size2) / i15;
+                i3 = (size * i5) / i4;
+                if (mode2 == Integer.MIN_VALUE && i3 > size2) {
+                    defaultSize = (i4 * size2) / i5;
                     defaultSize2 = size2;
                 }
                 defaultSize = size;
-                defaultSize2 = i13;
+                defaultSize2 = i3;
             } else if (mode2 == 1073741824) {
-                i12 = (size2 * i14) / i15;
-                if (mode == Integer.MIN_VALUE && i12 > size) {
-                    i13 = (i15 * size) / i14;
+                i2 = (size2 * i4) / i5;
+                if (mode == Integer.MIN_VALUE && i2 > size) {
+                    i3 = (i5 * size) / i4;
                     defaultSize = size;
-                    defaultSize2 = i13;
+                    defaultSize2 = i3;
                 }
-                defaultSize = i12;
+                defaultSize = i2;
                 defaultSize2 = size2;
             } else {
-                if (mode2 != Integer.MIN_VALUE || i15 <= size2) {
-                    size2 = i15;
-                    i12 = i14;
+                if (mode2 != Integer.MIN_VALUE || i5 <= size2) {
+                    size2 = i5;
+                    i2 = i4;
                 } else {
-                    i12 = (size2 * i14) / i15;
+                    i2 = (size2 * i4) / i5;
                 }
-                if (mode == Integer.MIN_VALUE && i12 > size) {
-                    i13 = (i15 * size) / i14;
+                if (mode == Integer.MIN_VALUE && i2 > size) {
+                    i3 = (i5 * size) / i4;
                     defaultSize = size;
-                    defaultSize2 = i13;
+                    defaultSize2 = i3;
                 }
-                defaultSize = i12;
+                defaultSize = i2;
                 defaultSize2 = size2;
             }
         }
@@ -102,23 +102,23 @@ public class JCResizeTextureView extends TextureView {
     }
 
     @Override // android.view.View
-    public void setRotation(float f10) {
-        if (f10 != getRotation()) {
-            super.setRotation(f10);
+    public void setRotation(float rotation) {
+        if (rotation != getRotation()) {
+            super.setRotation(rotation);
             requestLayout();
         }
     }
 
-    public void setVideoSize(Point point) {
-        if (point == null || this.f13016b.equals(point)) {
+    public void setVideoSize(Point videoSize) {
+        if (videoSize == null || this.f10678b.equals(videoSize)) {
             return;
         }
-        this.f13016b = point;
+        this.f10678b = videoSize;
         requestLayout();
     }
 
-    public JCResizeTextureView(Context context, AttributeSet attributeSet) {
-        super(context, attributeSet);
+    public JCResizeTextureView(Context context, AttributeSet attrs) {
+        super(context, attrs);
         a();
     }
 }

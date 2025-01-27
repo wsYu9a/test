@@ -1,15 +1,15 @@
 package com.google.gson;
 
-import com.google.gson.internal.Streams;
-import com.google.gson.stream.JsonWriter;
+import com.google.gson.internal.f;
+import com.google.gson.stream.c;
 import java.io.IOException;
 import java.io.StringWriter;
 import java.math.BigDecimal;
 import java.math.BigInteger;
 
-/* loaded from: classes2.dex */
+/* loaded from: classes.dex */
 public abstract class JsonElement {
-    public abstract JsonElement deepCopy();
+    abstract JsonElement deepCopy();
 
     public BigDecimal getAsBigDecimal() {
         throw new UnsupportedOperationException(getClass().getSimpleName());
@@ -23,11 +23,14 @@ public abstract class JsonElement {
         throw new UnsupportedOperationException(getClass().getSimpleName());
     }
 
+    Boolean getAsBooleanWrapper() {
+        throw new UnsupportedOperationException(getClass().getSimpleName());
+    }
+
     public byte getAsByte() {
         throw new UnsupportedOperationException(getClass().getSimpleName());
     }
 
-    @Deprecated
     public char getAsCharacter() {
         throw new UnsupportedOperationException(getClass().getSimpleName());
     }
@@ -48,14 +51,14 @@ public abstract class JsonElement {
         if (isJsonArray()) {
             return (JsonArray) this;
         }
-        throw new IllegalStateException("Not a JSON Array: " + this);
+        throw new IllegalStateException("This is not a JSON Array.");
     }
 
     public JsonNull getAsJsonNull() {
         if (isJsonNull()) {
             return (JsonNull) this;
         }
-        throw new IllegalStateException("Not a JSON Null: " + this);
+        throw new IllegalStateException("This is not a JSON Null.");
     }
 
     public JsonObject getAsJsonObject() {
@@ -69,7 +72,7 @@ public abstract class JsonElement {
         if (isJsonPrimitive()) {
             return (JsonPrimitive) this;
         }
-        throw new IllegalStateException("Not a JSON Primitive: " + this);
+        throw new IllegalStateException("This is not a JSON Primitive.");
     }
 
     public long getAsLong() {
@@ -107,12 +110,12 @@ public abstract class JsonElement {
     public String toString() {
         try {
             StringWriter stringWriter = new StringWriter();
-            JsonWriter jsonWriter = new JsonWriter(stringWriter);
-            jsonWriter.setLenient(true);
-            Streams.write(this, jsonWriter);
+            c cVar = new c(stringWriter);
+            cVar.t(true);
+            f.b(this, cVar);
             return stringWriter.toString();
-        } catch (IOException e10) {
-            throw new AssertionError(e10);
+        } catch (IOException e2) {
+            throw new AssertionError(e2);
         }
     }
 }

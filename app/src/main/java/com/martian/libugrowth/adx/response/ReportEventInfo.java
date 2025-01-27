@@ -29,13 +29,13 @@ public class ReportEventInfo {
         return this;
     }
 
-    public ReportEventInfo setReportTime(long j10) {
-        this.reportTime = j10;
+    public ReportEventInfo setReportTime(long reportTime) {
+        this.reportTime = reportTime;
         return this;
     }
 
-    public ReportEventInfo setUrls(List<String> list) {
-        this.urls = list;
+    public ReportEventInfo setUrls(List<String> urls) {
+        this.urls = urls;
         return this;
     }
 }

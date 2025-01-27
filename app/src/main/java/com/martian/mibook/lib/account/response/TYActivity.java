@@ -34,11 +34,11 @@ public class TYActivity {
     }
 
     public long getActivityId() {
-        Long l10 = this.activityId;
-        if (l10 == null) {
+        Long l = this.activityId;
+        if (l == null) {
             return 0L;
         }
-        return l10.longValue();
+        return l.longValue();
     }
 
     public String getActivityUrl() {
@@ -66,11 +66,11 @@ public class TYActivity {
     }
 
     public long getEndTime() {
-        Long l10 = this.endTime;
-        if (l10 == null) {
+        Long l = this.endTime;
+        if (l == null) {
             return 0L;
         }
-        return l10.longValue();
+        return l.longValue();
     }
 
     public Boolean getFullscreen() {
@@ -118,11 +118,11 @@ public class TYActivity {
     }
 
     public long getStartTime() {
-        Long l10 = this.startTime;
-        if (l10 == null) {
+        Long l = this.startTime;
+        if (l == null) {
             return 0L;
         }
-        return l10.longValue();
+        return l.longValue();
     }
 
     public boolean getStarted() {
@@ -141,92 +141,92 @@ public class TYActivity {
         return this.type == 1000;
     }
 
-    public void setActivityId(Long l10) {
-        this.activityId = l10;
+    public void setActivityId(Long activityId) {
+        this.activityId = activityId;
     }
 
-    public void setActivityUrl(String str) {
-        this.activityUrl = str;
+    public void setActivityUrl(String activityUrl) {
+        this.activityUrl = activityUrl;
     }
 
-    public void setBubbleImage(String str) {
-        this.bubbleImage = str;
+    public void setBubbleImage(String bubbleImage) {
+        this.bubbleImage = bubbleImage;
     }
 
-    public void setButtonText(String str) {
-        this.buttonText = str;
+    public void setButtonText(String buttonText) {
+        this.buttonText = buttonText;
     }
 
-    public void setDeeplink(String str) {
-        this.deeplink = str;
+    public void setDeeplink(String deeplink) {
+        this.deeplink = deeplink;
     }
 
-    public void setDesc(String str) {
-        this.desc = str;
+    public void setDesc(String desc) {
+        this.desc = desc;
     }
 
-    public void setDialogImage(String str) {
-        this.dialogImage = str;
+    public void setDialogImage(String dialogImage) {
+        this.dialogImage = dialogImage;
     }
 
-    public void setEndTime(Long l10) {
-        this.endTime = l10;
+    public void setEndTime(Long endTime) {
+        this.endTime = endTime;
     }
 
-    public void setFullscreen(Boolean bool) {
-        this.fullscreen = bool;
+    public void setFullscreen(Boolean fullscreen) {
+        this.fullscreen = fullscreen;
     }
 
-    public void setIcon(String str) {
-        this.icon = str;
+    public void setIcon(String icon) {
+        this.icon = icon;
     }
 
-    public void setMarginx(int i10) {
-        this.marginx = Integer.valueOf(i10);
+    public void setMarginx(int marginx) {
+        this.marginx = Integer.valueOf(marginx);
     }
 
-    public void setMissionType(Integer num) {
-        this.missionType = num;
+    public void setMissionType(Integer missionType) {
+        this.missionType = missionType;
     }
 
-    public void setPosterImage(String str) {
-        this.posterImage = str;
+    public void setPosterImage(String posterImage) {
+        this.posterImage = posterImage;
     }
 
-    public void setRuntimes(Integer num) {
-        this.runtimes = num;
+    public void setRuntimes(Integer runtimes) {
+        this.runtimes = runtimes;
     }
 
-    public void setShareImageUrl(String str) {
-        this.shareImageUrl = str;
+    public void setShareImageUrl(String shareImageUrl) {
+        this.shareImageUrl = shareImageUrl;
     }
 
-    public void setShareUrl(String str) {
-        this.shareUrl = str;
+    public void setShareUrl(String shareUrl) {
+        this.shareUrl = shareUrl;
     }
 
-    public void setShareable(Boolean bool) {
-        this.shareable = bool;
+    public void setShareable(Boolean shareable) {
+        this.shareable = shareable;
     }
 
-    public void setShowOnStart(Boolean bool) {
-        this.showOnStart = bool;
+    public void setShowOnStart(Boolean showOnStart) {
+        this.showOnStart = showOnStart;
     }
 
-    public void setStartTime(Long l10) {
-        this.startTime = l10;
+    public void setStartTime(Long startTime) {
+        this.startTime = startTime;
     }
 
-    public void setStarted(Boolean bool) {
-        this.started = bool;
+    public void setStarted(Boolean started) {
+        this.started = started;
     }
 
-    public void setTitle(String str) {
-        this.title = str;
+    public void setTitle(String title) {
+        this.title = title;
     }
 
-    public void setType(int i10) {
-        this.type = i10;
+    public void setType(int type) {
+        this.type = type;
     }
 
     public MissionItem toMissionItem() {

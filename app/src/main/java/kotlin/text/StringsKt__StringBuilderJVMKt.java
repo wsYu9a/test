@@ -1,382 +1,238 @@
 package kotlin.text;
 
-import kotlin.Deprecated;
-import kotlin.DeprecationLevel;
+import com.vivo.ic.dm.Downloads;
+import f.b.a.d;
 import kotlin.ExperimentalStdlibApi;
 import kotlin.Metadata;
-import kotlin.ReplaceWith;
 import kotlin.SinceKotlin;
-import kotlin.WasExperimental;
 import kotlin.internal.InlineOnly;
 import kotlin.jvm.internal.Intrinsics;
-import kotlin.jvm.internal.SourceDebugExtension;
-import xi.k;
 
-@Metadata(d1 = {"\u0000\\\n\u0000\n\u0002\u0018\u0002\n\u0002\u0018\u0002\n\u0000\n\u0002\u0018\u0002\n\u0002\u0010\u0005\n\u0002\u0010\u0006\n\u0002\u0010\u0007\n\u0002\u0010\b\n\u0002\u0010\t\n\u0002\u0010\n\n\u0000\n\u0002\u0010\u0019\n\u0002\b\u0002\n\u0002\u0010\r\n\u0000\n\u0002\u0018\u0002\n\u0002\u0018\u0002\n\u0002\u0010\f\n\u0002\u0010\u0000\n\u0002\u0010\u000b\n\u0002\u0010\u000e\n\u0002\b\u0006\n\u0002\u0010\u0002\n\u0002\b\u0005\u001a\u001f\u0010\u0000\u001a\u00060\u0001j\u0002`\u0002*\u00060\u0001j\u0002`\u00022\b\u0010\u0003\u001a\u0004\u0018\u00010\u0004H\u0087\b\u001a\u001d\u0010\u0000\u001a\u00060\u0001j\u0002`\u0002*\u00060\u0001j\u0002`\u00022\u0006\u0010\u0003\u001a\u00020\u0005H\u0087\b\u001a\u001d\u0010\u0000\u001a\u00060\u0001j\u0002`\u0002*\u00060\u0001j\u0002`\u00022\u0006\u0010\u0003\u001a\u00020\u0006H\u0087\b\u001a\u001d\u0010\u0000\u001a\u00060\u0001j\u0002`\u0002*\u00060\u0001j\u0002`\u00022\u0006\u0010\u0003\u001a\u00020\u0007H\u0087\b\u001a\u001d\u0010\u0000\u001a\u00060\u0001j\u0002`\u0002*\u00060\u0001j\u0002`\u00022\u0006\u0010\u0003\u001a\u00020\bH\u0087\b\u001a\u001d\u0010\u0000\u001a\u00060\u0001j\u0002`\u0002*\u00060\u0001j\u0002`\u00022\u0006\u0010\u0003\u001a\u00020\tH\u0087\b\u001a\u001d\u0010\u0000\u001a\u00060\u0001j\u0002`\u0002*\u00060\u0001j\u0002`\u00022\u0006\u0010\u0003\u001a\u00020\nH\u0087\b\u001a%\u0010\u0000\u001a\u00060\u0001j\u0002`\u0002*\u00060\u0001j\u0002`\u00022\u000e\u0010\u0003\u001a\n\u0018\u00010\u0001j\u0004\u0018\u0001`\u0002H\u0087\b\u001a-\u0010\u000b\u001a\u00060\u0001j\u0002`\u0002*\u00060\u0001j\u0002`\u00022\u0006\u0010\u0003\u001a\u00020\f2\u0006\u0010\r\u001a\u00020\b2\u0006\u0010\u000e\u001a\u00020\bH\u0087\b\u001a-\u0010\u000b\u001a\u00060\u0001j\u0002`\u0002*\u00060\u0001j\u0002`\u00022\u0006\u0010\u0003\u001a\u00020\u000f2\u0006\u0010\r\u001a\u00020\b2\u0006\u0010\u000e\u001a\u00020\bH\u0087\b\u001a\u0014\u0010\u0010\u001a\u00060\u0011j\u0002`\u0012*\u00060\u0011j\u0002`\u0012H\u0007\u001a\u001d\u0010\u0010\u001a\u00060\u0011j\u0002`\u0012*\u00060\u0011j\u0002`\u00122\u0006\u0010\u0003\u001a\u00020\u0013H\u0087\b\u001a\u001f\u0010\u0010\u001a\u00060\u0011j\u0002`\u0012*\u00060\u0011j\u0002`\u00122\b\u0010\u0003\u001a\u0004\u0018\u00010\u000fH\u0087\b\u001a\u0014\u0010\u0010\u001a\u00060\u0001j\u0002`\u0002*\u00060\u0001j\u0002`\u0002H\u0007\u001a\u001f\u0010\u0010\u001a\u00060\u0001j\u0002`\u0002*\u00060\u0001j\u0002`\u00022\b\u0010\u0003\u001a\u0004\u0018\u00010\u0004H\u0087\b\u001a\u001f\u0010\u0010\u001a\u00060\u0001j\u0002`\u0002*\u00060\u0001j\u0002`\u00022\b\u0010\u0003\u001a\u0004\u0018\u00010\u0014H\u0087\b\u001a\u001d\u0010\u0010\u001a\u00060\u0001j\u0002`\u0002*\u00060\u0001j\u0002`\u00022\u0006\u0010\u0003\u001a\u00020\u0015H\u0087\b\u001a\u001d\u0010\u0010\u001a\u00060\u0001j\u0002`\u0002*\u00060\u0001j\u0002`\u00022\u0006\u0010\u0003\u001a\u00020\u0005H\u0087\b\u001a\u001d\u0010\u0010\u001a\u00060\u0001j\u0002`\u0002*\u00060\u0001j\u0002`\u00022\u0006\u0010\u0003\u001a\u00020\u0013H\u0087\b\u001a\u001d\u0010\u0010\u001a\u00060\u0001j\u0002`\u0002*\u00060\u0001j\u0002`\u00022\u0006\u0010\u0003\u001a\u00020\fH\u0087\b\u001a\u001f\u0010\u0010\u001a\u00060\u0001j\u0002`\u0002*\u00060\u0001j\u0002`\u00022\b\u0010\u0003\u001a\u0004\u0018\u00010\u000fH\u0087\b\u001a\u001d\u0010\u0010\u001a\u00060\u0001j\u0002`\u0002*\u00060\u0001j\u0002`\u00022\u0006\u0010\u0003\u001a\u00020\u0006H\u0087\b\u001a\u001d\u0010\u0010\u001a\u00060\u0001j\u0002`\u0002*\u00060\u0001j\u0002`\u00022\u0006\u0010\u0003\u001a\u00020\u0007H\u0087\b\u001a\u001d\u0010\u0010\u001a\u00060\u0001j\u0002`\u0002*\u00060\u0001j\u0002`\u00022\u0006\u0010\u0003\u001a\u00020\bH\u0087\b\u001a\u001d\u0010\u0010\u001a\u00060\u0001j\u0002`\u0002*\u00060\u0001j\u0002`\u00022\u0006\u0010\u0003\u001a\u00020\tH\u0087\b\u001a\u001d\u0010\u0010\u001a\u00060\u0001j\u0002`\u0002*\u00060\u0001j\u0002`\u00022\u0006\u0010\u0003\u001a\u00020\nH\u0087\b\u001a\u001f\u0010\u0010\u001a\u00060\u0001j\u0002`\u0002*\u00060\u0001j\u0002`\u00022\b\u0010\u0003\u001a\u0004\u0018\u00010\u0016H\u0087\b\u001a%\u0010\u0010\u001a\u00060\u0001j\u0002`\u0002*\u00060\u0001j\u0002`\u00022\u000e\u0010\u0003\u001a\n\u0018\u00010\u0001j\u0004\u0018\u0001`\u0002H\u0087\b\u001a\u0014\u0010\u0017\u001a\u00060\u0001j\u0002`\u0002*\u00060\u0001j\u0002`\u0002H\u0007\u001a\u001d\u0010\u0018\u001a\u00060\u0001j\u0002`\u0002*\u00060\u0001j\u0002`\u00022\u0006\u0010\u0019\u001a\u00020\bH\u0087\b\u001a%\u0010\u001a\u001a\u00060\u0001j\u0002`\u0002*\u00060\u0001j\u0002`\u00022\u0006\u0010\r\u001a\u00020\b2\u0006\u0010\u000e\u001a\u00020\bH\u0087\b\u001a5\u0010\u001b\u001a\u00060\u0001j\u0002`\u0002*\u00060\u0001j\u0002`\u00022\u0006\u0010\u0019\u001a\u00020\b2\u0006\u0010\u0003\u001a\u00020\f2\u0006\u0010\r\u001a\u00020\b2\u0006\u0010\u000e\u001a\u00020\bH\u0087\b\u001a5\u0010\u001b\u001a\u00060\u0001j\u0002`\u0002*\u00060\u0001j\u0002`\u00022\u0006\u0010\u0019\u001a\u00020\b2\u0006\u0010\u0003\u001a\u00020\u000f2\u0006\u0010\r\u001a\u00020\b2\u0006\u0010\u000e\u001a\u00020\bH\u0087\b\u001a!\u0010\u001c\u001a\u00020\u001d*\u00060\u0001j\u0002`\u00022\u0006\u0010\u0019\u001a\u00020\b2\u0006\u0010\u0003\u001a\u00020\u0013H\u0087\n\u001a-\u0010\u001e\u001a\u00060\u0001j\u0002`\u0002*\u00060\u0001j\u0002`\u00022\u0006\u0010\r\u001a\u00020\b2\u0006\u0010\u000e\u001a\u00020\b2\u0006\u0010\u0003\u001a\u00020\u0016H\u0087\b\u001a7\u0010\u001f\u001a\u00020\u001d*\u00060\u0001j\u0002`\u00022\u0006\u0010 \u001a\u00020\f2\b\b\u0002\u0010!\u001a\u00020\b2\b\b\u0002\u0010\r\u001a\u00020\b2\b\b\u0002\u0010\u000e\u001a\u00020\bH\u0087\b¨\u0006\""}, d2 = {"appendLine", "Ljava/lang/StringBuilder;", "Lkotlin/text/StringBuilder;", "value", "Ljava/lang/StringBuffer;", "", "", "", "", "", "", "appendRange", "", "startIndex", "endIndex", "", "appendln", "Ljava/lang/Appendable;", "Lkotlin/text/Appendable;", "", "", "", "", "clear", "deleteAt", "index", "deleteRange", "insertRange", "set", "", "setRange", "toCharArray", "destination", "destinationOffset", "kotlin-stdlib"}, k = 5, mv = {1, 9, 0}, xi = 49, xs = "kotlin/text/StringsKt")
-@SourceDebugExtension({"SMAP\nStringBuilderJVM.kt\nKotlin\n*S Kotlin\n*F\n+ 1 StringBuilderJVM.kt\nkotlin/text/StringsKt__StringBuilderJVMKt\n+ 2 fake.kt\nkotlin/jvm/internal/FakeKt\n*L\n1#1,381:1\n1#2:382\n*E\n"})
-/* loaded from: classes4.dex */
+@Metadata(bv = {1, 0, 3}, d1 = {"\u0000z\n\u0002\u0018\u0002\n\u0002\u0018\u0002\n\u0002\b\u0002\n\u0002\u0010\b\n\u0000\n\u0002\u0010\f\n\u0000\n\u0002\u0010\u0002\n\u0002\b\u0004\n\u0002\u0010\u000e\n\u0002\b\u0006\n\u0002\u0010\u0019\n\u0002\b\u0006\n\u0002\u0010\r\n\u0002\b\u0004\n\u0002\u0018\u0002\n\u0002\u0018\u0002\n\u0002\b\u0004\n\u0002\u0018\u0002\n\u0002\b\u0003\n\u0002\u0010\u0000\n\u0002\b\u0004\n\u0002\u0010\u000b\n\u0000\n\u0002\u0010\n\n\u0000\n\u0002\u0010\u0005\n\u0000\n\u0002\u0010\t\n\u0000\n\u0002\u0010\u0007\n\u0000\n\u0002\u0010\u0006\n\u0002\b\u0002\u001a\u001b\u0010\u0002\u001a\u00060\u0000j\u0002`\u0001*\u00060\u0000j\u0002`\u0001H\u0007¢\u0006\u0004\b\u0002\u0010\u0003\u001a(\u0010\t\u001a\u00020\b*\u00060\u0000j\u0002`\u00012\u0006\u0010\u0005\u001a\u00020\u00042\u0006\u0010\u0007\u001a\u00020\u0006H\u0087\n¢\u0006\u0004\b\t\u0010\n\u001a4\u0010\u000e\u001a\u00060\u0000j\u0002`\u0001*\u00060\u0000j\u0002`\u00012\u0006\u0010\u000b\u001a\u00020\u00042\u0006\u0010\f\u001a\u00020\u00042\u0006\u0010\u0007\u001a\u00020\rH\u0087\b¢\u0006\u0004\b\u000e\u0010\u000f\u001a$\u0010\u0010\u001a\u00060\u0000j\u0002`\u0001*\u00060\u0000j\u0002`\u00012\u0006\u0010\u0005\u001a\u00020\u0004H\u0087\b¢\u0006\u0004\b\u0010\u0010\u0011\u001a,\u0010\u0012\u001a\u00060\u0000j\u0002`\u0001*\u00060\u0000j\u0002`\u00012\u0006\u0010\u000b\u001a\u00020\u00042\u0006\u0010\f\u001a\u00020\u0004H\u0087\b¢\u0006\u0004\b\u0012\u0010\u0013\u001a>\u0010\u0017\u001a\u00020\b*\u00060\u0000j\u0002`\u00012\u0006\u0010\u0015\u001a\u00020\u00142\b\b\u0002\u0010\u0016\u001a\u00020\u00042\b\b\u0002\u0010\u000b\u001a\u00020\u00042\b\b\u0002\u0010\f\u001a\u00020\u0004H\u0087\b¢\u0006\u0004\b\u0017\u0010\u0018\u001a4\u0010\u0019\u001a\u00060\u0000j\u0002`\u0001*\u00060\u0000j\u0002`\u00012\u0006\u0010\u0007\u001a\u00020\u00142\u0006\u0010\u000b\u001a\u00020\u00042\u0006\u0010\f\u001a\u00020\u0004H\u0087\b¢\u0006\u0004\b\u0019\u0010\u001a\u001a6\u0010\u0019\u001a\u00060\u0000j\u0002`\u0001*\u00060\u0000j\u0002`\u00012\b\u0010\u0007\u001a\u0004\u0018\u00010\u001b2\u0006\u0010\u000b\u001a\u00020\u00042\u0006\u0010\f\u001a\u00020\u0004H\u0087\b¢\u0006\u0004\b\u0019\u0010\u001c\u001a<\u0010\u001d\u001a\u00060\u0000j\u0002`\u0001*\u00060\u0000j\u0002`\u00012\u0006\u0010\u0005\u001a\u00020\u00042\u0006\u0010\u0007\u001a\u00020\u00142\u0006\u0010\u000b\u001a\u00020\u00042\u0006\u0010\f\u001a\u00020\u0004H\u0087\b¢\u0006\u0004\b\u001d\u0010\u001e\u001a>\u0010\u001d\u001a\u00060\u0000j\u0002`\u0001*\u00060\u0000j\u0002`\u00012\u0006\u0010\u0005\u001a\u00020\u00042\b\u0010\u0007\u001a\u0004\u0018\u00010\u001b2\u0006\u0010\u000b\u001a\u00020\u00042\u0006\u0010\f\u001a\u00020\u0004H\u0087\b¢\u0006\u0004\b\u001d\u0010\u001f\u001a\u0019\u0010\"\u001a\u00060 j\u0002`!*\u00060 j\u0002`!¢\u0006\u0004\b\"\u0010#\u001a&\u0010\"\u001a\u00060 j\u0002`!*\u00060 j\u0002`!2\b\u0010\u0007\u001a\u0004\u0018\u00010\u001bH\u0087\b¢\u0006\u0004\b\"\u0010$\u001a$\u0010\"\u001a\u00060 j\u0002`!*\u00060 j\u0002`!2\u0006\u0010\u0007\u001a\u00020\u0006H\u0087\b¢\u0006\u0004\b\"\u0010%\u001a\u0019\u0010\"\u001a\u00060\u0000j\u0002`\u0001*\u00060\u0000j\u0002`\u0001¢\u0006\u0004\b\"\u0010\u0003\u001a&\u0010\"\u001a\u00060\u0000j\u0002`\u0001*\u00060\u0000j\u0002`\u00012\b\u0010\u0007\u001a\u0004\u0018\u00010&H\u0087\b¢\u0006\u0004\b\"\u0010'\u001a&\u0010\"\u001a\u00060\u0000j\u0002`\u0001*\u00060\u0000j\u0002`\u00012\b\u0010\u0007\u001a\u0004\u0018\u00010\u001bH\u0087\b¢\u0006\u0004\b\"\u0010(\u001a&\u0010\"\u001a\u00060\u0000j\u0002`\u0001*\u00060\u0000j\u0002`\u00012\b\u0010\u0007\u001a\u0004\u0018\u00010\rH\u0087\b¢\u0006\u0004\b\"\u0010)\u001a&\u0010\"\u001a\u00060\u0000j\u0002`\u0001*\u00060\u0000j\u0002`\u00012\b\u0010\u0007\u001a\u0004\u0018\u00010*H\u0087\b¢\u0006\u0004\b\"\u0010+\u001a,\u0010\"\u001a\u00060\u0000j\u0002`\u0001*\u00060\u0000j\u0002`\u00012\u000e\u0010\u0007\u001a\n\u0018\u00010\u0000j\u0004\u0018\u0001`\u0001H\u0087\b¢\u0006\u0004\b\"\u0010,\u001a$\u0010\"\u001a\u00060\u0000j\u0002`\u0001*\u00060\u0000j\u0002`\u00012\u0006\u0010\u0007\u001a\u00020\u0014H\u0087\b¢\u0006\u0004\b\"\u0010-\u001a$\u0010\"\u001a\u00060\u0000j\u0002`\u0001*\u00060\u0000j\u0002`\u00012\u0006\u0010\u0007\u001a\u00020\u0006H\u0087\b¢\u0006\u0004\b\"\u0010.\u001a$\u0010\"\u001a\u00060\u0000j\u0002`\u0001*\u00060\u0000j\u0002`\u00012\u0006\u0010\u0007\u001a\u00020/H\u0087\b¢\u0006\u0004\b\"\u00100\u001a$\u0010\"\u001a\u00060\u0000j\u0002`\u0001*\u00060\u0000j\u0002`\u00012\u0006\u0010\u0007\u001a\u00020\u0004H\u0087\b¢\u0006\u0004\b\"\u0010\u0011\u001a$\u0010\"\u001a\u00060\u0000j\u0002`\u0001*\u00060\u0000j\u0002`\u00012\u0006\u0010\u0007\u001a\u000201H\u0087\b¢\u0006\u0004\b\"\u00102\u001a$\u0010\"\u001a\u00060\u0000j\u0002`\u0001*\u00060\u0000j\u0002`\u00012\u0006\u0010\u0007\u001a\u000203H\u0087\b¢\u0006\u0004\b\"\u00104\u001a$\u0010\"\u001a\u00060\u0000j\u0002`\u0001*\u00060\u0000j\u0002`\u00012\u0006\u0010\u0007\u001a\u000205H\u0087\b¢\u0006\u0004\b\"\u00106\u001a$\u0010\"\u001a\u00060\u0000j\u0002`\u0001*\u00060\u0000j\u0002`\u00012\u0006\u0010\u0007\u001a\u000207H\u0087\b¢\u0006\u0004\b\"\u00108\u001a$\u0010\"\u001a\u00060\u0000j\u0002`\u0001*\u00060\u0000j\u0002`\u00012\u0006\u0010\u0007\u001a\u000209H\u0087\b¢\u0006\u0004\b\"\u0010:¨\u0006;"}, d2 = {"Ljava/lang/StringBuilder;", "Lkotlin/text/StringBuilder;", "clear", "(Ljava/lang/StringBuilder;)Ljava/lang/StringBuilder;", "", "index", "", Downloads.RequestHeaders.COLUMN_VALUE, "", "set", "(Ljava/lang/StringBuilder;IC)V", "startIndex", "endIndex", "", "setRange", "(Ljava/lang/StringBuilder;IILjava/lang/String;)Ljava/lang/StringBuilder;", "deleteAt", "(Ljava/lang/StringBuilder;I)Ljava/lang/StringBuilder;", "deleteRange", "(Ljava/lang/StringBuilder;II)Ljava/lang/StringBuilder;", "", "destination", "destinationOffset", "toCharArray", "(Ljava/lang/StringBuilder;[CIII)V", "appendRange", "(Ljava/lang/StringBuilder;[CII)Ljava/lang/StringBuilder;", "", "(Ljava/lang/StringBuilder;Ljava/lang/CharSequence;II)Ljava/lang/StringBuilder;", "insertRange", "(Ljava/lang/StringBuilder;I[CII)Ljava/lang/StringBuilder;", "(Ljava/lang/StringBuilder;ILjava/lang/CharSequence;II)Ljava/lang/StringBuilder;", "Ljava/lang/Appendable;", "Lkotlin/text/Appendable;", "appendln", "(Ljava/lang/Appendable;)Ljava/lang/Appendable;", "(Ljava/lang/Appendable;Ljava/lang/CharSequence;)Ljava/lang/Appendable;", "(Ljava/lang/Appendable;C)Ljava/lang/Appendable;", "Ljava/lang/StringBuffer;", "(Ljava/lang/StringBuilder;Ljava/lang/StringBuffer;)Ljava/lang/StringBuilder;", "(Ljava/lang/StringBuilder;Ljava/lang/CharSequence;)Ljava/lang/StringBuilder;", "(Ljava/lang/StringBuilder;Ljava/lang/String;)Ljava/lang/StringBuilder;", "", "(Ljava/lang/StringBuilder;Ljava/lang/Object;)Ljava/lang/StringBuilder;", "(Ljava/lang/StringBuilder;Ljava/lang/StringBuilder;)Ljava/lang/StringBuilder;", "(Ljava/lang/StringBuilder;[C)Ljava/lang/StringBuilder;", "(Ljava/lang/StringBuilder;C)Ljava/lang/StringBuilder;", "", "(Ljava/lang/StringBuilder;Z)Ljava/lang/StringBuilder;", "", "(Ljava/lang/StringBuilder;S)Ljava/lang/StringBuilder;", "", "(Ljava/lang/StringBuilder;B)Ljava/lang/StringBuilder;", "", "(Ljava/lang/StringBuilder;J)Ljava/lang/StringBuilder;", "", "(Ljava/lang/StringBuilder;F)Ljava/lang/StringBuilder;", "", "(Ljava/lang/StringBuilder;D)Ljava/lang/StringBuilder;", "kotlin-stdlib"}, k = 5, mv = {1, 4, 0}, xs = "kotlin/text/StringsKt")
+/* loaded from: classes.dex */
 class StringsKt__StringBuilderJVMKt extends StringsKt__RegexExtensionsKt {
-    @SinceKotlin(version = "1.4")
+    @SinceKotlin(version = "1.3")
+    @ExperimentalStdlibApi
     @InlineOnly
-    private static final StringBuilder appendLine(StringBuilder sb2, StringBuffer stringBuffer) {
-        Intrinsics.checkNotNullParameter(sb2, "<this>");
-        sb2.append(stringBuffer);
-        Intrinsics.checkNotNullExpressionValue(sb2, "append(...)");
-        sb2.append('\n');
-        Intrinsics.checkNotNullExpressionValue(sb2, "append(...)");
-        return sb2;
+    private static final StringBuilder appendRange(@d StringBuilder sb, char[] cArr, int i2, int i3) {
+        sb.append(cArr, i2, i3 - i2);
+        Intrinsics.checkExpressionValueIsNotNull(sb, "this.append(value, start…x, endIndex - startIndex)");
+        return sb;
     }
 
-    @SinceKotlin(version = "1.4")
-    @WasExperimental(markerClass = {ExperimentalStdlibApi.class})
-    @InlineOnly
-    private static final StringBuilder appendRange(StringBuilder sb2, char[] value, int i10, int i11) {
-        Intrinsics.checkNotNullParameter(sb2, "<this>");
-        Intrinsics.checkNotNullParameter(value, "value");
-        sb2.append(value, i10, i11 - i10);
-        Intrinsics.checkNotNullExpressionValue(sb2, "append(...)");
-        return sb2;
-    }
-
-    @Deprecated(level = DeprecationLevel.WARNING, message = "Use appendLine instead. Note that the new method always appends the line feed character '\\n' regardless of the system line separator.", replaceWith = @ReplaceWith(expression = "appendLine()", imports = {}))
-    @k
-    public static final Appendable appendln(@k Appendable appendable) {
-        Intrinsics.checkNotNullParameter(appendable, "<this>");
-        Appendable append = appendable.append(SystemProperties.LINE_SEPARATOR);
-        Intrinsics.checkNotNullExpressionValue(append, "append(...)");
+    @d
+    public static final Appendable appendln(@d Appendable appendln) {
+        Intrinsics.checkParameterIsNotNull(appendln, "$this$appendln");
+        Appendable append = appendln.append(SystemProperties.LINE_SEPARATOR);
+        Intrinsics.checkExpressionValueIsNotNull(append, "append(SystemProperties.LINE_SEPARATOR)");
         return append;
     }
 
+    @d
     @SinceKotlin(version = "1.3")
-    @k
-    public static final StringBuilder clear(@k StringBuilder sb2) {
-        Intrinsics.checkNotNullParameter(sb2, "<this>");
-        sb2.setLength(0);
-        return sb2;
+    public static final StringBuilder clear(@d StringBuilder clear) {
+        Intrinsics.checkParameterIsNotNull(clear, "$this$clear");
+        clear.setLength(0);
+        return clear;
     }
 
-    @SinceKotlin(version = "1.4")
-    @WasExperimental(markerClass = {ExperimentalStdlibApi.class})
+    @SinceKotlin(version = "1.3")
+    @ExperimentalStdlibApi
     @InlineOnly
-    private static final StringBuilder deleteAt(StringBuilder sb2, int i10) {
-        Intrinsics.checkNotNullParameter(sb2, "<this>");
-        StringBuilder deleteCharAt = sb2.deleteCharAt(i10);
-        Intrinsics.checkNotNullExpressionValue(deleteCharAt, "deleteCharAt(...)");
+    private static final StringBuilder deleteAt(@d StringBuilder sb, int i2) {
+        StringBuilder deleteCharAt = sb.deleteCharAt(i2);
+        Intrinsics.checkExpressionValueIsNotNull(deleteCharAt, "this.deleteCharAt(index)");
         return deleteCharAt;
     }
 
-    @SinceKotlin(version = "1.4")
-    @WasExperimental(markerClass = {ExperimentalStdlibApi.class})
+    @SinceKotlin(version = "1.3")
+    @ExperimentalStdlibApi
     @InlineOnly
-    private static final StringBuilder deleteRange(StringBuilder sb2, int i10, int i11) {
-        Intrinsics.checkNotNullParameter(sb2, "<this>");
-        StringBuilder delete = sb2.delete(i10, i11);
-        Intrinsics.checkNotNullExpressionValue(delete, "delete(...)");
+    private static final StringBuilder deleteRange(@d StringBuilder sb, int i2, int i3) {
+        StringBuilder delete = sb.delete(i2, i3);
+        Intrinsics.checkExpressionValueIsNotNull(delete, "this.delete(startIndex, endIndex)");
         return delete;
     }
 
-    @SinceKotlin(version = "1.4")
-    @WasExperimental(markerClass = {ExperimentalStdlibApi.class})
+    @SinceKotlin(version = "1.3")
+    @ExperimentalStdlibApi
     @InlineOnly
-    private static final StringBuilder insertRange(StringBuilder sb2, int i10, char[] value, int i11, int i12) {
-        Intrinsics.checkNotNullParameter(sb2, "<this>");
-        Intrinsics.checkNotNullParameter(value, "value");
-        StringBuilder insert = sb2.insert(i10, value, i11, i12 - i11);
-        Intrinsics.checkNotNullExpressionValue(insert, "insert(...)");
+    private static final StringBuilder insertRange(@d StringBuilder sb, int i2, char[] cArr, int i3, int i4) {
+        StringBuilder insert = sb.insert(i2, cArr, i3, i4 - i3);
+        Intrinsics.checkExpressionValueIsNotNull(insert, "this.insert(index, value…x, endIndex - startIndex)");
         return insert;
     }
 
     @InlineOnly
-    private static final void set(StringBuilder sb2, int i10, char c10) {
-        Intrinsics.checkNotNullParameter(sb2, "<this>");
-        sb2.setCharAt(i10, c10);
+    private static final void set(@d StringBuilder set, int i2, char c2) {
+        Intrinsics.checkParameterIsNotNull(set, "$this$set");
+        set.setCharAt(i2, c2);
     }
 
-    @SinceKotlin(version = "1.4")
-    @WasExperimental(markerClass = {ExperimentalStdlibApi.class})
+    @SinceKotlin(version = "1.3")
+    @ExperimentalStdlibApi
     @InlineOnly
-    private static final StringBuilder setRange(StringBuilder sb2, int i10, int i11, String value) {
-        Intrinsics.checkNotNullParameter(sb2, "<this>");
-        Intrinsics.checkNotNullParameter(value, "value");
-        StringBuilder replace = sb2.replace(i10, i11, value);
-        Intrinsics.checkNotNullExpressionValue(replace, "replace(...)");
+    private static final StringBuilder setRange(@d StringBuilder sb, int i2, int i3, String str) {
+        StringBuilder replace = sb.replace(i2, i3, str);
+        Intrinsics.checkExpressionValueIsNotNull(replace, "this.replace(startIndex, endIndex, value)");
         return replace;
     }
 
-    @SinceKotlin(version = "1.4")
-    @WasExperimental(markerClass = {ExperimentalStdlibApi.class})
+    @SinceKotlin(version = "1.3")
+    @ExperimentalStdlibApi
     @InlineOnly
-    private static final void toCharArray(StringBuilder sb2, char[] destination, int i10, int i11, int i12) {
-        Intrinsics.checkNotNullParameter(sb2, "<this>");
-        Intrinsics.checkNotNullParameter(destination, "destination");
-        sb2.getChars(i11, i12, destination, i10);
+    private static final void toCharArray(@d StringBuilder sb, char[] cArr, int i2, int i3, int i4) {
+        sb.getChars(i3, i4, cArr, i2);
     }
 
-    public static /* synthetic */ void toCharArray$default(StringBuilder sb2, char[] destination, int i10, int i11, int i12, int i13, Object obj) {
-        if ((i13 & 2) != 0) {
-            i10 = 0;
+    static /* synthetic */ void toCharArray$default(StringBuilder sb, char[] cArr, int i2, int i3, int i4, int i5, Object obj) {
+        if ((i5 & 2) != 0) {
+            i2 = 0;
         }
-        if ((i13 & 4) != 0) {
-            i11 = 0;
+        if ((i5 & 4) != 0) {
+            i3 = 0;
         }
-        if ((i13 & 8) != 0) {
-            i12 = sb2.length();
+        if ((i5 & 8) != 0) {
+            i4 = sb.length();
         }
-        Intrinsics.checkNotNullParameter(sb2, "<this>");
-        Intrinsics.checkNotNullParameter(destination, "destination");
-        sb2.getChars(i11, i12, destination, i10);
+        sb.getChars(i3, i4, cArr, i2);
     }
 
-    @SinceKotlin(version = "1.4")
+    @SinceKotlin(version = "1.3")
+    @ExperimentalStdlibApi
     @InlineOnly
-    private static final StringBuilder appendLine(StringBuilder sb2, StringBuilder sb3) {
-        Intrinsics.checkNotNullParameter(sb2, "<this>");
-        sb2.append((CharSequence) sb3);
-        Intrinsics.checkNotNullExpressionValue(sb2, "append(...)");
-        sb2.append('\n');
-        Intrinsics.checkNotNullExpressionValue(sb2, "append(...)");
-        return sb2;
+    private static final StringBuilder appendRange(@d StringBuilder sb, CharSequence charSequence, int i2, int i3) {
+        sb.append(charSequence, i2, i3);
+        Intrinsics.checkExpressionValueIsNotNull(sb, "this.append(value, startIndex, endIndex)");
+        return sb;
     }
 
-    @SinceKotlin(version = "1.4")
-    @WasExperimental(markerClass = {ExperimentalStdlibApi.class})
     @InlineOnly
-    private static final StringBuilder appendRange(StringBuilder sb2, CharSequence value, int i10, int i11) {
-        Intrinsics.checkNotNullParameter(sb2, "<this>");
-        Intrinsics.checkNotNullParameter(value, "value");
-        sb2.append(value, i10, i11);
-        Intrinsics.checkNotNullExpressionValue(sb2, "append(...)");
-        return sb2;
-    }
-
-    @Deprecated(level = DeprecationLevel.WARNING, message = "Use appendLine instead. Note that the new method always appends the line feed character '\\n' regardless of the system line separator.", replaceWith = @ReplaceWith(expression = "appendLine(value)", imports = {}))
-    @InlineOnly
-    private static final Appendable appendln(Appendable appendable, CharSequence charSequence) {
-        Intrinsics.checkNotNullParameter(appendable, "<this>");
+    private static final Appendable appendln(@d Appendable appendable, CharSequence charSequence) {
         Appendable append = appendable.append(charSequence);
-        Intrinsics.checkNotNullExpressionValue(append, "append(...)");
+        Intrinsics.checkExpressionValueIsNotNull(append, "append(value)");
         return appendln(append);
     }
 
-    @SinceKotlin(version = "1.4")
-    @WasExperimental(markerClass = {ExperimentalStdlibApi.class})
+    @SinceKotlin(version = "1.3")
+    @ExperimentalStdlibApi
     @InlineOnly
-    private static final StringBuilder insertRange(StringBuilder sb2, int i10, CharSequence value, int i11, int i12) {
-        Intrinsics.checkNotNullParameter(sb2, "<this>");
-        Intrinsics.checkNotNullParameter(value, "value");
-        StringBuilder insert = sb2.insert(i10, value, i11, i12);
-        Intrinsics.checkNotNullExpressionValue(insert, "insert(...)");
+    private static final StringBuilder insertRange(@d StringBuilder sb, int i2, CharSequence charSequence, int i3, int i4) {
+        StringBuilder insert = sb.insert(i2, charSequence, i3, i4);
+        Intrinsics.checkExpressionValueIsNotNull(insert, "this.insert(index, value, startIndex, endIndex)");
         return insert;
     }
 
-    @SinceKotlin(version = "1.4")
     @InlineOnly
-    private static final StringBuilder appendLine(StringBuilder sb2, int i10) {
-        Intrinsics.checkNotNullParameter(sb2, "<this>");
-        sb2.append(i10);
-        Intrinsics.checkNotNullExpressionValue(sb2, "append(...)");
-        sb2.append('\n');
-        Intrinsics.checkNotNullExpressionValue(sb2, "append(...)");
-        return sb2;
-    }
-
-    @Deprecated(level = DeprecationLevel.WARNING, message = "Use appendLine instead. Note that the new method always appends the line feed character '\\n' regardless of the system line separator.", replaceWith = @ReplaceWith(expression = "appendLine(value)", imports = {}))
-    @InlineOnly
-    private static final Appendable appendln(Appendable appendable, char c10) {
-        Intrinsics.checkNotNullParameter(appendable, "<this>");
-        Appendable append = appendable.append(c10);
-        Intrinsics.checkNotNullExpressionValue(append, "append(...)");
+    private static final Appendable appendln(@d Appendable appendable, char c2) {
+        Appendable append = appendable.append(c2);
+        Intrinsics.checkExpressionValueIsNotNull(append, "append(value)");
         return appendln(append);
     }
 
-    @SinceKotlin(version = "1.4")
-    @InlineOnly
-    private static final StringBuilder appendLine(StringBuilder sb2, short s10) {
-        Intrinsics.checkNotNullParameter(sb2, "<this>");
-        sb2.append((int) s10);
-        Intrinsics.checkNotNullExpressionValue(sb2, "append(...)");
-        sb2.append('\n');
-        Intrinsics.checkNotNullExpressionValue(sb2, "append(...)");
-        return sb2;
+    @d
+    public static final StringBuilder appendln(@d StringBuilder appendln) {
+        Intrinsics.checkParameterIsNotNull(appendln, "$this$appendln");
+        appendln.append(SystemProperties.LINE_SEPARATOR);
+        Intrinsics.checkExpressionValueIsNotNull(appendln, "append(SystemProperties.LINE_SEPARATOR)");
+        return appendln;
     }
 
-    @Deprecated(level = DeprecationLevel.WARNING, message = "Use appendLine instead. Note that the new method always appends the line feed character '\\n' regardless of the system line separator.", replaceWith = @ReplaceWith(expression = "appendLine()", imports = {}))
-    @k
-    public static final StringBuilder appendln(@k StringBuilder sb2) {
-        Intrinsics.checkNotNullParameter(sb2, "<this>");
-        sb2.append(SystemProperties.LINE_SEPARATOR);
-        Intrinsics.checkNotNullExpressionValue(sb2, "append(...)");
-        return sb2;
+    @InlineOnly
+    private static final StringBuilder appendln(@d StringBuilder sb, StringBuffer stringBuffer) {
+        sb.append(stringBuffer);
+        Intrinsics.checkExpressionValueIsNotNull(sb, "append(value)");
+        return appendln(sb);
     }
 
-    @SinceKotlin(version = "1.4")
     @InlineOnly
-    private static final StringBuilder appendLine(StringBuilder sb2, byte b10) {
-        Intrinsics.checkNotNullParameter(sb2, "<this>");
-        sb2.append((int) b10);
-        Intrinsics.checkNotNullExpressionValue(sb2, "append(...)");
-        sb2.append('\n');
-        Intrinsics.checkNotNullExpressionValue(sb2, "append(...)");
-        return sb2;
+    private static final StringBuilder appendln(@d StringBuilder sb, CharSequence charSequence) {
+        sb.append(charSequence);
+        Intrinsics.checkExpressionValueIsNotNull(sb, "append(value)");
+        return appendln(sb);
     }
 
-    @Deprecated(level = DeprecationLevel.WARNING, message = "Use appendLine instead. Note that the new method always appends the line feed character '\\n' regardless of the system line separator.", replaceWith = @ReplaceWith(expression = "appendLine(value)", imports = {}))
     @InlineOnly
-    private static final StringBuilder appendln(StringBuilder sb2, StringBuffer stringBuffer) {
-        Intrinsics.checkNotNullParameter(sb2, "<this>");
-        sb2.append(stringBuffer);
-        Intrinsics.checkNotNullExpressionValue(sb2, "append(...)");
-        return appendln(sb2);
+    private static final StringBuilder appendln(@d StringBuilder sb, String str) {
+        sb.append(str);
+        Intrinsics.checkExpressionValueIsNotNull(sb, "append(value)");
+        return appendln(sb);
     }
 
-    @SinceKotlin(version = "1.4")
     @InlineOnly
-    private static final StringBuilder appendLine(StringBuilder sb2, long j10) {
-        Intrinsics.checkNotNullParameter(sb2, "<this>");
-        sb2.append(j10);
-        Intrinsics.checkNotNullExpressionValue(sb2, "append(...)");
-        sb2.append('\n');
-        Intrinsics.checkNotNullExpressionValue(sb2, "append(...)");
-        return sb2;
+    private static final StringBuilder appendln(@d StringBuilder sb, Object obj) {
+        sb.append(obj);
+        Intrinsics.checkExpressionValueIsNotNull(sb, "append(value)");
+        return appendln(sb);
     }
 
-    @Deprecated(level = DeprecationLevel.WARNING, message = "Use appendLine instead. Note that the new method always appends the line feed character '\\n' regardless of the system line separator.", replaceWith = @ReplaceWith(expression = "appendLine(value)", imports = {}))
     @InlineOnly
-    private static final StringBuilder appendln(StringBuilder sb2, CharSequence charSequence) {
-        Intrinsics.checkNotNullParameter(sb2, "<this>");
-        sb2.append(charSequence);
-        Intrinsics.checkNotNullExpressionValue(sb2, "append(...)");
-        return appendln(sb2);
+    private static final StringBuilder appendln(@d StringBuilder sb, StringBuilder sb2) {
+        sb.append((CharSequence) sb2);
+        Intrinsics.checkExpressionValueIsNotNull(sb, "append(value)");
+        return appendln(sb);
     }
 
-    @SinceKotlin(version = "1.4")
     @InlineOnly
-    private static final StringBuilder appendLine(StringBuilder sb2, float f10) {
-        Intrinsics.checkNotNullParameter(sb2, "<this>");
-        sb2.append(f10);
-        Intrinsics.checkNotNullExpressionValue(sb2, "append(...)");
-        sb2.append('\n');
-        Intrinsics.checkNotNullExpressionValue(sb2, "append(...)");
-        return sb2;
+    private static final StringBuilder appendln(@d StringBuilder sb, char[] cArr) {
+        sb.append(cArr);
+        Intrinsics.checkExpressionValueIsNotNull(sb, "append(value)");
+        return appendln(sb);
     }
 
-    @Deprecated(level = DeprecationLevel.WARNING, message = "Use appendLine instead. Note that the new method always appends the line feed character '\\n' regardless of the system line separator.", replaceWith = @ReplaceWith(expression = "appendLine(value)", imports = {}))
     @InlineOnly
-    private static final StringBuilder appendln(StringBuilder sb2, String str) {
-        Intrinsics.checkNotNullParameter(sb2, "<this>");
-        sb2.append(str);
-        Intrinsics.checkNotNullExpressionValue(sb2, "append(...)");
-        return appendln(sb2);
+    private static final StringBuilder appendln(@d StringBuilder sb, char c2) {
+        sb.append(c2);
+        Intrinsics.checkExpressionValueIsNotNull(sb, "append(value)");
+        return appendln(sb);
     }
 
-    @SinceKotlin(version = "1.4")
     @InlineOnly
-    private static final StringBuilder appendLine(StringBuilder sb2, double d10) {
-        Intrinsics.checkNotNullParameter(sb2, "<this>");
-        sb2.append(d10);
-        Intrinsics.checkNotNullExpressionValue(sb2, "append(...)");
-        sb2.append('\n');
-        Intrinsics.checkNotNullExpressionValue(sb2, "append(...)");
-        return sb2;
+    private static final StringBuilder appendln(@d StringBuilder sb, boolean z) {
+        sb.append(z);
+        Intrinsics.checkExpressionValueIsNotNull(sb, "append(value)");
+        return appendln(sb);
     }
 
-    @Deprecated(level = DeprecationLevel.WARNING, message = "Use appendLine instead. Note that the new method always appends the line feed character '\\n' regardless of the system line separator.", replaceWith = @ReplaceWith(expression = "appendLine(value)", imports = {}))
     @InlineOnly
-    private static final StringBuilder appendln(StringBuilder sb2, Object obj) {
-        Intrinsics.checkNotNullParameter(sb2, "<this>");
-        sb2.append(obj);
-        Intrinsics.checkNotNullExpressionValue(sb2, "append(...)");
-        return appendln(sb2);
+    private static final StringBuilder appendln(@d StringBuilder sb, int i2) {
+        sb.append(i2);
+        Intrinsics.checkExpressionValueIsNotNull(sb, "append(value)");
+        return appendln(sb);
     }
 
-    @Deprecated(level = DeprecationLevel.WARNING, message = "Use appendLine instead. Note that the new method always appends the line feed character '\\n' regardless of the system line separator.", replaceWith = @ReplaceWith(expression = "appendLine(value)", imports = {}))
     @InlineOnly
-    private static final StringBuilder appendln(StringBuilder sb2, StringBuilder sb3) {
-        Intrinsics.checkNotNullParameter(sb2, "<this>");
-        sb2.append((CharSequence) sb3);
-        Intrinsics.checkNotNullExpressionValue(sb2, "append(...)");
-        return appendln(sb2);
+    private static final StringBuilder appendln(@d StringBuilder sb, short s) {
+        sb.append((int) s);
+        Intrinsics.checkExpressionValueIsNotNull(sb, "append(value.toInt())");
+        return appendln(sb);
     }
 
-    @Deprecated(level = DeprecationLevel.WARNING, message = "Use appendLine instead. Note that the new method always appends the line feed character '\\n' regardless of the system line separator.", replaceWith = @ReplaceWith(expression = "appendLine(value)", imports = {}))
     @InlineOnly
-    private static final StringBuilder appendln(StringBuilder sb2, char[] value) {
-        Intrinsics.checkNotNullParameter(sb2, "<this>");
-        Intrinsics.checkNotNullParameter(value, "value");
-        sb2.append(value);
-        Intrinsics.checkNotNullExpressionValue(sb2, "append(...)");
-        return appendln(sb2);
+    private static final StringBuilder appendln(@d StringBuilder sb, byte b2) {
+        sb.append((int) b2);
+        Intrinsics.checkExpressionValueIsNotNull(sb, "append(value.toInt())");
+        return appendln(sb);
     }
 
-    @Deprecated(level = DeprecationLevel.WARNING, message = "Use appendLine instead. Note that the new method always appends the line feed character '\\n' regardless of the system line separator.", replaceWith = @ReplaceWith(expression = "appendLine(value)", imports = {}))
     @InlineOnly
-    private static final StringBuilder appendln(StringBuilder sb2, char c10) {
-        Intrinsics.checkNotNullParameter(sb2, "<this>");
-        sb2.append(c10);
-        Intrinsics.checkNotNullExpressionValue(sb2, "append(...)");
-        return appendln(sb2);
+    private static final StringBuilder appendln(@d StringBuilder sb, long j2) {
+        sb.append(j2);
+        Intrinsics.checkExpressionValueIsNotNull(sb, "append(value)");
+        return appendln(sb);
     }
 
-    @Deprecated(level = DeprecationLevel.WARNING, message = "Use appendLine instead. Note that the new method always appends the line feed character '\\n' regardless of the system line separator.", replaceWith = @ReplaceWith(expression = "appendLine(value)", imports = {}))
     @InlineOnly
-    private static final StringBuilder appendln(StringBuilder sb2, boolean z10) {
-        Intrinsics.checkNotNullParameter(sb2, "<this>");
-        sb2.append(z10);
-        Intrinsics.checkNotNullExpressionValue(sb2, "append(...)");
-        return appendln(sb2);
+    private static final StringBuilder appendln(@d StringBuilder sb, float f2) {
+        sb.append(f2);
+        Intrinsics.checkExpressionValueIsNotNull(sb, "append(value)");
+        return appendln(sb);
     }
 
-    @Deprecated(level = DeprecationLevel.WARNING, message = "Use appendLine instead. Note that the new method always appends the line feed character '\\n' regardless of the system line separator.", replaceWith = @ReplaceWith(expression = "appendLine(value)", imports = {}))
     @InlineOnly
-    private static final StringBuilder appendln(StringBuilder sb2, int i10) {
-        Intrinsics.checkNotNullParameter(sb2, "<this>");
-        sb2.append(i10);
-        Intrinsics.checkNotNullExpressionValue(sb2, "append(...)");
-        return appendln(sb2);
-    }
-
-    @Deprecated(level = DeprecationLevel.WARNING, message = "Use appendLine instead. Note that the new method always appends the line feed character '\\n' regardless of the system line separator.", replaceWith = @ReplaceWith(expression = "appendLine(value)", imports = {}))
-    @InlineOnly
-    private static final StringBuilder appendln(StringBuilder sb2, short s10) {
-        Intrinsics.checkNotNullParameter(sb2, "<this>");
-        sb2.append((int) s10);
-        Intrinsics.checkNotNullExpressionValue(sb2, "append(...)");
-        return appendln(sb2);
-    }
-
-    @Deprecated(level = DeprecationLevel.WARNING, message = "Use appendLine instead. Note that the new method always appends the line feed character '\\n' regardless of the system line separator.", replaceWith = @ReplaceWith(expression = "appendLine(value)", imports = {}))
-    @InlineOnly
-    private static final StringBuilder appendln(StringBuilder sb2, byte b10) {
-        Intrinsics.checkNotNullParameter(sb2, "<this>");
-        sb2.append((int) b10);
-        Intrinsics.checkNotNullExpressionValue(sb2, "append(...)");
-        return appendln(sb2);
-    }
-
-    @Deprecated(level = DeprecationLevel.WARNING, message = "Use appendLine instead. Note that the new method always appends the line feed character '\\n' regardless of the system line separator.", replaceWith = @ReplaceWith(expression = "appendLine(value)", imports = {}))
-    @InlineOnly
-    private static final StringBuilder appendln(StringBuilder sb2, long j10) {
-        Intrinsics.checkNotNullParameter(sb2, "<this>");
-        sb2.append(j10);
-        Intrinsics.checkNotNullExpressionValue(sb2, "append(...)");
-        return appendln(sb2);
-    }
-
-    @Deprecated(level = DeprecationLevel.WARNING, message = "Use appendLine instead. Note that the new method always appends the line feed character '\\n' regardless of the system line separator.", replaceWith = @ReplaceWith(expression = "appendLine(value)", imports = {}))
-    @InlineOnly
-    private static final StringBuilder appendln(StringBuilder sb2, float f10) {
-        Intrinsics.checkNotNullParameter(sb2, "<this>");
-        sb2.append(f10);
-        Intrinsics.checkNotNullExpressionValue(sb2, "append(...)");
-        return appendln(sb2);
-    }
-
-    @Deprecated(level = DeprecationLevel.WARNING, message = "Use appendLine instead. Note that the new method always appends the line feed character '\\n' regardless of the system line separator.", replaceWith = @ReplaceWith(expression = "appendLine(value)", imports = {}))
-    @InlineOnly
-    private static final StringBuilder appendln(StringBuilder sb2, double d10) {
-        Intrinsics.checkNotNullParameter(sb2, "<this>");
-        sb2.append(d10);
-        Intrinsics.checkNotNullExpressionValue(sb2, "append(...)");
-        return appendln(sb2);
+    private static final StringBuilder appendln(@d StringBuilder sb, double d2) {
+        sb.append(d2);
+        Intrinsics.checkExpressionValueIsNotNull(sb, "append(value)");
+        return appendln(sb);
     }
 }

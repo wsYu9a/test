@@ -1,15 +1,14 @@
 package com.baidu.mobads.sdk.api;
 
 import android.os.Bundle;
-import com.baidu.mobads.sdk.internal.aa;
-import com.baidu.mobads.sdk.internal.ax;
-import com.baidu.mobads.sdk.internal.ay;
-import com.baidu.mobads.sdk.internal.bc;
-import com.shu.priory.config.AdKeys;
+import com.baidu.mobads.sdk.internal.au;
+import com.baidu.mobads.sdk.internal.av;
+import com.baidu.mobads.sdk.internal.az;
+import com.baidu.mobads.sdk.internal.z;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-/* loaded from: classes2.dex */
+/* loaded from: classes.dex */
 public class MobadsPermissionSettings {
     private static final String PERMISSION_APP_LIST = "permission_app_list";
     private static final String PERMISSION_APP_UPDATE = "permission_app_update";
@@ -35,8 +34,8 @@ public class MobadsPermissionSettings {
         JSONObject jSONObject = new JSONObject();
         try {
             jSONObject.put(PERMISSION_LIMIT_STATE, mLimitPrivacyAds);
-        } catch (JSONException e10) {
-            e10.printStackTrace();
+        } catch (JSONException e2) {
+            e2.printStackTrace();
         }
         return jSONObject;
     }
@@ -57,8 +56,8 @@ public class MobadsPermissionSettings {
             jSONObject.put(PERMISSION_APP_UPDATE, "" + mAppUpdateGranted);
             jSONObject.put(PERMISSION_RUNNING_APP, "" + mRunningAppGranted);
             jSONObject.put(PERMISSION_DEVICE_INFO, "" + mDeviceInfoGranted);
-        } catch (JSONException e10) {
-            e10.printStackTrace();
+        } catch (JSONException e2) {
+            e2.printStackTrace();
         }
         return jSONObject;
     }
@@ -66,110 +65,110 @@ public class MobadsPermissionSettings {
     private static boolean handleIntegrationInfo(Bundle bundle) {
         try {
             switchDebugLog(bundle);
-            IXAdContainerFactory c10 = aa.a().c();
-            if (c10 != null) {
-                c10.getRemoteParam("integrationInfo", bundle);
+            IXAdContainerFactory c2 = z.a().c();
+            if (c2 != null) {
+                c2.getRemoteParam("integrationInfo", bundle);
                 return true;
             }
-        } catch (Throwable th2) {
-            th2.printStackTrace();
+        } catch (Throwable th) {
+            th.printStackTrace();
         }
         return false;
     }
 
     private static void postLimitInfoRemote() {
-        IXAdContainerFactory c10 = aa.a().c();
-        if (c10 != null) {
-            c10.onTaskDistribute(bc.f6857b, getLimitInfo());
+        IXAdContainerFactory c2 = z.a().c();
+        if (c2 != null) {
+            c2.onTaskDistribute(az.f5564b, getLimitInfo());
         }
     }
 
     private static void postPermissionInfoRemote() {
-        IXAdContainerFactory c10 = aa.a().c();
-        if (c10 != null) {
-            c10.onTaskDistribute(bc.f6856a, getPermissionInfo());
+        IXAdContainerFactory c2 = z.a().c();
+        if (c2 != null) {
+            c2.onTaskDistribute(az.f5563a, getPermissionInfo());
         }
     }
 
-    public static void setLimitPersonalAds(boolean z10) {
-        mLimitPrivacyAds = z10;
+    public static void setLimitPersonalAds(boolean z) {
+        mLimitPrivacyAds = z;
         postLimitInfoRemote();
     }
 
-    public static void setPermissionAppList(boolean z10) {
-        mAccessAppListGranted = z10;
+    public static void setPermissionAppList(boolean z) {
+        mAccessAppListGranted = z;
         postPermissionInfoRemote();
     }
 
-    public static void setPermissionAppUpdate(boolean z10) {
-        mAppUpdateGranted = z10;
+    public static void setPermissionAppUpdate(boolean z) {
+        mAppUpdateGranted = z;
         postPermissionInfoRemote();
     }
 
-    public static void setPermissionDeviceInfo(boolean z10) {
-        mDeviceInfoGranted = z10;
+    public static void setPermissionDeviceInfo(boolean z) {
+        mDeviceInfoGranted = z;
         postPermissionInfoRemote();
     }
 
-    public static void setPermissionLocation(boolean z10) {
-        mAccessLocationGranted = z10;
+    public static void setPermissionLocation(boolean z) {
+        mAccessLocationGranted = z;
         postPermissionInfoRemote();
     }
 
-    public static void setPermissionOAID(boolean z10) {
-        mOAIDGranted = z10;
+    public static void setPermissionOAID(boolean z) {
+        mOAIDGranted = z;
         postPermissionInfoRemote();
     }
 
-    public static void setPermissionReadDeviceID(boolean z10) {
-        mReadPhoneStateGranted = z10;
+    public static void setPermissionReadDeviceID(boolean z) {
+        mReadPhoneStateGranted = z;
         postPermissionInfoRemote();
     }
 
-    public static void setPermissionRunningApp(boolean z10) {
-        mRunningAppGranted = z10;
+    public static void setPermissionRunningApp(boolean z) {
+        mRunningAppGranted = z;
         postPermissionInfoRemote();
     }
 
-    public static void setPermissionStorage(boolean z10) {
-        mExternalStorageGranted = z10;
+    public static void setPermissionStorage(boolean z) {
+        mExternalStorageGranted = z;
         postPermissionInfoRemote();
     }
 
     private static void switchDebugLog(Bundle bundle) {
-        if (bundle != null && bundle.containsKey(AdKeys.DEBUG_MODE)) {
-            if (bundle.getBoolean(AdKeys.DEBUG_MODE)) {
-                ay.a(true);
+        if (bundle != null && bundle.containsKey("debug_mode")) {
+            if (bundle.getBoolean("debug_mode")) {
+                av.a(true);
                 return;
             } else {
-                ay.a();
+                av.a();
                 return;
             }
         }
-        if (bundle == null || !bundle.containsKey(ax.f6807b)) {
+        if (bundle == null || !bundle.containsKey(au.f5553b)) {
             return;
         }
-        if (bundle.getBoolean(ax.f6807b)) {
-            ay.a((ay.a) new ax());
+        if (bundle.getBoolean(au.f5553b)) {
+            av.a((av.a) new au());
         } else {
-            ay.i(ax.f6807b);
+            av.i(au.f5553b);
         }
     }
 
     private static void updateSPLimitTag() {
-        aa a10;
-        IXAdContainerFactory c10;
+        z a2;
+        IXAdContainerFactory c2;
         try {
-            if (mCheckSPLimit || (a10 = aa.a()) == null || (c10 = a10.c()) == null) {
+            if (mCheckSPLimit || (a2 = z.a()) == null || (c2 = a2.c()) == null) {
                 return;
             }
-            Object remoteParam = c10.getRemoteParam("limitPersonalAds", new Object[0]);
+            Object remoteParam = c2.getRemoteParam("limitPersonalAds", new Object[0]);
             if (remoteParam instanceof Boolean) {
                 mLimitPrivacyAds = ((Boolean) remoteParam).booleanValue();
                 mCheckSPLimit = true;
             }
-        } catch (Throwable th2) {
-            th2.printStackTrace();
+        } catch (Throwable th) {
+            th.printStackTrace();
         }
     }
 }

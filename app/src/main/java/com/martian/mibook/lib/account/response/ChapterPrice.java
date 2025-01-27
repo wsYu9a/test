@@ -18,15 +18,15 @@ public class ChapterPrice {
         return this.price;
     }
 
-    public void setCcid(String str) {
-        this.ccid = str;
+    public void setCcid(String ccid) {
+        this.ccid = ccid;
     }
 
-    public void setChapterId(String str) {
-        this.chapterId = str;
+    public void setChapterId(String chapterId) {
+        this.chapterId = chapterId;
     }
 
-    public void setPrice(int i10) {
-        this.price = i10;
+    public void setPrice(int price) {
+        this.price = price;
     }
 }

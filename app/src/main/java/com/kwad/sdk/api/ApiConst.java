@@ -3,14 +3,8 @@ package com.kwad.sdk.api;
 import androidx.annotation.Keep;
 
 @Keep
-/* loaded from: classes3.dex */
+/* loaded from: classes2.dex */
 public class ApiConst {
-
-    @Keep
-    public static final String EXTRA_KEY_ERRORCODE = "IS_FRAUD_ERROR_CODE";
-
-    @Keep
-    public static final String EXTRA_KEY_FRAUD = "IS_FRAUD";
 
     @Keep
     public static final boolean IS_AD_SDK = true;

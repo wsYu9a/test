@@ -44,15 +44,15 @@ class MultiSegmentWriter {
     private final IDownloadCache downloadCache = DownloadComponentManager.getDownloadCache();
     private final AppStatusManager appStatusManager = AppStatusManager.getInstance();
 
-    public MultiSegmentWriter(DownloadInfo downloadInfo, IDownloadRunnableCallback iDownloadRunnableCallback, IBufferPool iBufferPool) {
+    MultiSegmentWriter(DownloadInfo downloadInfo, IDownloadRunnableCallback iDownloadRunnableCallback, IBufferPool iBufferPool) {
         this.downloadInfo = downloadInfo;
         this.callback = iDownloadRunnableCallback;
         this.pool = iBufferPool;
         DownloadSetting obtain = DownloadSetting.obtain(downloadInfo.getId());
         this.setting = obtain;
-        boolean z10 = obtain.optInt(DownloadSettingKeys.SYNC_STRATEGY, 0) == 1;
-        this.hasSyncStrategy = z10;
-        if (z10) {
+        boolean z = obtain.optInt(DownloadSettingKeys.SYNC_STRATEGY, 0) == 1;
+        this.hasSyncStrategy = z;
+        if (z) {
             long optInt = obtain.optInt(DownloadSettingKeys.SYNC_INTERVAL_MS_FG, 5000);
             long optInt2 = obtain.optInt(DownloadSettingKeys.SYNC_INTERVAL_MS_BG, 1000);
             this.syncIntervalMsFg = Math.max(optInt, 500L);
@@ -64,20 +64,20 @@ class MultiSegmentWriter {
         this.isMonitorRw = obtain.optInt(DownloadSettingKeys.MONITOR_RW) == 1;
     }
 
-    private void checkAndSync(long j10, boolean z10) throws IOException {
-        long j11 = j10 - this.lastSyncTimestamp;
+    private void checkAndSync(long j2, boolean z) throws IOException {
+        long j3 = j2 - this.lastSyncTimestamp;
         if (this.hasSyncStrategy) {
-            if (j11 > (this.appStatusManager.isAppForeground() ? this.syncIntervalMsFg : this.syncIntervalMsBg)) {
+            if (j3 > (this.appStatusManager.isAppForeground() ? this.syncIntervalMsFg : this.syncIntervalMsBg)) {
                 flushAndSync();
-                this.lastSyncTimestamp = j10;
+                this.lastSyncTimestamp = j2;
                 return;
             }
             return;
         }
         long curBytes = this.downloadInfo.getCurBytes() - this.lastSyncBytes;
-        if (z10 || isNeedSync(curBytes, j11)) {
+        if (z || isNeedSync(curBytes, j3)) {
             flushAndSync();
-            this.lastSyncTimestamp = j10;
+            this.lastSyncTimestamp = j2;
         }
     }
 
@@ -96,9 +96,8 @@ class MultiSegmentWriter {
     }
 
     private void flushAndSync() throws IOException {
-        boolean z10;
-        boolean z11 = this.isMonitorRw;
-        long nanoTime = z11 ? System.nanoTime() : 0L;
+        boolean z = this.isMonitorRw;
+        long nanoTime = z ? System.nanoTime() : 0L;
         DownloadInfo downloadInfo = this.downloadInfo;
         IDownloadCache iDownloadCache = this.downloadCache;
         List<SegmentOutput> list = this.outputs;
@@ -107,39 +106,35 @@ class MultiSegmentWriter {
         if (segmentMap == null) {
             segmentMap = new HashMap<>(4);
         }
+        boolean z2 = false;
         synchronized (this) {
+            flush(list);
             try {
-                flush(list);
-                try {
-                    sync(list);
-                    z10 = true;
-                } catch (Throwable th2) {
-                    th2.printStackTrace();
-                    z10 = false;
-                }
-                updateSegmentToMap(list, segmentMap);
-                if (list2.size() > 0) {
-                    close(list2);
-                    list.removeAll(list2);
-                    list2.clear();
-                }
-            } catch (Throwable th3) {
-                throw th3;
+                sync(list);
+                z2 = true;
+            } catch (Throwable th) {
+                th.printStackTrace();
+            }
+            updateSegmentToMap(list, segmentMap);
+            if (list2.size() > 0) {
+                close(list2);
+                list.removeAll(list2);
+                list2.clear();
             }
         }
-        if (z10) {
+        if (z2) {
             downloadInfo.updateRealDownloadTime(true);
             iDownloadCache.updateSegments(downloadInfo.getId(), segmentMap);
             iDownloadCache.updateDownloadInfo(downloadInfo);
             this.lastSyncBytes = downloadInfo.getCurBytes();
         }
-        if (z11) {
+        if (z) {
             this.syncTimeNs += System.nanoTime() - nanoTime;
         }
     }
 
-    private boolean isNeedSync(long j10, long j11) {
-        return j10 > 65536 && j11 > 500;
+    private boolean isNeedSync(long j2, long j3) {
+        return j2 > 65536 && j3 > 500;
     }
 
     private void outputDone(IOutput iOutput) {
@@ -169,7 +164,7 @@ class MultiSegmentWriter {
         }
     }
 
-    public void assignOutput(SegmentOutput segmentOutput) {
+    void assignOutput(SegmentOutput segmentOutput) {
         synchronized (this) {
             this.outputs.add(segmentOutput);
         }
@@ -184,294 +179,39 @@ class MultiSegmentWriter {
         return this.lastSyncBytes;
     }
 
-    /* JADX WARN: Code restructure failed: missing block: B:113:0x017e, code lost:
-    
-        r0 = e;
-     */
-    /* JADX WARN: Code restructure failed: missing block: B:114:0x017f, code lost:
-    
-        r15 = r22;
-        r17 = r24;
-     */
-    /* JADX WARN: Code restructure failed: missing block: B:115:0x0183, code lost:
-    
-        r9 = 0;
-     */
-    /* JADX WARN: Code restructure failed: missing block: B:122:0x02ea, code lost:
-    
-        if (r9 > 0) goto L964;
-     */
-    /* JADX WARN: Code restructure failed: missing block: B:125:0x02ed, code lost:
-    
-        r3.onProgress(r9);
-     */
-    /* JADX WARN: Code restructure failed: missing block: B:129:0x02f4, code lost:
-    
-        if (r27.canceled == false) goto L1060;
-     */
-    /* JADX WARN: Code restructure failed: missing block: B:130:0x0313, code lost:
-    
-        r2 = null;
-     */
-    /* JADX WARN: Code restructure failed: missing block: B:131:0x0314, code lost:
-    
-        monitor-enter(r27);
-     */
-    /* JADX WARN: Code restructure failed: missing block: B:133:0x0315, code lost:
-    
-        close(r27.outputs);
-        r27.outputs.clear();
-     */
-    /* JADX WARN: Code restructure failed: missing block: B:135:0x0320, code lost:
-    
-        r28 = r2;
-        com.ss.android.socialbase.downloader.monitor.DownloadMonitorHelper.monitorDownloadIO(r27.setting, r4, r4.getUrl(), null, r27.paused, r27.canceled, r27.exception, r4.getCurBytes() - r5, java.lang.System.nanoTime() - r7, r14, r15, r17, r27.syncTimeNs, null);
-     */
-    /* JADX WARN: Code restructure failed: missing block: B:136:0x0346, code lost:
-    
-        if (r28 == null) goto L992;
-     */
-    /* JADX WARN: Code restructure failed: missing block: B:144:0x0355, code lost:
-    
-        com.ss.android.socialbase.downloader.utils.DownloadUtils.parseException(r28, "loopAndWrite_finally");
-     */
-    /* JADX WARN: Code restructure failed: missing block: B:146:?, code lost:
-    
-        return;
-     */
-    /* JADX WARN: Code restructure failed: missing block: B:147:0x035d, code lost:
-    
-        r0 = move-exception;
-     */
-    /* JADX WARN: Code restructure failed: missing block: B:148:0x035e, code lost:
-    
-        r27.exception = r0;
-     */
-    /* JADX WARN: Code restructure failed: missing block: B:149:0x0360, code lost:
-    
-        throw r0;
-     */
-    /* JADX WARN: Code restructure failed: missing block: B:150:?, code lost:
-    
-        return;
-     */
-    /* JADX WARN: Code restructure failed: missing block: B:159:0x02f6, code lost:
-    
-        flushAndSync();
-     */
-    /* JADX WARN: Code restructure failed: missing block: B:161:0x02fa, code lost:
-    
-        r0 = move-exception;
-     */
-    /* JADX WARN: Code restructure failed: missing block: B:162:0x02fb, code lost:
-    
-        r2 = r0;
-        com.ss.android.socialbase.downloader.logger.Logger.w(com.ss.android.socialbase.downloader.segment.MultiSegmentWriter.TAG, "loopAndWrite: finally sync, e = " + r2);
-     */
-    /* JADX WARN: Code restructure failed: missing block: B:165:0x036b, code lost:
-    
-        r0.printStackTrace();
-     */
-    /* JADX WARN: Code restructure failed: missing block: B:168:0x0177, code lost:
-    
-        r0 = th;
-     */
-    /* JADX WARN: Code restructure failed: missing block: B:169:0x0178, code lost:
-    
-        r15 = r22;
-        r17 = r24;
-     */
-    /* JADX WARN: Code restructure failed: missing block: B:170:0x017c, code lost:
-    
-        r9 = 0;
-     */
-    /* JADX WARN: Code restructure failed: missing block: B:178:0x01b5, code lost:
-    
-        r0.printStackTrace();
-     */
-    /* JADX WARN: Code restructure failed: missing block: B:185:0x01db, code lost:
-    
-        r3.onProgress(r9);
-     */
-    /* JADX WARN: Code restructure failed: missing block: B:193:0x0203, code lost:
-    
-        close(r27.outputs);
-        r27.outputs.clear();
-     */
-    /* JADX WARN: Code restructure failed: missing block: B:195:0x020e, code lost:
-    
-        r28 = r2;
-        com.ss.android.socialbase.downloader.monitor.DownloadMonitorHelper.monitorDownloadIO(r27.setting, r4, r4.getUrl(), null, r27.paused, r27.canceled, r27.exception, r4.getCurBytes() - r5, java.lang.System.nanoTime() - r7, r14, r15, r17, r27.syncTimeNs, null);
-     */
-    /* JADX WARN: Code restructure failed: missing block: B:196:0x0234, code lost:
-    
-        if (r28 == null) goto L915;
-     */
-    /* JADX WARN: Code restructure failed: missing block: B:204:0x0243, code lost:
-    
-        com.ss.android.socialbase.downloader.utils.DownloadUtils.parseException(r28, "loopAndWrite_finally");
-     */
-    /* JADX WARN: Code restructure failed: missing block: B:206:?, code lost:
-    
-        return;
-     */
-    /* JADX WARN: Code restructure failed: missing block: B:207:0x024b, code lost:
-    
-        r0 = move-exception;
-     */
-    /* JADX WARN: Code restructure failed: missing block: B:208:0x024c, code lost:
-    
-        r27.exception = r0;
-     */
-    /* JADX WARN: Code restructure failed: missing block: B:209:0x024e, code lost:
-    
-        throw r0;
-     */
-    /* JADX WARN: Code restructure failed: missing block: B:210:?, code lost:
-    
-        return;
-     */
-    /* JADX WARN: Code restructure failed: missing block: B:219:0x01e4, code lost:
-    
-        flushAndSync();
-     */
-    /* JADX WARN: Code restructure failed: missing block: B:221:0x01e8, code lost:
-    
-        r0 = move-exception;
-     */
-    /* JADX WARN: Code restructure failed: missing block: B:222:0x01e9, code lost:
-    
-        r2 = r0;
-        com.ss.android.socialbase.downloader.logger.Logger.w(com.ss.android.socialbase.downloader.segment.MultiSegmentWriter.TAG, "loopAndWrite: finally sync, e = " + r2);
-     */
-    /* JADX WARN: Code restructure failed: missing block: B:230:0x025a, code lost:
-    
-        r3.onProgress(r9);
-     */
-    /* JADX WARN: Code restructure failed: missing block: B:238:0x0282, code lost:
-    
-        close(r27.outputs);
-        r27.outputs.clear();
-     */
-    /* JADX WARN: Code restructure failed: missing block: B:240:0x028d, code lost:
-    
-        r28 = r2;
-        com.ss.android.socialbase.downloader.monitor.DownloadMonitorHelper.monitorDownloadIO(r27.setting, r4, r4.getUrl(), null, r27.paused, r27.canceled, r27.exception, r4.getCurBytes() - r5, java.lang.System.nanoTime() - r7, r14, r15, r17, r27.syncTimeNs, null);
-     */
-    /* JADX WARN: Code restructure failed: missing block: B:241:0x02b3, code lost:
-    
-        if (r28 == null) goto L951;
-     */
-    /* JADX WARN: Code restructure failed: missing block: B:249:0x02c2, code lost:
-    
-        com.ss.android.socialbase.downloader.utils.DownloadUtils.parseException(r28, "loopAndWrite_finally");
-     */
-    /* JADX WARN: Code restructure failed: missing block: B:251:?, code lost:
-    
-        return;
-     */
-    /* JADX WARN: Code restructure failed: missing block: B:252:0x02ca, code lost:
-    
-        r0 = move-exception;
-     */
-    /* JADX WARN: Code restructure failed: missing block: B:253:0x02cb, code lost:
-    
-        r27.exception = r0;
-     */
-    /* JADX WARN: Code restructure failed: missing block: B:254:0x02cd, code lost:
-    
-        throw r0;
-     */
-    /* JADX WARN: Code restructure failed: missing block: B:255:?, code lost:
-    
-        return;
-     */
-    /* JADX WARN: Code restructure failed: missing block: B:264:0x0263, code lost:
-    
-        flushAndSync();
-     */
-    /* JADX WARN: Code restructure failed: missing block: B:266:0x0267, code lost:
-    
-        r0 = move-exception;
-     */
-    /* JADX WARN: Code restructure failed: missing block: B:267:0x0268, code lost:
-    
-        r2 = r0;
-        com.ss.android.socialbase.downloader.logger.Logger.w(com.ss.android.socialbase.downloader.segment.MultiSegmentWriter.TAG, "loopAndWrite: finally sync, e = " + r2);
-     */
-    /* JADX WARN: Code restructure failed: missing block: B:273:0x00bf, code lost:
-    
-        if (r2 <= 0) goto L813;
-     */
-    /* JADX WARN: Code restructure failed: missing block: B:276:0x00c2, code lost:
-    
-        r3.onProgress(r2);
-     */
-    /* JADX WARN: Code restructure failed: missing block: B:43:0x0157, code lost:
-    
-        checkAndSync(r10, r3.onProgress(r2));
-     */
-    /* JADX WARN: Code restructure failed: missing block: B:44:0x015c, code lost:
-    
-        if (com.ss.android.socialbase.downloader.network.DeviceBandwidthSampler.isWifi != false) goto L1098;
-     */
-    /* JADX WARN: Code restructure failed: missing block: B:46:0x0162, code lost:
-    
-        if (r4.isOnlyWifi() != false) goto L1095;
-     */
-    /* JADX WARN: Code restructure failed: missing block: B:48:0x0168, code lost:
-    
-        if (r4.isDownloadFromReserveWifi() == false) goto L1099;
-     */
-    /* JADX WARN: Code restructure failed: missing block: B:50:0x016e, code lost:
-    
-        if (r4.isPauseReserveOnWifi() != false) goto L1097;
-     */
-    /* JADX WARN: Code restructure failed: missing block: B:56:0x0176, code lost:
-    
-        throw new com.ss.android.socialbase.downloader.exception.DownloadPauseReserveWifiException();
-     */
-    /* JADX WARN: Code restructure failed: missing block: B:58:0x0192, code lost:
-    
-        continue;
-     */
-    /* JADX WARN: Code restructure failed: missing block: B:61:0x0191, code lost:
-    
-        throw new com.ss.android.socialbase.downloader.exception.DownloadOnlyWifiException();
-     */
-    /* JADX WARN: Code restructure failed: missing block: B:63:0x0186, code lost:
-    
-        r0 = e;
-     */
-    /* JADX WARN: Code restructure failed: missing block: B:64:0x0187, code lost:
-    
-        r10 = r22;
-     */
-    /* JADX WARN: Code restructure failed: missing block: B:65:0x0189, code lost:
-    
-        r9 = 0;
-     */
-    /* JADX WARN: Removed duplicated region for block: B:108:0x03a0 A[EXC_TOP_SPLITTER, SYNTHETIC] */
-    /* JADX WARN: Removed duplicated region for block: B:118:0x02e2 A[Catch: all -> 0x01b9, TryCatch #19 {all -> 0x01b9, blocks: (B:171:0x01a5, B:173:0x01a9, B:176:0x01af, B:178:0x01b5, B:179:0x01bd, B:181:0x01d3, B:225:0x0254, B:226:0x0256, B:116:0x02d8, B:118:0x02e2, B:120:0x02e6, B:163:0x0365, B:165:0x036b, B:166:0x036e, B:167:0x0386), top: B:6:0x0024, inners: #4 }] */
-    /* JADX WARN: Removed duplicated region for block: B:132:0x0315 A[EXC_TOP_SPLITTER, SYNTHETIC] */
-    /* JADX WARN: Removed duplicated region for block: B:165:0x036b A[Catch: all -> 0x01b9, TryCatch #19 {all -> 0x01b9, blocks: (B:171:0x01a5, B:173:0x01a9, B:176:0x01af, B:178:0x01b5, B:179:0x01bd, B:181:0x01d3, B:225:0x0254, B:226:0x0256, B:116:0x02d8, B:118:0x02e2, B:120:0x02e6, B:163:0x0365, B:165:0x036b, B:166:0x036e, B:167:0x0386), top: B:6:0x0024, inners: #4 }] */
-    /* JADX WARN: Removed duplicated region for block: B:173:0x01a9 A[Catch: all -> 0x01b9, TryCatch #19 {all -> 0x01b9, blocks: (B:171:0x01a5, B:173:0x01a9, B:176:0x01af, B:178:0x01b5, B:179:0x01bd, B:181:0x01d3, B:225:0x0254, B:226:0x0256, B:116:0x02d8, B:118:0x02e2, B:120:0x02e6, B:163:0x0365, B:165:0x036b, B:166:0x036e, B:167:0x0386), top: B:6:0x0024, inners: #4 }] */
-    /* JADX WARN: Removed duplicated region for block: B:178:0x01b5 A[Catch: all -> 0x01b9, TryCatch #19 {all -> 0x01b9, blocks: (B:171:0x01a5, B:173:0x01a9, B:176:0x01af, B:178:0x01b5, B:179:0x01bd, B:181:0x01d3, B:225:0x0254, B:226:0x0256, B:116:0x02d8, B:118:0x02e2, B:120:0x02e6, B:163:0x0365, B:165:0x036b, B:166:0x036e, B:167:0x0386), top: B:6:0x0024, inners: #4 }] */
-    /* JADX WARN: Removed duplicated region for block: B:183:0x01da  */
-    /* JADX WARN: Removed duplicated region for block: B:192:0x0203 A[EXC_TOP_SPLITTER, SYNTHETIC] */
-    /* JADX WARN: Removed duplicated region for block: B:218:0x01e4 A[EXC_TOP_SPLITTER, SYNTHETIC] */
-    /* JADX WARN: Removed duplicated region for block: B:237:0x0282 A[EXC_TOP_SPLITTER, SYNTHETIC] */
-    /* JADX WARN: Removed duplicated region for block: B:263:0x0263 A[EXC_TOP_SPLITTER, SYNTHETIC] */
-    /* JADX WARN: Removed duplicated region for block: B:283:0x00ea A[EXC_TOP_SPLITTER, SYNTHETIC] */
-    /* JADX WARN: Removed duplicated region for block: B:73:0x0396  */
-    /* JADX WARN: Removed duplicated region for block: B:82:0x03c0 A[EXC_TOP_SPLITTER, SYNTHETIC] */
+    /* JADX WARN: Code restructure failed: missing block: B:183:0x02a4, code lost:
+    
+        r3.onProgress(r15);
+     */
+    /* JADX WARN: Code restructure failed: missing block: B:263:0x00b8, code lost:
+    
+        if (r13 <= 0) goto L483;
+     */
+    /* JADX WARN: Code restructure failed: missing block: B:266:0x00bb, code lost:
+    
+        r3.onProgress(r13);
+     */
+    /* JADX WARN: Removed duplicated region for block: B:117:0x03bf A[Catch: all -> 0x03db, TryCatch #28 {all -> 0x03db, blocks: (B:124:0x01f0, B:126:0x01f4, B:129:0x01fa, B:131:0x0200, B:132:0x0203, B:134:0x0219, B:178:0x029e, B:179:0x02a0, B:68:0x0328, B:70:0x0332, B:72:0x0336, B:115:0x03b9, B:117:0x03bf, B:118:0x03c2, B:119:0x03da), top: B:6:0x0027, inners: #26 }] */
+    /* JADX WARN: Removed duplicated region for block: B:126:0x01f4 A[Catch: all -> 0x03db, TryCatch #28 {all -> 0x03db, blocks: (B:124:0x01f0, B:126:0x01f4, B:129:0x01fa, B:131:0x0200, B:132:0x0203, B:134:0x0219, B:178:0x029e, B:179:0x02a0, B:68:0x0328, B:70:0x0332, B:72:0x0336, B:115:0x03b9, B:117:0x03bf, B:118:0x03c2, B:119:0x03da), top: B:6:0x0027, inners: #26 }] */
+    /* JADX WARN: Removed duplicated region for block: B:131:0x0200 A[Catch: all -> 0x03db, TryCatch #28 {all -> 0x03db, blocks: (B:124:0x01f0, B:126:0x01f4, B:129:0x01fa, B:131:0x0200, B:132:0x0203, B:134:0x0219, B:178:0x029e, B:179:0x02a0, B:68:0x0328, B:70:0x0332, B:72:0x0336, B:115:0x03b9, B:117:0x03bf, B:118:0x03c2, B:119:0x03da), top: B:6:0x0027, inners: #26 }] */
+    /* JADX WARN: Removed duplicated region for block: B:136:0x0220  */
+    /* JADX WARN: Removed duplicated region for block: B:145:0x0249 A[EXC_TOP_SPLITTER, SYNTHETIC] */
+    /* JADX WARN: Removed duplicated region for block: B:171:0x022a A[EXC_TOP_SPLITTER, SYNTHETIC] */
+    /* JADX WARN: Removed duplicated region for block: B:190:0x02cc A[EXC_TOP_SPLITTER, SYNTHETIC] */
+    /* JADX WARN: Removed duplicated region for block: B:216:0x02ad A[EXC_TOP_SPLITTER, SYNTHETIC] */
+    /* JADX WARN: Removed duplicated region for block: B:23:0x03ef  */
+    /* JADX WARN: Removed duplicated region for block: B:273:0x00e3 A[EXC_TOP_SPLITTER, SYNTHETIC] */
+    /* JADX WARN: Removed duplicated region for block: B:32:0x0419 A[EXC_TOP_SPLITTER, SYNTHETIC] */
+    /* JADX WARN: Removed duplicated region for block: B:59:0x03f9 A[EXC_TOP_SPLITTER, SYNTHETIC] */
+    /* JADX WARN: Removed duplicated region for block: B:70:0x0332 A[Catch: all -> 0x03db, TryCatch #28 {all -> 0x03db, blocks: (B:124:0x01f0, B:126:0x01f4, B:129:0x01fa, B:131:0x0200, B:132:0x0203, B:134:0x0219, B:178:0x029e, B:179:0x02a0, B:68:0x0328, B:70:0x0332, B:72:0x0336, B:115:0x03b9, B:117:0x03bf, B:118:0x03c2, B:119:0x03da), top: B:6:0x0027, inners: #26 }] */
+    /* JADX WARN: Removed duplicated region for block: B:84:0x0365 A[EXC_TOP_SPLITTER, SYNTHETIC] */
     /*
         Code decompiled incorrectly, please refer to instructions dump.
         To view partially-correct code enable 'Show inconsistent code' option in preferences
     */
-    public void loopAndWrite(com.ss.android.socialbase.downloader.segment.IInput r28) throws com.ss.android.socialbase.downloader.exception.BaseException {
+    void loopAndWrite(com.ss.android.socialbase.downloader.segment.IInput r31) throws com.ss.android.socialbase.downloader.exception.BaseException {
         /*
-            Method dump skipped, instructions count: 1041
+            Method dump skipped, instructions count: 1136
             To view this dump change 'Code comments level' option to 'DEBUG'
         */
         throw new UnsupportedOperationException("Method not decompiled: com.ss.android.socialbase.downloader.segment.MultiSegmentWriter.loopAndWrite(com.ss.android.socialbase.downloader.segment.IInput):void");

@@ -2,12 +2,12 @@ package com.ss.android.downloadad.api.download;
 
 import android.text.TextUtils;
 import com.qq.e.ads.nativ.NativeUnifiedADAppInfoImpl;
-import com.ss.android.download.api.c.b;
+import com.ss.android.download.api.constant.BaseConstants;
 import com.ss.android.download.api.download.DownloadModel;
+import com.ss.android.download.api.i.zx;
 import com.ss.android.download.api.model.DeepLink;
-import com.ss.android.download.api.model.d;
-import com.ss.android.downloadad.api.constant.AdBaseConstants;
-import com.ss.android.downloadlib.addownload.k;
+import com.ss.android.download.api.model.g;
+import com.ss.android.downloadlib.addownload.pa;
 import com.ss.android.socialbase.downloader.constants.DbJsonConstants;
 import com.ss.android.socialbase.downloader.constants.ExecutorGroup;
 import com.ss.android.socialbase.downloader.depend.IDownloadFileUriProvider;
@@ -49,10 +49,9 @@ public class AdDownloadModel implements DownloadModel {
     protected int mModelType;
     protected String mNotificationJumpUrl;
     protected String mPackageName;
-    protected d mQuickAppModel;
+    protected g mQuickAppModel;
     protected String mSdkMonitorScene;
     protected String mStartToast;
-    protected String mTaskKey;
     protected int mVersionCode;
     protected String mVersionName;
     protected boolean mIsAd = true;
@@ -74,8 +73,8 @@ public class AdDownloadModel implements DownloadModel {
         }
 
         @Deprecated
-        public Builder setAdId(long j10) {
-            return setId(j10);
+        public Builder setAdId(long j2) {
+            return setId(j2);
         }
 
         public Builder setAppIcon(String str) {
@@ -88,13 +87,13 @@ public class AdDownloadModel implements DownloadModel {
             return this;
         }
 
-        public Builder setAutoInstall(boolean z10) {
-            this.model.mAutoInstall = z10;
+        public Builder setAutoInstall(boolean z) {
+            this.model.mAutoInstall = z;
             return this;
         }
 
-        public Builder setAutoInstallWithoutNotification(boolean z10) {
-            this.model.mAutoInstallWithoutNotification = z10;
+        public Builder setAutoInstallWithoutNotification(boolean z) {
+            this.model.mAutoInstallWithoutNotification = z;
             return this;
         }
 
@@ -113,8 +112,8 @@ public class AdDownloadModel implements DownloadModel {
             return this;
         }
 
-        public Builder setDistinctDir(boolean z10) {
-            this.model.mDistinctDir = z10;
+        public Builder setDistinctDir(boolean z) {
+            this.model.mDistinctDir = z;
             return this;
         }
 
@@ -128,18 +127,18 @@ public class AdDownloadModel implements DownloadModel {
             return this;
         }
 
-        public Builder setEnablePause(boolean z10) {
-            this.model.mEnablePause = z10;
+        public Builder setEnablePause(boolean z) {
+            this.model.mEnablePause = z;
             return this;
         }
 
-        public Builder setExecutorGroup(@ExecutorGroup int i10) {
-            this.model.mExecutorGroup = i10;
+        public Builder setExecutorGroup(@ExecutorGroup int i2) {
+            this.model.mExecutorGroup = i2;
             return this;
         }
 
-        public Builder setExpectFileLength(long j10) {
-            this.model.mExpectFileLength = j10;
+        public Builder setExpectFileLength(long j2) {
+            this.model.mExpectFileLength = j2;
             return this;
         }
 
@@ -148,8 +147,8 @@ public class AdDownloadModel implements DownloadModel {
             return this;
         }
 
-        public Builder setExtraValue(long j10) {
-            this.model.mExtraValue = j10;
+        public Builder setExtraValue(long j2) {
+            this.model.mExtraValue = j2;
             return this;
         }
 
@@ -173,29 +172,29 @@ public class AdDownloadModel implements DownloadModel {
             return this;
         }
 
-        public Builder setId(long j10) {
-            this.model.mId = j10;
+        public Builder setId(long j2) {
+            this.model.mId = j2;
             return this;
         }
 
-        public Builder setIsAd(boolean z10) {
-            this.model.mIsAd = z10;
+        public Builder setIsAd(boolean z) {
+            this.model.mIsAd = z;
             return this;
         }
 
         @Deprecated
-        public Builder setIsInExternalPublicDir(boolean z10) {
-            this.model.mIsInExternalPublicDir = z10;
+        public Builder setIsInExternalPublicDir(boolean z) {
+            this.model.mIsInExternalPublicDir = z;
             return this;
         }
 
-        public Builder setIsShowNotification(boolean z10) {
-            this.model.mIsShowNotification = z10;
+        public Builder setIsShowNotification(boolean z) {
+            this.model.mIsShowNotification = z;
             return this;
         }
 
-        public Builder setIsShowToast(boolean z10) {
-            this.model.mIsShowToast = z10;
+        public Builder setIsShowToast(boolean z) {
+            this.model.mIsShowToast = z;
             return this;
         }
 
@@ -214,18 +213,18 @@ public class AdDownloadModel implements DownloadModel {
             return this;
         }
 
-        public Builder setModelType(int i10) {
-            this.model.mModelType = i10;
+        public Builder setModelType(int i2) {
+            this.model.mModelType = i2;
             return this;
         }
 
-        public Builder setNeedIndependentProcess(boolean z10) {
-            this.model.mIndependentProcess = z10;
+        public Builder setNeedIndependentProcess(boolean z) {
+            this.model.mIndependentProcess = z;
             return this;
         }
 
-        public Builder setNeedWifi(boolean z10) {
-            this.model.mNeedWifi = z10;
+        public Builder setNeedWifi(boolean z) {
+            this.model.mNeedWifi = z;
             return this;
         }
 
@@ -239,8 +238,8 @@ public class AdDownloadModel implements DownloadModel {
             return this;
         }
 
-        public Builder setQuickAppModel(d dVar) {
-            this.model.mQuickAppModel = dVar;
+        public Builder setQuickAppModel(g gVar) {
+            this.model.mQuickAppModel = gVar;
             return this;
         }
 
@@ -254,13 +253,8 @@ public class AdDownloadModel implements DownloadModel {
             return this;
         }
 
-        public Builder setTaskKey(String str) {
-            this.model.mTaskKey = str;
-            return this;
-        }
-
-        public Builder setVersionCode(int i10) {
-            this.model.mVersionCode = i10;
+        public Builder setVersionCode(int i2) {
+            this.model.mVersionCode = i2;
             return this;
         }
 
@@ -270,20 +264,23 @@ public class AdDownloadModel implements DownloadModel {
         }
     }
 
+    protected AdDownloadModel() {
+    }
+
     private static void appendBackupUrlsFromJson(JSONObject jSONObject, Builder builder) {
         JSONArray optJSONArray = jSONObject.optJSONArray("backup_urls");
         if (optJSONArray == null || optJSONArray.length() <= 0) {
             return;
         }
         ArrayList arrayList = new ArrayList();
-        for (int i10 = 0; i10 < optJSONArray.length(); i10++) {
-            arrayList.add(optJSONArray.optString(i10));
+        for (int i2 = 0; i2 < optJSONArray.length(); i2++) {
+            arrayList.add(optJSONArray.optString(i2));
         }
         builder.setBackupUrls(arrayList);
     }
 
     private static void appendDeepLinkFromJson(JSONObject jSONObject, Builder builder) {
-        builder.setDeepLink(new DeepLink(jSONObject.optString(AdBaseConstants.MARKET_OPEN_INTENT_OPEN_URL), jSONObject.optString("web_url"), null));
+        builder.setDeepLink(new DeepLink(jSONObject.optString("open_url"), jSONObject.optString("web_url"), null));
     }
 
     private static void appendHeaderMapFromJson(JSONObject jSONObject, Builder builder) {
@@ -293,8 +290,8 @@ public class AdDownloadModel implements DownloadModel {
             return;
         }
         HashMap hashMap = new HashMap();
-        for (int i10 = 0; i10 < optJSONArray.length(); i10++) {
-            hashMap.put(optJSONArray.optString(i10), optJSONArray2.optString(i10));
+        for (int i2 = 0; i2 < optJSONArray.length(); i2++) {
+            hashMap.put(optJSONArray.optString(i2), optJSONArray2.optString(i2));
         }
         builder.setHeaders(hashMap);
     }
@@ -304,15 +301,15 @@ public class AdDownloadModel implements DownloadModel {
         if (TextUtils.isEmpty(optString)) {
             return;
         }
-        builder.setQuickAppModel(new d.a().a(optString).a());
+        builder.setQuickAppModel(new g.j().j(optString).j());
     }
 
     private static void appendTrackUrlFromJson(JSONObject jSONObject, Builder builder) {
         JSONArray optJSONArray = jSONObject.optJSONArray("click_track_urls");
         if (optJSONArray != null) {
             ArrayList arrayList = new ArrayList();
-            for (int i10 = 0; i10 < optJSONArray.length(); i10++) {
-                arrayList.add(optJSONArray.optString(i10));
+            for (int i2 = 0; i2 < optJSONArray.length(); i2++) {
+                arrayList.add(optJSONArray.optString(i2));
             }
             builder.setClickTrackUrl(arrayList);
         }
@@ -324,19 +321,19 @@ public class AdDownloadModel implements DownloadModel {
         }
         Builder builder = new Builder();
         try {
-            boolean z10 = true;
-            Builder distinctDir = builder.setAdId(b.a(jSONObject, "id")).setIsAd(jSONObject.optInt("is_ad", 1) == 1).setModelType(jSONObject.optInt("model_type")).setMimeType(jSONObject.optString("mime_type")).setExtraValue(b.a(jSONObject, "ext_value")).setLogExtra(jSONObject.optString("log_extra")).setPackageName(jSONObject.optString("package_name")).setDownloadUrl(jSONObject.optString("download_url")).setAppName(jSONObject.optString("app_name")).setAppIcon(jSONObject.optString("app_icon")).setIsShowToast(jSONObject.optInt("is_show_toast", 1) == 1).setIsShowNotification(jSONObject.optInt("show_notification", 1) == 1).setNeedWifi(jSONObject.optInt("need_wifi") == 1).setMd5(jSONObject.optString("md5")).setExpectFileLength(jSONObject.optLong("expect_file_length")).setNeedIndependentProcess(jSONObject.optInt("independent_process") == 1).setVersionCode(jSONObject.optInt("version_code")).setVersionName(jSONObject.optString(NativeUnifiedADAppInfoImpl.Keys.VERSION_NAME)).setFilePath(jSONObject.optString("file_path")).setFileName(jSONObject.optString("file_name")).setNotificationJumpUrl(jSONObject.optString("notification_jump_url")).setAutoInstallWithoutNotification(jSONObject.optInt("auto_install_without_notify") == 1).setExecutorGroup(jSONObject.optInt(DbJsonConstants.DBJSON_KEY_EXECUTOR)).setDownloadSettings(jSONObject.optJSONObject("download_settings")).setExtra(jSONObject.optJSONObject("extra")).setStartToast(jSONObject.optString("start_toast")).setSdkMonitorScene(jSONObject.optString("sdk_monitor_scene")).setAutoInstall(jSONObject.optInt(DbJsonConstants.AUTO_INSTALL, 1) == 1).setDistinctDir(jSONObject.optInt("distinct_dir") == 1);
+            boolean z = true;
+            Builder distinctDir = builder.setAdId(zx.j(jSONObject, "id")).setIsAd(jSONObject.optInt("is_ad", 1) == 1).setModelType(jSONObject.optInt("model_type")).setMimeType(jSONObject.optString("mime_type")).setExtraValue(zx.j(jSONObject, "ext_value")).setLogExtra(jSONObject.optString(BaseConstants.EVENT_LABEL_LOG_EXTRA)).setPackageName(jSONObject.optString("package_name")).setDownloadUrl(jSONObject.optString("download_url")).setAppName(jSONObject.optString(NativeUnifiedADAppInfoImpl.Keys.APP_NAME)).setAppIcon(jSONObject.optString("app_icon")).setIsShowToast(jSONObject.optInt("is_show_toast", 1) == 1).setIsShowNotification(jSONObject.optInt("show_notification", 1) == 1).setNeedWifi(jSONObject.optInt("need_wifi") == 1).setMd5(jSONObject.optString("md5")).setExpectFileLength(jSONObject.optLong("expect_file_length")).setNeedIndependentProcess(jSONObject.optInt("independent_process") == 1).setVersionCode(jSONObject.optInt("version_code")).setVersionName(jSONObject.optString(NativeUnifiedADAppInfoImpl.Keys.VERSION_NAME)).setFilePath(jSONObject.optString("file_path")).setFileName(jSONObject.optString("file_name")).setNotificationJumpUrl(jSONObject.optString("notification_jump_url")).setAutoInstallWithoutNotification(jSONObject.optInt("auto_install_without_notify") == 1).setExecutorGroup(jSONObject.optInt(DbJsonConstants.DBJSON_KEY_EXECUTOR)).setDownloadSettings(jSONObject.optJSONObject("download_settings")).setExtra(jSONObject.optJSONObject("extra")).setStartToast(jSONObject.optString("start_toast")).setSdkMonitorScene(jSONObject.optString("sdk_monitor_scene")).setAutoInstall(jSONObject.optInt(DbJsonConstants.AUTO_INSTALL, 1) == 1).setDistinctDir(jSONObject.optInt("distinct_dir") == 1);
             if (jSONObject.optInt("enable_pause", 1) != 1) {
-                z10 = false;
+                z = false;
             }
-            distinctDir.setEnablePause(z10).setTaskKey(jSONObject.optString(DbJsonConstants.DBJSON_KEY_TASK_KEY));
+            distinctDir.setEnablePause(z);
             appendDeepLinkFromJson(jSONObject, builder);
             appendQuickAppUrlFromJson(jSONObject, builder);
             appendTrackUrlFromJson(jSONObject, builder);
             appendHeaderMapFromJson(jSONObject, builder);
             appendBackupUrlsFromJson(jSONObject, builder);
-        } catch (Exception e10) {
-            k.u().a(e10, "AdDownloadModel fromJson");
+        } catch (Exception e2) {
+            pa.v().j(e2, "AdDownloadModel fromJson");
         }
         return builder.build();
     }
@@ -487,7 +484,7 @@ public class AdDownloadModel implements DownloadModel {
     }
 
     @Override // com.ss.android.download.api.download.DownloadModel
-    public d getQuickAppModel() {
+    public g getQuickAppModel() {
         return this.mQuickAppModel;
     }
 
@@ -499,10 +496,6 @@ public class AdDownloadModel implements DownloadModel {
     @Override // com.ss.android.download.api.download.DownloadModel
     public String getStartToast() {
         return this.mStartToast;
-    }
-
-    public String getTaskKey() {
-        return this.mTaskKey;
     }
 
     @Override // com.ss.android.download.api.download.DownloadModel
@@ -556,8 +549,8 @@ public class AdDownloadModel implements DownloadModel {
     }
 
     @Deprecated
-    public AdDownloadModel setAdId(long j10) {
-        return setId(j10);
+    public AdDownloadModel setAdId(long j2) {
+        return setId(j2);
     }
 
     public AdDownloadModel setAppIcon(String str) {
@@ -569,8 +562,8 @@ public class AdDownloadModel implements DownloadModel {
         this.mAppName = str;
     }
 
-    public AdDownloadModel setAutoInstallWithoutNotification(boolean z10) {
-        this.mAutoInstallWithoutNotification = z10;
+    public AdDownloadModel setAutoInstallWithoutNotification(boolean z) {
+        this.mAutoInstallWithoutNotification = z;
         return this;
     }
 
@@ -594,16 +587,16 @@ public class AdDownloadModel implements DownloadModel {
         return this;
     }
 
-    public void setExpectFileLength(long j10) {
-        this.mExpectFileLength = j10;
+    public void setExpectFileLength(long j2) {
+        this.mExpectFileLength = j2;
     }
 
     public void setExtra(JSONObject jSONObject) {
         this.mExtra = jSONObject;
     }
 
-    public void setExtraValue(long j10) {
-        this.mExtraValue = j10;
+    public void setExtraValue(long j2) {
+        this.mExtraValue = j2;
     }
 
     public AdDownloadModel setFileName(String str) {
@@ -616,8 +609,8 @@ public class AdDownloadModel implements DownloadModel {
         return this;
     }
 
-    public AdDownloadModel setFunnelType(int i10) {
-        this.mFunnelType = i10;
+    public AdDownloadModel setFunnelType(int i2) {
+        this.mFunnelType = i2;
         return this;
     }
 
@@ -626,23 +619,23 @@ public class AdDownloadModel implements DownloadModel {
         return this;
     }
 
-    public AdDownloadModel setId(long j10) {
-        this.mId = j10;
+    public AdDownloadModel setId(long j2) {
+        this.mId = j2;
         return this;
     }
 
-    public AdDownloadModel setIsAd(boolean z10) {
-        this.mIsAd = z10;
+    public AdDownloadModel setIsAd(boolean z) {
+        this.mIsAd = z;
         return this;
     }
 
-    public AdDownloadModel setIsShowNotification(boolean z10) {
-        this.mIsShowNotification = z10;
+    public AdDownloadModel setIsShowNotification(boolean z) {
+        this.mIsShowNotification = z;
         return this;
     }
 
-    public void setIsShowToast(boolean z10) {
-        this.mIsShowToast = z10;
+    public void setIsShowToast(boolean z) {
+        this.mIsShowToast = z;
     }
 
     public AdDownloadModel setLogExtra(String str) {
@@ -659,18 +652,18 @@ public class AdDownloadModel implements DownloadModel {
         return this;
     }
 
-    public AdDownloadModel setModelType(int i10) {
-        this.mModelType = i10;
+    public AdDownloadModel setModelType(int i2) {
+        this.mModelType = i2;
         return this;
     }
 
-    public AdDownloadModel setNeedIndependentProcess(boolean z10) {
-        this.mIndependentProcess = z10;
+    public AdDownloadModel setNeedIndependentProcess(boolean z) {
+        this.mIndependentProcess = z;
         return this;
     }
 
-    public void setNeedWifi(boolean z10) {
-        this.mNeedWifi = z10;
+    public void setNeedWifi(boolean z) {
+        this.mNeedWifi = z;
     }
 
     public AdDownloadModel setNotificationJumpUrl(String str) {
@@ -683,8 +676,8 @@ public class AdDownloadModel implements DownloadModel {
         return this;
     }
 
-    public AdDownloadModel setQuickAppModel(d dVar) {
-        this.mQuickAppModel = dVar;
+    public AdDownloadModel setQuickAppModel(g gVar) {
+        this.mQuickAppModel = gVar;
         return this;
     }
 
@@ -696,12 +689,8 @@ public class AdDownloadModel implements DownloadModel {
         this.mStartToast = str;
     }
 
-    public void setTaskKey(String str) {
-        this.mTaskKey = str;
-    }
-
-    public AdDownloadModel setVersionCode(int i10) {
-        this.mVersionCode = i10;
+    public AdDownloadModel setVersionCode(int i2) {
+        this.mVersionCode = i2;
         return this;
     }
 
@@ -712,21 +701,22 @@ public class AdDownloadModel implements DownloadModel {
 
     @Override // com.ss.android.download.api.download.DownloadModel
     public boolean shouldDownloadWithPatchApply() {
-        return b.a(DownloadSetting.obtain(getDownloadSettings()), getMimeType());
+        return zx.j(DownloadSetting.obtain(getDownloadSettings()), getMimeType());
     }
 
     public JSONObject toJson() {
         JSONObject jSONObject = new JSONObject();
         try {
             jSONObject.put("id", this.mId);
+            int i2 = 1;
             jSONObject.put("is_ad", this.mIsAd ? 1 : 0);
             jSONObject.putOpt("model_type", Integer.valueOf(this.mModelType));
             jSONObject.putOpt("mime_type", this.mMimeType);
             jSONObject.putOpt("ext_value", Long.valueOf(this.mExtraValue));
-            jSONObject.putOpt("log_extra", this.mLogExtra);
+            jSONObject.putOpt(BaseConstants.EVENT_LABEL_LOG_EXTRA, this.mLogExtra);
             jSONObject.putOpt("package_name", this.mPackageName);
             jSONObject.putOpt("download_url", this.mDownloadUrl);
-            jSONObject.putOpt("app_name", this.mAppName);
+            jSONObject.putOpt(NativeUnifiedADAppInfoImpl.Keys.APP_NAME, this.mAppName);
             jSONObject.putOpt("app_icon", this.mAppIcon);
             jSONObject.putOpt("is_show_toast", Integer.valueOf(this.mIsShowToast ? 1 : 0));
             jSONObject.putOpt("show_notification", Integer.valueOf(this.mIsShowNotification ? 1 : 0));
@@ -745,8 +735,10 @@ public class AdDownloadModel implements DownloadModel {
             jSONObject.putOpt("sdk_monitor_scene", this.mSdkMonitorScene);
             jSONObject.putOpt(DbJsonConstants.AUTO_INSTALL, Integer.valueOf(this.mAutoInstall ? 1 : 0));
             jSONObject.putOpt("distinct_dir", Integer.valueOf(this.mDistinctDir ? 1 : 0));
-            jSONObject.putOpt("enable_pause", Integer.valueOf(this.mEnablePause ? 1 : 0));
-            jSONObject.putOpt(DbJsonConstants.DBJSON_KEY_TASK_KEY, this.mTaskKey);
+            if (!this.mEnablePause) {
+                i2 = 0;
+            }
+            jSONObject.putOpt("enable_pause", Integer.valueOf(i2));
             Object obj = this.mDownloadSettings;
             if (obj != null) {
                 jSONObject.put("download_settings", obj);
@@ -764,15 +756,15 @@ public class AdDownloadModel implements DownloadModel {
             DeepLink deepLink = this.mDeepLink;
             if (deepLink != null) {
                 if (!TextUtils.isEmpty(deepLink.getOpenUrl())) {
-                    jSONObject.put(AdBaseConstants.MARKET_OPEN_INTENT_OPEN_URL, this.mDeepLink.getOpenUrl());
+                    jSONObject.put("open_url", this.mDeepLink.getOpenUrl());
                 }
                 if (!TextUtils.isEmpty(this.mDeepLink.getWebUrl())) {
                     jSONObject.put("web_url", this.mDeepLink.getWebUrl());
                 }
             }
-            d dVar = this.mQuickAppModel;
-            if (dVar != null) {
-                jSONObject.putOpt("quick_app_url", dVar.a());
+            g gVar = this.mQuickAppModel;
+            if (gVar != null) {
+                jSONObject.putOpt("quick_app_url", gVar.j());
             }
             List<String> list2 = this.mClickTrackUrl;
             if (list2 != null && !list2.isEmpty()) {
@@ -798,8 +790,8 @@ public class AdDownloadModel implements DownloadModel {
                 jSONObject.put("header_keys", jSONArray3);
                 jSONObject.put("header_values", jSONArray4);
             }
-        } catch (Exception e10) {
-            k.u().a(e10, "AdDownloadModel toJson");
+        } catch (Exception e2) {
+            pa.v().j(e2, "AdDownloadModel toJson");
         }
         return jSONObject;
     }

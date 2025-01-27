@@ -5,81 +5,86 @@ import java.lang.reflect.Array;
 
 /* loaded from: classes.dex */
 class TileList<T> {
-    Tile<T> mLastAccessedTile;
-    final int mTileSize;
-    private final SparseArray<Tile<T>> mTiles = new SparseArray<>(10);
+
+    /* renamed from: a, reason: collision with root package name */
+    final int f3526a;
+
+    /* renamed from: b, reason: collision with root package name */
+    private final SparseArray<Tile<T>> f3527b = new SparseArray<>(10);
+
+    /* renamed from: c, reason: collision with root package name */
+    Tile<T> f3528c;
 
     public static class Tile<T> {
+
+        /* renamed from: a, reason: collision with root package name */
+        Tile<T> f3529a;
         public int mItemCount;
         public final T[] mItems;
-        Tile<T> mNext;
         public int mStartPosition;
 
-        public Tile(Class<T> cls, int i10) {
-            this.mItems = (T[]) ((Object[]) Array.newInstance((Class<?>) cls, i10));
+        public Tile(Class<T> cls, int i2) {
+            this.mItems = (T[]) ((Object[]) Array.newInstance((Class<?>) cls, i2));
         }
 
-        public boolean containsPosition(int i10) {
-            int i11 = this.mStartPosition;
-            return i11 <= i10 && i10 < i11 + this.mItemCount;
+        boolean a(int i2) {
+            int i3 = this.mStartPosition;
+            return i3 <= i2 && i2 < i3 + this.mItemCount;
         }
 
-        public T getByPosition(int i10) {
-            return this.mItems[i10 - this.mStartPosition];
+        T b(int i2) {
+            return this.mItems[i2 - this.mStartPosition];
         }
     }
 
-    public TileList(int i10) {
-        this.mTileSize = i10;
+    public TileList(int i2) {
+        this.f3526a = i2;
     }
 
     public Tile<T> addOrReplace(Tile<T> tile) {
-        int indexOfKey = this.mTiles.indexOfKey(tile.mStartPosition);
+        int indexOfKey = this.f3527b.indexOfKey(tile.mStartPosition);
         if (indexOfKey < 0) {
-            this.mTiles.put(tile.mStartPosition, tile);
+            this.f3527b.put(tile.mStartPosition, tile);
             return null;
         }
-        Tile<T> valueAt = this.mTiles.valueAt(indexOfKey);
-        this.mTiles.setValueAt(indexOfKey, tile);
-        if (this.mLastAccessedTile == valueAt) {
-            this.mLastAccessedTile = tile;
+        Tile<T> valueAt = this.f3527b.valueAt(indexOfKey);
+        this.f3527b.setValueAt(indexOfKey, tile);
+        if (this.f3528c == valueAt) {
+            this.f3528c = tile;
         }
         return valueAt;
     }
 
     public void clear() {
-        this.mTiles.clear();
+        this.f3527b.clear();
     }
 
-    public Tile<T> getAtIndex(int i10) {
-        if (i10 < 0 || i10 >= this.mTiles.size()) {
-            return null;
-        }
-        return this.mTiles.valueAt(i10);
+    public Tile<T> getAtIndex(int i2) {
+        return this.f3527b.valueAt(i2);
     }
 
-    public T getItemAt(int i10) {
-        Tile<T> tile = this.mLastAccessedTile;
-        if (tile == null || !tile.containsPosition(i10)) {
-            int indexOfKey = this.mTiles.indexOfKey(i10 - (i10 % this.mTileSize));
+    public T getItemAt(int i2) {
+        Tile<T> tile = this.f3528c;
+        if (tile == null || !tile.a(i2)) {
+            int indexOfKey = this.f3527b.indexOfKey(i2 - (i2 % this.f3526a));
             if (indexOfKey < 0) {
                 return null;
             }
-            this.mLastAccessedTile = this.mTiles.valueAt(indexOfKey);
+            this.f3528c = this.f3527b.valueAt(indexOfKey);
         }
-        return this.mLastAccessedTile.getByPosition(i10);
+        return this.f3528c.b(i2);
     }
 
-    public Tile<T> removeAtPos(int i10) {
-        Tile<T> tile = this.mTiles.get(i10);
-        if (this.mLastAccessedTile == tile) {
-            this.mLastAccessedTile = null;
+    public Tile<T> removeAtPos(int i2) {
+        Tile<T> tile = this.f3527b.get(i2);
+        if (this.f3528c == tile) {
+            this.f3528c = null;
         }
-        this.mTiles.delete(i10);
+        this.f3527b.delete(i2);
         return tile;
     }
 
     public int size() {
-        return this.mTiles.size();
+        return this.f3527b.size();
     }
 }

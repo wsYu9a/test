@@ -5,7 +5,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.pm.ResolveInfo;
 import android.text.TextUtils;
-import com.alimm.tanx.core.ad.event.track.expose.ExposeManager;
 import com.vivo.push.e;
 import com.vivo.push.model.UnvarnishedMessage;
 import com.vivo.push.util.ContextDelegate;
@@ -39,47 +38,47 @@ public abstract class BasePushMessageReceiver extends BroadcastReceiver implemen
     }
 
     @Override // com.vivo.push.sdk.PushMessageCallback
-    public void onBind(Context context, int i10, String str) {
+    public void onBind(Context context, int i2, String str) {
     }
 
     @Override // com.vivo.push.sdk.PushMessageCallback
-    public void onDelAlias(Context context, int i10, List<String> list, List<String> list2, String str) {
+    public void onDelAlias(Context context, int i2, List<String> list, List<String> list2, String str) {
     }
 
     @Override // com.vivo.push.sdk.PushMessageCallback
-    public void onDelTags(Context context, int i10, List<String> list, List<String> list2, String str) {
+    public void onDelTags(Context context, int i2, List<String> list, List<String> list2, String str) {
     }
 
     @Override // com.vivo.push.sdk.PushMessageCallback
-    public void onListTags(Context context, int i10, List<String> list, String str) {
+    public void onListTags(Context context, int i2, List<String> list, String str) {
     }
 
     @Override // com.vivo.push.sdk.PushMessageCallback
-    public void onLog(Context context, String str, int i10, boolean z10) {
+    public void onLog(Context context, String str, int i2, boolean z) {
     }
 
     @Override // com.vivo.push.sdk.PushMessageCallback
-    public void onPublish(Context context, int i10, String str) {
+    public void onPublish(Context context, int i2, String str) {
     }
 
     @Override // android.content.BroadcastReceiver
     public final void onReceive(Context context, Intent intent) {
         Context applicationContext = ContextDelegate.getContext(context).getApplicationContext();
         e.a().a(applicationContext);
-        p.d(TAG, "PushMessageReceiver " + applicationContext.getPackageName() + " ; requestId = " + intent.getStringExtra(ExposeManager.UtArgsNames.reqId));
+        p.d(TAG, "PushMessageReceiver " + applicationContext.getPackageName() + " ; requestId = " + intent.getStringExtra("req_id"));
         try {
             e.a().a(intent, this);
-        } catch (Exception e10) {
-            e10.printStackTrace();
+        } catch (Exception e2) {
+            e2.printStackTrace();
         }
     }
 
     @Override // com.vivo.push.sdk.PushMessageCallback
-    public void onSetAlias(Context context, int i10, List<String> list, List<String> list2, String str) {
+    public void onSetAlias(Context context, int i2, List<String> list, List<String> list2, String str) {
     }
 
     @Override // com.vivo.push.sdk.PushMessageCallback
-    public void onSetTags(Context context, int i10, List<String> list, List<String> list2, String str) {
+    public void onSetTags(Context context, int i2, List<String> list, List<String> list2, String str) {
     }
 
     @Override // com.vivo.push.sdk.PushMessageCallback
@@ -87,6 +86,6 @@ public abstract class BasePushMessageReceiver extends BroadcastReceiver implemen
     }
 
     @Override // com.vivo.push.sdk.PushMessageCallback
-    public void onUnBind(Context context, int i10, String str) {
+    public void onUnBind(Context context, int i2, String str) {
     }
 }

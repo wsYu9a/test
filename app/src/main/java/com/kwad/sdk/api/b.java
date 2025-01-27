@@ -4,7 +4,7 @@ import android.app.Activity;
 import androidx.annotation.NonNull;
 import com.kwad.sdk.api.KsLoadManager;
 
-/* loaded from: classes3.dex */
+/* loaded from: classes2.dex */
 public final class b implements KsLoadManager {
     @Override // com.kwad.sdk.api.KsLoadManager
     public final String getBidRequestToken(KsScene ksScene) {
@@ -14,11 +14,6 @@ public final class b implements KsLoadManager {
     @Override // com.kwad.sdk.api.KsLoadManager
     public final String getBidRequestTokenV2(KsScene ksScene) {
         return "";
-    }
-
-    @Override // com.kwad.sdk.api.KsLoadManager
-    public final void loadBannerAd(KsScene ksScene, @NonNull KsLoadManager.BannerAdListener bannerAdListener) {
-        bannerAdListener.onError(0, "SDK not init success");
     }
 
     @Override // com.kwad.sdk.api.KsLoadManager
@@ -52,6 +47,11 @@ public final class b implements KsLoadManager {
     }
 
     @Override // com.kwad.sdk.api.KsLoadManager
+    public final void loadNativeAd(String str, @NonNull KsLoadManager.NativeAdListener nativeAdListener) {
+        nativeAdListener.onError(0, "SDK not init success");
+    }
+
+    @Override // com.kwad.sdk.api.KsLoadManager
     public final void loadRewardVideoAd(KsScene ksScene, @NonNull KsLoadManager.RewardVideoAdListener rewardVideoAdListener) {
         rewardVideoAdListener.onError(0, "SDK not init success");
     }
@@ -64,10 +64,5 @@ public final class b implements KsLoadManager {
     @Override // com.kwad.sdk.api.KsLoadManager
     public final boolean showInstallDialog(Activity activity, KsExitInstallListener ksExitInstallListener) {
         return false;
-    }
-
-    @Override // com.kwad.sdk.api.KsLoadManager
-    public final void loadNativeAd(String str, @NonNull KsLoadManager.NativeAdListener nativeAdListener) {
-        nativeAdListener.onError(0, "SDK not init success");
     }
 }

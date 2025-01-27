@@ -13,181 +13,108 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import androidx.core.content.ContextCompat;
 import com.martian.libmars.R;
-import com.martian.libmars.common.ConfigSingleton;
 import com.martian.mibook.application.MiConfigSingleton;
-import com.martian.mibook.ui.FlowLayout;
 import java.util.ArrayList;
 import java.util.List;
 
-/* loaded from: classes3.dex */
-public class FlowLayout extends LinearLayout implements k9.a {
+/* loaded from: classes4.dex */
+public class FlowLayout extends LinearLayout implements g.a {
+
+    /* renamed from: a */
+    private final int f14143a;
 
     /* renamed from: b */
-    public final int f15814b;
+    private int f14144b;
 
     /* renamed from: c */
-    public int f15815c;
+    private final int f14145c;
 
     /* renamed from: d */
-    public final int f15816d;
+    private final float f14146d;
 
     /* renamed from: e */
-    public final float f15817e;
+    private final int f14147e;
 
     /* renamed from: f */
-    public final int f15818f;
+    private int f14148f;
 
     /* renamed from: g */
-    public int f15819g;
+    private final boolean f14149g;
 
     /* renamed from: h */
-    public final boolean f15820h;
+    private final boolean f14150h;
 
     /* renamed from: i */
-    public final boolean f15821i;
+    private final int f14151i;
 
     /* renamed from: j */
-    public final int f15822j;
-
-    /* renamed from: k */
-    public final int f15823k;
-
-    /* renamed from: l */
-    public final int f15824l;
-
-    /* renamed from: m */
-    public final int f15825m;
-
-    /* renamed from: n */
-    public final int f15826n;
-
-    /* renamed from: o */
-    public final int f15827o;
-
-    /* renamed from: p */
-    public final int f15828p;
-
-    /* renamed from: q */
-    public final int f15829q;
-
-    /* renamed from: r */
-    public int f15830r;
-
-    /* renamed from: s */
-    public final int f15831s;
-
-    /* renamed from: t */
-    public int f15832t;
-
-    /* renamed from: u */
-    public boolean f15833u;
-
-    /* renamed from: v */
-    public List<String> f15834v;
-
-    /* renamed from: w */
-    public a f15835w;
+    private final int f14152j;
+    private final int k;
+    private final int l;
+    private final int m;
+    private final int n;
+    private final int o;
+    private final int p;
+    private int q;
+    private final int r;
+    private int s;
+    private List<String> t;
+    private a u;
 
     public interface a {
-        void a(String str, int i10);
+        void a(String title, int position);
     }
 
-    public FlowLayout(Context context, AttributeSet attributeSet) {
-        super(context, attributeSet);
-        this.f15814b = ConfigSingleton.i(26.0f);
-        this.f15815c = 0;
-        this.f15832t = 0;
-        this.f15833u = true;
-        this.f15834v = new ArrayList();
+    public FlowLayout(Context context, AttributeSet attrs) {
+        super(context, attrs);
+        this.f14143a = com.martian.libmars.d.h.b(26.0f);
+        this.f14144b = 0;
+        this.f14148f = com.martian.libmars.d.h.F().r0();
+        this.s = 0;
+        this.t = new ArrayList();
         DisplayMetrics displayMetrics = context.getResources().getDisplayMetrics();
-        TypedArray obtainStyledAttributes = context.obtainStyledAttributes(attributeSet, R.styleable.SearchLayout);
-        this.f15818f = obtainStyledAttributes.getInteger(R.styleable.SearchLayout_Sear_textColorType, 0);
-        this.f15817e = obtainStyledAttributes.getDimension(R.styleable.SearchLayout_Sear_textSize, 0.0f);
-        this.f15821i = obtainStyledAttributes.getBoolean(R.styleable.SearchLayout_Sear_selectableLayout, true);
-        this.f15820h = obtainStyledAttributes.getBoolean(R.styleable.SearchLayout_Sear_allBackground, false);
-        this.f15822j = obtainStyledAttributes.getInteger(R.styleable.SearchLayout_Sear_textPaddingTop, 4);
-        this.f15823k = obtainStyledAttributes.getInteger(R.styleable.SearchLayout_Sear_textPaddingLeft, 12);
-        this.f15824l = obtainStyledAttributes.getInteger(R.styleable.SearchLayout_Sear_textPaddingBottom, 4);
-        this.f15825m = obtainStyledAttributes.getInteger(R.styleable.SearchLayout_Sear_textPaddingRight, 12);
-        this.f15826n = obtainStyledAttributes.getInteger(R.styleable.SearchLayout_Sear_textMarginTop, 6);
-        this.f15827o = obtainStyledAttributes.getInteger(R.styleable.SearchLayout_Sear_textMarginLeft, 4);
-        this.f15828p = obtainStyledAttributes.getInteger(R.styleable.SearchLayout_Sear_textMarginBottom, 6);
-        this.f15829q = obtainStyledAttributes.getInteger(R.styleable.SearchLayout_Sear_textMarginRight, 4);
-        this.f15830r = obtainStyledAttributes.getInteger(R.styleable.SearchLayout_Sear_initLines, 100);
-        this.f15831s = obtainStyledAttributes.getInteger(R.styleable.SearchLayout_Sear_maxLines, 100);
-        this.f15816d = displayMetrics.widthPixels - ((int) obtainStyledAttributes.getDimension(R.styleable.SearchLayout_Sear_margin, 0.0f));
+        TypedArray obtainStyledAttributes = context.obtainStyledAttributes(attrs, R.styleable.SearchLayout);
+        this.f14147e = obtainStyledAttributes.getInteger(5, 0);
+        this.f14146d = obtainStyledAttributes.getDimension(14, 0.0f);
+        this.f14150h = obtainStyledAttributes.getBoolean(4, true);
+        this.f14149g = obtainStyledAttributes.getBoolean(0, false);
+        this.f14151i = obtainStyledAttributes.getInteger(13, 4);
+        this.f14152j = obtainStyledAttributes.getInteger(11, 12);
+        this.k = obtainStyledAttributes.getInteger(10, 4);
+        this.l = obtainStyledAttributes.getInteger(12, 12);
+        this.m = obtainStyledAttributes.getInteger(9, 6);
+        this.n = obtainStyledAttributes.getInteger(7, 4);
+        this.o = obtainStyledAttributes.getInteger(6, 6);
+        this.p = obtainStyledAttributes.getInteger(8, 4);
+        this.q = obtainStyledAttributes.getInteger(1, 100);
+        this.r = obtainStyledAttributes.getInteger(3, 100);
+        this.f14145c = displayMetrics.widthPixels - ((int) obtainStyledAttributes.getDimension(2, 0.0f));
         setOrientation(1);
-        m();
+        l();
         obtainStyledAttributes.recycle();
     }
 
-    public static /* synthetic */ boolean f(ImageView imageView, View view, MotionEvent motionEvent) {
+    static /* synthetic */ boolean b(final ImageView moreIcon, View view, MotionEvent motionEvent) {
         int action = motionEvent.getAction();
         if (action == 0) {
-            imageView.setAlpha(0.6f);
+            moreIcon.setAlpha(0.6f);
             return false;
         }
         if (action != 1 && action != 3) {
             return false;
         }
-        imageView.setAlpha(1.0f);
+        moreIcon.setAlpha(1.0f);
         return false;
     }
 
-    private int getIconWidth() {
-        return this.f15814b + ConfigSingleton.i(this.f15827o);
+    /* renamed from: c */
+    public /* synthetic */ void d(final ImageView moreIcon, View v) {
+        this.q = 100;
+        moreIcon.setVisibility(8);
+        k(this.t, this.s);
     }
 
-    @SuppressLint({"ClickableViewAccessibility"})
-    private ImageView getMoreIcon() {
-        ImageView imageView = new ImageView(getContext());
-        imageView.setImageResource(R.drawable.icon_more);
-        if (this.f15820h) {
-            imageView.setBackgroundResource(ConfigSingleton.D().A0() ? R.drawable.border_search_background_night : R.drawable.border_search_background_day);
-        }
-        imageView.setColorFilter(ContextCompat.getColor(getContext(), this.f15819g));
-        imageView.setOnTouchListener(new View.OnTouchListener() { // from class: be.g
-
-            /* renamed from: b */
-            public final /* synthetic */ ImageView f1579b;
-
-            public /* synthetic */ g(ImageView imageView2) {
-                imageView = imageView2;
-            }
-
-            @Override // android.view.View.OnTouchListener
-            public final boolean onTouch(View view, MotionEvent motionEvent) {
-                boolean f10;
-                f10 = FlowLayout.f(imageView, view, motionEvent);
-                return f10;
-            }
-        });
-        imageView2.setOnClickListener(new View.OnClickListener() { // from class: be.h
-
-            /* renamed from: c */
-            public final /* synthetic */ ImageView f1581c;
-
-            public /* synthetic */ h(ImageView imageView2) {
-                imageView = imageView2;
-            }
-
-            @Override // android.view.View.OnClickListener
-            public final void onClick(View view) {
-                FlowLayout.this.g(imageView, view);
-            }
-        });
-        LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(-2, -2);
-        int i10 = this.f15814b;
-        layoutParams.width = i10;
-        layoutParams.height = i10;
-        int i11 = ConfigSingleton.i(6.0f);
-        imageView2.setPadding(i11, i11, i11, i11);
-        layoutParams.setMargins(ConfigSingleton.i(this.f15827o), ((((((((int) this.f15817e) + ConfigSingleton.i(4.0f)) + ConfigSingleton.i(this.f15822j)) + ConfigSingleton.i(this.f15824l)) + ConfigSingleton.i(this.f15826n)) + ConfigSingleton.i(this.f15828p)) - this.f15814b) / 2, 0, 0);
-        imageView2.setLayoutParams(layoutParams);
-        return imageView2;
-    }
-
-    public static /* synthetic */ boolean h(TextView textView, View view, MotionEvent motionEvent) {
+    static /* synthetic */ boolean e(final TextView textView, View view, MotionEvent motionEvent) {
         int action = motionEvent.getAction();
         if (action == 0) {
             textView.setAlpha(0.6f);
@@ -200,166 +127,178 @@ public class FlowLayout extends LinearLayout implements k9.a {
         return false;
     }
 
-    private void j() {
-        List<String> list = this.f15834v;
+    /* renamed from: f */
+    public /* synthetic */ void h(final int position, final String name, View view) {
+        setSelectPosition(position);
+        a aVar = this.u;
+        if (aVar != null) {
+            aVar.a(name, position);
+        }
+    }
+
+    private int getIconWidth() {
+        return this.f14143a + com.martian.libmars.d.h.b(this.n);
+    }
+
+    @SuppressLint({"ClickableViewAccessibility"})
+    private ImageView getMoreIcon() {
+        final ImageView imageView = new ImageView(getContext());
+        imageView.setImageResource(com.martian.ttbookhd.R.drawable.icon_more);
+        if (this.f14149g) {
+            imageView.setBackgroundResource(com.martian.libmars.d.h.F().I0() ? com.martian.ttbookhd.R.drawable.border_search_background_night : com.martian.ttbookhd.R.drawable.border_search_background_day);
+        }
+        imageView.setColorFilter(this.f14148f);
+        imageView.setOnTouchListener(new View.OnTouchListener() { // from class: com.martian.mibook.ui.e
+            @Override // android.view.View.OnTouchListener
+            public final boolean onTouch(View view, MotionEvent motionEvent) {
+                return FlowLayout.b(imageView, view, motionEvent);
+            }
+        });
+        imageView.setOnClickListener(new View.OnClickListener() { // from class: com.martian.mibook.ui.g
+            @Override // android.view.View.OnClickListener
+            public final void onClick(View view) {
+                FlowLayout.this.d(imageView, view);
+            }
+        });
+        LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(-2, -2);
+        int i2 = this.f14143a;
+        layoutParams.width = i2;
+        layoutParams.height = i2;
+        int b2 = com.martian.libmars.d.h.b(6.0f);
+        imageView.setPadding(b2, b2, b2, b2);
+        layoutParams.setMargins(com.martian.libmars.d.h.b(this.n), ((((((((int) this.f14146d) + com.martian.libmars.d.h.b(4.0f)) + com.martian.libmars.d.h.b(this.f14151i)) + com.martian.libmars.d.h.b(this.k)) + com.martian.libmars.d.h.b(this.m)) + com.martian.libmars.d.h.b(this.o)) - this.f14143a) / 2, 0, 0);
+        imageView.setLayoutParams(layoutParams);
+        return imageView;
+    }
+
+    private void i() {
+        List<String> list = this.t;
         if (list == null || list.isEmpty()) {
             return;
         }
-        m();
-        for (int i10 = 0; i10 < this.f15834v.size(); i10++) {
-            TextView textView = (TextView) findViewWithTag(Integer.valueOf(i10));
+        for (int i2 = 0; i2 < this.t.size(); i2++) {
+            TextView textView = (TextView) findViewWithTag(Integer.valueOf(i2));
             if (textView != null) {
-                n(textView, i10);
+                m(textView, i2);
             }
-        }
-        ImageView imageView = (ImageView) findViewWithTag("more");
-        if (imageView != null) {
-            if (this.f15820h) {
-                imageView.setBackgroundResource(ConfigSingleton.D().A0() ? R.drawable.border_search_background_night : R.drawable.border_search_background_day);
-            }
-            imageView.setColorFilter(ContextCompat.getColor(getContext(), this.f15819g));
         }
     }
 
-    private void l(List<String> list, int i10) {
-        if (list.isEmpty()) {
+    private void k(List<String> info, int index) {
+        if (info.isEmpty()) {
             return;
         }
-        this.f15834v = list;
+        this.t = info;
         LinearLayout linearLayout = getLinearLayout();
-        int i11 = 1;
-        int i12 = 0;
-        while (i10 < this.f15834v.size()) {
-            TextView e10 = e(this.f15834v.get(i10), i10);
-            LinearLayout.LayoutParams layoutParams = (LinearLayout.LayoutParams) e10.getLayoutParams();
-            e10.measure(getMeasuredWidth(), getMeasuredHeight());
-            int measuredWidth = e10.getMeasuredWidth() + layoutParams.leftMargin + layoutParams.rightMargin;
-            i12 += measuredWidth;
-            if (this.f15816d >= (i11 == this.f15830r ? getIconWidth() : 0) + i12) {
-                linearLayout.addView(e10);
+        int i2 = 1;
+        int i3 = 0;
+        while (index < this.t.size()) {
+            TextView a2 = a(this.t.get(index), index);
+            LinearLayout.LayoutParams layoutParams = (LinearLayout.LayoutParams) a2.getLayoutParams();
+            a2.measure(getMeasuredWidth(), getMeasuredHeight());
+            int measuredWidth = a2.getMeasuredWidth() + layoutParams.leftMargin + layoutParams.rightMargin;
+            i3 += measuredWidth;
+            if (this.f14145c >= (i2 == this.q ? getIconWidth() : 0) + i3) {
+                linearLayout.addView(a2);
             } else {
-                if (i11 >= this.f15831s) {
+                if (i2 >= this.r) {
                     return;
                 }
-                if (i11 >= this.f15830r) {
-                    ImageView moreIcon = getMoreIcon();
-                    moreIcon.setTag("more");
-                    linearLayout.addView(moreIcon);
-                    this.f15832t = i10;
+                if (i2 >= this.q) {
+                    linearLayout.addView(getMoreIcon());
+                    this.s = index;
                     return;
+                } else {
+                    i2++;
+                    linearLayout = getLinearLayout();
+                    linearLayout.addView(a2);
+                    i3 = measuredWidth;
                 }
-                i11++;
-                linearLayout = getLinearLayout();
-                linearLayout.addView(e10);
-                i12 = measuredWidth;
             }
-            i10++;
+            index++;
         }
     }
 
-    private void m() {
-        if (ConfigSingleton.D().A0()) {
-            int i10 = this.f15818f;
-            if (i10 == 1) {
-                this.f15819g = R.color.night_text_color_secondary;
+    private void l() {
+        if (com.martian.libmars.d.h.F().I0()) {
+            int i2 = this.f14147e;
+            if (i2 == 1) {
+                this.f14148f = com.martian.ttbookhd.R.color.night_text_color_secondary;
                 return;
-            } else if (i10 != 2) {
-                this.f15819g = R.color.night_text_color_primary;
+            } else if (i2 != 2) {
+                this.f14148f = com.martian.ttbookhd.R.color.night_text_color_primary;
                 return;
             } else {
-                this.f15819g = R.color.night_text_color_thirdly;
+                this.f14148f = com.martian.ttbookhd.R.color.night_text_color_thirdly;
                 return;
             }
         }
-        int i11 = this.f15818f;
-        if (i11 == 1) {
-            this.f15819g = R.color.day_text_color_secondary;
-        } else if (i11 != 2) {
-            this.f15819g = R.color.day_text_color_primary;
+        int i3 = this.f14147e;
+        if (i3 == 1) {
+            this.f14148f = com.martian.ttbookhd.R.color.day_text_color_secondary;
+        } else if (i3 != 2) {
+            this.f14148f = com.martian.ttbookhd.R.color.day_text_color_primary;
         } else {
-            this.f15819g = R.color.day_text_color_thirdly;
+            this.f14148f = com.martian.ttbookhd.R.color.day_text_color_thirdly;
         }
     }
 
-    private void n(TextView textView, int i10) {
-        if (this.f15820h) {
-            if (MiConfigSingleton.b2().A0()) {
-                textView.setBackgroundResource(R.drawable.border_search_background_night);
+    private void m(TextView textView, int position) {
+        if (this.f14149g) {
+            if (MiConfigSingleton.V3().I0()) {
+                textView.setBackgroundResource(com.martian.ttbookhd.R.drawable.border_search_background_night);
             } else {
-                textView.setBackgroundResource(R.drawable.border_search_background_day);
+                textView.setBackgroundResource(com.martian.ttbookhd.R.drawable.border_search_background_day);
             }
-            textView.setTextColor(ContextCompat.getColor(getContext(), this.f15819g));
+            textView.setTextColor(ContextCompat.getColor(getContext(), this.f14148f));
             return;
         }
-        if (this.f15815c != i10) {
-            textView.setBackgroundColor(ContextCompat.getColor(getContext(), R.color.transparent));
-            textView.setTextColor(ContextCompat.getColor(getContext(), this.f15819g));
+        if (this.f14144b != position) {
+            textView.setBackgroundColor(ContextCompat.getColor(getContext(), com.martian.ttbookhd.R.color.transparent));
+            textView.setTextColor(ContextCompat.getColor(getContext(), this.f14148f));
             return;
         }
-        textView.setTextColor(ContextCompat.getColor(getContext(), R.color.theme_default));
-        if (MiConfigSingleton.b2().A0()) {
-            textView.setBackgroundResource(R.drawable.border_search_background_night);
+        textView.setTextColor(ContextCompat.getColor(getContext(), com.martian.ttbookhd.R.color.theme_default));
+        if (MiConfigSingleton.V3().I0()) {
+            textView.setBackgroundResource(com.martian.ttbookhd.R.drawable.border_search_background_night);
         } else {
-            textView.setBackgroundResource(R.drawable.border_search_background_day);
+            textView.setBackgroundResource(com.martian.ttbookhd.R.drawable.border_search_background_day);
         }
     }
 
     @SuppressLint({"ClickableViewAccessibility"})
-    public TextView e(String str, int i10) {
-        TextView textView = new TextView(getContext());
-        textView.setTag(Integer.valueOf(i10));
-        textView.setTextSize(0, this.f15817e);
+    public TextView a(final String name, final int position) {
+        final TextView textView = new TextView(getContext());
+        textView.setTag(Integer.valueOf(position));
+        textView.setTextSize(0, this.f14146d);
         textView.setLines(1);
         textView.setEllipsize(TextUtils.TruncateAt.END);
-        textView.setPadding(ConfigSingleton.i(this.f15823k), ConfigSingleton.i(this.f15822j), ConfigSingleton.i(this.f15825m), ConfigSingleton.i(this.f15824l));
-        n(textView, i10);
-        textView.setText(this.f15833u ? ConfigSingleton.D().s(str) : str);
-        if (this.f15821i) {
-            textView.setOnTouchListener(new View.OnTouchListener() { // from class: be.i
-
-                /* renamed from: b */
-                public final /* synthetic */ TextView f1582b;
-
-                public /* synthetic */ i(TextView textView2) {
-                    textView = textView2;
-                }
-
+        textView.setPadding(com.martian.libmars.d.h.b(this.f14152j), com.martian.libmars.d.h.b(this.f14151i), com.martian.libmars.d.h.b(this.l), com.martian.libmars.d.h.b(this.k));
+        m(textView, position);
+        textView.setText(name);
+        if (this.f14150h) {
+            textView.setOnTouchListener(new View.OnTouchListener() { // from class: com.martian.mibook.ui.d
                 @Override // android.view.View.OnTouchListener
                 public final boolean onTouch(View view, MotionEvent motionEvent) {
-                    boolean h10;
-                    h10 = FlowLayout.h(textView, view, motionEvent);
-                    return h10;
+                    return FlowLayout.e(textView, view, motionEvent);
                 }
             });
         }
-        textView2.setOnClickListener(new View.OnClickListener() { // from class: be.j
-
-            /* renamed from: c */
-            public final /* synthetic */ int f1584c;
-
-            /* renamed from: d */
-            public final /* synthetic */ String f1585d;
-
-            public /* synthetic */ j(int i102, String str2) {
-                i10 = i102;
-                str = str2;
-            }
-
+        textView.setOnClickListener(new View.OnClickListener() { // from class: com.martian.mibook.ui.f
             @Override // android.view.View.OnClickListener
             public final void onClick(View view) {
-                FlowLayout.this.i(i10, str, view);
+                FlowLayout.this.h(position, name, view);
             }
         });
         LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(-2, -2);
-        layoutParams.setMargins(ConfigSingleton.i(this.f15827o), ConfigSingleton.i(this.f15826n), ConfigSingleton.i(this.f15829q), ConfigSingleton.i(this.f15828p));
-        textView2.setLayoutParams(layoutParams);
-        return textView2;
+        layoutParams.setMargins(com.martian.libmars.d.h.b(this.n), com.martian.libmars.d.h.b(this.m), com.martian.libmars.d.h.b(this.p), com.martian.libmars.d.h.b(this.o));
+        textView.setLayoutParams(layoutParams);
+        return textView;
     }
 
-    public final /* synthetic */ void g(ImageView imageView, View view) {
-        this.f15830r = 100;
-        imageView.setVisibility(8);
-        l(this.f15834v, this.f15832t);
+    @Override // g.a
+    public void g() {
+        i();
     }
 
     public LinearLayout getLinearLayout() {
@@ -370,56 +309,40 @@ public class FlowLayout extends LinearLayout implements k9.a {
     }
 
     public int getSelectPosition() {
-        return this.f15815c;
+        return this.f14144b;
     }
 
     public String getSelectedItem() {
-        return this.f15815c >= this.f15834v.size() ? "" : this.f15834v.get(this.f15815c);
+        return this.f14144b >= this.t.size() ? "" : this.t.get(this.f14144b);
     }
 
-    public final /* synthetic */ void i(int i10, String str, View view) {
-        setSelectPosition(i10);
-        if (this.f15835w != null) {
-            this.f15835w.a(ConfigSingleton.D().f0(str), i10);
-        }
-    }
-
-    public void k() {
+    public void j() {
         removeAllViews();
     }
 
     @Override // android.view.ViewGroup, android.view.View
-    public void onAttachedToWindow() {
+    protected void onAttachedToWindow() {
         super.onAttachedToWindow();
-        p();
-        ConfigSingleton.D().h(this);
+        g();
+        com.martian.libmars.d.h.F().a(this);
     }
 
     @Override // android.view.ViewGroup, android.view.View
-    public void onDetachedFromWindow() {
+    protected void onDetachedFromWindow() {
         super.onDetachedFromWindow();
-        ConfigSingleton.D().X0(this);
+        com.martian.libmars.d.h.F().j1(this);
     }
 
-    @Override // k9.a
-    public void p() {
-        j();
+    public void setData(List<String> info) {
+        k(info, 0);
     }
 
-    public void setConvertToTraditional(boolean z10) {
-        this.f15833u = z10;
+    public void setOnItemTitleClickListener(a onItemTitleClickListener) {
+        this.u = onItemTitleClickListener;
     }
 
-    public void setData(List<String> list) {
-        l(list, 0);
-    }
-
-    public void setOnItemTitleClickListener(a aVar) {
-        this.f15835w = aVar;
-    }
-
-    public void setSelectPosition(int i10) {
-        this.f15815c = i10;
-        j();
+    public void setSelectPosition(int mSelectPosition) {
+        this.f14144b = mSelectPosition;
+        i();
     }
 }

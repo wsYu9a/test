@@ -4,7 +4,7 @@ import android.os.Bundle;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 
-/* loaded from: classes4.dex */
+/* loaded from: classes5.dex */
 public class FragmentLifecycleCallbacksImplToAndroidx extends FragmentManager.FragmentLifecycleCallbacks {
     private AutoAdaptStrategy mAutoAdaptStrategy;
 

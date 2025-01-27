@@ -5,9 +5,9 @@ import com.kwad.sdk.api.core.KsAdSdkApi;
 
 @KsAdSdkApi
 @Keep
-/* loaded from: classes3.dex */
+/* loaded from: classes2.dex */
 public interface KsInitCallback {
-    void onFail(int i10, String str);
+    void onFail(int i2, String str);
 
     void onSuccess();
 }

@@ -12,12 +12,12 @@ public abstract class AbsDownloadHttpConnection implements IDownloadHttpConnecti
         return "";
     }
 
-    public void monitorNetworkInfo(JSONObject jSONObject, boolean z10) {
+    public void monitorNetworkInfo(JSONObject jSONObject, boolean z) {
     }
 
-    public void onThrowable(Throwable th2) {
+    public void onThrowable(Throwable th) {
     }
 
-    public void setThrottleNetSpeedWhenRunning(long j10) {
+    public void setThrottleNetSpeedWhenRunning(long j2) {
     }
 }

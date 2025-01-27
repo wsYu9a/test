@@ -6,32 +6,32 @@ import com.tencent.connect.common.Constants;
 public final class i extends s {
 
     /* renamed from: a */
-    private String f24929a;
+    private String f30902a;
 
     /* renamed from: b */
-    private String f24930b;
+    private String f30903b;
 
     /* renamed from: c */
-    private String f24931c;
+    private String f30904c;
 
-    public i(int i10) {
-        super(i10);
+    public i(int i2) {
+        super(i2);
     }
 
     @Override // com.vivo.push.b.s, com.vivo.push.o
-    public final void c(com.vivo.push.a aVar) {
+    protected final void c(com.vivo.push.a aVar) {
         super.c(aVar);
-        aVar.a("app_id", this.f24929a);
-        aVar.a(Constants.PARAM_CLIENT_ID, this.f24930b);
-        aVar.a("client_token", this.f24931c);
+        aVar.a("app_id", this.f30902a);
+        aVar.a(Constants.PARAM_CLIENT_ID, this.f30903b);
+        aVar.a("client_token", this.f30904c);
     }
 
     public final String d() {
-        return this.f24929a;
+        return this.f30902a;
     }
 
     public final String e() {
-        return this.f24931c;
+        return this.f30904c;
     }
 
     @Override // com.vivo.push.b.s, com.vivo.push.o
@@ -40,10 +40,10 @@ public final class i extends s {
     }
 
     @Override // com.vivo.push.b.s, com.vivo.push.o
-    public final void d(com.vivo.push.a aVar) {
+    protected final void d(com.vivo.push.a aVar) {
         super.d(aVar);
-        this.f24929a = aVar.a("app_id");
-        this.f24930b = aVar.a(Constants.PARAM_CLIENT_ID);
-        this.f24931c = aVar.a("client_token");
+        this.f30902a = aVar.a("app_id");
+        this.f30903b = aVar.a(Constants.PARAM_CLIENT_ID);
+        this.f30904c = aVar.a("client_token");
     }
 }

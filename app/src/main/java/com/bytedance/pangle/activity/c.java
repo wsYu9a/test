@@ -23,10 +23,10 @@ import com.bytedance.pangle.util.FieldUtils;
 import com.bytedance.pangle.util.MethodUtils;
 import java.util.List;
 
-/* loaded from: classes2.dex */
+/* loaded from: classes.dex */
 final class c {
     /* JADX WARN: Multi-variable type inference failed */
-    public static void a(b bVar, Bundle bundle) {
+    static void a(b bVar, Bundle bundle) {
         List<String> list;
         if (!Zeus.hasInit()) {
             Log.e(ZeusLogger.TAG_INIT, "ProxyActivityUtils.onCreate finish. AppApplication == null.");
@@ -37,12 +37,6 @@ final class c {
         Intent intent = bVar.getIntent();
         String pluginPkgName = bVar.getPluginPkgName();
         Plugin plugin = bVar.getPlugin();
-        if (plugin == null) {
-            Log.e(ZeusLogger.TAG_INIT, "ProxyActivityUtils.onCreate finish. plugin == null");
-            bVar.zeusSuperOnCreate(null);
-            bVar.finish();
-            return;
-        }
         intent.setExtrasClassLoader(plugin.mClassLoader);
         IntentUtils.a(intent);
         String stringExtra = intent.getStringExtra("targetPlugin");
@@ -56,8 +50,8 @@ final class c {
                 ZeusLogger.w(ZeusLogger.TAG_ACTIVITY, "Cant start pluginActivity, plugin load failed! pluginPkgName: " + pluginPkgName + " targetActivity: " + stringExtra);
                 bVar.finish();
                 return;
-            } catch (Exception e10) {
-                throw new RuntimeException(e10);
+            } catch (Exception e2) {
+                throw new RuntimeException(e2);
             }
         }
         ActivityInfo activityInfo = plugin.pluginActivities.get(stringExtra);
@@ -66,14 +60,14 @@ final class c {
             bVar.zeusSuperOnCreate(null);
             bVar.finish();
         }
-        int i10 = -1;
+        int i2 = -1;
         try {
             IPluginActivity iPluginActivity = (IPluginActivity) plugin.mClassLoader.loadClass(stringExtra).newInstance();
             FieldUtils.writeField(iPluginActivity, "mApplication", bVar.getApplication());
             bVar.setTargetActivity(iPluginActivity);
             iPluginActivity.setPluginProxyActivity(bVar, plugin);
-            i10 = activityInfo.theme;
-            bVar.zeusSuperSetTheme(i10);
+            i2 = activityInfo.theme;
+            bVar.zeusSuperSetTheme(i2);
             TypedArray obtainStyledAttributes = ((Activity) bVar).getTheme().obtainStyledAttributes(new int[]{R.attr.windowIsTranslucent});
             if (obtainStyledAttributes.getBoolean(obtainStyledAttributes.getIndex(0), false)) {
                 a((Activity) bVar);
@@ -82,19 +76,19 @@ final class c {
             iPluginActivity.attachBaseContext(bVar.getBaseContext());
             try {
                 int requestedOrientation = ((Activity) bVar).getRequestedOrientation();
-                int i11 = activityInfo.screenOrientation;
-                if (requestedOrientation != i11) {
-                    ((Activity) bVar).setRequestedOrientation(i11);
+                int i3 = activityInfo.screenOrientation;
+                if (requestedOrientation != i3) {
+                    ((Activity) bVar).setRequestedOrientation(i3);
                 }
             } catch (IllegalStateException unused) {
             }
             iPluginActivity.onCreate(bundle);
-        } catch (Exception e11) {
-            throw new RuntimeException(e11 instanceof IllegalStateException ? "activityTheme:".concat(String.valueOf(i10)) : "", e11);
+        } catch (Exception e3) {
+            throw new RuntimeException(e3 instanceof IllegalStateException ? "activityTheme:".concat(String.valueOf(i2)) : "", e3);
         }
     }
 
-    public static void a(b bVar, Context context) {
+    static void a(b bVar, Context context) {
         if (!Zeus.hasInit()) {
             Log.e(ZeusLogger.TAG_INIT, "ProxyActivityUtils.attachBaseContext. AppApplication == null.");
             bVar.zeusSuperAttachBaseContext(context);
@@ -110,12 +104,12 @@ final class c {
             } else {
                 bVar.zeusSuperAttachBaseContext(context);
             }
-        } catch (Exception e10) {
-            throw new RuntimeException(e10);
+        } catch (Exception e2) {
+            throw new RuntimeException(e2);
         }
     }
 
-    public static void a(Activity activity, View view) {
+    static void a(Activity activity, View view) {
         Object readField;
         if (view == null) {
             return;
@@ -124,27 +118,25 @@ final class c {
             Object readField2 = FieldUtils.readField(view, "mListenerInfo");
             if (readField2 != null && (readField = FieldUtils.readField(readField2, "mOnClickListener")) != null) {
                 String name = readField.getClass().getName();
-                if (!name.startsWith(AppCompatViewInflater.class.getName())) {
-                    if (name.startsWith(View.class.getName())) {
-                    }
+                if (name.startsWith(AppCompatViewInflater.class.getName()) || name.startsWith(View.class.getName())) {
+                    view.setOnClickListener(new a(activity, view.getId(), (String) FieldUtils.readField(readField, "mMethodName")));
                 }
-                view.setOnClickListener(new a(activity, view.getId(), (String) FieldUtils.readField(readField, "mMethodName")));
             }
-        } catch (Exception e10) {
+        } catch (Exception e2) {
             ZeusLogger.errReport(ZeusLogger.TAG_ACTIVITY, "checkOnClickListener failed!".concat(String.valueOf(view)));
-            e10.printStackTrace();
+            e2.printStackTrace();
         }
         if (!(view instanceof ViewGroup)) {
             return;
         }
-        int i10 = 0;
+        int i2 = 0;
         while (true) {
             ViewGroup viewGroup = (ViewGroup) view;
-            if (i10 >= viewGroup.getChildCount()) {
+            if (i2 >= viewGroup.getChildCount()) {
                 return;
             }
-            a(activity, viewGroup.getChildAt(i10));
-            i10++;
+            a(activity, viewGroup.getChildAt(i2));
+            i2++;
         }
     }
 
@@ -160,7 +152,7 @@ final class c {
 
     private static void a(Activity activity) {
         try {
-            MethodUtils.getAccessibleMethod(Activity.class, "convertToTranslucent", a(), ActivityOptions.class).invoke(activity, null, MethodUtils.getAccessibleMethod(Activity.class, "getActivityOptions", new Class[0]).invoke(activity, null));
+            MethodUtils.getAccessibleMethod(Activity.class, "convertToTranslucent", a(), ActivityOptions.class).invoke(activity, null, MethodUtils.getAccessibleMethod(Activity.class, "getActivityOptions", new Class[0]).invoke(activity, new Object[0]));
         } catch (Throwable unused) {
         }
     }

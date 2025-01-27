@@ -12,7 +12,7 @@ import com.kwad.sdk.api.loader.Wrapper;
 
 @KsAdSdkDynamicApi
 @Keep
-/* loaded from: classes3.dex */
+/* loaded from: classes2.dex */
 public class BaseSystemFragment extends Fragment {
     @KsAdSdkDynamicApi
     @Keep

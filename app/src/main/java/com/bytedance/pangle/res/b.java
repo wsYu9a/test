@@ -4,7 +4,7 @@ import android.view.LayoutInflater;
 import com.bytedance.pangle.log.ZeusLogger;
 import com.bytedance.pangle.util.FieldUtils;
 
-/* loaded from: classes2.dex */
+/* loaded from: classes.dex */
 public final class b {
     public static void a(LayoutInflater layoutInflater) {
         try {

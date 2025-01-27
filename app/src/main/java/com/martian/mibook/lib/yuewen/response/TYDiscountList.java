@@ -2,7 +2,7 @@ package com.martian.mibook.lib.yuewen.response;
 
 import java.util.List;
 
-/* loaded from: classes3.dex */
+/* loaded from: classes4.dex */
 public class TYDiscountList {
     private List<TYDiscount> discountList;
     private Integer total;
@@ -19,11 +19,11 @@ public class TYDiscountList {
         return num.intValue();
     }
 
-    public void setDiscountList(List<TYDiscount> list) {
-        this.discountList = list;
+    public void setDiscountList(List<TYDiscount> discountList) {
+        this.discountList = discountList;
     }
 
-    public void setTotal(Integer num) {
-        this.total = num;
+    public void setTotal(Integer total) {
+        this.total = total;
     }
 }

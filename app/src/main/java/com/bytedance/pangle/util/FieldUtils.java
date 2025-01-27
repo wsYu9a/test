@@ -6,7 +6,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 @Keep
-/* loaded from: classes2.dex */
+/* loaded from: classes.dex */
 public class FieldUtils {
     private static Map<String, Field> sFieldCache = new HashMap();
 
@@ -41,13 +41,13 @@ public class FieldUtils {
     }
 
     private static String getKey(Class<?> cls, String str) {
-        StringBuilder sb2 = new StringBuilder();
-        sb2.append(cls.toString());
-        sb2.append("#");
-        sb2.append(str);
-        sb2.append("#");
-        sb2.append(cls.getClassLoader() != null ? Integer.valueOf(cls.getClassLoader().hashCode()) : "");
-        return sb2.toString();
+        StringBuilder sb = new StringBuilder();
+        sb.append(cls.toString());
+        sb.append("#");
+        sb.append(str);
+        sb.append("#");
+        sb.append(cls.getClassLoader() != null ? Integer.valueOf(cls.getClassLoader().hashCode()) : "");
+        return sb.toString();
     }
 
     public static Object readField(Field field, Object obj) {

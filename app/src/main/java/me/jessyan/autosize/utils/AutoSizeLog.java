@@ -2,7 +2,7 @@ package me.jessyan.autosize.utils;
 
 import android.util.Log;
 
-/* loaded from: classes4.dex */
+/* loaded from: classes5.dex */
 public class AutoSizeLog {
     private static final String TAG = "AndroidAutoSize";
     private static boolean debug;
@@ -27,8 +27,8 @@ public class AutoSizeLog {
         return debug;
     }
 
-    public static void setDebug(boolean z10) {
-        debug = z10;
+    public static void setDebug(boolean z) {
+        debug = z;
     }
 
     public static void w(String str) {

@@ -1,147 +1,131 @@
 package com.bytedance.hume.readapk.a;
 
+import com.kuaishou.weapon.p0.t;
 import java.io.DataInput;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.io.RandomAccessFile;
+import java.io.UnsupportedEncodingException;
 import java.nio.ByteBuffer;
 import java.nio.ByteOrder;
 
-/* loaded from: classes2.dex */
+/* loaded from: classes.dex */
 public class a {
 
     /* renamed from: a, reason: collision with root package name */
-    static final byte[] f7439a = {108, 116, 108, 111, 118, 101, 122, 104};
+    static final byte[] f5962a = {108, 116, 108, 111, 118, 101, 122, 104};
 
-    /* JADX WARN: Removed duplicated region for block: B:60:0x009f A[EXC_TOP_SPLITTER, SYNTHETIC] */
-    /* JADX WARN: Unsupported multi-entry loop pattern (BACK_EDGE: B:75:0x007e -> B:17:0x009c). Please report as a decompilation issue!!! */
-    /*
-        Code decompiled incorrectly, please refer to instructions dump.
-        To view partially-correct code enable 'Show inconsistent code' option in preferences
-    */
-    public static java.lang.String a(java.io.File r7) {
-        /*
-            r0 = 0
-            java.io.RandomAccessFile r1 = new java.io.RandomAccessFile     // Catch: java.lang.Throwable -> L66 java.lang.Exception -> L68 java.io.IOException -> L6b java.io.FileNotFoundException -> L6e java.io.UnsupportedEncodingException -> L71
-            java.lang.String r2 = "r"
-            r1.<init>(r7, r2)     // Catch: java.lang.Throwable -> L66 java.lang.Exception -> L68 java.io.IOException -> L6b java.io.FileNotFoundException -> L6e java.io.UnsupportedEncodingException -> L71
-            long r2 = r1.length()     // Catch: java.lang.Throwable -> L5b java.lang.Exception -> L5e java.io.IOException -> L60 java.io.FileNotFoundException -> L62 java.io.UnsupportedEncodingException -> L64
-            byte[] r7 = com.bytedance.hume.readapk.a.a.f7439a     // Catch: java.lang.Throwable -> L5b java.lang.Exception -> L5e java.io.IOException -> L60 java.io.FileNotFoundException -> L62 java.io.UnsupportedEncodingException -> L64
-            int r4 = r7.length     // Catch: java.lang.Throwable -> L5b java.lang.Exception -> L5e java.io.IOException -> L60 java.io.FileNotFoundException -> L62 java.io.UnsupportedEncodingException -> L64
-            byte[] r4 = new byte[r4]     // Catch: java.lang.Throwable -> L5b java.lang.Exception -> L5e java.io.IOException -> L60 java.io.FileNotFoundException -> L62 java.io.UnsupportedEncodingException -> L64
-            int r7 = r7.length     // Catch: java.lang.Throwable -> L5b java.lang.Exception -> L5e java.io.IOException -> L60 java.io.FileNotFoundException -> L62 java.io.UnsupportedEncodingException -> L64
-            long r5 = (long) r7     // Catch: java.lang.Throwable -> L5b java.lang.Exception -> L5e java.io.IOException -> L60 java.io.FileNotFoundException -> L62 java.io.UnsupportedEncodingException -> L64
-            long r2 = r2 - r5
-            r1.seek(r2)     // Catch: java.lang.Throwable -> L5b java.lang.Exception -> L5e java.io.IOException -> L60 java.io.FileNotFoundException -> L62 java.io.UnsupportedEncodingException -> L64
-            r1.readFully(r4)     // Catch: java.lang.Throwable -> L5b java.lang.Exception -> L5e java.io.IOException -> L60 java.io.FileNotFoundException -> L62 java.io.UnsupportedEncodingException -> L64
-            boolean r7 = a(r4)     // Catch: java.lang.Throwable -> L5b java.lang.Exception -> L5e java.io.IOException -> L60 java.io.FileNotFoundException -> L62 java.io.UnsupportedEncodingException -> L64
-            java.lang.String r4 = ""
-            if (r7 != 0) goto L2b
-            r1.close()     // Catch: java.io.IOException -> L26
-            goto L2a
-        L26:
-            r7 = move-exception
-            r7.printStackTrace()
-        L2a:
-            return r4
-        L2b:
-            r5 = 2
-            long r2 = r2 - r5
-            r1.seek(r2)     // Catch: java.lang.Throwable -> L5b java.lang.Exception -> L5e java.io.IOException -> L60 java.io.FileNotFoundException -> L62 java.io.UnsupportedEncodingException -> L64
-            short r7 = a(r1)     // Catch: java.lang.Throwable -> L5b java.lang.Exception -> L5e java.io.IOException -> L60 java.io.FileNotFoundException -> L62 java.io.UnsupportedEncodingException -> L64
-            if (r7 > 0) goto L40
-            r1.close()     // Catch: java.io.IOException -> L3b
-            goto L3f
-        L3b:
-            r7 = move-exception
-            r7.printStackTrace()
-        L3f:
-            return r4
-        L40:
-            long r4 = (long) r7
-            long r2 = r2 - r4
-            r1.seek(r2)     // Catch: java.lang.Throwable -> L5b java.lang.Exception -> L5e java.io.IOException -> L60 java.io.FileNotFoundException -> L62 java.io.UnsupportedEncodingException -> L64
-            byte[] r7 = new byte[r7]     // Catch: java.lang.Throwable -> L5b java.lang.Exception -> L5e java.io.IOException -> L60 java.io.FileNotFoundException -> L62 java.io.UnsupportedEncodingException -> L64
-            r1.readFully(r7)     // Catch: java.lang.Throwable -> L5b java.lang.Exception -> L5e java.io.IOException -> L60 java.io.FileNotFoundException -> L62 java.io.UnsupportedEncodingException -> L64
-            java.lang.String r2 = new java.lang.String     // Catch: java.lang.Throwable -> L5b java.lang.Exception -> L5e java.io.IOException -> L60 java.io.FileNotFoundException -> L62 java.io.UnsupportedEncodingException -> L64
-            java.lang.String r3 = "UTF-8"
-            r2.<init>(r7, r3)     // Catch: java.lang.Throwable -> L5b java.lang.Exception -> L5e java.io.IOException -> L60 java.io.FileNotFoundException -> L62 java.io.UnsupportedEncodingException -> L64
-            r1.close()     // Catch: java.io.IOException -> L55
-            goto L59
-        L55:
-            r7 = move-exception
-            r7.printStackTrace()
-        L59:
-            r0 = r2
-            goto L9c
-        L5b:
-            r7 = move-exception
-            r0 = r1
-            goto L9d
-        L5e:
-            r7 = move-exception
-            goto L74
-        L60:
-            r7 = move-exception
-            goto L82
-        L62:
-            r7 = move-exception
-            goto L8b
-        L64:
-            r7 = move-exception
-            goto L94
-        L66:
-            r7 = move-exception
-            goto L9d
-        L68:
-            r7 = move-exception
-            r1 = r0
-            goto L74
-        L6b:
-            r7 = move-exception
-            r1 = r0
-            goto L82
-        L6e:
-            r7 = move-exception
-            r1 = r0
-            goto L8b
-        L71:
-            r7 = move-exception
-            r1 = r0
-            goto L94
-        L74:
-            r7.printStackTrace()     // Catch: java.lang.Throwable -> L5b
-            if (r1 == 0) goto L9c
-            r1.close()     // Catch: java.io.IOException -> L7d
-            goto L9c
-        L7d:
-            r7 = move-exception
-            r7.printStackTrace()
-            goto L9c
-        L82:
-            r7.printStackTrace()     // Catch: java.lang.Throwable -> L5b
-            if (r1 == 0) goto L9c
-            r1.close()     // Catch: java.io.IOException -> L7d
-            goto L9c
-        L8b:
-            r7.printStackTrace()     // Catch: java.lang.Throwable -> L5b
-            if (r1 == 0) goto L9c
-            r1.close()     // Catch: java.io.IOException -> L7d
-            goto L9c
-        L94:
-            r7.printStackTrace()     // Catch: java.lang.Throwable -> L5b
-            if (r1 == 0) goto L9c
-            r1.close()     // Catch: java.io.IOException -> L7d
-        L9c:
-            return r0
-        L9d:
-            if (r0 == 0) goto La7
-            r0.close()     // Catch: java.io.IOException -> La3
-            goto La7
-        La3:
-            r0 = move-exception
-            r0.printStackTrace()
-        La7:
-            throw r7
-        */
-        throw new UnsupportedOperationException("Method not decompiled: com.bytedance.hume.readapk.a.a.a(java.io.File):java.lang.String");
+    public static String a(File file) {
+        RandomAccessFile randomAccessFile;
+        byte[] bArr;
+        long length;
+        RandomAccessFile randomAccessFile2 = null;
+        r0 = null;
+        r0 = null;
+        r0 = null;
+        r0 = null;
+        r0 = null;
+        String str = null;
+        try {
+            try {
+                try {
+                    randomAccessFile = new RandomAccessFile(file, t.k);
+                } catch (FileNotFoundException e2) {
+                    e = e2;
+                    randomAccessFile = null;
+                } catch (UnsupportedEncodingException e3) {
+                    e = e3;
+                    randomAccessFile = null;
+                } catch (IOException e4) {
+                    e = e4;
+                    randomAccessFile = null;
+                } catch (Exception e5) {
+                    e = e5;
+                    randomAccessFile = null;
+                } catch (Throwable th) {
+                    th = th;
+                    if (randomAccessFile2 != null) {
+                        try {
+                            randomAccessFile2.close();
+                        } catch (IOException e6) {
+                            e6.printStackTrace();
+                        }
+                    }
+                    throw th;
+                }
+                try {
+                    long length2 = randomAccessFile.length();
+                    bArr = new byte[f5962a.length];
+                    length = length2 - r7.length;
+                    randomAccessFile.seek(length);
+                    randomAccessFile.readFully(bArr);
+                } catch (FileNotFoundException e7) {
+                    e = e7;
+                    e.printStackTrace();
+                    if (randomAccessFile != null) {
+                        randomAccessFile.close();
+                    }
+                    return str;
+                } catch (UnsupportedEncodingException e8) {
+                    e = e8;
+                    e.printStackTrace();
+                    if (randomAccessFile != null) {
+                        randomAccessFile.close();
+                    }
+                    return str;
+                } catch (IOException e9) {
+                    e = e9;
+                    e.printStackTrace();
+                    if (randomAccessFile != null) {
+                        randomAccessFile.close();
+                    }
+                    return str;
+                } catch (Exception e10) {
+                    e = e10;
+                    e.printStackTrace();
+                    if (randomAccessFile != null) {
+                        randomAccessFile.close();
+                    }
+                    return str;
+                }
+            } catch (IOException e11) {
+                e11.printStackTrace();
+            }
+            if (!a(bArr)) {
+                try {
+                    randomAccessFile.close();
+                } catch (IOException e12) {
+                    e12.printStackTrace();
+                }
+                return "";
+            }
+            long j2 = length - 2;
+            randomAccessFile.seek(j2);
+            int a2 = a(randomAccessFile);
+            if (a2 <= 0) {
+                try {
+                    randomAccessFile.close();
+                } catch (IOException e13) {
+                    e13.printStackTrace();
+                }
+                return "";
+            }
+            randomAccessFile.seek(j2 - a2);
+            byte[] bArr2 = new byte[a2];
+            randomAccessFile.readFully(bArr2);
+            String str2 = new String(bArr2, "UTF-8");
+            try {
+                randomAccessFile.close();
+            } catch (IOException e14) {
+                e14.printStackTrace();
+            }
+            str = str2;
+            return str;
+        } catch (Throwable th2) {
+            th = th2;
+            randomAccessFile2 = randomAccessFile;
+        }
     }
 
     private static short a(DataInput dataInput) {
@@ -151,19 +135,19 @@ public class a {
     }
 
     private static boolean a(byte[] bArr) {
-        if (bArr.length != f7439a.length) {
+        if (bArr.length != f5962a.length) {
             return false;
         }
-        int i10 = 0;
+        int i2 = 0;
         while (true) {
-            byte[] bArr2 = f7439a;
-            if (i10 >= bArr2.length) {
+            byte[] bArr2 = f5962a;
+            if (i2 >= bArr2.length) {
                 return true;
             }
-            if (bArr[i10] != bArr2[i10]) {
+            if (bArr[i2] != bArr2[i2]) {
                 return false;
             }
-            i10++;
+            i2++;
         }
     }
 }

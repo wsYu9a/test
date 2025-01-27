@@ -13,6 +13,11 @@ public abstract class ShortcutInfoCompatSaver<T> {
     @RestrictTo({RestrictTo.Scope.LIBRARY})
     public static class NoopImpl extends ShortcutInfoCompatSaver<Void> {
         @Override // androidx.core.content.pm.ShortcutInfoCompatSaver
+        public /* bridge */ /* synthetic */ Void addShortcuts(List list) {
+            return addShortcuts2((List<ShortcutInfoCompat>) list);
+        }
+
+        @Override // androidx.core.content.pm.ShortcutInfoCompatSaver
         /* renamed from: addShortcuts */
         public Void addShortcuts2(List<ShortcutInfoCompat> list) {
             return null;
@@ -24,19 +29,14 @@ public abstract class ShortcutInfoCompatSaver<T> {
         }
 
         @Override // androidx.core.content.pm.ShortcutInfoCompatSaver
+        public /* bridge */ /* synthetic */ Void removeShortcuts(List list) {
+            return removeShortcuts2((List<String>) list);
+        }
+
+        @Override // androidx.core.content.pm.ShortcutInfoCompatSaver
         /* renamed from: removeShortcuts */
         public Void removeShortcuts2(List<String> list) {
             return null;
-        }
-
-        @Override // androidx.core.content.pm.ShortcutInfoCompatSaver
-        public /* bridge */ /* synthetic */ Void addShortcuts(List list) {
-            return addShortcuts2((List<ShortcutInfoCompat>) list);
-        }
-
-        @Override // androidx.core.content.pm.ShortcutInfoCompatSaver
-        public /* bridge */ /* synthetic */ Void removeShortcuts(List list) {
-            return removeShortcuts2((List<String>) list);
         }
     }
 

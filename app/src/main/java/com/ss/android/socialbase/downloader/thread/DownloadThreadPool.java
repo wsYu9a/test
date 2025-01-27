@@ -28,24 +28,24 @@ public class DownloadThreadPool {
     private void clearRunnableNotAlive() {
         try {
             ArrayList arrayList = new ArrayList();
-            for (int i10 = 0; i10 < this.downloadRunnablePool.size(); i10++) {
-                int keyAt = this.downloadRunnablePool.keyAt(i10);
+            for (int i2 = 0; i2 < this.downloadRunnablePool.size(); i2++) {
+                int keyAt = this.downloadRunnablePool.keyAt(i2);
                 if (!this.downloadRunnablePool.get(keyAt).isAlive()) {
                     arrayList.add(Integer.valueOf(keyAt));
                 }
             }
-            for (int i11 = 0; i11 < arrayList.size(); i11++) {
+            for (int i3 = 0; i3 < arrayList.size(); i3++) {
                 try {
-                    Integer num = (Integer) arrayList.get(i11);
+                    Integer num = (Integer) arrayList.get(i3);
                     if (num != null) {
                         this.downloadRunnablePool.remove(num.intValue());
                     }
-                } catch (Throwable th2) {
-                    th2.printStackTrace();
+                } catch (Throwable th) {
+                    th.printStackTrace();
                 }
             }
-        } catch (Throwable th3) {
-            th3.printStackTrace();
+        } catch (Throwable th2) {
+            th2.printStackTrace();
         }
     }
 
@@ -77,60 +77,50 @@ public class DownloadThreadPool {
                 return;
             }
             future.cancel(true);
-        } catch (Exception e10) {
-            e10.printStackTrace();
+        } catch (Exception e2) {
+            e2.printStackTrace();
         }
     }
 
-    public DownloadRunnable cancel(int i10) {
+    public DownloadRunnable cancel(int i2) {
         synchronized (DownloadThreadPool.class) {
-            try {
-                clearRunnableNotAlive();
-                DownloadRunnable downloadRunnable = this.downloadRunnablePool.get(i10);
-                if (downloadRunnable == null) {
-                    return null;
-                }
-                downloadRunnable.cancel();
-                removeFromThreadPool(downloadRunnable);
-                this.downloadRunnablePool.remove(i10);
-                return downloadRunnable;
-            } catch (Throwable th2) {
-                throw th2;
+            clearRunnableNotAlive();
+            DownloadRunnable downloadRunnable = this.downloadRunnablePool.get(i2);
+            if (downloadRunnable == null) {
+                return null;
             }
+            downloadRunnable.cancel();
+            removeFromThreadPool(downloadRunnable);
+            this.downloadRunnablePool.remove(i2);
+            return downloadRunnable;
         }
     }
 
-    public boolean containsTask(int i10) {
+    public boolean containsTask(int i2) {
         synchronized (DownloadThreadPool.class) {
-            try {
-                boolean z10 = false;
-                if (this.downloadRunnablePool != null && this.downloadRunnablePool.size() > 0) {
-                    DownloadRunnable downloadRunnable = this.downloadRunnablePool.get(i10);
-                    if (downloadRunnable != null && downloadRunnable.isAlive()) {
-                        z10 = true;
-                    }
-                    return z10;
+            boolean z = false;
+            if (this.downloadRunnablePool != null && this.downloadRunnablePool.size() > 0) {
+                DownloadRunnable downloadRunnable = this.downloadRunnablePool.get(i2);
+                if (downloadRunnable != null && downloadRunnable.isAlive()) {
+                    z = true;
                 }
-                return false;
-            } finally {
+                return z;
             }
+            return false;
         }
     }
 
     public void execute(DownloadRunnable downloadRunnable) {
         downloadRunnable.prepareDownload();
         synchronized (DownloadThreadPool.class) {
-            try {
-                int i10 = this.clearTimes;
-                if (i10 >= 500) {
-                    clearRunnableNotAlive();
-                    this.clearTimes = 0;
-                } else {
-                    this.clearTimes = i10 + 1;
-                }
-                this.downloadRunnablePool.put(downloadRunnable.getDownloadId(), downloadRunnable);
-            } finally {
+            int i2 = this.clearTimes;
+            if (i2 >= 500) {
+                clearRunnableNotAlive();
+                this.clearTimes = 0;
+            } else {
+                this.clearTimes = i2 + 1;
             }
+            this.downloadRunnablePool.put(downloadRunnable.getDownloadId(), downloadRunnable);
         }
         DownloadTask downloadTask = downloadRunnable.getDownloadTask();
         try {
@@ -153,50 +143,42 @@ public class DownloadThreadPool {
             } else {
                 mixDefaultThreadExecutor.execute(downloadRunnable);
             }
-        } catch (Exception e10) {
+        } catch (Exception e2) {
             if (downloadTask != null) {
-                DownloadMonitorHelper.monitorSendWithTaskMonitor(downloadTask.getMonitorDepend(), downloadTask.getDownloadInfo(), new BaseException(1003, DownloadUtils.getErrorMsgWithTagPrefix(e10, "DownloadThreadPoolExecute")), downloadTask.getDownloadInfo() != null ? downloadTask.getDownloadInfo().getStatus() : 0);
+                DownloadMonitorHelper.monitorSendWithTaskMonitor(downloadTask.getMonitorDepend(), downloadTask.getDownloadInfo(), new BaseException(1003, DownloadUtils.getErrorMsgWithTagPrefix(e2, "DownloadThreadPoolExecute")), downloadTask.getDownloadInfo() != null ? downloadTask.getDownloadInfo().getStatus() : 0);
             }
-            e10.printStackTrace();
-        } catch (OutOfMemoryError e11) {
+            e2.printStackTrace();
+        } catch (OutOfMemoryError e3) {
             if (downloadTask != null) {
                 DownloadMonitorHelper.monitorSendWithTaskMonitor(downloadTask.getMonitorDepend(), downloadTask.getDownloadInfo(), new BaseException(1003, "execute OOM"), downloadTask.getDownloadInfo() != null ? downloadTask.getDownloadInfo().getStatus() : 0);
             }
-            e11.printStackTrace();
+            e3.printStackTrace();
         }
     }
 
     public List<Integer> getAllAliveDownloadIds() {
         ArrayList arrayList;
         synchronized (DownloadThreadPool.class) {
-            try {
-                clearRunnableNotAlive();
-                arrayList = new ArrayList();
-                for (int i10 = 0; i10 < this.downloadRunnablePool.size(); i10++) {
-                    DownloadRunnable downloadRunnable = this.downloadRunnablePool.get(this.downloadRunnablePool.keyAt(i10));
-                    if (downloadRunnable != null) {
-                        arrayList.add(Integer.valueOf(downloadRunnable.getDownloadId()));
-                    }
+            clearRunnableNotAlive();
+            arrayList = new ArrayList();
+            for (int i2 = 0; i2 < this.downloadRunnablePool.size(); i2++) {
+                DownloadRunnable downloadRunnable = this.downloadRunnablePool.get(this.downloadRunnablePool.keyAt(i2));
+                if (downloadRunnable != null) {
+                    arrayList.add(Integer.valueOf(downloadRunnable.getDownloadId()));
                 }
-            } catch (Throwable th2) {
-                throw th2;
             }
         }
         return arrayList;
     }
 
-    public void pause(int i10) {
+    public void pause(int i2) {
         synchronized (DownloadThreadPool.class) {
-            try {
-                clearRunnableNotAlive();
-                DownloadRunnable downloadRunnable = this.downloadRunnablePool.get(i10);
-                if (downloadRunnable != null) {
-                    downloadRunnable.pause();
-                    removeFromThreadPool(downloadRunnable);
-                    this.downloadRunnablePool.remove(i10);
-                }
-            } catch (Throwable th2) {
-                throw th2;
+            clearRunnableNotAlive();
+            DownloadRunnable downloadRunnable = this.downloadRunnablePool.get(i2);
+            if (downloadRunnable != null) {
+                downloadRunnable.pause();
+                removeFromThreadPool(downloadRunnable);
+                this.downloadRunnablePool.remove(i2);
             }
         }
     }
@@ -220,10 +202,10 @@ public class DownloadThreadPool {
         }
     }
 
-    public void setThrottleNetSpeed(int i10, long j10) {
-        DownloadRunnable downloadRunnable = this.downloadRunnablePool.get(i10);
+    public void setThrottleNetSpeed(int i2, long j2) {
+        DownloadRunnable downloadRunnable = this.downloadRunnablePool.get(i2);
         if (downloadRunnable != null) {
-            downloadRunnable.setThrottleNetSpeed(j10);
+            downloadRunnable.setThrottleNetSpeed(j2);
         }
     }
 }

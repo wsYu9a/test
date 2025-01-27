@@ -3,152 +3,158 @@ package androidx.appcompat.widget;
 import android.content.res.ColorStateList;
 import android.graphics.PorterDuff;
 import android.graphics.drawable.Drawable;
+import android.os.Build;
 import android.widget.CompoundButton;
-import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.core.graphics.drawable.DrawableCompat;
 import androidx.core.widget.CompoundButtonCompat;
 
 /* loaded from: classes.dex */
 class AppCompatCompoundButtonHelper {
-    private ColorStateList mButtonTintList = null;
-    private PorterDuff.Mode mButtonTintMode = null;
-    private boolean mHasButtonTint = false;
-    private boolean mHasButtonTintMode = false;
-    private boolean mSkipNextApply;
 
-    @NonNull
-    private final CompoundButton mView;
+    /* renamed from: a */
+    private final CompoundButton f693a;
 
-    public AppCompatCompoundButtonHelper(@NonNull CompoundButton compoundButton) {
-        this.mView = compoundButton;
+    /* renamed from: b */
+    private ColorStateList f694b = null;
+
+    /* renamed from: c */
+    private PorterDuff.Mode f695c = null;
+
+    /* renamed from: d */
+    private boolean f696d = false;
+
+    /* renamed from: e */
+    private boolean f697e = false;
+
+    /* renamed from: f */
+    private boolean f698f;
+
+    interface DirectSetButtonDrawableInterface {
+        void setButtonDrawable(Drawable drawable);
     }
 
-    public void applyButtonTint() {
-        Drawable buttonDrawable = CompoundButtonCompat.getButtonDrawable(this.mView);
+    AppCompatCompoundButtonHelper(CompoundButton compoundButton) {
+        this.f693a = compoundButton;
+    }
+
+    void a() {
+        Drawable buttonDrawable = CompoundButtonCompat.getButtonDrawable(this.f693a);
         if (buttonDrawable != null) {
-            if (this.mHasButtonTint || this.mHasButtonTintMode) {
+            if (this.f696d || this.f697e) {
                 Drawable mutate = DrawableCompat.wrap(buttonDrawable).mutate();
-                if (this.mHasButtonTint) {
-                    DrawableCompat.setTintList(mutate, this.mButtonTintList);
+                if (this.f696d) {
+                    DrawableCompat.setTintList(mutate, this.f694b);
                 }
-                if (this.mHasButtonTintMode) {
-                    DrawableCompat.setTintMode(mutate, this.mButtonTintMode);
+                if (this.f697e) {
+                    DrawableCompat.setTintMode(mutate, this.f695c);
                 }
                 if (mutate.isStateful()) {
-                    mutate.setState(this.mView.getDrawableState());
+                    mutate.setState(this.f693a.getDrawableState());
                 }
-                this.mView.setButtonDrawable(mutate);
+                this.f693a.setButtonDrawable(mutate);
             }
         }
     }
 
-    public int getCompoundPaddingLeft(int i10) {
-        return i10;
+    int b(int i2) {
+        Drawable buttonDrawable;
+        return (Build.VERSION.SDK_INT >= 17 || (buttonDrawable = CompoundButtonCompat.getButtonDrawable(this.f693a)) == null) ? i2 : i2 + buttonDrawable.getIntrinsicWidth();
     }
 
-    public ColorStateList getSupportButtonTintList() {
-        return this.mButtonTintList;
+    ColorStateList c() {
+        return this.f694b;
     }
 
-    public PorterDuff.Mode getSupportButtonTintMode() {
-        return this.mButtonTintMode;
+    PorterDuff.Mode d() {
+        return this.f695c;
     }
 
-    /* JADX WARN: Removed duplicated region for block: B:11:0x0064 A[Catch: all -> 0x003d, TryCatch #1 {all -> 0x003d, blocks: (B:3:0x001f, B:5:0x0027, B:8:0x002f, B:9:0x005c, B:11:0x0064, B:12:0x006f, B:14:0x0077, B:21:0x003f, B:23:0x0047, B:25:0x004f), top: B:2:0x001f }] */
-    /* JADX WARN: Removed duplicated region for block: B:14:0x0077 A[Catch: all -> 0x003d, TRY_LEAVE, TryCatch #1 {all -> 0x003d, blocks: (B:3:0x001f, B:5:0x0027, B:8:0x002f, B:9:0x005c, B:11:0x0064, B:12:0x006f, B:14:0x0077, B:21:0x003f, B:23:0x0047, B:25:0x004f), top: B:2:0x001f }] */
+    /* JADX WARN: Removed duplicated region for block: B:11:0x002d A[Catch: all -> 0x0074, TRY_ENTER, TryCatch #1 {all -> 0x0074, blocks: (B:3:0x000d, B:5:0x0015, B:8:0x001b, B:11:0x002d, B:13:0x0035, B:15:0x003b, B:16:0x0048, B:18:0x0050, B:19:0x0059, B:21:0x0061), top: B:2:0x000d }] */
+    /* JADX WARN: Removed duplicated region for block: B:18:0x0050 A[Catch: all -> 0x0074, TryCatch #1 {all -> 0x0074, blocks: (B:3:0x000d, B:5:0x0015, B:8:0x001b, B:11:0x002d, B:13:0x0035, B:15:0x003b, B:16:0x0048, B:18:0x0050, B:19:0x0059, B:21:0x0061), top: B:2:0x000d }] */
+    /* JADX WARN: Removed duplicated region for block: B:21:0x0061 A[Catch: all -> 0x0074, TRY_LEAVE, TryCatch #1 {all -> 0x0074, blocks: (B:3:0x000d, B:5:0x0015, B:8:0x001b, B:11:0x002d, B:13:0x0035, B:15:0x003b, B:16:0x0048, B:18:0x0050, B:19:0x0059, B:21:0x0061), top: B:2:0x000d }] */
     /*
         Code decompiled incorrectly, please refer to instructions dump.
         To view partially-correct code enable 'Show inconsistent code' option in preferences
     */
-    public void loadFromAttributes(@androidx.annotation.Nullable android.util.AttributeSet r11, int r12) {
+    void e(android.util.AttributeSet r4, int r5) {
         /*
-            r10 = this;
-            android.widget.CompoundButton r0 = r10.mView
+            r3 = this;
+            android.widget.CompoundButton r0 = r3.f693a
             android.content.Context r0 = r0.getContext()
             int[] r1 = androidx.appcompat.R.styleable.CompoundButton
             r2 = 0
-            androidx.appcompat.widget.TintTypedArray r0 = androidx.appcompat.widget.TintTypedArray.obtainStyledAttributes(r0, r11, r1, r12, r2)
-            android.widget.CompoundButton r3 = r10.mView
-            android.content.Context r4 = r3.getContext()
-            int[] r5 = androidx.appcompat.R.styleable.CompoundButton
-            android.content.res.TypedArray r7 = r0.getWrappedTypeArray()
-            r9 = 0
-            r6 = r11
-            r8 = r12
-            androidx.core.view.ViewCompat.saveAttributeDataForStyleable(r3, r4, r5, r6, r7, r8, r9)
-            int r11 = androidx.appcompat.R.styleable.CompoundButton_buttonCompat     // Catch: java.lang.Throwable -> L3d
-            boolean r11 = r0.hasValue(r11)     // Catch: java.lang.Throwable -> L3d
-            if (r11 == 0) goto L3f
-            int r11 = androidx.appcompat.R.styleable.CompoundButton_buttonCompat     // Catch: java.lang.Throwable -> L3d
-            int r11 = r0.getResourceId(r11, r2)     // Catch: java.lang.Throwable -> L3d
-            if (r11 == 0) goto L3f
-            android.widget.CompoundButton r12 = r10.mView     // Catch: java.lang.Throwable -> L3d android.content.res.Resources.NotFoundException -> L3f
-            android.content.Context r1 = r12.getContext()     // Catch: java.lang.Throwable -> L3d android.content.res.Resources.NotFoundException -> L3f
-            android.graphics.drawable.Drawable r11 = androidx.appcompat.content.res.AppCompatResources.getDrawable(r1, r11)     // Catch: java.lang.Throwable -> L3d android.content.res.Resources.NotFoundException -> L3f
-            r12.setButtonDrawable(r11)     // Catch: java.lang.Throwable -> L3d android.content.res.Resources.NotFoundException -> L3f
-            goto L5c
-        L3d:
-            r11 = move-exception
-            goto L8c
-        L3f:
-            int r11 = androidx.appcompat.R.styleable.CompoundButton_android_button     // Catch: java.lang.Throwable -> L3d
-            boolean r11 = r0.hasValue(r11)     // Catch: java.lang.Throwable -> L3d
-            if (r11 == 0) goto L5c
-            int r11 = androidx.appcompat.R.styleable.CompoundButton_android_button     // Catch: java.lang.Throwable -> L3d
-            int r11 = r0.getResourceId(r11, r2)     // Catch: java.lang.Throwable -> L3d
-            if (r11 == 0) goto L5c
-            android.widget.CompoundButton r12 = r10.mView     // Catch: java.lang.Throwable -> L3d
-            android.content.Context r1 = r12.getContext()     // Catch: java.lang.Throwable -> L3d
-            android.graphics.drawable.Drawable r11 = androidx.appcompat.content.res.AppCompatResources.getDrawable(r1, r11)     // Catch: java.lang.Throwable -> L3d
-            r12.setButtonDrawable(r11)     // Catch: java.lang.Throwable -> L3d
-        L5c:
-            int r11 = androidx.appcompat.R.styleable.CompoundButton_buttonTint     // Catch: java.lang.Throwable -> L3d
-            boolean r11 = r0.hasValue(r11)     // Catch: java.lang.Throwable -> L3d
-            if (r11 == 0) goto L6f
-            android.widget.CompoundButton r11 = r10.mView     // Catch: java.lang.Throwable -> L3d
-            int r12 = androidx.appcompat.R.styleable.CompoundButton_buttonTint     // Catch: java.lang.Throwable -> L3d
-            android.content.res.ColorStateList r12 = r0.getColorStateList(r12)     // Catch: java.lang.Throwable -> L3d
-            androidx.core.widget.CompoundButtonCompat.setButtonTintList(r11, r12)     // Catch: java.lang.Throwable -> L3d
-        L6f:
-            int r11 = androidx.appcompat.R.styleable.CompoundButton_buttonTintMode     // Catch: java.lang.Throwable -> L3d
-            boolean r11 = r0.hasValue(r11)     // Catch: java.lang.Throwable -> L3d
-            if (r11 == 0) goto L88
-            android.widget.CompoundButton r11 = r10.mView     // Catch: java.lang.Throwable -> L3d
-            int r12 = androidx.appcompat.R.styleable.CompoundButton_buttonTintMode     // Catch: java.lang.Throwable -> L3d
+            android.content.res.TypedArray r4 = r0.obtainStyledAttributes(r4, r1, r5, r2)
+            int r5 = androidx.appcompat.R.styleable.CompoundButton_buttonCompat     // Catch: java.lang.Throwable -> L74
+            boolean r0 = r4.hasValue(r5)     // Catch: java.lang.Throwable -> L74
+            if (r0 == 0) goto L2a
+            int r5 = r4.getResourceId(r5, r2)     // Catch: java.lang.Throwable -> L74
+            if (r5 == 0) goto L2a
+            android.widget.CompoundButton r0 = r3.f693a     // Catch: android.content.res.Resources.NotFoundException -> L2a java.lang.Throwable -> L74
+            android.content.Context r1 = r0.getContext()     // Catch: android.content.res.Resources.NotFoundException -> L2a java.lang.Throwable -> L74
+            android.graphics.drawable.Drawable r5 = androidx.appcompat.content.res.AppCompatResources.getDrawable(r1, r5)     // Catch: android.content.res.Resources.NotFoundException -> L2a java.lang.Throwable -> L74
+            r0.setButtonDrawable(r5)     // Catch: android.content.res.Resources.NotFoundException -> L2a java.lang.Throwable -> L74
+            r5 = 1
+            goto L2b
+        L2a:
+            r5 = 0
+        L2b:
+            if (r5 != 0) goto L48
+            int r5 = androidx.appcompat.R.styleable.CompoundButton_android_button     // Catch: java.lang.Throwable -> L74
+            boolean r0 = r4.hasValue(r5)     // Catch: java.lang.Throwable -> L74
+            if (r0 == 0) goto L48
+            int r5 = r4.getResourceId(r5, r2)     // Catch: java.lang.Throwable -> L74
+            if (r5 == 0) goto L48
+            android.widget.CompoundButton r0 = r3.f693a     // Catch: java.lang.Throwable -> L74
+            android.content.Context r1 = r0.getContext()     // Catch: java.lang.Throwable -> L74
+            android.graphics.drawable.Drawable r5 = androidx.appcompat.content.res.AppCompatResources.getDrawable(r1, r5)     // Catch: java.lang.Throwable -> L74
+            r0.setButtonDrawable(r5)     // Catch: java.lang.Throwable -> L74
+        L48:
+            int r5 = androidx.appcompat.R.styleable.CompoundButton_buttonTint     // Catch: java.lang.Throwable -> L74
+            boolean r0 = r4.hasValue(r5)     // Catch: java.lang.Throwable -> L74
+            if (r0 == 0) goto L59
+            android.widget.CompoundButton r0 = r3.f693a     // Catch: java.lang.Throwable -> L74
+            android.content.res.ColorStateList r5 = r4.getColorStateList(r5)     // Catch: java.lang.Throwable -> L74
+            androidx.core.widget.CompoundButtonCompat.setButtonTintList(r0, r5)     // Catch: java.lang.Throwable -> L74
+        L59:
+            int r5 = androidx.appcompat.R.styleable.CompoundButton_buttonTintMode     // Catch: java.lang.Throwable -> L74
+            boolean r0 = r4.hasValue(r5)     // Catch: java.lang.Throwable -> L74
+            if (r0 == 0) goto L70
+            android.widget.CompoundButton r0 = r3.f693a     // Catch: java.lang.Throwable -> L74
             r1 = -1
-            int r12 = r0.getInt(r12, r1)     // Catch: java.lang.Throwable -> L3d
+            int r5 = r4.getInt(r5, r1)     // Catch: java.lang.Throwable -> L74
             r1 = 0
-            android.graphics.PorterDuff$Mode r12 = androidx.appcompat.widget.DrawableUtils.parseTintMode(r12, r1)     // Catch: java.lang.Throwable -> L3d
-            androidx.core.widget.CompoundButtonCompat.setButtonTintMode(r11, r12)     // Catch: java.lang.Throwable -> L3d
-        L88:
-            r0.recycle()
+            android.graphics.PorterDuff$Mode r5 = androidx.appcompat.widget.DrawableUtils.parseTintMode(r5, r1)     // Catch: java.lang.Throwable -> L74
+            androidx.core.widget.CompoundButtonCompat.setButtonTintMode(r0, r5)     // Catch: java.lang.Throwable -> L74
+        L70:
+            r4.recycle()
             return
-        L8c:
-            r0.recycle()
-            throw r11
+        L74:
+            r5 = move-exception
+            r4.recycle()
+            throw r5
         */
-        throw new UnsupportedOperationException("Method not decompiled: androidx.appcompat.widget.AppCompatCompoundButtonHelper.loadFromAttributes(android.util.AttributeSet, int):void");
+        throw new UnsupportedOperationException("Method not decompiled: androidx.appcompat.widget.AppCompatCompoundButtonHelper.e(android.util.AttributeSet, int):void");
     }
 
-    public void onSetButtonDrawable() {
-        if (this.mSkipNextApply) {
-            this.mSkipNextApply = false;
+    void f() {
+        if (this.f698f) {
+            this.f698f = false;
         } else {
-            this.mSkipNextApply = true;
-            applyButtonTint();
+            this.f698f = true;
+            a();
         }
     }
 
-    public void setSupportButtonTintList(ColorStateList colorStateList) {
-        this.mButtonTintList = colorStateList;
-        this.mHasButtonTint = true;
-        applyButtonTint();
+    void g(ColorStateList colorStateList) {
+        this.f694b = colorStateList;
+        this.f696d = true;
+        a();
     }
 
-    public void setSupportButtonTintMode(@Nullable PorterDuff.Mode mode) {
-        this.mButtonTintMode = mode;
-        this.mHasButtonTintMode = true;
-        applyButtonTint();
+    void h(@Nullable PorterDuff.Mode mode) {
+        this.f695c = mode;
+        this.f697e = true;
+        a();
     }
 }

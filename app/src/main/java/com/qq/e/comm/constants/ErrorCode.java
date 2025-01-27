@@ -1,6 +1,6 @@
 package com.qq.e.comm.constants;
 
-/* loaded from: classes3.dex */
+/* loaded from: classes4.dex */
 public interface ErrorCode {
     public static final int AD_APP_ID_BLOCKED = 5019;
     public static final int AD_DATA_EXPIRE = 5012;

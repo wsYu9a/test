@@ -1,49 +1,55 @@
 package com.kwad.sdk.core.imageloader;
 
-import com.kwad.sdk.commercial.b;
-import com.kwad.sdk.core.d.c;
-import com.kwad.sdk.utils.ad;
-import com.kwad.sdk.utils.bd;
-import com.kwad.sdk.utils.h;
+import com.kwad.sdk.core.d.b;
+import com.kwad.sdk.core.report.KSLoggerReporter;
+import com.kwad.sdk.utils.aw;
+import com.kwad.sdk.utils.g;
+import com.kwad.sdk.utils.y;
 
-/* loaded from: classes3.dex */
+/* loaded from: classes2.dex */
 public class ImageLoaderPerfUtil {
     private static final String TAG = "ImageLoaderPerfUtil";
 
     /* renamed from: com.kwad.sdk.core.imageloader.ImageLoaderPerfUtil$1 */
-    public class AnonymousClass1 extends bd {
-        @Override // com.kwad.sdk.utils.bd
-        public void doTask() {
+    static class AnonymousClass1 extends aw {
+        AnonymousClass1() {
+        }
+
+        @Override // com.kwad.sdk.utils.aw
+        public final void doTask() {
             ImageLoaderInfo info = ImageLoaderPerfUtil.getInfo();
             if (info.totalCount == 0) {
-                c.w(ImageLoaderPerfUtil.TAG, "info.totalCount == 0");
+                b.w(ImageLoaderPerfUtil.TAG, "info.totalCount == 0");
                 return;
             }
-            c.d(ImageLoaderPerfUtil.TAG, "ImageLoaderInfo:" + info.toJson().toString());
-            b.q(info);
+            b.d(ImageLoaderPerfUtil.TAG, "ImageLoaderInfo:" + info.toJson().toString());
+            KSLoggerReporter.y(info.toJson());
         }
     }
 
     public static ImageLoaderInfo getInfo() {
         ImageLoaderInfo imageLoaderInfo = new ImageLoaderInfo();
-        imageLoaderInfo.totalCount = ad.NH();
-        imageLoaderInfo.successCount = ad.NI();
-        imageLoaderInfo.failedCount = ad.NJ();
-        imageLoaderInfo.duration = ad.NG();
+        imageLoaderInfo.totalCount = y.DE();
+        imageLoaderInfo.successCount = y.DF();
+        imageLoaderInfo.failedCount = y.DG();
+        imageLoaderInfo.duration = y.DD();
         return imageLoaderInfo;
     }
 
     public static void report() {
-        h.execute(new bd() { // from class: com.kwad.sdk.core.imageloader.ImageLoaderPerfUtil.1
-            @Override // com.kwad.sdk.utils.bd
-            public void doTask() {
+        g.execute(new aw() { // from class: com.kwad.sdk.core.imageloader.ImageLoaderPerfUtil.1
+            AnonymousClass1() {
+            }
+
+            @Override // com.kwad.sdk.utils.aw
+            public final void doTask() {
                 ImageLoaderInfo info = ImageLoaderPerfUtil.getInfo();
                 if (info.totalCount == 0) {
-                    c.w(ImageLoaderPerfUtil.TAG, "info.totalCount == 0");
+                    b.w(ImageLoaderPerfUtil.TAG, "info.totalCount == 0");
                     return;
                 }
-                c.d(ImageLoaderPerfUtil.TAG, "ImageLoaderInfo:" + info.toJson().toString());
-                b.q(info);
+                b.d(ImageLoaderPerfUtil.TAG, "ImageLoaderInfo:" + info.toJson().toString());
+                KSLoggerReporter.y(info.toJson());
             }
         });
     }

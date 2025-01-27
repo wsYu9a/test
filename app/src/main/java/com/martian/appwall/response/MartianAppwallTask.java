@@ -2,7 +2,7 @@ package com.martian.appwall.response;
 
 import java.util.List;
 
-/* loaded from: classes3.dex */
+/* loaded from: classes2.dex */
 public class MartianAppwallTask {
     private MartianApp app;
     private String awid;
@@ -44,11 +44,11 @@ public class MartianAppwallTask {
     }
 
     public long getFirstSubTaskDeadline() {
-        Long l10 = this.firstSubTaskDeadline;
-        if (l10 == null) {
+        Long l = this.firstSubTaskDeadline;
+        if (l == null) {
             return 0L;
         }
-        return l10.longValue();
+        return l.longValue();
     }
 
     public boolean getIsWebPage() {
@@ -87,55 +87,55 @@ public class MartianAppwallTask {
         return this.webpageUrl;
     }
 
-    public void setApp(MartianApp martianApp) {
-        this.app = martianApp;
+    public void setApp(MartianApp app) {
+        this.app = app;
     }
 
-    public void setAwid(String str) {
-        this.awid = str;
+    public void setAwid(String awid) {
+        this.awid = awid;
     }
 
-    public void setCoins(Integer num) {
-        this.coins = num;
+    public void setCoins(Integer coins) {
+        this.coins = coins;
     }
 
-    public void setDesc(String str) {
-        this.desc = str;
+    public void setDesc(String desc) {
+        this.desc = desc;
     }
 
-    public void setDuration(Integer num) {
-        this.duration = num;
+    public void setDuration(Integer duration) {
+        this.duration = duration;
     }
 
-    public void setFirstSubTaskDeadline(Long l10) {
-        this.firstSubTaskDeadline = l10;
+    public void setFirstSubTaskDeadline(Long firstSubTaskDeadline) {
+        this.firstSubTaskDeadline = firstSubTaskDeadline;
     }
 
-    public void setIsWebPage(boolean z10) {
-        this.webpageAds = z10;
+    public void setIsWebPage(boolean webpageAds) {
+        this.webpageAds = webpageAds;
     }
 
-    public void setMoney(Integer num) {
-        this.money = num;
+    public void setMoney(Integer money) {
+        this.money = money;
     }
 
-    public void setStatus(String str) {
-        this.status = str;
+    public void setStatus(String status) {
+        this.status = status;
     }
 
-    public void setStindex(Integer num) {
-        this.stindex = num;
+    public void setStindex(Integer stindex) {
+        this.stindex = stindex;
     }
 
-    public void setSubtasks(List<MartianSubTask> list) {
-        this.subtasks = list;
+    public void setSubtasks(List<MartianSubTask> subtasks) {
+        this.subtasks = subtasks;
     }
 
-    public void setTitle(String str) {
-        this.title = str;
+    public void setTitle(String title) {
+        this.title = title;
     }
 
-    public void setWebpageUrl(String str) {
-        this.webpageUrl = str;
+    public void setWebpageUrl(String webpageUrl) {
+        this.webpageUrl = webpageUrl;
     }
 }

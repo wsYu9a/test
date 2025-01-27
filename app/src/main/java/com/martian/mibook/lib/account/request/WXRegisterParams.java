@@ -1,6 +1,6 @@
 package com.martian.mibook.lib.account.request;
 
-import v8.a;
+import com.martian.libcomm.http.requests.d.a;
 
 /* loaded from: classes3.dex */
 public class WXRegisterParams extends TYHttpGetParams {
@@ -18,7 +18,7 @@ public class WXRegisterParams extends TYHttpGetParams {
         return this.phone;
     }
 
-    @Override // u8.b
+    @Override // com.martian.libcomm.http.requests.b
     public String getRequestMethod() {
         return "wx_register.do";
     }
@@ -31,15 +31,15 @@ public class WXRegisterParams extends TYHttpGetParams {
         return this.wx_code;
     }
 
-    public void setPhone(String str) {
-        this.phone = str;
+    public void setPhone(String phone) {
+        this.phone = phone;
     }
 
-    public void setWx_appid(String str) {
-        this.wx_appid = str;
+    public void setWx_appid(String wx_appid) {
+        this.wx_appid = wx_appid;
     }
 
-    public void setWx_code(String str) {
-        this.wx_code = str;
+    public void setWx_code(String wx_code) {
+        this.wx_code = wx_code;
     }
 }

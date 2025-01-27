@@ -1,6 +1,6 @@
 package com.martian.mibook.lib.yuewen.response;
 
-/* loaded from: classes3.dex */
+/* loaded from: classes4.dex */
 public class TYTag {
     private Integer bookCount;
     private Integer categoryId;
@@ -27,23 +27,23 @@ public class TYTag {
         return this.tag;
     }
 
-    public TYTag setBookCount(Integer num) {
-        this.bookCount = num;
+    public TYTag setBookCount(Integer bookCount) {
+        this.bookCount = bookCount;
         return this;
     }
 
-    public TYTag setCategoryId(Integer num) {
-        this.categoryId = num;
+    public TYTag setCategoryId(Integer categoryId) {
+        this.categoryId = categoryId;
         return this;
     }
 
-    public TYTag setCategoryName(String str) {
-        this.categoryName = str;
+    public TYTag setCategoryName(String categoryName) {
+        this.categoryName = categoryName;
         return this;
     }
 
-    public TYTag setTag(String str) {
-        this.tag = str;
+    public TYTag setTag(String tag) {
+        this.tag = tag;
         return this;
     }
 }

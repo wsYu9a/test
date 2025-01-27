@@ -1,23 +1,20 @@
 package com.martian.mibook.data;
 
-import ba.l;
-import com.martian.mibook.application.MiConfigSingleton;
+import com.martian.libsupport.k;
 
 /* loaded from: classes3.dex */
 public class TypefaceItem {
     public static final int TYPEFACE_DEFAULT = 0;
     public static final int TYPEFACE_DOWNLOADED = 1;
-    public static final int TYPEFACE_DOWNLOADED_VIP = 4;
     public static final int TYPEFACE_IMPORT = 2;
     public static final int TYPEFACE_SCAN = 3;
     private String downloadPath;
     private String downloadUrl;
+    private int faceStatus = 0;
     private String filePath;
     private String fileSize;
     private int res;
     private int type;
-    private int faceStatus = 0;
-    private int unlockExpLevel = 50;
 
     public interface TYPE_FACE_STATUS {
         public static final int DOWNLOAD = 1;
@@ -27,11 +24,11 @@ public class TypefaceItem {
         public static final int WAIT_DOWNLOAD = 4;
     }
 
-    public static boolean isDefaultTypeface(String str) {
-        if (l.q(str)) {
+    public static boolean isDefaultTypeface(String filePath) {
+        if (k.p(filePath)) {
             return false;
         }
-        return str.contains("SourceHanSerifCN-Regular") || str.contains("GenJyuuGothic-Regular-2") || str.contains("SIMKAI(1)");
+        return filePath.contains("SourceHanSerifCN-Regular") || filePath.contains("GenJyuuGothic-Regular-2") || filePath.contains("SIMKAI(1)");
     }
 
     public String getDownloadPath() {
@@ -62,43 +59,31 @@ public class TypefaceItem {
         return this.type;
     }
 
-    public int getUnlockExpLevel() {
-        return this.unlockExpLevel;
+    public void setDownloadPath(String downloadPath) {
+        this.downloadPath = downloadPath;
     }
 
-    public boolean isVipTypeface() {
-        return this.type == 4 && MiConfigSingleton.b2().W1() < getUnlockExpLevel();
+    public void setDownloadUrl(String downloadUrl) {
+        this.downloadUrl = downloadUrl;
     }
 
-    public void setDownloadPath(String str) {
-        this.downloadPath = str;
+    public void setFaceStatus(int faceStatus) {
+        this.faceStatus = faceStatus;
     }
 
-    public void setDownloadUrl(String str) {
-        this.downloadUrl = str;
+    public void setFilePath(String filePath) {
+        this.filePath = filePath;
     }
 
-    public void setFaceStatus(int i10) {
-        this.faceStatus = i10;
+    public void setFileSize(String fileSize) {
+        this.fileSize = fileSize;
     }
 
-    public void setFilePath(String str) {
-        this.filePath = str;
+    public void setRes(int res) {
+        this.res = res;
     }
 
-    public void setFileSize(String str) {
-        this.fileSize = str;
-    }
-
-    public void setRes(int i10) {
-        this.res = i10;
-    }
-
-    public void setType(int i10) {
-        this.type = i10;
-    }
-
-    public void setUnlockExpLevel(int i10) {
-        this.unlockExpLevel = i10;
+    public void setType(int type) {
+        this.type = type;
     }
 }

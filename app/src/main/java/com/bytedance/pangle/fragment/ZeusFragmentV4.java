@@ -11,7 +11,7 @@ import com.bytedance.pangle.util.MethodUtils;
 import java.lang.reflect.InvocationTargetException;
 
 @Keep
-/* loaded from: classes2.dex */
+/* loaded from: classes.dex */
 public class ZeusFragmentV4 extends Fragment {
     Application.ActivityLifecycleCallbacks callbacks = new b(this);
 
@@ -24,14 +24,14 @@ public class ZeusFragmentV4 extends Fragment {
     public Context getContext() {
         try {
             return ZeusTransformUtils.wrapperContext(super.getContext(), (String) MethodUtils.invokeStaticMethod(getClass(), "_GET_PLUGIN_PKG", new Object[0]));
-        } catch (IllegalAccessException e10) {
-            e10.printStackTrace();
+        } catch (IllegalAccessException e2) {
+            e2.printStackTrace();
             return super.getContext();
-        } catch (NoSuchMethodException e11) {
-            e11.printStackTrace();
+        } catch (NoSuchMethodException e3) {
+            e3.printStackTrace();
             return super.getContext();
-        } catch (InvocationTargetException e12) {
-            e12.printStackTrace();
+        } catch (InvocationTargetException e4) {
+            e4.printStackTrace();
             return super.getContext();
         }
     }

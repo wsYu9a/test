@@ -4,26 +4,26 @@ package com.vivo.push;
 final class i implements IPushActionListener {
 
     /* renamed from: a */
-    final /* synthetic */ e f25058a;
+    final /* synthetic */ e f31022a;
 
-    public i(e eVar) {
-        this.f25058a = eVar;
+    i(e eVar) {
+        this.f31022a = eVar;
     }
 
     @Override // com.vivo.push.IPushActionListener
-    public final void onStateChanged(int i10) {
+    public final void onStateChanged(int i2) {
         com.vivo.push.util.b bVar;
         com.vivo.push.util.b bVar2;
-        if (i10 != 0) {
-            this.f25058a.f25034k = null;
-            bVar = this.f25058a.f25033j;
+        if (i2 != 0) {
+            this.f31022a.k = null;
+            bVar = this.f31022a.f31006j;
             bVar.b("APP_TOKEN");
         } else {
-            this.f25058a.f25034k = "";
-            bVar2 = this.f25058a.f25033j;
+            this.f31022a.k = "";
+            bVar2 = this.f31022a.f31006j;
             bVar2.a("APP_TOKEN", "");
-            this.f25058a.m();
-            this.f25058a.f25033j.b("APP_TAGS");
+            this.f31022a.m();
+            this.f31022a.f31006j.b("APP_TAGS");
         }
     }
 }

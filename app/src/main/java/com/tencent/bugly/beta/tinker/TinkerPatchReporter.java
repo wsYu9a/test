@@ -18,23 +18,23 @@ public class TinkerPatchReporter extends DefaultPatchReporter {
         this.userPatchReporter = TinkerManager.userPatchReporter;
     }
 
-    public void onPatchDexOptFail(File file, List<File> list, Throwable th2) {
-        super.onPatchDexOptFail(file, list, th2);
+    public void onPatchDexOptFail(File file, List<File> list, Throwable th) {
+        super.onPatchDexOptFail(file, list, th);
         PatchReporter patchReporter = this.userPatchReporter;
         if (patchReporter != null) {
-            patchReporter.onPatchDexOptFail(file, list, th2);
+            patchReporter.onPatchDexOptFail(file, list, th);
         } else {
-            TinkerReport.onApplyDexOptFail(th2);
+            TinkerReport.onApplyDexOptFail(th);
         }
     }
 
-    public void onPatchException(File file, Throwable th2) {
-        super.onPatchException(file, th2);
+    public void onPatchException(File file, Throwable th) {
+        super.onPatchException(file, th);
         PatchReporter patchReporter = this.userPatchReporter;
         if (patchReporter != null) {
-            patchReporter.onPatchException(file, th2);
+            patchReporter.onPatchException(file, th);
         } else {
-            TinkerReport.onApplyCrash(th2);
+            TinkerReport.onApplyCrash(th);
         }
     }
 
@@ -48,23 +48,23 @@ public class TinkerPatchReporter extends DefaultPatchReporter {
         }
     }
 
-    public void onPatchPackageCheckFail(File file, int i10) {
-        super.onPatchPackageCheckFail(file, i10);
+    public void onPatchPackageCheckFail(File file, int i2) {
+        super.onPatchPackageCheckFail(file, i2);
         PatchReporter patchReporter = this.userPatchReporter;
         if (patchReporter != null) {
-            patchReporter.onPatchPackageCheckFail(file, i10);
+            patchReporter.onPatchPackageCheckFail(file, i2);
         } else {
-            TinkerReport.onApplyPackageCheckFail(i10);
+            TinkerReport.onApplyPackageCheckFail(i2);
         }
     }
 
-    public void onPatchResult(File file, boolean z10, long j10) {
-        super.onPatchResult(file, z10, j10);
+    public void onPatchResult(File file, boolean z, long j2) {
+        super.onPatchResult(file, z, j2);
         PatchReporter patchReporter = this.userPatchReporter;
         if (patchReporter != null) {
-            patchReporter.onPatchResult(file, z10, j10);
+            patchReporter.onPatchResult(file, z, j2);
         } else {
-            TinkerReport.onApplied(j10, z10);
+            TinkerReport.onApplied(j2, z);
             UpgradePatchRetry.getInstance(((DefaultPatchReporter) this).context).onPatchServiceResult();
         }
     }
@@ -80,13 +80,13 @@ public class TinkerPatchReporter extends DefaultPatchReporter {
         }
     }
 
-    public void onPatchTypeExtractFail(File file, File file2, String str, int i10) {
-        super.onPatchTypeExtractFail(file, file2, str, i10);
+    public void onPatchTypeExtractFail(File file, File file2, String str, int i2) {
+        super.onPatchTypeExtractFail(file, file2, str, i2);
         PatchReporter patchReporter = this.userPatchReporter;
         if (patchReporter != null) {
-            patchReporter.onPatchTypeExtractFail(file, file2, str, i10);
+            patchReporter.onPatchTypeExtractFail(file, file2, str, i2);
         } else {
-            TinkerReport.onApplyExtractFail(i10);
+            TinkerReport.onApplyExtractFail(i2);
         }
     }
 

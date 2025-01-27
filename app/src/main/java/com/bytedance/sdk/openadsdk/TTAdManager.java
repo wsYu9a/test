@@ -5,18 +5,13 @@ import android.content.Context;
 import android.os.Bundle;
 import com.bytedance.sdk.openadsdk.downloadnew.core.ExitInstallListener;
 
-/* loaded from: classes2.dex */
+/* loaded from: classes.dex */
 public interface TTAdManager {
-
-    public interface OnExitInstallListener {
-        void onExitInstall();
-    }
-
     TTAdNative createAdNative(Context context);
 
     String getBiddingToken(AdSlot adSlot);
 
-    String getBiddingToken(AdSlot adSlot, boolean z10, int i10);
+    String getBiddingToken(AdSlot adSlot, boolean z, int i2);
 
     <T> T getExtra(Class<T> cls, Bundle bundle);
 
@@ -30,7 +25,7 @@ public interface TTAdManager {
 
     void requestPermissionIfNecessary(Context context);
 
-    void setThemeStatus(int i10);
+    void setThemeStatus(int i2);
 
     boolean tryShowInstallDialogWhenExit(Activity activity, ExitInstallListener exitInstallListener);
 

@@ -40,43 +40,43 @@ public class QzoneShare extends BaseApi {
     public static final int SHARE_TO_QZONE_TYPE_NO_TYPE = 0;
 
     /* renamed from: c */
-    private boolean f23034c;
+    private boolean f25310c;
 
     /* renamed from: d */
-    private boolean f23035d;
+    private boolean f25311d;
 
     /* renamed from: e */
-    private boolean f23036e;
+    private boolean f25312e;
 
     /* renamed from: f */
-    private boolean f23037f;
+    private boolean f25313f;
     public String mViaShareQzoneType;
 
     /* renamed from: com.tencent.connect.share.QzoneShare$1 */
-    public class AnonymousClass1 implements c {
+    class AnonymousClass1 implements c {
 
         /* renamed from: a */
-        final /* synthetic */ Bundle f23038a;
+        final /* synthetic */ Bundle f25314a;
 
         /* renamed from: b */
-        final /* synthetic */ Activity f23039b;
+        final /* synthetic */ Activity f25315b;
 
         /* renamed from: c */
-        final /* synthetic */ IUiListener f23040c;
+        final /* synthetic */ IUiListener f25316c;
 
-        public AnonymousClass1(Bundle bundle, Activity activity, IUiListener iUiListener) {
+        AnonymousClass1(Bundle bundle, Activity activity, IUiListener iUiListener) {
             r2 = bundle;
             r3 = activity;
             r4 = iUiListener;
         }
 
         @Override // com.tencent.open.utils.c
-        public void a(int i10, String str) {
+        public void a(int i2, String str) {
         }
 
         @Override // com.tencent.open.utils.c
-        public void a(int i10, ArrayList<String> arrayList) {
-            if (i10 == 0) {
+        public void a(int i2, ArrayList<String> arrayList) {
+            if (i2 == 0) {
                 r2.putStringArrayList("imageUrl", arrayList);
             }
             QzoneShare.this.b(r3, r2, r4);
@@ -86,10 +86,10 @@ public class QzoneShare extends BaseApi {
     public QzoneShare(Context context, QQToken qQToken) {
         super(qQToken);
         this.mViaShareQzoneType = "";
-        this.f23034c = true;
-        this.f23035d = false;
-        this.f23036e = false;
-        this.f23037f = false;
+        this.f25310c = true;
+        this.f25311d = false;
+        this.f25312e = false;
+        this.f25313f = false;
     }
 
     public void b(Activity activity, Bundle bundle, IUiListener iUiListener) {
@@ -100,24 +100,24 @@ public class QzoneShare extends BaseApi {
         String string2 = bundle.getString("summary");
         String string3 = bundle.getString("targetUrl");
         String string4 = bundle.getString("audio_url");
-        int i10 = bundle.getInt("req_type", 1);
+        int i2 = bundle.getInt("req_type", 1);
         String string5 = bundle.getString("appName");
-        int i11 = bundle.getInt("cflag", 0);
+        int i3 = bundle.getInt("cflag", 0);
         String string6 = bundle.getString("share_qq_ext_str");
-        String appId = this.f23006b.getAppId();
-        String openId = this.f23006b.getOpenId();
+        String appId = this.f25282b.getAppId();
+        String openId = this.f25282b.getOpenId();
         f.a("openSDK_LOG.QzoneShare", "openId:" + openId);
         if (stringArrayList != null) {
             StringBuffer stringBuffer2 = new StringBuffer();
             int size = stringArrayList.size() <= 9 ? stringArrayList.size() : 9;
-            int i12 = 0;
-            while (i12 < size) {
+            int i4 = 0;
+            while (i4 < size) {
                 ArrayList<String> arrayList = stringArrayList;
-                stringBuffer2.append(URLEncoder.encode(stringArrayList.get(i12)));
-                if (i12 != size - 1) {
+                stringBuffer2.append(URLEncoder.encode(stringArrayList.get(i4)));
+                if (i4 != size - 1) {
                     stringBuffer2.append(";");
                 }
-                i12++;
+                i4++;
                 stringArrayList = arrayList;
             }
             stringBuffer.append("&image_url=" + Base64.encodeToString(i.i(stringBuffer2.toString()), 2));
@@ -143,13 +143,13 @@ public class QzoneShare extends BaseApi {
         if (!i.e(string4)) {
             stringBuffer.append("&audioUrl=" + Base64.encodeToString(i.i(string4), 2));
         }
-        stringBuffer.append("&req_type=" + Base64.encodeToString(i.i(String.valueOf(i10)), 2));
+        stringBuffer.append("&req_type=" + Base64.encodeToString(i.i(String.valueOf(i2)), 2));
         if (!i.e(string6)) {
             stringBuffer.append("&share_qq_ext_str=" + Base64.encodeToString(i.i(string6), 2));
         }
-        stringBuffer.append("&cflag=" + Base64.encodeToString(i.i(String.valueOf(i11)), 2));
+        stringBuffer.append("&cflag=" + Base64.encodeToString(i.i(String.valueOf(i3)), 2));
         f.a("openSDK_LOG.QzoneShare", "doshareToQzone, url: " + stringBuffer.toString());
-        com.tencent.connect.a.a.a(d.a(), this.f23006b, "requireApi", "shareToNativeQQ");
+        com.tencent.connect.a.a.a(d.a(), this.f25282b, "requireApi", "shareToNativeQQ");
         Intent intent = new Intent("android.intent.action.VIEW");
         intent.setData(Uri.parse(stringBuffer.toString()));
         intent.putExtra(MonitorConstants.PKG_NAME, activity.getPackageName());
@@ -169,11 +169,11 @@ public class QzoneShare extends BaseApi {
             }
         }
         if (a(intent)) {
-            com.tencent.open.b.d.a().a(this.f23006b.getOpenId(), this.f23006b.getAppId(), Constants.VIA_SHARE_TO_QZONE, Constants.VIA_REPORT_TYPE_SHARE_TO_QZONE, "3", "0", this.mViaShareQzoneType, "0", "1", "0");
-            com.tencent.open.b.d.a().a(0, "SHARE_CHECK_SDK", "1000", this.f23006b.getAppId(), String.valueOf(4), Long.valueOf(SystemClock.elapsedRealtime()), 0, 1, "");
+            com.tencent.open.b.d.a().a(this.f25282b.getOpenId(), this.f25282b.getAppId(), Constants.VIA_SHARE_TO_QZONE, "11", "3", "0", this.mViaShareQzoneType, "0", "1", "0");
+            com.tencent.open.b.d.a().a(0, "SHARE_CHECK_SDK", Constants.DEFAULT_UIN, this.f25282b.getAppId(), String.valueOf(4), Long.valueOf(SystemClock.elapsedRealtime()), 0, 1, "");
         } else {
-            com.tencent.open.b.d.a().a(this.f23006b.getOpenId(), this.f23006b.getAppId(), Constants.VIA_SHARE_TO_QZONE, Constants.VIA_REPORT_TYPE_SHARE_TO_QZONE, "3", "1", this.mViaShareQzoneType, "0", "1", "0");
-            com.tencent.open.b.d.a().a(1, "SHARE_CHECK_SDK", "1000", this.f23006b.getAppId(), String.valueOf(4), Long.valueOf(SystemClock.elapsedRealtime()), 0, 1, "hasActivityForIntent fail");
+            com.tencent.open.b.d.a().a(this.f25282b.getOpenId(), this.f25282b.getAppId(), Constants.VIA_SHARE_TO_QZONE, "11", "3", "1", this.mViaShareQzoneType, "0", "1", "0");
+            com.tencent.open.b.d.a().a(1, "SHARE_CHECK_SDK", Constants.DEFAULT_UIN, this.f25282b.getAppId(), String.valueOf(4), Long.valueOf(SystemClock.elapsedRealtime()), 0, 1, "hasActivityForIntent fail");
         }
         f.c("openSDK_LOG", "doShareToQzone() --end");
     }
@@ -182,20 +182,26 @@ public class QzoneShare extends BaseApi {
     public void releaseResource() {
     }
 
-    /* JADX WARN: Removed duplicated region for block: B:101:0x035e  */
-    /* JADX WARN: Removed duplicated region for block: B:103:0x0274  */
-    /* JADX WARN: Removed duplicated region for block: B:39:0x01ed  */
-    /* JADX WARN: Removed duplicated region for block: B:49:0x026d  */
-    /* JADX WARN: Removed duplicated region for block: B:52:0x02e9  */
-    /* JADX WARN: Removed duplicated region for block: B:76:0x039e  */
-    /* JADX WARN: Removed duplicated region for block: B:79:0x03ad  */
+    /* JADX WARN: Removed duplicated region for block: B:101:0x0355  */
+    /* JADX WARN: Removed duplicated region for block: B:103:0x026b  */
+    /* JADX WARN: Removed duplicated region for block: B:129:0x018d  */
+    /* JADX WARN: Removed duplicated region for block: B:12:0x00a1  */
+    /* JADX WARN: Removed duplicated region for block: B:132:0x00b3  */
+    /* JADX WARN: Removed duplicated region for block: B:17:0x00b7  */
+    /* JADX WARN: Removed duplicated region for block: B:33:0x01a0  */
+    /* JADX WARN: Removed duplicated region for block: B:39:0x01e2  */
+    /* JADX WARN: Removed duplicated region for block: B:49:0x0264  */
+    /* JADX WARN: Removed duplicated region for block: B:52:0x02e0  */
+    /* JADX WARN: Removed duplicated region for block: B:54:0x02e7  */
+    /* JADX WARN: Removed duplicated region for block: B:76:0x0395  */
+    /* JADX WARN: Removed duplicated region for block: B:79:0x03a4  */
     /*
         Code decompiled incorrectly, please refer to instructions dump.
         To view partially-correct code enable 'Show inconsistent code' option in preferences
     */
     public void shareToQzone(android.app.Activity r29, android.os.Bundle r30, com.tencent.tauth.IUiListener r31) {
         /*
-            Method dump skipped, instructions count: 1099
+            Method dump skipped, instructions count: 1090
             To view this dump change 'Code comments level' option to 'DEBUG'
         */
         throw new UnsupportedOperationException("Method not decompiled: com.tencent.connect.share.QzoneShare.shareToQzone(android.app.Activity, android.os.Bundle, com.tencent.tauth.IUiListener):void");

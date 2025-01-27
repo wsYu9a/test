@@ -31,9 +31,9 @@ public class WXMusicVideoObject implements WXMediaMessage.IMediaObject {
     @Override // com.tencent.mm.opensdk.modelmsg.WXMediaMessage.IMediaObject
     public boolean checkArgs() {
         String str;
-        if (b.b(this.musicUrl) || this.musicUrl.length() > 10240) {
+        if (b.b(this.musicUrl) || this.musicUrl.length() > URL_LENGTH_LIMIT) {
             str = "musicUrl.length exceeds the limit";
-        } else if (b.b(this.musicDataUrl) || this.musicDataUrl.length() > 10240) {
+        } else if (b.b(this.musicDataUrl) || this.musicDataUrl.length() > URL_LENGTH_LIMIT) {
             str = "musicDataUrl.length exceeds the limit";
         } else if (b.b(this.singerName) || this.singerName.length() > 1024) {
             str = "singerName.length exceeds the limit";
@@ -48,7 +48,7 @@ public class WXMusicVideoObject implements WXMediaMessage.IMediaObject {
         } else if (!b.b(this.identification) && this.identification.length() > 1024) {
             str = "identification.length exceeds the limit";
         } else {
-            if (b.b(this.musicOperationUrl) || this.musicOperationUrl.length() <= 10240) {
+            if (b.b(this.musicOperationUrl) || this.musicOperationUrl.length() <= URL_LENGTH_LIMIT) {
                 return true;
             }
             str = "musicOperationUrl.length exceeds the limit";

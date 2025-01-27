@@ -25,7 +25,7 @@ import com.bumptech.glide.util.pool.FactoryPools;
 import java.util.Map;
 import java.util.concurrent.Executor;
 
-/* loaded from: classes2.dex */
+/* loaded from: classes.dex */
 public class Engine implements EngineJobListener, MemoryCache.ResourceRemovedListener, EngineResource.ResourceListener {
     private static final int JOB_POOL_SIZE = 150;
     private static final String TAG = "Engine";
@@ -40,11 +40,11 @@ public class Engine implements EngineJobListener, MemoryCache.ResourceRemovedLis
     private final ResourceRecycler resourceRecycler;
 
     @VisibleForTesting
-    public static class DecodeJobFactory {
+    static class DecodeJobFactory {
         private int creationOrder;
         final DecodeJob.DiskCacheProvider diskCacheProvider;
         final Pools.Pool<DecodeJob<?>> pool = FactoryPools.threadSafe(150, new FactoryPools.Factory<DecodeJob<?>>() { // from class: com.bumptech.glide.load.engine.Engine.DecodeJobFactory.1
-            public AnonymousClass1() {
+            AnonymousClass1() {
             }
 
             @Override // com.bumptech.glide.util.pool.FactoryPools.Factory
@@ -55,8 +55,8 @@ public class Engine implements EngineJobListener, MemoryCache.ResourceRemovedLis
         });
 
         /* renamed from: com.bumptech.glide.load.engine.Engine$DecodeJobFactory$1 */
-        public class AnonymousClass1 implements FactoryPools.Factory<DecodeJob<?>> {
-            public AnonymousClass1() {
+        class AnonymousClass1 implements FactoryPools.Factory<DecodeJob<?>> {
+            AnonymousClass1() {
             }
 
             @Override // com.bumptech.glide.util.pool.FactoryPools.Factory
@@ -66,25 +66,25 @@ public class Engine implements EngineJobListener, MemoryCache.ResourceRemovedLis
             }
         }
 
-        public DecodeJobFactory(DecodeJob.DiskCacheProvider diskCacheProvider) {
+        DecodeJobFactory(DecodeJob.DiskCacheProvider diskCacheProvider) {
             this.diskCacheProvider = diskCacheProvider;
         }
 
-        public <R> DecodeJob<R> build(GlideContext glideContext, Object obj, EngineKey engineKey, Key key, int i10, int i11, Class<?> cls, Class<R> cls2, Priority priority, DiskCacheStrategy diskCacheStrategy, Map<Class<?>, Transformation<?>> map, boolean z10, boolean z11, boolean z12, Options options, DecodeJob.Callback<R> callback) {
+        <R> DecodeJob<R> build(GlideContext glideContext, Object obj, EngineKey engineKey, Key key, int i2, int i3, Class<?> cls, Class<R> cls2, Priority priority, DiskCacheStrategy diskCacheStrategy, Map<Class<?>, Transformation<?>> map, boolean z, boolean z2, boolean z3, Options options, DecodeJob.Callback<R> callback) {
             DecodeJob decodeJob = (DecodeJob) Preconditions.checkNotNull(this.pool.acquire());
-            int i12 = this.creationOrder;
-            this.creationOrder = i12 + 1;
-            return decodeJob.init(glideContext, obj, engineKey, key, i10, i11, cls, cls2, priority, diskCacheStrategy, map, z10, z11, z12, options, callback, i12);
+            int i4 = this.creationOrder;
+            this.creationOrder = i4 + 1;
+            return decodeJob.init(glideContext, obj, engineKey, key, i2, i3, cls, cls2, priority, diskCacheStrategy, map, z, z2, z3, options, callback, i4);
         }
     }
 
     @VisibleForTesting
-    public static class EngineJobFactory {
+    static class EngineJobFactory {
         final GlideExecutor animationExecutor;
         final GlideExecutor diskCacheExecutor;
         final EngineJobListener engineJobListener;
         final Pools.Pool<EngineJob<?>> pool = FactoryPools.threadSafe(150, new FactoryPools.Factory<EngineJob<?>>() { // from class: com.bumptech.glide.load.engine.Engine.EngineJobFactory.1
-            public AnonymousClass1() {
+            AnonymousClass1() {
             }
 
             @Override // com.bumptech.glide.util.pool.FactoryPools.Factory
@@ -98,8 +98,8 @@ public class Engine implements EngineJobListener, MemoryCache.ResourceRemovedLis
         final GlideExecutor sourceUnlimitedExecutor;
 
         /* renamed from: com.bumptech.glide.load.engine.Engine$EngineJobFactory$1 */
-        public class AnonymousClass1 implements FactoryPools.Factory<EngineJob<?>> {
-            public AnonymousClass1() {
+        class AnonymousClass1 implements FactoryPools.Factory<EngineJob<?>> {
+            AnonymousClass1() {
             }
 
             @Override // com.bumptech.glide.util.pool.FactoryPools.Factory
@@ -109,7 +109,7 @@ public class Engine implements EngineJobListener, MemoryCache.ResourceRemovedLis
             }
         }
 
-        public EngineJobFactory(GlideExecutor glideExecutor, GlideExecutor glideExecutor2, GlideExecutor glideExecutor3, GlideExecutor glideExecutor4, EngineJobListener engineJobListener, EngineResource.ResourceListener resourceListener) {
+        EngineJobFactory(GlideExecutor glideExecutor, GlideExecutor glideExecutor2, GlideExecutor glideExecutor3, GlideExecutor glideExecutor4, EngineJobListener engineJobListener, EngineResource.ResourceListener resourceListener) {
             this.diskCacheExecutor = glideExecutor;
             this.sourceExecutor = glideExecutor2;
             this.sourceUnlimitedExecutor = glideExecutor3;
@@ -118,12 +118,12 @@ public class Engine implements EngineJobListener, MemoryCache.ResourceRemovedLis
             this.resourceListener = resourceListener;
         }
 
-        public <R> EngineJob<R> build(Key key, boolean z10, boolean z11, boolean z12, boolean z13) {
-            return ((EngineJob) Preconditions.checkNotNull(this.pool.acquire())).init(key, z10, z11, z12, z13);
+        <R> EngineJob<R> build(Key key, boolean z, boolean z2, boolean z3, boolean z4) {
+            return ((EngineJob) Preconditions.checkNotNull(this.pool.acquire())).init(key, z, z2, z3, z4);
         }
 
         @VisibleForTesting
-        public void shutdown() {
+        void shutdown() {
             Executors.shutdownAndAwaitTermination(this.diskCacheExecutor);
             Executors.shutdownAndAwaitTermination(this.sourceExecutor);
             Executors.shutdownAndAwaitTermination(this.sourceUnlimitedExecutor);
@@ -131,16 +131,16 @@ public class Engine implements EngineJobListener, MemoryCache.ResourceRemovedLis
         }
     }
 
-    public static class LazyDiskCacheProvider implements DecodeJob.DiskCacheProvider {
+    private static class LazyDiskCacheProvider implements DecodeJob.DiskCacheProvider {
         private volatile DiskCache diskCache;
         private final DiskCache.Factory factory;
 
-        public LazyDiskCacheProvider(DiskCache.Factory factory) {
+        LazyDiskCacheProvider(DiskCache.Factory factory) {
             this.factory = factory;
         }
 
         @VisibleForTesting
-        public synchronized void clearDiskCacheIfCreated() {
+        synchronized void clearDiskCacheIfCreated() {
             if (this.diskCache == null) {
                 return;
             }
@@ -151,14 +151,11 @@ public class Engine implements EngineJobListener, MemoryCache.ResourceRemovedLis
         public DiskCache getDiskCache() {
             if (this.diskCache == null) {
                 synchronized (this) {
-                    try {
-                        if (this.diskCache == null) {
-                            this.diskCache = this.factory.build();
-                        }
-                        if (this.diskCache == null) {
-                            this.diskCache = new DiskCacheAdapter();
-                        }
-                    } finally {
+                    if (this.diskCache == null) {
+                        this.diskCache = this.factory.build();
+                    }
+                    if (this.diskCache == null) {
+                        this.diskCache = new DiskCacheAdapter();
                     }
                 }
             }
@@ -167,25 +164,23 @@ public class Engine implements EngineJobListener, MemoryCache.ResourceRemovedLis
     }
 
     public class LoadStatus {
-
-        /* renamed from: cb */
-        private final ResourceCallback f7402cb;
+        private final ResourceCallback cb;
         private final EngineJob<?> engineJob;
 
-        public LoadStatus(ResourceCallback resourceCallback, EngineJob<?> engineJob) {
-            this.f7402cb = resourceCallback;
+        LoadStatus(ResourceCallback resourceCallback, EngineJob<?> engineJob) {
+            this.cb = resourceCallback;
             this.engineJob = engineJob;
         }
 
         public void cancel() {
             synchronized (Engine.this) {
-                this.engineJob.removeCallback(this.f7402cb);
+                this.engineJob.removeCallback(this.cb);
             }
         }
     }
 
-    public Engine(MemoryCache memoryCache, DiskCache.Factory factory, GlideExecutor glideExecutor, GlideExecutor glideExecutor2, GlideExecutor glideExecutor3, GlideExecutor glideExecutor4, boolean z10) {
-        this(memoryCache, factory, glideExecutor, glideExecutor2, glideExecutor3, glideExecutor4, null, null, null, null, null, null, z10);
+    public Engine(MemoryCache memoryCache, DiskCache.Factory factory, GlideExecutor glideExecutor, GlideExecutor glideExecutor2, GlideExecutor glideExecutor3, GlideExecutor glideExecutor4, boolean z) {
+        this(memoryCache, factory, glideExecutor, glideExecutor2, glideExecutor3, glideExecutor4, null, null, null, null, null, null, z);
     }
 
     private EngineResource<?> getEngineResourceFromCache(Key key) {
@@ -215,14 +210,14 @@ public class Engine implements EngineJobListener, MemoryCache.ResourceRemovedLis
     }
 
     @Nullable
-    private EngineResource<?> loadFromMemory(EngineKey engineKey, boolean z10, long j10) {
-        if (!z10) {
+    private EngineResource<?> loadFromMemory(EngineKey engineKey, boolean z, long j2) {
+        if (!z) {
             return null;
         }
         EngineResource<?> loadFromActiveResources = loadFromActiveResources(engineKey);
         if (loadFromActiveResources != null) {
             if (VERBOSE_IS_LOGGABLE) {
-                logWithTimeAndKey("Loaded resource from active resources", j10, engineKey);
+                logWithTimeAndKey("Loaded resource from active resources", j2, engineKey);
             }
             return loadFromActiveResources;
         }
@@ -231,31 +226,31 @@ public class Engine implements EngineJobListener, MemoryCache.ResourceRemovedLis
             return null;
         }
         if (VERBOSE_IS_LOGGABLE) {
-            logWithTimeAndKey("Loaded resource from cache", j10, engineKey);
+            logWithTimeAndKey("Loaded resource from cache", j2, engineKey);
         }
         return loadFromCache;
     }
 
-    private static void logWithTimeAndKey(String str, long j10, Key key) {
-        Log.v(TAG, str + " in " + LogTime.getElapsedMillis(j10) + "ms, key: " + key);
+    private static void logWithTimeAndKey(String str, long j2, Key key) {
+        Log.v(TAG, str + " in " + LogTime.getElapsedMillis(j2) + "ms, key: " + key);
     }
 
-    private <R> LoadStatus waitForExistingOrStartNewJob(GlideContext glideContext, Object obj, Key key, int i10, int i11, Class<?> cls, Class<R> cls2, Priority priority, DiskCacheStrategy diskCacheStrategy, Map<Class<?>, Transformation<?>> map, boolean z10, boolean z11, Options options, boolean z12, boolean z13, boolean z14, boolean z15, ResourceCallback resourceCallback, Executor executor, EngineKey engineKey, long j10) {
-        EngineJob<?> engineJob = this.jobs.get(engineKey, z15);
+    private <R> LoadStatus waitForExistingOrStartNewJob(GlideContext glideContext, Object obj, Key key, int i2, int i3, Class<?> cls, Class<R> cls2, Priority priority, DiskCacheStrategy diskCacheStrategy, Map<Class<?>, Transformation<?>> map, boolean z, boolean z2, Options options, boolean z3, boolean z4, boolean z5, boolean z6, ResourceCallback resourceCallback, Executor executor, EngineKey engineKey, long j2) {
+        EngineJob<?> engineJob = this.jobs.get(engineKey, z6);
         if (engineJob != null) {
             engineJob.addCallback(resourceCallback, executor);
             if (VERBOSE_IS_LOGGABLE) {
-                logWithTimeAndKey("Added to existing load", j10, engineKey);
+                logWithTimeAndKey("Added to existing load", j2, engineKey);
             }
             return new LoadStatus(resourceCallback, engineJob);
         }
-        EngineJob<R> build = this.engineJobFactory.build(engineKey, z12, z13, z14, z15);
-        DecodeJob<R> build2 = this.decodeJobFactory.build(glideContext, obj, engineKey, key, i10, i11, cls, cls2, priority, diskCacheStrategy, map, z10, z11, z15, options, build);
+        EngineJob<R> build = this.engineJobFactory.build(engineKey, z3, z4, z5, z6);
+        DecodeJob<R> build2 = this.decodeJobFactory.build(glideContext, obj, engineKey, key, i2, i3, cls, cls2, priority, diskCacheStrategy, map, z, z2, z6, options, build);
         this.jobs.put(engineKey, build);
         build.addCallback(resourceCallback, executor);
         build.start(build2);
         if (VERBOSE_IS_LOGGABLE) {
-            logWithTimeAndKey("Started new load", j10, engineKey);
+            logWithTimeAndKey("Started new load", j2, engineKey);
         }
         return new LoadStatus(resourceCallback, build);
     }
@@ -264,20 +259,16 @@ public class Engine implements EngineJobListener, MemoryCache.ResourceRemovedLis
         this.diskCacheProvider.getDiskCache().clear();
     }
 
-    public <R> LoadStatus load(GlideContext glideContext, Object obj, Key key, int i10, int i11, Class<?> cls, Class<R> cls2, Priority priority, DiskCacheStrategy diskCacheStrategy, Map<Class<?>, Transformation<?>> map, boolean z10, boolean z11, Options options, boolean z12, boolean z13, boolean z14, boolean z15, ResourceCallback resourceCallback, Executor executor) {
+    public <R> LoadStatus load(GlideContext glideContext, Object obj, Key key, int i2, int i3, Class<?> cls, Class<R> cls2, Priority priority, DiskCacheStrategy diskCacheStrategy, Map<Class<?>, Transformation<?>> map, boolean z, boolean z2, Options options, boolean z3, boolean z4, boolean z5, boolean z6, ResourceCallback resourceCallback, Executor executor) {
         long logTime = VERBOSE_IS_LOGGABLE ? LogTime.getLogTime() : 0L;
-        EngineKey buildKey = this.keyFactory.buildKey(obj, key, i10, i11, map, cls, cls2, options);
+        EngineKey buildKey = this.keyFactory.buildKey(obj, key, i2, i3, map, cls, cls2, options);
         synchronized (this) {
-            try {
-                EngineResource<?> loadFromMemory = loadFromMemory(buildKey, z12, logTime);
-                if (loadFromMemory == null) {
-                    return waitForExistingOrStartNewJob(glideContext, obj, key, i10, i11, cls, cls2, priority, diskCacheStrategy, map, z10, z11, options, z12, z13, z14, z15, resourceCallback, executor, buildKey, logTime);
-                }
-                resourceCallback.onResourceReady(loadFromMemory, DataSource.MEMORY_CACHE);
-                return null;
-            } catch (Throwable th2) {
-                throw th2;
+            EngineResource<?> loadFromMemory = loadFromMemory(buildKey, z3, logTime);
+            if (loadFromMemory == null) {
+                return waitForExistingOrStartNewJob(glideContext, obj, key, i2, i3, cls, cls2, priority, diskCacheStrategy, map, z, z2, options, z3, z4, z5, z6, resourceCallback, executor, buildKey, logTime);
             }
+            resourceCallback.onResourceReady(loadFromMemory, DataSource.MEMORY_CACHE);
+            return null;
         }
     }
 
@@ -289,12 +280,8 @@ public class Engine implements EngineJobListener, MemoryCache.ResourceRemovedLis
     @Override // com.bumptech.glide.load.engine.EngineJobListener
     public synchronized void onEngineJobComplete(EngineJob<?> engineJob, Key key, EngineResource<?> engineResource) {
         if (engineResource != null) {
-            try {
-                if (engineResource.isMemoryCacheable()) {
-                    this.activeResources.activate(key, engineResource);
-                }
-            } catch (Throwable th2) {
-                throw th2;
+            if (engineResource.isMemoryCacheable()) {
+                this.activeResources.activate(key, engineResource);
             }
         }
         this.jobs.removeIfCurrent(key, engineJob);
@@ -330,11 +317,11 @@ public class Engine implements EngineJobListener, MemoryCache.ResourceRemovedLis
     }
 
     @VisibleForTesting
-    public Engine(MemoryCache memoryCache, DiskCache.Factory factory, GlideExecutor glideExecutor, GlideExecutor glideExecutor2, GlideExecutor glideExecutor3, GlideExecutor glideExecutor4, Jobs jobs, EngineKeyFactory engineKeyFactory, ActiveResources activeResources, EngineJobFactory engineJobFactory, DecodeJobFactory decodeJobFactory, ResourceRecycler resourceRecycler, boolean z10) {
+    Engine(MemoryCache memoryCache, DiskCache.Factory factory, GlideExecutor glideExecutor, GlideExecutor glideExecutor2, GlideExecutor glideExecutor3, GlideExecutor glideExecutor4, Jobs jobs, EngineKeyFactory engineKeyFactory, ActiveResources activeResources, EngineJobFactory engineJobFactory, DecodeJobFactory decodeJobFactory, ResourceRecycler resourceRecycler, boolean z) {
         this.cache = memoryCache;
         LazyDiskCacheProvider lazyDiskCacheProvider = new LazyDiskCacheProvider(factory);
         this.diskCacheProvider = lazyDiskCacheProvider;
-        ActiveResources activeResources2 = activeResources == null ? new ActiveResources(z10) : activeResources;
+        ActiveResources activeResources2 = activeResources == null ? new ActiveResources(z) : activeResources;
         this.activeResources = activeResources2;
         activeResources2.setListener(this);
         this.keyFactory = engineKeyFactory == null ? new EngineKeyFactory() : engineKeyFactory;

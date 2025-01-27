@@ -7,32 +7,32 @@ import com.vivo.push.model.UnvarnishedMessage;
 public final class o extends v {
 
     /* renamed from: a */
-    protected UnvarnishedMessage f24940a;
+    protected UnvarnishedMessage f30913a;
 
     public o() {
         super(3);
     }
 
     @Override // com.vivo.push.b.v, com.vivo.push.b.s, com.vivo.push.o
-    public final void c(com.vivo.push.a aVar) {
+    protected final void c(com.vivo.push.a aVar) {
         super.c(aVar);
-        aVar.a("msg_v1", this.f24940a.unpackToJson());
+        aVar.a("msg_v1", this.f30913a.unpackToJson());
     }
 
     @Override // com.vivo.push.b.v, com.vivo.push.b.s, com.vivo.push.o
-    public final void d(com.vivo.push.a aVar) {
+    protected final void d(com.vivo.push.a aVar) {
         super.d(aVar);
-        String a10 = aVar.a("msg_v1");
-        if (TextUtils.isEmpty(a10)) {
+        String a2 = aVar.a("msg_v1");
+        if (TextUtils.isEmpty(a2)) {
             return;
         }
-        UnvarnishedMessage unvarnishedMessage = new UnvarnishedMessage(a10);
-        this.f24940a = unvarnishedMessage;
+        UnvarnishedMessage unvarnishedMessage = new UnvarnishedMessage(a2);
+        this.f30913a = unvarnishedMessage;
         unvarnishedMessage.setMsgId(f());
     }
 
     public final UnvarnishedMessage e() {
-        return this.f24940a;
+        return this.f30913a;
     }
 
     @Override // com.vivo.push.b.s, com.vivo.push.o
@@ -41,7 +41,7 @@ public final class o extends v {
     }
 
     public final String d() {
-        UnvarnishedMessage unvarnishedMessage = this.f24940a;
+        UnvarnishedMessage unvarnishedMessage = this.f30913a;
         if (unvarnishedMessage == null) {
             return null;
         }

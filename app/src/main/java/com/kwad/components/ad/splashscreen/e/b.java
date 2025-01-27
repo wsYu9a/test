@@ -15,49 +15,55 @@ import com.kwad.sdk.widget.f;
 
 /* loaded from: classes2.dex */
 public final class b implements com.kwad.sdk.widget.c {
-    private a EZ;
-    private ViewStub Hj;
-    private ViewGroup Hk;
-    private View Hl;
-    private TextView Hm;
-    private boolean Hn;
+    private a Cv;
+    private ViewStub Eg;
+    private ViewGroup Eh;
+    private View Ei;
+    private TextView Ej;
+    private boolean Ek;
 
     @Nullable
-    private e Ho;
-    private f Hp;
+    private e El;
+    private f Em;
 
-    /* renamed from: if */
     @NonNull
-    private ViewGroup f7if;
+    private ViewGroup gv;
 
     @Nullable
     private AdInfo mAdInfo;
 
     @Nullable
     private AdTemplate mAdTemplate;
-    private com.kwad.components.core.e.d.c mApkDownloadHelper;
+    private com.kwad.components.core.d.b.c mApkDownloadHelper;
 
     /* renamed from: com.kwad.components.ad.splashscreen.e.b$1 */
-    public class AnonymousClass1 extends a {
-        public AnonymousClass1(Context context, AdTemplate adTemplate) {
-            super(adTemplate);
+    final class AnonymousClass1 extends a {
+        AnonymousClass1(Context context, AdTemplate adTemplate) {
+            super(context, adTemplate);
         }
 
         @Override // com.kwad.components.ad.splashscreen.e.a
-        public final void k(int i10, String str) {
-            b.this.X(str);
+        protected final void ac(String str) {
+            b.this.af(str);
         }
     }
 
-    public b(@NonNull ViewGroup viewGroup, ViewStub viewStub, boolean z10, com.kwad.components.core.e.d.c cVar) {
-        this.f7if = viewGroup;
-        this.Hj = viewStub;
+    public b(@NonNull ViewGroup viewGroup, ViewStub viewStub, boolean z, com.kwad.components.core.d.b.c cVar) {
+        this.gv = viewGroup;
+        this.Eg = viewStub;
         this.mApkDownloadHelper = cVar;
-        this.Hn = z10;
+        this.Ek = z;
     }
 
-    public void X(String str) {
-        TextView textView = this.Hm;
+    private void a(com.kwad.components.ad.splashscreen.d dVar) {
+        if (dVar == null) {
+            return;
+        }
+        af(dVar.kq());
+    }
+
+    public void af(String str) {
+        TextView textView = this.Ej;
         if (textView == null || str == null) {
             return;
         }
@@ -68,66 +74,72 @@ public final class b implements com.kwad.sdk.widget.c {
         if (viewGroup == null) {
             return;
         }
-        this.Hl = viewGroup.findViewById(R.id.ksad_splash_actionbar_native);
-        this.Hm = (TextView) viewGroup.findViewById(R.id.ksad_splash_actionbar_text);
-        this.Hp = new f(this.Hl.getContext(), this.Hl, this);
+        this.Ei = viewGroup.findViewById(R.id.ksad_splash_actionbar_native);
+        this.Ej = (TextView) viewGroup.findViewById(R.id.ksad_splash_actionbar_text);
+        this.Em = new f(this.Ei.getContext(), this.Ei, this);
+        this.Ei.getContext();
         a(com.kwad.components.ad.splashscreen.d.a(this.mAdTemplate, this.mAdInfo, this.mApkDownloadHelper, 4));
     }
 
-    private void j(boolean z10, boolean z11) {
-        e eVar = this.Ho;
+    private void g(boolean z, boolean z2) {
+        e eVar = this.El;
         if (eVar != null) {
-            eVar.i(z10, z11);
+            eVar.f(z, z2);
         }
     }
 
-    public final void al(AdTemplate adTemplate) {
+    public final void C(AdTemplate adTemplate) {
         a aVar;
         this.mAdTemplate = adTemplate;
-        a aVar2 = this.EZ;
+        a aVar2 = this.Cv;
         if (aVar2 == null) {
-            this.EZ = new a(this.f7if.getContext(), this.mAdTemplate) { // from class: com.kwad.components.ad.splashscreen.e.b.1
-                public AnonymousClass1(Context context, AdTemplate adTemplate2) {
-                    super(adTemplate2);
+            this.Cv = new a(this.gv.getContext(), this.mAdTemplate) { // from class: com.kwad.components.ad.splashscreen.e.b.1
+                AnonymousClass1(Context context, AdTemplate adTemplate2) {
+                    super(context, adTemplate2);
                 }
 
                 @Override // com.kwad.components.ad.splashscreen.e.a
-                public final void k(int i10, String str) {
-                    b.this.X(str);
+                protected final void ac(String str) {
+                    b.this.af(str);
                 }
             };
         } else {
             aVar2.setAdTemplate(adTemplate);
         }
         if (adTemplate != null) {
-            this.mAdInfo = com.kwad.sdk.core.response.b.e.eb(adTemplate);
+            this.mAdInfo = com.kwad.sdk.core.response.a.d.cb(adTemplate);
         }
-        com.kwad.components.core.e.d.c cVar = this.mApkDownloadHelper;
-        if (cVar == null || (aVar = this.EZ) == null) {
+        com.kwad.components.core.d.b.c cVar = this.mApkDownloadHelper;
+        if (cVar == null || (aVar = this.Cv) == null) {
             return;
         }
         cVar.b(aVar);
     }
 
     @Override // com.kwad.sdk.widget.c
+    public final void a(View view) {
+        g(true, view.equals(this.Ei));
+    }
+
+    public final void a(@Nullable e eVar) {
+        this.El = eVar;
+    }
+
+    @Override // com.kwad.sdk.widget.c
     public final void b(View view) {
-        if (this.Hn) {
-            j(false, view.equals(this.Hl));
+        if (this.Ek) {
+            g(false, view.equals(this.Ei));
         }
     }
 
-    public final void lN() {
-        com.kwad.sdk.core.d.c.d("SplashActionBarNativeHelper", "rollBackToNative mRootViewStub: " + this.Hj);
-        if (this.Hk == null) {
-            ViewStub viewStub = this.Hj;
-            if (viewStub == null || viewStub.getParent() == null) {
-                this.Hk = (ViewGroup) this.f7if.findViewById(R.id.ksad_splash_actionbar_native_root);
-            } else {
-                this.Hk = (ViewGroup) this.Hj.inflate();
-            }
-            g(this.Hk);
+    public final void li() {
+        com.kwad.sdk.core.d.b.d("SplashActionBarNativeHelper", "rollBackToNative mRootViewStub: " + this.Eg);
+        if (this.Eh == null) {
+            ViewStub viewStub = this.Eg;
+            this.Eh = (ViewGroup) ((viewStub == null || viewStub.getParent() == null) ? this.gv.findViewById(R.id.ksad_splash_actionbar_native_root) : this.Eg.inflate());
+            g(this.Eh);
         }
-        ViewGroup viewGroup = this.Hk;
+        ViewGroup viewGroup = this.Eh;
         if (viewGroup != null) {
             viewGroup.setVisibility(0);
         }
@@ -135,26 +147,10 @@ public final class b implements com.kwad.sdk.widget.c {
 
     public final void onUnbind() {
         a aVar;
-        com.kwad.components.core.e.d.c cVar = this.mApkDownloadHelper;
-        if (cVar == null || (aVar = this.EZ) == null) {
+        com.kwad.components.core.d.b.c cVar = this.mApkDownloadHelper;
+        if (cVar == null || (aVar = this.Cv) == null) {
             return;
         }
         cVar.c(aVar);
-    }
-
-    public final void a(@Nullable e eVar) {
-        this.Ho = eVar;
-    }
-
-    private void a(com.kwad.components.ad.splashscreen.d dVar) {
-        if (dVar == null) {
-            return;
-        }
-        X(dVar.kM());
-    }
-
-    @Override // com.kwad.sdk.widget.c
-    public final void a(View view) {
-        j(true, view.equals(this.Hl));
     }
 }

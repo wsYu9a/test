@@ -8,6 +8,7 @@ import android.os.IBinder;
 import android.text.TextUtils;
 import android.widget.Toast;
 import androidx.annotation.NonNull;
+import com.ss.android.downloadad.api.constant.AdBaseConstants;
 import com.ss.android.socialbase.appdownloader.view.DownloadTaskDeleteActivity;
 import com.ss.android.socialbase.downloader.constants.DownloadConstants;
 import com.ss.android.socialbase.downloader.depend.IDownloadNotificationEventListener;
@@ -21,6 +22,7 @@ import com.ss.android.socialbase.downloader.notification.AbsNotificationItem;
 import com.ss.android.socialbase.downloader.notification.DownloadNotificationManager;
 import com.ss.android.socialbase.downloader.setting.DownloadSetting;
 import com.ss.android.socialbase.downloader.setting.DownloadSettingKeys;
+import com.ss.android.socialbase.downloader.utils.DownloadExpSwitchCode;
 import com.ss.android.socialbase.downloader.utils.DownloadUtils;
 import java.io.File;
 import java.util.ArrayList;
@@ -28,68 +30,66 @@ import java.util.ArrayList;
 /* loaded from: classes4.dex */
 public class DownloadHandlerService extends Service {
 
-    /* renamed from: a */
-    private static final String f21724a = "DownloadHandlerService";
+    /* renamed from: j */
+    private static final String f24406j = DownloadHandlerService.class.getSimpleName();
 
     /* renamed from: com.ss.android.socialbase.appdownloader.DownloadHandlerService$1 */
-    public class AnonymousClass1 implements Runnable {
-        public AnonymousClass1() {
+    class AnonymousClass1 implements Runnable {
+        AnonymousClass1() {
         }
 
         @Override // java.lang.Runnable
         public void run() {
             try {
                 ArrayList arrayList = new ArrayList();
-                arrayList.add("application/vnd.android.package-archive");
+                arrayList.add(AdBaseConstants.MIME_APK);
                 arrayList.add(DownloadConstants.MIME_PLG);
                 Downloader.getInstance(DownloadComponentManager.getAppContext()).restartAllFailedDownloadTasks(arrayList);
-            } catch (Exception e10) {
-                e10.printStackTrace();
+            } catch (Exception e2) {
+                e2.printStackTrace();
             }
         }
     }
 
     /* renamed from: com.ss.android.socialbase.appdownloader.DownloadHandlerService$2 */
-    public static class AnonymousClass2 implements Runnable {
+    static class AnonymousClass2 implements Runnable {
 
-        /* renamed from: b */
-        final /* synthetic */ com.ss.android.socialbase.appdownloader.c.d f21727b;
+        /* renamed from: i */
+        final /* synthetic */ IDownloadNotificationEventListener f24408i;
+        final /* synthetic */ com.ss.android.socialbase.appdownloader.i.g zx;
 
-        /* renamed from: c */
-        final /* synthetic */ IDownloadNotificationEventListener f21728c;
-
-        public AnonymousClass2(com.ss.android.socialbase.appdownloader.c.d dVar, IDownloadNotificationEventListener iDownloadNotificationEventListener) {
-            dVar = dVar;
+        AnonymousClass2(com.ss.android.socialbase.appdownloader.i.g gVar, IDownloadNotificationEventListener iDownloadNotificationEventListener) {
+            gVar = gVar;
             downloadNotificationEventListener = iDownloadNotificationEventListener;
         }
 
         @Override // java.lang.Runnable
         public void run() {
-            PackageInfo a10;
+            PackageInfo j2;
             try {
                 File file = new File(DownloadInfo.this.getSavePath(), DownloadInfo.this.getName());
                 if (file.exists()) {
                     try {
-                        String str = (DownloadComponentManager.getAppContext() == null || (a10 = c.a(DownloadInfo.this, file)) == null) ? "" : a10.packageName;
-                        com.ss.android.socialbase.appdownloader.c.d dVar = dVar;
-                        if (dVar != null) {
-                            dVar.a(DownloadInfo.this.getId(), 3, str, -3, DownloadInfo.this.getDownloadTime());
+                        String str = (DownloadComponentManager.getAppContext() == null || (j2 = i.j(DownloadInfo.this, file)) == null) ? "" : j2.packageName;
+                        com.ss.android.socialbase.appdownloader.i.g gVar = gVar;
+                        if (gVar != null) {
+                            gVar.j(DownloadInfo.this.getId(), 3, str, -3, DownloadInfo.this.getDownloadTime());
                         }
                         IDownloadNotificationEventListener iDownloadNotificationEventListener = downloadNotificationEventListener;
                         if (iDownloadNotificationEventListener != null) {
                             iDownloadNotificationEventListener.onNotificationEvent(3, DownloadInfo.this, str, "");
                         }
-                    } catch (Exception e10) {
-                        e10.printStackTrace();
+                    } catch (Exception e2) {
+                        e2.printStackTrace();
                     }
                 }
-            } catch (Exception e11) {
-                e11.printStackTrace();
+            } catch (Exception e3) {
+                e3.printStackTrace();
             }
         }
     }
 
-    private boolean a(Intent intent) {
+    private boolean j(Intent intent) {
         if (intent == null) {
             return false;
         }
@@ -99,7 +99,7 @@ public class DownloadHandlerService extends Service {
         }
         int intExtra = intent.getIntExtra("extra_click_download_ids", 0);
         intent.getIntExtra("extra_click_download_type", 0);
-        com.ss.android.socialbase.appdownloader.c.d b10 = d.j().b();
+        com.ss.android.socialbase.appdownloader.i.g zx = g.pa().zx();
         IDownloadNotificationEventListener downloadNotificationEventListener = Downloader.getInstance(this).getDownloadNotificationEventListener(intExtra);
         if (intent.getBooleanExtra("extra_from_notification", false) && DownloadSetting.obtain(intExtra).optInt("notification_opt_2") == 1) {
             DownloadNotificationManager.getInstance().cancelNotification(intExtra);
@@ -109,36 +109,38 @@ public class DownloadHandlerService extends Service {
             return false;
         }
         if (action.equals("android.ss.intent.action.DOWNLOAD_CLICK_CONTENT")) {
-            a(downloadInfo, b10, downloadNotificationEventListener);
+            j(downloadInfo, zx, downloadNotificationEventListener);
         } else if (action.equals("android.ss.intent.action.DOWNLOAD_OPEN")) {
-            a(this, downloadInfo, b10, downloadNotificationEventListener);
+            j(this, downloadInfo, zx, downloadNotificationEventListener);
         } else if (action.equals("android.ss.intent.action.DOWNLOAD_CLICK_BTN")) {
             if (downloadInfo.getStatus() == 0) {
                 return false;
             }
-            a(this, downloadInfo, b10, downloadNotificationEventListener);
-            if (downloadInfo.isDownloadOverStatus() && DownloadSetting.obtain(intExtra).optInt(DownloadSettingKeys.NO_HIDE_NOTIFICATION, 0) == 0 && (DownloadSetting.obtain(intExtra).optInt(DownloadSettingKeys.OPT_NOTIFICATION_UI) < 2 || downloadInfo.getStatus() != -1)) {
-                DownloadNotificationManager.getInstance().hideNotification(intExtra);
-                DownloadNotificationManager.getInstance().cancelNotification(intExtra);
+            j(this, downloadInfo, zx, downloadNotificationEventListener);
+            if (downloadInfo.isDownloadOverStatus() && DownloadSetting.obtain(intExtra).optInt(DownloadSettingKeys.NO_HIDE_NOTIFICATION, 0) == 0) {
+                if (!(DownloadSetting.obtain(intExtra).optInt(DownloadSettingKeys.OPT_NOTIFICATION_UI) >= 2 && downloadInfo.getStatus() == -1)) {
+                    DownloadNotificationManager.getInstance().hideNotification(intExtra);
+                    DownloadNotificationManager.getInstance().cancelNotification(intExtra);
+                }
             }
         } else if (action.equals("android.ss.intent.action.DOWNLOAD_DELETE")) {
-            b(downloadInfo, b10, downloadNotificationEventListener);
+            zx(downloadInfo, zx, downloadNotificationEventListener);
         } else if (action.equals("android.ss.intent.action.DOWNLOAD_HIDE")) {
             DownloadNotificationManager.getInstance().hideNotification(intExtra);
-        } else if (action.equals("android.intent.action.MEDIA_MOUNTED")) {
+        } else if (action.equals("android.intent.action.BOOT_COMPLETED") || action.equals("android.intent.action.MEDIA_MOUNTED")) {
             DownloadComponentManager.getCPUThreadExecutor().execute(new Runnable() { // from class: com.ss.android.socialbase.appdownloader.DownloadHandlerService.1
-                public AnonymousClass1() {
+                AnonymousClass1() {
                 }
 
                 @Override // java.lang.Runnable
                 public void run() {
                     try {
                         ArrayList arrayList = new ArrayList();
-                        arrayList.add("application/vnd.android.package-archive");
+                        arrayList.add(AdBaseConstants.MIME_APK);
                         arrayList.add(DownloadConstants.MIME_PLG);
                         Downloader.getInstance(DownloadComponentManager.getAppContext()).restartAllFailedDownloadTasks(arrayList);
-                    } catch (Exception e10) {
-                        e10.printStackTrace();
+                    } catch (Exception e2) {
+                        e2.printStackTrace();
                     }
                 }
             });
@@ -147,16 +149,16 @@ public class DownloadHandlerService extends Service {
         return false;
     }
 
-    private void b(@NonNull DownloadInfo downloadInfo, com.ss.android.socialbase.appdownloader.c.d dVar, IDownloadNotificationEventListener iDownloadNotificationEventListener) {
-        int id2 = downloadInfo.getId();
+    private void zx(@NonNull DownloadInfo downloadInfo, com.ss.android.socialbase.appdownloader.i.g gVar, IDownloadNotificationEventListener iDownloadNotificationEventListener) {
+        int id = downloadInfo.getId();
         Intent intent = new Intent(this, (Class<?>) DownloadTaskDeleteActivity.class);
-        intent.putExtra("extra_click_download_ids", id2);
-        intent.addFlags(268435456);
+        intent.putExtra("extra_click_download_ids", id);
+        intent.addFlags(DownloadExpSwitchCode.BUGFIX_GETPACKAGEINFO_BY_UNZIP);
         startActivity(intent);
-        DownloadNotificationManager.getInstance().hideNotification(id2);
+        DownloadNotificationManager.getInstance().hideNotification(id);
         downloadInfo.updateDownloadTime();
-        if (dVar != null) {
-            dVar.a(id2, 7, "", downloadInfo.getStatus(), downloadInfo.getDownloadTime());
+        if (gVar != null) {
+            gVar.j(id, 7, "", downloadInfo.getStatus(), downloadInfo.getDownloadTime());
         }
         if (iDownloadNotificationEventListener != null) {
             iDownloadNotificationEventListener.onNotificationEvent(7, downloadInfo, "", "");
@@ -175,65 +177,63 @@ public class DownloadHandlerService extends Service {
     }
 
     @Override // android.app.Service
-    public int onStartCommand(Intent intent, int i10, int i11) {
-        super.onStartCommand(intent, i10, i11);
+    public int onStartCommand(Intent intent, int i2, int i3) {
+        super.onStartCommand(intent, i2, i3);
         if (Logger.debug()) {
-            Logger.d(f21724a, "onStartCommand");
+            Logger.d(f24406j, "onStartCommand");
         }
-        a(intent);
+        j(intent);
         stopSelf();
         return 2;
     }
 
-    private static void a(Context context, DownloadInfo downloadInfo) {
+    private static void j(Context context, DownloadInfo downloadInfo) {
         if (DownloadUtils.isWifi(context.getApplicationContext()) && downloadInfo.isPauseReserveOnWifi()) {
             downloadInfo.stopPauseReserveOnWifi();
         }
     }
 
-    private static void a(Context context, com.ss.android.socialbase.appdownloader.c.d dVar, DownloadInfo downloadInfo) {
+    private static void j(Context context, com.ss.android.socialbase.appdownloader.i.g gVar, DownloadInfo downloadInfo) {
         if (downloadInfo == null) {
             return;
         }
         IDownloadNotificationEventListener downloadNotificationEventListener = Downloader.getInstance(context).getDownloadNotificationEventListener(downloadInfo.getId());
-        if (dVar == null && downloadNotificationEventListener == null) {
+        if (gVar == null && downloadNotificationEventListener == null) {
             return;
         }
         DownloadComponentManager.getCPUThreadExecutor().execute(new Runnable() { // from class: com.ss.android.socialbase.appdownloader.DownloadHandlerService.2
 
-            /* renamed from: b */
-            final /* synthetic */ com.ss.android.socialbase.appdownloader.c.d f21727b;
+            /* renamed from: i */
+            final /* synthetic */ IDownloadNotificationEventListener f24408i;
+            final /* synthetic */ com.ss.android.socialbase.appdownloader.i.g zx;
 
-            /* renamed from: c */
-            final /* synthetic */ IDownloadNotificationEventListener f21728c;
-
-            public AnonymousClass2(com.ss.android.socialbase.appdownloader.c.d dVar2, IDownloadNotificationEventListener downloadNotificationEventListener2) {
-                dVar = dVar2;
+            AnonymousClass2(com.ss.android.socialbase.appdownloader.i.g gVar2, IDownloadNotificationEventListener downloadNotificationEventListener2) {
+                gVar = gVar2;
                 downloadNotificationEventListener = downloadNotificationEventListener2;
             }
 
             @Override // java.lang.Runnable
             public void run() {
-                PackageInfo a10;
+                PackageInfo j2;
                 try {
                     File file = new File(DownloadInfo.this.getSavePath(), DownloadInfo.this.getName());
                     if (file.exists()) {
                         try {
-                            String str = (DownloadComponentManager.getAppContext() == null || (a10 = c.a(DownloadInfo.this, file)) == null) ? "" : a10.packageName;
-                            com.ss.android.socialbase.appdownloader.c.d dVar2 = dVar;
-                            if (dVar2 != null) {
-                                dVar2.a(DownloadInfo.this.getId(), 3, str, -3, DownloadInfo.this.getDownloadTime());
+                            String str = (DownloadComponentManager.getAppContext() == null || (j2 = i.j(DownloadInfo.this, file)) == null) ? "" : j2.packageName;
+                            com.ss.android.socialbase.appdownloader.i.g gVar2 = gVar;
+                            if (gVar2 != null) {
+                                gVar2.j(DownloadInfo.this.getId(), 3, str, -3, DownloadInfo.this.getDownloadTime());
                             }
                             IDownloadNotificationEventListener iDownloadNotificationEventListener = downloadNotificationEventListener;
                             if (iDownloadNotificationEventListener != null) {
                                 iDownloadNotificationEventListener.onNotificationEvent(3, DownloadInfo.this, str, "");
                             }
-                        } catch (Exception e10) {
-                            e10.printStackTrace();
+                        } catch (Exception e2) {
+                            e2.printStackTrace();
                         }
                     }
-                } catch (Exception e11) {
-                    e11.printStackTrace();
+                } catch (Exception e3) {
+                    e3.printStackTrace();
                 }
             }
         });
@@ -245,7 +245,7 @@ public class DownloadHandlerService extends Service {
         Code decompiled incorrectly, please refer to instructions dump.
         To view partially-correct code enable 'Show inconsistent code' option in preferences
     */
-    private void a(@androidx.annotation.NonNull com.ss.android.socialbase.downloader.model.DownloadInfo r8, com.ss.android.socialbase.appdownloader.c.d r9, com.ss.android.socialbase.downloader.depend.IDownloadNotificationEventListener r10) {
+    private void j(@androidx.annotation.NonNull com.ss.android.socialbase.downloader.model.DownloadInfo r8, com.ss.android.socialbase.appdownloader.i.g r9, com.ss.android.socialbase.downloader.depend.IDownloadNotificationEventListener r10) {
         /*
             r7 = this;
             int r1 = r8.getId()
@@ -273,12 +273,12 @@ public class DownloadHandlerService extends Service {
             r0.hideNotification(r1)
             r8.updateDownloadTime()
             if (r9 == 0) goto L49
+            r2 = 7
             int r4 = r8.getStatus()
             long r5 = r8.getDownloadTime()
-            r2 = 7
             java.lang.String r3 = ""
             r0 = r9
-            r0.a(r1, r2, r3, r4, r5)
+            r0.j(r1, r2, r3, r4, r5)
         L49:
             if (r10 == 0) goto L51
             r9 = 7
@@ -287,68 +287,71 @@ public class DownloadHandlerService extends Service {
         L51:
             return
         */
-        throw new UnsupportedOperationException("Method not decompiled: com.ss.android.socialbase.appdownloader.DownloadHandlerService.a(com.ss.android.socialbase.downloader.model.DownloadInfo, com.ss.android.socialbase.appdownloader.c.d, com.ss.android.socialbase.downloader.depend.IDownloadNotificationEventListener):void");
+        throw new UnsupportedOperationException("Method not decompiled: com.ss.android.socialbase.appdownloader.DownloadHandlerService.j(com.ss.android.socialbase.downloader.model.DownloadInfo, com.ss.android.socialbase.appdownloader.i.g, com.ss.android.socialbase.downloader.depend.IDownloadNotificationEventListener):void");
     }
 
-    private static void a(Context context, int i10, boolean z10) {
-        boolean z11;
+    private static void j(Context context, int i2, boolean z) {
+        boolean z2;
         INotificationClickCallback notificationClickCallback;
         DownloadInfo downloadInfo;
-        if (z10 && (notificationClickCallback = DownloadProcessDispatcher.getInstance().getNotificationClickCallback(i10)) != null) {
+        if (z && (notificationClickCallback = DownloadProcessDispatcher.getInstance().getNotificationClickCallback(i2)) != null) {
             try {
-                downloadInfo = Downloader.getInstance(context).getDownloadInfo(i10);
-            } catch (Throwable th2) {
-                th2.printStackTrace();
+                downloadInfo = Downloader.getInstance(context).getDownloadInfo(i2);
+            } catch (Throwable th) {
+                th.printStackTrace();
             }
             if (downloadInfo != null) {
-                z11 = notificationClickCallback.onClickWhenSuccess(downloadInfo);
-                if (z11 && c.a(context, i10, true) == 0) {
+                z2 = notificationClickCallback.onClickWhenSuccess(downloadInfo);
+                if (z2 && i.j(context, i2, true) == 0) {
                     Toast.makeText(context, "Open Fail!", 0).show();
                 }
                 return;
             }
         }
-        z11 = false;
-        if (z11) {
+        z2 = false;
+        if (z2) {
             return;
         }
         Toast.makeText(context, "Open Fail!", 0).show();
     }
 
-    public static void a(Context context, DownloadInfo downloadInfo, com.ss.android.socialbase.appdownloader.c.d dVar, IDownloadNotificationEventListener iDownloadNotificationEventListener) {
+    public static void j(Context context, DownloadInfo downloadInfo, com.ss.android.socialbase.appdownloader.i.g gVar, IDownloadNotificationEventListener iDownloadNotificationEventListener) {
         AbsNotificationItem notificationItem;
-        int id2 = downloadInfo.getId();
-        INotificationClickCallback notificationClickCallback = DownloadProcessDispatcher.getInstance().getNotificationClickCallback(id2);
-        if ("application/vnd.android.package-archive".equals(downloadInfo.getMimeType()) && notificationClickCallback != null && c.a(context, downloadInfo) && notificationClickCallback.onClickWhenInstalled(downloadInfo)) {
+        int id = downloadInfo.getId();
+        INotificationClickCallback notificationClickCallback = DownloadProcessDispatcher.getInstance().getNotificationClickCallback(id);
+        if (AdBaseConstants.MIME_APK.equals(downloadInfo.getMimeType()) && notificationClickCallback != null && i.j(context, downloadInfo) && notificationClickCallback.onClickWhenInstalled(downloadInfo)) {
         }
+        boolean z = false;
         switch (downloadInfo.getStatus()) {
             case -4:
             case -1:
-                if (DownloadSetting.obtain(id2).optInt(DownloadSettingKeys.OPT_NOTIFICATION_UI) >= 2 && downloadInfo.isOnlyWifi()) {
+                if (DownloadSetting.obtain(id).optInt(DownloadSettingKeys.OPT_NOTIFICATION_UI) >= 2 && downloadInfo.isOnlyWifi()) {
                     downloadInfo.setOnlyWifi(false);
                 }
-                Downloader.getInstance(context).restart(id2);
+                Downloader.getInstance(context).restart(id);
                 break;
             case -3:
-                a(DownloadComponentManager.getAppContext(), id2, true);
-                a(context, dVar, downloadInfo);
-                if (DownloadSetting.obtain(id2).optInt("notification_click_install_auto_cancel", 1) == 0 && (notificationItem = DownloadNotificationManager.getInstance().getNotificationItem(id2)) != null) {
+                j(DownloadComponentManager.getAppContext(), id, true);
+                j(context, gVar, downloadInfo);
+                if (DownloadSetting.obtain(id).optInt("notification_click_install_auto_cancel", 1) != 0 || (notificationItem = DownloadNotificationManager.getInstance().getNotificationItem(id)) == null) {
+                    z = true;
+                } else {
                     notificationItem.recordClickInstall();
                     notificationItem.refreshStatus(-3, null, false, true);
-                    break;
-                } else {
-                    DownloadNotificationManager.getInstance().hideNotification(id2);
+                }
+                if (z) {
+                    DownloadNotificationManager.getInstance().hideNotification(id);
                     break;
                 }
                 break;
             case -2:
-                if (DownloadProcessDispatcher.getInstance().canResume(id2)) {
-                    Downloader.getInstance(context).resume(id2);
+                if (DownloadProcessDispatcher.getInstance().canResume(id)) {
+                    Downloader.getInstance(context).resume(id);
                 } else {
-                    c.a(downloadInfo, true, false);
+                    i.j(downloadInfo, true, false);
                 }
-                if (dVar != null) {
-                    dVar.a(id2, 6, "", downloadInfo.getStatus(), downloadInfo.getDownloadTime());
+                if (gVar != null) {
+                    gVar.j(id, 6, "", downloadInfo.getStatus(), downloadInfo.getDownloadTime());
                 }
                 if (iDownloadNotificationEventListener != null) {
                     iDownloadNotificationEventListener.onNotificationEvent(6, downloadInfo, "", "");
@@ -360,10 +363,10 @@ public class DownloadHandlerService extends Service {
             case 3:
             case 4:
             case 5:
-                Downloader.getInstance(context).pause(id2);
-                a(context, downloadInfo);
-                if (dVar != null) {
-                    dVar.a(id2, 5, "", downloadInfo.getStatus(), downloadInfo.getDownloadTime());
+                Downloader.getInstance(context).pause(id);
+                j(context, downloadInfo);
+                if (gVar != null) {
+                    gVar.j(id, 5, "", downloadInfo.getStatus(), downloadInfo.getDownloadTime());
                 }
                 if (iDownloadNotificationEventListener != null) {
                     iDownloadNotificationEventListener.onNotificationEvent(5, downloadInfo, "", "");

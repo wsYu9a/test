@@ -9,7 +9,7 @@ import com.bumptech.glide.request.transition.ViewPropertyAnimationFactory;
 import com.bumptech.glide.request.transition.ViewPropertyTransition;
 import com.bumptech.glide.util.Preconditions;
 
-/* loaded from: classes2.dex */
+/* loaded from: classes.dex */
 public abstract class TransitionOptions<CHILD extends TransitionOptions<CHILD, TranscodeType>, TranscodeType> implements Cloneable {
     private TransitionFactory<? super TranscodeType> transitionFactory = NoTransition.getFactory();
 
@@ -22,21 +22,21 @@ public abstract class TransitionOptions<CHILD extends TransitionOptions<CHILD, T
         return transition(NoTransition.getFactory());
     }
 
-    public final TransitionFactory<? super TranscodeType> getTransitionFactory() {
+    final TransitionFactory<? super TranscodeType> getTransitionFactory() {
         return this.transitionFactory;
     }
 
     @NonNull
-    public final CHILD transition(int i10) {
-        return transition(new ViewAnimationFactory(i10));
+    public final CHILD transition(int i2) {
+        return transition(new ViewAnimationFactory(i2));
     }
 
     /* renamed from: clone */
-    public final CHILD m30clone() {
+    public final CHILD m38clone() {
         try {
             return (CHILD) super.clone();
-        } catch (CloneNotSupportedException e10) {
-            throw new RuntimeException(e10);
+        } catch (CloneNotSupportedException e2) {
+            throw new RuntimeException(e2);
         }
     }
 

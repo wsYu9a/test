@@ -6,89 +6,56 @@ import android.content.Intent;
 import android.content.IntentSender;
 import android.content.res.Configuration;
 import android.os.Bundle;
+import android.os.Parcelable;
 import android.util.AttributeSet;
+import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.Window;
 import androidx.activity.ComponentActivity;
 import androidx.activity.OnBackPressedDispatcher;
 import androidx.activity.OnBackPressedDispatcherOwner;
-import androidx.activity.contextaware.OnContextAvailableListener;
-import androidx.activity.result.ActivityResultRegistry;
-import androidx.activity.result.ActivityResultRegistryOwner;
 import androidx.annotation.CallSuper;
 import androidx.annotation.ContentView;
 import androidx.annotation.LayoutRes;
-import androidx.annotation.MainThread;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.annotation.RestrictTo;
+import androidx.collection.SparseArrayCompat;
 import androidx.core.app.ActivityCompat;
-import androidx.core.app.MultiWindowModeChangedInfo;
-import androidx.core.app.OnMultiWindowModeChangedProvider;
-import androidx.core.app.OnPictureInPictureModeChangedProvider;
-import androidx.core.app.PictureInPictureModeChangedInfo;
 import androidx.core.app.SharedElementCallback;
-import androidx.core.content.OnConfigurationChangedProvider;
-import androidx.core.content.OnTrimMemoryProvider;
-import androidx.core.util.Consumer;
-import androidx.core.view.MenuHost;
-import androidx.core.view.MenuProvider;
-import androidx.fragment.app.FragmentActivity;
 import androidx.lifecycle.Lifecycle;
-import androidx.lifecycle.LifecycleOwner;
 import androidx.lifecycle.LifecycleRegistry;
 import androidx.lifecycle.ViewModelStore;
 import androidx.lifecycle.ViewModelStoreOwner;
 import androidx.loader.app.LoaderManager;
-import androidx.savedstate.SavedStateRegistry;
-import androidx.savedstate.SavedStateRegistryOwner;
 import java.io.FileDescriptor;
 import java.io.PrintWriter;
 
 /* loaded from: classes.dex */
 public class FragmentActivity extends ComponentActivity implements ActivityCompat.OnRequestPermissionsResultCallback, ActivityCompat.RequestPermissionsRequestCodeValidator {
-    static final String LIFECYCLE_TAG = "android:support:lifecycle";
+    static final String ALLOCATED_REQUEST_INDICIES_TAG = "android:support:request_indicies";
+    static final String FRAGMENTS_TAG = "android:support:fragments";
+    static final int MAX_NUM_PENDING_FRAGMENT_ACTIVITY_RESULTS = 65534;
+    static final String NEXT_CANDIDATE_REQUEST_INDEX_TAG = "android:support:next_request_index";
+    static final String REQUEST_FRAGMENT_WHO_TAG = "android:support:request_fragment_who";
+    private static final String TAG = "FragmentActivity";
     boolean mCreated;
     final LifecycleRegistry mFragmentLifecycleRegistry;
     final FragmentController mFragments;
+    int mNextCandidateRequestIndex;
+    SparseArrayCompat<String> mPendingFragmentActivityResults;
+    boolean mRequestedPermissionsFromFragment;
     boolean mResumed;
+    boolean mStartedActivityFromFragment;
+    boolean mStartedIntentSenderFromFragment;
     boolean mStopped;
 
-    public class HostCallbacks extends FragmentHostCallback<FragmentActivity> implements OnConfigurationChangedProvider, OnTrimMemoryProvider, OnMultiWindowModeChangedProvider, OnPictureInPictureModeChangedProvider, ViewModelStoreOwner, OnBackPressedDispatcherOwner, ActivityResultRegistryOwner, SavedStateRegistryOwner, FragmentOnAttachListener, MenuHost {
+    class HostCallbacks extends FragmentHostCallback<FragmentActivity> implements ViewModelStoreOwner, OnBackPressedDispatcherOwner {
         public HostCallbacks() {
             super(FragmentActivity.this);
-        }
-
-        @Override // androidx.core.view.MenuHost
-        public void addMenuProvider(@NonNull MenuProvider menuProvider) {
-            FragmentActivity.this.addMenuProvider(menuProvider);
-        }
-
-        @Override // androidx.core.content.OnConfigurationChangedProvider
-        public void addOnConfigurationChangedListener(@NonNull Consumer<Configuration> consumer) {
-            FragmentActivity.this.addOnConfigurationChangedListener(consumer);
-        }
-
-        @Override // androidx.core.app.OnMultiWindowModeChangedProvider
-        public void addOnMultiWindowModeChangedListener(@NonNull Consumer<MultiWindowModeChangedInfo> consumer) {
-            FragmentActivity.this.addOnMultiWindowModeChangedListener(consumer);
-        }
-
-        @Override // androidx.core.app.OnPictureInPictureModeChangedProvider
-        public void addOnPictureInPictureModeChangedListener(@NonNull Consumer<PictureInPictureModeChangedInfo> consumer) {
-            FragmentActivity.this.addOnPictureInPictureModeChangedListener(consumer);
-        }
-
-        @Override // androidx.core.content.OnTrimMemoryProvider
-        public void addOnTrimMemoryListener(@NonNull Consumer<Integer> consumer) {
-            FragmentActivity.this.addOnTrimMemoryListener(consumer);
-        }
-
-        @Override // androidx.activity.result.ActivityResultRegistryOwner
-        @NonNull
-        public ActivityResultRegistry getActivityResultRegistry() {
-            return FragmentActivity.this.getActivityResultRegistry();
         }
 
         @Override // androidx.lifecycle.LifecycleOwner
@@ -103,25 +70,14 @@ public class FragmentActivity extends ComponentActivity implements ActivityCompa
             return FragmentActivity.this.getOnBackPressedDispatcher();
         }
 
-        @Override // androidx.savedstate.SavedStateRegistryOwner
-        @NonNull
-        public SavedStateRegistry getSavedStateRegistry() {
-            return FragmentActivity.this.getSavedStateRegistry();
-        }
-
         @Override // androidx.lifecycle.ViewModelStoreOwner
         @NonNull
         public ViewModelStore getViewModelStore() {
             return FragmentActivity.this.getViewModelStore();
         }
 
-        @Override // androidx.core.view.MenuHost
-        public void invalidateMenu() {
-            FragmentActivity.this.invalidateOptionsMenu();
-        }
-
-        @Override // androidx.fragment.app.FragmentOnAttachListener
-        public void onAttachFragment(@NonNull FragmentManager fragmentManager, @NonNull Fragment fragment) {
+        @Override // androidx.fragment.app.FragmentHostCallback
+        public void onAttachFragment(@NonNull Fragment fragment) {
             FragmentActivity.this.onAttachFragment(fragment);
         }
 
@@ -132,8 +88,8 @@ public class FragmentActivity extends ComponentActivity implements ActivityCompa
 
         @Override // androidx.fragment.app.FragmentHostCallback, androidx.fragment.app.FragmentContainer
         @Nullable
-        public View onFindViewById(int i10) {
-            return FragmentActivity.this.findViewById(i10);
+        public View onFindViewById(int i2) {
+            return FragmentActivity.this.findViewById(i2);
         }
 
         @Override // androidx.fragment.app.FragmentHostCallback
@@ -163,6 +119,11 @@ public class FragmentActivity extends ComponentActivity implements ActivityCompa
         }
 
         @Override // androidx.fragment.app.FragmentHostCallback
+        public void onRequestPermissionsFromFragment(@NonNull Fragment fragment, @NonNull String[] strArr, int i2) {
+            FragmentActivity.this.requestPermissionsFromFragment(fragment, strArr, i2);
+        }
+
+        @Override // androidx.fragment.app.FragmentHostCallback
         public boolean onShouldSaveFragmentState(@NonNull Fragment fragment) {
             return !FragmentActivity.this.isFinishing();
         }
@@ -173,38 +134,18 @@ public class FragmentActivity extends ComponentActivity implements ActivityCompa
         }
 
         @Override // androidx.fragment.app.FragmentHostCallback
+        public void onStartActivityFromFragment(@NonNull Fragment fragment, Intent intent, int i2) {
+            FragmentActivity.this.startActivityFromFragment(fragment, intent, i2);
+        }
+
+        @Override // androidx.fragment.app.FragmentHostCallback
+        public void onStartIntentSenderFromFragment(@NonNull Fragment fragment, IntentSender intentSender, int i2, @Nullable Intent intent, int i3, int i4, int i5, Bundle bundle) throws IntentSender.SendIntentException {
+            FragmentActivity.this.startIntentSenderFromFragment(fragment, intentSender, i2, intent, i3, i4, i5, bundle);
+        }
+
+        @Override // androidx.fragment.app.FragmentHostCallback
         public void onSupportInvalidateOptionsMenu() {
-            invalidateMenu();
-        }
-
-        @Override // androidx.core.view.MenuHost
-        public void removeMenuProvider(@NonNull MenuProvider menuProvider) {
-            FragmentActivity.this.removeMenuProvider(menuProvider);
-        }
-
-        @Override // androidx.core.content.OnConfigurationChangedProvider
-        public void removeOnConfigurationChangedListener(@NonNull Consumer<Configuration> consumer) {
-            FragmentActivity.this.removeOnConfigurationChangedListener(consumer);
-        }
-
-        @Override // androidx.core.app.OnMultiWindowModeChangedProvider
-        public void removeOnMultiWindowModeChangedListener(@NonNull Consumer<MultiWindowModeChangedInfo> consumer) {
-            FragmentActivity.this.removeOnMultiWindowModeChangedListener(consumer);
-        }
-
-        @Override // androidx.core.app.OnPictureInPictureModeChangedProvider
-        public void removeOnPictureInPictureModeChangedListener(@NonNull Consumer<PictureInPictureModeChangedInfo> consumer) {
-            FragmentActivity.this.removeOnPictureInPictureModeChangedListener(consumer);
-        }
-
-        @Override // androidx.core.content.OnTrimMemoryProvider
-        public void removeOnTrimMemoryListener(@NonNull Consumer<Integer> consumer) {
-            FragmentActivity.this.removeOnTrimMemoryListener(consumer);
-        }
-
-        @Override // androidx.core.view.MenuHost
-        public void addMenuProvider(@NonNull MenuProvider menuProvider, @NonNull LifecycleOwner lifecycleOwner) {
-            FragmentActivity.this.addMenuProvider(menuProvider, lifecycleOwner);
+            FragmentActivity.this.supportInvalidateOptionsMenu();
         }
 
         @Override // androidx.fragment.app.FragmentHostCallback
@@ -212,9 +153,9 @@ public class FragmentActivity extends ComponentActivity implements ActivityCompa
             return FragmentActivity.this;
         }
 
-        @Override // androidx.core.view.MenuHost
-        public void addMenuProvider(@NonNull MenuProvider menuProvider, @NonNull LifecycleOwner lifecycleOwner, @NonNull Lifecycle.State state) {
-            FragmentActivity.this.addMenuProvider(menuProvider, lifecycleOwner, state);
+        @Override // androidx.fragment.app.FragmentHostCallback
+        public void onStartActivityFromFragment(@NonNull Fragment fragment, Intent intent, int i2, @Nullable Bundle bundle) {
+            FragmentActivity.this.startActivityFromFragment(fragment, intent, i2, bundle);
         }
     }
 
@@ -222,115 +163,72 @@ public class FragmentActivity extends ComponentActivity implements ActivityCompa
         this.mFragments = FragmentController.createController(new HostCallbacks());
         this.mFragmentLifecycleRegistry = new LifecycleRegistry(this);
         this.mStopped = true;
-        init();
     }
 
-    private void init() {
-        getSavedStateRegistry().registerSavedStateProvider(LIFECYCLE_TAG, new SavedStateRegistry.SavedStateProvider() { // from class: i0.a
-            public /* synthetic */ a() {
-            }
-
-            @Override // androidx.savedstate.SavedStateRegistry.SavedStateProvider
-            public final Bundle saveState() {
-                Bundle lambda$init$0;
-                lambda$init$0 = FragmentActivity.this.lambda$init$0();
-                return lambda$init$0;
-            }
-        });
-        addOnConfigurationChangedListener(new Consumer() { // from class: i0.b
-            public /* synthetic */ b() {
-            }
-
-            @Override // androidx.core.util.Consumer
-            public final void accept(Object obj) {
-                FragmentActivity.this.lambda$init$1((Configuration) obj);
-            }
-        });
-        addOnNewIntentListener(new Consumer() { // from class: i0.c
-            public /* synthetic */ c() {
-            }
-
-            @Override // androidx.core.util.Consumer
-            public final void accept(Object obj) {
-                FragmentActivity.this.lambda$init$2((Intent) obj);
-            }
-        });
-        addOnContextAvailableListener(new OnContextAvailableListener() { // from class: i0.d
-            public /* synthetic */ d() {
-            }
-
-            @Override // androidx.activity.contextaware.OnContextAvailableListener
-            public final void onContextAvailable(Context context) {
-                FragmentActivity.this.lambda$init$3(context);
-            }
-        });
+    private int allocateRequestIndex(@NonNull Fragment fragment) {
+        if (this.mPendingFragmentActivityResults.size() >= MAX_NUM_PENDING_FRAGMENT_ACTIVITY_RESULTS) {
+            throw new IllegalStateException("Too many pending Fragment activity results.");
+        }
+        while (this.mPendingFragmentActivityResults.indexOfKey(this.mNextCandidateRequestIndex) >= 0) {
+            this.mNextCandidateRequestIndex = (this.mNextCandidateRequestIndex + 1) % MAX_NUM_PENDING_FRAGMENT_ACTIVITY_RESULTS;
+        }
+        int i2 = this.mNextCandidateRequestIndex;
+        this.mPendingFragmentActivityResults.put(i2, fragment.mWho);
+        this.mNextCandidateRequestIndex = (this.mNextCandidateRequestIndex + 1) % MAX_NUM_PENDING_FRAGMENT_ACTIVITY_RESULTS;
+        return i2;
     }
 
-    public /* synthetic */ Bundle lambda$init$0() {
-        markFragmentsCreated();
-        this.mFragmentLifecycleRegistry.handleLifecycleEvent(Lifecycle.Event.ON_STOP);
-        return new Bundle();
+    static void checkForValidRequestCode(int i2) {
+        if ((i2 & (-65536)) != 0) {
+            throw new IllegalArgumentException("Can only use lower 16 bits for requestCode");
+        }
     }
 
-    public /* synthetic */ void lambda$init$1(Configuration configuration) {
-        this.mFragments.noteStateNotSaved();
-    }
-
-    public /* synthetic */ void lambda$init$2(Intent intent) {
-        this.mFragments.noteStateNotSaved();
-    }
-
-    public /* synthetic */ void lambda$init$3(Context context) {
-        this.mFragments.attachHost(null);
+    private void markFragmentsCreated() {
+        while (markState(getSupportFragmentManager(), Lifecycle.State.CREATED)) {
+        }
     }
 
     private static boolean markState(FragmentManager fragmentManager, Lifecycle.State state) {
-        boolean z10 = false;
+        boolean z = false;
         for (Fragment fragment : fragmentManager.getFragments()) {
             if (fragment != null) {
-                if (fragment.getHost() != null) {
-                    z10 |= markState(fragment.getChildFragmentManager(), state);
-                }
-                FragmentViewLifecycleOwner fragmentViewLifecycleOwner = fragment.mViewLifecycleOwner;
-                if (fragmentViewLifecycleOwner != null && fragmentViewLifecycleOwner.getLifecycle().getCurrentState().isAtLeast(Lifecycle.State.STARTED)) {
-                    fragment.mViewLifecycleOwner.setCurrentState(state);
-                    z10 = true;
-                }
-                if (fragment.mLifecycleRegistry.getCurrentState().isAtLeast(Lifecycle.State.STARTED)) {
+                if (fragment.getLifecycle().getCurrentState().isAtLeast(Lifecycle.State.STARTED)) {
                     fragment.mLifecycleRegistry.setCurrentState(state);
-                    z10 = true;
+                    z = true;
+                }
+                if (fragment.getHost() != null) {
+                    z |= markState(fragment.getChildFragmentManager(), state);
                 }
             }
         }
-        return z10;
+        return z;
     }
 
     @Nullable
-    public final View dispatchFragmentsOnCreateView(@Nullable View view, @NonNull String str, @NonNull Context context, @NonNull AttributeSet attributeSet) {
+    final View dispatchFragmentsOnCreateView(@Nullable View view, @NonNull String str, @NonNull Context context, @NonNull AttributeSet attributeSet) {
         return this.mFragments.onCreateView(view, str, context, attributeSet);
     }
 
     @Override // android.app.Activity
     public void dump(@NonNull String str, @Nullable FileDescriptor fileDescriptor, @NonNull PrintWriter printWriter, @Nullable String[] strArr) {
         super.dump(str, fileDescriptor, printWriter, strArr);
-        if (shouldDumpInternalState(strArr)) {
-            printWriter.print(str);
-            printWriter.print("Local FragmentActivity ");
-            printWriter.print(Integer.toHexString(System.identityHashCode(this)));
-            printWriter.println(" State:");
-            String str2 = str + "  ";
-            printWriter.print(str2);
-            printWriter.print("mCreated=");
-            printWriter.print(this.mCreated);
-            printWriter.print(" mResumed=");
-            printWriter.print(this.mResumed);
-            printWriter.print(" mStopped=");
-            printWriter.print(this.mStopped);
-            if (getApplication() != null) {
-                LoaderManager.getInstance(this).dump(str2, fileDescriptor, printWriter, strArr);
-            }
-            this.mFragments.getSupportFragmentManager().dump(str, fileDescriptor, printWriter, strArr);
+        printWriter.print(str);
+        printWriter.print("Local FragmentActivity ");
+        printWriter.print(Integer.toHexString(System.identityHashCode(this)));
+        printWriter.println(" State:");
+        String str2 = str + "  ";
+        printWriter.print(str2);
+        printWriter.print("mCreated=");
+        printWriter.print(this.mCreated);
+        printWriter.print(" mResumed=");
+        printWriter.print(this.mResumed);
+        printWriter.print(" mStopped=");
+        printWriter.print(this.mStopped);
+        if (getApplication() != null) {
+            LoaderManager.getInstance(this).dump(str2, fileDescriptor, printWriter, strArr);
         }
+        this.mFragments.getSupportFragmentManager().dump(str, fileDescriptor, printWriter, strArr);
     }
 
     @NonNull
@@ -344,28 +242,75 @@ public class FragmentActivity extends ComponentActivity implements ActivityCompa
         return LoaderManager.getInstance(this);
     }
 
-    public void markFragmentsCreated() {
-        while (markState(getSupportFragmentManager(), Lifecycle.State.CREATED)) {
-        }
-    }
-
-    @Override // androidx.activity.ComponentActivity, android.app.Activity
+    @Override // android.app.Activity
     @CallSuper
-    public void onActivityResult(int i10, int i11, @Nullable Intent intent) {
+    protected void onActivityResult(int i2, int i3, @Nullable Intent intent) {
         this.mFragments.noteStateNotSaved();
-        super.onActivityResult(i10, i11, intent);
+        int i4 = i2 >> 16;
+        if (i4 == 0) {
+            ActivityCompat.PermissionCompatDelegate permissionCompatDelegate = ActivityCompat.getPermissionCompatDelegate();
+            if (permissionCompatDelegate == null || !permissionCompatDelegate.onActivityResult(this, i2, i3, intent)) {
+                super.onActivityResult(i2, i3, intent);
+                return;
+            }
+            return;
+        }
+        int i5 = i4 - 1;
+        String str = this.mPendingFragmentActivityResults.get(i5);
+        this.mPendingFragmentActivityResults.remove(i5);
+        if (str == null) {
+            Log.w(TAG, "Activity result delivered for unknown Fragment.");
+            return;
+        }
+        Fragment findFragmentByWho = this.mFragments.findFragmentByWho(str);
+        if (findFragmentByWho != null) {
+            findFragmentByWho.onActivityResult(i2 & 65535, i3, intent);
+            return;
+        }
+        Log.w(TAG, "Activity result no fragment exists for who: " + str);
     }
 
-    @MainThread
-    @Deprecated
     public void onAttachFragment(@NonNull Fragment fragment) {
     }
 
+    @Override // android.app.Activity, android.content.ComponentCallbacks
+    public void onConfigurationChanged(@NonNull Configuration configuration) {
+        super.onConfigurationChanged(configuration);
+        this.mFragments.noteStateNotSaved();
+        this.mFragments.dispatchConfigurationChanged(configuration);
+    }
+
     @Override // androidx.activity.ComponentActivity, androidx.core.app.ComponentActivity, android.app.Activity
-    public void onCreate(@Nullable Bundle bundle) {
+    protected void onCreate(@Nullable Bundle bundle) {
+        this.mFragments.attachHost(null);
+        if (bundle != null) {
+            this.mFragments.restoreSaveState(bundle.getParcelable(FRAGMENTS_TAG));
+            if (bundle.containsKey(NEXT_CANDIDATE_REQUEST_INDEX_TAG)) {
+                this.mNextCandidateRequestIndex = bundle.getInt(NEXT_CANDIDATE_REQUEST_INDEX_TAG);
+                int[] intArray = bundle.getIntArray(ALLOCATED_REQUEST_INDICIES_TAG);
+                String[] stringArray = bundle.getStringArray(REQUEST_FRAGMENT_WHO_TAG);
+                if (intArray == null || stringArray == null || intArray.length != stringArray.length) {
+                    Log.w(TAG, "Invalid requestCode mapping in savedInstanceState.");
+                } else {
+                    this.mPendingFragmentActivityResults = new SparseArrayCompat<>(intArray.length);
+                    for (int i2 = 0; i2 < intArray.length; i2++) {
+                        this.mPendingFragmentActivityResults.put(intArray[i2], stringArray[i2]);
+                    }
+                }
+            }
+        }
+        if (this.mPendingFragmentActivityResults == null) {
+            this.mPendingFragmentActivityResults = new SparseArrayCompat<>();
+            this.mNextCandidateRequestIndex = 0;
+        }
         super.onCreate(bundle);
         this.mFragmentLifecycleRegistry.handleLifecycleEvent(Lifecycle.Event.ON_CREATE);
         this.mFragments.dispatchCreate();
+    }
+
+    @Override // android.app.Activity, android.view.Window.Callback
+    public boolean onCreatePanelMenu(int i2, @NonNull Menu menu) {
+        return i2 == 0 ? super.onCreatePanelMenu(i2, menu) | this.mFragments.dispatchCreateOptionsMenu(menu, getMenuInflater()) : super.onCreatePanelMenu(i2, menu);
     }
 
     @Override // android.app.Activity, android.view.LayoutInflater.Factory2
@@ -376,25 +321,55 @@ public class FragmentActivity extends ComponentActivity implements ActivityCompa
     }
 
     @Override // android.app.Activity
-    public void onDestroy() {
+    protected void onDestroy() {
         super.onDestroy();
         this.mFragments.dispatchDestroy();
         this.mFragmentLifecycleRegistry.handleLifecycleEvent(Lifecycle.Event.ON_DESTROY);
     }
 
-    @Override // androidx.activity.ComponentActivity, android.app.Activity, android.view.Window.Callback
-    public boolean onMenuItemSelected(int i10, @NonNull MenuItem menuItem) {
-        if (super.onMenuItemSelected(i10, menuItem)) {
+    @Override // android.app.Activity, android.content.ComponentCallbacks
+    public void onLowMemory() {
+        super.onLowMemory();
+        this.mFragments.dispatchLowMemory();
+    }
+
+    @Override // android.app.Activity, android.view.Window.Callback
+    public boolean onMenuItemSelected(int i2, @NonNull MenuItem menuItem) {
+        if (super.onMenuItemSelected(i2, menuItem)) {
             return true;
         }
-        if (i10 == 6) {
-            return this.mFragments.dispatchContextItemSelected(menuItem);
+        if (i2 == 0) {
+            return this.mFragments.dispatchOptionsItemSelected(menuItem);
         }
-        return false;
+        if (i2 != 6) {
+            return false;
+        }
+        return this.mFragments.dispatchContextItemSelected(menuItem);
     }
 
     @Override // android.app.Activity
-    public void onPause() {
+    @CallSuper
+    public void onMultiWindowModeChanged(boolean z) {
+        this.mFragments.dispatchMultiWindowModeChanged(z);
+    }
+
+    @Override // android.app.Activity
+    @CallSuper
+    protected void onNewIntent(@SuppressLint({"UnknownNullness"}) Intent intent) {
+        super.onNewIntent(intent);
+        this.mFragments.noteStateNotSaved();
+    }
+
+    @Override // android.app.Activity, android.view.Window.Callback
+    public void onPanelClosed(int i2, @NonNull Menu menu) {
+        if (i2 == 0) {
+            this.mFragments.dispatchOptionsMenuClosed(menu);
+        }
+        super.onPanelClosed(i2, menu);
+    }
+
+    @Override // android.app.Activity
+    protected void onPause() {
         super.onPause();
         this.mResumed = false;
         this.mFragments.dispatchPause();
@@ -402,40 +377,93 @@ public class FragmentActivity extends ComponentActivity implements ActivityCompa
     }
 
     @Override // android.app.Activity
-    public void onPostResume() {
+    @CallSuper
+    public void onPictureInPictureModeChanged(boolean z) {
+        this.mFragments.dispatchPictureInPictureModeChanged(z);
+    }
+
+    @Override // android.app.Activity
+    protected void onPostResume() {
         super.onPostResume();
         onResumeFragments();
     }
 
-    @Override // androidx.activity.ComponentActivity, android.app.Activity
-    @CallSuper
-    public void onRequestPermissionsResult(int i10, @NonNull String[] strArr, @NonNull int[] iArr) {
+    @RestrictTo({RestrictTo.Scope.LIBRARY_GROUP_PREFIX})
+    @Deprecated
+    protected boolean onPrepareOptionsPanel(@Nullable View view, @NonNull Menu menu) {
+        return super.onPreparePanel(0, view, menu);
+    }
+
+    @Override // android.app.Activity, android.view.Window.Callback
+    public boolean onPreparePanel(int i2, @Nullable View view, @NonNull Menu menu) {
+        return i2 == 0 ? onPrepareOptionsPanel(view, menu) | this.mFragments.dispatchPrepareOptionsMenu(menu) : super.onPreparePanel(i2, view, menu);
+    }
+
+    @Override // android.app.Activity, androidx.core.app.ActivityCompat.OnRequestPermissionsResultCallback
+    public void onRequestPermissionsResult(int i2, @NonNull String[] strArr, @NonNull int[] iArr) {
         this.mFragments.noteStateNotSaved();
-        super.onRequestPermissionsResult(i10, strArr, iArr);
+        int i3 = (i2 >> 16) & 65535;
+        if (i3 != 0) {
+            int i4 = i3 - 1;
+            String str = this.mPendingFragmentActivityResults.get(i4);
+            this.mPendingFragmentActivityResults.remove(i4);
+            if (str == null) {
+                Log.w(TAG, "Activity result delivered for unknown Fragment.");
+                return;
+            }
+            Fragment findFragmentByWho = this.mFragments.findFragmentByWho(str);
+            if (findFragmentByWho != null) {
+                findFragmentByWho.onRequestPermissionsResult(i2 & 65535, strArr, iArr);
+                return;
+            }
+            Log.w(TAG, "Activity result no fragment exists for who: " + str);
+        }
     }
 
     @Override // android.app.Activity
-    public void onResume() {
-        this.mFragments.noteStateNotSaved();
+    protected void onResume() {
         super.onResume();
         this.mResumed = true;
+        this.mFragments.noteStateNotSaved();
         this.mFragments.execPendingActions();
     }
 
-    public void onResumeFragments() {
+    protected void onResumeFragments() {
         this.mFragmentLifecycleRegistry.handleLifecycleEvent(Lifecycle.Event.ON_RESUME);
         this.mFragments.dispatchResume();
     }
 
+    @Override // androidx.activity.ComponentActivity, androidx.core.app.ComponentActivity, android.app.Activity
+    protected void onSaveInstanceState(@NonNull Bundle bundle) {
+        super.onSaveInstanceState(bundle);
+        markFragmentsCreated();
+        this.mFragmentLifecycleRegistry.handleLifecycleEvent(Lifecycle.Event.ON_STOP);
+        Parcelable saveAllState = this.mFragments.saveAllState();
+        if (saveAllState != null) {
+            bundle.putParcelable(FRAGMENTS_TAG, saveAllState);
+        }
+        if (this.mPendingFragmentActivityResults.size() > 0) {
+            bundle.putInt(NEXT_CANDIDATE_REQUEST_INDEX_TAG, this.mNextCandidateRequestIndex);
+            int[] iArr = new int[this.mPendingFragmentActivityResults.size()];
+            String[] strArr = new String[this.mPendingFragmentActivityResults.size()];
+            for (int i2 = 0; i2 < this.mPendingFragmentActivityResults.size(); i2++) {
+                iArr[i2] = this.mPendingFragmentActivityResults.keyAt(i2);
+                strArr[i2] = this.mPendingFragmentActivityResults.valueAt(i2);
+            }
+            bundle.putIntArray(ALLOCATED_REQUEST_INDICIES_TAG, iArr);
+            bundle.putStringArray(REQUEST_FRAGMENT_WHO_TAG, strArr);
+        }
+    }
+
     @Override // android.app.Activity
-    public void onStart() {
-        this.mFragments.noteStateNotSaved();
+    protected void onStart() {
         super.onStart();
         this.mStopped = false;
         if (!this.mCreated) {
             this.mCreated = true;
             this.mFragments.dispatchActivityCreated();
         }
+        this.mFragments.noteStateNotSaved();
         this.mFragments.execPendingActions();
         this.mFragmentLifecycleRegistry.handleLifecycleEvent(Lifecycle.Event.ON_START);
         this.mFragments.dispatchStart();
@@ -447,12 +475,26 @@ public class FragmentActivity extends ComponentActivity implements ActivityCompa
     }
 
     @Override // android.app.Activity
-    public void onStop() {
+    protected void onStop() {
         super.onStop();
         this.mStopped = true;
         markFragmentsCreated();
         this.mFragments.dispatchStop();
         this.mFragmentLifecycleRegistry.handleLifecycleEvent(Lifecycle.Event.ON_STOP);
+    }
+
+    void requestPermissionsFromFragment(@NonNull Fragment fragment, @NonNull String[] strArr, int i2) {
+        if (i2 == -1) {
+            ActivityCompat.requestPermissions(this, strArr, i2);
+            return;
+        }
+        checkForValidRequestCode(i2);
+        try {
+            this.mRequestedPermissionsFromFragment = true;
+            ActivityCompat.requestPermissions(this, strArr, ((allocateRequestIndex(fragment) + 1) << 16) + (i2 & 65535));
+        } finally {
+            this.mRequestedPermissionsFromFragment = false;
+        }
     }
 
     public void setEnterSharedElementCallback(@Nullable SharedElementCallback sharedElementCallback) {
@@ -463,16 +505,37 @@ public class FragmentActivity extends ComponentActivity implements ActivityCompa
         ActivityCompat.setExitSharedElementCallback(this, sharedElementCallback);
     }
 
-    public void startActivityFromFragment(@NonNull Fragment fragment, @SuppressLint({"UnknownNullness"}) Intent intent, int i10) {
-        startActivityFromFragment(fragment, intent, i10, (Bundle) null);
+    @Override // android.app.Activity
+    public void startActivityForResult(@SuppressLint({"UnknownNullness"}) Intent intent, int i2) {
+        if (!this.mStartedActivityFromFragment && i2 != -1) {
+            checkForValidRequestCode(i2);
+        }
+        super.startActivityForResult(intent, i2);
     }
 
-    @Deprecated
-    public void startIntentSenderFromFragment(@NonNull Fragment fragment, @SuppressLint({"UnknownNullness"}) IntentSender intentSender, int i10, @Nullable Intent intent, int i11, int i12, int i13, @Nullable Bundle bundle) throws IntentSender.SendIntentException {
-        if (i10 == -1) {
-            ActivityCompat.startIntentSenderForResult(this, intentSender, i10, intent, i11, i12, i13, bundle);
-        } else {
-            fragment.startIntentSenderForResult(intentSender, i10, intent, i11, i12, i13, bundle);
+    public void startActivityFromFragment(@NonNull Fragment fragment, @SuppressLint({"UnknownNullness"}) Intent intent, int i2) {
+        startActivityFromFragment(fragment, intent, i2, (Bundle) null);
+    }
+
+    @Override // android.app.Activity
+    public void startIntentSenderForResult(@SuppressLint({"UnknownNullness"}) IntentSender intentSender, int i2, @Nullable Intent intent, int i3, int i4, int i5) throws IntentSender.SendIntentException {
+        if (!this.mStartedIntentSenderFromFragment && i2 != -1) {
+            checkForValidRequestCode(i2);
+        }
+        super.startIntentSenderForResult(intentSender, i2, intent, i3, i4, i5);
+    }
+
+    public void startIntentSenderFromFragment(@NonNull Fragment fragment, @SuppressLint({"UnknownNullness"}) IntentSender intentSender, int i2, @Nullable Intent intent, int i3, int i4, int i5, @Nullable Bundle bundle) throws IntentSender.SendIntentException {
+        this.mStartedIntentSenderFromFragment = true;
+        try {
+            if (i2 == -1) {
+                ActivityCompat.startIntentSenderForResult(this, intentSender, i2, intent, i3, i4, i5, bundle);
+            } else {
+                checkForValidRequestCode(i2);
+                ActivityCompat.startIntentSenderForResult(this, intentSender, ((allocateRequestIndex(fragment) + 1) << 16) + (i2 & 65535), intent, i3, i4, i5, bundle);
+            }
+        } finally {
+            this.mStartedIntentSenderFromFragment = false;
         }
     }
 
@@ -494,15 +557,24 @@ public class FragmentActivity extends ComponentActivity implements ActivityCompa
     }
 
     @Override // androidx.core.app.ActivityCompat.RequestPermissionsRequestCodeValidator
-    @Deprecated
-    public final void validateRequestPermissionsRequestCode(int i10) {
+    public final void validateRequestPermissionsRequestCode(int i2) {
+        if (this.mRequestedPermissionsFromFragment || i2 == -1) {
+            return;
+        }
+        checkForValidRequestCode(i2);
     }
 
-    public void startActivityFromFragment(@NonNull Fragment fragment, @SuppressLint({"UnknownNullness"}) Intent intent, int i10, @Nullable Bundle bundle) {
-        if (i10 == -1) {
-            ActivityCompat.startActivityForResult(this, intent, -1, bundle);
-        } else {
-            fragment.startActivityForResult(intent, i10, bundle);
+    public void startActivityFromFragment(@NonNull Fragment fragment, @SuppressLint({"UnknownNullness"}) Intent intent, int i2, @Nullable Bundle bundle) {
+        this.mStartedActivityFromFragment = true;
+        try {
+            if (i2 == -1) {
+                ActivityCompat.startActivityForResult(this, intent, -1, bundle);
+            } else {
+                checkForValidRequestCode(i2);
+                ActivityCompat.startActivityForResult(this, intent, ((allocateRequestIndex(fragment) + 1) << 16) + (i2 & 65535), bundle);
+            }
+        } finally {
+            this.mStartedActivityFromFragment = false;
         }
     }
 
@@ -513,12 +585,27 @@ public class FragmentActivity extends ComponentActivity implements ActivityCompa
         return dispatchFragmentsOnCreateView == null ? super.onCreateView(str, context, attributeSet) : dispatchFragmentsOnCreateView;
     }
 
+    @Override // android.app.Activity
+    public void startActivityForResult(@SuppressLint({"UnknownNullness"}) Intent intent, int i2, @Nullable Bundle bundle) {
+        if (!this.mStartedActivityFromFragment && i2 != -1) {
+            checkForValidRequestCode(i2);
+        }
+        super.startActivityForResult(intent, i2, bundle);
+    }
+
+    @Override // android.app.Activity
+    public void startIntentSenderForResult(@SuppressLint({"UnknownNullness"}) IntentSender intentSender, int i2, @Nullable Intent intent, int i3, int i4, int i5, @Nullable Bundle bundle) throws IntentSender.SendIntentException {
+        if (!this.mStartedIntentSenderFromFragment && i2 != -1) {
+            checkForValidRequestCode(i2);
+        }
+        super.startIntentSenderForResult(intentSender, i2, intent, i3, i4, i5, bundle);
+    }
+
     @ContentView
-    public FragmentActivity(@LayoutRes int i10) {
-        super(i10);
+    public FragmentActivity(@LayoutRes int i2) {
+        super(i2);
         this.mFragments = FragmentController.createController(new HostCallbacks());
         this.mFragmentLifecycleRegistry = new LifecycleRegistry(this);
         this.mStopped = true;
-        init();
     }
 }

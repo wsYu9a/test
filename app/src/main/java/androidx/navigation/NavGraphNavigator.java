@@ -9,10 +9,12 @@ import androidx.navigation.Navigator;
 @Navigator.Name(NotificationCompat.CATEGORY_NAVIGATION)
 /* loaded from: classes.dex */
 public class NavGraphNavigator extends Navigator<NavGraph> {
-    private final NavigatorProvider mNavigatorProvider;
+
+    /* renamed from: a */
+    private final NavigatorProvider f3021a;
 
     public NavGraphNavigator(@NonNull NavigatorProvider navigatorProvider) {
-        this.mNavigatorProvider = navigatorProvider;
+        this.f3021a = navigatorProvider;
     }
 
     @Override // androidx.navigation.Navigator
@@ -33,10 +35,10 @@ public class NavGraphNavigator extends Navigator<NavGraph> {
         if (startDestination == 0) {
             throw new IllegalStateException("no start destination defined via app:startDestination for " + navGraph.getDisplayName());
         }
-        NavDestination findNode = navGraph.findNode(startDestination, false);
-        if (findNode != null) {
-            return this.mNavigatorProvider.getNavigator(findNode.getNavigatorName()).navigate(findNode, findNode.addInDefaultArgs(bundle), navOptions, extras);
+        NavDestination h2 = navGraph.h(startDestination, false);
+        if (h2 != null) {
+            return this.f3021a.getNavigator(h2.getNavigatorName()).navigate(h2, h2.a(bundle), navOptions, extras);
         }
-        throw new IllegalArgumentException("navigation destination " + navGraph.getStartDestDisplayName() + " is not a direct child of this NavGraph");
+        throw new IllegalArgumentException("navigation destination " + navGraph.i() + " is not a direct child of this NavGraph");
     }
 }

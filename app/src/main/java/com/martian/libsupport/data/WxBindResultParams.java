@@ -13,8 +13,8 @@ public class WxBindResultParams extends WebParams {
         return "wxBindResult";
     }
 
-    public WxBindResultParams setErrcode(int i10) {
-        this.errcode = i10;
+    public WxBindResultParams setErrcode(int errcode) {
+        this.errcode = errcode;
         return this;
     }
 }

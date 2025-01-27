@@ -4,8 +4,8 @@ import com.ksad.json.annotation.KsJson;
 import java.io.Serializable;
 
 @KsJson
-/* loaded from: classes3.dex */
-public class TKAdLiveShopItemInfo extends com.kwad.sdk.core.response.a.a implements Serializable {
+/* loaded from: classes2.dex */
+public class TKAdLiveShopItemInfo extends com.kwad.sdk.core.response.kwai.a implements Serializable {
     private static final long serialVersionUID = -5173667359674628712L;
     public String imageUrl;
     public String itemId;

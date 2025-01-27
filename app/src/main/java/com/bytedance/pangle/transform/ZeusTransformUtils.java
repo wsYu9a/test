@@ -43,7 +43,7 @@ import com.bytedance.pangle.util.MethodUtils;
 import com.bytedance.pangle.wrapper.PluginActivityWrapper;
 import com.bytedance.pangle.wrapper.PluginApplicationWrapper;
 import com.bytedance.pangle.wrapper.PluginFragmentActivityWrapper;
-import hf.e;
+import com.cdo.oaps.ad.wrapper.BaseWrapper;
 import java.io.File;
 import java.lang.ref.WeakReference;
 import java.lang.reflect.Constructor;
@@ -52,49 +52,42 @@ import java.util.Arrays;
 import java.util.HashMap;
 import java.util.HashSet;
 import org.xmlpull.v1.XmlPullParser;
-import p1.b;
 
 @Keep
-/* loaded from: classes2.dex */
+/* loaded from: classes.dex */
 public class ZeusTransformUtils {
     private static final String TAG = "PluginContextUtils";
-    public static Class fragmentClazz = null;
-    private static boolean sCanThrowException = false;
-    private static boolean sSupportFragmentWrapper = false;
+    public static Class fragmentClazz;
     static HashMap<String, WeakReference<Context>> contextCache = new HashMap<>();
     static boolean hasEnsure = false;
     static HashMap<String, Constructor<View>> sConstructorMap = null;
 
-    public static Activity _getActivity(Object obj, String str) {
+    static Activity _getActivity(Object obj, String str) {
         try {
             Activity activity = (Activity) MethodUtils.invokeMethod(obj, "getActivity", new Object[0]);
             Activity activity2 = (Activity) wrapperContext(activity, str);
             return activity2 instanceof GenerateProxyActivity ? ((GenerateProxyActivity) activity2).mTargetActivity : (isSupportLibIso(str) || !(activity2 instanceof GenerateProxyAppCompatActivity)) ? (Activity) wrapperContext(activity, str) : ((GenerateProxyAppCompatActivity) activity2).mTargetActivity;
-        } catch (IllegalAccessException e10) {
-            e10.printStackTrace();
+        } catch (IllegalAccessException e2) {
+            e2.printStackTrace();
             return null;
-        } catch (NoSuchMethodException e11) {
-            e11.printStackTrace();
+        } catch (NoSuchMethodException e3) {
+            e3.printStackTrace();
             return null;
-        } catch (InvocationTargetException e12) {
-            e12.printStackTrace();
+        } catch (InvocationTargetException e4) {
+            e4.printStackTrace();
             return null;
         }
     }
 
-    public static boolean bindService(Object obj, Intent intent, ServiceConnection serviceConnection, int i10, String str) {
+    public static boolean bindService(Object obj, Intent intent, ServiceConnection serviceConnection, int i2, String str) {
         if (obj instanceof Context) {
-            return ServiceManagerNative.getInstance().bindServiceNative((Context) obj, intent, serviceConnection, i10, str);
+            return ServiceManagerNative.getInstance().bindServiceNative((Context) obj, intent, serviceConnection, i2, str);
         }
         try {
-            return ((Boolean) MethodUtils.invokeMethod(obj, "bindService", new Object[]{intent, serviceConnection, Integer.valueOf(i10)}, new Class[]{Intent.class, ServiceConnection.class, Integer.TYPE})).booleanValue();
-        } catch (Exception e10) {
-            throw new RuntimeException(e10);
+            return ((Boolean) MethodUtils.invokeMethod(obj, "bindService", new Object[]{intent, serviceConnection, Integer.valueOf(i2)}, new Class[]{Intent.class, ServiceConnection.class, Integer.TYPE})).booleanValue();
+        } catch (Exception e2) {
+            throw new RuntimeException(e2);
         }
-    }
-
-    public static void canThrowException(boolean z10) {
-        sCanThrowException = z10;
     }
 
     public static void clearConstructorCache() {
@@ -104,7 +97,7 @@ public class ZeusTransformUtils {
                     sConstructorMap = (HashMap) FieldUtils.readStaticField(LayoutInflater.class, "sConstructorMap");
                 }
                 for (String str : new HashSet(sConstructorMap.keySet())) {
-                    if (!str.startsWith("android.view.") && !str.startsWith("android.widget.") && !str.startsWith("android.webkit.") && str.contains(b.f29697h)) {
+                    if (!str.startsWith("android.view.") && !str.startsWith("android.widget.") && !str.startsWith("android.webkit.") && str.contains(".")) {
                         sConstructorMap.remove(str);
                     }
                 }
@@ -115,15 +108,13 @@ public class ZeusTransformUtils {
 
     private static Context convertProxy2PluginActivity(Context context) {
         try {
-        } catch (Throwable th2) {
-            ZeusLogger.w(ZeusLogger.TAG_LOAD, "convertProxy2PluginActivity failed.", th2);
-        }
-        if (!(context instanceof GenerateProxyActivity)) {
-            if (context instanceof GenerateProxyAppCompatActivity) {
+            if ((context instanceof GenerateProxyActivity) || (context instanceof GenerateProxyAppCompatActivity)) {
+                return (Activity) FieldUtils.readField(context, "mTargetActivity");
             }
-            return context;
+        } catch (Throwable th) {
+            ZeusLogger.w(ZeusLogger.TAG_LOAD, "convertProxy2PluginActivity failed.", th);
         }
-        return (Activity) FieldUtils.readField(context, "mTargetActivity");
+        return context;
     }
 
     private static void ensureFragmentActivity() {
@@ -156,50 +147,44 @@ public class ZeusTransformUtils {
     }
 
     public static String getAssetPaths(AssetManager assetManager) {
-        int i10;
-        int i11;
-        StringBuilder sb2 = new StringBuilder();
+        int i2;
+        StringBuilder sb = new StringBuilder();
         if (assetManager == null) {
             return "";
         }
         try {
-            i10 = Build.VERSION.SDK_INT;
-        } catch (Throwable th2) {
-            ZeusLogger.errReport(ZeusLogger.TAG_RESOURCES, "TransformUtils GetAssetsPaths error. ", th2);
+            i2 = Build.VERSION.SDK_INT;
+        } catch (Throwable th) {
+            ZeusLogger.errReport(ZeusLogger.TAG_RESOURCES, "TransformUtils GetAssetsPaths error. ", th);
         }
-        if (i10 < 28) {
-            if (i10 == 27) {
-                i11 = Build.VERSION.PREVIEW_SDK_INT;
-                if (i11 > 0) {
-                }
-            }
+        if (i2 < 28 && (i2 != 27 || Build.VERSION.PREVIEW_SDK_INT <= 0)) {
             int intValue = ((Integer) MethodUtils.invokeMethod(assetManager, "getStringBlockCount", new Object[0])).intValue();
-            for (int i12 = 0; i12 < intValue; i12++) {
+            for (int i3 = 0; i3 < intValue; i3++) {
                 try {
-                    String str = (String) MethodUtils.invokeMethod(assetManager, "getCookieName", Integer.valueOf(i12 + 1));
+                    String str = (String) MethodUtils.invokeMethod(assetManager, "getCookieName", Integer.valueOf(i3 + 1));
                     if (!TextUtils.isEmpty(str)) {
-                        sb2.append(str);
+                        sb.append(str);
                     }
                 } catch (IndexOutOfBoundsException unused) {
                 }
             }
-            return sb2.toString();
+            return sb.toString();
         }
         Object[] objArr = (Object[]) MethodUtils.invokeMethod(assetManager, "getApkAssets", new Object[0]);
         if (objArr != null && objArr.length > 0) {
             for (Object obj : objArr) {
-                sb2.append((String) MethodUtils.invokeMethod(obj, "getAssetPath", new Object[0]));
+                sb.append((String) MethodUtils.invokeMethod(obj, "getAssetPath", new Object[0]));
             }
         }
-        return sb2.toString();
+        return sb.toString();
     }
 
     public static Context getContext(Object obj, String str) {
         try {
             Context context = (Context) MethodUtils.invokeMethod(obj, "getContext", new Object[0]);
             return (isSupportLibIso(str) || !instanceOfFragmentActivity(context)) ? context instanceof Activity ? wrapperContext(context, str) : context instanceof Application ? wrapperContext(context, str) : context instanceof PluginContext ? context : wrapperContext(context, str) : wrapperContext(context, str);
-        } catch (Exception e10) {
-            throw new RuntimeException(e10);
+        } catch (Exception e2) {
+            throw new RuntimeException(e2);
         }
     }
 
@@ -239,8 +224,8 @@ public class ZeusTransformUtils {
                 try {
                     try {
                         readField = context2.getOriginActivity();
-                    } catch (Throwable th2) {
-                        throw new RuntimeException(th2);
+                    } catch (Throwable th) {
+                        throw new RuntimeException(th);
                     }
                 } catch (Throwable unused) {
                     readField = FieldUtils.readField(context2, "mOriginActivity");
@@ -265,8 +250,8 @@ public class ZeusTransformUtils {
                     } else if (!TextUtils.equals(str2, str)) {
                         return context;
                     }
-                } catch (Throwable th3) {
-                    th3.printStackTrace();
+                } catch (Throwable th2) {
+                    th2.printStackTrace();
                 }
                 return null;
             }
@@ -286,12 +271,12 @@ public class ZeusTransformUtils {
         if (!(obj instanceof Resources)) {
             try {
                 return ((Integer) MethodUtils.invokeMethod(obj, "getIdentifier", str, str2, str3)).intValue();
-            } catch (Exception e10) {
-                throw new RuntimeException(e10);
+            } catch (Exception e2) {
+                throw new RuntimeException(e2);
             }
         }
         Resources resources = (Resources) obj;
-        if (!TextUtils.equals("android", str3)) {
+        if (!TextUtils.equals(BaseWrapper.BASE_PKG_SYSTEM, str3)) {
             str3 = str4;
         }
         return resources.getIdentifier(str, str2, str3);
@@ -314,8 +299,8 @@ public class ZeusTransformUtils {
                 }
             }
             return PluginManager.getInstance().getPlugin(str).mResources;
-        } catch (Exception e10) {
-            throw new RuntimeException(e10);
+        } catch (Exception e2) {
+            throw new RuntimeException(e2);
         }
     }
 
@@ -334,8 +319,8 @@ public class ZeusTransformUtils {
         }
         try {
             return (Window) MethodUtils.invokeMethod(activity, "getWindow", new Object[0]);
-        } catch (Throwable th2) {
-            throw new RuntimeException(th2);
+        } catch (Throwable th) {
+            throw new RuntimeException(th);
         }
     }
 
@@ -352,12 +337,12 @@ public class ZeusTransformUtils {
             return;
         }
         HashMap hashMap = new HashMap();
-        for (int i10 = 0; i10 < iArr.length; i10++) {
-            hashMap.put(Integer.valueOf(iArr[i10]), Integer.valueOf(i10));
+        for (int i2 = 0; i2 < iArr.length; i2++) {
+            hashMap.put(Integer.valueOf(iArr[i2]), Integer.valueOf(i2));
         }
         HashMap hashMap2 = new HashMap();
-        for (int i11 = 0; i11 < iArr2.length; i11++) {
-            hashMap2.put((Integer) hashMap.get(Integer.valueOf(iArr2[i11])), Integer.valueOf(i11));
+        for (int i3 = 0; i3 < iArr2.length; i3++) {
+            hashMap2.put((Integer) hashMap.get(Integer.valueOf(iArr2[i3])), Integer.valueOf(i3));
         }
         try {
             int[] iArr3 = (int[]) FieldUtils.readField(typedArray, "mData");
@@ -380,7 +365,7 @@ public class ZeusTransformUtils {
         return copyOf;
     }
 
-    public static View inflate(LayoutInflater layoutInflater, int i10, ViewGroup viewGroup, boolean z10, String str) {
+    public static View inflate(LayoutInflater layoutInflater, int i2, ViewGroup viewGroup, boolean z, String str) {
         Context context = layoutInflater.getContext();
         if (!(context instanceof PluginContext) && !(context instanceof PluginActivityWrapper) && ((isSupportLibIso(str) || !(context instanceof PluginFragmentActivityWrapper)) && !(context instanceof PluginApplicationWrapper))) {
             Context wrapperContext = wrapperContext(context, str);
@@ -406,7 +391,7 @@ public class ZeusTransformUtils {
             layoutInflater = layoutInflater2;
         }
         clearConstructorCache();
-        View inflate = layoutInflater.inflate(i10, viewGroup, z10);
+        View inflate = layoutInflater.inflate(i2, viewGroup, z);
         clearConstructorCache();
         return inflate;
     }
@@ -432,16 +417,16 @@ public class ZeusTransformUtils {
         }
     }
 
-    public static int mapRes(int i10, String str, String str2) {
-        if (i10 < 2130706432) {
-            return i10;
+    public static int mapRes(int i2, String str, String str2) {
+        if (i2 < 2130706432) {
+            return i2;
         }
         int identifier = Zeus.getAppApplication().getResources().getIdentifier(str2, str, Zeus.getAppApplication().getPackageName());
         if (identifier == 0) {
-            identifier = Zeus.getAppApplication().getResources().getIdentifier(str2.replace(e.f26694a, b.f29697h), str, Zeus.getAppApplication().getPackageName());
+            identifier = Zeus.getAppApplication().getResources().getIdentifier(str2.replace("_", "."), str, Zeus.getAppApplication().getPackageName());
         }
         if (identifier == 0) {
-            ZeusLogger.d(ZeusLogger.TAG_RESOURCES, "Cant find res, resName = " + str2 + ", pluginResId = " + i10);
+            ZeusLogger.d(ZeusLogger.TAG_RESOURCES, "Cant find res, resName = " + str2 + ", pluginResId = " + i2);
         }
         return identifier;
     }
@@ -450,8 +435,8 @@ public class ZeusTransformUtils {
         if (!(obj instanceof Resources)) {
             try {
                 return (TypedArray) MethodUtils.invokeMethod(obj, "obtainAttributes", attributeSet, iArr);
-            } catch (Exception e10) {
-                throw new RuntimeException(e10);
+            } catch (Exception e2) {
+                throw new RuntimeException(e2);
             }
         }
         int[] handleAttrBefore = handleAttrBefore(iArr);
@@ -464,8 +449,8 @@ public class ZeusTransformUtils {
         if (!(obj instanceof Context)) {
             try {
                 return (TypedArray) MethodUtils.invokeMethod(obj, "obtainStyledAttributes", attributeSet, iArr);
-            } catch (Exception e10) {
-                throw new RuntimeException(e10);
+            } catch (Exception e2) {
+                throw new RuntimeException(e2);
             }
         }
         int[] handleAttrBefore = handleAttrBefore(iArr);
@@ -481,7 +466,7 @@ public class ZeusTransformUtils {
         if (!(obj instanceof Context)) {
             return obj;
         }
-        boolean z10 = !cls.isInstance(obj);
+        boolean z = !cls.isInstance(obj);
         if (equalsFragmentActivity(cls)) {
             return wrapperContext2FragmentActivity(obj, str);
         }
@@ -491,17 +476,17 @@ public class ZeusTransformUtils {
         if (cls == Application.class) {
             return wrapperContext2Application(obj, str);
         }
-        if ((obj instanceof PluginContext) && z10) {
+        if ((obj instanceof PluginContext) && z) {
             return ((PluginContext) obj).mOriginContext;
         }
-        if (!(obj instanceof PluginFragmentActivityWrapper) || !z10) {
-            return ((obj instanceof PluginActivityWrapper) && z10) ? ((PluginActivityWrapper) obj).mOriginActivity : ((obj instanceof PluginApplicationWrapper) && z10) ? ((PluginApplicationWrapper) obj).mOriginApplication : ((obj instanceof GenerateProxyActivity) && z10) ? ((GenerateProxyActivity) obj).mTargetActivity : obj;
+        if (!(obj instanceof PluginFragmentActivityWrapper) || !z) {
+            return ((obj instanceof PluginActivityWrapper) && z) ? ((PluginActivityWrapper) obj).mOriginActivity : ((obj instanceof PluginApplicationWrapper) && z) ? ((PluginApplicationWrapper) obj).mOriginApplication : ((obj instanceof GenerateProxyActivity) && z) ? ((GenerateProxyActivity) obj).mTargetActivity : obj;
         }
         try {
             try {
                 return ((PluginFragmentActivityWrapper) obj).getOriginActivity();
-            } catch (Throwable th2) {
-                throw new RuntimeException(th2);
+            } catch (Throwable th) {
+                throw new RuntimeException(th);
             }
         } catch (Throwable unused) {
             return FieldUtils.readField(obj, "mOriginActivity");
@@ -514,8 +499,8 @@ public class ZeusTransformUtils {
         }
         try {
             return (Intent) MethodUtils.invokeMethod(obj, "registerReceiver", pluginBroadcastReceiver, intentFilter);
-        } catch (Exception e10) {
-            throw new RuntimeException(e10);
+        } catch (Exception e2) {
+            throw new RuntimeException(e2);
         }
     }
 
@@ -523,37 +508,36 @@ public class ZeusTransformUtils {
         ComponentManager.registerActivity(str2, str, strArr);
     }
 
-    public static void requestPermissions(Object obj, String[] strArr, int i10, String str) {
-        Object obj2;
+    public static void requestPermissions(Object obj, String[] strArr, int i2, String str) {
         if (obj instanceof IPluginActivity) {
-            ((IPluginActivity) obj)._requestPermissions(strArr, i10);
+            ((IPluginActivity) obj)._requestPermissions(strArr, i2);
             return;
         }
         if (obj instanceof Activity) {
+            Object obj2 = null;
             try {
                 obj2 = FieldUtils.readField(obj, "mOriginActivity");
             } catch (IllegalAccessException unused) {
-                obj2 = null;
             }
             if (obj2 != null) {
                 obj = obj2;
             }
         }
         try {
-            MethodUtils.invokeMethod(obj, "requestPermissions", strArr, Integer.valueOf(i10));
-        } catch (Exception e10) {
-            throw new RuntimeException(e10);
+            MethodUtils.invokeMethod(obj, "requestPermissions", strArr, Integer.valueOf(i2));
+        } catch (Exception e2) {
+            throw new RuntimeException(e2);
         }
     }
 
-    public static void setComponentEnabledSetting(PackageManager packageManager, ComponentName componentName, int i10, int i11) {
+    public static void setComponentEnabledSetting(PackageManager packageManager, ComponentName componentName, int i2, int i3) {
         try {
-            packageManager.setComponentEnabledSetting(componentName, i10, i11);
+            packageManager.setComponentEnabledSetting(componentName, i2, i3);
         } catch (Throwable unused) {
         }
     }
 
-    public static void setResult(Object obj, int i10, Intent intent, String str) {
+    public static void setResult(Object obj, int i2, Intent intent, String str) {
         if (obj instanceof Activity) {
             try {
                 Object readField = FieldUtils.readField(obj, "mProxyActivity");
@@ -561,16 +545,16 @@ public class ZeusTransformUtils {
                     readField = FieldUtils.readField(obj, "mOriginActivity");
                 }
                 if (readField != null) {
-                    MethodUtils.invokeMethod(readField, "setResult", Integer.valueOf(i10), intent);
+                    MethodUtils.invokeMethod(readField, "setResult", Integer.valueOf(i2), intent);
                     return;
                 }
             } catch (Exception unused) {
             }
         }
         try {
-            MethodUtils.invokeMethod(obj, "setResult", Integer.valueOf(i10), intent);
-        } catch (Exception e10) {
-            throw new RuntimeException(e10);
+            MethodUtils.invokeMethod(obj, "setResult", Integer.valueOf(i2), intent);
+        } catch (Exception e2) {
+            throw new RuntimeException(e2);
         }
     }
 
@@ -578,8 +562,8 @@ public class ZeusTransformUtils {
         startActivity(obj, intent, null, str);
     }
 
-    public static void startActivityForResult(Object obj, Intent intent, int i10, String str) {
-        startActivityForResult(obj, intent, i10, null, str);
+    public static void startActivityForResult(Object obj, Intent intent, int i2, String str) {
+        startActivityForResult(obj, intent, i2, null, str);
     }
 
     public static ComponentName startService(Object obj, Intent intent, String str) {
@@ -588,8 +572,8 @@ public class ZeusTransformUtils {
         }
         try {
             return (ComponentName) MethodUtils.invokeMethod(obj, "startService", intent);
-        } catch (Exception e10) {
-            throw new RuntimeException(e10);
+        } catch (Exception e2) {
+            throw new RuntimeException(e2);
         }
     }
 
@@ -599,13 +583,9 @@ public class ZeusTransformUtils {
         }
         try {
             return ((Boolean) MethodUtils.invokeMethod(obj, "stopService", intent)).booleanValue();
-        } catch (Exception e10) {
-            throw new RuntimeException(e10);
+        } catch (Exception e2) {
+            throw new RuntimeException(e2);
         }
-    }
-
-    public static void supportFragmentWrapper(boolean z10) {
-        sSupportFragmentWrapper = z10;
     }
 
     public static void unbindService(Object obj, ServiceConnection serviceConnection, String str) {
@@ -615,8 +595,8 @@ public class ZeusTransformUtils {
         }
         try {
             MethodUtils.invokeMethod(obj, "unbindService", serviceConnection);
-        } catch (Exception e10) {
-            throw new RuntimeException(e10);
+        } catch (Exception e2) {
+            throw new RuntimeException(e2);
         }
     }
 
@@ -627,29 +607,64 @@ public class ZeusTransformUtils {
         }
         try {
             MethodUtils.invokeMethod(obj, "unregisterReceiver", pluginBroadcastReceiver);
-        } catch (Exception e10) {
-            throw new RuntimeException(e10);
+        } catch (Exception e2) {
+            throw new RuntimeException(e2);
         }
     }
 
     public static Context wrapperContext(Object obj, String str) {
-        return wrapperContext(obj, str, null);
+        Context pluginApplicationWrapper;
+        Application application;
+        if (Zeus.getAppApplication() == null && (application = (Application) ((Context) obj).getApplicationContext()) != null) {
+            Zeus.setAppContext(application);
+        }
+        if (obj == null) {
+            return null;
+        }
+        Context wrapperFromCache = getWrapperFromCache(obj, str);
+        if (wrapperFromCache != null) {
+            return wrapperFromCache;
+        }
+        Context context = (Context) obj;
+        Context contextIfNeedWrap = getContextIfNeedWrap(context, context, str);
+        if (contextIfNeedWrap == null) {
+            return context;
+        }
+        if (!isSupportLibIso(str) && instanceOfFragmentActivity(contextIfNeedWrap)) {
+            if (Looper.myLooper() == null) {
+                Looper.prepare();
+            }
+            try {
+                try {
+                    pluginApplicationWrapper = new PluginFragmentActivityWrapper((Activity) contextIfNeedWrap, new PluginContext(contextIfNeedWrap, PluginManager.getInstance().getPlugin(str), false));
+                } catch (Throwable unused) {
+                    return contextIfNeedWrap;
+                }
+            } catch (Throwable unused2) {
+                pluginApplicationWrapper = (Context) MethodUtils.invokeConstructor(PluginFragmentActivityWrapper.class, new Object[]{contextIfNeedWrap, new PluginContext(contextIfNeedWrap, PluginManager.getInstance().getPlugin(str), false)}, new Class[]{fragmentClazz, PluginContext.class});
+            }
+        } else if (contextIfNeedWrap instanceof Activity) {
+            if (Looper.myLooper() == null) {
+                Looper.prepare();
+            }
+            pluginApplicationWrapper = new PluginActivityWrapper((Activity) contextIfNeedWrap, new PluginContext(contextIfNeedWrap, PluginManager.getInstance().getPlugin(str), false));
+        } else {
+            pluginApplicationWrapper = contextIfNeedWrap instanceof Application ? new PluginApplicationWrapper((Application) contextIfNeedWrap, new PluginContext(contextIfNeedWrap, PluginManager.getInstance().getPlugin(str), true)) : new PluginContext(contextIfNeedWrap, PluginManager.getInstance().getPlugin(str), false);
+        }
+        if (pluginApplicationWrapper != null) {
+            contextCache.put(str + System.identityHashCode(contextIfNeedWrap), new WeakReference<>(pluginApplicationWrapper));
+        }
+        return pluginApplicationWrapper;
     }
 
     public static Activity wrapperContext2Activity(Object obj, String str) {
         while (obj != null) {
-            StringBuilder sb2 = new StringBuilder();
-            Context wrapperContext = wrapperContext(obj, str, sb2);
+            Context wrapperContext = wrapperContext(obj, str);
             if (wrapperContext instanceof Activity) {
                 return (Activity) wrapperContext;
             }
             if (!(wrapperContext instanceof PluginContext)) {
-                sb2.append("SupportFragment=");
-                sb2.append(sSupportFragmentWrapper);
-                if (!sCanThrowException) {
-                    return (Activity) obj;
-                }
-                throw new RuntimeException("强转失败 context:" + obj + " wrapperContext:" + wrapperContext + " log:" + ((Object) sb2));
+                throw new RuntimeException("强转失败 context:" + obj + " wrapperContext:" + wrapperContext);
             }
             obj = ((PluginContext) wrapperContext).mOriginContext;
         }
@@ -658,18 +673,12 @@ public class ZeusTransformUtils {
 
     public static Application wrapperContext2Application(Object obj, String str) {
         while (obj != null) {
-            StringBuilder sb2 = new StringBuilder();
-            Context wrapperContext = wrapperContext(obj, str, sb2);
+            Context wrapperContext = wrapperContext(obj, str);
             if (wrapperContext instanceof Application) {
                 return (Application) wrapperContext;
             }
             if (!(wrapperContext instanceof PluginContext)) {
-                sb2.append("SupportFragment=");
-                sb2.append(sSupportFragmentWrapper);
-                if (!sCanThrowException) {
-                    return (Application) obj;
-                }
-                throw new RuntimeException("强转失败 context:" + obj + " wrapperContext:" + wrapperContext + " log:" + ((Object) sb2));
+                throw new RuntimeException("强转失败 context:" + obj + " wrapperContext:" + wrapperContext);
             }
             obj = ((PluginContext) wrapperContext).mOriginContext;
         }
@@ -678,18 +687,12 @@ public class ZeusTransformUtils {
 
     private static Object wrapperContext2FragmentActivity(Object obj, String str) {
         while (obj != null) {
-            StringBuilder sb2 = new StringBuilder();
-            Context wrapperContext = wrapperContext(obj, str, sb2);
+            Context wrapperContext = wrapperContext(obj, str);
             if (!isSupportLibIso(str) && instanceOfFragmentActivity(wrapperContext)) {
                 return wrapperContext;
             }
             if (!(wrapperContext instanceof PluginContext)) {
-                sb2.append("SupportFragment=");
-                sb2.append(sSupportFragmentWrapper);
-                if (!sCanThrowException) {
-                    return obj;
-                }
-                throw new RuntimeException("强转失败 context:" + obj + " wrapperContext:" + wrapperContext + " log:" + ((Object) sb2));
+                throw new RuntimeException("强转失败 context:" + obj + " wrapperContext:" + wrapperContext);
             }
             obj = ((PluginContext) wrapperContext).mOriginContext;
         }
@@ -724,130 +727,41 @@ public class ZeusTransformUtils {
                 readField = FieldUtils.readField(obj, "mOriginActivity");
             }
             return cls.isInstance(readField);
-        } catch (Throwable th2) {
-            throw new RuntimeException(th2);
+        } catch (Throwable th) {
+            throw new RuntimeException(th);
         }
     }
 
     public static void startActivity(Object obj, Intent intent, Bundle bundle, String str) {
         try {
             ComponentManager.startActivity(obj, intent, bundle, str);
-        } catch (Throwable th2) {
+        } catch (Throwable unused) {
             if (obj instanceof Context) {
                 ComponentManager.startActivity((Context) obj, intent, bundle, str);
                 return;
             }
             try {
                 MethodUtils.invokeMethod(obj, "startActivity", new Object[]{intent, bundle}, new Class[]{Intent.class, Bundle.class});
-            } catch (Throwable th3) {
-                th3.addSuppressed(th2);
-                throw new RuntimeException(th3);
+            } catch (Throwable th) {
+                throw new RuntimeException(th);
             }
         }
     }
 
-    public static void startActivityForResult(Object obj, Intent intent, int i10, Bundle bundle, String str) {
+    public static void startActivityForResult(Object obj, Intent intent, int i2, Bundle bundle, String str) {
         try {
-            ComponentManager.startActivityForResult(obj, intent, i10, bundle, str);
-        } catch (Throwable th2) {
+            ComponentManager.startActivityForResult(obj, intent, i2, bundle, str);
+        } catch (Throwable unused) {
             if (obj instanceof Activity) {
-                ComponentManager.startActivityForResult((Activity) obj, intent, i10, bundle, str);
+                ComponentManager.startActivityForResult((Activity) obj, intent, i2, bundle, str);
                 return;
             }
             try {
-                MethodUtils.invokeMethod(obj, "startActivityForResult", new Object[]{intent, Integer.valueOf(i10), bundle}, new Class[]{Intent.class, Integer.TYPE, Bundle.class});
-            } catch (Throwable th3) {
-                th3.addSuppressed(th2);
-                throw new RuntimeException(th3);
+                MethodUtils.invokeMethod(obj, "startActivityForResult", new Object[]{intent, Integer.valueOf(i2), bundle}, new Class[]{Intent.class, Integer.TYPE, Bundle.class});
+            } catch (Throwable th) {
+                throw new RuntimeException(th);
             }
         }
-    }
-
-    public static Context wrapperContext(Object obj, String str, StringBuilder sb2) {
-        Context pluginContext;
-        Application application;
-        if (Zeus.getAppApplication() == null && (application = (Application) ((Context) obj).getApplicationContext()) != null) {
-            Zeus.setAppContext(application);
-        }
-        if (obj == null) {
-            if (sb2 == null) {
-                return null;
-            }
-            sb2.append("context1 == null");
-            return null;
-        }
-        Context wrapperFromCache = getWrapperFromCache(obj, str);
-        if (wrapperFromCache != null) {
-            if (sb2 != null) {
-                sb2.append("cache1:");
-                sb2.append(wrapperFromCache);
-            }
-            return wrapperFromCache;
-        }
-        Context context = (Context) obj;
-        Context contextIfNeedWrap = getContextIfNeedWrap(context, context, str);
-        if (contextIfNeedWrap == null) {
-            if (sb2 != null) {
-                sb2.append("context2 == null");
-                sb2.append(obj);
-            }
-            return context;
-        }
-        if (!isSupportLibIso(str) && instanceOfFragmentActivity(contextIfNeedWrap) && sSupportFragmentWrapper) {
-            if (Looper.myLooper() == null) {
-                Looper.prepare();
-            }
-            try {
-                try {
-                    pluginContext = new PluginFragmentActivityWrapper((Activity) contextIfNeedWrap, new PluginContext(contextIfNeedWrap, PluginManager.getInstance().getPlugin(str), false));
-                    if (sb2 != null) {
-                        sb2.append("new PluginFragmentActivityWrapper:");
-                        sb2.append(pluginContext);
-                    }
-                } catch (Throwable unused) {
-                    if (sb2 != null) {
-                        sb2.append("context3 == null");
-                        sb2.append(contextIfNeedWrap);
-                    }
-                    return contextIfNeedWrap;
-                }
-            } catch (Throwable unused2) {
-                pluginContext = (Context) MethodUtils.invokeConstructor(PluginFragmentActivityWrapper.class, new Object[]{contextIfNeedWrap, new PluginContext(contextIfNeedWrap, PluginManager.getInstance().getPlugin(str), false)}, new Class[]{fragmentClazz, PluginContext.class});
-                if (sb2 != null) {
-                    sb2.append("new invokeConstructor:");
-                    sb2.append(pluginContext);
-                }
-            }
-        } else if (contextIfNeedWrap instanceof Activity) {
-            if (Looper.myLooper() == null) {
-                Looper.prepare();
-            }
-            pluginContext = new PluginActivityWrapper((Activity) contextIfNeedWrap, new PluginContext(contextIfNeedWrap, PluginManager.getInstance().getPlugin(str), false));
-            if (sb2 != null) {
-                sb2.append("new PluginActivityWrapper:");
-                sb2.append(pluginContext);
-            }
-        } else if (contextIfNeedWrap instanceof Application) {
-            pluginContext = new PluginApplicationWrapper((Application) contextIfNeedWrap, new PluginContext(contextIfNeedWrap, PluginManager.getInstance().getPlugin(str), true));
-            if (sb2 != null) {
-                sb2.append("new PluginApplicationWrapper:");
-                sb2.append(pluginContext);
-            }
-        } else {
-            pluginContext = new PluginContext(contextIfNeedWrap, PluginManager.getInstance().getPlugin(str), false);
-            if (sb2 != null) {
-                sb2.append("new PluginContext:");
-                sb2.append(pluginContext);
-            }
-        }
-        if (pluginContext != null) {
-            contextCache.put(str + System.identityHashCode(contextIfNeedWrap), new WeakReference<>(pluginContext));
-        }
-        if (sb2 != null) {
-            sb2.append("cache2:");
-            sb2.append(pluginContext);
-        }
-        return pluginContext;
     }
 
     public static Intent registerReceiver(Object obj, PluginBroadcastReceiver pluginBroadcastReceiver, IntentFilter intentFilter, String str, Handler handler, String str2) {
@@ -857,12 +771,12 @@ public class ZeusTransformUtils {
         }
         try {
             return (Intent) MethodUtils.invokeMethod(obj, "registerReceiver", pluginBroadcastReceiver, intentFilter, str, handler);
-        } catch (Exception e10) {
-            throw new RuntimeException(e10);
+        } catch (Exception e2) {
+            throw new RuntimeException(e2);
         }
     }
 
-    public static TypedArray obtainStyledAttributes(Object obj, AttributeSet attributeSet, int[] iArr, int i10, int i11, String str) {
+    public static TypedArray obtainStyledAttributes(Object obj, AttributeSet attributeSet, int[] iArr, int i2, int i3, String str) {
         if (obj instanceof Context) {
             int[] handleAttrBefore = handleAttrBefore(iArr);
             TypedArray obtainStyledAttributes = ((Context) obj).obtainStyledAttributes(attributeSet, handleAttrBefore);
@@ -871,23 +785,23 @@ public class ZeusTransformUtils {
         }
         if (obj instanceof Resources.Theme) {
             int[] handleAttrBefore2 = handleAttrBefore(iArr);
-            TypedArray obtainStyledAttributes2 = ((Resources.Theme) obj).obtainStyledAttributes(attributeSet, handleAttrBefore2, i10, i11);
+            TypedArray obtainStyledAttributes2 = ((Resources.Theme) obj).obtainStyledAttributes(attributeSet, handleAttrBefore2, i2, i3);
             handleAttrAfter(obtainStyledAttributes2, handleAttrBefore2, iArr);
             return obtainStyledAttributes2;
         }
         try {
-            return (TypedArray) MethodUtils.invokeMethod(obj, "obtainStyledAttributes", attributeSet, iArr, Integer.valueOf(i10), Integer.valueOf(i11));
-        } catch (Exception e10) {
-            throw new RuntimeException(e10);
+            return (TypedArray) MethodUtils.invokeMethod(obj, "obtainStyledAttributes", attributeSet, iArr, Integer.valueOf(i2), Integer.valueOf(i3));
+        } catch (Exception e2) {
+            throw new RuntimeException(e2);
         }
     }
 
-    public static void setResult(Object obj, int i10, String str) {
+    public static void setResult(Object obj, int i2, String str) {
         if (obj instanceof Activity) {
             try {
                 Object readField = FieldUtils.readField(obj, "mProxyActivity");
                 if (readField != null) {
-                    MethodUtils.invokeMethod(readField, "setResult", Integer.valueOf(i10));
+                    MethodUtils.invokeMethod(readField, "setResult", Integer.valueOf(i2));
                     return;
                 }
             } catch (Exception unused) {
@@ -895,81 +809,81 @@ public class ZeusTransformUtils {
             }
         }
         try {
-            MethodUtils.invokeMethod(obj, "setResult", Integer.valueOf(i10));
-        } catch (Exception e10) {
-            throw new RuntimeException(e10);
+            MethodUtils.invokeMethod(obj, "setResult", Integer.valueOf(i2));
+        } catch (Exception e2) {
+            throw new RuntimeException(e2);
         }
     }
 
-    public static Intent registerReceiver(Object obj, PluginBroadcastReceiver pluginBroadcastReceiver, IntentFilter intentFilter, int i10, String str) {
+    public static Intent registerReceiver(Object obj, PluginBroadcastReceiver pluginBroadcastReceiver, IntentFilter intentFilter, int i2, String str) {
         if (obj instanceof Context) {
-            return ComponentManager.registerReceiver((Context) obj, pluginBroadcastReceiver, intentFilter, i10, str);
+            return ComponentManager.registerReceiver((Context) obj, pluginBroadcastReceiver, intentFilter, i2, str);
         }
         try {
-            return (Intent) MethodUtils.invokeMethod(obj, "registerReceiver", pluginBroadcastReceiver, intentFilter, Integer.valueOf(i10));
-        } catch (Exception e10) {
-            throw new RuntimeException(e10);
+            return (Intent) MethodUtils.invokeMethod(obj, "registerReceiver", pluginBroadcastReceiver, intentFilter, Integer.valueOf(i2));
+        } catch (Exception e2) {
+            throw new RuntimeException(e2);
         }
     }
 
-    public static Intent registerReceiver(Object obj, PluginBroadcastReceiver pluginBroadcastReceiver, IntentFilter intentFilter, String str, Handler handler, int i10, String str2) {
+    public static Intent registerReceiver(Object obj, PluginBroadcastReceiver pluginBroadcastReceiver, IntentFilter intentFilter, String str, Handler handler, int i2, String str2) {
         if (obj instanceof Context) {
-            return ComponentManager.registerReceiver((Context) obj, pluginBroadcastReceiver, intentFilter, str, handler, i10, str2);
+            return ComponentManager.registerReceiver((Context) obj, pluginBroadcastReceiver, intentFilter, str, handler, i2, str2);
         }
         try {
-            return (Intent) MethodUtils.invokeMethod(obj, "registerReceiver", pluginBroadcastReceiver, intentFilter, str, handler, Integer.valueOf(i10));
-        } catch (Exception e10) {
-            throw new RuntimeException(e10);
+            return (Intent) MethodUtils.invokeMethod(obj, "registerReceiver", pluginBroadcastReceiver, intentFilter, str, handler, Integer.valueOf(i2));
+        } catch (Exception e2) {
+            throw new RuntimeException(e2);
         }
     }
 
-    public static View inflate(LayoutInflater layoutInflater, int i10, ViewGroup viewGroup, String str) {
-        return inflate(layoutInflater, i10, viewGroup, viewGroup != null, str);
-    }
-
-    public static TypedArray obtainStyledAttributes(Object obj, int i10, int[] iArr, String str) {
-        if (obj instanceof Context) {
-            int[] handleAttrBefore = handleAttrBefore(iArr);
-            TypedArray obtainStyledAttributes = ((Context) obj).obtainStyledAttributes(i10, handleAttrBefore);
-            handleAttrAfter(obtainStyledAttributes, handleAttrBefore, iArr);
-            return obtainStyledAttributes;
-        }
-        if (obj instanceof Resources.Theme) {
-            int[] handleAttrBefore2 = handleAttrBefore(iArr);
-            TypedArray obtainStyledAttributes2 = ((Resources.Theme) obj).obtainStyledAttributes(i10, handleAttrBefore2);
-            handleAttrAfter(obtainStyledAttributes2, handleAttrBefore2, iArr);
-            return obtainStyledAttributes2;
-        }
-        try {
-            return (TypedArray) MethodUtils.invokeMethod(obj, "obtainStyledAttributes", Integer.valueOf(i10), iArr);
-        } catch (Exception e10) {
-            throw new RuntimeException(e10);
-        }
+    public static View inflate(LayoutInflater layoutInflater, int i2, ViewGroup viewGroup, String str) {
+        return inflate(layoutInflater, i2, viewGroup, viewGroup != null, str);
     }
 
     public static View inflate(LayoutInflater layoutInflater, XmlPullParser xmlPullParser, ViewGroup viewGroup, String str) {
         return inflate(layoutInflater, xmlPullParser, viewGroup, viewGroup != null, str);
     }
 
-    public static View inflate(LayoutInflater layoutInflater, XmlPullParser xmlPullParser, ViewGroup viewGroup, boolean z10, String str) {
+    public static TypedArray obtainStyledAttributes(Object obj, int i2, int[] iArr, String str) {
+        if (obj instanceof Context) {
+            int[] handleAttrBefore = handleAttrBefore(iArr);
+            TypedArray obtainStyledAttributes = ((Context) obj).obtainStyledAttributes(i2, handleAttrBefore);
+            handleAttrAfter(obtainStyledAttributes, handleAttrBefore, iArr);
+            return obtainStyledAttributes;
+        }
+        if (obj instanceof Resources.Theme) {
+            int[] handleAttrBefore2 = handleAttrBefore(iArr);
+            TypedArray obtainStyledAttributes2 = ((Resources.Theme) obj).obtainStyledAttributes(i2, handleAttrBefore2);
+            handleAttrAfter(obtainStyledAttributes2, handleAttrBefore2, iArr);
+            return obtainStyledAttributes2;
+        }
+        try {
+            return (TypedArray) MethodUtils.invokeMethod(obj, "obtainStyledAttributes", Integer.valueOf(i2), iArr);
+        } catch (Exception e2) {
+            throw new RuntimeException(e2);
+        }
+    }
+
+    public static View inflate(LayoutInflater layoutInflater, XmlPullParser xmlPullParser, ViewGroup viewGroup, boolean z, String str) {
         Context context = layoutInflater.getContext();
         if (!(context instanceof PluginContext) && !(context instanceof PluginActivityWrapper) && ((isSupportLibIso(str) || !(context instanceof PluginFragmentActivityWrapper)) && !(context instanceof PluginApplicationWrapper))) {
             context = wrapperContext(context, str);
         }
         LayoutInflater layoutInflater2 = (LayoutInflater) context.getSystemService("layout_inflater");
         clearConstructorCache();
-        View inflate = layoutInflater2.inflate(xmlPullParser, viewGroup, z10);
+        View inflate = layoutInflater2.inflate(xmlPullParser, viewGroup, z);
         clearConstructorCache();
         return inflate;
     }
 
-    public static View inflate(Context context, int i10, ViewGroup viewGroup, String str) {
+    public static View inflate(Context context, int i2, ViewGroup viewGroup, String str) {
         if (!(context instanceof PluginContext) && !(context instanceof PluginActivityWrapper) && ((isSupportLibIso(str) || !(context instanceof PluginFragmentActivityWrapper)) && !(context instanceof PluginApplicationWrapper))) {
             context = wrapperContext(context, str);
         }
         LayoutInflater layoutInflater = (LayoutInflater) context.getSystemService("layout_inflater");
         clearConstructorCache();
-        View inflate = layoutInflater.inflate(i10, viewGroup);
+        View inflate = layoutInflater.inflate(i2, viewGroup);
         clearConstructorCache();
         return inflate;
     }
@@ -989,8 +903,8 @@ public class ZeusTransformUtils {
         }
         try {
             return (TypedArray) MethodUtils.invokeMethod(obj, "obtainStyledAttributes", iArr, new Class[]{int[].class});
-        } catch (Exception e10) {
-            throw new RuntimeException(e10);
+        } catch (Exception e2) {
+            throw new RuntimeException(e2);
         }
     }
 }

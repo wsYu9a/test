@@ -12,7 +12,7 @@ import org.json.JSONObject;
 
 @KsAdSdkApi
 @Keep
-/* loaded from: classes3.dex */
+/* loaded from: classes2.dex */
 public interface KsScene extends Serializable {
 
     @KsAdSdkApi
@@ -22,16 +22,16 @@ public interface KsScene extends Serializable {
 
         @KsAdSdkApi
         @Keep
-        public Builder(long j10) {
+        public Builder(long j2) {
             KsScene ksScene = (KsScene) Loader.get().newInstance(KsScene.class);
             this.scene = ksScene;
-            ksScene.setPosId(j10);
+            ksScene.setPosId(j2);
         }
 
         @KsAdSdkApi
         @Keep
-        public Builder action(int i10) {
-            this.scene.setAction(i10);
+        public Builder action(int i2) {
+            this.scene.setAction(i2);
             return this;
         }
 
@@ -44,8 +44,8 @@ public interface KsScene extends Serializable {
 
         @KsAdSdkApi
         @Keep
-        public Builder adNum(int i10) {
-            this.scene.setAdNum(i10);
+        public Builder adNum(int i2) {
+            this.scene.setAdNum(i2);
             return this;
         }
 
@@ -57,15 +57,15 @@ public interface KsScene extends Serializable {
 
         @KsAdSdkApi
         @Keep
-        public Builder height(int i10) {
-            this.scene.setHeight(i10);
+        public Builder height(int i2) {
+            this.scene.setHeight(i2);
             return this;
         }
 
         @KsAdSdkApi
         @Keep
-        public Builder posId(long j10) {
-            this.scene.setPosId(j10);
+        public Builder posId(long j2) {
+            this.scene.setPosId(j2);
             return this;
         }
 
@@ -85,8 +85,8 @@ public interface KsScene extends Serializable {
 
         @KsAdSdkApi
         @Keep
-        public Builder screenOrientation(int i10) {
-            this.scene.setScreenOrientation(i10);
+        public Builder screenOrientation(int i2) {
+            this.scene.setScreenOrientation(i2);
             return this;
         }
 
@@ -134,22 +134,22 @@ public interface KsScene extends Serializable {
 
         @KsAdSdkApi
         @Keep
-        public Builder setUserCommRateBuying(int i10) {
-            this.scene.setUserCommRateBuying(i10);
+        public Builder setUserCommRateBuying(int i2) {
+            this.scene.setUserCommRateBuying(i2);
             return this;
         }
 
         @KsAdSdkApi
         @Keep
-        public Builder setUserCommRateSharing(int i10) {
-            this.scene.setUserCommRateSharing(i10);
+        public Builder setUserCommRateSharing(int i2) {
+            this.scene.setUserCommRateSharing(i2);
             return this;
         }
 
         @KsAdSdkApi
         @Keep
-        public Builder width(int i10) {
-            this.scene.setWidth(i10);
+        public Builder width(int i2) {
+            this.scene.setWidth(i2);
             return this;
         }
     }
@@ -216,15 +216,15 @@ public interface KsScene extends Serializable {
 
     @KsAdSdkApi
     @Keep
-    void setAction(int i10);
+    void setAction(int i2);
 
     @KsAdSdkApi
     @Keep
-    void setAdNum(int i10);
+    void setAdNum(int i2);
 
     @KsAdSdkApi
     @Keep
-    void setAdStyle(int i10);
+    void setAdStyle(int i2);
 
     @KsAdSdkApi
     @Keep
@@ -244,7 +244,7 @@ public interface KsScene extends Serializable {
 
     @KsAdSdkApi
     @Keep
-    void setHeight(int i10);
+    void setHeight(int i2);
 
     @KsAdSdkApi
     @Keep
@@ -256,7 +256,7 @@ public interface KsScene extends Serializable {
 
     @KsAdSdkApi
     @Keep
-    void setPosId(long j10);
+    void setPosId(long j2);
 
     @KsAdSdkApi
     @Keep
@@ -268,7 +268,7 @@ public interface KsScene extends Serializable {
 
     @KsAdSdkApi
     @Keep
-    void setScreenOrientation(int i10);
+    void setScreenOrientation(int i2);
 
     @KsAdSdkApi
     @Keep
@@ -276,15 +276,15 @@ public interface KsScene extends Serializable {
 
     @KsAdSdkApi
     @Keep
-    void setUserCommRateBuying(int i10);
+    void setUserCommRateBuying(int i2);
 
     @KsAdSdkApi
     @Keep
-    void setUserCommRateSharing(int i10);
+    void setUserCommRateSharing(int i2);
 
     @KsAdSdkApi
     @Keep
-    void setWidth(int i10);
+    void setWidth(int i2);
 
     @KsAdSdkApi
     @Keep

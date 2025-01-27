@@ -2,10 +2,12 @@ package kotlin.collections;
 
 import androidx.exifinterface.media.ExifInterface;
 import com.bytedance.sdk.openadsdk.downloadnew.core.TTDownloadField;
+import com.cdo.oaps.ad.OapsKey;
 import com.kwad.sdk.api.model.AdnName;
-import com.kwad.sdk.m.e;
-import com.martian.libmars.activity.PermissionActivity;
+import com.kwad.sdk.ranger.e;
 import com.ss.android.socialbase.downloader.constants.MonitorConstants;
+import com.vivo.ic.dm.Downloads;
+import f.b.a.d;
 import java.util.Collection;
 import java.util.Iterator;
 import java.util.Map;
@@ -15,67 +17,59 @@ import kotlin.SinceKotlin;
 import kotlin.jvm.functions.Function1;
 import kotlin.jvm.internal.DefaultConstructorMarker;
 import kotlin.jvm.internal.Intrinsics;
-import kotlin.jvm.internal.SourceDebugExtension;
 import kotlin.jvm.internal.markers.KMappedMarker;
-import p3.f;
-import xi.k;
-import xi.l;
 
 @SinceKotlin(version = "1.1")
-@Metadata(d1 = {"\u0000D\n\u0002\u0018\u0002\n\u0002\b\u0002\n\u0002\u0010$\n\u0002\b\u0002\n\u0002\u0010\"\n\u0000\n\u0002\u0010\u001e\n\u0002\b\u0004\n\u0002\u0010\b\n\u0002\b\u0006\n\u0002\u0010\u000b\n\u0000\n\u0002\u0010&\n\u0002\b\b\n\u0002\u0010\u0000\n\u0002\b\u0007\n\u0002\u0010\u000e\n\u0002\b\u0003\b'\u0018\u0000 )*\u0004\b\u0000\u0010\u0001*\u0006\b\u0001\u0010\u0002 \u00012\u000e\u0012\u0004\u0012\u0002H\u0001\u0012\u0004\u0012\u0002H\u00020\u0003:\u0001)B\u0007\b\u0004¢\u0006\u0002\u0010\u0004J\u001f\u0010\u0013\u001a\u00020\u00142\u0010\u0010\u0015\u001a\f\u0012\u0002\b\u0003\u0012\u0002\b\u0003\u0018\u00010\u0016H\u0000¢\u0006\u0002\b\u0017J\u0015\u0010\u0018\u001a\u00020\u00142\u0006\u0010\u0019\u001a\u00028\u0000H\u0016¢\u0006\u0002\u0010\u001aJ\u0015\u0010\u001b\u001a\u00020\u00142\u0006\u0010\u001c\u001a\u00028\u0001H\u0016¢\u0006\u0002\u0010\u001aJ\u0013\u0010\u001d\u001a\u00020\u00142\b\u0010\u001e\u001a\u0004\u0018\u00010\u001fH\u0096\u0002J\u0018\u0010 \u001a\u0004\u0018\u00018\u00012\u0006\u0010\u0019\u001a\u00028\u0000H\u0096\u0002¢\u0006\u0002\u0010!J\b\u0010\"\u001a\u00020\rH\u0016J#\u0010#\u001a\u0010\u0012\u0004\u0012\u00028\u0000\u0012\u0004\u0012\u00028\u0001\u0018\u00010\u00162\u0006\u0010\u0019\u001a\u00028\u0000H\u0002¢\u0006\u0002\u0010$J\b\u0010%\u001a\u00020\u0014H\u0016J\b\u0010&\u001a\u00020'H\u0016J\u0012\u0010&\u001a\u00020'2\b\u0010(\u001a\u0004\u0018\u00010\u001fH\u0002J\u001c\u0010&\u001a\u00020'2\u0012\u0010\u0015\u001a\u000e\u0012\u0004\u0012\u00028\u0000\u0012\u0004\u0012\u00028\u00010\u0016H\bR\u0016\u0010\u0005\u001a\n\u0012\u0004\u0012\u00028\u0000\u0018\u00010\u0006X\u0082\u000e¢\u0006\u0002\n\u0000R\u0016\u0010\u0007\u001a\n\u0012\u0004\u0012\u00028\u0001\u0018\u00010\bX\u0088\u000e¢\u0006\u0002\n\u0000R\u001a\u0010\t\u001a\b\u0012\u0004\u0012\u00028\u00000\u00068VX\u0096\u0004¢\u0006\u0006\u001a\u0004\b\n\u0010\u000bR\u0014\u0010\f\u001a\u00020\r8VX\u0096\u0004¢\u0006\u0006\u001a\u0004\b\u000e\u0010\u000fR\u001a\u0010\u0010\u001a\b\u0012\u0004\u0012\u00028\u00010\b8VX\u0096\u0004¢\u0006\u0006\u001a\u0004\b\u0011\u0010\u0012¨\u0006*"}, d2 = {"Lkotlin/collections/AbstractMap;", "K", ExifInterface.GPS_MEASUREMENT_INTERRUPTED, "", "()V", "_keys", "", "_values", "", "keys", "getKeys", "()Ljava/util/Set;", "size", "", "getSize", "()I", "values", "getValues", "()Ljava/util/Collection;", "containsEntry", "", "entry", "", "containsEntry$kotlin_stdlib", "containsKey", PermissionActivity.f12046p, "(Ljava/lang/Object;)Z", "containsValue", "value", "equals", AdnName.OTHER, "", MonitorConstants.CONNECT_TYPE_GET, "(Ljava/lang/Object;)Ljava/lang/Object;", TTDownloadField.TT_HASHCODE, "implFindEntry", "(Ljava/lang/Object;)Ljava/util/Map$Entry;", "isEmpty", "toString", "", "o", "Companion", "kotlin-stdlib"}, k = 1, mv = {1, 9, 0}, xi = 48)
-@SourceDebugExtension({"SMAP\nAbstractMap.kt\nKotlin\n*S Kotlin\n*F\n+ 1 AbstractMap.kt\nkotlin/collections/AbstractMap\n+ 2 _Collections.kt\nkotlin/collections/CollectionsKt___CollectionsKt\n*L\n1#1,153:1\n1747#2,3:154\n1726#2,3:157\n288#2,2:160\n*S KotlinDebug\n*F\n+ 1 AbstractMap.kt\nkotlin/collections/AbstractMap\n*L\n28#1:154,3\n60#1:157,3\n141#1:160,2\n*E\n"})
-/* loaded from: classes4.dex */
+@Metadata(bv = {1, 0, 3}, d1 = {"\u0000B\n\u0002\u0018\u0002\n\u0002\b\u0002\n\u0002\u0010$\n\u0002\u0010&\n\u0000\n\u0002\u0010\u000e\n\u0002\b\u0002\n\u0002\u0010\u0000\n\u0002\b\u0005\n\u0002\u0010\u000b\n\u0002\b\u000b\n\u0002\u0010\b\n\u0002\b\u0005\n\u0002\u0010\"\n\u0002\b\u0005\n\u0002\u0010\u001e\n\u0002\b\u000b\b'\u0018\u0000 1*\u0004\b\u0000\u0010\u0001*\u0006\b\u0001\u0010\u0002 \u00012\u000e\u0012\u0004\u0012\u00028\u0000\u0012\u0004\u0012\u00028\u00010\u0003:\u00011B\t\b\u0004¢\u0006\u0004\b/\u00100J#\u0010\u0007\u001a\u00020\u00062\u0012\u0010\u0005\u001a\u000e\u0012\u0004\u0012\u00028\u0000\u0012\u0004\u0012\u00028\u00010\u0004H\b¢\u0006\u0004\b\u0007\u0010\bJ\u0019\u0010\u0007\u001a\u00020\u00062\b\u0010\n\u001a\u0004\u0018\u00010\tH\u0002¢\u0006\u0004\b\u0007\u0010\u000bJ%\u0010\r\u001a\u0010\u0012\u0004\u0012\u00028\u0000\u0012\u0004\u0012\u00028\u0001\u0018\u00010\u00042\u0006\u0010\f\u001a\u00028\u0000H\u0002¢\u0006\u0004\b\r\u0010\u000eJ\u0017\u0010\u0010\u001a\u00020\u000f2\u0006\u0010\f\u001a\u00028\u0000H\u0016¢\u0006\u0004\b\u0010\u0010\u0011J\u0017\u0010\u0013\u001a\u00020\u000f2\u0006\u0010\u0012\u001a\u00028\u0001H\u0016¢\u0006\u0004\b\u0013\u0010\u0011J!\u0010\u0016\u001a\u00020\u000f2\u0010\u0010\u0005\u001a\f\u0012\u0002\b\u0003\u0012\u0002\b\u0003\u0018\u00010\u0004H\u0000¢\u0006\u0004\b\u0014\u0010\u0015J\u001a\u0010\u0018\u001a\u00020\u000f2\b\u0010\u0017\u001a\u0004\u0018\u00010\tH\u0096\u0002¢\u0006\u0004\b\u0018\u0010\u0011J\u001a\u0010\u0019\u001a\u0004\u0018\u00018\u00012\u0006\u0010\f\u001a\u00028\u0000H\u0096\u0002¢\u0006\u0004\b\u0019\u0010\u001aJ\u000f\u0010\u001c\u001a\u00020\u001bH\u0016¢\u0006\u0004\b\u001c\u0010\u001dJ\u000f\u0010\u001e\u001a\u00020\u000fH\u0016¢\u0006\u0004\b\u001e\u0010\u001fJ\u000f\u0010\u0007\u001a\u00020\u0006H\u0016¢\u0006\u0004\b\u0007\u0010 R\u001c\u0010$\u001a\b\u0012\u0004\u0012\u00028\u00000!8V@\u0016X\u0096\u0004¢\u0006\u0006\u001a\u0004\b\"\u0010#R\u0016\u0010&\u001a\u00020\u001b8V@\u0016X\u0096\u0004¢\u0006\u0006\u001a\u0004\b%\u0010\u001dR\u001c\u0010*\u001a\b\u0012\u0004\u0012\u00028\u00010'8V@\u0016X\u0096\u0004¢\u0006\u0006\u001a\u0004\b(\u0010)R\u001e\u0010+\u001a\n\u0012\u0004\u0012\u00028\u0000\u0018\u00010!8\u0002@\u0002X\u0082\u000e¢\u0006\u0006\n\u0004\b+\u0010,R\u001e\u0010-\u001a\n\u0012\u0004\u0012\u00028\u0001\u0018\u00010'8\b@\bX\u0088\u000e¢\u0006\u0006\n\u0004\b-\u0010.¨\u00062"}, d2 = {"Lkotlin/collections/AbstractMap;", "K", ExifInterface.GPS_MEASUREMENT_INTERRUPTED, "", "", "entry", "", "toString", "(Ljava/util/Map$Entry;)Ljava/lang/String;", "", "o", "(Ljava/lang/Object;)Ljava/lang/String;", "key", "implFindEntry", "(Ljava/lang/Object;)Ljava/util/Map$Entry;", "", "containsKey", "(Ljava/lang/Object;)Z", Downloads.RequestHeaders.COLUMN_VALUE, "containsValue", "containsEntry$kotlin_stdlib", "(Ljava/util/Map$Entry;)Z", "containsEntry", AdnName.OTHER, "equals", MonitorConstants.CONNECT_TYPE_GET, "(Ljava/lang/Object;)Ljava/lang/Object;", "", TTDownloadField.TT_HASHCODE, "()I", "isEmpty", "()Z", "()Ljava/lang/String;", "", "getKeys", "()Ljava/util/Set;", "keys", "getSize", OapsKey.KEY_SIZE, "", "getValues", "()Ljava/util/Collection;", "values", "_keys", "Ljava/util/Set;", "_values", "Ljava/util/Collection;", "<init>", "()V", "Companion", "kotlin-stdlib"}, k = 1, mv = {1, 4, 0})
+/* loaded from: classes5.dex */
 public abstract class AbstractMap<K, V> implements Map<K, V>, KMappedMarker {
 
     /* renamed from: Companion, reason: from kotlin metadata */
-    @k
     public static final Companion INSTANCE = new Companion(null);
-
-    @l
     private volatile Set<? extends K> _keys;
-
-    @l
     private volatile Collection<? extends V> _values;
 
-    @Metadata(d1 = {"\u0000*\n\u0002\u0018\u0002\n\u0002\u0010\u0000\n\u0002\b\u0002\n\u0002\u0010\u000b\n\u0000\n\u0002\u0010&\n\u0002\b\u0003\n\u0002\u0010\b\n\u0002\b\u0002\n\u0002\u0010\u000e\n\u0002\b\u0002\b\u0080\u0003\u0018\u00002\u00020\u0001B\u0007\b\u0002¢\u0006\u0002\u0010\u0002J'\u0010\u0003\u001a\u00020\u00042\u000e\u0010\u0005\u001a\n\u0012\u0002\b\u0003\u0012\u0002\b\u00030\u00062\b\u0010\u0007\u001a\u0004\u0018\u00010\u0001H\u0000¢\u0006\u0002\b\bJ\u001d\u0010\t\u001a\u00020\n2\u000e\u0010\u0005\u001a\n\u0012\u0002\b\u0003\u0012\u0002\b\u00030\u0006H\u0000¢\u0006\u0002\b\u000bJ\u001d\u0010\f\u001a\u00020\r2\u000e\u0010\u0005\u001a\n\u0012\u0002\b\u0003\u0012\u0002\b\u00030\u0006H\u0000¢\u0006\u0002\b\u000e¨\u0006\u000f"}, d2 = {"Lkotlin/collections/AbstractMap$Companion;", "", "()V", "entryEquals", "", e.TAG, "", AdnName.OTHER, "entryEquals$kotlin_stdlib", "entryHashCode", "", "entryHashCode$kotlin_stdlib", "entryToString", "", "entryToString$kotlin_stdlib", "kotlin-stdlib"}, k = 1, mv = {1, 9, 0}, xi = 48)
-    @SourceDebugExtension({"SMAP\nAbstractMap.kt\nKotlin\n*S Kotlin\n*F\n+ 1 AbstractMap.kt\nkotlin/collections/AbstractMap$Companion\n+ 2 fake.kt\nkotlin/jvm/internal/FakeKt\n*L\n1#1,153:1\n1#2:154\n*E\n"})
+    @Metadata(bv = {1, 0, 3}, d1 = {"\u0000&\n\u0002\u0018\u0002\n\u0002\u0010\u0000\n\u0002\u0010&\n\u0000\n\u0002\u0010\b\n\u0002\b\u0003\n\u0002\u0010\u000e\n\u0002\b\u0004\n\u0002\u0010\u000b\n\u0002\b\u0006\b\u0080\u0003\u0018\u00002\u00020\u0001B\t\b\u0002¢\u0006\u0004\b\u0011\u0010\u0012J\u001f\u0010\u0007\u001a\u00020\u00042\u000e\u0010\u0003\u001a\n\u0012\u0002\b\u0003\u0012\u0002\b\u00030\u0002H\u0000¢\u0006\u0004\b\u0005\u0010\u0006J\u001f\u0010\u000b\u001a\u00020\b2\u000e\u0010\u0003\u001a\n\u0012\u0002\b\u0003\u0012\u0002\b\u00030\u0002H\u0000¢\u0006\u0004\b\t\u0010\nJ)\u0010\u0010\u001a\u00020\r2\u000e\u0010\u0003\u001a\n\u0012\u0002\b\u0003\u0012\u0002\b\u00030\u00022\b\u0010\f\u001a\u0004\u0018\u00010\u0001H\u0000¢\u0006\u0004\b\u000e\u0010\u000f¨\u0006\u0013"}, d2 = {"Lkotlin/collections/AbstractMap$Companion;", "", "", e.TAG, "", "entryHashCode$kotlin_stdlib", "(Ljava/util/Map$Entry;)I", "entryHashCode", "", "entryToString$kotlin_stdlib", "(Ljava/util/Map$Entry;)Ljava/lang/String;", "entryToString", AdnName.OTHER, "", "entryEquals$kotlin_stdlib", "(Ljava/util/Map$Entry;Ljava/lang/Object;)Z", "entryEquals", "<init>", "()V", "kotlin-stdlib"}, k = 1, mv = {1, 4, 0})
     public static final class Companion {
-        public /* synthetic */ Companion(DefaultConstructorMarker defaultConstructorMarker) {
-            this();
+        private Companion() {
         }
 
-        public final boolean entryEquals$kotlin_stdlib(@k Map.Entry<?, ?> r42, @l Object r52) {
-            Intrinsics.checkNotNullParameter(r42, "e");
-            if (!(r52 instanceof Map.Entry)) {
+        public final boolean entryEquals$kotlin_stdlib(@d Map.Entry<?, ?> r4, @f.b.a.e Object r5) {
+            Intrinsics.checkParameterIsNotNull(r4, "e");
+            if (!(r5 instanceof Map.Entry)) {
                 return false;
             }
-            Map.Entry entry = (Map.Entry) r52;
-            return Intrinsics.areEqual(r42.getKey(), entry.getKey()) && Intrinsics.areEqual(r42.getValue(), entry.getValue());
+            Map.Entry entry = (Map.Entry) r5;
+            return Intrinsics.areEqual(r4.getKey(), entry.getKey()) && Intrinsics.areEqual(r4.getValue(), entry.getValue());
         }
 
-        public final int entryHashCode$kotlin_stdlib(@k Map.Entry<?, ?> r32) {
-            Intrinsics.checkNotNullParameter(r32, "e");
-            Object key = r32.getKey();
+        public final int entryHashCode$kotlin_stdlib(@d Map.Entry<?, ?> r3) {
+            Intrinsics.checkParameterIsNotNull(r3, "e");
+            Object key = r3.getKey();
             int hashCode = key != null ? key.hashCode() : 0;
-            Object value = r32.getValue();
+            Object value = r3.getValue();
             return hashCode ^ (value != null ? value.hashCode() : 0);
         }
 
-        @k
-        public final String entryToString$kotlin_stdlib(@k Map.Entry<?, ?> r32) {
-            Intrinsics.checkNotNullParameter(r32, "e");
-            StringBuilder sb2 = new StringBuilder();
-            sb2.append(r32.getKey());
-            sb2.append('=');
-            sb2.append(r32.getValue());
-            return sb2.toString();
+        @d
+        public final String entryToString$kotlin_stdlib(@d Map.Entry<?, ?> r3) {
+            Intrinsics.checkParameterIsNotNull(r3, "e");
+            StringBuilder sb = new StringBuilder();
+            sb.append(r3.getKey());
+            sb.append('=');
+            sb.append(r3.getValue());
+            return sb.toString();
         }
 
-        private Companion() {
+        public /* synthetic */ Companion(DefaultConstructorMarker defaultConstructorMarker) {
+            this();
         }
     }
 
-    private final Map.Entry<K, V> implFindEntry(K r42) {
+    protected AbstractMap() {
+    }
+
+    private final Map.Entry<K, V> implFindEntry(K key) {
         Object obj;
         Iterator<T> it = entrySet().iterator();
         while (true) {
@@ -84,7 +78,7 @@ public abstract class AbstractMap<K, V> implements Map<K, V>, KMappedMarker {
                 break;
             }
             obj = it.next();
-            if (Intrinsics.areEqual(((Map.Entry) obj).getKey(), r42)) {
+            if (Intrinsics.areEqual(((Map.Entry) obj).getKey(), key)) {
                 break;
             }
         }
@@ -96,39 +90,34 @@ public abstract class AbstractMap<K, V> implements Map<K, V>, KMappedMarker {
         throw new UnsupportedOperationException("Operation is not supported for read-only collection");
     }
 
-    public final boolean containsEntry$kotlin_stdlib(@l Map.Entry<?, ?> entry) {
-        if (entry == null) {
+    public final boolean containsEntry$kotlin_stdlib(@f.b.a.e Map.Entry<?, ?> entry) {
+        if (!(entry instanceof Map.Entry)) {
             return false;
         }
         Object key = entry.getKey();
         Object value = entry.getValue();
-        Intrinsics.checkNotNull(this, "null cannot be cast to non-null type kotlin.collections.Map<K of kotlin.collections.MapsKt__MapsKt.get, V of kotlin.collections.MapsKt__MapsKt.get>");
-        V v10 = get(key);
-        if (!Intrinsics.areEqual(value, v10)) {
+        V v = get(key);
+        if (!Intrinsics.areEqual(value, v)) {
             return false;
         }
-        if (v10 != null) {
-            return true;
-        }
-        Intrinsics.checkNotNull(this, "null cannot be cast to non-null type kotlin.collections.Map<K of kotlin.collections.MapsKt__MapsKt.containsKey, *>");
-        return containsKey(key);
+        return v != null || containsKey(key);
     }
 
     /* JADX WARN: Multi-variable type inference failed */
     @Override // java.util.Map
-    public boolean containsKey(Object r12) {
-        return implFindEntry(r12) != null;
+    public boolean containsKey(Object key) {
+        return implFindEntry(key) != null;
     }
 
     @Override // java.util.Map
-    public boolean containsValue(Object value) {
+    public boolean containsValue(Object r4) {
         Set<Map.Entry<K, V>> entrySet = entrySet();
         if ((entrySet instanceof Collection) && entrySet.isEmpty()) {
             return false;
         }
         Iterator<T> it = entrySet.iterator();
         while (it.hasNext()) {
-            if (Intrinsics.areEqual(((Map.Entry) it.next()).getValue(), value)) {
+            if (Intrinsics.areEqual(((Map.Entry) it.next()).getValue(), r4)) {
                 return true;
             }
         }
@@ -141,14 +130,14 @@ public abstract class AbstractMap<K, V> implements Map<K, V>, KMappedMarker {
     }
 
     @Override // java.util.Map
-    public boolean equals(@l Object r52) {
-        if (r52 == this) {
+    public boolean equals(@f.b.a.e Object r5) {
+        if (r5 == this) {
             return true;
         }
-        if (!(r52 instanceof Map)) {
+        if (!(r5 instanceof Map)) {
             return false;
         }
-        Map map = (Map) r52;
+        Map map = (Map) r5;
         if (size() != map.size()) {
             return false;
         }
@@ -167,7 +156,7 @@ public abstract class AbstractMap<K, V> implements Map<K, V>, KMappedMarker {
 
     /* JADX WARN: Multi-variable type inference failed */
     @Override // java.util.Map
-    @l
+    @f.b.a.e
     public V get(Object obj) {
         Map.Entry<K, V> implFindEntry = implFindEntry(obj);
         if (implFindEntry != null) {
@@ -178,37 +167,32 @@ public abstract class AbstractMap<K, V> implements Map<K, V>, KMappedMarker {
 
     public abstract Set getEntries();
 
-    @k
+    @d
     public Set<K> getKeys() {
         if (this._keys == null) {
-            this._keys = new AbstractSet<K>(this) { // from class: kotlin.collections.AbstractMap$keys$1
-                final /* synthetic */ AbstractMap<K, V> this$0;
-
-                /* JADX WARN: Multi-variable type inference failed */
-                public AbstractMap$keys$1(AbstractMap<K, ? extends V> this) {
-                    this.this$0 = this;
-                }
-
+            this._keys = new AbstractSet<K>() { // from class: kotlin.collections.AbstractMap$keys$1
                 @Override // kotlin.collections.AbstractCollection, java.util.Collection
                 public boolean contains(Object element) {
-                    return this.this$0.containsKey(element);
+                    return AbstractMap.this.containsKey(element);
                 }
 
                 @Override // kotlin.collections.AbstractCollection
                 /* renamed from: getSize */
                 public int get_size() {
-                    return this.this$0.size();
+                    return AbstractMap.this.size();
                 }
 
                 @Override // kotlin.collections.AbstractSet, kotlin.collections.AbstractCollection, java.util.Collection, java.lang.Iterable
-                @k
+                @d
                 public Iterator<K> iterator() {
-                    return new AbstractMap$keys$1$iterator$1(this.this$0.entrySet().iterator());
+                    return new AbstractMap$keys$1$iterator$1(AbstractMap.this.entrySet().iterator());
                 }
             };
         }
         Set<? extends K> set = this._keys;
-        Intrinsics.checkNotNull(set);
+        if (set == null) {
+            Intrinsics.throwNpe();
+        }
         return set;
     }
 
@@ -216,37 +200,32 @@ public abstract class AbstractMap<K, V> implements Map<K, V>, KMappedMarker {
         return entrySet().size();
     }
 
-    @k
+    @d
     public Collection<V> getValues() {
         if (this._values == null) {
-            this._values = new AbstractCollection<V>(this) { // from class: kotlin.collections.AbstractMap$values$1
-                final /* synthetic */ AbstractMap<K, V> this$0;
-
-                /* JADX WARN: Multi-variable type inference failed */
-                public AbstractMap$values$1(AbstractMap<K, ? extends V> this) {
-                    this.this$0 = this;
-                }
-
+            this._values = new AbstractCollection<V>() { // from class: kotlin.collections.AbstractMap$values$1
                 @Override // kotlin.collections.AbstractCollection, java.util.Collection
                 public boolean contains(Object element) {
-                    return this.this$0.containsValue(element);
+                    return AbstractMap.this.containsValue(element);
                 }
 
                 @Override // kotlin.collections.AbstractCollection
                 /* renamed from: getSize */
                 public int get_size() {
-                    return this.this$0.size();
+                    return AbstractMap.this.size();
                 }
 
                 @Override // kotlin.collections.AbstractCollection, java.util.Collection, java.lang.Iterable
-                @k
+                @d
                 public Iterator<V> iterator() {
-                    return new AbstractMap$values$1$iterator$1(this.this$0.entrySet().iterator());
+                    return new AbstractMap$values$1$iterator$1(AbstractMap.this.entrySet().iterator());
                 }
             };
         }
         Collection<? extends V> collection = this._values;
-        Intrinsics.checkNotNull(collection);
+        if (collection == null) {
+            Intrinsics.throwNpe();
+        }
         return collection;
     }
 
@@ -266,7 +245,7 @@ public abstract class AbstractMap<K, V> implements Map<K, V>, KMappedMarker {
     }
 
     @Override // java.util.Map
-    public V put(K k10, V v10) {
+    public V put(K k, V v) {
         throw new UnsupportedOperationException("Operation is not supported for read-only collection");
     }
 
@@ -285,24 +264,19 @@ public abstract class AbstractMap<K, V> implements Map<K, V>, KMappedMarker {
         return getSize();
     }
 
-    @k
+    @d
     public String toString() {
-        return CollectionsKt.joinToString$default(entrySet(), ", ", "{", f.f29748d, 0, null, new Function1<Map.Entry<? extends K, ? extends V>, CharSequence>(this) { // from class: kotlin.collections.AbstractMap$toString$1
-            final /* synthetic */ AbstractMap<K, V> this$0;
-
-            /* JADX WARN: 'super' call moved to the top of the method (can break code semantics) */
-            /* JADX WARN: Multi-variable type inference failed */
-            public AbstractMap$toString$1(AbstractMap<K, ? extends V> this) {
+        return CollectionsKt___CollectionsKt.joinToString$default(entrySet(), ", ", "{", "}", 0, null, new Function1<Map.Entry<? extends K, ? extends V>, String>() { // from class: kotlin.collections.AbstractMap$toString$1
+            {
                 super(1);
-                this.this$0 = this;
             }
 
             @Override // kotlin.jvm.functions.Function1
-            @k
-            public final CharSequence invoke(@k Map.Entry<? extends K, ? extends V> it) {
+            @d
+            public final String invoke(@d Map.Entry<? extends K, ? extends V> it) {
                 String abstractMap;
-                Intrinsics.checkNotNullParameter(it, "it");
-                abstractMap = this.this$0.toString((Map.Entry) it);
+                Intrinsics.checkParameterIsNotNull(it, "it");
+                abstractMap = AbstractMap.this.toString((Map.Entry) it);
                 return abstractMap;
             }
         }, 24, null);
@@ -314,10 +288,10 @@ public abstract class AbstractMap<K, V> implements Map<K, V>, KMappedMarker {
     }
 
     public final String toString(Map.Entry<? extends K, ? extends V> entry) {
-        return toString(entry.getKey()) + '=' + toString(entry.getValue());
+        return toString(entry.getKey()) + "=" + toString(entry.getValue());
     }
 
-    private final String toString(Object o10) {
-        return o10 == this ? "(this Map)" : String.valueOf(o10);
+    private final String toString(Object o) {
+        return o == this ? "(this Map)" : String.valueOf(o);
     }
 }

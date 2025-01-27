@@ -1,10 +1,10 @@
 package com.martian.mibook.account.request.book;
 
-import com.martian.mibook.lib.account.request.TYAuthoptParams;
-import v8.a;
+import com.martian.libcomm.http.requests.d.a;
+import com.martian.libfeedback.request.FeedbacklTaskHttpGetParams;
 
 /* loaded from: classes3.dex */
-public class MiBookGetChapterCommentCountParams extends TYAuthoptParams {
+public class MiBookGetChapterCommentCountParams extends FeedbacklTaskHttpGetParams {
 
     @a
     private String chapterIds;
@@ -18,17 +18,17 @@ public class MiBookGetChapterCommentCountParams extends TYAuthoptParams {
     @a
     private String sourceName;
 
-    @Override // com.martian.mibook.lib.account.request.TYAuthoptParams
-    public String getAuthoptMethod() {
-        return "comment_counts.do";
-    }
-
     public String getChapterIds() {
         return this.chapterIds;
     }
 
     public Integer getPage() {
         return this.page;
+    }
+
+    @Override // com.martian.libcomm.http.requests.b
+    public String getRequestMethod() {
+        return "authopt/chapter_comment_count";
     }
 
     public String getSourceId() {
@@ -39,19 +39,19 @@ public class MiBookGetChapterCommentCountParams extends TYAuthoptParams {
         return this.sourceName;
     }
 
-    public void setChapterIds(String str) {
-        this.chapterIds = str;
+    public void setChapterIds(String chapterIds) {
+        this.chapterIds = chapterIds;
     }
 
-    public void setPage(Integer num) {
-        this.page = num;
+    public void setPage(Integer page) {
+        this.page = page;
     }
 
-    public void setSourceId(String str) {
-        this.sourceId = str;
+    public void setSourceId(String sourceId) {
+        this.sourceId = sourceId;
     }
 
-    public void setSourceName(String str) {
-        this.sourceName = str;
+    public void setSourceName(String sourceName) {
+        this.sourceName = sourceName;
     }
 }

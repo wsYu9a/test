@@ -4,7 +4,7 @@ import androidx.annotation.NonNull;
 import com.baidu.mobads.sdk.api.IAdInterListener;
 import com.baidu.mobads.sdk.api.IOAdEvent;
 
-/* loaded from: classes2.dex */
+/* loaded from: classes.dex */
 public interface a extends IOAdEvent {
     @NonNull
     IAdInterListener getDelegator();

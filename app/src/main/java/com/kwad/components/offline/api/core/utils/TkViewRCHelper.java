@@ -13,7 +13,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import com.kwad.sdk.widget.h;
 
-/* loaded from: classes3.dex */
+/* loaded from: classes2.dex */
 public class TkViewRCHelper {
     private boolean mClipBackground;
 
@@ -47,30 +47,30 @@ public class TkViewRCHelper {
             return this.topRight;
         }
 
-        public void setAllCorner(boolean z10) {
-            this.leftTop = z10;
-            this.topRight = z10;
-            this.rightBottom = z10;
-            this.bottomLeft = z10;
+        public void setAllCorner(boolean z) {
+            this.leftTop = z;
+            this.topRight = z;
+            this.rightBottom = z;
+            this.bottomLeft = z;
         }
 
-        public CornerConf setBottomLeft(boolean z10) {
-            this.bottomLeft = z10;
+        public CornerConf setBottomLeft(boolean z) {
+            this.bottomLeft = z;
             return this;
         }
 
-        public CornerConf setLeftTop(boolean z10) {
-            this.leftTop = z10;
+        public CornerConf setLeftTop(boolean z) {
+            this.leftTop = z;
             return this;
         }
 
-        public CornerConf setRightBottom(boolean z10) {
-            this.rightBottom = z10;
+        public CornerConf setRightBottom(boolean z) {
+            this.rightBottom = z;
             return this;
         }
 
-        public CornerConf setTopRight(boolean z10) {
-            this.topRight = z10;
+        public CornerConf setTopRight(boolean z) {
+            this.topRight = z;
             return this;
         }
     }
@@ -78,6 +78,15 @@ public class TkViewRCHelper {
     public TkViewRCHelper() {
         this.radiusArray = new float[8];
         this.mCornerConf = new h.a();
+    }
+
+    public TkViewRCHelper(h.a aVar) {
+        this.radiusArray = new float[8];
+        if (aVar == null) {
+            this.mCornerConf = new h.a();
+        } else {
+            this.mCornerConf = aVar;
+        }
     }
 
     private Path getPath() {
@@ -149,24 +158,15 @@ public class TkViewRCHelper {
         this.mPaint.setXfermode(new PorterDuffXfermode(PorterDuff.Mode.DST_IN));
     }
 
-    public void onSizeChanged(int i10, int i11) {
-        this.mRectF.set(0.0f, 0.0f, i10, i11);
+    public void onSizeChanged(int i2, int i3) {
+        this.mRectF.set(0.0f, 0.0f, i2, i3);
     }
 
-    public void setRadius(float f10) {
-        this.mRadius = f10;
+    public void setRadius(float f2) {
+        this.mRadius = f2;
     }
 
     public void setRadius(float[] fArr) {
         this.radiusArray = fArr;
-    }
-
-    public TkViewRCHelper(h.a aVar) {
-        this.radiusArray = new float[8];
-        if (aVar == null) {
-            this.mCornerConf = new h.a();
-        } else {
-            this.mCornerConf = aVar;
-        }
     }
 }

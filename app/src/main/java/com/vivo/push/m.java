@@ -4,25 +4,24 @@ import android.os.Handler;
 import android.os.HandlerThread;
 import android.os.Looper;
 import android.os.Message;
-import androidx.media3.common.C;
 
 /* loaded from: classes4.dex */
 public final class m {
 
     /* renamed from: a */
-    private static final Handler f25067a = new Handler(Looper.getMainLooper());
+    private static final Handler f31031a = new Handler(Looper.getMainLooper());
 
     /* renamed from: b */
-    private static final HandlerThread f25068b;
+    private static final HandlerThread f31032b;
 
     /* renamed from: c */
-    private static final Handler f25069c;
+    private static final Handler f31033c;
 
     static {
         HandlerThread handlerThread = new HandlerThread("push_client_thread");
-        f25068b = handlerThread;
+        f31032b = handlerThread;
         handlerThread.start();
-        f25069c = new n(handlerThread.getLooper());
+        f31033c = new n(handlerThread.getLooper());
     }
 
     public static void a(l lVar) {
@@ -30,27 +29,27 @@ public final class m {
             com.vivo.push.util.p.a("PushClientThread", "client thread error, task is null!");
             return;
         }
-        int a10 = lVar.a();
+        int a2 = lVar.a();
         Message message = new Message();
-        message.what = a10;
+        message.what = a2;
         message.obj = lVar;
-        f25069c.sendMessageDelayed(message, 0L);
+        f31033c.sendMessageDelayed(message, 0L);
     }
 
     public static void b(Runnable runnable) {
-        f25067a.post(runnable);
+        f31031a.post(runnable);
     }
 
     public static void c(Runnable runnable) {
-        Handler handler = f25069c;
+        Handler handler = f31033c;
         if (handler != null) {
             handler.post(runnable);
         }
     }
 
     public static void a(Runnable runnable) {
-        Handler handler = f25069c;
+        Handler handler = f31033c;
         handler.removeCallbacks(runnable);
-        handler.postDelayed(runnable, C.DEFAULT_SEEK_FORWARD_INCREMENT_MS);
+        handler.postDelayed(runnable, 15000L);
     }
 }

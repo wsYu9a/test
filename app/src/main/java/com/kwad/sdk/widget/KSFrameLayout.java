@@ -12,89 +12,104 @@ import androidx.annotation.MainThread;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import com.kwad.sdk.R;
-import com.kwad.sdk.service.ServiceProvider;
-import com.kwad.sdk.utils.ag;
+import com.kwad.sdk.utils.ac;
 import java.util.Arrays;
 import java.util.concurrent.atomic.AtomicBoolean;
 
-/* loaded from: classes3.dex */
-public class KSFrameLayout extends FrameLayout implements com.kwad.sdk.core.view.d, e, i {
-    private com.kwad.sdk.core.view.c aGZ;
-    private final ag.a aHa;
-    private g aXj;
-    private i aXk;
-    private View aXl;
-    private final AtomicBoolean bP;
+/* loaded from: classes2.dex */
+public class KSFrameLayout extends FrameLayout implements e, i {
+    private static final String TAG = "KSFrameLayout";
+    private final AtomicBoolean mIsViewDetached;
+    private View mPvView;
     private float mRatio;
+    private final ac.a mTouchCoords;
+    private g mViewPvHelper;
     private h mViewRCHelper;
+    private i mViewVisibleListener;
     private boolean widthBasedRatio;
 
     public KSFrameLayout(@NonNull Context context) {
         super(context);
-        this.bP = new AtomicBoolean(true);
+        this.mIsViewDetached = new AtomicBoolean(true);
         this.mRatio = 0.0f;
-        this.aHa = new ag.a();
-        this.aGZ = new com.kwad.sdk.core.view.c();
+        this.mTouchCoords = new ac.a();
         this.widthBasedRatio = true;
         init(context, null);
     }
 
+    public KSFrameLayout(@NonNull Context context, @Nullable AttributeSet attributeSet) {
+        super(context, attributeSet);
+        this.mIsViewDetached = new AtomicBoolean(true);
+        this.mRatio = 0.0f;
+        this.mTouchCoords = new ac.a();
+        this.widthBasedRatio = true;
+        init(context, attributeSet);
+    }
+
+    public KSFrameLayout(@NonNull Context context, @Nullable AttributeSet attributeSet, int i2) {
+        super(context, attributeSet, i2);
+        this.mIsViewDetached = new AtomicBoolean(true);
+        this.mRatio = 0.0f;
+        this.mTouchCoords = new ac.a();
+        this.widthBasedRatio = true;
+        init(context, attributeSet);
+    }
+
+    public KSFrameLayout(@NonNull Context context, View view) {
+        super(context);
+        this.mIsViewDetached = new AtomicBoolean(true);
+        this.mRatio = 0.0f;
+        this.mTouchCoords = new ac.a();
+        this.widthBasedRatio = true;
+        this.mPvView = view;
+        init(context, null);
+    }
+
     private View getPvView() {
-        View view = this.aXl;
+        View view = this.mPvView;
         return view == null ? this : view;
     }
 
-    private static float[] getRadius(float f10, float f11, float f12, float f13) {
-        return new float[]{f10, f10, f11, f11, f12, f12, f13, f13};
+    private float[] getRadius(float f2, float f3, float f4, float f5) {
+        return new float[]{f2, f2, f3, f3, f4, f4, f5, f5};
     }
 
-    private void ut() {
-        try {
-            if (this.bP.getAndSet(false)) {
-                Z();
-            }
-        } catch (Throwable th2) {
-            ServiceProvider.reportSdkCaughtException(th2);
+    private void init(@NonNull Context context, @Nullable AttributeSet attributeSet) {
+        if (attributeSet != null) {
+            int i2 = R.attr.ksad_ratio;
+            int[] iArr = {i2};
+            Arrays.sort(iArr);
+            TypedArray obtainStyledAttributes = context.obtainStyledAttributes(attributeSet, iArr);
+            this.mRatio = obtainStyledAttributes.getFloat(Arrays.binarySearch(iArr, i2), 0.0f);
+            obtainStyledAttributes.recycle();
+        }
+        g gVar = new g(getPvView(), this);
+        this.mViewPvHelper = gVar;
+        gVar.bJ(enableFirstVisible());
+        h hVar = new h();
+        this.mViewRCHelper = hVar;
+        hVar.initAttrs(context, attributeSet);
+    }
+
+    private void viewAttached() {
+        if (this.mIsViewDetached.getAndSet(false)) {
+            com.kwad.sdk.core.d.b.i(TAG, "onViewAttached");
+            onViewAttached();
         }
     }
 
-    private void uu() {
-        try {
-            if (this.bP.getAndSet(true)) {
-                return;
-            }
-            aa();
-        } catch (Throwable th2) {
-            ServiceProvider.reportSdkCaughtException(th2);
+    private void viewDetached() {
+        if (this.mIsViewDetached.getAndSet(true)) {
+            return;
         }
-    }
-
-    @CallSuper
-    public void C(View view) {
-        i iVar = this.aXk;
-        if (iVar != null) {
-            iVar.C(view);
-        }
-    }
-
-    @CallSuper
-    public void Z() {
-        this.aXj.onAttachedToWindow();
-    }
-
-    @CallSuper
-    public void aa() {
-        this.aXj.onDetachedFromWindow();
+        com.kwad.sdk.core.d.b.i(TAG, "onViewDetached");
+        onViewDetached();
     }
 
     @Override // android.view.ViewGroup, android.view.View
-    public void dispatchDraw(Canvas canvas) {
+    protected void dispatchDraw(Canvas canvas) {
         this.mViewRCHelper.beforeDispatchDraw(canvas);
-        try {
-            super.dispatchDraw(canvas);
-        } catch (Throwable th2) {
-            ServiceProvider.reportSdkCaughtException(th2);
-        }
+        super.dispatchDraw(canvas);
         this.mViewRCHelper.afterDispatchDraw(canvas);
     }
 
@@ -102,10 +117,10 @@ public class KSFrameLayout extends FrameLayout implements com.kwad.sdk.core.view
     public boolean dispatchTouchEvent(MotionEvent motionEvent) {
         int action = motionEvent.getAction();
         if (action == 0) {
-            this.aHa.z(getWidth(), getHeight());
-            this.aHa.f(motionEvent.getX(), motionEvent.getY());
+            this.mTouchCoords.u(getWidth(), getHeight());
+            this.mTouchCoords.f(motionEvent.getX(), motionEvent.getY());
         } else if (action == 1) {
-            this.aHa.g(motionEvent.getX(), motionEvent.getY());
+            this.mTouchCoords.g(motionEvent.getX(), motionEvent.getY());
         }
         return super.dispatchTouchEvent(motionEvent);
     }
@@ -117,149 +132,119 @@ public class KSFrameLayout extends FrameLayout implements com.kwad.sdk.core.view
         this.mViewRCHelper.afterDraw(canvas);
     }
 
+    protected boolean enableFirstVisible() {
+        return true;
+    }
+
     @Override // com.kwad.sdk.widget.e
     @MainThread
-    public ag.a getTouchCoords() {
-        return this.aHa;
+    public ac.a getTouchCoords() {
+        return this.mTouchCoords;
     }
 
     public float getVisiblePercent() {
-        return this.aXj.getVisiblePercent();
+        return this.mViewPvHelper.getVisiblePercent();
     }
 
-    @Override // com.kwad.sdk.core.view.d
-    @NonNull
-    public com.kwad.sdk.core.view.c getWindowFocusChangeHelper() {
-        return this.aGZ;
-    }
-
-    public void init(@NonNull Context context, @Nullable AttributeSet attributeSet) {
-        if (attributeSet != null) {
-            int i10 = R.attr.ksad_ratio;
-            int[] iArr = {i10};
-            Arrays.sort(iArr);
-            TypedArray obtainStyledAttributes = context.obtainStyledAttributes(attributeSet, iArr);
-            this.mRatio = obtainStyledAttributes.getFloat(Arrays.binarySearch(iArr, i10), 0.0f);
-            obtainStyledAttributes.recycle();
-        }
-        g gVar = new g(getPvView(), this);
-        this.aXj = gVar;
-        gVar.ch(true);
-        h hVar = new h();
-        this.mViewRCHelper = hVar;
-        hVar.initAttrs(context, attributeSet);
+    public boolean isWidthBasedRatio() {
+        return this.widthBasedRatio;
     }
 
     @Override // android.view.ViewGroup, android.view.View
     @Deprecated
-    public void onAttachedToWindow() {
+    protected void onAttachedToWindow() {
         super.onAttachedToWindow();
-        ut();
+        viewAttached();
     }
 
     @Override // android.view.ViewGroup, android.view.View
     @Deprecated
-    public void onDetachedFromWindow() {
+    protected void onDetachedFromWindow() {
         super.onDetachedFromWindow();
-        uu();
+        viewDetached();
     }
 
     @Override // android.view.View
     public void onFinishTemporaryDetach() {
         super.onFinishTemporaryDetach();
-        ut();
+        viewAttached();
+    }
+
+    @CallSuper
+    public void onFirstVisible(View view) {
+        i iVar = this.mViewVisibleListener;
+        if (iVar != null) {
+            iVar.onFirstVisible(view);
+        }
     }
 
     @Override // android.widget.FrameLayout, android.view.View
-    public void onMeasure(int i10, int i11) {
+    protected void onMeasure(int i2, int i3) {
         if (this.mRatio != 0.0f) {
             if (this.widthBasedRatio) {
-                i11 = View.MeasureSpec.makeMeasureSpec((int) (View.MeasureSpec.getSize(i10) * this.mRatio), 1073741824);
+                i3 = View.MeasureSpec.makeMeasureSpec((int) (View.MeasureSpec.getSize(i2) * this.mRatio), 1073741824);
             } else {
-                i10 = View.MeasureSpec.makeMeasureSpec((int) (View.MeasureSpec.getSize(i11) / this.mRatio), 1073741824);
+                i2 = View.MeasureSpec.makeMeasureSpec((int) (View.MeasureSpec.getSize(i3) / this.mRatio), 1073741824);
             }
         }
-        super.onMeasure(i10, i11);
+        super.onMeasure(i2, i3);
     }
 
     @Override // android.view.View
-    public void onSizeChanged(int i10, int i11, int i12, int i13) {
-        this.aXj.b(i10, i11, i12, i13);
-        super.onSizeChanged(i10, i11, i12, i13);
-        this.aXj.PR();
-        this.mViewRCHelper.onSizeChanged(i10, i11);
+    protected void onSizeChanged(int i2, int i3, int i4, int i5) {
+        this.mViewPvHelper.b(i2, i3, i4, i5);
+        super.onSizeChanged(i2, i3, i4, i5);
+        this.mViewPvHelper.FB();
+        this.mViewRCHelper.onSizeChanged(i2, i3);
     }
 
     @Override // android.view.View
     public void onStartTemporaryDetach() {
         super.onStartTemporaryDetach();
-        uu();
+        viewDetached();
     }
 
-    @Override // android.view.View
-    public void onWindowFocusChanged(boolean z10) {
-        super.onWindowFocusChanged(z10);
-        this.aGZ.j(this, z10);
+    @CallSuper
+    protected void onViewAttached() {
+        this.mViewPvHelper.onAttachedToWindow();
     }
 
-    public void setAllCorner(boolean z10) {
-        this.mViewRCHelper.getCornerConf().setAllCorner(z10);
+    @CallSuper
+    protected void onViewDetached() {
+        this.mViewPvHelper.onDetachedFromWindow();
     }
 
-    public void setRadius(float f10) {
-        this.mViewRCHelper.setRadius(f10);
+    public void resetPvAfterDataChange() {
+        this.mViewPvHelper.resetPvAfterDataChange();
+    }
+
+    public void setAllCorner(boolean z) {
+        this.mViewRCHelper.getCornerConf().setAllCorner(z);
+    }
+
+    public void setRadius(float f2) {
+        this.mViewRCHelper.setRadius(f2);
         postInvalidate();
     }
 
-    public void setRatio(float f10) {
-        this.mRatio = f10;
+    public void setRadius(float f2, float f3, float f4, float f5) {
+        this.mViewRCHelper.setRadius(getRadius(f2, f3, f4, f5));
+        postInvalidate();
+    }
+
+    public void setRatio(float f2) {
+        this.mRatio = f2;
     }
 
     public void setViewVisibleListener(i iVar) {
-        this.aXk = iVar;
+        this.mViewVisibleListener = iVar;
     }
 
-    public void setVisiblePercent(float f10) {
-        this.aXj.setVisiblePercent(f10);
+    public void setVisiblePercent(float f2) {
+        this.mViewPvHelper.setVisiblePercent(f2);
     }
 
-    public void setWidthBasedRatio(boolean z10) {
-        this.widthBasedRatio = z10;
-    }
-
-    public final void setRadius(float f10, float f11, float f12, float f13) {
-        this.mViewRCHelper.setRadius(getRadius(f10, f11, f12, f13));
-        postInvalidate();
-    }
-
-    public KSFrameLayout(@NonNull Context context, @Nullable AttributeSet attributeSet) {
-        super(context, attributeSet);
-        this.bP = new AtomicBoolean(true);
-        this.mRatio = 0.0f;
-        this.aHa = new ag.a();
-        this.aGZ = new com.kwad.sdk.core.view.c();
-        this.widthBasedRatio = true;
-        init(context, attributeSet);
-    }
-
-    public KSFrameLayout(@NonNull Context context, @Nullable AttributeSet attributeSet, int i10) {
-        super(context, attributeSet, i10);
-        this.bP = new AtomicBoolean(true);
-        this.mRatio = 0.0f;
-        this.aHa = new ag.a();
-        this.aGZ = new com.kwad.sdk.core.view.c();
-        this.widthBasedRatio = true;
-        init(context, attributeSet);
-    }
-
-    public KSFrameLayout(@NonNull Context context, View view) {
-        super(context);
-        this.bP = new AtomicBoolean(true);
-        this.mRatio = 0.0f;
-        this.aHa = new ag.a();
-        this.aGZ = new com.kwad.sdk.core.view.c();
-        this.widthBasedRatio = true;
-        this.aXl = view;
-        init(context, null);
+    public void setWidthBasedRatio(boolean z) {
+        this.widthBasedRatio = z;
     }
 }

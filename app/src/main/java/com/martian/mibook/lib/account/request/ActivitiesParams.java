@@ -8,7 +8,7 @@ public class ActivitiesParams extends MTHttpGetParams {
         super(new TYUrlProvider());
     }
 
-    @Override // u8.b
+    @Override // com.martian.libcomm.http.requests.b
     public String getRequestMethod() {
         return "authopt/activities";
     }

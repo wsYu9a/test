@@ -1,8 +1,6 @@
 package androidx.fragment.app;
 
-import android.os.Bundle;
 import android.view.View;
-import android.view.ViewGroup;
 import androidx.annotation.AnimRes;
 import androidx.annotation.AnimatorRes;
 import androidx.annotation.IdRes;
@@ -11,186 +9,195 @@ import androidx.annotation.Nullable;
 import androidx.annotation.StringRes;
 import androidx.annotation.StyleRes;
 import androidx.core.view.ViewCompat;
-import androidx.fragment.app.strictmode.FragmentStrictMode;
 import androidx.lifecycle.Lifecycle;
 import java.lang.reflect.Modifier;
 import java.util.ArrayList;
-import java.util.Iterator;
 
 /* loaded from: classes.dex */
 public abstract class FragmentTransaction {
-    static final int OP_ADD = 1;
-    static final int OP_ATTACH = 7;
-    static final int OP_DETACH = 6;
-    static final int OP_HIDE = 4;
-    static final int OP_NULL = 0;
-    static final int OP_REMOVE = 3;
-    static final int OP_REPLACE = 2;
-    static final int OP_SET_MAX_LIFECYCLE = 10;
-    static final int OP_SET_PRIMARY_NAV = 8;
-    static final int OP_SHOW = 5;
-    static final int OP_UNSET_PRIMARY_NAV = 9;
     public static final int TRANSIT_ENTER_MASK = 4096;
     public static final int TRANSIT_EXIT_MASK = 8192;
     public static final int TRANSIT_FRAGMENT_CLOSE = 8194;
     public static final int TRANSIT_FRAGMENT_FADE = 4099;
-    public static final int TRANSIT_FRAGMENT_MATCH_ACTIVITY_CLOSE = 8197;
-    public static final int TRANSIT_FRAGMENT_MATCH_ACTIVITY_OPEN = 4100;
     public static final int TRANSIT_FRAGMENT_OPEN = 4097;
     public static final int TRANSIT_NONE = 0;
     public static final int TRANSIT_UNSET = -1;
-    boolean mAddToBackStack;
-    boolean mAllowAddToBackStack;
-    int mBreadCrumbShortTitleRes;
-    CharSequence mBreadCrumbShortTitleText;
-    int mBreadCrumbTitleRes;
-    CharSequence mBreadCrumbTitleText;
-    private final ClassLoader mClassLoader;
-    ArrayList<Runnable> mCommitRunnables;
-    int mEnterAnim;
-    int mExitAnim;
-    private final FragmentFactory mFragmentFactory;
+
+    /* renamed from: a */
+    static final int f2444a = 0;
+
+    /* renamed from: b */
+    static final int f2445b = 1;
+
+    /* renamed from: c */
+    static final int f2446c = 2;
+
+    /* renamed from: d */
+    static final int f2447d = 3;
+
+    /* renamed from: e */
+    static final int f2448e = 4;
+
+    /* renamed from: f */
+    static final int f2449f = 5;
+
+    /* renamed from: g */
+    static final int f2450g = 6;
+
+    /* renamed from: h */
+    static final int f2451h = 7;
+
+    /* renamed from: i */
+    static final int f2452i = 8;
+
+    /* renamed from: j */
+    static final int f2453j = 9;
+    static final int k = 10;
+    ArrayList<String> A;
+    ArrayList<Runnable> C;
+    int m;
+    int n;
+    int o;
+    int p;
+    int q;
+    int r;
+    boolean s;
 
     @Nullable
-    String mName;
-    ArrayList<Op> mOps;
-    int mPopEnterAnim;
-    int mPopExitAnim;
-    boolean mReorderingAllowed;
-    ArrayList<String> mSharedElementSourceNames;
-    ArrayList<String> mSharedElementTargetNames;
-    int mTransition;
+    String u;
+    int v;
+    CharSequence w;
+    int x;
+    CharSequence y;
+    ArrayList<String> z;
+    ArrayList<Op> l = new ArrayList<>();
+    boolean t = true;
+    boolean B = false;
 
-    public static final class Op {
-        int mCmd;
-        Lifecycle.State mCurrentMaxState;
-        int mEnterAnim;
-        int mExitAnim;
-        Fragment mFragment;
-        boolean mFromExpandedOp;
-        Lifecycle.State mOldMaxState;
-        int mPopEnterAnim;
-        int mPopExitAnim;
+    static final class Op {
 
-        public Op() {
+        /* renamed from: a */
+        int f2454a;
+
+        /* renamed from: b */
+        Fragment f2455b;
+
+        /* renamed from: c */
+        int f2456c;
+
+        /* renamed from: d */
+        int f2457d;
+
+        /* renamed from: e */
+        int f2458e;
+
+        /* renamed from: f */
+        int f2459f;
+
+        /* renamed from: g */
+        Lifecycle.State f2460g;
+
+        /* renamed from: h */
+        Lifecycle.State f2461h;
+
+        Op() {
         }
 
-        public Op(int i10, Fragment fragment) {
-            this.mCmd = i10;
-            this.mFragment = fragment;
-            this.mFromExpandedOp = false;
+        Op(int i2, Fragment fragment) {
+            this.f2454a = i2;
+            this.f2455b = fragment;
             Lifecycle.State state = Lifecycle.State.RESUMED;
-            this.mOldMaxState = state;
-            this.mCurrentMaxState = state;
+            this.f2460g = state;
+            this.f2461h = state;
         }
 
-        public Op(int i10, Fragment fragment, boolean z10) {
-            this.mCmd = i10;
-            this.mFragment = fragment;
-            this.mFromExpandedOp = z10;
-            Lifecycle.State state = Lifecycle.State.RESUMED;
-            this.mOldMaxState = state;
-            this.mCurrentMaxState = state;
-        }
-
-        public Op(int i10, @NonNull Fragment fragment, Lifecycle.State state) {
-            this.mCmd = i10;
-            this.mFragment = fragment;
-            this.mFromExpandedOp = false;
-            this.mOldMaxState = fragment.mMaxState;
-            this.mCurrentMaxState = state;
-        }
-
-        public Op(Op op) {
-            this.mCmd = op.mCmd;
-            this.mFragment = op.mFragment;
-            this.mFromExpandedOp = op.mFromExpandedOp;
-            this.mEnterAnim = op.mEnterAnim;
-            this.mExitAnim = op.mExitAnim;
-            this.mPopEnterAnim = op.mPopEnterAnim;
-            this.mPopExitAnim = op.mPopExitAnim;
-            this.mOldMaxState = op.mOldMaxState;
-            this.mCurrentMaxState = op.mCurrentMaxState;
+        Op(int i2, @NonNull Fragment fragment, Lifecycle.State state) {
+            this.f2454a = i2;
+            this.f2455b = fragment;
+            this.f2460g = fragment.mMaxState;
+            this.f2461h = state;
         }
     }
 
-    @Deprecated
-    public FragmentTransaction() {
-        this.mOps = new ArrayList<>();
-        this.mAllowAddToBackStack = true;
-        this.mReorderingAllowed = false;
-        this.mFragmentFactory = null;
-        this.mClassLoader = null;
+    void a(Op op) {
+        this.l.add(op);
+        op.f2456c = this.m;
+        op.f2457d = this.n;
+        op.f2458e = this.o;
+        op.f2459f = this.p;
     }
 
     @NonNull
-    private Fragment createFragment(@NonNull Class<? extends Fragment> cls, @Nullable Bundle bundle) {
-        FragmentFactory fragmentFactory = this.mFragmentFactory;
-        if (fragmentFactory == null) {
-            throw new IllegalStateException("Creating a Fragment requires that this FragmentTransaction was built with FragmentManager.beginTransaction()");
-        }
-        ClassLoader classLoader = this.mClassLoader;
-        if (classLoader == null) {
-            throw new IllegalStateException("The FragmentManager must be attached to itshost to create a Fragment");
-        }
-        Fragment instantiate = fragmentFactory.instantiate(classLoader, cls.getName());
-        if (bundle != null) {
-            instantiate.setArguments(bundle);
-        }
-        return instantiate;
-    }
-
-    @NonNull
-    public final FragmentTransaction add(@NonNull Class<? extends Fragment> cls, @Nullable Bundle bundle, @Nullable String str) {
-        return add(createFragment(cls, bundle), str);
-    }
-
-    public void addOp(Op op) {
-        this.mOps.add(op);
-        op.mEnterAnim = this.mEnterAnim;
-        op.mExitAnim = this.mExitAnim;
-        op.mPopEnterAnim = this.mPopEnterAnim;
-        op.mPopExitAnim = this.mPopExitAnim;
+    public FragmentTransaction add(@NonNull Fragment fragment, @Nullable String str) {
+        b(0, fragment, str, 1);
+        return this;
     }
 
     @NonNull
     public FragmentTransaction addSharedElement(@NonNull View view, @NonNull String str) {
-        if (FragmentTransition.supportsTransition()) {
+        if (FragmentTransition.B()) {
             String transitionName = ViewCompat.getTransitionName(view);
             if (transitionName == null) {
                 throw new IllegalArgumentException("Unique transitionNames are required for all sharedElements");
             }
-            if (this.mSharedElementSourceNames == null) {
-                this.mSharedElementSourceNames = new ArrayList<>();
-                this.mSharedElementTargetNames = new ArrayList<>();
+            if (this.z == null) {
+                this.z = new ArrayList<>();
+                this.A = new ArrayList<>();
             } else {
-                if (this.mSharedElementTargetNames.contains(str)) {
+                if (this.A.contains(str)) {
                     throw new IllegalArgumentException("A shared element with the target name '" + str + "' has already been added to the transaction.");
                 }
-                if (this.mSharedElementSourceNames.contains(transitionName)) {
+                if (this.z.contains(transitionName)) {
                     throw new IllegalArgumentException("A shared element with the source name '" + transitionName + "' has already been added to the transaction.");
                 }
             }
-            this.mSharedElementSourceNames.add(transitionName);
-            this.mSharedElementTargetNames.add(str);
+            this.z.add(transitionName);
+            this.A.add(str);
         }
         return this;
     }
 
     @NonNull
     public FragmentTransaction addToBackStack(@Nullable String str) {
-        if (!this.mAllowAddToBackStack) {
+        if (!this.t) {
             throw new IllegalStateException("This FragmentTransaction is not allowed to be added to the back stack.");
         }
-        this.mAddToBackStack = true;
-        this.mName = str;
+        this.s = true;
+        this.u = str;
         return this;
     }
 
     @NonNull
     public FragmentTransaction attach(@NonNull Fragment fragment) {
-        addOp(new Op(7, fragment));
+        a(new Op(7, fragment));
         return this;
+    }
+
+    void b(int i2, Fragment fragment, @Nullable String str, int i3) {
+        Class<?> cls = fragment.getClass();
+        int modifiers = cls.getModifiers();
+        if (cls.isAnonymousClass() || !Modifier.isPublic(modifiers) || (cls.isMemberClass() && !Modifier.isStatic(modifiers))) {
+            throw new IllegalStateException("Fragment " + cls.getCanonicalName() + " must be a public static class to be  properly recreated from instance state.");
+        }
+        if (str != null) {
+            String str2 = fragment.mTag;
+            if (str2 != null && !str.equals(str2)) {
+                throw new IllegalStateException("Can't change tag of fragment " + fragment + ": was " + fragment.mTag + " now " + str);
+            }
+            fragment.mTag = str;
+        }
+        if (i2 != 0) {
+            if (i2 == -1) {
+                throw new IllegalArgumentException("Can't add fragment " + fragment + " with tag " + str + " to container view with no id");
+            }
+            int i4 = fragment.mFragmentId;
+            if (i4 != 0 && i4 != i2) {
+                throw new IllegalStateException("Can't change container ID of fragment " + fragment + ": was " + fragment.mFragmentId + " now " + i2);
+            }
+            fragment.mFragmentId = i2;
+            fragment.mContainerId = i2;
+        }
+        a(new Op(i3, fragment));
     }
 
     public abstract int commit();
@@ -203,261 +210,156 @@ public abstract class FragmentTransaction {
 
     @NonNull
     public FragmentTransaction detach(@NonNull Fragment fragment) {
-        addOp(new Op(6, fragment));
+        a(new Op(6, fragment));
         return this;
     }
 
     @NonNull
     public FragmentTransaction disallowAddToBackStack() {
-        if (this.mAddToBackStack) {
+        if (this.s) {
             throw new IllegalStateException("This transaction is already being added to the back stack");
         }
-        this.mAllowAddToBackStack = false;
+        this.t = false;
         return this;
-    }
-
-    public void doAddOp(int i10, Fragment fragment, @Nullable String str, int i11) {
-        String str2 = fragment.mPreviousWho;
-        if (str2 != null) {
-            FragmentStrictMode.onFragmentReuse(fragment, str2);
-        }
-        Class<?> cls = fragment.getClass();
-        int modifiers = cls.getModifiers();
-        if (cls.isAnonymousClass() || !Modifier.isPublic(modifiers) || (cls.isMemberClass() && !Modifier.isStatic(modifiers))) {
-            throw new IllegalStateException("Fragment " + cls.getCanonicalName() + " must be a public static class to be  properly recreated from instance state.");
-        }
-        if (str != null) {
-            String str3 = fragment.mTag;
-            if (str3 != null && !str.equals(str3)) {
-                throw new IllegalStateException("Can't change tag of fragment " + fragment + ": was " + fragment.mTag + " now " + str);
-            }
-            fragment.mTag = str;
-        }
-        if (i10 != 0) {
-            if (i10 == -1) {
-                throw new IllegalArgumentException("Can't add fragment " + fragment + " with tag " + str + " to container view with no id");
-            }
-            int i12 = fragment.mFragmentId;
-            if (i12 != 0 && i12 != i10) {
-                throw new IllegalStateException("Can't change container ID of fragment " + fragment + ": was " + fragment.mFragmentId + " now " + i10);
-            }
-            fragment.mFragmentId = i10;
-            fragment.mContainerId = i10;
-        }
-        addOp(new Op(i11, fragment));
     }
 
     @NonNull
     public FragmentTransaction hide(@NonNull Fragment fragment) {
-        addOp(new Op(4, fragment));
+        a(new Op(4, fragment));
         return this;
     }
 
     public boolean isAddToBackStackAllowed() {
-        return this.mAllowAddToBackStack;
+        return this.t;
     }
 
     public boolean isEmpty() {
-        return this.mOps.isEmpty();
+        return this.l.isEmpty();
     }
 
     @NonNull
     public FragmentTransaction remove(@NonNull Fragment fragment) {
-        addOp(new Op(3, fragment));
+        a(new Op(3, fragment));
         return this;
     }
 
     @NonNull
-    public final FragmentTransaction replace(@IdRes int i10, @NonNull Class<? extends Fragment> cls, @Nullable Bundle bundle) {
-        return replace(i10, cls, bundle, null);
+    public FragmentTransaction replace(@IdRes int i2, @NonNull Fragment fragment) {
+        return replace(i2, fragment, null);
     }
 
     @NonNull
     public FragmentTransaction runOnCommit(@NonNull Runnable runnable) {
         disallowAddToBackStack();
-        if (this.mCommitRunnables == null) {
-            this.mCommitRunnables = new ArrayList<>();
+        if (this.C == null) {
+            this.C = new ArrayList<>();
         }
-        this.mCommitRunnables.add(runnable);
+        this.C.add(runnable);
         return this;
     }
 
     @NonNull
     @Deprecated
-    public FragmentTransaction setAllowOptimization(boolean z10) {
-        return setReorderingAllowed(z10);
+    public FragmentTransaction setAllowOptimization(boolean z) {
+        return setReorderingAllowed(z);
     }
 
     @NonNull
-    @Deprecated
-    public FragmentTransaction setBreadCrumbShortTitle(@StringRes int i10) {
-        this.mBreadCrumbShortTitleRes = i10;
-        this.mBreadCrumbShortTitleText = null;
+    public FragmentTransaction setBreadCrumbShortTitle(@StringRes int i2) {
+        this.x = i2;
+        this.y = null;
         return this;
     }
 
     @NonNull
-    @Deprecated
-    public FragmentTransaction setBreadCrumbTitle(@StringRes int i10) {
-        this.mBreadCrumbTitleRes = i10;
-        this.mBreadCrumbTitleText = null;
+    public FragmentTransaction setBreadCrumbTitle(@StringRes int i2) {
+        this.v = i2;
+        this.w = null;
         return this;
     }
 
     @NonNull
-    public FragmentTransaction setCustomAnimations(@AnimRes @AnimatorRes int i10, @AnimRes @AnimatorRes int i11) {
-        return setCustomAnimations(i10, i11, 0, 0);
+    public FragmentTransaction setCustomAnimations(@AnimRes @AnimatorRes int i2, @AnimRes @AnimatorRes int i3) {
+        return setCustomAnimations(i2, i3, 0, 0);
     }
 
     @NonNull
     public FragmentTransaction setMaxLifecycle(@NonNull Fragment fragment, @NonNull Lifecycle.State state) {
-        addOp(new Op(10, fragment, state));
+        a(new Op(10, fragment, state));
         return this;
     }
 
     @NonNull
     public FragmentTransaction setPrimaryNavigationFragment(@Nullable Fragment fragment) {
-        addOp(new Op(8, fragment));
+        a(new Op(8, fragment));
         return this;
     }
 
     @NonNull
-    public FragmentTransaction setReorderingAllowed(boolean z10) {
-        this.mReorderingAllowed = z10;
+    public FragmentTransaction setReorderingAllowed(boolean z) {
+        this.B = z;
         return this;
     }
 
     @NonNull
-    public FragmentTransaction setTransition(int i10) {
-        this.mTransition = i10;
+    public FragmentTransaction setTransition(int i2) {
+        this.q = i2;
         return this;
     }
 
     @NonNull
-    @Deprecated
-    public FragmentTransaction setTransitionStyle(@StyleRes int i10) {
+    public FragmentTransaction setTransitionStyle(@StyleRes int i2) {
+        this.r = i2;
         return this;
     }
 
     @NonNull
     public FragmentTransaction show(@NonNull Fragment fragment) {
-        addOp(new Op(5, fragment));
+        a(new Op(5, fragment));
         return this;
     }
 
     @NonNull
-    public FragmentTransaction add(@NonNull Fragment fragment, @Nullable String str) {
-        doAddOp(0, fragment, str, 1);
+    public FragmentTransaction add(@IdRes int i2, @NonNull Fragment fragment) {
+        b(i2, fragment, null, 1);
         return this;
     }
 
     @NonNull
-    public FragmentTransaction replace(@IdRes int i10, @NonNull Fragment fragment) {
-        return replace(i10, fragment, (String) null);
-    }
-
-    @NonNull
-    public FragmentTransaction setCustomAnimations(@AnimRes @AnimatorRes int i10, @AnimRes @AnimatorRes int i11, @AnimRes @AnimatorRes int i12, @AnimRes @AnimatorRes int i13) {
-        this.mEnterAnim = i10;
-        this.mExitAnim = i11;
-        this.mPopEnterAnim = i12;
-        this.mPopExitAnim = i13;
+    public FragmentTransaction replace(@IdRes int i2, @NonNull Fragment fragment, @Nullable String str) {
+        if (i2 == 0) {
+            throw new IllegalArgumentException("Must use non-zero containerViewId");
+        }
+        b(i2, fragment, str, 2);
         return this;
     }
 
     @NonNull
-    public final FragmentTransaction add(@IdRes int i10, @NonNull Class<? extends Fragment> cls, @Nullable Bundle bundle) {
-        return add(i10, createFragment(cls, bundle));
+    public FragmentTransaction setCustomAnimations(@AnimRes @AnimatorRes int i2, @AnimRes @AnimatorRes int i3, @AnimRes @AnimatorRes int i4, @AnimRes @AnimatorRes int i5) {
+        this.m = i2;
+        this.n = i3;
+        this.o = i4;
+        this.p = i5;
+        return this;
     }
 
     @NonNull
-    public final FragmentTransaction replace(@IdRes int i10, @NonNull Class<? extends Fragment> cls, @Nullable Bundle bundle, @Nullable String str) {
-        return replace(i10, createFragment(cls, bundle), str);
+    public FragmentTransaction add(@IdRes int i2, @NonNull Fragment fragment, @Nullable String str) {
+        b(i2, fragment, str, 1);
+        return this;
     }
 
     @NonNull
-    @Deprecated
     public FragmentTransaction setBreadCrumbShortTitle(@Nullable CharSequence charSequence) {
-        this.mBreadCrumbShortTitleRes = 0;
-        this.mBreadCrumbShortTitleText = charSequence;
+        this.x = 0;
+        this.y = charSequence;
         return this;
     }
 
     @NonNull
-    @Deprecated
     public FragmentTransaction setBreadCrumbTitle(@Nullable CharSequence charSequence) {
-        this.mBreadCrumbTitleRes = 0;
-        this.mBreadCrumbTitleText = charSequence;
+        this.v = 0;
+        this.w = charSequence;
         return this;
-    }
-
-    @NonNull
-    public FragmentTransaction add(@IdRes int i10, @NonNull Fragment fragment) {
-        doAddOp(i10, fragment, null, 1);
-        return this;
-    }
-
-    @NonNull
-    public FragmentTransaction replace(@IdRes int i10, @NonNull Fragment fragment, @Nullable String str) {
-        if (i10 != 0) {
-            doAddOp(i10, fragment, str, 2);
-            return this;
-        }
-        throw new IllegalArgumentException("Must use non-zero containerViewId");
-    }
-
-    @NonNull
-    public final FragmentTransaction add(@IdRes int i10, @NonNull Class<? extends Fragment> cls, @Nullable Bundle bundle, @Nullable String str) {
-        return add(i10, createFragment(cls, bundle), str);
-    }
-
-    @NonNull
-    public FragmentTransaction add(@IdRes int i10, @NonNull Fragment fragment, @Nullable String str) {
-        doAddOp(i10, fragment, str, 1);
-        return this;
-    }
-
-    public FragmentTransaction(@NonNull FragmentFactory fragmentFactory, @Nullable ClassLoader classLoader) {
-        this.mOps = new ArrayList<>();
-        this.mAllowAddToBackStack = true;
-        this.mReorderingAllowed = false;
-        this.mFragmentFactory = fragmentFactory;
-        this.mClassLoader = classLoader;
-    }
-
-    public FragmentTransaction add(@NonNull ViewGroup viewGroup, @NonNull Fragment fragment, @Nullable String str) {
-        fragment.mContainer = viewGroup;
-        return add(viewGroup.getId(), fragment, str);
-    }
-
-    public FragmentTransaction(@NonNull FragmentFactory fragmentFactory, @Nullable ClassLoader classLoader, @NonNull FragmentTransaction fragmentTransaction) {
-        this(fragmentFactory, classLoader);
-        Iterator<Op> it = fragmentTransaction.mOps.iterator();
-        while (it.hasNext()) {
-            this.mOps.add(new Op(it.next()));
-        }
-        this.mEnterAnim = fragmentTransaction.mEnterAnim;
-        this.mExitAnim = fragmentTransaction.mExitAnim;
-        this.mPopEnterAnim = fragmentTransaction.mPopEnterAnim;
-        this.mPopExitAnim = fragmentTransaction.mPopExitAnim;
-        this.mTransition = fragmentTransaction.mTransition;
-        this.mAddToBackStack = fragmentTransaction.mAddToBackStack;
-        this.mAllowAddToBackStack = fragmentTransaction.mAllowAddToBackStack;
-        this.mName = fragmentTransaction.mName;
-        this.mBreadCrumbShortTitleRes = fragmentTransaction.mBreadCrumbShortTitleRes;
-        this.mBreadCrumbShortTitleText = fragmentTransaction.mBreadCrumbShortTitleText;
-        this.mBreadCrumbTitleRes = fragmentTransaction.mBreadCrumbTitleRes;
-        this.mBreadCrumbTitleText = fragmentTransaction.mBreadCrumbTitleText;
-        if (fragmentTransaction.mSharedElementSourceNames != null) {
-            ArrayList<String> arrayList = new ArrayList<>();
-            this.mSharedElementSourceNames = arrayList;
-            arrayList.addAll(fragmentTransaction.mSharedElementSourceNames);
-        }
-        if (fragmentTransaction.mSharedElementTargetNames != null) {
-            ArrayList<String> arrayList2 = new ArrayList<>();
-            this.mSharedElementTargetNames = arrayList2;
-            arrayList2.addAll(fragmentTransaction.mSharedElementTargetNames);
-        }
-        this.mReorderingAllowed = fragmentTransaction.mReorderingAllowed;
     }
 }

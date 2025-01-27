@@ -7,21 +7,21 @@ import java.lang.ref.WeakReference;
 
 /* loaded from: classes2.dex */
 public abstract class a implements ValueAnimator.AnimatorUpdateListener {
-    private WeakReference<View> JR;
+    private WeakReference<View> GI;
 
     public a(View view) {
-        this.JR = new WeakReference<>(view);
+        this.GI = new WeakReference<>(view);
     }
 
     public abstract void a(ViewGroup.LayoutParams layoutParams, Object obj);
 
     @Override // android.animation.ValueAnimator.AnimatorUpdateListener
     public void onAnimationUpdate(ValueAnimator valueAnimator) {
-        WeakReference<View> weakReference = this.JR;
+        WeakReference<View> weakReference = this.GI;
         if (weakReference == null || weakReference.get() == null) {
             return;
         }
-        View view = this.JR.get();
+        View view = this.GI.get();
         ViewGroup.LayoutParams layoutParams = view.getLayoutParams();
         a(layoutParams, valueAnimator.getAnimatedValue());
         view.setLayoutParams(layoutParams);

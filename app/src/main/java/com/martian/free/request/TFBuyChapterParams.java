@@ -1,9 +1,9 @@
 package com.martian.free.request;
 
+import com.martian.libcomm.http.requests.d.a;
 import com.martian.mibook.lib.account.request.auth.TYAuthParams;
-import v8.a;
 
-/* loaded from: classes3.dex */
+/* loaded from: classes2.dex */
 public class TFBuyChapterParams extends TYAuthParams {
 
     @a
@@ -46,23 +46,23 @@ public class TFBuyChapterParams extends TYAuthParams {
         return this.sourceName;
     }
 
-    public void setChapterId(String str) {
-        this.chapterId = str;
+    public void setChapterId(String chapterId) {
+        this.chapterId = chapterId;
     }
 
-    public void setChapterName(String str) {
-        this.chapterName = str;
+    public void setChapterName(String chapterName) {
+        this.chapterName = chapterName;
     }
 
-    public void setPrice(Integer num) {
-        this.price = num;
+    public void setPrice(Integer price) {
+        this.price = price;
     }
 
-    public void setSourceId(String str) {
-        this.sourceId = str;
+    public void setSourceId(String sourceId) {
+        this.sourceId = sourceId;
     }
 
-    public void setSourceName(String str) {
-        this.sourceName = str;
+    public void setSourceName(String sourceName) {
+        this.sourceName = sourceName;
     }
 }

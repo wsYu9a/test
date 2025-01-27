@@ -4,7 +4,7 @@ import android.app.Dialog;
 import android.content.DialogInterface;
 import android.os.Bundle;
 
-/* loaded from: classes3.dex */
+/* loaded from: classes2.dex */
 interface IDialogFragmentLifecycle extends IFragmentLifecycle {
     void onCancel(DialogInterface dialogInterface);
 

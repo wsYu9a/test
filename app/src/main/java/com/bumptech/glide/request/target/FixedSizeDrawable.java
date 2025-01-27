@@ -12,7 +12,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;
 import com.bumptech.glide.util.Preconditions;
 
-/* loaded from: classes2.dex */
+/* loaded from: classes.dex */
 public class FixedSizeDrawable extends Drawable {
     private final RectF bounds;
     private final Matrix matrix;
@@ -21,12 +21,12 @@ public class FixedSizeDrawable extends Drawable {
     private Drawable wrapped;
     private final RectF wrappedRect;
 
-    public static final class State extends Drawable.ConstantState {
+    static final class State extends Drawable.ConstantState {
         final int height;
         final int width;
         private final Drawable.ConstantState wrapped;
 
-        public State(State state) {
+        State(State state) {
             this(state.wrapped, state.width, state.height);
         }
 
@@ -41,10 +41,10 @@ public class FixedSizeDrawable extends Drawable {
             return new FixedSizeDrawable(this, this.wrapped.newDrawable());
         }
 
-        public State(Drawable.ConstantState constantState, int i10, int i11) {
+        State(Drawable.ConstantState constantState, int i2, int i3) {
             this.wrapped = constantState;
-            this.width = i10;
-            this.height = i11;
+            this.width = i2;
+            this.height = i3;
         }
 
         @Override // android.graphics.drawable.Drawable.ConstantState
@@ -54,8 +54,8 @@ public class FixedSizeDrawable extends Drawable {
         }
     }
 
-    public FixedSizeDrawable(Drawable drawable, int i10, int i11) {
-        this(new State(drawable.getConstantState(), i10, i11), drawable);
+    public FixedSizeDrawable(Drawable drawable, int i2, int i3) {
+        this(new State(drawable.getConstantState(), i2, i3), drawable);
     }
 
     private void updateMatrix() {
@@ -150,47 +150,47 @@ public class FixedSizeDrawable extends Drawable {
     }
 
     @Override // android.graphics.drawable.Drawable
-    public void scheduleSelf(@NonNull Runnable runnable, long j10) {
-        super.scheduleSelf(runnable, j10);
-        this.wrapped.scheduleSelf(runnable, j10);
+    public void scheduleSelf(@NonNull Runnable runnable, long j2) {
+        super.scheduleSelf(runnable, j2);
+        this.wrapped.scheduleSelf(runnable, j2);
     }
 
     @Override // android.graphics.drawable.Drawable
-    public void setAlpha(int i10) {
-        this.wrapped.setAlpha(i10);
+    public void setAlpha(int i2) {
+        this.wrapped.setAlpha(i2);
     }
 
     @Override // android.graphics.drawable.Drawable
-    public void setBounds(int i10, int i11, int i12, int i13) {
-        super.setBounds(i10, i11, i12, i13);
-        this.bounds.set(i10, i11, i12, i13);
+    public void setBounds(int i2, int i3, int i4, int i5) {
+        super.setBounds(i2, i3, i4, i5);
+        this.bounds.set(i2, i3, i4, i5);
         updateMatrix();
     }
 
     @Override // android.graphics.drawable.Drawable
-    public void setChangingConfigurations(int i10) {
-        this.wrapped.setChangingConfigurations(i10);
+    public void setChangingConfigurations(int i2) {
+        this.wrapped.setChangingConfigurations(i2);
     }
 
     @Override // android.graphics.drawable.Drawable
-    public void setColorFilter(int i10, @NonNull PorterDuff.Mode mode) {
-        this.wrapped.setColorFilter(i10, mode);
+    public void setColorFilter(int i2, @NonNull PorterDuff.Mode mode) {
+        this.wrapped.setColorFilter(i2, mode);
     }
 
     @Override // android.graphics.drawable.Drawable
     @Deprecated
-    public void setDither(boolean z10) {
-        this.wrapped.setDither(z10);
+    public void setDither(boolean z) {
+        this.wrapped.setDither(z);
     }
 
     @Override // android.graphics.drawable.Drawable
-    public void setFilterBitmap(boolean z10) {
-        this.wrapped.setFilterBitmap(z10);
+    public void setFilterBitmap(boolean z) {
+        this.wrapped.setFilterBitmap(z);
     }
 
     @Override // android.graphics.drawable.Drawable
-    public boolean setVisible(boolean z10, boolean z11) {
-        return this.wrapped.setVisible(z10, z11);
+    public boolean setVisible(boolean z, boolean z2) {
+        return this.wrapped.setVisible(z, z2);
     }
 
     @Override // android.graphics.drawable.Drawable
@@ -199,7 +199,7 @@ public class FixedSizeDrawable extends Drawable {
         this.wrapped.unscheduleSelf(runnable);
     }
 
-    public FixedSizeDrawable(State state, Drawable drawable) {
+    FixedSizeDrawable(State state, Drawable drawable) {
         this.state = (State) Preconditions.checkNotNull(state);
         this.wrapped = (Drawable) Preconditions.checkNotNull(drawable);
         drawable.setBounds(0, 0, drawable.getIntrinsicWidth(), drawable.getIntrinsicHeight());

@@ -5,34 +5,34 @@ import com.tencent.bugly.proguard.X;
 import com.tencent.bugly.proguard.ea;
 
 /* loaded from: classes4.dex */
-public class f extends FileObserver {
+class f extends FileObserver {
 
     /* renamed from: a */
-    final /* synthetic */ h f22418a;
+    final /* synthetic */ h f24815a;
 
     /* JADX WARN: 'super' call moved to the top of the method (can break code semantics) */
-    public f(h hVar, String str, int i10) {
-        super(str, i10);
-        this.f22418a = hVar;
+    f(h hVar, String str, int i2) {
+        super(str, i2);
+        this.f24815a = hVar;
     }
 
     @Override // android.os.FileObserver
-    public void onEvent(int i10, String str) {
-        boolean b10;
+    public void onEvent(int i2, String str) {
+        boolean b2;
         ea eaVar;
         ea eaVar2;
         if (str == null) {
             return;
         }
         X.e("startWatchingPrivateAnrDir %s", str);
-        b10 = this.f22418a.b(str);
-        if (!b10) {
+        b2 = this.f24815a.b(str);
+        if (!b2) {
             X.a("trace file not caused by sigquit , ignore ", new Object[0]);
             return;
         }
-        eaVar = this.f22418a.f22431l;
+        eaVar = this.f24815a.l;
         if (eaVar != null) {
-            eaVar2 = this.f22418a.f22431l;
+            eaVar2 = this.f24815a.l;
             eaVar2.a(true);
         }
     }

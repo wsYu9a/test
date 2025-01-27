@@ -1,48 +1,63 @@
 package com.kwad.components.core.webview.jshandler;
 
 import androidx.annotation.NonNull;
-import com.ksad.json.annotation.KsJson;
-import com.kwad.sdk.service.ServiceProvider;
+import androidx.annotation.Nullable;
 import org.json.JSONObject;
 
-/* loaded from: classes3.dex */
-public final class u implements com.kwad.sdk.core.webview.c.a {
+/* loaded from: classes2.dex */
+public final class u implements com.kwad.sdk.core.webview.b.a {
+    protected b SF;
+    protected final com.kwad.sdk.core.webview.b mBridgeContext;
 
-    public static class a extends com.kwad.sdk.core.response.a.a {
-        public boolean YZ;
+    public static class a implements com.kwad.sdk.core.b {
+        public int height;
+        public int width;
 
-        @Override // com.kwad.sdk.core.response.a.a, com.kwad.sdk.core.b
+        @Override // com.kwad.sdk.core.b
+        public final void parseJson(@Nullable JSONObject jSONObject) {
+        }
+
+        @Override // com.kwad.sdk.core.b
         public final JSONObject toJson() {
             JSONObject jSONObject = new JSONObject();
-            com.kwad.sdk.utils.x.putValue(jSONObject, "isStarted", this.YZ);
+            com.kwad.sdk.utils.t.putValue(jSONObject, "width", this.width);
+            com.kwad.sdk.utils.t.putValue(jSONObject, "height", this.height);
             return jSONObject;
         }
     }
 
-    @KsJson
-    public static class b extends com.kwad.sdk.core.response.a.a {
-        public String packageName;
+    public interface b {
+        void a(a aVar);
     }
 
-    @Override // com.kwad.sdk.core.webview.c.a
-    public final void a(String str, @NonNull com.kwad.sdk.core.webview.c.c cVar) {
-        b bVar = new b();
-        try {
-            bVar.parseJson(new JSONObject(str));
-        } catch (Exception unused) {
-        }
+    public u(com.kwad.sdk.core.webview.b bVar) {
+        this.mBridgeContext = bVar;
+    }
+
+    public final void a(b bVar) {
+        this.SF = bVar;
+    }
+
+    @Override // com.kwad.sdk.core.webview.b.a
+    @NonNull
+    public final String getKey() {
+        return "getContainerLimit";
+    }
+
+    @Override // com.kwad.sdk.core.webview.b.a
+    public final void handleJsCall(String str, @NonNull com.kwad.sdk.core.webview.b.c cVar) {
         a aVar = new a();
-        aVar.YZ = com.kwad.sdk.utils.ap.aq(ServiceProvider.getContext(), bVar.packageName);
+        b bVar = this.SF;
+        if (bVar != null) {
+            bVar.a(aVar);
+        } else {
+            aVar.width = this.mBridgeContext.LD.getWidth();
+            aVar.height = this.mBridgeContext.LD.getHeight();
+        }
         cVar.a(aVar);
     }
 
-    @Override // com.kwad.sdk.core.webview.c.a
-    @NonNull
-    public final String getKey() {
-        return "startApp";
-    }
-
-    @Override // com.kwad.sdk.core.webview.c.a
+    @Override // com.kwad.sdk.core.webview.b.a
     public final void onDestroy() {
     }
 }

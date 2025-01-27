@@ -1,9 +1,9 @@
 package com.martian.mibook.lib.yuewen.request;
 
+import com.martian.libcomm.http.requests.d.a;
 import com.martian.mibook.lib.account.request.TYHttpGetParams;
-import v8.a;
 
-/* loaded from: classes3.dex */
+/* loaded from: classes4.dex */
 public class YWSearchRankParams extends TYHttpGetParams {
 
     @a
@@ -39,20 +39,20 @@ public class YWSearchRankParams extends TYHttpGetParams {
         return num.intValue();
     }
 
-    @Override // u8.b
+    @Override // com.martian.libcomm.http.requests.b
     public String getRequestMethod() {
         return "book_mall/search_rank";
     }
 
-    public void setCtype(Integer num) {
-        this.ctype = num;
+    public void setCtype(Integer ctype) {
+        this.ctype = ctype;
     }
 
-    public void setPage(Integer num) {
-        this.page = num;
+    public void setPage(Integer page) {
+        this.page = page;
     }
 
-    public void setPageSize(Integer num) {
-        this.pageSize = num;
+    public void setPageSize(Integer pageSize) {
+        this.pageSize = pageSize;
     }
 }

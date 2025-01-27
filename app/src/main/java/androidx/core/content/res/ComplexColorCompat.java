@@ -18,21 +18,29 @@ import org.xmlpull.v1.XmlPullParserException;
 @RestrictTo({RestrictTo.Scope.LIBRARY_GROUP_PREFIX})
 /* loaded from: classes.dex */
 public final class ComplexColorCompat {
-    private static final String LOG_TAG = "ComplexColorCompat";
-    private int mColor;
-    private final ColorStateList mColorStateList;
-    private final Shader mShader;
 
-    private ComplexColorCompat(Shader shader, ColorStateList colorStateList, @ColorInt int i10) {
-        this.mShader = shader;
-        this.mColorStateList = colorStateList;
-        this.mColor = i10;
+    /* renamed from: a */
+    private static final String f1692a = "ComplexColorCompat";
+
+    /* renamed from: b */
+    private final Shader f1693b;
+
+    /* renamed from: c */
+    private final ColorStateList f1694c;
+
+    /* renamed from: d */
+    private int f1695d;
+
+    private ComplexColorCompat(Shader shader, ColorStateList colorStateList, @ColorInt int i2) {
+        this.f1693b = shader;
+        this.f1694c = colorStateList;
+        this.f1695d = i2;
     }
 
     @NonNull
-    private static ComplexColorCompat createFromXml(@NonNull Resources resources, @ColorRes int i10, @Nullable Resources.Theme theme) throws IOException, XmlPullParserException {
+    private static ComplexColorCompat a(@NonNull Resources resources, @ColorRes int i2, @Nullable Resources.Theme theme) throws IOException, XmlPullParserException {
         int next;
-        XmlResourceParser xml = resources.getXml(i10);
+        XmlResourceParser xml = resources.getXml(i2);
         AttributeSet asAttributeSet = Xml.asAttributeSet(xml);
         do {
             next = xml.next();
@@ -46,72 +54,72 @@ public final class ComplexColorCompat {
         String name = xml.getName();
         name.hashCode();
         if (name.equals("gradient")) {
-            return from(GradientColorInflaterCompat.createFromXmlInner(resources, xml, asAttributeSet, theme));
+            return d(GradientColorInflaterCompat.c(resources, xml, asAttributeSet, theme));
         }
         if (name.equals("selector")) {
-            return from(ColorStateListInflaterCompat.createFromXmlInner(resources, xml, asAttributeSet, theme));
+            return c(ColorStateListInflaterCompat.createFromXmlInner(resources, xml, asAttributeSet, theme));
         }
         throw new XmlPullParserException(xml.getPositionDescription() + ": unsupported complex color tag " + name);
     }
 
-    public static ComplexColorCompat from(@NonNull Shader shader) {
+    static ComplexColorCompat b(@ColorInt int i2) {
+        return new ComplexColorCompat(null, null, i2);
+    }
+
+    static ComplexColorCompat c(@NonNull ColorStateList colorStateList) {
+        return new ComplexColorCompat(null, colorStateList, colorStateList.getDefaultColor());
+    }
+
+    static ComplexColorCompat d(@NonNull Shader shader) {
         return new ComplexColorCompat(shader, null, 0);
     }
 
     @Nullable
-    public static ComplexColorCompat inflate(@NonNull Resources resources, @ColorRes int i10, @Nullable Resources.Theme theme) {
+    public static ComplexColorCompat inflate(@NonNull Resources resources, @ColorRes int i2, @Nullable Resources.Theme theme) {
         try {
-            return createFromXml(resources, i10, theme);
-        } catch (Exception e10) {
-            Log.e(LOG_TAG, "Failed to inflate ComplexColor.", e10);
+            return a(resources, i2, theme);
+        } catch (Exception e2) {
+            Log.e(f1692a, "Failed to inflate ComplexColor.", e2);
             return null;
         }
     }
 
     @ColorInt
     public int getColor() {
-        return this.mColor;
+        return this.f1695d;
     }
 
     @Nullable
     public Shader getShader() {
-        return this.mShader;
+        return this.f1693b;
     }
 
     public boolean isGradient() {
-        return this.mShader != null;
+        return this.f1693b != null;
     }
 
     public boolean isStateful() {
         ColorStateList colorStateList;
-        return this.mShader == null && (colorStateList = this.mColorStateList) != null && colorStateList.isStateful();
+        return this.f1693b == null && (colorStateList = this.f1694c) != null && colorStateList.isStateful();
     }
 
     public boolean onStateChanged(int[] iArr) {
         if (isStateful()) {
-            ColorStateList colorStateList = this.mColorStateList;
+            ColorStateList colorStateList = this.f1694c;
             int colorForState = colorStateList.getColorForState(iArr, colorStateList.getDefaultColor());
-            if (colorForState != this.mColor) {
-                this.mColor = colorForState;
+            if (colorForState != this.f1695d) {
+                this.f1695d = colorForState;
                 return true;
             }
         }
         return false;
     }
 
-    public void setColor(@ColorInt int i10) {
-        this.mColor = i10;
+    public void setColor(@ColorInt int i2) {
+        this.f1695d = i2;
     }
 
     public boolean willDraw() {
-        return isGradient() || this.mColor != 0;
-    }
-
-    public static ComplexColorCompat from(@NonNull ColorStateList colorStateList) {
-        return new ComplexColorCompat(null, colorStateList, colorStateList.getDefaultColor());
-    }
-
-    public static ComplexColorCompat from(@ColorInt int i10) {
-        return new ComplexColorCompat(null, null, i10);
+        return isGradient() || this.f1695d != 0;
     }
 }

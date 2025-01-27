@@ -2,20 +2,20 @@ package com.qq.e.comm.adevent;
 
 import com.qq.e.comm.util.GDTLogger;
 
-/* loaded from: classes3.dex */
+/* loaded from: classes4.dex */
 public class ADEvent {
 
     /* renamed from: a */
-    private final int f16540a;
+    private final int f23991a;
 
     /* renamed from: b */
-    private final Object[] f16541b;
+    private final Object[] f23992b;
 
-    public ADEvent(int i10, Object... objArr) {
-        this.f16540a = i10;
-        this.f16541b = objArr;
-        if (i10 < 100) {
-            a("EventId 错误" + i10);
+    public ADEvent(int i2, Object... objArr) {
+        this.f23991a = i2;
+        this.f23992b = objArr;
+        if (i2 < 100) {
+            a("EventId 错误" + i2);
         }
     }
 
@@ -23,28 +23,28 @@ public class ADEvent {
         GDTLogger.e(str);
     }
 
+    public <T> T getParam(int i2, Class<T> cls) {
+        Object[] objArr;
+        if (cls == null || (objArr = this.f23992b) == null || objArr.length <= i2) {
+            return null;
+        }
+        T t = (T) objArr[i2];
+        if (t == null) {
+            GDTLogger.e("ADEvent 参数为空,type:" + this.f23991a);
+            return null;
+        }
+        if (cls.isInstance(objArr[i2])) {
+            return t;
+        }
+        GDTLogger.e("ADEvent" + this.f23991a + " 参数类型错误,期望类型" + cls.getName() + "实际类型 " + t.getClass().getName());
+        return null;
+    }
+
     public <T> T getParam(Class<T> cls) {
         return (T) getParam(0, cls);
     }
 
     public int getType() {
-        return this.f16540a;
-    }
-
-    public <T> T getParam(int i10, Class<T> cls) {
-        Object[] objArr;
-        if (cls == null || (objArr = this.f16541b) == null || objArr.length <= i10) {
-            return null;
-        }
-        T t10 = (T) objArr[i10];
-        if (t10 == null) {
-            GDTLogger.e("ADEvent 参数为空,type:" + this.f16540a);
-            return null;
-        }
-        if (cls.isInstance(t10)) {
-            return t10;
-        }
-        GDTLogger.e("ADEvent" + this.f16540a + " 参数类型错误,期望类型" + cls.getName() + "实际类型 " + t10.getClass().getName());
-        return null;
+        return this.f23991a;
     }
 }

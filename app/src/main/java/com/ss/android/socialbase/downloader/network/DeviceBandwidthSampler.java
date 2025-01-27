@@ -22,7 +22,7 @@ public class DeviceBandwidthSampler {
     private final AtomicInteger mSamplingCounter = new AtomicInteger();
     private final SamplingHandler mHandler = new SamplingHandler(DownloadWatchDog.getThreadLooper());
 
-    public class SamplingHandler extends Handler {
+    private class SamplingHandler extends Handler {
         private static final int MSG_START = 1;
         static final long SAMPLE_TIME = 1000;
 
@@ -58,11 +58,8 @@ public class DeviceBandwidthSampler {
     public static DeviceBandwidthSampler getInstance() {
         if (instance == null) {
             synchronized (DeviceBandwidthSampler.class) {
-                try {
-                    if (instance == null) {
-                        instance = new DeviceBandwidthSampler();
-                    }
-                } finally {
+                if (instance == null) {
+                    instance = new DeviceBandwidthSampler();
                 }
             }
         }
@@ -73,27 +70,27 @@ public class DeviceBandwidthSampler {
         isWifi = DownloadUtils.isWifi(DownloadComponentManager.getAppContext());
     }
 
-    public void addFinalSample() {
+    protected void addFinalSample() {
         addSample();
         sPreviousBytes = -1L;
     }
 
-    public void addSample() {
+    protected void addSample() {
         try {
             updateWifiStatus();
             long allRxBytesWifi = isWifi ? getAllRxBytesWifi() : TrafficStats.getMobileRxBytes();
-            long j10 = sPreviousBytes;
-            long j11 = allRxBytesWifi - j10;
-            if (j10 >= 0) {
+            long j2 = sPreviousBytes;
+            long j3 = allRxBytesWifi - j2;
+            if (j2 >= 0) {
                 synchronized (this) {
                     long uptimeMillis = SystemClock.uptimeMillis();
-                    this.mNetTrafficManager.addBandwidth(j11, uptimeMillis - this.mLastTimeReading);
+                    this.mNetTrafficManager.addBandwidth(j3, uptimeMillis - this.mLastTimeReading);
                     this.mLastTimeReading = uptimeMillis;
                 }
             }
             sPreviousBytes = allRxBytesWifi;
-        } catch (Exception e10) {
-            e10.printStackTrace();
+        } catch (Exception e2) {
+            e2.printStackTrace();
         }
     }
 

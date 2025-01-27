@@ -15,249 +15,206 @@ import androidx.core.view.ViewCompat;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
-import me.imid.swipebacklayout.lib.a;
+import me.imid.swipebacklayout.lib.c;
 
-/* loaded from: classes4.dex */
+/* loaded from: classes5.dex */
 public class SwipeBackLayout extends FrameLayout {
-    public static final int A = 0;
-    public static final int B = 1;
-    public static final int C = 2;
-    public static final float D = 0.3f;
-    public static final int E = 10;
-    public static final int[] F = {1, 2, 8, 11};
 
-    /* renamed from: t */
-    public static final int f28635t = 400;
-
-    /* renamed from: u */
-    public static final int f28636u = -1728053248;
-
-    /* renamed from: v */
-    public static final int f28637v = 255;
-
-    /* renamed from: w */
-    public static final int f28638w = 1;
-
-    /* renamed from: x */
-    public static final int f28639x = 2;
-
-    /* renamed from: y */
-    public static final int f28640y = 8;
-
-    /* renamed from: z */
-    public static final int f28641z = 11;
+    /* renamed from: a */
+    private static final int f35323a = 400;
 
     /* renamed from: b */
-    public int f28642b;
+    private static final int f35324b = -1728053248;
 
     /* renamed from: c */
-    public float f28643c;
+    private static final int f35325c = 255;
 
     /* renamed from: d */
-    public Activity f28644d;
+    public static final int f35326d = 1;
 
     /* renamed from: e */
-    public boolean f28645e;
+    public static final int f35327e = 2;
 
     /* renamed from: f */
-    public View f28646f;
+    public static final int f35328f = 8;
 
     /* renamed from: g */
-    public me.imid.swipebacklayout.lib.a f28647g;
+    public static final int f35329g = 11;
 
     /* renamed from: h */
-    public float f28648h;
+    public static final int f35330h = 0;
 
     /* renamed from: i */
-    public int f28649i;
+    public static final int f35331i = 1;
 
     /* renamed from: j */
-    public int f28650j;
-
-    /* renamed from: k */
-    public List<b> f28651k;
-
-    /* renamed from: l */
-    public Drawable f28652l;
-
-    /* renamed from: m */
-    public Drawable f28653m;
-
-    /* renamed from: n */
-    public Drawable f28654n;
-
-    /* renamed from: o */
-    public float f28655o;
-
-    /* renamed from: p */
-    public int f28656p;
-
-    /* renamed from: q */
-    public boolean f28657q;
-
-    /* renamed from: r */
-    public Rect f28658r;
-
-    /* renamed from: s */
-    public int f28659s;
+    public static final int f35332j = 2;
+    private static final float k = 0.3f;
+    private static final int l = 10;
+    private static final int[] m = {1, 2, 8, 11};
+    private float A;
+    private int B;
+    private boolean C;
+    private Rect D;
+    private int E;
+    private int n;
+    private float o;
+    private Activity p;
+    private boolean q;
+    private View r;
+    private me.imid.swipebacklayout.lib.c s;
+    private float t;
+    private int u;
+    private int v;
+    private List<b> w;
+    private Drawable x;
+    private Drawable y;
+    private Drawable z;
 
     public interface b {
-        void a(int i10, float f10);
+        void a(int i2, float f2);
 
-        void c();
-
-        void d(int i10);
-    }
-
-    public interface c extends b {
         void b();
+
+        void c(int i2);
     }
 
-    public class d extends a.c {
+    private class c extends c.AbstractC0829c {
 
         /* renamed from: a */
-        public boolean f28660a;
+        private boolean f35333a;
 
-        public d() {
+        private c() {
         }
 
-        @Override // me.imid.swipebacklayout.lib.a.c
-        public int a(View view, int i10, int i11) {
-            if ((SwipeBackLayout.this.f28659s & 1) != 0) {
-                return Math.min(view.getWidth(), Math.max(i10, 0));
+        @Override // me.imid.swipebacklayout.lib.c.AbstractC0829c
+        public int a(View view, int i2, int i3) {
+            if ((SwipeBackLayout.this.E & 1) != 0) {
+                return Math.min(view.getWidth(), Math.max(i2, 0));
             }
-            if ((SwipeBackLayout.this.f28659s & 2) != 0) {
-                return Math.min(0, Math.max(i10, -view.getWidth()));
-            }
-            return 0;
-        }
-
-        @Override // me.imid.swipebacklayout.lib.a.c
-        public int b(View view, int i10, int i11) {
-            if ((SwipeBackLayout.this.f28659s & 8) != 0) {
-                return Math.min(0, Math.max(i10, -view.getHeight()));
+            if ((SwipeBackLayout.this.E & 2) != 0) {
+                return Math.min(0, Math.max(i2, -view.getWidth()));
             }
             return 0;
         }
 
-        @Override // me.imid.swipebacklayout.lib.a.c
+        @Override // me.imid.swipebacklayout.lib.c.AbstractC0829c
+        public int b(View view, int i2, int i3) {
+            if ((SwipeBackLayout.this.E & 8) != 0) {
+                return Math.min(0, Math.max(i2, -view.getHeight()));
+            }
+            return 0;
+        }
+
+        @Override // me.imid.swipebacklayout.lib.c.AbstractC0829c
         public int d(View view) {
-            return SwipeBackLayout.this.f28642b & 3;
+            return SwipeBackLayout.this.n & 3;
         }
 
-        @Override // me.imid.swipebacklayout.lib.a.c
+        @Override // me.imid.swipebacklayout.lib.c.AbstractC0829c
         public int e(View view) {
-            return SwipeBackLayout.this.f28642b & 8;
+            return SwipeBackLayout.this.n & 8;
         }
 
-        @Override // me.imid.swipebacklayout.lib.a.c
-        public void j(int i10) {
-            super.j(i10);
-            if (SwipeBackLayout.this.f28651k == null || SwipeBackLayout.this.f28651k.isEmpty()) {
+        @Override // me.imid.swipebacklayout.lib.c.AbstractC0829c
+        public void j(int i2) {
+            super.j(i2);
+            if (SwipeBackLayout.this.w == null || SwipeBackLayout.this.w.isEmpty()) {
                 return;
             }
-            Iterator it = SwipeBackLayout.this.f28651k.iterator();
+            Iterator it = SwipeBackLayout.this.w.iterator();
             while (it.hasNext()) {
-                ((b) it.next()).a(i10, SwipeBackLayout.this.f28648h);
+                ((b) it.next()).a(i2, SwipeBackLayout.this.t);
             }
         }
 
-        @Override // me.imid.swipebacklayout.lib.a.c
-        public void k(View view, int i10, int i11, int i12, int i13) {
-            super.k(view, i10, i11, i12, i13);
-            if ((SwipeBackLayout.this.f28659s & 1) != 0) {
-                SwipeBackLayout.this.f28648h = Math.abs(i10 / (r3.f28646f.getWidth() + SwipeBackLayout.this.f28652l.getIntrinsicWidth()));
-            } else if ((SwipeBackLayout.this.f28659s & 2) != 0) {
-                SwipeBackLayout.this.f28648h = Math.abs(i10 / (r3.f28646f.getWidth() + SwipeBackLayout.this.f28653m.getIntrinsicWidth()));
-            } else if ((SwipeBackLayout.this.f28659s & 8) != 0) {
-                SwipeBackLayout.this.f28648h = Math.abs(i11 / (r3.f28646f.getHeight() + SwipeBackLayout.this.f28654n.getIntrinsicHeight()));
+        @Override // me.imid.swipebacklayout.lib.c.AbstractC0829c
+        public void k(View view, int i2, int i3, int i4, int i5) {
+            super.k(view, i2, i3, i4, i5);
+            if ((SwipeBackLayout.this.E & 1) != 0) {
+                SwipeBackLayout.this.t = Math.abs(i2 / (r3.r.getWidth() + SwipeBackLayout.this.x.getIntrinsicWidth()));
+            } else if ((SwipeBackLayout.this.E & 2) != 0) {
+                SwipeBackLayout.this.t = Math.abs(i2 / (r3.r.getWidth() + SwipeBackLayout.this.y.getIntrinsicWidth()));
+            } else if ((SwipeBackLayout.this.E & 8) != 0) {
+                SwipeBackLayout.this.t = Math.abs(i3 / (r3.r.getHeight() + SwipeBackLayout.this.z.getIntrinsicHeight()));
             }
-            SwipeBackLayout.this.f28649i = i10;
-            SwipeBackLayout.this.f28650j = i11;
+            SwipeBackLayout.this.u = i2;
+            SwipeBackLayout.this.v = i3;
             SwipeBackLayout.this.invalidate();
-            if (SwipeBackLayout.this.f28648h < SwipeBackLayout.this.f28643c && !this.f28660a) {
-                this.f28660a = true;
+            if (SwipeBackLayout.this.t < SwipeBackLayout.this.o && !this.f35333a) {
+                this.f35333a = true;
             }
-            if (SwipeBackLayout.this.f28651k != null && !SwipeBackLayout.this.f28651k.isEmpty()) {
-                Iterator it = SwipeBackLayout.this.f28651k.iterator();
+            if (SwipeBackLayout.this.w != null && !SwipeBackLayout.this.w.isEmpty() && SwipeBackLayout.this.s.E() == 1 && SwipeBackLayout.this.t >= SwipeBackLayout.this.o && this.f35333a) {
+                this.f35333a = false;
+                Iterator it = SwipeBackLayout.this.w.iterator();
                 while (it.hasNext()) {
-                    ((b) it.next()).a(SwipeBackLayout.this.f28647g.E(), SwipeBackLayout.this.f28648h);
+                    ((b) it.next()).b();
                 }
             }
-            if (SwipeBackLayout.this.f28651k != null && !SwipeBackLayout.this.f28651k.isEmpty() && SwipeBackLayout.this.f28647g.E() == 1 && SwipeBackLayout.this.f28648h >= SwipeBackLayout.this.f28643c && this.f28660a) {
-                this.f28660a = false;
-                Iterator it2 = SwipeBackLayout.this.f28651k.iterator();
-                while (it2.hasNext()) {
-                    ((b) it2.next()).c();
-                }
-            }
-            if (SwipeBackLayout.this.f28648h < 1.0f || SwipeBackLayout.this.f28651k == null || SwipeBackLayout.this.f28651k.isEmpty()) {
+            if (SwipeBackLayout.this.t < 1.0f || SwipeBackLayout.this.p.isFinishing()) {
                 return;
             }
-            for (b bVar : SwipeBackLayout.this.f28651k) {
-                if (bVar instanceof c) {
-                    ((c) bVar).b();
-                }
-            }
+            SwipeBackLayout.this.p.finish();
+            SwipeBackLayout.this.p.overridePendingTransition(0, 0);
         }
 
-        @Override // me.imid.swipebacklayout.lib.a.c
-        public void l(View view, float f10, float f11) {
-            int i10;
+        @Override // me.imid.swipebacklayout.lib.c.AbstractC0829c
+        public void l(View view, float f2, float f3) {
+            int i2;
             int width = view.getWidth();
             int height = view.getHeight();
-            int i11 = 0;
-            if ((SwipeBackLayout.this.f28659s & 1) != 0) {
-                i11 = (f10 > 0.0f || (f10 == 0.0f && SwipeBackLayout.this.f28648h > SwipeBackLayout.this.f28643c)) ? width + SwipeBackLayout.this.f28652l.getIntrinsicWidth() + 10 : 0;
-            } else if ((SwipeBackLayout.this.f28659s & 2) != 0) {
-                i11 = (f10 < 0.0f || (f10 == 0.0f && SwipeBackLayout.this.f28648h > SwipeBackLayout.this.f28643c)) ? -(width + SwipeBackLayout.this.f28652l.getIntrinsicWidth() + 10) : 0;
-            } else if ((SwipeBackLayout.this.f28659s & 8) != 0 && (f11 < 0.0f || (f11 == 0.0f && SwipeBackLayout.this.f28648h > SwipeBackLayout.this.f28643c))) {
-                i10 = -(height + SwipeBackLayout.this.f28654n.getIntrinsicHeight() + 10);
-                SwipeBackLayout.this.f28647g.V(i11, i10);
+            int i3 = 0;
+            if ((SwipeBackLayout.this.E & 1) != 0) {
+                i3 = (f2 > 0.0f || (f2 == 0.0f && SwipeBackLayout.this.t > SwipeBackLayout.this.o)) ? width + SwipeBackLayout.this.x.getIntrinsicWidth() + 10 : 0;
+            } else if ((SwipeBackLayout.this.E & 2) != 0) {
+                i3 = (f2 < 0.0f || (f2 == 0.0f && SwipeBackLayout.this.t > SwipeBackLayout.this.o)) ? -(width + SwipeBackLayout.this.x.getIntrinsicWidth() + 10) : 0;
+            } else if ((SwipeBackLayout.this.E & 8) != 0 && (f3 < 0.0f || (f3 == 0.0f && SwipeBackLayout.this.t > SwipeBackLayout.this.o))) {
+                i2 = -(height + SwipeBackLayout.this.z.getIntrinsicHeight() + 10);
+                SwipeBackLayout.this.s.V(i3, i2);
                 SwipeBackLayout.this.invalidate();
             }
-            i10 = 0;
-            SwipeBackLayout.this.f28647g.V(i11, i10);
+            i2 = 0;
+            SwipeBackLayout.this.s.V(i3, i2);
             SwipeBackLayout.this.invalidate();
         }
 
-        @Override // me.imid.swipebacklayout.lib.a.c
-        public boolean m(View view, int i10) {
-            boolean g10;
-            boolean H = SwipeBackLayout.this.f28647g.H(SwipeBackLayout.this.f28642b, i10);
-            boolean z10 = true;
+        @Override // me.imid.swipebacklayout.lib.c.AbstractC0829c
+        public boolean m(View view, int i2) {
+            boolean g2;
+            boolean H = SwipeBackLayout.this.s.H(SwipeBackLayout.this.n, i2);
+            boolean z = true;
             if (H) {
-                if (SwipeBackLayout.this.f28647g.H(1, i10)) {
-                    SwipeBackLayout.this.f28659s = 1;
-                } else if (SwipeBackLayout.this.f28647g.H(2, i10)) {
-                    SwipeBackLayout.this.f28659s = 2;
-                } else if (SwipeBackLayout.this.f28647g.H(8, i10)) {
-                    SwipeBackLayout.this.f28659s = 8;
+                if (SwipeBackLayout.this.s.H(1, i2)) {
+                    SwipeBackLayout.this.E = 1;
+                } else if (SwipeBackLayout.this.s.H(2, i2)) {
+                    SwipeBackLayout.this.E = 2;
+                } else if (SwipeBackLayout.this.s.H(8, i2)) {
+                    SwipeBackLayout.this.E = 8;
                 }
-                if (SwipeBackLayout.this.f28651k != null && !SwipeBackLayout.this.f28651k.isEmpty()) {
-                    Iterator it = SwipeBackLayout.this.f28651k.iterator();
+                if (SwipeBackLayout.this.w != null && !SwipeBackLayout.this.w.isEmpty()) {
+                    Iterator it = SwipeBackLayout.this.w.iterator();
                     while (it.hasNext()) {
-                        ((b) it.next()).d(SwipeBackLayout.this.f28659s);
+                        ((b) it.next()).c(SwipeBackLayout.this.E);
                     }
                 }
-                this.f28660a = true;
+                this.f35333a = true;
             }
-            if (SwipeBackLayout.this.f28642b == 1 || SwipeBackLayout.this.f28642b == 2) {
-                g10 = SwipeBackLayout.this.f28647g.g(2, i10);
+            if (SwipeBackLayout.this.n == 1 || SwipeBackLayout.this.n == 2) {
+                g2 = SwipeBackLayout.this.s.g(2, i2);
             } else {
-                if (SwipeBackLayout.this.f28642b != 8) {
-                    if (SwipeBackLayout.this.f28642b != 11) {
-                        z10 = false;
+                if (SwipeBackLayout.this.n != 8) {
+                    if (SwipeBackLayout.this.n != 11) {
+                        z = false;
                     }
-                    return H & z10;
+                    return H & z;
                 }
-                g10 = SwipeBackLayout.this.f28647g.g(1, i10);
+                g2 = SwipeBackLayout.this.s.g(1, i2);
             }
-            z10 = true ^ g10;
-            return H & z10;
+            z = true ^ g2;
+            return H & z;
         }
 
-        public /* synthetic */ d(SwipeBackLayout swipeBackLayout, a aVar) {
+        /* synthetic */ c(SwipeBackLayout swipeBackLayout, a aVar) {
             this();
         }
     }
@@ -266,66 +223,109 @@ public class SwipeBackLayout extends FrameLayout {
         this(context, null);
     }
 
+    private void r(Canvas canvas, View view) {
+        int i2 = (this.B & 16777215) | (((int) ((((-16777216) & r0) >>> 24) * this.A)) << 24);
+        int i3 = this.E;
+        if ((i3 & 1) != 0) {
+            canvas.clipRect(0, 0, view.getLeft(), getHeight());
+        } else if ((i3 & 2) != 0) {
+            canvas.clipRect(view.getRight(), 0, getRight(), getHeight());
+        } else if ((i3 & 8) != 0) {
+            canvas.clipRect(view.getLeft(), view.getBottom(), getRight(), getHeight());
+        }
+        canvas.drawColor(i2);
+    }
+
+    private void s(Canvas canvas, View view) {
+        Rect rect = this.D;
+        view.getHitRect(rect);
+        if ((this.n & 1) != 0) {
+            Drawable drawable = this.x;
+            drawable.setBounds(rect.left - drawable.getIntrinsicWidth(), rect.top, rect.left, rect.bottom);
+            this.x.setAlpha((int) (this.A * 255.0f));
+            this.x.draw(canvas);
+        }
+        if ((this.n & 2) != 0) {
+            Drawable drawable2 = this.y;
+            int i2 = rect.right;
+            drawable2.setBounds(i2, rect.top, drawable2.getIntrinsicWidth() + i2, rect.bottom);
+            this.y.setAlpha((int) (this.A * 255.0f));
+            this.y.draw(canvas);
+        }
+        if ((this.n & 8) != 0) {
+            Drawable drawable3 = this.z;
+            int i3 = rect.left;
+            int i4 = rect.bottom;
+            drawable3.setBounds(i3, i4, rect.right, drawable3.getIntrinsicHeight() + i4);
+            this.z.setAlpha((int) (this.A * 255.0f));
+            this.z.draw(canvas);
+        }
+    }
+
+    private void setContentView(View view) {
+        this.r = view;
+    }
+
     @Override // android.view.View
     public void computeScroll() {
-        this.f28655o = 1.0f - this.f28648h;
-        if (this.f28647g.o(true)) {
+        this.A = 1.0f - this.t;
+        if (this.s.o(true)) {
             ViewCompat.postInvalidateOnAnimation(this);
         }
     }
 
     @Override // android.view.ViewGroup
-    public boolean drawChild(Canvas canvas, View view, long j10) {
-        boolean z10 = view == this.f28646f;
-        boolean drawChild = super.drawChild(canvas, view, j10);
-        if (this.f28655o > 0.0f && z10 && this.f28647g.E() != 0) {
+    protected boolean drawChild(Canvas canvas, View view, long j2) {
+        boolean z = view == this.r;
+        boolean drawChild = super.drawChild(canvas, view, j2);
+        if (this.A > 0.0f && z && this.s.E() != 0) {
+            s(canvas, view);
             r(canvas, view);
-            q(canvas, view);
         }
         return drawChild;
     }
 
-    public void o(b bVar) {
-        if (this.f28651k == null) {
-            this.f28651k = new ArrayList();
-        }
-        this.f28651k.add(bVar);
-    }
-
     @Override // android.view.ViewGroup
     public boolean onInterceptTouchEvent(MotionEvent motionEvent) {
-        if (!this.f28645e) {
+        if (!this.q) {
             return false;
         }
         try {
-            return this.f28647g.W(motionEvent);
+            return this.s.W(motionEvent);
         } catch (ArrayIndexOutOfBoundsException unused) {
             return false;
         }
     }
 
     @Override // android.widget.FrameLayout, android.view.ViewGroup, android.view.View
-    public void onLayout(boolean z10, int i10, int i11, int i12, int i13) {
-        this.f28657q = true;
-        View view = this.f28646f;
+    protected void onLayout(boolean z, int i2, int i3, int i4, int i5) {
+        this.C = true;
+        View view = this.r;
         if (view != null) {
-            int i14 = this.f28649i;
-            view.layout(i14, this.f28650j, view.getMeasuredWidth() + i14, this.f28650j + this.f28646f.getMeasuredHeight());
+            int i6 = this.u;
+            view.layout(i6, this.v, view.getMeasuredWidth() + i6, this.v + this.r.getMeasuredHeight());
         }
-        this.f28657q = false;
+        this.C = false;
     }
 
     @Override // android.view.View
     public boolean onTouchEvent(MotionEvent motionEvent) {
-        if (!this.f28645e) {
+        if (!this.q) {
             return false;
         }
-        this.f28647g.K(motionEvent);
+        this.s.K(motionEvent);
         return true;
     }
 
-    public void p(Activity activity) {
-        this.f28644d = activity;
+    public void p(b bVar) {
+        if (this.w == null) {
+            this.w = new ArrayList();
+        }
+        this.w.add(bVar);
+    }
+
+    public void q(Activity activity) {
+        this.p = activity;
         TypedArray obtainStyledAttributes = activity.getTheme().obtainStyledAttributes(new int[]{android.R.attr.windowBackground});
         int resourceId = obtainStyledAttributes.getResourceId(0, 0);
         obtainStyledAttributes.recycle();
@@ -335,145 +335,101 @@ public class SwipeBackLayout extends FrameLayout {
         viewGroup.removeView(viewGroup2);
         addView(viewGroup2);
         setContentView(viewGroup2);
-        o(new mi.c(activity));
         viewGroup.addView(this);
-    }
-
-    public final void q(Canvas canvas, View view) {
-        int i10 = (this.f28656p & 16777215) | (((int) ((((-16777216) & r0) >>> 24) * this.f28655o)) << 24);
-        int i11 = this.f28659s;
-        if ((i11 & 1) != 0) {
-            canvas.clipRect(0, 0, view.getLeft(), getHeight());
-        } else if ((i11 & 2) != 0) {
-            canvas.clipRect(view.getRight(), 0, getRight(), getHeight());
-        } else if ((i11 & 8) != 0) {
-            canvas.clipRect(view.getLeft(), view.getBottom(), getRight(), getHeight());
-        }
-        canvas.drawColor(i10);
-    }
-
-    public final void r(Canvas canvas, View view) {
-        Rect rect = this.f28658r;
-        view.getHitRect(rect);
-        if ((this.f28642b & 1) != 0) {
-            Drawable drawable = this.f28652l;
-            drawable.setBounds(rect.left - drawable.getIntrinsicWidth(), rect.top, rect.left, rect.bottom);
-            this.f28652l.setAlpha((int) (this.f28655o * 255.0f));
-            this.f28652l.draw(canvas);
-        }
-        if ((this.f28642b & 2) != 0) {
-            Drawable drawable2 = this.f28653m;
-            int i10 = rect.right;
-            drawable2.setBounds(i10, rect.top, drawable2.getIntrinsicWidth() + i10, rect.bottom);
-            this.f28653m.setAlpha((int) (this.f28655o * 255.0f));
-            this.f28653m.draw(canvas);
-        }
-        if ((this.f28642b & 8) != 0) {
-            Drawable drawable3 = this.f28654n;
-            int i11 = rect.left;
-            int i12 = rect.bottom;
-            drawable3.setBounds(i11, i12, rect.right, drawable3.getIntrinsicHeight() + i12);
-            this.f28654n.setAlpha((int) (this.f28655o * 255.0f));
-            this.f28654n.draw(canvas);
-        }
     }
 
     @Override // android.view.View, android.view.ViewParent
     public void requestLayout() {
-        if (this.f28657q) {
+        if (this.C) {
             return;
         }
         super.requestLayout();
     }
 
-    public void s(b bVar) {
-        List<b> list = this.f28651k;
+    public void setEdgeSize(int i2) {
+        this.s.Q(i2);
+    }
+
+    public void setEdgeTrackingEnabled(int i2) {
+        this.n = i2;
+        this.s.R(i2);
+    }
+
+    public void setEnableGesture(boolean z) {
+        this.q = z;
+    }
+
+    public void setScrimColor(int i2) {
+        this.B = i2;
+        invalidate();
+    }
+
+    public void setScrollThresHold(float f2) {
+        if (f2 >= 1.0f || f2 <= 0.0f) {
+            throw new IllegalArgumentException("Threshold value should be between 0 and 1.0");
+        }
+        this.o = f2;
+    }
+
+    @Deprecated
+    public void setSwipeListener(b bVar) {
+        p(bVar);
+    }
+
+    public void t(b bVar) {
+        List<b> list = this.w;
         if (list == null) {
             return;
         }
         list.remove(bVar);
     }
 
-    public void setContentView(View view) {
-        this.f28646f = view;
-    }
-
-    public void setEdgeSize(int i10) {
-        this.f28647g.Q(i10);
-    }
-
-    public void setEdgeTrackingEnabled(int i10) {
-        this.f28642b = i10;
-        this.f28647g.R(i10);
-    }
-
-    public void setEnableGesture(boolean z10) {
-        this.f28645e = z10;
-    }
-
-    public void setScrimColor(int i10) {
-        this.f28656p = i10;
-        invalidate();
-    }
-
-    public void setScrollThresHold(float f10) {
-        if (f10 >= 1.0f || f10 <= 0.0f) {
-            throw new IllegalArgumentException("Threshold value should be between 0 and 1.0");
-        }
-        this.f28643c = f10;
-    }
-
-    @Deprecated
-    public void setSwipeListener(b bVar) {
-        o(bVar);
-    }
-
-    public void t() {
+    public void u() {
         int intrinsicHeight;
         int intrinsicWidth;
-        int width = this.f28646f.getWidth();
-        int height = this.f28646f.getHeight();
-        int i10 = this.f28642b;
-        int i11 = 0;
-        if ((i10 & 1) != 0) {
-            intrinsicWidth = width + this.f28652l.getIntrinsicWidth() + 10;
-            this.f28659s = 1;
+        int width = this.r.getWidth();
+        int height = this.r.getHeight();
+        int i2 = this.n;
+        int i3 = 0;
+        if ((i2 & 1) != 0) {
+            intrinsicWidth = width + this.x.getIntrinsicWidth() + 10;
+            this.E = 1;
         } else {
-            if ((i10 & 2) == 0) {
-                if ((i10 & 8) != 0) {
-                    intrinsicHeight = ((-height) - this.f28654n.getIntrinsicHeight()) - 10;
-                    this.f28659s = 8;
-                    this.f28647g.X(this.f28646f, i11, intrinsicHeight);
+            if ((i2 & 2) == 0) {
+                if ((i2 & 8) != 0) {
+                    intrinsicHeight = ((-height) - this.z.getIntrinsicHeight()) - 10;
+                    this.E = 8;
+                    this.s.X(this.r, i3, intrinsicHeight);
                     invalidate();
                 }
                 intrinsicHeight = 0;
-                this.f28647g.X(this.f28646f, i11, intrinsicHeight);
+                this.s.X(this.r, i3, intrinsicHeight);
                 invalidate();
             }
-            intrinsicWidth = ((-width) - this.f28653m.getIntrinsicWidth()) - 10;
-            this.f28659s = 2;
+            intrinsicWidth = ((-width) - this.y.getIntrinsicWidth()) - 10;
+            this.E = 2;
         }
-        i11 = intrinsicWidth;
+        i3 = intrinsicWidth;
         intrinsicHeight = 0;
-        this.f28647g.X(this.f28646f, i11, intrinsicHeight);
+        this.s.X(this.r, i3, intrinsicHeight);
         invalidate();
     }
 
-    public void u(Context context, float f10) {
-        this.f28647g.U(context, f10);
+    public void v(Context context, float f2) {
+        this.s.U(context, f2);
     }
 
-    public void v(int i10, int i11) {
-        w(getResources().getDrawable(i10), i11);
+    public void w(int i2, int i3) {
+        x(getResources().getDrawable(i2), i3);
     }
 
-    public void w(Drawable drawable, int i10) {
-        if ((i10 & 1) != 0) {
-            this.f28652l = drawable;
-        } else if ((i10 & 2) != 0) {
-            this.f28653m = drawable;
-        } else if ((i10 & 8) != 0) {
-            this.f28654n = drawable;
+    public void x(Drawable drawable, int i2) {
+        if ((i2 & 1) != 0) {
+            this.x = drawable;
+        } else if ((i2 & 2) != 0) {
+            this.y = drawable;
+        } else if ((i2 & 8) != 0) {
+            this.z = drawable;
         }
         invalidate();
     }
@@ -482,28 +438,28 @@ public class SwipeBackLayout extends FrameLayout {
         this(context, attributeSet, R.attr.SwipeBackLayoutStyle);
     }
 
-    public SwipeBackLayout(Context context, AttributeSet attributeSet, int i10) {
+    public SwipeBackLayout(Context context, AttributeSet attributeSet, int i2) {
         super(context, attributeSet);
-        this.f28643c = 0.3f;
-        this.f28645e = true;
-        this.f28656p = f28636u;
-        this.f28658r = new Rect();
-        this.f28647g = me.imid.swipebacklayout.lib.a.q(this, new d());
-        TypedArray obtainStyledAttributes = context.obtainStyledAttributes(attributeSet, R.styleable.SwipeBackLayout, i10, R.style.SwipeBackLayout);
+        this.o = k;
+        this.q = true;
+        this.B = f35324b;
+        this.D = new Rect();
+        this.s = me.imid.swipebacklayout.lib.c.q(this, new c());
+        TypedArray obtainStyledAttributes = context.obtainStyledAttributes(attributeSet, R.styleable.SwipeBackLayout, i2, R.style.SwipeBackLayout);
         int dimensionPixelSize = obtainStyledAttributes.getDimensionPixelSize(R.styleable.SwipeBackLayout_edge_size, -1);
         if (dimensionPixelSize > 0) {
             setEdgeSize(dimensionPixelSize);
         }
-        setEdgeTrackingEnabled(F[obtainStyledAttributes.getInt(R.styleable.SwipeBackLayout_edge_flag, 0)]);
+        setEdgeTrackingEnabled(m[obtainStyledAttributes.getInt(R.styleable.SwipeBackLayout_edge_flag, 0)]);
         int resourceId = obtainStyledAttributes.getResourceId(R.styleable.SwipeBackLayout_shadow_left, R.drawable.shadow_left);
         int resourceId2 = obtainStyledAttributes.getResourceId(R.styleable.SwipeBackLayout_shadow_right, R.drawable.shadow_right);
         int resourceId3 = obtainStyledAttributes.getResourceId(R.styleable.SwipeBackLayout_shadow_bottom, R.drawable.shadow_bottom);
-        v(resourceId, 1);
-        v(resourceId2, 2);
-        v(resourceId3, 8);
+        w(resourceId, 1);
+        w(resourceId2, 2);
+        w(resourceId3, 8);
         obtainStyledAttributes.recycle();
-        float f10 = getResources().getDisplayMetrics().density * 400.0f;
-        this.f28647g.T(f10);
-        this.f28647g.S(f10 * 2.0f);
+        float f2 = getResources().getDisplayMetrics().density * 400.0f;
+        this.s.T(f2);
+        this.s.S(f2 * 2.0f);
     }
 }

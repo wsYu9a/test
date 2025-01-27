@@ -6,7 +6,7 @@ import com.ss.android.socialbase.downloader.model.DownloadInfo;
 public interface IDownloadNotificationEventListener {
     String getNotifyProcessName();
 
-    boolean interceptAfterNotificationSuccess(boolean z10);
+    boolean interceptAfterNotificationSuccess(boolean z);
 
-    void onNotificationEvent(int i10, DownloadInfo downloadInfo, String str, String str2);
+    void onNotificationEvent(int i2, DownloadInfo downloadInfo, String str, String str2);
 }

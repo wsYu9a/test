@@ -17,6 +17,14 @@ public class WXEmojiObject implements WXMediaMessage.IMediaObject {
         this.emojiPath = null;
     }
 
+    public WXEmojiObject(String str) {
+        this.emojiPath = str;
+    }
+
+    public WXEmojiObject(byte[] bArr) {
+        this.emojiData = bArr;
+    }
+
     private int getFileSize(String str) {
         return b.a(str);
     }
@@ -67,13 +75,5 @@ public class WXEmojiObject implements WXMediaMessage.IMediaObject {
     public void unserialize(Bundle bundle) {
         this.emojiData = bundle.getByteArray("_wxemojiobject_emojiData");
         this.emojiPath = bundle.getString("_wxemojiobject_emojiPath");
-    }
-
-    public WXEmojiObject(String str) {
-        this.emojiPath = str;
-    }
-
-    public WXEmojiObject(byte[] bArr) {
-        this.emojiData = bArr;
     }
 }

@@ -1,12 +1,12 @@
 package com.bumptech.glide.load.engine.bitmap_recycle;
 
-/* loaded from: classes2.dex */
+/* loaded from: classes.dex */
 interface ArrayAdapterInterface<T> {
-    int getArrayLength(T t10);
+    int getArrayLength(T t);
 
     int getElementSizeInBytes();
 
     String getTag();
 
-    T newArray(int i10);
+    T newArray(int i2);
 }

@@ -9,7 +9,7 @@ import com.bumptech.glide.util.ByteBufferUtil;
 import java.io.IOException;
 import java.nio.ByteBuffer;
 
-/* loaded from: classes2.dex */
+/* loaded from: classes.dex */
 public class ByteBufferBitmapDecoder implements ResourceDecoder<ByteBuffer, Bitmap> {
     private final Downsampler downsampler;
 
@@ -18,8 +18,8 @@ public class ByteBufferBitmapDecoder implements ResourceDecoder<ByteBuffer, Bitm
     }
 
     @Override // com.bumptech.glide.load.ResourceDecoder
-    public Resource<Bitmap> decode(@NonNull ByteBuffer byteBuffer, int i10, int i11, @NonNull Options options) throws IOException {
-        return this.downsampler.decode(ByteBufferUtil.toStream(byteBuffer), i10, i11, options);
+    public Resource<Bitmap> decode(@NonNull ByteBuffer byteBuffer, int i2, int i3, @NonNull Options options) throws IOException {
+        return this.downsampler.decode(ByteBufferUtil.toStream(byteBuffer), i2, i3, options);
     }
 
     @Override // com.bumptech.glide.load.ResourceDecoder

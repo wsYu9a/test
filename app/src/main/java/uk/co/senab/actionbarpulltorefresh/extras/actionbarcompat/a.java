@@ -10,25 +10,21 @@ import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 
 /* loaded from: classes5.dex */
-public class a extends uk.co.senab.actionbarpulltorefresh.library.a {
-
-    /* renamed from: o */
-    public Animation f31141o;
-
-    /* renamed from: p */
-    public Animation f31142p;
+public class a extends uk.co.senab.actionbarpulltorefresh.library.c {
+    private Animation o;
+    private Animation p;
 
     /* renamed from: uk.co.senab.actionbarpulltorefresh.extras.actionbarcompat.a$a */
-    public class AnimationAnimationListenerC0793a implements Animation.AnimationListener {
-        public AnimationAnimationListenerC0793a() {
+    class AnimationAnimationListenerC0894a implements Animation.AnimationListener {
+        AnimationAnimationListenerC0894a() {
         }
 
         @Override // android.view.animation.Animation.AnimationListener
         public void onAnimationEnd(Animation animation) {
-            if (animation == a.this.f31142p) {
-                View o10 = a.this.o();
-                if (o10 != null) {
-                    o10.setVisibility(8);
+            if (animation == a.this.p) {
+                View o = a.this.o();
+                if (o != null) {
+                    o.setVisibility(8);
                 }
                 a.this.g();
             }
@@ -43,26 +39,26 @@ public class a extends uk.co.senab.actionbarpulltorefresh.library.a {
         }
     }
 
-    @Override // uk.co.senab.actionbarpulltorefresh.library.a, uk.d
+    @Override // uk.co.senab.actionbarpulltorefresh.library.c, uk.co.senab.actionbarpulltorefresh.library.e
     public boolean a() {
         if (Build.VERSION.SDK_INT >= super.p()) {
             return super.a();
         }
-        View o10 = o();
-        boolean z10 = (o10 == null || o10.getVisibility() == 8) ? false : true;
-        if (z10) {
-            Animation animation = this.f31142p;
+        View o = o();
+        boolean z = (o == null || o.getVisibility() == 8) ? false : true;
+        if (z) {
+            Animation animation = this.p;
             if (animation != null) {
-                o10.startAnimation(animation);
+                o.startAnimation(animation);
             } else {
-                o10.setVisibility(8);
+                o.setVisibility(8);
                 g();
             }
         }
-        return z10;
+        return z;
     }
 
-    @Override // uk.co.senab.actionbarpulltorefresh.library.a, uk.d
+    @Override // uk.co.senab.actionbarpulltorefresh.library.c, uk.co.senab.actionbarpulltorefresh.library.e
     public void d() {
         if (Build.VERSION.SDK_INT >= super.p()) {
             super.d();
@@ -75,54 +71,54 @@ public class a extends uk.co.senab.actionbarpulltorefresh.library.a {
         }
     }
 
-    @Override // uk.co.senab.actionbarpulltorefresh.library.a, uk.d
+    @Override // uk.co.senab.actionbarpulltorefresh.library.c, uk.co.senab.actionbarpulltorefresh.library.e
     public void h(Activity activity, View view) {
         super.h(activity, view);
-        this.f31141o = AnimationUtils.loadAnimation(activity, R.anim.fade_in);
+        this.o = AnimationUtils.loadAnimation(activity, R.anim.fade_in);
         Animation loadAnimation = AnimationUtils.loadAnimation(activity, R.anim.fade_out);
-        this.f31142p = loadAnimation;
-        if (loadAnimation == null && this.f31141o == null) {
+        this.p = loadAnimation;
+        if (loadAnimation == null && this.o == null) {
             return;
         }
-        AnimationAnimationListenerC0793a animationAnimationListenerC0793a = new AnimationAnimationListenerC0793a();
-        Animation animation = this.f31142p;
+        AnimationAnimationListenerC0894a animationAnimationListenerC0894a = new AnimationAnimationListenerC0894a();
+        Animation animation = this.p;
         if (animation != null) {
-            animation.setAnimationListener(animationAnimationListenerC0793a);
+            animation.setAnimationListener(animationAnimationListenerC0894a);
         }
     }
 
-    @Override // uk.co.senab.actionbarpulltorefresh.library.a, uk.d
+    @Override // uk.co.senab.actionbarpulltorefresh.library.c, uk.co.senab.actionbarpulltorefresh.library.e
     public boolean i() {
         if (Build.VERSION.SDK_INT >= super.p()) {
             return super.i();
         }
-        View o10 = o();
-        boolean z10 = (o10 == null || o10.getVisibility() == 0) ? false : true;
-        if (z10) {
-            Animation animation = this.f31141o;
+        View o = o();
+        boolean z = (o == null || o.getVisibility() == 0) ? false : true;
+        if (z) {
+            Animation animation = this.o;
             if (animation != null) {
-                o10.startAnimation(animation);
+                o.startAnimation(animation);
             }
-            o10.setVisibility(0);
+            o.setVisibility(0);
         }
-        return z10;
+        return z;
     }
 
-    @Override // uk.co.senab.actionbarpulltorefresh.library.a
-    public Drawable l(Context context) {
+    @Override // uk.co.senab.actionbarpulltorefresh.library.c
+    protected Drawable l(Context context) {
         if (Build.VERSION.SDK_INT >= super.p()) {
             return super.l(context);
         }
-        TypedArray q10 = uk.co.senab.actionbarpulltorefresh.library.a.q(context, R.attr.actionBarStyle, R.styleable.ActionBar);
+        TypedArray q = uk.co.senab.actionbarpulltorefresh.library.c.q(context, R.attr.actionBarStyle, R.styleable.ActionBar);
         try {
-            return q10.getDrawable(10);
+            return q.getDrawable(10);
         } finally {
-            q10.recycle();
+            q.recycle();
         }
     }
 
-    @Override // uk.co.senab.actionbarpulltorefresh.library.a
-    public int m(Context context) {
+    @Override // uk.co.senab.actionbarpulltorefresh.library.c
+    protected int m(Context context) {
         if (Build.VERSION.SDK_INT >= super.p()) {
             return super.m(context);
         }
@@ -134,21 +130,21 @@ public class a extends uk.co.senab.actionbarpulltorefresh.library.a {
         }
     }
 
-    @Override // uk.co.senab.actionbarpulltorefresh.library.a
-    public int n(Context context) {
+    @Override // uk.co.senab.actionbarpulltorefresh.library.c
+    protected int n(Context context) {
         if (Build.VERSION.SDK_INT >= super.p()) {
             return super.n(context);
         }
-        TypedArray q10 = uk.co.senab.actionbarpulltorefresh.library.a.q(context, R.attr.actionBarStyle, R.styleable.ActionBar);
+        TypedArray q = uk.co.senab.actionbarpulltorefresh.library.c.q(context, R.attr.actionBarStyle, R.styleable.ActionBar);
         try {
-            return q10.getResourceId(5, 0);
+            return q.getResourceId(5, 0);
         } finally {
-            q10.recycle();
+            q.recycle();
         }
     }
 
-    @Override // uk.co.senab.actionbarpulltorefresh.library.a
-    public int p() {
+    @Override // uk.co.senab.actionbarpulltorefresh.library.c
+    protected int p() {
         return 7;
     }
 }

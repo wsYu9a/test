@@ -8,7 +8,7 @@ import com.bumptech.glide.util.Util;
 import java.nio.ByteBuffer;
 import java.security.MessageDigest;
 
-/* loaded from: classes2.dex */
+/* loaded from: classes.dex */
 public final class GranularRoundedCorners extends BitmapTransformation {
     private static final String ID = "com.bumptech.glide.load.resource.bitmap.GranularRoundedCorners";
     private static final byte[] ID_BYTES = ID.getBytes(Key.CHARSET);
@@ -17,11 +17,11 @@ public final class GranularRoundedCorners extends BitmapTransformation {
     private final float topLeft;
     private final float topRight;
 
-    public GranularRoundedCorners(float f10, float f11, float f12, float f13) {
-        this.topLeft = f10;
-        this.topRight = f11;
-        this.bottomRight = f12;
-        this.bottomLeft = f13;
+    public GranularRoundedCorners(float f2, float f3, float f4, float f5) {
+        this.topLeft = f2;
+        this.topRight = f3;
+        this.bottomRight = f4;
+        this.bottomLeft = f5;
     }
 
     @Override // com.bumptech.glide.load.Key
@@ -39,7 +39,7 @@ public final class GranularRoundedCorners extends BitmapTransformation {
     }
 
     @Override // com.bumptech.glide.load.resource.bitmap.BitmapTransformation
-    public Bitmap transform(@NonNull BitmapPool bitmapPool, @NonNull Bitmap bitmap, int i10, int i11) {
+    protected Bitmap transform(@NonNull BitmapPool bitmapPool, @NonNull Bitmap bitmap, int i2, int i3) {
         return TransformationUtils.roundedCorners(bitmapPool, bitmap, this.topLeft, this.topRight, this.bottomRight, this.bottomLeft);
     }
 

@@ -5,14 +5,11 @@ import androidx.annotation.Keep;
 import com.kwad.sdk.api.KsInnerAd;
 import com.kwad.sdk.api.core.KsAdSdkApi;
 import com.kwad.sdk.api.model.AdExposureFailedReason;
-import com.kwad.sdk.api.model.KSAdInfoData;
 import com.kwad.sdk.api.model.KsExtraRewardType;
-import java.util.List;
-import java.util.Map;
 
 @KsAdSdkApi
 @Keep
-/* loaded from: classes3.dex */
+/* loaded from: classes2.dex */
 public interface KsRewardVideoAd extends BaseKSAd {
 
     @KsAdSdkApi
@@ -24,7 +21,7 @@ public interface KsRewardVideoAd extends BaseKSAd {
 
         @KsAdSdkApi
         @Keep
-        void onExtraRewardVerify(@KsExtraRewardType int i10);
+        void onExtraRewardVerify(@KsExtraRewardType int i2);
 
         @KsAdSdkApi
         @Keep
@@ -32,7 +29,7 @@ public interface KsRewardVideoAd extends BaseKSAd {
 
         @KsAdSdkApi
         @Keep
-        void onRewardStepVerify(int i10, int i11);
+        void onRewardStepVerify(int i2, int i3);
 
         @KsAdSdkApi
         @Keep
@@ -40,15 +37,11 @@ public interface KsRewardVideoAd extends BaseKSAd {
 
         @KsAdSdkApi
         @Keep
-        void onRewardVerify(Map<String, Object> map);
-
-        @KsAdSdkApi
-        @Keep
         void onVideoPlayEnd();
 
         @KsAdSdkApi
         @Keep
-        void onVideoPlayError(int i10, int i11);
+        void onVideoPlayError(int i2, int i3);
 
         @KsAdSdkApi
         @Keep
@@ -56,7 +49,7 @@ public interface KsRewardVideoAd extends BaseKSAd {
 
         @KsAdSdkApi
         @Keep
-        void onVideoSkipToEnd(long j10);
+        void onVideoSkipToEnd(long j2);
     }
 
     @KsAdSdkApi
@@ -69,10 +62,6 @@ public interface KsRewardVideoAd extends BaseKSAd {
 
     @KsAdSdkApi
     @Keep
-    List<KSAdInfoData> getKSAdInfoDatas();
-
-    @KsAdSdkApi
-    @Keep
     int getMaterialType();
 
     @KsAdSdkApi
@@ -81,16 +70,16 @@ public interface KsRewardVideoAd extends BaseKSAd {
 
     @KsAdSdkApi
     @Keep
-    void reportAdExposureFailed(int i10, AdExposureFailedReason adExposureFailedReason);
+    void reportAdExposureFailed(int i2, AdExposureFailedReason adExposureFailedReason);
 
     @KsAdSdkApi
     @Keep
     @Deprecated
-    void setBidEcpm(int i10);
+    void setBidEcpm(int i2);
 
     @KsAdSdkApi
     @Keep
-    void setBidEcpm(long j10, long j11);
+    void setBidEcpm(long j2, long j3);
 
     @KsAdSdkApi
     @Keep
@@ -99,6 +88,10 @@ public interface KsRewardVideoAd extends BaseKSAd {
     @KsAdSdkApi
     @Keep
     void setRewardAdInteractionListener(RewardAdInteractionListener rewardAdInteractionListener);
+
+    @KsAdSdkApi
+    @Keep
+    void setRewardPlayAgainInteractionListener(RewardAdInteractionListener rewardAdInteractionListener);
 
     @KsAdSdkApi
     @Keep

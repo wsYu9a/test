@@ -4,13 +4,13 @@ import java.util.List;
 
 /* loaded from: classes3.dex */
 public class MiBookCommentCountList {
-    private List<CommentCount> comments;
+    private List<ChapterCommentCount> comments;
 
-    public List<CommentCount> getComments() {
+    public List<ChapterCommentCount> getComments() {
         return this.comments;
     }
 
-    public void setComments(List<CommentCount> list) {
-        this.comments = list;
+    public void setComments(List<ChapterCommentCount> comments) {
+        this.comments = comments;
     }
 }

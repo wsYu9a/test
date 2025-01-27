@@ -5,345 +5,291 @@ import android.content.res.Resources;
 import android.util.DisplayMetrics;
 import com.nostra13.universalimageloader.core.assist.QueueProcessingType;
 import com.nostra13.universalimageloader.core.download.ImageDownloader;
-import hf.d;
-import hf.e;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.concurrent.Executor;
 
-/* loaded from: classes3.dex */
+/* loaded from: classes4.dex */
 public final class ImageLoaderConfiguration {
 
     /* renamed from: a */
-    public final Resources f16209a;
+    final Resources f15867a;
 
     /* renamed from: b */
-    public final int f16210b;
+    final int f15868b;
 
     /* renamed from: c */
-    public final int f16211c;
+    final int f15869c;
 
     /* renamed from: d */
-    public final int f16212d;
+    final int f15870d;
 
     /* renamed from: e */
-    public final int f16213e;
+    final int f15871e;
 
     /* renamed from: f */
-    public final gf.a f16214f;
+    final com.nostra13.universalimageloader.core.l.a f15872f;
 
     /* renamed from: g */
-    public final Executor f16215g;
+    final Executor f15873g;
 
     /* renamed from: h */
-    public final Executor f16216h;
+    final Executor f15874h;
 
     /* renamed from: i */
-    public final boolean f16217i;
+    final boolean f15875i;
 
     /* renamed from: j */
-    public final boolean f16218j;
-
-    /* renamed from: k */
-    public final int f16219k;
-
-    /* renamed from: l */
-    public final int f16220l;
-
-    /* renamed from: m */
-    public final QueueProcessingType f16221m;
-
-    /* renamed from: n */
-    public final xe.c f16222n;
-
-    /* renamed from: o */
-    public final te.b f16223o;
-
-    /* renamed from: p */
-    public final ImageDownloader f16224p;
-
-    /* renamed from: q */
-    public final cf.b f16225q;
-
-    /* renamed from: r */
-    public final com.nostra13.universalimageloader.core.a f16226r;
-
-    /* renamed from: s */
-    public final ImageDownloader f16227s;
-
-    /* renamed from: t */
-    public final ImageDownloader f16228t;
+    final boolean f15876j;
+    final int k;
+    final int l;
+    final QueueProcessingType m;
+    final b.g.a.a.b.c n;
+    final b.g.a.a.a.b o;
+    final ImageDownloader p;
+    final com.nostra13.universalimageloader.core.h.b q;
+    final com.nostra13.universalimageloader.core.c r;
+    final ImageDownloader s;
+    final ImageDownloader t;
 
     public static class Builder {
-        public static final String A = "memoryCache() and memoryCacheSize() calls overlap each other";
-        public static final String B = "threadPoolSize(), threadPriority() and tasksProcessingOrder() calls can overlap taskExecutor() and taskExecutorForCachedImages() calls.";
-        public static final int C = 3;
-        public static final int D = 4;
-        public static final QueueProcessingType E = QueueProcessingType.FIFO;
-
-        /* renamed from: y */
-        public static final String f16229y = "diskCache(), diskCacheSize() and diskCacheFileCount calls overlap each other";
-
-        /* renamed from: z */
-        public static final String f16230z = "diskCache() and diskCacheFileNameGenerator() calls overlap each other";
 
         /* renamed from: a */
-        public Context f16231a;
-
-        /* renamed from: v */
-        public cf.b f16252v;
+        private static final String f15877a = "diskCache(), diskCacheSize() and diskCacheFileCount calls overlap each other";
 
         /* renamed from: b */
-        public int f16232b = 0;
+        private static final String f15878b = "diskCache() and diskCacheFileNameGenerator() calls overlap each other";
 
         /* renamed from: c */
-        public int f16233c = 0;
+        private static final String f15879c = "memoryCache() and memoryCacheSize() calls overlap each other";
 
         /* renamed from: d */
-        public int f16234d = 0;
+        private static final String f15880d = "threadPoolSize(), threadPriority() and tasksProcessingOrder() calls can overlap taskExecutor() and taskExecutorForCachedImages() calls.";
 
         /* renamed from: e */
-        public int f16235e = 0;
+        public static final int f15881e = 3;
 
         /* renamed from: f */
-        public gf.a f16236f = null;
+        public static final int f15882f = 4;
 
         /* renamed from: g */
-        public Executor f16237g = null;
+        public static final QueueProcessingType f15883g = QueueProcessingType.FIFO;
+        private com.nostra13.universalimageloader.core.h.b C;
 
         /* renamed from: h */
-        public Executor f16238h = null;
+        private Context f15884h;
 
         /* renamed from: i */
-        public boolean f16239i = false;
+        private int f15885i = 0;
 
         /* renamed from: j */
-        public boolean f16240j = false;
-
-        /* renamed from: k */
-        public int f16241k = 3;
-
-        /* renamed from: l */
-        public int f16242l = 4;
-
-        /* renamed from: m */
-        public boolean f16243m = false;
-
-        /* renamed from: n */
-        public QueueProcessingType f16244n = E;
-
-        /* renamed from: o */
-        public int f16245o = 0;
-
-        /* renamed from: p */
-        public long f16246p = 0;
-
-        /* renamed from: q */
-        public int f16247q = 0;
-
-        /* renamed from: r */
-        public xe.c f16248r = null;
-
-        /* renamed from: s */
-        public te.b f16249s = null;
-
-        /* renamed from: t */
-        public we.a f16250t = null;
-
-        /* renamed from: u */
-        public ImageDownloader f16251u = null;
-
-        /* renamed from: w */
-        public com.nostra13.universalimageloader.core.a f16253w = null;
-
-        /* renamed from: x */
-        public boolean f16254x = false;
+        private int f15886j = 0;
+        private int k = 0;
+        private int l = 0;
+        private com.nostra13.universalimageloader.core.l.a m = null;
+        private Executor n = null;
+        private Executor o = null;
+        private boolean p = false;
+        private boolean q = false;
+        private int r = 3;
+        private int s = 4;
+        private boolean t = false;
+        private QueueProcessingType u = f15883g;
+        private int v = 0;
+        private long w = 0;
+        private int x = 0;
+        private b.g.a.a.b.c y = null;
+        private b.g.a.a.a.b z = null;
+        private b.g.a.a.a.d.a A = null;
+        private ImageDownloader B = null;
+        private com.nostra13.universalimageloader.core.c D = null;
+        private boolean E = false;
 
         public Builder(Context context) {
-            this.f16231a = context.getApplicationContext();
+            this.f15884h = context.getApplicationContext();
+        }
+
+        private void I() {
+            if (this.n == null) {
+                this.n = com.nostra13.universalimageloader.core.a.c(this.r, this.s, this.u);
+            } else {
+                this.p = true;
+            }
+            if (this.o == null) {
+                this.o = com.nostra13.universalimageloader.core.a.c(this.r, this.s, this.u);
+            } else {
+                this.q = true;
+            }
+            if (this.z == null) {
+                if (this.A == null) {
+                    this.A = com.nostra13.universalimageloader.core.a.d();
+                }
+                this.z = com.nostra13.universalimageloader.core.a.b(this.f15884h, this.A, this.w, this.x);
+            }
+            if (this.y == null) {
+                this.y = com.nostra13.universalimageloader.core.a.g(this.v);
+            }
+            if (this.t) {
+                this.y = new b.g.a.a.b.e.b(this.y, b.g.a.b.e.a());
+            }
+            if (this.B == null) {
+                this.B = com.nostra13.universalimageloader.core.a.f(this.f15884h);
+            }
+            if (this.C == null) {
+                this.C = com.nostra13.universalimageloader.core.a.e(this.E);
+            }
+            if (this.D == null) {
+                this.D = com.nostra13.universalimageloader.core.c.t();
+            }
         }
 
         @Deprecated
-        public Builder A(int i10) {
-            return F(i10);
+        public Builder A(int i2) {
+            return F(i2);
         }
 
-        public Builder B(te.b bVar) {
-            if (this.f16246p > 0 || this.f16247q > 0) {
-                d.i(f16229y, new Object[0]);
+        public Builder B(b.g.a.a.a.b bVar) {
+            if (this.w > 0 || this.x > 0) {
+                b.g.a.b.d.i(f15877a, new Object[0]);
             }
-            if (this.f16250t != null) {
-                d.i(f16230z, new Object[0]);
+            if (this.A != null) {
+                b.g.a.b.d.i(f15878b, new Object[0]);
             }
-            this.f16249s = bVar;
+            this.z = bVar;
             return this;
         }
 
-        public Builder C(int i10, int i11, gf.a aVar) {
-            this.f16234d = i10;
-            this.f16235e = i11;
-            this.f16236f = aVar;
+        public Builder C(int i2, int i3, com.nostra13.universalimageloader.core.l.a aVar) {
+            this.k = i2;
+            this.l = i3;
+            this.m = aVar;
             return this;
         }
 
-        public Builder D(int i10) {
-            if (i10 <= 0) {
+        public Builder D(int i2) {
+            if (i2 <= 0) {
                 throw new IllegalArgumentException("maxFileCount must be a positive number");
             }
-            if (this.f16249s != null) {
-                d.i(f16229y, new Object[0]);
+            if (this.z != null) {
+                b.g.a.b.d.i(f15877a, new Object[0]);
             }
-            this.f16247q = i10;
+            this.x = i2;
             return this;
         }
 
-        public Builder E(we.a aVar) {
-            if (this.f16249s != null) {
-                d.i(f16230z, new Object[0]);
+        public Builder E(b.g.a.a.a.d.a aVar) {
+            if (this.z != null) {
+                b.g.a.b.d.i(f15878b, new Object[0]);
             }
-            this.f16250t = aVar;
+            this.A = aVar;
             return this;
         }
 
-        public Builder F(int i10) {
-            if (i10 <= 0) {
+        public Builder F(int i2) {
+            if (i2 <= 0) {
                 throw new IllegalArgumentException("maxCacheSize must be a positive number");
             }
-            if (this.f16249s != null) {
-                d.i(f16229y, new Object[0]);
+            if (this.z != null) {
+                b.g.a.b.d.i(f15877a, new Object[0]);
             }
-            this.f16246p = i10;
+            this.w = i2;
             return this;
         }
 
-        public Builder G(cf.b bVar) {
-            this.f16252v = bVar;
+        public Builder G(com.nostra13.universalimageloader.core.h.b bVar) {
+            this.C = bVar;
             return this;
         }
 
         public Builder H(ImageDownloader imageDownloader) {
-            this.f16251u = imageDownloader;
+            this.B = imageDownloader;
             return this;
         }
 
-        public final void I() {
-            if (this.f16237g == null) {
-                this.f16237g = ze.a.c(this.f16241k, this.f16242l, this.f16244n);
-            } else {
-                this.f16239i = true;
+        public Builder J(b.g.a.a.b.c cVar) {
+            if (this.v != 0) {
+                b.g.a.b.d.i(f15879c, new Object[0]);
             }
-            if (this.f16238h == null) {
-                this.f16238h = ze.a.c(this.f16241k, this.f16242l, this.f16244n);
-            } else {
-                this.f16240j = true;
-            }
-            if (this.f16249s == null) {
-                if (this.f16250t == null) {
-                    this.f16250t = ze.a.d();
-                }
-                this.f16249s = ze.a.b(this.f16231a, this.f16250t, this.f16246p, this.f16247q);
-            }
-            if (this.f16248r == null) {
-                this.f16248r = ze.a.g(this.f16245o);
-            }
-            if (this.f16243m) {
-                this.f16248r = new ye.b(this.f16248r, e.a());
-            }
-            if (this.f16251u == null) {
-                this.f16251u = ze.a.f(this.f16231a);
-            }
-            if (this.f16252v == null) {
-                this.f16252v = ze.a.e(this.f16254x);
-            }
-            if (this.f16253w == null) {
-                this.f16253w = com.nostra13.universalimageloader.core.a.t();
-            }
-        }
-
-        public Builder J(xe.c cVar) {
-            if (this.f16245o != 0) {
-                d.i(A, new Object[0]);
-            }
-            this.f16248r = cVar;
+            this.y = cVar;
             return this;
         }
 
-        public Builder K(int i10, int i11) {
-            this.f16232b = i10;
-            this.f16233c = i11;
+        public Builder K(int i2, int i3) {
+            this.f15885i = i2;
+            this.f15886j = i3;
             return this;
         }
 
-        public Builder L(int i10) {
-            if (i10 <= 0) {
+        public Builder L(int i2) {
+            if (i2 <= 0) {
                 throw new IllegalArgumentException("memoryCacheSize must be a positive number");
             }
-            if (this.f16248r != null) {
-                d.i(A, new Object[0]);
+            if (this.y != null) {
+                b.g.a.b.d.i(f15879c, new Object[0]);
             }
-            this.f16245o = i10;
+            this.v = i2;
             return this;
         }
 
-        public Builder M(int i10) {
-            if (i10 <= 0 || i10 >= 100) {
+        public Builder M(int i2) {
+            if (i2 <= 0 || i2 >= 100) {
                 throw new IllegalArgumentException("availableMemoryPercent must be in range (0 < % < 100)");
             }
-            if (this.f16248r != null) {
-                d.i(A, new Object[0]);
+            if (this.y != null) {
+                b.g.a.b.d.i(f15879c, new Object[0]);
             }
-            this.f16245o = (int) (Runtime.getRuntime().maxMemory() * (i10 / 100.0f));
+            this.v = (int) (Runtime.getRuntime().maxMemory() * (i2 / 100.0f));
             return this;
         }
 
         public Builder N(Executor executor) {
-            if (this.f16241k != 3 || this.f16242l != 4 || this.f16244n != E) {
-                d.i(B, new Object[0]);
+            if (this.r != 3 || this.s != 4 || this.u != f15883g) {
+                b.g.a.b.d.i(f15880d, new Object[0]);
             }
-            this.f16237g = executor;
+            this.n = executor;
             return this;
         }
 
         public Builder O(Executor executor) {
-            if (this.f16241k != 3 || this.f16242l != 4 || this.f16244n != E) {
-                d.i(B, new Object[0]);
+            if (this.r != 3 || this.s != 4 || this.u != f15883g) {
+                b.g.a.b.d.i(f15880d, new Object[0]);
             }
-            this.f16238h = executor;
+            this.o = executor;
             return this;
         }
 
         public Builder P(QueueProcessingType queueProcessingType) {
-            if (this.f16237g != null || this.f16238h != null) {
-                d.i(B, new Object[0]);
+            if (this.n != null || this.o != null) {
+                b.g.a.b.d.i(f15880d, new Object[0]);
             }
-            this.f16244n = queueProcessingType;
+            this.u = queueProcessingType;
             return this;
         }
 
-        public Builder Q(int i10) {
-            if (this.f16237g != null || this.f16238h != null) {
-                d.i(B, new Object[0]);
+        public Builder Q(int i2) {
+            if (this.n != null || this.o != null) {
+                b.g.a.b.d.i(f15880d, new Object[0]);
             }
-            this.f16241k = i10;
+            this.r = i2;
             return this;
         }
 
-        public Builder R(int i10) {
-            if (this.f16237g != null || this.f16238h != null) {
-                d.i(B, new Object[0]);
+        public Builder R(int i2) {
+            if (this.n != null || this.o != null) {
+                b.g.a.b.d.i(f15880d, new Object[0]);
             }
-            if (i10 < 1) {
-                this.f16242l = 1;
-            } else if (i10 > 10) {
-                this.f16242l = 10;
+            if (i2 < 1) {
+                this.s = 1;
+            } else if (i2 > 10) {
+                this.s = 10;
             } else {
-                this.f16242l = i10;
+                this.s = i2;
             }
             return this;
         }
 
         public Builder S() {
-            this.f16254x = true;
+            this.E = true;
             return this;
         }
 
@@ -352,93 +298,93 @@ public final class ImageLoaderConfiguration {
             return new ImageLoaderConfiguration(this, null);
         }
 
-        public Builder u(com.nostra13.universalimageloader.core.a aVar) {
-            this.f16253w = aVar;
+        public Builder u(com.nostra13.universalimageloader.core.c cVar) {
+            this.D = cVar;
             return this;
         }
 
         public Builder v() {
-            this.f16243m = true;
+            this.t = true;
             return this;
         }
 
         @Deprecated
-        public Builder w(te.b bVar) {
+        public Builder w(b.g.a.a.a.b bVar) {
             return B(bVar);
         }
 
         @Deprecated
-        public Builder x(int i10, int i11, gf.a aVar) {
-            return C(i10, i11, aVar);
+        public Builder x(int i2, int i3, com.nostra13.universalimageloader.core.l.a aVar) {
+            return C(i2, i3, aVar);
         }
 
         @Deprecated
-        public Builder y(int i10) {
-            return D(i10);
+        public Builder y(int i2) {
+            return D(i2);
         }
 
         @Deprecated
-        public Builder z(we.a aVar) {
+        public Builder z(b.g.a.a.a.d.a aVar) {
             return E(aVar);
         }
     }
 
-    public static /* synthetic */ class a {
+    static /* synthetic */ class a {
 
         /* renamed from: a */
-        public static final /* synthetic */ int[] f16255a;
+        static final /* synthetic */ int[] f15887a;
 
         static {
             int[] iArr = new int[ImageDownloader.Scheme.values().length];
-            f16255a = iArr;
+            f15887a = iArr;
             try {
                 iArr[ImageDownloader.Scheme.HTTP.ordinal()] = 1;
             } catch (NoSuchFieldError unused) {
             }
             try {
-                f16255a[ImageDownloader.Scheme.HTTPS.ordinal()] = 2;
+                f15887a[ImageDownloader.Scheme.HTTPS.ordinal()] = 2;
             } catch (NoSuchFieldError unused2) {
             }
         }
     }
 
-    public static class b implements ImageDownloader {
+    private static class b implements ImageDownloader {
 
         /* renamed from: a */
-        public final ImageDownloader f16256a;
+        private final ImageDownloader f15888a;
 
         public b(ImageDownloader imageDownloader) {
-            this.f16256a = imageDownloader;
+            this.f15888a = imageDownloader;
         }
 
         @Override // com.nostra13.universalimageloader.core.download.ImageDownloader
         public InputStream getStream(String str, Object obj) throws IOException {
-            int i10 = a.f16255a[ImageDownloader.Scheme.ofUri(str).ordinal()];
-            if (i10 == 1 || i10 == 2) {
+            int i2 = a.f15887a[ImageDownloader.Scheme.ofUri(str).ordinal()];
+            if (i2 == 1 || i2 == 2) {
                 throw new IllegalStateException();
             }
-            return this.f16256a.getStream(str, obj);
+            return this.f15888a.getStream(str, obj);
         }
     }
 
-    public static class c implements ImageDownloader {
+    private static class c implements ImageDownloader {
 
         /* renamed from: a */
-        public final ImageDownloader f16257a;
+        private final ImageDownloader f15889a;
 
         public c(ImageDownloader imageDownloader) {
-            this.f16257a = imageDownloader;
+            this.f15889a = imageDownloader;
         }
 
         @Override // com.nostra13.universalimageloader.core.download.ImageDownloader
         public InputStream getStream(String str, Object obj) throws IOException {
-            InputStream stream = this.f16257a.getStream(str, obj);
-            int i10 = a.f16255a[ImageDownloader.Scheme.ofUri(str).ordinal()];
-            return (i10 == 1 || i10 == 2) ? new af.b(stream) : stream;
+            InputStream stream = this.f15889a.getStream(str, obj);
+            int i2 = a.f15887a[ImageDownloader.Scheme.ofUri(str).ordinal()];
+            return (i2 == 1 || i2 == 2) ? new com.nostra13.universalimageloader.core.assist.b(stream) : stream;
         }
     }
 
-    public /* synthetic */ ImageLoaderConfiguration(Builder builder, a aVar) {
+    /* synthetic */ ImageLoaderConfiguration(Builder builder, a aVar) {
         this(builder);
     }
 
@@ -446,41 +392,41 @@ public final class ImageLoaderConfiguration {
         return new Builder(context).t();
     }
 
-    public af.c b() {
-        DisplayMetrics displayMetrics = this.f16209a.getDisplayMetrics();
-        int i10 = this.f16210b;
-        if (i10 <= 0) {
-            i10 = displayMetrics.widthPixels;
+    com.nostra13.universalimageloader.core.assist.c b() {
+        DisplayMetrics displayMetrics = this.f15867a.getDisplayMetrics();
+        int i2 = this.f15868b;
+        if (i2 <= 0) {
+            i2 = displayMetrics.widthPixels;
         }
-        int i11 = this.f16211c;
-        if (i11 <= 0) {
-            i11 = displayMetrics.heightPixels;
+        int i3 = this.f15869c;
+        if (i3 <= 0) {
+            i3 = displayMetrics.heightPixels;
         }
-        return new af.c(i10, i11);
+        return new com.nostra13.universalimageloader.core.assist.c(i2, i3);
     }
 
-    public ImageLoaderConfiguration(Builder builder) {
-        this.f16209a = builder.f16231a.getResources();
-        this.f16210b = builder.f16232b;
-        this.f16211c = builder.f16233c;
-        this.f16212d = builder.f16234d;
-        this.f16213e = builder.f16235e;
-        this.f16214f = builder.f16236f;
-        this.f16215g = builder.f16237g;
-        this.f16216h = builder.f16238h;
-        this.f16219k = builder.f16241k;
-        this.f16220l = builder.f16242l;
-        this.f16221m = builder.f16244n;
-        this.f16223o = builder.f16249s;
-        this.f16222n = builder.f16248r;
-        this.f16226r = builder.f16253w;
-        ImageDownloader imageDownloader = builder.f16251u;
-        this.f16224p = imageDownloader;
-        this.f16225q = builder.f16252v;
-        this.f16217i = builder.f16239i;
-        this.f16218j = builder.f16240j;
-        this.f16227s = new b(imageDownloader);
-        this.f16228t = new c(imageDownloader);
-        d.j(builder.f16254x);
+    private ImageLoaderConfiguration(Builder builder) {
+        this.f15867a = builder.f15884h.getResources();
+        this.f15868b = builder.f15885i;
+        this.f15869c = builder.f15886j;
+        this.f15870d = builder.k;
+        this.f15871e = builder.l;
+        this.f15872f = builder.m;
+        this.f15873g = builder.n;
+        this.f15874h = builder.o;
+        this.k = builder.r;
+        this.l = builder.s;
+        this.m = builder.u;
+        this.o = builder.z;
+        this.n = builder.y;
+        this.r = builder.D;
+        ImageDownloader imageDownloader = builder.B;
+        this.p = imageDownloader;
+        this.q = builder.C;
+        this.f15875i = builder.p;
+        this.f15876j = builder.q;
+        this.s = new b(imageDownloader);
+        this.t = new c(imageDownloader);
+        b.g.a.b.d.j(builder.E);
     }
 }

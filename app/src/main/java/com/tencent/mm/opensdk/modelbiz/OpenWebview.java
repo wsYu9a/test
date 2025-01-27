@@ -15,7 +15,7 @@ public class OpenWebview {
         @Override // com.tencent.mm.opensdk.modelbase.BaseReq
         public boolean checkArgs() {
             String str = this.url;
-            return str != null && str.length() >= 0 && this.url.length() <= 10240;
+            return str != null && str.length() >= 0 && this.url.length() <= MAX_URL_LENGHT;
         }
 
         @Override // com.tencent.mm.opensdk.modelbase.BaseReq
@@ -42,6 +42,10 @@ public class OpenWebview {
         public Resp() {
         }
 
+        public Resp(Bundle bundle) {
+            fromBundle(bundle);
+        }
+
         @Override // com.tencent.mm.opensdk.modelbase.BaseResp
         public boolean checkArgs() {
             return true;
@@ -62,10 +66,6 @@ public class OpenWebview {
         public void toBundle(Bundle bundle) {
             super.toBundle(bundle);
             bundle.putString("_wxapi_open_webview_result", this.result);
-        }
-
-        public Resp(Bundle bundle) {
-            fromBundle(bundle);
         }
     }
 }

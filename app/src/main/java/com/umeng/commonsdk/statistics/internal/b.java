@@ -8,5 +8,5 @@ public interface b {
 
     void onRequestStart();
 
-    void onRequestSucceed(boolean z10);
+    void onRequestSucceed(boolean z);
 }

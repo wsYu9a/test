@@ -1,20 +1,16 @@
 package com.kwad.sdk.core.imageloader;
 
 import android.content.Context;
-import android.graphics.Bitmap;
 import android.widget.ImageView;
 import androidx.annotation.NonNull;
 import com.kwad.sdk.api.core.fragment.KsFragment;
 import com.kwad.sdk.core.imageloader.core.DisplayImageOptionsCompat;
 import com.kwad.sdk.core.imageloader.core.listener.ImageLoadingListener;
-import com.kwad.sdk.service.a.i;
-import java.io.File;
+import com.kwad.sdk.service.kwai.g;
 
-/* loaded from: classes3.dex */
-public interface IImageLoader extends i {
+/* loaded from: classes2.dex */
+public interface IImageLoader extends g {
     void clearMemory(Context context);
-
-    File isImageExistOnDisk(String str);
 
     void load(@NonNull Context context, String str, ImageView imageView, DisplayImageOptionsCompat displayImageOptionsCompat, ImageLoadingListener imageLoadingListener);
 
@@ -24,11 +20,7 @@ public interface IImageLoader extends i {
 
     void load(KsFragment ksFragment, Context context, String str, DisplayImageOptionsCompat displayImageOptionsCompat, ImageLoadingListener imageLoadingListener);
 
-    Bitmap loadImageSync(String str);
-
     void pause();
 
     void resume();
-
-    void setCacheSize(int i10);
 }

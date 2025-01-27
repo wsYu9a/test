@@ -11,7 +11,7 @@ import com.bumptech.glide.util.Preconditions;
 import java.security.MessageDigest;
 
 @Deprecated
-/* loaded from: classes2.dex */
+/* loaded from: classes.dex */
 public class BitmapDrawableTransformation implements Transformation<BitmapDrawable> {
     private final Transformation<Drawable> wrapped;
 
@@ -46,8 +46,8 @@ public class BitmapDrawableTransformation implements Transformation<BitmapDrawab
 
     @Override // com.bumptech.glide.load.Transformation
     @NonNull
-    public Resource<BitmapDrawable> transform(@NonNull Context context, @NonNull Resource<BitmapDrawable> resource, int i10, int i11) {
-        return convertToBitmapDrawableResource(this.wrapped.transform(context, convertToDrawableResource(resource), i10, i11));
+    public Resource<BitmapDrawable> transform(@NonNull Context context, @NonNull Resource<BitmapDrawable> resource, int i2, int i3) {
+        return convertToBitmapDrawableResource(this.wrapped.transform(context, convertToDrawableResource(resource), i2, i3));
     }
 
     @Override // com.bumptech.glide.load.Key

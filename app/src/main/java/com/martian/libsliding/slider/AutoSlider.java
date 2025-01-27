@@ -1,15 +1,13 @@
 package com.martian.libsliding.slider;
 
-import aa.b;
-
 /* loaded from: classes3.dex */
 public abstract class AutoSlider extends b {
 
     /* renamed from: h */
-    public SlideStatus f12938h;
+    protected SlideStatus f10524h;
 
     /* renamed from: i */
-    public int f12939i;
+    protected int f10525i;
 
     public enum SlideStatus {
         SS_STOP,
@@ -19,77 +17,77 @@ public abstract class AutoSlider extends b {
 
     public abstract boolean A();
 
-    public abstract boolean B();
+    protected abstract void B(int speed);
 
-    public abstract void C(int i10);
+    public abstract boolean C();
 
     public abstract boolean D();
 
-    public abstract boolean E();
+    public boolean E() {
+        if (this.f10524h != SlideStatus.SS_START || !z()) {
+            return false;
+        }
+        this.f10524h = SlideStatus.SS_PAUSE;
+        return true;
+    }
 
     public boolean F() {
-        if (this.f12938h != SlideStatus.SS_START || !A()) {
+        if (this.f10524h != SlideStatus.SS_PAUSE || !A()) {
             return false;
         }
-        this.f12938h = SlideStatus.SS_PAUSE;
+        this.f10524h = SlideStatus.SS_START;
         return true;
     }
 
-    public boolean G() {
-        if (this.f12938h != SlideStatus.SS_PAUSE || !B()) {
-            return false;
-        }
-        this.f12938h = SlideStatus.SS_START;
-        return true;
-    }
-
-    public void H() {
-        SlideStatus slideStatus = this.f12938h;
+    public void G() {
+        SlideStatus slideStatus = this.f10524h;
         if (slideStatus == SlideStatus.SS_START) {
-            F();
+            E();
         } else if (slideStatus == SlideStatus.SS_PAUSE) {
-            G();
+            F();
         }
     }
 
-    public void I(int i10, boolean z10) {
-        this.f12939i = i10;
-        C(i10);
-        if (z10) {
-            this.f12938h = SlideStatus.SS_PAUSE;
-            G();
+    public void H(int speed, boolean resume) {
+        this.f10525i = speed;
+        B(speed);
+        if (resume) {
+            this.f10524h = SlideStatus.SS_PAUSE;
+            F();
         }
+    }
+
+    public boolean I() {
+        SlideStatus slideStatus = this.f10524h;
+        SlideStatus slideStatus2 = SlideStatus.SS_START;
+        if (slideStatus == slideStatus2 || !C()) {
+            return false;
+        }
+        this.f10524h = slideStatus2;
+        return true;
     }
 
     public boolean J() {
-        SlideStatus slideStatus = this.f12938h;
-        SlideStatus slideStatus2 = SlideStatus.SS_START;
+        SlideStatus slideStatus = this.f10524h;
+        SlideStatus slideStatus2 = SlideStatus.SS_STOP;
         if (slideStatus == slideStatus2 || !D()) {
             return false;
         }
-        this.f12938h = slideStatus2;
+        this.f10524h = slideStatus2;
         return true;
     }
 
-    public boolean K() {
-        SlideStatus slideStatus = this.f12938h;
-        SlideStatus slideStatus2 = SlideStatus.SS_STOP;
-        if (slideStatus == slideStatus2 || !E()) {
-            return false;
-        }
-        this.f12938h = slideStatus2;
-        return true;
+    public SlideStatus w() {
+        return this.f10524h;
     }
 
-    public SlideStatus x() {
-        return this.f12938h;
+    public boolean x() {
+        return this.f10524h == SlideStatus.SS_START;
     }
 
     public boolean y() {
-        return this.f12938h == SlideStatus.SS_START;
+        return this.f10524h == SlideStatus.SS_STOP;
     }
 
-    public boolean z() {
-        return this.f12938h == SlideStatus.SS_STOP;
-    }
+    public abstract boolean z();
 }

@@ -18,6 +18,21 @@ public class WXImageObject implements WXMediaMessage.IMediaObject {
     public WXImageObject() {
     }
 
+    public WXImageObject(Bitmap bitmap) {
+        try {
+            ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
+            bitmap.compress(Bitmap.CompressFormat.JPEG, 85, byteArrayOutputStream);
+            this.imageData = byteArrayOutputStream.toByteArray();
+            byteArrayOutputStream.close();
+        } catch (Exception e2) {
+            Log.e(TAG, "WXImageObject <init>, exception:" + e2.getMessage());
+        }
+    }
+
+    public WXImageObject(byte[] bArr) {
+        this.imageData = bArr;
+    }
+
     private int getFileSize(String str) {
         return b.a(str);
     }
@@ -33,7 +48,7 @@ public class WXImageObject implements WXMediaMessage.IMediaObject {
             byte[] bArr2 = this.imageData;
             if (bArr2 == null || bArr2.length <= CONTENT_LENGTH_LIMIT) {
                 String str3 = this.imagePath;
-                if (str3 == null || str3.length() <= 10240) {
+                if (str3 == null || str3.length() <= PATH_LENGTH_LIMIT) {
                     String str4 = this.imagePath;
                     if (str4 == null || getFileSize(str4) <= CONTENT_LENGTH_LIMIT) {
                         return true;
@@ -69,20 +84,5 @@ public class WXImageObject implements WXMediaMessage.IMediaObject {
     public void unserialize(Bundle bundle) {
         this.imageData = bundle.getByteArray("_wximageobject_imageData");
         this.imagePath = bundle.getString("_wximageobject_imagePath");
-    }
-
-    public WXImageObject(Bitmap bitmap) {
-        try {
-            ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
-            bitmap.compress(Bitmap.CompressFormat.JPEG, 85, byteArrayOutputStream);
-            this.imageData = byteArrayOutputStream.toByteArray();
-            byteArrayOutputStream.close();
-        } catch (Exception e10) {
-            Log.e(TAG, "WXImageObject <init>, exception:" + e10.getMessage());
-        }
-    }
-
-    public WXImageObject(byte[] bArr) {
-        this.imageData = bArr;
     }
 }

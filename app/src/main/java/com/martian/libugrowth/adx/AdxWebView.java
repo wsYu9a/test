@@ -6,21 +6,18 @@ import android.net.Uri;
 import android.util.AttributeSet;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
+import org.apache.http.HttpHost;
 
 /* loaded from: classes3.dex */
 public class AdxWebView extends WebView {
 
-    public static class a extends WebViewClient {
-        public /* synthetic */ a(ia.a aVar) {
-            this();
+    private static class b extends WebViewClient {
+        private b() {
         }
 
         @Override // android.webkit.WebViewClient
-        public boolean shouldOverrideUrlLoading(WebView webView, String str) {
-            return !AdxWebView.c(str);
-        }
-
-        public a() {
+        public boolean shouldOverrideUrlLoading(WebView view, String url) {
+            return !AdxWebView.c(url);
         }
     }
 
@@ -29,30 +26,31 @@ public class AdxWebView extends WebView {
         b();
     }
 
-    public static boolean c(String str) {
-        if (str == null) {
+    /* JADX INFO: Access modifiers changed from: private */
+    public static boolean c(final String url) {
+        if (url == null) {
             return false;
         }
-        if (str.startsWith("about:blank") || str.isEmpty()) {
+        if (url.startsWith("about:blank") || url.equals("")) {
             return true;
         }
-        String scheme = Uri.parse(str).getScheme();
-        return "http".equalsIgnoreCase(scheme) || "https".equalsIgnoreCase(scheme);
+        String scheme = Uri.parse(url).getScheme();
+        return HttpHost.DEFAULT_SCHEME_NAME.equalsIgnoreCase(scheme) || b.b.a.b.b.f4198a.equalsIgnoreCase(scheme);
     }
 
     @SuppressLint({"SetJavaScriptEnabled"})
-    public void b() {
+    protected void b() {
         getSettings().setJavaScriptEnabled(true);
-        setWebViewClient(new a());
+        setWebViewClient(new b());
     }
 
-    public AdxWebView(Context context, AttributeSet attributeSet) {
-        super(context, attributeSet);
+    public AdxWebView(Context context, AttributeSet attrs) {
+        super(context, attrs);
         b();
     }
 
-    public AdxWebView(Context context, AttributeSet attributeSet, int i10) {
-        super(context, attributeSet, i10);
+    public AdxWebView(Context context, AttributeSet attrs, int defStyleAttr) {
+        super(context, attrs, defStyleAttr);
         b();
     }
 }

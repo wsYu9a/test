@@ -10,103 +10,77 @@ public class StrategyBean implements Parcelable {
     public static final Parcelable.Creator<StrategyBean> CREATOR = new a();
 
     /* renamed from: a */
-    public static String f22337a = "https://android.bugly.qq.com/rqd/async";
+    public static String f24763a = "https://android.bugly.qq.com/rqd/async";
 
     /* renamed from: b */
-    public static String f22338b = "https://android.bugly.qq.com/rqd/async";
+    public static String f24764b = "https://android.bugly.qq.com/rqd/async";
 
     /* renamed from: c */
-    public static String f22339c;
+    public static String f24765c;
 
     /* renamed from: d */
-    public long f22340d;
+    public long f24766d;
 
     /* renamed from: e */
-    public long f22341e;
+    public long f24767e;
 
     /* renamed from: f */
-    public boolean f22342f;
+    public boolean f24768f;
 
     /* renamed from: g */
-    public boolean f22343g;
+    public boolean f24769g;
 
     /* renamed from: h */
-    public boolean f22344h;
+    public boolean f24770h;
 
     /* renamed from: i */
-    public boolean f22345i;
+    public boolean f24771i;
 
     /* renamed from: j */
-    public boolean f22346j;
-
-    /* renamed from: k */
-    public boolean f22347k;
-
-    /* renamed from: l */
-    public boolean f22348l;
-
-    /* renamed from: m */
-    public boolean f22349m;
-
-    /* renamed from: n */
-    public boolean f22350n;
-
-    /* renamed from: o */
-    public long f22351o;
-
-    /* renamed from: p */
-    public long f22352p;
-
-    /* renamed from: q */
-    public String f22353q;
-
-    /* renamed from: r */
-    public String f22354r;
-
-    /* renamed from: s */
-    public String f22355s;
-
-    /* renamed from: t */
-    public Map<String, String> f22356t;
-
-    /* renamed from: u */
-    public int f22357u;
-
-    /* renamed from: v */
-    public long f22358v;
-
-    /* renamed from: w */
-    public long f22359w;
+    public boolean f24772j;
+    public boolean k;
+    public boolean l;
+    public boolean m;
+    public boolean n;
+    public long o;
+    public long p;
+    public String q;
+    public String r;
+    public String s;
+    public Map<String, String> t;
+    public int u;
+    public long v;
+    public long w;
 
     public StrategyBean() {
-        this.f22340d = -1L;
-        this.f22341e = -1L;
-        this.f22342f = true;
-        this.f22343g = true;
-        this.f22344h = true;
-        this.f22345i = true;
-        this.f22346j = false;
-        this.f22347k = true;
-        this.f22348l = true;
-        this.f22349m = true;
-        this.f22350n = true;
-        this.f22352p = 30000L;
-        this.f22353q = f22337a;
-        this.f22354r = f22338b;
-        this.f22357u = 10;
-        this.f22358v = 300000L;
-        this.f22359w = -1L;
-        this.f22341e = System.currentTimeMillis();
-        StringBuilder sb2 = new StringBuilder();
-        sb2.append("S(");
-        sb2.append("@L@L");
-        sb2.append("@)");
-        f22339c = sb2.toString();
-        sb2.setLength(0);
-        sb2.append("*^");
-        sb2.append("@K#K");
-        sb2.append("@!");
-        this.f22355s = sb2.toString();
+        this.f24766d = -1L;
+        this.f24767e = -1L;
+        this.f24768f = true;
+        this.f24769g = true;
+        this.f24770h = true;
+        this.f24771i = true;
+        this.f24772j = false;
+        this.k = true;
+        this.l = true;
+        this.m = true;
+        this.n = true;
+        this.p = 30000L;
+        this.q = f24763a;
+        this.r = f24764b;
+        this.u = 10;
+        this.v = com.alipay.mobilesecuritysdk.constant.a.k;
+        this.w = -1L;
+        this.f24767e = System.currentTimeMillis();
+        StringBuilder sb = new StringBuilder();
+        sb.append("S(");
+        sb.append("@L@L");
+        sb.append("@)");
+        f24765c = sb.toString();
+        sb.setLength(0);
+        sb.append("*^");
+        sb.append("@K#K");
+        sb.append("@!");
+        this.s = sb.toString();
     }
 
     @Override // android.os.Parcelable
@@ -115,77 +89,77 @@ public class StrategyBean implements Parcelable {
     }
 
     @Override // android.os.Parcelable
-    public void writeToParcel(Parcel parcel, int i10) {
-        parcel.writeLong(this.f22341e);
-        parcel.writeByte(this.f22342f ? (byte) 1 : (byte) 0);
-        parcel.writeByte(this.f22343g ? (byte) 1 : (byte) 0);
-        parcel.writeByte(this.f22344h ? (byte) 1 : (byte) 0);
-        parcel.writeString(this.f22353q);
-        parcel.writeString(this.f22354r);
-        parcel.writeString(this.f22355s);
-        ca.b(parcel, this.f22356t);
-        parcel.writeByte(this.f22345i ? (byte) 1 : (byte) 0);
-        parcel.writeByte(this.f22346j ? (byte) 1 : (byte) 0);
-        parcel.writeByte(this.f22349m ? (byte) 1 : (byte) 0);
-        parcel.writeByte(this.f22350n ? (byte) 1 : (byte) 0);
-        parcel.writeLong(this.f22352p);
-        parcel.writeByte(this.f22347k ? (byte) 1 : (byte) 0);
-        parcel.writeByte(this.f22348l ? (byte) 1 : (byte) 0);
-        parcel.writeLong(this.f22351o);
-        parcel.writeInt(this.f22357u);
-        parcel.writeLong(this.f22358v);
-        parcel.writeLong(this.f22359w);
+    public void writeToParcel(Parcel parcel, int i2) {
+        parcel.writeLong(this.f24767e);
+        parcel.writeByte(this.f24768f ? (byte) 1 : (byte) 0);
+        parcel.writeByte(this.f24769g ? (byte) 1 : (byte) 0);
+        parcel.writeByte(this.f24770h ? (byte) 1 : (byte) 0);
+        parcel.writeString(this.q);
+        parcel.writeString(this.r);
+        parcel.writeString(this.s);
+        ca.b(parcel, this.t);
+        parcel.writeByte(this.f24771i ? (byte) 1 : (byte) 0);
+        parcel.writeByte(this.f24772j ? (byte) 1 : (byte) 0);
+        parcel.writeByte(this.m ? (byte) 1 : (byte) 0);
+        parcel.writeByte(this.n ? (byte) 1 : (byte) 0);
+        parcel.writeLong(this.p);
+        parcel.writeByte(this.k ? (byte) 1 : (byte) 0);
+        parcel.writeByte(this.l ? (byte) 1 : (byte) 0);
+        parcel.writeLong(this.o);
+        parcel.writeInt(this.u);
+        parcel.writeLong(this.v);
+        parcel.writeLong(this.w);
     }
 
     public StrategyBean(Parcel parcel) {
-        this.f22340d = -1L;
-        this.f22341e = -1L;
-        boolean z10 = true;
-        this.f22342f = true;
-        this.f22343g = true;
-        this.f22344h = true;
-        this.f22345i = true;
-        this.f22346j = false;
-        this.f22347k = true;
-        this.f22348l = true;
-        this.f22349m = true;
-        this.f22350n = true;
-        this.f22352p = 30000L;
-        this.f22353q = f22337a;
-        this.f22354r = f22338b;
-        this.f22357u = 10;
-        this.f22358v = 300000L;
-        this.f22359w = -1L;
+        this.f24766d = -1L;
+        this.f24767e = -1L;
+        boolean z = true;
+        this.f24768f = true;
+        this.f24769g = true;
+        this.f24770h = true;
+        this.f24771i = true;
+        this.f24772j = false;
+        this.k = true;
+        this.l = true;
+        this.m = true;
+        this.n = true;
+        this.p = 30000L;
+        this.q = f24763a;
+        this.r = f24764b;
+        this.u = 10;
+        this.v = com.alipay.mobilesecuritysdk.constant.a.k;
+        this.w = -1L;
         try {
-            StringBuilder sb2 = new StringBuilder();
-            sb2.append("S(");
-            sb2.append("@L@L");
-            sb2.append("@)");
-            f22339c = sb2.toString();
-            this.f22341e = parcel.readLong();
-            this.f22342f = parcel.readByte() == 1;
-            this.f22343g = parcel.readByte() == 1;
-            this.f22344h = parcel.readByte() == 1;
-            this.f22353q = parcel.readString();
-            this.f22354r = parcel.readString();
-            this.f22355s = parcel.readString();
-            this.f22356t = ca.b(parcel);
-            this.f22345i = parcel.readByte() == 1;
-            this.f22346j = parcel.readByte() == 1;
-            this.f22349m = parcel.readByte() == 1;
-            this.f22350n = parcel.readByte() == 1;
-            this.f22352p = parcel.readLong();
-            this.f22347k = parcel.readByte() == 1;
+            StringBuilder sb = new StringBuilder();
+            sb.append("S(");
+            sb.append("@L@L");
+            sb.append("@)");
+            f24765c = sb.toString();
+            this.f24767e = parcel.readLong();
+            this.f24768f = parcel.readByte() == 1;
+            this.f24769g = parcel.readByte() == 1;
+            this.f24770h = parcel.readByte() == 1;
+            this.q = parcel.readString();
+            this.r = parcel.readString();
+            this.s = parcel.readString();
+            this.t = ca.b(parcel);
+            this.f24771i = parcel.readByte() == 1;
+            this.f24772j = parcel.readByte() == 1;
+            this.m = parcel.readByte() == 1;
+            this.n = parcel.readByte() == 1;
+            this.p = parcel.readLong();
+            this.k = parcel.readByte() == 1;
             if (parcel.readByte() != 1) {
-                z10 = false;
+                z = false;
             }
-            this.f22348l = z10;
-            this.f22351o = parcel.readLong();
-            this.f22357u = parcel.readInt();
-            this.f22358v = parcel.readLong();
-            this.f22359w = parcel.readLong();
-        } catch (Exception e10) {
-            e10.printStackTrace();
+            this.l = z;
+            this.o = parcel.readLong();
+            this.u = parcel.readInt();
+            this.v = parcel.readLong();
+            this.w = parcel.readLong();
+        } catch (Exception e2) {
+            e2.printStackTrace();
         }
     }
 }

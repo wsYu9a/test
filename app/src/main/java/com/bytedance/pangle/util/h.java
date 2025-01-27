@@ -10,7 +10,7 @@ import java.nio.channels.FileChannel;
 import java.nio.channels.ReadableByteChannel;
 import java.nio.channels.WritableByteChannel;
 
-/* loaded from: classes2.dex */
+/* loaded from: classes.dex */
 public final class h {
     public static void a(String str, String str2) {
         if (TextUtils.isEmpty(str) || TextUtils.isEmpty(str2)) {
@@ -34,7 +34,7 @@ public final class h {
         }
     }
 
-    public static boolean a(String str, File file, StringBuilder sb2) {
+    public static boolean a(String str, File file, StringBuilder sb) {
         try {
             FileOutputStream fileOutputStream = new FileOutputStream(file);
             FileChannel channel = fileOutputStream.getChannel();
@@ -42,8 +42,8 @@ public final class h {
             channel.close();
             fileOutputStream.close();
             return true;
-        } catch (IOException e10) {
-            sb2.append(e10.getMessage());
+        } catch (IOException e2) {
+            sb.append(e2.getMessage());
             return false;
         }
     }

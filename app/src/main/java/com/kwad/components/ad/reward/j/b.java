@@ -1,67 +1,124 @@
 package com.kwad.components.ad.reward.j;
 
-import android.content.Context;
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import com.kwad.components.ad.reward.monitor.c;
-import com.kwad.sdk.core.response.b.e;
-import com.kwad.sdk.core.response.model.AdTemplate;
-import com.kwad.sdk.core.track.AdTrackLog;
-import org.json.JSONObject;
+import com.kwad.components.core.video.i;
+import com.kwad.components.offline.api.core.adlive.IAdLivePlayModule;
+import com.kwad.components.offline.api.core.adlive.listener.AdLivePlayStateListener;
 
-/* loaded from: classes2.dex */
+/* loaded from: classes.dex */
 public final class b {
 
-    /* renamed from: com.kwad.components.ad.reward.j.b$1 */
-    public class AnonymousClass1 implements com.kwad.sdk.f.a<AdTrackLog> {
-        final /* synthetic */ Context hB;
-        final /* synthetic */ int yD;
+    @Nullable
+    private IAdLivePlayModule eV;
 
-        public AnonymousClass1(Context context, int i10) {
-            context = context;
-            i10 = i10;
+    @NonNull
+    private a gU;
+    private int xD = 0;
+
+    public b(@NonNull a aVar) {
+        this.gU = aVar;
+    }
+
+    public final void a(@Nullable i iVar, @Nullable AdLivePlayStateListener adLivePlayStateListener) {
+        if (!jF()) {
+            this.gU.a(iVar);
+            return;
         }
-
-        @Override // com.kwad.sdk.f.a
-        /* renamed from: a */
-        public void accept(AdTrackLog adTrackLog) {
-            adTrackLog.rewardDetailStatusBarHeight = com.kwad.sdk.c.a.a.getStatusBarHeight(context);
-            adTrackLog.rewardDetailCallPositionY = i10;
+        IAdLivePlayModule iAdLivePlayModule = this.eV;
+        if (iAdLivePlayModule != null) {
+            iAdLivePlayModule.registerAdLivePlayStateListener(adLivePlayStateListener);
         }
     }
 
-    public static void a(boolean z10, AdTemplate adTemplate, @Nullable JSONObject jSONObject, @Nullable com.kwad.sdk.core.adlog.c.b bVar) {
-        boolean a10 = com.kwad.components.core.s.b.sc().a(adTemplate, jSONObject, bVar);
-        if (z10 && a10) {
-            c.e(e.dV(adTemplate) == 2, adTemplate);
+    public final void a(@Nullable IAdLivePlayModule iAdLivePlayModule) {
+        this.eV = iAdLivePlayModule;
+    }
+
+    public final void b(@Nullable i iVar, @Nullable AdLivePlayStateListener adLivePlayStateListener) {
+        if (!jF()) {
+            this.gU.b(iVar);
+            return;
+        }
+        IAdLivePlayModule iAdLivePlayModule = this.eV;
+        if (iAdLivePlayModule != null) {
+            iAdLivePlayModule.unRegisterAdLivePlayStateListener(adLivePlayStateListener);
         }
     }
 
-    public static void a(AdTemplate adTemplate, String str, String str2, com.kwad.sdk.core.adlog.c.b bVar, JSONObject jSONObject) {
-        if (bVar == null) {
-            bVar = new com.kwad.sdk.core.adlog.c.b();
-        }
-        bVar.b(adTemplate, str, str2, null);
-        com.kwad.sdk.core.adlog.c.a(adTemplate, bVar, jSONObject);
+    public final long getPlayDuration() {
+        IAdLivePlayModule iAdLivePlayModule = this.eV;
+        return iAdLivePlayModule != null ? iAdLivePlayModule.getPlayDuration() : this.gU.getPlayDuration();
     }
 
-    public static void a(Context context, AdTemplate adTemplate, String str, int i10, JSONObject jSONObject) {
-        com.kwad.sdk.core.adlog.c.b cN = new com.kwad.sdk.core.adlog.c.b().cN(18);
-        cN.b(adTemplate, str, null, new com.kwad.sdk.f.a<AdTrackLog>() { // from class: com.kwad.components.ad.reward.j.b.1
-            final /* synthetic */ Context hB;
-            final /* synthetic */ int yD;
+    public final boolean jF() {
+        return this.eV != null;
+    }
 
-            public AnonymousClass1(Context context2, int i102) {
-                context = context2;
-                i10 = i102;
-            }
+    @Nullable
+    public final IAdLivePlayModule jG() {
+        return this.eV;
+    }
 
-            @Override // com.kwad.sdk.f.a
-            /* renamed from: a */
-            public void accept(AdTrackLog adTrackLog) {
-                adTrackLog.rewardDetailStatusBarHeight = com.kwad.sdk.c.a.a.getStatusBarHeight(context);
-                adTrackLog.rewardDetailCallPositionY = i10;
-            }
-        });
-        com.kwad.sdk.core.adlog.c.d(adTemplate, jSONObject, cN);
+    @NonNull
+    public final a jH() {
+        return this.gU;
+    }
+
+    public final void pause() {
+        IAdLivePlayModule iAdLivePlayModule = this.eV;
+        if (iAdLivePlayModule != null) {
+            iAdLivePlayModule.pause();
+        } else {
+            this.gU.pause();
+        }
+    }
+
+    public final void release() {
+        IAdLivePlayModule iAdLivePlayModule = this.eV;
+        if (iAdLivePlayModule != null) {
+            iAdLivePlayModule.release();
+        }
+        this.gU.release();
+    }
+
+    public final void releaseSync() {
+        IAdLivePlayModule iAdLivePlayModule = this.eV;
+        if (iAdLivePlayModule != null) {
+            iAdLivePlayModule.release();
+        }
+        this.gU.releaseSync();
+    }
+
+    public final void resume() {
+        IAdLivePlayModule iAdLivePlayModule = this.eV;
+        if (iAdLivePlayModule == null) {
+            this.gU.resume();
+            return;
+        }
+        iAdLivePlayModule.resume();
+        int i2 = this.xD;
+        if (i2 > 0) {
+            this.eV.setAudioEnabled(i2 == 2, false);
+        }
+    }
+
+    public final void setAudioEnabled(boolean z, boolean z2) {
+        this.xD = z ? 2 : 1;
+        IAdLivePlayModule iAdLivePlayModule = this.eV;
+        if (iAdLivePlayModule != null) {
+            iAdLivePlayModule.setAudioEnabled(z, z2);
+        } else {
+            this.gU.setAudioEnabled(z, z2);
+        }
+    }
+
+    public final void skipToEnd() {
+        IAdLivePlayModule iAdLivePlayModule = this.eV;
+        if (iAdLivePlayModule != null) {
+            iAdLivePlayModule.skipToEnd();
+        } else {
+            this.gU.skipToEnd();
+        }
     }
 }

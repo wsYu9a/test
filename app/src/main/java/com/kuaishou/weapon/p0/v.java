@@ -6,163 +6,180 @@ import android.content.pm.PackageInfo;
 import android.text.TextUtils;
 import org.json.JSONObject;
 
-/* loaded from: classes2.dex */
+/* loaded from: classes.dex */
 public class v {
 
     /* renamed from: h, reason: collision with root package name */
-    public static JSONObject f11249h = null;
+    public static JSONObject f9424h = null;
 
     /* renamed from: i, reason: collision with root package name */
-    public static final String f11250i = "1";
+    public static final String f9425i = "1";
 
     /* renamed from: j, reason: collision with root package name */
-    public static final String f11251j = "2";
-
-    /* renamed from: k, reason: collision with root package name */
-    public static final String f11252k = "3";
-
-    /* renamed from: l, reason: collision with root package name */
-    public static final String f11253l = "4";
-
-    /* renamed from: m, reason: collision with root package name */
-    public static final String f11254m = "5";
-
-    /* renamed from: n, reason: collision with root package name */
-    public static final String f11255n = "6";
-
-    /* renamed from: o, reason: collision with root package name */
-    public static final String f11256o = "7";
+    public static final String f9426j = "2";
+    public static final String k = "3";
+    public static final String l = "4";
+    public static final String m = "5";
+    public static final String n = "6";
+    public static final String o = "7";
 
     /* renamed from: a, reason: collision with root package name */
-    public int f11257a;
+    public int f9427a;
 
     /* renamed from: b, reason: collision with root package name */
-    public long f11258b;
+    public long f9428b;
 
     /* renamed from: c, reason: collision with root package name */
-    public long f11259c;
+    public long f9429c;
 
     /* renamed from: d, reason: collision with root package name */
-    public String f11260d;
+    public String f9430d;
 
     /* renamed from: e, reason: collision with root package name */
-    public String f11261e;
+    public String f9431e;
 
     /* renamed from: f, reason: collision with root package name */
-    public String f11262f;
+    public String f9432f;
 
     /* renamed from: g, reason: collision with root package name */
-    public int f11263g;
+    public int f9433g;
+    private PackageInfo p;
+    private ApplicationInfo q;
+    private Context r;
 
-    /* renamed from: p, reason: collision with root package name */
-    private PackageInfo f11264p;
-
-    /* renamed from: q, reason: collision with root package name */
-    private ApplicationInfo f11265q;
-
-    /* renamed from: r, reason: collision with root package name */
-    private Context f11266r;
+    public v(ApplicationInfo applicationInfo, Context context) {
+        this.q = applicationInfo;
+        this.r = context;
+    }
 
     public v(PackageInfo packageInfo, Context context) {
-        this.f11264p = packageInfo;
-        this.f11266r = context;
+        this.p = packageInfo;
+        this.r = context;
     }
 
     public int a() {
-        return this.f11257a;
+        return this.f9427a;
+    }
+
+    public void a(int i2) {
+        this.f9427a = i2;
+    }
+
+    public void a(long j2) {
+        this.f9428b = j2;
+    }
+
+    public void a(String str) {
+        this.f9431e = str;
     }
 
     public String b() {
-        return this.f11261e;
+        return this.f9431e;
+    }
+
+    public void b(int i2) {
+        this.f9433g = i2;
+    }
+
+    public void b(long j2) {
+        this.f9429c = j2;
+    }
+
+    public void b(String str) {
+        this.f9432f = str;
     }
 
     public String c() {
-        return this.f11262f;
+        return this.f9432f;
+    }
+
+    public void c(String str) {
+        this.f9430d = str;
     }
 
     public long d() {
-        return this.f11258b;
+        return this.f9428b;
     }
 
     public String e() {
-        return this.f11260d;
+        return this.f9430d;
     }
 
     public long f() {
-        return this.f11259c;
+        return this.f9429c;
     }
 
     public int g() {
-        return this.f11263g;
+        return this.f9433g;
     }
 
     public void h() {
-        PackageInfo packageInfo = this.f11264p;
-        if (packageInfo == null && this.f11265q == null) {
+        PackageInfo packageInfo = this.p;
+        if (packageInfo == null && this.q == null) {
             return;
         }
         if (packageInfo == null) {
             try {
-                if (this.f11265q != null) {
-                    this.f11264p = this.f11266r.getPackageManager().getPackageInfo(this.f11265q.packageName, 0);
+                if (this.q != null) {
+                    this.p = this.r.getPackageManager().getPackageInfo(this.q.packageName, 0);
                 }
             } catch (Exception unused) {
             }
         }
-        PackageInfo packageInfo2 = this.f11264p;
-        a(packageInfo2 == null ? this.f11265q.packageName : packageInfo2.packageName);
-        PackageInfo packageInfo3 = this.f11264p;
-        a((packageInfo3 == null ? this.f11265q : packageInfo3.applicationInfo).flags & 1);
+        PackageInfo packageInfo2 = this.p;
+        a(packageInfo2 == null ? this.q.packageName : packageInfo2.packageName);
+        PackageInfo packageInfo3 = this.p;
+        a((packageInfo3 == null ? this.q : packageInfo3.applicationInfo).flags & 1);
         b(j());
-        PackageInfo packageInfo4 = this.f11264p;
+        PackageInfo packageInfo4 = this.p;
         if (packageInfo4 != null) {
             a(packageInfo4.firstInstallTime);
-            b(this.f11264p.lastUpdateTime);
-            c(this.f11264p.versionName);
-            b(this.f11264p.versionCode);
+            b(this.p.lastUpdateTime);
+            c(this.p.versionName);
+            b(this.p.versionCode);
         }
     }
 
     public void i() {
-        PackageInfo packageInfo = this.f11264p;
-        if (packageInfo == null && this.f11265q == null) {
+        PackageInfo packageInfo = this.p;
+        if (packageInfo == null && this.q == null) {
             return;
         }
         if (packageInfo == null) {
             try {
-                if (this.f11265q != null) {
-                    this.f11264p = this.f11266r.getPackageManager().getPackageInfo(this.f11265q.packageName, 0);
+                if (this.q != null) {
+                    this.p = this.r.getPackageManager().getPackageInfo(this.q.packageName, 0);
                 }
             } catch (Exception unused) {
             }
         }
-        PackageInfo packageInfo2 = this.f11264p;
-        a(packageInfo2 == null ? this.f11265q.packageName : packageInfo2.packageName);
-        PackageInfo packageInfo3 = this.f11264p;
-        a((packageInfo3 == null ? this.f11265q : packageInfo3.applicationInfo).flags & 1);
-        PackageInfo packageInfo4 = this.f11264p;
+        PackageInfo packageInfo2 = this.p;
+        a(packageInfo2 == null ? this.q.packageName : packageInfo2.packageName);
+        PackageInfo packageInfo3 = this.p;
+        a((packageInfo3 == null ? this.q : packageInfo3.applicationInfo).flags & 1);
+        PackageInfo packageInfo4 = this.p;
         if (packageInfo4 != null) {
             a(packageInfo4.firstInstallTime);
-            b(this.f11264p.lastUpdateTime);
-            c(this.f11264p.versionName);
-            b(this.f11264p.versionCode);
+            b(this.p.lastUpdateTime);
+            c(this.p.versionName);
+            b(this.p.versionCode);
         }
     }
 
     public String j() {
         ApplicationInfo applicationInfo;
         try {
-            PackageInfo packageInfo = this.f11264p;
+            PackageInfo packageInfo = this.p;
             if (packageInfo == null || (applicationInfo = packageInfo.applicationInfo) == null) {
-                ApplicationInfo applicationInfo2 = this.f11265q;
+                ApplicationInfo applicationInfo2 = this.q;
                 if (applicationInfo2 != null) {
-                    String charSequence = applicationInfo2.loadLabel(this.f11266r.getPackageManager()).toString();
+                    String charSequence = applicationInfo2.loadLabel(this.r.getPackageManager()).toString();
                     if (!TextUtils.isEmpty(charSequence)) {
                         return charSequence;
                     }
                 }
             } else {
-                String charSequence2 = applicationInfo.loadLabel(this.f11266r.getPackageManager()).toString();
+                String charSequence2 = applicationInfo.loadLabel(this.r.getPackageManager()).toString();
                 if (!TextUtils.isEmpty(charSequence2)) {
                     return charSequence2;
                 }
@@ -187,38 +204,5 @@ public class v {
         } catch (Throwable unused) {
             return null;
         }
-    }
-
-    public void a(int i10) {
-        this.f11257a = i10;
-    }
-
-    public void b(String str) {
-        this.f11262f = str;
-    }
-
-    public void c(String str) {
-        this.f11260d = str;
-    }
-
-    public void a(String str) {
-        this.f11261e = str;
-    }
-
-    public void b(long j10) {
-        this.f11259c = j10;
-    }
-
-    public v(ApplicationInfo applicationInfo, Context context) {
-        this.f11265q = applicationInfo;
-        this.f11266r = context;
-    }
-
-    public void a(long j10) {
-        this.f11258b = j10;
-    }
-
-    public void b(int i10) {
-        this.f11263g = i10;
     }
 }

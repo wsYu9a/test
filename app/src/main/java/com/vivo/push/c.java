@@ -8,10 +8,10 @@ import java.util.concurrent.atomic.AtomicInteger;
 final class c implements Handler.Callback {
 
     /* renamed from: a */
-    final /* synthetic */ b f24961a;
+    final /* synthetic */ b f30934a;
 
-    public c(b bVar) {
-        this.f24961a = bVar;
+    c(b bVar) {
+        this.f30934a = bVar;
     }
 
     @Override // android.os.Handler.Callback
@@ -22,21 +22,21 @@ final class c implements Handler.Callback {
             com.vivo.push.util.p.a("AidlManager", "handleMessage error : msg is null");
             return false;
         }
-        int i10 = message.what;
-        if (i10 == 1) {
+        int i2 = message.what;
+        if (i2 == 1) {
             com.vivo.push.util.p.a("AidlManager", "In connect, bind core service time out");
-            atomicInteger = this.f24961a.f24910f;
+            atomicInteger = this.f30934a.f30883f;
             if (atomicInteger.get() == 2) {
-                this.f24961a.a(1);
+                this.f30934a.a(1);
             }
-        } else if (i10 != 2) {
+        } else if (i2 != 2) {
             com.vivo.push.util.p.b("AidlManager", "unknow msg what [" + message.what + "]");
         } else {
-            atomicInteger2 = this.f24961a.f24910f;
+            atomicInteger2 = this.f30934a.f30883f;
             if (atomicInteger2.get() == 4) {
-                this.f24961a.f();
+                this.f30934a.f();
             }
-            this.f24961a.a(1);
+            this.f30934a.a(1);
         }
         return true;
     }

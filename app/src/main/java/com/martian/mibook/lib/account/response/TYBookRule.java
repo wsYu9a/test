@@ -30,23 +30,23 @@ public class TYBookRule {
         return this.wrid;
     }
 
-    public void setContentPattern(String str) {
-        this.contentPattern = str;
+    public void setContentPattern(String contentPattern) {
+        this.contentPattern = contentPattern;
     }
 
-    public void setInterceptPatterns(List<String> list) {
-        this.interceptPatterns = list;
+    public void setInterceptPatterns(List<String> interceptPatterns) {
+        this.interceptPatterns = interceptPatterns;
     }
 
-    public void setParsePatterns(List<String> list) {
-        this.parsePatterns = list;
+    public void setParsePatterns(List<String> parsePatterns) {
+        this.parsePatterns = parsePatterns;
     }
 
-    public void setTitlePattern(String str) {
-        this.titlePattern = str;
+    public void setTitlePattern(String titlePattern) {
+        this.titlePattern = titlePattern;
     }
 
-    public void setWrid(String str) {
-        this.wrid = str;
+    public void setWrid(String wrid) {
+        this.wrid = wrid;
     }
 }

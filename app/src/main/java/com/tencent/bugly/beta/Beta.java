@@ -10,7 +10,6 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.text.TextUtils;
 import android.util.DisplayMetrics;
-import androidx.constraintlayout.core.motion.utils.TypedValues;
 import com.baidu.mobads.sdk.api.IAdInterListener;
 import com.tencent.bugly.BuglyStrategy;
 import com.tencent.bugly.a;
@@ -30,18 +29,18 @@ import com.tencent.bugly.beta.upgrade.UpgradeStateListener;
 import com.tencent.bugly.beta.upgrade.d;
 import com.tencent.bugly.beta.utils.e;
 import com.tencent.bugly.proguard.B;
-import com.tencent.bugly.proguard.C0871p;
-import com.tencent.bugly.proguard.C0874t;
-import com.tencent.bugly.proguard.C0876v;
-import com.tencent.bugly.proguard.C0878x;
-import com.tencent.bugly.proguard.C0879y;
-import com.tencent.bugly.proguard.C0880z;
+import com.tencent.bugly.proguard.C0912p;
+import com.tencent.bugly.proguard.C0915t;
+import com.tencent.bugly.proguard.C0917v;
+import com.tencent.bugly.proguard.C0919x;
+import com.tencent.bugly.proguard.C0920y;
+import com.tencent.bugly.proguard.C0921z;
 import com.tencent.bugly.proguard.H;
 import com.tencent.bugly.proguard.W;
 import com.tencent.bugly.proguard.X;
 import com.tencent.bugly.proguard.ca;
 import com.tencent.bugly.proguard.r;
-import com.umeng.analytics.pro.bx;
+import com.umeng.analytics.pro.aq;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -49,7 +48,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
 
-/* loaded from: classes4.dex */
+/* loaded from: classes.dex */
 public class Beta extends a {
     public static final String TAG_CANCEL_BUTTON = "beta_cancel_button";
     public static final String TAG_CONFIRM_BUTTON = "beta_confirm_button";
@@ -123,39 +122,39 @@ public class Beta extends a {
     public static Beta instance = new Beta();
 
     /* renamed from: a */
-    private static DownloadTask f22069a = null;
+    private static DownloadTask f24591a = null;
 
-    private static void a(boolean z10, boolean z11, int i10) {
+    private static void a(boolean z, boolean z2, int i2) {
         try {
-            if (z10) {
-                d.f22149a.a(z10, z11, i10);
+            if (z) {
+                d.f24648a.a(z, z2, i2);
                 UpgradeStateListener upgradeStateListener2 = upgradeStateListener;
                 if (upgradeStateListener2 != null) {
-                    e.a(new com.tencent.bugly.beta.global.d(18, upgradeStateListener2, 2, Boolean.valueOf(z10)));
+                    e.a(new com.tencent.bugly.beta.global.d(18, upgradeStateListener2, 2, Boolean.valueOf(z)));
                 } else {
                     e.a(new com.tencent.bugly.beta.global.d(5, strToastCheckingUpgrade));
                 }
-            } else if (i10 == 0 || i10 == 1) {
+            } else if (i2 == 0 || i2 == 1) {
                 BetaGrayStrategy betaGrayStrategy = (BetaGrayStrategy) com.tencent.bugly.beta.global.a.a("app.upgrade.strategy.bch", BetaGrayStrategy.CREATOR);
-                if (betaGrayStrategy != null && betaGrayStrategy.f22135a != null && System.currentTimeMillis() - betaGrayStrategy.f22139e <= com.tencent.bugly.beta.global.e.f22100b.f22105d) {
-                    d.f22149a.a(z10, z11, 0, null, "");
+                if (betaGrayStrategy != null && betaGrayStrategy.f24634a != null && System.currentTimeMillis() - betaGrayStrategy.f24638e <= com.tencent.bugly.beta.global.e.f24621b.f24623d) {
+                    d.f24648a.a(z, z2, 0, null, "");
                 }
-                d.f22149a.a(z10, z11, i10);
-            } else if (i10 != 3) {
+                d.f24648a.a(z, z2, i2);
+            } else if (i2 != 3) {
             } else {
-                r.f22838a.a(z10, z11, 3);
+                r.f25134a.a(z, z2, 3);
             }
-        } catch (Exception e10) {
-            if (X.a(e10)) {
+        } catch (Exception e2) {
+            if (X.a(e2)) {
                 return;
             }
-            e10.printStackTrace();
+            e2.printStackTrace();
         }
     }
 
     public static void applyDownloadedPatch() {
-        if (new File(com.tencent.bugly.beta.global.e.f22100b.J.getAbsolutePath()).exists()) {
-            TinkerManager.getInstance().applyPatch(com.tencent.bugly.beta.global.e.f22100b.J.getAbsolutePath(), true);
+        if (new File(com.tencent.bugly.beta.global.e.f24621b.J.getAbsolutePath()).exists()) {
+            TinkerManager.getInstance().applyPatch(com.tencent.bugly.beta.global.e.f24621b.J.getAbsolutePath(), true);
         } else {
             X.b(Beta.class, "[applyDownloadedPatch] patch file not exist", new Object[0]);
         }
@@ -167,7 +166,7 @@ public class Beta extends a {
 
     /* JADX WARN: Code restructure failed: missing block: B:8:0x0023, code lost:
     
-        if (((java.lang.Boolean) r4[2]).booleanValue() == com.tencent.bugly.beta.upgrade.d.f22149a.f22155g) goto L37;
+        if (((java.lang.Boolean) r1[2]).booleanValue() == com.tencent.bugly.beta.upgrade.d.f24648a.f24654g) goto L24;
      */
     /*
         Code decompiled incorrectly, please refer to instructions dump.
@@ -175,43 +174,43 @@ public class Beta extends a {
     */
     public static void cancelDownload() {
         /*
-            r0 = 2
-            r1 = 1
-            r2 = 0
-            com.tencent.bugly.beta.upgrade.d r3 = com.tencent.bugly.beta.upgrade.d.f22149a
-            com.tencent.bugly.beta.global.d r4 = r3.f22158j
-            if (r4 == 0) goto L25
-            java.lang.Object[] r4 = r4.f22098b
-            r5 = r4[r2]
-            com.tencent.bugly.beta.download.DownloadTask r6 = r3.f22151c
+            com.tencent.bugly.beta.upgrade.d r0 = com.tencent.bugly.beta.upgrade.d.f24648a
+            com.tencent.bugly.beta.global.d r1 = r0.f24657j
+            r2 = 2
+            r3 = 1
+            r4 = 0
+            if (r1 == 0) goto L25
+            java.lang.Object[] r1 = r1.f24619b
+            r5 = r1[r4]
+            com.tencent.bugly.beta.download.DownloadTask r6 = r0.f24650c
             if (r5 != r6) goto L25
-            r5 = r4[r1]
-            com.tencent.bugly.beta.upgrade.BetaGrayStrategy r3 = r3.f22150b
-            if (r5 != r3) goto L25
-            r3 = r4[r0]
-            java.lang.Boolean r3 = (java.lang.Boolean) r3
-            boolean r3 = r3.booleanValue()
-            com.tencent.bugly.beta.upgrade.d r4 = com.tencent.bugly.beta.upgrade.d.f22149a
-            boolean r4 = r4.f22155g
-            if (r3 == r4) goto L43
+            r5 = r1[r3]
+            com.tencent.bugly.beta.upgrade.BetaGrayStrategy r0 = r0.f24649b
+            if (r5 != r0) goto L25
+            r0 = r1[r2]
+            java.lang.Boolean r0 = (java.lang.Boolean) r0
+            boolean r0 = r0.booleanValue()
+            com.tencent.bugly.beta.upgrade.d r1 = com.tencent.bugly.beta.upgrade.d.f24648a
+            boolean r1 = r1.f24654g
+            if (r0 == r1) goto L43
         L25:
-            com.tencent.bugly.beta.upgrade.d r3 = com.tencent.bugly.beta.upgrade.d.f22149a
-            com.tencent.bugly.beta.global.d r4 = new com.tencent.bugly.beta.global.d
-            com.tencent.bugly.beta.download.DownloadTask r5 = r3.f22151c
-            com.tencent.bugly.beta.upgrade.BetaGrayStrategy r6 = r3.f22150b
-            boolean r7 = r3.f22155g
-            java.lang.Boolean r7 = java.lang.Boolean.valueOf(r7)
-            r8 = 3
-            java.lang.Object[] r8 = new java.lang.Object[r8]
-            r8[r2] = r5
-            r8[r1] = r6
-            r8[r0] = r7
-            r0 = 14
-            r4.<init>(r0, r8)
-            r3.f22158j = r4
+            com.tencent.bugly.beta.upgrade.d r0 = com.tencent.bugly.beta.upgrade.d.f24648a
+            com.tencent.bugly.beta.global.d r1 = new com.tencent.bugly.beta.global.d
+            r5 = 3
+            java.lang.Object[] r5 = new java.lang.Object[r5]
+            com.tencent.bugly.beta.download.DownloadTask r6 = r0.f24650c
+            r5[r4] = r6
+            com.tencent.bugly.beta.upgrade.BetaGrayStrategy r4 = r0.f24649b
+            r5[r3] = r4
+            boolean r3 = r0.f24654g
+            java.lang.Boolean r3 = java.lang.Boolean.valueOf(r3)
+            r5[r2] = r3
+            r2 = 14
+            r1.<init>(r2, r5)
+            r0.f24657j = r1
         L43:
-            com.tencent.bugly.beta.upgrade.d r0 = com.tencent.bugly.beta.upgrade.d.f22149a
-            com.tencent.bugly.beta.global.d r0 = r0.f22158j
+            com.tencent.bugly.beta.upgrade.d r0 = com.tencent.bugly.beta.upgrade.d.f24648a
+            com.tencent.bugly.beta.global.d r0 = r0.f24657j
             r0.run()
             return
         */
@@ -230,19 +229,19 @@ public class Beta extends a {
         checkUpgrade(true, false);
     }
 
-    public static void cleanTinkerPatch(boolean z10) {
+    public static void cleanTinkerPatch(boolean z) {
         com.tencent.bugly.beta.global.a.b("IS_PATCH_ROLL_BACK", false);
-        TinkerManager.getInstance().cleanPatch(z10);
+        TinkerManager.getInstance().cleanPatch(z);
     }
 
     public static void downloadPatch() {
-        r rVar = r.f22838a;
-        rVar.f22839b = rVar.a((B) null);
+        r rVar = r.f25134a;
+        rVar.f25135b = rVar.a((B) null);
         try {
-            r rVar2 = r.f22838a;
-            BetaGrayStrategy betaGrayStrategy = rVar2.f22839b;
+            r rVar2 = r.f25134a;
+            BetaGrayStrategy betaGrayStrategy = rVar2.f25135b;
             if (betaGrayStrategy != null) {
-                rVar2.a(0, betaGrayStrategy.f22135a, true);
+                rVar2.a(0, betaGrayStrategy.f24634a, true);
             }
         } catch (Exception unused) {
         }
@@ -250,10 +249,10 @@ public class Beta extends a {
 
     public static UpgradeInfo getAppUpgradeInfo() {
         try {
-            d.f22149a.f22150b = (BetaGrayStrategy) com.tencent.bugly.beta.global.a.a("app.upgrade.strategy.bch", BetaGrayStrategy.CREATOR);
-            BetaGrayStrategy betaGrayStrategy = d.f22149a.f22150b;
+            d.f24648a.f24649b = (BetaGrayStrategy) com.tencent.bugly.beta.global.a.a("app.upgrade.strategy.bch", BetaGrayStrategy.CREATOR);
+            BetaGrayStrategy betaGrayStrategy = d.f24648a.f24649b;
             if (betaGrayStrategy != null) {
-                return new UpgradeInfo(betaGrayStrategy.f22135a);
+                return new UpgradeInfo(betaGrayStrategy.f24634a);
             }
             return null;
         } catch (Exception unused) {
@@ -263,10 +262,10 @@ public class Beta extends a {
 
     public static UpgradeInfo getHotfixUpgradeInfo() {
         try {
-            r.f22838a.f22839b = (BetaGrayStrategy) com.tencent.bugly.beta.global.a.a("hotfix.strategy.bch", BetaGrayStrategy.CREATOR);
-            BetaGrayStrategy betaGrayStrategy = r.f22838a.f22839b;
+            r.f25134a.f25135b = (BetaGrayStrategy) com.tencent.bugly.beta.global.a.a("hotfix.strategy.bch", BetaGrayStrategy.CREATOR);
+            BetaGrayStrategy betaGrayStrategy = r.f25134a.f25135b;
             if (betaGrayStrategy != null) {
-                return new UpgradeInfo(betaGrayStrategy.f22135a);
+                return new UpgradeInfo(betaGrayStrategy.f24634a);
             }
             return null;
         } catch (Exception unused) {
@@ -276,28 +275,28 @@ public class Beta extends a {
 
     public static Beta getInstance() {
         Beta beta = instance;
-        beta.f22063id = 1002;
+        beta.id = 1002;
         beta.version = "1.5.23";
         beta.versionKey = "G10";
         return beta;
     }
 
     public static DownloadTask getStrategyTask() {
-        if (f22069a == null) {
-            d.f22149a.f22150b = (BetaGrayStrategy) com.tencent.bugly.beta.global.a.a("app.upgrade.strategy.bch", BetaGrayStrategy.CREATOR);
-            if (d.f22149a.f22150b != null) {
-                DownloadTask a10 = com.tencent.bugly.beta.global.e.f22100b.f22123s.a(d.f22149a.f22150b.f22135a.f22563k.f22890c, com.tencent.bugly.beta.global.e.f22100b.f22127w.getAbsolutePath(), null, d.f22149a.f22150b.f22135a.f22563k.f22889b);
-                f22069a = a10;
-                a10.setDownloadType(1);
-                d.f22149a.f22151c = f22069a;
+        if (f24591a == null) {
+            d.f24648a.f24649b = (BetaGrayStrategy) com.tencent.bugly.beta.global.a.a("app.upgrade.strategy.bch", BetaGrayStrategy.CREATOR);
+            if (d.f24648a.f24649b != null) {
+                DownloadTask a2 = com.tencent.bugly.beta.global.e.f24621b.s.a(d.f24648a.f24649b.f24634a.k.f25178c, com.tencent.bugly.beta.global.e.f24621b.w.getAbsolutePath(), null, d.f24648a.f24649b.f24634a.k.f25177b);
+                f24591a = a2;
+                a2.setDownloadType(1);
+                d.f24648a.f24650c = f24591a;
             }
         }
-        return d.f22149a.f22151c;
+        return d.f24648a.f24650c;
     }
 
     /* JADX WARN: Code restructure failed: missing block: B:17:0x0042, code lost:
     
-        return new com.tencent.bugly.beta.UpgradeInfo(r0.f22135a);
+        return new com.tencent.bugly.beta.UpgradeInfo(r0.f24634a);
      */
     /*
         Code decompiled incorrectly, please refer to instructions dump.
@@ -314,24 +313,24 @@ public class Beta extends a {
             android.os.Parcelable r2 = com.tencent.bugly.beta.global.a.a(r3, r2)     // Catch: java.lang.Exception -> L43
             com.tencent.bugly.beta.upgrade.BetaGrayStrategy r2 = (com.tencent.bugly.beta.upgrade.BetaGrayStrategy) r2     // Catch: java.lang.Exception -> L43
             if (r0 == 0) goto L28
-            com.tencent.bugly.proguard.B r3 = r0.f22135a     // Catch: java.lang.Exception -> L43
+            com.tencent.bugly.proguard.B r3 = r0.f24634a     // Catch: java.lang.Exception -> L43
             if (r3 == 0) goto L28
             if (r2 == 0) goto L28
-            com.tencent.bugly.proguard.B r3 = r2.f22135a     // Catch: java.lang.Exception -> L43
+            com.tencent.bugly.proguard.B r3 = r2.f24634a     // Catch: java.lang.Exception -> L43
             if (r3 == 0) goto L28
-            long r3 = r0.f22139e     // Catch: java.lang.Exception -> L43
-            long r5 = r2.f22139e     // Catch: java.lang.Exception -> L43
+            long r3 = r0.f24638e     // Catch: java.lang.Exception -> L43
+            long r5 = r2.f24638e     // Catch: java.lang.Exception -> L43
             int r7 = (r3 > r5 ? 1 : (r3 == r5 ? 0 : -1))
             if (r7 <= 0) goto L38
             goto L39
         L28:
             if (r0 == 0) goto L38
-            com.tencent.bugly.proguard.B r3 = r0.f22135a     // Catch: java.lang.Exception -> L43
+            com.tencent.bugly.proguard.B r3 = r0.f24634a     // Catch: java.lang.Exception -> L43
             if (r3 != 0) goto L2f
             goto L38
         L2f:
             if (r2 == 0) goto L39
-            com.tencent.bugly.proguard.B r2 = r2.f22135a     // Catch: java.lang.Exception -> L43
+            com.tencent.bugly.proguard.B r2 = r2.f24634a     // Catch: java.lang.Exception -> L43
             if (r2 != 0) goto L36
             goto L39
         L36:
@@ -342,7 +341,7 @@ public class Beta extends a {
         L39:
             if (r0 == 0) goto L43
             com.tencent.bugly.beta.UpgradeInfo r2 = new com.tencent.bugly.beta.UpgradeInfo     // Catch: java.lang.Exception -> L43
-            com.tencent.bugly.proguard.B r0 = r0.f22135a     // Catch: java.lang.Exception -> L43
+            com.tencent.bugly.proguard.B r0 = r0.f24634a     // Catch: java.lang.Exception -> L43
             r2.<init>(r0)     // Catch: java.lang.Exception -> L43
             return r2
         L43:
@@ -353,11 +352,11 @@ public class Beta extends a {
 
     public static synchronized B getUpgradeStrategy() {
         synchronized (Beta.class) {
-            d.f22149a.f22150b = (BetaGrayStrategy) com.tencent.bugly.beta.global.a.a("app.upgrade.strategy.bch", BetaGrayStrategy.CREATOR);
+            d.f24648a.f24649b = (BetaGrayStrategy) com.tencent.bugly.beta.global.a.a("app.upgrade.strategy.bch", BetaGrayStrategy.CREATOR);
             try {
-                BetaGrayStrategy betaGrayStrategy = d.f22149a.f22150b;
+                BetaGrayStrategy betaGrayStrategy = d.f24648a.f24649b;
                 if (betaGrayStrategy != null) {
-                    return (B) betaGrayStrategy.f22135a.clone();
+                    return (B) betaGrayStrategy.f24634a.clone();
                 }
             } catch (Exception unused) {
             }
@@ -365,256 +364,266 @@ public class Beta extends a {
         }
     }
 
-    public static synchronized void init(Context context, boolean z10) {
+    public static synchronized void init(Context context, boolean z) {
         synchronized (Beta.class) {
-            try {
-                X.c("Beta init start....", new Object[0]);
-                H a10 = H.a();
-                int i10 = instance.f22063id;
-                int i11 = com.tencent.bugly.beta.global.e.f22099a + 1;
-                com.tencent.bugly.beta.global.e.f22099a = i11;
-                a10.a(i10, i11);
-                if (TextUtils.isEmpty(initProcessName)) {
-                    initProcessName = context.getPackageName();
+            X.c("Beta init start....", new Object[0]);
+            H a2 = H.a();
+            int i2 = instance.id;
+            int i3 = com.tencent.bugly.beta.global.e.f24620a + 1;
+            com.tencent.bugly.beta.global.e.f24620a = i3;
+            a2.a(i2, i3);
+            if (TextUtils.isEmpty(initProcessName)) {
+                initProcessName = context.getPackageName();
+            }
+            X.c("Beta will init at: %s", initProcessName);
+            String str = com.tencent.bugly.crashreport.common.info.a.m().f24755h;
+            X.c("current process: %s", str);
+            if (TextUtils.equals(initProcessName, str)) {
+                com.tencent.bugly.beta.global.e eVar = com.tencent.bugly.beta.global.e.f24621b;
+                if (!TextUtils.isEmpty(eVar.y)) {
+                    X.e("Beta has been initialized [apkMD5 : %s]", eVar.y);
+                    return;
                 }
-                X.c("Beta will init at: %s", initProcessName);
-                String str = com.tencent.bugly.crashreport.common.info.a.m().f22296h;
-                X.c("current process: %s", str);
-                if (TextUtils.equals(initProcessName, str)) {
-                    com.tencent.bugly.beta.global.e eVar = com.tencent.bugly.beta.global.e.f22100b;
-                    if (!TextUtils.isEmpty(eVar.f22129y)) {
-                        X.e("Beta has been initialized [apkMD5 : %s]", eVar.f22129y);
-                        return;
-                    }
-                    X.c("current upgrade sdk version:1.5.23", new Object[0]);
-                    eVar.G = z10;
-                    long j10 = upgradeCheckPeriod;
-                    if (j10 < 0) {
-                        X.e("upgradeCheckPeriod cannot be negative", new Object[0]);
-                    } else {
-                        eVar.f22105d = j10;
-                        X.c("setted upgradeCheckPeriod: %d", Long.valueOf(j10));
-                    }
-                    long j11 = initDelay;
-                    if (j11 < 0) {
-                        X.e("initDelay cannot be negative", new Object[0]);
-                    } else {
-                        eVar.f22103c = j11;
-                        X.c("setted initDelay: %d", Long.valueOf(j11));
-                    }
-                    if (smallIconId != 0) {
-                        try {
-                            if (context.getResources().getDrawable(smallIconId) != null) {
-                                int i12 = smallIconId;
-                                eVar.f22113i = i12;
-                                X.c("setted smallIconId: %d", Integer.valueOf(i12));
-                            }
-                        } catch (Exception e10) {
-                            X.b("smallIconId is not available:\n %s", e10.toString());
-                        }
-                    }
-                    if (largeIconId != 0) {
-                        try {
-                            if (context.getResources().getDrawable(largeIconId) != null) {
-                                int i13 = largeIconId;
-                                eVar.f22114j = i13;
-                                X.c("setted largeIconId: %d", Integer.valueOf(i13));
-                            }
-                        } catch (Exception e11) {
-                            X.b("largeIconId is not available:\n %s", e11.toString());
-                        }
-                    }
-                    if (defaultBannerId != 0) {
-                        try {
-                            if (context.getResources().getDrawable(defaultBannerId) != null) {
-                                int i14 = defaultBannerId;
-                                eVar.f22115k = i14;
-                                X.c("setted defaultBannerId: %d", Integer.valueOf(i14));
-                            }
-                        } catch (Exception e12) {
-                            X.b("defaultBannerId is not available:\n %s", e12.toString());
-                        }
-                    }
-                    if (upgradeDialogLayoutId != 0) {
-                        try {
-                            XmlResourceParser layout = context.getResources().getLayout(upgradeDialogLayoutId);
-                            if (layout != null) {
-                                int i15 = upgradeDialogLayoutId;
-                                eVar.f22116l = i15;
-                                X.c("setted upgradeDialogLayoutId: %d", Integer.valueOf(i15));
-                                layout.close();
-                            }
-                        } catch (Exception e13) {
-                            X.b("upgradeDialogLayoutId is not available:\n %s", e13.toString());
-                        }
-                    }
-                    if (tipsDialogLayoutId != 0) {
-                        try {
-                            XmlResourceParser layout2 = context.getResources().getLayout(tipsDialogLayoutId);
-                            if (layout2 != null) {
-                                int i16 = tipsDialogLayoutId;
-                                eVar.f22117m = i16;
-                                X.c("setted tipsDialogLayoutId: %d", Integer.valueOf(i16));
-                                layout2.close();
-                            }
-                        } catch (Exception e14) {
-                            X.b("tipsDialogLayoutId is not available:\n %s", e14.toString());
-                        }
-                    }
-                    UILifecycleListener<UpgradeInfo> uILifecycleListener = upgradeDialogLifecycleListener;
-                    if (uILifecycleListener != null) {
-                        try {
-                            eVar.f22118n = uILifecycleListener;
-                            StringBuilder sb2 = new StringBuilder();
-                            sb2.append("setted upgradeDialogLifecycleListener:%s");
-                            sb2.append(upgradeDialogLifecycleListener);
-                            X.c(sb2.toString(), new Object[0]);
-                        } catch (Exception e15) {
-                            X.b("upgradeDialogLifecycleListener is not available:\n %", e15.toString());
-                        }
-                    }
-                    List<Class<? extends Activity>> list = canShowUpgradeActs;
-                    if (list != null && !list.isEmpty()) {
-                        for (Class<? extends Activity> cls : canShowUpgradeActs) {
-                            if (cls != null) {
-                                eVar.f22120p.add(cls);
-                            }
-                        }
-                        X.c("setted canShowUpgradeActs: %s", eVar.f22120p);
-                    }
-                    List<Class<? extends Activity>> list2 = canNotShowUpgradeActs;
-                    if (list2 != null && !list2.isEmpty()) {
-                        for (Class<? extends Activity> cls2 : canNotShowUpgradeActs) {
-                            if (cls2 != null) {
-                                eVar.f22121q.add(cls2);
-                            }
-                        }
-                        X.c("setted canNotShowUpgradeActs: %s", eVar.f22121q);
-                    }
-                    boolean z11 = autoCheckUpgrade;
-                    eVar.f22107e = z11;
-                    eVar.f22109f = autoCheckAppUpgrade;
-                    eVar.f22111g = autoCheckHotfix;
-                    X.c("autoCheckUpgrade %s", z11 ? "is opened" : "is closed");
-                    X.c("autoCheckAppUpgrade %s", eVar.f22109f ? "is opened" : "is closed");
-                    X.c("autoCheckHotfix %s", eVar.f22111g ? "is opened" : "is closed");
-                    boolean z12 = autoInstallApk;
-                    eVar.f22110fa = z12;
-                    X.c("autoInstallApk %s", z12 ? "is opened" : "is closed");
-                    boolean z13 = autoDownloadOn4g;
-                    eVar.V = z13;
-                    X.c("autoDownloadOn4g %s", z13 ? "is opened" : "is closed");
-                    boolean z14 = showInterruptedStrategy;
-                    eVar.f22112h = z14;
-                    X.c("showInterruptedStrategy %s", z14 ? "is opened" : "is closed");
-                    X.c("isDIY %s", upgradeListener != null ? "is opened" : "is closed");
-                    File file = storageDir;
-                    if (file != null) {
-                        if (file.exists() || storageDir.mkdirs()) {
-                            File file2 = storageDir;
-                            eVar.f22119o = file2;
-                            X.c("setted storageDir: %s", file2.getAbsolutePath());
-                        } else {
-                            X.c("storageDir is not exists: %s", storageDir.getAbsolutePath());
-                        }
-                    }
-                    if (eVar.f22123s == null) {
-                        eVar.f22123s = C0876v.f22882a;
-                    }
-                    if (TextUtils.isEmpty(eVar.f22128x)) {
-                        eVar.f22128x = com.tencent.bugly.crashreport.common.info.a.m().e();
-                    }
-                    eVar.T = enableNotification;
-                    X.c("enableNotification %s", enableNotification + "");
-                    eVar.U = autoDownloadOnWifi;
-                    X.c("autoDownloadOnWifi %s", autoDownloadOnWifi + "");
-                    eVar.W = canShowApkInfo;
-                    X.c("canShowApkInfo %s", canShowApkInfo + "");
-                    eVar.X = canAutoPatch;
-                    X.c("canAutoPatch %s", canAutoPatch + "");
-                    eVar.Y = betaPatchListener;
-                    eVar.A = appVersionName;
-                    eVar.f22130z = appVersionCode;
-                    eVar.Z = canNotifyUserRestart;
-                    X.c("canNotifyUserRestart %s", canNotifyUserRestart + "");
-                    eVar.f22101aa = canAutoDownloadPatch;
-                    X.c("canAutoDownloadPatch %s", canAutoDownloadPatch + "");
-                    eVar.f22102ba = enableHotfix;
-                    X.c("enableHotfix %s", enableHotfix + "");
-                    List<String> list3 = soBlackList;
-                    if (list3 != null && !list3.isEmpty()) {
-                        for (String str2 : soBlackList) {
-                            if (str2 != null) {
-                                eVar.f22104ca.add(str2);
-                            }
-                        }
-                        X.c("setted soBlackList: %s", eVar.f22104ca);
-                    }
-                    String str3 = appChannel;
-                    if (str3 != null) {
-                        eVar.R = str3;
-                        X.c("Beta channel %s", str3);
-                    }
-                    eVar.a(context);
-                    ResBean resBean = (ResBean) com.tencent.bugly.beta.global.a.a("rb.bch", ResBean.CREATOR);
-                    ResBean.f22088a = resBean;
-                    if (resBean == null) {
-                        ResBean.f22088a = new ResBean();
-                    }
-                    d dVar = d.f22149a;
-                    dVar.f22153e = upgradeListener;
-                    dVar.f22154f = upgradeStateListener;
-                    dVar.f22152d = downloadListener;
-                    if (getStrategyTask() != null && downloadListener != null) {
-                        getStrategyTask().addListener(d.f22149a.f22152d);
-                    }
-                    if (enableHotfix) {
-                        X.c("enableHotfix %s", "1");
-                        ca.c("D4", "1");
-                        C0874t.a(context);
-                    }
-                    Resources resources = context.getResources();
-                    DisplayMetrics displayMetrics = resources.getDisplayMetrics();
-                    Configuration configuration = resources.getConfiguration();
-                    Locale locale = Locale.getDefault();
-                    configuration.locale = locale;
-                    if (locale.equals(Locale.US) || configuration.locale.equals(Locale.ENGLISH)) {
-                        strToastYourAreTheLatestVersion = context.getResources().getString(R.string.strToastYourAreTheLatestVersion);
-                        strToastCheckUpgradeError = context.getResources().getString(R.string.strToastCheckUpgradeError);
-                        strToastCheckingUpgrade = context.getResources().getString(R.string.strToastCheckingUpgrade);
-                        strNotificationDownloading = context.getResources().getString(R.string.strNotificationDownloading);
-                        strNotificationClickToView = context.getResources().getString(R.string.strNotificationClickToView);
-                        strNotificationClickToInstall = context.getResources().getString(R.string.strNotificationClickToInstall);
-                        strNotificationClickToContinue = context.getResources().getString(R.string.strNotificationClickToContinue);
-                        strNotificationClickToRetry = context.getResources().getString(R.string.strNotificationClickToRetry);
-                        strNotificationDownloadSucc = context.getResources().getString(R.string.strNotificationDownloadSucc);
-                        strNotificationDownloadError = context.getResources().getString(R.string.strNotificationDownloadError);
-                        strNotificationHaveNewVersion = context.getResources().getString(R.string.strNotificationHaveNewVersion);
-                        strNetworkTipsMessage = context.getResources().getString(R.string.strNetworkTipsMessage);
-                        strNetworkTipsTitle = context.getResources().getString(R.string.strNetworkTipsTitle);
-                        strNetworkTipsConfirmBtn = context.getResources().getString(R.string.strNetworkTipsConfirmBtn);
-                        strNetworkTipsCancelBtn = context.getResources().getString(R.string.strNetworkTipsCancelBtn);
-                        strUpgradeDialogVersionLabel = context.getResources().getString(R.string.strUpgradeDialogVersionLabel);
-                        strUpgradeDialogFileSizeLabel = context.getResources().getString(R.string.strUpgradeDialogFileSizeLabel);
-                        strUpgradeDialogUpdateTimeLabel = context.getResources().getString(R.string.strUpgradeDialogUpdateTimeLabel);
-                        strUpgradeDialogFeatureLabel = context.getResources().getString(R.string.strUpgradeDialogFeatureLabel);
-                        strUpgradeDialogUpgradeBtn = context.getResources().getString(R.string.strUpgradeDialogUpgradeBtn);
-                        strUpgradeDialogInstallBtn = context.getResources().getString(R.string.strUpgradeDialogInstallBtn);
-                        strUpgradeDialogRetryBtn = context.getResources().getString(R.string.strUpgradeDialogRetryBtn);
-                        strUpgradeDialogContinueBtn = context.getResources().getString(R.string.strUpgradeDialogContinueBtn);
-                        strUpgradeDialogCancelBtn = context.getResources().getString(R.string.strUpgradeDialogCancelBtn);
-                    }
-                    resources.updateConfiguration(configuration, displayMetrics);
-                    W.c().a(new com.tencent.bugly.beta.global.d(1, new Object[0]), eVar.f22103c);
-                    H a11 = H.a();
-                    int i17 = instance.f22063id;
-                    int i18 = com.tencent.bugly.beta.global.e.f22099a - 1;
-                    com.tencent.bugly.beta.global.e.f22099a = i18;
-                    a11.a(i17, i18);
-                    X.c("Beta init finished...", new Object[0]);
+                X.c("current upgrade sdk version:1.5.23", new Object[0]);
+                eVar.G = z;
+                long j2 = upgradeCheckPeriod;
+                if (j2 < 0) {
+                    X.e("upgradeCheckPeriod cannot be negative", new Object[0]);
+                } else {
+                    eVar.f24623d = j2;
+                    X.c("setted upgradeCheckPeriod: %d", Long.valueOf(j2));
                 }
-            } catch (Throwable th2) {
-                throw th2;
+                long j3 = initDelay;
+                if (j3 < 0) {
+                    X.e("initDelay cannot be negative", new Object[0]);
+                } else {
+                    eVar.f24622c = j3;
+                    X.c("setted initDelay: %d", Long.valueOf(j3));
+                }
+                if (smallIconId != 0) {
+                    try {
+                        if (context.getResources().getDrawable(smallIconId) != null) {
+                            int i4 = smallIconId;
+                            eVar.f24628i = i4;
+                            X.c("setted smallIconId: %d", Integer.valueOf(i4));
+                        }
+                    } catch (Exception e2) {
+                        X.b("smallIconId is not available:\n %s", e2.toString());
+                    }
+                }
+                if (largeIconId != 0) {
+                    try {
+                        if (context.getResources().getDrawable(largeIconId) != null) {
+                            int i5 = largeIconId;
+                            eVar.f24629j = i5;
+                            X.c("setted largeIconId: %d", Integer.valueOf(i5));
+                        }
+                    } catch (Exception e3) {
+                        X.b("largeIconId is not available:\n %s", e3.toString());
+                    }
+                }
+                if (defaultBannerId != 0) {
+                    try {
+                        if (context.getResources().getDrawable(defaultBannerId) != null) {
+                            int i6 = defaultBannerId;
+                            eVar.k = i6;
+                            X.c("setted defaultBannerId: %d", Integer.valueOf(i6));
+                        }
+                    } catch (Exception e4) {
+                        X.b("defaultBannerId is not available:\n %s", e4.toString());
+                    }
+                }
+                if (upgradeDialogLayoutId != 0) {
+                    try {
+                        XmlResourceParser layout = context.getResources().getLayout(upgradeDialogLayoutId);
+                        if (layout != null) {
+                            int i7 = upgradeDialogLayoutId;
+                            eVar.l = i7;
+                            X.c("setted upgradeDialogLayoutId: %d", Integer.valueOf(i7));
+                            layout.close();
+                        }
+                    } catch (Exception e5) {
+                        X.b("upgradeDialogLayoutId is not available:\n %s", e5.toString());
+                    }
+                }
+                if (tipsDialogLayoutId != 0) {
+                    try {
+                        XmlResourceParser layout2 = context.getResources().getLayout(tipsDialogLayoutId);
+                        if (layout2 != null) {
+                            int i8 = tipsDialogLayoutId;
+                            eVar.m = i8;
+                            X.c("setted tipsDialogLayoutId: %d", Integer.valueOf(i8));
+                            layout2.close();
+                        }
+                    } catch (Exception e6) {
+                        X.b("tipsDialogLayoutId is not available:\n %s", e6.toString());
+                    }
+                }
+                UILifecycleListener<UpgradeInfo> uILifecycleListener = upgradeDialogLifecycleListener;
+                if (uILifecycleListener != null) {
+                    try {
+                        eVar.n = uILifecycleListener;
+                        StringBuilder sb = new StringBuilder();
+                        sb.append("setted upgradeDialogLifecycleListener:%s");
+                        sb.append(upgradeDialogLifecycleListener);
+                        X.c(sb.toString(), new Object[0]);
+                    } catch (Exception e7) {
+                        X.b("upgradeDialogLifecycleListener is not available:\n %", e7.toString());
+                    }
+                }
+                List<Class<? extends Activity>> list = canShowUpgradeActs;
+                if (list != null && !list.isEmpty()) {
+                    for (Class<? extends Activity> cls : canShowUpgradeActs) {
+                        if (cls != null) {
+                            eVar.p.add(cls);
+                        }
+                    }
+                    X.c("setted canShowUpgradeActs: %s", eVar.p);
+                }
+                List<Class<? extends Activity>> list2 = canNotShowUpgradeActs;
+                if (list2 != null && !list2.isEmpty()) {
+                    for (Class<? extends Activity> cls2 : canNotShowUpgradeActs) {
+                        if (cls2 != null) {
+                            eVar.q.add(cls2);
+                        }
+                    }
+                    X.c("setted canNotShowUpgradeActs: %s", eVar.q);
+                }
+                boolean z2 = autoCheckUpgrade;
+                eVar.f24624e = z2;
+                eVar.f24625f = autoCheckAppUpgrade;
+                eVar.f24626g = autoCheckHotfix;
+                Object[] objArr = new Object[1];
+                objArr[0] = z2 ? "is opened" : "is closed";
+                X.c("autoCheckUpgrade %s", objArr);
+                Object[] objArr2 = new Object[1];
+                objArr2[0] = eVar.f24625f ? "is opened" : "is closed";
+                X.c("autoCheckAppUpgrade %s", objArr2);
+                Object[] objArr3 = new Object[1];
+                objArr3[0] = eVar.f24626g ? "is opened" : "is closed";
+                X.c("autoCheckHotfix %s", objArr3);
+                boolean z3 = autoInstallApk;
+                eVar.fa = z3;
+                Object[] objArr4 = new Object[1];
+                objArr4[0] = z3 ? "is opened" : "is closed";
+                X.c("autoInstallApk %s", objArr4);
+                boolean z4 = autoDownloadOn4g;
+                eVar.V = z4;
+                Object[] objArr5 = new Object[1];
+                objArr5[0] = z4 ? "is opened" : "is closed";
+                X.c("autoDownloadOn4g %s", objArr5);
+                boolean z5 = showInterruptedStrategy;
+                eVar.f24627h = z5;
+                Object[] objArr6 = new Object[1];
+                objArr6[0] = z5 ? "is opened" : "is closed";
+                X.c("showInterruptedStrategy %s", objArr6);
+                Object[] objArr7 = new Object[1];
+                objArr7[0] = upgradeListener != null ? "is opened" : "is closed";
+                X.c("isDIY %s", objArr7);
+                File file = storageDir;
+                if (file != null) {
+                    if (file.exists() || storageDir.mkdirs()) {
+                        File file2 = storageDir;
+                        eVar.o = file2;
+                        X.c("setted storageDir: %s", file2.getAbsolutePath());
+                    } else {
+                        X.c("storageDir is not exists: %s", storageDir.getAbsolutePath());
+                    }
+                }
+                if (eVar.s == null) {
+                    eVar.s = C0917v.f25173a;
+                }
+                if (TextUtils.isEmpty(eVar.x)) {
+                    eVar.x = com.tencent.bugly.crashreport.common.info.a.m().e();
+                }
+                eVar.T = enableNotification;
+                X.c("enableNotification %s", enableNotification + "");
+                eVar.U = autoDownloadOnWifi;
+                X.c("autoDownloadOnWifi %s", autoDownloadOnWifi + "");
+                eVar.W = canShowApkInfo;
+                X.c("canShowApkInfo %s", canShowApkInfo + "");
+                eVar.X = canAutoPatch;
+                X.c("canAutoPatch %s", canAutoPatch + "");
+                eVar.Y = betaPatchListener;
+                eVar.A = appVersionName;
+                eVar.z = appVersionCode;
+                eVar.Z = canNotifyUserRestart;
+                X.c("canNotifyUserRestart %s", canNotifyUserRestart + "");
+                eVar.aa = canAutoDownloadPatch;
+                X.c("canAutoDownloadPatch %s", canAutoDownloadPatch + "");
+                eVar.ba = enableHotfix;
+                X.c("enableHotfix %s", enableHotfix + "");
+                List<String> list3 = soBlackList;
+                if (list3 != null && !list3.isEmpty()) {
+                    for (String str2 : soBlackList) {
+                        if (str2 != null) {
+                            eVar.ca.add(str2);
+                        }
+                    }
+                    X.c("setted soBlackList: %s", eVar.ca);
+                }
+                String str3 = appChannel;
+                if (str3 != null) {
+                    eVar.R = str3;
+                    X.c("Beta channel %s", str3);
+                }
+                eVar.a(context);
+                ResBean resBean = (ResBean) com.tencent.bugly.beta.global.a.a("rb.bch", ResBean.CREATOR);
+                ResBean.f24609a = resBean;
+                if (resBean == null) {
+                    ResBean.f24609a = new ResBean();
+                }
+                d dVar = d.f24648a;
+                dVar.f24652e = upgradeListener;
+                dVar.f24653f = upgradeStateListener;
+                dVar.f24651d = downloadListener;
+                if (getStrategyTask() != null && downloadListener != null) {
+                    getStrategyTask().addListener(d.f24648a.f24651d);
+                }
+                if (enableHotfix) {
+                    X.c("enableHotfix %s", "1");
+                    ca.c("D4", "1");
+                    C0915t.a(context);
+                }
+                Resources resources = context.getResources();
+                DisplayMetrics displayMetrics = resources.getDisplayMetrics();
+                Configuration configuration = resources.getConfiguration();
+                Locale locale = Locale.getDefault();
+                configuration.locale = locale;
+                if (locale.equals(Locale.US) || configuration.locale.equals(Locale.ENGLISH)) {
+                    strToastYourAreTheLatestVersion = context.getResources().getString(R.string.strToastYourAreTheLatestVersion);
+                    strToastCheckUpgradeError = context.getResources().getString(R.string.strToastCheckUpgradeError);
+                    strToastCheckingUpgrade = context.getResources().getString(R.string.strToastCheckingUpgrade);
+                    strNotificationDownloading = context.getResources().getString(R.string.strNotificationDownloading);
+                    strNotificationClickToView = context.getResources().getString(R.string.strNotificationClickToView);
+                    strNotificationClickToInstall = context.getResources().getString(R.string.strNotificationClickToInstall);
+                    strNotificationClickToContinue = context.getResources().getString(R.string.strNotificationClickToContinue);
+                    strNotificationClickToRetry = context.getResources().getString(R.string.strNotificationClickToRetry);
+                    strNotificationDownloadSucc = context.getResources().getString(R.string.strNotificationDownloadSucc);
+                    strNotificationDownloadError = context.getResources().getString(R.string.strNotificationDownloadError);
+                    strNotificationHaveNewVersion = context.getResources().getString(R.string.strNotificationHaveNewVersion);
+                    strNetworkTipsMessage = context.getResources().getString(R.string.strNetworkTipsMessage);
+                    strNetworkTipsTitle = context.getResources().getString(R.string.strNetworkTipsTitle);
+                    strNetworkTipsConfirmBtn = context.getResources().getString(R.string.strNetworkTipsConfirmBtn);
+                    strNetworkTipsCancelBtn = context.getResources().getString(R.string.strNetworkTipsCancelBtn);
+                    strUpgradeDialogVersionLabel = context.getResources().getString(R.string.strUpgradeDialogVersionLabel);
+                    strUpgradeDialogFileSizeLabel = context.getResources().getString(R.string.strUpgradeDialogFileSizeLabel);
+                    strUpgradeDialogUpdateTimeLabel = context.getResources().getString(R.string.strUpgradeDialogUpdateTimeLabel);
+                    strUpgradeDialogFeatureLabel = context.getResources().getString(R.string.strUpgradeDialogFeatureLabel);
+                    strUpgradeDialogUpgradeBtn = context.getResources().getString(R.string.strUpgradeDialogUpgradeBtn);
+                    strUpgradeDialogInstallBtn = context.getResources().getString(R.string.strUpgradeDialogInstallBtn);
+                    strUpgradeDialogRetryBtn = context.getResources().getString(R.string.strUpgradeDialogRetryBtn);
+                    strUpgradeDialogContinueBtn = context.getResources().getString(R.string.strUpgradeDialogContinueBtn);
+                    strUpgradeDialogCancelBtn = context.getResources().getString(R.string.strUpgradeDialogCancelBtn);
+                }
+                resources.updateConfiguration(configuration, displayMetrics);
+                W.c().a(new com.tencent.bugly.beta.global.d(1, new Object[0]), eVar.f24622c);
+                H a3 = H.a();
+                int i9 = instance.id;
+                int i10 = com.tencent.bugly.beta.global.e.f24620a - 1;
+                com.tencent.bugly.beta.global.e.f24620a = i10;
+                a3.a(i9, i10);
+                X.c("Beta init finished...", new Object[0]);
             }
         }
     }
@@ -623,11 +632,11 @@ public class Beta extends a {
         synchronized (Beta.class) {
             try {
                 B upgradeStrategy = getUpgradeStrategy();
-                if (upgradeStrategy != null && com.tencent.bugly.beta.global.a.a(com.tencent.bugly.beta.global.e.f22100b.f22126v, file, upgradeStrategy.f22563k.f22889b)) {
-                    C0871p.f22799a.a(new C0880z("install", System.currentTimeMillis(), (byte) 0, 0L, upgradeStrategy.f22562j, upgradeStrategy.f22570r, upgradeStrategy.f22573u, null));
+                if (upgradeStrategy != null && com.tencent.bugly.beta.global.a.a(com.tencent.bugly.beta.global.e.f24621b.v, file, upgradeStrategy.k.f25177b)) {
+                    C0912p.f25111a.a(new C0921z("install", System.currentTimeMillis(), (byte) 0, 0L, upgradeStrategy.f24932j, upgradeStrategy.r, upgradeStrategy.u, null));
                 }
-            } catch (Exception e10) {
-                e10.printStackTrace();
+            } catch (Exception e2) {
+                e2.printStackTrace();
             }
         }
     }
@@ -646,8 +655,8 @@ public class Beta extends a {
     }
 
     public static void loadLibrary(String str) {
-        boolean z10;
-        com.tencent.bugly.beta.global.e eVar = com.tencent.bugly.beta.global.e.f22100b;
+        boolean z;
+        com.tencent.bugly.beta.global.e eVar = com.tencent.bugly.beta.global.e.f24621b;
         if (str != null) {
             try {
                 if (!str.isEmpty()) {
@@ -658,24 +667,24 @@ public class Beta extends a {
                         return;
                     }
                     com.tencent.bugly.beta.global.a.b("LoadSoFileResult", false);
-                    String a10 = com.tencent.bugly.beta.global.a.a(str, "");
-                    boolean a11 = com.tencent.bugly.beta.global.a.a("PatchResult", false);
-                    if (TextUtils.isEmpty(a10) || !a11) {
-                        z10 = false;
+                    String a2 = com.tencent.bugly.beta.global.a.a(str, "");
+                    boolean a3 = com.tencent.bugly.beta.global.a.a("PatchResult", false);
+                    if (TextUtils.isEmpty(a2) || !a3) {
+                        z = false;
                     } else {
-                        StringBuilder sb2 = new StringBuilder();
-                        sb2.append("lib/");
-                        sb2.append(a10);
-                        z10 = TinkerManager.loadLibraryFromTinker(eVar.f22126v, sb2.toString(), str);
+                        StringBuilder sb = new StringBuilder();
+                        sb.append("lib/");
+                        sb.append(a2);
+                        z = TinkerManager.loadLibraryFromTinker(eVar.v, sb.toString(), str);
                     }
-                    if (!z10) {
+                    if (!z) {
                         System.loadLibrary(str);
                     }
                     com.tencent.bugly.beta.global.a.b("LoadSoFileResult", true);
                     return;
                 }
-            } catch (Exception e10) {
-                e10.printStackTrace();
+            } catch (Exception e2) {
+                e2.printStackTrace();
                 com.tencent.bugly.beta.global.a.b("LoadSoFileResult", false);
                 return;
             }
@@ -687,85 +696,89 @@ public class Beta extends a {
         TinkerManager.loadLibraryFromTinker(context, str, str2);
     }
 
-    public static synchronized void onUpgradeReceived(String str, int i10, String str2, long j10, int i11, int i12, String str3, String str4, long j11, String str5, String str6, int i13, int i14, long j12, String str7, boolean z10, boolean z11, int i15, String str8, long j13) {
+    public static synchronized void onUpgradeReceived(String str, int i2, String str2, long j2, int i3, int i4, String str3, String str4, long j3, String str5, String str6, int i5, int i6, long j4, String str7, boolean z, boolean z2, int i7, String str8, long j5) {
         synchronized (Beta.class) {
-            try {
-                HashMap hashMap = new HashMap();
-                hashMap.put("IMG_title", str6);
-                hashMap.put("VAL_style", String.valueOf(i13));
-                d.f22149a.a(z10, z11, i15, new B(str, str2, j10, 0, new C0879y(com.tencent.bugly.beta.global.e.f22100b.f22128x, (byte) 1, i12, str3, i11, "", 1L, "", str5, "", ""), new C0878x(str5, str4, "", j11, ""), (byte) i10, i14, j12, null, "", hashMap, str7, 1, j13, 1), str8 == null ? "" : str8);
-            } catch (Throwable th2) {
-                throw th2;
-            }
+            HashMap hashMap = new HashMap();
+            hashMap.put("IMG_title", str6);
+            hashMap.put("VAL_style", String.valueOf(i5));
+            d.f24648a.a(z, z2, i7, new B(str, str2, j2, 0, new C0920y(com.tencent.bugly.beta.global.e.f24621b.x, (byte) 1, i4, str3, i3, "", 1L, "", str5, "", ""), new C0919x(str5, str4, "", j3, ""), (byte) i2, i6, j4, null, "", hashMap, str7, 1, j5, 1), str8 == null ? "" : str8);
         }
     }
 
     public static void registerDownloadListener(DownloadListener downloadListener2) {
         DownloadTask downloadTask;
-        com.tencent.bugly.beta.global.e.f22100b.f22124t = downloadListener2;
-        if (downloadListener2 == null || (downloadTask = d.f22149a.f22151c) == null) {
+        com.tencent.bugly.beta.global.e.f24621b.t = downloadListener2;
+        if (downloadListener2 == null || (downloadTask = d.f24648a.f24650c) == null) {
             return;
         }
         downloadTask.addListener(downloadListener2);
     }
 
-    public static synchronized void saveInstallEvent(boolean z10) {
+    public static synchronized void saveInstallEvent(boolean z) {
         synchronized (Beta.class) {
             try {
                 B upgradeStrategy = getUpgradeStrategy();
-                if (upgradeStrategy != null && z10) {
-                    C0871p.f22799a.a(new C0880z("install", System.currentTimeMillis(), (byte) 0, 0L, upgradeStrategy.f22562j, upgradeStrategy.f22570r, upgradeStrategy.f22573u, null));
+                if (upgradeStrategy != null && z) {
+                    C0912p.f25111a.a(new C0921z("install", System.currentTimeMillis(), (byte) 0, 0L, upgradeStrategy.f24932j, upgradeStrategy.r, upgradeStrategy.u, null));
                     X.c("安装事件保存成功", new Object[0]);
                 }
-            } catch (Exception e10) {
-                e10.printStackTrace();
+            } catch (Exception e2) {
+                e2.printStackTrace();
             }
         }
     }
 
-    public static synchronized void showUpgradeDialog(String str, int i10, String str2, long j10, int i11, int i12, String str3, String str4, long j11, String str5, String str6, int i13, DownloadListener downloadListener2, Runnable runnable, Runnable runnable2, boolean z10) {
+    public static synchronized void showUpgradeDialog(String str, int i2, String str2, long j2, int i3, int i4, String str3, String str4, long j3, String str5, String str6, int i5, DownloadListener downloadListener2, Runnable runnable, Runnable runnable2, boolean z) {
+        B b2;
         synchronized (Beta.class) {
-            try {
-                HashMap hashMap = new HashMap();
-                hashMap.put("IMG_title", str6);
-                hashMap.put("VAL_style", String.valueOf(i13));
-                B b10 = new B(str, str2, j10, 0, new C0879y(com.tencent.bugly.beta.global.e.f22100b.f22128x, (byte) 1, i12, str3, i11, "", 1L, "", str5, "1.5.23", ""), new C0878x(str5, str4, "", j11, ""), (byte) i10, 0, 0L, null, "", hashMap, null, 1, System.currentTimeMillis(), 1);
-                DownloadTask downloadTask = f22069a;
-                if (downloadTask != null && !downloadTask.getDownloadUrl().equals(str4)) {
-                    f22069a.delete(true);
-                    f22069a = null;
-                }
-                if (f22069a == null) {
-                    com.tencent.bugly.beta.global.e eVar = com.tencent.bugly.beta.global.e.f22100b;
-                    DownloadTask a10 = eVar.f22123s.a(b10.f22563k.f22890c, eVar.f22127w.getAbsolutePath(), null, b10.f22563k.f22889b);
-                    f22069a = a10;
-                    a10.setDownloadType(1);
-                }
-                f22069a.addListener(downloadListener2);
-                UpgradeDialog.instance.setUpgradeInfo(b10, f22069a);
-                UpgradeDialog upgradeDialog = UpgradeDialog.instance;
-                upgradeDialog.upgradeRunnable = runnable;
-                upgradeDialog.cancelRunnable = runnable2;
-                f.f22131a.a(com.tencent.bugly.beta.global.e.f22100b.f22123s, b10.f22569q);
-                if (z10) {
-                    f.f22131a.a(new com.tencent.bugly.beta.global.d(2, UpgradeDialog.instance, Boolean.valueOf(b10.f22564l == 2)), 3000);
-                } else {
-                    f.f22131a.a(new com.tencent.bugly.beta.global.d(2, UpgradeDialog.instance, Boolean.valueOf(b10.f22564l == 2)));
-                }
-            } catch (Throwable th2) {
-                throw th2;
+            HashMap hashMap = new HashMap();
+            hashMap.put("IMG_title", str6);
+            hashMap.put("VAL_style", String.valueOf(i5));
+            B b3 = new B(str, str2, j2, 0, new C0920y(com.tencent.bugly.beta.global.e.f24621b.x, (byte) 1, i4, str3, i3, "", 1L, "", str5, "1.5.23", ""), new C0919x(str5, str4, "", j3, ""), (byte) i2, 0, 0L, null, "", hashMap, null, 1, System.currentTimeMillis(), 1);
+            DownloadTask downloadTask = f24591a;
+            if (downloadTask != null && !downloadTask.getDownloadUrl().equals(str4)) {
+                f24591a.delete(true);
+                f24591a = null;
+            }
+            if (f24591a == null) {
+                com.tencent.bugly.beta.global.e eVar = com.tencent.bugly.beta.global.e.f24621b;
+                b2 = b3;
+                DownloadTask a2 = eVar.s.a(b2.k.f25178c, eVar.w.getAbsolutePath(), null, b2.k.f25177b);
+                f24591a = a2;
+                a2.setDownloadType(1);
+            } else {
+                b2 = b3;
+            }
+            f24591a.addListener(downloadListener2);
+            UpgradeDialog.instance.setUpgradeInfo(b2, f24591a);
+            UpgradeDialog upgradeDialog = UpgradeDialog.instance;
+            upgradeDialog.upgradeRunnable = runnable;
+            upgradeDialog.cancelRunnable = runnable2;
+            f.f24630a.a(com.tencent.bugly.beta.global.e.f24621b.s, b2.q);
+            if (z) {
+                f fVar = f.f24630a;
+                Object[] objArr = new Object[2];
+                objArr[0] = UpgradeDialog.instance;
+                objArr[1] = Boolean.valueOf(b2.l == 2);
+                fVar.a(new com.tencent.bugly.beta.global.d(2, objArr), 3000);
+            } else {
+                f fVar2 = f.f24630a;
+                Object[] objArr2 = new Object[2];
+                objArr2[0] = UpgradeDialog.instance;
+                objArr2[1] = Boolean.valueOf(b2.l == 2);
+                fVar2.a(new com.tencent.bugly.beta.global.d(2, objArr2));
             }
         }
     }
 
     public static DownloadTask startDownload() {
-        d dVar = d.f22149a;
-        com.tencent.bugly.beta.global.d dVar2 = dVar.f22157i;
-        if (dVar2 == null || dVar2.f22098b[0] != dVar.f22151c) {
-            dVar.f22157i = new com.tencent.bugly.beta.global.d(13, dVar.f22151c, dVar.f22150b);
+        d dVar = d.f24648a;
+        com.tencent.bugly.beta.global.d dVar2 = dVar.f24656i;
+        if (dVar2 == null || dVar2.f24619b[0] != dVar.f24650c) {
+            dVar.f24656i = new com.tencent.bugly.beta.global.d(13, dVar.f24650c, dVar.f24649b);
         }
-        d.f22149a.f22157i.run();
-        return d.f22149a.f22151c;
+        d.f24648a.f24656i.run();
+        return d.f24648a.f24650c;
     }
 
     public static void unInit() {
@@ -776,11 +789,11 @@ public class Beta extends a {
     }
 
     public static void unregisterDownloadListener() {
-        DownloadTask downloadTask = d.f22149a.f22151c;
+        DownloadTask downloadTask = d.f24648a.f24650c;
         if (downloadTask != null) {
-            downloadTask.removeListener(com.tencent.bugly.beta.global.e.f22100b.f22124t);
+            downloadTask.removeListener(com.tencent.bugly.beta.global.e.f24621b.t);
         }
-        com.tencent.bugly.beta.global.e.f22100b.f22124t = null;
+        com.tencent.bugly.beta.global.e.f24621b.t = null;
     }
 
     @Override // com.tencent.bugly.a
@@ -789,69 +802,61 @@ public class Beta extends a {
     }
 
     @Override // com.tencent.bugly.a
-    public void onDbDowngrade(SQLiteDatabase sQLiteDatabase, int i10, int i11) {
+    public void onDbDowngrade(SQLiteDatabase sQLiteDatabase, int i2, int i3) {
     }
 
     @Override // com.tencent.bugly.a
-    public void onDbUpgrade(SQLiteDatabase sQLiteDatabase, int i10, int i11) {
-        int i12;
+    public void onDbUpgrade(SQLiteDatabase sQLiteDatabase, int i2, int i3) {
+        int i4;
         String str;
         String str2;
-        String str3;
         Cursor cursor;
-        int i13 = 1;
-        int i14 = 0;
-        String str4 = bx.f23687e;
-        String str5 = " ";
-        String str6 = "_id";
-        int i15 = i10;
-        int i16 = i11;
-        while (i15 < i16) {
-            if (i15 != 10) {
-                i12 = i15;
-                str = str6;
-                str2 = str5;
-                str3 = str4;
+        String str3 = " , ";
+        String str4 = "_id";
+        int i5 = i2;
+        int i6 = i3;
+        while (i5 < i6) {
+            if (i5 != 10) {
+                i4 = i5;
+                str = str3;
+                str2 = str4;
             } else {
                 try {
-                    StringBuilder sb2 = new StringBuilder();
-                    sb2.setLength(i14);
-                    sb2.append(" CREATE TABLE  IF NOT EXISTS ");
-                    sb2.append("st_1002");
-                    sb2.append(" ( ");
-                    sb2.append(str6);
-                    sb2.append(str5);
-                    sb2.append(TypedValues.Custom.S_INT);
-                    sb2.append(" , ");
-                    sb2.append(str4);
-                    sb2.append(str5);
-                    sb2.append("text");
-                    sb2.append(" , ");
-                    sb2.append("_tm");
-                    sb2.append(str5);
-                    sb2.append(IAdInterListener.AdProdType.PRODUCT_INTERSTITIAL);
-                    sb2.append(" , ");
-                    sb2.append("_dt");
-                    sb2.append(str5);
-                    sb2.append("blob");
-                    sb2.append(",primary key(");
-                    sb2.append(str6);
-                    sb2.append(",");
-                    sb2.append(str4);
-                    sb2.append(" )) ");
-                    Object[] objArr = new Object[i13];
-                    objArr[i14] = sb2.toString();
-                    X.a("create %s", objArr);
-                    sQLiteDatabase.execSQL(sb2.toString());
-                } catch (Throwable th2) {
-                    if (!X.a(th2)) {
-                        th2.printStackTrace();
+                    StringBuilder sb = new StringBuilder();
+                    sb.setLength(0);
+                    sb.append(" CREATE TABLE  IF NOT EXISTS ");
+                    sb.append("st_1002");
+                    sb.append(" ( ");
+                    sb.append(str4);
+                    sb.append(" ");
+                    sb.append("integer");
+                    sb.append(str3);
+                    sb.append(aq.f25697e);
+                    sb.append(" ");
+                    sb.append(com.baidu.mobads.sdk.internal.a.f5473b);
+                    sb.append(str3);
+                    sb.append("_tm");
+                    sb.append(" ");
+                    sb.append(IAdInterListener.AdProdType.PRODUCT_INTERSTITIAL);
+                    sb.append(str3);
+                    sb.append("_dt");
+                    sb.append(" ");
+                    sb.append("blob");
+                    sb.append(",primary key(");
+                    sb.append(str4);
+                    sb.append(",");
+                    sb.append(aq.f25697e);
+                    sb.append(" )) ");
+                    X.a("create %s", sb.toString());
+                    sQLiteDatabase.execSQL(sb.toString());
+                } catch (Throwable th) {
+                    if (!X.a(th)) {
+                        th.printStackTrace();
                     }
                 }
-                i12 = i15;
-                str = str6;
-                str2 = str5;
-                str3 = str4;
+                i4 = i5;
+                str = str3;
+                str2 = str4;
                 try {
                     cursor = sQLiteDatabase.query("t_pf", null, "_id = 1002", null, null, null, null);
                     if (cursor == null) {
@@ -864,15 +869,15 @@ public class Beta extends a {
                     while (cursor.moveToNext()) {
                         try {
                             ContentValues contentValues = new ContentValues();
-                            if (cursor.getLong(cursor.getColumnIndex(str)) > 0) {
-                                contentValues.put(str, Long.valueOf(cursor.getLong(cursor.getColumnIndex(str))));
+                            if (cursor.getLong(cursor.getColumnIndex(str2)) > 0) {
+                                contentValues.put(str2, Long.valueOf(cursor.getLong(cursor.getColumnIndex(str2))));
                             }
                             contentValues.put("_tm", Long.valueOf(cursor.getLong(cursor.getColumnIndex("_tm"))));
-                            contentValues.put(str3, cursor.getString(cursor.getColumnIndex(str3)));
+                            contentValues.put(aq.f25697e, cursor.getString(cursor.getColumnIndex(aq.f25697e)));
                             contentValues.put("_dt", cursor.getBlob(cursor.getColumnIndex("_dt")));
                             sQLiteDatabase.replace("st_1002", null, contentValues);
-                        } catch (Throwable th3) {
-                            th = th3;
+                        } catch (Throwable th2) {
+                            th = th2;
                             try {
                                 if (!X.a(th)) {
                                     th.printStackTrace();
@@ -880,13 +885,10 @@ public class Beta extends a {
                                 if (cursor != null) {
                                     cursor.close();
                                 }
-                                i15 = i12 + 1;
-                                i16 = i11;
-                                str6 = str;
-                                str4 = str3;
-                                str5 = str2;
-                                i13 = 1;
-                                i14 = 0;
+                                i5 = i4 + 1;
+                                i6 = i3;
+                                str4 = str2;
+                                str3 = str;
                             } finally {
                                 if (cursor != null) {
                                     cursor.close();
@@ -895,27 +897,24 @@ public class Beta extends a {
                         }
                     }
                     cursor.close();
-                } catch (Throwable th4) {
-                    th = th4;
+                } catch (Throwable th3) {
+                    th = th3;
                     cursor = null;
                 }
             }
-            i15 = i12 + 1;
-            i16 = i11;
-            str6 = str;
-            str4 = str3;
-            str5 = str2;
-            i13 = 1;
-            i14 = 0;
+            i5 = i4 + 1;
+            i6 = i3;
+            str4 = str2;
+            str3 = str;
         }
     }
 
-    public static void checkAppUpgrade(boolean z10, boolean z11) {
-        a(z10, z11, 1);
+    public static void checkAppUpgrade(boolean z, boolean z2) {
+        a(z, z2, 1);
     }
 
-    public static void checkUpgrade(boolean z10, boolean z11) {
-        a(z10, z11, 0);
+    public static void checkUpgrade(boolean z, boolean z2) {
+        a(z, z2, 0);
     }
 
     public static void installTinker(Object obj) {
@@ -931,10 +930,10 @@ public class Beta extends a {
     }
 
     @Override // com.tencent.bugly.a
-    public synchronized void init(Context context, boolean z10, BuglyStrategy buglyStrategy) {
+    public synchronized void init(Context context, boolean z, BuglyStrategy buglyStrategy) {
         com.tencent.bugly.crashreport.common.info.a.m().a("G10", "1.5.23");
         if (autoInit) {
-            init(context, z10);
+            init(context, z);
         }
     }
 }

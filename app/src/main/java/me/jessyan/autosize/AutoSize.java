@@ -15,7 +15,7 @@ import me.jessyan.autosize.unit.Subunits;
 import me.jessyan.autosize.utils.AutoSizeLog;
 import me.jessyan.autosize.utils.Preconditions;
 
-/* loaded from: classes4.dex */
+/* loaded from: classes5.dex */
 public final class AutoSize {
     private static final int MODE_DEVICE_SIZE = Integer.MIN_VALUE;
     private static final int MODE_MASK = -1073741824;
@@ -24,7 +24,7 @@ public final class AutoSize {
     private static SparseArray<DisplayMetricsInfo> mCache = new SparseArray<>();
 
     /* renamed from: me.jessyan.autosize.AutoSize$1 */
-    public static /* synthetic */ class AnonymousClass1 {
+    static /* synthetic */ class AnonymousClass1 {
         static final /* synthetic */ int[] $SwitchMap$me$jessyan$autosize$unit$Subunits;
 
         static {
@@ -53,33 +53,33 @@ public final class AutoSize {
         throw new IllegalStateException("you can't instantiate me!");
     }
 
-    public static void autoConvertDensity(Activity activity, float f10, boolean z10) {
+    public static void autoConvertDensity(Activity activity, float f2, boolean z) {
         float density;
         int densityDpi;
         float scaledDensity;
         int screenWidthDp;
         int screenHeightDp;
-        float f11;
+        float f3;
         Preconditions.checkNotNull(activity, "activity == null");
         Preconditions.checkMainThread();
-        float designWidth = z10 ? AutoSizeConfig.getInstance().getUnitsManager().getDesignWidth() : AutoSizeConfig.getInstance().getUnitsManager().getDesignHeight();
+        float designWidth = z ? AutoSizeConfig.getInstance().getUnitsManager().getDesignWidth() : AutoSizeConfig.getInstance().getUnitsManager().getDesignHeight();
         if (designWidth <= 0.0f) {
-            designWidth = f10;
+            designWidth = f2;
         }
-        int round = Math.round((f10 + designWidth + (z10 ? AutoSizeConfig.getInstance().getScreenWidth() : AutoSizeConfig.getInstance().getScreenHeight())) * AutoSizeConfig.getInstance().getInitScaledDensity());
-        int i10 = z10 ? 1073741824 | (round & 1073741823) : round & 1073741823;
-        int i11 = AutoSizeConfig.getInstance().isUseDeviceSize() ? i10 | Integer.MIN_VALUE : i10 & Integer.MAX_VALUE;
-        DisplayMetricsInfo displayMetricsInfo = mCache.get(i11);
+        int round = Math.round((f2 + designWidth + (z ? AutoSizeConfig.getInstance().getScreenWidth() : AutoSizeConfig.getInstance().getScreenHeight())) * AutoSizeConfig.getInstance().getInitScaledDensity()) & 1073741823;
+        int i2 = z ? round | 1073741824 : round & (-1073741825);
+        int i3 = AutoSizeConfig.getInstance().isUseDeviceSize() ? i2 | Integer.MIN_VALUE : i2 & Integer.MAX_VALUE;
+        DisplayMetricsInfo displayMetricsInfo = mCache.get(i3);
         if (displayMetricsInfo == null) {
-            density = ((z10 ? AutoSizeConfig.getInstance().getScreenWidth() : AutoSizeConfig.getInstance().getScreenHeight()) * 1.0f) / f10;
+            density = ((z ? AutoSizeConfig.getInstance().getScreenWidth() : AutoSizeConfig.getInstance().getScreenHeight()) * 1.0f) / f2;
             float privateFontScale = (AutoSizeConfig.getInstance().getPrivateFontScale() > 0.0f ? AutoSizeConfig.getInstance().getPrivateFontScale() : AutoSizeConfig.getInstance().isExcludeFontScale() ? 1.0f : (AutoSizeConfig.getInstance().getInitScaledDensity() * 1.0f) / AutoSizeConfig.getInstance().getInitDensity()) * density;
             densityDpi = (int) (160.0f * density);
             screenWidthDp = (int) (AutoSizeConfig.getInstance().getScreenWidth() / density);
             screenHeightDp = (int) (AutoSizeConfig.getInstance().getScreenHeight() / density);
-            float screenWidth = ((z10 ? AutoSizeConfig.getInstance().getScreenWidth() : AutoSizeConfig.getInstance().getScreenHeight()) * 1.0f) / designWidth;
-            mCache.put(i11, new DisplayMetricsInfo(density, densityDpi, privateFontScale, screenWidth, screenWidthDp, screenHeightDp));
+            float screenWidth = ((z ? AutoSizeConfig.getInstance().getScreenWidth() : AutoSizeConfig.getInstance().getScreenHeight()) * 1.0f) / designWidth;
+            mCache.put(i3, new DisplayMetricsInfo(density, densityDpi, privateFontScale, screenWidth, screenWidthDp, screenHeightDp));
             scaledDensity = privateFontScale;
-            f11 = screenWidth;
+            f3 = screenWidth;
         } else {
             density = displayMetricsInfo.getDensity();
             densityDpi = displayMetricsInfo.getDensityDpi();
@@ -87,19 +87,34 @@ public final class AutoSize {
             float xdpi = displayMetricsInfo.getXdpi();
             screenWidthDp = displayMetricsInfo.getScreenWidthDp();
             screenHeightDp = displayMetricsInfo.getScreenHeightDp();
-            f11 = xdpi;
+            f3 = xdpi;
         }
-        setDensity(activity, density, densityDpi, scaledDensity, f11);
+        setDensity(activity, density, densityDpi, scaledDensity, f3);
         setScreenSizeDp(activity, screenWidthDp, screenHeightDp);
-        AutoSizeLog.d(String.format(Locale.ENGLISH, "The %s has been adapted! \n%s Info: isBaseOnWidth = %s, %s = %f, %s = %f, targetDensity = %f, targetScaledDensity = %f, targetDensityDpi = %d, targetXdpi = %f, targetScreenWidthDp = %d, targetScreenHeightDp = %d", activity.getClass().getName(), activity.getClass().getSimpleName(), Boolean.valueOf(z10), z10 ? "designWidthInDp" : "designHeightInDp", Float.valueOf(f10), z10 ? "designWidthInSubunits" : "designHeightInSubunits", Float.valueOf(designWidth), Float.valueOf(density), Float.valueOf(scaledDensity), Integer.valueOf(densityDpi), Float.valueOf(f11), Integer.valueOf(screenWidthDp), Integer.valueOf(screenHeightDp)));
+        Locale locale = Locale.ENGLISH;
+        Object[] objArr = new Object[13];
+        objArr[0] = activity.getClass().getName();
+        objArr[1] = activity.getClass().getSimpleName();
+        objArr[2] = Boolean.valueOf(z);
+        objArr[3] = z ? "designWidthInDp" : "designHeightInDp";
+        objArr[4] = Float.valueOf(f2);
+        objArr[5] = z ? "designWidthInSubunits" : "designHeightInSubunits";
+        objArr[6] = Float.valueOf(designWidth);
+        objArr[7] = Float.valueOf(density);
+        objArr[8] = Float.valueOf(scaledDensity);
+        objArr[9] = Integer.valueOf(densityDpi);
+        objArr[10] = Float.valueOf(f3);
+        objArr[11] = Integer.valueOf(screenWidthDp);
+        objArr[12] = Integer.valueOf(screenHeightDp);
+        AutoSizeLog.d(String.format(locale, "The %s has been adapted! \n%s Info: isBaseOnWidth = %s, %s = %f, %s = %f, targetDensity = %f, targetScaledDensity = %f, targetDensityDpi = %d, targetXdpi = %f, targetScreenWidthDp = %d, targetScreenHeightDp = %d", objArr));
     }
 
-    public static void autoConvertDensityBaseOnHeight(Activity activity, float f10) {
-        autoConvertDensity(activity, f10, false);
+    public static void autoConvertDensityBaseOnHeight(Activity activity, float f2) {
+        autoConvertDensity(activity, f2, false);
     }
 
-    public static void autoConvertDensityBaseOnWidth(Activity activity, float f10) {
-        autoConvertDensity(activity, f10, true);
+    public static void autoConvertDensityBaseOnWidth(Activity activity, float f2) {
+        autoConvertDensity(activity, f2, true);
     }
 
     public static void autoConvertDensityOfCustomAdapt(Activity activity, CustomAdapt customAdapt) {
@@ -129,16 +144,16 @@ public final class AutoSize {
     }
 
     public static void cancelAdapt(Activity activity) {
-        float f10;
+        float f2;
         Preconditions.checkMainThread();
         float initXdpi = AutoSizeConfig.getInstance().getInitXdpi();
-        int i10 = AnonymousClass1.$SwitchMap$me$jessyan$autosize$unit$Subunits[AutoSizeConfig.getInstance().getUnitsManager().getSupportSubunits().ordinal()];
-        if (i10 != 1) {
-            f10 = i10 == 2 ? 25.4f : 72.0f;
+        int i2 = AnonymousClass1.$SwitchMap$me$jessyan$autosize$unit$Subunits[AutoSizeConfig.getInstance().getUnitsManager().getSupportSubunits().ordinal()];
+        if (i2 != 1) {
+            f2 = i2 == 2 ? 25.4f : 72.0f;
             setDensity(activity, AutoSizeConfig.getInstance().getInitDensity(), AutoSizeConfig.getInstance().getInitDensityDpi(), AutoSizeConfig.getInstance().getInitScaledDensity(), initXdpi);
             setScreenSizeDp(activity, AutoSizeConfig.getInstance().getInitScreenWidthDp(), AutoSizeConfig.getInstance().getInitScreenHeightDp());
         }
-        initXdpi /= f10;
+        initXdpi /= f2;
         setDensity(activity, AutoSizeConfig.getInstance().getInitDensity(), AutoSizeConfig.getInstance().getInitDensityDpi(), AutoSizeConfig.getInstance().getInitScaledDensity(), initXdpi);
         setScreenSizeDp(activity, AutoSizeConfig.getInstance().getInitScreenWidthDp(), AutoSizeConfig.getInstance().getInitScreenHeightDp());
     }
@@ -168,49 +183,49 @@ public final class AutoSize {
         context.getContentResolver().query(Uri.parse("content://" + context.getPackageName() + ".autosize-init-provider"), null, null, null, null);
     }
 
-    private static void setDensity(Activity activity, float f10, int i10, float f11, float f12) {
-        setDensity(activity.getResources().getDisplayMetrics(), f10, i10, f11, f12);
-        setDensity(AutoSizeConfig.getInstance().getApplication().getResources().getDisplayMetrics(), f10, i10, f11, f12);
+    private static void setDensity(Activity activity, float f2, int i2, float f3, float f4) {
+        setDensity(activity.getResources().getDisplayMetrics(), f2, i2, f3, f4);
+        setDensity(AutoSizeConfig.getInstance().getApplication().getResources().getDisplayMetrics(), f2, i2, f3, f4);
         DisplayMetrics metricsOnMiui = getMetricsOnMiui(activity.getResources());
         DisplayMetrics metricsOnMiui2 = getMetricsOnMiui(AutoSizeConfig.getInstance().getApplication().getResources());
         if (metricsOnMiui != null) {
-            setDensity(metricsOnMiui, f10, i10, f11, f12);
+            setDensity(metricsOnMiui, f2, i2, f3, f4);
         }
         if (metricsOnMiui2 != null) {
-            setDensity(metricsOnMiui2, f10, i10, f11, f12);
+            setDensity(metricsOnMiui2, f2, i2, f3, f4);
         }
     }
 
-    private static void setScreenSizeDp(Activity activity, int i10, int i11) {
+    private static void setScreenSizeDp(Activity activity, int i2, int i3) {
         if (AutoSizeConfig.getInstance().getUnitsManager().isSupportDP() && AutoSizeConfig.getInstance().getUnitsManager().isSupportScreenSizeDP()) {
-            setScreenSizeDp(activity.getResources().getConfiguration(), i10, i11);
-            setScreenSizeDp(AutoSizeConfig.getInstance().getApplication().getResources().getConfiguration(), i10, i11);
+            setScreenSizeDp(activity.getResources().getConfiguration(), i2, i3);
+            setScreenSizeDp(AutoSizeConfig.getInstance().getApplication().getResources().getConfiguration(), i2, i3);
         }
     }
 
-    private static void setScreenSizeDp(Configuration configuration, int i10, int i11) {
-        configuration.screenWidthDp = i10;
-        configuration.screenHeightDp = i11;
+    private static void setScreenSizeDp(Configuration configuration, int i2, int i3) {
+        configuration.screenWidthDp = i2;
+        configuration.screenHeightDp = i3;
     }
 
-    private static void setDensity(DisplayMetrics displayMetrics, float f10, int i10, float f11, float f12) {
+    private static void setDensity(DisplayMetrics displayMetrics, float f2, int i2, float f3, float f4) {
         if (AutoSizeConfig.getInstance().getUnitsManager().isSupportDP()) {
-            displayMetrics.density = f10;
-            displayMetrics.densityDpi = i10;
+            displayMetrics.density = f2;
+            displayMetrics.densityDpi = i2;
         }
         if (AutoSizeConfig.getInstance().getUnitsManager().isSupportSP()) {
-            displayMetrics.scaledDensity = f11;
+            displayMetrics.scaledDensity = f3;
         }
-        int i11 = AnonymousClass1.$SwitchMap$me$jessyan$autosize$unit$Subunits[AutoSizeConfig.getInstance().getUnitsManager().getSupportSubunits().ordinal()];
-        if (i11 == 1) {
-            displayMetrics.xdpi = f12 * 72.0f;
-        } else if (i11 == 2) {
-            displayMetrics.xdpi = f12 * 25.4f;
+        int i3 = AnonymousClass1.$SwitchMap$me$jessyan$autosize$unit$Subunits[AutoSizeConfig.getInstance().getUnitsManager().getSupportSubunits().ordinal()];
+        if (i3 == 1) {
+            displayMetrics.xdpi = f4 * 72.0f;
+        } else if (i3 == 2) {
+            displayMetrics.xdpi = f4 * 25.4f;
         } else {
-            if (i11 != 4) {
+            if (i3 != 4) {
                 return;
             }
-            displayMetrics.xdpi = f12;
+            displayMetrics.xdpi = f4;
         }
     }
 }

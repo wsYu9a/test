@@ -12,17 +12,17 @@ import androidx.annotation.Nullable;
 /* loaded from: classes.dex */
 public class Space extends View {
     @Deprecated
-    public Space(@NonNull Context context, @Nullable AttributeSet attributeSet, int i10) {
-        super(context, attributeSet, i10);
+    public Space(@NonNull Context context, @Nullable AttributeSet attributeSet, int i2) {
+        super(context, attributeSet, i2);
         if (getVisibility() == 0) {
             setVisibility(4);
         }
     }
 
-    private static int getDefaultSize2(int i10, int i11) {
-        int mode = View.MeasureSpec.getMode(i11);
-        int size = View.MeasureSpec.getSize(i11);
-        return mode != Integer.MIN_VALUE ? mode != 1073741824 ? i10 : size : Math.min(i10, size);
+    private static int a(int i2, int i3) {
+        int mode = View.MeasureSpec.getMode(i3);
+        int size = View.MeasureSpec.getSize(i3);
+        return mode != Integer.MIN_VALUE ? mode != 1073741824 ? i2 : size : Math.min(i2, size);
     }
 
     @Override // android.view.View
@@ -33,8 +33,8 @@ public class Space extends View {
 
     @Override // android.view.View
     @Deprecated
-    public void onMeasure(int i10, int i11) {
-        setMeasuredDimension(getDefaultSize2(getSuggestedMinimumWidth(), i10), getDefaultSize2(getSuggestedMinimumHeight(), i11));
+    protected void onMeasure(int i2, int i3) {
+        setMeasuredDimension(a(getSuggestedMinimumWidth(), i2), a(getSuggestedMinimumHeight(), i3));
     }
 
     @Deprecated

@@ -8,7 +8,7 @@ import com.bumptech.glide.load.data.DataFetcher;
 import com.bumptech.glide.load.model.ModelLoader;
 import com.bumptech.glide.signature.ObjectKey;
 
-/* loaded from: classes2.dex */
+/* loaded from: classes.dex */
 public class UnitModelLoader<Model> implements ModelLoader<Model, Model> {
     private static final UnitModelLoader<?> INSTANCE = new UnitModelLoader<>();
 
@@ -34,10 +34,10 @@ public class UnitModelLoader<Model> implements ModelLoader<Model, Model> {
         }
     }
 
-    public static class UnitFetcher<Model> implements DataFetcher<Model> {
+    private static class UnitFetcher<Model> implements DataFetcher<Model> {
         private final Model resource;
 
-        public UnitFetcher(Model model) {
+        UnitFetcher(Model model) {
             this.resource = model;
         }
 
@@ -76,7 +76,7 @@ public class UnitModelLoader<Model> implements ModelLoader<Model, Model> {
     }
 
     @Override // com.bumptech.glide.load.model.ModelLoader
-    public ModelLoader.LoadData<Model> buildLoadData(@NonNull Model model, int i10, int i11, @NonNull Options options) {
+    public ModelLoader.LoadData<Model> buildLoadData(@NonNull Model model, int i2, int i3, @NonNull Options options) {
         return new ModelLoader.LoadData<>(new ObjectKey(model), new UnitFetcher(model));
     }
 

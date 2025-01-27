@@ -14,7 +14,6 @@ public interface DbJsonConstants {
     public static final String DBJSON_KEY_LAST_START_DOWNLOAD_TIME = "dbjson_last_start_download_time";
     public static final String DBJSON_KEY_LINK_MODE = "link_mode";
     public static final String DBJSON_KEY_PRECONNECT_LEVEL = "dbjson_key_preconnect_level";
-    public static final String DBJSON_KEY_TASK_KEY = "task_key";
     public static final String DBJSON_KEY_TTMD5_CHECK_STATUS = "ttmd5_check_status";
     public static final String DOWNLOAD_SETTING = "download_setting";
     public static final String EXTRA_MONITOR_JSON = "extra_monitor_json";

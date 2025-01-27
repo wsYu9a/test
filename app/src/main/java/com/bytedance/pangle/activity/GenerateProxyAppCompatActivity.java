@@ -61,12 +61,12 @@ import java.util.List;
 import java.util.function.Consumer;
 
 @Keep
-/* loaded from: classes2.dex */
+/* loaded from: classes.dex */
 public abstract class GenerateProxyAppCompatActivity extends AppCompatActivity implements b {
     public Plugin mPlugin;
     public GeneratePluginAppCompatActivity mTargetActivity;
 
-    @Override // androidx.appcompat.app.AppCompatActivity, androidx.activity.ComponentActivity, android.app.Activity
+    @Override // androidx.appcompat.app.AppCompatActivity, android.app.Activity
     public void addContentView(View view, ViewGroup.LayoutParams layoutParams) {
         GeneratePluginAppCompatActivity generatePluginAppCompatActivity = this.mTargetActivity;
         if (generatePluginAppCompatActivity != null) {
@@ -102,9 +102,9 @@ public abstract class GenerateProxyAppCompatActivity extends AppCompatActivity i
     }
 
     @Override // android.app.Activity
-    public PendingIntent createPendingResult(int i10, Intent intent, int i11) {
+    public PendingIntent createPendingResult(int i2, Intent intent, int i3) {
         GeneratePluginAppCompatActivity generatePluginAppCompatActivity = this.mTargetActivity;
-        return generatePluginAppCompatActivity != null ? generatePluginAppCompatActivity.createPendingResult(i10, intent, i11) : super.createPendingResult(i10, intent, i11);
+        return generatePluginAppCompatActivity != null ? generatePluginAppCompatActivity.createPendingResult(i2, intent, i3) : super.createPendingResult(i2, intent, i3);
     }
 
     @Override // android.app.Activity, android.view.Window.Callback
@@ -164,9 +164,9 @@ public abstract class GenerateProxyAppCompatActivity extends AppCompatActivity i
     }
 
     @Override // androidx.appcompat.app.AppCompatActivity, android.app.Activity
-    public View findViewById(int i10) {
+    public View findViewById(int i2) {
         GeneratePluginAppCompatActivity generatePluginAppCompatActivity = this.mTargetActivity;
-        return generatePluginAppCompatActivity != null ? generatePluginAppCompatActivity.findViewById(i10) : super.findViewById(i10);
+        return generatePluginAppCompatActivity != null ? generatePluginAppCompatActivity.findViewById(i2) : super.findViewById(i2);
     }
 
     @Override // android.app.Activity, com.bytedance.pangle.activity.b
@@ -180,22 +180,22 @@ public abstract class GenerateProxyAppCompatActivity extends AppCompatActivity i
     }
 
     @Override // android.app.Activity
-    public void finishActivity(int i10) {
+    public void finishActivity(int i2) {
         GeneratePluginAppCompatActivity generatePluginAppCompatActivity = this.mTargetActivity;
         if (generatePluginAppCompatActivity != null) {
-            generatePluginAppCompatActivity.finishActivity(i10);
+            generatePluginAppCompatActivity.finishActivity(i2);
         } else {
-            super.finishActivity(i10);
+            super.finishActivity(i2);
         }
     }
 
     @Override // android.app.Activity
-    public void finishActivityFromChild(Activity activity, int i10) {
+    public void finishActivityFromChild(Activity activity, int i2) {
         GeneratePluginAppCompatActivity generatePluginAppCompatActivity = this.mTargetActivity;
         if (generatePluginAppCompatActivity != null) {
-            generatePluginAppCompatActivity.finishActivityFromChild(activity, i10);
+            generatePluginAppCompatActivity.finishActivityFromChild(activity, i2);
         } else {
-            super.finishActivityFromChild(activity, i10);
+            super.finishActivityFromChild(activity, i2);
         }
     }
 
@@ -356,9 +356,9 @@ public abstract class GenerateProxyAppCompatActivity extends AppCompatActivity i
     public abstract String getPluginPkgName();
 
     @Override // android.app.Activity
-    public SharedPreferences getPreferences(int i10) {
+    public SharedPreferences getPreferences(int i2) {
         GeneratePluginAppCompatActivity generatePluginAppCompatActivity = this.mTargetActivity;
-        return generatePluginAppCompatActivity != null ? generatePluginAppCompatActivity.getPreferences(i10) : super.getPreferences(i10);
+        return generatePluginAppCompatActivity != null ? generatePluginAppCompatActivity.getPreferences(i2) : super.getPreferences(i2);
     }
 
     @Override // android.app.Activity
@@ -498,9 +498,9 @@ public abstract class GenerateProxyAppCompatActivity extends AppCompatActivity i
     }
 
     @Override // android.app.Activity
-    public boolean moveTaskToBack(boolean z10) {
+    public boolean moveTaskToBack(boolean z) {
         GeneratePluginAppCompatActivity generatePluginAppCompatActivity = this.mTargetActivity;
-        return generatePluginAppCompatActivity != null ? generatePluginAppCompatActivity.moveTaskToBack(z10) : super.moveTaskToBack(z10);
+        return generatePluginAppCompatActivity != null ? generatePluginAppCompatActivity.moveTaskToBack(z) : super.moveTaskToBack(z);
     }
 
     @Override // android.app.Activity
@@ -536,32 +536,32 @@ public abstract class GenerateProxyAppCompatActivity extends AppCompatActivity i
     }
 
     @Override // android.app.Activity
-    public void onActivityReenter(int i10, Intent intent) {
+    public void onActivityReenter(int i2, Intent intent) {
         GeneratePluginAppCompatActivity generatePluginAppCompatActivity = this.mTargetActivity;
         if (generatePluginAppCompatActivity != null) {
-            generatePluginAppCompatActivity.onActivityReenter(i10, intent);
+            generatePluginAppCompatActivity.onActivityReenter(i2, intent);
         } else {
-            super.onActivityReenter(i10, intent);
+            super.onActivityReenter(i2, intent);
         }
     }
 
-    @Override // androidx.fragment.app.FragmentActivity, androidx.activity.ComponentActivity, android.app.Activity
-    public void onActivityResult(int i10, int i11, Intent intent) {
+    @Override // androidx.fragment.app.FragmentActivity, android.app.Activity
+    protected void onActivityResult(int i2, int i3, Intent intent) {
         GeneratePluginAppCompatActivity generatePluginAppCompatActivity = this.mTargetActivity;
         if (generatePluginAppCompatActivity != null) {
-            generatePluginAppCompatActivity.onActivityResult(i10, i11, intent);
+            generatePluginAppCompatActivity.onActivityResult(i2, i3, intent);
         } else {
-            super.onActivityResult(i10, i11, intent);
+            super.onActivityResult(i2, i3, intent);
         }
     }
 
     @Override // android.app.Activity, android.view.ContextThemeWrapper
-    public void onApplyThemeResource(Resources.Theme theme, int i10, boolean z10) {
+    protected void onApplyThemeResource(Resources.Theme theme, int i2, boolean z) {
         GeneratePluginAppCompatActivity generatePluginAppCompatActivity = this.mTargetActivity;
         if (generatePluginAppCompatActivity != null) {
-            generatePluginAppCompatActivity.onApplyThemeResource(theme, i10, z10);
+            generatePluginAppCompatActivity.onApplyThemeResource(theme, i2, z);
         } else {
-            super.onApplyThemeResource(theme, i10, z10);
+            super.onApplyThemeResource(theme, i2, z);
         }
     }
 
@@ -596,7 +596,7 @@ public abstract class GenerateProxyAppCompatActivity extends AppCompatActivity i
     }
 
     @Override // android.app.Activity
-    public void onChildTitleChanged(Activity activity, CharSequence charSequence) {
+    protected void onChildTitleChanged(Activity activity, CharSequence charSequence) {
         GeneratePluginAppCompatActivity generatePluginAppCompatActivity = this.mTargetActivity;
         if (generatePluginAppCompatActivity != null) {
             generatePluginAppCompatActivity.onChildTitleChanged(activity, charSequence);
@@ -605,7 +605,7 @@ public abstract class GenerateProxyAppCompatActivity extends AppCompatActivity i
         }
     }
 
-    @Override // androidx.appcompat.app.AppCompatActivity, androidx.activity.ComponentActivity, android.app.Activity, android.content.ComponentCallbacks
+    @Override // androidx.appcompat.app.AppCompatActivity, androidx.fragment.app.FragmentActivity, android.app.Activity, android.content.ComponentCallbacks
     public void onConfigurationChanged(Configuration configuration) {
         GeneratePluginAppCompatActivity generatePluginAppCompatActivity = this.mTargetActivity;
         if (generatePluginAppCompatActivity != null) {
@@ -641,7 +641,7 @@ public abstract class GenerateProxyAppCompatActivity extends AppCompatActivity i
         }
     }
 
-    @Override // androidx.fragment.app.FragmentActivity, androidx.activity.ComponentActivity, androidx.core.app.ComponentActivity, android.app.Activity
+    @Override // androidx.appcompat.app.AppCompatActivity, androidx.fragment.app.FragmentActivity, androidx.activity.ComponentActivity, androidx.core.app.ComponentActivity, android.app.Activity
     public void onCreate(Bundle bundle) {
         c.a(this, bundle);
     }
@@ -663,9 +663,9 @@ public abstract class GenerateProxyAppCompatActivity extends AppCompatActivity i
     }
 
     @Override // android.app.Activity
-    public Dialog onCreateDialog(int i10) {
+    protected Dialog onCreateDialog(int i2) {
         GeneratePluginAppCompatActivity generatePluginAppCompatActivity = this.mTargetActivity;
-        return generatePluginAppCompatActivity != null ? generatePluginAppCompatActivity.onCreateDialog(i10) : super.onCreateDialog(i10);
+        return generatePluginAppCompatActivity != null ? generatePluginAppCompatActivity.onCreateDialog(i2) : super.onCreateDialog(i2);
     }
 
     @Override // android.app.Activity
@@ -684,16 +684,16 @@ public abstract class GenerateProxyAppCompatActivity extends AppCompatActivity i
         return generatePluginAppCompatActivity != null ? generatePluginAppCompatActivity.onCreateOptionsMenu(menu) : super.onCreateOptionsMenu(menu);
     }
 
-    @Override // androidx.activity.ComponentActivity, android.app.Activity, android.view.Window.Callback
-    public boolean onCreatePanelMenu(int i10, Menu menu) {
+    @Override // androidx.fragment.app.FragmentActivity, android.app.Activity, android.view.Window.Callback
+    public boolean onCreatePanelMenu(int i2, Menu menu) {
         GeneratePluginAppCompatActivity generatePluginAppCompatActivity = this.mTargetActivity;
-        return generatePluginAppCompatActivity != null ? generatePluginAppCompatActivity.onCreatePanelMenu(i10, menu) : super.onCreatePanelMenu(i10, menu);
+        return generatePluginAppCompatActivity != null ? generatePluginAppCompatActivity.onCreatePanelMenu(i2, menu) : super.onCreatePanelMenu(i2, menu);
     }
 
     @Override // android.app.Activity, android.view.Window.Callback
-    public View onCreatePanelView(int i10) {
+    public View onCreatePanelView(int i2) {
         GeneratePluginAppCompatActivity generatePluginAppCompatActivity = this.mTargetActivity;
-        return generatePluginAppCompatActivity != null ? generatePluginAppCompatActivity.onCreatePanelView(i10) : super.onCreatePanelView(i10);
+        return generatePluginAppCompatActivity != null ? generatePluginAppCompatActivity.onCreatePanelView(i2) : super.onCreatePanelView(i2);
     }
 
     @Override // android.app.Activity
@@ -709,7 +709,7 @@ public abstract class GenerateProxyAppCompatActivity extends AppCompatActivity i
     }
 
     @Override // androidx.appcompat.app.AppCompatActivity, androidx.fragment.app.FragmentActivity, android.app.Activity
-    public void onDestroy() {
+    protected void onDestroy() {
         GeneratePluginAppCompatActivity generatePluginAppCompatActivity = this.mTargetActivity;
         if (generatePluginAppCompatActivity != null) {
             generatePluginAppCompatActivity.onDestroy();
@@ -755,33 +755,33 @@ public abstract class GenerateProxyAppCompatActivity extends AppCompatActivity i
     }
 
     @Override // androidx.appcompat.app.AppCompatActivity, android.app.Activity, android.view.KeyEvent.Callback
-    public boolean onKeyDown(int i10, KeyEvent keyEvent) {
+    public boolean onKeyDown(int i2, KeyEvent keyEvent) {
         GeneratePluginAppCompatActivity generatePluginAppCompatActivity = this.mTargetActivity;
-        return generatePluginAppCompatActivity != null ? generatePluginAppCompatActivity.onKeyDown(i10, keyEvent) : super.onKeyDown(i10, keyEvent);
+        return generatePluginAppCompatActivity != null ? generatePluginAppCompatActivity.onKeyDown(i2, keyEvent) : super.onKeyDown(i2, keyEvent);
     }
 
     @Override // android.app.Activity, android.view.KeyEvent.Callback
-    public boolean onKeyLongPress(int i10, KeyEvent keyEvent) {
+    public boolean onKeyLongPress(int i2, KeyEvent keyEvent) {
         GeneratePluginAppCompatActivity generatePluginAppCompatActivity = this.mTargetActivity;
-        return generatePluginAppCompatActivity != null ? generatePluginAppCompatActivity.onKeyLongPress(i10, keyEvent) : super.onKeyLongPress(i10, keyEvent);
+        return generatePluginAppCompatActivity != null ? generatePluginAppCompatActivity.onKeyLongPress(i2, keyEvent) : super.onKeyLongPress(i2, keyEvent);
     }
 
     @Override // android.app.Activity, android.view.KeyEvent.Callback
-    public boolean onKeyMultiple(int i10, int i11, KeyEvent keyEvent) {
+    public boolean onKeyMultiple(int i2, int i3, KeyEvent keyEvent) {
         GeneratePluginAppCompatActivity generatePluginAppCompatActivity = this.mTargetActivity;
-        return generatePluginAppCompatActivity != null ? generatePluginAppCompatActivity.onKeyMultiple(i10, i11, keyEvent) : super.onKeyMultiple(i10, i11, keyEvent);
+        return generatePluginAppCompatActivity != null ? generatePluginAppCompatActivity.onKeyMultiple(i2, i3, keyEvent) : super.onKeyMultiple(i2, i3, keyEvent);
     }
 
     @Override // android.app.Activity
-    public boolean onKeyShortcut(int i10, KeyEvent keyEvent) {
+    public boolean onKeyShortcut(int i2, KeyEvent keyEvent) {
         GeneratePluginAppCompatActivity generatePluginAppCompatActivity = this.mTargetActivity;
-        return generatePluginAppCompatActivity != null ? generatePluginAppCompatActivity.onKeyShortcut(i10, keyEvent) : super.onKeyShortcut(i10, keyEvent);
+        return generatePluginAppCompatActivity != null ? generatePluginAppCompatActivity.onKeyShortcut(i2, keyEvent) : super.onKeyShortcut(i2, keyEvent);
     }
 
     @Override // android.app.Activity, android.view.KeyEvent.Callback
-    public boolean onKeyUp(int i10, KeyEvent keyEvent) {
+    public boolean onKeyUp(int i2, KeyEvent keyEvent) {
         GeneratePluginAppCompatActivity generatePluginAppCompatActivity = this.mTargetActivity;
-        return generatePluginAppCompatActivity != null ? generatePluginAppCompatActivity.onKeyUp(i10, keyEvent) : super.onKeyUp(i10, keyEvent);
+        return generatePluginAppCompatActivity != null ? generatePluginAppCompatActivity.onKeyUp(i2, keyEvent) : super.onKeyUp(i2, keyEvent);
     }
 
     @Override // android.app.Activity
@@ -804,7 +804,7 @@ public abstract class GenerateProxyAppCompatActivity extends AppCompatActivity i
         }
     }
 
-    @Override // android.app.Activity, android.content.ComponentCallbacks
+    @Override // androidx.fragment.app.FragmentActivity, android.app.Activity, android.content.ComponentCallbacks
     public void onLowMemory() {
         GeneratePluginAppCompatActivity generatePluginAppCompatActivity = this.mTargetActivity;
         if (generatePluginAppCompatActivity != null) {
@@ -815,18 +815,18 @@ public abstract class GenerateProxyAppCompatActivity extends AppCompatActivity i
     }
 
     @Override // androidx.appcompat.app.AppCompatActivity, android.app.Activity, android.view.Window.Callback
-    public boolean onMenuOpened(int i10, Menu menu) {
+    public boolean onMenuOpened(int i2, Menu menu) {
         GeneratePluginAppCompatActivity generatePluginAppCompatActivity = this.mTargetActivity;
-        return generatePluginAppCompatActivity != null ? generatePluginAppCompatActivity.onMenuOpened(i10, menu) : super.onMenuOpened(i10, menu);
+        return generatePluginAppCompatActivity != null ? generatePluginAppCompatActivity.onMenuOpened(i2, menu) : super.onMenuOpened(i2, menu);
     }
 
-    @Override // androidx.activity.ComponentActivity, android.app.Activity
-    public void onMultiWindowModeChanged(boolean z10) {
+    @Override // androidx.fragment.app.FragmentActivity, android.app.Activity
+    public void onMultiWindowModeChanged(boolean z) {
         GeneratePluginAppCompatActivity generatePluginAppCompatActivity = this.mTargetActivity;
         if (generatePluginAppCompatActivity != null) {
-            generatePluginAppCompatActivity.onMultiWindowModeChanged(z10);
+            generatePluginAppCompatActivity.onMultiWindowModeChanged(z);
         } else {
-            super.onMultiWindowModeChanged(z10);
+            super.onMultiWindowModeChanged(z);
         }
     }
 
@@ -842,8 +842,8 @@ public abstract class GenerateProxyAppCompatActivity extends AppCompatActivity i
         return generatePluginAppCompatActivity != null ? generatePluginAppCompatActivity.onNavigateUpFromChild(activity) : super.onNavigateUpFromChild(activity);
     }
 
-    @Override // androidx.activity.ComponentActivity, android.app.Activity
-    public void onNewIntent(Intent intent) {
+    @Override // androidx.fragment.app.FragmentActivity, android.app.Activity
+    protected void onNewIntent(Intent intent) {
         GeneratePluginAppCompatActivity generatePluginAppCompatActivity = this.mTargetActivity;
         if (generatePluginAppCompatActivity != null) {
             generatePluginAppCompatActivity.onNewIntent(intent);
@@ -868,18 +868,18 @@ public abstract class GenerateProxyAppCompatActivity extends AppCompatActivity i
         }
     }
 
-    @Override // androidx.appcompat.app.AppCompatActivity, androidx.activity.ComponentActivity, android.app.Activity, android.view.Window.Callback
-    public void onPanelClosed(int i10, Menu menu) {
+    @Override // androidx.appcompat.app.AppCompatActivity, androidx.fragment.app.FragmentActivity, android.app.Activity, android.view.Window.Callback
+    public void onPanelClosed(int i2, Menu menu) {
         GeneratePluginAppCompatActivity generatePluginAppCompatActivity = this.mTargetActivity;
         if (generatePluginAppCompatActivity != null) {
-            generatePluginAppCompatActivity.onPanelClosed(i10, menu);
+            generatePluginAppCompatActivity.onPanelClosed(i2, menu);
         } else {
-            super.onPanelClosed(i10, menu);
+            super.onPanelClosed(i2, menu);
         }
     }
 
     @Override // androidx.fragment.app.FragmentActivity, android.app.Activity
-    public void onPause() {
+    protected void onPause() {
         GeneratePluginAppCompatActivity generatePluginAppCompatActivity = this.mTargetActivity;
         if (generatePluginAppCompatActivity != null) {
             generatePluginAppCompatActivity.onPause();
@@ -898,13 +898,13 @@ public abstract class GenerateProxyAppCompatActivity extends AppCompatActivity i
         }
     }
 
-    @Override // androidx.activity.ComponentActivity, android.app.Activity
-    public void onPictureInPictureModeChanged(boolean z10) {
+    @Override // androidx.fragment.app.FragmentActivity, android.app.Activity
+    public void onPictureInPictureModeChanged(boolean z) {
         GeneratePluginAppCompatActivity generatePluginAppCompatActivity = this.mTargetActivity;
         if (generatePluginAppCompatActivity != null) {
-            generatePluginAppCompatActivity.onPictureInPictureModeChanged(z10);
+            generatePluginAppCompatActivity.onPictureInPictureModeChanged(z);
         } else {
-            super.onPictureInPictureModeChanged(z10);
+            super.onPictureInPictureModeChanged(z);
         }
     }
 
@@ -915,7 +915,7 @@ public abstract class GenerateProxyAppCompatActivity extends AppCompatActivity i
     }
 
     @Override // androidx.appcompat.app.AppCompatActivity, android.app.Activity
-    public void onPostCreate(Bundle bundle) {
+    protected void onPostCreate(Bundle bundle) {
         GeneratePluginAppCompatActivity generatePluginAppCompatActivity = this.mTargetActivity;
         if (generatePluginAppCompatActivity != null) {
             generatePluginAppCompatActivity.onPostCreate(bundle);
@@ -925,7 +925,7 @@ public abstract class GenerateProxyAppCompatActivity extends AppCompatActivity i
     }
 
     @Override // androidx.appcompat.app.AppCompatActivity, androidx.fragment.app.FragmentActivity, android.app.Activity
-    public void onPostResume() {
+    protected void onPostResume() {
         GeneratePluginAppCompatActivity generatePluginAppCompatActivity = this.mTargetActivity;
         if (generatePluginAppCompatActivity != null) {
             generatePluginAppCompatActivity.onPostResume();
@@ -935,12 +935,12 @@ public abstract class GenerateProxyAppCompatActivity extends AppCompatActivity i
     }
 
     @Override // android.app.Activity
-    public void onPrepareDialog(int i10, Dialog dialog) {
+    protected void onPrepareDialog(int i2, Dialog dialog) {
         GeneratePluginAppCompatActivity generatePluginAppCompatActivity = this.mTargetActivity;
         if (generatePluginAppCompatActivity != null) {
-            generatePluginAppCompatActivity.onPrepareDialog(i10, dialog);
+            generatePluginAppCompatActivity.onPrepareDialog(i2, dialog);
         } else {
-            super.onPrepareDialog(i10, dialog);
+            super.onPrepareDialog(i2, dialog);
         }
     }
 
@@ -960,10 +960,10 @@ public abstract class GenerateProxyAppCompatActivity extends AppCompatActivity i
         return generatePluginAppCompatActivity != null ? generatePluginAppCompatActivity.onPrepareOptionsMenu(menu) : super.onPrepareOptionsMenu(menu);
     }
 
-    @Override // androidx.activity.ComponentActivity, android.app.Activity, android.view.Window.Callback
-    public boolean onPreparePanel(int i10, View view, Menu menu) {
+    @Override // androidx.fragment.app.FragmentActivity, android.app.Activity, android.view.Window.Callback
+    public boolean onPreparePanel(int i2, View view, Menu menu) {
         GeneratePluginAppCompatActivity generatePluginAppCompatActivity = this.mTargetActivity;
-        return generatePluginAppCompatActivity != null ? generatePluginAppCompatActivity.onPreparePanel(i10, view, menu) : super.onPreparePanel(i10, view, menu);
+        return generatePluginAppCompatActivity != null ? generatePluginAppCompatActivity.onPreparePanel(i2, view, menu) : super.onPreparePanel(i2, view, menu);
     }
 
     @Override // android.app.Activity
@@ -987,12 +987,12 @@ public abstract class GenerateProxyAppCompatActivity extends AppCompatActivity i
     }
 
     @Override // android.app.Activity, android.view.Window.Callback
-    public void onProvideKeyboardShortcuts(List list, Menu menu, int i10) {
+    public void onProvideKeyboardShortcuts(List list, Menu menu, int i2) {
         GeneratePluginAppCompatActivity generatePluginAppCompatActivity = this.mTargetActivity;
         if (generatePluginAppCompatActivity != null) {
-            generatePluginAppCompatActivity.onProvideKeyboardShortcuts(list, menu, i10);
+            generatePluginAppCompatActivity.onProvideKeyboardShortcuts(list, menu, i2);
         } else {
-            super.onProvideKeyboardShortcuts(list, menu, i10);
+            super.onProvideKeyboardShortcuts(list, menu, i2);
         }
     }
 
@@ -1002,18 +1002,18 @@ public abstract class GenerateProxyAppCompatActivity extends AppCompatActivity i
         return generatePluginAppCompatActivity != null ? generatePluginAppCompatActivity.onProvideReferrer() : super.onProvideReferrer();
     }
 
-    @Override // androidx.fragment.app.FragmentActivity, androidx.activity.ComponentActivity, android.app.Activity
-    public void onRequestPermissionsResult(int i10, String[] strArr, int[] iArr) {
+    @Override // androidx.fragment.app.FragmentActivity, android.app.Activity, androidx.core.app.ActivityCompat.OnRequestPermissionsResultCallback
+    public void onRequestPermissionsResult(int i2, String[] strArr, int[] iArr) {
         GeneratePluginAppCompatActivity generatePluginAppCompatActivity = this.mTargetActivity;
         if (generatePluginAppCompatActivity != null) {
-            generatePluginAppCompatActivity.onRequestPermissionsResult(i10, strArr, iArr);
+            generatePluginAppCompatActivity.onRequestPermissionsResult(i2, strArr, iArr);
         } else {
-            super.onRequestPermissionsResult(i10, strArr, iArr);
+            super.onRequestPermissionsResult(i2, strArr, iArr);
         }
     }
 
     @Override // android.app.Activity
-    public void onRestart() {
+    protected void onRestart() {
         GeneratePluginAppCompatActivity generatePluginAppCompatActivity = this.mTargetActivity;
         if (generatePluginAppCompatActivity != null) {
             generatePluginAppCompatActivity.onRestart();
@@ -1023,7 +1023,7 @@ public abstract class GenerateProxyAppCompatActivity extends AppCompatActivity i
     }
 
     @Override // android.app.Activity
-    public void onRestoreInstanceState(Bundle bundle) {
+    protected void onRestoreInstanceState(Bundle bundle) {
         GeneratePluginAppCompatActivity generatePluginAppCompatActivity = this.mTargetActivity;
         if (generatePluginAppCompatActivity != null) {
             generatePluginAppCompatActivity.onRestoreInstanceState(bundle);
@@ -1033,7 +1033,7 @@ public abstract class GenerateProxyAppCompatActivity extends AppCompatActivity i
     }
 
     @Override // androidx.fragment.app.FragmentActivity, android.app.Activity
-    public void onResume() {
+    protected void onResume() {
         GeneratePluginAppCompatActivity generatePluginAppCompatActivity = this.mTargetActivity;
         if (generatePluginAppCompatActivity != null) {
             generatePluginAppCompatActivity.onResume();
@@ -1042,8 +1042,8 @@ public abstract class GenerateProxyAppCompatActivity extends AppCompatActivity i
         }
     }
 
-    @Override // androidx.activity.ComponentActivity, androidx.core.app.ComponentActivity, android.app.Activity
-    public void onSaveInstanceState(Bundle bundle) {
+    @Override // androidx.appcompat.app.AppCompatActivity, androidx.fragment.app.FragmentActivity, androidx.activity.ComponentActivity, androidx.core.app.ComponentActivity, android.app.Activity
+    protected void onSaveInstanceState(Bundle bundle) {
         GeneratePluginAppCompatActivity generatePluginAppCompatActivity = this.mTargetActivity;
         if (generatePluginAppCompatActivity != null) {
             generatePluginAppCompatActivity.onSaveInstanceState(bundle);
@@ -1060,7 +1060,7 @@ public abstract class GenerateProxyAppCompatActivity extends AppCompatActivity i
     }
 
     @Override // androidx.appcompat.app.AppCompatActivity, androidx.fragment.app.FragmentActivity, android.app.Activity
-    public void onStart() {
+    protected void onStart() {
         GeneratePluginAppCompatActivity generatePluginAppCompatActivity = this.mTargetActivity;
         if (generatePluginAppCompatActivity != null) {
             generatePluginAppCompatActivity.onStart();
@@ -1080,7 +1080,7 @@ public abstract class GenerateProxyAppCompatActivity extends AppCompatActivity i
     }
 
     @Override // androidx.appcompat.app.AppCompatActivity, androidx.fragment.app.FragmentActivity, android.app.Activity
-    public void onStop() {
+    protected void onStop() {
         GeneratePluginAppCompatActivity generatePluginAppCompatActivity = this.mTargetActivity;
         if (generatePluginAppCompatActivity != null) {
             generatePluginAppCompatActivity.onStop();
@@ -1090,22 +1090,22 @@ public abstract class GenerateProxyAppCompatActivity extends AppCompatActivity i
     }
 
     @Override // androidx.appcompat.app.AppCompatActivity, android.app.Activity
-    public void onTitleChanged(CharSequence charSequence, int i10) {
+    protected void onTitleChanged(CharSequence charSequence, int i2) {
         GeneratePluginAppCompatActivity generatePluginAppCompatActivity = this.mTargetActivity;
         if (generatePluginAppCompatActivity != null) {
-            generatePluginAppCompatActivity.onTitleChanged(charSequence, i10);
+            generatePluginAppCompatActivity.onTitleChanged(charSequence, i2);
         } else {
-            super.onTitleChanged(charSequence, i10);
+            super.onTitleChanged(charSequence, i2);
         }
     }
 
     @Override // android.app.Activity
-    public void onTopResumedActivityChanged(boolean z10) {
+    public void onTopResumedActivityChanged(boolean z) {
         GeneratePluginAppCompatActivity generatePluginAppCompatActivity = this.mTargetActivity;
         if (generatePluginAppCompatActivity != null) {
-            generatePluginAppCompatActivity.onTopResumedActivityChanged(z10);
+            generatePluginAppCompatActivity.onTopResumedActivityChanged(z);
         } else {
-            super.onTopResumedActivityChanged(z10);
+            super.onTopResumedActivityChanged(z);
         }
     }
 
@@ -1121,13 +1121,13 @@ public abstract class GenerateProxyAppCompatActivity extends AppCompatActivity i
         return generatePluginAppCompatActivity != null ? generatePluginAppCompatActivity.onTrackballEvent(motionEvent) : super.onTrackballEvent(motionEvent);
     }
 
-    @Override // androidx.activity.ComponentActivity, android.app.Activity, android.content.ComponentCallbacks2
-    public void onTrimMemory(int i10) {
+    @Override // android.app.Activity, android.content.ComponentCallbacks2
+    public void onTrimMemory(int i2) {
         GeneratePluginAppCompatActivity generatePluginAppCompatActivity = this.mTargetActivity;
         if (generatePluginAppCompatActivity != null) {
-            generatePluginAppCompatActivity.onTrimMemory(i10);
+            generatePluginAppCompatActivity.onTrimMemory(i2);
         } else {
-            super.onTrimMemory(i10);
+            super.onTrimMemory(i2);
         }
     }
 
@@ -1142,7 +1142,7 @@ public abstract class GenerateProxyAppCompatActivity extends AppCompatActivity i
     }
 
     @Override // android.app.Activity
-    public void onUserLeaveHint() {
+    protected void onUserLeaveHint() {
         GeneratePluginAppCompatActivity generatePluginAppCompatActivity = this.mTargetActivity;
         if (generatePluginAppCompatActivity != null) {
             generatePluginAppCompatActivity.onUserLeaveHint();
@@ -1172,12 +1172,12 @@ public abstract class GenerateProxyAppCompatActivity extends AppCompatActivity i
     }
 
     @Override // android.app.Activity, android.view.Window.Callback
-    public void onWindowFocusChanged(boolean z10) {
+    public void onWindowFocusChanged(boolean z) {
         GeneratePluginAppCompatActivity generatePluginAppCompatActivity = this.mTargetActivity;
         if (generatePluginAppCompatActivity != null) {
-            generatePluginAppCompatActivity.onWindowFocusChanged(z10);
+            generatePluginAppCompatActivity.onWindowFocusChanged(z);
         } else {
-            super.onWindowFocusChanged(z10);
+            super.onWindowFocusChanged(z);
         }
     }
 
@@ -1208,12 +1208,12 @@ public abstract class GenerateProxyAppCompatActivity extends AppCompatActivity i
     }
 
     @Override // android.app.Activity
-    public void overridePendingTransition(int i10, int i11) {
+    public void overridePendingTransition(int i2, int i3) {
         GeneratePluginAppCompatActivity generatePluginAppCompatActivity = this.mTargetActivity;
         if (generatePluginAppCompatActivity != null) {
-            generatePluginAppCompatActivity.overridePendingTransition(i10, i11);
+            generatePluginAppCompatActivity.overridePendingTransition(i2, i3);
         } else {
-            super.overridePendingTransition(i10, i11);
+            super.overridePendingTransition(i2, i3);
         }
     }
 
@@ -1263,7 +1263,7 @@ public abstract class GenerateProxyAppCompatActivity extends AppCompatActivity i
         return generatePluginAppCompatActivity != null ? generatePluginAppCompatActivity.releaseInstance() : super.releaseInstance();
     }
 
-    @Override // androidx.activity.ComponentActivity, android.app.Activity
+    @Override // android.app.Activity
     public void reportFullyDrawn() {
         GeneratePluginAppCompatActivity generatePluginAppCompatActivity = this.mTargetActivity;
         if (generatePluginAppCompatActivity != null) {
@@ -1280,9 +1280,9 @@ public abstract class GenerateProxyAppCompatActivity extends AppCompatActivity i
     }
 
     @Override // android.app.Activity
-    public boolean requestVisibleBehind(boolean z10) {
+    public boolean requestVisibleBehind(boolean z) {
         GeneratePluginAppCompatActivity generatePluginAppCompatActivity = this.mTargetActivity;
-        return generatePluginAppCompatActivity != null ? generatePluginAppCompatActivity.requestVisibleBehind(z10) : super.requestVisibleBehind(z10);
+        return generatePluginAppCompatActivity != null ? generatePluginAppCompatActivity.requestVisibleBehind(z) : super.requestVisibleBehind(z);
     }
 
     @Override // android.app.Activity
@@ -1305,13 +1305,13 @@ public abstract class GenerateProxyAppCompatActivity extends AppCompatActivity i
         }
     }
 
-    @Override // androidx.appcompat.app.AppCompatActivity, androidx.activity.ComponentActivity, android.app.Activity
-    public void setContentView(int i10) {
+    @Override // androidx.appcompat.app.AppCompatActivity, android.app.Activity
+    public void setContentView(int i2) {
         GeneratePluginAppCompatActivity generatePluginAppCompatActivity = this.mTargetActivity;
         if (generatePluginAppCompatActivity != null) {
-            generatePluginAppCompatActivity.setContentView(i10);
+            generatePluginAppCompatActivity.setContentView(i2);
         } else {
-            super.setContentView(i10);
+            super.setContentView(i2);
         }
     }
 
@@ -1336,32 +1336,32 @@ public abstract class GenerateProxyAppCompatActivity extends AppCompatActivity i
     }
 
     @Override // android.app.Activity
-    public void setFinishOnTouchOutside(boolean z10) {
+    public void setFinishOnTouchOutside(boolean z) {
         GeneratePluginAppCompatActivity generatePluginAppCompatActivity = this.mTargetActivity;
         if (generatePluginAppCompatActivity != null) {
-            generatePluginAppCompatActivity.setFinishOnTouchOutside(z10);
+            generatePluginAppCompatActivity.setFinishOnTouchOutside(z);
         } else {
-            super.setFinishOnTouchOutside(z10);
+            super.setFinishOnTouchOutside(z);
         }
     }
 
     @Override // android.app.Activity
-    public void setImmersive(boolean z10) {
+    public void setImmersive(boolean z) {
         GeneratePluginAppCompatActivity generatePluginAppCompatActivity = this.mTargetActivity;
         if (generatePluginAppCompatActivity != null) {
-            generatePluginAppCompatActivity.setImmersive(z10);
+            generatePluginAppCompatActivity.setImmersive(z);
         } else {
-            super.setImmersive(z10);
+            super.setImmersive(z);
         }
     }
 
     @Override // android.app.Activity
-    public void setInheritShowWhenLocked(boolean z10) {
+    public void setInheritShowWhenLocked(boolean z) {
         GeneratePluginAppCompatActivity generatePluginAppCompatActivity = this.mTargetActivity;
         if (generatePluginAppCompatActivity != null) {
-            generatePluginAppCompatActivity.setInheritShowWhenLocked(z10);
+            generatePluginAppCompatActivity.setInheritShowWhenLocked(z);
         } else {
-            super.setInheritShowWhenLocked(z10);
+            super.setInheritShowWhenLocked(z);
         }
     }
 
@@ -1401,22 +1401,22 @@ public abstract class GenerateProxyAppCompatActivity extends AppCompatActivity i
     }
 
     @Override // android.app.Activity
-    public void setRequestedOrientation(int i10) {
+    public void setRequestedOrientation(int i2) {
         GeneratePluginAppCompatActivity generatePluginAppCompatActivity = this.mTargetActivity;
         if (generatePluginAppCompatActivity != null) {
-            generatePluginAppCompatActivity.setRequestedOrientation(i10);
+            generatePluginAppCompatActivity.setRequestedOrientation(i2);
         } else {
-            super.setRequestedOrientation(i10);
+            super.setRequestedOrientation(i2);
         }
     }
 
     @Override // android.app.Activity
-    public void setShowWhenLocked(boolean z10) {
+    public void setShowWhenLocked(boolean z) {
         GeneratePluginAppCompatActivity generatePluginAppCompatActivity = this.mTargetActivity;
         if (generatePluginAppCompatActivity != null) {
-            generatePluginAppCompatActivity.setShowWhenLocked(z10);
+            generatePluginAppCompatActivity.setShowWhenLocked(z);
         } else {
-            super.setShowWhenLocked(z10);
+            super.setShowWhenLocked(z);
         }
     }
 
@@ -1436,68 +1436,68 @@ public abstract class GenerateProxyAppCompatActivity extends AppCompatActivity i
     }
 
     @Override // androidx.appcompat.app.AppCompatActivity, android.app.Activity, android.view.ContextThemeWrapper, android.content.ContextWrapper, android.content.Context
-    public void setTheme(int i10) {
+    public void setTheme(int i2) {
         GeneratePluginAppCompatActivity generatePluginAppCompatActivity = this.mTargetActivity;
         if (generatePluginAppCompatActivity != null) {
-            generatePluginAppCompatActivity.setTheme(i10);
+            generatePluginAppCompatActivity.setTheme(i2);
         } else {
-            super.setTheme(i10);
+            super.setTheme(i2);
         }
     }
 
     @Override // android.app.Activity
-    public void setTitle(int i10) {
+    public void setTitle(int i2) {
         GeneratePluginAppCompatActivity generatePluginAppCompatActivity = this.mTargetActivity;
         if (generatePluginAppCompatActivity != null) {
-            generatePluginAppCompatActivity.setTitle(i10);
+            generatePluginAppCompatActivity.setTitle(i2);
         } else {
-            super.setTitle(i10);
+            super.setTitle(i2);
         }
     }
 
     @Override // android.app.Activity
-    public void setTitleColor(int i10) {
+    public void setTitleColor(int i2) {
         GeneratePluginAppCompatActivity generatePluginAppCompatActivity = this.mTargetActivity;
         if (generatePluginAppCompatActivity != null) {
-            generatePluginAppCompatActivity.setTitleColor(i10);
+            generatePluginAppCompatActivity.setTitleColor(i2);
         } else {
-            super.setTitleColor(i10);
+            super.setTitleColor(i2);
         }
     }
 
     @Override // android.app.Activity
-    public boolean setTranslucent(boolean z10) {
+    public boolean setTranslucent(boolean z) {
         GeneratePluginAppCompatActivity generatePluginAppCompatActivity = this.mTargetActivity;
-        return generatePluginAppCompatActivity != null ? generatePluginAppCompatActivity.setTranslucent(z10) : super.setTranslucent(z10);
+        return generatePluginAppCompatActivity != null ? generatePluginAppCompatActivity.setTranslucent(z) : super.setTranslucent(z);
     }
 
     @Override // android.app.Activity
-    public void setTurnScreenOn(boolean z10) {
+    public void setTurnScreenOn(boolean z) {
         GeneratePluginAppCompatActivity generatePluginAppCompatActivity = this.mTargetActivity;
         if (generatePluginAppCompatActivity != null) {
-            generatePluginAppCompatActivity.setTurnScreenOn(z10);
+            generatePluginAppCompatActivity.setTurnScreenOn(z);
         } else {
-            super.setTurnScreenOn(z10);
+            super.setTurnScreenOn(z);
         }
     }
 
     @Override // android.app.Activity
-    public void setVisible(boolean z10) {
+    public void setVisible(boolean z) {
         GeneratePluginAppCompatActivity generatePluginAppCompatActivity = this.mTargetActivity;
         if (generatePluginAppCompatActivity != null) {
-            generatePluginAppCompatActivity.setVisible(z10);
+            generatePluginAppCompatActivity.setVisible(z);
         } else {
-            super.setVisible(z10);
+            super.setVisible(z);
         }
     }
 
     @Override // android.app.Activity
-    public void setVrModeEnabled(boolean z10, ComponentName componentName) {
+    public void setVrModeEnabled(boolean z, ComponentName componentName) {
         GeneratePluginAppCompatActivity generatePluginAppCompatActivity = this.mTargetActivity;
         if (generatePluginAppCompatActivity != null) {
-            generatePluginAppCompatActivity.setVrModeEnabled(z10, componentName);
+            generatePluginAppCompatActivity.setVrModeEnabled(z, componentName);
         } else {
-            super.setVrModeEnabled(z10, componentName);
+            super.setVrModeEnabled(z, componentName);
         }
     }
 
@@ -1555,69 +1555,69 @@ public abstract class GenerateProxyAppCompatActivity extends AppCompatActivity i
         }
     }
 
-    @Override // androidx.activity.ComponentActivity, android.app.Activity
-    public void startActivityForResult(Intent intent, int i10) {
+    @Override // androidx.fragment.app.FragmentActivity, android.app.Activity
+    public void startActivityForResult(Intent intent, int i2) {
         GeneratePluginAppCompatActivity generatePluginAppCompatActivity = this.mTargetActivity;
         if (generatePluginAppCompatActivity != null) {
-            generatePluginAppCompatActivity.startActivityForResult(intent, i10);
+            generatePluginAppCompatActivity.startActivityForResult(intent, i2);
         } else {
-            super.startActivityForResult(intent, i10);
+            super.startActivityForResult(intent, i2);
         }
     }
 
     @Override // android.app.Activity
-    public void startActivityFromChild(Activity activity, Intent intent, int i10) {
+    public void startActivityFromChild(Activity activity, Intent intent, int i2) {
         GeneratePluginAppCompatActivity generatePluginAppCompatActivity = this.mTargetActivity;
         if (generatePluginAppCompatActivity != null) {
-            generatePluginAppCompatActivity.startActivityFromChild(activity, intent, i10);
+            generatePluginAppCompatActivity.startActivityFromChild(activity, intent, i2);
         } else {
-            super.startActivityFromChild(activity, intent, i10);
+            super.startActivityFromChild(activity, intent, i2);
         }
     }
 
     @Override // android.app.Activity
-    public void startActivityFromFragment(Fragment fragment, Intent intent, int i10) {
+    public void startActivityFromFragment(Fragment fragment, Intent intent, int i2) {
         GeneratePluginAppCompatActivity generatePluginAppCompatActivity = this.mTargetActivity;
         if (generatePluginAppCompatActivity != null) {
-            generatePluginAppCompatActivity.startActivityFromFragment(fragment, intent, i10);
+            generatePluginAppCompatActivity.startActivityFromFragment(fragment, intent, i2);
         } else {
-            super.startActivityFromFragment(fragment, intent, i10);
+            super.startActivityFromFragment(fragment, intent, i2);
         }
     }
 
     @Override // android.app.Activity
-    public boolean startActivityIfNeeded(Intent intent, int i10) {
+    public boolean startActivityIfNeeded(Intent intent, int i2) {
         GeneratePluginAppCompatActivity generatePluginAppCompatActivity = this.mTargetActivity;
-        return generatePluginAppCompatActivity != null ? generatePluginAppCompatActivity.startActivityIfNeeded(intent, i10) : super.startActivityIfNeeded(intent, i10);
+        return generatePluginAppCompatActivity != null ? generatePluginAppCompatActivity.startActivityIfNeeded(intent, i2) : super.startActivityIfNeeded(intent, i2);
     }
 
     @Override // android.app.Activity, android.content.ContextWrapper, android.content.Context
-    public void startIntentSender(IntentSender intentSender, Intent intent, int i10, int i11, int i12) {
+    public void startIntentSender(IntentSender intentSender, Intent intent, int i2, int i3, int i4) {
         GeneratePluginAppCompatActivity generatePluginAppCompatActivity = this.mTargetActivity;
         if (generatePluginAppCompatActivity != null) {
-            generatePluginAppCompatActivity.startIntentSender(intentSender, intent, i10, i11, i12);
+            generatePluginAppCompatActivity.startIntentSender(intentSender, intent, i2, i3, i4);
         } else {
-            super.startIntentSender(intentSender, intent, i10, i11, i12);
+            super.startIntentSender(intentSender, intent, i2, i3, i4);
         }
     }
 
-    @Override // androidx.activity.ComponentActivity, android.app.Activity
-    public void startIntentSenderForResult(IntentSender intentSender, int i10, Intent intent, int i11, int i12, int i13) {
+    @Override // androidx.fragment.app.FragmentActivity, android.app.Activity
+    public void startIntentSenderForResult(IntentSender intentSender, int i2, Intent intent, int i3, int i4, int i5) {
         GeneratePluginAppCompatActivity generatePluginAppCompatActivity = this.mTargetActivity;
         if (generatePluginAppCompatActivity != null) {
-            generatePluginAppCompatActivity.startIntentSenderForResult(intentSender, i10, intent, i11, i12, i13);
+            generatePluginAppCompatActivity.startIntentSenderForResult(intentSender, i2, intent, i3, i4, i5);
         } else {
-            super.startIntentSenderForResult(intentSender, i10, intent, i11, i12, i13);
+            super.startIntentSenderForResult(intentSender, i2, intent, i3, i4, i5);
         }
     }
 
     @Override // android.app.Activity
-    public void startIntentSenderFromChild(Activity activity, IntentSender intentSender, int i10, Intent intent, int i11, int i12, int i13) {
+    public void startIntentSenderFromChild(Activity activity, IntentSender intentSender, int i2, Intent intent, int i3, int i4, int i5) {
         GeneratePluginAppCompatActivity generatePluginAppCompatActivity = this.mTargetActivity;
         if (generatePluginAppCompatActivity != null) {
-            generatePluginAppCompatActivity.startIntentSenderFromChild(activity, intentSender, i10, intent, i11, i12, i13);
+            generatePluginAppCompatActivity.startIntentSenderFromChild(activity, intentSender, i2, intent, i3, i4, i5);
         } else {
-            super.startIntentSenderFromChild(activity, intentSender, i10, intent, i11, i12, i13);
+            super.startIntentSenderFromChild(activity, intentSender, i2, intent, i3, i4, i5);
         }
     }
 
@@ -1668,12 +1668,12 @@ public abstract class GenerateProxyAppCompatActivity extends AppCompatActivity i
     }
 
     @Override // android.app.Activity
-    public void startSearch(String str, boolean z10, Bundle bundle, boolean z11) {
+    public void startSearch(String str, boolean z, Bundle bundle, boolean z2) {
         GeneratePluginAppCompatActivity generatePluginAppCompatActivity = this.mTargetActivity;
         if (generatePluginAppCompatActivity != null) {
-            generatePluginAppCompatActivity.startSearch(str, z10, bundle, z11);
+            generatePluginAppCompatActivity.startSearch(str, z, bundle, z2);
         } else {
-            super.startSearch(str, z10, bundle, z11);
+            super.startSearch(str, z, bundle, z2);
         }
     }
 
@@ -1708,12 +1708,12 @@ public abstract class GenerateProxyAppCompatActivity extends AppCompatActivity i
     }
 
     @Override // android.app.Activity
-    public void takeKeyEvents(boolean z10) {
+    public void takeKeyEvents(boolean z) {
         GeneratePluginAppCompatActivity generatePluginAppCompatActivity = this.mTargetActivity;
         if (generatePluginAppCompatActivity != null) {
-            generatePluginAppCompatActivity.takeKeyEvents(z10);
+            generatePluginAppCompatActivity.takeKeyEvents(z);
         } else {
-            super.takeKeyEvents(z10);
+            super.takeKeyEvents(z);
         }
     }
 
@@ -1769,14 +1769,14 @@ public abstract class GenerateProxyAppCompatActivity extends AppCompatActivity i
             Method declaredMethod = Activity.class.getDeclaredMethod("convertToTranslucent", Class.forName("android.app.Activity$TranslucentConversionListener"), ActivityOptions.class);
             declaredMethod.setAccessible(true);
             return ((Boolean) declaredMethod.invoke(this, translucentConversionListener, activityOptions)).booleanValue();
-        } catch (Exception e10) {
-            e10.printStackTrace();
+        } catch (Exception e2) {
+            e2.printStackTrace();
             return false;
         }
     }
 
-    public PendingIntent zeusSuperCreatePendingResult(int i10, Intent intent, int i11) {
-        return super.createPendingResult(i10, intent, i11);
+    public PendingIntent zeusSuperCreatePendingResult(int i2, Intent intent, int i3) {
+        return super.createPendingResult(i2, intent, i3);
     }
 
     public boolean zeusSuperDispatchGenericMotionEvent(MotionEvent motionEvent) {
@@ -1811,20 +1811,20 @@ public abstract class GenerateProxyAppCompatActivity extends AppCompatActivity i
         super.enterPictureInPictureMode();
     }
 
-    public View zeusSuperFindViewById(int i10) {
-        return super.findViewById(i10);
+    public View zeusSuperFindViewById(int i2) {
+        return super.findViewById(i2);
     }
 
     public void zeusSuperFinish() {
         super.finish();
     }
 
-    public void zeusSuperFinishActivity(int i10) {
-        super.finishActivity(i10);
+    public void zeusSuperFinishActivity(int i2) {
+        super.finishActivity(i2);
     }
 
-    public void zeusSuperFinishActivityFromChild(Activity activity, int i10) {
-        super.finishActivityFromChild(activity, i10);
+    public void zeusSuperFinishActivityFromChild(Activity activity, int i2) {
+        super.finishActivityFromChild(activity, i2);
     }
 
     public void zeusSuperFinishAffinity() {
@@ -1915,8 +1915,8 @@ public abstract class GenerateProxyAppCompatActivity extends AppCompatActivity i
         return super.getParentActivityIntent();
     }
 
-    public SharedPreferences zeusSuperGetPreferences(int i10) {
-        return super.getPreferences(i10);
+    public SharedPreferences zeusSuperGetPreferences(int i2) {
+        return super.getPreferences(i2);
     }
 
     public Uri zeusSuperGetReferrer() {
@@ -2007,8 +2007,8 @@ public abstract class GenerateProxyAppCompatActivity extends AppCompatActivity i
         return super.isVoiceInteractionRoot();
     }
 
-    public boolean zeusSuperMoveTaskToBack(boolean z10) {
-        return super.moveTaskToBack(z10);
+    public boolean zeusSuperMoveTaskToBack(boolean z) {
+        return super.moveTaskToBack(z);
     }
 
     public boolean zeusSuperNavigateUpTo(Intent intent) {
@@ -2027,16 +2027,16 @@ public abstract class GenerateProxyAppCompatActivity extends AppCompatActivity i
         super.onActionModeStarted(actionMode);
     }
 
-    public void zeusSuperOnActivityReenter(int i10, Intent intent) {
-        super.onActivityReenter(i10, intent);
+    public void zeusSuperOnActivityReenter(int i2, Intent intent) {
+        super.onActivityReenter(i2, intent);
     }
 
-    public void zeusSuperOnActivityResult(int i10, int i11, Intent intent) {
-        super.onActivityResult(i10, i11, intent);
+    protected void zeusSuperOnActivityResult(int i2, int i3, Intent intent) {
+        super.onActivityResult(i2, i3, intent);
     }
 
-    public void zeusSuperOnApplyThemeResource(Resources.Theme theme, int i10, boolean z10) {
-        super.onApplyThemeResource(theme, i10, z10);
+    protected void zeusSuperOnApplyThemeResource(Resources.Theme theme, int i2, boolean z) {
+        super.onApplyThemeResource(theme, i2, z);
     }
 
     public void zeusSuperOnAttachFragment(Fragment fragment) {
@@ -2051,7 +2051,7 @@ public abstract class GenerateProxyAppCompatActivity extends AppCompatActivity i
         super.onBackPressed();
     }
 
-    public void zeusSuperOnChildTitleChanged(Activity activity, CharSequence charSequence) {
+    protected void zeusSuperOnChildTitleChanged(Activity activity, CharSequence charSequence) {
         super.onChildTitleChanged(activity, charSequence);
     }
 
@@ -2084,8 +2084,8 @@ public abstract class GenerateProxyAppCompatActivity extends AppCompatActivity i
         return super.onCreateDescription();
     }
 
-    public Dialog zeusSuperOnCreateDialog(int i10) {
-        return super.onCreateDialog(i10);
+    protected Dialog zeusSuperOnCreateDialog(int i2) {
+        return super.onCreateDialog(i2);
     }
 
     public void zeusSuperOnCreateNavigateUpTaskStack(TaskStackBuilder taskStackBuilder) {
@@ -2096,12 +2096,12 @@ public abstract class GenerateProxyAppCompatActivity extends AppCompatActivity i
         return super.onCreateOptionsMenu(menu);
     }
 
-    public boolean zeusSuperOnCreatePanelMenu(int i10, Menu menu) {
-        return super.onCreatePanelMenu(i10, menu);
+    public boolean zeusSuperOnCreatePanelMenu(int i2, Menu menu) {
+        return super.onCreatePanelMenu(i2, menu);
     }
 
-    public View zeusSuperOnCreatePanelView(int i10) {
-        return super.onCreatePanelView(i10);
+    public View zeusSuperOnCreatePanelView(int i2) {
+        return super.onCreatePanelView(i2);
     }
 
     public boolean zeusSuperOnCreateThumbnail(Bitmap bitmap, Canvas canvas) {
@@ -2112,7 +2112,7 @@ public abstract class GenerateProxyAppCompatActivity extends AppCompatActivity i
         return super.onCreateView(view, str, context, attributeSet);
     }
 
-    public void zeusSuperOnDestroy() {
+    protected void zeusSuperOnDestroy() {
         super.onDestroy();
     }
 
@@ -2132,24 +2132,24 @@ public abstract class GenerateProxyAppCompatActivity extends AppCompatActivity i
         super.onGetDirectActions(cancellationSignal, consumer);
     }
 
-    public boolean zeusSuperOnKeyDown(int i10, KeyEvent keyEvent) {
-        return super.onKeyDown(i10, keyEvent);
+    public boolean zeusSuperOnKeyDown(int i2, KeyEvent keyEvent) {
+        return super.onKeyDown(i2, keyEvent);
     }
 
-    public boolean zeusSuperOnKeyLongPress(int i10, KeyEvent keyEvent) {
-        return super.onKeyLongPress(i10, keyEvent);
+    public boolean zeusSuperOnKeyLongPress(int i2, KeyEvent keyEvent) {
+        return super.onKeyLongPress(i2, keyEvent);
     }
 
-    public boolean zeusSuperOnKeyMultiple(int i10, int i11, KeyEvent keyEvent) {
-        return super.onKeyMultiple(i10, i11, keyEvent);
+    public boolean zeusSuperOnKeyMultiple(int i2, int i3, KeyEvent keyEvent) {
+        return super.onKeyMultiple(i2, i3, keyEvent);
     }
 
-    public boolean zeusSuperOnKeyShortcut(int i10, KeyEvent keyEvent) {
-        return super.onKeyShortcut(i10, keyEvent);
+    public boolean zeusSuperOnKeyShortcut(int i2, KeyEvent keyEvent) {
+        return super.onKeyShortcut(i2, keyEvent);
     }
 
-    public boolean zeusSuperOnKeyUp(int i10, KeyEvent keyEvent) {
-        return super.onKeyUp(i10, keyEvent);
+    public boolean zeusSuperOnKeyUp(int i2, KeyEvent keyEvent) {
+        return super.onKeyUp(i2, keyEvent);
     }
 
     public void zeusSuperOnLocalVoiceInteractionStarted() {
@@ -2164,12 +2164,12 @@ public abstract class GenerateProxyAppCompatActivity extends AppCompatActivity i
         super.onLowMemory();
     }
 
-    public boolean zeusSuperOnMenuOpened(int i10, Menu menu) {
-        return super.onMenuOpened(i10, menu);
+    public boolean zeusSuperOnMenuOpened(int i2, Menu menu) {
+        return super.onMenuOpened(i2, menu);
     }
 
-    public void zeusSuperOnMultiWindowModeChanged(boolean z10) {
-        super.onMultiWindowModeChanged(z10);
+    public void zeusSuperOnMultiWindowModeChanged(boolean z) {
+        super.onMultiWindowModeChanged(z);
     }
 
     public boolean zeusSuperOnNavigateUp() {
@@ -2180,7 +2180,7 @@ public abstract class GenerateProxyAppCompatActivity extends AppCompatActivity i
         return super.onNavigateUpFromChild(activity);
     }
 
-    public void zeusSuperOnNewIntent(Intent intent) {
+    protected void zeusSuperOnNewIntent(Intent intent) {
         super.onNewIntent(intent);
     }
 
@@ -2192,11 +2192,11 @@ public abstract class GenerateProxyAppCompatActivity extends AppCompatActivity i
         super.onOptionsMenuClosed(menu);
     }
 
-    public void zeusSuperOnPanelClosed(int i10, Menu menu) {
-        super.onPanelClosed(i10, menu);
+    public void zeusSuperOnPanelClosed(int i2, Menu menu) {
+        super.onPanelClosed(i2, menu);
     }
 
-    public void zeusSuperOnPause() {
+    protected void zeusSuperOnPause() {
         super.onPause();
     }
 
@@ -2204,24 +2204,24 @@ public abstract class GenerateProxyAppCompatActivity extends AppCompatActivity i
         super.onPerformDirectAction(str, bundle, cancellationSignal, consumer);
     }
 
-    public void zeusSuperOnPictureInPictureModeChanged(boolean z10) {
-        super.onPictureInPictureModeChanged(z10);
+    public void zeusSuperOnPictureInPictureModeChanged(boolean z) {
+        super.onPictureInPictureModeChanged(z);
     }
 
     public boolean zeusSuperOnPictureInPictureRequested() {
         return super.onPictureInPictureRequested();
     }
 
-    public void zeusSuperOnPostCreate(Bundle bundle) {
+    protected void zeusSuperOnPostCreate(Bundle bundle) {
         super.onPostCreate(bundle);
     }
 
-    public void zeusSuperOnPostResume() {
+    protected void zeusSuperOnPostResume() {
         super.onPostResume();
     }
 
-    public void zeusSuperOnPrepareDialog(int i10, Dialog dialog) {
-        super.onPrepareDialog(i10, dialog);
+    protected void zeusSuperOnPrepareDialog(int i2, Dialog dialog) {
+        super.onPrepareDialog(i2, dialog);
     }
 
     public void zeusSuperOnPrepareNavigateUpTaskStack(TaskStackBuilder taskStackBuilder) {
@@ -2232,8 +2232,8 @@ public abstract class GenerateProxyAppCompatActivity extends AppCompatActivity i
         return super.onPrepareOptionsMenu(menu);
     }
 
-    public boolean zeusSuperOnPreparePanel(int i10, View view, Menu menu) {
-        return super.onPreparePanel(i10, view, menu);
+    public boolean zeusSuperOnPreparePanel(int i2, View view, Menu menu) {
+        return super.onPreparePanel(i2, view, menu);
     }
 
     public void zeusSuperOnProvideAssistContent(AssistContent assistContent) {
@@ -2244,31 +2244,31 @@ public abstract class GenerateProxyAppCompatActivity extends AppCompatActivity i
         super.onProvideAssistData(bundle);
     }
 
-    public void zeusSuperOnProvideKeyboardShortcuts(List list, Menu menu, int i10) {
-        super.onProvideKeyboardShortcuts(list, menu, i10);
+    public void zeusSuperOnProvideKeyboardShortcuts(List list, Menu menu, int i2) {
+        super.onProvideKeyboardShortcuts(list, menu, i2);
     }
 
     public Uri zeusSuperOnProvideReferrer() {
         return super.onProvideReferrer();
     }
 
-    public void zeusSuperOnRequestPermissionsResult(int i10, String[] strArr, int[] iArr) {
-        super.onRequestPermissionsResult(i10, strArr, iArr);
+    public void zeusSuperOnRequestPermissionsResult(int i2, String[] strArr, int[] iArr) {
+        super.onRequestPermissionsResult(i2, strArr, iArr);
     }
 
-    public void zeusSuperOnRestart() {
+    protected void zeusSuperOnRestart() {
         super.onRestart();
     }
 
-    public void zeusSuperOnRestoreInstanceState(Bundle bundle) {
+    protected void zeusSuperOnRestoreInstanceState(Bundle bundle) {
         super.onRestoreInstanceState(bundle);
     }
 
-    public void zeusSuperOnResume() {
+    protected void zeusSuperOnResume() {
         super.onResume();
     }
 
-    public void zeusSuperOnSaveInstanceState(Bundle bundle) {
+    protected void zeusSuperOnSaveInstanceState(Bundle bundle) {
         super.onSaveInstanceState(bundle);
     }
 
@@ -2276,7 +2276,7 @@ public abstract class GenerateProxyAppCompatActivity extends AppCompatActivity i
         return super.onSearchRequested();
     }
 
-    public void zeusSuperOnStart() {
+    protected void zeusSuperOnStart() {
         super.onStart();
     }
 
@@ -2284,16 +2284,16 @@ public abstract class GenerateProxyAppCompatActivity extends AppCompatActivity i
         super.onStateNotSaved();
     }
 
-    public void zeusSuperOnStop() {
+    protected void zeusSuperOnStop() {
         super.onStop();
     }
 
-    public void zeusSuperOnTitleChanged(CharSequence charSequence, int i10) {
-        super.onTitleChanged(charSequence, i10);
+    protected void zeusSuperOnTitleChanged(CharSequence charSequence, int i2) {
+        super.onTitleChanged(charSequence, i2);
     }
 
-    public void zeusSuperOnTopResumedActivityChanged(boolean z10) {
-        super.onTopResumedActivityChanged(z10);
+    public void zeusSuperOnTopResumedActivityChanged(boolean z) {
+        super.onTopResumedActivityChanged(z);
     }
 
     public boolean zeusSuperOnTouchEvent(MotionEvent motionEvent) {
@@ -2304,15 +2304,15 @@ public abstract class GenerateProxyAppCompatActivity extends AppCompatActivity i
         return super.onTrackballEvent(motionEvent);
     }
 
-    public void zeusSuperOnTrimMemory(int i10) {
-        super.onTrimMemory(i10);
+    public void zeusSuperOnTrimMemory(int i2) {
+        super.onTrimMemory(i2);
     }
 
     public void zeusSuperOnUserInteraction() {
         super.onUserInteraction();
     }
 
-    public void zeusSuperOnUserLeaveHint() {
+    protected void zeusSuperOnUserLeaveHint() {
         super.onUserLeaveHint();
     }
 
@@ -2324,8 +2324,8 @@ public abstract class GenerateProxyAppCompatActivity extends AppCompatActivity i
         super.onWindowAttributesChanged(layoutParams);
     }
 
-    public void zeusSuperOnWindowFocusChanged(boolean z10) {
-        super.onWindowFocusChanged(z10);
+    public void zeusSuperOnWindowFocusChanged(boolean z) {
+        super.onWindowFocusChanged(z);
     }
 
     public ActionMode zeusSuperOnWindowStartingActionMode(ActionMode.Callback callback) {
@@ -2340,8 +2340,8 @@ public abstract class GenerateProxyAppCompatActivity extends AppCompatActivity i
         super.openOptionsMenu();
     }
 
-    public void zeusSuperOverridePendingTransition(int i10, int i11) {
-        super.overridePendingTransition(i10, i11);
+    public void zeusSuperOverridePendingTransition(int i2, int i3) {
+        super.overridePendingTransition(i2, i3);
     }
 
     public void zeusSuperPostponeEnterTransition() {
@@ -2372,8 +2372,8 @@ public abstract class GenerateProxyAppCompatActivity extends AppCompatActivity i
         return super.requestDragAndDropPermissions(dragEvent);
     }
 
-    public boolean zeusSuperRequestVisibleBehind(boolean z10) {
-        return super.requestVisibleBehind(z10);
+    public boolean zeusSuperRequestVisibleBehind(boolean z) {
+        return super.requestVisibleBehind(z);
     }
 
     public void zeusSuperSetActionBar(Toolbar toolbar) {
@@ -2384,8 +2384,8 @@ public abstract class GenerateProxyAppCompatActivity extends AppCompatActivity i
         super.setContentTransitionManager(transitionManager);
     }
 
-    public void zeusSuperSetContentView(int i10) {
-        super.setContentView(i10);
+    public void zeusSuperSetContentView(int i2) {
+        super.setContentView(i2);
     }
 
     public void zeusSuperSetEnterSharedElementCallback(SharedElementCallback sharedElementCallback) {
@@ -2396,16 +2396,16 @@ public abstract class GenerateProxyAppCompatActivity extends AppCompatActivity i
         super.setExitSharedElementCallback(sharedElementCallback);
     }
 
-    public void zeusSuperSetFinishOnTouchOutside(boolean z10) {
-        super.setFinishOnTouchOutside(z10);
+    public void zeusSuperSetFinishOnTouchOutside(boolean z) {
+        super.setFinishOnTouchOutside(z);
     }
 
-    public void zeusSuperSetImmersive(boolean z10) {
-        super.setImmersive(z10);
+    public void zeusSuperSetImmersive(boolean z) {
+        super.setImmersive(z);
     }
 
-    public void zeusSuperSetInheritShowWhenLocked(boolean z10) {
-        super.setInheritShowWhenLocked(z10);
+    public void zeusSuperSetInheritShowWhenLocked(boolean z) {
+        super.setInheritShowWhenLocked(z);
     }
 
     public void zeusSuperSetIntent(Intent intent) {
@@ -2420,12 +2420,12 @@ public abstract class GenerateProxyAppCompatActivity extends AppCompatActivity i
         super.setPictureInPictureParams(pictureInPictureParams);
     }
 
-    public void zeusSuperSetRequestedOrientation(int i10) {
-        super.setRequestedOrientation(i10);
+    public void zeusSuperSetRequestedOrientation(int i2) {
+        super.setRequestedOrientation(i2);
     }
 
-    public void zeusSuperSetShowWhenLocked(boolean z10) {
-        super.setShowWhenLocked(z10);
+    public void zeusSuperSetShowWhenLocked(boolean z) {
+        super.setShowWhenLocked(z);
     }
 
     public void zeusSuperSetTaskDescription(ActivityManager.TaskDescription taskDescription) {
@@ -2433,32 +2433,32 @@ public abstract class GenerateProxyAppCompatActivity extends AppCompatActivity i
     }
 
     @Override // com.bytedance.pangle.activity.b
-    public void zeusSuperSetTheme(int i10) {
-        super.setTheme(i10);
+    public void zeusSuperSetTheme(int i2) {
+        super.setTheme(i2);
     }
 
-    public void zeusSuperSetTitle(int i10) {
-        super.setTitle(i10);
+    public void zeusSuperSetTitle(int i2) {
+        super.setTitle(i2);
     }
 
-    public void zeusSuperSetTitleColor(int i10) {
-        super.setTitleColor(i10);
+    public void zeusSuperSetTitleColor(int i2) {
+        super.setTitleColor(i2);
     }
 
-    public boolean zeusSuperSetTranslucent(boolean z10) {
-        return super.setTranslucent(z10);
+    public boolean zeusSuperSetTranslucent(boolean z) {
+        return super.setTranslucent(z);
     }
 
-    public void zeusSuperSetTurnScreenOn(boolean z10) {
-        super.setTurnScreenOn(z10);
+    public void zeusSuperSetTurnScreenOn(boolean z) {
+        super.setTurnScreenOn(z);
     }
 
-    public void zeusSuperSetVisible(boolean z10) {
-        super.setVisible(z10);
+    public void zeusSuperSetVisible(boolean z) {
+        super.setVisible(z);
     }
 
-    public void zeusSuperSetVrModeEnabled(boolean z10, ComponentName componentName) {
-        super.setVrModeEnabled(z10, componentName);
+    public void zeusSuperSetVrModeEnabled(boolean z, ComponentName componentName) {
+        super.setVrModeEnabled(z, componentName);
     }
 
     public boolean zeusSuperShouldShowRequestPermissionRationale(String str) {
@@ -2489,32 +2489,32 @@ public abstract class GenerateProxyAppCompatActivity extends AppCompatActivity i
         super.startActivity(intent);
     }
 
-    public void zeusSuperStartActivityForResult(Intent intent, int i10) {
-        super.startActivityForResult(intent, i10);
+    public void zeusSuperStartActivityForResult(Intent intent, int i2) {
+        super.startActivityForResult(intent, i2);
     }
 
-    public void zeusSuperStartActivityFromChild(Activity activity, Intent intent, int i10) {
-        super.startActivityFromChild(activity, intent, i10);
+    public void zeusSuperStartActivityFromChild(Activity activity, Intent intent, int i2) {
+        super.startActivityFromChild(activity, intent, i2);
     }
 
-    public void zeusSuperStartActivityFromFragment(Fragment fragment, Intent intent, int i10) {
-        super.startActivityFromFragment(fragment, intent, i10);
+    public void zeusSuperStartActivityFromFragment(Fragment fragment, Intent intent, int i2) {
+        super.startActivityFromFragment(fragment, intent, i2);
     }
 
-    public boolean zeusSuperStartActivityIfNeeded(Intent intent, int i10) {
-        return super.startActivityIfNeeded(intent, i10);
+    public boolean zeusSuperStartActivityIfNeeded(Intent intent, int i2) {
+        return super.startActivityIfNeeded(intent, i2);
     }
 
-    public void zeusSuperStartIntentSender(IntentSender intentSender, Intent intent, int i10, int i11, int i12) {
-        super.startIntentSender(intentSender, intent, i10, i11, i12);
+    public void zeusSuperStartIntentSender(IntentSender intentSender, Intent intent, int i2, int i3, int i4) {
+        super.startIntentSender(intentSender, intent, i2, i3, i4);
     }
 
-    public void zeusSuperStartIntentSenderForResult(IntentSender intentSender, int i10, Intent intent, int i11, int i12, int i13) {
-        super.startIntentSenderForResult(intentSender, i10, intent, i11, i12, i13);
+    public void zeusSuperStartIntentSenderForResult(IntentSender intentSender, int i2, Intent intent, int i3, int i4, int i5) {
+        super.startIntentSenderForResult(intentSender, i2, intent, i3, i4, i5);
     }
 
-    public void zeusSuperStartIntentSenderFromChild(Activity activity, IntentSender intentSender, int i10, Intent intent, int i11, int i12, int i13) {
-        super.startIntentSenderFromChild(activity, intentSender, i10, intent, i11, i12, i13);
+    public void zeusSuperStartIntentSenderFromChild(Activity activity, IntentSender intentSender, int i2, Intent intent, int i3, int i4, int i5) {
+        super.startIntentSenderFromChild(activity, intentSender, i2, intent, i3, i4, i5);
     }
 
     public void zeusSuperStartLocalVoiceInteraction(Bundle bundle) {
@@ -2537,8 +2537,8 @@ public abstract class GenerateProxyAppCompatActivity extends AppCompatActivity i
         super.startPostponedEnterTransition();
     }
 
-    public void zeusSuperStartSearch(String str, boolean z10, Bundle bundle, boolean z11) {
-        super.startSearch(str, z10, bundle, z11);
+    public void zeusSuperStartSearch(String str, boolean z, Bundle bundle, boolean z2) {
+        super.startSearch(str, z, bundle, z2);
     }
 
     public void zeusSuperStopLocalVoiceInteraction() {
@@ -2553,8 +2553,8 @@ public abstract class GenerateProxyAppCompatActivity extends AppCompatActivity i
         super.stopManagingCursor(cursor);
     }
 
-    public void zeusSuperTakeKeyEvents(boolean z10) {
-        super.takeKeyEvents(z10);
+    public void zeusSuperTakeKeyEvents(boolean z) {
+        super.takeKeyEvents(z);
     }
 
     public void zeusSuperTriggerSearch(String str, Bundle bundle) {
@@ -2587,28 +2587,28 @@ public abstract class GenerateProxyAppCompatActivity extends AppCompatActivity i
         super.onCreate(bundle, persistableBundle);
     }
 
-    public Dialog zeusSuperOnCreateDialog(int i10, Bundle bundle) {
-        return super.onCreateDialog(i10, bundle);
+    protected Dialog zeusSuperOnCreateDialog(int i2, Bundle bundle) {
+        return super.onCreateDialog(i2, bundle);
     }
 
     public View zeusSuperOnCreateView(String str, Context context, AttributeSet attributeSet) {
         return super.onCreateView(str, context, attributeSet);
     }
 
-    public void zeusSuperOnMultiWindowModeChanged(boolean z10, Configuration configuration) {
-        super.onMultiWindowModeChanged(z10, configuration);
+    public void zeusSuperOnMultiWindowModeChanged(boolean z, Configuration configuration) {
+        super.onMultiWindowModeChanged(z, configuration);
     }
 
-    public void zeusSuperOnPictureInPictureModeChanged(boolean z10, Configuration configuration) {
-        super.onPictureInPictureModeChanged(z10, configuration);
+    public void zeusSuperOnPictureInPictureModeChanged(boolean z, Configuration configuration) {
+        super.onPictureInPictureModeChanged(z, configuration);
     }
 
     public void zeusSuperOnPostCreate(Bundle bundle, PersistableBundle persistableBundle) {
         super.onPostCreate(bundle, persistableBundle);
     }
 
-    public void zeusSuperOnPrepareDialog(int i10, Dialog dialog, Bundle bundle) {
-        super.onPrepareDialog(i10, dialog, bundle);
+    protected void zeusSuperOnPrepareDialog(int i2, Dialog dialog, Bundle bundle) {
+        super.onPrepareDialog(i2, dialog, bundle);
     }
 
     public void zeusSuperOnRestoreInstanceState(Bundle bundle, PersistableBundle persistableBundle) {
@@ -2623,8 +2623,8 @@ public abstract class GenerateProxyAppCompatActivity extends AppCompatActivity i
         return super.onSearchRequested(searchEvent);
     }
 
-    public ActionMode zeusSuperOnWindowStartingActionMode(ActionMode.Callback callback, int i10) {
-        return super.onWindowStartingActionMode(callback, i10);
+    public ActionMode zeusSuperOnWindowStartingActionMode(ActionMode.Callback callback, int i2) {
+        return super.onWindowStartingActionMode(callback, i2);
     }
 
     public void zeusSuperSetContentView(View view) {
@@ -2635,8 +2635,8 @@ public abstract class GenerateProxyAppCompatActivity extends AppCompatActivity i
         super.setTitle(charSequence);
     }
 
-    public ActionMode zeusSuperStartActionMode(ActionMode.Callback callback, int i10) {
-        return super.startActionMode(callback, i10);
+    public ActionMode zeusSuperStartActionMode(ActionMode.Callback callback, int i2) {
+        return super.startActionMode(callback, i2);
     }
 
     public void zeusSuperStartActivities(Intent[] intentArr, Bundle bundle) {
@@ -2647,32 +2647,32 @@ public abstract class GenerateProxyAppCompatActivity extends AppCompatActivity i
         super.startActivity(intent, bundle);
     }
 
-    public void zeusSuperStartActivityForResult(Intent intent, int i10, Bundle bundle) {
-        super.startActivityForResult(intent, i10, bundle);
+    public void zeusSuperStartActivityForResult(Intent intent, int i2, Bundle bundle) {
+        super.startActivityForResult(intent, i2, bundle);
     }
 
-    public void zeusSuperStartActivityFromChild(Activity activity, Intent intent, int i10, Bundle bundle) {
-        super.startActivityFromChild(activity, intent, i10, bundle);
+    public void zeusSuperStartActivityFromChild(Activity activity, Intent intent, int i2, Bundle bundle) {
+        super.startActivityFromChild(activity, intent, i2, bundle);
     }
 
-    public void zeusSuperStartActivityFromFragment(Fragment fragment, Intent intent, int i10, Bundle bundle) {
-        super.startActivityFromFragment(fragment, intent, i10, bundle);
+    public void zeusSuperStartActivityFromFragment(Fragment fragment, Intent intent, int i2, Bundle bundle) {
+        super.startActivityFromFragment(fragment, intent, i2, bundle);
     }
 
-    public boolean zeusSuperStartActivityIfNeeded(Intent intent, int i10, Bundle bundle) {
-        return super.startActivityIfNeeded(intent, i10, bundle);
+    public boolean zeusSuperStartActivityIfNeeded(Intent intent, int i2, Bundle bundle) {
+        return super.startActivityIfNeeded(intent, i2, bundle);
     }
 
-    public void zeusSuperStartIntentSender(IntentSender intentSender, Intent intent, int i10, int i11, int i12, Bundle bundle) {
-        super.startIntentSender(intentSender, intent, i10, i11, i12, bundle);
+    public void zeusSuperStartIntentSender(IntentSender intentSender, Intent intent, int i2, int i3, int i4, Bundle bundle) {
+        super.startIntentSender(intentSender, intent, i2, i3, i4, bundle);
     }
 
-    public void zeusSuperStartIntentSenderForResult(IntentSender intentSender, int i10, Intent intent, int i11, int i12, int i13, Bundle bundle) {
-        super.startIntentSenderForResult(intentSender, i10, intent, i11, i12, i13, bundle);
+    public void zeusSuperStartIntentSenderForResult(IntentSender intentSender, int i2, Intent intent, int i3, int i4, int i5, Bundle bundle) {
+        super.startIntentSenderForResult(intentSender, i2, intent, i3, i4, i5, bundle);
     }
 
-    public void zeusSuperStartIntentSenderFromChild(Activity activity, IntentSender intentSender, int i10, Intent intent, int i11, int i12, int i13, Bundle bundle) {
-        super.startIntentSenderFromChild(activity, intentSender, i10, intent, i11, i12, i13, bundle);
+    public void zeusSuperStartIntentSenderFromChild(Activity activity, IntentSender intentSender, int i2, Intent intent, int i3, int i4, int i5, Bundle bundle) {
+        super.startIntentSenderFromChild(activity, intentSender, i2, intent, i3, i4, i5, bundle);
     }
 
     public boolean zeusSuperStartNextMatchingActivity(Intent intent, Bundle bundle) {
@@ -2693,12 +2693,12 @@ public abstract class GenerateProxyAppCompatActivity extends AppCompatActivity i
     }
 
     @Override // android.app.Activity
-    public Dialog onCreateDialog(int i10, Bundle bundle) {
+    protected Dialog onCreateDialog(int i2, Bundle bundle) {
         GeneratePluginAppCompatActivity generatePluginAppCompatActivity = this.mTargetActivity;
         if (generatePluginAppCompatActivity != null) {
-            return generatePluginAppCompatActivity.onCreateDialog(i10, bundle);
+            return generatePluginAppCompatActivity.onCreateDialog(i2, bundle);
         }
-        return super.onCreateDialog(i10, bundle);
+        return super.onCreateDialog(i2, bundle);
     }
 
     @Override // androidx.fragment.app.FragmentActivity, android.app.Activity, android.view.LayoutInflater.Factory
@@ -2710,23 +2710,23 @@ public abstract class GenerateProxyAppCompatActivity extends AppCompatActivity i
         return super.onCreateView(str, context, attributeSet);
     }
 
-    @Override // androidx.activity.ComponentActivity, android.app.Activity
-    public void onMultiWindowModeChanged(boolean z10, Configuration configuration) {
+    @Override // android.app.Activity
+    public void onMultiWindowModeChanged(boolean z, Configuration configuration) {
         GeneratePluginAppCompatActivity generatePluginAppCompatActivity = this.mTargetActivity;
         if (generatePluginAppCompatActivity != null) {
-            generatePluginAppCompatActivity.onMultiWindowModeChanged(z10, configuration);
+            generatePluginAppCompatActivity.onMultiWindowModeChanged(z, configuration);
         } else {
-            super.onMultiWindowModeChanged(z10, configuration);
+            super.onMultiWindowModeChanged(z, configuration);
         }
     }
 
-    @Override // androidx.activity.ComponentActivity, android.app.Activity
-    public void onPictureInPictureModeChanged(boolean z10, Configuration configuration) {
+    @Override // android.app.Activity
+    public void onPictureInPictureModeChanged(boolean z, Configuration configuration) {
         GeneratePluginAppCompatActivity generatePluginAppCompatActivity = this.mTargetActivity;
         if (generatePluginAppCompatActivity != null) {
-            generatePluginAppCompatActivity.onPictureInPictureModeChanged(z10, configuration);
+            generatePluginAppCompatActivity.onPictureInPictureModeChanged(z, configuration);
         } else {
-            super.onPictureInPictureModeChanged(z10, configuration);
+            super.onPictureInPictureModeChanged(z, configuration);
         }
     }
 
@@ -2741,12 +2741,12 @@ public abstract class GenerateProxyAppCompatActivity extends AppCompatActivity i
     }
 
     @Override // android.app.Activity
-    public void onPrepareDialog(int i10, Dialog dialog, Bundle bundle) {
+    protected void onPrepareDialog(int i2, Dialog dialog, Bundle bundle) {
         GeneratePluginAppCompatActivity generatePluginAppCompatActivity = this.mTargetActivity;
         if (generatePluginAppCompatActivity != null) {
-            generatePluginAppCompatActivity.onPrepareDialog(i10, dialog, bundle);
+            generatePluginAppCompatActivity.onPrepareDialog(i2, dialog, bundle);
         } else {
-            super.onPrepareDialog(i10, dialog, bundle);
+            super.onPrepareDialog(i2, dialog, bundle);
         }
     }
 
@@ -2770,15 +2770,15 @@ public abstract class GenerateProxyAppCompatActivity extends AppCompatActivity i
     }
 
     @Override // android.app.Activity, android.view.Window.Callback
-    public ActionMode onWindowStartingActionMode(ActionMode.Callback callback, int i10) {
+    public ActionMode onWindowStartingActionMode(ActionMode.Callback callback, int i2) {
         GeneratePluginAppCompatActivity generatePluginAppCompatActivity = this.mTargetActivity;
         if (generatePluginAppCompatActivity != null) {
-            return generatePluginAppCompatActivity.onWindowStartingActionMode(callback, i10);
+            return generatePluginAppCompatActivity.onWindowStartingActionMode(callback, i2);
         }
-        return super.onWindowStartingActionMode(callback, i10);
+        return super.onWindowStartingActionMode(callback, i2);
     }
 
-    @Override // androidx.appcompat.app.AppCompatActivity, androidx.activity.ComponentActivity, android.app.Activity
+    @Override // androidx.appcompat.app.AppCompatActivity, android.app.Activity
     public void setContentView(View view) {
         GeneratePluginAppCompatActivity generatePluginAppCompatActivity = this.mTargetActivity;
         if (generatePluginAppCompatActivity != null) {
@@ -2799,12 +2799,12 @@ public abstract class GenerateProxyAppCompatActivity extends AppCompatActivity i
     }
 
     @Override // android.app.Activity
-    public ActionMode startActionMode(ActionMode.Callback callback, int i10) {
+    public ActionMode startActionMode(ActionMode.Callback callback, int i2) {
         GeneratePluginAppCompatActivity generatePluginAppCompatActivity = this.mTargetActivity;
         if (generatePluginAppCompatActivity != null) {
-            return generatePluginAppCompatActivity.startActionMode(callback, i10);
+            return generatePluginAppCompatActivity.startActionMode(callback, i2);
         }
-        return super.startActionMode(callback, i10);
+        return super.startActionMode(callback, i2);
     }
 
     @Override // android.app.Activity, android.content.ContextWrapper, android.content.Context
@@ -2827,72 +2827,72 @@ public abstract class GenerateProxyAppCompatActivity extends AppCompatActivity i
         }
     }
 
-    @Override // androidx.activity.ComponentActivity, android.app.Activity
-    public void startActivityForResult(Intent intent, int i10, Bundle bundle) {
+    @Override // androidx.fragment.app.FragmentActivity, android.app.Activity
+    public void startActivityForResult(Intent intent, int i2, Bundle bundle) {
         GeneratePluginAppCompatActivity generatePluginAppCompatActivity = this.mTargetActivity;
         if (generatePluginAppCompatActivity != null) {
-            generatePluginAppCompatActivity.startActivityForResult(intent, i10, bundle);
+            generatePluginAppCompatActivity.startActivityForResult(intent, i2, bundle);
         } else {
-            super.startActivityForResult(intent, i10, bundle);
+            super.startActivityForResult(intent, i2, bundle);
         }
     }
 
     @Override // android.app.Activity
-    public void startActivityFromChild(Activity activity, Intent intent, int i10, Bundle bundle) {
+    public void startActivityFromChild(Activity activity, Intent intent, int i2, Bundle bundle) {
         GeneratePluginAppCompatActivity generatePluginAppCompatActivity = this.mTargetActivity;
         if (generatePluginAppCompatActivity != null) {
-            generatePluginAppCompatActivity.startActivityFromChild(activity, intent, i10, bundle);
+            generatePluginAppCompatActivity.startActivityFromChild(activity, intent, i2, bundle);
         } else {
-            super.startActivityFromChild(activity, intent, i10, bundle);
+            super.startActivityFromChild(activity, intent, i2, bundle);
         }
     }
 
     @Override // android.app.Activity
-    public void startActivityFromFragment(Fragment fragment, Intent intent, int i10, Bundle bundle) {
+    public void startActivityFromFragment(Fragment fragment, Intent intent, int i2, Bundle bundle) {
         GeneratePluginAppCompatActivity generatePluginAppCompatActivity = this.mTargetActivity;
         if (generatePluginAppCompatActivity != null) {
-            generatePluginAppCompatActivity.startActivityFromFragment(fragment, intent, i10, bundle);
+            generatePluginAppCompatActivity.startActivityFromFragment(fragment, intent, i2, bundle);
         } else {
-            super.startActivityFromFragment(fragment, intent, i10, bundle);
+            super.startActivityFromFragment(fragment, intent, i2, bundle);
         }
     }
 
     @Override // android.app.Activity
-    public boolean startActivityIfNeeded(Intent intent, int i10, Bundle bundle) {
+    public boolean startActivityIfNeeded(Intent intent, int i2, Bundle bundle) {
         GeneratePluginAppCompatActivity generatePluginAppCompatActivity = this.mTargetActivity;
         if (generatePluginAppCompatActivity != null) {
-            return generatePluginAppCompatActivity.startActivityIfNeeded(intent, i10, bundle);
+            return generatePluginAppCompatActivity.startActivityIfNeeded(intent, i2, bundle);
         }
-        return super.startActivityIfNeeded(intent, i10, bundle);
+        return super.startActivityIfNeeded(intent, i2, bundle);
     }
 
     @Override // android.app.Activity, android.content.ContextWrapper, android.content.Context
-    public void startIntentSender(IntentSender intentSender, Intent intent, int i10, int i11, int i12, Bundle bundle) {
+    public void startIntentSender(IntentSender intentSender, Intent intent, int i2, int i3, int i4, Bundle bundle) {
         GeneratePluginAppCompatActivity generatePluginAppCompatActivity = this.mTargetActivity;
         if (generatePluginAppCompatActivity != null) {
-            generatePluginAppCompatActivity.startIntentSender(intentSender, intent, i10, i11, i12, bundle);
+            generatePluginAppCompatActivity.startIntentSender(intentSender, intent, i2, i3, i4, bundle);
         } else {
-            super.startIntentSender(intentSender, intent, i10, i11, i12, bundle);
+            super.startIntentSender(intentSender, intent, i2, i3, i4, bundle);
         }
     }
 
-    @Override // androidx.activity.ComponentActivity, android.app.Activity
-    public void startIntentSenderForResult(IntentSender intentSender, int i10, Intent intent, int i11, int i12, int i13, Bundle bundle) {
+    @Override // androidx.fragment.app.FragmentActivity, android.app.Activity
+    public void startIntentSenderForResult(IntentSender intentSender, int i2, Intent intent, int i3, int i4, int i5, Bundle bundle) {
         GeneratePluginAppCompatActivity generatePluginAppCompatActivity = this.mTargetActivity;
         if (generatePluginAppCompatActivity != null) {
-            generatePluginAppCompatActivity.startIntentSenderForResult(intentSender, i10, intent, i11, i12, i13, bundle);
+            generatePluginAppCompatActivity.startIntentSenderForResult(intentSender, i2, intent, i3, i4, i5, bundle);
         } else {
-            super.startIntentSenderForResult(intentSender, i10, intent, i11, i12, i13, bundle);
+            super.startIntentSenderForResult(intentSender, i2, intent, i3, i4, i5, bundle);
         }
     }
 
     @Override // android.app.Activity
-    public void startIntentSenderFromChild(Activity activity, IntentSender intentSender, int i10, Intent intent, int i11, int i12, int i13, Bundle bundle) {
+    public void startIntentSenderFromChild(Activity activity, IntentSender intentSender, int i2, Intent intent, int i3, int i4, int i5, Bundle bundle) {
         GeneratePluginAppCompatActivity generatePluginAppCompatActivity = this.mTargetActivity;
         if (generatePluginAppCompatActivity != null) {
-            generatePluginAppCompatActivity.startIntentSenderFromChild(activity, intentSender, i10, intent, i11, i12, i13, bundle);
+            generatePluginAppCompatActivity.startIntentSenderFromChild(activity, intentSender, i2, intent, i3, i4, i5, bundle);
         } else {
-            super.startIntentSenderFromChild(activity, intentSender, i10, intent, i11, i12, i13, bundle);
+            super.startIntentSenderFromChild(activity, intentSender, i2, intent, i3, i4, i5, bundle);
         }
     }
 
@@ -2916,22 +2916,13 @@ public abstract class GenerateProxyAppCompatActivity extends AppCompatActivity i
         bundle.clear();
     }
 
-    @Override // androidx.appcompat.app.AppCompatActivity, androidx.activity.ComponentActivity, android.app.Activity
+    @Override // androidx.appcompat.app.AppCompatActivity, android.app.Activity
     public void setContentView(View view, ViewGroup.LayoutParams layoutParams) {
         GeneratePluginAppCompatActivity generatePluginAppCompatActivity = this.mTargetActivity;
         if (generatePluginAppCompatActivity != null) {
             generatePluginAppCompatActivity.setContentView(view, layoutParams);
         } else {
             super.setContentView(view, layoutParams);
-        }
-    }
-
-    public void startActivityForResult(String str, Intent intent, int i10, Bundle bundle) {
-        GeneratePluginAppCompatActivity generatePluginAppCompatActivity = this.mTargetActivity;
-        if (generatePluginAppCompatActivity != null) {
-            generatePluginAppCompatActivity.startActivityForResult(intent, i10, bundle);
-        } else {
-            super.startActivityForResult(intent, i10, bundle);
         }
     }
 }

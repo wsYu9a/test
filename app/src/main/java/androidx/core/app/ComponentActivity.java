@@ -2,17 +2,14 @@ package androidx.core.app;
 
 import android.annotation.SuppressLint;
 import android.app.Activity;
-import android.os.Build;
 import android.os.Bundle;
 import android.view.KeyEvent;
 import android.view.View;
 import androidx.annotation.CallSuper;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.annotation.OptIn;
 import androidx.annotation.RestrictTo;
 import androidx.collection.SimpleArrayMap;
-import androidx.core.os.BuildCompat;
 import androidx.core.view.KeyEventDispatcher;
 import androidx.lifecycle.Lifecycle;
 import androidx.lifecycle.LifecycleOwner;
@@ -28,26 +25,6 @@ public class ComponentActivity extends Activity implements LifecycleOwner, KeyEv
     @RestrictTo({RestrictTo.Scope.LIBRARY_GROUP_PREFIX})
     @Deprecated
     public static class ExtraData {
-    }
-
-    @OptIn(markerClass = {BuildCompat.PrereleaseSdkCheck.class})
-    private static boolean shouldSkipDump(@Nullable String[] strArr) {
-        if (strArr != null && strArr.length > 0) {
-            String str = strArr[0];
-            str.hashCode();
-            switch (str) {
-                case "--translation":
-                    return Build.VERSION.SDK_INT >= 31;
-                case "--dump-dumpable":
-                case "--list-dumpables":
-                    return BuildCompat.isAtLeastT();
-                case "--contentcapture":
-                    return Build.VERSION.SDK_INT >= 29;
-                case "--autofill":
-                    return Build.VERSION.SDK_INT >= 26;
-            }
-        }
-        return false;
     }
 
     @Override // android.app.Activity, android.view.Window.Callback
@@ -81,14 +58,14 @@ public class ComponentActivity extends Activity implements LifecycleOwner, KeyEv
 
     @Override // android.app.Activity
     @SuppressLint({"RestrictedApi"})
-    public void onCreate(@Nullable Bundle bundle) {
+    protected void onCreate(@Nullable Bundle bundle) {
         super.onCreate(bundle);
         ReportFragment.injectIfNeededIn(this);
     }
 
     @Override // android.app.Activity
     @CallSuper
-    public void onSaveInstanceState(@NonNull Bundle bundle) {
+    protected void onSaveInstanceState(@NonNull Bundle bundle) {
         this.mLifecycleRegistry.markState(Lifecycle.State.CREATED);
         super.onSaveInstanceState(bundle);
     }
@@ -100,13 +77,9 @@ public class ComponentActivity extends Activity implements LifecycleOwner, KeyEv
         this.mExtraDataMap.put(extraData.getClass(), extraData);
     }
 
-    public final boolean shouldDumpInternalState(@Nullable String[] strArr) {
-        return !shouldSkipDump(strArr);
-    }
-
     @Override // androidx.core.view.KeyEventDispatcher.Component
     @RestrictTo({RestrictTo.Scope.LIBRARY_GROUP_PREFIX})
-    public boolean superDispatchKeyEvent(@NonNull KeyEvent keyEvent) {
+    public boolean superDispatchKeyEvent(KeyEvent keyEvent) {
         return super.dispatchKeyEvent(keyEvent);
     }
 }

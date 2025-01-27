@@ -9,154 +9,153 @@ import android.widget.TextView;
 import androidx.annotation.Nullable;
 import androidx.annotation.RequiresApi;
 import com.kwad.sdk.R;
-import com.kwad.sdk.n.m;
-import com.kwad.sdk.utils.bd;
+import com.kwad.sdk.j.k;
 
-/* loaded from: classes3.dex */
+/* loaded from: classes2.dex */
 public class KsAutoCloseView extends LinearLayout implements View.OnClickListener {
-    private static String CH = "%s秒后自动关闭";
-    private TextView afk;
-    private ImageView afl;
-    private a afm;
-    private boolean afn;
-    private boolean afo;
+    private static String AG = "%s秒后自动关闭";
+    private TextView WO;
+    private ImageView WP;
+    private a WQ;
+    private boolean WR;
+    private boolean WS;
     private int countDown;
 
     /* renamed from: com.kwad.components.core.widget.KsAutoCloseView$1 */
-    public class AnonymousClass1 extends bd {
-        public AnonymousClass1() {
+    final class AnonymousClass1 implements Runnable {
+        AnonymousClass1() {
         }
 
-        @Override // com.kwad.sdk.utils.bd
-        public final void doTask() {
-            if (KsAutoCloseView.this.afn) {
-                if (KsAutoCloseView.this.afo) {
-                    KsAutoCloseView.this.postDelayed(this, 1000L);
-                    return;
-                }
-                if (KsAutoCloseView.this.countDown == 0) {
-                    if (KsAutoCloseView.this.afm != null) {
-                        KsAutoCloseView.this.afm.dA();
+        @Override // java.lang.Runnable
+        public final void run() {
+            if (KsAutoCloseView.this.WR) {
+                if (!KsAutoCloseView.this.WS) {
+                    if (KsAutoCloseView.this.countDown == 0) {
+                        if (KsAutoCloseView.this.WQ != null) {
+                            KsAutoCloseView.this.WQ.dO();
+                            return;
+                        }
+                        return;
+                    } else {
+                        KsAutoCloseView ksAutoCloseView = KsAutoCloseView.this;
+                        ksAutoCloseView.A(ksAutoCloseView.countDown);
+                        KsAutoCloseView.e(KsAutoCloseView.this);
                     }
-                } else {
-                    KsAutoCloseView ksAutoCloseView = KsAutoCloseView.this;
-                    ksAutoCloseView.x(ksAutoCloseView.countDown);
-                    KsAutoCloseView.e(KsAutoCloseView.this);
-                    KsAutoCloseView.this.postDelayed(this, 1000L);
                 }
+                KsAutoCloseView.this.postDelayed(this, 1000L);
             }
         }
     }
 
     public interface a {
-        void dA();
+        void dO();
 
-        void dB();
+        void dP();
     }
 
     public KsAutoCloseView(Context context) {
         super(context);
         this.countDown = 10;
-        this.afn = true;
-        this.afo = false;
-        R(context);
-    }
-
-    private void R(Context context) {
-        m.inflate(context, R.layout.ksad_auto_close, this);
-        this.afk = (TextView) findViewById(R.id.ksad_auto_close_text);
-        ImageView imageView = (ImageView) findViewById(R.id.ksad_auto_close_btn);
-        this.afl = imageView;
-        imageView.setOnClickListener(this);
-    }
-
-    public static /* synthetic */ int e(KsAutoCloseView ksAutoCloseView) {
-        int i10 = ksAutoCloseView.countDown;
-        ksAutoCloseView.countDown = i10 - 1;
-        return i10;
-    }
-
-    public void x(int i10) {
-        this.afk.setText(String.format(CH, Integer.valueOf(i10)));
-    }
-
-    public final void V(int i10) {
-        if (i10 <= 0) {
-            return;
-        }
-        this.countDown = i10;
-        post(new bd() { // from class: com.kwad.components.core.widget.KsAutoCloseView.1
-            public AnonymousClass1() {
-            }
-
-            @Override // com.kwad.sdk.utils.bd
-            public final void doTask() {
-                if (KsAutoCloseView.this.afn) {
-                    if (KsAutoCloseView.this.afo) {
-                        KsAutoCloseView.this.postDelayed(this, 1000L);
-                        return;
-                    }
-                    if (KsAutoCloseView.this.countDown == 0) {
-                        if (KsAutoCloseView.this.afm != null) {
-                            KsAutoCloseView.this.afm.dA();
-                        }
-                    } else {
-                        KsAutoCloseView ksAutoCloseView = KsAutoCloseView.this;
-                        ksAutoCloseView.x(ksAutoCloseView.countDown);
-                        KsAutoCloseView.e(KsAutoCloseView.this);
-                        KsAutoCloseView.this.postDelayed(this, 1000L);
-                    }
-                }
-            }
-        });
-    }
-
-    public final void aZ(boolean z10) {
-        this.afn = z10;
-        int i10 = z10 ? 0 : 8;
-        TextView textView = this.afk;
-        if (textView != null) {
-            textView.setVisibility(i10);
-        }
-    }
-
-    @Override // android.view.View.OnClickListener
-    public void onClick(View view) {
-        if (this.afm != null && view.equals(this.afl)) {
-            this.afm.dB();
-        }
-    }
-
-    public void setCountDownPaused(boolean z10) {
-        this.afo = z10;
-    }
-
-    public void setViewListener(a aVar) {
-        this.afm = aVar;
+        this.WR = true;
+        this.WS = false;
+        Q(context);
     }
 
     public KsAutoCloseView(Context context, @Nullable AttributeSet attributeSet) {
         super(context, attributeSet);
         this.countDown = 10;
-        this.afn = true;
-        this.afo = false;
-        R(context);
+        this.WR = true;
+        this.WS = false;
+        Q(context);
     }
 
-    public KsAutoCloseView(Context context, @Nullable AttributeSet attributeSet, int i10) {
-        super(context, attributeSet, i10);
+    public KsAutoCloseView(Context context, @Nullable AttributeSet attributeSet, int i2) {
+        super(context, attributeSet, i2);
         this.countDown = 10;
-        this.afn = true;
-        this.afo = false;
-        R(context);
+        this.WR = true;
+        this.WS = false;
+        Q(context);
     }
 
     @RequiresApi(api = 21)
-    public KsAutoCloseView(Context context, AttributeSet attributeSet, int i10, int i11) {
-        super(context, attributeSet, i10, i11);
+    public KsAutoCloseView(Context context, AttributeSet attributeSet, int i2, int i3) {
+        super(context, attributeSet, i2, i3);
         this.countDown = 10;
-        this.afn = true;
-        this.afo = false;
-        R(context);
+        this.WR = true;
+        this.WS = false;
+        Q(context);
+    }
+
+    public void A(int i2) {
+        this.WO.setText(String.format(AG, Integer.valueOf(i2)));
+    }
+
+    private void Q(Context context) {
+        k.inflate(context, R.layout.ksad_auto_close, this);
+        this.WO = (TextView) findViewById(R.id.ksad_auto_close_text);
+        ImageView imageView = (ImageView) findViewById(R.id.ksad_auto_close_btn);
+        this.WP = imageView;
+        imageView.setOnClickListener(this);
+    }
+
+    static /* synthetic */ int e(KsAutoCloseView ksAutoCloseView) {
+        int i2 = ksAutoCloseView.countDown;
+        ksAutoCloseView.countDown = i2 - 1;
+        return i2;
+    }
+
+    public final void Y(int i2) {
+        if (i2 <= 0) {
+            return;
+        }
+        this.countDown = i2;
+        post(new Runnable() { // from class: com.kwad.components.core.widget.KsAutoCloseView.1
+            AnonymousClass1() {
+            }
+
+            @Override // java.lang.Runnable
+            public final void run() {
+                if (KsAutoCloseView.this.WR) {
+                    if (!KsAutoCloseView.this.WS) {
+                        if (KsAutoCloseView.this.countDown == 0) {
+                            if (KsAutoCloseView.this.WQ != null) {
+                                KsAutoCloseView.this.WQ.dO();
+                                return;
+                            }
+                            return;
+                        } else {
+                            KsAutoCloseView ksAutoCloseView = KsAutoCloseView.this;
+                            ksAutoCloseView.A(ksAutoCloseView.countDown);
+                            KsAutoCloseView.e(KsAutoCloseView.this);
+                        }
+                    }
+                    KsAutoCloseView.this.postDelayed(this, 1000L);
+                }
+            }
+        });
+    }
+
+    public final void aS(boolean z) {
+        this.WR = z;
+        int i2 = z ? 0 : 8;
+        TextView textView = this.WO;
+        if (textView != null) {
+            textView.setVisibility(i2);
+        }
+    }
+
+    @Override // android.view.View.OnClickListener
+    public void onClick(View view) {
+        if (this.WQ != null && view.equals(this.WP)) {
+            this.WQ.dP();
+        }
+    }
+
+    public void setCountDownPaused(boolean z) {
+        this.WS = z;
+    }
+
+    public void setViewListener(a aVar) {
+        this.WQ = aVar;
     }
 }

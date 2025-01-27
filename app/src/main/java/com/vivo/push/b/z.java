@@ -1,5 +1,6 @@
 package com.vivo.push.b;
 
+import com.kwai.sodler.lib.ext.PluginError;
 import java.io.Serializable;
 import java.util.ArrayList;
 
@@ -7,23 +8,23 @@ import java.util.ArrayList;
 public final class z extends c {
 
     /* renamed from: a */
-    private ArrayList<String> f24960a;
+    private ArrayList<String> f30933a;
 
-    public z(boolean z10, String str, ArrayList<String> arrayList) {
-        super(z10 ? 2004 : 2005, str);
-        this.f24960a = arrayList;
+    public z(boolean z, String str, ArrayList<String> arrayList) {
+        super(z ? PluginError.ERROR_UPD_EXTRACT : PluginError.ERROR_UPD_CAPACITY, str);
+        this.f30933a = arrayList;
     }
 
     @Override // com.vivo.push.b.c, com.vivo.push.o
-    public final void c(com.vivo.push.a aVar) {
+    protected final void c(com.vivo.push.a aVar) {
         super.c(aVar);
-        aVar.a("tags", (Serializable) this.f24960a);
+        aVar.a("tags", (Serializable) this.f30933a);
     }
 
     @Override // com.vivo.push.b.c, com.vivo.push.o
-    public final void d(com.vivo.push.a aVar) {
+    protected final void d(com.vivo.push.a aVar) {
         super.d(aVar);
-        this.f24960a = aVar.c("tags");
+        this.f30933a = aVar.c("tags");
     }
 
     @Override // com.vivo.push.b.c, com.vivo.push.o

@@ -1,10 +1,9 @@
 package com.kwad.components.offline.api;
 
 import android.content.Context;
-import com.kwad.components.offline.api.IOfflineCompoInitConfig;
 
-/* loaded from: classes3.dex */
-public interface IOfflineCompo<T extends IOfflineCompoInitConfig> {
+/* loaded from: classes2.dex */
+public interface IOfflineCompo {
 
     public interface Priority {
         public static final int HIGH = -100;
@@ -16,7 +15,7 @@ public interface IOfflineCompo<T extends IOfflineCompoInitConfig> {
 
     Class getComponentsType();
 
-    void init(Context context, T t10, InitCallBack initCallBack);
+    void init(Context context);
 
     int priority();
 }

@@ -94,7 +94,7 @@ public class Event {
         return (activityName == null || activityName.equals("")) ? "VT" : activityName;
     }
 
-    public static void init(Context context, String str, String str2, int i10, String str3) {
+    public static void init(Context context, String str, String str2, int i2, String str3) {
     }
 
     public static void openDebug(String str) {
@@ -123,25 +123,25 @@ public class Event {
         if (!(view instanceof ViewGroup)) {
             return null;
         }
-        StringBuilder sb2 = new StringBuilder();
+        StringBuilder sb = new StringBuilder();
         ViewGroup viewGroup = (ViewGroup) view;
         int childCount = viewGroup.getChildCount();
-        boolean z10 = false;
-        for (int i10 = 0; i10 < childCount && sb2.length() < 128; i10++) {
-            String textPropertyFromView = textPropertyFromView(viewGroup.getChildAt(i10));
+        boolean z = false;
+        for (int i2 = 0; i2 < childCount && sb.length() < 128; i2++) {
+            String textPropertyFromView = textPropertyFromView(viewGroup.getChildAt(i2));
             if (textPropertyFromView != null && textPropertyFromView.length() > 0) {
-                if (z10) {
-                    sb2.append(", ");
+                if (z) {
+                    sb.append(", ");
                 }
-                sb2.append(textPropertyFromView);
-                z10 = true;
+                sb.append(textPropertyFromView);
+                z = true;
             }
         }
-        if (sb2.length() > 128) {
-            return sb2.substring(0, 128);
+        if (sb.length() > 128) {
+            return sb.substring(0, 128);
         }
-        if (z10) {
-            return sb2.toString();
+        if (z) {
+            return sb.toString();
         }
         return null;
     }

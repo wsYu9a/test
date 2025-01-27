@@ -5,9 +5,9 @@ public class RechargeItem {
     public int money;
     public int txsCoins;
 
-    public RechargeItem(int i10, int i11) {
-        this.money = i10;
-        this.txsCoins = i11;
+    public RechargeItem(int money, int txsCoins) {
+        this.money = money;
+        this.txsCoins = txsCoins;
     }
 
     public int getMoney() {
@@ -18,11 +18,11 @@ public class RechargeItem {
         return this.txsCoins;
     }
 
-    public void setMoney(int i10) {
-        this.money = i10;
+    public void setMoney(int money) {
+        this.money = money;
     }
 
-    public void setTxsCoins(int i10) {
-        this.txsCoins = i10;
+    public void setTxsCoins(int txsCoins) {
+        this.txsCoins = txsCoins;
     }
 }

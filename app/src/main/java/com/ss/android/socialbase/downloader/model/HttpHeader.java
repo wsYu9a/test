@@ -7,29 +7,35 @@ import android.text.TextUtils;
 /* loaded from: classes4.dex */
 public class HttpHeader implements Parcelable, Comparable {
     public static final Parcelable.Creator<HttpHeader> CREATOR = new Parcelable.Creator<HttpHeader>() { // from class: com.ss.android.socialbase.downloader.model.HttpHeader.1
+        AnonymousClass1() {
+        }
+
         @Override // android.os.Parcelable.Creator
         public HttpHeader createFromParcel(Parcel parcel) {
             return new HttpHeader(parcel);
         }
 
         @Override // android.os.Parcelable.Creator
-        public HttpHeader[] newArray(int i10) {
-            return new HttpHeader[i10];
+        public HttpHeader[] newArray(int i2) {
+            return new HttpHeader[i2];
         }
     };
     private final String name;
     private final String value;
 
     /* renamed from: com.ss.android.socialbase.downloader.model.HttpHeader$1 */
-    public static class AnonymousClass1 implements Parcelable.Creator<HttpHeader> {
+    static class AnonymousClass1 implements Parcelable.Creator<HttpHeader> {
+        AnonymousClass1() {
+        }
+
         @Override // android.os.Parcelable.Creator
         public HttpHeader createFromParcel(Parcel parcel) {
             return new HttpHeader(parcel);
         }
 
         @Override // android.os.Parcelable.Creator
-        public HttpHeader[] newArray(int i10) {
-            return new HttpHeader[i10];
+        public HttpHeader[] newArray(int i2) {
+            return new HttpHeader[i2];
         }
     }
 
@@ -94,12 +100,12 @@ public class HttpHeader implements Parcelable, Comparable {
     }
 
     @Override // android.os.Parcelable
-    public void writeToParcel(Parcel parcel, int i10) {
+    public void writeToParcel(Parcel parcel, int i2) {
         parcel.writeString(this.name);
         parcel.writeString(this.value);
     }
 
-    public HttpHeader(Parcel parcel) {
+    protected HttpHeader(Parcel parcel) {
         this.name = parcel.readString();
         this.value = parcel.readString();
     }

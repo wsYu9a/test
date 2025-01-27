@@ -1,38 +1,35 @@
 package com.baidu.mobads.sdk.internal;
 
-/* loaded from: classes2.dex */
+/* loaded from: classes.dex */
 public class c {
 
     /* renamed from: a */
-    private static volatile c f7011a;
+    private static volatile c f5682a;
 
     public interface a {
 
         /* renamed from: a */
-        public static final String f7012a = "remote_adserv";
+        public static final String f5683a = "remote_adserv";
 
         /* renamed from: b */
-        public static final String f7013b = "remote_novel";
+        public static final String f5684b = "remote_novel";
     }
 
     private c() {
     }
 
     public static c a() {
-        if (f7011a == null) {
+        if (f5682a == null) {
             synchronized (c.class) {
-                try {
-                    if (f7011a == null) {
-                        f7011a = new c();
-                    }
-                } finally {
+                if (f5682a == null) {
+                    f5682a = new c();
                 }
             }
         }
-        return f7011a;
+        return f5682a;
     }
 
-    public ar a(String str) {
-        return new ar(str);
+    public ao a(String str) {
+        return new ao(str);
     }
 }

@@ -5,41 +5,42 @@ import android.util.AttributeSet;
 import androidx.cardview.widget.CardView;
 import androidx.core.content.ContextCompat;
 import com.martian.libmars.R;
-import com.martian.libmars.common.ConfigSingleton;
-import k9.a;
+import com.martian.libmars.d.h;
+import g.a;
 
-/* loaded from: classes3.dex */
+/* loaded from: classes2.dex */
 public class ThemeCardView extends CardView implements a {
+
+    /* renamed from: j */
+    private int f10093j;
+
     public ThemeCardView(Context context) {
         super(context);
     }
 
+    @Override // g.a
+    public void g() {
+        setCardBackgroundColor(ContextCompat.getColor(getContext(), h.F().I0() ? R.color.night_background_secondary : R.color.light_grey));
+    }
+
     @Override // android.view.ViewGroup, android.view.View
-    public void onAttachedToWindow() {
+    protected void onAttachedToWindow() {
         super.onAttachedToWindow();
-        p();
-        ConfigSingleton.D().h(this);
+        g();
+        h.F().a(this);
     }
 
     @Override // android.view.ViewGroup, android.view.View
-    public void onDetachedFromWindow() {
+    protected void onDetachedFromWindow() {
         super.onDetachedFromWindow();
-        ConfigSingleton.D().X0(this);
+        h.F().j1(this);
     }
 
-    @Override // k9.a
-    public void p() {
-        if (isInEditMode()) {
-            return;
-        }
-        setCardBackgroundColor(ContextCompat.getColor(getContext(), ConfigSingleton.D().A0() ? R.color.night_background_secondary : R.color.light_grey));
+    public ThemeCardView(Context context, AttributeSet attrs) {
+        this(context, attrs, 0);
     }
 
-    public ThemeCardView(Context context, AttributeSet attributeSet) {
-        this(context, attributeSet, 0);
-    }
-
-    public ThemeCardView(Context context, AttributeSet attributeSet, int i10) {
-        super(context, attributeSet, i10);
+    public ThemeCardView(Context context, AttributeSet attrs, int defStyle) {
+        super(context, attrs, defStyle);
     }
 }

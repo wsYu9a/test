@@ -5,151 +5,151 @@ import android.content.Context;
 import android.os.Message;
 import android.view.View;
 import android.view.ViewGroup;
-import com.kwad.sdk.utils.bw;
-import com.kwad.sdk.utils.bx;
+import com.kwad.sdk.utils.bl;
+import com.kwad.sdk.utils.bm;
 import java.util.concurrent.atomic.AtomicBoolean;
 
 @SuppressLint({"ViewConstructor"})
-/* loaded from: classes3.dex */
-public final class c extends View implements bx.a {
-    private a aeD;
-    private boolean aeE;
-    private final int aeF;
-    private boolean aej;
-    private boolean aek;
-    private View bN;
-    private final bx bO;
-    private final AtomicBoolean bP;
+/* loaded from: classes2.dex */
+public final class c extends View implements bm.a {
+    private View Ru;
+    private boolean VK;
+    private boolean VL;
+    private a Wh;
+    private boolean Wi;
+    private final int Wj;
+    private final bm gK;
+    private final AtomicBoolean mIsViewDetached;
 
     public interface a {
-        void eK();
+        void eN();
     }
 
     public c(Context context, View view) {
         super(context);
-        this.bO = new bx(this);
-        this.bP = new AtomicBoolean(true);
-        this.aeF = (int) (com.kwad.sdk.core.config.d.DL() * 100.0f);
-        this.bN = view;
+        this.gK = new bm(this);
+        this.mIsViewDetached = new AtomicBoolean(true);
+        this.Wj = (int) (com.kwad.sdk.core.config.d.uF() * 100.0f);
+        this.Ru = view;
         setLayoutParams(new ViewGroup.LayoutParams(0, 0));
     }
 
-    private void un() {
-        if (this.aek) {
-            this.bO.removeCallbacksAndMessages(null);
-            this.aek = false;
+    private void rr() {
+        if (this.VL) {
+            this.gK.removeCallbacksAndMessages(null);
+            this.VL = false;
         }
     }
 
-    private void uo() {
-        if (!this.aeE || this.aek) {
+    private void rs() {
+        if (!this.Wi || this.VL) {
             return;
         }
-        this.aek = true;
-        this.bO.sendEmptyMessage(1);
+        this.VL = true;
+        this.gK.sendEmptyMessage(1);
     }
 
-    private void ut() {
-        this.bP.getAndSet(false);
+    private void viewAttached() {
+        this.mIsViewDetached.getAndSet(false);
     }
 
-    private void uu() {
-        this.bP.getAndSet(true);
+    private void viewDetached() {
+        this.mIsViewDetached.getAndSet(true);
     }
 
-    @Override // com.kwad.sdk.utils.bx.a
+    @Override // com.kwad.sdk.utils.bm.a
     public final void a(Message message) {
         a aVar;
-        int i10 = message.what;
-        if (i10 != 1) {
-            if (i10 != 2) {
+        int i2 = message.what;
+        if (i2 != 1) {
+            if (i2 != 2) {
                 return;
             }
-            if (!bw.a(this.bN, this.aeF, false)) {
-                if (this.aej) {
+            if (!bl.a(this.Ru, this.Wj, false)) {
+                if (this.VK) {
                     return;
                 }
                 setNeedCheckingShow(true);
                 return;
             } else {
-                if (message.arg1 == 1000 && (aVar = this.aeD) != null) {
-                    aVar.eK();
+                if (message.arg1 == 1000 && (aVar = this.Wh) != null) {
+                    aVar.eN();
                 }
-                this.bO.sendEmptyMessageDelayed(2, 500L);
+                this.gK.sendEmptyMessageDelayed(2, 500L);
                 return;
             }
         }
-        com.kwad.sdk.core.d.c.d("EmptyView", "handleMsg MSG_CHECKING");
-        if (this.aek) {
-            if (!bw.a(this.bN, this.aeF, false)) {
-                this.bO.sendEmptyMessageDelayed(1, 500L);
+        com.kwad.sdk.core.d.b.d("EmptyView", "handleMsg MSG_CHECKING");
+        if (this.VL) {
+            if (!bl.a(this.Ru, this.Wj, false)) {
+                this.gK.sendEmptyMessageDelayed(1, 500L);
                 return;
             }
-            un();
-            Message obtainMessage = this.bO.obtainMessage();
+            rr();
+            Message obtainMessage = this.gK.obtainMessage();
             obtainMessage.what = 2;
             obtainMessage.arg1 = 1000;
-            this.bO.sendMessageDelayed(obtainMessage, 1000L);
+            this.gK.sendMessageDelayed(obtainMessage, 1000L);
         }
     }
 
     @Override // android.view.View
-    public final void onAttachedToWindow() {
+    protected final void onAttachedToWindow() {
         super.onAttachedToWindow();
-        com.kwad.sdk.core.d.c.d("EmptyView", "onAttachedToWindow:" + this);
-        uo();
-        this.aej = false;
-        ut();
+        com.kwad.sdk.core.d.b.d("EmptyView", "onAttachedToWindow:" + this);
+        rs();
+        this.VK = false;
+        viewAttached();
     }
 
     @Override // android.view.View
-    public final void onDetachedFromWindow() {
+    protected final void onDetachedFromWindow() {
         super.onDetachedFromWindow();
-        com.kwad.sdk.core.d.c.d("EmptyView", "onDetachedFromWindow" + this);
-        un();
-        this.aej = true;
-        uu();
+        com.kwad.sdk.core.d.b.d("EmptyView", "onDetachedFromWindow" + this);
+        rr();
+        this.VK = true;
+        viewDetached();
     }
 
     @Override // android.view.View
     public final void onFinishTemporaryDetach() {
         super.onFinishTemporaryDetach();
-        com.kwad.sdk.core.d.c.d("EmptyView", "onFinishTemporaryDetach:" + this.bN.getParent());
-        ut();
+        com.kwad.sdk.core.d.b.d("EmptyView", "onFinishTemporaryDetach:" + this.Ru.getParent());
+        viewAttached();
     }
 
     @Override // android.view.View
     public final void onStartTemporaryDetach() {
         super.onStartTemporaryDetach();
-        com.kwad.sdk.core.d.c.d("EmptyView", "onStartTemporaryDetach:" + this.bN.getParent());
-        uu();
+        com.kwad.sdk.core.d.b.d("EmptyView", "onStartTemporaryDetach:" + this.Ru.getParent());
+        viewDetached();
     }
 
     @Override // android.view.View
-    public final void onWindowFocusChanged(boolean z10) {
-        super.onWindowFocusChanged(z10);
-        com.kwad.sdk.core.d.c.d("EmptyView", "onWindowFocusChanged hasWindowFocus:" + z10);
+    public final void onWindowFocusChanged(boolean z) {
+        super.onWindowFocusChanged(z);
+        com.kwad.sdk.core.d.b.d("EmptyView", "onWindowFocusChanged hasWindowFocus:" + z);
     }
 
     @Override // android.view.View
-    public final void onWindowVisibilityChanged(int i10) {
-        super.onWindowVisibilityChanged(i10);
-        com.kwad.sdk.core.d.c.d("EmptyView", "onWindowVisibilityChanged visibility:" + i10);
+    protected final void onWindowVisibilityChanged(int i2) {
+        super.onWindowVisibilityChanged(i2);
+        com.kwad.sdk.core.d.b.d("EmptyView", "onWindowVisibilityChanged visibility:" + i2);
     }
 
-    public final void setNeedCheckingShow(boolean z10) {
-        this.aeE = z10;
-        if (!z10 && this.aek) {
-            un();
+    public final void setNeedCheckingShow(boolean z) {
+        this.Wi = z;
+        if (!z && this.VL) {
+            rr();
         } else {
-            if (!z10 || this.aek) {
+            if (!z || this.VL) {
                 return;
             }
-            uo();
+            rs();
         }
     }
 
     public final void setViewCallback(a aVar) {
-        this.aeD = aVar;
+        this.Wh = aVar;
     }
 }

@@ -13,13 +13,13 @@ import com.bytedance.pangle.util.i;
 import java.lang.reflect.Field;
 
 @Keep
-/* loaded from: classes2.dex */
+/* loaded from: classes.dex */
 public class PluginFragmentActivityWrapper extends GenerateFragmentActivityWrapper {
     boolean hasInit = true;
 
     /* renamed from: com.bytedance.pangle.wrapper.PluginFragmentActivityWrapper$1 */
-    public class AnonymousClass1 extends com.bytedance.pangle.a {
-        public AnonymousClass1() {
+    final class AnonymousClass1 extends com.bytedance.pangle.a {
+        AnonymousClass1() {
         }
 
         @Override // com.bytedance.pangle.a, android.app.Application.ActivityLifecycleCallbacks
@@ -37,7 +37,7 @@ public class PluginFragmentActivityWrapper extends GenerateFragmentActivityWrapp
         this.pluginContext = pluginContext;
         if (!fragmentActivity.isDestroyed()) {
             Zeus.getAppApplication().registerActivityLifecycleCallbacks(new com.bytedance.pangle.a() { // from class: com.bytedance.pangle.wrapper.PluginFragmentActivityWrapper.1
-                public AnonymousClass1() {
+                AnonymousClass1() {
                 }
 
                 @Override // com.bytedance.pangle.a, android.app.Application.ActivityLifecycleCallbacks
@@ -54,13 +54,13 @@ public class PluginFragmentActivityWrapper extends GenerateFragmentActivityWrapp
             if (!i.a()) {
                 FieldUtils.writeField(FieldUtils.getField(ContextWrapper.class, "mBase"), this, pluginContext);
             }
-        } catch (IllegalAccessException e10) {
-            e10.printStackTrace();
+        } catch (IllegalAccessException e2) {
+            e2.printStackTrace();
         }
         try {
             FieldUtils.writeField(this, "mApplication", activity.getApplication());
-        } catch (IllegalAccessException e11) {
-            e11.printStackTrace();
+        } catch (IllegalAccessException e3) {
+            e3.printStackTrace();
         }
         com.bytedance.pangle.util.a.a(this, activity);
     }
@@ -71,7 +71,7 @@ public class PluginFragmentActivityWrapper extends GenerateFragmentActivityWrapp
             try {
                 LifecycleRegistry lifecycleRegistry = new LifecycleRegistry(this);
                 try {
-                    Field declaredField = LifecycleRegistry.class.getDeclaredField("mEnforceMainThread");
+                    Field declaredField = lifecycleRegistry.getClass().getDeclaredField("mEnforceMainThread");
                     declaredField.setAccessible(true);
                     declaredField.set(lifecycleRegistry, Boolean.FALSE);
                 } catch (Throwable unused) {

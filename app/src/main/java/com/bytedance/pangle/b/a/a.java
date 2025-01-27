@@ -8,35 +8,35 @@ import java.lang.reflect.Method;
 import java.util.HashMap;
 import java.util.Map;
 
-/* loaded from: classes2.dex */
+/* loaded from: classes.dex */
 public final class a {
 
     /* renamed from: a */
-    private static Map<String, Field> f7473a = new HashMap();
+    private static Map<String, Field> f5996a = new HashMap();
 
     /* renamed from: b */
-    private static Map<String, Method> f7474b = new HashMap();
+    private static Map<String, Method> f5997b = new HashMap();
 
     /* renamed from: c */
-    private static Map<String, Constructor> f7475c = new HashMap();
+    private static Map<String, Constructor> f5998c = new HashMap();
 
     /* renamed from: d */
-    private static Map<String, Class> f7476d = new HashMap();
+    private static Map<String, Class> f5999d = new HashMap();
 
     static {
         try {
             FieldUtils.writeField(b.class, "classLoader", (Object) null);
             ZeusLogger.w(ZeusLogger.TAG_INIT, "HackHelper HackHelperImpl use BootClassLoader");
-        } catch (Exception e10) {
-            ZeusLogger.errReport(ZeusLogger.TAG_INIT, "HackHelperinit failed", e10);
+        } catch (Exception e2) {
+            ZeusLogger.errReport(ZeusLogger.TAG_INIT, "HackHelperinit failed", e2);
         }
     }
 
     public static Method a(Class<?> cls, String str, Class<?>... clsArr) {
         Method method;
-        String b10 = b(cls, str, clsArr);
-        synchronized (f7474b) {
-            method = f7474b.get(b10);
+        String b2 = b(cls, str, clsArr);
+        synchronized (f5997b) {
+            method = f5997b.get(b2);
         }
         if (method != null) {
             if (!method.isAccessible()) {
@@ -45,40 +45,40 @@ public final class a {
             return method;
         }
         try {
-            Method a10 = b.a(cls, str, clsArr);
-            if (a10 != null) {
-                synchronized (f7474b) {
-                    f7474b.put(b10, a10);
+            Method a2 = b.a(cls, str, clsArr);
+            if (a2 != null) {
+                synchronized (f5997b) {
+                    f5997b.put(b2, a2);
                 }
             }
-            return a10;
-        } catch (Throwable th2) {
-            ZeusLogger.w(ZeusLogger.TAG, "HackHelper" + String.format("getMethod %s#%s failed !!!", cls.getName(), str), th2);
+            return a2;
+        } catch (Throwable th) {
+            ZeusLogger.w(ZeusLogger.TAG, "HackHelper" + String.format("getMethod %s#%s failed !!!", cls.getName(), str), th);
             return null;
         }
     }
 
     private static String b(Class<?> cls, String str, Class<?>... clsArr) {
-        StringBuilder sb2 = new StringBuilder();
-        sb2.append(cls.getName());
-        sb2.append("#");
-        sb2.append(str);
+        StringBuilder sb = new StringBuilder();
+        sb.append(cls.getName());
+        sb.append("#");
+        sb.append(str);
         if (clsArr == null || clsArr.length <= 0) {
-            sb2.append(Void.class.getName());
+            sb.append(Void.class.getName());
         } else {
             for (Class<?> cls2 : clsArr) {
-                sb2.append(cls2.getName());
-                sb2.append("#");
+                sb.append(cls2.getName());
+                sb.append("#");
             }
         }
-        return sb2.toString();
+        return sb.toString();
     }
 
     public static Constructor a(Class<?> cls, Class<?>... clsArr) {
         Constructor constructor;
-        String b10 = b(cls, "clinit", clsArr);
-        synchronized (f7475c) {
-            constructor = f7475c.get(b10);
+        String b2 = b(cls, "clinit", clsArr);
+        synchronized (f5998c) {
+            constructor = f5998c.get(b2);
         }
         if (constructor != null) {
             if (!constructor.isAccessible()) {
@@ -87,15 +87,15 @@ public final class a {
             return constructor;
         }
         try {
-            Constructor a10 = b.a(cls, clsArr);
-            if (a10 != null) {
-                synchronized (f7475c) {
-                    f7475c.put(b10, a10);
+            Constructor a2 = b.a(cls, clsArr);
+            if (a2 != null) {
+                synchronized (f5998c) {
+                    f5998c.put(b2, a2);
                 }
             }
-            return a10;
-        } catch (Throwable th2) {
-            ZeusLogger.w(ZeusLogger.TAG, "HackHelper" + String.format("getConstructor %s failed !!!", cls.getName()), th2);
+            return a2;
+        } catch (Throwable th) {
+            ZeusLogger.w(ZeusLogger.TAG, "HackHelper" + String.format("getConstructor %s failed !!!", cls.getName()), th);
             return null;
         }
     }
@@ -103,8 +103,8 @@ public final class a {
     public static Field a(Class<?> cls, String str) {
         Field field;
         String str2 = cls.getName() + "#" + str;
-        synchronized (f7473a) {
-            field = f7473a.get(str2);
+        synchronized (f5996a) {
+            field = f5996a.get(str2);
         }
         if (field != null) {
             if (!field.isAccessible()) {
@@ -113,15 +113,15 @@ public final class a {
             return field;
         }
         try {
-            Field a10 = b.a(cls, str);
-            if (a10 != null) {
-                synchronized (f7473a) {
-                    f7473a.put(str2, a10);
+            Field a2 = b.a(cls, str);
+            if (a2 != null) {
+                synchronized (f5996a) {
+                    f5996a.put(str2, a2);
                 }
             }
-            return a10;
-        } catch (Throwable th2) {
-            ZeusLogger.w(ZeusLogger.TAG, "HackHelper" + String.format("getField %s#%s failed !!!", cls.getName(), str), th2);
+            return a2;
+        } catch (Throwable th) {
+            ZeusLogger.w(ZeusLogger.TAG, "HackHelper" + String.format("getField %s#%s failed !!!", cls.getName(), str), th);
             return null;
         }
     }

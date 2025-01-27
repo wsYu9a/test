@@ -7,54 +7,25 @@ import android.os.Build;
 import android.util.Log;
 import android.util.TypedValue;
 import android.view.ViewConfiguration;
-import androidx.annotation.DoNotInline;
 import androidx.annotation.NonNull;
-import androidx.annotation.RequiresApi;
+import com.cdo.oaps.ad.wrapper.BaseWrapper;
 import java.lang.reflect.Method;
 
 /* loaded from: classes.dex */
 public final class ViewConfigurationCompat {
-    private static final String TAG = "ViewConfigCompat";
-    private static Method sGetScaledScrollFactorMethod;
 
-    @RequiresApi(26)
-    public static class Api26Impl {
-        private Api26Impl() {
-        }
+    /* renamed from: a, reason: collision with root package name */
+    private static final String f2077a = "ViewConfigCompat";
 
-        @DoNotInline
-        public static float getScaledHorizontalScrollFactor(ViewConfiguration viewConfiguration) {
-            return viewConfiguration.getScaledHorizontalScrollFactor();
-        }
-
-        @DoNotInline
-        public static float getScaledVerticalScrollFactor(ViewConfiguration viewConfiguration) {
-            return viewConfiguration.getScaledVerticalScrollFactor();
-        }
-    }
-
-    @RequiresApi(28)
-    public static class Api28Impl {
-        private Api28Impl() {
-        }
-
-        @DoNotInline
-        public static int getScaledHoverSlop(ViewConfiguration viewConfiguration) {
-            return viewConfiguration.getScaledHoverSlop();
-        }
-
-        @DoNotInline
-        public static boolean shouldShowMenuShortcutsWhenKeyboardPresent(ViewConfiguration viewConfiguration) {
-            return viewConfiguration.shouldShowMenuShortcutsWhenKeyboardPresent();
-        }
-    }
+    /* renamed from: b, reason: collision with root package name */
+    private static Method f2078b;
 
     static {
         if (Build.VERSION.SDK_INT == 25) {
             try {
-                sGetScaledScrollFactorMethod = ViewConfiguration.class.getDeclaredMethod("getScaledScrollFactor", null);
+                f2078b = ViewConfiguration.class.getDeclaredMethod("getScaledScrollFactor", new Class[0]);
             } catch (Exception unused) {
-                Log.i(TAG, "Could not find method getScaledScrollFactor() on ViewConfiguration");
+                Log.i(f2077a, "Could not find method getScaledScrollFactor() on ViewConfiguration");
             }
         }
     }
@@ -62,13 +33,13 @@ public final class ViewConfigurationCompat {
     private ViewConfigurationCompat() {
     }
 
-    private static float getLegacyScrollFactor(ViewConfiguration viewConfiguration, Context context) {
+    private static float a(ViewConfiguration viewConfiguration, Context context) {
         Method method;
-        if (Build.VERSION.SDK_INT >= 25 && (method = sGetScaledScrollFactorMethod) != null) {
+        if (Build.VERSION.SDK_INT >= 25 && (method = f2078b) != null) {
             try {
-                return ((Integer) method.invoke(viewConfiguration, null)).intValue();
+                return ((Integer) method.invoke(viewConfiguration, new Object[0])).intValue();
             } catch (Exception unused) {
-                Log.i(TAG, "Could not find method getScaledScrollFactor() on ViewConfiguration");
+                Log.i(f2077a, "Could not find method getScaledScrollFactor() on ViewConfiguration");
             }
         }
         TypedValue typedValue = new TypedValue();
@@ -79,11 +50,11 @@ public final class ViewConfigurationCompat {
     }
 
     public static float getScaledHorizontalScrollFactor(@NonNull ViewConfiguration viewConfiguration, @NonNull Context context) {
-        return Build.VERSION.SDK_INT >= 26 ? Api26Impl.getScaledHorizontalScrollFactor(viewConfiguration) : getLegacyScrollFactor(viewConfiguration, context);
+        return Build.VERSION.SDK_INT >= 26 ? viewConfiguration.getScaledHorizontalScrollFactor() : a(viewConfiguration, context);
     }
 
-    public static int getScaledHoverSlop(@NonNull ViewConfiguration viewConfiguration) {
-        return Build.VERSION.SDK_INT >= 28 ? Api28Impl.getScaledHoverSlop(viewConfiguration) : viewConfiguration.getScaledTouchSlop() / 2;
+    public static int getScaledHoverSlop(ViewConfiguration viewConfiguration) {
+        return Build.VERSION.SDK_INT >= 28 ? viewConfiguration.getScaledHoverSlop() : viewConfiguration.getScaledTouchSlop() / 2;
     }
 
     @Deprecated
@@ -92,7 +63,7 @@ public final class ViewConfigurationCompat {
     }
 
     public static float getScaledVerticalScrollFactor(@NonNull ViewConfiguration viewConfiguration, @NonNull Context context) {
-        return Build.VERSION.SDK_INT >= 26 ? Api26Impl.getScaledVerticalScrollFactor(viewConfiguration) : getLegacyScrollFactor(viewConfiguration, context);
+        return Build.VERSION.SDK_INT >= 26 ? viewConfiguration.getScaledVerticalScrollFactor() : a(viewConfiguration, context);
     }
 
     @Deprecated
@@ -100,12 +71,12 @@ public final class ViewConfigurationCompat {
         return viewConfiguration.hasPermanentMenuKey();
     }
 
-    public static boolean shouldShowMenuShortcutsWhenKeyboardPresent(@NonNull ViewConfiguration viewConfiguration, @NonNull Context context) {
+    public static boolean shouldShowMenuShortcutsWhenKeyboardPresent(ViewConfiguration viewConfiguration, @NonNull Context context) {
         if (Build.VERSION.SDK_INT >= 28) {
-            return Api28Impl.shouldShowMenuShortcutsWhenKeyboardPresent(viewConfiguration);
+            return viewConfiguration.shouldShowMenuShortcutsWhenKeyboardPresent();
         }
         Resources resources = context.getResources();
-        int identifier = resources.getIdentifier("config_showMenuShortcutsWhenKeyboardPresent", "bool", "android");
+        int identifier = resources.getIdentifier("config_showMenuShortcutsWhenKeyboardPresent", "bool", BaseWrapper.BASE_PKG_SYSTEM);
         return identifier != 0 && resources.getBoolean(identifier);
     }
 }

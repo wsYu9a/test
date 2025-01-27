@@ -4,17 +4,9 @@ import java.util.Arrays;
 import kotlin.KotlinNullPointerException;
 import kotlin.SinceKotlin;
 import kotlin.UninitializedPropertyAccessException;
-import p1.b;
 
-/* loaded from: classes4.dex */
+/* loaded from: classes5.dex */
 public class Intrinsics {
-
-    @SinceKotlin(version = "1.4")
-    public static class Kotlin {
-        private Kotlin() {
-        }
-    }
-
     private Intrinsics() {
     }
 
@@ -33,15 +25,15 @@ public class Intrinsics {
         if (obj != null) {
             return;
         }
-        throw ((IllegalStateException) sanitizeStackTrace(new IllegalStateException("Field specified as non-null is null: " + str + b.f29697h + str2)));
+        throw ((IllegalStateException) sanitizeStackTrace(new IllegalStateException("Field specified as non-null is null: " + str + "." + str2)));
     }
 
     public static void checkHasClass(String str) throws ClassNotFoundException {
         String replace = str.replace('/', '.');
         try {
             Class.forName(replace);
-        } catch (ClassNotFoundException e10) {
-            throw ((ClassNotFoundException) sanitizeStackTrace(new ClassNotFoundException("Class " + replace + " is not found. Please update the Kotlin runtime to the latest version", e10)));
+        } catch (ClassNotFoundException e2) {
+            throw ((ClassNotFoundException) sanitizeStackTrace(new ClassNotFoundException("Class " + replace + " is not found. Please update the Kotlin runtime to the latest version", e2)));
         }
     }
 
@@ -60,13 +52,13 @@ public class Intrinsics {
 
     public static void checkNotNullParameter(Object obj, String str) {
         if (obj == null) {
-            throwParameterIsNullNPE(str);
+            throw ((NullPointerException) sanitizeStackTrace(new NullPointerException(str)));
         }
     }
 
     public static void checkParameterIsNotNull(Object obj, String str) {
         if (obj == null) {
-            throwParameterIsNullIAE(str);
+            throwParameterIsNullException(str);
         }
     }
 
@@ -74,40 +66,33 @@ public class Intrinsics {
         if (obj != null) {
             return;
         }
-        throw ((IllegalStateException) sanitizeStackTrace(new IllegalStateException("Method specified as non-null returned null: " + str + b.f29697h + str2)));
+        throw ((IllegalStateException) sanitizeStackTrace(new IllegalStateException("Method specified as non-null returned null: " + str + "." + str2)));
     }
 
-    public static int compare(int i10, int i11) {
-        if (i10 < i11) {
+    public static int compare(int i2, int i3) {
+        if (i2 < i3) {
             return -1;
         }
-        return i10 == i11 ? 0 : 1;
+        return i2 == i3 ? 0 : 1;
     }
 
-    private static String createParameterIsNullExceptionMessage(String str) {
-        StackTraceElement[] stackTrace = Thread.currentThread().getStackTrace();
-        String name = Intrinsics.class.getName();
-        int i10 = 0;
-        while (!stackTrace[i10].getClassName().equals(name)) {
-            i10++;
+    public static int compare(long j2, long j3) {
+        if (j2 < j3) {
+            return -1;
         }
-        while (stackTrace[i10].getClassName().equals(name)) {
-            i10++;
-        }
-        StackTraceElement stackTraceElement = stackTrace[i10];
-        return "Parameter specified as non-null is null: method " + stackTraceElement.getClassName() + b.f29697h + stackTraceElement.getMethodName() + ", parameter " + str;
+        return j2 == j3 ? 0 : 1;
     }
 
     public static void needClassReification() {
         throwUndefinedForReified();
     }
 
-    public static void reifiedOperationMarker(int i10, String str) {
+    public static void reifiedOperationMarker(int i2, String str) {
         throwUndefinedForReified();
     }
 
-    private static <T extends Throwable> T sanitizeStackTrace(T t10) {
-        return (T) sanitizeStackTrace(t10, Intrinsics.class.getName());
+    private static <T extends Throwable> T sanitizeStackTrace(T t) {
+        return (T) sanitizeStackTrace(t, Intrinsics.class.getName());
     }
 
     public static String stringPlus(String str, Object obj) {
@@ -135,12 +120,9 @@ public class Intrinsics {
         throw ((KotlinNullPointerException) sanitizeStackTrace(new KotlinNullPointerException()));
     }
 
-    private static void throwParameterIsNullIAE(String str) {
-        throw ((IllegalArgumentException) sanitizeStackTrace(new IllegalArgumentException(createParameterIsNullExceptionMessage(str))));
-    }
-
-    private static void throwParameterIsNullNPE(String str) {
-        throw ((NullPointerException) sanitizeStackTrace(new NullPointerException(createParameterIsNullExceptionMessage(str))));
+    private static void throwParameterIsNullException(String str) {
+        StackTraceElement stackTraceElement = Thread.currentThread().getStackTrace()[3];
+        throw ((IllegalArgumentException) sanitizeStackTrace(new IllegalArgumentException("Parameter specified as non-null is null: method " + stackTraceElement.getClassName() + "." + stackTraceElement.getMethodName() + ", parameter " + str)));
     }
 
     public static void throwUndefinedForReified() {
@@ -156,15 +138,15 @@ public class Intrinsics {
     }
 
     @SinceKotlin(version = "1.1")
-    public static boolean areEqual(Double d10, Double d11) {
-        if (d10 == null) {
-            if (d11 != null) {
-                return false;
+    public static boolean areEqual(Double d2, Double d3) {
+        if (d2 == null) {
+            if (d3 == null) {
+                return true;
             }
-        } else if (d11 == null || d10.doubleValue() != d11.doubleValue()) {
-            return false;
+        } else if (d3 != null && d2.doubleValue() == d3.doubleValue()) {
+            return true;
         }
-        return true;
+        return false;
     }
 
     public static void checkFieldIsNotNull(Object obj, String str) {
@@ -185,32 +167,25 @@ public class Intrinsics {
         }
     }
 
-    public static int compare(long j10, long j11) {
-        if (j10 < j11) {
-            return -1;
-        }
-        return j10 == j11 ? 0 : 1;
-    }
-
     public static void needClassReification(String str) {
         throwUndefinedForReified(str);
     }
 
-    public static void reifiedOperationMarker(int i10, String str, String str2) {
+    public static void reifiedOperationMarker(int i2, String str, String str2) {
         throwUndefinedForReified(str2);
     }
 
-    public static <T extends Throwable> T sanitizeStackTrace(T t10, String str) {
-        StackTraceElement[] stackTrace = t10.getStackTrace();
+    static <T extends Throwable> T sanitizeStackTrace(T t, String str) {
+        StackTraceElement[] stackTrace = t.getStackTrace();
         int length = stackTrace.length;
-        int i10 = -1;
-        for (int i11 = 0; i11 < length; i11++) {
-            if (str.equals(stackTrace[i11].getClassName())) {
-                i10 = i11;
+        int i2 = -1;
+        for (int i3 = 0; i3 < length; i3++) {
+            if (str.equals(stackTrace[i3].getClassName())) {
+                i2 = i3;
             }
         }
-        t10.setStackTrace((StackTraceElement[]) Arrays.copyOfRange(stackTrace, i10 + 1, length));
-        return t10;
+        t.setStackTrace((StackTraceElement[]) Arrays.copyOfRange(stackTrace, i2 + 1, length));
+        return t;
     }
 
     public static void throwAssert(String str) {
@@ -239,43 +214,43 @@ public class Intrinsics {
     }
 
     @SinceKotlin(version = "1.1")
-    public static boolean areEqual(Double d10, double d11) {
-        return d10 != null && d10.doubleValue() == d11;
+    public static boolean areEqual(Double d2, double d3) {
+        return d2 != null && d2.doubleValue() == d3;
     }
 
     @SinceKotlin(version = "1.1")
-    public static boolean areEqual(double d10, Double d11) {
-        return d11 != null && d10 == d11.doubleValue();
+    public static boolean areEqual(double d2, Double d3) {
+        return d3 != null && d2 == d3.doubleValue();
     }
 
     public static void checkHasClass(String str, String str2) throws ClassNotFoundException {
         String replace = str.replace('/', '.');
         try {
             Class.forName(replace);
-        } catch (ClassNotFoundException e10) {
-            throw ((ClassNotFoundException) sanitizeStackTrace(new ClassNotFoundException("Class " + replace + " is not found: this code requires the Kotlin runtime of version at least " + str2, e10)));
+        } catch (ClassNotFoundException e2) {
+            throw ((ClassNotFoundException) sanitizeStackTrace(new ClassNotFoundException("Class " + replace + " is not found: this code requires the Kotlin runtime of version at least " + str2, e2)));
         }
     }
 
     @SinceKotlin(version = "1.1")
-    public static boolean areEqual(Float f10, Float f11) {
-        if (f10 == null) {
-            if (f11 != null) {
-                return false;
+    public static boolean areEqual(Float f2, Float f3) {
+        if (f2 == null) {
+            if (f3 == null) {
+                return true;
             }
-        } else if (f11 == null || f10.floatValue() != f11.floatValue()) {
-            return false;
+        } else if (f3 != null && f2.floatValue() == f3.floatValue()) {
+            return true;
         }
-        return true;
+        return false;
     }
 
     @SinceKotlin(version = "1.1")
-    public static boolean areEqual(Float f10, float f11) {
-        return f10 != null && f10.floatValue() == f11;
+    public static boolean areEqual(Float f2, float f3) {
+        return f2 != null && f2.floatValue() == f3;
     }
 
     @SinceKotlin(version = "1.1")
-    public static boolean areEqual(float f10, Float f11) {
-        return f11 != null && f10 == f11.floatValue();
+    public static boolean areEqual(float f2, Float f3) {
+        return f3 != null && f2 == f3.floatValue();
     }
 }

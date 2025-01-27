@@ -19,20 +19,20 @@ public class DownloadCache implements IDownloadCache {
     private final SparseArray<Map<Long, Segment>> segmentListMap = new SparseArray<>();
 
     @Override // com.ss.android.socialbase.downloader.downloader.IDownloadCache
-    public DownloadInfo OnDownloadTaskCancel(int i10, long j10) {
-        DownloadInfo downloadInfo = getDownloadInfo(i10);
+    public DownloadInfo OnDownloadTaskCancel(int i2, long j2) {
+        DownloadInfo downloadInfo = getDownloadInfo(i2);
         if (downloadInfo != null) {
-            downloadInfo.setCurBytes(j10, false);
+            downloadInfo.setCurBytes(j2, false);
             downloadInfo.setStatus(-4);
         }
         return downloadInfo;
     }
 
     @Override // com.ss.android.socialbase.downloader.downloader.IDownloadCache
-    public DownloadInfo OnDownloadTaskCompleted(int i10, long j10) {
-        DownloadInfo downloadInfo = getDownloadInfo(i10);
+    public DownloadInfo OnDownloadTaskCompleted(int i2, long j2) {
+        DownloadInfo downloadInfo = getDownloadInfo(i2);
         if (downloadInfo != null) {
-            downloadInfo.setCurBytes(j10, false);
+            downloadInfo.setCurBytes(j2, false);
             downloadInfo.setStatus(-3);
             downloadInfo.setFirstDownload(false);
             downloadInfo.setFirstSuccess(false);
@@ -41,10 +41,10 @@ public class DownloadCache implements IDownloadCache {
     }
 
     @Override // com.ss.android.socialbase.downloader.downloader.IDownloadCache
-    public DownloadInfo OnDownloadTaskConnected(int i10, long j10, String str, String str2) {
-        DownloadInfo downloadInfo = getDownloadInfo(i10);
+    public DownloadInfo OnDownloadTaskConnected(int i2, long j2, String str, String str2) {
+        DownloadInfo downloadInfo = getDownloadInfo(i2);
         if (downloadInfo != null) {
-            downloadInfo.setTotalBytes(j10);
+            downloadInfo.setTotalBytes(j2);
             downloadInfo.seteTag(str);
             if (TextUtils.isEmpty(downloadInfo.getName()) && !TextUtils.isEmpty(str2)) {
                 downloadInfo.setName(str2);
@@ -55,10 +55,10 @@ public class DownloadCache implements IDownloadCache {
     }
 
     @Override // com.ss.android.socialbase.downloader.downloader.IDownloadCache
-    public DownloadInfo OnDownloadTaskError(int i10, long j10) {
-        DownloadInfo downloadInfo = getDownloadInfo(i10);
+    public DownloadInfo OnDownloadTaskError(int i2, long j2) {
+        DownloadInfo downloadInfo = getDownloadInfo(i2);
         if (downloadInfo != null) {
-            downloadInfo.setCurBytes(j10, false);
+            downloadInfo.setCurBytes(j2, false);
             downloadInfo.setStatus(-1);
             downloadInfo.setFirstDownload(false);
         }
@@ -66,8 +66,8 @@ public class DownloadCache implements IDownloadCache {
     }
 
     @Override // com.ss.android.socialbase.downloader.downloader.IDownloadCache
-    public DownloadInfo OnDownloadTaskIntercept(int i10) {
-        DownloadInfo downloadInfo = getDownloadInfo(i10);
+    public DownloadInfo OnDownloadTaskIntercept(int i2) {
+        DownloadInfo downloadInfo = getDownloadInfo(i2);
         if (downloadInfo != null) {
             downloadInfo.setStatus(-7);
         }
@@ -75,18 +75,18 @@ public class DownloadCache implements IDownloadCache {
     }
 
     @Override // com.ss.android.socialbase.downloader.downloader.IDownloadCache
-    public DownloadInfo OnDownloadTaskPause(int i10, long j10) {
-        DownloadInfo downloadInfo = getDownloadInfo(i10);
+    public DownloadInfo OnDownloadTaskPause(int i2, long j2) {
+        DownloadInfo downloadInfo = getDownloadInfo(i2);
         if (downloadInfo != null) {
-            downloadInfo.setCurBytes(j10, false);
+            downloadInfo.setCurBytes(j2, false);
             downloadInfo.setStatus(-2);
         }
         return downloadInfo;
     }
 
     @Override // com.ss.android.socialbase.downloader.downloader.IDownloadCache
-    public DownloadInfo OnDownloadTaskPrepare(int i10) {
-        DownloadInfo downloadInfo = getDownloadInfo(i10);
+    public DownloadInfo OnDownloadTaskPrepare(int i2) {
+        DownloadInfo downloadInfo = getDownloadInfo(i2);
         if (downloadInfo != null) {
             downloadInfo.setStatus(1);
         }
@@ -94,10 +94,10 @@ public class DownloadCache implements IDownloadCache {
     }
 
     @Override // com.ss.android.socialbase.downloader.downloader.IDownloadCache
-    public DownloadInfo OnDownloadTaskProgress(int i10, long j10) {
-        DownloadInfo downloadInfo = getDownloadInfo(i10);
+    public DownloadInfo OnDownloadTaskProgress(int i2, long j2) {
+        DownloadInfo downloadInfo = getDownloadInfo(i2);
         if (downloadInfo != null) {
-            downloadInfo.setCurBytes(j10, false);
+            downloadInfo.setCurBytes(j2, false);
             if (downloadInfo.getStatus() != -3 && downloadInfo.getStatus() != -2 && !DownloadStatus.isFailedStatus(downloadInfo.getStatus()) && downloadInfo.getStatus() != -4) {
                 downloadInfo.setStatus(4);
             }
@@ -106,8 +106,8 @@ public class DownloadCache implements IDownloadCache {
     }
 
     @Override // com.ss.android.socialbase.downloader.downloader.IDownloadCache
-    public DownloadInfo OnDownloadTaskRetry(int i10) {
-        DownloadInfo downloadInfo = getDownloadInfo(i10);
+    public DownloadInfo OnDownloadTaskRetry(int i2) {
+        DownloadInfo downloadInfo = getDownloadInfo(i2);
         if (downloadInfo != null) {
             downloadInfo.setStatus(5);
             downloadInfo.setFirstDownload(false);
@@ -117,11 +117,11 @@ public class DownloadCache implements IDownloadCache {
 
     @Override // com.ss.android.socialbase.downloader.downloader.IDownloadCache
     public void addDownloadChunk(DownloadChunk downloadChunk) {
-        int id2 = downloadChunk.getId();
-        List<DownloadChunk> list = this.chunkListMap.get(id2);
+        int id = downloadChunk.getId();
+        List<DownloadChunk> list = this.chunkListMap.get(id);
         if (list == null) {
             list = new ArrayList<>();
-            this.chunkListMap.put(id2, list);
+            this.chunkListMap.put(id, list);
         }
         list.add(downloadChunk);
     }
@@ -131,8 +131,8 @@ public class DownloadCache implements IDownloadCache {
     }
 
     @Override // com.ss.android.socialbase.downloader.downloader.IDownloadCache
-    public boolean cacheExist(int i10) {
-        return getDownloadInfo(i10) != null;
+    public boolean cacheExist(int i2) {
+        return getDownloadInfo(i2) != null;
     }
 
     @Override // com.ss.android.socialbase.downloader.downloader.IDownloadCache
@@ -152,8 +152,8 @@ public class DownloadCache implements IDownloadCache {
             return null;
         }
         ArrayList arrayList = new ArrayList(this.downloadInfoMap.size());
-        for (int i10 = 0; i10 < this.downloadInfoMap.size(); i10++) {
-            DownloadInfo valueAt = this.downloadInfoMap.valueAt(i10);
+        for (int i2 = 0; i2 < this.downloadInfoMap.size(); i2++) {
+            DownloadInfo valueAt = this.downloadInfoMap.valueAt(i2);
             if (valueAt != null) {
                 arrayList.add(valueAt);
             }
@@ -166,17 +166,17 @@ public class DownloadCache implements IDownloadCache {
     }
 
     @Override // com.ss.android.socialbase.downloader.downloader.IDownloadCache
-    public synchronized List<DownloadChunk> getDownloadChunk(int i10) {
-        return this.chunkListMap.get(i10);
+    public synchronized List<DownloadChunk> getDownloadChunk(int i2) {
+        return this.chunkListMap.get(i2);
     }
 
     @Override // com.ss.android.socialbase.downloader.downloader.IDownloadCache
-    public synchronized DownloadInfo getDownloadInfo(int i10) {
+    public synchronized DownloadInfo getDownloadInfo(int i2) {
         DownloadInfo downloadInfo;
         try {
-            downloadInfo = this.downloadInfoMap.get(i10);
-        } catch (Exception e10) {
-            e10.printStackTrace();
+            downloadInfo = this.downloadInfoMap.get(i2);
+        } catch (Exception e2) {
+            e2.printStackTrace();
             downloadInfo = null;
         }
         return downloadInfo;
@@ -188,14 +188,14 @@ public class DownloadCache implements IDownloadCache {
         arrayList = new ArrayList();
         try {
             int size = this.downloadInfoMap.size();
-            for (int i10 = 0; i10 < size; i10++) {
-                DownloadInfo valueAt = this.downloadInfoMap.valueAt(i10);
+            for (int i2 = 0; i2 < size; i2++) {
+                DownloadInfo valueAt = this.downloadInfoMap.valueAt(i2);
                 if (str != null && str.equals(valueAt.getUrl())) {
                     arrayList.add(valueAt);
                 }
             }
-        } catch (Exception e10) {
-            e10.printStackTrace();
+        } catch (Exception e2) {
+            e2.printStackTrace();
         }
         return arrayList;
     }
@@ -213,8 +213,8 @@ public class DownloadCache implements IDownloadCache {
             return null;
         }
         ArrayList arrayList = new ArrayList();
-        for (int i10 = 0; i10 < this.downloadInfoMap.size(); i10++) {
-            DownloadInfo downloadInfo = this.downloadInfoMap.get(this.downloadInfoMap.keyAt(i10));
+        for (int i2 = 0; i2 < this.downloadInfoMap.size(); i2++) {
+            DownloadInfo downloadInfo = this.downloadInfoMap.get(this.downloadInfoMap.keyAt(i2));
             if (downloadInfo != null && !TextUtils.isEmpty(downloadInfo.getMimeType()) && downloadInfo.getMimeType().equals(str) && DownloadStatus.isFailedStatus(downloadInfo.getStatus())) {
                 arrayList.add(downloadInfo);
             }
@@ -223,13 +223,13 @@ public class DownloadCache implements IDownloadCache {
     }
 
     @Override // com.ss.android.socialbase.downloader.downloader.IDownloadCache
-    public synchronized Map<Long, Segment> getSegmentMap(int i10) {
-        return this.segmentListMap.get(i10);
+    public synchronized Map<Long, Segment> getSegmentMap(int i2) {
+        return this.segmentListMap.get(i2);
     }
 
     @Override // com.ss.android.socialbase.downloader.downloader.IDownloadCache
-    public synchronized List<Segment> getSegments(int i10) {
-        Map<Long, Segment> map = this.segmentListMap.get(i10);
+    public synchronized List<Segment> getSegments(int i2) {
+        Map<Long, Segment> map = this.segmentListMap.get(i2);
         if (map != null && !map.isEmpty()) {
             return new ArrayList(map.values());
         }
@@ -245,8 +245,8 @@ public class DownloadCache implements IDownloadCache {
             return null;
         }
         ArrayList arrayList = new ArrayList();
-        for (int i10 = 0; i10 < this.downloadInfoMap.size(); i10++) {
-            DownloadInfo downloadInfo = this.downloadInfoMap.get(this.downloadInfoMap.keyAt(i10));
+        for (int i2 = 0; i2 < this.downloadInfoMap.size(); i2++) {
+            DownloadInfo downloadInfo = this.downloadInfoMap.get(this.downloadInfoMap.keyAt(i2));
             if (downloadInfo != null && !TextUtils.isEmpty(downloadInfo.getMimeType()) && downloadInfo.getMimeType().equals(str) && downloadInfo.getStatus() == -3) {
                 arrayList.add(downloadInfo);
             }
@@ -263,8 +263,8 @@ public class DownloadCache implements IDownloadCache {
             return null;
         }
         ArrayList arrayList = new ArrayList();
-        for (int i10 = 0; i10 < this.downloadInfoMap.size(); i10++) {
-            DownloadInfo downloadInfo = this.downloadInfoMap.get(this.downloadInfoMap.keyAt(i10));
+        for (int i2 = 0; i2 < this.downloadInfoMap.size(); i2++) {
+            DownloadInfo downloadInfo = this.downloadInfoMap.get(this.downloadInfoMap.keyAt(i2));
             if (downloadInfo != null && !TextUtils.isEmpty(downloadInfo.getMimeType()) && downloadInfo.getMimeType().equals(str) && DownloadStatus.isUnCompletedStatus(downloadInfo.getStatus())) {
                 arrayList.add(downloadInfo);
             }
@@ -282,8 +282,8 @@ public class DownloadCache implements IDownloadCache {
     }
 
     @Override // com.ss.android.socialbase.downloader.downloader.IDownloadCache
-    public DownloadInfo onDownloadTaskStart(int i10) {
-        DownloadInfo downloadInfo = getDownloadInfo(i10);
+    public DownloadInfo onDownloadTaskStart(int i2) {
+        DownloadInfo downloadInfo = getDownloadInfo(i2);
         if (downloadInfo != null) {
             downloadInfo.setStatus(2);
         }
@@ -291,35 +291,35 @@ public class DownloadCache implements IDownloadCache {
     }
 
     @Override // com.ss.android.socialbase.downloader.downloader.IDownloadCache
-    public synchronized void removeAllDownloadChunk(int i10) {
-        this.chunkListMap.remove(i10);
+    public synchronized void removeAllDownloadChunk(int i2) {
+        this.chunkListMap.remove(i2);
     }
 
     @Override // com.ss.android.socialbase.downloader.downloader.IDownloadCache
-    public synchronized boolean removeDownloadInfo(int i10) {
-        this.downloadInfoMap.remove(i10);
+    public synchronized boolean removeDownloadInfo(int i2) {
+        this.downloadInfoMap.remove(i2);
         return true;
     }
 
     @Override // com.ss.android.socialbase.downloader.downloader.IDownloadCache
-    public boolean removeDownloadTaskData(int i10) {
-        removeDownloadInfo(i10);
-        removeAllDownloadChunk(i10);
-        removeSegments(i10);
+    public boolean removeDownloadTaskData(int i2) {
+        removeDownloadInfo(i2);
+        removeAllDownloadChunk(i2);
+        removeSegments(i2);
         return true;
     }
 
     @Override // com.ss.android.socialbase.downloader.downloader.IDownloadCache
-    public synchronized void removeSegments(int i10) {
-        this.segmentListMap.remove(i10);
+    public synchronized void removeSegments(int i2) {
+        this.segmentListMap.remove(i2);
     }
 
     @Override // com.ss.android.socialbase.downloader.downloader.IDownloadCache
-    public synchronized void syncDownloadChunks(int i10, List<DownloadChunk> list) {
+    public synchronized void syncDownloadChunks(int i2, List<DownloadChunk> list) {
         if (list == null) {
             return;
         }
-        removeAllDownloadChunk(i10);
+        removeAllDownloadChunk(i2);
         for (DownloadChunk downloadChunk : list) {
             if (downloadChunk != null) {
                 addDownloadChunk(downloadChunk);
@@ -339,15 +339,15 @@ public class DownloadCache implements IDownloadCache {
     }
 
     @Override // com.ss.android.socialbase.downloader.downloader.IDownloadCache
-    public void syncDownloadInfoFromOtherCache(int i10, List<DownloadChunk> list) {
+    public void syncDownloadInfoFromOtherCache(int i2, List<DownloadChunk> list) {
     }
 
     @Override // com.ss.android.socialbase.downloader.downloader.IDownloadCache
-    public synchronized DownloadInfo updateChunkCount(int i10, int i11) {
+    public synchronized DownloadInfo updateChunkCount(int i2, int i3) {
         DownloadInfo downloadInfo;
-        downloadInfo = getDownloadInfo(i10);
+        downloadInfo = getDownloadInfo(i2);
         if (downloadInfo != null) {
-            downloadInfo.setChunkCount(i11);
+            downloadInfo.setChunkCount(i3);
         }
         return downloadInfo;
     }
@@ -365,57 +365,58 @@ public class DownloadCache implements IDownloadCache {
         /*
             r2 = this;
             monitor-enter(r2)
-            java.util.List r3 = r2.getDownloadChunk(r3)     // Catch: java.lang.Throwable -> L25
+            java.util.List r3 = r2.getDownloadChunk(r3)     // Catch: java.lang.Throwable -> L26
             if (r3 != 0) goto L9
             monitor-exit(r2)
             return
         L9:
-            java.util.Iterator r3 = r3.iterator()     // Catch: java.lang.Throwable -> L25
+            java.util.Iterator r3 = r3.iterator()     // Catch: java.lang.Throwable -> L26
         Ld:
-            boolean r0 = r3.hasNext()     // Catch: java.lang.Throwable -> L25
-            if (r0 == 0) goto L27
-            java.lang.Object r0 = r3.next()     // Catch: java.lang.Throwable -> L25
-            com.ss.android.socialbase.downloader.model.DownloadChunk r0 = (com.ss.android.socialbase.downloader.model.DownloadChunk) r0     // Catch: java.lang.Throwable -> L25
+            boolean r0 = r3.hasNext()     // Catch: java.lang.Throwable -> L26
+            if (r0 == 0) goto L24
+            java.lang.Object r0 = r3.next()     // Catch: java.lang.Throwable -> L26
+            com.ss.android.socialbase.downloader.model.DownloadChunk r0 = (com.ss.android.socialbase.downloader.model.DownloadChunk) r0     // Catch: java.lang.Throwable -> L26
             if (r0 == 0) goto Ld
-            int r1 = r0.getChunkIndex()     // Catch: java.lang.Throwable -> L25
+            int r1 = r0.getChunkIndex()     // Catch: java.lang.Throwable -> L26
             if (r1 != r4) goto Ld
-            r0.setCurrentOffset(r5)     // Catch: java.lang.Throwable -> L25
-            goto L27
-        L25:
-            r3 = move-exception
-            goto L29
-        L27:
+            r0.setCurrentOffset(r5)     // Catch: java.lang.Throwable -> L26
+        L24:
             monitor-exit(r2)
             return
+        L26:
+            r3 = move-exception
+            monitor-exit(r2)
+            goto L2a
         L29:
-            monitor-exit(r2)     // Catch: java.lang.Throwable -> L25
             throw r3
+        L2a:
+            goto L29
         */
         throw new UnsupportedOperationException("Method not decompiled: com.ss.android.socialbase.downloader.impls.DownloadCache.updateDownloadChunk(int, int, long):void");
     }
 
     @Override // com.ss.android.socialbase.downloader.downloader.IDownloadCache
     public synchronized boolean updateDownloadInfo(DownloadInfo downloadInfo) {
-        boolean z10 = true;
+        boolean z = true;
         if (downloadInfo == null) {
             return true;
         }
         if (this.downloadInfoMap.get(downloadInfo.getId()) == null) {
-            z10 = false;
+            z = false;
         }
         this.downloadInfoMap.put(downloadInfo.getId(), downloadInfo);
-        return z10;
+        return z;
     }
 
     @Override // com.ss.android.socialbase.downloader.downloader.IDownloadCache
-    public synchronized boolean updateSegments(int i10, Map<Long, Segment> map) {
-        this.segmentListMap.put(i10, map);
+    public synchronized boolean updateSegments(int i2, Map<Long, Segment> map) {
+        this.segmentListMap.put(i2, map);
         return false;
     }
 
     /* JADX WARN: Code restructure failed: missing block: B:21:0x002b, code lost:
     
-        if (r0.getSubChunkList() != null) goto L119;
+        if (r0.getSubChunkList() != null) goto L69;
      */
     /* JADX WARN: Code restructure failed: missing block: B:25:0x002e, code lost:
     
@@ -423,7 +424,7 @@ public class DownloadCache implements IDownloadCache {
      */
     /* JADX WARN: Code restructure failed: missing block: B:27:0x003a, code lost:
     
-        if (r3.hasNext() == false) goto L145;
+        if (r3.hasNext() == false) goto L95;
      */
     /* JADX WARN: Code restructure failed: missing block: B:28:0x003c, code lost:
     
@@ -431,11 +432,11 @@ public class DownloadCache implements IDownloadCache {
      */
     /* JADX WARN: Code restructure failed: missing block: B:29:0x0042, code lost:
     
-        if (r5 == null) goto L148;
+        if (r5 == null) goto L98;
      */
     /* JADX WARN: Code restructure failed: missing block: B:32:0x0048, code lost:
     
-        if (r5.getChunkIndex() != r4) goto L149;
+        if (r5.getChunkIndex() != r4) goto L99;
      */
     /* JADX WARN: Code restructure failed: missing block: B:34:0x004a, code lost:
     
@@ -450,52 +451,53 @@ public class DownloadCache implements IDownloadCache {
         /*
             r2 = this;
             monitor-enter(r2)
-            java.util.List r3 = r2.getDownloadChunk(r3)     // Catch: java.lang.Throwable -> L4e
+            java.util.List r3 = r2.getDownloadChunk(r3)     // Catch: java.lang.Throwable -> L4f
             if (r3 != 0) goto L9
             monitor-exit(r2)
             return
         L9:
-            java.util.Iterator r3 = r3.iterator()     // Catch: java.lang.Throwable -> L4e
+            java.util.Iterator r3 = r3.iterator()     // Catch: java.lang.Throwable -> L4f
         Ld:
-            boolean r0 = r3.hasNext()     // Catch: java.lang.Throwable -> L4e
-            if (r0 == 0) goto L50
-            java.lang.Object r0 = r3.next()     // Catch: java.lang.Throwable -> L4e
-            com.ss.android.socialbase.downloader.model.DownloadChunk r0 = (com.ss.android.socialbase.downloader.model.DownloadChunk) r0     // Catch: java.lang.Throwable -> L4e
+            boolean r0 = r3.hasNext()     // Catch: java.lang.Throwable -> L4f
+            if (r0 == 0) goto L4d
+            java.lang.Object r0 = r3.next()     // Catch: java.lang.Throwable -> L4f
+            com.ss.android.socialbase.downloader.model.DownloadChunk r0 = (com.ss.android.socialbase.downloader.model.DownloadChunk) r0     // Catch: java.lang.Throwable -> L4f
             if (r0 == 0) goto Ld
-            int r1 = r0.getChunkIndex()     // Catch: java.lang.Throwable -> L4e
+            int r1 = r0.getChunkIndex()     // Catch: java.lang.Throwable -> L4f
             if (r1 != r5) goto Ld
-            boolean r1 = r0.hasChunkDivided()     // Catch: java.lang.Throwable -> L4e
+            boolean r1 = r0.hasChunkDivided()     // Catch: java.lang.Throwable -> L4f
             if (r1 != 0) goto Ld
-            java.util.List r3 = r0.getSubChunkList()     // Catch: java.lang.Throwable -> L4e
+            java.util.List r3 = r0.getSubChunkList()     // Catch: java.lang.Throwable -> L4f
             if (r3 != 0) goto L2e
-            goto L50
+            goto L4d
         L2e:
-            java.util.List r3 = r0.getSubChunkList()     // Catch: java.lang.Throwable -> L4e
-            java.util.Iterator r3 = r3.iterator()     // Catch: java.lang.Throwable -> L4e
+            java.util.List r3 = r0.getSubChunkList()     // Catch: java.lang.Throwable -> L4f
+            java.util.Iterator r3 = r3.iterator()     // Catch: java.lang.Throwable -> L4f
         L36:
-            boolean r5 = r3.hasNext()     // Catch: java.lang.Throwable -> L4e
-            if (r5 == 0) goto L50
-            java.lang.Object r5 = r3.next()     // Catch: java.lang.Throwable -> L4e
-            com.ss.android.socialbase.downloader.model.DownloadChunk r5 = (com.ss.android.socialbase.downloader.model.DownloadChunk) r5     // Catch: java.lang.Throwable -> L4e
+            boolean r5 = r3.hasNext()     // Catch: java.lang.Throwable -> L4f
+            if (r5 == 0) goto L4d
+            java.lang.Object r5 = r3.next()     // Catch: java.lang.Throwable -> L4f
+            com.ss.android.socialbase.downloader.model.DownloadChunk r5 = (com.ss.android.socialbase.downloader.model.DownloadChunk) r5     // Catch: java.lang.Throwable -> L4f
             if (r5 == 0) goto L36
-            int r0 = r5.getChunkIndex()     // Catch: java.lang.Throwable -> L4e
+            int r0 = r5.getChunkIndex()     // Catch: java.lang.Throwable -> L4f
             if (r0 != r4) goto L36
-            r5.setCurrentOffset(r6)     // Catch: java.lang.Throwable -> L4e
-            goto L50
-        L4e:
-            r3 = move-exception
-            goto L52
-        L50:
+            r5.setCurrentOffset(r6)     // Catch: java.lang.Throwable -> L4f
+        L4d:
             monitor-exit(r2)
             return
+        L4f:
+            r3 = move-exception
+            monitor-exit(r2)
+            goto L53
         L52:
-            monitor-exit(r2)     // Catch: java.lang.Throwable -> L4e
             throw r3
+        L53:
+            goto L52
         */
         throw new UnsupportedOperationException("Method not decompiled: com.ss.android.socialbase.downloader.impls.DownloadCache.updateSubDownloadChunk(int, int, int, long):void");
     }
 
     @Override // com.ss.android.socialbase.downloader.downloader.IDownloadCache
-    public void updateSubDownloadChunkIndex(int i10, int i11, int i12, int i13) {
+    public void updateSubDownloadChunkIndex(int i2, int i3, int i4, int i5) {
     }
 }

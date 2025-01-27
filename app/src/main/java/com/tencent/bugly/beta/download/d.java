@@ -4,7 +4,7 @@ import com.tencent.bugly.beta.global.e;
 import com.tencent.bugly.beta.ui.NetNotifyDialog;
 import com.tencent.bugly.beta.ui.UiManager;
 import com.tencent.bugly.proguard.A;
-import com.tencent.bugly.proguard.C0871p;
+import com.tencent.bugly.proguard.C0912p;
 import com.tencent.bugly.proguard.X;
 import java.util.ArrayList;
 
@@ -12,53 +12,52 @@ import java.util.ArrayList;
 public class d {
 
     /* renamed from: a */
-    final int f22086a;
+    final int f24607a;
 
     /* renamed from: b */
-    final Object[] f22087b;
+    final Object[] f24608b;
 
-    public d(int i10, Object... objArr) {
-        this.f22086a = i10;
-        this.f22087b = objArr;
+    public d(int i2, Object... objArr) {
+        this.f24607a = i2;
+        this.f24608b = objArr;
     }
 
-    public synchronized void a(int i10, int i11) {
+    public synchronized void a(int i2, int i3) {
         try {
-            int i12 = this.f22086a;
-            if (i12 != 1) {
-                if (i12 == 2) {
-                    Object[] objArr = this.f22087b;
+            int i4 = this.f24607a;
+            if (i4 != 1) {
+                if (i4 == 2) {
+                    Object[] objArr = this.f24608b;
                     DownloadTask downloadTask = (DownloadTask) objArr[0];
                     NetNotifyDialog netNotifyDialog = (NetNotifyDialog) objArr[2];
-                    if (i11 == 1) {
+                    if (i3 == 1) {
                         downloadTask.download();
                         X.a("continue download", new Object[0]);
-                        this.f22087b[1] = Boolean.FALSE;
+                        this.f24608b[1] = Boolean.FALSE;
                         netNotifyDialog.close();
-                    } else if (i10 == 1 || ((Boolean) objArr[1]).booleanValue()) {
-                        e eVar = e.f22100b;
+                    } else if (i2 == 1 || ((Boolean) objArr[1]).booleanValue()) {
+                        e eVar = e.f24621b;
                         if (!eVar.U && !eVar.V) {
                             downloadTask.stop();
                             X.a("wifi network change to mobile network, stop download", new Object[0]);
-                            this.f22087b[1] = Boolean.TRUE;
-                            if (com.tencent.bugly.crashreport.common.info.b.c(e.f22100b.f22126v) != null) {
+                            this.f24608b[1] = Boolean.TRUE;
+                            if (com.tencent.bugly.crashreport.common.info.b.c(e.f24621b.v) != null) {
                                 UiManager.show(netNotifyDialog, true);
-                                this.f22087b[1] = Boolean.FALSE;
+                                this.f24608b[1] = Boolean.FALSE;
                             }
                         }
                     }
                 }
-            } else if (i11 == 1 || i11 == 3 || i11 == 4) {
-                ArrayList arrayList = (ArrayList) C0871p.f22799a.b();
+            } else if (i3 == 1 || i3 == 3 || i3 == 4) {
+                ArrayList arrayList = (ArrayList) C0912p.f25111a.b();
                 if (arrayList != null && !arrayList.isEmpty()) {
-                    com.tencent.bugly.beta.upgrade.b.f22146a.a(new A(arrayList), true);
+                    com.tencent.bugly.beta.upgrade.b.f24645a.a(new A(arrayList), true);
                 }
             }
-        } catch (Exception e10) {
-            if (!X.a(e10)) {
-                e10.printStackTrace();
+        } catch (Exception e2) {
+            if (!X.a(e2)) {
+                e2.printStackTrace();
             }
-        } finally {
         }
     }
 }

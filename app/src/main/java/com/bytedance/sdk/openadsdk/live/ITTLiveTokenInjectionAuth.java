@@ -4,7 +4,7 @@ import android.app.Activity;
 import java.io.Serializable;
 import java.util.Map;
 
-/* loaded from: classes2.dex */
+/* loaded from: classes.dex */
 public interface ITTLiveTokenInjectionAuth extends Serializable {
     TTLiveToken getTokenInfo();
 

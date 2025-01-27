@@ -7,13 +7,26 @@ import com.kwad.sdk.collector.AppStatusRules;
 import java.util.ArrayList;
 import java.util.List;
 
-/* loaded from: classes3.dex */
+/* loaded from: classes2.dex */
 public final class i {
-    public static void a(Context context, AppStatusRules.Strategy strategy, long j10) {
+    public static void a(Context context, AppStatusRules.Strategy strategy, long j2) {
         if (context == null || strategy == null) {
             return;
         }
-        context.getSharedPreferences("ksadsdk_pref", 0).edit().putLong(b(strategy), j10).apply();
+        context.getSharedPreferences("ksadsdk_pref", 0).edit().putLong(b(strategy), j2).apply();
+    }
+
+    public static boolean a(Context context, @NonNull AppStatusRules.Strategy strategy) {
+        if (context == null) {
+            return false;
+        }
+        long j2 = context.getSharedPreferences("ksadsdk_pref", 0).getLong(b(strategy), -1L);
+        if (j2 < 0) {
+            return true;
+        }
+        long currentTimeMillis = System.currentTimeMillis();
+        long minLaunchIntervalWithMS = strategy.getMinLaunchIntervalWithMS();
+        return minLaunchIntervalWithMS <= 0 || j2 + minLaunchIntervalWithMS < currentTimeMillis;
     }
 
     private static String b(AppStatusRules.Strategy strategy) {
@@ -27,18 +40,5 @@ public final class i {
     @NonNull
     public static AppStatusRules.Strategy d(@Nullable AppStatusRules appStatusRules) {
         return appStatusRules == null ? AppStatusRules.Strategy.LOCAL_DEFAULT : appStatusRules.obtainDefaultStrategy();
-    }
-
-    public static boolean a(Context context, @NonNull AppStatusRules.Strategy strategy) {
-        if (context == null) {
-            return false;
-        }
-        long j10 = context.getSharedPreferences("ksadsdk_pref", 0).getLong(b(strategy), -1L);
-        if (j10 < 0) {
-            return true;
-        }
-        long currentTimeMillis = System.currentTimeMillis();
-        long minLaunchIntervalWithMS = strategy.getMinLaunchIntervalWithMS();
-        return minLaunchIntervalWithMS <= 0 || j10 + minLaunchIntervalWithMS < currentTimeMillis;
     }
 }

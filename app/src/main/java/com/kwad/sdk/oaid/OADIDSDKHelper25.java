@@ -1,6 +1,7 @@
 package com.kwad.sdk.oaid;
 
 import android.content.Context;
+import android.os.Build;
 import android.text.TextUtils;
 import android.util.Log;
 import androidx.annotation.Keep;
@@ -10,7 +11,7 @@ import com.bun.miitmdid.interfaces.IIdentifierListener;
 import com.bun.miitmdid.interfaces.IdSupplier;
 
 @Keep
-/* loaded from: classes3.dex */
+/* loaded from: classes2.dex */
 public class OADIDSDKHelper25 {
     private static final String SUB_TAG = "OADIDSDKHelper25:";
     private static final String TAG = "KSAdSDK";
@@ -18,16 +19,16 @@ public class OADIDSDKHelper25 {
     private static boolean sGetOaidFail = false;
 
     @Keep
-    public static class IIdentifierListener25 implements IIdentifierListener {
+    static class IIdentifierListener25 implements IIdentifierListener {
         private final a mOaidListener;
         private final long mStartTime;
 
-        public IIdentifierListener25(long j10, a aVar) {
-            this.mStartTime = j10;
+        public IIdentifierListener25(long j2, a aVar) {
+            this.mStartTime = j2;
             this.mOaidListener = aVar;
         }
 
-        public void OnSupport(boolean z10, IdSupplier idSupplier) {
+        public void OnSupport(boolean z, IdSupplier idSupplier) {
             long currentTimeMillis = System.currentTimeMillis() - this.mStartTime;
             if (idSupplier != null) {
                 String oaid = idSupplier.getOAID();
@@ -35,7 +36,7 @@ public class OADIDSDKHelper25 {
                     boolean unused = OADIDSDKHelper25.sGetOaidFail = true;
                 } else {
                     Log.d(OADIDSDKHelper25.TAG, "OADIDSDKHelper25:oaid time=" + currentTimeMillis + "--OAID:" + oaid);
-                    this.mOaidListener.ey(oaid);
+                    this.mOaidListener.cw(oaid);
                 }
             }
             boolean unused2 = OADIDSDKHelper25.mIsRequestIng = false;
@@ -44,7 +45,7 @@ public class OADIDSDKHelper25 {
 
     public interface a {
         @WorkerThread
-        void ey(String str);
+        void cw(String str);
     }
 
     public static void getOAId(Context context, a aVar) {
@@ -71,20 +72,24 @@ public class OADIDSDKHelper25 {
     }
 
     public static boolean isSupport() {
+        String str;
+        if (Build.VERSION.SDK_INT < 21) {
+            return false;
+        }
         try {
             new IIdentifierListener() { // from class: com.kwad.sdk.oaid.OADIDSDKHelper25.1
-                public void OnSupport(boolean z10, IdSupplier idSupplier) {
+                public final void OnSupport(boolean z, IdSupplier idSupplier) {
                 }
             }.OnSupport(true, (IdSupplier) null);
-            try {
-                Class.forName("com.bun.miitmdid.core.MdidSdkHelper", false, OADIDSDKHelper25.class.getClassLoader());
-                return true;
-            } catch (Throwable unused) {
-                Log.d(TAG, "OADIDSDKHelper25:com.bun.miitmdid.core.MdidSdkHelper oaid sdk not find ");
-                return false;
-            }
+        } catch (Throwable unused) {
+            str = "OADIDSDKHelper25:isSupport oaid sdk not find ";
+        }
+        try {
+            Class.forName("com.bun.miitmdid.core.MdidSdkHelper", false, OADIDSDKHelper25.class.getClassLoader());
+            return true;
         } catch (Throwable unused2) {
-            Log.d(TAG, "OADIDSDKHelper25:isSupport oaid sdk not find ");
+            str = "OADIDSDKHelper25:com.bun.miitmdid.core.MdidSdkHelper oaid sdk not find ";
+            Log.d(TAG, str);
             return false;
         }
     }

@@ -7,9 +7,12 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
 
-/* loaded from: classes2.dex */
+/* loaded from: classes.dex */
 public class DataRewinderRegistry {
     private static final DataRewinder.Factory<?> DEFAULT_FACTORY = new DataRewinder.Factory<Object>() { // from class: com.bumptech.glide.load.data.DataRewinderRegistry.1
+        AnonymousClass1() {
+        }
+
         @Override // com.bumptech.glide.load.data.DataRewinder.Factory
         @NonNull
         public DataRewinder<Object> build(@NonNull Object obj) {
@@ -25,7 +28,10 @@ public class DataRewinderRegistry {
     private final Map<Class<?>, DataRewinder.Factory<?>> rewinders = new HashMap();
 
     /* renamed from: com.bumptech.glide.load.data.DataRewinderRegistry$1 */
-    public class AnonymousClass1 implements DataRewinder.Factory<Object> {
+    class AnonymousClass1 implements DataRewinder.Factory<Object> {
+        AnonymousClass1() {
+        }
+
         @Override // com.bumptech.glide.load.data.DataRewinder.Factory
         @NonNull
         public DataRewinder<Object> build(@NonNull Object obj) {
@@ -39,10 +45,10 @@ public class DataRewinderRegistry {
         }
     }
 
-    public static final class DefaultRewinder implements DataRewinder<Object> {
+    private static final class DefaultRewinder implements DataRewinder<Object> {
         private final Object data;
 
-        public DefaultRewinder(@NonNull Object obj) {
+        DefaultRewinder(@NonNull Object obj) {
             this.data = obj;
         }
 
@@ -58,31 +64,27 @@ public class DataRewinderRegistry {
     }
 
     @NonNull
-    public synchronized <T> DataRewinder<T> build(@NonNull T t10) {
+    public synchronized <T> DataRewinder<T> build(@NonNull T t) {
         DataRewinder.Factory<?> factory;
-        try {
-            Preconditions.checkNotNull(t10);
-            factory = this.rewinders.get(t10.getClass());
-            if (factory == null) {
-                Iterator<DataRewinder.Factory<?>> it = this.rewinders.values().iterator();
-                while (true) {
-                    if (!it.hasNext()) {
-                        break;
-                    }
-                    DataRewinder.Factory<?> next = it.next();
-                    if (next.getDataClass().isAssignableFrom(t10.getClass())) {
-                        factory = next;
-                        break;
-                    }
+        Preconditions.checkNotNull(t);
+        factory = this.rewinders.get(t.getClass());
+        if (factory == null) {
+            Iterator<DataRewinder.Factory<?>> it = this.rewinders.values().iterator();
+            while (true) {
+                if (!it.hasNext()) {
+                    break;
+                }
+                DataRewinder.Factory<?> next = it.next();
+                if (next.getDataClass().isAssignableFrom(t.getClass())) {
+                    factory = next;
+                    break;
                 }
             }
-            if (factory == null) {
-                factory = DEFAULT_FACTORY;
-            }
-        } catch (Throwable th2) {
-            throw th2;
         }
-        return (DataRewinder<T>) factory.build(t10);
+        if (factory == null) {
+            factory = DEFAULT_FACTORY;
+        }
+        return (DataRewinder<T>) factory.build(t);
     }
 
     public synchronized void register(@NonNull DataRewinder.Factory<?> factory) {

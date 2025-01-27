@@ -7,66 +7,49 @@ import android.graphics.Point;
 import android.os.Build;
 import android.text.TextUtils;
 import android.view.Display;
-import androidx.annotation.DoNotInline;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.annotation.RequiresApi;
 import androidx.core.util.Preconditions;
 import com.ss.android.socialbase.downloader.constants.MonitorConstants;
+import java.util.ArrayList;
 
 /* loaded from: classes.dex */
 public final class DisplayCompat {
-    private static final int DISPLAY_SIZE_4K_HEIGHT = 2160;
-    private static final int DISPLAY_SIZE_4K_WIDTH = 3840;
 
-    @RequiresApi(17)
-    public static class Api17Impl {
-        private Api17Impl() {
-        }
+    /* renamed from: a */
+    private static final int f2007a = 3840;
 
-        public static void getRealSize(Display display, Point point) {
-            display.getRealSize(point);
-        }
-    }
+    /* renamed from: b */
+    private static final int f2008b = 2160;
 
     private DisplayCompat() {
     }
 
-    public static Point getCurrentDisplaySizeFromWorkarounds(@NonNull Context context, @NonNull Display display) {
-        Point parsePhysicalDisplaySizeFromSystemProperties = Build.VERSION.SDK_INT < 28 ? parsePhysicalDisplaySizeFromSystemProperties("sys.display-size", display) : parsePhysicalDisplaySizeFromSystemProperties("vendor.display-size", display);
-        if (parsePhysicalDisplaySizeFromSystemProperties != null) {
-            return parsePhysicalDisplaySizeFromSystemProperties;
+    private static Point a(@NonNull Context context, @NonNull Display display) {
+        int i2 = Build.VERSION.SDK_INT;
+        Point f2 = i2 < 28 ? f("sys.display-size", display) : f("vendor.display-size", display);
+        if (f2 != null) {
+            return f2;
         }
-        if (isSonyBravia4kTv(context) && isCurrentModeTheLargestMode(display)) {
-            return new Point(DISPLAY_SIZE_4K_WIDTH, DISPLAY_SIZE_4K_HEIGHT);
-        }
-        return null;
-    }
-
-    @NonNull
-    private static Point getDisplaySize(@NonNull Context context, @NonNull Display display) {
-        Point currentDisplaySizeFromWorkarounds = getCurrentDisplaySizeFromWorkarounds(context, display);
-        if (currentDisplaySizeFromWorkarounds != null) {
-            return currentDisplaySizeFromWorkarounds;
+        if (c(context)) {
+            return new Point(f2007a, f2008b);
         }
         Point point = new Point();
-        Api17Impl.getRealSize(display, point);
+        if (i2 >= 23) {
+            Display.Mode mode = display.getMode();
+            point.x = mode.getPhysicalWidth();
+            point.y = mode.getPhysicalHeight();
+        } else if (i2 >= 17) {
+            display.getRealSize(point);
+        } else {
+            display.getSize(point);
+        }
         return point;
     }
 
-    @NonNull
-    public static ModeCompat getMode(@NonNull Context context, @NonNull Display display) {
-        return Build.VERSION.SDK_INT >= 23 ? Api23Impl.getMode(context, display) : new ModeCompat(getDisplaySize(context, display));
-    }
-
-    @NonNull
-    @SuppressLint({"ArrayReturn"})
-    public static ModeCompat[] getSupportedModes(@NonNull Context context, @NonNull Display display) {
-        return Build.VERSION.SDK_INT >= 23 ? Api23Impl.getSupportedModes(context, display) : new ModeCompat[]{getMode(context, display)};
-    }
-
     @Nullable
-    private static String getSystemProperty(String str) {
+    private static String b(String str) {
         try {
             Class<?> cls = Class.forName("android.os.SystemProperties");
             return (String) cls.getMethod(MonitorConstants.CONNECT_TYPE_GET, String.class).invoke(cls, str);
@@ -75,23 +58,16 @@ public final class DisplayCompat {
         }
     }
 
-    public static boolean isCurrentModeTheLargestMode(@NonNull Display display) {
-        if (Build.VERSION.SDK_INT >= 23) {
-            return Api23Impl.isCurrentModeTheLargestMode(display);
-        }
-        return true;
+    private static boolean c(@NonNull Context context) {
+        return d(context) && "Sony".equals(Build.MANUFACTURER) && Build.MODEL.startsWith("BRAVIA") && context.getPackageManager().hasSystemFeature("com.sony.dtv.hardware.panel.qfhd");
     }
 
-    private static boolean isSonyBravia4kTv(@NonNull Context context) {
-        return isTv(context) && "Sony".equals(Build.MANUFACTURER) && Build.MODEL.startsWith("BRAVIA") && context.getPackageManager().hasSystemFeature("com.sony.dtv.hardware.panel.qfhd");
-    }
-
-    private static boolean isTv(@NonNull Context context) {
+    private static boolean d(@NonNull Context context) {
         UiModeManager uiModeManager = (UiModeManager) context.getSystemService("uimode");
         return uiModeManager != null && uiModeManager.getCurrentModeType() == 4;
     }
 
-    private static Point parseDisplaySize(@NonNull String str) throws NumberFormatException {
+    private static Point e(@NonNull String str) throws NumberFormatException {
         String[] split = str.trim().split("x", -1);
         if (split.length == 2) {
             int parseInt = Integer.parseInt(split[0]);
@@ -104,132 +80,92 @@ public final class DisplayCompat {
     }
 
     @Nullable
-    private static Point parsePhysicalDisplaySizeFromSystemProperties(@NonNull String str, @NonNull Display display) {
+    private static Point f(@NonNull String str, @NonNull Display display) {
         if (display.getDisplayId() != 0) {
             return null;
         }
-        String systemProperty = getSystemProperty(str);
-        if (!TextUtils.isEmpty(systemProperty) && systemProperty != null) {
-            try {
-                return parseDisplaySize(systemProperty);
-            } catch (NumberFormatException unused) {
-            }
+        String b2 = b(str);
+        if (TextUtils.isEmpty(b2)) {
+            return null;
         }
-        return null;
+        try {
+            return e(b2);
+        } catch (NumberFormatException unused) {
+            return null;
+        }
     }
 
     @RequiresApi(23)
-    public static class Api23Impl {
-        private Api23Impl() {
-        }
+    private static boolean g(Display.Mode mode, Point point) {
+        return (mode.getPhysicalWidth() == point.x && mode.getPhysicalHeight() == point.y) || (mode.getPhysicalWidth() == point.y && mode.getPhysicalHeight() == point.x);
+    }
 
-        @NonNull
-        public static ModeCompat getMode(@NonNull Context context, @NonNull Display display) {
-            Display.Mode mode = display.getMode();
-            Point currentDisplaySizeFromWorkarounds = DisplayCompat.getCurrentDisplaySizeFromWorkarounds(context, display);
-            return (currentDisplaySizeFromWorkarounds == null || physicalSizeEquals(mode, currentDisplaySizeFromWorkarounds)) ? new ModeCompat(mode, true) : new ModeCompat(mode, currentDisplaySizeFromWorkarounds);
+    @NonNull
+    @SuppressLint({"ArrayReturn"})
+    public static ModeCompat[] getSupportedModes(@NonNull Context context, @NonNull Display display) {
+        Point a2 = a(context, display);
+        if (Build.VERSION.SDK_INT < 23) {
+            return new ModeCompat[]{new ModeCompat(a2)};
         }
-
-        @NonNull
-        @SuppressLint({"ArrayReturn"})
-        public static ModeCompat[] getSupportedModes(@NonNull Context context, @NonNull Display display) {
-            Display.Mode[] supportedModes = display.getSupportedModes();
-            ModeCompat[] modeCompatArr = new ModeCompat[supportedModes.length];
-            Display.Mode mode = display.getMode();
-            Point currentDisplaySizeFromWorkarounds = DisplayCompat.getCurrentDisplaySizeFromWorkarounds(context, display);
-            if (currentDisplaySizeFromWorkarounds == null || physicalSizeEquals(mode, currentDisplaySizeFromWorkarounds)) {
-                for (int i10 = 0; i10 < supportedModes.length; i10++) {
-                    modeCompatArr[i10] = new ModeCompat(supportedModes[i10], physicalSizeEquals(supportedModes[i10], mode));
-                }
+        Display.Mode[] supportedModes = display.getSupportedModes();
+        ArrayList arrayList = new ArrayList(supportedModes.length);
+        boolean z = false;
+        for (int i2 = 0; i2 < supportedModes.length; i2++) {
+            if (g(supportedModes[i2], a2)) {
+                arrayList.add(i2, new ModeCompat(supportedModes[i2], true));
+                z = true;
             } else {
-                for (int i11 = 0; i11 < supportedModes.length; i11++) {
-                    modeCompatArr[i11] = physicalSizeEquals(supportedModes[i11], mode) ? new ModeCompat(supportedModes[i11], currentDisplaySizeFromWorkarounds) : new ModeCompat(supportedModes[i11], false);
-                }
+                arrayList.add(i2, new ModeCompat(supportedModes[i2], false));
             }
-            return modeCompatArr;
         }
-
-        public static boolean isCurrentModeTheLargestMode(@NonNull Display display) {
-            Display.Mode mode = display.getMode();
-            for (Display.Mode mode2 : display.getSupportedModes()) {
-                if (mode.getPhysicalHeight() < mode2.getPhysicalHeight() || mode.getPhysicalWidth() < mode2.getPhysicalWidth()) {
-                    return false;
-                }
-            }
-            return true;
+        if (!z) {
+            arrayList.add(new ModeCompat(a2));
         }
-
-        public static boolean physicalSizeEquals(Display.Mode mode, Point point) {
-            return (mode.getPhysicalWidth() == point.x && mode.getPhysicalHeight() == point.y) || (mode.getPhysicalWidth() == point.y && mode.getPhysicalHeight() == point.x);
-        }
-
-        public static boolean physicalSizeEquals(Display.Mode mode, Display.Mode mode2) {
-            return mode.getPhysicalWidth() == mode2.getPhysicalWidth() && mode.getPhysicalHeight() == mode2.getPhysicalHeight();
-        }
+        return (ModeCompat[]) arrayList.toArray(new ModeCompat[0]);
     }
 
     public static final class ModeCompat {
-        private final boolean mIsNative;
-        private final Display.Mode mMode;
-        private final Point mPhysicalSize;
 
-        @RequiresApi(23)
-        public static class Api23Impl {
-            private Api23Impl() {
-            }
+        /* renamed from: a */
+        private final Display.Mode f2009a;
 
-            @DoNotInline
-            public static int getPhysicalHeight(Display.Mode mode) {
-                return mode.getPhysicalHeight();
-            }
+        /* renamed from: b */
+        private final Point f2010b;
 
-            @DoNotInline
-            public static int getPhysicalWidth(Display.Mode mode) {
-                return mode.getPhysicalWidth();
-            }
-        }
+        /* renamed from: c */
+        private final boolean f2011c;
 
-        public ModeCompat(@NonNull Point point) {
-            Preconditions.checkNotNull(point, "physicalSize == null");
-            this.mPhysicalSize = point;
-            this.mMode = null;
-            this.mIsNative = true;
+        ModeCompat(@NonNull Point point) {
+            Preconditions.checkNotNull(point, "physicalDisplaySize == null");
+            this.f2011c = true;
+            this.f2010b = point;
+            this.f2009a = null;
         }
 
         public int getPhysicalHeight() {
-            return this.mPhysicalSize.y;
+            return this.f2010b.y;
         }
 
         public int getPhysicalWidth() {
-            return this.mPhysicalSize.x;
+            return this.f2010b.x;
         }
 
-        @Deprecated
         public boolean isNative() {
-            return this.mIsNative;
+            return this.f2011c;
         }
 
         @Nullable
         @RequiresApi(23)
         public Display.Mode toMode() {
-            return this.mMode;
+            return this.f2009a;
         }
 
         @RequiresApi(23)
-        public ModeCompat(@NonNull Display.Mode mode, boolean z10) {
-            Preconditions.checkNotNull(mode, "mode == null, can't wrap a null reference");
-            this.mPhysicalSize = new Point(Api23Impl.getPhysicalWidth(mode), Api23Impl.getPhysicalHeight(mode));
-            this.mMode = mode;
-            this.mIsNative = z10;
-        }
-
-        @RequiresApi(23)
-        public ModeCompat(@NonNull Display.Mode mode, @NonNull Point point) {
-            Preconditions.checkNotNull(mode, "mode == null, can't wrap a null reference");
-            Preconditions.checkNotNull(point, "physicalSize == null");
-            this.mPhysicalSize = point;
-            this.mMode = mode;
-            this.mIsNative = true;
+        ModeCompat(@NonNull Display.Mode mode, boolean z) {
+            Preconditions.checkNotNull(mode, "Display.Mode == null, can't wrap a null reference");
+            this.f2011c = z;
+            this.f2010b = new Point(mode.getPhysicalWidth(), mode.getPhysicalHeight());
+            this.f2009a = mode;
         }
     }
 }

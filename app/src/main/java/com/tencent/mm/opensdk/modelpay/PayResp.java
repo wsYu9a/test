@@ -12,6 +12,10 @@ public class PayResp extends BaseResp {
     public PayResp() {
     }
 
+    public PayResp(Bundle bundle) {
+        fromBundle(bundle);
+    }
+
     @Override // com.tencent.mm.opensdk.modelbase.BaseResp
     public boolean checkArgs() {
         return true;
@@ -36,9 +40,5 @@ public class PayResp extends BaseResp {
         bundle.putString("_wxapi_payresp_prepayid", this.prepayId);
         bundle.putString("_wxapi_payresp_returnkey", this.returnKey);
         bundle.putString("_wxapi_payresp_extdata", this.extData);
-    }
-
-    public PayResp(Bundle bundle) {
-        fromBundle(bundle);
     }
 }

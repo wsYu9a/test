@@ -2,7 +2,7 @@ package com.kwad.sdk.api.core.fragment;
 
 import androidx.fragment.app.Fragment;
 
-/* loaded from: classes3.dex */
+/* loaded from: classes2.dex */
 public class KsSavedState {
     final Fragment.SavedState mSaveState;
 

@@ -1,40 +1,44 @@
 package com.baidu.mobads.sdk.internal;
 
-import android.content.Context;
-import android.support.v4.media.RatingCompat;
-import androidx.annotation.NonNull;
-import androidx.collection.ArraySet;
-import androidx.collection.LongSparseArray;
-import androidx.core.view.ViewCompat;
-import androidx.core.view.accessibility.AccessibilityNodeInfoCompat;
-import androidx.core.widget.NestedScrollView;
-import androidx.fragment.app.Fragment;
-import androidx.localbroadcastmanager.content.LocalBroadcastManager;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.PagerSnapHelper;
-import androidx.recyclerview.widget.RecyclerView;
-import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
-import androidx.viewpager.widget.ViewPager;
+import java.util.concurrent.LinkedBlockingQueue;
+import java.util.concurrent.RejectedExecutionHandler;
+import java.util.concurrent.ScheduledThreadPoolExecutor;
+import java.util.concurrent.ThreadFactory;
+import java.util.concurrent.ThreadPoolExecutor;
+import java.util.concurrent.TimeUnit;
 
-/* loaded from: classes2.dex */
+/* loaded from: classes.dex */
 public class bb {
-    public static void a(@NonNull Context context) {
-        try {
-            ViewCompat.generateViewId();
-            AccessibilityNodeInfoCompat.obtain();
-            LocalBroadcastManager.getInstance(context);
-            new ViewPager(context);
-            new NestedScrollView(context);
-            new Fragment();
-            new SwipeRefreshLayout(context);
-            new RecyclerView(context);
-            RatingCompat.newPercentageRating(1.0f);
-            new ArraySet();
-            new LongSparseArray();
-            new LinearLayoutManager(context);
-            new PagerSnapHelper();
-        } catch (Throwable th2) {
-            bt.a().a(th2);
-        }
+
+    /* renamed from: a */
+    private static final String f5572a = "ThreadPoolFactory";
+
+    /* renamed from: b */
+    private static final int f5573b = 2;
+
+    /* renamed from: c */
+    private static final int f5574c = 60;
+
+    /* renamed from: d */
+    private static ThreadPoolExecutor f5575d;
+
+    /* renamed from: e */
+    private static LinkedBlockingQueue<Runnable> f5576e;
+
+    /* renamed from: f */
+    private static final ThreadFactory f5577f = new bc();
+
+    /* renamed from: g */
+    private static final RejectedExecutionHandler f5578g = new be();
+
+    public static ThreadPoolExecutor a(int i2, int i3) {
+        ThreadPoolExecutor threadPoolExecutor = new ThreadPoolExecutor(i2, i3, 60L, TimeUnit.SECONDS, new LinkedBlockingQueue(), f5577f);
+        threadPoolExecutor.setRejectedExecutionHandler(f5578g);
+        threadPoolExecutor.allowCoreThreadTimeOut(true);
+        return threadPoolExecutor;
+    }
+
+    public static ScheduledThreadPoolExecutor a(int i2) {
+        return new ScheduledThreadPoolExecutor(i2, f5577f);
     }
 }

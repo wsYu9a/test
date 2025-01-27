@@ -12,7 +12,7 @@ import java.util.UUID;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ConcurrentMap;
 
-/* loaded from: classes2.dex */
+/* loaded from: classes.dex */
 public final class ApplicationVersionSignature {
     private static final ConcurrentMap<String, Key> PACKAGE_NAME_TO_KEY = new ConcurrentHashMap();
     private static final String TAG = "AppVersionSignature";
@@ -24,8 +24,8 @@ public final class ApplicationVersionSignature {
     private static PackageInfo getPackageInfo(@NonNull Context context) {
         try {
             return context.getPackageManager().getPackageInfo(context.getPackageName(), 0);
-        } catch (PackageManager.NameNotFoundException e10) {
-            Log.e(TAG, "Cannot resolve info for" + context.getPackageName(), e10);
+        } catch (PackageManager.NameNotFoundException e2) {
+            Log.e(TAG, "Cannot resolve info for" + context.getPackageName(), e2);
             return null;
         }
     }
@@ -54,7 +54,7 @@ public final class ApplicationVersionSignature {
     }
 
     @VisibleForTesting
-    public static void reset() {
+    static void reset() {
         PACKAGE_NAME_TO_KEY.clear();
     }
 }

@@ -5,72 +5,70 @@ import android.content.res.TypedArray;
 import android.util.AttributeSet;
 import androidx.annotation.Nullable;
 import androidx.core.content.ContextCompat;
-import com.martian.libmars.R;
-import com.martian.libmars.common.ConfigSingleton;
+import androidx.recyclerview.widget.RecyclerView;
+import com.martian.libmars.d.h;
 import com.martian.libmars.widget.recyclerview.IRecyclerView;
-import k9.a;
-import l9.u0;
+import com.martian.theme.yellow.R;
+import g.a;
 
-/* loaded from: classes3.dex */
+/* loaded from: classes2.dex */
 public class ThemeIRecyclerView extends IRecyclerView implements a {
-    public int I;
+    private int H;
 
     public ThemeIRecyclerView(Context context) {
         super(context);
     }
 
-    private void J(Context context, AttributeSet attributeSet) {
-        TypedArray obtainStyledAttributes = context.obtainStyledAttributes(attributeSet, R.styleable.ThemeIRecyclerView);
-        this.I = obtainStyledAttributes.getColor(R.styleable.ThemeIRecyclerView_recyclerBackgroundType, 0);
+    private void N(Context context, AttributeSet attrs) {
+        TypedArray obtainStyledAttributes = context.obtainStyledAttributes(attrs, R.styleable.ThemeLinearLayout);
+        this.H = obtainStyledAttributes.getColor(R.styleable.ThemeLinearLayout_backgroundType, 0);
         obtainStyledAttributes.recycle();
     }
 
-    @Override // androidx.recyclerview.widget.RecyclerView, android.view.ViewGroup, android.view.View
-    public void onAttachedToWindow() {
-        super.onAttachedToWindow();
-        p();
-        ConfigSingleton.D().h(this);
-    }
-
-    @Override // androidx.recyclerview.widget.RecyclerView, android.view.ViewGroup, android.view.View
-    public void onDetachedFromWindow() {
-        super.onDetachedFromWindow();
-        ConfigSingleton.D().X0(this);
-    }
-
-    @Override // k9.a
-    public void p() {
-        int i10;
-        if (isInEditMode()) {
-            return;
-        }
-        if (ConfigSingleton.D().A0()) {
-            i10 = this.I == 1 ? R.color.night_background_secondary : R.color.night_background;
+    @Override // g.a
+    public void g() {
+        int i2;
+        if (h.F().I0()) {
+            i2 = this.H == 1 ? com.martian.libmars.R.color.night_background_secondary : com.martian.libmars.R.color.night_background;
         } else {
-            int i11 = this.I;
-            i10 = i11 == 1 ? R.color.light_grey : i11 == 2 ? R.color.light_grey_bg : R.color.white;
+            int i3 = this.H;
+            i2 = i3 == 1 ? com.martian.libmars.R.color.light_grey : i3 == 2 ? com.martian.libmars.R.color.light_grey_bg : com.martian.libmars.R.color.white;
         }
-        int color = ContextCompat.getColor(getContext(), i10);
+        int color = ContextCompat.getColor(getContext(), i2);
         setBackgroundColor(color);
         setLoadMoreBackgroundColor(color);
-        if (getAdapter() != null) {
-            getAdapter().notifyDataSetChanged();
+        RecyclerView.Adapter adapter = getAdapter();
+        if (adapter != null) {
+            adapter.notifyDataSetChanged();
         }
         if (getHeaderContainer() != null) {
-            u0.b(getHeaderContainer());
+            i.a.c(getHeaderContainer());
         }
         if (getLoadMoreFooterView() != null) {
-            u0.b(getLoadMoreFooterView());
+            i.a.c(getLoadMoreFooterView());
         }
     }
 
-    public ThemeIRecyclerView(Context context, @Nullable AttributeSet attributeSet) {
-        this(context, attributeSet, 0);
-        J(context, attributeSet);
+    @Override // androidx.recyclerview.widget.RecyclerView, android.view.ViewGroup, android.view.View
+    protected void onAttachedToWindow() {
+        super.onAttachedToWindow();
+        g();
+        h.F().a(this);
     }
 
-    public ThemeIRecyclerView(Context context, @Nullable AttributeSet attributeSet, int i10) {
-        super(context, attributeSet, i10);
-        J(context, attributeSet);
+    @Override // androidx.recyclerview.widget.RecyclerView, android.view.ViewGroup, android.view.View
+    protected void onDetachedFromWindow() {
+        super.onDetachedFromWindow();
+        h.F().j1(this);
+    }
+
+    public ThemeIRecyclerView(Context context, @Nullable AttributeSet attrs) {
+        this(context, attrs, 0);
+        N(context, attrs);
+    }
+
+    public ThemeIRecyclerView(Context context, @Nullable AttributeSet attrs, int defStyle) {
+        super(context, attrs, defStyle);
+        N(context, attrs);
     }
 }

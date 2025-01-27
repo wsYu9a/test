@@ -30,146 +30,169 @@ import com.google.android.material.badge.BadgeDrawable;
 @RestrictTo({RestrictTo.Scope.LIBRARY_GROUP_PREFIX})
 /* loaded from: classes.dex */
 public class ToolbarWidgetWrapper implements DecorToolbar {
-    private static final int AFFECTS_LOGO_MASK = 3;
-    private static final long DEFAULT_FADE_DURATION_MS = 200;
-    private static final String TAG = "ToolbarWidgetWrapper";
-    private ActionMenuPresenter mActionMenuPresenter;
-    private View mCustomView;
-    private int mDefaultNavigationContentDescription;
-    private Drawable mDefaultNavigationIcon;
-    private int mDisplayOpts;
-    private CharSequence mHomeDescription;
-    private Drawable mIcon;
-    private Drawable mLogo;
-    boolean mMenuPrepared;
-    private Drawable mNavIcon;
-    private int mNavigationMode;
-    private Spinner mSpinner;
-    private CharSequence mSubtitle;
-    private View mTabView;
-    CharSequence mTitle;
-    private boolean mTitleSet;
-    Toolbar mToolbar;
-    Window.Callback mWindowCallback;
+
+    /* renamed from: a */
+    private static final String f1004a = "ToolbarWidgetWrapper";
+
+    /* renamed from: b */
+    private static final int f1005b = 3;
+
+    /* renamed from: c */
+    private static final long f1006c = 200;
+
+    /* renamed from: d */
+    Toolbar f1007d;
+
+    /* renamed from: e */
+    private int f1008e;
+
+    /* renamed from: f */
+    private View f1009f;
+
+    /* renamed from: g */
+    private Spinner f1010g;
+
+    /* renamed from: h */
+    private View f1011h;
+
+    /* renamed from: i */
+    private Drawable f1012i;
+
+    /* renamed from: j */
+    private Drawable f1013j;
+    private Drawable k;
+    private boolean l;
+    CharSequence m;
+    private CharSequence n;
+    private CharSequence o;
+    Window.Callback p;
+    boolean q;
+    private ActionMenuPresenter r;
+    private int s;
+    private int t;
+    private Drawable u;
 
     /* renamed from: androidx.appcompat.widget.ToolbarWidgetWrapper$1 */
-    public class AnonymousClass1 implements View.OnClickListener {
-        final ActionMenuItem mNavItem;
+    class AnonymousClass1 implements View.OnClickListener {
 
-        public AnonymousClass1() {
-            this.mNavItem = new ActionMenuItem(ToolbarWidgetWrapper.this.mToolbar.getContext(), 0, R.id.home, 0, 0, ToolbarWidgetWrapper.this.mTitle);
+        /* renamed from: a */
+        final ActionMenuItem f1014a;
+
+        AnonymousClass1() {
+            this.f1014a = new ActionMenuItem(ToolbarWidgetWrapper.this.f1007d.getContext(), 0, R.id.home, 0, 0, ToolbarWidgetWrapper.this.m);
         }
 
         @Override // android.view.View.OnClickListener
         public void onClick(View view) {
             ToolbarWidgetWrapper toolbarWidgetWrapper = ToolbarWidgetWrapper.this;
-            Window.Callback callback = toolbarWidgetWrapper.mWindowCallback;
-            if (callback == null || !toolbarWidgetWrapper.mMenuPrepared) {
+            Window.Callback callback = toolbarWidgetWrapper.p;
+            if (callback == null || !toolbarWidgetWrapper.q) {
                 return;
             }
-            callback.onMenuItemSelected(0, this.mNavItem);
+            callback.onMenuItemSelected(0, this.f1014a);
         }
     }
 
     /* renamed from: androidx.appcompat.widget.ToolbarWidgetWrapper$2 */
-    public class AnonymousClass2 extends ViewPropertyAnimatorListenerAdapter {
-        private boolean mCanceled = false;
-        final /* synthetic */ int val$visibility;
+    class AnonymousClass2 extends ViewPropertyAnimatorListenerAdapter {
 
-        public AnonymousClass2(int i10) {
-            i10 = i10;
+        /* renamed from: a */
+        private boolean f1016a = false;
+
+        /* renamed from: b */
+        final /* synthetic */ int f1017b;
+
+        AnonymousClass2(int i2) {
+            i2 = i2;
         }
 
         @Override // androidx.core.view.ViewPropertyAnimatorListenerAdapter, androidx.core.view.ViewPropertyAnimatorListener
         public void onAnimationCancel(View view) {
-            this.mCanceled = true;
+            this.f1016a = true;
         }
 
         @Override // androidx.core.view.ViewPropertyAnimatorListenerAdapter, androidx.core.view.ViewPropertyAnimatorListener
         public void onAnimationEnd(View view) {
-            if (this.mCanceled) {
+            if (this.f1016a) {
                 return;
             }
-            ToolbarWidgetWrapper.this.mToolbar.setVisibility(i10);
+            ToolbarWidgetWrapper.this.f1007d.setVisibility(i2);
         }
 
         @Override // androidx.core.view.ViewPropertyAnimatorListenerAdapter, androidx.core.view.ViewPropertyAnimatorListener
         public void onAnimationStart(View view) {
-            ToolbarWidgetWrapper.this.mToolbar.setVisibility(0);
+            ToolbarWidgetWrapper.this.f1007d.setVisibility(0);
         }
     }
 
-    public ToolbarWidgetWrapper(Toolbar toolbar, boolean z10) {
-        this(toolbar, z10, androidx.appcompat.R.string.abc_action_bar_up_description, androidx.appcompat.R.drawable.abc_ic_ab_back_material);
+    public ToolbarWidgetWrapper(Toolbar toolbar, boolean z) {
+        this(toolbar, z, androidx.appcompat.R.string.abc_action_bar_up_description, androidx.appcompat.R.drawable.abc_ic_ab_back_material);
     }
 
-    private int detectDisplayOptions() {
-        if (this.mToolbar.getNavigationIcon() == null) {
+    private int a() {
+        if (this.f1007d.getNavigationIcon() == null) {
             return 11;
         }
-        this.mDefaultNavigationIcon = this.mToolbar.getNavigationIcon();
+        this.u = this.f1007d.getNavigationIcon();
         return 15;
     }
 
-    private void ensureSpinner() {
-        if (this.mSpinner == null) {
-            this.mSpinner = new AppCompatSpinner(getContext(), null, androidx.appcompat.R.attr.actionDropDownStyle);
-            this.mSpinner.setLayoutParams(new Toolbar.LayoutParams(-2, -2, 8388627));
+    private void b() {
+        if (this.f1010g == null) {
+            this.f1010g = new AppCompatSpinner(getContext(), null, androidx.appcompat.R.attr.actionDropDownStyle);
+            this.f1010g.setLayoutParams(new Toolbar.LayoutParams(-2, -2, 8388627));
         }
     }
 
-    private void setTitleInt(CharSequence charSequence) {
-        this.mTitle = charSequence;
-        if ((this.mDisplayOpts & 8) != 0) {
-            this.mToolbar.setTitle(charSequence);
-            if (this.mTitleSet) {
-                ViewCompat.setAccessibilityPaneTitle(this.mToolbar.getRootView(), charSequence);
-            }
+    private void c(CharSequence charSequence) {
+        this.m = charSequence;
+        if ((this.f1008e & 8) != 0) {
+            this.f1007d.setTitle(charSequence);
         }
     }
 
-    private void updateHomeAccessibility() {
-        if ((this.mDisplayOpts & 4) != 0) {
-            if (TextUtils.isEmpty(this.mHomeDescription)) {
-                this.mToolbar.setNavigationContentDescription(this.mDefaultNavigationContentDescription);
+    private void d() {
+        if ((this.f1008e & 4) != 0) {
+            if (TextUtils.isEmpty(this.o)) {
+                this.f1007d.setNavigationContentDescription(this.t);
             } else {
-                this.mToolbar.setNavigationContentDescription(this.mHomeDescription);
+                this.f1007d.setNavigationContentDescription(this.o);
             }
         }
     }
 
-    private void updateNavigationIcon() {
-        if ((this.mDisplayOpts & 4) == 0) {
-            this.mToolbar.setNavigationIcon((Drawable) null);
+    private void e() {
+        if ((this.f1008e & 4) == 0) {
+            this.f1007d.setNavigationIcon((Drawable) null);
             return;
         }
-        Toolbar toolbar = this.mToolbar;
-        Drawable drawable = this.mNavIcon;
+        Toolbar toolbar = this.f1007d;
+        Drawable drawable = this.k;
         if (drawable == null) {
-            drawable = this.mDefaultNavigationIcon;
+            drawable = this.u;
         }
         toolbar.setNavigationIcon(drawable);
     }
 
-    private void updateToolbarLogo() {
+    private void f() {
         Drawable drawable;
-        int i10 = this.mDisplayOpts;
-        if ((i10 & 2) == 0) {
+        int i2 = this.f1008e;
+        if ((i2 & 2) == 0) {
             drawable = null;
-        } else if ((i10 & 1) != 0) {
-            drawable = this.mLogo;
+        } else if ((i2 & 1) != 0) {
+            drawable = this.f1013j;
             if (drawable == null) {
-                drawable = this.mIcon;
+                drawable = this.f1012i;
             }
         } else {
-            drawable = this.mIcon;
+            drawable = this.f1012i;
         }
-        this.mToolbar.setLogo(drawable);
+        this.f1007d.setLogo(drawable);
     }
 
     @Override // androidx.appcompat.widget.DecorToolbar
-    public void animateToVisibility(int i10) {
-        ViewPropertyAnimatorCompat viewPropertyAnimatorCompat = setupAnimatorToVisibility(i10, DEFAULT_FADE_DURATION_MS);
+    public void animateToVisibility(int i2) {
+        ViewPropertyAnimatorCompat viewPropertyAnimatorCompat = setupAnimatorToVisibility(i2, f1006c);
         if (viewPropertyAnimatorCompat != null) {
             viewPropertyAnimatorCompat.start();
         }
@@ -177,37 +200,37 @@ public class ToolbarWidgetWrapper implements DecorToolbar {
 
     @Override // androidx.appcompat.widget.DecorToolbar
     public boolean canShowOverflowMenu() {
-        return this.mToolbar.canShowOverflowMenu();
+        return this.f1007d.canShowOverflowMenu();
     }
 
     @Override // androidx.appcompat.widget.DecorToolbar
     public void collapseActionView() {
-        this.mToolbar.collapseActionView();
+        this.f1007d.collapseActionView();
     }
 
     @Override // androidx.appcompat.widget.DecorToolbar
     public void dismissPopupMenus() {
-        this.mToolbar.dismissPopupMenus();
+        this.f1007d.dismissPopupMenus();
     }
 
     @Override // androidx.appcompat.widget.DecorToolbar
     public Context getContext() {
-        return this.mToolbar.getContext();
+        return this.f1007d.getContext();
     }
 
     @Override // androidx.appcompat.widget.DecorToolbar
     public View getCustomView() {
-        return this.mCustomView;
+        return this.f1011h;
     }
 
     @Override // androidx.appcompat.widget.DecorToolbar
     public int getDisplayOptions() {
-        return this.mDisplayOpts;
+        return this.f1008e;
     }
 
     @Override // androidx.appcompat.widget.DecorToolbar
     public int getDropdownItemCount() {
-        Spinner spinner = this.mSpinner;
+        Spinner spinner = this.f1010g;
         if (spinner != null) {
             return spinner.getCount();
         }
@@ -216,7 +239,7 @@ public class ToolbarWidgetWrapper implements DecorToolbar {
 
     @Override // androidx.appcompat.widget.DecorToolbar
     public int getDropdownSelectedPosition() {
-        Spinner spinner = this.mSpinner;
+        Spinner spinner = this.f1010g;
         if (spinner != null) {
             return spinner.getSelectedItemPosition();
         }
@@ -225,299 +248,299 @@ public class ToolbarWidgetWrapper implements DecorToolbar {
 
     @Override // androidx.appcompat.widget.DecorToolbar
     public int getHeight() {
-        return this.mToolbar.getHeight();
+        return this.f1007d.getHeight();
     }
 
     @Override // androidx.appcompat.widget.DecorToolbar
     public Menu getMenu() {
-        return this.mToolbar.getMenu();
+        return this.f1007d.getMenu();
     }
 
     @Override // androidx.appcompat.widget.DecorToolbar
     public int getNavigationMode() {
-        return this.mNavigationMode;
+        return this.s;
     }
 
     @Override // androidx.appcompat.widget.DecorToolbar
     public CharSequence getSubtitle() {
-        return this.mToolbar.getSubtitle();
+        return this.f1007d.getSubtitle();
     }
 
     @Override // androidx.appcompat.widget.DecorToolbar
     public CharSequence getTitle() {
-        return this.mToolbar.getTitle();
+        return this.f1007d.getTitle();
     }
 
     @Override // androidx.appcompat.widget.DecorToolbar
     public ViewGroup getViewGroup() {
-        return this.mToolbar;
+        return this.f1007d;
     }
 
     @Override // androidx.appcompat.widget.DecorToolbar
     public int getVisibility() {
-        return this.mToolbar.getVisibility();
+        return this.f1007d.getVisibility();
     }
 
     @Override // androidx.appcompat.widget.DecorToolbar
     public boolean hasEmbeddedTabs() {
-        return this.mTabView != null;
+        return this.f1009f != null;
     }
 
     @Override // androidx.appcompat.widget.DecorToolbar
     public boolean hasExpandedActionView() {
-        return this.mToolbar.hasExpandedActionView();
+        return this.f1007d.hasExpandedActionView();
     }
 
     @Override // androidx.appcompat.widget.DecorToolbar
     public boolean hasIcon() {
-        return this.mIcon != null;
+        return this.f1012i != null;
     }
 
     @Override // androidx.appcompat.widget.DecorToolbar
     public boolean hasLogo() {
-        return this.mLogo != null;
+        return this.f1013j != null;
     }
 
     @Override // androidx.appcompat.widget.DecorToolbar
     public boolean hideOverflowMenu() {
-        return this.mToolbar.hideOverflowMenu();
+        return this.f1007d.hideOverflowMenu();
     }
 
     @Override // androidx.appcompat.widget.DecorToolbar
     public void initIndeterminateProgress() {
-        Log.i(TAG, "Progress display unsupported");
+        Log.i(f1004a, "Progress display unsupported");
     }
 
     @Override // androidx.appcompat.widget.DecorToolbar
     public void initProgress() {
-        Log.i(TAG, "Progress display unsupported");
+        Log.i(f1004a, "Progress display unsupported");
     }
 
     @Override // androidx.appcompat.widget.DecorToolbar
     public boolean isOverflowMenuShowPending() {
-        return this.mToolbar.isOverflowMenuShowPending();
+        return this.f1007d.isOverflowMenuShowPending();
     }
 
     @Override // androidx.appcompat.widget.DecorToolbar
     public boolean isOverflowMenuShowing() {
-        return this.mToolbar.isOverflowMenuShowing();
+        return this.f1007d.isOverflowMenuShowing();
     }
 
     @Override // androidx.appcompat.widget.DecorToolbar
     public boolean isTitleTruncated() {
-        return this.mToolbar.isTitleTruncated();
+        return this.f1007d.isTitleTruncated();
     }
 
     @Override // androidx.appcompat.widget.DecorToolbar
     public void restoreHierarchyState(SparseArray<Parcelable> sparseArray) {
-        this.mToolbar.restoreHierarchyState(sparseArray);
+        this.f1007d.restoreHierarchyState(sparseArray);
     }
 
     @Override // androidx.appcompat.widget.DecorToolbar
     public void saveHierarchyState(SparseArray<Parcelable> sparseArray) {
-        this.mToolbar.saveHierarchyState(sparseArray);
+        this.f1007d.saveHierarchyState(sparseArray);
     }
 
     @Override // androidx.appcompat.widget.DecorToolbar
     public void setBackgroundDrawable(Drawable drawable) {
-        ViewCompat.setBackground(this.mToolbar, drawable);
+        ViewCompat.setBackground(this.f1007d, drawable);
     }
 
     @Override // androidx.appcompat.widget.DecorToolbar
-    public void setCollapsible(boolean z10) {
-        this.mToolbar.setCollapsible(z10);
+    public void setCollapsible(boolean z) {
+        this.f1007d.setCollapsible(z);
     }
 
     @Override // androidx.appcompat.widget.DecorToolbar
     public void setCustomView(View view) {
-        View view2 = this.mCustomView;
-        if (view2 != null && (this.mDisplayOpts & 16) != 0) {
-            this.mToolbar.removeView(view2);
+        View view2 = this.f1011h;
+        if (view2 != null && (this.f1008e & 16) != 0) {
+            this.f1007d.removeView(view2);
         }
-        this.mCustomView = view;
-        if (view == null || (this.mDisplayOpts & 16) == 0) {
+        this.f1011h = view;
+        if (view == null || (this.f1008e & 16) == 0) {
             return;
         }
-        this.mToolbar.addView(view);
+        this.f1007d.addView(view);
     }
 
     @Override // androidx.appcompat.widget.DecorToolbar
-    public void setDefaultNavigationContentDescription(int i10) {
-        if (i10 == this.mDefaultNavigationContentDescription) {
+    public void setDefaultNavigationContentDescription(int i2) {
+        if (i2 == this.t) {
             return;
         }
-        this.mDefaultNavigationContentDescription = i10;
-        if (TextUtils.isEmpty(this.mToolbar.getNavigationContentDescription())) {
-            setNavigationContentDescription(this.mDefaultNavigationContentDescription);
+        this.t = i2;
+        if (TextUtils.isEmpty(this.f1007d.getNavigationContentDescription())) {
+            setNavigationContentDescription(this.t);
         }
     }
 
     @Override // androidx.appcompat.widget.DecorToolbar
     public void setDefaultNavigationIcon(Drawable drawable) {
-        if (this.mDefaultNavigationIcon != drawable) {
-            this.mDefaultNavigationIcon = drawable;
-            updateNavigationIcon();
+        if (this.u != drawable) {
+            this.u = drawable;
+            e();
         }
     }
 
     @Override // androidx.appcompat.widget.DecorToolbar
-    public void setDisplayOptions(int i10) {
+    public void setDisplayOptions(int i2) {
         View view;
-        int i11 = this.mDisplayOpts ^ i10;
-        this.mDisplayOpts = i10;
-        if (i11 != 0) {
-            if ((i11 & 4) != 0) {
-                if ((i10 & 4) != 0) {
-                    updateHomeAccessibility();
+        int i3 = this.f1008e ^ i2;
+        this.f1008e = i2;
+        if (i3 != 0) {
+            if ((i3 & 4) != 0) {
+                if ((i2 & 4) != 0) {
+                    d();
                 }
-                updateNavigationIcon();
+                e();
             }
-            if ((i11 & 3) != 0) {
-                updateToolbarLogo();
+            if ((i3 & 3) != 0) {
+                f();
             }
-            if ((i11 & 8) != 0) {
-                if ((i10 & 8) != 0) {
-                    this.mToolbar.setTitle(this.mTitle);
-                    this.mToolbar.setSubtitle(this.mSubtitle);
+            if ((i3 & 8) != 0) {
+                if ((i2 & 8) != 0) {
+                    this.f1007d.setTitle(this.m);
+                    this.f1007d.setSubtitle(this.n);
                 } else {
-                    this.mToolbar.setTitle((CharSequence) null);
-                    this.mToolbar.setSubtitle((CharSequence) null);
+                    this.f1007d.setTitle((CharSequence) null);
+                    this.f1007d.setSubtitle((CharSequence) null);
                 }
             }
-            if ((i11 & 16) == 0 || (view = this.mCustomView) == null) {
+            if ((i3 & 16) == 0 || (view = this.f1011h) == null) {
                 return;
             }
-            if ((i10 & 16) != 0) {
-                this.mToolbar.addView(view);
+            if ((i2 & 16) != 0) {
+                this.f1007d.addView(view);
             } else {
-                this.mToolbar.removeView(view);
+                this.f1007d.removeView(view);
             }
         }
     }
 
     @Override // androidx.appcompat.widget.DecorToolbar
     public void setDropdownParams(SpinnerAdapter spinnerAdapter, AdapterView.OnItemSelectedListener onItemSelectedListener) {
-        ensureSpinner();
-        this.mSpinner.setAdapter(spinnerAdapter);
-        this.mSpinner.setOnItemSelectedListener(onItemSelectedListener);
+        b();
+        this.f1010g.setAdapter(spinnerAdapter);
+        this.f1010g.setOnItemSelectedListener(onItemSelectedListener);
     }
 
     @Override // androidx.appcompat.widget.DecorToolbar
-    public void setDropdownSelectedPosition(int i10) {
-        Spinner spinner = this.mSpinner;
+    public void setDropdownSelectedPosition(int i2) {
+        Spinner spinner = this.f1010g;
         if (spinner == null) {
             throw new IllegalStateException("Can't set dropdown selected position without an adapter");
         }
-        spinner.setSelection(i10);
+        spinner.setSelection(i2);
     }
 
     @Override // androidx.appcompat.widget.DecorToolbar
     public void setEmbeddedTabView(ScrollingTabContainerView scrollingTabContainerView) {
-        View view = this.mTabView;
+        View view = this.f1009f;
         if (view != null) {
             ViewParent parent = view.getParent();
-            Toolbar toolbar = this.mToolbar;
+            Toolbar toolbar = this.f1007d;
             if (parent == toolbar) {
-                toolbar.removeView(this.mTabView);
+                toolbar.removeView(this.f1009f);
             }
         }
-        this.mTabView = scrollingTabContainerView;
-        if (scrollingTabContainerView == null || this.mNavigationMode != 2) {
+        this.f1009f = scrollingTabContainerView;
+        if (scrollingTabContainerView == null || this.s != 2) {
             return;
         }
-        this.mToolbar.addView(scrollingTabContainerView, 0);
-        Toolbar.LayoutParams layoutParams = (Toolbar.LayoutParams) this.mTabView.getLayoutParams();
+        this.f1007d.addView(scrollingTabContainerView, 0);
+        Toolbar.LayoutParams layoutParams = (Toolbar.LayoutParams) this.f1009f.getLayoutParams();
         ((ViewGroup.MarginLayoutParams) layoutParams).width = -2;
         ((ViewGroup.MarginLayoutParams) layoutParams).height = -2;
-        layoutParams.gravity = BadgeDrawable.BOTTOM_START;
+        layoutParams.gravity = BadgeDrawable.f6715d;
         scrollingTabContainerView.setAllowCollapse(true);
     }
 
     @Override // androidx.appcompat.widget.DecorToolbar
-    public void setHomeButtonEnabled(boolean z10) {
+    public void setHomeButtonEnabled(boolean z) {
     }
 
     @Override // androidx.appcompat.widget.DecorToolbar
-    public void setIcon(int i10) {
-        setIcon(i10 != 0 ? AppCompatResources.getDrawable(getContext(), i10) : null);
+    public void setIcon(int i2) {
+        setIcon(i2 != 0 ? AppCompatResources.getDrawable(getContext(), i2) : null);
     }
 
     @Override // androidx.appcompat.widget.DecorToolbar
-    public void setLogo(int i10) {
-        setLogo(i10 != 0 ? AppCompatResources.getDrawable(getContext(), i10) : null);
+    public void setLogo(int i2) {
+        setLogo(i2 != 0 ? AppCompatResources.getDrawable(getContext(), i2) : null);
     }
 
     @Override // androidx.appcompat.widget.DecorToolbar
     public void setMenu(Menu menu, MenuPresenter.Callback callback) {
-        if (this.mActionMenuPresenter == null) {
-            ActionMenuPresenter actionMenuPresenter = new ActionMenuPresenter(this.mToolbar.getContext());
-            this.mActionMenuPresenter = actionMenuPresenter;
+        if (this.r == null) {
+            ActionMenuPresenter actionMenuPresenter = new ActionMenuPresenter(this.f1007d.getContext());
+            this.r = actionMenuPresenter;
             actionMenuPresenter.setId(androidx.appcompat.R.id.action_menu_presenter);
         }
-        this.mActionMenuPresenter.setCallback(callback);
-        this.mToolbar.setMenu((MenuBuilder) menu, this.mActionMenuPresenter);
+        this.r.setCallback(callback);
+        this.f1007d.setMenu((MenuBuilder) menu, this.r);
     }
 
     @Override // androidx.appcompat.widget.DecorToolbar
     public void setMenuCallbacks(MenuPresenter.Callback callback, MenuBuilder.Callback callback2) {
-        this.mToolbar.setMenuCallbacks(callback, callback2);
+        this.f1007d.setMenuCallbacks(callback, callback2);
     }
 
     @Override // androidx.appcompat.widget.DecorToolbar
     public void setMenuPrepared() {
-        this.mMenuPrepared = true;
+        this.q = true;
     }
 
     @Override // androidx.appcompat.widget.DecorToolbar
     public void setNavigationContentDescription(CharSequence charSequence) {
-        this.mHomeDescription = charSequence;
-        updateHomeAccessibility();
+        this.o = charSequence;
+        d();
     }
 
     @Override // androidx.appcompat.widget.DecorToolbar
     public void setNavigationIcon(Drawable drawable) {
-        this.mNavIcon = drawable;
-        updateNavigationIcon();
+        this.k = drawable;
+        e();
     }
 
     @Override // androidx.appcompat.widget.DecorToolbar
-    public void setNavigationMode(int i10) {
+    public void setNavigationMode(int i2) {
         View view;
-        int i11 = this.mNavigationMode;
-        if (i10 != i11) {
-            if (i11 == 1) {
-                Spinner spinner = this.mSpinner;
+        int i3 = this.s;
+        if (i2 != i3) {
+            if (i3 == 1) {
+                Spinner spinner = this.f1010g;
                 if (spinner != null) {
                     ViewParent parent = spinner.getParent();
-                    Toolbar toolbar = this.mToolbar;
+                    Toolbar toolbar = this.f1007d;
                     if (parent == toolbar) {
-                        toolbar.removeView(this.mSpinner);
+                        toolbar.removeView(this.f1010g);
                     }
                 }
-            } else if (i11 == 2 && (view = this.mTabView) != null) {
+            } else if (i3 == 2 && (view = this.f1009f) != null) {
                 ViewParent parent2 = view.getParent();
-                Toolbar toolbar2 = this.mToolbar;
+                Toolbar toolbar2 = this.f1007d;
                 if (parent2 == toolbar2) {
-                    toolbar2.removeView(this.mTabView);
+                    toolbar2.removeView(this.f1009f);
                 }
             }
-            this.mNavigationMode = i10;
-            if (i10 != 0) {
-                if (i10 == 1) {
-                    ensureSpinner();
-                    this.mToolbar.addView(this.mSpinner, 0);
+            this.s = i2;
+            if (i2 != 0) {
+                if (i2 == 1) {
+                    b();
+                    this.f1007d.addView(this.f1010g, 0);
                     return;
                 }
-                if (i10 != 2) {
-                    throw new IllegalArgumentException("Invalid navigation mode " + i10);
+                if (i2 != 2) {
+                    throw new IllegalArgumentException("Invalid navigation mode " + i2);
                 }
-                View view2 = this.mTabView;
+                View view2 = this.f1009f;
                 if (view2 != null) {
-                    this.mToolbar.addView(view2, 0);
-                    Toolbar.LayoutParams layoutParams = (Toolbar.LayoutParams) this.mTabView.getLayoutParams();
+                    this.f1007d.addView(view2, 0);
+                    Toolbar.LayoutParams layoutParams = (Toolbar.LayoutParams) this.f1009f.getLayoutParams();
                     ((ViewGroup.MarginLayoutParams) layoutParams).width = -2;
                     ((ViewGroup.MarginLayoutParams) layoutParams).height = -2;
-                    layoutParams.gravity = BadgeDrawable.BOTTOM_START;
+                    layoutParams.gravity = BadgeDrawable.f6715d;
                 }
             }
         }
@@ -525,83 +548,87 @@ public class ToolbarWidgetWrapper implements DecorToolbar {
 
     @Override // androidx.appcompat.widget.DecorToolbar
     public void setSubtitle(CharSequence charSequence) {
-        this.mSubtitle = charSequence;
-        if ((this.mDisplayOpts & 8) != 0) {
-            this.mToolbar.setSubtitle(charSequence);
+        this.n = charSequence;
+        if ((this.f1008e & 8) != 0) {
+            this.f1007d.setSubtitle(charSequence);
         }
     }
 
     @Override // androidx.appcompat.widget.DecorToolbar
     public void setTitle(CharSequence charSequence) {
-        this.mTitleSet = true;
-        setTitleInt(charSequence);
+        this.l = true;
+        c(charSequence);
     }
 
     @Override // androidx.appcompat.widget.DecorToolbar
-    public void setVisibility(int i10) {
-        this.mToolbar.setVisibility(i10);
+    public void setVisibility(int i2) {
+        this.f1007d.setVisibility(i2);
     }
 
     @Override // androidx.appcompat.widget.DecorToolbar
     public void setWindowCallback(Window.Callback callback) {
-        this.mWindowCallback = callback;
+        this.p = callback;
     }
 
     @Override // androidx.appcompat.widget.DecorToolbar
     public void setWindowTitle(CharSequence charSequence) {
-        if (this.mTitleSet) {
+        if (this.l) {
             return;
         }
-        setTitleInt(charSequence);
+        c(charSequence);
     }
 
     @Override // androidx.appcompat.widget.DecorToolbar
-    public ViewPropertyAnimatorCompat setupAnimatorToVisibility(int i10, long j10) {
-        return ViewCompat.animate(this.mToolbar).alpha(i10 == 0 ? 1.0f : 0.0f).setDuration(j10).setListener(new ViewPropertyAnimatorListenerAdapter() { // from class: androidx.appcompat.widget.ToolbarWidgetWrapper.2
-            private boolean mCanceled = false;
-            final /* synthetic */ int val$visibility;
+    public ViewPropertyAnimatorCompat setupAnimatorToVisibility(int i2, long j2) {
+        return ViewCompat.animate(this.f1007d).alpha(i2 == 0 ? 1.0f : 0.0f).setDuration(j2).setListener(new ViewPropertyAnimatorListenerAdapter() { // from class: androidx.appcompat.widget.ToolbarWidgetWrapper.2
 
-            public AnonymousClass2(int i102) {
-                i10 = i102;
+            /* renamed from: a */
+            private boolean f1016a = false;
+
+            /* renamed from: b */
+            final /* synthetic */ int f1017b;
+
+            AnonymousClass2(int i22) {
+                i2 = i22;
             }
 
             @Override // androidx.core.view.ViewPropertyAnimatorListenerAdapter, androidx.core.view.ViewPropertyAnimatorListener
             public void onAnimationCancel(View view) {
-                this.mCanceled = true;
+                this.f1016a = true;
             }
 
             @Override // androidx.core.view.ViewPropertyAnimatorListenerAdapter, androidx.core.view.ViewPropertyAnimatorListener
             public void onAnimationEnd(View view) {
-                if (this.mCanceled) {
+                if (this.f1016a) {
                     return;
                 }
-                ToolbarWidgetWrapper.this.mToolbar.setVisibility(i10);
+                ToolbarWidgetWrapper.this.f1007d.setVisibility(i2);
             }
 
             @Override // androidx.core.view.ViewPropertyAnimatorListenerAdapter, androidx.core.view.ViewPropertyAnimatorListener
             public void onAnimationStart(View view) {
-                ToolbarWidgetWrapper.this.mToolbar.setVisibility(0);
+                ToolbarWidgetWrapper.this.f1007d.setVisibility(0);
             }
         });
     }
 
     @Override // androidx.appcompat.widget.DecorToolbar
     public boolean showOverflowMenu() {
-        return this.mToolbar.showOverflowMenu();
+        return this.f1007d.showOverflowMenu();
     }
 
-    public ToolbarWidgetWrapper(Toolbar toolbar, boolean z10, int i10, int i11) {
+    public ToolbarWidgetWrapper(Toolbar toolbar, boolean z, int i2, int i3) {
         Drawable drawable;
-        this.mNavigationMode = 0;
-        this.mDefaultNavigationContentDescription = 0;
-        this.mToolbar = toolbar;
-        this.mTitle = toolbar.getTitle();
-        this.mSubtitle = toolbar.getSubtitle();
-        this.mTitleSet = this.mTitle != null;
-        this.mNavIcon = toolbar.getNavigationIcon();
+        this.s = 0;
+        this.t = 0;
+        this.f1007d = toolbar;
+        this.m = toolbar.getTitle();
+        this.n = toolbar.getSubtitle();
+        this.l = this.m != null;
+        this.k = toolbar.getNavigationIcon();
         TintTypedArray obtainStyledAttributes = TintTypedArray.obtainStyledAttributes(toolbar.getContext(), null, androidx.appcompat.R.styleable.ActionBar, androidx.appcompat.R.attr.actionBarStyle, 0);
-        this.mDefaultNavigationIcon = obtainStyledAttributes.getDrawable(androidx.appcompat.R.styleable.ActionBar_homeAsUpIndicator);
-        if (z10) {
+        this.u = obtainStyledAttributes.getDrawable(androidx.appcompat.R.styleable.ActionBar_homeAsUpIndicator);
+        if (z) {
             CharSequence text = obtainStyledAttributes.getText(androidx.appcompat.R.styleable.ActionBar_title);
             if (!TextUtils.isEmpty(text)) {
                 setTitle(text);
@@ -618,84 +645,86 @@ public class ToolbarWidgetWrapper implements DecorToolbar {
             if (drawable3 != null) {
                 setIcon(drawable3);
             }
-            if (this.mNavIcon == null && (drawable = this.mDefaultNavigationIcon) != null) {
+            if (this.k == null && (drawable = this.u) != null) {
                 setNavigationIcon(drawable);
             }
             setDisplayOptions(obtainStyledAttributes.getInt(androidx.appcompat.R.styleable.ActionBar_displayOptions, 0));
             int resourceId = obtainStyledAttributes.getResourceId(androidx.appcompat.R.styleable.ActionBar_customNavigationLayout, 0);
             if (resourceId != 0) {
-                setCustomView(LayoutInflater.from(this.mToolbar.getContext()).inflate(resourceId, (ViewGroup) this.mToolbar, false));
-                setDisplayOptions(this.mDisplayOpts | 16);
+                setCustomView(LayoutInflater.from(this.f1007d.getContext()).inflate(resourceId, (ViewGroup) this.f1007d, false));
+                setDisplayOptions(this.f1008e | 16);
             }
             int layoutDimension = obtainStyledAttributes.getLayoutDimension(androidx.appcompat.R.styleable.ActionBar_height, 0);
             if (layoutDimension > 0) {
-                ViewGroup.LayoutParams layoutParams = this.mToolbar.getLayoutParams();
+                ViewGroup.LayoutParams layoutParams = this.f1007d.getLayoutParams();
                 layoutParams.height = layoutDimension;
-                this.mToolbar.setLayoutParams(layoutParams);
+                this.f1007d.setLayoutParams(layoutParams);
             }
             int dimensionPixelOffset = obtainStyledAttributes.getDimensionPixelOffset(androidx.appcompat.R.styleable.ActionBar_contentInsetStart, -1);
             int dimensionPixelOffset2 = obtainStyledAttributes.getDimensionPixelOffset(androidx.appcompat.R.styleable.ActionBar_contentInsetEnd, -1);
             if (dimensionPixelOffset >= 0 || dimensionPixelOffset2 >= 0) {
-                this.mToolbar.setContentInsetsRelative(Math.max(dimensionPixelOffset, 0), Math.max(dimensionPixelOffset2, 0));
+                this.f1007d.setContentInsetsRelative(Math.max(dimensionPixelOffset, 0), Math.max(dimensionPixelOffset2, 0));
             }
             int resourceId2 = obtainStyledAttributes.getResourceId(androidx.appcompat.R.styleable.ActionBar_titleTextStyle, 0);
             if (resourceId2 != 0) {
-                Toolbar toolbar2 = this.mToolbar;
+                Toolbar toolbar2 = this.f1007d;
                 toolbar2.setTitleTextAppearance(toolbar2.getContext(), resourceId2);
             }
             int resourceId3 = obtainStyledAttributes.getResourceId(androidx.appcompat.R.styleable.ActionBar_subtitleTextStyle, 0);
             if (resourceId3 != 0) {
-                Toolbar toolbar3 = this.mToolbar;
+                Toolbar toolbar3 = this.f1007d;
                 toolbar3.setSubtitleTextAppearance(toolbar3.getContext(), resourceId3);
             }
             int resourceId4 = obtainStyledAttributes.getResourceId(androidx.appcompat.R.styleable.ActionBar_popupTheme, 0);
             if (resourceId4 != 0) {
-                this.mToolbar.setPopupTheme(resourceId4);
+                this.f1007d.setPopupTheme(resourceId4);
             }
         } else {
-            this.mDisplayOpts = detectDisplayOptions();
+            this.f1008e = a();
         }
         obtainStyledAttributes.recycle();
-        setDefaultNavigationContentDescription(i10);
-        this.mHomeDescription = this.mToolbar.getNavigationContentDescription();
-        this.mToolbar.setNavigationOnClickListener(new View.OnClickListener() { // from class: androidx.appcompat.widget.ToolbarWidgetWrapper.1
-            final ActionMenuItem mNavItem;
+        setDefaultNavigationContentDescription(i2);
+        this.o = this.f1007d.getNavigationContentDescription();
+        this.f1007d.setNavigationOnClickListener(new View.OnClickListener() { // from class: androidx.appcompat.widget.ToolbarWidgetWrapper.1
 
-            public AnonymousClass1() {
-                this.mNavItem = new ActionMenuItem(ToolbarWidgetWrapper.this.mToolbar.getContext(), 0, R.id.home, 0, 0, ToolbarWidgetWrapper.this.mTitle);
+            /* renamed from: a */
+            final ActionMenuItem f1014a;
+
+            AnonymousClass1() {
+                this.f1014a = new ActionMenuItem(ToolbarWidgetWrapper.this.f1007d.getContext(), 0, R.id.home, 0, 0, ToolbarWidgetWrapper.this.m);
             }
 
             @Override // android.view.View.OnClickListener
             public void onClick(View view) {
                 ToolbarWidgetWrapper toolbarWidgetWrapper = ToolbarWidgetWrapper.this;
-                Window.Callback callback = toolbarWidgetWrapper.mWindowCallback;
-                if (callback == null || !toolbarWidgetWrapper.mMenuPrepared) {
+                Window.Callback callback = toolbarWidgetWrapper.p;
+                if (callback == null || !toolbarWidgetWrapper.q) {
                     return;
                 }
-                callback.onMenuItemSelected(0, this.mNavItem);
+                callback.onMenuItemSelected(0, this.f1014a);
             }
         });
     }
 
     @Override // androidx.appcompat.widget.DecorToolbar
     public void setIcon(Drawable drawable) {
-        this.mIcon = drawable;
-        updateToolbarLogo();
+        this.f1012i = drawable;
+        f();
     }
 
     @Override // androidx.appcompat.widget.DecorToolbar
     public void setLogo(Drawable drawable) {
-        this.mLogo = drawable;
-        updateToolbarLogo();
+        this.f1013j = drawable;
+        f();
     }
 
     @Override // androidx.appcompat.widget.DecorToolbar
-    public void setNavigationContentDescription(int i10) {
-        setNavigationContentDescription(i10 == 0 ? null : getContext().getString(i10));
+    public void setNavigationContentDescription(int i2) {
+        setNavigationContentDescription(i2 == 0 ? null : getContext().getString(i2));
     }
 
     @Override // androidx.appcompat.widget.DecorToolbar
-    public void setNavigationIcon(int i10) {
-        setNavigationIcon(i10 != 0 ? AppCompatResources.getDrawable(getContext(), i10) : null);
+    public void setNavigationIcon(int i2) {
+        setNavigationIcon(i2 != 0 ? AppCompatResources.getDrawable(getContext(), i2) : null);
     }
 }

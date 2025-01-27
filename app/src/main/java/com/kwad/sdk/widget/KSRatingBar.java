@@ -11,56 +11,49 @@ import android.widget.LinearLayout;
 import com.kwad.sdk.R;
 import java.math.BigDecimal;
 
-/* loaded from: classes3.dex */
+/* loaded from: classes2.dex */
 public class KSRatingBar extends LinearLayout {
-    private boolean aXm;
-    private boolean aXn;
-    private int aXo;
-    private int aXp;
-    private a aXq;
-    private float aXr;
-    private float aXs;
-    private float aXt;
-    private Drawable aXu;
-    private Drawable aXv;
-    private Drawable aXw;
-    private boolean aXx;
-
-    /* renamed from: y */
-    private int f11982y;
+    private boolean aCY;
+    private boolean aCZ;
+    private int aDa;
+    private int aDb;
+    private a aDc;
+    private float aDd;
+    private float aDe;
+    private float aDf;
+    private Drawable aDg;
+    private Drawable aDh;
+    private Drawable aDi;
+    private boolean aDj;
+    private int y;
 
     /* renamed from: com.kwad.sdk.widget.KSRatingBar$1 */
-    public class AnonymousClass1 implements View.OnClickListener {
-        public AnonymousClass1() {
+    final class AnonymousClass1 implements View.OnClickListener {
+        AnonymousClass1() {
         }
 
         @Override // android.view.View.OnClickListener
         public final void onClick(View view) {
-            if (KSRatingBar.this.aXm) {
-                if (!KSRatingBar.this.aXn) {
+            if (KSRatingBar.this.aCY) {
+                if (!KSRatingBar.this.aCZ) {
                     KSRatingBar.this.setStar(r0.indexOfChild(view) + 1.0f);
-                    if (KSRatingBar.this.aXq != null) {
-                        a unused = KSRatingBar.this.aXq;
+                    if (KSRatingBar.this.aDc != null) {
+                        a unused = KSRatingBar.this.aDc;
                         KSRatingBar.this.indexOfChild(view);
                         return;
                     }
                     return;
                 }
-                if (KSRatingBar.this.f11982y % 2 == 0) {
+                if (KSRatingBar.this.y % 2 == 0) {
                     KSRatingBar.this.setStar(r0.indexOfChild(view) + 1.0f);
                 } else {
                     KSRatingBar.this.setStar(r0.indexOfChild(view) + 0.5f);
                 }
-                if (KSRatingBar.this.aXq != null) {
-                    if (KSRatingBar.this.f11982y % 2 == 0) {
-                        a unused2 = KSRatingBar.this.aXq;
-                        KSRatingBar.this.indexOfChild(view);
-                        KSRatingBar.e(KSRatingBar.this);
-                    } else {
-                        a unused3 = KSRatingBar.this.aXq;
-                        KSRatingBar.this.indexOfChild(view);
-                        KSRatingBar.e(KSRatingBar.this);
-                    }
+                if (KSRatingBar.this.aDc != null) {
+                    int i2 = KSRatingBar.this.y % 2;
+                    a unused2 = KSRatingBar.this.aDc;
+                    KSRatingBar.this.indexOfChild(view);
+                    KSRatingBar.e(KSRatingBar.this);
                 }
             }
         }
@@ -71,150 +64,141 @@ public class KSRatingBar extends LinearLayout {
 
     public KSRatingBar(Context context, AttributeSet attributeSet) {
         super(context, attributeSet);
-        this.f11982y = 1;
-        this.aXx = false;
+        this.y = 1;
+        this.aDj = false;
         setOrientation(0);
         setDividerDrawable(getResources().getDrawable(R.drawable.ksad_reward_apk_stars_divider));
         setShowDividers(2);
         TypedArray obtainStyledAttributes = context.obtainStyledAttributes(attributeSet, R.styleable.ksad_KSRatingBar);
-        this.aXw = obtainStyledAttributes.getDrawable(R.styleable.ksad_KSRatingBar_ksad_starHalf);
-        this.aXu = obtainStyledAttributes.getDrawable(R.styleable.ksad_KSRatingBar_ksad_starEmpty);
-        this.aXv = obtainStyledAttributes.getDrawable(R.styleable.ksad_KSRatingBar_ksad_starFill);
-        this.aXr = obtainStyledAttributes.getDimension(R.styleable.ksad_KSRatingBar_ksad_starImageWidth, 60.0f);
-        this.aXs = obtainStyledAttributes.getDimension(R.styleable.ksad_KSRatingBar_ksad_starImageHeight, 120.0f);
-        this.aXt = obtainStyledAttributes.getDimension(R.styleable.ksad_KSRatingBar_ksad_starImagePadding, 15.0f);
-        this.aXo = obtainStyledAttributes.getInteger(R.styleable.ksad_KSRatingBar_ksad_totalStarCount, 5);
-        this.aXp = obtainStyledAttributes.getInteger(R.styleable.ksad_KSRatingBar_ksad_starCount, 5);
-        this.aXm = obtainStyledAttributes.getBoolean(R.styleable.ksad_KSRatingBar_ksad_clickable, true);
-        this.aXn = obtainStyledAttributes.getBoolean(R.styleable.ksad_KSRatingBar_ksad_halfstart, false);
-        for (int i10 = 0; i10 < this.aXo; i10++) {
-            ImageView w10 = w(context, this.aXx);
-            w10.setOnClickListener(new View.OnClickListener() { // from class: com.kwad.sdk.widget.KSRatingBar.1
-                public AnonymousClass1() {
+        this.aDi = obtainStyledAttributes.getDrawable(R.styleable.ksad_KSRatingBar_ksad_starHalf);
+        this.aDg = obtainStyledAttributes.getDrawable(R.styleable.ksad_KSRatingBar_ksad_starEmpty);
+        this.aDh = obtainStyledAttributes.getDrawable(R.styleable.ksad_KSRatingBar_ksad_starFill);
+        this.aDd = obtainStyledAttributes.getDimension(R.styleable.ksad_KSRatingBar_ksad_starImageWidth, 60.0f);
+        this.aDe = obtainStyledAttributes.getDimension(R.styleable.ksad_KSRatingBar_ksad_starImageHeight, 120.0f);
+        this.aDf = obtainStyledAttributes.getDimension(R.styleable.ksad_KSRatingBar_ksad_starImagePadding, 15.0f);
+        this.aDa = obtainStyledAttributes.getInteger(R.styleable.ksad_KSRatingBar_ksad_totalStarCount, 5);
+        this.aDb = obtainStyledAttributes.getInteger(R.styleable.ksad_KSRatingBar_ksad_starCount, 5);
+        this.aCY = obtainStyledAttributes.getBoolean(R.styleable.ksad_KSRatingBar_ksad_clickable, true);
+        this.aCZ = obtainStyledAttributes.getBoolean(R.styleable.ksad_KSRatingBar_ksad_halfstart, false);
+        for (int i2 = 0; i2 < this.aDa; i2++) {
+            ImageView w = w(context, this.aDj);
+            w.setOnClickListener(new View.OnClickListener() { // from class: com.kwad.sdk.widget.KSRatingBar.1
+                AnonymousClass1() {
                 }
 
                 @Override // android.view.View.OnClickListener
                 public final void onClick(View view) {
-                    if (KSRatingBar.this.aXm) {
-                        if (!KSRatingBar.this.aXn) {
+                    if (KSRatingBar.this.aCY) {
+                        if (!KSRatingBar.this.aCZ) {
                             KSRatingBar.this.setStar(r0.indexOfChild(view) + 1.0f);
-                            if (KSRatingBar.this.aXq != null) {
-                                a unused = KSRatingBar.this.aXq;
+                            if (KSRatingBar.this.aDc != null) {
+                                a unused = KSRatingBar.this.aDc;
                                 KSRatingBar.this.indexOfChild(view);
                                 return;
                             }
                             return;
                         }
-                        if (KSRatingBar.this.f11982y % 2 == 0) {
+                        if (KSRatingBar.this.y % 2 == 0) {
                             KSRatingBar.this.setStar(r0.indexOfChild(view) + 1.0f);
                         } else {
                             KSRatingBar.this.setStar(r0.indexOfChild(view) + 0.5f);
                         }
-                        if (KSRatingBar.this.aXq != null) {
-                            if (KSRatingBar.this.f11982y % 2 == 0) {
-                                a unused2 = KSRatingBar.this.aXq;
-                                KSRatingBar.this.indexOfChild(view);
-                                KSRatingBar.e(KSRatingBar.this);
-                            } else {
-                                a unused3 = KSRatingBar.this.aXq;
-                                KSRatingBar.this.indexOfChild(view);
-                                KSRatingBar.e(KSRatingBar.this);
-                            }
+                        if (KSRatingBar.this.aDc != null) {
+                            int i22 = KSRatingBar.this.y % 2;
+                            a unused2 = KSRatingBar.this.aDc;
+                            KSRatingBar.this.indexOfChild(view);
+                            KSRatingBar.e(KSRatingBar.this);
                         }
                     }
                 }
             });
-            addView(w10);
+            addView(w);
         }
-        setStar(this.aXp);
+        setStar(this.aDb);
     }
 
-    public static /* synthetic */ int e(KSRatingBar kSRatingBar) {
-        int i10 = kSRatingBar.f11982y;
-        kSRatingBar.f11982y = i10 + 1;
-        return i10;
+    static /* synthetic */ int e(KSRatingBar kSRatingBar) {
+        int i2 = kSRatingBar.y;
+        kSRatingBar.y = i2 + 1;
+        return i2;
     }
 
-    private ImageView w(Context context, boolean z10) {
+    private ImageView w(Context context, boolean z) {
         ImageView imageView = new ImageView(context);
-        imageView.setLayoutParams(new ViewGroup.LayoutParams(Math.round(this.aXr), Math.round(this.aXs)));
-        imageView.setPadding(0, 0, Math.round(this.aXt), 0);
-        if (z10) {
-            imageView.setImageDrawable(this.aXu);
-        } else {
-            imageView.setImageDrawable(this.aXv);
-        }
+        imageView.setLayoutParams(new ViewGroup.LayoutParams(Math.round(this.aDd), Math.round(this.aDe)));
+        imageView.setPadding(0, 0, Math.round(this.aDf), 0);
+        imageView.setImageDrawable(z ? this.aDg : this.aDh);
         return imageView;
     }
 
-    public void setImagePadding(float f10) {
-        this.aXt = f10;
+    public void setImagePadding(float f2) {
+        this.aDf = f2;
     }
 
     public void setOnRatingChangeListener(a aVar) {
-        this.aXq = aVar;
+        this.aDc = aVar;
     }
 
-    public void setStar(float f10) {
-        int i10 = (int) f10;
-        float floatValue = new BigDecimal(Float.toString(f10)).subtract(new BigDecimal(Integer.toString(i10))).floatValue();
-        int i11 = this.aXo;
-        float f11 = i10 > i11 ? i11 : i10;
-        if (f11 < 0.0f) {
-            f11 = 0.0f;
+    public void setStar(float f2) {
+        int i2 = (int) f2;
+        float floatValue = new BigDecimal(Float.toString(f2)).subtract(new BigDecimal(Integer.toString(i2))).floatValue();
+        int i3 = this.aDa;
+        float f3 = i2 > i3 ? i3 : i2;
+        if (f3 < 0.0f) {
+            f3 = 0.0f;
         }
-        for (int i12 = 0; i12 < f11; i12++) {
-            ((ImageView) getChildAt(i12)).setImageDrawable(this.aXv);
+        for (int i4 = 0; i4 < f3; i4++) {
+            ((ImageView) getChildAt(i4)).setImageDrawable(this.aDh);
         }
         if (floatValue > 0.0f) {
-            ((ImageView) getChildAt(i10)).setImageDrawable(this.aXw);
-            int i13 = this.aXo;
+            ((ImageView) getChildAt(i2)).setImageDrawable(this.aDi);
+            int i5 = this.aDa;
             while (true) {
-                i13--;
-                if (i13 < 1.0f + f11) {
+                i5--;
+                if (i5 < 1.0f + f3) {
                     return;
                 } else {
-                    ((ImageView) getChildAt(i13)).setImageDrawable(this.aXu);
+                    ((ImageView) getChildAt(i5)).setImageDrawable(this.aDg);
                 }
             }
         } else {
-            int i14 = this.aXo;
+            int i6 = this.aDa;
             while (true) {
-                i14--;
-                if (i14 < f11) {
+                i6--;
+                if (i6 < f3) {
                     return;
                 } else {
-                    ((ImageView) getChildAt(i14)).setImageDrawable(this.aXu);
+                    ((ImageView) getChildAt(i6)).setImageDrawable(this.aDg);
                 }
             }
         }
     }
 
     public void setStarEmptyDrawable(Drawable drawable) {
-        this.aXu = drawable;
+        this.aDg = drawable;
     }
 
     public void setStarFillDrawable(Drawable drawable) {
-        this.aXv = drawable;
+        this.aDh = drawable;
     }
 
     public void setStarHalfDrawable(Drawable drawable) {
-        this.aXw = drawable;
+        this.aDi = drawable;
     }
 
-    public void setStarImageHeight(float f10) {
-        this.aXs = f10;
+    public void setStarImageHeight(float f2) {
+        this.aDe = f2;
     }
 
-    public void setStarImageWidth(float f10) {
-        this.aXr = f10;
+    public void setStarImageWidth(float f2) {
+        this.aDd = f2;
     }
 
-    public void setTotalStarCount(int i10) {
-        this.aXo = i10;
+    public void setTotalStarCount(int i2) {
+        this.aDa = i2;
     }
 
-    public void setmClickable(boolean z10) {
-        this.aXm = z10;
+    public void setmClickable(boolean z) {
+        this.aCY = z;
     }
 }

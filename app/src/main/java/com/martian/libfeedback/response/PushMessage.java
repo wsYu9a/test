@@ -1,6 +1,6 @@
 package com.martian.libfeedback.response;
 
-/* loaded from: classes3.dex */
+/* loaded from: classes2.dex */
 public class PushMessage {
     private String buttonText;
     private String content;
@@ -48,60 +48,60 @@ public class PushMessage {
     }
 
     public Long getShowEnd() {
-        Long l10 = this.showEnd;
-        return Long.valueOf(l10 == null ? -1L : l10.longValue());
+        Long l = this.showEnd;
+        return Long.valueOf(l == null ? -1L : l.longValue());
     }
 
     public Long getShowStart() {
-        Long l10 = this.showStart;
-        return Long.valueOf(l10 == null ? -1L : l10.longValue());
+        Long l = this.showStart;
+        return Long.valueOf(l == null ? -1L : l.longValue());
     }
 
     public String getTitle() {
         return this.title;
     }
 
-    public void setButtonText(String str) {
-        this.buttonText = str;
+    public void setButtonText(String buttonText) {
+        this.buttonText = buttonText;
     }
 
-    public void setContent(String str) {
-        this.content = str;
+    public void setContent(String content) {
+        this.content = content;
     }
 
-    public void setCreatedOn(Long l10) {
-        this.createdOn = l10;
+    public void setCreatedOn(Long createdOn) {
+        this.createdOn = createdOn;
     }
 
-    public void setDeeplink(String str) {
-        this.deeplink = str;
+    public void setDeeplink(String deeplink) {
+        this.deeplink = deeplink;
     }
 
-    public void setDialogImage(String str) {
-        this.dialogImage = str;
+    public void setDialogImage(String dialogImage) {
+        this.dialogImage = dialogImage;
     }
 
-    public void setExtra(String str) {
-        this.extra = str;
+    public void setExtra(String extra) {
+        this.extra = extra;
     }
 
-    public void setLink(String str) {
-        this.link = str;
+    public void setLink(String link) {
+        this.link = link;
     }
 
-    public void setNid(Integer num) {
-        this.nid = num;
+    public void setNid(Integer nid) {
+        this.nid = nid;
     }
 
-    public void setShowEnd(Long l10) {
-        this.showEnd = l10;
+    public void setShowEnd(Long showEnd) {
+        this.showEnd = showEnd;
     }
 
-    public void setShowStart(Long l10) {
-        this.showStart = l10;
+    public void setShowStart(Long showStart) {
+        this.showStart = showStart;
     }
 
-    public void setTitle(String str) {
-        this.title = str;
+    public void setTitle(String title) {
+        this.title = title;
     }
 }

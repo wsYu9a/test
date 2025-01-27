@@ -6,17 +6,16 @@ import androidx.annotation.NonNull;
 import androidx.lifecycle.GenericLifecycleObserver;
 import androidx.lifecycle.Lifecycle;
 import androidx.lifecycle.LifecycleOwner;
-import kotlinx.coroutines.debug.internal.DebugCoroutineInfoImplKt;
 
-/* loaded from: classes3.dex */
+/* loaded from: classes2.dex */
 public class KsLifecycle {
     private Lifecycle mBase;
 
     /* renamed from: com.kwad.sdk.api.core.lifecycle.KsLifecycle$1 */
-    public class AnonymousClass1 implements GenericLifecycleObserver {
+    class AnonymousClass1 implements GenericLifecycleObserver {
         final /* synthetic */ KsLifecycleObserver val$observer;
 
-        public AnonymousClass1(KsLifecycleObserver ksLifecycleObserver) {
+        AnonymousClass1(KsLifecycleObserver ksLifecycleObserver) {
             ksLifecycleObserver = ksLifecycleObserver;
         }
 
@@ -72,7 +71,7 @@ public class KsLifecycle {
             DESTROYED = ksLifeState;
             KsLifeState ksLifeState2 = new KsLifeState("INITIALIZED", 1, state);
             INITIALIZED = ksLifeState2;
-            KsLifeState ksLifeState3 = new KsLifeState(DebugCoroutineInfoImplKt.CREATED, 2, state);
+            KsLifeState ksLifeState3 = new KsLifeState("CREATED", 2, state);
             CREATED = ksLifeState3;
             KsLifeState ksLifeState4 = new KsLifeState("STARTED", 3, state);
             STARTED = ksLifeState4;
@@ -81,8 +80,8 @@ public class KsLifecycle {
             $VALUES = new KsLifeState[]{ksLifeState, ksLifeState2, ksLifeState3, ksLifeState4, ksLifeState5};
         }
 
-        private KsLifeState(String str, int i10, Lifecycle.State state) {
-            super(str, i10);
+        private KsLifeState(String str, int i2, Lifecycle.State state) {
+            super(str, i2);
             this.mReal = state;
         }
 
@@ -118,7 +117,7 @@ public class KsLifecycle {
             AnonymousClass1 anonymousClass1 = new GenericLifecycleObserver() { // from class: com.kwad.sdk.api.core.lifecycle.KsLifecycle.1
                 final /* synthetic */ KsLifecycleObserver val$observer;
 
-                public AnonymousClass1(KsLifecycleObserver ksLifecycleObserver2) {
+                AnonymousClass1(KsLifecycleObserver ksLifecycleObserver2) {
                     ksLifecycleObserver = ksLifecycleObserver2;
                 }
 

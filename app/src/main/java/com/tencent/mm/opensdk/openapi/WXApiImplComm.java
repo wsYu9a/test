@@ -21,9 +21,9 @@ class WXApiImplComm {
         return (intent == null || (stringExtra = intent.getStringExtra(ConstantsAPI.Token.WX_TOKEN_KEY)) == null || !stringExtra.equals(str)) ? false : true;
     }
 
-    public static boolean validateAppSignature(Context context, Signature[] signatureArr, boolean z10) {
+    public static boolean validateAppSignature(Context context, Signature[] signatureArr, boolean z) {
         String str;
-        if (z10) {
+        if (z) {
             for (Signature signature : signatureArr) {
                 if (signature != null) {
                     String lowerCase = signature.toCharsString().toLowerCase();
@@ -40,10 +40,10 @@ class WXApiImplComm {
         return true;
     }
 
-    public static boolean validateAppSignatureForPackage(Context context, String str, boolean z10) {
-        if (z10) {
+    public static boolean validateAppSignatureForPackage(Context context, String str, boolean z) {
+        if (z) {
             try {
-                return validateAppSignature(context, context.getPackageManager().getPackageInfo(str, 64).signatures, z10);
+                return validateAppSignature(context, context.getPackageManager().getPackageInfo(str, 64).signatures, z);
             } catch (PackageManager.NameNotFoundException | Exception unused) {
                 return false;
             }

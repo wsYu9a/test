@@ -15,65 +15,62 @@ import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
 import android.widget.ImageView;
+import b.b.a.b.b;
 import com.bytedance.sdk.openadsdk.R;
-import com.ss.android.downloadlib.g.k;
+import com.ss.android.downloadlib.addownload.pa;
+import com.ss.android.downloadlib.lg.t;
+import org.apache.http.HttpHost;
 
 /* loaded from: classes4.dex */
 public class AppPrivacyPolicyActivity extends Activity {
 
-    /* renamed from: a */
-    private ImageView f21263a;
+    /* renamed from: g */
+    private long f24110g;
 
-    /* renamed from: b */
-    private WebView f21264b;
+    /* renamed from: i */
+    private long f24111i;
 
-    /* renamed from: c */
-    private long f21265c;
-
-    /* renamed from: d */
-    private long f21266d;
-
-    /* renamed from: e */
-    private String f21267e;
+    /* renamed from: j */
+    private ImageView f24112j;
+    private String q;
+    private WebView zx;
 
     /* renamed from: com.ss.android.downloadlib.addownload.compliance.AppPrivacyPolicyActivity$1 */
-    public class AnonymousClass1 implements View.OnClickListener {
-        public AnonymousClass1() {
+    class AnonymousClass1 implements View.OnClickListener {
+        AnonymousClass1() {
         }
 
         @Override // android.view.View.OnClickListener
         public void onClick(View view) {
-            g.a("lp_app_privacy_click_close", AppPrivacyPolicyActivity.this.f21266d);
+            q.j("lp_app_privacy_click_close", AppPrivacyPolicyActivity.this.f24110g);
             AppPrivacyPolicyActivity.this.finish();
         }
     }
 
     /* renamed from: com.ss.android.downloadlib.addownload.compliance.AppPrivacyPolicyActivity$2 */
-    public class AnonymousClass2 extends WebViewClient {
-        public AnonymousClass2() {
+    class AnonymousClass2 extends WebViewClient {
+        AnonymousClass2() {
         }
 
-        private boolean a(Uri uri) {
+        private boolean j(Uri uri) {
             String scheme = uri.getScheme();
-            return ("http".equals(scheme) || "https".equals(scheme)) ? false : true;
+            return (HttpHost.DEFAULT_SCHEME_NAME.equals(scheme) || b.f4198a.equals(scheme)) ? false : true;
         }
 
         @Override // android.webkit.WebViewClient
         public boolean onRenderProcessGone(WebView webView, RenderProcessGoneDetail renderProcessGoneDetail) {
-            boolean didCrash;
             if (Build.VERSION.SDK_INT < 26) {
                 return super.onRenderProcessGone(webView, renderProcessGoneDetail);
             }
-            didCrash = renderProcessGoneDetail.didCrash();
-            if (didCrash) {
-                k.a("The WebView rendering process crashed!");
+            if (renderProcessGoneDetail.didCrash()) {
+                t.j("The WebView rendering process crashed!");
                 if (webView != null) {
                     ((ViewGroup) webView.getParent()).removeView(webView);
                     webView.destroy();
                 }
                 return true;
             }
-            k.a("System killed the WebView rendering process to reclaim memory. Recreating...");
+            t.j("System killed the WebView rendering process to reclaim memory. Recreating...");
             if (webView != null) {
                 ((ViewGroup) webView.getParent()).removeView(webView);
                 webView.destroy();
@@ -84,34 +81,36 @@ public class AppPrivacyPolicyActivity extends Activity {
         @Override // android.webkit.WebViewClient
         @TargetApi(21)
         public boolean shouldOverrideUrlLoading(WebView webView, WebResourceRequest webResourceRequest) {
-            return a(webResourceRequest.getUrl());
+            return j(webResourceRequest.getUrl());
         }
 
         @Override // android.webkit.WebViewClient
         public boolean shouldOverrideUrlLoading(WebView webView, String str) {
-            return a(Uri.parse(str));
+            return j(Uri.parse(str));
         }
     }
 
-    private void b() {
-        this.f21263a = (ImageView) findViewById(R.id.iv_privacy_back);
-        this.f21264b = (WebView) findViewById(R.id.privacy_webview);
-        this.f21263a.setOnClickListener(new View.OnClickListener() { // from class: com.ss.android.downloadlib.addownload.compliance.AppPrivacyPolicyActivity.1
-            public AnonymousClass1() {
+    private void zx() {
+        this.f24112j = (ImageView) findViewById(R.id.iv_privacy_back);
+        this.zx = (WebView) findViewById(R.id.privacy_webview);
+        this.f24112j.setOnClickListener(new View.OnClickListener() { // from class: com.ss.android.downloadlib.addownload.compliance.AppPrivacyPolicyActivity.1
+            AnonymousClass1() {
             }
 
             @Override // android.view.View.OnClickListener
             public void onClick(View view) {
-                g.a("lp_app_privacy_click_close", AppPrivacyPolicyActivity.this.f21266d);
+                q.j("lp_app_privacy_click_close", AppPrivacyPolicyActivity.this.f24110g);
                 AppPrivacyPolicyActivity.this.finish();
             }
         });
-        WebSettings settings = this.f21264b.getSettings();
+        WebSettings settings = this.zx.getSettings();
         settings.setDefaultFontSize(16);
         settings.setCacheMode(-1);
         settings.setJavaScriptEnabled(true);
         settings.setDomStorageEnabled(true);
-        settings.setMixedContentMode(0);
+        if (Build.VERSION.SDK_INT >= 21) {
+            settings.setMixedContentMode(0);
+        }
         settings.setLoadWithOverviewMode(true);
         settings.setUseWideViewPort(true);
         settings.setSupportZoom(true);
@@ -119,31 +118,29 @@ public class AppPrivacyPolicyActivity extends Activity {
         settings.setDisplayZoomControls(false);
         settings.setSavePassword(false);
         settings.setAllowFileAccess(false);
-        this.f21264b.setWebViewClient(new WebViewClient() { // from class: com.ss.android.downloadlib.addownload.compliance.AppPrivacyPolicyActivity.2
-            public AnonymousClass2() {
+        this.zx.setWebViewClient(new WebViewClient() { // from class: com.ss.android.downloadlib.addownload.compliance.AppPrivacyPolicyActivity.2
+            AnonymousClass2() {
             }
 
-            private boolean a(Uri uri) {
+            private boolean j(Uri uri) {
                 String scheme = uri.getScheme();
-                return ("http".equals(scheme) || "https".equals(scheme)) ? false : true;
+                return (HttpHost.DEFAULT_SCHEME_NAME.equals(scheme) || b.f4198a.equals(scheme)) ? false : true;
             }
 
             @Override // android.webkit.WebViewClient
             public boolean onRenderProcessGone(WebView webView, RenderProcessGoneDetail renderProcessGoneDetail) {
-                boolean didCrash;
                 if (Build.VERSION.SDK_INT < 26) {
                     return super.onRenderProcessGone(webView, renderProcessGoneDetail);
                 }
-                didCrash = renderProcessGoneDetail.didCrash();
-                if (didCrash) {
-                    k.a("The WebView rendering process crashed!");
+                if (renderProcessGoneDetail.didCrash()) {
+                    t.j("The WebView rendering process crashed!");
                     if (webView != null) {
                         ((ViewGroup) webView.getParent()).removeView(webView);
                         webView.destroy();
                     }
                     return true;
                 }
-                k.a("System killed the WebView rendering process to reclaim memory. Recreating...");
+                t.j("System killed the WebView rendering process to reclaim memory. Recreating...");
                 if (webView != null) {
                     ((ViewGroup) webView.getParent()).removeView(webView);
                     webView.destroy();
@@ -154,59 +151,59 @@ public class AppPrivacyPolicyActivity extends Activity {
             @Override // android.webkit.WebViewClient
             @TargetApi(21)
             public boolean shouldOverrideUrlLoading(WebView webView, WebResourceRequest webResourceRequest) {
-                return a(webResourceRequest.getUrl());
+                return j(webResourceRequest.getUrl());
             }
 
             @Override // android.webkit.WebViewClient
             public boolean shouldOverrideUrlLoading(WebView webView, String str) {
-                return a(Uri.parse(str));
+                return j(Uri.parse(str));
             }
         });
-        a(this.f21264b);
-        this.f21264b.setScrollBarStyle(0);
-        this.f21264b.loadUrl(this.f21267e);
+        j(this.zx);
+        this.zx.setScrollBarStyle(0);
+        this.zx.loadUrl(this.q);
     }
 
     @Override // android.app.Activity
     public void onBackPressed() {
-        g.a("lp_app_privacy_click_close", this.f21266d);
+        q.j("lp_app_privacy_click_close", this.f24110g);
         super.onBackPressed();
     }
 
     @Override // android.app.Activity
-    public void onCreate(Bundle bundle) {
+    protected void onCreate(Bundle bundle) {
         super.onCreate(bundle);
         setContentView(R.layout.ttdownloader_activity_app_privacy_policy);
-        if (a()) {
-            b();
+        if (j()) {
+            zx();
         } else {
-            com.ss.android.socialbase.appdownloader.c.a((Activity) this);
+            com.ss.android.socialbase.appdownloader.i.j((Activity) this);
         }
     }
 
-    public static void a(Activity activity, long j10) {
+    public static void j(Activity activity, long j2) {
         Intent intent = new Intent(activity, (Class<?>) AppPrivacyPolicyActivity.class);
-        intent.putExtra("app_info_id", j10);
+        intent.putExtra("app_info_id", j2);
         activity.startActivity(intent);
     }
 
-    private boolean a() {
-        this.f21265c = getIntent().getLongExtra("app_info_id", 0L);
-        com.ss.android.downloadlib.addownload.b.b a10 = c.a().a(this.f21265c);
-        if (a10 == null) {
+    private boolean j() {
+        this.f24111i = getIntent().getLongExtra("app_info_id", 0L);
+        com.ss.android.downloadlib.addownload.zx.zx j2 = i.j().j(this.f24111i);
+        if (j2 == null) {
             return false;
         }
-        this.f21266d = a10.f21190b;
-        String str = a10.f21197i;
-        this.f21267e = str;
+        this.f24110g = j2.zx;
+        String str = j2.k;
+        this.q = str;
         if (!TextUtils.isEmpty(str)) {
             return true;
         }
-        this.f21267e = com.ss.android.downloadlib.addownload.k.j().optString("ad_privacy_backup_url", "https://sf6-ttcdn-tos.pstatp.com/obj/ad-tetris-site/personal-privacy-page.html");
+        this.q = pa.k().optString("ad_privacy_backup_url", "https://sf6-ttcdn-tos.pstatp.com/obj/ad-tetris-site/personal-privacy-page.html");
         return true;
     }
 
-    private void a(WebView webView) {
+    private void j(WebView webView) {
         try {
             webView.removeJavascriptInterface("searchBoxJavaBridge_");
             webView.removeJavascriptInterface("accessibility");

@@ -8,26 +8,24 @@ import androidx.annotation.Keep;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import java.lang.ref.WeakReference;
-import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
-import java.util.Set;
 import java.util.concurrent.CopyOnWriteArrayList;
 
-/* loaded from: classes3.dex */
+/* loaded from: classes2.dex */
 public class KSLifecycleObserver {
     private static volatile KSLifecycleObserver sKSLifecycleObserver;
     private WeakReference<Activity> currentActivity;
     private Application mApplication;
     private boolean mIsInBackground = true;
-    private Set<Integer> mStartedActivitySet = new HashSet();
+    private int startedActivityCount = 0;
     private final List<KSLifecycleListener> mListeners = new CopyOnWriteArrayList();
     private boolean mHasInit = false;
     private boolean mEnable = false;
 
     /* renamed from: com.kwad.sdk.api.core.KSLifecycleObserver$1 */
-    public class AnonymousClass1 implements Application.ActivityLifecycleCallbacks {
-        public AnonymousClass1() {
+    class AnonymousClass1 implements Application.ActivityLifecycleCallbacks {
+        AnonymousClass1() {
         }
 
         @Override // android.app.Application.ActivityLifecycleCallbacks
@@ -38,8 +36,8 @@ public class KSLifecycleObserver {
                 while (it.hasNext()) {
                     ((KSLifecycleListener) it.next()).onActivityCreated(activity, bundle);
                 }
-            } catch (Throwable th2) {
-                th2.printStackTrace();
+            } catch (Throwable th) {
+                th.printStackTrace();
             }
         }
 
@@ -50,8 +48,8 @@ public class KSLifecycleObserver {
                 while (it.hasNext()) {
                     ((KSLifecycleListener) it.next()).onActivityDestroyed(activity);
                 }
-            } catch (Throwable th2) {
-                th2.printStackTrace();
+            } catch (Throwable th) {
+                th.printStackTrace();
             }
         }
 
@@ -65,8 +63,8 @@ public class KSLifecycleObserver {
                 while (it.hasNext()) {
                     ((KSLifecycleListener) it.next()).onActivityPaused(activity);
                 }
-            } catch (Throwable th2) {
-                th2.printStackTrace();
+            } catch (Throwable th) {
+                th.printStackTrace();
             }
         }
 
@@ -78,8 +76,8 @@ public class KSLifecycleObserver {
                 while (it.hasNext()) {
                     ((KSLifecycleListener) it.next()).onActivityResumed(activity);
                 }
-            } catch (Throwable th2) {
-                th2.printStackTrace();
+            } catch (Throwable th) {
+                th.printStackTrace();
             }
         }
 
@@ -90,24 +88,24 @@ public class KSLifecycleObserver {
         @Override // android.app.Application.ActivityLifecycleCallbacks
         public void onActivityStarted(@NonNull Activity activity) {
             try {
-                KSLifecycleObserver.this.mStartedActivitySet.add(Integer.valueOf(activity.hashCode()));
-                if (KSLifecycleObserver.this.mStartedActivitySet.size() == 1) {
+                KSLifecycleObserver.access$208(KSLifecycleObserver.this);
+                if (KSLifecycleObserver.this.startedActivityCount == 1) {
                     KSLifecycleObserver.this.onAppBackToForeground();
                 }
-            } catch (Throwable th2) {
-                th2.printStackTrace();
+            } catch (Throwable th) {
+                th.printStackTrace();
             }
         }
 
         @Override // android.app.Application.ActivityLifecycleCallbacks
         public void onActivityStopped(@NonNull Activity activity) {
             try {
-                KSLifecycleObserver.this.mStartedActivitySet.remove(Integer.valueOf(activity.hashCode()));
-                if (KSLifecycleObserver.this.mStartedActivitySet.size() == 0) {
+                KSLifecycleObserver.access$210(KSLifecycleObserver.this);
+                if (KSLifecycleObserver.this.startedActivityCount == 0) {
                     KSLifecycleObserver.this.onAppGoToBackground();
                 }
-            } catch (Throwable th2) {
-                th2.printStackTrace();
+            } catch (Throwable th) {
+                th.printStackTrace();
             }
         }
     }
@@ -115,14 +113,23 @@ public class KSLifecycleObserver {
     private KSLifecycleObserver() {
     }
 
+    static /* synthetic */ int access$208(KSLifecycleObserver kSLifecycleObserver) {
+        int i2 = kSLifecycleObserver.startedActivityCount;
+        kSLifecycleObserver.startedActivityCount = i2 + 1;
+        return i2;
+    }
+
+    static /* synthetic */ int access$210(KSLifecycleObserver kSLifecycleObserver) {
+        int i2 = kSLifecycleObserver.startedActivityCount;
+        kSLifecycleObserver.startedActivityCount = i2 - 1;
+        return i2;
+    }
+
     public static KSLifecycleObserver getInstance() {
         if (sKSLifecycleObserver == null) {
             synchronized (KSLifecycleObserver.class) {
-                try {
-                    if (sKSLifecycleObserver == null) {
-                        sKSLifecycleObserver = new KSLifecycleObserver();
-                    }
-                } finally {
+                if (sKSLifecycleObserver == null) {
+                    sKSLifecycleObserver = new KSLifecycleObserver();
                 }
             }
         }
@@ -136,8 +143,8 @@ public class KSLifecycleObserver {
             while (it.hasNext()) {
                 it.next().onBackToForeground();
             }
-        } catch (Throwable th2) {
-            th2.printStackTrace();
+        } catch (Throwable th) {
+            th.printStackTrace();
         }
     }
 
@@ -148,8 +155,8 @@ public class KSLifecycleObserver {
             while (it.hasNext()) {
                 it.next().onBackToBackground();
             }
-        } catch (Throwable th2) {
-            th2.printStackTrace();
+        } catch (Throwable th) {
+            th.printStackTrace();
         }
     }
 
@@ -174,7 +181,7 @@ public class KSLifecycleObserver {
                 Application application = (Application) context;
                 this.mApplication = application;
                 application.registerActivityLifecycleCallbacks(new Application.ActivityLifecycleCallbacks() { // from class: com.kwad.sdk.api.core.KSLifecycleObserver.1
-                    public AnonymousClass1() {
+                    AnonymousClass1() {
                     }
 
                     @Override // android.app.Application.ActivityLifecycleCallbacks
@@ -185,8 +192,8 @@ public class KSLifecycleObserver {
                             while (it.hasNext()) {
                                 ((KSLifecycleListener) it.next()).onActivityCreated(activity, bundle);
                             }
-                        } catch (Throwable th2) {
-                            th2.printStackTrace();
+                        } catch (Throwable th) {
+                            th.printStackTrace();
                         }
                     }
 
@@ -197,8 +204,8 @@ public class KSLifecycleObserver {
                             while (it.hasNext()) {
                                 ((KSLifecycleListener) it.next()).onActivityDestroyed(activity);
                             }
-                        } catch (Throwable th2) {
-                            th2.printStackTrace();
+                        } catch (Throwable th) {
+                            th.printStackTrace();
                         }
                     }
 
@@ -212,8 +219,8 @@ public class KSLifecycleObserver {
                             while (it.hasNext()) {
                                 ((KSLifecycleListener) it.next()).onActivityPaused(activity);
                             }
-                        } catch (Throwable th2) {
-                            th2.printStackTrace();
+                        } catch (Throwable th) {
+                            th.printStackTrace();
                         }
                     }
 
@@ -225,8 +232,8 @@ public class KSLifecycleObserver {
                             while (it.hasNext()) {
                                 ((KSLifecycleListener) it.next()).onActivityResumed(activity);
                             }
-                        } catch (Throwable th2) {
-                            th2.printStackTrace();
+                        } catch (Throwable th) {
+                            th.printStackTrace();
                         }
                     }
 
@@ -237,30 +244,30 @@ public class KSLifecycleObserver {
                     @Override // android.app.Application.ActivityLifecycleCallbacks
                     public void onActivityStarted(@NonNull Activity activity) {
                         try {
-                            KSLifecycleObserver.this.mStartedActivitySet.add(Integer.valueOf(activity.hashCode()));
-                            if (KSLifecycleObserver.this.mStartedActivitySet.size() == 1) {
+                            KSLifecycleObserver.access$208(KSLifecycleObserver.this);
+                            if (KSLifecycleObserver.this.startedActivityCount == 1) {
                                 KSLifecycleObserver.this.onAppBackToForeground();
                             }
-                        } catch (Throwable th2) {
-                            th2.printStackTrace();
+                        } catch (Throwable th) {
+                            th.printStackTrace();
                         }
                     }
 
                     @Override // android.app.Application.ActivityLifecycleCallbacks
                     public void onActivityStopped(@NonNull Activity activity) {
                         try {
-                            KSLifecycleObserver.this.mStartedActivitySet.remove(Integer.valueOf(activity.hashCode()));
-                            if (KSLifecycleObserver.this.mStartedActivitySet.size() == 0) {
+                            KSLifecycleObserver.access$210(KSLifecycleObserver.this);
+                            if (KSLifecycleObserver.this.startedActivityCount == 0) {
                                 KSLifecycleObserver.this.onAppGoToBackground();
                             }
-                        } catch (Throwable th2) {
-                            th2.printStackTrace();
+                        } catch (Throwable th) {
+                            th.printStackTrace();
                         }
                     }
                 });
             }
-        } catch (Throwable th2) {
-            th2.printStackTrace();
+        } catch (Throwable th) {
+            th.printStackTrace();
         }
     }
 

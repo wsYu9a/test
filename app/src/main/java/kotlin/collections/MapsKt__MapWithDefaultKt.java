@@ -1,7 +1,7 @@
 package kotlin.collections;
 
 import androidx.exifinterface.media.ExifInterface;
-import com.martian.libmars.activity.PermissionActivity;
+import f.b.a.d;
 import java.util.Map;
 import java.util.NoSuchElementException;
 import kotlin.Metadata;
@@ -9,39 +9,36 @@ import kotlin.PublishedApi;
 import kotlin.jvm.JvmName;
 import kotlin.jvm.functions.Function1;
 import kotlin.jvm.internal.Intrinsics;
-import kotlin.jvm.internal.SourceDebugExtension;
-import xi.k;
 
-@Metadata(d1 = {"\u0000\u001e\n\u0002\b\u0003\n\u0002\u0010$\n\u0002\b\u0005\n\u0002\u0018\u0002\n\u0002\u0018\u0002\n\u0000\n\u0002\u0010%\n\u0002\b\u0002\u001a3\u0010\u0000\u001a\u0002H\u0001\"\u0004\b\u0000\u0010\u0002\"\u0004\b\u0001\u0010\u0001*\u000e\u0012\u0004\u0012\u0002H\u0002\u0012\u0004\u0012\u0002H\u00010\u00032\u0006\u0010\u0004\u001a\u0002H\u0002H\u0001¢\u0006\u0004\b\u0005\u0010\u0006\u001aQ\u0010\u0007\u001a\u000e\u0012\u0004\u0012\u0002H\u0002\u0012\u0004\u0012\u0002H\u00010\u0003\"\u0004\b\u0000\u0010\u0002\"\u0004\b\u0001\u0010\u0001*\u000e\u0012\u0004\u0012\u0002H\u0002\u0012\u0004\u0012\u0002H\u00010\u00032!\u0010\b\u001a\u001d\u0012\u0013\u0012\u0011H\u0002¢\u0006\f\b\n\u0012\b\b\u000b\u0012\u0004\b\b(\u0004\u0012\u0004\u0012\u0002H\u00010\t\u001aX\u0010\u0007\u001a\u000e\u0012\u0004\u0012\u0002H\u0002\u0012\u0004\u0012\u0002H\u00010\f\"\u0004\b\u0000\u0010\u0002\"\u0004\b\u0001\u0010\u0001*\u000e\u0012\u0004\u0012\u0002H\u0002\u0012\u0004\u0012\u0002H\u00010\f2!\u0010\b\u001a\u001d\u0012\u0013\u0012\u0011H\u0002¢\u0006\f\b\n\u0012\b\b\u000b\u0012\u0004\b\b(\u0004\u0012\u0004\u0012\u0002H\u00010\tH\u0007¢\u0006\u0002\b\r¨\u0006\u000e"}, d2 = {"getOrImplicitDefault", ExifInterface.GPS_MEASUREMENT_INTERRUPTED, "K", "", PermissionActivity.f12046p, "getOrImplicitDefaultNullable", "(Ljava/util/Map;Ljava/lang/Object;)Ljava/lang/Object;", "withDefault", "defaultValue", "Lkotlin/Function1;", "Lkotlin/ParameterName;", "name", "", "withDefaultMutable", "kotlin-stdlib"}, k = 5, mv = {1, 9, 0}, xi = 49, xs = "kotlin/collections/MapsKt")
-@SourceDebugExtension({"SMAP\nMapWithDefault.kt\nKotlin\n*S Kotlin\n*F\n+ 1 MapWithDefault.kt\nkotlin/collections/MapsKt__MapWithDefaultKt\n+ 2 Maps.kt\nkotlin/collections/MapsKt__MapsKt\n*L\n1#1,104:1\n341#2,6:105\n*S KotlinDebug\n*F\n+ 1 MapWithDefault.kt\nkotlin/collections/MapsKt__MapWithDefaultKt\n*L\n24#1:105,6\n*E\n"})
-/* loaded from: classes4.dex */
+@Metadata(bv = {1, 0, 3}, d1 = {"\u0000 \n\u0002\b\u0002\n\u0002\u0010$\n\u0002\b\u0004\n\u0002\u0018\u0002\n\u0002\u0018\u0002\n\u0002\b\u0004\n\u0002\u0010%\n\u0002\b\u0002\u001a3\u0010\u0006\u001a\u00028\u0001\"\u0004\b\u0000\u0010\u0000\"\u0004\b\u0001\u0010\u0001*\u000e\u0012\u0004\u0012\u00028\u0000\u0012\u0004\u0012\u00028\u00010\u00022\u0006\u0010\u0003\u001a\u00028\u0000H\u0001¢\u0006\u0004\b\u0004\u0010\u0005\u001aX\u0010\u000b\u001a\u000e\u0012\u0004\u0012\u00028\u0000\u0012\u0004\u0012\u00028\u00010\u0002\"\u0004\b\u0000\u0010\u0000\"\u0004\b\u0001\u0010\u0001*\u000e\u0012\u0004\u0012\u00028\u0000\u0012\u0004\u0012\u00028\u00010\u00022!\u0010\n\u001a\u001d\u0012\u0013\u0012\u00118\u0000¢\u0006\f\b\b\u0012\b\b\t\u0012\u0004\b\b(\u0003\u0012\u0004\u0012\u00028\u00010\u0007¢\u0006\u0004\b\u000b\u0010\f\u001aZ\u0010\u000b\u001a\u000e\u0012\u0004\u0012\u00028\u0000\u0012\u0004\u0012\u00028\u00010\r\"\u0004\b\u0000\u0010\u0000\"\u0004\b\u0001\u0010\u0001*\u000e\u0012\u0004\u0012\u00028\u0000\u0012\u0004\u0012\u00028\u00010\r2!\u0010\n\u001a\u001d\u0012\u0013\u0012\u00118\u0000¢\u0006\f\b\b\u0012\b\b\t\u0012\u0004\b\b(\u0003\u0012\u0004\u0012\u00028\u00010\u0007H\u0007¢\u0006\u0004\b\u000e\u0010\f¨\u0006\u000f"}, d2 = {"K", ExifInterface.GPS_MEASUREMENT_INTERRUPTED, "", "key", "getOrImplicitDefaultNullable", "(Ljava/util/Map;Ljava/lang/Object;)Ljava/lang/Object;", "getOrImplicitDefault", "Lkotlin/Function1;", "Lkotlin/ParameterName;", "name", "defaultValue", "withDefault", "(Ljava/util/Map;Lkotlin/jvm/functions/Function1;)Ljava/util/Map;", "", "withDefaultMutable", "kotlin-stdlib"}, k = 5, mv = {1, 4, 0}, xs = "kotlin/collections/MapsKt")
+/* loaded from: classes5.dex */
 class MapsKt__MapWithDefaultKt {
     @PublishedApi
     @JvmName(name = "getOrImplicitDefaultNullable")
-    public static final <K, V> V getOrImplicitDefaultNullable(@k Map<K, ? extends V> map, K k10) {
-        Intrinsics.checkNotNullParameter(map, "<this>");
-        if (map instanceof MapWithDefault) {
-            return (V) ((MapWithDefault) map).getOrImplicitDefault(k10);
+    public static final <K, V> V getOrImplicitDefaultNullable(@d Map<K, ? extends V> getOrImplicitDefault, K k) {
+        Intrinsics.checkParameterIsNotNull(getOrImplicitDefault, "$this$getOrImplicitDefault");
+        if (getOrImplicitDefault instanceof MapWithDefault) {
+            return (V) ((MapWithDefault) getOrImplicitDefault).getOrImplicitDefault(k);
         }
-        V v10 = map.get(k10);
-        if (v10 != null || map.containsKey(k10)) {
-            return v10;
+        V v = getOrImplicitDefault.get(k);
+        if (v != null || getOrImplicitDefault.containsKey(k)) {
+            return v;
         }
-        throw new NoSuchElementException("Key " + k10 + " is missing in the map.");
+        throw new NoSuchElementException("Key " + k + " is missing in the map.");
     }
 
-    @k
-    public static final <K, V> Map<K, V> withDefault(@k Map<K, ? extends V> map, @k Function1<? super K, ? extends V> defaultValue) {
-        Intrinsics.checkNotNullParameter(map, "<this>");
-        Intrinsics.checkNotNullParameter(defaultValue, "defaultValue");
-        return map instanceof MapWithDefault ? withDefault(((MapWithDefault) map).getMap(), defaultValue) : new MapWithDefaultImpl(map, defaultValue);
+    @d
+    public static final <K, V> Map<K, V> withDefault(@d Map<K, ? extends V> withDefault, @d Function1<? super K, ? extends V> defaultValue) {
+        Intrinsics.checkParameterIsNotNull(withDefault, "$this$withDefault");
+        Intrinsics.checkParameterIsNotNull(defaultValue, "defaultValue");
+        return withDefault instanceof MapWithDefault ? withDefault(((MapWithDefault) withDefault).getMap(), defaultValue) : new MapWithDefaultImpl(withDefault, defaultValue);
     }
 
-    @k
+    @d
     @JvmName(name = "withDefaultMutable")
-    public static final <K, V> Map<K, V> withDefaultMutable(@k Map<K, V> map, @k Function1<? super K, ? extends V> defaultValue) {
-        Intrinsics.checkNotNullParameter(map, "<this>");
-        Intrinsics.checkNotNullParameter(defaultValue, "defaultValue");
-        return map instanceof MutableMapWithDefault ? withDefaultMutable(((MutableMapWithDefault) map).getMap(), defaultValue) : new MutableMapWithDefaultImpl(map, defaultValue);
+    public static final <K, V> Map<K, V> withDefaultMutable(@d Map<K, V> withDefault, @d Function1<? super K, ? extends V> defaultValue) {
+        Intrinsics.checkParameterIsNotNull(withDefault, "$this$withDefault");
+        Intrinsics.checkParameterIsNotNull(defaultValue, "defaultValue");
+        return withDefault instanceof MutableMapWithDefault ? withDefaultMutable(((MutableMapWithDefault) withDefault).getMap(), defaultValue) : new MutableMapWithDefaultImpl(withDefault, defaultValue);
     }
 }

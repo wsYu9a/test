@@ -18,7 +18,7 @@ public class WXChannelJumpMiniProgramInfo extends WXChannelBaseJumpInfo {
             str = "checkArgs fail, username is null";
         } else {
             String str3 = this.path;
-            if (str3 == null || str3.length() < 10240) {
+            if (str3 == null || str3.length() < LENGTH_LIMIT) {
                 return super.checkArgs();
             }
             str = "checkArgs fail, path is invalid";

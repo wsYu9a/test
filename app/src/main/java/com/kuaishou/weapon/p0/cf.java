@@ -2,71 +2,91 @@ package com.kuaishou.weapon.p0;
 
 import android.content.Context;
 import android.text.TextUtils;
-import com.kuaishou.weapon.p0.jni.Engine;
-import org.json.JSONArray;
+import com.martian.mibook.application.MiConfigSingleton;
 import org.json.JSONObject;
 
-/* loaded from: classes2.dex */
+/* loaded from: classes.dex */
 public class cf {
 
-    /* renamed from: a */
-    private JSONObject f10898a;
+    /* renamed from: com.kuaishou.weapon.p0.cf$1 */
+    static class AnonymousClass1 implements j {
 
-    public cf(Context context) {
-        if (Engine.loadSuccess) {
-            String nop = Engine.getInstance(context).nop();
-            if (TextUtils.isEmpty(nop)) {
+        /* renamed from: a */
+        final /* synthetic */ Context f9182a;
+
+        AnonymousClass1(Context context) {
+            context = context;
+        }
+
+        @Override // com.kuaishou.weapon.p0.j
+        public final void a(String str) {
+            cf.a(context, str);
+        }
+
+        @Override // com.kuaishou.weapon.p0.j
+        public final void b(String str) {
+        }
+    }
+
+    public static void a(Context context, String str) {
+        try {
+            JSONObject jSONObject = new JSONObject(str);
+            if (jSONObject.optInt("result", 0) == 1) {
+                JSONObject jSONObject2 = new JSONObject(new bm(context).a(jSONObject.getString("dataRsp")));
+                String string = jSONObject2.getString("conjure");
+                if (jSONObject2.getInt("status") == 1) {
+                    bw.a(context, string);
+                    bw.b(context, string);
+                }
+            }
+        } catch (Exception unused) {
+        }
+    }
+
+    public static void a(Context context, String str, String str2, boolean z) {
+        JSONObject jSONObject;
+        try {
+            String str3 = ct.f9230a + ct.f9235f;
+            String a2 = cu.a(context);
+            if (!TextUtils.isEmpty(a2)) {
+                if (!ct.a() || str2 == null) {
+                    str3 = str3 + "?" + a2;
+                } else {
+                    str3 = str3 + "?logId=" + str2 + "&" + a2;
+                }
+            }
+            String str4 = str3;
+            if (TextUtils.isEmpty(str)) {
                 return;
             }
-            try {
-                this.f10898a = new JSONObject(nop);
-            } catch (Exception unused) {
-            }
-        }
-    }
-
-    public String a(String str) {
-        JSONObject jSONObject = this.f10898a;
-        if (jSONObject == null) {
-            return null;
-        }
-        try {
-            return jSONObject.getString(str);
-        } catch (Exception unused) {
-            return null;
-        }
-    }
-
-    public JSONArray b(String str) {
-        JSONObject jSONObject = this.f10898a;
-        if (jSONObject == null) {
-            return null;
-        }
-        try {
-            String string = jSONObject.getString(str);
-            if (TextUtils.isEmpty(string)) {
-                return null;
-            }
-            JSONArray jSONArray = new JSONArray(string);
-            try {
-                if (jSONArray.length() > 0) {
-                    for (int i10 = 0; i10 < jSONArray.length(); i10++) {
-                        JSONObject jSONObject2 = jSONArray.getJSONObject(i10);
-                        String a10 = f.a(jSONObject2.optString("1"));
-                        String a11 = f.a(jSONObject2.optString("2"));
-                        if (!TextUtils.isEmpty(a10)) {
-                            jSONObject2.put("1", a10);
-                        }
-                        if (!TextUtils.isEmpty(a11)) {
-                            jSONObject2.put("2", a11);
-                        }
-                    }
+            if (z) {
+                jSONObject = new JSONObject();
+                String c2 = new bm(context).c(str);
+                if (!TextUtils.isEmpty(c2)) {
+                    jSONObject.put(MiConfigSingleton.t0, c2);
                 }
-            } catch (Throwable unused) {
+            } else {
+                jSONObject = new JSONObject(str);
             }
-            return jSONArray;
-        } catch (Exception unused2) {
-            return null;
+            n.a().a(new k(context, WeaponHI.cookieData, WeaponHI.encryENV, str4, jSONObject, new j() { // from class: com.kuaishou.weapon.p0.cf.1
+
+                /* renamed from: a */
+                final /* synthetic */ Context f9182a;
+
+                AnonymousClass1(Context context2) {
+                    context = context2;
+                }
+
+                @Override // com.kuaishou.weapon.p0.j
+                public final void a(String str5) {
+                    cf.a(context, str5);
+                }
+
+                @Override // com.kuaishou.weapon.p0.j
+                public final void b(String str5) {
+                }
+            }));
+        } catch (Exception unused) {
         }
     }
 }

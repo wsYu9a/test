@@ -1,47 +1,58 @@
 package com.martian.mibook.lib.model.data.abs;
 
 import android.text.TextUtils;
-import ba.l;
+import com.martian.libmars.utils.p0;
+import com.martian.libsupport.k;
+import com.martian.mibook.lib.model.c.g;
+import com.martian.mibook.lib.model.data.MiBook;
 import com.martian.mibook.lib.model.data.Source;
-import java.io.Serializable;
+import com.martian.mibook.lib.model.manager.d;
 import java.util.Date;
-import l9.o0;
-import vb.e;
-import wb.f;
 
-/* loaded from: classes3.dex */
-public abstract class Book implements f, Serializable {
+/* loaded from: classes.dex */
+public abstract class Book implements g {
     public static final int COVER_RADIUS = 2;
     public static final String STATUS_FINISHED = "完结";
     public static final String STATUS_UNFINISHED = "连载";
 
-    public static String getNumbers(int i10) {
-        if (i10 < 10000) {
-            return i10 + "";
+    public static String getNumbers(int numbers) {
+        if (numbers < 10000) {
+            return numbers + "";
         }
-        return (i10 / 10000) + "万";
+        return (numbers / 10000) + "万";
     }
 
-    public boolean equals(Object obj) {
-        if (!(obj instanceof f)) {
+    public MiBook buildMibook() {
+        MiBook miBook = new MiBook();
+        Source source = new Source(getSourceName(), getSourceId());
+        miBook.setBookId(isLocal() ? getSourceId() : d.a(this));
+        miBook.setAuthorName(getAuthor());
+        if (k.p(getBookName())) {
+            miBook.setBookName(d.i(source));
+        } else {
+            miBook.setBookName(getBookName());
+        }
+        miBook.setUrl(getSourceUrl());
+        miBook.setSourceString(d.i(source));
+        return miBook;
+    }
+
+    public boolean equals(Object o) {
+        if (!(o instanceof g)) {
             return false;
         }
-        f fVar = (f) obj;
-        return fVar.getSourceName().equals(getSourceName()) && fVar.getSourceId() != null && fVar.getSourceId().equals(getSourceId());
+        g gVar = (g) o;
+        return gVar.getSourceName().equals(getSourceName()) && gVar.getSourceId() != null && gVar.getSourceId().equals(getSourceId());
     }
 
     public abstract Integer getAllWords();
 
     public abstract String getAuthor();
 
-    public String getBookId() {
-        return e.b(this);
-    }
-
     public String getBookInfo() {
-        String author = !l.q(getAuthor()) ? getAuthor() : "";
-        if (!l.q(getCategory())) {
-            if (!l.q(author)) {
+        String author = !k.p(getAuthor()) ? getAuthor() : "";
+        if (!k.p(getCategory())) {
+            if (!k.p(author)) {
                 author = author + " · ";
             }
             author = author + getCategory();
@@ -49,7 +60,7 @@ public abstract class Book implements f, Serializable {
         if (getAllWords() == null || getAllWords().intValue() <= 0) {
             return author;
         }
-        if (!l.q(author)) {
+        if (!k.p(author)) {
             author = author + " · ";
         }
         return author + getNumbers(getAllWords().intValue()) + "字";
@@ -65,8 +76,6 @@ public abstract class Book implements f, Serializable {
 
     public abstract String getCategory();
 
-    public abstract Integer getChapterSize();
-
     public abstract String getCover();
 
     public String getKeyword() {
@@ -80,9 +89,9 @@ public abstract class Book implements f, Serializable {
     public abstract int getRank();
 
     public String getReadingInfo() {
-        String author = !l.q(getAuthor()) ? getAuthor() : "";
-        if (!l.q(getStatus())) {
-            if (!l.q(author)) {
+        String author = !k.p(getAuthor()) ? getAuthor() : "";
+        if (!k.p(getStatus())) {
+            if (!k.p(author)) {
                 author = author + " · ";
             }
             author = author + getStatus();
@@ -90,7 +99,7 @@ public abstract class Book implements f, Serializable {
         if (getAllWords() == null || getAllWords().intValue() <= 0) {
             return author;
         }
-        if (!l.q(author)) {
+        if (!k.p(author)) {
             author = author + " · ";
         }
         return author + getNumbers(getAllWords().intValue()) + "字";
@@ -102,14 +111,14 @@ public abstract class Book implements f, Serializable {
         return new Source(getSourceName(), getSourceId());
     }
 
-    @Override // wb.f
+    @Override // com.martian.mibook.lib.model.c.g
     public abstract String getSourceId();
 
-    @Override // wb.f
+    @Override // com.martian.mibook.lib.model.c.g
     public abstract String getSourceName();
 
     public String getSourceString() {
-        return e.k(this);
+        return d.i(this);
     }
 
     public abstract String getSourceUrl();
@@ -119,24 +128,13 @@ public abstract class Book implements f, Serializable {
     public String getUpdateDateString() {
         Date lastUpdated = getLastUpdated();
         if (lastUpdated != null) {
-            return o0.C(lastUpdated);
+            return p0.A(lastUpdated);
         }
         return null;
     }
 
     public int hashCode() {
-        String sourceName = getSourceName();
-        String sourceId = getSourceId();
-        StringBuilder sb2 = new StringBuilder();
-        if (sourceName == null) {
-            sourceName = "";
-        }
-        sb2.append(sourceName);
-        if (sourceId == null) {
-            sourceId = "";
-        }
-        sb2.append(sourceId);
-        return sb2.toString().hashCode();
+        return (getSourceName() + getSourceId()).hashCode();
     }
 
     public boolean isFreeBook() {
@@ -155,37 +153,31 @@ public abstract class Book implements f, Serializable {
         return getStatus() != null && getStatus().contains(STATUS_FINISHED);
     }
 
-    public abstract void setAllWords(Integer num);
+    public abstract void setAuthorName(String authorName);
 
-    public abstract void setAuthorName(String str);
+    public abstract void setBookName(String bookName);
 
-    public abstract void setBookName(String str);
+    public abstract void setCover(String cover);
 
-    public abstract void setBookStatus(String str);
+    public abstract void setLastChapter(String lastChapter);
 
-    public abstract void setCategoryName(String str);
+    public abstract void setLatestChapterUpdateTime(Long latestChapterUpdateTime);
 
-    public abstract void setCover(String str);
+    public abstract void setShortIntro(String intro);
 
-    public abstract void setLastChapter(String str);
-
-    public abstract void setLatestChapterUpdateTime(Long l10);
-
-    public abstract void setShortIntro(String str);
-
-    public abstract void setSourceId(String str);
+    public abstract void setSourceId(String sourceId);
 
     public String toString() {
         String str;
-        StringBuilder sb2 = new StringBuilder();
-        sb2.append(getBookName());
+        StringBuilder sb = new StringBuilder();
+        sb.append(getBookName());
         if (TextUtils.isEmpty(getAuthor())) {
             str = " ";
         } else {
             str = " (" + getAuthor() + " 著) ";
         }
-        sb2.append(str);
-        sb2.append(e.f(getSourceName()));
-        return sb2.toString();
+        sb.append(str);
+        sb.append(d.e(getSourceName()));
+        return sb.toString();
     }
 }

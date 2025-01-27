@@ -3,7 +3,6 @@ package com.kwad.components.ad.reward.presenter.platdetail.actionbar;
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
 import android.animation.ValueAnimator;
-import android.content.res.Resources;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.ViewStub;
@@ -11,150 +10,145 @@ import android.view.animation.DecelerateInterpolator;
 import android.view.animation.Interpolator;
 import androidx.annotation.Nullable;
 import androidx.core.view.animation.PathInterpolatorCompat;
-import com.kwad.components.ad.reward.e.g;
-import com.kwad.components.ad.reward.n.h;
-import com.kwad.components.ad.reward.n.r;
+import com.kwad.components.ad.reward.k.r;
 import com.kwad.components.ad.reward.presenter.platdetail.actionbar.RewardActionBarControl;
 import com.kwad.components.ad.reward.widget.actionbar.ActionBarAppLandscape;
 import com.kwad.components.ad.reward.widget.actionbar.ActionBarAppPortrait;
 import com.kwad.components.ad.reward.widget.actionbar.ActionBarH5;
-import com.kwad.components.core.s.n;
-import com.kwad.components.core.video.l;
+import com.kwad.components.core.playable.PlayableSource;
+import com.kwad.components.core.r.m;
+import com.kwad.components.core.webview.a.j;
 import com.kwad.components.core.widget.KsLogoView;
+import com.kwad.components.offline.api.core.adlive.listener.AdLivePlayStateListener;
+import com.kwad.components.offline.api.core.adlive.listener.AdLivePlayStateListenerAdapter;
 import com.kwad.sdk.R;
 import com.kwad.sdk.core.response.model.AdInfo;
 import com.kwad.sdk.core.response.model.AdTemplate;
-import com.kwad.sdk.utils.an;
 
 /* loaded from: classes2.dex */
-public final class b extends com.kwad.components.ad.reward.presenter.b {
+public final class b extends com.kwad.components.ad.reward.presenter.a {
 
-    /* renamed from: ei */
     @Nullable
-    private ValueAnimator f11820ei;
+    private ValueAnimator da;
     private AdInfo mAdInfo;
     private AdTemplate mAdTemplate;
-    private com.kwad.components.core.e.d.c mApkDownloadHelper;
+    private com.kwad.components.core.d.b.c mApkDownloadHelper;
+    private RewardActionBarControl oQ;
+    private KsLogoView sh;
+    private ActionBarAppLandscape tP;
+    private ActionBarAppPortrait tQ;
+    private ActionBarH5 tR;
+    private boolean tT;
 
-    /* renamed from: qi */
-    private RewardActionBarControl f11821qi;
-    private KsLogoView tU;
-    private ActionBarAppLandscape vW;
-    private ActionBarAppPortrait vX;
-    private ActionBarH5 vY;
-
-    /* renamed from: wa */
-    private boolean f11822wa;
-
-    /* renamed from: wb */
     @Nullable
-    private ViewGroup f11823wb;
+    private ViewGroup tU;
 
-    /* renamed from: wc */
     @Nullable
-    private ViewGroup f11824wc;
+    private ViewGroup tV;
 
-    /* renamed from: wd */
     @Nullable
-    private ViewGroup f11825wd;
-
-    /* renamed from: we */
-    private h f11826we;
-
-    /* renamed from: wf */
-    private boolean f11827wf;
-    private boolean vZ = false;
-    private final l tY = new l() { // from class: com.kwad.components.ad.reward.presenter.platdetail.actionbar.b.1
-        public AnonymousClass1() {
+    private ViewGroup tW;
+    private r tX;
+    private boolean tY;
+    private boolean tS = false;
+    private final AdLivePlayStateListener mAdLivePlayStateListener = new AdLivePlayStateListenerAdapter() { // from class: com.kwad.components.ad.reward.presenter.platdetail.actionbar.b.1
+        AnonymousClass1() {
         }
 
-        @Override // com.kwad.components.core.video.l, com.kwad.components.core.video.g
+        @Override // com.kwad.components.offline.api.core.adlive.listener.AdLivePlayStateListenerAdapter, com.kwad.components.offline.api.core.adlive.listener.AdLivePlayStateListener
         public final void onLivePlayEnd() {
             super.onLivePlayEnd();
-            b.this.f11827wf = true;
-            if (!com.kwad.sdk.core.response.b.a.cS(b.this.mAdInfo) || b.this.f11825wd == null) {
+            b.this.tY = true;
+            if (!com.kwad.sdk.core.response.a.a.cq(b.this.mAdInfo) || b.this.tW == null) {
                 return;
             }
-            b.this.f11825wd.setVisibility(8);
+            b.this.tW.setVisibility(8);
         }
 
-        @Override // com.kwad.components.core.video.l, com.kwad.components.core.video.h
-        public final void onMediaPlayStart() {
-            super.onMediaPlayStart();
-            b.this.f11827wf = false;
-            if (!com.kwad.sdk.core.response.b.a.cS(b.this.mAdInfo) || b.this.f11825wd == null) {
+        @Override // com.kwad.components.offline.api.core.adlive.listener.AdLivePlayStateListenerAdapter, com.kwad.components.offline.api.core.adlive.listener.AdLivePlayStateListener
+        public final void onLivePlayStart() {
+            super.onLivePlayStart();
+            b.this.tY = false;
+            if (!com.kwad.sdk.core.response.a.a.cq(b.this.mAdInfo) || b.this.tW == null) {
                 return;
             }
-            b.this.f11825wd.setVisibility(0);
+            b.this.tW.setVisibility(0);
         }
     };
+    private com.kwad.components.core.webview.a.d.e gG = new com.kwad.components.core.webview.a.d.e() { // from class: com.kwad.components.ad.reward.presenter.platdetail.actionbar.b.4
+        AnonymousClass4() {
+        }
 
-    /* renamed from: wg */
-    private RewardActionBarControl.b f11828wg = new RewardActionBarControl.b() { // from class: com.kwad.components.ad.reward.presenter.platdetail.actionbar.b.4
-        public AnonymousClass4() {
+        @Override // com.kwad.components.core.webview.a.d.b
+        public final void u(String str) {
+            if (j.b("ksad-video-bottom-card-v2", b.this.qt.mAdTemplate).equals(str)) {
+                b.this.cc();
+            }
+        }
+    };
+    private RewardActionBarControl.b tZ = new RewardActionBarControl.b() { // from class: com.kwad.components.ad.reward.presenter.platdetail.actionbar.b.5
+        AnonymousClass5() {
         }
 
         @Override // com.kwad.components.ad.reward.presenter.platdetail.actionbar.RewardActionBarControl.b
-        public final void a(boolean z10, a aVar) {
-            b.this.f11822wa = true;
-            b.this.a(z10, aVar);
+        public final void a(boolean z, a aVar) {
+            b.this.tT = true;
+            b.this.a(z, aVar);
         }
     };
-
-    /* renamed from: wh */
-    private g f11829wh = new com.kwad.components.ad.reward.e.a() { // from class: com.kwad.components.ad.reward.presenter.platdetail.actionbar.b.5
-        public AnonymousClass5() {
+    private com.kwad.components.ad.reward.d.f ua = new com.kwad.components.ad.reward.d.a() { // from class: com.kwad.components.ad.reward.presenter.platdetail.actionbar.b.6
+        AnonymousClass6() {
         }
 
-        @Override // com.kwad.components.ad.reward.e.g
-        public final void ch() {
-            b.this.f11822wa = false;
-            b.this.M(false);
+        @Override // com.kwad.components.ad.reward.d.f
+        public final void bM() {
+            b.this.tT = false;
+            b.this.Q(false);
         }
     };
 
     /* renamed from: com.kwad.components.ad.reward.presenter.platdetail.actionbar.b$1 */
-    public class AnonymousClass1 extends l {
-        public AnonymousClass1() {
+    final class AnonymousClass1 extends AdLivePlayStateListenerAdapter {
+        AnonymousClass1() {
         }
 
-        @Override // com.kwad.components.core.video.l, com.kwad.components.core.video.g
+        @Override // com.kwad.components.offline.api.core.adlive.listener.AdLivePlayStateListenerAdapter, com.kwad.components.offline.api.core.adlive.listener.AdLivePlayStateListener
         public final void onLivePlayEnd() {
             super.onLivePlayEnd();
-            b.this.f11827wf = true;
-            if (!com.kwad.sdk.core.response.b.a.cS(b.this.mAdInfo) || b.this.f11825wd == null) {
+            b.this.tY = true;
+            if (!com.kwad.sdk.core.response.a.a.cq(b.this.mAdInfo) || b.this.tW == null) {
                 return;
             }
-            b.this.f11825wd.setVisibility(8);
+            b.this.tW.setVisibility(8);
         }
 
-        @Override // com.kwad.components.core.video.l, com.kwad.components.core.video.h
-        public final void onMediaPlayStart() {
-            super.onMediaPlayStart();
-            b.this.f11827wf = false;
-            if (!com.kwad.sdk.core.response.b.a.cS(b.this.mAdInfo) || b.this.f11825wd == null) {
+        @Override // com.kwad.components.offline.api.core.adlive.listener.AdLivePlayStateListenerAdapter, com.kwad.components.offline.api.core.adlive.listener.AdLivePlayStateListener
+        public final void onLivePlayStart() {
+            super.onLivePlayStart();
+            b.this.tY = false;
+            if (!com.kwad.sdk.core.response.a.a.cq(b.this.mAdInfo) || b.this.tW == null) {
                 return;
             }
-            b.this.f11825wd.setVisibility(0);
+            b.this.tW.setVisibility(0);
         }
     }
 
     /* renamed from: com.kwad.components.ad.reward.presenter.platdetail.actionbar.b$10 */
-    public class AnonymousClass10 implements ActionBarH5.a {
-        public AnonymousClass10() {
+    final class AnonymousClass10 implements ActionBarH5.a {
+        AnonymousClass10() {
         }
 
         @Override // com.kwad.components.ad.reward.widget.actionbar.ActionBarH5.a
-        public final void O(boolean z10) {
-            b.this.N(z10);
+        public final void R(boolean z) {
+            b.this.L(z);
         }
     }
 
     /* renamed from: com.kwad.components.ad.reward.presenter.platdetail.actionbar.b$11 */
-    public class AnonymousClass11 extends AnimatorListenerAdapter {
-        final /* synthetic */ View gv;
+    final class AnonymousClass11 extends AnimatorListenerAdapter {
+        final /* synthetic */ View fe;
 
-        public AnonymousClass11(View view) {
+        AnonymousClass11(View view) {
             view = view;
         }
 
@@ -166,10 +160,10 @@ public final class b extends com.kwad.components.ad.reward.presenter.b {
     }
 
     /* renamed from: com.kwad.components.ad.reward.presenter.platdetail.actionbar.b$2 */
-    public class AnonymousClass2 extends AnimatorListenerAdapter {
-        final /* synthetic */ View gv;
+    final class AnonymousClass2 extends AnimatorListenerAdapter {
+        final /* synthetic */ View fe;
 
-        public AnonymousClass2(View view) {
+        AnonymousClass2(View view) {
             view = view;
         }
 
@@ -181,10 +175,10 @@ public final class b extends com.kwad.components.ad.reward.presenter.b {
     }
 
     /* renamed from: com.kwad.components.ad.reward.presenter.platdetail.actionbar.b$3 */
-    public class AnonymousClass3 extends AnimatorListenerAdapter {
-        final /* synthetic */ View gv;
+    final class AnonymousClass3 extends AnimatorListenerAdapter {
+        final /* synthetic */ View fe;
 
-        public AnonymousClass3(View view) {
+        AnonymousClass3(View view) {
             view = view;
         }
 
@@ -196,265 +190,243 @@ public final class b extends com.kwad.components.ad.reward.presenter.b {
     }
 
     /* renamed from: com.kwad.components.ad.reward.presenter.platdetail.actionbar.b$4 */
-    public class AnonymousClass4 implements RewardActionBarControl.b {
-        public AnonymousClass4() {
+    final class AnonymousClass4 extends com.kwad.components.core.webview.a.d.e {
+        AnonymousClass4() {
         }
 
-        @Override // com.kwad.components.ad.reward.presenter.platdetail.actionbar.RewardActionBarControl.b
-        public final void a(boolean z10, a aVar) {
-            b.this.f11822wa = true;
-            b.this.a(z10, aVar);
+        @Override // com.kwad.components.core.webview.a.d.b
+        public final void u(String str) {
+            if (j.b("ksad-video-bottom-card-v2", b.this.qt.mAdTemplate).equals(str)) {
+                b.this.cc();
+            }
         }
     }
 
     /* renamed from: com.kwad.components.ad.reward.presenter.platdetail.actionbar.b$5 */
-    public class AnonymousClass5 extends com.kwad.components.ad.reward.e.a {
-        public AnonymousClass5() {
+    final class AnonymousClass5 implements RewardActionBarControl.b {
+        AnonymousClass5() {
         }
 
-        @Override // com.kwad.components.ad.reward.e.g
-        public final void ch() {
-            b.this.f11822wa = false;
-            b.this.M(false);
+        @Override // com.kwad.components.ad.reward.presenter.platdetail.actionbar.RewardActionBarControl.b
+        public final void a(boolean z, a aVar) {
+            b.this.tT = true;
+            b.this.a(z, aVar);
         }
     }
 
     /* renamed from: com.kwad.components.ad.reward.presenter.platdetail.actionbar.b$6 */
-    public class AnonymousClass6 extends h {
-
-        /* renamed from: wj */
-        final /* synthetic */ boolean f11838wj;
-
-        public AnonymousClass6(boolean z10) {
-            z11 = z10;
+    final class AnonymousClass6 extends com.kwad.components.ad.reward.d.a {
+        AnonymousClass6() {
         }
 
-        @Override // com.kwad.components.ad.reward.n.h
-        public final int it() {
-            return z11 ? R.id.ksad_common_app_card_land_stub : super.it();
+        @Override // com.kwad.components.ad.reward.d.f
+        public final void bM() {
+            b.this.tT = false;
+            b.this.Q(false);
         }
     }
 
     /* renamed from: com.kwad.components.ad.reward.presenter.platdetail.actionbar.b$7 */
-    public class AnonymousClass7 implements h.a {
-        public AnonymousClass7() {
+    final class AnonymousClass7 implements r.a {
+        AnonymousClass7() {
         }
 
-        @Override // com.kwad.components.ad.reward.n.h.a
-        public final void iu() {
-            b.this.rO.a(1, b.this.getContext(), 29, 1);
+        @Override // com.kwad.components.ad.reward.k.r.a
+        public final void hV() {
         }
 
-        @Override // com.kwad.components.ad.reward.n.h.a
-        public final void iv() {
-            b.this.rO.a(1, b.this.getContext(), 30, 2);
+        @Override // com.kwad.components.ad.reward.k.r.a
+        public final void hW() {
+            com.kwad.components.ad.reward.b.ff().c(PlayableSource.ACTIONBAR_CLICK, new com.kwad.components.ad.reward.f.a(b.this.getContext()));
+            com.kwad.sdk.core.report.a.q(b.this.qt.mAdTemplate, 67);
         }
 
-        @Override // com.kwad.components.ad.reward.n.h.a
-        public final void iw() {
-            b.this.rO.a(1, b.this.getContext(), 31, 2);
+        @Override // com.kwad.components.ad.reward.k.r.a
+        public final void hX() {
+            b.this.qt.a(1, b.this.getContext(), 1, 1);
         }
 
-        @Override // com.kwad.components.ad.reward.n.h.a
-        public final void ix() {
-            b.this.rO.a(1, b.this.getContext(), 32, 2);
-        }
-
-        @Override // com.kwad.components.ad.reward.n.h.a
-        public final void iy() {
-            b.this.rO.a(1, b.this.getContext(), 84, 2);
-        }
-
-        @Override // com.kwad.components.ad.reward.n.h.a
-        public final void iz() {
-            b.this.rO.a(1, b.this.getContext(), 53, 2);
+        @Override // com.kwad.components.ad.reward.k.r.a
+        public final void hY() {
+            b.this.qt.a(1, b.this.getContext(), 1, 2);
         }
     }
 
     /* renamed from: com.kwad.components.ad.reward.presenter.platdetail.actionbar.b$8 */
-    public class AnonymousClass8 implements ActionBarAppLandscape.a {
-        public AnonymousClass8() {
+    final class AnonymousClass8 implements ActionBarAppLandscape.a {
+        AnonymousClass8() {
         }
 
         @Override // com.kwad.components.ad.reward.widget.actionbar.ActionBarAppLandscape.a
-        public final void O(boolean z10) {
-            b.this.N(z10);
+        public final void R(boolean z) {
+            b.this.L(z);
         }
     }
 
     /* renamed from: com.kwad.components.ad.reward.presenter.platdetail.actionbar.b$9 */
-    public class AnonymousClass9 implements ActionBarAppPortrait.a {
-        public AnonymousClass9() {
+    final class AnonymousClass9 implements ActionBarAppPortrait.a {
+        AnonymousClass9() {
         }
 
         @Override // com.kwad.components.ad.reward.widget.actionbar.ActionBarAppPortrait.a
-        public final void O(boolean z10) {
-            b.this.N(z10);
+        public final void R(boolean z) {
+            b.this.L(z);
         }
     }
 
-    public void M(boolean z10) {
-        if (this.vZ) {
-            this.vZ = false;
-            this.tU.setVisibility(8);
-            ViewGroup viewGroup = this.f11823wb;
+    public void Q(boolean z) {
+        View view;
+        if (this.tS) {
+            this.tS = false;
+            this.sh.setVisibility(8);
+            ViewGroup viewGroup = this.tU;
             if (viewGroup != null) {
                 viewGroup.setVisibility(8);
             }
-            ViewGroup viewGroup2 = this.f11825wd;
+            ViewGroup viewGroup2 = this.tW;
             if (viewGroup2 != null) {
                 viewGroup2.setVisibility(8);
             }
-            if (!com.kwad.sdk.core.response.b.a.aF(this.mAdInfo)) {
-                if (z10) {
-                    g(this.vY, com.kwad.sdk.c.a.a.a(getContext(), 90.0f));
-                    return;
-                } else {
-                    this.vY.setVisibility(8);
+            if (com.kwad.sdk.core.response.a.a.ax(this.mAdInfo)) {
+                if (this.qt.mScreenOrientation == 1) {
+                    if (z) {
+                        hT();
+                        return;
+                    } else {
+                        hU();
+                        return;
+                    }
+                }
+                if (!z) {
+                    ActionBarAppPortrait actionBarAppPortrait = this.tQ;
+                    if (actionBarAppPortrait != null) {
+                        actionBarAppPortrait.setVisibility(8);
+                        return;
+                    }
                     return;
                 }
-            }
-            if (this.rO.mScreenOrientation == 1) {
-                if (z10) {
-                    ir();
-                    return;
-                } else {
-                    is();
+                view = this.tQ;
+                if (view == null) {
                     return;
                 }
-            }
-            if (z10) {
-                ActionBarAppPortrait actionBarAppPortrait = this.vX;
-                if (actionBarAppPortrait != null) {
-                    g(actionBarAppPortrait, com.kwad.sdk.c.a.a.a(getContext(), 90.0f));
+            } else {
+                if (!z) {
+                    this.tR.setVisibility(8);
                     return;
                 }
-                return;
+                view = this.tR;
             }
-            ActionBarAppPortrait actionBarAppPortrait2 = this.vX;
-            if (actionBarAppPortrait2 != null) {
-                actionBarAppPortrait2.setVisibility(8);
-            }
+            g(view, com.kwad.sdk.c.kwai.a.a(getContext(), 90.0f));
         }
     }
 
-    private void bf() {
-        ValueAnimator valueAnimator = this.f11820ei;
+    /* JADX WARN: Removed duplicated region for block: B:16:0x0038  */
+    /* JADX WARN: Removed duplicated region for block: B:22:0x0074  */
+    /*
+        Code decompiled incorrectly, please refer to instructions dump.
+        To view partially-correct code enable 'Show inconsistent code' option in preferences
+    */
+    public void a(boolean r5, com.kwad.components.ad.reward.presenter.platdetail.actionbar.a r6) {
+        /*
+            Method dump skipped, instructions count: 242
+            To view this dump change 'Code comments level' option to 'DEBUG'
+        */
+        throw new UnsupportedOperationException("Method not decompiled: com.kwad.components.ad.reward.presenter.platdetail.actionbar.b.a(boolean, com.kwad.components.ad.reward.presenter.platdetail.actionbar.a):void");
+    }
+
+    private void aO() {
+        ValueAnimator valueAnimator = this.da;
         if (valueAnimator != null) {
             valueAnimator.removeAllListeners();
-            this.f11820ei.cancel();
+            this.da.cancel();
         }
     }
 
-    private void cw() {
-        if (com.kwad.sdk.core.response.b.a.cM(this.mAdInfo)) {
-            this.f11823wb = (ViewGroup) findViewById(R.id.ksad_reward_jinniu_root);
-        }
-        this.tU.aK(this.mAdTemplate);
-        com.kwad.components.ad.reward.g gVar = this.rO;
-        this.mApkDownloadHelper = gVar.mApkDownloadHelper;
-        RewardActionBarControl rewardActionBarControl = gVar.f11692qi;
-        this.f11821qi = rewardActionBarControl;
-        rewardActionBarControl.a(this.f11828wg);
-        this.rO.b(this.f11829wh);
-    }
+    private void b(boolean z, a aVar) {
+        hR();
+        this.tP.a(this.mAdTemplate, this.mApkDownloadHelper, new ActionBarAppLandscape.a() { // from class: com.kwad.components.ad.reward.presenter.platdetail.actionbar.b.8
+            AnonymousClass8() {
+            }
 
-    private void ip() {
-        ViewStub viewStub = (ViewStub) findViewById(R.id.view_stub_action_bar_landscape);
-        if (viewStub != null) {
-            this.vW = (ActionBarAppLandscape) viewStub.inflate();
+            @Override // com.kwad.components.ad.reward.widget.actionbar.ActionBarAppLandscape.a
+            public final void R(boolean z2) {
+                b.this.L(z2);
+            }
+        });
+        if (z) {
+            f(this.tP, com.kwad.sdk.c.kwai.a.a(getContext(), 90.0f));
         } else {
-            this.vW = (ActionBarAppLandscape) findViewById(R.id.ksad_video_play_bar_app_landscape);
+            this.tP.setVisibility(0);
         }
+        RewardActionBarControl.a(aVar, this.tP, RewardActionBarControl.ShowActionBarResult.SHOW_NATIVE_DEFAULT);
     }
 
-    private void iq() {
-        ViewStub viewStub = (ViewStub) findViewById(R.id.view_stub_action_bar);
-        if (viewStub != null) {
-            this.vX = (ActionBarAppPortrait) viewStub.inflate();
+    private void c(boolean z, a aVar) {
+        hS();
+        this.tQ.a(this.mAdTemplate, this.mApkDownloadHelper, new ActionBarAppPortrait.a() { // from class: com.kwad.components.ad.reward.presenter.platdetail.actionbar.b.9
+            AnonymousClass9() {
+            }
+
+            @Override // com.kwad.components.ad.reward.widget.actionbar.ActionBarAppPortrait.a
+            public final void R(boolean z2) {
+                b.this.L(z2);
+            }
+        });
+        if (z) {
+            f(this.tQ, com.kwad.sdk.c.kwai.a.a(getContext(), 90.0f));
         } else {
-            this.vX = (ActionBarAppPortrait) findViewById(R.id.ksad_video_play_bar_app_portrait);
+            this.tQ.setVisibility(0);
         }
+        RewardActionBarControl.a(aVar, this.tQ, RewardActionBarControl.ShowActionBarResult.SHOW_NATIVE_DEFAULT);
     }
 
-    private void ir() {
-        iq();
-        f(this.vX, com.kwad.sdk.c.a.a.a(getContext(), 90.0f));
-    }
-
-    private void is() {
-        ActionBarAppPortrait actionBarAppPortrait = this.vX;
-        if (actionBarAppPortrait != null) {
-            actionBarAppPortrait.setVisibility(8);
-        }
-    }
-
-    public final void N(boolean z10) {
-        com.kwad.sdk.core.adlog.c.b cL = new com.kwad.sdk.core.adlog.c.b().f(this.rO.mRootContainer.getTouchCoords()).cL(z10 ? 1 : 153);
-        com.kwad.components.ad.reward.g gVar = this.rO;
-        com.kwad.components.ad.reward.j.b.a(gVar.mAdTemplate, "native_id", (String) null, cL, gVar.mReportExtData);
-        this.rO.f11688qe.cg();
-    }
-
-    @Override // com.kwad.components.ad.reward.presenter.b, com.kwad.sdk.mvp.Presenter
-    public final void as() {
-        super.as();
-        AdTemplate adTemplate = this.rO.mAdTemplate;
+    public void cc() {
+        AdTemplate adTemplate = this.qt.mAdTemplate;
         this.mAdTemplate = adTemplate;
-        this.mAdInfo = com.kwad.sdk.core.response.b.e.eb(adTemplate);
-        this.rO.f11689qf.a(this.tY);
-        cw();
-    }
-
-    @Override // com.kwad.sdk.mvp.Presenter
-    public final void onCreate() {
-        super.onCreate();
-        this.tU = (KsLogoView) findViewById(R.id.ksad_ad_label_play_bar);
-        this.vY = (ActionBarH5) findViewById(R.id.ksad_video_play_bar_h5);
-    }
-
-    @Override // com.kwad.sdk.mvp.Presenter
-    public final void onUnbind() {
-        super.onUnbind();
-        RewardActionBarControl rewardActionBarControl = this.f11821qi;
-        if (rewardActionBarControl != null) {
-            rewardActionBarControl.a((RewardActionBarControl.b) null);
+        AdInfo cb = com.kwad.sdk.core.response.a.d.cb(adTemplate);
+        this.mAdInfo = cb;
+        if (com.kwad.sdk.core.response.a.a.ck(cb)) {
+            this.tU = (ViewGroup) findViewById(R.id.ksad_reward_jinniu_root);
         }
-        this.rO.f11689qf.b(this.tY);
-        this.rO.c(this.f11829wh);
-        bf();
+        this.sh.S(this.mAdTemplate);
+        com.kwad.components.ad.reward.j jVar = this.qt;
+        this.mApkDownloadHelper = jVar.mApkDownloadHelper;
+        RewardActionBarControl rewardActionBarControl = jVar.oQ;
+        this.oQ = rewardActionBarControl;
+        rewardActionBarControl.a(this.tZ);
+        this.qt.b(this.ua);
     }
 
-    private void d(boolean z10, a aVar) {
-        this.vY.a(this.mAdTemplate, new ActionBarH5.a() { // from class: com.kwad.components.ad.reward.presenter.platdetail.actionbar.b.10
-            public AnonymousClass10() {
+    private void d(boolean z, a aVar) {
+        this.tR.a(this.mAdTemplate, new ActionBarH5.a() { // from class: com.kwad.components.ad.reward.presenter.platdetail.actionbar.b.10
+            AnonymousClass10() {
             }
 
             @Override // com.kwad.components.ad.reward.widget.actionbar.ActionBarH5.a
-            public final void O(boolean z102) {
-                b.this.N(z102);
+            public final void R(boolean z2) {
+                b.this.L(z2);
             }
         });
-        if (z10) {
-            f(this.vY, com.kwad.sdk.c.a.a.a(getContext(), 90.0f));
+        if (z) {
+            f(this.tR, com.kwad.sdk.c.kwai.a.a(getContext(), 90.0f));
         } else {
-            this.vY.setVisibility(0);
+            this.tR.setVisibility(0);
         }
-        RewardActionBarControl.a(aVar, this.vY, RewardActionBarControl.ShowActionBarResult.SHOW_NATIVE_DEFAULT);
+        RewardActionBarControl.a(aVar, this.tR, RewardActionBarControl.ShowActionBarResult.SHOW_NATIVE_DEFAULT);
     }
 
-    private void e(View view, int i10) {
-        bf();
+    private void e(View view, int i2) {
+        aO();
         view.setVisibility(0);
         Interpolator create = PathInterpolatorCompat.create(0.0f, 0.0f, 0.58f, 1.0f);
-        ValueAnimator c10 = n.c(view, i10, 0);
-        this.f11820ei = c10;
-        c10.setInterpolator(create);
-        this.f11820ei.setDuration(500L);
-        this.f11820ei.addListener(new AnimatorListenerAdapter() { // from class: com.kwad.components.ad.reward.presenter.platdetail.actionbar.b.11
-            final /* synthetic */ View gv;
+        ValueAnimator c2 = m.c(view, i2, 0);
+        this.da = c2;
+        c2.setInterpolator(create);
+        this.da.setDuration(500L);
+        this.da.addListener(new AnimatorListenerAdapter() { // from class: com.kwad.components.ad.reward.presenter.platdetail.actionbar.b.11
+            final /* synthetic */ View fe;
 
-            public AnonymousClass11(View view2) {
+            AnonymousClass11(View view2) {
                 view = view2;
             }
 
@@ -464,21 +436,21 @@ public final class b extends com.kwad.components.ad.reward.presenter.b {
                 view.setVisibility(0);
             }
         });
-        this.f11820ei.start();
+        this.da.start();
     }
 
     @Deprecated
-    private void f(View view, int i10) {
-        bf();
+    private void f(View view, int i2) {
+        aO();
         view.setVisibility(0);
-        ValueAnimator b10 = n.b(view, 0, i10);
-        this.f11820ei = b10;
-        b10.setInterpolator(new DecelerateInterpolator(2.0f));
-        this.f11820ei.setDuration(500L);
-        this.f11820ei.addListener(new AnimatorListenerAdapter() { // from class: com.kwad.components.ad.reward.presenter.platdetail.actionbar.b.2
-            final /* synthetic */ View gv;
+        ValueAnimator b2 = m.b(view, 0, i2);
+        this.da = b2;
+        b2.setInterpolator(new DecelerateInterpolator(2.0f));
+        this.da.setDuration(500L);
+        this.da.addListener(new AnimatorListenerAdapter() { // from class: com.kwad.components.ad.reward.presenter.platdetail.actionbar.b.2
+            final /* synthetic */ View fe;
 
-            public AnonymousClass2(View view2) {
+            AnonymousClass2(View view2) {
                 view = view2;
             }
 
@@ -488,20 +460,20 @@ public final class b extends com.kwad.components.ad.reward.presenter.b {
                 view.setVisibility(0);
             }
         });
-        this.f11820ei.start();
+        this.da.start();
     }
 
-    private void g(View view, int i10) {
-        bf();
+    private void g(View view, int i2) {
+        aO();
         view.setVisibility(0);
-        ValueAnimator b10 = n.b(view, i10, 0);
-        this.f11820ei = b10;
-        b10.setInterpolator(new DecelerateInterpolator(2.0f));
-        this.f11820ei.setDuration(300L);
-        this.f11820ei.addListener(new AnimatorListenerAdapter() { // from class: com.kwad.components.ad.reward.presenter.platdetail.actionbar.b.3
-            final /* synthetic */ View gv;
+        ValueAnimator b2 = m.b(view, i2, 0);
+        this.da = b2;
+        b2.setInterpolator(new DecelerateInterpolator(2.0f));
+        this.da.setDuration(300L);
+        this.da.addListener(new AnimatorListenerAdapter() { // from class: com.kwad.components.ad.reward.presenter.platdetail.actionbar.b.3
+            final /* synthetic */ View fe;
 
-            public AnonymousClass3(View view2) {
+            AnonymousClass3(View view2) {
                 view = view2;
             }
 
@@ -511,149 +483,59 @@ public final class b extends com.kwad.components.ad.reward.presenter.b {
                 view.setVisibility(8);
             }
         });
-        this.f11820ei.start();
+        this.da.start();
     }
 
-    private void b(boolean z10, a aVar) {
-        ip();
-        this.vW.a(this.mAdTemplate, this.mApkDownloadHelper, new ActionBarAppLandscape.a() { // from class: com.kwad.components.ad.reward.presenter.platdetail.actionbar.b.8
-            public AnonymousClass8() {
-            }
+    private void hR() {
+        ViewStub viewStub = (ViewStub) findViewById(R.id.view_stub_action_bar_landscape);
+        this.tP = (ActionBarAppLandscape) (viewStub != null ? viewStub.inflate() : findViewById(R.id.ksad_video_play_bar_app_landscape));
+    }
 
-            @Override // com.kwad.components.ad.reward.widget.actionbar.ActionBarAppLandscape.a
-            public final void O(boolean z102) {
-                b.this.N(z102);
-            }
-        });
-        if (z10) {
-            f(this.vW, com.kwad.sdk.c.a.a.a(getContext(), 90.0f));
+    private void hS() {
+        ViewStub viewStub = (ViewStub) findViewById(R.id.view_stub_action_bar);
+        this.tQ = (ActionBarAppPortrait) (viewStub != null ? viewStub.inflate() : findViewById(R.id.ksad_video_play_bar_app_portrait));
+    }
+
+    private void hT() {
+        hS();
+        f(this.tQ, com.kwad.sdk.c.kwai.a.a(getContext(), 90.0f));
+    }
+
+    private void hU() {
+        ActionBarAppPortrait actionBarAppPortrait = this.tQ;
+        if (actionBarAppPortrait != null) {
+            actionBarAppPortrait.setVisibility(8);
+        }
+    }
+
+    @Override // com.kwad.components.ad.reward.presenter.a, com.kwad.sdk.mvp.Presenter
+    public final void ar() {
+        super.ar();
+        if (com.kwad.components.ad.reward.j.d(this.qt)) {
+            com.kwad.components.core.webview.a.c.a.rn().a(this.gG);
         } else {
-            this.vW.setVisibility(0);
+            this.qt.oN.a(null, this.mAdLivePlayStateListener);
+            cc();
         }
-        RewardActionBarControl.a(aVar, this.vW, RewardActionBarControl.ShowActionBarResult.SHOW_NATIVE_DEFAULT);
     }
 
-    private void c(boolean z10, a aVar) {
-        iq();
-        this.vX.a(this.mAdTemplate, this.mApkDownloadHelper, new ActionBarAppPortrait.a() { // from class: com.kwad.components.ad.reward.presenter.platdetail.actionbar.b.9
-            public AnonymousClass9() {
-            }
-
-            @Override // com.kwad.components.ad.reward.widget.actionbar.ActionBarAppPortrait.a
-            public final void O(boolean z102) {
-                b.this.N(z102);
-            }
-        });
-        if (z10) {
-            f(this.vX, com.kwad.sdk.c.a.a.a(getContext(), 90.0f));
-        } else {
-            this.vX.setVisibility(0);
-        }
-        RewardActionBarControl.a(aVar, this.vX, RewardActionBarControl.ShowActionBarResult.SHOW_NATIVE_DEFAULT);
+    @Override // com.kwad.sdk.mvp.Presenter
+    public final void onCreate() {
+        super.onCreate();
+        this.sh = (KsLogoView) findViewById(R.id.ksad_ad_label_play_bar);
+        this.tR = (ActionBarH5) findViewById(R.id.ksad_video_play_bar_h5);
     }
 
-    public void a(boolean z10, a aVar) {
-        ViewGroup viewGroup;
-        if (this.vZ) {
-            return;
+    @Override // com.kwad.sdk.mvp.Presenter
+    public final void onUnbind() {
+        super.onUnbind();
+        RewardActionBarControl rewardActionBarControl = this.oQ;
+        if (rewardActionBarControl != null) {
+            rewardActionBarControl.a((RewardActionBarControl.b) null);
         }
-        this.vZ = true;
-        this.tU.setVisibility(com.kwad.sdk.core.response.b.a.cS(this.mAdInfo) ? 8 : 0);
-        getContext();
-        boolean z11 = !an.NS();
-        if (com.kwad.sdk.core.response.b.a.bd(this.mAdInfo)) {
-            if (this.f11826we == null) {
-                AnonymousClass6 anonymousClass6 = new h() { // from class: com.kwad.components.ad.reward.presenter.platdetail.actionbar.b.6
-
-                    /* renamed from: wj */
-                    final /* synthetic */ boolean f11838wj;
-
-                    public AnonymousClass6(boolean z112) {
-                        z11 = z112;
-                    }
-
-                    @Override // com.kwad.components.ad.reward.n.h
-                    public final int it() {
-                        return z11 ? R.id.ksad_common_app_card_land_stub : super.it();
-                    }
-                };
-                this.f11826we = anonymousClass6;
-                anonymousClass6.a(new h.a() { // from class: com.kwad.components.ad.reward.presenter.platdetail.actionbar.b.7
-                    public AnonymousClass7() {
-                    }
-
-                    @Override // com.kwad.components.ad.reward.n.h.a
-                    public final void iu() {
-                        b.this.rO.a(1, b.this.getContext(), 29, 1);
-                    }
-
-                    @Override // com.kwad.components.ad.reward.n.h.a
-                    public final void iv() {
-                        b.this.rO.a(1, b.this.getContext(), 30, 2);
-                    }
-
-                    @Override // com.kwad.components.ad.reward.n.h.a
-                    public final void iw() {
-                        b.this.rO.a(1, b.this.getContext(), 31, 2);
-                    }
-
-                    @Override // com.kwad.components.ad.reward.n.h.a
-                    public final void ix() {
-                        b.this.rO.a(1, b.this.getContext(), 32, 2);
-                    }
-
-                    @Override // com.kwad.components.ad.reward.n.h.a
-                    public final void iy() {
-                        b.this.rO.a(1, b.this.getContext(), 84, 2);
-                    }
-
-                    @Override // com.kwad.components.ad.reward.n.h.a
-                    public final void iz() {
-                        b.this.rO.a(1, b.this.getContext(), 53, 2);
-                    }
-                });
-                this.f11826we.f((ViewGroup) getRootView());
-                this.f11826we.b(r.a(this.mAdTemplate, this.mApkDownloadHelper));
-            }
-            this.f11826we.show();
-            RewardActionBarControl.a(aVar, this.f11826we.ha(), RewardActionBarControl.ShowActionBarResult.SHOW_NATIVE_PLAYABLE_PORTRAIT);
-            return;
-        }
-        if (com.kwad.sdk.core.response.b.a.cg(this.mAdInfo) == 1 && (viewGroup = this.f11823wb) != null) {
-            viewGroup.setVisibility(0);
-            RewardActionBarControl.a(aVar, this.f11823wb, RewardActionBarControl.ShowActionBarResult.SHOW_NATIVE_JINNIU);
-            return;
-        }
-        if (com.kwad.sdk.core.response.b.a.cS(this.mAdInfo)) {
-            ViewGroup viewGroup2 = (ViewGroup) findViewById(R.id.ksad_reward_origin_live_root);
-            this.f11825wd = viewGroup2;
-            if (viewGroup2 != null) {
-                if (!this.f11827wf) {
-                    viewGroup2.setVisibility(0);
-                }
-                RewardActionBarControl.a(aVar, this.f11825wd, RewardActionBarControl.ShowActionBarResult.SHOW_NATIVE_ORIGIN_LIVE);
-                return;
-            }
-        }
-        if (com.kwad.sdk.core.response.b.a.cj(this.mAdTemplate)) {
-            ViewGroup viewGroup3 = (ViewGroup) findViewById(R.id.ksad_reward_live_subscribe_root);
-            this.f11824wc = viewGroup3;
-            if (viewGroup3 != null) {
-                Resources resources = viewGroup3.getResources();
-                e(this.f11824wc, (int) (resources.getDimension(R.dimen.ksad_live_subscribe_card_full_height) + resources.getDimension(R.dimen.ksad_live_subscribe_card_margin)));
-                RewardActionBarControl.a(aVar, this.f11824wc, RewardActionBarControl.ShowActionBarResult.SHOW_NATIVE_LIVE_SUBSCRIBE);
-                return;
-            }
-        }
-        if (com.kwad.sdk.core.response.b.a.aF(this.mAdInfo)) {
-            if (this.rO.mScreenOrientation == 1) {
-                b(z10, aVar);
-                return;
-            } else {
-                c(z10, aVar);
-                return;
-            }
-        }
-        d(z10, aVar);
+        this.qt.oN.b(null, this.mAdLivePlayStateListener);
+        com.kwad.components.core.webview.a.c.a.rn().b(this.gG);
+        this.qt.c(this.ua);
+        aO();
     }
 }

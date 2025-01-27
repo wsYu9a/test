@@ -13,131 +13,145 @@ import androidx.coordinatorlayout.widget.CoordinatorLayout;
 import androidx.core.math.MathUtils;
 import androidx.core.view.ViewCompat;
 
-/* loaded from: classes2.dex */
+/* loaded from: classes.dex */
 abstract class HeaderBehavior<V extends View> extends ViewOffsetBehavior<V> {
-    private static final int INVALID_POINTER = -1;
-    private int activePointerId;
+
+    /* renamed from: d */
+    private static final int f6687d = -1;
+
+    /* renamed from: e */
+    @Nullable
+    private Runnable f6688e;
+
+    /* renamed from: f */
+    OverScroller f6689f;
+
+    /* renamed from: g */
+    private boolean f6690g;
+
+    /* renamed from: h */
+    private int f6691h;
+
+    /* renamed from: i */
+    private int f6692i;
+
+    /* renamed from: j */
+    private int f6693j;
 
     @Nullable
-    private Runnable flingRunnable;
-    private boolean isBeingDragged;
-    private int lastMotionY;
-    OverScroller scroller;
-    private int touchSlop;
+    private VelocityTracker k;
 
-    @Nullable
-    private VelocityTracker velocityTracker;
+    private class a implements Runnable {
 
-    public class FlingRunnable implements Runnable {
-        private final V layout;
-        private final CoordinatorLayout parent;
+        /* renamed from: a */
+        private final CoordinatorLayout f6694a;
 
-        public FlingRunnable(CoordinatorLayout coordinatorLayout, V v10) {
-            this.parent = coordinatorLayout;
-            this.layout = v10;
+        /* renamed from: b */
+        private final V f6695b;
+
+        a(CoordinatorLayout coordinatorLayout, V v) {
+            this.f6694a = coordinatorLayout;
+            this.f6695b = v;
         }
 
         @Override // java.lang.Runnable
         public void run() {
             OverScroller overScroller;
-            if (this.layout == null || (overScroller = HeaderBehavior.this.scroller) == null) {
+            if (this.f6695b == null || (overScroller = HeaderBehavior.this.f6689f) == null) {
                 return;
             }
             if (!overScroller.computeScrollOffset()) {
-                HeaderBehavior.this.onFlingFinished(this.parent, this.layout);
+                HeaderBehavior.this.p(this.f6694a, this.f6695b);
                 return;
             }
             HeaderBehavior headerBehavior = HeaderBehavior.this;
-            headerBehavior.setHeaderTopBottomOffset(this.parent, this.layout, headerBehavior.scroller.getCurrY());
-            ViewCompat.postOnAnimation(this.layout, this);
+            headerBehavior.r(this.f6694a, this.f6695b, headerBehavior.f6689f.getCurrY());
+            ViewCompat.postOnAnimation(this.f6695b, this);
         }
     }
 
     public HeaderBehavior() {
-        this.activePointerId = -1;
-        this.touchSlop = -1;
+        this.f6691h = -1;
+        this.f6693j = -1;
     }
 
-    private void ensureVelocityTracker() {
-        if (this.velocityTracker == null) {
-            this.velocityTracker = VelocityTracker.obtain();
+    private void k() {
+        if (this.k == null) {
+            this.k = VelocityTracker.obtain();
         }
     }
 
-    public boolean canDragView(V v10) {
+    boolean j(V v) {
         return false;
     }
 
-    public final boolean fling(CoordinatorLayout coordinatorLayout, @NonNull V v10, int i10, int i11, float f10) {
-        Runnable runnable = this.flingRunnable;
+    final boolean l(CoordinatorLayout coordinatorLayout, @NonNull V v, int i2, int i3, float f2) {
+        Runnable runnable = this.f6688e;
         if (runnable != null) {
-            v10.removeCallbacks(runnable);
-            this.flingRunnable = null;
+            v.removeCallbacks(runnable);
+            this.f6688e = null;
         }
-        if (this.scroller == null) {
-            this.scroller = new OverScroller(v10.getContext());
+        if (this.f6689f == null) {
+            this.f6689f = new OverScroller(v.getContext());
         }
-        this.scroller.fling(0, getTopAndBottomOffset(), 0, Math.round(f10), 0, 0, i10, i11);
-        if (!this.scroller.computeScrollOffset()) {
-            onFlingFinished(coordinatorLayout, v10);
+        this.f6689f.fling(0, b(), 0, Math.round(f2), 0, 0, i2, i3);
+        if (!this.f6689f.computeScrollOffset()) {
+            p(coordinatorLayout, v);
             return false;
         }
-        FlingRunnable flingRunnable = new FlingRunnable(coordinatorLayout, v10);
-        this.flingRunnable = flingRunnable;
-        ViewCompat.postOnAnimation(v10, flingRunnable);
+        a aVar = new a(coordinatorLayout, v);
+        this.f6688e = aVar;
+        ViewCompat.postOnAnimation(v, aVar);
         return true;
     }
 
-    public int getMaxDragOffset(@NonNull V v10) {
-        return -v10.getHeight();
+    int m(@NonNull V v) {
+        return -v.getHeight();
     }
 
-    public int getScrollRangeForDragFling(@NonNull V v10) {
-        return v10.getHeight();
+    int n(@NonNull V v) {
+        return v.getHeight();
     }
 
-    public int getTopBottomOffsetForScrollingSibling() {
-        return getTopAndBottomOffset();
-    }
-
-    public void onFlingFinished(CoordinatorLayout coordinatorLayout, V v10) {
+    int o() {
+        return b();
     }
 
     @Override // androidx.coordinatorlayout.widget.CoordinatorLayout.Behavior
-    public boolean onInterceptTouchEvent(@NonNull CoordinatorLayout coordinatorLayout, @NonNull V v10, @NonNull MotionEvent motionEvent) {
+    public boolean onInterceptTouchEvent(@NonNull CoordinatorLayout coordinatorLayout, @NonNull V v, @NonNull MotionEvent motionEvent) {
         int findPointerIndex;
-        if (this.touchSlop < 0) {
-            this.touchSlop = ViewConfiguration.get(coordinatorLayout.getContext()).getScaledTouchSlop();
+        if (this.f6693j < 0) {
+            this.f6693j = ViewConfiguration.get(coordinatorLayout.getContext()).getScaledTouchSlop();
         }
-        if (motionEvent.getActionMasked() == 2 && this.isBeingDragged) {
-            int i10 = this.activePointerId;
-            if (i10 == -1 || (findPointerIndex = motionEvent.findPointerIndex(i10)) == -1) {
+        if (motionEvent.getActionMasked() == 2 && this.f6690g) {
+            int i2 = this.f6691h;
+            if (i2 == -1 || (findPointerIndex = motionEvent.findPointerIndex(i2)) == -1) {
                 return false;
             }
-            int y10 = (int) motionEvent.getY(findPointerIndex);
-            if (Math.abs(y10 - this.lastMotionY) > this.touchSlop) {
-                this.lastMotionY = y10;
+            int y = (int) motionEvent.getY(findPointerIndex);
+            if (Math.abs(y - this.f6692i) > this.f6693j) {
+                this.f6692i = y;
                 return true;
             }
         }
         if (motionEvent.getActionMasked() == 0) {
-            this.activePointerId = -1;
-            int x10 = (int) motionEvent.getX();
-            int y11 = (int) motionEvent.getY();
-            boolean z10 = canDragView(v10) && coordinatorLayout.isPointInChildBounds(v10, x10, y11);
-            this.isBeingDragged = z10;
-            if (z10) {
-                this.lastMotionY = y11;
-                this.activePointerId = motionEvent.getPointerId(0);
-                ensureVelocityTracker();
-                OverScroller overScroller = this.scroller;
+            this.f6691h = -1;
+            int x = (int) motionEvent.getX();
+            int y2 = (int) motionEvent.getY();
+            boolean z = j(v) && coordinatorLayout.isPointInChildBounds(v, x, y2);
+            this.f6690g = z;
+            if (z) {
+                this.f6692i = y2;
+                this.f6691h = motionEvent.getPointerId(0);
+                k();
+                OverScroller overScroller = this.f6689f;
                 if (overScroller != null && !overScroller.isFinished()) {
-                    this.scroller.abortAnimation();
+                    this.f6689f.abortAnimation();
                     return true;
                 }
             }
         }
-        VelocityTracker velocityTracker = this.velocityTracker;
+        VelocityTracker velocityTracker = this.k;
         if (velocityTracker != null) {
             velocityTracker.addMovement(motionEvent);
         }
@@ -177,68 +191,68 @@ abstract class HeaderBehavior<V extends View> extends ViewOffsetBehavior<V> {
             r12 = 0
         L1c:
             int r13 = r14.getPointerId(r12)
-            r11.activePointerId = r13
+            r11.f6691h = r13
             float r12 = r14.getY(r12)
             r13 = 1056964608(0x3f000000, float:0.5)
             float r12 = r12 + r13
             int r12 = (int) r12
-            r11.lastMotionY = r12
+            r11.f6692i = r12
             goto L4c
         L2d:
-            int r0 = r11.activePointerId
+            int r0 = r11.f6691h
             int r0 = r14.findPointerIndex(r0)
             if (r0 != r1) goto L36
             return r3
         L36:
             float r0 = r14.getY(r0)
             int r0 = (int) r0
-            int r1 = r11.lastMotionY
+            int r1 = r11.f6692i
             int r7 = r1 - r0
-            r11.lastMotionY = r0
-            int r8 = r11.getMaxDragOffset(r13)
+            r11.f6692i = r0
+            int r8 = r11.m(r13)
             r9 = 0
             r4 = r11
             r5 = r12
             r6 = r13
-            r4.scroll(r5, r6, r7, r8, r9)
+            r4.q(r5, r6, r7, r8, r9)
         L4c:
             r12 = 0
             goto L81
         L4e:
-            android.view.VelocityTracker r0 = r11.velocityTracker
+            android.view.VelocityTracker r0 = r11.k
             if (r0 == 0) goto L72
             r0.addMovement(r14)
-            android.view.VelocityTracker r0 = r11.velocityTracker
+            android.view.VelocityTracker r0 = r11.k
             r4 = 1000(0x3e8, float:1.401E-42)
             r0.computeCurrentVelocity(r4)
-            android.view.VelocityTracker r0 = r11.velocityTracker
-            int r4 = r11.activePointerId
+            android.view.VelocityTracker r0 = r11.k
+            int r4 = r11.f6691h
             float r10 = r0.getYVelocity(r4)
-            int r0 = r11.getScrollRangeForDragFling(r13)
+            int r0 = r11.n(r13)
             int r8 = -r0
             r9 = 0
             r5 = r11
             r6 = r12
             r7 = r13
-            r5.fling(r6, r7, r8, r9, r10)
+            r5.l(r6, r7, r8, r9, r10)
             r12 = 1
             goto L73
         L72:
             r12 = 0
         L73:
-            r11.isBeingDragged = r3
-            r11.activePointerId = r1
-            android.view.VelocityTracker r13 = r11.velocityTracker
+            r11.f6690g = r3
+            r11.f6691h = r1
+            android.view.VelocityTracker r13 = r11.k
             if (r13 == 0) goto L81
             r13.recycle()
             r13 = 0
-            r11.velocityTracker = r13
+            r11.k = r13
         L81:
-            android.view.VelocityTracker r13 = r11.velocityTracker
+            android.view.VelocityTracker r13 = r11.k
             if (r13 == 0) goto L88
             r13.addMovement(r14)
         L88:
-            boolean r13 = r11.isBeingDragged
+            boolean r13 = r11.f6690g
             if (r13 != 0) goto L90
             if (r12 == 0) goto L8f
             goto L90
@@ -250,27 +264,30 @@ abstract class HeaderBehavior<V extends View> extends ViewOffsetBehavior<V> {
         throw new UnsupportedOperationException("Method not decompiled: com.google.android.material.appbar.HeaderBehavior.onTouchEvent(androidx.coordinatorlayout.widget.CoordinatorLayout, android.view.View, android.view.MotionEvent):boolean");
     }
 
-    public final int scroll(CoordinatorLayout coordinatorLayout, V v10, int i10, int i11, int i12) {
-        return setHeaderTopBottomOffset(coordinatorLayout, v10, getTopBottomOffsetForScrollingSibling() - i10, i11, i12);
+    void p(CoordinatorLayout coordinatorLayout, V v) {
     }
 
-    public int setHeaderTopBottomOffset(CoordinatorLayout coordinatorLayout, V v10, int i10) {
-        return setHeaderTopBottomOffset(coordinatorLayout, v10, i10, Integer.MIN_VALUE, Integer.MAX_VALUE);
+    final int q(CoordinatorLayout coordinatorLayout, V v, int i2, int i3, int i4) {
+        return s(coordinatorLayout, v, o() - i2, i3, i4);
     }
 
-    public int setHeaderTopBottomOffset(CoordinatorLayout coordinatorLayout, V v10, int i10, int i11, int i12) {
+    int r(CoordinatorLayout coordinatorLayout, V v, int i2) {
+        return s(coordinatorLayout, v, i2, Integer.MIN_VALUE, Integer.MAX_VALUE);
+    }
+
+    int s(CoordinatorLayout coordinatorLayout, V v, int i2, int i3, int i4) {
         int clamp;
-        int topAndBottomOffset = getTopAndBottomOffset();
-        if (i11 == 0 || topAndBottomOffset < i11 || topAndBottomOffset > i12 || topAndBottomOffset == (clamp = MathUtils.clamp(i10, i11, i12))) {
+        int b2 = b();
+        if (i3 == 0 || b2 < i3 || b2 > i4 || b2 == (clamp = MathUtils.clamp(i2, i3, i4))) {
             return 0;
         }
-        setTopAndBottomOffset(clamp);
-        return topAndBottomOffset - clamp;
+        h(clamp);
+        return b2 - clamp;
     }
 
     public HeaderBehavior(Context context, AttributeSet attributeSet) {
         super(context, attributeSet);
-        this.activePointerId = -1;
-        this.touchSlop = -1;
+        this.f6691h = -1;
+        this.f6693j = -1;
     }
 }

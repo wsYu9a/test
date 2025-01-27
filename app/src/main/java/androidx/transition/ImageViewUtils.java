@@ -12,50 +12,86 @@ import java.lang.reflect.Field;
 
 /* loaded from: classes.dex */
 class ImageViewUtils {
-    private static Field sDrawMatrixField = null;
-    private static boolean sDrawMatrixFieldFetched = false;
-    private static boolean sTryHiddenAnimateTransform = true;
+
+    /* renamed from: a, reason: collision with root package name */
+    private static boolean f3782a = true;
+
+    /* renamed from: b, reason: collision with root package name */
+    private static Field f3783b;
+
+    /* renamed from: c, reason: collision with root package name */
+    private static boolean f3784c;
 
     private ImageViewUtils() {
     }
 
-    public static void animateTransform(@NonNull ImageView imageView, @Nullable Matrix matrix) {
-        if (Build.VERSION.SDK_INT >= 29) {
+    static void a(@NonNull ImageView imageView, @Nullable Matrix matrix) {
+        int i2 = Build.VERSION.SDK_INT;
+        if (i2 >= 29) {
             imageView.animateTransform(matrix);
             return;
         }
-        if (matrix != null) {
-            hiddenAnimateTransform(imageView, matrix);
+        if (matrix == null) {
+            Drawable drawable = imageView.getDrawable();
+            if (drawable != null) {
+                drawable.setBounds(0, 0, (imageView.getWidth() - imageView.getPaddingLeft()) - imageView.getPaddingRight(), (imageView.getHeight() - imageView.getPaddingTop()) - imageView.getPaddingBottom());
+                imageView.invalidate();
+                return;
+            }
             return;
         }
-        Drawable drawable = imageView.getDrawable();
-        if (drawable != null) {
-            drawable.setBounds(0, 0, (imageView.getWidth() - imageView.getPaddingLeft()) - imageView.getPaddingRight(), (imageView.getHeight() - imageView.getPaddingTop()) - imageView.getPaddingBottom());
+        if (i2 >= 21) {
+            c(imageView, matrix);
+            return;
+        }
+        Drawable drawable2 = imageView.getDrawable();
+        if (drawable2 != null) {
+            drawable2.setBounds(0, 0, drawable2.getIntrinsicWidth(), drawable2.getIntrinsicHeight());
+            Matrix matrix2 = null;
+            b();
+            Field field = f3783b;
+            if (field != null) {
+                try {
+                    Matrix matrix3 = (Matrix) field.get(imageView);
+                    if (matrix3 == null) {
+                        try {
+                            matrix2 = new Matrix();
+                            f3783b.set(imageView, matrix2);
+                        } catch (IllegalAccessException unused) {
+                        }
+                    }
+                    matrix2 = matrix3;
+                } catch (IllegalAccessException unused2) {
+                }
+            }
+            if (matrix2 != null) {
+                matrix2.set(matrix);
+            }
             imageView.invalidate();
         }
     }
 
-    private static void fetchDrawMatrixField() {
-        if (sDrawMatrixFieldFetched) {
+    private static void b() {
+        if (f3784c) {
             return;
         }
         try {
             Field declaredField = ImageView.class.getDeclaredField("mDrawMatrix");
-            sDrawMatrixField = declaredField;
+            f3783b = declaredField;
             declaredField.setAccessible(true);
         } catch (NoSuchFieldException unused) {
         }
-        sDrawMatrixFieldFetched = true;
+        f3784c = true;
     }
 
     @RequiresApi(21)
     @SuppressLint({"NewApi"})
-    private static void hiddenAnimateTransform(@NonNull ImageView imageView, @Nullable Matrix matrix) {
-        if (sTryHiddenAnimateTransform) {
+    private static void c(@NonNull ImageView imageView, @Nullable Matrix matrix) {
+        if (f3782a) {
             try {
                 imageView.animateTransform(matrix);
             } catch (NoSuchMethodError unused) {
-                sTryHiddenAnimateTransform = false;
+                f3782a = false;
             }
         }
     }

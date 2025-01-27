@@ -1,8 +1,11 @@
 package com.kwad.sdk.core.report;
 
-import com.kwad.sdk.core.report.e;
+import org.json.JSONObject;
 
-/* loaded from: classes3.dex */
-public interface k<T extends e> {
-    T Gl();
+/* loaded from: classes2.dex */
+public final class k implements r {
+    @Override // com.kwad.sdk.core.report.r
+    public final q h(JSONObject jSONObject) {
+        return new q(jSONObject);
+    }
 }

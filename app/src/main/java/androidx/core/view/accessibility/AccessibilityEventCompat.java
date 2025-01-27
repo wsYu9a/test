@@ -1,24 +1,15 @@
 package androidx.core.view.accessibility;
 
+import android.os.Build;
 import android.view.accessibility.AccessibilityEvent;
 import android.view.accessibility.AccessibilityRecord;
-import androidx.annotation.DoNotInline;
-import androidx.annotation.NonNull;
-import androidx.annotation.RequiresApi;
-import androidx.annotation.RestrictTo;
-import java.lang.annotation.Retention;
-import java.lang.annotation.RetentionPolicy;
 
 /* loaded from: classes.dex */
 public final class AccessibilityEventCompat {
     public static final int CONTENT_CHANGE_TYPE_CONTENT_DESCRIPTION = 4;
-    public static final int CONTENT_CHANGE_TYPE_DRAG_CANCELLED = 512;
-    public static final int CONTENT_CHANGE_TYPE_DRAG_DROPPED = 256;
-    public static final int CONTENT_CHANGE_TYPE_DRAG_STARTED = 128;
     public static final int CONTENT_CHANGE_TYPE_PANE_APPEARED = 16;
     public static final int CONTENT_CHANGE_TYPE_PANE_DISAPPEARED = 32;
     public static final int CONTENT_CHANGE_TYPE_PANE_TITLE = 8;
-    public static final int CONTENT_CHANGE_TYPE_STATE_DESCRIPTION = 64;
     public static final int CONTENT_CHANGE_TYPE_SUBTREE = 1;
     public static final int CONTENT_CHANGE_TYPE_TEXT = 2;
     public static final int CONTENT_CHANGE_TYPE_UNDEFINED = 0;
@@ -56,53 +47,6 @@ public final class AccessibilityEventCompat {
     @Deprecated
     public static final int TYPE_WINDOW_CONTENT_CHANGED = 2048;
 
-    @RequiresApi(16)
-    public static class Api16Impl {
-        private Api16Impl() {
-        }
-
-        @DoNotInline
-        public static int getAction(AccessibilityEvent accessibilityEvent) {
-            return accessibilityEvent.getAction();
-        }
-
-        @DoNotInline
-        public static int getMovementGranularity(AccessibilityEvent accessibilityEvent) {
-            return accessibilityEvent.getMovementGranularity();
-        }
-
-        @DoNotInline
-        public static void setAction(AccessibilityEvent accessibilityEvent, int i10) {
-            accessibilityEvent.setAction(i10);
-        }
-
-        @DoNotInline
-        public static void setMovementGranularity(AccessibilityEvent accessibilityEvent, int i10) {
-            accessibilityEvent.setMovementGranularity(i10);
-        }
-    }
-
-    @RequiresApi(19)
-    public static class Api19Impl {
-        private Api19Impl() {
-        }
-
-        @DoNotInline
-        public static int getContentChangeTypes(AccessibilityEvent accessibilityEvent) {
-            return accessibilityEvent.getContentChangeTypes();
-        }
-
-        @DoNotInline
-        public static void setContentChangeTypes(AccessibilityEvent accessibilityEvent, int i10) {
-            accessibilityEvent.setContentChangeTypes(i10);
-        }
-    }
-
-    @Retention(RetentionPolicy.SOURCE)
-    @RestrictTo({RestrictTo.Scope.LIBRARY_GROUP_PREFIX})
-    public @interface ContentChangeType {
-    }
-
     private AccessibilityEventCompat() {
     }
 
@@ -116,21 +60,30 @@ public final class AccessibilityEventCompat {
         return new AccessibilityRecordCompat(accessibilityEvent);
     }
 
-    public static int getAction(@NonNull AccessibilityEvent accessibilityEvent) {
-        return Api16Impl.getAction(accessibilityEvent);
+    public static int getAction(AccessibilityEvent accessibilityEvent) {
+        if (Build.VERSION.SDK_INT >= 16) {
+            return accessibilityEvent.getAction();
+        }
+        return 0;
     }
 
-    public static int getContentChangeTypes(@NonNull AccessibilityEvent accessibilityEvent) {
-        return Api19Impl.getContentChangeTypes(accessibilityEvent);
+    public static int getContentChangeTypes(AccessibilityEvent accessibilityEvent) {
+        if (Build.VERSION.SDK_INT >= 19) {
+            return accessibilityEvent.getContentChangeTypes();
+        }
+        return 0;
     }
 
-    public static int getMovementGranularity(@NonNull AccessibilityEvent accessibilityEvent) {
-        return Api16Impl.getMovementGranularity(accessibilityEvent);
+    public static int getMovementGranularity(AccessibilityEvent accessibilityEvent) {
+        if (Build.VERSION.SDK_INT >= 16) {
+            return accessibilityEvent.getMovementGranularity();
+        }
+        return 0;
     }
 
     @Deprecated
-    public static AccessibilityRecordCompat getRecord(AccessibilityEvent accessibilityEvent, int i10) {
-        return new AccessibilityRecordCompat(accessibilityEvent.getRecord(i10));
+    public static AccessibilityRecordCompat getRecord(AccessibilityEvent accessibilityEvent, int i2) {
+        return new AccessibilityRecordCompat(accessibilityEvent.getRecord(i2));
     }
 
     @Deprecated
@@ -138,15 +91,21 @@ public final class AccessibilityEventCompat {
         return accessibilityEvent.getRecordCount();
     }
 
-    public static void setAction(@NonNull AccessibilityEvent accessibilityEvent, int i10) {
-        Api16Impl.setAction(accessibilityEvent, i10);
+    public static void setAction(AccessibilityEvent accessibilityEvent, int i2) {
+        if (Build.VERSION.SDK_INT >= 16) {
+            accessibilityEvent.setAction(i2);
+        }
     }
 
-    public static void setContentChangeTypes(@NonNull AccessibilityEvent accessibilityEvent, int i10) {
-        Api19Impl.setContentChangeTypes(accessibilityEvent, i10);
+    public static void setContentChangeTypes(AccessibilityEvent accessibilityEvent, int i2) {
+        if (Build.VERSION.SDK_INT >= 19) {
+            accessibilityEvent.setContentChangeTypes(i2);
+        }
     }
 
-    public static void setMovementGranularity(@NonNull AccessibilityEvent accessibilityEvent, int i10) {
-        Api16Impl.setMovementGranularity(accessibilityEvent, i10);
+    public static void setMovementGranularity(AccessibilityEvent accessibilityEvent, int i2) {
+        if (Build.VERSION.SDK_INT >= 16) {
+            accessibilityEvent.setMovementGranularity(i2);
+        }
     }
 }

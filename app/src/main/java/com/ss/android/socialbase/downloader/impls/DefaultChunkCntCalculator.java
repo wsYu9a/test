@@ -5,7 +5,7 @@ import com.ss.android.socialbase.downloader.downloader.IChunkCntCalculator;
 /* loaded from: classes4.dex */
 public class DefaultChunkCntCalculator implements IChunkCntCalculator {
     @Override // com.ss.android.socialbase.downloader.downloader.IChunkCntCalculator
-    public int calculateChunkCount(long j10) {
+    public int calculateChunkCount(long j2) {
         return 1;
     }
 }

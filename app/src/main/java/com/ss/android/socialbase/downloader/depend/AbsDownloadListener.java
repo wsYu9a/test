@@ -21,7 +21,11 @@ public abstract class AbsDownloadListener implements IDownloadListener {
         if (!Logger.debug() || downloadInfo == null) {
             return;
         }
-        Logger.d(TAG, String.format("onFailed on %s because of : %s", downloadInfo.getName(), baseException != null ? baseException.getErrorMessage() : "unkown"));
+        String str = TAG;
+        Object[] objArr = new Object[2];
+        objArr[0] = downloadInfo.getName();
+        objArr[1] = baseException != null ? baseException.getErrorMessage() : "unkown";
+        Logger.d(str, String.format("onFailed on %s because of : %s", objArr));
     }
 
     @Override // com.ss.android.socialbase.downloader.depend.IDownloadListener
@@ -76,7 +80,11 @@ public abstract class AbsDownloadListener implements IDownloadListener {
         if (!Logger.debug() || downloadInfo == null) {
             return;
         }
-        Logger.d(TAG, String.format("onRetry on %s because of : %s", downloadInfo.getName(), baseException != null ? baseException.getErrorMessage() : "unkown"));
+        String str = TAG;
+        Object[] objArr = new Object[2];
+        objArr[0] = downloadInfo.getName();
+        objArr[1] = baseException != null ? baseException.getErrorMessage() : "unkown";
+        Logger.d(str, String.format("onRetry on %s because of : %s", objArr));
     }
 
     @Override // com.ss.android.socialbase.downloader.depend.IDownloadListener
@@ -84,7 +92,11 @@ public abstract class AbsDownloadListener implements IDownloadListener {
         if (!Logger.debug() || downloadInfo == null) {
             return;
         }
-        Logger.d(TAG, String.format("onRetryDelay on %s because of : %s", downloadInfo.getName(), baseException != null ? baseException.getErrorMessage() : "unkown"));
+        String str = TAG;
+        Object[] objArr = new Object[2];
+        objArr[0] = downloadInfo.getName();
+        objArr[1] = baseException != null ? baseException.getErrorMessage() : "unkown";
+        Logger.d(str, String.format("onRetryDelay on %s because of : %s", objArr));
     }
 
     @Override // com.ss.android.socialbase.downloader.depend.IDownloadListener

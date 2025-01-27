@@ -1,72 +1,74 @@
 package com.kwad.sdk.pngencrypt;
 
-/* loaded from: classes3.dex */
+/* loaded from: classes2.dex */
 public final class e {
-    final k aPl;
-    private int aPn;
-    private int aPo;
-    int aPp;
-    int aPq;
-    int aPr;
-    int aPs;
-    int aPt;
-    int aPu;
-    private int aPm = 0;
-    private int aPv = -1;
-    private int aPw = -1;
-    private int aPx = 0;
-    private boolean aPz = false;
-    int aPy = 0;
+    private int avA;
+    int avB;
+    int avC;
+    int avD;
+    int avE;
+    int avF;
+    int avG;
+    private boolean avL;
+    final k avx;
+    private int avz;
+    private int avy = 0;
+    private int avH = -1;
+    private int avI = -1;
+    private int avJ = 0;
+    int avK = 0;
 
     public e(k kVar) {
-        this.aPl = kVar;
-        dK(1);
-        dJ(0);
+        this.avL = false;
+        this.avx = kVar;
+        this.avL = false;
+        bM(1);
+        bL(0);
     }
 
-    private int LJ() {
-        return LI();
+    private int BH() {
+        return BG();
     }
 
-    private void dJ(int i10) {
-        this.aPv = i10;
-        int i11 = (i10 * this.aPp) + this.aPr;
-        this.aPw = i11;
-        if (i11 < 0 || i11 >= this.aPl.aPn) {
+    private void bL(int i2) {
+        this.avH = i2;
+        int i3 = (i2 * this.avB) + this.avD;
+        this.avI = i3;
+        if (i3 < 0 || i3 >= this.avx.avz) {
             throw new PngjException("bad row - this should not happen");
         }
     }
 
-    private void dK(int i10) {
-        if (this.aPm == i10) {
+    private void bM(int i2) {
+        if (this.avy == i2) {
             return;
         }
-        this.aPm = i10;
-        byte[] dL = dL(i10);
-        byte b10 = dL[0];
-        this.aPq = b10;
-        byte b11 = dL[1];
-        this.aPp = b11;
-        byte b12 = dL[2];
-        this.aPs = b12;
-        byte b13 = dL[3];
-        this.aPr = b13;
-        k kVar = this.aPl;
-        int i11 = kVar.aPn;
-        this.aPn = i11 > b13 ? (((i11 + b11) - 1) - b13) / b11 : 0;
-        int i12 = kVar.aPo;
-        int i13 = i12 > b12 ? (((i12 + b10) - 1) - b12) / b10 : 0;
-        this.aPo = i13;
-        if (i13 == 0) {
-            this.aPn = 0;
+        this.avy = i2;
+        byte[] bN = bN(i2);
+        byte b2 = bN[0];
+        this.avC = b2;
+        byte b3 = bN[1];
+        this.avB = b3;
+        byte b4 = bN[2];
+        this.avE = b4;
+        byte b5 = bN[3];
+        this.avD = b5;
+        k kVar = this.avx;
+        int i3 = kVar.avz;
+        this.avz = i3 > b5 ? (((i3 + b3) - 1) - b5) / b3 : 0;
+        int i4 = kVar.avA;
+        int i5 = i4 > b4 ? (((i4 + b2) - 1) - b4) / b2 : 0;
+        this.avA = i5;
+        if (i5 == 0) {
+            this.avz = 0;
         }
-        int i14 = kVar.aPH;
-        this.aPu = b10 * i14;
-        this.aPt = b12 * i14;
+        int i6 = kVar.avT;
+        this.avG = b2 * i6;
+        this.avF = b4 * i6;
     }
 
-    private static byte[] dL(int i10) {
-        switch (i10) {
+    private static byte[] bN(int i2) {
+        switch (i2) {
             case 1:
                 return new byte[]{8, 8, 0, 0};
             case 2:
@@ -82,56 +84,56 @@ public final class e {
             case 7:
                 return new byte[]{1, 2, 0, 1};
             default:
-                throw new PngjException("bad interlace pass" + i10);
+                throw new PngjException("bad interlace pass" + i2);
         }
     }
 
-    public final boolean LD() {
-        int i10;
+    final boolean BB() {
+        int i2;
         while (true) {
-            this.aPx++;
-            int i11 = this.aPn;
-            if (i11 != 0 && (i10 = this.aPv) < i11 - 1) {
-                dJ(i10 + 1);
+            this.avJ++;
+            int i3 = this.avz;
+            if (i3 != 0 && (i2 = this.avH) < i3 - 1) {
+                bL(i2 + 1);
                 break;
             }
-            int i12 = this.aPm;
-            if (i12 != 7) {
-                dK(i12 + 1);
-                if (this.aPn != 0) {
-                    dJ(0);
+            int i4 = this.avy;
+            if (i4 != 7) {
+                bM(i4 + 1);
+                if (this.avz != 0) {
+                    bL(0);
                     break;
                 }
-                this.aPx--;
+                this.avJ--;
             } else {
-                this.aPz = true;
+                this.avL = true;
                 return false;
             }
         }
         return true;
     }
 
-    public final int LE() {
-        return this.aPv;
+    final int BC() {
+        return this.avH;
     }
 
-    public final int LF() {
-        return this.aPw;
+    final int BD() {
+        return this.avI;
     }
 
-    public final int LG() {
-        return this.aPm;
+    final int BE() {
+        return this.avy;
     }
 
-    public final int LH() {
-        return this.aPn;
+    final int BF() {
+        return this.avz;
     }
 
-    public final int LI() {
-        return this.aPo;
+    final int BG() {
+        return this.avA;
     }
 
-    public final int LK() {
-        return ((this.aPl.aPM * LJ()) + 7) / 8;
+    public final int BI() {
+        return ((this.avx.avY * BH()) + 7) / 8;
     }
 }

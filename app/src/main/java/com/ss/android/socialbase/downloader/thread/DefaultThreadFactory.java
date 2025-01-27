@@ -27,9 +27,9 @@ public class DefaultThreadFactory implements ThreadFactory {
         return thread;
     }
 
-    public DefaultThreadFactory(String str, boolean z10) {
+    public DefaultThreadFactory(String str, boolean z) {
         this.threadSeq = new AtomicInteger();
         this.threadName = str;
-        this.ignoreStatusCheck = z10;
+        this.ignoreStatusCheck = z;
     }
 }

@@ -1,12 +1,10 @@
 package com.martian.mibook.lib.model.data;
 
-import android.text.TextUtils;
-import ba.l;
-import com.martian.libmars.R;
-import java.io.Serializable;
+import com.maritan.mibook.lib.model.R;
+import com.martian.libsupport.k;
 
 /* loaded from: classes3.dex */
-public class BookCreative implements Serializable {
+public class BookCreative {
     private String bgImg;
     private String content;
     private String fontColor;
@@ -25,7 +23,7 @@ public class BookCreative implements Serializable {
     }
 
     public String getFontColor() {
-        if (TextUtils.isEmpty(this.fontColor)) {
+        if (k.p(this.fontColor)) {
             return String.valueOf(R.color.pure_black);
         }
         if (this.fontColor.startsWith("#")) {
@@ -63,7 +61,7 @@ public class BookCreative implements Serializable {
     }
 
     public String getTitleColor() {
-        if (l.q(this.titleColor)) {
+        if (k.p(this.titleColor)) {
             return String.valueOf(R.color.pure_black);
         }
         if (this.titleColor.startsWith("#")) {
@@ -72,35 +70,35 @@ public class BookCreative implements Serializable {
         return "#" + this.titleColor;
     }
 
-    public void setBgImg(String str) {
-        this.bgImg = str;
+    public void setBgImg(String bgImg) {
+        this.bgImg = bgImg;
     }
 
-    public void setContent(String str) {
-        this.content = str;
+    public void setContent(String content) {
+        this.content = content;
     }
 
-    public void setFontColor(String str) {
-        this.fontColor = str;
+    public void setFontColor(String fontColor) {
+        this.fontColor = fontColor;
     }
 
-    public void setStartPx(Integer num) {
-        this.startPx = num;
+    public void setStartPx(Integer startPx) {
+        this.startPx = startPx;
     }
 
-    public void setTextRectBottom(Integer num) {
-        this.textRectBottom = num;
+    public void setTextRectBottom(Integer textRectBottom) {
+        this.textRectBottom = textRectBottom;
     }
 
-    public void setTextRectTop(Integer num) {
-        this.textRectTop = num;
+    public void setTextRectTop(Integer textRectTop) {
+        this.textRectTop = textRectTop;
     }
 
-    public void setTitle(String str) {
-        this.title = str;
+    public void setTitle(String title) {
+        this.title = title;
     }
 
-    public void setTitleColor(String str) {
-        this.titleColor = str;
+    public void setTitleColor(String titleColor) {
+        this.titleColor = titleColor;
     }
 }

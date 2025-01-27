@@ -2,9 +2,9 @@ package com.baidu.mobads.sdk.api;
 
 import android.app.Activity;
 import android.view.View;
-import java.util.LinkedHashMap;
+import java.util.HashMap;
 
-/* loaded from: classes2.dex */
+/* loaded from: classes.dex */
 public interface ExpressResponse {
     public static final int INFO_FLOW_GROUP_PIC = 35;
     public static final int INFO_FLOW_GROUP_PIC_LOGO = 36;
@@ -23,17 +23,11 @@ public interface ExpressResponse {
 
         void adDownloadWindowShow();
 
-        void onADFunctionClick();
-
         void onADPermissionClose();
 
         void onADPermissionShow();
 
         void onADPrivacyClick();
-    }
-
-    public interface ExpressCloseListener {
-        void onAdClose(ExpressResponse expressResponse);
     }
 
     public interface ExpressDislikeListener {
@@ -49,16 +43,18 @@ public interface ExpressResponse {
 
         void onAdExposed();
 
-        void onAdRenderFail(View view, String str, int i10);
+        void onAdRenderFail(View view, String str, int i2);
 
-        void onAdRenderSuccess(View view, float f10, float f11);
+        void onAdRenderSuccess(View view, float f2, float f3);
 
         void onAdUnionClick();
     }
 
-    void biddingFail(LinkedHashMap<String, Object> linkedHashMap, BiddingListener biddingListener);
+    void biddingFail(String str);
 
-    void biddingSuccess(LinkedHashMap<String, Object> linkedHashMap, BiddingListener biddingListener);
+    void biddingFail(String str, HashMap<String, Object> hashMap);
+
+    void biddingSuccess(String str);
 
     void bindInteractionActivity(Activity activity);
 
@@ -66,13 +62,9 @@ public interface ExpressResponse {
 
     ExpressAdData getAdData();
 
-    Object getAdDataForKey(String str);
-
     String getECPMLevel();
 
     View getExpressAdView();
-
-    String getPECPM();
 
     int getStyleType();
 
@@ -80,15 +72,11 @@ public interface ExpressResponse {
 
     void render();
 
-    void setAdCloseListener(ExpressCloseListener expressCloseListener);
-
     void setAdDislikeListener(ExpressDislikeListener expressDislikeListener);
 
     void setAdPrivacyListener(ExpressAdDownloadWindowListener expressAdDownloadWindowListener);
 
-    void setExpectedSizePixel(int i10, int i11);
-
     void setInteractionListener(ExpressInteractionListener expressInteractionListener);
 
-    boolean switchTheme(int i10);
+    boolean switchTheme(int i2);
 }

@@ -10,23 +10,27 @@ public final class Pools {
         @Nullable
         T acquire();
 
-        boolean release(@NonNull T t10);
+        boolean release(@NonNull T t);
     }
 
     public static class SimplePool<T> implements Pool<T> {
-        private final Object[] mPool;
-        private int mPoolSize;
 
-        public SimplePool(int i10) {
-            if (i10 <= 0) {
+        /* renamed from: a, reason: collision with root package name */
+        private final Object[] f1991a;
+
+        /* renamed from: b, reason: collision with root package name */
+        private int f1992b;
+
+        public SimplePool(int i2) {
+            if (i2 <= 0) {
                 throw new IllegalArgumentException("The max pool size must be > 0");
             }
-            this.mPool = new Object[i10];
+            this.f1991a = new Object[i2];
         }
 
-        private boolean isInPool(@NonNull T t10) {
-            for (int i10 = 0; i10 < this.mPoolSize; i10++) {
-                if (this.mPool[i10] == t10) {
+        private boolean a(@NonNull T t) {
+            for (int i2 = 0; i2 < this.f1992b; i2++) {
+                if (this.f1991a[i2] == t) {
                     return true;
                 }
             }
@@ -35,56 +39,58 @@ public final class Pools {
 
         @Override // androidx.core.util.Pools.Pool
         public T acquire() {
-            int i10 = this.mPoolSize;
-            if (i10 <= 0) {
+            int i2 = this.f1992b;
+            if (i2 <= 0) {
                 return null;
             }
-            int i11 = i10 - 1;
-            Object[] objArr = this.mPool;
-            T t10 = (T) objArr[i11];
-            objArr[i11] = null;
-            this.mPoolSize = i10 - 1;
-            return t10;
+            int i3 = i2 - 1;
+            Object[] objArr = this.f1991a;
+            T t = (T) objArr[i3];
+            objArr[i3] = null;
+            this.f1992b = i2 - 1;
+            return t;
         }
 
         @Override // androidx.core.util.Pools.Pool
-        public boolean release(@NonNull T t10) {
-            if (isInPool(t10)) {
+        public boolean release(@NonNull T t) {
+            if (a(t)) {
                 throw new IllegalStateException("Already in the pool!");
             }
-            int i10 = this.mPoolSize;
-            Object[] objArr = this.mPool;
-            if (i10 >= objArr.length) {
+            int i2 = this.f1992b;
+            Object[] objArr = this.f1991a;
+            if (i2 >= objArr.length) {
                 return false;
             }
-            objArr[i10] = t10;
-            this.mPoolSize = i10 + 1;
+            objArr[i2] = t;
+            this.f1992b = i2 + 1;
             return true;
         }
     }
 
     public static class SynchronizedPool<T> extends SimplePool<T> {
-        private final Object mLock;
 
-        public SynchronizedPool(int i10) {
-            super(i10);
-            this.mLock = new Object();
+        /* renamed from: c, reason: collision with root package name */
+        private final Object f1993c;
+
+        public SynchronizedPool(int i2) {
+            super(i2);
+            this.f1993c = new Object();
         }
 
         @Override // androidx.core.util.Pools.SimplePool, androidx.core.util.Pools.Pool
         public T acquire() {
-            T t10;
-            synchronized (this.mLock) {
-                t10 = (T) super.acquire();
+            T t;
+            synchronized (this.f1993c) {
+                t = (T) super.acquire();
             }
-            return t10;
+            return t;
         }
 
         @Override // androidx.core.util.Pools.SimplePool, androidx.core.util.Pools.Pool
-        public boolean release(@NonNull T t10) {
+        public boolean release(@NonNull T t) {
             boolean release;
-            synchronized (this.mLock) {
-                release = super.release(t10);
+            synchronized (this.f1993c) {
+                release = super.release(t);
             }
             return release;
         }

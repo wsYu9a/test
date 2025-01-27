@@ -1,171 +1,190 @@
 package com.baidu.mobads.sdk.internal;
 
-/* loaded from: classes2.dex */
+import android.content.Context;
+import android.os.Handler;
+import android.os.Looper;
+import com.baidu.mobads.sdk.api.IXAdContainerFactory;
+import java.util.concurrent.atomic.AtomicBoolean;
+
+/* loaded from: classes.dex */
 public class z {
 
     /* renamed from: a */
-    public static final String f7362a = i.b("pZwYTjCEQvdEmh7bTz4Bmy-bIi4WUvYEmyw1QLK9Q16EThNWUv4hpyTEgdqsmgP4TdqzuydEIANxmh78UhNzQMKCTafb");
-
-    /* renamed from: b */
-    public static final String f7374b = i.b("pZwYTZnlQzqVUvF9uZnVUAqMTz4Bmy-bIi4WUvYEmMFLpA-1QhkEuzfb");
-
-    /* renamed from: c */
-    public static final String f7375c = i.b("pZwYTZnlQzqVUvF9uZnVUAqMTz4Bmy-bIi4WUvYEuZC8Xhcb");
-
-    /* renamed from: d */
-    public static final String f7376d = i.b("mvqVQhPEUgKEUhN8Ia4huyNbQ-F-UyqYuRu-uywfULFYTh7GI7uGugTb");
-
-    /* renamed from: e */
-    public static final String f7377e = i.b("mvqVQMPYXyk-QMIGuAI-Ia4VmgFougwGUhT8RhNVULw-Hh7Ypgu-Nh--Izfb");
-
-    /* renamed from: f */
-    public static final String f7378f = i.b("mvqVQMPYXyk-QMIGuAI-Ia4VmgFougwGUhT8RhNVULw-Hy7zpvNYpy4MNAN3I7uGugTb");
-
-    /* renamed from: g */
-    public static final String f7379g = i.b("mvqVQMPYXyk-QMIGuAI-Ia4VmgFougwGUhT8RhNVULw-Hy7zpvNYpy4MHA7Buysb");
-
-    /* renamed from: h */
-    public static final String f7380h = i.b("mvqVQMPYXyk-QMIGuAI-Ia4VmgFougwGUhT8RhNVULw-RhNhpy4-uD7WIDFdIZwEUBfb");
+    private static final String f5934a = "LoadRemoteDex";
 
     /* renamed from: i */
-    public static final String f7381i = i.b("mvqVQhPEUgKEUhN8Ia4smgwWpA7bQ-F-UyqYuNK9IAPCfywypyNL");
+    private static z f5935i;
+
+    /* renamed from: b */
+    private IXAdContainerFactory f5936b;
+
+    /* renamed from: c */
+    private bl f5937c;
+
+    /* renamed from: f */
+    private Runnable f5940f;
+
+    /* renamed from: g */
+    private Context f5941g;
+    private boolean k;
+
+    /* renamed from: d */
+    private int f5938d = 5000;
+
+    /* renamed from: e */
+    private Handler f5939e = new Handler(Looper.getMainLooper());
+
+    /* renamed from: h */
+    private bq f5942h = bq.a();
 
     /* renamed from: j */
-    public static final String f7382j = i.b("mvqVQhF9pywdQhdEmh7bTz4WUv4Ymy-8ugc8mywzug7dugPYQb94mMFGuD7bRhNkIyN1ID-8uhtb");
+    private AtomicBoolean f5943j = new AtomicBoolean(false);
 
-    /* renamed from: k */
-    public static final String f7383k = i.b("mvqVQhF9pywdQhdEmh7bTz4WUv4Ymy-8ugc8mywzug7dugPYQ-KzUvwKu7F-TgN-TLwFUhuE");
+    public interface a {
 
-    /* renamed from: l */
-    public static final String f7384l = i.b("mvqVQhF9pywdQhdEmh7bTz4WUv4Ymy-8ugc8Uh7Ypgu-mLKdQh-8IANzuh7Wugn8iRPfNR7biy41IA78mvRb");
+        /* renamed from: a */
+        public static final int f5944a = 1;
 
-    /* renamed from: m */
-    public static final String f7385m = i.b("mvqVQhF9pywdQhdEmh7bTz4WUv4Ymy-8ugc8mvq8uh-MQ-KzUvdEIANFUMPYmyk_fvq8uh-M");
+        /* renamed from: b */
+        public static final int f5945b = 2;
 
-    /* renamed from: n */
-    public static final String f7386n = i.b("mvqVQhF9pywdQhdEmh7bTz4WUv4Ymy-8ugc8Uh7Ypgu-mLKdQh-8IANzuh7Wugn8") + i.b("fLKdHh7Ypgu-RLw9IZN1fYcb");
+        void onFailure();
 
-    /* renamed from: o */
-    public static final String f7387o = i.b("mvqVQhPEUgKEUhN8Ia4GUMw-Thu9mvN1Q-F-UyqYuNF-uhk-mLwFUMw-Thu9mvRb");
+        void onSuccess();
+    }
 
-    /* renamed from: p */
-    public static final String f7388p = i.b("fywjUA-WpdwCTMRb");
+    private z() {
+    }
 
-    /* renamed from: q */
-    public static final String f7389q = i.b("fyw7TMFETBfb");
+    private void f() {
+        this.f5943j.set(true);
+        if (an.a()) {
+            h();
+        } else {
+            g();
+        }
+    }
 
-    /* renamed from: r */
-    public static final String f7390r = i.b("fywHIA7zIDks");
+    private void g() {
+        synchronized (z.class) {
+            try {
+                bl blVar = new bl(Class.forName(w.aC, true, getClass().getClassLoader()), this.f5941g);
+                this.f5937c = blVar;
+                this.f5936b = blVar.a();
+                k();
+            } catch (Exception unused) {
+                a("反射调用remote失败");
+            }
+        }
+    }
 
-    /* renamed from: s */
-    public static final String f7391s = i.b("fywnUvTb");
+    private void h() {
+        this.f5940f = new aa(this);
+        j();
+        if (f.f5802a == null) {
+            synchronized (bw.class) {
+                if (f.f5802a == null) {
+                    f.f5802a = new bw(this.f5941g);
+                }
+            }
+        }
+        if (this.f5936b != null) {
+            k();
+            return;
+        }
+        if (f.f5802a == null) {
+            this.f5942h.a(f5934a, "BaiduXAdSDKContext.mApkLoader == null,not load apk");
+            return;
+        }
+        this.f5942h.a(f5934a, "start load apk");
+        try {
+            f.f5802a.a(new ab(this));
+        } catch (Throwable th) {
+            th.printStackTrace();
+        }
+    }
 
-    /* renamed from: t */
-    public static final String f7392t = i.b("fywfmgN1uyfb");
+    private void i() {
+        Runnable runnable = this.f5940f;
+        if (runnable != null) {
+            this.f5939e.removeCallbacks(runnable);
+        }
+        this.f5940f = null;
+    }
 
-    /* renamed from: u */
-    public static final String f7393u = i.b("fywfUA74py4M");
+    private void j() {
+        Runnable runnable = this.f5940f;
+        if (runnable != null) {
+            this.f5939e.postDelayed(runnable, this.f5938d);
+        }
+    }
 
-    /* renamed from: v */
-    public static final String f7394v = i.b("fywnpy4-mgFjpA78uvRb");
+    public void k() {
+        this.f5943j.set(false);
+        bj.a(this.f5941g);
+        i();
+        p.a().a(1);
+        ck.a(this.f5941g).b();
+        ck.a(this.f5941g).a();
+    }
 
-    /* renamed from: w */
-    public static final String f7395w = i.b("fyw7XZK9Uhw-uDPCmy4Muifb");
+    public IXAdContainerFactory c() {
+        if (this.f5941g == null) {
+            return null;
+        }
+        if (this.f5936b == null && !this.f5943j.get()) {
+            f();
+        }
+        return this.f5936b;
+    }
 
-    /* renamed from: x */
-    public static final String f7396x = i.b("fywDIgF9IA-EUbPCmy4Muifb");
+    public String d() {
+        if (this.f5936b == null) {
+            return "";
+        }
+        return "_" + this.f5936b.getRemoteVersion();
+    }
 
-    /* renamed from: y */
-    public static final String f7397y = i.b("fywiuyd9py4GUhIRpyd-fv99UhI-");
+    public boolean e() {
+        return this.k;
+    }
 
-    /* renamed from: z */
-    public static final String f7398z = i.b("fywyUvkdUyNjpA78uvRb");
-    public static final String A = i.b("fywHpgG-fv99UhI-");
-    public static final String B = i.b("fywHpv-sTA7BUANHIA7YuRPCmy4Muifb");
-    public static final String C = i.b("fywHpv-sTANb");
-    public static final String D = i.b("fywFUMw-Th7WIA-EUBfb");
-    public static final String E = i.b("fywNTvNzfyPWugKYiy4vpgw9IA-EUBfb");
-    public static final String F = i.b("fywNTvNzfvkETvRb");
-    public static final String G = i.b("fywNTvNzfvkGmv_b");
-    public static final String H = i.b("fywNTvNzHy-8pydGXhRb");
-    public static final String I = i.b("fywnUv7buyfb");
-    public static final String J = i.b("fywHIA7YIgPjpA78uvRb");
-    public static final String K = i.b("fyw7UgKYXRkGTLfb");
-    public static final String L = i.b("fywHIA7zIANb");
-    public static final String M = i.b("fywFUgKzugP1pyq8");
-    public static final String N = i.b("fyw7XZKETLNzuRu9pyk-uafb");
-    public static final String O = i.b("fywnUv7bwA7Ymifb");
-    public static final String P = i.b("fywypyw-UdPYmgFY");
-    public static final String Q = i.b("fywypyw-UYuGTMPYRgN9TMwGUARb");
-    public static final String R = i.b("fywypyw-UYdGuZKEpy4Y");
-    public static final String S = i.b("fywypyw-UdwCpgFbRgN9TMwGUARb");
-    public static final String T = i.b("fywypyw-UYPEUgK_ugw-");
-    public static final String U = i.b("fywiIhwGuyqfUA74wgFzULcb");
-    public static final String V = i.b("fywHIAqsTANb");
-    public static final String W = i.b("fywnTDP_ULP-uafb");
-    public static final String X = i.b("UZKxmvq8IAN8I7qbuykGIhNzXifb");
-    public static final String Y = i.b("fywApy4GTv9KmLwGIh-YXifb");
-    public static final String Z = i.b("TAk9XRPEUgK_ugwGUv3b");
+    public Context b() {
+        return this.f5941g;
+    }
 
-    /* renamed from: aa */
-    public static final String f7363aa = i.b("ThNLmgFbNhNzpyu4");
+    public static z a() {
+        if (f5935i == null) {
+            synchronized (z.class) {
+                if (f5935i == null) {
+                    f5935i = new z();
+                }
+            }
+        }
+        return f5935i;
+    }
 
-    /* renamed from: ab */
-    public static final String f7364ab = i.b("IhwGuyqjmyPCuNPdmvnb");
+    public void a(Context context, a aVar) {
+        if (context == null) {
+            this.f5942h.c(f5934a, "init Context is null,error");
+            return;
+        }
+        this.f5941g = context.getApplicationContext();
+        p.a().a(aVar);
+        if (this.f5936b != null) {
+            k();
+        } else {
+            if (this.f5943j.get()) {
+                return;
+            }
+            f();
+        }
+    }
 
-    /* renamed from: ac */
-    public static final String f7365ac = i.b("IhwGuyqjmyPCuRu9pyk-uafb");
-
-    /* renamed from: ad */
-    public static final String f7366ad = i.b("mv7WpANRpyd-ULNY");
-
-    /* renamed from: ae */
-    public static final String f7367ae = i.b("mywfugFVpgP1pyq8fvkGmv_b");
-
-    /* renamed from: af */
-    public static final String f7368af = i.b("mywfTh-vmyP4fvkGmv_b");
-
-    /* renamed from: ag */
-    public static final String f7369ag = i.b("mywAIy4WIA-EUbP_pyPo");
-
-    /* renamed from: ah */
-    public static final String f7370ah = i.b("Iy4GUv4nUvIEfvkGmv_b");
-
-    /* renamed from: ai */
-    public static final String f7371ai = i.b("mywDULI8UAq9u7IGUhwEIzfb");
-
-    /* renamed from: aj */
-    public static final String f7372aj = i.b("Uv4Kw7Kzpgu9mL-nTDP_ULP-");
-
-    /* renamed from: ak */
-    public static final String f7373ak = i.b("Uv4KwDudUhPYpyq8HZKjUAq1uifb");
-    public static final String al = i.b("mywDpgPnpyV-");
-    public static final String am = i.b("mywHpA7ouifb");
-    public static final String an = i.b("mywiuy4bugFHIyPWugP1");
-    public static final String ao = i.b("mywiuy4bugFAmy-_");
-    public static final String ap = i.b("mLKdfv99Uh4-UD-bRLNWmvN1Tzfb");
-    public static final String aq = i.b("mLKdfv99Uh4-UD-bwh7GUafb");
-    public static final String ar = i.b("mvqVQhF9pywdQhdEmh7bTz41uA_8mgKGQh78UhqYmgwGUv38");
-    public static final String as = i.b("mvqVQhF9pywdQhdEmh7bTz4WUv4Ymy-8ugcb");
-    public static final String at = i.b("mvqVQMPYXyk-QMIGuAI-Iafb");
-    public static final String au = i.b("mvqVQhPEUgKEUhN8Iafb");
-    public static final String av = i.b("mvqVQhFbQhdEmMK9mv_b");
-    public static final String aw = i.b("mvqVQhF9pywdQhdEmh7bTz41uA_8mgKG");
-    public static final String ax = i.b("mvqVQhF9pywdQhdEmh7bTz41uA_8py4YugF8mysb");
-    public static final String ay = i.b("mvqVQhF9pywdQhdEmMPYmgf8uhqzmhN1");
-    public static final String az = i.b("mvqVQhF9pywdQhdEmh7bTz4WTZRb");
-    public static final String aA = i.b("mvqVQhF9pywdQhP4mhNzTAk9XyNzQMPbpzfb");
-    public static final String aB = i.b("mvqVQhF9pywdQhd-uA-9");
-    public static final String aC = i.b("mvqVQhF9pywdQMP-mgFWpAFEXafb");
-    public static final String aD = i.b("ULFMQhI-Uvd-IANzTAkdTzfb");
-    public static final String aE = i.b("mvqVQhF9pywdQhdEmh7bTz49pi41uA_b");
-    public static final String aF = i.b("mvqVQhF9pywdQMKzULw-mLf8Tvwo");
-    public static final String aG = i.b("mvqVQhF9pywdQMu9TB4WULF-QMuGTMwdmysb");
-    public static final String aH = i.b("mvqVQhF9pywdQMuGTzfb");
-    public static final String aI = i.b("mhwvpa4BuZuC");
-    public static final String aJ = i.b("mvqVQhF9pywdQMPsuyNWpafb");
-    public static final String aK = i.b("mvqVQhF9pywdQhdEmh7bTz4_Uv7bugcb");
-    public static final String aL = i.b("pZwYTZnlQzqWTZFEQhF9pywdTLw9IA-WQhPEUiqWTZFEQvkEuvtETvwoQvdEmBd9uD-WUv4xnM68TA4M");
-    public static final String aM = i.b("pZwYTZnlQzqWTZFEQhF9pywdTLw9IA-WQhPEUiqWTZFEQvkEuvtETvwoQv4-IzdBuzd_UvIEQMK8uzfb");
-    public static final String aN = i.b("mvqVQhF9pywdQhdEmh7bTz4WUv4Ymy-8ugc8fyk_iy45UhNmfywjUv4Ymy-8ugFAmyPYULF4");
+    public void a(String str) {
+        this.f5942h.a(f5934a, "加载dex失败原因=" + str);
+        this.f5943j.set(false);
+        i();
+        p.a().a(2);
+    }
 }

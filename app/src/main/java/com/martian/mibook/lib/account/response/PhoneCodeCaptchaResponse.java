@@ -17,11 +17,11 @@ public class PhoneCodeCaptchaResponse {
         return this.token;
     }
 
-    public void setExpireSeconds(Integer num) {
-        this.expireSeconds = num;
+    public void setExpireSeconds(Integer expireSeconds) {
+        this.expireSeconds = expireSeconds;
     }
 
-    public void setToken(String str) {
-        this.token = str;
+    public void setToken(String token) {
+        this.token = token;
     }
 }

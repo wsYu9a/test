@@ -11,7 +11,7 @@ import com.vivo.push.d.z;
 public final class d implements IPushClientFactory {
 
     /* renamed from: a */
-    private ag f24980a = new ag();
+    private ag f30953a = new ag();
 
     @Override // com.vivo.push.IPushClientFactory
     public final z createReceiveTask(o oVar) {
@@ -22,9 +22,9 @@ public final class d implements IPushClientFactory {
     public final o createReceiverCommand(Intent intent) {
         o uVar;
         o tVar;
-        int intExtra = intent.getIntExtra(b7.b.X, -1);
+        int intExtra = intent.getIntExtra(com.heytap.mcssdk.n.b.P, -1);
         if (intExtra < 0) {
-            intExtra = intent.getIntExtra(h3.e.f26414s, -1);
+            intExtra = intent.getIntExtra("method", -1);
         }
         if (intExtra == 20) {
             uVar = new u();
@@ -72,11 +72,11 @@ public final class d implements IPushClientFactory {
             uVar = new com.vivo.push.b.l();
         }
         if (uVar != null) {
-            a a10 = a.a(intent);
-            if (a10 == null) {
+            a a2 = a.a(intent);
+            if (a2 == null) {
                 com.vivo.push.util.p.b("PushCommand", "bundleWapper is null");
             } else {
-                uVar.b(a10);
+                uVar.b(a2);
             }
         }
         return uVar;

@@ -1,8 +1,9 @@
 package com.umeng.commonsdk.statistics.internal;
 
 import android.content.Context;
+import android.os.Build;
 import android.text.TextUtils;
-import com.umeng.analytics.pro.bt;
+import com.umeng.analytics.pro.am;
 import com.umeng.commonsdk.internal.crash.UMCrashManager;
 import com.umeng.commonsdk.statistics.common.HelperUtils;
 import com.umeng.commonsdk.utils.UMUtils;
@@ -11,40 +12,40 @@ import com.umeng.commonsdk.utils.UMUtils;
 public class a {
 
     /* renamed from: a */
-    private static Context f24689a;
+    private static Context f26364a;
 
     /* renamed from: b */
-    private String f24690b;
+    private String f26365b;
 
     /* renamed from: c */
-    private String f24691c;
+    private String f26366c;
 
     /* renamed from: com.umeng.commonsdk.statistics.internal.a$a */
-    public static class C0675a {
+    private static class C0545a {
 
         /* renamed from: a */
-        private static final a f24692a = new a();
+        private static final a f26367a = new a();
 
-        private C0675a() {
+        private C0545a() {
         }
     }
 
-    public /* synthetic */ a(AnonymousClass1 anonymousClass1) {
+    /* synthetic */ a(AnonymousClass1 anonymousClass1) {
         this();
     }
 
     public static a a(Context context) {
-        if (f24689a == null && context != null) {
-            f24689a = context.getApplicationContext();
+        if (f26364a == null && context != null) {
+            f26364a = context.getApplicationContext();
         }
-        return C0675a.f24692a;
+        return C0545a.f26367a;
     }
 
     private void f(String str) {
         try {
-            this.f24690b = str.replaceAll("&=", " ").replaceAll("&&", " ").replaceAll("==", "/") + "/Android " + HelperUtils.getUmengMD5(UMUtils.getAppkey(f24689a));
-        } catch (Throwable th2) {
-            UMCrashManager.reportCrash(f24689a, th2);
+            this.f26365b = str.replaceAll("&=", " ").replaceAll("&&", " ").replaceAll("==", "/") + "/Android/" + Build.DISPLAY + "/" + Build.MODEL + "/" + Build.VERSION.RELEASE + " " + HelperUtils.getUmengMD5(UMUtils.getAppkey(f26364a));
+        } catch (Throwable th) {
+            UMCrashManager.reportCrash(f26364a, th);
         }
     }
 
@@ -55,20 +56,20 @@ public class a {
                 return;
             }
             String[] split = str2.split("&=");
-            StringBuilder sb2 = new StringBuilder();
-            sb2.append(bt.aW);
+            StringBuilder sb = new StringBuilder();
+            sb.append(am.aQ);
             for (String str3 : split) {
                 if (!TextUtils.isEmpty(str3)) {
                     String substring = str3.substring(0, 2);
                     if (substring.endsWith("=")) {
                         substring = substring.replace("=", "");
                     }
-                    sb2.append(substring);
+                    sb.append(substring);
                 }
             }
-            this.f24691c = sb2.toString();
-        } catch (Throwable th2) {
-            UMCrashManager.reportCrash(f24689a, th2);
+            this.f26366c = sb.toString();
+        } catch (Throwable th) {
+            UMCrashManager.reportCrash(f26364a, th);
         }
     }
 
@@ -76,14 +77,14 @@ public class a {
         if (TextUtils.isEmpty(str)) {
             return false;
         }
-        return str.startsWith(bt.aO);
+        return str.startsWith("t");
     }
 
     public boolean c(String str) {
         if (TextUtils.isEmpty(str)) {
             return false;
         }
-        return str.startsWith(bt.aJ);
+        return str.startsWith(am.aD);
     }
 
     public boolean d(String str) {
@@ -100,12 +101,12 @@ public class a {
     }
 
     private a() {
-        this.f24690b = null;
-        this.f24691c = null;
+        this.f26365b = null;
+        this.f26366c = null;
     }
 
     public String b() {
-        return this.f24690b;
+        return this.f26365b;
     }
 
     public boolean a(String str) {
@@ -116,6 +117,6 @@ public class a {
     }
 
     public String a() {
-        return this.f24691c;
+        return this.f26366c;
     }
 }

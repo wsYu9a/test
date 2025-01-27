@@ -1,20 +1,18 @@
 package kotlin.jvm.internal;
 
+import f.b.a.d;
 import java.util.NoSuchElementException;
 import kotlin.Metadata;
 import kotlin.collections.FloatIterator;
-import xi.k;
 
-@Metadata(d1 = {"\u0000$\n\u0002\u0018\u0002\n\u0002\u0018\u0002\n\u0000\n\u0002\u0010\u0014\n\u0002\b\u0002\n\u0002\u0010\b\n\u0000\n\u0002\u0010\u000b\n\u0000\n\u0002\u0010\u0007\n\u0000\b\u0002\u0018\u00002\u00020\u0001B\r\u0012\u0006\u0010\u0002\u001a\u00020\u0003¢\u0006\u0002\u0010\u0004J\t\u0010\u0007\u001a\u00020\bH\u0096\u0002J\b\u0010\t\u001a\u00020\nH\u0016R\u000e\u0010\u0002\u001a\u00020\u0003X\u0082\u0004¢\u0006\u0002\n\u0000R\u000e\u0010\u0005\u001a\u00020\u0006X\u0082\u000e¢\u0006\u0002\n\u0000¨\u0006\u000b"}, d2 = {"Lkotlin/jvm/internal/ArrayFloatIterator;", "Lkotlin/collections/FloatIterator;", "array", "", "([F)V", "index", "", "hasNext", "", "nextFloat", "", "kotlin-stdlib"}, k = 1, mv = {1, 9, 0}, xi = 48)
-/* loaded from: classes4.dex */
+@Metadata(bv = {1, 0, 3}, d1 = {"\u0000(\n\u0002\u0018\u0002\n\u0002\u0018\u0002\n\u0002\u0010\u000b\n\u0002\b\u0002\n\u0002\u0010\u0007\n\u0002\b\u0002\n\u0002\u0010\u0014\n\u0002\b\u0002\n\u0002\u0010\b\n\u0002\b\u0005\b\u0002\u0018\u00002\u00020\u0001B\u000f\u0012\u0006\u0010\t\u001a\u00020\b¢\u0006\u0004\b\u000e\u0010\u000fJ\u0010\u0010\u0003\u001a\u00020\u0002H\u0096\u0002¢\u0006\u0004\b\u0003\u0010\u0004J\u000f\u0010\u0006\u001a\u00020\u0005H\u0016¢\u0006\u0004\b\u0006\u0010\u0007R\u0016\u0010\t\u001a\u00020\b8\u0002@\u0002X\u0082\u0004¢\u0006\u0006\n\u0004\b\t\u0010\nR\u0016\u0010\f\u001a\u00020\u000b8\u0002@\u0002X\u0082\u000e¢\u0006\u0006\n\u0004\b\f\u0010\r¨\u0006\u0010"}, d2 = {"Lkotlin/jvm/internal/ArrayFloatIterator;", "Lkotlin/collections/FloatIterator;", "", "hasNext", "()Z", "", "nextFloat", "()F", "", "array", "[F", "", "index", "I", "<init>", "([F)V", "kotlin-stdlib"}, k = 1, mv = {1, 4, 0})
+/* loaded from: classes5.dex */
 final class ArrayFloatIterator extends FloatIterator {
-
-    @k
     private final float[] array;
     private int index;
 
-    public ArrayFloatIterator(@k float[] array) {
-        Intrinsics.checkNotNullParameter(array, "array");
+    public ArrayFloatIterator(@d float[] array) {
+        Intrinsics.checkParameterIsNotNull(array, "array");
         this.array = array;
     }
 
@@ -27,12 +25,12 @@ final class ArrayFloatIterator extends FloatIterator {
     public float nextFloat() {
         try {
             float[] fArr = this.array;
-            int i10 = this.index;
-            this.index = i10 + 1;
-            return fArr[i10];
-        } catch (ArrayIndexOutOfBoundsException e10) {
+            int i2 = this.index;
+            this.index = i2 + 1;
+            return fArr[i2];
+        } catch (ArrayIndexOutOfBoundsException e2) {
             this.index--;
-            throw new NoSuchElementException(e10.getMessage());
+            throw new NoSuchElementException(e2.getMessage());
         }
     }
 }

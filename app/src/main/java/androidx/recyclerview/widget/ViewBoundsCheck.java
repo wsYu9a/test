@@ -6,78 +6,111 @@ import java.lang.annotation.RetentionPolicy;
 
 /* loaded from: classes.dex */
 class ViewBoundsCheck {
-    static final int CVE_PVE_POS = 12;
-    static final int CVE_PVS_POS = 8;
-    static final int CVS_PVE_POS = 4;
-    static final int CVS_PVS_POS = 0;
-    static final int EQ = 2;
-    static final int FLAG_CVE_EQ_PVE = 8192;
-    static final int FLAG_CVE_EQ_PVS = 512;
-    static final int FLAG_CVE_GT_PVE = 4096;
-    static final int FLAG_CVE_GT_PVS = 256;
-    static final int FLAG_CVE_LT_PVE = 16384;
-    static final int FLAG_CVE_LT_PVS = 1024;
-    static final int FLAG_CVS_EQ_PVE = 32;
-    static final int FLAG_CVS_EQ_PVS = 2;
-    static final int FLAG_CVS_GT_PVE = 16;
-    static final int FLAG_CVS_GT_PVS = 1;
-    static final int FLAG_CVS_LT_PVE = 64;
-    static final int FLAG_CVS_LT_PVS = 4;
-    static final int GT = 1;
-    static final int LT = 4;
-    static final int MASK = 7;
-    BoundFlags mBoundFlags = new BoundFlags();
-    final Callback mCallback;
 
-    public static class BoundFlags {
-        int mBoundFlags = 0;
-        int mChildEnd;
-        int mChildStart;
-        int mRvEnd;
-        int mRvStart;
+    /* renamed from: a, reason: collision with root package name */
+    static final int f3530a = 1;
 
-        public void addFlags(int i10) {
-            this.mBoundFlags = i10 | this.mBoundFlags;
+    /* renamed from: b, reason: collision with root package name */
+    static final int f3531b = 2;
+
+    /* renamed from: c, reason: collision with root package name */
+    static final int f3532c = 4;
+
+    /* renamed from: d, reason: collision with root package name */
+    static final int f3533d = 0;
+
+    /* renamed from: e, reason: collision with root package name */
+    static final int f3534e = 1;
+
+    /* renamed from: f, reason: collision with root package name */
+    static final int f3535f = 2;
+
+    /* renamed from: g, reason: collision with root package name */
+    static final int f3536g = 4;
+
+    /* renamed from: h, reason: collision with root package name */
+    static final int f3537h = 4;
+
+    /* renamed from: i, reason: collision with root package name */
+    static final int f3538i = 16;
+
+    /* renamed from: j, reason: collision with root package name */
+    static final int f3539j = 32;
+    static final int k = 64;
+    static final int l = 8;
+    static final int m = 256;
+    static final int n = 512;
+    static final int o = 1024;
+    static final int p = 12;
+    static final int q = 4096;
+    static final int r = 8192;
+    static final int s = 16384;
+    static final int t = 7;
+    final Callback u;
+    BoundFlags v = new BoundFlags();
+
+    static class BoundFlags {
+
+        /* renamed from: a, reason: collision with root package name */
+        int f3540a = 0;
+
+        /* renamed from: b, reason: collision with root package name */
+        int f3541b;
+
+        /* renamed from: c, reason: collision with root package name */
+        int f3542c;
+
+        /* renamed from: d, reason: collision with root package name */
+        int f3543d;
+
+        /* renamed from: e, reason: collision with root package name */
+        int f3544e;
+
+        BoundFlags() {
         }
 
-        public boolean boundsMatch() {
-            int i10 = this.mBoundFlags;
-            if ((i10 & 7) != 0 && (i10 & compare(this.mChildStart, this.mRvStart)) == 0) {
-                return false;
-            }
-            int i11 = this.mBoundFlags;
-            if ((i11 & 112) != 0 && (i11 & (compare(this.mChildStart, this.mRvEnd) << 4)) == 0) {
-                return false;
-            }
-            int i12 = this.mBoundFlags;
-            if ((i12 & 1792) != 0 && (i12 & (compare(this.mChildEnd, this.mRvStart) << 8)) == 0) {
-                return false;
-            }
-            int i13 = this.mBoundFlags;
-            return (i13 & 28672) == 0 || (i13 & (compare(this.mChildEnd, this.mRvEnd) << 12)) != 0;
+        void a(int i2) {
+            this.f3540a = i2 | this.f3540a;
         }
 
-        public int compare(int i10, int i11) {
-            if (i10 > i11) {
+        boolean b() {
+            int i2 = this.f3540a;
+            if ((i2 & 7) != 0 && (i2 & (c(this.f3543d, this.f3541b) << 0)) == 0) {
+                return false;
+            }
+            int i3 = this.f3540a;
+            if ((i3 & 112) != 0 && (i3 & (c(this.f3543d, this.f3542c) << 4)) == 0) {
+                return false;
+            }
+            int i4 = this.f3540a;
+            if ((i4 & 1792) != 0 && (i4 & (c(this.f3544e, this.f3541b) << 8)) == 0) {
+                return false;
+            }
+            int i5 = this.f3540a;
+            return (i5 & 28672) == 0 || (i5 & (c(this.f3544e, this.f3542c) << 12)) != 0;
+        }
+
+        int c(int i2, int i3) {
+            if (i2 > i3) {
                 return 1;
             }
-            return i10 == i11 ? 2 : 4;
+            return i2 == i3 ? 2 : 4;
         }
 
-        public void resetFlags() {
-            this.mBoundFlags = 0;
+        void d() {
+            this.f3540a = 0;
         }
 
-        public void setBounds(int i10, int i11, int i12, int i13) {
-            this.mRvStart = i10;
-            this.mRvEnd = i11;
-            this.mChildStart = i12;
-            this.mChildEnd = i13;
+        void e(int i2, int i3, int i4, int i5) {
+            this.f3541b = i2;
+            this.f3542c = i3;
+            this.f3543d = i4;
+            this.f3544e = i5;
         }
     }
 
-    public interface Callback {
-        View getChildAt(int i10);
+    interface Callback {
+        View getChildAt(int i2);
 
         int getChildEnd(View view);
 
@@ -92,44 +125,44 @@ class ViewBoundsCheck {
     public @interface ViewBounds {
     }
 
-    public ViewBoundsCheck(Callback callback) {
-        this.mCallback = callback;
+    ViewBoundsCheck(Callback callback) {
+        this.u = callback;
     }
 
-    public View findOneViewWithinBoundFlags(int i10, int i11, int i12, int i13) {
-        int parentStart = this.mCallback.getParentStart();
-        int parentEnd = this.mCallback.getParentEnd();
-        int i14 = i11 > i10 ? 1 : -1;
+    View a(int i2, int i3, int i4, int i5) {
+        int parentStart = this.u.getParentStart();
+        int parentEnd = this.u.getParentEnd();
+        int i6 = i3 > i2 ? 1 : -1;
         View view = null;
-        while (i10 != i11) {
-            View childAt = this.mCallback.getChildAt(i10);
-            this.mBoundFlags.setBounds(parentStart, parentEnd, this.mCallback.getChildStart(childAt), this.mCallback.getChildEnd(childAt));
-            if (i12 != 0) {
-                this.mBoundFlags.resetFlags();
-                this.mBoundFlags.addFlags(i12);
-                if (this.mBoundFlags.boundsMatch()) {
+        while (i2 != i3) {
+            View childAt = this.u.getChildAt(i2);
+            this.v.e(parentStart, parentEnd, this.u.getChildStart(childAt), this.u.getChildEnd(childAt));
+            if (i4 != 0) {
+                this.v.d();
+                this.v.a(i4);
+                if (this.v.b()) {
                     return childAt;
                 }
             }
-            if (i13 != 0) {
-                this.mBoundFlags.resetFlags();
-                this.mBoundFlags.addFlags(i13);
-                if (this.mBoundFlags.boundsMatch()) {
+            if (i5 != 0) {
+                this.v.d();
+                this.v.a(i5);
+                if (this.v.b()) {
                     view = childAt;
                 }
             }
-            i10 += i14;
+            i2 += i6;
         }
         return view;
     }
 
-    public boolean isViewWithinBoundFlags(View view, int i10) {
-        this.mBoundFlags.setBounds(this.mCallback.getParentStart(), this.mCallback.getParentEnd(), this.mCallback.getChildStart(view), this.mCallback.getChildEnd(view));
-        if (i10 == 0) {
+    boolean b(View view, int i2) {
+        this.v.e(this.u.getParentStart(), this.u.getParentEnd(), this.u.getChildStart(view), this.u.getChildEnd(view));
+        if (i2 == 0) {
             return false;
         }
-        this.mBoundFlags.resetFlags();
-        this.mBoundFlags.addFlags(i10);
-        return this.mBoundFlags.boundsMatch();
+        this.v.d();
+        this.v.a(i2);
+        return this.v.b();
     }
 }

@@ -1,16 +1,16 @@
 package com.martian.mibook.activity.appwall;
 
 import android.annotation.SuppressLint;
-import android.app.Activity;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AbsListView;
 import android.widget.ListAdapter;
-import ba.l;
 import com.martian.apptask.AppTaskManager;
 import com.martian.apptask.data.AppTask;
+import com.martian.apptask.g.g;
+import com.martian.appwall.b.b;
 import com.martian.appwall.request.MartianGetAppwallParams;
 import com.martian.appwall.request.auth.MartianFinishNextSubTaskParams;
 import com.martian.appwall.request.auth.MartianStartCurrentSubTaskParams;
@@ -18,459 +18,487 @@ import com.martian.appwall.response.MartianAppwallTask;
 import com.martian.appwall.response.MartianFinishSubTask;
 import com.martian.appwall.response.MartianStartSubTask;
 import com.martian.appwall.response.MartianSubTask;
-import com.martian.libmars.common.ConfigSingleton;
+import com.martian.libmars.activity.j1;
+import com.martian.libmars.d.h;
 import com.martian.libmars.ui.theme.ThemeView;
-import com.martian.mibook.R;
-import com.martian.mibook.activity.appwall.AppwallTaskDetailActivity;
-import com.martian.mibook.activity.base.MiRetryLoadingActivity;
+import com.martian.libmars.utils.n0;
+import com.martian.libmars.utils.q0;
+import com.martian.libsupport.k;
+import com.martian.libsupport.l;
+import com.martian.mibook.activity.base.n;
 import com.martian.mibook.application.MiConfigSingleton;
-import com.martian.mibook.databinding.ActivityAppwallTaskDetailBinding;
-import com.martian.mibook.receiver.MiAPKDownloadCompleteReceiver;
-import i8.g;
-import je.i;
-import k8.b;
-import l9.m0;
-import oe.f;
+import com.martian.mibook.j.s2;
+import com.martian.mibook.lib.account.e.c;
+import com.martian.rpauth.d.i;
+import com.martian.rpauth.response.MartianRPAccount;
+import com.martian.ttbookhd.R;
 
 /* loaded from: classes3.dex */
-public class AppwallTaskDetailActivity extends MiRetryLoadingActivity {
-    public static final String X = "COMPLETED";
-    public static final String Y = "INVALID";
-    public static final String Z = "EXECUTABLE";
-
-    /* renamed from: a0 */
-    public static final String f13149a0 = "46";
-    public MartianAppwallTask L;
-    public ActivityAppwallTaskDetailBinding O;
-    public MiAPKDownloadCompleteReceiver P;
-    public MartianSubTask Q;
-    public long S;
-    public boolean U;
-    public boolean M = false;
-    public boolean N = false;
-    public int R = 0;
-    public final Runnable T = new Runnable() { // from class: sa.b
-        public /* synthetic */ b() {
-        }
-
+public class AppwallTaskDetailActivity extends n {
+    private static final String Q = "COMPLETED";
+    private static final String R = "INVALID";
+    private static final String S = "EXECUTABLE";
+    private static final String T = "46";
+    private MartianAppwallTask U;
+    private com.martian.mibook.e.d X;
+    private com.martian.mibook.h.d Y;
+    private MartianSubTask Z;
+    private long b0;
+    private boolean d0;
+    private boolean V = false;
+    private boolean W = false;
+    private int a0 = 0;
+    private final Runnable c0 = new Runnable() { // from class: com.martian.mibook.activity.appwall.c
         @Override // java.lang.Runnable
         public final void run() {
-            AppwallTaskDetailActivity.this.s3();
+            AppwallTaskDetailActivity.this.U2();
         }
     };
-    public boolean V = true;
-    public boolean W = false;
+    private boolean e0 = true;
+    private boolean f0 = false;
 
-    public class a implements AbsListView.OnScrollListener {
-        public a() {
+    class a implements AbsListView.OnScrollListener {
+        a() {
         }
 
         @Override // android.widget.AbsListView.OnScrollListener
-        public void onScroll(AbsListView absListView, int i10, int i11, int i12) {
-            boolean z10 = true;
-            if (AppwallTaskDetailActivity.this.O.martianTaskListview.getChildCount() > 0 && (AppwallTaskDetailActivity.this.O.martianTaskListview.getFirstVisiblePosition() != 0 || AppwallTaskDetailActivity.this.O.martianTaskListview.getChildAt(0).getTop() != 0)) {
-                z10 = false;
+        public void onScroll(AbsListView view, int firstVisibleItem, int visibleItemCount, int totalItemCount) {
+            boolean z = true;
+            if (AppwallTaskDetailActivity.this.X.f11811c.getChildCount() > 0 && (AppwallTaskDetailActivity.this.X.f11811c.getFirstVisiblePosition() != 0 || AppwallTaskDetailActivity.this.X.f11811c.getChildAt(0).getTop() != 0)) {
+                z = false;
             }
-            AppwallTaskDetailActivity.this.E.setEnabled(z10);
+            AppwallTaskDetailActivity.this.N.setEnabled(z);
         }
 
         @Override // android.widget.AbsListView.OnScrollListener
-        public void onScrollStateChanged(AbsListView absListView, int i10) {
+        public void onScrollStateChanged(AbsListView view, int scrollState) {
         }
     }
 
-    public class b extends l8.c {
+    class b extends com.martian.appwall.c.c {
 
-        /* renamed from: i */
-        public final /* synthetic */ MartianFinishSubTask f13151i;
+        /* renamed from: h */
+        final /* synthetic */ MartianFinishSubTask f10901h;
 
-        public b(MartianFinishSubTask martianFinishSubTask) {
-            this.f13151i = martianFinishSubTask;
+        b(final MartianFinishSubTask val$martianFinishSubTask) {
+            this.f10901h = val$martianFinishSubTask;
         }
 
-        @Override // y8.a
-        public void onResultError(x8.c cVar) {
-            AppwallTaskDetailActivity.this.D3(cVar);
+        @Override // b.d.c.c.b
+        public void onResultError(b.d.c.b.c errorResult) {
+            AppwallTaskDetailActivity.this.i3(errorResult);
         }
 
-        @Override // y8.a
-        /* renamed from: r */
-        public void onDataReceived(MartianAppwallTask martianAppwallTask) {
-            AppwallTaskDetailActivity.this.B3(martianAppwallTask);
-            MartianFinishSubTask martianFinishSubTask = this.f13151i;
+        @Override // b.d.c.c.b
+        /* renamed from: q */
+        public void onDataReceived(MartianAppwallTask newAppwallTask) {
+            AppwallTaskDetailActivity.this.g3(newAppwallTask);
+            MartianFinishSubTask martianFinishSubTask = this.f10901h;
             if (martianFinishSubTask == null || martianFinishSubTask.getCoins() <= 0) {
                 return;
             }
-            MiConfigSingleton.b2().u2().S(AppwallTaskDetailActivity.this, "游戏奖励", 0, this.f13151i.getCoins());
+            MiConfigSingleton.V3().M4.G(AppwallTaskDetailActivity.this, "游戏奖励", 0, this.f10901h.getCoins());
         }
 
-        @Override // y8.f
-        public void showLoading(boolean z10) {
-            AppwallTaskDetailActivity.this.f3(z10);
-        }
-    }
-
-    public class c implements g8.a {
-        public c() {
-        }
-
-        @Override // g8.a
-        public void a(AppTask appTask) {
-        }
-
-        @Override // g8.a
-        public void b(AppTask appTask) {
-        }
-
-        @Override // g8.a
-        public void c(AppTask appTask) {
-        }
-
-        @Override // g8.a
-        public void d(AppTask appTask) {
-            AppwallTaskDetailActivity.this.P1("开始下载 " + appTask.name);
+        @Override // b.d.c.c.g
+        protected void showLoading(boolean show) {
+            AppwallTaskDetailActivity.this.K2(show);
         }
     }
 
-    public class d extends m8.c {
-        public d(Activity activity) {
-            super(activity);
+    class c implements com.martian.apptask.e.c {
+        c() {
         }
 
-        @Override // m8.a
-        public void p(x8.c cVar) {
-            AppwallTaskDetailActivity.this.P1("任务未完成：" + cVar.toString());
-            MiConfigSingleton.b2().e2().D0(0);
+        @Override // com.martian.apptask.e.c
+        public void onAppTaskActivated(AppTask appTask) {
         }
 
-        @Override // y8.f
-        public void showLoading(boolean z10) {
+        @Override // com.martian.apptask.e.c
+        public void onAppTaskClick(AppTask appTask) {
         }
 
-        @Override // y8.a
-        /* renamed from: t */
+        @Override // com.martian.apptask.e.c
+        public void onAppTaskDownload(AppTask appTask) {
+            AppwallTaskDetailActivity.this.k1("开始下载 " + appTask.name);
+        }
+
+        @Override // com.martian.apptask.e.c
+        public void onAppTaskInstalled(AppTask appTask) {
+        }
+    }
+
+    class d extends com.martian.appwall.c.d.d {
+        d(j1 x0) {
+            super(x0);
+        }
+
+        @Override // com.martian.appwall.c.d.b
+        protected void o(b.d.c.b.c errorResult) {
+            AppwallTaskDetailActivity.this.k1("任务未完成：" + errorResult.toString());
+            MiConfigSingleton.V3().U7(0);
+        }
+
+        @Override // b.d.c.c.b
+        /* renamed from: s */
         public void onDataReceived(MartianFinishSubTask martianFinishSubTask) {
-            AppwallTaskDetailActivity.this.U = true;
-            if (martianFinishSubTask == null || AppwallTaskDetailActivity.this.L == null) {
+            AppwallTaskDetailActivity.this.d0 = true;
+            if (martianFinishSubTask == null || AppwallTaskDetailActivity.this.U == null) {
                 return;
             }
-            MiConfigSingleton.b2().e2().D0(0);
-            if (AppwallTaskDetailActivity.this.L.getApp() != null) {
-                ac.a.e(AppwallTaskDetailActivity.this, "appwall_task", "finish:" + AppwallTaskDetailActivity.this.L.getApp().getName());
+            MiConfigSingleton.V3().U7(0);
+            if (AppwallTaskDetailActivity.this.U.getApp() != null) {
+                com.martian.mibook.lib.model.g.b.e(AppwallTaskDetailActivity.this, "appwall_task", "finish:" + AppwallTaskDetailActivity.this.U.getApp().getName());
             }
-            if (ConfigSingleton.D().x0()) {
-                AppwallTaskDetailActivity.this.q3(martianFinishSubTask);
+            if (h.F().E0()) {
+                AppwallTaskDetailActivity.this.S2(martianFinishSubTask);
             }
+        }
+
+        @Override // b.d.c.c.g
+        protected void showLoading(boolean show) {
         }
     }
 
-    private void C3() {
-        this.P = new MiAPKDownloadCompleteReceiver();
-        IntentFilter intentFilter = new IntentFilter();
-        intentFilter.addAction("android.intent.action.DOWNLOAD_COMPLETE");
-        registerReceiver(this.P, intentFilter);
-    }
+    class e extends com.martian.appwall.c.d.e {
+        e(j1 x0) {
+            super(x0);
+        }
 
-    public void D3(x8.c cVar) {
-        X2();
-        G2(cVar.d());
-    }
+        @Override // com.martian.appwall.c.d.b
+        protected void o(b.d.c.b.c errorResult) {
+        }
 
-    public final void A3() {
-        if (MiConfigSingleton.b2().G1().g(this, 10001)) {
-            if (!g.r(this) && !X.equalsIgnoreCase(this.L.getStatus())) {
-                g.G(this);
-                return;
-            }
-            P1("正在打开" + this.L.getApp().getName());
-            g.y(this, this.L.getApp().getPackageName());
-            AppTaskManager.K(this, this.L.getApp().getPackageName());
-            if (this.M) {
-                E3(this.L.getSubtasks().get(this.L.getStindex()));
-                F3();
-            }
+        @Override // b.d.c.c.b
+        /* renamed from: s */
+        public void onDataReceived(MartianStartSubTask martianStartSubTask) {
+            com.martian.mibook.lib.model.g.b.e(AppwallTaskDetailActivity.this, "appwall_task", "start:" + AppwallTaskDetailActivity.this.U.getApp().getName());
+            AppwallTaskDetailActivity.this.f0 = true;
+        }
+
+        @Override // b.d.c.c.g
+        protected void showLoading(boolean show) {
         }
     }
 
-    public final void B3(MartianAppwallTask martianAppwallTask) {
-        X2();
-        if (martianAppwallTask == null) {
-            F2();
+    class f implements c.e {
+        f() {
+        }
+
+        @Override // com.martian.mibook.lib.account.e.c.e
+        public void a(b.d.c.b.c errorResult) {
+            AppwallTaskDetailActivity.this.X2(null);
+        }
+
+        @Override // com.martian.mibook.lib.account.e.c.e
+        public void b(MartianRPAccount rpAccount) {
+            AppwallTaskDetailActivity.this.X2(null);
+        }
+    }
+
+    private boolean T2() {
+        if (this.Z == null || this.a0 < 20) {
+            return false;
+        }
+        int max = Math.max((int) ((System.currentTimeMillis() - this.b0) / 1000), this.a0);
+        this.a0 = max;
+        if (max < this.Z.getUserDurationInMins() * 60) {
+            return false;
+        }
+        MiConfigSingleton.V3().U7(1);
+        return true;
+    }
+
+    public void U2() {
+        if (this.Z == null) {
+            l3();
             return;
         }
-        H2();
-        this.L = martianAppwallTask;
-        H3();
+        if (T2()) {
+            this.X.f11811c.removeCallbacks(this.c0);
+            return;
+        }
+        q0.f("zzz", h.F().u0() + " screenOn:" + g.j(this) + "   duration:" + this.a0);
+        if (h.F().u0().equals(this.U.getApp().getPackageName()) && g.j(this)) {
+            this.a0 += 3;
+        }
+        this.X.f11811c.removeCallbacks(this.c0);
+        this.X.f11811c.postDelayed(this.c0, 3000L);
     }
 
-    public final void E3(MartianSubTask martianSubTask) {
-        this.S = System.currentTimeMillis() - (this.R * 1000);
-        this.Q = martianSubTask;
-        this.O.martianTaskListview.postDelayed(new Runnable() { // from class: sa.a
-            public /* synthetic */ a() {
-            }
+    private void V2() {
+        s2.B(this, this.U, true, new c());
+    }
 
+    /* renamed from: a3 */
+    public /* synthetic */ void b3() {
+        l1("进入" + this.U.getApp().getName() + this.Z.getContent());
+        U2();
+    }
+
+    /* renamed from: c3 */
+    public /* synthetic */ void d3(View view, int position) {
+        String status = this.U.getSubtasks().get(position).getStatus();
+        if (k.p(status)) {
+            return;
+        }
+        status.hashCode();
+        if (status.equals(S)) {
+            onInstallClick(view);
+        } else if (status.equals(Q)) {
+            k1("已领取过该奖励");
+        } else {
+            k1("该任务未开始");
+        }
+    }
+
+    private void f3() {
+        if (MiConfigSingleton.V3().l2(this, 10001)) {
+            if (!l.r()) {
+                k1("正在打开" + this.U.getApp().getName());
+                g.s(this, this.U.getApp().getPackageName());
+                AppTaskManager.K(this, this.U.getApp().getPackageName());
+                if (this.V) {
+                    j3(this.U.getSubtasks().get(this.U.getStindex()));
+                    k3();
+                    return;
+                }
+                return;
+            }
+            if (!g.l(this) && !Q.equalsIgnoreCase(this.U.getStatus())) {
+                g.A(this);
+                return;
+            }
+            k1("正在打开" + this.U.getApp().getName());
+            g.s(this, this.U.getApp().getPackageName());
+            AppTaskManager.K(this, this.U.getApp().getPackageName());
+            if (this.V) {
+                j3(this.U.getSubtasks().get(this.U.getStindex()));
+                k3();
+            }
+        }
+    }
+
+    public void g3(MartianAppwallTask newAppwallTask) {
+        B2();
+        if (newAppwallTask == null) {
+            j2();
+            return;
+        }
+        l2();
+        this.U = newAppwallTask;
+        n3();
+    }
+
+    private void h3() {
+        this.Y = new com.martian.mibook.h.d();
+        IntentFilter intentFilter = new IntentFilter();
+        intentFilter.addAction("android.intent.action.DOWNLOAD_COMPLETE");
+        registerReceiver(this.Y, intentFilter);
+    }
+
+    public void i3(b.d.c.b.c errorResult) {
+        B2();
+        k2(errorResult.d());
+    }
+
+    private void j3(MartianSubTask app) {
+        this.b0 = System.currentTimeMillis() - (this.a0 * 1000);
+        this.Z = app;
+        this.X.f11811c.postDelayed(new Runnable() { // from class: com.martian.mibook.activity.appwall.b
             @Override // java.lang.Runnable
             public final void run() {
-                AppwallTaskDetailActivity.this.x3();
+                AppwallTaskDetailActivity.this.b3();
             }
         }, 3000L);
     }
 
-    /* JADX WARN: Multi-variable type inference failed */
-    public void F3() {
-        if (this.W || !MiConfigSingleton.b2().F2()) {
-            return;
-        }
-        e eVar = new e(this);
-        ((MartianStartCurrentSubTaskParams) eVar.k()).setAwid(f13149a0);
-        eVar.j();
-    }
-
-    public final void G3() {
-        this.O.martianTaskListview.removeCallbacks(this.T);
-        if (this.Q == null || !r3()) {
-            Q1("完成任务后才能获取奖励");
+    private void l3() {
+        this.X.f11811c.removeCallbacks(this.c0);
+        if (this.Z == null || !T2()) {
+            l1("完成任务后才能获取奖励");
         }
     }
 
-    @SuppressLint({"SetTextI18n"})
-    public void H3() {
-        String str;
-        MartianAppwallTask martianAppwallTask = this.L;
-        if (martianAppwallTask == null) {
-            return;
-        }
-        if (martianAppwallTask.getApp() != null) {
-            this.M = false;
-            this.O.taskInstall.setBackgroundResource(R.drawable.border_button_bonus_poll_sign_check_in);
-            this.O.taskInstall.setText(!i.p(this, this.L.getApp().getPackageName()) ? "下载安装" : "立即前往");
-            m0.l(this, this.L.getApp().getIconUrl(), this.O.taskHeader, R.drawable.ic_launcher);
-            if (l.q(this.L.getApp().getName())) {
-                str = "";
-            } else {
-                str = this.L.getApp().getName();
-                this.O.taskName.setText(str);
-            }
-            if (this.L.getApp().getSizeInMB() > 0) {
-                this.O.taskName.setText(str + "  (" + this.L.getApp().getSizeInMB() + "MB)");
-            }
-            if (Y.equalsIgnoreCase(this.L.getStatus())) {
-                this.O.taskInstall.setBackgroundResource(R.drawable.border_button_bonus_poll_sign_checked);
-                this.O.taskInstall.setText("之前已安装，无法获得奖励");
-            } else if (X.equalsIgnoreCase(this.L.getStatus())) {
-                MiConfigSingleton.b2().e2().D0(2);
-            } else if (this.L.getSubtasks() != null && this.L.getSubtasks().size() > this.L.getStindex() && Z.equalsIgnoreCase(this.L.getSubtasks().get(this.L.getStindex()).getStatus())) {
-                this.M = true;
-            }
-        }
-        if (this.L.getCoins() > 0) {
-            this.O.taskCoins.setVisibility(0);
-            this.O.taskCoins.setText("总奖金：" + f.r(this.L.getCoins()) + getString(R.string.bonus_unit));
-        } else {
-            this.O.taskCoins.setVisibility(8);
-        }
-        if (this.L.getSubtasks() != null) {
-            k8.b bVar = new k8.b(this, this.L.getSubtasks());
-            this.O.martianTaskListview.setAdapter((ListAdapter) bVar);
-            bVar.d(new b.a() { // from class: sa.c
-                public /* synthetic */ c() {
-                }
-
-                @Override // k8.b.a
-                public final void a(View view, int i10) {
-                    AppwallTaskDetailActivity.this.y3(view, i10);
-                }
-            });
-            if (this.L.getSubtasks().size() <= 5 || this.N) {
-                return;
-            }
-            this.N = true;
-            this.O.martianTaskListview.addFooterView(z3());
+    @Override // com.martian.libmars.activity.k1
+    public void K2(boolean show) {
+        if (show) {
+            m2(getString(R.string.loading));
         }
     }
 
-    @Override // com.martian.libmars.activity.RetryLoadingActivity
-    public void J2() {
-        v3(null);
-    }
-
-    @Override // com.martian.libmars.activity.RetryLoadingActivity
-    public void f3(boolean z10) {
-        if (z10) {
-            I2(getString(com.martian.libmars.R.string.loading));
-        }
-    }
-
-    @Override // com.martian.libmars.activity.BaseActivity, androidx.fragment.app.FragmentActivity, androidx.activity.ComponentActivity, android.app.Activity
-    public void onActivityResult(int i10, int i11, Intent intent) {
-        super.onActivityResult(i10, i11, intent);
-        if (i10 == 1100) {
-            g.G(this);
-        }
-    }
-
-    @Override // com.martian.mibook.activity.base.MiRetryLoadingActivity, com.martian.libmars.activity.RetryLoadingActivity, com.martian.libmars.activity.MartianActivity, com.martian.libmars.activity.BaseActivity, me.imid.swipebacklayout.lib.app.SwipeBackActivity, androidx.fragment.app.FragmentActivity, androidx.activity.ComponentActivity, androidx.core.app.ComponentActivity, android.app.Activity
-    public void onCreate(Bundle bundle) {
-        super.onCreate(bundle);
-        setContentView(R.layout.activity_appwall_task_detail);
-        ActivityAppwallTaskDetailBinding bind = ActivityAppwallTaskDetailBinding.bind(C2());
-        this.O = bind;
-        bind.martianTaskListview.setOnScrollListener(new a());
-        C3();
-    }
-
-    @Override // com.martian.libmars.activity.MartianActivity, com.martian.libmars.activity.BaseActivity, androidx.appcompat.app.AppCompatActivity, androidx.fragment.app.FragmentActivity, android.app.Activity
-    public void onDestroy() {
-        super.onDestroy();
-        MiAPKDownloadCompleteReceiver miAPKDownloadCompleteReceiver = this.P;
-        if (miAPKDownloadCompleteReceiver != null) {
-            unregisterReceiver(miAPKDownloadCompleteReceiver);
-        }
-    }
-
-    public void onInstallClick(View view) {
-        MartianAppwallTask martianAppwallTask = this.L;
-        if (martianAppwallTask == null || martianAppwallTask.getApp() == null) {
-            return;
-        }
-        if (Y.equalsIgnoreCase(this.L.getStatus())) {
-            P1("抱歉，您无法进行该任务");
-        } else {
-            w3();
-        }
-    }
-
-    @Override // com.martian.libmars.activity.MartianActivity, com.martian.libmars.activity.BaseActivity, androidx.fragment.app.FragmentActivity, android.app.Activity
-    public void onResume() {
-        super.onResume();
-        r3();
-        H3();
-        this.O.martianTaskListview.removeCallbacks(this.T);
-        if (MiConfigSingleton.b2().e2().K() == 1) {
-            u3();
-            return;
-        }
-        if (this.V) {
-            this.V = false;
-            return;
-        }
-        if (this.M) {
-            MartianSubTask martianSubTask = this.Q;
-            int userDurationInMins = martianSubTask == null ? 300 : martianSubTask.getUserDurationInMins() * 60;
-            if (this.R > 0) {
-                P1("时间不足（" + this.R + "/" + userDurationInMins + "秒），无法获得奖励");
-            }
-        }
-    }
-
-    public void q3(MartianFinishSubTask martianFinishSubTask) {
-        MiConfigSingleton.b2().G1().B(0, martianFinishSubTask.getCoins());
-        v3(martianFinishSubTask);
-    }
-
-    public final boolean r3() {
-        if (this.Q == null || this.R < 20) {
-            return false;
-        }
-        int max = Math.max((int) ((System.currentTimeMillis() - this.S) / 1000), this.R);
-        this.R = max;
-        if (max < this.Q.getUserDurationInMins() * 60) {
-            return false;
-        }
-        MiConfigSingleton.b2().e2().D0(1);
-        return true;
-    }
-
-    public final void s3() {
-        if (this.Q == null) {
-            G3();
-            return;
-        }
-        if (r3()) {
-            this.O.martianTaskListview.removeCallbacks(this.T);
-            return;
-        }
-        if (ConfigSingleton.D().m0().equals(this.L.getApp().getPackageName())) {
-            this.R += 3;
-        }
-        this.O.martianTaskListview.removeCallbacks(this.T);
-        this.O.martianTaskListview.postDelayed(this.T, 3000L);
-    }
-
-    public final void t3() {
-        i.y(this, this.L, true, new c());
+    public void S2(MartianFinishSubTask martianFinishSubTask) {
+        MiConfigSingleton.V3().V8(0, martianFinishSubTask.getCoins());
+        X2(martianFinishSubTask);
     }
 
     /* JADX WARN: Multi-variable type inference failed */
-    public void u3() {
-        if (this.U || !MiConfigSingleton.b2().F2()) {
+    public void W2() {
+        if (this.d0 || !MiConfigSingleton.V3().x5()) {
             return;
         }
         d dVar = new d(this);
-        ((MartianFinishNextSubTaskParams) dVar.k()).setAwid(f13149a0);
+        ((MartianFinishNextSubTaskParams) dVar.k()).setAwid("46");
         dVar.j();
     }
 
     /* JADX WARN: Multi-variable type inference failed */
-    public void v3(MartianFinishSubTask martianFinishSubTask) {
+    public void X2(final MartianFinishSubTask martianFinishSubTask) {
         b bVar = new b(martianFinishSubTask);
-        ((MartianGetAppwallParams) bVar.k()).setAwid(f13149a0);
+        ((MartianGetAppwallParams) bVar.k()).setAwid("46");
         bVar.j();
     }
 
-    public void w3() {
-        if (g.m(this, this.L.getApp().getPackageName())) {
-            A3();
+    public void Y2() {
+        if (g.g(this, this.U.getApp().getPackageName())) {
+            f3();
         } else {
-            t3();
+            V2();
         }
     }
 
-    public final /* synthetic */ void x3() {
-        Q1("进入" + this.L.getApp().getName() + this.Q.getContent());
-        s3();
-    }
-
-    public final /* synthetic */ void y3(View view, int i10) {
-        String status = this.L.getSubtasks().get(i10).getStatus();
-        if (l.q(status)) {
-            return;
-        }
-        status.hashCode();
-        if (status.equals(Z)) {
-            onInstallClick(view);
-        } else if (status.equals(X)) {
-            P1("已领取过该奖励");
-        } else {
-            P1("该任务未开始");
-        }
-    }
-
-    public ThemeView z3() {
+    public ThemeView e3() {
         ThemeView themeView = new ThemeView(this);
-        themeView.setLayoutParams(new AbsListView.LayoutParams(-1, ConfigSingleton.i(100.0f)));
+        themeView.setLayoutParams(new AbsListView.LayoutParams(-1, h.b(100.0f)));
         return themeView;
     }
 
-    public class e extends m8.d {
-        public e(Activity activity) {
-            super(activity);
+    /* JADX WARN: Multi-variable type inference failed */
+    public void k3() {
+        if (this.f0 || !MiConfigSingleton.V3().x5()) {
+            return;
         }
+        e eVar = new e(this);
+        ((MartianStartCurrentSubTaskParams) eVar.k()).setAwid("46");
+        eVar.j();
+    }
 
-        @Override // y8.f
-        public void showLoading(boolean z10) {
+    public void m3() {
+        if (MiConfigSingleton.V3().x5()) {
+            com.martian.mibook.lib.account.e.c.k(this, new f());
         }
+    }
 
-        @Override // y8.a
-        /* renamed from: t */
-        public void onDataReceived(MartianStartSubTask martianStartSubTask) {
-            ac.a.e(AppwallTaskDetailActivity.this, "appwall_task", "start:" + AppwallTaskDetailActivity.this.L.getApp().getName());
-            AppwallTaskDetailActivity.this.W = true;
+    @Override // com.martian.libmars.activity.k1
+    public void n2() {
+        X2(null);
+    }
+
+    @SuppressLint({"SetTextI18n"})
+    public void n3() {
+        String str;
+        MartianAppwallTask martianAppwallTask = this.U;
+        if (martianAppwallTask == null) {
+            return;
         }
+        if (martianAppwallTask.getApp() != null) {
+            this.V = false;
+            this.X.f11814f.setBackgroundResource(R.drawable.border_button_bonus_poll_sign_check_in);
+            this.X.f11814f.setText(!s2.p(this, this.U.getApp().getPackageName()) ? "下载安装" : "立即前往");
+            n0.l(this, this.U.getApp().getIconUrl(), this.X.f11813e, R.drawable.ic_launcher);
+            if (k.p(this.U.getApp().getName())) {
+                str = "";
+            } else {
+                str = this.U.getApp().getName();
+                this.X.f11815g.setText(str);
+            }
+            if (this.U.getApp().getSizeInMB() > 0) {
+                this.X.f11815g.setText(str + "  (" + this.U.getApp().getSizeInMB() + "MB)");
+            }
+            if (R.equalsIgnoreCase(this.U.getStatus())) {
+                this.X.f11814f.setBackgroundResource(R.drawable.border_button_bonus_poll_sign_checked);
+                this.X.f11814f.setText("之前已安装，无法获得奖励");
+            } else if (Q.equalsIgnoreCase(this.U.getStatus())) {
+                MiConfigSingleton.V3().U7(2);
+            } else if (this.U.getSubtasks() != null && this.U.getSubtasks().size() > this.U.getStindex() && S.equalsIgnoreCase(this.U.getSubtasks().get(this.U.getStindex()).getStatus())) {
+                this.V = true;
+            }
+        }
+        if (this.U.getCoins() > 0) {
+            this.X.f11812d.setVisibility(0);
+            this.X.f11812d.setText("总奖金：" + i.q(this.U.getCoins()) + getString(R.string.bonus_unit));
+        } else {
+            this.X.f11812d.setVisibility(8);
+        }
+        if (this.U.getSubtasks() != null) {
+            com.martian.appwall.b.b bVar = new com.martian.appwall.b.b(this, this.U.getSubtasks());
+            this.X.f11811c.setAdapter((ListAdapter) bVar);
+            bVar.e(new b.a() { // from class: com.martian.mibook.activity.appwall.a
+                @Override // com.martian.appwall.b.b.a
+                public final void a(View view, int i2) {
+                    AppwallTaskDetailActivity.this.d3(view, i2);
+                }
+            });
+            if (this.U.getSubtasks().size() <= 5 || this.W) {
+                return;
+            }
+            this.W = true;
+            this.X.f11811c.addFooterView(e3());
+        }
+    }
 
-        @Override // m8.a
-        public void p(x8.c cVar) {
+    @Override // com.martian.libmars.activity.h1, androidx.fragment.app.FragmentActivity, android.app.Activity
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == 1018 && resultCode == -1) {
+            com.martian.mibook.lib.model.g.b.K(this, MiConfigSingleton.V3().T3("登录成功", requestCode));
+            m3();
+        } else if (requestCode == 1100) {
+            g.A(this);
+        }
+    }
+
+    @Override // com.martian.mibook.activity.base.n, com.martian.libmars.activity.k1, com.martian.libmars.activity.j1, com.martian.libmars.activity.h1, me.imid.swipebacklayout.lib.d.a, androidx.appcompat.app.AppCompatActivity, androidx.fragment.app.FragmentActivity, androidx.activity.ComponentActivity, androidx.core.app.ComponentActivity, android.app.Activity
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_appwall_task_detail);
+        com.martian.mibook.e.d a2 = com.martian.mibook.e.d.a(h2());
+        this.X = a2;
+        a2.f11811c.setOnScrollListener(new a());
+        h3();
+    }
+
+    @Override // com.martian.libmars.activity.j1, com.martian.libmars.activity.h1, androidx.appcompat.app.AppCompatActivity, androidx.fragment.app.FragmentActivity, android.app.Activity
+    protected void onDestroy() {
+        super.onDestroy();
+        com.martian.mibook.h.d dVar = this.Y;
+        if (dVar != null) {
+            unregisterReceiver(dVar);
+        }
+    }
+
+    public void onInstallClick(View view) {
+        MartianAppwallTask martianAppwallTask = this.U;
+        if (martianAppwallTask == null || martianAppwallTask.getApp() == null) {
+            return;
+        }
+        if (R.equalsIgnoreCase(this.U.getStatus())) {
+            k1("抱歉，您无法进行该任务");
+        } else {
+            Y2();
+        }
+    }
+
+    @Override // com.martian.libmars.activity.j1, com.martian.libmars.activity.h1, androidx.fragment.app.FragmentActivity, android.app.Activity
+    protected void onResume() {
+        super.onResume();
+        T2();
+        n3();
+        this.X.f11811c.removeCallbacks(this.c0);
+        if (MiConfigSingleton.V3().h4() == 1) {
+            W2();
+            return;
+        }
+        if (this.e0) {
+            this.e0 = false;
+            return;
+        }
+        if (this.V) {
+            MartianSubTask martianSubTask = this.Z;
+            int userDurationInMins = martianSubTask == null ? 300 : martianSubTask.getUserDurationInMins() * 60;
+            if (this.a0 > 0) {
+                k1("时间不足（" + this.a0 + "/" + userDurationInMins + "秒），无法获得奖励");
+            }
         }
     }
 }

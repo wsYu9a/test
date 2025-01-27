@@ -1,129 +1,58 @@
 package com.umeng.analytics.pro;
 
-import android.content.ComponentName;
-import android.content.Context;
-import android.content.Intent;
-import android.content.ServiceConnection;
-import android.os.Bundle;
-import android.os.IBinder;
-import android.os.RemoteException;
-import android.provider.Settings;
-import android.text.TextUtils;
-import com.shu.priory.config.AdKeys;
-import com.umeng.analytics.pro.b;
-import com.umeng.analytics.pro.c;
-import java.util.concurrent.LinkedBlockingQueue;
-import java.util.concurrent.TimeUnit;
+import java.io.Serializable;
 
 /* loaded from: classes4.dex */
-class bi implements be {
+public class bi implements Serializable {
 
     /* renamed from: a */
-    private static String f23560a = "";
+    private final boolean f25738a;
 
-    public static final class a implements ServiceConnection {
+    /* renamed from: b */
+    public final byte f25739b;
 
-        /* renamed from: a */
-        boolean f23561a;
+    /* renamed from: c */
+    private final String f25740c;
 
-        /* renamed from: b */
-        private final LinkedBlockingQueue<IBinder> f23562b;
+    /* renamed from: d */
+    private final boolean f25741d;
 
-        public /* synthetic */ a(AnonymousClass1 anonymousClass1) {
-            this();
-        }
-
-        public IBinder a() throws InterruptedException {
-            if (this.f23561a) {
-                throw new IllegalStateException();
-            }
-            this.f23561a = true;
-            return this.f23562b.poll(5L, TimeUnit.SECONDS);
-        }
-
-        @Override // android.content.ServiceConnection
-        public void onServiceConnected(ComponentName componentName, IBinder iBinder) {
-            try {
-                this.f23562b.put(iBinder);
-            } catch (InterruptedException unused) {
-            }
-        }
-
-        @Override // android.content.ServiceConnection
-        public void onServiceDisconnected(ComponentName componentName) {
-        }
-
-        private a() {
-            this.f23561a = false;
-            this.f23562b = new LinkedBlockingQueue<>();
-        }
+    public bi(byte b2, boolean z) {
+        this.f25739b = b2;
+        this.f25738a = false;
+        this.f25740c = null;
+        this.f25741d = z;
     }
 
-    public static final class b extends b.AbstractBinderC0666b {
-        public /* synthetic */ b(AnonymousClass1 anonymousClass1) {
-            this();
-        }
-
-        @Override // com.umeng.analytics.pro.b
-        public void a(int i10, long j10, boolean z10, float f10, double d10, String str) throws RemoteException {
-        }
-
-        private b() {
-        }
-
-        @Override // com.umeng.analytics.pro.b
-        public void a(int i10, Bundle bundle) throws RemoteException {
-            if (i10 != 0 || bundle == null) {
-                return;
-            }
-            String string = bundle.getString("oa_id_flag");
-            if (bi.c(string)) {
-                String unused = bi.f23560a = string;
-            }
-        }
+    public boolean a() {
+        return this.f25738a;
     }
 
-    public interface c {
-
-        /* renamed from: a */
-        public static final int f23563a = 0;
-
-        /* renamed from: b */
-        public static final String f23564b = "oa_id_flag";
+    public String b() {
+        return this.f25740c;
     }
 
-    public static boolean c(String str) {
-        return (TextUtils.isEmpty(str) || str.equalsIgnoreCase("00000000-0000-0000-0000-000000000000")) ? false : true;
+    public boolean c() {
+        return this.f25739b == 12;
     }
 
-    @Override // com.umeng.analytics.pro.be
-    public String a(Context context) {
-        if (context == null) {
-            return null;
-        }
-        try {
-            if (!Boolean.parseBoolean(Settings.Secure.getString(context.getContentResolver(), "oaid_limit_state"))) {
-                String string = Settings.Global.getString(context.getContentResolver(), AdKeys.OAID);
-                if (c(string)) {
-                    f23560a = string;
-                    return string;
-                }
-            }
-        } catch (Throwable unused) {
-        }
-        a aVar = new a();
-        Intent intent = new Intent();
-        intent.setAction("com.hihonor.id.HnOaIdService");
-        intent.setPackage("com.hihonor.id");
-        if (context.bindService(intent, aVar, 1)) {
-            try {
-                c.b.a(aVar.a()).a(new b());
-                return f23560a;
-            } catch (Exception unused2) {
-            } finally {
-                context.unbindService(aVar);
-            }
-        }
-        return null;
+    public boolean d() {
+        byte b2 = this.f25739b;
+        return b2 == 15 || b2 == 13 || b2 == 14;
+    }
+
+    public boolean e() {
+        return this.f25741d;
+    }
+
+    public bi(byte b2) {
+        this(b2, false);
+    }
+
+    public bi(byte b2, String str) {
+        this.f25739b = b2;
+        this.f25738a = true;
+        this.f25740c = str;
+        this.f25741d = false;
     }
 }

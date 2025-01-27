@@ -7,7 +7,7 @@ import com.bumptech.glide.gifdecoder.GifDecoder;
 import com.bumptech.glide.load.engine.bitmap_recycle.ArrayPool;
 import com.bumptech.glide.load.engine.bitmap_recycle.BitmapPool;
 
-/* loaded from: classes2.dex */
+/* loaded from: classes.dex */
 public final class GifBitmapProvider implements GifDecoder.BitmapProvider {
 
     @Nullable
@@ -20,22 +20,22 @@ public final class GifBitmapProvider implements GifDecoder.BitmapProvider {
 
     @Override // com.bumptech.glide.gifdecoder.GifDecoder.BitmapProvider
     @NonNull
-    public Bitmap obtain(int i10, int i11, @NonNull Bitmap.Config config) {
-        return this.bitmapPool.getDirty(i10, i11, config);
+    public Bitmap obtain(int i2, int i3, @NonNull Bitmap.Config config) {
+        return this.bitmapPool.getDirty(i2, i3, config);
     }
 
     @Override // com.bumptech.glide.gifdecoder.GifDecoder.BitmapProvider
     @NonNull
-    public byte[] obtainByteArray(int i10) {
+    public byte[] obtainByteArray(int i2) {
         ArrayPool arrayPool = this.arrayPool;
-        return arrayPool == null ? new byte[i10] : (byte[]) arrayPool.get(i10, byte[].class);
+        return arrayPool == null ? new byte[i2] : (byte[]) arrayPool.get(i2, byte[].class);
     }
 
     @Override // com.bumptech.glide.gifdecoder.GifDecoder.BitmapProvider
     @NonNull
-    public int[] obtainIntArray(int i10) {
+    public int[] obtainIntArray(int i2) {
         ArrayPool arrayPool = this.arrayPool;
-        return arrayPool == null ? new int[i10] : (int[]) arrayPool.get(i10, int[].class);
+        return arrayPool == null ? new int[i2] : (int[]) arrayPool.get(i2, int[].class);
     }
 
     @Override // com.bumptech.glide.gifdecoder.GifDecoder.BitmapProvider

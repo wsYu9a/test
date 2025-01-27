@@ -15,7 +15,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.util.List;
 
-/* loaded from: classes2.dex */
+/* loaded from: classes.dex */
 interface ImageReader {
 
     public static final class InputStreamImageReader implements ImageReader {
@@ -23,7 +23,7 @@ interface ImageReader {
         private final InputStreamRewinder dataRewinder;
         private final List<ImageHeaderParser> parsers;
 
-        public InputStreamImageReader(InputStream inputStream, List<ImageHeaderParser> list, ArrayPool arrayPool) {
+        InputStreamImageReader(InputStream inputStream, List<ImageHeaderParser> list, ArrayPool arrayPool) {
             this.byteArrayPool = (ArrayPool) Preconditions.checkNotNull(arrayPool);
             this.parsers = (List) Preconditions.checkNotNull(list);
             this.dataRewinder = new InputStreamRewinder(inputStream, arrayPool);
@@ -57,7 +57,7 @@ interface ImageReader {
         private final ParcelFileDescriptorRewinder dataRewinder;
         private final List<ImageHeaderParser> parsers;
 
-        public ParcelFileDescriptorImageReader(ParcelFileDescriptor parcelFileDescriptor, List<ImageHeaderParser> list, ArrayPool arrayPool) {
+        ParcelFileDescriptorImageReader(ParcelFileDescriptor parcelFileDescriptor, List<ImageHeaderParser> list, ArrayPool arrayPool) {
             this.byteArrayPool = (ArrayPool) Preconditions.checkNotNull(arrayPool);
             this.parsers = (List) Preconditions.checkNotNull(list);
             this.dataRewinder = new ParcelFileDescriptorRewinder(parcelFileDescriptor);

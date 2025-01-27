@@ -9,7 +9,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Deprecated
-/* loaded from: classes2.dex */
+/* loaded from: classes.dex */
 public final class ManifestParser {
     private static final String GLIDE_MODULE_VALUE = "GlideModule";
     private static final String TAG = "ManifestParser";
@@ -24,22 +24,22 @@ public final class ManifestParser {
             Class<?> cls = Class.forName(str);
             Object obj = null;
             try {
-                obj = cls.getDeclaredConstructor(null).newInstance(null);
-            } catch (IllegalAccessException e10) {
-                throwInstantiateGlideModuleException(cls, e10);
-            } catch (InstantiationException e11) {
-                throwInstantiateGlideModuleException(cls, e11);
-            } catch (NoSuchMethodException e12) {
-                throwInstantiateGlideModuleException(cls, e12);
-            } catch (InvocationTargetException e13) {
-                throwInstantiateGlideModuleException(cls, e13);
+                obj = cls.getDeclaredConstructor(new Class[0]).newInstance(new Object[0]);
+            } catch (IllegalAccessException e2) {
+                throwInstantiateGlideModuleException(cls, e2);
+            } catch (InstantiationException e3) {
+                throwInstantiateGlideModuleException(cls, e3);
+            } catch (NoSuchMethodException e4) {
+                throwInstantiateGlideModuleException(cls, e4);
+            } catch (InvocationTargetException e5) {
+                throwInstantiateGlideModuleException(cls, e5);
             }
             if (obj instanceof GlideModule) {
                 return (GlideModule) obj;
             }
             throw new RuntimeException("Expected instanceof GlideModule, but found: " + obj);
-        } catch (ClassNotFoundException e14) {
-            throw new IllegalArgumentException("Unable to find GlideModule implementation", e14);
+        } catch (ClassNotFoundException e6) {
+            throw new IllegalArgumentException("Unable to find GlideModule implementation", e6);
         }
     }
 
@@ -75,8 +75,8 @@ public final class ManifestParser {
                 Log.d(TAG, "Finished loading Glide modules");
             }
             return arrayList;
-        } catch (PackageManager.NameNotFoundException e10) {
-            throw new RuntimeException("Unable to find metadata to parse GlideModules", e10);
+        } catch (PackageManager.NameNotFoundException e2) {
+            throw new RuntimeException("Unable to find metadata to parse GlideModules", e2);
         }
     }
 }

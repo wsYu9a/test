@@ -3,7 +3,7 @@ package com.kwad.components.offline.api.core.video.mdoel;
 import androidx.annotation.NonNull;
 import com.kwad.sdk.core.response.model.VideoPlayerStatus;
 
-/* loaded from: classes3.dex */
+/* loaded from: classes2.dex */
 public class PlayVideoInfo {
     public final boolean isNoCache;
     public final KsPlayerLogParams ksplayerLogParams;
@@ -36,8 +36,8 @@ public class PlayVideoInfo {
             return this;
         }
 
-        public Builder noCache(boolean z10) {
-            this.isNoCache = z10;
+        public Builder noCache(boolean z) {
+            this.isNoCache = z;
             return this;
         }
 
@@ -50,10 +50,6 @@ public class PlayVideoInfo {
             this.videoUrl = str;
             return this;
         }
-    }
-
-    public /* synthetic */ PlayVideoInfo(Builder builder, AnonymousClass1 anonymousClass1) {
-        this(builder);
     }
 
     private PlayVideoInfo(Builder builder) {
@@ -69,5 +65,9 @@ public class PlayVideoInfo {
             ksPlayerLogParams.contentType = builder.ksplayerLogParams.contentType;
         }
         this.isNoCache = builder.isNoCache;
+    }
+
+    /* synthetic */ PlayVideoInfo(Builder builder, AnonymousClass1 anonymousClass1) {
+        this(builder);
     }
 }

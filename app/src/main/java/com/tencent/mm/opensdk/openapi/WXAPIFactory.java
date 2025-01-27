@@ -15,13 +15,13 @@ public class WXAPIFactory {
         return createWXAPI(context, str, true);
     }
 
-    public static IWXAPI createWXAPI(Context context, String str, boolean z10) {
-        Log.d(TAG, "createWXAPI, appId = " + str + ", checkSignature = " + z10);
-        return createWXAPI(context, str, z10, 2);
+    public static IWXAPI createWXAPI(Context context, String str, boolean z) {
+        Log.d(TAG, "createWXAPI, appId = " + str + ", checkSignature = " + z);
+        return createWXAPI(context, str, z, 2);
     }
 
-    public static IWXAPI createWXAPI(Context context, String str, boolean z10, int i10) {
-        Log.d(TAG, "createWXAPI, appId = " + str + ", checkSignature = " + z10 + ", launchMode = " + i10);
-        return new WXApiImplV10(context, str, z10, i10);
+    public static IWXAPI createWXAPI(Context context, String str, boolean z, int i2) {
+        Log.d(TAG, "createWXAPI, appId = " + str + ", checkSignature = " + z + ", launchMode = " + i2);
+        return new WXApiImplV10(context, str, z, i2);
     }
 }

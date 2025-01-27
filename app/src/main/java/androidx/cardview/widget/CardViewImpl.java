@@ -20,7 +20,7 @@ interface CardViewImpl {
 
     void initStatic();
 
-    void initialize(CardViewDelegate cardViewDelegate, Context context, ColorStateList colorStateList, float f10, float f11, float f12);
+    void initialize(CardViewDelegate cardViewDelegate, Context context, ColorStateList colorStateList, float f2, float f3, float f4);
 
     void onCompatPaddingChanged(CardViewDelegate cardViewDelegate);
 
@@ -28,11 +28,11 @@ interface CardViewImpl {
 
     void setBackgroundColor(CardViewDelegate cardViewDelegate, @Nullable ColorStateList colorStateList);
 
-    void setElevation(CardViewDelegate cardViewDelegate, float f10);
+    void setElevation(CardViewDelegate cardViewDelegate, float f2);
 
-    void setMaxElevation(CardViewDelegate cardViewDelegate, float f10);
+    void setMaxElevation(CardViewDelegate cardViewDelegate, float f2);
 
-    void setRadius(CardViewDelegate cardViewDelegate, float f10);
+    void setRadius(CardViewDelegate cardViewDelegate, float f2);
 
     void updatePadding(CardViewDelegate cardViewDelegate);
 }

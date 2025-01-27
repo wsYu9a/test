@@ -1,6 +1,5 @@
 package com.martian.mibook.data.book;
 
-import com.martian.mibook.mvvm.read.comment.Comment;
 import java.util.List;
 
 /* loaded from: classes3.dex */
@@ -14,8 +13,8 @@ public class MiBookCommentItemList {
     private Integer score;
     private Integer scores;
 
-    public MiBookCommentItemList(List<Comment> list) {
-        this.comments = list;
+    public MiBookCommentItemList(List<Comment> comments) {
+        this.comments = comments;
     }
 
     public int getBookShelfCount() {
@@ -69,39 +68,39 @@ public class MiBookCommentItemList {
         return Integer.valueOf(num == null ? -1 : num.intValue());
     }
 
-    public void setBookShelfCount(Integer num) {
-        this.bookShelfCount = num;
+    public void setBookShelfCount(Integer bookShelfCount) {
+        this.bookShelfCount = bookShelfCount;
     }
 
-    public void setClickCount(Integer num) {
-        this.clickCount = num;
+    public void setClickCount(Integer clickCount) {
+        this.clickCount = clickCount;
     }
 
-    public void setCommentList(List<Comment> list) {
-        this.comments = list;
+    public void setCommentList(List<Comment> comments) {
+        this.comments = comments;
     }
 
-    public void setComments(List<Comment> list) {
-        this.comments = list;
+    public void setComments(List<Comment> comments) {
+        this.comments = comments;
     }
 
-    public void setNComments(Integer num) {
-        this.nComments = num;
+    public void setNComments(Integer nComments) {
+        this.nComments = nComments;
     }
 
-    public void setNStars(Integer num) {
-        this.nStars = num;
+    public void setNStars(Integer nStars) {
+        this.nStars = nStars;
     }
 
-    public void setReadingCount(Integer num) {
-        this.readingCount = num;
+    public void setReadingCount(Integer readingCount) {
+        this.readingCount = readingCount;
     }
 
-    public void setScore(Integer num) {
-        this.score = num;
+    public void setScore(Integer score) {
+        this.score = score;
     }
 
-    public void setScores(Integer num) {
-        this.scores = num;
+    public void setScores(Integer scores) {
+        this.scores = scores;
     }
 }

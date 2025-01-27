@@ -8,27 +8,27 @@ import java.util.Set;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
-/* loaded from: classes2.dex */
+/* loaded from: classes.dex */
 public class aq {
 
     /* renamed from: a */
-    private JSONObject f10775a;
+    private JSONObject f9079a;
 
-    public aq(Context context, int i10) {
+    public aq(Context context, int i2) {
         if (Engine.loadSuccess) {
             try {
-                String pqr = Engine.getInstance(context).pqr(Integer.valueOf(ck.f10907c).intValue(), 3, i10, "");
+                String pqr = Engine.getInstance(context).pqr(Integer.valueOf(cj.f9190c).intValue(), 3, i2, "");
                 if (TextUtils.isEmpty(pqr)) {
                     return;
                 }
-                this.f10775a = new JSONObject(pqr);
+                this.f9079a = new JSONObject(pqr);
             } catch (Throwable unused) {
             }
         }
     }
 
     public String a(String str) {
-        JSONObject jSONObject = this.f10775a;
+        JSONObject jSONObject = this.f9079a;
         if (jSONObject != null) {
             try {
                 return jSONObject.optString(str, null);
@@ -39,17 +39,15 @@ public class aq {
     }
 
     public Set b(String str) {
-        JSONObject jSONObject = this.f10775a;
+        JSONObject jSONObject = this.f9079a;
         if (jSONObject != null) {
             try {
                 String optString = jSONObject.optString(str, null);
                 if (!TextUtils.isEmpty(optString) && optString.length() > 3) {
                     HashSet hashSet = new HashSet();
                     JSONArray jSONArray = new JSONArray(optString);
-                    for (int i10 = 0; i10 < jSONArray.length(); i10++) {
-                        Integer valueOf = Integer.valueOf((String) jSONArray.get(i10), 16);
-                        valueOf.intValue();
-                        hashSet.add(valueOf);
+                    for (int i2 = 0; i2 < jSONArray.length(); i2++) {
+                        hashSet.add(Integer.valueOf(Integer.valueOf((String) jSONArray.get(i2), 16).intValue()));
                     }
                     return hashSet;
                 }

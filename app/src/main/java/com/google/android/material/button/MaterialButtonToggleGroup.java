@@ -20,10 +20,8 @@ import androidx.core.view.ViewCompat;
 import androidx.core.view.accessibility.AccessibilityNodeInfoCompat;
 import com.google.android.material.R;
 import com.google.android.material.button.MaterialButton;
-import com.google.android.material.internal.ViewUtils;
-import com.google.android.material.shape.AbsoluteCornerSize;
-import com.google.android.material.shape.CornerSize;
-import com.google.android.material.shape.ShapeAppearanceModel;
+import com.google.android.material.internal.u;
+import com.google.android.material.j.o;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.Iterator;
@@ -31,29 +29,49 @@ import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.TreeMap;
 
-/* loaded from: classes2.dex */
+/* loaded from: classes.dex */
 public class MaterialButtonToggleGroup extends LinearLayout {
-    private static final int DEF_STYLE_RES = R.style.Widget_MaterialComponents_MaterialButtonToggleGroup;
-    private static final String LOG_TAG = "MaterialButtonToggleGroup";
+
+    /* renamed from: a */
+    private static final String f6881a = MaterialButtonToggleGroup.class.getSimpleName();
+
+    /* renamed from: b */
+    private static final int f6882b = R.style.Widget_MaterialComponents_MaterialButtonToggleGroup;
+
+    /* renamed from: c */
+    private final List<d> f6883c;
+
+    /* renamed from: d */
+    private final c f6884d;
+
+    /* renamed from: e */
+    private final f f6885e;
+
+    /* renamed from: f */
+    private final LinkedHashSet<e> f6886f;
+
+    /* renamed from: g */
+    private final Comparator<MaterialButton> f6887g;
+
+    /* renamed from: h */
+    private Integer[] f6888h;
+
+    /* renamed from: i */
+    private boolean f6889i;
+
+    /* renamed from: j */
+    private boolean f6890j;
+    private boolean k;
 
     @IdRes
-    private int checkedId;
-    private final CheckedStateTracker checkedStateTracker;
-    private Integer[] childOrder;
-    private final Comparator<MaterialButton> childOrderComparator;
-    private final LinkedHashSet<OnButtonCheckedListener> onButtonCheckedListeners;
-    private final List<CornerData> originalCornerData;
-    private final PressedStateTracker pressedStateTracker;
-    private boolean selectionRequired;
-    private boolean singleSelection;
-    private boolean skipCheckedStateTracker;
+    private int l;
 
-    /* renamed from: com.google.android.material.button.MaterialButtonToggleGroup$1 */
-    public class AnonymousClass1 implements Comparator<MaterialButton> {
-        public AnonymousClass1() {
+    class a implements Comparator<MaterialButton> {
+        a() {
         }
 
         @Override // java.util.Comparator
+        /* renamed from: a */
         public int compare(MaterialButton materialButton, MaterialButton materialButton2) {
             int compareTo = Boolean.valueOf(materialButton.isChecked()).compareTo(Boolean.valueOf(materialButton2.isChecked()));
             if (compareTo != 0) {
@@ -64,101 +82,110 @@ public class MaterialButtonToggleGroup extends LinearLayout {
         }
     }
 
-    /* renamed from: com.google.android.material.button.MaterialButtonToggleGroup$2 */
-    public class AnonymousClass2 extends AccessibilityDelegateCompat {
-        public AnonymousClass2() {
+    class b extends AccessibilityDelegateCompat {
+        b() {
         }
 
         @Override // androidx.core.view.AccessibilityDelegateCompat
         public void onInitializeAccessibilityNodeInfo(View view, @NonNull AccessibilityNodeInfoCompat accessibilityNodeInfoCompat) {
             super.onInitializeAccessibilityNodeInfo(view, accessibilityNodeInfoCompat);
-            accessibilityNodeInfoCompat.setCollectionItemInfo(AccessibilityNodeInfoCompat.CollectionItemInfoCompat.obtain(0, 1, MaterialButtonToggleGroup.this.getIndexWithinVisibleButtons(view), 1, false, ((MaterialButton) view).isChecked()));
+            accessibilityNodeInfoCompat.setCollectionItemInfo(AccessibilityNodeInfoCompat.CollectionItemInfoCompat.obtain(0, 1, MaterialButtonToggleGroup.this.p(view), 1, false, ((MaterialButton) view).isChecked()));
         }
     }
 
-    public class CheckedStateTracker implements MaterialButton.OnCheckedChangeListener {
-        private CheckedStateTracker() {
+    private class c implements MaterialButton.b {
+        private c() {
         }
 
-        @Override // com.google.android.material.button.MaterialButton.OnCheckedChangeListener
-        public void onCheckedChanged(@NonNull MaterialButton materialButton, boolean z10) {
-            if (MaterialButtonToggleGroup.this.skipCheckedStateTracker) {
+        @Override // com.google.android.material.button.MaterialButton.b
+        public void a(@NonNull MaterialButton materialButton, boolean z) {
+            if (MaterialButtonToggleGroup.this.f6889i) {
                 return;
             }
-            if (MaterialButtonToggleGroup.this.singleSelection) {
-                MaterialButtonToggleGroup.this.checkedId = z10 ? materialButton.getId() : -1;
+            if (MaterialButtonToggleGroup.this.f6890j) {
+                MaterialButtonToggleGroup.this.l = z ? materialButton.getId() : -1;
             }
-            if (MaterialButtonToggleGroup.this.updateCheckedStates(materialButton.getId(), z10)) {
-                MaterialButtonToggleGroup.this.dispatchOnButtonChecked(materialButton.getId(), materialButton.isChecked());
+            if (MaterialButtonToggleGroup.this.z(materialButton.getId(), z)) {
+                MaterialButtonToggleGroup.this.n(materialButton.getId(), materialButton.isChecked());
             }
             MaterialButtonToggleGroup.this.invalidate();
         }
 
-        public /* synthetic */ CheckedStateTracker(MaterialButtonToggleGroup materialButtonToggleGroup, AnonymousClass1 anonymousClass1) {
+        /* synthetic */ c(MaterialButtonToggleGroup materialButtonToggleGroup, a aVar) {
             this();
         }
     }
 
-    public static class CornerData {
-        private static final CornerSize noCorner = new AbsoluteCornerSize(0.0f);
-        CornerSize bottomLeft;
-        CornerSize bottomRight;
-        CornerSize topLeft;
-        CornerSize topRight;
+    private static class d {
 
-        public CornerData(CornerSize cornerSize, CornerSize cornerSize2, CornerSize cornerSize3, CornerSize cornerSize4) {
-            this.topLeft = cornerSize;
-            this.topRight = cornerSize3;
-            this.bottomRight = cornerSize4;
-            this.bottomLeft = cornerSize2;
+        /* renamed from: a */
+        private static final com.google.android.material.j.d f6894a = new com.google.android.material.j.a(0.0f);
+
+        /* renamed from: b */
+        com.google.android.material.j.d f6895b;
+
+        /* renamed from: c */
+        com.google.android.material.j.d f6896c;
+
+        /* renamed from: d */
+        com.google.android.material.j.d f6897d;
+
+        /* renamed from: e */
+        com.google.android.material.j.d f6898e;
+
+        d(com.google.android.material.j.d dVar, com.google.android.material.j.d dVar2, com.google.android.material.j.d dVar3, com.google.android.material.j.d dVar4) {
+            this.f6895b = dVar;
+            this.f6896c = dVar3;
+            this.f6897d = dVar4;
+            this.f6898e = dVar2;
         }
 
-        public static CornerData bottom(CornerData cornerData) {
-            CornerSize cornerSize = noCorner;
-            return new CornerData(cornerSize, cornerData.bottomLeft, cornerSize, cornerData.bottomRight);
+        public static d a(d dVar) {
+            com.google.android.material.j.d dVar2 = f6894a;
+            return new d(dVar2, dVar.f6898e, dVar2, dVar.f6897d);
         }
 
-        public static CornerData end(CornerData cornerData, View view) {
-            return ViewUtils.isLayoutRtl(view) ? left(cornerData) : right(cornerData);
+        public static d b(d dVar, View view) {
+            return u.i(view) ? c(dVar) : d(dVar);
         }
 
-        public static CornerData left(CornerData cornerData) {
-            CornerSize cornerSize = cornerData.topLeft;
-            CornerSize cornerSize2 = cornerData.bottomLeft;
-            CornerSize cornerSize3 = noCorner;
-            return new CornerData(cornerSize, cornerSize2, cornerSize3, cornerSize3);
+        public static d c(d dVar) {
+            com.google.android.material.j.d dVar2 = dVar.f6895b;
+            com.google.android.material.j.d dVar3 = dVar.f6898e;
+            com.google.android.material.j.d dVar4 = f6894a;
+            return new d(dVar2, dVar3, dVar4, dVar4);
         }
 
-        public static CornerData right(CornerData cornerData) {
-            CornerSize cornerSize = noCorner;
-            return new CornerData(cornerSize, cornerSize, cornerData.topRight, cornerData.bottomRight);
+        public static d d(d dVar) {
+            com.google.android.material.j.d dVar2 = f6894a;
+            return new d(dVar2, dVar2, dVar.f6896c, dVar.f6897d);
         }
 
-        public static CornerData start(CornerData cornerData, View view) {
-            return ViewUtils.isLayoutRtl(view) ? right(cornerData) : left(cornerData);
+        public static d e(d dVar, View view) {
+            return u.i(view) ? d(dVar) : c(dVar);
         }
 
-        public static CornerData top(CornerData cornerData) {
-            CornerSize cornerSize = cornerData.topLeft;
-            CornerSize cornerSize2 = noCorner;
-            return new CornerData(cornerSize, cornerSize2, cornerData.topRight, cornerSize2);
+        public static d f(d dVar) {
+            com.google.android.material.j.d dVar2 = dVar.f6895b;
+            com.google.android.material.j.d dVar3 = f6894a;
+            return new d(dVar2, dVar3, dVar.f6896c, dVar3);
         }
     }
 
-    public interface OnButtonCheckedListener {
-        void onButtonChecked(MaterialButtonToggleGroup materialButtonToggleGroup, @IdRes int i10, boolean z10);
+    public interface e {
+        void a(MaterialButtonToggleGroup materialButtonToggleGroup, @IdRes int i2, boolean z);
     }
 
-    public class PressedStateTracker implements MaterialButton.OnPressedChangeListener {
-        private PressedStateTracker() {
+    private class f implements MaterialButton.c {
+        private f() {
         }
 
-        @Override // com.google.android.material.button.MaterialButton.OnPressedChangeListener
-        public void onPressedChanged(@NonNull MaterialButton materialButton, boolean z10) {
+        @Override // com.google.android.material.button.MaterialButton.c
+        public void a(@NonNull MaterialButton materialButton, boolean z) {
             MaterialButtonToggleGroup.this.invalidate();
         }
 
-        public /* synthetic */ PressedStateTracker(MaterialButtonToggleGroup materialButtonToggleGroup, AnonymousClass1 anonymousClass1) {
+        /* synthetic */ f(MaterialButtonToggleGroup materialButtonToggleGroup, a aVar) {
             this();
         }
     }
@@ -167,71 +194,20 @@ public class MaterialButtonToggleGroup extends LinearLayout {
         this(context, null);
     }
 
-    private void adjustChildMarginsAndUpdateLayout() {
-        int firstVisibleChildIndex = getFirstVisibleChildIndex();
-        if (firstVisibleChildIndex == -1) {
-            return;
+    private void A() {
+        TreeMap treeMap = new TreeMap(this.f6887g);
+        int childCount = getChildCount();
+        for (int i2 = 0; i2 < childCount; i2++) {
+            treeMap.put(o(i2), Integer.valueOf(i2));
         }
-        for (int i10 = firstVisibleChildIndex + 1; i10 < getChildCount(); i10++) {
-            MaterialButton childButton = getChildButton(i10);
-            int min = Math.min(childButton.getStrokeWidth(), getChildButton(i10 - 1).getStrokeWidth());
-            LinearLayout.LayoutParams buildLayoutParams = buildLayoutParams(childButton);
-            if (getOrientation() == 0) {
-                MarginLayoutParamsCompat.setMarginEnd(buildLayoutParams, 0);
-                MarginLayoutParamsCompat.setMarginStart(buildLayoutParams, -min);
-            } else {
-                buildLayoutParams.bottomMargin = 0;
-                buildLayoutParams.topMargin = -min;
-            }
-            childButton.setLayoutParams(buildLayoutParams);
-        }
-        resetChildMargins(firstVisibleChildIndex);
-    }
-
-    @NonNull
-    private LinearLayout.LayoutParams buildLayoutParams(@NonNull View view) {
-        ViewGroup.LayoutParams layoutParams = view.getLayoutParams();
-        return layoutParams instanceof LinearLayout.LayoutParams ? (LinearLayout.LayoutParams) layoutParams : new LinearLayout.LayoutParams(layoutParams.width, layoutParams.height);
-    }
-
-    private void checkForced(int i10) {
-        setCheckedStateForView(i10, true);
-        updateCheckedStates(i10, true);
-        setCheckedId(i10);
-    }
-
-    public void dispatchOnButtonChecked(@IdRes int i10, boolean z10) {
-        Iterator<OnButtonCheckedListener> it = this.onButtonCheckedListeners.iterator();
-        while (it.hasNext()) {
-            it.next().onButtonChecked(this, i10, z10);
-        }
-    }
-
-    private MaterialButton getChildButton(int i10) {
-        return (MaterialButton) getChildAt(i10);
+        this.f6888h = (Integer[]) treeMap.values().toArray(new Integer[0]);
     }
 
     private int getFirstVisibleChildIndex() {
         int childCount = getChildCount();
-        for (int i10 = 0; i10 < childCount; i10++) {
-            if (isChildVisible(i10)) {
-                return i10;
-            }
-        }
-        return -1;
-    }
-
-    public int getIndexWithinVisibleButtons(@Nullable View view) {
-        if (!(view instanceof MaterialButton)) {
-            return -1;
-        }
-        int i10 = 0;
-        for (int i11 = 0; i11 < getChildCount(); i11++) {
-            if (getChildAt(i11) == view) {
-                return i10;
-            }
-            if ((getChildAt(i11) instanceof MaterialButton) && isChildVisible(i11)) {
-                i10++;
+        for (int i2 = 0; i2 < childCount; i2++) {
+            if (r(i2)) {
+                return i2;
             }
         }
         return -1;
@@ -239,71 +215,106 @@ public class MaterialButtonToggleGroup extends LinearLayout {
 
     private int getLastVisibleChildIndex() {
         for (int childCount = getChildCount() - 1; childCount >= 0; childCount--) {
-            if (isChildVisible(childCount)) {
+            if (r(childCount)) {
                 return childCount;
             }
         }
         return -1;
     }
 
+    private int getVisibleButtonCount() {
+        int i2 = 0;
+        for (int i3 = 0; i3 < getChildCount(); i3++) {
+            if ((getChildAt(i3) instanceof MaterialButton) && r(i3)) {
+                i2++;
+            }
+        }
+        return i2;
+    }
+
+    private void h() {
+        int firstVisibleChildIndex = getFirstVisibleChildIndex();
+        if (firstVisibleChildIndex == -1) {
+            return;
+        }
+        for (int i2 = firstVisibleChildIndex + 1; i2 < getChildCount(); i2++) {
+            MaterialButton o = o(i2);
+            int min = Math.min(o.getStrokeWidth(), o(i2 - 1).getStrokeWidth());
+            LinearLayout.LayoutParams i3 = i(o);
+            if (getOrientation() == 0) {
+                MarginLayoutParamsCompat.setMarginEnd(i3, 0);
+                MarginLayoutParamsCompat.setMarginStart(i3, -min);
+            } else {
+                i3.bottomMargin = 0;
+                i3.topMargin = -min;
+            }
+            o.setLayoutParams(i3);
+        }
+        v(firstVisibleChildIndex);
+    }
+
+    @NonNull
+    private LinearLayout.LayoutParams i(@NonNull View view) {
+        ViewGroup.LayoutParams layoutParams = view.getLayoutParams();
+        return layoutParams instanceof LinearLayout.LayoutParams ? (LinearLayout.LayoutParams) layoutParams : new LinearLayout.LayoutParams(layoutParams.width, layoutParams.height);
+    }
+
+    private void k(int i2) {
+        w(i2, true);
+        z(i2, true);
+        setCheckedId(i2);
+    }
+
+    public void n(@IdRes int i2, boolean z) {
+        Iterator<e> it = this.f6886f.iterator();
+        while (it.hasNext()) {
+            it.next().a(this, i2, z);
+        }
+    }
+
+    private MaterialButton o(int i2) {
+        return (MaterialButton) getChildAt(i2);
+    }
+
+    public int p(@Nullable View view) {
+        if (!(view instanceof MaterialButton)) {
+            return -1;
+        }
+        int i2 = 0;
+        for (int i3 = 0; i3 < getChildCount(); i3++) {
+            if (getChildAt(i3) == view) {
+                return i2;
+            }
+            if ((getChildAt(i3) instanceof MaterialButton) && r(i3)) {
+                i2++;
+            }
+        }
+        return -1;
+    }
+
     @Nullable
-    private CornerData getNewCornerData(int i10, int i11, int i12) {
-        CornerData cornerData = this.originalCornerData.get(i10);
-        if (i11 == i12) {
-            return cornerData;
+    private d q(int i2, int i3, int i4) {
+        d dVar = this.f6883c.get(i2);
+        if (i3 == i4) {
+            return dVar;
         }
-        boolean z10 = getOrientation() == 0;
-        if (i10 == i11) {
-            return z10 ? CornerData.start(cornerData, this) : CornerData.top(cornerData);
+        boolean z = getOrientation() == 0;
+        if (i2 == i3) {
+            return z ? d.e(dVar, this) : d.f(dVar);
         }
-        if (i10 == i12) {
-            return z10 ? CornerData.end(cornerData, this) : CornerData.bottom(cornerData);
+        if (i2 == i4) {
+            return z ? d.b(dVar, this) : d.a(dVar);
         }
         return null;
     }
 
-    private int getVisibleButtonCount() {
-        int i10 = 0;
-        for (int i11 = 0; i11 < getChildCount(); i11++) {
-            if ((getChildAt(i11) instanceof MaterialButton) && isChildVisible(i11)) {
-                i10++;
-            }
-        }
-        return i10;
+    private boolean r(int i2) {
+        return getChildAt(i2).getVisibility() != 8;
     }
 
-    private boolean isChildVisible(int i10) {
-        return getChildAt(i10).getVisibility() != 8;
-    }
-
-    private void resetChildMargins(int i10) {
-        if (getChildCount() == 0 || i10 == -1) {
-            return;
-        }
-        LinearLayout.LayoutParams layoutParams = (LinearLayout.LayoutParams) getChildButton(i10).getLayoutParams();
-        if (getOrientation() == 1) {
-            layoutParams.topMargin = 0;
-            layoutParams.bottomMargin = 0;
-        } else {
-            MarginLayoutParamsCompat.setMarginEnd(layoutParams, 0);
-            MarginLayoutParamsCompat.setMarginStart(layoutParams, 0);
-            layoutParams.leftMargin = 0;
-            layoutParams.rightMargin = 0;
-        }
-    }
-
-    private void setCheckedId(int i10) {
-        this.checkedId = i10;
-        dispatchOnButtonChecked(i10, true);
-    }
-
-    private void setCheckedStateForView(@IdRes int i10, boolean z10) {
-        View findViewById = findViewById(i10);
-        if (findViewById instanceof MaterialButton) {
-            this.skipCheckedStateTracker = true;
-            ((MaterialButton) findViewById).setChecked(z10);
-            this.skipCheckedStateTracker = false;
-        }
+    private void setCheckedId(int i2) {
+        this.l = i2;
+        n(i2, true);
     }
 
     private void setGeneratedIdIfNeeded(@NonNull MaterialButton materialButton) {
@@ -316,105 +327,105 @@ public class MaterialButtonToggleGroup extends LinearLayout {
         materialButton.setMaxLines(1);
         materialButton.setEllipsize(TextUtils.TruncateAt.END);
         materialButton.setCheckable(true);
-        materialButton.addOnCheckedChangeListener(this.checkedStateTracker);
-        materialButton.setOnPressedChangeListenerInternal(this.pressedStateTracker);
+        materialButton.a(this.f6884d);
+        materialButton.setOnPressedChangeListenerInternal(this.f6885e);
         materialButton.setShouldDrawSurfaceColorStroke(true);
     }
 
-    private static void updateBuilderWithCornerData(ShapeAppearanceModel.Builder builder, @Nullable CornerData cornerData) {
-        if (cornerData == null) {
-            builder.setAllCornerSizes(0.0f);
+    private void v(int i2) {
+        if (getChildCount() == 0 || i2 == -1) {
+            return;
+        }
+        LinearLayout.LayoutParams layoutParams = (LinearLayout.LayoutParams) o(i2).getLayoutParams();
+        if (getOrientation() == 1) {
+            layoutParams.topMargin = 0;
+            layoutParams.bottomMargin = 0;
         } else {
-            builder.setTopLeftCornerSize(cornerData.topLeft).setBottomLeftCornerSize(cornerData.bottomLeft).setTopRightCornerSize(cornerData.topRight).setBottomRightCornerSize(cornerData.bottomRight);
+            MarginLayoutParamsCompat.setMarginEnd(layoutParams, 0);
+            MarginLayoutParamsCompat.setMarginStart(layoutParams, 0);
+            layoutParams.leftMargin = 0;
+            layoutParams.rightMargin = 0;
         }
     }
 
-    public boolean updateCheckedStates(int i10, boolean z10) {
+    private void w(@IdRes int i2, boolean z) {
+        View findViewById = findViewById(i2);
+        if (findViewById instanceof MaterialButton) {
+            this.f6889i = true;
+            ((MaterialButton) findViewById).setChecked(z);
+            this.f6889i = false;
+        }
+    }
+
+    private static void y(o.b bVar, @Nullable d dVar) {
+        if (dVar == null) {
+            bVar.o(0.0f);
+        } else {
+            bVar.L(dVar.f6895b).y(dVar.f6898e).Q(dVar.f6896c).D(dVar.f6897d);
+        }
+    }
+
+    public boolean z(int i2, boolean z) {
         List<Integer> checkedButtonIds = getCheckedButtonIds();
-        if (this.selectionRequired && checkedButtonIds.isEmpty()) {
-            setCheckedStateForView(i10, true);
-            this.checkedId = i10;
+        if (this.k && checkedButtonIds.isEmpty()) {
+            w(i2, true);
+            this.l = i2;
             return false;
         }
-        if (z10 && this.singleSelection) {
-            checkedButtonIds.remove(Integer.valueOf(i10));
+        if (z && this.f6890j) {
+            checkedButtonIds.remove(Integer.valueOf(i2));
             Iterator<Integer> it = checkedButtonIds.iterator();
             while (it.hasNext()) {
                 int intValue = it.next().intValue();
-                setCheckedStateForView(intValue, false);
-                dispatchOnButtonChecked(intValue, false);
+                w(intValue, false);
+                n(intValue, false);
             }
         }
         return true;
     }
 
-    private void updateChildOrder() {
-        TreeMap treeMap = new TreeMap(this.childOrderComparator);
+    @VisibleForTesting
+    void B() {
         int childCount = getChildCount();
-        for (int i10 = 0; i10 < childCount; i10++) {
-            treeMap.put(getChildButton(i10), Integer.valueOf(i10));
+        int firstVisibleChildIndex = getFirstVisibleChildIndex();
+        int lastVisibleChildIndex = getLastVisibleChildIndex();
+        for (int i2 = 0; i2 < childCount; i2++) {
+            MaterialButton o = o(i2);
+            if (o.getVisibility() != 8) {
+                o.b v = o.getShapeAppearanceModel().v();
+                y(v, q(i2, firstVisibleChildIndex, lastVisibleChildIndex));
+                o.setShapeAppearanceModel(v.m());
+            }
         }
-        this.childOrder = (Integer[]) treeMap.values().toArray(new Integer[0]);
-    }
-
-    public void addOnButtonCheckedListener(@NonNull OnButtonCheckedListener onButtonCheckedListener) {
-        this.onButtonCheckedListeners.add(onButtonCheckedListener);
     }
 
     @Override // android.view.ViewGroup
-    public void addView(View view, int i10, ViewGroup.LayoutParams layoutParams) {
+    public void addView(View view, int i2, ViewGroup.LayoutParams layoutParams) {
         if (!(view instanceof MaterialButton)) {
-            Log.e(LOG_TAG, "Child views must be of type MaterialButton.");
+            Log.e(f6881a, "Child views must be of type MaterialButton.");
             return;
         }
-        super.addView(view, i10, layoutParams);
+        super.addView(view, i2, layoutParams);
         MaterialButton materialButton = (MaterialButton) view;
         setGeneratedIdIfNeeded(materialButton);
         setupButtonChild(materialButton);
         if (materialButton.isChecked()) {
-            updateCheckedStates(materialButton.getId(), true);
+            z(materialButton.getId(), true);
             setCheckedId(materialButton.getId());
         }
-        ShapeAppearanceModel shapeAppearanceModel = materialButton.getShapeAppearanceModel();
-        this.originalCornerData.add(new CornerData(shapeAppearanceModel.getTopLeftCornerSize(), shapeAppearanceModel.getBottomLeftCornerSize(), shapeAppearanceModel.getTopRightCornerSize(), shapeAppearanceModel.getBottomRightCornerSize()));
-        ViewCompat.setAccessibilityDelegate(materialButton, new AccessibilityDelegateCompat() { // from class: com.google.android.material.button.MaterialButtonToggleGroup.2
-            public AnonymousClass2() {
-            }
-
-            @Override // androidx.core.view.AccessibilityDelegateCompat
-            public void onInitializeAccessibilityNodeInfo(View view2, @NonNull AccessibilityNodeInfoCompat accessibilityNodeInfoCompat) {
-                super.onInitializeAccessibilityNodeInfo(view2, accessibilityNodeInfoCompat);
-                accessibilityNodeInfoCompat.setCollectionItemInfo(AccessibilityNodeInfoCompat.CollectionItemInfoCompat.obtain(0, 1, MaterialButtonToggleGroup.this.getIndexWithinVisibleButtons(view2), 1, false, ((MaterialButton) view2).isChecked()));
-            }
-        });
-    }
-
-    public void check(@IdRes int i10) {
-        if (i10 == this.checkedId) {
-            return;
-        }
-        checkForced(i10);
-    }
-
-    public void clearChecked() {
-        this.skipCheckedStateTracker = true;
-        for (int i10 = 0; i10 < getChildCount(); i10++) {
-            MaterialButton childButton = getChildButton(i10);
-            childButton.setChecked(false);
-            dispatchOnButtonChecked(childButton.getId(), false);
-        }
-        this.skipCheckedStateTracker = false;
-        setCheckedId(-1);
-    }
-
-    public void clearOnButtonCheckedListeners() {
-        this.onButtonCheckedListeners.clear();
+        o shapeAppearanceModel = materialButton.getShapeAppearanceModel();
+        this.f6883c.add(new d(shapeAppearanceModel.r(), shapeAppearanceModel.j(), shapeAppearanceModel.t(), shapeAppearanceModel.l()));
+        ViewCompat.setAccessibilityDelegate(materialButton, new b());
     }
 
     @Override // android.view.ViewGroup, android.view.View
-    public void dispatchDraw(@NonNull Canvas canvas) {
-        updateChildOrder();
+    protected void dispatchDraw(@NonNull Canvas canvas) {
+        A();
         super.dispatchDraw(canvas);
+    }
+
+    public void g(@NonNull e eVar) {
+        this.f6886f.add(eVar);
     }
 
     @Override // android.widget.LinearLayout, android.view.ViewGroup, android.view.View
@@ -425,8 +436,8 @@ public class MaterialButtonToggleGroup extends LinearLayout {
 
     @IdRes
     public int getCheckedButtonId() {
-        if (this.singleSelection) {
-            return this.checkedId;
+        if (this.f6890j) {
+            return this.l;
         }
         return -1;
     }
@@ -434,53 +445,67 @@ public class MaterialButtonToggleGroup extends LinearLayout {
     @NonNull
     public List<Integer> getCheckedButtonIds() {
         ArrayList arrayList = new ArrayList();
-        for (int i10 = 0; i10 < getChildCount(); i10++) {
-            MaterialButton childButton = getChildButton(i10);
-            if (childButton.isChecked()) {
-                arrayList.add(Integer.valueOf(childButton.getId()));
+        for (int i2 = 0; i2 < getChildCount(); i2++) {
+            MaterialButton o = o(i2);
+            if (o.isChecked()) {
+                arrayList.add(Integer.valueOf(o.getId()));
             }
         }
         return arrayList;
     }
 
     @Override // android.view.ViewGroup
-    public int getChildDrawingOrder(int i10, int i11) {
-        Integer[] numArr = this.childOrder;
-        if (numArr != null && i11 < numArr.length) {
-            return numArr[i11].intValue();
+    protected int getChildDrawingOrder(int i2, int i3) {
+        Integer[] numArr = this.f6888h;
+        if (numArr != null && i3 < numArr.length) {
+            return numArr[i3].intValue();
         }
-        Log.w(LOG_TAG, "Child order wasn't updated");
-        return i11;
+        Log.w(f6881a, "Child order wasn't updated");
+        return i3;
     }
 
-    public boolean isSelectionRequired() {
-        return this.selectionRequired;
+    public void j(@IdRes int i2) {
+        if (i2 == this.l) {
+            return;
+        }
+        k(i2);
     }
 
-    public boolean isSingleSelection() {
-        return this.singleSelection;
+    public void l() {
+        this.f6889i = true;
+        for (int i2 = 0; i2 < getChildCount(); i2++) {
+            MaterialButton o = o(i2);
+            o.setChecked(false);
+            n(o.getId(), false);
+        }
+        this.f6889i = false;
+        setCheckedId(-1);
+    }
+
+    public void m() {
+        this.f6886f.clear();
     }
 
     @Override // android.view.View
-    public void onFinishInflate() {
+    protected void onFinishInflate() {
         super.onFinishInflate();
-        int i10 = this.checkedId;
-        if (i10 != -1) {
-            checkForced(i10);
+        int i2 = this.l;
+        if (i2 != -1) {
+            k(i2);
         }
     }
 
     @Override // android.view.View
     public void onInitializeAccessibilityNodeInfo(@NonNull AccessibilityNodeInfo accessibilityNodeInfo) {
         super.onInitializeAccessibilityNodeInfo(accessibilityNodeInfo);
-        AccessibilityNodeInfoCompat.wrap(accessibilityNodeInfo).setCollectionInfo(AccessibilityNodeInfoCompat.CollectionInfoCompat.obtain(1, getVisibleButtonCount(), false, isSingleSelection() ? 1 : 2));
+        AccessibilityNodeInfoCompat.wrap(accessibilityNodeInfo).setCollectionInfo(AccessibilityNodeInfoCompat.CollectionInfoCompat.obtain(1, getVisibleButtonCount(), false, t() ? 1 : 2));
     }
 
     @Override // android.widget.LinearLayout, android.view.View
-    public void onMeasure(int i10, int i11) {
-        updateChildShapes();
-        adjustChildMarginsAndUpdateLayout();
-        super.onMeasure(i10, i11);
+    protected void onMeasure(int i2, int i3) {
+        B();
+        h();
+        super.onMeasure(i2, i3);
     }
 
     @Override // android.view.ViewGroup
@@ -488,52 +513,45 @@ public class MaterialButtonToggleGroup extends LinearLayout {
         super.onViewRemoved(view);
         if (view instanceof MaterialButton) {
             MaterialButton materialButton = (MaterialButton) view;
-            materialButton.removeOnCheckedChangeListener(this.checkedStateTracker);
+            materialButton.f(this.f6884d);
             materialButton.setOnPressedChangeListenerInternal(null);
         }
         int indexOfChild = indexOfChild(view);
         if (indexOfChild >= 0) {
-            this.originalCornerData.remove(indexOfChild);
+            this.f6883c.remove(indexOfChild);
         }
-        updateChildShapes();
-        adjustChildMarginsAndUpdateLayout();
+        B();
+        h();
     }
 
-    public void removeOnButtonCheckedListener(@NonNull OnButtonCheckedListener onButtonCheckedListener) {
-        this.onButtonCheckedListeners.remove(onButtonCheckedListener);
+    public boolean s() {
+        return this.k;
     }
 
-    public void setSelectionRequired(boolean z10) {
-        this.selectionRequired = z10;
+    public void setSelectionRequired(boolean z) {
+        this.k = z;
     }
 
-    public void setSingleSelection(boolean z10) {
-        if (this.singleSelection != z10) {
-            this.singleSelection = z10;
-            clearChecked();
+    public void setSingleSelection(boolean z) {
+        if (this.f6890j != z) {
+            this.f6890j = z;
+            l();
         }
     }
 
-    public void uncheck(@IdRes int i10) {
-        setCheckedStateForView(i10, false);
-        updateCheckedStates(i10, false);
-        this.checkedId = -1;
-        dispatchOnButtonChecked(i10, false);
+    public boolean t() {
+        return this.f6890j;
     }
 
-    @VisibleForTesting
-    public void updateChildShapes() {
-        int childCount = getChildCount();
-        int firstVisibleChildIndex = getFirstVisibleChildIndex();
-        int lastVisibleChildIndex = getLastVisibleChildIndex();
-        for (int i10 = 0; i10 < childCount; i10++) {
-            MaterialButton childButton = getChildButton(i10);
-            if (childButton.getVisibility() != 8) {
-                ShapeAppearanceModel.Builder builder = childButton.getShapeAppearanceModel().toBuilder();
-                updateBuilderWithCornerData(builder, getNewCornerData(i10, firstVisibleChildIndex, lastVisibleChildIndex));
-                childButton.setShapeAppearanceModel(builder.build());
-            }
-        }
+    public void u(@NonNull e eVar) {
+        this.f6886f.remove(eVar);
+    }
+
+    public void x(@IdRes int i2) {
+        w(i2, false);
+        z(i2, false);
+        this.l = -1;
+        n(i2, false);
     }
 
     public MaterialButtonToggleGroup(@NonNull Context context, @Nullable AttributeSet attributeSet) {
@@ -548,43 +566,43 @@ public class MaterialButtonToggleGroup extends LinearLayout {
     public MaterialButtonToggleGroup(@androidx.annotation.NonNull android.content.Context r7, @androidx.annotation.Nullable android.util.AttributeSet r8, int r9) {
         /*
             r6 = this;
-            int r4 = com.google.android.material.button.MaterialButtonToggleGroup.DEF_STYLE_RES
-            android.content.Context r7 = com.google.android.material.theme.overlay.MaterialThemeOverlay.wrap(r7, r8, r9, r4)
+            int r4 = com.google.android.material.button.MaterialButtonToggleGroup.f6882b
+            android.content.Context r7 = com.google.android.material.theme.a.a.c(r7, r8, r9, r4)
             r6.<init>(r7, r8, r9)
             java.util.ArrayList r7 = new java.util.ArrayList
             r7.<init>()
-            r6.originalCornerData = r7
-            com.google.android.material.button.MaterialButtonToggleGroup$CheckedStateTracker r7 = new com.google.android.material.button.MaterialButtonToggleGroup$CheckedStateTracker
+            r6.f6883c = r7
+            com.google.android.material.button.MaterialButtonToggleGroup$c r7 = new com.google.android.material.button.MaterialButtonToggleGroup$c
             r0 = 0
-            r7.<init>()
-            r6.checkedStateTracker = r7
-            com.google.android.material.button.MaterialButtonToggleGroup$PressedStateTracker r7 = new com.google.android.material.button.MaterialButtonToggleGroup$PressedStateTracker
-            r7.<init>()
-            r6.pressedStateTracker = r7
+            r7.<init>(r6, r0)
+            r6.f6884d = r7
+            com.google.android.material.button.MaterialButtonToggleGroup$f r7 = new com.google.android.material.button.MaterialButtonToggleGroup$f
+            r7.<init>(r6, r0)
+            r6.f6885e = r7
             java.util.LinkedHashSet r7 = new java.util.LinkedHashSet
             r7.<init>()
-            r6.onButtonCheckedListeners = r7
-            com.google.android.material.button.MaterialButtonToggleGroup$1 r7 = new com.google.android.material.button.MaterialButtonToggleGroup$1
+            r6.f6886f = r7
+            com.google.android.material.button.MaterialButtonToggleGroup$a r7 = new com.google.android.material.button.MaterialButtonToggleGroup$a
             r7.<init>()
-            r6.childOrderComparator = r7
+            r6.f6887g = r7
             r7 = 0
-            r6.skipCheckedStateTracker = r7
+            r6.f6889i = r7
             android.content.Context r0 = r6.getContext()
             int[] r2 = com.google.android.material.R.styleable.MaterialButtonToggleGroup
             int[] r5 = new int[r7]
             r1 = r8
             r3 = r9
-            android.content.res.TypedArray r8 = com.google.android.material.internal.ThemeEnforcement.obtainStyledAttributes(r0, r1, r2, r3, r4, r5)
+            android.content.res.TypedArray r8 = com.google.android.material.internal.n.j(r0, r1, r2, r3, r4, r5)
             int r9 = com.google.android.material.R.styleable.MaterialButtonToggleGroup_singleSelection
             boolean r9 = r8.getBoolean(r9, r7)
             r6.setSingleSelection(r9)
             int r9 = com.google.android.material.R.styleable.MaterialButtonToggleGroup_checkedButton
             r0 = -1
             int r9 = r8.getResourceId(r9, r0)
-            r6.checkedId = r9
+            r6.l = r9
             int r9 = com.google.android.material.R.styleable.MaterialButtonToggleGroup_selectionRequired
             boolean r7 = r8.getBoolean(r9, r7)
-            r6.selectionRequired = r7
+            r6.k = r7
             r7 = 1
             r6.setChildrenDrawingOrderEnabled(r7)
             r8.recycle()
@@ -594,7 +612,7 @@ public class MaterialButtonToggleGroup extends LinearLayout {
         throw new UnsupportedOperationException("Method not decompiled: com.google.android.material.button.MaterialButtonToggleGroup.<init>(android.content.Context, android.util.AttributeSet, int):void");
     }
 
-    public void setSingleSelection(@BoolRes int i10) {
-        setSingleSelection(getResources().getBoolean(i10));
+    public void setSingleSelection(@BoolRes int i2) {
+        setSingleSelection(getResources().getBoolean(i2));
     }
 }

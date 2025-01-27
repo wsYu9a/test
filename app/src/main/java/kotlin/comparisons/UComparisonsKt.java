@@ -2,8 +2,8 @@ package kotlin.comparisons;
 
 import kotlin.Metadata;
 
-@Metadata(d1 = {"kotlin/comparisons/UComparisonsKt___UComparisonsKt"}, k = 4, mv = {1, 9, 0}, xi = 49)
-/* loaded from: classes4.dex */
+@Metadata(bv = {1, 0, 3}, d1 = {"kotlin/comparisons/UComparisonsKt___UComparisonsKt"}, d2 = {}, k = 4, mv = {1, 4, 0})
+/* loaded from: classes5.dex */
 public final class UComparisonsKt extends UComparisonsKt___UComparisonsKt {
     private UComparisonsKt() {
     }

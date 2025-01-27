@@ -4,8 +4,8 @@ package com.vivo.push.ups;
 public class TokenResult extends CodeResult {
     String token;
 
-    public TokenResult(int i10, String str) {
-        super(i10);
+    public TokenResult(int i2, String str) {
+        super(i2);
         this.token = str;
     }
 

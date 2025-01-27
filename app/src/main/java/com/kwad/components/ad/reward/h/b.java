@@ -1,10 +1,30 @@
 package com.kwad.components.ad.reward.h;
 
-import com.ksad.json.annotation.KsJson;
+import androidx.annotation.NonNull;
 
-@KsJson
-/* loaded from: classes2.dex */
-public class b extends com.kwad.sdk.core.response.a.a {
-    public long hY = -1;
-    public int tr = 0;
+/* loaded from: classes.dex */
+public class b implements com.kwad.sdk.core.webview.b.a {
+    private a wS;
+
+    public interface a {
+    }
+
+    @Override // com.kwad.sdk.core.webview.b.a
+    @NonNull
+    public String getKey() {
+        return "callButtonImpressionWhenFinish";
+    }
+
+    @Override // com.kwad.sdk.core.webview.b.a
+    public void handleJsCall(String str, @NonNull com.kwad.sdk.core.webview.b.c cVar) {
+        iT();
+    }
+
+    public void iT() {
+    }
+
+    @Override // com.kwad.sdk.core.webview.b.a
+    public void onDestroy() {
+        this.wS = null;
+    }
 }

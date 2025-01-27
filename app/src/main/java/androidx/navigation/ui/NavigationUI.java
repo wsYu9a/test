@@ -30,10 +30,12 @@ import java.util.Set;
 public final class NavigationUI {
 
     /* renamed from: androidx.navigation.ui.NavigationUI$1 */
-    public class AnonymousClass1 implements View.OnClickListener {
-        final /* synthetic */ AppBarConfiguration val$configuration;
+    class AnonymousClass1 implements View.OnClickListener {
 
-        public AnonymousClass1(AppBarConfiguration appBarConfiguration) {
+        /* renamed from: b */
+        final /* synthetic */ AppBarConfiguration f3069b;
+
+        AnonymousClass1(AppBarConfiguration appBarConfiguration) {
             appBarConfiguration = appBarConfiguration;
         }
 
@@ -44,10 +46,12 @@ public final class NavigationUI {
     }
 
     /* renamed from: androidx.navigation.ui.NavigationUI$2 */
-    public class AnonymousClass2 implements View.OnClickListener {
-        final /* synthetic */ AppBarConfiguration val$configuration;
+    class AnonymousClass2 implements View.OnClickListener {
 
-        public AnonymousClass2(AppBarConfiguration appBarConfiguration) {
+        /* renamed from: b */
+        final /* synthetic */ AppBarConfiguration f3071b;
+
+        AnonymousClass2(AppBarConfiguration appBarConfiguration) {
             appBarConfiguration = appBarConfiguration;
         }
 
@@ -58,14 +62,16 @@ public final class NavigationUI {
     }
 
     /* renamed from: androidx.navigation.ui.NavigationUI$3 */
-    public class AnonymousClass3 implements NavigationView.OnNavigationItemSelectedListener {
-        final /* synthetic */ NavigationView val$navigationView;
+    class AnonymousClass3 implements NavigationView.c {
 
-        public AnonymousClass3(NavigationView navigationView) {
+        /* renamed from: b */
+        final /* synthetic */ NavigationView f3073b;
+
+        AnonymousClass3(NavigationView navigationView) {
             navigationView = navigationView;
         }
 
-        @Override // com.google.android.material.navigation.NavigationView.OnNavigationItemSelectedListener
+        @Override // com.google.android.material.navigation.NavigationView.c
         public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
             boolean onNavDestinationSelected = NavigationUI.onNavDestinationSelected(menuItem, NavController.this);
             if (onNavDestinationSelected) {
@@ -73,9 +79,9 @@ public final class NavigationUI {
                 if (parent instanceof Openable) {
                     ((Openable) parent).close();
                 } else {
-                    BottomSheetBehavior findBottomSheetBehavior = NavigationUI.findBottomSheetBehavior(navigationView);
-                    if (findBottomSheetBehavior != null) {
-                        findBottomSheetBehavior.setState(5);
+                    BottomSheetBehavior a2 = NavigationUI.a(navigationView);
+                    if (a2 != null) {
+                        a2.T(5);
                     }
                 }
             }
@@ -84,11 +90,15 @@ public final class NavigationUI {
     }
 
     /* renamed from: androidx.navigation.ui.NavigationUI$4 */
-    public class AnonymousClass4 implements NavController.OnDestinationChangedListener {
-        final /* synthetic */ NavController val$navController;
-        final /* synthetic */ WeakReference val$weakReference;
+    class AnonymousClass4 implements NavController.OnDestinationChangedListener {
 
-        public AnonymousClass4(WeakReference weakReference, NavController navController) {
+        /* renamed from: a */
+        final /* synthetic */ WeakReference f3074a;
+
+        /* renamed from: b */
+        final /* synthetic */ NavController f3075b;
+
+        AnonymousClass4(WeakReference weakReference, NavController navController) {
             weakReference = weakReference;
             navController = navController;
         }
@@ -102,30 +112,34 @@ public final class NavigationUI {
             }
             Menu menu = navigationView.getMenu();
             int size = menu.size();
-            for (int i10 = 0; i10 < size; i10++) {
-                MenuItem item = menu.getItem(i10);
-                item.setChecked(NavigationUI.matchDestination(navDestination, item.getItemId()));
+            for (int i2 = 0; i2 < size; i2++) {
+                MenuItem item = menu.getItem(i2);
+                item.setChecked(NavigationUI.c(navDestination, item.getItemId()));
             }
         }
     }
 
     /* renamed from: androidx.navigation.ui.NavigationUI$5 */
-    public class AnonymousClass5 implements BottomNavigationView.OnNavigationItemSelectedListener {
-        public AnonymousClass5() {
+    class AnonymousClass5 implements BottomNavigationView.d {
+        AnonymousClass5() {
         }
 
-        @Override // com.google.android.material.bottomnavigation.BottomNavigationView.OnNavigationItemSelectedListener
+        @Override // com.google.android.material.bottomnavigation.BottomNavigationView.d
         public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
             return NavigationUI.onNavDestinationSelected(menuItem, NavController.this);
         }
     }
 
     /* renamed from: androidx.navigation.ui.NavigationUI$6 */
-    public class AnonymousClass6 implements NavController.OnDestinationChangedListener {
-        final /* synthetic */ NavController val$navController;
-        final /* synthetic */ WeakReference val$weakReference;
+    class AnonymousClass6 implements NavController.OnDestinationChangedListener {
 
-        public AnonymousClass6(WeakReference weakReference, NavController navController) {
+        /* renamed from: a */
+        final /* synthetic */ WeakReference f3077a;
+
+        /* renamed from: b */
+        final /* synthetic */ NavController f3078b;
+
+        AnonymousClass6(WeakReference weakReference, NavController navController) {
             weakReference = weakReference;
             navController = navController;
         }
@@ -139,9 +153,9 @@ public final class NavigationUI {
             }
             Menu menu = bottomNavigationView.getMenu();
             int size = menu.size();
-            for (int i10 = 0; i10 < size; i10++) {
-                MenuItem item = menu.getItem(i10);
-                if (NavigationUI.matchDestination(navDestination, item.getItemId())) {
+            for (int i2 = 0; i2 < size; i2++) {
+                MenuItem item = menu.getItem(i2);
+                if (NavigationUI.c(navDestination, item.getItemId())) {
                     item.setChecked(true);
                 }
             }
@@ -151,7 +165,7 @@ public final class NavigationUI {
     private NavigationUI() {
     }
 
-    public static BottomSheetBehavior findBottomSheetBehavior(@NonNull View view) {
+    static BottomSheetBehavior a(@NonNull View view) {
         ViewGroup.LayoutParams layoutParams = view.getLayoutParams();
         if (layoutParams instanceof CoordinatorLayout.LayoutParams) {
             CoordinatorLayout.Behavior behavior = ((CoordinatorLayout.LayoutParams) layoutParams).getBehavior();
@@ -162,14 +176,14 @@ public final class NavigationUI {
         }
         Object parent = view.getParent();
         if (parent instanceof View) {
-            return findBottomSheetBehavior((View) parent);
+            return a((View) parent);
         }
         return null;
     }
 
     /* JADX WARN: Multi-variable type inference failed */
     /* JADX WARN: Type inference failed for: r1v3, types: [androidx.navigation.NavDestination] */
-    public static NavDestination findStartDestination(@NonNull NavGraph navGraph) {
+    static NavDestination b(@NonNull NavGraph navGraph) {
         NavGraph navGraph2 = navGraph;
         while (navGraph2 instanceof NavGraph) {
             NavGraph navGraph3 = navGraph2;
@@ -178,14 +192,14 @@ public final class NavigationUI {
         return navGraph2;
     }
 
-    public static boolean matchDestination(@NonNull NavDestination navDestination, @IdRes int i10) {
-        while (navDestination.getId() != i10 && navDestination.getParent() != null) {
+    static boolean c(@NonNull NavDestination navDestination, @IdRes int i2) {
+        while (navDestination.getId() != i2 && navDestination.getParent() != null) {
             navDestination = navDestination.getParent();
         }
-        return navDestination.getId() == i10;
+        return navDestination.getId() == i2;
     }
 
-    public static boolean matchDestinations(@NonNull NavDestination navDestination, @NonNull Set<Integer> set) {
+    static boolean d(@NonNull NavDestination navDestination, @NonNull Set<Integer> set) {
         while (!set.contains(Integer.valueOf(navDestination.getId()))) {
             navDestination = navDestination.getParent();
             if (navDestination == null) {
@@ -207,7 +221,7 @@ public final class NavigationUI {
             launchSingleTop.setEnterAnim(R.animator.nav_default_enter_anim).setExitAnim(R.animator.nav_default_exit_anim).setPopEnterAnim(R.animator.nav_default_pop_enter_anim).setPopExitAnim(R.animator.nav_default_pop_exit_anim);
         }
         if ((menuItem.getOrder() & 196608) == 0) {
-            launchSingleTop.setPopUpTo(findStartDestination(navController.getGraph()).getId(), false);
+            launchSingleTop.setPopUpTo(b(navController.getGraph()).getId(), false);
         }
         try {
             navController.navigate(menuItem.getItemId(), (Bundle) null, launchSingleTop.build());
@@ -233,7 +247,7 @@ public final class NavigationUI {
         Openable openableLayout = appBarConfiguration.getOpenableLayout();
         NavDestination currentDestination = navController.getCurrentDestination();
         Set<Integer> topLevelDestinations = appBarConfiguration.getTopLevelDestinations();
-        if (openableLayout != null && currentDestination != null && matchDestinations(currentDestination, topLevelDestinations)) {
+        if (openableLayout != null && currentDestination != null && d(currentDestination, topLevelDestinations)) {
             openableLayout.open();
             return true;
         }
@@ -253,9 +267,11 @@ public final class NavigationUI {
     public static void setupWithNavController(@NonNull Toolbar toolbar, @NonNull NavController navController, @NonNull AppBarConfiguration appBarConfiguration) {
         navController.addOnDestinationChangedListener(new ToolbarOnDestinationChangedListener(toolbar, appBarConfiguration));
         toolbar.setNavigationOnClickListener(new View.OnClickListener() { // from class: androidx.navigation.ui.NavigationUI.1
-            final /* synthetic */ AppBarConfiguration val$configuration;
 
-            public AnonymousClass1(AppBarConfiguration appBarConfiguration2) {
+            /* renamed from: b */
+            final /* synthetic */ AppBarConfiguration f3069b;
+
+            AnonymousClass1(AppBarConfiguration appBarConfiguration2) {
                 appBarConfiguration = appBarConfiguration2;
             }
 
@@ -281,9 +297,11 @@ public final class NavigationUI {
     public static void setupWithNavController(@NonNull CollapsingToolbarLayout collapsingToolbarLayout, @NonNull Toolbar toolbar, @NonNull NavController navController, @NonNull AppBarConfiguration appBarConfiguration) {
         navController.addOnDestinationChangedListener(new CollapsingToolbarOnDestinationChangedListener(collapsingToolbarLayout, toolbar, appBarConfiguration));
         toolbar.setNavigationOnClickListener(new View.OnClickListener() { // from class: androidx.navigation.ui.NavigationUI.2
-            final /* synthetic */ AppBarConfiguration val$configuration;
 
-            public AnonymousClass2(AppBarConfiguration appBarConfiguration2) {
+            /* renamed from: b */
+            final /* synthetic */ AppBarConfiguration f3071b;
+
+            AnonymousClass2(AppBarConfiguration appBarConfiguration2) {
                 appBarConfiguration = appBarConfiguration2;
             }
 
@@ -295,14 +313,16 @@ public final class NavigationUI {
     }
 
     public static void setupWithNavController(@NonNull NavigationView navigationView, @NonNull NavController navController) {
-        navigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() { // from class: androidx.navigation.ui.NavigationUI.3
-            final /* synthetic */ NavigationView val$navigationView;
+        navigationView.setNavigationItemSelectedListener(new NavigationView.c() { // from class: androidx.navigation.ui.NavigationUI.3
 
-            public AnonymousClass3(NavigationView navigationView2) {
+            /* renamed from: b */
+            final /* synthetic */ NavigationView f3073b;
+
+            AnonymousClass3(NavigationView navigationView2) {
                 navigationView = navigationView2;
             }
 
-            @Override // com.google.android.material.navigation.NavigationView.OnNavigationItemSelectedListener
+            @Override // com.google.android.material.navigation.NavigationView.c
             public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
                 boolean onNavDestinationSelected = NavigationUI.onNavDestinationSelected(menuItem, NavController.this);
                 if (onNavDestinationSelected) {
@@ -310,9 +330,9 @@ public final class NavigationUI {
                     if (parent instanceof Openable) {
                         ((Openable) parent).close();
                     } else {
-                        BottomSheetBehavior findBottomSheetBehavior = NavigationUI.findBottomSheetBehavior(navigationView);
-                        if (findBottomSheetBehavior != null) {
-                            findBottomSheetBehavior.setState(5);
+                        BottomSheetBehavior a2 = NavigationUI.a(navigationView);
+                        if (a2 != null) {
+                            a2.T(5);
                         }
                     }
                 }
@@ -320,10 +340,14 @@ public final class NavigationUI {
             }
         });
         navController.addOnDestinationChangedListener(new NavController.OnDestinationChangedListener() { // from class: androidx.navigation.ui.NavigationUI.4
-            final /* synthetic */ NavController val$navController;
-            final /* synthetic */ WeakReference val$weakReference;
 
-            public AnonymousClass4(WeakReference weakReference, NavController navController2) {
+            /* renamed from: a */
+            final /* synthetic */ WeakReference f3074a;
+
+            /* renamed from: b */
+            final /* synthetic */ NavController f3075b;
+
+            AnonymousClass4(WeakReference weakReference, NavController navController2) {
                 weakReference = weakReference;
                 navController = navController2;
             }
@@ -337,29 +361,33 @@ public final class NavigationUI {
                 }
                 Menu menu = navigationView2.getMenu();
                 int size = menu.size();
-                for (int i10 = 0; i10 < size; i10++) {
-                    MenuItem item = menu.getItem(i10);
-                    item.setChecked(NavigationUI.matchDestination(navDestination, item.getItemId()));
+                for (int i2 = 0; i2 < size; i2++) {
+                    MenuItem item = menu.getItem(i2);
+                    item.setChecked(NavigationUI.c(navDestination, item.getItemId()));
                 }
             }
         });
     }
 
     public static void setupWithNavController(@NonNull BottomNavigationView bottomNavigationView, @NonNull NavController navController) {
-        bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() { // from class: androidx.navigation.ui.NavigationUI.5
-            public AnonymousClass5() {
+        bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.d() { // from class: androidx.navigation.ui.NavigationUI.5
+            AnonymousClass5() {
             }
 
-            @Override // com.google.android.material.bottomnavigation.BottomNavigationView.OnNavigationItemSelectedListener
+            @Override // com.google.android.material.bottomnavigation.BottomNavigationView.d
             public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
                 return NavigationUI.onNavDestinationSelected(menuItem, NavController.this);
             }
         });
         navController.addOnDestinationChangedListener(new NavController.OnDestinationChangedListener() { // from class: androidx.navigation.ui.NavigationUI.6
-            final /* synthetic */ NavController val$navController;
-            final /* synthetic */ WeakReference val$weakReference;
 
-            public AnonymousClass6(WeakReference weakReference, NavController navController2) {
+            /* renamed from: a */
+            final /* synthetic */ WeakReference f3077a;
+
+            /* renamed from: b */
+            final /* synthetic */ NavController f3078b;
+
+            AnonymousClass6(WeakReference weakReference, NavController navController2) {
                 weakReference = weakReference;
                 navController = navController2;
             }
@@ -373,9 +401,9 @@ public final class NavigationUI {
                 }
                 Menu menu = bottomNavigationView2.getMenu();
                 int size = menu.size();
-                for (int i10 = 0; i10 < size; i10++) {
-                    MenuItem item = menu.getItem(i10);
-                    if (NavigationUI.matchDestination(navDestination, item.getItemId())) {
+                for (int i2 = 0; i2 < size; i2++) {
+                    MenuItem item = menu.getItem(i2);
+                    if (NavigationUI.c(navDestination, item.getItemId())) {
                         item.setChecked(true);
                     }
                 }

@@ -1,7 +1,10 @@
 package com.tencent.open.utils;
 
+import android.os.AsyncTask;
+import android.os.Build;
 import android.os.Handler;
 import android.os.HandlerThread;
+import java.lang.reflect.Field;
 import java.util.LinkedList;
 import java.util.Queue;
 import java.util.concurrent.Executor;
@@ -13,27 +16,27 @@ import java.util.concurrent.TimeUnit;
 public final class h {
 
     /* renamed from: c */
-    private static Handler f23276c;
+    private static Handler f25542c;
 
     /* renamed from: d */
-    private static HandlerThread f23277d;
+    private static HandlerThread f25543d;
 
     /* renamed from: b */
-    private static Object f23275b = new Object();
+    private static Object f25541b = new Object();
 
     /* renamed from: a */
-    public static final Executor f23274a = c();
+    public static final Executor f25540a = c();
 
     public static Handler a() {
-        if (f23276c == null) {
+        if (f25542c == null) {
             synchronized (h.class) {
                 HandlerThread handlerThread = new HandlerThread("SDK_SUB");
-                f23277d = handlerThread;
+                f25543d = handlerThread;
                 handlerThread.start();
-                f23276c = new Handler(f23277d.getLooper());
+                f25542c = new Handler(f25543d.getLooper());
             }
         }
-        return f23276c;
+        return f25542c;
     }
 
     public static Executor b() {
@@ -41,28 +44,39 @@ public final class h {
     }
 
     private static Executor c() {
-        ThreadPoolExecutor threadPoolExecutor = new ThreadPoolExecutor(1, 1, 0L, TimeUnit.SECONDS, new LinkedBlockingQueue());
+        Executor threadPoolExecutor;
+        if (Build.VERSION.SDK_INT >= 11) {
+            threadPoolExecutor = new ThreadPoolExecutor(1, 1, 0L, TimeUnit.SECONDS, new LinkedBlockingQueue());
+        } else {
+            try {
+                Field declaredField = AsyncTask.class.getDeclaredField("sExecutor");
+                declaredField.setAccessible(true);
+                threadPoolExecutor = (Executor) declaredField.get(null);
+            } catch (Exception unused) {
+                threadPoolExecutor = new ThreadPoolExecutor(1, 1, 0L, TimeUnit.SECONDS, new LinkedBlockingQueue());
+            }
+        }
         if (threadPoolExecutor instanceof ThreadPoolExecutor) {
-            threadPoolExecutor.setCorePoolSize(3);
+            ((ThreadPoolExecutor) threadPoolExecutor).setCorePoolSize(3);
         }
         return threadPoolExecutor;
     }
 
-    public static class a implements Executor {
+    private static class a implements Executor {
 
         /* renamed from: a */
-        final Queue<Runnable> f23278a;
+        final Queue<Runnable> f25544a;
 
         /* renamed from: b */
-        Runnable f23279b;
+        Runnable f25545b;
 
         /* renamed from: com.tencent.open.utils.h$a$1 */
-        public class AnonymousClass1 implements Runnable {
+        class AnonymousClass1 implements Runnable {
 
             /* renamed from: a */
-            final /* synthetic */ Runnable f23280a;
+            final /* synthetic */ Runnable f25546a;
 
-            public AnonymousClass1(Runnable runnable) {
+            AnonymousClass1(Runnable runnable) {
                 runnable = runnable;
             }
 
@@ -77,25 +91,25 @@ public final class h {
         }
 
         private a() {
-            this.f23278a = new LinkedList();
+            this.f25544a = new LinkedList();
         }
 
-        public synchronized void a() {
-            Runnable poll = this.f23278a.poll();
-            this.f23279b = poll;
+        protected synchronized void a() {
+            Runnable poll = this.f25544a.poll();
+            this.f25545b = poll;
             if (poll != null) {
-                h.f23274a.execute(poll);
+                h.f25540a.execute(poll);
             }
         }
 
         @Override // java.util.concurrent.Executor
         public synchronized void execute(Runnable runnable) {
-            this.f23278a.offer(new Runnable() { // from class: com.tencent.open.utils.h.a.1
+            this.f25544a.offer(new Runnable() { // from class: com.tencent.open.utils.h.a.1
 
                 /* renamed from: a */
-                final /* synthetic */ Runnable f23280a;
+                final /* synthetic */ Runnable f25546a;
 
-                public AnonymousClass1(Runnable runnable2) {
+                AnonymousClass1(Runnable runnable2) {
                     runnable = runnable2;
                 }
 
@@ -108,12 +122,12 @@ public final class h {
                     }
                 }
             });
-            if (this.f23279b == null) {
+            if (this.f25545b == null) {
                 a();
             }
         }
 
-        public /* synthetic */ a(AnonymousClass1 anonymousClass1) {
+        /* synthetic */ a(AnonymousClass1 anonymousClass1) {
             this();
         }
     }

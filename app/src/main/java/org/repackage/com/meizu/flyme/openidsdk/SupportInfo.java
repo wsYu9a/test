@@ -2,39 +2,42 @@ package org.repackage.com.meizu.flyme.openidsdk;
 
 import android.text.TextUtils;
 
-/* loaded from: classes4.dex */
+/* loaded from: classes5.dex */
 class SupportInfo {
 
     /* renamed from: a */
-    String f29373a;
+    String f35563a;
 
     /* renamed from: b */
-    Boolean f29374b;
+    Boolean f35564b;
 
-    public void a(boolean z10) {
-        this.f29374b = Boolean.valueOf(z10);
+    SupportInfo() {
     }
 
-    public void b(String str) {
-        this.f29373a = str;
+    void a(boolean z) {
+        this.f35564b = Boolean.valueOf(z);
     }
 
-    public boolean a() {
-        return this.f29374b != null;
+    boolean a() {
+        return this.f35564b != null;
     }
 
-    public boolean b() {
-        Boolean bool = this.f29374b;
+    boolean a(String str) {
+        if (TextUtils.isEmpty(str)) {
+            return false;
+        }
+        return TextUtils.equals(this.f35563a, str);
+    }
+
+    void b(String str) {
+        this.f35563a = str;
+    }
+
+    boolean b() {
+        Boolean bool = this.f35564b;
         if (bool != null) {
             return bool.booleanValue();
         }
         return false;
-    }
-
-    public boolean a(String str) {
-        if (TextUtils.isEmpty(str)) {
-            return false;
-        }
-        return TextUtils.equals(this.f29373a, str);
     }
 }

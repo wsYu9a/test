@@ -25,11 +25,11 @@ public class WXMusicObject implements WXMediaMessage.IMediaObject {
             str2 = "both arguments are null";
         } else {
             String str4 = this.musicUrl;
-            if (str4 == null || str4.length() <= 10240) {
+            if (str4 == null || str4.length() <= LENGTH_LIMIT) {
                 String str5 = this.musicLowBandUrl;
-                if (str5 == null || str5.length() <= 10240) {
+                if (str5 == null || str5.length() <= LENGTH_LIMIT) {
                     String str6 = this.songAlbumUrl;
-                    if (str6 == null || str6.length() <= 10240) {
+                    if (str6 == null || str6.length() <= LENGTH_LIMIT) {
                         String str7 = this.songLyric;
                         if (str7 == null || str7.length() <= 32768) {
                             return true;

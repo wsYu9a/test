@@ -6,7 +6,7 @@ import java.lang.annotation.RetentionPolicy;
 
 @Keep
 @Retention(RetentionPolicy.SOURCE)
-/* loaded from: classes3.dex */
+/* loaded from: classes.dex */
 public @interface InteractionType {
     public static final int DOWNLOAD = 1;
     public static final int H5 = 2;

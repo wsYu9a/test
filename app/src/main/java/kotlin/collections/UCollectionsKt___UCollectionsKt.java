@@ -1,5 +1,6 @@
 package kotlin.collections;
 
+import f.b.a.d;
 import java.util.Collection;
 import java.util.Iterator;
 import kotlin.ExperimentalUnsignedTypes;
@@ -13,123 +14,121 @@ import kotlin.ULong;
 import kotlin.ULongArray;
 import kotlin.UShort;
 import kotlin.UShortArray;
-import kotlin.WasExperimental;
 import kotlin.jvm.JvmName;
 import kotlin.jvm.internal.Intrinsics;
-import xi.k;
 
-@Metadata(d1 = {"\u0000F\n\u0000\n\u0002\u0018\u0002\n\u0002\u0010\u001c\n\u0002\u0018\u0002\n\u0002\b\u0003\n\u0002\u0018\u0002\n\u0002\b\u0002\n\u0002\u0018\u0002\n\u0002\b\u0002\n\u0002\u0018\u0002\n\u0002\u0010\u001e\n\u0002\b\u0002\n\u0002\u0018\u0002\n\u0002\b\u0002\n\u0002\u0018\u0002\n\u0002\b\u0002\n\u0002\u0018\u0002\n\u0002\b\u0002\u001a\u0019\u0010\u0000\u001a\u00020\u0001*\b\u0012\u0004\u0012\u00020\u00030\u0002H\u0007¢\u0006\u0004\b\u0004\u0010\u0005\u001a\u0019\u0010\u0000\u001a\u00020\u0001*\b\u0012\u0004\u0012\u00020\u00010\u0002H\u0007¢\u0006\u0004\b\u0006\u0010\u0005\u001a\u0019\u0010\u0000\u001a\u00020\u0007*\b\u0012\u0004\u0012\u00020\u00070\u0002H\u0007¢\u0006\u0004\b\b\u0010\t\u001a\u0019\u0010\u0000\u001a\u00020\u0001*\b\u0012\u0004\u0012\u00020\n0\u0002H\u0007¢\u0006\u0004\b\u000b\u0010\u0005\u001a\u0017\u0010\f\u001a\u00020\r*\b\u0012\u0004\u0012\u00020\u00030\u000eH\u0007¢\u0006\u0002\u0010\u000f\u001a\u0017\u0010\u0010\u001a\u00020\u0011*\b\u0012\u0004\u0012\u00020\u00010\u000eH\u0007¢\u0006\u0002\u0010\u0012\u001a\u0017\u0010\u0013\u001a\u00020\u0014*\b\u0012\u0004\u0012\u00020\u00070\u000eH\u0007¢\u0006\u0002\u0010\u0015\u001a\u0017\u0010\u0016\u001a\u00020\u0017*\b\u0012\u0004\u0012\u00020\n0\u000eH\u0007¢\u0006\u0002\u0010\u0018¨\u0006\u0019"}, d2 = {"sum", "Lkotlin/UInt;", "", "Lkotlin/UByte;", "sumOfUByte", "(Ljava/lang/Iterable;)I", "sumOfUInt", "Lkotlin/ULong;", "sumOfULong", "(Ljava/lang/Iterable;)J", "Lkotlin/UShort;", "sumOfUShort", "toUByteArray", "Lkotlin/UByteArray;", "", "(Ljava/util/Collection;)[B", "toUIntArray", "Lkotlin/UIntArray;", "(Ljava/util/Collection;)[I", "toULongArray", "Lkotlin/ULongArray;", "(Ljava/util/Collection;)[J", "toUShortArray", "Lkotlin/UShortArray;", "(Ljava/util/Collection;)[S", "kotlin-stdlib"}, k = 5, mv = {1, 9, 0}, xi = 49, xs = "kotlin/collections/UCollectionsKt")
-/* loaded from: classes4.dex */
+@Metadata(bv = {1, 0, 3}, d1 = {"\u0000<\n\u0002\u0010\u001e\n\u0002\u0018\u0002\n\u0002\u0018\u0002\n\u0002\b\u0002\n\u0002\u0018\u0002\n\u0002\u0018\u0002\n\u0002\b\u0002\n\u0002\u0018\u0002\n\u0002\u0018\u0002\n\u0002\b\u0002\n\u0002\u0018\u0002\n\u0002\u0018\u0002\n\u0002\b\u0002\n\u0002\u0010\u001c\n\u0002\b\b\u001a\u001c\u0010\u0003\u001a\u00020\u0002*\b\u0012\u0004\u0012\u00020\u00010\u0000H\u0007ø\u0001\u0000¢\u0006\u0004\b\u0003\u0010\u0004\u001a\u001c\u0010\u0007\u001a\u00020\u0006*\b\u0012\u0004\u0012\u00020\u00050\u0000H\u0007ø\u0001\u0000¢\u0006\u0004\b\u0007\u0010\b\u001a\u001c\u0010\u000b\u001a\u00020\n*\b\u0012\u0004\u0012\u00020\t0\u0000H\u0007ø\u0001\u0000¢\u0006\u0004\b\u000b\u0010\f\u001a\u001c\u0010\u000f\u001a\u00020\u000e*\b\u0012\u0004\u0012\u00020\r0\u0000H\u0007ø\u0001\u0000¢\u0006\u0004\b\u000f\u0010\u0010\u001a\u001c\u0010\u0014\u001a\u00020\u0005*\b\u0012\u0004\u0012\u00020\u00050\u0011H\u0007ø\u0001\u0000¢\u0006\u0004\b\u0012\u0010\u0013\u001a\u001c\u0010\u0014\u001a\u00020\t*\b\u0012\u0004\u0012\u00020\t0\u0011H\u0007ø\u0001\u0000¢\u0006\u0004\b\u0015\u0010\u0016\u001a\u001c\u0010\u0014\u001a\u00020\u0005*\b\u0012\u0004\u0012\u00020\u00010\u0011H\u0007ø\u0001\u0000¢\u0006\u0004\b\u0017\u0010\u0013\u001a\u001c\u0010\u0014\u001a\u00020\u0005*\b\u0012\u0004\u0012\u00020\r0\u0011H\u0007ø\u0001\u0000¢\u0006\u0004\b\u0018\u0010\u0013\u0082\u0002\u0004\n\u0002\b\u0019¨\u0006\u0019"}, d2 = {"", "Lkotlin/UByte;", "Lkotlin/UByteArray;", "toUByteArray", "(Ljava/util/Collection;)[B", "Lkotlin/UInt;", "Lkotlin/UIntArray;", "toUIntArray", "(Ljava/util/Collection;)[I", "Lkotlin/ULong;", "Lkotlin/ULongArray;", "toULongArray", "(Ljava/util/Collection;)[J", "Lkotlin/UShort;", "Lkotlin/UShortArray;", "toUShortArray", "(Ljava/util/Collection;)[S", "", "sumOfUInt", "(Ljava/lang/Iterable;)I", "sum", "sumOfULong", "(Ljava/lang/Iterable;)J", "sumOfUByte", "sumOfUShort", "kotlin-stdlib"}, k = 5, mv = {1, 4, 0}, xs = "kotlin/collections/UCollectionsKt")
+/* loaded from: classes5.dex */
 class UCollectionsKt___UCollectionsKt {
-    @SinceKotlin(version = "1.5")
-    @WasExperimental(markerClass = {ExperimentalUnsignedTypes.class})
+    @SinceKotlin(version = "1.3")
+    @ExperimentalUnsignedTypes
     @JvmName(name = "sumOfUByte")
-    public static final int sumOfUByte(@k Iterable<UByte> iterable) {
-        Intrinsics.checkNotNullParameter(iterable, "<this>");
-        Iterator<UByte> it = iterable.iterator();
-        int i10 = 0;
+    public static final int sumOfUByte(@d Iterable<UByte> sum) {
+        Intrinsics.checkParameterIsNotNull(sum, "$this$sum");
+        Iterator<UByte> it = sum.iterator();
+        int i2 = 0;
         while (it.hasNext()) {
-            i10 = UInt.m153constructorimpl(i10 + UInt.m153constructorimpl(it.next().getData() & 255));
+            i2 = UInt.m168constructorimpl(i2 + UInt.m168constructorimpl(it.next().getData() & 255));
         }
-        return i10;
+        return i2;
     }
 
-    @SinceKotlin(version = "1.5")
-    @WasExperimental(markerClass = {ExperimentalUnsignedTypes.class})
+    @SinceKotlin(version = "1.3")
+    @ExperimentalUnsignedTypes
     @JvmName(name = "sumOfUInt")
-    public static final int sumOfUInt(@k Iterable<UInt> iterable) {
-        Intrinsics.checkNotNullParameter(iterable, "<this>");
-        Iterator<UInt> it = iterable.iterator();
-        int i10 = 0;
+    public static final int sumOfUInt(@d Iterable<UInt> sum) {
+        Intrinsics.checkParameterIsNotNull(sum, "$this$sum");
+        Iterator<UInt> it = sum.iterator();
+        int i2 = 0;
         while (it.hasNext()) {
-            i10 = UInt.m153constructorimpl(i10 + it.next().getData());
+            i2 = UInt.m168constructorimpl(i2 + it.next().getData());
         }
-        return i10;
+        return i2;
     }
 
-    @SinceKotlin(version = "1.5")
-    @WasExperimental(markerClass = {ExperimentalUnsignedTypes.class})
+    @SinceKotlin(version = "1.3")
+    @ExperimentalUnsignedTypes
     @JvmName(name = "sumOfULong")
-    public static final long sumOfULong(@k Iterable<ULong> iterable) {
-        Intrinsics.checkNotNullParameter(iterable, "<this>");
-        Iterator<ULong> it = iterable.iterator();
-        long j10 = 0;
+    public static final long sumOfULong(@d Iterable<ULong> sum) {
+        Intrinsics.checkParameterIsNotNull(sum, "$this$sum");
+        Iterator<ULong> it = sum.iterator();
+        long j2 = 0;
         while (it.hasNext()) {
-            j10 = ULong.m232constructorimpl(j10 + it.next().getData());
+            j2 = ULong.m237constructorimpl(j2 + it.next().getData());
         }
-        return j10;
+        return j2;
     }
 
-    @SinceKotlin(version = "1.5")
-    @WasExperimental(markerClass = {ExperimentalUnsignedTypes.class})
+    @SinceKotlin(version = "1.3")
+    @ExperimentalUnsignedTypes
     @JvmName(name = "sumOfUShort")
-    public static final int sumOfUShort(@k Iterable<UShort> iterable) {
-        Intrinsics.checkNotNullParameter(iterable, "<this>");
-        Iterator<UShort> it = iterable.iterator();
-        int i10 = 0;
+    public static final int sumOfUShort(@d Iterable<UShort> sum) {
+        Intrinsics.checkParameterIsNotNull(sum, "$this$sum");
+        Iterator<UShort> it = sum.iterator();
+        int i2 = 0;
         while (it.hasNext()) {
-            i10 = UInt.m153constructorimpl(i10 + UInt.m153constructorimpl(it.next().getData() & UShort.MAX_VALUE));
+            i2 = UInt.m168constructorimpl(i2 + UInt.m168constructorimpl(it.next().getData() & UShort.MAX_VALUE));
         }
-        return i10;
+        return i2;
     }
 
+    @d
     @SinceKotlin(version = "1.3")
-    @k
     @ExperimentalUnsignedTypes
-    public static final byte[] toUByteArray(@k Collection<UByte> collection) {
-        Intrinsics.checkNotNullParameter(collection, "<this>");
-        byte[] m128constructorimpl = UByteArray.m128constructorimpl(collection.size());
-        Iterator<UByte> it = collection.iterator();
-        int i10 = 0;
+    public static final byte[] toUByteArray(@d Collection<UByte> toUByteArray) {
+        Intrinsics.checkParameterIsNotNull(toUByteArray, "$this$toUByteArray");
+        byte[] m144constructorimpl = UByteArray.m144constructorimpl(toUByteArray.size());
+        Iterator<UByte> it = toUByteArray.iterator();
+        int i2 = 0;
         while (it.hasNext()) {
-            UByteArray.m139setVurrAj0(m128constructorimpl, i10, it.next().getData());
-            i10++;
+            UByteArray.m155setVurrAj0(m144constructorimpl, i2, it.next().getData());
+            i2++;
         }
-        return m128constructorimpl;
+        return m144constructorimpl;
     }
 
+    @d
     @SinceKotlin(version = "1.3")
-    @k
     @ExperimentalUnsignedTypes
-    public static final int[] toUIntArray(@k Collection<UInt> collection) {
-        Intrinsics.checkNotNullParameter(collection, "<this>");
-        int[] m207constructorimpl = UIntArray.m207constructorimpl(collection.size());
-        Iterator<UInt> it = collection.iterator();
-        int i10 = 0;
+    public static final int[] toUIntArray(@d Collection<UInt> toUIntArray) {
+        Intrinsics.checkParameterIsNotNull(toUIntArray, "$this$toUIntArray");
+        int[] m213constructorimpl = UIntArray.m213constructorimpl(toUIntArray.size());
+        Iterator<UInt> it = toUIntArray.iterator();
+        int i2 = 0;
         while (it.hasNext()) {
-            UIntArray.m218setVXSXFK8(m207constructorimpl, i10, it.next().getData());
-            i10++;
+            UIntArray.m224setVXSXFK8(m213constructorimpl, i2, it.next().getData());
+            i2++;
         }
-        return m207constructorimpl;
+        return m213constructorimpl;
     }
 
+    @d
     @SinceKotlin(version = "1.3")
-    @k
     @ExperimentalUnsignedTypes
-    public static final long[] toULongArray(@k Collection<ULong> collection) {
-        Intrinsics.checkNotNullParameter(collection, "<this>");
-        long[] m286constructorimpl = ULongArray.m286constructorimpl(collection.size());
-        Iterator<ULong> it = collection.iterator();
-        int i10 = 0;
+    public static final long[] toULongArray(@d Collection<ULong> toULongArray) {
+        Intrinsics.checkParameterIsNotNull(toULongArray, "$this$toULongArray");
+        long[] m282constructorimpl = ULongArray.m282constructorimpl(toULongArray.size());
+        Iterator<ULong> it = toULongArray.iterator();
+        int i2 = 0;
         while (it.hasNext()) {
-            ULongArray.m297setk8EXiF4(m286constructorimpl, i10, it.next().getData());
-            i10++;
+            ULongArray.m293setk8EXiF4(m282constructorimpl, i2, it.next().getData());
+            i2++;
         }
-        return m286constructorimpl;
+        return m282constructorimpl;
     }
 
+    @d
     @SinceKotlin(version = "1.3")
-    @k
     @ExperimentalUnsignedTypes
-    public static final short[] toUShortArray(@k Collection<UShort> collection) {
-        Intrinsics.checkNotNullParameter(collection, "<this>");
-        short[] m391constructorimpl = UShortArray.m391constructorimpl(collection.size());
-        Iterator<UShort> it = collection.iterator();
-        int i10 = 0;
+    public static final short[] toUShortArray(@d Collection<UShort> toUShortArray) {
+        Intrinsics.checkParameterIsNotNull(toUShortArray, "$this$toUShortArray");
+        short[] m377constructorimpl = UShortArray.m377constructorimpl(toUShortArray.size());
+        Iterator<UShort> it = toUShortArray.iterator();
+        int i2 = 0;
         while (it.hasNext()) {
-            UShortArray.m402set01HTLdE(m391constructorimpl, i10, it.next().getData());
-            i10++;
+            UShortArray.m388set01HTLdE(m377constructorimpl, i2, it.next().getData());
+            i2++;
         }
-        return m391constructorimpl;
+        return m377constructorimpl;
     }
 }

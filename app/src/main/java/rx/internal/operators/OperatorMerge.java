@@ -4,21 +4,20 @@ import java.util.ArrayList;
 import java.util.Queue;
 import java.util.concurrent.ConcurrentLinkedQueue;
 import java.util.concurrent.atomic.AtomicLong;
-import qj.a;
-import qj.g;
+import rx.a;
 import rx.exceptions.CompositeException;
 import rx.exceptions.MissingBackpressureException;
 
 /* loaded from: classes5.dex */
-public final class OperatorMerge<T> implements a.n0<T, qj.a<? extends T>> {
+public final class OperatorMerge<T> implements a.n0<T, rx.a<? extends T>> {
+
+    /* renamed from: a */
+    final boolean f35803a;
 
     /* renamed from: b */
-    public final boolean f30474b;
+    final int f35804b;
 
-    /* renamed from: c */
-    public final int f30475c;
-
-    public static final class MergeProducer<T> extends AtomicLong implements qj.c {
+    static final class MergeProducer<T> extends AtomicLong implements rx.c {
         private static final long serialVersionUID = -1214379189873595503L;
         final e<T> subscriber;
 
@@ -26,182 +25,171 @@ public final class OperatorMerge<T> implements a.n0<T, qj.a<? extends T>> {
             this.subscriber = eVar;
         }
 
-        public long produced(int i10) {
-            return addAndGet(-i10);
+        public long produced(int i2) {
+            return addAndGet(-i2);
         }
 
-        @Override // qj.c
-        public void request(long j10) {
-            if (j10 <= 0) {
-                if (j10 < 0) {
+        @Override // rx.c
+        public void request(long j2) {
+            if (j2 <= 0) {
+                if (j2 < 0) {
                     throw new IllegalArgumentException("n >= 0 required");
                 }
             } else {
                 if (get() == Long.MAX_VALUE) {
                     return;
                 }
-                xj.a.a(this, j10);
+                rx.internal.operators.a.a(this, j2);
                 this.subscriber.i();
             }
         }
     }
 
-    public static final class b {
+    private static final class b {
 
         /* renamed from: a */
-        public static final OperatorMerge<Object> f30476a = new OperatorMerge<>(true, Integer.MAX_VALUE);
+        static final OperatorMerge<Object> f35805a = new OperatorMerge<>(true, Integer.MAX_VALUE);
+
+        private b() {
+        }
     }
 
-    public static final class c {
+    private static final class c {
 
         /* renamed from: a */
-        public static final OperatorMerge<Object> f30477a = new OperatorMerge<>(false, Integer.MAX_VALUE);
+        static final OperatorMerge<Object> f35806a = new OperatorMerge<>(false, Integer.MAX_VALUE);
+
+        private c() {
+        }
     }
 
-    public static final class d<T> extends g<T> {
+    static final class d<T> extends rx.g<T> {
 
-        /* renamed from: l */
-        public static final int f30478l = ak.e.f246h / 4;
+        /* renamed from: f */
+        static final int f35807f = rx.internal.util.e.f36784c / 4;
 
         /* renamed from: g */
-        public final e<T> f30479g;
+        final e<T> f35808g;
 
         /* renamed from: h */
-        public final long f30480h;
+        final long f35809h;
 
         /* renamed from: i */
-        public volatile boolean f30481i;
+        volatile boolean f35810i;
 
         /* renamed from: j */
-        public volatile ak.e f30482j;
+        volatile rx.internal.util.e f35811j;
+        int k;
 
-        /* renamed from: k */
-        public int f30483k;
-
-        public d(e<T> eVar, long j10) {
-            this.f30479g = eVar;
-            this.f30480h = j10;
+        public d(e<T> eVar, long j2) {
+            this.f35808g = eVar;
+            this.f35809h = j2;
         }
 
-        @Override // qj.g
+        @Override // rx.g
         public void d() {
-            int i10 = ak.e.f246h;
-            this.f30483k = i10;
-            e(i10);
+            int i2 = rx.internal.util.e.f36784c;
+            this.k = i2;
+            e(i2);
         }
 
-        public void g(long j10) {
-            int i10 = this.f30483k - ((int) j10);
-            if (i10 > f30478l) {
-                this.f30483k = i10;
+        public void g(long j2) {
+            int i2 = this.k - ((int) j2);
+            if (i2 > f35807f) {
+                this.k = i2;
                 return;
             }
-            int i11 = ak.e.f246h;
-            this.f30483k = i11;
-            int i12 = i11 - i10;
-            if (i12 > 0) {
-                e(i12);
+            int i3 = rx.internal.util.e.f36784c;
+            this.k = i3;
+            int i4 = i3 - i2;
+            if (i4 > 0) {
+                e(i4);
             }
         }
 
-        @Override // qj.b
+        @Override // rx.b
         public void onCompleted() {
-            this.f30481i = true;
-            this.f30479g.i();
+            this.f35810i = true;
+            this.f35808g.i();
         }
 
-        @Override // qj.b
-        public void onError(Throwable th2) {
-            this.f30481i = true;
-            this.f30479g.n().offer(th2);
-            this.f30479g.i();
+        @Override // rx.b
+        public void onError(Throwable th) {
+            this.f35810i = true;
+            this.f35808g.n().offer(th);
+            this.f35808g.i();
         }
 
-        @Override // qj.b
-        public void onNext(T t10) {
-            this.f30479g.v(this, t10);
+        @Override // rx.b
+        public void onNext(T t) {
+            this.f35808g.v(this, t);
         }
     }
 
-    public static final class e<T> extends g<qj.a<? extends T>> {
+    static final class e<T> extends rx.g<rx.a<? extends T>> {
 
-        /* renamed from: w */
-        public static final d<?>[] f30484w = new d[0];
+        /* renamed from: f */
+        static final d<?>[] f35812f = new d[0];
 
         /* renamed from: g */
-        public final g<? super T> f30485g;
+        final rx.g<? super T> f35813g;
 
         /* renamed from: h */
-        public final boolean f30486h;
+        final boolean f35814h;
 
         /* renamed from: i */
-        public final int f30487i;
+        final int f35815i;
 
         /* renamed from: j */
-        public MergeProducer<T> f30488j;
+        MergeProducer<T> f35816j;
+        volatile rx.internal.util.e k;
+        volatile rx.p.b l;
+        volatile ConcurrentLinkedQueue<Throwable> m;
+        volatile boolean o;
+        boolean p;
+        boolean q;
+        long t;
+        long u;
+        int v;
+        final NotificationLite<T> n = NotificationLite.f();
+        final Object r = new Object();
+        volatile d<?>[] s = f35812f;
 
-        /* renamed from: k */
-        public volatile ak.e f30489k;
+        public e(rx.g<? super T> gVar, boolean z, int i2) {
+            this.f35813g = gVar;
+            this.f35814h = z;
+            this.f35815i = i2;
+            e(Math.min(i2, rx.internal.util.e.f36784c));
+        }
 
-        /* renamed from: l */
-        public volatile ik.b f30490l;
-
-        /* renamed from: m */
-        public volatile ConcurrentLinkedQueue<Throwable> f30491m;
-
-        /* renamed from: o */
-        public volatile boolean f30493o;
-
-        /* renamed from: p */
-        public boolean f30494p;
-
-        /* renamed from: q */
-        public boolean f30495q;
-
-        /* renamed from: t */
-        public long f30498t;
-
-        /* renamed from: u */
-        public long f30499u;
-
-        /* renamed from: v */
-        public int f30500v;
-
-        /* renamed from: n */
-        public final NotificationLite<T> f30492n = NotificationLite.f();
-
-        /* renamed from: r */
-        public final Object f30496r = new Object();
-
-        /* renamed from: s */
-        public volatile d<?>[] f30497s = f30484w;
-
-        public e(g<? super T> gVar, boolean z10, int i10) {
-            this.f30485g = gVar;
-            this.f30486h = z10;
-            this.f30487i = i10;
-            e(Math.min(i10, ak.e.f246h));
+        private void s() {
+            ArrayList arrayList = new ArrayList(this.m);
+            if (arrayList.size() == 1) {
+                this.f35813g.onError((Throwable) arrayList.get(0));
+            } else {
+                this.f35813g.onError(new CompositeException(arrayList));
+            }
         }
 
         /* JADX WARN: Multi-variable type inference failed */
-        public void g(d<T> dVar) {
+        void g(d<T> dVar) {
             m().a(dVar);
-            synchronized (this.f30496r) {
-                d<?>[] dVarArr = this.f30497s;
+            synchronized (this.r) {
+                d<?>[] dVarArr = this.s;
                 int length = dVarArr.length;
                 d<?>[] dVarArr2 = new d[length + 1];
                 System.arraycopy(dVarArr, 0, dVarArr2, 0, length);
                 dVarArr2[length] = dVar;
-                this.f30497s = dVarArr2;
+                this.s = dVarArr2;
             }
         }
 
-        public boolean h() {
-            if (this.f30485g.isUnsubscribed()) {
+        boolean h() {
+            if (this.f35813g.isUnsubscribed()) {
                 return true;
             }
-            ConcurrentLinkedQueue<Throwable> concurrentLinkedQueue = this.f30491m;
-            if (this.f30486h || concurrentLinkedQueue == null || concurrentLinkedQueue.isEmpty()) {
+            ConcurrentLinkedQueue<Throwable> concurrentLinkedQueue = this.m;
+            if (this.f35814h || concurrentLinkedQueue == null || concurrentLinkedQueue.isEmpty()) {
                 return false;
             }
             try {
@@ -212,218 +200,202 @@ public final class OperatorMerge<T> implements a.n0<T, qj.a<? extends T>> {
             }
         }
 
-        public void i() {
+        void i() {
             synchronized (this) {
-                try {
-                    if (this.f30494p) {
-                        this.f30495q = true;
-                    } else {
-                        this.f30494p = true;
-                        j();
-                    }
-                } catch (Throwable th2) {
-                    throw th2;
+                if (this.p) {
+                    this.q = true;
+                } else {
+                    this.p = true;
+                    j();
                 }
             }
         }
 
-        /* JADX WARN: Removed duplicated region for block: B:27:0x01af  */
-        /* JADX WARN: Removed duplicated region for block: B:74:0x00c1 A[Catch: all -> 0x005d, TryCatch #9 {all -> 0x005d, blocks: (B:3:0x0003, B:4:0x0005, B:6:0x000c, B:15:0x0030, B:18:0x003f, B:23:0x0068, B:40:0x004b, B:45:0x004f, B:42:0x0061, B:53:0x007f, B:60:0x009a, B:63:0x00a5, B:67:0x00ad, B:69:0x00b1, B:72:0x00b8, B:74:0x00c1, B:77:0x00bc, B:79:0x00c7, B:81:0x00ce, B:85:0x00f9, B:87:0x0100, B:91:0x0108, B:93:0x010f, B:95:0x0114, B:97:0x011d, B:117:0x0143, B:118:0x014f, B:124:0x0159, B:127:0x0161, B:129:0x0167, B:131:0x0171, B:135:0x0177, B:139:0x017c, B:143:0x0180, B:145:0x018c, B:148:0x0194, B:192:0x00dc, B:194:0x00e5, B:198:0x00ea, B:202:0x00ed), top: B:2:0x0003 }] */
-        /* JADX WARN: Removed duplicated region for block: B:76:? A[RETURN, SYNTHETIC] */
+        /* JADX WARN: Removed duplicated region for block: B:39:0x01b3  */
+        /* JADX WARN: Removed duplicated region for block: B:75:0x00c2 A[Catch: all -> 0x01af, TryCatch #9 {all -> 0x01af, blocks: (B:3:0x0003, B:4:0x0005, B:6:0x000c, B:15:0x0030, B:18:0x003f, B:23:0x0069, B:26:0x004c, B:32:0x0050, B:29:0x0062, B:54:0x0080, B:61:0x009b, B:64:0x00a6, B:68:0x00ae, B:70:0x00b2, B:73:0x00b9, B:75:0x00c2, B:78:0x00bd, B:80:0x00c8, B:82:0x00ce, B:86:0x00f9, B:88:0x0100, B:92:0x0108, B:94:0x010f, B:96:0x0114, B:98:0x011d, B:118:0x0143, B:119:0x014f, B:125:0x0159, B:128:0x0161, B:130:0x0167, B:132:0x0171, B:137:0x0179, B:141:0x017e, B:145:0x0182, B:147:0x018e, B:150:0x0196, B:194:0x00dc, B:196:0x00e5, B:200:0x00ea, B:204:0x00ed), top: B:2:0x0003 }] */
+        /* JADX WARN: Removed duplicated region for block: B:77:? A[RETURN, SYNTHETIC] */
         /*
             Code decompiled incorrectly, please refer to instructions dump.
             To view partially-correct code enable 'Show inconsistent code' option in preferences
         */
-        public void j() {
+        void j() {
             /*
-                Method dump skipped, instructions count: 440
+                Method dump skipped, instructions count: 446
                 To view this dump change 'Code comments level' option to 'DEBUG'
             */
             throw new UnsupportedOperationException("Method not decompiled: rx.internal.operators.OperatorMerge.e.j():void");
         }
 
-        /* JADX WARN: Removed duplicated region for block: B:27:0x004c  */
+        /* JADX WARN: Removed duplicated region for block: B:28:0x004a  */
         /*
             Code decompiled incorrectly, please refer to instructions dump.
             To view partially-correct code enable 'Show inconsistent code' option in preferences
         */
-        public void k(T r5, long r6) {
+        protected void k(T r5, long r6) {
             /*
                 r4 = this;
                 r0 = 1
                 r1 = 0
-                qj.g<? super T> r2 = r4.f30485g     // Catch: java.lang.Throwable -> L8
+                rx.g<? super T> r2 = r4.f35813g     // Catch: java.lang.Throwable -> L8
                 r2.onNext(r5)     // Catch: java.lang.Throwable -> L8
-                goto L23
+                goto L20
             L8:
                 r5 = move-exception
-                boolean r2 = r4.f30486h     // Catch: java.lang.Throwable -> L19
-                if (r2 != 0) goto L1c
-                vj.a.e(r5)     // Catch: java.lang.Throwable -> L19
+                boolean r2 = r4.f35814h     // Catch: java.lang.Throwable -> L46
+                if (r2 != 0) goto L19
+                rx.exceptions.a.e(r5)     // Catch: java.lang.Throwable -> L46
                 r4.unsubscribe()     // Catch: java.lang.Throwable -> L17
                 r4.onError(r5)     // Catch: java.lang.Throwable -> L17
                 return
             L17:
                 r5 = move-exception
-                goto L4a
+                goto L48
             L19:
-                r5 = move-exception
-                r0 = 0
-                goto L4a
-            L1c:
-                java.util.Queue r2 = r4.n()     // Catch: java.lang.Throwable -> L19
-                r2.offer(r5)     // Catch: java.lang.Throwable -> L19
-            L23:
+                java.util.Queue r2 = r4.n()     // Catch: java.lang.Throwable -> L46
+                r2.offer(r5)     // Catch: java.lang.Throwable -> L46
+            L20:
                 r2 = 9223372036854775807(0x7fffffffffffffff, double:NaN)
                 int r5 = (r6 > r2 ? 1 : (r6 == r2 ? 0 : -1))
-                if (r5 == 0) goto L31
-                rx.internal.operators.OperatorMerge$MergeProducer<T> r5 = r4.f30488j     // Catch: java.lang.Throwable -> L19
-                r5.produced(r0)     // Catch: java.lang.Throwable -> L19
-            L31:
+                if (r5 == 0) goto L2e
+                rx.internal.operators.OperatorMerge$MergeProducer<T> r5 = r4.f35816j     // Catch: java.lang.Throwable -> L46
+                r5.produced(r0)     // Catch: java.lang.Throwable -> L46
+            L2e:
                 r5 = 1
-                r4.t(r5)     // Catch: java.lang.Throwable -> L19
-                monitor-enter(r4)     // Catch: java.lang.Throwable -> L19
-                boolean r5 = r4.f30495q     // Catch: java.lang.Throwable -> L3f
-                if (r5 != 0) goto L41
-                r4.f30494p = r1     // Catch: java.lang.Throwable -> L3f
-                monitor-exit(r4)     // Catch: java.lang.Throwable -> L3f
+                r4.t(r5)     // Catch: java.lang.Throwable -> L46
+                monitor-enter(r4)     // Catch: java.lang.Throwable -> L46
+                boolean r5 = r4.q     // Catch: java.lang.Throwable -> L43
+                if (r5 != 0) goto L3c
+                r4.p = r1     // Catch: java.lang.Throwable -> L43
+                monitor-exit(r4)     // Catch: java.lang.Throwable -> L43
                 return
-            L3f:
-                r5 = move-exception
-                goto L48
-            L41:
-                r4.f30495q = r1     // Catch: java.lang.Throwable -> L3f
-                monitor-exit(r4)     // Catch: java.lang.Throwable -> L3f
+            L3c:
+                r4.q = r1     // Catch: java.lang.Throwable -> L43
+                monitor-exit(r4)     // Catch: java.lang.Throwable -> L43
                 r4.j()
                 return
-            L48:
-                monitor-exit(r4)     // Catch: java.lang.Throwable -> L3f
-                throw r5     // Catch: java.lang.Throwable -> L17
-            L4a:
-                if (r0 != 0) goto L54
-                monitor-enter(r4)
-                r4.f30494p = r1     // Catch: java.lang.Throwable -> L51
-                monitor-exit(r4)     // Catch: java.lang.Throwable -> L51
-                goto L54
-            L51:
+            L43:
                 r5 = move-exception
-                monitor-exit(r4)     // Catch: java.lang.Throwable -> L51
+                monitor-exit(r4)     // Catch: java.lang.Throwable -> L43
+                throw r5     // Catch: java.lang.Throwable -> L17
+            L46:
+                r5 = move-exception
+                r0 = 0
+            L48:
+                if (r0 != 0) goto L52
+                monitor-enter(r4)
+                r4.p = r1     // Catch: java.lang.Throwable -> L4f
+                monitor-exit(r4)     // Catch: java.lang.Throwable -> L4f
+                goto L52
+            L4f:
+                r5 = move-exception
+                monitor-exit(r4)     // Catch: java.lang.Throwable -> L4f
                 throw r5
-            L54:
+            L52:
                 throw r5
             */
             throw new UnsupportedOperationException("Method not decompiled: rx.internal.operators.OperatorMerge.e.k(java.lang.Object, long):void");
         }
 
-        /* JADX WARN: Removed duplicated region for block: B:27:0x004c  */
+        /* JADX WARN: Removed duplicated region for block: B:28:0x004a  */
         /*
             Code decompiled incorrectly, please refer to instructions dump.
             To view partially-correct code enable 'Show inconsistent code' option in preferences
         */
-        public void l(rx.internal.operators.OperatorMerge.d<T> r5, T r6, long r7) {
+        protected void l(rx.internal.operators.OperatorMerge.d<T> r5, T r6, long r7) {
             /*
                 r4 = this;
                 r0 = 1
                 r1 = 0
-                qj.g<? super T> r2 = r4.f30485g     // Catch: java.lang.Throwable -> L8
+                rx.g<? super T> r2 = r4.f35813g     // Catch: java.lang.Throwable -> L8
                 r2.onNext(r6)     // Catch: java.lang.Throwable -> L8
-                goto L23
+                goto L20
             L8:
                 r6 = move-exception
-                boolean r2 = r4.f30486h     // Catch: java.lang.Throwable -> L19
-                if (r2 != 0) goto L1c
-                vj.a.e(r6)     // Catch: java.lang.Throwable -> L19
+                boolean r2 = r4.f35814h     // Catch: java.lang.Throwable -> L46
+                if (r2 != 0) goto L19
+                rx.exceptions.a.e(r6)     // Catch: java.lang.Throwable -> L46
                 r5.unsubscribe()     // Catch: java.lang.Throwable -> L17
                 r5.onError(r6)     // Catch: java.lang.Throwable -> L17
                 return
             L17:
                 r5 = move-exception
-                goto L4a
+                goto L48
             L19:
-                r5 = move-exception
-                r0 = 0
-                goto L4a
-            L1c:
-                java.util.Queue r2 = r4.n()     // Catch: java.lang.Throwable -> L19
-                r2.offer(r6)     // Catch: java.lang.Throwable -> L19
-            L23:
+                java.util.Queue r2 = r4.n()     // Catch: java.lang.Throwable -> L46
+                r2.offer(r6)     // Catch: java.lang.Throwable -> L46
+            L20:
                 r2 = 9223372036854775807(0x7fffffffffffffff, double:NaN)
                 int r6 = (r7 > r2 ? 1 : (r7 == r2 ? 0 : -1))
-                if (r6 == 0) goto L31
-                rx.internal.operators.OperatorMerge$MergeProducer<T> r6 = r4.f30488j     // Catch: java.lang.Throwable -> L19
-                r6.produced(r0)     // Catch: java.lang.Throwable -> L19
-            L31:
+                if (r6 == 0) goto L2e
+                rx.internal.operators.OperatorMerge$MergeProducer<T> r6 = r4.f35816j     // Catch: java.lang.Throwable -> L46
+                r6.produced(r0)     // Catch: java.lang.Throwable -> L46
+            L2e:
                 r6 = 1
-                r5.g(r6)     // Catch: java.lang.Throwable -> L19
-                monitor-enter(r4)     // Catch: java.lang.Throwable -> L19
-                boolean r5 = r4.f30495q     // Catch: java.lang.Throwable -> L3f
-                if (r5 != 0) goto L41
-                r4.f30494p = r1     // Catch: java.lang.Throwable -> L3f
-                monitor-exit(r4)     // Catch: java.lang.Throwable -> L3f
+                r5.g(r6)     // Catch: java.lang.Throwable -> L46
+                monitor-enter(r4)     // Catch: java.lang.Throwable -> L46
+                boolean r5 = r4.q     // Catch: java.lang.Throwable -> L43
+                if (r5 != 0) goto L3c
+                r4.p = r1     // Catch: java.lang.Throwable -> L43
+                monitor-exit(r4)     // Catch: java.lang.Throwable -> L43
                 return
-            L3f:
-                r5 = move-exception
-                goto L48
-            L41:
-                r4.f30495q = r1     // Catch: java.lang.Throwable -> L3f
-                monitor-exit(r4)     // Catch: java.lang.Throwable -> L3f
+            L3c:
+                r4.q = r1     // Catch: java.lang.Throwable -> L43
+                monitor-exit(r4)     // Catch: java.lang.Throwable -> L43
                 r4.j()
                 return
-            L48:
-                monitor-exit(r4)     // Catch: java.lang.Throwable -> L3f
-                throw r5     // Catch: java.lang.Throwable -> L17
-            L4a:
-                if (r0 != 0) goto L54
-                monitor-enter(r4)
-                r4.f30494p = r1     // Catch: java.lang.Throwable -> L51
-                monitor-exit(r4)     // Catch: java.lang.Throwable -> L51
-                goto L54
-            L51:
+            L43:
                 r5 = move-exception
-                monitor-exit(r4)     // Catch: java.lang.Throwable -> L51
+                monitor-exit(r4)     // Catch: java.lang.Throwable -> L43
+                throw r5     // Catch: java.lang.Throwable -> L17
+            L46:
+                r5 = move-exception
+                r0 = 0
+            L48:
+                if (r0 != 0) goto L52
+                monitor-enter(r4)
+                r4.p = r1     // Catch: java.lang.Throwable -> L4f
+                monitor-exit(r4)     // Catch: java.lang.Throwable -> L4f
+                goto L52
+            L4f:
+                r5 = move-exception
+                monitor-exit(r4)     // Catch: java.lang.Throwable -> L4f
                 throw r5
-            L54:
+            L52:
                 throw r5
             */
             throw new UnsupportedOperationException("Method not decompiled: rx.internal.operators.OperatorMerge.e.l(rx.internal.operators.OperatorMerge$d, java.lang.Object, long):void");
         }
 
-        public ik.b m() {
-            boolean z10;
-            ik.b bVar = this.f30490l;
-            if (bVar == null) {
-                synchronized (this) {
-                    try {
-                        bVar = this.f30490l;
-                        if (bVar == null) {
-                            bVar = new ik.b();
-                            this.f30490l = bVar;
-                            z10 = true;
-                        } else {
-                            z10 = false;
-                        }
-                    } catch (Throwable th2) {
-                        throw th2;
-                    }
+        rx.p.b m() {
+            rx.p.b bVar;
+            rx.p.b bVar2 = this.l;
+            if (bVar2 != null) {
+                return bVar2;
+            }
+            boolean z = false;
+            synchronized (this) {
+                bVar = this.l;
+                if (bVar == null) {
+                    rx.p.b bVar3 = new rx.p.b();
+                    this.l = bVar3;
+                    bVar = bVar3;
+                    z = true;
                 }
-                if (z10) {
-                    b(bVar);
-                }
+            }
+            if (z) {
+                b(bVar);
             }
             return bVar;
         }
 
-        public Queue<Throwable> n() {
-            ConcurrentLinkedQueue<Throwable> concurrentLinkedQueue = this.f30491m;
+        Queue<Throwable> n() {
+            ConcurrentLinkedQueue<Throwable> concurrentLinkedQueue = this.m;
             if (concurrentLinkedQueue == null) {
                 synchronized (this) {
-                    try {
-                        concurrentLinkedQueue = this.f30491m;
-                        if (concurrentLinkedQueue == null) {
-                            concurrentLinkedQueue = new ConcurrentLinkedQueue<>();
-                            this.f30491m = concurrentLinkedQueue;
-                        }
-                    } finally {
+                    concurrentLinkedQueue = this.m;
+                    if (concurrentLinkedQueue == null) {
+                        concurrentLinkedQueue = new ConcurrentLinkedQueue<>();
+                        this.m = concurrentLinkedQueue;
                     }
                 }
             }
@@ -431,194 +403,179 @@ public final class OperatorMerge<T> implements a.n0<T, qj.a<? extends T>> {
         }
 
         /* JADX WARN: Multi-variable type inference failed */
-        @Override // qj.b
+        @Override // rx.b
         /* renamed from: o */
-        public void onNext(qj.a<? extends T> aVar) {
+        public void onNext(rx.a<? extends T> aVar) {
             if (aVar == null) {
                 return;
             }
-            if (aVar instanceof ak.g) {
-                u(((ak.g) aVar).y5());
+            if (aVar instanceof rx.internal.util.g) {
+                u(((rx.internal.util.g) aVar).y5());
                 return;
             }
-            long j10 = this.f30498t;
-            this.f30498t = 1 + j10;
-            d dVar = new d(this, j10);
+            long j2 = this.t;
+            this.t = 1 + j2;
+            d dVar = new d(this, j2);
             g(dVar);
             aVar.T4(dVar);
             i();
         }
 
-        @Override // qj.b
+        @Override // rx.b
         public void onCompleted() {
-            this.f30493o = true;
+            this.o = true;
             i();
         }
 
-        @Override // qj.b
-        public void onError(Throwable th2) {
-            n().offer(th2);
-            this.f30493o = true;
+        @Override // rx.b
+        public void onError(Throwable th) {
+            n().offer(th);
+            this.o = true;
             i();
         }
 
-        public void p(T t10) {
-            ak.e eVar = this.f30489k;
+        protected void p(T t) {
+            rx.internal.util.e eVar = this.k;
             if (eVar == null) {
-                eVar = ak.e.g();
+                eVar = rx.internal.util.e.g();
                 b(eVar);
-                this.f30489k = eVar;
+                this.k = eVar;
             }
             try {
-                eVar.n(this.f30492n.l(t10));
+                eVar.n(this.n.l(t));
                 i();
-            } catch (IllegalStateException e10) {
+            } catch (IllegalStateException e2) {
                 if (isUnsubscribed()) {
                     return;
                 }
                 unsubscribe();
-                onError(e10);
-            } catch (MissingBackpressureException e11) {
+                onError(e2);
+            } catch (MissingBackpressureException e3) {
                 unsubscribe();
-                onError(e11);
+                onError(e3);
             }
         }
 
-        public void q(d<T> dVar, T t10) {
-            ak.e eVar = dVar.f30482j;
+        protected void q(d<T> dVar, T t) {
+            rx.internal.util.e eVar = dVar.f35811j;
             if (eVar == null) {
-                eVar = ak.e.g();
+                eVar = rx.internal.util.e.g();
                 dVar.b(eVar);
-                dVar.f30482j = eVar;
+                dVar.f35811j = eVar;
             }
             try {
-                eVar.n(this.f30492n.l(t10));
+                eVar.n(this.n.l(t));
                 i();
-            } catch (IllegalStateException e10) {
+            } catch (IllegalStateException e2) {
                 if (dVar.isUnsubscribed()) {
                     return;
                 }
                 dVar.unsubscribe();
-                dVar.onError(e10);
-            } catch (MissingBackpressureException e11) {
+                dVar.onError(e2);
+            } catch (MissingBackpressureException e3) {
                 dVar.unsubscribe();
-                dVar.onError(e11);
+                dVar.onError(e3);
             }
         }
 
-        public void r(d<T> dVar) {
-            ak.e eVar = dVar.f30482j;
+        void r(d<T> dVar) {
+            rx.internal.util.e eVar = dVar.f35811j;
             if (eVar != null) {
                 eVar.q();
             }
-            this.f30490l.d(dVar);
-            synchronized (this.f30496r) {
-                try {
-                    d<?>[] dVarArr = this.f30497s;
-                    int length = dVarArr.length;
-                    int i10 = 0;
-                    while (true) {
-                        if (i10 >= length) {
-                            i10 = -1;
-                            break;
-                        } else if (!dVar.equals(dVarArr[i10])) {
-                            i10++;
-                        }
+            this.l.d(dVar);
+            synchronized (this.r) {
+                d<?>[] dVarArr = this.s;
+                int length = dVarArr.length;
+                int i2 = -1;
+                int i3 = 0;
+                while (true) {
+                    if (i3 >= length) {
+                        break;
                     }
-                    if (i10 < 0) {
-                        return;
+                    if (dVar.equals(dVarArr[i3])) {
+                        i2 = i3;
+                        break;
                     }
-                    if (length == 1) {
-                        this.f30497s = f30484w;
-                        return;
-                    }
-                    d<?>[] dVarArr2 = new d[length - 1];
-                    System.arraycopy(dVarArr, 0, dVarArr2, 0, i10);
-                    System.arraycopy(dVarArr, i10 + 1, dVarArr2, i10, (length - i10) - 1);
-                    this.f30497s = dVarArr2;
-                } finally {
+                    i3++;
                 }
+                if (i2 < 0) {
+                    return;
+                }
+                if (length == 1) {
+                    this.s = f35812f;
+                    return;
+                }
+                d<?>[] dVarArr2 = new d[length - 1];
+                System.arraycopy(dVarArr, 0, dVarArr2, 0, i2);
+                System.arraycopy(dVarArr, i2 + 1, dVarArr2, i2, (length - i2) - 1);
+                this.s = dVarArr2;
             }
         }
 
-        public final void s() {
-            ArrayList arrayList = new ArrayList(this.f30491m);
-            if (arrayList.size() == 1) {
-                this.f30485g.onError((Throwable) arrayList.get(0));
-            } else {
-                this.f30485g.onError(new CompositeException(arrayList));
-            }
+        public void t(long j2) {
+            e(j2);
         }
 
-        public void t(long j10) {
-            e(j10);
-        }
-
-        public void u(T t10) {
-            long j10 = this.f30488j.get();
-            boolean z10 = false;
-            if (j10 != 0) {
+        void u(T t) {
+            long j2 = this.f35816j.get();
+            boolean z = false;
+            if (j2 != 0) {
                 synchronized (this) {
-                    try {
-                        if (!this.f30494p) {
-                            z10 = true;
-                            this.f30494p = true;
-                        }
-                    } finally {
+                    if (!this.p) {
+                        this.p = true;
+                        z = true;
                     }
                 }
             }
-            if (z10) {
-                k(t10, j10);
+            if (z) {
+                k(t, j2);
             } else {
-                p(t10);
+                p(t);
             }
         }
 
-        public void v(d<T> dVar, T t10) {
-            long j10 = this.f30488j.get();
-            boolean z10 = false;
-            if (j10 != 0) {
+        void v(d<T> dVar, T t) {
+            long j2 = this.f35816j.get();
+            boolean z = false;
+            if (j2 != 0) {
                 synchronized (this) {
-                    try {
-                        if (!this.f30494p) {
-                            z10 = true;
-                            this.f30494p = true;
-                        }
-                    } finally {
+                    if (!this.p) {
+                        this.p = true;
+                        z = true;
                     }
                 }
             }
-            if (z10) {
-                l(dVar, t10, j10);
+            if (z) {
+                l(dVar, t, j2);
             } else {
-                q(dVar, t10);
+                q(dVar, t);
             }
         }
     }
 
-    public /* synthetic */ OperatorMerge(boolean z10, int i10, a aVar) {
-        this(z10, i10);
+    /* synthetic */ OperatorMerge(boolean z, int i2, a aVar) {
+        this(z, i2);
     }
 
-    public static <T> OperatorMerge<T> a(boolean z10) {
-        return z10 ? (OperatorMerge<T>) b.f30476a : (OperatorMerge<T>) c.f30477a;
+    public static <T> OperatorMerge<T> a(boolean z) {
+        return z ? (OperatorMerge<T>) b.f35805a : (OperatorMerge<T>) c.f35806a;
     }
 
-    public static <T> OperatorMerge<T> b(boolean z10, int i10) {
-        return i10 == Integer.MAX_VALUE ? a(z10) : new OperatorMerge<>(z10, i10);
+    public static <T> OperatorMerge<T> b(boolean z, int i2) {
+        return i2 == Integer.MAX_VALUE ? a(z) : new OperatorMerge<>(z, i2);
     }
 
-    public OperatorMerge(boolean z10, int i10) {
-        this.f30474b = z10;
-        this.f30475c = i10;
+    private OperatorMerge(boolean z, int i2) {
+        this.f35803a = z;
+        this.f35804b = i2;
     }
 
-    @Override // wj.o
-    public g<qj.a<? extends T>> call(g<? super T> gVar) {
-        e eVar = new e(gVar, this.f30474b, this.f30475c);
+    @Override // rx.k.o
+    public rx.g<rx.a<? extends T>> call(rx.g<? super T> gVar) {
+        e eVar = new e(gVar, this.f35803a, this.f35804b);
         MergeProducer<T> mergeProducer = new MergeProducer<>(eVar);
-        eVar.f30488j = mergeProducer;
+        eVar.f35816j = mergeProducer;
         gVar.b(eVar);
         gVar.f(mergeProducer);
         return eVar;

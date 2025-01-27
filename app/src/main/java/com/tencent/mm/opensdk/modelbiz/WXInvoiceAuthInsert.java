@@ -20,7 +20,7 @@ public class WXInvoiceAuthInsert {
                 Log.i(TAG, "url should not be empty");
                 return false;
             }
-            if (this.url.length() <= 10240) {
+            if (this.url.length() <= URL_LENGTH_LIMIT) {
                 return true;
             }
             Log.e(TAG, "url must be in 10k");

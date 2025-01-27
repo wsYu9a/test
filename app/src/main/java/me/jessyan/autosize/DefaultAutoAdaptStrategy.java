@@ -7,7 +7,7 @@ import me.jessyan.autosize.internal.CancelAdapt;
 import me.jessyan.autosize.internal.CustomAdapt;
 import me.jessyan.autosize.utils.AutoSizeLog;
 
-/* loaded from: classes4.dex */
+/* loaded from: classes5.dex */
 public class DefaultAutoAdaptStrategy implements AutoAdaptStrategy {
     @Override // me.jessyan.autosize.AutoAdaptStrategy
     public void applyAdapt(Object obj, Activity activity) {

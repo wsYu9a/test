@@ -4,37 +4,35 @@ import android.content.Context;
 import android.view.GestureDetector;
 import android.view.MotionEvent;
 import android.view.View;
-import n9.m;
 
-/* loaded from: classes3.dex */
+/* loaded from: classes2.dex */
 public class OnSwipeTouchListener implements View.OnTouchListener {
 
-    /* renamed from: b */
-    public final GestureDetector f12662b;
+    /* renamed from: a, reason: collision with root package name */
+    private final GestureDetector f10356a;
 
-    public final class a extends GestureDetector.SimpleOnGestureListener {
+    private final class b extends GestureDetector.SimpleOnGestureListener {
 
-        /* renamed from: c */
-        public static final int f12663c = 100;
+        /* renamed from: a, reason: collision with root package name */
+        private static final int f10357a = 100;
 
-        /* renamed from: d */
-        public static final int f12664d = 100;
+        /* renamed from: b, reason: collision with root package name */
+        private static final int f10358b = 100;
 
-        public /* synthetic */ a(OnSwipeTouchListener onSwipeTouchListener, m mVar) {
-            this();
+        private b() {
         }
 
         @Override // android.view.GestureDetector.SimpleOnGestureListener, android.view.GestureDetector.OnGestureListener
-        public boolean onDown(MotionEvent motionEvent) {
+        public boolean onDown(MotionEvent e2) {
             return true;
         }
 
         @Override // android.view.GestureDetector.SimpleOnGestureListener, android.view.GestureDetector.OnGestureListener
-        public boolean onFling(MotionEvent motionEvent, MotionEvent motionEvent2, float f10, float f11) {
-            if (motionEvent != null && motionEvent2 != null) {
-                float x10 = motionEvent2.getX() - motionEvent.getX();
-                if (Math.abs(x10) > Math.abs(motionEvent2.getY() - motionEvent.getY()) && Math.abs(x10) > 100.0f && Math.abs(f10) > 100.0f) {
-                    if (x10 > 0.0f) {
+        public boolean onFling(MotionEvent e1, MotionEvent e2, float velocityX, float velocityY) {
+            if (e1 != null && e2 != null) {
+                float x = e2.getX() - e1.getX();
+                if (Math.abs(x) > Math.abs(e2.getY() - e1.getY()) && Math.abs(x) > 100.0f && Math.abs(velocityX) > 100.0f) {
+                    if (x > 0.0f) {
                         OnSwipeTouchListener.this.c();
                         return true;
                     }
@@ -44,17 +42,14 @@ public class OnSwipeTouchListener implements View.OnTouchListener {
             }
             return false;
         }
-
-        public a() {
-        }
     }
 
-    public OnSwipeTouchListener(Context context) {
-        this.f12662b = new GestureDetector(context, new a());
+    public OnSwipeTouchListener(Context ctx) {
+        this.f10356a = new GestureDetector(ctx, new b());
     }
 
     public GestureDetector a() {
-        return this.f12662b;
+        return this.f10356a;
     }
 
     public void b() {
@@ -64,7 +59,7 @@ public class OnSwipeTouchListener implements View.OnTouchListener {
     }
 
     @Override // android.view.View.OnTouchListener
-    public boolean onTouch(View view, MotionEvent motionEvent) {
-        return this.f12662b.onTouchEvent(motionEvent);
+    public boolean onTouch(View v, MotionEvent event) {
+        return this.f10356a.onTouchEvent(event);
     }
 }

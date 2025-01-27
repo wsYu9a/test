@@ -54,35 +54,35 @@ public class BonusPool {
         return this.nextDuration;
     }
 
-    public void setCheckinDays(Integer num) {
-        this.checkinDays = num;
+    public void setCheckinDays(Integer checkinDays) {
+        this.checkinDays = checkinDays;
     }
 
-    public void setCheckinToday(boolean z10) {
-        this.checkinToday = Boolean.valueOf(z10);
+    public void setCheckinToday(boolean checkinToday) {
+        this.checkinToday = Boolean.valueOf(checkinToday);
     }
 
-    public void setCoinList(List<Integer> list) {
-        this.coinList = list;
+    public void setCoinList(List<Integer> coinList) {
+        this.coinList = coinList;
     }
 
-    public void setFullCheckinDays(Integer num) {
-        this.fullCheckinDays = num;
+    public void setFullCheckinDays(Integer fullCheckinDays) {
+        this.fullCheckinDays = fullCheckinDays;
     }
 
-    public void setMoney(Integer num) {
-        this.money = num;
+    public void setMoney(Integer money) {
+        this.money = money;
     }
 
-    public void setNextCoins(Integer num) {
-        this.nextCoins = num;
+    public void setNextCoins(Integer nextCoins) {
+        this.nextCoins = nextCoins;
     }
 
-    public void setNextDuration(Integer num) {
-        this.nextDuration = num;
+    public void setNextDuration(Integer nextDuration) {
+        this.nextDuration = nextDuration;
     }
 
-    public void setCheckinToday(Boolean bool) {
-        this.checkinToday = bool;
+    public void setCheckinToday(Boolean checkinToday) {
+        this.checkinToday = checkinToday;
     }
 }

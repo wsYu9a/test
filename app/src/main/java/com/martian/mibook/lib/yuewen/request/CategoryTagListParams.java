@@ -1,9 +1,9 @@
 package com.martian.mibook.lib.yuewen.request;
 
+import com.martian.libcomm.http.requests.d.a;
 import com.martian.mibook.lib.account.request.TYAuthoptParams;
-import v8.a;
 
-/* loaded from: classes3.dex */
+/* loaded from: classes4.dex */
 public class CategoryTagListParams extends TYAuthoptParams {
 
     @a
@@ -18,7 +18,7 @@ public class CategoryTagListParams extends TYAuthoptParams {
         return this.freeType;
     }
 
-    public void setFreeType(Integer num) {
-        this.freeType = num;
+    public void setFreeType(Integer freeType) {
+        this.freeType = freeType;
     }
 }

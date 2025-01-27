@@ -1,6 +1,6 @@
 package com.qq.e.comm.compliance;
 
-/* loaded from: classes3.dex */
+/* loaded from: classes4.dex */
 public interface DownloadConfirmCallBack {
     void onCancel();
 

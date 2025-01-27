@@ -7,16 +7,16 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.util.Arrays;
 
-/* loaded from: classes2.dex */
+/* loaded from: classes.dex */
 public final class a {
 
     /* renamed from: com.bytedance.pangle.e.a$1 */
-    public static class AnonymousClass1 implements Runnable {
+    static class AnonymousClass1 implements Runnable {
 
         /* renamed from: a */
-        final /* synthetic */ InputStream f7550a;
+        final /* synthetic */ InputStream f6055a;
 
-        public AnonymousClass1(InputStream inputStream) {
+        AnonymousClass1(InputStream inputStream) {
             inputStream = inputStream;
         }
 
@@ -31,8 +31,8 @@ public final class a {
                     } else {
                         ZeusLogger.d(ZeusLogger.TAG_INSTALL, "exec cmd info : ".concat(readLine));
                     }
-                } catch (IOException e10) {
-                    ZeusLogger.errReport(ZeusLogger.TAG_INSTALL, "execCmd consumeInputStream failed : ".concat(String.valueOf(e10)));
+                } catch (IOException e2) {
+                    ZeusLogger.errReport(ZeusLogger.TAG_INSTALL, "execCmd consumeInputStream failed : ".concat(String.valueOf(e2)));
                     return;
                 } finally {
                     com.bytedance.pangle.util.g.a(bufferedReader);
@@ -56,11 +56,11 @@ public final class a {
             }
             ZeusLogger.errReport(ZeusLogger.TAG_INSTALL, "exec dex2oat failed : " + Arrays.toString(strArr));
             return false;
-        } catch (IOException e10) {
-            e10.printStackTrace();
+        } catch (IOException e2) {
+            e2.printStackTrace();
             return false;
-        } catch (InterruptedException e11) {
-            e11.printStackTrace();
+        } catch (InterruptedException e3) {
+            e3.printStackTrace();
             return false;
         }
     }
@@ -69,9 +69,9 @@ public final class a {
         com.bytedance.pangle.d.e.a(new Runnable() { // from class: com.bytedance.pangle.e.a.1
 
             /* renamed from: a */
-            final /* synthetic */ InputStream f7550a;
+            final /* synthetic */ InputStream f6055a;
 
-            public AnonymousClass1(InputStream inputStream2) {
+            AnonymousClass1(InputStream inputStream2) {
                 inputStream = inputStream2;
             }
 
@@ -86,8 +86,8 @@ public final class a {
                         } else {
                             ZeusLogger.d(ZeusLogger.TAG_INSTALL, "exec cmd info : ".concat(readLine));
                         }
-                    } catch (IOException e10) {
-                        ZeusLogger.errReport(ZeusLogger.TAG_INSTALL, "execCmd consumeInputStream failed : ".concat(String.valueOf(e10)));
+                    } catch (IOException e2) {
+                        ZeusLogger.errReport(ZeusLogger.TAG_INSTALL, "execCmd consumeInputStream failed : ".concat(String.valueOf(e2)));
                         return;
                     } finally {
                         com.bytedance.pangle.util.g.a(bufferedReader);

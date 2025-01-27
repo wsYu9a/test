@@ -1,7 +1,7 @@
 package com.martian.mibook.account.request.book;
 
+import com.martian.libcomm.http.requests.d.a;
 import com.martian.mibook.lib.account.request.TYHttpGetParams;
-import v8.a;
 
 /* loaded from: classes3.dex */
 public class MiBookTopCommentParams extends TYHttpGetParams {
@@ -12,7 +12,7 @@ public class MiBookTopCommentParams extends TYHttpGetParams {
     @a
     private String sourceName;
 
-    @Override // u8.b
+    @Override // com.martian.libcomm.http.requests.b
     public String getRequestMethod() {
         return "get_book_scores_and_top_comments.do";
     }
@@ -25,11 +25,11 @@ public class MiBookTopCommentParams extends TYHttpGetParams {
         return this.sourceName;
     }
 
-    public void setSourceId(String str) {
-        this.sourceId = str;
+    public void setSourceId(String sourceId) {
+        this.sourceId = sourceId;
     }
 
-    public void setSourceName(String str) {
-        this.sourceName = str;
+    public void setSourceName(String sourceName) {
+        this.sourceName = sourceName;
     }
 }

@@ -1,21 +1,14 @@
 package com.martian.ads.ad;
 
 import android.app.Activity;
-import android.content.Context;
 import android.content.DialogInterface;
-import android.os.Handler;
-import android.text.TextUtils;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
-import android.widget.ImageView;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import ba.l;
 import com.kwad.sdk.api.KsAdSDK;
 import com.kwad.sdk.api.KsAdVideoPlayConfig;
 import com.kwad.sdk.api.KsAppDownloadListener;
-import com.kwad.sdk.api.KsDrawAd;
 import com.kwad.sdk.api.KsImage;
 import com.kwad.sdk.api.KsInterstitialAd;
 import com.kwad.sdk.api.KsLoadManager;
@@ -25,43 +18,48 @@ import com.kwad.sdk.api.KsScene;
 import com.kwad.sdk.api.KsSplashScreenAd;
 import com.kwad.sdk.api.KsVideoPlayConfig;
 import com.kwad.sdk.api.model.AdExposureFailedReason;
-import com.kwad.sdk.api.model.AdnName;
 import com.martian.ads.ad.AdConfig;
-import com.martian.ads.ad.GroMoreAd;
 import com.martian.apptask.data.AppTask;
-import com.martian.apptask.data.ComplianceInfo;
-import com.martian.libmars.common.ConfigSingleton;
-import java.lang.ref.WeakReference;
+import com.martian.apptask.data.ViewWrapper;
+import com.martian.libmars.d.h;
+import com.martian.libsupport.k;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
-import java.util.Map;
-import x8.c;
 
-/* loaded from: classes3.dex */
+/* loaded from: classes2.dex */
 public class KsAd extends BaseAd {
+    private boolean cancelLoading;
     public KsRewardVideoAd mRewardVideoAd;
 
     /* renamed from: com.martian.ads.ad.KsAd$1 */
-    public class AnonymousClass1 implements KsLoadManager.SplashScreenAdListener {
-        public AnonymousClass1() {
+    class AnonymousClass1 implements KsLoadManager.SplashScreenAdListener {
+        AnonymousClass1() {
         }
 
         @Override // com.kwad.sdk.api.KsLoadManager.SplashScreenAdListener
-        public void onError(int i10, String str) {
-            KsAd.this.onError(new c(i10, str));
+        public void onError(int code, String msg) {
+            KsAd.this.onError(new b.d.c.b.c(code, msg));
         }
 
         @Override // com.kwad.sdk.api.KsLoadManager.SplashScreenAdListener
-        public void onRequestResult(int i10) {
+        public void onRequestResult(int i2) {
         }
 
         @Override // com.kwad.sdk.api.KsLoadManager.SplashScreenAdListener
-        public void onSplashScreenAdLoad(KsSplashScreenAd ksSplashScreenAd) {
+        public void onSplashScreenAdLoad(KsSplashScreenAd splashScreenAd) {
             AppTask appTask = KsAd.this.adConfig.toAppTask();
-            appTask.origin = ksSplashScreenAd;
-            if (KsAd.this.adConfig.isBidding()) {
-                KsAd.this.setBiddingEcpm(appTask, ksSplashScreenAd.getECPM());
+            appTask.origin = splashScreenAd;
+            int ecpm = splashScreenAd.getECPM();
+            if (KsAd.this.adConfig.isBidding() || ecpm > 0) {
+                if (KsAd.this.adConfig.getEcpmPercent() > 0.0d) {
+                    double d2 = ecpm;
+                    double ecpmPercent = KsAd.this.adConfig.getEcpmPercent();
+                    Double.isNaN(d2);
+                    ecpm = (int) ((d2 * ecpmPercent) / 100.0d);
+                }
+                appTask.setEcpm(ecpm);
+                KsAd.this.adConfig.setEcpm(ecpm);
             }
             KsAd.this.getAppTaskList().addAppTask(appTask);
             KsAd.this.onAdReceived();
@@ -69,42 +67,42 @@ public class KsAd extends BaseAd {
     }
 
     /* renamed from: com.martian.ads.ad.KsAd$2 */
-    public class AnonymousClass2 implements KsSplashScreenAd.SplashScreenAdInteractionListener {
+    static class AnonymousClass2 implements KsSplashScreenAd.SplashScreenAdInteractionListener {
         final /* synthetic */ AdConfig val$adConfig;
 
-        public AnonymousClass2(AdConfig adConfig) {
-            adConfig = adConfig;
+        AnonymousClass2(final AdConfig val$receiver) {
+            Q = val$receiver;
         }
 
         @Override // com.kwad.sdk.api.KsSplashScreenAd.SplashScreenAdInteractionListener
         public void onAdClicked() {
-            d8.a aVar = d8.a.this;
+            b.d.a.k.a aVar = b.d.a.k.a.this;
             if (aVar != null) {
-                aVar.l(adConfig);
+                aVar.j(Q);
             }
         }
 
         @Override // com.kwad.sdk.api.KsSplashScreenAd.SplashScreenAdInteractionListener
         public void onAdShowEnd() {
-            d8.a aVar = d8.a.this;
+            b.d.a.k.a aVar = b.d.a.k.a.this;
             if (aVar != null) {
-                aVar.g(adConfig);
+                aVar.c(Q);
             }
         }
 
         @Override // com.kwad.sdk.api.KsSplashScreenAd.SplashScreenAdInteractionListener
-        public void onAdShowError(int i10, String str) {
-            d8.a aVar = d8.a.this;
+        public void onAdShowError(int code, String extra) {
+            b.d.a.k.a aVar = b.d.a.k.a.this;
             if (aVar != null) {
-                aVar.c(adConfig, null);
+                aVar.g(Q, null);
             }
         }
 
         @Override // com.kwad.sdk.api.KsSplashScreenAd.SplashScreenAdInteractionListener
         public void onAdShowStart() {
-            d8.a aVar = d8.a.this;
+            b.d.a.k.a aVar = b.d.a.k.a.this;
             if (aVar != null) {
-                aVar.b(adConfig);
+                aVar.a(Q);
             }
         }
 
@@ -122,45 +120,48 @@ public class KsAd extends BaseAd {
 
         @Override // com.kwad.sdk.api.KsSplashScreenAd.SplashScreenAdInteractionListener
         public void onSkippedAd() {
-            d8.a aVar = d8.a.this;
+            b.d.a.k.a aVar = b.d.a.k.a.this;
             if (aVar != null) {
-                aVar.d(adConfig);
+                aVar.b(Q);
             }
         }
     }
 
     /* renamed from: com.martian.ads.ad.KsAd$3 */
-    public class AnonymousClass3 implements KsLoadManager.NativeAdListener {
-        public AnonymousClass3() {
+    class AnonymousClass3 implements KsLoadManager.NativeAdListener {
+        final /* synthetic */ Activity val$activity;
+
+        AnonymousClass3(final Activity val$activity) {
+            activity = val$activity;
         }
 
         @Override // com.kwad.sdk.api.KsLoadManager.NativeAdListener
-        public void onError(int i10, String str) {
-            KsAd.this.onError(new c(i10, str));
+        public void onError(int code, String msg) {
+            KsAd.this.onError(new b.d.c.b.c(code, msg));
         }
 
         @Override // com.kwad.sdk.api.KsLoadManager.NativeAdListener
-        public void onNativeAdLoad(@Nullable List<KsNativeAd> list) {
-            if (list == null || list.isEmpty()) {
+        public void onNativeAdLoad(@Nullable List<KsNativeAd> adList) {
+            if (adList == null || adList.isEmpty()) {
                 KsAd.this.onError(null);
                 return;
             }
-            Iterator<KsNativeAd> it = list.iterator();
+            Iterator<KsNativeAd> it = adList.iterator();
             while (it.hasNext()) {
-                KsAd.this.getAppTaskList().addAppTask(KsAd.this.toAppTask(it.next()));
+                KsAd.this.getAppTaskList().addAppTask(KsAd.this.toAppTask(activity, it.next()));
             }
             KsAd.this.onAdReceived();
         }
     }
 
     /* renamed from: com.martian.ads.ad.KsAd$4 */
-    public class AnonymousClass4 implements KsLoadManager.RewardVideoAdListener {
+    class AnonymousClass4 implements KsLoadManager.RewardVideoAdListener {
 
         /* renamed from: com.martian.ads.ad.KsAd$4$1 */
-        public class AnonymousClass1 implements KsRewardVideoAd.RewardAdInteractionListener {
+        class AnonymousClass1 implements KsRewardVideoAd.RewardAdInteractionListener {
             private boolean verify = false;
 
-            public AnonymousClass1() {
+            AnonymousClass1() {
             }
 
             @Override // com.kwad.sdk.api.KsRewardVideoAd.RewardAdInteractionListener
@@ -169,18 +170,17 @@ public class KsAd extends BaseAd {
             }
 
             @Override // com.kwad.sdk.api.KsRewardVideoAd.RewardAdInteractionListener
-            public void onExtraRewardVerify(int i10) {
+            public void onExtraRewardVerify(int i2) {
             }
 
             @Override // com.kwad.sdk.api.KsRewardVideoAd.RewardAdInteractionListener
             public void onPageDismiss() {
                 KsAd.this.onClose();
                 KsAd.this.onRewardVerify(this.verify);
-                KsAd.this.mRewardVideoAd = null;
             }
 
             @Override // com.kwad.sdk.api.KsRewardVideoAd.RewardAdInteractionListener
-            public void onRewardStepVerify(int i10, int i11) {
+            public void onRewardStepVerify(int i2, int i1) {
             }
 
             @Override // com.kwad.sdk.api.KsRewardVideoAd.RewardAdInteractionListener
@@ -193,8 +193,8 @@ public class KsAd extends BaseAd {
             }
 
             @Override // com.kwad.sdk.api.KsRewardVideoAd.RewardAdInteractionListener
-            public void onVideoPlayError(int i10, int i11) {
-                KsAd.this.onError(new c(i10, "" + i11));
+            public void onVideoPlayError(int code, int extra) {
+                KsAd.this.onError(new b.d.c.b.c(code, "" + extra));
             }
 
             @Override // com.kwad.sdk.api.KsRewardVideoAd.RewardAdInteractionListener
@@ -203,39 +203,34 @@ public class KsAd extends BaseAd {
             }
 
             @Override // com.kwad.sdk.api.KsRewardVideoAd.RewardAdInteractionListener
-            public void onVideoSkipToEnd(long j10) {
-            }
-
-            @Override // com.kwad.sdk.api.KsRewardVideoAd.RewardAdInteractionListener
-            public void onRewardVerify(Map<String, Object> map) {
-                this.verify = true;
+            public void onVideoSkipToEnd(long l) {
             }
         }
 
-        public AnonymousClass4() {
+        AnonymousClass4() {
         }
 
         @Override // com.kwad.sdk.api.KsLoadManager.RewardVideoAdListener
-        public void onError(int i10, String str) {
-            KsAd.this.onError(new c(i10, str));
+        public void onError(int code, String msg) {
+            KsAd.this.onError(new b.d.c.b.c(code, msg));
         }
 
         @Override // com.kwad.sdk.api.KsLoadManager.RewardVideoAdListener
-        public void onRewardVideoAdLoad(@Nullable List<KsRewardVideoAd> list) {
-            if (list == null || list.isEmpty()) {
-                KsAd.this.onError(new c(-1, "广告为空"));
+        public void onRewardVideoAdLoad(@Nullable List<KsRewardVideoAd> adList) {
+            if (adList == null || adList.isEmpty()) {
+                KsAd.this.onError(new b.d.c.b.c(-1, "广告为空"));
                 return;
             }
-            KsAd.this.mRewardVideoAd = list.get(0);
+            KsAd.this.mRewardVideoAd = adList.get(0);
             KsRewardVideoAd ksRewardVideoAd = KsAd.this.mRewardVideoAd;
             if (ksRewardVideoAd == null || !ksRewardVideoAd.isAdEnable()) {
-                KsAd.this.onError(new c(-1, "广告无效"));
+                KsAd.this.onError(new b.d.c.b.c(-1, "广告无效"));
                 return;
             }
             KsAd.this.mRewardVideoAd.setRewardAdInteractionListener(new KsRewardVideoAd.RewardAdInteractionListener() { // from class: com.martian.ads.ad.KsAd.4.1
                 private boolean verify = false;
 
-                public AnonymousClass1() {
+                AnonymousClass1() {
                 }
 
                 @Override // com.kwad.sdk.api.KsRewardVideoAd.RewardAdInteractionListener
@@ -244,18 +239,17 @@ public class KsAd extends BaseAd {
                 }
 
                 @Override // com.kwad.sdk.api.KsRewardVideoAd.RewardAdInteractionListener
-                public void onExtraRewardVerify(int i10) {
+                public void onExtraRewardVerify(int i2) {
                 }
 
                 @Override // com.kwad.sdk.api.KsRewardVideoAd.RewardAdInteractionListener
                 public void onPageDismiss() {
                     KsAd.this.onClose();
                     KsAd.this.onRewardVerify(this.verify);
-                    KsAd.this.mRewardVideoAd = null;
                 }
 
                 @Override // com.kwad.sdk.api.KsRewardVideoAd.RewardAdInteractionListener
-                public void onRewardStepVerify(int i10, int i11) {
+                public void onRewardStepVerify(int i2, int i1) {
                 }
 
                 @Override // com.kwad.sdk.api.KsRewardVideoAd.RewardAdInteractionListener
@@ -268,8 +262,8 @@ public class KsAd extends BaseAd {
                 }
 
                 @Override // com.kwad.sdk.api.KsRewardVideoAd.RewardAdInteractionListener
-                public void onVideoPlayError(int i10, int i11) {
-                    KsAd.this.onError(new c(i10, "" + i11));
+                public void onVideoPlayError(int code, int extra) {
+                    KsAd.this.onError(new b.d.c.b.c(code, "" + extra));
                 }
 
                 @Override // com.kwad.sdk.api.KsRewardVideoAd.RewardAdInteractionListener
@@ -278,20 +272,22 @@ public class KsAd extends BaseAd {
                 }
 
                 @Override // com.kwad.sdk.api.KsRewardVideoAd.RewardAdInteractionListener
-                public void onVideoSkipToEnd(long j10) {
-                }
-
-                @Override // com.kwad.sdk.api.KsRewardVideoAd.RewardAdInteractionListener
-                public void onRewardVerify(Map<String, Object> map) {
-                    this.verify = true;
+                public void onVideoSkipToEnd(long l) {
                 }
             });
             AppTask appTask = KsAd.this.adConfig.toAppTask();
             KsAd ksAd = KsAd.this;
             appTask.origin = ksAd.mRewardVideoAd;
-            if (ksAd.adConfig.isBidding()) {
-                KsAd ksAd2 = KsAd.this;
-                ksAd2.setBiddingEcpm(appTask, ksAd2.mRewardVideoAd.getECPM());
+            if (ksAd.adConfig.isBidding() || KsAd.this.mRewardVideoAd.getECPM() > 0) {
+                int ecpm = KsAd.this.mRewardVideoAd.getECPM();
+                if (KsAd.this.adConfig.getEcpmPercent() > 0.0d) {
+                    double d2 = ecpm;
+                    double ecpmPercent = KsAd.this.adConfig.getEcpmPercent();
+                    Double.isNaN(d2);
+                    ecpm = (int) ((d2 * ecpmPercent) / 100.0d);
+                }
+                appTask.setEcpm(ecpm);
+                KsAd.this.adConfig.setEcpm(ecpm);
             }
             KsAd.this.getAppTaskList().addAppTask(appTask);
             KsAd.this.onAdReceived();
@@ -303,11 +299,11 @@ public class KsAd extends BaseAd {
     }
 
     /* renamed from: com.martian.ads.ad.KsAd$5 */
-    public class AnonymousClass5 implements KsLoadManager.InterstitialAdListener {
+    class AnonymousClass5 implements KsLoadManager.InterstitialAdListener {
 
         /* renamed from: com.martian.ads.ad.KsAd$5$1 */
-        public class AnonymousClass1 implements KsInterstitialAd.AdInteractionListener {
-            public AnonymousClass1() {
+        class AnonymousClass1 implements KsInterstitialAd.AdInteractionListener {
+            AnonymousClass1() {
             }
 
             @Override // com.kwad.sdk.api.KsInterstitialAd.AdInteractionListener
@@ -340,7 +336,7 @@ public class KsAd extends BaseAd {
             }
 
             @Override // com.kwad.sdk.api.KsInterstitialAd.AdInteractionListener
-            public void onVideoPlayError(int i10, int i11) {
+            public void onVideoPlayError(int i2, int i1) {
             }
 
             @Override // com.kwad.sdk.api.KsInterstitialAd.AdInteractionListener
@@ -348,23 +344,23 @@ public class KsAd extends BaseAd {
             }
         }
 
-        public AnonymousClass5() {
+        AnonymousClass5() {
         }
 
         @Override // com.kwad.sdk.api.KsLoadManager.InterstitialAdListener
-        public void onError(int i10, String str) {
-            KsAd.this.onError(new c(i10, str));
+        public void onError(int i2, String s) {
+            KsAd.this.onError(new b.d.c.b.c(i2, s));
         }
 
         @Override // com.kwad.sdk.api.KsLoadManager.InterstitialAdListener
-        public void onInterstitialAdLoad(@Nullable List<KsInterstitialAd> list) {
-            if (list == null || list.isEmpty() || list.get(0) == null) {
-                KsAd.this.onError(new c(-1, "广告为空"));
+        public void onInterstitialAdLoad(@Nullable List<KsInterstitialAd> adList) {
+            if (adList == null || adList.size() <= 0 || adList.get(0) == null) {
+                KsAd.this.onError(new b.d.c.b.c(-1, "广告为空"));
                 return;
             }
-            KsInterstitialAd ksInterstitialAd = list.get(0);
+            KsInterstitialAd ksInterstitialAd = adList.get(0);
             ksInterstitialAd.setAdInteractionListener(new KsInterstitialAd.AdInteractionListener() { // from class: com.martian.ads.ad.KsAd.5.1
-                public AnonymousClass1() {
+                AnonymousClass1() {
                 }
 
                 @Override // com.kwad.sdk.api.KsInterstitialAd.AdInteractionListener
@@ -397,7 +393,7 @@ public class KsAd extends BaseAd {
                 }
 
                 @Override // com.kwad.sdk.api.KsInterstitialAd.AdInteractionListener
-                public void onVideoPlayError(int i10, int i11) {
+                public void onVideoPlayError(int i2, int i1) {
                 }
 
                 @Override // com.kwad.sdk.api.KsInterstitialAd.AdInteractionListener
@@ -406,24 +402,32 @@ public class KsAd extends BaseAd {
             });
             AppTask appTask = KsAd.this.adConfig.toAppTask();
             appTask.origin = ksInterstitialAd;
-            if (KsAd.this.adConfig.isBidding()) {
-                KsAd.this.setBiddingEcpm(appTask, ksInterstitialAd.getECPM());
+            int ecpm = ksInterstitialAd.getECPM();
+            if (KsAd.this.adConfig.isBidding() || ecpm > 0) {
+                if (KsAd.this.adConfig.getEcpmPercent() > 0.0d) {
+                    double d2 = ecpm;
+                    double ecpmPercent = KsAd.this.adConfig.getEcpmPercent();
+                    Double.isNaN(d2);
+                    ecpm = (int) ((d2 * ecpmPercent) / 100.0d);
+                }
+                appTask.setEcpm(ecpm);
+                KsAd.this.adConfig.setEcpm(ecpm);
             }
             KsAd.this.getAppTaskList().addAppTask(appTask);
             KsAd.this.onAdReceived();
         }
 
         @Override // com.kwad.sdk.api.KsLoadManager.InterstitialAdListener
-        public void onRequestResult(int i10) {
+        public void onRequestResult(int adNumber) {
         }
     }
 
     /* renamed from: com.martian.ads.ad.KsAd$6 */
-    public class AnonymousClass6 implements KsNativeAd.AdInteractionListener {
-        final /* synthetic */ AdConfig val$adConfig;
+    static class AnonymousClass6 implements KsNativeAd.AdInteractionListener {
+        final /* synthetic */ AppTask val$appTask;
 
-        public AnonymousClass6(AdConfig adConfig) {
-            adConfig = adConfig;
+        AnonymousClass6(final AppTask val$innerListener) {
+            appTask = val$innerListener;
         }
 
         @Override // com.kwad.sdk.api.KsNativeAd.AdInteractionListener
@@ -432,19 +436,13 @@ public class KsAd extends BaseAd {
         }
 
         @Override // com.kwad.sdk.api.KsNativeAd.AdInteractionListener
-        public void onAdClicked(View view, KsNativeAd ksNativeAd) {
-            d8.a aVar = d8.a.this;
-            if (aVar != null) {
-                aVar.l(adConfig);
-            }
+        public void onAdClicked(View view, KsNativeAd ad2) {
+            b.d.a.k.a.this.j(b.d.a.j.b.Q(appTask));
         }
 
         @Override // com.kwad.sdk.api.KsNativeAd.AdInteractionListener
-        public void onAdShow(KsNativeAd ksNativeAd) {
-            d8.a aVar = d8.a.this;
-            if (aVar != null) {
-                aVar.b(adConfig);
-            }
+        public void onAdShow(KsNativeAd ad2) {
+            b.d.a.j.b.J(appTask, b.d.a.k.a.this);
         }
 
         @Override // com.kwad.sdk.api.KsNativeAd.AdInteractionListener
@@ -457,14 +455,10 @@ public class KsAd extends BaseAd {
     }
 
     /* renamed from: com.martian.ads.ad.KsAd$7 */
-    public class AnonymousClass7 implements KsAppDownloadListener {
-        final WeakReference<d8.a> adReceiverWeakReference;
+    static class AnonymousClass7 implements KsAppDownloadListener {
         boolean isDownload = false;
-        final /* synthetic */ AppTask val$appTask;
 
-        public AnonymousClass7(AppTask appTask) {
-            this.val$appTask = appTask;
-            this.adReceiverWeakReference = new WeakReference<>(d8.a.this);
+        AnonymousClass7() {
         }
 
         @Override // com.kwad.sdk.api.KsAppDownloadListener
@@ -477,12 +471,10 @@ public class KsAd extends BaseAd {
 
         @Override // com.kwad.sdk.api.KsAppDownloadListener
         public void onDownloadStarted() {
-            d8.a aVar = this.adReceiverWeakReference.get();
-            if (aVar == null || this.isDownload) {
+            if (this.isDownload) {
                 return;
             }
             this.isDownload = true;
-            aVar.e(this.val$appTask);
         }
 
         @Override // com.kwad.sdk.api.KsAppDownloadListener
@@ -491,236 +483,68 @@ public class KsAd extends BaseAd {
 
         @Override // com.kwad.sdk.api.KsAppDownloadListener
         public void onInstalled() {
-            d8.a aVar = this.adReceiverWeakReference.get();
-            if (aVar != null) {
-                aVar.f(this.val$appTask);
-            }
         }
 
         @Override // com.kwad.sdk.api.KsAppDownloadListener
-        public void onProgressUpdate(int i10) {
+        public void onProgressUpdate(int progress) {
         }
     }
 
-    /* renamed from: com.martian.ads.ad.KsAd$8 */
-    public class AnonymousClass8 implements KsLoadManager.DrawAdListener {
-        final /* synthetic */ Context val$context;
-
-        public AnonymousClass8(Context context) {
-            context = context;
-        }
-
-        @Override // com.kwad.sdk.api.KsLoadManager.DrawAdListener
-        public void onDrawAdLoad(@Nullable List<KsDrawAd> list) {
-            if (list == null || list.isEmpty()) {
-                KsAd.this.onError(null);
-                return;
-            }
-            for (KsDrawAd ksDrawAd : list) {
-                if (ksDrawAd != null && ksDrawAd.getDrawView(context) != null) {
-                    ksDrawAd.setVideoSoundEnable(false);
-                    KsAd.this.getAppTaskList().addAppTask(KsAd.this.toAppTask(ksDrawAd));
-                }
-            }
-            if (KsAd.this.getAppTaskList().isEmpty()) {
-                KsAd.this.onError(null);
-            } else {
-                KsAd.this.onAdReceived();
-            }
-        }
-
-        @Override // com.kwad.sdk.api.KsLoadManager.DrawAdListener
-        public void onError(int i10, String str) {
-            KsAd.this.onError(new c(i10, str));
-        }
+    public KsAd(AdConfig config, @NonNull b.d.a.k.a receiver) {
+        super(config, receiver);
+        this.cancelLoading = false;
     }
 
-    /* renamed from: com.martian.ads.ad.KsAd$9 */
-    public class AnonymousClass9 implements KsDrawAd.AdInteractionListener {
-        final /* synthetic */ AdConfig val$adConfig;
-
-        public AnonymousClass9(AdConfig adConfig) {
-            adConfig = adConfig;
-        }
-
-        @Override // com.kwad.sdk.api.KsDrawAd.AdInteractionListener
-        public void onAdClicked() {
-            d8.a.this.l(adConfig);
-        }
-
-        @Override // com.kwad.sdk.api.KsDrawAd.AdInteractionListener
-        public void onAdShow() {
-            d8.a.this.b(adConfig);
-        }
-
-        @Override // com.kwad.sdk.api.KsDrawAd.AdInteractionListener
-        public void onVideoPlayEnd() {
-        }
-
-        @Override // com.kwad.sdk.api.KsDrawAd.AdInteractionListener
-        public void onVideoPlayError() {
-        }
-
-        @Override // com.kwad.sdk.api.KsDrawAd.AdInteractionListener
-        public void onVideoPlayPause() {
-        }
-
-        @Override // com.kwad.sdk.api.KsDrawAd.AdInteractionListener
-        public void onVideoPlayResume() {
-        }
-
-        @Override // com.kwad.sdk.api.KsDrawAd.AdInteractionListener
-        public void onVideoPlayStart() {
-        }
-    }
-
-    public KsAd(AdConfig adConfig, @NonNull d8.a aVar, Handler handler) {
-        super(adConfig, aVar, handler);
-    }
-
-    public static void bindDrawAd(Activity activity, AppTask appTask, GroMoreAd.AdViewHolder adViewHolder, d8.a aVar) {
-        KsDrawAd ksDrawAd;
-        View drawView;
-        if (adViewHolder == null || adViewHolder.videoView == null || (drawView = (ksDrawAd = (KsDrawAd) appTask.origin).getDrawView(activity)) == null) {
-            return;
-        }
-        if (appTask.isBidding()) {
-            sendDrawWinNotification(appTask);
-        }
-        View view = adViewHolder.textView;
-        if (view != null) {
-            view.setVisibility(8);
-        }
-        ImageView imageView = adViewHolder.mPoster;
-        if (imageView != null) {
-            imageView.setVisibility(8);
-        }
-        View view2 = adViewHolder.logoView;
-        if (view2 != null) {
-            view2.setVisibility(8);
-        }
-        ksDrawAd.setAdInteractionListener(new KsDrawAd.AdInteractionListener() { // from class: com.martian.ads.ad.KsAd.9
-            final /* synthetic */ AdConfig val$adConfig;
-
-            public AnonymousClass9(AdConfig adConfig) {
-                adConfig = adConfig;
-            }
-
-            @Override // com.kwad.sdk.api.KsDrawAd.AdInteractionListener
-            public void onAdClicked() {
-                d8.a.this.l(adConfig);
-            }
-
-            @Override // com.kwad.sdk.api.KsDrawAd.AdInteractionListener
-            public void onAdShow() {
-                d8.a.this.b(adConfig);
-            }
-
-            @Override // com.kwad.sdk.api.KsDrawAd.AdInteractionListener
-            public void onVideoPlayEnd() {
-            }
-
-            @Override // com.kwad.sdk.api.KsDrawAd.AdInteractionListener
-            public void onVideoPlayError() {
-            }
-
-            @Override // com.kwad.sdk.api.KsDrawAd.AdInteractionListener
-            public void onVideoPlayPause() {
-            }
-
-            @Override // com.kwad.sdk.api.KsDrawAd.AdInteractionListener
-            public void onVideoPlayResume() {
-            }
-
-            @Override // com.kwad.sdk.api.KsDrawAd.AdInteractionListener
-            public void onVideoPlayStart() {
-            }
-        });
-        adViewHolder.videoView.setVisibility(0);
-        adViewHolder.videoView.removeAllViews();
-        adViewHolder.videoView.addView(drawView);
-    }
-
-    public static void bindFlowAd(Activity activity, AppTask appTask, ViewGroup viewGroup, View view, GroMoreAd.AdViewHolder adViewHolder, boolean z10, d8.a aVar) {
-        if (viewGroup == null) {
-            return;
-        }
+    public static void bindFlowAd(Activity activity, final AppTask appTask, ViewGroup adContainer, View adView, View creativeView, final b.d.a.k.a innerListener) {
         KsNativeAd ksNativeAd = (KsNativeAd) appTask.origin;
-        if (appTask.isBidding()) {
-            sendWinNotification(appTask);
+        if (ksNativeAd == null) {
+            return;
         }
-        HashMap hashMap = new HashMap();
-        if (adViewHolder != null) {
-            boolean z11 = (z10 || appTask.getComplianceInfo() == null || adViewHolder.complianceView == null) ? false : true;
-            Button button = adViewHolder.mCreativeButton;
-            if (button != null) {
-                hashMap.put(button, Integer.valueOf(z11 ? 1 : 2));
+        if (adContainer != null) {
+            if (adView == null) {
+                adView = adContainer;
             }
-            View view2 = adViewHolder.mCreativeButtonView;
-            if (view2 != null) {
-                hashMap.put(view2, Integer.valueOf(z11 ? 1 : 2));
+            HashMap hashMap = new HashMap();
+            hashMap.put(adView, 2);
+            if (creativeView != null) {
+                hashMap.put(creativeView, 1);
             }
-            if (adViewHolder.mCreativeButtonView != null) {
-                hashMap.put(viewGroup, Integer.valueOf(z11 ? 1 : 2));
-            }
-            if (adViewHolder.mCreativeButtonView != null) {
-                hashMap.put(view, Integer.valueOf(z11 ? 1 : 2));
-            }
-            if ((ksNativeAd.getMaterialType() == 1 || ksNativeAd.getMaterialType() == 8) && activity != null && adViewHolder.videoView != null) {
-                View videoView = ksNativeAd.getVideoView(activity, new KsAdVideoPlayConfig.Builder().videoSoundEnable(false).build());
-                adViewHolder.videoView.setVisibility(0);
-                adViewHolder.videoView.removeAllViews();
-                adViewHolder.videoView.addView(videoView);
-            }
-        } else {
-            hashMap.put(viewGroup, 2);
-            hashMap.put(view, 2);
-        }
-        ksNativeAd.registerViewForInteraction(activity, viewGroup, hashMap, new KsNativeAd.AdInteractionListener() { // from class: com.martian.ads.ad.KsAd.6
-            final /* synthetic */ AdConfig val$adConfig;
-
-            public AnonymousClass6(AdConfig adConfig) {
-                adConfig = adConfig;
-            }
-
-            @Override // com.kwad.sdk.api.KsNativeAd.AdInteractionListener
-            public boolean handleDownloadDialog(DialogInterface.OnClickListener onClickListener) {
-                return false;
-            }
-
-            @Override // com.kwad.sdk.api.KsNativeAd.AdInteractionListener
-            public void onAdClicked(View view3, KsNativeAd ksNativeAd2) {
-                d8.a aVar2 = d8.a.this;
-                if (aVar2 != null) {
-                    aVar2.l(adConfig);
-                }
-            }
-
-            @Override // com.kwad.sdk.api.KsNativeAd.AdInteractionListener
-            public void onAdShow(KsNativeAd ksNativeAd2) {
-                d8.a aVar2 = d8.a.this;
-                if (aVar2 != null) {
-                    aVar2.b(adConfig);
-                }
-            }
-
-            @Override // com.kwad.sdk.api.KsNativeAd.AdInteractionListener
-            public void onDownloadTipsDialogDismiss() {
-            }
-
-            @Override // com.kwad.sdk.api.KsNativeAd.AdInteractionListener
-            public void onDownloadTipsDialogShow() {
-            }
-        });
-        if (ksNativeAd.getInteractionType() == 1) {
-            ksNativeAd.setDownloadListener(new KsAppDownloadListener(appTask) { // from class: com.martian.ads.ad.KsAd.7
-                final WeakReference<d8.a> adReceiverWeakReference;
-                boolean isDownload = false;
+            ksNativeAd.registerViewForInteraction(activity, adContainer, hashMap, new KsNativeAd.AdInteractionListener() { // from class: com.martian.ads.ad.KsAd.6
                 final /* synthetic */ AppTask val$appTask;
 
-                public AnonymousClass7(AppTask appTask2) {
-                    this.val$appTask = appTask2;
-                    this.adReceiverWeakReference = new WeakReference<>(d8.a.this);
+                AnonymousClass6(final AppTask appTask2) {
+                    appTask = appTask2;
+                }
+
+                @Override // com.kwad.sdk.api.KsNativeAd.AdInteractionListener
+                public boolean handleDownloadDialog(DialogInterface.OnClickListener onClickListener) {
+                    return false;
+                }
+
+                @Override // com.kwad.sdk.api.KsNativeAd.AdInteractionListener
+                public void onAdClicked(View view, KsNativeAd ad2) {
+                    b.d.a.k.a.this.j(b.d.a.j.b.Q(appTask));
+                }
+
+                @Override // com.kwad.sdk.api.KsNativeAd.AdInteractionListener
+                public void onAdShow(KsNativeAd ad2) {
+                    b.d.a.j.b.J(appTask, b.d.a.k.a.this);
+                }
+
+                @Override // com.kwad.sdk.api.KsNativeAd.AdInteractionListener
+                public void onDownloadTipsDialogDismiss() {
+                }
+
+                @Override // com.kwad.sdk.api.KsNativeAd.AdInteractionListener
+                public void onDownloadTipsDialogShow() {
+                }
+            });
+        }
+        if (ksNativeAd.getInteractionType() == 1) {
+            ksNativeAd.setDownloadListener(new KsAppDownloadListener() { // from class: com.martian.ads.ad.KsAd.7
+                boolean isDownload = false;
+
+                AnonymousClass7() {
                 }
 
                 @Override // com.kwad.sdk.api.KsAppDownloadListener
@@ -733,12 +557,10 @@ public class KsAd extends BaseAd {
 
                 @Override // com.kwad.sdk.api.KsAppDownloadListener
                 public void onDownloadStarted() {
-                    d8.a aVar2 = this.adReceiverWeakReference.get();
-                    if (aVar2 == null || this.isDownload) {
+                    if (this.isDownload) {
                         return;
                     }
                     this.isDownload = true;
-                    aVar2.e(this.val$appTask);
                 }
 
                 @Override // com.kwad.sdk.api.KsAppDownloadListener
@@ -747,50 +569,28 @@ public class KsAd extends BaseAd {
 
                 @Override // com.kwad.sdk.api.KsAppDownloadListener
                 public void onInstalled() {
-                    d8.a aVar2 = this.adReceiverWeakReference.get();
-                    if (aVar2 != null) {
-                        aVar2.f(this.val$appTask);
-                    }
                 }
 
                 @Override // com.kwad.sdk.api.KsAppDownloadListener
-                public void onProgressUpdate(int i10) {
+                public void onProgressUpdate(int progress) {
                 }
             });
         }
-    }
-
-    private static String getAdnName(String str) {
-        if (TextUtils.isEmpty(str)) {
-            return AdnName.OTHER;
-        }
-        str.hashCode();
-        switch (str) {
-        }
-        return AdnName.OTHER;
-    }
-
-    public static boolean isKsDrawAd(AppTask appTask) {
-        return appTask != null && (appTask.origin instanceof KsDrawAd);
     }
 
     public static boolean isKsFlowAd(AppTask appTask) {
         return appTask != null && (appTask.origin instanceof KsNativeAd);
     }
 
-    public static boolean isKsSplashAd(AppTask appTask) {
-        return appTask.origin instanceof KsSplashScreenAd;
-    }
-
     private void loadInteractionAd() {
         if (KsAdSDK.getLoadManager() == null) {
-            onError(new c(-1, "未初始化"));
+            onError(new b.d.c.b.c(-1, "未初始化"));
         } else {
             KsAdSDK.getLoadManager().loadInterstitialAd(new KsScene.Builder(Long.parseLong(this.adConfig.getAdsId())).build(), new KsLoadManager.InterstitialAdListener() { // from class: com.martian.ads.ad.KsAd.5
 
                 /* renamed from: com.martian.ads.ad.KsAd$5$1 */
-                public class AnonymousClass1 implements KsInterstitialAd.AdInteractionListener {
-                    public AnonymousClass1() {
+                class AnonymousClass1 implements KsInterstitialAd.AdInteractionListener {
+                    AnonymousClass1() {
                     }
 
                     @Override // com.kwad.sdk.api.KsInterstitialAd.AdInteractionListener
@@ -823,7 +623,7 @@ public class KsAd extends BaseAd {
                     }
 
                     @Override // com.kwad.sdk.api.KsInterstitialAd.AdInteractionListener
-                    public void onVideoPlayError(int i10, int i11) {
+                    public void onVideoPlayError(int i2, int i1) {
                     }
 
                     @Override // com.kwad.sdk.api.KsInterstitialAd.AdInteractionListener
@@ -831,23 +631,23 @@ public class KsAd extends BaseAd {
                     }
                 }
 
-                public AnonymousClass5() {
+                AnonymousClass5() {
                 }
 
                 @Override // com.kwad.sdk.api.KsLoadManager.InterstitialAdListener
-                public void onError(int i10, String str) {
-                    KsAd.this.onError(new c(i10, str));
+                public void onError(int i2, String s) {
+                    KsAd.this.onError(new b.d.c.b.c(i2, s));
                 }
 
                 @Override // com.kwad.sdk.api.KsLoadManager.InterstitialAdListener
-                public void onInterstitialAdLoad(@Nullable List<KsInterstitialAd> list) {
-                    if (list == null || list.isEmpty() || list.get(0) == null) {
-                        KsAd.this.onError(new c(-1, "广告为空"));
+                public void onInterstitialAdLoad(@Nullable List<KsInterstitialAd> adList) {
+                    if (adList == null || adList.size() <= 0 || adList.get(0) == null) {
+                        KsAd.this.onError(new b.d.c.b.c(-1, "广告为空"));
                         return;
                     }
-                    KsInterstitialAd ksInterstitialAd = list.get(0);
+                    KsInterstitialAd ksInterstitialAd = adList.get(0);
                     ksInterstitialAd.setAdInteractionListener(new KsInterstitialAd.AdInteractionListener() { // from class: com.martian.ads.ad.KsAd.5.1
-                        public AnonymousClass1() {
+                        AnonymousClass1() {
                         }
 
                         @Override // com.kwad.sdk.api.KsInterstitialAd.AdInteractionListener
@@ -880,7 +680,7 @@ public class KsAd extends BaseAd {
                         }
 
                         @Override // com.kwad.sdk.api.KsInterstitialAd.AdInteractionListener
-                        public void onVideoPlayError(int i10, int i11) {
+                        public void onVideoPlayError(int i2, int i1) {
                         }
 
                         @Override // com.kwad.sdk.api.KsInterstitialAd.AdInteractionListener
@@ -889,15 +689,23 @@ public class KsAd extends BaseAd {
                     });
                     AppTask appTask = KsAd.this.adConfig.toAppTask();
                     appTask.origin = ksInterstitialAd;
-                    if (KsAd.this.adConfig.isBidding()) {
-                        KsAd.this.setBiddingEcpm(appTask, ksInterstitialAd.getECPM());
+                    int ecpm = ksInterstitialAd.getECPM();
+                    if (KsAd.this.adConfig.isBidding() || ecpm > 0) {
+                        if (KsAd.this.adConfig.getEcpmPercent() > 0.0d) {
+                            double d2 = ecpm;
+                            double ecpmPercent = KsAd.this.adConfig.getEcpmPercent();
+                            Double.isNaN(d2);
+                            ecpm = (int) ((d2 * ecpmPercent) / 100.0d);
+                        }
+                        appTask.setEcpm(ecpm);
+                        KsAd.this.adConfig.setEcpm(ecpm);
                     }
                     KsAd.this.getAppTaskList().addAppTask(appTask);
                     KsAd.this.onAdReceived();
                 }
 
                 @Override // com.kwad.sdk.api.KsLoadManager.InterstitialAdListener
-                public void onRequestResult(int i10) {
+                public void onRequestResult(int adNumber) {
                 }
             });
         }
@@ -905,27 +713,35 @@ public class KsAd extends BaseAd {
 
     private void loadSplashAds() {
         if (KsAdSDK.getLoadManager() == null) {
-            onError(new c(-1, "未初始化"));
+            onError(new b.d.c.b.c(-1, "未初始化"));
         } else {
             KsAdSDK.getLoadManager().loadSplashScreenAd(new KsScene.Builder(Long.parseLong(this.adConfig.getAdsId())).build(), new KsLoadManager.SplashScreenAdListener() { // from class: com.martian.ads.ad.KsAd.1
-                public AnonymousClass1() {
+                AnonymousClass1() {
                 }
 
                 @Override // com.kwad.sdk.api.KsLoadManager.SplashScreenAdListener
-                public void onError(int i10, String str) {
-                    KsAd.this.onError(new c(i10, str));
+                public void onError(int code, String msg) {
+                    KsAd.this.onError(new b.d.c.b.c(code, msg));
                 }
 
                 @Override // com.kwad.sdk.api.KsLoadManager.SplashScreenAdListener
-                public void onRequestResult(int i10) {
+                public void onRequestResult(int i2) {
                 }
 
                 @Override // com.kwad.sdk.api.KsLoadManager.SplashScreenAdListener
-                public void onSplashScreenAdLoad(KsSplashScreenAd ksSplashScreenAd) {
+                public void onSplashScreenAdLoad(KsSplashScreenAd splashScreenAd) {
                     AppTask appTask = KsAd.this.adConfig.toAppTask();
-                    appTask.origin = ksSplashScreenAd;
-                    if (KsAd.this.adConfig.isBidding()) {
-                        KsAd.this.setBiddingEcpm(appTask, ksSplashScreenAd.getECPM());
+                    appTask.origin = splashScreenAd;
+                    int ecpm = splashScreenAd.getECPM();
+                    if (KsAd.this.adConfig.isBidding() || ecpm > 0) {
+                        if (KsAd.this.adConfig.getEcpmPercent() > 0.0d) {
+                            double d2 = ecpm;
+                            double ecpmPercent = KsAd.this.adConfig.getEcpmPercent();
+                            Double.isNaN(d2);
+                            ecpm = (int) ((d2 * ecpmPercent) / 100.0d);
+                        }
+                        appTask.setEcpm(ecpm);
+                        KsAd.this.adConfig.setEcpm(ecpm);
                     }
                     KsAd.this.getAppTaskList().addAppTask(appTask);
                     KsAd.this.onAdReceived();
@@ -936,17 +752,17 @@ public class KsAd extends BaseAd {
 
     private void loadVideoAd() {
         if (KsAdSDK.getLoadManager() == null) {
-            onError(new c(-1, "未初始化"));
+            onError(new b.d.c.b.c(-1, "未初始化"));
             return;
         }
         this.mRewardVideoAd = null;
         KsAdSDK.getLoadManager().loadRewardVideoAd(new KsScene.Builder(Long.parseLong(this.adConfig.getAdsId())).build(), new KsLoadManager.RewardVideoAdListener() { // from class: com.martian.ads.ad.KsAd.4
 
             /* renamed from: com.martian.ads.ad.KsAd$4$1 */
-            public class AnonymousClass1 implements KsRewardVideoAd.RewardAdInteractionListener {
+            class AnonymousClass1 implements KsRewardVideoAd.RewardAdInteractionListener {
                 private boolean verify = false;
 
-                public AnonymousClass1() {
+                AnonymousClass1() {
                 }
 
                 @Override // com.kwad.sdk.api.KsRewardVideoAd.RewardAdInteractionListener
@@ -955,18 +771,17 @@ public class KsAd extends BaseAd {
                 }
 
                 @Override // com.kwad.sdk.api.KsRewardVideoAd.RewardAdInteractionListener
-                public void onExtraRewardVerify(int i10) {
+                public void onExtraRewardVerify(int i2) {
                 }
 
                 @Override // com.kwad.sdk.api.KsRewardVideoAd.RewardAdInteractionListener
                 public void onPageDismiss() {
                     KsAd.this.onClose();
                     KsAd.this.onRewardVerify(this.verify);
-                    KsAd.this.mRewardVideoAd = null;
                 }
 
                 @Override // com.kwad.sdk.api.KsRewardVideoAd.RewardAdInteractionListener
-                public void onRewardStepVerify(int i10, int i11) {
+                public void onRewardStepVerify(int i2, int i1) {
                 }
 
                 @Override // com.kwad.sdk.api.KsRewardVideoAd.RewardAdInteractionListener
@@ -979,8 +794,8 @@ public class KsAd extends BaseAd {
                 }
 
                 @Override // com.kwad.sdk.api.KsRewardVideoAd.RewardAdInteractionListener
-                public void onVideoPlayError(int i10, int i11) {
-                    KsAd.this.onError(new c(i10, "" + i11));
+                public void onVideoPlayError(int code, int extra) {
+                    KsAd.this.onError(new b.d.c.b.c(code, "" + extra));
                 }
 
                 @Override // com.kwad.sdk.api.KsRewardVideoAd.RewardAdInteractionListener
@@ -989,39 +804,34 @@ public class KsAd extends BaseAd {
                 }
 
                 @Override // com.kwad.sdk.api.KsRewardVideoAd.RewardAdInteractionListener
-                public void onVideoSkipToEnd(long j10) {
-                }
-
-                @Override // com.kwad.sdk.api.KsRewardVideoAd.RewardAdInteractionListener
-                public void onRewardVerify(Map<String, Object> map) {
-                    this.verify = true;
+                public void onVideoSkipToEnd(long l) {
                 }
             }
 
-            public AnonymousClass4() {
+            AnonymousClass4() {
             }
 
             @Override // com.kwad.sdk.api.KsLoadManager.RewardVideoAdListener
-            public void onError(int i10, String str) {
-                KsAd.this.onError(new c(i10, str));
+            public void onError(int code, String msg) {
+                KsAd.this.onError(new b.d.c.b.c(code, msg));
             }
 
             @Override // com.kwad.sdk.api.KsLoadManager.RewardVideoAdListener
-            public void onRewardVideoAdLoad(@Nullable List<KsRewardVideoAd> list) {
-                if (list == null || list.isEmpty()) {
-                    KsAd.this.onError(new c(-1, "广告为空"));
+            public void onRewardVideoAdLoad(@Nullable List<KsRewardVideoAd> adList) {
+                if (adList == null || adList.isEmpty()) {
+                    KsAd.this.onError(new b.d.c.b.c(-1, "广告为空"));
                     return;
                 }
-                KsAd.this.mRewardVideoAd = list.get(0);
+                KsAd.this.mRewardVideoAd = adList.get(0);
                 KsRewardVideoAd ksRewardVideoAd = KsAd.this.mRewardVideoAd;
                 if (ksRewardVideoAd == null || !ksRewardVideoAd.isAdEnable()) {
-                    KsAd.this.onError(new c(-1, "广告无效"));
+                    KsAd.this.onError(new b.d.c.b.c(-1, "广告无效"));
                     return;
                 }
                 KsAd.this.mRewardVideoAd.setRewardAdInteractionListener(new KsRewardVideoAd.RewardAdInteractionListener() { // from class: com.martian.ads.ad.KsAd.4.1
                     private boolean verify = false;
 
-                    public AnonymousClass1() {
+                    AnonymousClass1() {
                     }
 
                     @Override // com.kwad.sdk.api.KsRewardVideoAd.RewardAdInteractionListener
@@ -1030,18 +840,17 @@ public class KsAd extends BaseAd {
                     }
 
                     @Override // com.kwad.sdk.api.KsRewardVideoAd.RewardAdInteractionListener
-                    public void onExtraRewardVerify(int i10) {
+                    public void onExtraRewardVerify(int i2) {
                     }
 
                     @Override // com.kwad.sdk.api.KsRewardVideoAd.RewardAdInteractionListener
                     public void onPageDismiss() {
                         KsAd.this.onClose();
                         KsAd.this.onRewardVerify(this.verify);
-                        KsAd.this.mRewardVideoAd = null;
                     }
 
                     @Override // com.kwad.sdk.api.KsRewardVideoAd.RewardAdInteractionListener
-                    public void onRewardStepVerify(int i10, int i11) {
+                    public void onRewardStepVerify(int i2, int i1) {
                     }
 
                     @Override // com.kwad.sdk.api.KsRewardVideoAd.RewardAdInteractionListener
@@ -1054,8 +863,8 @@ public class KsAd extends BaseAd {
                     }
 
                     @Override // com.kwad.sdk.api.KsRewardVideoAd.RewardAdInteractionListener
-                    public void onVideoPlayError(int i10, int i11) {
-                        KsAd.this.onError(new c(i10, "" + i11));
+                    public void onVideoPlayError(int code, int extra) {
+                        KsAd.this.onError(new b.d.c.b.c(code, "" + extra));
                     }
 
                     @Override // com.kwad.sdk.api.KsRewardVideoAd.RewardAdInteractionListener
@@ -1064,20 +873,22 @@ public class KsAd extends BaseAd {
                     }
 
                     @Override // com.kwad.sdk.api.KsRewardVideoAd.RewardAdInteractionListener
-                    public void onVideoSkipToEnd(long j10) {
-                    }
-
-                    @Override // com.kwad.sdk.api.KsRewardVideoAd.RewardAdInteractionListener
-                    public void onRewardVerify(Map<String, Object> map) {
-                        this.verify = true;
+                    public void onVideoSkipToEnd(long l) {
                     }
                 });
                 AppTask appTask = KsAd.this.adConfig.toAppTask();
                 KsAd ksAd = KsAd.this;
                 appTask.origin = ksAd.mRewardVideoAd;
-                if (ksAd.adConfig.isBidding()) {
-                    KsAd ksAd2 = KsAd.this;
-                    ksAd2.setBiddingEcpm(appTask, ksAd2.mRewardVideoAd.getECPM());
+                if (ksAd.adConfig.isBidding() || KsAd.this.mRewardVideoAd.getECPM() > 0) {
+                    int ecpm = KsAd.this.mRewardVideoAd.getECPM();
+                    if (KsAd.this.adConfig.getEcpmPercent() > 0.0d) {
+                        double d2 = ecpm;
+                        double ecpmPercent = KsAd.this.adConfig.getEcpmPercent();
+                        Double.isNaN(d2);
+                        ecpm = (int) ((d2 * ecpmPercent) / 100.0d);
+                    }
+                    appTask.setEcpm(ecpm);
+                    KsAd.this.adConfig.setEcpm(ecpm);
                 }
                 KsAd.this.getAppTaskList().addAppTask(appTask);
                 KsAd.this.onAdReceived();
@@ -1089,119 +900,83 @@ public class KsAd extends BaseAd {
         });
     }
 
-    public static void sendDrawLossNotification(int i10, @NonNull KsDrawAd ksDrawAd) {
+    public static void sendInterstitialLossNotification(int winPrice, @NonNull KsInterstitialAd mKsInterstitialAd) {
         AdExposureFailedReason adExposureFailedReason = new AdExposureFailedReason();
-        adExposureFailedReason.winEcpm = i10;
-        ksDrawAd.reportAdExposureFailed(2, adExposureFailedReason);
+        adExposureFailedReason.winEcpm = winPrice;
+        mKsInterstitialAd.reportAdExposureFailed(2, adExposureFailedReason);
     }
 
-    public static void sendDrawWinNotification(@NonNull AppTask appTask) {
-        ((KsDrawAd) appTask.origin).setBidEcpm(appTask.getOriginalEcpm(), appTask.getLoseEcpm());
-    }
-
-    public static void sendInterstitialLossNotification(int i10, @NonNull KsInterstitialAd ksInterstitialAd) {
+    public static void sendLossNotification(int winPrice, @NonNull KsNativeAd ksNativeAd) {
         AdExposureFailedReason adExposureFailedReason = new AdExposureFailedReason();
-        adExposureFailedReason.winEcpm = i10;
-        ksInterstitialAd.reportAdExposureFailed(2, adExposureFailedReason);
-    }
-
-    public static void sendLossNotification(AppTask appTask, int i10, String str, @NonNull KsNativeAd ksNativeAd) {
-        AdExposureFailedReason adExposureFailedReason = new AdExposureFailedReason();
-        adExposureFailedReason.winEcpm = i10;
-        adExposureFailedReason.setIsShow(1);
-        adExposureFailedReason.setIsClick(2);
-        if (!TextUtils.isEmpty(str)) {
-            adExposureFailedReason.adnType = str.equals("KS") ? 1 : 2;
-            adExposureFailedReason.adnName = getAdnName(str);
-        }
-        if (appTask != null) {
-            if (appTask.getComplianceInfo() != null && !TextUtils.isEmpty(appTask.getComplianceInfo().getAppDeveloperName())) {
-                adExposureFailedReason.setAdUserName(appTask.getComplianceInfo().getAppDeveloperName());
-            }
-            if (!TextUtils.isEmpty(appTask.getTitle())) {
-                adExposureFailedReason.setAdTitle(appTask.getTitle());
-            }
-            if (!TextUtils.isEmpty(appTask.f12000id)) {
-                adExposureFailedReason.setAdRequestId(appTask.f12000id);
-            }
-        }
+        adExposureFailedReason.winEcpm = winPrice;
         ksNativeAd.reportAdExposureFailed(2, adExposureFailedReason);
     }
 
-    public static void sendSplashLossNotification(int i10, @NonNull KsSplashScreenAd ksSplashScreenAd) {
+    public static void sendSplashLossNotification(int winPrice, @NonNull KsSplashScreenAd SplashAd) {
         AdExposureFailedReason adExposureFailedReason = new AdExposureFailedReason();
-        adExposureFailedReason.winEcpm = i10;
-        ksSplashScreenAd.reportAdExposureFailed(2, adExposureFailedReason);
+        adExposureFailedReason.winEcpm = winPrice;
+        SplashAd.reportAdExposureFailed(2, adExposureFailedReason);
     }
 
-    public static void sendVideoLossNotification(int i10, @NonNull KsRewardVideoAd ksRewardVideoAd) {
+    public static void sendVideoLossNotification(int winPrice, @NonNull KsRewardVideoAd rewardVideoAd) {
         AdExposureFailedReason adExposureFailedReason = new AdExposureFailedReason();
-        adExposureFailedReason.winEcpm = i10;
-        ksRewardVideoAd.reportAdExposureFailed(2, adExposureFailedReason);
+        adExposureFailedReason.winEcpm = winPrice;
+        rewardVideoAd.reportAdExposureFailed(2, adExposureFailedReason);
     }
 
-    public static void sendWinNotification(@NonNull AppTask appTask) {
-        ((KsNativeAd) appTask.origin).setBidEcpm(appTask.getOriginalEcpm(), appTask.getLoseEcpm());
+    public static void sendWinNotification(@NonNull KsNativeAd ksNativeAd) {
+        ksNativeAd.setBidEcpm(ksNativeAd.getECPM());
     }
 
-    public void setBiddingEcpm(AppTask appTask, int i10) {
-        if (i10 > 0 && this.adConfig.getEcpmPercent() > l5.c.f27899e) {
-            appTask.setOriginalEcpm(i10);
-            i10 = (int) ((i10 * this.adConfig.getEcpmPercent()) / 100.0d);
+    public static boolean showInterstitialAd(Activity activity, KsInterstitialAd mKsInterstitialAd, boolean isBidding) {
+        if (isBidding) {
+            mKsInterstitialAd.setBidEcpm(mKsInterstitialAd.getECPM());
         }
-        appTask.setEcpm(i10);
-        this.adConfig.setEcpm(i10);
+        mKsInterstitialAd.showInterstitialAd(activity, new KsVideoPlayConfig.Builder().videoSoundEnable(false).build());
+        return true;
     }
 
-    public static void showInterstitialAd(Activity activity, AppTask appTask) {
-        KsInterstitialAd ksInterstitialAd = (KsInterstitialAd) appTask.origin;
-        if (appTask.isBidding()) {
-            ksInterstitialAd.setBidEcpm(ksInterstitialAd.getECPM());
-        }
-        ksInterstitialAd.showInterstitialAd(activity, new KsVideoPlayConfig.Builder().videoSoundEnable(false).build());
-    }
-
-    public static void showSplashAd(Activity activity, AppTask appTask, ViewGroup viewGroup, d8.a aVar) {
+    public static void showSplashAd(Activity activity, AppTask appTask, ViewGroup viewGroup, b.d.a.k.a receiver) {
         KsSplashScreenAd ksSplashScreenAd = (KsSplashScreenAd) appTask.origin;
         if (appTask.isBidding()) {
             ksSplashScreenAd.setBidEcpm(ksSplashScreenAd.getECPM());
         }
-        View view = ksSplashScreenAd.getView(activity, new KsSplashScreenAd.SplashScreenAdInteractionListener() { // from class: com.martian.ads.ad.KsAd.2
+        viewGroup.addView(ksSplashScreenAd.getView(activity, new KsSplashScreenAd.SplashScreenAdInteractionListener() { // from class: com.martian.ads.ad.KsAd.2
             final /* synthetic */ AdConfig val$adConfig;
 
-            public AnonymousClass2(AdConfig adConfig) {
-                adConfig = adConfig;
+            AnonymousClass2(final AdConfig val$receiver) {
+                Q = val$receiver;
             }
 
             @Override // com.kwad.sdk.api.KsSplashScreenAd.SplashScreenAdInteractionListener
             public void onAdClicked() {
-                d8.a aVar2 = d8.a.this;
-                if (aVar2 != null) {
-                    aVar2.l(adConfig);
+                b.d.a.k.a aVar = b.d.a.k.a.this;
+                if (aVar != null) {
+                    aVar.j(Q);
                 }
             }
 
             @Override // com.kwad.sdk.api.KsSplashScreenAd.SplashScreenAdInteractionListener
             public void onAdShowEnd() {
-                d8.a aVar2 = d8.a.this;
-                if (aVar2 != null) {
-                    aVar2.g(adConfig);
+                b.d.a.k.a aVar = b.d.a.k.a.this;
+                if (aVar != null) {
+                    aVar.c(Q);
                 }
             }
 
             @Override // com.kwad.sdk.api.KsSplashScreenAd.SplashScreenAdInteractionListener
-            public void onAdShowError(int i10, String str) {
-                d8.a aVar2 = d8.a.this;
-                if (aVar2 != null) {
-                    aVar2.c(adConfig, null);
+            public void onAdShowError(int code, String extra) {
+                b.d.a.k.a aVar = b.d.a.k.a.this;
+                if (aVar != null) {
+                    aVar.g(Q, null);
                 }
             }
 
             @Override // com.kwad.sdk.api.KsSplashScreenAd.SplashScreenAdInteractionListener
             public void onAdShowStart() {
-                d8.a aVar2 = d8.a.this;
-                if (aVar2 != null) {
-                    aVar2.b(adConfig);
+                b.d.a.k.a aVar = b.d.a.k.a.this;
+                if (aVar != null) {
+                    aVar.a(Q);
                 }
             }
 
@@ -1219,79 +994,70 @@ public class KsAd extends BaseAd {
 
             @Override // com.kwad.sdk.api.KsSplashScreenAd.SplashScreenAdInteractionListener
             public void onSkippedAd() {
-                d8.a aVar2 = d8.a.this;
-                if (aVar2 != null) {
-                    aVar2.d(adConfig);
+                b.d.a.k.a aVar = b.d.a.k.a.this;
+                if (aVar != null) {
+                    aVar.b(Q);
                 }
             }
-        });
-        if (view != null) {
-            viewGroup.addView(view);
-        }
+        }));
     }
 
-    public static void showVideoAd(Activity activity, @NonNull KsRewardVideoAd ksRewardVideoAd, boolean z10) {
-        if (z10) {
-            ksRewardVideoAd.setBidEcpm(ksRewardVideoAd.getECPM());
+    public static void showVideoAd(Activity activity, @NonNull KsRewardVideoAd rewardVideoAd, boolean isBidding) {
+        if (isBidding) {
+            rewardVideoAd.setBidEcpm(rewardVideoAd.getECPM());
         }
-        ksRewardVideoAd.showRewardVideoAd(activity, null);
+        rewardVideoAd.showRewardVideoAd(activity, null);
     }
 
-    public AppTask toAppTask(KsNativeAd ksNativeAd) {
+    public AppTask toAppTask(Activity activity, KsNativeAd adData) {
+        View videoView;
         AppTask appTask = this.adConfig.toAppTask();
-        appTask.origin = ksNativeAd;
-        if (!l.q(ksNativeAd.getAppName())) {
-            appTask.title = ConfigSingleton.D().s(ksNativeAd.getAppName());
+        appTask.origin = adData;
+        if (!k.p(adData.getAppName())) {
+            appTask.title = h.F().n(adData.getAppName());
         }
-        appTask.desc = ConfigSingleton.D().s(ksNativeAd.getAdDescription());
-        if (!l.q(ksNativeAd.getAppDownloadCountDes())) {
-            appTask.appPromote = ConfigSingleton.D().s(ksNativeAd.getAppDownloadCountDes());
-        } else if (ksNativeAd.getAppScore() > 0.0f) {
-            appTask.appPromote = ksNativeAd.getAppScore() + "分";
+        appTask.desc = h.F().n(adData.getAdDescription());
+        if (!k.p(adData.getAppDownloadCountDes())) {
+            appTask.appPromote = h.F().n(adData.getAppDownloadCountDes());
+        } else if (adData.getAppScore() > 0.0f) {
+            appTask.appPromote = adData.getAppScore() + "分";
         } else {
-            appTask.appPromote = ConfigSingleton.D().s("赞助正版章节");
+            appTask.appPromote = h.F().n("赞助正版章节");
         }
-        if (ksNativeAd.getInteractionType() == 1) {
-            appTask.buttonText = ConfigSingleton.D().s("立即下载");
-            if (!l.q(ksNativeAd.getAppName()) && !l.q(ksNativeAd.getCorporationName()) && !l.q(ksNativeAd.getAppPrivacyUrl())) {
-                ComplianceInfo complianceInfo = new ComplianceInfo();
-                complianceInfo.setAppName(ksNativeAd.getAppName());
-                complianceInfo.setAppVersion(ksNativeAd.getAppVersion());
-                complianceInfo.setAppDeveloperName(ksNativeAd.getCorporationName());
-                complianceInfo.setAppPermissionUrl(ksNativeAd.getPermissionInfoUrl());
-                complianceInfo.setAppPrivacyUrl(ksNativeAd.getAppPrivacyUrl());
-                complianceInfo.setAppFunctionDescUrl(ksNativeAd.getIntroductionInfoUrl());
-                appTask.setComplianceInfo(complianceInfo);
+        if (!k.p(adData.getActionDescription())) {
+            appTask.buttonText = h.F().n(adData.getActionDescription());
+        }
+        if (adData.getECPM() > 0) {
+            int ecpm = adData.getECPM();
+            if (this.adConfig.getEcpmPercent() > 0.0d) {
+                double d2 = ecpm;
+                double ecpmPercent = this.adConfig.getEcpmPercent();
+                Double.isNaN(d2);
+                ecpm = (int) ((d2 * ecpmPercent) / 100.0d);
             }
-        } else {
-            String actionDescription = ksNativeAd.getActionDescription();
-            if (!l.q(actionDescription) && !actionDescription.contains("0")) {
-                appTask.buttonText = ConfigSingleton.D().s(actionDescription);
-            }
+            appTask.setEcpm(ecpm);
+            this.adConfig.setEcpm(ecpm);
         }
-        if (this.adConfig.isBidding()) {
-            setBiddingEcpm(appTask, ksNativeAd.getECPM());
+        appTask.packageName = adData.getAppPackageName();
+        appTask.name = adData.getAppName();
+        if (!k.p(adData.getAppIconUrl())) {
+            appTask.iconUrl = adData.getAppIconUrl();
         }
-        appTask.packageName = ksNativeAd.getAppPackageName();
-        appTask.name = ksNativeAd.getAppName();
-        if (!l.q(ksNativeAd.getAppIconUrl())) {
-            appTask.iconUrl = ksNativeAd.getAppIconUrl();
+        if (adData.getVideoWidth() > 0) {
+            appTask.setPicWidth(adData.getVideoWidth());
         }
-        if (ksNativeAd.getVideoWidth() > 0) {
-            appTask.setPicWidth(ksNativeAd.getVideoWidth());
+        if (adData.getVideoHeight() > 0) {
+            appTask.setPicHeight(adData.getVideoHeight());
         }
-        if (ksNativeAd.getVideoHeight() > 0) {
-            appTask.setPicHeight(ksNativeAd.getVideoHeight());
-        }
-        List<KsImage> imageList = ksNativeAd.getImageList();
-        if (imageList != null && !imageList.isEmpty()) {
+        List<KsImage> imageList = adData.getImageList();
+        if (imageList != null && imageList.size() > 0) {
             Iterator<KsImage> it = imageList.iterator();
             while (true) {
                 if (!it.hasNext()) {
                     break;
                 }
                 KsImage next = it.next();
-                if (appTask.getPosterUrls().isEmpty()) {
+                if (appTask.getPosterUrls().size() <= 0) {
                     if (next.getHeight() > 0) {
                         appTask.setPicHeight(next.getHeight());
                     }
@@ -1299,14 +1065,14 @@ public class KsAd extends BaseAd {
                         appTask.setPicWidth(next.getWidth());
                     }
                     appTask.addPosterUrl(next.getImageUrl());
-                } else if (l.q(appTask.iconUrl)) {
+                } else if (k.p(appTask.iconUrl)) {
                     appTask.iconUrl = next.getImageUrl();
                 }
             }
-        } else if (ksNativeAd.getVideoCoverImage() == null || l.q(ksNativeAd.getVideoCoverImage().getImageUrl())) {
-            appTask.addPosterUrl(ksNativeAd.getAppIconUrl());
+        } else if (adData.getVideoCoverImage() == null || k.p(adData.getVideoCoverImage().getImageUrl())) {
+            appTask.addPosterUrl(adData.getAppIconUrl());
         } else {
-            KsImage videoCoverImage = ksNativeAd.getVideoCoverImage();
+            KsImage videoCoverImage = adData.getVideoCoverImage();
             if (videoCoverImage.getHeight() > 0) {
                 appTask.setPicHeight(videoCoverImage.getHeight());
             }
@@ -1315,157 +1081,72 @@ public class KsAd extends BaseAd {
             }
             appTask.addPosterUrl(videoCoverImage.getImageUrl());
         }
-        if (l.q(appTask.iconUrl)) {
+        if (k.p(appTask.iconUrl)) {
             appTask.iconUrl = appTask.getPosterUrl();
+        }
+        if (this.adConfig.isWifiEnv() && adData.getMaterialType() == 1 && activity != null && (videoView = adData.getVideoView(activity, new KsAdVideoPlayConfig.Builder().videoSoundEnable(false).build())) != null) {
+            appTask.isVideoAd = true;
+            appTask.videoView = new ViewWrapper(videoView);
         }
         return appTask;
     }
 
     @Override // com.martian.ads.ad.BaseAd
-    public void loadAds(Context context) {
-        char c10;
+    protected boolean adCanceled() {
+        return this.cancelLoading;
+    }
+
+    @Override // com.martian.ads.ad.BaseAd
+    public void cancelLoading() {
+        this.cancelLoading = true;
+    }
+
+    @Override // com.martian.ads.ad.BaseAd
+    public void loadAds(Activity activity) {
         try {
-            onAdRequest();
-            String type = this.adConfig.getType();
-            switch (type.hashCode()) {
-                case -1052618729:
-                    if (type.equals(AdConfig.AdType.NATIVE)) {
-                        c10 = 0;
-                        break;
-                    }
-                    c10 = 65535;
-                    break;
-                case -895866265:
-                    if (type.equals("splash")) {
-                        c10 = 2;
-                        break;
-                    }
-                    c10 = 65535;
-                    break;
-                case 3091780:
-                    if (type.equals("draw")) {
-                        c10 = 1;
-                        break;
-                    }
-                    c10 = 65535;
-                    break;
-                case 604727084:
-                    if (type.equals("interstitial")) {
-                        c10 = 3;
-                        break;
-                    }
-                    c10 = 65535;
-                    break;
-                case 2087282539:
-                    if (type.equals(AdConfig.AdType.REWARD_VIDEO)) {
-                        c10 = 4;
-                        break;
-                    }
-                    c10 = 65535;
-                    break;
-                default:
-                    c10 = 65535;
-                    break;
-            }
-            if (c10 == 0) {
-                loadFlowAds();
-                return;
-            }
-            if (c10 == 1) {
-                loadDrawAds(context);
-                return;
-            }
-            if (c10 == 2) {
+            if ("splash".equalsIgnoreCase(this.adConfig.getType())) {
                 loadSplashAds();
-                return;
-            }
-            if (c10 == 3) {
-                loadInteractionAd();
-            } else if (c10 != 4) {
-                onError(null);
-            } else {
+            } else if (AdConfig.AdType.REWARD_VIDEO.equalsIgnoreCase(this.adConfig.getType())) {
                 loadVideoAd();
+            } else if (AdConfig.AdType.INTERSTITIAL.equalsIgnoreCase(this.adConfig.getType())) {
+                loadInteractionAd();
+            } else {
+                loadFlowAds(activity);
             }
         } catch (Exception unused) {
-            onError(new c(-1, "异常"));
+            onError(new b.d.c.b.c(-1, "异常"));
         }
     }
 
-    public void loadDrawAds(Context context) {
+    protected void loadFlowAds(Activity activity) {
         if (KsAdSDK.getLoadManager() == null) {
-            onError(new c(-1, "未初始化"));
-        } else {
-            KsAdSDK.getLoadManager().loadDrawAd(new KsScene.Builder(Long.parseLong(this.adConfig.getAdsId())).adNum(this.adConfig.getAdsCount()).build(), new KsLoadManager.DrawAdListener() { // from class: com.martian.ads.ad.KsAd.8
-                final /* synthetic */ Context val$context;
-
-                public AnonymousClass8(Context context2) {
-                    context = context2;
-                }
-
-                @Override // com.kwad.sdk.api.KsLoadManager.DrawAdListener
-                public void onDrawAdLoad(@Nullable List<KsDrawAd> list) {
-                    if (list == null || list.isEmpty()) {
-                        KsAd.this.onError(null);
-                        return;
-                    }
-                    for (KsDrawAd ksDrawAd : list) {
-                        if (ksDrawAd != null && ksDrawAd.getDrawView(context) != null) {
-                            ksDrawAd.setVideoSoundEnable(false);
-                            KsAd.this.getAppTaskList().addAppTask(KsAd.this.toAppTask(ksDrawAd));
-                        }
-                    }
-                    if (KsAd.this.getAppTaskList().isEmpty()) {
-                        KsAd.this.onError(null);
-                    } else {
-                        KsAd.this.onAdReceived();
-                    }
-                }
-
-                @Override // com.kwad.sdk.api.KsLoadManager.DrawAdListener
-                public void onError(int i10, String str) {
-                    KsAd.this.onError(new c(i10, str));
-                }
-            });
-        }
-    }
-
-    public void loadFlowAds() {
-        if (KsAdSDK.getLoadManager() == null) {
-            onError(new c(-1, "未初始化"));
+            onError(new b.d.c.b.c(-1, "未初始化"));
         } else {
             KsAdSDK.getLoadManager().loadNativeAd(new KsScene.Builder(Long.parseLong(this.adConfig.getAdsId())).adNum(this.adConfig.getAdsCount()).build(), new KsLoadManager.NativeAdListener() { // from class: com.martian.ads.ad.KsAd.3
-                public AnonymousClass3() {
+                final /* synthetic */ Activity val$activity;
+
+                AnonymousClass3(Activity activity2) {
+                    activity = activity2;
                 }
 
                 @Override // com.kwad.sdk.api.KsLoadManager.NativeAdListener
-                public void onError(int i10, String str) {
-                    KsAd.this.onError(new c(i10, str));
+                public void onError(int code, String msg) {
+                    KsAd.this.onError(new b.d.c.b.c(code, msg));
                 }
 
                 @Override // com.kwad.sdk.api.KsLoadManager.NativeAdListener
-                public void onNativeAdLoad(@Nullable List<KsNativeAd> list) {
-                    if (list == null || list.isEmpty()) {
+                public void onNativeAdLoad(@Nullable List<KsNativeAd> adList) {
+                    if (adList == null || adList.isEmpty()) {
                         KsAd.this.onError(null);
                         return;
                     }
-                    Iterator<KsNativeAd> it = list.iterator();
+                    Iterator<KsNativeAd> it = adList.iterator();
                     while (it.hasNext()) {
-                        KsAd.this.getAppTaskList().addAppTask(KsAd.this.toAppTask(it.next()));
+                        KsAd.this.getAppTaskList().addAppTask(KsAd.this.toAppTask(activity, it.next()));
                     }
                     KsAd.this.onAdReceived();
                 }
             });
         }
-    }
-
-    public AppTask toAppTask(KsDrawAd ksDrawAd) {
-        AppTask appTask = this.adConfig.toAppTask();
-        appTask.origin = ksDrawAd;
-        if (this.adConfig.isBidding()) {
-            setBiddingEcpm(appTask, ksDrawAd.getECPM());
-        }
-        appTask.setPicWidth(900);
-        appTask.setPicHeight(1600);
-        return appTask;
     }
 }

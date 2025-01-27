@@ -50,8 +50,8 @@ public class TinkerManager {
     public static boolean patchRestartOnScreenOff = true;
 
     /* renamed from: com.tencent.bugly.beta.tinker.TinkerManager$1 */
-    public class AnonymousClass1 implements TinkerUtils.ScreenState.IOnScreenOff {
-        public AnonymousClass1() {
+    class AnonymousClass1 implements TinkerUtils.ScreenState.IOnScreenOff {
+        AnonymousClass1() {
         }
 
         @Override // com.tencent.bugly.beta.tinker.TinkerUtils.ScreenState.IOnScreenOff
@@ -61,8 +61,8 @@ public class TinkerManager {
     }
 
     /* renamed from: com.tencent.bugly.beta.tinker.TinkerManager$2 */
-    public class AnonymousClass2 implements Runnable {
-        public AnonymousClass2() {
+    class AnonymousClass2 implements Runnable {
+        AnonymousClass2() {
         }
 
         @Override // java.lang.Runnable
@@ -175,8 +175,8 @@ public class TinkerManager {
         }
     }
 
-    public static void setPatchRestartOnScreenOff(boolean z10) {
-        patchRestartOnScreenOff = z10;
+    public static void setPatchRestartOnScreenOff(boolean z) {
+        patchRestartOnScreenOff = z;
     }
 
     private void setTinkerApplicationLike(ApplicationLike applicationLike) {
@@ -186,8 +186,8 @@ public class TinkerManager {
         }
     }
 
-    public static void setUpgradeRetryEnable(boolean z10) {
-        UpgradePatchRetry.getInstance(getTinkerApplicationLike().getApplication()).setRetryEnable(z10);
+    public static void setUpgradeRetryEnable(boolean z) {
+        UpgradePatchRetry.getInstance(getTinkerApplicationLike().getApplication()).setRetryEnable(z);
     }
 
     public static void unregistJavaCrashHandler() {
@@ -222,15 +222,15 @@ public class TinkerManager {
             java.lang.String r1 = "From"
             r2 = 0
             java.lang.Object[] r3 = new java.lang.Object[r2]
-            java.lang.String r4 = "check if has new patch."
-            java.lang.String r5 = "Tinker.TinkerManager"
-            com.tencent.tinker.lib.util.TinkerLog.d(r5, r4, r3)
+            java.lang.String r4 = "Tinker.TinkerManager"
+            java.lang.String r5 = "check if has new patch."
+            com.tencent.tinker.lib.util.TinkerLog.d(r4, r5, r3)
             java.lang.String r3 = getTinkerId()
             com.tencent.bugly.beta.tinker.TinkerManager.apkOriginalBuildNum = r3
             java.lang.String r3 = getNewTinkerId()
             com.tencent.bugly.beta.tinker.TinkerManager.patchCurBuildNum = r3
             boolean r3 = android.text.TextUtils.isEmpty(r7)
-            r4 = 1
+            r5 = 1
             if (r3 == 0) goto L23
             r7 = 0
             goto L2f
@@ -268,7 +268,7 @@ public class TinkerManager {
             if (r3 != 0) goto L64
             java.lang.String r7 = "patchCurBuildNum is null"
             java.lang.Object[] r0 = new java.lang.Object[r2]     // Catch: java.lang.Exception -> L86
-            com.tencent.tinker.lib.util.TinkerLog.e(r5, r7, r0)     // Catch: java.lang.Exception -> L86
+            com.tencent.tinker.lib.util.TinkerLog.e(r4, r7, r0)     // Catch: java.lang.Exception -> L86
             return r2
         L64:
             java.lang.String r1 = r7.getProperty(r1)     // Catch: java.lang.Exception -> L86
@@ -281,17 +281,17 @@ public class TinkerManager {
         L76:
             java.lang.String r7 = "orign buildno invalid"
             java.lang.Object[] r0 = new java.lang.Object[r2]     // Catch: java.lang.Exception -> L86
-            com.tencent.tinker.lib.util.TinkerLog.e(r5, r7, r0)     // Catch: java.lang.Exception -> L86
+            com.tencent.tinker.lib.util.TinkerLog.e(r4, r7, r0)     // Catch: java.lang.Exception -> L86
             goto L8f
         L7e:
             java.lang.String r7 = "From/To is null"
             java.lang.Object[] r0 = new java.lang.Object[r2]     // Catch: java.lang.Exception -> L86
-            com.tencent.tinker.lib.util.TinkerLog.e(r5, r7, r0)     // Catch: java.lang.Exception -> L86
+            com.tencent.tinker.lib.util.TinkerLog.e(r4, r7, r0)     // Catch: java.lang.Exception -> L86
             return r2
         L86:
             java.lang.Object[] r7 = new java.lang.Object[r2]
             java.lang.String r0 = "get properties failed"
-            com.tencent.tinker.lib.util.TinkerLog.e(r5, r0, r7)
+            com.tencent.tinker.lib.util.TinkerLog.e(r4, r0, r7)
             goto L8f
         L8e:
             r2 = r7
@@ -301,8 +301,8 @@ public class TinkerManager {
         throw new UnsupportedOperationException("Method not decompiled: com.tencent.bugly.beta.tinker.TinkerManager.checkNewPatch(java.lang.String):boolean");
     }
 
-    public void cleanPatch(boolean z10) {
-        onPatchRollback(z10);
+    public void cleanPatch(boolean z) {
+        onPatchRollback(z);
     }
 
     public File getPatchDirectory(Context context) {
@@ -334,31 +334,31 @@ public class TinkerManager {
         }
     }
 
-    public void onDownloadSuccess(String str, boolean z10) {
+    public void onDownloadSuccess(String str, boolean z) {
         try {
             TinkerLog.d(TAG, "onDownloadSuccess.", new Object[0]);
             TinkerListener tinkerListener = this.tinkerListener;
             if (tinkerListener != null) {
                 tinkerListener.onDownloadSuccess(str);
             }
-            applyPatch(str, z10);
+            applyPatch(str, z);
         } catch (Exception unused) {
             TinkerLog.e(TAG, "apply patch failed", new Object[0]);
         }
     }
 
-    public void onPatchRollback(boolean z10) {
+    public void onPatchRollback(boolean z) {
         if (!Tinker.with(getApplication()).isTinkerLoaded()) {
             TinkerLog.w("Tinker.PatchRequestCallback", "TinkerPatchRequestCallback: onPatchRollback, tinker is not loaded, just return", new Object[0]);
             return;
         }
-        if (z10) {
+        if (z) {
             TinkerLog.i(TAG, "delete patch now", new Object[0]);
             TinkerUtils.rollbackPatch(getApplication());
         } else {
             TinkerLog.i(TAG, "tinker wait screen to restart process", new Object[0]);
             new TinkerUtils.ScreenState(getApplication(), new TinkerUtils.ScreenState.IOnScreenOff() { // from class: com.tencent.bugly.beta.tinker.TinkerManager.1
-                public AnonymousClass1() {
+                AnonymousClass1() {
                 }
 
                 @Override // com.tencent.bugly.beta.tinker.TinkerUtils.ScreenState.IOnScreenOff
@@ -368,7 +368,7 @@ public class TinkerManager {
             });
         }
         new Handler(Looper.getMainLooper()).post(new Runnable() { // from class: com.tencent.bugly.beta.tinker.TinkerManager.2
-            public AnonymousClass2() {
+            AnonymousClass2() {
             }
 
             @Override // java.lang.Runnable
@@ -430,28 +430,26 @@ public class TinkerManager {
         installTinker(obj);
     }
 
-    public void applyPatch(String str, boolean z10) {
-        File file;
+    public void applyPatch(String str, boolean z) {
         try {
-            File file2 = new File(this.applicationLike.getApplication().getDir(PATCH_DIR, 0).getAbsolutePath(), PATCH_NAME);
+            File file = new File(this.applicationLike.getApplication().getDir(PATCH_DIR, 0).getAbsolutePath(), PATCH_NAME);
+            File file2 = null;
             if (checkNewPatch(str)) {
                 TinkerLog.d(TAG, "has new patch.", new Object[0]);
-                file = new File(str);
-                TinkerUtils.copy(file, file2);
-            } else {
-                file = null;
+                file2 = new File(str);
+                TinkerUtils.copy(file2, file);
             }
-            if (!file2.exists()) {
+            if (!file.exists()) {
                 TinkerLog.d(TAG, "patch not exist, just return.", new Object[0]);
             } else {
-                if (file == null || !z10) {
+                if (file2 == null || !z) {
                     return;
                 }
                 TinkerLog.d(TAG, "starting patch.", new Object[0]);
-                applyPatch(this.applicationLike.getApplication(), file.getAbsolutePath());
+                applyPatch(this.applicationLike.getApplication(), file2.getAbsolutePath());
             }
-        } catch (Exception e10) {
-            TinkerLog.e(TAG, e10.getMessage(), new Object[0]);
+        } catch (Exception e2) {
+            TinkerLog.e(TAG, e2.getMessage(), new Object[0]);
         }
     }
 }

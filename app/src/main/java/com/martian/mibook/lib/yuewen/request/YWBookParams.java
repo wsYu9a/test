@@ -1,9 +1,9 @@
 package com.martian.mibook.lib.yuewen.request;
 
+import com.martian.libcomm.http.requests.d.a;
 import com.martian.mibook.lib.account.request.TYHttpGetParams;
-import v8.a;
 
-/* loaded from: classes3.dex */
+/* loaded from: classes4.dex */
 public class YWBookParams extends TYHttpGetParams {
 
     @a
@@ -13,12 +13,12 @@ public class YWBookParams extends TYHttpGetParams {
         return this.cbid;
     }
 
-    @Override // u8.b
+    @Override // com.martian.libcomm.http.requests.b
     public String getRequestMethod() {
         return "yw/book";
     }
 
-    public void setCbid(Long l10) {
-        this.cbid = l10;
+    public void setCbid(Long cbid) {
+        this.cbid = cbid;
     }
 }

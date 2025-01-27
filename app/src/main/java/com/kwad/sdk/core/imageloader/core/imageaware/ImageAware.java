@@ -5,7 +5,7 @@ import android.graphics.drawable.Drawable;
 import android.view.View;
 import com.kwad.sdk.core.imageloader.core.assist.ViewScaleType;
 
-/* loaded from: classes3.dex */
+/* loaded from: classes2.dex */
 public interface ImageAware {
     int getHeight();
 

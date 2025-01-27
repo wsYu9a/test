@@ -23,19 +23,19 @@ public class TYWithdrawBookCoins {
         return this.promotion;
     }
 
-    public void setBookCoins(Integer num) {
-        this.bookCoins = num;
+    public void setBookCoins(Integer bookCoins) {
+        this.bookCoins = bookCoins;
     }
 
-    public void setDesc(String str) {
-        this.desc = str;
+    public void setDesc(String desc) {
+        this.desc = desc;
     }
 
-    public void setMoney(Integer num) {
-        this.money = num;
+    public void setMoney(Integer money) {
+        this.money = money;
     }
 
-    public void setPromotion(String str) {
-        this.promotion = str;
+    public void setPromotion(String promotion) {
+        this.promotion = promotion;
     }
 }

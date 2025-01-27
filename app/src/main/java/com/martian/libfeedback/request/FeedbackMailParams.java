@@ -1,8 +1,8 @@
 package com.martian.libfeedback.request;
 
-import v8.c;
+import com.martian.libcomm.http.requests.d.c;
 
-/* loaded from: classes3.dex */
+/* loaded from: classes2.dex */
 public class FeedbackMailParams extends FeedbacklTaskHttpPostParams {
 
     @c
@@ -12,12 +12,12 @@ public class FeedbackMailParams extends FeedbacklTaskHttpPostParams {
         return this.mail;
     }
 
-    @Override // u8.b
+    @Override // com.martian.libcomm.http.requests.b
     public String getRequestMethod() {
         return "auth/feedback/apply_user_info";
     }
 
-    public void setMail(String str) {
-        this.mail = str;
+    public void setMail(String mail) {
+        this.mail = mail;
     }
 }

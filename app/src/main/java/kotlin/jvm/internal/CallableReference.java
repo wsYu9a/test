@@ -14,30 +14,18 @@ import kotlin.reflect.KType;
 import kotlin.reflect.KTypeParameter;
 import kotlin.reflect.KVisibility;
 
-/* loaded from: classes4.dex */
+/* loaded from: classes5.dex */
 public abstract class CallableReference implements KCallable, Serializable {
 
     @SinceKotlin(version = "1.1")
     public static final Object NO_RECEIVER = NoReceiver.INSTANCE;
 
-    @SinceKotlin(version = "1.4")
-    private final boolean isTopLevel;
-
-    @SinceKotlin(version = "1.4")
-    private final String name;
-
-    @SinceKotlin(version = "1.4")
-    private final Class owner;
-
     @SinceKotlin(version = "1.1")
     protected final Object receiver;
     private transient KCallable reflected;
 
-    @SinceKotlin(version = "1.4")
-    private final String signature;
-
     @SinceKotlin(version = "1.2")
-    public static class NoReceiver implements Serializable {
+    private static class NoReceiver implements Serializable {
         private static final NoReceiver INSTANCE = new NoReceiver();
 
         private NoReceiver() {
@@ -73,7 +61,7 @@ public abstract class CallableReference implements KCallable, Serializable {
         return computeReflected;
     }
 
-    public abstract KCallable computeReflected();
+    protected abstract KCallable computeReflected();
 
     @Override // kotlin.reflect.KAnnotatedElement
     public List<Annotation> getAnnotations() {
@@ -87,15 +75,11 @@ public abstract class CallableReference implements KCallable, Serializable {
 
     @Override // kotlin.reflect.KCallable
     public String getName() {
-        return this.name;
+        throw new AbstractMethodError();
     }
 
     public KDeclarationContainer getOwner() {
-        Class cls = this.owner;
-        if (cls == null) {
-            return null;
-        }
-        return this.isTopLevel ? Reflection.getOrCreateKotlinPackage(cls) : Reflection.getOrCreateKotlinClass(cls);
+        throw new AbstractMethodError();
     }
 
     @Override // kotlin.reflect.KCallable
@@ -104,7 +88,7 @@ public abstract class CallableReference implements KCallable, Serializable {
     }
 
     @SinceKotlin(version = "1.1")
-    public KCallable getReflected() {
+    protected KCallable getReflected() {
         KCallable compute = compute();
         if (compute != this) {
             return compute;
@@ -118,7 +102,7 @@ public abstract class CallableReference implements KCallable, Serializable {
     }
 
     public String getSignature() {
-        return this.signature;
+        throw new AbstractMethodError();
     }
 
     @Override // kotlin.reflect.KCallable
@@ -158,16 +142,7 @@ public abstract class CallableReference implements KCallable, Serializable {
     }
 
     @SinceKotlin(version = "1.1")
-    public CallableReference(Object obj) {
-        this(obj, null, null, null, false);
-    }
-
-    @SinceKotlin(version = "1.4")
-    public CallableReference(Object obj, Class cls, String str, String str2, boolean z10) {
+    protected CallableReference(Object obj) {
         this.receiver = obj;
-        this.owner = cls;
-        this.name = str;
-        this.signature = str2;
-        this.isTopLevel = z10;
     }
 }

@@ -5,10 +5,10 @@ import android.content.Context;
 import android.os.Handler;
 import android.os.Message;
 import androidx.annotation.NonNull;
-import com.kwad.sdk.core.network.f;
-import com.kwad.sdk.core.report.e;
-import com.kwad.sdk.core.report.u;
-import com.kwad.sdk.core.response.model.BaseResultData;
+import com.kwad.sdk.core.network.BaseResultData;
+import com.kwad.sdk.core.network.g;
+import com.kwad.sdk.core.report.f;
+import com.kwad.sdk.core.response.model.BatchReportResult;
 import com.kwad.sdk.core.threads.GlobalThreadPools;
 import com.kwad.sdk.service.ServiceProvider;
 import java.util.ArrayList;
@@ -18,54 +18,52 @@ import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.concurrent.atomic.AtomicInteger;
 import org.json.JSONObject;
 
-/* loaded from: classes3.dex */
-public abstract class b<T extends e, R extends com.kwad.sdk.core.network.f> {
-    private static ExecutorService aBx;
-
-    /* renamed from: hf */
-    private static volatile Handler f11969hf;
-    private T aBA;
+/* loaded from: classes2.dex */
+public abstract class b<T extends f, R extends com.kwad.sdk.core.network.g> {
+    private static ExecutorService ahX;
+    private static volatile Handler mHandler;
+    private T aia;
     private Context mContext;
-    private volatile long VN = 120000;
-    protected l aBw = new m();
-    private AtomicInteger aBy = new AtomicInteger(0);
+    private volatile long ahV = 120000;
+    private n ahW = new p();
+    private AtomicInteger ahY = new AtomicInteger(0);
     private AtomicInteger mRetryCount = new AtomicInteger(0);
-    private int aBz = 5;
+    private int ahZ = 5;
 
     /* renamed from: com.kwad.sdk.core.report.b$1 */
-    public class AnonymousClass1 implements Runnable {
-        final /* synthetic */ k aBB;
+    final class AnonymousClass1 implements Runnable {
+        final /* synthetic */ m aib;
 
-        public AnonymousClass1(k kVar) {
-            kVar = kVar;
+        AnonymousClass1(m mVar) {
+            mVar = mVar;
         }
 
         @Override // java.lang.Runnable
         public final void run() {
-            if (b.f11969hf != null && !b.f11969hf.hasMessages(R.attr.childDivider)) {
+            if (b.mHandler != null && !b.mHandler.hasMessages(R.attr.childDivider)) {
                 b bVar = b.this;
-                bVar.az(bVar.VN);
+                bVar.R(bVar.ahV);
             }
-            e Gl = kVar.Gl();
-            if (Gl != null) {
-                b.this.aBw.j(Gl);
+            f wT = mVar.wT();
+            if (wT != null) {
+                b.this.ahW.e(wT);
             }
-            if (b.this.Gg()) {
-                b.this.Gh();
+            if (b.this.wO()) {
+                b.this.wP();
             }
         }
     }
 
     /* renamed from: com.kwad.sdk.core.report.b$2 */
-    public class AnonymousClass2 extends com.kwad.sdk.core.network.l<R, BatchReportResult> {
-        final /* synthetic */ List aBD;
+    final class AnonymousClass2 extends com.kwad.sdk.core.network.m<R, BatchReportResult> {
+        final /* synthetic */ List aid;
 
-        public AnonymousClass2(List list) {
+        AnonymousClass2(List list) {
             list = list;
         }
 
         @NonNull
-        private static BatchReportResult ez(String str) {
+        private static BatchReportResult cx(String str) {
             JSONObject jSONObject = new JSONObject(str);
             BatchReportResult batchReportResult = new BatchReportResult();
             batchReportResult.parseJson(jSONObject);
@@ -75,76 +73,70 @@ public abstract class b<T extends e, R extends com.kwad.sdk.core.network.f> {
         @Override // com.kwad.sdk.core.network.a
         @NonNull
         public final R createRequest() {
-            return (R) b.this.w(list);
+            return (R) b.this.n(list);
         }
 
-        @Override // com.kwad.sdk.core.network.l
+        @Override // com.kwad.sdk.core.network.m
         public final boolean enableMonitorReport() {
             return false;
         }
 
         @Override // com.kwad.sdk.core.network.a
         public final ExecutorService getExecutor() {
-            return b.aBx;
+            return b.ahX;
         }
 
-        @Override // com.kwad.sdk.core.network.l
+        @Override // com.kwad.sdk.core.network.m
         @NonNull
         public final /* synthetic */ BatchReportResult parseData(String str) {
-            return ez(str);
+            return cx(str);
         }
     }
 
     /* renamed from: com.kwad.sdk.core.report.b$3 */
-    public class AnonymousClass3 extends com.kwad.sdk.core.network.o<R, BatchReportResult> {
-        final /* synthetic */ List aBD;
-        final /* synthetic */ u.a aBE;
-        final /* synthetic */ AtomicBoolean aBF;
+    final class AnonymousClass3 extends com.kwad.sdk.core.network.p<R, BatchReportResult> {
+        final /* synthetic */ List aid;
+        final /* synthetic */ AtomicBoolean aie;
 
-        public AnonymousClass3(List list, u.a aVar, AtomicBoolean atomicBoolean) {
+        AnonymousClass3(List list, AtomicBoolean atomicBoolean) {
             list = list;
-            aVar = aVar;
             atomicBoolean = atomicBoolean;
         }
 
         private void a(@NonNull BatchReportResult batchReportResult) {
-            b.this.aBw.x(list);
-            u.a aVar = aVar;
-            if (aVar != null) {
-                aVar.GE();
+            b.this.ahW.o(list);
+            if (b.this.ahY.decrementAndGet() == 0 && atomicBoolean.get()) {
+                b.this.wQ();
             }
-            if (b.this.aBy.decrementAndGet() == 0 && atomicBoolean.get()) {
-                b.this.Gi();
-            }
-            b.this.ay(batchReportResult.getInterval());
+            b.this.Q(batchReportResult.getInterval());
             b bVar = b.this;
-            bVar.az(bVar.VN);
+            bVar.R(bVar.ahV);
         }
 
-        @Override // com.kwad.sdk.core.network.o, com.kwad.sdk.core.network.g
-        public final void onError(@NonNull R r10, int i10, String str) {
+        @Override // com.kwad.sdk.core.network.p, com.kwad.sdk.core.network.h
+        public final void onError(@NonNull R r, int i2, String str) {
             atomicBoolean.set(true);
-            if (b.this.aBy.decrementAndGet() == 0) {
-                b.this.Gi();
+            if (b.this.ahY.decrementAndGet() == 0) {
+                b.this.wQ();
             }
         }
 
-        @Override // com.kwad.sdk.core.network.o, com.kwad.sdk.core.network.g
-        public final /* synthetic */ void onSuccess(@NonNull com.kwad.sdk.core.network.f fVar, @NonNull BaseResultData baseResultData) {
+        @Override // com.kwad.sdk.core.network.p, com.kwad.sdk.core.network.h
+        public final /* synthetic */ void onSuccess(@NonNull com.kwad.sdk.core.network.g gVar, @NonNull BaseResultData baseResultData) {
             a((BatchReportResult) baseResultData);
         }
     }
 
     /* renamed from: com.kwad.sdk.core.report.b$4 */
-    public class AnonymousClass4 extends com.kwad.sdk.core.network.l<R, BatchReportResult> {
-        final /* synthetic */ k aBB;
+    final class AnonymousClass4 extends com.kwad.sdk.core.network.m<R, BatchReportResult> {
+        final /* synthetic */ m aib;
 
-        public AnonymousClass4(k kVar) {
-            kVar = kVar;
+        AnonymousClass4(m mVar) {
+            mVar = mVar;
         }
 
         @NonNull
-        private static BatchReportResult ez(String str) {
+        private static BatchReportResult cx(String str) {
             JSONObject jSONObject = new JSONObject(str);
             BatchReportResult batchReportResult = new BatchReportResult();
             batchReportResult.parseJson(jSONObject);
@@ -155,137 +147,96 @@ public abstract class b<T extends e, R extends com.kwad.sdk.core.network.f> {
         @Override // com.kwad.sdk.core.network.a
         @NonNull
         public final R createRequest() {
-            e Gl = kVar.Gl();
-            b.this.aBA = Gl;
-            return (R) b.this.a((b) Gl);
+            f wT = mVar.wT();
+            b.this.aia = wT;
+            return (R) b.this.a((b) wT);
         }
 
-        @Override // com.kwad.sdk.core.network.l
+        @Override // com.kwad.sdk.core.network.m
         public final boolean enableMonitorReport() {
             return false;
         }
 
         @Override // com.kwad.sdk.core.network.a
         public final ExecutorService getExecutor() {
-            return b.aBx;
+            return b.ahX;
         }
 
-        @Override // com.kwad.sdk.core.network.l
+        @Override // com.kwad.sdk.core.network.m
         @NonNull
         public final /* synthetic */ BatchReportResult parseData(String str) {
-            return ez(str);
+            return cx(str);
         }
     }
 
     /* renamed from: com.kwad.sdk.core.report.b$5 */
-    public class AnonymousClass5 extends com.kwad.sdk.core.network.o<R, BatchReportResult> {
+    final class AnonymousClass5 extends com.kwad.sdk.core.network.p<R, BatchReportResult> {
 
         /* renamed from: com.kwad.sdk.core.report.b$5$1 */
-        public class AnonymousClass1 implements k<T> {
-            public AnonymousClass1() {
+        final class AnonymousClass1 implements m<T> {
+            AnonymousClass1() {
             }
 
-            @Override // com.kwad.sdk.core.report.k
+            @Override // com.kwad.sdk.core.report.m
             @NonNull
-            public final T Gl() {
-                return (T) b.this.aBA;
+            public final T wT() {
+                return (T) b.this.aia;
             }
         }
 
-        public AnonymousClass5() {
+        AnonymousClass5() {
         }
 
         private void a(@NonNull BatchReportResult batchReportResult) {
-            com.kwad.sdk.core.d.c.d("BaseBatchReporter", "立即上报 onSuccess action= " + b.this.aBA + " result " + batchReportResult.getResult());
+            com.kwad.sdk.core.d.b.d("BaseBatchReporter", "立即上报 onSuccess action= " + b.this.aia + " result " + batchReportResult.getResult());
         }
 
-        @Override // com.kwad.sdk.core.network.o, com.kwad.sdk.core.network.g
-        public final void onError(@NonNull R r10, int i10, String str) {
-            com.kwad.sdk.core.d.c.e("BaseBatchReporter", "立即上报 onError errorCode:" + i10 + " errorMsg:" + str + "\naction=" + b.this.aBA);
-            b.this.a(new k<T>() { // from class: com.kwad.sdk.core.report.b.5.1
-                public AnonymousClass1() {
+        @Override // com.kwad.sdk.core.network.p, com.kwad.sdk.core.network.h
+        public final void onError(@NonNull R r, int i2, String str) {
+            b.this.a(new m<T>() { // from class: com.kwad.sdk.core.report.b.5.1
+                AnonymousClass1() {
                 }
 
-                @Override // com.kwad.sdk.core.report.k
+                @Override // com.kwad.sdk.core.report.m
                 @NonNull
-                public final T Gl() {
-                    return (T) b.this.aBA;
+                public final T wT() {
+                    return (T) b.this.aia;
                 }
             });
         }
 
-        @Override // com.kwad.sdk.core.network.o, com.kwad.sdk.core.network.g
-        public final /* synthetic */ void onSuccess(@NonNull com.kwad.sdk.core.network.f fVar, @NonNull BaseResultData baseResultData) {
+        @Override // com.kwad.sdk.core.network.p, com.kwad.sdk.core.network.h
+        public final /* synthetic */ void onSuccess(@NonNull com.kwad.sdk.core.network.g gVar, @NonNull BaseResultData baseResultData) {
             a((BatchReportResult) baseResultData);
         }
     }
 
-    public b() {
-        if (aBx == null) {
-            aBx = GlobalThreadPools.Hn();
+    protected b() {
+        if (ahX == null) {
+            ahX = GlobalThreadPools.xP();
         }
     }
 
-    public void Gi() {
-        int andIncrement = this.mRetryCount.getAndIncrement();
-        if (andIncrement <= this.aBz) {
-            if (andIncrement > 0) {
-                this.VN *= 2;
-            }
-            az(this.VN);
-        }
-    }
-
-    public synchronized void az(long j10) {
-        if (f11969hf == null) {
+    public synchronized void R(long j2) {
+        if (mHandler == null) {
             return;
         }
-        f11969hf.removeMessages(R.attr.childDivider);
-        Message obtain = Message.obtain(f11969hf, a(this.mContext, this.aBw, this.aBy));
+        mHandler.removeMessages(R.attr.childDivider);
+        Message obtain = Message.obtain(mHandler, a(this.mContext, this.ahW, this.ahY));
         obtain.what = R.attr.childDivider;
-        f11969hf.sendMessageDelayed(obtain, j10);
+        mHandler.sendMessageDelayed(obtain, j2);
     }
 
-    public final boolean Gg() {
-        int i10 = this.mRetryCount.get();
-        if (i10 > 16) {
-            i10 = 16;
-        }
-        s sVar = (s) ServiceProvider.get(s.class);
-        return this.aBw.size() >= (sVar != null ? (long) (sVar.zy() << i10) : 20L);
-    }
+    private void c(@NonNull m<T> mVar) {
+        new com.kwad.sdk.core.network.m<R, BatchReportResult>() { // from class: com.kwad.sdk.core.report.b.4
+            final /* synthetic */ m aib;
 
-    public final void Gh() {
-        az(0L);
-    }
-
-    public final void ay(long j10) {
-        if (j10 < 60) {
-            this.VN = 60000L;
-        } else {
-            this.VN = j10 * 1000;
-        }
-    }
-
-    public synchronized void j(Context context, int i10) {
-        this.mContext = context;
-        if (f11969hf == null) {
-            f11969hf = com.kwad.sdk.core.threads.a.Hg();
-        }
-    }
-
-    public abstract R w(List<T> list);
-
-    private void c(@NonNull k<T> kVar) {
-        new com.kwad.sdk.core.network.l<R, BatchReportResult>() { // from class: com.kwad.sdk.core.report.b.4
-            final /* synthetic */ k aBB;
-
-            public AnonymousClass4(k kVar2) {
-                kVar = kVar2;
+            AnonymousClass4(m mVar2) {
+                mVar = mVar2;
             }
 
             @NonNull
-            private static BatchReportResult ez(String str) {
+            private static BatchReportResult cx(String str) {
                 JSONObject jSONObject = new JSONObject(str);
                 BatchReportResult batchReportResult = new BatchReportResult();
                 batchReportResult.parseJson(jSONObject);
@@ -296,124 +247,144 @@ public abstract class b<T extends e, R extends com.kwad.sdk.core.network.f> {
             @Override // com.kwad.sdk.core.network.a
             @NonNull
             public final R createRequest() {
-                e Gl = kVar.Gl();
-                b.this.aBA = Gl;
-                return (R) b.this.a((b) Gl);
+                f wT = mVar.wT();
+                b.this.aia = wT;
+                return (R) b.this.a((b) wT);
             }
 
-            @Override // com.kwad.sdk.core.network.l
+            @Override // com.kwad.sdk.core.network.m
             public final boolean enableMonitorReport() {
                 return false;
             }
 
             @Override // com.kwad.sdk.core.network.a
             public final ExecutorService getExecutor() {
-                return b.aBx;
+                return b.ahX;
             }
 
-            @Override // com.kwad.sdk.core.network.l
+            @Override // com.kwad.sdk.core.network.m
             @NonNull
             public final /* synthetic */ BatchReportResult parseData(String str) {
-                return ez(str);
+                return cx(str);
             }
-        }.request(new com.kwad.sdk.core.network.o<R, BatchReportResult>() { // from class: com.kwad.sdk.core.report.b.5
+        }.request(new com.kwad.sdk.core.network.p<R, BatchReportResult>() { // from class: com.kwad.sdk.core.report.b.5
 
             /* renamed from: com.kwad.sdk.core.report.b$5$1 */
-            public class AnonymousClass1 implements k<T> {
-                public AnonymousClass1() {
+            final class AnonymousClass1 implements m<T> {
+                AnonymousClass1() {
                 }
 
-                @Override // com.kwad.sdk.core.report.k
+                @Override // com.kwad.sdk.core.report.m
                 @NonNull
-                public final T Gl() {
-                    return (T) b.this.aBA;
+                public final T wT() {
+                    return (T) b.this.aia;
                 }
             }
 
-            public AnonymousClass5() {
+            AnonymousClass5() {
             }
 
             private void a(@NonNull BatchReportResult batchReportResult) {
-                com.kwad.sdk.core.d.c.d("BaseBatchReporter", "立即上报 onSuccess action= " + b.this.aBA + " result " + batchReportResult.getResult());
+                com.kwad.sdk.core.d.b.d("BaseBatchReporter", "立即上报 onSuccess action= " + b.this.aia + " result " + batchReportResult.getResult());
             }
 
-            @Override // com.kwad.sdk.core.network.o, com.kwad.sdk.core.network.g
-            public final void onError(@NonNull R r10, int i10, String str) {
-                com.kwad.sdk.core.d.c.e("BaseBatchReporter", "立即上报 onError errorCode:" + i10 + " errorMsg:" + str + "\naction=" + b.this.aBA);
-                b.this.a(new k<T>() { // from class: com.kwad.sdk.core.report.b.5.1
-                    public AnonymousClass1() {
+            @Override // com.kwad.sdk.core.network.p, com.kwad.sdk.core.network.h
+            public final void onError(@NonNull R r, int i2, String str) {
+                b.this.a(new m<T>() { // from class: com.kwad.sdk.core.report.b.5.1
+                    AnonymousClass1() {
                     }
 
-                    @Override // com.kwad.sdk.core.report.k
+                    @Override // com.kwad.sdk.core.report.m
                     @NonNull
-                    public final T Gl() {
-                        return (T) b.this.aBA;
+                    public final T wT() {
+                        return (T) b.this.aia;
                     }
                 });
             }
 
-            @Override // com.kwad.sdk.core.network.o, com.kwad.sdk.core.network.g
-            public final /* synthetic */ void onSuccess(@NonNull com.kwad.sdk.core.network.f fVar, @NonNull BaseResultData baseResultData) {
+            @Override // com.kwad.sdk.core.network.p, com.kwad.sdk.core.network.h
+            public final /* synthetic */ void onSuccess(@NonNull com.kwad.sdk.core.network.g gVar, @NonNull BaseResultData baseResultData) {
                 a((BatchReportResult) baseResultData);
             }
         });
     }
 
-    public final void b(@NonNull k<T> kVar) {
-        try {
-            c(kVar);
-        } catch (Throwable th2) {
-            ((com.kwad.sdk.service.a.e) ServiceProvider.get(com.kwad.sdk.service.a.e.class)).gatherException(th2);
+    public boolean wO() {
+        int i2 = this.mRetryCount.get();
+        if (i2 > 16) {
+            i2 = 16;
+        }
+        v vVar = (v) ServiceProvider.get(v.class);
+        return this.ahW.size() >= (vVar != null ? (long) (vVar.su() << i2) : 20L);
+    }
+
+    public void wQ() {
+        int andIncrement = this.mRetryCount.getAndIncrement();
+        if (andIncrement <= this.ahZ) {
+            if (andIncrement > 0) {
+                this.ahV *= 2;
+            }
+            R(this.ahV);
         }
     }
 
-    public final void a(l lVar) {
-        this.aBw = lVar;
+    protected final void Q(long j2) {
+        this.ahV = j2 < 60 ? 60000L : j2 * 1000;
     }
 
-    public final void a(@NonNull k<T> kVar) {
-        aBx.execute(new Runnable() { // from class: com.kwad.sdk.core.report.b.1
-            final /* synthetic */ k aBB;
+    protected R a(T t) {
+        ArrayList arrayList = new ArrayList();
+        arrayList.add(t);
+        return n(arrayList);
+    }
 
-            public AnonymousClass1(k kVar2) {
-                kVar = kVar2;
+    protected Runnable a(Context context, n<T> nVar, AtomicInteger atomicInteger) {
+        return new z(context, nVar, this, atomicInteger);
+    }
+
+    public final void a(@NonNull m<T> mVar) {
+        ahX.execute(new Runnable() { // from class: com.kwad.sdk.core.report.b.1
+            final /* synthetic */ m aib;
+
+            AnonymousClass1(m mVar2) {
+                mVar = mVar2;
             }
 
             @Override // java.lang.Runnable
             public final void run() {
-                if (b.f11969hf != null && !b.f11969hf.hasMessages(R.attr.childDivider)) {
+                if (b.mHandler != null && !b.mHandler.hasMessages(R.attr.childDivider)) {
                     b bVar = b.this;
-                    bVar.az(bVar.VN);
+                    bVar.R(bVar.ahV);
                 }
-                e Gl = kVar.Gl();
-                if (Gl != null) {
-                    b.this.aBw.j(Gl);
+                f wT = mVar.wT();
+                if (wT != null) {
+                    b.this.ahW.e(wT);
                 }
-                if (b.this.Gg()) {
-                    b.this.Gh();
+                if (b.this.wO()) {
+                    b.this.wP();
                 }
             }
         });
     }
 
-    public Runnable a(Context context, l<T> lVar, AtomicInteger atomicInteger) {
-        return new u(context, lVar, this, atomicInteger);
+    protected final void a(n nVar) {
+        this.ahW = nVar;
     }
 
-    public final void a(List<T> list, AtomicBoolean atomicBoolean, u.a aVar) {
+    public final void a(List<T> list, AtomicBoolean atomicBoolean) {
         if (list == null || list.size() <= 0) {
             return;
         }
-        this.aBy.getAndIncrement();
-        new com.kwad.sdk.core.network.l<R, BatchReportResult>() { // from class: com.kwad.sdk.core.report.b.2
-            final /* synthetic */ List aBD;
+        this.ahY.getAndIncrement();
+        new com.kwad.sdk.core.network.m<R, BatchReportResult>() { // from class: com.kwad.sdk.core.report.b.2
+            final /* synthetic */ List aid;
 
-            public AnonymousClass2(List list2) {
+            AnonymousClass2(List list2) {
                 list = list2;
             }
 
             @NonNull
-            private static BatchReportResult ez(String str) {
+            private static BatchReportResult cx(String str) {
                 JSONObject jSONObject = new JSONObject(str);
                 BatchReportResult batchReportResult = new BatchReportResult();
                 batchReportResult.parseJson(jSONObject);
@@ -423,67 +394,76 @@ public abstract class b<T extends e, R extends com.kwad.sdk.core.network.f> {
             @Override // com.kwad.sdk.core.network.a
             @NonNull
             public final R createRequest() {
-                return (R) b.this.w(list);
+                return (R) b.this.n(list);
             }
 
-            @Override // com.kwad.sdk.core.network.l
+            @Override // com.kwad.sdk.core.network.m
             public final boolean enableMonitorReport() {
                 return false;
             }
 
             @Override // com.kwad.sdk.core.network.a
             public final ExecutorService getExecutor() {
-                return b.aBx;
+                return b.ahX;
             }
 
-            @Override // com.kwad.sdk.core.network.l
+            @Override // com.kwad.sdk.core.network.m
             @NonNull
             public final /* synthetic */ BatchReportResult parseData(String str) {
-                return ez(str);
+                return cx(str);
             }
-        }.request(new com.kwad.sdk.core.network.o<R, BatchReportResult>() { // from class: com.kwad.sdk.core.report.b.3
-            final /* synthetic */ List aBD;
-            final /* synthetic */ u.a aBE;
-            final /* synthetic */ AtomicBoolean aBF;
+        }.request(new com.kwad.sdk.core.network.p<R, BatchReportResult>() { // from class: com.kwad.sdk.core.report.b.3
+            final /* synthetic */ List aid;
+            final /* synthetic */ AtomicBoolean aie;
 
-            public AnonymousClass3(List list2, u.a aVar2, AtomicBoolean atomicBoolean2) {
+            AnonymousClass3(List list2, AtomicBoolean atomicBoolean2) {
                 list = list2;
-                aVar = aVar2;
                 atomicBoolean = atomicBoolean2;
             }
 
             private void a(@NonNull BatchReportResult batchReportResult) {
-                b.this.aBw.x(list);
-                u.a aVar2 = aVar;
-                if (aVar2 != null) {
-                    aVar2.GE();
+                b.this.ahW.o(list);
+                if (b.this.ahY.decrementAndGet() == 0 && atomicBoolean.get()) {
+                    b.this.wQ();
                 }
-                if (b.this.aBy.decrementAndGet() == 0 && atomicBoolean.get()) {
-                    b.this.Gi();
-                }
-                b.this.ay(batchReportResult.getInterval());
+                b.this.Q(batchReportResult.getInterval());
                 b bVar = b.this;
-                bVar.az(bVar.VN);
+                bVar.R(bVar.ahV);
             }
 
-            @Override // com.kwad.sdk.core.network.o, com.kwad.sdk.core.network.g
-            public final void onError(@NonNull R r10, int i10, String str) {
+            @Override // com.kwad.sdk.core.network.p, com.kwad.sdk.core.network.h
+            public final void onError(@NonNull R r, int i2, String str) {
                 atomicBoolean.set(true);
-                if (b.this.aBy.decrementAndGet() == 0) {
-                    b.this.Gi();
+                if (b.this.ahY.decrementAndGet() == 0) {
+                    b.this.wQ();
                 }
             }
 
-            @Override // com.kwad.sdk.core.network.o, com.kwad.sdk.core.network.g
-            public final /* synthetic */ void onSuccess(@NonNull com.kwad.sdk.core.network.f fVar, @NonNull BaseResultData baseResultData) {
+            @Override // com.kwad.sdk.core.network.p, com.kwad.sdk.core.network.h
+            public final /* synthetic */ void onSuccess(@NonNull com.kwad.sdk.core.network.g gVar, @NonNull BaseResultData baseResultData) {
                 a((BatchReportResult) baseResultData);
             }
         });
     }
 
-    public R a(T t10) {
-        ArrayList arrayList = new ArrayList();
-        arrayList.add(t10);
-        return w(arrayList);
+    public final void b(@NonNull m<T> mVar) {
+        try {
+            c(mVar);
+        } catch (Throwable th) {
+            ((com.kwad.sdk.service.kwai.d) ServiceProvider.get(com.kwad.sdk.service.kwai.d.class)).gatherException(th);
+        }
+    }
+
+    public synchronized void i(Context context, int i2) {
+        this.mContext = context;
+        if (mHandler == null) {
+            mHandler = com.kwad.sdk.core.threads.a.xJ();
+        }
+    }
+
+    protected abstract R n(List<T> list);
+
+    public final void wP() {
+        R(0L);
     }
 }

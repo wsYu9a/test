@@ -1,6 +1,6 @@
 package com.bytedance.pangle.util;
 
-/* loaded from: classes2.dex */
+/* loaded from: classes.dex */
 public final class k {
     public static int a(String str) {
         try {

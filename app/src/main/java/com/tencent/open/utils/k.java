@@ -1,41 +1,39 @@
 package com.tencent.open.utils;
 
-import androidx.core.view.MotionEventCompat;
-
 /* loaded from: classes4.dex */
 public final class k implements Cloneable {
 
     /* renamed from: a */
-    private int f23293a;
+    private int f25559a;
 
     public k(byte[] bArr) {
         this(bArr, 0);
     }
 
     public byte[] a() {
-        int i10 = this.f23293a;
-        return new byte[]{(byte) (i10 & 255), (byte) ((i10 & MotionEventCompat.ACTION_POINTER_INDEX_MASK) >> 8)};
+        int i2 = this.f25559a;
+        return new byte[]{(byte) (i2 & 255), (byte) ((i2 & 65280) >> 8)};
     }
 
     public int b() {
-        return this.f23293a;
+        return this.f25559a;
     }
 
     public boolean equals(Object obj) {
-        return obj != null && (obj instanceof k) && this.f23293a == ((k) obj).b();
+        return obj != null && (obj instanceof k) && this.f25559a == ((k) obj).b();
     }
 
     public int hashCode() {
-        return this.f23293a;
+        return this.f25559a;
     }
 
-    public k(byte[] bArr, int i10) {
-        int i11 = (bArr[i10 + 1] << 8) & MotionEventCompat.ACTION_POINTER_INDEX_MASK;
-        this.f23293a = i11;
-        this.f23293a = i11 + (bArr[i10] & 255);
+    public k(byte[] bArr, int i2) {
+        int i3 = (bArr[i2 + 1] << 8) & 65280;
+        this.f25559a = i3;
+        this.f25559a = i3 + (bArr[i2] & 255);
     }
 
-    public k(int i10) {
-        this.f23293a = i10;
+    public k(int i2) {
+        this.f25559a = i2;
     }
 }

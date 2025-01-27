@@ -5,8 +5,8 @@ import java.io.Serializable;
 import org.json.JSONObject;
 
 @KsJson
-/* loaded from: classes2.dex */
-public class FeedWebViewInfo extends com.kwad.sdk.commercial.c.a implements Serializable {
+/* loaded from: classes.dex */
+public class FeedWebViewInfo extends com.kwad.sdk.core.response.kwai.a implements Serializable {
     private static final long serialVersionUID = -4316140680874648788L;
     public int timeType;
     public String event = "";
@@ -14,7 +14,7 @@ public class FeedWebViewInfo extends com.kwad.sdk.commercial.c.a implements Seri
     public String sceneId = "";
     public long durationMs = -1;
 
-    @Override // com.kwad.sdk.core.response.a.a
+    @Override // com.kwad.sdk.core.response.kwai.a
     public void afterToJson(JSONObject jSONObject) {
         super.afterToJson(jSONObject);
         if (this.durationMs == -1) {
@@ -22,8 +22,8 @@ public class FeedWebViewInfo extends com.kwad.sdk.commercial.c.a implements Seri
         }
     }
 
-    public FeedWebViewInfo setDurationMs(long j10) {
-        this.durationMs = j10;
+    public FeedWebViewInfo setDurationMs(long j2) {
+        this.durationMs = j2;
         return this;
     }
 
@@ -37,8 +37,8 @@ public class FeedWebViewInfo extends com.kwad.sdk.commercial.c.a implements Seri
         return this;
     }
 
-    public FeedWebViewInfo setTimeType(int i10) {
-        this.timeType = i10;
+    public FeedWebViewInfo setTimeType(int i2) {
+        this.timeType = i2;
         return this;
     }
 

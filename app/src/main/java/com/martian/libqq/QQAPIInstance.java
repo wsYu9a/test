@@ -5,14 +5,14 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import com.martian.libcomm.utils.GsonUtils;
+import com.martian.libmars.d.i;
 import com.tencent.connect.UserInfo;
 import com.tencent.tauth.IUiListener;
 import com.tencent.tauth.Tencent;
 import com.tencent.tauth.UiError;
-import g9.i;
 import java.util.ArrayList;
 
-/* loaded from: classes3.dex */
+/* loaded from: classes.dex */
 public class QQAPIInstance {
     private static QQAPIInstance instance;
     private IUiListener mLoginListener;
@@ -20,164 +20,171 @@ public class QQAPIInstance {
     private Tencent mTencent;
 
     /* renamed from: com.martian.libqq.QQAPIInstance$1 */
-    public class AnonymousClass1 implements IUiListener {
+    /* loaded from: classes3.dex */
+    class AnonymousClass1 implements IUiListener {
         final /* synthetic */ OnLoginListener val$listener;
 
-        public AnonymousClass1(OnLoginListener onLoginListener) {
-            onLoginListener = onLoginListener;
+        AnonymousClass1(final OnLoginListener val$listener) {
+            listener = val$listener;
         }
 
         @Override // com.tencent.tauth.IUiListener
         public void onCancel() {
-            onLoginListener.onLoginCancelled();
+            listener.onLoginCancelled();
         }
 
         @Override // com.tencent.tauth.IUiListener
-        public void onComplete(Object obj) {
-            QQAuth qQAuth = (QQAuth) GsonUtils.b().fromJson(obj.toString(), QQAuth.class);
+        public void onComplete(Object o) {
+            QQAuth qQAuth = (QQAuth) GsonUtils.b().fromJson(o.toString(), QQAuth.class);
             if (qQAuth.hasError()) {
-                onLoginListener.onLoginError(qQAuth.getErrcode(), qQAuth.getErrMsg());
+                listener.onLoginError(qQAuth.getErrcode(), qQAuth.getErrMsg());
                 return;
             }
             QQAPIInstance.this.mTencent.getQQToken().setOpenId(qQAuth.openid);
             QQAPIInstance.this.mTencent.getQQToken().setAccessToken(qQAuth.access_token, qQAuth.expires_in + "");
             QQAPIInstance.this.mTencent.getQQToken().setAuthSource(2);
-            onLoginListener.onLoginSuccess(qQAuth);
+            listener.onLoginSuccess(qQAuth);
         }
 
         @Override // com.tencent.tauth.IUiListener
         public void onError(UiError uiError) {
-            onLoginListener.onLoginError(uiError.errorCode, uiError.errorMessage);
+            listener.onLoginError(uiError.errorCode, uiError.errorMessage);
         }
     }
 
     /* renamed from: com.martian.libqq.QQAPIInstance$2 */
-    public class AnonymousClass2 implements IUiListener {
+    /* loaded from: classes3.dex */
+    class AnonymousClass2 implements IUiListener {
         final /* synthetic */ QQUserInfoReceiver val$listener;
 
-        public AnonymousClass2(QQUserInfoReceiver qQUserInfoReceiver) {
-            qQUserInfoReceiver = qQUserInfoReceiver;
+        AnonymousClass2(final QQUserInfoReceiver val$listener) {
+            listener = val$listener;
         }
 
         @Override // com.tencent.tauth.IUiListener
         public void onCancel() {
-            qQUserInfoReceiver.onCancelled();
+            listener.onCancelled();
         }
 
         @Override // com.tencent.tauth.IUiListener
-        public void onComplete(Object obj) {
-            QQUserInfo qQUserInfo = (QQUserInfo) GsonUtils.b().fromJson(obj.toString(), QQUserInfo.class);
+        public void onComplete(Object o) {
+            QQUserInfo qQUserInfo = (QQUserInfo) GsonUtils.b().fromJson(o.toString(), QQUserInfo.class);
             if (qQUserInfo.hasError()) {
-                qQUserInfoReceiver.onErrorReceived(qQUserInfo.getErrcode(), qQUserInfo.getErrMsg());
+                listener.onErrorReceived(qQUserInfo.getErrcode(), qQUserInfo.getErrMsg());
             } else {
-                qQUserInfoReceiver.onUserInfoReceived(qQUserInfo);
+                listener.onUserInfoReceived(qQUserInfo);
             }
         }
 
         @Override // com.tencent.tauth.IUiListener
         public void onError(UiError uiError) {
-            qQUserInfoReceiver.onErrorReceived(uiError.errorCode, uiError.errorMessage);
+            listener.onErrorReceived(uiError.errorCode, uiError.errorMessage);
         }
     }
 
     /* renamed from: com.martian.libqq.QQAPIInstance$3 */
-    public class AnonymousClass3 implements IUiListener {
+    /* loaded from: classes3.dex */
+    class AnonymousClass3 implements IUiListener {
         final /* synthetic */ QQShareReceiver val$listener;
 
-        public AnonymousClass3(QQShareReceiver qQShareReceiver) {
-            qQShareReceiver = qQShareReceiver;
+        AnonymousClass3(final QQShareReceiver val$listener) {
+            listener = val$listener;
         }
 
         @Override // com.tencent.tauth.IUiListener
         public void onCancel() {
-            qQShareReceiver.onCancelled();
+            listener.onCancelled();
         }
 
         @Override // com.tencent.tauth.IUiListener
-        public void onComplete(Object obj) {
-            if (obj != null) {
-                qQShareReceiver.onShareSuccess(obj.toString());
+        public void onComplete(Object o) {
+            if (o != null) {
+                listener.onShareSuccess(o.toString());
             } else {
-                qQShareReceiver.onShareError(-1, "Null result.");
+                listener.onShareError(-1, "Null result.");
             }
         }
 
         @Override // com.tencent.tauth.IUiListener
         public void onError(UiError uiError) {
-            qQShareReceiver.onShareError(uiError.errorCode, uiError.errorMessage);
+            listener.onShareError(uiError.errorCode, uiError.errorMessage);
         }
     }
 
     /* renamed from: com.martian.libqq.QQAPIInstance$4 */
-    public class AnonymousClass4 implements IUiListener {
+    /* loaded from: classes3.dex */
+    class AnonymousClass4 implements IUiListener {
         final /* synthetic */ QQShareReceiver val$listener;
 
-        public AnonymousClass4(QQShareReceiver qQShareReceiver) {
-            qQShareReceiver = qQShareReceiver;
+        AnonymousClass4(final QQShareReceiver val$listener) {
+            listener = val$listener;
         }
 
         @Override // com.tencent.tauth.IUiListener
         public void onCancel() {
-            qQShareReceiver.onCancelled();
+            listener.onCancelled();
         }
 
         @Override // com.tencent.tauth.IUiListener
-        public void onComplete(Object obj) {
-            qQShareReceiver.onShareSuccess(obj.toString());
+        public void onComplete(Object o) {
+            listener.onShareSuccess(o.toString());
         }
 
         @Override // com.tencent.tauth.IUiListener
         public void onError(UiError uiError) {
-            qQShareReceiver.onShareError(uiError.errorCode, uiError.errorMessage);
+            listener.onShareError(uiError.errorCode, uiError.errorMessage);
         }
     }
 
     /* renamed from: com.martian.libqq.QQAPIInstance$5 */
-    public class AnonymousClass5 implements IUiListener {
+    /* loaded from: classes3.dex */
+    class AnonymousClass5 implements IUiListener {
         final /* synthetic */ QQShareReceiver val$listener;
 
-        public AnonymousClass5(QQShareReceiver qQShareReceiver) {
-            qQShareReceiver = qQShareReceiver;
+        AnonymousClass5(final QQShareReceiver val$listener) {
+            listener = val$listener;
         }
 
         @Override // com.tencent.tauth.IUiListener
         public void onCancel() {
-            qQShareReceiver.onCancelled();
+            listener.onCancelled();
         }
 
         @Override // com.tencent.tauth.IUiListener
-        public void onComplete(Object obj) {
-            qQShareReceiver.onShareSuccess(obj.toString());
+        public void onComplete(Object o) {
+            listener.onShareSuccess(o.toString());
         }
 
         @Override // com.tencent.tauth.IUiListener
         public void onError(UiError uiError) {
-            qQShareReceiver.onShareError(uiError.errorCode, uiError.errorMessage);
+            listener.onShareError(uiError.errorCode, uiError.errorMessage);
         }
     }
 
+    /* loaded from: classes3.dex */
     public interface OnLoginListener {
         void onLoginCancelled();
 
-        void onLoginError(int i10, String str);
+        void onLoginError(int errcode, String errStr);
 
-        void onLoginSuccess(QQAuth qQAuth);
+        void onLoginSuccess(QQAuth auth);
     }
 
     public interface QQShareReceiver {
         void onCancelled();
 
-        void onShareError(int i10, String str);
+        void onShareError(int errcode, String errStr);
 
-        void onShareSuccess(String str);
+        void onShareSuccess(String shareResult);
     }
 
+    /* loaded from: classes3.dex */
     public interface QQUserInfoReceiver {
         void onCancelled();
 
-        void onErrorReceived(int i10, String str);
+        void onErrorReceived(int errcode, String errStr);
 
-        void onUserInfoReceived(QQUserInfo qQUserInfo);
+        void onUserInfoReceived(QQUserInfo user);
     }
 
     public static QQAPIInstance getInstance() {
@@ -187,185 +194,189 @@ public class QQAPIInstance {
         return instance;
     }
 
-    public void getUserInfo(Context context, QQUserInfoReceiver qQUserInfoReceiver) {
+    public void getUserInfo(Context context, final QQUserInfoReceiver listener) {
         new UserInfo(context, this.mTencent.getQQToken()).getUserInfo(new IUiListener() { // from class: com.martian.libqq.QQAPIInstance.2
             final /* synthetic */ QQUserInfoReceiver val$listener;
 
-            public AnonymousClass2(QQUserInfoReceiver qQUserInfoReceiver2) {
-                qQUserInfoReceiver = qQUserInfoReceiver2;
+            AnonymousClass2(final QQUserInfoReceiver listener2) {
+                listener = listener2;
             }
 
             @Override // com.tencent.tauth.IUiListener
             public void onCancel() {
-                qQUserInfoReceiver.onCancelled();
+                listener.onCancelled();
             }
 
             @Override // com.tencent.tauth.IUiListener
-            public void onComplete(Object obj) {
-                QQUserInfo qQUserInfo = (QQUserInfo) GsonUtils.b().fromJson(obj.toString(), QQUserInfo.class);
+            public void onComplete(Object o) {
+                QQUserInfo qQUserInfo = (QQUserInfo) GsonUtils.b().fromJson(o.toString(), QQUserInfo.class);
                 if (qQUserInfo.hasError()) {
-                    qQUserInfoReceiver.onErrorReceived(qQUserInfo.getErrcode(), qQUserInfo.getErrMsg());
+                    listener.onErrorReceived(qQUserInfo.getErrcode(), qQUserInfo.getErrMsg());
                 } else {
-                    qQUserInfoReceiver.onUserInfoReceived(qQUserInfo);
+                    listener.onUserInfoReceived(qQUserInfo);
                 }
             }
 
             @Override // com.tencent.tauth.IUiListener
             public void onError(UiError uiError) {
-                qQUserInfoReceiver.onErrorReceived(uiError.errorCode, uiError.errorMessage);
+                listener.onErrorReceived(uiError.errorCode, uiError.errorMessage);
             }
         });
     }
 
-    public void init(i iVar, Context context) {
+    public void init(i qqKey, Context context) {
         try {
-            this.mTencent = Tencent.createInstance(iVar.f26194a, context);
-        } catch (Exception e10) {
-            e10.printStackTrace();
+            this.mTencent = Tencent.createInstance(qqKey.f9892a, context);
+        } catch (Exception unused) {
         }
     }
 
-    public void onActivityResult(int i10, int i11, Intent intent) {
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
         IUiListener iUiListener = this.mLoginListener;
         if (iUiListener != null) {
-            if (i10 == 11101 || i10 == 10001) {
-                Tencent.onActivityResultData(i10, i11, intent, iUiListener);
+            if (requestCode == 11101 || requestCode == 10001) {
+                Tencent.onActivityResultData(requestCode, resultCode, data, iUiListener);
                 this.mLoginListener = null;
             }
         }
     }
 
-    public void startLogin(Activity activity, OnLoginListener onLoginListener) {
+    public void setQQActivityResult(int requestCode, int resultCode, Intent data) {
+        Tencent.onActivityResultData(requestCode, resultCode, data, this.mShareListener);
+        Tencent.handleResultData(data, this.mShareListener);
+    }
+
+    public void startLogin(Activity activity, final OnLoginListener listener) {
         AnonymousClass1 anonymousClass1 = new IUiListener() { // from class: com.martian.libqq.QQAPIInstance.1
             final /* synthetic */ OnLoginListener val$listener;
 
-            public AnonymousClass1(OnLoginListener onLoginListener2) {
-                onLoginListener = onLoginListener2;
+            AnonymousClass1(final OnLoginListener listener2) {
+                listener = listener2;
             }
 
             @Override // com.tencent.tauth.IUiListener
             public void onCancel() {
-                onLoginListener.onLoginCancelled();
+                listener.onLoginCancelled();
             }
 
             @Override // com.tencent.tauth.IUiListener
-            public void onComplete(Object obj) {
-                QQAuth qQAuth = (QQAuth) GsonUtils.b().fromJson(obj.toString(), QQAuth.class);
+            public void onComplete(Object o) {
+                QQAuth qQAuth = (QQAuth) GsonUtils.b().fromJson(o.toString(), QQAuth.class);
                 if (qQAuth.hasError()) {
-                    onLoginListener.onLoginError(qQAuth.getErrcode(), qQAuth.getErrMsg());
+                    listener.onLoginError(qQAuth.getErrcode(), qQAuth.getErrMsg());
                     return;
                 }
                 QQAPIInstance.this.mTencent.getQQToken().setOpenId(qQAuth.openid);
                 QQAPIInstance.this.mTencent.getQQToken().setAccessToken(qQAuth.access_token, qQAuth.expires_in + "");
                 QQAPIInstance.this.mTencent.getQQToken().setAuthSource(2);
-                onLoginListener.onLoginSuccess(qQAuth);
+                listener.onLoginSuccess(qQAuth);
             }
 
             @Override // com.tencent.tauth.IUiListener
             public void onError(UiError uiError) {
-                onLoginListener.onLoginError(uiError.errorCode, uiError.errorMessage);
+                listener.onLoginError(uiError.errorCode, uiError.errorMessage);
             }
         };
         this.mLoginListener = anonymousClass1;
         this.mTencent.login(activity, "all", anonymousClass1);
     }
 
-    public void startQQShare(Activity activity, String str, String str2, String str3, String str4, QQShareReceiver qQShareReceiver) {
+    public void startQQShare(Activity activity, String title, String content, String url, String imgUrl, final QQShareReceiver listener) {
         Bundle bundle = new Bundle();
         bundle.putInt("req_type", 1);
-        bundle.putString("title", str);
-        bundle.putString("summary", str2);
-        bundle.putString("targetUrl", str3);
-        bundle.putString("imageUrl", str4);
+        bundle.putString("title", title);
+        bundle.putString("summary", content);
+        bundle.putString("targetUrl", url);
+        bundle.putString("imageUrl", imgUrl);
         bundle.putString("appName", activity.getString(R.string.app_name));
         AnonymousClass3 anonymousClass3 = new IUiListener() { // from class: com.martian.libqq.QQAPIInstance.3
             final /* synthetic */ QQShareReceiver val$listener;
 
-            public AnonymousClass3(QQShareReceiver qQShareReceiver2) {
-                qQShareReceiver = qQShareReceiver2;
+            AnonymousClass3(final QQShareReceiver listener2) {
+                listener = listener2;
             }
 
             @Override // com.tencent.tauth.IUiListener
             public void onCancel() {
-                qQShareReceiver.onCancelled();
+                listener.onCancelled();
             }
 
             @Override // com.tencent.tauth.IUiListener
-            public void onComplete(Object obj) {
-                if (obj != null) {
-                    qQShareReceiver.onShareSuccess(obj.toString());
+            public void onComplete(Object o) {
+                if (o != null) {
+                    listener.onShareSuccess(o.toString());
                 } else {
-                    qQShareReceiver.onShareError(-1, "Null result.");
+                    listener.onShareError(-1, "Null result.");
                 }
             }
 
             @Override // com.tencent.tauth.IUiListener
             public void onError(UiError uiError) {
-                qQShareReceiver.onShareError(uiError.errorCode, uiError.errorMessage);
+                listener.onShareError(uiError.errorCode, uiError.errorMessage);
             }
         };
         this.mShareListener = anonymousClass3;
         this.mTencent.shareToQQ(activity, bundle, anonymousClass3);
     }
 
-    public void startQQzoneImage(Activity activity, String str, ArrayList<String> arrayList, QQShareReceiver qQShareReceiver) {
+    public void startQQzoneImage(Activity activity, String url, ArrayList<String> imgUrls, final QQShareReceiver listener) {
         Bundle bundle = new Bundle();
         bundle.putInt("req_type", 3);
-        bundle.putString("targetUrl", str);
-        bundle.putStringArrayList("imageUrl", arrayList);
+        bundle.putString("targetUrl", url);
+        bundle.putStringArrayList("imageUrl", imgUrls);
         AnonymousClass5 anonymousClass5 = new IUiListener() { // from class: com.martian.libqq.QQAPIInstance.5
             final /* synthetic */ QQShareReceiver val$listener;
 
-            public AnonymousClass5(QQShareReceiver qQShareReceiver2) {
-                qQShareReceiver = qQShareReceiver2;
+            AnonymousClass5(final QQShareReceiver listener2) {
+                listener = listener2;
             }
 
             @Override // com.tencent.tauth.IUiListener
             public void onCancel() {
-                qQShareReceiver.onCancelled();
+                listener.onCancelled();
             }
 
             @Override // com.tencent.tauth.IUiListener
-            public void onComplete(Object obj) {
-                qQShareReceiver.onShareSuccess(obj.toString());
+            public void onComplete(Object o) {
+                listener.onShareSuccess(o.toString());
             }
 
             @Override // com.tencent.tauth.IUiListener
             public void onError(UiError uiError) {
-                qQShareReceiver.onShareError(uiError.errorCode, uiError.errorMessage);
+                listener.onShareError(uiError.errorCode, uiError.errorMessage);
             }
         };
         this.mShareListener = anonymousClass5;
         this.mTencent.publishToQzone(activity, bundle, anonymousClass5);
     }
 
-    public void startQzoneShare(Activity activity, String str, String str2, String str3, ArrayList<String> arrayList, QQShareReceiver qQShareReceiver) {
+    public void startQzoneShare(Activity activity, String title, String content, String url, ArrayList<String> imgUrls, final QQShareReceiver listener) {
         Bundle bundle = new Bundle();
         bundle.putInt("req_type", 1);
-        bundle.putString("title", str);
-        bundle.putString("summary", str2);
-        bundle.putString("targetUrl", str3);
-        bundle.putStringArrayList("imageUrl", arrayList);
+        bundle.putString("title", title);
+        bundle.putString("summary", content);
+        bundle.putString("targetUrl", url);
+        bundle.putStringArrayList("imageUrl", imgUrls);
         AnonymousClass4 anonymousClass4 = new IUiListener() { // from class: com.martian.libqq.QQAPIInstance.4
             final /* synthetic */ QQShareReceiver val$listener;
 
-            public AnonymousClass4(QQShareReceiver qQShareReceiver2) {
-                qQShareReceiver = qQShareReceiver2;
+            AnonymousClass4(final QQShareReceiver listener2) {
+                listener = listener2;
             }
 
             @Override // com.tencent.tauth.IUiListener
             public void onCancel() {
-                qQShareReceiver.onCancelled();
+                listener.onCancelled();
             }
 
             @Override // com.tencent.tauth.IUiListener
-            public void onComplete(Object obj) {
-                qQShareReceiver.onShareSuccess(obj.toString());
+            public void onComplete(Object o) {
+                listener.onShareSuccess(o.toString());
             }
 
             @Override // com.tencent.tauth.IUiListener
             public void onError(UiError uiError) {
-                qQShareReceiver.onShareError(uiError.errorCode, uiError.errorMessage);
+                listener.onShareError(uiError.errorCode, uiError.errorMessage);
             }
         };
         this.mShareListener = anonymousClass4;

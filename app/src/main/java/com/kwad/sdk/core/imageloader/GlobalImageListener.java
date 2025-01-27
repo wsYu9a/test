@@ -2,18 +2,18 @@ package com.kwad.sdk.core.imageloader;
 
 import com.kwad.sdk.core.response.model.AdTemplate;
 import com.kwad.sdk.service.ServiceProvider;
-import com.kwad.sdk.service.a.b;
+import com.kwad.sdk.service.kwai.b;
 
-/* loaded from: classes3.dex */
+/* loaded from: classes2.dex */
 public class GlobalImageListener implements OnRenderResultListener<AdTemplate> {
     @Override // com.kwad.sdk.core.imageloader.OnRenderResultListener
-    public void onRenderResult(boolean z10, AdTemplate adTemplate, String str, String str2) {
-        if (!z10) {
-            ((b) ServiceProvider.get(b.class)).H(str, str2);
+    public void onRenderResult(boolean z, AdTemplate adTemplate, String str, String str2) {
+        if (!z) {
+            ((b) ServiceProvider.get(b.class)).n(str, str2);
         }
-        if (z10) {
+        if (z) {
             return;
         }
-        ((b) ServiceProvider.get(b.class)).aL(adTemplate);
+        ((b) ServiceProvider.get(b.class)).W(adTemplate);
     }
 }

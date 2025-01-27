@@ -1,56 +1,44 @@
 package com.baidu.mobads.sdk.internal;
 
-import com.baidu.mobads.sdk.internal.aa;
-import java.util.List;
-import java.util.concurrent.CopyOnWriteArrayList;
+import android.app.Activity;
+import android.content.Context;
+import android.view.View;
 
-/* loaded from: classes2.dex */
-public class s {
+/* loaded from: classes.dex */
+public interface s extends v {
+    View a(Context context);
 
-    /* renamed from: a */
-    private static volatile s f7247a;
+    void a();
 
-    /* renamed from: b */
-    private List<aa.a> f7248b = new CopyOnWriteArrayList();
+    void a(int i2);
 
-    private s() {
-    }
+    void a(int i2, int i3);
 
-    public static s a() {
-        if (f7247a == null) {
-            synchronized (s.class) {
-                try {
-                    if (f7247a == null) {
-                        f7247a = new s();
-                    }
-                } finally {
-                }
-            }
-        }
-        return f7247a;
-    }
+    void a(int i2, boolean z);
 
-    private void b(aa.a aVar) {
-        if (this.f7248b.contains(aVar)) {
-            this.f7248b.remove(aVar);
-        }
-    }
+    void a(Context context, String str);
 
-    public void a(aa.a aVar) {
-        if (aVar == null || this.f7248b.contains(aVar)) {
-            return;
-        }
-        this.f7248b.add(aVar);
-    }
+    void a(Context context, String str, String str2);
 
-    public void a(int i10) {
-        for (aa.a aVar : this.f7248b) {
-            if (i10 == 1) {
-                aVar.onSuccess();
-            } else if (i10 == 2) {
-                aVar.onFailure();
-            }
-            b(aVar);
-        }
-    }
+    void a(t tVar);
+
+    void a(boolean z);
+
+    void a(boolean z, int i2, int i3, int i4);
+
+    void b();
+
+    void b(int i2);
+
+    void b(int i2, int i3);
+
+    Activity c();
+
+    boolean d();
+
+    boolean e();
+
+    boolean f();
+
+    void g();
 }

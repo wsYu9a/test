@@ -31,6 +31,10 @@ public class WXJointPay {
         public JointPayResp() {
         }
 
+        public JointPayResp(Bundle bundle) {
+            fromBundle(bundle);
+        }
+
         @Override // com.tencent.mm.opensdk.modelpay.PayResp, com.tencent.mm.opensdk.modelbase.BaseResp
         public boolean checkArgs() {
             return super.checkArgs();
@@ -49,10 +53,6 @@ public class WXJointPay {
         @Override // com.tencent.mm.opensdk.modelpay.PayResp, com.tencent.mm.opensdk.modelbase.BaseResp
         public void toBundle(Bundle bundle) {
             super.toBundle(bundle);
-        }
-
-        public JointPayResp(Bundle bundle) {
-            fromBundle(bundle);
         }
     }
 }

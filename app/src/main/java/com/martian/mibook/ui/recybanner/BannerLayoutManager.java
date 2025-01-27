@@ -11,120 +11,99 @@ import androidx.recyclerview.widget.OrientationHelper;
 import androidx.recyclerview.widget.RecyclerView;
 import java.util.ArrayList;
 
-/* loaded from: classes3.dex */
+/* loaded from: classes4.dex */
 public class BannerLayoutManager extends RecyclerView.LayoutManager {
-    public static final int C = -1;
-    public static final int D = 0;
-    public static final int E = 1;
-    public static final int F = -1;
-    public static final int G = 0;
-    public static final int H = 1;
-    public static final int I = Integer.MAX_VALUE;
-    public float A;
-    public float B;
+
+    /* renamed from: a */
+    public static final int f14862a = -1;
 
     /* renamed from: b */
-    public final SparseArray<View> f16104b;
+    public static final int f14863b = 0;
 
     /* renamed from: c */
-    public int f16105c;
+    public static final int f14864c = 1;
 
     /* renamed from: d */
-    public int f16106d;
+    private static final int f14865d = -1;
 
     /* renamed from: e */
-    public int f16107e;
+    private static final int f14866e = 0;
 
     /* renamed from: f */
-    public int f16108f;
+    private static final int f14867f = 1;
 
     /* renamed from: g */
-    public int f16109g;
+    protected static final int f14868g = Integer.MAX_VALUE;
+    private int A;
+    private int B;
+    private Interpolator C;
+    private int D;
+    private View E;
+    private int F;
+    private float G;
+    private float H;
 
     /* renamed from: h */
-    public float f16110h;
+    private final SparseArray<View> f14869h;
 
     /* renamed from: i */
-    public OrientationHelper f16111i;
+    protected int f14870i;
 
     /* renamed from: j */
-    public boolean f16112j;
+    protected int f14871j;
+    int k;
+    protected int l;
+    protected int m;
+    protected float n;
+    protected OrientationHelper o;
+    private boolean p;
+    private boolean q;
+    private boolean r;
+    private int s;
+    private b t;
+    protected float u;
+    a v;
+    private boolean w;
+    private boolean x;
+    private boolean y;
+    private int z;
 
-    /* renamed from: k */
-    public boolean f16113k;
+    public interface a {
+        void onPageScrollStateChanged(int state);
 
-    /* renamed from: l */
-    public boolean f16114l;
+        void onPageSelected(int position);
+    }
 
-    /* renamed from: m */
-    public int f16115m;
+    private static class b implements Parcelable {
+        public static final Parcelable.Creator<b> CREATOR = new a();
 
-    /* renamed from: n */
-    public SavedState f16116n;
-
-    /* renamed from: o */
-    public float f16117o;
-
-    /* renamed from: p */
-    public a f16118p;
-
-    /* renamed from: q */
-    public boolean f16119q;
-
-    /* renamed from: r */
-    public boolean f16120r;
-
-    /* renamed from: s */
-    public boolean f16121s;
-
-    /* renamed from: t */
-    public int f16122t;
-
-    /* renamed from: u */
-    public int f16123u;
-
-    /* renamed from: v */
-    public int f16124v;
-
-    /* renamed from: w */
-    public Interpolator f16125w;
-
-    /* renamed from: x */
-    public int f16126x;
-
-    /* renamed from: y */
-    public View f16127y;
-
-    /* renamed from: z */
-    public int f16128z;
-
-    public static class SavedState implements Parcelable {
-        public static final Parcelable.Creator<SavedState> CREATOR = new a();
+        /* renamed from: a */
+        int f14872a;
 
         /* renamed from: b */
-        public int f16129b;
+        float f14873b;
 
         /* renamed from: c */
-        public float f16130c;
+        boolean f14874c;
 
-        /* renamed from: d */
-        public boolean f16131d;
+        static class a implements Parcelable.Creator<b> {
+            a() {
+            }
 
-        public class a implements Parcelable.Creator<SavedState> {
             @Override // android.os.Parcelable.Creator
             /* renamed from: a */
-            public SavedState createFromParcel(Parcel parcel) {
-                return new SavedState(parcel);
+            public b createFromParcel(Parcel in) {
+                return new b(in);
             }
 
             @Override // android.os.Parcelable.Creator
             /* renamed from: b */
-            public SavedState[] newArray(int i10) {
-                return new SavedState[i10];
+            public b[] newArray(int size) {
+                return new b[size];
             }
         }
 
-        public SavedState() {
+        b() {
         }
 
         @Override // android.os.Parcelable
@@ -133,290 +112,683 @@ public class BannerLayoutManager extends RecyclerView.LayoutManager {
         }
 
         @Override // android.os.Parcelable
-        public void writeToParcel(Parcel parcel, int i10) {
-            parcel.writeInt(this.f16129b);
-            parcel.writeFloat(this.f16130c);
-            parcel.writeInt(this.f16131d ? 1 : 0);
+        public void writeToParcel(Parcel parcel, int i2) {
+            parcel.writeInt(this.f14872a);
+            parcel.writeFloat(this.f14873b);
+            parcel.writeInt(this.f14874c ? 1 : 0);
         }
 
-        public SavedState(Parcel parcel) {
-            this.f16129b = parcel.readInt();
-            this.f16130c = parcel.readFloat();
-            this.f16131d = parcel.readInt() == 1;
+        b(Parcel in) {
+            this.f14872a = in.readInt();
+            this.f14873b = in.readFloat();
+            this.f14874c = in.readInt() == 1;
         }
 
-        public SavedState(SavedState savedState) {
-            this.f16129b = savedState.f16129b;
-            this.f16130c = savedState.f16130c;
-            this.f16131d = savedState.f16131d;
+        public b(b other) {
+            this.f14872a = other.f14872a;
+            this.f14873b = other.f14873b;
+            this.f14874c = other.f14874c;
         }
-    }
-
-    public interface a {
-        void onPageScrollStateChanged(int i10);
-
-        void onPageSelected(int i10);
     }
 
     public BannerLayoutManager(Context context) {
         this(context, 0, false);
     }
 
-    private int A(int i10) {
-        if (this.f16107e == 1) {
-            if (i10 == 33) {
-                return !this.f16113k ? 1 : 0;
-            }
-            if (i10 == 130) {
-                return this.f16113k ? 1 : 0;
-            }
-            return -1;
-        }
-        if (i10 == 17) {
-            return !this.f16113k ? 1 : 0;
-        }
-        if (i10 == 66) {
-            return this.f16113k ? 1 : 0;
-        }
-        return -1;
+    private boolean C(float targetOffset) {
+        return targetOffset > A() || targetOffset < B();
     }
 
-    private float C() {
-        if (this.f16113k) {
-            if (!this.f16120r) {
-                return this.f16110h;
-            }
-            float f10 = this.f16110h;
-            if (f10 <= 0.0f) {
-                return f10 % (this.f16117o * getItemCount());
-            }
-            float itemCount = getItemCount();
-            float f11 = this.f16117o;
-            return (itemCount * (-f11)) + (this.f16110h % (f11 * getItemCount()));
-        }
-        if (!this.f16120r) {
-            return this.f16110h;
-        }
-        float f12 = this.f16110h;
-        if (f12 >= 0.0f) {
-            return f12 % (this.f16117o * getItemCount());
-        }
-        float itemCount2 = getItemCount();
-        float f13 = this.f16117o;
-        return (itemCount2 * f13) + (this.f16110h % (f13 * getItemCount()));
+    private void D(View v) {
+        v.setRotation(0.0f);
+        v.setRotationY(0.0f);
+        v.setRotationX(0.0f);
+        v.setScaleX(1.0f);
+        v.setScaleY(1.0f);
+        v.setAlpha(1.0f);
     }
 
-    private float F(int i10) {
-        return i10 * (this.f16113k ? -this.f16117o : this.f16117o);
+    private boolean O() {
+        return this.B != -1;
     }
 
-    private void I(RecyclerView.Recycler recycler) {
-        int i10;
-        int i11;
-        int i12;
-        detachAndScrapAttachedViews(recycler);
-        this.f16104b.clear();
-        int itemCount = getItemCount();
-        if (itemCount == 0) {
-            return;
-        }
-        int r10 = this.f16113k ? -r() : r();
-        int i13 = r10 - this.f16122t;
-        int i14 = this.f16123u + r10;
-        if (Y()) {
-            int i15 = this.f16124v;
-            if (i15 % 2 == 0) {
-                i11 = i15 / 2;
-                i12 = (r10 - i11) + 1;
-            } else {
-                i11 = (i15 - 1) / 2;
-                i12 = r10 - i11;
-            }
-            int i16 = i12;
-            i14 = i11 + r10 + 1;
-            i13 = i16;
-        }
-        if (!this.f16120r) {
-            if (i13 < 0) {
-                if (Y()) {
-                    i14 = this.f16124v;
-                }
-                i13 = 0;
-            }
-            if (i14 > itemCount) {
-                i14 = itemCount;
-            }
-        }
-        float f10 = Float.MIN_VALUE;
-        while (i13 < i14) {
-            if (Y() || !M(F(i13) - this.f16110h)) {
-                if (i13 >= itemCount) {
-                    i10 = i13 % itemCount;
-                } else if (i13 < 0) {
-                    int i17 = (-i13) % itemCount;
-                    if (i17 == 0) {
-                        i17 = itemCount;
-                    }
-                    i10 = itemCount - i17;
-                } else {
-                    i10 = i13;
-                }
-                View viewForPosition = recycler.getViewForPosition(i10);
-                measureChildWithMargins(viewForPosition, 0, 0);
-                N(viewForPosition);
-                J(viewForPosition, F(i13) - this.f16110h);
-                float f11 = this.f16121s ? 0.0f : i10;
-                if (f11 > f10) {
-                    addView(viewForPosition);
-                } else {
-                    addView(viewForPosition, 0);
-                }
-                if (i13 == r10) {
-                    this.f16127y = viewForPosition;
-                }
-                this.f16104b.put(i13, viewForPosition);
-                f10 = f11;
-            }
-            i13++;
-        }
-        this.f16127y.requestFocus();
+    private float c(float x) {
+        float abs = Math.abs(x - ((this.o.getTotalSpace() - this.f14870i) / 2.0f));
+        int i2 = this.f14870i;
+        return (((this.G - 1.0f) / i2) * (((float) i2) - abs > 0.0f ? i2 - abs : 0.0f)) + 1.0f;
     }
 
-    private void J(View view, float f10) {
-        int k10 = k(view, f10);
-        int l10 = l(view, f10);
-        if (this.f16107e == 1) {
-            int i10 = this.f16109g;
-            int i11 = this.f16108f;
-            layoutDecorated(view, i10 + k10, i11 + l10, i10 + k10 + this.f16106d, i11 + l10 + this.f16105c);
-        } else {
-            int i12 = this.f16108f;
-            int i13 = this.f16109g;
-            layoutDecorated(view, i12 + k10, i13 + l10, i12 + k10 + this.f16105c, i13 + l10 + this.f16106d);
-        }
-        T(view, f10);
-    }
-
-    private boolean M(float f10) {
-        return f10 > K() || f10 < L();
-    }
-
-    private void N(View view) {
-        view.setRotation(0.0f);
-        view.setRotationY(0.0f);
-        view.setRotationX(0.0f);
-        view.setScaleX(1.0f);
-        view.setScaleY(1.0f);
-        view.setAlpha(1.0f);
-    }
-
-    private boolean Y() {
-        return this.f16124v != -1;
-    }
-
-    private float m(float f10) {
-        float abs = Math.abs(f10 - ((this.f16111i.getTotalSpace() - this.f16105c) / 2.0f));
-        int i10 = this.f16105c;
-        return (((this.A - 1.0f) / i10) * (((float) i10) - abs > 0.0f ? i10 - abs : 0.0f)) + 1.0f;
-    }
-
-    private int n() {
+    private int d() {
         if (getChildCount() == 0) {
             return 0;
         }
-        if (this.f16114l) {
-            return (int) this.f16117o;
+        if (this.r) {
+            return (int) this.u;
         }
         return 1;
     }
 
-    private int o() {
+    private int e() {
         if (getChildCount() == 0) {
             return 0;
         }
-        if (!this.f16114l) {
-            return !this.f16113k ? q() : (getItemCount() - q()) - 1;
+        if (!this.r) {
+            return !this.q ? g() : (getItemCount() - g()) - 1;
         }
-        float C2 = C();
-        return !this.f16113k ? (int) C2 : (int) (((getItemCount() - 1) * this.f16117o) + C2);
+        float s = s();
+        return !this.q ? (int) s : (int) (((getItemCount() - 1) * this.u) + s);
     }
 
-    private int p() {
+    private int f() {
         if (getChildCount() == 0) {
             return 0;
         }
-        return !this.f16114l ? getItemCount() : (int) (getItemCount() * this.f16117o);
+        return !this.r ? getItemCount() : (int) (getItemCount() * this.u);
     }
 
-    private int r() {
-        return Math.round(this.f16110h / this.f16117o);
+    private int h() {
+        return Math.round(this.n / this.u);
+    }
+
+    private int q(int i2) {
+        if (this.k == 1) {
+            if (i2 == 33) {
+                return !this.q ? 1 : 0;
+            }
+            if (i2 == 130) {
+                return this.q ? 1 : 0;
+            }
+            return -1;
+        }
+        if (i2 == 17) {
+            return !this.q ? 1 : 0;
+        }
+        if (i2 == 66) {
+            return this.q ? 1 : 0;
+        }
+        return -1;
     }
 
     private void resolveShouldLayoutReverse() {
-        if (this.f16107e == 0 && getLayoutDirection() == 1) {
-            this.f16112j = !this.f16112j;
+        if (this.k == 0 && getLayoutDirection() == 1) {
+            this.p = !this.p;
         }
     }
 
-    private int scrollBy(int i10, RecyclerView.Recycler recycler, RecyclerView.State state) {
-        if (getChildCount() == 0 || i10 == 0) {
+    private float s() {
+        if (this.q) {
+            if (!this.x) {
+                return this.n;
+            }
+            float f2 = this.n;
+            if (f2 <= 0.0f) {
+                return f2 % (this.u * getItemCount());
+            }
+            float itemCount = getItemCount();
+            float f3 = this.u;
+            return (itemCount * (-f3)) + (this.n % (f3 * getItemCount()));
+        }
+        if (!this.x) {
+            return this.n;
+        }
+        float f4 = this.n;
+        if (f4 >= 0.0f) {
+            return f4 % (this.u * getItemCount());
+        }
+        float itemCount2 = getItemCount();
+        float f5 = this.u;
+        return (itemCount2 * f5) + (this.n % (f5 * getItemCount()));
+    }
+
+    private int scrollBy(int dy, RecyclerView.Recycler recycler, RecyclerView.State state) {
+        if (getChildCount() == 0 || dy == 0) {
             return 0;
         }
         ensureLayoutState();
-        float f10 = i10;
-        float s10 = f10 / s();
-        if (Math.abs(s10) < 1.0E-8f) {
+        float f2 = dy;
+        float i2 = f2 / i();
+        if (Math.abs(i2) < 1.0E-8f) {
             return 0;
         }
-        float f11 = this.f16110h + s10;
-        if (!this.f16120r && f11 < z()) {
-            i10 = (int) (f10 - ((f11 - z()) * s()));
-        } else if (!this.f16120r && f11 > x()) {
-            i10 = (int) ((x() - this.f16110h) * s());
+        float f3 = this.n + i2;
+        if (!this.x && f3 < p()) {
+            dy = (int) (f2 - ((f3 - p()) * i()));
+        } else if (!this.x && f3 > n()) {
+            dy = (int) ((n() - this.n) * i());
         }
-        this.f16110h += i10 / s();
-        I(recycler);
-        return i10;
+        this.n += dy / i();
+        y(recycler);
+        return dy;
     }
 
-    public float B() {
-        return this.f16105c * ((this.A - 1.0f) / 2.0f);
+    private float v(int position) {
+        return position * (this.q ? -this.u : this.u);
     }
 
-    public int D() {
-        float q10;
-        float s10;
-        if (this.f16120r) {
-            q10 = (r() * this.f16117o) - this.f16110h;
-            s10 = s();
+    private void y(RecyclerView.Recycler recycler) {
+        int i2;
+        int i3;
+        int i4;
+        detachAndScrapAttachedViews(recycler);
+        this.f14869h.clear();
+        int itemCount = getItemCount();
+        if (itemCount == 0) {
+            return;
+        }
+        int h2 = this.q ? -h() : h();
+        int i5 = h2 - this.z;
+        int i6 = this.A + h2;
+        if (O()) {
+            int i7 = this.B;
+            if (i7 % 2 == 0) {
+                i3 = i7 / 2;
+                i4 = (h2 - i3) + 1;
+            } else {
+                i3 = (i7 - 1) / 2;
+                i4 = h2 - i3;
+            }
+            int i8 = i4;
+            i6 = i3 + h2 + 1;
+            i5 = i8;
+        }
+        if (!this.x) {
+            if (i5 < 0) {
+                if (O()) {
+                    i6 = this.B;
+                }
+                i5 = 0;
+            }
+            if (i6 > itemCount) {
+                i6 = itemCount;
+            }
+        }
+        float f2 = Float.MIN_VALUE;
+        while (i5 < i6) {
+            if (O() || !C(v(i5) - this.n)) {
+                if (i5 >= itemCount) {
+                    i2 = i5 % itemCount;
+                } else if (i5 < 0) {
+                    int i9 = (-i5) % itemCount;
+                    if (i9 == 0) {
+                        i9 = itemCount;
+                    }
+                    i2 = itemCount - i9;
+                } else {
+                    i2 = i5;
+                }
+                View viewForPosition = recycler.getViewForPosition(i2);
+                measureChildWithMargins(viewForPosition, 0, 0);
+                D(viewForPosition);
+                z(viewForPosition, v(i5) - this.n);
+                float f3 = this.y ? 0.0f : i2;
+                if (f3 > f2) {
+                    addView(viewForPosition);
+                } else {
+                    addView(viewForPosition, 0);
+                }
+                if (i5 == h2) {
+                    this.E = viewForPosition;
+                }
+                this.f14869h.put(i5, viewForPosition);
+                f2 = f3;
+            }
+            i5++;
+        }
+        this.E.requestFocus();
+    }
+
+    private void z(View scrap, float targetOffset) {
+        int a2 = a(scrap, targetOffset);
+        int b2 = b(scrap, targetOffset);
+        if (this.k == 1) {
+            int i2 = this.m;
+            int i3 = this.l;
+            layoutDecorated(scrap, i2 + a2, i3 + b2, i2 + a2 + this.f14871j, i3 + b2 + this.f14870i);
         } else {
-            q10 = (q() * (!this.f16113k ? this.f16117o : -this.f16117o)) - this.f16110h;
-            s10 = s();
+            int i4 = this.l;
+            int i5 = this.m;
+            layoutDecorated(scrap, i4 + a2, i5 + b2, i4 + a2 + this.f14870i, i5 + b2 + this.f14871j);
         }
-        return (int) (q10 * s10);
+        J(scrap, targetOffset);
     }
 
-    public int E(int i10) {
-        float f10;
-        float s10;
-        if (this.f16120r) {
-            f10 = ((r() + (!this.f16113k ? i10 - q() : q() - i10)) * this.f16117o) - this.f16110h;
-            s10 = s();
+    protected float A() {
+        return this.o.getTotalSpace() - this.l;
+    }
+
+    protected float B() {
+        return ((-this.f14870i) - this.o.getStartAfterPadding()) - this.l;
+    }
+
+    public void E(float centerScale) {
+        this.G = centerScale;
+    }
+
+    public void F(int mDistanceToBottom) {
+        assertNotInLayoutOrScroll(null);
+        if (this.D == mDistanceToBottom) {
+            return;
+        }
+        this.D = mDistanceToBottom;
+        removeAllViews();
+    }
+
+    public void G(boolean bringCenterToTop) {
+        assertNotInLayoutOrScroll(null);
+        if (this.y == bringCenterToTop) {
+            return;
+        }
+        this.y = bringCenterToTop;
+        requestLayout();
+    }
+
+    public void H(boolean enable) {
+        assertNotInLayoutOrScroll(null);
+        if (enable == this.x) {
+            return;
+        }
+        this.x = enable;
+        requestLayout();
+    }
+
+    public void I(int itemSpace) {
+        this.F = itemSpace;
+    }
+
+    protected void J(View itemView, float targetOffset) {
+        float c2 = c(targetOffset + this.l);
+        itemView.setScaleX(c2);
+        itemView.setScaleY(c2);
+    }
+
+    public void K(int mMaxVisibleItemCount) {
+        assertNotInLayoutOrScroll(null);
+        if (this.B == mMaxVisibleItemCount) {
+            return;
+        }
+        this.B = mMaxVisibleItemCount;
+        removeAllViews();
+    }
+
+    public void L(float moveSpeed) {
+        assertNotInLayoutOrScroll(null);
+        if (this.H == moveSpeed) {
+            return;
+        }
+        this.H = moveSpeed;
+    }
+
+    public void M(a onPageChangeListener) {
+        this.v = onPageChangeListener;
+    }
+
+    public void N(Interpolator smoothScrollInterpolator) {
+        this.C = smoothScrollInterpolator;
+    }
+
+    protected int a(View itemView, float targetOffset) {
+        if (this.k == 1) {
+            return 0;
+        }
+        return (int) targetOffset;
+    }
+
+    protected int b(View itemView, float targetOffset) {
+        if (this.k == 1) {
+            return (int) targetOffset;
+        }
+        return 0;
+    }
+
+    @Override // androidx.recyclerview.widget.RecyclerView.LayoutManager
+    public boolean canScrollHorizontally() {
+        return this.k == 0;
+    }
+
+    @Override // androidx.recyclerview.widget.RecyclerView.LayoutManager
+    public boolean canScrollVertically() {
+        return this.k == 1;
+    }
+
+    @Override // androidx.recyclerview.widget.RecyclerView.LayoutManager
+    public int computeHorizontalScrollExtent(@NonNull RecyclerView.State state) {
+        return d();
+    }
+
+    @Override // androidx.recyclerview.widget.RecyclerView.LayoutManager
+    public int computeHorizontalScrollOffset(@NonNull RecyclerView.State state) {
+        return e();
+    }
+
+    @Override // androidx.recyclerview.widget.RecyclerView.LayoutManager
+    public int computeHorizontalScrollRange(@NonNull RecyclerView.State state) {
+        return f();
+    }
+
+    @Override // androidx.recyclerview.widget.RecyclerView.LayoutManager
+    public int computeVerticalScrollExtent(@NonNull RecyclerView.State state) {
+        return d();
+    }
+
+    @Override // androidx.recyclerview.widget.RecyclerView.LayoutManager
+    public int computeVerticalScrollOffset(@NonNull RecyclerView.State state) {
+        return e();
+    }
+
+    @Override // androidx.recyclerview.widget.RecyclerView.LayoutManager
+    public int computeVerticalScrollRange(@NonNull RecyclerView.State state) {
+        return f();
+    }
+
+    void ensureLayoutState() {
+        if (this.o == null) {
+            this.o = OrientationHelper.createOrientationHelper(this, this.k);
+        }
+    }
+
+    @Override // androidx.recyclerview.widget.RecyclerView.LayoutManager
+    public View findViewByPosition(int position) {
+        int itemCount = getItemCount();
+        if (itemCount == 0) {
+            return null;
+        }
+        for (int i2 = 0; i2 < this.f14869h.size(); i2++) {
+            int keyAt = this.f14869h.keyAt(i2);
+            if (keyAt < 0) {
+                int i3 = keyAt % itemCount;
+                if (i3 == 0) {
+                    i3 = -itemCount;
+                }
+                if (i3 + itemCount == position) {
+                    return this.f14869h.valueAt(i2);
+                }
+            } else if (position == keyAt % itemCount) {
+                return this.f14869h.valueAt(i2);
+            }
+        }
+        return null;
+    }
+
+    public int g() {
+        if (getItemCount() == 0) {
+            return 0;
+        }
+        int h2 = h();
+        if (!this.x) {
+            return Math.abs(h2);
+        }
+        int itemCount = !this.q ? h2 >= 0 ? h2 % getItemCount() : (h2 % getItemCount()) + getItemCount() : h2 > 0 ? getItemCount() - (h2 % getItemCount()) : (-h2) % getItemCount();
+        if (itemCount == getItemCount()) {
+            return 0;
+        }
+        return itemCount;
+    }
+
+    @Override // androidx.recyclerview.widget.RecyclerView.LayoutManager
+    public RecyclerView.LayoutParams generateDefaultLayoutParams() {
+        return new RecyclerView.LayoutParams(-2, -2);
+    }
+
+    public int getOrientation() {
+        return this.k;
+    }
+
+    public boolean getRecycleChildrenOnDetach() {
+        return this.w;
+    }
+
+    public boolean getReverseLayout() {
+        return this.p;
+    }
+
+    protected float i() {
+        float f2 = this.H;
+        if (f2 == 0.0f) {
+            return Float.MAX_VALUE;
+        }
+        return 1.0f / f2;
+    }
+
+    public int j() {
+        int i2 = this.D;
+        return i2 == Integer.MAX_VALUE ? (x() - this.f14871j) / 2 : i2;
+    }
+
+    public boolean k() {
+        return this.y;
+    }
+
+    public boolean l() {
+        return this.x;
+    }
+
+    protected float m() {
+        return (this.f14870i * (((this.G - 1.0f) / 2.0f) + 1.0f)) + this.F;
+    }
+
+    float n() {
+        if (this.q) {
+            return 0.0f;
+        }
+        return (getItemCount() - 1) * this.u;
+    }
+
+    public int o() {
+        return this.B;
+    }
+
+    @Override // androidx.recyclerview.widget.RecyclerView.LayoutManager
+    public void onAdapterChanged(RecyclerView.Adapter oldAdapter, RecyclerView.Adapter newAdapter) {
+        removeAllViews();
+        this.n = 0.0f;
+    }
+
+    @Override // androidx.recyclerview.widget.RecyclerView.LayoutManager
+    public boolean onAddFocusables(@NonNull RecyclerView recyclerView, @NonNull ArrayList<View> views, int direction, int focusableMode) {
+        int g2 = g();
+        View findViewByPosition = findViewByPosition(g2);
+        if (findViewByPosition == null) {
+            return true;
+        }
+        if (recyclerView.hasFocus()) {
+            int q = q(direction);
+            if (q != -1) {
+                recyclerView.smoothScrollToPosition(q == 1 ? g2 - 1 : g2 + 1);
+            }
         } else {
-            f10 = (i10 * (!this.f16113k ? this.f16117o : -this.f16117o)) - this.f16110h;
-            s10 = s();
+            findViewByPosition.addFocusables(views, direction, focusableMode);
         }
-        return (int) (f10 * s10);
+        return true;
     }
 
-    public boolean G() {
-        return this.f16114l;
+    @Override // androidx.recyclerview.widget.RecyclerView.LayoutManager
+    public void onDetachedFromWindow(RecyclerView view, RecyclerView.Recycler recycler) {
+        super.onDetachedFromWindow(view, recycler);
+        if (this.w) {
+            removeAndRecycleAllViews(recycler);
+            recycler.clear();
+        }
     }
 
-    public int H() {
+    @Override // androidx.recyclerview.widget.RecyclerView.LayoutManager
+    public View onFocusSearchFailed(@NonNull View focused, int focusDirection, @NonNull RecyclerView.Recycler recycler, @NonNull RecyclerView.State state) {
+        return null;
+    }
+
+    @Override // androidx.recyclerview.widget.RecyclerView.LayoutManager
+    public void onLayoutChildren(RecyclerView.Recycler recycler, RecyclerView.State state) {
+        if (state.getItemCount() == 0) {
+            removeAndRecycleAllViews(recycler);
+            this.n = 0.0f;
+            return;
+        }
+        ensureLayoutState();
+        resolveShouldLayoutReverse();
+        View viewForPosition = recycler.getViewForPosition(0);
+        measureChildWithMargins(viewForPosition, 0, 0);
+        this.f14870i = this.o.getDecoratedMeasurement(viewForPosition);
+        this.f14871j = this.o.getDecoratedMeasurementInOther(viewForPosition);
+        this.l = (this.o.getTotalSpace() - this.f14870i) / 2;
+        if (this.D == Integer.MAX_VALUE) {
+            this.m = (x() - this.f14871j) / 2;
+        } else {
+            this.m = (x() - this.f14871j) - this.D;
+        }
+        this.u = m();
+        this.z = ((int) Math.abs(B() / this.u)) + 1;
+        this.A = ((int) Math.abs(A() / this.u)) + 1;
+        b bVar = this.t;
+        if (bVar != null) {
+            this.q = bVar.f14874c;
+            this.s = bVar.f14872a;
+            this.n = bVar.f14873b;
+        }
+        int i2 = this.s;
+        if (i2 != -1) {
+            this.n = i2 * (this.q ? -this.u : this.u);
+        }
+        detachAndScrapAttachedViews(recycler);
+        y(recycler);
+    }
+
+    @Override // androidx.recyclerview.widget.RecyclerView.LayoutManager
+    public void onLayoutCompleted(RecyclerView.State state) {
+        super.onLayoutCompleted(state);
+        this.t = null;
+        this.s = -1;
+    }
+
+    @Override // androidx.recyclerview.widget.RecyclerView.LayoutManager
+    public void onRestoreInstanceState(Parcelable state) {
+        if (state instanceof b) {
+            this.t = new b((b) state);
+            requestLayout();
+        }
+    }
+
+    @Override // androidx.recyclerview.widget.RecyclerView.LayoutManager
+    public Parcelable onSaveInstanceState() {
+        if (this.t != null) {
+            return new b(this.t);
+        }
+        b bVar = new b();
+        bVar.f14872a = this.s;
+        bVar.f14873b = this.n;
+        bVar.f14874c = this.q;
+        return bVar;
+    }
+
+    float p() {
+        if (this.q) {
+            return (-(getItemCount() - 1)) * this.u;
+        }
+        return 0.0f;
+    }
+
+    protected float r() {
+        return this.f14870i * ((this.G - 1.0f) / 2.0f);
+    }
+
+    @Override // androidx.recyclerview.widget.RecyclerView.LayoutManager
+    public int scrollHorizontallyBy(int dx, RecyclerView.Recycler recycler, RecyclerView.State state) {
+        if (this.k == 1) {
+            return 0;
+        }
+        return scrollBy(dx, recycler, state);
+    }
+
+    @Override // androidx.recyclerview.widget.RecyclerView.LayoutManager
+    public void scrollToPosition(int position) {
+        if (this.x || (position >= 0 && position < getItemCount())) {
+            this.s = position;
+            this.n = position * (this.q ? -this.u : this.u);
+            requestLayout();
+        }
+    }
+
+    @Override // androidx.recyclerview.widget.RecyclerView.LayoutManager
+    public int scrollVerticallyBy(int dy, RecyclerView.Recycler recycler, RecyclerView.State state) {
+        if (this.k == 0) {
+            return 0;
+        }
+        return scrollBy(dy, recycler, state);
+    }
+
+    public void setOrientation(int orientation) {
+        if (orientation != 0 && orientation != 1) {
+            throw new IllegalArgumentException("invalid orientation:" + orientation);
+        }
+        assertNotInLayoutOrScroll(null);
+        if (orientation == this.k) {
+            return;
+        }
+        this.k = orientation;
+        this.o = null;
+        this.D = Integer.MAX_VALUE;
+        removeAllViews();
+    }
+
+    public void setRecycleChildrenOnDetach(boolean recycleChildrenOnDetach) {
+        this.w = recycleChildrenOnDetach;
+    }
+
+    public void setReverseLayout(boolean reverseLayout) {
+        assertNotInLayoutOrScroll(null);
+        if (reverseLayout == this.p) {
+            return;
+        }
+        this.p = reverseLayout;
+        removeAllViews();
+    }
+
+    public void setSmoothScrollbarEnabled(boolean enabled) {
+        this.r = enabled;
+    }
+
+    @Override // androidx.recyclerview.widget.RecyclerView.LayoutManager
+    public void smoothScrollToPosition(RecyclerView recyclerView, RecyclerView.State state, int position) {
+        int u = u(position);
+        if (this.k == 1) {
+            recyclerView.smoothScrollBy(0, u, this.C);
+        } else {
+            recyclerView.smoothScrollBy(u, 0, this.C);
+        }
+    }
+
+    public int t() {
+        float g2;
+        float i2;
+        if (this.x) {
+            g2 = (h() * this.u) - this.n;
+            i2 = i();
+        } else {
+            g2 = (g() * (!this.q ? this.u : -this.u)) - this.n;
+            i2 = i();
+        }
+        return (int) (g2 * i2);
+    }
+
+    public int u(int position) {
+        float f2;
+        float i2;
+        if (this.x) {
+            f2 = ((h() + (!this.q ? position - g() : g() - position)) * this.u) - this.n;
+            i2 = i();
+        } else {
+            f2 = (position * (!this.q ? this.u : -this.u)) - this.n;
+            i2 = i();
+        }
+        return (int) (f2 * i2);
+    }
+
+    public boolean w() {
+        return this.r;
+    }
+
+    public int x() {
         int width;
         int paddingRight;
-        if (this.f16107e == 0) {
+        if (this.k == 0) {
             width = getHeight() - getPaddingTop();
             paddingRight = getPaddingBottom();
         } else {
@@ -426,435 +798,27 @@ public class BannerLayoutManager extends RecyclerView.LayoutManager {
         return width - paddingRight;
     }
 
-    public float K() {
-        return this.f16111i.getTotalSpace() - this.f16108f;
+    public BannerLayoutManager(Context context, int orientation) {
+        this(context, orientation, false);
     }
 
-    public float L() {
-        return ((-this.f16105c) - this.f16111i.getStartAfterPadding()) - this.f16108f;
-    }
-
-    public void O(float f10) {
-        this.A = f10;
-    }
-
-    public void P(int i10) {
-        assertNotInLayoutOrScroll(null);
-        if (this.f16126x == i10) {
-            return;
-        }
-        this.f16126x = i10;
-        removeAllViews();
-    }
-
-    public void Q(boolean z10) {
-        assertNotInLayoutOrScroll(null);
-        if (this.f16121s == z10) {
-            return;
-        }
-        this.f16121s = z10;
-        requestLayout();
-    }
-
-    public void R(boolean z10) {
-        assertNotInLayoutOrScroll(null);
-        if (z10 == this.f16120r) {
-            return;
-        }
-        this.f16120r = z10;
-        requestLayout();
-    }
-
-    public void S(int i10) {
-        this.f16128z = i10;
-    }
-
-    public void T(View view, float f10) {
-        float m10 = m(f10 + this.f16108f);
-        view.setScaleX(m10);
-        view.setScaleY(m10);
-    }
-
-    public void U(int i10) {
-        assertNotInLayoutOrScroll(null);
-        if (this.f16124v == i10) {
-            return;
-        }
-        this.f16124v = i10;
-        removeAllViews();
-    }
-
-    public void V(float f10) {
-        assertNotInLayoutOrScroll(null);
-        if (this.B == f10) {
-            return;
-        }
-        this.B = f10;
-    }
-
-    public void W(a aVar) {
-        this.f16118p = aVar;
-    }
-
-    public void X(Interpolator interpolator) {
-        this.f16125w = interpolator;
-    }
-
-    @Override // androidx.recyclerview.widget.RecyclerView.LayoutManager
-    public boolean canScrollHorizontally() {
-        return this.f16107e == 0;
-    }
-
-    @Override // androidx.recyclerview.widget.RecyclerView.LayoutManager
-    public boolean canScrollVertically() {
-        return this.f16107e == 1;
-    }
-
-    @Override // androidx.recyclerview.widget.RecyclerView.LayoutManager
-    public int computeHorizontalScrollExtent(@NonNull RecyclerView.State state) {
-        return n();
-    }
-
-    @Override // androidx.recyclerview.widget.RecyclerView.LayoutManager
-    public int computeHorizontalScrollOffset(@NonNull RecyclerView.State state) {
-        return o();
-    }
-
-    @Override // androidx.recyclerview.widget.RecyclerView.LayoutManager
-    public int computeHorizontalScrollRange(@NonNull RecyclerView.State state) {
-        return p();
-    }
-
-    @Override // androidx.recyclerview.widget.RecyclerView.LayoutManager
-    public int computeVerticalScrollExtent(@NonNull RecyclerView.State state) {
-        return n();
-    }
-
-    @Override // androidx.recyclerview.widget.RecyclerView.LayoutManager
-    public int computeVerticalScrollOffset(@NonNull RecyclerView.State state) {
-        return o();
-    }
-
-    @Override // androidx.recyclerview.widget.RecyclerView.LayoutManager
-    public int computeVerticalScrollRange(@NonNull RecyclerView.State state) {
-        return p();
-    }
-
-    public void ensureLayoutState() {
-        if (this.f16111i == null) {
-            this.f16111i = OrientationHelper.createOrientationHelper(this, this.f16107e);
-        }
-    }
-
-    @Override // androidx.recyclerview.widget.RecyclerView.LayoutManager
-    public View findViewByPosition(int i10) {
-        int itemCount = getItemCount();
-        if (itemCount == 0) {
-            return null;
-        }
-        for (int i11 = 0; i11 < this.f16104b.size(); i11++) {
-            int keyAt = this.f16104b.keyAt(i11);
-            if (keyAt < 0) {
-                int i12 = keyAt % itemCount;
-                if (i12 == 0) {
-                    i12 = -itemCount;
-                }
-                if (i12 + itemCount == i10) {
-                    return this.f16104b.valueAt(i11);
-                }
-            } else if (i10 == keyAt % itemCount) {
-                return this.f16104b.valueAt(i11);
-            }
-        }
-        return null;
-    }
-
-    @Override // androidx.recyclerview.widget.RecyclerView.LayoutManager
-    public RecyclerView.LayoutParams generateDefaultLayoutParams() {
-        return new RecyclerView.LayoutParams(-2, -2);
-    }
-
-    public int getOrientation() {
-        return this.f16107e;
-    }
-
-    public boolean getRecycleChildrenOnDetach() {
-        return this.f16119q;
-    }
-
-    public boolean getReverseLayout() {
-        return this.f16112j;
-    }
-
-    public int k(View view, float f10) {
-        if (this.f16107e == 1) {
-            return 0;
-        }
-        return (int) f10;
-    }
-
-    public int l(View view, float f10) {
-        if (this.f16107e == 1) {
-            return (int) f10;
-        }
-        return 0;
-    }
-
-    @Override // androidx.recyclerview.widget.RecyclerView.LayoutManager
-    public void onAdapterChanged(RecyclerView.Adapter adapter, RecyclerView.Adapter adapter2) {
-        removeAllViews();
-        this.f16110h = 0.0f;
-    }
-
-    @Override // androidx.recyclerview.widget.RecyclerView.LayoutManager
-    public boolean onAddFocusables(@NonNull RecyclerView recyclerView, @NonNull ArrayList<View> arrayList, int i10, int i11) {
-        int q10 = q();
-        View findViewByPosition = findViewByPosition(q10);
-        if (findViewByPosition == null) {
-            return true;
-        }
-        if (recyclerView.hasFocus()) {
-            int A = A(i10);
-            if (A != -1) {
-                recyclerView.smoothScrollToPosition(A == 1 ? q10 - 1 : q10 + 1);
-            }
-        } else {
-            findViewByPosition.addFocusables(arrayList, i10, i11);
-        }
-        return true;
-    }
-
-    @Override // androidx.recyclerview.widget.RecyclerView.LayoutManager
-    public void onDetachedFromWindow(RecyclerView recyclerView, RecyclerView.Recycler recycler) {
-        super.onDetachedFromWindow(recyclerView, recycler);
-        if (this.f16119q) {
-            removeAndRecycleAllViews(recycler);
-            recycler.clear();
-        }
-    }
-
-    @Override // androidx.recyclerview.widget.RecyclerView.LayoutManager
-    public View onFocusSearchFailed(@NonNull View view, int i10, @NonNull RecyclerView.Recycler recycler, @NonNull RecyclerView.State state) {
-        return null;
-    }
-
-    @Override // androidx.recyclerview.widget.RecyclerView.LayoutManager
-    public void onLayoutChildren(RecyclerView.Recycler recycler, RecyclerView.State state) {
-        float f10;
-        float f11;
-        if (state.getItemCount() == 0) {
-            removeAndRecycleAllViews(recycler);
-            this.f16110h = 0.0f;
-            return;
-        }
-        ensureLayoutState();
-        resolveShouldLayoutReverse();
-        View viewForPosition = recycler.getViewForPosition(0);
-        measureChildWithMargins(viewForPosition, 0, 0);
-        this.f16105c = this.f16111i.getDecoratedMeasurement(viewForPosition);
-        this.f16106d = this.f16111i.getDecoratedMeasurementInOther(viewForPosition);
-        this.f16108f = (this.f16111i.getTotalSpace() - this.f16105c) / 2;
-        if (this.f16126x == Integer.MAX_VALUE) {
-            this.f16109g = (H() - this.f16106d) / 2;
-        } else {
-            this.f16109g = (H() - this.f16106d) - this.f16126x;
-        }
-        this.f16117o = w();
-        this.f16122t = ((int) Math.abs(L() / this.f16117o)) + 1;
-        this.f16123u = ((int) Math.abs(K() / this.f16117o)) + 1;
-        SavedState savedState = this.f16116n;
-        if (savedState != null) {
-            this.f16113k = savedState.f16131d;
-            this.f16115m = savedState.f16129b;
-            this.f16110h = savedState.f16130c;
-        }
-        int i10 = this.f16115m;
-        if (i10 != -1) {
-            if (this.f16113k) {
-                f10 = i10;
-                f11 = -this.f16117o;
-            } else {
-                f10 = i10;
-                f11 = this.f16117o;
-            }
-            this.f16110h = f10 * f11;
-        }
-        detachAndScrapAttachedViews(recycler);
-        I(recycler);
-    }
-
-    @Override // androidx.recyclerview.widget.RecyclerView.LayoutManager
-    public void onLayoutCompleted(RecyclerView.State state) {
-        super.onLayoutCompleted(state);
-        this.f16116n = null;
-        this.f16115m = -1;
-    }
-
-    @Override // androidx.recyclerview.widget.RecyclerView.LayoutManager
-    public void onRestoreInstanceState(Parcelable parcelable) {
-        if (parcelable instanceof SavedState) {
-            this.f16116n = new SavedState((SavedState) parcelable);
-            requestLayout();
-        }
-    }
-
-    @Override // androidx.recyclerview.widget.RecyclerView.LayoutManager
-    public Parcelable onSaveInstanceState() {
-        if (this.f16116n != null) {
-            return new SavedState(this.f16116n);
-        }
-        SavedState savedState = new SavedState();
-        savedState.f16129b = this.f16115m;
-        savedState.f16130c = this.f16110h;
-        savedState.f16131d = this.f16113k;
-        return savedState;
-    }
-
-    public int q() {
-        if (getItemCount() == 0) {
-            return 0;
-        }
-        int r10 = r();
-        if (!this.f16120r) {
-            return Math.abs(r10);
-        }
-        int itemCount = !this.f16113k ? r10 >= 0 ? r10 % getItemCount() : (r10 % getItemCount()) + getItemCount() : r10 > 0 ? getItemCount() - (r10 % getItemCount()) : (-r10) % getItemCount();
-        if (itemCount == getItemCount()) {
-            return 0;
-        }
-        return itemCount;
-    }
-
-    public float s() {
-        float f10 = this.B;
-        if (f10 == 0.0f) {
-            return Float.MAX_VALUE;
-        }
-        return 1.0f / f10;
-    }
-
-    @Override // androidx.recyclerview.widget.RecyclerView.LayoutManager
-    public int scrollHorizontallyBy(int i10, RecyclerView.Recycler recycler, RecyclerView.State state) {
-        if (this.f16107e == 1) {
-            return 0;
-        }
-        return scrollBy(i10, recycler, state);
-    }
-
-    @Override // androidx.recyclerview.widget.RecyclerView.LayoutManager
-    public void scrollToPosition(int i10) {
-        if (this.f16120r || (i10 >= 0 && i10 < getItemCount())) {
-            this.f16115m = i10;
-            this.f16110h = i10 * (this.f16113k ? -this.f16117o : this.f16117o);
-            requestLayout();
-        }
-    }
-
-    @Override // androidx.recyclerview.widget.RecyclerView.LayoutManager
-    public int scrollVerticallyBy(int i10, RecyclerView.Recycler recycler, RecyclerView.State state) {
-        if (this.f16107e == 0) {
-            return 0;
-        }
-        return scrollBy(i10, recycler, state);
-    }
-
-    public void setOrientation(int i10) {
-        if (i10 != 0 && i10 != 1) {
-            throw new IllegalArgumentException("invalid orientation:" + i10);
-        }
-        assertNotInLayoutOrScroll(null);
-        if (i10 == this.f16107e) {
-            return;
-        }
-        this.f16107e = i10;
-        this.f16111i = null;
-        this.f16126x = Integer.MAX_VALUE;
-        removeAllViews();
-    }
-
-    public void setRecycleChildrenOnDetach(boolean z10) {
-        this.f16119q = z10;
-    }
-
-    public void setReverseLayout(boolean z10) {
-        assertNotInLayoutOrScroll(null);
-        if (z10 == this.f16112j) {
-            return;
-        }
-        this.f16112j = z10;
-        removeAllViews();
-    }
-
-    public void setSmoothScrollbarEnabled(boolean z10) {
-        this.f16114l = z10;
-    }
-
-    @Override // androidx.recyclerview.widget.RecyclerView.LayoutManager
-    public void smoothScrollToPosition(RecyclerView recyclerView, RecyclerView.State state, int i10) {
-        int E2 = E(i10);
-        if (this.f16107e == 1) {
-            recyclerView.smoothScrollBy(0, E2, this.f16125w);
-        } else {
-            recyclerView.smoothScrollBy(E2, 0, this.f16125w);
-        }
-    }
-
-    public int t() {
-        int i10 = this.f16126x;
-        return i10 == Integer.MAX_VALUE ? (H() - this.f16106d) / 2 : i10;
-    }
-
-    public boolean u() {
-        return this.f16121s;
-    }
-
-    public boolean v() {
-        return this.f16120r;
-    }
-
-    public float w() {
-        return (this.f16105c * (((this.A - 1.0f) / 2.0f) + 1.0f)) + this.f16128z;
-    }
-
-    public float x() {
-        if (this.f16113k) {
-            return 0.0f;
-        }
-        return (getItemCount() - 1) * this.f16117o;
-    }
-
-    public int y() {
-        return this.f16124v;
-    }
-
-    public float z() {
-        if (this.f16113k) {
-            return (-(getItemCount() - 1)) * this.f16117o;
-        }
-        return 0.0f;
-    }
-
-    public BannerLayoutManager(Context context, int i10) {
-        this(context, i10, false);
-    }
-
-    public BannerLayoutManager(Context context, int i10, boolean z10) {
-        this.f16104b = new SparseArray<>();
-        this.f16112j = false;
-        this.f16113k = false;
-        this.f16114l = true;
-        this.f16115m = -1;
-        this.f16116n = null;
-        this.f16120r = true;
-        this.f16124v = -1;
-        this.f16126x = Integer.MAX_VALUE;
-        this.f16128z = 20;
-        this.A = 1.2f;
-        this.B = 1.0f;
-        Q(true);
-        U(5);
-        setOrientation(i10);
-        setReverseLayout(z10);
+    public BannerLayoutManager(Context context, int orientation, boolean reverseLayout) {
+        this.f14869h = new SparseArray<>();
+        this.p = false;
+        this.q = false;
+        this.r = true;
+        this.s = -1;
+        this.t = null;
+        this.x = true;
+        this.B = -1;
+        this.D = Integer.MAX_VALUE;
+        this.F = 20;
+        this.G = 1.2f;
+        this.H = 1.0f;
+        G(true);
+        K(5);
+        setOrientation(orientation);
+        setReverseLayout(reverseLayout);
         setItemPrefetchEnabled(false);
     }
 }

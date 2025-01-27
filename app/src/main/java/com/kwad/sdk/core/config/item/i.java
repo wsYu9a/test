@@ -3,10 +3,10 @@ package com.kwad.sdk.core.config.item;
 import android.content.SharedPreferences;
 import org.json.JSONObject;
 
-/* loaded from: classes3.dex */
-public final class i extends b<com.kwad.sdk.core.network.idc.a.b> {
+/* loaded from: classes2.dex */
+public final class i extends b<com.kwad.sdk.core.network.idc.kwai.a> {
     public i() {
-        super("idc", new com.kwad.sdk.core.network.idc.a.b());
+        super("idc", new com.kwad.sdk.core.network.idc.kwai.a());
     }
 
     @Override // com.kwad.sdk.core.config.item.b
@@ -18,14 +18,14 @@ public final class i extends b<com.kwad.sdk.core.network.idc.a.b> {
     }
 
     @Override // com.kwad.sdk.core.config.item.b
-    public final void k(JSONObject jSONObject) {
+    public final void g(JSONObject jSONObject) {
         JSONObject optJSONObject;
         if (jSONObject == null || (optJSONObject = jSONObject.optJSONObject(getKey())) == null) {
-            setValue(El());
+            setValue(uX());
             return;
         }
-        com.kwad.sdk.core.network.idc.a.b bVar = new com.kwad.sdk.core.network.idc.a.b();
-        bVar.parseJson(optJSONObject);
-        setValue(bVar);
+        com.kwad.sdk.core.network.idc.kwai.a aVar = new com.kwad.sdk.core.network.idc.kwai.a();
+        aVar.parseJson(optJSONObject);
+        setValue(aVar);
     }
 }

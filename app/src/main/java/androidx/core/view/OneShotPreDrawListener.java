@@ -6,14 +6,20 @@ import androidx.annotation.NonNull;
 
 /* loaded from: classes.dex */
 public final class OneShotPreDrawListener implements ViewTreeObserver.OnPreDrawListener, View.OnAttachStateChangeListener {
-    private final Runnable mRunnable;
-    private final View mView;
-    private ViewTreeObserver mViewTreeObserver;
+
+    /* renamed from: a, reason: collision with root package name */
+    private final View f2053a;
+
+    /* renamed from: b, reason: collision with root package name */
+    private ViewTreeObserver f2054b;
+
+    /* renamed from: c, reason: collision with root package name */
+    private final Runnable f2055c;
 
     private OneShotPreDrawListener(View view, Runnable runnable) {
-        this.mView = view;
-        this.mViewTreeObserver = view.getViewTreeObserver();
-        this.mRunnable = runnable;
+        this.f2053a = view;
+        this.f2054b = view.getViewTreeObserver();
+        this.f2055c = runnable;
     }
 
     @NonNull
@@ -33,26 +39,26 @@ public final class OneShotPreDrawListener implements ViewTreeObserver.OnPreDrawL
     @Override // android.view.ViewTreeObserver.OnPreDrawListener
     public boolean onPreDraw() {
         removeListener();
-        this.mRunnable.run();
+        this.f2055c.run();
         return true;
     }
 
     @Override // android.view.View.OnAttachStateChangeListener
-    public void onViewAttachedToWindow(@NonNull View view) {
-        this.mViewTreeObserver = view.getViewTreeObserver();
+    public void onViewAttachedToWindow(View view) {
+        this.f2054b = view.getViewTreeObserver();
     }
 
     @Override // android.view.View.OnAttachStateChangeListener
-    public void onViewDetachedFromWindow(@NonNull View view) {
+    public void onViewDetachedFromWindow(View view) {
         removeListener();
     }
 
     public void removeListener() {
-        if (this.mViewTreeObserver.isAlive()) {
-            this.mViewTreeObserver.removeOnPreDrawListener(this);
+        if (this.f2054b.isAlive()) {
+            this.f2054b.removeOnPreDrawListener(this);
         } else {
-            this.mView.getViewTreeObserver().removeOnPreDrawListener(this);
+            this.f2053a.getViewTreeObserver().removeOnPreDrawListener(this);
         }
-        this.mView.removeOnAttachStateChangeListener(this);
+        this.f2053a.removeOnAttachStateChangeListener(this);
     }
 }

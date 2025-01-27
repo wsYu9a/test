@@ -8,7 +8,7 @@ import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map;
 
-/* loaded from: classes3.dex */
+/* loaded from: classes2.dex */
 public abstract class BaseMemoryCache implements MemoryCache {
     private final Map<String, Reference<DecodedResult>> softMap = Collections.synchronizedMap(new HashMap());
 
@@ -17,7 +17,7 @@ public abstract class BaseMemoryCache implements MemoryCache {
         this.softMap.clear();
     }
 
-    public abstract Reference<DecodedResult> createReference(DecodedResult decodedResult);
+    protected abstract Reference<DecodedResult> createReference(DecodedResult decodedResult);
 
     @Override // com.kwad.sdk.core.imageloader.cache.memory.MemoryCache
     public DecodedResult get(String str) {

@@ -5,7 +5,7 @@ import java.math.BigInteger;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 
-/* loaded from: classes3.dex */
+/* loaded from: classes2.dex */
 public class Md5FileNameGenerator implements FileNameGenerator {
     private static final String HASH_ALGORITHM = "MD5";
     private static final int RADIX = 36;
@@ -15,8 +15,8 @@ public class Md5FileNameGenerator implements FileNameGenerator {
             MessageDigest messageDigest = MessageDigest.getInstance("MD5");
             messageDigest.update(bArr);
             return messageDigest.digest();
-        } catch (NoSuchAlgorithmException e10) {
-            L.e(e10);
+        } catch (NoSuchAlgorithmException e2) {
+            L.e(e2);
             return null;
         }
     }

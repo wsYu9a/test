@@ -1,26 +1,14 @@
 package com.kwad.sdk;
 
-/* loaded from: classes3.dex */
-public abstract class a {
-    protected int mTaskId;
+/* loaded from: classes2.dex */
+public final class a {
+    public static final a Yi = new a(10000, "其他异常");
+    public static final a Yj = new a(10001, "初始化参数异常");
+    public int code;
+    public String msg;
 
-    public abstract void a(DownloadTask downloadTask);
-
-    public abstract void a(DownloadTask downloadTask, int i10, int i11);
-
-    public abstract void a(DownloadTask downloadTask, Throwable th2);
-
-    public abstract void b(DownloadTask downloadTask);
-
-    public abstract void c(DownloadTask downloadTask);
-
-    public abstract void d(DownloadTask downloadTask);
-
-    public abstract void e(DownloadTask downloadTask);
-
-    public abstract void f(DownloadTask downloadTask);
-
-    public final void setId(int i10) {
-        this.mTaskId = i10;
+    public a(int i2, String str) {
+        this.code = i2;
+        this.msg = str;
     }
 }

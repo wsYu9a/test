@@ -4,7 +4,7 @@ import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 
 @Retention(RetentionPolicy.SOURCE)
-/* loaded from: classes3.dex */
+/* loaded from: classes.dex */
 public @interface AdLiveViewType {
     public static final int NATIVE_SHOP = 1;
     public static final int ORIGIN = 0;

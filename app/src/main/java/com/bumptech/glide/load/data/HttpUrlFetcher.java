@@ -17,9 +17,9 @@ import java.net.HttpURLConnection;
 import java.net.URISyntaxException;
 import java.net.URL;
 import java.util.Map;
-import m5.c;
+import org.apache.http.HttpHeaders;
 
-/* loaded from: classes2.dex */
+/* loaded from: classes.dex */
 public class HttpUrlFetcher implements DataFetcher<InputStream> {
 
     @VisibleForTesting
@@ -34,19 +34,22 @@ public class HttpUrlFetcher implements DataFetcher<InputStream> {
     private final int timeout;
     private HttpURLConnection urlConnection;
 
-    public static class DefaultHttpUrlConnectionFactory implements HttpUrlConnectionFactory {
+    private static class DefaultHttpUrlConnectionFactory implements HttpUrlConnectionFactory {
+        DefaultHttpUrlConnectionFactory() {
+        }
+
         @Override // com.bumptech.glide.load.data.HttpUrlFetcher.HttpUrlConnectionFactory
         public HttpURLConnection build(URL url) throws IOException {
             return (HttpURLConnection) url.openConnection();
         }
     }
 
-    public interface HttpUrlConnectionFactory {
+    interface HttpUrlConnectionFactory {
         HttpURLConnection build(URL url) throws IOException;
     }
 
-    public HttpUrlFetcher(GlideUrl glideUrl, int i10) {
-        this(glideUrl, i10, DEFAULT_CONNECTION_FACTORY);
+    public HttpUrlFetcher(GlideUrl glideUrl, int i2) {
+        this(glideUrl, i2, DEFAULT_CONNECTION_FACTORY);
     }
 
     private InputStream getStreamForSuccessfulRequest(HttpURLConnection httpURLConnection) throws IOException {
@@ -61,16 +64,16 @@ public class HttpUrlFetcher implements DataFetcher<InputStream> {
         return this.stream;
     }
 
-    private static boolean isHttpOk(int i10) {
-        return i10 / 100 == 2;
+    private static boolean isHttpOk(int i2) {
+        return i2 / 100 == 2;
     }
 
-    private static boolean isHttpRedirect(int i10) {
-        return i10 / 100 == 3;
+    private static boolean isHttpRedirect(int i2) {
+        return i2 / 100 == 3;
     }
 
-    private InputStream loadDataWithRedirects(URL url, int i10, URL url2, Map<String, String> map) throws IOException {
-        if (i10 >= 5) {
+    private InputStream loadDataWithRedirects(URL url, int i2, URL url2, Map<String, String> map) throws IOException {
+        if (i2 >= 5) {
             throw new HttpException("Too many (> 5) redirects!");
         }
         if (url2 != null) {
@@ -105,13 +108,13 @@ public class HttpUrlFetcher implements DataFetcher<InputStream> {
             }
             throw new HttpException(this.urlConnection.getResponseMessage(), responseCode);
         }
-        String headerField = this.urlConnection.getHeaderField(c.f28347t0);
+        String headerField = this.urlConnection.getHeaderField(HttpHeaders.LOCATION);
         if (TextUtils.isEmpty(headerField)) {
             throw new HttpException("Received empty or null redirect url");
         }
         URL url3 = new URL(url, headerField);
         cleanup();
-        return loadDataWithRedirects(url3, i10 + 1, url, map);
+        return loadDataWithRedirects(url3, i2 + 1, url, map);
     }
 
     @Override // com.bumptech.glide.load.data.DataFetcher
@@ -149,40 +152,40 @@ public class HttpUrlFetcher implements DataFetcher<InputStream> {
 
     @Override // com.bumptech.glide.load.data.DataFetcher
     public void loadData(@NonNull Priority priority, @NonNull DataFetcher.DataCallback<? super InputStream> dataCallback) {
-        StringBuilder sb2;
+        StringBuilder sb;
         long logTime = LogTime.getLogTime();
         try {
             try {
                 dataCallback.onDataReady(loadDataWithRedirects(this.glideUrl.toURL(), 0, null, this.glideUrl.getHeaders()));
-            } catch (IOException e10) {
+            } catch (IOException e2) {
                 if (Log.isLoggable(TAG, 3)) {
-                    Log.d(TAG, "Failed to load data for url", e10);
+                    Log.d(TAG, "Failed to load data for url", e2);
                 }
-                dataCallback.onLoadFailed(e10);
+                dataCallback.onLoadFailed(e2);
                 if (!Log.isLoggable(TAG, 2)) {
                     return;
                 } else {
-                    sb2 = new StringBuilder();
+                    sb = new StringBuilder();
                 }
             }
             if (Log.isLoggable(TAG, 2)) {
-                sb2 = new StringBuilder();
-                sb2.append("Finished http url fetcher fetch in ");
-                sb2.append(LogTime.getElapsedMillis(logTime));
-                Log.v(TAG, sb2.toString());
+                sb = new StringBuilder();
+                sb.append("Finished http url fetcher fetch in ");
+                sb.append(LogTime.getElapsedMillis(logTime));
+                Log.v(TAG, sb.toString());
             }
-        } catch (Throwable th2) {
+        } catch (Throwable th) {
             if (Log.isLoggable(TAG, 2)) {
                 Log.v(TAG, "Finished http url fetcher fetch in " + LogTime.getElapsedMillis(logTime));
             }
-            throw th2;
+            throw th;
         }
     }
 
     @VisibleForTesting
-    public HttpUrlFetcher(GlideUrl glideUrl, int i10, HttpUrlConnectionFactory httpUrlConnectionFactory) {
+    HttpUrlFetcher(GlideUrl glideUrl, int i2, HttpUrlConnectionFactory httpUrlConnectionFactory) {
         this.glideUrl = glideUrl;
-        this.timeout = i10;
+        this.timeout = i2;
         this.connectionFactory = httpUrlConnectionFactory;
     }
 }

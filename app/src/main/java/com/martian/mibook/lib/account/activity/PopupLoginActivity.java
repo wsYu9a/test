@@ -1,288 +1,383 @@
 package com.martian.mibook.lib.account.activity;
 
 import android.app.Activity;
-import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
-import android.widget.PopupWindow;
 import android.widget.Toast;
-import androidx.annotation.NonNull;
 import androidx.fragment.app.FragmentActivity;
-import com.alibaba.android.arouter.facade.annotation.Route;
-import com.gyf.immersionbar.BarHide;
-import com.martian.libmars.R;
-import com.martian.libmars.common.ConfigSingleton;
+import com.gyf.barlibrary.BarHide;
+import com.gyf.barlibrary.ImmersionBar;
+import com.maritan.libweixin.c;
+import com.martian.libmars.utils.h0;
+import com.martian.libmars.utils.k0;
 import com.martian.libqq.QQAPIInstance;
 import com.martian.libqq.QQAuth;
 import com.martian.libqq.QQUserInfo;
 import com.martian.mibook.lib.account.MiUserManager;
-import com.martian.mibook.lib.account.activity.PopupLoginActivity;
-import com.martian.mibook.lib.account.databinding.ActivityLoginWindowBinding;
-import com.martian.mibook.lib.account.request.MiGuestUserLoginParams;
+import com.martian.mibook.lib.account.R;
+import com.martian.mibook.lib.account.d.q.d0;
 import com.martian.mibook.lib.account.request.MiUserRegisterParams;
+import com.martian.mibook.lib.account.request.WXRegisterParams;
+import com.martian.mibook.lib.account.request.auth.TryWeixinBindParams;
+import com.martian.mibook.lib.account.response.MiTaskAccount;
 import com.martian.mibook.lib.account.response.MiUser;
+import com.martian.mibook.lib.account.response.UserDetail;
 import com.martian.rpauth.MartianIUserManager;
+import com.martian.rpauth.response.MartianRPAccount;
 import java.util.List;
-import jb.e;
-import jb.h;
-import l9.i0;
-import lb.c;
 
-@Route(path = kc.a.f27746b)
-/* loaded from: classes3.dex */
+/* loaded from: classes.dex */
 public class PopupLoginActivity extends FragmentActivity {
 
-    /* renamed from: f */
-    public static int f13884f = 10001;
-
-    /* renamed from: b */
-    public ActivityLoginWindowBinding f13885b;
+    /* renamed from: a */
+    public static int f13754a = 10001;
 
     /* renamed from: c */
-    public PopupWindow f13886c;
+    private MartianIUserManager f13756c;
 
     /* renamed from: d */
-    public boolean f13887d = false;
+    private com.martian.mibook.lib.account.b.a f13757d;
+
+    /* renamed from: b */
+    private int f13755b = 0;
 
     /* renamed from: e */
-    public int f13888e = 0;
+    private boolean f13758e = false;
 
-    public class a implements i0.m {
-        public a() {
-        }
+    /* loaded from: classes3.dex */
+    class a implements QQAPIInstance.OnLoginListener {
 
-        @Override // l9.i0.m
-        public void a() {
-            lb.c.n(PopupLoginActivity.this);
-        }
-
-        @Override // l9.i0.m
-        public void b() {
-            lb.c.q(PopupLoginActivity.this);
-        }
-
-        @Override // l9.i0.m
-        public void c() {
-        }
-
-        @Override // l9.i0.m
-        public void d() {
-            PopupLoginActivity.this.f13887d = true;
-            PopupLoginActivity.this.f13885b.f13906e.setImageResource(R.drawable.icon_checked);
-            PopupLoginActivity.this.f13885b.f13905d.performClick();
-        }
-
-        @Override // l9.i0.m
-        public void e() {
-        }
-    }
-
-    public class b implements QQAPIInstance.OnLoginListener {
-
-        public class a implements QQAPIInstance.QQUserInfoReceiver {
+        /* renamed from: com.martian.mibook.lib.account.activity.PopupLoginActivity$a$a */
+        class C0268a implements QQAPIInstance.QQUserInfoReceiver {
 
             /* renamed from: a */
-            public final /* synthetic */ QQAuth f13891a;
+            final /* synthetic */ QQAuth f13760a;
 
-            /* renamed from: com.martian.mibook.lib.account.activity.PopupLoginActivity$b$a$a */
-            public class C0530a extends h {
-                public C0530a() {
+            /* renamed from: com.martian.mibook.lib.account.activity.PopupLoginActivity$a$a$a */
+            class C0269a extends com.martian.mibook.lib.account.d.j {
+                C0269a() {
                 }
 
-                @Override // y8.a
-                public void onResultError(x8.c cVar) {
-                    PopupLoginActivity.this.m1("登录失败，请重试" + cVar.toString(), true);
+                @Override // b.d.c.c.b
+                public void onResultError(b.d.c.b.c errorResult) {
+                    PopupLoginActivity.this.u0("登录失败，请重试" + errorResult.toString(), true);
                 }
 
-                @Override // y8.a
-                /* renamed from: q */
+                @Override // b.d.c.c.b
+                /* renamed from: p */
                 public void onDataReceived(MiUser miUser) {
-                    if (PopupLoginActivity.this.isFinishing() || PopupLoginActivity.this.isDestroyed()) {
-                        return;
-                    }
-                    PopupLoginActivity.this.l1(miUser);
-                    PopupLoginActivity.this.f13885b.f13908g.setVisibility(8);
-                    PopupLoginActivity.this.k1();
+                    PopupLoginActivity.this.s0(miUser);
+                    PopupLoginActivity.this.f13757d.f13818g.setVisibility(8);
+                    PopupLoginActivity.this.r0();
                 }
 
-                @Override // y8.f
-                public void showLoading(boolean z10) {
-                    if (PopupLoginActivity.this.isFinishing() || PopupLoginActivity.this.isDestroyed() || z10) {
+                @Override // b.d.c.c.g
+                protected void showLoading(boolean show) {
+                    if (show) {
                         return;
                     }
-                    PopupLoginActivity.this.f13885b.f13908g.setVisibility(0);
+                    PopupLoginActivity.this.f13757d.f13818g.setVisibility(0);
                 }
             }
 
-            public a(QQAuth qQAuth) {
-                this.f13891a = qQAuth;
+            C0268a(final QQAuth val$auth) {
+                this.f13760a = val$auth;
             }
 
             @Override // com.martian.libqq.QQAPIInstance.QQUserInfoReceiver
             public void onCancelled() {
-                PopupLoginActivity.this.m1("登录取消", false);
+                PopupLoginActivity.this.u0("登录取消", false);
             }
 
             @Override // com.martian.libqq.QQAPIInstance.QQUserInfoReceiver
-            public void onErrorReceived(int i10, String str) {
-                PopupLoginActivity.this.m1("登录失败，请重试" + str, true);
+            public void onErrorReceived(int errcode, String errStr) {
+                PopupLoginActivity.this.u0("登录失败，请重试" + errStr, true);
             }
 
             /* JADX WARN: Multi-variable type inference failed */
             @Override // com.martian.libqq.QQAPIInstance.QQUserInfoReceiver
-            public void onUserInfoReceived(QQUserInfo qQUserInfo) {
-                C0530a c0530a = new C0530a();
-                ((MiUserRegisterParams) c0530a.k()).setCity(qQUserInfo.getCity());
-                ((MiUserRegisterParams) c0530a.k()).setCountry(qQUserInfo.getCountry());
-                ((MiUserRegisterParams) c0530a.k()).setQQGender(qQUserInfo.getGender());
-                ((MiUserRegisterParams) c0530a.k()).setHeader(qQUserInfo.getHeaderUrl());
-                ((MiUserRegisterParams) c0530a.k()).setNickname(qQUserInfo.getNickname());
-                ((MiUserRegisterParams) c0530a.k()).setProvince(qQUserInfo.getProvince());
-                ((MiUserRegisterParams) c0530a.k()).setQq_openid(this.f13891a.openid);
-                ((MiUserRegisterParams) c0530a.k()).setQq_access_token(this.f13891a.access_token);
-                ((MiUserRegisterParams) c0530a.k()).setQq_pf(this.f13891a.f12908pf);
-                c0530a.j();
+            public void onUserInfoReceived(QQUserInfo user) {
+                C0269a c0269a = new C0269a();
+                ((MiUserRegisterParams) c0269a.k()).setCity(user.getCity());
+                ((MiUserRegisterParams) c0269a.k()).setCountry(user.getCountry());
+                ((MiUserRegisterParams) c0269a.k()).setQQGender(user.getGender());
+                ((MiUserRegisterParams) c0269a.k()).setHeader(user.getHeaderUrl());
+                ((MiUserRegisterParams) c0269a.k()).setNickname(user.getNickname());
+                ((MiUserRegisterParams) c0269a.k()).setProvince(user.getProvince());
+                ((MiUserRegisterParams) c0269a.k()).setQq_openid(this.f13760a.openid);
+                ((MiUserRegisterParams) c0269a.k()).setQq_access_token(this.f13760a.access_token);
+                ((MiUserRegisterParams) c0269a.k()).setQq_pf(this.f13760a.pf);
+                c0269a.j();
             }
         }
 
-        public b() {
+        a() {
         }
 
         @Override // com.martian.libqq.QQAPIInstance.OnLoginListener
         public void onLoginCancelled() {
-            PopupLoginActivity.this.m1("登录取消", false);
+            PopupLoginActivity.this.u0("登录取消", false);
         }
 
         @Override // com.martian.libqq.QQAPIInstance.OnLoginListener
-        public void onLoginError(int i10, String str) {
-            PopupLoginActivity.this.m1("登录失败，请重试" + str, true);
+        public void onLoginError(int errcode, String errStr) {
+            PopupLoginActivity.this.u0("登录失败，请重试" + errStr, true);
         }
 
         @Override // com.martian.libqq.QQAPIInstance.OnLoginListener
-        public void onLoginSuccess(QQAuth qQAuth) {
-            QQAPIInstance.getInstance().getUserInfo(PopupLoginActivity.this, new a(qQAuth));
+        public void onLoginSuccess(final QQAuth auth) {
+            QQAPIInstance.getInstance().getUserInfo(PopupLoginActivity.this, new C0268a(auth));
         }
     }
 
-    public class c implements c.h {
-        public c() {
+    /* loaded from: classes3.dex */
+    class b implements c.InterfaceC0253c {
+
+        class a extends com.martian.mibook.lib.account.d.p {
+            a() {
+            }
+
+            @Override // b.d.c.c.b
+            public void onResultError(b.d.c.b.c errorResult) {
+                PopupLoginActivity.this.u0("登录失败，请重试" + errorResult.toString(), true);
+            }
+
+            @Override // b.d.c.c.b
+            /* renamed from: p */
+            public void onDataReceived(MiUser miUser) {
+                PopupLoginActivity.this.f13757d.f13818g.setVisibility(8);
+                if (miUser.getLoggingOff().booleanValue()) {
+                    PopupLoginActivity.this.t0(miUser);
+                } else {
+                    PopupLoginActivity.this.s0(miUser);
+                    PopupLoginActivity.this.r0();
+                }
+            }
+
+            @Override // b.d.c.c.g
+            protected void showLoading(boolean show) {
+                if (show) {
+                    return;
+                }
+                PopupLoginActivity.this.f13757d.f13818g.setVisibility(0);
+            }
         }
 
-        @Override // lb.c.h
-        public void a(MiUser miUser) {
-            PopupLoginActivity.this.l1(miUser);
-            PopupLoginActivity.this.k1();
+        b() {
         }
 
-        @Override // lb.c.h
-        public void b(boolean z10) {
-            if (PopupLoginActivity.this.isFinishing() || PopupLoginActivity.this.isDestroyed()) {
+        /* JADX WARN: Multi-variable type inference failed */
+        @Override // com.maritan.libweixin.c.InterfaceC0253c
+        public void a(String authorizationCode) {
+            if (MiUserManager.s().f()) {
+                PopupLoginActivity.this.z0(authorizationCode);
                 return;
             }
-            PopupLoginActivity.this.f13885b.f13908g.setVisibility(z10 ? 0 : 8);
+            a aVar = new a();
+            aVar.n();
+            ((WXRegisterParams) aVar.k()).setWx_appid(com.martian.libmars.d.h.F().y0().f9577a);
+            ((WXRegisterParams) aVar.k()).setWx_code(authorizationCode);
+            aVar.j();
         }
 
-        @Override // lb.c.h
-        public void onResultError(x8.c cVar) {
-            PopupLoginActivity.this.m1(cVar.d(), true);
+        @Override // com.maritan.libweixin.c.InterfaceC0253c
+        public void b(String errStr) {
+            PopupLoginActivity.this.u0("登录失败，请重试" + errStr, true);
+        }
+
+        @Override // com.maritan.libweixin.c.InterfaceC0253c
+        public void onLoginCancelled() {
+            PopupLoginActivity.this.u0("登录取消", false);
         }
     }
 
-    public /* synthetic */ void h1(View view) {
-        if (this.f13887d) {
-            s1();
-        } else {
-            n1();
+    /* loaded from: classes3.dex */
+    class c extends d0<TryWeixinBindParams, UserDetail> {
+        c(Class aClass, Class dataType, Activity activity) {
+            super(aClass, dataType, activity);
+        }
+
+        @Override // com.martian.mibook.lib.account.d.q.d0, b.d.c.c.b
+        public void onResultError(b.d.c.b.c errorResult) {
+            PopupLoginActivity.this.u0("登录失败，请重试" + errorResult.toString(), true);
+        }
+
+        @Override // b.d.c.c.i, b.d.c.c.c
+        public void onUDDataReceived(List<UserDetail> userDetails) {
+            PopupLoginActivity.this.f13757d.f13818g.setVisibility(8);
+            if (userDetails == null || userDetails.isEmpty()) {
+                PopupLoginActivity.this.v0("登录失败");
+                PopupLoginActivity.this.finish();
+                return;
+            }
+            UserDetail userDetail = userDetails.get(0);
+            MiUser userInfo = userDetail.getUserInfo();
+            MiTaskAccount taskAccount = userDetail.getTaskAccount();
+            MartianRPAccount account = userDetail.getAccount();
+            if (userInfo == null) {
+                PopupLoginActivity.this.finish();
+                return;
+            }
+            if (userInfo.getLoggingOff().booleanValue()) {
+                PopupLoginActivity.this.t0(userInfo);
+                return;
+            }
+            if (!userInfo.getUid().equals(MiUserManager.s().e().getUid())) {
+                PopupLoginActivity.this.f13757d.f13817f.setVisibility(4);
+                com.martian.mibook.lib.account.e.d.e(PopupLoginActivity.this, userInfo, taskAccount, account);
+                return;
+            }
+            PopupLoginActivity.this.s0(userInfo);
+            if (taskAccount != null) {
+                MiUserManager.s().l(taskAccount);
+            }
+            if (account != null && MartianIUserManager.b() != null) {
+                MartianIUserManager.b().k(account);
+            }
+            PopupLoginActivity.this.r0();
+        }
+
+        @Override // b.d.c.c.g
+        protected void showLoading(boolean show) {
+            if (show) {
+                PopupLoginActivity.this.f13757d.f13818g.setVisibility(0);
+            }
         }
     }
 
-    public /* synthetic */ void i1(View view) {
-        if (!this.f13887d) {
-            o1("请先同意用户隐私协议");
-            l9.a.f(this.f13885b.f13903b);
+    /* renamed from: B */
+    public /* synthetic */ void C(View v) {
+        if (this.f13758e) {
+            A0();
         } else {
-            PhoneLoginActivity.y3(this, 0, "", 20003);
+            v0("请先同意用户隐私协议");
+            h0.e(this.f13757d.f13813b);
+        }
+    }
+
+    private void B0() {
+        if (com.martian.libmars.d.h.F().M() <= 0) {
+            com.martian.libmars.d.h.F().s1((int) (System.currentTimeMillis() % 12000));
+        }
+        if (this.f13758e) {
+            this.f13757d.f13816e.setImageResource(R.drawable.icon_checked);
+        }
+    }
+
+    /* renamed from: D */
+    public /* synthetic */ void E(View v) {
+        if (!this.f13758e) {
+            v0("请先同意用户隐私协议");
+            h0.e(this.f13757d.f13813b);
+        } else {
+            PhoneLoginActivity.j3(this, 0, "", 20003);
             setResult(-1);
             finish();
         }
     }
 
-    public void k1() {
-        e9.c.e(e9.d.f25790b, null);
-        o1("登录成功");
-        setResult(-1);
-        ConfigSingleton.D().g1(lb.c.f28067a, true);
+    /* renamed from: F */
+    public /* synthetic */ void G(View v) {
+        boolean z = !this.f13758e;
+        this.f13758e = z;
+        this.f13757d.f13816e.setImageResource(z ? R.drawable.icon_checked : R.drawable.icon_checkin_unselected);
+        if (this.f13758e) {
+            this.f13757d.f13816e.clearAnimation();
+        }
+    }
+
+    /* renamed from: H */
+    public /* synthetic */ void I(final MiUser miUser) {
+        MiWebViewBaseActivity.h4(this, com.martian.libmars.d.h.F().l(), miUser.getUid().toString(), miUser.getToken(), com.martian.libmars.d.h.F().f().f9879a, f13754a);
+    }
+
+    /* renamed from: p0 */
+    public /* synthetic */ void q0() {
+        v0("登录取消");
         finish();
     }
 
-    public void m1(String str, boolean z10) {
-        if (isFinishing() || isDestroyed()) {
-            return;
+    public void r0() {
+        v0("登录成功");
+        setResult(-1);
+        finish();
+    }
+
+    public void s0(final com.martian.rpauth.b miUser) {
+        if (miUser instanceof MiUser) {
+            ((MiUser) miUser).setGuest(Boolean.FALSE);
         }
-        this.f13885b.f13908g.setVisibility(8);
-        o1(ConfigSingleton.D().s(str));
-        if (z10) {
+        MartianIUserManager martianIUserManager = this.f13756c;
+        if (martianIUserManager != null) {
+            martianIUserManager.m(miUser);
+        }
+        com.martian.mibook.lib.account.e.c.k(this, null);
+        com.martian.mibook.lib.account.e.c.l(this, null);
+    }
+
+    public void t0(final MiUser miUser) {
+        k0.Q(this, getString(R.string.confirm_message), "该账号正在注销审核中，继续登录将会放弃注销", getString(R.string.cancel), getString(R.string.cancel_logout), true, new k0.l() { // from class: com.martian.mibook.lib.account.activity.n
+            @Override // com.martian.libmars.utils.k0.l
+            public final void a() {
+                PopupLoginActivity.this.I(miUser);
+            }
+        }, new k0.j() { // from class: com.martian.mibook.lib.account.activity.p
+            @Override // com.martian.libmars.utils.k0.j
+            public final void a() {
+                PopupLoginActivity.this.q0();
+            }
+        });
+    }
+
+    public void u0(String errorStr, boolean isFinish) {
+        this.f13757d.f13818g.setVisibility(8);
+        v0(errorStr);
+        if (isFinish) {
             finish();
         }
     }
 
-    public static void p1(Activity activity) {
-        q1(activity, 10001, false);
+    public static void w0(Activity activity) {
+        x0(activity, 10001, false);
     }
 
-    public static void q1(Activity activity, int i10, boolean z10) {
+    public static void x0(Activity activity, int loginType, boolean checked) {
         if (activity == null || activity.isFinishing()) {
             return;
         }
-        Intent intent = new Intent(ConfigSingleton.D(), (Class<?>) PopupLoginActivity.class);
-        intent.putExtra(MiUserManager.f13854j, i10);
-        intent.putExtra(MiUserManager.f13855k, z10);
-        activity.startActivityForResult(intent, i10);
+        Intent intent = new Intent(activity, (Class<?>) PopupLoginActivity.class);
+        intent.putExtra(MiUserManager.s, loginType);
+        intent.putExtra(MiUserManager.t, checked);
+        activity.startActivityForResult(intent, loginType);
     }
 
-    public final /* synthetic */ void j1(View view) {
-        boolean z10 = !this.f13887d;
-        this.f13887d = z10;
-        this.f13885b.f13906e.setImageResource(z10 ? R.drawable.icon_checked : R.drawable.icon_checkin_unselected);
-        if (this.f13887d) {
-            this.f13885b.f13906e.clearAnimation();
+    /* JADX WARN: Multi-variable type inference failed */
+    public void z0(String authorizationCode) {
+        c cVar = new c(TryWeixinBindParams.class, UserDetail.class, this);
+        ((TryWeixinBindParams) cVar.k()).setWx_code(authorizationCode);
+        ((TryWeixinBindParams) cVar.k()).setWx_appid(com.martian.libmars.d.h.F().y0().f9577a);
+        cVar.j();
+    }
+
+    public void A0() {
+        if (com.martian.apptask.g.g.g(this, "com.tencent.mm")) {
+            com.maritan.libweixin.c.g().B(new b());
+        } else {
+            v0("请先安装微信");
         }
     }
 
-    public final void l1(me.b bVar) {
-        if (bVar instanceof MiUser) {
-            ((MiUser) bVar).setGuest(Boolean.FALSE);
-        }
-        if (MartianIUserManager.b() != null) {
-            MartianIUserManager.b().l(bVar);
-        }
-        lb.c.w(this, null);
-        lb.c.x(this, null);
-    }
-
-    public final void n1() {
-        i0.E0(this, getString(com.martian.mibook.lib.account.R.string.app_name), new a());
-    }
-
-    public void o1(String str) {
-        if (TextUtils.isEmpty(str)) {
-            str = getString(R.string.unknown_error);
-        }
-        Toast.makeText(this, str, 0).show();
-    }
-
-    @Override // androidx.fragment.app.FragmentActivity, androidx.activity.ComponentActivity, android.app.Activity
-    public void onActivityResult(int i10, int i11, Intent intent) {
-        MiUserManager.x(i10, i11, intent);
-        super.onActivityResult(i10, i11, intent);
-        if (i10 == f13884f) {
-            ac.a.P(this, "放弃注销账号");
-            o1("请重新登录");
+    @Override // androidx.fragment.app.FragmentActivity, android.app.Activity
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        MiUserManager.j(requestCode, resultCode, data);
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == f13754a) {
+            com.martian.mibook.lib.model.g.b.Z(this, "放弃注销账号");
+            v0("请重新登录");
             finish();
         }
-        t1();
     }
 
     public void onCloseClick(View view) {
@@ -290,127 +385,78 @@ public class PopupLoginActivity extends FragmentActivity {
     }
 
     @Override // androidx.fragment.app.FragmentActivity, androidx.activity.ComponentActivity, androidx.core.app.ComponentActivity, android.app.Activity
-    public void onCreate(Bundle bundle) {
-        super.onCreate(bundle);
-        ActivityLoginWindowBinding c10 = ActivityLoginWindowBinding.c(getLayoutInflater());
-        this.f13885b = c10;
-        setContentView(c10.getRoot());
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        com.martian.mibook.lib.account.b.a c2 = com.martian.mibook.lib.account.b.a.c(getLayoutInflater());
+        this.f13757d = c2;
+        setContentView(c2.getRoot());
         getWindow().setLayout(-1, -1);
-        com.gyf.immersionbar.d.q3(this).W0(BarHide.FLAG_HIDE_BAR).a1();
-        if (bundle != null) {
-            this.f13888e = bundle.getInt(MiUserManager.f13854j);
-            this.f13887d = bundle.getBoolean(MiUserManager.f13855k, false);
+        ImmersionBar.with(this).hideBar(BarHide.FLAG_HIDE_BAR).init();
+        if (savedInstanceState != null) {
+            this.f13755b = savedInstanceState.getInt(MiUserManager.s);
+            this.f13758e = savedInstanceState.getBoolean(MiUserManager.t, false);
         } else {
-            this.f13888e = getIntent().getIntExtra(MiUserManager.f13854j, 0);
-            this.f13887d = getIntent().getBooleanExtra(MiUserManager.f13855k, false);
+            this.f13755b = getIntent().getIntExtra(MiUserManager.s, 0);
+            this.f13758e = getIntent().getBooleanExtra(MiUserManager.t, false);
         }
-        this.f13885b.f13905d.setOnClickListener(new View.OnClickListener() { // from class: ib.k
-            public /* synthetic */ k() {
-            }
-
+        this.f13757d.f13815d.setOnClickListener(new View.OnClickListener() { // from class: com.martian.mibook.lib.account.activity.o
             @Override // android.view.View.OnClickListener
             public final void onClick(View view) {
-                PopupLoginActivity.this.h1(view);
+                PopupLoginActivity.this.C(view);
             }
         });
-        this.f13885b.f13904c.setOnClickListener(new View.OnClickListener() { // from class: ib.l
-            public /* synthetic */ l() {
-            }
-
+        this.f13757d.f13814c.setOnClickListener(new View.OnClickListener() { // from class: com.martian.mibook.lib.account.activity.r
             @Override // android.view.View.OnClickListener
             public final void onClick(View view) {
-                PopupLoginActivity.this.i1(view);
+                PopupLoginActivity.this.E(view);
             }
         });
-        this.f13885b.f13903b.setOnClickListener(new View.OnClickListener() { // from class: ib.m
-            public /* synthetic */ m() {
-            }
-
+        this.f13757d.f13813b.setOnClickListener(new View.OnClickListener() { // from class: com.martian.mibook.lib.account.activity.q
             @Override // android.view.View.OnClickListener
             public final void onClick(View view) {
-                PopupLoginActivity.this.j1(view);
+                PopupLoginActivity.this.G(view);
             }
         });
-        int i10 = this.f13888e;
-        if (i10 == 202) {
-            this.f13887d = true;
-            this.f13885b.f13906e.setImageResource(R.drawable.icon_checked);
-            this.f13885b.f13904c.setVisibility(8);
-        } else if (i10 == 200) {
-            this.f13885b.f13906e.setImageResource(R.drawable.icon_checked);
-            s1();
-        } else if (i10 == 201) {
-            r1();
-        } else {
-            this.f13885b.f13906e.setImageResource(this.f13887d ? R.drawable.icon_checked : R.drawable.icon_checkin_unselected);
+        this.f13756c = MartianIUserManager.b();
+        int i2 = this.f13755b;
+        if (i2 == 202) {
+            this.f13758e = true;
+            this.f13757d.f13816e.setImageResource(R.drawable.icon_checked);
+            this.f13757d.f13814c.setVisibility(8);
+        } else if (i2 == 200) {
+            this.f13757d.f13816e.setImageResource(R.drawable.icon_checked);
+            A0();
+            return;
+        } else if (i2 == 201) {
+            y0();
+            return;
         }
-    }
-
-    @Override // androidx.fragment.app.FragmentActivity, android.app.Activity
-    public void onDestroy() {
-        super.onDestroy();
-        PopupWindow popupWindow = this.f13886c;
-        if (popupWindow != null) {
-            popupWindow.dismiss();
-            this.f13886c = null;
-        }
+        B0();
     }
 
     public void onPrivacyClick(View view) {
-        lb.c.n(this);
+        com.martian.mibook.lib.account.e.c.f(this);
     }
 
-    @Override // androidx.activity.ComponentActivity, androidx.core.app.ComponentActivity, android.app.Activity
-    public void onSaveInstanceState(@NonNull Bundle bundle) {
-        super.onSaveInstanceState(bundle);
-        bundle.putInt(MiUserManager.f13854j, this.f13888e);
-        bundle.putBoolean(MiUserManager.f13855k, this.f13887d);
+    @Override // androidx.fragment.app.FragmentActivity, androidx.activity.ComponentActivity, androidx.core.app.ComponentActivity, android.app.Activity
+    protected void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+        outState.putInt(MiUserManager.s, this.f13755b);
     }
 
     public void onUserAgreementClick(View view) {
-        lb.c.q(this);
+        com.martian.mibook.lib.account.e.c.i(this);
     }
 
-    public void r1() {
-        this.f13885b.f13908g.setVisibility(0);
-        QQAPIInstance.getInstance().startLogin(this, new b());
+    public void v0(String msg) {
+        if (TextUtils.isEmpty(msg)) {
+            msg = getString(R.string.unknown_error);
+        }
+        Toast.makeText(this, msg, 0).show();
     }
 
-    public void s1() {
-        lb.c.k(this, "", new c());
-    }
-
-    /* JADX WARN: Multi-variable type inference failed */
-    public void t1() {
-        if (MartianIUserManager.b() == null || MartianIUserManager.b().f()) {
-            return;
-        }
-        d dVar = new d(MiGuestUserLoginParams.class, MiUser.class, this);
-        ((MiGuestUserLoginParams) dVar.k()).setOaid(ConfigSingleton.D().M());
-        ((MiGuestUserLoginParams) dVar.k()).setAndroid_id(ConfigSingleton.D().j());
-        ((MiGuestUserLoginParams) dVar.k()).setImei(ConfigSingleton.D().A());
-        dVar.j();
-    }
-
-    public class d extends e<MiGuestUserLoginParams, MiUser> {
-        public d(Class cls, Class cls2, Context context) {
-            super(cls, cls2, context);
-        }
-
-        @Override // y8.h, y8.b
-        public void onUDDataReceived(List<MiUser> list) {
-            if (list == null || list.isEmpty() || list.get(0) == null) {
-                return;
-            }
-            PopupLoginActivity.this.l1(list.get(0));
-        }
-
-        @Override // y8.f
-        public void showLoading(boolean z10) {
-        }
-
-        @Override // y8.a
-        public void onResultError(x8.c cVar) {
-        }
+    public void y0() {
+        this.f13757d.f13818g.setVisibility(0);
+        QQAPIInstance.getInstance().startLogin(this, new a());
     }
 }

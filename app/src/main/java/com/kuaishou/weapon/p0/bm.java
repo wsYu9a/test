@@ -1,127 +1,115 @@
 package com.kuaishou.weapon.p0;
 
 import android.content.Context;
-import android.util.DisplayMetrics;
-import java.util.Calendar;
-import java.util.Locale;
-import java.util.TimeZone;
-import org.json.JSONObject;
+import android.text.TextUtils;
+import com.kuaishou.weapon.p0.jni.Engine;
 
-/* loaded from: classes2.dex */
+/* loaded from: classes.dex */
 public class bm {
-    public static int a(Context context) {
+
+    /* renamed from: a */
+    private Context f9121a;
+
+    public bm(Context context) {
+        this.f9121a = context;
+    }
+
+    public static String b(String str) {
         try {
-            DisplayMetrics displayMetrics = context.getResources().getDisplayMetrics();
-            if (displayMetrics != null) {
-                return displayMetrics.densityDpi;
-            }
-            return -1;
-        } catch (Exception unused) {
-            return -1;
-        }
-    }
-
-    public static String b() {
-        return "0";
-    }
-
-    public static String c() {
-        String str;
-        try {
-            str = Locale.getDefault().toString();
-        } catch (Throwable unused) {
-            str = "";
-        }
-        return str == null ? "" : str;
-    }
-
-    /* JADX WARN: Code restructure failed: missing block: B:43:0x0071, code lost:
-    
-        if (r3 == null) goto L140;
-     */
-    /*
-        Code decompiled incorrectly, please refer to instructions dump.
-        To view partially-correct code enable 'Show inconsistent code' option in preferences
-    */
-    public static org.json.JSONObject d() {
-        /*
-            java.lang.String r0 = ";"
-            org.json.JSONObject r1 = new org.json.JSONObject
-            r1.<init>()
-            r2 = 0
-            java.lang.Runtime r3 = java.lang.Runtime.getRuntime()     // Catch: java.lang.Throwable -> L68
-            java.lang.String r4 = "lsmod"
-            java.lang.Process r3 = r3.exec(r4)     // Catch: java.lang.Throwable -> L68
-            java.io.DataInputStream r4 = new java.io.DataInputStream     // Catch: java.lang.Throwable -> L68
-            java.io.InputStream r3 = r3.getInputStream()     // Catch: java.lang.Throwable -> L68
-            r4.<init>(r3)     // Catch: java.lang.Throwable -> L68
-            java.io.BufferedReader r3 = new java.io.BufferedReader     // Catch: java.lang.Throwable -> L65
-            java.io.InputStreamReader r5 = new java.io.InputStreamReader     // Catch: java.lang.Throwable -> L65
-            r5.<init>(r4)     // Catch: java.lang.Throwable -> L65
-            r3.<init>(r5)     // Catch: java.lang.Throwable -> L65
-        L25:
-            java.lang.String r2 = r3.readLine()     // Catch: java.lang.Throwable -> L5a
-            if (r2 == 0) goto L5c
-            boolean r5 = android.text.TextUtils.isEmpty(r2)     // Catch: java.lang.Throwable -> L5a
-            if (r5 != 0) goto L25
-            java.lang.String r2 = com.kuaishou.weapon.p0.bo.a(r2)     // Catch: java.lang.Throwable -> L5a
-            java.lang.String r5 = "-"
-            boolean r5 = r2.contains(r5)     // Catch: java.lang.Throwable -> L5a
-            if (r5 == 0) goto L25
-            boolean r5 = r2.contains(r0)     // Catch: java.lang.Throwable -> L5a
-            if (r5 == 0) goto L25
-            java.lang.String r5 = ";;;"
-            java.lang.String r2 = r2.replace(r5, r0)     // Catch: java.lang.Throwable -> L5a
-            java.lang.String[] r2 = r2.split(r0)     // Catch: java.lang.Throwable -> L5a
-            int r5 = r2.length     // Catch: java.lang.Throwable -> L5a
-            r6 = 1
-            if (r5 <= r6) goto L25
-            r5 = 0
-            r5 = r2[r5]     // Catch: java.lang.Throwable -> L5a
-            r2 = r2[r6]     // Catch: java.lang.Throwable -> L5a
-            r1.put(r5, r2)     // Catch: java.lang.Throwable -> L5a
-            goto L25
-        L5a:
-            goto L63
-        L5c:
-            r4.close()     // Catch: java.io.IOException -> L5f
-        L5f:
-            r3.close()     // Catch: java.io.IOException -> L74
-            goto L74
-        L63:
-            r2 = r4
-            goto L6a
-        L65:
-            r3 = r2
-            goto L63
-        L68:
-            r3 = r2
-        L6a:
-            if (r2 == 0) goto L71
-            r2.close()     // Catch: java.io.IOException -> L70
-            goto L71
-        L70:
-        L71:
-            if (r3 == 0) goto L74
-            goto L5f
-        L74:
-            return r1
-        */
-        throw new UnsupportedOperationException("Method not decompiled: com.kuaishou.weapon.p0.bm.d():org.json.JSONObject");
-    }
-
-    public static JSONObject a() {
-        try {
-            JSONObject jSONObject = new JSONObject();
-            TimeZone timeZone = Calendar.getInstance().getTimeZone();
-            if (timeZone == null) {
+            String str2 = new String(c.a("a3NyaXNrY3RsYnVzaW5zc3Z4cHprd3NwYWlvcXBrc3M=".getBytes(), 2));
+            if (TextUtils.isEmpty(str2)) {
                 return null;
             }
-            jSONObject.put("0", String.valueOf(timeZone.getOffset(System.currentTimeMillis()) / 1000));
-            jSONObject.put("1", timeZone.getID());
-            return jSONObject;
+            if (str2.length() < 16) {
+                int length = str2.length();
+                StringBuilder sb = new StringBuilder(str2);
+                for (int i2 = 0; i2 < 16 - length; i2++) {
+                    sb.append("0");
+                }
+                str2 = sb.toString();
+            } else if (str2.length() > 16) {
+                str2 = str2.substring(0, 16);
+            }
+            return new String(d.b(i.a(b.b(str2.substring(0, 16), str2.substring(0, 16), c.a(str.getBytes(), 2)), str2.substring(0, 16))));
+        } catch (Throwable unused) {
+            return null;
+        }
+    }
+
+    public String a(String str) {
+        try {
+            return b(str, new String(c.a("a3NyaXNrY3RsYnVzaW5zc3Z4cHprd3NwYWlvcXBrc3M=".getBytes(), 2)));
         } catch (Exception unused) {
             return null;
         }
+    }
+
+    public String a(String str, String str2) {
+        try {
+            return c(str, new String(c.a(str2.getBytes(), 2)));
+        } catch (Exception unused) {
+            return null;
+        }
+    }
+
+    public String b(String str, String str2) {
+        try {
+            if (TextUtils.isEmpty(str2)) {
+                return null;
+            }
+            if (str2.length() < 16) {
+                int length = str2.length();
+                StringBuilder sb = new StringBuilder(str2);
+                for (int i2 = 0; i2 < 16 - length; i2++) {
+                    sb.append("0");
+                }
+                str2 = sb.toString();
+            } else if (str2.length() > 16) {
+                str2 = str2.substring(0, 16);
+            }
+            byte[] a2 = c.a(str.getBytes(), 2);
+            return new String(d.b(Engine.loadSuccess ? Engine.getInstance(this.f9121a).dr(Engine.getInstance(this.f9121a).dc(a2, str2.substring(0, 16).getBytes()), str2.getBytes()) : i.a(b.b(str2.substring(0, 16), str2.substring(0, 16), a2), str2.substring(0, 16))));
+        } catch (Exception unused) {
+            return null;
+        }
+    }
+
+    public String c(String str) {
+        try {
+            return c(str, new String(c.a("a3NyaXNrY3RsYnVzaW5zc3Z4cHprd3NwYWlvcXBrc3M=".getBytes(), 2)));
+        } catch (Exception unused) {
+            return null;
+        }
+    }
+
+    public String c(String str, String str2) {
+        byte[] bArr;
+        if (TextUtils.isEmpty(str2)) {
+            return null;
+        }
+        if (str2.length() < 16) {
+            int length = str2.length();
+            StringBuilder sb = new StringBuilder(str2);
+            for (int i2 = 0; i2 < 16 - length; i2++) {
+                sb.append("0");
+            }
+            str2 = sb.toString();
+        } else if (str2.length() > 16) {
+            str2 = str2.substring(0, 16);
+        }
+        byte[] a2 = d.a(str.getBytes());
+        if (Engine.loadSuccess) {
+            bArr = Engine.getInstance(this.f9121a).ac(Engine.getInstance(this.f9121a).ar(a2, str2.getBytes()), str2.substring(0, 16).getBytes());
+        } else {
+            try {
+                bArr = b.a(str2.substring(0, 16), str2.substring(0, 16), i.b(a2, str2));
+            } catch (Throwable unused) {
+                bArr = null;
+            }
+        }
+        if (bArr != null && bArr.length > 0) {
+            return c.b(bArr, 2);
+        }
+        return null;
     }
 }

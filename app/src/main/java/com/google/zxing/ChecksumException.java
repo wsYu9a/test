@@ -1,6 +1,6 @@
 package com.google.zxing;
 
-/* loaded from: classes2.dex */
+/* loaded from: classes.dex */
 public final class ChecksumException extends ReaderException {
     private static final ChecksumException INSTANCE;
 
@@ -17,11 +17,11 @@ public final class ChecksumException extends ReaderException {
         return ReaderException.isStackTrace ? new ChecksumException() : INSTANCE;
     }
 
-    private ChecksumException(Throwable th2) {
-        super(th2);
+    private ChecksumException(Throwable th) {
+        super(th);
     }
 
-    public static ChecksumException getChecksumInstance(Throwable th2) {
-        return ReaderException.isStackTrace ? new ChecksumException(th2) : INSTANCE;
+    public static ChecksumException getChecksumInstance(Throwable th) {
+        return ReaderException.isStackTrace ? new ChecksumException(th) : INSTANCE;
     }
 }

@@ -1,15 +1,12 @@
 package com.martian.libfeedback.request;
 
-import v8.c;
+import com.martian.libcomm.http.requests.d.c;
 
-/* loaded from: classes3.dex */
+/* loaded from: classes2.dex */
 public class FeedbackInfoParams extends FeedbacklTaskHttpPostParams {
 
     @c
     private Integer categoryId;
-
-    @c
-    private String ext;
 
     @c
     private String pics;
@@ -27,10 +24,6 @@ public class FeedbackInfoParams extends FeedbacklTaskHttpPostParams {
         return this.categoryId;
     }
 
-    public String getExt() {
-        return this.ext;
-    }
-
     public String getPics() {
         return this.pics;
     }
@@ -39,7 +32,7 @@ public class FeedbackInfoParams extends FeedbacklTaskHttpPostParams {
         return this.qq;
     }
 
-    @Override // u8.b
+    @Override // com.martian.libcomm.http.requests.b
     public String getRequestMethod() {
         return "authopt/feedback/add";
     }
@@ -52,27 +45,23 @@ public class FeedbackInfoParams extends FeedbacklTaskHttpPostParams {
         return this.subject;
     }
 
-    public void setCategoryId(Integer num) {
-        this.categoryId = num;
+    public void setCategoryId(Integer categoryId) {
+        this.categoryId = categoryId;
     }
 
-    public void setExt(String str) {
-        this.ext = str;
+    public void setPics(String pics) {
+        this.pics = pics;
     }
 
-    public void setPics(String str) {
-        this.pics = str;
+    public void setQq(String qq) {
+        this.qq = qq;
     }
 
-    public void setQq(String str) {
-        this.qq = str;
+    public void setSubCategoryId(Integer subCategoryId) {
+        this.subCategoryId = subCategoryId;
     }
 
-    public void setSubCategoryId(Integer num) {
-        this.subCategoryId = num;
-    }
-
-    public void setSubject(String str) {
-        this.subject = str;
+    public void setSubject(String subject) {
+        this.subject = subject;
     }
 }

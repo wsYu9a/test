@@ -1,9 +1,9 @@
 package com.martian.mibook.lib.yuewen.request;
 
+import com.martian.libcomm.http.requests.d.a;
 import com.martian.mibook.lib.account.request.TYHttpGetParams;
-import v8.a;
 
-/* loaded from: classes3.dex */
+/* loaded from: classes4.dex */
 public class YWChannelBooksParams extends TYHttpGetParams {
 
     @a
@@ -52,7 +52,7 @@ public class YWChannelBooksParams extends TYHttpGetParams {
         return this.pageSize.intValue();
     }
 
-    @Override // u8.b
+    @Override // com.martian.libcomm.http.requests.b
     public String getRequestMethod() {
         return "book_mall/channel_books";
     }
@@ -65,27 +65,27 @@ public class YWChannelBooksParams extends TYHttpGetParams {
         return num.intValue();
     }
 
-    public void setCategory(String str) {
-        this.category = str;
+    public void setCategory(String category) {
+        this.category = category;
     }
 
-    public void setExt(String str) {
-        this.ext = str;
+    public void setExt(String ext) {
+        this.ext = ext;
     }
 
-    public void setMcid(Integer num) {
-        this.mcid = num;
+    public void setMcid(Integer mcid) {
+        this.mcid = mcid;
     }
 
-    public void setPage(Integer num) {
-        this.page = num;
+    public void setPage(Integer page) {
+        this.page = page;
     }
 
-    public void setPageSize(Integer num) {
-        this.pageSize = num;
+    public void setPageSize(Integer pageSize) {
+        this.pageSize = pageSize;
     }
 
-    public void setSeed(Integer num) {
-        this.seed = num;
+    public void setSeed(Integer seed) {
+        this.seed = seed;
     }
 }

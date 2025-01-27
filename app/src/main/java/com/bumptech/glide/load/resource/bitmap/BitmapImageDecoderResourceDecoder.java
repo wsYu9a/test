@@ -11,17 +11,16 @@ import com.bumptech.glide.load.resource.ImageDecoderResourceDecoder;
 import java.io.IOException;
 
 @RequiresApi(api = 28)
-/* loaded from: classes2.dex */
+/* loaded from: classes.dex */
 public final class BitmapImageDecoderResourceDecoder extends ImageDecoderResourceDecoder<Bitmap> {
     private static final String TAG = "BitmapImageDecoder";
     private final BitmapPool bitmapPool = new BitmapPoolAdapter();
 
     @Override // com.bumptech.glide.load.resource.ImageDecoderResourceDecoder
-    public Resource<Bitmap> decode(ImageDecoder.Source source, int i10, int i11, ImageDecoder.OnHeaderDecodedListener onHeaderDecodedListener) throws IOException {
-        Bitmap decodeBitmap;
-        decodeBitmap = ImageDecoder.decodeBitmap(source, onHeaderDecodedListener);
+    protected Resource<Bitmap> decode(ImageDecoder.Source source, int i2, int i3, ImageDecoder.OnHeaderDecodedListener onHeaderDecodedListener) throws IOException {
+        Bitmap decodeBitmap = ImageDecoder.decodeBitmap(source, onHeaderDecodedListener);
         if (Log.isLoggable(TAG, 2)) {
-            Log.v(TAG, "Decoded [" + decodeBitmap.getWidth() + "x" + decodeBitmap.getHeight() + "] for [" + i10 + "x" + i11 + "]");
+            Log.v(TAG, "Decoded [" + decodeBitmap.getWidth() + "x" + decodeBitmap.getHeight() + "] for [" + i2 + "x" + i3 + "]");
         }
         return new BitmapResource(decodeBitmap, this.bitmapPool);
     }

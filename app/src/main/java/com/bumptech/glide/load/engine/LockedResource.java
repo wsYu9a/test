@@ -6,9 +6,12 @@ import com.bumptech.glide.util.Preconditions;
 import com.bumptech.glide.util.pool.FactoryPools;
 import com.bumptech.glide.util.pool.StateVerifier;
 
-/* loaded from: classes2.dex */
+/* loaded from: classes.dex */
 final class LockedResource<Z> implements Resource<Z>, FactoryPools.Poolable {
     private static final Pools.Pool<LockedResource<?>> POOL = FactoryPools.threadSafe(20, new FactoryPools.Factory<LockedResource<?>>() { // from class: com.bumptech.glide.load.engine.LockedResource.1
+        AnonymousClass1() {
+        }
+
         @Override // com.bumptech.glide.util.pool.FactoryPools.Factory
         public LockedResource<?> create() {
             return new LockedResource<>();
@@ -20,11 +23,17 @@ final class LockedResource<Z> implements Resource<Z>, FactoryPools.Poolable {
     private Resource<Z> toWrap;
 
     /* renamed from: com.bumptech.glide.load.engine.LockedResource$1 */
-    public class AnonymousClass1 implements FactoryPools.Factory<LockedResource<?>> {
+    class AnonymousClass1 implements FactoryPools.Factory<LockedResource<?>> {
+        AnonymousClass1() {
+        }
+
         @Override // com.bumptech.glide.util.pool.FactoryPools.Factory
         public LockedResource<?> create() {
             return new LockedResource<>();
         }
+    }
+
+    LockedResource() {
     }
 
     private void init(Resource<Z> resource) {
@@ -34,7 +43,7 @@ final class LockedResource<Z> implements Resource<Z>, FactoryPools.Poolable {
     }
 
     @NonNull
-    public static <Z> LockedResource<Z> obtain(Resource<Z> resource) {
+    static <Z> LockedResource<Z> obtain(Resource<Z> resource) {
         LockedResource<Z> lockedResource = (LockedResource) Preconditions.checkNotNull(POOL.acquire());
         lockedResource.init(resource);
         return lockedResource;
@@ -78,7 +87,7 @@ final class LockedResource<Z> implements Resource<Z>, FactoryPools.Poolable {
         }
     }
 
-    public synchronized void unlock() {
+    synchronized void unlock() {
         this.stateVerifier.throwIfRecycled();
         if (!this.isLocked) {
             throw new IllegalStateException("Already unlocked");

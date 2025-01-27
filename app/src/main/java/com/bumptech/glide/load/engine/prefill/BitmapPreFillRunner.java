@@ -17,7 +17,7 @@ import java.util.HashSet;
 import java.util.Set;
 import java.util.concurrent.TimeUnit;
 
-/* loaded from: classes2.dex */
+/* loaded from: classes.dex */
 final class BitmapPreFillRunner implements Runnable {
     static final int BACKOFF_RATIO = 4;
     static final long INITIAL_BACKOFF_MS = 40;
@@ -37,13 +37,19 @@ final class BitmapPreFillRunner implements Runnable {
     static final long MAX_BACKOFF_MS = TimeUnit.SECONDS.toMillis(1);
 
     @VisibleForTesting
-    public static class Clock {
-        public long now() {
+    static class Clock {
+        Clock() {
+        }
+
+        long now() {
             return SystemClock.currentThreadTimeMillis();
         }
     }
 
-    public static final class UniqueKey implements Key {
+    private static final class UniqueKey implements Key {
+        UniqueKey() {
+        }
+
         @Override // com.bumptech.glide.load.Key
         public void updateDiskCacheKey(@NonNull MessageDigest messageDigest) {
             throw new UnsupportedOperationException();
@@ -59,17 +65,17 @@ final class BitmapPreFillRunner implements Runnable {
     }
 
     private long getNextDelay() {
-        long j10 = this.currentDelay;
-        this.currentDelay = Math.min(4 * j10, MAX_BACKOFF_MS);
-        return j10;
+        long j2 = this.currentDelay;
+        this.currentDelay = Math.min(4 * j2, MAX_BACKOFF_MS);
+        return j2;
     }
 
-    private boolean isGcDetected(long j10) {
-        return this.clock.now() - j10 >= 32;
+    private boolean isGcDetected(long j2) {
+        return this.clock.now() - j2 >= 32;
     }
 
     @VisibleForTesting
-    public boolean allocate() {
+    boolean allocate() {
         Bitmap createBitmap;
         long now = this.clock.now();
         while (!this.toPrefill.isEmpty() && !isGcDetected(now)) {
@@ -105,7 +111,7 @@ final class BitmapPreFillRunner implements Runnable {
     }
 
     @VisibleForTesting
-    public BitmapPreFillRunner(BitmapPool bitmapPool, MemoryCache memoryCache, PreFillQueue preFillQueue, Clock clock, Handler handler) {
+    BitmapPreFillRunner(BitmapPool bitmapPool, MemoryCache memoryCache, PreFillQueue preFillQueue, Clock clock, Handler handler) {
         this.seenTypes = new HashSet();
         this.currentDelay = INITIAL_BACKOFF_MS;
         this.bitmapPool = bitmapPool;

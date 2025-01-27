@@ -5,26 +5,26 @@ import android.content.ServiceConnection;
 import android.os.IBinder;
 import org.repackage.a.a.a.a;
 
-/* loaded from: classes4.dex */
+/* loaded from: classes5.dex */
 public class b implements ServiceConnection {
 
     /* renamed from: a */
-    public final /* synthetic */ c f29360a;
+    public final /* synthetic */ c f35550a;
 
     public b(c cVar) {
-        this.f29360a = cVar;
+        this.f35550a = cVar;
     }
 
     @Override // android.content.ServiceConnection
     public void onServiceConnected(ComponentName componentName, IBinder iBinder) {
-        this.f29360a.f29361a = a.AbstractBinderC0756a.a(iBinder);
-        synchronized (this.f29360a.f29364d) {
-            this.f29360a.f29364d.notify();
+        this.f35550a.f35551a = a.AbstractBinderC0831a.a(iBinder);
+        synchronized (this.f35550a.f35554d) {
+            this.f35550a.f35554d.notify();
         }
     }
 
     @Override // android.content.ServiceConnection
     public void onServiceDisconnected(ComponentName componentName) {
-        this.f29360a.f29361a = null;
+        this.f35550a.f35551a = null;
     }
 }

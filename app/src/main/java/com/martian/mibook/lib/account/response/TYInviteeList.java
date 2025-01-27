@@ -10,7 +10,7 @@ public class TYInviteeList {
         return this.invitees;
     }
 
-    public void setInvitees(List<TYInvitee> list) {
-        this.invitees = list;
+    public void setInvitees(List<TYInvitee> invitees) {
+        this.invitees = invitees;
     }
 }

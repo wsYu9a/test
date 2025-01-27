@@ -1,6 +1,6 @@
 package com.bumptech.glide.load.engine.bitmap_recycle;
 
-/* loaded from: classes2.dex */
+/* loaded from: classes.dex */
 public final class IntegerArrayAdapter implements ArrayAdapterInterface<int[]> {
     private static final String TAG = "IntegerArrayPool";
 
@@ -20,7 +20,7 @@ public final class IntegerArrayAdapter implements ArrayAdapterInterface<int[]> {
     }
 
     @Override // com.bumptech.glide.load.engine.bitmap_recycle.ArrayAdapterInterface
-    public int[] newArray(int i10) {
-        return new int[i10];
+    public int[] newArray(int i2) {
+        return new int[i2];
     }
 }

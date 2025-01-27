@@ -16,12 +16,12 @@ import java.util.Arrays;
 import java.util.Iterator;
 import java.util.List;
 
-/* loaded from: classes2.dex */
+/* loaded from: classes.dex */
 class MultiModelLoader<Model, Data> implements ModelLoader<Model, Data> {
     private final Pools.Pool<List<Throwable>> exceptionListPool;
     private final List<ModelLoader<Model, Data>> modelLoaders;
 
-    public static class MultiFetcher<Data> implements DataFetcher<Data>, DataFetcher.DataCallback<Data> {
+    static class MultiFetcher<Data> implements DataFetcher<Data>, DataFetcher.DataCallback<Data> {
         private DataFetcher.DataCallback<? super Data> callback;
         private int currentIndex;
 
@@ -32,7 +32,7 @@ class MultiModelLoader<Model, Data> implements ModelLoader<Model, Data> {
         private Priority priority;
         private final Pools.Pool<List<Throwable>> throwableListPool;
 
-        public MultiFetcher(@NonNull List<DataFetcher<Data>> list, @NonNull Pools.Pool<List<Throwable>> pool) {
+        MultiFetcher(@NonNull List<DataFetcher<Data>> list, @NonNull Pools.Pool<List<Throwable>> pool) {
             this.throwableListPool = pool;
             Preconditions.checkNotEmpty(list);
             this.fetchers = list;
@@ -113,20 +113,20 @@ class MultiModelLoader<Model, Data> implements ModelLoader<Model, Data> {
         }
     }
 
-    public MultiModelLoader(@NonNull List<ModelLoader<Model, Data>> list, @NonNull Pools.Pool<List<Throwable>> pool) {
+    MultiModelLoader(@NonNull List<ModelLoader<Model, Data>> list, @NonNull Pools.Pool<List<Throwable>> pool) {
         this.modelLoaders = list;
         this.exceptionListPool = pool;
     }
 
     @Override // com.bumptech.glide.load.model.ModelLoader
-    public ModelLoader.LoadData<Data> buildLoadData(@NonNull Model model, int i10, int i11, @NonNull Options options) {
+    public ModelLoader.LoadData<Data> buildLoadData(@NonNull Model model, int i2, int i3, @NonNull Options options) {
         ModelLoader.LoadData<Data> buildLoadData;
         int size = this.modelLoaders.size();
         ArrayList arrayList = new ArrayList(size);
         Key key = null;
-        for (int i12 = 0; i12 < size; i12++) {
-            ModelLoader<Model, Data> modelLoader = this.modelLoaders.get(i12);
-            if (modelLoader.handles(model) && (buildLoadData = modelLoader.buildLoadData(model, i10, i11, options)) != null) {
+        for (int i4 = 0; i4 < size; i4++) {
+            ModelLoader<Model, Data> modelLoader = this.modelLoaders.get(i4);
+            if (modelLoader.handles(model) && (buildLoadData = modelLoader.buildLoadData(model, i2, i3, options)) != null) {
                 key = buildLoadData.sourceKey;
                 arrayList.add(buildLoadData.fetcher);
             }

@@ -20,10 +20,14 @@ public class WXWebpageObject implements WXMediaMessage.IMediaObject {
     public WXWebpageObject() {
     }
 
+    public WXWebpageObject(String str) {
+        this.webpageUrl = str;
+    }
+
     @Override // com.tencent.mm.opensdk.modelmsg.WXMediaMessage.IMediaObject
     public boolean checkArgs() {
         String str = this.webpageUrl;
-        if (str != null && str.length() != 0 && this.webpageUrl.length() <= 10240) {
+        if (str != null && str.length() != 0 && this.webpageUrl.length() <= LENGTH_LIMIT) {
             return true;
         }
         Log.e(TAG, "checkArgs fail, webpageUrl is invalid");
@@ -76,9 +80,5 @@ public class WXWebpageObject implements WXMediaMessage.IMediaObject {
         if (serializable != null) {
             this.extraInfoMap = (HashMap) serializable;
         }
-    }
-
-    public WXWebpageObject(String str) {
-        this.webpageUrl = str;
     }
 }

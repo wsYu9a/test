@@ -5,17 +5,16 @@ import com.tencent.bugly.proguard.I;
 import com.tencent.bugly.proguard.J;
 import com.tencent.bugly.proguard.X;
 import com.tencent.bugly.proguard.ca;
-import h3.e;
 import java.util.Map;
 
 /* loaded from: classes4.dex */
-public class b extends Thread {
+class b extends Thread {
 
     /* renamed from: a */
-    final /* synthetic */ c f22360a;
+    final /* synthetic */ c f24773a;
 
-    public b(c cVar) {
-        this.f22360a = cVar;
+    b(c cVar) {
+        this.f24773a = cVar;
     }
 
     @Override // java.lang.Thread, java.lang.Runnable
@@ -33,47 +32,47 @@ public class b extends Thread {
         Context context;
         Context context2;
         try {
-            Map<String, byte[]> a10 = J.a().a(c.f22361a, (I) null, true);
-            if (a10 != null) {
-                byte[] bArr = a10.get(e.f26411p);
-                byte[] bArr2 = a10.get("gateway");
+            Map<String, byte[]> a2 = J.a().a(c.f24774a, (I) null, true);
+            if (a2 != null) {
+                byte[] bArr = a2.get("device");
+                byte[] bArr2 = a2.get("gateway");
                 if (bArr != null) {
-                    context2 = this.f22360a.f22368h;
+                    context2 = this.f24773a.f24781h;
                     com.tencent.bugly.crashreport.common.info.a.a(context2).f(new String(bArr));
                 }
                 if (bArr2 != null) {
-                    context = this.f22360a.f22368h;
+                    context = this.f24773a.f24781h;
                     com.tencent.bugly.crashreport.common.info.a.a(context).e(new String(bArr2));
                 }
             }
-            c cVar = this.f22360a;
-            cVar.f22367g = cVar.e();
-            strategyBean2 = this.f22360a.f22367g;
+            c cVar = this.f24773a;
+            cVar.f24780g = cVar.e();
+            strategyBean2 = this.f24773a.f24780g;
             if (strategyBean2 != null) {
-                str = c.f22363c;
+                str = c.f24776c;
                 if (!ca.b(str)) {
-                    str2 = c.f22363c;
+                    str2 = c.f24776c;
                     if (ca.c(str2)) {
-                        strategyBean5 = this.f22360a.f22367g;
-                        str3 = c.f22363c;
-                        strategyBean5.f22353q = str3;
-                        strategyBean6 = this.f22360a.f22367g;
-                        str4 = c.f22363c;
-                        strategyBean6.f22354r = str4;
+                        strategyBean5 = this.f24773a.f24780g;
+                        str3 = c.f24776c;
+                        strategyBean5.q = str3;
+                        strategyBean6 = this.f24773a.f24780g;
+                        str4 = c.f24776c;
+                        strategyBean6.r = str4;
                     }
                 }
-                strategyBean3 = this.f22360a.f22367g;
-                strategyBean3.f22353q = StrategyBean.f22337a;
-                strategyBean4 = this.f22360a.f22367g;
-                strategyBean4.f22354r = StrategyBean.f22338b;
+                strategyBean3 = this.f24773a.f24780g;
+                strategyBean3.q = StrategyBean.f24763a;
+                strategyBean4 = this.f24773a.f24780g;
+                strategyBean4.r = StrategyBean.f24764b;
             }
-        } catch (Throwable th2) {
-            if (!X.b(th2)) {
-                th2.printStackTrace();
+        } catch (Throwable th) {
+            if (!X.b(th)) {
+                th.printStackTrace();
             }
         }
-        c cVar2 = this.f22360a;
-        strategyBean = cVar2.f22367g;
+        c cVar2 = this.f24773a;
+        strategyBean = cVar2.f24780g;
         cVar2.a(strategyBean, false);
     }
 }

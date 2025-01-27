@@ -1,7 +1,6 @@
 package androidx.core.util;
 
 import androidx.annotation.RestrictTo;
-import b5.a;
 import java.io.PrintWriter;
 
 @RestrictTo({RestrictTo.Scope.LIBRARY_GROUP_PREFIX})
@@ -10,150 +9,161 @@ public final class TimeUtils {
 
     @RestrictTo({RestrictTo.Scope.LIBRARY_GROUP_PREFIX})
     public static final int HUNDRED_DAY_FIELD_LEN = 19;
-    private static final int SECONDS_PER_DAY = 86400;
-    private static final int SECONDS_PER_HOUR = 3600;
-    private static final int SECONDS_PER_MINUTE = 60;
-    private static final Object sFormatSync = new Object();
-    private static char[] sFormatStr = new char[24];
+
+    /* renamed from: a, reason: collision with root package name */
+    private static final int f1994a = 60;
+
+    /* renamed from: b, reason: collision with root package name */
+    private static final int f1995b = 3600;
+
+    /* renamed from: c, reason: collision with root package name */
+    private static final int f1996c = 86400;
+
+    /* renamed from: d, reason: collision with root package name */
+    private static final Object f1997d = new Object();
+
+    /* renamed from: e, reason: collision with root package name */
+    private static char[] f1998e = new char[24];
 
     private TimeUtils() {
     }
 
-    private static int accumField(int i10, int i11, boolean z10, int i12) {
-        if (i10 > 99 || (z10 && i12 >= 3)) {
-            return i11 + 3;
+    private static int a(int i2, int i3, boolean z, int i4) {
+        if (i2 > 99 || (z && i4 >= 3)) {
+            return i3 + 3;
         }
-        if (i10 > 9 || (z10 && i12 >= 2)) {
-            return i11 + 2;
+        if (i2 > 9 || (z && i4 >= 2)) {
+            return i3 + 2;
         }
-        if (z10 || i10 > 0) {
-            return i11 + 1;
+        if (z || i2 > 0) {
+            return i3 + 1;
         }
         return 0;
     }
 
-    @RestrictTo({RestrictTo.Scope.LIBRARY_GROUP_PREFIX})
-    public static void formatDuration(long j10, StringBuilder sb2) {
-        synchronized (sFormatSync) {
-            sb2.append(sFormatStr, 0, formatDurationLocked(j10, 0));
+    private static int b(long j2, int i2) {
+        char c2;
+        int i3;
+        int i4;
+        int i5;
+        int i6;
+        int i7;
+        long j3 = j2;
+        if (f1998e.length < i2) {
+            f1998e = new char[i2];
         }
-    }
-
-    private static int formatDurationLocked(long j10, int i10) {
-        char c10;
-        int i11;
-        int i12;
-        int i13;
-        int i14;
-        int i15;
-        long j11 = j10;
-        if (sFormatStr.length < i10) {
-            sFormatStr = new char[i10];
-        }
-        char[] cArr = sFormatStr;
-        if (j11 == 0) {
-            int i16 = i10 - 1;
-            while (i16 > 0) {
-                cArr[0] = a.O;
+        char[] cArr = f1998e;
+        if (j3 == 0) {
+            int i8 = i2 - 1;
+            while (i8 > 0) {
+                cArr[0] = ' ';
             }
             cArr[0] = '0';
             return 1;
         }
-        if (j11 > 0) {
-            c10 = '+';
+        if (j3 > 0) {
+            c2 = '+';
         } else {
-            j11 = -j11;
-            c10 = '-';
+            c2 = '-';
+            j3 = -j3;
         }
-        int i17 = (int) (j11 % 1000);
-        int floor = (int) Math.floor(j11 / 1000);
-        if (floor > SECONDS_PER_DAY) {
-            i11 = floor / SECONDS_PER_DAY;
-            floor -= SECONDS_PER_DAY * i11;
+        int i9 = (int) (j3 % 1000);
+        int floor = (int) Math.floor(j3 / 1000);
+        if (floor > f1996c) {
+            i3 = floor / f1996c;
+            floor -= f1996c * i3;
         } else {
-            i11 = 0;
+            i3 = 0;
         }
         if (floor > 3600) {
-            i12 = floor / 3600;
-            floor -= i12 * 3600;
+            i4 = floor / 3600;
+            floor -= i4 * 3600;
         } else {
-            i12 = 0;
+            i4 = 0;
         }
         if (floor > 60) {
-            int i18 = floor / 60;
-            i13 = floor - (i18 * 60);
-            i14 = i18;
+            int i10 = floor / 60;
+            i5 = floor - (i10 * 60);
+            i6 = i10;
         } else {
-            i13 = floor;
-            i14 = 0;
+            i5 = floor;
+            i6 = 0;
         }
-        if (i10 != 0) {
-            int accumField = accumField(i11, 1, false, 0);
-            int accumField2 = accumField + accumField(i12, 1, accumField > 0, 2);
-            int accumField3 = accumField2 + accumField(i14, 1, accumField2 > 0, 2);
-            int accumField4 = accumField3 + accumField(i13, 1, accumField3 > 0, 2);
-            i15 = 0;
-            for (int accumField5 = accumField4 + accumField(i17, 2, true, accumField4 > 0 ? 3 : 0) + 1; accumField5 < i10; accumField5++) {
-                cArr[i15] = a.O;
-                i15++;
+        if (i2 != 0) {
+            int a2 = a(i3, 1, false, 0);
+            int a3 = a2 + a(i4, 1, a2 > 0, 2);
+            int a4 = a3 + a(i6, 1, a3 > 0, 2);
+            int a5 = a4 + a(i5, 1, a4 > 0, 2);
+            i7 = 0;
+            for (int a6 = a5 + a(i9, 2, true, a5 > 0 ? 3 : 0) + 1; a6 < i2; a6++) {
+                cArr[i7] = ' ';
+                i7++;
             }
         } else {
-            i15 = 0;
+            i7 = 0;
         }
-        cArr[i15] = c10;
-        int i19 = i15 + 1;
-        boolean z10 = i10 != 0;
-        int printField = printField(cArr, i11, 'd', i19, false, 0);
-        int printField2 = printField(cArr, i12, 'h', printField, printField != i19, z10 ? 2 : 0);
-        int printField3 = printField(cArr, i14, 'm', printField2, printField2 != i19, z10 ? 2 : 0);
-        int printField4 = printField(cArr, i13, 's', printField3, printField3 != i19, z10 ? 2 : 0);
-        int printField5 = printField(cArr, i17, 'm', printField4, true, (!z10 || printField4 == i19) ? 0 : 3);
-        cArr[printField5] = 's';
-        return printField5 + 1;
+        cArr[i7] = c2;
+        int i11 = i7 + 1;
+        boolean z = i2 != 0;
+        int c3 = c(cArr, i3, 'd', i11, false, 0);
+        int c4 = c(cArr, i4, 'h', c3, c3 != i11, z ? 2 : 0);
+        int c5 = c(cArr, i6, 'm', c4, c4 != i11, z ? 2 : 0);
+        int c6 = c(cArr, i5, 's', c5, c5 != i11, z ? 2 : 0);
+        int c7 = c(cArr, i9, 'm', c6, true, (!z || c6 == i11) ? 0 : 3);
+        cArr[c7] = 's';
+        return c7 + 1;
     }
 
-    private static int printField(char[] cArr, int i10, char c10, int i11, boolean z10, int i12) {
-        int i13;
-        if (!z10 && i10 <= 0) {
-            return i11;
+    private static int c(char[] cArr, int i2, char c2, int i3, boolean z, int i4) {
+        int i5;
+        if (!z && i2 <= 0) {
+            return i3;
         }
-        if ((!z10 || i12 < 3) && i10 <= 99) {
-            i13 = i11;
+        if ((!z || i4 < 3) && i2 <= 99) {
+            i5 = i3;
         } else {
-            int i14 = i10 / 100;
-            cArr[i11] = (char) (i14 + 48);
-            i13 = i11 + 1;
-            i10 -= i14 * 100;
+            int i6 = i2 / 100;
+            cArr[i3] = (char) (i6 + 48);
+            i5 = i3 + 1;
+            i2 -= i6 * 100;
         }
-        if ((z10 && i12 >= 2) || i10 > 9 || i11 != i13) {
-            int i15 = i10 / 10;
-            cArr[i13] = (char) (i15 + 48);
-            i13++;
-            i10 -= i15 * 10;
+        if ((z && i4 >= 2) || i2 > 9 || i3 != i5) {
+            int i7 = i2 / 10;
+            cArr[i5] = (char) (i7 + 48);
+            i5++;
+            i2 -= i7 * 10;
         }
-        cArr[i13] = (char) (i10 + 48);
-        cArr[i13 + 1] = c10;
-        return i13 + 2;
+        cArr[i5] = (char) (i2 + 48);
+        int i8 = i5 + 1;
+        cArr[i8] = c2;
+        return i8 + 1;
     }
 
     @RestrictTo({RestrictTo.Scope.LIBRARY_GROUP_PREFIX})
-    public static void formatDuration(long j10, PrintWriter printWriter, int i10) {
-        synchronized (sFormatSync) {
-            printWriter.print(new String(sFormatStr, 0, formatDurationLocked(j10, i10)));
+    public static void formatDuration(long j2, StringBuilder sb) {
+        synchronized (f1997d) {
+            sb.append(f1998e, 0, b(j2, 0));
         }
     }
 
     @RestrictTo({RestrictTo.Scope.LIBRARY_GROUP_PREFIX})
-    public static void formatDuration(long j10, PrintWriter printWriter) {
-        formatDuration(j10, printWriter, 0);
+    public static void formatDuration(long j2, PrintWriter printWriter, int i2) {
+        synchronized (f1997d) {
+            printWriter.print(new String(f1998e, 0, b(j2, i2)));
+        }
     }
 
     @RestrictTo({RestrictTo.Scope.LIBRARY_GROUP_PREFIX})
-    public static void formatDuration(long j10, long j11, PrintWriter printWriter) {
-        if (j10 == 0) {
+    public static void formatDuration(long j2, PrintWriter printWriter) {
+        formatDuration(j2, printWriter, 0);
+    }
+
+    @RestrictTo({RestrictTo.Scope.LIBRARY_GROUP_PREFIX})
+    public static void formatDuration(long j2, long j3, PrintWriter printWriter) {
+        if (j2 == 0) {
             printWriter.print("--");
         } else {
-            formatDuration(j10 - j11, printWriter, 0);
+            formatDuration(j2 - j3, printWriter, 0);
         }
     }
 }

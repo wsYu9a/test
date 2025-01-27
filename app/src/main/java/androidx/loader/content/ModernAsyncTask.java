@@ -23,53 +23,79 @@ import java.util.concurrent.atomic.AtomicInteger;
 
 /* loaded from: classes.dex */
 abstract class ModernAsyncTask<Params, Progress, Result> {
-    private static final int CORE_POOL_SIZE = 5;
-    private static final int KEEP_ALIVE = 1;
-    private static final String LOG_TAG = "AsyncTask";
-    private static final int MAXIMUM_POOL_SIZE = 128;
-    private static final int MESSAGE_POST_PROGRESS = 2;
-    private static final int MESSAGE_POST_RESULT = 1;
     public static final Executor THREAD_POOL_EXECUTOR;
-    private static volatile Executor sDefaultExecutor;
-    private static InternalHandler sHandler;
-    private static final BlockingQueue<Runnable> sPoolWorkQueue;
-    private static final ThreadFactory sThreadFactory;
-    private final FutureTask<Result> mFuture;
-    private final WorkerRunnable<Params, Result> mWorker;
-    private volatile Status mStatus = Status.PENDING;
-    final AtomicBoolean mCancelled = new AtomicBoolean();
-    final AtomicBoolean mTaskInvoked = new AtomicBoolean();
+
+    /* renamed from: a, reason: collision with root package name */
+    private static final String f2683a = "AsyncTask";
+
+    /* renamed from: b, reason: collision with root package name */
+    private static final int f2684b = 5;
+
+    /* renamed from: c, reason: collision with root package name */
+    private static final int f2685c = 128;
+
+    /* renamed from: d, reason: collision with root package name */
+    private static final int f2686d = 1;
+
+    /* renamed from: e, reason: collision with root package name */
+    private static final ThreadFactory f2687e;
+
+    /* renamed from: f, reason: collision with root package name */
+    private static final BlockingQueue<Runnable> f2688f;
+
+    /* renamed from: g, reason: collision with root package name */
+    private static final int f2689g = 1;
+
+    /* renamed from: h, reason: collision with root package name */
+    private static final int f2690h = 2;
+
+    /* renamed from: i, reason: collision with root package name */
+    private static InternalHandler f2691i;
+
+    /* renamed from: j, reason: collision with root package name */
+    private static volatile Executor f2692j;
+    private final WorkerRunnable<Params, Result> k;
+    private final FutureTask<Result> l;
+    private volatile Status m = Status.PENDING;
+    final AtomicBoolean n = new AtomicBoolean();
+    final AtomicBoolean o = new AtomicBoolean();
 
     /* renamed from: androidx.loader.content.ModernAsyncTask$4, reason: invalid class name */
-    public static /* synthetic */ class AnonymousClass4 {
-        static final /* synthetic */ int[] $SwitchMap$androidx$loader$content$ModernAsyncTask$Status;
+    static /* synthetic */ class AnonymousClass4 {
+
+        /* renamed from: a, reason: collision with root package name */
+        static final /* synthetic */ int[] f2696a;
 
         static {
             int[] iArr = new int[Status.values().length];
-            $SwitchMap$androidx$loader$content$ModernAsyncTask$Status = iArr;
+            f2696a = iArr;
             try {
                 iArr[Status.RUNNING.ordinal()] = 1;
             } catch (NoSuchFieldError unused) {
             }
             try {
-                $SwitchMap$androidx$loader$content$ModernAsyncTask$Status[Status.FINISHED.ordinal()] = 2;
+                f2696a[Status.FINISHED.ordinal()] = 2;
             } catch (NoSuchFieldError unused2) {
             }
         }
     }
 
-    public static class AsyncTaskResult<Data> {
-        final Data[] mData;
-        final ModernAsyncTask mTask;
+    private static class AsyncTaskResult<Data> {
 
-        public AsyncTaskResult(ModernAsyncTask modernAsyncTask, Data... dataArr) {
-            this.mTask = modernAsyncTask;
-            this.mData = dataArr;
+        /* renamed from: a, reason: collision with root package name */
+        final ModernAsyncTask f2697a;
+
+        /* renamed from: b, reason: collision with root package name */
+        final Data[] f2698b;
+
+        AsyncTaskResult(ModernAsyncTask modernAsyncTask, Data... dataArr) {
+            this.f2697a = modernAsyncTask;
+            this.f2698b = dataArr;
         }
     }
 
-    public static class InternalHandler extends Handler {
-        public InternalHandler() {
+    private static class InternalHandler extends Handler {
+        InternalHandler() {
             super(Looper.getMainLooper());
         }
 
@@ -77,14 +103,14 @@ abstract class ModernAsyncTask<Params, Progress, Result> {
         @Override // android.os.Handler
         public void handleMessage(Message message) {
             AsyncTaskResult asyncTaskResult = (AsyncTaskResult) message.obj;
-            int i10 = message.what;
-            if (i10 == 1) {
-                asyncTaskResult.mTask.finish(asyncTaskResult.mData[0]);
+            int i2 = message.what;
+            if (i2 == 1) {
+                asyncTaskResult.f2697a.b(asyncTaskResult.f2698b[0]);
             } else {
-                if (i10 != 2) {
+                if (i2 != 2) {
                     return;
                 }
-                asyncTaskResult.mTask.onProgressUpdate(asyncTaskResult.mData);
+                asyncTaskResult.f2697a.h(asyncTaskResult.f2698b);
             }
         }
     }
@@ -95,171 +121,174 @@ abstract class ModernAsyncTask<Params, Progress, Result> {
         FINISHED
     }
 
-    public static abstract class WorkerRunnable<Params, Result> implements Callable<Result> {
-        Params[] mParams;
+    private static abstract class WorkerRunnable<Params, Result> implements Callable<Result> {
+
+        /* renamed from: a, reason: collision with root package name */
+        Params[] f2699a;
+
+        WorkerRunnable() {
+        }
     }
 
     static {
         ThreadFactory threadFactory = new ThreadFactory() { // from class: androidx.loader.content.ModernAsyncTask.1
-            private final AtomicInteger mCount = new AtomicInteger(1);
+
+            /* renamed from: a, reason: collision with root package name */
+            private final AtomicInteger f2693a = new AtomicInteger(1);
 
             @Override // java.util.concurrent.ThreadFactory
             public Thread newThread(Runnable runnable) {
-                return new Thread(runnable, "ModernAsyncTask #" + this.mCount.getAndIncrement());
+                return new Thread(runnable, "ModernAsyncTask #" + this.f2693a.getAndIncrement());
             }
         };
-        sThreadFactory = threadFactory;
+        f2687e = threadFactory;
         LinkedBlockingQueue linkedBlockingQueue = new LinkedBlockingQueue(10);
-        sPoolWorkQueue = linkedBlockingQueue;
+        f2688f = linkedBlockingQueue;
         ThreadPoolExecutor threadPoolExecutor = new ThreadPoolExecutor(5, 128, 1L, TimeUnit.SECONDS, linkedBlockingQueue, threadFactory);
         THREAD_POOL_EXECUTOR = threadPoolExecutor;
-        sDefaultExecutor = threadPoolExecutor;
+        f2692j = threadPoolExecutor;
     }
 
-    public ModernAsyncTask() {
+    ModernAsyncTask() {
         WorkerRunnable<Params, Result> workerRunnable = new WorkerRunnable<Params, Result>() { // from class: androidx.loader.content.ModernAsyncTask.2
             @Override // java.util.concurrent.Callable
             public Result call() throws Exception {
-                ModernAsyncTask.this.mTaskInvoked.set(true);
+                ModernAsyncTask.this.o.set(true);
                 Result result = null;
                 try {
                     Process.setThreadPriority(10);
-                    result = (Result) ModernAsyncTask.this.doInBackground(this.mParams);
+                    result = (Result) ModernAsyncTask.this.a(this.f2699a);
                     Binder.flushPendingCommands();
                     return result;
                 } finally {
                 }
             }
         };
-        this.mWorker = workerRunnable;
-        this.mFuture = new FutureTask<Result>(workerRunnable) { // from class: androidx.loader.content.ModernAsyncTask.3
+        this.k = workerRunnable;
+        this.l = new FutureTask<Result>(workerRunnable) { // from class: androidx.loader.content.ModernAsyncTask.3
             @Override // java.util.concurrent.FutureTask
-            public void done() {
+            protected void done() {
                 try {
-                    ModernAsyncTask.this.postResultIfNotInvoked(get());
-                } catch (InterruptedException e10) {
-                    Log.w(ModernAsyncTask.LOG_TAG, e10);
+                    ModernAsyncTask.this.j(get());
+                } catch (InterruptedException e2) {
+                    Log.w(ModernAsyncTask.f2683a, e2);
                 } catch (CancellationException unused) {
-                    ModernAsyncTask.this.postResultIfNotInvoked(null);
-                } catch (ExecutionException e11) {
-                    throw new RuntimeException("An error occurred while executing doInBackground()", e11.getCause());
-                } catch (Throwable th2) {
-                    throw new RuntimeException("An error occurred while executing doInBackground()", th2);
+                    ModernAsyncTask.this.j(null);
+                } catch (ExecutionException e3) {
+                    throw new RuntimeException("An error occurred while executing doInBackground()", e3.getCause());
+                } catch (Throwable th) {
+                    throw new RuntimeException("An error occurred while executing doInBackground()", th);
                 }
             }
         };
     }
 
-    private static Handler getHandler() {
+    private static Handler c() {
         InternalHandler internalHandler;
         synchronized (ModernAsyncTask.class) {
-            try {
-                if (sHandler == null) {
-                    sHandler = new InternalHandler();
-                }
-                internalHandler = sHandler;
-            } catch (Throwable th2) {
-                throw th2;
+            if (f2691i == null) {
+                f2691i = new InternalHandler();
             }
+            internalHandler = f2691i;
         }
         return internalHandler;
     }
 
     @RestrictTo({RestrictTo.Scope.LIBRARY_GROUP})
     public static void setDefaultExecutor(Executor executor) {
-        sDefaultExecutor = executor;
+        f2692j = executor;
     }
 
-    public final boolean cancel(boolean z10) {
-        this.mCancelled.set(true);
-        return this.mFuture.cancel(z10);
+    protected abstract Result a(Params... paramsArr);
+
+    void b(Result result) {
+        if (isCancelled()) {
+            e(result);
+        } else {
+            f(result);
+        }
+        this.m = Status.FINISHED;
     }
 
-    public abstract Result doInBackground(Params... paramsArr);
+    public final boolean cancel(boolean z) {
+        this.n.set(true);
+        return this.l.cancel(z);
+    }
+
+    protected void d() {
+    }
+
+    protected void e(Result result) {
+        d();
+    }
 
     public final ModernAsyncTask<Params, Progress, Result> execute(Params... paramsArr) {
-        return executeOnExecutor(sDefaultExecutor, paramsArr);
+        return executeOnExecutor(f2692j, paramsArr);
     }
 
     public final ModernAsyncTask<Params, Progress, Result> executeOnExecutor(Executor executor, Params... paramsArr) {
-        if (this.mStatus == Status.PENDING) {
-            this.mStatus = Status.RUNNING;
-            onPreExecute();
-            this.mWorker.mParams = paramsArr;
-            executor.execute(this.mFuture);
+        if (this.m == Status.PENDING) {
+            this.m = Status.RUNNING;
+            g();
+            this.k.f2699a = paramsArr;
+            executor.execute(this.l);
             return this;
         }
-        int i10 = AnonymousClass4.$SwitchMap$androidx$loader$content$ModernAsyncTask$Status[this.mStatus.ordinal()];
-        if (i10 == 1) {
+        int i2 = AnonymousClass4.f2696a[this.m.ordinal()];
+        if (i2 == 1) {
             throw new IllegalStateException("Cannot execute task: the task is already running.");
         }
-        if (i10 != 2) {
+        if (i2 != 2) {
             throw new IllegalStateException("We should never reach this state");
         }
         throw new IllegalStateException("Cannot execute task: the task has already been executed (a task can be executed only once)");
     }
 
-    public void finish(Result result) {
-        if (isCancelled()) {
-            onCancelled(result);
-        } else {
-            onPostExecute(result);
-        }
-        this.mStatus = Status.FINISHED;
+    protected void f(Result result) {
+    }
+
+    protected void g() {
     }
 
     public final Result get() throws InterruptedException, ExecutionException {
-        return this.mFuture.get();
+        return this.l.get();
     }
 
     public final Status getStatus() {
-        return this.mStatus;
+        return this.m;
     }
 
-    public final boolean isCancelled() {
-        return this.mCancelled.get();
+    protected void h(Progress... progressArr) {
     }
 
-    public void onCancelled() {
-    }
-
-    public void onPostExecute(Result result) {
-    }
-
-    public void onPreExecute() {
-    }
-
-    public void onProgressUpdate(Progress... progressArr) {
-    }
-
-    public Result postResult(Result result) {
-        getHandler().obtainMessage(1, new AsyncTaskResult(this, result)).sendToTarget();
+    Result i(Result result) {
+        c().obtainMessage(1, new AsyncTaskResult(this, result)).sendToTarget();
         return result;
     }
 
-    public void postResultIfNotInvoked(Result result) {
-        if (this.mTaskInvoked.get()) {
-            return;
-        }
-        postResult(result);
+    public final boolean isCancelled() {
+        return this.n.get();
     }
 
-    public final void publishProgress(Progress... progressArr) {
+    void j(Result result) {
+        if (this.o.get()) {
+            return;
+        }
+        i(result);
+    }
+
+    protected final void k(Progress... progressArr) {
         if (isCancelled()) {
             return;
         }
-        getHandler().obtainMessage(2, new AsyncTaskResult(this, progressArr)).sendToTarget();
+        c().obtainMessage(2, new AsyncTaskResult(this, progressArr)).sendToTarget();
     }
 
     public static void execute(Runnable runnable) {
-        sDefaultExecutor.execute(runnable);
+        f2692j.execute(runnable);
     }
 
-    public final Result get(long j10, TimeUnit timeUnit) throws InterruptedException, ExecutionException, TimeoutException {
-        return this.mFuture.get(j10, timeUnit);
-    }
-
-    public void onCancelled(Result result) {
-        onCancelled();
+    public final Result get(long j2, TimeUnit timeUnit) throws InterruptedException, ExecutionException, TimeoutException {
+        return this.l.get(j2, timeUnit);
     }
 }

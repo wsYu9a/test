@@ -1,96 +1,63 @@
 package com.kwad.components.ad.reward.presenter;
 
-import android.graphics.BitmapFactory;
-import android.text.TextUtils;
-import android.view.View;
-import android.widget.ImageView;
+import com.kwad.components.core.widget.ComplianceTextView;
 import com.kwad.sdk.R;
-import com.kwad.sdk.core.imageloader.KSImageLoader;
-import com.kwad.sdk.core.imageloader.core.DisplayImageOptionsCompat;
-import com.kwad.sdk.core.imageloader.core.decode.DecodedResult;
-import com.kwad.sdk.core.imageloader.core.listener.SimpleImageLoadingListener;
-import com.kwad.sdk.core.imageloader.utils.BlurUtils;
-import com.kwad.sdk.core.response.model.AdInfo;
-import com.kwad.sdk.core.response.model.AdTemplate;
-import com.kwad.sdk.utils.an;
-import java.io.InputStream;
 
-/* loaded from: classes2.dex */
-public class c extends b {
-    private ImageView tF;
-    private AdInfo tG;
+/* loaded from: classes.dex */
+public final class c extends a {
+    private ComplianceTextView cq;
+    private com.kwad.components.core.webview.a.d.e gG = new com.kwad.components.core.webview.a.d.e() { // from class: com.kwad.components.ad.reward.presenter.c.1
+        AnonymousClass1() {
+        }
+
+        @Override // com.kwad.components.core.webview.a.d.b
+        public final void u(String str) {
+            if (com.kwad.components.core.webview.a.j.b("ksad-video-top-bar", c.this.qt.mAdTemplate).equals(str)) {
+                c.this.cq.setVisibility(0);
+                c.this.cq.setAdTemplate(c.this.qt.mAdTemplate);
+            }
+        }
+    };
 
     /* renamed from: com.kwad.components.ad.reward.presenter.c$1 */
-    public class AnonymousClass1 extends SimpleImageLoadingListener {
-        @Override // com.kwad.sdk.core.imageloader.core.listener.SimpleImageLoadingListener, com.kwad.sdk.core.imageloader.core.listener.ImageLoadingListener
-        public final boolean onDecode(String str, InputStream inputStream, DecodedResult decodedResult) {
-            decodedResult.mBitmap = BlurUtils.stackBlur(BitmapFactory.decodeStream(inputStream), 50, false);
-            return true;
+    final class AnonymousClass1 extends com.kwad.components.core.webview.a.d.e {
+        AnonymousClass1() {
         }
 
-        @Override // com.kwad.sdk.core.imageloader.core.listener.SimpleImageLoadingListener, com.kwad.sdk.core.imageloader.core.listener.ImageLoadingListener
-        public final void onLoadingComplete(String str, View view, DecodedResult decodedResult) {
+        @Override // com.kwad.components.core.webview.a.d.b
+        public final void u(String str) {
+            if (com.kwad.components.core.webview.a.j.b("ksad-video-top-bar", c.this.qt.mAdTemplate).equals(str)) {
+                c.this.cq.setVisibility(0);
+                c.this.cq.setAdTemplate(c.this.qt.mAdTemplate);
+            }
         }
     }
 
-    public c(AdInfo adInfo) {
-        this.tG = adInfo;
+    private boolean ht() {
+        com.kwad.components.ad.reward.j jVar = this.qt;
+        return jVar.pf ? com.kwad.components.ad.reward.j.b(jVar) : com.kwad.components.ad.reward.j.c(jVar);
     }
 
-    private static void a(ImageView imageView, String str, AdTemplate adTemplate) {
-        if (TextUtils.isEmpty(str)) {
+    @Override // com.kwad.components.ad.reward.presenter.a, com.kwad.sdk.mvp.Presenter
+    public final void ar() {
+        super.ar();
+        com.kwad.components.core.webview.a.c.a.rn().a(this.gG);
+        if (ht()) {
             return;
         }
-        KSImageLoader.loadImage(imageView, str, adTemplate, new DisplayImageOptionsCompat.Builder().setBlurRadius(50).build(), new SimpleImageLoadingListener() { // from class: com.kwad.components.ad.reward.presenter.c.1
-            @Override // com.kwad.sdk.core.imageloader.core.listener.SimpleImageLoadingListener, com.kwad.sdk.core.imageloader.core.listener.ImageLoadingListener
-            public final boolean onDecode(String str2, InputStream inputStream, DecodedResult decodedResult) {
-                decodedResult.mBitmap = BlurUtils.stackBlur(BitmapFactory.decodeStream(inputStream), 50, false);
-                return true;
-            }
-
-            @Override // com.kwad.sdk.core.imageloader.core.listener.SimpleImageLoadingListener, com.kwad.sdk.core.imageloader.core.listener.ImageLoadingListener
-            public final void onLoadingComplete(String str2, View view, DecodedResult decodedResult) {
-            }
-        });
-    }
-
-    @Override // com.kwad.components.ad.reward.presenter.b, com.kwad.sdk.mvp.Presenter
-    public final void as() {
-        super.as();
-        AdTemplate adTemplate = this.rO.mAdTemplate;
-        if (hL() || adTemplate.adInfoList.size() <= 0) {
-            return;
-        }
-        String X = com.kwad.sdk.core.response.b.a.X(adTemplate.adInfoList.get(0));
-        this.tF.setVisibility(hN());
-        try {
-            a(this.tF, X, adTemplate);
-        } catch (Throwable th2) {
-            com.kwad.sdk.core.d.c.printStackTrace(th2);
-        }
-    }
-
-    public int hM() {
-        return R.id.ksad_blur_video_cover;
-    }
-
-    public int hN() {
-        getContext();
-        if (com.kwad.components.ad.reward.g.J(this.rO.mAdTemplate) && !an.NS()) {
-            return 0;
-        }
-        if (com.kwad.components.ad.reward.g.I(this.rO.mAdTemplate) && !an.NS()) {
-            return 0;
-        }
-        if ((!com.kwad.sdk.core.response.b.e.en(this.rO.mAdTemplate) || an.NS()) && !com.kwad.components.ad.reward.g.g(this.tG)) {
-            return (com.kwad.sdk.core.response.b.a.cK(this.tG) && com.kwad.components.ad.reward.a.b.gX() && !an.NS()) ? 0 : 8;
-        }
-        return 0;
+        this.cq.setVisibility(0);
+        this.cq.setAdTemplate(this.qt.mAdTemplate);
     }
 
     @Override // com.kwad.sdk.mvp.Presenter
     public final void onCreate() {
         super.onCreate();
-        this.tF = (ImageView) findViewById(hM());
+        this.cq = (ComplianceTextView) findViewById(R.id.ksad_compliance_view);
+    }
+
+    @Override // com.kwad.sdk.mvp.Presenter
+    public final void onUnbind() {
+        super.onUnbind();
+        com.kwad.components.core.webview.a.c.a.rn().b(this.gG);
     }
 }

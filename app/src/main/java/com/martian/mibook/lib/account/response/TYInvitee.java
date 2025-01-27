@@ -22,11 +22,11 @@ public class TYInvitee {
     }
 
     public long getCreatOn() {
-        Long l10 = this.createdOn;
-        if (l10 == null) {
+        Long l = this.createdOn;
+        if (l == null) {
             return -1L;
         }
-        return l10.longValue();
+        return l.longValue();
     }
 
     public Long getCreatedOn() {
@@ -55,46 +55,46 @@ public class TYInvitee {
     }
 
     public long getUid() {
-        Long l10 = this.uid;
-        if (l10 == null) {
+        Long l = this.uid;
+        if (l == null) {
             return -1L;
         }
-        return l10.longValue();
+        return l.longValue();
     }
 
-    public void setCoins(Integer num) {
-        this.coins = num;
+    public void setCoins(Integer coins) {
+        this.coins = coins;
     }
 
-    public void setCoinsToday(Integer num) {
-        this.coinsToday = num;
+    public void setCoinsToday(Integer coinsToday) {
+        this.coinsToday = coinsToday;
     }
 
-    public void setCreatOn(Long l10) {
-        this.createdOn = l10;
+    public void setCreatOn(Long createdOn) {
+        this.createdOn = createdOn;
     }
 
-    public void setCreatedOn(Long l10) {
-        this.createdOn = l10;
+    public void setCreatedOn(Long createdOn) {
+        this.createdOn = createdOn;
     }
 
-    public void setDuration(Integer num) {
-        this.duration = num;
+    public void setDuration(Integer duration) {
+        this.duration = duration;
     }
 
-    public void setDurationToday(Integer num) {
-        this.durationToday = num;
+    public void setDurationToday(Integer durationToday) {
+        this.durationToday = durationToday;
     }
 
-    public void setHeader(String str) {
-        this.header = str;
+    public void setHeader(String header) {
+        this.header = header;
     }
 
-    public void setNickname(String str) {
-        this.nickname = str;
+    public void setNickname(String nickname) {
+        this.nickname = nickname;
     }
 
-    public void setUid(Long l10) {
-        this.uid = l10;
+    public void setUid(Long uid) {
+        this.uid = uid;
     }
 }

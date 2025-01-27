@@ -8,6 +8,7 @@ import android.net.NetworkInfo;
 import android.os.Environment;
 import android.text.TextUtils;
 import android.util.Log;
+import com.baidu.mobads.sdk.internal.bu;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileInputStream;
@@ -31,13 +32,13 @@ public class XianWanSystemUtil {
         NET_MOBILE
     }
 
-    public static void copyFile(String str, String str2) {
+    public static void copyFile(String oldPath, String newPath) {
         try {
-            if (!new File(str).exists()) {
+            if (!new File(oldPath).exists()) {
                 return;
             }
-            FileInputStream fileInputStream = new FileInputStream(str);
-            FileOutputStream fileOutputStream = new FileOutputStream(str2);
+            FileInputStream fileInputStream = new FileInputStream(oldPath);
+            FileOutputStream fileOutputStream = new FileOutputStream(newPath);
             byte[] bArr = new byte[1444];
             while (true) {
                 int read = fileInputStream.read(bArr);
@@ -47,8 +48,8 @@ public class XianWanSystemUtil {
                 }
                 fileOutputStream.write(bArr, 0, read);
             }
-        } catch (Exception e10) {
-            e10.printStackTrace();
+        } catch (Exception e2) {
+            e2.printStackTrace();
         }
     }
 
@@ -91,56 +92,57 @@ public class XianWanSystemUtil {
         NetState netState = NetState.NET_NO;
         try {
             ConnectivityManager connectivityManager = (ConnectivityManager) context.getSystemService("connectivity");
-            if (connectivityManager != null && (activeNetworkInfo = connectivityManager.getActiveNetworkInfo()) != null && activeNetworkInfo.isConnectedOrConnecting()) {
-                int type = activeNetworkInfo.getType();
-                netState = type != 0 ? type != 1 ? NetState.NET_UNKNOWN : NetState.NET_WIFI : NetState.NET_MOBILE;
+            if (connectivityManager == null || (activeNetworkInfo = connectivityManager.getActiveNetworkInfo()) == null || !activeNetworkInfo.isConnectedOrConnecting()) {
+                return netState;
             }
-        } catch (Exception e10) {
-            e10.printStackTrace();
+            int type = activeNetworkInfo.getType();
+            return type != 0 ? type != 1 ? NetState.NET_UNKNOWN : NetState.NET_WIFI : NetState.NET_MOBILE;
+        } catch (Exception e2) {
+            e2.printStackTrace();
+            return netState;
         }
-        return netState;
     }
 
     public static boolean hasSD() {
         return Environment.getExternalStorageState().equals("mounted");
     }
 
-    public static boolean isApkInstalled(Context context, String str) {
+    public static boolean isApkInstalled(Context context, String packageName) {
         try {
-            context.getPackageManager().getPackageInfo(str, 0);
+            context.getPackageManager().getPackageInfo(packageName, 0);
             return true;
         } catch (PackageManager.NameNotFoundException unused) {
             return false;
         }
     }
 
-    public static boolean isInstalled(Context context, String str) {
+    public static boolean isInstalled(Context context, String packageName) {
         Iterator<PackageInfo> it = context.getPackageManager().getInstalledPackages(0).iterator();
         while (it.hasNext()) {
-            if (it.next().packageName.equals(str)) {
+            if (it.next().packageName.equals(packageName)) {
                 return true;
             }
         }
         return false;
     }
 
-    public static String md5(String str) {
-        if (TextUtils.isEmpty(str)) {
+    public static String md5(String string) {
+        if (TextUtils.isEmpty(string)) {
             return "";
         }
         try {
-            byte[] digest = MessageDigest.getInstance("MD5").digest(str.getBytes());
-            StringBuilder sb2 = new StringBuilder();
-            for (byte b10 : digest) {
-                String hexString = Integer.toHexString(b10 & 255);
+            byte[] digest = MessageDigest.getInstance(bu.f5659a).digest(string.getBytes());
+            StringBuilder sb = new StringBuilder();
+            for (byte b2 : digest) {
+                String hexString = Integer.toHexString(b2 & 255);
                 if (hexString.length() == 1) {
                     hexString = "0" + hexString;
                 }
-                sb2.append(hexString);
+                sb.append(hexString);
             }
-            return sb2.toString();
-        } catch (NoSuchAlgorithmException e10) {
-            e10.printStackTrace();
+            return sb.toString();
+        } catch (NoSuchAlgorithmException e2) {
+            e2.printStackTrace();
             return "";
         }
     }
@@ -149,14 +151,14 @@ public class XianWanSystemUtil {
     /* JADX WARN: Type inference failed for: r1v0, types: [java.lang.String] */
     /* JADX WARN: Type inference failed for: r1v1 */
     /* JADX WARN: Type inference failed for: r1v7, types: [java.lang.Process] */
-    public static boolean isInstalled(String str) {
+    public static boolean isInstalled(String packageName) {
         BufferedReader bufferedReader;
         String readLine;
-        StringBuilder sb2 = new StringBuilder();
+        StringBuilder sb = new StringBuilder();
         Process process = "package:";
-        sb2.append("package:");
-        sb2.append(str);
-        String sb3 = sb2.toString();
+        sb.append("package:");
+        sb.append(packageName);
+        String sb2 = sb.toString();
         System.currentTimeMillis();
         BufferedReader bufferedReader2 = null;
         try {
@@ -165,21 +167,21 @@ public class XianWanSystemUtil {
                     process = Runtime.getRuntime().exec("pm list packages -3");
                     try {
                         bufferedReader = new BufferedReader(new InputStreamReader(process.getInputStream()));
-                    } catch (IOException e10) {
-                        e = e10;
+                    } catch (IOException e2) {
+                        e = e2;
                     }
-                } catch (IOException e11) {
-                    e = e11;
+                } catch (IOException e3) {
+                    e = e3;
                     process = 0;
-                } catch (Throwable th2) {
-                    th = th2;
+                } catch (Throwable th) {
+                    th = th;
                     process = 0;
                 }
                 do {
                     try {
                         readLine = bufferedReader.readLine();
-                    } catch (IOException e12) {
-                        e = e12;
+                    } catch (IOException e4) {
+                        e = e4;
                         bufferedReader2 = bufferedReader;
                         Log.i("IOException", "isInstalled: " + e);
                         if (bufferedReader2 != null) {
@@ -190,8 +192,8 @@ public class XianWanSystemUtil {
                         }
                         process.destroy();
                         return false;
-                    } catch (Throwable th3) {
-                        th = th3;
+                    } catch (Throwable th2) {
+                        th = th2;
                         bufferedReader2 = bufferedReader;
                         if (bufferedReader2 != null) {
                             try {
@@ -210,16 +212,15 @@ public class XianWanSystemUtil {
                         process.destroy();
                         return false;
                     }
-                } while (!readLine.equals(sb3));
+                } while (!readLine.equals(sb2));
                 process.destroy();
                 try {
                     process.destroy();
-                    return true;
                 } catch (Exception unused2) {
-                    return true;
                 }
-            } catch (Throwable th4) {
-                th = th4;
+                return true;
+            } catch (Throwable th3) {
+                th = th3;
             }
         } catch (Exception unused3) {
             return false;

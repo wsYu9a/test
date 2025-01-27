@@ -5,12 +5,12 @@ import java.util.Collection;
 import java.util.Collections;
 import java.util.Iterator;
 
-/* loaded from: classes4.dex */
+/* loaded from: classes5.dex */
 public class SpreadBuilder {
     private final ArrayList<Object> list;
 
-    public SpreadBuilder(int i10) {
-        this.list = new ArrayList<>(i10);
+    public SpreadBuilder(int i2) {
+        this.list = new ArrayList<>(i2);
     }
 
     public void add(Object obj) {

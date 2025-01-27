@@ -19,11 +19,11 @@ public class g implements e {
             if (obj == null || !(obj instanceof b)) {
                 return;
             }
-            for (int i10 = 0; i10 < strArr.length; i10++) {
+            for (int i2 = 0; i2 < strArr.length; i2++) {
                 try {
-                    String str2 = strArr[i10];
+                    String str2 = strArr[i2];
                     if (d.a(str2)) {
-                        ((b) obj).a(str2, Boolean.valueOf(a.a(parseLong, i10)));
+                        ((b) obj).a(str2, Boolean.valueOf(a.a(parseLong, i2)));
                     }
                 } catch (Throwable unused) {
                     return;

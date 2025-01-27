@@ -3,7 +3,7 @@ package com.kwad.sdk.api.model;
 import androidx.annotation.Keep;
 
 @Keep
-/* loaded from: classes3.dex */
+/* loaded from: classes2.dex */
 public class SplashAdExtraData {
     private boolean isDisableRotate;
     private boolean isDisableShake;
@@ -21,15 +21,15 @@ public class SplashAdExtraData {
         return this.isDisableSlide;
     }
 
-    public void setDisableRotateStatus(boolean z10) {
-        this.isDisableRotate = z10;
+    public void setDisableRotateStatus(boolean z) {
+        this.isDisableRotate = z;
     }
 
-    public void setDisableShakeStatus(boolean z10) {
-        this.isDisableShake = z10;
+    public void setDisableShakeStatus(boolean z) {
+        this.isDisableShake = z;
     }
 
-    public void setDisableSlideStatus(boolean z10) {
-        this.isDisableSlide = z10;
+    public void setDisableSlideStatus(boolean z) {
+        this.isDisableSlide = z;
     }
 }

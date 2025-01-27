@@ -14,20 +14,20 @@ import java.nio.MappedByteBuffer;
 import java.nio.channels.FileChannel;
 import java.util.concurrent.atomic.AtomicReference;
 
-/* loaded from: classes2.dex */
+/* loaded from: classes.dex */
 public final class ByteBufferUtil {
     private static final AtomicReference<byte[]> BUFFER_REF = new AtomicReference<>();
     private static final int BUFFER_SIZE = 16384;
 
-    public static final class SafeArray {
+    static final class SafeArray {
         final byte[] data;
         final int limit;
         final int offset;
 
-        public SafeArray(@NonNull byte[] bArr, int i10, int i11) {
+        SafeArray(@NonNull byte[] bArr, int i2, int i3) {
             this.data = bArr;
-            this.offset = i10;
-            this.limit = i11;
+            this.offset = i2;
+            this.limit = i3;
         }
     }
 
@@ -46,7 +46,7 @@ public final class ByteBufferUtil {
             if (length == 0) {
                 throw new IOException("File unsuitable for memory mapping");
             }
-            randomAccessFile = new RandomAccessFile(file, t.f11211k);
+            randomAccessFile = new RandomAccessFile(file, t.k);
             try {
                 fileChannel = randomAccessFile.getChannel();
                 MappedByteBuffer load = fileChannel.map(FileChannel.MapMode.READ_ONLY, 0L, length).load();
@@ -59,8 +59,8 @@ public final class ByteBufferUtil {
                 } catch (IOException unused2) {
                 }
                 return load;
-            } catch (Throwable th2) {
-                th = th2;
+            } catch (Throwable th) {
+                th = th;
                 if (fileChannel != null) {
                     try {
                         fileChannel.close();
@@ -77,8 +77,8 @@ public final class ByteBufferUtil {
                     throw th;
                 }
             }
-        } catch (Throwable th3) {
-            th = th3;
+        } catch (Throwable th2) {
+            th = th2;
             randomAccessFile = null;
         }
     }
@@ -128,8 +128,8 @@ public final class ByteBufferUtil {
         FileChannel fileChannel = null;
         try {
             randomAccessFile = new RandomAccessFile(file, "rw");
-        } catch (Throwable th2) {
-            th = th2;
+        } catch (Throwable th) {
+            th = th;
             randomAccessFile = null;
         }
         try {
@@ -146,8 +146,8 @@ public final class ByteBufferUtil {
                 randomAccessFile.close();
             } catch (IOException unused2) {
             }
-        } catch (Throwable th3) {
-            th = th3;
+        } catch (Throwable th2) {
+            th = th2;
             if (fileChannel != null) {
                 try {
                     fileChannel.close();
@@ -170,8 +170,8 @@ public final class ByteBufferUtil {
         SafeArray safeArray = getSafeArray(byteBuffer);
         if (safeArray != null) {
             byte[] bArr = safeArray.data;
-            int i10 = safeArray.offset;
-            outputStream.write(bArr, i10, safeArray.limit + i10);
+            int i2 = safeArray.offset;
+            outputStream.write(bArr, i2, safeArray.limit + i2);
             return;
         }
         byte[] andSet = BUFFER_REF.getAndSet(null);
@@ -186,14 +186,14 @@ public final class ByteBufferUtil {
         BUFFER_REF.set(andSet);
     }
 
-    public static class ByteBufferStream extends InputStream {
+    private static class ByteBufferStream extends InputStream {
         private static final int UNSET = -1;
 
         @NonNull
         private final ByteBuffer byteBuffer;
         private int markPos = -1;
 
-        public ByteBufferStream(@NonNull ByteBuffer byteBuffer) {
+        ByteBufferStream(@NonNull ByteBuffer byteBuffer) {
             this.byteBuffer = byteBuffer;
         }
 
@@ -203,7 +203,7 @@ public final class ByteBufferUtil {
         }
 
         @Override // java.io.InputStream
-        public synchronized void mark(int i10) {
+        public synchronized void mark(int i2) {
             this.markPos = this.byteBuffer.position();
         }
 
@@ -222,30 +222,30 @@ public final class ByteBufferUtil {
 
         @Override // java.io.InputStream
         public synchronized void reset() throws IOException {
-            int i10 = this.markPos;
-            if (i10 == -1) {
+            int i2 = this.markPos;
+            if (i2 == -1) {
                 throw new IOException("Cannot reset to unset mark position");
             }
-            this.byteBuffer.position(i10);
+            this.byteBuffer.position(i2);
         }
 
         @Override // java.io.InputStream
-        public long skip(long j10) throws IOException {
+        public long skip(long j2) throws IOException {
             if (!this.byteBuffer.hasRemaining()) {
                 return -1L;
             }
-            long min = Math.min(j10, available());
+            long min = Math.min(j2, available());
             this.byteBuffer.position((int) (r0.position() + min));
             return min;
         }
 
         @Override // java.io.InputStream
-        public int read(@NonNull byte[] bArr, int i10, int i11) throws IOException {
+        public int read(@NonNull byte[] bArr, int i2, int i3) throws IOException {
             if (!this.byteBuffer.hasRemaining()) {
                 return -1;
             }
-            int min = Math.min(i11, available());
-            this.byteBuffer.get(bArr, i10, min);
+            int min = Math.min(i3, available());
+            this.byteBuffer.get(bArr, i2, min);
             return min;
         }
     }

@@ -13,11 +13,11 @@ public class WebEvent {
         return this.type;
     }
 
-    public void setParams(WebParams webParams) {
-        this.params = webParams;
+    public void setParams(WebParams params) {
+        this.params = params;
     }
 
-    public void setType(String str) {
-        this.type = str;
+    public void setType(String type) {
+        this.type = type;
     }
 }

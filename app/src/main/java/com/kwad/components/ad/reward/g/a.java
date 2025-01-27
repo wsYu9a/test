@@ -1,36 +1,116 @@
 package com.kwad.components.ad.reward.g;
 
-import android.content.Context;
-import androidx.annotation.NonNull;
-import com.kwad.components.ad.b.h;
-import com.kwad.sdk.api.KsLoadManager;
-import com.kwad.sdk.api.KsScene;
-import com.kwad.sdk.components.e;
-import com.kwad.sdk.l;
+import android.app.Activity;
+import android.content.DialogInterface;
+import android.graphics.drawable.ColorDrawable;
+import android.os.Bundle;
+import android.view.KeyEvent;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.view.Window;
+import androidx.annotation.Nullable;
+import com.kwad.components.ad.reward.k.q;
+import com.kwad.components.core.l.g;
+import com.kwad.sdk.core.report.y;
+import com.kwad.sdk.core.response.model.AdTemplate;
+import org.json.JSONObject;
 
-/* loaded from: classes2.dex */
-public final class a extends e implements h {
-    @Override // com.kwad.sdk.components.b
-    public final Class getComponentsType() {
-        return h.class;
+/* loaded from: classes.dex */
+public final class a extends g implements DialogInterface.OnKeyListener, DialogInterface.OnShowListener, b {
+    private static a rP;
+    private AdTemplate mAdTemplate;
+    private q rO;
+
+    @Nullable
+    private b rQ;
+
+    public static void a(Activity activity, b bVar, AdTemplate adTemplate) {
+        rP = new a();
+        Bundle bundle = new Bundle();
+        bundle.putString("key_template_json", adTemplate.toJson().toString());
+        rP.setArguments(bundle);
+        rP.a(bVar);
+        rP.show(activity.getFragmentManager(), "playAgainDialog");
     }
 
-    @Override // com.kwad.sdk.components.b
-    public final void init(Context context) {
+    private void a(@Nullable b bVar) {
+        this.rQ = bVar;
     }
 
-    @Override // com.kwad.components.ad.b.h
-    public final void loadRewardVideoAd(KsScene ksScene, @NonNull KsLoadManager.RewardVideoAdListener rewardVideoAdListener) {
-        if (l.At().AS()) {
-            b.a(ksScene, new c(ksScene.getPosId(), rewardVideoAdListener));
-        } else {
-            com.kwad.sdk.core.network.e eVar = com.kwad.sdk.core.network.e.azJ;
-            rewardVideoAdListener.onError(eVar.errorCode, eVar.msg);
+    private void hp() {
+        try {
+            String string = getArguments().getString("key_template_json", null);
+            AdTemplate adTemplate = new AdTemplate();
+            adTemplate.parseJson(new JSONObject(string));
+            this.mAdTemplate = adTemplate;
+        } catch (Exception e2) {
+            com.kwad.sdk.core.d.b.printStackTraceOnly(e2);
         }
     }
 
-    @Override // com.kwad.components.ad.b.h
-    public final void notifyRewardVerify() {
-        com.kwad.components.ad.reward.b.fv().notifyRewardVerify();
+    @Override // com.kwad.components.core.l.g
+    public final View a(LayoutInflater layoutInflater, @Nullable ViewGroup viewGroup) {
+        getDialog().setOnKeyListener(this);
+        hp();
+        if (this.rO == null) {
+            q qVar = new q(layoutInflater, viewGroup);
+            this.rO = qVar;
+            qVar.b(this);
+        }
+        return this.rO.gK();
+    }
+
+    @Override // com.kwad.components.ad.reward.g.b
+    public final void gu() {
+        dismiss();
+        b bVar = this.rQ;
+        if (bVar != null) {
+            bVar.gu();
+        }
+        com.kwad.sdk.core.report.a.q(this.mAdTemplate, 163);
+    }
+
+    @Override // android.app.DialogFragment, android.app.Fragment
+    public final void onActivityCreated(Bundle bundle) {
+        super.onActivityCreated(bundle);
+        Window window = getDialog().getWindow();
+        if (window == null) {
+            return;
+        }
+        getDialog().setCanceledOnTouchOutside(false);
+        window.setLayout(-1, -1);
+        getDialog().getWindow().setBackgroundDrawable(new ColorDrawable(0));
+        getDialog().setOnShowListener(this);
+    }
+
+    @Override // android.content.DialogInterface.OnKeyListener
+    public final boolean onKey(DialogInterface dialogInterface, int i2, KeyEvent keyEvent) {
+        if (i2 != 4 || keyEvent.getAction() != 1) {
+            return false;
+        }
+        dismiss();
+        b bVar = this.rQ;
+        if (bVar != null) {
+            bVar.gu();
+        }
+        return true;
+    }
+
+    @Override // com.kwad.components.ad.reward.g.c, com.kwad.components.core.webview.jshandler.j.a
+    public final void onPlayAgainClick(boolean z) {
+        dismiss();
+        b bVar = this.rQ;
+        if (bVar != null) {
+            bVar.onPlayAgainClick(z);
+        }
+        com.kwad.sdk.core.report.a.q(this.mAdTemplate, 162);
+    }
+
+    @Override // android.content.DialogInterface.OnShowListener
+    public final void onShow(DialogInterface dialogInterface) {
+        y.b bVar = new y.b();
+        bVar.akL = 205;
+        com.kwad.sdk.core.report.a.a(this.mAdTemplate, 162, bVar, (JSONObject) null);
     }
 }

@@ -8,7 +8,7 @@ import com.kuaishou.weapon.p0.t;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 
-/* loaded from: classes2.dex */
+/* loaded from: classes.dex */
 public final class AssetFileDescriptorLocalUriFetcher extends LocalUriFetcher<AssetFileDescriptor> {
     public AssetFileDescriptorLocalUriFetcher(ContentResolver contentResolver, Uri uri) {
         super(contentResolver, uri);
@@ -27,7 +27,7 @@ public final class AssetFileDescriptorLocalUriFetcher extends LocalUriFetcher<As
 
     @Override // com.bumptech.glide.load.data.LocalUriFetcher
     public AssetFileDescriptor loadResource(Uri uri, ContentResolver contentResolver) throws FileNotFoundException {
-        AssetFileDescriptor openAssetFileDescriptor = contentResolver.openAssetFileDescriptor(uri, t.f11211k);
+        AssetFileDescriptor openAssetFileDescriptor = contentResolver.openAssetFileDescriptor(uri, t.k);
         if (openAssetFileDescriptor != null) {
             return openAssetFileDescriptor;
         }

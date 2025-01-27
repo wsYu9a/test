@@ -6,9 +6,9 @@ import android.content.res.Resources;
 import android.content.res.TypedArray;
 import android.graphics.Typeface;
 import android.graphics.drawable.Drawable;
+import android.os.Build;
 import android.util.AttributeSet;
 import android.util.TypedValue;
-import androidx.annotation.DoNotInline;
 import androidx.annotation.Nullable;
 import androidx.annotation.RequiresApi;
 import androidx.annotation.RestrictTo;
@@ -19,184 +19,177 @@ import androidx.core.content.res.ResourcesCompat;
 @RestrictTo({RestrictTo.Scope.LIBRARY_GROUP_PREFIX})
 /* loaded from: classes.dex */
 public class TintTypedArray {
-    private final Context mContext;
-    private TypedValue mTypedValue;
-    private final TypedArray mWrapped;
 
-    @RequiresApi(21)
-    public static class Api21Impl {
-        private Api21Impl() {
-        }
+    /* renamed from: a */
+    private final Context f979a;
 
-        @DoNotInline
-        public static int getChangingConfigurations(TypedArray typedArray) {
-            return typedArray.getChangingConfigurations();
-        }
+    /* renamed from: b */
+    private final TypedArray f980b;
 
-        @DoNotInline
-        public static int getType(TypedArray typedArray, int i10) {
-            return typedArray.getType(i10);
-        }
-    }
+    /* renamed from: c */
+    private TypedValue f981c;
 
     private TintTypedArray(Context context, TypedArray typedArray) {
-        this.mContext = context;
-        this.mWrapped = typedArray;
+        this.f979a = context;
+        this.f980b = typedArray;
     }
 
     public static TintTypedArray obtainStyledAttributes(Context context, AttributeSet attributeSet, int[] iArr) {
         return new TintTypedArray(context, context.obtainStyledAttributes(attributeSet, iArr));
     }
 
-    public boolean getBoolean(int i10, boolean z10) {
-        return this.mWrapped.getBoolean(i10, z10);
+    public boolean getBoolean(int i2, boolean z) {
+        return this.f980b.getBoolean(i2, z);
     }
 
     @RequiresApi(21)
     public int getChangingConfigurations() {
-        return Api21Impl.getChangingConfigurations(this.mWrapped);
+        return this.f980b.getChangingConfigurations();
     }
 
-    public int getColor(int i10, int i11) {
-        return this.mWrapped.getColor(i10, i11);
+    public int getColor(int i2, int i3) {
+        return this.f980b.getColor(i2, i3);
     }
 
-    public ColorStateList getColorStateList(int i10) {
+    public ColorStateList getColorStateList(int i2) {
         int resourceId;
         ColorStateList colorStateList;
-        return (!this.mWrapped.hasValue(i10) || (resourceId = this.mWrapped.getResourceId(i10, 0)) == 0 || (colorStateList = AppCompatResources.getColorStateList(this.mContext, resourceId)) == null) ? this.mWrapped.getColorStateList(i10) : colorStateList;
+        return (!this.f980b.hasValue(i2) || (resourceId = this.f980b.getResourceId(i2, 0)) == 0 || (colorStateList = AppCompatResources.getColorStateList(this.f979a, resourceId)) == null) ? this.f980b.getColorStateList(i2) : colorStateList;
     }
 
-    public float getDimension(int i10, float f10) {
-        return this.mWrapped.getDimension(i10, f10);
+    public float getDimension(int i2, float f2) {
+        return this.f980b.getDimension(i2, f2);
     }
 
-    public int getDimensionPixelOffset(int i10, int i11) {
-        return this.mWrapped.getDimensionPixelOffset(i10, i11);
+    public int getDimensionPixelOffset(int i2, int i3) {
+        return this.f980b.getDimensionPixelOffset(i2, i3);
     }
 
-    public int getDimensionPixelSize(int i10, int i11) {
-        return this.mWrapped.getDimensionPixelSize(i10, i11);
+    public int getDimensionPixelSize(int i2, int i3) {
+        return this.f980b.getDimensionPixelSize(i2, i3);
     }
 
-    public Drawable getDrawable(int i10) {
+    public Drawable getDrawable(int i2) {
         int resourceId;
-        return (!this.mWrapped.hasValue(i10) || (resourceId = this.mWrapped.getResourceId(i10, 0)) == 0) ? this.mWrapped.getDrawable(i10) : AppCompatResources.getDrawable(this.mContext, resourceId);
+        return (!this.f980b.hasValue(i2) || (resourceId = this.f980b.getResourceId(i2, 0)) == 0) ? this.f980b.getDrawable(i2) : AppCompatResources.getDrawable(this.f979a, resourceId);
     }
 
-    public Drawable getDrawableIfKnown(int i10) {
+    public Drawable getDrawableIfKnown(int i2) {
         int resourceId;
-        if (!this.mWrapped.hasValue(i10) || (resourceId = this.mWrapped.getResourceId(i10, 0)) == 0) {
+        if (!this.f980b.hasValue(i2) || (resourceId = this.f980b.getResourceId(i2, 0)) == 0) {
             return null;
         }
-        return AppCompatDrawableManager.get().getDrawable(this.mContext, resourceId, true);
+        return AppCompatDrawableManager.get().b(this.f979a, resourceId, true);
     }
 
-    public float getFloat(int i10, float f10) {
-        return this.mWrapped.getFloat(i10, f10);
+    public float getFloat(int i2, float f2) {
+        return this.f980b.getFloat(i2, f2);
     }
 
     @Nullable
-    public Typeface getFont(@StyleableRes int i10, int i11, @Nullable ResourcesCompat.FontCallback fontCallback) {
-        int resourceId = this.mWrapped.getResourceId(i10, 0);
+    public Typeface getFont(@StyleableRes int i2, int i3, @Nullable ResourcesCompat.FontCallback fontCallback) {
+        int resourceId = this.f980b.getResourceId(i2, 0);
         if (resourceId == 0) {
             return null;
         }
-        if (this.mTypedValue == null) {
-            this.mTypedValue = new TypedValue();
+        if (this.f981c == null) {
+            this.f981c = new TypedValue();
         }
-        return ResourcesCompat.getFont(this.mContext, resourceId, this.mTypedValue, i11, fontCallback);
+        return ResourcesCompat.getFont(this.f979a, resourceId, this.f981c, i3, fontCallback);
     }
 
-    public float getFraction(int i10, int i11, int i12, float f10) {
-        return this.mWrapped.getFraction(i10, i11, i12, f10);
+    public float getFraction(int i2, int i3, int i4, float f2) {
+        return this.f980b.getFraction(i2, i3, i4, f2);
     }
 
-    public int getIndex(int i10) {
-        return this.mWrapped.getIndex(i10);
+    public int getIndex(int i2) {
+        return this.f980b.getIndex(i2);
     }
 
     public int getIndexCount() {
-        return this.mWrapped.getIndexCount();
+        return this.f980b.getIndexCount();
     }
 
-    public int getInt(int i10, int i11) {
-        return this.mWrapped.getInt(i10, i11);
+    public int getInt(int i2, int i3) {
+        return this.f980b.getInt(i2, i3);
     }
 
-    public int getInteger(int i10, int i11) {
-        return this.mWrapped.getInteger(i10, i11);
+    public int getInteger(int i2, int i3) {
+        return this.f980b.getInteger(i2, i3);
     }
 
-    public int getLayoutDimension(int i10, String str) {
-        return this.mWrapped.getLayoutDimension(i10, str);
+    public int getLayoutDimension(int i2, String str) {
+        return this.f980b.getLayoutDimension(i2, str);
     }
 
-    public String getNonResourceString(int i10) {
-        return this.mWrapped.getNonResourceString(i10);
+    public String getNonResourceString(int i2) {
+        return this.f980b.getNonResourceString(i2);
     }
 
     public String getPositionDescription() {
-        return this.mWrapped.getPositionDescription();
+        return this.f980b.getPositionDescription();
     }
 
-    public int getResourceId(int i10, int i11) {
-        return this.mWrapped.getResourceId(i10, i11);
+    public int getResourceId(int i2, int i3) {
+        return this.f980b.getResourceId(i2, i3);
     }
 
     public Resources getResources() {
-        return this.mWrapped.getResources();
+        return this.f980b.getResources();
     }
 
-    public String getString(int i10) {
-        return this.mWrapped.getString(i10);
+    public String getString(int i2) {
+        return this.f980b.getString(i2);
     }
 
-    public CharSequence getText(int i10) {
-        return this.mWrapped.getText(i10);
+    public CharSequence getText(int i2) {
+        return this.f980b.getText(i2);
     }
 
-    public CharSequence[] getTextArray(int i10) {
-        return this.mWrapped.getTextArray(i10);
+    public CharSequence[] getTextArray(int i2) {
+        return this.f980b.getTextArray(i2);
     }
 
-    public int getType(int i10) {
-        return Api21Impl.getType(this.mWrapped, i10);
+    public int getType(int i2) {
+        if (Build.VERSION.SDK_INT >= 21) {
+            return this.f980b.getType(i2);
+        }
+        if (this.f981c == null) {
+            this.f981c = new TypedValue();
+        }
+        this.f980b.getValue(i2, this.f981c);
+        return this.f981c.type;
     }
 
-    public boolean getValue(int i10, TypedValue typedValue) {
-        return this.mWrapped.getValue(i10, typedValue);
+    public boolean getValue(int i2, TypedValue typedValue) {
+        return this.f980b.getValue(i2, typedValue);
     }
 
-    public TypedArray getWrappedTypeArray() {
-        return this.mWrapped;
-    }
-
-    public boolean hasValue(int i10) {
-        return this.mWrapped.hasValue(i10);
+    public boolean hasValue(int i2) {
+        return this.f980b.hasValue(i2);
     }
 
     public int length() {
-        return this.mWrapped.length();
+        return this.f980b.length();
     }
 
-    public TypedValue peekValue(int i10) {
-        return this.mWrapped.peekValue(i10);
+    public TypedValue peekValue(int i2) {
+        return this.f980b.peekValue(i2);
     }
 
     public void recycle() {
-        this.mWrapped.recycle();
+        this.f980b.recycle();
     }
 
-    public static TintTypedArray obtainStyledAttributes(Context context, AttributeSet attributeSet, int[] iArr, int i10, int i11) {
-        return new TintTypedArray(context, context.obtainStyledAttributes(attributeSet, iArr, i10, i11));
+    public static TintTypedArray obtainStyledAttributes(Context context, AttributeSet attributeSet, int[] iArr, int i2, int i3) {
+        return new TintTypedArray(context, context.obtainStyledAttributes(attributeSet, iArr, i2, i3));
     }
 
-    public int getLayoutDimension(int i10, int i11) {
-        return this.mWrapped.getLayoutDimension(i10, i11);
+    public int getLayoutDimension(int i2, int i3) {
+        return this.f980b.getLayoutDimension(i2, i3);
     }
 
-    public static TintTypedArray obtainStyledAttributes(Context context, int i10, int[] iArr) {
-        return new TintTypedArray(context, context.obtainStyledAttributes(i10, iArr));
+    public static TintTypedArray obtainStyledAttributes(Context context, int i2, int[] iArr) {
+        return new TintTypedArray(context, context.obtainStyledAttributes(i2, iArr));
     }
 }

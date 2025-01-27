@@ -2,7 +2,6 @@ package com.umeng.umzid;
 
 import android.content.Context;
 import android.content.SharedPreferences;
-import android.net.Uri;
 import java.io.ByteArrayOutputStream;
 import java.io.InputStream;
 import java.io.OutputStream;
@@ -21,22 +20,12 @@ public class a {
         return null;
     }
 
-    public static byte[] a(byte[] bArr, byte[] bArr2) {
-        if (bArr != null && bArr.length != 0 && bArr2 != null && bArr2.length != 0) {
-            for (int i10 = 0; i10 < bArr.length; i10++) {
-                bArr[i10] = (byte) ((bArr[i10] ^ bArr2[i10 % bArr2.length]) ^ (i10 & 255));
-            }
-        }
-        return bArr;
-    }
-
     public static synchronized String a(String str, String str2) {
         byte[] bArr;
         synchronized (a.class) {
             try {
-                String host = Uri.parse(str).getHost();
                 HttpsURLConnection httpsURLConnection = (HttpsURLConnection) new URL(str).openConnection();
-                httpsURLConnection.setHostnameVerifier(new b(host));
+                httpsURLConnection.setHostnameVerifier(new b());
                 SSLContext sSLContext = SSLContext.getInstance("TLS");
                 sSLContext.init(null, null, new SecureRandom());
                 httpsURLConnection.setSSLSocketFactory(sSLContext.getSocketFactory());
@@ -56,8 +45,8 @@ public class a {
                     bArr = byteArrayOutputStream.toByteArray();
                     byteArrayOutputStream.flush();
                     byteArrayOutputStream.close();
-                } catch (Exception e10) {
-                    e10.printStackTrace();
+                } catch (Exception e2) {
+                    e2.printStackTrace();
                     bArr = null;
                 }
                 outputStream.write(a(bArr, "7EC2papS9acZxgIb".getBytes()));
@@ -75,10 +64,18 @@ public class a {
                         byteArrayOutputStream2.write(bArr2, 0, read);
                     }
                 }
-            } catch (Exception e11) {
-                e11.printStackTrace();
+            } catch (Exception unused) {
             }
             return null;
         }
+    }
+
+    public static byte[] a(byte[] bArr, byte[] bArr2) {
+        if (bArr != null && bArr.length != 0 && bArr2 != null && bArr2.length != 0) {
+            for (int i2 = 0; i2 < bArr.length; i2++) {
+                bArr[i2] = (byte) ((bArr[i2] ^ bArr2[i2 % bArr2.length]) ^ (i2 & 255));
+            }
+        }
+        return bArr;
     }
 }

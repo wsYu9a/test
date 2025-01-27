@@ -12,7 +12,7 @@ import androidx.annotation.Nullable;
 import com.kwad.sdk.widget.h;
 import java.util.UUID;
 
-/* loaded from: classes3.dex */
+/* loaded from: classes2.dex */
 public abstract class BaseKsWebView extends FrameLayout {
     private boolean enableScroll;
     public DeepLinkListener mDeeplinkListener;
@@ -28,27 +28,27 @@ public abstract class BaseKsWebView extends FrameLayout {
     }
 
     public interface WebLoadListener {
-        void onDownloadStart(String str, String str2, String str3, String str4, long j10);
+        void onDownloadStart(String str, String str2, String str3, String str4, long j2);
 
         void onPageFinished();
 
         void onPageStart();
 
-        void onReceivedHttpError(int i10, String str, String str2);
+        void onReceivedHttpError(int i2, String str, String str2);
 
         boolean shouldOverrideUrlLoading(WebView webView, String str);
     }
 
     public interface WebViewStateListener {
-        void onFocusChanged(boolean z10, int i10, Rect rect);
+        void onFocusChanged(boolean z, int i2, Rect rect);
 
-        void onScrollChanged(int i10, int i11, int i12, int i13);
+        void onScrollChanged(int i2, int i3, int i4, int i5);
 
-        void onSizeChanged(int i10, int i11, int i12, int i13);
+        void onSizeChanged(int i2, int i3, int i4, int i5);
 
-        void onVisibilityChanged(View view, int i10);
+        void onVisibilityChanged(View view, int i2);
 
-        void onWindowFocusChanged(boolean z10);
+        void onWindowFocusChanged(boolean z);
     }
 
     public BaseKsWebView(@NonNull Context context) {
@@ -57,8 +57,20 @@ public abstract class BaseKsWebView extends FrameLayout {
         init(context, null);
     }
 
-    private float[] getRadius(float f10, float f11, float f12, float f13) {
-        return new float[]{f10, f10, f11, f11, f12, f12, f13, f13};
+    public BaseKsWebView(@NonNull Context context, @Nullable AttributeSet attributeSet) {
+        super(context, attributeSet);
+        this.enableScroll = true;
+        init(context, attributeSet);
+    }
+
+    public BaseKsWebView(@NonNull Context context, @Nullable AttributeSet attributeSet, int i2) {
+        super(context, attributeSet, i2);
+        this.enableScroll = true;
+        init(context, attributeSet);
+    }
+
+    private float[] getRadius(float f2, float f3, float f4, float f5) {
+        return new float[]{f2, f2, f3, f3, f4, f4, f5, f5};
     }
 
     private void init(@NonNull Context context, @Nullable AttributeSet attributeSet) {
@@ -73,14 +85,10 @@ public abstract class BaseKsWebView extends FrameLayout {
 
     public abstract void callJs(String str, String str2);
 
-    public abstract boolean canGoBack();
-
-    public abstract boolean canGoForward();
-
     public abstract void destroy();
 
     @Override // android.view.ViewGroup, android.view.View
-    public void dispatchDraw(Canvas canvas) {
+    protected void dispatchDraw(Canvas canvas) {
         this.mViewRCHelper.beforeDispatchDraw(canvas);
         super.dispatchDraw(canvas);
         this.mViewRCHelper.afterDispatchDraw(canvas);
@@ -100,108 +108,100 @@ public abstract class BaseKsWebView extends FrameLayout {
         return this.mUniqueId;
     }
 
-    public abstract void goBack();
-
-    public abstract void goForward();
-
     public abstract void loadUrl(String str);
 
     @Override // android.view.View
-    public void onFocusChanged(boolean z10, int i10, Rect rect) {
-        super.onFocusChanged(z10, i10, rect);
+    protected void onFocusChanged(boolean z, int i2, Rect rect) {
+        super.onFocusChanged(z, i2, rect);
         WebViewStateListener webViewStateListener = this.mWebViewStateListener;
         if (webViewStateListener != null) {
-            webViewStateListener.onFocusChanged(z10, i10, rect);
+            webViewStateListener.onFocusChanged(z, i2, rect);
         }
     }
 
     @Override // android.view.View
-    public void onScrollChanged(int i10, int i11, int i12, int i13) {
-        super.onScrollChanged(i10, i11, i12, i13);
+    protected void onScrollChanged(int i2, int i3, int i4, int i5) {
+        super.onScrollChanged(i2, i3, i4, i5);
         WebViewStateListener webViewStateListener = this.mWebViewStateListener;
         if (webViewStateListener != null) {
-            webViewStateListener.onScrollChanged(i10, i11, i12, i13);
+            webViewStateListener.onScrollChanged(i2, i3, i4, i5);
         }
     }
 
     @Override // android.view.View
-    public void onSizeChanged(int i10, int i11, int i12, int i13) {
-        super.onSizeChanged(i10, i11, i12, i13);
-        this.mViewRCHelper.onSizeChanged(i10, i11);
+    protected void onSizeChanged(int i2, int i3, int i4, int i5) {
+        super.onSizeChanged(i2, i3, i4, i5);
+        this.mViewRCHelper.onSizeChanged(i2, i3);
         WebViewStateListener webViewStateListener = this.mWebViewStateListener;
         if (webViewStateListener != null) {
-            webViewStateListener.onSizeChanged(i10, i11, i12, i13);
+            webViewStateListener.onSizeChanged(i2, i3, i4, i5);
         }
     }
 
     @Override // android.view.View
-    public void onVisibilityChanged(View view, int i10) {
-        super.onVisibilityChanged(view, i10);
+    protected void onVisibilityChanged(View view, int i2) {
+        super.onVisibilityChanged(view, i2);
         WebViewStateListener webViewStateListener = this.mWebViewStateListener;
         if (webViewStateListener != null) {
-            webViewStateListener.onVisibilityChanged(view, i10);
+            webViewStateListener.onVisibilityChanged(view, i2);
         }
     }
 
     @Override // android.view.View
-    public void onWindowFocusChanged(boolean z10) {
-        super.onWindowFocusChanged(z10);
+    public void onWindowFocusChanged(boolean z) {
+        super.onWindowFocusChanged(z);
         WebViewStateListener webViewStateListener = this.mWebViewStateListener;
         if (webViewStateListener != null) {
-            webViewStateListener.onWindowFocusChanged(z10);
+            webViewStateListener.onWindowFocusChanged(z);
         }
     }
 
     @Override // android.view.View
-    public abstract void scrollBy(int i10, int i11);
+    public abstract void scrollBy(int i2, int i3);
 
     @Override // android.view.View
-    public abstract void scrollTo(int i10, int i11);
+    public abstract void scrollTo(int i2, int i3);
 
-    public abstract void setAcceptThirdPartyCookies(boolean z10);
+    public abstract void setAcceptThirdPartyCookies(boolean z);
 
-    public abstract void setAdCacheId(int i10, String str);
+    public abstract void setAllowContentAccess(boolean z);
 
-    public abstract void setAdTemplateString(String str);
+    public abstract void setAllowFileAccess(boolean z);
 
-    public abstract void setAllowContentAccess(boolean z10);
+    public abstract void setAllowFileAccessFromFileURLs(boolean z);
 
-    public abstract void setAllowFileAccess(boolean z10);
+    public abstract void setAllowUniversalAccessFromFileURLs(boolean z);
 
-    public abstract void setAllowFileAccessFromFileURLs(boolean z10);
+    public abstract void setCacheMode(int i2);
 
-    public abstract void setAllowUniversalAccessFromFileURLs(boolean z10);
+    public abstract void setContextUniqId(int i2);
 
-    public abstract void setCacheMode(int i10);
+    public abstract void setDebugEnabled(boolean z);
 
-    public abstract void setContextUniqId(int i10);
-
-    public abstract void setDebugEnabled(boolean z10);
-
-    public abstract void setDeeplinkEnabled(boolean z10);
+    public abstract void setDeeplinkEnabled(boolean z);
 
     public void setDeeplinkListener(DeepLinkListener deepLinkListener) {
         this.mDeeplinkListener = deepLinkListener;
     }
 
-    public abstract void setEnableScroll(boolean z10);
+    public abstract void setEnableScroll(boolean z);
 
-    public abstract void setEnableWebCache(boolean z10);
+    public abstract void setEnableWebCache(boolean z);
 
-    public abstract void setInnerDownloadEnabled(boolean z10);
+    public abstract void setInnerDownloadEnabled(boolean z);
 
-    public abstract void setJavaScriptEnabled(boolean z10);
+    public abstract void setJavaScriptEnabled(boolean z);
 
-    public abstract void setMixedContentMode(int i10);
+    public abstract void setMixedContentMode(int i2);
 
-    public void setRadius(float f10, float f11, float f12, float f13) {
-        this.mViewRCHelper.setRadius(getRadius(f10, f11, f12, f13));
+    public void setRadius(float f2, float f3, float f4, float f5) {
+        this.mViewRCHelper.setRadius(getRadius(f2, f3, f4, f5));
         postInvalidate();
     }
 
-    public abstract void setSavePassword(boolean z10);
+    public abstract void setSavePassword(boolean z);
 
-    public abstract void setTextZoom(int i10);
+    public abstract void setTextZoom(int i2);
 
     public void setWebLoadListener(WebLoadListener webLoadListener) {
         this.mWebLoadListener = webLoadListener;
@@ -209,17 +209,5 @@ public abstract class BaseKsWebView extends FrameLayout {
 
     public void setWebViewStateListener(WebViewStateListener webViewStateListener) {
         this.mWebViewStateListener = webViewStateListener;
-    }
-
-    public BaseKsWebView(@NonNull Context context, @Nullable AttributeSet attributeSet) {
-        super(context, attributeSet);
-        this.enableScroll = true;
-        init(context, attributeSet);
-    }
-
-    public BaseKsWebView(@NonNull Context context, @Nullable AttributeSet attributeSet, int i10) {
-        super(context, attributeSet, i10);
-        this.enableScroll = true;
-        init(context, attributeSet);
     }
 }

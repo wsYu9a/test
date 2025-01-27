@@ -1,7 +1,7 @@
 package com.martian.mibook.account.request.book;
 
+import com.martian.libcomm.http.requests.d.a;
 import com.martian.mibook.lib.account.request.TYHttpGetParams;
-import v8.a;
 
 /* loaded from: classes3.dex */
 public class MiBookGetCommentByTimeParams extends TYHttpGetParams {
@@ -13,16 +13,10 @@ public class MiBookGetCommentByTimeParams extends TYHttpGetParams {
     private Long lastCreatedOn;
 
     @a
-    private Integer paragraphIdx;
-
-    @a
     private String sourceId;
 
     @a
     private String sourceName;
-
-    @a
-    private Integer type;
 
     public String getChapterId() {
         return this.chapterId;
@@ -32,11 +26,7 @@ public class MiBookGetCommentByTimeParams extends TYHttpGetParams {
         return this.lastCreatedOn;
     }
 
-    public Integer getParagraphIdx() {
-        return this.paragraphIdx;
-    }
-
-    @Override // u8.b
+    @Override // com.martian.libcomm.http.requests.b
     public String getRequestMethod() {
         return "/get_comments_by_time.do";
     }
@@ -49,31 +39,19 @@ public class MiBookGetCommentByTimeParams extends TYHttpGetParams {
         return this.sourceName;
     }
 
-    public Integer getType() {
-        return this.type;
+    public void setChapterId(String chapterId) {
+        this.chapterId = chapterId;
     }
 
-    public void setChapterId(String str) {
-        this.chapterId = str;
+    public void setLastCreatedOn(Long lastCreatedOn) {
+        this.lastCreatedOn = lastCreatedOn;
     }
 
-    public void setLastCreatedOn(Long l10) {
-        this.lastCreatedOn = l10;
+    public void setSourceId(String sourceId) {
+        this.sourceId = sourceId;
     }
 
-    public void setParagraphIdx(Integer num) {
-        this.paragraphIdx = num;
-    }
-
-    public void setSourceId(String str) {
-        this.sourceId = str;
-    }
-
-    public void setSourceName(String str) {
-        this.sourceName = str;
-    }
-
-    public void setType(Integer num) {
-        this.type = num;
+    public void setSourceName(String sourceName) {
+        this.sourceName = sourceName;
     }
 }

@@ -9,7 +9,7 @@ import com.kwad.sdk.api.model.AdExposureFailedReason;
 
 @KsAdSdkApi
 @Keep
-/* loaded from: classes3.dex */
+/* loaded from: classes2.dex */
 public interface KsFeedAd extends BaseKSAd {
 
     @KsAdSdkApi
@@ -38,18 +38,6 @@ public interface KsFeedAd extends BaseKSAd {
 
     @KsAdSdkApi
     @Keep
-    public interface AdRenderListener {
-        @KsAdSdkApi
-        @Keep
-        void onAdRenderFailed(int i10, String str);
-
-        @KsAdSdkApi
-        @Keep
-        void onAdRenderSuccess(View view);
-    }
-
-    @KsAdSdkApi
-    @Keep
     int getECPM();
 
     @Nullable
@@ -67,11 +55,7 @@ public interface KsFeedAd extends BaseKSAd {
 
     @KsAdSdkApi
     @Keep
-    void render(AdRenderListener adRenderListener);
-
-    @KsAdSdkApi
-    @Keep
-    void reportAdExposureFailed(int i10, AdExposureFailedReason adExposureFailedReason);
+    void reportAdExposureFailed(int i2, AdExposureFailedReason adExposureFailedReason);
 
     @KsAdSdkApi
     @Keep
@@ -80,11 +64,11 @@ public interface KsFeedAd extends BaseKSAd {
     @KsAdSdkApi
     @Keep
     @Deprecated
-    void setBidEcpm(int i10);
+    void setBidEcpm(int i2);
 
     @KsAdSdkApi
     @Keep
-    void setBidEcpm(long j10, long j11);
+    void setBidEcpm(long j2, long j3);
 
     @KsAdSdkApi
     @Keep
@@ -92,5 +76,5 @@ public interface KsFeedAd extends BaseKSAd {
 
     @KsAdSdkApi
     @Keep
-    void setVideoSoundEnable(boolean z10);
+    void setVideoSoundEnable(boolean z);
 }

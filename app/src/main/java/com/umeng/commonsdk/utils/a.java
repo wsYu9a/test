@@ -10,114 +10,106 @@ import android.os.SystemClock;
 public abstract class a {
 
     /* renamed from: e */
-    private static final int f24810e = 1;
+    private static final int f26471e = 1;
 
     /* renamed from: a */
-    private final long f24811a;
+    private final long f26472a;
 
     /* renamed from: b */
-    private final long f24812b;
+    private final long f26473b;
 
     /* renamed from: c */
-    private long f24813c;
+    private long f26474c;
 
     /* renamed from: f */
-    private HandlerThread f24815f;
+    private HandlerThread f26476f;
 
     /* renamed from: g */
-    private Handler f24816g;
+    private Handler f26477g;
 
     /* renamed from: d */
-    private boolean f24814d = false;
+    private boolean f26475d = false;
 
     /* renamed from: h */
-    private Handler.Callback f24817h = new Handler.Callback() { // from class: com.umeng.commonsdk.utils.a.1
-        public AnonymousClass1() {
+    private Handler.Callback f26478h = new Handler.Callback() { // from class: com.umeng.commonsdk.utils.a.1
+        AnonymousClass1() {
         }
 
         @Override // android.os.Handler.Callback
         public boolean handleMessage(Message message) {
             synchronized (a.this) {
-                try {
-                    if (a.this.f24814d) {
-                        return true;
-                    }
-                    long elapsedRealtime = a.this.f24813c - SystemClock.elapsedRealtime();
-                    if (elapsedRealtime <= 0) {
-                        a.this.c();
-                        if (a.this.f24815f != null) {
-                            a.this.f24815f.quit();
-                        }
-                    } else if (elapsedRealtime < a.this.f24812b) {
-                        a.this.f24816g.sendMessageDelayed(a.this.f24816g.obtainMessage(1), elapsedRealtime);
-                    } else {
-                        long elapsedRealtime2 = SystemClock.elapsedRealtime();
-                        a.this.a(elapsedRealtime);
-                        long elapsedRealtime3 = (elapsedRealtime2 + a.this.f24812b) - SystemClock.elapsedRealtime();
-                        while (elapsedRealtime3 < 0) {
-                            elapsedRealtime3 += a.this.f24812b;
-                        }
-                        a.this.f24816g.sendMessageDelayed(a.this.f24816g.obtainMessage(1), elapsedRealtime3);
-                    }
-                    return false;
-                } catch (Throwable th2) {
-                    throw th2;
+                if (a.this.f26475d) {
+                    return true;
                 }
+                long elapsedRealtime = a.this.f26474c - SystemClock.elapsedRealtime();
+                if (elapsedRealtime <= 0) {
+                    a.this.c();
+                    if (a.this.f26476f != null) {
+                        a.this.f26476f.quit();
+                    }
+                } else if (elapsedRealtime < a.this.f26473b) {
+                    a.this.f26477g.sendMessageDelayed(a.this.f26477g.obtainMessage(1), elapsedRealtime);
+                } else {
+                    long elapsedRealtime2 = SystemClock.elapsedRealtime();
+                    a.this.a(elapsedRealtime);
+                    long elapsedRealtime3 = (elapsedRealtime2 + a.this.f26473b) - SystemClock.elapsedRealtime();
+                    while (elapsedRealtime3 < 0) {
+                        elapsedRealtime3 += a.this.f26473b;
+                    }
+                    a.this.f26477g.sendMessageDelayed(a.this.f26477g.obtainMessage(1), elapsedRealtime3);
+                }
+                return false;
             }
         }
     };
 
     /* renamed from: com.umeng.commonsdk.utils.a$1 */
-    public class AnonymousClass1 implements Handler.Callback {
-        public AnonymousClass1() {
+    class AnonymousClass1 implements Handler.Callback {
+        AnonymousClass1() {
         }
 
         @Override // android.os.Handler.Callback
         public boolean handleMessage(Message message) {
             synchronized (a.this) {
-                try {
-                    if (a.this.f24814d) {
-                        return true;
-                    }
-                    long elapsedRealtime = a.this.f24813c - SystemClock.elapsedRealtime();
-                    if (elapsedRealtime <= 0) {
-                        a.this.c();
-                        if (a.this.f24815f != null) {
-                            a.this.f24815f.quit();
-                        }
-                    } else if (elapsedRealtime < a.this.f24812b) {
-                        a.this.f24816g.sendMessageDelayed(a.this.f24816g.obtainMessage(1), elapsedRealtime);
-                    } else {
-                        long elapsedRealtime2 = SystemClock.elapsedRealtime();
-                        a.this.a(elapsedRealtime);
-                        long elapsedRealtime3 = (elapsedRealtime2 + a.this.f24812b) - SystemClock.elapsedRealtime();
-                        while (elapsedRealtime3 < 0) {
-                            elapsedRealtime3 += a.this.f24812b;
-                        }
-                        a.this.f24816g.sendMessageDelayed(a.this.f24816g.obtainMessage(1), elapsedRealtime3);
-                    }
-                    return false;
-                } catch (Throwable th2) {
-                    throw th2;
+                if (a.this.f26475d) {
+                    return true;
                 }
+                long elapsedRealtime = a.this.f26474c - SystemClock.elapsedRealtime();
+                if (elapsedRealtime <= 0) {
+                    a.this.c();
+                    if (a.this.f26476f != null) {
+                        a.this.f26476f.quit();
+                    }
+                } else if (elapsedRealtime < a.this.f26473b) {
+                    a.this.f26477g.sendMessageDelayed(a.this.f26477g.obtainMessage(1), elapsedRealtime);
+                } else {
+                    long elapsedRealtime2 = SystemClock.elapsedRealtime();
+                    a.this.a(elapsedRealtime);
+                    long elapsedRealtime3 = (elapsedRealtime2 + a.this.f26473b) - SystemClock.elapsedRealtime();
+                    while (elapsedRealtime3 < 0) {
+                        elapsedRealtime3 += a.this.f26473b;
+                    }
+                    a.this.f26477g.sendMessageDelayed(a.this.f26477g.obtainMessage(1), elapsedRealtime3);
+                }
+                return false;
             }
         }
     }
 
-    public a(long j10, long j11) {
-        this.f24811a = j10;
-        this.f24812b = j11;
+    public a(long j2, long j3) {
+        this.f26472a = j2;
+        this.f26473b = j3;
         if (d()) {
-            this.f24816g = new Handler(this.f24817h);
+            this.f26477g = new Handler(this.f26478h);
             return;
         }
         HandlerThread handlerThread = new HandlerThread("CountDownTimerThread");
-        this.f24815f = handlerThread;
+        this.f26476f = handlerThread;
         handlerThread.start();
-        this.f24816g = new Handler(this.f24815f.getLooper(), this.f24817h);
+        this.f26477g = new Handler(this.f26476f.getLooper(), this.f26478h);
     }
 
-    public abstract void a(long j10);
+    public abstract void a(long j2);
 
     public abstract void c();
 
@@ -126,18 +118,18 @@ public abstract class a {
     }
 
     public final synchronized void a() {
-        this.f24814d = true;
-        this.f24816g.removeMessages(1);
+        this.f26475d = true;
+        this.f26477g.removeMessages(1);
     }
 
     public final synchronized a b() {
-        this.f24814d = false;
-        if (this.f24811a <= 0) {
+        this.f26475d = false;
+        if (this.f26472a <= 0) {
             c();
             return this;
         }
-        this.f24813c = SystemClock.elapsedRealtime() + this.f24811a;
-        Handler handler = this.f24816g;
+        this.f26474c = SystemClock.elapsedRealtime() + this.f26472a;
+        Handler handler = this.f26477g;
         handler.sendMessage(handler.obtainMessage(1));
         return this;
     }

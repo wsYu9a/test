@@ -1,5 +1,5 @@
 package me.jessyan.autosize.internal;
 
-/* loaded from: classes4.dex */
+/* loaded from: classes.dex */
 public interface CancelAdapt {
 }

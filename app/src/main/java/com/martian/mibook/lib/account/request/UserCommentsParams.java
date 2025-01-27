@@ -1,6 +1,6 @@
 package com.martian.mibook.lib.account.request;
 
-import v8.a;
+import com.martian.libcomm.http.requests.d.a;
 
 /* loaded from: classes3.dex */
 public class UserCommentsParams extends TYBookHttpGetParams {
@@ -11,9 +11,6 @@ public class UserCommentsParams extends TYBookHttpGetParams {
     @a
     private Integer goto_position;
 
-    @a
-    private int hideNaviBar = 1;
-
     public String getCuid() {
         return this.cuid;
     }
@@ -22,24 +19,16 @@ public class UserCommentsParams extends TYBookHttpGetParams {
         return this.goto_position;
     }
 
-    public int getHideNaviBar() {
-        return this.hideNaviBar;
-    }
-
-    @Override // u8.b
+    @Override // com.martian.libcomm.http.requests.b
     public String getRequestMethod() {
         return "book_friend.html";
     }
 
-    public void setCuid(String str) {
-        this.cuid = str;
+    public void setCuid(String cuid) {
+        this.cuid = cuid;
     }
 
-    public void setGoto_position(Integer num) {
-        this.goto_position = num;
-    }
-
-    public void setHideNaviBar(int i10) {
-        this.hideNaviBar = i10;
+    public void setGoto_position(Integer goto_position) {
+        this.goto_position = goto_position;
     }
 }

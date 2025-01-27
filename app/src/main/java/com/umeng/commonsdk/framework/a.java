@@ -1,24 +1,16 @@
 package com.umeng.commonsdk.framework;
 
-import android.annotation.SuppressLint;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.net.ConnectivityManager;
-import android.net.Network;
-import android.net.NetworkCapabilities;
-import android.net.NetworkRequest;
-import android.os.Build;
 import android.os.FileObserver;
 import android.os.Handler;
 import android.os.HandlerThread;
 import android.os.Looper;
 import android.os.Message;
 import com.kuaishou.weapon.p0.g;
-import com.sigmob.sdk.base.common.y;
-import com.tencent.connect.common.Constants;
-import com.umeng.analytics.pro.by;
 import com.umeng.commonsdk.debug.UMRTLog;
 import com.umeng.commonsdk.internal.b;
 import com.umeng.commonsdk.internal.crash.UMCrashManager;
@@ -28,6 +20,7 @@ import com.umeng.commonsdk.statistics.common.DeviceConfig;
 import com.umeng.commonsdk.statistics.common.ULog;
 import com.umeng.commonsdk.statistics.idtracking.ImprintHandler;
 import com.umeng.commonsdk.statistics.internal.UMImprintChangeCallback;
+import com.vivo.ic.dm.Constants;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.concurrent.TimeUnit;
@@ -37,108 +30,54 @@ import java.util.concurrent.locks.ReentrantLock;
 public class a implements UMImprintChangeCallback {
 
     /* renamed from: a */
-    private static HandlerThread f24439a = null;
+    private static HandlerThread f26167a = null;
 
     /* renamed from: b */
-    private static Handler f24440b = null;
+    private static Handler f26168b = null;
 
     /* renamed from: c */
-    private static Handler f24441c = null;
+    private static Handler f26169c = null;
 
     /* renamed from: d */
-    private static final int f24442d = 200;
+    private static final int f26170d = 200;
 
     /* renamed from: e */
-    private static final int f24443e = 273;
+    private static final int f26171e = 273;
 
     /* renamed from: f */
-    private static final int f24444f = 274;
+    private static final int f26172f = 274;
 
     /* renamed from: g */
-    private static final int f24445g = 512;
+    private static final int f26173g = 512;
 
     /* renamed from: h */
-    private static final int f24446h = 769;
+    private static final int f26174h = 769;
 
     /* renamed from: i */
-    private static FileObserverC0672a f24447i = null;
+    private static FileObserverC0542a f26175i = null;
 
     /* renamed from: j */
-    private static ConnectivityManager f24448j = null;
-
-    /* renamed from: k */
-    private static IntentFilter f24449k = null;
-
-    /* renamed from: l */
-    private static volatile boolean f24450l = false;
-
-    /* renamed from: m */
-    private static ArrayList<UMSenderStateNotify> f24451m = null;
-
-    /* renamed from: p */
-    private static final String f24454p = "report_policy";
-
-    /* renamed from: q */
-    private static final String f24455q = "report_interval";
-
-    /* renamed from: s */
-    private static final int f24457s = 15;
-
-    /* renamed from: t */
-    private static final int f24458t = 3;
-
-    /* renamed from: u */
-    private static final int f24459u = 90;
-
-    /* renamed from: x */
-    private static BroadcastReceiver f24462x;
-
-    /* renamed from: n */
-    private static Object f24452n = new Object();
-
-    /* renamed from: o */
-    private static ReentrantLock f24453o = new ReentrantLock();
-
-    /* renamed from: r */
-    private static boolean f24456r = false;
-
-    /* renamed from: v */
-    private static int f24460v = 15;
-
-    /* renamed from: w */
-    private static Object f24461w = new Object();
+    private static ConnectivityManager f26176j = null;
+    private static IntentFilter k = null;
+    private static volatile boolean l = false;
+    private static ArrayList<UMSenderStateNotify> m = null;
+    private static final String p = "report_policy";
+    private static final String q = "report_interval";
+    private static final int s = 15;
+    private static final int t = 3;
+    private static final int u = 90;
+    private static BroadcastReceiver x;
+    private static Object n = new Object();
+    private static ReentrantLock o = new ReentrantLock();
+    private static boolean r = false;
+    private static int v = 15;
+    private static Object w = new Object();
 
     /* renamed from: com.umeng.commonsdk.framework.a$1 */
-    public static class AnonymousClass1 extends ConnectivityManager.NetworkCallback {
-
-        /* renamed from: a */
-        final /* synthetic */ Context f24463a;
-
-        public AnonymousClass1(Context context) {
-            applicationContext = context;
+    static class AnonymousClass1 extends BroadcastReceiver {
+        AnonymousClass1() {
         }
 
-        @Override // android.net.ConnectivityManager.NetworkCallback
-        public void onAvailable(Network network) {
-            Context context = applicationContext;
-            UMWorkDispatch.sendEvent(context, com.umeng.commonsdk.internal.a.E, b.a(context).a(), null);
-        }
-
-        @Override // android.net.ConnectivityManager.NetworkCallback
-        public void onCapabilitiesChanged(Network network, NetworkCapabilities networkCapabilities) {
-            super.onCapabilitiesChanged(network, networkCapabilities);
-        }
-
-        @Override // android.net.ConnectivityManager.NetworkCallback
-        public void onLost(Network network) {
-            UMRTLog.i(UMRTLog.RTLOG_TAG, "--->>> onLost");
-            Context context = applicationContext;
-            UMWorkDispatch.sendEvent(context, com.umeng.commonsdk.internal.a.E, b.a(context).a(), null, y.f.f18076n);
-        }
-    }
-
-    /* renamed from: com.umeng.commonsdk.framework.a$2 */
-    public static class AnonymousClass2 extends BroadcastReceiver {
         @Override // android.content.BroadcastReceiver
         public void onReceive(Context context, Intent intent) {
             if (intent.getAction().equals("android.net.conn.CONNECTIVITY_CHANGE")) {
@@ -147,33 +86,33 @@ public class a implements UMImprintChangeCallback {
         }
     }
 
-    /* renamed from: com.umeng.commonsdk.framework.a$3 */
-    public class AnonymousClass3 extends Handler {
-        public AnonymousClass3(Looper looper) {
+    /* renamed from: com.umeng.commonsdk.framework.a$2 */
+    class AnonymousClass2 extends Handler {
+        AnonymousClass2(Looper looper) {
             super(looper);
         }
 
         @Override // android.os.Handler
         public void handleMessage(Message message) {
-            int i10 = message.what;
-            if (i10 == 273) {
+            int i2 = message.what;
+            if (i2 == 273) {
                 ULog.d("--->>> handleMessage: recv MSG_PROCESS_NEXT msg.");
                 try {
-                    a.f24453o.tryLock(1L, TimeUnit.SECONDS);
+                    a.o.tryLock(1L, TimeUnit.SECONDS);
                     try {
                         a.n();
                     } catch (Throwable unused) {
                     }
-                    a.f24453o.unlock();
+                    a.o.unlock();
                     return;
                 } catch (Throwable unused2) {
                     return;
                 }
             }
-            if (i10 == a.f24444f) {
+            if (i2 == a.f26172f) {
                 a.l();
             } else {
-                if (i10 != 512) {
+                if (i2 != 512) {
                     return;
                 }
                 a.m();
@@ -182,14 +121,14 @@ public class a implements UMImprintChangeCallback {
     }
 
     /* renamed from: com.umeng.commonsdk.framework.a$a */
-    public static class FileObserverC0672a extends FileObserver {
-        public FileObserverC0672a(String str) {
+    static class FileObserverC0542a extends FileObserver {
+        public FileObserverC0542a(String str) {
             super(str);
         }
 
         @Override // android.os.FileObserver
-        public void onEvent(int i10, String str) {
-            if ((i10 & 8) != 8) {
+        public void onEvent(int i2, String str) {
+            if ((i2 & 8) != 8) {
                 return;
             }
             ULog.d("--->>> envelope file created >>> " + str);
@@ -201,9 +140,12 @@ public class a implements UMImprintChangeCallback {
     static {
         Context appContext = UMGlobalContext.getAppContext();
         if (appContext != null) {
-            f24448j = (ConnectivityManager) appContext.getSystemService("connectivity");
+            f26176j = (ConnectivityManager) appContext.getSystemService("connectivity");
         }
-        f24462x = new BroadcastReceiver() { // from class: com.umeng.commonsdk.framework.a.2
+        x = new BroadcastReceiver() { // from class: com.umeng.commonsdk.framework.a.1
+            AnonymousClass1() {
+            }
+
             @Override // android.content.BroadcastReceiver
             public void onReceive(Context context, Intent intent) {
                 if (intent.getAction().equals("android.net.conn.CONNECTIVITY_CHANGE")) {
@@ -214,52 +156,52 @@ public class a implements UMImprintChangeCallback {
     }
 
     public a(Context context, Handler handler) {
-        if (f24448j == null) {
+        if (f26176j == null) {
             Context appContext = UMGlobalContext.getAppContext();
-            if (f24448j != null) {
-                f24448j = (ConnectivityManager) appContext.getSystemService("connectivity");
+            if (f26176j != null) {
+                f26176j = (ConnectivityManager) appContext.getSystemService("connectivity");
             }
         }
-        f24441c = handler;
+        f26169c = handler;
         try {
-            if (f24439a == null) {
+            if (f26167a == null) {
                 HandlerThread handlerThread = new HandlerThread("NetWorkSender");
-                f24439a = handlerThread;
+                f26167a = handlerThread;
                 handlerThread.start();
-                if (f24447i == null) {
-                    FileObserverC0672a fileObserverC0672a = new FileObserverC0672a(UMFrUtils.getEnvelopeDirPath(context));
-                    f24447i = fileObserverC0672a;
-                    fileObserverC0672a.startWatching();
+                if (f26175i == null) {
+                    FileObserverC0542a fileObserverC0542a = new FileObserverC0542a(UMFrUtils.getEnvelopeDirPath(context));
+                    f26175i = fileObserverC0542a;
+                    fileObserverC0542a.startWatching();
                     ULog.d("--->>> FileMonitor has already started!");
                 }
                 j();
-                if (f24440b == null) {
-                    f24440b = new Handler(f24439a.getLooper()) { // from class: com.umeng.commonsdk.framework.a.3
-                        public AnonymousClass3(Looper looper) {
+                if (f26168b == null) {
+                    f26168b = new Handler(f26167a.getLooper()) { // from class: com.umeng.commonsdk.framework.a.2
+                        AnonymousClass2(Looper looper) {
                             super(looper);
                         }
 
                         @Override // android.os.Handler
                         public void handleMessage(Message message) {
-                            int i10 = message.what;
-                            if (i10 == 273) {
+                            int i2 = message.what;
+                            if (i2 == 273) {
                                 ULog.d("--->>> handleMessage: recv MSG_PROCESS_NEXT msg.");
                                 try {
-                                    a.f24453o.tryLock(1L, TimeUnit.SECONDS);
+                                    a.o.tryLock(1L, TimeUnit.SECONDS);
                                     try {
                                         a.n();
                                     } catch (Throwable unused) {
                                     }
-                                    a.f24453o.unlock();
+                                    a.o.unlock();
                                     return;
                                 } catch (Throwable unused2) {
                                     return;
                                 }
                             }
-                            if (i10 == a.f24444f) {
+                            if (i2 == a.f26172f) {
                                 a.l();
                             } else {
-                                if (i10 != 512) {
+                                if (i2 != 512) {
                                     return;
                                 }
                                 a.m();
@@ -267,85 +209,87 @@ public class a implements UMImprintChangeCallback {
                         }
                     };
                 }
-                ImprintHandler.getImprintService(context).registImprintCallback(f24454p, this);
-                ImprintHandler.getImprintService(context).registImprintCallback(f24455q, this);
+                ImprintHandler.getImprintService(context).registImprintCallback(p, this);
+                ImprintHandler.getImprintService(context).registImprintCallback(q, this);
             }
-        } catch (Throwable th2) {
-            UMCrashManager.reportCrash(context, th2);
+        } catch (Throwable th) {
+            UMCrashManager.reportCrash(context, th);
         }
     }
 
     public static int b() {
-        int i10;
-        synchronized (f24461w) {
-            i10 = f24460v;
+        int i2;
+        synchronized (w) {
+            i2 = v;
         }
-        return i10;
+        return i2;
     }
 
     public static void c() {
     }
 
+    public static void c(int i2) {
+        Handler handler;
+        if (!l || (handler = f26168b) == null) {
+            return;
+        }
+        Message obtainMessage = handler.obtainMessage();
+        obtainMessage.what = i2;
+        f26168b.sendMessage(obtainMessage);
+    }
+
     public static void d() {
-        if (f24453o.tryLock()) {
+        if (o.tryLock()) {
             try {
                 b(273);
             } finally {
-                f24453o.unlock();
+                o.unlock();
             }
         }
     }
 
     public static void e() {
-        a(f24444f, 3000);
+        a(f26172f, 3000);
     }
 
     private void j() {
-        synchronized (f24461w) {
-            try {
-                if (Constants.VIA_REPORT_TYPE_SHARE_TO_QZONE.equals(UMEnvelopeBuild.imprintProperty(UMModuleRegister.getAppContext(), f24454p, ""))) {
-                    UMRTLog.i(UMRTLog.RTLOG_TAG, "--->>> switch to report_policy 11");
-                    f24456r = true;
-                    f24460v = 15;
-                    int intValue = Integer.valueOf(UMEnvelopeBuild.imprintProperty(UMModuleRegister.getAppContext(), f24455q, Constants.VIA_REPORT_TYPE_WPA_STATE)).intValue();
-                    UMRTLog.i(UMRTLog.RTLOG_TAG, "--->>> set report_interval value to: " + intValue);
-                    if (intValue >= 3 && intValue <= 90) {
-                        f24460v = intValue * 1000;
-                    }
-                    f24460v = 15;
-                } else {
-                    f24456r = false;
+        synchronized (w) {
+            if ("11".equals(UMEnvelopeBuild.imprintProperty(UMModuleRegister.getAppContext(), p, ""))) {
+                UMRTLog.i(UMRTLog.RTLOG_TAG, "--->>> switch to report_policy 11");
+                r = true;
+                v = 15;
+                int intValue = Integer.valueOf(UMEnvelopeBuild.imprintProperty(UMModuleRegister.getAppContext(), q, "15")).intValue();
+                UMRTLog.i(UMRTLog.RTLOG_TAG, "--->>> set report_interval value to: " + intValue);
+                if (intValue >= 3 && intValue <= 90) {
+                    v = intValue * 1000;
                 }
-            } catch (Throwable th2) {
-                throw th2;
+                v = 15;
+            } else {
+                r = false;
             }
         }
     }
 
     private static void k() {
-        if (f24439a != null) {
-            f24439a = null;
+        if (f26167a != null) {
+            f26167a = null;
         }
-        if (f24440b != null) {
-            f24440b = null;
+        if (f26168b != null) {
+            f26168b = null;
         }
-        if (f24441c != null) {
-            f24441c = null;
+        if (f26169c != null) {
+            f26169c = null;
         }
     }
 
     public static void l() {
         int size;
-        synchronized (f24452n) {
-            try {
-                ArrayList<UMSenderStateNotify> arrayList = f24451m;
-                if (arrayList != null && (size = arrayList.size()) > 0) {
-                    for (int i10 = 0; i10 < size; i10++) {
-                        f24451m.get(i10).onSenderIdle();
-                    }
+        synchronized (n) {
+            ArrayList<UMSenderStateNotify> arrayList = m;
+            if (arrayList != null && (size = arrayList.size()) > 0) {
+                for (int i2 = 0; i2 < size; i2++) {
+                    m.get(i2).onSenderIdle();
                 }
-            } catch (Throwable th2) {
-                throw th2;
             }
         }
     }
@@ -355,7 +299,7 @@ public class a implements UMImprintChangeCallback {
 
     public static void n() {
         ULog.d("--->>> handleProcessNext: Enter...");
-        if (f24450l) {
+        if (l) {
             Context appContext = UMModuleRegister.getAppContext();
             try {
                 if (UMFrUtils.envelopeFileNumber(appContext) > 0) {
@@ -383,168 +327,109 @@ public class a implements UMImprintChangeCallback {
                     }
                 }
                 e();
-            } catch (Throwable th2) {
-                UMCrashManager.reportCrash(appContext, th2);
+            } catch (Throwable th) {
+                UMCrashManager.reportCrash(appContext, th);
             }
         }
     }
 
     @Override // com.umeng.commonsdk.statistics.internal.UMImprintChangeCallback
     public void onImprintValueChanged(String str, String str2) {
-        synchronized (f24461w) {
-            try {
-                if (f24454p.equals(str)) {
-                    if (Constants.VIA_REPORT_TYPE_SHARE_TO_QZONE.equals(str2)) {
-                        UMRTLog.i(UMRTLog.RTLOG_TAG, "--->>> switch to report_policy 11");
-                        f24456r = true;
-                    } else {
-                        f24456r = false;
-                    }
+        synchronized (w) {
+            if (p.equals(str)) {
+                if ("11".equals(str2)) {
+                    UMRTLog.i(UMRTLog.RTLOG_TAG, "--->>> switch to report_policy 11");
+                    r = true;
+                } else {
+                    r = false;
                 }
-                if (f24455q.equals(str)) {
-                    int intValue = Integer.valueOf(str2).intValue();
-                    UMRTLog.i(UMRTLog.RTLOG_TAG, "--->>> set report_interval value to: " + intValue);
-                    if (intValue >= 3 && intValue <= 90) {
-                        f24460v = intValue * 1000;
-                        UMRTLog.i(UMRTLog.RTLOG_TAG, "--->>> really set report_interval value to: " + f24460v);
-                    }
-                    f24460v = by.f23697b;
-                    UMRTLog.i(UMRTLog.RTLOG_TAG, "--->>> really set report_interval value to: " + f24460v);
+            }
+            if (q.equals(str)) {
+                int intValue = Integer.valueOf(str2).intValue();
+                UMRTLog.i(UMRTLog.RTLOG_TAG, "--->>> set report_interval value to: " + intValue);
+                if (intValue >= 3 && intValue <= 90) {
+                    v = intValue * 1000;
+                    UMRTLog.i(UMRTLog.RTLOG_TAG, "--->>> really set report_interval value to: " + v);
                 }
-            } catch (Throwable th2) {
-                throw th2;
+                v = Constants.DEFAULT_READ_TIMEOUT;
+                UMRTLog.i(UMRTLog.RTLOG_TAG, "--->>> really set report_interval value to: " + v);
             }
         }
     }
 
     public static void a(Context context) {
-        if (f24448j != null || context == null) {
+        if (f26176j != null || context == null) {
             return;
         }
         ConnectivityManager connectivityManager = (ConnectivityManager) context.getSystemService("connectivity");
-        f24448j = connectivityManager;
+        f26176j = connectivityManager;
         if (connectivityManager != null) {
             UMRTLog.i(UMRTLog.RTLOG_TAG, "--->>> createCMIfNeeded:注册网络状态监听器。");
             b(context);
         }
     }
 
-    public static void c(int i10) {
-        Handler handler;
-        if (!f24450l || (handler = f24440b) == null) {
-            return;
-        }
-        Message obtainMessage = handler.obtainMessage();
-        obtainMessage.what = i10;
-        f24440b.sendMessage(obtainMessage);
-    }
-
-    @SuppressLint({"NewApi", "MissingPermission"})
     public static void b(Context context) {
-        if (context == null) {
-            UMRTLog.e(UMRTLog.RTLOG_TAG, "--->>> registerNetReceiver: context is null, registerNetReceiver failed.");
-            return;
-        }
-        if (Build.VERSION.SDK_INT >= 33) {
-            if (DeviceConfig.checkPermission(context, g.f11101b)) {
-                NetworkRequest build = new NetworkRequest.Builder().addTransportType(0).addTransportType(1).build();
-                if (f24448j != null) {
-                    Context applicationContext = context.getApplicationContext();
-                    UMRTLog.i(UMRTLog.RTLOG_TAG, "--->>> 注册网络状态监听器:registerNetworkCallback");
-                    f24448j.registerNetworkCallback(build, new ConnectivityManager.NetworkCallback() { // from class: com.umeng.commonsdk.framework.a.1
-
-                        /* renamed from: a */
-                        final /* synthetic */ Context f24463a;
-
-                        public AnonymousClass1(Context applicationContext2) {
-                            applicationContext = applicationContext2;
-                        }
-
-                        @Override // android.net.ConnectivityManager.NetworkCallback
-                        public void onAvailable(Network network) {
-                            Context context2 = applicationContext;
-                            UMWorkDispatch.sendEvent(context2, com.umeng.commonsdk.internal.a.E, b.a(context2).a(), null);
-                        }
-
-                        @Override // android.net.ConnectivityManager.NetworkCallback
-                        public void onCapabilitiesChanged(Network network, NetworkCapabilities networkCapabilities) {
-                            super.onCapabilitiesChanged(network, networkCapabilities);
-                        }
-
-                        @Override // android.net.ConnectivityManager.NetworkCallback
-                        public void onLost(Network network) {
-                            UMRTLog.i(UMRTLog.RTLOG_TAG, "--->>> onLost");
-                            Context context2 = applicationContext;
-                            UMWorkDispatch.sendEvent(context2, com.umeng.commonsdk.internal.a.E, b.a(context2).a(), null, y.f.f18076n);
-                        }
-                    });
-                    return;
-                }
-                return;
-            }
-            UMRTLog.i(UMRTLog.RTLOG_TAG, "--->>> ACCESS_NETWORK_STATE permission access denied.");
-            return;
-        }
-        if (DeviceConfig.checkPermission(context, g.f11101b)) {
-            if (f24448j == null || f24449k != null) {
-                return;
-            }
+        if (DeviceConfig.checkPermission(context, g.f9317b) && f26176j != null && k == null) {
             IntentFilter intentFilter = new IntentFilter();
-            f24449k = intentFilter;
+            k = intentFilter;
             intentFilter.addAction("android.net.conn.CONNECTIVITY_CHANGE");
-            if (f24462x != null) {
-                UMRTLog.i(UMRTLog.RTLOG_TAG, "--->>> 注册网络状态监听器:registerReceiver");
-                context.registerReceiver(f24462x, f24449k);
-                return;
+            if (x != null) {
+                UMRTLog.i(UMRTLog.RTLOG_TAG, "--->>> 注册网络状态监听器。");
+                context.registerReceiver(x, k);
             }
-            return;
         }
-        UMRTLog.i(UMRTLog.RTLOG_TAG, "--->>> ACCESS_NETWORK_STATE permission access denied.");
     }
 
     public static void a(UMSenderStateNotify uMSenderStateNotify) {
-        synchronized (f24452n) {
+        synchronized (n) {
             try {
-                if (f24451m == null) {
-                    f24451m = new ArrayList<>();
+                if (m == null) {
+                    m = new ArrayList<>();
                 }
                 if (uMSenderStateNotify != null) {
-                    for (int i10 = 0; i10 < f24451m.size(); i10++) {
-                        if (uMSenderStateNotify == f24451m.get(i10)) {
+                    for (int i2 = 0; i2 < m.size(); i2++) {
+                        if (uMSenderStateNotify == m.get(i2)) {
                             UMRTLog.i(UMRTLog.RTLOG_TAG, "--->>> addConnStateObserver: input item has exist.");
                             return;
                         }
                     }
-                    f24451m.add(uMSenderStateNotify);
+                    m.add(uMSenderStateNotify);
                 }
-            } catch (Throwable th2) {
-                UMCrashManager.reportCrash(UMModuleRegister.getAppContext(), th2);
+            } catch (Throwable th) {
+                UMCrashManager.reportCrash(UMModuleRegister.getAppContext(), th);
             }
         }
     }
 
-    public static boolean a() {
-        boolean z10;
-        synchronized (f24461w) {
-            z10 = f24456r;
+    private static void b(int i2) {
+        Handler handler;
+        if (!l || (handler = f26168b) == null || handler.hasMessages(i2)) {
+            return;
         }
-        return z10;
+        Message obtainMessage = f26168b.obtainMessage();
+        obtainMessage.what = i2;
+        f26168b.sendMessage(obtainMessage);
     }
 
-    public static void a(boolean z10) {
+    public static boolean a() {
+        boolean z;
+        synchronized (w) {
+            z = r;
+        }
+        return z;
+    }
+
+    public static void a(boolean z) {
         int size;
-        f24450l = z10;
-        if (z10) {
-            synchronized (f24452n) {
-                try {
-                    ArrayList<UMSenderStateNotify> arrayList = f24451m;
-                    if (arrayList != null && (size = arrayList.size()) > 0) {
-                        for (int i10 = 0; i10 < size; i10++) {
-                            f24451m.get(i10).onConnectionAvailable();
-                        }
+        l = z;
+        if (z) {
+            synchronized (n) {
+                ArrayList<UMSenderStateNotify> arrayList = m;
+                if (arrayList != null && (size = arrayList.size()) > 0) {
+                    for (int i2 = 0; i2 < size; i2++) {
+                        m.get(i2).onConnectionAvailable();
                     }
-                } catch (Throwable th2) {
-                    throw th2;
                 }
             }
             UMRTLog.e(UMRTLog.RTLOG_TAG, "网络状态通知：尝试发送 MSG_PROCESS_NEXT");
@@ -552,38 +437,28 @@ public class a implements UMImprintChangeCallback {
             return;
         }
         ULog.i("--->>> network disconnected.");
-        f24450l = false;
+        l = false;
     }
 
-    private static void b(int i10) {
+    private static void a(int i2, long j2) {
         Handler handler;
-        if (!f24450l || (handler = f24440b) == null || handler.hasMessages(i10)) {
-            return;
-        }
-        Message obtainMessage = f24440b.obtainMessage();
-        obtainMessage.what = i10;
-        f24440b.sendMessage(obtainMessage);
-    }
-
-    private static void a(int i10, long j10) {
-        Handler handler;
-        if (!f24450l || (handler = f24440b) == null) {
+        if (!l || (handler = f26168b) == null) {
             return;
         }
         Message obtainMessage = handler.obtainMessage();
-        obtainMessage.what = i10;
-        UMRTLog.i(UMRTLog.RTLOG_TAG, "--->>> sendMsgDelayed: " + j10);
-        f24440b.sendMessageDelayed(obtainMessage, j10);
+        obtainMessage.what = i2;
+        UMRTLog.i(UMRTLog.RTLOG_TAG, "--->>> sendMsgDelayed: " + j2);
+        f26168b.sendMessageDelayed(obtainMessage, j2);
     }
 
-    private static void a(int i10, int i11) {
+    private static void a(int i2, int i3) {
         Handler handler;
-        if (!f24450l || (handler = f24440b) == null) {
+        if (!l || (handler = f26168b) == null) {
             return;
         }
-        handler.removeMessages(i10);
-        Message obtainMessage = f24440b.obtainMessage();
-        obtainMessage.what = i10;
-        f24440b.sendMessageDelayed(obtainMessage, i11);
+        handler.removeMessages(i2);
+        Message obtainMessage = f26168b.obtainMessage();
+        obtainMessage.what = i2;
+        f26168b.sendMessageDelayed(obtainMessage, i3);
     }
 }

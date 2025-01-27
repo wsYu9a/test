@@ -4,31 +4,31 @@ package com.vivo.push.b;
 public final class u extends v {
 
     /* renamed from: a */
-    private long f24952a;
+    private long f30925a;
 
     /* renamed from: b */
-    private int f24953b;
+    private int f30926b;
 
     public u() {
         super(20);
-        this.f24952a = -1L;
+        this.f30925a = -1L;
     }
 
     @Override // com.vivo.push.b.v, com.vivo.push.b.s, com.vivo.push.o
-    public final void c(com.vivo.push.a aVar) {
+    protected final void c(com.vivo.push.a aVar) {
         super.c(aVar);
-        aVar.a("undo_msg_v1", this.f24952a);
-        aVar.a("undo_msg_type_v1", this.f24953b);
+        aVar.a("undo_msg_v1", this.f30925a);
+        aVar.a("undo_msg_type_v1", this.f30926b);
     }
 
     public final long d() {
-        return this.f24952a;
+        return this.f30925a;
     }
 
     public final String e() {
-        long j10 = this.f24952a;
-        if (j10 != -1) {
-            return String.valueOf(j10);
+        long j2 = this.f30925a;
+        if (j2 != -1) {
+            return String.valueOf(j2);
         }
         return null;
     }
@@ -39,9 +39,9 @@ public final class u extends v {
     }
 
     @Override // com.vivo.push.b.v, com.vivo.push.b.s, com.vivo.push.o
-    public final void d(com.vivo.push.a aVar) {
+    protected final void d(com.vivo.push.a aVar) {
         super.d(aVar);
-        this.f24952a = aVar.b("undo_msg_v1", this.f24952a);
-        this.f24953b = aVar.b("undo_msg_type_v1", 0);
+        this.f30925a = aVar.b("undo_msg_v1", this.f30925a);
+        this.f30926b = aVar.b("undo_msg_type_v1", 0);
     }
 }

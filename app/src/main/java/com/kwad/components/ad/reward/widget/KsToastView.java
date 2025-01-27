@@ -6,18 +6,18 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import androidx.annotation.Nullable;
 import com.kwad.sdk.R;
-import com.kwad.sdk.n.m;
+import com.kwad.sdk.j.k;
 
 /* loaded from: classes2.dex */
 public class KsToastView extends LinearLayout {
-    TextView CG;
-    private String CH;
-    private Runnable CI;
+    TextView AF;
+    private String AG;
+    private Runnable AH;
     private int countDown;
 
     /* renamed from: com.kwad.components.ad.reward.widget.KsToastView$1 */
-    public class AnonymousClass1 implements Runnable {
-        public AnonymousClass1() {
+    final class AnonymousClass1 implements Runnable {
+        AnonymousClass1() {
         }
 
         @Override // java.lang.Runnable
@@ -26,7 +26,7 @@ public class KsToastView extends LinearLayout {
                 return;
             }
             KsToastView ksToastView = KsToastView.this;
-            ksToastView.x(ksToastView.countDown);
+            ksToastView.A(ksToastView.countDown);
             KsToastView.b(KsToastView.this);
             KsToastView.this.postDelayed(this, 1000L);
         }
@@ -35,30 +35,54 @@ public class KsToastView extends LinearLayout {
     public KsToastView(Context context) {
         super(context);
         this.countDown = 3;
-        this.CH = "%ss后自动进入";
-        this.CI = null;
+        this.AG = "%ss后自动进入";
+        this.AH = null;
         init(context);
     }
 
-    public static /* synthetic */ int b(KsToastView ksToastView) {
-        int i10 = ksToastView.countDown;
-        ksToastView.countDown = i10 - 1;
-        return i10;
+    public KsToastView(Context context, @Nullable AttributeSet attributeSet) {
+        super(context, attributeSet);
+        this.countDown = 3;
+        this.AG = "%ss后自动进入";
+        this.AH = null;
+        init(context);
+    }
+
+    public KsToastView(Context context, @Nullable AttributeSet attributeSet, int i2) {
+        super(context, attributeSet, i2);
+        this.countDown = 3;
+        this.AG = "%ss后自动进入";
+        this.AH = null;
+        init(context);
+    }
+
+    public KsToastView(Context context, boolean z) {
+        super(context);
+        this.countDown = 3;
+        this.AG = "%ss后自动进入";
+        this.AH = null;
+        init(context);
+    }
+
+    public void A(int i2) {
+        this.AF.setText(String.format(this.AG, Integer.valueOf(i2)));
+    }
+
+    static /* synthetic */ int b(KsToastView ksToastView) {
+        int i2 = ksToastView.countDown;
+        ksToastView.countDown = i2 - 1;
+        return i2;
     }
 
     private void init(Context context) {
-        m.inflate(context, R.layout.ksad_interstitial_toast_layout, this);
-        this.CG = (TextView) findViewById(R.id.ksad_total_count_down_text);
+        k.inflate(context, R.layout.ksad_interstitial_toast_layout, this);
+        this.AF = (TextView) findViewById(R.id.ksad_total_count_down_text);
     }
 
-    public void x(int i10) {
-        this.CG.setText(String.format(this.CH, Integer.valueOf(i10)));
-    }
-
-    public final void V(int i10) {
-        if (this.CI == null) {
-            this.CI = new Runnable() { // from class: com.kwad.components.ad.reward.widget.KsToastView.1
-                public AnonymousClass1() {
+    public final void Y(int i2) {
+        if (this.AH == null) {
+            this.AH = new Runnable() { // from class: com.kwad.components.ad.reward.widget.KsToastView.1
+                AnonymousClass1() {
                 }
 
                 @Override // java.lang.Runnable
@@ -67,43 +91,19 @@ public class KsToastView extends LinearLayout {
                         return;
                     }
                     KsToastView ksToastView = KsToastView.this;
-                    ksToastView.x(ksToastView.countDown);
+                    ksToastView.A(ksToastView.countDown);
                     KsToastView.b(KsToastView.this);
                     KsToastView.this.postDelayed(this, 1000L);
                 }
             };
         }
         this.countDown = 3;
-        post(this.CI);
+        post(this.AH);
     }
 
     @Override // android.view.ViewGroup, android.view.View
-    public void onDetachedFromWindow() {
+    protected void onDetachedFromWindow() {
         super.onDetachedFromWindow();
-        removeCallbacks(this.CI);
-    }
-
-    public KsToastView(Context context, @Nullable AttributeSet attributeSet) {
-        super(context, attributeSet);
-        this.countDown = 3;
-        this.CH = "%ss后自动进入";
-        this.CI = null;
-        init(context);
-    }
-
-    public KsToastView(Context context, @Nullable AttributeSet attributeSet, int i10) {
-        super(context, attributeSet, i10);
-        this.countDown = 3;
-        this.CH = "%ss后自动进入";
-        this.CI = null;
-        init(context);
-    }
-
-    public KsToastView(Context context, boolean z10) {
-        super(context);
-        this.countDown = 3;
-        this.CH = "%ss后自动进入";
-        this.CI = null;
-        init(context);
+        removeCallbacks(this.AH);
     }
 }

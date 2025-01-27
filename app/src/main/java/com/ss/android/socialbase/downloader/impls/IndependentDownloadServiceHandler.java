@@ -26,7 +26,7 @@ import java.util.List;
 
 /* loaded from: classes4.dex */
 public class IndependentDownloadServiceHandler extends AbsDownloadServiceHandler implements ServiceConnection {
-    private static final String TAG = "IndependentDownloadServiceHandler";
+    private static final String TAG = IndependentDownloadServiceHandler.class.getSimpleName();
     private IDownloadAidlService aidlService;
     private IDownloadServiceConnectionListener connectionListener;
     private int logLevel = -1;
@@ -41,21 +41,21 @@ public class IndependentDownloadServiceHandler extends AbsDownloadServiceHandler
             if (clone == null || clone.size() <= 0 || DownloadComponentManager.getDownloadEngine() == null) {
                 return;
             }
-            for (int i10 = 0; i10 < clone.size(); i10++) {
-                List<DownloadTask> list = clone.get(clone.keyAt(i10));
+            for (int i2 = 0; i2 < clone.size(); i2++) {
+                List<DownloadTask> list = clone.get(clone.keyAt(i2));
                 if (list != null) {
                     Iterator<DownloadTask> it = list.iterator();
                     while (it.hasNext()) {
                         try {
                             this.aidlService.tryDownload(IPCUtils.convertDownloadTaskToAidl(it.next()));
-                        } catch (RemoteException e10) {
-                            e10.printStackTrace();
+                        } catch (RemoteException e2) {
+                            e2.printStackTrace();
                         }
                     }
                 }
             }
-        } catch (Throwable th2) {
-            Logger.e(TAG, "resumePendingTaskForIndependent failed", th2);
+        } catch (Throwable th) {
+            Logger.e(TAG, "resumePendingTaskForIndependent failed", th);
         }
     }
 
@@ -87,22 +87,22 @@ public class IndependentDownloadServiceHandler extends AbsDownloadServiceHandler
         if (iDownloadServiceConnectionListener != null) {
             iDownloadServiceConnectionListener.onServiceConnection(iBinder);
         }
-        StringBuilder sb2 = new StringBuilder();
-        sb2.append("onServiceConnected aidlService!=null");
-        sb2.append(this.aidlService != null);
-        sb2.append(" pendingTasks.size:");
-        sb2.append(this.pendingTasks.size());
-        Logger.d(str, sb2.toString());
+        StringBuilder sb = new StringBuilder();
+        sb.append("onServiceConnected aidlService!=null");
+        sb.append(this.aidlService != null);
+        sb.append(" pendingTasks.size:");
+        sb.append(this.pendingTasks.size());
+        Logger.d(str, sb.toString());
         if (this.aidlService != null) {
             DownloadProcessDispatcher.getInstance().dispatchDownloaderProcessConnectedEvent();
             this.isServiceAlive = true;
             this.isInvokeStartService = false;
-            int i10 = this.logLevel;
-            if (i10 != -1) {
+            int i2 = this.logLevel;
+            if (i2 != -1) {
                 try {
-                    this.aidlService.setLogLevel(i10);
-                } catch (RemoteException e10) {
-                    e10.printStackTrace();
+                    this.aidlService.setLogLevel(i2);
+                } catch (RemoteException e2) {
+                    e2.printStackTrace();
                 }
             }
             if (this.aidlService != null) {
@@ -123,16 +123,16 @@ public class IndependentDownloadServiceHandler extends AbsDownloadServiceHandler
     }
 
     @Override // com.ss.android.socialbase.downloader.downloader.AbsDownloadServiceHandler, com.ss.android.socialbase.downloader.downloader.IDownloadServiceHandler
-    public void setLogLevel(int i10) {
+    public void setLogLevel(int i2) {
         IDownloadAidlService iDownloadAidlService = this.aidlService;
         if (iDownloadAidlService == null) {
-            this.logLevel = i10;
+            this.logLevel = i2;
             return;
         }
         try {
-            iDownloadAidlService.setLogLevel(i10);
-        } catch (RemoteException e10) {
-            e10.printStackTrace();
+            iDownloadAidlService.setLogLevel(i2);
+        } catch (RemoteException e2) {
+            e2.printStackTrace();
         }
     }
 
@@ -153,8 +153,8 @@ public class IndependentDownloadServiceHandler extends AbsDownloadServiceHandler
                 context.bindService(intent, serviceConnection, 1);
             }
             context.startService(intent);
-        } catch (Throwable th2) {
-            th2.printStackTrace();
+        } catch (Throwable th) {
+            th.printStackTrace();
         }
     }
 
@@ -175,10 +175,10 @@ public class IndependentDownloadServiceHandler extends AbsDownloadServiceHandler
             return;
         }
         String str = TAG;
-        StringBuilder sb2 = new StringBuilder();
-        sb2.append("tryDownload aidlService == null:");
-        sb2.append(this.aidlService == null);
-        Logger.d(str, sb2.toString());
+        StringBuilder sb = new StringBuilder();
+        sb.append("tryDownload aidlService == null:");
+        sb.append(this.aidlService == null);
+        Logger.d(str, sb.toString());
         if (this.aidlService == null) {
             pendDownloadTask(downloadTask);
             startService(DownloadComponentManager.getAppContext(), this);
@@ -187,8 +187,8 @@ public class IndependentDownloadServiceHandler extends AbsDownloadServiceHandler
         resumePendingTaskForIndependent();
         try {
             this.aidlService.tryDownload(IPCUtils.convertDownloadTaskToAidl(downloadTask));
-        } catch (RemoteException e10) {
-            e10.printStackTrace();
+        } catch (RemoteException e2) {
+            e2.printStackTrace();
         }
     }
 

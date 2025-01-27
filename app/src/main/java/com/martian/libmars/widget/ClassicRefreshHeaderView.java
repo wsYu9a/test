@@ -2,7 +2,6 @@ package com.martian.libmars.widget;
 
 import android.content.Context;
 import android.util.AttributeSet;
-import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
@@ -10,116 +9,115 @@ import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import com.martian.libmars.R;
-import u9.b;
 
-/* loaded from: classes3.dex */
-public class ClassicRefreshHeaderView extends RelativeLayout implements b {
+/* loaded from: classes2.dex */
+public class ClassicRefreshHeaderView extends RelativeLayout implements com.martian.libmars.widget.recyclerview.h.b {
+
+    /* renamed from: a */
+    private final ImageView f10303a;
 
     /* renamed from: b */
-    public final ImageView f12514b;
+    private final ImageView f10304b;
 
     /* renamed from: c */
-    public final ImageView f12515c;
+    private final TextView f10305c;
 
     /* renamed from: d */
-    public final TextView f12516d;
+    private final ProgressBar f10306d;
 
     /* renamed from: e */
-    public final ProgressBar f12517e;
+    private final Animation f10307e;
 
     /* renamed from: f */
-    public final Animation f12518f;
+    private final Animation f10308f;
 
     /* renamed from: g */
-    public final Animation f12519g;
+    private boolean f10309g;
 
     /* renamed from: h */
-    public boolean f12520h;
-
-    /* renamed from: i */
-    public int f12521i;
+    private int f10310h;
 
     public ClassicRefreshHeaderView(Context context) {
         this(context, null);
     }
 
-    @Override // u9.b
-    public void a(boolean z10, boolean z11, int i10) {
-        if (z10) {
+    @Override // com.martian.libmars.widget.recyclerview.h.b
+    public void a(boolean isComplete, boolean automatic, int moved) {
+        if (isComplete) {
             return;
         }
-        this.f12514b.setVisibility(0);
-        this.f12517e.setVisibility(8);
-        this.f12515c.setVisibility(8);
-        if (i10 <= this.f12521i) {
-            if (this.f12520h) {
-                this.f12514b.clearAnimation();
-                this.f12514b.startAnimation(this.f12519g);
-                this.f12520h = false;
+        this.f10303a.setVisibility(0);
+        this.f10306d.setVisibility(8);
+        this.f10304b.setVisibility(8);
+        if (moved <= this.f10310h) {
+            if (this.f10309g) {
+                this.f10303a.clearAnimation();
+                this.f10303a.startAnimation(this.f10308f);
+                this.f10309g = false;
             }
-            this.f12516d.setText("SWIPE TO REFRESH");
+            this.f10305c.setText("SWIPE TO REFRESH");
             return;
         }
-        this.f12516d.setText("RELEASE TO REFRESH");
-        if (this.f12520h) {
+        this.f10305c.setText("RELEASE TO REFRESH");
+        if (this.f10309g) {
             return;
         }
-        this.f12514b.clearAnimation();
-        this.f12514b.startAnimation(this.f12518f);
-        this.f12520h = true;
+        this.f10303a.clearAnimation();
+        this.f10303a.startAnimation(this.f10307e);
+        this.f10309g = true;
     }
 
-    @Override // u9.b
-    public void b(boolean z10, int i10, int i11) {
-        this.f12521i = i10;
-        this.f12517e.setIndeterminate(false);
+    @Override // com.martian.libmars.widget.recyclerview.h.b
+    public void b(boolean automatic, int headerHeight, int finalHeight) {
+        this.f10310h = headerHeight;
+        this.f10306d.setIndeterminate(false);
     }
 
-    @Override // u9.b
-    public void onComplete() {
-        this.f12520h = false;
-        this.f12515c.setVisibility(0);
-        this.f12514b.clearAnimation();
-        this.f12514b.setVisibility(8);
-        this.f12517e.setVisibility(8);
-        this.f12516d.setText("COMPLETE");
+    @Override // com.martian.libmars.widget.recyclerview.h.b
+    public void c() {
+        this.f10309g = false;
+        this.f10304b.setVisibility(0);
+        this.f10303a.clearAnimation();
+        this.f10303a.setVisibility(8);
+        this.f10306d.setVisibility(8);
+        this.f10305c.setText("COMPLETE");
     }
 
-    @Override // u9.b
+    @Override // com.martian.libmars.widget.recyclerview.h.b
+    public void d() {
+        this.f10309g = false;
+        this.f10304b.setVisibility(8);
+        this.f10303a.clearAnimation();
+        this.f10303a.setVisibility(8);
+        this.f10306d.setVisibility(8);
+    }
+
+    @Override // com.martian.libmars.widget.recyclerview.h.b
     public void onRefresh() {
-        this.f12515c.setVisibility(8);
-        this.f12514b.clearAnimation();
-        this.f12514b.setVisibility(8);
-        this.f12517e.setVisibility(0);
-        this.f12516d.setText("REFRESHING");
+        this.f10304b.setVisibility(8);
+        this.f10303a.clearAnimation();
+        this.f10303a.setVisibility(8);
+        this.f10306d.setVisibility(0);
+        this.f10305c.setText("REFRESHING");
     }
 
-    @Override // u9.b
+    @Override // com.martian.libmars.widget.recyclerview.h.b
     public void onRelease() {
     }
 
-    @Override // u9.b
-    public void onReset() {
-        this.f12520h = false;
-        this.f12515c.setVisibility(8);
-        this.f12514b.clearAnimation();
-        this.f12514b.setVisibility(8);
-        this.f12517e.setVisibility(8);
+    public ClassicRefreshHeaderView(Context context, AttributeSet attrs) {
+        this(context, attrs, 0);
     }
 
-    public ClassicRefreshHeaderView(Context context, AttributeSet attributeSet) {
-        this(context, attributeSet, 0);
-    }
-
-    public ClassicRefreshHeaderView(Context context, AttributeSet attributeSet, int i10) {
-        super(context, attributeSet, i10);
-        this.f12520h = false;
-        View.inflate(context, R.layout.layout_irecyclerview_classic_refresh_header_view, this);
-        this.f12516d = (TextView) findViewById(R.id.tvRefresh);
-        this.f12514b = (ImageView) findViewById(R.id.ivArrow);
-        this.f12515c = (ImageView) findViewById(R.id.ivSuccess);
-        this.f12517e = (ProgressBar) findViewById(R.id.progressbar);
-        this.f12518f = AnimationUtils.loadAnimation(context, R.anim.rotate_up);
-        this.f12519g = AnimationUtils.loadAnimation(context, R.anim.rotate_down);
+    public ClassicRefreshHeaderView(Context context, AttributeSet attrs, int defStyleAttr) {
+        super(context, attrs, defStyleAttr);
+        this.f10309g = false;
+        RelativeLayout.inflate(context, R.layout.layout_irecyclerview_classic_refresh_header_view, this);
+        this.f10305c = (TextView) findViewById(R.id.tvRefresh);
+        this.f10303a = (ImageView) findViewById(R.id.ivArrow);
+        this.f10304b = (ImageView) findViewById(R.id.ivSuccess);
+        this.f10306d = (ProgressBar) findViewById(R.id.progressbar);
+        this.f10307e = AnimationUtils.loadAnimation(context, R.anim.rotate_up);
+        this.f10308f = AnimationUtils.loadAnimation(context, R.anim.rotate_down);
     }
 }

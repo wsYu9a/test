@@ -4,11 +4,11 @@ import android.content.Context;
 import android.view.View;
 import android.webkit.WebView;
 import com.baidu.mobads.sdk.internal.a;
-import java.util.LinkedHashMap;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-/* loaded from: classes2.dex */
+/* loaded from: classes.dex */
 public interface NativeResponse extends AbstractData {
     public static final int ACTION_TYPE_APP_DOWNLOAD = 2;
     public static final int ACTION_TYPE_DEEP_LINK = 3;
@@ -24,16 +24,8 @@ public interface NativeResponse extends AbstractData {
     public static final int INFO_FLOW_RIGHT_PIC = 34;
     public static final int INFO_FLOW_VIDEO_TOP_TITLE = 37;
 
-    public interface AdCloseListener {
-        void onAdClose(NativeResponse nativeResponse);
-    }
-
     public interface AdDislikeListener {
-        void onDislikeItemClick(String str);
-
-        void onDislikeWindowClose();
-
-        void onDislikeWindowShow();
+        void onDislikeClick();
     }
 
     public interface AdDownloadWindowListener extends AdPrivacyListener {
@@ -45,7 +37,7 @@ public interface NativeResponse extends AbstractData {
     public interface AdInteractionListener {
         void onADExposed();
 
-        void onADExposureFailed(int i10);
+        void onADExposureFailed(int i2);
 
         void onADStatusChanged();
 
@@ -55,8 +47,6 @@ public interface NativeResponse extends AbstractData {
     }
 
     public interface AdPrivacyListener {
-        void onADFunctionClick();
-
         void onADPermissionClose();
 
         void onADPermissionShow();
@@ -71,31 +61,31 @@ public interface NativeResponse extends AbstractData {
     public interface CustomizeMediaPlayer {
         String getVideoUrl();
 
-        void reportPlayError(int i10);
+        void reportPlayError(int i2);
 
-        void reportPlayFrozen(int i10);
+        void reportPlayFrozen(int i2);
 
         void reportPlayerReady();
 
-        void reportVideoMuteChange(int i10, boolean z10);
+        void reportVideoMuteChange(int i2, boolean z);
 
-        void reportVideoPause(int i10, VideoReason videoReason);
+        void reportVideoPause(int i2, VideoReason videoReason);
 
         void reportVideoReplay();
 
-        void reportVideoResume(int i10);
+        void reportVideoResume(int i2);
 
         void reportVideoShow();
 
-        void reportVideoStart(boolean z10);
+        void reportVideoStart(boolean z);
 
-        void reportVideoStop(int i10, VideoReason videoReason);
+        void reportVideoStop(int i2, VideoReason videoReason);
     }
 
     public enum MaterialType {
         NORMAL("normal"),
         VIDEO("video"),
-        HTML(a.f6640f);
+        HTML(a.f5477f);
 
         private final String value;
 
@@ -128,8 +118,8 @@ public interface NativeResponse extends AbstractData {
 
         int code;
 
-        VideoReason(int i10) {
-            this.code = i10;
+        VideoReason(int i2) {
+            this.code = i2;
         }
 
         public int getCode() {
@@ -137,29 +127,23 @@ public interface NativeResponse extends AbstractData {
         }
     }
 
-    void biddingFail(LinkedHashMap<String, Object> linkedHashMap, BiddingListener biddingListener);
+    void biddingFail(String str);
 
-    void biddingSuccess(LinkedHashMap<String, Object> linkedHashMap, BiddingListener biddingListener);
+    void biddingFail(String str, HashMap<String, Object> hashMap);
 
-    void cancelAppDownload();
+    void biddingSuccess(String str);
 
     void clearImpressionTaskWhenBack();
 
     void dislikeClick(DislikeEvent dislikeEvent);
 
-    void functionClick();
-
     String getActButtonString();
 
     int getAdActionType();
 
-    Object getAdDataForKey(String str);
-
     String getAdLogoUrl();
 
     String getAdMaterialType();
-
-    String getAppFunctionLink();
 
     String getAppPackage();
 
@@ -211,8 +195,6 @@ public interface NativeResponse extends AbstractData {
 
     List<String> getMultiPicUrls();
 
-    String getPECPM();
-
     String getPublisher();
 
     int getStyleType();
@@ -242,15 +224,9 @@ public interface NativeResponse extends AbstractData {
 
     void registerViewForInteraction(View view, List<View> list, List<View> list2, AdInteractionListener adInteractionListener);
 
-    View renderBulletView(int i10, int i11);
+    View renderShakeView(int i2, int i3, AdShakeViewListener adShakeViewListener);
 
-    View renderCouponFloatView(AdShakeViewListener adShakeViewListener);
-
-    View renderFlipPageView();
-
-    View renderShakeView(int i10, int i11, AdShakeViewListener adShakeViewListener);
-
-    View renderSlideView(int i10, int i11, int i12, AdShakeViewListener adShakeViewListener);
+    View renderSlideView(int i2, int i3, int i4, AdShakeViewListener adShakeViewListener);
 
     void resumeAppDownload();
 

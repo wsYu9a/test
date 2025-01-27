@@ -5,12 +5,10 @@ import android.os.Bundle;
 import android.os.IBinder;
 import android.os.IInterface;
 import android.os.Parcel;
-import android.os.Parcelable;
 import android.os.RemoteException;
 
 /* loaded from: classes.dex */
 public interface IResultReceiver extends IInterface {
-    public static final String DESCRIPTOR = "android.support.v4.os.IResultReceiver";
 
     public static class Default implements IResultReceiver {
         @Override // android.os.IInterface
@@ -19,17 +17,19 @@ public interface IResultReceiver extends IInterface {
         }
 
         @Override // android.support.v4.os.IResultReceiver
-        public void send(int i10, Bundle bundle) throws RemoteException {
+        public void send(int i2, Bundle bundle) throws RemoteException {
         }
     }
 
     public static abstract class Stub extends Binder implements IResultReceiver {
+        private static final String DESCRIPTOR = "android.support.v4.os.IResultReceiver";
         static final int TRANSACTION_send = 1;
 
-        public static class Proxy implements IResultReceiver {
+        private static class Proxy implements IResultReceiver {
+            public static IResultReceiver sDefaultImpl;
             private IBinder mRemote;
 
-            public Proxy(IBinder iBinder) {
+            Proxy(IBinder iBinder) {
                 this.mRemote = iBinder;
             }
 
@@ -39,17 +39,25 @@ public interface IResultReceiver extends IInterface {
             }
 
             public String getInterfaceDescriptor() {
-                return IResultReceiver.DESCRIPTOR;
+                return Stub.DESCRIPTOR;
             }
 
             @Override // android.support.v4.os.IResultReceiver
-            public void send(int i10, Bundle bundle) throws RemoteException {
+            public void send(int i2, Bundle bundle) throws RemoteException {
                 Parcel obtain = Parcel.obtain();
                 try {
-                    obtain.writeInterfaceToken(IResultReceiver.DESCRIPTOR);
-                    obtain.writeInt(i10);
-                    _Parcel.writeTypedObject(obtain, bundle, 0);
-                    this.mRemote.transact(1, obtain, null, 1);
+                    obtain.writeInterfaceToken(Stub.DESCRIPTOR);
+                    obtain.writeInt(i2);
+                    if (bundle != null) {
+                        obtain.writeInt(1);
+                        bundle.writeToParcel(obtain, 0);
+                    } else {
+                        obtain.writeInt(0);
+                    }
+                    if (this.mRemote.transact(1, obtain, null, 1) || Stub.getDefaultImpl() == null) {
+                        return;
+                    }
+                    Stub.getDefaultImpl().send(i2, bundle);
                 } finally {
                     obtain.recycle();
                 }
@@ -57,15 +65,27 @@ public interface IResultReceiver extends IInterface {
         }
 
         public Stub() {
-            attachInterface(this, IResultReceiver.DESCRIPTOR);
+            attachInterface(this, DESCRIPTOR);
         }
 
         public static IResultReceiver asInterface(IBinder iBinder) {
             if (iBinder == null) {
                 return null;
             }
-            IInterface queryLocalInterface = iBinder.queryLocalInterface(IResultReceiver.DESCRIPTOR);
+            IInterface queryLocalInterface = iBinder.queryLocalInterface(DESCRIPTOR);
             return (queryLocalInterface == null || !(queryLocalInterface instanceof IResultReceiver)) ? new Proxy(iBinder) : (IResultReceiver) queryLocalInterface;
+        }
+
+        public static IResultReceiver getDefaultImpl() {
+            return Proxy.sDefaultImpl;
+        }
+
+        public static boolean setDefaultImpl(IResultReceiver iResultReceiver) {
+            if (Proxy.sDefaultImpl != null || iResultReceiver == null) {
+                return false;
+            }
+            Proxy.sDefaultImpl = iResultReceiver;
+            return true;
         }
 
         @Override // android.os.IInterface
@@ -74,41 +94,19 @@ public interface IResultReceiver extends IInterface {
         }
 
         @Override // android.os.Binder
-        public boolean onTransact(int i10, Parcel parcel, Parcel parcel2, int i11) throws RemoteException {
-            if (i10 >= 1 && i10 <= 16777215) {
-                parcel.enforceInterface(IResultReceiver.DESCRIPTOR);
-            }
-            if (i10 == 1598968902) {
-                parcel2.writeString(IResultReceiver.DESCRIPTOR);
+        public boolean onTransact(int i2, Parcel parcel, Parcel parcel2, int i3) throws RemoteException {
+            if (i2 == 1) {
+                parcel.enforceInterface(DESCRIPTOR);
+                send(parcel.readInt(), parcel.readInt() != 0 ? (Bundle) Bundle.CREATOR.createFromParcel(parcel) : null);
                 return true;
             }
-            if (i10 != 1) {
-                return super.onTransact(i10, parcel, parcel2, i11);
+            if (i2 != 1598968902) {
+                return super.onTransact(i2, parcel, parcel2, i3);
             }
-            send(parcel.readInt(), (Bundle) _Parcel.readTypedObject(parcel, Bundle.CREATOR));
+            parcel2.writeString(DESCRIPTOR);
             return true;
         }
     }
 
-    public static class _Parcel {
-        /* JADX INFO: Access modifiers changed from: private */
-        public static <T> T readTypedObject(Parcel parcel, Parcelable.Creator<T> creator) {
-            if (parcel.readInt() != 0) {
-                return creator.createFromParcel(parcel);
-            }
-            return null;
-        }
-
-        /* JADX INFO: Access modifiers changed from: private */
-        public static <T extends Parcelable> void writeTypedObject(Parcel parcel, T t10, int i10) {
-            if (t10 == null) {
-                parcel.writeInt(0);
-            } else {
-                parcel.writeInt(1);
-                t10.writeToParcel(parcel, i10);
-            }
-        }
-    }
-
-    void send(int i10, Bundle bundle) throws RemoteException;
+    void send(int i2, Bundle bundle) throws RemoteException;
 }

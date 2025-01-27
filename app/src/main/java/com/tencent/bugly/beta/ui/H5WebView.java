@@ -17,7 +17,7 @@ public class H5WebView extends WebView {
 
     public static class BaseWebChromeClient extends WebChromeClient {
         @Override // android.webkit.WebChromeClient
-        public boolean onCreateWindow(WebView webView, boolean z10, boolean z11, Message message) {
+        public boolean onCreateWindow(WebView webView, boolean z, boolean z2, Message message) {
             ((WebView.WebViewTransport) message.obj).setWebView(webView);
             message.sendToTarget();
             return true;
@@ -40,7 +40,10 @@ public class H5WebView extends WebView {
         }
     }
 
-    public static class BaseWebViewClient extends WebViewClient {
+    static class BaseWebViewClient extends WebViewClient {
+        BaseWebViewClient() {
+        }
+
         @Override // android.webkit.WebViewClient
         public boolean shouldOverrideUrlLoading(WebView webView, String str) {
             webView.loadUrl(str);
@@ -63,16 +66,19 @@ public class H5WebView extends WebView {
         settings.setLoadsImagesAutomatically(true);
         settings.setJavaScriptEnabled(true);
         settings.setSupportMultipleWindows(true);
-        if (Build.VERSION.SDK_INT > 21) {
+        int i2 = Build.VERSION.SDK_INT;
+        if (i2 > 21) {
             settings.setMixedContentMode(0);
         }
         settings.setBlockNetworkImage(false);
         newWin(settings);
         setWebChromeClient(new BaseWebChromeClient());
         setWebViewClient(new BaseWebViewClient());
-        removeJavascriptInterface("searchBoxJavaBridge_");
-        removeJavascriptInterface("accessibility");
-        removeJavascriptInterface("accessibilityTraversal");
+        if (i2 >= 11) {
+            removeJavascriptInterface("searchBoxJavaBridge_");
+            removeJavascriptInterface("accessibility");
+            removeJavascriptInterface("accessibilityTraversal");
+        }
     }
 
     private void newWin(WebSettings webSettings) {
@@ -84,7 +90,7 @@ public class H5WebView extends WebView {
         super(context, attributeSet);
     }
 
-    public H5WebView(Context context, AttributeSet attributeSet, int i10) {
-        super(context, attributeSet, i10);
+    public H5WebView(Context context, AttributeSet attributeSet, int i2) {
+        super(context, attributeSet, i2);
     }
 }

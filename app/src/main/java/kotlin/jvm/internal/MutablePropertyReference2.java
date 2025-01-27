@@ -5,13 +5,10 @@ import kotlin.reflect.KCallable;
 import kotlin.reflect.KMutableProperty2;
 import kotlin.reflect.KProperty2;
 
-/* loaded from: classes4.dex */
+/* loaded from: classes5.dex */
 public abstract class MutablePropertyReference2 extends MutablePropertyReference implements KMutableProperty2 {
-    public MutablePropertyReference2() {
-    }
-
     @Override // kotlin.jvm.internal.CallableReference
-    public KCallable computeReflected() {
+    protected KCallable computeReflected() {
         return Reflection.mutableProperty2(this);
     }
 
@@ -24,11 +21,6 @@ public abstract class MutablePropertyReference2 extends MutablePropertyReference
     @Override // kotlin.jvm.functions.Function2
     public Object invoke(Object obj, Object obj2) {
         return get(obj, obj2);
-    }
-
-    @SinceKotlin(version = "1.4")
-    public MutablePropertyReference2(Class cls, String str, String str2, int i10) {
-        super(CallableReference.NO_RECEIVER, cls, str, str2, i10);
     }
 
     @Override // kotlin.reflect.KProperty

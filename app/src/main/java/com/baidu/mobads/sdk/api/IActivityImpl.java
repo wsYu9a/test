@@ -8,13 +8,13 @@ import android.view.KeyEvent;
 import android.view.MotionEvent;
 import org.json.JSONObject;
 
-/* loaded from: classes2.dex */
+/* loaded from: classes.dex */
 public interface IActivityImpl {
     boolean dispatchKeyEvent(KeyEvent keyEvent);
 
     boolean dispatchTouchEvent(MotionEvent motionEvent);
 
-    void onActivityResult(int i10, int i11, Intent intent);
+    void onActivityResult(int i2, int i3, Intent intent);
 
     void onAttachedToWindow();
 
@@ -28,9 +28,9 @@ public interface IActivityImpl {
 
     void onDetachedFromWindow();
 
-    boolean onKeyDown(int i10, KeyEvent keyEvent);
+    boolean onKeyDown(int i2, KeyEvent keyEvent);
 
-    boolean onKeyUp(int i10, KeyEvent keyEvent);
+    boolean onKeyUp(int i2, KeyEvent keyEvent);
 
     void onNewIntent(Intent intent);
 
@@ -48,9 +48,9 @@ public interface IActivityImpl {
 
     boolean onTouchEvent(MotionEvent motionEvent);
 
-    void onWindowFocusChanged(boolean z10);
+    void onWindowFocusChanged(boolean z);
 
-    void overridePendingTransition(int i10, int i11);
+    void overridePendingTransition(int i2, int i3);
 
     void setActivity(Activity activity);
 

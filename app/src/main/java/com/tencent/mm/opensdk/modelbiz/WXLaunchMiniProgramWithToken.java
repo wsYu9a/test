@@ -41,6 +41,10 @@ public class WXLaunchMiniProgramWithToken {
         public Resp() {
         }
 
+        public Resp(Bundle bundle) {
+            fromBundle(bundle);
+        }
+
         @Override // com.tencent.mm.opensdk.modelbase.BaseResp
         public boolean checkArgs() {
             return true;
@@ -61,10 +65,6 @@ public class WXLaunchMiniProgramWithToken {
         public void toBundle(Bundle bundle) {
             super.toBundle(bundle);
             bundle.putString("_launch_wxminiprogram_ext_msg", this.extMsg);
-        }
-
-        public Resp(Bundle bundle) {
-            fromBundle(bundle);
         }
     }
 }

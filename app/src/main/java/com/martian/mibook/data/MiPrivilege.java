@@ -1,7 +1,7 @@
 package com.martian.mibook.data;
 
 import android.content.Context;
-import ba.j;
+import com.martian.libsupport.h;
 
 /* loaded from: classes3.dex */
 public class MiPrivilege {
@@ -12,13 +12,13 @@ public class MiPrivilege {
     private String title;
     private final int unlockCoins;
 
-    public MiPrivilege(Context context, String str, String str2, String str3, int i10, int i11) {
-        this.prefName = str;
-        this.title = str2;
-        this.desc = str3;
-        this.unlockCoins = i10;
-        this.iconResId = i11;
-        this.isUnlocked = j.d(context, str, false);
+    public MiPrivilege(Context context, String prefName, String title, String desc, int unlockCoins, int iconResId) {
+        this.prefName = prefName;
+        this.title = title;
+        this.desc = desc;
+        this.unlockCoins = unlockCoins;
+        this.iconResId = iconResId;
+        this.isUnlocked = h.d(context, prefName, false);
     }
 
     public String getDesc() {
@@ -45,20 +45,20 @@ public class MiPrivilege {
         return this.isUnlocked;
     }
 
-    public void setDesc(String str) {
-        this.desc = str;
+    public void setDesc(String desc) {
+        this.desc = desc;
     }
 
-    public void setPrefName(String str) {
-        this.prefName = str;
+    public void setPrefName(String prefName) {
+        this.prefName = prefName;
     }
 
-    public void setTitle(String str) {
-        this.title = str;
+    public void setTitle(String title) {
+        this.title = title;
     }
 
-    public void setUnlocked(Context context, boolean z10) {
-        this.isUnlocked = z10;
-        j.p(context, this.prefName, z10);
+    public void setUnlocked(Context context, boolean isUnlocked) {
+        this.isUnlocked = isUnlocked;
+        h.p(context, this.prefName, isUnlocked);
     }
 }

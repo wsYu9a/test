@@ -4,45 +4,41 @@ import android.content.Context;
 import android.text.TextUtils;
 import android.view.View;
 import android.webkit.WebView;
+import androidx.core.app.NotificationCompat;
 import com.baidu.mobads.sdk.api.IAdInterListener;
 import com.baidu.mobads.sdk.api.NativeResponse;
 import com.baidu.mobads.sdk.internal.a;
-import com.baidu.mobads.sdk.internal.as;
-import com.baidu.mobads.sdk.internal.bt;
-import com.baidu.mobads.sdk.internal.cq;
-import com.baidu.mobads.sdk.internal.de;
-import com.baidu.mobads.sdk.internal.r;
-import com.shu.priory.config.AdKeys;
-import com.umeng.analytics.pro.f;
+import com.baidu.mobads.sdk.internal.ap;
+import com.baidu.mobads.sdk.internal.bq;
+import com.baidu.mobads.sdk.internal.cn;
+import com.baidu.mobads.sdk.internal.dd;
+import com.baidu.mobads.sdk.internal.o;
+import com.cdo.oaps.ad.OapsKey;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
-import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-/* loaded from: classes2.dex */
+/* loaded from: classes.dex */
 public class XAdNativeResponse implements NativeResponse {
     private static final String TAG = "NativeResponse";
     private boolean isDownloadApp;
     private int mAdActionType = 1;
-    private NativeResponse.AdCloseListener mAdCloseListener;
     private NativeResponse.AdDislikeListener mAdDislikeListener;
     private a mAdInstanceInfo;
     private NativeResponse.AdInteractionListener mAdInteractionListener;
     private NativeResponse.AdPrivacyListener mAdPrivacyListener;
     private NativeResponse.AdShakeViewListener mAdShakeViewListener;
-    private NativeResponse.AdShakeViewListener mCouponFloatViewListener;
     private NativeResponse.CustomizeMediaPlayer mCustomizeMediaPlayer;
     private Context mCxt;
-    private de mFeedsProd;
-    private String mNoAdUniqueId;
-    private cq mUriUtils;
+    private dd mFeedsProd;
+    private cn mUriUtils;
 
-    public static class DislikeInfo implements DislikeEvent {
+    private static class DislikeInfo implements DislikeEvent {
         private String dislikeName;
         private int dislikeType;
 
@@ -59,20 +55,20 @@ public class XAdNativeResponse implements NativeResponse {
             return this.dislikeType;
         }
 
-        public /* synthetic */ DislikeInfo(AnonymousClass1 anonymousClass1) {
+        /* synthetic */ DislikeInfo(AnonymousClass1 anonymousClass1) {
             this();
         }
     }
 
-    public XAdNativeResponse(Context context, de deVar, a aVar) {
+    public XAdNativeResponse(Context context, dd ddVar, a aVar) {
         this.isDownloadApp = false;
         this.mCxt = context;
         this.mAdInstanceInfo = aVar;
-        this.mFeedsProd = deVar;
-        if (aVar != null && aVar.p() == 2) {
+        this.mFeedsProd = ddVar;
+        if (aVar.p() == 2) {
             this.isDownloadApp = true;
         }
-        this.mUriUtils = cq.a();
+        this.mUriUtils = cn.a();
     }
 
     private int getActionType() {
@@ -80,59 +76,57 @@ public class XAdNativeResponse implements NativeResponse {
     }
 
     private IAdInterListener getAdInterListener() {
-        de deVar = this.mFeedsProd;
-        if (deVar != null) {
-            return deVar.f6884m;
+        dd ddVar = this.mFeedsProd;
+        if (ddVar != null) {
+            return ddVar.k;
         }
         return null;
     }
 
     private String getProd() {
-        de deVar = this.mFeedsProd;
-        return deVar != null ? deVar.e() : "";
+        dd ddVar = this.mFeedsProd;
+        return ddVar != null ? ddVar.f() : "";
     }
 
-    @Override // com.baidu.mobads.sdk.api.NativeResponse
-    public void biddingFail(LinkedHashMap<String, Object> linkedHashMap, BiddingListener biddingListener) {
-        if (this.mFeedsProd != null) {
-            String str = this.mNoAdUniqueId;
-            a aVar = this.mAdInstanceInfo;
-            if (aVar != null) {
-                str = aVar.I();
-            }
-            this.mFeedsProd.a(str, false, linkedHashMap, biddingListener);
-        }
-    }
-
-    @Override // com.baidu.mobads.sdk.api.NativeResponse
-    public void biddingSuccess(LinkedHashMap<String, Object> linkedHashMap, BiddingListener biddingListener) {
-        de deVar;
-        a aVar = this.mAdInstanceInfo;
-        if (aVar == null || (deVar = this.mFeedsProd) == null) {
-            return;
-        }
-        deVar.a(aVar.I(), true, linkedHashMap, biddingListener);
-    }
-
-    @Override // com.baidu.mobads.sdk.api.NativeResponse
-    public void cancelAppDownload() {
-        if (this.mCxt == null || !this.isDownloadApp || this.mFeedsProd == null) {
-            return;
-        }
-        JSONObject U = this.mAdInstanceInfo.U();
+    private View renderNativeView(String str, JSONObject jSONObject) {
         try {
-            U.put(f.S, getAppPackage());
-            U.put("msg", "cancelDownload");
-        } catch (JSONException unused) {
+            jSONObject.put("viewId", str);
+            jSONObject.put("msg", "renderNativeView");
+            jSONObject.put("uniqueId", getUniqueId());
+            jSONObject.put("isDownloadApp", this.isDownloadApp);
+            HashMap hashMap = new HashMap();
+            this.mFeedsProd.a(jSONObject, hashMap);
+            Object obj = hashMap.get(str);
+            if (obj instanceof View) {
+                return (View) obj;
+            }
+            return null;
+        } catch (Throwable th) {
+            bq.a().c(TAG, "renderNativeView failed: " + th.getMessage());
+            return null;
         }
-        this.mFeedsProd.a(U);
+    }
+
+    @Override // com.baidu.mobads.sdk.api.NativeResponse
+    public void biddingFail(String str) {
+        biddingFail(str, null);
+    }
+
+    @Override // com.baidu.mobads.sdk.api.NativeResponse
+    public void biddingSuccess(String str) {
+        dd ddVar;
+        a aVar = this.mAdInstanceInfo;
+        if (aVar == null || (ddVar = this.mFeedsProd) == null) {
+            return;
+        }
+        ddVar.a(aVar.G(), true, str);
     }
 
     @Override // com.baidu.mobads.sdk.api.NativeResponse
     public void clearImpressionTaskWhenBack() {
-        de deVar = this.mFeedsProd;
-        if (deVar != null) {
-            deVar.o();
+        dd ddVar = this.mFeedsProd;
+        if (ddVar != null) {
+            ddVar.p();
         }
     }
 
@@ -142,29 +136,13 @@ public class XAdNativeResponse implements NativeResponse {
         if (aVar == null || this.mFeedsProd == null || !(dislikeEvent instanceof DislikeInfo)) {
             return;
         }
-        JSONObject U = aVar.U();
+        JSONObject S = aVar.S();
         try {
-            U.put("dislike_type", dislikeEvent.getDislikeType());
-            U.put("msg", "dislike_click");
+            S.put("dislike_type", dislikeEvent.getDislikeType());
+            S.put("msg", "dislike_click");
         } catch (Exception unused) {
         }
-        this.mFeedsProd.a(U);
-    }
-
-    @Override // com.baidu.mobads.sdk.api.NativeResponse
-    public void functionClick() {
-        a aVar = this.mAdInstanceInfo;
-        if (aVar == null || this.mFeedsProd == null) {
-            return;
-        }
-        String E = aVar.E();
-        JSONObject U = this.mAdInstanceInfo.U();
-        try {
-            U.put("function_link", E);
-            U.put("msg", "functionClick");
-        } catch (JSONException unused) {
-        }
-        this.mFeedsProd.a(U);
+        this.mFeedsProd.a(S);
     }
 
     @Override // com.baidu.mobads.sdk.api.NativeResponse
@@ -173,31 +151,19 @@ public class XAdNativeResponse implements NativeResponse {
         if (aVar == null) {
             return "";
         }
-        JSONObject U = aVar.U();
+        JSONObject S = aVar.S();
         try {
-            U.put("msg", "creative_call");
-            U.put("creative_type", "cta_get");
+            S.put("msg", "creative_call");
+            S.put("creative_type", "cta_get");
         } catch (Exception unused) {
         }
-        this.mFeedsProd.a(U);
-        return this.mAdInstanceInfo.N();
+        this.mFeedsProd.a(S);
+        return this.mAdInstanceInfo.L();
     }
 
     @Override // com.baidu.mobads.sdk.api.NativeResponse
     public int getAdActionType() {
         return this.mAdActionType;
-    }
-
-    public NativeResponse.AdCloseListener getAdCloseListener() {
-        return this.mAdCloseListener;
-    }
-
-    @Override // com.baidu.mobads.sdk.api.NativeResponse
-    public Object getAdDataForKey(String str) {
-        if (this.mAdInstanceInfo != null) {
-            return AdKeys.REQUEST_ID.equals(str) ? this.mAdInstanceInfo.V() : "dp_id".equals(str) ? this.mAdInstanceInfo.W() : this.mAdInstanceInfo.a(str);
-        }
-        return null;
     }
 
     public NativeResponse.AdDislikeListener getAdDislikeListener() {
@@ -213,13 +179,7 @@ public class XAdNativeResponse implements NativeResponse {
     @Override // com.baidu.mobads.sdk.api.NativeResponse
     public String getAdMaterialType() {
         a aVar = this.mAdInstanceInfo;
-        return aVar == null ? NativeResponse.MaterialType.NORMAL.getValue() : "video".equals(aVar.x()) ? NativeResponse.MaterialType.VIDEO.getValue() : a.f6640f.equals(this.mAdInstanceInfo.x()) ? NativeResponse.MaterialType.HTML.getValue() : NativeResponse.MaterialType.NORMAL.getValue();
-    }
-
-    @Override // com.baidu.mobads.sdk.api.NativeResponse
-    public String getAppFunctionLink() {
-        a aVar = this.mAdInstanceInfo;
-        return aVar != null ? aVar.E() : "";
+        return aVar == null ? NativeResponse.MaterialType.NORMAL.getValue() : "video".equals(aVar.x()) ? NativeResponse.MaterialType.VIDEO.getValue() : a.f5477f.equals(this.mAdInstanceInfo.x()) ? NativeResponse.MaterialType.HTML.getValue() : NativeResponse.MaterialType.NORMAL.getValue();
     }
 
     @Override // com.baidu.mobads.sdk.api.NativeResponse
@@ -231,13 +191,13 @@ public class XAdNativeResponse implements NativeResponse {
     @Override // com.baidu.mobads.sdk.api.NativeResponse
     public String getAppPermissionLink() {
         a aVar = this.mAdInstanceInfo;
-        return aVar != null ? aVar.F() : "";
+        return aVar != null ? aVar.D() : "";
     }
 
     @Override // com.baidu.mobads.sdk.api.NativeResponse
     public String getAppPrivacyLink() {
         a aVar = this.mAdInstanceInfo;
-        return aVar != null ? aVar.D() : "";
+        return aVar != null ? aVar.C() : "";
     }
 
     @Override // com.baidu.mobads.sdk.api.NativeResponse
@@ -252,7 +212,7 @@ public class XAdNativeResponse implements NativeResponse {
     @Override // com.baidu.mobads.sdk.api.NativeResponse
     public String getAppVersion() {
         a aVar = this.mAdInstanceInfo;
-        return aVar != null ? aVar.B() : "";
+        return aVar != null ? aVar.A() : "";
     }
 
     @Override // com.baidu.mobads.sdk.api.NativeResponse
@@ -270,7 +230,7 @@ public class XAdNativeResponse implements NativeResponse {
     public List<String> getBtnStyleColors() {
         a aVar = this.mAdInstanceInfo;
         if (aVar != null) {
-            return aVar.P();
+            return aVar.N();
         }
         return null;
     }
@@ -278,7 +238,7 @@ public class XAdNativeResponse implements NativeResponse {
     public int getBtnStyleType() {
         a aVar = this.mAdInstanceInfo;
         if (aVar != null) {
-            return aVar.O();
+            return aVar.M();
         }
         return 0;
     }
@@ -313,8 +273,8 @@ public class XAdNativeResponse implements NativeResponse {
     @Override // com.baidu.mobads.sdk.api.NativeResponse
     public NativeResponse.CustomizeMediaPlayer getCustomizeMediaPlayer() {
         a aVar;
-        if (this.mCustomizeMediaPlayer == null && (aVar = this.mAdInstanceInfo) != null && aVar.T() == 1) {
-            this.mCustomizeMediaPlayer = new r(this.mFeedsProd, this.mAdInstanceInfo);
+        if (this.mCustomizeMediaPlayer == null && (aVar = this.mAdInstanceInfo) != null && aVar.R() == 1) {
+            this.mCustomizeMediaPlayer = new o(this.mFeedsProd, this.mAdInstanceInfo);
         }
         return this.mCustomizeMediaPlayer;
     }
@@ -331,9 +291,9 @@ public class XAdNativeResponse implements NativeResponse {
         if (this.mAdInstanceInfo != null && this.mFeedsProd != null) {
             try {
                 HashMap hashMap = new HashMap();
-                JSONObject U = this.mAdInstanceInfo.U();
-                U.put("msg", "dislike_mapping");
-                this.mFeedsProd.a(U, hashMap);
+                JSONObject S = this.mAdInstanceInfo.S();
+                S.put("msg", "dislike_mapping");
+                this.mFeedsProd.a(S, hashMap);
                 Object obj = hashMap.get("dislike_data");
                 if (obj instanceof Map) {
                     Map map = (Map) obj;
@@ -356,7 +316,7 @@ public class XAdNativeResponse implements NativeResponse {
         if (!this.isDownloadApp || (context = this.mCxt) == null) {
             return -1;
         }
-        return as.a(context.getApplicationContext()).a(this.mCxt.getApplicationContext(), getAppPackage());
+        return ap.a(context.getApplicationContext()).a(this.mCxt.getApplicationContext(), getAppPackage());
     }
 
     @Override // com.baidu.mobads.sdk.api.NativeResponse
@@ -377,7 +337,7 @@ public class XAdNativeResponse implements NativeResponse {
     public JSONObject getExtraParams() {
         a aVar = this.mAdInstanceInfo;
         if (aVar != null) {
-            return aVar.J();
+            return aVar.H();
         }
         return null;
     }
@@ -385,9 +345,9 @@ public class XAdNativeResponse implements NativeResponse {
     @Override // com.baidu.mobads.sdk.api.NativeResponse
     public Map<String, String> getExtras() {
         HashMap hashMap = new HashMap();
-        de deVar = this.mFeedsProd;
-        if (deVar != null) {
-            hashMap.put("appsid", deVar.f6888q);
+        dd ddVar = this.mFeedsProd;
+        if (ddVar != null) {
+            hashMap.put("appsid", ddVar.o);
         }
         return hashMap;
     }
@@ -404,8 +364,8 @@ public class XAdNativeResponse implements NativeResponse {
         if (aVar == null) {
             return "";
         }
-        String c10 = aVar.c();
-        return TextUtils.isEmpty(c10) ? this.mAdInstanceInfo.d() : c10;
+        String c2 = aVar.c();
+        return TextUtils.isEmpty(c2) ? this.mAdInstanceInfo.d() : c2;
     }
 
     @Override // com.baidu.mobads.sdk.api.NativeResponse
@@ -434,45 +394,39 @@ public class XAdNativeResponse implements NativeResponse {
 
     public String getMarketingDesc() {
         a aVar = this.mAdInstanceInfo;
-        return aVar != null ? aVar.L() : "";
+        return aVar != null ? aVar.J() : "";
     }
 
     public String getMarketingICONUrl() {
         a aVar = this.mAdInstanceInfo;
-        return aVar != null ? aVar.K() : "";
+        return aVar != null ? aVar.I() : "";
     }
 
     @Override // com.baidu.mobads.sdk.api.NativeResponse
     public String getMarketingPendant() {
         a aVar = this.mAdInstanceInfo;
-        return aVar != null ? aVar.M() : "";
+        return aVar != null ? aVar.K() : "";
     }
 
     @Override // com.baidu.mobads.sdk.api.NativeResponse
     public NativeResponse.MaterialType getMaterialType() {
         a aVar = this.mAdInstanceInfo;
-        return aVar == null ? NativeResponse.MaterialType.NORMAL : "video".equals(aVar.x()) ? NativeResponse.MaterialType.VIDEO : a.f6640f.equals(this.mAdInstanceInfo.x()) ? NativeResponse.MaterialType.HTML : NativeResponse.MaterialType.NORMAL;
+        return aVar == null ? NativeResponse.MaterialType.NORMAL : "video".equals(aVar.x()) ? NativeResponse.MaterialType.VIDEO : a.f5477f.equals(this.mAdInstanceInfo.x()) ? NativeResponse.MaterialType.HTML : NativeResponse.MaterialType.NORMAL;
     }
 
     @Override // com.baidu.mobads.sdk.api.NativeResponse
     public List<String> getMultiPicUrls() {
         a aVar = this.mAdInstanceInfo;
         if (aVar != null) {
-            return aVar.H();
+            return aVar.F();
         }
         return null;
     }
 
     @Override // com.baidu.mobads.sdk.api.NativeResponse
-    public String getPECPM() {
-        a aVar = this.mAdInstanceInfo;
-        return aVar != null ? aVar.A() : "";
-    }
-
-    @Override // com.baidu.mobads.sdk.api.NativeResponse
     public String getPublisher() {
         a aVar = this.mAdInstanceInfo;
-        return aVar != null ? aVar.C() : "";
+        return aVar != null ? aVar.B() : "";
     }
 
     @Override // com.baidu.mobads.sdk.api.NativeResponse
@@ -490,22 +444,22 @@ public class XAdNativeResponse implements NativeResponse {
         }
         try {
             ArrayList arrayList = new ArrayList();
-            JSONObject Q = this.mAdInstanceInfo.Q();
-            if (Q != null) {
-                Iterator<String> keys = Q.keys();
+            JSONObject O = this.mAdInstanceInfo.O();
+            if (O != null) {
+                Iterator<String> keys = O.keys();
                 while (keys.hasNext()) {
                     String next = keys.next();
                     if (next.equals(str)) {
-                        JSONArray optJSONArray = Q.optJSONArray(next);
-                        for (int i10 = 0; i10 < optJSONArray.length(); i10++) {
-                            arrayList.add(optJSONArray.optString(i10));
+                        JSONArray optJSONArray = O.optJSONArray(next);
+                        for (int i2 = 0; i2 < optJSONArray.length(); i2++) {
+                            arrayList.add(optJSONArray.optString(i2));
                         }
                     }
                 }
             }
             return arrayList;
-        } catch (Throwable th2) {
-            th2.printStackTrace();
+        } catch (Throwable th) {
+            th.printStackTrace();
             return null;
         }
     }
@@ -518,7 +472,7 @@ public class XAdNativeResponse implements NativeResponse {
 
     public String getUniqueId() {
         a aVar = this.mAdInstanceInfo;
-        return aVar != null ? aVar.I() : "";
+        return aVar != null ? aVar.G() : "";
     }
 
     @Override // com.baidu.mobads.sdk.api.NativeResponse
@@ -529,20 +483,20 @@ public class XAdNativeResponse implements NativeResponse {
 
     @Override // com.baidu.mobads.sdk.api.NativeResponse
     public WebView getWebView() {
-        de deVar = this.mFeedsProd;
-        if (deVar != null) {
-            return (WebView) deVar.w();
+        dd ddVar = this.mFeedsProd;
+        if (ddVar != null) {
+            return (WebView) ddVar.v();
         }
         return null;
     }
 
-    public void handleClick(View view) {
+    void handleClick(View view) {
         handleClick(view, -1);
     }
 
     @Override // com.baidu.mobads.sdk.api.NativeResponse
     public boolean isAdAvailable(Context context) {
-        return this.mAdInstanceInfo != null && System.currentTimeMillis() - this.mAdInstanceInfo.y() <= this.mAdInstanceInfo.G();
+        return this.mAdInstanceInfo != null && System.currentTimeMillis() - this.mAdInstanceInfo.y() <= this.mAdInstanceInfo.E();
     }
 
     @Override // com.baidu.mobads.sdk.api.NativeResponse
@@ -565,7 +519,7 @@ public class XAdNativeResponse implements NativeResponse {
     public int isRegionClick() {
         a aVar = this.mAdInstanceInfo;
         if (aVar != null) {
-            return aVar.R();
+            return aVar.P();
         }
         return 2;
     }
@@ -573,7 +527,7 @@ public class XAdNativeResponse implements NativeResponse {
     public int isShowDialog() {
         a aVar = this.mAdInstanceInfo;
         if (aVar != null) {
-            return aVar.S();
+            return aVar.Q();
         }
         return 2;
     }
@@ -585,24 +539,17 @@ public class XAdNativeResponse implements NativeResponse {
         }
     }
 
-    public void onADExposureFailed(int i10) {
+    public void onADExposureFailed(int i2) {
         NativeResponse.AdInteractionListener adInteractionListener = this.mAdInteractionListener;
         if (adInteractionListener != null) {
-            adInteractionListener.onADExposureFailed(i10);
+            adInteractionListener.onADExposureFailed(i2);
         }
     }
 
-    public void onADFunctionClick() {
+    public void onADPermissionShow(boolean z) {
         NativeResponse.AdPrivacyListener adPrivacyListener = this.mAdPrivacyListener;
         if (adPrivacyListener != null) {
-            adPrivacyListener.onADFunctionClick();
-        }
-    }
-
-    public void onADPermissionShow(boolean z10) {
-        NativeResponse.AdPrivacyListener adPrivacyListener = this.mAdPrivacyListener;
-        if (adPrivacyListener != null) {
-            if (z10) {
+            if (z) {
                 adPrivacyListener.onADPermissionShow();
             } else {
                 adPrivacyListener.onADPermissionClose();
@@ -631,19 +578,12 @@ public class XAdNativeResponse implements NativeResponse {
         }
     }
 
-    public void onAdClose(NativeResponse nativeResponse) {
-        NativeResponse.AdCloseListener adCloseListener = this.mAdCloseListener;
-        if (adCloseListener != null) {
-            adCloseListener.onAdClose(nativeResponse);
-        }
-    }
-
-    public void onAdDownloadWindow(boolean z10) {
+    public void onAdDownloadWindow(boolean z) {
         NativeResponse.AdPrivacyListener adPrivacyListener = this.mAdPrivacyListener;
         if (adPrivacyListener == null || !(adPrivacyListener instanceof NativeResponse.AdDownloadWindowListener)) {
             return;
         }
-        if (z10) {
+        if (z) {
             ((NativeResponse.AdDownloadWindowListener) adPrivacyListener).adDownloadWindowShow();
         } else {
             ((NativeResponse.AdDownloadWindowListener) adPrivacyListener).adDownloadWindowClose();
@@ -654,34 +594,6 @@ public class XAdNativeResponse implements NativeResponse {
         NativeResponse.AdInteractionListener adInteractionListener = this.mAdInteractionListener;
         if (adInteractionListener != null) {
             adInteractionListener.onAdUnionClick();
-        }
-    }
-
-    public void onCouponFloatDismiss() {
-        NativeResponse.AdShakeViewListener adShakeViewListener = this.mCouponFloatViewListener;
-        if (adShakeViewListener != null) {
-            adShakeViewListener.onDismiss();
-        }
-    }
-
-    public void onDislikeClick(String str) {
-        NativeResponse.AdDislikeListener adDislikeListener = this.mAdDislikeListener;
-        if (adDislikeListener != null) {
-            adDislikeListener.onDislikeItemClick(str);
-        }
-    }
-
-    public void onDislikeClose() {
-        NativeResponse.AdDislikeListener adDislikeListener = this.mAdDislikeListener;
-        if (adDislikeListener != null) {
-            adDislikeListener.onDislikeWindowClose();
-        }
-    }
-
-    public void onDislikeShow() {
-        NativeResponse.AdDislikeListener adDislikeListener = this.mAdDislikeListener;
-        if (adDislikeListener != null) {
-            adDislikeListener.onDislikeWindowShow();
         }
     }
 
@@ -697,13 +609,13 @@ public class XAdNativeResponse implements NativeResponse {
         if (this.mCxt == null || !this.isDownloadApp || this.mFeedsProd == null) {
             return;
         }
-        JSONObject U = this.mAdInstanceInfo.U();
+        JSONObject S = this.mAdInstanceInfo.S();
         try {
-            U.put(f.S, getAppPackage());
-            U.put("msg", "pauseDownload");
+            S.put(OapsKey.KEY_PAGEKEY, getAppPackage());
+            S.put("msg", "pauseDownload");
         } catch (JSONException unused) {
         }
-        this.mFeedsProd.a(U);
+        this.mFeedsProd.a(S);
     }
 
     @Override // com.baidu.mobads.sdk.api.NativeResponse
@@ -712,14 +624,14 @@ public class XAdNativeResponse implements NativeResponse {
         if (aVar == null || this.mFeedsProd == null) {
             return;
         }
-        String F = aVar.F();
-        JSONObject U = this.mAdInstanceInfo.U();
+        String D = aVar.D();
+        JSONObject S = this.mAdInstanceInfo.S();
         try {
-            U.put("permissionUrl", F);
-            U.put("msg", "permissionClick");
+            S.put("permissionUrl", D);
+            S.put("msg", "permissionClick");
         } catch (JSONException unused) {
         }
-        this.mFeedsProd.a(U);
+        this.mFeedsProd.a(S);
     }
 
     public void preloadVideoMaterial() {
@@ -727,12 +639,12 @@ public class XAdNativeResponse implements NativeResponse {
         if (this.mFeedsProd == null || (aVar = this.mAdInstanceInfo) == null) {
             return;
         }
-        JSONObject U = aVar.U();
+        JSONObject S = aVar.S();
         try {
-            U.put("msg", "preloadVideoMaterial");
+            S.put("msg", "preloadVideoMaterial");
         } catch (JSONException unused) {
         }
-        this.mFeedsProd.a(U);
+        this.mFeedsProd.a(S);
     }
 
     @Override // com.baidu.mobads.sdk.api.NativeResponse
@@ -741,24 +653,24 @@ public class XAdNativeResponse implements NativeResponse {
         if (aVar == null || this.mFeedsProd == null) {
             return;
         }
-        String D = aVar.D();
-        JSONObject U = this.mAdInstanceInfo.U();
+        String C = aVar.C();
+        JSONObject S = this.mAdInstanceInfo.S();
         try {
-            U.put("privacy_link", D);
-            U.put("msg", "privacyClick");
+            S.put("privacy_link", C);
+            S.put("msg", "privacyClick");
         } catch (JSONException unused) {
         }
-        this.mFeedsProd.a(U);
+        this.mFeedsProd.a(S);
     }
 
     @Override // com.baidu.mobads.sdk.api.NativeResponse
     public void recordImpression(View view) {
         a aVar;
-        de deVar = this.mFeedsProd;
-        if (deVar == null || (aVar = this.mAdInstanceInfo) == null) {
+        dd ddVar = this.mFeedsProd;
+        if (ddVar == null || (aVar = this.mAdInstanceInfo) == null) {
             return;
         }
-        deVar.a(view, aVar.U());
+        ddVar.a(view, aVar.S());
     }
 
     @Override // com.baidu.mobads.sdk.api.NativeResponse
@@ -775,76 +687,14 @@ public class XAdNativeResponse implements NativeResponse {
                 jSONObject.put("uniqueId", getUniqueId());
                 jSONObject.put("isDownloadApp", this.isDownloadApp);
                 this.mFeedsProd.a(jSONObject, hashMap);
-            } catch (Throwable th2) {
-                bt.a().c(TAG, "registerViewForInteraction failed: " + th2.getMessage());
+            } catch (Throwable th) {
+                bq.a().c(TAG, "registerViewForInteraction failed: " + th.getMessage());
             }
         }
     }
 
     @Override // com.baidu.mobads.sdk.api.NativeResponse
-    public View renderBulletView(int i10, int i11) {
-        if (this.mFeedsProd == null) {
-            return null;
-        }
-        try {
-            JSONObject jSONObject = new JSONObject();
-            jSONObject.put(IAdInterListener.AdReqParam.WIDTH, i10);
-            jSONObject.put("h", i11);
-            return renderNativeView("native_bullet_view", jSONObject);
-        } catch (Throwable th2) {
-            bt.a().c(TAG, "renderBulletView failed: " + th2.getMessage());
-            return null;
-        }
-    }
-
-    @Override // com.baidu.mobads.sdk.api.NativeResponse
-    public View renderCouponFloatView(NativeResponse.AdShakeViewListener adShakeViewListener) {
-        if (this.mFeedsProd == null) {
-            return null;
-        }
-        try {
-            this.mCouponFloatViewListener = adShakeViewListener;
-            return renderNativeView("native_coupon_float_icon", new JSONObject());
-        } catch (Throwable th2) {
-            bt.a().c(TAG, "renderCouponFloatView failed: " + th2.getMessage());
-            return null;
-        }
-    }
-
-    @Override // com.baidu.mobads.sdk.api.NativeResponse
-    public View renderFlipPageView() {
-        if (this.mFeedsProd == null) {
-            return null;
-        }
-        try {
-            return renderNativeView("native_coupon_flip_page", new JSONObject());
-        } catch (Throwable th2) {
-            bt.a().c(TAG, "renderFlipPageView failed: " + th2.getMessage());
-            return null;
-        }
-    }
-
-    public View renderNativeView(String str, JSONObject jSONObject) {
-        try {
-            jSONObject.put("viewId", str);
-            jSONObject.put("msg", "renderNativeView");
-            jSONObject.put("uniqueId", getUniqueId());
-            jSONObject.put("isDownloadApp", this.isDownloadApp);
-            HashMap hashMap = new HashMap();
-            this.mFeedsProd.a(jSONObject, hashMap);
-            Object obj = hashMap.get(str);
-            if (obj instanceof View) {
-                return (View) obj;
-            }
-            return null;
-        } catch (Throwable th2) {
-            bt.a().c(TAG, "renderNativeView failed: " + th2.getMessage());
-            return null;
-        }
-    }
-
-    @Override // com.baidu.mobads.sdk.api.NativeResponse
-    public View renderShakeView(int i10, int i11, NativeResponse.AdShakeViewListener adShakeViewListener) {
+    public View renderShakeView(int i2, int i3, NativeResponse.AdShakeViewListener adShakeViewListener) {
         if (this.mFeedsProd == null) {
             return null;
         }
@@ -853,8 +703,8 @@ public class XAdNativeResponse implements NativeResponse {
             JSONObject jSONObject = new JSONObject();
             jSONObject.put("msg", "renderShakeView");
             jSONObject.put("uniqueId", getUniqueId());
-            jSONObject.put(IAdInterListener.AdReqParam.WIDTH, i10);
-            jSONObject.put("h", i11);
+            jSONObject.put(IAdInterListener.AdReqParam.WIDTH, i2);
+            jSONObject.put("h", i3);
             jSONObject.put("isDownloadApp", this.isDownloadApp);
             HashMap hashMap = new HashMap();
             this.mFeedsProd.a(jSONObject, hashMap);
@@ -863,26 +713,26 @@ public class XAdNativeResponse implements NativeResponse {
                 return (View) obj;
             }
             return null;
-        } catch (Throwable th2) {
-            bt.a().c(TAG, "renderShakeView failed: " + th2.getMessage());
+        } catch (Throwable th) {
+            bq.a().c(TAG, "renderShakeView failed: " + th.getMessage());
             return null;
         }
     }
 
     @Override // com.baidu.mobads.sdk.api.NativeResponse
-    public View renderSlideView(int i10, int i11, int i12, NativeResponse.AdShakeViewListener adShakeViewListener) {
+    public View renderSlideView(int i2, int i3, int i4, NativeResponse.AdShakeViewListener adShakeViewListener) {
         if (this.mFeedsProd == null) {
             return null;
         }
         try {
             this.mAdShakeViewListener = adShakeViewListener;
             JSONObject jSONObject = new JSONObject();
-            jSONObject.put(IAdInterListener.AdReqParam.WIDTH, i10);
-            jSONObject.put("h", i11);
-            jSONObject.put("repeat", i12);
+            jSONObject.put(IAdInterListener.AdReqParam.WIDTH, i2);
+            jSONObject.put("h", i3);
+            jSONObject.put("repeat", i4);
             return renderNativeView("native_slide_view", jSONObject);
-        } catch (Throwable th2) {
-            bt.a().c(TAG, "renderSlideView failed: " + th2.getMessage());
+        } catch (Throwable th) {
+            bq.a().c(TAG, "renderSlideView failed: " + th.getMessage());
             return null;
         }
     }
@@ -893,20 +743,16 @@ public class XAdNativeResponse implements NativeResponse {
         if (!this.isDownloadApp || this.mFeedsProd == null || (aVar = this.mAdInstanceInfo) == null) {
             return;
         }
-        JSONObject U = aVar.U();
+        JSONObject S = aVar.S();
         try {
-            U.put("msg", "resumeDownload");
+            S.put("msg", "resumeDownload");
         } catch (JSONException unused) {
         }
-        this.mFeedsProd.a(U);
+        this.mFeedsProd.a(S);
     }
 
-    public void setAdActionType(int i10) {
-        this.mAdActionType = i10;
-    }
-
-    public void setAdCloseListener(NativeResponse.AdCloseListener adCloseListener) {
-        this.mAdCloseListener = adCloseListener;
+    public void setAdActionType(int i2) {
+        this.mAdActionType = i2;
     }
 
     public void setAdDislikeListener(NativeResponse.AdDislikeListener adDislikeListener) {
@@ -918,12 +764,8 @@ public class XAdNativeResponse implements NativeResponse {
         this.mAdPrivacyListener = adPrivacyListener;
     }
 
-    public void setIsDownloadApp(boolean z10) {
-        this.isDownloadApp = z10;
-    }
-
-    public void setNoAdUniqueId(String str) {
-        this.mNoAdUniqueId = str;
+    public void setIsDownloadApp(boolean z) {
+        this.isDownloadApp = z;
     }
 
     @Override // com.baidu.mobads.sdk.api.NativeResponse
@@ -936,48 +778,58 @@ public class XAdNativeResponse implements NativeResponse {
                 HashMap hashMap = new HashMap();
                 hashMap.put("native_view", view);
                 this.mFeedsProd.a(jSONObject, hashMap);
-            } catch (Throwable th2) {
-                bt.a().c(TAG, "stopNativeView failed: " + th2.getMessage());
+            } catch (Throwable th) {
+                bq.a().c(TAG, "stopNativeView failed: " + th.getMessage());
             }
         }
     }
 
     @Override // com.baidu.mobads.sdk.api.NativeResponse
     public void unionLogoClick() {
-        cq cqVar;
-        if (this.mFeedsProd == null || (cqVar = this.mUriUtils) == null) {
+        cn cnVar;
+        if (this.mFeedsProd == null || (cnVar = this.mUriUtils) == null) {
             return;
         }
-        String c10 = cqVar.c("http://union.baidu.com/");
-        JSONObject U = this.mAdInstanceInfo.U();
+        String c2 = cnVar.c("http://union.baidu.com/");
+        JSONObject S = this.mAdInstanceInfo.S();
         try {
-            U.put("unionUrl", c10);
-            U.put("msg", "unionLogoClick");
+            S.put("unionUrl", c2);
+            S.put("msg", "unionLogoClick");
         } catch (Throwable unused) {
         }
-        this.mFeedsProd.a(U);
+        this.mFeedsProd.a(S);
     }
 
-    public void handleClick(View view, int i10) {
-        handleClick(view, i10, false);
+    @Override // com.baidu.mobads.sdk.api.NativeResponse
+    public void biddingFail(String str, HashMap<String, Object> hashMap) {
+        dd ddVar;
+        a aVar = this.mAdInstanceInfo;
+        if (aVar == null || (ddVar = this.mFeedsProd) == null) {
+            return;
+        }
+        ddVar.a(aVar.G(), false, str, hashMap);
     }
 
-    public void handleClick(View view, boolean z10) {
-        handleClick(view, -1, z10);
+    void handleClick(View view, int i2) {
+        handleClick(view, i2, false);
     }
 
-    public void handleClick(View view, int i10, boolean z10) {
+    void handleClick(View view, boolean z) {
+        handleClick(view, -1, z);
+    }
+
+    void handleClick(View view, int i2, boolean z) {
         a aVar;
         if (this.mFeedsProd == null || (aVar = this.mAdInstanceInfo) == null) {
             return;
         }
-        JSONObject U = aVar.U();
+        JSONObject S = aVar.S();
         try {
-            U.put("progress", i10);
-            U.put(SplashAd.KEY_POPDIALOG_DOWNLOAD, z10);
-            U.put("isDownloadApp", this.isDownloadApp);
+            S.put(NotificationCompat.CATEGORY_PROGRESS, i2);
+            S.put(SplashAd.KEY_POPDIALOG_DOWNLOAD, z);
+            S.put("isDownloadApp", this.isDownloadApp);
         } catch (Throwable unused) {
         }
-        this.mFeedsProd.b(view, U);
+        this.mFeedsProd.b(view, S);
     }
 }

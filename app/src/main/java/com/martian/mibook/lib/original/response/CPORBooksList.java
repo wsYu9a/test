@@ -3,7 +3,7 @@ package com.martian.mibook.lib.original.response;
 import com.martian.mibook.lib.original.data.ORBook;
 import java.util.List;
 
-/* loaded from: classes3.dex */
+/* loaded from: classes2.dex */
 public class CPORBooksList {
     private List<ORBook> bookList;
 
@@ -11,7 +11,7 @@ public class CPORBooksList {
         return this.bookList;
     }
 
-    public void setBookList(List<ORBook> list) {
-        this.bookList = list;
+    public void setBookList(List<ORBook> bookList) {
+        this.bookList = bookList;
     }
 }

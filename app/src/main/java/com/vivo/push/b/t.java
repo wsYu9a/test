@@ -7,30 +7,30 @@ import java.util.List;
 public final class t extends s {
 
     /* renamed from: a */
-    private ArrayList<String> f24950a;
+    private ArrayList<String> f30923a;
 
     /* renamed from: b */
-    private ArrayList<String> f24951b;
+    private ArrayList<String> f30924b;
 
-    public t(int i10) {
-        super(i10);
-        this.f24950a = null;
-        this.f24951b = null;
+    public t(int i2) {
+        super(i2);
+        this.f30923a = null;
+        this.f30924b = null;
     }
 
     @Override // com.vivo.push.b.s, com.vivo.push.o
-    public final void c(com.vivo.push.a aVar) {
+    protected final void c(com.vivo.push.a aVar) {
         super.c(aVar);
-        aVar.a("content", this.f24950a);
-        aVar.a("error_msg", this.f24951b);
+        aVar.a("content", this.f30923a);
+        aVar.a("error_msg", this.f30924b);
     }
 
     public final ArrayList<String> d() {
-        return this.f24950a;
+        return this.f30923a;
     }
 
     public final List<String> e() {
-        return this.f24951b;
+        return this.f30924b;
     }
 
     @Override // com.vivo.push.b.s, com.vivo.push.o
@@ -39,9 +39,9 @@ public final class t extends s {
     }
 
     @Override // com.vivo.push.b.s, com.vivo.push.o
-    public final void d(com.vivo.push.a aVar) {
+    protected final void d(com.vivo.push.a aVar) {
         super.d(aVar);
-        this.f24950a = aVar.c("content");
-        this.f24951b = aVar.c("error_msg");
+        this.f30923a = aVar.c("content");
+        this.f30924b = aVar.c("error_msg");
     }
 }

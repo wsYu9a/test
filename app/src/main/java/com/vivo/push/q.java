@@ -10,15 +10,15 @@ import android.os.Message;
 public abstract class q {
 
     /* renamed from: a */
-    protected Context f25084a;
+    protected Context f31048a;
 
     /* renamed from: b */
-    protected Handler f25085b;
+    protected Handler f31049b;
 
     /* renamed from: c */
-    private final Object f25086c = new Object();
+    private final Object f31050c = new Object();
 
-    public class a extends Handler {
+    class a extends Handler {
         public a(Looper looper) {
             super(looper);
         }
@@ -32,27 +32,23 @@ public abstract class q {
     public q() {
         HandlerThread handlerThread = new HandlerThread(getClass().getSimpleName(), 1);
         handlerThread.start();
-        this.f25085b = new a(handlerThread.getLooper());
+        this.f31049b = new a(handlerThread.getLooper());
     }
 
     public final void a(Context context) {
-        this.f25084a = context;
+        this.f31048a = context;
     }
 
     public abstract void b(Message message);
 
     public final void a(Message message) {
-        synchronized (this.f25086c) {
-            try {
-                Handler handler = this.f25085b;
-                if (handler == null) {
-                    String str = "Dead worker dropping a message: " + message.what;
-                    com.vivo.push.util.p.e(getClass().getSimpleName(), str + " (Thread " + Thread.currentThread().getId() + ")");
-                } else {
-                    handler.sendMessage(message);
-                }
-            } catch (Throwable th2) {
-                throw th2;
+        synchronized (this.f31050c) {
+            Handler handler = this.f31049b;
+            if (handler == null) {
+                String str = "Dead worker dropping a message: " + message.what;
+                com.vivo.push.util.p.e(getClass().getSimpleName(), str + " (Thread " + Thread.currentThread().getId() + ")");
+            } else {
+                handler.sendMessage(message);
             }
         }
     }

@@ -4,16 +4,22 @@ import android.view.View;
 
 /* loaded from: classes.dex */
 public abstract class VisibilityPropagation extends TransitionPropagation {
-    private static final String PROPNAME_VISIBILITY = "android:visibilityPropagation:visibility";
-    private static final String PROPNAME_VIEW_CENTER = "android:visibilityPropagation:center";
-    private static final String[] VISIBILITY_PROPAGATION_VALUES = {PROPNAME_VISIBILITY, PROPNAME_VIEW_CENTER};
 
-    private static int getViewCoordinate(TransitionValues transitionValues, int i10) {
+    /* renamed from: a */
+    private static final String f3918a = "android:visibilityPropagation:visibility";
+
+    /* renamed from: b */
+    private static final String f3919b = "android:visibilityPropagation:center";
+
+    /* renamed from: c */
+    private static final String[] f3920c = {f3918a, f3919b};
+
+    private static int a(TransitionValues transitionValues, int i2) {
         int[] iArr;
-        if (transitionValues == null || (iArr = (int[]) transitionValues.values.get(PROPNAME_VIEW_CENTER)) == null) {
+        if (transitionValues == null || (iArr = (int[]) transitionValues.values.get(f3919b)) == null) {
             return -1;
         }
-        return iArr[i10];
+        return iArr[i2];
     }
 
     @Override // androidx.transition.TransitionPropagation
@@ -23,35 +29,34 @@ public abstract class VisibilityPropagation extends TransitionPropagation {
         if (num == null) {
             num = Integer.valueOf(view.getVisibility());
         }
-        transitionValues.values.put(PROPNAME_VISIBILITY, num);
-        int[] iArr = {r4, 0};
+        transitionValues.values.put(f3918a, num);
+        int[] iArr = new int[2];
         view.getLocationOnScreen(iArr);
-        int round = iArr[0] + Math.round(view.getTranslationX());
-        iArr[0] = round + (view.getWidth() / 2);
-        int round2 = iArr[1] + Math.round(view.getTranslationY());
-        iArr[1] = round2;
-        iArr[1] = round2 + (view.getHeight() / 2);
-        transitionValues.values.put(PROPNAME_VIEW_CENTER, iArr);
+        iArr[0] = iArr[0] + Math.round(view.getTranslationX());
+        iArr[0] = iArr[0] + (view.getWidth() / 2);
+        iArr[1] = iArr[1] + Math.round(view.getTranslationY());
+        iArr[1] = iArr[1] + (view.getHeight() / 2);
+        transitionValues.values.put(f3919b, iArr);
     }
 
     @Override // androidx.transition.TransitionPropagation
     public String[] getPropagationProperties() {
-        return VISIBILITY_PROPAGATION_VALUES;
+        return f3920c;
     }
 
     public int getViewVisibility(TransitionValues transitionValues) {
         Integer num;
-        if (transitionValues == null || (num = (Integer) transitionValues.values.get(PROPNAME_VISIBILITY)) == null) {
+        if (transitionValues == null || (num = (Integer) transitionValues.values.get(f3918a)) == null) {
             return 8;
         }
         return num.intValue();
     }
 
     public int getViewX(TransitionValues transitionValues) {
-        return getViewCoordinate(transitionValues, 0);
+        return a(transitionValues, 0);
     }
 
     public int getViewY(TransitionValues transitionValues) {
-        return getViewCoordinate(transitionValues, 1);
+        return a(transitionValues, 1);
     }
 }

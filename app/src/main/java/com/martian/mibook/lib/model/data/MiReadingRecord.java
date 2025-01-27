@@ -2,122 +2,64 @@ package com.martian.mibook.lib.model.data;
 
 import android.os.Parcel;
 import android.os.Parcelable;
-import androidx.annotation.Nullable;
-import ba.k;
-import ba.l;
-import ub.b;
+import com.martian.libsupport.j;
 
-@k.h(name = "mireading_records")
-/* loaded from: classes3.dex */
+@j.g(name = "mireading_records")
+/* loaded from: classes.dex */
 public class MiReadingRecord implements Parcelable {
-    private static final int CONTENT_INDEX_MASK = 268435455;
+    private static final int CONTENT_INDEX_MASK = 65535;
+    private static final int CONTENT_SIZE_MASK = -65536;
     public static final Parcelable.Creator<MiReadingRecord> CREATOR = new Parcelable.Creator<MiReadingRecord>() { // from class: com.martian.mibook.lib.model.data.MiReadingRecord.1
+        /* JADX WARN: Can't rename method to resolve collision */
         @Override // android.os.Parcelable.Creator
-        public MiReadingRecord createFromParcel(Parcel parcel) {
-            return new MiReadingRecord(parcel);
+        public MiReadingRecord createFromParcel(Parcel in) {
+            return new MiReadingRecord(in);
         }
 
+        /* JADX WARN: Can't rename method to resolve collision */
         @Override // android.os.Parcelable.Creator
-        public MiReadingRecord[] newArray(int i10) {
-            return new MiReadingRecord[i10];
+        public MiReadingRecord[] newArray(int size) {
+            return new MiReadingRecord[size];
         }
     };
-    public static final int RECORD_TYPE_INDEX = 0;
-    private static final int RECORD_TYPE_MASK = -268435456;
-    public static final int RECORD_TYPE_POS = 1;
 
-    @k.b
-    private Integer audiobook;
-
-    @k.b
+    @j.b
     private String bookId;
 
-    @k.b
+    @j.b
     private String bookName;
 
-    @k.b
+    @j.b
     private Integer chapterIndex;
 
-    @k.b
+    @j.b
     private String chapterLink;
 
-    @k.b
+    @j.b
     private String chapterTitle;
 
-    @k.b
+    @j.b
     private Integer contentIndex;
-    private Integer contentLength;
-    private String cover;
+    private boolean isSelect;
 
-    @k.b
-    @k.f(ascend = false)
+    @j.b
+    @j.e(ascend = false)
     private Long lastReadingTime;
 
-    @k.b
+    @j.b
     private Integer recordRead;
 
-    @k.g
-    @k.b(name = "zsId")
+    @j.b(name = "zsId")
+    @j.f
     private String sourceString;
-
-    /* renamed from: com.martian.mibook.lib.model.data.MiReadingRecord$1 */
-    public class AnonymousClass1 implements Parcelable.Creator<MiReadingRecord> {
-        @Override // android.os.Parcelable.Creator
-        public MiReadingRecord createFromParcel(Parcel parcel) {
-            return new MiReadingRecord(parcel);
-        }
-
-        @Override // android.os.Parcelable.Creator
-        public MiReadingRecord[] newArray(int i10) {
-            return new MiReadingRecord[i10];
-        }
-    }
-
-    public enum RecordType {
-        Default(0),
-        Record(10),
-        FirstRead(30);
-
-        private final int value;
-
-        RecordType(int i10) {
-            this.value = i10;
-        }
-
-        public int getValue() {
-            return this.value;
-        }
-    }
-
-    public /* synthetic */ MiReadingRecord(Parcel parcel, b bVar) {
-        this(parcel);
-    }
-
-    private int getRecordRead() {
-        if (this.recordRead == null) {
-            setRecordRead(false);
-        }
-        return this.recordRead.intValue();
-    }
 
     @Override // android.os.Parcelable
     public int describeContents() {
         return 0;
     }
 
-    public boolean equals(@Nullable Object obj) {
-        if (obj instanceof MiReadingRecord) {
-            return l.o(this.sourceString, ((MiReadingRecord) obj).sourceString);
-        }
-        return false;
-    }
-
-    public int getAudiobook() {
-        Integer num = this.audiobook;
-        if (num == null) {
-            return 0;
-        }
-        return num.intValue();
+    public String getBookId() {
+        return this.bookId;
     }
 
     public String getBookName() {
@@ -132,139 +74,114 @@ public class MiReadingRecord implements Parcelable {
         return num.intValue();
     }
 
+    public String getChapterLink() {
+        return this.chapterLink;
+    }
+
     public String getChapterTitle() {
         return this.chapterTitle;
     }
 
     public Integer getContentIndex() {
-        if (this.contentIndex == null) {
-            setContentPos(0);
-        }
-        return Integer.valueOf(this.contentIndex.intValue() & CONTENT_INDEX_MASK);
+        return Integer.valueOf(this.contentIndex.intValue() & 65535);
     }
 
-    public Integer getContentLength() {
-        return this.contentLength;
-    }
-
-    public Integer getContentPos() {
-        return getContentIndex();
-    }
-
-    public String getCover() {
-        return this.cover;
+    public Integer getContentSize() {
+        return Integer.valueOf((this.contentIndex.intValue() & (-65536)) >>> 16);
     }
 
     public long getLastReadingTime() {
-        Long l10 = this.lastReadingTime;
-        if (l10 == null) {
+        Long l = this.lastReadingTime;
+        if (l == null) {
             return -1L;
         }
-        return l10.longValue();
+        return l.longValue();
     }
 
-    public String getReadingStatus() {
-        if (!l.q(getChapterTitle())) {
-            return getChapterTitle();
-        }
-        return Math.max(0, getChapterIndex()) + "章";
-    }
-
-    public int getRecordType() {
-        Integer num = this.contentIndex;
+    public int getRecordRead() {
+        Integer num = this.recordRead;
         if (num == null) {
             return 0;
         }
-        return (num.intValue() & RECORD_TYPE_MASK) >> 28;
+        return num.intValue();
     }
 
     public String getSourceString() {
         return this.sourceString;
     }
 
-    public int hashCode() {
-        String str = this.sourceString;
-        if (str == null) {
-            return 0;
-        }
-        return str.hashCode();
+    public boolean isSelect() {
+        return this.isSelect;
     }
 
-    public boolean isAudiobook() {
-        Integer num = this.audiobook;
-        return num != null && num.intValue() > 0;
+    public boolean isWithAd() {
+        return "withAd".equalsIgnoreCase(this.chapterLink);
     }
 
-    public boolean isFirstRead() {
-        if (getRecordRead() != RecordType.FirstRead.value) {
-            return false;
-        }
-        this.recordRead = Integer.valueOf(RecordType.Record.value);
-        return true;
-    }
-
-    public boolean needRecord() {
-        return getRecordRead() == RecordType.FirstRead.value || getRecordRead() == RecordType.Record.value;
-    }
-
-    public void setAudiobook(Integer num) {
-        this.audiobook = num;
-    }
-
-    public MiReadingRecord setBookName(String str) {
-        this.bookName = str;
+    public MiReadingRecord setBookName(String bookName) {
+        this.bookName = bookName;
         return this;
     }
 
-    public MiReadingRecord setChapterIndex(Integer num) {
-        this.chapterIndex = num;
+    public MiReadingRecord setChapterIndex(Integer chapterIndex) {
+        this.chapterIndex = chapterIndex;
         return this;
     }
 
-    public void setChapterTitle(String str) {
-        this.chapterTitle = str;
+    public void setChapterLink(String chapterLink) {
+        this.chapterLink = chapterLink;
     }
 
-    public void setContentLength(Integer num) {
-        this.contentLength = num;
+    public void setChapterTitle(String chapterTitle) {
+        this.chapterTitle = chapterTitle;
     }
 
-    public void setContentPos(Integer num) {
-        if (num == null) {
-            this.contentIndex = null;
+    public MiReadingRecord setContentIndex(Integer contentIndex) {
+        if (contentIndex == null) {
+            return this;
+        }
+        if (this.contentIndex == null) {
+            this.contentIndex = contentIndex;
         } else {
-            this.contentIndex = Integer.valueOf(num.intValue() | 268435456);
+            this.contentIndex = Integer.valueOf(contentIndex.intValue() + (this.contentIndex.intValue() & (-65536)));
         }
-    }
-
-    public void setCover(String str) {
-        this.cover = str;
-    }
-
-    public void setLastReadingTime(Long l10) {
-        this.lastReadingTime = l10;
-    }
-
-    public void setRecordRead(boolean z10) {
-        this.recordRead = Integer.valueOf((z10 ? RecordType.FirstRead : RecordType.Default).value);
-    }
-
-    public void setRecordType(int i10) {
-        Integer num = this.contentIndex;
-        if (num == null) {
-            this.contentIndex = Integer.valueOf(i10);
-        } else {
-            this.contentIndex = Integer.valueOf(((i10 << 28) + CONTENT_INDEX_MASK) & num.intValue());
-        }
-    }
-
-    public MiReadingRecord setSourceString(String str) {
-        this.sourceString = str;
         return this;
+    }
+
+    public void setContentSize(Integer contentSize) {
+        if (contentSize == null) {
+            return;
+        }
+        if (this.contentIndex == null) {
+            this.contentIndex = Integer.valueOf(contentSize.intValue() << 16);
+        } else {
+            this.contentIndex = Integer.valueOf((contentSize.intValue() << 16) + (this.contentIndex.intValue() & 65535));
+        }
+    }
+
+    public void setLastReadingTime(Long lastReadingTime) {
+        this.lastReadingTime = lastReadingTime;
+    }
+
+    public void setRecordRead(Integer recordRead) {
+        this.recordRead = recordRead;
+    }
+
+    public void setSelect(boolean select) {
+        this.isSelect = select;
+    }
+
+    public MiReadingRecord setSourceString(String zsId) {
+        this.sourceString = zsId;
+        return this;
+    }
+
+    public void setWithAd(boolean withAd) {
+        this.chapterLink = withAd ? "withAd" : "";
     }
 
     @Override // android.os.Parcelable
-    public void writeToParcel(Parcel parcel, int i10) {
+    public void writeToParcel(Parcel parcel, int i2) {
         parcel.writeValue(this.chapterIndex);
         parcel.writeValue(this.contentIndex);
         parcel.writeValue(this.bookId);
@@ -272,20 +189,24 @@ public class MiReadingRecord implements Parcelable {
         parcel.writeValue(this.chapterLink);
         parcel.writeValue(this.chapterTitle);
         parcel.writeValue(this.bookName);
-        parcel.writeValue(this.audiobook);
     }
 
     public MiReadingRecord() {
+        this.isSelect = false;
     }
 
-    private MiReadingRecord(Parcel parcel) {
-        this.chapterIndex = (Integer) parcel.readValue(Integer.class.getClassLoader());
-        this.contentIndex = (Integer) parcel.readValue(Integer.class.getClassLoader());
-        this.bookId = (String) parcel.readValue(String.class.getClassLoader());
-        this.sourceString = (String) parcel.readValue(String.class.getClassLoader());
-        this.chapterLink = (String) parcel.readValue(String.class.getClassLoader());
-        this.chapterTitle = (String) parcel.readValue(String.class.getClassLoader());
-        this.bookName = (String) parcel.readValue(String.class.getClassLoader());
-        this.audiobook = (Integer) parcel.readValue(String.class.getClassLoader());
+    public void setRecordRead(boolean z) {
+        this.recordRead = Integer.valueOf(z ? 1 : 0);
+    }
+
+    private MiReadingRecord(Parcel in) {
+        this.isSelect = false;
+        this.chapterIndex = (Integer) in.readValue(Integer.class.getClassLoader());
+        this.contentIndex = (Integer) in.readValue(Integer.class.getClassLoader());
+        this.bookId = (String) in.readValue(String.class.getClassLoader());
+        this.sourceString = (String) in.readValue(String.class.getClassLoader());
+        this.chapterLink = (String) in.readValue(String.class.getClassLoader());
+        this.chapterTitle = (String) in.readValue(String.class.getClassLoader());
+        this.bookName = (String) in.readValue(String.class.getClassLoader());
     }
 }

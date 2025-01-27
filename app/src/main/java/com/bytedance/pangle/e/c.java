@@ -7,34 +7,34 @@ import dalvik.system.DexFile;
 import java.io.File;
 import java.io.IOException;
 
-/* loaded from: classes2.dex */
+/* loaded from: classes.dex */
 public final class c implements f.a {
     @Override // com.bytedance.pangle.e.f.a
-    public final boolean a(String str, int i10) {
-        String a10 = g.a(str, i10);
-        String c10 = com.bytedance.pangle.d.c.c(str, i10);
-        String[] split = a10.split(":");
-        ZeusLogger.i(ZeusLogger.TAG_INSTALL, "full DexOpt start:".concat(a10));
+    public final boolean a(String str, int i2) {
+        String a2 = g.a(str, i2);
+        String c2 = com.bytedance.pangle.d.c.c(str, i2);
+        String[] split = a2.split(":");
+        ZeusLogger.i(ZeusLogger.TAG_INSTALL, "full DexOpt start:".concat(a2));
         long currentTimeMillis = System.currentTimeMillis();
         int length = split.length;
-        boolean z10 = false;
-        int i11 = 0;
-        boolean z11 = false;
+        boolean z = false;
+        int i3 = 0;
+        boolean z2 = false;
         while (true) {
-            if (i11 >= length) {
-                z10 = z11;
+            if (i3 >= length) {
+                z = z2;
                 break;
             }
-            String str2 = split[i11];
-            if (!a(str2, c10 + File.separator + b.a(str2))) {
+            String str2 = split[i3];
+            if (!a(str2, c2 + File.separator + b.a(str2))) {
                 break;
             }
             ZeusLogger.i(ZeusLogger.TAG_INSTALL, "full DexOpt result:true");
-            i11++;
-            z11 = true;
+            i3++;
+            z2 = true;
         }
-        ZeusLogger.d(ZeusLogger.TAG_LOAD, "compile cost:" + (System.currentTimeMillis() - currentTimeMillis) + " result:" + z10);
-        return z10;
+        ZeusLogger.d(ZeusLogger.TAG_LOAD, "compile cost:" + (System.currentTimeMillis() - currentTimeMillis) + " result:" + z);
+        return z;
     }
 
     private static boolean a(@NonNull String str, @NonNull String str2) {

@@ -19,60 +19,60 @@ import java.net.URL;
 public class b {
 
     /* renamed from: c */
-    private static String f23253c;
+    private static String f25519c;
 
     /* renamed from: a */
-    private String f23254a;
+    private String f25520a;
 
     /* renamed from: b */
-    private c f23255b;
+    private c f25521b;
 
     /* renamed from: d */
-    private long f23256d;
+    private long f25522d;
 
     /* renamed from: e */
-    private Handler f23257e;
+    private Handler f25523e;
 
     /* renamed from: f */
-    private Runnable f23258f = new Runnable() { // from class: com.tencent.open.utils.b.2
-        public AnonymousClass2() {
+    private Runnable f25524f = new Runnable() { // from class: com.tencent.open.utils.b.2
+        AnonymousClass2() {
         }
 
         @Override // java.lang.Runnable
         public void run() {
-            boolean z10;
+            boolean z;
             com.tencent.open.a.f.a("AsynLoadImg", "saveFileRunnable:");
-            String str = "share_qq_" + i.f(b.this.f23254a) + ".jpg";
-            String str2 = b.f23253c + str;
+            String str = "share_qq_" + i.f(b.this.f25520a) + ".jpg";
+            String str2 = b.f25519c + str;
             File file = new File(str2);
-            Message obtainMessage = b.this.f23257e.obtainMessage();
+            Message obtainMessage = b.this.f25523e.obtainMessage();
             if (file.exists()) {
                 obtainMessage.arg1 = 0;
                 obtainMessage.obj = str2;
-                com.tencent.open.a.f.a("AsynLoadImg", "file exists: time:" + (System.currentTimeMillis() - b.this.f23256d));
+                com.tencent.open.a.f.a("AsynLoadImg", "file exists: time:" + (System.currentTimeMillis() - b.this.f25522d));
             } else {
-                Bitmap a10 = b.a(b.this.f23254a);
-                if (a10 != null) {
-                    z10 = b.this.a(a10, str);
+                Bitmap a2 = b.a(b.this.f25520a);
+                if (a2 != null) {
+                    z = b.this.a(a2, str);
                 } else {
                     com.tencent.open.a.f.a("AsynLoadImg", "saveFileRunnable:get bmp fail---");
-                    z10 = false;
+                    z = false;
                 }
-                if (z10) {
+                if (z) {
                     obtainMessage.arg1 = 0;
                     obtainMessage.obj = str2;
                 } else {
                     obtainMessage.arg1 = 1;
                 }
-                com.tencent.open.a.f.a("AsynLoadImg", "file not exists: download time:" + (System.currentTimeMillis() - b.this.f23256d));
+                com.tencent.open.a.f.a("AsynLoadImg", "file not exists: download time:" + (System.currentTimeMillis() - b.this.f25522d));
             }
-            b.this.f23257e.sendMessage(obtainMessage);
+            b.this.f25523e.sendMessage(obtainMessage);
         }
     };
 
     /* renamed from: com.tencent.open.utils.b$1 */
-    public class AnonymousClass1 extends Handler {
-        public AnonymousClass1(Looper looper) {
+    class AnonymousClass1 extends Handler {
+        AnonymousClass1(Looper looper) {
             super(looper);
         }
 
@@ -80,53 +80,53 @@ public class b {
         public void handleMessage(Message message) {
             com.tencent.open.a.f.a("AsynLoadImg", "handleMessage:" + message.arg1);
             if (message.arg1 == 0) {
-                b.this.f23255b.a(message.arg1, (String) message.obj);
+                b.this.f25521b.a(message.arg1, (String) message.obj);
             } else {
-                b.this.f23255b.a(message.arg1, (String) null);
+                b.this.f25521b.a(message.arg1, (String) null);
             }
         }
     }
 
     /* renamed from: com.tencent.open.utils.b$2 */
-    public class AnonymousClass2 implements Runnable {
-        public AnonymousClass2() {
+    class AnonymousClass2 implements Runnable {
+        AnonymousClass2() {
         }
 
         @Override // java.lang.Runnable
         public void run() {
-            boolean z10;
+            boolean z;
             com.tencent.open.a.f.a("AsynLoadImg", "saveFileRunnable:");
-            String str = "share_qq_" + i.f(b.this.f23254a) + ".jpg";
-            String str2 = b.f23253c + str;
+            String str = "share_qq_" + i.f(b.this.f25520a) + ".jpg";
+            String str2 = b.f25519c + str;
             File file = new File(str2);
-            Message obtainMessage = b.this.f23257e.obtainMessage();
+            Message obtainMessage = b.this.f25523e.obtainMessage();
             if (file.exists()) {
                 obtainMessage.arg1 = 0;
                 obtainMessage.obj = str2;
-                com.tencent.open.a.f.a("AsynLoadImg", "file exists: time:" + (System.currentTimeMillis() - b.this.f23256d));
+                com.tencent.open.a.f.a("AsynLoadImg", "file exists: time:" + (System.currentTimeMillis() - b.this.f25522d));
             } else {
-                Bitmap a10 = b.a(b.this.f23254a);
-                if (a10 != null) {
-                    z10 = b.this.a(a10, str);
+                Bitmap a2 = b.a(b.this.f25520a);
+                if (a2 != null) {
+                    z = b.this.a(a2, str);
                 } else {
                     com.tencent.open.a.f.a("AsynLoadImg", "saveFileRunnable:get bmp fail---");
-                    z10 = false;
+                    z = false;
                 }
-                if (z10) {
+                if (z) {
                     obtainMessage.arg1 = 0;
                     obtainMessage.obj = str2;
                 } else {
                     obtainMessage.arg1 = 1;
                 }
-                com.tencent.open.a.f.a("AsynLoadImg", "file not exists: download time:" + (System.currentTimeMillis() - b.this.f23256d));
+                com.tencent.open.a.f.a("AsynLoadImg", "file not exists: download time:" + (System.currentTimeMillis() - b.this.f25522d));
             }
-            b.this.f23257e.sendMessage(obtainMessage);
+            b.this.f25523e.sendMessage(obtainMessage);
         }
     }
 
     public b(Activity activity) {
-        this.f23257e = new Handler(activity.getMainLooper()) { // from class: com.tencent.open.utils.b.1
-            public AnonymousClass1(Looper looper) {
+        this.f25523e = new Handler(activity.getMainLooper()) { // from class: com.tencent.open.utils.b.1
+            AnonymousClass1(Looper looper) {
                 super(looper);
             }
 
@@ -134,9 +134,9 @@ public class b {
             public void handleMessage(Message message) {
                 com.tencent.open.a.f.a("AsynLoadImg", "handleMessage:" + message.arg1);
                 if (message.arg1 == 0) {
-                    b.this.f23255b.a(message.arg1, (String) message.obj);
+                    b.this.f25521b.a(message.arg1, (String) message.obj);
                 } else {
-                    b.this.f23255b.a(message.arg1, (String) null);
+                    b.this.f25521b.a(message.arg1, (String) null);
                 }
             }
         };
@@ -149,18 +149,18 @@ public class b {
                 cVar.a(2, (String) null);
                 return;
             }
-            f23253c = Environment.getExternalStorageDirectory() + "/tmp/";
-            this.f23256d = System.currentTimeMillis();
-            this.f23254a = str;
-            this.f23255b = cVar;
-            new Thread(this.f23258f).start();
+            f25519c = Environment.getExternalStorageDirectory() + "/tmp/";
+            this.f25522d = System.currentTimeMillis();
+            this.f25520a = str;
+            this.f25521b = cVar;
+            new Thread(this.f25524f).start();
             return;
         }
         cVar.a(1, (String) null);
     }
 
     public boolean a(Bitmap bitmap, String str) {
-        String str2 = f23253c;
+        String str2 = f25519c;
         BufferedOutputStream bufferedOutputStream = null;
         try {
             try {
@@ -176,42 +176,40 @@ public class b {
                     try {
                         bufferedOutputStream2.close();
                         return true;
-                    } catch (IOException e10) {
-                        e10.printStackTrace();
+                    } catch (IOException e2) {
+                        e2.printStackTrace();
                         return true;
                     }
-                } catch (IOException e11) {
-                    e = e11;
+                } catch (IOException e3) {
+                    e = e3;
                     bufferedOutputStream = bufferedOutputStream2;
                     e.printStackTrace();
                     com.tencent.open.a.f.b("AsynLoadImg", "saveFile bmp fail---", e);
-                    if (bufferedOutputStream == null) {
-                        return false;
+                    if (bufferedOutputStream != null) {
+                        try {
+                            bufferedOutputStream.close();
+                        } catch (IOException e4) {
+                            e4.printStackTrace();
+                        }
                     }
-                    try {
-                        bufferedOutputStream.close();
-                        return false;
-                    } catch (IOException e12) {
-                        e12.printStackTrace();
-                        return false;
-                    }
-                } catch (Throwable th2) {
-                    th = th2;
+                    return false;
+                } catch (Throwable th) {
+                    th = th;
                     bufferedOutputStream = bufferedOutputStream2;
                     if (bufferedOutputStream != null) {
                         try {
                             bufferedOutputStream.close();
-                        } catch (IOException e13) {
-                            e13.printStackTrace();
+                        } catch (IOException e5) {
+                            e5.printStackTrace();
                         }
                     }
                     throw th;
                 }
-            } catch (IOException e14) {
-                e = e14;
+            } catch (Throwable th2) {
+                th = th2;
             }
-        } catch (Throwable th3) {
-            th = th3;
+        } catch (IOException e6) {
+            e = e6;
         }
     }
 
@@ -226,12 +224,12 @@ public class b {
             inputStream.close();
             com.tencent.open.a.f.a("AsynLoadImg", "image download finished." + str);
             return decodeStream;
-        } catch (IOException e10) {
-            e10.printStackTrace();
+        } catch (IOException e2) {
+            e2.printStackTrace();
             com.tencent.open.a.f.a("AsynLoadImg", "getbitmap bmp fail---");
             return null;
-        } catch (OutOfMemoryError e11) {
-            e11.printStackTrace();
+        } catch (OutOfMemoryError e3) {
+            e3.printStackTrace();
             com.tencent.open.a.f.a("AsynLoadImg", "getbitmap bmp fail---");
             return null;
         }

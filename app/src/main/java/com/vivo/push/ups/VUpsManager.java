@@ -7,14 +7,14 @@ import com.vivo.push.PushClient;
 /* loaded from: classes4.dex */
 public class VUpsManager {
 
-    public static class a {
+    private static class a {
 
         /* renamed from: a */
-        private static VUpsManager f25097a = new VUpsManager();
+        private static VUpsManager f31061a = new VUpsManager();
     }
 
     public static VUpsManager getInstance() {
-        return a.f25097a;
+        return a.f31061a;
     }
 
     public void onCommandResult(Context context, Bundle bundle) {

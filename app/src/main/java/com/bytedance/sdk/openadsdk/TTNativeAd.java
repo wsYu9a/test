@@ -7,9 +7,8 @@ import android.view.ViewGroup;
 import com.bytedance.sdk.openadsdk.TTAdDislike;
 import java.util.List;
 import java.util.Map;
-import org.json.JSONObject;
 
-/* loaded from: classes2.dex */
+/* loaded from: classes.dex */
 public interface TTNativeAd extends TTClientBidding {
 
     public interface AdInteractionListener {
@@ -20,20 +19,8 @@ public interface TTNativeAd extends TTClientBidding {
         void onAdShow(TTNativeAd tTNativeAd);
     }
 
-    public interface EasyPlayWidgetListener {
-        JSONObject getEstimatedInteractionArea();
-
-        void onCanRenderFail(JSONObject jSONObject);
-
-        void onCanRenderSuccess(JSONObject jSONObject);
-
-        void onClose();
-
-        void onInfo(JSONObject jSONObject);
-    }
-
     public interface ExpressRenderListener {
-        void onRenderSuccess(View view, float f10, float f11, boolean z10);
+        void onRenderSuccess(View view, float f2, float f3, boolean z);
     }
 
     void destroy();
@@ -98,11 +85,7 @@ public interface TTNativeAd extends TTClientBidding {
 
     void setDownloadListener(TTAppDownloadListener tTAppDownloadListener);
 
-    void setEasyPlayWidgetListener(EasyPlayWidgetListener easyPlayWidgetListener);
-
     void setExpressRenderListener(ExpressRenderListener expressRenderListener);
 
     void showInteractionExpressAd(Activity activity);
-
-    void uploadDislikeEvent(String str);
 }

@@ -15,31 +15,31 @@ public class UMGlobalContext {
     private String mChannel;
     private String mProcessName;
 
-    public static class a {
+    private static class a {
 
         /* renamed from: a */
-        private static final UMGlobalContext f24556a = new UMGlobalContext();
+        private static final UMGlobalContext f26246a = new UMGlobalContext();
 
         private a() {
         }
     }
 
-    public /* synthetic */ UMGlobalContext(AnonymousClass1 anonymousClass1) {
+    /* synthetic */ UMGlobalContext(AnonymousClass1 anonymousClass1) {
         this();
     }
 
     public static Context getAppContext(Context context) {
-        if (a.f24556a.mApplicationContext == null && context != null) {
-            a.f24556a.mApplicationContext = context.getApplicationContext();
+        if (a.f26246a.mApplicationContext == null && context != null) {
+            a.f26246a.mApplicationContext = context.getApplicationContext();
         }
-        return a.f24556a.mApplicationContext;
+        return a.f26246a.mApplicationContext;
     }
 
     public static UMGlobalContext getInstance(Context context) {
-        if (a.f24556a.mApplicationContext == null && context != null) {
-            a.f24556a.mApplicationContext = context;
+        if (a.f26246a.mApplicationContext == null && context != null) {
+            a.f26246a.mApplicationContext = context;
         }
-        return a.f24556a;
+        return a.f26246a;
     }
 
     public String getAppVersion() {
@@ -66,14 +66,14 @@ public class UMGlobalContext {
     public String getProcessName(Context context) {
         if (TextUtils.isEmpty(this.mProcessName)) {
             if (context != null) {
-                Context context2 = a.f24556a.mApplicationContext;
+                Context context2 = a.f26246a.mApplicationContext;
                 if (context2 != null) {
                     this.mProcessName = UMFrUtils.getCurrentProcessName(context2);
                 } else {
                     this.mProcessName = UMFrUtils.getCurrentProcessName(context);
                 }
             } else {
-                this.mProcessName = UMFrUtils.getCurrentProcessName(a.f24556a.mApplicationContext);
+                this.mProcessName = UMFrUtils.getCurrentProcessName(a.f26246a.mApplicationContext);
             }
         }
         return this.mProcessName;
@@ -84,14 +84,14 @@ public class UMGlobalContext {
     }
 
     public String toString() {
-        if (a.f24556a.mApplicationContext == null) {
+        if (a.f26246a.mApplicationContext == null) {
             return "uninitialized.";
         }
-        StringBuilder sb2 = new StringBuilder("[");
-        sb2.append("appkey:" + this.mAppkey + ",");
-        sb2.append("channel:" + this.mChannel + ",");
-        sb2.append("procName:" + this.mProcessName + "]");
-        return sb2.toString();
+        StringBuilder sb = new StringBuilder("[");
+        sb.append("appkey:" + this.mAppkey + ",");
+        sb.append("channel:" + this.mChannel + ",");
+        sb.append("procName:" + this.mProcessName + "]");
+        return sb.toString();
     }
 
     private UMGlobalContext() {
@@ -99,6 +99,6 @@ public class UMGlobalContext {
     }
 
     public static Context getAppContext() {
-        return a.f24556a.mApplicationContext;
+        return a.f26246a.mApplicationContext;
     }
 }

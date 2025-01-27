@@ -2,56 +2,55 @@ package kotlin.ranges;
 
 import com.bytedance.sdk.openadsdk.downloadnew.core.TTDownloadField;
 import com.kwad.sdk.api.model.AdnName;
+import f.b.a.d;
+import f.b.a.e;
 import java.util.Iterator;
 import kotlin.Metadata;
 import kotlin.internal.ProgressionUtilKt;
 import kotlin.jvm.internal.DefaultConstructorMarker;
 import kotlin.jvm.internal.markers.KMappedMarker;
-import xi.k;
-import xi.l;
 
-@Metadata(d1 = {"\u0000,\n\u0002\u0018\u0002\n\u0002\u0010\u001c\n\u0002\u0010\b\n\u0002\b\u000b\n\u0002\u0010\u000b\n\u0000\n\u0002\u0010\u0000\n\u0002\b\u0003\n\u0002\u0018\u0002\n\u0000\n\u0002\u0010\u000e\n\u0002\b\u0002\b\u0016\u0018\u0000 \u00172\b\u0012\u0004\u0012\u00020\u00020\u0001:\u0001\u0017B\u001f\b\u0000\u0012\u0006\u0010\u0003\u001a\u00020\u0002\u0012\u0006\u0010\u0004\u001a\u00020\u0002\u0012\u0006\u0010\u0005\u001a\u00020\u0002¢\u0006\u0002\u0010\u0006J\u0013\u0010\r\u001a\u00020\u000e2\b\u0010\u000f\u001a\u0004\u0018\u00010\u0010H\u0096\u0002J\b\u0010\u0011\u001a\u00020\u0002H\u0016J\b\u0010\u0012\u001a\u00020\u000eH\u0016J\t\u0010\u0013\u001a\u00020\u0014H\u0096\u0002J\b\u0010\u0015\u001a\u00020\u0016H\u0016R\u0011\u0010\u0007\u001a\u00020\u0002¢\u0006\b\n\u0000\u001a\u0004\b\b\u0010\tR\u0011\u0010\n\u001a\u00020\u0002¢\u0006\b\n\u0000\u001a\u0004\b\u000b\u0010\tR\u0011\u0010\u0005\u001a\u00020\u0002¢\u0006\b\n\u0000\u001a\u0004\b\f\u0010\t¨\u0006\u0018"}, d2 = {"Lkotlin/ranges/IntProgression;", "", "", "start", "endInclusive", "step", "(III)V", "first", "getFirst", "()I", "last", "getLast", "getStep", "equals", "", AdnName.OTHER, "", TTDownloadField.TT_HASHCODE, "isEmpty", "iterator", "Lkotlin/collections/IntIterator;", "toString", "", "Companion", "kotlin-stdlib"}, k = 1, mv = {1, 9, 0}, xi = 48)
-/* loaded from: classes4.dex */
+@Metadata(bv = {1, 0, 3}, d1 = {"\u0000,\n\u0002\u0018\u0002\n\u0002\u0010\u001c\n\u0002\u0010\b\n\u0002\u0018\u0002\n\u0002\b\u0002\n\u0002\u0010\u000b\n\u0002\b\u0002\n\u0002\u0010\u0000\n\u0002\b\u0005\n\u0002\u0010\u000e\n\u0002\b\u000f\b\u0016\u0018\u0000 \u001d2\b\u0012\u0004\u0012\u00020\u00020\u0001:\u0001\u001dB!\b\u0000\u0012\u0006\u0010\u0019\u001a\u00020\u0002\u0012\u0006\u0010\u001a\u001a\u00020\u0002\u0012\u0006\u0010\u0015\u001a\u00020\u0002¢\u0006\u0004\b\u001b\u0010\u001cJ\u0010\u0010\u0004\u001a\u00020\u0003H\u0096\u0002¢\u0006\u0004\b\u0004\u0010\u0005J\u000f\u0010\u0007\u001a\u00020\u0006H\u0016¢\u0006\u0004\b\u0007\u0010\bJ\u001a\u0010\u000b\u001a\u00020\u00062\b\u0010\n\u001a\u0004\u0018\u00010\tH\u0096\u0002¢\u0006\u0004\b\u000b\u0010\fJ\u000f\u0010\r\u001a\u00020\u0002H\u0016¢\u0006\u0004\b\r\u0010\u000eJ\u000f\u0010\u0010\u001a\u00020\u000fH\u0016¢\u0006\u0004\b\u0010\u0010\u0011R\u0019\u0010\u0012\u001a\u00020\u00028\u0006@\u0006¢\u0006\f\n\u0004\b\u0012\u0010\u0013\u001a\u0004\b\u0014\u0010\u000eR\u0019\u0010\u0015\u001a\u00020\u00028\u0006@\u0006¢\u0006\f\n\u0004\b\u0015\u0010\u0013\u001a\u0004\b\u0016\u0010\u000eR\u0019\u0010\u0017\u001a\u00020\u00028\u0006@\u0006¢\u0006\f\n\u0004\b\u0017\u0010\u0013\u001a\u0004\b\u0018\u0010\u000e¨\u0006\u001e"}, d2 = {"Lkotlin/ranges/IntProgression;", "", "", "Lkotlin/collections/IntIterator;", "iterator", "()Lkotlin/collections/IntIterator;", "", "isEmpty", "()Z", "", AdnName.OTHER, "equals", "(Ljava/lang/Object;)Z", TTDownloadField.TT_HASHCODE, "()I", "", "toString", "()Ljava/lang/String;", "last", "I", "getLast", "step", "getStep", "first", "getFirst", "start", "endInclusive", "<init>", "(III)V", "Companion", "kotlin-stdlib"}, k = 1, mv = {1, 4, 0})
+/* loaded from: classes5.dex */
 public class IntProgression implements Iterable<Integer>, KMappedMarker {
 
     /* renamed from: Companion, reason: from kotlin metadata */
-    @k
     public static final Companion INSTANCE = new Companion(null);
     private final int first;
     private final int last;
     private final int step;
 
-    @Metadata(d1 = {"\u0000\u001a\n\u0002\u0018\u0002\n\u0002\u0010\u0000\n\u0002\b\u0002\n\u0002\u0018\u0002\n\u0000\n\u0002\u0010\b\n\u0002\b\u0003\b\u0086\u0003\u0018\u00002\u00020\u0001B\u0007\b\u0002¢\u0006\u0002\u0010\u0002J\u001e\u0010\u0003\u001a\u00020\u00042\u0006\u0010\u0005\u001a\u00020\u00062\u0006\u0010\u0007\u001a\u00020\u00062\u0006\u0010\b\u001a\u00020\u0006¨\u0006\t"}, d2 = {"Lkotlin/ranges/IntProgression$Companion;", "", "()V", "fromClosedRange", "Lkotlin/ranges/IntProgression;", "rangeStart", "", "rangeEnd", "step", "kotlin-stdlib"}, k = 1, mv = {1, 9, 0}, xi = 48)
+    @Metadata(bv = {1, 0, 3}, d1 = {"\u0000\u0018\n\u0002\u0018\u0002\n\u0002\u0010\u0000\n\u0002\u0010\b\n\u0002\b\u0003\n\u0002\u0018\u0002\n\u0002\b\u0005\b\u0086\u0003\u0018\u00002\u00020\u0001B\t\b\u0002¢\u0006\u0004\b\t\u0010\nJ%\u0010\u0007\u001a\u00020\u00062\u0006\u0010\u0003\u001a\u00020\u00022\u0006\u0010\u0004\u001a\u00020\u00022\u0006\u0010\u0005\u001a\u00020\u0002¢\u0006\u0004\b\u0007\u0010\b¨\u0006\u000b"}, d2 = {"Lkotlin/ranges/IntProgression$Companion;", "", "", "rangeStart", "rangeEnd", "step", "Lkotlin/ranges/IntProgression;", "fromClosedRange", "(III)Lkotlin/ranges/IntProgression;", "<init>", "()V", "kotlin-stdlib"}, k = 1, mv = {1, 4, 0})
     public static final class Companion {
-        public /* synthetic */ Companion(DefaultConstructorMarker defaultConstructorMarker) {
-            this();
+        private Companion() {
         }
 
-        @k
+        @d
         public final IntProgression fromClosedRange(int rangeStart, int rangeEnd, int step) {
             return new IntProgression(rangeStart, rangeEnd, step);
         }
 
-        private Companion() {
+        public /* synthetic */ Companion(DefaultConstructorMarker defaultConstructorMarker) {
+            this();
         }
     }
 
-    public IntProgression(int i10, int i11, int i12) {
-        if (i12 == 0) {
+    public IntProgression(int i2, int i3, int i4) {
+        if (i4 == 0) {
             throw new IllegalArgumentException("Step must be non-zero.");
         }
-        if (i12 == Integer.MIN_VALUE) {
+        if (i4 == Integer.MIN_VALUE) {
             throw new IllegalArgumentException("Step must be greater than Int.MIN_VALUE to avoid overflow on negation.");
         }
-        this.first = i10;
-        this.last = ProgressionUtilKt.getProgressionLastElement(i10, i11, i12);
-        this.step = i12;
+        this.first = i2;
+        this.last = ProgressionUtilKt.getProgressionLastElement(i2, i3, i4);
+        this.step = i4;
     }
 
-    public boolean equals(@l Object r32) {
-        if (r32 instanceof IntProgression) {
-            if (!isEmpty() || !((IntProgression) r32).isEmpty()) {
-                IntProgression intProgression = (IntProgression) r32;
+    public boolean equals(@e Object r3) {
+        if (r3 instanceof IntProgression) {
+            if (!isEmpty() || !((IntProgression) r3).isEmpty()) {
+                IntProgression intProgression = (IntProgression) r3;
                 if (this.first != intProgression.first || this.last != intProgression.last || this.step != intProgression.step) {
                 }
             }
@@ -81,40 +80,40 @@ public class IntProgression implements Iterable<Integer>, KMappedMarker {
 
     public boolean isEmpty() {
         if (this.step > 0) {
-            if (this.first <= this.last) {
-                return false;
+            if (this.first > this.last) {
+                return true;
             }
-        } else if (this.first >= this.last) {
-            return false;
+        } else if (this.first < this.last) {
+            return true;
         }
-        return true;
+        return false;
     }
 
-    @k
+    @d
     public String toString() {
-        StringBuilder sb2;
-        int i10;
+        StringBuilder sb;
+        int i2;
         if (this.step > 0) {
-            sb2 = new StringBuilder();
-            sb2.append(this.first);
-            sb2.append("..");
-            sb2.append(this.last);
-            sb2.append(" step ");
-            i10 = this.step;
+            sb = new StringBuilder();
+            sb.append(this.first);
+            sb.append("..");
+            sb.append(this.last);
+            sb.append(" step ");
+            i2 = this.step;
         } else {
-            sb2 = new StringBuilder();
-            sb2.append(this.first);
-            sb2.append(" downTo ");
-            sb2.append(this.last);
-            sb2.append(" step ");
-            i10 = -this.step;
+            sb = new StringBuilder();
+            sb.append(this.first);
+            sb.append(" downTo ");
+            sb.append(this.last);
+            sb.append(" step ");
+            i2 = -this.step;
         }
-        sb2.append(i10);
-        return sb2.toString();
+        sb.append(i2);
+        return sb.toString();
     }
 
     @Override // java.lang.Iterable
-    @k
+    @d
     public Iterator<Integer> iterator() {
         return new IntProgressionIterator(this.first, this.last, this.step);
     }

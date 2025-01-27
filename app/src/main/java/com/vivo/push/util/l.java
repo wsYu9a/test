@@ -9,37 +9,37 @@ import java.util.List;
 final class l implements Runnable {
 
     /* renamed from: a */
-    final /* synthetic */ List f25139a;
+    final /* synthetic */ List f31103a;
 
     /* renamed from: b */
-    final /* synthetic */ k f25140b;
+    final /* synthetic */ k f31104b;
 
-    public l(k kVar, List list) {
-        this.f25140b = kVar;
-        this.f25139a = list;
+    l(k kVar, List list) {
+        this.f31104b = kVar;
+        this.f31103a = list;
     }
 
     @Override // java.lang.Runnable
     public final void run() {
         InsideNotificationItem insideNotificationItem;
-        long j10;
+        long j2;
         Context context;
         InsideNotificationItem insideNotificationItem2;
-        long j11;
-        int i10;
+        long j3;
+        int i2;
         r.a aVar;
-        insideNotificationItem = this.f25140b.f25134b;
+        insideNotificationItem = this.f31104b.f31098b;
         if (insideNotificationItem != null) {
-            w b10 = w.b();
-            j10 = this.f25140b.f25135c;
-            b10.a("com.vivo.push.notify_key", j10);
-            context = this.f25140b.f25133a;
-            List list = this.f25139a;
-            insideNotificationItem2 = this.f25140b.f25134b;
-            j11 = this.f25140b.f25135c;
-            i10 = this.f25140b.f25137e;
-            aVar = this.f25140b.f25138f;
-            NotifyAdapterUtil.pushNotification(context, list, insideNotificationItem2, j11, i10, aVar);
+            w b2 = w.b();
+            j2 = this.f31104b.f31099c;
+            b2.a("com.vivo.push.notify_key", j2);
+            context = this.f31104b.f31097a;
+            List list = this.f31103a;
+            insideNotificationItem2 = this.f31104b.f31098b;
+            j3 = this.f31104b.f31099c;
+            i2 = this.f31104b.f31101e;
+            aVar = this.f31104b.f31102f;
+            NotifyAdapterUtil.pushNotification(context, list, insideNotificationItem2, j3, i2, aVar);
         }
     }
 }

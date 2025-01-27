@@ -13,9 +13,8 @@ import com.bumptech.glide.RequestManager;
 import java.util.Collections;
 import java.util.HashSet;
 import java.util.Set;
-import p3.f;
 
-/* loaded from: classes2.dex */
+/* loaded from: classes.dex */
 public class SupportRequestManagerFragment extends Fragment {
     private static final String TAG = "SupportRMFragment";
     private final Set<SupportRequestManagerFragment> childRequestManagerFragments;
@@ -31,8 +30,8 @@ public class SupportRequestManagerFragment extends Fragment {
     @Nullable
     private SupportRequestManagerFragment rootRequestManagerFragment;
 
-    public class SupportFragmentRequestManagerTreeNode implements RequestManagerTreeNode {
-        public SupportFragmentRequestManagerTreeNode() {
+    private class SupportFragmentRequestManagerTreeNode implements RequestManagerTreeNode {
+        SupportFragmentRequestManagerTreeNode() {
         }
 
         @Override // com.bumptech.glide.manager.RequestManagerTreeNode
@@ -49,7 +48,7 @@ public class SupportRequestManagerFragment extends Fragment {
         }
 
         public String toString() {
-            return super.toString() + "{fragment=" + SupportRequestManagerFragment.this + f.f29748d;
+            return super.toString() + "{fragment=" + SupportRequestManagerFragment.this + "}";
         }
     }
 
@@ -112,7 +111,7 @@ public class SupportRequestManagerFragment extends Fragment {
     }
 
     @NonNull
-    public Set<SupportRequestManagerFragment> getDescendantRequestManagerFragments() {
+    Set<SupportRequestManagerFragment> getDescendantRequestManagerFragments() {
         SupportRequestManagerFragment supportRequestManagerFragment = this.rootRequestManagerFragment;
         if (supportRequestManagerFragment == null) {
             return Collections.emptySet();
@@ -130,7 +129,7 @@ public class SupportRequestManagerFragment extends Fragment {
     }
 
     @NonNull
-    public ActivityFragmentLifecycle getGlideLifecycle() {
+    ActivityFragmentLifecycle getGlideLifecycle() {
         return this.lifecycle;
     }
 
@@ -155,9 +154,9 @@ public class SupportRequestManagerFragment extends Fragment {
         } else {
             try {
                 registerFragmentWithRoot(getContext(), rootFragmentManager);
-            } catch (IllegalStateException e10) {
+            } catch (IllegalStateException e2) {
                 if (Log.isLoggable(TAG, 5)) {
-                    Log.w(TAG, "Unable to register fragment with root", e10);
+                    Log.w(TAG, "Unable to register fragment with root", e2);
                 }
             }
         }
@@ -189,7 +188,7 @@ public class SupportRequestManagerFragment extends Fragment {
         this.lifecycle.onStop();
     }
 
-    public void setParentFragmentHint(@Nullable Fragment fragment) {
+    void setParentFragmentHint(@Nullable Fragment fragment) {
         FragmentManager rootFragmentManager;
         this.parentFragmentHint = fragment;
         if (fragment == null || fragment.getContext() == null || (rootFragmentManager = getRootFragmentManager(fragment)) == null) {
@@ -204,7 +203,7 @@ public class SupportRequestManagerFragment extends Fragment {
 
     @Override // androidx.fragment.app.Fragment
     public String toString() {
-        return super.toString() + "{parent=" + getParentFragmentUsingHint() + f.f29748d;
+        return super.toString() + "{parent=" + getParentFragmentUsingHint() + "}";
     }
 
     @SuppressLint({"ValidFragment"})

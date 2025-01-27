@@ -2,13 +2,11 @@ package com.kwad.components.offline.api.tk;
 
 import android.content.Intent;
 
-/* loaded from: classes3.dex */
+/* loaded from: classes2.dex */
 public interface IOfflineTKNativeIntent {
     void callTKBridge(String str);
 
-    void callbackDismiss();
-
-    void callbackPageStatus(boolean z10, String str);
+    void callbackPageStatus(boolean z, String str);
 
     String getClassName();
 
@@ -17,8 +15,6 @@ public interface IOfflineTKNativeIntent {
     String getTemplateString();
 
     String getUrl();
-
-    String getViewKey();
 
     void registerJSCallHandler(IOfflineTKCallHandler iOfflineTKCallHandler);
 }

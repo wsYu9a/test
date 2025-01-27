@@ -3,7 +3,7 @@ package com.kwad.sdk.api.model;
 import androidx.annotation.Keep;
 
 @Keep
-/* loaded from: classes3.dex */
+/* loaded from: classes2.dex */
 public interface IKsAdLabel {
     @Keep
     String getChannel();
@@ -33,7 +33,7 @@ public interface IKsAdLabel {
     void setChannel(String str);
 
     @Keep
-    void setCpmBidFloor(long j10);
+    void setCpmBidFloor(long j2);
 
     @Keep
     void setHistoryTitle(String str);
@@ -45,10 +45,10 @@ public interface IKsAdLabel {
     void setPrevTitle(String str);
 
     @Keep
-    void setThirdAge(int i10);
+    void setThirdAge(int i2);
 
     @Keep
-    void setThirdGender(int i10);
+    void setThirdGender(int i2);
 
     @Keep
     void setThirdInterest(String str);

@@ -2,40 +2,40 @@ package com.bytedance.pangle.res.a;
 
 import java.io.InputStream;
 
-/* loaded from: classes2.dex */
+/* loaded from: classes.dex */
 public final class e extends j {
 
     /* renamed from: a */
-    private long f7783a;
+    private long f6269a;
 
     public e(InputStream inputStream) {
         super(inputStream);
     }
 
     @Override // com.bytedance.pangle.res.a.j
-    public final synchronized void a(int i10) {
-        if (i10 != -1) {
-            this.f7783a += i10;
+    protected final synchronized void a(int i2) {
+        if (i2 != -1) {
+            this.f6269a += i2;
         }
     }
 
     public final synchronized long b() {
-        return this.f7783a;
+        return this.f6269a;
     }
 
     @Override // com.bytedance.pangle.res.a.j, java.io.FilterInputStream, java.io.InputStream
-    public final synchronized long skip(long j10) {
+    public final synchronized long skip(long j2) {
         long skip;
-        skip = super.skip(j10);
-        this.f7783a += skip;
+        skip = super.skip(j2);
+        this.f6269a += skip;
         return skip;
     }
 
     public final int a() {
-        long b10 = b();
-        if (b10 <= 2147483647L) {
-            return (int) b10;
+        long b2 = b();
+        if (b2 <= 2147483647L) {
+            return (int) b2;
         }
-        throw new ArithmeticException("The byte count " + b10 + " is too large to be converted to an int");
+        throw new ArithmeticException("The byte count " + b2 + " is too large to be converted to an int");
     }
 }

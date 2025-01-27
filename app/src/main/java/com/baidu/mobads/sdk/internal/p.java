@@ -1,20 +1,53 @@
 package com.baidu.mobads.sdk.internal;
 
-import com.baidu.mobads.sdk.api.IOAdEvent;
-import com.baidu.mobads.sdk.api.IOAdEventListener;
+import com.baidu.mobads.sdk.internal.z;
+import java.util.List;
+import java.util.concurrent.CopyOnWriteArrayList;
 
-/* loaded from: classes2.dex */
-class p implements IOAdEventListener {
+/* loaded from: classes.dex */
+public class p {
 
     /* renamed from: a */
-    final /* synthetic */ o f7228a;
+    private static volatile p f5843a;
 
-    public p(o oVar) {
-        this.f7228a = oVar;
+    /* renamed from: b */
+    private List<z.a> f5844b = new CopyOnWriteArrayList();
+
+    private p() {
     }
 
-    @Override // com.baidu.mobads.sdk.api.IOAdEventListener
-    public void run(IOAdEvent iOAdEvent) {
-        bi.a(new q(this, iOAdEvent));
+    public static p a() {
+        if (f5843a == null) {
+            synchronized (p.class) {
+                if (f5843a == null) {
+                    f5843a = new p();
+                }
+            }
+        }
+        return f5843a;
+    }
+
+    private void b(z.a aVar) {
+        if (this.f5844b.contains(aVar)) {
+            this.f5844b.remove(aVar);
+        }
+    }
+
+    public void a(z.a aVar) {
+        if (aVar == null || this.f5844b.contains(aVar)) {
+            return;
+        }
+        this.f5844b.add(aVar);
+    }
+
+    public void a(int i2) {
+        for (z.a aVar : this.f5844b) {
+            if (i2 == 1) {
+                aVar.onSuccess();
+            } else if (i2 == 2) {
+                aVar.onFailure();
+            }
+            b(aVar);
+        }
     }
 }

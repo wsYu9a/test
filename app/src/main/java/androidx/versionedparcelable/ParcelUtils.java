@@ -13,14 +13,16 @@ import java.util.List;
 
 /* loaded from: classes.dex */
 public class ParcelUtils {
-    private static final String INNER_BUNDLE_KEY = "a";
+
+    /* renamed from: a */
+    private static final String f4018a = "a";
 
     private ParcelUtils() {
     }
 
     @RestrictTo({RestrictTo.Scope.LIBRARY_GROUP_PREFIX})
     public static <T extends VersionedParcelable> T fromInputStream(InputStream inputStream) {
-        return (T) new VersionedParcelStream(inputStream, null).readVersionedParcelable();
+        return (T) new VersionedParcelStream(inputStream, null).s();
     }
 
     @RestrictTo({RestrictTo.Scope.LIBRARY_GROUP_PREFIX})
@@ -84,7 +86,7 @@ public class ParcelUtils {
     @RestrictTo({RestrictTo.Scope.LIBRARY_GROUP_PREFIX})
     public static void toOutputStream(VersionedParcelable versionedParcelable, OutputStream outputStream) {
         VersionedParcelStream versionedParcelStream = new VersionedParcelStream(null, outputStream);
-        versionedParcelStream.writeVersionedParcelable(versionedParcelable);
+        versionedParcelStream.F(versionedParcelable);
         versionedParcelStream.closeField();
     }
 

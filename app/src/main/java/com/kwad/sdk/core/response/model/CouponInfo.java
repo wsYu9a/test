@@ -3,13 +3,12 @@ package com.kwad.sdk.core.response.model;
 import android.text.TextUtils;
 import androidx.annotation.Nullable;
 import com.ksad.json.annotation.KsJson;
-import com.kwad.sdk.core.d.c;
 import java.io.Serializable;
 import java.text.DecimalFormat;
 
 @KsJson
-/* loaded from: classes3.dex */
-public class CouponInfo extends com.kwad.sdk.core.response.a.a implements com.kwad.sdk.core.b, Serializable {
+/* loaded from: classes2.dex */
+public class CouponInfo extends com.kwad.sdk.core.response.kwai.a implements com.kwad.sdk.core.b, Serializable {
     private static final float COUPON_DISCOUNT_THRESHOLD = 20.0f;
     public static final String JINNIIU_DISCOUNT = "2";
     public static final String JINNIIU_PRICE_BREAK_DISCOUNT = "1";
@@ -21,11 +20,10 @@ public class CouponInfo extends com.kwad.sdk.core.response.a.a implements com.kw
     public String displayTitle;
     public String displayType;
     public String displayValue;
-    public String endFetchTime;
-    public String startFetchTime;
 
     @Nullable
     public static String jinniuFormatCoupon(CouponInfo couponInfo) {
+        StringBuilder sb;
         String str = null;
         if (couponInfo == null) {
             return null;
@@ -39,9 +37,14 @@ public class CouponInfo extends com.kwad.sdk.core.response.a.a implements com.kw
                 return null;
             }
             if (couponInfo.isNoPreRequirement()) {
-                return "¥" + rinToYuan;
+                sb = new StringBuilder("¥");
+            } else {
+                sb = new StringBuilder();
+                sb.append(rinToYuan2);
+                sb.append("减");
             }
-            return rinToYuan2 + "减" + rinToYuan;
+            sb.append(rinToYuan);
+            return sb.toString();
         }
         if (!displayType.equals("2") || TextUtils.isEmpty(rinToYuan)) {
             return null;
@@ -65,8 +68,8 @@ public class CouponInfo extends com.kwad.sdk.core.response.a.a implements com.kw
         }
         try {
             return new DecimalFormat("#.#").format(Float.parseFloat(str) / 1000.0f);
-        } catch (Exception e10) {
-            c.printStackTraceOnly(e10);
+        } catch (Exception e2) {
+            com.kwad.sdk.core.d.b.printStackTraceOnly(e2);
             return null;
         }
     }
@@ -95,16 +98,12 @@ public class CouponInfo extends com.kwad.sdk.core.response.a.a implements com.kw
         return this.displayValue;
     }
 
-    public String getEndFetchTime() {
-        return this.endFetchTime;
-    }
-
     @Nullable
     public String getFormattedDisplayDiscount() {
         try {
             return new DecimalFormat("#.#").format(Float.valueOf(this.displayDiscount).floatValue() / 10.0f);
-        } catch (Exception e10) {
-            c.printStackTraceOnly(e10);
+        } catch (Exception e2) {
+            com.kwad.sdk.core.d.b.printStackTraceOnly(e2);
             return null;
         }
     }
@@ -123,10 +122,6 @@ public class CouponInfo extends com.kwad.sdk.core.response.a.a implements com.kw
         return null;
     }
 
-    public String getStartFetchTime() {
-        return this.startFetchTime;
-    }
-
     public boolean isNoPreRequirement() {
         String str = this.displayBase;
         if (str == null) {
@@ -141,13 +136,5 @@ public class CouponInfo extends com.kwad.sdk.core.response.a.a implements com.kw
 
     public void setDisplayDiscount(String str) {
         this.displayDiscount = str;
-    }
-
-    public void setEndFetchTime(String str) {
-        this.endFetchTime = str;
-    }
-
-    public void setStartFetchTime(String str) {
-        this.startFetchTime = str;
     }
 }

@@ -6,104 +6,110 @@ import android.view.View;
 import androidx.annotation.NonNull;
 import androidx.coordinatorlayout.widget.CoordinatorLayout;
 
-/* loaded from: classes2.dex */
+/* loaded from: classes.dex */
 class ViewOffsetBehavior<V extends View> extends CoordinatorLayout.Behavior<V> {
-    private int tempLeftRightOffset;
-    private int tempTopBottomOffset;
-    private ViewOffsetHelper viewOffsetHelper;
+
+    /* renamed from: a */
+    private a f6701a;
+
+    /* renamed from: b */
+    private int f6702b;
+
+    /* renamed from: c */
+    private int f6703c;
 
     public ViewOffsetBehavior() {
-        this.tempTopBottomOffset = 0;
-        this.tempLeftRightOffset = 0;
+        this.f6702b = 0;
+        this.f6703c = 0;
     }
 
-    public int getLeftAndRightOffset() {
-        ViewOffsetHelper viewOffsetHelper = this.viewOffsetHelper;
-        if (viewOffsetHelper != null) {
-            return viewOffsetHelper.getLeftAndRightOffset();
+    public int a() {
+        a aVar = this.f6701a;
+        if (aVar != null) {
+            return aVar.d();
         }
         return 0;
     }
 
-    public int getTopAndBottomOffset() {
-        ViewOffsetHelper viewOffsetHelper = this.viewOffsetHelper;
-        if (viewOffsetHelper != null) {
-            return viewOffsetHelper.getTopAndBottomOffset();
+    public int b() {
+        a aVar = this.f6701a;
+        if (aVar != null) {
+            return aVar.e();
         }
         return 0;
     }
 
-    public boolean isHorizontalOffsetEnabled() {
-        ViewOffsetHelper viewOffsetHelper = this.viewOffsetHelper;
-        return viewOffsetHelper != null && viewOffsetHelper.isHorizontalOffsetEnabled();
+    public boolean c() {
+        a aVar = this.f6701a;
+        return aVar != null && aVar.f();
     }
 
-    public boolean isVerticalOffsetEnabled() {
-        ViewOffsetHelper viewOffsetHelper = this.viewOffsetHelper;
-        return viewOffsetHelper != null && viewOffsetHelper.isVerticalOffsetEnabled();
+    public boolean d() {
+        a aVar = this.f6701a;
+        return aVar != null && aVar.g();
     }
 
-    public void layoutChild(@NonNull CoordinatorLayout coordinatorLayout, @NonNull V v10, int i10) {
-        coordinatorLayout.onLayoutChild(v10, i10);
+    protected void e(@NonNull CoordinatorLayout coordinatorLayout, @NonNull V v, int i2) {
+        coordinatorLayout.onLayoutChild(v, i2);
+    }
+
+    public void f(boolean z) {
+        a aVar = this.f6701a;
+        if (aVar != null) {
+            aVar.i(z);
+        }
+    }
+
+    public boolean g(int i2) {
+        a aVar = this.f6701a;
+        if (aVar != null) {
+            return aVar.j(i2);
+        }
+        this.f6703c = i2;
+        return false;
+    }
+
+    public boolean h(int i2) {
+        a aVar = this.f6701a;
+        if (aVar != null) {
+            return aVar.k(i2);
+        }
+        this.f6702b = i2;
+        return false;
+    }
+
+    public void i(boolean z) {
+        a aVar = this.f6701a;
+        if (aVar != null) {
+            aVar.l(z);
+        }
     }
 
     @Override // androidx.coordinatorlayout.widget.CoordinatorLayout.Behavior
-    public boolean onLayoutChild(@NonNull CoordinatorLayout coordinatorLayout, @NonNull V v10, int i10) {
-        layoutChild(coordinatorLayout, v10, i10);
-        if (this.viewOffsetHelper == null) {
-            this.viewOffsetHelper = new ViewOffsetHelper(v10);
+    public boolean onLayoutChild(@NonNull CoordinatorLayout coordinatorLayout, @NonNull V v, int i2) {
+        e(coordinatorLayout, v, i2);
+        if (this.f6701a == null) {
+            this.f6701a = new a(v);
         }
-        this.viewOffsetHelper.onViewLayout();
-        this.viewOffsetHelper.applyOffsets();
-        int i11 = this.tempTopBottomOffset;
-        if (i11 != 0) {
-            this.viewOffsetHelper.setTopAndBottomOffset(i11);
-            this.tempTopBottomOffset = 0;
+        this.f6701a.h();
+        this.f6701a.a();
+        int i3 = this.f6702b;
+        if (i3 != 0) {
+            this.f6701a.k(i3);
+            this.f6702b = 0;
         }
-        int i12 = this.tempLeftRightOffset;
-        if (i12 == 0) {
+        int i4 = this.f6703c;
+        if (i4 == 0) {
             return true;
         }
-        this.viewOffsetHelper.setLeftAndRightOffset(i12);
-        this.tempLeftRightOffset = 0;
+        this.f6701a.j(i4);
+        this.f6703c = 0;
         return true;
-    }
-
-    public void setHorizontalOffsetEnabled(boolean z10) {
-        ViewOffsetHelper viewOffsetHelper = this.viewOffsetHelper;
-        if (viewOffsetHelper != null) {
-            viewOffsetHelper.setHorizontalOffsetEnabled(z10);
-        }
-    }
-
-    public boolean setLeftAndRightOffset(int i10) {
-        ViewOffsetHelper viewOffsetHelper = this.viewOffsetHelper;
-        if (viewOffsetHelper != null) {
-            return viewOffsetHelper.setLeftAndRightOffset(i10);
-        }
-        this.tempLeftRightOffset = i10;
-        return false;
-    }
-
-    public boolean setTopAndBottomOffset(int i10) {
-        ViewOffsetHelper viewOffsetHelper = this.viewOffsetHelper;
-        if (viewOffsetHelper != null) {
-            return viewOffsetHelper.setTopAndBottomOffset(i10);
-        }
-        this.tempTopBottomOffset = i10;
-        return false;
-    }
-
-    public void setVerticalOffsetEnabled(boolean z10) {
-        ViewOffsetHelper viewOffsetHelper = this.viewOffsetHelper;
-        if (viewOffsetHelper != null) {
-            viewOffsetHelper.setVerticalOffsetEnabled(z10);
-        }
     }
 
     public ViewOffsetBehavior(Context context, AttributeSet attributeSet) {
         super(context, attributeSet);
-        this.tempTopBottomOffset = 0;
-        this.tempLeftRightOffset = 0;
+        this.f6702b = 0;
+        this.f6703c = 0;
     }
 }

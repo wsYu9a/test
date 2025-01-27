@@ -1,54 +1,30 @@
 package com.kwad.sdk.utils;
 
-/* loaded from: classes3.dex */
-public class bj {
-    protected final int mHeight;
-    protected final int mWidth;
+import android.text.TextUtils;
 
-    public bj(int i10, int i11) {
-        this.mWidth = i10;
-        this.mHeight = i11;
-    }
-
-    public final float OF() {
-        return this.mWidth;
-    }
-
-    public final float OG() {
-        return this.mHeight;
-    }
-
-    public boolean equals(Object obj) {
-        if (obj == null) {
-            return false;
-        }
-        if (this == obj) {
-            return true;
-        }
-        if (obj instanceof bj) {
-            bj bjVar = (bj) obj;
-            if (this.mWidth == bjVar.mWidth && this.mHeight == bjVar.mHeight) {
+/* loaded from: classes2.dex */
+public final class bj {
+    public static boolean aj(String str, String str2) {
+        if (!TextUtils.isEmpty(str) && !TextUtils.isEmpty(str2)) {
+            String[] split = str.split("\\.");
+            String[] split2 = str2.split("\\.");
+            for (int i2 = 0; i2 < split.length && i2 < split2.length; i2++) {
+                try {
+                    int parseInt = Integer.parseInt(split[i2]) - Integer.parseInt(split2[i2]);
+                    if (parseInt > 0) {
+                        return true;
+                    }
+                    if (parseInt < 0) {
+                        return false;
+                    }
+                } catch (NumberFormatException unused) {
+                    return false;
+                }
+            }
+            if (split.length >= split2.length) {
                 return true;
             }
         }
         return false;
-    }
-
-    public final int getHeight() {
-        return this.mHeight;
-    }
-
-    public final int getWidth() {
-        return this.mWidth;
-    }
-
-    public int hashCode() {
-        int i10 = this.mHeight;
-        int i11 = this.mWidth;
-        return i10 ^ ((i11 >>> 16) | (i11 << 16));
-    }
-
-    public String toString() {
-        return this.mWidth + "x" + this.mHeight;
     }
 }

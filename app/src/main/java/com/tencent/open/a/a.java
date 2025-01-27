@@ -12,114 +12,108 @@ import java.io.Writer;
 public class a extends i implements Handler.Callback {
 
     /* renamed from: a */
-    private b f23122a;
+    private b f25394a;
 
     /* renamed from: b */
-    private FileWriter f23123b;
+    private FileWriter f25395b;
 
     /* renamed from: c */
-    private File f23124c;
+    private File f25396c;
 
     /* renamed from: d */
-    private char[] f23125d;
+    private char[] f25397d;
 
     /* renamed from: e */
-    private volatile g f23126e;
+    private volatile g f25398e;
 
     /* renamed from: f */
-    private volatile g f23127f;
+    private volatile g f25399f;
 
     /* renamed from: g */
-    private volatile g f23128g;
+    private volatile g f25400g;
 
     /* renamed from: h */
-    private volatile g f23129h;
+    private volatile g f25401h;
 
     /* renamed from: i */
-    private volatile boolean f23130i;
+    private volatile boolean f25402i;
 
     /* renamed from: j */
-    private HandlerThread f23131j;
-
-    /* renamed from: k */
-    private Handler f23132k;
+    private HandlerThread f25403j;
+    private Handler k;
 
     public a(b bVar) {
-        this(c.f23147b, true, h.f23170a, bVar);
+        this(c.f25418b, true, h.f25437a, bVar);
     }
 
     private void f() {
-        if (Thread.currentThread() == this.f23131j && !this.f23130i) {
-            this.f23130i = true;
+        if (Thread.currentThread() == this.f25403j && !this.f25402i) {
+            this.f25402i = true;
             i();
             try {
-                this.f23129h.a(g(), this.f23125d);
+                this.f25401h.a(g(), this.f25397d);
             } catch (IOException unused) {
-            } catch (Throwable th2) {
-                this.f23129h.b();
-                throw th2;
+            } catch (Throwable th) {
+                this.f25401h.b();
+                throw th;
             }
-            this.f23129h.b();
-            this.f23130i = false;
+            this.f25401h.b();
+            this.f25402i = false;
         }
     }
 
     private Writer g() {
-        File a10 = c().a();
-        if ((a10 != null && !a10.equals(this.f23124c)) || (this.f23123b == null && a10 != null)) {
-            this.f23124c = a10;
+        File a2 = c().a();
+        if ((a2 != null && !a2.equals(this.f25396c)) || (this.f25395b == null && a2 != null)) {
+            this.f25396c = a2;
             h();
             try {
-                this.f23123b = new FileWriter(this.f23124c, true);
+                this.f25395b = new FileWriter(this.f25396c, true);
             } catch (IOException unused) {
                 return null;
             }
         }
-        return this.f23123b;
+        return this.f25395b;
     }
 
     private void h() {
         try {
-            FileWriter fileWriter = this.f23123b;
+            FileWriter fileWriter = this.f25395b;
             if (fileWriter != null) {
                 fileWriter.flush();
-                this.f23123b.close();
+                this.f25395b.close();
             }
-        } catch (IOException e10) {
-            e10.printStackTrace();
+        } catch (IOException e2) {
+            e2.printStackTrace();
         }
     }
 
     private void i() {
         synchronized (this) {
-            try {
-                if (this.f23128g == this.f23126e) {
-                    this.f23128g = this.f23127f;
-                    this.f23129h = this.f23126e;
-                } else {
-                    this.f23128g = this.f23126e;
-                    this.f23129h = this.f23127f;
-                }
-            } catch (Throwable th2) {
-                throw th2;
+            if (this.f25400g == this.f25398e) {
+                this.f25400g = this.f25399f;
+                this.f25401h = this.f25398e;
+            } else {
+                this.f25400g = this.f25398e;
+                this.f25401h = this.f25399f;
             }
         }
     }
 
     public void a() {
-        if (this.f23132k.hasMessages(1024)) {
-            this.f23132k.removeMessages(1024);
+        if (this.k.hasMessages(1024)) {
+            this.k.removeMessages(1024);
         }
-        this.f23132k.sendEmptyMessage(1024);
+        this.k.sendEmptyMessage(1024);
     }
 
     public void b() {
         h();
-        this.f23131j.quit();
+        this.f25403j.quit();
     }
 
     public b c() {
-        return this.f23122a;
+        return this.f25394a;
     }
 
     @Override // android.os.Handler.Callback
@@ -131,38 +125,40 @@ public class a extends i implements Handler.Callback {
         return true;
     }
 
-    public a(int i10, boolean z10, h hVar, b bVar) {
-        super(i10, z10, hVar);
-        this.f23130i = false;
+    public a(int i2, boolean z, h hVar, b bVar) {
+        super(i2, z, hVar);
+        this.f25402i = false;
         a(bVar);
-        this.f23126e = new g();
-        this.f23127f = new g();
-        this.f23128g = this.f23126e;
-        this.f23129h = this.f23127f;
-        this.f23125d = new char[bVar.d()];
+        this.f25398e = new g();
+        this.f25399f = new g();
+        this.f25400g = this.f25398e;
+        this.f25401h = this.f25399f;
+        this.f25397d = new char[bVar.d()];
         g();
         HandlerThread handlerThread = new HandlerThread(bVar.c(), bVar.f());
-        this.f23131j = handlerThread;
-        handlerThread.start();
-        if (!this.f23131j.isAlive() || this.f23131j.getLooper() == null) {
+        this.f25403j = handlerThread;
+        if (handlerThread != null) {
+            handlerThread.start();
+        }
+        if (!this.f25403j.isAlive() || this.f25403j.getLooper() == null) {
             return;
         }
-        this.f23132k = new Handler(this.f23131j.getLooper(), this);
+        this.k = new Handler(this.f25403j.getLooper(), this);
     }
 
     @Override // com.tencent.open.a.i
-    public void a(int i10, Thread thread, long j10, String str, String str2, Throwable th2) {
-        a(e().a(i10, thread, j10, str, str2, th2));
+    protected void a(int i2, Thread thread, long j2, String str, String str2, Throwable th) {
+        a(e().a(i2, thread, j2, str, str2, th));
     }
 
-    public void a(String str) {
-        this.f23128g.a(str);
-        if (this.f23128g.a() >= c().d()) {
+    protected void a(String str) {
+        this.f25400g.a(str);
+        if (this.f25400g.a() >= c().d()) {
             a();
         }
     }
 
     public void a(b bVar) {
-        this.f23122a = bVar;
+        this.f25394a = bVar;
     }
 }

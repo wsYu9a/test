@@ -5,12 +5,12 @@ import android.content.Context;
 import android.database.Cursor;
 import android.os.Environment;
 import android.text.TextUtils;
-import com.sigmob.sdk.base.mta.PointType;
+import com.opos.acs.st.utils.ErrorContants;
 import com.tencent.bugly.BuglyStrategy;
 import com.tencent.bugly.crashreport.common.info.PlugInBean;
 import com.tencent.bugly.crashreport.common.strategy.StrategyBean;
 import com.tencent.bugly.crashreport.crash.jni.NativeCrashHandler;
-import com.tencent.bugly.proguard.AbstractC0868m;
+import com.tencent.bugly.proguard.AbstractC0909m;
 import com.tencent.bugly.proguard.I;
 import com.tencent.bugly.proguard.J;
 import com.tencent.bugly.proguard.L;
@@ -43,101 +43,99 @@ import java.util.regex.Pattern;
 public class e {
 
     /* renamed from: a */
-    public static int f22447a;
+    public static int f24840a;
 
     /* renamed from: b */
-    protected final Context f22448b;
+    protected final Context f24841b;
 
     /* renamed from: c */
-    protected final T f22449c;
+    protected final T f24842c;
 
     /* renamed from: d */
-    protected final J f22450d;
+    protected final J f24843d;
 
     /* renamed from: e */
-    protected final com.tencent.bugly.crashreport.common.strategy.c f22451e;
+    protected final com.tencent.bugly.crashreport.common.strategy.c f24844e;
 
     /* renamed from: f */
-    protected m f22452f;
+    protected m f24845f;
 
     /* renamed from: g */
-    protected BuglyStrategy.a f22453g;
+    protected BuglyStrategy.a f24846g;
 
-    public e(int i10, Context context, T t10, J j10, com.tencent.bugly.crashreport.common.strategy.c cVar, BuglyStrategy.a aVar, m mVar) {
-        f22447a = i10;
-        this.f22448b = context;
-        this.f22449c = t10;
-        this.f22450d = j10;
-        this.f22451e = cVar;
-        this.f22453g = aVar;
-        this.f22452f = mVar;
+    public e(int i2, Context context, T t, J j2, com.tencent.bugly.crashreport.common.strategy.c cVar, BuglyStrategy.a aVar, m mVar) {
+        f24840a = i2;
+        this.f24841b = context;
+        this.f24842c = t;
+        this.f24843d = j2;
+        this.f24844e = cVar;
+        this.f24846g = aVar;
+        this.f24845f = mVar;
     }
 
     private boolean g(CrashDetailBean crashDetailBean) {
-        String absolutePath;
         try {
             X.a("save eup logs", new Object[0]);
-            com.tencent.bugly.crashreport.common.info.a m10 = com.tencent.bugly.crashreport.common.info.a.m();
-            String e10 = m10.e();
-            String str = m10.E;
+            com.tencent.bugly.crashreport.common.info.a m = com.tencent.bugly.crashreport.common.info.a.m();
+            String e2 = m.e();
+            String str = m.E;
             String str2 = crashDetailBean.A;
-            String format = String.format(Locale.US, "#--------\npackage:%s\nversion:%s\nsdk:%s\nprocess:%s\ndate:%s\ntype:%s\nmessage:%s\nstack:\n%s\neupID:%s\n", e10, str, m10.f22304l, str2, ca.a(new Date(crashDetailBean.f22391r)), crashDetailBean.f22387n, crashDetailBean.f22388o, crashDetailBean.f22390q, crashDetailBean.f22376c);
-            if (h.f22471j != null) {
-                File file = new File(h.f22471j);
+            String format = String.format(Locale.US, "#--------\npackage:%s\nversion:%s\nsdk:%s\nprocess:%s\ndate:%s\ntype:%s\nmessage:%s\nstack:\n%s\neupID:%s\n", e2, str, m.l, str2, ca.a(new Date(crashDetailBean.r)), crashDetailBean.n, crashDetailBean.o, crashDetailBean.q, crashDetailBean.f24789c);
+            String str3 = null;
+            if (h.f24864j != null) {
+                File file = new File(h.f24864j);
                 if (file.isFile()) {
                     file = file.getParentFile();
                 }
-                absolutePath = file.getAbsolutePath();
+                str3 = file.getAbsolutePath();
             } else if (Environment.getExternalStorageState().equals("mounted")) {
-                String absolutePath2 = Environment.getExternalStorageDirectory().getAbsolutePath();
-                StringBuilder sb2 = new StringBuilder();
-                sb2.append(absolutePath2);
-                sb2.append("/Tencent/");
-                sb2.append(this.f22448b.getPackageName());
-                absolutePath = sb2.toString();
-            } else {
-                absolutePath = null;
+                String absolutePath = Environment.getExternalStorageDirectory().getAbsolutePath();
+                StringBuilder sb = new StringBuilder();
+                sb.append(absolutePath);
+                sb.append("/Tencent/");
+                sb.append(this.f24841b.getPackageName());
+                str3 = sb.toString();
             }
-            StringBuilder sb3 = new StringBuilder();
-            sb3.append(absolutePath);
-            sb3.append("/euplog.txt");
-            ca.a(this.f22448b, sb3.toString(), format, h.f22472k);
+            StringBuilder sb2 = new StringBuilder();
+            sb2.append(str3);
+            sb2.append("/euplog.txt");
+            ca.a(this.f24841b, sb2.toString(), format, h.k);
             return true;
-        } catch (Throwable th2) {
-            X.e("rqdp{  save error} %s", th2.toString());
-            if (!X.b(th2)) {
-                th2.printStackTrace();
+        } catch (Throwable th) {
+            X.e("rqdp{  save error} %s", th.toString());
+            if (!X.b(th)) {
+                th.printStackTrace();
             }
             return false;
         }
     }
 
-    public CrashDetailBean a(List<b> list, CrashDetailBean crashDetailBean) {
-        List<CrashDetailBean> a10;
+    protected CrashDetailBean a(List<b> list, CrashDetailBean crashDetailBean) {
+        List<CrashDetailBean> a2;
         String[] split;
         if (list == null || list.size() == 0) {
             return crashDetailBean;
         }
+        CrashDetailBean crashDetailBean2 = null;
         ArrayList arrayList = new ArrayList(10);
         for (b bVar : list) {
-            if (bVar.f22443e) {
+            if (bVar.f24836e) {
                 arrayList.add(bVar);
             }
         }
-        CrashDetailBean crashDetailBean2 = null;
-        if (arrayList.size() > 0 && (a10 = a(arrayList)) != null && a10.size() > 0) {
-            Collections.sort(a10);
-            for (int i10 = 0; i10 < a10.size(); i10++) {
-                CrashDetailBean crashDetailBean3 = a10.get(i10);
-                if (i10 == 0) {
+        if (arrayList.size() > 0 && (a2 = a(arrayList)) != null && a2.size() > 0) {
+            Collections.sort(a2);
+            for (int i2 = 0; i2 < a2.size(); i2++) {
+                CrashDetailBean crashDetailBean3 = a2.get(i2);
+                if (i2 == 0) {
                     crashDetailBean2 = crashDetailBean3;
                 } else {
-                    String str = crashDetailBean3.f22392s;
+                    String str = crashDetailBean3.s;
                     if (str != null && (split = str.split("\n")) != null) {
                         for (String str2 : split) {
-                            if (!crashDetailBean2.f22392s.contains("" + str2)) {
-                                crashDetailBean2.f22393t++;
-                                crashDetailBean2.f22392s += str2 + "\n";
+                            if (!crashDetailBean2.s.contains("" + str2)) {
+                                crashDetailBean2.t++;
+                                crashDetailBean2.s += str2 + "\n";
                             }
                         }
                     }
@@ -145,36 +143,36 @@ public class e {
             }
         }
         if (crashDetailBean2 == null) {
-            crashDetailBean.f22383j = true;
-            crashDetailBean.f22393t = 0;
-            crashDetailBean.f22392s = "";
+            crashDetailBean.f24796j = true;
+            crashDetailBean.t = 0;
+            crashDetailBean.s = "";
             crashDetailBean2 = crashDetailBean;
         }
         for (b bVar2 : list) {
-            if (!bVar2.f22443e && !bVar2.f22442d) {
-                if (!crashDetailBean2.f22392s.contains("" + bVar2.f22440b)) {
-                    crashDetailBean2.f22393t++;
-                    crashDetailBean2.f22392s += bVar2.f22440b + "\n";
+            if (!bVar2.f24836e && !bVar2.f24835d) {
+                if (!crashDetailBean2.s.contains("" + bVar2.f24833b)) {
+                    crashDetailBean2.t++;
+                    crashDetailBean2.s += bVar2.f24833b + "\n";
                 }
             }
         }
-        if (crashDetailBean2.f22391r != crashDetailBean.f22391r) {
-            if (!crashDetailBean2.f22392s.contains("" + crashDetailBean.f22391r)) {
-                crashDetailBean2.f22393t++;
-                crashDetailBean2.f22392s += crashDetailBean.f22391r + "\n";
+        if (crashDetailBean2.r != crashDetailBean.r) {
+            if (!crashDetailBean2.s.contains("" + crashDetailBean.r)) {
+                crashDetailBean2.t++;
+                crashDetailBean2.s += crashDetailBean.r + "\n";
             }
         }
         return crashDetailBean2;
     }
 
-    public List<b> b(List<b> list) {
+    protected List<b> b(List<b> list) {
         if (list == null || list.size() == 0) {
             return null;
         }
         long currentTimeMillis = System.currentTimeMillis();
         ArrayList arrayList = new ArrayList();
         for (b bVar : list) {
-            if (bVar.f22442d && bVar.f22440b <= currentTimeMillis - 86400000) {
+            if (bVar.f24835d && bVar.f24833b <= currentTimeMillis - 86400000) {
                 arrayList.add(bVar);
             }
         }
@@ -185,30 +183,30 @@ public class e {
         return a(crashDetailBean, -123456789);
     }
 
-    /* JADX WARN: Removed duplicated region for block: B:31:0x00de A[Catch: all -> 0x0028, TryCatch #0 {all -> 0x0028, blocks: (B:11:0x0013, B:12:0x0015, B:15:0x006d, B:18:0x0074, B:22:0x0084, B:24:0x0090, B:26:0x00ae, B:28:0x00b5, B:31:0x00de, B:33:0x00e4, B:34:0x00f7, B:36:0x00fd, B:39:0x0110, B:41:0x011e, B:43:0x0124, B:44:0x0131, B:46:0x013d, B:48:0x0149, B:50:0x0160, B:51:0x0185, B:53:0x018c, B:56:0x016e, B:58:0x0175, B:64:0x01a1, B:67:0x01ac, B:68:0x01e7, B:70:0x01eb, B:73:0x01f0, B:75:0x020a, B:76:0x0216, B:79:0x021c, B:82:0x0251, B:87:0x01cb, B:90:0x01d4, B:93:0x00b9, B:96:0x00c5, B:98:0x001b, B:102:0x002b, B:106:0x0038, B:110:0x0045, B:115:0x0054, B:119:0x0061), top: B:10:0x0013 }] */
-    /* JADX WARN: Removed duplicated region for block: B:36:0x00fd A[Catch: all -> 0x0028, TryCatch #0 {all -> 0x0028, blocks: (B:11:0x0013, B:12:0x0015, B:15:0x006d, B:18:0x0074, B:22:0x0084, B:24:0x0090, B:26:0x00ae, B:28:0x00b5, B:31:0x00de, B:33:0x00e4, B:34:0x00f7, B:36:0x00fd, B:39:0x0110, B:41:0x011e, B:43:0x0124, B:44:0x0131, B:46:0x013d, B:48:0x0149, B:50:0x0160, B:51:0x0185, B:53:0x018c, B:56:0x016e, B:58:0x0175, B:64:0x01a1, B:67:0x01ac, B:68:0x01e7, B:70:0x01eb, B:73:0x01f0, B:75:0x020a, B:76:0x0216, B:79:0x021c, B:82:0x0251, B:87:0x01cb, B:90:0x01d4, B:93:0x00b9, B:96:0x00c5, B:98:0x001b, B:102:0x002b, B:106:0x0038, B:110:0x0045, B:115:0x0054, B:119:0x0061), top: B:10:0x0013 }] */
-    /* JADX WARN: Removed duplicated region for block: B:66:0x01aa  */
-    /* JADX WARN: Removed duplicated region for block: B:70:0x01eb A[Catch: all -> 0x0028, TRY_LEAVE, TryCatch #0 {all -> 0x0028, blocks: (B:11:0x0013, B:12:0x0015, B:15:0x006d, B:18:0x0074, B:22:0x0084, B:24:0x0090, B:26:0x00ae, B:28:0x00b5, B:31:0x00de, B:33:0x00e4, B:34:0x00f7, B:36:0x00fd, B:39:0x0110, B:41:0x011e, B:43:0x0124, B:44:0x0131, B:46:0x013d, B:48:0x0149, B:50:0x0160, B:51:0x0185, B:53:0x018c, B:56:0x016e, B:58:0x0175, B:64:0x01a1, B:67:0x01ac, B:68:0x01e7, B:70:0x01eb, B:73:0x01f0, B:75:0x020a, B:76:0x0216, B:79:0x021c, B:82:0x0251, B:87:0x01cb, B:90:0x01d4, B:93:0x00b9, B:96:0x00c5, B:98:0x001b, B:102:0x002b, B:106:0x0038, B:110:0x0045, B:115:0x0054, B:119:0x0061), top: B:10:0x0013 }] */
-    /* JADX WARN: Removed duplicated region for block: B:78:0x021a  */
-    /* JADX WARN: Removed duplicated region for block: B:86:? A[RETURN, SYNTHETIC] */
-    /* JADX WARN: Removed duplicated region for block: B:87:0x01cb A[Catch: all -> 0x0028, TRY_LEAVE, TryCatch #0 {all -> 0x0028, blocks: (B:11:0x0013, B:12:0x0015, B:15:0x006d, B:18:0x0074, B:22:0x0084, B:24:0x0090, B:26:0x00ae, B:28:0x00b5, B:31:0x00de, B:33:0x00e4, B:34:0x00f7, B:36:0x00fd, B:39:0x0110, B:41:0x011e, B:43:0x0124, B:44:0x0131, B:46:0x013d, B:48:0x0149, B:50:0x0160, B:51:0x0185, B:53:0x018c, B:56:0x016e, B:58:0x0175, B:64:0x01a1, B:67:0x01ac, B:68:0x01e7, B:70:0x01eb, B:73:0x01f0, B:75:0x020a, B:76:0x0216, B:79:0x021c, B:82:0x0251, B:87:0x01cb, B:90:0x01d4, B:93:0x00b9, B:96:0x00c5, B:98:0x001b, B:102:0x002b, B:106:0x0038, B:110:0x0045, B:115:0x0054, B:119:0x0061), top: B:10:0x0013 }] */
+    /* JADX WARN: Removed duplicated region for block: B:32:0x00da A[Catch: all -> 0x024e, TryCatch #0 {all -> 0x024e, blocks: (B:12:0x0012, B:13:0x0015, B:16:0x0066, B:19:0x006d, B:23:0x0080, B:25:0x008c, B:27:0x00aa, B:29:0x00b1, B:32:0x00da, B:34:0x00e0, B:35:0x00f3, B:37:0x00f9, B:40:0x010c, B:42:0x011a, B:44:0x0120, B:45:0x012d, B:47:0x0139, B:49:0x0145, B:51:0x015c, B:52:0x0181, B:54:0x0188, B:57:0x016a, B:59:0x0171, B:65:0x019d, B:68:0x01a8, B:69:0x01e3, B:71:0x01e7, B:74:0x01ec, B:76:0x0206, B:77:0x0212, B:80:0x0218, B:83:0x0248, B:88:0x01c7, B:91:0x01d0, B:94:0x00b5, B:97:0x00c1, B:99:0x001b, B:102:0x0027, B:105:0x0033, B:108:0x003f, B:112:0x004d, B:116:0x005a), top: B:11:0x0012 }] */
+    /* JADX WARN: Removed duplicated region for block: B:37:0x00f9 A[Catch: all -> 0x024e, TryCatch #0 {all -> 0x024e, blocks: (B:12:0x0012, B:13:0x0015, B:16:0x0066, B:19:0x006d, B:23:0x0080, B:25:0x008c, B:27:0x00aa, B:29:0x00b1, B:32:0x00da, B:34:0x00e0, B:35:0x00f3, B:37:0x00f9, B:40:0x010c, B:42:0x011a, B:44:0x0120, B:45:0x012d, B:47:0x0139, B:49:0x0145, B:51:0x015c, B:52:0x0181, B:54:0x0188, B:57:0x016a, B:59:0x0171, B:65:0x019d, B:68:0x01a8, B:69:0x01e3, B:71:0x01e7, B:74:0x01ec, B:76:0x0206, B:77:0x0212, B:80:0x0218, B:83:0x0248, B:88:0x01c7, B:91:0x01d0, B:94:0x00b5, B:97:0x00c1, B:99:0x001b, B:102:0x0027, B:105:0x0033, B:108:0x003f, B:112:0x004d, B:116:0x005a), top: B:11:0x0012 }] */
+    /* JADX WARN: Removed duplicated region for block: B:67:0x01a6  */
+    /* JADX WARN: Removed duplicated region for block: B:71:0x01e7 A[Catch: all -> 0x024e, TRY_LEAVE, TryCatch #0 {all -> 0x024e, blocks: (B:12:0x0012, B:13:0x0015, B:16:0x0066, B:19:0x006d, B:23:0x0080, B:25:0x008c, B:27:0x00aa, B:29:0x00b1, B:32:0x00da, B:34:0x00e0, B:35:0x00f3, B:37:0x00f9, B:40:0x010c, B:42:0x011a, B:44:0x0120, B:45:0x012d, B:47:0x0139, B:49:0x0145, B:51:0x015c, B:52:0x0181, B:54:0x0188, B:57:0x016a, B:59:0x0171, B:65:0x019d, B:68:0x01a8, B:69:0x01e3, B:71:0x01e7, B:74:0x01ec, B:76:0x0206, B:77:0x0212, B:80:0x0218, B:83:0x0248, B:88:0x01c7, B:91:0x01d0, B:94:0x00b5, B:97:0x00c1, B:99:0x001b, B:102:0x0027, B:105:0x0033, B:108:0x003f, B:112:0x004d, B:116:0x005a), top: B:11:0x0012 }] */
+    /* JADX WARN: Removed duplicated region for block: B:79:0x0216  */
+    /* JADX WARN: Removed duplicated region for block: B:87:? A[RETURN, SYNTHETIC] */
+    /* JADX WARN: Removed duplicated region for block: B:88:0x01c7 A[Catch: all -> 0x024e, TRY_LEAVE, TryCatch #0 {all -> 0x024e, blocks: (B:12:0x0012, B:13:0x0015, B:16:0x0066, B:19:0x006d, B:23:0x0080, B:25:0x008c, B:27:0x00aa, B:29:0x00b1, B:32:0x00da, B:34:0x00e0, B:35:0x00f3, B:37:0x00f9, B:40:0x010c, B:42:0x011a, B:44:0x0120, B:45:0x012d, B:47:0x0139, B:49:0x0145, B:51:0x015c, B:52:0x0181, B:54:0x0188, B:57:0x016a, B:59:0x0171, B:65:0x019d, B:68:0x01a8, B:69:0x01e3, B:71:0x01e7, B:74:0x01ec, B:76:0x0206, B:77:0x0212, B:80:0x0218, B:83:0x0248, B:88:0x01c7, B:91:0x01d0, B:94:0x00b5, B:97:0x00c1, B:99:0x001b, B:102:0x0027, B:105:0x0033, B:108:0x003f, B:112:0x004d, B:116:0x005a), top: B:11:0x0012 }] */
     /*
         Code decompiled incorrectly, please refer to instructions dump.
         To view partially-correct code enable 'Show inconsistent code' option in preferences
     */
-    public void d(com.tencent.bugly.crashreport.crash.CrashDetailBean r22) {
+    public void d(com.tencent.bugly.crashreport.crash.CrashDetailBean r23) {
         /*
-            Method dump skipped, instructions count: 646
+            Method dump skipped, instructions count: 638
             To view this dump change 'Code comments level' option to 'DEBUG'
         */
         throw new UnsupportedOperationException("Method not decompiled: com.tencent.bugly.crashreport.crash.e.d(com.tencent.bugly.crashreport.crash.CrashDetailBean):void");
     }
 
     public void e(CrashDetailBean crashDetailBean) {
-        int i10 = crashDetailBean.f22375b;
-        if (i10 != 0) {
-            if (i10 != 1) {
-                if (i10 == 3 && !h.g().j()) {
+        int i2 = crashDetailBean.f24788b;
+        if (i2 != 0) {
+            if (i2 != 1) {
+                if (i2 == 3 && !h.g().j()) {
                     return;
                 }
             } else if (!h.g().k()) {
@@ -217,9 +215,9 @@ public class e {
         } else if (!h.g().k()) {
             return;
         }
-        if (this.f22452f != null) {
+        if (this.f24845f != null) {
             X.a("Calling 'onCrashHandleEnd' of RQD crash listener.", new Object[0]);
-            this.f22452f.a(crashDetailBean.f22375b == 1);
+            this.f24845f.a(crashDetailBean.f24788b == 1);
         }
     }
 
@@ -227,15 +225,15 @@ public class e {
         if (crashDetailBean == null) {
             return;
         }
-        ContentValues b10 = b(crashDetailBean);
-        if (b10 != null) {
-            long a10 = J.a().a("t_cr", b10, (I) null, true);
-            if (a10 >= 0) {
+        ContentValues b2 = b(crashDetailBean);
+        if (b2 != null) {
+            long a2 = J.a().a("t_cr", b2, (I) null, true);
+            if (a2 >= 0) {
                 X.a("insert %s success!", "t_cr");
-                crashDetailBean.f22374a = a10;
+                crashDetailBean.f24787a = a2;
             }
         }
-        if (h.f22470i) {
+        if (h.f24863i) {
             g(crashDetailBean);
         }
     }
@@ -244,65 +242,69 @@ public class e {
         if (list == null || list.size() == 0) {
             return;
         }
-        StringBuilder sb2 = new StringBuilder();
-        sb2.append("_id");
-        sb2.append(" in ");
-        sb2.append("(");
+        StringBuilder sb = new StringBuilder();
+        sb.append("_id");
+        sb.append(" in ");
+        sb.append("(");
         Iterator<b> it = list.iterator();
         while (it.hasNext()) {
-            sb2.append(it.next().f22439a);
-            sb2.append(",");
+            sb.append(it.next().f24832a);
+            sb.append(",");
         }
-        StringBuilder sb3 = new StringBuilder(sb2.substring(0, sb2.lastIndexOf(",")));
-        sb3.append(")");
-        String sb4 = sb3.toString();
-        sb3.setLength(0);
+        StringBuilder sb2 = new StringBuilder(sb.substring(0, sb.lastIndexOf(",")));
+        sb2.append(")");
+        String sb3 = sb2.toString();
+        sb2.setLength(0);
         try {
-            X.a("deleted %s data %d", "t_cr", Integer.valueOf(J.a().a("t_cr", sb4, (String[]) null, (I) null, true)));
-        } catch (Throwable th2) {
-            if (X.b(th2)) {
+            int a2 = J.a().a("t_cr", sb3, (String[]) null, (I) null, true);
+            Object[] objArr = new Object[2];
+            objArr[0] = "t_cr";
+            objArr[1] = Integer.valueOf(a2);
+            X.a("deleted %s data %d", objArr);
+        } catch (Throwable th) {
+            if (X.b(th)) {
                 return;
             }
-            th2.printStackTrace();
+            th.printStackTrace();
         }
     }
 
     public List<CrashDetailBean> b() {
-        StrategyBean c10 = com.tencent.bugly.crashreport.common.strategy.c.b().c();
-        if (c10 == null) {
+        StrategyBean c2 = com.tencent.bugly.crashreport.common.strategy.c.b().c();
+        if (c2 == null) {
             X.e("have not synced remote!", new Object[0]);
             return null;
         }
-        if (!c10.f22342f) {
+        if (!c2.f24768f) {
             X.e("Crashreport remote closed, please check your APP ID correct and Version available, then uninstall and reinstall your app.", new Object[0]);
             X.d("[init] WARNING! Crashreport closed by server, please check your APP ID correct and Version available, then uninstall and reinstall your app.", new Object[0]);
             return null;
         }
         long currentTimeMillis = System.currentTimeMillis();
-        long b10 = ca.b();
-        List<b> a10 = a();
-        X.a("Size of crash list loaded from DB: %s", Integer.valueOf(a10.size()));
-        if (a10.size() <= 0) {
+        long b2 = ca.b();
+        List<b> a2 = a();
+        X.a("Size of crash list loaded from DB: %s", Integer.valueOf(a2.size()));
+        if (a2.size() <= 0) {
             return null;
         }
         List<b> arrayList = new ArrayList<>();
-        arrayList.addAll(b(a10));
-        a10.removeAll(arrayList);
-        Iterator<b> it = a10.iterator();
+        arrayList.addAll(b(a2));
+        a2.removeAll(arrayList);
+        Iterator<b> it = a2.iterator();
         while (it.hasNext()) {
             b next = it.next();
-            long j10 = next.f22440b;
-            if (j10 < b10 - h.f22468g) {
+            long j2 = next.f24833b;
+            if (j2 < b2 - h.f24861g) {
                 it.remove();
                 arrayList.add(next);
-            } else if (next.f22442d) {
-                if (j10 >= currentTimeMillis - 86400000) {
+            } else if (next.f24835d) {
+                if (j2 >= currentTimeMillis - 86400000) {
                     it.remove();
-                } else if (!next.f22443e) {
+                } else if (!next.f24836e) {
                     it.remove();
                     arrayList.add(next);
                 }
-            } else if (next.f22444f >= 3 && j10 < currentTimeMillis - 86400000) {
+            } else if (next.f24837f >= 3 && j2 < currentTimeMillis - 86400000) {
                 it.remove();
                 arrayList.add(next);
             }
@@ -311,13 +313,13 @@ public class e {
             c(arrayList);
         }
         List<CrashDetailBean> arrayList2 = new ArrayList<>();
-        List<CrashDetailBean> a11 = a(a10);
-        if (a11 != null && a11.size() > 0) {
+        List<CrashDetailBean> a3 = a(a2);
+        if (a3 != null && a3.size() > 0) {
             String str = com.tencent.bugly.crashreport.common.info.a.m().E;
-            Iterator<CrashDetailBean> it2 = a11.iterator();
+            Iterator<CrashDetailBean> it2 = a3.iterator();
             while (it2.hasNext()) {
                 CrashDetailBean next2 = it2.next();
-                if (!str.equals(next2.f22379f)) {
+                if (!str.equals(next2.f24792f)) {
                     it2.remove();
                     arrayList2.add(next2);
                 }
@@ -326,72 +328,70 @@ public class e {
         if (arrayList2.size() > 0) {
             d(arrayList2);
         }
-        return a11;
+        return a3;
     }
 
-    public boolean a(CrashDetailBean crashDetailBean, int i10) {
-        ArrayList arrayList;
+    public boolean a(CrashDetailBean crashDetailBean, int i2) {
         if (crashDetailBean == null) {
             return true;
         }
-        String str = h.f22475n;
+        String str = h.n;
         if (str != null && !str.isEmpty()) {
-            X.a("Crash filter for crash stack is: %s", h.f22475n);
-            if (crashDetailBean.f22390q.contains(h.f22475n)) {
+            X.a("Crash filter for crash stack is: %s", h.n);
+            if (crashDetailBean.q.contains(h.n)) {
                 X.e("This crash contains the filter string set. It will not be record and upload.", new Object[0]);
                 return true;
             }
         }
-        String str2 = h.f22476o;
+        String str2 = h.o;
         if (str2 != null && !str2.isEmpty()) {
-            X.a("Crash regular filter for crash stack is: %s", h.f22476o);
-            if (Pattern.compile(h.f22476o).matcher(crashDetailBean.f22390q).find()) {
+            X.a("Crash regular filter for crash stack is: %s", h.o);
+            if (Pattern.compile(h.o).matcher(crashDetailBean.q).find()) {
                 X.e("This crash matches the regular filter string set. It will not be record and upload.", new Object[0]);
                 return true;
             }
         }
-        if (crashDetailBean.f22375b != 2) {
-            L l10 = new L();
-            l10.f22629b = 1;
-            l10.f22630c = crashDetailBean.A;
-            l10.f22631d = crashDetailBean.B;
-            l10.f22632e = crashDetailBean.f22391r;
-            this.f22450d.b(1);
-            this.f22450d.c(l10);
+        if (crashDetailBean.f24788b != 2) {
+            L l = new L();
+            l.f24980b = 1;
+            l.f24981c = crashDetailBean.A;
+            l.f24982d = crashDetailBean.B;
+            l.f24983e = crashDetailBean.r;
+            this.f24843d.b(1);
+            this.f24843d.c(l);
             X.d("[crash] a crash occur, handling...", new Object[0]);
         } else {
             X.d("[crash] a caught exception occur, handling...", new Object[0]);
         }
-        List<b> a10 = a();
-        if (a10 == null || a10.size() <= 0) {
-            arrayList = null;
-        } else {
+        List<b> a2 = a();
+        ArrayList arrayList = null;
+        if (a2 != null && a2.size() > 0) {
             arrayList = new ArrayList(10);
             ArrayList arrayList2 = new ArrayList(10);
-            arrayList.addAll(b(a10));
-            a10.removeAll(arrayList);
-            if (a10.size() > 20) {
+            arrayList.addAll(b(a2));
+            a2.removeAll(arrayList);
+            if (a2.size() > 20) {
                 a(5);
             }
             if (a(crashDetailBean)) {
-                boolean z10 = false;
-                for (b bVar : a10) {
-                    if (crashDetailBean.f22394u.equals(bVar.f22441c)) {
-                        if (bVar.f22443e) {
-                            z10 = true;
+                boolean z = false;
+                for (b bVar : a2) {
+                    if (crashDetailBean.u.equals(bVar.f24834c)) {
+                        if (bVar.f24836e) {
+                            z = true;
                         }
                         arrayList2.add(bVar);
                     }
                 }
-                if (z10 || arrayList2.size() >= h.f22464c) {
+                if (z || arrayList2.size() >= h.f24857c) {
                     X.c("same crash occur too much do merged!", new Object[0]);
-                    CrashDetailBean a11 = a(arrayList2, crashDetailBean);
+                    CrashDetailBean a3 = a(arrayList2, crashDetailBean);
                     for (b bVar2 : arrayList2) {
-                        if (bVar2.f22439a != a11.f22374a) {
+                        if (bVar2.f24832a != a3.f24787a) {
                             arrayList.add(bVar2);
                         }
                     }
-                    f(a11);
+                    f(a3);
                     c(arrayList);
                     X.d("[crash] save crash success. For this device crash many times, it will not upload crashes immediately", new Object[0]);
                     return true;
@@ -406,32 +406,32 @@ public class e {
         return false;
     }
 
-    public ContentValues b(CrashDetailBean crashDetailBean) {
+    protected ContentValues b(CrashDetailBean crashDetailBean) {
         if (crashDetailBean == null) {
             return null;
         }
         try {
             ContentValues contentValues = new ContentValues();
-            long j10 = crashDetailBean.f22374a;
-            if (j10 > 0) {
-                contentValues.put("_id", Long.valueOf(j10));
+            long j2 = crashDetailBean.f24787a;
+            if (j2 > 0) {
+                contentValues.put("_id", Long.valueOf(j2));
             }
-            contentValues.put("_tm", Long.valueOf(crashDetailBean.f22391r));
-            contentValues.put("_s1", crashDetailBean.f22394u);
-            contentValues.put("_up", Integer.valueOf(crashDetailBean.f22377d ? 1 : 0));
-            contentValues.put("_me", Integer.valueOf(crashDetailBean.f22383j ? 1 : 0));
-            contentValues.put("_uc", Integer.valueOf(crashDetailBean.f22385l));
+            contentValues.put("_tm", Long.valueOf(crashDetailBean.r));
+            contentValues.put("_s1", crashDetailBean.u);
+            contentValues.put("_up", Integer.valueOf(crashDetailBean.f24790d ? 1 : 0));
+            contentValues.put("_me", Integer.valueOf(crashDetailBean.f24796j ? 1 : 0));
+            contentValues.put("_uc", Integer.valueOf(crashDetailBean.l));
             contentValues.put("_dt", ca.a(crashDetailBean));
             return contentValues;
-        } catch (Throwable th2) {
-            if (!X.b(th2)) {
-                th2.printStackTrace();
+        } catch (Throwable th) {
+            if (!X.b(th)) {
+                th.printStackTrace();
             }
             return null;
         }
     }
 
-    public CrashDetailBean b(Cursor cursor) {
+    protected CrashDetailBean b(Cursor cursor) {
         if (cursor == null) {
             return null;
         }
@@ -440,15 +440,15 @@ public class e {
             if (blob == null) {
                 return null;
             }
-            long j10 = cursor.getLong(cursor.getColumnIndex("_id"));
+            long j2 = cursor.getLong(cursor.getColumnIndex("_id"));
             CrashDetailBean crashDetailBean = (CrashDetailBean) ca.a(blob, CrashDetailBean.CREATOR);
             if (crashDetailBean != null) {
-                crashDetailBean.f22374a = j10;
+                crashDetailBean.f24787a = j2;
             }
             return crashDetailBean;
-        } catch (Throwable th2) {
-            if (!X.b(th2)) {
-                th2.printStackTrace();
+        } catch (Throwable th) {
+            if (!X.b(th)) {
+                th.printStackTrace();
             }
             return null;
         }
@@ -460,113 +460,117 @@ public class e {
                 if (list.size() == 0) {
                     return;
                 }
-                StringBuilder sb2 = new StringBuilder();
+                StringBuilder sb = new StringBuilder();
                 for (CrashDetailBean crashDetailBean : list) {
-                    sb2.append(" or ");
-                    sb2.append("_id");
-                    sb2.append(" = ");
-                    sb2.append(crashDetailBean.f22374a);
+                    sb.append(" or ");
+                    sb.append("_id");
+                    sb.append(" = ");
+                    sb.append(crashDetailBean.f24787a);
                 }
-                String sb3 = sb2.toString();
-                if (sb3.length() > 0) {
-                    sb3 = sb3.substring(4);
+                String sb2 = sb.toString();
+                if (sb2.length() > 0) {
+                    sb2 = sb2.substring(4);
                 }
-                String str = sb3;
-                sb2.setLength(0);
-                X.a("deleted %s data %d", "t_cr", Integer.valueOf(J.a().a("t_cr", str, (String[]) null, (I) null, true)));
-            } catch (Throwable th2) {
-                if (X.b(th2)) {
+                String str = sb2;
+                sb.setLength(0);
+                int a2 = J.a().a("t_cr", str, (String[]) null, (I) null, true);
+                Object[] objArr = new Object[2];
+                objArr[0] = "t_cr";
+                objArr[1] = Integer.valueOf(a2);
+                X.a("deleted %s data %d", objArr);
+            } catch (Throwable th) {
+                if (X.b(th)) {
                     return;
                 }
-                th2.printStackTrace();
+                th.printStackTrace();
             }
         }
     }
 
     public boolean a(CrashDetailBean crashDetailBean) {
-        int i10 = crashDetailBean.f22375b;
-        return !com.tencent.bugly.b.f22066c && (!((i10 == 3) || (i10 == 0 || i10 == 1)) || h.f22465d);
+        int i2 = crashDetailBean.f24788b;
+        return !com.tencent.bugly.b.f24588c && (!((i2 == 3) || (i2 == 0 || i2 == 1)) || h.f24858d);
     }
 
-    public void a(CrashDetailBean crashDetailBean, long j10, boolean z10) {
-        if (h.f22473l) {
+    public void a(CrashDetailBean crashDetailBean, long j2, boolean z) {
+        if (h.l) {
             X.c("try to upload right now", new Object[0]);
             ArrayList arrayList = new ArrayList();
             arrayList.add(crashDetailBean);
-            a(arrayList, j10, z10, crashDetailBean.f22375b == 7, z10);
+            a(arrayList, j2, z, crashDetailBean.f24788b == 7, z);
             return;
         }
         X.c("do not upload spot crash right now, crash would be uploaded when app next start", new Object[0]);
     }
 
-    public void a(List<CrashDetailBean> list, long j10, boolean z10, boolean z11, boolean z12) {
-        if (!com.tencent.bugly.crashreport.common.info.a.a(this.f22448b).f22300j) {
+    public void a(List<CrashDetailBean> list, long j2, boolean z, boolean z2, boolean z3) {
+        if (!com.tencent.bugly.crashreport.common.info.a.a(this.f24841b).f24757j) {
             X.e("warn: not upload process", new Object[0]);
             return;
         }
-        T t10 = this.f22449c;
-        if (t10 == null) {
+        T t = this.f24842c;
+        if (t == null) {
             X.e("warn: upload manager is null", new Object[0]);
             return;
         }
-        if (!z12 && !t10.a(h.f22462a)) {
+        if (!z3 && !t.a(h.f24855a)) {
             X.e("warn: not crashHappen or not should upload", new Object[0]);
             return;
         }
-        StrategyBean c10 = this.f22451e.c();
-        if (!c10.f22342f) {
+        StrategyBean c2 = this.f24844e.c();
+        if (!c2.f24768f) {
             X.e("remote report is disable!", new Object[0]);
             X.d("[crash] server closed bugly in this app. please check your appid if is correct, and re-install it", new Object[0]);
             return;
         }
         if (list != null && list.size() != 0) {
             try {
-                String str = c10.f22354r;
-                String str2 = StrategyBean.f22338b;
-                oa a10 = a(this.f22448b, list, com.tencent.bugly.crashreport.common.info.a.m());
-                if (a10 == null) {
+                String str = c2.r;
+                String str2 = StrategyBean.f24764b;
+                oa a2 = a(this.f24841b, list, com.tencent.bugly.crashreport.common.info.a.m());
+                if (a2 == null) {
                     X.e("create eupPkg fail!", new Object[0]);
                     return;
                 }
-                byte[] a11 = M.a((AbstractC0868m) a10);
-                if (a11 == null) {
+                byte[] a3 = M.a((AbstractC0909m) a2);
+                if (a3 == null) {
                     X.e("send encode fail!", new Object[0]);
                     return;
                 }
-                pa a12 = M.a(this.f22448b, 830, a11);
-                if (a12 == null) {
+                pa a4 = M.a(this.f24841b, 830, a3);
+                if (a4 == null) {
                     X.e("request package is null.", new Object[0]);
                     return;
                 }
                 d dVar = new d(this, list);
-                if (z10) {
-                    this.f22449c.a(f22447a, a12, str, str2, dVar, j10, z11);
+                if (z) {
+                    this.f24842c.a(f24840a, a4, str, str2, dVar, j2, z2);
                     return;
                 } else {
-                    this.f22449c.a(f22447a, a12, str, str2, dVar, false);
+                    this.f24842c.a(f24840a, a4, str, str2, dVar, false);
                     return;
                 }
-            } catch (Throwable th2) {
-                X.b("req cr error %s", th2.toString());
-                if (X.a(th2)) {
+            } catch (Throwable th) {
+                X.b("req cr error %s", th.toString());
+                if (X.a(th)) {
                     return;
                 }
-                th2.printStackTrace();
+                th.printStackTrace();
                 return;
             }
         }
         X.e("warn: crashList is null or crashList num is 0", new Object[0]);
     }
 
-    public void a(boolean z10, List<CrashDetailBean> list) {
+    public void a(boolean z, List<CrashDetailBean> list) {
         if (list != null && list.size() > 0) {
-            X.a("up finish update state %b", Boolean.valueOf(z10));
+            X.a("up finish update state %b", Boolean.valueOf(z));
             for (CrashDetailBean crashDetailBean : list) {
-                X.a("pre uid:%s uc:%d re:%b me:%b", crashDetailBean.f22376c, Integer.valueOf(crashDetailBean.f22385l), Boolean.valueOf(crashDetailBean.f22377d), Boolean.valueOf(crashDetailBean.f22383j));
-                int i10 = crashDetailBean.f22385l + 1;
-                crashDetailBean.f22385l = i10;
-                crashDetailBean.f22377d = z10;
-                X.a("set uid:%s uc:%d re:%b me:%b", crashDetailBean.f22376c, Integer.valueOf(i10), Boolean.valueOf(crashDetailBean.f22377d), Boolean.valueOf(crashDetailBean.f22383j));
+                X.a("pre uid:%s uc:%d re:%b me:%b", crashDetailBean.f24789c, Integer.valueOf(crashDetailBean.l), Boolean.valueOf(crashDetailBean.f24790d), Boolean.valueOf(crashDetailBean.f24796j));
+                int i2 = crashDetailBean.l + 1;
+                crashDetailBean.l = i2;
+                crashDetailBean.f24790d = z;
+                X.a("set uid:%s uc:%d re:%b me:%b", crashDetailBean.f24789c, Integer.valueOf(i2), Boolean.valueOf(crashDetailBean.f24790d), Boolean.valueOf(crashDetailBean.f24796j));
             }
             Iterator<CrashDetailBean> it = list.iterator();
             while (it.hasNext()) {
@@ -574,7 +578,7 @@ public class e {
             }
             X.a("update state size %d", Integer.valueOf(list.size()));
         }
-        if (z10) {
+        if (z) {
             return;
         }
         X.d("[crash] upload fail.", new Object[0]);
@@ -585,48 +589,48 @@ public class e {
         if (list == null || list.size() == 0) {
             return null;
         }
-        StringBuilder sb2 = new StringBuilder();
-        sb2.append("_id");
-        sb2.append(" in ");
-        sb2.append("(");
+        StringBuilder sb = new StringBuilder();
+        sb.append("_id");
+        sb.append(" in ");
+        sb.append("(");
         Iterator<b> it = list.iterator();
         while (it.hasNext()) {
-            sb2.append(it.next().f22439a);
-            sb2.append(",");
+            sb.append(it.next().f24832a);
+            sb.append(",");
         }
-        if (sb2.toString().contains(",")) {
-            sb2 = new StringBuilder(sb2.substring(0, sb2.lastIndexOf(",")));
+        if (sb.toString().contains(",")) {
+            sb = new StringBuilder(sb.substring(0, sb.lastIndexOf(",")));
         }
-        sb2.append(")");
-        String sb3 = sb2.toString();
-        sb2.setLength(0);
+        sb.append(")");
+        String sb2 = sb.toString();
+        sb.setLength(0);
         try {
-            cursor = J.a().a("t_cr", null, sb3, null, null, true);
+            cursor = J.a().a("t_cr", null, sb2, null, null, true);
             if (cursor == null) {
                 return null;
             }
             try {
                 ArrayList arrayList = new ArrayList();
-                sb2.append("_id");
-                sb2.append(" in ");
-                sb2.append("(");
-                int i10 = 0;
+                sb.append("_id");
+                sb.append(" in ");
+                sb.append("(");
+                int i2 = 0;
                 while (cursor.moveToNext()) {
                     try {
-                        CrashDetailBean b10 = b(cursor);
-                        if (b10 != null) {
-                            arrayList.add(b10);
+                        CrashDetailBean b2 = b(cursor);
+                        if (b2 != null) {
+                            arrayList.add(b2);
                         } else {
                             try {
-                                sb2.append(cursor.getLong(cursor.getColumnIndex("_id")));
-                                sb2.append(",");
-                                i10++;
+                                sb.append(cursor.getLong(cursor.getColumnIndex("_id")));
+                                sb.append(",");
+                                i2++;
                             } catch (Throwable unused) {
                                 X.e("unknown id!", new Object[0]);
                             }
                         }
-                    } catch (Throwable th2) {
-                        th = th2;
+                    } catch (Throwable th) {
+                        th = th;
                         try {
                             if (!X.b(th)) {
                                 th.printStackTrace();
@@ -642,41 +646,45 @@ public class e {
                         }
                     }
                 }
-                if (sb2.toString().contains(",")) {
-                    sb2 = new StringBuilder(sb2.substring(0, sb2.lastIndexOf(",")));
+                if (sb.toString().contains(",")) {
+                    sb = new StringBuilder(sb.substring(0, sb.lastIndexOf(",")));
                 }
-                sb2.append(")");
-                String sb4 = sb2.toString();
-                if (i10 > 0) {
-                    X.e("deleted %s illegal data %d", "t_cr", Integer.valueOf(J.a().a("t_cr", sb4, (String[]) null, (I) null, true)));
+                sb.append(")");
+                String sb3 = sb.toString();
+                if (i2 > 0) {
+                    int a2 = J.a().a("t_cr", sb3, (String[]) null, (I) null, true);
+                    Object[] objArr = new Object[2];
+                    objArr[0] = "t_cr";
+                    objArr[1] = Integer.valueOf(a2);
+                    X.e("deleted %s illegal data %d", objArr);
                 }
                 cursor.close();
                 return arrayList;
-            } catch (Throwable th3) {
-                th = th3;
+            } catch (Throwable th2) {
+                th = th2;
             }
-        } catch (Throwable th4) {
-            th = th4;
+        } catch (Throwable th3) {
+            th = th3;
             cursor = null;
         }
     }
 
-    public b a(Cursor cursor) {
+    protected b a(Cursor cursor) {
         if (cursor == null) {
             return null;
         }
         try {
             b bVar = new b();
-            bVar.f22439a = cursor.getLong(cursor.getColumnIndex("_id"));
-            bVar.f22440b = cursor.getLong(cursor.getColumnIndex("_tm"));
-            bVar.f22441c = cursor.getString(cursor.getColumnIndex("_s1"));
-            bVar.f22442d = cursor.getInt(cursor.getColumnIndex("_up")) == 1;
-            bVar.f22443e = cursor.getInt(cursor.getColumnIndex("_me")) == 1;
-            bVar.f22444f = cursor.getInt(cursor.getColumnIndex("_uc"));
+            bVar.f24832a = cursor.getLong(cursor.getColumnIndex("_id"));
+            bVar.f24833b = cursor.getLong(cursor.getColumnIndex("_tm"));
+            bVar.f24834c = cursor.getString(cursor.getColumnIndex("_s1"));
+            bVar.f24835d = cursor.getInt(cursor.getColumnIndex("_up")) == 1;
+            bVar.f24836e = cursor.getInt(cursor.getColumnIndex("_me")) == 1;
+            bVar.f24837f = cursor.getInt(cursor.getColumnIndex("_uc"));
             return bVar;
-        } catch (Throwable th2) {
-            if (!X.b(th2)) {
-                th2.printStackTrace();
+        } catch (Throwable th) {
+            if (!X.b(th)) {
+                th.printStackTrace();
             }
             return null;
         }
@@ -686,40 +694,47 @@ public class e {
         ArrayList arrayList = new ArrayList();
         Cursor cursor = null;
         try {
-            Cursor a10 = J.a().a("t_cr", new String[]{"_id", "_tm", "_s1", "_up", "_me", "_uc"}, null, null, null, true);
-            if (a10 == null) {
-                if (a10 != null) {
-                    a10.close();
+            String[] strArr = new String[6];
+            strArr[0] = "_id";
+            strArr[1] = "_tm";
+            strArr[2] = "_s1";
+            strArr[3] = "_up";
+            strArr[4] = "_me";
+            strArr[5] = "_uc";
+            Cursor a2 = J.a().a("t_cr", strArr, null, null, null, true);
+            if (a2 == null) {
+                if (a2 != null) {
+                    a2.close();
                 }
                 return null;
             }
             try {
-                if (a10.getCount() < 1) {
-                    a10.close();
+                if (a2.getCount() < 1) {
+                    a2.close();
                     return arrayList;
                 }
-                StringBuilder sb2 = new StringBuilder();
-                sb2.append("_id");
-                sb2.append(" in ");
-                sb2.append("(");
-                int i10 = 0;
-                while (a10.moveToNext()) {
+                StringBuilder sb = new StringBuilder();
+                sb.append("_id");
+                sb.append(" in ");
+                sb.append("(");
+                int i2 = 0;
+                while (a2.moveToNext()) {
                     try {
-                        b a11 = a(a10);
-                        if (a11 != null) {
-                            arrayList.add(a11);
+                        b a3 = a(a2);
+                        if (a3 != null) {
+                            arrayList.add(a3);
                         } else {
                             try {
-                                sb2.append(a10.getLong(a10.getColumnIndex("_id")));
-                                sb2.append(",");
-                                i10++;
+                                sb.append(a2.getLong(a2.getColumnIndex("_id")));
+                                sb.append(",");
+                                i2++;
                             } catch (Throwable unused) {
                                 X.e("unknown id!", new Object[0]);
                             }
                         }
-                    } catch (Throwable th2) {
-                        th = th2;
-                        cursor = a10;
+                    } catch (Throwable th) {
+                        th = th;
+                        cursor = a2;
                         try {
                             if (!X.b(th)) {
                                 th.printStackTrace();
@@ -732,308 +747,314 @@ public class e {
                         }
                     }
                 }
-                if (sb2.toString().contains(",")) {
-                    sb2 = new StringBuilder(sb2.substring(0, sb2.lastIndexOf(",")));
+                if (sb.toString().contains(",")) {
+                    sb = new StringBuilder(sb.substring(0, sb.lastIndexOf(",")));
                 }
-                sb2.append(")");
-                String sb3 = sb2.toString();
-                sb2.setLength(0);
-                if (i10 > 0) {
-                    X.e("deleted %s illegal data %d", "t_cr", Integer.valueOf(J.a().a("t_cr", sb3, (String[]) null, (I) null, true)));
+                sb.append(")");
+                String sb2 = sb.toString();
+                sb.setLength(0);
+                if (i2 > 0) {
+                    int a4 = J.a().a("t_cr", sb2, (String[]) null, (I) null, true);
+                    Object[] objArr = new Object[2];
+                    objArr[0] = "t_cr";
+                    objArr[1] = Integer.valueOf(a4);
+                    X.e("deleted %s illegal data %d", objArr);
                 }
-                a10.close();
+                a2.close();
                 return arrayList;
-            } catch (Throwable th3) {
-                th = th3;
+            } catch (Throwable th2) {
+                th = th2;
             }
-        } catch (Throwable th4) {
-            th = th4;
+        } catch (Throwable th3) {
+            th = th3;
         }
     }
 
-    public void a(int i10) {
-        if (i10 <= 0) {
+    public void a(int i2) {
+        if (i2 <= 0) {
             return;
         }
-        StringBuilder sb2 = new StringBuilder();
-        sb2.append("_id");
-        sb2.append(" in ");
-        sb2.append("(");
-        sb2.append("SELECT ");
-        sb2.append("_id");
-        sb2.append(" FROM ");
-        sb2.append("t_cr");
-        sb2.append(" order by ");
-        sb2.append("_id");
-        sb2.append(" limit ");
-        sb2.append(i10);
-        sb2.append(")");
-        String sb3 = sb2.toString();
-        sb2.setLength(0);
+        StringBuilder sb = new StringBuilder();
+        sb.append("_id");
+        sb.append(" in ");
+        sb.append("(");
+        sb.append("SELECT ");
+        sb.append("_id");
+        sb.append(" FROM ");
+        sb.append("t_cr");
+        sb.append(" order by ");
+        sb.append("_id");
+        sb.append(" limit ");
+        sb.append(i2);
+        sb.append(")");
+        String sb2 = sb.toString();
+        sb.setLength(0);
         try {
-            X.a("deleted first record %s data %d", "t_cr", Integer.valueOf(J.a().a("t_cr", sb3, (String[]) null, (I) null, true)));
-        } catch (Throwable th2) {
-            if (X.b(th2)) {
+            X.a("deleted first record %s data %d", "t_cr", Integer.valueOf(J.a().a("t_cr", sb2, (String[]) null, (I) null, true)));
+        } catch (Throwable th) {
+            if (X.b(th)) {
                 return;
             }
-            th2.printStackTrace();
+            th.printStackTrace();
         }
     }
 
     public static na a(Context context, CrashDetailBean crashDetailBean, com.tencent.bugly.crashreport.common.info.a aVar) {
-        ma a10;
-        ma a11;
+        ma a2;
+        ma a3;
         ma maVar;
         if (context != null && crashDetailBean != null && aVar != null) {
             na naVar = new na();
-            int i10 = crashDetailBean.f22375b;
-            switch (i10) {
+            int i2 = crashDetailBean.f24788b;
+            switch (i2) {
                 case 0:
-                    naVar.f22779i = crashDetailBean.f22383j ? "200" : "100";
+                    naVar.f25107i = crashDetailBean.f24796j ? "200" : "100";
                     break;
                 case 1:
-                    naVar.f22779i = crashDetailBean.f22383j ? "201" : PointType.ANTI_SPAM;
+                    naVar.f25107i = crashDetailBean.f24796j ? ErrorContants.REALTIME_LOADAD_ERROR : "101";
                     break;
                 case 2:
-                    naVar.f22779i = crashDetailBean.f22383j ? "202" : PointType.ANTI_SPAM_TOUCH;
+                    naVar.f25107i = crashDetailBean.f24796j ? ErrorContants.INIT_LOADAD_ERROR : "102";
                     break;
                 case 3:
-                    naVar.f22779i = crashDetailBean.f22383j ? "203" : "103";
+                    naVar.f25107i = crashDetailBean.f24796j ? "203" : "103";
                     break;
                 case 4:
-                    naVar.f22779i = crashDetailBean.f22383j ? "204" : "104";
+                    naVar.f25107i = crashDetailBean.f24796j ? "204" : "104";
                     break;
                 case 5:
-                    naVar.f22779i = crashDetailBean.f22383j ? "207" : PointType.WIND_ACTIVE;
+                    naVar.f25107i = crashDetailBean.f24796j ? "207" : "107";
                     break;
                 case 6:
-                    naVar.f22779i = crashDetailBean.f22383j ? "206" : "106";
+                    naVar.f25107i = crashDetailBean.f24796j ? "206" : "106";
                     break;
                 case 7:
-                    naVar.f22779i = crashDetailBean.f22383j ? "208" : "108";
+                    naVar.f25107i = crashDetailBean.f24796j ? "208" : "108";
                     break;
                 default:
-                    X.b("crash type error! %d", Integer.valueOf(i10));
+                    X.b("crash type error! %d", Integer.valueOf(i2));
                     break;
             }
-            naVar.f22780j = crashDetailBean.f22391r;
-            naVar.f22781k = crashDetailBean.f22387n;
-            naVar.f22782l = crashDetailBean.f22388o;
-            naVar.f22783m = crashDetailBean.f22389p;
-            naVar.f22785o = crashDetailBean.f22390q;
-            naVar.f22786p = crashDetailBean.f22399z;
-            naVar.f22787q = crashDetailBean.f22376c;
-            naVar.f22788r = null;
-            naVar.f22790t = crashDetailBean.f22386m;
-            naVar.f22791u = crashDetailBean.f22378e;
-            naVar.f22784n = crashDetailBean.B;
-            naVar.f22792v = null;
-            X.a("libInfo %s", naVar.f22793w);
-            Map<String, PlugInBean> map = crashDetailBean.f22381h;
+            naVar.f25108j = crashDetailBean.r;
+            naVar.k = crashDetailBean.n;
+            naVar.l = crashDetailBean.o;
+            naVar.m = crashDetailBean.p;
+            naVar.o = crashDetailBean.q;
+            naVar.p = crashDetailBean.z;
+            naVar.q = crashDetailBean.f24789c;
+            naVar.r = null;
+            naVar.t = crashDetailBean.m;
+            naVar.u = crashDetailBean.f24791e;
+            naVar.n = crashDetailBean.B;
+            naVar.v = null;
+            X.a("libInfo %s", naVar.w);
+            Map<String, PlugInBean> map = crashDetailBean.f24794h;
             if (map != null && map.size() > 0) {
-                naVar.f22794x = new ArrayList<>();
-                for (Map.Entry<String, PlugInBean> entry : crashDetailBean.f22381h.entrySet()) {
+                naVar.x = new ArrayList<>();
+                for (Map.Entry<String, PlugInBean> entry : crashDetailBean.f24794h.entrySet()) {
                     ka kaVar = new ka();
-                    kaVar.f22755a = entry.getValue().f22279a;
-                    kaVar.f22757c = entry.getValue().f22281c;
-                    kaVar.f22759e = entry.getValue().f22280b;
-                    naVar.f22794x.add(kaVar);
+                    kaVar.f25083a = entry.getValue().f24745a;
+                    kaVar.f25085c = entry.getValue().f24747c;
+                    kaVar.f25087e = entry.getValue().f24746b;
+                    naVar.x.add(kaVar);
                 }
             }
-            if (crashDetailBean.f22383j) {
-                naVar.f22789s = crashDetailBean.f22393t;
-                String str = crashDetailBean.f22392s;
+            if (crashDetailBean.f24796j) {
+                naVar.s = crashDetailBean.t;
+                String str = crashDetailBean.s;
                 if (str != null && str.length() > 0) {
-                    if (naVar.f22795y == null) {
-                        naVar.f22795y = new ArrayList<>();
+                    if (naVar.y == null) {
+                        naVar.y = new ArrayList<>();
                     }
                     try {
-                        naVar.f22795y.add(new ma((byte) 1, "alltimes.txt", crashDetailBean.f22392s.getBytes("utf-8")));
-                    } catch (UnsupportedEncodingException e10) {
-                        e10.printStackTrace();
-                        naVar.f22795y = null;
+                        naVar.y.add(new ma((byte) 1, "alltimes.txt", crashDetailBean.s.getBytes("utf-8")));
+                    } catch (UnsupportedEncodingException e2) {
+                        e2.printStackTrace();
+                        naVar.y = null;
                     }
                 }
-                Integer valueOf = Integer.valueOf(naVar.f22789s);
-                ArrayList<ma> arrayList = naVar.f22795y;
-                X.a("crashcount:%d sz:%d", valueOf, Integer.valueOf(arrayList != null ? arrayList.size() : 0));
+                Object[] objArr = new Object[2];
+                objArr[0] = Integer.valueOf(naVar.s);
+                ArrayList<ma> arrayList = naVar.y;
+                objArr[1] = Integer.valueOf(arrayList != null ? arrayList.size() : 0);
+                X.a("crashcount:%d sz:%d", objArr);
             }
-            if (crashDetailBean.f22396w != null) {
-                if (naVar.f22795y == null) {
-                    naVar.f22795y = new ArrayList<>();
+            if (crashDetailBean.w != null) {
+                if (naVar.y == null) {
+                    naVar.y = new ArrayList<>();
                 }
                 try {
-                    naVar.f22795y.add(new ma((byte) 1, "log.txt", crashDetailBean.f22396w.getBytes("utf-8")));
-                } catch (UnsupportedEncodingException e11) {
-                    e11.printStackTrace();
-                    naVar.f22795y = null;
+                    naVar.y.add(new ma((byte) 1, "log.txt", crashDetailBean.w.getBytes("utf-8")));
+                } catch (UnsupportedEncodingException e3) {
+                    e3.printStackTrace();
+                    naVar.y = null;
                 }
             }
-            if (crashDetailBean.f22397x != null) {
-                if (naVar.f22795y == null) {
-                    naVar.f22795y = new ArrayList<>();
+            if (crashDetailBean.x != null) {
+                if (naVar.y == null) {
+                    naVar.y = new ArrayList<>();
                 }
                 try {
-                    naVar.f22795y.add(new ma((byte) 1, "jniLog.txt", crashDetailBean.f22397x.getBytes("utf-8")));
-                } catch (UnsupportedEncodingException e12) {
-                    e12.printStackTrace();
-                    naVar.f22795y = null;
+                    naVar.y.add(new ma((byte) 1, "jniLog.txt", crashDetailBean.x.getBytes("utf-8")));
+                } catch (UnsupportedEncodingException e4) {
+                    e4.printStackTrace();
+                    naVar.y = null;
                 }
             }
             if (!ca.b(crashDetailBean.W)) {
-                if (naVar.f22795y == null) {
-                    naVar.f22795y = new ArrayList<>();
+                if (naVar.y == null) {
+                    naVar.y = new ArrayList<>();
                 }
                 try {
                     maVar = new ma((byte) 1, "crashInfos.txt", crashDetailBean.W.getBytes("utf-8"));
-                } catch (UnsupportedEncodingException e13) {
-                    e13.printStackTrace();
+                } catch (UnsupportedEncodingException e5) {
+                    e5.printStackTrace();
                     maVar = null;
                 }
                 if (maVar != null) {
                     X.a("attach crash infos", new Object[0]);
-                    naVar.f22795y.add(maVar);
+                    naVar.y.add(maVar);
                 }
             }
             if (crashDetailBean.X != null) {
-                if (naVar.f22795y == null) {
-                    naVar.f22795y = new ArrayList<>();
+                if (naVar.y == null) {
+                    naVar.y = new ArrayList<>();
                 }
-                ma a12 = a("backupRecord.zip", context, crashDetailBean.X);
-                if (a12 != null) {
+                ma a4 = a("backupRecord.zip", context, crashDetailBean.X);
+                if (a4 != null) {
                     X.a("attach backup record", new Object[0]);
-                    naVar.f22795y.add(a12);
+                    naVar.y.add(a4);
                 }
             }
-            byte[] bArr = crashDetailBean.f22398y;
+            byte[] bArr = crashDetailBean.y;
             if (bArr != null && bArr.length > 0) {
                 ma maVar2 = new ma((byte) 2, "buglylog.zip", bArr);
                 X.a("attach user log", new Object[0]);
-                if (naVar.f22795y == null) {
-                    naVar.f22795y = new ArrayList<>();
+                if (naVar.y == null) {
+                    naVar.y = new ArrayList<>();
                 }
-                naVar.f22795y.add(maVar2);
+                naVar.y.add(maVar2);
             }
-            if (crashDetailBean.f22375b == 3) {
-                if (naVar.f22795y == null) {
-                    naVar.f22795y = new ArrayList<>();
+            if (crashDetailBean.f24788b == 3) {
+                if (naVar.y == null) {
+                    naVar.y = new ArrayList<>();
                 }
                 X.a("crashBean.anrMessages:%s", crashDetailBean.Q);
                 Map<String, String> map2 = crashDetailBean.Q;
                 if (map2 != null && map2.containsKey("BUGLY_CR_01")) {
                     try {
                         if (!TextUtils.isEmpty(crashDetailBean.Q.get("BUGLY_CR_01"))) {
-                            naVar.f22795y.add(new ma((byte) 1, "anrMessage.txt", crashDetailBean.Q.get("BUGLY_CR_01").getBytes("utf-8")));
+                            naVar.y.add(new ma((byte) 1, "anrMessage.txt", crashDetailBean.Q.get("BUGLY_CR_01").getBytes("utf-8")));
                             X.a("attach anr message", new Object[0]);
                         }
-                    } catch (UnsupportedEncodingException e14) {
-                        e14.printStackTrace();
-                        naVar.f22795y = null;
+                    } catch (UnsupportedEncodingException e6) {
+                        e6.printStackTrace();
+                        naVar.y = null;
                     }
                     crashDetailBean.Q.remove("BUGLY_CR_01");
                 }
-                if (crashDetailBean.f22395v != null && NativeCrashHandler.getInstance().isEnableCatchAnrTrace() && (a11 = a("trace.zip", context, crashDetailBean.f22395v)) != null) {
+                if (crashDetailBean.v != null && NativeCrashHandler.getInstance().isEnableCatchAnrTrace() && (a3 = a("trace.zip", context, crashDetailBean.v)) != null) {
                     X.a("attach traces", new Object[0]);
-                    naVar.f22795y.add(a11);
+                    naVar.y.add(a3);
                 }
             }
-            if (crashDetailBean.f22375b == 1) {
-                if (naVar.f22795y == null) {
-                    naVar.f22795y = new ArrayList<>();
+            if (crashDetailBean.f24788b == 1) {
+                if (naVar.y == null) {
+                    naVar.y = new ArrayList<>();
                 }
-                String str2 = crashDetailBean.f22395v;
-                if (str2 != null && (a10 = a("tomb.zip", context, str2)) != null) {
+                String str2 = crashDetailBean.v;
+                if (str2 != null && (a2 = a("tomb.zip", context, str2)) != null) {
                     X.a("attach tombs", new Object[0]);
-                    naVar.f22795y.add(a10);
+                    naVar.y.add(a2);
                 }
             }
-            List<String> list = aVar.f22309na;
+            List<String> list = aVar.na;
             if (list != null && !list.isEmpty()) {
-                if (naVar.f22795y == null) {
-                    naVar.f22795y = new ArrayList<>();
+                if (naVar.y == null) {
+                    naVar.y = new ArrayList<>();
                 }
-                StringBuilder sb2 = new StringBuilder();
-                Iterator<String> it = aVar.f22309na.iterator();
+                StringBuilder sb = new StringBuilder();
+                Iterator<String> it = aVar.na.iterator();
                 while (it.hasNext()) {
-                    sb2.append(it.next());
+                    sb.append(it.next());
                 }
                 try {
-                    naVar.f22795y.add(new ma((byte) 1, "martianlog.txt", sb2.toString().getBytes("utf-8")));
+                    naVar.y.add(new ma((byte) 1, "martianlog.txt", sb.toString().getBytes("utf-8")));
                     X.a("attach pageTracingList", new Object[0]);
-                } catch (UnsupportedEncodingException e15) {
-                    e15.printStackTrace();
+                } catch (UnsupportedEncodingException e7) {
+                    e7.printStackTrace();
                 }
             }
             byte[] bArr2 = crashDetailBean.V;
             if (bArr2 != null && bArr2.length > 0) {
-                if (naVar.f22795y == null) {
-                    naVar.f22795y = new ArrayList<>();
+                if (naVar.y == null) {
+                    naVar.y = new ArrayList<>();
                 }
-                naVar.f22795y.add(new ma((byte) 1, "userExtraByteData", crashDetailBean.V));
+                naVar.y.add(new ma((byte) 1, "userExtraByteData", crashDetailBean.V));
                 X.a("attach extraData", new Object[0]);
             }
             HashMap hashMap = new HashMap();
-            naVar.f22796z = hashMap;
+            naVar.z = hashMap;
             hashMap.put("A9", "" + crashDetailBean.C);
-            naVar.f22796z.put("A11", "" + crashDetailBean.D);
-            naVar.f22796z.put("A10", "" + crashDetailBean.E);
-            naVar.f22796z.put("A23", "" + crashDetailBean.f22379f);
-            naVar.f22796z.put("A7", "" + aVar.f22308n);
-            naVar.f22796z.put("A6", "" + aVar.j());
-            naVar.f22796z.put("A5", "" + aVar.k());
-            naVar.f22796z.put("A22", "" + aVar.l());
-            naVar.f22796z.put("A2", "" + crashDetailBean.G);
-            naVar.f22796z.put("A1", "" + crashDetailBean.F);
-            naVar.f22796z.put("A24", "" + aVar.f22312p);
-            naVar.f22796z.put("A17", "" + crashDetailBean.H);
-            naVar.f22796z.put("A25", "" + aVar.l());
-            naVar.f22796z.put("A15", "" + aVar.i());
-            naVar.f22796z.put("A13", "" + aVar.n());
-            naVar.f22796z.put("A34", "" + crashDetailBean.A);
-            if (aVar.f22291ea != null) {
-                naVar.f22796z.put("productIdentify", "" + aVar.f22291ea);
+            naVar.z.put("A11", "" + crashDetailBean.D);
+            naVar.z.put("A10", "" + crashDetailBean.E);
+            naVar.z.put("A23", "" + crashDetailBean.f24792f);
+            naVar.z.put("A7", "" + aVar.n);
+            naVar.z.put("A6", "" + aVar.j());
+            naVar.z.put("A5", "" + aVar.k());
+            naVar.z.put("A22", "" + aVar.l());
+            naVar.z.put("A2", "" + crashDetailBean.G);
+            naVar.z.put("A1", "" + crashDetailBean.F);
+            naVar.z.put("A24", "" + aVar.p);
+            naVar.z.put("A17", "" + crashDetailBean.H);
+            naVar.z.put("A25", "" + aVar.l());
+            naVar.z.put("A15", "" + aVar.i());
+            naVar.z.put("A13", "" + aVar.n());
+            naVar.z.put("A34", "" + crashDetailBean.A);
+            if (aVar.ea != null) {
+                naVar.z.put("productIdentify", "" + aVar.ea);
             }
             try {
-                naVar.f22796z.put("A26", "" + URLEncoder.encode(crashDetailBean.I, "utf-8"));
-            } catch (UnsupportedEncodingException e16) {
-                e16.printStackTrace();
+                naVar.z.put("A26", "" + URLEncoder.encode(crashDetailBean.I, "utf-8"));
+            } catch (UnsupportedEncodingException e8) {
+                e8.printStackTrace();
             }
-            if (crashDetailBean.f22375b == 1) {
-                naVar.f22796z.put("A27", "" + crashDetailBean.L);
-                naVar.f22796z.put("A28", "" + crashDetailBean.K);
-                naVar.f22796z.put("A29", "" + crashDetailBean.f22384k);
+            if (crashDetailBean.f24788b == 1) {
+                naVar.z.put("A27", "" + crashDetailBean.L);
+                naVar.z.put("A28", "" + crashDetailBean.K);
+                naVar.z.put("A29", "" + crashDetailBean.k);
             }
-            naVar.f22796z.put("A30", "" + crashDetailBean.M);
-            naVar.f22796z.put("A18", "" + crashDetailBean.N);
-            Map<String, String> map3 = naVar.f22796z;
-            StringBuilder sb3 = new StringBuilder();
-            sb3.append("");
-            sb3.append(!crashDetailBean.O);
-            map3.put("A36", sb3.toString());
-            naVar.f22796z.put("F02", "" + aVar.X);
-            naVar.f22796z.put("F03", "" + aVar.Y);
-            naVar.f22796z.put("F04", "" + aVar.u());
-            naVar.f22796z.put("F05", "" + aVar.Z);
-            naVar.f22796z.put("F06", "" + aVar.W);
-            naVar.f22796z.put("F08", "" + aVar.f22287ca);
-            naVar.f22796z.put("F09", "" + aVar.f22289da);
-            naVar.f22796z.put("F10", "" + aVar.f22283aa);
+            naVar.z.put("A30", "" + crashDetailBean.M);
+            naVar.z.put("A18", "" + crashDetailBean.N);
+            Map<String, String> map3 = naVar.z;
+            StringBuilder sb2 = new StringBuilder();
+            sb2.append("");
+            sb2.append(!crashDetailBean.O);
+            map3.put("A36", sb2.toString());
+            naVar.z.put("F02", "" + aVar.X);
+            naVar.z.put("F03", "" + aVar.Y);
+            naVar.z.put("F04", "" + aVar.u());
+            naVar.z.put("F05", "" + aVar.Z);
+            naVar.z.put("F06", "" + aVar.W);
+            naVar.z.put("F08", "" + aVar.ca);
+            naVar.z.put("F09", "" + aVar.da);
+            naVar.z.put("F10", "" + aVar.aa);
             if (crashDetailBean.R >= 0) {
-                naVar.f22796z.put("C01", "" + crashDetailBean.R);
+                naVar.z.put("C01", "" + crashDetailBean.R);
             }
             if (crashDetailBean.S >= 0) {
-                naVar.f22796z.put("C02", "" + crashDetailBean.S);
+                naVar.z.put("C02", "" + crashDetailBean.S);
             }
             Map<String, String> map4 = crashDetailBean.T;
             if (map4 != null && map4.size() > 0) {
                 for (Map.Entry<String, String> entry2 : crashDetailBean.T.entrySet()) {
-                    naVar.f22796z.put("C03_" + entry2.getKey(), entry2.getValue());
+                    naVar.z.put("C03_" + entry2.getKey(), entry2.getValue());
                 }
             }
             Map<String, String> map5 = crashDetailBean.U;
             if (map5 != null && map5.size() > 0) {
                 for (Map.Entry<String, String> entry3 : crashDetailBean.U.entrySet()) {
-                    naVar.f22796z.put("C04_" + entry3.getKey(), entry3.getValue());
+                    naVar.z.put("C04_" + entry3.getKey(), entry3.getValue());
                 }
             }
             naVar.A = null;
@@ -1043,7 +1064,20 @@ public class e {
                 naVar.A = map7;
                 X.c("setted message size %d", Integer.valueOf(map7.size()));
             }
-            X.a("%s rid:%s sess:%s ls:%ds isR:%b isF:%b isM:%b isN:%b mc:%d ,%s ,isUp:%b ,vm:%d", crashDetailBean.f22387n, crashDetailBean.f22376c, aVar.u(), Long.valueOf((crashDetailBean.f22391r - crashDetailBean.N) / 1000), Boolean.valueOf(crashDetailBean.f22384k), Boolean.valueOf(crashDetailBean.O), Boolean.valueOf(crashDetailBean.f22383j), Boolean.valueOf(crashDetailBean.f22375b == 1), Integer.valueOf(crashDetailBean.f22393t), crashDetailBean.f22392s, Boolean.valueOf(crashDetailBean.f22377d), Integer.valueOf(naVar.f22796z.size()));
+            Object[] objArr2 = new Object[12];
+            objArr2[0] = crashDetailBean.n;
+            objArr2[1] = crashDetailBean.f24789c;
+            objArr2[2] = aVar.u();
+            objArr2[3] = Long.valueOf((crashDetailBean.r - crashDetailBean.N) / 1000);
+            objArr2[4] = Boolean.valueOf(crashDetailBean.k);
+            objArr2[5] = Boolean.valueOf(crashDetailBean.O);
+            objArr2[6] = Boolean.valueOf(crashDetailBean.f24796j);
+            objArr2[7] = Boolean.valueOf(crashDetailBean.f24788b == 1);
+            objArr2[8] = Integer.valueOf(crashDetailBean.t);
+            objArr2[9] = crashDetailBean.s;
+            objArr2[10] = Boolean.valueOf(crashDetailBean.f24790d);
+            objArr2[11] = Integer.valueOf(naVar.z.size());
+            X.a("%s rid:%s sess:%s ls:%ds isR:%b isF:%b isM:%b isN:%b mc:%d ,%s ,isUp:%b ,vm:%d", objArr2);
             return naVar;
         }
         X.e("enExp args == null", new Object[0]);
@@ -1053,10 +1087,10 @@ public class e {
     public static oa a(Context context, List<CrashDetailBean> list, com.tencent.bugly.crashreport.common.info.a aVar) {
         if (context != null && list != null && list.size() != 0 && aVar != null) {
             oa oaVar = new oa();
-            oaVar.f22798b = new ArrayList<>();
+            oaVar.f25110b = new ArrayList<>();
             Iterator<CrashDetailBean> it = list.iterator();
             while (it.hasNext()) {
-                oaVar.f22798b.add(a(context, it.next(), aVar));
+                oaVar.f25110b.add(a(context, it.next(), aVar));
             }
             return oaVar;
         }
@@ -1077,8 +1111,8 @@ public class e {
             ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
             try {
                 fileInputStream = new FileInputStream(file2);
-            } catch (Throwable th2) {
-                th = th2;
+            } catch (Throwable th) {
+                th = th;
                 fileInputStream = null;
             }
             try {
@@ -1096,9 +1130,9 @@ public class e {
                 ma maVar = new ma((byte) 2, file2.getName(), byteArray);
                 try {
                     fileInputStream.close();
-                } catch (IOException e10) {
-                    if (!X.b(e10)) {
-                        e10.printStackTrace();
+                } catch (IOException e2) {
+                    if (!X.b(e2)) {
+                        e2.printStackTrace();
                     }
                 }
                 if (file2.exists()) {
@@ -1106,8 +1140,8 @@ public class e {
                     file2.delete();
                 }
                 return maVar;
-            } catch (Throwable th3) {
-                th = th3;
+            } catch (Throwable th2) {
+                th = th2;
                 try {
                     if (!X.b(th)) {
                         th.printStackTrace();
@@ -1115,9 +1149,9 @@ public class e {
                     if (fileInputStream != null) {
                         try {
                             fileInputStream.close();
-                        } catch (IOException e11) {
-                            if (!X.b(e11)) {
-                                e11.printStackTrace();
+                        } catch (IOException e3) {
+                            if (!X.b(e3)) {
+                                e3.printStackTrace();
                             }
                         }
                     }
@@ -1126,13 +1160,13 @@ public class e {
                         file2.delete();
                     }
                     return null;
-                } catch (Throwable th4) {
+                } catch (Throwable th3) {
                     if (fileInputStream != null) {
                         try {
                             fileInputStream.close();
-                        } catch (IOException e12) {
-                            if (!X.b(e12)) {
-                                e12.printStackTrace();
+                        } catch (IOException e4) {
+                            if (!X.b(e4)) {
+                                e4.printStackTrace();
                             }
                         }
                     }
@@ -1140,7 +1174,7 @@ public class e {
                         X.a("del tmp", new Object[0]);
                         file2.delete();
                     }
-                    throw th4;
+                    throw th3;
                 }
             }
         }
@@ -1150,34 +1184,39 @@ public class e {
 
     public static void a(String str, String str2, String str3, String str4, String str5, CrashDetailBean crashDetailBean) {
         String str6;
-        com.tencent.bugly.crashreport.common.info.a m10 = com.tencent.bugly.crashreport.common.info.a.m();
-        if (m10 == null) {
+        com.tencent.bugly.crashreport.common.info.a m = com.tencent.bugly.crashreport.common.info.a.m();
+        if (m == null) {
             return;
         }
         X.b("#++++++++++Record By Bugly++++++++++#", new Object[0]);
         X.b("# You can use Bugly(http:\\\\bugly.qq.com) to get more Crash Detail!", new Object[0]);
-        X.b("# PKG NAME: %s", m10.f22294g);
-        X.b("# APP VER: %s", m10.E);
-        X.b("# SDK VER: %s", m10.f22304l);
-        X.b("# LAUNCH TIME: %s", ca.a(new Date(com.tencent.bugly.crashreport.common.info.a.m().f22288d)));
+        X.b("# PKG NAME: %s", m.f24754g);
+        X.b("# APP VER: %s", m.E);
+        X.b("# SDK VER: %s", m.l);
+        X.b("# LAUNCH TIME: %s", ca.a(new Date(com.tencent.bugly.crashreport.common.info.a.m().f24751d)));
         X.b("# CRASH TYPE: %s", str);
         X.b("# CRASH TIME: %s", str2);
         X.b("# CRASH PROCESS: %s", str3);
         X.b("# CRASH THREAD: %s", str4);
         if (crashDetailBean != null) {
-            X.b("# REPORT ID: %s", crashDetailBean.f22376c);
-            X.b("# CRASH DEVICE: %s %s", m10.f22310o, m10.n().booleanValue() ? "ROOTED" : "UNROOT");
+            X.b("# REPORT ID: %s", crashDetailBean.f24789c);
+            Object[] objArr = new Object[2];
+            objArr[0] = m.o;
+            objArr[1] = m.n().booleanValue() ? "ROOTED" : "UNROOT";
+            X.b("# CRASH DEVICE: %s %s", objArr);
             X.b("# RUNTIME AVAIL RAM:%d ROM:%d SD:%d", Long.valueOf(crashDetailBean.C), Long.valueOf(crashDetailBean.D), Long.valueOf(crashDetailBean.E));
             X.b("# RUNTIME TOTAL RAM:%d ROM:%d SD:%d", Long.valueOf(crashDetailBean.F), Long.valueOf(crashDetailBean.G), Long.valueOf(crashDetailBean.H));
             if (!ca.b(crashDetailBean.L)) {
                 X.b("# EXCEPTION FIRED BY %s %s", crashDetailBean.L, crashDetailBean.K);
-            } else if (crashDetailBean.f22375b == 3) {
+            } else if (crashDetailBean.f24788b == 3) {
+                Object[] objArr2 = new Object[1];
                 if (crashDetailBean.Q == null) {
                     str6 = "null";
                 } else {
                     str6 = "" + crashDetailBean.Q.get("BUGLY_CR_01");
                 }
-                X.b("# EXCEPTION ANR MESSAGE:\n %s", str6);
+                objArr2[0] = str6;
+                X.b("# EXCEPTION ANR MESSAGE:\n %s", objArr2);
             }
         }
         if (!ca.b(str5)) {

@@ -1,181 +1,160 @@
 package com.baidu.mobads.sdk.internal;
 
-import android.os.Handler;
-import android.os.Looper;
-import android.os.Message;
-import com.ss.android.socialbase.downloader.setting.DownloadSettingKeys;
-import java.util.concurrent.Future;
+import android.annotation.TargetApi;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.text.TextUtils;
+import android.util.Base64;
+import com.baidu.mobads.sdk.api.ArticleInfo;
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
+import org.json.JSONArray;
+import org.json.JSONObject;
 
-/* loaded from: classes2.dex */
-public abstract class j<T> implements Runnable {
-
-    /* renamed from: b, reason: collision with root package name */
-    private static final String f7190b = "BaseTask";
-
-    /* renamed from: c, reason: collision with root package name */
-    private static final int f7191c = 1;
-
-    /* renamed from: d, reason: collision with root package name */
-    private static final int f7192d = 2;
-
-    /* renamed from: e, reason: collision with root package name */
-    private static final int f7193e = 3;
-
-    /* renamed from: j, reason: collision with root package name */
-    private static b f7194j;
-
-    /* renamed from: a, reason: collision with root package name */
-    protected Future<T> f7195a;
-
-    /* renamed from: f, reason: collision with root package name */
-    private String f7196f;
-
-    /* renamed from: g, reason: collision with root package name */
-    private long f7197g;
-
-    /* renamed from: h, reason: collision with root package name */
-    private long f7198h;
-
-    /* renamed from: i, reason: collision with root package name */
-    private long f7199i;
-
-    public static class a<T> {
-
-        /* renamed from: a, reason: collision with root package name */
-        final j f7200a;
-
-        /* renamed from: b, reason: collision with root package name */
-        final T f7201b;
-
-        public a(j jVar, T t10) {
-            this.f7200a = jVar;
-            this.f7201b = t10;
+/* loaded from: classes.dex */
+public class j {
+    public static JSONArray a(double[] dArr) {
+        JSONArray jSONArray = null;
+        if (dArr == null) {
+            return null;
         }
-    }
-
-    public static class b extends Handler {
-        public b(Looper looper) {
-            super(looper);
-        }
-
-        @Override // android.os.Handler
-        public void handleMessage(Message message) {
-            a aVar = (a) message.obj;
-            int i10 = message.what;
-            if (i10 == 1) {
-                aVar.f7200a.a((j) aVar.f7201b);
-            } else if (i10 == 2) {
-                aVar.f7200a.a((Throwable) aVar.f7201b);
-            } else {
-                if (i10 != 3) {
-                    return;
-                }
-                aVar.f7200a.j();
-            }
-        }
-    }
-
-    public j() {
-        this.f7196f = DownloadSettingKeys.BugFix.DEFAULT;
-    }
-
-    private static Handler k() {
-        b bVar;
-        synchronized (j.class) {
-            try {
-                if (f7194j == null) {
-                    f7194j = new b(Looper.getMainLooper());
-                }
-                bVar = f7194j;
-            } catch (Throwable th2) {
-                throw th2;
-            }
-        }
-        return bVar;
-    }
-
-    public void a(T t10) {
-    }
-
-    public void b() {
-        a(false);
-    }
-
-    public boolean c() {
-        Future<T> future = this.f7195a;
-        if (future != null) {
-            return future.isCancelled();
-        }
-        return false;
-    }
-
-    public boolean d() {
-        Future<T> future = this.f7195a;
-        if (future != null) {
-            return future.isDone();
-        }
-        return false;
-    }
-
-    public long e() {
-        return this.f7198h - this.f7197g;
-    }
-
-    public long f() {
-        return this.f7199i - this.f7197g;
-    }
-
-    public long g() {
-        return this.f7199i - this.f7198h;
-    }
-
-    public j h() {
         try {
-            this.f7198h = System.currentTimeMillis();
-            k().obtainMessage(1, new a(this, i())).sendToTarget();
-        } finally {
+            JSONArray jSONArray2 = new JSONArray();
+            for (double d2 : dArr) {
+                try {
+                    jSONArray2.put(d2);
+                } catch (Exception e2) {
+                    e = e2;
+                    jSONArray = jSONArray2;
+                    bq.a().a(e);
+                    return jSONArray;
+                }
+            }
+            return jSONArray2;
+        } catch (Exception e3) {
+            e = e3;
+        }
+    }
+
+    public static JSONArray a(List<String[]> list) {
+        JSONArray jSONArray = new JSONArray();
+        for (int i2 = 0; i2 < list.size(); i2++) {
             try {
-                return this;
-            } finally {
+                JSONArray jSONArray2 = new JSONArray();
+                for (int i3 = 0; i3 < list.get(i2).length; i3++) {
+                    jSONArray2.put(list.get(i2)[i3]);
+                }
+                jSONArray.put(jSONArray2);
+            } catch (Exception e2) {
+                bq.a().a(e2);
             }
         }
-        return this;
+        return jSONArray;
     }
 
-    public abstract T i();
-
-    public void j() {
-    }
-
-    @Override // java.lang.Runnable
-    public void run() {
-        h();
-    }
-
-    public void a(Throwable th2) {
-    }
-
-    public j(String str) {
-        this.f7196f = str;
-    }
-
-    public String a() {
-        return this.f7196f;
-    }
-
-    public void a(Future future) {
-        this.f7195a = future;
-    }
-
-    public void a(long j10) {
-        this.f7197g = j10;
-    }
-
-    public void a(boolean z10) {
-        Future<T> future = this.f7195a;
-        if (future != null) {
-            future.cancel(z10);
-            k().obtainMessage(3, new a(this, null)).sendToTarget();
+    public static HashMap<String, String> a(JSONObject jSONObject) {
+        if (jSONObject == null) {
+            return null;
         }
+        HashMap<String, String> hashMap = new HashMap<>();
+        try {
+            Iterator<String> keys = jSONObject.keys();
+            while (keys.hasNext()) {
+                String next = keys.next();
+                hashMap.put(next, jSONObject.optString(next));
+            }
+        } catch (Exception unused) {
+            bq.a().a("json2HashMap error");
+        }
+        return hashMap;
+    }
+
+    public static JSONObject a(HashMap<String, Object> hashMap) {
+        if (hashMap == null || hashMap.isEmpty()) {
+            return null;
+        }
+        try {
+            return new JSONObject(hashMap);
+        } catch (Exception unused) {
+            bq.a().a("hashMap2Json error");
+            return null;
+        }
+    }
+
+    public static JSONObject a(JSONObject jSONObject, JSONObject jSONObject2) {
+        if (jSONObject2 != null && jSONObject2.length() > 0) {
+            Iterator<String> keys = jSONObject2.keys();
+            while (keys.hasNext()) {
+                String next = keys.next();
+                jSONObject.put(next, jSONObject2.opt(next));
+            }
+        }
+        return jSONObject;
+    }
+
+    public static Object a(JSONObject jSONObject, String str) {
+        return (jSONObject != null && jSONObject.has(str)) ? jSONObject.opt(str) : "";
+    }
+
+    @TargetApi(8)
+    public static Bitmap a(String str) {
+        try {
+            byte[] decode = Base64.decode(str, 0);
+            return BitmapFactory.decodeByteArray(decode, 0, decode.length);
+        } catch (Exception e2) {
+            e2.printStackTrace();
+            return null;
+        }
+    }
+
+    public static HashMap<String, String> a(Map<String, String> map) {
+        int length;
+        if (map != null) {
+            try {
+                if (!map.isEmpty()) {
+                    HashMap hashMap = new HashMap(map);
+                    HashMap<String, String> hashMap2 = new HashMap<>();
+                    int i2 = 0;
+                    for (String str : ArticleInfo.PREDEFINED_KEYS) {
+                        if (hashMap.containsKey(str)) {
+                            String str2 = (String) hashMap.remove(str);
+                            if (!TextUtils.isEmpty(str2) && (length = str2.length() + i2) < 150) {
+                                hashMap2.put(str, str2);
+                                i2 = length;
+                            }
+                        }
+                    }
+                    if (!hashMap.isEmpty()) {
+                        Set<String> keySet = hashMap.keySet();
+                        JSONArray jSONArray = new JSONArray();
+                        for (String str3 : keySet) {
+                            if (!TextUtils.isEmpty(str3)) {
+                                String str4 = (String) hashMap.get(str3);
+                                if (!TextUtils.isEmpty(str4)) {
+                                    JSONObject jSONObject = new JSONObject();
+                                    jSONObject.put("k", str3);
+                                    jSONObject.put("v", str4);
+                                    jSONArray.put(jSONObject);
+                                }
+                            }
+                        }
+                        if (jSONArray.length() > 0) {
+                            JSONObject jSONObject2 = new JSONObject();
+                            jSONObject2.put("ext", jSONArray.toString());
+                            if (jSONObject2.toString().length() < 3000) {
+                                hashMap2.put("ext", jSONObject2.toString());
+                            }
+                        }
+                    }
+                    return hashMap2;
+                }
+            } catch (Throwable unused) {
+                return new HashMap<>();
+            }
+        }
+        return new HashMap<>();
     }
 }

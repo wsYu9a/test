@@ -12,8 +12,8 @@ public enum OAuthErrCode {
 
     private int code;
 
-    OAuthErrCode(int i10) {
-        this.code = i10;
+    OAuthErrCode(int i2) {
+        this.code = i2;
     }
 
     public int getCode() {

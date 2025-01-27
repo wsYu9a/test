@@ -3,7 +3,7 @@ package com.martian.mibook.lib.yuewen.response;
 import java.util.ArrayList;
 import java.util.List;
 
-/* loaded from: classes3.dex */
+/* loaded from: classes4.dex */
 public class YWCategory {
     private String categoryCover;
     private Integer categoryId;
@@ -41,27 +41,27 @@ public class YWCategory {
         return this.tagList;
     }
 
-    public YWCategory setCategoryCover(String str) {
-        this.categoryCover = str;
+    public YWCategory setCategoryCover(String categoryCover) {
+        this.categoryCover = categoryCover;
         return this;
     }
 
-    public YWCategory setCategoryId(Integer num) {
-        this.categoryId = num;
+    public YWCategory setCategoryId(Integer categoryId) {
+        this.categoryId = categoryId;
         return this;
     }
 
-    public YWCategory setCategoryName(String str) {
-        this.categoryName = str;
+    public YWCategory setCategoryName(String categoryName) {
+        this.categoryName = categoryName;
         return this;
     }
 
-    public YWCategory setSubCategoryList(List<YWSubCategory> list) {
-        this.subCategoryList = list;
+    public YWCategory setSubCategoryList(List<YWSubCategory> subCategoryList) {
+        this.subCategoryList = subCategoryList;
         return this;
     }
 
-    public void setTagList(List<TYTag> list) {
-        this.tagList = list;
+    public void setTagList(List<TYTag> tagList) {
+        this.tagList = tagList;
     }
 }

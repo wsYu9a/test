@@ -11,7 +11,7 @@ import com.bumptech.glide.load.engine.prefill.PreFillType;
 import com.bumptech.glide.util.Util;
 import java.util.HashMap;
 
-/* loaded from: classes2.dex */
+/* loaded from: classes.dex */
 public final class BitmapPreFiller {
     private final BitmapPool bitmapPool;
     private BitmapPreFillRunner current;
@@ -30,16 +30,16 @@ public final class BitmapPreFiller {
     }
 
     @VisibleForTesting
-    public PreFillQueue generateAllocationOrder(PreFillType... preFillTypeArr) {
+    PreFillQueue generateAllocationOrder(PreFillType... preFillTypeArr) {
         long maxSize = (this.memoryCache.getMaxSize() - this.memoryCache.getCurrentSize()) + this.bitmapPool.getMaxSize();
-        int i10 = 0;
+        int i2 = 0;
         for (PreFillType preFillType : preFillTypeArr) {
-            i10 += preFillType.getWeight();
+            i2 += preFillType.getWeight();
         }
-        float f10 = maxSize / i10;
+        float f2 = maxSize / i2;
         HashMap hashMap = new HashMap();
         for (PreFillType preFillType2 : preFillTypeArr) {
-            hashMap.put(preFillType2, Integer.valueOf(Math.round(preFillType2.getWeight() * f10) / getSizeInBytes(preFillType2)));
+            hashMap.put(preFillType2, Integer.valueOf(Math.round(preFillType2.getWeight() * f2) / getSizeInBytes(preFillType2)));
         }
         return new PreFillQueue(hashMap);
     }
@@ -50,12 +50,12 @@ public final class BitmapPreFiller {
             bitmapPreFillRunner.cancel();
         }
         PreFillType[] preFillTypeArr = new PreFillType[builderArr.length];
-        for (int i10 = 0; i10 < builderArr.length; i10++) {
-            PreFillType.Builder builder = builderArr[i10];
+        for (int i2 = 0; i2 < builderArr.length; i2++) {
+            PreFillType.Builder builder = builderArr[i2];
             if (builder.getConfig() == null) {
                 builder.setConfig(this.defaultFormat == DecodeFormat.PREFER_ARGB_8888 ? Bitmap.Config.ARGB_8888 : Bitmap.Config.RGB_565);
             }
-            preFillTypeArr[i10] = builder.build();
+            preFillTypeArr[i2] = builder.build();
         }
         BitmapPreFillRunner bitmapPreFillRunner2 = new BitmapPreFillRunner(this.bitmapPool, this.memoryCache, generateAllocationOrder(preFillTypeArr));
         this.current = bitmapPreFillRunner2;

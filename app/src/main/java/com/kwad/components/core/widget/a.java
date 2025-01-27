@@ -5,192 +5,187 @@ import android.content.Context;
 import android.os.Message;
 import android.view.View;
 import android.view.ViewGroup;
-import com.kwad.sdk.utils.bw;
-import com.kwad.sdk.utils.bx;
+import com.kwad.sdk.utils.bl;
+import com.kwad.sdk.utils.bm;
 import com.kwad.sdk.widget.KSFrameLayout;
 
 @SuppressLint({"ViewConstructor"})
-/* loaded from: classes3.dex */
-public final class a extends KSFrameLayout implements bx.a {
-    private InterfaceC0457a aei;
-    private boolean aej;
-    private boolean aek;
-    private int ael;
-    private boolean aem;
-    private long aen;
-    private boolean aeo;
-    private final float aep;
-    private final int aeq;
-    private final View bN;
-    private final bx bO;
+/* loaded from: classes2.dex */
+public final class a extends KSFrameLayout implements bm.a {
+    private final View Ru;
+    private InterfaceC0197a VJ;
+    private boolean VK;
+    private boolean VL;
+    private int VM;
+    private boolean VN;
+    private long VO;
+    private boolean VP;
+    private final float VQ;
+    private final int VR;
+    private final bm gK;
 
     /* renamed from: com.kwad.components.core.widget.a$a */
-    public interface InterfaceC0457a {
-        void Z();
+    public interface InterfaceC0197a {
+        void eM();
 
-        void aa();
+        void k(View view);
 
-        void ax();
+        void onViewAttached();
 
-        void c(View view);
-
-        void onWindowFocusChanged(boolean z10);
+        void onViewDetached();
     }
 
     public a(Context context, View view) {
         super(context, view);
-        this.bO = new bx(this);
-        this.ael = 5;
-        this.bN = view;
+        this.gK = new bm(this);
+        this.VM = 5;
+        this.Ru = view;
         setLayoutParams(new ViewGroup.LayoutParams(1, 1));
-        float DL = com.kwad.sdk.core.config.d.DL();
-        this.aep = DL;
-        setVisiblePercent(DL);
-        float DM = com.kwad.sdk.core.config.d.DM();
-        this.aeq = (int) ((DM < 0.0f ? 1.0f : DM) * 1000.0f);
+        float uF = com.kwad.sdk.core.config.d.uF();
+        this.VQ = uF;
+        setVisiblePercent(uF);
+        float uG = com.kwad.sdk.core.config.d.uG();
+        this.VR = (int) ((uG < 0.0f ? 1.0f : uG) * 1000.0f);
     }
 
-    private void um() {
-        InterfaceC0457a interfaceC0457a;
-        if (this.aeq == 0 && (interfaceC0457a = this.aei) != null) {
-            interfaceC0457a.c(this.bN);
+    private void rq() {
+        InterfaceC0197a interfaceC0197a;
+        if (this.VR == 0 && (interfaceC0197a = this.VJ) != null) {
+            interfaceC0197a.k(this.Ru);
             return;
         }
-        Message obtainMessage = this.bO.obtainMessage();
+        Message obtainMessage = this.gK.obtainMessage();
         obtainMessage.what = 2;
-        this.bO.sendMessageDelayed(obtainMessage, this.aeq);
+        this.gK.sendMessageDelayed(obtainMessage, this.VR);
     }
 
-    private void un() {
-        this.bO.removeCallbacksAndMessages(null);
-        this.aek = false;
+    private void rr() {
+        this.gK.removeCallbacksAndMessages(null);
+        this.VL = false;
     }
 
-    private void uo() {
-        if (this.aek) {
+    private void rs() {
+        if (this.VL) {
             return;
         }
-        this.aek = true;
-        this.bO.sendEmptyMessage(1);
+        this.VL = true;
+        this.gK.sendEmptyMessage(1);
     }
 
-    @Override // com.kwad.sdk.widget.KSFrameLayout, com.kwad.sdk.widget.i
-    public final void C(View view) {
-        InterfaceC0457a interfaceC0457a;
-        InterfaceC0457a interfaceC0457a2;
-        super.C(view);
-        if (this.aeq == 0 && (interfaceC0457a2 = this.aei) != null) {
-            interfaceC0457a2.c(view);
-            return;
-        }
-        if (!this.aem) {
-            this.aem = true;
-            this.aen = System.currentTimeMillis();
-            un();
-            um();
-            return;
-        }
-        if (System.currentTimeMillis() - this.aen <= this.aeq || (interfaceC0457a = this.aei) == null) {
-            return;
-        }
-        interfaceC0457a.c(view);
-        un();
-    }
-
-    @Override // com.kwad.sdk.widget.KSFrameLayout
-    public final void Z() {
-        super.Z();
-        this.ael = 5;
-        this.aej = false;
-        this.aem = false;
-        uo();
-        InterfaceC0457a interfaceC0457a = this.aei;
-        if (interfaceC0457a != null) {
-            interfaceC0457a.Z();
-        }
-    }
-
-    @Override // com.kwad.sdk.utils.bx.a
+    @Override // com.kwad.sdk.utils.bm.a
     public final void a(Message message) {
-        if (this.aej) {
+        if (this.VK) {
             return;
         }
-        int i10 = message.what;
-        if (i10 != 1) {
-            if (i10 != 2) {
+        int i2 = message.what;
+        if (i2 != 1) {
+            if (i2 != 2) {
                 return;
             }
-            if (!bw.a(this.bN, (int) (this.aep * 100.0f), false)) {
-                this.ael = 5;
-                this.bO.sendEmptyMessage(1);
+            if (!bl.a(this.Ru, (int) (this.VQ * 100.0f), false)) {
+                this.VM = 5;
+                this.gK.sendEmptyMessage(1);
                 return;
             } else {
-                InterfaceC0457a interfaceC0457a = this.aei;
-                if (interfaceC0457a != null) {
-                    interfaceC0457a.c(this.bN);
+                InterfaceC0197a interfaceC0197a = this.VJ;
+                if (interfaceC0197a != null) {
+                    interfaceC0197a.k(this.Ru);
                     return;
                 }
                 return;
             }
         }
-        if (!bw.a(this.bN, (int) (this.aep * 100.0f), false)) {
-            InterfaceC0457a interfaceC0457a2 = this.aei;
-            if (interfaceC0457a2 != null && !this.aeo) {
-                interfaceC0457a2.ax();
+        com.kwad.sdk.core.d.b.d("AdExposureView", "handleMsg MSG_CHECKING");
+        if (!bl.a(this.Ru, (int) (this.VQ * 100.0f), false)) {
+            InterfaceC0197a interfaceC0197a2 = this.VJ;
+            if (interfaceC0197a2 != null && !this.VP) {
+                interfaceC0197a2.eM();
             }
-            this.aeo = true;
-            bx bxVar = this.bO;
-            int i11 = this.ael;
-            this.ael = i11 - 1;
-            bxVar.sendEmptyMessageDelayed(1, i11 > 0 ? 100L : 500L);
+            this.VP = true;
+            bm bmVar = this.gK;
+            int i3 = this.VM;
+            this.VM = i3 - 1;
+            bmVar.sendEmptyMessageDelayed(1, i3 <= 0 ? 500L : 100L);
             return;
         }
-        un();
-        if (this.aem) {
-            InterfaceC0457a interfaceC0457a3 = this.aei;
-            if (interfaceC0457a3 != null) {
-                interfaceC0457a3.c(this.bN);
+        rr();
+        if (this.VN) {
+            InterfaceC0197a interfaceC0197a3 = this.VJ;
+            if (interfaceC0197a3 != null) {
+                interfaceC0197a3.k(this.Ru);
             }
         } else {
-            this.aem = true;
-            this.aen = System.currentTimeMillis();
-            um();
+            this.VN = true;
+            this.VO = System.currentTimeMillis();
+            rq();
         }
-        this.aeo = false;
-        bx bxVar2 = this.bO;
-        int i12 = this.ael;
-        this.ael = i12 - 1;
-        bxVar2.sendEmptyMessageDelayed(1, i12 > 0 ? 100L : 500L);
+        this.VP = false;
+        bm bmVar2 = this.gK;
+        int i4 = this.VM;
+        this.VM = i4 - 1;
+        bmVar2.sendEmptyMessageDelayed(1, i4 <= 0 ? 500L : 100L);
+    }
+
+    @Override // com.kwad.sdk.widget.KSFrameLayout, com.kwad.sdk.widget.i
+    public final void onFirstVisible(View view) {
+        InterfaceC0197a interfaceC0197a;
+        InterfaceC0197a interfaceC0197a2;
+        super.onFirstVisible(view);
+        if (this.VR == 0 && (interfaceC0197a2 = this.VJ) != null) {
+            interfaceC0197a2.k(view);
+            return;
+        }
+        if (!this.VN) {
+            this.VN = true;
+            this.VO = System.currentTimeMillis();
+            rr();
+            rq();
+            return;
+        }
+        if (System.currentTimeMillis() - this.VO <= this.VR || (interfaceC0197a = this.VJ) == null) {
+            return;
+        }
+        interfaceC0197a.k(view);
+        rr();
     }
 
     @Override // com.kwad.sdk.widget.KSFrameLayout
-    public final void aa() {
-        super.aa();
-        un();
-        this.ael = 0;
-        this.aen = 0L;
-        this.aej = true;
-        InterfaceC0457a interfaceC0457a = this.aei;
-        if (interfaceC0457a != null) {
-            interfaceC0457a.aa();
+    public final void onViewAttached() {
+        super.onViewAttached();
+        this.VM = 5;
+        this.VK = false;
+        this.VN = false;
+        rs();
+        InterfaceC0197a interfaceC0197a = this.VJ;
+        if (interfaceC0197a != null) {
+            interfaceC0197a.onViewAttached();
         }
     }
 
-    @Override // com.kwad.sdk.widget.KSFrameLayout, android.view.View
-    public final void onWindowFocusChanged(boolean z10) {
-        super.onWindowFocusChanged(z10);
-        com.kwad.sdk.core.d.c.d("AdExposureView", "onWindowFocusChanged hasWindowFocus:" + z10);
-        InterfaceC0457a interfaceC0457a = this.aei;
-        if (interfaceC0457a != null) {
-            interfaceC0457a.onWindowFocusChanged(z10);
+    @Override // com.kwad.sdk.widget.KSFrameLayout
+    public final void onViewDetached() {
+        super.onViewDetached();
+        rr();
+        this.VM = 0;
+        this.VO = 0L;
+        this.VK = true;
+        InterfaceC0197a interfaceC0197a = this.VJ;
+        if (interfaceC0197a != null) {
+            interfaceC0197a.onViewDetached();
         }
     }
 
-    public final void setViewCallback(InterfaceC0457a interfaceC0457a) {
-        this.aei = interfaceC0457a;
+    @Override // android.view.View
+    public final void onWindowFocusChanged(boolean z) {
+        super.onWindowFocusChanged(z);
+        com.kwad.sdk.core.d.b.d("AdExposureView", "onWindowFocusChanged hasWindowFocus:" + z);
     }
 
-    public final void up() {
-        uo();
+    public final void rt() {
+        rs();
+    }
+
+    public final void setViewCallback(InterfaceC0197a interfaceC0197a) {
+        this.VJ = interfaceC0197a;
     }
 }

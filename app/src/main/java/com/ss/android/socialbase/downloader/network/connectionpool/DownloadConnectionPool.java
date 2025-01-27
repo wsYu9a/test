@@ -17,14 +17,14 @@ public class DownloadConnectionPool {
     private final Map<String, FakeDownloadHeadHttpConnection> mCachedHeadConnections;
     protected int maxCacheSize;
 
-    public static final class InstanceHolder {
+    private static final class InstanceHolder {
         private static final DownloadConnectionPool INSTANCE = new DownloadConnectionPool();
 
         private InstanceHolder() {
         }
     }
 
-    public /* synthetic */ DownloadConnectionPool(AnonymousClass1 anonymousClass1) {
+    /* synthetic */ DownloadConnectionPool(AnonymousClass1 anonymousClass1) {
         this();
     }
 
@@ -43,8 +43,8 @@ public class DownloadConnectionPool {
         if (DownloadUtils.isHeaderEqual(remove.getRequestHeaders(), list)) {
             try {
                 remove.joinExecute();
-            } catch (InterruptedException e10) {
-                e10.printStackTrace();
+            } catch (InterruptedException e2) {
+                e2.printStackTrace();
             }
             if (remove.isValid() && remove.isSuccessful()) {
                 return remove;
@@ -69,8 +69,8 @@ public class DownloadConnectionPool {
         if (DownloadUtils.isHeaderEqual(remove.getRequestHeaders(), list)) {
             try {
                 remove.joinExecute();
-            } catch (InterruptedException e10) {
-                e10.printStackTrace();
+            } catch (InterruptedException e2) {
+                e2.printStackTrace();
             }
             if (remove.isValid() && remove.isSuccessful()) {
                 return remove;
@@ -106,23 +106,19 @@ public class DownloadConnectionPool {
         return fakeDownloadHeadHttpConnection.isValid() && fakeDownloadHeadHttpConnection.isSuccessful();
     }
 
-    public void putCachedDownloadConnections(String str, FakeDownloadHttpConnection fakeDownloadHttpConnection) {
+    void putCachedDownloadConnections(String str, FakeDownloadHttpConnection fakeDownloadHttpConnection) {
         FakeDownloadHttpConnection fakeDownloadHttpConnection2;
         Map.Entry<String, FakeDownloadHttpConnection> next;
         synchronized (this.mCachedDownloadConnections) {
-            try {
-                if (this.mCachedDownloadConnections.size() == this.maxCacheSize) {
-                    Iterator<Map.Entry<String, FakeDownloadHttpConnection>> it = this.mCachedDownloadConnections.entrySet().iterator();
-                    if (it.hasNext() && (next = it.next()) != null) {
-                        fakeDownloadHttpConnection2 = this.mCachedDownloadConnections.remove(next.getKey());
-                        this.mCachedDownloadConnections.put(str, fakeDownloadHttpConnection);
-                    }
+            if (this.mCachedDownloadConnections.size() == this.maxCacheSize) {
+                Iterator<Map.Entry<String, FakeDownloadHttpConnection>> it = this.mCachedDownloadConnections.entrySet().iterator();
+                if (it.hasNext() && (next = it.next()) != null) {
+                    fakeDownloadHttpConnection2 = this.mCachedDownloadConnections.remove(next.getKey());
+                    this.mCachedDownloadConnections.put(str, fakeDownloadHttpConnection);
                 }
-                fakeDownloadHttpConnection2 = null;
-                this.mCachedDownloadConnections.put(str, fakeDownloadHttpConnection);
-            } catch (Throwable th2) {
-                throw th2;
             }
+            fakeDownloadHttpConnection2 = null;
+            this.mCachedDownloadConnections.put(str, fakeDownloadHttpConnection);
         }
         if (fakeDownloadHttpConnection2 != null) {
             try {
@@ -133,7 +129,7 @@ public class DownloadConnectionPool {
         Logger.i(TAG, "mCachedConnections size = " + this.mCachedDownloadConnections.size() + ", max size = " + this.maxCacheSize);
     }
 
-    public void putCachedHeadConnections(String str, FakeDownloadHeadHttpConnection fakeDownloadHeadHttpConnection) {
+    void putCachedHeadConnections(String str, FakeDownloadHeadHttpConnection fakeDownloadHeadHttpConnection) {
         synchronized (this.mCachedHeadConnections) {
             this.mCachedHeadConnections.put(str, fakeDownloadHeadHttpConnection);
         }
@@ -162,8 +158,8 @@ public class DownloadConnectionPool {
         }
     }
 
-    public void setMaxCachedDownloadConnectionSize(int i10) {
-        this.maxCacheSize = i10;
+    void setMaxCachedDownloadConnectionSize(int i2) {
+        this.maxCacheSize = i2;
     }
 
     private DownloadConnectionPool() {

@@ -1,42 +1,40 @@
 package com.kwad.sdk.utils;
 
-import android.text.TextUtils;
-import java.text.SimpleDateFormat;
-import java.util.Locale;
+import android.os.Handler;
+import android.os.Looper;
+import android.os.Message;
+import java.lang.ref.WeakReference;
 
-/* loaded from: classes3.dex */
-public final class bm {
-    private static final SimpleDateFormat aUM;
-    private static final SimpleDateFormat aUN;
-    private static final SimpleDateFormat aUO;
-    private static final SimpleDateFormat aUP;
-    private static final SimpleDateFormat aUQ;
-    private static final SimpleDateFormat aUR;
-    private static final SimpleDateFormat aUS;
+/* loaded from: classes2.dex */
+public final class bm extends Handler {
+    private WeakReference<a> aBC;
 
-    static {
-        Locale locale = Locale.US;
-        aUM = new SimpleDateFormat("MM/dd", locale);
-        aUN = new SimpleDateFormat("yyyy/MM/dd", locale);
-        aUO = new SimpleDateFormat("MM月dd日", locale);
-        aUP = new SimpleDateFormat("yyyy年MM月dd日", locale);
-        aUQ = new SimpleDateFormat("HH:mm", locale);
-        aUR = new SimpleDateFormat("MM-dd", locale);
-        aUS = new SimpleDateFormat("yyyy-MM-dd", locale);
+    public interface a {
+        void a(Message message);
     }
 
-    public static boolean hd(String str) {
-        if (TextUtils.isEmpty(str)) {
-            return false;
+    public bm(a aVar) {
+        this.aBC = new WeakReference<>(aVar);
+    }
+
+    public bm(a aVar, Looper looper) {
+        super(looper);
+        this.aBC = new WeakReference<>(aVar);
+    }
+
+    @Override // android.os.Handler
+    public final void handleMessage(Message message) {
+        WeakReference<a> weakReference;
+        a aVar;
+        try {
+            weakReference = this.aBC;
+        } catch (Exception e2) {
+            com.kwad.sdk.core.d.b.printStackTrace(e2);
         }
-        return str.matches(".*\\.kpg.*");
-    }
-
-    public static boolean isEquals(String str, String str2) {
-        return !TextUtils.isEmpty(str) && str.equals(str2);
-    }
-
-    public static boolean isNullString(String str) {
-        return TextUtils.isEmpty(str) || "null".equalsIgnoreCase(str);
+        if (weakReference == null || (aVar = weakReference.get()) == null) {
+            return;
+        }
+        aVar.a(message);
+        super.handleMessage(message);
     }
 }

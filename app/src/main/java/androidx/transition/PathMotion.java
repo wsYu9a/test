@@ -9,7 +9,7 @@ public abstract class PathMotion {
     public PathMotion() {
     }
 
-    public abstract Path getPath(float f10, float f11, float f12, float f13);
+    public abstract Path getPath(float f2, float f3, float f4, float f5);
 
     public PathMotion(Context context, AttributeSet attributeSet) {
     }

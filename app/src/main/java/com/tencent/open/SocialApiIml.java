@@ -15,11 +15,11 @@ import com.tencent.connect.common.UIListenerManager;
 import com.tencent.open.a.f;
 import com.tencent.open.utils.HttpUtils;
 import com.tencent.open.utils.d;
+import com.tencent.open.utils.e;
 import com.tencent.open.utils.g;
 import com.tencent.open.utils.i;
 import com.tencent.tauth.IUiListener;
 import com.tencent.tauth.UiError;
-import hf.e;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -27,35 +27,35 @@ import org.json.JSONObject;
 public class SocialApiIml extends BaseApi {
 
     /* renamed from: c */
-    private Activity f23093c;
+    private Activity f25369c;
 
-    public class a implements IUiListener {
+    private class a implements IUiListener {
 
         /* renamed from: b */
-        private IUiListener f23095b;
+        private IUiListener f25371b;
 
         /* renamed from: c */
-        private String f23096c;
+        private String f25372c;
 
         /* renamed from: d */
-        private String f23097d;
+        private String f25373d;
 
         /* renamed from: e */
-        private Bundle f23098e;
+        private Bundle f25374e;
 
         /* renamed from: f */
-        private Activity f23099f;
+        private Activity f25375f;
 
-        public a(Activity activity, IUiListener iUiListener, String str, String str2, Bundle bundle) {
-            this.f23095b = iUiListener;
-            this.f23096c = str;
-            this.f23097d = str2;
-            this.f23098e = bundle;
+        a(Activity activity, IUiListener iUiListener, String str, String str2, Bundle bundle) {
+            this.f25371b = iUiListener;
+            this.f25372c = str;
+            this.f25373d = str2;
+            this.f25374e = bundle;
         }
 
         @Override // com.tencent.tauth.IUiListener
         public void onCancel() {
-            this.f23095b.onCancel();
+            this.f25371b.onCancel();
         }
 
         @Override // com.tencent.tauth.IUiListener
@@ -63,24 +63,24 @@ public class SocialApiIml extends BaseApi {
             String str;
             try {
                 str = ((JSONObject) obj).getString(SocialConstants.PARAM_ENCRY_EOKEN);
-            } catch (JSONException e10) {
-                e10.printStackTrace();
-                f.b("openSDK_LOG.SocialApiIml", "OpenApi, EncrytokenListener() onComplete error", e10);
+            } catch (JSONException e2) {
+                e2.printStackTrace();
+                f.b("openSDK_LOG.SocialApiIml", "OpenApi, EncrytokenListener() onComplete error", e2);
                 str = null;
             }
-            this.f23098e.putString("encrytoken", str);
+            this.f25374e.putString("encrytoken", str);
             SocialApiIml socialApiIml = SocialApiIml.this;
-            socialApiIml.a((Context) socialApiIml.f23093c, this.f23096c, this.f23098e, this.f23097d, this.f23095b);
+            socialApiIml.a((Context) socialApiIml.f25369c, this.f25372c, this.f25374e, this.f25373d, this.f25371b);
             if (TextUtils.isEmpty(str)) {
                 f.b("openSDK_LOG.SocialApiIml", "The token get from qq or qzone is empty. Write temp token to localstorage.");
-                SocialApiIml.this.writeEncryToken(this.f23099f);
+                SocialApiIml.this.writeEncryToken(this.f25375f);
             }
         }
 
         @Override // com.tencent.tauth.IUiListener
         public void onError(UiError uiError) {
             f.b("openSDK_LOG.SocialApiIml", "OpenApi, EncryptTokenListener() onError" + uiError.errorMessage);
-            this.f23095b.onError(uiError);
+            this.f25371b.onError(uiError);
         }
     }
 
@@ -93,7 +93,7 @@ public class SocialApiIml extends BaseApi {
     }
 
     @Override // com.tencent.connect.common.BaseApi
-    public Intent b(String str) {
+    protected Intent b(String str) {
         Intent intent = new Intent();
         intent.setClassName(Constants.PACKAGE_QZONE, str);
         Intent intent2 = new Intent();
@@ -117,29 +117,29 @@ public class SocialApiIml extends BaseApi {
     }
 
     public void invite(Activity activity, Bundle bundle, IUiListener iUiListener) {
-        this.f23093c = activity;
-        Intent c10 = c(SocialConstants.ACTIVITY_FRIEND_CHOOSER);
-        if (c10 == null) {
+        this.f25369c = activity;
+        Intent c2 = c(SocialConstants.ACTIVITY_FRIEND_CHOOSER);
+        if (c2 == null) {
             f.c("openSDK_LOG.SocialApiIml", "--invite--friend chooser not found");
-            c10 = c(SocialConstants.ACTIVITY_INVITE);
+            c2 = c(SocialConstants.ACTIVITY_INVITE);
         }
         bundle.putAll(b());
-        a(activity, c10, SocialConstants.ACTION_INVITE, bundle, com.tencent.open.utils.f.a().a(d.a(), "http://qzs.qq.com/open/mobile/invite/sdk_invite.html?"), iUiListener, false);
+        a(activity, c2, SocialConstants.ACTION_INVITE, bundle, com.tencent.open.utils.f.a().a(d.a(), "http://qzs.qq.com/open/mobile/invite/sdk_invite.html?"), iUiListener, false);
     }
 
     public void story(Activity activity, Bundle bundle, IUiListener iUiListener) {
-        this.f23093c = activity;
-        Intent c10 = c(SocialConstants.ACTIVITY_STORY);
+        this.f25369c = activity;
+        Intent c2 = c(SocialConstants.ACTIVITY_STORY);
         bundle.putAll(b());
-        a(activity, c10, SocialConstants.ACTION_STORY, bundle, com.tencent.open.utils.f.a().a(d.a(), "http://qzs.qq.com/open/mobile/sendstory/sdk_sendstory_v1.3.html?"), iUiListener, false);
+        a(activity, c2, SocialConstants.ACTION_STORY, bundle, com.tencent.open.utils.f.a().a(d.a(), "http://qzs.qq.com/open/mobile/sendstory/sdk_sendstory_v1.3.html?"), iUiListener, false);
     }
 
     @SuppressLint({"SetJavaScriptEnabled"})
     public void writeEncryToken(Context context) {
         String str;
-        String accessToken = this.f23006b.getAccessToken();
-        String appId = this.f23006b.getAppId();
-        String openId = this.f23006b.getOpenId();
+        String accessToken = this.f25282b.getAccessToken();
+        String appId = this.f25282b.getAppId();
+        String openId = this.f25282b.getOpenId();
         if (accessToken == null || accessToken.length() <= 0 || appId == null || appId.length() <= 0 || openId == null || openId.length() <= 0) {
             str = null;
         } else {
@@ -150,9 +150,9 @@ public class SocialApiIml extends BaseApi {
         settings.setDomStorageEnabled(true);
         settings.setJavaScriptEnabled(true);
         settings.setDatabaseEnabled(true);
-        String str2 = "<!DOCTYPE HTML><html lang=\"en-US\"><head><meta charset=\"UTF-8\"><title>localStorage Test</title><script type=\"text/javascript\">document.domain = 'qq.com';localStorage[\"" + this.f23006b.getOpenId() + e.f26694a + this.f23006b.getAppId() + "\"]=\"" + str + "\";</script></head><body></body></html>";
-        String a10 = com.tencent.open.utils.f.a().a(context, "http://qzs.qq.com");
-        bVar.loadDataWithBaseURL(a10, str2, "text/html", "utf-8", a10);
+        String str2 = "<!DOCTYPE HTML><html lang=\"en-US\"><head><meta charset=\"UTF-8\"><title>localStorage Test</title><script type=\"text/javascript\">document.domain = 'qq.com';localStorage[\"" + this.f25282b.getOpenId() + "_" + this.f25282b.getAppId() + "\"]=\"" + str + "\";</script></head><body></body></html>";
+        String a2 = com.tencent.open.utils.f.a().a(context, "http://qzs.qq.com");
+        bVar.loadDataWithBaseURL(a2, str2, "text/html", "utf-8", a2);
     }
 
     public SocialApiIml(com.tencent.connect.auth.c cVar, QQToken qQToken) {
@@ -160,13 +160,13 @@ public class SocialApiIml extends BaseApi {
     }
 
     private void a(Activity activity, String str, Bundle bundle, IUiListener iUiListener) {
-        this.f23093c = activity;
-        Intent c10 = c(SocialConstants.ACTIVITY_FRIEND_CHOOSER);
-        if (c10 == null) {
+        this.f25369c = activity;
+        Intent c2 = c(SocialConstants.ACTIVITY_FRIEND_CHOOSER);
+        if (c2 == null) {
             f.c("openSDK_LOG.SocialApiIml", "--askgift--friend chooser not found");
-            c10 = c(SocialConstants.ACTIVITY_ASK_GIFT);
+            c2 = c(SocialConstants.ACTIVITY_ASK_GIFT);
         }
-        Intent intent = c10;
+        Intent intent = c2;
         bundle.putAll(b());
         if (SocialConstants.ACTION_ASK.equals(str)) {
             bundle.putString("type", "request");
@@ -176,22 +176,26 @@ public class SocialApiIml extends BaseApi {
         a(activity, intent, str, bundle, com.tencent.open.utils.f.a().a(d.a(), "http://qzs.qq.com/open/mobile/request/sdk_request.html?"), iUiListener, false);
     }
 
-    private void a(Activity activity, Intent intent, String str, Bundle bundle, String str2, IUiListener iUiListener, boolean z10) {
-        StringBuilder sb2 = new StringBuilder();
-        sb2.append("-->handleIntent action = ");
-        sb2.append(str);
-        sb2.append(", activityIntent = null ? ");
-        sb2.append(intent == null);
-        f.c("openSDK_LOG.SocialApiIml", sb2.toString());
+    private void a(Activity activity, Intent intent, String str, Bundle bundle, String str2, IUiListener iUiListener, boolean z) {
+        StringBuilder sb = new StringBuilder();
+        sb.append("-->handleIntent action = ");
+        sb.append(str);
+        sb.append(", activityIntent = null ? ");
+        boolean z2 = true;
+        sb.append(intent == null);
+        f.c("openSDK_LOG.SocialApiIml", sb.toString());
         if (intent != null) {
             a(activity, intent, str, bundle, iUiListener);
             return;
         }
-        com.tencent.open.utils.e a10 = com.tencent.open.utils.e.a(d.a(), this.f23006b.getAppId());
-        if (!z10 && !a10.b("C_LoginH5")) {
-            a(activity, bundle, iUiListener);
-        } else {
+        e a2 = e.a(d.a(), this.f25282b.getAppId());
+        if (!z && !a2.b("C_LoginH5")) {
+            z2 = false;
+        }
+        if (z2) {
             a(activity, str, bundle, str2, iUiListener);
+        } else {
+            a(activity, bundle, iUiListener);
         }
     }
 
@@ -205,29 +209,29 @@ public class SocialApiIml extends BaseApi {
 
     private void a(Activity activity, String str, Bundle bundle, String str2, IUiListener iUiListener) {
         f.c("openSDK_LOG.SocialApiIml", "-->handleIntentWithH5 action = " + str);
-        Intent b10 = b("com.tencent.open.agent.AgentActivity");
+        Intent b2 = b("com.tencent.open.agent.AgentActivity");
         IUiListener aVar = new a(activity, iUiListener, str, str2, bundle);
-        Intent b11 = b("com.tencent.open.agent.EncryTokenActivity");
-        if (b11 != null && b10 != null && b10.getComponent() != null && b11.getComponent() != null && b10.getComponent().getPackageName().equals(b11.getComponent().getPackageName())) {
-            b11.putExtra("oauth_consumer_key", this.f23006b.getAppId());
-            b11.putExtra("openid", this.f23006b.getOpenId());
-            b11.putExtra(Constants.PARAM_ACCESS_TOKEN, this.f23006b.getAccessToken());
-            b11.putExtra(Constants.KEY_ACTION, SocialConstants.ACTION_CHECK_TOKEN);
-            if (a(b11)) {
+        Intent b3 = b("com.tencent.open.agent.EncryTokenActivity");
+        if (b3 != null && b2 != null && b2.getComponent() != null && b3.getComponent() != null && b2.getComponent().getPackageName().equals(b3.getComponent().getPackageName())) {
+            b3.putExtra("oauth_consumer_key", this.f25282b.getAppId());
+            b3.putExtra("openid", this.f25282b.getOpenId());
+            b3.putExtra(Constants.PARAM_ACCESS_TOKEN, this.f25282b.getAccessToken());
+            b3.putExtra(Constants.KEY_ACTION, SocialConstants.ACTION_CHECK_TOKEN);
+            if (a(b3)) {
                 f.c("openSDK_LOG.SocialApiIml", "-->handleIntentWithH5--found token activity");
                 UIListenerManager.getInstance().setListenerWithRequestcode(Constants.REQUEST_SOCIAL_H5, aVar);
-                a(activity, b11, Constants.REQUEST_SOCIAL_H5);
+                a(activity, b3, Constants.REQUEST_SOCIAL_H5);
                 return;
             }
             return;
         }
         f.c("openSDK_LOG.SocialApiIml", "-->handleIntentWithH5--token activity not found");
-        String f10 = i.f("tencent&sdk&qazxc***14969%%" + this.f23006b.getAccessToken() + this.f23006b.getAppId() + this.f23006b.getOpenId() + "qzone3.4");
+        String f2 = i.f("tencent&sdk&qazxc***14969%%" + this.f25282b.getAccessToken() + this.f25282b.getAppId() + this.f25282b.getOpenId() + "qzone3.4");
         JSONObject jSONObject = new JSONObject();
         try {
-            jSONObject.put(SocialConstants.PARAM_ENCRY_EOKEN, f10);
-        } catch (JSONException e10) {
-            e10.printStackTrace();
+            jSONObject.put(SocialConstants.PARAM_ENCRY_EOKEN, f2);
+        } catch (JSONException e2) {
+            e2.printStackTrace();
         }
         aVar.onComplete(jSONObject);
     }
@@ -235,27 +239,27 @@ public class SocialApiIml extends BaseApi {
     public void a(Context context, String str, Bundle bundle, String str2, IUiListener iUiListener) {
         f.a("openSDK_LOG.SocialApiIml", "OpenUi, showDialog --start");
         CookieSyncManager.createInstance(context);
-        bundle.putString("oauth_consumer_key", this.f23006b.getAppId());
-        if (this.f23006b.isSessionValid()) {
-            bundle.putString(Constants.PARAM_ACCESS_TOKEN, this.f23006b.getAccessToken());
+        bundle.putString("oauth_consumer_key", this.f25282b.getAppId());
+        if (this.f25282b.isSessionValid()) {
+            bundle.putString(Constants.PARAM_ACCESS_TOKEN, this.f25282b.getAccessToken());
         }
-        String openId = this.f23006b.getOpenId();
+        String openId = this.f25282b.getOpenId();
         if (openId != null) {
             bundle.putString("openid", openId);
         }
         try {
             bundle.putString(Constants.PARAM_PLATFORM_ID, d.a().getSharedPreferences(Constants.PREFERENCE_PF, 0).getString(Constants.PARAM_PLATFORM_ID, Constants.DEFAULT_PF));
-        } catch (Exception e10) {
-            e10.printStackTrace();
+        } catch (Exception e2) {
+            e2.printStackTrace();
             bundle.putString(Constants.PARAM_PLATFORM_ID, Constants.DEFAULT_PF);
         }
         String str3 = str2 + HttpUtils.encodeUrl(bundle);
         f.b("openSDK_LOG.SocialApiIml", "OpenUi, showDialog TDialog");
         if (!SocialConstants.ACTION_CHALLENGE.equals(str) && !SocialConstants.ACTION_BRAG.equals(str)) {
-            new TDialog(this.f23093c, str, str3, iUiListener, this.f23006b).show();
+            new TDialog(this.f25369c, str, str3, iUiListener, this.f25282b).show();
         } else {
             f.b("openSDK_LOG.SocialApiIml", "OpenUi, showDialog PKDialog");
-            new c(this.f23093c, str, str3, iUiListener, this.f23006b).show();
+            new c(this.f25369c, str, str3, iUiListener, this.f25282b).show();
         }
     }
 }

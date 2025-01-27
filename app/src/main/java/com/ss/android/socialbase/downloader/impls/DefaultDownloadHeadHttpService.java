@@ -17,11 +17,11 @@ import okhttp3.Response;
 public class DefaultDownloadHeadHttpService implements IDownloadHeadHttpService {
 
     /* renamed from: com.ss.android.socialbase.downloader.impls.DefaultDownloadHeadHttpService$1 */
-    public class AnonymousClass1 implements IDownloadHeadHttpConnection {
+    class AnonymousClass1 implements IDownloadHeadHttpConnection {
         final /* synthetic */ Call val$requestCall;
         final /* synthetic */ Response val$response;
 
-        public AnonymousClass1(Response response, Call call) {
+        AnonymousClass1(Response response, Call call) {
             execute = response;
             newCall = call;
         }
@@ -29,7 +29,7 @@ public class DefaultDownloadHeadHttpService implements IDownloadHeadHttpService 
         @Override // com.ss.android.socialbase.downloader.network.IDownloadHeadHttpConnection
         public void cancel() {
             Call call = newCall;
-            if (call == null || call.getCanceled()) {
+            if (call == null || call.isCanceled()) {
                 return;
             }
             newCall.cancel();
@@ -70,7 +70,7 @@ public class DefaultDownloadHeadHttpService implements IDownloadHeadHttpService 
             final /* synthetic */ Call val$requestCall;
             final /* synthetic */ Response val$response;
 
-            public AnonymousClass1(Response execute2, Call newCall2) {
+            AnonymousClass1(Response execute2, Call newCall2) {
                 execute = execute2;
                 newCall = newCall2;
             }
@@ -78,7 +78,7 @@ public class DefaultDownloadHeadHttpService implements IDownloadHeadHttpService 
             @Override // com.ss.android.socialbase.downloader.network.IDownloadHeadHttpConnection
             public void cancel() {
                 Call call = newCall;
-                if (call == null || call.getCanceled()) {
+                if (call == null || call.isCanceled()) {
                     return;
                 }
                 newCall.cancel();

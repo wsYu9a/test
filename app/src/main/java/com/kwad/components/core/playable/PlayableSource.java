@@ -1,6 +1,6 @@
 package com.kwad.components.core.playable;
 
-/* loaded from: classes3.dex */
+/* loaded from: classes2.dex */
 public enum PlayableSource {
     UNKNOWN_TRYPLAY_ENTRY_SOURCE(0),
     PLAY_FINISHED_NORMAL(1),
@@ -12,8 +12,8 @@ public enum PlayableSource {
 
     private int code;
 
-    PlayableSource(int i10) {
-        this.code = i10;
+    PlayableSource(int i2) {
+        this.code = i2;
     }
 
     public final int getCode() {

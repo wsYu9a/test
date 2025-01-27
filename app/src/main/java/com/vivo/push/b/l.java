@@ -4,36 +4,36 @@ package com.vivo.push.b;
 public final class l extends s {
 
     /* renamed from: a */
-    private int f24934a;
+    private int f30907a;
 
     /* renamed from: b */
-    private int f24935b;
+    private int f30908b;
 
     public l() {
         super(2016);
-        this.f24934a = -1;
-        this.f24935b = -1;
+        this.f30907a = -1;
+        this.f30908b = -1;
     }
 
     @Override // com.vivo.push.b.s, com.vivo.push.o
-    public final void c(com.vivo.push.a aVar) {
+    protected final void c(com.vivo.push.a aVar) {
         super.c(aVar);
-        aVar.a("key_dispatch_environment", this.f24934a);
-        aVar.a("key_dispatch_area", this.f24935b);
+        aVar.a("key_dispatch_environment", this.f30907a);
+        aVar.a("key_dispatch_area", this.f30908b);
     }
 
     @Override // com.vivo.push.b.s, com.vivo.push.o
-    public final void d(com.vivo.push.a aVar) {
+    protected final void d(com.vivo.push.a aVar) {
         super.d(aVar);
-        this.f24934a = aVar.b("key_dispatch_environment", 1);
-        this.f24935b = aVar.b("key_dispatch_area", 1);
+        this.f30907a = aVar.b("key_dispatch_environment", 1);
+        this.f30908b = aVar.b("key_dispatch_area", 1);
     }
 
     public final int e() {
-        return this.f24935b;
+        return this.f30908b;
     }
 
     public final int d() {
-        return this.f24934a;
+        return this.f30907a;
     }
 }

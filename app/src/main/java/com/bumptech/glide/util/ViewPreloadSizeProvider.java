@@ -10,13 +10,13 @@ import com.bumptech.glide.request.target.SizeReadyCallback;
 import com.bumptech.glide.request.transition.Transition;
 import java.util.Arrays;
 
-/* loaded from: classes2.dex */
+/* loaded from: classes.dex */
 public class ViewPreloadSizeProvider<T> implements ListPreloader.PreloadSizeProvider<T>, SizeReadyCallback {
     private int[] size;
     private SizeViewTarget viewTarget;
 
-    public static final class SizeViewTarget extends CustomViewTarget<View, Object> {
-        public SizeViewTarget(@NonNull View view) {
+    static final class SizeViewTarget extends CustomViewTarget<View, Object> {
+        SizeViewTarget(@NonNull View view) {
             super(view);
         }
 
@@ -25,7 +25,7 @@ public class ViewPreloadSizeProvider<T> implements ListPreloader.PreloadSizeProv
         }
 
         @Override // com.bumptech.glide.request.target.CustomViewTarget
-        public void onResourceCleared(@Nullable Drawable drawable) {
+        protected void onResourceCleared(@Nullable Drawable drawable) {
         }
 
         @Override // com.bumptech.glide.request.target.Target
@@ -38,7 +38,7 @@ public class ViewPreloadSizeProvider<T> implements ListPreloader.PreloadSizeProv
 
     @Override // com.bumptech.glide.ListPreloader.PreloadSizeProvider
     @Nullable
-    public int[] getPreloadSize(@NonNull T t10, int i10, int i11) {
+    public int[] getPreloadSize(@NonNull T t, int i2, int i3) {
         int[] iArr = this.size;
         if (iArr == null) {
             return null;
@@ -47,8 +47,8 @@ public class ViewPreloadSizeProvider<T> implements ListPreloader.PreloadSizeProv
     }
 
     @Override // com.bumptech.glide.request.target.SizeReadyCallback
-    public void onSizeReady(int i10, int i11) {
-        this.size = new int[]{i10, i11};
+    public void onSizeReady(int i2, int i3) {
+        this.size = new int[]{i2, i3};
         this.viewTarget = null;
     }
 

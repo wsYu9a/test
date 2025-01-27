@@ -7,7 +7,7 @@ import com.kwad.sdk.api.model.AdExposureFailedReason;
 
 @KsAdSdkApi
 @Keep
-/* loaded from: classes3.dex */
+/* loaded from: classes2.dex */
 public interface KsInterstitialAd extends BaseKSAd {
 
     @KsAdSdkApi
@@ -39,7 +39,7 @@ public interface KsInterstitialAd extends BaseKSAd {
 
         @KsAdSdkApi
         @Keep
-        void onVideoPlayError(int i10, int i11);
+        void onVideoPlayError(int i2, int i3);
 
         @KsAdSdkApi
         @Keep
@@ -63,7 +63,7 @@ public interface KsInterstitialAd extends BaseKSAd {
 
     @KsAdSdkApi
     @Keep
-    void reportAdExposureFailed(int i10, AdExposureFailedReason adExposureFailedReason);
+    void reportAdExposureFailed(int i2, AdExposureFailedReason adExposureFailedReason);
 
     @KsAdSdkApi
     @Keep
@@ -72,11 +72,11 @@ public interface KsInterstitialAd extends BaseKSAd {
     @KsAdSdkApi
     @Keep
     @Deprecated
-    void setBidEcpm(int i10);
+    void setBidEcpm(int i2);
 
     @KsAdSdkApi
     @Keep
-    void setBidEcpm(long j10, long j11);
+    void setBidEcpm(long j2, long j3);
 
     @KsAdSdkApi
     @Keep

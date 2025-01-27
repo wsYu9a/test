@@ -16,12 +16,12 @@ import com.kwad.sdk.api.core.fragment.KsFragmentActivity;
 import com.kwad.sdk.api.loader.Loader;
 import com.kwad.sdk.api.loader.Wrapper;
 
-/* loaded from: classes3.dex */
+/* loaded from: classes2.dex */
 public abstract class BaseProxyFragmentActivity extends KsFragmentActivity {
     private IFragmentActivityProxy mDelegate;
 
     @Override // android.app.Activity, android.view.ContextThemeWrapper, android.content.ContextWrapper
-    public void attachBaseContext(Context context) {
+    protected void attachBaseContext(Context context) {
         this.mDelegate = getDelegate(context);
         super.attachBaseContext(Wrapper.wrapContextIfNeed(context));
         this.mDelegate.setProxyFragmentActivity(this);
@@ -34,7 +34,7 @@ public abstract class BaseProxyFragmentActivity extends KsFragmentActivity {
     }
 
     @NonNull
-    public abstract IFragmentActivityProxy getDelegate(Context context);
+    protected abstract IFragmentActivityProxy getDelegate(Context context);
 
     @Override // android.app.Activity
     public Intent getIntent() {
@@ -60,16 +60,16 @@ public abstract class BaseProxyFragmentActivity extends KsFragmentActivity {
         return externalResource != null ? externalResource : resources;
     }
 
-    @Override // androidx.fragment.app.FragmentActivity, androidx.activity.ComponentActivity, android.app.Activity
-    public void onActivityResult(int i10, int i11, Intent intent) {
-        super.onActivityResult(i10, i11, intent);
-        this.mDelegate.onActivityResult(i10, i11, intent);
+    @Override // androidx.fragment.app.FragmentActivity, android.app.Activity
+    protected void onActivityResult(int i2, int i3, Intent intent) {
+        super.onActivityResult(i2, i3, intent);
+        this.mDelegate.onActivityResult(i2, i3, intent);
     }
 
     @Override // android.app.Activity, android.view.ContextThemeWrapper
-    public void onApplyThemeResource(Resources.Theme theme, int i10, boolean z10) {
-        super.onApplyThemeResource(theme, i10, z10);
-        this.mDelegate.onApplyThemeResource(theme, i10, z10);
+    protected void onApplyThemeResource(Resources.Theme theme, int i2, boolean z) {
+        super.onApplyThemeResource(theme, i2, z);
+        this.mDelegate.onApplyThemeResource(theme, i2, z);
     }
 
     @Override // com.kwad.sdk.api.core.fragment.KsFragmentActivity
@@ -84,19 +84,19 @@ public abstract class BaseProxyFragmentActivity extends KsFragmentActivity {
     }
 
     @Override // android.app.Activity
-    public void onChildTitleChanged(Activity activity, CharSequence charSequence) {
+    protected void onChildTitleChanged(Activity activity, CharSequence charSequence) {
         super.onChildTitleChanged(activity, charSequence);
         this.mDelegate.onChildTitleChanged(activity, charSequence);
     }
 
-    @Override // androidx.activity.ComponentActivity, android.app.Activity, android.content.ComponentCallbacks
+    @Override // androidx.fragment.app.FragmentActivity, android.app.Activity, android.content.ComponentCallbacks
     public void onConfigurationChanged(Configuration configuration) {
         super.onConfigurationChanged(configuration);
         this.mDelegate.onConfigurationChanged(configuration);
     }
 
     @Override // androidx.fragment.app.FragmentActivity, androidx.activity.ComponentActivity, androidx.core.app.ComponentActivity, android.app.Activity
-    public void onCreate(@Nullable Bundle bundle) {
+    protected void onCreate(@Nullable Bundle bundle) {
         this.mDelegate.onPreCreate(bundle);
         super.onCreate(bundle);
         this.mDelegate.onCreate(bundle);
@@ -111,93 +111,93 @@ public abstract class BaseProxyFragmentActivity extends KsFragmentActivity {
     }
 
     @Override // android.app.Activity, android.view.KeyEvent.Callback
-    public boolean onKeyDown(int i10, KeyEvent keyEvent) {
-        return this.mDelegate.onKeyDown(i10, keyEvent);
+    public boolean onKeyDown(int i2, KeyEvent keyEvent) {
+        return this.mDelegate.onKeyDown(i2, keyEvent);
     }
 
     @Override // android.app.Activity, android.view.KeyEvent.Callback
-    public boolean onKeyLongPress(int i10, KeyEvent keyEvent) {
-        return this.mDelegate.onKeyLongPress(i10, keyEvent);
+    public boolean onKeyLongPress(int i2, KeyEvent keyEvent) {
+        return this.mDelegate.onKeyLongPress(i2, keyEvent);
     }
 
     @Override // android.app.Activity, android.view.KeyEvent.Callback
-    public boolean onKeyUp(int i10, KeyEvent keyEvent) {
-        return this.mDelegate.onKeyUp(i10, keyEvent);
+    public boolean onKeyUp(int i2, KeyEvent keyEvent) {
+        return this.mDelegate.onKeyUp(i2, keyEvent);
     }
 
-    @Override // androidx.activity.ComponentActivity, android.app.Activity
-    public void onNewIntent(Intent intent) {
+    @Override // androidx.fragment.app.FragmentActivity, android.app.Activity
+    protected void onNewIntent(Intent intent) {
         super.onNewIntent(intent);
         this.mDelegate.onNewIntent(intent);
     }
 
     @Override // androidx.fragment.app.FragmentActivity, android.app.Activity
-    public void onPause() {
+    protected void onPause() {
         this.mDelegate.onPrePause();
         super.onPause();
         this.mDelegate.onPause();
     }
 
     @Override // android.app.Activity
-    public void onPostCreate(@Nullable Bundle bundle) {
+    protected void onPostCreate(@Nullable Bundle bundle) {
         super.onPostCreate(bundle);
         this.mDelegate.onPostCreate(bundle);
     }
 
     @Override // androidx.fragment.app.FragmentActivity, android.app.Activity
-    public void onPostResume() {
+    protected void onPostResume() {
         super.onPostResume();
         this.mDelegate.onPostResume();
     }
 
     @Override // android.app.Activity
-    public void onRestart() {
+    protected void onRestart() {
         super.onRestart();
         this.mDelegate.onRestart();
     }
 
     @Override // android.app.Activity
-    public void onRestoreInstanceState(@NonNull Bundle bundle) {
+    protected void onRestoreInstanceState(@NonNull Bundle bundle) {
         super.onRestoreInstanceState(bundle);
         this.mDelegate.onRestoreInstanceState(bundle);
     }
 
     @Override // androidx.fragment.app.FragmentActivity, android.app.Activity
-    public void onResume() {
+    protected void onResume() {
         this.mDelegate.onPreResume();
         super.onResume();
         this.mDelegate.onResume();
     }
 
-    @Override // androidx.activity.ComponentActivity, androidx.core.app.ComponentActivity, android.app.Activity
-    public void onSaveInstanceState(@NonNull Bundle bundle) {
+    @Override // androidx.fragment.app.FragmentActivity, androidx.activity.ComponentActivity, androidx.core.app.ComponentActivity, android.app.Activity
+    protected void onSaveInstanceState(@NonNull Bundle bundle) {
         this.mDelegate.onPreSaveInstanceState(bundle);
         super.onSaveInstanceState(bundle);
         this.mDelegate.onSaveInstanceState(bundle);
     }
 
     @Override // androidx.fragment.app.FragmentActivity, android.app.Activity
-    public void onStart() {
+    protected void onStart() {
         this.mDelegate.onPreStart();
         super.onStart();
         this.mDelegate.onStart();
     }
 
     @Override // androidx.fragment.app.FragmentActivity, android.app.Activity
-    public void onStop() {
+    protected void onStop() {
         this.mDelegate.onPreStop();
         super.onStop();
         this.mDelegate.onStop();
     }
 
     @Override // android.app.Activity
-    public void onTitleChanged(CharSequence charSequence, int i10) {
-        super.onTitleChanged(charSequence, i10);
-        this.mDelegate.onTitleChanged(charSequence, i10);
+    protected void onTitleChanged(CharSequence charSequence, int i2) {
+        super.onTitleChanged(charSequence, i2);
+        this.mDelegate.onTitleChanged(charSequence, i2);
     }
 
     @Override // android.app.Activity
-    public void onUserLeaveHint() {
+    protected void onUserLeaveHint() {
         super.onUserLeaveHint();
         this.mDelegate.onUserLeaveHint();
     }
@@ -214,15 +214,15 @@ public abstract class BaseProxyFragmentActivity extends KsFragmentActivity {
         super.onBackPressed();
     }
 
-    public boolean superOnKeyDown(int i10, KeyEvent keyEvent) {
-        return super.onKeyDown(i10, keyEvent);
+    public boolean superOnKeyDown(int i2, KeyEvent keyEvent) {
+        return super.onKeyDown(i2, keyEvent);
     }
 
-    public boolean superOnKeyLongPress(int i10, KeyEvent keyEvent) {
-        return super.onKeyLongPress(i10, keyEvent);
+    public boolean superOnKeyLongPress(int i2, KeyEvent keyEvent) {
+        return super.onKeyLongPress(i2, keyEvent);
     }
 
-    public boolean superOnKeyUp(int i10, KeyEvent keyEvent) {
-        return super.onKeyUp(i10, keyEvent);
+    public boolean superOnKeyUp(int i2, KeyEvent keyEvent) {
+        return super.onKeyUp(i2, keyEvent);
     }
 }

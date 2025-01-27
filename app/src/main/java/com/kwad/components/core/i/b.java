@@ -1,28 +1,39 @@
 package com.kwad.components.core.i;
 
-import androidx.annotation.NonNull;
-import com.kwad.sdk.api.KsInnerAd;
-import com.kwad.sdk.core.response.model.AdTemplate;
+import android.content.Context;
+import android.content.SharedPreferences;
+import android.text.TextUtils;
+import com.kwad.sdk.core.config.d;
+import org.json.JSONObject;
 
-/* loaded from: classes3.dex */
-final class b implements KsInnerAd {
-    private final int Og;
-
-    @NonNull
-    private final AdTemplate mAdTemplate;
-
-    public b(@NonNull AdTemplate adTemplate, int i10) {
-        this.mAdTemplate = adTemplate;
-        this.Og = i10;
-    }
-
-    @NonNull
-    public final AdTemplate getAdTemplate() {
-        return this.mAdTemplate;
-    }
-
-    @Override // com.kwad.sdk.api.KsInnerAd
-    public final int getType() {
-        return this.Og;
+/* loaded from: classes2.dex */
+public final class b {
+    public static boolean ac(Context context) {
+        boolean z;
+        if (context == null) {
+            return false;
+        }
+        SharedPreferences sharedPreferences = context.getSharedPreferences("ksadsdk_local_ad_force_active", 0);
+        a aVar = new a();
+        if (sharedPreferences.contains("ksadsdk_local_ad_force_active_data")) {
+            String string = sharedPreferences.getString("ksadsdk_local_ad_force_active_data", null);
+            if (!TextUtils.isEmpty(string)) {
+                try {
+                    aVar.parseJson(new JSONObject(string));
+                } catch (Exception e2) {
+                    com.kwad.sdk.core.d.b.printStackTraceOnly(e2);
+                }
+            }
+            z = aVar.h(d.uB(), d.uC());
+            com.kwad.sdk.core.d.b.d("LocalAdForceActiveHelper", "addCount contains success: " + z);
+        } else {
+            com.kwad.sdk.core.d.b.d("LocalAdForceActiveHelper", "addCount not contains");
+            aVar.nE();
+            z = true;
+        }
+        if (z) {
+            sharedPreferences.edit().putString("ksadsdk_local_ad_force_active_data", aVar.toJson().toString()).apply();
+        }
+        return z;
     }
 }

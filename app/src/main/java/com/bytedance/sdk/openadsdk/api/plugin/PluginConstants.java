@@ -1,6 +1,6 @@
 package com.bytedance.sdk.openadsdk.api.plugin;
 
-/* loaded from: classes2.dex */
+/* loaded from: classes.dex */
 public class PluginConstants {
     public static final int ERROR_PLUGIN_DOWNLOAD = 1004;
     public static final int ERROR_PLUGIN_FETCH = 1007;
@@ -12,6 +12,7 @@ public class PluginConstants {
     public static final int EVENT_TYPE_PLUGIN_UPDATE = 1;
     public static final String KEY_APP_ID = "app_id";
     public static final String KEY_ERROR_CODE = "code";
+    public static final String KEY_LIVE_SDK = "_live_sdk_";
     public static final String KEY_PLUGIN_PKG_NAME = "plugin_pkg_name";
     public static final String KEY_PLUGIN_VERSION = "plugin_version";
     public static final String KEY_PL_CONFIG_INFO = "_pl_config_info_";
@@ -28,7 +29,4 @@ public class PluginConstants {
     public static final String STUB_STANDARD_ACTIVITY_T = "com.bytedance.sdk.openadsdk.stub.activity.Stub_Standard_Activity_T";
     public static final String STUB_STANDARD_LANDSCAPE_ACTIVITY = "com.bytedance.sdk.openadsdk.stub.activity.Stub_Standard_Landscape_Activity";
     public static final String STUB_STANDARD_PORTRAIT_ACTIVITY_T = "com.bytedance.sdk.openadsdk.stub.activity.Stub_Standard_Portrait_Activity";
-    public static final int VALUE_PLUGIN_KEY_PLUGIN_INSTALL_RESULT = 4;
-    public static final int VALUE_PLUGIN_KEY_PLUGIN_PKG_NAME = 3;
-    public static final int VALUE_PLUGIN_KEY_PL_CONFIG_INFO = 2;
 }

@@ -1,55 +1,69 @@
 package com.martian.mibook.lib.model.data;
 
-import ba.l;
+import android.text.TextUtils;
 import com.martian.mibook.lib.model.data.abs.Book;
 
 /* loaded from: classes3.dex */
 public class BookWrapper {
     public Book book;
+    public Object customData;
     public MiBookStoreItem item;
-    public Type type = Type.BOOK;
+    public MiBook mibook;
+    public boolean isAdderItem = false;
+    public boolean isAdsItem = false;
+    public boolean updateCategoryRading = false;
     private boolean isSelect = false;
-    public boolean txtChapterLoading = false;
+    public boolean hasChapterUpdate = false;
+    public boolean isCaching = false;
+    public long cacheIndex = -1;
+    public long cacheSize = -1;
+    public String lastestCachedChapterTitle = null;
+    public boolean hasCache = false;
 
-    public enum Type {
-        BOOK,
-        ADDER,
-        AD
-    }
-
-    public BookWrapper(MiBookStoreItem miBookStoreItem, Book book) {
-        this.item = miBookStoreItem;
+    public BookWrapper(MiBookStoreItem item, MiBook mibook, Book book) {
+        this.item = item;
+        this.mibook = mibook;
         this.book = book;
     }
 
-    public boolean equals(Object obj) {
-        MiBookStoreItem miBookStoreItem;
-        return (obj instanceof BookWrapper) && (miBookStoreItem = this.item) != null && miBookStoreItem.equals(((BookWrapper) obj).item);
+    public void clearCacheInfo() {
+        this.cacheSize = 0L;
+        this.cacheIndex = 0L;
+        this.lastestCachedChapterTitle = null;
+    }
+
+    public boolean equals(Object o) {
+        if (o instanceof BookWrapper) {
+            return this.item.equals(((BookWrapper) o).item);
+        }
+        return false;
     }
 
     public String getBookName() {
+        MiBook miBook;
         MiBookStoreItem miBookStoreItem;
         Book book = this.book;
-        String bookName = book != null ? book.getBookName() : "";
-        return (!l.q(bookName) || (miBookStoreItem = this.item) == null) ? bookName : miBookStoreItem.getBookName();
+        String bookName = book != null ? book.getBookName() : null;
+        if (TextUtils.isEmpty(bookName) && (miBookStoreItem = this.item) != null) {
+            bookName = miBookStoreItem.getBookName();
+        }
+        if (TextUtils.isEmpty(bookName) && (miBook = this.mibook) != null) {
+            bookName = miBook.getBookName();
+        }
+        return TextUtils.isEmpty(bookName) ? "" : bookName;
     }
 
     public String getCover() {
         MiBookStoreItem miBookStoreItem = this.item;
-        if (miBookStoreItem != null && !l.q(miBookStoreItem.getCoverUrl())) {
+        if (miBookStoreItem != null && !TextUtils.isEmpty(miBookStoreItem.getCoverUrl())) {
             return this.item.getCoverUrl();
         }
         Book book = this.book;
         return book != null ? book.getCover() : "";
     }
 
-    public int getUpdateChapterCount() {
-        int lastReadChapterSize = this.item.getLastReadChapterSize();
-        Integer chapterSize = this.item.getChapterSize();
-        if (chapterSize == null || lastReadChapterSize <= 0 || lastReadChapterSize >= chapterSize.intValue()) {
-            return 0;
-        }
-        return chapterSize.intValue() - lastReadChapterSize;
+    public Object getCustomData() {
+        return this.customData;
     }
 
     public boolean hasUpdate() {
@@ -57,58 +71,46 @@ public class BookWrapper {
     }
 
     public int hashCode() {
-        MiBookStoreItem miBookStoreItem = this.item;
-        if (miBookStoreItem == null) {
-            return 0;
-        }
-        return miBookStoreItem.hashCode();
-    }
-
-    public boolean isAdItem() {
-        return this.type == Type.AD;
-    }
-
-    public boolean isAdderItem() {
-        return this.type == Type.ADDER;
+        return this.item.hashCode();
     }
 
     public boolean isSelect() {
         return this.isSelect;
     }
 
-    public boolean notBookItem() {
-        return this.type != Type.BOOK;
+    public boolean isUpdateCategoryRading() {
+        return this.updateCategoryRading;
     }
 
     public void resetTempInfo() {
-        this.txtChapterLoading = false;
+        this.isCaching = false;
+        this.cacheIndex = -1L;
+        this.cacheSize = -1L;
+        this.lastestCachedChapterTitle = null;
+        this.hasCache = false;
+        this.hasChapterUpdate = false;
     }
 
-    public void setCover(String str) {
+    public void setCover(String cover) {
         MiBookStoreItem miBookStoreItem = this.item;
         if (miBookStoreItem != null) {
-            miBookStoreItem.setCoverUrl(str);
+            miBookStoreItem.setCoverUrl(cover);
         }
         Book book = this.book;
         if (book != null) {
-            book.setCover(str);
+            book.setCover(cover);
         }
     }
 
-    public void setHasUpdate(boolean z10) {
-        this.item.setHasUpdate(z10);
+    public void setHasUpdate(boolean hasUpdate) {
+        this.item.setHasUpdate(hasUpdate);
     }
 
-    public void setSelect(boolean z10) {
-        this.isSelect = z10;
+    public void setSelect(boolean select) {
+        this.isSelect = select;
     }
 
-    public void setType(Type type) {
-        this.type = type;
-    }
-
-    public void updateLastReadChapterSize() {
-        MiBookStoreItem miBookStoreItem = this.item;
-        miBookStoreItem.setLastReadChapterSize(miBookStoreItem.getChapterSize());
+    public void setUpdateCategoryRading(boolean reading) {
+        this.updateCategoryRading = reading;
     }
 }

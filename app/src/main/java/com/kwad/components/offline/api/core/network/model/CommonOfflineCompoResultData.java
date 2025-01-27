@@ -1,15 +1,15 @@
 package com.kwad.components.offline.api.core.network.model;
 
 import androidx.annotation.Nullable;
-import com.kwad.sdk.core.a.d;
+import com.kwad.sdk.core.kwai.d;
+import com.kwad.sdk.core.network.BaseResultData;
 import com.kwad.sdk.core.network.EmptyResultData;
-import com.kwad.sdk.core.response.model.BaseResultData;
 import java.util.Iterator;
 import org.json.JSONException;
 import org.json.JSONObject;
 import org.json.JSONTokener;
 
-/* loaded from: classes3.dex */
+/* loaded from: classes2.dex */
 public abstract class CommonOfflineCompoResultData extends BaseOfflineCompoResultData {
     private static final int CODE_RESULT_OK = 1;
     private static final long serialVersionUID = 7464537023322307192L;
@@ -86,12 +86,12 @@ public abstract class CommonOfflineCompoResultData extends BaseOfflineCompoResul
         }
     }
 
-    public void setKeepOriginResponse(boolean z10) {
-        this.mKeepOriginResponse = z10;
+    public void setKeepOriginResponse(boolean z) {
+        this.mKeepOriginResponse = z;
     }
 
-    public void setNotifyFailOnResultError(boolean z10) {
-        this.mNotifyFailOnResultError = z10;
+    public void setNotifyFailOnResultError(boolean z) {
+        this.mNotifyFailOnResultError = z;
     }
 
     public JSONObject toJson() {

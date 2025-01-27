@@ -1,153 +1,90 @@
 package com.kwad.components.core.a;
 
-import android.os.SystemClock;
-import android.text.TextUtils;
-import com.kwad.sdk.core.c.b;
-import com.kwad.sdk.core.c.d;
-import com.kwad.sdk.core.d.c;
-import com.kwad.sdk.core.report.g;
-import com.kwad.sdk.core.report.n;
-import java.util.Timer;
-import java.util.TimerTask;
-import java.util.UUID;
-import java.util.concurrent.TimeUnit;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.ImageView;
+import android.widget.TextView;
+import androidx.annotation.MainThread;
+import androidx.annotation.Nullable;
+import com.kwad.sdk.R;
 
-/* loaded from: classes3.dex */
-public final class a {
-    private String KB;
-    private String KC;
-    private long KD;
-    private long KE;
-    private Timer KF;
-    private boolean KG = false;
-    private final long period;
+/* loaded from: classes2.dex */
+public final class a implements View.OnClickListener {
 
-    /* renamed from: com.kwad.components.core.a.a$1 */
-    public class AnonymousClass1 extends d {
-        public AnonymousClass1() {
-        }
+    @Nullable
+    private ImageView HA;
 
-        @Override // com.kwad.sdk.core.c.d, com.kwad.sdk.core.c.c
-        public final void onBackToBackground() {
-            super.onBackToBackground();
-            a.this.au();
-        }
+    @Nullable
+    private InterfaceC0162a HB;
 
-        @Override // com.kwad.sdk.core.c.d, com.kwad.sdk.core.c.c
-        public final void onBackToForeground() {
-            super.onBackToForeground();
-            a.this.at();
-        }
-    }
+    @Nullable
+    private TextView Hy;
 
-    /* renamed from: com.kwad.components.core.a.a$2 */
-    public class AnonymousClass2 extends TimerTask {
-        public AnonymousClass2() {
-        }
-
-        @Override // java.util.TimerTask, java.lang.Runnable
-        public final void run() {
-            a.this.ai(2);
-        }
-    }
+    @Nullable
+    private ImageView Hz;
+    private ViewGroup sn;
 
     /* renamed from: com.kwad.components.core.a.a$a */
-    public static final class C0415a {
-        private static final a KI = new a();
+    public interface InterfaceC0162a {
+        void t(View view);
+
+        void u(View view);
     }
 
-    public a() {
-        this.KD = -1L;
-        try {
-            this.KD = SystemClock.elapsedRealtime();
-        } catch (Throwable th2) {
-            this.KD = System.currentTimeMillis();
-            c.printStackTraceOnly(th2);
-        }
-        this.period = TimeUnit.MINUTES.toMillis(com.kwad.sdk.core.config.d.De());
-        AnonymousClass1 anonymousClass1 = new d() { // from class: com.kwad.components.core.a.a.1
-            public AnonymousClass1() {
-            }
-
-            @Override // com.kwad.sdk.core.c.d, com.kwad.sdk.core.c.c
-            public final void onBackToBackground() {
-                super.onBackToBackground();
-                a.this.au();
-            }
-
-            @Override // com.kwad.sdk.core.c.d, com.kwad.sdk.core.c.c
-            public final void onBackToForeground() {
-                super.onBackToForeground();
-                a.this.at();
-            }
-        };
-        b.Fi();
-        b.a(anonymousClass1);
-    }
-
-    public void ai(int i10) {
-        long elapsedRealtime = SystemClock.elapsedRealtime();
-        long j10 = elapsedRealtime - this.KD;
-        this.KD = elapsedRealtime;
-        if (i10 == 1) {
-            this.KE = 0L;
-            this.KC = UUID.randomUUID().toString();
-            if (TextUtils.isEmpty(this.KB)) {
-                this.KB = this.KC;
-            }
-        }
-        this.KE++;
-        n nVar = new n(10220L);
-        nVar.axZ = this.KE;
-        if (j10 > 0) {
-            nVar.aCZ = j10;
-        }
-        nVar.aDa = i10;
-        nVar.KB = this.KB;
-        nVar.KC = this.KC;
-        g.a2(nVar);
-    }
-
-    public void au() {
-        this.KG = false;
-        if (this.period <= 0) {
+    public a(ViewGroup viewGroup) {
+        if (viewGroup == null) {
             return;
         }
-        Timer timer = this.KF;
-        if (timer != null) {
-            timer.cancel();
-        }
-        ai(3);
-    }
-
-    public static a nh() {
-        return C0415a.KI;
-    }
-
-    public final void at() {
-        if (this.KG) {
+        ViewGroup viewGroup2 = (ViewGroup) viewGroup.findViewById(R.id.ksad_kwad_web_title_bar);
+        this.sn = viewGroup2;
+        if (viewGroup2 == null) {
             return;
         }
-        this.KG = true;
-        if (this.period <= 0) {
+        initView();
+    }
+
+    private void initView() {
+        this.Hy = (TextView) this.sn.findViewById(R.id.ksad_kwad_titlebar_title);
+        this.Hz = (ImageView) this.sn.findViewById(R.id.ksad_kwad_web_navi_back);
+        ImageView imageView = (ImageView) this.sn.findViewById(R.id.ksad_kwad_web_navi_close);
+        this.HA = imageView;
+        imageView.setOnClickListener(this);
+        this.Hz.setOnClickListener(this);
+    }
+
+    public final void a(@Nullable InterfaceC0162a interfaceC0162a) {
+        this.HB = interfaceC0162a;
+    }
+
+    public final void a(b bVar) {
+        TextView textView;
+        if (this.sn == null || (textView = this.Hy) == null) {
             return;
         }
-        this.KF = new Timer();
-        ai(1);
-        AnonymousClass2 anonymousClass2 = new TimerTask() { // from class: com.kwad.components.core.a.a.2
-            public AnonymousClass2() {
-            }
+        textView.setText(bVar.getTitle());
+    }
 
-            @Override // java.util.TimerTask, java.lang.Runnable
-            public final void run() {
-                a.this.ai(2);
-            }
-        };
-        try {
-            Timer timer = this.KF;
-            long j10 = this.period;
-            timer.schedule(anonymousClass2, j10, j10);
-        } catch (Throwable unused) {
+    @MainThread
+    public final void am(boolean z) {
+        ImageView imageView = this.HA;
+        if (imageView != null) {
+            imageView.setVisibility(z ? 0 : 8);
+        }
+    }
+
+    public final ViewGroup gK() {
+        return this.sn;
+    }
+
+    @Override // android.view.View.OnClickListener
+    public final void onClick(View view) {
+        if (this.HB == null) {
+            return;
+        }
+        if (view.equals(this.HA)) {
+            this.HB.u(view);
+        } else if (view.equals(this.Hz)) {
+            this.HB.t(view);
         }
     }
 }

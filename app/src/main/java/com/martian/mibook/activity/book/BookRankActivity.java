@@ -3,161 +3,199 @@ package com.martian.mibook.activity.book;
 import android.os.Bundle;
 import android.view.ViewStub;
 import androidx.viewpager.widget.ViewPager;
-import ba.l;
 import com.martian.libcomm.utils.GsonUtils;
-import com.martian.libmars.utils.SectionsPagerAdapter;
-import com.martian.mibook.R;
+import com.martian.libmars.activity.j1;
+import com.martian.libmars.utils.tablayout.MagicIndicator;
+import com.martian.libmars.utils.v0;
 import com.martian.mibook.application.MiConfigSingleton;
-import com.martian.mibook.fragment.BookRankFragment;
-import com.martian.mibook.lib.model.activity.MiBackableActivity;
-import java.io.Serializable;
+import com.martian.mibook.f.r3;
+import com.martian.ttbookhd.R;
 import java.util.ArrayList;
 import java.util.List;
 
 /* loaded from: classes3.dex */
-public class BookRankActivity extends MiBackableActivity {
-    public static final String C = "BOOK_RANK_INFO";
-    public static final String D = "book_rank_ctype";
-    public RankInfo A;
-    public int B;
+public class BookRankActivity extends com.martian.mibook.lib.model.b.a {
+    public static final String F = "BOOK_RANK_INFO";
+    public static final String G = "book_rank_ctype";
+    private a H;
+    private int I;
 
-    public static class RankInfo implements Serializable {
-        private int btype;
-        private int categoryId;
-        private int rType;
-        private int rank;
-        private String source;
-        private int brtype = 100;
-        private int rankStatus = 0;
-        private String category = "";
+    public static class a {
 
-        private void setBtype(int i10) {
-            this.btype = i10;
+        /* renamed from: a */
+        private int f10986a;
+
+        /* renamed from: b */
+        private int f10987b;
+
+        /* renamed from: d */
+        private int f10989d;
+
+        /* renamed from: e */
+        private int f10990e;
+
+        /* renamed from: h */
+        private int f10993h;
+
+        /* renamed from: i */
+        private String f10994i;
+
+        /* renamed from: c */
+        private int f10988c = 100;
+
+        /* renamed from: f */
+        private int f10991f = 0;
+
+        /* renamed from: g */
+        private String f10992g = "";
+
+        private void k(int btype) {
+            this.f10986a = btype;
         }
 
-        private void setRType(int i10) {
-            this.rType = i10;
+        private void o(int rType) {
+            this.f10987b = rType;
         }
 
-        public int getBrtype() {
-            return this.brtype;
+        public int a() {
+            return this.f10988c;
         }
 
-        public int getBtype() {
-            return this.btype * 10;
+        public int b() {
+            return this.f10986a * 10;
         }
 
-        public String getCategory() {
-            return this.category;
+        public String c() {
+            return this.f10992g;
         }
 
-        public int getCategoryId() {
-            return this.categoryId;
+        public int d() {
+            return this.f10989d;
         }
 
-        public int getRType() {
-            return this.rType;
+        public int e() {
+            return this.f10990e;
         }
 
-        public int getRank() {
-            return this.rank;
+        public int f() {
+            return this.f10987b;
         }
 
-        public int getRankStatus() {
-            return this.rankStatus;
+        public int g() {
+            return this.f10993h;
         }
 
-        public String getSource() {
-            return this.source;
+        public int h() {
+            return this.f10991f;
         }
 
-        public RankInfo setBrtype(int i10) {
-            this.brtype = i10;
-            setBtype(i10 / 10);
-            setRType(i10 % 10);
+        public String i() {
+            return this.f10994i;
+        }
+
+        public a j(int brtype) {
+            this.f10988c = brtype;
+            k(brtype / 10);
+            o(brtype % 10);
             return this;
         }
 
-        public RankInfo setCategory(String str) {
-            this.category = str;
+        public a l(String category) {
+            this.f10992g = category;
             return this;
         }
 
-        public RankInfo setCategoryId(int i10) {
-            this.categoryId = i10;
+        public a m(int categoryId) {
+            this.f10989d = categoryId;
             return this;
         }
 
-        public void setRank(int i10) {
-            this.rank = i10;
+        public a n(int categoryType) {
+            this.f10990e = categoryType;
+            return this;
         }
 
-        public void setRankStatus(int i10) {
-            this.rankStatus = i10;
+        public void p(int rank) {
+            this.f10993h = rank;
         }
 
-        public RankInfo setSource(String str) {
-            this.source = str;
+        public a q(int rankStatus) {
+            this.f10991f = rankStatus;
+            return this;
+        }
+
+        public a r(String source) {
+            this.f10994i = source;
             return this;
         }
     }
 
-    private List<SectionsPagerAdapter.a> N2() {
+    private List<v0.a> t2() {
         ArrayList arrayList = new ArrayList();
-        arrayList.add(new SectionsPagerAdapter.a().d(O2(0)).c(L2()));
-        arrayList.add(new SectionsPagerAdapter.a().d(O2(1)).c(M2()));
+        arrayList.add(new v0.a().d(u2(0)).c(r2()));
+        arrayList.add(new v0.a().d(u2(1)).c(s2()));
         return arrayList;
     }
 
-    public BookRankFragment L2() {
-        return BookRankFragment.t0(0, MiConfigSingleton.b2().p() != 2 ? 1 : 2, MiConfigSingleton.b2().p() == this.B ? this.A : null);
+    public static void v2(j1 activity, int cType) {
+        Bundle bundle = new Bundle();
+        bundle.putInt("book_rank_ctype", cType);
+        activity.startActivity(BookRankActivity.class, bundle);
     }
 
-    public BookRankFragment M2() {
-        return BookRankFragment.t0(1, MiConfigSingleton.b2().p() == 2 ? 1 : 2, MiConfigSingleton.b2().p() == this.B ? null : this.A);
+    public static void w2(j1 activity, int cType, a rankInfo) {
+        Bundle bundle = new Bundle();
+        bundle.putInt("book_rank_ctype", cType);
+        bundle.putString(F, GsonUtils.b().toJson(rankInfo));
+        activity.startActivity(BookRankActivity.class, bundle);
     }
 
-    public String O2(int i10) {
-        if (i10 == 0) {
-            return getString(MiConfigSingleton.b2().p() == 2 ? R.string.female : R.string.male);
-        }
-        return getString(MiConfigSingleton.b2().p() == 2 ? R.string.male : R.string.female);
-    }
-
-    @Override // com.martian.mibook.lib.model.activity.MiBackableActivity, com.martian.libmars.activity.MartianActivity, com.martian.libmars.activity.BaseActivity, me.imid.swipebacklayout.lib.app.SwipeBackActivity, androidx.fragment.app.FragmentActivity, androidx.activity.ComponentActivity, androidx.core.app.ComponentActivity, android.app.Activity
-    public void onCreate(Bundle bundle) {
+    @Override // com.martian.mibook.lib.model.b.a, com.martian.libmars.activity.j1, com.martian.libmars.activity.h1, me.imid.swipebacklayout.lib.d.a, androidx.appcompat.app.AppCompatActivity, androidx.fragment.app.FragmentActivity, androidx.activity.ComponentActivity, androidx.core.app.ComponentActivity, android.app.Activity
+    protected void onCreate(Bundle savedInstanceState) {
         String str;
-        super.onCreate(bundle);
+        super.onCreate(savedInstanceState);
         setContentView(R.layout.martian_activity_yw_book_rank_list);
-        if (bundle != null) {
-            this.B = bundle.getInt("book_rank_ctype");
-            str = bundle.getString(C);
+        if (savedInstanceState != null) {
+            this.I = savedInstanceState.getInt("book_rank_ctype");
+            str = savedInstanceState.getString(F);
         } else {
             Bundle extras = getIntent().getExtras();
             if (extras != null) {
-                this.B = extras.getInt("book_rank_ctype");
-                str = extras.getString(C);
+                this.I = extras.getInt("book_rank_ctype");
+                str = extras.getString(F);
             } else {
                 str = "";
             }
         }
-        if (!l.q(str)) {
-            this.A = (RankInfo) GsonUtils.b().fromJson(str, RankInfo.class);
+        if (!com.martian.libsupport.k.p(str)) {
+            this.H = (a) GsonUtils.b().fromJson(str, a.class);
         }
-        v2(false);
+        d2(false);
         ViewPager viewPager = (ViewPager) findViewById(R.id.lb_content);
         viewPager.setOffscreenPageLimit(2);
-        viewPager.setAdapter(new SectionsPagerAdapter(getSupportFragmentManager(), N2()));
-        ViewStub B2 = B2();
-        B2.setLayoutResource(com.martian.libmars.R.layout.layout_xttab);
-        B2.setVisibility(0);
-        E2().setNavigator(viewPager);
-        viewPager.setCurrentItem(MiConfigSingleton.b2().p() != this.B ? 1 : 0);
+        viewPager.setAdapter(new v0(getSupportFragmentManager(), t2()));
+        ViewStub viewStub = (ViewStub) findViewById(R.id.actionbar_container);
+        viewStub.setLayoutResource(R.layout.layout_xttab);
+        viewStub.setVisibility(0);
+        ((MagicIndicator) findViewById(R.id.magic_indicator)).setNavigator(viewPager);
+        viewPager.setCurrentItem(MiConfigSingleton.V3().k() != this.I ? 1 : 0);
     }
 
-    @Override // androidx.activity.ComponentActivity, androidx.core.app.ComponentActivity, android.app.Activity
-    public void onSaveInstanceState(Bundle bundle) {
-        bundle.putString(C, GsonUtils.b().toJson(this.A));
-        super.onSaveInstanceState(bundle);
+    @Override // androidx.appcompat.app.AppCompatActivity, androidx.fragment.app.FragmentActivity, androidx.activity.ComponentActivity, androidx.core.app.ComponentActivity, android.app.Activity
+    protected void onSaveInstanceState(Bundle outState) {
+        outState.putString(F, GsonUtils.b().toJson(this.H));
+        super.onSaveInstanceState(outState);
+    }
+
+    protected r3 r2() {
+        return r3.Y(0, MiConfigSingleton.V3().k() != 2 ? 1 : 2, MiConfigSingleton.V3().k() == this.I ? this.H : null);
+    }
+
+    protected r3 s2() {
+        return r3.Y(1, MiConfigSingleton.V3().k() == 2 ? 1 : 2, MiConfigSingleton.V3().k() == this.I ? null : this.H);
+    }
+
+    public String u2(int position) {
+        return position == 0 ? MiConfigSingleton.V3().k() == 2 ? getString(R.string.female) : getString(R.string.male) : MiConfigSingleton.V3().k() == 2 ? getString(R.string.male) : getString(R.string.female);
     }
 }

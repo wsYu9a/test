@@ -1,182 +1,99 @@
 package com.umeng.analytics.pro;
 
-import android.content.Context;
-import android.database.sqlite.SQLiteDatabase;
-import android.text.TextUtils;
-import java.io.File;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.List;
+import com.umeng.commonsdk.debug.UMLogUtils;
 
 /* loaded from: classes4.dex */
 public class j {
-    /* JADX WARN: Code restructure failed: missing block: B:16:0x003e, code lost:
-    
-        if (r1 == null) goto L66;
-     */
-    /*
-        Code decompiled incorrectly, please refer to instructions dump.
-        To view partially-correct code enable 'Show inconsistent code' option in preferences
-    */
-    public static boolean a(java.lang.String r12, android.database.sqlite.SQLiteDatabase r13) {
-        /*
-            r0 = 0
-            if (r12 != 0) goto L4
-            return r0
-        L4:
-            r1 = 0
-            java.lang.String r2 = "count(*)"
-            java.lang.String[] r5 = new java.lang.String[]{r2}     // Catch: java.lang.Throwable -> L30 java.lang.Exception -> L32
-            java.lang.String r2 = "table"
-            java.lang.String r12 = r12.trim()     // Catch: java.lang.Throwable -> L30 java.lang.Exception -> L32
-            java.lang.String[] r7 = new java.lang.String[]{r2, r12}     // Catch: java.lang.Throwable -> L30 java.lang.Exception -> L32
-            java.lang.String r4 = "sqlite_master"
-            java.lang.String r6 = "type=? and name=?"
-            r10 = 0
-            r11 = 0
-            r8 = 0
-            r9 = 0
-            r3 = r13
-            android.database.Cursor r1 = r3.query(r4, r5, r6, r7, r8, r9, r10, r11)     // Catch: java.lang.Throwable -> L30 java.lang.Exception -> L32
-            boolean r12 = r1.moveToNext()     // Catch: java.lang.Throwable -> L30 java.lang.Exception -> L32
-            if (r12 == 0) goto L34
-            int r12 = r1.getInt(r0)     // Catch: java.lang.Throwable -> L30 java.lang.Exception -> L32
-            if (r12 <= 0) goto L34
-            r0 = 1
-            goto L34
-        L30:
-            r12 = move-exception
-            goto L38
-        L32:
-            goto L3e
-        L34:
-            r1.close()
-            goto L41
-        L38:
-            if (r1 == 0) goto L3d
-            r1.close()
-        L3d:
-            throw r12
-        L3e:
-            if (r1 == 0) goto L41
-            goto L34
-        L41:
-            return r0
-        */
-        throw new UnsupportedOperationException("Method not decompiled: com.umeng.analytics.pro.j.a(java.lang.String, android.database.sqlite.SQLiteDatabase):boolean");
-    }
+    public static final String A = "MobclickAgent.setSecret方法参数secretkey不能为null，也不能为空字符串。|secretkey参数必须是非空 字符串。";
+    public static final String B = "统计SDK常见问题索引贴 详见链接 http://developer.umeng.com/docs/66650/cate/66650";
+    public static final String H = "检测到进入页面生命周期时尚未完成SDK初始化，请检查是否未在Application.onCreate函数中执行SDK初始化函数。";
+    public static final String N = "MobclickAgent.onDeepLinkReceived方法Context参数不能为null。|参数Context需要指定ApplicationContext值。";
+    public static final String O = "MobclickAgent.onDeepLinkReceived方法link参数不能为null，也不能为空字符串。|参数link必须为非空字符串。";
+    public static final String P = "MobclickAgent.onDeepLinkReceived方法link参数长度超过限制。|参数link长度不能超过1024字符。";
+    public static final String ar = "请在Application.onCreate函数中使用UMConfigure.preInit函数初始化友盟sdk";
+    public static final String z = "MobclickAgent.setSecret方法参数context不能为null|参数Context需要指定ApplicationContext值。";
 
-    public static String b(Context context) {
-        return context.getDatabasePath(g.f23920b).getParent() + File.separator;
-    }
+    /* renamed from: a */
+    public static final String f25930a = "事件属性集合参数为空|onEvent接口必须传入非空的属性集合。详见问题链接 " + UMLogUtils.makeUrl("66946");
 
-    public static String c(Context context) {
-        return b(context) + g.f23919a;
-    }
+    /* renamed from: b */
+    public static final String f25932b = "事件ID和保留字冲突|onEvent接口传入的事件ID不能和保留字冲突。详见问题链接 " + UMLogUtils.makeUrl("66946");
 
-    public static List<String> b(List<String> list) {
-        ArrayList arrayList = new ArrayList();
-        try {
-            for (String str : list) {
-                if (Collections.frequency(arrayList, str) < 1) {
-                    arrayList.add(str);
-                }
-            }
-        } catch (Exception e10) {
-            e10.printStackTrace();
-        }
-        return arrayList;
-    }
+    /* renamed from: c */
+    public static final String f25933c = "事件ID为null或者为空字符串|onEvent接口传入的事件ID不能为null，也不能为空字符串。详见问题链接 " + UMLogUtils.makeUrl("66946");
 
-    public static void a(Context context) {
-        if (context == null) {
-            return;
-        }
-        try {
-            File databasePath = context.getDatabasePath(g.f23920b);
-            if (databasePath != null && databasePath.exists()) {
-                databasePath.delete();
-            }
-            h.a(context).a();
-        } catch (Throwable unused) {
-        }
-    }
+    /* renamed from: d */
+    public static final String f25934d = "事件属性集合map没有加入K-V值|事件属性集合参数map必须添加K-V值。详见问题链接 " + UMLogUtils.makeUrl("66946");
 
-    public static String a(List<String> list) {
-        return TextUtils.join("!", list);
-    }
+    /* renamed from: e */
+    public static final String f25935e = "事件属性集合map中key值和保留字冲突|事件属性集合map中key值不能和保留字冲突。详见问题链接 " + UMLogUtils.makeUrl("66946");
 
-    public static List<String> a(String str) {
-        return new ArrayList(Arrays.asList(str.split("!")));
-    }
+    /* renamed from: f */
+    public static final String f25936f = "事件ID为null或者长度超过限制|事件ID不能为null、空串，且长度不能超过128个字符。详见问题链接 " + UMLogUtils.makeUrl("66946");
 
-    /* JADX WARN: Code restructure failed: missing block: B:12:0x0024, code lost:
-    
-        if (r1.isClosed() == false) goto L71;
-     */
-    /* JADX WARN: Code restructure failed: missing block: B:13:0x0026, code lost:
-    
-        r1.close();
-     */
-    /* JADX WARN: Code restructure failed: missing block: B:19:0x003c, code lost:
-    
-        if (r1.isClosed() == false) goto L71;
-     */
-    /*
-        Code decompiled incorrectly, please refer to instructions dump.
-        To view partially-correct code enable 'Show inconsistent code' option in preferences
-    */
-    public static boolean a(android.database.sqlite.SQLiteDatabase r10, java.lang.String r11, java.lang.String r12) {
-        /*
-            r0 = 0
-            r1 = 0
-            java.lang.String r9 = "LIMIT 0"
-            r4 = 0
-            r5 = 0
-            r6 = 0
-            r7 = 0
-            r8 = 0
-            r2 = r10
-            r3 = r11
-            android.database.Cursor r1 = r2.query(r3, r4, r5, r6, r7, r8, r9)     // Catch: java.lang.Throwable -> L1a java.lang.Exception -> L1c
-            if (r1 == 0) goto L1e
-            int r10 = r1.getColumnIndex(r12)     // Catch: java.lang.Throwable -> L1a java.lang.Exception -> L1c
-            r11 = -1
-            if (r10 == r11) goto L1e
-            r0 = 1
-            goto L1e
-        L1a:
-            r10 = move-exception
-            goto L2a
-        L1c:
-            goto L36
-        L1e:
-            if (r1 == 0) goto L3f
-            boolean r10 = r1.isClosed()
-            if (r10 != 0) goto L3f
-        L26:
-            r1.close()
-            goto L3f
-        L2a:
-            if (r1 == 0) goto L35
-            boolean r11 = r1.isClosed()
-            if (r11 != 0) goto L35
-            r1.close()
-        L35:
-            throw r10
-        L36:
-            if (r1 == 0) goto L3f
-            boolean r10 = r1.isClosed()
-            if (r10 != 0) goto L3f
-            goto L26
-        L3f:
-            return r0
-        */
-        throw new UnsupportedOperationException("Method not decompiled: com.umeng.analytics.pro.j.a(android.database.sqlite.SQLiteDatabase, java.lang.String, java.lang.String):boolean");
-    }
+    /* renamed from: g */
+    public static final String f25937g = "事件属性集合参数为空或者事件属性集合map没有加入K-V值|事件属性集合参数map必须添加K-V值。详见问题链接 " + UMLogUtils.makeUrl("66946");
 
-    public static void a(SQLiteDatabase sQLiteDatabase, String str, String str2, String str3) {
-        sQLiteDatabase.execSQL("alter table " + str + " add " + str2 + " " + str3);
-    }
+    /* renamed from: h */
+    public static final String f25938h = "事件属性集合map中key非法|事件属性集合参数map中key不能为非法的。详见问题链接 " + UMLogUtils.makeUrl("66946");
+
+    /* renamed from: i */
+    public static final String f25939i = "事件属性集合map中value为null|事件属性集合参数map中value不能为null。详见问题链接 " + UMLogUtils.makeUrl("66946");
+
+    /* renamed from: j */
+    public static final String f25940j = "事件属性集合map中value长度超过限制|事件属性集合参数map中value如果为字符串时，其长度不能超过256个字符。详见问题链接 " + UMLogUtils.makeUrl("66946");
+    public static final String k = "事件标签为null或者为空字符串|onEvent接口传入的事件标签不能为null，也不能为空字符串。详见问题链接 " + UMLogUtils.makeUrl("66946");
+    public static final String l = "事件ID为null或者长度超过限制，或事件标签长度超过限制|事件ID不能为null、空串，且长度不能超过128个字符。事件标签长度不能超过256个字符。详见问题链接 " + UMLogUtils.makeUrl("66946");
+    public static final String m = "事件ID和保留字冲突|onEvent接口传入的事件ID不能和保留字冲突。详见问题链接 " + UMLogUtils.makeUrl("66946");
+    public static final String n = "MobclickAgent.onResume接口参数不能为null|MobclickAgent.onResume接口参数应该传入当前Activity的上下文。详见问题链接 " + UMLogUtils.makeUrl("66948");
+    public static final String o = "MobclickAgent.onResume接口参数不是Activity的上下文|MobclickAgent.onResume接口参数应该传入当前Activity的上下文。详见问题链接 " + UMLogUtils.makeUrl("66948");
+    public static final String p = "MobclickAgent.onPause接口参数不能为null|MobclickAgent.onPause接口参数应该传入当前Activity的上下文。详见问题链接 " + UMLogUtils.makeUrl("66948");
+    public static final String q = "MobclickAgent.onPause接口参数不是Activity的上下文|MobclickAgent.onPause接口参数应该传入当前Activity的上下文。详见问题链接 " + UMLogUtils.makeUrl("66948");
+    public static final String r = "@ 遗漏了Mobclick.onResume函数调用|每个Activity的onResume中都必须调用MobclickAgent.onResume。详见问题链接 " + UMLogUtils.makeUrl("66948");
+    public static final String s = "@ 遗漏了Mobclick.onPaused函数调用|每个Activity的onPaused中都必须调用MobclickAgent.onPaused。详见问题链接 " + UMLogUtils.makeUrl("66948");
+    public static final String t = "MobclickAgent.onProfileSignIn接口参数 账号ID 不能为null|账号ID不能为空。详见问题链接 " + UMLogUtils.makeUrl("66951");
+    public static final String u = "MobclickAgent.onProfileSignIn接口参数 账号ID 长度超过限制|账号ID 长度不能超过64个字符。详见问题链接 " + UMLogUtils.makeUrl("66951");
+    public static final String v = "MobclickAgent.onProfileSignIn接口参数 账号来源 长度超过限制|账号来源 长度不能超过32个字符。详见问题链接 " + UMLogUtils.makeUrl("66951");
+    public static final String w = "MobclickAgent.reportError方法参数context不能为null|参数Context需要指定ApplicationContext值。详见问题链接 " + UMLogUtils.makeUrl("66971");
+    public static final String x = "MobclickAgent.reportError方法参数error不能为null，也不能为空字符串。|error参数必须是非空字符串。详见问题链接 " + UMLogUtils.makeUrl("66971");
+    public static final String y = "MobclickAgent.reportError方法 Context和Throwable参数都不能为空。|参数Context需要指定ApplicationContext值，Throwable参数传入捕获到的异常对象。详见问题链接 " + UMLogUtils.makeUrl("66971");
+    public static final String C = "MobclickAgent.onPageStart方法参数不能为null，也不能为空字符串。|参数viewName必须为非空字符串。详见链接 " + UMLogUtils.makeUrl("66975");
+    public static final String D = "MobclickAgent.onPageEnd方法参数不能为null，也不能为空字符串。|参数viewName必须为非空 字符串。详见链接 " + UMLogUtils.makeUrl("66975");
+    public static final String E = "对于页面@，onPageStart和onPageEnd调用对的参数不一致。|对于同一个页面，请先调用onPageStart，再调用onPageEnd。详见链接 " + UMLogUtils.makeUrl("66975");
+    public static final String F = "对于页面@，请确保先依序成对调用onPageStart，onPageEnd接口，再调用onPageStart接口对其它页面进行统计。|对于任意一个页面，必须依序成对调用onPageStart以及onPageEnd，不能有遗漏。详见链接 " + UMLogUtils.makeUrl("66975");
+    public static final String G = "对于页面@，请检查是否遗漏onPageStart接口调用。|对于任意一个页面，必须依序成对调用onPageStart以及onPageEnd，不能有遗漏。详见链接 " + UMLogUtils.makeUrl("66975");
+    public static final String I = "当前发送策略为：启动时发送。详见链接 " + UMLogUtils.makeUrl("66976");
+    public static final String J = "当前发送策略为: 间隔发送。间隔时间为：@秒。详见链接 " + UMLogUtils.makeUrl("66976");
+    public static final String K = "当前发送策略为: 集成测试。但是SDK未切换到调试模式，所以后台设置未生效。|如想切换到集成测试发送策略，请调用UMConfigure.setLogEnabled(true)将SDK切换到调试模式。详见链接 " + UMLogUtils.makeUrl("66976");
+    public static final String L = "当前发送策略为：集成测试。详见链接 " + UMLogUtils.makeUrl("66976");
+    public static final String M = "当前发送策略为: 准实时发送。间隔时间为：@秒。详见链接 " + UMLogUtils.makeUrl("66976");
+    public static final String Q = "发送数据时发生java.net.UnknownHostException异常|友盟后端对设备端证书验证失败。请确保设备端没有运行抓包代理类程序。详见链接 " + UMLogUtils.makeUrl("66978");
+    public static final String R = "发送数据时发生javax.net.sslHandshakeException异常|导致友盟后端域名解析失败。请检查系统DNS服务器配置是否正确。详见链接 " + UMLogUtils.makeUrl("66978");
+    public static final String S = "track接口调用非法。|当前处于非DPLUS场景中，不能使用DPLUS相关接口，详见问题连接：" + UMLogUtils.makeUrl("67310");
+    public static final String T = "registerSuperProperty接口调用非法。|当前处于非DPLUS场景中，不能使用DPLUS相关接口，详见问题连接：" + UMLogUtils.makeUrl("67310");
+    public static final String U = "unregisterSuperProperty接口调用非法。|当前处于非DPLUS场景中，不能使用DPLUS相关接口，详见问题连接：" + UMLogUtils.makeUrl("67310");
+    public static final String V = "getSuperProperty接口调用非法。|当前处于非DPLUS场景中，不能使用DPLUS相关接口，详见问题连接: " + UMLogUtils.makeUrl("67310");
+    public static final String W = "getSuperProperties接口调用非法。|当前处于非DPLUS场景中，不能使用DPLUS相关接口，详见问题连接：" + UMLogUtils.makeUrl("67310");
+    public static final String X = "clearSuperProperties接口调用非法。|当前处于非DPLUS场景中，不能使用DPLUS相关接口，详见问题连接：" + UMLogUtils.makeUrl("67310");
+    public static final String Y = "setFirstLaunchEvent接口调用非法。|当前处于非DPLUS场景中，不能使用DPLUS相关接口，详见问题连接：" + UMLogUtils.makeUrl("67310");
+    public static final String Z = "registerPreProperties接口调用非法。|当前处于非DPLUS场景中，不能使用DPLUS相关接口，详见问题连接：" + UMLogUtils.makeUrl("67310");
+    public static final String aa = "unregisterPreProperty接口调用非法。|当前处于非DPLUS场景中，不能使用DPLUS相关接口，详见问题连接：" + UMLogUtils.makeUrl("67310");
+    public static final String ab = "clearPreProperties接口调用非法。|当前处于非DPLUS场景中，不能使用DPLUS相关接口，详见问题连接：" + UMLogUtils.makeUrl("67310");
+    public static final String ac = "getPreProperties接口调用非法。|当前处于非DPLUS场景中，不能使用DPLUS相关接口，详见问题连接：" + UMLogUtils.makeUrl("67310");
+
+    /* renamed from: ad */
+    public static final String f25931ad = "eventName为空，请检查|eventName参数不能为空，详见问题连接：" + UMLogUtils.makeUrl("67311");
+    public static final String ae = "请注意：map为空|track接口的参数说明，详见问题连接：" + UMLogUtils.makeUrl("67311");
+    public static final String af = "context参数为空｜context参数不能为空，详见问题连接：" + UMLogUtils.makeUrl("67312");
+    public static final String ag = "propertyName参数或propertyValue参数为空｜propertyName、propertyValue参数不能为空，详见问题连接：" + UMLogUtils.makeUrl("67312");
+    public static final String ah = "context参数为空|context参数不能为空，详见问题连接：" + UMLogUtils.makeUrl("67313");
+    public static final String ai = "context参数为空|context参数不能为空，详见问题连接：" + UMLogUtils.makeUrl("67316");
+    public static final String aj = "context参数为空|context参数不能为空，详见问题连接：" + UMLogUtils.makeUrl("67318");
+    public static final String ak = "trackID参数为空|trackID参数不能为空，详见问题连接：" + UMLogUtils.makeUrl("67318");
+    public static final String al = "context参数为空|context参数不能为空，详见问题连接：" + UMLogUtils.makeUrl("67319");
+    public static final String am = "propertics参数为空|propertics参数不能为空，详见问题连接：" + UMLogUtils.makeUrl("67319");
+    public static final String an = "context参数为空|context参数不能为空，详见问题连接：" + UMLogUtils.makeUrl("67320");
+    public static final String ao = "未匹配到您传入的property参数|property参数不能匹配，" + UMLogUtils.makeUrl("67320");
+    public static final String ap = "context参数为空|context参数不能为空，详见问题连接：" + UMLogUtils.makeUrl("67321");
+    public static final String aq = "context参数为空|context参数不能为空，详见问题连接：" + UMLogUtils.makeUrl("67322");
 }

@@ -24,15 +24,15 @@ public class TYSearchBookList {
         return this.page;
     }
 
-    public void setBookItemList(List<TYBookItem> list) {
-        this.bookList = list;
+    public void setBookItemList(List<TYBookItem> bookList) {
+        this.bookList = bookList;
     }
 
-    public void setMaxPage(int i10) {
-        this.maxPage = i10;
+    public void setMaxPage(int maxPage) {
+        this.maxPage = maxPage;
     }
 
-    public void setPage(int i10) {
-        this.page = i10;
+    public void setPage(int page) {
+        this.page = page;
     }
 }

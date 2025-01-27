@@ -4,9 +4,9 @@ import android.content.Context;
 import android.os.Build;
 import android.os.Process;
 
-/* loaded from: classes3.dex */
+/* loaded from: classes2.dex */
 public final class AbiUtil {
-    private static Abi aSs;
+    private static Abi ayP;
 
     public enum Abi {
         UNKNOWN,
@@ -14,40 +14,46 @@ public final class AbiUtil {
         ARM64_V8A
     }
 
-    public static String bU(Context context) {
+    public static String bu(Context context) {
         return isArm64(context) ? "arm64-v8a" : "armeabi-v7a";
     }
 
-    private static Abi bV(Context context) {
-        boolean is64Bit;
-        Abi abi = aSs;
-        if (abi != null) {
-            return abi;
+    private static Abi bv(Context context) {
+        Abi abi;
+        Abi abi2 = ayP;
+        if (abi2 != null) {
+            return abi2;
         }
-        if (Build.VERSION.SDK_INT >= 23) {
-            is64Bit = Process.is64Bit();
-            aSs = is64Bit ? Abi.ARM64_V8A : Abi.ARMEABI_V7A;
-        } else {
-            try {
-                aSs = ((Boolean) w.callMethod(w.a("dalvik.system.VMRuntime", "getRuntime", new Object[0]), "is64Bit", new Object[0])).booleanValue() ? Abi.ARM64_V8A : Abi.ARMEABI_V7A;
-            } catch (Throwable th2) {
-                th2.printStackTrace();
-                try {
-                    if (context.getApplicationInfo().nativeLibraryDir.contains("arm64")) {
-                        aSs = Abi.ARM64_V8A;
-                    } else {
-                        aSs = Abi.UNKNOWN;
+        int i2 = Build.VERSION.SDK_INT;
+        if (i2 >= 21) {
+            if (i2 < 23) {
+                if (i2 >= 21) {
+                    try {
+                        ayP = ((Boolean) s.a(s.a("dalvik.system.VMRuntime", "getRuntime", new Object[0]), "is64Bit", new Object[0])).booleanValue() ? Abi.ARM64_V8A : Abi.ARMEABI_V7A;
+                    } catch (Throwable th) {
+                        th.printStackTrace();
+                        try {
+                            ayP = context.getApplicationInfo().nativeLibraryDir.contains("arm64") ? Abi.ARM64_V8A : Abi.UNKNOWN;
+                        } catch (Throwable th2) {
+                            th2.printStackTrace();
+                            abi = Abi.UNKNOWN;
+                        }
                     }
-                } catch (Throwable th3) {
-                    th3.printStackTrace();
-                    aSs = Abi.UNKNOWN;
                 }
+                return ayP;
             }
+            if (Process.is64Bit()) {
+                abi = Abi.ARM64_V8A;
+            }
+            ayP = abi;
+            return ayP;
         }
-        return aSs;
+        abi = Abi.ARMEABI_V7A;
+        ayP = abi;
+        return ayP;
     }
 
     public static boolean isArm64(Context context) {
-        return bV(context) == Abi.ARM64_V8A;
+        return bv(context) == Abi.ARM64_V8A;
     }
 }

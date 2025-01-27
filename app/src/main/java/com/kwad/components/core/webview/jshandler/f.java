@@ -1,49 +1,42 @@
 package com.kwad.components.core.webview.jshandler;
 
+import android.text.TextUtils;
 import androidx.annotation.NonNull;
-import com.ksad.json.annotation.KsJson;
+import com.kwad.components.core.webview.jshandler.m;
+import com.kwad.sdk.service.ServiceProvider;
+import org.json.JSONException;
+import org.json.JSONObject;
 
-/* loaded from: classes3.dex */
-public final class f implements com.kwad.sdk.core.webview.c.a {
-    private com.kwad.sdk.core.webview.c.c YI;
-    private int nI;
-    private int nJ;
-
-    @KsJson
-    public static class a extends com.kwad.sdk.core.response.a.a {
-        public int showLiveStatus;
-        public int showLiveStyle;
-    }
-
-    public f(int i10, int i11) {
-        this.nI = i10;
-        this.nJ = i11;
-    }
-
-    private void q(int i10, int i11) {
-        if (this.YI == null) {
-            return;
+/* loaded from: classes2.dex */
+public final class f implements com.kwad.sdk.core.webview.b.a {
+    private static String aK(String str) {
+        m.a aVar = new m.a();
+        try {
+            aVar.parseJson(new JSONObject(str));
+        } catch (JSONException unused) {
         }
-        a aVar = new a();
-        aVar.showLiveStatus = i10;
-        aVar.showLiveStyle = i11;
-        this.YI.a(aVar);
+        return TextUtils.isEmpty(aVar.key) ? "" : com.kwad.sdk.utils.y.b(ServiceProvider.getContext(), "ksadsdk_js_storage_cache_name", aVar.key, "");
     }
 
-    @Override // com.kwad.sdk.core.webview.c.a
-    public final void a(String str, @NonNull com.kwad.sdk.core.webview.c.c cVar) {
-        this.YI = cVar;
-        q(this.nI, this.nJ);
-    }
-
-    @Override // com.kwad.sdk.core.webview.c.a
+    @Override // com.kwad.sdk.core.webview.b.a
     @NonNull
     public final String getKey() {
-        return "getLiveInfo";
+        return "getStorageItem";
     }
 
-    @Override // com.kwad.sdk.core.webview.c.a
+    @Override // com.kwad.sdk.core.webview.b.a
+    public final void handleJsCall(String str, @NonNull com.kwad.sdk.core.webview.b.c cVar) {
+        if (TextUtils.isEmpty(str)) {
+            cVar.onError(-1, "data is empty");
+            return;
+        }
+        String aK = aK(str);
+        m.a aVar = new m.a();
+        aVar.value = aK;
+        cVar.a(aVar);
+    }
+
+    @Override // com.kwad.sdk.core.webview.b.a
     public final void onDestroy() {
-        this.YI = null;
     }
 }

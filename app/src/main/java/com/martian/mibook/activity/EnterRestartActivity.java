@@ -1,36 +1,38 @@
 package com.martian.mibook.activity;
 
 import android.os.Bundle;
-import com.martian.libmars.R;
 import com.martian.mibook.application.MiConfigSingleton;
-import l9.m0;
+import com.martian.ttbookhd.R;
 
-/* loaded from: classes3.dex */
+/* loaded from: classes.dex */
 public class EnterRestartActivity extends EnterActivity {
     @Override // com.martian.mibook.activity.EnterActivity
-    public void M2() {
-    }
-
-    @Override // com.martian.mibook.activity.EnterActivity
-    public void X2() {
-        if (!this.f13106y) {
-            this.f13106y = true;
-        } else if (m0.C(this)) {
+    public void C2() {
+        if (!this.F) {
+            this.F = true;
+        } else {
+            if (isFinishing()) {
+                return;
+            }
             finish();
         }
     }
 
-    @Override // com.martian.mibook.activity.EnterActivity, com.martian.libmars.activity.MartianActivity, com.martian.libmars.activity.BaseActivity, me.imid.swipebacklayout.lib.app.SwipeBackActivity, androidx.fragment.app.FragmentActivity, androidx.activity.ComponentActivity, androidx.core.app.ComponentActivity, android.app.Activity
-    public void onCreate(Bundle bundle) {
-        super.onCreate(bundle);
-        u2(false);
+    @Override // com.martian.libmars.activity.j1, com.martian.libmars.activity.h1
+    protected void Q0() {
+        super.Q0();
         overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
-        MiConfigSingleton.b2().u2().m(this);
     }
 
-    @Override // com.martian.libmars.activity.MartianActivity, com.martian.libmars.activity.BaseActivity
-    public void v1() {
-        super.v1();
+    @Override // com.martian.mibook.activity.EnterActivity
+    protected void n2() {
+    }
+
+    @Override // com.martian.mibook.activity.EnterActivity, com.martian.libmars.activity.j1, com.martian.libmars.activity.h1, me.imid.swipebacklayout.lib.d.a, androidx.appcompat.app.AppCompatActivity, androidx.fragment.app.FragmentActivity, androidx.activity.ComponentActivity, androidx.core.app.ComponentActivity, android.app.Activity
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        a2(false);
         overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
+        MiConfigSingleton.V3().Q1(this);
     }
 }

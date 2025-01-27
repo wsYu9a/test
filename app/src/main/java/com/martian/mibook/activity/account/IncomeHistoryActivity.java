@@ -1,65 +1,60 @@
 package com.martian.mibook.activity.account;
 
-import android.content.Context;
-import android.content.Intent;
 import android.os.Bundle;
 import android.view.ViewStub;
 import androidx.annotation.NonNull;
 import androidx.viewpager.widget.ViewPager;
-import com.martian.libmars.utils.SectionsPagerAdapter;
-import com.martian.mibook.R;
-import com.martian.mibook.lib.account.fragment.MartianHistoryDurationListFragment;
-import com.martian.mibook.lib.account.fragment.MartianHistoryMoneyListFragment;
-import com.martian.mibook.lib.model.activity.MiBackableActivity;
+import com.martian.libmars.activity.j1;
+import com.martian.libmars.utils.tablayout.MagicIndicator;
+import com.martian.libmars.utils.v0;
+import com.martian.ttbookhd.R;
 import java.util.ArrayList;
 import java.util.List;
 
 /* loaded from: classes3.dex */
-public class IncomeHistoryActivity extends MiBackableActivity {
-    public static final String B = "INCOME_POSITION";
-    public int A = 0;
+public class IncomeHistoryActivity extends com.martian.mibook.lib.model.b.a {
+    public static final String F = "INCOME_POSITION";
+    int G = 0;
 
-    public static void M2(Context context, int i10) {
-        Intent intent = new Intent(context, (Class<?>) IncomeHistoryActivity.class);
-        Bundle bundle = new Bundle();
-        bundle.putInt(B, i10);
-        intent.putExtras(bundle);
-        context.startActivity(intent);
-    }
-
-    public final List<SectionsPagerAdapter.a> L2() {
+    private List<v0.a> r2() {
         ArrayList arrayList = new ArrayList();
-        arrayList.add(new SectionsPagerAdapter.a().d("金币明细").c(new MartianHistoryDurationListFragment()));
-        arrayList.add(new SectionsPagerAdapter.a().d("零钱明细").c(new MartianHistoryMoneyListFragment()));
+        arrayList.add(new v0.a().d("金币明细").c(new com.martian.mibook.lib.account.c.a()));
+        arrayList.add(new v0.a().d("零钱明细").c(new com.martian.mibook.lib.account.c.b()));
         return arrayList;
     }
 
-    @Override // com.martian.mibook.lib.model.activity.MiBackableActivity, com.martian.libmars.activity.MartianActivity, com.martian.libmars.activity.BaseActivity, me.imid.swipebacklayout.lib.app.SwipeBackActivity, androidx.fragment.app.FragmentActivity, androidx.activity.ComponentActivity, androidx.core.app.ComponentActivity, android.app.Activity
-    public void onCreate(Bundle bundle) {
-        super.onCreate(bundle);
+    public static void s2(j1 activity, int position) {
+        Bundle bundle = new Bundle();
+        bundle.putInt("INCOME_POSITION", position);
+        activity.startActivity(IncomeHistoryActivity.class, bundle);
+    }
+
+    @Override // com.martian.mibook.lib.model.b.a, com.martian.libmars.activity.j1, com.martian.libmars.activity.h1, me.imid.swipebacklayout.lib.d.a, androidx.appcompat.app.AppCompatActivity, androidx.fragment.app.FragmentActivity, androidx.activity.ComponentActivity, androidx.core.app.ComponentActivity, android.app.Activity
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
         setContentView(R.layout.martian_activity_yw_book_rank_list);
-        if (bundle != null) {
-            this.A = bundle.getInt(B);
+        if (savedInstanceState != null) {
+            this.G = savedInstanceState.getInt("INCOME_POSITION");
         } else {
             Bundle extras = getIntent().getExtras();
             if (extras != null) {
-                this.A = extras.getInt(B);
+                this.G = extras.getInt("INCOME_POSITION");
             }
         }
-        v2(false);
+        d2(false);
         ViewPager viewPager = (ViewPager) findViewById(R.id.lb_content);
         viewPager.setOffscreenPageLimit(2);
-        viewPager.setAdapter(new SectionsPagerAdapter(getSupportFragmentManager(), L2()));
-        ViewStub B2 = B2();
-        B2.setLayoutResource(com.martian.libmars.R.layout.layout_xttab);
-        B2.setVisibility(0);
-        E2().setNavigator(viewPager);
-        viewPager.setCurrentItem(this.A);
+        viewPager.setAdapter(new v0(getSupportFragmentManager(), r2()));
+        ViewStub viewStub = (ViewStub) findViewById(R.id.actionbar_container);
+        viewStub.setLayoutResource(R.layout.layout_xttab);
+        viewStub.setVisibility(0);
+        ((MagicIndicator) findViewById(R.id.magic_indicator)).setNavigator(viewPager);
+        viewPager.setCurrentItem(this.G);
     }
 
-    @Override // androidx.activity.ComponentActivity, androidx.core.app.ComponentActivity, android.app.Activity
-    public void onSaveInstanceState(@NonNull Bundle bundle) {
-        super.onSaveInstanceState(bundle);
-        bundle.putInt(B, this.A);
+    @Override // androidx.appcompat.app.AppCompatActivity, androidx.fragment.app.FragmentActivity, androidx.activity.ComponentActivity, androidx.core.app.ComponentActivity, android.app.Activity
+    protected void onSaveInstanceState(@NonNull Bundle outState) {
+        super.onSaveInstanceState(outState);
+        outState.putInt("INCOME_POSITION", this.G);
     }
 }

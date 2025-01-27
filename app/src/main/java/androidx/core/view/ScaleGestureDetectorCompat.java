@@ -1,29 +1,10 @@
 package androidx.core.view;
 
+import android.os.Build;
 import android.view.ScaleGestureDetector;
-import androidx.annotation.DoNotInline;
-import androidx.annotation.NonNull;
-import androidx.annotation.RequiresApi;
 
 /* loaded from: classes.dex */
 public final class ScaleGestureDetectorCompat {
-
-    @RequiresApi(19)
-    public static class Api19Impl {
-        private Api19Impl() {
-        }
-
-        @DoNotInline
-        public static boolean isQuickScaleEnabled(ScaleGestureDetector scaleGestureDetector) {
-            return scaleGestureDetector.isQuickScaleEnabled();
-        }
-
-        @DoNotInline
-        public static void setQuickScaleEnabled(ScaleGestureDetector scaleGestureDetector, boolean z10) {
-            scaleGestureDetector.setQuickScaleEnabled(z10);
-        }
-    }
-
     private ScaleGestureDetectorCompat() {
     }
 
@@ -33,15 +14,20 @@ public final class ScaleGestureDetectorCompat {
     }
 
     @Deprecated
-    public static void setQuickScaleEnabled(Object obj, boolean z10) {
-        setQuickScaleEnabled((ScaleGestureDetector) obj, z10);
+    public static void setQuickScaleEnabled(Object obj, boolean z) {
+        setQuickScaleEnabled((ScaleGestureDetector) obj, z);
     }
 
-    public static boolean isQuickScaleEnabled(@NonNull ScaleGestureDetector scaleGestureDetector) {
-        return Api19Impl.isQuickScaleEnabled(scaleGestureDetector);
+    public static boolean isQuickScaleEnabled(ScaleGestureDetector scaleGestureDetector) {
+        if (Build.VERSION.SDK_INT >= 19) {
+            return scaleGestureDetector.isQuickScaleEnabled();
+        }
+        return false;
     }
 
-    public static void setQuickScaleEnabled(@NonNull ScaleGestureDetector scaleGestureDetector, boolean z10) {
-        Api19Impl.setQuickScaleEnabled(scaleGestureDetector, z10);
+    public static void setQuickScaleEnabled(ScaleGestureDetector scaleGestureDetector, boolean z) {
+        if (Build.VERSION.SDK_INT >= 19) {
+            scaleGestureDetector.setQuickScaleEnabled(z);
+        }
     }
 }

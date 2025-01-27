@@ -2,76 +2,90 @@ package com.kwad.sdk.pngencrypt.chunk;
 
 import com.kwad.sdk.pngencrypt.PngjException;
 
-/* loaded from: classes3.dex */
+/* loaded from: classes2.dex */
 public final class n extends k {
-    private String aQV;
-    private int aQW;
-    private int[] aQX;
+    private String axi;
+    private int axj;
+    private int[] axk;
 
     public n(com.kwad.sdk.pngencrypt.k kVar) {
         super("sPLT", kVar);
     }
 
-    public final String Mi() {
-        return this.aQV;
+    public final String Cg() {
+        return this.axi;
     }
 
     @Override // com.kwad.sdk.pngencrypt.chunk.PngChunk
     public final void a(d dVar) {
         byte[] bArr;
-        int f10;
-        int f11;
-        int f12;
-        int f13;
-        int i10;
-        int i11 = 0;
+        int i2;
+        int i3;
+        int i4;
+        int i5;
+        int i6;
+        int i7 = 0;
+        int i8 = 0;
         while (true) {
             bArr = dVar.data;
-            if (i11 >= bArr.length) {
-                i11 = -1;
+            if (i8 >= bArr.length) {
+                i8 = -1;
                 break;
-            } else if (bArr[i11] == 0) {
+            } else if (bArr[i8] == 0) {
                 break;
             } else {
-                i11++;
+                i8++;
             }
         }
-        if (i11 <= 0 || i11 > bArr.length - 2) {
+        if (i8 <= 0 || i8 > bArr.length - 2) {
             throw new PngjException("bad sPLT chunk: no separator found");
         }
-        this.aQV = b.d(bArr, 0, i11);
-        int e10 = com.kwad.sdk.pngencrypt.n.e(dVar.data, i11 + 1);
-        this.aQW = e10;
-        int i12 = i11 + 2;
-        int length = (dVar.data.length - i12) / (e10 == 8 ? 6 : 10);
-        this.aQX = new int[length * 5];
-        int i13 = i12;
-        int i14 = 0;
-        for (int i15 = 0; i15 < length; i15++) {
-            if (this.aQW == 8) {
-                f10 = com.kwad.sdk.pngencrypt.n.e(dVar.data, i13);
-                f11 = com.kwad.sdk.pngencrypt.n.e(dVar.data, i13 + 1);
-                int i16 = i13 + 3;
-                f12 = com.kwad.sdk.pngencrypt.n.e(dVar.data, i13 + 2);
-                i10 = i13 + 4;
-                f13 = com.kwad.sdk.pngencrypt.n.e(dVar.data, i16);
+        this.axi = b.d(bArr, 0, i8);
+        int e2 = com.kwad.sdk.pngencrypt.n.e(dVar.data, i8 + 1);
+        this.axj = e2;
+        int i9 = i8 + 2;
+        int length = (dVar.data.length - i9) / (e2 == 8 ? 6 : 10);
+        this.axk = new int[length * 5];
+        int i10 = i9;
+        int i11 = 0;
+        while (i7 < length) {
+            if (this.axj == 8) {
+                int i12 = i10 + 1;
+                i3 = com.kwad.sdk.pngencrypt.n.e(dVar.data, i10);
+                int i13 = i12 + 1;
+                i4 = com.kwad.sdk.pngencrypt.n.e(dVar.data, i12);
+                int i14 = i13 + 1;
+                i5 = com.kwad.sdk.pngencrypt.n.e(dVar.data, i13);
+                i2 = i14 + 1;
+                i6 = com.kwad.sdk.pngencrypt.n.e(dVar.data, i14);
             } else {
-                f10 = com.kwad.sdk.pngencrypt.n.f(dVar.data, i13);
-                f11 = com.kwad.sdk.pngencrypt.n.f(dVar.data, i13 + 2);
-                f12 = com.kwad.sdk.pngencrypt.n.f(dVar.data, i13 + 4);
-                f13 = com.kwad.sdk.pngencrypt.n.f(dVar.data, i13 + 6);
-                i10 = i13 + 8;
+                int f2 = com.kwad.sdk.pngencrypt.n.f(dVar.data, i10);
+                int i15 = i10 + 2;
+                int f3 = com.kwad.sdk.pngencrypt.n.f(dVar.data, i15);
+                int i16 = i15 + 2;
+                int f4 = com.kwad.sdk.pngencrypt.n.f(dVar.data, i16);
+                int i17 = i16 + 2;
+                int f5 = com.kwad.sdk.pngencrypt.n.f(dVar.data, i17);
+                i2 = i17 + 2;
+                i3 = f2;
+                i4 = f3;
+                i5 = f4;
+                i6 = f5;
             }
-            int f14 = com.kwad.sdk.pngencrypt.n.f(dVar.data, i10);
-            i13 = i10 + 2;
-            int[] iArr = this.aQX;
-            iArr[i14] = f10;
-            iArr[i14 + 1] = f11;
-            iArr[i14 + 2] = f12;
-            int i17 = i14 + 4;
-            iArr[i14 + 3] = f13;
-            i14 += 5;
-            iArr[i17] = f14;
+            int f6 = com.kwad.sdk.pngencrypt.n.f(dVar.data, i2);
+            int[] iArr = this.axk;
+            int i18 = i11 + 1;
+            iArr[i11] = i3;
+            int i19 = i18 + 1;
+            iArr[i18] = i4;
+            int i20 = i19 + 1;
+            iArr[i19] = i5;
+            int i21 = i20 + 1;
+            iArr[i20] = i6;
+            iArr[i21] = f6;
+            i7++;
+            i11 = i21 + 1;
+            i10 = i2 + 2;
         }
     }
 }

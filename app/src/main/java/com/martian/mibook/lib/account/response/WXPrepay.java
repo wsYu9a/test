@@ -38,31 +38,31 @@ public class WXPrepay {
         return this.timeStamp;
     }
 
-    public void setAppId(String str) {
-        this.appId = str;
+    public void setAppId(String appId) {
+        this.appId = appId;
     }
 
-    public void setMchid(String str) {
-        this.mchid = str;
+    public void setMchid(String mchid) {
+        this.mchid = mchid;
     }
 
-    public void setNonceStr(String str) {
-        this.nonceStr = str;
+    public void setNonceStr(String nonceStr) {
+        this.nonceStr = nonceStr;
     }
 
-    public void setPaySign(String str) {
-        this.paySign = str;
+    public void setPaySign(String paySign) {
+        this.paySign = paySign;
     }
 
-    public void setPrepayId(String str) {
-        this.prepayId = str;
+    public void setPrepayId(String prepayId) {
+        this.prepayId = prepayId;
     }
 
-    public void setSignType(String str) {
-        this.signType = str;
+    public void setSignType(String signType) {
+        this.signType = signType;
     }
 
-    public void setTimestamp(String str) {
-        this.timeStamp = str;
+    public void setTimestamp(String timeStamp) {
+        this.timeStamp = timeStamp;
     }
 }

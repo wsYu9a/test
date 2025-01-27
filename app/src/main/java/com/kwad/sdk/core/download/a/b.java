@@ -1,88 +1,70 @@
 package com.kwad.sdk.core.download.a;
 
 import android.content.Context;
-import android.content.Intent;
-import android.content.pm.ResolveInfo;
-import android.net.Uri;
-import android.text.TextUtils;
-import androidx.annotation.NonNull;
-import com.kwad.sdk.service.ServiceProvider;
-import com.kwad.sdk.service.a.h;
-import java.util.List;
+import android.graphics.Bitmap;
+import android.widget.RemoteViews;
+import androidx.annotation.Nullable;
+import com.kwad.sdk.api.core.ICompletedRemoteView;
+import com.kwad.sdk.api.core.RemoteViewBuilder;
 
-/* loaded from: classes3.dex */
+/* loaded from: classes2.dex */
 public final class b {
+    private ICompletedRemoteView afw;
 
-    public interface a {
-        void onError(Throwable th2);
-
-        void onPreStart();
-
-        void onStart();
-
-        void onSuccess();
-
-        void pd();
+    private b(ICompletedRemoteView iCompletedRemoteView) {
+        this.afw = iCompletedRemoteView;
     }
 
-    /* renamed from: com.kwad.sdk.core.download.a.b$b */
-    public static class C0491b implements a {
-        @Override // com.kwad.sdk.core.download.a.b.a
-        public void onError(Throwable th2) {
-        }
-
-        @Override // com.kwad.sdk.core.download.a.b.a
-        public final void onPreStart() {
-        }
-
-        @Override // com.kwad.sdk.core.download.a.b.a
-        public void onStart() {
-        }
-
-        @Override // com.kwad.sdk.core.download.a.b.a
-        public void onSuccess() {
-        }
-
-        @Override // com.kwad.sdk.core.download.a.b.a
-        public final void pd() {
-        }
-    }
-
-    public static int E(Context context, String str) {
-        return a(context, str, new C0491b());
-    }
-
-    public static int a(Context context, String str, @NonNull a aVar) {
-        if (TextUtils.isEmpty(str) || context == null) {
-            return 0;
-        }
+    @Nullable
+    public static b aN(Context context) {
         try {
-            aVar.onPreStart();
-            com.kwad.sdk.core.d.c.d("DeepLinkUtil", "handleDeepLink: " + str);
-            Uri parse = Uri.parse(str);
-            h hVar = (h) ServiceProvider.get(h.class);
-            int cc2 = hVar != null ? hVar.cc(parse.getScheme()) : -1;
-            Intent intent = new Intent();
-            intent.setAction("android.intent.action.VIEW");
-            intent.setData(parse);
-            com.kwad.sdk.core.d.c.d("DeepLinkUtil", "handleDeepLink: configFlags: " + cc2);
-            if (cc2 > 0) {
-                intent.setFlags(cc2);
-            } else {
-                intent.setFlags(268435456);
-            }
-            List<ResolveInfo> queryIntentActivities = context.getPackageManager().queryIntentActivities(intent, 65536);
-            if (queryIntentActivities == null || queryIntentActivities.size() <= 0) {
-                aVar.pd();
-                return 0;
-            }
-            aVar.onStart();
-            context.startActivity(intent);
-            aVar.onSuccess();
-            return 1;
-        } catch (Throwable th2) {
-            aVar.onError(th2);
-            return -1;
+            return new b(RemoteViewBuilder.createCompletedView(context));
+        } catch (Throwable th) {
+            com.kwad.sdk.core.d.b.printStackTraceOnly(th);
+            return null;
+        }
+    }
+
+    final RemoteViews build() {
+        ICompletedRemoteView iCompletedRemoteView = this.afw;
+        if (iCompletedRemoteView != null) {
+            return iCompletedRemoteView.build();
+        }
+        return null;
+    }
+
+    public final void setIcon(Bitmap bitmap) {
+        ICompletedRemoteView iCompletedRemoteView = this.afw;
+        if (iCompletedRemoteView != null) {
+            iCompletedRemoteView.setIcon(bitmap);
+        }
+    }
+
+    public final void setInstallText(String str) {
+        ICompletedRemoteView iCompletedRemoteView = this.afw;
+        if (iCompletedRemoteView != null) {
+            iCompletedRemoteView.setInstallText(str);
+        }
+    }
+
+    public final void setName(String str) {
+        ICompletedRemoteView iCompletedRemoteView = this.afw;
+        if (iCompletedRemoteView != null) {
+            iCompletedRemoteView.setName(str);
+        }
+    }
+
+    public final void setSize(String str) {
+        ICompletedRemoteView iCompletedRemoteView = this.afw;
+        if (iCompletedRemoteView != null) {
+            iCompletedRemoteView.setSize(str);
+        }
+    }
+
+    public final void setStatus(String str) {
+        ICompletedRemoteView iCompletedRemoteView = this.afw;
+        if (iCompletedRemoteView != null) {
+            iCompletedRemoteView.setStatus(str);
         }
     }
 }

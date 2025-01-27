@@ -8,7 +8,12 @@ import androidx.annotation.RequiresApi;
 @RequiresApi(19)
 /* loaded from: classes.dex */
 class ViewUtilsApi19 extends ViewUtilsBase {
-    private static boolean sTryHiddenTransitionAlpha = true;
+
+    /* renamed from: h */
+    private static boolean f3892h = true;
+
+    ViewUtilsApi19() {
+    }
 
     @Override // androidx.transition.ViewUtilsBase
     public void clearNonTransitionAlpha(@NonNull View view) {
@@ -17,13 +22,11 @@ class ViewUtilsApi19 extends ViewUtilsBase {
     @Override // androidx.transition.ViewUtilsBase
     @SuppressLint({"NewApi"})
     public float getTransitionAlpha(@NonNull View view) {
-        float transitionAlpha;
-        if (sTryHiddenTransitionAlpha) {
+        if (f3892h) {
             try {
-                transitionAlpha = view.getTransitionAlpha();
-                return transitionAlpha;
+                return view.getTransitionAlpha();
             } catch (NoSuchMethodError unused) {
-                sTryHiddenTransitionAlpha = false;
+                f3892h = false;
             }
         }
         return view.getAlpha();
@@ -35,15 +38,15 @@ class ViewUtilsApi19 extends ViewUtilsBase {
 
     @Override // androidx.transition.ViewUtilsBase
     @SuppressLint({"NewApi"})
-    public void setTransitionAlpha(@NonNull View view, float f10) {
-        if (sTryHiddenTransitionAlpha) {
+    public void setTransitionAlpha(@NonNull View view, float f2) {
+        if (f3892h) {
             try {
-                view.setTransitionAlpha(f10);
+                view.setTransitionAlpha(f2);
                 return;
             } catch (NoSuchMethodError unused) {
-                sTryHiddenTransitionAlpha = false;
+                f3892h = false;
             }
         }
-        view.setAlpha(f10);
+        view.setAlpha(f2);
     }
 }

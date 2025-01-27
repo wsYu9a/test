@@ -2,10 +2,11 @@ package com.kwad.components.offline.api.core.api;
 
 import android.content.Context;
 
-/* loaded from: classes3.dex */
+/* loaded from: classes2.dex */
 public interface INet {
     public static final int HTTP_STATUS_CODE_INVALID = -1;
 
+    /* loaded from: classes.dex */
     public @interface HostType {
         public static final String API = "api";
         public static final String CDN = "cdn";
@@ -17,7 +18,7 @@ public interface INet {
 
     String getCurrHost(@HostType String str, String str2);
 
-    void handleSwitchHost(String str, @HostType String str2, int i10, Throwable th2);
+    void handleSwitchHost(String str, @HostType String str2, int i2, Throwable th);
 
     boolean isMobileConnected(Context context);
 

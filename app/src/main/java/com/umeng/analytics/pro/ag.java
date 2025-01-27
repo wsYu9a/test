@@ -1,49 +1,28 @@
 package com.umeng.analytics.pro;
 
-import com.umeng.commonsdk.debug.UMRTLog;
-import java.util.Calendar;
-import java.util.HashSet;
-import java.util.Iterator;
-import java.util.Set;
+import android.content.Context;
+import android.database.Cursor;
+import android.net.Uri;
 
 /* loaded from: classes4.dex */
-public class ag implements ac {
+class ag implements z {
 
     /* renamed from: a */
-    private Set<Integer> f23399a;
+    private static final String f25644a = "content://cn.nubia.provider.deviceid.dataid/oaid";
 
-    public ag(Set<Integer> set) {
-        this.f23399a = null;
-        this.f23399a = new HashSet(set);
+    ag() {
     }
 
-    @Override // com.umeng.analytics.pro.ac
-    public boolean a() {
-        try {
-            int i10 = Calendar.getInstance().get(11);
-            Set<Integer> set = this.f23399a;
-            if (set != null && set.contains(Integer.valueOf(i10))) {
-                return true;
-            }
-            String str = "";
-            Iterator<Integer> it = this.f23399a.iterator();
-            while (it.hasNext()) {
-                str = str + it.next() + ",";
-            }
-            UMRTLog.i(UMRTLog.RTLOG_TAG, "HourOn skipped. hour of day: " + i10 + "; config: " + str);
-            return false;
-        } catch (Throwable unused) {
-            return false;
+    @Override // com.umeng.analytics.pro.z
+    public String a(Context context) {
+        if (context == null) {
+            return null;
         }
-    }
-
-    @Override // com.umeng.analytics.pro.ac
-    public boolean b() {
-        return !a();
-    }
-
-    @Override // com.umeng.analytics.pro.ac
-    public long c() {
-        return 0L;
+        Cursor query = context.getContentResolver().query(Uri.parse(f25644a), null, null, null, null);
+        if (query != null) {
+            r0 = query.moveToNext() ? query.getString(query.getColumnIndex("device_ids_grndid")) : null;
+            query.close();
+        }
+        return r0;
     }
 }

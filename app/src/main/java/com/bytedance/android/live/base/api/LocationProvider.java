@@ -1,6 +1,6 @@
 package com.bytedance.android.live.base.api;
 
-/* loaded from: classes2.dex */
+/* loaded from: classes.dex */
 public interface LocationProvider {
     double getLatitude();
 

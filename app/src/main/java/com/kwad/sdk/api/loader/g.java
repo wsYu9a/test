@@ -2,60 +2,68 @@ package com.kwad.sdk.api.loader;
 
 import android.content.Context;
 import android.text.TextUtils;
-import androidx.annotation.NonNull;
-import dalvik.system.DexClassLoader;
-import java.util.ArrayList;
-import java.util.List;
 
-/* loaded from: classes3.dex */
+/* loaded from: classes2.dex */
 final class g {
-    private static final List<String> apS;
+    static String ZA = "autoRevert";
 
-    public static class a extends DexClassLoader {
-        private final ClassLoader apT;
+    public static String ao(Context context) {
+        return getVersion(context, "curversion");
+    }
 
-        public a(String str, String str2, String str3, ClassLoader classLoader) {
-            super(str, str2, str3, classLoader);
-            this.apT = classLoader;
-            classLoader.getClass();
+    public static String ap(Context context) {
+        return getVersion(context, "newversion");
+    }
+
+    static String aq(Context context) {
+        return getVersion(context, "apiversion");
+    }
+
+    private static void b(Context context, String str, String str2) {
+        t.c(context, str, str2);
+    }
+
+    private static String getVersion(Context context, String str) {
+        return t.d(context, str, "");
+    }
+
+    public static void h(Context context, String str) {
+        b(context, "curversion", str);
+    }
+
+    public static void i(Context context, String str) {
+        b(context, "newversion", str);
+    }
+
+    static void j(Context context, String str) {
+        b(context, "apiversion", str);
+    }
+
+    static boolean q(String str, String str2) {
+        if (TextUtils.isEmpty(str)) {
+            return false;
         }
-
-        private static boolean cm(String str) {
-            return !TextUtils.isEmpty(str) && str.startsWith("com.kwad.sdk.api");
+        if (TextUtils.isEmpty(str) && TextUtils.isEmpty(str2)) {
+            return false;
         }
-
-        @Override // java.lang.ClassLoader
-        public final Class<?> loadClass(String str, boolean z10) {
-            if (cm(str)) {
-                return getParent().loadClass(str);
-            }
-            Class<?> findLoadedClass = findLoadedClass(str);
-            if (findLoadedClass != null) {
-                return findLoadedClass;
-            }
+        if (!TextUtils.isEmpty(str) && TextUtils.isEmpty(str2)) {
+            return true;
+        }
+        String[] split = str.split("\\.");
+        String[] split2 = str2.split("\\.");
+        for (int i2 = 0; i2 < split.length && i2 < split2.length; i2++) {
             try {
-                findLoadedClass = findClass(str);
-            } catch (ClassNotFoundException unused) {
+                int parseInt = Integer.parseInt(split[i2]) - Integer.parseInt(split2[i2]);
+                if (parseInt > 0) {
+                    return true;
+                }
+                if (parseInt < 0) {
+                    return false;
+                }
+            } catch (NumberFormatException unused) {
+                return false;
             }
-            return findLoadedClass != null ? findLoadedClass : super.loadClass(str, z10);
         }
-    }
-
-    static {
-        ArrayList arrayList = new ArrayList();
-        apS = arrayList;
-        arrayList.add("com.kwad.sdk");
-        arrayList.add("com.ksad");
-        arrayList.add("com.kwai");
-        arrayList.add("kwad.support");
-        arrayList.add("android.support.rastermill");
-    }
-
-    @NonNull
-    public static ClassLoader a(Context context, ClassLoader classLoader, String str, String str2, String str3) {
-        if (b.b(context, "useContextClassLoader", false)) {
-            classLoader = context.getClassLoader();
-        }
-        return new a(str, str2, str3, classLoader);
+        return split.length > split2.length;
     }
 }

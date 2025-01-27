@@ -8,12 +8,12 @@ import com.kwad.components.offline.api.core.network.adapter.RequestListenerAdapt
 import com.kwad.components.offline.api.core.network.adapter.ResultDataAdapter;
 import com.kwad.components.offline.api.core.network.model.CommonOfflineCompoResultData;
 import com.kwad.sdk.core.network.c;
-import com.kwad.sdk.core.network.l;
+import com.kwad.sdk.core.network.m;
 import org.json.JSONObject;
 
-/* loaded from: classes3.dex */
+/* loaded from: classes2.dex */
 public abstract class OfflineCompoNetworking<R extends IOfflineCompoRequest, T extends CommonOfflineCompoResultData> implements IOfflineCompoNetworking<R, T> {
-    private l<RequestAdapter<R>, ResultDataAdapter<T>> mNetworking = new NetworkingAdapter(this);
+    private m<RequestAdapter<R>, ResultDataAdapter<T>> mNetworking = new NetworkingAdapter(this);
 
     public static <DATA extends CommonOfflineCompoResultData> DATA parseData(String str, DATA data) {
         data.parseJson(new JSONObject(str));
@@ -25,7 +25,7 @@ public abstract class OfflineCompoNetworking<R extends IOfflineCompoRequest, T e
         this.mNetworking.cancel();
     }
 
-    public abstract T createResponseData();
+    protected abstract T createResponseData();
 
     @Override // com.kwad.components.offline.api.core.network.IOfflineCompoNetworking
     public boolean enableMonitorReport() {
@@ -38,16 +38,16 @@ public abstract class OfflineCompoNetworking<R extends IOfflineCompoRequest, T e
     }
 
     @Override // com.kwad.components.offline.api.core.network.IOfflineCompoNetworking
-    public void onResponse(R r10, c cVar) {
-    }
-
-    @Override // com.kwad.components.offline.api.core.network.IOfflineCompoNetworking
-    public void request(@NonNull IOfflineCompoRequestListener<R, T> iOfflineCompoRequestListener) {
-        this.mNetworking.request(new RequestListenerAdapter(iOfflineCompoRequestListener));
+    public void onResponse(R r, c cVar) {
     }
 
     @NonNull
     public T parseData(String str) {
         return (T) parseData(str, createResponseData());
+    }
+
+    @Override // com.kwad.components.offline.api.core.network.IOfflineCompoNetworking
+    public void request(@NonNull IOfflineCompoRequestListener<R, T> iOfflineCompoRequestListener) {
+        this.mNetworking.request(new RequestListenerAdapter(iOfflineCompoRequestListener));
     }
 }

@@ -3,16 +3,17 @@ package com.kwad.sdk.core.response.model;
 import androidx.annotation.Nullable;
 import com.ksad.json.annotation.KsJson;
 import com.kwad.sdk.contentalliance.coupon.model.ActivityInfo;
-import com.kwad.sdk.core.a.d;
 import com.kwad.sdk.core.c;
-import com.kwad.sdk.utils.x;
-import h3.e;
+import com.kwad.sdk.core.kwai.d;
+import com.kwad.sdk.core.network.BaseResultData;
+import com.kwad.sdk.utils.t;
+import com.martian.mibook.application.MiConfigSingleton;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 import org.json.JSONObject;
 
-/* loaded from: classes3.dex */
+/* loaded from: classes2.dex */
 public class SdkConfigData extends BaseResultData implements com.kwad.sdk.core.b, Serializable {
     public static final int DEFAULT_CAN_USE_THRESHOLD = 300;
     public static final int DEFAULT_GOOD_IDC_THRESHOLD = 200;
@@ -23,7 +24,7 @@ public class SdkConfigData extends BaseResultData implements com.kwad.sdk.core.b
     private JSONObject appConfig;
     private JSONObject mDataJsonObj;
     public long requestInterval = 3600;
-    public List<com.kwad.sdk.g.a.a> h5PreloadConfigs = new ArrayList();
+    public List<com.kwad.sdk.f.kwai.a> h5PreloadConfigs = new ArrayList();
     public TemplateConfig templateConfig = new TemplateConfig();
     public TemplateConfigMap templateConfigMap = new TemplateConfigMap();
     public CouponActiveConfig couponActiveConfig = new CouponActiveConfig();
@@ -32,22 +33,22 @@ public class SdkConfigData extends BaseResultData implements com.kwad.sdk.core.b
     public int canUseThresholdMs = 300;
 
     /* renamed from: com.kwad.sdk.core.response.model.SdkConfigData$1 */
-    public class AnonymousClass1 implements c<com.kwad.sdk.g.a.a> {
-        public AnonymousClass1() {
+    final class AnonymousClass1 implements c<com.kwad.sdk.f.kwai.a> {
+        AnonymousClass1() {
         }
 
-        private static com.kwad.sdk.g.a.a GW() {
-            return new com.kwad.sdk.g.a.a();
+        private static com.kwad.sdk.f.kwai.a xC() {
+            return new com.kwad.sdk.f.kwai.a();
         }
 
         @Override // com.kwad.sdk.core.c
-        public final /* synthetic */ com.kwad.sdk.g.a.a Ct() {
-            return GW();
+        public final /* synthetic */ com.kwad.sdk.f.kwai.a tU() {
+            return xC();
         }
     }
 
     @KsJson
-    public static class CouponActiveConfig extends com.kwad.sdk.core.response.a.a implements com.kwad.sdk.core.b, Serializable {
+    public static class CouponActiveConfig extends com.kwad.sdk.core.response.kwai.a implements com.kwad.sdk.core.b, Serializable {
         private static final long serialVersionUID = 6375241669684789095L;
         public ActivityInfo activityInfo;
         public TemplateConfig couponInfoConfig;
@@ -61,68 +62,67 @@ public class SdkConfigData extends BaseResultData implements com.kwad.sdk.core.b
     }
 
     @KsJson
-    public static class TemplateConfigMap extends com.kwad.sdk.core.response.a.a implements com.kwad.sdk.core.b, Serializable {
+    public static class TemplateConfigMap extends com.kwad.sdk.core.response.kwai.a implements com.kwad.sdk.core.b, Serializable {
         private static final long serialVersionUID = -6512236636350788192L;
         public TemplateConfig couponInfoConfig;
         public TemplateConfig couponOpenConfig;
     }
 
-    public <T> T getAppConfigData(T t10, com.kwad.sdk.f.b<JSONObject, T> bVar) {
+    public <T> T getAppConfigData(T t, com.kwad.sdk.e.b<JSONObject, T> bVar) {
         JSONObject jSONObject = this.appConfig;
-        return jSONObject != null ? bVar.apply(jSONObject) : t10;
+        return jSONObject != null ? bVar.apply(jSONObject) : t;
     }
 
-    @Override // com.kwad.sdk.core.response.model.BaseResultData
+    @Override // com.kwad.sdk.core.network.BaseResultData
     public boolean isDataEmpty() {
         return false;
     }
 
-    @Override // com.kwad.sdk.core.response.model.BaseResultData, com.kwad.sdk.core.b
+    @Override // com.kwad.sdk.core.network.BaseResultData, com.kwad.sdk.core.b
     public void parseJson(@Nullable JSONObject jSONObject) {
         super.parseJson(jSONObject);
         if (jSONObject == null) {
             return;
         }
         try {
-            JSONObject jSONObject2 = new JSONObject(d.getResponseData(jSONObject.optString(e.f26408m)));
+            JSONObject jSONObject2 = new JSONObject(d.getResponseData(jSONObject.optString(MiConfigSingleton.t0)));
             this.mDataJsonObj = jSONObject2;
             this.requestInterval = jSONObject2.optLong("requestInterval");
             this.goodIdcThresholdMs = this.mDataJsonObj.optInt("goodIdcThresholdMs", 200);
             this.canUseThresholdMs = this.mDataJsonObj.optInt("canUseThresholdMs", 300);
-            com.kwad.sdk.core.config.b.j(this.mDataJsonObj);
+            com.kwad.sdk.core.config.b.f(this.mDataJsonObj);
             JSONObject optJSONObject = this.mDataJsonObj.optJSONObject("abConfig");
             this.abConfig = optJSONObject;
-            com.kwad.sdk.core.config.b.j(optJSONObject);
+            com.kwad.sdk.core.config.b.f(optJSONObject);
             JSONObject optJSONObject2 = this.mDataJsonObj.optJSONObject("adxConfig");
             this.adxConfig = optJSONObject2;
-            com.kwad.sdk.core.config.b.j(optJSONObject2);
+            com.kwad.sdk.core.config.b.f(optJSONObject2);
             this.appConfig = this.mDataJsonObj.optJSONObject("appConfig");
-            this.h5PreloadConfigs = x.a(this.mDataJsonObj.optString("h5PreloadConfigs"), new c<com.kwad.sdk.g.a.a>() { // from class: com.kwad.sdk.core.response.model.SdkConfigData.1
-                public AnonymousClass1() {
+            this.h5PreloadConfigs = t.a(this.mDataJsonObj.optString("h5PreloadConfigs"), new c<com.kwad.sdk.f.kwai.a>() { // from class: com.kwad.sdk.core.response.model.SdkConfigData.1
+                AnonymousClass1() {
                 }
 
-                private static com.kwad.sdk.g.a.a GW() {
-                    return new com.kwad.sdk.g.a.a();
+                private static com.kwad.sdk.f.kwai.a xC() {
+                    return new com.kwad.sdk.f.kwai.a();
                 }
 
                 @Override // com.kwad.sdk.core.c
-                public final /* synthetic */ com.kwad.sdk.g.a.a Ct() {
-                    return GW();
+                public final /* synthetic */ com.kwad.sdk.f.kwai.a tU() {
+                    return xC();
                 }
             });
-            com.kwad.sdk.core.config.b.j(this.appConfig);
+            com.kwad.sdk.core.config.b.f(this.appConfig);
             this.templateConfig.parseJson(this.mDataJsonObj.optJSONObject("templateConfig"));
             this.templateConfigMap.parseJson(this.mDataJsonObj.optJSONObject("templateConfigMap"));
             this.couponActiveConfig.parseJson(this.mDataJsonObj.optJSONObject("couponActiveConfig"));
             this.httpDnsInfo.parseJson(this.mDataJsonObj.optJSONObject("httpDnsInfo"));
-        } catch (Exception e10) {
-            com.kwad.sdk.core.d.c.printStackTraceOnly(e10);
+        } catch (Exception e2) {
+            com.kwad.sdk.core.d.b.printStackTraceOnly(e2);
         }
     }
 
-    @Override // com.kwad.sdk.core.response.model.BaseResultData, com.kwad.sdk.core.b
+    @Override // com.kwad.sdk.core.network.BaseResultData, com.kwad.sdk.core.b
     public JSONObject toJson() {
-        JSONObject jSONObject = this.mDataJsonObj;
-        return jSONObject == null ? new JSONObject() : jSONObject;
+        return this.mDataJsonObj;
     }
 }

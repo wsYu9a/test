@@ -11,11 +11,11 @@ public class TipInfo implements Serializable {
     private String ensure;
     private String title;
 
-    public TipInfo(@Nullable String str, @Nullable String str2, @Nullable String str3, @Nullable String str4) {
-        this.title = str;
-        this.content = str2;
-        this.cancel = str3;
-        this.ensure = str4;
+    public TipInfo(@Nullable String title, @Nullable String content, @Nullable String cancel, @Nullable String ensure) {
+        this.title = title;
+        this.content = content;
+        this.cancel = cancel;
+        this.ensure = ensure;
     }
 
     public String getCancel() {
@@ -34,19 +34,19 @@ public class TipInfo implements Serializable {
         return this.title;
     }
 
-    public void setCancel(String str) {
-        this.cancel = str;
+    public void setCancel(String cancel) {
+        this.cancel = cancel;
     }
 
-    public void setContent(String str) {
-        this.content = str;
+    public void setContent(String content) {
+        this.content = content;
     }
 
-    public void setEnsure(String str) {
-        this.ensure = str;
+    public void setEnsure(String ensure) {
+        this.ensure = ensure;
     }
 
-    public void setTitle(String str) {
-        this.title = str;
+    public void setTitle(String title) {
+        this.title = title;
     }
 }

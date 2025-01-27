@@ -4,22 +4,15 @@ import android.content.SharedPreferences;
 import androidx.annotation.NonNull;
 import org.json.JSONObject;
 
-/* loaded from: classes3.dex */
+/* loaded from: classes2.dex */
 public final class g extends a<Float> {
-    public g(String str, float f10) {
-        super(str, Float.valueOf(f10));
-    }
-
-    @Override // com.kwad.sdk.core.config.item.b
-    @NonNull
-    /* renamed from: Ep */
-    public final Float getValue() {
-        return (Float) super.getValue();
+    public g(String str, float f2) {
+        super(str, Float.valueOf(f2));
     }
 
     @Override // com.kwad.sdk.core.config.item.b
     public final void a(@NonNull SharedPreferences sharedPreferences) {
-        setValue(Float.valueOf(sharedPreferences.getFloat(getKey(), El().floatValue())));
+        setValue(Float.valueOf(sharedPreferences.getFloat(getKey(), uX().floatValue())));
     }
 
     @Override // com.kwad.sdk.core.config.item.b
@@ -28,11 +21,14 @@ public final class g extends a<Float> {
     }
 
     @Override // com.kwad.sdk.core.config.item.b
-    public final void k(JSONObject jSONObject) {
-        if (jSONObject != null) {
-            setValue(Float.valueOf((float) jSONObject.optDouble(getKey(), El().floatValue())));
-        } else {
-            setValue(El());
-        }
+    public final void g(JSONObject jSONObject) {
+        setValue(jSONObject != null ? Float.valueOf((float) jSONObject.optDouble(getKey(), uX().floatValue())) : uX());
+    }
+
+    @Override // com.kwad.sdk.core.config.item.b
+    @NonNull
+    /* renamed from: vb */
+    public final Float getValue() {
+        return (Float) super.getValue();
     }
 }

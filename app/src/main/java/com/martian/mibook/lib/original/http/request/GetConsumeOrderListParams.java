@@ -1,9 +1,9 @@
 package com.martian.mibook.lib.original.http.request;
 
+import com.martian.libcomm.http.requests.d.a;
 import com.martian.mibook.lib.account.request.auth.TYAuthParams;
-import v8.a;
 
-/* loaded from: classes3.dex */
+/* loaded from: classes2.dex */
 public class GetConsumeOrderListParams extends TYAuthParams {
 
     @a
@@ -25,11 +25,11 @@ public class GetConsumeOrderListParams extends TYAuthParams {
         return this.pageSize;
     }
 
-    public void setPage(Integer num) {
-        this.page = num;
+    public void setPage(Integer page) {
+        this.page = page;
     }
 
-    public void setPageSize(Integer num) {
-        this.pageSize = num;
+    public void setPageSize(Integer pageSize) {
+        this.pageSize = pageSize;
     }
 }

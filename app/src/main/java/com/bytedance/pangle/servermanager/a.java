@@ -4,7 +4,7 @@ import android.os.IBinder;
 import android.os.Parcel;
 import android.os.Parcelable;
 
-/* loaded from: classes2.dex */
+/* loaded from: classes.dex */
 public final class a implements Parcelable {
     public static final Parcelable.Creator<a> CREATOR = new Parcelable.Creator<a>() { // from class: com.bytedance.pangle.servermanager.a.1
         @Override // android.os.Parcelable.Creator
@@ -13,16 +13,16 @@ public final class a implements Parcelable {
         }
 
         @Override // android.os.Parcelable.Creator
-        public final /* bridge */ /* synthetic */ a[] newArray(int i10) {
-            return new a[i10];
+        public final /* bridge */ /* synthetic */ a[] newArray(int i2) {
+            return new a[i2];
         }
     };
 
     /* renamed from: a, reason: collision with root package name */
-    final IBinder f7785a;
+    final IBinder f6271a;
 
-    public a(Parcel parcel) {
-        this.f7785a = parcel.readStrongBinder();
+    a(Parcel parcel) {
+        this.f6271a = parcel.readStrongBinder();
     }
 
     @Override // android.os.Parcelable
@@ -31,11 +31,11 @@ public final class a implements Parcelable {
     }
 
     @Override // android.os.Parcelable
-    public final void writeToParcel(Parcel parcel, int i10) {
-        parcel.writeStrongBinder(this.f7785a);
+    public final void writeToParcel(Parcel parcel, int i2) {
+        parcel.writeStrongBinder(this.f6271a);
     }
 
-    public a(IBinder iBinder) {
-        this.f7785a = iBinder;
+    a(IBinder iBinder) {
+        this.f6271a = iBinder;
     }
 }

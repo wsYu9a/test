@@ -1,6 +1,6 @@
 package com.martian.mibook.lib.account.request;
 
-import v8.a;
+import com.martian.libcomm.http.requests.d.a;
 
 /* loaded from: classes3.dex */
 public class RequestPhoneCodeParams extends TYHttpGetParams {
@@ -19,16 +19,16 @@ public class RequestPhoneCodeParams extends TYHttpGetParams {
         return this.phone;
     }
 
-    @Override // u8.b
+    @Override // com.martian.libcomm.http.requests.b
     public String getRequestMethod() {
         return "request_phone_code.do";
     }
 
-    public void setCaptcha(String str) {
-        this.captcha = str;
+    public void setCaptcha(String captcha) {
+        this.captcha = captcha;
     }
 
-    public void setPhone(String str) {
-        this.phone = str;
+    public void setPhone(String phone) {
+        this.phone = phone;
     }
 }

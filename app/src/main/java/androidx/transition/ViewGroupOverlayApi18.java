@@ -10,29 +10,31 @@ import androidx.annotation.RequiresApi;
 @RequiresApi(18)
 /* loaded from: classes.dex */
 class ViewGroupOverlayApi18 implements ViewGroupOverlayImpl {
-    private final ViewGroupOverlay mViewGroupOverlay;
 
-    public ViewGroupOverlayApi18(@NonNull ViewGroup viewGroup) {
-        this.mViewGroupOverlay = viewGroup.getOverlay();
+    /* renamed from: a */
+    private final ViewGroupOverlay f3869a;
+
+    ViewGroupOverlayApi18(@NonNull ViewGroup viewGroup) {
+        this.f3869a = viewGroup.getOverlay();
     }
 
     @Override // androidx.transition.ViewOverlayImpl
     public void add(@NonNull Drawable drawable) {
-        this.mViewGroupOverlay.add(drawable);
+        this.f3869a.add(drawable);
     }
 
     @Override // androidx.transition.ViewOverlayImpl
     public void remove(@NonNull Drawable drawable) {
-        this.mViewGroupOverlay.remove(drawable);
+        this.f3869a.remove(drawable);
     }
 
     @Override // androidx.transition.ViewGroupOverlayImpl
     public void add(@NonNull View view) {
-        this.mViewGroupOverlay.add(view);
+        this.f3869a.add(view);
     }
 
     @Override // androidx.transition.ViewGroupOverlayImpl
     public void remove(@NonNull View view) {
-        this.mViewGroupOverlay.remove(view);
+        this.f3869a.remove(view);
     }
 }

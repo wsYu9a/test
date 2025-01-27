@@ -17,15 +17,27 @@ import java.util.Iterator;
 
 /* loaded from: classes.dex */
 public final class NavDeepLinkBuilder {
-    private Bundle mArgs;
-    private final Context mContext;
-    private int mDestId;
-    private NavGraph mGraph;
-    private final Intent mIntent;
 
-    public static class PermissiveNavigatorProvider extends NavigatorProvider {
-        private final Navigator<NavDestination> mDestNavigator = new Navigator<NavDestination>() { // from class: androidx.navigation.NavDeepLinkBuilder.PermissiveNavigatorProvider.1
-            public AnonymousClass1() {
+    /* renamed from: a */
+    private final Context f2990a;
+
+    /* renamed from: b */
+    private final Intent f2991b;
+
+    /* renamed from: c */
+    private NavGraph f2992c;
+
+    /* renamed from: d */
+    private int f2993d;
+
+    /* renamed from: e */
+    private Bundle f2994e;
+
+    private static class PermissiveNavigatorProvider extends NavigatorProvider {
+
+        /* renamed from: c */
+        private final Navigator<NavDestination> f2995c = new Navigator<NavDestination>() { // from class: androidx.navigation.NavDeepLinkBuilder.PermissiveNavigatorProvider.1
+            AnonymousClass1() {
             }
 
             @Override // androidx.navigation.Navigator
@@ -47,8 +59,8 @@ public final class NavDeepLinkBuilder {
         };
 
         /* renamed from: androidx.navigation.NavDeepLinkBuilder$PermissiveNavigatorProvider$1 */
-        public class AnonymousClass1 extends Navigator<NavDestination> {
-            public AnonymousClass1() {
+        class AnonymousClass1 extends Navigator<NavDestination> {
+            AnonymousClass1() {
             }
 
             @Override // androidx.navigation.Navigator
@@ -69,7 +81,7 @@ public final class NavDeepLinkBuilder {
             }
         }
 
-        public PermissiveNavigatorProvider() {
+        PermissiveNavigatorProvider() {
             addNavigator(new NavGraphNavigator(this));
         }
 
@@ -79,29 +91,29 @@ public final class NavDeepLinkBuilder {
             try {
                 return super.getNavigator(str);
             } catch (IllegalStateException unused) {
-                return this.mDestNavigator;
+                return this.f2995c;
             }
         }
     }
 
     public NavDeepLinkBuilder(@NonNull Context context) {
-        this.mContext = context;
+        this.f2990a = context;
         if (context instanceof Activity) {
-            this.mIntent = new Intent(context, context.getClass());
+            this.f2991b = new Intent(context, context.getClass());
         } else {
             Intent launchIntentForPackage = context.getPackageManager().getLaunchIntentForPackage(context.getPackageName());
-            this.mIntent = launchIntentForPackage == null ? new Intent() : launchIntentForPackage;
+            this.f2991b = launchIntentForPackage == null ? new Intent() : launchIntentForPackage;
         }
-        this.mIntent.addFlags(268468224);
+        this.f2991b.addFlags(268468224);
     }
 
-    private void fillInIntent() {
+    private void a() {
         ArrayDeque arrayDeque = new ArrayDeque();
-        arrayDeque.add(this.mGraph);
+        arrayDeque.add(this.f2992c);
         NavDestination navDestination = null;
         while (!arrayDeque.isEmpty() && navDestination == null) {
             NavDestination navDestination2 = (NavDestination) arrayDeque.poll();
-            if (navDestination2.getId() == this.mDestId) {
+            if (navDestination2.getId() == this.f2993d) {
                 navDestination = navDestination2;
             } else if (navDestination2 instanceof NavGraph) {
                 Iterator<NavDestination> it = ((NavGraph) navDestination2).iterator();
@@ -111,86 +123,86 @@ public final class NavDeepLinkBuilder {
             }
         }
         if (navDestination != null) {
-            this.mIntent.putExtra("android-support-nav:controller:deepLinkIds", navDestination.buildDeepLinkIds());
+            this.f2991b.putExtra("android-support-nav:controller:deepLinkIds", navDestination.b());
             return;
         }
-        throw new IllegalArgumentException("Navigation destination " + NavDestination.getDisplayName(this.mContext, this.mDestId) + " cannot be found in the navigation graph " + this.mGraph);
+        throw new IllegalArgumentException("Navigation destination " + NavDestination.c(this.f2990a, this.f2993d) + " cannot be found in the navigation graph " + this.f2992c);
     }
 
     @NonNull
     public PendingIntent createPendingIntent() {
-        Bundle bundle = this.mArgs;
-        int i10 = 0;
+        Bundle bundle = this.f2994e;
+        int i2 = 0;
         if (bundle != null) {
             Iterator<String> it = bundle.keySet().iterator();
-            int i11 = 0;
+            int i3 = 0;
             while (it.hasNext()) {
-                Object obj = this.mArgs.get(it.next());
-                i11 = (i11 * 31) + (obj != null ? obj.hashCode() : 0);
+                Object obj = this.f2994e.get(it.next());
+                i3 = (i3 * 31) + (obj != null ? obj.hashCode() : 0);
             }
-            i10 = i11;
+            i2 = i3;
         }
-        return createTaskStackBuilder().getPendingIntent((i10 * 31) + this.mDestId, 134217728);
+        return createTaskStackBuilder().getPendingIntent((i2 * 31) + this.f2993d, 134217728);
     }
 
     @NonNull
     public TaskStackBuilder createTaskStackBuilder() {
-        if (this.mIntent.getIntArrayExtra("android-support-nav:controller:deepLinkIds") == null) {
-            if (this.mGraph == null) {
+        if (this.f2991b.getIntArrayExtra("android-support-nav:controller:deepLinkIds") == null) {
+            if (this.f2992c == null) {
                 throw new IllegalStateException("You must call setGraph() before constructing the deep link");
             }
             throw new IllegalStateException("You must call setDestination() before constructing the deep link");
         }
-        TaskStackBuilder addNextIntentWithParentStack = TaskStackBuilder.create(this.mContext).addNextIntentWithParentStack(new Intent(this.mIntent));
-        for (int i10 = 0; i10 < addNextIntentWithParentStack.getIntentCount(); i10++) {
-            addNextIntentWithParentStack.editIntentAt(i10).putExtra(NavController.KEY_DEEP_LINK_INTENT, this.mIntent);
+        TaskStackBuilder addNextIntentWithParentStack = TaskStackBuilder.create(this.f2990a).addNextIntentWithParentStack(new Intent(this.f2991b));
+        for (int i2 = 0; i2 < addNextIntentWithParentStack.getIntentCount(); i2++) {
+            addNextIntentWithParentStack.editIntentAt(i2).putExtra(NavController.KEY_DEEP_LINK_INTENT, this.f2991b);
         }
         return addNextIntentWithParentStack;
     }
 
     @NonNull
     public NavDeepLinkBuilder setArguments(@Nullable Bundle bundle) {
-        this.mArgs = bundle;
-        this.mIntent.putExtra("android-support-nav:controller:deepLinkExtras", bundle);
+        this.f2994e = bundle;
+        this.f2991b.putExtra("android-support-nav:controller:deepLinkExtras", bundle);
         return this;
     }
 
     @NonNull
     public NavDeepLinkBuilder setComponentName(@NonNull Class<? extends Activity> cls) {
-        return setComponentName(new ComponentName(this.mContext, cls));
+        return setComponentName(new ComponentName(this.f2990a, cls));
     }
 
     @NonNull
-    public NavDeepLinkBuilder setDestination(@IdRes int i10) {
-        this.mDestId = i10;
-        if (this.mGraph != null) {
-            fillInIntent();
+    public NavDeepLinkBuilder setDestination(@IdRes int i2) {
+        this.f2993d = i2;
+        if (this.f2992c != null) {
+            a();
         }
         return this;
     }
 
     @NonNull
-    public NavDeepLinkBuilder setGraph(@NavigationRes int i10) {
-        return setGraph(new NavInflater(this.mContext, new PermissiveNavigatorProvider()).inflate(i10));
+    public NavDeepLinkBuilder setGraph(@NavigationRes int i2) {
+        return setGraph(new NavInflater(this.f2990a, new PermissiveNavigatorProvider()).inflate(i2));
     }
 
     @NonNull
     public NavDeepLinkBuilder setComponentName(@NonNull ComponentName componentName) {
-        this.mIntent.setComponent(componentName);
+        this.f2991b.setComponent(componentName);
         return this;
     }
 
     @NonNull
     public NavDeepLinkBuilder setGraph(@NonNull NavGraph navGraph) {
-        this.mGraph = navGraph;
-        if (this.mDestId != 0) {
-            fillInIntent();
+        this.f2992c = navGraph;
+        if (this.f2993d != 0) {
+            a();
         }
         return this;
     }
 
-    public NavDeepLinkBuilder(@NonNull NavController navController) {
+    NavDeepLinkBuilder(@NonNull NavController navController) {
         this(navController.getContext());
-        this.mGraph = navController.getGraph();
+        this.f2992c = navController.getGraph();
     }
 }

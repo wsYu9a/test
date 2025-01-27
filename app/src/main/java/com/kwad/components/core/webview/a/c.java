@@ -1,21 +1,20 @@
 package com.kwad.components.core.webview.a;
 
-import com.ksad.json.annotation.KsJson;
-import com.kwad.sdk.core.response.model.AdInfo;
+import androidx.annotation.NonNull;
 
-@KsJson
-/* loaded from: classes3.dex */
-public class c extends com.kwad.sdk.core.response.a.a implements com.kwad.sdk.core.b {
-    public String Li;
-    public String Yw;
-    public String Yx;
-    public int Yy;
+/* loaded from: classes2.dex */
+public class c implements com.kwad.sdk.core.webview.b.a {
+    @Override // com.kwad.sdk.core.webview.b.a
+    @NonNull
+    public String getKey() {
+        return "getCardShowCount";
+    }
 
-    public final AdInfo.SmallAppJumpInfo aK(String str) {
-        AdInfo.SmallAppJumpInfo smallAppJumpInfo = new AdInfo.SmallAppJumpInfo();
-        smallAppJumpInfo.mediaSmallAppId = str;
-        smallAppJumpInfo.originId = this.Yw;
-        smallAppJumpInfo.smallAppJumpUrl = this.Yx;
-        return smallAppJumpInfo;
+    @Override // com.kwad.sdk.core.webview.b.a
+    public void handleJsCall(String str, @NonNull com.kwad.sdk.core.webview.b.c cVar) {
+    }
+
+    @Override // com.kwad.sdk.core.webview.b.a
+    public void onDestroy() {
     }
 }

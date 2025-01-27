@@ -1,135 +1,220 @@
 package com.kwad.components.ad.reward.presenter;
 
-import android.view.View;
-import androidx.annotation.Nullable;
-import com.kwad.components.ad.reward.n.g;
-import com.kwad.components.ad.reward.presenter.platdetail.actionbar.RewardActionBarControl;
-import com.kwad.components.core.widget.KsLogoView;
-import com.kwad.sdk.R;
+import androidx.annotation.NonNull;
+import com.kwad.components.offline.api.core.adlive.listener.AdLivePlayStateListener;
+import com.kwad.components.offline.api.core.adlive.listener.AdLivePlayStateListenerAdapter;
 import com.kwad.sdk.core.response.model.AdInfo;
-import com.kwad.sdk.core.response.model.AdTemplate;
-import com.kwad.sdk.core.view.AdBaseFrameLayout;
 
-/* loaded from: classes2.dex */
-public final class l extends b implements com.kwad.components.ad.reward.presenter.platdetail.actionbar.a {
+/* loaded from: classes.dex */
+public final class l extends a {
+    private long gM;
 
-    /* renamed from: qi */
-    private RewardActionBarControl f11791qi;
-
-    @Nullable
-    private com.kwad.components.ad.reward.n.g tS;
-    private KsLogoView tU;
-
-    @Nullable
-    private com.kwad.components.ad.reward.n.l tV;
-    private boolean tT = false;
-
-    /* renamed from: ia */
-    private com.kwad.components.core.video.l f11790ia = new com.kwad.components.core.video.l() { // from class: com.kwad.components.ad.reward.presenter.l.1
-        public AnonymousClass1() {
+    @NonNull
+    private com.kwad.components.ad.reward.d.b mAdOpenInteractionListener;
+    private AdLivePlayStateListener mAdLivePlayStateListener = new AdLivePlayStateListenerAdapter() { // from class: com.kwad.components.ad.reward.presenter.l.1
+        AnonymousClass1() {
         }
 
-        @Override // com.kwad.components.core.video.l, com.kwad.components.core.video.h
-        public final void onMediaPlayProgress(long j10, long j11) {
-            super.onMediaPlayProgress(j10, j11);
-            l.this.hP();
+        @Override // com.kwad.components.offline.api.core.adlive.listener.AdLivePlayStateListenerAdapter, com.kwad.components.offline.api.core.adlive.listener.AdLivePlayStateListener
+        public final void onLivePlayCompleted() {
+            super.onLivePlayCompleted();
+            l lVar = l.this;
+            com.kwad.components.ad.reward.j jVar = lVar.qt;
+            if (jVar.pf && jVar.pk) {
+                lVar.mAdOpenInteractionListener.onVideoSkipToEnd(l.this.gM);
+            } else {
+                jVar.pC = true;
+                lVar.mAdOpenInteractionListener.onVideoPlayEnd();
+            }
+            AdInfo cb = com.kwad.sdk.core.response.a.d.cb(l.this.qt.mAdTemplate);
+            if (com.kwad.sdk.core.response.a.a.aG(cb) && com.kwad.sdk.core.response.a.a.aF(cb) == 1) {
+                return;
+            }
+            e.u(l.this.qt);
+            com.kwad.components.ad.reward.j jVar2 = l.this.qt;
+            if (jVar2.pC) {
+                com.kwad.components.ad.reward.m.m(jVar2);
+            }
+        }
+
+        @Override // com.kwad.components.offline.api.core.adlive.listener.AdLivePlayStateListenerAdapter, com.kwad.components.offline.api.core.adlive.listener.AdLivePlayStateListener
+        public final void onLivePlayProgress(long j2) {
+            super.onLivePlayProgress(j2);
+            l lVar = l.this;
+            com.kwad.components.ad.reward.j jVar = lVar.qt;
+            jVar.pB = j2;
+            if (jVar.pk) {
+                return;
+            }
+            lVar.gM = j2;
+        }
+
+        @Override // com.kwad.components.offline.api.core.adlive.listener.AdLivePlayStateListenerAdapter, com.kwad.components.offline.api.core.adlive.listener.AdLivePlayStateListener
+        public final void onLivePlayStart() {
+            super.onLivePlayStart();
+            l.this.mAdOpenInteractionListener.onVideoPlayStart();
+            l.this.qt.pC = false;
+        }
+    };
+    private final com.kwad.components.core.video.i mVideoPlayStateListener = new com.kwad.components.core.video.j() { // from class: com.kwad.components.ad.reward.presenter.l.2
+        AnonymousClass2() {
+        }
+
+        @Override // com.kwad.components.core.video.j, com.kwad.components.core.video.i
+        public final void onVideoPlayCompleted() {
+            l lVar = l.this;
+            boolean z = lVar.qt.pk;
+            com.kwad.components.ad.reward.d.b bVar = lVar.mAdOpenInteractionListener;
+            if (z) {
+                bVar.onVideoSkipToEnd(l.this.gM);
+            } else {
+                bVar.onVideoPlayEnd();
+            }
+            AdInfo cb = com.kwad.sdk.core.response.a.d.cb(l.this.qt.mAdTemplate);
+            if (com.kwad.sdk.core.response.a.a.aG(cb) && com.kwad.sdk.core.response.a.a.aF(cb) == 1) {
+                return;
+            }
+            e.u(l.this.qt);
+            com.kwad.components.ad.reward.j jVar = l.this.qt;
+            if (jVar.pC) {
+                com.kwad.components.ad.reward.m.m(jVar);
+            }
+        }
+
+        @Override // com.kwad.components.core.video.j, com.kwad.components.core.video.i
+        public final void onVideoPlayError(int i2, int i3) {
+            l.this.mAdOpenInteractionListener.onVideoPlayError(i2, i3);
+            l.this.hq();
+        }
+
+        @Override // com.kwad.components.core.video.j, com.kwad.components.core.video.i
+        public final void onVideoPlayProgress(long j2, long j3) {
+            l lVar = l.this;
+            com.kwad.components.ad.reward.j jVar = lVar.qt;
+            jVar.pB = j3;
+            jVar.pC = j2 - j3 < 800;
+            if (jVar.pk) {
+                return;
+            }
+            lVar.gM = j3;
+        }
+
+        @Override // com.kwad.components.core.video.j, com.kwad.components.core.video.i
+        public final void onVideoPlayStart() {
+            l.this.mAdOpenInteractionListener.onVideoPlayStart();
         }
     };
 
     /* renamed from: com.kwad.components.ad.reward.presenter.l$1 */
-    public class AnonymousClass1 extends com.kwad.components.core.video.l {
-        public AnonymousClass1() {
+    final class AnonymousClass1 extends AdLivePlayStateListenerAdapter {
+        AnonymousClass1() {
         }
 
-        @Override // com.kwad.components.core.video.l, com.kwad.components.core.video.h
-        public final void onMediaPlayProgress(long j10, long j11) {
-            super.onMediaPlayProgress(j10, j11);
-            l.this.hP();
+        @Override // com.kwad.components.offline.api.core.adlive.listener.AdLivePlayStateListenerAdapter, com.kwad.components.offline.api.core.adlive.listener.AdLivePlayStateListener
+        public final void onLivePlayCompleted() {
+            super.onLivePlayCompleted();
+            l lVar = l.this;
+            com.kwad.components.ad.reward.j jVar = lVar.qt;
+            if (jVar.pf && jVar.pk) {
+                lVar.mAdOpenInteractionListener.onVideoSkipToEnd(l.this.gM);
+            } else {
+                jVar.pC = true;
+                lVar.mAdOpenInteractionListener.onVideoPlayEnd();
+            }
+            AdInfo cb = com.kwad.sdk.core.response.a.d.cb(l.this.qt.mAdTemplate);
+            if (com.kwad.sdk.core.response.a.a.aG(cb) && com.kwad.sdk.core.response.a.a.aF(cb) == 1) {
+                return;
+            }
+            e.u(l.this.qt);
+            com.kwad.components.ad.reward.j jVar2 = l.this.qt;
+            if (jVar2.pC) {
+                com.kwad.components.ad.reward.m.m(jVar2);
+            }
+        }
+
+        @Override // com.kwad.components.offline.api.core.adlive.listener.AdLivePlayStateListenerAdapter, com.kwad.components.offline.api.core.adlive.listener.AdLivePlayStateListener
+        public final void onLivePlayProgress(long j2) {
+            super.onLivePlayProgress(j2);
+            l lVar = l.this;
+            com.kwad.components.ad.reward.j jVar = lVar.qt;
+            jVar.pB = j2;
+            if (jVar.pk) {
+                return;
+            }
+            lVar.gM = j2;
+        }
+
+        @Override // com.kwad.components.offline.api.core.adlive.listener.AdLivePlayStateListenerAdapter, com.kwad.components.offline.api.core.adlive.listener.AdLivePlayStateListener
+        public final void onLivePlayStart() {
+            super.onLivePlayStart();
+            l.this.mAdOpenInteractionListener.onVideoPlayStart();
+            l.this.qt.pC = false;
         }
     }
 
     /* renamed from: com.kwad.components.ad.reward.presenter.l$2 */
-    public class AnonymousClass2 implements g.a {
-        public AnonymousClass2() {
+    final class AnonymousClass2 extends com.kwad.components.core.video.j {
+        AnonymousClass2() {
         }
 
-        @Override // com.kwad.components.ad.reward.n.g.a
-        public final void hQ() {
-            l.this.f11791qi.P(true);
-        }
-    }
-
-    public void hP() {
-        if (this.tT) {
-            return;
-        }
-        com.kwad.components.ad.reward.n.g gVar = this.tS;
-        if (gVar == null) {
-            this.f11791qi.P(false);
-        } else {
-            gVar.a(new g.a() { // from class: com.kwad.components.ad.reward.presenter.l.2
-                public AnonymousClass2() {
-                }
-
-                @Override // com.kwad.components.ad.reward.n.g.a
-                public final void hQ() {
-                    l.this.f11791qi.P(true);
-                }
-            }, 500L);
-        }
-        this.tT = true;
-    }
-
-    @Override // com.kwad.components.ad.reward.presenter.b, com.kwad.sdk.mvp.Presenter
-    public final void as() {
-        super.as();
-        com.kwad.components.ad.reward.g gVar = this.rO;
-        this.f11791qi = gVar.f11692qi;
-        gVar.f11689qf.a(this.f11790ia);
-        AdTemplate adTemplate = this.rO.mAdTemplate;
-        boolean z10 = com.kwad.sdk.core.response.b.b.dk(adTemplate).displayWeakCard;
-        this.rO.B(z10);
-        if (z10) {
-            if (this.tS == null) {
-                this.tS = new com.kwad.components.ad.reward.n.g(this.rO);
+        @Override // com.kwad.components.core.video.j, com.kwad.components.core.video.i
+        public final void onVideoPlayCompleted() {
+            l lVar = l.this;
+            boolean z = lVar.qt.pk;
+            com.kwad.components.ad.reward.d.b bVar = lVar.mAdOpenInteractionListener;
+            if (z) {
+                bVar.onVideoSkipToEnd(l.this.gM);
+            } else {
+                bVar.onVideoPlayEnd();
             }
-            this.tS.f((AdBaseFrameLayout) findViewById(R.id.ksad_root_container));
-            this.tS.b(com.kwad.components.ad.reward.n.r.V(adTemplate));
-        }
-        AdInfo eb2 = com.kwad.sdk.core.response.b.e.eb(adTemplate);
-        if (com.kwad.sdk.core.response.b.a.cj(adTemplate)) {
-            if (this.tV == null) {
-                this.tV = new com.kwad.components.ad.reward.n.l(this.rO);
+            AdInfo cb = com.kwad.sdk.core.response.a.d.cb(l.this.qt.mAdTemplate);
+            if (com.kwad.sdk.core.response.a.a.aG(cb) && com.kwad.sdk.core.response.a.a.aF(cb) == 1) {
+                return;
             }
-            this.tV.h(this.rO.mRootContainer);
-            this.tV.b(com.kwad.components.ad.reward.n.r.V(adTemplate));
-            com.kwad.components.ad.reward.presenter.platdetail.actionbar.d.a(getContext(), eb2, this.tU, R.dimen.ksad_live_subscribe_card_logo_margin_bottom, false);
+            e.u(l.this.qt);
+            com.kwad.components.ad.reward.j jVar = l.this.qt;
+            if (jVar.pC) {
+                com.kwad.components.ad.reward.m.m(jVar);
+            }
         }
-        this.rO.f11692qi.a(this);
+
+        @Override // com.kwad.components.core.video.j, com.kwad.components.core.video.i
+        public final void onVideoPlayError(int i2, int i3) {
+            l.this.mAdOpenInteractionListener.onVideoPlayError(i2, i3);
+            l.this.hq();
+        }
+
+        @Override // com.kwad.components.core.video.j, com.kwad.components.core.video.i
+        public final void onVideoPlayProgress(long j2, long j3) {
+            l lVar = l.this;
+            com.kwad.components.ad.reward.j jVar = lVar.qt;
+            jVar.pB = j3;
+            jVar.pC = j2 - j3 < 800;
+            if (jVar.pk) {
+                return;
+            }
+            lVar.gM = j3;
+        }
+
+        @Override // com.kwad.components.core.video.j, com.kwad.components.core.video.i
+        public final void onVideoPlayStart() {
+            l.this.mAdOpenInteractionListener.onVideoPlayStart();
+        }
     }
 
-    @Override // com.kwad.sdk.mvp.Presenter
-    public final void onCreate() {
-        super.onCreate();
-        this.tU = (KsLogoView) findViewById(R.id.ksad_ad_label_play_bar);
+    @Override // com.kwad.components.ad.reward.presenter.a, com.kwad.sdk.mvp.Presenter
+    public final void ar() {
+        super.ar();
+        com.kwad.components.ad.reward.j jVar = this.qt;
+        jVar.pB = 0L;
+        jVar.pC = false;
+        this.mAdOpenInteractionListener = jVar.mAdOpenInteractionListener;
+        jVar.oN.a(this.mVideoPlayStateListener, this.mAdLivePlayStateListener);
     }
 
     @Override // com.kwad.sdk.mvp.Presenter
     public final void onUnbind() {
         super.onUnbind();
-        this.rO.f11689qf.b(this.f11790ia);
-        this.rO.f11692qi.b(this);
-        com.kwad.components.ad.reward.n.l lVar = this.tV;
-        if (lVar != null) {
-            lVar.onUnbind();
-        }
-    }
-
-    @Override // com.kwad.components.ad.reward.presenter.platdetail.actionbar.a
-    public final void a(RewardActionBarControl.ShowActionBarResult showActionBarResult, View view) {
-        com.kwad.components.ad.reward.n.l lVar = this.tV;
-        if (lVar != null) {
-            lVar.ku();
-        }
+        this.qt.oN.b(this.mVideoPlayStateListener, this.mAdLivePlayStateListener);
     }
 }

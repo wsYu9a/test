@@ -3,97 +3,116 @@ package androidx.appcompat.widget;
 /* loaded from: classes.dex */
 class RtlSpacingHelper {
     public static final int UNDEFINED = Integer.MIN_VALUE;
-    private int mLeft = 0;
-    private int mRight = 0;
-    private int mStart = Integer.MIN_VALUE;
-    private int mEnd = Integer.MIN_VALUE;
-    private int mExplicitLeft = 0;
-    private int mExplicitRight = 0;
-    private boolean mIsRtl = false;
-    private boolean mIsRelative = false;
+
+    /* renamed from: a, reason: collision with root package name */
+    private int f886a = 0;
+
+    /* renamed from: b, reason: collision with root package name */
+    private int f887b = 0;
+
+    /* renamed from: c, reason: collision with root package name */
+    private int f888c = Integer.MIN_VALUE;
+
+    /* renamed from: d, reason: collision with root package name */
+    private int f889d = Integer.MIN_VALUE;
+
+    /* renamed from: e, reason: collision with root package name */
+    private int f890e = 0;
+
+    /* renamed from: f, reason: collision with root package name */
+    private int f891f = 0;
+
+    /* renamed from: g, reason: collision with root package name */
+    private boolean f892g = false;
+
+    /* renamed from: h, reason: collision with root package name */
+    private boolean f893h = false;
+
+    RtlSpacingHelper() {
+    }
 
     public int getEnd() {
-        return this.mIsRtl ? this.mLeft : this.mRight;
+        return this.f892g ? this.f886a : this.f887b;
     }
 
     public int getLeft() {
-        return this.mLeft;
+        return this.f886a;
     }
 
     public int getRight() {
-        return this.mRight;
+        return this.f887b;
     }
 
     public int getStart() {
-        return this.mIsRtl ? this.mRight : this.mLeft;
+        return this.f892g ? this.f887b : this.f886a;
     }
 
-    public void setAbsolute(int i10, int i11) {
-        this.mIsRelative = false;
-        if (i10 != Integer.MIN_VALUE) {
-            this.mExplicitLeft = i10;
-            this.mLeft = i10;
+    public void setAbsolute(int i2, int i3) {
+        this.f893h = false;
+        if (i2 != Integer.MIN_VALUE) {
+            this.f890e = i2;
+            this.f886a = i2;
         }
-        if (i11 != Integer.MIN_VALUE) {
-            this.mExplicitRight = i11;
-            this.mRight = i11;
+        if (i3 != Integer.MIN_VALUE) {
+            this.f891f = i3;
+            this.f887b = i3;
         }
     }
 
-    public void setDirection(boolean z10) {
-        if (z10 == this.mIsRtl) {
+    public void setDirection(boolean z) {
+        if (z == this.f892g) {
             return;
         }
-        this.mIsRtl = z10;
-        if (!this.mIsRelative) {
-            this.mLeft = this.mExplicitLeft;
-            this.mRight = this.mExplicitRight;
+        this.f892g = z;
+        if (!this.f893h) {
+            this.f886a = this.f890e;
+            this.f887b = this.f891f;
             return;
         }
-        if (z10) {
-            int i10 = this.mEnd;
-            if (i10 == Integer.MIN_VALUE) {
-                i10 = this.mExplicitLeft;
+        if (z) {
+            int i2 = this.f889d;
+            if (i2 == Integer.MIN_VALUE) {
+                i2 = this.f890e;
             }
-            this.mLeft = i10;
-            int i11 = this.mStart;
-            if (i11 == Integer.MIN_VALUE) {
-                i11 = this.mExplicitRight;
+            this.f886a = i2;
+            int i3 = this.f888c;
+            if (i3 == Integer.MIN_VALUE) {
+                i3 = this.f891f;
             }
-            this.mRight = i11;
+            this.f887b = i3;
             return;
         }
-        int i12 = this.mStart;
-        if (i12 == Integer.MIN_VALUE) {
-            i12 = this.mExplicitLeft;
+        int i4 = this.f888c;
+        if (i4 == Integer.MIN_VALUE) {
+            i4 = this.f890e;
         }
-        this.mLeft = i12;
-        int i13 = this.mEnd;
-        if (i13 == Integer.MIN_VALUE) {
-            i13 = this.mExplicitRight;
+        this.f886a = i4;
+        int i5 = this.f889d;
+        if (i5 == Integer.MIN_VALUE) {
+            i5 = this.f891f;
         }
-        this.mRight = i13;
+        this.f887b = i5;
     }
 
-    public void setRelative(int i10, int i11) {
-        this.mStart = i10;
-        this.mEnd = i11;
-        this.mIsRelative = true;
-        if (this.mIsRtl) {
-            if (i11 != Integer.MIN_VALUE) {
-                this.mLeft = i11;
+    public void setRelative(int i2, int i3) {
+        this.f888c = i2;
+        this.f889d = i3;
+        this.f893h = true;
+        if (this.f892g) {
+            if (i3 != Integer.MIN_VALUE) {
+                this.f886a = i3;
             }
-            if (i10 != Integer.MIN_VALUE) {
-                this.mRight = i10;
+            if (i2 != Integer.MIN_VALUE) {
+                this.f887b = i2;
                 return;
             }
             return;
         }
-        if (i10 != Integer.MIN_VALUE) {
-            this.mLeft = i10;
+        if (i2 != Integer.MIN_VALUE) {
+            this.f886a = i2;
         }
-        if (i11 != Integer.MIN_VALUE) {
-            this.mRight = i11;
+        if (i3 != Integer.MIN_VALUE) {
+            this.f887b = i3;
         }
     }
 }

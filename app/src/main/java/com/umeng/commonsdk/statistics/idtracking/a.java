@@ -1,5 +1,6 @@
 package com.umeng.commonsdk.statistics.idtracking;
 
+import androidx.core.os.EnvironmentCompat;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
@@ -8,51 +9,51 @@ import java.util.Locale;
 public abstract class a {
 
     /* renamed from: a */
-    private final int f24649a = 10;
+    private final int f26328a = 10;
 
     /* renamed from: b */
-    private final int f24650b = 100;
+    private final int f26329b = 100;
 
     /* renamed from: c */
-    private final String f24651c;
+    private final String f26330c;
 
     /* renamed from: d */
-    private List<com.umeng.commonsdk.statistics.proto.a> f24652d;
+    private List<com.umeng.commonsdk.statistics.proto.a> f26331d;
 
     /* renamed from: e */
-    private com.umeng.commonsdk.statistics.proto.b f24653e;
+    private com.umeng.commonsdk.statistics.proto.b f26332e;
 
     public a(String str) {
-        this.f24651c = str;
+        this.f26330c = str;
     }
 
     private boolean g() {
-        com.umeng.commonsdk.statistics.proto.b bVar = this.f24653e;
-        String b10 = bVar == null ? null : bVar.b();
-        int h10 = bVar == null ? 0 : bVar.h();
-        String a10 = a(f());
-        if (a10 == null || a10.equals(b10)) {
+        com.umeng.commonsdk.statistics.proto.b bVar = this.f26332e;
+        String b2 = bVar == null ? null : bVar.b();
+        int h2 = bVar == null ? 0 : bVar.h();
+        String a2 = a(f());
+        if (a2 == null || a2.equals(b2)) {
             return false;
         }
         if (bVar == null) {
             bVar = new com.umeng.commonsdk.statistics.proto.b();
         }
-        bVar.a(a10);
+        bVar.a(a2);
         bVar.a(System.currentTimeMillis());
-        bVar.a(h10 + 1);
+        bVar.a(h2 + 1);
         com.umeng.commonsdk.statistics.proto.a aVar = new com.umeng.commonsdk.statistics.proto.a();
-        aVar.a(this.f24651c);
-        aVar.c(a10);
-        aVar.b(b10);
+        aVar.a(this.f26330c);
+        aVar.c(a2);
+        aVar.b(b2);
         aVar.a(bVar.e());
-        if (this.f24652d == null) {
-            this.f24652d = new ArrayList(2);
+        if (this.f26331d == null) {
+            this.f26331d = new ArrayList(2);
         }
-        this.f24652d.add(aVar);
-        if (this.f24652d.size() > 10) {
-            this.f24652d.remove(0);
+        this.f26331d.add(aVar);
+        if (this.f26331d.size() > 10) {
+            this.f26331d.remove(0);
         }
-        this.f24653e = bVar;
+        this.f26332e = bVar;
         return true;
     }
 
@@ -61,30 +62,30 @@ public abstract class a {
     }
 
     public String b() {
-        return this.f24651c;
+        return this.f26330c;
     }
 
     public boolean c() {
-        com.umeng.commonsdk.statistics.proto.b bVar = this.f24653e;
+        com.umeng.commonsdk.statistics.proto.b bVar = this.f26332e;
         return bVar == null || bVar.h() <= 100;
     }
 
     public com.umeng.commonsdk.statistics.proto.b d() {
-        return this.f24653e;
+        return this.f26332e;
     }
 
     public List<com.umeng.commonsdk.statistics.proto.a> e() {
-        return this.f24652d;
+        return this.f26331d;
     }
 
     public abstract String f();
 
     public void a(com.umeng.commonsdk.statistics.proto.b bVar) {
-        this.f24653e = bVar;
+        this.f26332e = bVar;
     }
 
     public void a(List<com.umeng.commonsdk.statistics.proto.a> list) {
-        this.f24652d = list;
+        this.f26331d = list;
     }
 
     public String a(String str) {
@@ -92,24 +93,24 @@ public abstract class a {
             return null;
         }
         String trim = str.trim();
-        if (trim.length() == 0 || "0".equals(trim) || "unknown".equals(trim.toLowerCase(Locale.US))) {
+        if (trim.length() == 0 || "0".equals(trim) || EnvironmentCompat.MEDIA_UNKNOWN.equals(trim.toLowerCase(Locale.US))) {
             return null;
         }
         return trim;
     }
 
     public void a(com.umeng.commonsdk.statistics.proto.c cVar) {
-        this.f24653e = cVar.c().get(this.f24651c);
-        List<com.umeng.commonsdk.statistics.proto.a> h10 = cVar.h();
-        if (h10 == null || h10.size() <= 0) {
+        this.f26332e = cVar.c().get(this.f26330c);
+        List<com.umeng.commonsdk.statistics.proto.a> h2 = cVar.h();
+        if (h2 == null || h2.size() <= 0) {
             return;
         }
-        if (this.f24652d == null) {
-            this.f24652d = new ArrayList();
+        if (this.f26331d == null) {
+            this.f26331d = new ArrayList();
         }
-        for (com.umeng.commonsdk.statistics.proto.a aVar : h10) {
-            if (this.f24651c.equals(aVar.f24719a)) {
-                this.f24652d.add(aVar);
+        for (com.umeng.commonsdk.statistics.proto.a aVar : h2) {
+            if (this.f26330c.equals(aVar.f26391a)) {
+                this.f26331d.add(aVar);
             }
         }
     }

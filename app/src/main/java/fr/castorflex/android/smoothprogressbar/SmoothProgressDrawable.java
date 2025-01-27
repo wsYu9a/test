@@ -12,153 +12,130 @@ import android.os.SystemClock;
 import android.view.animation.AccelerateInterpolator;
 import android.view.animation.Interpolator;
 
-/* loaded from: classes4.dex */
+/* loaded from: classes5.dex */
 public class SmoothProgressDrawable extends Drawable implements Animatable {
-    public static final long A = 16;
-    public static final float B = 0.01f;
+
+    /* renamed from: a */
+    private static final long f35262a = 16;
 
     /* renamed from: b */
-    public final Rect f26077b;
+    private static final float f35263b = 0.01f;
+    private final Runnable A;
 
     /* renamed from: c */
-    public b f26078c;
+    private final Rect f35264c;
 
     /* renamed from: d */
-    public Interpolator f26079d;
+    private b f35265d;
 
     /* renamed from: e */
-    public Rect f26080e;
+    private Interpolator f35266e;
 
     /* renamed from: f */
-    public Paint f26081f;
+    private Rect f35267f;
 
     /* renamed from: g */
-    public int[] f26082g;
+    private Paint f35268g;
 
     /* renamed from: h */
-    public int f26083h;
+    private int[] f35269h;
 
     /* renamed from: i */
-    public boolean f26084i;
+    private int f35270i;
 
     /* renamed from: j */
-    public float f26085j;
-
-    /* renamed from: k */
-    public int f26086k;
-
-    /* renamed from: l */
-    public int f26087l;
-
-    /* renamed from: m */
-    public float f26088m;
-
-    /* renamed from: n */
-    public float f26089n;
-
-    /* renamed from: o */
-    public float f26090o;
-
-    /* renamed from: p */
-    public boolean f26091p;
-
-    /* renamed from: q */
-    public boolean f26092q;
-
-    /* renamed from: r */
-    public boolean f26093r;
-
-    /* renamed from: s */
-    public float f26094s;
-
-    /* renamed from: t */
-    public boolean f26095t;
-
-    /* renamed from: u */
-    public boolean f26096u;
-
-    /* renamed from: v */
-    public int f26097v;
-
-    /* renamed from: w */
-    public int f26098w;
-
-    /* renamed from: x */
-    public float f26099x;
-
-    /* renamed from: y */
-    public Drawable f26100y;
-
-    /* renamed from: z */
-    public final Runnable f26101z;
+    private boolean f35271j;
+    private float k;
+    private int l;
+    private int m;
+    private float n;
+    private float o;
+    private float p;
+    private boolean q;
+    private boolean r;
+    private boolean s;
+    private float t;
+    private boolean u;
+    private boolean v;
+    private int w;
+    private int x;
+    private float y;
+    private Drawable z;
 
     public static class Builder {
 
         /* renamed from: a */
-        public Interpolator f26102a;
+        private Interpolator f35272a;
 
         /* renamed from: b */
-        public int f26103b;
+        private int f35273b;
 
         /* renamed from: c */
-        public int[] f26104c;
+        private int[] f35274c;
 
         /* renamed from: d */
-        public float f26105d;
+        private float f35275d;
 
         /* renamed from: e */
-        public float f26106e;
+        private float f35276e;
 
         /* renamed from: f */
-        public float f26107f;
+        private float f35277f;
 
         /* renamed from: g */
-        public boolean f26108g;
+        private boolean f35278g;
 
         /* renamed from: h */
-        public boolean f26109h;
+        private boolean f35279h;
 
         /* renamed from: i */
-        public float f26110i;
+        private float f35280i;
 
         /* renamed from: j */
-        public int f26111j;
-
-        /* renamed from: k */
-        public boolean f26112k;
-
-        /* renamed from: l */
-        public boolean f26113l;
-
-        /* renamed from: m */
-        public Drawable f26114m;
-
-        /* renamed from: n */
-        public b f26115n;
+        private int f35281j;
+        private boolean k;
+        private boolean l;
+        private Drawable m;
+        private b n;
 
         public Builder(Context context) {
             g(context);
         }
 
+        private void g(Context context) {
+            Resources resources = context.getResources();
+            this.f35272a = new AccelerateInterpolator();
+            this.f35273b = resources.getInteger(R.integer.spb_default_sections_count);
+            this.f35274c = new int[]{resources.getColor(R.color.spb_default_color)};
+            float parseFloat = Float.parseFloat(resources.getString(R.string.spb_default_speed));
+            this.f35275d = parseFloat;
+            this.f35276e = parseFloat;
+            this.f35277f = parseFloat;
+            this.f35278g = resources.getBoolean(R.bool.spb_default_reversed);
+            this.f35281j = resources.getDimensionPixelSize(R.dimen.spb_default_stroke_separator_length);
+            this.f35280i = resources.getDimensionPixelOffset(R.dimen.spb_default_stroke_width);
+            this.k = resources.getBoolean(R.bool.spb_default_progressiveStart_activated);
+        }
+
         public Builder a(Drawable drawable) {
-            this.f26114m = drawable;
+            this.m = drawable;
             return this;
         }
 
         public SmoothProgressDrawable b() {
-            if (this.f26113l) {
-                this.f26114m = lh.b.a(this.f26104c, this.f26110i);
+            if (this.l) {
+                this.m = fr.castorflex.android.smoothprogressbar.b.a(this.f35274c, this.f35280i);
             }
-            return new SmoothProgressDrawable(this.f26102a, this.f26103b, this.f26111j, this.f26104c, this.f26110i, this.f26105d, this.f26106e, this.f26107f, this.f26108g, this.f26109h, this.f26115n, this.f26112k, this.f26114m, null);
+            return new SmoothProgressDrawable(this.f35272a, this.f35273b, this.f35281j, this.f35274c, this.f35280i, this.f35275d, this.f35276e, this.f35277f, this.f35278g, this.f35279h, this.n, this.k, this.m, null);
         }
 
         public Builder c(b bVar) {
-            this.f26115n = bVar;
+            this.n = bVar;
             return this;
         }
 
-        public Builder d(int i10) {
-            this.f26104c = new int[]{i10};
+        public Builder d(int i2) {
+            this.f35274c = new int[]{i2};
             return this;
         }
 
@@ -166,125 +143,110 @@ public class SmoothProgressDrawable extends Drawable implements Animatable {
             if (iArr == null || iArr.length == 0) {
                 throw new IllegalArgumentException("Your color array must not be empty");
             }
-            this.f26104c = iArr;
+            this.f35274c = iArr;
             return this;
         }
 
         public Builder f() {
-            this.f26113l = true;
+            this.l = true;
             return this;
-        }
-
-        public final void g(Context context) {
-            Resources resources = context.getResources();
-            this.f26102a = new AccelerateInterpolator();
-            this.f26103b = resources.getInteger(R.integer.spb_default_sections_count);
-            this.f26104c = new int[]{resources.getColor(R.color.spb_default_color)};
-            float parseFloat = Float.parseFloat(resources.getString(R.string.spb_default_speed));
-            this.f26105d = parseFloat;
-            this.f26106e = parseFloat;
-            this.f26107f = parseFloat;
-            this.f26108g = resources.getBoolean(R.bool.spb_default_reversed);
-            this.f26111j = resources.getDimensionPixelSize(R.dimen.spb_default_stroke_separator_length);
-            this.f26110i = resources.getDimensionPixelOffset(R.dimen.spb_default_stroke_width);
-            this.f26112k = resources.getBoolean(R.bool.spb_default_progressiveStart_activated);
         }
 
         public Builder h(Interpolator interpolator) {
             if (interpolator == null) {
                 throw new IllegalArgumentException("Interpolator can't be null");
             }
-            this.f26102a = interpolator;
+            this.f35272a = interpolator;
             return this;
         }
 
-        public Builder i(boolean z10) {
-            this.f26109h = z10;
+        public Builder i(boolean z) {
+            this.f35279h = z;
             return this;
         }
 
-        public Builder j(boolean z10) {
-            this.f26112k = z10;
+        public Builder j(boolean z) {
+            this.k = z;
             return this;
         }
 
-        public Builder k(float f10) {
-            if (f10 < 0.0f) {
+        public Builder k(float f2) {
+            if (f2 < 0.0f) {
                 throw new IllegalArgumentException("progressiveStartSpeed must be >= 0");
             }
-            this.f26106e = f10;
+            this.f35276e = f2;
             return this;
         }
 
-        public Builder l(float f10) {
-            if (f10 < 0.0f) {
+        public Builder l(float f2) {
+            if (f2 < 0.0f) {
                 throw new IllegalArgumentException("progressiveStopSpeed must be >= 0");
             }
-            this.f26107f = f10;
+            this.f35277f = f2;
             return this;
         }
 
-        public Builder m(boolean z10) {
-            this.f26108g = z10;
+        public Builder m(boolean z) {
+            this.f35278g = z;
             return this;
         }
 
-        public Builder n(int i10) {
-            if (i10 <= 0) {
+        public Builder n(int i2) {
+            if (i2 <= 0) {
                 throw new IllegalArgumentException("SectionsCount must be > 0");
             }
-            this.f26103b = i10;
+            this.f35273b = i2;
             return this;
         }
 
-        public Builder o(int i10) {
-            if (i10 < 0) {
+        public Builder o(int i2) {
+            if (i2 < 0) {
                 throw new IllegalArgumentException("SeparatorLength must be >= 0");
             }
-            this.f26111j = i10;
+            this.f35281j = i2;
             return this;
         }
 
-        public Builder p(float f10) {
-            if (f10 < 0.0f) {
+        public Builder p(float f2) {
+            if (f2 < 0.0f) {
                 throw new IllegalArgumentException("Speed must be >= 0");
             }
-            this.f26105d = f10;
+            this.f35275d = f2;
             return this;
         }
 
-        public Builder q(float f10) {
-            if (f10 < 0.0f) {
+        public Builder q(float f2) {
+            if (f2 < 0.0f) {
                 throw new IllegalArgumentException("The width must be >= 0");
             }
-            this.f26110i = f10;
+            this.f35280i = f2;
             return this;
         }
     }
 
-    public class a implements Runnable {
-        public a() {
+    class a implements Runnable {
+        a() {
         }
 
         @Override // java.lang.Runnable
         public void run() {
             if (SmoothProgressDrawable.this.t()) {
                 SmoothProgressDrawable smoothProgressDrawable = SmoothProgressDrawable.this;
-                SmoothProgressDrawable.b(smoothProgressDrawable, smoothProgressDrawable.f26090o * 0.01f);
+                SmoothProgressDrawable.b(smoothProgressDrawable, smoothProgressDrawable.p * 0.01f);
             } else if (SmoothProgressDrawable.this.u()) {
                 SmoothProgressDrawable smoothProgressDrawable2 = SmoothProgressDrawable.this;
-                SmoothProgressDrawable.b(smoothProgressDrawable2, smoothProgressDrawable2.f26089n * 0.01f);
+                SmoothProgressDrawable.b(smoothProgressDrawable2, smoothProgressDrawable2.o * 0.01f);
             } else {
                 SmoothProgressDrawable smoothProgressDrawable3 = SmoothProgressDrawable.this;
-                SmoothProgressDrawable.b(smoothProgressDrawable3, smoothProgressDrawable3.f26088m * 0.01f);
+                SmoothProgressDrawable.b(smoothProgressDrawable3, smoothProgressDrawable3.n * 0.01f);
             }
-            if (SmoothProgressDrawable.this.f26085j >= SmoothProgressDrawable.this.f26094s) {
-                SmoothProgressDrawable.this.f26092q = true;
+            if (SmoothProgressDrawable.this.k >= SmoothProgressDrawable.this.t) {
+                SmoothProgressDrawable.this.r = true;
                 SmoothProgressDrawable smoothProgressDrawable4 = SmoothProgressDrawable.this;
-                SmoothProgressDrawable.c(smoothProgressDrawable4, smoothProgressDrawable4.f26094s);
+                SmoothProgressDrawable.c(smoothProgressDrawable4, smoothProgressDrawable4.t);
             }
             SmoothProgressDrawable smoothProgressDrawable5 = SmoothProgressDrawable.this;
-            smoothProgressDrawable5.scheduleSelf(smoothProgressDrawable5.f26101z, SystemClock.uptimeMillis() + 16);
+            smoothProgressDrawable5.scheduleSelf(smoothProgressDrawable5.A, SystemClock.uptimeMillis() + 16);
             SmoothProgressDrawable.this.invalidateSelf();
         }
     }
@@ -295,36 +257,169 @@ public class SmoothProgressDrawable extends Drawable implements Animatable {
         void onStop();
     }
 
-    public /* synthetic */ SmoothProgressDrawable(Interpolator interpolator, int i10, int i11, int[] iArr, float f10, float f11, float f12, float f13, boolean z10, boolean z11, b bVar, boolean z12, Drawable drawable, a aVar) {
-        this(interpolator, i10, i11, iArr, f10, f11, f12, f13, z10, z11, bVar, z12, drawable);
+    /* synthetic */ SmoothProgressDrawable(Interpolator interpolator, int i2, int i3, int[] iArr, float f2, float f3, float f4, float f5, boolean z, boolean z2, b bVar, boolean z3, Drawable drawable, a aVar) {
+        this(interpolator, i2, i3, iArr, f2, f3, f4, f5, z, z2, bVar, z3, drawable);
     }
 
-    public static /* synthetic */ float b(SmoothProgressDrawable smoothProgressDrawable, float f10) {
-        float f11 = smoothProgressDrawable.f26085j + f10;
-        smoothProgressDrawable.f26085j = f11;
-        return f11;
+    static /* synthetic */ float b(SmoothProgressDrawable smoothProgressDrawable, float f2) {
+        float f3 = smoothProgressDrawable.k + f2;
+        smoothProgressDrawable.k = f3;
+        return f3;
     }
 
-    public static /* synthetic */ float c(SmoothProgressDrawable smoothProgressDrawable, float f10) {
-        float f11 = smoothProgressDrawable.f26085j - f10;
-        smoothProgressDrawable.f26085j = f11;
-        return f11;
+    static /* synthetic */ float c(SmoothProgressDrawable smoothProgressDrawable, float f2) {
+        float f3 = smoothProgressDrawable.k - f2;
+        smoothProgressDrawable.k = f3;
+        return f3;
+    }
+
+    private void j(int i2) {
+        if (i2 < 0 || i2 >= this.f35269h.length) {
+            throw new IllegalArgumentException(String.format("Index %d not valid", Integer.valueOf(i2)));
+        }
+    }
+
+    private int k(int i2) {
+        int i3 = i2 - 1;
+        return i3 < 0 ? this.f35269h.length - 1 : i3;
+    }
+
+    private void l(Canvas canvas, float f2, float f3) {
+        int save = canvas.save();
+        canvas.clipRect(f2, (int) ((canvas.getHeight() - this.y) / 2.0f), f3, (int) ((canvas.getHeight() + this.y) / 2.0f));
+        this.z.draw(canvas);
+        canvas.restoreToCount(save);
+    }
+
+    private void m(Canvas canvas, float f2, float f3) {
+        if (this.z == null) {
+            return;
+        }
+        this.f35264c.top = (int) ((canvas.getHeight() - this.y) / 2.0f);
+        this.f35264c.bottom = (int) ((canvas.getHeight() + this.y) / 2.0f);
+        Rect rect = this.f35264c;
+        rect.left = 0;
+        rect.right = this.s ? canvas.getWidth() / 2 : canvas.getWidth();
+        this.z.setBounds(this.f35264c);
+        if (!isRunning()) {
+            if (!this.s) {
+                l(canvas, 0.0f, this.f35264c.width());
+                return;
+            }
+            canvas.save();
+            canvas.translate(canvas.getWidth() / 2, 0.0f);
+            l(canvas, 0.0f, this.f35264c.width());
+            canvas.scale(-1.0f, 1.0f);
+            l(canvas, 0.0f, this.f35264c.width());
+            canvas.restore();
+            return;
+        }
+        if (t() || u()) {
+            if (f2 > f3) {
+                f3 = f2;
+                f2 = f3;
+            }
+            if (f2 > 0.0f) {
+                if (this.s) {
+                    canvas.save();
+                    canvas.translate(canvas.getWidth() / 2, 0.0f);
+                    if (this.q) {
+                        l(canvas, 0.0f, f2);
+                        canvas.scale(-1.0f, 1.0f);
+                        l(canvas, 0.0f, f2);
+                    } else {
+                        l(canvas, (canvas.getWidth() / 2) - f2, canvas.getWidth() / 2);
+                        canvas.scale(-1.0f, 1.0f);
+                        l(canvas, (canvas.getWidth() / 2) - f2, canvas.getWidth() / 2);
+                    }
+                    canvas.restore();
+                } else {
+                    l(canvas, 0.0f, f2);
+                }
+            }
+            if (f3 <= canvas.getWidth()) {
+                if (!this.s) {
+                    l(canvas, f3, canvas.getWidth());
+                    return;
+                }
+                canvas.save();
+                canvas.translate(canvas.getWidth() / 2, 0.0f);
+                if (this.q) {
+                    l(canvas, f3, canvas.getWidth() / 2);
+                    canvas.scale(-1.0f, 1.0f);
+                    l(canvas, f3, canvas.getWidth() / 2);
+                } else {
+                    l(canvas, 0.0f, (canvas.getWidth() / 2) - f3);
+                    canvas.scale(-1.0f, 1.0f);
+                    l(canvas, 0.0f, (canvas.getWidth() / 2) - f3);
+                }
+                canvas.restore();
+            }
+        }
+    }
+
+    private void n(Canvas canvas, int i2, float f2, float f3, float f4, float f5, int i3) {
+        this.f35268g.setColor(this.f35269h[i3]);
+        if (!this.s) {
+            canvas.drawLine(f2, f3, f4, f5, this.f35268g);
+            return;
+        }
+        if (this.q) {
+            float f6 = i2;
+            canvas.drawLine(f6 + f2, f3, f6 + f4, f5, this.f35268g);
+            canvas.drawLine(f6 - f2, f3, f6 - f4, f5, this.f35268g);
+        } else {
+            canvas.drawLine(f2, f3, f4, f5, this.f35268g);
+            float f7 = i2 * 2;
+            canvas.drawLine(f7 - f2, f3, f7 - f4, f5, this.f35268g);
+        }
+    }
+
+    /* JADX WARN: Removed duplicated region for block: B:39:0x00f5  */
+    /* JADX WARN: Removed duplicated region for block: B:42:0x00f8  */
+    /*
+        Code decompiled incorrectly, please refer to instructions dump.
+        To view partially-correct code enable 'Show inconsistent code' option in preferences
+    */
+    private void o(android.graphics.Canvas r24) {
+        /*
+            Method dump skipped, instructions count: 272
+            To view this dump change 'Code comments level' option to 'DEBUG'
+        */
+        throw new UnsupportedOperationException("Method not decompiled: fr.castorflex.android.smoothprogressbar.SmoothProgressDrawable.o(android.graphics.Canvas):void");
+    }
+
+    private int s(int i2) {
+        int i3 = i2 + 1;
+        if (i3 >= this.f35269h.length) {
+            return 0;
+        }
+        return i3;
+    }
+
+    private void y(int i2) {
+        j(i2);
+        this.k = 0.0f;
+        this.u = false;
+        this.w = 0;
+        this.x = 0;
+        this.f35270i = i2;
     }
 
     public void A(b bVar) {
-        this.f26078c = bVar;
+        this.f35265d = bVar;
     }
 
-    public void B(int i10) {
-        C(new int[]{i10});
+    public void B(int i2) {
+        C(new int[]{i2});
     }
 
     public void C(int[] iArr) {
         if (iArr == null || iArr.length == 0) {
             throw new IllegalArgumentException("Colors cannot be null or empty");
         }
-        this.f26083h = 0;
-        this.f26082g = iArr;
+        this.f35270i = 0;
+        this.f35269h = iArr;
         invalidateSelf();
     }
 
@@ -332,88 +427,88 @@ public class SmoothProgressDrawable extends Drawable implements Animatable {
         if (interpolator == null) {
             throw new IllegalArgumentException("Interpolator cannot be null");
         }
-        this.f26079d = interpolator;
+        this.f35266e = interpolator;
         invalidateSelf();
     }
 
-    public void E(boolean z10) {
-        if (this.f26093r == z10) {
+    public void E(boolean z) {
+        if (this.s == z) {
             return;
         }
-        this.f26093r = z10;
+        this.s = z;
         invalidateSelf();
     }
 
-    public void F(boolean z10) {
-        this.f26096u = z10;
+    public void F(boolean z) {
+        this.v = z;
     }
 
-    public void G(float f10) {
-        if (f10 < 0.0f) {
+    public void G(float f2) {
+        if (f2 < 0.0f) {
             throw new IllegalArgumentException("SpeedProgressiveStart must be >= 0");
         }
-        this.f26089n = f10;
+        this.o = f2;
         invalidateSelf();
     }
 
-    public void H(float f10) {
-        if (f10 < 0.0f) {
+    public void H(float f2) {
+        if (f2 < 0.0f) {
             throw new IllegalArgumentException("SpeedProgressiveStop must be >= 0");
         }
-        this.f26090o = f10;
+        this.p = f2;
         invalidateSelf();
     }
 
-    public void I(boolean z10) {
-        if (this.f26091p == z10) {
+    public void I(boolean z) {
+        if (this.q == z) {
             return;
         }
-        this.f26091p = z10;
+        this.q = z;
         invalidateSelf();
     }
 
-    public void J(int i10) {
-        if (i10 <= 0) {
+    public void J(int i2) {
+        if (i2 <= 0) {
             throw new IllegalArgumentException("SectionsCount must be > 0");
         }
-        this.f26087l = i10;
-        float f10 = 1.0f / i10;
-        this.f26094s = f10;
-        this.f26085j %= f10;
+        this.m = i2;
+        float f2 = 1.0f / i2;
+        this.t = f2;
+        this.k %= f2;
         invalidateSelf();
     }
 
-    public void K(int i10) {
-        if (i10 < 0) {
+    public void K(int i2) {
+        if (i2 < 0) {
             throw new IllegalArgumentException("SeparatorLength must be >= 0");
         }
-        this.f26086k = i10;
+        this.l = i2;
         invalidateSelf();
     }
 
-    public void L(float f10) {
-        if (f10 < 0.0f) {
+    public void L(float f2) {
+        if (f2 < 0.0f) {
             throw new IllegalArgumentException("Speed must be >= 0");
         }
-        this.f26088m = f10;
+        this.n = f2;
         invalidateSelf();
     }
 
-    public void M(float f10) {
-        if (f10 < 0.0f) {
+    public void M(float f2) {
+        if (f2 < 0.0f) {
             throw new IllegalArgumentException("The strokeWidth must be >= 0");
         }
-        this.f26081f.setStrokeWidth(f10);
+        this.f35268g.setStrokeWidth(f2);
         invalidateSelf();
     }
 
     @Override // android.graphics.drawable.Drawable
     public void draw(Canvas canvas) {
         Rect bounds = getBounds();
-        this.f26080e = bounds;
+        this.f35267f = bounds;
         canvas.clipRect(bounds);
-        int width = this.f26080e.width();
-        if (this.f26091p) {
+        int width = this.f35267f.width();
+        if (this.q) {
             canvas.translate(width, 0.0f);
             canvas.scale(-1.0f, 1.0f);
         }
@@ -427,255 +522,122 @@ public class SmoothProgressDrawable extends Drawable implements Animatable {
 
     @Override // android.graphics.drawable.Animatable
     public boolean isRunning() {
-        return this.f26084i;
-    }
-
-    public final void j(int i10) {
-        if (i10 < 0 || i10 >= this.f26082g.length) {
-            throw new IllegalArgumentException(String.format("Index %d not valid", Integer.valueOf(i10)));
-        }
-    }
-
-    public final int k(int i10) {
-        int i11 = i10 - 1;
-        return i11 < 0 ? this.f26082g.length - 1 : i11;
-    }
-
-    public final void l(Canvas canvas, float f10, float f11) {
-        int save = canvas.save();
-        canvas.clipRect(f10, (int) ((canvas.getHeight() - this.f26099x) / 2.0f), f11, (int) ((canvas.getHeight() + this.f26099x) / 2.0f));
-        this.f26100y.draw(canvas);
-        canvas.restoreToCount(save);
-    }
-
-    public final void m(Canvas canvas, float f10, float f11) {
-        if (this.f26100y == null) {
-            return;
-        }
-        this.f26077b.top = (int) ((canvas.getHeight() - this.f26099x) / 2.0f);
-        this.f26077b.bottom = (int) ((canvas.getHeight() + this.f26099x) / 2.0f);
-        Rect rect = this.f26077b;
-        rect.left = 0;
-        rect.right = this.f26093r ? canvas.getWidth() / 2 : canvas.getWidth();
-        this.f26100y.setBounds(this.f26077b);
-        if (!isRunning()) {
-            if (!this.f26093r) {
-                l(canvas, 0.0f, this.f26077b.width());
-                return;
-            }
-            canvas.save();
-            canvas.translate(canvas.getWidth() / 2, 0.0f);
-            l(canvas, 0.0f, this.f26077b.width());
-            canvas.scale(-1.0f, 1.0f);
-            l(canvas, 0.0f, this.f26077b.width());
-            canvas.restore();
-            return;
-        }
-        if (t() || u()) {
-            if (f10 > f11) {
-                f11 = f10;
-                f10 = f11;
-            }
-            if (f10 > 0.0f) {
-                if (this.f26093r) {
-                    canvas.save();
-                    canvas.translate(canvas.getWidth() / 2, 0.0f);
-                    if (this.f26091p) {
-                        l(canvas, 0.0f, f10);
-                        canvas.scale(-1.0f, 1.0f);
-                        l(canvas, 0.0f, f10);
-                    } else {
-                        l(canvas, (canvas.getWidth() / 2) - f10, canvas.getWidth() / 2);
-                        canvas.scale(-1.0f, 1.0f);
-                        l(canvas, (canvas.getWidth() / 2) - f10, canvas.getWidth() / 2);
-                    }
-                    canvas.restore();
-                } else {
-                    l(canvas, 0.0f, f10);
-                }
-            }
-            if (f11 <= canvas.getWidth()) {
-                if (!this.f26093r) {
-                    l(canvas, f11, canvas.getWidth());
-                    return;
-                }
-                canvas.save();
-                canvas.translate(canvas.getWidth() / 2, 0.0f);
-                if (this.f26091p) {
-                    l(canvas, f11, canvas.getWidth() / 2);
-                    canvas.scale(-1.0f, 1.0f);
-                    l(canvas, f11, canvas.getWidth() / 2);
-                } else {
-                    l(canvas, 0.0f, (canvas.getWidth() / 2) - f11);
-                    canvas.scale(-1.0f, 1.0f);
-                    l(canvas, 0.0f, (canvas.getWidth() / 2) - f11);
-                }
-                canvas.restore();
-            }
-        }
-    }
-
-    public final void n(Canvas canvas, int i10, float f10, float f11, float f12, float f13, int i11) {
-        this.f26081f.setColor(this.f26082g[i11]);
-        if (!this.f26093r) {
-            canvas.drawLine(f10, f11, f12, f13, this.f26081f);
-            return;
-        }
-        if (this.f26091p) {
-            float f14 = i10;
-            canvas.drawLine(f14 + f10, f11, f14 + f12, f13, this.f26081f);
-            canvas.drawLine(f14 - f10, f11, f14 - f12, f13, this.f26081f);
-        } else {
-            canvas.drawLine(f10, f11, f12, f13, this.f26081f);
-            float f15 = i10 * 2;
-            canvas.drawLine(f15 - f10, f11, f15 - f12, f13, this.f26081f);
-        }
-    }
-
-    /* JADX WARN: Removed duplicated region for block: B:39:0x00f5  */
-    /* JADX WARN: Removed duplicated region for block: B:42:0x00f8  */
-    /*
-        Code decompiled incorrectly, please refer to instructions dump.
-        To view partially-correct code enable 'Show inconsistent code' option in preferences
-    */
-    public final void o(android.graphics.Canvas r24) {
-        /*
-            Method dump skipped, instructions count: 272
-            To view this dump change 'Code comments level' option to 'DEBUG'
-        */
-        throw new UnsupportedOperationException("Method not decompiled: fr.castorflex.android.smoothprogressbar.SmoothProgressDrawable.o(android.graphics.Canvas):void");
+        return this.f35271j;
     }
 
     public Drawable p() {
-        return this.f26100y;
+        return this.z;
     }
 
     public int[] q() {
-        return this.f26082g;
+        return this.f35269h;
     }
 
     public float r() {
-        return this.f26099x;
-    }
-
-    public final int s(int i10) {
-        int i11 = i10 + 1;
-        if (i11 >= this.f26082g.length) {
-            return 0;
-        }
-        return i11;
+        return this.y;
     }
 
     @Override // android.graphics.drawable.Drawable
-    public void scheduleSelf(Runnable runnable, long j10) {
-        this.f26084i = true;
-        super.scheduleSelf(runnable, j10);
+    public void scheduleSelf(Runnable runnable, long j2) {
+        this.f35271j = true;
+        super.scheduleSelf(runnable, j2);
     }
 
     @Override // android.graphics.drawable.Drawable
-    public void setAlpha(int i10) {
-        this.f26081f.setAlpha(i10);
+    public void setAlpha(int i2) {
+        this.f35268g.setAlpha(i2);
     }
 
     @Override // android.graphics.drawable.Drawable
     public void setColorFilter(ColorFilter colorFilter) {
-        this.f26081f.setColorFilter(colorFilter);
+        this.f35268g.setColorFilter(colorFilter);
     }
 
     @Override // android.graphics.drawable.Animatable
     public void start() {
-        if (this.f26096u) {
+        if (this.v) {
             y(0);
         }
         if (isRunning()) {
             return;
         }
-        b bVar = this.f26078c;
+        b bVar = this.f35265d;
         if (bVar != null) {
             bVar.onStart();
         }
-        scheduleSelf(this.f26101z, SystemClock.uptimeMillis() + 16);
+        scheduleSelf(this.A, SystemClock.uptimeMillis() + 16);
         invalidateSelf();
     }
 
     @Override // android.graphics.drawable.Animatable
     public void stop() {
         if (isRunning()) {
-            b bVar = this.f26078c;
+            b bVar = this.f35265d;
             if (bVar != null) {
                 bVar.onStop();
             }
-            this.f26084i = false;
-            unscheduleSelf(this.f26101z);
+            this.f35271j = false;
+            unscheduleSelf(this.A);
         }
     }
 
     public boolean t() {
-        return this.f26095t;
+        return this.u;
     }
 
     public boolean u() {
-        return this.f26098w < this.f26087l;
+        return this.x < this.m;
     }
 
     public void v() {
         w(0);
     }
 
-    public void w(int i10) {
-        y(i10);
+    public void w(int i2) {
+        y(i2);
         start();
     }
 
     public void x() {
-        this.f26095t = true;
-        this.f26097v = 0;
-    }
-
-    public final void y(int i10) {
-        j(i10);
-        this.f26085j = 0.0f;
-        this.f26095t = false;
-        this.f26097v = 0;
-        this.f26098w = 0;
-        this.f26083h = i10;
+        this.u = true;
+        this.w = 0;
     }
 
     public void z(Drawable drawable) {
-        if (this.f26100y == drawable) {
+        if (this.z == drawable) {
             return;
         }
-        this.f26100y = drawable;
+        this.z = drawable;
         invalidateSelf();
     }
 
-    public SmoothProgressDrawable(Interpolator interpolator, int i10, int i11, int[] iArr, float f10, float f11, float f12, float f13, boolean z10, boolean z11, b bVar, boolean z12, Drawable drawable) {
-        this.f26077b = new Rect();
-        this.f26101z = new a();
-        this.f26084i = false;
-        this.f26079d = interpolator;
-        this.f26087l = i10;
-        this.f26097v = 0;
-        this.f26098w = i10;
-        this.f26086k = i11;
-        this.f26088m = f11;
-        this.f26089n = f12;
-        this.f26090o = f13;
-        this.f26091p = z10;
-        this.f26082g = iArr;
-        this.f26083h = 0;
-        this.f26093r = z11;
-        this.f26095t = false;
-        this.f26100y = drawable;
-        this.f26099x = f10;
-        this.f26094s = 1.0f / i10;
+    private SmoothProgressDrawable(Interpolator interpolator, int i2, int i3, int[] iArr, float f2, float f3, float f4, float f5, boolean z, boolean z2, b bVar, boolean z3, Drawable drawable) {
+        this.f35264c = new Rect();
+        this.A = new a();
+        this.f35271j = false;
+        this.f35266e = interpolator;
+        this.m = i2;
+        this.w = 0;
+        this.x = i2;
+        this.l = i3;
+        this.n = f3;
+        this.o = f4;
+        this.p = f5;
+        this.q = z;
+        this.f35269h = iArr;
+        this.f35270i = 0;
+        this.s = z2;
+        this.u = false;
+        this.z = drawable;
+        this.y = f2;
+        this.t = 1.0f / i2;
         Paint paint = new Paint();
-        this.f26081f = paint;
-        paint.setStrokeWidth(f10);
-        this.f26081f.setStyle(Paint.Style.STROKE);
-        this.f26081f.setDither(false);
-        this.f26081f.setAntiAlias(false);
-        this.f26096u = z12;
-        this.f26078c = bVar;
+        this.f35268g = paint;
+        paint.setStrokeWidth(f2);
+        this.f35268g.setStyle(Paint.Style.STROKE);
+        this.f35268g.setDither(false);
+        this.f35268g.setAntiAlias(false);
+        this.v = z3;
+        this.f35265d = bVar;
     }
 }

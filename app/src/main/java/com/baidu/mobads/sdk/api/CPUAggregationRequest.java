@@ -3,7 +3,7 @@ package com.baidu.mobads.sdk.api;
 import android.text.TextUtils;
 import java.util.HashMap;
 
-/* loaded from: classes2.dex */
+/* loaded from: classes.dex */
 public class CPUAggregationRequest {
     private HashMap<String, Object> mParameters;
 
@@ -21,8 +21,8 @@ public class CPUAggregationRequest {
             return new CPUAggregationRequest(this);
         }
 
-        public Builder setAccessType(int i10) {
-            this.mExtras.put("accessType", Integer.valueOf(i10));
+        public Builder setAccessType(int i2) {
+            this.mExtras.put("accessType", Integer.valueOf(i2));
             return this;
         }
 
@@ -36,8 +36,8 @@ public class CPUAggregationRequest {
             return this;
         }
 
-        public Builder setLpDarkMode(boolean z10) {
-            if (z10) {
+        public Builder setLpDarkMode(boolean z) {
+            if (z) {
                 this.mExtras.put("preferscolortheme", "dark");
             } else {
                 this.mExtras.put("preferscolortheme", "light");
@@ -56,7 +56,7 @@ public class CPUAggregationRequest {
         }
     }
 
-    public /* synthetic */ CPUAggregationRequest(Builder builder, AnonymousClass1 anonymousClass1) {
+    /* synthetic */ CPUAggregationRequest(Builder builder, AnonymousClass1 anonymousClass1) {
         this(builder);
     }
 

@@ -3,77 +3,91 @@ package com.martian.mibook.ui.reader;
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.res.TypedArray;
-import android.graphics.Typeface;
-import android.os.Build;
 import android.util.AttributeSet;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.TextView;
 import androidx.core.content.ContextCompat;
-import com.martian.libmars.common.ConfigSingleton;
+import com.martian.libmars.d.h;
 import com.martian.mibook.R;
 import com.martian.mibook.application.MiConfigSingleton;
-import com.martian.mibook.data.theme.MiReadingTheme;
-import k9.a;
+import com.martian.mibook.lib.model.data.MiReadingTheme;
 
 @SuppressLint({"AppCompatCustomView"})
-/* loaded from: classes3.dex */
-public class ReaderThemeItemTextView extends TextView implements View.OnTouchListener, a {
+/* loaded from: classes4.dex */
+public class ReaderThemeItemTextView extends TextView implements View.OnTouchListener, g.a {
+
+    /* renamed from: a */
+    private boolean f14835a;
 
     /* renamed from: b */
-    public boolean f16032b;
+    private int f14836b;
 
     /* renamed from: c */
-    public int f16033c;
-
-    /* renamed from: d */
-    public Typeface f16034d;
+    private boolean f14837c;
 
     public ReaderThemeItemTextView(Context context) {
         super(context);
-        this.f16032b = true;
-        this.f16033c = 0;
-        this.f16034d = Typeface.DEFAULT;
+        this.f14835a = true;
+        this.f14836b = 0;
+        this.f14837c = false;
         a();
     }
 
     private void a() {
-        if (Build.VERSION.SDK_INT >= 28) {
-            setFallbackLineSpacing(false);
-        }
         setOnTouchListener(this);
-        p();
-        if (this.f16032b) {
+        g();
+        if (this.f14835a) {
             setClickable(true);
         }
     }
 
-    private void b(Context context, AttributeSet attributeSet) {
-        TypedArray obtainStyledAttributes = context.obtainStyledAttributes(attributeSet, R.styleable.ReaderThemeItemTextView);
-        this.f16032b = obtainStyledAttributes.getBoolean(R.styleable.ReaderThemeItemTextView_itemClickable, true);
-        this.f16033c = obtainStyledAttributes.getInt(R.styleable.ReaderThemeItemTextView_isButton, 0);
+    private void b(Context context, AttributeSet attrs) {
+        TypedArray obtainStyledAttributes = context.obtainStyledAttributes(attrs, R.styleable.ReaderThemeItemTextView);
+        this.f14835a = obtainStyledAttributes.getBoolean(1, true);
+        this.f14836b = obtainStyledAttributes.getInt(0, 0);
+        this.f14837c = obtainStyledAttributes.getBoolean(2, false);
         obtainStyledAttributes.recycle();
     }
 
-    @Override // android.widget.TextView, android.view.View
-    public void onAttachedToWindow() {
-        super.onAttachedToWindow();
-        p();
-        ConfigSingleton.D().h(this);
-    }
-
-    @Override // android.view.View
-    public void onDetachedFromWindow() {
-        super.onDetachedFromWindow();
-        ConfigSingleton.D().X0(this);
+    @Override // g.a
+    public void g() {
+        MiReadingTheme r = MiConfigSingleton.V3().J4.r();
+        int i2 = this.f14836b;
+        if (i2 == 1) {
+            setTextColor(ContextCompat.getColor(getContext(), com.martian.ttbookhd.R.color.white));
+            setBackgroundResource(r.getBorderLineBackgroundSelectedRes());
+        } else if (i2 == 2) {
+            setTextColor(r.getTextColorPrimary());
+            setBackgroundResource(r.getBorderBackgroundLightButton());
+        } else if (i2 == 3) {
+            setTextColor(ContextCompat.getColor(getContext(), com.martian.ttbookhd.R.color.white));
+            if (MiConfigSingleton.V3().J4.E()) {
+                setBackgroundColor(ContextCompat.getColor(getContext(), com.martian.ttbookhd.R.color.theme_default));
+            } else {
+                setBackgroundColor(r.getItemColorPrimary());
+            }
+        } else if (i2 == 4) {
+            setTextColor(r.getItemColorPrimary());
+        } else if (i2 == 5) {
+            setTextColor(r.getTextColorThirdly());
+            setBackgroundResource(r.getBorderBackgroundLightButton());
+        } else {
+            setTextColor(r.getTextColorPrimary());
+        }
+        if (!this.f14837c || h.F().v0() == null) {
+            return;
+        }
+        setTypeface(h.F().v0());
+        setIncludeFontPadding(false);
     }
 
     @Override // android.view.View.OnTouchListener
-    public boolean onTouch(View view, MotionEvent motionEvent) {
-        if (!this.f16032b) {
+    public boolean onTouch(View v, MotionEvent event) {
+        if (!this.f14835a) {
             return false;
         }
-        int action = motionEvent.getAction();
+        int action = event.getAction();
         if (action == 0) {
             setAlpha(0.6f);
         } else if (action == 1 || action == 3) {
@@ -82,60 +96,18 @@ public class ReaderThemeItemTextView extends TextView implements View.OnTouchLis
         return false;
     }
 
-    @Override // k9.a
-    public void p() {
-        if (isInEditMode()) {
-            return;
-        }
-        MiReadingTheme k10 = MiConfigSingleton.b2().h2().k();
-        int i10 = this.f16033c;
-        if (i10 == 1) {
-            setTextColor(ContextCompat.getColor(getContext(), com.martian.libmars.R.color.white));
-            setBackground(k10.getBorderLineBackgroundSelectedDrawable(getContext()));
-        } else if (i10 == 2) {
-            setTextColor(k10.getTextColorPrimary());
-            setBackground(k10.getBorderBackgroundLightButtonDrawable(getContext()));
-        } else if (i10 == 3) {
-            setTextColor(ContextCompat.getColor(getContext(), com.martian.libmars.R.color.white));
-            if (MiConfigSingleton.b2().h2().s()) {
-                setBackgroundColor(ContextCompat.getColor(getContext(), com.martian.libmars.R.color.theme_default));
-            } else {
-                setBackgroundColor(k10.getItemColorPrimary());
-            }
-        } else if (i10 == 4) {
-            setTextColor(k10.getItemColorPrimary());
-        } else if (i10 == 5) {
-            setTextColor(k10.getTextColorThirdly());
-            setBackground(k10.getBorderBackgroundLightButtonDrawable(getContext()));
-        } else if (i10 == 6) {
-            setTextColor(k10.getItemColorPrimary());
-            setBackground(k10.getBorderBackgroundLightButtonDrawable(getContext()));
-        } else if (i10 == 7) {
-            setTextColor(k10.getTextColorPrimary());
-            setBackground(k10.getRoundBgResTextThirdlyDrawable(getContext()));
-        } else {
-            setTextColor(k10.getTextColorPrimary());
-        }
-        Typeface g10 = MiConfigSingleton.b2().i2().g();
-        if (this.f16034d != g10) {
-            this.f16034d = g10;
-            setTypeface(g10);
-            setIncludeFontPadding(g10 == Typeface.DEFAULT);
-        }
-    }
-
-    public ReaderThemeItemTextView(Context context, AttributeSet attributeSet) {
-        this(context, attributeSet, 0);
-        b(context, attributeSet);
+    public ReaderThemeItemTextView(Context context, AttributeSet attrs) {
+        this(context, attrs, 0);
+        b(context, attrs);
         a();
     }
 
-    public ReaderThemeItemTextView(Context context, AttributeSet attributeSet, int i10) {
-        super(context, attributeSet, i10);
-        this.f16032b = true;
-        this.f16033c = 0;
-        this.f16034d = Typeface.DEFAULT;
-        b(context, attributeSet);
+    public ReaderThemeItemTextView(Context context, AttributeSet attrs, int defStyle) {
+        super(context, attrs, defStyle);
+        this.f14835a = true;
+        this.f14836b = 0;
+        this.f14837c = false;
+        b(context, attrs);
         a();
     }
 }

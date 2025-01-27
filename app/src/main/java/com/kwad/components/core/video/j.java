@@ -1,54 +1,44 @@
 package com.kwad.components.core.video;
 
-import android.content.Context;
-import androidx.annotation.NonNull;
-import com.kwad.sdk.core.network.a.a;
-import com.kwad.sdk.core.response.model.AdTemplate;
-import com.kwad.sdk.utils.ai;
-import java.io.File;
-import java.util.Map;
-import java.util.concurrent.ConcurrentHashMap;
-
-/* loaded from: classes3.dex */
-public final class j {
-    private static Map<String, Integer> XI = new ConcurrentHashMap();
-
-    public static boolean a(@NonNull String str, String str2, a.C0497a c0497a) {
-        String by = ai.by(str2);
-        long currentTimeMillis = System.currentTimeMillis();
-        com.kwad.sdk.core.d.c.i("VideoCacheHelper", "start cache video key:" + by + "--url:" + str);
-        boolean b10 = com.kwad.sdk.core.diskcache.b.a.EG().b(str, str2, c0497a);
-        com.kwad.sdk.core.d.c.i("VideoCacheHelper", "finish cache video key:" + by + "--cache time:" + (System.currentTimeMillis() - currentTimeMillis) + "--success:" + b10);
-        return b10;
+/* loaded from: classes2.dex */
+public class j implements i {
+    @Override // com.kwad.components.core.video.i
+    public void onVideoPlayBufferingPaused() {
     }
 
-    public static boolean aE(@NonNull AdTemplate adTemplate) {
-        File ca2 = com.kwad.sdk.core.diskcache.b.a.EG().ca(com.kwad.sdk.core.response.b.a.K(com.kwad.sdk.core.response.b.e.eb(adTemplate)));
-        return ca2 != null && ca2.exists();
+    @Override // com.kwad.components.core.video.i
+    public void onVideoPlayBufferingPlaying() {
     }
 
-    private static int aH(String str) {
-        Integer num = XI.get(str);
-        return num != null ? num.intValue() : com.kwad.sdk.core.config.d.Ag();
+    @Override // com.kwad.components.core.video.i
+    public void onVideoPlayCompleted() {
     }
 
-    public static String g(Context context, @NonNull AdTemplate adTemplate) {
-        return a(context, com.kwad.sdk.core.response.b.e.er(adTemplate), com.kwad.sdk.core.response.b.a.K(com.kwad.sdk.core.response.b.e.eb(adTemplate)));
+    @Override // com.kwad.components.core.video.i
+    public void onVideoPlayError(int i2, int i3) {
     }
 
-    public static void m(String str, int i10) {
-        XI.put(str, Integer.valueOf(i10));
+    @Override // com.kwad.components.core.video.i
+    public void onVideoPlayPaused() {
     }
 
-    public static String g(Context context, String str) {
-        return a(context, aH(str), str);
+    @Override // com.kwad.components.core.video.i
+    public void onVideoPlayProgress(long j2, long j3) {
     }
 
-    private static String a(Context context, int i10, String str) {
-        if (i10 >= 0) {
-            return i10 > 0 ? com.kwad.sdk.core.videocache.c.a.bC(context).eM(str) : str;
-        }
-        File ca2 = com.kwad.sdk.core.diskcache.b.a.EG().ca(str);
-        return (ca2 == null || !ca2.exists()) ? str : ca2.getAbsolutePath();
+    @Override // com.kwad.components.core.video.i
+    public void onVideoPlayStart() {
+    }
+
+    @Override // com.kwad.components.core.video.i
+    public void onVideoPlaying() {
+    }
+
+    @Override // com.kwad.components.core.video.i
+    public void onVideoPrepared() {
+    }
+
+    @Override // com.kwad.components.core.video.i
+    public void onVideoPreparing() {
     }
 }

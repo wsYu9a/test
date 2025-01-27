@@ -2,7 +2,7 @@ package com.baidu.mobads.sdk.api;
 
 import javax.lang.model.element.Element;
 
-/* loaded from: classes2.dex */
+/* loaded from: classes.dex */
 public class RouteInfo {
     private Class<?> destination;
     private String path;

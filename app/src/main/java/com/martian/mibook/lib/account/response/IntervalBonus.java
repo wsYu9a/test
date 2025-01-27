@@ -40,8 +40,8 @@ public class IntervalBonus {
     }
 
     public Long getExtraId() {
-        Long l10 = this.extraId;
-        return Long.valueOf(l10 == null ? 0L : l10.longValue());
+        Long l = this.extraId;
+        return Long.valueOf(l == null ? 0L : l.longValue());
     }
 
     public int getLeftTime() {
@@ -60,35 +60,35 @@ public class IntervalBonus {
         return num.intValue();
     }
 
-    public void setCoins(Integer num) {
-        this.coins = num;
+    public void setCoins(Integer coins) {
+        this.coins = coins;
     }
 
-    public void setCommission(Integer num) {
-        this.commission = num;
+    public void setCommission(Integer commission) {
+        this.commission = commission;
     }
 
-    public void setDuration(Integer num) {
-        this.duration = num;
+    public void setDuration(Integer duration) {
+        this.duration = duration;
     }
 
-    public void setExtraCoins(Integer num) {
-        this.extraCoins = num;
+    public void setExtraCoins(Integer extraCoins) {
+        this.extraCoins = extraCoins;
     }
 
-    public void setExtraDuration(Integer num) {
-        this.extraDuration = num;
+    public void setExtraDuration(Integer extraDuration) {
+        this.extraDuration = extraDuration;
     }
 
-    public void setExtraId(Long l10) {
-        this.extraId = l10;
+    public void setExtraId(Long extraId) {
+        this.extraId = extraId;
     }
 
-    public void setLeftTime(Integer num) {
-        this.leftTime = num;
+    public void setLeftTime(Integer leftTime) {
+        this.leftTime = leftTime;
     }
 
-    public void setMoney(Integer num) {
-        this.money = num;
+    public void setMoney(Integer money) {
+        this.money = money;
     }
 }

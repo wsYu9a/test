@@ -3,10 +3,10 @@ package com.umeng.commonsdk.framework;
 import android.content.ContentValues;
 import android.content.Context;
 import android.text.TextUtils;
-import com.umeng.analytics.pro.bt;
-import com.umeng.analytics.pro.bv;
-import com.umeng.analytics.pro.bx;
-import com.umeng.analytics.pro.k;
+import com.umeng.analytics.pro.am;
+import com.umeng.analytics.pro.ao;
+import com.umeng.analytics.pro.aq;
+import com.umeng.analytics.pro.i;
 import com.umeng.commonsdk.UMConfigure;
 import com.umeng.commonsdk.debug.UMRTLog;
 import com.umeng.commonsdk.framework.UMLogDataProtocol;
@@ -27,18 +27,18 @@ public class UMEnvelopeBuild {
             UMRTLog.e(UMRTLog.RTLOG_TAG, "--->>> [有状态]构建信封传入 header 或 body 字段为空，直接返回");
             return null;
         }
-        k a10 = k.a(context);
+        i a2 = i.a(context);
         long currentTimeMillis = System.currentTimeMillis();
         UUID randomUUID = UUID.randomUUID();
         ContentValues contentValues = new ContentValues();
-        contentValues.put(bx.f23687e, str2);
-        contentValues.put(bx.f23688f, a10.c(jSONObject.toString()));
-        contentValues.put(bx.f23689g, a10.c(jSONObject2.toString()));
-        contentValues.put(bx.f23690h, String.valueOf(currentTimeMillis));
-        contentValues.put(bx.f23691i, randomUUID.toString());
-        contentValues.put(bx.f23692j, str);
-        contentValues.put(bx.f23693k, str3);
-        bv.a(context).a(bx.f23685c, contentValues);
+        contentValues.put(aq.f25697e, str2);
+        contentValues.put(aq.f25698f, a2.c(jSONObject.toString()));
+        contentValues.put(aq.f25699g, a2.c(jSONObject2.toString()));
+        contentValues.put(aq.f25700h, String.valueOf(currentTimeMillis));
+        contentValues.put(aq.f25701i, randomUUID.toString());
+        contentValues.put(aq.f25702j, str);
+        contentValues.put(aq.k, str3);
+        ao.a(context).a(aq.f25695c, contentValues);
         if ("i".equalsIgnoreCase(str2)) {
             UMRTLog.e(UMRTLog.RTLOG_TAG, "--->>> [有状态]inner业务，返回空 JSONObject。");
         } else if ("s".equalsIgnoreCase(str2)) {
@@ -52,7 +52,7 @@ public class UMEnvelopeBuild {
             }
         } else if (!"p".equalsIgnoreCase(str2)) {
             try {
-                if (bt.aO.equalsIgnoreCase(str2)) {
+                if ("t".equalsIgnoreCase(str2)) {
                     UMRTLog.e(UMRTLog.RTLOG_TAG, "--->>> [有状态]统计业务 半开报文，返回body。");
                     JSONObject jSONObject4 = new JSONObject();
                     jSONObject4.put(b.a("header"), new JSONObject());
@@ -72,7 +72,7 @@ public class UMEnvelopeBuild {
     }
 
     public static JSONObject buildEnvelopeWithExtHeader(Context context, JSONObject jSONObject, JSONObject jSONObject2) {
-        return buildEnvelopeWithExtHeader(context, jSONObject, jSONObject2, UMServerURL.PATH_ANALYTICS, jSONObject.has("st") ? bt.aO : jSONObject2.has(bt.aA) ? "i" : "a", "9.7.9");
+        return buildEnvelopeWithExtHeader(context, jSONObject, jSONObject2, UMServerURL.PATH_ANALYTICS, jSONObject.has("st") ? "t" : jSONObject2.has(am.au) ? "i" : "a", "9.5.2");
     }
 
     public static JSONObject buildSilentEnvelopeWithExtHeader(Context context, JSONObject jSONObject, JSONObject jSONObject2, String str) {
@@ -128,11 +128,11 @@ public class UMEnvelopeBuild {
     }
 
     public static synchronized boolean getTransmissionSendFlag() {
-        boolean z10;
+        boolean z;
         synchronized (UMEnvelopeBuild.class) {
-            z10 = transmissionSendFlag;
+            z = transmissionSendFlag;
         }
-        return z10;
+        return z;
     }
 
     public static String imprintProperty(Context context, String str, String str2) {
@@ -161,13 +161,13 @@ public class UMEnvelopeBuild {
 
     /* JADX WARN: Code restructure failed: missing block: B:16:0x0039, code lost:
     
-        if (com.umeng.commonsdk.UMConfigure.needSendZcfgEnv(r5) == false) goto L56;
+        if (com.umeng.commonsdk.UMConfigure.needSendZcfgEnv(r5) == false) goto L34;
      */
     /* JADX WARN: Code restructure failed: missing block: B:7:0x001a, code lost:
     
-        if (com.umeng.commonsdk.framework.UMFrUtils.hasEnvelopeFile(r0, r6) != false) goto L55;
+        if (com.umeng.commonsdk.framework.UMFrUtils.hasEnvelopeFile(r0, r6) != false) goto L38;
      */
-    /* JADX WARN: Code restructure failed: missing block: B:9:0x001e, code lost:
+    /* JADX WARN: Code restructure failed: missing block: B:8:0x001d, code lost:
     
         r7 = true;
      */
@@ -181,32 +181,32 @@ public class UMEnvelopeBuild {
             android.content.Context r0 = r5.getApplicationContext()
             boolean r1 = com.umeng.commonsdk.framework.UMFrUtils.isOnline(r0)
             int r2 = com.umeng.commonsdk.framework.UMFrUtils.envelopeFileNumber(r0)
-            if (r1 == 0) goto L3c
-            com.umeng.commonsdk.framework.UMLogDataProtocol$UMBusinessType r7 = com.umeng.commonsdk.framework.UMLogDataProtocol.UMBusinessType.U_INTERNAL
             r3 = 1
             r4 = 0
-            if (r6 != r7) goto L20
+            if (r1 == 0) goto L3c
+            com.umeng.commonsdk.framework.UMLogDataProtocol$UMBusinessType r7 = com.umeng.commonsdk.framework.UMLogDataProtocol.UMBusinessType.U_INTERNAL
+            if (r6 != r7) goto L1f
             boolean r5 = com.umeng.commonsdk.framework.UMFrUtils.hasEnvelopeFile(r0, r6)
-            if (r5 == 0) goto L1e
-        L1c:
-            r7 = 0
-            goto L3c
-        L1e:
+            if (r5 == 0) goto L1d
+            goto L2d
+        L1d:
             r7 = 1
             goto L3c
-        L20:
+        L1f:
             boolean r7 = com.umeng.commonsdk.framework.a.a()
             if (r7 == 0) goto L2f
             int r5 = com.umeng.commonsdk.framework.a.b()
             long r5 = (long) r5
             com.umeng.commonsdk.framework.UMWorkDispatch.sendDelayProcessMsg(r5)
-            goto L1c
+        L2d:
+            r7 = 0
+            goto L3c
         L2f:
             boolean r6 = com.umeng.commonsdk.framework.UMFrUtils.hasEnvelopeFile(r0, r6)
-            if (r6 != 0) goto L1c
+            if (r6 != 0) goto L2d
             boolean r5 = com.umeng.commonsdk.UMConfigure.needSendZcfgEnv(r5)
-            if (r5 == 0) goto L1e
-            goto L1c
+            if (r5 == 0) goto L1d
+            goto L2d
         L3c:
             if (r1 == 0) goto L43
             if (r2 <= 0) goto L43
@@ -232,9 +232,9 @@ public class UMEnvelopeBuild {
         a.d();
     }
 
-    public static synchronized void setTransmissionSendFlag(boolean z10) {
+    public static synchronized void setTransmissionSendFlag(boolean z) {
         synchronized (UMEnvelopeBuild.class) {
-            transmissionSendFlag = z10;
+            transmissionSendFlag = z;
         }
     }
 
@@ -274,14 +274,14 @@ public class UMEnvelopeBuild {
             return add2CacheTable(context, jSONObject, jSONObject2, str, str2, str3);
         }
         UMRTLog.e(UMRTLog.RTLOG_TAG, "--->>> [有状态]零号报文应答数据 已获取到，判断二级缓存是否为空");
-        if (bv.a(context).c()) {
+        if (ao.a(context).c()) {
             UMRTLog.e(UMRTLog.RTLOG_TAG, "--->>> [有状态]二级缓存为空，直接打信封");
             return new b().a(context.getApplicationContext(), jSONObject, jSONObject2, str, str2, str3);
         }
         UMRTLog.e(UMRTLog.RTLOG_TAG, "--->>> [有状态]二级缓存不为空，写入二级缓存");
         JSONObject add2CacheTable = add2CacheTable(context, jSONObject, jSONObject2, str, str2, str3);
-        if (!UMWorkDispatch.eventHasExist(com.umeng.commonsdk.internal.a.f24484t)) {
-            UMWorkDispatch.sendEvent(context, com.umeng.commonsdk.internal.a.f24484t, com.umeng.commonsdk.internal.b.a(context).a(), null);
+        if (!UMWorkDispatch.eventHasExist(com.umeng.commonsdk.internal.a.t)) {
+            UMWorkDispatch.sendEvent(context, com.umeng.commonsdk.internal.a.t, com.umeng.commonsdk.internal.b.a(context).a(), null);
         }
         return add2CacheTable;
     }

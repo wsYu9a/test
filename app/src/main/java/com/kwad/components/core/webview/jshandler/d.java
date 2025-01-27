@@ -3,63 +3,35 @@ package com.kwad.components.core.webview.jshandler;
 import android.text.TextUtils;
 import androidx.annotation.NonNull;
 import com.ksad.json.annotation.KsJson;
-import com.kwad.sdk.service.ServiceProvider;
 import org.json.JSONObject;
 
-/* loaded from: classes3.dex */
-public class d implements com.kwad.sdk.core.webview.c.a {
-
-    public static class a extends com.kwad.sdk.core.response.a.a {
-        public boolean YH;
-
-        @Override // com.kwad.sdk.core.response.a.a, com.kwad.sdk.core.b
-        public final JSONObject toJson() {
-            JSONObject jSONObject = new JSONObject();
-            com.kwad.sdk.utils.x.putValue(jSONObject, "isInstalled", this.YH);
-            return jSONObject;
-        }
-    }
+/* loaded from: classes2.dex */
+public final class d implements com.kwad.sdk.core.webview.b.a {
 
     @KsJson
-    public static class b extends com.kwad.sdk.core.response.a.a {
-        public String packageName;
+    public static class a extends com.kwad.sdk.core.response.kwai.a {
+        public String data;
     }
 
-    private static boolean aM(String str) {
-        if (TextUtils.isEmpty(str)) {
-            return false;
-        }
-        return com.kwad.sdk.utils.ap.an(ServiceProvider.getContext(), str);
+    @Override // com.kwad.sdk.core.webview.b.a
+    @NonNull
+    public final String getKey() {
+        return "md5";
     }
 
-    @Override // com.kwad.sdk.core.webview.c.a
-    public final void a(String str, @NonNull com.kwad.sdk.core.webview.c.c cVar) {
-        String aL = aL(str);
-        if (TextUtils.isEmpty(aL)) {
-            return;
+    @Override // com.kwad.sdk.core.webview.b.a
+    public final void handleJsCall(String str, @NonNull com.kwad.sdk.core.webview.b.c cVar) {
+        com.kwad.components.core.webview.a.a.j jVar = new com.kwad.components.core.webview.a.a.j();
+        try {
+            jVar.parseJson(new JSONObject(str));
+        } catch (Exception unused) {
         }
         a aVar = new a();
-        aVar.YH = aM(aL);
+        aVar.data = TextUtils.isEmpty(jVar.data) ? "" : com.kwad.sdk.utils.ad.eC(jVar.data);
         cVar.a(aVar);
     }
 
-    public String aL(String str) {
-        b bVar = new b();
-        try {
-            bVar.parseJson(new JSONObject(str));
-            return bVar.packageName;
-        } catch (Exception unused) {
-            return null;
-        }
-    }
-
-    @Override // com.kwad.sdk.core.webview.c.a
-    @NonNull
-    public String getKey() {
-        return "isAppInstalled";
-    }
-
-    @Override // com.kwad.sdk.core.webview.c.a
+    @Override // com.kwad.sdk.core.webview.b.a
     public final void onDestroy() {
     }
 }

@@ -5,14 +5,14 @@ import androidx.annotation.WorkerThread;
 import com.kwad.components.offline.api.core.network.IOfflineCompoRequest;
 import com.kwad.components.offline.api.core.network.model.BaseOfflineCompoResultData;
 
-/* loaded from: classes3.dex */
+/* loaded from: classes2.dex */
 public interface IOfflineCompoRequestListener<R extends IOfflineCompoRequest, T extends BaseOfflineCompoResultData> {
     @WorkerThread
-    void onError(@NonNull R r10, int i10, String str);
+    void onError(@NonNull R r, int i2, String str);
 
     @WorkerThread
-    void onStartRequest(@NonNull R r10);
+    void onStartRequest(@NonNull R r);
 
     @WorkerThread
-    void onSuccess(@NonNull R r10, @NonNull T t10);
+    void onSuccess(@NonNull R r, @NonNull T t);
 }

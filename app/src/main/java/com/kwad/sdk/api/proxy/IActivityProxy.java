@@ -16,14 +16,14 @@ import com.kwad.sdk.api.core.KsAdSdkDynamicApi;
 
 @KsAdSdkDynamicApi
 @Keep
-/* loaded from: classes3.dex */
+/* loaded from: classes2.dex */
 public abstract class IActivityProxy implements IComponentProxy {
     private Activity mActivity;
 
     @KsAdSdkDynamicApi
     @Keep
-    public <T extends View> T findViewById(int i10) {
-        return (T) this.mActivity.findViewById(i10);
+    public <T extends View> T findViewById(int i2) {
+        return (T) this.mActivity.findViewById(i2);
     }
 
     @KsAdSdkDynamicApi
@@ -53,12 +53,12 @@ public abstract class IActivityProxy implements IComponentProxy {
 
     @KsAdSdkDynamicApi
     @Keep
-    public void onActivityResult(int i10, int i11, Intent intent) {
+    public void onActivityResult(int i2, int i3, Intent intent) {
     }
 
     @KsAdSdkDynamicApi
     @Keep
-    public void onApplyThemeResource(Resources.Theme theme, int i10, boolean z10) {
+    public void onApplyThemeResource(Resources.Theme theme, int i2, boolean z) {
     }
 
     @KsAdSdkDynamicApi
@@ -92,49 +92,49 @@ public abstract class IActivityProxy implements IComponentProxy {
 
     @KsAdSdkDynamicApi
     @Keep
-    public void onCreate(@Nullable Bundle bundle) {
+    protected void onCreate(@Nullable Bundle bundle) {
     }
 
     @KsAdSdkDynamicApi
     @Keep
-    public void onDestroy() {
+    protected void onDestroy() {
     }
 
     @KsAdSdkDynamicApi
     @Keep
-    public boolean onKeyDown(int i10, KeyEvent keyEvent) {
+    public boolean onKeyDown(int i2, KeyEvent keyEvent) {
         Activity activity = this.mActivity;
         if (activity instanceof BaseProxyActivity) {
-            return ((BaseProxyActivity) activity).superOnKeyDown(i10, keyEvent);
+            return ((BaseProxyActivity) activity).superOnKeyDown(i2, keyEvent);
         }
         if (activity instanceof BaseProxyFragmentActivity) {
-            return ((BaseProxyFragmentActivity) activity).superOnKeyDown(i10, keyEvent);
+            return ((BaseProxyFragmentActivity) activity).superOnKeyDown(i2, keyEvent);
         }
         throw new RuntimeException(this.mActivity + " must be BaseProxyActivity or BaseProxyFragmentActivity");
     }
 
     @KsAdSdkDynamicApi
     @Keep
-    public boolean onKeyLongPress(int i10, KeyEvent keyEvent) {
+    public boolean onKeyLongPress(int i2, KeyEvent keyEvent) {
         Activity activity = this.mActivity;
         if (activity instanceof BaseProxyActivity) {
-            return ((BaseProxyActivity) activity).superOnKeyLongPress(i10, keyEvent);
+            return ((BaseProxyActivity) activity).superOnKeyLongPress(i2, keyEvent);
         }
         if (activity instanceof BaseProxyFragmentActivity) {
-            return ((BaseProxyFragmentActivity) activity).superOnKeyLongPress(i10, keyEvent);
+            return ((BaseProxyFragmentActivity) activity).superOnKeyLongPress(i2, keyEvent);
         }
         throw new RuntimeException(this.mActivity + " must be BaseProxyActivity or BaseProxyFragmentActivity");
     }
 
     @KsAdSdkDynamicApi
     @Keep
-    public boolean onKeyUp(int i10, KeyEvent keyEvent) {
+    public boolean onKeyUp(int i2, KeyEvent keyEvent) {
         Activity activity = this.mActivity;
         if (activity instanceof BaseProxyActivity) {
-            return ((BaseProxyActivity) activity).superOnKeyUp(i10, keyEvent);
+            return ((BaseProxyActivity) activity).superOnKeyUp(i2, keyEvent);
         }
         if (activity instanceof BaseProxyFragmentActivity) {
-            return ((BaseProxyFragmentActivity) activity).superOnKeyUp(i10, keyEvent);
+            return ((BaseProxyFragmentActivity) activity).superOnKeyUp(i2, keyEvent);
         }
         throw new RuntimeException(this.mActivity + " must be BaseProxyActivity or BaseProxyFragmentActivity");
     }
@@ -151,7 +151,7 @@ public abstract class IActivityProxy implements IComponentProxy {
 
     @KsAdSdkDynamicApi
     @Keep
-    public void onPostCreate(@Nullable Bundle bundle) {
+    protected void onPostCreate(@Nullable Bundle bundle) {
     }
 
     @KsAdSdkDynamicApi
@@ -161,7 +161,7 @@ public abstract class IActivityProxy implements IComponentProxy {
 
     @KsAdSdkDynamicApi
     @Keep
-    public void onPreCreate(@Nullable Bundle bundle) {
+    protected void onPreCreate(@Nullable Bundle bundle) {
     }
 
     @KsAdSdkDynamicApi
@@ -226,7 +226,7 @@ public abstract class IActivityProxy implements IComponentProxy {
 
     @KsAdSdkDynamicApi
     @Keep
-    public void onTitleChanged(CharSequence charSequence, int i10) {
+    public void onTitleChanged(CharSequence charSequence, int i2) {
     }
 
     @KsAdSdkDynamicApi
@@ -236,18 +236,18 @@ public abstract class IActivityProxy implements IComponentProxy {
 
     @KsAdSdkDynamicApi
     @Keep
-    public void overridePendingTransition(int i10, int i11) {
-        this.mActivity.overridePendingTransition(i10, i11);
+    public void overridePendingTransition(int i2, int i3) {
+        this.mActivity.overridePendingTransition(i2, i3);
     }
 
-    public void setActivity(Activity activity) {
+    void setActivity(Activity activity) {
         this.mActivity = activity;
     }
 
     @KsAdSdkDynamicApi
     @Keep
-    public void setContentView(int i10) {
-        this.mActivity.setContentView(i10);
+    public void setContentView(int i2) {
+        this.mActivity.setContentView(i2);
     }
 
     @KsAdSdkDynamicApi

@@ -1,26 +1,26 @@
 package com.tencent.bugly.proguard;
 
 /* loaded from: classes4.dex */
-public class Q implements Runnable {
+class Q implements Runnable {
 
     /* renamed from: a */
-    final /* synthetic */ Runnable f22638a;
+    final /* synthetic */ Runnable f24989a;
 
     /* renamed from: b */
-    final /* synthetic */ T f22639b;
+    final /* synthetic */ T f24990b;
 
-    public Q(T t10, Runnable runnable) {
-        this.f22639b = t10;
-        this.f22638a = runnable;
+    Q(T t, Runnable runnable) {
+        this.f24990b = t;
+        this.f24989a = runnable;
     }
 
     @Override // java.lang.Runnable
     public void run() {
         Object obj;
-        this.f22638a.run();
-        obj = this.f22639b.f22652j;
+        this.f24989a.run();
+        obj = this.f24990b.f25003j;
         synchronized (obj) {
-            T.b(this.f22639b);
+            T.b(this.f24990b);
         }
     }
 }

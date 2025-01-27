@@ -9,11 +9,12 @@ import androidx.annotation.RequiresApi;
 @RequiresApi(29)
 /* loaded from: classes.dex */
 class ViewUtilsApi29 extends ViewUtilsApi23 {
+    ViewUtilsApi29() {
+    }
+
     @Override // androidx.transition.ViewUtilsApi19, androidx.transition.ViewUtilsBase
     public float getTransitionAlpha(@NonNull View view) {
-        float transitionAlpha;
-        transitionAlpha = view.getTransitionAlpha();
-        return transitionAlpha;
+        return view.getTransitionAlpha();
     }
 
     @Override // androidx.transition.ViewUtilsApi21, androidx.transition.ViewUtilsBase
@@ -22,18 +23,18 @@ class ViewUtilsApi29 extends ViewUtilsApi23 {
     }
 
     @Override // androidx.transition.ViewUtilsApi22, androidx.transition.ViewUtilsBase
-    public void setLeftTopRightBottom(@NonNull View view, int i10, int i11, int i12, int i13) {
-        view.setLeftTopRightBottom(i10, i11, i12, i13);
+    public void setLeftTopRightBottom(@NonNull View view, int i2, int i3, int i4, int i5) {
+        view.setLeftTopRightBottom(i2, i3, i4, i5);
     }
 
     @Override // androidx.transition.ViewUtilsApi19, androidx.transition.ViewUtilsBase
-    public void setTransitionAlpha(@NonNull View view, float f10) {
-        view.setTransitionAlpha(f10);
+    public void setTransitionAlpha(@NonNull View view, float f2) {
+        view.setTransitionAlpha(f2);
     }
 
     @Override // androidx.transition.ViewUtilsApi23, androidx.transition.ViewUtilsBase
-    public void setTransitionVisibility(@NonNull View view, int i10) {
-        view.setTransitionVisibility(i10);
+    public void setTransitionVisibility(@NonNull View view, int i2) {
+        view.setTransitionVisibility(i2);
     }
 
     @Override // androidx.transition.ViewUtilsApi21, androidx.transition.ViewUtilsBase

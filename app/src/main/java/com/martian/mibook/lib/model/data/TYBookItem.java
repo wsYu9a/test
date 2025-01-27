@@ -1,42 +1,34 @@
 package com.martian.mibook.lib.model.data;
 
-import ba.f;
-import ba.l;
+import com.martian.libsupport.k;
 import com.martian.mibook.lib.model.data.abs.Book;
+import com.martian.mibook.lib.model.manager.d;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-import vb.e;
 
 /* loaded from: classes3.dex */
 public class TYBookItem extends Book {
     private Integer allWords;
     private String authorName;
     private String bid;
-    private List<String> boostKeywordList;
     private Integer brtype;
     private String categoryName;
     private Integer chapterIndex;
-    private Integer chapterSize;
     private Integer clickCount;
     private String context;
     private String coverUrl;
     private String cpName;
     private BookCreative creative;
     private String deeplink;
-    private Integer duration;
     private Integer ecpm;
     private boolean exposed = false;
     private Boolean goReading;
     private String intro;
-    private boolean isInBookStore;
-    private String lastChapter;
-    private Long latestChapterUpdateTime;
     private Long modifiedOn;
     private Integer nComments;
     private Integer price;
     private Boolean promote;
-    private String promoteKeyword;
     private Integer rank;
     private String rankDesc;
     private Integer readingCount;
@@ -47,6 +39,7 @@ public class TYBookItem extends Book {
     private Integer score;
     private String sourceId;
     private String sourceName;
+    private Boolean startWithCover;
     private Integer status;
     private String subCategoryName;
     private String tag;
@@ -54,11 +47,11 @@ public class TYBookItem extends Book {
     private String title;
     private String url;
 
-    public static String getNumbers(int i10) {
-        if (i10 < 10000) {
-            return i10 + "";
+    public static String getNumbers(int numbers) {
+        if (numbers < 10000) {
+            return numbers + "";
         }
-        return (i10 / 10000) + "万";
+        return (numbers / 10000) + "万";
     }
 
     public void convertYwBookItem(Book book) {
@@ -72,13 +65,6 @@ public class TYBookItem extends Book {
         setCover(book.getCover());
         setIntro(book.getShortIntro());
         setStatus(book.getStatus());
-        setAllWords(book.getAllWords());
-        setRank(Integer.valueOf(book.getRank()));
-        setCategoryName(book.getCategory());
-        setBrtype(Integer.valueOf(book.getBrType()));
-        if (book.getLastUpdated() != null) {
-            setLatestChapterUpdateTime(Long.valueOf(book.getLastUpdated().getTime()));
-        }
     }
 
     @Override // com.martian.mibook.lib.model.data.abs.Book
@@ -102,34 +88,12 @@ public class TYBookItem extends Book {
 
     @Override // com.martian.mibook.lib.model.data.abs.Book
     public String getBookInfo() {
-        String authorName = !l.q(getAuthorName()) ? getAuthorName() : "";
-        if (!l.q(getSubCategoryName())) {
-            if (!l.q(authorName)) {
-                authorName = authorName + " · ";
-            }
-            authorName = authorName + getSubCategoryName();
-        } else if (!l.q(getCategoryName())) {
-            if (!l.q(authorName)) {
-                authorName = authorName + " · ";
-            }
-            authorName = authorName + getCategoryName();
-        }
-        if (getAllWords().intValue() <= 0) {
-            return authorName;
-        }
-        if (!l.q(authorName)) {
-            authorName = authorName + " · ";
-        }
-        return authorName + getNumbers(getAllWords().intValue()) + "字";
+        return !k.p(this.recTitle) ? this.recTitle : getRecDesc();
     }
 
     @Override // com.martian.mibook.lib.model.data.abs.Book
     public String getBookName() {
         return this.title;
-    }
-
-    public List<String> getBoostKeywordList() {
-        return this.boostKeywordList;
     }
 
     @Override // com.martian.mibook.lib.model.data.abs.Book
@@ -143,11 +107,11 @@ public class TYBookItem extends Book {
 
     @Override // com.martian.mibook.lib.model.data.abs.Book
     public String getCategory() {
-        return this.categoryName;
+        return this.subCategoryName;
     }
 
     public String getCategoryInfo() {
-        return !l.q(this.categoryName) ? this.categoryName : !l.q(this.subCategoryName) ? this.subCategoryName : !l.q(this.authorName) ? this.authorName : "";
+        return !k.p(this.categoryName) ? this.categoryName : !k.p(this.subCategoryName) ? this.subCategoryName : !k.p(this.authorName) ? this.authorName : "";
     }
 
     public String getCategoryName() {
@@ -156,11 +120,6 @@ public class TYBookItem extends Book {
 
     public Integer getChapterIndex() {
         return this.chapterIndex;
-    }
-
-    @Override // com.martian.mibook.lib.model.data.abs.Book
-    public Integer getChapterSize() {
-        return this.chapterSize;
     }
 
     public Integer getClickCount() {
@@ -192,10 +151,6 @@ public class TYBookItem extends Book {
         return this.deeplink;
     }
 
-    public Integer getDuration() {
-        return this.duration;
-    }
-
     public int getEcpm() {
         Integer num = this.ecpm;
         if (num == null) {
@@ -219,25 +174,12 @@ public class TYBookItem extends Book {
 
     @Override // com.martian.mibook.lib.model.data.abs.Book
     public String getLastChapter() {
-        return this.lastChapter;
+        return null;
     }
 
     @Override // com.martian.mibook.lib.model.data.abs.Book
     public Date getLastUpdated() {
-        Long l10 = this.latestChapterUpdateTime;
-        if (l10 == null) {
-            return null;
-        }
-        try {
-            return f.f(l10.longValue());
-        } catch (Exception e10) {
-            e10.printStackTrace();
-            return null;
-        }
-    }
-
-    public Long getLatestChapterUpdateTime() {
-        return this.latestChapterUpdateTime;
+        return null;
     }
 
     public Long getModifiedOn() {
@@ -255,10 +197,6 @@ public class TYBookItem extends Book {
     public boolean getPromote() {
         Boolean bool = this.promote;
         return bool != null && bool.booleanValue();
-    }
-
-    public String getPromoteKeyword() {
-        return this.promoteKeyword;
     }
 
     @Override // com.martian.mibook.lib.model.data.abs.Book
@@ -279,7 +217,25 @@ public class TYBookItem extends Book {
     }
 
     public String getRecDesc() {
-        return !l.q(this.recTitle) ? this.recTitle : getBookInfo();
+        String authorName = !k.p(getAuthorName()) ? getAuthorName() : "";
+        if (!k.p(getSubCategoryName())) {
+            if (!k.p(authorName)) {
+                authorName = authorName + " · ";
+            }
+            authorName = authorName + getSubCategoryName();
+        } else if (!k.p(getCategoryName())) {
+            if (!k.p(authorName)) {
+                authorName = authorName + " · ";
+            }
+            authorName = authorName + getCategoryName();
+        }
+        if (getAllWords().intValue() <= 0) {
+            return authorName;
+        }
+        if (!k.p(authorName)) {
+            authorName = authorName + " · ";
+        }
+        return authorName + getNumbers(getAllWords().intValue()) + "字";
     }
 
     public String getRecTitle() {
@@ -314,18 +270,18 @@ public class TYBookItem extends Book {
         return this.intro;
     }
 
-    @Override // com.martian.mibook.lib.model.data.abs.Book, wb.f
+    @Override // com.martian.mibook.lib.model.data.abs.Book, com.martian.mibook.lib.model.c.g
     public String getSourceId() {
         return this.sourceId;
     }
 
-    @Override // com.martian.mibook.lib.model.data.abs.Book, wb.f
+    @Override // com.martian.mibook.lib.model.data.abs.Book, com.martian.mibook.lib.model.c.g
     public String getSourceName() {
         return this.sourceName;
     }
 
     public String getSourceOrBid() {
-        return l.q(this.bid) ? this.sourceId : this.bid;
+        return k.p(this.bid) ? this.sourceId : this.bid;
     }
 
     @Override // com.martian.mibook.lib.model.data.abs.Book
@@ -348,16 +304,16 @@ public class TYBookItem extends Book {
     }
 
     public String getTagInfo() {
-        String categoryName = !l.q(getCategoryName()) ? getCategoryName() : "";
+        String categoryName = !k.p(getCategoryName()) ? getCategoryName() : "";
         List<String> list = this.tagList;
         if (list != null && !list.isEmpty()) {
-            if (!l.q(categoryName)) {
+            if (!k.p(categoryName)) {
                 categoryName = categoryName + " · ";
             }
             categoryName = categoryName + this.tagList.get(0);
         }
-        if (!l.q(getStatus())) {
-            if (!l.q(categoryName)) {
+        if (!k.p(getStatus())) {
+            if (!k.p(categoryName)) {
                 categoryName = categoryName + " · ";
             }
             categoryName = categoryName + getStatus();
@@ -365,7 +321,7 @@ public class TYBookItem extends Book {
         if (getAllWords().intValue() <= 0) {
             return categoryName;
         }
-        if (!l.q(categoryName)) {
+        if (!k.p(categoryName)) {
             categoryName = categoryName + " · ";
         }
         return categoryName + getNumbers(getAllWords().intValue()) + "字";
@@ -397,214 +353,186 @@ public class TYBookItem extends Book {
 
     @Override // com.martian.mibook.lib.model.data.abs.Book
     public boolean isFreeBook() {
-        return !e.f31299f.equalsIgnoreCase(this.sourceName);
+        return !d.k.equalsIgnoreCase(this.sourceName);
     }
 
-    public boolean isInBookStore() {
-        return this.isInBookStore;
+    public boolean isStartWithCover() {
+        Boolean bool = this.startWithCover;
+        return bool != null && bool.booleanValue();
     }
 
-    @Override // com.martian.mibook.lib.model.data.abs.Book
-    public void setAllWords(Integer num) {
-        this.allWords = num;
-    }
-
-    @Override // com.martian.mibook.lib.model.data.abs.Book
-    public void setAuthorName(String str) {
-        this.authorName = str;
-    }
-
-    public void setBid(String str) {
-        this.bid = str;
+    public void setAllWords(Integer allWords) {
+        this.allWords = allWords;
     }
 
     @Override // com.martian.mibook.lib.model.data.abs.Book
-    public void setBookName(String str) {
-        this.title = str;
+    public void setAuthorName(String authorName) {
+        this.authorName = authorName;
+    }
+
+    public void setBid(String bid) {
+        this.bid = bid;
     }
 
     @Override // com.martian.mibook.lib.model.data.abs.Book
-    public void setBookStatus(String str) {
-        this.status = Integer.valueOf(Book.STATUS_UNFINISHED.equals(str) ? 30 : 50);
+    public void setBookName(String bookName) {
+        this.title = bookName;
     }
 
-    public void setBoostKeywordList(List<String> list) {
-        this.boostKeywordList = list;
+    public void setCategoryName(String categoryName) {
+        this.categoryName = categoryName;
     }
 
-    public void setBrtype(Integer num) {
-        this.brtype = num;
+    public void setChapterIndex(Integer chapterIndex) {
+        this.chapterIndex = chapterIndex;
     }
 
-    @Override // com.martian.mibook.lib.model.data.abs.Book
-    public void setCategoryName(String str) {
-        this.categoryName = str;
+    public void setClickCount(Integer clickCount) {
+        this.clickCount = clickCount;
     }
 
-    public void setChapterIndex(Integer num) {
-        this.chapterIndex = num;
-    }
-
-    public void setChapterSize(Integer num) {
-        this.chapterSize = num;
-    }
-
-    public void setClickCount(Integer num) {
-        this.clickCount = num;
-    }
-
-    public void setContext(String str) {
-        this.context = str;
+    public void setContext(String context) {
+        this.context = context;
     }
 
     @Override // com.martian.mibook.lib.model.data.abs.Book
-    public void setCover(String str) {
-        this.coverUrl = str;
+    public void setCover(String cover) {
+        this.coverUrl = cover;
     }
 
-    public void setCoverUrl(String str) {
-        this.coverUrl = str;
+    public void setCoverUrl(String coverUrl) {
+        this.coverUrl = coverUrl;
     }
 
-    public void setCpName(String str) {
-        this.cpName = str;
+    public void setCpName(String cpName) {
+        this.cpName = cpName;
     }
 
-    public void setCreative(BookCreative bookCreative) {
-        this.creative = bookCreative;
+    public void setCreative(BookCreative creative) {
+        this.creative = creative;
     }
 
-    public void setDeeplink(String str) {
-        this.deeplink = str;
+    public void setDeeplink(String deeplink) {
+        this.deeplink = deeplink;
     }
 
-    public void setDuration(Integer num) {
-        this.duration = num;
+    public void setEcpm(Integer ecpm) {
+        this.ecpm = ecpm;
     }
 
-    public void setEcpm(Integer num) {
-        this.ecpm = num;
+    public void setExposed(boolean exposed) {
+        this.exposed = exposed;
     }
 
-    public void setExposed(boolean z10) {
-        this.exposed = z10;
+    public void setGoReading(Boolean goReading) {
+        this.goReading = goReading;
     }
 
-    public void setGoReading(Boolean bool) {
-        this.goReading = bool;
-    }
-
-    public void setInBookStore(boolean z10) {
-        this.isInBookStore = z10;
-    }
-
-    public void setIntro(String str) {
-        this.intro = str;
+    public void setIntro(String intro) {
+        this.intro = intro;
     }
 
     @Override // com.martian.mibook.lib.model.data.abs.Book
-    public void setLastChapter(String str) {
-        this.lastChapter = str;
+    public void setLastChapter(String lastChapter) {
     }
 
     @Override // com.martian.mibook.lib.model.data.abs.Book
-    public void setLatestChapterUpdateTime(Long l10) {
-        this.latestChapterUpdateTime = l10;
+    public void setLatestChapterUpdateTime(Long latestChapterUpdateTime) {
     }
 
-    public void setModifiedOn(Long l10) {
-        this.modifiedOn = l10;
+    public void setModifiedOn(Long modifiedOn) {
+        this.modifiedOn = modifiedOn;
     }
 
-    public void setPrice(Integer num) {
-        this.price = num;
+    public void setPrice(Integer price) {
+        this.price = price;
     }
 
-    public void setPromote(Boolean bool) {
-        this.promote = bool;
+    public void setPromote(Boolean promote) {
+        this.promote = promote;
     }
 
-    public void setPromoteKeyword(String str) {
-        this.promoteKeyword = str;
+    public void setRank(Integer rank) {
+        this.rank = rank;
     }
 
-    public void setRank(Integer num) {
-        this.rank = num;
+    public void setRankDesc(String rankDesc) {
+        this.rankDesc = rankDesc;
     }
 
-    public void setRankDesc(String str) {
-        this.rankDesc = str;
+    public void setReadingCount(Integer readingCount) {
+        this.readingCount = readingCount;
     }
 
-    public void setReadingCount(Integer num) {
-        this.readingCount = num;
+    public void setRecTitle(String recTitle) {
+        this.recTitle = recTitle;
     }
 
-    public void setRecTitle(String str) {
-        this.recTitle = str;
+    public void setRecommend(String recommend) {
+        this.recommend = recommend;
     }
 
-    public void setRecommend(String str) {
-        this.recommend = str;
+    public void setRecommendId(String recommendId) {
+        this.recommendId = recommendId;
     }
 
-    public void setRecommendId(String str) {
-        this.recommendId = str;
+    public void setRoleList(List<String> roleList) {
+        this.roleList = roleList;
     }
 
-    public void setRoleList(List<String> list) {
-        this.roleList = list;
-    }
-
-    public void setScore(Integer num) {
-        this.score = num;
+    public void setScore(Integer score) {
+        this.score = score;
     }
 
     @Override // com.martian.mibook.lib.model.data.abs.Book
-    public void setShortIntro(String str) {
-        this.intro = str;
+    public void setShortIntro(String intro) {
+        this.intro = intro;
     }
 
     @Override // com.martian.mibook.lib.model.data.abs.Book
-    public void setSourceId(String str) {
-        this.sourceId = str;
+    public void setSourceId(String sourceId) {
+        this.sourceId = sourceId;
     }
 
-    public void setSourceName(String str) {
-        this.sourceName = str;
+    public void setSourceName(String sourceName) {
+        this.sourceName = sourceName;
     }
 
-    public void setStatus(String str) {
-        if (l.q(str)) {
+    public void setStartWithCover(boolean startWithCover) {
+        this.startWithCover = Boolean.valueOf(startWithCover);
+    }
+
+    public void setStatus(String status) {
+        if (k.p(status)) {
             this.status = 0;
-        } else if (Book.STATUS_FINISHED.equalsIgnoreCase(str)) {
+        } else if (Book.STATUS_FINISHED.equalsIgnoreCase(status)) {
             this.status = 50;
         } else {
             this.status = 30;
         }
     }
 
-    public void setSubCategoryName(String str) {
-        this.subCategoryName = str;
+    public void setSubCategoryName(String subCategoryName) {
+        this.subCategoryName = subCategoryName;
     }
 
-    public void setTag(String str) {
-        this.tag = str;
+    public void setTag(String tag) {
+        this.tag = tag;
     }
 
-    public void setTagList(List<String> list) {
-        this.tagList = list;
+    public void setTagList(List<String> tagList) {
+        this.tagList = tagList;
     }
 
-    public void setTitle(String str) {
-        this.title = str;
+    public void setTitle(String title) {
+        this.title = title;
     }
 
-    public void setUrl(String str) {
-        this.url = str;
+    public void setUrl(String url) {
+        this.url = url;
     }
 
-    public void setnComments(Integer num) {
-        this.nComments = num;
+    public void setnComments(Integer nComments) {
+        this.nComments = nComments;
     }
 }

@@ -5,10 +5,8 @@ import android.content.Intent;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Build;
-import androidx.annotation.DoNotInline;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.annotation.RequiresApi;
 import androidx.annotation.RequiresPermission;
 import androidx.annotation.RestrictTo;
 import com.kuaishou.weapon.p0.g;
@@ -21,29 +19,6 @@ public final class ConnectivityManagerCompat {
     public static final int RESTRICT_BACKGROUND_STATUS_ENABLED = 3;
     public static final int RESTRICT_BACKGROUND_STATUS_WHITELISTED = 2;
 
-    @RequiresApi(16)
-    public static class Api16Impl {
-        private Api16Impl() {
-        }
-
-        @RequiresPermission(g.f11101b)
-        @DoNotInline
-        public static boolean isActiveNetworkMetered(ConnectivityManager connectivityManager) {
-            return connectivityManager.isActiveNetworkMetered();
-        }
-    }
-
-    @RequiresApi(24)
-    public static class Api24Impl {
-        private Api24Impl() {
-        }
-
-        @DoNotInline
-        public static int getRestrictBackgroundStatus(ConnectivityManager connectivityManager) {
-            return connectivityManager.getRestrictBackgroundStatus();
-        }
-    }
-
     @Retention(RetentionPolicy.SOURCE)
     @RestrictTo({RestrictTo.Scope.LIBRARY_GROUP_PREFIX})
     public @interface RestrictBackgroundStatus {
@@ -53,7 +28,7 @@ public final class ConnectivityManagerCompat {
     }
 
     @Nullable
-    @RequiresPermission(g.f11101b)
+    @RequiresPermission(g.f9317b)
     @SuppressLint({"ReferencesDeprecated"})
     public static NetworkInfo getNetworkInfoFromBroadcast(@NonNull ConnectivityManager connectivityManager, @NonNull Intent intent) {
         NetworkInfo networkInfo = (NetworkInfo) intent.getParcelableExtra("networkInfo");
@@ -65,13 +40,21 @@ public final class ConnectivityManagerCompat {
 
     public static int getRestrictBackgroundStatus(@NonNull ConnectivityManager connectivityManager) {
         if (Build.VERSION.SDK_INT >= 24) {
-            return Api24Impl.getRestrictBackgroundStatus(connectivityManager);
+            return connectivityManager.getRestrictBackgroundStatus();
         }
         return 3;
     }
 
-    @RequiresPermission(g.f11101b)
+    @RequiresPermission(g.f9317b)
     public static boolean isActiveNetworkMetered(@NonNull ConnectivityManager connectivityManager) {
-        return Api16Impl.isActiveNetworkMetered(connectivityManager);
+        if (Build.VERSION.SDK_INT >= 16) {
+            return connectivityManager.isActiveNetworkMetered();
+        }
+        NetworkInfo activeNetworkInfo = connectivityManager.getActiveNetworkInfo();
+        if (activeNetworkInfo == null) {
+            return true;
+        }
+        int type = activeNetworkInfo.getType();
+        return (type == 1 || type == 7 || type == 9) ? false : true;
     }
 }

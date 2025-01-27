@@ -8,14 +8,14 @@ import com.vivo.push.util.z;
 final class f implements Runnable {
 
     /* renamed from: a */
-    final /* synthetic */ String f25051a;
+    final /* synthetic */ String f31015a;
 
     /* renamed from: b */
-    final /* synthetic */ e f25052b;
+    final /* synthetic */ e f31016b;
 
-    public f(e eVar, String str) {
-        this.f25052b = eVar;
-        this.f25051a = str;
+    f(e eVar, String str) {
+        this.f31016b = eVar;
+        this.f31015a = str;
     }
 
     @Override // java.lang.Runnable
@@ -23,14 +23,14 @@ final class f implements Runnable {
         Context context;
         Context context2;
         Context context3;
-        context = this.f25052b.f25031h;
-        if (context == null || TextUtils.isEmpty(this.f25051a)) {
+        context = this.f31016b.f31004h;
+        if (context == null || TextUtils.isEmpty(this.f31015a)) {
             return;
         }
-        context2 = this.f25052b.f25031h;
-        context3 = this.f25052b.f25031h;
-        if (z.b(context2, context3.getPackageName(), this.f25051a)) {
-            this.f25052b.i();
+        context2 = this.f31016b.f31004h;
+        context3 = this.f31016b.f31004h;
+        if (z.b(context2, context3.getPackageName(), this.f31015a)) {
+            this.f31016b.i();
         }
     }
 }

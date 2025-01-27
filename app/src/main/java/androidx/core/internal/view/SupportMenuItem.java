@@ -4,8 +4,6 @@ import android.content.res.ColorStateList;
 import android.graphics.PorterDuff;
 import android.view.MenuItem;
 import android.view.View;
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.annotation.RestrictTo;
 import androidx.core.view.ActionProvider;
 
@@ -25,32 +23,26 @@ public interface SupportMenuItem extends MenuItem {
     boolean expandActionView();
 
     @Override // android.view.MenuItem
-    @Nullable
     View getActionView();
 
     @Override // android.view.MenuItem
     int getAlphabeticModifiers();
 
     @Override // android.view.MenuItem
-    @Nullable
     CharSequence getContentDescription();
 
     @Override // android.view.MenuItem
-    @Nullable
     ColorStateList getIconTintList();
 
     @Override // android.view.MenuItem
-    @Nullable
     PorterDuff.Mode getIconTintMode();
 
     @Override // android.view.MenuItem
     int getNumericModifiers();
 
-    @Nullable
     ActionProvider getSupportActionProvider();
 
     @Override // android.view.MenuItem
-    @Nullable
     CharSequence getTooltipText();
 
     @Override // android.view.MenuItem
@@ -61,56 +53,37 @@ public interface SupportMenuItem extends MenuItem {
     boolean requiresOverflow();
 
     @Override // android.view.MenuItem
-    @NonNull
-    MenuItem setActionView(int i10);
+    MenuItem setActionView(int i2);
 
     @Override // android.view.MenuItem
-    @NonNull
-    MenuItem setActionView(@Nullable View view);
+    MenuItem setActionView(View view);
 
     @Override // android.view.MenuItem
-    @NonNull
-    MenuItem setAlphabeticShortcut(char c10, int i10);
+    MenuItem setAlphabeticShortcut(char c2, int i2);
 
     @Override // android.view.MenuItem
-    @NonNull
-    /* bridge */ /* synthetic */ MenuItem setContentDescription(@Nullable CharSequence charSequence);
+    SupportMenuItem setContentDescription(CharSequence charSequence);
 
     @Override // android.view.MenuItem
-    @NonNull
-    SupportMenuItem setContentDescription(@Nullable CharSequence charSequence);
+    MenuItem setIconTintList(ColorStateList colorStateList);
 
     @Override // android.view.MenuItem
-    @NonNull
-    MenuItem setIconTintList(@Nullable ColorStateList colorStateList);
+    MenuItem setIconTintMode(PorterDuff.Mode mode);
 
     @Override // android.view.MenuItem
-    @NonNull
-    MenuItem setIconTintMode(@Nullable PorterDuff.Mode mode);
+    MenuItem setNumericShortcut(char c2, int i2);
 
     @Override // android.view.MenuItem
-    @NonNull
-    MenuItem setNumericShortcut(char c10, int i10);
+    MenuItem setShortcut(char c2, char c3, int i2, int i3);
 
     @Override // android.view.MenuItem
-    @NonNull
-    MenuItem setShortcut(char c10, char c11, int i10, int i11);
+    void setShowAsAction(int i2);
 
     @Override // android.view.MenuItem
-    void setShowAsAction(int i10);
+    MenuItem setShowAsActionFlags(int i2);
+
+    SupportMenuItem setSupportActionProvider(ActionProvider actionProvider);
 
     @Override // android.view.MenuItem
-    @NonNull
-    MenuItem setShowAsActionFlags(int i10);
-
-    @NonNull
-    SupportMenuItem setSupportActionProvider(@Nullable ActionProvider actionProvider);
-
-    @Override // android.view.MenuItem
-    @NonNull
-    /* bridge */ /* synthetic */ MenuItem setTooltipText(@Nullable CharSequence charSequence);
-
-    @Override // android.view.MenuItem
-    @NonNull
-    SupportMenuItem setTooltipText(@Nullable CharSequence charSequence);
+    SupportMenuItem setTooltipText(CharSequence charSequence);
 }

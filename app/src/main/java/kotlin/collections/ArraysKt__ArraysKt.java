@@ -3,6 +3,8 @@ package kotlin.collections;
 import androidx.exifinterface.media.ExifInterface;
 import com.kwad.components.offline.api.tk.model.report.TKDownloadReason;
 import com.kwad.sdk.api.model.AdnName;
+import f.b.a.d;
+import f.b.a.e;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -15,36 +17,37 @@ import kotlin.UByteArray;
 import kotlin.UIntArray;
 import kotlin.ULongArray;
 import kotlin.UShortArray;
-import kotlin.collections.unsigned.UArraysKt;
+import kotlin.collections.unsigned.UArraysKt___UArraysKt;
 import kotlin.internal.InlineOnly;
 import kotlin.jvm.JvmName;
 import kotlin.jvm.functions.Function0;
 import kotlin.jvm.internal.Intrinsics;
-import kotlin.jvm.internal.SourceDebugExtension;
-import kotlin.ranges.RangesKt;
-import p3.i;
-import xi.k;
-import xi.l;
+import kotlin.ranges.RangesKt___RangesKt;
 
-@Metadata(d1 = {"\u0000H\n\u0000\n\u0002\u0010\u000b\n\u0000\n\u0002\u0010\u0011\n\u0002\b\u0004\n\u0002\u0010\u000e\n\u0002\b\u0003\n\u0002\u0010\u0002\n\u0000\n\u0002\u0018\u0002\n\u0002\u0018\u0002\n\u0000\n\u0002\u0010!\n\u0002\b\u0003\n\u0002\u0010 \n\u0002\b\u0005\n\u0002\u0018\u0002\n\u0002\b\u0004\n\u0002\u0018\u0002\n\u0002\b\u0002\u001a5\u0010\u0000\u001a\u00020\u0001\"\u0004\b\u0000\u0010\u0002*\f\u0012\u0006\b\u0001\u0012\u0002H\u0002\u0018\u00010\u00032\u0010\u0010\u0004\u001a\f\u0012\u0006\b\u0001\u0012\u0002H\u0002\u0018\u00010\u0003H\u0001¢\u0006\u0004\b\u0005\u0010\u0006\u001a#\u0010\u0007\u001a\u00020\b\"\u0004\b\u0000\u0010\u0002*\f\u0012\u0006\b\u0001\u0012\u0002H\u0002\u0018\u00010\u0003H\u0001¢\u0006\u0004\b\t\u0010\n\u001a?\u0010\u000b\u001a\u00020\f\"\u0004\b\u0000\u0010\u0002*\n\u0012\u0006\b\u0001\u0012\u0002H\u00020\u00032\n\u0010\r\u001a\u00060\u000ej\u0002`\u000f2\u0010\u0010\u0010\u001a\f\u0012\b\u0012\u0006\u0012\u0002\b\u00030\u00030\u0011H\u0002¢\u0006\u0004\b\u0012\u0010\u0013\u001a+\u0010\u0014\u001a\b\u0012\u0004\u0012\u0002H\u00020\u0015\"\u0004\b\u0000\u0010\u0002*\u0012\u0012\u000e\b\u0001\u0012\n\u0012\u0006\b\u0001\u0012\u0002H\u00020\u00030\u0003¢\u0006\u0002\u0010\u0016\u001a;\u0010\u0017\u001a\u0002H\u0018\"\u0010\b\u0000\u0010\u0019*\u0006\u0012\u0002\b\u00030\u0003*\u0002H\u0018\"\u0004\b\u0001\u0010\u0018*\u0002H\u00192\f\u0010\u001a\u001a\b\u0012\u0004\u0012\u0002H\u00180\u001bH\u0087\bø\u0001\u0000¢\u0006\u0002\u0010\u001c\u001a)\u0010\u001d\u001a\u00020\u0001*\b\u0012\u0002\b\u0003\u0018\u00010\u0003H\u0087\b\u0082\u0002\u000e\n\f\b\u0000\u0012\u0002\u0018\u0001\u001a\u0004\b\u0003\u0010\u0000¢\u0006\u0002\u0010\u001e\u001aG\u0010\u001f\u001a\u001a\u0012\n\u0012\b\u0012\u0004\u0012\u0002H\u00020\u0015\u0012\n\u0012\b\u0012\u0004\u0012\u0002H\u00180\u00150 \"\u0004\b\u0000\u0010\u0002\"\u0004\b\u0001\u0010\u0018*\u0016\u0012\u0012\b\u0001\u0012\u000e\u0012\u0004\u0012\u0002H\u0002\u0012\u0004\u0012\u0002H\u00180 0\u0003¢\u0006\u0002\u0010!\u0082\u0002\u0007\n\u0005\b\u009920\u0001¨\u0006\""}, d2 = {"contentDeepEqualsImpl", "", ExifInterface.GPS_DIRECTION_TRUE, "", AdnName.OTHER, "contentDeepEquals", "([Ljava/lang/Object;[Ljava/lang/Object;)Z", "contentDeepToStringImpl", "", "contentDeepToString", "([Ljava/lang/Object;)Ljava/lang/String;", "contentDeepToStringInternal", "", i.f29758c, "Ljava/lang/StringBuilder;", "Lkotlin/text/StringBuilder;", "processed", "", "contentDeepToStringInternal$ArraysKt__ArraysKt", "([Ljava/lang/Object;Ljava/lang/StringBuilder;Ljava/util/List;)V", "flatten", "", "([[Ljava/lang/Object;)Ljava/util/List;", "ifEmpty", "R", "C", "defaultValue", "Lkotlin/Function0;", "([Ljava/lang/Object;Lkotlin/jvm/functions/Function0;)Ljava/lang/Object;", "isNullOrEmpty", "([Ljava/lang/Object;)Z", TKDownloadReason.KSAD_TK_UNZIP, "Lkotlin/Pair;", "([Lkotlin/Pair;)Lkotlin/Pair;", "kotlin-stdlib"}, k = 5, mv = {1, 9, 0}, xi = 49, xs = "kotlin/collections/ArraysKt")
-@SourceDebugExtension({"SMAP\nArrays.kt\nKotlin\n*S Kotlin\n*F\n+ 1 Arrays.kt\nkotlin/collections/ArraysKt__ArraysKt\n+ 2 fake.kt\nkotlin/jvm/internal/FakeKt\n*L\n1#1,161:1\n1#2:162\n*E\n"})
-/* loaded from: classes4.dex */
+@Metadata(bv = {1, 0, 3}, d1 = {"\u0000F\n\u0000\n\u0002\u0010\u0011\n\u0002\u0010 \n\u0002\b\u0003\n\u0002\u0018\u0002\n\u0002\b\u0002\n\u0002\u0010\u000b\n\u0002\b\u0003\n\u0002\u0018\u0002\n\u0002\b\u0007\n\u0002\u0010\u000e\n\u0002\b\u0003\n\u0002\u0018\u0002\n\u0002\u0018\u0002\n\u0000\n\u0002\u0010!\n\u0000\n\u0002\u0010\u0002\n\u0002\b\u0004\u001a-\u0010\u0003\u001a\b\u0012\u0004\u0012\u00028\u00000\u0002\"\u0004\b\u0000\u0010\u0000*\u0012\u0012\u000e\b\u0001\u0012\n\u0012\u0006\b\u0001\u0012\u00028\u00000\u00010\u0001¢\u0006\u0004\b\u0003\u0010\u0004\u001aI\u0010\u0007\u001a\u001a\u0012\n\u0012\b\u0012\u0004\u0012\u00028\u00000\u0002\u0012\n\u0012\b\u0012\u0004\u0012\u00028\u00010\u00020\u0006\"\u0004\b\u0000\u0010\u0000\"\u0004\b\u0001\u0010\u0005*\u0016\u0012\u0012\b\u0001\u0012\u000e\u0012\u0004\u0012\u00028\u0000\u0012\u0004\u0012\u00028\u00010\u00060\u0001¢\u0006\u0004\b\u0007\u0010\b\u001a+\u0010\n\u001a\u00020\t*\b\u0012\u0002\b\u0003\u0018\u00010\u0001H\u0087\b\u0082\u0002\u000e\n\f\b\u0000\u0012\u0002\u0018\u0001\u001a\u0004\b\u0003\u0010\u0000¢\u0006\u0004\b\n\u0010\u000b\u001a:\u0010\u000f\u001a\u00028\u0001\"\u0010\b\u0000\u0010\f*\u0006\u0012\u0002\b\u00030\u0001*\u00028\u0001\"\u0004\b\u0001\u0010\u0005*\u00028\u00002\f\u0010\u000e\u001a\b\u0012\u0004\u0012\u00028\u00010\rH\u0087\b¢\u0006\u0004\b\u000f\u0010\u0010\u001a1\u0010\u0014\u001a\u00020\t\"\u0004\b\u0000\u0010\u0000*\n\u0012\u0006\b\u0001\u0012\u00028\u00000\u00012\u000e\u0010\u0011\u001a\n\u0012\u0006\b\u0001\u0012\u00028\u00000\u0001H\u0001¢\u0006\u0004\b\u0012\u0010\u0013\u001a!\u0010\u0018\u001a\u00020\u0015\"\u0004\b\u0000\u0010\u0000*\n\u0012\u0006\b\u0001\u0012\u00028\u00000\u0001H\u0001¢\u0006\u0004\b\u0016\u0010\u0017\u001a?\u0010!\u001a\u00020\u001e\"\u0004\b\u0000\u0010\u0000*\n\u0012\u0006\b\u0001\u0012\u00028\u00000\u00012\n\u0010\u001b\u001a\u00060\u0019j\u0002`\u001a2\u0010\u0010\u001d\u001a\f\u0012\b\u0012\u0006\u0012\u0002\b\u00030\u00010\u001cH\u0002¢\u0006\u0004\b\u001f\u0010 ¨\u0006\""}, d2 = {ExifInterface.GPS_DIRECTION_TRUE, "", "", "flatten", "([[Ljava/lang/Object;)Ljava/util/List;", "R", "Lkotlin/Pair;", TKDownloadReason.KSAD_TK_UNZIP, "([Lkotlin/Pair;)Lkotlin/Pair;", "", "isNullOrEmpty", "([Ljava/lang/Object;)Z", "C", "Lkotlin/Function0;", "defaultValue", "ifEmpty", "([Ljava/lang/Object;Lkotlin/jvm/functions/Function0;)Ljava/lang/Object;", AdnName.OTHER, "contentDeepEquals", "([Ljava/lang/Object;[Ljava/lang/Object;)Z", "contentDeepEqualsImpl", "", "contentDeepToString", "([Ljava/lang/Object;)Ljava/lang/String;", "contentDeepToStringImpl", "Ljava/lang/StringBuilder;", "Lkotlin/text/StringBuilder;", "result", "", "processed", "", "contentDeepToStringInternal$ArraysKt__ArraysKt", "([Ljava/lang/Object;Ljava/lang/StringBuilder;Ljava/util/List;)V", "contentDeepToStringInternal", "kotlin-stdlib"}, k = 5, mv = {1, 4, 0}, xs = "kotlin/collections/ArraysKt")
+/* loaded from: classes5.dex */
 class ArraysKt__ArraysKt extends ArraysKt__ArraysJVMKt {
     /* JADX WARN: Multi-variable type inference failed */
     @SinceKotlin(version = "1.3")
     @PublishedApi
     @JvmName(name = "contentDeepEquals")
-    public static final <T> boolean contentDeepEquals(@l T[] tArr, @l T[] tArr2) {
-        if (tArr == tArr2) {
+    public static final <T> boolean contentDeepEquals(@d T[] contentDeepEqualsImpl, @d T[] other) {
+        boolean m509contentEqualsus8wMrg;
+        boolean m506contentEqualsctEhBpI;
+        boolean m508contentEqualsmazbYpA;
+        boolean m507contentEqualskdPth3s;
+        Intrinsics.checkParameterIsNotNull(contentDeepEqualsImpl, "$this$contentDeepEqualsImpl");
+        Intrinsics.checkParameterIsNotNull(other, "other");
+        if (contentDeepEqualsImpl == other) {
             return true;
         }
-        if (tArr == 0 || tArr2 == 0 || tArr.length != tArr2.length) {
+        if (contentDeepEqualsImpl.length != other.length) {
             return false;
         }
-        int length = tArr.length;
-        for (int i10 = 0; i10 < length; i10++) {
-            Object[] objArr = tArr[i10];
-            Object[] objArr2 = tArr2[i10];
+        int length = contentDeepEqualsImpl.length;
+        for (int i2 = 0; i2 < length; i2++) {
+            Object[] objArr = contentDeepEqualsImpl[i2];
+            Object[] objArr2 = other[i2];
             if (objArr != objArr2) {
                 if (objArr == 0 || objArr2 == 0) {
                     return false;
@@ -86,19 +89,23 @@ class ArraysKt__ArraysKt extends ArraysKt__ArraysJVMKt {
                         return false;
                     }
                 } else if ((objArr instanceof UByteArray) && (objArr2 instanceof UByteArray)) {
-                    if (!UArraysKt.m628contentEqualskV0jMPg(((UByteArray) objArr).getStorage(), ((UByteArray) objArr2).getStorage())) {
+                    m507contentEqualskdPth3s = UArraysKt___UArraysKt.m507contentEqualskdPth3s(((UByteArray) objArr).getStorage(), ((UByteArray) objArr2).getStorage());
+                    if (!m507contentEqualskdPth3s) {
                         return false;
                     }
                 } else if ((objArr instanceof UShortArray) && (objArr2 instanceof UShortArray)) {
-                    if (!UArraysKt.m626contentEqualsFGO6Aew(((UShortArray) objArr).getStorage(), ((UShortArray) objArr2).getStorage())) {
+                    m508contentEqualsmazbYpA = UArraysKt___UArraysKt.m508contentEqualsmazbYpA(((UShortArray) objArr).getStorage(), ((UShortArray) objArr2).getStorage());
+                    if (!m508contentEqualsmazbYpA) {
                         return false;
                     }
                 } else if ((objArr instanceof UIntArray) && (objArr2 instanceof UIntArray)) {
-                    if (!UArraysKt.m627contentEqualsKJPZfPQ(((UIntArray) objArr).getStorage(), ((UIntArray) objArr2).getStorage())) {
+                    m506contentEqualsctEhBpI = UArraysKt___UArraysKt.m506contentEqualsctEhBpI(((UIntArray) objArr).getStorage(), ((UIntArray) objArr2).getStorage());
+                    if (!m506contentEqualsctEhBpI) {
                         return false;
                     }
                 } else if ((objArr instanceof ULongArray) && (objArr2 instanceof ULongArray)) {
-                    if (!UArraysKt.m629contentEqualslec5QzE(((ULongArray) objArr).getStorage(), ((ULongArray) objArr2).getStorage())) {
+                    m509contentEqualsus8wMrg = UArraysKt___UArraysKt.m509contentEqualsus8wMrg(((ULongArray) objArr).getStorage(), ((ULongArray) objArr2).getStorage());
+                    if (!m509contentEqualsus8wMrg) {
                         return false;
                     }
                 } else if (!Intrinsics.areEqual(objArr, objArr2)) {
@@ -110,119 +117,131 @@ class ArraysKt__ArraysKt extends ArraysKt__ArraysJVMKt {
     }
 
     @SinceKotlin(version = "1.3")
-    @k
     @JvmName(name = "contentDeepToString")
+    @d
     @PublishedApi
-    public static final <T> String contentDeepToString(@l T[] tArr) {
-        if (tArr == null) {
-            return "null";
-        }
-        StringBuilder sb2 = new StringBuilder((RangesKt.coerceAtMost(tArr.length, 429496729) * 5) + 2);
-        contentDeepToStringInternal$ArraysKt__ArraysKt(tArr, sb2, new ArrayList());
-        String sb3 = sb2.toString();
-        Intrinsics.checkNotNullExpressionValue(sb3, "toString(...)");
-        return sb3;
+    public static final <T> String contentDeepToString(@d T[] contentDeepToStringImpl) {
+        int coerceAtMost;
+        Intrinsics.checkParameterIsNotNull(contentDeepToStringImpl, "$this$contentDeepToStringImpl");
+        coerceAtMost = RangesKt___RangesKt.coerceAtMost(contentDeepToStringImpl.length, 429496729);
+        StringBuilder sb = new StringBuilder((coerceAtMost * 5) + 2);
+        contentDeepToStringInternal$ArraysKt__ArraysKt(contentDeepToStringImpl, sb, new ArrayList());
+        String sb2 = sb.toString();
+        Intrinsics.checkExpressionValueIsNotNull(sb2, "StringBuilder(capacity).…builderAction).toString()");
+        return sb2;
     }
 
     /* JADX WARN: Multi-variable type inference failed */
-    private static final <T> void contentDeepToStringInternal$ArraysKt__ArraysKt(T[] tArr, StringBuilder sb2, List<Object[]> list) {
+    private static final <T> void contentDeepToStringInternal$ArraysKt__ArraysKt(@d T[] tArr, StringBuilder sb, List<Object[]> list) {
+        String m516contentToStringQwZRm1k;
+        String m514contentToStringajY9A;
+        String m517contentToStringrL5Bavg;
+        String m515contentToStringGBYM_sE;
         if (list.contains(tArr)) {
-            sb2.append("[...]");
+            sb.append("[...]");
             return;
         }
         list.add(tArr);
-        sb2.append('[');
+        sb.append('[');
         int length = tArr.length;
-        for (int i10 = 0; i10 < length; i10++) {
-            if (i10 != 0) {
-                sb2.append(", ");
+        for (int i2 = 0; i2 < length; i2++) {
+            if (i2 != 0) {
+                sb.append(", ");
             }
-            Object[] objArr = tArr[i10];
+            Object[] objArr = tArr[i2];
             if (objArr == 0) {
-                sb2.append("null");
+                sb.append("null");
             } else if (objArr instanceof Object[]) {
-                contentDeepToStringInternal$ArraysKt__ArraysKt(objArr, sb2, list);
+                contentDeepToStringInternal$ArraysKt__ArraysKt(objArr, sb, list);
             } else if (objArr instanceof byte[]) {
                 String arrays = Arrays.toString((byte[]) objArr);
-                Intrinsics.checkNotNullExpressionValue(arrays, "toString(...)");
-                sb2.append(arrays);
+                Intrinsics.checkExpressionValueIsNotNull(arrays, "java.util.Arrays.toString(this)");
+                sb.append(arrays);
             } else if (objArr instanceof short[]) {
                 String arrays2 = Arrays.toString((short[]) objArr);
-                Intrinsics.checkNotNullExpressionValue(arrays2, "toString(...)");
-                sb2.append(arrays2);
+                Intrinsics.checkExpressionValueIsNotNull(arrays2, "java.util.Arrays.toString(this)");
+                sb.append(arrays2);
             } else if (objArr instanceof int[]) {
                 String arrays3 = Arrays.toString((int[]) objArr);
-                Intrinsics.checkNotNullExpressionValue(arrays3, "toString(...)");
-                sb2.append(arrays3);
+                Intrinsics.checkExpressionValueIsNotNull(arrays3, "java.util.Arrays.toString(this)");
+                sb.append(arrays3);
             } else if (objArr instanceof long[]) {
                 String arrays4 = Arrays.toString((long[]) objArr);
-                Intrinsics.checkNotNullExpressionValue(arrays4, "toString(...)");
-                sb2.append(arrays4);
+                Intrinsics.checkExpressionValueIsNotNull(arrays4, "java.util.Arrays.toString(this)");
+                sb.append(arrays4);
             } else if (objArr instanceof float[]) {
                 String arrays5 = Arrays.toString((float[]) objArr);
-                Intrinsics.checkNotNullExpressionValue(arrays5, "toString(...)");
-                sb2.append(arrays5);
+                Intrinsics.checkExpressionValueIsNotNull(arrays5, "java.util.Arrays.toString(this)");
+                sb.append(arrays5);
             } else if (objArr instanceof double[]) {
                 String arrays6 = Arrays.toString((double[]) objArr);
-                Intrinsics.checkNotNullExpressionValue(arrays6, "toString(...)");
-                sb2.append(arrays6);
+                Intrinsics.checkExpressionValueIsNotNull(arrays6, "java.util.Arrays.toString(this)");
+                sb.append(arrays6);
             } else if (objArr instanceof char[]) {
                 String arrays7 = Arrays.toString((char[]) objArr);
-                Intrinsics.checkNotNullExpressionValue(arrays7, "toString(...)");
-                sb2.append(arrays7);
+                Intrinsics.checkExpressionValueIsNotNull(arrays7, "java.util.Arrays.toString(this)");
+                sb.append(arrays7);
             } else if (objArr instanceof boolean[]) {
                 String arrays8 = Arrays.toString((boolean[]) objArr);
-                Intrinsics.checkNotNullExpressionValue(arrays8, "toString(...)");
-                sb2.append(arrays8);
+                Intrinsics.checkExpressionValueIsNotNull(arrays8, "java.util.Arrays.toString(this)");
+                sb.append(arrays8);
             } else if (objArr instanceof UByteArray) {
-                sb2.append(UArraysKt.m634contentToString2csIQuQ(((UByteArray) objArr).getStorage()));
+                m515contentToStringGBYM_sE = UArraysKt___UArraysKt.m515contentToStringGBYM_sE(((UByteArray) objArr).getStorage());
+                sb.append(m515contentToStringGBYM_sE);
             } else if (objArr instanceof UShortArray) {
-                sb2.append(UArraysKt.m636contentToStringd6D3K8(((UShortArray) objArr).getStorage()));
+                m517contentToStringrL5Bavg = UArraysKt___UArraysKt.m517contentToStringrL5Bavg(((UShortArray) objArr).getStorage());
+                sb.append(m517contentToStringrL5Bavg);
             } else if (objArr instanceof UIntArray) {
-                sb2.append(UArraysKt.m635contentToStringXUkPCBk(((UIntArray) objArr).getStorage()));
+                m514contentToStringajY9A = UArraysKt___UArraysKt.m514contentToStringajY9A(((UIntArray) objArr).getStorage());
+                sb.append(m514contentToStringajY9A);
             } else if (objArr instanceof ULongArray) {
-                sb2.append(UArraysKt.m637contentToStringuLth9ew(((ULongArray) objArr).getStorage()));
+                m516contentToStringQwZRm1k = UArraysKt___UArraysKt.m516contentToStringQwZRm1k(((ULongArray) objArr).getStorage());
+                sb.append(m516contentToStringQwZRm1k);
             } else {
-                sb2.append(objArr.toString());
+                sb.append(objArr.toString());
             }
         }
-        sb2.append(']');
-        list.remove(CollectionsKt.getLastIndex(list));
+        sb.append(']');
+        list.remove(CollectionsKt__CollectionsKt.getLastIndex(list));
     }
 
-    @k
-    public static final <T> List<T> flatten(@k T[][] tArr) {
-        Intrinsics.checkNotNullParameter(tArr, "<this>");
-        int i10 = 0;
-        for (T[] tArr2 : tArr) {
-            i10 += tArr2.length;
+    @d
+    public static final <T> List<T> flatten(@d T[][] flatten) {
+        Intrinsics.checkParameterIsNotNull(flatten, "$this$flatten");
+        int i2 = 0;
+        for (T[] tArr : flatten) {
+            i2 += tArr.length;
         }
-        ArrayList arrayList = new ArrayList(i10);
-        for (T[] tArr3 : tArr) {
-            CollectionsKt.addAll(arrayList, tArr3);
+        ArrayList arrayList = new ArrayList(i2);
+        for (T[] tArr2 : flatten) {
+            CollectionsKt__MutableCollectionsKt.addAll(arrayList, tArr2);
         }
         return arrayList;
     }
 
     @SinceKotlin(version = "1.3")
     @InlineOnly
-    private static final Object ifEmpty(Object[] objArr, Function0 defaultValue) {
-        Intrinsics.checkNotNullParameter(defaultValue, "defaultValue");
-        return objArr.length == 0 ? defaultValue.invoke() : objArr;
+    private static final Object ifEmpty(Object[] objArr, Function0 function0) {
+        return objArr.length == 0 ? function0.invoke() : objArr;
     }
 
     @SinceKotlin(version = "1.3")
     @InlineOnly
-    private static final boolean isNullOrEmpty(Object[] objArr) {
-        return objArr == null || objArr.length == 0;
+    private static final boolean isNullOrEmpty(@e Object[] objArr) {
+        if (objArr != null) {
+            if (!(objArr.length == 0)) {
+                return false;
+            }
+        }
+        return true;
     }
 
-    @k
-    public static final <T, R> Pair<List<T>, List<R>> unzip(@k Pair<? extends T, ? extends R>[] pairArr) {
-        Intrinsics.checkNotNullParameter(pairArr, "<this>");
-        ArrayList arrayList = new ArrayList(pairArr.length);
-        ArrayList arrayList2 = new ArrayList(pairArr.length);
-        for (Pair<? extends T, ? extends R> pair : pairArr) {
+    @d
+    public static final <T, R> Pair<List<T>, List<R>> unzip(@d Pair<? extends T, ? extends R>[] unzip) {
+        Intrinsics.checkParameterIsNotNull(unzip, "$this$unzip");
+        ArrayList arrayList = new ArrayList(unzip.length);
+        ArrayList arrayList2 = new ArrayList(unzip.length);
+        for (Pair<? extends T, ? extends R> pair : unzip) {
             arrayList.add(pair.getFirst());
             arrayList2.add(pair.getSecond());
         }

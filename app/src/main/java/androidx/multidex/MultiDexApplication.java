@@ -1,12 +1,12 @@
 package androidx.multidex;
 
-import android.app.Application;
 import android.content.Context;
+import bin.mt.signature.KillerApplication;
 
 /* loaded from: classes.dex */
-public class MultiDexApplication extends Application {
+public class MultiDexApplication extends KillerApplication {
     @Override // android.content.ContextWrapper
-    public void attachBaseContext(Context context) {
+    protected void attachBaseContext(Context context) {
         super.attachBaseContext(context);
         MultiDex.install(this);
     }

@@ -1,44 +1,42 @@
 package com.martian.mibook.lib.original.data;
 
-import ba.k;
+import com.martian.libsupport.j;
 import com.martian.mibook.lib.model.data.abs.Chapter;
-import com.martian.mibook.mvvm.tts.service.BaseReadAloudService;
 
-@k.h(name = "or_chapters")
-/* loaded from: classes3.dex */
+@j.g(name = "or_chapters")
+/* loaded from: classes2.dex */
 public class ORChapter extends Chapter {
 
-    @k.a
-    @k.b
+    @j.b
+    @j.a
     private Integer _id;
 
-    @k.b
+    @j.b
     private String bookId;
 
-    @k.i
-    @k.b
+    @j.b
+    @j.h
     private Integer chapterId;
 
-    @k.b(name = BaseReadAloudService.f15168x)
-    @k.f
+    @j.b(name = "chapterIndex")
+    @j.e
     private Integer chapterOrder;
 
-    @k.b
+    @j.b
     private Integer coins;
 
-    @k.b
+    @j.b
     private String srcLink;
 
-    @k.b(name = "title")
+    @j.b(name = "title")
     private String title;
 
     public String getBookId() {
         return this.bookId;
     }
 
-    @Override // com.martian.mibook.lib.model.data.abs.Chapter
-    public String getChapterId() {
-        return this.chapterId + "";
+    public Integer getChapterId() {
+        return this.chapterId;
     }
 
     public Integer getChapterOrder() {
@@ -87,36 +85,36 @@ public class ORChapter extends Chapter {
         return !isFree();
     }
 
-    public void setBookId(String str) {
-        this.bookId = str;
+    public void setBookId(String bookId) {
+        this.bookId = bookId;
     }
 
-    public void setChapterId(Integer num) {
-        this.chapterId = num;
+    public void setChapterId(Integer chapterId) {
+        this.chapterId = chapterId;
     }
 
-    public void setChapterName(String str) {
-        this.title = str;
+    public void setChapterName(String chapterName) {
+        this.title = chapterName;
     }
 
-    public void setChapterOrder(Integer num) {
-        this.chapterOrder = num;
+    public void setChapterOrder(Integer chapterOrder) {
+        this.chapterOrder = chapterOrder;
     }
 
-    public void setCoins(Integer num) {
-        this.coins = num;
+    public void setCoins(Integer coin) {
+        this.coins = coin;
     }
 
     @Override // com.martian.mibook.lib.model.data.abs.Chapter
-    public void setSrcLink(String str) {
-        this.srcLink = str;
+    public void setSrcLink(String link) {
+        this.srcLink = link;
     }
 
-    public void setTitle(String str) {
-        this.title = str;
+    public void setTitle(String title) {
+        this.title = title;
     }
 
-    public void set_id(Integer num) {
-        this._id = num;
+    public void set_id(Integer _id) {
+        this._id = _id;
     }
 }

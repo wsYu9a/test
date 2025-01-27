@@ -1,7 +1,6 @@
 package androidx.core.view;
 
 import android.view.MotionEvent;
-import androidx.annotation.NonNull;
 
 /* loaded from: classes.dex */
 public final class MotionEventCompat {
@@ -169,8 +168,8 @@ public final class MotionEventCompat {
     }
 
     @Deprecated
-    public static int findPointerIndex(MotionEvent motionEvent, int i10) {
-        return motionEvent.findPointerIndex(i10);
+    public static int findPointerIndex(MotionEvent motionEvent, int i2) {
+        return motionEvent.findPointerIndex(i2);
     }
 
     @Deprecated
@@ -184,8 +183,8 @@ public final class MotionEventCompat {
     }
 
     @Deprecated
-    public static float getAxisValue(MotionEvent motionEvent, int i10) {
-        return motionEvent.getAxisValue(i10);
+    public static float getAxisValue(MotionEvent motionEvent, int i2) {
+        return motionEvent.getAxisValue(i2);
     }
 
     @Deprecated
@@ -199,8 +198,8 @@ public final class MotionEventCompat {
     }
 
     @Deprecated
-    public static int getPointerId(MotionEvent motionEvent, int i10) {
-        return motionEvent.getPointerId(i10);
+    public static int getPointerId(MotionEvent motionEvent, int i2) {
+        return motionEvent.getPointerId(i2);
     }
 
     @Deprecated
@@ -209,21 +208,21 @@ public final class MotionEventCompat {
     }
 
     @Deprecated
-    public static float getX(MotionEvent motionEvent, int i10) {
-        return motionEvent.getX(i10);
+    public static float getX(MotionEvent motionEvent, int i2) {
+        return motionEvent.getX(i2);
     }
 
     @Deprecated
-    public static float getY(MotionEvent motionEvent, int i10) {
-        return motionEvent.getY(i10);
+    public static float getY(MotionEvent motionEvent, int i2) {
+        return motionEvent.getY(i2);
     }
 
-    public static boolean isFromSource(@NonNull MotionEvent motionEvent, int i10) {
-        return (motionEvent.getSource() & i10) == i10;
+    public static boolean isFromSource(MotionEvent motionEvent, int i2) {
+        return (motionEvent.getSource() & i2) == i2;
     }
 
     @Deprecated
-    public static float getAxisValue(MotionEvent motionEvent, int i10, int i11) {
-        return motionEvent.getAxisValue(i10, i11);
+    public static float getAxisValue(MotionEvent motionEvent, int i2, int i3) {
+        return motionEvent.getAxisValue(i2, i3);
     }
 }

@@ -9,13 +9,16 @@ import androidx.annotation.RequiresApi;
 @RequiresApi(21)
 /* loaded from: classes.dex */
 class CardViewApi21Impl implements CardViewImpl {
-    private RoundRectDrawable getCardBackground(CardViewDelegate cardViewDelegate) {
+    CardViewApi21Impl() {
+    }
+
+    private RoundRectDrawable a(CardViewDelegate cardViewDelegate) {
         return (RoundRectDrawable) cardViewDelegate.getCardBackground();
     }
 
     @Override // androidx.cardview.widget.CardViewImpl
     public ColorStateList getBackgroundColor(CardViewDelegate cardViewDelegate) {
-        return getCardBackground(cardViewDelegate).getColor();
+        return a(cardViewDelegate).getColor();
     }
 
     @Override // androidx.cardview.widget.CardViewImpl
@@ -25,7 +28,7 @@ class CardViewApi21Impl implements CardViewImpl {
 
     @Override // androidx.cardview.widget.CardViewImpl
     public float getMaxElevation(CardViewDelegate cardViewDelegate) {
-        return getCardBackground(cardViewDelegate).getPadding();
+        return a(cardViewDelegate).b();
     }
 
     @Override // androidx.cardview.widget.CardViewImpl
@@ -40,7 +43,7 @@ class CardViewApi21Impl implements CardViewImpl {
 
     @Override // androidx.cardview.widget.CardViewImpl
     public float getRadius(CardViewDelegate cardViewDelegate) {
-        return getCardBackground(cardViewDelegate).getRadius();
+        return a(cardViewDelegate).getRadius();
     }
 
     @Override // androidx.cardview.widget.CardViewImpl
@@ -48,12 +51,12 @@ class CardViewApi21Impl implements CardViewImpl {
     }
 
     @Override // androidx.cardview.widget.CardViewImpl
-    public void initialize(CardViewDelegate cardViewDelegate, Context context, ColorStateList colorStateList, float f10, float f11, float f12) {
-        cardViewDelegate.setCardBackground(new RoundRectDrawable(colorStateList, f10));
+    public void initialize(CardViewDelegate cardViewDelegate, Context context, ColorStateList colorStateList, float f2, float f3, float f4) {
+        cardViewDelegate.setCardBackground(new RoundRectDrawable(colorStateList, f2));
         View cardView = cardViewDelegate.getCardView();
         cardView.setClipToOutline(true);
-        cardView.setElevation(f11);
-        setMaxElevation(cardViewDelegate, f12);
+        cardView.setElevation(f3);
+        setMaxElevation(cardViewDelegate, f4);
     }
 
     @Override // androidx.cardview.widget.CardViewImpl
@@ -68,23 +71,23 @@ class CardViewApi21Impl implements CardViewImpl {
 
     @Override // androidx.cardview.widget.CardViewImpl
     public void setBackgroundColor(CardViewDelegate cardViewDelegate, @Nullable ColorStateList colorStateList) {
-        getCardBackground(cardViewDelegate).setColor(colorStateList);
+        a(cardViewDelegate).setColor(colorStateList);
     }
 
     @Override // androidx.cardview.widget.CardViewImpl
-    public void setElevation(CardViewDelegate cardViewDelegate, float f10) {
-        cardViewDelegate.getCardView().setElevation(f10);
+    public void setElevation(CardViewDelegate cardViewDelegate, float f2) {
+        cardViewDelegate.getCardView().setElevation(f2);
     }
 
     @Override // androidx.cardview.widget.CardViewImpl
-    public void setMaxElevation(CardViewDelegate cardViewDelegate, float f10) {
-        getCardBackground(cardViewDelegate).setPadding(f10, cardViewDelegate.getUseCompatPadding(), cardViewDelegate.getPreventCornerOverlap());
+    public void setMaxElevation(CardViewDelegate cardViewDelegate, float f2) {
+        a(cardViewDelegate).d(f2, cardViewDelegate.getUseCompatPadding(), cardViewDelegate.getPreventCornerOverlap());
         updatePadding(cardViewDelegate);
     }
 
     @Override // androidx.cardview.widget.CardViewImpl
-    public void setRadius(CardViewDelegate cardViewDelegate, float f10) {
-        getCardBackground(cardViewDelegate).setRadius(f10);
+    public void setRadius(CardViewDelegate cardViewDelegate, float f2) {
+        a(cardViewDelegate).e(f2);
     }
 
     @Override // androidx.cardview.widget.CardViewImpl
@@ -95,8 +98,8 @@ class CardViewApi21Impl implements CardViewImpl {
         }
         float maxElevation = getMaxElevation(cardViewDelegate);
         float radius = getRadius(cardViewDelegate);
-        int ceil = (int) Math.ceil(RoundRectDrawableWithShadow.calculateHorizontalPadding(maxElevation, radius, cardViewDelegate.getPreventCornerOverlap()));
-        int ceil2 = (int) Math.ceil(RoundRectDrawableWithShadow.calculateVerticalPadding(maxElevation, radius, cardViewDelegate.getPreventCornerOverlap()));
+        int ceil = (int) Math.ceil(RoundRectDrawableWithShadow.c(maxElevation, radius, cardViewDelegate.getPreventCornerOverlap()));
+        int ceil2 = (int) Math.ceil(RoundRectDrawableWithShadow.d(maxElevation, radius, cardViewDelegate.getPreventCornerOverlap()));
         cardViewDelegate.setShadowPadding(ceil, ceil2, ceil, ceil2);
     }
 }

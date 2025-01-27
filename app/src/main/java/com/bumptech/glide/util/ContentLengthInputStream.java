@@ -8,25 +8,25 @@ import java.io.FilterInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 
-/* loaded from: classes2.dex */
+/* loaded from: classes.dex */
 public final class ContentLengthInputStream extends FilterInputStream {
     private static final String TAG = "ContentLengthStream";
     private static final int UNKNOWN = -1;
     private final long contentLength;
     private int readSoFar;
 
-    private ContentLengthInputStream(@NonNull InputStream inputStream, long j10) {
+    private ContentLengthInputStream(@NonNull InputStream inputStream, long j2) {
         super(inputStream);
-        this.contentLength = j10;
+        this.contentLength = j2;
     }
 
-    private int checkReadSoFarOrThrow(int i10) throws IOException {
-        if (i10 >= 0) {
-            this.readSoFar += i10;
+    private int checkReadSoFarOrThrow(int i2) throws IOException {
+        if (i2 >= 0) {
+            this.readSoFar += i2;
         } else if (this.contentLength - this.readSoFar > 0) {
             throw new IOException("Failed to read all expected data, expected: " + this.contentLength + ", but read: " + this.readSoFar);
         }
-        return i10;
+        return i2;
     }
 
     @NonNull
@@ -38,9 +38,9 @@ public final class ContentLengthInputStream extends FilterInputStream {
         if (!TextUtils.isEmpty(str)) {
             try {
                 return Integer.parseInt(str);
-            } catch (NumberFormatException e10) {
+            } catch (NumberFormatException e2) {
                 if (Log.isLoggable(TAG, 3)) {
-                    Log.d(TAG, "failed to parse content length header: " + str, e10);
+                    Log.d(TAG, "failed to parse content length header: " + str, e2);
                 }
             }
         }
@@ -61,8 +61,8 @@ public final class ContentLengthInputStream extends FilterInputStream {
     }
 
     @NonNull
-    public static InputStream obtain(@NonNull InputStream inputStream, long j10) {
-        return new ContentLengthInputStream(inputStream, j10);
+    public static InputStream obtain(@NonNull InputStream inputStream, long j2) {
+        return new ContentLengthInputStream(inputStream, j2);
     }
 
     @Override // java.io.FilterInputStream, java.io.InputStream
@@ -71,7 +71,7 @@ public final class ContentLengthInputStream extends FilterInputStream {
     }
 
     @Override // java.io.FilterInputStream, java.io.InputStream
-    public synchronized int read(byte[] bArr, int i10, int i11) throws IOException {
-        return checkReadSoFarOrThrow(super.read(bArr, i10, i11));
+    public synchronized int read(byte[] bArr, int i2, int i3) throws IOException {
+        return checkReadSoFarOrThrow(super.read(bArr, i2, i3));
     }
 }

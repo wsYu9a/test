@@ -18,7 +18,7 @@ import com.bytedance.pangle.provider.ContentProviderManager;
 import org.json.JSONObject;
 
 @Keep
-/* loaded from: classes2.dex */
+/* loaded from: classes.dex */
 public class ContentProviderProxy extends ContentProvider {
     public ContentProviderManager mPluginProviderManager;
 
@@ -38,8 +38,8 @@ public class ContentProviderProxy extends ContentProvider {
                 return obtainPluginProvider.call(str, str2, bundle);
             }
             return null;
-        } catch (Throwable th2) {
-            ZeusLogger.w(ZeusLogger.TAG_PROVIDER, "proxy provider#call(3 params) className=" + getClass().getSimpleName() + ",exception:", th2);
+        } catch (Throwable th) {
+            ZeusLogger.w(ZeusLogger.TAG_PROVIDER, "proxy provider#call(3 params) className=" + getClass().getSimpleName() + ",exception:", th);
             return null;
         }
     }
@@ -55,8 +55,8 @@ public class ContentProviderProxy extends ContentProvider {
             if (obtainPluginProvider != null) {
                 return obtainPluginProvider.delete(obtainPluginProvider.pluginUri, str, strArr);
             }
-        } catch (Throwable th2) {
-            ZeusLogger.w(ZeusLogger.TAG_PROVIDER, "proxy provider#delete(3 params) className=" + getClass().getSimpleName() + ",exception:", th2);
+        } catch (Throwable th) {
+            ZeusLogger.w(ZeusLogger.TAG_PROVIDER, "proxy provider#delete(3 params) className=" + getClass().getSimpleName() + ",exception:", th);
         }
         return -1;
     }
@@ -73,8 +73,8 @@ public class ContentProviderProxy extends ContentProvider {
             if (obtainPluginProvider != null) {
                 return obtainPluginProvider.getType(obtainPluginProvider.pluginUri);
             }
-        } catch (Throwable th2) {
-            ZeusLogger.w(ZeusLogger.TAG_PROVIDER, "proxy provider#getType className=" + getClass().getSimpleName() + ",exception:", th2);
+        } catch (Throwable th) {
+            ZeusLogger.w(ZeusLogger.TAG_PROVIDER, "proxy provider#getType className=" + getClass().getSimpleName() + ",exception:", th);
         }
         return null;
     }
@@ -91,8 +91,8 @@ public class ContentProviderProxy extends ContentProvider {
             if (obtainPluginProvider != null) {
                 return obtainPluginProvider.insert(obtainPluginProvider.pluginUri, contentValues);
             }
-        } catch (Throwable th2) {
-            ZeusLogger.w(ZeusLogger.TAG_PROVIDER, "proxy provider#insert(2 params) className=" + getClass().getSimpleName() + ",exception:", th2);
+        } catch (Throwable th) {
+            ZeusLogger.w(ZeusLogger.TAG_PROVIDER, "proxy provider#insert(2 params) className=" + getClass().getSimpleName() + ",exception:", th);
         }
         return null;
     }
@@ -115,8 +115,8 @@ public class ContentProviderProxy extends ContentProvider {
             if (obtainPluginProvider != null) {
                 return obtainPluginProvider.query(obtainPluginProvider.pluginUri, strArr, str, strArr2, str2);
             }
-        } catch (Throwable th2) {
-            ZeusLogger.w(ZeusLogger.TAG_PROVIDER, "proxy provider#query(5 params) className=" + getClass().getSimpleName() + ",exception:", th2);
+        } catch (Throwable th) {
+            ZeusLogger.w(ZeusLogger.TAG_PROVIDER, "proxy provider#query(5 params) className=" + getClass().getSimpleName() + ",exception:", th);
         }
         return null;
     }
@@ -132,8 +132,8 @@ public class ContentProviderProxy extends ContentProvider {
             if (obtainPluginProvider != null) {
                 return obtainPluginProvider.update(obtainPluginProvider.pluginUri, contentValues, str, strArr);
             }
-        } catch (Throwable th2) {
-            ZeusLogger.w(ZeusLogger.TAG_PROVIDER, "proxy provider#update(4 params) className=" + getClass().getSimpleName() + ",exception:", th2);
+        } catch (Throwable th) {
+            ZeusLogger.w(ZeusLogger.TAG_PROVIDER, "proxy provider#update(4 params) className=" + getClass().getSimpleName() + ",exception:", th);
         }
         return 0;
     }
@@ -170,7 +170,6 @@ public class ContentProviderProxy extends ContentProvider {
 
     @Override // android.content.ContentProvider
     public int delete(@NonNull Uri uri, @Nullable Bundle bundle) {
-        int delete;
         waitInit();
         if (uri == null) {
             return -1;
@@ -178,11 +177,10 @@ public class ContentProviderProxy extends ContentProvider {
         try {
             PluginContentProvider obtainPluginProvider = obtainPluginProvider(uri, uri.getAuthority());
             if (obtainPluginProvider != null) {
-                delete = obtainPluginProvider.delete(obtainPluginProvider.pluginUri, bundle);
-                return delete;
+                return obtainPluginProvider.delete(obtainPluginProvider.pluginUri, bundle);
             }
-        } catch (Throwable th2) {
-            ZeusLogger.w(ZeusLogger.TAG_PROVIDER, "proxy provider#delete(2 params) className=" + getClass().getSimpleName() + ",exception:", th2);
+        } catch (Throwable th) {
+            ZeusLogger.w(ZeusLogger.TAG_PROVIDER, "proxy provider#delete(2 params) className=" + getClass().getSimpleName() + ",exception:", th);
         }
         return -1;
     }
@@ -190,7 +188,6 @@ public class ContentProviderProxy extends ContentProvider {
     @Override // android.content.ContentProvider
     @Nullable
     public Uri insert(@NonNull Uri uri, @Nullable ContentValues contentValues, @Nullable Bundle bundle) {
-        Uri insert;
         waitInit();
         if (uri == null) {
             return null;
@@ -198,11 +195,10 @@ public class ContentProviderProxy extends ContentProvider {
         try {
             PluginContentProvider obtainPluginProvider = obtainPluginProvider(uri, uri.getAuthority());
             if (obtainPluginProvider != null) {
-                insert = obtainPluginProvider.insert(obtainPluginProvider.pluginUri, contentValues, bundle);
-                return insert;
+                return obtainPluginProvider.insert(obtainPluginProvider.pluginUri, contentValues, bundle);
             }
-        } catch (Throwable th2) {
-            ZeusLogger.w(ZeusLogger.TAG_PROVIDER, "proxy provider#insert(3 params) className=" + getClass().getSimpleName() + ",exception:", th2);
+        } catch (Throwable th) {
+            ZeusLogger.w(ZeusLogger.TAG_PROVIDER, "proxy provider#insert(3 params) className=" + getClass().getSimpleName() + ",exception:", th);
         }
         return null;
     }
@@ -219,15 +215,14 @@ public class ContentProviderProxy extends ContentProvider {
             if (obtainPluginProvider != null) {
                 return obtainPluginProvider.query(obtainPluginProvider.pluginUri, strArr, str, strArr2, str2, cancellationSignal);
             }
-        } catch (Throwable th2) {
-            ZeusLogger.w(ZeusLogger.TAG_PROVIDER, "proxy provider#query(6 params) className=" + getClass().getSimpleName() + ",exception:", th2);
+        } catch (Throwable th) {
+            ZeusLogger.w(ZeusLogger.TAG_PROVIDER, "proxy provider#query(6 params) className=" + getClass().getSimpleName() + ",exception:", th);
         }
         return null;
     }
 
     @Override // android.content.ContentProvider
     public int update(@NonNull Uri uri, @Nullable ContentValues contentValues, @Nullable Bundle bundle) {
-        int update;
         waitInit();
         if (uri == null) {
             return 0;
@@ -235,11 +230,10 @@ public class ContentProviderProxy extends ContentProvider {
         try {
             PluginContentProvider obtainPluginProvider = obtainPluginProvider(uri, uri.getAuthority());
             if (obtainPluginProvider != null) {
-                update = obtainPluginProvider.update(obtainPluginProvider.pluginUri, contentValues, bundle);
-                return update;
+                return obtainPluginProvider.update(obtainPluginProvider.pluginUri, contentValues, bundle);
             }
-        } catch (Throwable th2) {
-            ZeusLogger.w(ZeusLogger.TAG_PROVIDER, "proxy provider#update(3 params) className=" + getClass().getSimpleName() + ",exception:", th2);
+        } catch (Throwable th) {
+            ZeusLogger.w(ZeusLogger.TAG_PROVIDER, "proxy provider#update(3 params) className=" + getClass().getSimpleName() + ",exception:", th);
         }
         return 0;
     }
@@ -247,18 +241,16 @@ public class ContentProviderProxy extends ContentProvider {
     @Override // android.content.ContentProvider
     @Nullable
     public Bundle call(@NonNull String str, @NonNull String str2, @Nullable String str3, @Nullable Bundle bundle) {
-        Bundle call;
         try {
             String string = bundle.getString("provider_params", "");
             Uri parse = Uri.parse(bundle.getString(ContentProviderManager.PROVIDER_PROXY_URI, ""));
             PluginContentProvider obtainPluginProvider = obtainPluginProvider(parse, parse.getAuthority(), string);
-            if (obtainPluginProvider == null) {
-                return null;
+            if (obtainPluginProvider != null) {
+                return obtainPluginProvider.call(string, str2, str3, bundle);
             }
-            call = obtainPluginProvider.call(string, str2, str3, bundle);
-            return call;
-        } catch (Throwable th2) {
-            ZeusLogger.w(ZeusLogger.TAG_PROVIDER, "proxy provider#call(4 params-Added in API level 29) className=" + getClass().getSimpleName() + ",exception:", th2);
+            return null;
+        } catch (Throwable th) {
+            ZeusLogger.w(ZeusLogger.TAG_PROVIDER, "proxy provider#call(4 params-Added in API level 29) className=" + getClass().getSimpleName() + ",exception:", th);
             return null;
         }
     }
@@ -267,7 +259,6 @@ public class ContentProviderProxy extends ContentProvider {
     @Nullable
     @RequiresApi(api = 26)
     public Cursor query(@NonNull Uri uri, @Nullable String[] strArr, @Nullable Bundle bundle, @Nullable CancellationSignal cancellationSignal) {
-        Cursor query;
         waitInit();
         if (uri == null) {
             return null;
@@ -275,11 +266,10 @@ public class ContentProviderProxy extends ContentProvider {
         try {
             PluginContentProvider obtainPluginProvider = obtainPluginProvider(uri, uri.getAuthority());
             if (obtainPluginProvider != null) {
-                query = obtainPluginProvider.query(obtainPluginProvider.pluginUri, strArr, bundle, cancellationSignal);
-                return query;
+                return obtainPluginProvider.query(obtainPluginProvider.pluginUri, strArr, bundle, cancellationSignal);
             }
-        } catch (Throwable th2) {
-            ZeusLogger.w(ZeusLogger.TAG_PROVIDER, "proxy provider#query(4 params) className=" + getClass().getSimpleName() + ",exception:", th2);
+        } catch (Throwable th) {
+            ZeusLogger.w(ZeusLogger.TAG_PROVIDER, "proxy provider#query(4 params) className=" + getClass().getSimpleName() + ",exception:", th);
         }
         return null;
     }

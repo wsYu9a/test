@@ -1,16 +1,16 @@
 package com.qq.e.ads.cfg;
 
-/* loaded from: classes3.dex */
+/* loaded from: classes4.dex */
 public class SDKSrcConfig {
 
-    /* renamed from: a, reason: collision with root package name */
-    private static String f16398a;
+    /* renamed from: a */
+    private static String f23887a;
 
     public static String getSdkSrc() {
-        return f16398a;
+        return f23887a;
     }
 
     public static void setSdkSrc(String str) {
-        f16398a = str;
+        f23887a = str;
     }
 }

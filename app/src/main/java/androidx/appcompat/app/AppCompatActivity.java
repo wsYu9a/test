@@ -13,8 +13,6 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
-import androidx.activity.ViewTreeOnBackPressedDispatcherOwner;
-import androidx.activity.contextaware.OnContextAvailableListener;
 import androidx.annotation.CallSuper;
 import androidx.annotation.ContentView;
 import androidx.annotation.IdRes;
@@ -29,97 +27,30 @@ import androidx.appcompat.widget.VectorEnabledTintResources;
 import androidx.core.app.ActivityCompat;
 import androidx.core.app.NavUtils;
 import androidx.core.app.TaskStackBuilder;
-import androidx.core.os.LocaleListCompat;
 import androidx.fragment.app.FragmentActivity;
-import androidx.lifecycle.ViewTreeLifecycleOwner;
-import androidx.lifecycle.ViewTreeViewModelStoreOwner;
-import androidx.savedstate.SavedStateRegistry;
-import androidx.savedstate.ViewTreeSavedStateRegistryOwner;
 
 /* loaded from: classes.dex */
 public class AppCompatActivity extends FragmentActivity implements AppCompatCallback, TaskStackBuilder.SupportParentable, ActionBarDrawerToggle.DelegateProvider {
-    private static final String DELEGATE_TAG = "androidx:appcompat";
     private AppCompatDelegate mDelegate;
     private Resources mResources;
 
-    /* renamed from: androidx.appcompat.app.AppCompatActivity$1 */
-    public class AnonymousClass1 implements SavedStateRegistry.SavedStateProvider {
-        public AnonymousClass1() {
-        }
-
-        @Override // androidx.savedstate.SavedStateRegistry.SavedStateProvider
-        @NonNull
-        public Bundle saveState() {
-            Bundle bundle = new Bundle();
-            AppCompatActivity.this.getDelegate().onSaveInstanceState(bundle);
-            return bundle;
-        }
-    }
-
-    /* renamed from: androidx.appcompat.app.AppCompatActivity$2 */
-    public class AnonymousClass2 implements OnContextAvailableListener {
-        public AnonymousClass2() {
-        }
-
-        @Override // androidx.activity.contextaware.OnContextAvailableListener
-        public void onContextAvailable(@NonNull Context context) {
-            AppCompatDelegate delegate = AppCompatActivity.this.getDelegate();
-            delegate.installViewFactory();
-            delegate.onCreate(AppCompatActivity.this.getSavedStateRegistry().consumeRestoredStateForKey(AppCompatActivity.DELEGATE_TAG));
-        }
-    }
-
     public AppCompatActivity() {
-        initDelegate();
     }
 
-    private void initDelegate() {
-        getSavedStateRegistry().registerSavedStateProvider(DELEGATE_TAG, new SavedStateRegistry.SavedStateProvider() { // from class: androidx.appcompat.app.AppCompatActivity.1
-            public AnonymousClass1() {
-            }
-
-            @Override // androidx.savedstate.SavedStateRegistry.SavedStateProvider
-            @NonNull
-            public Bundle saveState() {
-                Bundle bundle = new Bundle();
-                AppCompatActivity.this.getDelegate().onSaveInstanceState(bundle);
-                return bundle;
-            }
-        });
-        addOnContextAvailableListener(new OnContextAvailableListener() { // from class: androidx.appcompat.app.AppCompatActivity.2
-            public AnonymousClass2() {
-            }
-
-            @Override // androidx.activity.contextaware.OnContextAvailableListener
-            public void onContextAvailable(@NonNull Context context) {
-                AppCompatDelegate delegate = AppCompatActivity.this.getDelegate();
-                delegate.installViewFactory();
-                delegate.onCreate(AppCompatActivity.this.getSavedStateRegistry().consumeRestoredStateForKey(AppCompatActivity.DELEGATE_TAG));
-            }
-        });
-    }
-
-    private void initViewTreeOwners() {
-        ViewTreeLifecycleOwner.set(getWindow().getDecorView(), this);
-        ViewTreeViewModelStoreOwner.set(getWindow().getDecorView(), this);
-        ViewTreeSavedStateRegistryOwner.set(getWindow().getDecorView(), this);
-        ViewTreeOnBackPressedDispatcherOwner.set(getWindow().getDecorView(), this);
-    }
-
-    private boolean performMenuItemShortcut(KeyEvent keyEvent) {
+    private boolean performMenuItemShortcut(int i2, KeyEvent keyEvent) {
         Window window;
         return (Build.VERSION.SDK_INT >= 26 || keyEvent.isCtrlPressed() || KeyEvent.metaStateHasNoModifiers(keyEvent.getMetaState()) || keyEvent.getRepeatCount() != 0 || KeyEvent.isModifierKey(keyEvent.getKeyCode()) || (window = getWindow()) == null || window.getDecorView() == null || !window.getDecorView().dispatchKeyShortcutEvent(keyEvent)) ? false : true;
     }
 
-    @Override // androidx.activity.ComponentActivity, android.app.Activity
+    @Override // android.app.Activity
     public void addContentView(View view, ViewGroup.LayoutParams layoutParams) {
-        initViewTreeOwners();
         getDelegate().addContentView(view, layoutParams);
     }
 
     @Override // android.app.Activity, android.view.ContextThemeWrapper, android.content.ContextWrapper
-    public void attachBaseContext(Context context) {
-        super.attachBaseContext(getDelegate().attachBaseContext2(context));
+    protected void attachBaseContext(Context context) {
+        super.attachBaseContext(context);
+        getDelegate().attachBaseContext(context);
     }
 
     @Override // android.app.Activity
@@ -143,8 +74,8 @@ public class AppCompatActivity extends FragmentActivity implements AppCompatCall
     }
 
     @Override // android.app.Activity
-    public <T extends View> T findViewById(@IdRes int i10) {
-        return (T) getDelegate().findViewById(i10);
+    public <T extends View> T findViewById(@IdRes int i2) {
+        return (T) getDelegate().findViewById(i2);
     }
 
     @NonNull
@@ -192,13 +123,13 @@ public class AppCompatActivity extends FragmentActivity implements AppCompatCall
         getDelegate().invalidateOptionsMenu();
     }
 
-    @Override // androidx.activity.ComponentActivity, android.app.Activity, android.content.ComponentCallbacks
+    @Override // androidx.fragment.app.FragmentActivity, android.app.Activity, android.content.ComponentCallbacks
     public void onConfigurationChanged(@NonNull Configuration configuration) {
         super.onConfigurationChanged(configuration);
-        getDelegate().onConfigurationChanged(configuration);
         if (this.mResources != null) {
-            this.mResources.updateConfiguration(super.getResources().getConfiguration(), super.getResources().getDisplayMetrics());
+            this.mResources.updateConfiguration(configuration, super.getResources().getDisplayMetrics());
         }
+        getDelegate().onConfigurationChanged(configuration);
     }
 
     @Override // android.app.Activity, android.view.Window.Callback
@@ -206,30 +137,35 @@ public class AppCompatActivity extends FragmentActivity implements AppCompatCall
         onSupportContentChanged();
     }
 
+    @Override // androidx.fragment.app.FragmentActivity, androidx.activity.ComponentActivity, androidx.core.app.ComponentActivity, android.app.Activity
+    protected void onCreate(@Nullable Bundle bundle) {
+        AppCompatDelegate delegate = getDelegate();
+        delegate.installViewFactory();
+        delegate.onCreate(bundle);
+        super.onCreate(bundle);
+    }
+
     public void onCreateSupportNavigateUpTaskStack(@NonNull TaskStackBuilder taskStackBuilder) {
         taskStackBuilder.addParentStack(this);
     }
 
     @Override // androidx.fragment.app.FragmentActivity, android.app.Activity
-    public void onDestroy() {
+    protected void onDestroy() {
         super.onDestroy();
         getDelegate().onDestroy();
     }
 
     @Override // android.app.Activity, android.view.KeyEvent.Callback
-    public boolean onKeyDown(int i10, KeyEvent keyEvent) {
-        if (performMenuItemShortcut(keyEvent)) {
+    public boolean onKeyDown(int i2, KeyEvent keyEvent) {
+        if (performMenuItemShortcut(i2, keyEvent)) {
             return true;
         }
-        return super.onKeyDown(i10, keyEvent);
+        return super.onKeyDown(i2, keyEvent);
     }
 
-    public void onLocalesChanged(@NonNull LocaleListCompat localeListCompat) {
-    }
-
-    @Override // androidx.fragment.app.FragmentActivity, androidx.activity.ComponentActivity, android.app.Activity, android.view.Window.Callback
-    public final boolean onMenuItemSelected(int i10, @NonNull MenuItem menuItem) {
-        if (super.onMenuItemSelected(i10, menuItem)) {
+    @Override // androidx.fragment.app.FragmentActivity, android.app.Activity, android.view.Window.Callback
+    public final boolean onMenuItemSelected(int i2, @NonNull MenuItem menuItem) {
+        if (super.onMenuItemSelected(i2, menuItem)) {
             return true;
         }
         ActionBar supportActionBar = getSupportActionBar();
@@ -240,26 +176,26 @@ public class AppCompatActivity extends FragmentActivity implements AppCompatCall
     }
 
     @Override // android.app.Activity, android.view.Window.Callback
-    public boolean onMenuOpened(int i10, Menu menu) {
-        return super.onMenuOpened(i10, menu);
+    public boolean onMenuOpened(int i2, Menu menu) {
+        return super.onMenuOpened(i2, menu);
     }
 
-    public void onNightModeChanged(int i10) {
+    protected void onNightModeChanged(int i2) {
     }
 
-    @Override // androidx.activity.ComponentActivity, android.app.Activity, android.view.Window.Callback
-    public void onPanelClosed(int i10, @NonNull Menu menu) {
-        super.onPanelClosed(i10, menu);
+    @Override // androidx.fragment.app.FragmentActivity, android.app.Activity, android.view.Window.Callback
+    public void onPanelClosed(int i2, @NonNull Menu menu) {
+        super.onPanelClosed(i2, menu);
     }
 
     @Override // android.app.Activity
-    public void onPostCreate(@Nullable Bundle bundle) {
+    protected void onPostCreate(@Nullable Bundle bundle) {
         super.onPostCreate(bundle);
         getDelegate().onPostCreate(bundle);
     }
 
     @Override // androidx.fragment.app.FragmentActivity, android.app.Activity
-    public void onPostResume() {
+    protected void onPostResume() {
         super.onPostResume();
         getDelegate().onPostResume();
     }
@@ -267,14 +203,20 @@ public class AppCompatActivity extends FragmentActivity implements AppCompatCall
     public void onPrepareSupportNavigateUpTaskStack(@NonNull TaskStackBuilder taskStackBuilder) {
     }
 
+    @Override // androidx.fragment.app.FragmentActivity, androidx.activity.ComponentActivity, androidx.core.app.ComponentActivity, android.app.Activity
+    protected void onSaveInstanceState(@NonNull Bundle bundle) {
+        super.onSaveInstanceState(bundle);
+        getDelegate().onSaveInstanceState(bundle);
+    }
+
     @Override // androidx.fragment.app.FragmentActivity, android.app.Activity
-    public void onStart() {
+    protected void onStart() {
         super.onStart();
         getDelegate().onStart();
     }
 
     @Override // androidx.fragment.app.FragmentActivity, android.app.Activity
-    public void onStop() {
+    protected void onStop() {
         super.onStop();
         getDelegate().onStop();
     }
@@ -316,8 +258,8 @@ public class AppCompatActivity extends FragmentActivity implements AppCompatCall
     }
 
     @Override // android.app.Activity
-    public void onTitleChanged(CharSequence charSequence, int i10) {
-        super.onTitleChanged(charSequence, i10);
+    protected void onTitleChanged(CharSequence charSequence, int i2) {
+        super.onTitleChanged(charSequence, i2);
         getDelegate().setTitle(charSequence);
     }
 
@@ -337,10 +279,9 @@ public class AppCompatActivity extends FragmentActivity implements AppCompatCall
         }
     }
 
-    @Override // androidx.activity.ComponentActivity, android.app.Activity
-    public void setContentView(@LayoutRes int i10) {
-        initViewTreeOwners();
-        getDelegate().setContentView(i10);
+    @Override // android.app.Activity
+    public void setContentView(@LayoutRes int i2) {
+        getDelegate().setContentView(i2);
     }
 
     public void setSupportActionBar(@Nullable Toolbar toolbar) {
@@ -348,25 +289,25 @@ public class AppCompatActivity extends FragmentActivity implements AppCompatCall
     }
 
     @Deprecated
-    public void setSupportProgress(int i10) {
+    public void setSupportProgress(int i2) {
     }
 
     @Deprecated
-    public void setSupportProgressBarIndeterminate(boolean z10) {
+    public void setSupportProgressBarIndeterminate(boolean z) {
     }
 
     @Deprecated
-    public void setSupportProgressBarIndeterminateVisibility(boolean z10) {
+    public void setSupportProgressBarIndeterminateVisibility(boolean z) {
     }
 
     @Deprecated
-    public void setSupportProgressBarVisibility(boolean z10) {
+    public void setSupportProgressBarVisibility(boolean z) {
     }
 
     @Override // android.app.Activity, android.view.ContextThemeWrapper, android.content.ContextWrapper, android.content.Context
-    public void setTheme(@StyleRes int i10) {
-        super.setTheme(i10);
-        getDelegate().setTheme(i10);
+    public void setTheme(@StyleRes int i2) {
+        super.setTheme(i2);
+        getDelegate().setTheme(i2);
     }
 
     @Nullable
@@ -383,8 +324,8 @@ public class AppCompatActivity extends FragmentActivity implements AppCompatCall
         NavUtils.navigateUpTo(this, intent);
     }
 
-    public boolean supportRequestWindowFeature(int i10) {
-        return getDelegate().requestWindowFeature(i10);
+    public boolean supportRequestWindowFeature(int i2) {
+        return getDelegate().requestWindowFeature(i2);
     }
 
     public boolean supportShouldUpRecreateTask(@NonNull Intent intent) {
@@ -392,20 +333,17 @@ public class AppCompatActivity extends FragmentActivity implements AppCompatCall
     }
 
     @ContentView
-    public AppCompatActivity(@LayoutRes int i10) {
-        super(i10);
-        initDelegate();
+    public AppCompatActivity(@LayoutRes int i2) {
+        super(i2);
     }
 
-    @Override // androidx.activity.ComponentActivity, android.app.Activity
+    @Override // android.app.Activity
     public void setContentView(View view) {
-        initViewTreeOwners();
         getDelegate().setContentView(view);
     }
 
-    @Override // androidx.activity.ComponentActivity, android.app.Activity
+    @Override // android.app.Activity
     public void setContentView(View view, ViewGroup.LayoutParams layoutParams) {
-        initViewTreeOwners();
         getDelegate().setContentView(view, layoutParams);
     }
 }

@@ -1,66 +1,45 @@
 package kotlin.time;
 
+import f.b.a.d;
 import kotlin.Metadata;
 import kotlin.jvm.internal.DefaultConstructorMarker;
-import kotlin.jvm.internal.Intrinsics;
-import kotlin.time.TimeMark;
-import xi.k;
 
-@Metadata(d1 = {"\u0000\u0014\n\u0002\u0018\u0002\n\u0002\u0018\u0002\n\u0002\b\u0002\n\u0002\u0018\u0002\n\u0002\b\r\b\u0002\u0018\u00002\u00020\u0001B\u0015\u0012\u0006\u0010\u0002\u001a\u00020\u0001\u0012\u0006\u0010\u0003\u001a\u00020\u0004¢\u0006\u0002\u0010\u0005J\u0012\u0010\u000b\u001a\u00020\u0004H\u0016ø\u0001\u0000¢\u0006\u0004\b\f\u0010\u0007J\u0018\u0010\r\u001a\u00020\u00012\u0006\u0010\u000e\u001a\u00020\u0004H\u0096\u0002¢\u0006\u0004\b\u000f\u0010\u0010R\u0016\u0010\u0003\u001a\u00020\u0004ø\u0001\u0000¢\u0006\n\n\u0002\u0010\b\u001a\u0004\b\u0006\u0010\u0007R\u0011\u0010\u0002\u001a\u00020\u0001¢\u0006\b\n\u0000\u001a\u0004\b\t\u0010\n\u0082\u0002\u0004\n\u0002\b!¨\u0006\u0011"}, d2 = {"Lkotlin/time/AdjustedTimeMark;", "Lkotlin/time/TimeMark;", "mark", "adjustment", "Lkotlin/time/Duration;", "(Lkotlin/time/TimeMark;JLkotlin/jvm/internal/DefaultConstructorMarker;)V", "getAdjustment-UwyO8pc", "()J", "J", "getMark", "()Lkotlin/time/TimeMark;", "elapsedNow", "elapsedNow-UwyO8pc", "plus", "duration", "plus-LRDsOJo", "(J)Lkotlin/time/TimeMark;", "kotlin-stdlib"}, k = 1, mv = {1, 9, 0}, xi = 48)
-/* loaded from: classes4.dex */
-final class AdjustedTimeMark implements TimeMark {
-    private final long adjustment;
+@Metadata(bv = {1, 0, 3}, d1 = {"\u0000\u0010\n\u0002\u0018\u0002\n\u0002\u0018\u0002\n\u0002\u0018\u0002\n\u0002\b\u0010\b\u0003\u0018\u00002\u00020\u0001B\u001a\u0012\u0006\u0010\t\u001a\u00020\u0001\u0012\u0006\u0010\r\u001a\u00020\u0002ø\u0001\u0000¢\u0006\u0004\b\u0010\u0010\u0011J\u0012\u0010\u0003\u001a\u00020\u0002H\u0016ø\u0001\u0000¢\u0006\u0004\b\u0003\u0010\u0004J\u001b\u0010\b\u001a\u00020\u00012\u0006\u0010\u0005\u001a\u00020\u0002H\u0096\u0002ø\u0001\u0000¢\u0006\u0004\b\u0006\u0010\u0007R\u0019\u0010\t\u001a\u00020\u00018\u0006@\u0006¢\u0006\f\n\u0004\b\t\u0010\n\u001a\u0004\b\u000b\u0010\fR\u001c\u0010\r\u001a\u00020\u00028\u0006@\u0006ø\u0001\u0000¢\u0006\f\n\u0004\b\r\u0010\u000e\u001a\u0004\b\u000f\u0010\u0004\u0082\u0002\u0004\n\u0002\b\u0019¨\u0006\u0012"}, d2 = {"Lkotlin/time/AdjustedTimeMark;", "Lkotlin/time/TimeMark;", "Lkotlin/time/Duration;", "elapsedNow", "()D", "duration", "plus-LRDsOJo", "(D)Lkotlin/time/TimeMark;", "plus", "mark", "Lkotlin/time/TimeMark;", "getMark", "()Lkotlin/time/TimeMark;", "adjustment", "D", "getAdjustment", "<init>", "(Lkotlin/time/TimeMark;DLkotlin/jvm/internal/DefaultConstructorMarker;)V", "kotlin-stdlib"}, k = 1, mv = {1, 4, 0})
+@ExperimentalTime
+/* loaded from: classes5.dex */
+final class AdjustedTimeMark extends TimeMark {
+    private final double adjustment;
 
-    @k
+    @d
     private final TimeMark mark;
 
-    public /* synthetic */ AdjustedTimeMark(TimeMark timeMark, long j10, DefaultConstructorMarker defaultConstructorMarker) {
-        this(timeMark, j10);
+    private AdjustedTimeMark(TimeMark timeMark, double d2) {
+        this.mark = timeMark;
+        this.adjustment = d2;
     }
 
     @Override // kotlin.time.TimeMark
-    /* renamed from: elapsedNow-UwyO8pc */
-    public long mo1372elapsedNowUwyO8pc() {
-        return Duration.m1417minusLRDsOJo(this.mark.mo1372elapsedNowUwyO8pc(), this.adjustment);
+    public double elapsedNow() {
+        return Duration.m1071minusLRDsOJo(this.mark.elapsedNow(), this.adjustment);
     }
 
-    /* renamed from: getAdjustment-UwyO8pc, reason: from getter */
-    public final long getAdjustment() {
+    public final double getAdjustment() {
         return this.adjustment;
     }
 
-    @k
+    @d
     public final TimeMark getMark() {
         return this.mark;
     }
 
     @Override // kotlin.time.TimeMark
-    public boolean hasNotPassedNow() {
-        return TimeMark.DefaultImpls.hasNotPassedNow(this);
-    }
-
-    @Override // kotlin.time.TimeMark
-    public boolean hasPassedNow() {
-        return TimeMark.DefaultImpls.hasPassedNow(this);
-    }
-
-    @Override // kotlin.time.TimeMark
-    @k
-    /* renamed from: minus-LRDsOJo */
-    public TimeMark mo1373minusLRDsOJo(long j10) {
-        return TimeMark.DefaultImpls.m1519minusLRDsOJo(this, j10);
-    }
-
-    @Override // kotlin.time.TimeMark
-    @k
+    @d
     /* renamed from: plus-LRDsOJo */
-    public TimeMark mo1375plusLRDsOJo(long duration) {
-        return new AdjustedTimeMark(this.mark, Duration.m1418plusLRDsOJo(this.adjustment, duration), null);
+    public TimeMark mo1045plusLRDsOJo(double duration) {
+        return new AdjustedTimeMark(this.mark, Duration.m1072plusLRDsOJo(this.adjustment, duration), null);
     }
 
-    private AdjustedTimeMark(TimeMark mark, long j10) {
-        Intrinsics.checkNotNullParameter(mark, "mark");
-        this.mark = mark;
-        this.adjustment = j10;
+    public /* synthetic */ AdjustedTimeMark(TimeMark timeMark, double d2, DefaultConstructorMarker defaultConstructorMarker) {
+        this(timeMark, d2);
     }
 }

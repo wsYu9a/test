@@ -13,13 +13,13 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import com.google.android.material.R;
 
-/* loaded from: classes2.dex */
-public class Slider extends BaseSlider<Slider, OnChangeListener, OnSliderTouchListener> {
+/* loaded from: classes.dex */
+public class Slider extends BaseSlider<Slider, a, b> {
 
-    public interface OnChangeListener extends BaseOnChangeListener<Slider> {
+    public interface a extends com.google.android.material.slider.a<Slider> {
     }
 
-    public interface OnSliderTouchListener extends BaseOnSliderTouchListener<Slider> {
+    public interface b extends com.google.android.material.slider.b<Slider> {
     }
 
     public Slider(@NonNull Context context) {
@@ -27,13 +27,17 @@ public class Slider extends BaseSlider<Slider, OnChangeListener, OnSliderTouchLi
     }
 
     @Override // com.google.android.material.slider.BaseSlider
-    public /* bridge */ /* synthetic */ void clearOnChangeListeners() {
-        super.clearOnChangeListeners();
+    public /* bridge */ /* synthetic */ boolean F() {
+        return super.F();
     }
 
     @Override // com.google.android.material.slider.BaseSlider
-    public /* bridge */ /* synthetic */ void clearOnSliderTouchListeners() {
-        super.clearOnSliderTouchListeners();
+    protected boolean S() {
+        if (getActiveThumbIndex() != -1) {
+            return true;
+        }
+        setActiveThumbIndex(0);
+        return true;
     }
 
     @Override // com.google.android.material.slider.BaseSlider, android.view.View
@@ -169,19 +173,14 @@ public class Slider extends BaseSlider<Slider, OnChangeListener, OnSliderTouchLi
         return super.getValueTo();
     }
 
-    @Override // com.google.android.material.slider.BaseSlider
-    public /* bridge */ /* synthetic */ boolean hasLabelFormatter() {
-        return super.hasLabelFormatter();
+    @Override // com.google.android.material.slider.BaseSlider, android.view.View, android.view.KeyEvent.Callback
+    public /* bridge */ /* synthetic */ boolean onKeyDown(int i2, @NonNull KeyEvent keyEvent) {
+        return super.onKeyDown(i2, keyEvent);
     }
 
     @Override // com.google.android.material.slider.BaseSlider, android.view.View, android.view.KeyEvent.Callback
-    public /* bridge */ /* synthetic */ boolean onKeyDown(int i10, @NonNull KeyEvent keyEvent) {
-        return super.onKeyDown(i10, keyEvent);
-    }
-
-    @Override // com.google.android.material.slider.BaseSlider, android.view.View, android.view.KeyEvent.Callback
-    public /* bridge */ /* synthetic */ boolean onKeyUp(int i10, @NonNull KeyEvent keyEvent) {
-        return super.onKeyUp(i10, keyEvent);
+    public /* bridge */ /* synthetic */ boolean onKeyUp(int i2, @NonNull KeyEvent keyEvent) {
+        return super.onKeyUp(i2, keyEvent);
     }
 
     @Override // com.google.android.material.slider.BaseSlider, android.view.View
@@ -190,32 +189,33 @@ public class Slider extends BaseSlider<Slider, OnChangeListener, OnSliderTouchLi
     }
 
     @Override // com.google.android.material.slider.BaseSlider
-    public boolean pickActiveThumb() {
-        if (getActiveThumbIndex() != -1) {
-            return true;
-        }
-        setActiveThumbIndex(0);
-        return true;
+    public /* bridge */ /* synthetic */ void p() {
+        super.p();
+    }
+
+    @Override // com.google.android.material.slider.BaseSlider
+    public /* bridge */ /* synthetic */ void q() {
+        super.q();
     }
 
     @Override // com.google.android.material.slider.BaseSlider, android.view.View
-    public /* bridge */ /* synthetic */ void setEnabled(boolean z10) {
-        super.setEnabled(z10);
+    public /* bridge */ /* synthetic */ void setEnabled(boolean z) {
+        super.setEnabled(z);
     }
 
     @Override // com.google.android.material.slider.BaseSlider
-    public /* bridge */ /* synthetic */ void setFocusedThumbIndex(int i10) {
-        super.setFocusedThumbIndex(i10);
+    public /* bridge */ /* synthetic */ void setFocusedThumbIndex(int i2) {
+        super.setFocusedThumbIndex(i2);
     }
 
     @Override // com.google.android.material.slider.BaseSlider
-    public /* bridge */ /* synthetic */ void setHaloRadius(@IntRange(from = 0) @Dimension int i10) {
-        super.setHaloRadius(i10);
+    public /* bridge */ /* synthetic */ void setHaloRadius(@IntRange(from = 0) @Dimension int i2) {
+        super.setHaloRadius(i2);
     }
 
     @Override // com.google.android.material.slider.BaseSlider
-    public /* bridge */ /* synthetic */ void setHaloRadiusResource(@DimenRes int i10) {
-        super.setHaloRadiusResource(i10);
+    public /* bridge */ /* synthetic */ void setHaloRadiusResource(@DimenRes int i2) {
+        super.setHaloRadiusResource(i2);
     }
 
     @Override // com.google.android.material.slider.BaseSlider
@@ -224,38 +224,38 @@ public class Slider extends BaseSlider<Slider, OnChangeListener, OnSliderTouchLi
     }
 
     @Override // com.google.android.material.slider.BaseSlider
-    public /* bridge */ /* synthetic */ void setLabelBehavior(int i10) {
-        super.setLabelBehavior(i10);
+    public /* bridge */ /* synthetic */ void setLabelBehavior(int i2) {
+        super.setLabelBehavior(i2);
     }
 
     @Override // com.google.android.material.slider.BaseSlider
-    public /* bridge */ /* synthetic */ void setLabelFormatter(@Nullable LabelFormatter labelFormatter) {
-        super.setLabelFormatter(labelFormatter);
+    public /* bridge */ /* synthetic */ void setLabelFormatter(@Nullable d dVar) {
+        super.setLabelFormatter(dVar);
     }
 
     @Override // com.google.android.material.slider.BaseSlider
-    public /* bridge */ /* synthetic */ void setStepSize(float f10) {
-        super.setStepSize(f10);
+    public /* bridge */ /* synthetic */ void setStepSize(float f2) {
+        super.setStepSize(f2);
     }
 
     @Override // com.google.android.material.slider.BaseSlider
-    public /* bridge */ /* synthetic */ void setThumbElevation(float f10) {
-        super.setThumbElevation(f10);
+    public /* bridge */ /* synthetic */ void setThumbElevation(float f2) {
+        super.setThumbElevation(f2);
     }
 
     @Override // com.google.android.material.slider.BaseSlider
-    public /* bridge */ /* synthetic */ void setThumbElevationResource(@DimenRes int i10) {
-        super.setThumbElevationResource(i10);
+    public /* bridge */ /* synthetic */ void setThumbElevationResource(@DimenRes int i2) {
+        super.setThumbElevationResource(i2);
     }
 
     @Override // com.google.android.material.slider.BaseSlider
-    public /* bridge */ /* synthetic */ void setThumbRadius(@IntRange(from = 0) @Dimension int i10) {
-        super.setThumbRadius(i10);
+    public /* bridge */ /* synthetic */ void setThumbRadius(@IntRange(from = 0) @Dimension int i2) {
+        super.setThumbRadius(i2);
     }
 
     @Override // com.google.android.material.slider.BaseSlider
-    public /* bridge */ /* synthetic */ void setThumbRadiusResource(@DimenRes int i10) {
-        super.setThumbRadiusResource(i10);
+    public /* bridge */ /* synthetic */ void setThumbRadiusResource(@DimenRes int i2) {
+        super.setThumbRadiusResource(i2);
     }
 
     @Override // com.google.android.material.slider.BaseSlider
@@ -284,8 +284,8 @@ public class Slider extends BaseSlider<Slider, OnChangeListener, OnSliderTouchLi
     }
 
     @Override // com.google.android.material.slider.BaseSlider
-    public /* bridge */ /* synthetic */ void setTrackHeight(@IntRange(from = 0) @Dimension int i10) {
-        super.setTrackHeight(i10);
+    public /* bridge */ /* synthetic */ void setTrackHeight(@IntRange(from = 0) @Dimension int i2) {
+        super.setTrackHeight(i2);
     }
 
     @Override // com.google.android.material.slider.BaseSlider
@@ -298,26 +298,26 @@ public class Slider extends BaseSlider<Slider, OnChangeListener, OnSliderTouchLi
         super.setTrackTintList(colorStateList);
     }
 
-    public void setValue(float f10) {
-        setValues(Float.valueOf(f10));
+    public void setValue(float f2) {
+        setValues(Float.valueOf(f2));
     }
 
     @Override // com.google.android.material.slider.BaseSlider
-    public /* bridge */ /* synthetic */ void setValueFrom(float f10) {
-        super.setValueFrom(f10);
+    public /* bridge */ /* synthetic */ void setValueFrom(float f2) {
+        super.setValueFrom(f2);
     }
 
     @Override // com.google.android.material.slider.BaseSlider
-    public /* bridge */ /* synthetic */ void setValueTo(float f10) {
-        super.setValueTo(f10);
+    public /* bridge */ /* synthetic */ void setValueTo(float f2) {
+        super.setValueTo(f2);
     }
 
     public Slider(@NonNull Context context, @Nullable AttributeSet attributeSet) {
         this(context, attributeSet, R.attr.sliderStyle);
     }
 
-    public Slider(@NonNull Context context, @Nullable AttributeSet attributeSet, int i10) {
-        super(context, attributeSet, i10);
+    public Slider(@NonNull Context context, @Nullable AttributeSet attributeSet, int i2) {
+        super(context, attributeSet, i2);
         TypedArray obtainStyledAttributes = context.obtainStyledAttributes(attributeSet, new int[]{android.R.attr.value});
         if (obtainStyledAttributes.hasValue(0)) {
             setValue(obtainStyledAttributes.getFloat(0, 0.0f));

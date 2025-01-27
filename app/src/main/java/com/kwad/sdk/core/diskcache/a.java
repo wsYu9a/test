@@ -2,13 +2,14 @@ package com.kwad.sdk.core.diskcache;
 
 import android.content.Context;
 import android.content.pm.PackageInfo;
+import android.content.pm.PackageManager;
 import androidx.annotation.NonNull;
-import com.kwad.sdk.core.d.c;
-import com.kwad.sdk.d;
-import com.kwad.sdk.utils.ao;
-import com.kwad.sdk.utils.bb;
-import com.kwad.sdk.utils.bd;
-import com.kwad.sdk.utils.h;
+import com.ksad.download.c;
+import com.ksad.download.d;
+import com.kwad.sdk.core.d.b;
+import com.kwad.sdk.utils.av;
+import com.kwad.sdk.utils.aw;
+import com.kwad.sdk.utils.g;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -17,31 +18,31 @@ import java.util.Comparator;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
-/* loaded from: classes3.dex */
+/* loaded from: classes2.dex */
 public class a {
 
     /* renamed from: com.kwad.sdk.core.diskcache.a$1 */
-    public class AnonymousClass1 extends bd {
-        final /* synthetic */ Context hB;
+    static class AnonymousClass1 extends aw {
+        final /* synthetic */ Context jN;
 
-        public AnonymousClass1(Context context) {
+        AnonymousClass1(Context context) {
             context = context;
         }
 
-        @Override // com.kwad.sdk.utils.bd
+        @Override // com.kwad.sdk.utils.aw
         public final void doTask() {
-            File de2;
-            d yW;
+            File cB;
+            d O;
             synchronized (a.class) {
                 try {
-                    de2 = bb.de(context);
-                } catch (Throwable th2) {
-                    c.printStackTrace(th2);
+                    cB = av.cB(context);
+                } catch (Throwable th) {
+                    b.printStackTrace(th);
                 }
-                if (de2.exists()) {
-                    for (File file : a.n(de2)) {
-                        if (file.getName().endsWith(".apk") && com.kwad.sdk.core.a.CA().de(file.getAbsolutePath()) != null && a.a(context, file) != null && (yW = com.kwad.sdk.c.yU().yW()) != null) {
-                            yW.g(file);
+                if (cB.exists()) {
+                    for (File file : a.i(cB)) {
+                        if (file.getName().endsWith(".apk") && com.kwad.sdk.core.a.tS().bu(file.getAbsolutePath()) != null && a.b(context, file) != null && (O = c.M().O()) != null) {
+                            O.b(file);
                         }
                     }
                 }
@@ -50,8 +51,11 @@ public class a {
     }
 
     /* renamed from: com.kwad.sdk.core.diskcache.a$2 */
-    public class AnonymousClass2 implements Comparator<File> {
-        private static int c(File file, File file2) {
+    static class AnonymousClass2 implements Comparator<File> {
+        AnonymousClass2() {
+        }
+
+        private static int a(File file, File file2) {
             if (file.lastModified() >= file2.lastModified()) {
                 return file.lastModified() == file2.lastModified() ? 0 : 1;
             }
@@ -60,49 +64,32 @@ public class a {
 
         @Override // java.util.Comparator
         public final /* synthetic */ int compare(File file, File file2) {
-            return c(file, file2);
+            return a(file, file2);
         }
     }
 
-    public static PackageInfo a(Context context, File file) {
-        if (file != null && file.exists()) {
-            try {
-                if (file.exists() & (!file.isDirectory())) {
-                    PackageInfo packageArchiveInfo = context.getPackageManager().getPackageArchiveInfo(file.getPath(), 65);
-                    if (ao.getPackageInfo(context, packageArchiveInfo.packageName, 1) != null) {
-                        return null;
-                    }
-                    return packageArchiveInfo;
-                }
-            } catch (Exception e10) {
-                c.printStackTrace(e10);
-            }
-        }
-        return null;
-    }
+    public static void aJ(Context context) {
+        g.schedule(new aw() { // from class: com.kwad.sdk.core.diskcache.a.1
+            final /* synthetic */ Context jN;
 
-    public static void bl(Context context) {
-        h.schedule(new bd() { // from class: com.kwad.sdk.core.diskcache.a.1
-            final /* synthetic */ Context hB;
-
-            public AnonymousClass1(Context context2) {
+            AnonymousClass1(Context context2) {
                 context = context2;
             }
 
-            @Override // com.kwad.sdk.utils.bd
+            @Override // com.kwad.sdk.utils.aw
             public final void doTask() {
-                File de2;
-                d yW;
+                File cB;
+                d O;
                 synchronized (a.class) {
                     try {
-                        de2 = bb.de(context);
-                    } catch (Throwable th2) {
-                        c.printStackTrace(th2);
+                        cB = av.cB(context);
+                    } catch (Throwable th) {
+                        b.printStackTrace(th);
                     }
-                    if (de2.exists()) {
-                        for (File file : a.n(de2)) {
-                            if (file.getName().endsWith(".apk") && com.kwad.sdk.core.a.CA().de(file.getAbsolutePath()) != null && a.a(context, file) != null && (yW = com.kwad.sdk.c.yU().yW()) != null) {
-                                yW.g(file);
+                    if (cB.exists()) {
+                        for (File file : a.i(cB)) {
+                            if (file.getName().endsWith(".apk") && com.kwad.sdk.core.a.tS().bu(file.getAbsolutePath()) != null && a.b(context, file) != null && (O = c.M().O()) != null) {
+                                O.b(file);
                             }
                         }
                     }
@@ -111,20 +98,41 @@ public class a {
         }, 10L, TimeUnit.SECONDS);
     }
 
-    public static List<File> n(@NonNull File file) {
+    public static PackageInfo b(Context context, File file) {
+        if (file != null && file.exists()) {
+            try {
+                if (file.exists() & (!file.isDirectory())) {
+                    PackageManager packageManager = context.getPackageManager();
+                    PackageInfo packageArchiveInfo = packageManager.getPackageArchiveInfo(file.getPath(), 65);
+                    if (packageManager.getPackageInfo(packageArchiveInfo.packageName, 1) != null) {
+                        return null;
+                    }
+                    return packageArchiveInfo;
+                }
+            } catch (Exception e2) {
+                b.printStackTrace(e2);
+            }
+        }
+        return null;
+    }
+
+    public static List<File> i(@NonNull File file) {
         ArrayList arrayList = new ArrayList();
         File[] listFiles = file.listFiles();
         if (listFiles == null) {
             return arrayList;
         }
         arrayList.addAll(Arrays.asList(listFiles));
-        v(arrayList);
+        m(arrayList);
         return arrayList;
     }
 
-    private static void v(List<File> list) {
+    private static void m(List<File> list) {
         Collections.sort(list, new Comparator<File>() { // from class: com.kwad.sdk.core.diskcache.a.2
-            private static int c(File file, File file2) {
+            AnonymousClass2() {
+            }
+
+            private static int a(File file, File file2) {
                 if (file.lastModified() >= file2.lastModified()) {
                     return file.lastModified() == file2.lastModified() ? 0 : 1;
                 }
@@ -133,7 +141,7 @@ public class a {
 
             @Override // java.util.Comparator
             public final /* synthetic */ int compare(File file, File file2) {
-                return c(file, file2);
+                return a(file, file2);
             }
         });
     }

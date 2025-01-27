@@ -3,6 +3,7 @@ package com.qq.e.ads.banner2;
 import android.app.Activity;
 import android.content.Context;
 import com.qq.e.ads.LiteAbstractAD;
+import com.qq.e.ads.cfg.DownAPPConfirmPolicy;
 import com.qq.e.ads.rewardvideo.ServerSideVerificationOptions;
 import com.qq.e.comm.constants.LoadAdParams;
 import com.qq.e.comm.listeners.ADRewardListener;
@@ -14,155 +15,167 @@ import com.qq.e.comm.pi.UBVI;
 import com.qq.e.comm.util.AdErrorConvertor;
 import java.util.concurrent.atomic.AtomicInteger;
 
-/* loaded from: classes3.dex */
+/* loaded from: classes4.dex */
 class UnifiedBannerAD extends LiteAbstractAD<UBVI> implements NFBI, IReward {
 
+    /* renamed from: g */
+    private UnifiedBannerADListener f23878g;
+
+    /* renamed from: h */
+    private DownAPPConfirmPolicy f23879h;
+
     /* renamed from: i */
-    private UnifiedBannerADListener f16386i;
+    private AtomicInteger f23880i;
 
     /* renamed from: j */
-    private AtomicInteger f16387j;
+    private int f23881j;
+    private LoadAdParams k;
+    private UnifiedBannerView l;
+    private final ADListenerAdapter m;
+    private volatile ServerSideVerificationOptions n;
 
-    /* renamed from: k */
-    private int f16388k;
-
-    /* renamed from: l */
-    private LoadAdParams f16389l;
-
-    /* renamed from: m */
-    private UnifiedBannerView f16390m;
-
-    /* renamed from: n */
-    private final ADListenerAdapter f16391n;
-
-    /* renamed from: o */
-    private volatile ServerSideVerificationOptions f16392o;
-
-    public UnifiedBannerAD(Activity activity, UnifiedBannerView unifiedBannerView, String str, UnifiedBannerADListener unifiedBannerADListener) {
+    UnifiedBannerAD(Activity activity, UnifiedBannerView unifiedBannerView, String str, UnifiedBannerADListener unifiedBannerADListener) {
         this(unifiedBannerView, unifiedBannerADListener);
         a(activity, str);
     }
 
-    @Override // com.qq.e.ads.AbstractAD
-    public Object a(Context context, POFactory pOFactory, String str, String str2, String str3) {
-        return pOFactory.getUnifiedBannerViewDelegate(this.f16390m, (Activity) context, str, str2, str3, this.f16391n);
+    UnifiedBannerAD(Activity activity, UnifiedBannerView unifiedBannerView, String str, String str2, UnifiedBannerADListener unifiedBannerADListener) {
+        this(unifiedBannerView, unifiedBannerADListener);
+        a(activity, str, str2);
+    }
+
+    private UnifiedBannerAD(UnifiedBannerView unifiedBannerView, UnifiedBannerADListener unifiedBannerADListener) {
+        this.f23880i = new AtomicInteger(0);
+        this.f23881j = 30;
+        this.k = null;
+        this.f23878g = unifiedBannerADListener;
+        this.l = unifiedBannerView;
+        this.m = new ADListenerAdapter(unifiedBannerADListener);
     }
 
     @Override // com.qq.e.ads.AbstractAD
-    public void b(int i10) {
-        UnifiedBannerADListener unifiedBannerADListener = this.f16386i;
+    protected Object a(Context context, POFactory pOFactory, String str, String str2, String str3) {
+        return pOFactory.getUnifiedBannerViewDelegate(this.l, (Activity) context, str, str2, str3, this.m);
+    }
+
+    void a(DownAPPConfirmPolicy downAPPConfirmPolicy) {
+        T t;
+        this.f23879h = downAPPConfirmPolicy;
+        if (downAPPConfirmPolicy == null || (t = this.f23859a) == 0) {
+            return;
+        }
+        ((UBVI) t).setDownAPPConfirmPolicy(downAPPConfirmPolicy);
+    }
+
+    @Override // com.qq.e.ads.AbstractAD
+    protected void b(int i2) {
+        UnifiedBannerADListener unifiedBannerADListener = this.f23878g;
         if (unifiedBannerADListener != null) {
-            unifiedBannerADListener.onNoAD(AdErrorConvertor.formatErrorCode(i10));
+            unifiedBannerADListener.onNoAD(AdErrorConvertor.formatErrorCode(i2));
         }
     }
 
-    public void c(int i10) {
-        this.f16388k = i10;
-        T t10 = this.f16367a;
-        if (t10 != 0) {
-            ((UBVI) t10).setRefresh(i10);
+    void c(int i2) {
+        this.f23881j = i2;
+        T t = this.f23859a;
+        if (t != 0) {
+            ((UBVI) t).setRefresh(i2);
         }
     }
 
-    public void destroy() {
-        T t10 = this.f16367a;
-        if (t10 != 0) {
-            ((UBVI) t10).destroy();
+    void destroy() {
+        T t = this.f23859a;
+        if (t != 0) {
+            ((UBVI) t).destroy();
         } else {
             a("destroy");
         }
     }
 
     public String getAdNetWorkName() {
-        T t10 = this.f16367a;
-        if (t10 != 0) {
-            return ((UBVI) t10).getAdNetWorkName();
+        T t = this.f23859a;
+        if (t != 0) {
+            return ((UBVI) t).getAdNetWorkName();
         }
         a("getAdNetWorkName");
         return null;
     }
 
-    public void loadAD() {
+    void loadAD() {
         if (a()) {
             if (!b()) {
-                this.f16387j.incrementAndGet();
+                this.f23880i.incrementAndGet();
                 return;
             }
-            T t10 = this.f16367a;
-            if (t10 != 0) {
-                ((UBVI) t10).fetchAd();
+            T t = this.f23859a;
+            if (t != 0) {
+                ((UBVI) t).fetchAd();
             } else {
                 a("loadAD");
             }
         }
     }
 
-    public void onWindowFocusChanged(boolean z10) {
-        T t10 = this.f16367a;
-        if (t10 != 0) {
-            ((UBVI) t10).onWindowFocusChanged(z10);
+    void onWindowFocusChanged(boolean z) {
+        T t = this.f23859a;
+        if (t != 0) {
+            ((UBVI) t).onWindowFocusChanged(z);
         }
     }
 
-    public void setLoadAdParams(LoadAdParams loadAdParams) {
-        this.f16389l = loadAdParams;
-        T t10 = this.f16367a;
-        if (t10 != 0) {
-            ((UBVI) t10).setLoadAdParams(loadAdParams);
+    void setLoadAdParams(LoadAdParams loadAdParams) {
+        this.k = loadAdParams;
+        T t = this.f23859a;
+        if (t != 0) {
+            ((UBVI) t).setLoadAdParams(loadAdParams);
         }
     }
 
     @Override // com.qq.e.comm.pi.NFBI
     public void setNegativeFeedbackListener(NegativeFeedbackListener negativeFeedbackListener) {
-        this.f16391n.setNegativeFeedbackListener(negativeFeedbackListener);
+        this.m.setNegativeFeedbackListener(negativeFeedbackListener);
     }
 
     @Override // com.qq.e.comm.pi.IReward
     public void setRewardListener(ADRewardListener aDRewardListener) {
-        this.f16391n.setAdRewardListener(aDRewardListener);
+        this.m.setAdRewardListener(aDRewardListener);
     }
 
     @Override // com.qq.e.comm.pi.IReward
     public void setServerSideVerificationOptions(ServerSideVerificationOptions serverSideVerificationOptions) {
-        this.f16392o = serverSideVerificationOptions;
-        T t10 = this.f16367a;
-        if (t10 != 0) {
-            ((UBVI) t10).setServerSideVerificationOptions(serverSideVerificationOptions);
+        this.n = serverSideVerificationOptions;
+        T t = this.f23859a;
+        if (t != 0) {
+            ((UBVI) t).setServerSideVerificationOptions(serverSideVerificationOptions);
         }
-    }
-
-    public UnifiedBannerAD(Activity activity, UnifiedBannerView unifiedBannerView, String str, String str2, UnifiedBannerADListener unifiedBannerADListener) {
-        this(unifiedBannerView, unifiedBannerADListener);
-        a(activity, str, str2);
     }
 
     @Override // com.qq.e.ads.AbstractAD
-    public void a(Object obj) {
+    protected void a(Object obj) {
         UBVI ubvi = (UBVI) obj;
-        int i10 = this.f16388k;
-        this.f16388k = i10;
-        T t10 = this.f16367a;
-        if (t10 != 0) {
-            ((UBVI) t10).setRefresh(i10);
+        DownAPPConfirmPolicy downAPPConfirmPolicy = this.f23879h;
+        if (downAPPConfirmPolicy != null) {
+            this.f23879h = downAPPConfirmPolicy;
+            T t = this.f23859a;
+            if (t != 0) {
+                ((UBVI) t).setDownAPPConfirmPolicy(downAPPConfirmPolicy);
+            }
         }
-        LoadAdParams loadAdParams = this.f16389l;
-        this.f16389l = loadAdParams;
-        T t11 = this.f16367a;
-        if (t11 != 0) {
-            ((UBVI) t11).setLoadAdParams(loadAdParams);
+        int i2 = this.f23881j;
+        this.f23881j = i2;
+        T t2 = this.f23859a;
+        if (t2 != 0) {
+            ((UBVI) t2).setRefresh(i2);
         }
-        ubvi.setServerSideVerificationOptions(this.f16392o);
-        while (this.f16387j.getAndDecrement() > 0) {
+        LoadAdParams loadAdParams = this.k;
+        this.k = loadAdParams;
+        T t3 = this.f23859a;
+        if (t3 != 0) {
+            ((UBVI) t3).setLoadAdParams(loadAdParams);
+        }
+        ubvi.setServerSideVerificationOptions(this.n);
+        while (this.f23880i.getAndDecrement() > 0) {
             loadAD();
         }
-    }
-
-    private UnifiedBannerAD(UnifiedBannerView unifiedBannerView, UnifiedBannerADListener unifiedBannerADListener) {
-        this.f16387j = new AtomicInteger(0);
-        this.f16388k = 30;
-        this.f16389l = null;
-        this.f16386i = unifiedBannerADListener;
-        this.f16390m = unifiedBannerView;
-        this.f16391n = new ADListenerAdapter(unifiedBannerADListener);
     }
 }

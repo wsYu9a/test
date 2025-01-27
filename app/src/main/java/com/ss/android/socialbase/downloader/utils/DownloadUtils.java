@@ -15,8 +15,9 @@ import android.os.StatFs;
 import android.text.TextUtils;
 import android.util.Log;
 import android.util.SparseArray;
-import com.bytedance.sdk.openadsdk.TTAdConstant;
+import com.baidu.mobads.sdk.internal.bu;
 import com.bytedance.sdk.openadsdk.downloadnew.core.TTDownloadField;
+import com.ss.android.j.i;
 import com.ss.android.socialbase.downloader.constants.DownloadConstants;
 import com.ss.android.socialbase.downloader.constants.DownloadErrorCode;
 import com.ss.android.socialbase.downloader.constants.ListenerType;
@@ -69,8 +70,9 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import javax.net.ssl.SSLException;
 import javax.net.ssl.SSLHandshakeException;
-import m5.c;
 import okhttp3.internal.http2.StreamResetException;
+import org.apache.http.HttpHeaders;
+import org.apache.http.protocol.HTTP;
 import org.json.JSONObject;
 
 /* loaded from: classes4.dex */
@@ -117,10 +119,10 @@ public class DownloadUtils {
             }
         }
         if (!TextUtils.isEmpty(str)) {
-            arrayList.add(new HttpHeader("If-Match", str));
+            arrayList.add(new HttpHeader(HttpHeaders.IF_MATCH, str));
         }
-        arrayList.add(new HttpHeader(c.f28316j, "identity"));
-        arrayList.add(new HttpHeader("Range", "bytes=0-0"));
+        arrayList.add(new HttpHeader(HttpHeaders.ACCEPT_ENCODING, HTTP.IDENTITY_CODING));
+        arrayList.add(new HttpHeader(HttpHeaders.RANGE, "bytes=0-0"));
         return arrayList;
     }
 
@@ -142,32 +144,34 @@ public class DownloadUtils {
         }
     }
 
-    public static double byteToMb(long j10) {
-        return j10 / 1048576.0d;
+    public static double byteToMb(long j2) {
+        double d2 = j2;
+        Double.isNaN(d2);
+        return d2 / 1048576.0d;
     }
 
     public static boolean cacheExpired(DownloadInfo downloadInfo) {
-        boolean z10 = false;
+        boolean z = false;
         if (downloadInfo.isDeleteCacheIfCheckFailed() || !TextUtils.isEmpty(downloadInfo.getLastModified())) {
             Logger.d(TAG, "dcache::curt=" + System.currentTimeMillis() + " expired=" + downloadInfo.getCacheExpiredTime());
             if (System.currentTimeMillis() > downloadInfo.getCacheExpiredTime()) {
-                z10 = true;
+                z = true;
             }
         } else {
             Logger.d(TAG, "dcache::last modify is emtpy, so just return cache");
         }
-        Logger.d(TAG, "cacheExpired::dcache::name=" + downloadInfo.getName() + " expired=" + z10);
-        return z10;
+        Logger.d(TAG, "cacheExpired::dcache::name=" + downloadInfo.getName() + " expired=" + z);
+        return z;
     }
 
-    public static boolean canAcceptPartial(int i10, String str) {
+    public static boolean canAcceptPartial(int i2, String str) {
         if (DownloadExpSwitchCode.isSwitchEnable(16777216)) {
-            return i10 == 206 || i10 == 1;
+            return i2 == 206 || i2 == 1;
         }
-        if (i10 >= 400) {
+        if (i2 >= 400) {
             return false;
         }
-        return i10 == 206 || i10 == 1 || "bytes".equals(str);
+        return i2 == 206 || i2 == 1 || "bytes".equals(str);
     }
 
     public static boolean canChunkDowngradeRetry(BaseException baseException, DownloadInfo downloadInfo) {
@@ -182,7 +186,7 @@ public class DownloadUtils {
     }
 
     public static int checkMd5Status(String str, String str2, String str3) {
-        return com.ss.android.a.c.a(str3, new File(str, str2));
+        return i.j(str3, new File(str, str2));
     }
 
     public static boolean checkMd5Valid(String str, String str2, String str3) {
@@ -219,12 +223,12 @@ public class DownloadUtils {
         }
     }
 
-    public static ListenerType convertListenerType(int i10) {
+    public static ListenerType convertListenerType(int i2) {
         ListenerType listenerType = ListenerType.MAIN;
         ListenerType listenerType2 = ListenerType.SUB;
-        if (i10 != listenerType2.ordinal()) {
+        if (i2 != listenerType2.ordinal()) {
             listenerType2 = ListenerType.NOTIFICATION;
-            if (i10 != listenerType2.ordinal()) {
+            if (i2 != listenerType2.ordinal()) {
                 return listenerType;
             }
         }
@@ -250,64 +254,61 @@ public class DownloadUtils {
         }
     }
 
-    public static long cost(long j10) {
-        return System.currentTimeMillis() - j10;
+    public static long cost(long j2) {
+        return System.currentTimeMillis() - j2;
     }
 
-    public static RandomAccessOutputStream createOutputStream(DownloadInfo downloadInfo, String str, String str2, int i10) throws BaseException {
-        boolean z10 = false;
+    public static RandomAccessOutputStream createOutputStream(DownloadInfo downloadInfo, String str, String str2, int i2) throws BaseException {
         if (TextUtils.isEmpty(str) || TextUtils.isEmpty(str2)) {
             throw new BaseException(1021, new IOException("path must be not empty"));
         }
         File file = new File(str, str2);
+        boolean z = false;
         if (file.exists() && file.isDirectory()) {
             throw new BaseException(DownloadErrorCode.ERROR_TEMP_FILE_IS_DIRECTORY, new IOException(String.format("path is :%s, path is directory:%B:", str, Boolean.valueOf(file.isDirectory()))));
         }
         if (!file.exists()) {
             try {
                 File file2 = new File(str);
-                if (file2.exists()) {
-                    if (!file2.isDirectory()) {
-                    }
-                    file.createNewFile();
-                }
-                if (file2.exists()) {
-                    file2.delete();
-                    if (file2.mkdirs() || file2.exists()) {
-                        throw new BaseException(DownloadErrorCode.ERROR_SAVE_PATH_NOT_DIRECTORY, "download savePath is not directory:" + str);
-                    }
-                    throw new BaseException(DownloadErrorCode.ERROR_SAVE_PATH_NOT_DIRECTORY, "download savePath is not directory:path=" + str);
-                }
-                if (!file2.mkdirs() && !file2.exists()) {
-                    if (DownloadSetting.obtain(downloadInfo).optInt(DownloadSettingKeys.OPT_MKDIR_FAILED, 0) != 1) {
-                        throw new BaseException(DownloadErrorCode.ERROR_SAVE_PATH_CREATE_FAILED, "download savePath directory can not created:" + str);
-                    }
-                    int i11 = 0;
-                    while (!z10) {
-                        int i12 = i11 + 1;
-                        if (i11 >= 3) {
-                            break;
+                if (!file2.exists() || !file2.isDirectory()) {
+                    if (file2.exists()) {
+                        file2.delete();
+                        if (file2.mkdirs() || file2.exists()) {
+                            throw new BaseException(DownloadErrorCode.ERROR_SAVE_PATH_NOT_DIRECTORY, "download savePath is not directory:" + str);
                         }
-                        try {
-                            Thread.sleep(10L);
-                            z10 = file2.mkdirs();
-                            i11 = i12;
-                        } catch (InterruptedException unused) {
-                        }
+                        throw new BaseException(DownloadErrorCode.ERROR_SAVE_PATH_NOT_DIRECTORY, "download savePath is not directory:path=" + str);
                     }
-                    if (!z10) {
-                        if (getAvailableSpaceBytes(downloadInfo.getSavePath()) < 16384) {
-                            throw new BaseException(1006, "download savePath directory can not created:" + str);
+                    if (!file2.mkdirs() && !file2.exists()) {
+                        if (DownloadSetting.obtain(downloadInfo).optInt(DownloadSettingKeys.OPT_MKDIR_FAILED, 0) != 1) {
+                            throw new BaseException(DownloadErrorCode.ERROR_SAVE_PATH_CREATE_FAILED, "download savePath directory can not created:" + str);
                         }
-                        throw new BaseException(DownloadErrorCode.ERROR_SAVE_PATH_CREATE_FAILED, "download savePath directory can not created:" + str);
+                        int i3 = 0;
+                        while (!z) {
+                            int i4 = i3 + 1;
+                            if (i3 >= 3) {
+                                break;
+                            }
+                            try {
+                                Thread.sleep(10L);
+                                z = file2.mkdirs();
+                                i3 = i4;
+                            } catch (InterruptedException unused) {
+                            }
+                        }
+                        if (!z) {
+                            if (getAvailableSpaceBytes(downloadInfo.getSavePath()) < 16384) {
+                                throw new BaseException(1006, "download savePath directory can not created:" + str);
+                            }
+                            throw new BaseException(DownloadErrorCode.ERROR_SAVE_PATH_CREATE_FAILED, "download savePath directory can not created:" + str);
+                        }
                     }
                 }
                 file.createNewFile();
-            } catch (IOException e10) {
-                throw new BaseException(DownloadErrorCode.ERROR_TEMP_FILE_CREATE_FAILED, e10);
+            } catch (IOException e2) {
+                throw new BaseException(DownloadErrorCode.ERROR_TEMP_FILE_CREATE_FAILED, e2);
             }
         }
-        return new RandomAccessOutputStream(file, i10);
+        return new RandomAccessOutputStream(file, i2);
     }
 
     public static void deleteAllDownloadFiles(DownloadInfo downloadInfo) {
@@ -342,7 +343,7 @@ public class DownloadUtils {
     }
 
     @TargetApi(19)
-    private static void doCopyFile(File file, File file2, boolean z10) throws IOException {
+    private static void doCopyFile(File file, File file2, boolean z) throws IOException {
         if (file2.exists() && file2.isDirectory()) {
             throw new IOException("Destination '" + file2 + "' exists but is a directory");
         }
@@ -355,14 +356,14 @@ public class DownloadUtils {
                     FileChannel channel2 = fileOutputStream.getChannel();
                     try {
                         long size = channel.size();
-                        long j10 = 0;
-                        while (j10 < size) {
-                            long j11 = size - j10;
-                            long transferFrom = channel2.transferFrom(channel, j10, j11 > 31457280 ? 31457280L : j11);
+                        long j2 = 0;
+                        while (j2 < size) {
+                            long j3 = size - j2;
+                            long transferFrom = channel2.transferFrom(channel, j2, j3 > FILE_COPY_BUFFER_SIZE ? 31457280L : j3);
                             if (transferFrom == 0) {
                                 break;
                             } else {
-                                j10 += transferFrom;
+                                j2 += transferFrom;
                             }
                         }
                         if (channel2 != null) {
@@ -374,7 +375,7 @@ public class DownloadUtils {
                         long length = file.length();
                         long length2 = file2.length();
                         if (length == length2) {
-                            if (z10) {
+                            if (z) {
                                 file2.setLastModified(file.lastModified());
                                 return;
                             }
@@ -387,7 +388,16 @@ public class DownloadUtils {
                 }
             } finally {
             }
-        } finally {
+        } catch (Throwable th) {
+            try {
+                throw th;
+            } catch (Throwable th2) {
+                try {
+                    fileInputStream.close();
+                } catch (Throwable unused) {
+                }
+                throw th2;
+            }
         }
     }
 
@@ -408,19 +418,23 @@ public class DownloadUtils {
 
     public static long getAvailableSpaceBytes(String str) throws BaseException {
         try {
-            return new StatFs(str).getAvailableBytes();
-        } catch (IllegalArgumentException e10) {
-            throw new BaseException(DownloadErrorCode.ERROR_NO_SDCARD_PERMISSION, e10);
-        } catch (Throwable th2) {
-            throw new BaseException(DownloadErrorCode.ERROR_GET_AVAILABLE_SPACE, th2);
+            StatFs statFs = new StatFs(str);
+            if (Build.VERSION.SDK_INT >= 18) {
+                return statFs.getAvailableBytes();
+            }
+            return statFs.getAvailableBlocks() * statFs.getBlockSize();
+        } catch (IllegalArgumentException e2) {
+            throw new BaseException(DownloadErrorCode.ERROR_NO_SDCARD_PERMISSION, e2);
+        } catch (Throwable th) {
+            throw new BaseException(DownloadErrorCode.ERROR_GET_AVAILABLE_SPACE, th);
         }
     }
 
-    public static boolean getBoolean(Object obj, boolean z10) {
+    public static boolean getBoolean(Object obj, boolean z) {
         try {
             return ((Boolean) obj).booleanValue();
         } catch (ClassCastException unused) {
-            return z10;
+            return z;
         }
     }
 
@@ -455,11 +469,11 @@ public class DownloadUtils {
         }
         List<DownloadChunk> downloadChunk = DownloadComponentManager.getDownloadCache().getDownloadChunk(downloadInfo.getId());
         int chunkCount = downloadInfo.getChunkCount();
-        boolean z10 = chunkCount > 1;
+        boolean z = chunkCount > 1;
         if (!downloadInfo.isBreakpointAvailable()) {
             return 0L;
         }
-        if (!z10) {
+        if (!z) {
             return downloadInfo.getCurBytes();
         }
         if (downloadChunk == null || chunkCount != downloadChunk.size()) {
@@ -510,23 +524,23 @@ public class DownloadUtils {
                     }
                 }
             }
-        } catch (Exception e10) {
-            e10.printStackTrace();
+        } catch (Exception e2) {
+            e2.printStackTrace();
         }
         return null;
     }
 
     private static String getCurProcessNameByActivityThread() {
         String str;
-        Throwable th2;
+        Throwable th;
         Object invoke;
         try {
             Method declaredMethod = Class.forName("android.app.ActivityThread", false, Application.class.getClassLoader()).getDeclaredMethod("currentProcessName", new Class[0]);
             declaredMethod.setAccessible(true);
-            invoke = declaredMethod.invoke(null, null);
-        } catch (Throwable th3) {
+            invoke = declaredMethod.invoke(null, new Object[0]);
+        } catch (Throwable th2) {
             str = null;
-            th2 = th3;
+            th = th2;
         }
         if (!(invoke instanceof String)) {
             return null;
@@ -536,27 +550,26 @@ public class DownloadUtils {
             if (!TextUtils.isEmpty(str) && Logger.debug()) {
                 Logger.d("Process", "processName = " + str);
             }
-        } catch (Throwable th4) {
-            th2 = th4;
-            th2.printStackTrace();
+        } catch (Throwable th3) {
+            th = th3;
+            th.printStackTrace();
             return str;
         }
         return str;
     }
 
     private static String getCurProcessNameByApplication() {
-        String processName;
         if (Build.VERSION.SDK_INT < 28) {
             return null;
         }
         try {
-            processName = Application.getProcessName();
+            String processName = Application.getProcessName();
             if (!TextUtils.isEmpty(processName) && Logger.debug()) {
                 Logger.d("Process", "processName = " + processName);
             }
             return processName;
-        } catch (Exception e10) {
-            e10.printStackTrace();
+        } catch (Exception e2) {
+            e2.printStackTrace();
             return null;
         }
     }
@@ -566,20 +579,20 @@ public class DownloadUtils {
         try {
             bufferedReader = new BufferedReader(new InputStreamReader(new FileInputStream("/proc/" + Process.myPid() + "/cmdline"), "iso-8859-1"));
             try {
-                StringBuilder sb2 = new StringBuilder();
+                StringBuilder sb = new StringBuilder();
                 while (true) {
                     int read = bufferedReader.read();
                     if (read <= 0) {
                         break;
                     }
-                    sb2.append((char) read);
+                    sb.append((char) read);
                 }
                 if (Logger.debug()) {
-                    Logger.d("Process", "get processName = " + sb2.toString());
+                    Logger.d("Process", "get processName = " + sb.toString());
                 }
-                String sb3 = sb2.toString();
+                String sb2 = sb.toString();
                 safeClose(bufferedReader);
-                return sb3;
+                return sb2;
             } catch (Throwable unused) {
                 safeClose(bufferedReader);
                 return null;
@@ -589,13 +602,13 @@ public class DownloadUtils {
         }
     }
 
-    public static File getDatabaseFile(Context context, boolean z10, String str) {
+    public static File getDatabaseFile(Context context, boolean z, String str) {
         String str2 = "";
         try {
             str2 = Environment.getExternalStorageState();
         } catch (IncompatibleClassChangeError | NullPointerException unused) {
         }
-        File externalDBFile = (z10 && "mounted".equals(str2) && hasExternalStoragePermission(context)) ? getExternalDBFile(str) : null;
+        File externalDBFile = (z && "mounted".equals(str2) && hasExternalStoragePermission(context)) ? getExternalDBFile(str) : null;
         if (externalDBFile == null) {
             externalDBFile = context.getDatabasePath(str);
         }
@@ -614,24 +627,24 @@ public class DownloadUtils {
     }
 
     public static String getEncodedStr(String str) {
-        StringBuilder sb2 = new StringBuilder();
+        StringBuilder sb = new StringBuilder();
         int length = str.length();
-        for (int i10 = 0; i10 < length; i10++) {
-            char charAt = str.charAt(i10);
+        for (int i2 = 0; i2 < length; i2++) {
+            char charAt = str.charAt(i2);
             if (charAt <= 31 || charAt >= 127) {
-                sb2.append(String.format("\\u%04x", Integer.valueOf(charAt)));
+                sb.append(String.format("\\u%04x", Integer.valueOf(charAt)));
             } else {
-                sb2.append(charAt);
+                sb.append(charAt);
             }
         }
-        return sb2.toString();
+        return sb.toString();
     }
 
-    public static String getErrorMsgWithTagPrefix(Throwable th2, String str) {
+    public static String getErrorMsgWithTagPrefix(Throwable th, String str) {
         if (str == null) {
-            return getThrowableMsg(th2);
+            return getThrowableMsg(th);
         }
-        return str + "-" + getThrowableMsg(th2);
+        return str + "-" + getThrowableMsg(th);
     }
 
     private static File getExternalDBFile(String str) {
@@ -653,14 +666,14 @@ public class DownloadUtils {
                 }
                 Logger.d(TAG, "download db path:" + externalFilesDir.getAbsolutePath());
                 return externalFilesDir;
-            } catch (Exception e10) {
-                e = e10;
+            } catch (Exception e2) {
+                e = e2;
                 file = externalFilesDir;
                 e.printStackTrace();
                 return file;
             }
-        } catch (Exception e11) {
-            e = e11;
+        } catch (Exception e3) {
+            e = e3;
         }
     }
 
@@ -686,15 +699,15 @@ public class DownloadUtils {
         if (list == null || list.isEmpty()) {
             return -1L;
         }
-        long j10 = -1;
+        long j2 = -1;
         for (DownloadChunk downloadChunk : list) {
             if (downloadChunk != null && (downloadChunk.getCurrentOffset() <= downloadChunk.getEndOffset() || downloadChunk.getEndOffset() == 0)) {
-                if (j10 == -1 || j10 > downloadChunk.getCurrentOffset()) {
-                    j10 = downloadChunk.getCurrentOffset();
+                if (j2 == -1 || j2 > downloadChunk.getCurrentOffset()) {
+                    j2 = downloadChunk.getCurrentOffset();
                 }
             }
         }
-        return j10;
+        return j2;
     }
 
     public static long getFirstOffset(DownloadInfo downloadInfo) {
@@ -705,24 +718,25 @@ public class DownloadUtils {
         if (downloadInfo.getChunkCount() == 1) {
             return downloadInfo.getCurBytes();
         }
-        if (downloadChunk != null && downloadChunk.size() > 1) {
-            long firstChunkCurOffset = getFirstChunkCurOffset(downloadChunk);
-            if (firstChunkCurOffset >= 0) {
-                return firstChunkCurOffset;
-            }
+        if (downloadChunk == null || downloadChunk.size() <= 1) {
+            return 0L;
+        }
+        long firstChunkCurOffset = getFirstChunkCurOffset(downloadChunk);
+        if (firstChunkCurOffset >= 0) {
+            return firstChunkCurOffset;
         }
         return 0L;
     }
 
-    public static String getFixLengthString(String str, int i10) {
-        return i10 == 0 ? "" : (TextUtils.isEmpty(str) || str.length() <= i10) ? str : str.substring(0, i10);
+    public static String getFixLengthString(String str, int i2) {
+        return i2 == 0 ? "" : (TextUtils.isEmpty(str) || str.length() <= i2) ? str : str.substring(0, i2);
     }
 
-    public static int getInt(Object obj, int i10) {
+    public static int getInt(Object obj, int i2) {
         try {
             return ((Integer) obj).intValue();
         } catch (ClassCastException unused) {
-            return i10;
+            return i2;
         }
     }
 
@@ -734,12 +748,12 @@ public class DownloadUtils {
         return 2147483648L;
     }
 
-    public static String getMd5StatusMsg(int i10) {
-        String str = "ttmd5 check code = " + i10 + ", ";
-        if (i10 == 99) {
+    public static String getMd5StatusMsg(int i2) {
+        String str = "ttmd5 check code = " + i2 + ", ";
+        if (i2 == 99) {
             return str + "unknown error";
         }
-        switch (i10) {
+        switch (i2) {
             case 0:
                 return str + "md5 match";
             case 1:
@@ -761,6 +775,7 @@ public class DownloadUtils {
 
     public static String getRedirectSavePath(String str, DownloadSetting downloadSetting) {
         JSONObject optJSONObject;
+        String format;
         if (downloadSetting == null || (optJSONObject = downloadSetting.optJSONObject(DownloadSettingKeys.KEY_ANTI_HIJACK_DIR)) == null) {
             return "";
         }
@@ -773,12 +788,13 @@ public class DownloadUtils {
         }
         if (optString.contains("%s")) {
             try {
-                optString = String.format(optString, str);
+                format = String.format(optString, str);
             } catch (Throwable unused) {
             }
         } else {
-            optString = optString + str;
+            format = optString + str;
         }
+        optString = format;
         return optString.length() > 255 ? optString.substring(optString.length() - 255) : optString;
     }
 
@@ -836,118 +852,69 @@ public class DownloadUtils {
         return !TextUtils.isEmpty(str2) ? str2 : str;
     }
 
-    public static String getThrowableMsg(Throwable th2) {
-        if (th2 == null) {
+    public static String getThrowableMsg(Throwable th) {
+        if (th == null) {
             return "";
         }
         try {
-            return th2.toString();
-        } catch (Throwable th3) {
-            th3.printStackTrace();
+            return th.toString();
+        } catch (Throwable th2) {
+            th2.printStackTrace();
             return "throwable getMsg error";
         }
     }
 
     public static long getTotalOffset(List<DownloadChunk> list) {
         Iterator<DownloadChunk> it = list.iterator();
-        long j10 = 0;
+        long j2 = 0;
         while (it.hasNext()) {
-            j10 += it.next().getDownloadChunkBytes();
+            j2 += it.next().getDownloadChunkBytes();
         }
-        return j10;
+        return j2;
     }
 
-    /* JADX WARN: Code restructure failed: missing block: B:10:0x0021, code lost:
-    
-        if (r1 != false) goto L65;
-     */
-    /* JADX WARN: Code restructure failed: missing block: B:11:0x0025, code lost:
-    
-        r3 = r0.getExternalFilesDir(android.os.Environment.DIRECTORY_DOWNLOADS);
-     */
-    /* JADX WARN: Code restructure failed: missing block: B:12:0x002f, code lost:
-    
-        if (isValidDirectory(r3) == false) goto L79;
-     */
-    /* JADX WARN: Code restructure failed: missing block: B:14:0x0035, code lost:
-    
-        return r3.getAbsolutePath();
-     */
-    /* JADX WARN: Code restructure failed: missing block: B:17:0x0023, code lost:
-    
-        if (r3 > 29) goto L66;
-     */
-    /*
-        Code decompiled incorrectly, please refer to instructions dump.
-        To view partially-correct code enable 'Show inconsistent code' option in preferences
-    */
-    private static java.lang.String getValidDownloadPath(java.io.File r3, boolean r4) {
-        /*
-            android.content.Context r0 = com.ss.android.socialbase.downloader.downloader.DownloadComponentManager.getAppContext()
-            boolean r1 = isValidDirectory(r3)
-            if (r1 == 0) goto Lf
-            java.lang.String r3 = r3.getAbsolutePath()
-            return r3
-        Lf:
-            android.content.pm.ApplicationInfo r3 = r0.getApplicationInfo()
-            int r3 = r3.targetSdkVersion
-            int r1 = android.os.Build.VERSION.SDK_INT
-            r2 = 29
-            if (r1 < r2) goto L36
-            if (r3 != r2) goto L23
-            boolean r1 = y3.a.a()
-            if (r1 == 0) goto L25
-        L23:
-            if (r3 <= r2) goto L36
-        L25:
-            java.lang.String r3 = android.os.Environment.DIRECTORY_DOWNLOADS
-            java.io.File r3 = r0.getExternalFilesDir(r3)
-            boolean r4 = isValidDirectory(r3)
-            if (r4 == 0) goto L58
-            java.lang.String r3 = r3.getAbsolutePath()
-            return r3
-        L36:
-            if (r4 == 0) goto L47
-            java.io.File r3 = getExternalDownloadPath()
-            boolean r4 = isValidDirectory(r3)
-            if (r4 == 0) goto L47
-            java.lang.String r3 = r3.getAbsolutePath()
-            return r3
-        L47:
-            java.lang.String r3 = android.os.Environment.DIRECTORY_DOWNLOADS
-            java.io.File r3 = r0.getExternalFilesDir(r3)
-            boolean r4 = isValidDirectory(r3)
-            if (r4 == 0) goto L58
-            java.lang.String r3 = r3.getAbsolutePath()
-            return r3
-        L58:
-            java.io.File r3 = r0.getFilesDir()
-            java.lang.String r3 = r3.getAbsolutePath()
-            return r3
-        */
-        throw new UnsupportedOperationException("Method not decompiled: com.ss.android.socialbase.downloader.utils.DownloadUtils.getValidDownloadPath(java.io.File, boolean):java.lang.String");
+    private static String getValidDownloadPath(File file, boolean z) {
+        Context appContext = DownloadComponentManager.getAppContext();
+        if (isValidDirectory(file)) {
+            return file.getAbsolutePath();
+        }
+        int i2 = appContext.getApplicationInfo().targetSdkVersion;
+        if (Build.VERSION.SDK_INT < 29 || ((i2 != 29 || Environment.isExternalStorageLegacy()) && i2 <= 29)) {
+            if (z) {
+                File externalDownloadPath = getExternalDownloadPath();
+                if (isValidDirectory(externalDownloadPath)) {
+                    return externalDownloadPath.getAbsolutePath();
+                }
+            }
+            File externalFilesDir = appContext.getExternalFilesDir(Environment.DIRECTORY_DOWNLOADS);
+            if (isValidDirectory(externalFilesDir)) {
+                return externalFilesDir.getAbsolutePath();
+            }
+        } else {
+            File externalFilesDir2 = appContext.getExternalFilesDir(Environment.DIRECTORY_DOWNLOADS);
+            if (isValidDirectory(externalFilesDir2)) {
+                return externalFilesDir2.getAbsolutePath();
+            }
+        }
+        return appContext.getFilesDir().getAbsolutePath();
     }
 
-    private static void handleTempSaveCallback(int i10, boolean z10, BaseException baseException) {
+    private static void handleTempSaveCallback(int i2, boolean z, BaseException baseException) {
         synchronized (saveTempFileStatusMap) {
-            try {
-                List<ITempFileSaveCompleteCallback> list = saveTempFileListeners.get(i10);
-                if (list != null) {
-                    for (ITempFileSaveCompleteCallback iTempFileSaveCompleteCallback : list) {
-                        if (iTempFileSaveCompleteCallback != null) {
-                            if (z10) {
-                                iTempFileSaveCompleteCallback.onSuccess();
-                            } else {
-                                iTempFileSaveCompleteCallback.onFailed(baseException);
-                            }
+            List<ITempFileSaveCompleteCallback> list = saveTempFileListeners.get(i2);
+            if (list != null) {
+                for (ITempFileSaveCompleteCallback iTempFileSaveCompleteCallback : list) {
+                    if (iTempFileSaveCompleteCallback != null) {
+                        if (z) {
+                            iTempFileSaveCompleteCallback.onSuccess();
+                        } else {
+                            iTempFileSaveCompleteCallback.onFailed(baseException);
                         }
                     }
                 }
-                Logger.d(TAG, "handleTempSaveCallback id:" + i10);
-                saveTempFileStatusMap.remove(i10);
-            } catch (Throwable th2) {
-                throw th2;
             }
+            Logger.d(TAG, "handleTempSaveCallback id:" + i2);
+            saveTempFileStatusMap.remove(i2);
         }
     }
 
@@ -973,36 +940,43 @@ public class DownloadUtils {
         }
         int length = str.length() / 2;
         byte[] bArr = new byte[length];
-        for (int i10 = 0; i10 < length; i10++) {
-            int i11 = i10 * 2;
+        for (int i2 = 0; i2 < length; i2++) {
+            int i3 = i2 * 2;
             try {
-                bArr[i10] = (byte) (Integer.parseInt(str.substring(i11, i11 + 2), 16) & 255);
-            } catch (Exception e10) {
-                e10.printStackTrace();
+                bArr[i2] = (byte) (Integer.parseInt(str.substring(i3, i3 + 2), 16) & 255);
+            } catch (Exception e2) {
+                e2.printStackTrace();
             }
         }
         try {
             return new String(bArr, "utf-8");
-        } catch (Exception e11) {
-            e11.printStackTrace();
+        } catch (Exception e3) {
+            e3.printStackTrace();
             return str;
         }
     }
 
-    public static boolean isChunkedTask(long j10) {
-        return j10 == -1;
+    public static boolean isChunkedTask(long j2) {
+        return j2 == -1;
     }
 
-    public static boolean isConnectionException(Throwable th2) {
-        if (th2 == null) {
+    public static boolean isChunkedTask(IDownloadHeadHttpConnection iDownloadHeadHttpConnection) {
+        if (iDownloadHeadHttpConnection == null) {
             return false;
         }
-        String throwableMsg = getThrowableMsg(th2);
+        return DownloadExpSwitchCode.isSwitchEnable(8) ? "chunked".equals(iDownloadHeadHttpConnection.getResponseHeaderField("Transfer-Encoding")) || getContentLength(iDownloadHeadHttpConnection) == -1 : getContentLength(iDownloadHeadHttpConnection) == -1;
+    }
+
+    public static boolean isConnectionException(Throwable th) {
+        if (th == null) {
+            return false;
+        }
+        String throwableMsg = getThrowableMsg(th);
         return !TextUtils.isEmpty(throwableMsg) && throwableMsg.contains("Exception in connect");
     }
 
-    public static boolean isDownloadSuccessAndFileNotExist(int i10, String str, String str2) {
-        return i10 == -3 && !isFileExist(str, str2);
+    public static boolean isDownloadSuccessAndFileNotExist(int i2, String str, String str2) {
+        return i2 == -3 && !isFileExist(str, str2);
     }
 
     public static boolean isDownloaderProcess() {
@@ -1032,12 +1006,12 @@ public class DownloadUtils {
         return new File(str, str2).exists();
     }
 
-    public static boolean isForbiddenException(Throwable th2) {
-        if (th2 == null) {
+    public static boolean isForbiddenException(Throwable th) {
+        if (th == null) {
             return false;
         }
-        String throwableMsg = getThrowableMsg(th2);
-        if (!(th2 instanceof DownloadHttpException) || (((DownloadHttpException) th2).getHttpStatusCode() != 403 && (TextUtils.isEmpty(throwableMsg) || !throwableMsg.contains("403")))) {
+        String throwableMsg = getThrowableMsg(th);
+        if (!(th instanceof DownloadHttpException) || (((DownloadHttpException) th).getHttpStatusCode() != 403 && (TextUtils.isEmpty(throwableMsg) || !throwableMsg.contains("403")))) {
             return !TextUtils.isEmpty(throwableMsg) && throwableMsg.contains("Forbidden");
         }
         return true;
@@ -1064,23 +1038,23 @@ public class DownloadUtils {
         return baseException.getErrorCode() == 1011 || (baseException.getCause() != null && (baseException.getCause() instanceof SSLHandshakeException));
     }
 
-    public static boolean isInsufficientSpaceError(Throwable th2) {
-        if (th2 == null) {
+    public static boolean isInsufficientSpaceError(Throwable th) {
+        if (th == null) {
             return false;
         }
-        if (!(th2 instanceof BaseException)) {
-            if (!(th2 instanceof IOException)) {
+        if (!(th instanceof BaseException)) {
+            if (!(th instanceof IOException)) {
                 return false;
             }
-            String throwableMsg = getThrowableMsg(th2);
+            String throwableMsg = getThrowableMsg(th);
             return !TextUtils.isEmpty(throwableMsg) && throwableMsg.contains("ENOSPC");
         }
-        BaseException baseException = (BaseException) th2;
+        BaseException baseException = (BaseException) th;
         int errorCode = baseException.getErrorCode();
         if (errorCode == 1006) {
             return true;
         }
-        if (errorCode != 1023 && errorCode != 1039 && errorCode != 1040 && errorCode != 1054 && errorCode != 1064) {
+        if (!(errorCode == 1023 || errorCode == 1039 || errorCode == 1040 || errorCode == 1054 || errorCode == 1064)) {
             return false;
         }
         String message = baseException.getMessage();
@@ -1105,15 +1079,15 @@ public class DownloadUtils {
         return Looper.getMainLooper() == Looper.myLooper();
     }
 
-    public static boolean isMd5Valid(int i10) {
-        return i10 == 0 || i10 == 2;
+    public static boolean isMd5Valid(int i2) {
+        return i2 == 0 || i2 == 2;
     }
 
-    public static boolean isNetNotAvailableException(Throwable th2) {
-        if (th2 == null) {
+    public static boolean isNetNotAvailableException(Throwable th) {
+        if (th == null) {
             return false;
         }
-        String throwableMsg = getThrowableMsg(th2);
+        String throwableMsg = getThrowableMsg(th);
         return !TextUtils.isEmpty(throwableMsg) && throwableMsg.contains("network not available");
     }
 
@@ -1130,11 +1104,11 @@ public class DownloadUtils {
         }
     }
 
-    public static boolean isNetworkError(Throwable th2) {
-        if (!(th2 instanceof BaseException)) {
+    public static boolean isNetworkError(Throwable th) {
+        if (!(th instanceof BaseException)) {
             return false;
         }
-        int errorCode = ((BaseException) th2).getErrorCode();
+        int errorCode = ((BaseException) th).getErrorCode();
         return errorCode == 1055 || errorCode == 1023 || errorCode == 1041 || errorCode == 1022 || errorCode == 1048 || errorCode == 1056 || errorCode == 1057 || errorCode == 1058 || errorCode == 1059 || errorCode == 1060 || errorCode == 1061 || errorCode == 1067 || errorCode == 1049 || errorCode == 1047 || errorCode == 1051 || errorCode == 1004 || errorCode == 1011 || errorCode == 1002 || errorCode == 1013;
     }
 
@@ -1151,43 +1125,43 @@ public class DownloadUtils {
         return curProcessName != null && curProcessName.equals(str);
     }
 
-    public static boolean isResponseCode304Error(Throwable th2) {
-        return DownloadComponentManager.getTTNetHandler().isResponseCode304Error(th2);
+    public static boolean isResponseCode304Error(Throwable th) {
+        return DownloadComponentManager.getTTNetHandler().isResponseCode304Error(th);
     }
 
-    public static boolean isResponseCode412Error(Throwable th2) {
-        if (th2 == null) {
+    public static boolean isResponseCode412Error(Throwable th) {
+        if (th == null) {
             return false;
         }
-        String throwableMsg = getThrowableMsg(th2);
+        String throwableMsg = getThrowableMsg(th);
         return !TextUtils.isEmpty(throwableMsg) && throwableMsg.contains("Precondition Failed");
     }
 
-    public static boolean isResponseCode416Error(Throwable th2) {
-        if (th2 == null) {
+    public static boolean isResponseCode416Error(Throwable th) {
+        if (th == null) {
             return false;
         }
-        String throwableMsg = getThrowableMsg(th2);
+        String throwableMsg = getThrowableMsg(th);
         return !TextUtils.isEmpty(throwableMsg) && throwableMsg.contains("Requested Range Not Satisfiable");
     }
 
-    public static boolean isResponseCodeError(Throwable th2) {
-        if (th2 == null) {
+    public static boolean isResponseCodeError(Throwable th) {
+        if (th == null) {
             return false;
         }
-        String throwableMsg = getThrowableMsg(th2);
+        String throwableMsg = getThrowableMsg(th);
         if (TextUtils.isEmpty(throwableMsg)) {
             return false;
         }
         return throwableMsg.contains("Requested Range Not Satisfiable") || throwableMsg.contains("Precondition Failed");
     }
 
-    public static boolean isResponseCodeValid(int i10) {
-        return i10 == 206 || i10 == 200;
+    public static boolean isResponseCodeValid(int i2) {
+        return i2 == 206 || i2 == 200;
     }
 
-    public static boolean isResponseDataFromBegin(int i10) {
-        return i10 == 200 || i10 == 201 || i10 == 0;
+    public static boolean isResponseDataFromBegin(int i2) {
+        return i2 == 200 || i2 == 201 || i2 == 0;
     }
 
     public static boolean isSavePathSecurity(String str) {
@@ -1213,12 +1187,12 @@ public class DownloadUtils {
         }
     }
 
-    public static boolean isTimeOutException(Throwable th2) {
-        if (th2 == null) {
+    public static boolean isTimeOutException(Throwable th) {
+        if (th == null) {
             return false;
         }
-        String throwableMsg = getThrowableMsg(th2);
-        if (!(th2 instanceof SocketTimeoutException)) {
+        String throwableMsg = getThrowableMsg(th);
+        if (!(th instanceof SocketTimeoutException)) {
             if (TextUtils.isEmpty(throwableMsg)) {
                 return false;
             }
@@ -1264,7 +1238,7 @@ public class DownloadUtils {
         if (str != null) {
             try {
                 if (str.length() != 0) {
-                    MessageDigest messageDigest = MessageDigest.getInstance("MD5");
+                    MessageDigest messageDigest = MessageDigest.getInstance(bu.f5659a);
                     messageDigest.update(str.getBytes("UTF-8"));
                     return toHexString(messageDigest.digest());
                 }
@@ -1283,8 +1257,8 @@ public class DownloadUtils {
             try {
                 Log.e(str, "moveFile2: src:" + file.getPath() + " dest:" + file2.getPath());
                 file.delete();
-            } catch (Throwable th2) {
-                th2.printStackTrace();
+            } catch (Throwable th) {
+                th.printStackTrace();
             }
         }
         return renameTo;
@@ -1332,8 +1306,8 @@ public class DownloadUtils {
             if (matcher.find()) {
                 return (Long.parseLong(matcher.group(2)) - Long.parseLong(matcher.group(1))) + 1;
             }
-        } catch (Exception e10) {
-            Logger.w(TAG, "parse content-length from content-range failed " + e10);
+        } catch (Exception e2) {
+            Logger.w(TAG, "parse content-length from content-range failed " + e2);
         }
         return -1L;
     }
@@ -1353,39 +1327,39 @@ public class DownloadUtils {
         return -1L;
     }
 
-    public static void parseException(Throwable th2, String str) throws BaseException {
+    public static void parseException(Throwable th, String str) throws BaseException {
         String str2 = !TextUtils.isEmpty(str) ? str : "";
-        if (th2 instanceof BaseException) {
-            BaseException baseException = (BaseException) th2;
+        if (th instanceof BaseException) {
+            BaseException baseException = (BaseException) th;
             baseException.setErrorMsg(str2 + "-" + baseException.getErrorMessage());
             throw baseException;
         }
-        if (th2 instanceof SSLHandshakeException) {
-            throw new BaseException(1011, getErrorMsgWithTagPrefix(th2, str2));
+        if (th instanceof SSLHandshakeException) {
+            throw new BaseException(1011, getErrorMsgWithTagPrefix(th, str2));
         }
-        if (isTimeOutException(th2)) {
-            throw new BaseException(DownloadErrorCode.ERROR_TIME_OUT, getErrorMsgWithTagPrefix(th2, str2));
+        if (isTimeOutException(th)) {
+            throw new BaseException(DownloadErrorCode.ERROR_TIME_OUT, getErrorMsgWithTagPrefix(th, str2));
         }
-        if (isResponseCode412Error(th2)) {
-            throw new DownloadHttpException(1004, TTAdConstant.IMAGE_URL_CODE, getErrorMsgWithTagPrefix(th2, str2));
+        if (isResponseCode412Error(th)) {
+            throw new DownloadHttpException(1004, 412, getErrorMsgWithTagPrefix(th, str2));
         }
-        if (isResponseCode416Error(th2)) {
-            throw new DownloadHttpException(1004, 416, getErrorMsgWithTagPrefix(th2, str2));
+        if (isResponseCode416Error(th)) {
+            throw new DownloadHttpException(1004, 416, getErrorMsgWithTagPrefix(th, str2));
         }
-        if (isForbiddenException(th2)) {
-            throw new BaseException(DownloadErrorCode.ERROR_DOWNLOAD_FORBIDDEN, getErrorMsgWithTagPrefix(th2, str2));
+        if (isForbiddenException(th)) {
+            throw new BaseException(DownloadErrorCode.ERROR_DOWNLOAD_FORBIDDEN, getErrorMsgWithTagPrefix(th, str2));
         }
-        if (isNetNotAvailableException(th2)) {
-            throw new BaseException(DownloadErrorCode.ERROR_NETWORK_NOT_AVAILABLE, getErrorMsgWithTagPrefix(th2, str2));
+        if (isNetNotAvailableException(th)) {
+            throw new BaseException(DownloadErrorCode.ERROR_NETWORK_NOT_AVAILABLE, getErrorMsgWithTagPrefix(th, str2));
         }
-        if (isConnectionException(th2)) {
-            throw new BaseException(DownloadErrorCode.ERROR_NETWORK_CONNECTION_IO, getErrorMsgWithTagPrefix(th2, str2));
+        if (isConnectionException(th)) {
+            throw new BaseException(DownloadErrorCode.ERROR_NETWORK_CONNECTION_IO, getErrorMsgWithTagPrefix(th, str2));
         }
-        if (!(th2 instanceof IOException)) {
-            throw new BaseException(1000, getErrorMsgWithTagPrefix(th2, str2));
+        if (!(th instanceof IOException)) {
+            throw new BaseException(1000, getErrorMsgWithTagPrefix(th, str2));
         }
-        parseTTNetException(th2, str);
-        parseIOException((IOException) th2, str);
+        parseTTNetException(th, str);
+        parseIOException((IOException) th, str);
     }
 
     public static List<DownloadChunk> parseHostChunkList(List<DownloadChunk> list) {
@@ -1425,8 +1399,8 @@ public class DownloadUtils {
             }
         }
         ArrayList arrayList = new ArrayList();
-        for (int i10 = 0; i10 < sparseArray.size(); i10++) {
-            arrayList.add(sparseArray.get(sparseArray.keyAt(i10)));
+        for (int i2 = 0; i2 < sparseArray.size(); i2++) {
+            arrayList.add(sparseArray.get(sparseArray.keyAt(i2)));
         }
         return arrayList.isEmpty() ? list : arrayList;
     }
@@ -1490,10 +1464,10 @@ public class DownloadUtils {
         throw new BaseException(1006, errorMsgWithTagPrefix);
     }
 
-    private static void parseTTNetException(Throwable th2, String str) throws DownloadTTNetException {
-        DownloadTTNetException translateTTNetException = DownloadComponentManager.getTTNetHandler().translateTTNetException(th2, null);
+    private static void parseTTNetException(Throwable th, String str) throws DownloadTTNetException {
+        DownloadTTNetException translateTTNetException = DownloadComponentManager.getTTNetHandler().translateTTNetException(th, null);
         if (translateTTNetException == null) {
-            translateTTNetException = DownloadComponentManager.getTTNetHandler().translateTTNetException(th2.getCause(), null);
+            translateTTNetException = DownloadComponentManager.getTTNetHandler().translateTTNetException(th.getCause(), null);
         }
         if (translateTTNetException == null) {
             return;
@@ -1511,8 +1485,8 @@ public class DownloadUtils {
         }
         try {
             return Long.parseLong(matcher.group(1));
-        } catch (Throwable th2) {
-            th2.printStackTrace();
+        } catch (Throwable th) {
+            th.printStackTrace();
             return 0L;
         }
     }
@@ -1525,24 +1499,24 @@ public class DownloadUtils {
             if (closeable != null) {
                 try {
                     closeable.close();
-                } catch (Throwable th2) {
-                    th2.printStackTrace();
+                } catch (Throwable th) {
+                    th.printStackTrace();
                 }
             }
         }
     }
 
-    /* JADX WARN: Removed duplicated region for block: B:29:0x01a1 A[EXC_TOP_SPLITTER, SYNTHETIC] */
-    /* JADX WARN: Removed duplicated region for block: B:60:? A[RETURN, SYNTHETIC] */
-    /* JADX WARN: Removed duplicated region for block: B:93:0x0262  */
+    /* JADX WARN: Removed duplicated region for block: B:31:0x019c A[EXC_TOP_SPLITTER, SYNTHETIC] */
+    /* JADX WARN: Removed duplicated region for block: B:61:? A[RETURN, SYNTHETIC] */
+    /* JADX WARN: Removed duplicated region for block: B:93:0x025d  */
     /* JADX WARN: Removed duplicated region for block: B:95:? A[RETURN, SYNTHETIC] */
     /*
         Code decompiled incorrectly, please refer to instructions dump.
         To view partially-correct code enable 'Show inconsistent code' option in preferences
     */
-    public static void saveFileAsTargetName(com.ss.android.socialbase.downloader.model.DownloadInfo r22, com.ss.android.socialbase.downloader.depend.IDownloadMonitorDepend r23, com.ss.android.socialbase.downloader.depend.ITempFileSaveCompleteCallback r24) {
+    public static void saveFileAsTargetName(com.ss.android.socialbase.downloader.model.DownloadInfo r18, com.ss.android.socialbase.downloader.depend.IDownloadMonitorDepend r19, com.ss.android.socialbase.downloader.depend.ITempFileSaveCompleteCallback r20) {
         /*
-            Method dump skipped, instructions count: 627
+            Method dump skipped, instructions count: 622
             To view this dump change 'Code comments level' option to 'DEBUG'
         */
         throw new UnsupportedOperationException("Method not decompiled: com.ss.android.socialbase.downloader.utils.DownloadUtils.saveFileAsTargetName(com.ss.android.socialbase.downloader.model.DownloadInfo, com.ss.android.socialbase.downloader.depend.IDownloadMonitorDepend, com.ss.android.socialbase.downloader.depend.ITempFileSaveCompleteCallback):void");
@@ -1565,9 +1539,9 @@ public class DownloadUtils {
         }
         HashMap<Integer, K> hashMap = new HashMap<>();
         int size = sparseArray.size();
-        for (int i10 = 0; i10 < size; i10++) {
-            int keyAt = sparseArray.keyAt(i10);
-            hashMap.put(Integer.valueOf(keyAt), sparseArray.valueAt(i10));
+        for (int i2 = 0; i2 < size; i2++) {
+            int keyAt = sparseArray.keyAt(i2);
+            hashMap.put(Integer.valueOf(keyAt), sparseArray.valueAt(i2));
         }
         return hashMap;
     }
@@ -1579,7 +1553,7 @@ public class DownloadUtils {
         throw new NullPointerException("bytes is null");
     }
 
-    public static List<HttpHeader> addRangeHeader(List<HttpHeader> list, String str, long j10, long j11) {
+    public static List<HttpHeader> addRangeHeader(List<HttpHeader> list, String str, long j2, long j3) {
         ArrayList arrayList = new ArrayList();
         if (list != null && list.size() > 0) {
             for (HttpHeader httpHeader : list) {
@@ -1589,16 +1563,16 @@ public class DownloadUtils {
             }
         }
         if (!TextUtils.isEmpty(str)) {
-            arrayList.add(new HttpHeader("If-Match", str));
+            arrayList.add(new HttpHeader(HttpHeaders.IF_MATCH, str));
         }
-        arrayList.add(new HttpHeader(c.f28316j, "identity"));
-        String format = j11 <= 0 ? String.format("bytes=%s-", String.valueOf(j10)) : String.format("bytes=%s-%s", String.valueOf(j10), String.valueOf(j11));
-        arrayList.add(new HttpHeader("Range", format));
-        Logger.d(TAG, " range CurrentOffset:" + j10 + " EndOffset:" + j11 + ", range = " + format);
+        arrayList.add(new HttpHeader(HttpHeaders.ACCEPT_ENCODING, HTTP.IDENTITY_CODING));
+        String format = j3 <= 0 ? String.format("bytes=%s-", String.valueOf(j2)) : String.format("bytes=%s-%s", String.valueOf(j2), String.valueOf(j3));
+        arrayList.add(new HttpHeader(HttpHeaders.RANGE, format));
+        Logger.d(TAG, " range CurrentOffset:" + j2 + " EndOffset:" + j3 + ", range = " + format);
         return arrayList;
     }
 
-    public static boolean copyFile(File file, File file2, boolean z10) throws BaseException {
+    public static boolean copyFile(File file, File file2, boolean z) throws BaseException {
         if (file != null && file2 != null) {
             try {
                 if (file.exists() && !file.isDirectory() && !file.getCanonicalPath().equals(file2.getCanonicalPath())) {
@@ -1610,28 +1584,28 @@ public class DownloadUtils {
                     if (file2.exists() && !file2.canWrite()) {
                         throw new IOException("Destination '" + file2 + "' exists but is read-only");
                     }
-                    doCopyFile(file, file2, z10);
+                    doCopyFile(file, file2, z);
                     return true;
                 }
-            } catch (BaseException e10) {
-                throw e10;
-            } catch (Throwable th2) {
-                parseException(th2, "CopyFile");
+            } catch (BaseException e2) {
+                throw e2;
+            } catch (Throwable th) {
+                parseException(th, "CopyFile");
                 return false;
             }
         }
         return false;
     }
 
-    public static void deleteAllDownloadFiles(DownloadInfo downloadInfo, boolean z10) {
+    public static void deleteAllDownloadFiles(DownloadInfo downloadInfo, boolean z) {
         if (downloadInfo == null) {
             return;
         }
-        if (z10) {
+        if (z) {
             try {
                 deleteFile(downloadInfo.getSavePath(), downloadInfo.getName());
-            } catch (Throwable th2) {
-                th2.printStackTrace();
+            } catch (Throwable th) {
+                th.printStackTrace();
                 return;
             }
         }
@@ -1639,7 +1613,7 @@ public class DownloadUtils {
         if (downloadInfo.isSavePathRedirected()) {
             clearAntiHijackDir(downloadInfo);
         }
-        if (z10) {
+        if (z) {
             String md5Hex = md5Hex(downloadInfo.getUrl());
             if (TextUtils.isEmpty(md5Hex) || TextUtils.isEmpty(downloadInfo.getSavePath()) || !downloadInfo.getSavePath().contains(md5Hex)) {
                 return;
@@ -1648,34 +1622,27 @@ public class DownloadUtils {
         }
     }
 
-    public static boolean isChunkedTask(IDownloadHeadHttpConnection iDownloadHeadHttpConnection) {
-        if (iDownloadHeadHttpConnection == null) {
-            return false;
-        }
-        return DownloadExpSwitchCode.isSwitchEnable(8) ? "chunked".equals(iDownloadHeadHttpConnection.getResponseHeaderField("Transfer-Encoding")) || getContentLength(iDownloadHeadHttpConnection) == -1 : getContentLength(iDownloadHeadHttpConnection) == -1;
-    }
-
-    public static boolean isFileDownloaded(DownloadInfo downloadInfo, boolean z10, String str) {
-        if (!z10 && !TextUtils.isEmpty(downloadInfo.getSavePath()) && !TextUtils.isEmpty(downloadInfo.getName())) {
+    public static boolean isFileDownloaded(DownloadInfo downloadInfo, boolean z, String str) {
+        if (!z && !TextUtils.isEmpty(downloadInfo.getSavePath()) && !TextUtils.isEmpty(downloadInfo.getName())) {
             try {
                 if (new File(downloadInfo.getSavePath(), downloadInfo.getName()).exists()) {
                     if (checkMd5Valid(downloadInfo.getSavePath(), downloadInfo.getName(), str)) {
                         return true;
                     }
                 }
-            } catch (OutOfMemoryError e10) {
-                e10.printStackTrace();
+            } catch (OutOfMemoryError e2) {
+                e2.printStackTrace();
             }
         }
         return false;
     }
 
     public static int checkMd5Status(File file, String str) {
-        return com.ss.android.a.c.a(str, file);
+        return i.j(str, file);
     }
 
     public static boolean checkMd5Valid(File file, String str) {
-        return isMd5Valid(com.ss.android.a.c.a(str, file));
+        return isMd5Valid(i.j(str, file));
     }
 
     private static void ensureDirExists(File file) {
@@ -1685,21 +1652,21 @@ public class DownloadUtils {
         file.mkdirs();
     }
 
-    public static String toHexString(byte[] bArr, int i10, int i11) {
+    public static String toHexString(byte[] bArr, int i2, int i3) {
         if (bArr != null) {
-            if (i10 >= 0 && i10 + i11 <= bArr.length) {
-                int i12 = i11 * 2;
-                char[] cArr = new char[i12];
-                int i13 = 0;
-                for (int i14 = 0; i14 < i11; i14++) {
-                    byte b10 = bArr[i14 + i10];
-                    int i15 = i13 + 1;
+            if (i2 >= 0 && i2 + i3 <= bArr.length) {
+                int i4 = i3 * 2;
+                char[] cArr = new char[i4];
+                int i5 = 0;
+                for (int i6 = 0; i6 < i3; i6++) {
+                    int i7 = bArr[i6 + i2] & 255;
+                    int i8 = i5 + 1;
                     char[] cArr2 = HEX_CHARS;
-                    cArr[i13] = cArr2[(b10 & 255) >> 4];
-                    i13 += 2;
-                    cArr[i15] = cArr2[b10 & 15];
+                    cArr[i5] = cArr2[i7 >> 4];
+                    i5 = i8 + 1;
+                    cArr[i8] = cArr2[i7 & 15];
                 }
-                return new String(cArr, 0, i12);
+                return new String(cArr, 0, i4);
             }
             throw new IndexOutOfBoundsException();
         }
@@ -1724,38 +1691,38 @@ public class DownloadUtils {
             if (cursor != null) {
                 try {
                     cursor.close();
-                } catch (Throwable th2) {
-                    th2.printStackTrace();
+                } catch (Throwable th) {
+                    th.printStackTrace();
                 }
             }
         }
     }
 
-    public static boolean isFileDownloaded(String str, String str2, boolean z10) {
-        if (!z10 && !TextUtils.isEmpty(str) && !TextUtils.isEmpty(str2)) {
+    public static boolean isFileDownloaded(String str, String str2, boolean z) {
+        if (!z && !TextUtils.isEmpty(str) && !TextUtils.isEmpty(str2)) {
             try {
                 if (new File(str, str2).exists()) {
                     if (checkMd5Valid(str, str2, null)) {
                         return true;
                     }
                 }
-            } catch (OutOfMemoryError e10) {
-                e10.printStackTrace();
+            } catch (OutOfMemoryError e2) {
+                e2.printStackTrace();
             }
         }
         return false;
     }
 
-    public static boolean isFileDownloaded(String str, String str2, String str3, boolean z10) {
-        if (!z10 && !TextUtils.isEmpty(str) && !TextUtils.isEmpty(str2)) {
+    public static boolean isFileDownloaded(String str, String str2, String str3, boolean z) {
+        if (!z && !TextUtils.isEmpty(str) && !TextUtils.isEmpty(str2)) {
             try {
                 if (new File(str, str2).exists()) {
                     if (checkMd5Valid(str, str2, str3)) {
                         return true;
                     }
                 }
-            } catch (OutOfMemoryError e10) {
-                e10.printStackTrace();
+            } catch (OutOfMemoryError e2) {
+                e2.printStackTrace();
             }
         }
         return false;

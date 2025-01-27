@@ -1,6 +1,7 @@
 package com.umeng.commonsdk.statistics.common;
 
-import android.annotation.SuppressLint;
+import android.util.Base64;
+import com.baidu.mobads.sdk.internal.bu;
 import com.umeng.commonsdk.utils.UMUtils;
 import java.io.PrintWriter;
 import java.io.StringWriter;
@@ -26,10 +27,10 @@ public class DataHelper {
         return "https://" + str;
     }
 
-    public static String bytes2Hex(byte[] bArr) {
+    static String bytes2Hex(byte[] bArr) {
         String str = "";
-        for (byte b10 : bArr) {
-            String hexString = Integer.toHexString(b10 & 255);
+        for (byte b2 : bArr) {
+            String hexString = Integer.toHexString(b2 & 255);
             if (hexString.length() == 1) {
                 str = str + "0";
             }
@@ -38,16 +39,16 @@ public class DataHelper {
         return str;
     }
 
-    public static String convertExceptionToString(Throwable th2) {
+    public static String convertExceptionToString(Throwable th) {
         String str = null;
-        if (th2 == null) {
+        if (th == null) {
             return null;
         }
         try {
             StringWriter stringWriter = new StringWriter();
             PrintWriter printWriter = new PrintWriter(stringWriter);
-            th2.printStackTrace(printWriter);
-            for (Throwable cause = th2.getCause(); cause != null; cause = cause.getCause()) {
+            th.printStackTrace(printWriter);
+            for (Throwable cause = th.getCause(); cause != null; cause = cause.getCause()) {
                 cause.printStackTrace(printWriter);
             }
             str = stringWriter.toString();
@@ -65,7 +66,14 @@ public class DataHelper {
         return cipher.doFinal(bArr);
     }
 
-    @SuppressLint({"TrulyRandom"})
+    public static String decryptEx(String str) {
+        try {
+            return new String(decrypt(Base64.decode(str.getBytes(), 0), UMENG_PLUS.getBytes()));
+        } catch (Exception unused) {
+            return null;
+        }
+    }
+
     public static byte[] encrypt(byte[] bArr, byte[] bArr2) throws Exception {
         Cipher cipher = Cipher.getInstance("AES/CBC/PKCS7Padding");
         cipher.init(1, new SecretKeySpec(bArr2, "AES"), new IvParameterSpec(UMUtils.genIv()));
@@ -83,9 +91,17 @@ public class DataHelper {
         }
     }
 
+    public static String encryptEx(String str) {
+        try {
+            return Base64.encodeToString(encrypt(str.getBytes(), UMENG_PLUS.getBytes()), 0);
+        } catch (Exception unused) {
+            return null;
+        }
+    }
+
     public static byte[] hash(byte[] bArr) {
         try {
-            MessageDigest messageDigest = MessageDigest.getInstance("MD5");
+            MessageDigest messageDigest = MessageDigest.getInstance(bu.f5659a);
             messageDigest.reset();
             messageDigest.update(bArr);
             return messageDigest.digest();
@@ -94,23 +110,23 @@ public class DataHelper {
         }
     }
 
-    public static boolean largeThanMaxSize(long j10, long j11) {
-        return j10 > j11;
+    public static boolean largeThanMaxSize(long j2, long j3) {
+        return j2 > j3;
     }
 
-    public static int random(int i10, String str) {
-        int i11 = 0;
+    public static int random(int i2, String str) {
         if (new Random().nextFloat() < 0.001d) {
+            int i3 = 0;
             if (str == null) {
                 MLog.e("--->", "null signature..");
             }
             try {
-                i11 = Integer.parseInt(str.substring(9, 11), 16);
+                i3 = Integer.parseInt(str.substring(9, 11), 16);
             } catch (Exception unused) {
             }
-            return (i11 | 128) * 1000;
+            return (i3 | 128) * 1000;
         }
-        int nextInt = new Random().nextInt(i10);
+        int nextInt = new Random().nextInt(i2);
         if (nextInt > 255000 || nextInt < 128000) {
             return nextInt;
         }
@@ -126,11 +142,11 @@ public class DataHelper {
             return null;
         }
         byte[] bArr = new byte[length / 2];
-        int i10 = 0;
-        while (i10 < length) {
-            int i11 = i10 + 2;
-            bArr[i10 / 2] = (byte) Integer.valueOf(str.substring(i10, i11), 16).intValue();
-            i10 = i11;
+        int i2 = 0;
+        while (i2 < length) {
+            int i3 = i2 + 2;
+            bArr[i2 / 2] = (byte) Integer.valueOf(str.substring(i2, i3), 16).intValue();
+            i2 = i3;
         }
         return bArr;
     }
@@ -140,8 +156,8 @@ public class DataHelper {
             return null;
         }
         StringBuffer stringBuffer = new StringBuffer();
-        for (byte b10 : bArr) {
-            stringBuffer.append(String.format("%02X", Byte.valueOf(b10)));
+        for (byte b2 : bArr) {
+            stringBuffer.append(String.format("%02X", Byte.valueOf(b2)));
         }
         return stringBuffer.toString().toLowerCase(Locale.US);
     }

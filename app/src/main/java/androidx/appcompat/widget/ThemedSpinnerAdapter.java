@@ -12,24 +12,30 @@ import androidx.appcompat.view.ContextThemeWrapper;
 public interface ThemedSpinnerAdapter extends SpinnerAdapter {
 
     public static final class Helper {
-        private final Context mContext;
-        private LayoutInflater mDropDownInflater;
-        private final LayoutInflater mInflater;
+
+        /* renamed from: a */
+        private final Context f971a;
+
+        /* renamed from: b */
+        private final LayoutInflater f972b;
+
+        /* renamed from: c */
+        private LayoutInflater f973c;
 
         public Helper(@NonNull Context context) {
-            this.mContext = context;
-            this.mInflater = LayoutInflater.from(context);
+            this.f971a = context;
+            this.f972b = LayoutInflater.from(context);
         }
 
         @NonNull
         public LayoutInflater getDropDownViewInflater() {
-            LayoutInflater layoutInflater = this.mDropDownInflater;
-            return layoutInflater != null ? layoutInflater : this.mInflater;
+            LayoutInflater layoutInflater = this.f973c;
+            return layoutInflater != null ? layoutInflater : this.f972b;
         }
 
         @Nullable
         public Resources.Theme getDropDownViewTheme() {
-            LayoutInflater layoutInflater = this.mDropDownInflater;
+            LayoutInflater layoutInflater = this.f973c;
             if (layoutInflater == null) {
                 return null;
             }
@@ -38,11 +44,11 @@ public interface ThemedSpinnerAdapter extends SpinnerAdapter {
 
         public void setDropDownViewTheme(@Nullable Resources.Theme theme) {
             if (theme == null) {
-                this.mDropDownInflater = null;
-            } else if (theme.equals(this.mContext.getTheme())) {
-                this.mDropDownInflater = this.mInflater;
+                this.f973c = null;
+            } else if (theme == this.f971a.getTheme()) {
+                this.f973c = this.f972b;
             } else {
-                this.mDropDownInflater = LayoutInflater.from(new ContextThemeWrapper(this.mContext, theme));
+                this.f973c = LayoutInflater.from(new ContextThemeWrapper(this.f971a, theme));
             }
         }
     }

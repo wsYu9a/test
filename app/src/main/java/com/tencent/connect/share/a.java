@@ -10,7 +10,6 @@ import android.os.Handler;
 import android.os.Looper;
 import android.os.Message;
 import android.text.TextUtils;
-import com.bytedance.sdk.openadsdk.downloadnew.core.TTDownloadField;
 import com.tencent.open.a.f;
 import com.tencent.open.utils.c;
 import com.tencent.open.utils.i;
@@ -24,23 +23,23 @@ import java.util.ArrayList;
 public class a {
 
     /* renamed from: com.tencent.connect.share.a$1 */
-    public static class AnonymousClass1 extends Handler {
+    static class AnonymousClass1 extends Handler {
 
         /* renamed from: a */
-        final /* synthetic */ c f23042a;
+        final /* synthetic */ c f25318a;
 
         /* JADX WARN: 'super' call moved to the top of the method (can break code semantics) */
-        public AnonymousClass1(Looper looper, c cVar) {
+        AnonymousClass1(Looper looper, c cVar) {
             super(looper);
             cVar = cVar;
         }
 
         @Override // android.os.Handler
         public void handleMessage(Message message) {
-            int i10 = message.what;
-            if (i10 == 101) {
+            int i2 = message.what;
+            if (i2 == 101) {
                 cVar.a(0, (String) message.obj);
-            } else if (i10 != 102) {
+            } else if (i2 != 102) {
                 super.handleMessage(message);
             } else {
                 cVar.a(message.arg1, (String) null);
@@ -49,37 +48,37 @@ public class a {
     }
 
     /* renamed from: com.tencent.connect.share.a$2 */
-    public static class AnonymousClass2 implements Runnable {
+    static class AnonymousClass2 implements Runnable {
 
         /* renamed from: a */
-        final /* synthetic */ String f23043a;
+        final /* synthetic */ String f25319a;
 
         /* renamed from: b */
-        final /* synthetic */ Handler f23044b;
+        final /* synthetic */ Handler f25320b;
 
-        public AnonymousClass2(String str, Handler handler) {
+        AnonymousClass2(String str, Handler handler) {
             str = str;
             handler = handler;
         }
 
         @Override // java.lang.Runnable
         public void run() {
-            String a10;
-            Bitmap a11 = a.a(str, TTDownloadField.CALL_DOWNLOAD_MODEL_SET_DOWNLOAD_URL);
-            if (a11 != null) {
+            String a2;
+            Bitmap a3 = a.a(str, 140);
+            if (a3 != null) {
                 String str = Environment.getExternalStorageDirectory() + "/tmp/";
                 String str2 = "share2qq_temp" + i.f(str) + ".jpg";
-                if (a.b(str, TTDownloadField.CALL_DOWNLOAD_MODEL_SET_DOWNLOAD_URL, TTDownloadField.CALL_DOWNLOAD_MODEL_SET_DOWNLOAD_URL)) {
+                if (a.b(str, 140, 140)) {
                     f.b("openSDK_LOG.AsynScaleCompressImage", "out of bound,compress!");
-                    a10 = a.a(a11, str, str2);
+                    a2 = a.a(a3, str, str2);
                 } else {
                     f.b("openSDK_LOG.AsynScaleCompressImage", "not out of bound,not compress!");
-                    a10 = str;
+                    a2 = str;
                 }
-                f.b("openSDK_LOG.AsynScaleCompressImage", "-->destFilePath: " + a10);
-                if (a10 != null) {
+                f.b("openSDK_LOG.AsynScaleCompressImage", "-->destFilePath: " + a2);
+                if (a2 != null) {
                     Message obtainMessage = handler.obtainMessage(101);
-                    obtainMessage.obj = a10;
+                    obtainMessage.obj = a2;
                     handler.sendMessage(obtainMessage);
                     return;
                 }
@@ -91,13 +90,13 @@ public class a {
     }
 
     /* renamed from: com.tencent.connect.share.a$3 */
-    public static class AnonymousClass3 extends Handler {
+    static class AnonymousClass3 extends Handler {
 
         /* renamed from: a */
-        final /* synthetic */ c f23045a;
+        final /* synthetic */ c f25321a;
 
         /* JADX WARN: 'super' call moved to the top of the method (can break code semantics) */
-        public AnonymousClass3(Looper looper, c cVar) {
+        AnonymousClass3(Looper looper, c cVar) {
             super(looper);
             cVar = cVar;
         }
@@ -113,35 +112,35 @@ public class a {
     }
 
     /* renamed from: com.tencent.connect.share.a$4 */
-    public static class AnonymousClass4 implements Runnable {
+    static class AnonymousClass4 implements Runnable {
 
         /* renamed from: a */
-        final /* synthetic */ ArrayList f23046a;
+        final /* synthetic */ ArrayList f25322a;
 
         /* renamed from: b */
-        final /* synthetic */ Handler f23047b;
+        final /* synthetic */ Handler f25323b;
 
-        public AnonymousClass4(ArrayList arrayList, Handler handler) {
+        AnonymousClass4(ArrayList arrayList, Handler handler) {
             arrayList = arrayList;
             handler = handler;
         }
 
         @Override // java.lang.Runnable
         public void run() {
-            Bitmap a10;
-            for (int i10 = 0; i10 < arrayList.size(); i10++) {
-                String str = (String) arrayList.get(i10);
-                if (!i.g(str) && i.h(str) && (a10 = a.a(str, 10000)) != null) {
+            Bitmap a2;
+            for (int i2 = 0; i2 < arrayList.size(); i2++) {
+                String str = (String) arrayList.get(i2);
+                if (!i.g(str) && i.h(str) && (a2 = a.a(str, 10000)) != null) {
                     String str2 = Environment.getExternalStorageDirectory() + "/tmp/";
                     String str3 = "share2qzone_temp" + i.f(str) + ".jpg";
                     if (a.b(str, 640, 10000)) {
                         f.b("openSDK_LOG.AsynScaleCompressImage", "out of bound, compress!");
-                        str = a.a(a10, str2, str3);
+                        str = a.a(a2, str2, str3);
                     } else {
                         f.b("openSDK_LOG.AsynScaleCompressImage", "not out of bound,not compress!");
                     }
                     if (str != null) {
-                        arrayList.set(i10, str);
+                        arrayList.set(i2, str);
                     }
                 }
             }
@@ -153,7 +152,7 @@ public class a {
         }
     }
 
-    public static final boolean b(String str, int i10, int i11) {
+    public static final boolean b(String str, int i2, int i3) {
         if (TextUtils.isEmpty(str)) {
             return false;
         }
@@ -161,21 +160,21 @@ public class a {
         options.inJustDecodeBounds = true;
         try {
             BitmapFactory.decodeFile(str, options);
-        } catch (OutOfMemoryError e10) {
-            e10.printStackTrace();
+        } catch (OutOfMemoryError e2) {
+            e2.printStackTrace();
         }
-        int i12 = options.outWidth;
-        int i13 = options.outHeight;
-        if (options.mCancel || i12 == -1 || i13 == -1) {
+        int i4 = options.outWidth;
+        int i5 = options.outHeight;
+        if (options.mCancel || i4 == -1 || i5 == -1) {
             return false;
         }
-        int i14 = i12 > i13 ? i12 : i13;
-        if (i12 >= i13) {
-            i12 = i13;
+        int i6 = i4 > i5 ? i4 : i5;
+        if (i4 >= i5) {
+            i4 = i5;
         }
-        f.b("openSDK_LOG.AsynScaleCompressImage", "longSide=" + i14 + "shortSide=" + i12);
+        f.b("openSDK_LOG.AsynScaleCompressImage", "longSide=" + i6 + "shortSide=" + i4);
         options.inPreferredConfig = Bitmap.Config.RGB_565;
-        return i14 > i11 || i12 > i10;
+        return i6 > i3 || i4 > i2;
     }
 
     public static final void a(Context context, String str, c cVar) {
@@ -186,34 +185,34 @@ public class a {
             new Thread(new Runnable() { // from class: com.tencent.connect.share.a.2
 
                 /* renamed from: a */
-                final /* synthetic */ String f23043a;
+                final /* synthetic */ String f25319a;
 
                 /* renamed from: b */
-                final /* synthetic */ Handler f23044b;
+                final /* synthetic */ Handler f25320b;
 
-                public AnonymousClass2(String str2, Handler handler) {
+                AnonymousClass2(String str2, Handler handler) {
                     str = str2;
                     handler = handler;
                 }
 
                 @Override // java.lang.Runnable
                 public void run() {
-                    String a10;
-                    Bitmap a11 = a.a(str, TTDownloadField.CALL_DOWNLOAD_MODEL_SET_DOWNLOAD_URL);
-                    if (a11 != null) {
+                    String a2;
+                    Bitmap a3 = a.a(str, 140);
+                    if (a3 != null) {
                         String str2 = Environment.getExternalStorageDirectory() + "/tmp/";
                         String str22 = "share2qq_temp" + i.f(str) + ".jpg";
-                        if (a.b(str, TTDownloadField.CALL_DOWNLOAD_MODEL_SET_DOWNLOAD_URL, TTDownloadField.CALL_DOWNLOAD_MODEL_SET_DOWNLOAD_URL)) {
+                        if (a.b(str, 140, 140)) {
                             f.b("openSDK_LOG.AsynScaleCompressImage", "out of bound,compress!");
-                            a10 = a.a(a11, str2, str22);
+                            a2 = a.a(a3, str2, str22);
                         } else {
                             f.b("openSDK_LOG.AsynScaleCompressImage", "not out of bound,not compress!");
-                            a10 = str;
+                            a2 = str;
                         }
-                        f.b("openSDK_LOG.AsynScaleCompressImage", "-->destFilePath: " + a10);
-                        if (a10 != null) {
+                        f.b("openSDK_LOG.AsynScaleCompressImage", "-->destFilePath: " + a2);
+                        if (a2 != null) {
                             Message obtainMessage = handler.obtainMessage(101);
-                            obtainMessage.obj = a10;
+                            obtainMessage.obj = a2;
                             handler.sendMessage(obtainMessage);
                             return;
                         }
@@ -236,32 +235,32 @@ public class a {
             new Thread(new Runnable() { // from class: com.tencent.connect.share.a.4
 
                 /* renamed from: a */
-                final /* synthetic */ ArrayList f23046a;
+                final /* synthetic */ ArrayList f25322a;
 
                 /* renamed from: b */
-                final /* synthetic */ Handler f23047b;
+                final /* synthetic */ Handler f25323b;
 
-                public AnonymousClass4(ArrayList arrayList2, Handler handler) {
+                AnonymousClass4(ArrayList arrayList2, Handler handler) {
                     arrayList = arrayList2;
                     handler = handler;
                 }
 
                 @Override // java.lang.Runnable
                 public void run() {
-                    Bitmap a10;
-                    for (int i10 = 0; i10 < arrayList.size(); i10++) {
-                        String str = (String) arrayList.get(i10);
-                        if (!i.g(str) && i.h(str) && (a10 = a.a(str, 10000)) != null) {
+                    Bitmap a2;
+                    for (int i2 = 0; i2 < arrayList.size(); i2++) {
+                        String str = (String) arrayList.get(i2);
+                        if (!i.g(str) && i.h(str) && (a2 = a.a(str, 10000)) != null) {
                             String str2 = Environment.getExternalStorageDirectory() + "/tmp/";
                             String str3 = "share2qzone_temp" + i.f(str) + ".jpg";
                             if (a.b(str, 640, 10000)) {
                                 f.b("openSDK_LOG.AsynScaleCompressImage", "out of bound, compress!");
-                                str = a.a(a10, str2, str3);
+                                str = a.a(a2, str2, str3);
                             } else {
                                 f.b("openSDK_LOG.AsynScaleCompressImage", "not out of bound,not compress!");
                             }
                             if (str != null) {
-                                arrayList.set(i10, str);
+                                arrayList.set(i2, str);
                             }
                         }
                     }
@@ -275,39 +274,53 @@ public class a {
         }
     }
 
-    private static int b(BitmapFactory.Options options, int i10, int i11) {
+    private static int b(BitmapFactory.Options options, int i2, int i3) {
+        int ceil;
         int min;
-        double d10 = options.outWidth;
-        double d11 = options.outHeight;
-        int ceil = i11 == -1 ? 1 : (int) Math.ceil(Math.sqrt((d10 * d11) / i11));
-        if (i10 == -1) {
+        double d2 = options.outWidth;
+        double d3 = options.outHeight;
+        if (i3 == -1) {
+            ceil = 1;
+        } else {
+            Double.isNaN(d2);
+            Double.isNaN(d3);
+            double d4 = i3;
+            Double.isNaN(d4);
+            ceil = (int) Math.ceil(Math.sqrt((d2 * d3) / d4));
+        }
+        if (i2 == -1) {
             min = 128;
         } else {
-            double d12 = i10;
-            min = (int) Math.min(Math.floor(d10 / d12), Math.floor(d11 / d12));
+            double d5 = i2;
+            Double.isNaN(d2);
+            Double.isNaN(d5);
+            double floor = Math.floor(d2 / d5);
+            Double.isNaN(d3);
+            Double.isNaN(d5);
+            min = (int) Math.min(floor, Math.floor(d3 / d5));
         }
         if (min < ceil) {
             return ceil;
         }
-        if (i11 == -1 && i10 == -1) {
+        if (i3 == -1 && i2 == -1) {
             return 1;
         }
-        return i10 == -1 ? ceil : min;
+        return i2 == -1 ? ceil : min;
     }
 
-    private static Bitmap a(Bitmap bitmap, int i10) {
+    private static Bitmap a(Bitmap bitmap, int i2) {
         Matrix matrix = new Matrix();
         int width = bitmap.getWidth();
         int height = bitmap.getHeight();
         if (width <= height) {
             width = height;
         }
-        float f10 = i10 / width;
-        matrix.postScale(f10, f10);
+        float f2 = i2 / width;
+        matrix.postScale(f2, f2);
         return Bitmap.createBitmap(bitmap, 0, 0, bitmap.getWidth(), bitmap.getHeight(), matrix, true);
     }
 
-    public static final String a(Bitmap bitmap, String str, String str2) {
+    protected static final String a(Bitmap bitmap, String str, String str2) {
         File file = new File(str);
         if (!file.exists()) {
             file.mkdirs();
@@ -329,16 +342,16 @@ public class a {
             fileOutputStream.close();
             bitmap.recycle();
             return stringBuffer2;
-        } catch (FileNotFoundException e10) {
-            e10.printStackTrace();
+        } catch (FileNotFoundException e2) {
+            e2.printStackTrace();
             return null;
-        } catch (IOException e11) {
-            e11.printStackTrace();
+        } catch (IOException e3) {
+            e3.printStackTrace();
             return null;
         }
     }
 
-    public static final Bitmap a(String str, int i10) {
+    public static final Bitmap a(String str, int i2) {
         Bitmap bitmap;
         if (TextUtils.isEmpty(str)) {
             return null;
@@ -347,48 +360,48 @@ public class a {
         options.inJustDecodeBounds = true;
         try {
             BitmapFactory.decodeFile(str, options);
-        } catch (OutOfMemoryError e10) {
-            e10.printStackTrace();
+        } catch (OutOfMemoryError e2) {
+            e2.printStackTrace();
         }
-        int i11 = options.outWidth;
-        int i12 = options.outHeight;
-        if (options.mCancel || i11 == -1 || i12 == -1) {
+        int i3 = options.outWidth;
+        int i4 = options.outHeight;
+        if (options.mCancel || i3 == -1 || i4 == -1) {
             return null;
         }
-        if (i11 <= i12) {
-            i11 = i12;
+        if (i3 <= i4) {
+            i3 = i4;
         }
         options.inPreferredConfig = Bitmap.Config.RGB_565;
-        if (i11 > i10) {
-            options.inSampleSize = a(options, -1, i10 * i10);
+        if (i3 > i2) {
+            options.inSampleSize = a(options, -1, i2 * i2);
         }
         options.inJustDecodeBounds = false;
         try {
             bitmap = BitmapFactory.decodeFile(str, options);
-        } catch (OutOfMemoryError e11) {
-            e11.printStackTrace();
+        } catch (OutOfMemoryError e3) {
+            e3.printStackTrace();
             bitmap = null;
         }
         if (bitmap == null) {
             return null;
         }
-        int i13 = options.outWidth;
-        int i14 = options.outHeight;
-        if (i13 <= i14) {
-            i13 = i14;
+        int i5 = options.outWidth;
+        int i6 = options.outHeight;
+        if (i5 <= i6) {
+            i5 = i6;
         }
-        return i13 > i10 ? a(bitmap, i10) : bitmap;
+        return i5 > i2 ? a(bitmap, i2) : bitmap;
     }
 
-    public static final int a(BitmapFactory.Options options, int i10, int i11) {
-        int b10 = b(options, i10, i11);
-        if (b10 > 8) {
-            return ((b10 + 7) / 8) * 8;
+    public static final int a(BitmapFactory.Options options, int i2, int i3) {
+        int b2 = b(options, i2, i3);
+        if (b2 > 8) {
+            return ((b2 + 7) / 8) * 8;
         }
-        int i12 = 1;
-        while (i12 < b10) {
-            i12 <<= 1;
+        int i4 = 1;
+        while (i4 < b2) {
+            i4 <<= 1;
         }
-        return i12;
+        return i4;
     }
 }

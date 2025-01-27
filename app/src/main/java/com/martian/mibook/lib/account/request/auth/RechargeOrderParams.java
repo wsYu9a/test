@@ -1,6 +1,6 @@
 package com.martian.mibook.lib.account.request.auth;
 
-import v8.a;
+import com.martian.libcomm.http.requests.d.a;
 
 /* loaded from: classes3.dex */
 public class RechargeOrderParams extends TYAuthParams {
@@ -17,7 +17,7 @@ public class RechargeOrderParams extends TYAuthParams {
         return this.roid;
     }
 
-    public void setRoid(Integer num) {
-        this.roid = num;
+    public void setRoid(Integer roid) {
+        this.roid = roid;
     }
 }

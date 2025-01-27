@@ -9,7 +9,6 @@ import android.net.Uri;
 import android.util.AttributeSet;
 import android.widget.ImageButton;
 import androidx.annotation.DrawableRes;
-import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.annotation.RestrictTo;
 import androidx.appcompat.R;
@@ -18,24 +17,27 @@ import androidx.core.widget.TintableImageSourceView;
 
 /* loaded from: classes.dex */
 public class AppCompatImageButton extends ImageButton implements TintableBackgroundView, TintableImageSourceView {
-    private final AppCompatBackgroundHelper mBackgroundTintHelper;
-    private boolean mHasLevel;
-    private final AppCompatImageHelper mImageHelper;
 
-    public AppCompatImageButton(@NonNull Context context) {
+    /* renamed from: a */
+    private final AppCompatBackgroundHelper f713a;
+
+    /* renamed from: b */
+    private final AppCompatImageHelper f714b;
+
+    public AppCompatImageButton(Context context) {
         this(context, null);
     }
 
     @Override // android.widget.ImageView, android.view.View
-    public void drawableStateChanged() {
+    protected void drawableStateChanged() {
         super.drawableStateChanged();
-        AppCompatBackgroundHelper appCompatBackgroundHelper = this.mBackgroundTintHelper;
+        AppCompatBackgroundHelper appCompatBackgroundHelper = this.f713a;
         if (appCompatBackgroundHelper != null) {
-            appCompatBackgroundHelper.applySupportBackgroundTint();
+            appCompatBackgroundHelper.b();
         }
-        AppCompatImageHelper appCompatImageHelper = this.mImageHelper;
+        AppCompatImageHelper appCompatImageHelper = this.f714b;
         if (appCompatImageHelper != null) {
-            appCompatImageHelper.applySupportImageTint();
+            appCompatImageHelper.b();
         }
     }
 
@@ -43,9 +45,9 @@ public class AppCompatImageButton extends ImageButton implements TintableBackgro
     @Nullable
     @RestrictTo({RestrictTo.Scope.LIBRARY_GROUP_PREFIX})
     public ColorStateList getSupportBackgroundTintList() {
-        AppCompatBackgroundHelper appCompatBackgroundHelper = this.mBackgroundTintHelper;
+        AppCompatBackgroundHelper appCompatBackgroundHelper = this.f713a;
         if (appCompatBackgroundHelper != null) {
-            return appCompatBackgroundHelper.getSupportBackgroundTintList();
+            return appCompatBackgroundHelper.c();
         }
         return null;
     }
@@ -54,9 +56,9 @@ public class AppCompatImageButton extends ImageButton implements TintableBackgro
     @Nullable
     @RestrictTo({RestrictTo.Scope.LIBRARY_GROUP_PREFIX})
     public PorterDuff.Mode getSupportBackgroundTintMode() {
-        AppCompatBackgroundHelper appCompatBackgroundHelper = this.mBackgroundTintHelper;
+        AppCompatBackgroundHelper appCompatBackgroundHelper = this.f713a;
         if (appCompatBackgroundHelper != null) {
-            return appCompatBackgroundHelper.getSupportBackgroundTintMode();
+            return appCompatBackgroundHelper.d();
         }
         return null;
     }
@@ -65,9 +67,9 @@ public class AppCompatImageButton extends ImageButton implements TintableBackgro
     @Nullable
     @RestrictTo({RestrictTo.Scope.LIBRARY_GROUP_PREFIX})
     public ColorStateList getSupportImageTintList() {
-        AppCompatImageHelper appCompatImageHelper = this.mImageHelper;
+        AppCompatImageHelper appCompatImageHelper = this.f714b;
         if (appCompatImageHelper != null) {
-            return appCompatImageHelper.getSupportImageTintList();
+            return appCompatImageHelper.c();
         }
         return null;
     }
@@ -76,131 +78,115 @@ public class AppCompatImageButton extends ImageButton implements TintableBackgro
     @Nullable
     @RestrictTo({RestrictTo.Scope.LIBRARY_GROUP_PREFIX})
     public PorterDuff.Mode getSupportImageTintMode() {
-        AppCompatImageHelper appCompatImageHelper = this.mImageHelper;
+        AppCompatImageHelper appCompatImageHelper = this.f714b;
         if (appCompatImageHelper != null) {
-            return appCompatImageHelper.getSupportImageTintMode();
+            return appCompatImageHelper.d();
         }
         return null;
     }
 
     @Override // android.widget.ImageView, android.view.View
     public boolean hasOverlappingRendering() {
-        return this.mImageHelper.hasOverlappingRendering() && super.hasOverlappingRendering();
+        return this.f714b.e() && super.hasOverlappingRendering();
     }
 
     @Override // android.view.View
-    public void setBackgroundDrawable(@Nullable Drawable drawable) {
+    public void setBackgroundDrawable(Drawable drawable) {
         super.setBackgroundDrawable(drawable);
-        AppCompatBackgroundHelper appCompatBackgroundHelper = this.mBackgroundTintHelper;
+        AppCompatBackgroundHelper appCompatBackgroundHelper = this.f713a;
         if (appCompatBackgroundHelper != null) {
-            appCompatBackgroundHelper.onSetBackgroundDrawable(drawable);
+            appCompatBackgroundHelper.f(drawable);
         }
     }
 
     @Override // android.view.View
-    public void setBackgroundResource(@DrawableRes int i10) {
-        super.setBackgroundResource(i10);
-        AppCompatBackgroundHelper appCompatBackgroundHelper = this.mBackgroundTintHelper;
+    public void setBackgroundResource(@DrawableRes int i2) {
+        super.setBackgroundResource(i2);
+        AppCompatBackgroundHelper appCompatBackgroundHelper = this.f713a;
         if (appCompatBackgroundHelper != null) {
-            appCompatBackgroundHelper.onSetBackgroundResource(i10);
+            appCompatBackgroundHelper.g(i2);
         }
     }
 
     @Override // android.widget.ImageView
     public void setImageBitmap(Bitmap bitmap) {
         super.setImageBitmap(bitmap);
-        AppCompatImageHelper appCompatImageHelper = this.mImageHelper;
+        AppCompatImageHelper appCompatImageHelper = this.f714b;
         if (appCompatImageHelper != null) {
-            appCompatImageHelper.applySupportImageTint();
+            appCompatImageHelper.b();
         }
     }
 
     @Override // android.widget.ImageView
     public void setImageDrawable(@Nullable Drawable drawable) {
-        AppCompatImageHelper appCompatImageHelper = this.mImageHelper;
-        if (appCompatImageHelper != null && drawable != null && !this.mHasLevel) {
-            appCompatImageHelper.obtainLevelFromDrawable(drawable);
-        }
         super.setImageDrawable(drawable);
-        AppCompatImageHelper appCompatImageHelper2 = this.mImageHelper;
-        if (appCompatImageHelper2 != null) {
-            appCompatImageHelper2.applySupportImageTint();
-            if (this.mHasLevel) {
-                return;
-            }
-            this.mImageHelper.applyImageLevel();
+        AppCompatImageHelper appCompatImageHelper = this.f714b;
+        if (appCompatImageHelper != null) {
+            appCompatImageHelper.b();
         }
     }
 
     @Override // android.widget.ImageView
-    public void setImageLevel(int i10) {
-        super.setImageLevel(i10);
-        this.mHasLevel = true;
-    }
-
-    @Override // android.widget.ImageView
-    public void setImageResource(@DrawableRes int i10) {
-        this.mImageHelper.setImageResource(i10);
+    public void setImageResource(@DrawableRes int i2) {
+        this.f714b.setImageResource(i2);
     }
 
     @Override // android.widget.ImageView
     public void setImageURI(@Nullable Uri uri) {
         super.setImageURI(uri);
-        AppCompatImageHelper appCompatImageHelper = this.mImageHelper;
+        AppCompatImageHelper appCompatImageHelper = this.f714b;
         if (appCompatImageHelper != null) {
-            appCompatImageHelper.applySupportImageTint();
+            appCompatImageHelper.b();
         }
     }
 
     @Override // androidx.core.view.TintableBackgroundView
     @RestrictTo({RestrictTo.Scope.LIBRARY_GROUP_PREFIX})
     public void setSupportBackgroundTintList(@Nullable ColorStateList colorStateList) {
-        AppCompatBackgroundHelper appCompatBackgroundHelper = this.mBackgroundTintHelper;
+        AppCompatBackgroundHelper appCompatBackgroundHelper = this.f713a;
         if (appCompatBackgroundHelper != null) {
-            appCompatBackgroundHelper.setSupportBackgroundTintList(colorStateList);
+            appCompatBackgroundHelper.i(colorStateList);
         }
     }
 
     @Override // androidx.core.view.TintableBackgroundView
     @RestrictTo({RestrictTo.Scope.LIBRARY_GROUP_PREFIX})
     public void setSupportBackgroundTintMode(@Nullable PorterDuff.Mode mode) {
-        AppCompatBackgroundHelper appCompatBackgroundHelper = this.mBackgroundTintHelper;
+        AppCompatBackgroundHelper appCompatBackgroundHelper = this.f713a;
         if (appCompatBackgroundHelper != null) {
-            appCompatBackgroundHelper.setSupportBackgroundTintMode(mode);
+            appCompatBackgroundHelper.j(mode);
         }
     }
 
     @Override // androidx.core.widget.TintableImageSourceView
     @RestrictTo({RestrictTo.Scope.LIBRARY_GROUP_PREFIX})
     public void setSupportImageTintList(@Nullable ColorStateList colorStateList) {
-        AppCompatImageHelper appCompatImageHelper = this.mImageHelper;
+        AppCompatImageHelper appCompatImageHelper = this.f714b;
         if (appCompatImageHelper != null) {
-            appCompatImageHelper.setSupportImageTintList(colorStateList);
+            appCompatImageHelper.g(colorStateList);
         }
     }
 
     @Override // androidx.core.widget.TintableImageSourceView
     @RestrictTo({RestrictTo.Scope.LIBRARY_GROUP_PREFIX})
     public void setSupportImageTintMode(@Nullable PorterDuff.Mode mode) {
-        AppCompatImageHelper appCompatImageHelper = this.mImageHelper;
+        AppCompatImageHelper appCompatImageHelper = this.f714b;
         if (appCompatImageHelper != null) {
-            appCompatImageHelper.setSupportImageTintMode(mode);
+            appCompatImageHelper.h(mode);
         }
     }
 
-    public AppCompatImageButton(@NonNull Context context, @Nullable AttributeSet attributeSet) {
+    public AppCompatImageButton(Context context, AttributeSet attributeSet) {
         this(context, attributeSet, R.attr.imageButtonStyle);
     }
 
-    public AppCompatImageButton(@NonNull Context context, @Nullable AttributeSet attributeSet, int i10) {
-        super(TintContextWrapper.wrap(context), attributeSet, i10);
-        this.mHasLevel = false;
-        ThemeUtils.checkAppCompatTheme(this, getContext());
+    public AppCompatImageButton(Context context, AttributeSet attributeSet, int i2) {
+        super(TintContextWrapper.wrap(context), attributeSet, i2);
         AppCompatBackgroundHelper appCompatBackgroundHelper = new AppCompatBackgroundHelper(this);
-        this.mBackgroundTintHelper = appCompatBackgroundHelper;
-        appCompatBackgroundHelper.loadFromAttributes(attributeSet, i10);
+        this.f713a = appCompatBackgroundHelper;
+        appCompatBackgroundHelper.e(attributeSet, i2);
         AppCompatImageHelper appCompatImageHelper = new AppCompatImageHelper(this);
-        this.mImageHelper = appCompatImageHelper;
-        appCompatImageHelper.loadFromAttributes(attributeSet, i10);
+        this.f714b = appCompatImageHelper;
+        appCompatImageHelper.loadFromAttributes(attributeSet, i2);
     }
 }

@@ -3,13 +3,13 @@ package com.baidu.mobads.sdk.api;
 import android.view.View;
 import java.util.List;
 
-/* loaded from: classes2.dex */
+/* loaded from: classes.dex */
 public interface EntryResponse {
 
     public interface EntryAdInteractionListener {
         void onADExposed();
 
-        void onADExposureFailed(int i10);
+        void onADExposureFailed(int i2);
 
         void onAdClick();
 

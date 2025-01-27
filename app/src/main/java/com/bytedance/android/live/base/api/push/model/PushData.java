@@ -1,6 +1,6 @@
 package com.bytedance.android.live.base.api.push.model;
 
-/* loaded from: classes2.dex */
+/* loaded from: classes.dex */
 public class PushData {
     String anchorOpenId;
     String avatar;
@@ -63,7 +63,7 @@ public class PushData {
         this.requestId = str;
     }
 
-    public void setRoomId(Long l10) {
-        this.roomId = l10;
+    public void setRoomId(Long l) {
+        this.roomId = l;
     }
 }

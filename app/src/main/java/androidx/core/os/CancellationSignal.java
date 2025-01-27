@@ -1,38 +1,29 @@
 package androidx.core.os;
 
-import androidx.annotation.DoNotInline;
+import android.os.Build;
 import androidx.annotation.Nullable;
-import androidx.annotation.RequiresApi;
 
 /* loaded from: classes.dex */
 public final class CancellationSignal {
-    private boolean mCancelInProgress;
-    private Object mCancellationSignalObj;
-    private boolean mIsCanceled;
-    private OnCancelListener mOnCancelListener;
 
-    @RequiresApi(16)
-    public static class Api16Impl {
-        private Api16Impl() {
-        }
+    /* renamed from: a */
+    private boolean f1812a;
 
-        @DoNotInline
-        public static void cancel(Object obj) {
-            ((android.os.CancellationSignal) obj).cancel();
-        }
+    /* renamed from: b */
+    private OnCancelListener f1813b;
 
-        @DoNotInline
-        public static android.os.CancellationSignal createCancellationSignal() {
-            return new android.os.CancellationSignal();
-        }
-    }
+    /* renamed from: c */
+    private Object f1814c;
+
+    /* renamed from: d */
+    private boolean f1815d;
 
     public interface OnCancelListener {
         void onCancel();
     }
 
-    private void waitForCancelFinishedLocked() {
-        while (this.mCancelInProgress) {
+    private void a() {
+        while (this.f1815d) {
             try {
                 wait();
             } catch (InterruptedException unused) {
@@ -42,33 +33,30 @@ public final class CancellationSignal {
 
     public void cancel() {
         synchronized (this) {
-            try {
-                if (this.mIsCanceled) {
-                    return;
-                }
-                this.mIsCanceled = true;
-                this.mCancelInProgress = true;
-                OnCancelListener onCancelListener = this.mOnCancelListener;
-                Object obj = this.mCancellationSignalObj;
-                if (onCancelListener != null) {
-                    try {
-                        onCancelListener.onCancel();
-                    } catch (Throwable th2) {
-                        synchronized (this) {
-                            this.mCancelInProgress = false;
-                            notifyAll();
-                            throw th2;
-                        }
+            if (this.f1812a) {
+                return;
+            }
+            this.f1812a = true;
+            this.f1815d = true;
+            OnCancelListener onCancelListener = this.f1813b;
+            Object obj = this.f1814c;
+            if (onCancelListener != null) {
+                try {
+                    onCancelListener.onCancel();
+                } catch (Throwable th) {
+                    synchronized (this) {
+                        this.f1815d = false;
+                        notifyAll();
+                        throw th;
                     }
                 }
-                if (obj != null) {
-                    Api16Impl.cancel(obj);
-                }
-                synchronized (this) {
-                    this.mCancelInProgress = false;
-                    notifyAll();
-                }
-            } finally {
+            }
+            if (obj != null && Build.VERSION.SDK_INT >= 16) {
+                ((android.os.CancellationSignal) obj).cancel();
+            }
+            synchronized (this) {
+                this.f1815d = false;
+                notifyAll();
             }
         }
     }
@@ -76,43 +64,39 @@ public final class CancellationSignal {
     @Nullable
     public Object getCancellationSignalObject() {
         Object obj;
+        if (Build.VERSION.SDK_INT < 16) {
+            return null;
+        }
         synchronized (this) {
-            try {
-                if (this.mCancellationSignalObj == null) {
-                    android.os.CancellationSignal createCancellationSignal = Api16Impl.createCancellationSignal();
-                    this.mCancellationSignalObj = createCancellationSignal;
-                    if (this.mIsCanceled) {
-                        Api16Impl.cancel(createCancellationSignal);
-                    }
+            if (this.f1814c == null) {
+                android.os.CancellationSignal cancellationSignal = new android.os.CancellationSignal();
+                this.f1814c = cancellationSignal;
+                if (this.f1812a) {
+                    cancellationSignal.cancel();
                 }
-                obj = this.mCancellationSignalObj;
-            } catch (Throwable th2) {
-                throw th2;
             }
+            obj = this.f1814c;
         }
         return obj;
     }
 
     public boolean isCanceled() {
-        boolean z10;
+        boolean z;
         synchronized (this) {
-            z10 = this.mIsCanceled;
+            z = this.f1812a;
         }
-        return z10;
+        return z;
     }
 
     public void setOnCancelListener(@Nullable OnCancelListener onCancelListener) {
         synchronized (this) {
-            try {
-                waitForCancelFinishedLocked();
-                if (this.mOnCancelListener == onCancelListener) {
-                    return;
-                }
-                this.mOnCancelListener = onCancelListener;
-                if (this.mIsCanceled && onCancelListener != null) {
-                    onCancelListener.onCancel();
-                }
-            } finally {
+            a();
+            if (this.f1813b == onCancelListener) {
+                return;
+            }
+            this.f1813b = onCancelListener;
+            if (this.f1812a && onCancelListener != null) {
+                onCancelListener.onCancel();
             }
         }
     }

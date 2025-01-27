@@ -6,7 +6,7 @@ import android.os.Message;
 
 /* loaded from: classes4.dex */
 final class n extends Handler {
-    public n(Looper looper) {
+    n(Looper looper) {
         super(looper);
     }
 

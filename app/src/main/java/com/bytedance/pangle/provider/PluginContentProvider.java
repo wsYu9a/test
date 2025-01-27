@@ -7,7 +7,7 @@ import android.net.Uri;
 import androidx.annotation.Keep;
 
 @Keep
-/* loaded from: classes2.dex */
+/* loaded from: classes.dex */
 public abstract class PluginContentProvider extends ContentProvider {
     protected Uri pluginUri;
 

@@ -19,7 +19,7 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
-/* loaded from: classes2.dex */
+/* loaded from: classes.dex */
 final class DecodeHelper<Transcode> {
     private DecodeJob.DiskCacheProvider diskCacheProvider;
     private DiskCacheStrategy diskCacheStrategy;
@@ -40,7 +40,10 @@ final class DecodeHelper<Transcode> {
     private final List<ModelLoader.LoadData<?>> loadData = new ArrayList();
     private final List<Key> cacheKeys = new ArrayList();
 
-    public void clear() {
+    DecodeHelper() {
+    }
+
+    void clear() {
         this.glideContext = null;
         this.model = null;
         this.signature = null;
@@ -56,24 +59,24 @@ final class DecodeHelper<Transcode> {
         this.isCacheKeysSet = false;
     }
 
-    public ArrayPool getArrayPool() {
+    ArrayPool getArrayPool() {
         return this.glideContext.getArrayPool();
     }
 
-    public List<Key> getCacheKeys() {
+    List<Key> getCacheKeys() {
         if (!this.isCacheKeysSet) {
             this.isCacheKeysSet = true;
             this.cacheKeys.clear();
             List<ModelLoader.LoadData<?>> loadData = getLoadData();
             int size = loadData.size();
-            for (int i10 = 0; i10 < size; i10++) {
-                ModelLoader.LoadData<?> loadData2 = loadData.get(i10);
+            for (int i2 = 0; i2 < size; i2++) {
+                ModelLoader.LoadData<?> loadData2 = loadData.get(i2);
                 if (!this.cacheKeys.contains(loadData2.sourceKey)) {
                     this.cacheKeys.add(loadData2.sourceKey);
                 }
-                for (int i11 = 0; i11 < loadData2.alternateKeys.size(); i11++) {
-                    if (!this.cacheKeys.contains(loadData2.alternateKeys.get(i11))) {
-                        this.cacheKeys.add(loadData2.alternateKeys.get(i11));
+                for (int i3 = 0; i3 < loadData2.alternateKeys.size(); i3++) {
+                    if (!this.cacheKeys.contains(loadData2.alternateKeys.get(i3))) {
+                        this.cacheKeys.add(loadData2.alternateKeys.get(i3));
                     }
                 }
             }
@@ -81,26 +84,26 @@ final class DecodeHelper<Transcode> {
         return this.cacheKeys;
     }
 
-    public DiskCache getDiskCache() {
+    DiskCache getDiskCache() {
         return this.diskCacheProvider.getDiskCache();
     }
 
-    public DiskCacheStrategy getDiskCacheStrategy() {
+    DiskCacheStrategy getDiskCacheStrategy() {
         return this.diskCacheStrategy;
     }
 
-    public int getHeight() {
+    int getHeight() {
         return this.height;
     }
 
-    public List<ModelLoader.LoadData<?>> getLoadData() {
+    List<ModelLoader.LoadData<?>> getLoadData() {
         if (!this.isLoadDataSet) {
             this.isLoadDataSet = true;
             this.loadData.clear();
             List modelLoaders = this.glideContext.getRegistry().getModelLoaders(this.model);
             int size = modelLoaders.size();
-            for (int i10 = 0; i10 < size; i10++) {
-                ModelLoader.LoadData<?> buildLoadData = ((ModelLoader) modelLoaders.get(i10)).buildLoadData(this.model, this.width, this.height, this.options);
+            for (int i2 = 0; i2 < size; i2++) {
+                ModelLoader.LoadData<?> buildLoadData = ((ModelLoader) modelLoaders.get(i2)).buildLoadData(this.model, this.width, this.height, this.options);
                 if (buildLoadData != null) {
                     this.loadData.add(buildLoadData);
                 }
@@ -109,47 +112,47 @@ final class DecodeHelper<Transcode> {
         return this.loadData;
     }
 
-    public <Data> LoadPath<Data, ?, Transcode> getLoadPath(Class<Data> cls) {
+    <Data> LoadPath<Data, ?, Transcode> getLoadPath(Class<Data> cls) {
         return this.glideContext.getRegistry().getLoadPath(cls, this.resourceClass, this.transcodeClass);
     }
 
-    public Class<?> getModelClass() {
+    Class<?> getModelClass() {
         return this.model.getClass();
     }
 
-    public List<ModelLoader<File, ?>> getModelLoaders(File file) throws Registry.NoModelLoaderAvailableException {
+    List<ModelLoader<File, ?>> getModelLoaders(File file) throws Registry.NoModelLoaderAvailableException {
         return this.glideContext.getRegistry().getModelLoaders(file);
     }
 
-    public Options getOptions() {
+    Options getOptions() {
         return this.options;
     }
 
-    public Priority getPriority() {
+    Priority getPriority() {
         return this.priority;
     }
 
-    public List<Class<?>> getRegisteredResourceClasses() {
+    List<Class<?>> getRegisteredResourceClasses() {
         return this.glideContext.getRegistry().getRegisteredResourceClasses(this.model.getClass(), this.resourceClass, this.transcodeClass);
     }
 
-    public <Z> ResourceEncoder<Z> getResultEncoder(Resource<Z> resource) {
+    <Z> ResourceEncoder<Z> getResultEncoder(Resource<Z> resource) {
         return this.glideContext.getRegistry().getResultEncoder(resource);
     }
 
-    public Key getSignature() {
+    Key getSignature() {
         return this.signature;
     }
 
-    public <X> Encoder<X> getSourceEncoder(X x10) throws Registry.NoSourceEncoderAvailableException {
-        return this.glideContext.getRegistry().getSourceEncoder(x10);
+    <X> Encoder<X> getSourceEncoder(X x) throws Registry.NoSourceEncoderAvailableException {
+        return this.glideContext.getRegistry().getSourceEncoder(x);
     }
 
-    public Class<?> getTranscodeClass() {
+    Class<?> getTranscodeClass() {
         return this.transcodeClass;
     }
 
-    public <Z> Transformation<Z> getTransformation(Class<Z> cls) {
+    <Z> Transformation<Z> getTransformation(Class<Z> cls) {
         Transformation<Z> transformation = (Transformation) this.transformations.get(cls);
         if (transformation == null) {
             Iterator<Map.Entry<Class<?>, Transformation<?>>> it = this.transformations.entrySet().iterator();
@@ -173,22 +176,22 @@ final class DecodeHelper<Transcode> {
         throw new IllegalArgumentException("Missing transformation for " + cls + ". If you wish to ignore unknown resource types, use the optional transformation methods.");
     }
 
-    public int getWidth() {
+    int getWidth() {
         return this.width;
     }
 
     /* JADX WARN: Multi-variable type inference failed */
-    public boolean hasLoadPath(Class<?> cls) {
+    boolean hasLoadPath(Class<?> cls) {
         return getLoadPath(cls) != null;
     }
 
     /* JADX WARN: Multi-variable type inference failed */
-    public <R> void init(GlideContext glideContext, Object obj, Key key, int i10, int i11, DiskCacheStrategy diskCacheStrategy, Class<?> cls, Class<R> cls2, Priority priority, Options options, Map<Class<?>, Transformation<?>> map, boolean z10, boolean z11, DecodeJob.DiskCacheProvider diskCacheProvider) {
+    <R> void init(GlideContext glideContext, Object obj, Key key, int i2, int i3, DiskCacheStrategy diskCacheStrategy, Class<?> cls, Class<R> cls2, Priority priority, Options options, Map<Class<?>, Transformation<?>> map, boolean z, boolean z2, DecodeJob.DiskCacheProvider diskCacheProvider) {
         this.glideContext = glideContext;
         this.model = obj;
         this.signature = key;
-        this.width = i10;
-        this.height = i11;
+        this.width = i2;
+        this.height = i3;
         this.diskCacheStrategy = diskCacheStrategy;
         this.resourceClass = cls;
         this.diskCacheProvider = diskCacheProvider;
@@ -196,23 +199,23 @@ final class DecodeHelper<Transcode> {
         this.priority = priority;
         this.options = options;
         this.transformations = map;
-        this.isTransformationRequired = z10;
-        this.isScaleOnlyOrNoTransform = z11;
+        this.isTransformationRequired = z;
+        this.isScaleOnlyOrNoTransform = z2;
     }
 
-    public boolean isResourceEncoderAvailable(Resource<?> resource) {
+    boolean isResourceEncoderAvailable(Resource<?> resource) {
         return this.glideContext.getRegistry().isResourceEncoderAvailable(resource);
     }
 
-    public boolean isScaleOnlyOrNoTransform() {
+    boolean isScaleOnlyOrNoTransform() {
         return this.isScaleOnlyOrNoTransform;
     }
 
-    public boolean isSourceKey(Key key) {
+    boolean isSourceKey(Key key) {
         List<ModelLoader.LoadData<?>> loadData = getLoadData();
         int size = loadData.size();
-        for (int i10 = 0; i10 < size; i10++) {
-            if (loadData.get(i10).sourceKey.equals(key)) {
+        for (int i2 = 0; i2 < size; i2++) {
+            if (loadData.get(i2).sourceKey.equals(key)) {
                 return true;
             }
         }

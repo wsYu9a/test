@@ -1,6 +1,6 @@
 package com.bykv.vk.openvk.api.proto;
 
-/* loaded from: classes2.dex */
+/* loaded from: classes.dex */
 public interface EventListener {
-    ValueSet onEvent(int i10, Result result);
+    ValueSet onEvent(int i2, Result result);
 }

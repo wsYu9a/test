@@ -1,13 +1,17 @@
 package com.bytedance.android.live.base.api.outer.data;
 
-/* loaded from: classes2.dex */
+/* loaded from: classes.dex */
 public class AnchorInfo {
     String avatar;
     long fansCount;
     String nickname;
     String openId;
 
-    public AnchorInfo() {
+    public AnchorInfo(String str, String str2, String str3, long j2) {
+        this.openId = str;
+        this.nickname = str2;
+        this.avatar = str3;
+        this.fansCount = j2;
     }
 
     public String getAvatar() {
@@ -30,8 +34,8 @@ public class AnchorInfo {
         this.avatar = str;
     }
 
-    public void setFansCount(long j10) {
-        this.fansCount = j10;
+    public void setFansCount(long j2) {
+        this.fansCount = j2;
     }
 
     public void setNickname(String str) {
@@ -40,12 +44,5 @@ public class AnchorInfo {
 
     public void setOpenId(String str) {
         this.openId = str;
-    }
-
-    public AnchorInfo(String str, String str2, String str3, long j10) {
-        this.openId = str;
-        this.nickname = str2;
-        this.avatar = str3;
-        this.fansCount = j10;
     }
 }

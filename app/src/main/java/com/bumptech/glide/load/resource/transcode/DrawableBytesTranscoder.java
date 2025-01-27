@@ -11,7 +11,7 @@ import com.bumptech.glide.load.engine.bitmap_recycle.BitmapPool;
 import com.bumptech.glide.load.resource.bitmap.BitmapResource;
 import com.bumptech.glide.load.resource.gif.GifDrawable;
 
-/* loaded from: classes2.dex */
+/* loaded from: classes.dex */
 public final class DrawableBytesTranscoder implements ResourceTranscoder<Drawable, byte[]> {
     private final ResourceTranscoder<Bitmap, byte[]> bitmapBytesTranscoder;
     private final BitmapPool bitmapPool;

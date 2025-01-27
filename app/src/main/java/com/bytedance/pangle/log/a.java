@@ -1,31 +1,31 @@
 package com.bytedance.pangle.log;
 
-/* loaded from: classes2.dex */
+/* loaded from: classes.dex */
 public final class a {
 
     /* renamed from: a */
-    private String f7683a;
+    private String f6176a;
 
     /* renamed from: b */
-    private String f7684b;
+    private String f6177b;
 
     /* renamed from: c */
-    private String f7685c;
+    private String f6178c;
 
     /* renamed from: d */
-    private long f7686d;
+    private long f6179d;
 
     /* renamed from: e */
-    private long f7687e;
+    private long f6180e;
 
     private a(String str, String str2, String str3) {
-        this.f7683a = str;
-        this.f7684b = str2;
-        this.f7685c = str3;
+        this.f6176a = str;
+        this.f6177b = str2;
+        this.f6178c = str3;
         long currentTimeMillis = System.currentTimeMillis();
-        this.f7687e = currentTimeMillis;
-        this.f7686d = currentTimeMillis;
-        ZeusLogger.i(this.f7683a, this.f7684b + String.format(" watcher[%s]-start", str3));
+        this.f6180e = currentTimeMillis;
+        this.f6179d = currentTimeMillis;
+        ZeusLogger.i(this.f6176a, this.f6177b + String.format(" watcher[%s]-start", str3));
     }
 
     public static a a(String str, String str2, String str3) {
@@ -33,13 +33,13 @@ public final class a {
     }
 
     public final long a(String str) {
-        long currentTimeMillis = System.currentTimeMillis() - this.f7687e;
-        long currentTimeMillis2 = System.currentTimeMillis() - this.f7686d;
-        ZeusLogger.i(this.f7683a, this.f7684b + String.format(" watcher[%s]-%s cost=%s, total=%s", this.f7685c, str, Long.valueOf(currentTimeMillis), Long.valueOf(currentTimeMillis2)));
+        long currentTimeMillis = System.currentTimeMillis() - this.f6180e;
+        long currentTimeMillis2 = System.currentTimeMillis() - this.f6179d;
+        ZeusLogger.i(this.f6176a, this.f6177b + String.format(" watcher[%s]-%s cost=%s, total=%s", this.f6178c, str, Long.valueOf(currentTimeMillis), Long.valueOf(currentTimeMillis2)));
         return currentTimeMillis2;
     }
 
     public final long a() {
-        return System.currentTimeMillis() - this.f7686d;
+        return System.currentTimeMillis() - this.f6179d;
     }
 }

@@ -1,98 +1,118 @@
 package com.kwad.sdk.api.loader;
 
-import android.annotation.SuppressLint;
 import android.content.Context;
-import com.kwad.sdk.api.SdkConfig;
+import android.text.TextUtils;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.InputStream;
+import java.io.OutputStream;
+import java.util.Enumeration;
+import java.util.zip.ZipEntry;
+import java.util.zip.ZipFile;
 
-/* loaded from: classes3.dex */
-public final class b {
-
-    /* renamed from: com.kwad.sdk.api.loader.b$1 */
-    public class AnonymousClass1 extends com.kwad.sdk.api.a.b {
-        final /* synthetic */ SdkConfig apL;
-        final /* synthetic */ Context hB;
-
-        public AnonymousClass1(Context context, SdkConfig sdkConfig) {
-            context = context;
-            sdkConfig = sdkConfig;
-        }
-
-        @Override // com.kwad.sdk.api.a.b
-        public final void doTask() {
-            b.c(context, "sdkconfig", sdkConfig.toJson());
+/* loaded from: classes2.dex */
+final class b {
+    static boolean a(Context context, ClassLoader classLoader, String str, String str2) {
+        String l = h.l(context, str2);
+        c(new File(l));
+        String n = h.n(context, str2);
+        String o = h.o(context, str2);
+        String p = h.p(context, str2);
+        try {
+            o(str, n);
+            p(str, p);
+            return k.b(context, classLoader, n, o, p).tq() != null;
+        } catch (Exception e2) {
+            c(new File(n));
+            c(new File(o));
+            c(new File(p));
+            c(new File(l));
+            throw e2;
         }
     }
 
-    public static void a(Context context, SdkConfig sdkConfig) {
-        com.kwad.sdk.api.a.a.a(new com.kwad.sdk.api.a.b() { // from class: com.kwad.sdk.api.loader.b.1
-            final /* synthetic */ SdkConfig apL;
-            final /* synthetic */ Context hB;
+    private static void c(File file) {
+        if (file.isFile()) {
+            file.delete();
+            return;
+        }
+        File[] listFiles = file.listFiles();
+        if (listFiles == null || listFiles.length <= 0) {
+            return;
+        }
+        for (File file2 : listFiles) {
+            c(file2);
+        }
+    }
 
-            public AnonymousClass1(Context context2, SdkConfig sdkConfig2) {
-                context = context2;
-                sdkConfig = sdkConfig2;
+    private static void c(InputStream inputStream, OutputStream outputStream) {
+        byte[] bArr = new byte[8192];
+        while (true) {
+            int read = inputStream.read(bArr);
+            if (read == -1) {
+                return;
+            } else {
+                outputStream.write(bArr, 0, read);
             }
+        }
+    }
 
-            @Override // com.kwad.sdk.api.a.b
-            public final void doTask() {
-                b.c(context, "sdkconfig", sdkConfig.toJson());
+    private static void d(InputStream inputStream, OutputStream outputStream) {
+        try {
+            c(inputStream, outputStream);
+            if (inputStream != null) {
+                try {
+                    inputStream.close();
+                } catch (Exception unused) {
+                }
             }
-        });
-    }
-
-    public static String b(Context context, String str, String str2) {
-        try {
-            return context.getSharedPreferences("kssdk_api_pref", 0).getString(str, str2);
-        } catch (Throwable unused) {
-            return str2;
+            try {
+                outputStream.close();
+            } catch (Exception unused2) {
+            }
+        } finally {
         }
     }
 
-    @SuppressLint({"ApplySharedPref"})
-    public static void c(Context context, String str, String str2) {
+    private static void o(String str, String str2) {
+        d(new FileInputStream(str), new FileOutputStream(str2));
+    }
+
+    private static void p(String str, String str2) {
+        ZipFile zipFile;
+        String str3 = w.is64Bit() ? "lib/arm64-v8a/" : "lib/armeabi-v7a/";
+        ZipFile zipFile2 = null;
         try {
-            context.getSharedPreferences("kssdk_api_pref", 0).edit().putString(str, str2).commit();
-        } catch (Throwable unused) {
+            zipFile = new ZipFile(str);
+        } catch (Throwable th) {
+            th = th;
         }
-    }
-
-    public static String getString(Context context, String str) {
-        return b(context, str, "");
-    }
-
-    public static long n(Context context, String str) {
-        return b(context, str, 0L);
-    }
-
-    @SuppressLint({"ApplySharedPref"})
-    public static void a(Context context, String str, boolean z10) {
         try {
-            context.getSharedPreferences("kssdk_api_pref", 0).edit().putBoolean(str, z10).commit();
-        } catch (Throwable unused) {
-        }
-    }
-
-    public static boolean b(Context context, String str, boolean z10) {
-        try {
-            return context.getSharedPreferences("kssdk_api_pref", 0).getBoolean(str, false);
-        } catch (Throwable unused) {
-            return false;
-        }
-    }
-
-    @SuppressLint({"ApplySharedPref"})
-    public static void a(Context context, String str, long j10) {
-        try {
-            context.getSharedPreferences("kssdk_api_pref", 0).edit().putLong(str, j10).commit();
-        } catch (Throwable unused) {
-        }
-    }
-
-    private static long b(Context context, String str, long j10) {
-        try {
-            return context.getSharedPreferences("kssdk_api_pref", 0).getLong(str, 0L);
-        } catch (Throwable unused) {
-            return 0L;
+            Enumeration<? extends ZipEntry> entries = zipFile.entries();
+            while (entries.hasMoreElements()) {
+                ZipEntry nextElement = entries.nextElement();
+                if (!nextElement.isDirectory()) {
+                    String name = nextElement.getName();
+                    if (!TextUtils.isEmpty(name) && !name.contains("../") && name.endsWith(".so") && name.startsWith(str3)) {
+                        d(zipFile.getInputStream(nextElement), new FileOutputStream(new File(str2, name.substring(str3.length()))));
+                    }
+                }
+            }
+            try {
+                zipFile.close();
+            } catch (Exception unused) {
+            }
+        } catch (Throwable th2) {
+            th = th2;
+            zipFile2 = zipFile;
+            if (zipFile2 != null) {
+                try {
+                    zipFile2.close();
+                } catch (Exception unused2) {
+                }
+            }
+            throw th;
         }
     }
 }

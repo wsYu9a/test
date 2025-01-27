@@ -1,85 +1,56 @@
 package com.kwad.sdk.utils;
 
-import android.content.Context;
-import android.hardware.Sensor;
-import android.hardware.SensorEventListener;
-import android.hardware.SensorManager;
+import android.os.SystemClock;
 
-/* loaded from: classes3.dex */
-public class bh {
-    private static bh aUI;
-    private SensorManager aUJ;
+/* loaded from: classes2.dex */
+public final class bh {
+    private long aBu;
+    private long aBv;
+    private boolean aBw;
 
-    public static bh OC() {
-        if (aUI == null) {
-            synchronized (bh.class) {
-                try {
-                    if (aUI == null) {
-                        aUI = new bh();
-                    }
-                } finally {
-                }
-            }
-        }
-        return aUI;
+    public bh() {
+        reset();
     }
 
-    private static boolean OD() {
-        return !az.Oo();
+    private void reset() {
+        this.aBu = 0L;
+        this.aBv = -1L;
     }
 
-    private boolean OE() {
-        boolean OD = OD();
-        com.kwad.sdk.core.d.c.d("SensorManagerWrapper", "checkEnableSensor enable:" + OD);
-        if (OD) {
-            return true;
-        }
-        this.aUJ = null;
-        return false;
-    }
-
-    private SensorManager dl(Context context) {
-        if (this.aUJ == null) {
-            this.aUJ = (SensorManager) context.getSystemService(com.umeng.analytics.pro.bt.f23586ac);
-        }
-        return this.aUJ;
-    }
-
-    public final SensorManager checkAndObtainSensorManager(Context context) {
-        if (OE()) {
-            return dl(context);
-        }
-        return null;
-    }
-
-    public final Sensor getDefaultSensor(Context context, int i10) {
-        com.kwad.sdk.core.d.c.d("SensorManagerWrapper", "getDefaultSensor type:" + i10);
-        if (OE()) {
-            return dl(context).getDefaultSensor(i10);
-        }
-        return null;
-    }
-
-    public final boolean registerListener(Context context, SensorEventListener sensorEventListener, Sensor sensor, int i10) {
-        com.kwad.sdk.core.d.c.d("SensorManagerWrapper", "registerListener sensor:" + sensor + ", listener: " + sensorEventListener);
-        if (!OE()) {
-            return false;
-        }
-        try {
-            return dl(context).registerListener(sensorEventListener, sensor, i10);
-        } catch (Exception unused) {
-            return false;
+    public final void EX() {
+        if (this.aBw && this.aBv < 0) {
+            this.aBv = SystemClock.elapsedRealtime();
         }
     }
 
-    public final void unregisterListener(SensorEventListener sensorEventListener) {
-        SensorManager sensorManager;
-        com.kwad.sdk.core.d.c.d("SensorManagerWrapper", "unregisterListener listener:" + sensorEventListener);
-        if (OE() && (sensorManager = this.aUJ) != null) {
-            try {
-                sensorManager.unregisterListener(sensorEventListener);
-            } catch (Throwable unused) {
-            }
+    public final void EY() {
+        if (this.aBw && this.aBv > 0) {
+            this.aBu += SystemClock.elapsedRealtime() - this.aBv;
+            this.aBv = -1L;
         }
+    }
+
+    public final long EZ() {
+        if (!this.aBw) {
+            return 0L;
+        }
+        this.aBw = false;
+        if (this.aBv > 0) {
+            this.aBu += SystemClock.elapsedRealtime() - this.aBv;
+            this.aBv = -1L;
+        }
+        return this.aBu;
+    }
+
+    public final long getTime() {
+        long j2 = this.aBv;
+        long j3 = this.aBu;
+        return j2 > 0 ? (j3 + SystemClock.elapsedRealtime()) - this.aBv : j3;
+    }
+
+    public final void startTiming() {
+        reset();
+        this.aBw = true;
+        this.aBv = SystemClock.elapsedRealtime();
     }
 }

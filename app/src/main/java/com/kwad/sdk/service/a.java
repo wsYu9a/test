@@ -1,100 +1,94 @@
 package com.kwad.sdk.service;
 
-import android.app.Service;
-import android.content.Intent;
-import android.os.Handler;
-import android.os.Message;
-import android.text.TextUtils;
-import com.ksad.annotation.invoker.InvokeBy;
-import com.kwad.sdk.DownloadTask;
-import com.kwad.sdk.api.proxy.app.DownloadService;
-import java.lang.ref.WeakReference;
+import com.ksad.annotation.invoker.ForInvoker;
+import com.kwad.components.ad.feed.FeedDownloadActivityProxy;
+import com.kwad.components.ad.fullscreen.KsFullScreenLandScapeVideoActivityProxy;
+import com.kwad.components.ad.fullscreen.KsFullScreenVideoActivityProxy;
+import com.kwad.components.ad.reward.KSRewardLandScapeVideoActivityProxy;
+import com.kwad.components.ad.reward.KSRewardVideoActivityProxy;
+import com.kwad.components.core.internal.api.KSAdVideoPlayConfigImpl;
+import com.kwad.components.core.internal.api.VideoPlayConfigImpl;
+import com.kwad.components.core.page.AdWebViewActivityProxy;
+import com.kwad.components.core.page.AdWebViewVideoActivityProxy;
+import com.kwad.components.core.page.d;
+import com.kwad.sdk.internal.api.SceneImpl;
+import com.kwai.filedownloader.services.FileDownloadServiceProxy;
+import java.util.HashMap;
 import java.util.Map;
-import java.util.concurrent.ConcurrentHashMap;
 
-/* loaded from: classes3.dex */
-public class a extends com.kwad.sdk.l.a {
-    private com.kwad.sdk.c aSf;
-    private Service aSh;
-    private final Map<String, Integer> aSg = new ConcurrentHashMap();
-    private final HandlerC0514a aSi = new HandlerC0514a(this);
+/* loaded from: classes.dex */
+public final class a {
+    private static final Map<Class<?>, Class<?>> ayH = new HashMap();
+    private static final Map<Class<?>, Class<?>> ayI = new HashMap();
+    private static boolean ayJ = false;
+    private static boolean ayK = false;
 
-    /* renamed from: com.kwad.sdk.service.a$a */
-    public static class HandlerC0514a extends Handler {
-        final WeakReference<a> aSj;
-
-        public HandlerC0514a(a aVar) {
-            this.aSj = new WeakReference<>(aVar);
-        }
-
-        @Override // android.os.Handler
-        public final void handleMessage(Message message) {
-            a aVar = this.aSj.get();
-            if (aVar != null && message.what == 1) {
-                if (aVar.aSf == null || !aVar.aSf.za()) {
-                    sendEmptyMessageDelayed(1, 30000L);
-                } else {
-                    aVar.aSh.stopSelf();
-                }
+    private static synchronized void Cv() {
+        synchronized (a.class) {
+            if (ayJ) {
+                return;
             }
+            Cw();
+            ayJ = true;
         }
     }
 
-    private void h(Intent intent) {
-        if (intent == null) {
-            return;
-        }
-        try {
-            int intExtra = intent.getIntExtra("download_service_type_tag", 0);
-            String stringExtra = intent.getStringExtra("download_service_id_tag");
-            DownloadTask.DownloadRequest downloadRequest = (DownloadTask.DownloadRequest) intent.getSerializableExtra("download_service_args_tag");
-            Integer num = TextUtils.isEmpty(stringExtra) ? null : this.aSg.get(stringExtra);
-            int intValue = num != null ? num.intValue() : 0;
-            if (intExtra == 1) {
-                this.aSg.put(stringExtra, Integer.valueOf(this.aSf.a(downloadRequest, (com.kwad.sdk.a) null)));
+    @ForInvoker(methodId = "initComponentProxyForInvoker")
+    private static void Cw() {
+        com.ksad.download.b.a.register();
+        FeedDownloadActivityProxy.register();
+        KsFullScreenLandScapeVideoActivityProxy.register();
+        KsFullScreenVideoActivityProxy.register();
+        KSRewardLandScapeVideoActivityProxy.register();
+        KSRewardVideoActivityProxy.register();
+        com.kwad.components.core.page.a.register();
+        AdWebViewActivityProxy.register();
+        AdWebViewVideoActivityProxy.register();
+        d.register();
+        com.kwad.components.core.q.kwai.a.register();
+        com.kwad.sdk.collector.a.a.register();
+        FileDownloadServiceProxy.register();
+    }
+
+    private static synchronized void Cx() {
+        synchronized (a.class) {
+            if (ayK) {
                 return;
             }
-            if (intExtra == 2) {
-                this.aSf.pause(intValue);
-                return;
-            }
-            if (intExtra == 3) {
-                this.aSf.resume(intValue);
-                return;
-            }
-            if (intExtra != 4) {
-                return;
-            }
-            if (intValue != 0) {
-                this.aSf.cancel(intValue);
-                return;
-            }
-            String stringExtra2 = intent.getStringExtra("download_service_path");
-            if (stringExtra2 != null) {
-                com.kwad.sdk.c.bX(stringExtra2);
-            }
-        } catch (Exception unused) {
+            Cy();
+            ayK = true;
         }
     }
 
-    @InvokeBy(invokerClass = b.class, methodId = "initComponentProxyForInvoker")
-    public static void register() {
-        b.a(DownloadService.class, a.class);
+    @ForInvoker(methodId = "initModeImplForInvoker")
+    private static void Cy() {
+        KSAdVideoPlayConfigImpl.register();
+        com.kwad.components.core.internal.api.d.register();
+        VideoPlayConfigImpl.register();
+        com.kwad.components.core.o.b.register();
+        SceneImpl.register();
     }
 
-    @Override // com.kwad.sdk.l.a, com.kwad.sdk.api.proxy.IServiceProxy
-    public void onCreate(Service service) {
-        if (service == null) {
-            return;
-        }
-        this.aSh = service;
-        this.aSf = com.kwad.sdk.c.yU();
-        this.aSi.sendEmptyMessageDelayed(1, 30000L);
+    public static void a(Class<?> cls, Class<?> cls2) {
+        ayH.put(cls, cls2);
     }
 
-    @Override // com.kwad.sdk.l.a, com.kwad.sdk.api.proxy.IServiceProxy
-    public int onStartCommand(Service service, Intent intent, int i10, int i11) {
-        h(intent);
-        return super.onStartCommand(service, intent, i10, i11);
+    public static void b(Class cls, Class cls2) {
+        ayI.put(cls, cls2);
+    }
+
+    public static Class<?> g(Class<?> cls) {
+        Cv();
+        return ayH.get(cls);
+    }
+
+    public static Class<?> h(Class<?> cls) {
+        Cx();
+        return ayI.get(cls);
+    }
+
+    public static void init() {
+        Cv();
+        Cx();
     }
 }

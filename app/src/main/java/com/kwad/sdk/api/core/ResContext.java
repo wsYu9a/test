@@ -6,7 +6,7 @@ import androidx.annotation.NonNull;
 
 @KsAdSdkDynamicApi
 @Keep
-/* loaded from: classes3.dex */
+/* loaded from: classes2.dex */
 public interface ResContext {
     @NonNull
     @KsAdSdkDynamicApi

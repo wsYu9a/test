@@ -4,7 +4,7 @@ import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
-import com.umeng.analytics.pro.bx;
+import com.umeng.analytics.pro.aq;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -13,78 +13,72 @@ import java.util.Map;
 public class J {
 
     /* renamed from: a */
-    private static J f22603a = null;
+    private static J f24962a = null;
 
     /* renamed from: b */
-    private static K f22604b = null;
+    private static K f24963b = null;
 
     /* renamed from: c */
-    public static boolean f22605c = false;
+    public static boolean f24964c = false;
 
     private J(Context context, List<com.tencent.bugly.a> list) {
-        f22604b = new K(context, list);
+        f24963b = new K(context, list);
     }
 
-    private synchronized boolean d(L l10) {
-        SQLiteDatabase sQLiteDatabase;
-        if (l10 == null) {
+    private synchronized boolean d(L l) {
+        ContentValues b2;
+        if (l == null) {
             return false;
         }
+        SQLiteDatabase sQLiteDatabase = null;
         try {
-            sQLiteDatabase = f22604b.getWritableDatabase();
-            if (sQLiteDatabase != null) {
-                try {
-                    ContentValues b10 = b(l10);
-                    if (b10 != null) {
-                        long replace = sQLiteDatabase.replace("t_pf", "_id", b10);
-                        if (replace < 0) {
-                            if (f22605c) {
-                                sQLiteDatabase.close();
-                            }
-                            return false;
-                        }
-                        X.a("[Database] insert %s success.", "t_pf");
-                        l10.f22628a = replace;
-                        if (f22605c) {
-                            sQLiteDatabase.close();
-                        }
-                        return true;
-                    }
-                } catch (Throwable th2) {
-                    th = th2;
-                    try {
-                        if (!X.b(th)) {
-                            th.printStackTrace();
-                        }
-                        if (f22605c && sQLiteDatabase != null) {
-                            sQLiteDatabase.close();
-                        }
-                        return false;
-                    } finally {
-                        if (f22605c && sQLiteDatabase != null) {
-                            sQLiteDatabase.close();
-                        }
-                    }
+            sQLiteDatabase = f24963b.getWritableDatabase();
+            if (sQLiteDatabase == null || (b2 = b(l)) == null) {
+                return false;
+            }
+            long replace = sQLiteDatabase.replace("t_pf", "_id", b2);
+            if (replace < 0) {
+                if (f24964c) {
+                    sQLiteDatabase.close();
+                }
+                return false;
+            }
+            Object[] objArr = new Object[1];
+            objArr[0] = "t_pf";
+            X.a("[Database] insert %s success.", objArr);
+            l.f24979a = replace;
+            if (f24964c) {
+                sQLiteDatabase.close();
+            }
+            return true;
+        } catch (Throwable th) {
+            try {
+                if (!X.b(th)) {
+                    th.printStackTrace();
+                }
+                if (f24964c && sQLiteDatabase != null) {
+                    sQLiteDatabase.close();
+                }
+                return false;
+            } finally {
+                if (f24964c && sQLiteDatabase != null) {
+                    sQLiteDatabase.close();
                 }
             }
-            return false;
-        } catch (Throwable th3) {
-            th = th3;
-            sQLiteDatabase = null;
         }
     }
 
-    /* JADX WARN: Code restructure failed: missing block: B:13:0x003f, code lost:
+    /* JADX WARN: Code restructure failed: missing block: B:17:0x003d, code lost:
     
-        if (com.tencent.bugly.proguard.J.f22605c != false) goto L121;
+        if (com.tencent.bugly.proguard.J.f24964c != false) goto L76;
      */
-    /* JADX WARN: Code restructure failed: missing block: B:14:0x0052, code lost:
+    /* JADX WARN: Code restructure failed: missing block: B:18:0x004d, code lost:
     
         r0.close();
      */
-    /* JADX WARN: Code restructure failed: missing block: B:23:0x0050, code lost:
+    /* JADX WARN: Code restructure failed: missing block: B:27:0x004b, code lost:
     
-        if (com.tencent.bugly.proguard.J.f22605c == false) goto L126;
+        if (com.tencent.bugly.proguard.J.f24964c == false) goto L82;
      */
     /* JADX WARN: Finally extract failed */
     /*
@@ -95,539 +89,481 @@ public class J {
         /*
             r5 = this;
             monitor-enter(r5)
-            com.tencent.bugly.proguard.K r0 = com.tencent.bugly.proguard.J.f22604b     // Catch: java.lang.Throwable -> L20
-            android.database.sqlite.SQLiteDatabase r0 = r0.getWritableDatabase()     // Catch: java.lang.Throwable -> L20
-            if (r0 == 0) goto L5e
+            com.tencent.bugly.proguard.K r0 = com.tencent.bugly.proguard.J.f24963b     // Catch: java.lang.Throwable -> L5c
+            android.database.sqlite.SQLiteDatabase r0 = r0.getWritableDatabase()     // Catch: java.lang.Throwable -> L5c
+            if (r0 == 0) goto L5a
             r1 = 0
-            if (r6 < 0) goto L22
+            if (r6 < 0) goto L20
             java.lang.StringBuilder r2 = new java.lang.StringBuilder     // Catch: java.lang.Throwable -> L1e
             r2.<init>()     // Catch: java.lang.Throwable -> L1e
             java.lang.String r3 = "_tp = "
             r2.append(r3)     // Catch: java.lang.Throwable -> L1e
             r2.append(r6)     // Catch: java.lang.Throwable -> L1e
             java.lang.String r6 = r2.toString()     // Catch: java.lang.Throwable -> L1e
-            goto L23
+            goto L21
         L1e:
             r6 = move-exception
-            goto L42
+            goto L40
         L20:
-            r6 = move-exception
-            goto L60
-        L22:
             r6 = r1
-        L23:
+        L21:
             java.lang.String r2 = "t_lr"
             int r6 = r0.delete(r2, r6, r1)     // Catch: java.lang.Throwable -> L1e
             java.lang.String r1 = "[Database] deleted %s data %d"
-            java.lang.Integer r6 = java.lang.Integer.valueOf(r6)     // Catch: java.lang.Throwable -> L1e
             r2 = 2
             java.lang.Object[] r2 = new java.lang.Object[r2]     // Catch: java.lang.Throwable -> L1e
-            java.lang.String r3 = "t_lr"
-            r4 = 0
-            r2[r4] = r3     // Catch: java.lang.Throwable -> L1e
+            r3 = 0
+            java.lang.String r4 = "t_lr"
+            r2[r3] = r4     // Catch: java.lang.Throwable -> L1e
             r3 = 1
+            java.lang.Integer r6 = java.lang.Integer.valueOf(r6)     // Catch: java.lang.Throwable -> L1e
             r2[r3] = r6     // Catch: java.lang.Throwable -> L1e
             com.tencent.bugly.proguard.X.a(r1, r2)     // Catch: java.lang.Throwable -> L1e
-            boolean r6 = com.tencent.bugly.proguard.J.f22605c     // Catch: java.lang.Throwable -> L20
-            if (r6 == 0) goto L5e
-            goto L52
-        L42:
-            boolean r1 = com.tencent.bugly.proguard.X.b(r6)     // Catch: java.lang.Throwable -> L4c
-            if (r1 != 0) goto L4e
-            r6.printStackTrace()     // Catch: java.lang.Throwable -> L4c
-            goto L4e
-        L4c:
+            boolean r6 = com.tencent.bugly.proguard.J.f24964c     // Catch: java.lang.Throwable -> L5c
+            if (r6 == 0) goto L5a
+            goto L4d
+        L40:
+            boolean r1 = com.tencent.bugly.proguard.X.b(r6)     // Catch: java.lang.Throwable -> L51
+            if (r1 != 0) goto L49
+            r6.printStackTrace()     // Catch: java.lang.Throwable -> L51
+        L49:
+            boolean r6 = com.tencent.bugly.proguard.J.f24964c     // Catch: java.lang.Throwable -> L5c
+            if (r6 == 0) goto L5a
+        L4d:
+            r0.close()     // Catch: java.lang.Throwable -> L5c
+            goto L5a
+        L51:
             r6 = move-exception
-            goto L56
-        L4e:
-            boolean r6 = com.tencent.bugly.proguard.J.f22605c     // Catch: java.lang.Throwable -> L20
-            if (r6 == 0) goto L5e
-        L52:
-            r0.close()     // Catch: java.lang.Throwable -> L20
-            goto L5e
-        L56:
-            boolean r1 = com.tencent.bugly.proguard.J.f22605c     // Catch: java.lang.Throwable -> L20
-            if (r1 == 0) goto L5d
-            r0.close()     // Catch: java.lang.Throwable -> L20
-        L5d:
-            throw r6     // Catch: java.lang.Throwable -> L20
-        L5e:
+            boolean r1 = com.tencent.bugly.proguard.J.f24964c     // Catch: java.lang.Throwable -> L5c
+            if (r1 == 0) goto L59
+            r0.close()     // Catch: java.lang.Throwable -> L5c
+        L59:
+            throw r6     // Catch: java.lang.Throwable -> L5c
+        L5a:
             monitor-exit(r5)
             return
-        L60:
-            monitor-exit(r5)     // Catch: java.lang.Throwable -> L20
+        L5c:
+            r6 = move-exception
+            monitor-exit(r5)
             throw r6
         */
         throw new UnsupportedOperationException("Method not decompiled: com.tencent.bugly.proguard.J.b(int):void");
     }
 
-    public synchronized boolean c(L l10) {
-        SQLiteDatabase sQLiteDatabase;
-        if (l10 == null) {
+    public synchronized boolean c(L l) {
+        ContentValues a2;
+        if (l == null) {
             return false;
         }
+        SQLiteDatabase sQLiteDatabase = null;
         try {
-            sQLiteDatabase = f22604b.getWritableDatabase();
-            if (sQLiteDatabase != null) {
-                try {
-                    ContentValues a10 = a(l10);
-                    if (a10 != null) {
-                        long replace = sQLiteDatabase.replace("t_lr", "_id", a10);
-                        if (replace < 0) {
-                            if (f22605c) {
-                                sQLiteDatabase.close();
-                            }
-                            return false;
-                        }
-                        X.a("[Database] insert %s success.", "t_lr");
-                        l10.f22628a = replace;
-                        if (f22605c) {
-                            sQLiteDatabase.close();
-                        }
-                        return true;
-                    }
-                } catch (Throwable th2) {
-                    th = th2;
-                    try {
-                        if (!X.b(th)) {
-                            th.printStackTrace();
-                        }
-                        if (f22605c && sQLiteDatabase != null) {
-                            sQLiteDatabase.close();
-                        }
-                        return false;
-                    } finally {
-                        if (f22605c && sQLiteDatabase != null) {
-                            sQLiteDatabase.close();
-                        }
-                    }
+            sQLiteDatabase = f24963b.getWritableDatabase();
+            if (sQLiteDatabase == null || (a2 = a(l)) == null) {
+                return false;
+            }
+            long replace = sQLiteDatabase.replace("t_lr", "_id", a2);
+            if (replace < 0) {
+                if (f24964c) {
+                    sQLiteDatabase.close();
+                }
+                return false;
+            }
+            Object[] objArr = new Object[1];
+            objArr[0] = "t_lr";
+            X.a("[Database] insert %s success.", objArr);
+            l.f24979a = replace;
+            if (f24964c) {
+                sQLiteDatabase.close();
+            }
+            return true;
+        } catch (Throwable th) {
+            try {
+                if (!X.b(th)) {
+                    th.printStackTrace();
+                }
+                if (f24964c && sQLiteDatabase != null) {
+                    sQLiteDatabase.close();
+                }
+                return false;
+            } finally {
+                if (f24964c && sQLiteDatabase != null) {
+                    sQLiteDatabase.close();
                 }
             }
-            return false;
-        } catch (Throwable th3) {
-            th = th3;
-            sQLiteDatabase = null;
         }
     }
 
-    public class a extends Thread {
+    class a extends Thread {
 
         /* renamed from: a */
-        private int f22606a;
+        private int f24965a;
 
         /* renamed from: b */
-        private I f22607b;
+        private I f24966b;
 
         /* renamed from: c */
-        private String f22608c;
+        private String f24967c;
 
         /* renamed from: d */
-        private ContentValues f22609d;
+        private ContentValues f24968d;
 
         /* renamed from: e */
-        private boolean f22610e;
+        private boolean f24969e;
 
         /* renamed from: f */
-        private String[] f22611f;
+        private String[] f24970f;
 
         /* renamed from: g */
-        private String f22612g;
+        private String f24971g;
 
         /* renamed from: h */
-        private String[] f22613h;
+        private String[] f24972h;
 
         /* renamed from: i */
-        private String f22614i;
+        private String f24973i;
 
         /* renamed from: j */
-        private String f22615j;
+        private String f24974j;
+        private String k;
+        private String l;
+        private String m;
+        private String[] n;
+        private int o;
+        private String p;
+        private byte[] q;
 
-        /* renamed from: k */
-        private String f22616k;
-
-        /* renamed from: l */
-        private String f22617l;
-
-        /* renamed from: m */
-        private String f22618m;
-
-        /* renamed from: n */
-        private String[] f22619n;
-
-        /* renamed from: o */
-        private int f22620o;
-
-        /* renamed from: p */
-        private String f22621p;
-
-        /* renamed from: q */
-        private byte[] f22622q;
-
-        public a(int i10, I i11) {
-            this.f22606a = i10;
-            this.f22607b = i11;
+        public a(int i2, I i3) {
+            this.f24965a = i2;
+            this.f24966b = i3;
         }
 
         public void a(String str, ContentValues contentValues) {
-            this.f22608c = str;
-            this.f22609d = contentValues;
+            this.f24967c = str;
+            this.f24968d = contentValues;
         }
 
         @Override // java.lang.Thread, java.lang.Runnable
         public void run() {
-            switch (this.f22606a) {
+            switch (this.f24965a) {
                 case 1:
-                    J.this.a(this.f22608c, this.f22609d, this.f22607b);
+                    J.this.a(this.f24967c, this.f24968d, this.f24966b);
                     break;
                 case 2:
-                    J.this.a(this.f22608c, this.f22618m, this.f22619n, this.f22607b);
+                    J.this.a(this.f24967c, this.m, this.n, this.f24966b);
                     break;
                 case 3:
-                    Cursor a10 = J.this.a(this.f22610e, this.f22608c, this.f22611f, this.f22612g, this.f22613h, this.f22614i, this.f22615j, this.f22616k, this.f22617l, this.f22607b);
-                    if (a10 != null) {
-                        a10.close();
+                    Cursor a2 = J.this.a(this.f24969e, this.f24967c, this.f24970f, this.f24971g, this.f24972h, this.f24973i, this.f24974j, this.k, this.l, this.f24966b);
+                    if (a2 != null) {
+                        a2.close();
                         break;
                     }
                     break;
                 case 4:
-                    J.this.a(this.f22620o, this.f22621p, this.f22622q, this.f22607b);
+                    J.this.a(this.o, this.p, this.q, this.f24966b);
                     break;
                 case 5:
-                    J.this.a(this.f22620o, this.f22607b);
+                    J.this.a(this.o, this.f24966b);
                     break;
                 case 6:
-                    J.this.a(this.f22620o, this.f22621p, this.f22607b);
+                    J.this.a(this.o, this.p, this.f24966b);
                     break;
             }
         }
 
-        public void a(boolean z10, String str, String[] strArr, String str2, String[] strArr2, String str3, String str4, String str5, String str6) {
-            this.f22610e = z10;
-            this.f22608c = str;
-            this.f22611f = strArr;
-            this.f22612g = str2;
-            this.f22613h = strArr2;
-            this.f22614i = str3;
-            this.f22615j = str4;
-            this.f22616k = str5;
-            this.f22617l = str6;
+        public void a(boolean z, String str, String[] strArr, String str2, String[] strArr2, String str3, String str4, String str5, String str6) {
+            this.f24969e = z;
+            this.f24967c = str;
+            this.f24970f = strArr;
+            this.f24971g = str2;
+            this.f24972h = strArr2;
+            this.f24973i = str3;
+            this.f24974j = str4;
+            this.k = str5;
+            this.l = str6;
         }
 
         public void a(String str, String str2, String[] strArr) {
-            this.f22608c = str;
-            this.f22618m = str2;
-            this.f22619n = strArr;
+            this.f24967c = str;
+            this.m = str2;
+            this.n = strArr;
         }
 
-        public void a(int i10, String str, byte[] bArr) {
-            this.f22620o = i10;
-            this.f22621p = str;
-            this.f22622q = bArr;
+        public void a(int i2, String str, byte[] bArr) {
+            this.o = i2;
+            this.p = str;
+            this.q = bArr;
         }
 
-        public void a(int i10) {
-            this.f22620o = i10;
+        public void a(int i2) {
+            this.o = i2;
         }
     }
 
     public static synchronized J a(Context context, List<com.tencent.bugly.a> list) {
-        J j10;
+        J j2;
         synchronized (J.class) {
-            try {
-                if (f22603a == null) {
-                    f22603a = new J(context, list);
-                }
-                j10 = f22603a;
-            } catch (Throwable th2) {
-                throw th2;
+            if (f24962a == null) {
+                f24962a = new J(context, list);
             }
+            j2 = f24962a;
         }
-        return j10;
+        return j2;
     }
 
     public static synchronized J a() {
-        J j10;
+        J j2;
         synchronized (J.class) {
-            j10 = f22603a;
+            j2 = f24962a;
         }
-        return j10;
+        return j2;
     }
 
-    public long a(String str, ContentValues contentValues, I i10, boolean z10) {
-        if (!z10) {
-            a aVar = new a(1, i10);
+    public long a(String str, ContentValues contentValues, I i2, boolean z) {
+        if (!z) {
+            a aVar = new a(1, i2);
             aVar.a(str, contentValues);
             W.c().a(aVar);
             return 0L;
         }
-        return a(str, contentValues, i10);
+        return a(str, contentValues, i2);
     }
 
-    public ContentValues b(L l10) {
-        if (l10 != null && !ca.b(l10.f22633f)) {
+    protected ContentValues b(L l) {
+        if (l != null && !ca.b(l.f24984f)) {
             try {
                 ContentValues contentValues = new ContentValues();
-                long j10 = l10.f22628a;
-                if (j10 > 0) {
-                    contentValues.put("_id", Long.valueOf(j10));
+                long j2 = l.f24979a;
+                if (j2 > 0) {
+                    contentValues.put("_id", Long.valueOf(j2));
                 }
-                contentValues.put(bx.f23687e, l10.f22633f);
-                contentValues.put("_tm", Long.valueOf(l10.f22632e));
-                byte[] bArr = l10.f22634g;
+                contentValues.put(aq.f25697e, l.f24984f);
+                contentValues.put("_tm", Long.valueOf(l.f24983e));
+                byte[] bArr = l.f24985g;
                 if (bArr != null) {
                     contentValues.put("_dt", bArr);
                 }
                 return contentValues;
-            } catch (Throwable th2) {
-                if (!X.b(th2)) {
-                    th2.printStackTrace();
+            } catch (Throwable th) {
+                if (!X.b(th)) {
+                    th.printStackTrace();
                 }
             }
         }
         return null;
     }
 
-    public Cursor a(String str, String[] strArr, String str2, String[] strArr2, I i10, boolean z10) {
-        return a(false, str, strArr, str2, strArr2, (String) null, (String) null, (String) null, (String) null, i10, z10);
+    public Cursor a(String str, String[] strArr, String str2, String[] strArr2, I i2, boolean z) {
+        return a(false, str, strArr, str2, strArr2, (String) null, (String) null, (String) null, (String) null, i2, z);
     }
 
-    public Cursor a(boolean z10, String str, String[] strArr, String str2, String[] strArr2, String str3, String str4, String str5, String str6, I i10, boolean z11) {
-        if (!z11) {
-            a aVar = new a(3, i10);
-            aVar.a(z10, str, strArr, str2, strArr2, str3, str4, str5, str6);
+    public Cursor a(boolean z, String str, String[] strArr, String str2, String[] strArr2, String str3, String str4, String str5, String str6, I i2, boolean z2) {
+        if (!z2) {
+            a aVar = new a(3, i2);
+            aVar.a(z, str, strArr, str2, strArr2, str3, str4, str5, str6);
             W.c().a(aVar);
             return null;
         }
-        return a(z10, str, strArr, str2, strArr2, str3, str4, str5, str6, i10);
+        return a(z, str, strArr, str2, strArr2, str3, str4, str5, str6, i2);
     }
 
-    /* JADX WARN: Code restructure failed: missing block: B:10:0x00e5, code lost:
+    /* JADX WARN: Code restructure failed: missing block: B:8:0x00c3, code lost:
     
-        r2.close();
-     */
-    /* JADX WARN: Code restructure failed: missing block: B:84:0x00e3, code lost:
-    
-        if (r2 != null) goto L300;
-     */
-    /* JADX WARN: Code restructure failed: missing block: B:9:0x00c8, code lost:
-    
-        if (r2 != null) goto L300;
+        if (r1 != null) goto L189;
      */
     /*
         Code decompiled incorrectly, please refer to instructions dump.
         To view partially-correct code enable 'Show inconsistent code' option in preferences
     */
-    private synchronized java.util.List<com.tencent.bugly.proguard.L> c(int r13) {
+    private synchronized java.util.List<com.tencent.bugly.proguard.L> c(int r12) {
         /*
-            Method dump skipped, instructions count: 251
+            Method dump skipped, instructions count: 248
             To view this dump change 'Code comments level' option to 'DEBUG'
         */
         throw new UnsupportedOperationException("Method not decompiled: com.tencent.bugly.proguard.J.c(int):java.util.List");
     }
 
-    public int a(String str, String str2, String[] strArr, I i10, boolean z10) {
-        if (!z10) {
-            a aVar = new a(2, i10);
+    public int a(String str, String str2, String[] strArr, I i2, boolean z) {
+        if (!z) {
+            a aVar = new a(2, i2);
             aVar.a(str, str2, strArr);
             W.c().a(aVar);
             return 0;
         }
-        return a(str, str2, strArr, i10);
+        return a(str, str2, strArr, i2);
     }
 
-    public L b(Cursor cursor) {
+    protected L b(Cursor cursor) {
         if (cursor == null) {
             return null;
         }
         try {
-            L l10 = new L();
-            l10.f22628a = cursor.getLong(cursor.getColumnIndex("_id"));
-            l10.f22632e = cursor.getLong(cursor.getColumnIndex("_tm"));
-            l10.f22633f = cursor.getString(cursor.getColumnIndex(bx.f23687e));
-            l10.f22634g = cursor.getBlob(cursor.getColumnIndex("_dt"));
-            return l10;
-        } catch (Throwable th2) {
-            if (!X.b(th2)) {
-                th2.printStackTrace();
+            L l = new L();
+            l.f24979a = cursor.getLong(cursor.getColumnIndex("_id"));
+            l.f24983e = cursor.getLong(cursor.getColumnIndex("_tm"));
+            l.f24984f = cursor.getString(cursor.getColumnIndex(aq.f25697e));
+            l.f24985g = cursor.getBlob(cursor.getColumnIndex("_dt"));
+            return l;
+        } catch (Throwable th) {
+            if (!X.b(th)) {
+                th.printStackTrace();
             }
             return null;
         }
     }
 
-    public synchronized long a(String str, ContentValues contentValues, I i10) {
-        long j10;
-        SQLiteDatabase sQLiteDatabase;
-        j10 = 0;
+    public synchronized long a(String str, ContentValues contentValues, I i2) {
+        long j2;
+        j2 = 0;
+        SQLiteDatabase sQLiteDatabase = null;
         try {
-            sQLiteDatabase = f22604b.getWritableDatabase();
-            if (sQLiteDatabase != null && contentValues != null) {
-                try {
-                    long replace = sQLiteDatabase.replace(str, "_id", contentValues);
-                    if (replace >= 0) {
-                        X.a("[Database] insert %s success.", str);
-                    } else {
-                        X.e("[Database] replace %s error.", str);
-                    }
-                    j10 = replace;
-                } catch (Throwable th2) {
-                    th = th2;
-                    try {
-                        if (!X.b(th)) {
-                            th.printStackTrace();
-                        }
-                        return j10;
-                    } finally {
-                        if (i10 != null) {
-                            i10.a(0L);
-                        }
-                        if (f22605c && sQLiteDatabase != null) {
-                            sQLiteDatabase.close();
-                        }
-                    }
+            SQLiteDatabase writableDatabase = f24963b.getWritableDatabase();
+            if (writableDatabase != null && contentValues != null) {
+                long replace = writableDatabase.replace(str, "_id", contentValues);
+                if (replace >= 0) {
+                    X.a("[Database] insert %s success.", str);
+                } else {
+                    X.e("[Database] replace %s error.", str);
                 }
+                j2 = replace;
             }
-            if (i10 != null) {
-                i10.a(Long.valueOf(j10));
+            if (i2 != null) {
+                i2.a(Long.valueOf(j2));
             }
-            if (f22605c && sQLiteDatabase != null) {
-                sQLiteDatabase.close();
+            if (f24964c && writableDatabase != null) {
+                writableDatabase.close();
             }
-        } catch (Throwable th3) {
-            th = th3;
-            sQLiteDatabase = null;
-        }
-        return j10;
-    }
-
-    public synchronized Cursor a(boolean z10, String str, String[] strArr, String str2, String[] strArr2, String str3, String str4, String str5, String str6, I i10) {
-        Cursor cursor;
-        try {
-            SQLiteDatabase writableDatabase = f22604b.getWritableDatabase();
-            cursor = writableDatabase != null ? writableDatabase.query(z10, str, strArr, str2, strArr2, str3, str4, str5, str6) : null;
-        } catch (Throwable th2) {
+        } catch (Throwable th) {
             try {
-                if (!X.b(th2)) {
-                    th2.printStackTrace();
-                }
-                if (i10 != null) {
-                    i10.a(null);
+                if (!X.b(th)) {
+                    th.printStackTrace();
                 }
             } finally {
-                if (i10 != null) {
-                    i10.a(null);
+                if (i2 != null) {
+                    i2.a(0L);
+                }
+                if (f24964c && 0 != 0) {
+                    sQLiteDatabase.close();
+                }
+            }
+        }
+        return j2;
+    }
+
+    public synchronized Cursor a(boolean z, String str, String[] strArr, String str2, String[] strArr2, String str3, String str4, String str5, String str6, I i2) {
+        Cursor cursor;
+        try {
+            SQLiteDatabase writableDatabase = f24963b.getWritableDatabase();
+            cursor = writableDatabase != null ? writableDatabase.query(z, str, strArr, str2, strArr2, str3, str4, str5, str6) : null;
+        } catch (Throwable th) {
+            try {
+                if (!X.b(th)) {
+                    th.printStackTrace();
+                }
+                if (i2 != null) {
+                    i2.a(null);
+                }
+            } finally {
+                if (i2 != null) {
+                    i2.a(null);
                 }
             }
         }
         return cursor;
     }
 
-    public synchronized int a(String str, String str2, String[] strArr, I i10) {
-        int i11;
-        SQLiteDatabase sQLiteDatabase;
-        i11 = 0;
+    public synchronized int a(String str, String str2, String[] strArr, I i2) {
+        int i3;
+        SQLiteDatabase sQLiteDatabase = null;
         try {
+            sQLiteDatabase = f24963b.getWritableDatabase();
+            i3 = sQLiteDatabase != null ? sQLiteDatabase.delete(str, str2, strArr) : 0;
+            if (i2 != null) {
+                i2.a(Integer.valueOf(i3));
+            }
+            if (f24964c && sQLiteDatabase != null) {
+                sQLiteDatabase.close();
+            }
+        } catch (Throwable th) {
             try {
-                sQLiteDatabase = f22604b.getWritableDatabase();
-                if (sQLiteDatabase != null) {
-                    try {
-                        i11 = sQLiteDatabase.delete(str, str2, strArr);
-                    } catch (Throwable th2) {
-                        th = th2;
-                        try {
-                            if (!X.b(th)) {
-                                th.printStackTrace();
-                            }
-                            return i11;
-                        } finally {
-                            if (i10 != null) {
-                                i10.a(0);
-                            }
-                            if (f22605c && sQLiteDatabase != null) {
-                                sQLiteDatabase.close();
-                            }
-                        }
-                    }
+                if (!X.b(th)) {
+                    th.printStackTrace();
                 }
-                if (i10 != null) {
-                    i10.a(Integer.valueOf(i11));
+            } finally {
+                if (i2 != null) {
+                    i2.a(0);
                 }
-                if (f22605c && sQLiteDatabase != null) {
+                if (f24964c && sQLiteDatabase != null) {
                     sQLiteDatabase.close();
                 }
-            } catch (Throwable th3) {
-                th = th3;
-                sQLiteDatabase = null;
             }
-        } catch (Throwable th4) {
-            throw th4;
         }
-        return i11;
+        return i3;
     }
 
-    public boolean a(int i10, String str, byte[] bArr, I i11, boolean z10) {
-        if (!z10) {
-            a aVar = new a(4, i11);
-            aVar.a(i10, str, bArr);
+    public boolean a(int i2, String str, byte[] bArr, I i3, boolean z) {
+        if (!z) {
+            a aVar = new a(4, i3);
+            aVar.a(i2, str, bArr);
             W.c().a(aVar);
             return true;
         }
-        return a(i10, str, bArr, i11);
+        return a(i2, str, bArr, i3);
     }
 
-    public Map<String, byte[]> a(int i10, I i11, boolean z10) {
-        if (!z10) {
-            a aVar = new a(5, i11);
-            aVar.a(i10);
+    public Map<String, byte[]> a(int i2, I i3, boolean z) {
+        if (!z) {
+            a aVar = new a(5, i3);
+            aVar.a(i2);
             W.c().a(aVar);
             return null;
         }
-        return a(i10, i11);
+        return a(i2, i3);
     }
 
-    public boolean a(int i10, String str, byte[] bArr, I i11) {
+    public boolean a(int i2, String str, byte[] bArr, I i3) {
         Boolean bool = Boolean.FALSE;
         try {
-            L l10 = new L();
-            l10.f22628a = i10;
-            l10.f22633f = str;
-            l10.f22632e = System.currentTimeMillis();
-            l10.f22634g = bArr;
-            boolean d10 = d(l10);
-            if (i11 == null) {
-                return d10;
+            L l = new L();
+            l.f24979a = i2;
+            l.f24984f = str;
+            l.f24983e = System.currentTimeMillis();
+            l.f24985g = bArr;
+            boolean d2 = d(l);
+            if (i3 == null) {
+                return d2;
             }
-            i11.a(Boolean.valueOf(d10));
-            return d10;
-        } catch (Throwable th2) {
+            i3.a(Boolean.valueOf(d2));
+            return d2;
+        } catch (Throwable th) {
             try {
-                if (!X.b(th2)) {
-                    th2.printStackTrace();
+                if (!X.b(th)) {
+                    th.printStackTrace();
                 }
                 return false;
             } finally {
-                if (i11 != null) {
-                    i11.a(bool);
+                if (i3 != null) {
+                    i3.a(bool);
                 }
             }
         }
     }
 
-    public Map<String, byte[]> a(int i10, I i11) {
+    public Map<String, byte[]> a(int i2, I i3) {
         HashMap hashMap = null;
         try {
-            List<L> c10 = c(i10);
-            if (c10 != null) {
+            List<L> c2 = c(i2);
+            if (c2 != null) {
                 HashMap hashMap2 = new HashMap();
                 try {
-                    for (L l10 : c10) {
-                        byte[] bArr = l10.f22634g;
+                    for (L l : c2) {
+                        byte[] bArr = l.f24985g;
                         if (bArr != null) {
-                            hashMap2.put(l10.f22633f, bArr);
+                            hashMap2.put(l.f24984f, bArr);
                         }
                     }
                     hashMap = hashMap2;
-                } catch (Throwable th2) {
-                    th = th2;
+                } catch (Throwable th) {
+                    th = th;
                     hashMap = hashMap2;
                     try {
                         if (!X.b(th)) {
@@ -635,47 +571,47 @@ public class J {
                         }
                         return hashMap;
                     } finally {
-                        if (i11 != null) {
-                            i11.a(hashMap);
+                        if (i3 != null) {
+                            i3.a(hashMap);
                         }
                     }
                 }
             }
-            if (i11 != null) {
-                i11.a(hashMap);
+            if (i3 != null) {
+                i3.a(hashMap);
             }
-        } catch (Throwable th3) {
-            th = th3;
+        } catch (Throwable th2) {
+            th = th2;
         }
         return hashMap;
     }
 
-    /* JADX WARN: Removed duplicated region for block: B:65:0x00c1 A[Catch: all -> 0x00c5, TRY_LEAVE, TryCatch #2 {all -> 0x00c5, blocks: (B:63:0x00bb, B:65:0x00c1), top: B:62:0x00bb, outer: #1 }] */
-    /* JADX WARN: Removed duplicated region for block: B:68:0x00c9 A[Catch: all -> 0x0023, TRY_ENTER, TryCatch #1 {, blocks: (B:4:0x0002, B:14:0x0037, B:15:0x003a, B:17:0x003e, B:56:0x00ad, B:58:0x00b4, B:68:0x00c9, B:69:0x00cc, B:71:0x00d0, B:74:0x00d6, B:75:0x00d9, B:77:0x00dd, B:78:0x00e0, B:63:0x00bb, B:65:0x00c1), top: B:3:0x0002, inners: #2 }] */
-    /* JADX WARN: Removed duplicated region for block: B:71:0x00d0 A[Catch: all -> 0x0023, TryCatch #1 {, blocks: (B:4:0x0002, B:14:0x0037, B:15:0x003a, B:17:0x003e, B:56:0x00ad, B:58:0x00b4, B:68:0x00c9, B:69:0x00cc, B:71:0x00d0, B:74:0x00d6, B:75:0x00d9, B:77:0x00dd, B:78:0x00e0, B:63:0x00bb, B:65:0x00c1), top: B:3:0x0002, inners: #2 }] */
+    /* JADX WARN: Removed duplicated region for block: B:67:0x00bd A[Catch: all -> 0x00cd, TRY_LEAVE, TryCatch #2 {all -> 0x00cd, blocks: (B:65:0x00b7, B:67:0x00bd), top: B:64:0x00b7, outer: #3 }] */
+    /* JADX WARN: Removed duplicated region for block: B:70:0x00c2 A[Catch: all -> 0x00dd, TRY_ENTER, TryCatch #3 {, blocks: (B:3:0x0001, B:13:0x0033, B:14:0x0036, B:16:0x003a, B:58:0x00a7, B:60:0x00ae, B:70:0x00c2, B:71:0x00c5, B:73:0x00c9, B:76:0x00d0, B:77:0x00d3, B:79:0x00d7, B:80:0x00da, B:65:0x00b7, B:67:0x00bd), top: B:2:0x0001, inners: #2 }] */
+    /* JADX WARN: Removed duplicated region for block: B:73:0x00c9 A[Catch: all -> 0x00dd, TryCatch #3 {, blocks: (B:3:0x0001, B:13:0x0033, B:14:0x0036, B:16:0x003a, B:58:0x00a7, B:60:0x00ae, B:70:0x00c2, B:71:0x00c5, B:73:0x00c9, B:76:0x00d0, B:77:0x00d3, B:79:0x00d7, B:80:0x00da, B:65:0x00b7, B:67:0x00bd), top: B:2:0x0001, inners: #2 }] */
     /*
         Code decompiled incorrectly, please refer to instructions dump.
         To view partially-correct code enable 'Show inconsistent code' option in preferences
     */
-    public synchronized java.util.List<com.tencent.bugly.proguard.L> a(int r12) {
+    public synchronized java.util.List<com.tencent.bugly.proguard.L> a(int r11) {
         /*
-            Method dump skipped, instructions count: 229
+            Method dump skipped, instructions count: 226
             To view this dump change 'Code comments level' option to 'DEBUG'
         */
         throw new UnsupportedOperationException("Method not decompiled: com.tencent.bugly.proguard.J.a(int):java.util.List");
     }
 
-    /* JADX WARN: Code restructure failed: missing block: B:28:0x006e, code lost:
+    /* JADX WARN: Code restructure failed: missing block: B:30:0x006c, code lost:
     
-        if (com.tencent.bugly.proguard.J.f22605c != false) goto L142;
+        if (com.tencent.bugly.proguard.J.f24964c != false) goto L85;
      */
-    /* JADX WARN: Code restructure failed: missing block: B:29:0x0082, code lost:
+    /* JADX WARN: Code restructure failed: missing block: B:31:0x007d, code lost:
     
-        r1.close();
+        r0.close();
      */
-    /* JADX WARN: Code restructure failed: missing block: B:38:0x0080, code lost:
+    /* JADX WARN: Code restructure failed: missing block: B:40:0x007b, code lost:
     
-        if (com.tencent.bugly.proguard.J.f22605c == false) goto L147;
+        if (com.tencent.bugly.proguard.J.f24964c == false) goto L91;
      */
     /* JADX WARN: Finally extract failed */
     /*
@@ -685,144 +621,139 @@ public class J {
     public synchronized void a(java.util.List<com.tencent.bugly.proguard.L> r6) {
         /*
             r5 = this;
-            r0 = 0
             monitor-enter(r5)
-            if (r6 == 0) goto L92
-            int r1 = r6.size()     // Catch: java.lang.Throwable -> L3e
-            if (r1 != 0) goto Lc
-            goto L92
-        Lc:
-            com.tencent.bugly.proguard.K r1 = com.tencent.bugly.proguard.J.f22604b     // Catch: java.lang.Throwable -> L3e
-            android.database.sqlite.SQLiteDatabase r1 = r1.getWritableDatabase()     // Catch: java.lang.Throwable -> L3e
-            if (r1 == 0) goto L8e
-            java.lang.StringBuilder r2 = new java.lang.StringBuilder     // Catch: java.lang.Throwable -> L3e
-            r2.<init>()     // Catch: java.lang.Throwable -> L3e
-            java.util.Iterator r6 = r6.iterator()     // Catch: java.lang.Throwable -> L3e
-        L1d:
-            boolean r3 = r6.hasNext()     // Catch: java.lang.Throwable -> L3e
-            if (r3 == 0) goto L40
-            java.lang.Object r3 = r6.next()     // Catch: java.lang.Throwable -> L3e
-            com.tencent.bugly.proguard.L r3 = (com.tencent.bugly.proguard.L) r3     // Catch: java.lang.Throwable -> L3e
-            java.lang.String r4 = " or "
-            r2.append(r4)     // Catch: java.lang.Throwable -> L3e
-            java.lang.String r4 = "_id"
-            r2.append(r4)     // Catch: java.lang.Throwable -> L3e
-            java.lang.String r4 = " = "
-            r2.append(r4)     // Catch: java.lang.Throwable -> L3e
-            long r3 = r3.f22628a     // Catch: java.lang.Throwable -> L3e
-            r2.append(r3)     // Catch: java.lang.Throwable -> L3e
-            goto L1d
-        L3e:
-            r6 = move-exception
-            goto L90
-        L40:
-            java.lang.String r6 = r2.toString()     // Catch: java.lang.Throwable -> L3e
-            int r3 = r6.length()     // Catch: java.lang.Throwable -> L3e
-            if (r3 <= 0) goto L4f
-            r3 = 4
-            java.lang.String r6 = r6.substring(r3)     // Catch: java.lang.Throwable -> L3e
-        L4f:
-            r2.setLength(r0)     // Catch: java.lang.Throwable -> L3e
-            java.lang.String r2 = "t_lr"
+            if (r6 == 0) goto L8f
+            int r0 = r6.size()     // Catch: java.lang.Throwable -> L8c
+            if (r0 != 0) goto Lb
+            goto L8f
+        Lb:
+            com.tencent.bugly.proguard.K r0 = com.tencent.bugly.proguard.J.f24963b     // Catch: java.lang.Throwable -> L8c
+            android.database.sqlite.SQLiteDatabase r0 = r0.getWritableDatabase()     // Catch: java.lang.Throwable -> L8c
+            if (r0 == 0) goto L8a
+            java.lang.StringBuilder r1 = new java.lang.StringBuilder     // Catch: java.lang.Throwable -> L8c
+            r1.<init>()     // Catch: java.lang.Throwable -> L8c
+            java.util.Iterator r6 = r6.iterator()     // Catch: java.lang.Throwable -> L8c
+        L1c:
+            boolean r2 = r6.hasNext()     // Catch: java.lang.Throwable -> L8c
+            if (r2 == 0) goto L3d
+            java.lang.Object r2 = r6.next()     // Catch: java.lang.Throwable -> L8c
+            com.tencent.bugly.proguard.L r2 = (com.tencent.bugly.proguard.L) r2     // Catch: java.lang.Throwable -> L8c
+            java.lang.String r3 = " or "
+            r1.append(r3)     // Catch: java.lang.Throwable -> L8c
+            java.lang.String r3 = "_id"
+            r1.append(r3)     // Catch: java.lang.Throwable -> L8c
+            java.lang.String r3 = " = "
+            r1.append(r3)     // Catch: java.lang.Throwable -> L8c
+            long r2 = r2.f24979a     // Catch: java.lang.Throwable -> L8c
+            r1.append(r2)     // Catch: java.lang.Throwable -> L8c
+            goto L1c
+        L3d:
+            java.lang.String r6 = r1.toString()     // Catch: java.lang.Throwable -> L8c
+            int r2 = r6.length()     // Catch: java.lang.Throwable -> L8c
+            if (r2 <= 0) goto L4c
+            r2 = 4
+            java.lang.String r6 = r6.substring(r2)     // Catch: java.lang.Throwable -> L8c
+        L4c:
+            r2 = 0
+            r1.setLength(r2)     // Catch: java.lang.Throwable -> L8c
+            java.lang.String r1 = "t_lr"
             r3 = 0
-            int r6 = r1.delete(r2, r6, r3)     // Catch: java.lang.Throwable -> L71
-            java.lang.String r2 = "[Database] deleted %s data %d"
-            java.lang.Integer r6 = java.lang.Integer.valueOf(r6)     // Catch: java.lang.Throwable -> L71
+            int r6 = r0.delete(r1, r6, r3)     // Catch: java.lang.Throwable -> L6f
+            java.lang.String r1 = "[Database] deleted %s data %d"
             r3 = 2
-            java.lang.Object[] r3 = new java.lang.Object[r3]     // Catch: java.lang.Throwable -> L71
+            java.lang.Object[] r3 = new java.lang.Object[r3]     // Catch: java.lang.Throwable -> L6f
             java.lang.String r4 = "t_lr"
-            r3[r0] = r4     // Catch: java.lang.Throwable -> L71
-            r0 = 1
-            r3[r0] = r6     // Catch: java.lang.Throwable -> L71
-            com.tencent.bugly.proguard.X.a(r2, r3)     // Catch: java.lang.Throwable -> L71
-            boolean r6 = com.tencent.bugly.proguard.J.f22605c     // Catch: java.lang.Throwable -> L3e
-            if (r6 == 0) goto L8e
-            goto L82
-        L71:
+            r3[r2] = r4     // Catch: java.lang.Throwable -> L6f
+            r2 = 1
+            java.lang.Integer r6 = java.lang.Integer.valueOf(r6)     // Catch: java.lang.Throwable -> L6f
+            r3[r2] = r6     // Catch: java.lang.Throwable -> L6f
+            com.tencent.bugly.proguard.X.a(r1, r3)     // Catch: java.lang.Throwable -> L6f
+            boolean r6 = com.tencent.bugly.proguard.J.f24964c     // Catch: java.lang.Throwable -> L8c
+            if (r6 == 0) goto L8a
+            goto L7d
+        L6f:
             r6 = move-exception
-            boolean r0 = com.tencent.bugly.proguard.X.b(r6)     // Catch: java.lang.Throwable -> L7c
-            if (r0 != 0) goto L7e
-            r6.printStackTrace()     // Catch: java.lang.Throwable -> L7c
-            goto L7e
-        L7c:
+            boolean r1 = com.tencent.bugly.proguard.X.b(r6)     // Catch: java.lang.Throwable -> L81
+            if (r1 != 0) goto L79
+            r6.printStackTrace()     // Catch: java.lang.Throwable -> L81
+        L79:
+            boolean r6 = com.tencent.bugly.proguard.J.f24964c     // Catch: java.lang.Throwable -> L8c
+            if (r6 == 0) goto L8a
+        L7d:
+            r0.close()     // Catch: java.lang.Throwable -> L8c
+            goto L8a
+        L81:
             r6 = move-exception
-            goto L86
-        L7e:
-            boolean r6 = com.tencent.bugly.proguard.J.f22605c     // Catch: java.lang.Throwable -> L3e
-            if (r6 == 0) goto L8e
-        L82:
-            r1.close()     // Catch: java.lang.Throwable -> L3e
-            goto L8e
-        L86:
-            boolean r0 = com.tencent.bugly.proguard.J.f22605c     // Catch: java.lang.Throwable -> L3e
-            if (r0 == 0) goto L8d
-            r1.close()     // Catch: java.lang.Throwable -> L3e
-        L8d:
-            throw r6     // Catch: java.lang.Throwable -> L3e
-        L8e:
+            boolean r1 = com.tencent.bugly.proguard.J.f24964c     // Catch: java.lang.Throwable -> L8c
+            if (r1 == 0) goto L89
+            r0.close()     // Catch: java.lang.Throwable -> L8c
+        L89:
+            throw r6     // Catch: java.lang.Throwable -> L8c
+        L8a:
             monitor-exit(r5)
             return
-        L90:
-            monitor-exit(r5)     // Catch: java.lang.Throwable -> L3e
+        L8c:
+            r6 = move-exception
+            monitor-exit(r5)
             throw r6
-        L92:
+        L8f:
             monitor-exit(r5)
             return
         */
         throw new UnsupportedOperationException("Method not decompiled: com.tencent.bugly.proguard.J.a(java.util.List):void");
     }
 
-    public ContentValues a(L l10) {
-        if (l10 == null) {
+    protected ContentValues a(L l) {
+        if (l == null) {
             return null;
         }
         try {
             ContentValues contentValues = new ContentValues();
-            long j10 = l10.f22628a;
-            if (j10 > 0) {
-                contentValues.put("_id", Long.valueOf(j10));
+            long j2 = l.f24979a;
+            if (j2 > 0) {
+                contentValues.put("_id", Long.valueOf(j2));
             }
-            contentValues.put(bx.f23687e, Integer.valueOf(l10.f22629b));
-            contentValues.put("_pc", l10.f22630c);
-            contentValues.put("_th", l10.f22631d);
-            contentValues.put("_tm", Long.valueOf(l10.f22632e));
-            byte[] bArr = l10.f22634g;
+            contentValues.put(aq.f25697e, Integer.valueOf(l.f24980b));
+            contentValues.put("_pc", l.f24981c);
+            contentValues.put("_th", l.f24982d);
+            contentValues.put("_tm", Long.valueOf(l.f24983e));
+            byte[] bArr = l.f24985g;
             if (bArr != null) {
                 contentValues.put("_dt", bArr);
             }
             return contentValues;
-        } catch (Throwable th2) {
-            if (!X.b(th2)) {
-                th2.printStackTrace();
+        } catch (Throwable th) {
+            if (!X.b(th)) {
+                th.printStackTrace();
             }
             return null;
         }
     }
 
-    public L a(Cursor cursor) {
+    protected L a(Cursor cursor) {
         if (cursor == null) {
             return null;
         }
         try {
-            L l10 = new L();
-            l10.f22628a = cursor.getLong(cursor.getColumnIndex("_id"));
-            l10.f22629b = cursor.getInt(cursor.getColumnIndex(bx.f23687e));
-            l10.f22630c = cursor.getString(cursor.getColumnIndex("_pc"));
-            l10.f22631d = cursor.getString(cursor.getColumnIndex("_th"));
-            l10.f22632e = cursor.getLong(cursor.getColumnIndex("_tm"));
-            l10.f22634g = cursor.getBlob(cursor.getColumnIndex("_dt"));
-            return l10;
-        } catch (Throwable th2) {
-            if (!X.b(th2)) {
-                th2.printStackTrace();
+            L l = new L();
+            l.f24979a = cursor.getLong(cursor.getColumnIndex("_id"));
+            l.f24980b = cursor.getInt(cursor.getColumnIndex(aq.f25697e));
+            l.f24981c = cursor.getString(cursor.getColumnIndex("_pc"));
+            l.f24982d = cursor.getString(cursor.getColumnIndex("_th"));
+            l.f24983e = cursor.getLong(cursor.getColumnIndex("_tm"));
+            l.f24985g = cursor.getBlob(cursor.getColumnIndex("_dt"));
+            return l;
+        } catch (Throwable th) {
+            if (!X.b(th)) {
+                th.printStackTrace();
             }
             return null;
         }
     }
 
-    /* JADX WARN: Code restructure failed: missing block: B:31:0x006b, code lost:
+    /* JADX WARN: Code restructure failed: missing block: B:13:0x007a, code lost:
     
-        if (r8 > 0) goto L186;
+        if (r3 != null) goto L123;
      */
     /*
         Code decompiled incorrectly, please refer to instructions dump.
@@ -831,112 +762,99 @@ public class J {
     public synchronized boolean a(int r8, java.lang.String r9, com.tencent.bugly.proguard.I r10) {
         /*
             r7 = this;
-            r0 = 1
-            r1 = 0
             monitor-enter(r7)
-            java.lang.Boolean r2 = java.lang.Boolean.FALSE     // Catch: java.lang.Throwable -> L28
-            r3 = 0
-            com.tencent.bugly.proguard.K r4 = com.tencent.bugly.proguard.J.f22604b     // Catch: java.lang.Throwable -> L85
-            android.database.sqlite.SQLiteDatabase r4 = r4.getWritableDatabase()     // Catch: java.lang.Throwable -> L85
-            if (r4 == 0) goto L6e
-            boolean r5 = com.tencent.bugly.proguard.ca.b(r9)     // Catch: java.lang.Throwable -> L26
-            if (r5 == 0) goto L2b
-            java.lang.StringBuilder r9 = new java.lang.StringBuilder     // Catch: java.lang.Throwable -> L26
-            r9.<init>()     // Catch: java.lang.Throwable -> L26
+            java.lang.Boolean r0 = java.lang.Boolean.FALSE     // Catch: java.lang.Throwable -> La8
+            r1 = 0
+            r2 = 0
+            com.tencent.bugly.proguard.K r3 = com.tencent.bugly.proguard.J.f24963b     // Catch: java.lang.Throwable -> L7d
+            android.database.sqlite.SQLiteDatabase r3 = r3.getWritableDatabase()     // Catch: java.lang.Throwable -> L7d
+            r4 = 1
+            if (r3 == 0) goto L6d
+            boolean r5 = com.tencent.bugly.proguard.ca.b(r9)     // Catch: java.lang.Throwable -> L6a
+            if (r5 == 0) goto L26
+            java.lang.StringBuilder r9 = new java.lang.StringBuilder     // Catch: java.lang.Throwable -> L6a
+            r9.<init>()     // Catch: java.lang.Throwable -> L6a
             java.lang.String r5 = "_id = "
-            r9.append(r5)     // Catch: java.lang.Throwable -> L26
-            r9.append(r8)     // Catch: java.lang.Throwable -> L26
-            java.lang.String r8 = r9.toString()     // Catch: java.lang.Throwable -> L26
-            goto L53
+            r9.append(r5)     // Catch: java.lang.Throwable -> L6a
+            r9.append(r8)     // Catch: java.lang.Throwable -> L6a
+            java.lang.String r8 = r9.toString()     // Catch: java.lang.Throwable -> L6a
+            goto L4e
         L26:
-            r8 = move-exception
-            goto L70
-        L28:
-            r8 = move-exception
-            goto Lb2
-        L2b:
-            java.lang.StringBuilder r5 = new java.lang.StringBuilder     // Catch: java.lang.Throwable -> L26
-            r5.<init>()     // Catch: java.lang.Throwable -> L26
+            java.lang.StringBuilder r5 = new java.lang.StringBuilder     // Catch: java.lang.Throwable -> L6a
+            r5.<init>()     // Catch: java.lang.Throwable -> L6a
             java.lang.String r6 = "_id = "
-            r5.append(r6)     // Catch: java.lang.Throwable -> L26
-            r5.append(r8)     // Catch: java.lang.Throwable -> L26
+            r5.append(r6)     // Catch: java.lang.Throwable -> L6a
+            r5.append(r8)     // Catch: java.lang.Throwable -> L6a
             java.lang.String r8 = " and "
-            r5.append(r8)     // Catch: java.lang.Throwable -> L26
+            r5.append(r8)     // Catch: java.lang.Throwable -> L6a
             java.lang.String r8 = "_tp"
-            r5.append(r8)     // Catch: java.lang.Throwable -> L26
+            r5.append(r8)     // Catch: java.lang.Throwable -> L6a
             java.lang.String r8 = " = \""
-            r5.append(r8)     // Catch: java.lang.Throwable -> L26
-            r5.append(r9)     // Catch: java.lang.Throwable -> L26
+            r5.append(r8)     // Catch: java.lang.Throwable -> L6a
+            r5.append(r9)     // Catch: java.lang.Throwable -> L6a
             java.lang.String r8 = "\""
-            r5.append(r8)     // Catch: java.lang.Throwable -> L26
-            java.lang.String r8 = r5.toString()     // Catch: java.lang.Throwable -> L26
-        L53:
+            r5.append(r8)     // Catch: java.lang.Throwable -> L6a
+            java.lang.String r8 = r5.toString()     // Catch: java.lang.Throwable -> L6a
+        L4e:
             java.lang.String r9 = "t_pf"
-            int r8 = r4.delete(r9, r8, r3)     // Catch: java.lang.Throwable -> L26
+            int r8 = r3.delete(r9, r8, r1)     // Catch: java.lang.Throwable -> L6a
             java.lang.String r9 = "[Database] deleted %s data %d"
-            java.lang.Integer r3 = java.lang.Integer.valueOf(r8)     // Catch: java.lang.Throwable -> L26
-            r5 = 2
-            java.lang.Object[] r5 = new java.lang.Object[r5]     // Catch: java.lang.Throwable -> L26
-            java.lang.String r6 = "t_pf"
-            r5[r1] = r6     // Catch: java.lang.Throwable -> L26
-            r5[r0] = r3     // Catch: java.lang.Throwable -> L26
-            com.tencent.bugly.proguard.X.a(r9, r5)     // Catch: java.lang.Throwable -> L26
-            if (r8 <= 0) goto L6e
-            goto L72
-        L6e:
-            r0 = 0
-            goto L72
-        L70:
-            r3 = r4
-            goto L86
-        L72:
-            if (r10 == 0) goto L7b
-            java.lang.Boolean r8 = java.lang.Boolean.valueOf(r0)     // Catch: java.lang.Throwable -> L28
-            r10.a(r8)     // Catch: java.lang.Throwable -> L28
-        L7b:
-            boolean r8 = com.tencent.bugly.proguard.J.f22605c     // Catch: java.lang.Throwable -> L28
-            if (r8 == 0) goto L83
-            if (r4 == 0) goto L83
-            r1 = r0
-            goto L9e
-        L83:
-            r1 = r0
-            goto La1
-        L85:
+            r1 = 2
+            java.lang.Object[] r1 = new java.lang.Object[r1]     // Catch: java.lang.Throwable -> L6a
+            java.lang.String r5 = "t_pf"
+            r1[r2] = r5     // Catch: java.lang.Throwable -> L6a
+            java.lang.Integer r5 = java.lang.Integer.valueOf(r8)     // Catch: java.lang.Throwable -> L6a
+            r1[r4] = r5     // Catch: java.lang.Throwable -> L6a
+            com.tencent.bugly.proguard.X.a(r9, r1)     // Catch: java.lang.Throwable -> L6a
+            if (r8 <= 0) goto L6d
+            r2 = 1
+            goto L6d
+        L6a:
             r8 = move-exception
-        L86:
-            boolean r9 = com.tencent.bugly.proguard.X.b(r8)     // Catch: java.lang.Throwable -> L90
-            if (r9 != 0) goto L92
-            r8.printStackTrace()     // Catch: java.lang.Throwable -> L90
-            goto L92
-        L90:
+            r1 = r3
+            goto L7e
+        L6d:
+            if (r10 == 0) goto L76
+            java.lang.Boolean r8 = java.lang.Boolean.valueOf(r2)     // Catch: java.lang.Throwable -> La8
+            r10.a(r8)     // Catch: java.lang.Throwable -> La8
+        L76:
+            boolean r8 = com.tencent.bugly.proguard.J.f24964c     // Catch: java.lang.Throwable -> La8
+            if (r8 == 0) goto L96
+            if (r3 == 0) goto L96
+            goto L93
+        L7d:
             r8 = move-exception
-            goto La3
-        L92:
-            if (r10 == 0) goto L97
-            r10.a(r2)     // Catch: java.lang.Throwable -> L28
-        L97:
-            boolean r8 = com.tencent.bugly.proguard.J.f22605c     // Catch: java.lang.Throwable -> L28
-            if (r8 == 0) goto La1
-            if (r3 == 0) goto La1
-            r4 = r3
-        L9e:
-            r4.close()     // Catch: java.lang.Throwable -> L28
-        La1:
+        L7e:
+            boolean r9 = com.tencent.bugly.proguard.X.b(r8)     // Catch: java.lang.Throwable -> L98
+            if (r9 != 0) goto L87
+            r8.printStackTrace()     // Catch: java.lang.Throwable -> L98
+        L87:
+            if (r10 == 0) goto L8c
+            r10.a(r0)     // Catch: java.lang.Throwable -> La8
+        L8c:
+            boolean r8 = com.tencent.bugly.proguard.J.f24964c     // Catch: java.lang.Throwable -> La8
+            if (r8 == 0) goto L96
+            if (r1 == 0) goto L96
+            r3 = r1
+        L93:
+            r3.close()     // Catch: java.lang.Throwable -> La8
+        L96:
             monitor-exit(r7)
-            return r1
-        La3:
-            if (r10 == 0) goto La8
-            r10.a(r2)     // Catch: java.lang.Throwable -> L28
+            return r2
+        L98:
+            r8 = move-exception
+            if (r10 == 0) goto L9e
+            r10.a(r0)     // Catch: java.lang.Throwable -> La8
+        L9e:
+            boolean r9 = com.tencent.bugly.proguard.J.f24964c     // Catch: java.lang.Throwable -> La8
+            if (r9 == 0) goto La7
+            if (r1 == 0) goto La7
+            r1.close()     // Catch: java.lang.Throwable -> La8
+        La7:
+            throw r8     // Catch: java.lang.Throwable -> La8
         La8:
-            boolean r9 = com.tencent.bugly.proguard.J.f22605c     // Catch: java.lang.Throwable -> L28
-            if (r9 == 0) goto Lb1
-            if (r3 == 0) goto Lb1
-            r3.close()     // Catch: java.lang.Throwable -> L28
-        Lb1:
-            throw r8     // Catch: java.lang.Throwable -> L28
-        Lb2:
-            monitor-exit(r7)     // Catch: java.lang.Throwable -> L28
+            r8 = move-exception
+            monitor-exit(r7)
             throw r8
         */
         throw new UnsupportedOperationException("Method not decompiled: com.tencent.bugly.proguard.J.a(int, java.lang.String, com.tencent.bugly.proguard.I):boolean");

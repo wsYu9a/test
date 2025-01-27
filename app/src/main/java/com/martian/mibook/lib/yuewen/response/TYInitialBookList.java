@@ -3,7 +3,7 @@ package com.martian.mibook.lib.yuewen.response;
 import java.util.ArrayList;
 import java.util.List;
 
-/* loaded from: classes3.dex */
+/* loaded from: classes4.dex */
 public class TYInitialBookList {
     private List<TYInitialBook> bookList;
 
@@ -19,7 +19,7 @@ public class TYInitialBookList {
         return list == null || list.isEmpty();
     }
 
-    public void setBookList(List<TYInitialBook> list) {
-        this.bookList = list;
+    public void setBookList(List<TYInitialBook> bookList) {
+        this.bookList = bookList;
     }
 }

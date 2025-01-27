@@ -3,107 +3,107 @@ package com.martian.libmars.widget;
 import android.content.Context;
 import android.util.AttributeSet;
 import androidx.appcompat.widget.AppCompatTextView;
-import l9.o0;
+import com.martian.libmars.utils.p0;
 
-/* loaded from: classes3.dex */
+/* loaded from: classes2.dex */
 public class CountdownTextView extends AppCompatTextView {
 
-    /* renamed from: b */
-    public long f12526b;
-
-    /* renamed from: c */
-    public long f12527c;
-
-    /* renamed from: d */
-    public String f12528d;
-
     /* renamed from: e */
-    public b f12529e;
+    private long f10315e;
 
     /* renamed from: f */
-    public final Runnable f12530f;
+    private long f10316f;
 
-    public class a implements Runnable {
-        public a() {
+    /* renamed from: g */
+    private String f10317g;
+
+    /* renamed from: h */
+    private b f10318h;
+
+    /* renamed from: i */
+    private final Runnable f10319i;
+
+    class a implements Runnable {
+        a() {
         }
 
         @Override // java.lang.Runnable
         public void run() {
-            long currentTimeMillis = System.currentTimeMillis() + CountdownTextView.this.f12526b;
-            if (CountdownTextView.this.f12527c > currentTimeMillis) {
+            long currentTimeMillis = System.currentTimeMillis() + CountdownTextView.this.f10315e;
+            if (CountdownTextView.this.f10316f > currentTimeMillis) {
                 CountdownTextView countdownTextView = CountdownTextView.this;
-                countdownTextView.setText(o0.c(countdownTextView.f12527c - currentTimeMillis));
+                countdownTextView.setText(p0.b(countdownTextView.f10316f - currentTimeMillis));
                 CountdownTextView countdownTextView2 = CountdownTextView.this;
-                countdownTextView2.postDelayed(countdownTextView2.f12530f, 1000L);
+                countdownTextView2.postDelayed(countdownTextView2.f10319i, 1000L);
                 return;
             }
             CountdownTextView countdownTextView3 = CountdownTextView.this;
-            countdownTextView3.setText(countdownTextView3.f12528d);
-            if (CountdownTextView.this.f12529e != null) {
-                CountdownTextView.this.f12529e.a(CountdownTextView.this);
+            countdownTextView3.setText(countdownTextView3.f10317g);
+            if (CountdownTextView.this.f10318h != null) {
+                CountdownTextView.this.f10318h.a(CountdownTextView.this);
             }
         }
     }
 
     public interface b {
-        void a(CountdownTextView countdownTextView);
+        void a(CountdownTextView textView);
     }
 
     public CountdownTextView(Context context) {
         super(context);
-        this.f12526b = 0L;
-        this.f12530f = new a();
+        this.f10315e = 0L;
+        this.f10319i = new a();
     }
 
-    public void j(long j10) {
-        this.f12527c = j10;
-        removeCallbacks(this.f12530f);
-        post(this.f12530f);
+    public void l(long targetTime) {
+        this.f10316f = targetTime;
+        removeCallbacks(this.f10319i);
+        post(this.f10319i);
     }
 
-    public void k(long j10, String str) {
-        this.f12527c = j10;
-        this.f12528d = str;
-        removeCallbacks(this.f12530f);
-        post(this.f12530f);
+    public void m(long targetTime, String targetText) {
+        this.f10316f = targetTime;
+        this.f10317g = targetText;
+        removeCallbacks(this.f10319i);
+        post(this.f10319i);
     }
 
-    public void l(long j10, boolean z10) {
-        this.f12527c = System.currentTimeMillis() + this.f12526b + j10;
-        removeCallbacks(this.f12530f);
-        post(this.f12530f);
+    public void n(long timeDiff, boolean isTimeDiff) {
+        this.f10316f = System.currentTimeMillis() + this.f10315e + timeDiff;
+        removeCallbacks(this.f10319i);
+        post(this.f10319i);
     }
 
-    public void m() {
-        Runnable runnable = this.f12530f;
+    public void o() {
+        Runnable runnable = this.f10319i;
         if (runnable != null) {
             removeCallbacks(runnable);
         }
     }
 
     @Override // android.view.View
-    public void onDetachedFromWindow() {
+    protected void onDetachedFromWindow() {
         super.onDetachedFromWindow();
-        removeCallbacks(this.f12530f);
+        removeCallbacks(this.f10319i);
     }
 
-    public void setOnCountDownFinishListener(b bVar) {
-        this.f12529e = bVar;
+    public void setOnCountDownFinishListener(b l) {
+        this.f10318h = l;
     }
 
-    public void setServerDiffTime(long j10) {
-        this.f12526b = j10;
+    public void setServerDiffTime(long serverDiffTime) {
+        this.f10315e = serverDiffTime;
     }
 
-    public CountdownTextView(Context context, AttributeSet attributeSet) {
-        super(context, attributeSet);
-        this.f12526b = 0L;
-        this.f12530f = new a();
+    public CountdownTextView(Context context, AttributeSet attrs) {
+        super(context, attrs);
+        this.f10315e = 0L;
+        this.f10319i = new a();
     }
 
-    public CountdownTextView(Context context, AttributeSet attributeSet, int i10) {
-        super(context, attributeSet, i10);
-        this.f12526b = 0L;
-        this.f12530f = new a();
+    public CountdownTextView(Context context, AttributeSet attrs, int defStyle) {
+        super(context, attrs, defStyle);
+        this.f10315e = 0L;
+        this.f10319i = new a();
     }
 }

@@ -21,76 +21,66 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 
-/* loaded from: classes3.dex */
+/* loaded from: classes4.dex */
 public class NativeExpressAD extends NativeAbstractAD<NEADI> implements IReward {
 
+    /* renamed from: g */
+    private volatile int f23940g;
+
     /* renamed from: h */
-    private volatile int f16456h;
+    private volatile int f23941h;
 
     /* renamed from: i */
-    private volatile int f16457i;
+    private List<Integer> f23942i = Collections.synchronizedList(new ArrayList());
 
     /* renamed from: j */
-    private List<Integer> f16458j = Collections.synchronizedList(new ArrayList());
-
-    /* renamed from: k */
-    private VideoOption f16459k;
-
-    /* renamed from: l */
-    private ADSize f16460l;
-
-    /* renamed from: m */
-    private NativeExpressADListener f16461m;
-
-    /* renamed from: n */
-    private final ADListenerAdapter f16462n;
-
-    /* renamed from: o */
-    private LoadAdParams f16463o;
-
-    /* renamed from: p */
-    private volatile ServerSideVerificationOptions f16464p;
+    private VideoOption f23943j;
+    private ADSize k;
+    private NativeExpressADListener l;
+    private final ADListenerAdapter m;
+    private LoadAdParams n;
+    private volatile ServerSideVerificationOptions o;
 
     public static class ADListenerAdapter implements ADListener {
 
         /* renamed from: a */
-        private NativeExpressADListener f16465a;
+        private NativeExpressADListener f23944a;
 
         /* renamed from: b */
-        private NativeExpressMediaListener f16466b;
+        private NativeExpressMediaListener f23945b;
 
         /* renamed from: c */
-        private NegativeFeedbackListener f16467c;
+        private NegativeFeedbackListener f23946c;
 
         /* renamed from: d */
-        private ADRewardListener f16468d;
+        private ADRewardListener f23947d;
 
         public ADListenerAdapter(NativeExpressADListener nativeExpressADListener) {
-            this.f16465a = nativeExpressADListener;
+            this.f23944a = nativeExpressADListener;
+        }
+
+        public ADListenerAdapter(NativeExpressMediaListener nativeExpressMediaListener) {
+            this.f23945b = nativeExpressMediaListener;
         }
 
         @Override // com.qq.e.comm.adevent.ADListener
         public void onADEvent(ADEvent aDEvent) {
-            if (NativeExpressAD.a(this.f16465a, aDEvent) || NativeExpressAD.a(this.f16466b, aDEvent) || NativeExpressAD.a(this.f16467c, aDEvent)) {
+            if (NativeExpressAD.a(this.f23944a, aDEvent) || NativeExpressAD.a(this.f23945b, aDEvent) || NativeExpressAD.a(this.f23946c, aDEvent)) {
                 return;
             }
-            NativeExpressAD.a(this.f16468d, aDEvent);
+            NativeExpressAD.a(this.f23947d, aDEvent);
         }
 
         public void setAdRewardListener(ADRewardListener aDRewardListener) {
-            this.f16468d = aDRewardListener;
+            this.f23947d = aDRewardListener;
         }
 
         public void setMediaListener(NativeExpressMediaListener nativeExpressMediaListener) {
-            this.f16466b = nativeExpressMediaListener;
+            this.f23945b = nativeExpressMediaListener;
         }
 
         public void setNegativeFeedbackListener(NegativeFeedbackListener negativeFeedbackListener) {
-            this.f16467c = negativeFeedbackListener;
-        }
-
-        public ADListenerAdapter(NativeExpressMediaListener nativeExpressMediaListener) {
-            this.f16466b = nativeExpressMediaListener;
+            this.f23946c = negativeFeedbackListener;
         }
     }
 
@@ -111,17 +101,26 @@ public class NativeExpressAD extends NativeAbstractAD<NEADI> implements IReward 
     }
 
     public NativeExpressAD(Context context, ADSize aDSize, String str, NativeExpressADListener nativeExpressADListener) {
-        this.f16461m = nativeExpressADListener;
-        this.f16462n = new ADListenerAdapter(nativeExpressADListener);
+        this.l = nativeExpressADListener;
+        this.m = new ADListenerAdapter(nativeExpressADListener);
         if (a(aDSize)) {
             return;
         }
         a(context, str);
     }
 
+    public NativeExpressAD(Context context, ADSize aDSize, String str, NativeExpressADListener nativeExpressADListener, String str2) {
+        this.l = nativeExpressADListener;
+        this.m = new ADListenerAdapter(nativeExpressADListener);
+        if (a(aDSize)) {
+            return;
+        }
+        a(context, str, str2);
+    }
+
     private boolean a(ADSize aDSize) {
         if (aDSize != null) {
-            this.f16460l = aDSize;
+            this.k = aDSize;
             return false;
         }
         GDTLogger.e("初始化错误：参数adSize不能为空");
@@ -129,86 +128,7 @@ public class NativeExpressAD extends NativeAbstractAD<NEADI> implements IReward 
         return true;
     }
 
-    @Override // com.qq.e.ads.AbstractAD
-    public void b(int i10) {
-        NativeExpressADListener nativeExpressADListener = this.f16461m;
-        if (nativeExpressADListener != null) {
-            nativeExpressADListener.onNoAD(AdErrorConvertor.formatErrorCode(i10));
-        }
-    }
-
-    public String getAdNetWorkName() {
-        T t10 = this.f16367a;
-        if (t10 != 0) {
-            return ((NEADI) t10).getAdNetWorkName();
-        }
-        a("getAdNetWorkName");
-        return null;
-    }
-
-    public void loadAD(int i10) {
-        loadAD(i10, null);
-    }
-
-    public void setAdParams(LoadAdParams loadAdParams) {
-        this.f16463o = loadAdParams;
-    }
-
-    public void setMaxVideoDuration(int i10) {
-        this.f16457i = i10;
-        if (this.f16457i > 0 && this.f16456h > this.f16457i) {
-            GDTLogger.e("maxVideoDuration 设置值非法，不得小于minVideoDuration");
-        }
-        T t10 = this.f16367a;
-        if (t10 != 0) {
-            ((NEADI) t10).setMaxVideoDuration(this.f16457i);
-        }
-    }
-
-    public void setMinVideoDuration(int i10) {
-        this.f16456h = i10;
-        if (this.f16457i > 0 && this.f16456h > this.f16457i) {
-            GDTLogger.e("minVideoDuration 设置值非法，不得大于maxVideoDuration");
-        }
-        T t10 = this.f16367a;
-        if (t10 != 0) {
-            ((NEADI) t10).setMinVideoDuration(this.f16456h);
-        }
-    }
-
-    @Override // com.qq.e.comm.pi.IReward
-    public void setRewardListener(ADRewardListener aDRewardListener) {
-        this.f16462n.setAdRewardListener(aDRewardListener);
-    }
-
-    @Override // com.qq.e.comm.pi.IReward
-    public void setServerSideVerificationOptions(ServerSideVerificationOptions serverSideVerificationOptions) {
-        this.f16464p = serverSideVerificationOptions;
-        T t10 = this.f16367a;
-        if (t10 != 0) {
-            ((NEADI) t10).setServerSideVerificationOptions(serverSideVerificationOptions);
-        }
-    }
-
-    public void setVideoOption(VideoOption videoOption) {
-        this.f16459k = videoOption;
-        T t10 = this.f16367a;
-        if (t10 == 0 || videoOption == null) {
-            return;
-        }
-        ((NEADI) t10).setVideoOption(videoOption);
-    }
-
-    public NativeExpressAD(Context context, ADSize aDSize, String str, NativeExpressADListener nativeExpressADListener, String str2) {
-        this.f16461m = nativeExpressADListener;
-        this.f16462n = new ADListenerAdapter(nativeExpressADListener);
-        if (a(aDSize)) {
-            return;
-        }
-        a(context, str, str2);
-    }
-
-    public static boolean a(NativeExpressADListener nativeExpressADListener, ADEvent aDEvent) {
+    static boolean a(NativeExpressADListener nativeExpressADListener, ADEvent aDEvent) {
         if (nativeExpressADListener != null) {
             int type = aDEvent.getType();
             if (type == 100) {
@@ -258,33 +178,128 @@ public class NativeExpressAD extends NativeAbstractAD<NEADI> implements IReward 
         return false;
     }
 
-    public void loadAD(int i10, LoadAdParams loadAdParams) {
+    @Override // com.qq.e.ads.NativeAbstractAD, com.qq.e.ads.AbstractAD
+    public void a(NEADI neadi) {
+        super.a((NativeExpressAD) neadi);
+        neadi.setMinVideoDuration(this.f23940g);
+        neadi.setMaxVideoDuration(this.f23941h);
+        ((NEADI) this.f23859a).setServerSideVerificationOptions(this.o);
+        VideoOption videoOption = this.f23943j;
+        if (videoOption != null) {
+            setVideoOption(videoOption);
+        }
+        synchronized (this.f23942i) {
+            Iterator<Integer> it = this.f23942i.iterator();
+            while (it.hasNext()) {
+                T t = this.f23859a;
+                if (t != 0) {
+                    if (this.n != null) {
+                        ((NEADI) t).loadAd(it.next().intValue(), this.n);
+                    } else {
+                        ((NEADI) t).loadAd(it.next().intValue());
+                    }
+                }
+            }
+        }
+    }
+
+    @Override // com.qq.e.ads.AbstractAD
+    protected void b(int i2) {
+        NativeExpressADListener nativeExpressADListener = this.l;
+        if (nativeExpressADListener != null) {
+            nativeExpressADListener.onNoAD(AdErrorConvertor.formatErrorCode(i2));
+        }
+    }
+
+    public String getAdNetWorkName() {
+        T t = this.f23859a;
+        if (t != 0) {
+            return ((NEADI) t).getAdNetWorkName();
+        }
+        a("getAdNetWorkName");
+        return null;
+    }
+
+    public void loadAD(int i2) {
+        loadAD(i2, null);
+    }
+
+    public void loadAD(int i2, LoadAdParams loadAdParams) {
         if (a()) {
             if (loadAdParams != null) {
                 setAdParams(loadAdParams);
             }
             if (!b()) {
-                synchronized (this.f16458j) {
-                    this.f16458j.add(Integer.valueOf(i10));
+                synchronized (this.f23942i) {
+                    this.f23942i.add(Integer.valueOf(i2));
                 }
                 return;
             }
-            T t10 = this.f16367a;
-            if (t10 == 0) {
+            T t = this.f23859a;
+            if (t == 0) {
                 a("loadAD");
                 return;
             }
-            LoadAdParams loadAdParams2 = this.f16463o;
-            NEADI neadi = (NEADI) t10;
+            LoadAdParams loadAdParams2 = this.n;
+            NEADI neadi = (NEADI) t;
             if (loadAdParams2 != null) {
-                neadi.loadAd(i10, loadAdParams2);
+                neadi.loadAd(i2, loadAdParams2);
             } else {
-                neadi.loadAd(i10);
+                neadi.loadAd(i2);
             }
         }
     }
 
-    public static boolean a(NativeExpressMediaListener nativeExpressMediaListener, ADEvent aDEvent) {
+    public void setAdParams(LoadAdParams loadAdParams) {
+        this.n = loadAdParams;
+    }
+
+    public void setMaxVideoDuration(int i2) {
+        this.f23941h = i2;
+        if (this.f23941h > 0 && this.f23940g > this.f23941h) {
+            GDTLogger.e("maxVideoDuration 设置值非法，不得小于minVideoDuration");
+        }
+        T t = this.f23859a;
+        if (t != 0) {
+            ((NEADI) t).setMaxVideoDuration(this.f23941h);
+        }
+    }
+
+    public void setMinVideoDuration(int i2) {
+        this.f23940g = i2;
+        if (this.f23941h > 0 && this.f23940g > this.f23941h) {
+            GDTLogger.e("minVideoDuration 设置值非法，不得大于maxVideoDuration");
+        }
+        T t = this.f23859a;
+        if (t != 0) {
+            ((NEADI) t).setMinVideoDuration(this.f23940g);
+        }
+    }
+
+    @Override // com.qq.e.comm.pi.IReward
+    public void setRewardListener(ADRewardListener aDRewardListener) {
+        this.m.setAdRewardListener(aDRewardListener);
+    }
+
+    @Override // com.qq.e.comm.pi.IReward
+    public void setServerSideVerificationOptions(ServerSideVerificationOptions serverSideVerificationOptions) {
+        this.o = serverSideVerificationOptions;
+        T t = this.f23859a;
+        if (t != 0) {
+            ((NEADI) t).setServerSideVerificationOptions(serverSideVerificationOptions);
+        }
+    }
+
+    public void setVideoOption(VideoOption videoOption) {
+        this.f23943j = videoOption;
+        T t = this.f23859a;
+        if (t == 0 || videoOption == null) {
+            return;
+        }
+        ((NEADI) t).setVideoOption(videoOption);
+    }
+
+    static boolean a(NativeExpressMediaListener nativeExpressMediaListener, ADEvent aDEvent) {
         NativeExpressADView nativeExpressADView;
         if (nativeExpressMediaListener != null && (nativeExpressADView = (NativeExpressADView) aDEvent.getParam(NativeExpressADView.class)) != null) {
             int type = aDEvent.getType();
@@ -339,7 +354,7 @@ public class NativeExpressAD extends NativeAbstractAD<NEADI> implements IReward 
         return false;
     }
 
-    public static boolean a(NegativeFeedbackListener negativeFeedbackListener, ADEvent aDEvent) {
+    static boolean a(NegativeFeedbackListener negativeFeedbackListener, ADEvent aDEvent) {
         if (negativeFeedbackListener == null || aDEvent.getType() != 304) {
             return false;
         }
@@ -347,50 +362,21 @@ public class NativeExpressAD extends NativeAbstractAD<NEADI> implements IReward 
         return true;
     }
 
-    public static boolean a(ADRewardListener aDRewardListener, ADEvent aDEvent) {
+    static boolean a(ADRewardListener aDRewardListener, ADEvent aDEvent) {
         if (aDRewardListener == null || aDEvent.getType() != 104) {
             return false;
         }
         String str = (String) aDEvent.getParam(String.class);
         if (str != null) {
             HashMap hashMap = new HashMap();
-            hashMap.put("transId", str);
+            hashMap.put(ServerSideVerificationOptions.TRANS_ID, str);
             aDRewardListener.onReward(hashMap);
         }
         return true;
     }
 
     @Override // com.qq.e.ads.AbstractAD
-    public Object a(Context context, POFactory pOFactory, String str, String str2, String str3) {
-        return pOFactory.getNativeExpressADDelegate(context, this.f16460l, str, str2, str3, this.f16462n);
-    }
-
-    @Override // com.qq.e.ads.NativeAbstractAD, com.qq.e.ads.AbstractAD
-    public void a(Object obj) {
-        NEADI neadi = (NEADI) obj;
-        neadi.setMinVideoDuration(this.f16456h);
-        neadi.setMaxVideoDuration(this.f16457i);
-        ((NEADI) this.f16367a).setServerSideVerificationOptions(this.f16464p);
-        VideoOption videoOption = this.f16459k;
-        if (videoOption != null) {
-            setVideoOption(videoOption);
-        }
-        synchronized (this.f16458j) {
-            try {
-                Iterator<Integer> it = this.f16458j.iterator();
-                while (it.hasNext()) {
-                    T t10 = this.f16367a;
-                    if (t10 != 0) {
-                        if (this.f16463o != null) {
-                            ((NEADI) t10).loadAd(it.next().intValue(), this.f16463o);
-                        } else {
-                            ((NEADI) t10).loadAd(it.next().intValue());
-                        }
-                    }
-                }
-            } catch (Throwable th2) {
-                throw th2;
-            }
-        }
+    protected Object a(Context context, POFactory pOFactory, String str, String str2, String str3) {
+        return pOFactory.getNativeExpressADDelegate(context, this.k, str, str2, str3, this.m);
     }
 }

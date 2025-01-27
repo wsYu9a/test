@@ -1,68 +1,72 @@
 package com.baidu.mobads.sdk.internal;
 
-/* loaded from: classes2.dex */
+import android.content.Context;
+import android.net.ConnectivityManager;
+import android.net.NetworkCapabilities;
+import android.net.NetworkInfo;
+
+/* loaded from: classes.dex */
 public class cm {
 
-    /* renamed from: a, reason: collision with root package name */
-    public static final String f7055a = "9.3711";
+    /* renamed from: a */
+    private static volatile cm f5741a;
 
-    /* renamed from: b, reason: collision with root package name */
-    public static final String f7056b = "";
-
-    /* renamed from: c, reason: collision with root package name */
-    public static final Boolean f7057c;
-
-    /* renamed from: d, reason: collision with root package name */
-    public static final Boolean f7058d;
-
-    /* renamed from: e, reason: collision with root package name */
-    public static final String f7059e = "9.3711";
-
-    /* renamed from: f, reason: collision with root package name */
-    public static final int f7060f = 5000;
-
-    /* renamed from: g, reason: collision with root package name */
-    public static final Boolean f7061g;
-
-    /* renamed from: h, reason: collision with root package name */
-    public static final boolean f7062h = true;
-
-    /* renamed from: i, reason: collision with root package name */
-    public static String f7063i;
-
-    static {
-        Boolean bool = Boolean.FALSE;
-        f7057c = bool;
-        f7058d = Boolean.TRUE;
-        f7061g = bool;
-        f7063i = "adserv_0";
+    private cm() {
     }
 
-    public static String a() {
-        return f7063i;
+    public static cm a() {
+        if (f5741a == null) {
+            synchronized (cm.class) {
+                if (f5741a == null) {
+                    f5741a = new cm();
+                }
+            }
+        }
+        return f5741a;
     }
 
-    public static double b() {
+    private NetworkCapabilities c(Context context) {
         try {
-            return Double.parseDouble("9.3711");
-        } catch (Exception unused) {
-            return l5.c.f27899e;
+            Context applicationContext = context.getApplicationContext();
+            if (applicationContext.checkCallingOrSelfPermission(com.kuaishou.weapon.p0.g.f9317b) != 0) {
+                return null;
+            }
+            ConnectivityManager connectivityManager = (ConnectivityManager) applicationContext.getSystemService("connectivity");
+            return connectivityManager.getNetworkCapabilities(connectivityManager.getActiveNetwork());
+        } catch (Throwable unused) {
+            return null;
         }
     }
 
-    public static double c() {
+    public NetworkInfo b(Context context) {
         try {
-            return Double.parseDouble("9.3711");
-        } catch (Exception unused) {
-            return l5.c.f27899e;
+            Context applicationContext = context.getApplicationContext();
+            if (applicationContext.checkCallingOrSelfPermission(com.kuaishou.weapon.p0.g.f9317b) == 0) {
+                return ((ConnectivityManager) applicationContext.getSystemService("connectivity")).getActiveNetworkInfo();
+            }
+            return null;
+        } catch (Throwable unused) {
+            return null;
         }
     }
 
-    public static int d() {
+    public Boolean a(Context context) {
         try {
-            return Integer.valueOf("9.3711".split("\\.")[0]).intValue();
-        } catch (Exception unused) {
-            return 0;
+            boolean z = false;
+            if (bj.a(context).a() < 29) {
+                NetworkInfo b2 = b(context);
+                if (b2 != null && b2.isConnected() && b2.getType() == 1) {
+                    z = true;
+                }
+                return Boolean.valueOf(z);
+            }
+            NetworkCapabilities c2 = c(context);
+            if (c2 != null && c2.hasCapability(12) && c2.hasCapability(16) && c2.hasTransport(1)) {
+                z = true;
+            }
+            return Boolean.valueOf(z);
+        } catch (Throwable unused) {
+            return Boolean.FALSE;
         }
     }
 }

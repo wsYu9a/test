@@ -1,96 +1,89 @@
 package kotlin.text;
 
+import f.b.a.d;
+import f.b.a.e;
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.EnumSet;
 import java.util.List;
 import java.util.Set;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
-import kotlin.ExperimentalStdlibApi;
 import kotlin.Metadata;
 import kotlin.PublishedApi;
-import kotlin.SinceKotlin;
-import kotlin.WasExperimental;
-import kotlin.collections.CollectionsKt;
+import kotlin.collections.CollectionsKt__CollectionsJVMKt;
+import kotlin.collections.CollectionsKt__MutableCollectionsKt;
 import kotlin.jvm.functions.Function0;
 import kotlin.jvm.functions.Function1;
 import kotlin.jvm.internal.DefaultConstructorMarker;
 import kotlin.jvm.internal.Intrinsics;
-import kotlin.jvm.internal.SourceDebugExtension;
-import kotlin.ranges.RangesKt;
+import kotlin.ranges.RangesKt___RangesKt;
 import kotlin.sequences.Sequence;
-import kotlin.sequences.SequencesKt;
-import xi.k;
-import xi.l;
+import kotlin.sequences.SequencesKt__SequencesKt;
 
-@Metadata(d1 = {"\u0000f\n\u0002\u0018\u0002\n\u0002\u0018\u0002\n\u0002\u0018\u0002\n\u0000\n\u0002\u0010\u000e\n\u0002\b\u0002\n\u0002\u0018\u0002\n\u0002\b\u0002\n\u0002\u0010\"\n\u0002\b\u0002\n\u0002\u0018\u0002\n\u0002\b\u0007\n\u0002\u0010\u000b\n\u0000\n\u0002\u0010\r\n\u0000\n\u0002\u0018\u0002\n\u0000\n\u0002\u0010\b\n\u0000\n\u0002\u0018\u0002\n\u0002\b\u0007\n\u0002\u0018\u0002\n\u0002\b\u0003\n\u0002\u0010 \n\u0002\b\u0005\n\u0002\u0010\u0000\n\u0002\b\u0003\u0018\u0000 02\u00060\u0001j\u0002`\u0002:\u000201B\u000f\b\u0016\u0012\u0006\u0010\u0003\u001a\u00020\u0004¢\u0006\u0002\u0010\u0005B\u0017\b\u0016\u0012\u0006\u0010\u0003\u001a\u00020\u0004\u0012\u0006\u0010\u0006\u001a\u00020\u0007¢\u0006\u0002\u0010\bB\u001d\b\u0016\u0012\u0006\u0010\u0003\u001a\u00020\u0004\u0012\f\u0010\t\u001a\b\u0012\u0004\u0012\u00020\u00070\n¢\u0006\u0002\u0010\u000bB\u000f\b\u0001\u0012\u0006\u0010\f\u001a\u00020\r¢\u0006\u0002\u0010\u000eJ\u000e\u0010\u0014\u001a\u00020\u00152\u0006\u0010\u0016\u001a\u00020\u0017J\u001a\u0010\u0018\u001a\u0004\u0018\u00010\u00192\u0006\u0010\u0016\u001a\u00020\u00172\b\b\u0002\u0010\u001a\u001a\u00020\u001bJ\u001e\u0010\u001c\u001a\b\u0012\u0004\u0012\u00020\u00190\u001d2\u0006\u0010\u0016\u001a\u00020\u00172\b\b\u0002\u0010\u001a\u001a\u00020\u001bJ\u001a\u0010\u001e\u001a\u0004\u0018\u00010\u00192\u0006\u0010\u0016\u001a\u00020\u00172\u0006\u0010\u001f\u001a\u00020\u001bH\u0007J\u0010\u0010 \u001a\u0004\u0018\u00010\u00192\u0006\u0010\u0016\u001a\u00020\u0017J\u0011\u0010!\u001a\u00020\u00152\u0006\u0010\u0016\u001a\u00020\u0017H\u0086\u0004J\u0018\u0010\"\u001a\u00020\u00152\u0006\u0010\u0016\u001a\u00020\u00172\u0006\u0010\u001f\u001a\u00020\u001bH\u0007J\"\u0010#\u001a\u00020\u00042\u0006\u0010\u0016\u001a\u00020\u00172\u0012\u0010$\u001a\u000e\u0012\u0004\u0012\u00020\u0019\u0012\u0004\u0012\u00020\u00170%J\u0016\u0010#\u001a\u00020\u00042\u0006\u0010\u0016\u001a\u00020\u00172\u0006\u0010&\u001a\u00020\u0004J\u0016\u0010'\u001a\u00020\u00042\u0006\u0010\u0016\u001a\u00020\u00172\u0006\u0010&\u001a\u00020\u0004J\u001e\u0010(\u001a\b\u0012\u0004\u0012\u00020\u00040)2\u0006\u0010\u0016\u001a\u00020\u00172\b\b\u0002\u0010*\u001a\u00020\u001bJ \u0010+\u001a\b\u0012\u0004\u0012\u00020\u00040\u001d2\u0006\u0010\u0016\u001a\u00020\u00172\b\b\u0002\u0010*\u001a\u00020\u001bH\u0007J\u0006\u0010,\u001a\u00020\rJ\b\u0010-\u001a\u00020\u0004H\u0016J\b\u0010.\u001a\u00020/H\u0002R\u0016\u0010\u000f\u001a\n\u0012\u0004\u0012\u00020\u0007\u0018\u00010\nX\u0082\u000e¢\u0006\u0002\n\u0000R\u000e\u0010\f\u001a\u00020\rX\u0082\u0004¢\u0006\u0002\n\u0000R\u0017\u0010\t\u001a\b\u0012\u0004\u0012\u00020\u00070\n8F¢\u0006\u0006\u001a\u0004\b\u0010\u0010\u0011R\u0011\u0010\u0003\u001a\u00020\u00048F¢\u0006\u0006\u001a\u0004\b\u0012\u0010\u0013¨\u00062"}, d2 = {"Lkotlin/text/Regex;", "Ljava/io/Serializable;", "Lkotlin/io/Serializable;", "pattern", "", "(Ljava/lang/String;)V", "option", "Lkotlin/text/RegexOption;", "(Ljava/lang/String;Lkotlin/text/RegexOption;)V", "options", "", "(Ljava/lang/String;Ljava/util/Set;)V", "nativePattern", "Ljava/util/regex/Pattern;", "(Ljava/util/regex/Pattern;)V", "_options", "getOptions", "()Ljava/util/Set;", "getPattern", "()Ljava/lang/String;", "containsMatchIn", "", "input", "", "find", "Lkotlin/text/MatchResult;", "startIndex", "", "findAll", "Lkotlin/sequences/Sequence;", "matchAt", "index", "matchEntire", "matches", "matchesAt", "replace", "transform", "Lkotlin/Function1;", "replacement", "replaceFirst", "split", "", "limit", "splitToSequence", "toPattern", "toString", "writeReplace", "", "Companion", "Serialized", "kotlin-stdlib"}, k = 1, mv = {1, 9, 0}, xi = 48)
-@SourceDebugExtension({"SMAP\nRegex.kt\nKotlin\n*S Kotlin\n*F\n+ 1 Regex.kt\nkotlin/text/Regex\n+ 2 Regex.kt\nkotlin/text/RegexKt\n+ 3 fake.kt\nkotlin/jvm/internal/FakeKt\n*L\n1#1,397:1\n22#2,3:398\n1#3:401\n*S KotlinDebug\n*F\n+ 1 Regex.kt\nkotlin/text/Regex\n*L\n103#1:398,3\n*E\n"})
-/* loaded from: classes4.dex */
+@Metadata(bv = {1, 0, 3}, d1 = {"\u0000d\n\u0002\u0018\u0002\n\u0002\u0018\u0002\n\u0002\u0018\u0002\n\u0002\u0010\u0000\n\u0002\b\u0002\n\u0002\u0010\r\n\u0000\n\u0002\u0010\u000b\n\u0002\b\u0003\n\u0002\u0010\b\n\u0000\n\u0002\u0018\u0002\n\u0002\b\u0002\n\u0002\u0018\u0002\n\u0002\b\u0004\n\u0002\u0010\u000e\n\u0002\b\u0003\n\u0002\u0018\u0002\n\u0002\b\u0004\n\u0002\u0010 \n\u0002\b\u0004\n\u0002\u0018\u0002\n\u0002\b\u0002\n\u0002\u0010\"\n\u0002\u0018\u0002\n\u0002\b\u0012\u0018\u0000 82\u00060\u0001j\u0002`\u0002:\u000289B\u0011\b\u0001\u0012\u0006\u00100\u001a\u00020$¢\u0006\u0004\b2\u00103B\u0011\b\u0016\u0012\u0006\u0010,\u001a\u00020\u0016¢\u0006\u0004\b2\u00104B\u0019\b\u0016\u0012\u0006\u0010,\u001a\u00020\u0016\u0012\u0006\u00105\u001a\u00020(¢\u0006\u0004\b2\u00106B\u001f\b\u0016\u0012\u0006\u0010,\u001a\u00020\u0016\u0012\f\u0010/\u001a\b\u0012\u0004\u0012\u00020(0'¢\u0006\u0004\b2\u00107J\u000f\u0010\u0004\u001a\u00020\u0003H\u0002¢\u0006\u0004\b\u0004\u0010\u0005J\u0018\u0010\t\u001a\u00020\b2\u0006\u0010\u0007\u001a\u00020\u0006H\u0086\u0004¢\u0006\u0004\b\t\u0010\nJ\u0015\u0010\u000b\u001a\u00020\b2\u0006\u0010\u0007\u001a\u00020\u0006¢\u0006\u0004\b\u000b\u0010\nJ!\u0010\u000f\u001a\u0004\u0018\u00010\u000e2\u0006\u0010\u0007\u001a\u00020\u00062\b\b\u0002\u0010\r\u001a\u00020\f¢\u0006\u0004\b\u000f\u0010\u0010J%\u0010\u0012\u001a\b\u0012\u0004\u0012\u00020\u000e0\u00112\u0006\u0010\u0007\u001a\u00020\u00062\b\b\u0002\u0010\r\u001a\u00020\f¢\u0006\u0004\b\u0012\u0010\u0013J\u0017\u0010\u0014\u001a\u0004\u0018\u00010\u000e2\u0006\u0010\u0007\u001a\u00020\u0006¢\u0006\u0004\b\u0014\u0010\u0015J\u001d\u0010\u0018\u001a\u00020\u00162\u0006\u0010\u0007\u001a\u00020\u00062\u0006\u0010\u0017\u001a\u00020\u0016¢\u0006\u0004\b\u0018\u0010\u0019J)\u0010\u0018\u001a\u00020\u00162\u0006\u0010\u0007\u001a\u00020\u00062\u0012\u0010\u001b\u001a\u000e\u0012\u0004\u0012\u00020\u000e\u0012\u0004\u0012\u00020\u00060\u001a¢\u0006\u0004\b\u0018\u0010\u001cJ\u001d\u0010\u001d\u001a\u00020\u00162\u0006\u0010\u0007\u001a\u00020\u00062\u0006\u0010\u0017\u001a\u00020\u0016¢\u0006\u0004\b\u001d\u0010\u0019J%\u0010 \u001a\b\u0012\u0004\u0012\u00020\u00160\u001f2\u0006\u0010\u0007\u001a\u00020\u00062\b\b\u0002\u0010\u001e\u001a\u00020\f¢\u0006\u0004\b \u0010!J\u000f\u0010\"\u001a\u00020\u0016H\u0016¢\u0006\u0004\b\"\u0010#J\r\u0010%\u001a\u00020$¢\u0006\u0004\b%\u0010&R\u001e\u0010)\u001a\n\u0012\u0004\u0012\u00020(\u0018\u00010'8\u0002@\u0002X\u0082\u000e¢\u0006\u0006\n\u0004\b)\u0010*R\u0013\u0010,\u001a\u00020\u00168F@\u0006¢\u0006\u0006\u001a\u0004\b+\u0010#R\u0019\u0010/\u001a\b\u0012\u0004\u0012\u00020(0'8F@\u0006¢\u0006\u0006\u001a\u0004\b-\u0010.R\u0016\u00100\u001a\u00020$8\u0002@\u0002X\u0082\u0004¢\u0006\u0006\n\u0004\b0\u00101¨\u0006:"}, d2 = {"Lkotlin/text/Regex;", "Ljava/io/Serializable;", "Lkotlin/io/Serializable;", "", "writeReplace", "()Ljava/lang/Object;", "", "input", "", "matches", "(Ljava/lang/CharSequence;)Z", "containsMatchIn", "", "startIndex", "Lkotlin/text/MatchResult;", "find", "(Ljava/lang/CharSequence;I)Lkotlin/text/MatchResult;", "Lkotlin/sequences/Sequence;", "findAll", "(Ljava/lang/CharSequence;I)Lkotlin/sequences/Sequence;", "matchEntire", "(Ljava/lang/CharSequence;)Lkotlin/text/MatchResult;", "", "replacement", "replace", "(Ljava/lang/CharSequence;Ljava/lang/String;)Ljava/lang/String;", "Lkotlin/Function1;", "transform", "(Ljava/lang/CharSequence;Lkotlin/jvm/functions/Function1;)Ljava/lang/String;", "replaceFirst", "limit", "", "split", "(Ljava/lang/CharSequence;I)Ljava/util/List;", "toString", "()Ljava/lang/String;", "Ljava/util/regex/Pattern;", "toPattern", "()Ljava/util/regex/Pattern;", "", "Lkotlin/text/RegexOption;", "_options", "Ljava/util/Set;", "getPattern", "pattern", "getOptions", "()Ljava/util/Set;", "options", "nativePattern", "Ljava/util/regex/Pattern;", "<init>", "(Ljava/util/regex/Pattern;)V", "(Ljava/lang/String;)V", "option", "(Ljava/lang/String;Lkotlin/text/RegexOption;)V", "(Ljava/lang/String;Ljava/util/Set;)V", "Companion", "Serialized", "kotlin-stdlib"}, k = 1, mv = {1, 4, 0})
+/* loaded from: classes5.dex */
 public final class Regex implements Serializable {
 
     /* renamed from: Companion, reason: from kotlin metadata */
-    @k
     public static final Companion INSTANCE = new Companion(null);
-
-    @l
     private Set<? extends RegexOption> _options;
-
-    @k
     private final Pattern nativePattern;
 
-    @Metadata(d1 = {"\u0000\"\n\u0002\u0018\u0002\n\u0002\u0010\u0000\n\u0002\b\u0002\n\u0002\u0010\b\n\u0002\b\u0002\n\u0002\u0010\u000e\n\u0002\b\u0003\n\u0002\u0018\u0002\n\u0000\b\u0086\u0003\u0018\u00002\u00020\u0001B\u0007\b\u0002¢\u0006\u0002\u0010\u0002J\u0010\u0010\u0003\u001a\u00020\u00042\u0006\u0010\u0005\u001a\u00020\u0004H\u0002J\u000e\u0010\u0006\u001a\u00020\u00072\u0006\u0010\b\u001a\u00020\u0007J\u000e\u0010\t\u001a\u00020\u00072\u0006\u0010\b\u001a\u00020\u0007J\u000e\u0010\n\u001a\u00020\u000b2\u0006\u0010\b\u001a\u00020\u0007¨\u0006\f"}, d2 = {"Lkotlin/text/Regex$Companion;", "", "()V", "ensureUnicodeCase", "", "flags", "escape", "", "literal", "escapeReplacement", "fromLiteral", "Lkotlin/text/Regex;", "kotlin-stdlib"}, k = 1, mv = {1, 9, 0}, xi = 48)
+    @Metadata(bv = {1, 0, 3}, d1 = {"\u0000\u001e\n\u0002\u0018\u0002\n\u0002\u0010\u0000\n\u0002\u0010\b\n\u0002\b\u0003\n\u0002\u0010\u000e\n\u0000\n\u0002\u0018\u0002\n\u0002\b\b\b\u0086\u0003\u0018\u00002\u00020\u0001B\t\b\u0002¢\u0006\u0004\b\u000e\u0010\u000fJ\u0017\u0010\u0004\u001a\u00020\u00022\u0006\u0010\u0003\u001a\u00020\u0002H\u0002¢\u0006\u0004\b\u0004\u0010\u0005J\u0015\u0010\t\u001a\u00020\b2\u0006\u0010\u0007\u001a\u00020\u0006¢\u0006\u0004\b\t\u0010\nJ\u0015\u0010\u000b\u001a\u00020\u00062\u0006\u0010\u0007\u001a\u00020\u0006¢\u0006\u0004\b\u000b\u0010\fJ\u0015\u0010\r\u001a\u00020\u00062\u0006\u0010\u0007\u001a\u00020\u0006¢\u0006\u0004\b\r\u0010\f¨\u0006\u0010"}, d2 = {"Lkotlin/text/Regex$Companion;", "", "", "flags", "ensureUnicodeCase", "(I)I", "", "literal", "Lkotlin/text/Regex;", "fromLiteral", "(Ljava/lang/String;)Lkotlin/text/Regex;", "escape", "(Ljava/lang/String;)Ljava/lang/String;", "escapeReplacement", "<init>", "()V", "kotlin-stdlib"}, k = 1, mv = {1, 4, 0})
     public static final class Companion {
-        public /* synthetic */ Companion(DefaultConstructorMarker defaultConstructorMarker) {
-            this();
+        private Companion() {
         }
 
         public final int ensureUnicodeCase(int flags) {
             return (flags & 2) != 0 ? flags | 64 : flags;
         }
 
-        @k
-        public final String escape(@k String literal) {
-            Intrinsics.checkNotNullParameter(literal, "literal");
+        @d
+        public final String escape(@d String literal) {
+            Intrinsics.checkParameterIsNotNull(literal, "literal");
             String quote = Pattern.quote(literal);
-            Intrinsics.checkNotNullExpressionValue(quote, "quote(...)");
+            Intrinsics.checkExpressionValueIsNotNull(quote, "Pattern.quote(literal)");
             return quote;
         }
 
-        @k
-        public final String escapeReplacement(@k String literal) {
-            Intrinsics.checkNotNullParameter(literal, "literal");
+        @d
+        public final String escapeReplacement(@d String literal) {
+            Intrinsics.checkParameterIsNotNull(literal, "literal");
             String quoteReplacement = Matcher.quoteReplacement(literal);
-            Intrinsics.checkNotNullExpressionValue(quoteReplacement, "quoteReplacement(...)");
+            Intrinsics.checkExpressionValueIsNotNull(quoteReplacement, "Matcher.quoteReplacement(literal)");
             return quoteReplacement;
         }
 
-        @k
-        public final Regex fromLiteral(@k String literal) {
-            Intrinsics.checkNotNullParameter(literal, "literal");
+        @d
+        public final Regex fromLiteral(@d String literal) {
+            Intrinsics.checkParameterIsNotNull(literal, "literal");
             return new Regex(literal, RegexOption.LITERAL);
         }
 
-        private Companion() {
+        public /* synthetic */ Companion(DefaultConstructorMarker defaultConstructorMarker) {
+            this();
         }
     }
 
-    @Metadata(d1 = {"\u0000$\n\u0002\u0018\u0002\n\u0002\u0018\u0002\n\u0002\u0018\u0002\n\u0000\n\u0002\u0010\u000e\n\u0000\n\u0002\u0010\b\n\u0002\b\u0006\n\u0002\u0010\u0000\n\u0002\b\u0002\b\u0002\u0018\u0000 \u000e2\u00060\u0001j\u0002`\u0002:\u0001\u000eB\u0015\u0012\u0006\u0010\u0003\u001a\u00020\u0004\u0012\u0006\u0010\u0005\u001a\u00020\u0006¢\u0006\u0002\u0010\u0007J\b\u0010\f\u001a\u00020\rH\u0002R\u0011\u0010\u0005\u001a\u00020\u0006¢\u0006\b\n\u0000\u001a\u0004\b\b\u0010\tR\u0011\u0010\u0003\u001a\u00020\u0004¢\u0006\b\n\u0000\u001a\u0004\b\n\u0010\u000b¨\u0006\u000f"}, d2 = {"Lkotlin/text/Regex$Serialized;", "Ljava/io/Serializable;", "Lkotlin/io/Serializable;", "pattern", "", "flags", "", "(Ljava/lang/String;I)V", "getFlags", "()I", "getPattern", "()Ljava/lang/String;", "readResolve", "", "Companion", "kotlin-stdlib"}, k = 1, mv = {1, 9, 0}, xi = 48)
-    public static final class Serialized implements Serializable {
+    @Metadata(bv = {1, 0, 3}, d1 = {"\u0000$\n\u0002\u0018\u0002\n\u0002\u0018\u0002\n\u0002\u0018\u0002\n\u0002\u0010\u0000\n\u0002\b\u0002\n\u0002\u0010\u000e\n\u0002\b\u0004\n\u0002\u0010\b\n\u0002\b\b\b\u0002\u0018\u0000 \u00122\u00060\u0001j\u0002`\u0002:\u0001\u0012B\u0017\u0012\u0006\u0010\u0007\u001a\u00020\u0006\u0012\u0006\u0010\f\u001a\u00020\u000b¢\u0006\u0004\b\u0010\u0010\u0011J\u000f\u0010\u0004\u001a\u00020\u0003H\u0002¢\u0006\u0004\b\u0004\u0010\u0005R\u0019\u0010\u0007\u001a\u00020\u00068\u0006@\u0006¢\u0006\f\n\u0004\b\u0007\u0010\b\u001a\u0004\b\t\u0010\nR\u0019\u0010\f\u001a\u00020\u000b8\u0006@\u0006¢\u0006\f\n\u0004\b\f\u0010\r\u001a\u0004\b\u000e\u0010\u000f¨\u0006\u0013"}, d2 = {"Lkotlin/text/Regex$Serialized;", "Ljava/io/Serializable;", "Lkotlin/io/Serializable;", "", "readResolve", "()Ljava/lang/Object;", "", "pattern", "Ljava/lang/String;", "getPattern", "()Ljava/lang/String;", "", "flags", "I", "getFlags", "()I", "<init>", "(Ljava/lang/String;I)V", "Companion", "kotlin-stdlib"}, k = 1, mv = {1, 4, 0})
+    private static final class Serialized implements Serializable {
         private static final long serialVersionUID = 0;
         private final int flags;
 
-        @k
+        @d
         private final String pattern;
 
-        public Serialized(@k String pattern, int i10) {
-            Intrinsics.checkNotNullParameter(pattern, "pattern");
+        public Serialized(@d String pattern, int i2) {
+            Intrinsics.checkParameterIsNotNull(pattern, "pattern");
             this.pattern = pattern;
-            this.flags = i10;
+            this.flags = i2;
         }
 
         private final Object readResolve() {
             Pattern compile = Pattern.compile(this.pattern, this.flags);
-            Intrinsics.checkNotNullExpressionValue(compile, "compile(...)");
+            Intrinsics.checkExpressionValueIsNotNull(compile, "Pattern.compile(pattern, flags)");
             return new Regex(compile);
         }
 
@@ -98,268 +91,184 @@ public final class Regex implements Serializable {
             return this.flags;
         }
 
-        @k
+        @d
         public final String getPattern() {
             return this.pattern;
         }
     }
 
     @PublishedApi
-    public Regex(@k Pattern nativePattern) {
-        Intrinsics.checkNotNullParameter(nativePattern, "nativePattern");
+    public Regex(@d Pattern nativePattern) {
+        Intrinsics.checkParameterIsNotNull(nativePattern, "nativePattern");
         this.nativePattern = nativePattern;
     }
 
-    public static /* synthetic */ MatchResult find$default(Regex regex, CharSequence charSequence, int i10, int i11, Object obj) {
-        if ((i11 & 2) != 0) {
-            i10 = 0;
+    public static /* synthetic */ MatchResult find$default(Regex regex, CharSequence charSequence, int i2, int i3, Object obj) {
+        if ((i3 & 2) != 0) {
+            i2 = 0;
         }
-        return regex.find(charSequence, i10);
+        return regex.find(charSequence, i2);
     }
 
-    public static /* synthetic */ Sequence findAll$default(Regex regex, CharSequence charSequence, int i10, int i11, Object obj) {
-        if ((i11 & 2) != 0) {
-            i10 = 0;
+    public static /* synthetic */ Sequence findAll$default(Regex regex, CharSequence charSequence, int i2, int i3, Object obj) {
+        if ((i3 & 2) != 0) {
+            i2 = 0;
         }
-        return regex.findAll(charSequence, i10);
+        return regex.findAll(charSequence, i2);
     }
 
-    public static /* synthetic */ List split$default(Regex regex, CharSequence charSequence, int i10, int i11, Object obj) {
-        if ((i11 & 2) != 0) {
-            i10 = 0;
+    public static /* synthetic */ List split$default(Regex regex, CharSequence charSequence, int i2, int i3, Object obj) {
+        if ((i3 & 2) != 0) {
+            i2 = 0;
         }
-        return regex.split(charSequence, i10);
-    }
-
-    public static /* synthetic */ Sequence splitToSequence$default(Regex regex, CharSequence charSequence, int i10, int i11, Object obj) {
-        if ((i11 & 2) != 0) {
-            i10 = 0;
-        }
-        return regex.splitToSequence(charSequence, i10);
+        return regex.split(charSequence, i2);
     }
 
     private final Object writeReplace() {
         String pattern = this.nativePattern.pattern();
-        Intrinsics.checkNotNullExpressionValue(pattern, "pattern(...)");
+        Intrinsics.checkExpressionValueIsNotNull(pattern, "nativePattern.pattern()");
         return new Serialized(pattern, this.nativePattern.flags());
     }
 
-    public final boolean containsMatchIn(@k CharSequence input) {
-        Intrinsics.checkNotNullParameter(input, "input");
+    public final boolean containsMatchIn(@d CharSequence input) {
+        Intrinsics.checkParameterIsNotNull(input, "input");
         return this.nativePattern.matcher(input).find();
     }
 
-    @l
-    public final MatchResult find(@k CharSequence input, int startIndex) {
+    @e
+    public final MatchResult find(@d CharSequence input, int startIndex) {
         MatchResult findNext;
-        Intrinsics.checkNotNullParameter(input, "input");
+        Intrinsics.checkParameterIsNotNull(input, "input");
         Matcher matcher = this.nativePattern.matcher(input);
-        Intrinsics.checkNotNullExpressionValue(matcher, "matcher(...)");
+        Intrinsics.checkExpressionValueIsNotNull(matcher, "nativePattern.matcher(input)");
         findNext = RegexKt.findNext(matcher, startIndex, input);
         return findNext;
     }
 
-    @k
-    public final Sequence<MatchResult> findAll(@k CharSequence input, int startIndex) {
-        Intrinsics.checkNotNullParameter(input, "input");
-        if (startIndex >= 0 && startIndex <= input.length()) {
-            return SequencesKt.generateSequence((Function0) new Function0<MatchResult>() { // from class: kotlin.text.Regex$findAll$1
-                final /* synthetic */ CharSequence $input;
-                final /* synthetic */ int $startIndex;
+    @d
+    public final Sequence<MatchResult> findAll(@d final CharSequence input, final int startIndex) {
+        Intrinsics.checkParameterIsNotNull(input, "input");
+        return SequencesKt__SequencesKt.generateSequence((Function0) new Function0<MatchResult>() { // from class: kotlin.text.Regex$findAll$1
+            /* JADX WARN: 'super' call moved to the top of the method (can break code semantics) */
+            {
+                super(0);
+            }
 
-                /* JADX WARN: 'super' call moved to the top of the method (can break code semantics) */
-                public Regex$findAll$1(CharSequence input2, int startIndex2) {
-                    super(0);
-                    input = input2;
-                    startIndex = startIndex2;
-                }
+            @Override // kotlin.jvm.functions.Function0
+            @e
+            public final MatchResult invoke() {
+                return Regex.this.find(input, startIndex);
+            }
+        }, (Function1) Regex$findAll$2.INSTANCE);
+    }
 
-                @Override // kotlin.jvm.functions.Function0
-                @l
-                public final MatchResult invoke() {
-                    return Regex.this.find(input, startIndex);
-                }
-            }, (Function1) Regex$findAll$2.INSTANCE);
+    @d
+    public final Set<RegexOption> getOptions() {
+        Set set = this._options;
+        if (set != null) {
+            return set;
         }
-        throw new IndexOutOfBoundsException("Start index out of bounds: " + startIndex2 + ", input length: " + input2.length());
+        final int flags = this.nativePattern.flags();
+        EnumSet allOf = EnumSet.allOf(RegexOption.class);
+        CollectionsKt__MutableCollectionsKt.retainAll(allOf, new Function1<T, Boolean>() { // from class: kotlin.text.Regex$fromInt$$inlined$apply$lambda$1
+            /* JADX WARN: 'super' call moved to the top of the method (can break code semantics) */
+            {
+                super(1);
+            }
+
+            @Override // kotlin.jvm.functions.Function1
+            public /* bridge */ /* synthetic */ Boolean invoke(Object obj) {
+                return Boolean.valueOf(invoke((Enum) obj));
+            }
+
+            /* JADX WARN: Incorrect types in method signature: (TT;)Z */
+            /* JADX WARN: Multi-variable type inference failed */
+            public final boolean invoke(Enum r3) {
+                FlagEnum flagEnum = (FlagEnum) r3;
+                return (flags & flagEnum.getMask()) == flagEnum.getValue();
+            }
+        });
+        Set<RegexOption> unmodifiableSet = Collections.unmodifiableSet(allOf);
+        Intrinsics.checkExpressionValueIsNotNull(unmodifiableSet, "Collections.unmodifiable…mask == it.value }\n    })");
+        this._options = unmodifiableSet;
+        return unmodifiableSet;
     }
 
-    /*  JADX ERROR: JadxRuntimeException in pass: ProcessVariables
-        jadx.core.utils.exceptions.JadxRuntimeException: Method arg registers not loaded: kotlin.text.Regex$special$$inlined$fromInt$1.<init>(int):void, class status: GENERATED_AND_UNLOADED
-        	at jadx.core.dex.nodes.MethodNode.getArgRegs(MethodNode.java:290)
-        	at jadx.core.dex.visitors.regions.variables.ProcessVariables$1.isArgUnused(ProcessVariables.java:146)
-        	at jadx.core.dex.visitors.regions.variables.ProcessVariables$1.lambda$isVarUnused$0(ProcessVariables.java:131)
-        	at jadx.core.utils.ListUtils.allMatch(ListUtils.java:193)
-        	at jadx.core.dex.visitors.regions.variables.ProcessVariables$1.isVarUnused(ProcessVariables.java:131)
-        	at jadx.core.dex.visitors.regions.variables.ProcessVariables$1.processBlock(ProcessVariables.java:82)
-        	at jadx.core.dex.visitors.regions.DepthRegionTraversal.traverseInternal(DepthRegionTraversal.java:64)
-        	at jadx.core.dex.visitors.regions.DepthRegionTraversal.lambda$traverseInternal$0(DepthRegionTraversal.java:68)
-        	at java.base/java.util.ArrayList.forEach(Unknown Source)
-        	at jadx.core.dex.visitors.regions.DepthRegionTraversal.traverseInternal(DepthRegionTraversal.java:68)
-        	at jadx.core.dex.visitors.regions.DepthRegionTraversal.lambda$traverseInternal$0(DepthRegionTraversal.java:68)
-        	at java.base/java.util.ArrayList.forEach(Unknown Source)
-        	at jadx.core.dex.visitors.regions.DepthRegionTraversal.traverseInternal(DepthRegionTraversal.java:68)
-        	at jadx.core.dex.visitors.regions.DepthRegionTraversal.lambda$traverseInternal$0(DepthRegionTraversal.java:68)
-        	at java.base/java.util.ArrayList.forEach(Unknown Source)
-        	at jadx.core.dex.visitors.regions.DepthRegionTraversal.traverseInternal(DepthRegionTraversal.java:68)
-        	at jadx.core.dex.visitors.regions.DepthRegionTraversal.traverse(DepthRegionTraversal.java:19)
-        	at jadx.core.dex.visitors.regions.variables.ProcessVariables.removeUnusedResults(ProcessVariables.java:73)
-        	at jadx.core.dex.visitors.regions.variables.ProcessVariables.visit(ProcessVariables.java:48)
-        */
-    @xi.k
-    public final java.util.Set<kotlin.text.RegexOption> getOptions() {
-        /*
-            r3 = this;
-            java.util.Set<? extends kotlin.text.RegexOption> r0 = r3._options
-            if (r0 != 0) goto L26
-            java.util.regex.Pattern r0 = r3.nativePattern
-            int r0 = r0.flags()
-            java.lang.Class<kotlin.text.RegexOption> r1 = kotlin.text.RegexOption.class
-            java.util.EnumSet r1 = java.util.EnumSet.allOf(r1)
-            kotlin.jvm.internal.Intrinsics.checkNotNull(r1)
-            kotlin.text.Regex$special$$inlined$fromInt$1 r2 = new kotlin.text.Regex$special$$inlined$fromInt$1
-            r2.<init>()
-            kotlin.collections.CollectionsKt.retainAll(r1, r2)
-            java.util.Set r0 = java.util.Collections.unmodifiableSet(r1)
-            java.lang.String r1 = "unmodifiableSet(...)"
-            kotlin.jvm.internal.Intrinsics.checkNotNullExpressionValue(r0, r1)
-            r3._options = r0
-        L26:
-            return r0
-        */
-        throw new UnsupportedOperationException("Method not decompiled: kotlin.text.Regex.getOptions():java.util.Set");
-    }
-
-    @k
+    @d
     public final String getPattern() {
         String pattern = this.nativePattern.pattern();
-        Intrinsics.checkNotNullExpressionValue(pattern, "pattern(...)");
+        Intrinsics.checkExpressionValueIsNotNull(pattern, "nativePattern.pattern()");
         return pattern;
     }
 
-    @SinceKotlin(version = "1.7")
-    @l
-    @WasExperimental(markerClass = {ExperimentalStdlibApi.class})
-    public final MatchResult matchAt(@k CharSequence input, int index) {
-        Intrinsics.checkNotNullParameter(input, "input");
-        Matcher region = this.nativePattern.matcher(input).useAnchoringBounds(false).useTransparentBounds(true).region(index, input.length());
-        if (!region.lookingAt()) {
-            return null;
-        }
-        Intrinsics.checkNotNull(region);
-        return new MatcherMatchResult(region, input);
-    }
-
-    @l
-    public final MatchResult matchEntire(@k CharSequence input) {
+    @e
+    public final MatchResult matchEntire(@d CharSequence input) {
         MatchResult matchEntire;
-        Intrinsics.checkNotNullParameter(input, "input");
+        Intrinsics.checkParameterIsNotNull(input, "input");
         Matcher matcher = this.nativePattern.matcher(input);
-        Intrinsics.checkNotNullExpressionValue(matcher, "matcher(...)");
+        Intrinsics.checkExpressionValueIsNotNull(matcher, "nativePattern.matcher(input)");
         matchEntire = RegexKt.matchEntire(matcher, input);
         return matchEntire;
     }
 
-    public final boolean matches(@k CharSequence input) {
-        Intrinsics.checkNotNullParameter(input, "input");
+    public final boolean matches(@d CharSequence input) {
+        Intrinsics.checkParameterIsNotNull(input, "input");
         return this.nativePattern.matcher(input).matches();
     }
 
-    @SinceKotlin(version = "1.7")
-    @WasExperimental(markerClass = {ExperimentalStdlibApi.class})
-    public final boolean matchesAt(@k CharSequence input, int index) {
-        Intrinsics.checkNotNullParameter(input, "input");
-        return this.nativePattern.matcher(input).useAnchoringBounds(false).useTransparentBounds(true).region(index, input.length()).lookingAt();
-    }
-
-    @k
-    public final String replace(@k CharSequence input, @k String replacement) {
-        Intrinsics.checkNotNullParameter(input, "input");
-        Intrinsics.checkNotNullParameter(replacement, "replacement");
+    @d
+    public final String replace(@d CharSequence input, @d String replacement) {
+        Intrinsics.checkParameterIsNotNull(input, "input");
+        Intrinsics.checkParameterIsNotNull(replacement, "replacement");
         String replaceAll = this.nativePattern.matcher(input).replaceAll(replacement);
-        Intrinsics.checkNotNullExpressionValue(replaceAll, "replaceAll(...)");
+        Intrinsics.checkExpressionValueIsNotNull(replaceAll, "nativePattern.matcher(in…).replaceAll(replacement)");
         return replaceAll;
     }
 
-    @k
-    public final String replaceFirst(@k CharSequence input, @k String replacement) {
-        Intrinsics.checkNotNullParameter(input, "input");
-        Intrinsics.checkNotNullParameter(replacement, "replacement");
+    @d
+    public final String replaceFirst(@d CharSequence input, @d String replacement) {
+        Intrinsics.checkParameterIsNotNull(input, "input");
+        Intrinsics.checkParameterIsNotNull(replacement, "replacement");
         String replaceFirst = this.nativePattern.matcher(input).replaceFirst(replacement);
-        Intrinsics.checkNotNullExpressionValue(replaceFirst, "replaceFirst(...)");
+        Intrinsics.checkExpressionValueIsNotNull(replaceFirst, "nativePattern.matcher(in…replaceFirst(replacement)");
         return replaceFirst;
     }
 
-    @k
-    public final List<String> split(@k CharSequence input, int limit) {
-        Intrinsics.checkNotNullParameter(input, "input");
-        StringsKt__StringsKt.requireNonNegativeLimit(limit);
-        Matcher matcher = this.nativePattern.matcher(input);
-        if (limit == 1 || !matcher.find()) {
-            return CollectionsKt.listOf(input.toString());
+    @d
+    public final List<String> split(@d CharSequence input, int limit) {
+        Intrinsics.checkParameterIsNotNull(input, "input");
+        int i2 = 0;
+        if (!(limit >= 0)) {
+            throw new IllegalArgumentException(("Limit must be non-negative, but was " + limit + '.').toString());
         }
-        ArrayList arrayList = new ArrayList(limit > 0 ? RangesKt.coerceAtMost(limit, 10) : 10);
-        int i10 = limit - 1;
-        int i11 = 0;
+        Matcher matcher = this.nativePattern.matcher(input);
+        if (!matcher.find() || limit == 1) {
+            return CollectionsKt__CollectionsJVMKt.listOf(input.toString());
+        }
+        ArrayList arrayList = new ArrayList(limit > 0 ? RangesKt___RangesKt.coerceAtMost(limit, 10) : 10);
+        int i3 = limit - 1;
         do {
-            arrayList.add(input.subSequence(i11, matcher.start()).toString());
-            i11 = matcher.end();
-            if (i10 >= 0 && arrayList.size() == i10) {
+            arrayList.add(input.subSequence(i2, matcher.start()).toString());
+            i2 = matcher.end();
+            if (i3 >= 0 && arrayList.size() == i3) {
                 break;
             }
         } while (matcher.find());
-        arrayList.add(input.subSequence(i11, input.length()).toString());
+        arrayList.add(input.subSequence(i2, input.length()).toString());
         return arrayList;
     }
 
-    @SinceKotlin(version = "1.6")
-    @k
-    @WasExperimental(markerClass = {ExperimentalStdlibApi.class})
-    public final Sequence<String> splitToSequence(@k CharSequence input, int limit) {
-        Intrinsics.checkNotNullParameter(input, "input");
-        StringsKt__StringsKt.requireNonNegativeLimit(limit);
-        return SequencesKt.sequence(new Regex$splitToSequence$1(this, input, limit, null));
-    }
-
-    @k
+    @d
     /* renamed from: toPattern, reason: from getter */
     public final Pattern getNativePattern() {
         return this.nativePattern;
     }
 
-    @k
+    @d
     public String toString() {
         String pattern = this.nativePattern.toString();
-        Intrinsics.checkNotNullExpressionValue(pattern, "toString(...)");
+        Intrinsics.checkExpressionValueIsNotNull(pattern, "nativePattern.toString()");
         return pattern;
-    }
-
-    @k
-    public final String replace(@k CharSequence input, @k Function1<? super MatchResult, ? extends CharSequence> transform) {
-        Intrinsics.checkNotNullParameter(input, "input");
-        Intrinsics.checkNotNullParameter(transform, "transform");
-        int i10 = 0;
-        MatchResult find$default = find$default(this, input, 0, 2, null);
-        if (find$default == null) {
-            return input.toString();
-        }
-        int length = input.length();
-        StringBuilder sb2 = new StringBuilder(length);
-        do {
-            sb2.append(input, i10, find$default.getRange().getStart().intValue());
-            sb2.append(transform.invoke(find$default));
-            i10 = find$default.getRange().getEndInclusive().intValue() + 1;
-            find$default = find$default.next();
-            if (i10 >= length) {
-                break;
-            }
-        } while (find$default != null);
-        if (i10 < length) {
-            sb2.append(input, i10, length);
-        }
-        String sb3 = sb2.toString();
-        Intrinsics.checkNotNullExpressionValue(sb3, "toString(...)");
-        return sb3;
     }
 
     /* JADX WARN: Illegal instructions before constructor call */
@@ -367,38 +276,66 @@ public final class Regex implements Serializable {
         Code decompiled incorrectly, please refer to instructions dump.
         To view partially-correct code enable 'Show inconsistent code' option in preferences
     */
-    public Regex(@xi.k java.lang.String r2) {
+    public Regex(@f.b.a.d java.lang.String r2) {
         /*
             r1 = this;
             java.lang.String r0 = "pattern"
-            kotlin.jvm.internal.Intrinsics.checkNotNullParameter(r2, r0)
+            kotlin.jvm.internal.Intrinsics.checkParameterIsNotNull(r2, r0)
             java.util.regex.Pattern r2 = java.util.regex.Pattern.compile(r2)
-            java.lang.String r0 = "compile(...)"
-            kotlin.jvm.internal.Intrinsics.checkNotNullExpressionValue(r2, r0)
+            java.lang.String r0 = "Pattern.compile(pattern)"
+            kotlin.jvm.internal.Intrinsics.checkExpressionValueIsNotNull(r2, r0)
             r1.<init>(r2)
             return
         */
         throw new UnsupportedOperationException("Method not decompiled: kotlin.text.Regex.<init>(java.lang.String):void");
     }
 
+    @d
+    public final String replace(@d CharSequence input, @d Function1<? super MatchResult, ? extends CharSequence> transform) {
+        Intrinsics.checkParameterIsNotNull(input, "input");
+        Intrinsics.checkParameterIsNotNull(transform, "transform");
+        int i2 = 0;
+        MatchResult find$default = find$default(this, input, 0, 2, null);
+        if (find$default == null) {
+            return input.toString();
+        }
+        int length = input.length();
+        StringBuilder sb = new StringBuilder(length);
+        do {
+            sb.append(input, i2, find$default.getRange().getStart().intValue());
+            sb.append(transform.invoke(find$default));
+            i2 = find$default.getRange().getEndInclusive().intValue() + 1;
+            find$default = find$default.next();
+            if (i2 >= length) {
+                break;
+            }
+        } while (find$default != null);
+        if (i2 < length) {
+            sb.append(input, i2, length);
+        }
+        String sb2 = sb.toString();
+        Intrinsics.checkExpressionValueIsNotNull(sb2, "sb.toString()");
+        return sb2;
+    }
+
     /* JADX WARN: Illegal instructions before constructor call */
     /*
         Code decompiled incorrectly, please refer to instructions dump.
         To view partially-correct code enable 'Show inconsistent code' option in preferences
     */
-    public Regex(@xi.k java.lang.String r2, @xi.k kotlin.text.RegexOption r3) {
+    public Regex(@f.b.a.d java.lang.String r2, @f.b.a.d kotlin.text.RegexOption r3) {
         /*
             r1 = this;
             java.lang.String r0 = "pattern"
-            kotlin.jvm.internal.Intrinsics.checkNotNullParameter(r2, r0)
+            kotlin.jvm.internal.Intrinsics.checkParameterIsNotNull(r2, r0)
             java.lang.String r0 = "option"
-            kotlin.jvm.internal.Intrinsics.checkNotNullParameter(r3, r0)
+            kotlin.jvm.internal.Intrinsics.checkParameterIsNotNull(r3, r0)
             kotlin.text.Regex$Companion r0 = kotlin.text.Regex.INSTANCE
             int r3 = r3.getValue()
             int r3 = kotlin.text.Regex.Companion.access$ensureUnicodeCase(r0, r3)
             java.util.regex.Pattern r2 = java.util.regex.Pattern.compile(r2, r3)
-            java.lang.String r3 = "compile(...)"
-            kotlin.jvm.internal.Intrinsics.checkNotNullExpressionValue(r2, r3)
+            java.lang.String r3 = "Pattern.compile(pattern,…nicodeCase(option.value))"
+            kotlin.jvm.internal.Intrinsics.checkExpressionValueIsNotNull(r2, r3)
             r1.<init>(r2)
             return
         */
@@ -410,19 +347,19 @@ public final class Regex implements Serializable {
         Code decompiled incorrectly, please refer to instructions dump.
         To view partially-correct code enable 'Show inconsistent code' option in preferences
     */
-    public Regex(@xi.k java.lang.String r2, @xi.k java.util.Set<? extends kotlin.text.RegexOption> r3) {
+    public Regex(@f.b.a.d java.lang.String r2, @f.b.a.d java.util.Set<? extends kotlin.text.RegexOption> r3) {
         /*
             r1 = this;
             java.lang.String r0 = "pattern"
-            kotlin.jvm.internal.Intrinsics.checkNotNullParameter(r2, r0)
+            kotlin.jvm.internal.Intrinsics.checkParameterIsNotNull(r2, r0)
             java.lang.String r0 = "options"
-            kotlin.jvm.internal.Intrinsics.checkNotNullParameter(r3, r0)
+            kotlin.jvm.internal.Intrinsics.checkParameterIsNotNull(r3, r0)
             kotlin.text.Regex$Companion r0 = kotlin.text.Regex.INSTANCE
             int r3 = kotlin.text.RegexKt.access$toInt(r3)
             int r3 = kotlin.text.Regex.Companion.access$ensureUnicodeCase(r0, r3)
             java.util.regex.Pattern r2 = java.util.regex.Pattern.compile(r2, r3)
-            java.lang.String r3 = "compile(...)"
-            kotlin.jvm.internal.Intrinsics.checkNotNullExpressionValue(r2, r3)
+            java.lang.String r3 = "Pattern.compile(pattern,…odeCase(options.toInt()))"
+            kotlin.jvm.internal.Intrinsics.checkExpressionValueIsNotNull(r2, r3)
             r1.<init>(r2)
             return
         */

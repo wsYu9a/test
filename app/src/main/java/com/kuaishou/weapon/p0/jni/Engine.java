@@ -2,23 +2,22 @@ package com.kuaishou.weapon.p0.jni;
 
 import android.content.Context;
 import android.text.TextUtils;
-import com.kuaishou.weapon.p0.bh;
+import com.kuaishou.weapon.p0.bg;
+import com.kuaishou.weapon.p0.bo;
 import com.kuaishou.weapon.p0.bp;
-import com.kuaishou.weapon.p0.bq;
-import com.kuaishou.weapon.p0.ck;
-import com.kuaishou.weapon.p0.df;
+import com.kuaishou.weapon.p0.cj;
+import com.kuaishou.weapon.p0.de;
 import com.kuaishou.weapon.p0.h;
 import com.kuaishou.weapon.p0.t;
-import com.kwad.sdk.m.e;
+import com.kwad.sdk.ranger.e;
 import java.lang.reflect.Member;
 import java.util.HashMap;
-import p1.b;
 
-/* loaded from: classes2.dex */
+/* loaded from: classes.dex */
 public class Engine {
-    private static volatile Engine instance = null;
-    public static volatile int loadSoCount = 0;
-    public static volatile boolean loadSuccess = false;
+    private static volatile Engine instance;
+    public static volatile int loadSoCount;
+    public static volatile boolean loadSuccess;
     public static volatile String soPath;
     public static volatile String soVersion;
 
@@ -26,65 +25,71 @@ public class Engine {
 
     public static native String bcd();
 
-    public static synchronized Engine getInstance(Context context) {
-        synchronized (Engine.class) {
-            try {
-                if (!TextUtils.isEmpty(soVersion) && !loadSuccess && instance == null) {
-                    if (instance == null) {
-                        instance = new Engine();
-                    }
-                    h a10 = h.a(context, "re_po_rt");
-                    try {
-                    } catch (Throwable th2) {
-                        loadSuccess = false;
-                        try {
-                            HashMap hashMap = new HashMap();
-                            hashMap.put(e.TAG, th2.getMessage());
-                            hashMap.put("v", soVersion);
-                            hashMap.put(t.f11204d, ck.f10917m);
-                            bh.a(context, ck.f10905a, hashMap);
-                        } catch (Exception unused) {
-                        }
-                    }
-                    if (!bp.a(context, bq.f10840d + soVersion.replace(b.f29697h, "") + ".so")) {
-                        loadSuccess = false;
-                        return instance;
-                    }
-                    String b10 = a10.b(df.f11052f, "");
-                    if (TextUtils.isEmpty(b10)) {
-                        b10 = soVersion;
-                        a10.c(df.f11052f, b10, false);
-                    }
-                    loadSoCount = a10.c(df.f11044bg);
-                    if (!TextUtils.equals(b10, soVersion)) {
-                        String str = soVersion;
-                        loadSoCount = 0;
-                        a10.c(df.f11052f, str, false);
-                    }
-                    if (loadSoCount + 1 < 10) {
-                        loadSoCount++;
-                        a10.d(df.f11044bg, loadSoCount);
-                        System.loadLibrary(bq.f10840d + soVersion.replace(b.f29697h, ""));
-                        bcd();
-                        loadSoCount = 0;
-                        loadSuccess = true;
-                    }
-                    a10.d(df.f11044bg, loadSoCount);
+    public static Engine getInstance(Context context) {
+        if (!TextUtils.isEmpty(soVersion) && !loadSuccess && instance == null) {
+            synchronized (Engine.class) {
+                if (instance == null) {
+                    instance = new Engine();
                 }
-                return instance;
-            } catch (Throwable th3) {
-                throw th3;
+                h a2 = h.a(context, "re_po_rt");
+                try {
+                } catch (Throwable th) {
+                    loadSuccess = false;
+                    try {
+                        HashMap hashMap = new HashMap();
+                        hashMap.put(e.TAG, th.getMessage());
+                        hashMap.put("v", soVersion);
+                        hashMap.put(t.f9404d, cj.k);
+                        bg.a(context, cj.f9188a, hashMap);
+                    } catch (Exception unused) {
+                    }
+                }
+                if (!bo.a(context, bp.f9126d + soVersion.replace(".", "") + ".so")) {
+                    HashMap hashMap2 = new HashMap();
+                    hashMap2.put(t.f9404d, cj.l);
+                    bg.a(context, cj.f9188a, hashMap2);
+                    loadSuccess = false;
+                    return instance;
+                }
+                String b2 = a2.b(de.f9284f, "");
+                if (TextUtils.isEmpty(b2)) {
+                    b2 = soVersion;
+                    a2.c(de.f9284f, b2, false);
+                }
+                loadSoCount = a2.c(de.aY);
+                if (!TextUtils.equals(b2, soVersion)) {
+                    String str = soVersion;
+                    loadSoCount = 0;
+                    a2.c(de.f9284f, str, false);
+                }
+                if (loadSoCount + 1 < 10) {
+                    loadSoCount++;
+                    a2.d(de.aY, loadSoCount);
+                    System.loadLibrary(bp.f9126d + soVersion.replace(".", ""));
+                    bcd();
+                    HashMap hashMap3 = new HashMap();
+                    StringBuilder sb = new StringBuilder();
+                    sb.append(loadSoCount);
+                    hashMap3.put("c", sb.toString());
+                    hashMap3.put("v", soVersion);
+                    hashMap3.put(t.f9404d, "s");
+                    bg.a(context, "1003001", hashMap3);
+                    loadSoCount = 0;
+                    loadSuccess = true;
+                }
+                a2.d(de.aY, loadSoCount);
             }
         }
+        return instance;
     }
 
-    public static native int mmo(Member member, int i10, int i11);
+    public static native int mmo(Member member, int i2, int i3);
 
-    public static native int mqc(Member member, int i10);
+    public static native int mqc(Member member, int i2);
 
     public static native int off();
 
-    public static native String tao(int i10, long j10, Object obj);
+    public static native String tao(int i2, long j2, Object obj);
 
     public native byte[] ac(byte[] bArr, byte[] bArr2);
 
@@ -100,7 +105,7 @@ public class Engine {
 
     public native String efg();
 
-    public native String eopq(int i10, int i11, int i12, String str);
+    public native String eopq(int i2, int i3, int i4, String str);
 
     public native String fgh();
 
@@ -108,13 +113,13 @@ public class Engine {
 
     public native String hij();
 
-    public native String klm(int i10, String str);
+    public native String klm(int i2, String str);
 
     public native String nop();
 
-    public native String pqr(int i10, int i11, int i12, String str);
+    public native String pqr(int i2, int i3, int i4, String str);
 
     public native String qrs();
 
-    public native String stu(int i10, int i11, int i12, int i13, String str);
+    public native String stu(int i2, int i3, int i4, int i5, String str);
 }

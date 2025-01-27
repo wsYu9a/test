@@ -14,7 +14,7 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
 
-/* loaded from: classes2.dex */
+/* loaded from: classes.dex */
 public class MultiModelLoaderFactory {
     private static final Factory DEFAULT_FACTORY = new Factory();
     private static final ModelLoader<Object, Object> EMPTY_MODEL_LOADER = new EmptyModelLoader();
@@ -23,10 +23,13 @@ public class MultiModelLoaderFactory {
     private final Factory factory;
     private final Pools.Pool<List<Throwable>> throwableListPool;
 
-    public static class EmptyModelLoader implements ModelLoader<Object, Object> {
+    private static class EmptyModelLoader implements ModelLoader<Object, Object> {
+        EmptyModelLoader() {
+        }
+
         @Override // com.bumptech.glide.load.model.ModelLoader
         @Nullable
-        public ModelLoader.LoadData<Object> buildLoadData(@NonNull Object obj, int i10, int i11, @NonNull Options options) {
+        public ModelLoader.LoadData<Object> buildLoadData(@NonNull Object obj, int i2, int i3, @NonNull Options options) {
             return null;
         }
 
@@ -36,7 +39,7 @@ public class MultiModelLoaderFactory {
         }
     }
 
-    public static class Entry<Model, Data> {
+    private static class Entry<Model, Data> {
         final Class<Data> dataClass;
         final ModelLoaderFactory<? extends Model, ? extends Data> factory;
         private final Class<Model> modelClass;
@@ -56,7 +59,10 @@ public class MultiModelLoaderFactory {
         }
     }
 
-    public static class Factory {
+    static class Factory {
+        Factory() {
+        }
+
         @NonNull
         public <Model, Data> MultiModelLoader<Model, Data> build(@NonNull List<ModelLoader<Model, Data>> list, @NonNull Pools.Pool<List<Throwable>> pool) {
             return new MultiModelLoader<>(list, pool);
@@ -67,10 +73,10 @@ public class MultiModelLoaderFactory {
         this(pool, DEFAULT_FACTORY);
     }
 
-    private <Model, Data> void add(@NonNull Class<Model> cls, @NonNull Class<Data> cls2, @NonNull ModelLoaderFactory<? extends Model, ? extends Data> modelLoaderFactory, boolean z10) {
+    private <Model, Data> void add(@NonNull Class<Model> cls, @NonNull Class<Data> cls2, @NonNull ModelLoaderFactory<? extends Model, ? extends Data> modelLoaderFactory, boolean z) {
         Entry<?, ?> entry = new Entry<>(cls, cls2, modelLoaderFactory);
         List<Entry<?, ?>> list = this.entries;
-        list.add(z10 ? list.size() : 0, entry);
+        list.add(z ? list.size() : 0, entry);
     }
 
     @NonNull
@@ -83,12 +89,12 @@ public class MultiModelLoaderFactory {
         return (ModelLoaderFactory<Model, Data>) entry.factory;
     }
 
-    public synchronized <Model, Data> void append(@NonNull Class<Model> cls, @NonNull Class<Data> cls2, @NonNull ModelLoaderFactory<? extends Model, ? extends Data> modelLoaderFactory) {
+    synchronized <Model, Data> void append(@NonNull Class<Model> cls, @NonNull Class<Data> cls2, @NonNull ModelLoaderFactory<? extends Model, ? extends Data> modelLoaderFactory) {
         add(cls, cls2, modelLoaderFactory, true);
     }
 
     @NonNull
-    public synchronized <Model> List<ModelLoader<Model, ?>> build(@NonNull Class<Model> cls) {
+    synchronized <Model> List<ModelLoader<Model, ?>> build(@NonNull Class<Model> cls) {
         ArrayList arrayList;
         try {
             arrayList = new ArrayList();
@@ -99,13 +105,15 @@ public class MultiModelLoaderFactory {
                     this.alreadyUsedEntries.remove(entry);
                 }
             }
-        } finally {
+        } catch (Throwable th) {
+            this.alreadyUsedEntries.clear();
+            throw th;
         }
         return arrayList;
     }
 
     @NonNull
-    public synchronized List<Class<?>> getDataClasses(@NonNull Class<?> cls) {
+    synchronized List<Class<?>> getDataClasses(@NonNull Class<?> cls) {
         ArrayList arrayList;
         arrayList = new ArrayList();
         for (Entry<?, ?> entry : this.entries) {
@@ -116,12 +124,12 @@ public class MultiModelLoaderFactory {
         return arrayList;
     }
 
-    public synchronized <Model, Data> void prepend(@NonNull Class<Model> cls, @NonNull Class<Data> cls2, @NonNull ModelLoaderFactory<? extends Model, ? extends Data> modelLoaderFactory) {
+    synchronized <Model, Data> void prepend(@NonNull Class<Model> cls, @NonNull Class<Data> cls2, @NonNull ModelLoaderFactory<? extends Model, ? extends Data> modelLoaderFactory) {
         add(cls, cls2, modelLoaderFactory, false);
     }
 
     @NonNull
-    public synchronized <Model, Data> List<ModelLoaderFactory<? extends Model, ? extends Data>> remove(@NonNull Class<Model> cls, @NonNull Class<Data> cls2) {
+    synchronized <Model, Data> List<ModelLoaderFactory<? extends Model, ? extends Data>> remove(@NonNull Class<Model> cls, @NonNull Class<Data> cls2) {
         ArrayList arrayList;
         arrayList = new ArrayList();
         Iterator<Entry<?, ?>> it = this.entries.iterator();
@@ -136,7 +144,7 @@ public class MultiModelLoaderFactory {
     }
 
     @NonNull
-    public synchronized <Model, Data> List<ModelLoaderFactory<? extends Model, ? extends Data>> replace(@NonNull Class<Model> cls, @NonNull Class<Data> cls2, @NonNull ModelLoaderFactory<? extends Model, ? extends Data> modelLoaderFactory) {
+    synchronized <Model, Data> List<ModelLoaderFactory<? extends Model, ? extends Data>> replace(@NonNull Class<Model> cls, @NonNull Class<Data> cls2, @NonNull ModelLoaderFactory<? extends Model, ? extends Data> modelLoaderFactory) {
         List<ModelLoaderFactory<? extends Model, ? extends Data>> remove;
         remove = remove(cls, cls2);
         append(cls, cls2, modelLoaderFactory);
@@ -144,7 +152,7 @@ public class MultiModelLoaderFactory {
     }
 
     @VisibleForTesting
-    public MultiModelLoaderFactory(@NonNull Pools.Pool<List<Throwable>> pool, @NonNull Factory factory) {
+    MultiModelLoaderFactory(@NonNull Pools.Pool<List<Throwable>> pool, @NonNull Factory factory) {
         this.entries = new ArrayList();
         this.alreadyUsedEntries = new HashSet();
         this.throwableListPool = pool;
@@ -155,10 +163,10 @@ public class MultiModelLoaderFactory {
     public synchronized <Model, Data> ModelLoader<Model, Data> build(@NonNull Class<Model> cls, @NonNull Class<Data> cls2) {
         try {
             ArrayList arrayList = new ArrayList();
-            boolean z10 = false;
+            boolean z = false;
             for (Entry<?, ?> entry : this.entries) {
                 if (this.alreadyUsedEntries.contains(entry)) {
-                    z10 = true;
+                    z = true;
                 } else if (entry.handles(cls, cls2)) {
                     this.alreadyUsedEntries.add(entry);
                     arrayList.add(build(entry));
@@ -171,13 +179,13 @@ public class MultiModelLoaderFactory {
             if (arrayList.size() == 1) {
                 return (ModelLoader) arrayList.get(0);
             }
-            if (z10) {
+            if (z) {
                 return emptyModelLoader();
             }
             throw new Registry.NoModelLoaderAvailableException((Class<?>) cls, (Class<?>) cls2);
-        } catch (Throwable th2) {
+        } catch (Throwable th) {
             this.alreadyUsedEntries.clear();
-            throw th2;
+            throw th;
         }
     }
 

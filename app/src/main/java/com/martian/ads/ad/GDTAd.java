@@ -1,19 +1,16 @@
 package com.martian.ads.ad;
 
 import android.app.Activity;
-import android.content.Context;
-import android.os.Handler;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.FrameLayout;
 import androidx.annotation.NonNull;
-import b8.o;
-import ba.l;
-import com.martian.ads.ad.GroMoreAd;
+import com.martian.ads.ad.AdConfig;
 import com.martian.apptask.data.AppTask;
-import com.martian.apptask.data.ComplianceInfo;
-import com.martian.libmars.common.ConfigSingleton;
+import com.martian.libmars.d.h;
+import com.martian.libsupport.k;
+import com.qq.e.ads.banner2.UnifiedBannerADListener;
+import com.qq.e.ads.banner2.UnifiedBannerView;
 import com.qq.e.ads.cfg.VideoOption;
 import com.qq.e.ads.interstitial2.UnifiedInterstitialAD;
 import com.qq.e.ads.interstitial2.UnifiedInterstitialADListener;
@@ -25,7 +22,6 @@ import com.qq.e.ads.nativ.NativeADUnifiedListener;
 import com.qq.e.ads.nativ.NativeExpressAD;
 import com.qq.e.ads.nativ.NativeExpressADView;
 import com.qq.e.ads.nativ.NativeUnifiedAD;
-import com.qq.e.ads.nativ.NativeUnifiedADAppMiitInfo;
 import com.qq.e.ads.nativ.NativeUnifiedADData;
 import com.qq.e.ads.nativ.widget.NativeAdContainer;
 import com.qq.e.ads.rewardvideo.RewardVideoAD;
@@ -39,17 +35,18 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
-import l9.p0;
-import x8.c;
 
-/* loaded from: classes3.dex */
+/* loaded from: classes2.dex */
 public class GDTAd extends BaseAd {
+    private UnifiedBannerView banner;
+    private boolean bannerLoaded;
+    private boolean cancelLoading;
     private UnifiedInterstitialAD iad;
     private RewardVideoAD rewardVideoAD;
 
     /* renamed from: com.martian.ads.ad.GDTAd$1 */
-    public class AnonymousClass1 implements SplashADListener {
-        public AnonymousClass1() {
+    class AnonymousClass1 implements SplashADListener {
+        AnonymousClass1() {
         }
 
         @Override // com.qq.e.ads.splash.SplashADListener
@@ -68,11 +65,18 @@ public class GDTAd extends BaseAd {
         }
 
         @Override // com.qq.e.ads.splash.SplashADListener
-        public void onADLoaded(long j10) {
+        public void onADLoaded(long l) {
             AppTask appTask = GDTAd.this.getAppTaskList().getApps().get(0);
-            SplashAD splashAD = (SplashAD) appTask.origin;
-            if (GDTAd.this.adConfig.isBidding()) {
-                GDTAd.this.setBiddingEcpm(appTask, splashAD.getECPM());
+            int ecpm = ((SplashAD) appTask.origin).getECPM();
+            if (GDTAd.this.adConfig.isBidding() || ecpm > 0) {
+                if (GDTAd.this.adConfig.getEcpmPercent() > 0.0d) {
+                    double d2 = ecpm;
+                    double ecpmPercent = GDTAd.this.adConfig.getEcpmPercent();
+                    Double.isNaN(d2);
+                    ecpm = (int) ((d2 * ecpmPercent) / 100.0d);
+                }
+                appTask.setEcpm(ecpm);
+                GDTAd.this.adConfig.setEcpm(ecpm);
             }
             GDTAd.this.onAdReceived();
         }
@@ -83,18 +87,18 @@ public class GDTAd extends BaseAd {
         }
 
         @Override // com.qq.e.ads.splash.SplashADListener
-        public void onADTick(long j10) {
+        public void onADTick(long l) {
         }
 
         @Override // com.qq.e.ads.splash.SplashADListener
         public void onNoAD(AdError adError) {
-            GDTAd.this.onError(new c(adError.getErrorCode(), adError.getErrorMsg()));
+            GDTAd.this.onError(new b.d.c.b.c(adError.getErrorCode(), adError.getErrorMsg()));
         }
     }
 
     /* renamed from: com.martian.ads.ad.GDTAd$2 */
-    public class AnonymousClass2 implements NativeADUnifiedListener {
-        public AnonymousClass2() {
+    class AnonymousClass2 implements NativeADUnifiedListener {
+        AnonymousClass2() {
         }
 
         @Override // com.qq.e.ads.nativ.NativeADUnifiedListener
@@ -112,13 +116,13 @@ public class GDTAd extends BaseAd {
 
         @Override // com.qq.e.ads.NativeAbstractAD.BasicADListener
         public void onNoAD(AdError adError) {
-            GDTAd.this.onError(new c(adError.getErrorCode(), adError.getErrorMsg()));
+            GDTAd.this.onError(new b.d.c.b.c(adError.getErrorCode(), adError.getErrorMsg()));
         }
     }
 
     /* renamed from: com.martian.ads.ad.GDTAd$3 */
-    public class AnonymousClass3 implements NativeExpressAD.NativeExpressADListener {
-        public AnonymousClass3() {
+    class AnonymousClass3 implements NativeExpressAD.NativeExpressADListener {
+        AnonymousClass3() {
         }
 
         @Override // com.qq.e.ads.nativ.NativeExpressAD.NativeExpressADListener
@@ -132,7 +136,7 @@ public class GDTAd extends BaseAd {
         }
 
         @Override // com.qq.e.ads.nativ.NativeExpressAD.NativeExpressADListener
-        public void onADExposure(NativeExpressADView nativeExpressADView) {
+        public void onADExposure(final NativeExpressADView nativeExpressADView) {
             GDTAd.this.onExpose();
         }
 
@@ -148,12 +152,9 @@ public class GDTAd extends BaseAd {
             }
             for (NativeExpressADView nativeExpressADView : list) {
                 AppTask appTask = GDTAd.this.adConfig.toAppTask();
-                appTask.customView = new o(nativeExpressADView);
-                appTask.setPicWidth(1184);
-                appTask.setPicHeight(1898);
-                if (GDTAd.this.adConfig.isBidding()) {
-                    GDTAd.this.setBiddingEcpm(appTask, nativeExpressADView.getECPM());
-                }
+                b.d.a.f fVar = new b.d.a.f(nativeExpressADView);
+                appTask.customView = fVar;
+                fVar.init();
                 GDTAd.this.getAppTaskList().addAppTask(appTask);
             }
             GDTAd.this.onAdReceived();
@@ -161,22 +162,72 @@ public class GDTAd extends BaseAd {
 
         @Override // com.qq.e.ads.NativeAbstractAD.BasicADListener
         public void onNoAD(AdError adError) {
-            GDTAd.this.onError(new c(adError.getErrorCode(), adError.getErrorMsg()));
+            GDTAd.this.onError(new b.d.c.b.c(adError.getErrorCode(), adError.getErrorMsg()));
         }
 
         @Override // com.qq.e.ads.nativ.NativeExpressAD.NativeExpressADListener
         public void onRenderFail(NativeExpressADView nativeExpressADView) {
-            GDTAd.this.onError(new c(-1, "失败"));
+            GDTAd.this.onError(new b.d.c.b.c(-1, AdConfig.ActionString.FAIL));
         }
 
         @Override // com.qq.e.ads.nativ.NativeExpressAD.NativeExpressADListener
-        public void onRenderSuccess(NativeExpressADView nativeExpressADView) {
+        public void onRenderSuccess(final NativeExpressADView nativeExpressADView) {
         }
     }
 
     /* renamed from: com.martian.ads.ad.GDTAd$4 */
-    public class AnonymousClass4 implements UnifiedInterstitialADListener {
-        public AnonymousClass4() {
+    class AnonymousClass4 implements UnifiedBannerADListener {
+        AnonymousClass4() {
+        }
+
+        @Override // com.qq.e.ads.banner2.UnifiedBannerADListener
+        public void onADClicked() {
+            GDTAd.this.onClick();
+        }
+
+        @Override // com.qq.e.ads.banner2.UnifiedBannerADListener
+        public void onADClosed() {
+            GDTAd.this.onClose();
+        }
+
+        @Override // com.qq.e.ads.banner2.UnifiedBannerADListener
+        public void onADExposure() {
+            GDTAd.this.onExpose();
+        }
+
+        @Override // com.qq.e.ads.banner2.UnifiedBannerADListener
+        public void onADLeftApplication() {
+        }
+
+        @Override // com.qq.e.ads.banner2.UnifiedBannerADListener
+        public void onADReceive() {
+            if (GDTAd.this.bannerLoaded) {
+                GDTAd.this.destroyBanner();
+                return;
+            }
+            GDTAd.this.bannerLoaded = true;
+            AppTask appTask = GDTAd.this.adConfig.toAppTask();
+            b.d.a.e eVar = new b.d.a.e(GDTAd.this.banner);
+            appTask.customView = eVar;
+            eVar.init();
+            GDTAd.this.getAppTaskList().addAppTask(appTask);
+            GDTAd.this.onAdReceived();
+        }
+
+        @Override // com.qq.e.ads.banner2.UnifiedBannerADListener
+        public void onNoAD(AdError error) {
+            if (GDTAd.this.bannerLoaded) {
+                GDTAd.this.destroyBanner();
+            } else {
+                GDTAd.this.bannerLoaded = true;
+                GDTAd.this.onError(new b.d.c.b.c(error.getErrorCode(), error.getErrorMsg()));
+            }
+        }
+    }
+
+    /* renamed from: com.martian.ads.ad.GDTAd$5 */
+    class AnonymousClass5 implements UnifiedInterstitialADListener {
+        AnonymousClass5() {
         }
 
         @Override // com.qq.e.ads.interstitial2.UnifiedInterstitialADListener
@@ -211,9 +262,16 @@ public class GDTAd extends BaseAd {
         public void onADReceive() {
             AppTask appTask = GDTAd.this.adConfig.toAppTask();
             appTask.origin = GDTAd.this.iad;
-            if (GDTAd.this.adConfig.isBidding()) {
-                GDTAd gDTAd = GDTAd.this;
-                gDTAd.setBiddingEcpm(appTask, gDTAd.iad.getECPM());
+            int ecpm = GDTAd.this.iad.getECPM();
+            if (GDTAd.this.adConfig.isBidding() || ecpm > 0) {
+                if (GDTAd.this.adConfig.getEcpmPercent() > 0.0d) {
+                    double d2 = ecpm;
+                    double ecpmPercent = GDTAd.this.adConfig.getEcpmPercent();
+                    Double.isNaN(d2);
+                    ecpm = (int) ((d2 * ecpmPercent) / 100.0d);
+                }
+                appTask.setEcpm(ecpm);
+                GDTAd.this.adConfig.setEcpm(ecpm);
             }
             GDTAd.this.getAppTaskList().addAppTask(appTask);
             GDTAd.this.onAdReceived();
@@ -221,7 +279,7 @@ public class GDTAd extends BaseAd {
 
         @Override // com.qq.e.ads.interstitial2.UnifiedInterstitialADListener
         public void onNoAD(AdError adError) {
-            GDTAd.this.onError(new c(adError.getErrorCode(), adError.getErrorMsg()));
+            GDTAd.this.onError(new b.d.c.b.c(adError.getErrorCode(), adError.getErrorMsg()));
         }
 
         @Override // com.qq.e.ads.interstitial2.UnifiedInterstitialADListener
@@ -237,11 +295,11 @@ public class GDTAd extends BaseAd {
         }
     }
 
-    /* renamed from: com.martian.ads.ad.GDTAd$5 */
-    public class AnonymousClass5 implements RewardVideoADListener {
+    /* renamed from: com.martian.ads.ad.GDTAd$6 */
+    class AnonymousClass6 implements RewardVideoADListener {
         private boolean reward = false;
 
-        public AnonymousClass5() {
+        AnonymousClass6() {
         }
 
         @Override // com.qq.e.ads.rewardvideo.RewardVideoADListener
@@ -266,9 +324,16 @@ public class GDTAd extends BaseAd {
         public void onADLoad() {
             AppTask appTask = GDTAd.this.adConfig.toAppTask();
             appTask.origin = GDTAd.this.rewardVideoAD;
-            if (GDTAd.this.adConfig.isBidding()) {
-                GDTAd gDTAd = GDTAd.this;
-                gDTAd.setBiddingEcpm(appTask, gDTAd.rewardVideoAD.getECPM());
+            if (GDTAd.this.adConfig.isBidding() || GDTAd.this.rewardVideoAD.getECPM() > 0) {
+                int ecpm = GDTAd.this.rewardVideoAD.getECPM();
+                if (GDTAd.this.adConfig.getEcpmPercent() > 0.0d) {
+                    double d2 = ecpm;
+                    double ecpmPercent = GDTAd.this.adConfig.getEcpmPercent();
+                    Double.isNaN(d2);
+                    ecpm = (int) ((d2 * ecpmPercent) / 100.0d);
+                }
+                appTask.setEcpm(ecpm);
+                GDTAd.this.adConfig.setEcpm(ecpm);
             }
             GDTAd.this.getAppTaskList().addAppTask(appTask);
             GDTAd.this.onAdReceived();
@@ -280,7 +345,7 @@ public class GDTAd extends BaseAd {
 
         @Override // com.qq.e.ads.rewardvideo.RewardVideoADListener
         public void onError(AdError adError) {
-            GDTAd.this.onError(new c(adError.getErrorCode(), adError.getErrorMsg()));
+            GDTAd.this.onError(new b.d.c.b.c(adError.getErrorCode(), adError.getErrorMsg()));
         }
 
         @Override // com.qq.e.ads.rewardvideo.RewardVideoADListener
@@ -298,27 +363,27 @@ public class GDTAd extends BaseAd {
         }
     }
 
-    /* renamed from: com.martian.ads.ad.GDTAd$6 */
-    public class AnonymousClass6 implements NativeADEventListener {
-        final /* synthetic */ AdConfig val$adConfig;
+    /* renamed from: com.martian.ads.ad.GDTAd$7 */
+    static class AnonymousClass7 implements NativeADEventListener {
+        final /* synthetic */ b.d.a.k.a val$innerListener;
 
-        public AnonymousClass6(AdConfig adConfig) {
-            adConfig = adConfig;
+        AnonymousClass7(final b.d.a.k.a val$appTask) {
+            innerListener = val$appTask;
         }
 
         @Override // com.qq.e.ads.nativ.NativeADEventListener
         public void onADClicked() {
-            d8.a.this.l(adConfig);
+            innerListener.j(b.d.a.j.b.Q(AppTask.this));
         }
 
         @Override // com.qq.e.ads.nativ.NativeADEventListener
-        public void onADError(AdError adError) {
-            d8.a.this.c(adConfig, new c(adError.getErrorCode(), adError.getErrorMsg()));
+        public void onADError(AdError error) {
+            innerListener.g(b.d.a.j.b.Q(AppTask.this), new b.d.c.b.c(error.getErrorCode(), error.getErrorMsg()));
         }
 
         @Override // com.qq.e.ads.nativ.NativeADEventListener
         public void onADExposed() {
-            d8.a.this.b(adConfig);
+            b.d.a.j.b.J(AppTask.this, innerListener);
         }
 
         @Override // com.qq.e.ads.nativ.NativeADEventListener
@@ -326,8 +391,11 @@ public class GDTAd extends BaseAd {
         }
     }
 
-    /* renamed from: com.martian.ads.ad.GDTAd$7 */
-    public class AnonymousClass7 implements NativeADMediaListener {
+    /* renamed from: com.martian.ads.ad.GDTAd$8 */
+    static class AnonymousClass8 implements NativeADMediaListener {
+        AnonymousClass8() {
+        }
+
         @Override // com.qq.e.ads.nativ.NativeADMediaListener
         public void onVideoClicked() {
         }
@@ -337,7 +405,7 @@ public class GDTAd extends BaseAd {
         }
 
         @Override // com.qq.e.ads.nativ.NativeADMediaListener
-        public void onVideoError(AdError adError) {
+        public void onVideoError(AdError error) {
         }
 
         @Override // com.qq.e.ads.nativ.NativeADMediaListener
@@ -345,7 +413,7 @@ public class GDTAd extends BaseAd {
         }
 
         @Override // com.qq.e.ads.nativ.NativeADMediaListener
-        public void onVideoLoaded(int i10) {
+        public void onVideoLoaded(int videoDuration) {
         }
 
         @Override // com.qq.e.ads.nativ.NativeADMediaListener
@@ -373,68 +441,48 @@ public class GDTAd extends BaseAd {
         }
     }
 
-    public GDTAd(AdConfig adConfig, @NonNull d8.a aVar, Handler handler) {
-        super(adConfig, aVar, handler);
+    public GDTAd(AdConfig config, @NonNull b.d.a.k.a receiver) {
+        super(config, receiver);
+        this.cancelLoading = false;
+        this.bannerLoaded = false;
     }
 
-    public static void bindFlowAd(Activity activity, AppTask appTask, ViewGroup viewGroup, View view, GroMoreAd.AdViewHolder adViewHolder, boolean z10, d8.a aVar) {
+    public static void bindFlowAd(Activity activity, final AppTask appTask, ViewGroup adContainer, View adView, ViewGroup videoView, View creativeView, final b.d.a.k.a innerListener) {
         NativeAdContainer nativeAdContainer;
         NativeAdContainer nativeAdContainer2;
-        if (viewGroup == null || view == null) {
+        if (adContainer == null || adView == null) {
             return;
         }
         NativeUnifiedADData nativeUnifiedADData = (NativeUnifiedADData) appTask.origin;
-        if (appTask.isBidding()) {
-            sendWinNotification(nativeUnifiedADData);
-        }
         ArrayList arrayList = new ArrayList();
         ArrayList arrayList2 = new ArrayList();
-        if (adViewHolder == null) {
-            arrayList.add(view);
-        } else if (z10 || appTask.getComplianceInfo() == null || adViewHolder.complianceView == null) {
-            Button button = adViewHolder.mCreativeButton;
-            if (button != null) {
-                arrayList.add(button);
-            }
-            View view2 = adViewHolder.mCreativeButtonView;
-            if (view2 != null) {
-                arrayList.add(view2);
-            }
-            arrayList.add(view);
-        } else {
-            Button button2 = adViewHolder.mCreativeButton;
-            if (button2 != null) {
-                arrayList2.add(button2);
-            }
-            View view3 = adViewHolder.mCreativeButtonView;
-            if (view3 != null) {
-                arrayList2.add(view3);
-            }
-            arrayList2.add(view);
+        arrayList.add(adView);
+        if (creativeView != null) {
+            arrayList2.add(creativeView);
         }
-        if (view instanceof NativeAdContainer) {
-            NativeAdContainer nativeAdContainer3 = (NativeAdContainer) view;
+        if (adView instanceof NativeAdContainer) {
+            NativeAdContainer nativeAdContainer3 = (NativeAdContainer) adView;
             if (nativeAdContainer3.getChildCount() > 0) {
                 arrayList.add(nativeAdContainer3.getChildAt(0));
             }
             nativeAdContainer2 = nativeAdContainer3;
         } else {
-            viewGroup.removeAllViews();
-            ViewGroup viewGroup2 = (ViewGroup) view.getParent();
-            if (viewGroup2 instanceof NativeAdContainer) {
-                nativeAdContainer = (NativeAdContainer) viewGroup2;
-                ViewGroup viewGroup3 = (ViewGroup) nativeAdContainer.getParent();
-                if (viewGroup3 != null) {
-                    viewGroup3.removeAllViews();
-                }
-            } else {
+            adContainer.removeAllViews();
+            ViewGroup viewGroup = (ViewGroup) adView.getParent();
+            if (viewGroup instanceof NativeAdContainer) {
+                nativeAdContainer = (NativeAdContainer) viewGroup;
+                ViewGroup viewGroup2 = (ViewGroup) nativeAdContainer.getParent();
                 if (viewGroup2 != null) {
                     viewGroup2.removeAllViews();
                 }
+            } else {
+                if (viewGroup != null) {
+                    viewGroup.removeAllViews();
+                }
                 nativeAdContainer = new NativeAdContainer(activity);
-                nativeAdContainer.addView(view, -1, -1);
+                nativeAdContainer.addView(adView, -1, -2);
             }
-            viewGroup.addView(nativeAdContainer);
+            adContainer.addView(nativeAdContainer);
             nativeAdContainer2 = nativeAdContainer;
         }
         FrameLayout.LayoutParams layoutParams = new FrameLayout.LayoutParams(0, 0);
@@ -443,113 +491,159 @@ public class GDTAd extends BaseAd {
         } else {
             nativeUnifiedADData.bindAdToView(activity, nativeAdContainer2, layoutParams, arrayList, arrayList2);
         }
-        nativeUnifiedADData.setNativeAdEventListener(new NativeADEventListener() { // from class: com.martian.ads.ad.GDTAd.6
-            final /* synthetic */ AdConfig val$adConfig;
+        nativeUnifiedADData.setNativeAdEventListener(new NativeADEventListener() { // from class: com.martian.ads.ad.GDTAd.7
+            final /* synthetic */ b.d.a.k.a val$innerListener;
 
-            public AnonymousClass6(AdConfig adConfig) {
-                adConfig = adConfig;
+            AnonymousClass7(final b.d.a.k.a innerListener2) {
+                innerListener = innerListener2;
             }
 
             @Override // com.qq.e.ads.nativ.NativeADEventListener
             public void onADClicked() {
-                d8.a.this.l(adConfig);
+                innerListener.j(b.d.a.j.b.Q(AppTask.this));
             }
 
             @Override // com.qq.e.ads.nativ.NativeADEventListener
-            public void onADError(AdError adError) {
-                d8.a.this.c(adConfig, new c(adError.getErrorCode(), adError.getErrorMsg()));
+            public void onADError(AdError error) {
+                innerListener.g(b.d.a.j.b.Q(AppTask.this), new b.d.c.b.c(error.getErrorCode(), error.getErrorMsg()));
             }
 
             @Override // com.qq.e.ads.nativ.NativeADEventListener
             public void onADExposed() {
-                d8.a.this.b(adConfig);
+                b.d.a.j.b.J(AppTask.this, innerListener);
             }
 
             @Override // com.qq.e.ads.nativ.NativeADEventListener
             public void onADStatusChanged() {
             }
         });
-        if (nativeUnifiedADData.getAdPatternType() != 2 || adViewHolder == null || adViewHolder.videoView == null || !ConfigSingleton.D().N0()) {
-            return;
+        if (nativeUnifiedADData.getAdPatternType() == 2 && videoView != null && h.F().U0()) {
+            videoView.setVisibility(0);
+            MediaView mediaView = new MediaView(activity);
+            videoView.removeAllViews();
+            videoView.addView(mediaView);
+            nativeUnifiedADData.bindMediaView(mediaView, new VideoOption.Builder().setAutoPlayMuted(true).setAutoPlayPolicy(0).build(), new NativeADMediaListener() { // from class: com.martian.ads.ad.GDTAd.8
+                AnonymousClass8() {
+                }
+
+                @Override // com.qq.e.ads.nativ.NativeADMediaListener
+                public void onVideoClicked() {
+                }
+
+                @Override // com.qq.e.ads.nativ.NativeADMediaListener
+                public void onVideoCompleted() {
+                }
+
+                @Override // com.qq.e.ads.nativ.NativeADMediaListener
+                public void onVideoError(AdError error) {
+                }
+
+                @Override // com.qq.e.ads.nativ.NativeADMediaListener
+                public void onVideoInit() {
+                }
+
+                @Override // com.qq.e.ads.nativ.NativeADMediaListener
+                public void onVideoLoaded(int videoDuration) {
+                }
+
+                @Override // com.qq.e.ads.nativ.NativeADMediaListener
+                public void onVideoLoading() {
+                }
+
+                @Override // com.qq.e.ads.nativ.NativeADMediaListener
+                public void onVideoPause() {
+                }
+
+                @Override // com.qq.e.ads.nativ.NativeADMediaListener
+                public void onVideoReady() {
+                }
+
+                @Override // com.qq.e.ads.nativ.NativeADMediaListener
+                public void onVideoResume() {
+                }
+
+                @Override // com.qq.e.ads.nativ.NativeADMediaListener
+                public void onVideoStart() {
+                }
+
+                @Override // com.qq.e.ads.nativ.NativeADMediaListener
+                public void onVideoStop() {
+                }
+            });
         }
-        MediaView mediaView = new MediaView(activity);
-        adViewHolder.videoView.setVisibility(0);
-        adViewHolder.videoView.removeAllViews();
-        adViewHolder.videoView.addView(mediaView);
-        nativeUnifiedADData.bindMediaView(mediaView, new VideoOption.Builder().setAutoPlayMuted(true).setAutoPlayPolicy(0).build(), new NativeADMediaListener() { // from class: com.martian.ads.ad.GDTAd.7
-            @Override // com.qq.e.ads.nativ.NativeADMediaListener
-            public void onVideoClicked() {
-            }
-
-            @Override // com.qq.e.ads.nativ.NativeADMediaListener
-            public void onVideoCompleted() {
-            }
-
-            @Override // com.qq.e.ads.nativ.NativeADMediaListener
-            public void onVideoError(AdError adError) {
-            }
-
-            @Override // com.qq.e.ads.nativ.NativeADMediaListener
-            public void onVideoInit() {
-            }
-
-            @Override // com.qq.e.ads.nativ.NativeADMediaListener
-            public void onVideoLoaded(int i10) {
-            }
-
-            @Override // com.qq.e.ads.nativ.NativeADMediaListener
-            public void onVideoLoading() {
-            }
-
-            @Override // com.qq.e.ads.nativ.NativeADMediaListener
-            public void onVideoPause() {
-            }
-
-            @Override // com.qq.e.ads.nativ.NativeADMediaListener
-            public void onVideoReady() {
-            }
-
-            @Override // com.qq.e.ads.nativ.NativeADMediaListener
-            public void onVideoResume() {
-            }
-
-            @Override // com.qq.e.ads.nativ.NativeADMediaListener
-            public void onVideoStart() {
-            }
-
-            @Override // com.qq.e.ads.nativ.NativeADMediaListener
-            public void onVideoStop() {
-            }
-        });
     }
 
-    @NonNull
-    private static ComplianceInfo getComplianceInfo(NativeUnifiedADAppMiitInfo nativeUnifiedADAppMiitInfo) {
-        ComplianceInfo complianceInfo = new ComplianceInfo();
-        complianceInfo.setAppName(nativeUnifiedADAppMiitInfo.getAppName());
-        complianceInfo.setAppVersion(nativeUnifiedADAppMiitInfo.getVersionName());
-        complianceInfo.setAppDeveloperName(nativeUnifiedADAppMiitInfo.getAuthorName());
-        complianceInfo.setAppPermissionUrl(nativeUnifiedADAppMiitInfo.getPermissionsUrl());
-        complianceInfo.setAppPrivacyUrl(nativeUnifiedADAppMiitInfo.getPrivacyAgreement());
-        complianceInfo.setAppFunctionDescUrl(nativeUnifiedADAppMiitInfo.getDescriptionUrl());
-        return complianceInfo;
+    public void destroyBanner() {
+        UnifiedBannerView unifiedBannerView = this.banner;
+        if (unifiedBannerView != null) {
+            unifiedBannerView.destroy();
+        }
+    }
+
+    public static void destroyView(NativeUnifiedADData ad2) {
+        ad2.destroy();
     }
 
     public static boolean isGdtFlowAd(AppTask appTask) {
         return appTask != null && (appTask.origin instanceof NativeUnifiedADData);
     }
 
-    public static boolean isGdtSplashAd(AppTask appTask) {
-        return appTask.origin instanceof SplashAD;
+    private void loadBannerAds(Activity activity) {
+        UnifiedBannerView unifiedBannerView = new UnifiedBannerView(activity, this.adConfig.getAdsId(), new UnifiedBannerADListener() { // from class: com.martian.ads.ad.GDTAd.4
+            AnonymousClass4() {
+            }
+
+            @Override // com.qq.e.ads.banner2.UnifiedBannerADListener
+            public void onADClicked() {
+                GDTAd.this.onClick();
+            }
+
+            @Override // com.qq.e.ads.banner2.UnifiedBannerADListener
+            public void onADClosed() {
+                GDTAd.this.onClose();
+            }
+
+            @Override // com.qq.e.ads.banner2.UnifiedBannerADListener
+            public void onADExposure() {
+                GDTAd.this.onExpose();
+            }
+
+            @Override // com.qq.e.ads.banner2.UnifiedBannerADListener
+            public void onADLeftApplication() {
+            }
+
+            @Override // com.qq.e.ads.banner2.UnifiedBannerADListener
+            public void onADReceive() {
+                if (GDTAd.this.bannerLoaded) {
+                    GDTAd.this.destroyBanner();
+                    return;
+                }
+                GDTAd.this.bannerLoaded = true;
+                AppTask appTask = GDTAd.this.adConfig.toAppTask();
+                b.d.a.e eVar = new b.d.a.e(GDTAd.this.banner);
+                appTask.customView = eVar;
+                eVar.init();
+                GDTAd.this.getAppTaskList().addAppTask(appTask);
+                GDTAd.this.onAdReceived();
+            }
+
+            @Override // com.qq.e.ads.banner2.UnifiedBannerADListener
+            public void onNoAD(AdError error) {
+                if (GDTAd.this.bannerLoaded) {
+                    GDTAd.this.destroyBanner();
+                } else {
+                    GDTAd.this.bannerLoaded = true;
+                    GDTAd.this.onError(new b.d.c.b.c(error.getErrorCode(), error.getErrorMsg()));
+                }
+            }
+        });
+        this.banner = unifiedBannerView;
+        unifiedBannerView.loadAD();
     }
 
-    public static boolean isGdtTemplateFlowAd(AppTask appTask) {
-        return appTask != null && (appTask.customView instanceof o);
-    }
-
-    private void loadFlowAds(Context context) {
-        NativeUnifiedAD nativeUnifiedAD = new NativeUnifiedAD(context, this.adConfig.getAdsId(), new NativeADUnifiedListener() { // from class: com.martian.ads.ad.GDTAd.2
-            public AnonymousClass2() {
+    private void loadFlowAds(Activity activity) {
+        NativeUnifiedAD nativeUnifiedAD = new NativeUnifiedAD(activity, this.adConfig.getAdsId(), new NativeADUnifiedListener() { // from class: com.martian.ads.ad.GDTAd.2
+            AnonymousClass2() {
             }
 
             @Override // com.qq.e.ads.nativ.NativeADUnifiedListener
@@ -567,16 +661,16 @@ public class GDTAd extends BaseAd {
 
             @Override // com.qq.e.ads.NativeAbstractAD.BasicADListener
             public void onNoAD(AdError adError) {
-                GDTAd.this.onError(new c(adError.getErrorCode(), adError.getErrorMsg()));
+                GDTAd.this.onError(new b.d.c.b.c(adError.getErrorCode(), adError.getErrorMsg()));
             }
         });
-        nativeUnifiedAD.setMaxVideoDuration(300);
+        nativeUnifiedAD.setMaxVideoDuration(20);
         nativeUnifiedAD.loadData(this.adConfig.getAdsCount());
     }
 
-    private void loadInteractionAd(Context context) {
-        UnifiedInterstitialAD unifiedInterstitialAD = new UnifiedInterstitialAD((Activity) context, this.adConfig.getAdsId(), new UnifiedInterstitialADListener() { // from class: com.martian.ads.ad.GDTAd.4
-            public AnonymousClass4() {
+    private void loadInteractionAd(Activity activity) {
+        UnifiedInterstitialAD unifiedInterstitialAD = new UnifiedInterstitialAD(activity, this.adConfig.getAdsId(), new UnifiedInterstitialADListener() { // from class: com.martian.ads.ad.GDTAd.5
+            AnonymousClass5() {
             }
 
             @Override // com.qq.e.ads.interstitial2.UnifiedInterstitialADListener
@@ -611,9 +705,16 @@ public class GDTAd extends BaseAd {
             public void onADReceive() {
                 AppTask appTask = GDTAd.this.adConfig.toAppTask();
                 appTask.origin = GDTAd.this.iad;
-                if (GDTAd.this.adConfig.isBidding()) {
-                    GDTAd gDTAd = GDTAd.this;
-                    gDTAd.setBiddingEcpm(appTask, gDTAd.iad.getECPM());
+                int ecpm = GDTAd.this.iad.getECPM();
+                if (GDTAd.this.adConfig.isBidding() || ecpm > 0) {
+                    if (GDTAd.this.adConfig.getEcpmPercent() > 0.0d) {
+                        double d2 = ecpm;
+                        double ecpmPercent = GDTAd.this.adConfig.getEcpmPercent();
+                        Double.isNaN(d2);
+                        ecpm = (int) ((d2 * ecpmPercent) / 100.0d);
+                    }
+                    appTask.setEcpm(ecpm);
+                    GDTAd.this.adConfig.setEcpm(ecpm);
                 }
                 GDTAd.this.getAppTaskList().addAppTask(appTask);
                 GDTAd.this.onAdReceived();
@@ -621,7 +722,7 @@ public class GDTAd extends BaseAd {
 
             @Override // com.qq.e.ads.interstitial2.UnifiedInterstitialADListener
             public void onNoAD(AdError adError) {
-                GDTAd.this.onError(new c(adError.getErrorCode(), adError.getErrorMsg()));
+                GDTAd.this.onError(new b.d.c.b.c(adError.getErrorCode(), adError.getErrorMsg()));
             }
 
             @Override // com.qq.e.ads.interstitial2.UnifiedInterstitialADListener
@@ -641,9 +742,9 @@ public class GDTAd extends BaseAd {
         this.iad.loadAD();
     }
 
-    private void loadSplashAds(Context context) {
-        SplashAD splashAD = new SplashAD(context, this.adConfig.getAdsId(), new SplashADListener() { // from class: com.martian.ads.ad.GDTAd.1
-            public AnonymousClass1() {
+    private void loadSplashAds(Activity activity) {
+        SplashAD splashAD = new SplashAD(activity.getApplicationContext(), this.adConfig.getAdsId(), new SplashADListener() { // from class: com.martian.ads.ad.GDTAd.1
+            AnonymousClass1() {
             }
 
             @Override // com.qq.e.ads.splash.SplashADListener
@@ -662,11 +763,18 @@ public class GDTAd extends BaseAd {
             }
 
             @Override // com.qq.e.ads.splash.SplashADListener
-            public void onADLoaded(long j10) {
+            public void onADLoaded(long l) {
                 AppTask appTask = GDTAd.this.getAppTaskList().getApps().get(0);
-                SplashAD splashAD2 = (SplashAD) appTask.origin;
-                if (GDTAd.this.adConfig.isBidding()) {
-                    GDTAd.this.setBiddingEcpm(appTask, splashAD2.getECPM());
+                int ecpm = ((SplashAD) appTask.origin).getECPM();
+                if (GDTAd.this.adConfig.isBidding() || ecpm > 0) {
+                    if (GDTAd.this.adConfig.getEcpmPercent() > 0.0d) {
+                        double d2 = ecpm;
+                        double ecpmPercent = GDTAd.this.adConfig.getEcpmPercent();
+                        Double.isNaN(d2);
+                        ecpm = (int) ((d2 * ecpmPercent) / 100.0d);
+                    }
+                    appTask.setEcpm(ecpm);
+                    GDTAd.this.adConfig.setEcpm(ecpm);
                 }
                 GDTAd.this.onAdReceived();
             }
@@ -677,12 +785,12 @@ public class GDTAd extends BaseAd {
             }
 
             @Override // com.qq.e.ads.splash.SplashADListener
-            public void onADTick(long j10) {
+            public void onADTick(long l) {
             }
 
             @Override // com.qq.e.ads.splash.SplashADListener
             public void onNoAD(AdError adError) {
-                GDTAd.this.onError(new c(adError.getErrorCode(), adError.getErrorMsg()));
+                GDTAd.this.onError(new b.d.c.b.c(adError.getErrorCode(), adError.getErrorMsg()));
             }
         });
         AppTask appTask = this.adConfig.toAppTask();
@@ -691,9 +799,9 @@ public class GDTAd extends BaseAd {
         splashAD.fetchAdOnly();
     }
 
-    private void loadTemplateFlowAds(Context context) {
-        NativeExpressAD nativeExpressAD = new NativeExpressAD(context, new ADSize(-1, -2), this.adConfig.getAdsId(), new NativeExpressAD.NativeExpressADListener() { // from class: com.martian.ads.ad.GDTAd.3
-            public AnonymousClass3() {
+    private void loadTemplateFlowAds(Activity activity) {
+        NativeExpressAD nativeExpressAD = new NativeExpressAD(activity, new ADSize(-1, -2), this.adConfig.getAdsId(), new NativeExpressAD.NativeExpressADListener() { // from class: com.martian.ads.ad.GDTAd.3
+            AnonymousClass3() {
             }
 
             @Override // com.qq.e.ads.nativ.NativeExpressAD.NativeExpressADListener
@@ -707,7 +815,7 @@ public class GDTAd extends BaseAd {
             }
 
             @Override // com.qq.e.ads.nativ.NativeExpressAD.NativeExpressADListener
-            public void onADExposure(NativeExpressADView nativeExpressADView) {
+            public void onADExposure(final NativeExpressADView nativeExpressADView) {
                 GDTAd.this.onExpose();
             }
 
@@ -723,12 +831,9 @@ public class GDTAd extends BaseAd {
                 }
                 for (NativeExpressADView nativeExpressADView : list) {
                     AppTask appTask = GDTAd.this.adConfig.toAppTask();
-                    appTask.customView = new o(nativeExpressADView);
-                    appTask.setPicWidth(1184);
-                    appTask.setPicHeight(1898);
-                    if (GDTAd.this.adConfig.isBidding()) {
-                        GDTAd.this.setBiddingEcpm(appTask, nativeExpressADView.getECPM());
-                    }
+                    b.d.a.f fVar = new b.d.a.f(nativeExpressADView);
+                    appTask.customView = fVar;
+                    fVar.init();
                     GDTAd.this.getAppTaskList().addAppTask(appTask);
                 }
                 GDTAd.this.onAdReceived();
@@ -736,27 +841,27 @@ public class GDTAd extends BaseAd {
 
             @Override // com.qq.e.ads.NativeAbstractAD.BasicADListener
             public void onNoAD(AdError adError) {
-                GDTAd.this.onError(new c(adError.getErrorCode(), adError.getErrorMsg()));
+                GDTAd.this.onError(new b.d.c.b.c(adError.getErrorCode(), adError.getErrorMsg()));
             }
 
             @Override // com.qq.e.ads.nativ.NativeExpressAD.NativeExpressADListener
             public void onRenderFail(NativeExpressADView nativeExpressADView) {
-                GDTAd.this.onError(new c(-1, "失败"));
+                GDTAd.this.onError(new b.d.c.b.c(-1, AdConfig.ActionString.FAIL));
             }
 
             @Override // com.qq.e.ads.nativ.NativeExpressAD.NativeExpressADListener
-            public void onRenderSuccess(NativeExpressADView nativeExpressADView) {
+            public void onRenderSuccess(final NativeExpressADView nativeExpressADView) {
             }
         });
-        nativeExpressAD.setMaxVideoDuration(300);
+        nativeExpressAD.setMaxVideoDuration(20);
         nativeExpressAD.loadAD(this.adConfig.getAdsCount());
     }
 
-    private void loadVideoAd(Context context) {
-        RewardVideoAD rewardVideoAD = new RewardVideoAD(context, this.adConfig.getAdsId(), new RewardVideoADListener() { // from class: com.martian.ads.ad.GDTAd.5
+    private void loadVideoAd(Activity activity) {
+        RewardVideoAD rewardVideoAD = new RewardVideoAD(activity, this.adConfig.getAdsId(), new RewardVideoADListener() { // from class: com.martian.ads.ad.GDTAd.6
             private boolean reward = false;
 
-            public AnonymousClass5() {
+            AnonymousClass6() {
             }
 
             @Override // com.qq.e.ads.rewardvideo.RewardVideoADListener
@@ -781,9 +886,16 @@ public class GDTAd extends BaseAd {
             public void onADLoad() {
                 AppTask appTask = GDTAd.this.adConfig.toAppTask();
                 appTask.origin = GDTAd.this.rewardVideoAD;
-                if (GDTAd.this.adConfig.isBidding()) {
-                    GDTAd gDTAd = GDTAd.this;
-                    gDTAd.setBiddingEcpm(appTask, gDTAd.rewardVideoAD.getECPM());
+                if (GDTAd.this.adConfig.isBidding() || GDTAd.this.rewardVideoAD.getECPM() > 0) {
+                    int ecpm = GDTAd.this.rewardVideoAD.getECPM();
+                    if (GDTAd.this.adConfig.getEcpmPercent() > 0.0d) {
+                        double d2 = ecpm;
+                        double ecpmPercent = GDTAd.this.adConfig.getEcpmPercent();
+                        Double.isNaN(d2);
+                        ecpm = (int) ((d2 * ecpmPercent) / 100.0d);
+                    }
+                    appTask.setEcpm(ecpm);
+                    GDTAd.this.adConfig.setEcpm(ecpm);
                 }
                 GDTAd.this.getAppTaskList().addAppTask(appTask);
                 GDTAd.this.onAdReceived();
@@ -795,7 +907,7 @@ public class GDTAd extends BaseAd {
 
             @Override // com.qq.e.ads.rewardvideo.RewardVideoADListener
             public void onError(AdError adError) {
-                GDTAd.this.onError(new c(adError.getErrorCode(), adError.getErrorMsg()));
+                GDTAd.this.onError(new b.d.c.b.c(adError.getErrorCode(), adError.getErrorMsg()));
             }
 
             @Override // com.qq.e.ads.rewardvideo.RewardVideoADListener
@@ -816,33 +928,33 @@ public class GDTAd extends BaseAd {
         rewardVideoAD.loadAD();
     }
 
-    public static void sendInterstitialLossNotification(int i10, @NonNull UnifiedInterstitialAD unifiedInterstitialAD) {
+    public static void sendInterstitialLossNotification(int price, @NonNull UnifiedInterstitialAD expressInterstitialAd) {
         HashMap hashMap = new HashMap();
-        hashMap.put(IBidding.WIN_PRICE, Integer.valueOf(i10));
+        hashMap.put(IBidding.WIN_PRICE, Integer.valueOf(price));
         hashMap.put(IBidding.LOSS_REASON, 1);
         hashMap.put(IBidding.ADN_ID, "2");
-        unifiedInterstitialAD.sendLossNotification(hashMap);
+        expressInterstitialAd.sendLossNotification(hashMap);
     }
 
-    public static void sendLossNotification(int i10, @NonNull NativeUnifiedADData nativeUnifiedADData, int i11) {
+    public static void sendLossNotification(int winPrice, @NonNull NativeUnifiedADData nativeUnifiedADData, int reason) {
         HashMap hashMap = new HashMap();
-        hashMap.put(IBidding.WIN_PRICE, Integer.valueOf(i10));
-        hashMap.put(IBidding.LOSS_REASON, Integer.valueOf(i11));
+        hashMap.put(IBidding.WIN_PRICE, Integer.valueOf(winPrice));
+        hashMap.put(IBidding.LOSS_REASON, Integer.valueOf(reason));
         hashMap.put(IBidding.ADN_ID, "2");
         nativeUnifiedADData.sendLossNotification(hashMap);
     }
 
-    public static void sendSplashLossNotification(int i10, @NonNull SplashAD splashAD) {
+    public static void sendSplashLossNotification(int winPrice, @NonNull SplashAD SplashAd) {
         HashMap hashMap = new HashMap();
-        hashMap.put(IBidding.WIN_PRICE, Integer.valueOf(i10));
+        hashMap.put(IBidding.WIN_PRICE, Integer.valueOf(winPrice));
         hashMap.put(IBidding.LOSS_REASON, 1);
         hashMap.put(IBidding.ADN_ID, "2");
-        splashAD.sendLossNotification(hashMap);
+        SplashAd.sendLossNotification(hashMap);
     }
 
-    public static void sendVideoLossNotification(int i10, @NonNull RewardVideoAD rewardVideoAD) {
+    public static void sendVideoLossNotification(int price, @NonNull RewardVideoAD rewardVideoAD) {
         HashMap hashMap = new HashMap();
-        hashMap.put(IBidding.WIN_PRICE, Integer.valueOf(i10));
+        hashMap.put(IBidding.WIN_PRICE, Integer.valueOf(price));
         hashMap.put(IBidding.LOSS_REASON, 1);
         hashMap.put(IBidding.ADN_ID, "2");
         rewardVideoAD.sendLossNotification(hashMap);
@@ -854,129 +966,124 @@ public class GDTAd extends BaseAd {
         nativeUnifiedADData.sendWinNotification(hashMap);
     }
 
-    public void setBiddingEcpm(AppTask appTask, int i10) {
-        if (i10 > 0 && this.adConfig.getEcpmPercent() > l5.c.f27899e) {
-            appTask.setOriginalEcpm(i10);
-            i10 = (int) ((i10 * this.adConfig.getEcpmPercent()) / 100.0d);
+    public static boolean showInterstitialAd(Activity activity, @NonNull UnifiedInterstitialAD expressInterstitialAd, boolean isBidding) {
+        if (isBidding) {
+            expressInterstitialAd.sendWinNotification(expressInterstitialAd.getECPM());
         }
-        appTask.setEcpm(i10);
-        this.adConfig.setEcpm(i10);
+        expressInterstitialAd.show(activity);
+        return true;
     }
 
-    public static void showInterstitialAd(Activity activity, @NonNull UnifiedInterstitialAD unifiedInterstitialAD, boolean z10) {
-        if (z10) {
-            unifiedInterstitialAD.sendWinNotification(unifiedInterstitialAD.getECPM());
-        }
-        unifiedInterstitialAD.show(activity);
-    }
-
-    public static void showSplashAd(@NonNull SplashAD splashAD, ViewGroup viewGroup, boolean z10) {
-        if (splashAD.isValid()) {
-            if (z10) {
-                splashAD.sendWinNotification(splashAD.getECPM());
+    public static void showSplashAd(@NonNull SplashAD splashAd, ViewGroup viewGroup, boolean isBidding) {
+        if (splashAd.isValid()) {
+            if (isBidding) {
+                splashAd.sendWinNotification(splashAd.getECPM());
             }
-            splashAD.showAd(viewGroup);
+            splashAd.showAd(viewGroup);
         }
     }
 
-    public static void showVideoAd(@NonNull RewardVideoAD rewardVideoAD, boolean z10) {
+    public static void showVideoAd(@NonNull RewardVideoAD rewardVideoAD, boolean isBidding) {
         if (rewardVideoAD.hasShown()) {
             return;
         }
-        if (z10) {
+        if (isBidding) {
             rewardVideoAD.sendWinNotification(rewardVideoAD.getECPM());
         }
         rewardVideoAD.showAD();
     }
 
-    public AppTask toAppTask(NativeUnifiedADData nativeUnifiedADData) {
+    public AppTask toAppTask(NativeUnifiedADData ad2) {
         AppTask appTask = this.adConfig.toAppTask();
-        appTask.origin = nativeUnifiedADData;
-        appTask.title = ConfigSingleton.D().s(nativeUnifiedADData.getTitle());
-        appTask.desc = ConfigSingleton.D().s(nativeUnifiedADData.getDesc());
-        if (nativeUnifiedADData.isAppAd()) {
-            if (nativeUnifiedADData.getAppStatus() == 1) {
-                appTask.buttonText = ConfigSingleton.D().s("点击查看");
-            } else if (nativeUnifiedADData.getAppStatus() == 1) {
-                appTask.buttonText = ConfigSingleton.D().s("点击安装");
+        appTask.origin = ad2;
+        appTask.title = h.F().n(ad2.getTitle());
+        appTask.desc = h.F().n(ad2.getDesc());
+        if (!k.p(ad2.getCTAText())) {
+            appTask.buttonText = ad2.getCTAText();
+        } else if (ad2.isAppAd()) {
+            int appStatus = ad2.getAppStatus();
+            if (appStatus == 1) {
+                appTask.buttonText = h.F().n("点击查看");
+            } else if (appStatus == 4) {
+                appTask.buttonText = h.F().n("下载中");
+            } else if (appStatus != 8) {
+                appTask.buttonText = h.F().n("点击下载");
             } else {
-                appTask.buttonText = ConfigSingleton.D().s("立即下载");
-                NativeUnifiedADAppMiitInfo appMiitInfo = nativeUnifiedADData.getAppMiitInfo();
-                if (appMiitInfo != null && !l.q(appMiitInfo.getAppName()) && !l.q(appMiitInfo.getAuthorName()) && !l.q(appMiitInfo.getPrivacyAgreement())) {
-                    appTask.setComplianceInfo(getComplianceInfo(appMiitInfo));
-                }
+                appTask.buttonText = h.F().n("点击安装");
             }
-        } else if (!l.q(nativeUnifiedADData.getCTAText())) {
-            appTask.buttonText = nativeUnifiedADData.getCTAText();
-        } else if (!l.q(nativeUnifiedADData.getButtonText())) {
-            appTask.buttonText = nativeUnifiedADData.getButtonText();
         }
-        if (nativeUnifiedADData.getDownloadCount() > 0) {
-            appTask.appPromote = ConfigSingleton.D().s(appTask.getNumbers((int) nativeUnifiedADData.getDownloadCount()) + "人下载");
-        } else if (nativeUnifiedADData.getAppScore() > 0) {
-            appTask.appPromote = nativeUnifiedADData.getAppScore() + "分";
+        if (ad2.getDownloadCount() > 0) {
+            appTask.appPromote = h.F().n(appTask.getNumbers((int) ad2.getDownloadCount()) + "人下载");
+        } else if (ad2.getAppScore() > 0) {
+            appTask.appPromote = ad2.getAppScore() + "分";
         }
-        if (this.adConfig.isBidding()) {
-            setBiddingEcpm(appTask, nativeUnifiedADData.getECPM());
-        }
-        if (!l.q(nativeUnifiedADData.getIconUrl())) {
-            appTask.iconUrl = nativeUnifiedADData.getIconUrl();
-        }
-        try {
-            Object obj = nativeUnifiedADData.getExtraInfo().get("widget_info");
-            if (obj instanceof Map) {
-                appTask.marketUrl = (String) ((Map) obj).get("url");
+        if (ad2.getECPM() > 0) {
+            int ecpm = ad2.getECPM();
+            if (this.adConfig.getEcpmPercent() > 0.0d) {
+                double d2 = ecpm;
+                double ecpmPercent = this.adConfig.getEcpmPercent();
+                Double.isNaN(d2);
+                ecpm = (int) ((d2 * ecpmPercent) / 100.0d);
             }
-        } catch (Exception e10) {
-            p0.b(e10.getMessage());
+            appTask.setEcpm(ecpm);
+            this.adConfig.setEcpm(ecpm);
         }
-        if (nativeUnifiedADData.getAdPatternType() == 3) {
-            for (String str : nativeUnifiedADData.getImgList()) {
-                if (!appTask.getPosterUrls().isEmpty() && l.q(appTask.iconUrl)) {
+        if (!k.p(ad2.getIconUrl())) {
+            appTask.iconUrl = ad2.getIconUrl();
+        }
+        if (ad2.getAdPatternType() == 3) {
+            for (String str : ad2.getImgList()) {
+                if (appTask.getPosterUrls().size() > 0 && k.p(appTask.iconUrl)) {
                     appTask.iconUrl = str;
                 }
                 appTask.addPosterUrl(str);
             }
-        } else if (l.q(nativeUnifiedADData.getImgUrl())) {
-            appTask.addPosterUrl(nativeUnifiedADData.getIconUrl());
+        } else if (k.p(ad2.getImgUrl())) {
+            appTask.addPosterUrl(ad2.getIconUrl());
         } else {
-            appTask.addPosterUrl(nativeUnifiedADData.getImgUrl());
+            appTask.addPosterUrl(ad2.getImgUrl());
         }
-        if (l.q(appTask.iconUrl)) {
+        if (k.p(appTask.iconUrl)) {
             appTask.iconUrl = appTask.getPosterUrl();
         }
-        if (nativeUnifiedADData.getAppMiitInfo() != null) {
-            appTask.name = nativeUnifiedADData.getAppMiitInfo().getAppName();
+        if (ad2.getAppMiitInfo() != null) {
+            appTask.name = ad2.getAppMiitInfo().getAppName();
         }
-        appTask.setPicWidth(nativeUnifiedADData.getPictureWidth());
-        appTask.setPicHeight(nativeUnifiedADData.getPictureHeight());
+        appTask.setPicWidth(ad2.getPictureWidth());
+        appTask.setPicHeight(ad2.getPictureHeight());
         return appTask;
     }
 
     @Override // com.martian.ads.ad.BaseAd
-    public void loadAds(Context context) {
-        onAdRequest();
-        String type = this.adConfig.getType();
-        type.hashCode();
-        switch (type) {
-            case "express":
-                loadTemplateFlowAds(context);
-                break;
-            case "native":
-                loadFlowAds(context);
-                break;
-            case "splash":
-                loadSplashAds(context);
-                break;
-            case "interstitial":
-                loadInteractionAd(context);
-                break;
-            case "reward_video":
-                loadVideoAd(context);
-                break;
-            default:
-                onError(null);
-                break;
+    protected boolean adCanceled() {
+        return this.cancelLoading;
+    }
+
+    @Override // com.martian.ads.ad.BaseAd
+    public void cancelLoading() {
+        this.cancelLoading = true;
+    }
+
+    @Override // com.martian.ads.ad.BaseAd
+    public void loadAds(Activity activity) {
+        if ("splash".equalsIgnoreCase(this.adConfig.getType())) {
+            loadSplashAds(activity);
+            return;
+        }
+        if (AdConfig.AdType.NATIVE.equalsIgnoreCase(this.adConfig.getType())) {
+            loadFlowAds(activity);
+            return;
+        }
+        if (AdConfig.AdType.EXPRESS.equalsIgnoreCase(this.adConfig.getType())) {
+            loadTemplateFlowAds(activity);
+            return;
+        }
+        if ("banner".equalsIgnoreCase(this.adConfig.getType())) {
+            loadBannerAds(activity);
+        } else if (AdConfig.AdType.INTERSTITIAL.equalsIgnoreCase(this.adConfig.getType())) {
+            loadInteractionAd(activity);
+        } else if (AdConfig.AdType.REWARD_VIDEO.equalsIgnoreCase(this.adConfig.getType())) {
+            loadVideoAd(activity);
         }
     }
 }

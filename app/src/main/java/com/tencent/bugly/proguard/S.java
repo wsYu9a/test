@@ -3,27 +3,27 @@ package com.tencent.bugly.proguard;
 import java.util.concurrent.LinkedBlockingQueue;
 
 /* loaded from: classes4.dex */
-public class S implements Runnable {
+class S implements Runnable {
 
     /* renamed from: a */
-    final /* synthetic */ int f22640a;
+    final /* synthetic */ int f24991a;
 
     /* renamed from: b */
-    final /* synthetic */ LinkedBlockingQueue f22641b;
+    final /* synthetic */ LinkedBlockingQueue f24992b;
 
     /* renamed from: c */
-    final /* synthetic */ T f22642c;
+    final /* synthetic */ T f24993c;
 
-    public S(T t10, int i10, LinkedBlockingQueue linkedBlockingQueue) {
-        this.f22642c = t10;
-        this.f22640a = i10;
-        this.f22641b = linkedBlockingQueue;
+    S(T t, int i2, LinkedBlockingQueue linkedBlockingQueue) {
+        this.f24993c = t;
+        this.f24991a = i2;
+        this.f24992b = linkedBlockingQueue;
     }
 
     @Override // java.lang.Runnable
     public void run() {
         Runnable runnable;
-        for (int i10 = 0; i10 < this.f22640a && (runnable = (Runnable) this.f22641b.poll()) != null; i10++) {
+        for (int i2 = 0; i2 < this.f24991a && (runnable = (Runnable) this.f24992b.poll()) != null; i2++) {
             runnable.run();
         }
     }

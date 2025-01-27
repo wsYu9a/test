@@ -9,7 +9,7 @@ import com.bumptech.glide.load.model.MultiModelLoaderFactory;
 import java.io.InputStream;
 import java.net.URL;
 
-/* loaded from: classes2.dex */
+/* loaded from: classes.dex */
 public class UrlLoader implements ModelLoader<URL, InputStream> {
     private final ModelLoader<GlideUrl, InputStream> glideUrlLoader;
 
@@ -35,7 +35,7 @@ public class UrlLoader implements ModelLoader<URL, InputStream> {
     }
 
     @Override // com.bumptech.glide.load.model.ModelLoader
-    public ModelLoader.LoadData<InputStream> buildLoadData(@NonNull URL url, int i10, int i11, @NonNull Options options) {
-        return this.glideUrlLoader.buildLoadData(new GlideUrl(url), i10, i11, options);
+    public ModelLoader.LoadData<InputStream> buildLoadData(@NonNull URL url, int i2, int i3, @NonNull Options options) {
+        return this.glideUrlLoader.buildLoadData(new GlideUrl(url), i2, i3, options);
     }
 }

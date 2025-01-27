@@ -1,6 +1,6 @@
 package com.baidu.mobads.sdk.api;
 
-/* loaded from: classes2.dex */
+/* loaded from: classes.dex */
 public enum CpuLpActionBar {
     DEFAULT("0"),
     MEDIACUSTOM("1");

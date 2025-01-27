@@ -18,8 +18,8 @@ public class TinkerLoadReporter extends DefaultLoadReporter {
     private final LoadReporter userLoadReporter;
 
     /* renamed from: com.tencent.bugly.beta.tinker.TinkerLoadReporter$1 */
-    public class AnonymousClass1 implements MessageQueue.IdleHandler {
-        public AnonymousClass1() {
+    class AnonymousClass1 implements MessageQueue.IdleHandler {
+        AnonymousClass1() {
         }
 
         @Override // android.os.MessageQueue.IdleHandler
@@ -37,36 +37,36 @@ public class TinkerLoadReporter extends DefaultLoadReporter {
         this.userLoadReporter = TinkerManager.userLoadReporter;
     }
 
-    public void onLoadException(Throwable th2, int i10) {
-        super.onLoadException(th2, i10);
+    public void onLoadException(Throwable th, int i2) {
+        super.onLoadException(th, i2);
         LoadReporter loadReporter = this.userLoadReporter;
         if (loadReporter != null) {
-            loadReporter.onLoadException(th2, i10);
+            loadReporter.onLoadException(th, i2);
         } else {
-            TinkerReport.onLoadException(th2, i10);
+            TinkerReport.onLoadException(th, i2);
         }
     }
 
-    public void onLoadFileMd5Mismatch(File file, int i10) {
-        super.onLoadFileMd5Mismatch(file, i10);
+    public void onLoadFileMd5Mismatch(File file, int i2) {
+        super.onLoadFileMd5Mismatch(file, i2);
         LoadReporter loadReporter = this.userLoadReporter;
         if (loadReporter != null) {
-            loadReporter.onLoadFileMd5Mismatch(file, i10);
+            loadReporter.onLoadFileMd5Mismatch(file, i2);
         } else {
-            TinkerReport.onLoadFileMisMatch(i10);
+            TinkerReport.onLoadFileMisMatch(i2);
         }
     }
 
-    public void onLoadFileNotFound(File file, int i10, boolean z10) {
+    public void onLoadFileNotFound(File file, int i2, boolean z) {
         File file2;
-        super.onLoadFileNotFound(file, i10, z10);
+        super.onLoadFileNotFound(file, i2, z);
         LoadReporter loadReporter = this.userLoadReporter;
         if (loadReporter != null) {
-            loadReporter.onLoadFileNotFound(file, i10, z10);
+            loadReporter.onLoadFileNotFound(file, i2, z);
             return;
         }
-        TinkerLog.i(TAG, "patch loadReporter onLoadFileNotFound: patch file not found: %s, fileType:%d, isDirectory:%b", new Object[]{file.getAbsolutePath(), Integer.valueOf(i10), Boolean.valueOf(z10)});
-        if (i10 == 4) {
+        TinkerLog.i(TAG, "patch loadReporter onLoadFileNotFound: patch file not found: %s, fileType:%d, isDirectory:%b", new Object[]{file.getAbsolutePath(), Integer.valueOf(i2), Boolean.valueOf(z)});
+        if (i2 == 4) {
             Tinker with = Tinker.with(((DefaultLoadReporter) this).context);
             if (with.isMainProcess() && (file2 = with.getTinkerLoadResultIfPresent().patchVersionFile) != null) {
                 if (UpgradePatchRetry.getInstance(((DefaultLoadReporter) this).context).onPatchListenerCheck(SharePatchFileUtil.getMD5(file2))) {
@@ -80,26 +80,26 @@ public class TinkerLoadReporter extends DefaultLoadReporter {
         } else {
             checkAndCleanPatch();
         }
-        TinkerReport.onLoadFileNotFound(i10);
+        TinkerReport.onLoadFileNotFound(i2);
     }
 
-    public void onLoadInterpret(int i10, Throwable th2) {
-        super.onLoadInterpret(i10, th2);
+    public void onLoadInterpret(int i2, Throwable th) {
+        super.onLoadInterpret(i2, th);
         LoadReporter loadReporter = this.userLoadReporter;
         if (loadReporter != null) {
-            loadReporter.onLoadInterpret(i10, th2);
+            loadReporter.onLoadInterpret(i2, th);
         } else {
-            TinkerReport.onLoadInterpretReport(i10, th2);
+            TinkerReport.onLoadInterpretReport(i2, th);
         }
     }
 
-    public void onLoadPackageCheckFail(File file, int i10) {
-        super.onLoadPackageCheckFail(file, i10);
+    public void onLoadPackageCheckFail(File file, int i2) {
+        super.onLoadPackageCheckFail(file, i2);
         LoadReporter loadReporter = this.userLoadReporter;
         if (loadReporter != null) {
-            loadReporter.onLoadPackageCheckFail(file, i10);
+            loadReporter.onLoadPackageCheckFail(file, i2);
         } else {
-            TinkerReport.onLoadPackageCheckFail(i10);
+            TinkerReport.onLoadPackageCheckFail(i2);
         }
     }
 
@@ -113,13 +113,13 @@ public class TinkerLoadReporter extends DefaultLoadReporter {
         }
     }
 
-    public void onLoadPatchListenerReceiveFail(File file, int i10) {
-        super.onLoadPatchListenerReceiveFail(file, i10);
+    public void onLoadPatchListenerReceiveFail(File file, int i2) {
+        super.onLoadPatchListenerReceiveFail(file, i2);
         LoadReporter loadReporter = this.userLoadReporter;
         if (loadReporter != null) {
-            loadReporter.onLoadPatchListenerReceiveFail(file, i10);
+            loadReporter.onLoadPatchListenerReceiveFail(file, i2);
         } else {
-            TinkerReport.onTryApplyFail(i10);
+            TinkerReport.onTryApplyFail(i2);
         }
     }
 
@@ -131,19 +131,19 @@ public class TinkerLoadReporter extends DefaultLoadReporter {
         }
     }
 
-    public void onLoadResult(File file, int i10, long j10) {
-        super.onLoadResult(file, i10, j10);
+    public void onLoadResult(File file, int i2, long j2) {
+        super.onLoadResult(file, i2, j2);
         LoadReporter loadReporter = this.userLoadReporter;
         if (loadReporter != null) {
-            loadReporter.onLoadResult(file, i10, j10);
+            loadReporter.onLoadResult(file, i2, j2);
             return;
         }
-        if (i10 == 0) {
-            TinkerReport.onLoaded(j10);
+        if (i2 == 0) {
+            TinkerReport.onLoaded(j2);
         }
         Looper.getMainLooper();
         Looper.myQueue().addIdleHandler(new MessageQueue.IdleHandler() { // from class: com.tencent.bugly.beta.tinker.TinkerLoadReporter.1
-            public AnonymousClass1() {
+            AnonymousClass1() {
             }
 
             @Override // android.os.MessageQueue.IdleHandler

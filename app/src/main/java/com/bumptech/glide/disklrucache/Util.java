@@ -7,7 +7,7 @@ import java.io.Reader;
 import java.io.StringWriter;
 import java.nio.charset.Charset;
 
-/* loaded from: classes2.dex */
+/* loaded from: classes.dex */
 final class Util {
     static final Charset US_ASCII = Charset.forName("US-ASCII");
     static final Charset UTF_8 = Charset.forName("UTF-8");
@@ -15,18 +15,18 @@ final class Util {
     private Util() {
     }
 
-    public static void closeQuietly(Closeable closeable) {
+    static void closeQuietly(Closeable closeable) {
         if (closeable != null) {
             try {
                 closeable.close();
-            } catch (RuntimeException e10) {
-                throw e10;
+            } catch (RuntimeException e2) {
+                throw e2;
             } catch (Exception unused) {
             }
         }
     }
 
-    public static void deleteContents(File file) throws IOException {
+    static void deleteContents(File file) throws IOException {
         File[] listFiles = file.listFiles();
         if (listFiles == null) {
             throw new IOException("not a readable directory: " + file);
@@ -41,22 +41,19 @@ final class Util {
         }
     }
 
-    public static String readFully(Reader reader) throws IOException {
+    static String readFully(Reader reader) throws IOException {
         try {
             StringWriter stringWriter = new StringWriter();
             char[] cArr = new char[1024];
             while (true) {
                 int read = reader.read(cArr);
                 if (read == -1) {
-                    String stringWriter2 = stringWriter.toString();
-                    reader.close();
-                    return stringWriter2;
+                    return stringWriter.toString();
                 }
                 stringWriter.write(cArr, 0, read);
             }
-        } catch (Throwable th2) {
+        } finally {
             reader.close();
-            throw th2;
         }
     }
 }

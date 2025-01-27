@@ -4,7 +4,7 @@ package com.tencent.bugly.beta.download;
 public interface DownloadListener {
     void onCompleted(DownloadTask downloadTask);
 
-    void onFailed(DownloadTask downloadTask, int i10, String str);
+    void onFailed(DownloadTask downloadTask, int i2, String str);
 
     void onReceive(DownloadTask downloadTask);
 }

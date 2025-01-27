@@ -20,12 +20,12 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import com.kwad.sdk.api.loader.Loader;
 
-/* loaded from: classes3.dex */
+/* loaded from: classes2.dex */
 abstract class DelegateFragment extends Fragment implements IDelegateFragment {
     private static final String REAL_BASE_CLASS = "real_base_class";
     private IFragmentLifecycle mBase;
 
-    public DelegateFragment(KsFragment ksFragment) {
+    protected DelegateFragment(KsFragment ksFragment) {
         this.mBase = ksFragment;
     }
 
@@ -47,9 +47,15 @@ abstract class DelegateFragment extends Fragment implements IDelegateFragment {
     }
 
     @Override // androidx.fragment.app.Fragment
-    public void onActivityResult(int i10, int i11, Intent intent) {
-        super.onActivityResult(i10, i11, intent);
-        this.mBase.onActivityResult(i10, i11, intent);
+    public void onActivityResult(int i2, int i3, Intent intent) {
+        super.onActivityResult(i2, i3, intent);
+        this.mBase.onActivityResult(i2, i3, intent);
+    }
+
+    @Override // androidx.fragment.app.Fragment
+    public void onAttach(Activity activity) {
+        super.onAttach(activity);
+        this.mBase.onAttach(activity);
     }
 
     @Override // androidx.fragment.app.Fragment
@@ -99,13 +105,13 @@ abstract class DelegateFragment extends Fragment implements IDelegateFragment {
     }
 
     @Override // androidx.fragment.app.Fragment
-    public Animation onCreateAnimation(int i10, boolean z10, int i11) {
-        return this.mBase.onCreateAnimation(i10, z10, i11);
+    public Animation onCreateAnimation(int i2, boolean z, int i3) {
+        return this.mBase.onCreateAnimation(i2, z, i3);
     }
 
     @Override // androidx.fragment.app.Fragment
-    public Animator onCreateAnimator(int i10, boolean z10, int i11) {
-        return this.mBase.onCreateAnimator(i10, z10, i11);
+    public Animator onCreateAnimator(int i2, boolean z, int i3) {
+        return this.mBase.onCreateAnimator(i2, z, i3);
     }
 
     @Override // androidx.fragment.app.Fragment, android.view.View.OnCreateContextMenuListener
@@ -157,9 +163,15 @@ abstract class DelegateFragment extends Fragment implements IDelegateFragment {
     }
 
     @Override // androidx.fragment.app.Fragment
-    public void onHiddenChanged(boolean z10) {
-        super.onHiddenChanged(z10);
-        this.mBase.onHiddenChanged(z10);
+    public void onHiddenChanged(boolean z) {
+        super.onHiddenChanged(z);
+        this.mBase.onHiddenChanged(z);
+    }
+
+    @Override // androidx.fragment.app.Fragment
+    public void onInflate(Activity activity, AttributeSet attributeSet, Bundle bundle) {
+        super.onInflate(activity, attributeSet, bundle);
+        this.mBase.onInflate(activity, attributeSet, bundle);
     }
 
     @Override // androidx.fragment.app.Fragment
@@ -175,9 +187,9 @@ abstract class DelegateFragment extends Fragment implements IDelegateFragment {
     }
 
     @Override // androidx.fragment.app.Fragment
-    public void onMultiWindowModeChanged(boolean z10) {
-        super.onMultiWindowModeChanged(z10);
-        this.mBase.onMultiWindowModeChanged(z10);
+    public void onMultiWindowModeChanged(boolean z) {
+        super.onMultiWindowModeChanged(z);
+        this.mBase.onMultiWindowModeChanged(z);
     }
 
     @Override // androidx.fragment.app.Fragment
@@ -198,9 +210,9 @@ abstract class DelegateFragment extends Fragment implements IDelegateFragment {
     }
 
     @Override // androidx.fragment.app.Fragment
-    public void onPictureInPictureModeChanged(boolean z10) {
-        super.onPictureInPictureModeChanged(z10);
-        this.mBase.onPictureInPictureModeChanged(z10);
+    public void onPictureInPictureModeChanged(boolean z) {
+        super.onPictureInPictureModeChanged(z);
+        this.mBase.onPictureInPictureModeChanged(z);
     }
 
     @Override // androidx.fragment.app.Fragment
@@ -210,9 +222,9 @@ abstract class DelegateFragment extends Fragment implements IDelegateFragment {
     }
 
     @Override // androidx.fragment.app.Fragment
-    public void onRequestPermissionsResult(int i10, @NonNull String[] strArr, @NonNull int[] iArr) {
-        super.onRequestPermissionsResult(i10, strArr, iArr);
-        this.mBase.onRequestPermissionsResult(i10, strArr, iArr);
+    public void onRequestPermissionsResult(int i2, @NonNull String[] strArr, @NonNull int[] iArr) {
+        super.onRequestPermissionsResult(i2, strArr, iArr);
+        this.mBase.onRequestPermissionsResult(i2, strArr, iArr);
     }
 
     @Override // androidx.fragment.app.Fragment
@@ -254,19 +266,7 @@ abstract class DelegateFragment extends Fragment implements IDelegateFragment {
         this.mBase.onViewStateRestored(bundle);
     }
 
-    public void setBase(KsFragment ksFragment) {
+    void setBase(KsFragment ksFragment) {
         this.mBase = ksFragment;
-    }
-
-    @Override // androidx.fragment.app.Fragment
-    public void onAttach(Activity activity) {
-        super.onAttach(activity);
-        this.mBase.onAttach(activity);
-    }
-
-    @Override // androidx.fragment.app.Fragment
-    public void onInflate(Activity activity, AttributeSet attributeSet, Bundle bundle) {
-        super.onInflate(activity, attributeSet, bundle);
-        this.mBase.onInflate(activity, attributeSet, bundle);
     }
 }

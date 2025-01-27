@@ -5,13 +5,13 @@ import android.view.View;
 import android.view.ViewGroup;
 import java.util.Map;
 
-/* loaded from: classes2.dex */
+/* loaded from: classes.dex */
 public interface CSJSplashAd extends TTClientBidding {
 
     public interface SplashAdListener {
         void onSplashAdClick(CSJSplashAd cSJSplashAd);
 
-        void onSplashAdClose(CSJSplashAd cSJSplashAd, int i10);
+        void onSplashAdClose(CSJSplashAd cSJSplashAd, int i2);
 
         void onSplashAdShow(CSJSplashAd cSJSplashAd);
     }

@@ -13,7 +13,7 @@ public class DefaultDownloadServiceHandler extends AbsDownloadServiceHandler {
     private static final String TAG = "DefaultDownloadServiceHandler";
 
     @Override // com.ss.android.socialbase.downloader.downloader.AbsDownloadServiceHandler, com.ss.android.socialbase.downloader.downloader.IDownloadServiceHandler
-    public void onStartCommand(Intent intent, int i10, int i11) {
+    public void onStartCommand(Intent intent, int i2, int i3) {
         if (Logger.debug()) {
             Logger.d(TAG, "onStartCommand");
         }
@@ -38,8 +38,8 @@ public class DefaultDownloadServiceHandler extends AbsDownloadServiceHandler {
     public void startService(Context context, ServiceConnection serviceConnection) {
         try {
             context.startService(new Intent(context, (Class<?>) DownloadService.class));
-        } catch (Throwable th2) {
-            th2.printStackTrace();
+        } catch (Throwable th) {
+            th.printStackTrace();
         }
     }
 

@@ -1,56 +1,58 @@
 package com.kwad.sdk.core.request.model;
 
+import android.content.Context;
 import android.text.TextUtils;
 import androidx.annotation.Nullable;
 import com.kwad.sdk.service.ServiceProvider;
-import com.kwad.sdk.utils.bp;
-import com.kwad.sdk.utils.l;
-import com.kwad.sdk.utils.x;
+import com.kwad.sdk.utils.be;
+import com.kwad.sdk.utils.k;
+import com.kwad.sdk.utils.t;
+import com.ss.android.socialbase.downloader.constants.DBDefinition;
 import org.json.JSONObject;
 
-/* loaded from: classes3.dex */
+/* loaded from: classes2.dex */
 public final class a implements com.kwad.sdk.core.b {
-    private static JSONObject aDo;
-    private String aDp;
+    private static JSONObject akW;
+    private String akX;
     private String appId;
     private String name;
     private String packageName;
     private String version;
 
-    public static JSONObject GF() {
-        if (!l(aDo)) {
-            aDo = GG().toJson();
-        }
-        return aDo;
-    }
-
-    public static a GG() {
-        a aVar = new a();
-        try {
-            aVar.appId = ServiceProvider.MB().appId;
-            aVar.name = ServiceProvider.MB().appName;
-            aVar.packageName = ServiceProvider.MA().getPackageName();
-            aVar.version = l.ch(ServiceProvider.MA());
-            aVar.aDp = com.kwad.sdk.utils.f.bX(ServiceProvider.MA());
-            if (!TextUtils.isEmpty(bp.getAppId())) {
-                aVar.appId = bp.getAppId();
-            }
-            if (!TextUtils.isEmpty(bp.getPackageName())) {
-                aVar.packageName = bp.getPackageName();
-            }
-        } catch (Throwable th2) {
-            ServiceProvider.reportSdkCaughtException(th2);
-        }
-        return aVar;
-    }
-
-    private static boolean l(@Nullable JSONObject jSONObject) {
+    private static boolean C(@Nullable JSONObject jSONObject) {
         if (jSONObject == null) {
             return false;
         }
         String optString = jSONObject.optString("appId");
         String optString2 = jSONObject.optString("name");
-        return !TextUtils.isEmpty(optString2) && !TextUtils.isEmpty(optString) && optString.equals(ServiceProvider.MB().appId) && optString2.equals(ServiceProvider.MB().appName);
+        return !TextUtils.isEmpty(optString2) && !TextUtils.isEmpty(optString) && optString.equals(((com.kwad.sdk.service.kwai.e) ServiceProvider.get(com.kwad.sdk.service.kwai.e.class)).getAppId()) && optString2.equals(((com.kwad.sdk.service.kwai.e) ServiceProvider.get(com.kwad.sdk.service.kwai.e.class)).getAppName());
+    }
+
+    public static JSONObject xo() {
+        if (!C(akW)) {
+            akW = xp().toJson();
+        }
+        return akW;
+    }
+
+    private static a xp() {
+        a aVar = new a();
+        com.kwad.sdk.service.kwai.e eVar = (com.kwad.sdk.service.kwai.e) ServiceProvider.get(com.kwad.sdk.service.kwai.e.class);
+        aVar.appId = eVar.getAppId();
+        aVar.name = eVar.getAppName();
+        Context context = eVar.getContext();
+        if (context != null) {
+            aVar.packageName = context.getPackageName();
+            aVar.version = k.bH(context);
+        }
+        aVar.akX = com.kwad.sdk.utils.e.bx(context);
+        if (!TextUtils.isEmpty(be.getAppId())) {
+            aVar.appId = be.getAppId();
+        }
+        if (!TextUtils.isEmpty(be.getPackageName())) {
+            aVar.packageName = be.getPackageName();
+        }
+        return aVar;
     }
 
     @Override // com.kwad.sdk.core.b
@@ -60,11 +62,11 @@ public final class a implements com.kwad.sdk.core.b {
     @Override // com.kwad.sdk.core.b
     public final JSONObject toJson() {
         JSONObject jSONObject = new JSONObject();
-        x.putValue(jSONObject, "appId", this.appId);
-        x.putValue(jSONObject, "name", this.name);
-        x.putValue(jSONObject, "packageName", this.packageName);
-        x.putValue(jSONObject, "version", this.version);
-        x.putValue(jSONObject, "sha1", this.aDp);
+        t.putValue(jSONObject, "appId", this.appId);
+        t.putValue(jSONObject, "name", this.name);
+        t.putValue(jSONObject, DBDefinition.PACKAGE_NAME, this.packageName);
+        t.putValue(jSONObject, "version", this.version);
+        t.putValue(jSONObject, "sha1", this.akX);
         return jSONObject;
     }
 }

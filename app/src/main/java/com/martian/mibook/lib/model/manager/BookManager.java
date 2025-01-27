@@ -4,17 +4,18 @@ import android.app.Activity;
 import android.content.Context;
 import android.database.Cursor;
 import android.text.TextUtils;
-import ba.g;
-import ba.j;
-import ba.k;
-import ba.l;
-import com.google.gson.JsonSyntaxException;
 import com.martian.libcomm.utils.GsonUtils;
-import com.martian.libmars.common.ConfigSingleton;
+import com.martian.libmars.d.h;
+import com.martian.libsupport.j;
+import com.martian.libsupport.k;
+import com.martian.mibook.lib.model.c.g;
+import com.martian.mibook.lib.model.d.f;
+import com.martian.mibook.lib.model.data.BookStoreCategories;
 import com.martian.mibook.lib.model.data.BookSyncInfo;
 import com.martian.mibook.lib.model.data.BookWrapper;
-import com.martian.mibook.lib.model.data.BookrackCategoryManager;
+import com.martian.mibook.lib.model.data.BookWrapperList;
 import com.martian.mibook.lib.model.data.MiArchiveBookItem;
+import com.martian.mibook.lib.model.data.MiBook;
 import com.martian.mibook.lib.model.data.MiBookMark;
 import com.martian.mibook.lib.model.data.MiBookShelfItem;
 import com.martian.mibook.lib.model.data.MiBookShelfItemList;
@@ -22,12 +23,12 @@ import com.martian.mibook.lib.model.data.MiBookStoreItem;
 import com.martian.mibook.lib.model.data.MiCacheItem;
 import com.martian.mibook.lib.model.data.MiReadingRecord;
 import com.martian.mibook.lib.model.data.MiReadingRecordList;
-import com.martian.mibook.lib.model.data.TYBookItem;
 import com.martian.mibook.lib.model.data.abs.Book;
 import com.martian.mibook.lib.model.data.abs.Chapter;
 import com.martian.mibook.lib.model.data.abs.ChapterContent;
 import com.martian.mibook.lib.model.data.abs.ChapterList;
-import com.martian.mibook.lib.model.manager.BookManager;
+import com.martian.mibook.lib.model.e.e;
+import com.martian.mibook.lib.model.e.i;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -37,964 +38,1055 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
-import java.util.Objects;
-import l9.p0;
-import vb.e;
-import wb.f;
-import x8.m;
-import yb.h;
+import java.util.Set;
 
-/* loaded from: classes3.dex */
+/* loaded from: classes.dex */
 public abstract class BookManager {
 
-    /* renamed from: i */
-    public static int f13984i = -1000;
-
-    /* renamed from: j */
-    public static int f13985j = -1001;
-
-    /* renamed from: k */
-    public static int f13986k = 10000;
-
-    /* renamed from: l */
-    public static final String f13987l = "PREF_LAST_SYNC_TIME";
-
-    /* renamed from: m */
-    public static final String f13988m = "SUPPORT_ARCHIVE";
-
-    /* renamed from: n */
-    public static final String f13989n = "qplay_recent_books_json_file";
-
     /* renamed from: a */
-    public final Context f13990a;
+    public static int f14019a = -1000;
 
     /* renamed from: b */
-    public final h f13991b = h.N();
+    public static int f14020b = -1001;
 
     /* renamed from: c */
-    public Map<String, wb.b> f13992c;
+    public static int f14021c = 10000;
 
     /* renamed from: d */
-    public vb.c f13993d;
+    private static final String f14022d = "SUPPORT_ARCHIVE";
 
     /* renamed from: e */
-    public final vb.d f13994e;
+    private static final String f14023e = "qplay_recent_books_json_file";
 
     /* renamed from: f */
-    public final BookSyncManager f13995f;
+    private final Context f14024f;
 
     /* renamed from: g */
-    public final vb.b f13996g;
+    private final e f14025g = e.o();
 
     /* renamed from: h */
-    public MiReadingRecordList f13997h;
+    private final i f14026h = i.d();
 
-    public class a extends zb.c {
+    /* renamed from: i */
+    private Map<String, com.martian.mibook.lib.model.c.b> f14027i;
+
+    /* renamed from: j */
+    private final com.martian.mibook.lib.model.manager.b f14028j;
+    private final c k;
+    private final BookSyncManager l;
+    protected MiReadingRecordList m;
+
+    /* loaded from: classes3.dex */
+    class a extends com.martian.mibook.lib.model.f.c {
 
         /* renamed from: j */
-        public final /* synthetic */ xb.d f13998j;
+        final /* synthetic */ com.martian.mibook.lib.model.d.d f14029j;
 
         /* JADX WARN: 'super' call moved to the top of the method (can break code semantics) */
-        public a(f fVar, ChapterList chapterList, int i10, int i11, wb.b bVar, xb.d dVar) {
-            super(fVar, chapterList, i10, i11, bVar);
-            this.f13998j = dVar;
+        a(g source, ChapterList chapterList, int start, int size, com.martian.mibook.lib.model.c.b bookProvider, final com.martian.mibook.lib.model.d.d val$receiver) {
+            super(source, chapterList, start, size, bookProvider);
+            this.f14029j = val$receiver;
         }
 
-        @Override // zb.c
+        @Override // com.martian.mibook.lib.model.f.c
         public void k() {
-            this.f13998j.a();
+            this.f14029j.a();
         }
 
-        @Override // zb.c
+        @Override // com.martian.mibook.lib.model.f.c
         public void l() {
-            this.f13998j.c();
+            this.f14029j.c();
         }
 
-        @Override // zb.c
-        public void m(Integer... numArr) {
-            this.f13998j.e(numArr);
+        @Override // com.martian.mibook.lib.model.f.c
+        public void m(Integer... values) {
+            this.f14029j.e(values);
         }
 
-        @Override // zb.c
-        public void n(int i10) {
-            this.f13998j.d(i10);
+        @Override // com.martian.mibook.lib.model.f.c
+        public void n(int failedSize) {
+            this.f14029j.d(failedSize);
         }
 
-        @Override // zb.c
+        @Override // com.martian.mibook.lib.model.f.c
         public void o() {
-            this.f13998j.b();
+            this.f14029j.b();
         }
 
-        @Override // zb.c
-        public void q(x8.c cVar) {
-            this.f13998j.onResultError(cVar);
-        }
-    }
-
-    public class b extends y8.f<Void, Void> {
-
-        /* renamed from: a */
-        public final /* synthetic */ d f14000a;
-
-        public b(d dVar) {
-            this.f14000a = dVar;
-        }
-
-        @Override // y8.f
-        /* renamed from: f */
-        public Void doInBackground(Void... voidArr) {
-            BookManager.this.f13993d.j();
-            return null;
-        }
-
-        @Override // y8.f
-        /* renamed from: g */
-        public void onPostExecute(Void r12) {
-            super.onPostExecute(r12);
-            this.f14000a.a();
-        }
-
-        @Override // y8.f
-        public void showLoading(boolean z10) {
+        @Override // com.martian.mibook.lib.model.f.c
+        public void q(b.d.c.b.c errorResult) {
+            this.f14029j.onResultError(errorResult);
         }
     }
 
-    public class c extends y8.f<Void, Void> {
+    /* loaded from: classes3.dex */
+    class b implements com.martian.mibook.lib.model.d.b {
 
         /* renamed from: a */
-        public final /* synthetic */ String f14002a;
+        final /* synthetic */ Activity f14030a;
 
         /* renamed from: b */
-        public final /* synthetic */ d f14003b;
+        final /* synthetic */ MiBookStoreItem f14031b;
 
-        public c(String str, d dVar) {
-            this.f14002a = str;
-            this.f14003b = dVar;
+        /* renamed from: c */
+        final /* synthetic */ List f14032c;
+
+        b(final Activity val$newBookWrappers, final MiBookStoreItem val$bookStoreItem, final List val$activity) {
+            this.f14030a = val$newBookWrappers;
+            this.f14031b = val$bookStoreItem;
+            this.f14032c = val$activity;
         }
 
-        @Override // y8.f
-        /* renamed from: f */
-        public Void doInBackground(Void... voidArr) {
-            BookManager.this.T().d(this.f14002a);
-            return null;
+        @Override // com.martian.mibook.lib.model.d.b
+        public void a(Book book) {
+            BookWrapper f2 = BookManager.this.f(this.f14030a, this.f14031b, book.buildMibook(), book);
+            if (f2 != null) {
+                this.f14032c.add(f2);
+            }
+            MiReadingRecord e2 = BookManager.this.k.e(book);
+            if (e2 == null) {
+                e2 = new MiReadingRecord();
+            }
+            e2.setContentIndex(this.f14031b.getReadingContentPos());
+            e2.setContentSize(this.f14031b.getReadingContentLength());
+            e2.setChapterIndex(this.f14031b.getReadingChapterIndex());
+            e2.setBookName(book.getBookName());
+            BookManager.this.k.k(e2, true);
         }
 
-        @Override // y8.f
-        /* renamed from: g */
-        public void onPostExecute(Void r12) {
-            super.onPostExecute(r12);
-            this.f14003b.a();
+        @Override // com.martian.mibook.lib.model.d.b
+        public void onLoading(boolean loading) {
         }
 
-        @Override // y8.f
-        public void showLoading(boolean z10) {
+        @Override // com.martian.mibook.lib.model.d.b
+        public void onResultError(b.d.c.b.c errorResult) {
         }
-    }
-
-    public interface d {
-        void a();
     }
 
     public BookManager(Context context) {
-        this.f13990a = context;
-        e0(context);
-        this.f13994e = new vb.d();
-        this.f13995f = new BookSyncManager(context);
-        this.f13996g = new vb.b();
-        r0();
+        this.f14024f = context;
+        q0(context);
+        this.f14028j = new com.martian.mibook.lib.model.manager.b(this);
+        this.k = new c();
+        this.l = new BookSyncManager(context);
+        F0();
     }
 
-    public static /* synthetic */ int l0(MiReadingRecord miReadingRecord, MiReadingRecord miReadingRecord2) {
-        long lastReadingTime = miReadingRecord2.getLastReadingTime() - miReadingRecord.getLastReadingTime();
+    private void O0(List<BookWrapper> bookWrappers) {
+        w();
+        for (BookWrapper bookWrapper : bookWrappers) {
+            if (bookWrapper.item != null) {
+                u1(bookWrapper, false);
+            }
+        }
+        Y();
+    }
+
+    private synchronized int i(int index, String tag) {
+        List<BookWrapper> p = this.f14028j.p();
+        if (p == null || p.size() <= 0) {
+            return 800;
+        }
+        while (index < p.size()) {
+            if (p.get(index).isSelect()) {
+                BookWrapper e2 = this.f14028j.e(index, tag);
+                if (e2 == null) {
+                    return 1000;
+                }
+                if (e2.book != null) {
+                    o1(e2);
+                }
+                return index;
+            }
+            index++;
+        }
+        return p.size();
+    }
+
+    private void l1(MiBookStoreItem bookStoreItem, MiBookShelfItem bookShelfItem) {
+        bookStoreItem.setSourceString(bookShelfItem.getSourceString());
+        if (bookShelfItem.getTop() != null) {
+            bookStoreItem.setFlagTop(bookShelfItem.getTop().intValue() == 1);
+        }
+        if (bookShelfItem.getCidx() != null) {
+            bookStoreItem.setReadingChapterIndex(bookShelfItem.getCidx());
+        }
+        if (bookShelfItem.getContentLength() != null) {
+            bookStoreItem.setReadingContentLength(bookShelfItem.getContentLength());
+        }
+        if (bookShelfItem.getContentPosition() != null) {
+            bookStoreItem.setReadingContentPos(bookShelfItem.getContentPosition());
+        }
+        if (bookShelfItem.getDate() == null || bookShelfItem.getDate().longValue() == 0) {
+            bookStoreItem.setAddTime(Long.valueOf(System.currentTimeMillis()));
+            bookStoreItem.setLastReadingTime(Long.valueOf(System.currentTimeMillis()));
+        } else {
+            bookStoreItem.setAddTime(bookShelfItem.getDate());
+            bookStoreItem.setLastReadingTime(bookShelfItem.getDate());
+        }
+        bookStoreItem.setDirName(bookShelfItem.ca);
+    }
+
+    private synchronized BookWrapper m1(Book book, MiReadingRecord record) {
+        return this.f14028j.N(book, record);
+    }
+
+    private void q0(Context context) {
+        HashMap hashMap = new HashMap();
+        this.f14027i = hashMap;
+        L0(context, hashMap);
+    }
+
+    private boolean u0(g sourceProvider) {
+        com.martian.mibook.lib.model.c.b a0 = a0(sourceProvider);
+        return a0 != null && a0.H();
+    }
+
+    static /* synthetic */ int z0(MiReadingRecord lhs, MiReadingRecord rhs) {
+        long lastReadingTime = rhs.getLastReadingTime() - lhs.getLastReadingTime();
         if (lastReadingTime == 0) {
             return 0;
         }
         return lastReadingTime > 0 ? 1 : -1;
     }
 
-    public synchronized List<BookWrapper> A(String str) {
-        ArrayList arrayList;
+    public synchronized void A() {
+    }
+
+    public List<MiArchiveBookItem> A0() {
+        return this.f14028j.v();
+    }
+
+    public boolean B(MiArchiveBookItem item) {
+        if (!this.f14028j.j(item)) {
+            return false;
+        }
+        if (!TextUtils.isEmpty(item.getSourceString())) {
+            v(d.k(item.getSourceString()));
+        }
+        h1(item.getBookId());
+        return true;
+    }
+
+    public List<MiArchiveBookItem> B0(String tag) {
+        return this.f14028j.w(tag);
+    }
+
+    public boolean C(MiBookMark bookMark) {
+        return this.k.b(bookMark);
+    }
+
+    public List<j.d> C0() {
+        return this.f14028j.x();
+    }
+
+    public synchronized BookWrapper D(int index) {
+        BookWrapper E;
+        E = E(index, true);
+        if (E != null) {
+            o1(E);
+        }
+        return E;
+    }
+
+    public ChapterContent D0(g source, Chapter chapter) {
+        return a0(source).w(source, chapter);
+    }
+
+    public synchronized BookWrapper E(int index, boolean clearCache) {
+        BookWrapper k;
+        k = this.f14028j.k(index);
+        if (k != null) {
+            Book book = k.book;
+            if (book != null && clearCache) {
+                v(book);
+            }
+            g1(k.mibook);
+            o1(k);
+        }
+        return k;
+    }
+
+    public List<MiReadingRecord> E0(int page, int pageSize) {
+        return this.k.h(page, pageSize);
+    }
+
+    public synchronized boolean F(MiBook mibook) {
+        BookWrapper l = this.f14028j.l(mibook);
+        if (l == null) {
+            return false;
+        }
+        Book book = l.book;
+        if (book != null) {
+            v(book);
+        }
+        g1(l.mibook);
+        o1(l);
+        return true;
+    }
+
+    public MiReadingRecordList F0() {
         try {
-            arrayList = new ArrayList();
-            Iterator it = new ArrayList(S()).iterator();
-            while (it.hasNext()) {
-                BookWrapper bookWrapper = (BookWrapper) it.next();
-                if (bookWrapper != null) {
-                    if (!bookWrapper.notBookItem()) {
-                        if (!BookrackCategoryManager.SECRETE_CATEGORY.equalsIgnoreCase(bookWrapper.item.getDirName())) {
-                            if (!l.q(str) && !bookWrapper.getBookName().contains(str)) {
-                            }
+            String B = com.martian.libsupport.e.B(this.f14024f, f14023e);
+            if (!TextUtils.isEmpty(B)) {
+                MiReadingRecordList miReadingRecordList = (MiReadingRecordList) GsonUtils.b().fromJson(B, MiReadingRecordList.class);
+                this.m = miReadingRecordList;
+                return miReadingRecordList;
+            }
+        } catch (IOException unused) {
+        }
+        MiReadingRecordList miReadingRecordList2 = new MiReadingRecordList();
+        this.m = miReadingRecordList2;
+        return miReadingRecordList2;
+    }
+
+    public synchronized void G(g sourceProvider) {
+        this.f14026h.a(sourceProvider);
+    }
+
+    public synchronized void G0(BookWrapper bookWrapper, int position) {
+        this.f14028j.A(bookWrapper.item, position);
+        t1(bookWrapper);
+    }
+
+    public void H(g source) {
+        a0(source).h(source);
+    }
+
+    public synchronized void H0(MiBookStoreItem item, int position) {
+        this.f14028j.B(item, position);
+    }
+
+    public boolean I(g sourceProvider) {
+        return this.k.c(sourceProvider);
+    }
+
+    public void I0() {
+        this.k.i();
+    }
+
+    public synchronized List<BookWrapper> J(String bookNameKeyword) {
+        ArrayList arrayList;
+        arrayList = new ArrayList();
+        Iterator it = new ArrayList(e0()).iterator();
+        while (it.hasNext()) {
+            BookWrapper bookWrapper = (BookWrapper) it.next();
+            if (bookWrapper != null && !bookWrapper.isAdsItem && !bookWrapper.isAdderItem && !k.o(bookWrapper.item.getDirName(), BookStoreCategories.SECRETE_CATEGORY) && (TextUtils.isEmpty(bookNameKeyword) || bookWrapper.getBookName().contains(bookNameKeyword))) {
+                arrayList.add(bookWrapper);
+            }
+        }
+        return arrayList;
+    }
+
+    public synchronized void J0(BookWrapperList bookWrapperList) {
+        bookWrapperList.bookWrappers = e0();
+        bookWrapperList.archiveBooks = A0();
+    }
+
+    public synchronized List<BookWrapper> K(String category, String bookNameKeyword, boolean holdAds) {
+        ArrayList arrayList;
+        arrayList = new ArrayList();
+        Iterator it = new ArrayList(e0()).iterator();
+        while (it.hasNext()) {
+            BookWrapper bookWrapper = (BookWrapper) it.next();
+            if (bookWrapper != null) {
+                if (!bookWrapper.isAdsItem && !bookWrapper.isAdderItem) {
+                    String dirName = bookWrapper.item.getDirName();
+                    if (k.p(dirName)) {
+                        dirName = BookStoreCategories.BOOK_UNCATEGORIED;
+                    }
+                    if (k.n(dirName, category) && (TextUtils.isEmpty(bookNameKeyword) || bookWrapper.getBookName().contains(bookNameKeyword))) {
+                        arrayList.add(bookWrapper);
+                    }
+                }
+                if (holdAds) {
+                    arrayList.add(bookWrapper);
+                }
+            }
+        }
+        return arrayList;
+    }
+
+    public Cursor K0(String sourceString) {
+        return this.k.j(sourceString);
+    }
+
+    public synchronized List<BookWrapper> L(boolean pureFilter, boolean holdAds) {
+        ArrayList arrayList;
+        arrayList = new ArrayList();
+        Iterator it = new ArrayList(e0()).iterator();
+        while (it.hasNext()) {
+            BookWrapper bookWrapper = (BookWrapper) it.next();
+            if (bookWrapper != null) {
+                if (!bookWrapper.isAdsItem && !bookWrapper.isAdderItem) {
+                    if (!k.o(bookWrapper.item.getDirName(), BookStoreCategories.SECRETE_CATEGORY)) {
+                        arrayList.add(bookWrapper);
+                    }
+                }
+                if (holdAds) {
+                    arrayList.add(bookWrapper);
+                }
+            }
+        }
+        return arrayList;
+    }
+
+    protected abstract void L0(Context context, Map<String, com.martian.mibook.lib.model.c.b> bookProviders);
+
+    public synchronized List<BookWrapper> M(String category, String bookNameKeyword, boolean holdAds) {
+        ArrayList arrayList;
+        arrayList = new ArrayList();
+        Iterator it = new ArrayList(e0()).iterator();
+        while (it.hasNext()) {
+            BookWrapper bookWrapper = (BookWrapper) it.next();
+            if (bookWrapper != null) {
+                if (!bookWrapper.isAdsItem && !bookWrapper.isAdderItem) {
+                    if (!k.o(bookWrapper.item.getDirName(), BookStoreCategories.SECRETE_CATEGORY) && (bookWrapper.item.hasUpdate() || bookWrapper.isUpdateCategoryRading())) {
+                        if (TextUtils.isEmpty(bookNameKeyword) || bookWrapper.getBookName().contains(bookNameKeyword)) {
                             arrayList.add(bookWrapper);
                         }
                     }
                 }
-            }
-        } catch (Throwable th2) {
-            throw th2;
-        }
-        return arrayList;
-    }
-
-    public synchronized void A0(List<BookWrapper> list) {
-        if (T().G(list)) {
-            y0(list);
-        }
-    }
-
-    public synchronized List<BookWrapper> B(String str, String str2) {
-        ArrayList arrayList;
-        try {
-            arrayList = new ArrayList();
-            Iterator it = new ArrayList(S()).iterator();
-            while (it.hasNext()) {
-                BookWrapper bookWrapper = (BookWrapper) it.next();
-                if (bookWrapper != null) {
-                    if (bookWrapper.notBookItem()) {
-                        arrayList.add(bookWrapper);
-                    } else if (l.o(bookWrapper.item.getDirName(), str) && (TextUtils.isEmpty(str2) || bookWrapper.getBookName().contains(str2))) {
-                        arrayList.add(bookWrapper);
-                    }
+                if (holdAds) {
+                    arrayList.add(bookWrapper);
                 }
             }
-        } catch (Throwable th2) {
-            throw th2;
         }
         return arrayList;
     }
 
-    public void B0(Book book, ChapterList chapterList) {
-        O(book).q(book, chapterList);
-        T().L(book, chapterList);
+    public boolean M0(MiArchiveBookItem item) {
+        return this.f14028j.j(item);
     }
 
-    public synchronized List<BookWrapper> C(boolean z10) {
-        ArrayList arrayList;
-        try {
-            arrayList = new ArrayList();
-            Iterator it = new ArrayList(S()).iterator();
-            while (it.hasNext()) {
-                BookWrapper bookWrapper = (BookWrapper) it.next();
-                if (bookWrapper != null) {
-                    if (bookWrapper.notBookItem()) {
-                        if (z10) {
-                            arrayList.add(bookWrapper);
-                        }
-                    } else if (!BookrackCategoryManager.SECRETE_CATEGORY.equalsIgnoreCase(bookWrapper.item.getDirName())) {
-                        arrayList.add(bookWrapper);
-                    }
-                }
-            }
-        } catch (Throwable th2) {
-            throw th2;
-        }
-        return arrayList;
-    }
-
-    public void C0(Book book, MiReadingRecord miReadingRecord) {
-        miReadingRecord.setCover(book.getCover());
-        this.f13994e.h(miReadingRecord, true);
-        T().K(book, miReadingRecord);
-        e(miReadingRecord);
-    }
-
-    public Book D(String str) {
-        if (l.q(str)) {
+    public Book N(MiBook mibook) {
+        g k;
+        if (k.p(mibook.getSourceString()) || (k = d.k(mibook.getSourceString())) == null) {
             return null;
         }
-        return E(e.l(str));
+        return a0(k).j(k);
     }
 
-    public void D0(MiReadingRecord miReadingRecord, boolean z10) {
-        this.f13994e.h(miReadingRecord, z10);
+    public void N0(MiReadingRecord readingRecord) {
+        MiReadingRecordList miReadingRecordList;
+        if (readingRecord == null || (miReadingRecordList = this.m) == null || miReadingRecordList.getMiReadingRecords().isEmpty()) {
+            return;
+        }
+        Iterator<MiReadingRecord> it = this.m.getMiReadingRecords().iterator();
+        while (true) {
+            if (!it.hasNext()) {
+                break;
+            } else if (it.next().getSourceString().equalsIgnoreCase(readingRecord.getSourceString())) {
+                it.remove();
+                break;
+            }
+        }
+        X0();
     }
 
-    public Book E(f fVar) {
-        wb.b O = O(fVar);
-        if (O != null) {
-            return O.m(fVar);
+    public synchronized MiBookStoreItem O(String bookId) {
+        return this.f14028j.m(bookId);
+    }
+
+    public synchronized BookWrapper P(String bookId) {
+        return this.f14028j.r(bookId);
+    }
+
+    public synchronized boolean P0(List<MiArchiveBookItem> archiveBookItems) {
+        return this.f14028j.D(archiveBookItems);
+    }
+
+    public MiBook Q(String bookId) {
+        MiBook miBook = new MiBook();
+        miBook.setBookId(bookId);
+        if (this.f14025g.h(miBook)) {
+            return miBook;
         }
         return null;
     }
 
-    public void E0() {
-        MiReadingRecordList miReadingRecordList = this.f13997h;
-        if (miReadingRecordList != null && miReadingRecordList.getMiReadingRecords() != null && this.f13997h.getMiReadingRecords().size() > 50) {
-            this.f13997h.getMiReadingRecords().remove(50);
+    public synchronized boolean Q0(List<BookWrapper> bookWrappers) {
+        boolean E;
+        E = this.f14028j.E(bookWrappers);
+        if (E) {
+            O0(bookWrappers);
+        }
+        return E;
+    }
+
+    public Book R(MiBook mibook) {
+        return T(mibook.getSourceString());
+    }
+
+    public void R0(g source, Chapter chapter, ChapterContent chapterContent) {
+        a0(source).x(source, chapter, chapterContent);
+    }
+
+    public Book S(g sourceProvider) {
+        return a0(sourceProvider).j(sourceProvider);
+    }
+
+    public void S0(Book book, ChapterList chapterList) {
+        a0(book).n(book, chapterList);
+        n1(book, chapterList);
+    }
+
+    public Book T(String sourceString) {
+        g k;
+        if (k.p(sourceString) || (k = d.k(sourceString)) == null) {
+            return null;
+        }
+        return a0(k).j(k);
+    }
+
+    public void T0(MiBook book) {
+        this.f14025g.f(book);
+    }
+
+    public MiReadingRecord U(MiBook mibook) {
+        return this.k.d(mibook);
+    }
+
+    public long U0(List<MiBook> books) {
+        return this.f14025g.g(books);
+    }
+
+    public MiReadingRecord V(g sourceProvider) {
+        return this.k.e(sourceProvider);
+    }
+
+    public void V0(Book book, MiReadingRecord record) {
+        this.k.k(record, true);
+        BookWrapper m1 = m1(book, record);
+        c(record);
+        if (m1 != null) {
+            t1(m1);
+        }
+    }
+
+    public MiReadingRecord W(String sourceString) {
+        return this.k.f(sourceString);
+    }
+
+    public void W0(MiReadingRecord record, boolean updateTime) {
+        this.k.k(record, updateTime);
+    }
+
+    public MiReadingRecord X(String sourceName, String sourceId) {
+        return this.k.g(sourceName, sourceId);
+    }
+
+    public void X0() {
+        MiReadingRecordList miReadingRecordList = this.m;
+        if (miReadingRecordList != null && miReadingRecordList.getMiReadingRecords() != null && this.m.getMiReadingRecords().size() > 50) {
+            this.m.getMiReadingRecords().remove(50);
         }
         try {
-            g.F(this.f13990a, f13989n, GsonUtils.b().toJson(this.f13997h));
-        } catch (IOException e10) {
-            p0.b(e10.getMessage());
+            com.martian.libsupport.e.E(this.f14024f, f14023e, GsonUtils.b().toJson(this.m));
+        } catch (IOException e2) {
+            e2.printStackTrace();
         }
     }
 
-    public synchronized MiBookStoreItem F(String str, String str2) {
-        return T().k(str, str2);
+    public void Y() {
+        try {
+            this.l.b();
+        } catch (IOException e2) {
+            e2.printStackTrace();
+        }
     }
 
-    public void F0(boolean z10) {
-        ConfigSingleton.D().g1(f13988m, z10);
+    public void Y0(boolean support) {
+        h.F().v1(f14022d, support);
     }
 
-    public synchronized BookWrapper G(String str) {
-        return T().o(str);
+    public synchronized BookStoreCategories Z() {
+        return this.f14028j.o();
     }
 
-    public void G0() {
-        MiReadingRecordList miReadingRecordList = this.f13997h;
-        if (miReadingRecordList == null || miReadingRecordList.getMiReadingRecords() == null || this.f13997h.getMiReadingRecords().isEmpty()) {
+    protected void Z0() {
+        MiReadingRecordList miReadingRecordList = this.m;
+        if (miReadingRecordList == null || miReadingRecordList.getMiReadingRecords() == null || this.m.getMiReadingRecords().isEmpty()) {
             return;
         }
-        Collections.sort(this.f13997h.getMiReadingRecords(), new Comparator() { // from class: vb.a
+        Collections.sort(this.m.getMiReadingRecords(), new Comparator() { // from class: com.martian.mibook.lib.model.manager.a
             @Override // java.util.Comparator
             public final int compare(Object obj, Object obj2) {
-                int l02;
-                l02 = BookManager.l0((MiReadingRecord) obj, (MiReadingRecord) obj2);
-                return l02;
+                return BookManager.z0((MiReadingRecord) obj, (MiReadingRecord) obj2);
             }
         });
-        E0();
+        X0();
     }
 
-    public Book H(String str) {
-        f l10;
-        if (l.q(str) || (l10 = e.l(str)) == null) {
-            return null;
+    public com.martian.mibook.lib.model.c.b a0(g source) {
+        return b0(source.getSourceName());
+    }
+
+    public boolean a1() {
+        return h.F().Y(f14022d, false) || this.f14028j.H();
+    }
+
+    public boolean b(MiBookMark bookMark) {
+        return this.k.a(bookMark);
+    }
+
+    public com.martian.mibook.lib.model.c.b b0(String sourceName) {
+        return this.f14027i.get(sourceName);
+    }
+
+    public void b1(MiBook mibook, Book oldBook, Book newBook) {
+        mibook.setSourceString(newBook.getSourceString());
+        T0(mibook);
+        BookWrapper L = this.f14028j.L(mibook, newBook);
+        if (L != null) {
+            p1(null, oldBook.getSourceString());
+            t1(L);
         }
-        return O(l10).m(l10);
     }
 
-    public boolean H0() {
-        return ConfigSingleton.D().Q(f13988m, false) || T().H();
-    }
-
-    public Book I(f fVar) {
-        wb.b O = O(fVar);
-        if (O == null) {
-            return null;
+    public void c(MiReadingRecord record) {
+        if (record == null || k.p(record.getSourceString())) {
+            return;
         }
-        return O.m(fVar);
+        if (this.m == null) {
+            this.m = new MiReadingRecordList();
+        }
+        for (MiReadingRecord miReadingRecord : this.m.getMiReadingRecords()) {
+            if (miReadingRecord != null && !k.p(miReadingRecord.getSourceString()) && miReadingRecord.getSourceString().equalsIgnoreCase(record.getSourceString())) {
+                miReadingRecord.setLastReadingTime(Long.valueOf(System.currentTimeMillis()));
+                miReadingRecord.setChapterTitle(record.getChapterTitle());
+                this.m.getMiReadingRecords().remove(miReadingRecord);
+                this.m.getMiReadingRecords().add(0, miReadingRecord);
+                X0();
+                return;
+            }
+        }
+        this.m.getMiReadingRecords().add(0, record);
+        X0();
     }
 
-    public abstract m<TYBookItem> I0(List<String> list);
-
-    public MiReadingRecord J(String str) {
-        return this.f13994e.b(str);
+    public Map<String, com.martian.mibook.lib.model.c.b> c0() {
+        return this.f14027i;
     }
 
-    public synchronized boolean J0(Activity activity, MiBookShelfItemList miBookShelfItemList) {
-        if (miBookShelfItemList != null) {
-            try {
-                if (miBookShelfItemList.getBookList() != null && !miBookShelfItemList.getBookList().isEmpty()) {
-                    ArrayList arrayList = new ArrayList();
-                    HashMap hashMap = new HashMap();
-                    Iterator it = new ArrayList(S()).iterator();
-                    while (it.hasNext()) {
-                        BookWrapper bookWrapper = (BookWrapper) it.next();
-                        if (bookWrapper != null && bookWrapper.book != null && !bookWrapper.isAdItem()) {
+    public abstract void c1(g source, final com.martian.mibook.lib.model.d.b receiver);
+
+    public synchronized BookWrapper d(Activity activity, MiBook mibook, Book book) {
+        BookWrapper b2;
+        b2 = this.f14028j.b(activity, mibook, book);
+        if (b2 != null) {
+            t1(b2);
+        }
+        return b2;
+    }
+
+    public synchronized MiBookStoreItem d0(String filepath) {
+        try {
+            filepath = new File(filepath).getCanonicalPath();
+        } catch (IOException e2) {
+            e2.printStackTrace();
+        }
+        return O(filepath);
+    }
+
+    public synchronized boolean d1(Activity activity, MiBookShelfItemList bookShelfItemList) {
+        if (bookShelfItemList != null) {
+            if (bookShelfItemList.getBookList() != null && !bookShelfItemList.getBookList().isEmpty()) {
+                ArrayList arrayList = new ArrayList();
+                HashMap hashMap = new HashMap();
+                Iterator it = new ArrayList(e0()).iterator();
+                while (it.hasNext()) {
+                    BookWrapper bookWrapper = (BookWrapper) it.next();
+                    if (bookWrapper != null && !bookWrapper.isAdsItem && !bookWrapper.isAdderItem) {
+                        if (bookWrapper.book == null) {
+                            arrayList.add(bookWrapper);
+                        } else if (k.p(bookWrapper.mibook.getSourceString())) {
                             hashMap.put(bookWrapper.book.getSourceString(), bookWrapper);
-                        }
-                    }
-                    HashMap hashMap2 = new HashMap();
-                    for (MiBookShelfItem miBookShelfItem : miBookShelfItemList.getBookList()) {
-                        if (h0(e.l(miBookShelfItem.getSourceString()))) {
-                            hashMap2.put(miBookShelfItem.getSourceString(), miBookShelfItem);
-                        }
-                    }
-                    for (Map.Entry entry : hashMap.entrySet()) {
-                        BookWrapper bookWrapper2 = (BookWrapper) entry.getValue();
-                        MiBookShelfItem miBookShelfItem2 = (MiBookShelfItem) hashMap2.get(entry.getKey());
-                        if (miBookShelfItem2 != null) {
-                            if (K0(bookWrapper2.item, miBookShelfItem2)) {
-                                T().J(bookWrapper2);
-                                MiReadingRecord d10 = this.f13994e.d(bookWrapper2.book);
-                                if (d10 != null) {
-                                    d10.setContentPos(bookWrapper2.item.getReadingContentPos());
-                                    d10.setContentLength(bookWrapper2.item.getReadingContentLength());
-                                    d10.setChapterIndex(bookWrapper2.item.getReadingChapterIndex());
-                                    d10.setBookName(bookWrapper2.book.getBookName());
-                                    this.f13994e.h(d10, true);
-                                }
-                            }
-                            arrayList.add(bookWrapper2);
-                            hashMap2.remove(entry.getKey());
-                        } else if (bookWrapper2.item.isReaded()) {
-                            arrayList.add(bookWrapper2);
                         } else {
-                            x(bookWrapper2);
+                            hashMap.put(bookWrapper.mibook.getSourceString(), bookWrapper);
                         }
                     }
-                    if (!hashMap2.isEmpty()) {
-                        m<TYBookItem> I0 = I0(new ArrayList(hashMap2.keySet()));
-                        if ((I0.k() && I0.e() != -100003) || I0.h() == null) {
-                            return false;
-                        }
-                        for (TYBookItem tYBookItem : I0.h()) {
-                            MiBookShelfItem miBookShelfItem3 = (MiBookShelfItem) hashMap2.get(tYBookItem.getSourceString());
-                            if (miBookShelfItem3 != null) {
-                                MiBookStoreItem miBookStoreItem = new MiBookStoreItem();
-                                K0(miBookStoreItem, miBookShelfItem3);
-                                BookWrapper f10 = f(activity, miBookStoreItem, tYBookItem);
-                                if (f10 != null) {
-                                    arrayList.add(f10);
-                                }
-                            }
-                        }
-                    }
-                    S().clear();
-                    S().addAll(arrayList);
-                    T().E();
-                    T().D();
-                    BookWrapper bookWrapper3 = new BookWrapper(null, null);
-                    bookWrapper3.setType(BookWrapper.Type.ADDER);
-                    S().add(bookWrapper3);
-                    r();
-                    return true;
                 }
-            } finally {
+                HashMap hashMap2 = new HashMap();
+                for (MiBookShelfItem miBookShelfItem : bookShelfItemList.getBookList()) {
+                    if (u0(d.k(miBookShelfItem.getSourceString()))) {
+                        hashMap2.put(miBookShelfItem.getSourceString(), miBookShelfItem);
+                    }
+                }
+                for (Map.Entry entry : hashMap.entrySet()) {
+                    BookWrapper bookWrapper2 = (BookWrapper) entry.getValue();
+                    MiBookShelfItem miBookShelfItem2 = (MiBookShelfItem) hashMap2.get(entry.getKey());
+                    if (miBookShelfItem2 != null) {
+                        l1(bookWrapper2.item, miBookShelfItem2);
+                        this.f14028j.M(bookWrapper2.item);
+                        arrayList.add(bookWrapper2);
+                        hashMap2.remove(entry.getKey());
+                    } else {
+                        F(bookWrapper2.mibook);
+                    }
+                }
+                for (Map.Entry entry2 : hashMap2.entrySet()) {
+                    MiBookShelfItem miBookShelfItem3 = (MiBookShelfItem) entry2.getValue();
+                    MiBookStoreItem miBookStoreItem = new MiBookStoreItem();
+                    l1(miBookStoreItem, miBookShelfItem3);
+                    c1(d.k((String) entry2.getKey()), new b(activity, miBookStoreItem, arrayList));
+                }
+                e0().clear();
+                e0().addAll(arrayList);
+                this.f14028j.C();
+                w();
+                return true;
             }
         }
         return true;
     }
 
-    public MiReadingRecord K(f fVar) {
-        return this.f13994e.d(fVar);
+    public synchronized BookWrapper e(Activity activity, MiBook mibook, Book book, Integer recommendTag) {
+        BookWrapper c2;
+        c2 = this.f14028j.c(activity, mibook, book, recommendTag);
+        if (c2 != null) {
+            t1(c2);
+        }
+        return c2;
     }
 
-    public final boolean K0(MiBookStoreItem miBookStoreItem, MiBookShelfItem miBookShelfItem) {
-        boolean z10;
-        miBookStoreItem.setSourceString(miBookShelfItem.getSourceString());
-        f l10 = e.l(miBookShelfItem.getSourceString());
-        if (l10 == null) {
+    public synchronized List<BookWrapper> e0() {
+        return this.f14028j.p();
+    }
+
+    public void e1() {
+    }
+
+    public synchronized BookWrapper f(Activity activity, MiBookStoreItem item, MiBook mibook, Book book) {
+        BookWrapper d2;
+        d2 = this.f14028j.d(activity, item, mibook, book);
+        if (d2 != null) {
+            t1(d2);
+        }
+        return d2;
+    }
+
+    public String f0() {
+        return this.l.f();
+    }
+
+    public void f1() {
+        this.f14028j.J();
+    }
+
+    public synchronized boolean g(int index, String tag) {
+        BookWrapper e2 = this.f14028j.e(index, tag);
+        if (e2 == null) {
             return false;
         }
-        String b10 = e.b(l10);
-        if (b10.equals(miBookStoreItem.getBookId())) {
-            z10 = false;
-        } else {
-            miBookStoreItem.setBookId(b10);
-            z10 = true;
+        if (e2.book != null) {
+            o1(e2);
         }
-        if (miBookShelfItem.getTop() != null) {
-            boolean z11 = miBookShelfItem.getTop().intValue() == 1;
-            if (miBookStoreItem.isFlagTop() != z11) {
-                miBookStoreItem.setFlagTop(z11);
-                z10 = true;
-            }
-        }
-        if (miBookStoreItem.getRawFlagTop() == null) {
-            miBookStoreItem.setFlagTop(false);
-        }
-        if (miBookShelfItem.getCidx() != null && !miBookShelfItem.getCidx().equals(miBookStoreItem.getReadingChapterIndex())) {
-            miBookStoreItem.setReadingChapterIndex(miBookShelfItem.getCidx());
-            z10 = true;
-        }
-        if (miBookShelfItem.getContentLength() != null && !miBookShelfItem.getContentLength().equals(miBookStoreItem.getReadingContentLength())) {
-            miBookStoreItem.setReadingContentLength(miBookShelfItem.getContentLength());
-            z10 = true;
-        }
-        if (miBookShelfItem.getContentPosition() != null && !miBookShelfItem.getContentPosition().equals(miBookStoreItem.getReadingContentPos())) {
-            miBookStoreItem.setReadingContentPos(miBookShelfItem.getContentPosition());
-            z10 = true;
-        }
-        if (miBookShelfItem.getDate() == null || miBookShelfItem.getDate().longValue() == 0) {
-            if (miBookStoreItem.getAddTime() == null) {
-                miBookStoreItem.setAddTime(Long.valueOf(System.currentTimeMillis()));
-                z10 = true;
-            }
-            if (miBookStoreItem.getLastReadingTime() == null) {
-                miBookStoreItem.setLastReadingTime(Long.valueOf(System.currentTimeMillis()));
-                z10 = true;
-            }
-        } else {
-            if (miBookStoreItem.getAddTime() == null) {
-                miBookStoreItem.setAddTime(miBookShelfItem.getDate());
-            }
-            if (miBookStoreItem.getLastReadingTime() == null || miBookStoreItem.getLastReadingTime().longValue() < miBookShelfItem.getDate().longValue()) {
-                miBookStoreItem.setLastReadingTime(miBookShelfItem.getDate());
-                z10 = true;
-            }
-        }
-        if (l.q(miBookShelfItem.f13983ca) || miBookShelfItem.f13983ca.equals(miBookStoreItem.getDirName())) {
-            return z10;
-        }
-        miBookStoreItem.setDirName(miBookShelfItem.f13983ca);
         return true;
     }
 
-    public void L() {
-        try {
-            this.f13995f.b();
-        } catch (Exception unused) {
+    public BookWrapper g0(Book book) {
+        return this.f14028j.q(book);
+    }
+
+    void g1(MiBook book) {
+        book.setSourceString("");
+        T0(book);
+    }
+
+    public synchronized boolean h(String tag) {
+        List<BookWrapper> p = this.f14028j.p();
+        if (p == null || p.size() <= 0) {
+            return false;
+        }
+        int i2 = 0;
+        while (i2 < p.size()) {
+            i2 = i(i2, tag);
+        }
+        return i2 != 1000;
+    }
+
+    public long h0(Book book) {
+        return a0(book).f(book);
+    }
+
+    void h1(String bookId) {
+        MiBook Q;
+        if (TextUtils.isEmpty(bookId) || (Q = Q(bookId)) == null) {
+            return;
+        }
+        g1(Q);
+    }
+
+    public MiCacheItem i0(g book) {
+        return j0(book.getSourceName(), book.getSourceId());
+    }
+
+    public boolean i1(Book newBook, Book book) {
+        if (newBook.getSourceId().equals(book.getSourceId())) {
+            return a0(book).z(newBook, book);
+        }
+        return false;
+    }
+
+    public void j(Activity activity, Book book, Chapter chapter, ChapterContent content, boolean prebuy, com.martian.mibook.lib.model.d.c receiver) {
+        a0(book).C(activity, book, chapter, content, prebuy, receiver);
+    }
+
+    public MiCacheItem j0(String sourceName, String sourceId) {
+        return this.f14026h.c(sourceName, sourceId);
+    }
+
+    public synchronized void j1(BookWrapper bookWrapper, String category) {
+        this.f14028j.K(bookWrapper.item, category);
+        t1(bookWrapper);
+    }
+
+    public abstract void k(final List<BookWrapper> bookWrappers, final com.martian.mibook.lib.model.d.a receiver);
+
+    public MiReadingRecord k0() {
+        if (this.m == null) {
+            F0();
+        }
+        MiReadingRecordList miReadingRecordList = this.m;
+        if (miReadingRecordList == null || miReadingRecordList.getMiReadingRecords() == null || this.m.getMiReadingRecords().isEmpty()) {
+            return null;
+        }
+        return this.m.getMiReadingRecords().get(0);
+    }
+
+    public synchronized void k1(MiBookStoreItem item) {
+        this.f14028j.M(item);
+    }
+
+    public void l(Book book, f receiver) {
+        a0(book).g(book, receiver, true);
+    }
+
+    public synchronized MiReadingRecordList l0() {
+        if (this.m == null) {
+            F0();
+        }
+        return this.m;
+    }
+
+    public abstract void m(g source, final com.martian.mibook.lib.model.d.b receiver);
+
+    public boolean m0(Book newbook) {
+        return a0(newbook).i(newbook);
+    }
+
+    public void n(Book book, ChapterList chapterList, int index, com.martian.mibook.lib.model.d.e receiver) {
+        a0(book).d(book, chapterList, index, receiver);
+    }
+
+    public boolean n0(Book newBook) {
+        return a0(newBook).G(newBook);
+    }
+
+    public synchronized void n1(Book book, ChapterList chapterList) {
+        this.f14028j.O(book, chapterList);
+    }
+
+    public void o(Book book, boolean localFailure, boolean fetchLocal, f receiver) {
+        if (localFailure || (!h.F().O0() && p0(book))) {
+            l(book, receiver);
+        } else if (fetchLocal) {
+            a0(book).A(book, receiver, true);
         }
     }
 
-    public void L0(BookWrapper bookWrapper) {
+    public boolean o0(g sourceProvider, Chapter chapter) {
+        return a0(sourceProvider).r(sourceProvider, chapter);
+    }
+
+    public void o1(BookWrapper bookWrapper) {
+        p1(bookWrapper, "");
+    }
+
+    public void p(Book book, f receiver) {
+        a0(book).A(book, receiver, false);
+    }
+
+    public boolean p0(Book newBook) {
+        return a0(newBook).y(newBook);
+    }
+
+    public void p1(BookWrapper bookWrapper, String sourceString) {
         BookSyncInfo bookSyncInfo = new BookSyncInfo();
-        Book book = bookWrapper.book;
-        if (book != null) {
-            bookSyncInfo.setSourceString(book.getSourceString());
+        if (k.p(sourceString)) {
+            MiBook miBook = bookWrapper.mibook;
+            if (miBook == null || k.p(miBook.getSourceString())) {
+                Book book = bookWrapper.book;
+                if (book != null) {
+                    bookSyncInfo.ss = book.getSourceString();
+                } else {
+                    MiBookStoreItem miBookStoreItem = bookWrapper.item;
+                    if (miBookStoreItem != null) {
+                        bookSyncInfo.ss = miBookStoreItem.getSourceString();
+                    }
+                }
+            } else {
+                bookSyncInfo.ss = bookWrapper.mibook.getSourceString();
+            }
         } else {
-            MiBookStoreItem miBookStoreItem = bookWrapper.item;
-            if (miBookStoreItem != null) {
-                bookSyncInfo.setSourceString(miBookStoreItem.getSourceString());
+            bookSyncInfo.ss = sourceString;
+        }
+        bookSyncInfo.opt = Long.valueOf(System.currentTimeMillis());
+        bookSyncInfo.op = BookSyncInfo.OP_DELETE;
+        this.l.j(bookSyncInfo);
+        Y();
+    }
+
+    public long q(Activity activity, List<Book> bookList) {
+        return this.f14028j.f(activity, bookList);
+    }
+
+    public void q1(g source, Chapter chapter, int chapterIndex, int chapterSize) {
+        r1(source.getSourceName(), source.getSourceId(), chapter, chapterIndex, chapterSize);
+    }
+
+    void r(MiBook mibook, Book book) {
+        mibook.setSourceString(d.i(book));
+        T0(mibook);
+    }
+
+    public synchronized void r0() {
+        this.f14028j.t();
+    }
+
+    public void r1(String sourceName, String sourceId, Chapter chapter, int chapterIndex, int chapterSize) {
+        MiCacheItem j0 = j0(sourceName, sourceId);
+        if (j0 == null || j0.getChapterIndex().intValue() <= chapterIndex) {
+            this.f14026h.insertOrUpdate((i) new MiCacheItem(sourceName, sourceId, Integer.valueOf(chapterIndex), Integer.valueOf(chapterSize), chapter.getTitle(), chapter.getSrcLink()));
+        }
+    }
+
+    public Set<String> s() {
+        return this.f14028j.g();
+    }
+
+    public void s0(Book book) {
+        a0(book).e(book);
+    }
+
+    public boolean s1(Book newBook) {
+        return a0(newBook).z(newBook, newBook);
+    }
+
+    public synchronized void t(BookWrapper bookWrapper, int position) {
+        this.f14028j.h(bookWrapper.item, position);
+        t1(bookWrapper);
+    }
+
+    public void t0(List<Book> bookList) {
+        HashMap hashMap = new HashMap();
+        for (Book book : bookList) {
+            String sourceString = book.getSourceString();
+            List list = (List) hashMap.get(sourceString);
+            if (list == null) {
+                list = new ArrayList();
+                hashMap.put(sourceString, list);
+            }
+            list.add(book);
+        }
+        for (Map.Entry entry : hashMap.entrySet()) {
+            if (entry != null) {
+                g k = d.k((String) entry.getKey());
+                k.getClass();
+                a0(k).k((List) entry.getValue());
             }
         }
-        bookSyncInfo.setOpt(Long.valueOf(System.currentTimeMillis()));
-        bookSyncInfo.setOp(BookSyncInfo.OP_DELETE.intValue());
-        this.f13995f.h(bookSyncInfo);
-        L();
     }
 
-    public List<MiBookMark> M(String str) {
-        return this.f13996g.c(str, null);
+    public void t1(BookWrapper bookWrapper) {
+        u1(bookWrapper, true);
     }
 
-    public void M0() {
-        j.n(this.f13990a, f13987l, System.currentTimeMillis());
+    public synchronized void u() {
+        this.f14028j.i();
     }
 
-    public wb.b N(String str) {
-        return this.f13992c.get(str);
-    }
-
-    public void N0(String str, String str2, Chapter chapter, int i10, int i11) {
-        MiCacheItem Y = Y(str, str2);
-        if (Y == null || Y.getChapterIndex().intValue() <= i10) {
-            this.f13991b.q(new MiCacheItem(str, str2, Integer.valueOf(i10), Integer.valueOf(i11), chapter.getTitle(), chapter.getSrcLink()));
-        }
-    }
-
-    public wb.b O(f fVar) {
-        return N(fVar.getSourceName());
-    }
-
-    public void O0(f fVar, Chapter chapter, int i10, int i11) {
-        N0(fVar.getSourceName(), fVar.getSourceId(), chapter, i10, i11);
-    }
-
-    public Map<String, wb.b> P() {
-        return this.f13992c;
-    }
-
-    public void P0(Book book) {
-        O(book).z(book, book);
-    }
-
-    public Map<String, BookSyncInfo> Q() {
-        return this.f13995f.c();
-    }
-
-    public void Q0(BookWrapper bookWrapper) {
-        R0(bookWrapper, true);
-    }
-
-    public String R() {
-        return this.f13995f.e();
-    }
-
-    public void R0(BookWrapper bookWrapper, boolean z10) {
+    public void u1(BookWrapper bookWrapper, boolean z) {
         MiBookStoreItem miBookStoreItem = bookWrapper.item;
         if (miBookStoreItem == null) {
             return;
         }
         BookSyncInfo bookSyncInfo = new BookSyncInfo();
-        if (l.q(miBookStoreItem.getSourceString())) {
+        MiBook miBook = bookWrapper.mibook;
+        if (miBook == null || k.p(miBook.getSourceString())) {
             Book book = bookWrapper.book;
             if (book != null) {
-                bookSyncInfo.setSourceString(book.getSourceString());
+                bookSyncInfo.ss = book.getSourceString();
+            } else {
+                bookSyncInfo.ss = miBookStoreItem.getSourceString();
             }
         } else {
-            bookSyncInfo.setSourceString(miBookStoreItem.getSourceString());
+            bookSyncInfo.ss = bookWrapper.mibook.getSourceString();
         }
-        bookSyncInfo.setOpt(miBookStoreItem.getLastReadingTime() == null ? miBookStoreItem.getAddTime() : miBookStoreItem.getLastReadingTime());
-        bookSyncInfo.setContentPosition(miBookStoreItem.getReadingContentPos());
-        bookSyncInfo.setContentLength(miBookStoreItem.getReadingContentLength());
-        bookSyncInfo.setCidx(miBookStoreItem.getReadingChapterIndex());
-        bookSyncInfo.setOp(BookSyncInfo.OP_UPDATE.intValue());
-        bookSyncInfo.setCategory(miBookStoreItem.getDirName());
-        bookSyncInfo.setTop(Integer.valueOf(miBookStoreItem.isFlagTop() ? 1 : 0));
-        this.f13995f.h(bookSyncInfo);
-        if (z10) {
-            L();
+        Long lastReadingTime = miBookStoreItem.getLastReadingTime();
+        bookSyncInfo.opt = lastReadingTime;
+        if (lastReadingTime == null) {
+            bookSyncInfo.opt = miBookStoreItem.getAddTime();
+        }
+        bookSyncInfo.cp = miBookStoreItem.getReadingContentPos();
+        bookSyncInfo.cl = miBookStoreItem.getReadingContentLength();
+        bookSyncInfo.cx = miBookStoreItem.getReadingChapterIndex();
+        bookSyncInfo.op = BookSyncInfo.OP_UPDATE;
+        bookSyncInfo.ca = miBookStoreItem.getDirName();
+        bookSyncInfo.top = Integer.valueOf(miBookStoreItem.isFlagTop() ? 1 : 0);
+        this.l.j(bookSyncInfo);
+        if (z) {
+            Y();
         }
     }
 
-    public List<BookWrapper> S() {
-        return T().p();
+    public void v(g book) {
+        x(book);
+        H(book);
+        G(book);
     }
 
-    public vb.c T() {
-        if (this.f13993d == null) {
-            this.f13993d = new vb.c(this);
-        }
-        return this.f13993d;
+    public synchronized boolean v0(MiBook mibook) {
+        return this.f14028j.u(mibook == null ? "" : mibook.getBookId());
     }
 
-    public List<MiBookMark> U(String str, Chapter chapter) {
-        if (TextUtils.isEmpty(str) || chapter == null || TextUtils.isEmpty(chapter.getChapterId())) {
-            return null;
-        }
-        return this.f13996g.d(str, chapter.getChapterId(), 0);
+    public void w() {
+        this.l.a();
     }
 
-    public List<MiBookMark> V(String str, Chapter chapter) {
-        if (TextUtils.isEmpty(str) || chapter == null || TextUtils.isEmpty(chapter.getChapterId())) {
-            return null;
-        }
-        return this.f13996g.d(str, chapter.getChapterId(), 1);
+    public synchronized boolean w0(String bookId) {
+        return this.f14028j.u(bookId);
     }
 
-    public long W(Book book) {
-        return O(book).f(book);
+    public void x(g sourceProvider) {
+        a0(sourceProvider).a(sourceProvider);
     }
 
-    public long X() {
-        return j.h(this.f13990a, f13987l, 0L);
-    }
-
-    public MiCacheItem Y(String str, String str2) {
-        return this.f13991b.M(str, str2);
-    }
-
-    public MiReadingRecord Z() {
-        if (this.f13997h == null) {
-            r0();
-        }
-        MiReadingRecordList miReadingRecordList = this.f13997h;
-        if (miReadingRecordList == null || miReadingRecordList.getMiReadingRecords() == null || this.f13997h.getMiReadingRecords().isEmpty()) {
-            return null;
-        }
-        return this.f13997h.getMiReadingRecords().get(0);
-    }
-
-    public synchronized MiReadingRecordList a0() {
+    public synchronized boolean x0(String filepath) {
         try {
-            if (this.f13997h == null) {
-                r0();
-            }
-        } catch (Throwable th2) {
-            throw th2;
+            filepath = new File(filepath).getCanonicalPath();
+        } catch (IOException e2) {
+            e2.printStackTrace();
         }
-        return this.f13997h;
+        return O(filepath) != null;
     }
 
-    public synchronized MiBookStoreItem b0(String str) {
+    public void y() {
+        this.m = new MiReadingRecordList();
+        X0();
+    }
+
+    public synchronized boolean y0(String filepath) {
         try {
-            str = new File(str).getCanonicalPath();
-        } catch (IOException e10) {
-            p0.b(e10.getMessage());
+            filepath = new File(filepath).getCanonicalPath();
+        } catch (IOException e2) {
+            e2.printStackTrace();
         }
-        return F(e.f31296c, str);
+        return O(filepath) != null;
     }
 
-    public MiBookMark c(Book book, Chapter chapter, int i10, String str, int i11, int i12) {
-        return this.f13996g.a(book, chapter, i10, str, i11, i12, 0);
-    }
-
-    public boolean c0(f fVar, Chapter chapter) {
-        return O(fVar).b(fVar, chapter);
-    }
-
-    public MiBookMark d(Book book, Chapter chapter, int i10, String str, int i11, int i12) {
-        return this.f13996g.a(book, chapter, i10, str, i11, i12, 1);
-    }
-
-    public boolean d0(Book book) {
-        return O(book).y(book);
-    }
-
-    public void e(MiReadingRecord miReadingRecord) {
-        if (miReadingRecord == null || l.q(miReadingRecord.getSourceString())) {
-            return;
-        }
-        if (this.f13997h == null) {
-            this.f13997h = new MiReadingRecordList();
-        }
-        for (MiReadingRecord miReadingRecord2 : this.f13997h.getMiReadingRecords()) {
-            if (miReadingRecord2 != null && !l.q(miReadingRecord2.getSourceString()) && miReadingRecord2.getSourceString().equalsIgnoreCase(miReadingRecord.getSourceString())) {
-                miReadingRecord2.setLastReadingTime(Long.valueOf(System.currentTimeMillis()));
-                miReadingRecord2.setChapterTitle(miReadingRecord.getChapterTitle());
-                miReadingRecord2.setChapterIndex(Integer.valueOf(miReadingRecord.getChapterIndex()));
-                Integer contentPos = miReadingRecord.getContentPos();
-                if (contentPos != null) {
-                    miReadingRecord2.setContentPos(contentPos);
-                }
-                miReadingRecord2.setAudiobook(Integer.valueOf(miReadingRecord.getAudiobook()));
-                if (!TextUtils.isEmpty(miReadingRecord.getCover())) {
-                    miReadingRecord2.setCover(miReadingRecord.getCover());
-                }
-                this.f13997h.getMiReadingRecords().remove(miReadingRecord2);
-                this.f13997h.getMiReadingRecords().add(0, miReadingRecord2);
-                E0();
-                return;
-            }
-        }
-        this.f13997h.getMiReadingRecords().add(0, miReadingRecord);
-        E0();
-    }
-
-    public final void e0(Context context) {
-        HashMap hashMap = new HashMap();
-        this.f13992c = hashMap;
-        v0(context, hashMap);
-    }
-
-    public synchronized BookWrapper f(Activity activity, MiBookStoreItem miBookStoreItem, Book book) {
-        return T().b(activity, miBookStoreItem, book);
-    }
-
-    public boolean f0(Book book) {
-        return O(book).e(book);
-    }
-
-    public synchronized BookWrapper g(Activity activity, Book book) {
-        return h(activity, book, null);
-    }
-
-    public void g0(List<Book> list) {
-        HashMap hashMap = new HashMap();
-        for (Book book : list) {
-            String sourceString = book.getSourceString();
-            List list2 = (List) hashMap.get(sourceString);
-            if (list2 == null) {
-                list2 = new ArrayList();
-                hashMap.put(sourceString, list2);
-            }
-            list2.add(book);
-        }
-        for (Map.Entry entry : hashMap.entrySet()) {
-            if (entry != null) {
-                f l10 = e.l((String) entry.getKey());
-                Objects.requireNonNull(l10);
-                O(l10).l((List) entry.getValue());
-            }
-        }
-    }
-
-    public synchronized BookWrapper h(Activity activity, Book book, Integer num) {
-        return T().c(activity, book, num);
-    }
-
-    public final boolean h0(f fVar) {
-        wb.b O = O(fVar);
-        return O != null && O.J();
-    }
-
-    public void i(Activity activity, Book book, Chapter chapter, ChapterContent chapterContent, boolean z10, xb.c cVar) {
-        if (O(book) == null) {
-            return;
-        }
-        O(book).C(activity, book, chapter, chapterContent, z10, cVar);
-    }
-
-    public synchronized boolean i0(String str) {
-        return T().v(str);
-    }
-
-    public void j(Book book, int i10, xb.f fVar) {
-        if (O(book) == null) {
-            return;
-        }
-        O(book).x(book, i10, fVar, true);
-    }
-
-    public synchronized boolean j0(String str, String str2) {
-        return T().v(e.j(str, str2));
-    }
-
-    public abstract void k(f fVar, xb.b bVar);
-
-    public synchronized boolean k0(f fVar) {
-        return T().v(e.k(fVar));
-    }
-
-    public void l(Book book, ChapterList chapterList, int i10, xb.e eVar) {
-        O(book).u(book, chapterList, i10, eVar);
-    }
-
-    public void m(Book book, int i10, boolean z10, boolean z11, xb.f fVar) {
-        if (z10 || (!ConfigSingleton.D().G0() && d0(book))) {
-            j(book, i10, fVar);
-        } else if (z11) {
-            O(book).A(book, fVar, true);
-        }
-    }
-
-    public List<MiArchiveBookItem> m0() {
-        return T().w();
-    }
-
-    public void n(Book book, xb.f fVar) {
-        if (O(book) == null) {
-            return;
-        }
-        O(book).A(book, fVar, false);
-    }
-
-    public List<MiArchiveBookItem> n0(String str) {
-        return T().x(str);
-    }
-
-    public void o(String str, d dVar) {
-        new c(str, dVar).executeSerial(new Void[0]);
-    }
-
-    public List<k.d> o0() {
-        return T().y();
-    }
-
-    public void p(d dVar) {
-        new b(dVar).executeSerial(new Void[0]);
-    }
-
-    public List<Book> p0(List<f> list) {
-        HashMap hashMap = new HashMap();
-        for (f fVar : list) {
-            wb.b O = O(fVar);
-            if (O != null) {
-                List list2 = (List) hashMap.get(O);
-                if (list2 == null) {
-                    list2 = new ArrayList();
-                    hashMap.put(O, list2);
-                }
-                list2.add(fVar);
-            }
-        }
-        ArrayList arrayList = new ArrayList();
-        for (Map.Entry entry : hashMap.entrySet()) {
-            wb.b bVar = (wb.b) entry.getKey();
-            List<f> list3 = (List) entry.getValue();
-            if (!list3.isEmpty()) {
-                for (Book book : bVar.L(list3)) {
-                    if (!TextUtils.isEmpty(book.getBookName())) {
-                        arrayList.add(book);
-                    }
-                }
-            }
-        }
-        return arrayList;
-    }
-
-    public void q(f fVar) {
-        s(fVar);
-        z(fVar);
-        y(fVar);
-    }
-
-    public List<MiReadingRecord> q0(List<String> list) {
-        return this.f13994e.f(list);
-    }
-
-    public void r() {
-        this.f13995f.a();
-    }
-
-    public MiReadingRecordList r0() {
-        try {
-            String B = g.B(this.f13990a, f13989n);
-            if (!TextUtils.isEmpty(B)) {
-                MiReadingRecordList miReadingRecordList = (MiReadingRecordList) GsonUtils.b().fromJson(B, MiReadingRecordList.class);
-                this.f13997h = miReadingRecordList;
-                return miReadingRecordList;
-            }
-        } catch (JsonSyntaxException | IOException e10) {
-            p0.b(e10.getMessage());
-        }
-        MiReadingRecordList miReadingRecordList2 = new MiReadingRecordList();
-        this.f13997h = miReadingRecordList2;
-        return miReadingRecordList2;
-    }
-
-    public void s(f fVar) {
-        O(fVar).t(fVar);
-    }
-
-    public synchronized void s0(List<BookWrapper> list, boolean z10) {
-        Iterator<BookWrapper> it = list.iterator();
-        while (it.hasNext()) {
-            T().B(it.next(), z10);
-        }
-    }
-
-    public zb.c t(f fVar, ChapterList chapterList, int i10, int i11, xb.d dVar) {
-        return new a(fVar, chapterList, i10, i11, O(fVar), dVar);
-    }
-
-    public synchronized boolean t0(String str) {
-        try {
-            str = new File(str).getCanonicalPath();
-        } catch (IOException e10) {
-            p0.b(e10.getMessage());
-        }
-        return F(e.f31296c, str) == null;
-    }
-
-    public void u(MiArchiveBookItem miArchiveBookItem) {
-        if (!T().g(miArchiveBookItem) || TextUtils.isEmpty(miArchiveBookItem.getSourceString())) {
-            return;
-        }
-        q(e.l(miArchiveBookItem.getSourceString()));
-    }
-
-    public Cursor u0(String str) {
-        return this.f13996g.e(str, null);
-    }
-
-    public boolean v(MiBookMark miBookMark) {
-        return this.f13996g.b(miBookMark);
-    }
-
-    public abstract void v0(Context context, Map<String, wb.b> map);
-
-    public void w(MiBookMark miBookMark) {
-        this.f13996g.b(miBookMark);
-    }
-
-    public void w0(MiArchiveBookItem miArchiveBookItem) {
-        T().g(miArchiveBookItem);
-    }
-
-    public synchronized boolean x(BookWrapper bookWrapper) {
-        return T().i(bookWrapper);
-    }
-
-    public void x0(MiReadingRecord miReadingRecord) {
-        MiReadingRecordList miReadingRecordList;
-        if (miReadingRecord == null || (miReadingRecordList = this.f13997h) == null || miReadingRecordList.getMiReadingRecords().isEmpty()) {
-            return;
-        }
-        Iterator<MiReadingRecord> it = this.f13997h.getMiReadingRecords().iterator();
-        while (true) {
-            if (!it.hasNext()) {
-                break;
-            } else if (it.next().getSourceString().equalsIgnoreCase(miReadingRecord.getSourceString())) {
-                it.remove();
-                break;
-            }
-        }
-        E0();
-    }
-
-    public synchronized void y(f fVar) {
-        this.f13991b.L(fVar);
-    }
-
-    public final void y0(List<BookWrapper> list) {
-        r();
-        for (BookWrapper bookWrapper : list) {
-            if (bookWrapper.item != null) {
-                R0(bookWrapper, false);
-            }
-        }
-        L();
-    }
-
-    public void z(f fVar) {
-        O(fVar).n(fVar);
-    }
-
-    public synchronized void z0(List<MiArchiveBookItem> list) {
-        T().F(list);
+    public com.martian.mibook.lib.model.f.c z(g sourceProvider, ChapterList chapterList, int start, int size, final com.martian.mibook.lib.model.d.d receiver) {
+        return new a(sourceProvider, chapterList, start, size, a0(sourceProvider), receiver);
     }
 }

@@ -32,11 +32,11 @@ public class DownloadProcessDispatcher {
     private volatile List<IDownloaderProcessConnectedListener> processConnectedListeners = new ArrayList();
 
     /* renamed from: com.ss.android.socialbase.downloader.downloader.DownloadProcessDispatcher$1 */
-    public class AnonymousClass1 implements Runnable {
+    class AnonymousClass1 implements Runnable {
         final /* synthetic */ IDownloadProxy val$downloadProxy;
         final /* synthetic */ DownloadTask val$downloadTask;
 
-        public AnonymousClass1(IDownloadProxy iDownloadProxy, DownloadTask downloadTask) {
+        AnonymousClass1(IDownloadProxy iDownloadProxy, DownloadTask downloadTask) {
             downloadHandler = iDownloadProxy;
             downloadTask = downloadTask;
         }
@@ -72,87 +72,83 @@ public class DownloadProcessDispatcher {
                 }
             }
         }
-        for (int i10 = 0; i10 < sparseArray.size(); i10++) {
-            arrayList.add(sparseArray.get(sparseArray.keyAt(i10)));
+        for (int i2 = 0; i2 < sparseArray.size(); i2++) {
+            arrayList.add(sparseArray.get(sparseArray.keyAt(i2)));
         }
         return arrayList;
     }
 
-    public void addDownloadListener(int i10, IDownloadListener iDownloadListener, ListenerType listenerType, boolean z10) {
-        IDownloadProxy downloadHandler = getDownloadHandler(i10);
+    public void addDownloadListener(int i2, IDownloadListener iDownloadListener, ListenerType listenerType, boolean z) {
+        IDownloadProxy downloadHandler = getDownloadHandler(i2);
         if (downloadHandler == null) {
             return;
         }
-        downloadHandler.addDownloadListener(i10, iDownloadListener.hashCode(), iDownloadListener, listenerType, z10);
+        downloadHandler.addDownloadListener(i2, iDownloadListener.hashCode(), iDownloadListener, listenerType, z);
     }
 
-    public boolean canResume(int i10) {
-        IDownloadProxy downloadHandler = getDownloadHandler(i10);
+    public boolean canResume(int i2) {
+        IDownloadProxy downloadHandler = getDownloadHandler(i2);
         if (downloadHandler == null) {
             return false;
         }
-        return downloadHandler.canResume(i10);
+        return downloadHandler.canResume(i2);
     }
 
-    public void cancel(int i10, boolean z10) {
+    public void cancel(int i2, boolean z) {
         if (!DownloadUtils.isMainProcess()) {
-            IDownloadProxy downloadHandler = getDownloadHandler(i10);
+            IDownloadProxy downloadHandler = getDownloadHandler(i2);
             if (downloadHandler != null) {
-                downloadHandler.cancel(i10, z10);
+                downloadHandler.cancel(i2, z);
             }
-            DownloadProxy.get(true).dispatchProcessCallback(2, i10);
+            DownloadProxy.get(true).dispatchProcessCallback(2, i2);
             return;
         }
         if (DownloadExpSwitchCode.isSwitchEnable(8388608)) {
             IDownloadProxy iDownloadProxy = DownloadProxy.get(true);
             if (iDownloadProxy != null) {
-                iDownloadProxy.cancel(i10, z10);
+                iDownloadProxy.cancel(i2, z);
             }
             IDownloadProxy iDownloadProxy2 = DownloadProxy.get(false);
             if (iDownloadProxy2 != null) {
-                iDownloadProxy2.cancel(i10, z10);
+                iDownloadProxy2.cancel(i2, z);
                 return;
             }
             return;
         }
         IDownloadProxy iDownloadProxy3 = DownloadProxy.get(false);
         if (iDownloadProxy3 != null) {
-            iDownloadProxy3.cancel(i10, z10);
+            iDownloadProxy3.cancel(i2, z);
         }
         IDownloadProxy iDownloadProxy4 = DownloadProxy.get(true);
         if (iDownloadProxy4 != null) {
-            iDownloadProxy4.cancel(i10, z10);
+            iDownloadProxy4.cancel(i2, z);
         }
     }
 
-    public void clearDownloadData(int i10, boolean z10) {
-        IDownloadProxy downloadHandler = getDownloadHandler(i10);
+    public void clearDownloadData(int i2, boolean z) {
+        IDownloadProxy downloadHandler = getDownloadHandler(i2);
         if (downloadHandler == null) {
             return;
         }
-        downloadHandler.clearDownloadData(i10, z10);
+        downloadHandler.clearDownloadData(i2, z);
     }
 
     public void dispatchDownloaderProcessConnectedEvent() {
         synchronized (this.processConnectedListeners) {
-            try {
-                for (IDownloaderProcessConnectedListener iDownloaderProcessConnectedListener : this.processConnectedListeners) {
-                    if (iDownloaderProcessConnectedListener != null) {
-                        iDownloaderProcessConnectedListener.onConnected();
-                    }
+            for (IDownloaderProcessConnectedListener iDownloaderProcessConnectedListener : this.processConnectedListeners) {
+                if (iDownloaderProcessConnectedListener != null) {
+                    iDownloaderProcessConnectedListener.onConnected();
                 }
-            } catch (Throwable th2) {
-                throw th2;
             }
         }
     }
 
-    public void forceDownloadIngoreRecommendSize(int i10) {
-        IDownloadProxy downloadHandler = getDownloadHandler(i10);
+    public void forceDownloadIngoreRecommendSize(int i2) {
+        IDownloadProxy downloadHandler = getDownloadHandler(i2);
         if (downloadHandler == null) {
             return;
         }
-        downloadHandler.forceDownloadIngoreRecommendSize(i10);
+        downloadHandler.forceDownloadIngoreRecommendSize(i2);
     }
 
     public List<DownloadInfo> getAllDownloadInfo() {
@@ -163,36 +159,36 @@ public class DownloadProcessDispatcher {
         return handleDownloadInfos(allDownloadInfo, iDownloadProxy2 != null ? iDownloadProxy2.getAllDownloadInfo() : null, sparseArray);
     }
 
-    public long getCurBytes(int i10) {
-        IDownloadProxy downloadHandler = getDownloadHandler(i10);
+    public long getCurBytes(int i2) {
+        IDownloadProxy downloadHandler = getDownloadHandler(i2);
         if (downloadHandler == null) {
             return 0L;
         }
-        return downloadHandler.getCurBytes(i10);
+        return downloadHandler.getCurBytes(i2);
     }
 
-    public IDownloadFileUriProvider getDownloadFileUriProvider(int i10) {
-        IDownloadProxy downloadHandler = getDownloadHandler(i10);
+    public IDownloadFileUriProvider getDownloadFileUriProvider(int i2) {
+        IDownloadProxy downloadHandler = getDownloadHandler(i2);
         if (downloadHandler == null) {
             return null;
         }
-        return downloadHandler.getDownloadFileUriProvider(i10);
+        return downloadHandler.getDownloadFileUriProvider(i2);
     }
 
-    public IDownloadProxy getDownloadHandler(int i10) {
-        return DownloadProxy.get(getDownloadWithIndependentProcessStatus(i10) == 1 && !DownloadUtils.isDownloaderProcess());
+    public IDownloadProxy getDownloadHandler(int i2) {
+        return DownloadProxy.get(getDownloadWithIndependentProcessStatus(i2) == 1 && !DownloadUtils.isDownloaderProcess());
     }
 
     public int getDownloadId(String str, String str2) {
         return DownloadComponentManager.getDownloadId(str, str2);
     }
 
-    public DownloadInfo getDownloadInfo(int i10) {
-        IDownloadProxy downloadHandler = getDownloadHandler(i10);
+    public DownloadInfo getDownloadInfo(int i2) {
+        IDownloadProxy downloadHandler = getDownloadHandler(i2);
         if (downloadHandler == null) {
             return null;
         }
-        return downloadHandler.getDownloadInfo(i10);
+        return downloadHandler.getDownloadInfo(i2);
     }
 
     public List<DownloadInfo> getDownloadInfoList(String str) {
@@ -209,26 +205,26 @@ public class DownloadProcessDispatcher {
         return arrayList;
     }
 
-    public IDownloadNotificationEventListener getDownloadNotificationEventListener(int i10) {
-        IDownloadProxy downloadHandler = getDownloadHandler(i10);
+    public IDownloadNotificationEventListener getDownloadNotificationEventListener(int i2) {
+        IDownloadProxy downloadHandler = getDownloadHandler(i2);
         if (downloadHandler == null) {
             return null;
         }
-        return downloadHandler.getDownloadNotificationEventListener(i10);
+        return downloadHandler.getDownloadNotificationEventListener(i2);
     }
 
-    public int getDownloadWithIndependentProcessStatus(int i10) {
+    public int getDownloadWithIndependentProcessStatus(int i2) {
         if (DownloadComponentManager.supportMultiProc()) {
-            return (DownloadUtils.isDownloaderProcess() || !DownloadProxy.get(true).isServiceAlive()) ? getDownloadWithIndependentProcessStatusInner(i10) : DownloadProxy.get(true).getDownloadWithIndependentProcessStatus(i10);
+            return (DownloadUtils.isDownloaderProcess() || !DownloadProxy.get(true).isServiceAlive()) ? getDownloadWithIndependentProcessStatusInner(i2) : DownloadProxy.get(true).getDownloadWithIndependentProcessStatus(i2);
         }
         return -1;
     }
 
-    public synchronized int getDownloadWithIndependentProcessStatusInner(int i10) {
-        if (this.independentMap.get(i10) == null) {
+    public synchronized int getDownloadWithIndependentProcessStatusInner(int i2) {
+        if (this.independentMap.get(i2) == null) {
             return -1;
         }
-        return this.independentMap.get(i10).booleanValue() ? 1 : 0;
+        return this.independentMap.get(i2).booleanValue() ? 1 : 0;
     }
 
     public List<DownloadInfo> getDownloadingDownloadInfosWithMimeType(String str) {
@@ -247,20 +243,20 @@ public class DownloadProcessDispatcher {
         return handleDownloadInfos(failedDownloadInfosWithMimeType, iDownloadProxy2 != null ? iDownloadProxy2.getFailedDownloadInfosWithMimeType(str) : null, sparseArray);
     }
 
-    public INotificationClickCallback getNotificationClickCallback(int i10) {
-        IDownloadProxy downloadHandler = getDownloadHandler(i10);
+    public INotificationClickCallback getNotificationClickCallback(int i2) {
+        IDownloadProxy downloadHandler = getDownloadHandler(i2);
         if (downloadHandler == null) {
             return null;
         }
-        return downloadHandler.getNotificationClickCallback(i10);
+        return downloadHandler.getNotificationClickCallback(i2);
     }
 
-    public int getStatus(int i10) {
-        IDownloadProxy downloadHandler = getDownloadHandler(i10);
+    public int getStatus(int i2) {
+        IDownloadProxy downloadHandler = getDownloadHandler(i2);
         if (downloadHandler == null) {
             return 0;
         }
-        return downloadHandler.getStatus(i10);
+        return downloadHandler.getStatus(i2);
     }
 
     public List<DownloadInfo> getSuccessedDownloadInfosWithMimeType(String str) {
@@ -295,24 +291,24 @@ public class DownloadProcessDispatcher {
         return downloadHandler.isDownloadSuccessAndFileNotExist(downloadInfo);
     }
 
-    public boolean isDownloading(int i10) {
-        IDownloadProxy downloadHandler = getDownloadHandler(i10);
+    public boolean isDownloading(int i2) {
+        IDownloadProxy downloadHandler = getDownloadHandler(i2);
         if (downloadHandler == null) {
             return false;
         }
-        return downloadHandler.isDownloading(i10);
+        return downloadHandler.isDownloading(i2);
     }
 
     public boolean isHttpServiceInit() {
         return DownloadComponentManager.isHttpServiceInit();
     }
 
-    public void pause(int i10) {
-        IDownloadProxy downloadHandler = getDownloadHandler(i10);
+    public void pause(int i2) {
+        IDownloadProxy downloadHandler = getDownloadHandler(i2);
         if (downloadHandler == null) {
             return;
         }
-        downloadHandler.pause(i10);
+        downloadHandler.pause(i2);
     }
 
     public void pauseAll() {
@@ -326,11 +322,11 @@ public class DownloadProcessDispatcher {
         }
     }
 
-    public void recordTaskProcessIndependent(int i10) {
-        if (i10 == 0) {
+    public void recordTaskProcessIndependent(int i2) {
+        if (i2 == 0) {
             return;
         }
-        setDownloadIndependentProcessStatus(i10, true);
+        setDownloadIndependentProcessStatus(i2, true);
         IDownloadProxy iDownloadProxy = DownloadProxy.get(true);
         if (iDownloadProxy == null) {
             return;
@@ -354,30 +350,26 @@ public class DownloadProcessDispatcher {
             iDownloaderProcessConnectedListener.onConnected();
         }
         synchronized (this.processConnectedListeners) {
-            try {
-                if (!this.processConnectedListeners.contains(iDownloaderProcessConnectedListener)) {
-                    this.processConnectedListeners.add(iDownloaderProcessConnectedListener);
-                }
-            } catch (Throwable th2) {
-                throw th2;
+            if (!this.processConnectedListeners.contains(iDownloaderProcessConnectedListener)) {
+                this.processConnectedListeners.add(iDownloaderProcessConnectedListener);
             }
         }
     }
 
-    public void removeDownloadListener(int i10, IDownloadListener iDownloadListener, ListenerType listenerType, boolean z10) {
-        IDownloadProxy downloadHandler = getDownloadHandler(i10);
+    public void removeDownloadListener(int i2, IDownloadListener iDownloadListener, ListenerType listenerType, boolean z) {
+        IDownloadProxy downloadHandler = getDownloadHandler(i2);
         if (downloadHandler == null) {
             return;
         }
-        downloadHandler.removeDownloadListener(i10, iDownloadListener == null ? 0 : iDownloadListener.hashCode(), iDownloadListener, listenerType, z10);
+        downloadHandler.removeDownloadListener(i2, iDownloadListener == null ? 0 : iDownloadListener.hashCode(), iDownloadListener, listenerType, z);
     }
 
-    public void restart(int i10) {
-        IDownloadProxy downloadHandler = getDownloadHandler(i10);
+    public void restart(int i2) {
+        IDownloadProxy downloadHandler = getDownloadHandler(i2);
         if (downloadHandler == null) {
             return;
         }
-        downloadHandler.restart(i10);
+        downloadHandler.restart(i2);
     }
 
     public void restartAllFailedDownloadTasks(List<String> list) {
@@ -402,42 +394,38 @@ public class DownloadProcessDispatcher {
         }
     }
 
-    public void resume(int i10) {
-        IDownloadProxy downloadHandler = getDownloadHandler(i10);
+    public void resume(int i2) {
+        IDownloadProxy downloadHandler = getDownloadHandler(i2);
         if (downloadHandler == null) {
             return;
         }
-        downloadHandler.resume(i10);
+        downloadHandler.resume(i2);
     }
 
-    public boolean retryDelayStart(int i10) {
-        IDownloadProxy downloadHandler = getDownloadHandler(i10);
+    public boolean retryDelayStart(int i2) {
+        IDownloadProxy downloadHandler = getDownloadHandler(i2);
         if (downloadHandler == null) {
             return false;
         }
-        return downloadHandler.retryDelayStart(i10);
+        return downloadHandler.retryDelayStart(i2);
     }
 
-    public synchronized void setDownloadIndependentProcessStatus(int i10, boolean z10) {
-        try {
-            this.independentMap.put(i10, z10 ? Boolean.TRUE : Boolean.FALSE);
-        } catch (Throwable th2) {
-            throw th2;
-        }
+    public synchronized void setDownloadIndependentProcessStatus(int i2, boolean z) {
+        this.independentMap.put(i2, z ? Boolean.TRUE : Boolean.FALSE);
     }
 
-    public void setDownloadNotificationEventListener(int i10, IDownloadNotificationEventListener iDownloadNotificationEventListener) {
-        IDownloadProxy downloadHandler = getDownloadHandler(i10);
+    public void setDownloadNotificationEventListener(int i2, IDownloadNotificationEventListener iDownloadNotificationEventListener) {
+        IDownloadProxy downloadHandler = getDownloadHandler(i2);
         if (downloadHandler == null) {
             return;
         }
-        downloadHandler.setDownloadNotificationEventListener(i10, iDownloadNotificationEventListener);
+        downloadHandler.setDownloadNotificationEventListener(i2, iDownloadNotificationEventListener);
     }
 
-    public void setDownloadWithIndependentProcessStatus(int i10, boolean z10) {
-        setDownloadIndependentProcessStatus(i10, z10);
+    public void setDownloadWithIndependentProcessStatus(int i2, boolean z) {
+        setDownloadIndependentProcessStatus(i2, z);
         if (DownloadComponentManager.supportMultiProc() && !DownloadUtils.isDownloaderProcess() && DownloadProxy.get(true).isServiceAlive()) {
-            DownloadProxy.get(true).setDownloadWithIndependentProcessStatus(i10, z10);
+            DownloadProxy.get(true).setDownloadWithIndependentProcessStatus(i2, z);
         }
         if (DownloadComponentManager.isDownloadInMultiProcess() || DownloadUtils.isDownloaderProcess() || DownloadUtils.isMainProcess()) {
             return;
@@ -445,30 +433,30 @@ public class DownloadProcessDispatcher {
         try {
             Intent intent = new Intent(DownloadComponentManager.getAppContext(), (Class<?>) DownloadHandleService.class);
             intent.setAction(DownloadConstants.ACTION_DOWNLOAD_PROCESS_NOTIFY);
-            intent.putExtra(DownloadConstants.EXTRA_DOWNLOAD_ID, i10);
+            intent.putExtra(DownloadConstants.EXTRA_DOWNLOAD_ID, i2);
             DownloadComponentManager.getAppContext().startService(intent);
-        } catch (Throwable th2) {
-            th2.printStackTrace();
+        } catch (Throwable th) {
+            th.printStackTrace();
         }
     }
 
-    public void setLogLevel(int i10) {
+    public void setLogLevel(int i2) {
         IDownloadProxy iDownloadProxy = DownloadProxy.get(false);
         if (iDownloadProxy != null) {
-            iDownloadProxy.setLogLevel(i10);
+            iDownloadProxy.setLogLevel(i2);
         }
         IDownloadProxy iDownloadProxy2 = DownloadProxy.get(true);
         if (iDownloadProxy2 != null) {
-            iDownloadProxy2.setLogLevel(i10);
+            iDownloadProxy2.setLogLevel(i2);
         }
     }
 
-    public void setThrottleNetSpeed(int i10, long j10) {
-        IDownloadProxy downloadHandler = getDownloadHandler(i10);
+    public void setThrottleNetSpeed(int i2, long j2) {
+        IDownloadProxy downloadHandler = getDownloadHandler(i2);
         if (downloadHandler == null) {
             return;
         }
-        downloadHandler.setThrottleNetSpeed(i10, j10);
+        downloadHandler.setThrottleNetSpeed(i2, j2);
     }
 
     public void tryDownload(DownloadTask downloadTask) {
@@ -482,7 +470,7 @@ public class DownloadProcessDispatcher {
                 final /* synthetic */ IDownloadProxy val$downloadProxy;
                 final /* synthetic */ DownloadTask val$downloadTask;
 
-                public AnonymousClass1(IDownloadProxy downloadHandler2, DownloadTask downloadTask2) {
+                AnonymousClass1(IDownloadProxy downloadHandler2, DownloadTask downloadTask2) {
                     downloadHandler = downloadHandler2;
                     downloadTask = downloadTask2;
                 }
@@ -506,12 +494,8 @@ public class DownloadProcessDispatcher {
             return;
         }
         synchronized (this.processConnectedListeners) {
-            try {
-                if (this.processConnectedListeners.contains(iDownloaderProcessConnectedListener)) {
-                    this.processConnectedListeners.remove(iDownloaderProcessConnectedListener);
-                }
-            } catch (Throwable th2) {
-                throw th2;
+            if (this.processConnectedListeners.contains(iDownloaderProcessConnectedListener)) {
+                this.processConnectedListeners.remove(iDownloaderProcessConnectedListener);
             }
         }
     }
@@ -557,12 +541,12 @@ public class DownloadProcessDispatcher {
         return DownloadProxy.get(isNeedIndependentProcess);
     }
 
-    public void addDownloadListener(int i10, IDownloadListener iDownloadListener, ListenerType listenerType, boolean z10, boolean z11) {
-        IDownloadProxy downloadHandler = getDownloadHandler(i10);
+    public void addDownloadListener(int i2, IDownloadListener iDownloadListener, ListenerType listenerType, boolean z, boolean z2) {
+        IDownloadProxy downloadHandler = getDownloadHandler(i2);
         if (downloadHandler == null) {
             return;
         }
-        downloadHandler.addDownloadListener(i10, iDownloadListener.hashCode(), iDownloadListener, listenerType, z10, z11);
+        downloadHandler.addDownloadListener(i2, iDownloadListener.hashCode(), iDownloadListener, listenerType, z, z2);
     }
 
     public DownloadInfo getDownloadInfo(String str, String str2) {

@@ -9,7 +9,7 @@ import com.bytedance.pangle.Zeus;
 
 @Keep
 @SuppressLint({"NewApi"})
-/* loaded from: classes2.dex */
+/* loaded from: classes.dex */
 public class ReportBaseFragment extends Fragment {
     Application.ActivityLifecycleCallbacks callbacks = new c(this);
 

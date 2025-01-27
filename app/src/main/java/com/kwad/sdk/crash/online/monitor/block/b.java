@@ -5,40 +5,40 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
-/* loaded from: classes3.dex */
+/* loaded from: classes2.dex */
 public final class b {
-    private static List<String> aLb = null;
-    private static List<String> aLc = null;
-    private static int aLd = 5;
+    private static List<String> arR = null;
+    private static List<String> arS = null;
+    private static int arT = 5;
 
-    public static void a(com.kwad.sdk.crash.online.monitor.a.a aVar) {
-        aLb = new ArrayList();
-        List<String> list = aVar.aLo;
+    public static void a(com.kwad.sdk.crash.online.monitor.kwai.a aVar) {
+        arR = new ArrayList();
+        List<String> list = aVar.asf;
         if (list == null || list.isEmpty()) {
-            aLb.add("com.kwad");
-            aLb.add("com.kwai");
-            aLb.add("com.ksad");
-            aLb.add("tkruntime");
-            aLb.add("tachikoma");
-            aLb.add("kuaishou");
+            arR.add("com.kwad");
+            arR.add("com.kwai");
+            arR.add("com.ksad");
+            arR.add("tkruntime");
+            arR.add("tachikoma");
+            arR.add("kuaishou");
         } else {
-            aLb.addAll(aVar.aLo);
+            arR.addAll(aVar.asf);
         }
-        aLd = aVar.aLt;
-        aLc = new ArrayList();
-        List<String> list2 = aVar.aLn;
+        arT = aVar.ask;
+        arS = new ArrayList();
+        List<String> list2 = aVar.ase;
         if (list2 != null && !list2.isEmpty()) {
-            aLc.addAll(aVar.aLn);
+            arS.addAll(aVar.ase);
             return;
         }
-        aLc.add("android.");
-        aLc.add("androidx.");
-        aLc.add("org.");
-        aLc.add("java.");
+        arS.add("android.");
+        arS.add("androidx.");
+        arS.add("org.");
+        arS.add("java.");
     }
 
-    private static boolean fJ(String str) {
-        List<String> list = aLc;
+    private static boolean dF(String str) {
+        List<String> list = arS;
         if (list == null) {
             return false;
         }
@@ -51,8 +51,8 @@ public final class b {
         return false;
     }
 
-    private static boolean fK(String str) {
-        List<String> list = aLb;
+    private static boolean dG(String str) {
+        List<String> list = arR;
         if (list == null) {
             return false;
         }
@@ -65,24 +65,24 @@ public final class b {
         return false;
     }
 
-    public static String fL(String str) {
+    public static String dH(String str) {
         if (TextUtils.isEmpty(str)) {
             return "";
         }
         String[] split = str.split("\n");
-        com.kwad.sdk.core.d.c.d("perfMonitor.Filter", "stacks after split:" + split.length);
-        boolean z10 = false;
-        int i10 = 0;
+        com.kwad.sdk.core.d.b.d("perfMonitor.Filter", "stacks after split:" + split.length);
+        boolean z = false;
+        int i2 = 0;
         for (String str2 : split) {
-            if (z10 || !fJ(str2)) {
-                if (i10 >= aLd) {
+            if (z || !dF(str2)) {
+                if (i2 >= arT) {
                     return "";
                 }
-                if (fK(str2)) {
+                if (dG(str2)) {
                     return str;
                 }
-                i10++;
-                z10 = true;
+                i2++;
+                z = true;
             }
         }
         return "";

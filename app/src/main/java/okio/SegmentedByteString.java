@@ -1,10 +1,11 @@
 package okio;
 
-import androidx.constraintlayout.core.motion.utils.TypedValues;
 import com.bytedance.sdk.openadsdk.downloadnew.core.TTDownloadField;
 import com.kwad.sdk.api.model.AdnName;
-import com.martian.libmars.activity.PermissionActivity;
+import com.oplus.quickgame.sdk.hall.Constant;
 import com.ss.android.socialbase.downloader.constants.DBDefinition;
+import f.b.a.d;
+import f.b.a.e;
 import java.io.IOException;
 import java.io.OutputStream;
 import java.nio.ByteBuffer;
@@ -14,28 +15,27 @@ import java.security.MessageDigest;
 import javax.crypto.Mac;
 import javax.crypto.spec.SecretKeySpec;
 import kotlin.Metadata;
+import kotlin.TypeCastException;
 import kotlin.collections.ArraysKt;
+import kotlin.collections.ArraysKt___ArraysJvmKt;
 import kotlin.jvm.internal.Intrinsics;
-import m5.h;
-import okio.internal._SegmentedByteStringKt;
-import xi.k;
-import xi.l;
+import okio.internal.SegmentedByteStringKt;
 
-@Metadata(d1 = {"\u0000j\n\u0002\u0018\u0002\n\u0002\u0018\u0002\n\u0000\n\u0002\u0010\u0011\n\u0002\u0010\u0012\n\u0000\n\u0002\u0010\u0015\n\u0002\b\u0007\n\u0002\u0018\u0002\n\u0000\n\u0002\u0010\u000e\n\u0002\b\u0002\n\u0002\u0010\u0002\n\u0000\n\u0002\u0010\b\n\u0002\b\u0007\n\u0002\u0010\u000b\n\u0000\n\u0002\u0010\u0000\n\u0002\b\f\n\u0002\u0010\u0005\n\u0002\b\u0007\n\u0002\u0018\u0002\n\u0002\b\n\n\u0002\u0018\u0002\n\u0000\n\u0002\u0018\u0002\n\u0002\b\u0002\n\u0002\u0018\u0002\n\u0000\b\u0000\u0018\u00002\u00020\u0001B\u001d\b\u0000\u0012\f\u0010\u0002\u001a\b\u0012\u0004\u0012\u00020\u00040\u0003\u0012\u0006\u0010\u0005\u001a\u00020\u0006¢\u0006\u0002\u0010\u0007J\b\u0010\r\u001a\u00020\u000eH\u0016J\b\u0010\u000f\u001a\u00020\u0010H\u0016J\b\u0010\u0011\u001a\u00020\u0010H\u0016J(\u0010\u0012\u001a\u00020\u00132\u0006\u0010\u0014\u001a\u00020\u00152\u0006\u0010\u0016\u001a\u00020\u00042\u0006\u0010\u0017\u001a\u00020\u00152\u0006\u0010\u0018\u001a\u00020\u0015H\u0016J\u0015\u0010\u0019\u001a\u00020\u00012\u0006\u0010\u001a\u001a\u00020\u0010H\u0010¢\u0006\u0002\b\u001bJ\u0013\u0010\u001c\u001a\u00020\u001d2\b\u0010\u001e\u001a\u0004\u0018\u00010\u001fH\u0096\u0002J\r\u0010 \u001a\u00020\u0015H\u0010¢\u0006\u0002\b!J\b\u0010\"\u001a\u00020\u0015H\u0016J\b\u0010#\u001a\u00020\u0010H\u0016J\u001d\u0010$\u001a\u00020\u00012\u0006\u0010\u001a\u001a\u00020\u00102\u0006\u0010%\u001a\u00020\u0001H\u0010¢\u0006\u0002\b&J\u0018\u0010'\u001a\u00020\u00152\u0006\u0010\u001e\u001a\u00020\u00042\u0006\u0010(\u001a\u00020\u0015H\u0016J\r\u0010)\u001a\u00020\u0004H\u0010¢\u0006\u0002\b*J\u0015\u0010+\u001a\u00020,2\u0006\u0010-\u001a\u00020\u0015H\u0010¢\u0006\u0002\b.J\u0018\u0010/\u001a\u00020\u00152\u0006\u0010\u001e\u001a\u00020\u00042\u0006\u0010(\u001a\u00020\u0015H\u0016J(\u00100\u001a\u00020\u001d2\u0006\u0010\u0014\u001a\u00020\u00152\u0006\u0010\u001e\u001a\u00020\u00042\u0006\u00101\u001a\u00020\u00152\u0006\u0010\u0018\u001a\u00020\u0015H\u0016J(\u00100\u001a\u00020\u001d2\u0006\u0010\u0014\u001a\u00020\u00152\u0006\u0010\u001e\u001a\u00020\u00012\u0006\u00101\u001a\u00020\u00152\u0006\u0010\u0018\u001a\u00020\u0015H\u0016J\u0010\u00102\u001a\u00020\u00102\u0006\u00103\u001a\u000204H\u0016J\u0018\u00105\u001a\u00020\u00012\u0006\u00106\u001a\u00020\u00152\u0006\u00107\u001a\u00020\u0015H\u0016J\b\u00108\u001a\u00020\u0001H\u0016J\b\u00109\u001a\u00020\u0001H\u0016J\b\u0010:\u001a\u00020\u0004H\u0016J\b\u0010;\u001a\u00020\u0001H\u0002J\b\u0010<\u001a\u00020\u0010H\u0016J\u0010\u0010=\u001a\u00020\u00132\u0006\u0010>\u001a\u00020?H\u0016J%\u0010=\u001a\u00020\u00132\u0006\u0010@\u001a\u00020A2\u0006\u0010\u0014\u001a\u00020\u00152\u0006\u0010\u0018\u001a\u00020\u0015H\u0010¢\u0006\u0002\bBJ\b\u0010C\u001a\u00020DH\u0002R\u0014\u0010\u0005\u001a\u00020\u0006X\u0080\u0004¢\u0006\b\n\u0000\u001a\u0004\b\b\u0010\tR\u001c\u0010\u0002\u001a\b\u0012\u0004\u0012\u00020\u00040\u0003X\u0080\u0004¢\u0006\n\n\u0002\u0010\f\u001a\u0004\b\n\u0010\u000b¨\u0006E"}, d2 = {"Lokio/SegmentedByteString;", "Lokio/ByteString;", DBDefinition.SEGMENT_TABLE_NAME, "", "", "directory", "", "([[B[I)V", "getDirectory$okio", "()[I", "getSegments$okio", "()[[B", "[[B", "asByteBuffer", "Ljava/nio/ByteBuffer;", "base64", "", "base64Url", "copyInto", "", TypedValues.CycleType.S_WAVE_OFFSET, "", "target", "targetOffset", "byteCount", "digest", "algorithm", "digest$okio", "equals", "", AdnName.OTHER, "", "getSize", "getSize$okio", TTDownloadField.TT_HASHCODE, "hex", "hmac", PermissionActivity.f12046p, "hmac$okio", "indexOf", "fromIndex", "internalArray", "internalArray$okio", "internalGet", "", "pos", "internalGet$okio", "lastIndexOf", "rangeEquals", "otherOffset", TypedValues.Custom.S_STRING, h.f28414g, "Ljava/nio/charset/Charset;", "substring", "beginIndex", "endIndex", "toAsciiLowercase", "toAsciiUppercase", "toByteArray", "toByteString", "toString", "write", "out", "Ljava/io/OutputStream;", "buffer", "Lokio/Buffer;", "write$okio", "writeReplace", "Ljava/lang/Object;", "okio"}, k = 1, mv = {1, 6, 0}, xi = 48)
-/* loaded from: classes4.dex */
+@Metadata(bv = {1, 0, 3}, d1 = {"\u0000x\n\u0002\u0018\u0002\n\u0002\u0018\u0002\n\u0002\b\u0002\n\u0002\u0018\u0002\n\u0002\b\u0002\n\u0002\u0018\u0002\n\u0000\n\u0002\u0010\u000e\n\u0002\b\u0010\n\u0002\u0010\b\n\u0002\b\u0005\n\u0002\u0010\u0005\n\u0002\b\u0006\n\u0002\u0010\u0012\n\u0002\b\u0002\n\u0002\u0018\u0002\n\u0002\b\u0002\n\u0002\u0018\u0002\n\u0000\n\u0002\u0010\u0002\n\u0002\b\u0002\n\u0002\u0018\u0002\n\u0002\b\u0007\n\u0002\u0010\u000b\n\u0002\b\t\n\u0002\u0010\u0000\n\u0002\b\u0004\n\u0002\u0010\u0011\n\u0002\b\u0004\n\u0002\u0010\u0015\n\u0002\b\u0007\b\u0000\u0018\u00002\u00020\u0001B\u001f\b\u0000\u0012\f\u0010J\u001a\b\u0012\u0004\u0012\u00020'0I\u0012\u0006\u0010O\u001a\u00020N¢\u0006\u0004\bS\u0010TJ\u000f\u0010\u0002\u001a\u00020\u0001H\u0002¢\u0006\u0004\b\u0002\u0010\u0003J\u000f\u0010\u0005\u001a\u00020\u0004H\u0002¢\u0006\u0004\b\u0005\u0010\u0006J\u0017\u0010\n\u001a\u00020\t2\u0006\u0010\b\u001a\u00020\u0007H\u0016¢\u0006\u0004\b\n\u0010\u000bJ\u000f\u0010\f\u001a\u00020\tH\u0016¢\u0006\u0004\b\f\u0010\rJ\u000f\u0010\u000e\u001a\u00020\tH\u0016¢\u0006\u0004\b\u000e\u0010\rJ\u000f\u0010\u000f\u001a\u00020\u0001H\u0016¢\u0006\u0004\b\u000f\u0010\u0003J\u000f\u0010\u0010\u001a\u00020\u0001H\u0016¢\u0006\u0004\b\u0010\u0010\u0003J\u0017\u0010\u0014\u001a\u00020\u00012\u0006\u0010\u0011\u001a\u00020\tH\u0010¢\u0006\u0004\b\u0012\u0010\u0013J\u001f\u0010\u0018\u001a\u00020\u00012\u0006\u0010\u0011\u001a\u00020\t2\u0006\u0010\u0015\u001a\u00020\u0001H\u0010¢\u0006\u0004\b\u0016\u0010\u0017J\u000f\u0010\u0019\u001a\u00020\tH\u0016¢\u0006\u0004\b\u0019\u0010\rJ\u001f\u0010\u001d\u001a\u00020\u00012\u0006\u0010\u001b\u001a\u00020\u001a2\u0006\u0010\u001c\u001a\u00020\u001aH\u0016¢\u0006\u0004\b\u001d\u0010\u001eJ\u0017\u0010#\u001a\u00020 2\u0006\u0010\u001f\u001a\u00020\u001aH\u0010¢\u0006\u0004\b!\u0010\"J\u000f\u0010&\u001a\u00020\u001aH\u0010¢\u0006\u0004\b$\u0010%J\u000f\u0010(\u001a\u00020'H\u0016¢\u0006\u0004\b(\u0010)J\u000f\u0010+\u001a\u00020*H\u0016¢\u0006\u0004\b+\u0010,J\u0017\u00100\u001a\u00020/2\u0006\u0010.\u001a\u00020-H\u0016¢\u0006\u0004\b0\u00101J'\u00100\u001a\u00020/2\u0006\u00103\u001a\u0002022\u0006\u00104\u001a\u00020\u001a2\u0006\u00105\u001a\u00020\u001aH\u0010¢\u0006\u0004\b6\u00107J/\u0010;\u001a\u00020:2\u0006\u00104\u001a\u00020\u001a2\u0006\u00108\u001a\u00020\u00012\u0006\u00109\u001a\u00020\u001a2\u0006\u00105\u001a\u00020\u001aH\u0016¢\u0006\u0004\b;\u0010<J/\u0010;\u001a\u00020:2\u0006\u00104\u001a\u00020\u001a2\u0006\u00108\u001a\u00020'2\u0006\u00109\u001a\u00020\u001a2\u0006\u00105\u001a\u00020\u001aH\u0016¢\u0006\u0004\b;\u0010=J\u001f\u0010?\u001a\u00020\u001a2\u0006\u00108\u001a\u00020'2\u0006\u0010>\u001a\u00020\u001aH\u0016¢\u0006\u0004\b?\u0010@J\u001f\u0010A\u001a\u00020\u001a2\u0006\u00108\u001a\u00020'2\u0006\u0010>\u001a\u00020\u001aH\u0016¢\u0006\u0004\bA\u0010@J\u000f\u0010C\u001a\u00020'H\u0010¢\u0006\u0004\bB\u0010)J\u001a\u0010E\u001a\u00020:2\b\u00108\u001a\u0004\u0018\u00010DH\u0096\u0002¢\u0006\u0004\bE\u0010FJ\u000f\u0010G\u001a\u00020\u001aH\u0016¢\u0006\u0004\bG\u0010%J\u000f\u0010H\u001a\u00020\tH\u0016¢\u0006\u0004\bH\u0010\rR\"\u0010J\u001a\b\u0012\u0004\u0012\u00020'0I8\u0000@\u0000X\u0080\u0004¢\u0006\f\n\u0004\bJ\u0010K\u001a\u0004\bL\u0010MR\u001c\u0010O\u001a\u00020N8\u0000@\u0000X\u0080\u0004¢\u0006\f\n\u0004\bO\u0010P\u001a\u0004\bQ\u0010R¨\u0006U"}, d2 = {"Lokio/SegmentedByteString;", "Lokio/ByteString;", "toByteString", "()Lokio/ByteString;", "Ljava/lang/Object;", "writeReplace", "()Ljava/lang/Object;", "Ljava/nio/charset/Charset;", "charset", "", "string", "(Ljava/nio/charset/Charset;)Ljava/lang/String;", "base64", "()Ljava/lang/String;", "hex", "toAsciiLowercase", "toAsciiUppercase", Constant.Param.ALGORITHM, "digest$okio", "(Ljava/lang/String;)Lokio/ByteString;", "digest", "key", "hmac$okio", "(Ljava/lang/String;Lokio/ByteString;)Lokio/ByteString;", "hmac", "base64Url", "", "beginIndex", "endIndex", "substring", "(II)Lokio/ByteString;", "pos", "", "internalGet$okio", "(I)B", "internalGet", "getSize$okio", "()I", "getSize", "", "toByteArray", "()[B", "Ljava/nio/ByteBuffer;", "asByteBuffer", "()Ljava/nio/ByteBuffer;", "Ljava/io/OutputStream;", "out", "", "write", "(Ljava/io/OutputStream;)V", "Lokio/Buffer;", "buffer", "offset", "byteCount", "write$okio", "(Lokio/Buffer;II)V", AdnName.OTHER, "otherOffset", "", "rangeEquals", "(ILokio/ByteString;II)Z", "(I[BII)Z", "fromIndex", "indexOf", "([BI)I", "lastIndexOf", "internalArray$okio", "internalArray", "", "equals", "(Ljava/lang/Object;)Z", TTDownloadField.TT_HASHCODE, "toString", "", DBDefinition.SEGMENT_TABLE_NAME, "[[B", "getSegments$okio", "()[[B", "", "directory", "[I", "getDirectory$okio", "()[I", "<init>", "([[B[I)V", "okio"}, k = 1, mv = {1, 4, 0})
+/* loaded from: classes5.dex */
 public final class SegmentedByteString extends ByteString {
 
-    @k
+    @d
     private final transient int[] directory;
 
-    @k
+    @d
     private final transient byte[][] segments;
 
     /* JADX WARN: 'super' call moved to the top of the method (can break code semantics) */
-    public SegmentedByteString(@k byte[][] segments, @k int[] directory) {
+    public SegmentedByteString(@d byte[][] segments, @d int[] directory) {
         super(ByteString.EMPTY.getData());
-        Intrinsics.checkNotNullParameter(segments, "segments");
-        Intrinsics.checkNotNullParameter(directory, "directory");
+        Intrinsics.checkParameterIsNotNull(segments, "segments");
+        Intrinsics.checkParameterIsNotNull(directory, "directory");
         this.segments = segments;
         this.directory = directory;
     }
@@ -45,77 +45,60 @@ public final class SegmentedByteString extends ByteString {
     }
 
     private final Object writeReplace() {
-        return toByteString();
+        ByteString byteString = toByteString();
+        if (byteString != null) {
+            return byteString;
+        }
+        throw new TypeCastException("null cannot be cast to non-null type java.lang.Object");
     }
 
     @Override // okio.ByteString
-    @k
+    @d
     public ByteBuffer asByteBuffer() {
         ByteBuffer asReadOnlyBuffer = ByteBuffer.wrap(toByteArray()).asReadOnlyBuffer();
-        Intrinsics.checkNotNullExpressionValue(asReadOnlyBuffer, "wrap(toByteArray()).asReadOnlyBuffer()");
+        Intrinsics.checkExpressionValueIsNotNull(asReadOnlyBuffer, "ByteBuffer.wrap(toByteArray()).asReadOnlyBuffer()");
         return asReadOnlyBuffer;
     }
 
     @Override // okio.ByteString
-    @k
+    @d
     public String base64() {
         return toByteString().base64();
     }
 
     @Override // okio.ByteString
-    @k
+    @d
     public String base64Url() {
         return toByteString().base64Url();
     }
 
     @Override // okio.ByteString
-    public void copyInto(int r12, @k byte[] target, int targetOffset, int byteCount) {
-        Intrinsics.checkNotNullParameter(target, "target");
-        long j10 = byteCount;
-        _UtilKt.checkOffsetAndCount(size(), r12, j10);
-        _UtilKt.checkOffsetAndCount(target.length, targetOffset, j10);
-        int i10 = byteCount + r12;
-        int segment = _SegmentedByteStringKt.segment(this, r12);
-        while (r12 < i10) {
-            int i11 = segment == 0 ? 0 : getDirectory()[segment - 1];
-            int i12 = getDirectory()[segment] - i11;
-            int i13 = getDirectory()[getSegments().length + segment];
-            int min = Math.min(i10, i12 + i11) - r12;
-            int i14 = i13 + (r12 - i11);
-            ArraysKt.copyInto(getSegments()[segment], target, targetOffset, i14, i14 + min);
-            targetOffset += min;
-            r12 += min;
-            segment++;
-        }
-    }
-
-    @Override // okio.ByteString
-    @k
-    public ByteString digest$okio(@k String algorithm) {
-        Intrinsics.checkNotNullParameter(algorithm, "algorithm");
-        MessageDigest messageDigest = MessageDigest.getInstance(algorithm);
+    @d
+    public ByteString digest$okio(@d String r7) {
+        Intrinsics.checkParameterIsNotNull(r7, "algorithm");
+        MessageDigest messageDigest = MessageDigest.getInstance(r7);
         int length = getSegments().length;
-        int i10 = 0;
-        int i11 = 0;
-        while (i10 < length) {
-            int i12 = getDirectory()[length + i10];
-            int i13 = getDirectory()[i10];
-            messageDigest.update(getSegments()[i10], i12, i13 - i11);
-            i10++;
-            i11 = i13;
+        int i2 = 0;
+        int i3 = 0;
+        while (i2 < length) {
+            int i4 = getDirectory()[length + i2];
+            int i5 = getDirectory()[i2];
+            messageDigest.update(getSegments()[i2], i4, i5 - i3);
+            i2++;
+            i3 = i5;
         }
-        byte[] digestBytes = messageDigest.digest();
-        Intrinsics.checkNotNullExpressionValue(digestBytes, "digestBytes");
-        return new ByteString(digestBytes);
+        byte[] digest = messageDigest.digest();
+        Intrinsics.checkExpressionValueIsNotNull(digest, "digest.digest()");
+        return new ByteString(digest);
     }
 
     @Override // okio.ByteString
-    public boolean equals(@l Object r52) {
-        if (r52 == this) {
+    public boolean equals(@e Object r5) {
+        if (r5 == this) {
             return true;
         }
-        if (r52 instanceof ByteString) {
-            ByteString byteString = (ByteString) r52;
+        if (r5 instanceof ByteString) {
+            ByteString byteString = (ByteString) r5;
             if (byteString.size() == size() && rangeEquals(0, byteString, 0, size())) {
                 return true;
             }
@@ -123,13 +106,13 @@ public final class SegmentedByteString extends ByteString {
         return false;
     }
 
-    @k
+    @d
     /* renamed from: getDirectory$okio, reason: from getter */
     public final int[] getDirectory() {
         return this.directory;
     }
 
-    @k
+    @d
     /* renamed from: getSegments$okio, reason: from getter */
     public final byte[][] getSegments() {
         return this.segments;
@@ -147,256 +130,259 @@ public final class SegmentedByteString extends ByteString {
             return hashCode;
         }
         int length = getSegments().length;
-        int i10 = 0;
-        int i11 = 1;
-        int i12 = 0;
-        while (i10 < length) {
-            int i13 = getDirectory()[length + i10];
-            int i14 = getDirectory()[i10];
-            byte[] bArr = getSegments()[i10];
-            int i15 = (i14 - i12) + i13;
-            while (i13 < i15) {
-                i11 = (i11 * 31) + bArr[i13];
-                i13++;
+        int i2 = 0;
+        int i3 = 1;
+        int i4 = 0;
+        while (i2 < length) {
+            int i5 = getDirectory()[length + i2];
+            int i6 = getDirectory()[i2];
+            byte[] bArr = getSegments()[i2];
+            int i7 = (i6 - i4) + i5;
+            while (i5 < i7) {
+                i3 = (i3 * 31) + bArr[i5];
+                i5++;
             }
-            i10++;
-            i12 = i14;
+            i2++;
+            i4 = i6;
         }
-        setHashCode$okio(i11);
-        return i11;
+        setHashCode$okio(i3);
+        return i3;
     }
 
     @Override // okio.ByteString
-    @k
+    @d
     public String hex() {
         return toByteString().hex();
     }
 
     @Override // okio.ByteString
-    @k
-    public ByteString hmac$okio(@k String algorithm, @k ByteString r72) {
-        Intrinsics.checkNotNullParameter(algorithm, "algorithm");
-        Intrinsics.checkNotNullParameter(r72, "key");
+    @d
+    public ByteString hmac$okio(@d String r6, @d ByteString key) {
+        Intrinsics.checkParameterIsNotNull(r6, "algorithm");
+        Intrinsics.checkParameterIsNotNull(key, "key");
         try {
-            Mac mac = Mac.getInstance(algorithm);
-            mac.init(new SecretKeySpec(r72.toByteArray(), algorithm));
+            Mac mac = Mac.getInstance(r6);
+            mac.init(new SecretKeySpec(key.toByteArray(), r6));
             int length = getSegments().length;
-            int i10 = 0;
-            int i11 = 0;
-            while (i10 < length) {
-                int i12 = getDirectory()[length + i10];
-                int i13 = getDirectory()[i10];
-                mac.update(getSegments()[i10], i12, i13 - i11);
-                i10++;
-                i11 = i13;
+            int i2 = 0;
+            int i3 = 0;
+            while (i2 < length) {
+                int i4 = getDirectory()[length + i2];
+                int i5 = getDirectory()[i2];
+                mac.update(getSegments()[i2], i4, i5 - i3);
+                i2++;
+                i3 = i5;
             }
             byte[] doFinal = mac.doFinal();
-            Intrinsics.checkNotNullExpressionValue(doFinal, "mac.doFinal()");
+            Intrinsics.checkExpressionValueIsNotNull(doFinal, "mac.doFinal()");
             return new ByteString(doFinal);
-        } catch (InvalidKeyException e10) {
-            throw new IllegalArgumentException(e10);
+        } catch (InvalidKeyException e2) {
+            throw new IllegalArgumentException(e2);
         }
     }
 
     @Override // okio.ByteString
-    public int indexOf(@k byte[] r22, int fromIndex) {
-        Intrinsics.checkNotNullParameter(r22, "other");
-        return toByteString().indexOf(r22, fromIndex);
+    public int indexOf(@d byte[] r2, int fromIndex) {
+        Intrinsics.checkParameterIsNotNull(r2, "other");
+        return toByteString().indexOf(r2, fromIndex);
     }
 
     @Override // okio.ByteString
-    @k
+    @d
     public byte[] internalArray$okio() {
         return toByteArray();
     }
 
     @Override // okio.ByteString
     public byte internalGet$okio(int pos) {
-        _UtilKt.checkOffsetAndCount(getDirectory()[getSegments().length - 1], pos, 1L);
-        int segment = _SegmentedByteStringKt.segment(this, pos);
+        Util.checkOffsetAndCount(getDirectory()[getSegments().length - 1], pos, 1L);
+        int segment = SegmentedByteStringKt.segment(this, pos);
         return getSegments()[segment][(pos - (segment == 0 ? 0 : getDirectory()[segment - 1])) + getDirectory()[getSegments().length + segment]];
     }
 
     @Override // okio.ByteString
-    public int lastIndexOf(@k byte[] r22, int fromIndex) {
-        Intrinsics.checkNotNullParameter(r22, "other");
-        return toByteString().lastIndexOf(r22, fromIndex);
+    public int lastIndexOf(@d byte[] r2, int fromIndex) {
+        Intrinsics.checkParameterIsNotNull(r2, "other");
+        return toByteString().lastIndexOf(r2, fromIndex);
     }
 
     @Override // okio.ByteString
-    public boolean rangeEquals(int r72, @k ByteString r82, int otherOffset, int byteCount) {
-        Intrinsics.checkNotNullParameter(r82, "other");
-        if (r72 < 0 || r72 > size() - byteCount) {
+    public boolean rangeEquals(int offset, @d ByteString r8, int otherOffset, int byteCount) {
+        Intrinsics.checkParameterIsNotNull(r8, "other");
+        if (offset < 0 || offset > size() - byteCount) {
             return false;
         }
-        int i10 = byteCount + r72;
-        int segment = _SegmentedByteStringKt.segment(this, r72);
-        while (r72 < i10) {
-            int i11 = segment == 0 ? 0 : getDirectory()[segment - 1];
-            int i12 = getDirectory()[segment] - i11;
-            int i13 = getDirectory()[getSegments().length + segment];
-            int min = Math.min(i10, i12 + i11) - r72;
-            if (!r82.rangeEquals(otherOffset, getSegments()[segment], i13 + (r72 - i11), min)) {
+        int i2 = byteCount + offset;
+        int segment = SegmentedByteStringKt.segment(this, offset);
+        while (offset < i2) {
+            int i3 = segment == 0 ? 0 : getDirectory()[segment - 1];
+            int i4 = getDirectory()[segment] - i3;
+            int i5 = getDirectory()[getSegments().length + segment];
+            int min = Math.min(i2, i4 + i3) - offset;
+            if (!r8.rangeEquals(otherOffset, getSegments()[segment], i5 + (offset - i3), min)) {
                 return false;
             }
             otherOffset += min;
-            r72 += min;
+            offset += min;
             segment++;
         }
         return true;
     }
 
     @Override // okio.ByteString
-    @k
-    public String string(@k Charset charset) {
-        Intrinsics.checkNotNullParameter(charset, "charset");
+    @d
+    public String string(@d Charset charset) {
+        Intrinsics.checkParameterIsNotNull(charset, "charset");
         return toByteString().string(charset);
     }
 
     @Override // okio.ByteString
-    @k
+    @d
     public ByteString substring(int beginIndex, int endIndex) {
-        int resolveDefaultParameter = _UtilKt.resolveDefaultParameter(this, endIndex);
-        if (beginIndex < 0) {
+        if (!(beginIndex >= 0)) {
             throw new IllegalArgumentException(("beginIndex=" + beginIndex + " < 0").toString());
         }
-        if (resolveDefaultParameter > size()) {
-            throw new IllegalArgumentException(("endIndex=" + resolveDefaultParameter + " > length(" + size() + ')').toString());
+        if (!(endIndex <= size())) {
+            throw new IllegalArgumentException(("endIndex=" + endIndex + " > length(" + size() + ')').toString());
         }
-        int i10 = resolveDefaultParameter - beginIndex;
-        if (i10 < 0) {
-            throw new IllegalArgumentException(("endIndex=" + resolveDefaultParameter + " < beginIndex=" + beginIndex).toString());
+        int i2 = endIndex - beginIndex;
+        if (!(i2 >= 0)) {
+            throw new IllegalArgumentException(("endIndex=" + endIndex + " < beginIndex=" + beginIndex).toString());
         }
-        if (beginIndex == 0 && resolveDefaultParameter == size()) {
+        if (beginIndex == 0 && endIndex == size()) {
             return this;
         }
-        if (beginIndex == resolveDefaultParameter) {
+        if (beginIndex == endIndex) {
             return ByteString.EMPTY;
         }
-        int segment = _SegmentedByteStringKt.segment(this, beginIndex);
-        int segment2 = _SegmentedByteStringKt.segment(this, resolveDefaultParameter - 1);
+        int segment = SegmentedByteStringKt.segment(this, beginIndex);
+        int segment2 = SegmentedByteStringKt.segment(this, endIndex - 1);
         byte[][] bArr = (byte[][]) ArraysKt.copyOfRange(getSegments(), segment, segment2 + 1);
         int[] iArr = new int[bArr.length * 2];
         if (segment <= segment2) {
-            int i11 = segment;
-            int i12 = 0;
+            int i3 = segment;
+            int i4 = 0;
             while (true) {
-                iArr[i12] = Math.min(getDirectory()[i11] - beginIndex, i10);
-                int i13 = i12 + 1;
-                iArr[i12 + bArr.length] = getDirectory()[getSegments().length + i11];
-                if (i11 == segment2) {
+                iArr[i4] = Math.min(getDirectory()[i3] - beginIndex, i2);
+                int i5 = i4 + 1;
+                iArr[i4 + bArr.length] = getDirectory()[getSegments().length + i3];
+                if (i3 == segment2) {
                     break;
                 }
-                i11++;
-                i12 = i13;
+                i3++;
+                i4 = i5;
             }
         }
-        int i14 = segment != 0 ? getDirectory()[segment - 1] : 0;
+        int i6 = segment != 0 ? getDirectory()[segment - 1] : 0;
         int length = bArr.length;
-        iArr[length] = iArr[length] + (beginIndex - i14);
+        iArr[length] = iArr[length] + (beginIndex - i6);
         return new SegmentedByteString(bArr, iArr);
     }
 
     @Override // okio.ByteString
-    @k
+    @d
     public ByteString toAsciiLowercase() {
         return toByteString().toAsciiLowercase();
     }
 
     @Override // okio.ByteString
-    @k
+    @d
     public ByteString toAsciiUppercase() {
         return toByteString().toAsciiUppercase();
     }
 
     @Override // okio.ByteString
-    @k
+    @d
     public byte[] toByteArray() {
         byte[] bArr = new byte[size()];
         int length = getSegments().length;
-        int i10 = 0;
-        int i11 = 0;
-        int i12 = 0;
-        while (i10 < length) {
-            int i13 = getDirectory()[length + i10];
-            int i14 = getDirectory()[i10];
-            int i15 = i14 - i11;
-            ArraysKt.copyInto(getSegments()[i10], bArr, i12, i13, i13 + i15);
-            i12 += i15;
-            i10++;
-            i11 = i14;
+        int i2 = 0;
+        int i3 = 0;
+        int i4 = 0;
+        while (i2 < length) {
+            int i5 = getDirectory()[length + i2];
+            int i6 = getDirectory()[i2];
+            int i7 = i6 - i3;
+            ArraysKt___ArraysJvmKt.copyInto(getSegments()[i2], bArr, i4, i5, i5 + i7);
+            i4 += i7;
+            i2++;
+            i3 = i6;
         }
         return bArr;
     }
 
     @Override // okio.ByteString
-    @k
+    @d
     public String toString() {
         return toByteString().toString();
     }
 
     @Override // okio.ByteString
-    public void write(@k OutputStream out) throws IOException {
-        Intrinsics.checkNotNullParameter(out, "out");
+    public void write(@d OutputStream out) throws IOException {
+        Intrinsics.checkParameterIsNotNull(out, "out");
         int length = getSegments().length;
-        int i10 = 0;
-        int i11 = 0;
-        while (i10 < length) {
-            int i12 = getDirectory()[length + i10];
-            int i13 = getDirectory()[i10];
-            out.write(getSegments()[i10], i12, i13 - i11);
-            i10++;
-            i11 = i13;
+        int i2 = 0;
+        int i3 = 0;
+        while (i2 < length) {
+            int i4 = getDirectory()[length + i2];
+            int i5 = getDirectory()[i2];
+            out.write(getSegments()[i2], i4, i5 - i3);
+            i2++;
+            i3 = i5;
         }
     }
 
     @Override // okio.ByteString
-    public void write$okio(@k Buffer buffer, int r13, int byteCount) {
-        Intrinsics.checkNotNullParameter(buffer, "buffer");
-        int i10 = r13 + byteCount;
-        int segment = _SegmentedByteStringKt.segment(this, r13);
-        while (r13 < i10) {
-            int i11 = segment == 0 ? 0 : getDirectory()[segment - 1];
-            int i12 = getDirectory()[segment] - i11;
-            int i13 = getDirectory()[getSegments().length + segment];
-            int min = Math.min(i10, i12 + i11) - r13;
-            int i14 = i13 + (r13 - i11);
-            Segment segment2 = new Segment(getSegments()[segment], i14, i14 + min, true, false);
+    public void write$okio(@d Buffer buffer, int offset, int byteCount) {
+        Intrinsics.checkParameterIsNotNull(buffer, "buffer");
+        int i2 = byteCount + offset;
+        int segment = SegmentedByteStringKt.segment(this, offset);
+        while (offset < i2) {
+            int i3 = segment == 0 ? 0 : getDirectory()[segment - 1];
+            int i4 = getDirectory()[segment] - i3;
+            int i5 = getDirectory()[getSegments().length + segment];
+            int min = Math.min(i2, i4 + i3) - offset;
+            int i6 = i5 + (offset - i3);
+            Segment segment2 = new Segment(getSegments()[segment], i6, i6 + min, true, false);
             Segment segment3 = buffer.head;
             if (segment3 == null) {
                 segment2.prev = segment2;
                 segment2.next = segment2;
                 buffer.head = segment2;
             } else {
-                Intrinsics.checkNotNull(segment3);
+                if (segment3 == null) {
+                    Intrinsics.throwNpe();
+                }
                 Segment segment4 = segment3.prev;
-                Intrinsics.checkNotNull(segment4);
+                if (segment4 == null) {
+                    Intrinsics.throwNpe();
+                }
                 segment4.push(segment2);
             }
-            r13 += min;
+            offset += min;
             segment++;
         }
-        buffer.setSize$okio(buffer.size() + byteCount);
+        buffer.setSize$okio(buffer.size() + size());
     }
 
     @Override // okio.ByteString
-    public boolean rangeEquals(int r72, @k byte[] r82, int otherOffset, int byteCount) {
-        Intrinsics.checkNotNullParameter(r82, "other");
-        if (r72 < 0 || r72 > size() - byteCount || otherOffset < 0 || otherOffset > r82.length - byteCount) {
+    public boolean rangeEquals(int offset, @d byte[] r8, int otherOffset, int byteCount) {
+        Intrinsics.checkParameterIsNotNull(r8, "other");
+        if (offset < 0 || offset > size() - byteCount || otherOffset < 0 || otherOffset > r8.length - byteCount) {
             return false;
         }
-        int i10 = byteCount + r72;
-        int segment = _SegmentedByteStringKt.segment(this, r72);
-        while (r72 < i10) {
-            int i11 = segment == 0 ? 0 : getDirectory()[segment - 1];
-            int i12 = getDirectory()[segment] - i11;
-            int i13 = getDirectory()[getSegments().length + segment];
-            int min = Math.min(i10, i12 + i11) - r72;
-            if (!_UtilKt.arrayRangeEquals(getSegments()[segment], i13 + (r72 - i11), r82, otherOffset, min)) {
+        int i2 = byteCount + offset;
+        int segment = SegmentedByteStringKt.segment(this, offset);
+        while (offset < i2) {
+            int i3 = segment == 0 ? 0 : getDirectory()[segment - 1];
+            int i4 = getDirectory()[segment] - i3;
+            int i5 = getDirectory()[getSegments().length + segment];
+            int min = Math.min(i2, i4 + i3) - offset;
+            if (!Util.arrayRangeEquals(getSegments()[segment], i5 + (offset - i3), r8, otherOffset, min)) {
                 return false;
             }
             otherOffset += min;
-            r72 += min;
+            offset += min;
             segment++;
         }
         return true;

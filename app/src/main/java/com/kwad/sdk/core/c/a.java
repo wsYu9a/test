@@ -1,204 +1,187 @@
 package com.kwad.sdk.core.c;
 
-import android.app.Activity;
-import android.app.Application;
 import android.content.Context;
-import android.os.Bundle;
 import androidx.annotation.NonNull;
-import java.lang.ref.WeakReference;
+import com.kwad.sdk.core.d.b;
+import com.kwad.sdk.core.request.model.f;
+import com.kwad.sdk.core.response.a.d;
+import com.kwad.sdk.core.response.model.AdTemplate;
+import com.kwad.sdk.service.ServiceProvider;
+import com.kwad.sdk.service.kwai.e;
+import com.kwad.sdk.utils.t;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
-import java.util.concurrent.CopyOnWriteArrayList;
+import org.json.JSONArray;
+import org.json.JSONObject;
 
-/* loaded from: classes3.dex */
-final class a implements Application.ActivityLifecycleCallbacks {
-    private final List<WeakReference<Activity>> azd;
-    private WeakReference<Activity> currentActivity;
-    private Application mApplication;
-    private boolean mEnable;
-    private boolean mIsInBackground;
-    private final List<c> mListeners;
+/* loaded from: classes2.dex */
+public class a {
+    public static SimpleDateFormat JQ = new SimpleDateFormat("yyyy-MM-dd");
+    private static volatile a afU;
 
-    /* renamed from: com.kwad.sdk.core.c.a$a */
-    public static final class C0485a {
-        static final a aze = new a((byte) 0);
+    private static boolean a(@NonNull f fVar) {
+        long j2 = fVar.alK;
+        if (j2 <= 0) {
+            return false;
+        }
+        return JQ.format(new Date(j2)).equals(JQ.format(new Date()));
     }
 
-    public /* synthetic */ a(byte b10) {
-        this();
+    public static void am(AdTemplate adTemplate) {
+        if (adTemplate.watched) {
+            b.d("AdCounter", "startWatchAd this ad has been watched.");
+        } else {
+            an(adTemplate);
+        }
     }
 
-    public static a Fg() {
-        return C0485a.aze;
+    private static void an(AdTemplate adTemplate) {
+        f fVar;
+        int cj = d.cj(adTemplate);
+        int bV = d.bV(adTemplate);
+        List vW = vW();
+        if (vW != null && vW.size() != 0) {
+            boolean z = false;
+            Iterator it = vW.iterator();
+            while (true) {
+                if (!it.hasNext()) {
+                    break;
+                }
+                f fVar2 = (f) it.next();
+                if (fVar2.adStyle == bV && fVar2.taskType == cj) {
+                    fVar2.count++;
+                    if (!a(fVar2)) {
+                        fVar2.count = 1;
+                        fVar2.T(System.currentTimeMillis());
+                    }
+                    z = true;
+                }
+            }
+            if (!z) {
+                fVar = new f(bV, cj, 1, System.currentTimeMillis());
+            }
+            t("ksadsdk_local_ad_task_info_adstyle_data", t.C(vW).toString());
+            adTemplate.watched = true;
+        }
+        vW = new ArrayList();
+        fVar = new f(bV, cj, 1, System.currentTimeMillis());
+        vW.add(fVar);
+        t("ksadsdk_local_ad_task_info_adstyle_data", t.C(vW).toString());
+        adTemplate.watched = true;
     }
 
-    private boolean Fh() {
-        return b.Fj() || !this.mEnable;
-    }
-
-    private void h(Activity activity) {
-        Iterator<WeakReference<Activity>> it = this.azd.iterator();
-        while (it.hasNext()) {
-            if (it.next().get() == activity) {
-                return;
+    @NonNull
+    private static List<f> bb(int i2) {
+        ArrayList arrayList = new ArrayList();
+        List<f> vW = vW();
+        if (vW != null && vW.size() != 0) {
+            for (f fVar : vW) {
+                if (15 == fVar.adStyle) {
+                    arrayList.add(fVar);
+                }
             }
         }
-        this.azd.add(new WeakReference<>(activity));
+        return arrayList;
     }
 
-    private void i(Activity activity) {
-        Activity activity2;
-        if (activity == null) {
+    public static void c(int i2, long j2) {
+        Context context = ((e) ServiceProvider.get(e.class)).getContext();
+        if (context == null) {
             return;
         }
-        Iterator<WeakReference<Activity>> it = this.azd.iterator();
-        while (it.hasNext()) {
-            WeakReference<Activity> next = it.next();
-            if (next != null && ((activity2 = next.get()) == activity || activity2 == null)) {
-                it.remove();
-            }
-        }
+        context.getSharedPreferences("ksadsdk_local_ad_task_info", 0).edit().putInt("reward_aggregation_max_per_day", i2).putLong("reward_aggregation_min_interval", j2).apply();
     }
 
-    public final void a(c cVar) {
-        this.mListeners.add(cVar);
-    }
-
-    public final Activity getCurrentActivity() {
-        WeakReference<Activity> weakReference = this.currentActivity;
-        if (weakReference == null) {
+    private static String getString(String str) {
+        Context context = ((e) ServiceProvider.get(e.class)).getContext();
+        if (context == null) {
             return null;
         }
-        return weakReference.get();
+        return context.getSharedPreferences("ksadsdk_local_ad_task_info", 0).getString(str, null);
     }
 
-    public final void init(@NonNull Context context) {
-        try {
-            Application application = (Application) context;
-            this.mApplication = application;
-            application.registerActivityLifecycleCallbacks(this);
-        } catch (Throwable th2) {
-            th2.printStackTrace();
-        }
-    }
-
-    public final boolean isAppOnForeground() {
-        return !this.mIsInBackground;
-    }
-
-    public final boolean isEnable() {
-        return this.mEnable;
-    }
-
-    @Override // android.app.Application.ActivityLifecycleCallbacks
-    public final void onActivityCreated(Activity activity, Bundle bundle) {
-        this.mEnable = true;
-        if (Fh()) {
+    private static void t(String str, String str2) {
+        Context context = ((e) ServiceProvider.get(e.class)).getContext();
+        if (context == null) {
             return;
         }
-        try {
-            Iterator<c> it = this.mListeners.iterator();
-            while (it.hasNext()) {
-                it.next().a(activity, bundle);
-            }
-        } catch (Throwable th2) {
-            th2.printStackTrace();
-        }
+        context.getSharedPreferences("ksadsdk_local_ad_task_info", 0).edit().putString(str, str2).apply();
     }
 
-    @Override // android.app.Application.ActivityLifecycleCallbacks
-    public final void onActivityDestroyed(Activity activity) {
-        if (Fh()) {
-            return;
-        }
-        try {
-            Iterator<c> it = this.mListeners.iterator();
-            while (it.hasNext()) {
-                it.next().b(activity);
-            }
-        } catch (Throwable th2) {
-            th2.printStackTrace();
-        }
-    }
-
-    @Override // android.app.Application.ActivityLifecycleCallbacks
-    public final void onActivityPaused(Activity activity) {
-        if (Fh()) {
-            return;
-        }
-        try {
-            Iterator<c> it = this.mListeners.iterator();
-            while (it.hasNext()) {
-                it.next().c(activity);
-            }
-        } catch (Throwable th2) {
-            th2.printStackTrace();
-        }
-    }
-
-    @Override // android.app.Application.ActivityLifecycleCallbacks
-    public final void onActivityResumed(Activity activity) {
-        if (Fh()) {
-            return;
-        }
-        try {
-            this.currentActivity = new WeakReference<>(activity);
-            Iterator<c> it = this.mListeners.iterator();
-            while (it.hasNext()) {
-                it.next().d(activity);
-            }
-        } catch (Throwable th2) {
-            th2.printStackTrace();
-        }
-    }
-
-    @Override // android.app.Application.ActivityLifecycleCallbacks
-    public final void onActivitySaveInstanceState(Activity activity, Bundle bundle) {
-    }
-
-    @Override // android.app.Application.ActivityLifecycleCallbacks
-    public final void onActivityStarted(Activity activity) {
-        if (Fh()) {
-            return;
-        }
-        try {
-            h(activity);
-            if (this.azd.size() == 1) {
-                this.mIsInBackground = false;
-                Iterator<c> it = this.mListeners.iterator();
-                while (it.hasNext()) {
-                    it.next().onBackToForeground();
+    public static a vU() {
+        if (afU == null) {
+            synchronized (a.class) {
+                if (afU == null) {
+                    afU = new a();
                 }
             }
-        } catch (Throwable th2) {
-            th2.printStackTrace();
         }
+        return afU;
     }
 
-    @Override // android.app.Application.ActivityLifecycleCallbacks
-    public final void onActivityStopped(Activity activity) {
-        if (Fh()) {
-            return;
+    public static boolean vV() {
+        List<f> bb = bb(15);
+        if (bb.size() == 0) {
+            return true;
         }
-        try {
-            i(activity);
-            if (this.azd.size() == 0) {
-                this.mIsInBackground = true;
-                Iterator<c> it = this.mListeners.iterator();
-                while (it.hasNext()) {
-                    it.next().onBackToBackground();
-                }
+        long j2 = -1;
+        int i2 = 0;
+        for (f fVar : bb) {
+            i2 += fVar.count;
+            long j3 = fVar.alK;
+            if (j3 > j2) {
+                j2 = j3;
             }
-        } catch (Throwable th2) {
-            th2.printStackTrace();
         }
+        b.d("AdCounter", "onBind localCountCheck: allCount: " + i2 + ", lastShowTime: " + j2);
+        if (i2 > vX()) {
+            return false;
+        }
+        return j2 + (vY() * 1000) <= System.currentTimeMillis();
     }
 
-    private a() {
-        this.mIsInBackground = true;
-        this.mListeners = new CopyOnWriteArrayList();
-        this.azd = new ArrayList();
-        this.mEnable = false;
+    public static List<f> vW() {
+        if (((e) ServiceProvider.get(e.class)).getContext() == null) {
+            return null;
+        }
+        String string = getString("ksadsdk_local_ad_task_info_adstyle_data");
+        ArrayList<f> arrayList = new ArrayList();
+        try {
+            JSONArray jSONArray = new JSONArray(string);
+            int length = jSONArray.length();
+            for (int i2 = 0; i2 < length; i2++) {
+                JSONObject jSONObject = jSONArray.getJSONObject(i2);
+                f fVar = new f();
+                fVar.parseJson(jSONObject);
+                arrayList.add(fVar);
+            }
+        } catch (Exception unused) {
+        }
+        ArrayList arrayList2 = new ArrayList();
+        for (f fVar2 : arrayList) {
+            if (a(fVar2)) {
+                arrayList2.add(fVar2);
+            }
+        }
+        return arrayList2;
+    }
+
+    private static int vX() {
+        Context context = ((e) ServiceProvider.get(e.class)).getContext();
+        if (context == null) {
+            return 30;
+        }
+        return context.getSharedPreferences("ksadsdk_local_ad_task_info", 0).getInt("reward_aggregation_max_per_day", 30);
+    }
+
+    private static long vY() {
+        Context context = ((e) ServiceProvider.get(e.class)).getContext();
+        if (context == null) {
+            return 1200L;
+        }
+        return context.getSharedPreferences("ksadsdk_local_ad_task_info", 0).getLong("reward_aggregation_min_interval", 1200L);
     }
 }

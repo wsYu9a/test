@@ -11,27 +11,27 @@ import android.view.View;
 import android.widget.TextView;
 import androidx.annotation.NonNull;
 import com.kwad.sdk.R;
-import com.kwad.sdk.n.m;
+import com.kwad.sdk.j.k;
 
-/* loaded from: classes3.dex */
+/* loaded from: classes2.dex */
 public final class a extends Dialog {
-    private final InterfaceC0442a SD;
-    private final String SE;
+    private final InterfaceC0185a Ns;
+    private final String Nt;
 
     /* renamed from: com.kwad.components.core.page.widget.a$1 */
-    public class AnonymousClass1 implements View.OnClickListener {
-        public AnonymousClass1() {
+    final class AnonymousClass1 implements View.OnClickListener {
+        AnonymousClass1() {
         }
 
         @Override // android.view.View.OnClickListener
         public final void onClick(View view) {
-            a.this.SD.c(a.this);
+            a.this.Ns.c(a.this);
         }
     }
 
     /* renamed from: com.kwad.components.core.page.widget.a$2 */
-    public class AnonymousClass2 implements View.OnClickListener {
-        public AnonymousClass2() {
+    final class AnonymousClass2 implements View.OnClickListener {
+        AnonymousClass2() {
         }
 
         @Override // android.view.View.OnClickListener
@@ -40,29 +40,29 @@ public final class a extends Dialog {
     }
 
     /* renamed from: com.kwad.components.core.page.widget.a$3 */
-    public class AnonymousClass3 implements View.OnClickListener {
-        public AnonymousClass3() {
+    final class AnonymousClass3 implements View.OnClickListener {
+        AnonymousClass3() {
         }
 
         @Override // android.view.View.OnClickListener
         public final void onClick(View view) {
-            a.this.SD.a(a.this);
+            a.this.Ns.a(a.this);
         }
     }
 
     /* renamed from: com.kwad.components.core.page.widget.a$4 */
-    public class AnonymousClass4 implements View.OnClickListener {
-        public AnonymousClass4() {
+    final class AnonymousClass4 implements View.OnClickListener {
+        AnonymousClass4() {
         }
 
         @Override // android.view.View.OnClickListener
         public final void onClick(View view) {
-            a.this.SD.b(a.this);
+            a.this.Ns.b(a.this);
         }
     }
 
     /* renamed from: com.kwad.components.core.page.widget.a$a */
-    public interface InterfaceC0442a {
+    public interface InterfaceC0185a {
         void a(DialogInterface dialogInterface);
 
         void b(DialogInterface dialogInterface);
@@ -70,23 +70,32 @@ public final class a extends Dialog {
         void c(DialogInterface dialogInterface);
     }
 
-    public a(@NonNull Context context, @NonNull InterfaceC0442a interfaceC0442a) {
-        this(context, null, interfaceC0442a);
+    public a(@NonNull Context context, @NonNull InterfaceC0185a interfaceC0185a) {
+        this(context, null, interfaceC0185a);
     }
 
-    private View qS() {
-        View inflate = m.inflate(getContext(), R.layout.ksad_web_exit_intercept_content_layout, null);
+    public a(@NonNull Context context, String str, @NonNull InterfaceC0185a interfaceC0185a) {
+        super(context);
+        if (context instanceof Activity) {
+            setOwnerActivity((Activity) context);
+        }
+        this.Ns = interfaceC0185a;
+        this.Nt = str;
+    }
+
+    private View oU() {
+        View inflate = k.inflate(getContext(), R.layout.ksad_web_exit_intercept_content_layout, null);
         inflate.findViewById(R.id.ksad_exit_intercept_dialog_layout).setOnClickListener(new View.OnClickListener() { // from class: com.kwad.components.core.page.widget.a.1
-            public AnonymousClass1() {
+            AnonymousClass1() {
             }
 
             @Override // android.view.View.OnClickListener
             public final void onClick(View view) {
-                a.this.SD.c(a.this);
+                a.this.Ns.c(a.this);
             }
         });
         inflate.findViewById(R.id.ksad_exit_intercept_content_layout).setOnClickListener(new View.OnClickListener() { // from class: com.kwad.components.core.page.widget.a.2
-            public AnonymousClass2() {
+            AnonymousClass2() {
             }
 
             @Override // android.view.View.OnClickListener
@@ -94,50 +103,38 @@ public final class a extends Dialog {
             }
         });
         inflate.findViewById(R.id.ksad_web_exit_intercept_positive_btn).setOnClickListener(new View.OnClickListener() { // from class: com.kwad.components.core.page.widget.a.3
-            public AnonymousClass3() {
+            AnonymousClass3() {
             }
 
             @Override // android.view.View.OnClickListener
             public final void onClick(View view) {
-                a.this.SD.a(a.this);
+                a.this.Ns.a(a.this);
             }
         });
         inflate.findViewById(R.id.ksad_web_exit_intercept_negative_btn).setOnClickListener(new View.OnClickListener() { // from class: com.kwad.components.core.page.widget.a.4
-            public AnonymousClass4() {
+            AnonymousClass4() {
             }
 
             @Override // android.view.View.OnClickListener
             public final void onClick(View view) {
-                a.this.SD.b(a.this);
+                a.this.Ns.b(a.this);
             }
         });
         TextView textView = (TextView) inflate.findViewById(R.id.ksad_exit_intercept_content);
-        if (!TextUtils.isEmpty(this.SE)) {
-            textView.setText(this.SE);
+        if (!TextUtils.isEmpty(this.Nt)) {
+            textView.setText(this.Nt);
         }
         return inflate;
     }
 
     @Override // android.app.Dialog
-    public final void onCreate(Bundle bundle) {
+    protected final void onCreate(Bundle bundle) {
         super.onCreate(bundle);
-        try {
-            requestWindowFeature(1);
-        } catch (Exception unused) {
-        }
-        setContentView(qS());
+        requestWindowFeature(1);
+        setContentView(oU());
         setCanceledOnTouchOutside(false);
         getWindow().setBackgroundDrawable(new ColorDrawable(0));
         getWindow().setLayout(-1, -1);
         setCancelable(false);
-    }
-
-    public a(@NonNull Context context, String str, @NonNull InterfaceC0442a interfaceC0442a) {
-        super(context);
-        if (context instanceof Activity) {
-            setOwnerActivity((Activity) context);
-        }
-        this.SD = interfaceC0442a;
-        this.SE = str;
     }
 }

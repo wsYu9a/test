@@ -6,16 +6,24 @@ import androidx.core.util.Preconditions;
 
 /* loaded from: classes.dex */
 public final class PathSegment {
-    private final PointF mEnd;
-    private final float mEndFraction;
-    private final PointF mStart;
-    private final float mStartFraction;
 
-    public PathSegment(@NonNull PointF pointF, float f10, @NonNull PointF pointF2, float f11) {
-        this.mStart = (PointF) Preconditions.checkNotNull(pointF, "start == null");
-        this.mStartFraction = f10;
-        this.mEnd = (PointF) Preconditions.checkNotNull(pointF2, "end == null");
-        this.mEndFraction = f11;
+    /* renamed from: a */
+    private final PointF f1738a;
+
+    /* renamed from: b */
+    private final float f1739b;
+
+    /* renamed from: c */
+    private final PointF f1740c;
+
+    /* renamed from: d */
+    private final float f1741d;
+
+    public PathSegment(@NonNull PointF pointF, float f2, @NonNull PointF pointF2, float f3) {
+        this.f1738a = (PointF) Preconditions.checkNotNull(pointF, "start == null");
+        this.f1739b = f2;
+        this.f1740c = (PointF) Preconditions.checkNotNull(pointF2, "end == null");
+        this.f1741d = f3;
     }
 
     public boolean equals(Object obj) {
@@ -26,36 +34,36 @@ public final class PathSegment {
             return false;
         }
         PathSegment pathSegment = (PathSegment) obj;
-        return Float.compare(this.mStartFraction, pathSegment.mStartFraction) == 0 && Float.compare(this.mEndFraction, pathSegment.mEndFraction) == 0 && this.mStart.equals(pathSegment.mStart) && this.mEnd.equals(pathSegment.mEnd);
+        return Float.compare(this.f1739b, pathSegment.f1739b) == 0 && Float.compare(this.f1741d, pathSegment.f1741d) == 0 && this.f1738a.equals(pathSegment.f1738a) && this.f1740c.equals(pathSegment.f1740c);
     }
 
     @NonNull
     public PointF getEnd() {
-        return this.mEnd;
+        return this.f1740c;
     }
 
     public float getEndFraction() {
-        return this.mEndFraction;
+        return this.f1741d;
     }
 
     @NonNull
     public PointF getStart() {
-        return this.mStart;
+        return this.f1738a;
     }
 
     public float getStartFraction() {
-        return this.mStartFraction;
+        return this.f1739b;
     }
 
     public int hashCode() {
-        int hashCode = this.mStart.hashCode() * 31;
-        float f10 = this.mStartFraction;
-        int floatToIntBits = (((hashCode + (f10 != 0.0f ? Float.floatToIntBits(f10) : 0)) * 31) + this.mEnd.hashCode()) * 31;
-        float f11 = this.mEndFraction;
-        return floatToIntBits + (f11 != 0.0f ? Float.floatToIntBits(f11) : 0);
+        int hashCode = this.f1738a.hashCode() * 31;
+        float f2 = this.f1739b;
+        int floatToIntBits = (((hashCode + (f2 != 0.0f ? Float.floatToIntBits(f2) : 0)) * 31) + this.f1740c.hashCode()) * 31;
+        float f3 = this.f1741d;
+        return floatToIntBits + (f3 != 0.0f ? Float.floatToIntBits(f3) : 0);
     }
 
     public String toString() {
-        return "PathSegment{start=" + this.mStart + ", startFraction=" + this.mStartFraction + ", end=" + this.mEnd + ", endFraction=" + this.mEndFraction + '}';
+        return "PathSegment{start=" + this.f1738a + ", startFraction=" + this.f1739b + ", end=" + this.f1740c + ", endFraction=" + this.f1741d + '}';
     }
 }

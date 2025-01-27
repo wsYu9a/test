@@ -3,56 +3,52 @@ package fr.castorflex.android.smoothprogressbar;
 import android.content.Context;
 import android.util.AttributeSet;
 
-/* loaded from: classes4.dex */
+/* loaded from: classes5.dex */
 public class ContentLoadingSmoothProgressBar extends SmoothProgressBar {
 
-    /* renamed from: l */
-    public static final int f26063l = 500;
-
-    /* renamed from: m */
-    public static final int f26064m = 500;
+    /* renamed from: e */
+    private static final int f35250e = 500;
 
     /* renamed from: f */
-    public long f26065f;
+    private static final int f35251f = 500;
 
     /* renamed from: g */
-    public boolean f26066g;
+    private long f35252g;
 
     /* renamed from: h */
-    public boolean f26067h;
+    private boolean f35253h;
 
     /* renamed from: i */
-    public boolean f26068i;
+    private boolean f35254i;
 
     /* renamed from: j */
-    public final Runnable f26069j;
+    private boolean f35255j;
+    private final Runnable k;
+    private final Runnable l;
 
-    /* renamed from: k */
-    public final Runnable f26070k;
-
-    public class a implements Runnable {
-        public a() {
+    class a implements Runnable {
+        a() {
         }
 
         @Override // java.lang.Runnable
         public void run() {
-            ContentLoadingSmoothProgressBar.this.f26066g = false;
-            ContentLoadingSmoothProgressBar.this.f26065f = -1L;
+            ContentLoadingSmoothProgressBar.this.f35253h = false;
+            ContentLoadingSmoothProgressBar.this.f35252g = -1L;
             ContentLoadingSmoothProgressBar.this.setVisibility(8);
         }
     }
 
-    public class b implements Runnable {
-        public b() {
+    class b implements Runnable {
+        b() {
         }
 
         @Override // java.lang.Runnable
         public void run() {
-            ContentLoadingSmoothProgressBar.this.f26067h = false;
-            if (ContentLoadingSmoothProgressBar.this.f26068i) {
+            ContentLoadingSmoothProgressBar.this.f35254i = false;
+            if (ContentLoadingSmoothProgressBar.this.f35255j) {
                 return;
             }
-            ContentLoadingSmoothProgressBar.this.f26065f = System.currentTimeMillis();
+            ContentLoadingSmoothProgressBar.this.f35252g = System.currentTimeMillis();
             ContentLoadingSmoothProgressBar.this.setVisibility(0);
         }
     }
@@ -61,37 +57,37 @@ public class ContentLoadingSmoothProgressBar extends SmoothProgressBar {
         this(context, null);
     }
 
-    public void i() {
-        this.f26068i = true;
-        removeCallbacks(this.f26070k);
-        long currentTimeMillis = System.currentTimeMillis();
-        long j10 = this.f26065f;
-        long j11 = currentTimeMillis - j10;
-        if (j11 >= 500 || j10 == -1) {
-            setVisibility(8);
-        } else {
-            if (this.f26066g) {
-                return;
-            }
-            postDelayed(this.f26069j, 500 - j11);
-            this.f26066g = true;
-        }
+    private void j() {
+        removeCallbacks(this.k);
+        removeCallbacks(this.l);
     }
 
-    public final void j() {
-        removeCallbacks(this.f26069j);
-        removeCallbacks(this.f26070k);
+    public void i() {
+        this.f35255j = true;
+        removeCallbacks(this.l);
+        long currentTimeMillis = System.currentTimeMillis();
+        long j2 = this.f35252g;
+        long j3 = currentTimeMillis - j2;
+        if (j3 >= 500 || j2 == -1) {
+            setVisibility(8);
+        } else {
+            if (this.f35253h) {
+                return;
+            }
+            postDelayed(this.k, 500 - j3);
+            this.f35253h = true;
+        }
     }
 
     public void k() {
-        this.f26065f = -1L;
-        this.f26068i = false;
-        removeCallbacks(this.f26069j);
-        if (this.f26067h) {
+        this.f35252g = -1L;
+        this.f35255j = false;
+        removeCallbacks(this.k);
+        if (this.f35254i) {
             return;
         }
-        postDelayed(this.f26070k, 500L);
-        this.f26067h = true;
+        postDelayed(this.l, 500L);
+        this.f35254i = true;
     }
 
     @Override // android.widget.ProgressBar, android.view.View
@@ -108,11 +104,11 @@ public class ContentLoadingSmoothProgressBar extends SmoothProgressBar {
 
     public ContentLoadingSmoothProgressBar(Context context, AttributeSet attributeSet) {
         super(context, attributeSet, 0);
-        this.f26065f = -1L;
-        this.f26066g = false;
-        this.f26067h = false;
-        this.f26068i = false;
-        this.f26069j = new a();
-        this.f26070k = new b();
+        this.f35252g = -1L;
+        this.f35253h = false;
+        this.f35254i = false;
+        this.f35255j = false;
+        this.k = new a();
+        this.l = new b();
     }
 }

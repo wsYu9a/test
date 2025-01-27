@@ -18,37 +18,37 @@ import com.kwad.components.core.widget.FeedVideoView;
 import com.kwad.sdk.R;
 import com.kwad.sdk.core.response.model.AdInfo;
 import com.kwad.sdk.core.response.model.AdTemplate;
+import com.kwad.sdk.j.k;
 import com.kwad.sdk.mvp.Presenter;
-import com.kwad.sdk.n.m;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-/* loaded from: classes3.dex */
+/* loaded from: classes2.dex */
 public final class b extends com.kwad.components.core.page.recycle.a {
-    private WebView Qc;
-    private FeedVideoView Qd;
-    private LinearLayout Qe;
-    private TextView Qf;
-    private ImageView Qg;
+    private WebView Lc;
+    private FeedVideoView Ld;
+    private LinearLayout Le;
+    private TextView Lf;
+    private ImageView Lg;
     private AdTemplate mAdTemplate;
-    private com.kwad.components.core.e.d.c mApkDownloadHelper;
+    private com.kwad.components.core.d.b.c mApkDownloadHelper;
 
     /* renamed from: com.kwad.components.core.page.b$1 */
-    public class AnonymousClass1 implements View.OnClickListener {
-        public AnonymousClass1() {
+    final class AnonymousClass1 implements View.OnClickListener {
+        AnonymousClass1() {
         }
 
         @Override // android.view.View.OnClickListener
         public final void onClick(View view) {
-            b.this.Qe.setVisibility(8);
+            b.this.Le.setVisibility(8);
         }
     }
 
     /* renamed from: com.kwad.components.core.page.b$2 */
-    public class AnonymousClass2 implements ViewTreeObserver.OnGlobalLayoutListener {
-        final /* synthetic */ DetailWebRecycleView Qi;
+    final class AnonymousClass2 implements ViewTreeObserver.OnGlobalLayoutListener {
+        final /* synthetic */ DetailWebRecycleView Li;
 
-        public AnonymousClass2(DetailWebRecycleView detailWebRecycleView) {
+        AnonymousClass2(DetailWebRecycleView detailWebRecycleView) {
             detailWebRecycleView = detailWebRecycleView;
         }
 
@@ -56,72 +56,71 @@ public final class b extends com.kwad.components.core.page.recycle.a {
         public final void onGlobalLayout() {
             if (detailWebRecycleView.getChildCount() > 0) {
                 RecyclerView.ViewHolder findViewHolderForAdapterPosition = detailWebRecycleView.findViewHolderForAdapterPosition(0);
-                com.kwad.sdk.core.d.c.d("AdRecycleWebFragment", "recycleView.setTopViewHeight(" + findViewHolderForAdapterPosition.itemView.getHeight() + ")");
+                com.kwad.sdk.core.d.b.d("AdRecycleWebFragment", "recycleView.setTopViewHeight(" + findViewHolderForAdapterPosition.itemView.getHeight() + ")");
                 detailWebRecycleView.setTopViewHeight(findViewHolderForAdapterPosition.itemView.getHeight());
                 View view = detailWebRecycleView.findViewHolderForAdapterPosition(0).itemView;
                 if (view instanceof FeedVideoView) {
-                    b.this.Qd = (FeedVideoView) view;
+                    b.this.Ld = (FeedVideoView) view;
                 }
             }
             if (detailWebRecycleView.getChildCount() > 1) {
                 View view2 = detailWebRecycleView.findViewHolderForAdapterPosition(1).itemView;
-                b.this.Qc = (WebView) view2.findViewById(R.id.ksad_video_webView);
-                b.this.x(view2);
+                b.this.Lc = (WebView) view2.findViewById(R.id.ksad_video_webView);
+                b.this.v(view2);
             }
-            com.kwad.sdk.core.d.c.d("AdRecycleWebFragment", "onGlobalLayout");
+            com.kwad.sdk.core.d.b.d("AdRecycleWebFragment", "onGlobalLayout");
             detailWebRecycleView.getViewTreeObserver().removeOnGlobalLayoutListener(this);
         }
     }
 
-    public static class a extends com.kwad.components.core.page.recycle.d {
-        e Qj;
+    static class a extends com.kwad.components.core.page.recycle.d {
+        e Lj;
         AdTemplate mAdTemplate;
         private Context mContext;
 
-        public a(AdTemplate adTemplate, Context context, e eVar) {
+        a(AdTemplate adTemplate, Context context, e eVar) {
             this.mAdTemplate = adTemplate;
             this.mContext = context;
-            this.Qj = eVar;
+            this.Lj = eVar;
         }
 
         @Override // com.kwad.components.core.page.recycle.d, androidx.recyclerview.widget.RecyclerView.Adapter
         /* renamed from: a */
-        public final void onBindViewHolder(com.kwad.components.core.page.recycle.c cVar, int i10) {
-            super.onBindViewHolder(cVar, i10);
+        public final void onBindViewHolder(com.kwad.components.core.page.recycle.c cVar, int i2) {
+            super.onBindViewHolder(cVar, i2);
         }
 
         @Override // com.kwad.components.core.page.recycle.d
-        public final com.kwad.components.core.page.recycle.c b(ViewGroup viewGroup, int i10) {
-            if (i10 == 1) {
-                View a10 = m.a(this.mContext, R.layout.ksad_datail_webview_container, viewGroup, false);
+        public final com.kwad.components.core.page.recycle.c b(ViewGroup viewGroup, int i2) {
+            if (i2 == 1) {
+                View a2 = k.a(this.mContext, R.layout.ksad_datail_webview_container, viewGroup, false);
                 Presenter presenter = new Presenter();
-                presenter.a(new com.kwad.components.core.page.c.b());
-                return new com.kwad.components.core.page.recycle.c(a10, presenter, this.Qj);
+                presenter.a(new com.kwad.components.core.page.a.b());
+                return new com.kwad.components.core.page.recycle.c(a2, presenter, this.Lj);
             }
-            if (i10 != 0) {
+            if (i2 != 0) {
                 View view = new View(viewGroup.getContext());
-                view.setLayoutParams(new ViewGroup.LayoutParams(-1, com.kwad.sdk.c.a.a.a(viewGroup.getContext(), 64.0f)));
-                return new com.kwad.components.core.page.recycle.c(view, new Presenter(), this.Qj);
+                view.setLayoutParams(new ViewGroup.LayoutParams(-1, com.kwad.sdk.c.kwai.a.a(viewGroup.getContext(), 64.0f)));
+                return new com.kwad.components.core.page.recycle.c(view, new Presenter(), this.Lj);
             }
             FeedVideoView feedVideoView = new FeedVideoView(viewGroup.getContext());
             Presenter presenter2 = new Presenter();
-            presenter2.a(new com.kwad.components.core.page.c.a());
-            return new com.kwad.components.core.page.recycle.c(feedVideoView, presenter2, this.Qj);
+            presenter2.a(new com.kwad.components.core.page.a.a());
+            return new com.kwad.components.core.page.recycle.c(feedVideoView, presenter2, this.Lj);
         }
 
         @Override // androidx.recyclerview.widget.RecyclerView.Adapter
-        /* renamed from: getItemCount */
-        public final int getPageSize() {
-            return com.kwad.sdk.core.response.b.a.aF(com.kwad.sdk.core.response.b.e.eb(this.mAdTemplate)) ? 3 : 2;
+        public final int getItemCount() {
+            return com.kwad.sdk.core.response.a.a.ax(com.kwad.sdk.core.response.a.d.cb(this.mAdTemplate)) ? 3 : 2;
         }
 
         @Override // androidx.recyclerview.widget.RecyclerView.Adapter
-        public final int getItemViewType(int i10) {
-            return i10;
+        public final int getItemViewType(int i2) {
+            return i2;
         }
     }
 
-    public static b av(AdTemplate adTemplate) {
+    public static b K(AdTemplate adTemplate) {
         b bVar = new b();
         Bundle bundle = new Bundle();
         bundle.putString("key_photo", adTemplate.toJson().toString());
@@ -130,47 +129,57 @@ public final class b extends com.kwad.components.core.page.recycle.a {
         return bVar;
     }
 
-    public void x(View view) {
-        this.Qe = (LinearLayout) view.findViewById(R.id.ksad_web_tip_bar);
-        this.Qf = (TextView) view.findViewById(R.id.ksad_web_tip_bar_textview);
+    public void v(View view) {
+        this.Le = (LinearLayout) view.findViewById(R.id.ksad_web_tip_bar);
+        this.Lf = (TextView) view.findViewById(R.id.ksad_web_tip_bar_textview);
         ImageView imageView = (ImageView) view.findViewById(R.id.ksad_web_tip_close_btn);
-        this.Qg = imageView;
+        this.Lg = imageView;
         imageView.setOnClickListener(new View.OnClickListener() { // from class: com.kwad.components.core.page.b.1
-            public AnonymousClass1() {
+            AnonymousClass1() {
             }
 
             @Override // android.view.View.OnClickListener
             public final void onClick(View view2) {
-                b.this.Qe.setVisibility(8);
+                b.this.Le.setVisibility(8);
             }
         });
-        AdInfo eb2 = com.kwad.sdk.core.response.b.e.eb(this.mAdTemplate);
-        boolean by = com.kwad.sdk.core.response.b.a.by(eb2);
-        String bu = com.kwad.sdk.core.response.b.a.bu(eb2);
-        if (!by) {
-            this.Qe.setVisibility(8);
+        AdInfo cb = com.kwad.sdk.core.response.a.d.cb(this.mAdTemplate);
+        boolean bn = com.kwad.sdk.core.response.a.a.bn(cb);
+        String bj = com.kwad.sdk.core.response.a.a.bj(cb);
+        if (!bn) {
+            this.Le.setVisibility(8);
             return;
         }
-        this.Qe.setVisibility(0);
-        this.Qf.setText(bu);
-        this.Qf.setSelected(true);
+        this.Le.setVisibility(0);
+        this.Lf.setText(bj);
+        this.Lf.setSelected(true);
     }
 
-    @Override // com.kwad.components.core.proxy.h, com.kwad.sdk.l.a.b
-    public final boolean onBackPressed() {
-        WebView webView = this.Qc;
+    @Override // com.kwad.components.core.page.recycle.a
+    public final com.kwad.components.core.page.recycle.d a(RecyclerView recyclerView) {
+        return new a(this.mAdTemplate, recyclerView.getContext(), new e(this.mAdTemplate, this.mApkDownloadHelper, recyclerView));
+    }
+
+    @Override // com.kwad.components.core.l.f, com.kwad.sdk.i.kwai.b
+    public final boolean bX() {
+        WebView webView = this.Lc;
         if (webView != null && webView.canGoBack()) {
-            this.Qc.goBack();
+            this.Lc.goBack();
             return true;
         }
-        FeedVideoView feedVideoView = this.Qd;
+        FeedVideoView feedVideoView = this.Ld;
         if (feedVideoView != null) {
-            return feedVideoView.uy();
+            return feedVideoView.ry();
         }
         return false;
     }
 
-    @Override // com.kwad.components.core.proxy.h, com.kwad.sdk.api.core.fragment.KsFragment, com.kwad.sdk.api.core.fragment.AbstractIFragmentLifecycle, com.kwad.sdk.api.core.fragment.IFragmentLifecycle
+    @Override // com.kwad.components.core.page.recycle.a
+    public final int nX() {
+        return R.layout.ksad_detail_webview;
+    }
+
+    @Override // com.kwad.components.core.page.recycle.a, com.kwad.sdk.api.core.fragment.KsFragment, com.kwad.sdk.api.core.fragment.AbstractIFragmentLifecycle, com.kwad.sdk.api.core.fragment.IFragmentLifecycle
     public final void onCreate(@Nullable Bundle bundle) {
         super.onCreate(bundle);
         String string = getArguments().getString("key_photo");
@@ -178,8 +187,8 @@ public final class b extends com.kwad.components.core.page.recycle.a {
         if (string != null) {
             try {
                 adTemplate.parseJson(new JSONObject(string));
-            } catch (JSONException e10) {
-                com.kwad.sdk.core.d.c.printStackTrace(e10);
+            } catch (JSONException e2) {
+                com.kwad.sdk.core.d.b.printStackTrace(e2);
             }
         }
         this.mAdTemplate = adTemplate;
@@ -187,7 +196,7 @@ public final class b extends com.kwad.components.core.page.recycle.a {
         this.mAdTemplate.mAdWebVideoPageShowing = true;
     }
 
-    @Override // com.kwad.components.core.page.recycle.a, com.kwad.components.core.proxy.h, com.kwad.sdk.api.core.fragment.KsFragment, com.kwad.sdk.api.core.fragment.AbstractIFragmentLifecycle, com.kwad.sdk.api.core.fragment.IFragmentLifecycle
+    @Override // com.kwad.components.core.page.recycle.a, com.kwad.components.core.l.f, com.kwad.sdk.api.core.fragment.KsFragment, com.kwad.sdk.api.core.fragment.AbstractIFragmentLifecycle, com.kwad.sdk.api.core.fragment.IFragmentLifecycle
     public final void onDestroy() {
         super.onDestroy();
         AdTemplate adTemplate = this.mAdTemplate;
@@ -199,12 +208,12 @@ public final class b extends com.kwad.components.core.page.recycle.a {
     @Override // com.kwad.components.core.page.recycle.a, com.kwad.sdk.api.core.fragment.KsFragment, com.kwad.sdk.api.core.fragment.AbstractIFragmentLifecycle, com.kwad.sdk.api.core.fragment.IFragmentLifecycle
     public final void onViewCreated(@NonNull View view, @Nullable Bundle bundle) {
         super.onViewCreated(view, bundle);
-        DetailWebRecycleView detailWebRecycleView = (DetailWebRecycleView) qC();
+        DetailWebRecycleView detailWebRecycleView = (DetailWebRecycleView) oE();
         detailWebRecycleView.setInterceptRequestFocusForWeb(true);
         detailWebRecycleView.getViewTreeObserver().addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() { // from class: com.kwad.components.core.page.b.2
-            final /* synthetic */ DetailWebRecycleView Qi;
+            final /* synthetic */ DetailWebRecycleView Li;
 
-            public AnonymousClass2(DetailWebRecycleView detailWebRecycleView2) {
+            AnonymousClass2(DetailWebRecycleView detailWebRecycleView2) {
                 detailWebRecycleView = detailWebRecycleView2;
             }
 
@@ -212,35 +221,25 @@ public final class b extends com.kwad.components.core.page.recycle.a {
             public final void onGlobalLayout() {
                 if (detailWebRecycleView.getChildCount() > 0) {
                     RecyclerView.ViewHolder findViewHolderForAdapterPosition = detailWebRecycleView.findViewHolderForAdapterPosition(0);
-                    com.kwad.sdk.core.d.c.d("AdRecycleWebFragment", "recycleView.setTopViewHeight(" + findViewHolderForAdapterPosition.itemView.getHeight() + ")");
+                    com.kwad.sdk.core.d.b.d("AdRecycleWebFragment", "recycleView.setTopViewHeight(" + findViewHolderForAdapterPosition.itemView.getHeight() + ")");
                     detailWebRecycleView.setTopViewHeight(findViewHolderForAdapterPosition.itemView.getHeight());
                     View view2 = detailWebRecycleView.findViewHolderForAdapterPosition(0).itemView;
                     if (view2 instanceof FeedVideoView) {
-                        b.this.Qd = (FeedVideoView) view2;
+                        b.this.Ld = (FeedVideoView) view2;
                     }
                 }
                 if (detailWebRecycleView.getChildCount() > 1) {
                     View view22 = detailWebRecycleView.findViewHolderForAdapterPosition(1).itemView;
-                    b.this.Qc = (WebView) view22.findViewById(R.id.ksad_video_webView);
-                    b.this.x(view22);
+                    b.this.Lc = (WebView) view22.findViewById(R.id.ksad_video_webView);
+                    b.this.v(view22);
                 }
-                com.kwad.sdk.core.d.c.d("AdRecycleWebFragment", "onGlobalLayout");
+                com.kwad.sdk.core.d.b.d("AdRecycleWebFragment", "onGlobalLayout");
                 detailWebRecycleView.getViewTreeObserver().removeOnGlobalLayoutListener(this);
             }
         });
     }
 
-    @Override // com.kwad.components.core.proxy.h
-    public final int pR() {
-        return R.layout.ksad_detail_webview;
-    }
-
-    public final void setApkDownloadHelper(com.kwad.components.core.e.d.c cVar) {
+    public final void setApkDownloadHelper(com.kwad.components.core.d.b.c cVar) {
         this.mApkDownloadHelper = cVar;
-    }
-
-    @Override // com.kwad.components.core.page.recycle.a
-    public final com.kwad.components.core.page.recycle.d a(RecyclerView recyclerView) {
-        return new a(this.mAdTemplate, recyclerView.getContext(), new e(this.mAdTemplate, this.mApkDownloadHelper, recyclerView));
     }
 }

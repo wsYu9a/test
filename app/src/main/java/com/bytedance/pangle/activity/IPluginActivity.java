@@ -6,9 +6,9 @@ import androidx.annotation.Keep;
 import com.bytedance.pangle.plugin.Plugin;
 
 @Keep
-/* loaded from: classes2.dex */
+/* loaded from: classes.dex */
 public interface IPluginActivity {
-    void _requestPermissions(String[] strArr, int i10);
+    void _requestPermissions(String[] strArr, int i2);
 
     void attachBaseContext(Context context);
 
@@ -18,5 +18,5 @@ public interface IPluginActivity {
 
     void setPluginProxyActivity(b bVar, Plugin plugin);
 
-    void setProxyTheme2Plugin(int i10);
+    void setProxyTheme2Plugin(int i2);
 }

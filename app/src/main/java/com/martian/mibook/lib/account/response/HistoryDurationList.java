@@ -10,7 +10,7 @@ public class HistoryDurationList {
         return this.durationList;
     }
 
-    public void setDurationList(List<HistoryDuration> list) {
-        this.durationList = list;
+    public void setDurationList(List<HistoryDuration> durationList) {
+        this.durationList = durationList;
     }
 }

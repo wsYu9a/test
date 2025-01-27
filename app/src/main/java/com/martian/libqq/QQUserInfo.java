@@ -84,63 +84,63 @@ public class QQUserInfo extends QQResult {
         return this.yellow_vip_level;
     }
 
-    public void setCity(String str) {
-        this.city = str;
+    public void setCity(String city) {
+        this.city = city;
     }
 
-    public void setCountry(String str) {
-        this.country = str;
+    public void setCountry(String country) {
+        this.country = country;
     }
 
-    public void setFigureurl(String str) {
-        this.figureurl = str;
+    public void setFigureurl(String figureurl) {
+        this.figureurl = figureurl;
     }
 
-    public void setFigureurl_1(String str) {
-        this.figureurl_1 = str;
+    public void setFigureurl_1(String figureurl_1) {
+        this.figureurl_1 = figureurl_1;
     }
 
-    public void setFigureurl_2(String str) {
-        this.figureurl_2 = str;
+    public void setFigureurl_2(String figureurl_2) {
+        this.figureurl_2 = figureurl_2;
     }
 
-    public void setFigureurl_qq_1(String str) {
-        this.figureurl_qq_1 = str;
+    public void setFigureurl_qq_1(String figureurl_qq_1) {
+        this.figureurl_qq_1 = figureurl_qq_1;
     }
 
-    public void setFigureurl_qq_2(String str) {
-        this.figureurl_qq_2 = str;
+    public void setFigureurl_qq_2(String figureurl_qq_2) {
+        this.figureurl_qq_2 = figureurl_qq_2;
     }
 
-    public void setGender(String str) {
-        this.gender = str;
+    public void setGender(String gender) {
+        this.gender = gender;
     }
 
-    public void setIs_yellow_vip(Integer num) {
-        this.is_yellow_vip = num;
+    public void setIs_yellow_vip(Integer is_yellow_vip) {
+        this.is_yellow_vip = is_yellow_vip;
     }
 
-    public void setIs_yellow_year_vip(Integer num) {
-        this.is_yellow_year_vip = num;
+    public void setIs_yellow_year_vip(Integer is_yellow_year_vip) {
+        this.is_yellow_year_vip = is_yellow_year_vip;
     }
 
-    public void setLevel(Integer num) {
-        this.level = num;
+    public void setLevel(Integer level) {
+        this.level = level;
     }
 
-    public void setNickname(String str) {
-        this.nickname = str;
+    public void setNickname(String nickname) {
+        this.nickname = nickname;
     }
 
-    public void setProvince(String str) {
-        this.province = str;
+    public void setProvince(String province) {
+        this.province = province;
     }
 
-    public void setVip(Integer num) {
-        this.vip = num;
+    public void setVip(Integer vip) {
+        this.vip = vip;
     }
 
-    public void setYellow_vip_level(Integer num) {
-        this.yellow_vip_level = num;
+    public void setYellow_vip_level(Integer yellow_vip_level) {
+        this.yellow_vip_level = yellow_vip_level;
     }
 }

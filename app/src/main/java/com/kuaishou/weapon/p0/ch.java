@@ -4,51 +4,61 @@ import android.content.Context;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
-/* loaded from: classes2.dex */
+/* loaded from: classes.dex */
 public class ch {
 
     /* renamed from: a */
-    private Context f10900a;
+    private Context f9185a;
 
     /* renamed from: b */
-    private int f10901b;
+    private int f9186b;
 
-    public ch(Context context, int i10) {
-        this.f10900a = context;
-        this.f10901b = i10;
+    public ch(Context context, int i2) {
+        this.f9185a = context;
+        this.f9186b = i2;
     }
 
-    public JSONObject a() {
+    public String a(String str) {
+        JSONObject a2;
         try {
-            JSONObject jSONObject = new JSONObject();
-            if (h.a(this.f10900a, "re_po_rt").b(df.f11071y, 1) != 1) {
+            JSONObject a3 = new cl(str, cj.f9197j).a(this.f9185a);
+            if (a3 == null || (a2 = a()) == null) {
                 return null;
             }
-            try {
-                JSONArray a10 = new x().a(this.f10900a);
-                if (a10 != null && a10.length() > 0) {
-                    jSONObject.put("10000", a10);
-                    jSONObject.put("11301", bh.c(com.kwad.sdk.e.b.Kh().Kg()));
-                    jSONObject.put("11302", bh.c(com.kwad.sdk.e.b.Kh().getSdkVersion()));
-                    jSONObject.put("11303", bh.c(com.kwad.sdk.e.b.Kh().getAppId()));
-                }
-            } catch (Throwable unused) {
-            }
-            return jSONObject;
-        } catch (Throwable unused2) {
+            a3.put("module_section", a2);
+            return a3.toString();
+        } catch (Throwable unused) {
             return null;
         }
     }
 
-    public String a(String str) {
-        JSONObject a10;
+    public JSONObject a() {
+        long currentTimeMillis;
+        JSONObject jSONObject;
+        JSONArray a2;
         try {
-            JSONObject a11 = new cm(str, ck.f10916l).a(this.f10900a);
-            if (a11 != null && (a10 = a()) != null && a10.length() != 0) {
-                a11.put("module_section", a10);
-                return a11.toString();
-            }
+            currentTimeMillis = System.currentTimeMillis();
+            jSONObject = new JSONObject();
         } catch (Throwable unused) {
+        }
+        if (!WeaponHI.as) {
+            return null;
+        }
+        h a3 = h.a(this.f9185a, "re_po_rt");
+        int b2 = a3.b(de.m, 0);
+        boolean e2 = a3.e("a1_p_s_p_s");
+        boolean e3 = a3.e("a1_p_s_p_s_c_b");
+        if (b2 == 1 && ((e2 || e3) && (a2 = new w(this.f9185a).a(0)) != null)) {
+            jSONObject.put("10000", a2);
+            try {
+                jSONObject.put("11301", bg.c(com.kwad.sdk.d.b.Ax().Aw()));
+                jSONObject.put("11302", bg.c(com.kwad.sdk.d.b.Ax().getSdkVersion()));
+                jSONObject.put("11303", bg.c(com.kwad.sdk.d.b.Ax().getAppId()));
+            } catch (Throwable unused2) {
+            }
+            jSONObject.put("11007", System.currentTimeMillis() - currentTimeMillis);
+            jSONObject.put("11017", jSONObject.toString().length());
+            return jSONObject;
         }
         return null;
     }

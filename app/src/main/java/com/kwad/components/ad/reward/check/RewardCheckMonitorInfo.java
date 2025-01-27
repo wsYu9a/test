@@ -4,8 +4,8 @@ import com.ksad.json.annotation.KsJson;
 import java.io.Serializable;
 
 @KsJson
-/* loaded from: classes2.dex */
-public class RewardCheckMonitorInfo extends com.kwad.sdk.commercial.c.a implements Serializable {
+/* loaded from: classes.dex */
+public class RewardCheckMonitorInfo extends com.kwad.sdk.core.response.kwai.a implements Serializable {
     public static final int CHECK_TYPE_EXPOSURE = 1;
     public static final int CHECK_TYPE_REWARD = 2;
     public static final int ENVI_TYPE_NATIVE = 0;
@@ -18,42 +18,46 @@ public class RewardCheckMonitorInfo extends com.kwad.sdk.commercial.c.a implemen
     public long creativeId;
     public long dataLoadInterval;
     public int enviType;
+    public String errorMsg;
     public long posId;
     public int requestStatus;
 
-    public RewardCheckMonitorInfo setCheckType(int i10) {
-        this.checkType = i10;
+    public RewardCheckMonitorInfo(long j2) {
+        this.posId = j2;
+    }
+
+    public RewardCheckMonitorInfo setCheckType(int i2) {
+        this.checkType = i2;
         return this;
     }
 
-    public RewardCheckMonitorInfo setCode(int i10) {
-        this.code = i10;
+    public RewardCheckMonitorInfo setCode(int i2) {
+        this.code = i2;
         return this;
     }
 
-    public RewardCheckMonitorInfo setCreativeId(long j10) {
-        this.creativeId = j10;
+    public RewardCheckMonitorInfo setCreativeId(long j2) {
+        this.creativeId = j2;
         return this;
     }
 
-    public RewardCheckMonitorInfo setDataLoadInterval(long j10) {
-        this.dataLoadInterval = j10;
+    public RewardCheckMonitorInfo setDataLoadInterval(long j2) {
+        this.dataLoadInterval = j2;
         return this;
     }
 
-    public RewardCheckMonitorInfo setEnviType(int i10) {
-        this.enviType = i10;
+    public RewardCheckMonitorInfo setEnviType(int i2) {
+        this.enviType = i2;
         return this;
     }
 
-    public RewardCheckMonitorInfo setRequestStatus(int i10) {
-        this.requestStatus = i10;
-        return this;
-    }
-
-    @Override // com.kwad.sdk.commercial.c.a
     public RewardCheckMonitorInfo setErrorMsg(String str) {
-        super.setErrorMsg(str);
+        this.errorMsg = str;
+        return this;
+    }
+
+    public RewardCheckMonitorInfo setRequestStatus(int i2) {
+        this.requestStatus = i2;
         return this;
     }
 }

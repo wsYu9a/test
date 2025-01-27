@@ -4,21 +4,21 @@ import android.text.TextUtils;
 import com.ksad.annotation.invoker.InvokeBy;
 import com.kwad.sdk.api.KsImage;
 
-/* loaded from: classes3.dex */
+/* loaded from: classes2.dex */
 public class d implements KsImage {
     private int height;
     private String imageUrl;
     private int width;
 
-    public d(int i10, int i11, String str) {
-        this.width = i10;
-        this.height = i11;
+    public d(int i2, int i3, String str) {
+        this.width = i2;
+        this.height = i3;
         this.imageUrl = str;
     }
 
-    @InvokeBy(invokerClass = com.kwad.sdk.service.b.class, methodId = "initModeImplForInvoker")
+    @InvokeBy(invokerClass = com.kwad.sdk.service.a.class, methodId = "initModeImplForInvoker")
     public static void register() {
-        com.kwad.sdk.service.b.b(KsImage.class, d.class);
+        com.kwad.sdk.service.a.b(KsImage.class, d.class);
     }
 
     @Override // com.kwad.sdk.api.KsImage

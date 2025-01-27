@@ -20,19 +20,19 @@ import java.util.Map;
 public class b {
 
     /* renamed from: a */
-    public static boolean f22064a = true;
+    public static boolean f24586a = true;
 
     /* renamed from: b */
-    public static List<a> f22065b = new ArrayList();
+    public static List<a> f24587b = new ArrayList();
 
     /* renamed from: c */
-    public static boolean f22066c;
+    public static boolean f24588c;
 
     /* renamed from: d */
-    private static J f22067d;
+    private static J f24589d;
 
     /* renamed from: e */
-    private static boolean f22068e;
+    private static boolean f24590e;
 
     private static boolean a(com.tencent.bugly.crashreport.common.info.a aVar) {
         List<String> list = aVar.P;
@@ -47,46 +47,46 @@ public class b {
 
     public static synchronized void a(Context context, BuglyStrategy buglyStrategy) {
         synchronized (b.class) {
-            if (f22068e) {
+            if (f24590e) {
                 X.e("[init] initial Multi-times, ignore this.", new Object[0]);
                 return;
             }
             if (context == null) {
-                Log.w(X.f22679b, "[init] context of init() is null, check it.");
+                Log.w(X.f25019b, "[init] context of init() is null, check it.");
                 return;
             }
-            com.tencent.bugly.crashreport.common.info.a a10 = com.tencent.bugly.crashreport.common.info.a.a(context);
-            if (a(a10)) {
-                f22064a = false;
+            com.tencent.bugly.crashreport.common.info.a a2 = com.tencent.bugly.crashreport.common.info.a.a(context);
+            if (a(a2)) {
+                f24586a = false;
                 return;
             }
-            String e10 = a10.e();
-            if (e10 == null) {
-                Log.e(X.f22679b, "[init] meta data of BUGLY_APPID in AndroidManifest.xml should be set.");
+            String e2 = a2.e();
+            if (e2 == null) {
+                Log.e(X.f25019b, "[init] meta data of BUGLY_APPID in AndroidManifest.xml should be set.");
             } else {
-                a(context, e10, a10.f22285ba, buglyStrategy);
+                a(context, e2, a2.ba, buglyStrategy);
             }
         }
     }
 
-    public static synchronized void a(Context context, String str, boolean z10, BuglyStrategy buglyStrategy) {
+    public static synchronized void a(Context context, String str, boolean z, BuglyStrategy buglyStrategy) {
         synchronized (b.class) {
-            if (f22068e) {
+            if (f24590e) {
                 X.e("[init] initial Multi-times, ignore this.", new Object[0]);
                 return;
             }
             if (context == null) {
-                Log.w(X.f22679b, "[init] context is null, check it.");
+                Log.w(X.f25019b, "[init] context is null, check it.");
                 return;
             }
             if (str == null) {
-                Log.e(X.f22679b, "init arg 'crashReportAppID' should not be null!");
+                Log.e(X.f25019b, "init arg 'crashReportAppID' should not be null!");
                 return;
             }
-            f22068e = true;
-            if (z10) {
-                f22066c = true;
-                X.f22680c = true;
+            f24590e = true;
+            if (z) {
+                f24588c = true;
+                X.f25020c = true;
                 X.e("Bugly debug模式开启，请在发布时把isDebug关闭。 -- Running in debug model for 'isDebug' is enabled. Please disable it when you release.", new Object[0]);
                 X.b("--------------------------------------------------------------------------------------------", new Object[0]);
                 X.e("Bugly debug模式将有以下行为特性 -- The following list shows the behaviour of debug model: ", new Object[0]);
@@ -99,34 +99,34 @@ public class b {
             X.c(" crash report start initializing...", new Object[0]);
             X.d("[init] Bugly start initializing...", new Object[0]);
             X.c("[init] Bugly complete version: v%s", "3.4.12(1.5.23)");
-            Context a10 = ca.a(context);
-            com.tencent.bugly.crashreport.common.info.a a11 = com.tencent.bugly.crashreport.common.info.a.a(a10);
-            a11.E();
-            ba.a(a10);
-            f22067d = J.a(a10, f22065b);
-            T.a(a10);
-            c a12 = c.a(a10, f22065b);
-            H a13 = H.a(a10);
-            if (a(a11)) {
-                f22064a = false;
+            Context a2 = ca.a(context);
+            com.tencent.bugly.crashreport.common.info.a a3 = com.tencent.bugly.crashreport.common.info.a.a(a2);
+            a3.E();
+            ba.a(a2);
+            f24589d = J.a(a2, f24587b);
+            T.a(a2);
+            c a4 = c.a(a2, f24587b);
+            H a5 = H.a(a2);
+            if (a(a3)) {
+                f24586a = false;
                 return;
             }
-            a11.c(str);
+            a3.c(str);
             X.c("[param] Set APP ID:%s", str);
-            a(buglyStrategy, a11);
-            for (int i10 = 0; i10 < f22065b.size(); i10++) {
+            a(buglyStrategy, a3);
+            for (int i2 = 0; i2 < f24587b.size(); i2++) {
                 try {
-                    if (a13.a(f22065b.get(i10).f22063id)) {
-                        f22065b.get(i10).init(a10, z10, buglyStrategy);
+                    if (a5.a(f24587b.get(i2).id)) {
+                        f24587b.get(i2).init(a2, z, buglyStrategy);
                     }
-                } catch (Throwable th2) {
-                    if (!X.b(th2)) {
-                        th2.printStackTrace();
+                } catch (Throwable th) {
+                    if (!X.b(th)) {
+                        th.printStackTrace();
                     }
                 }
             }
-            f.b(a10, buglyStrategy);
-            a12.a(buglyStrategy != null ? buglyStrategy.getAppReportDelay() : 0L);
+            f.b(a2, buglyStrategy);
+            a4.a(buglyStrategy != null ? buglyStrategy.getAppReportDelay() : 0L);
             X.d("[init] Bugly initialization finished.", new Object[0]);
         }
     }
@@ -155,19 +155,19 @@ public class b {
                         X.e("appChannel %s length is over limit %d substring to %s", appChannel, 100, substring2);
                         appChannel = substring2;
                     }
-                    f22067d.a(556, "app_channel", appChannel.getBytes(), (I) null, false);
+                    f24589d.a(556, "app_channel", appChannel.getBytes(), (I) null, false);
                     aVar.I = appChannel;
                 }
             } else {
-                Map<String, byte[]> a10 = f22067d.a(556, (I) null, true);
-                if (a10 != null && (bArr = a10.get("app_channel")) != null) {
+                Map<String, byte[]> a2 = f24589d.a(556, (I) null, true);
+                if (a2 != null && (bArr = a2.get("app_channel")) != null) {
                     aVar.I = new String(bArr);
                 }
             }
             X.c("[param] Set App channel: %s", aVar.I);
-        } catch (Exception e10) {
-            if (f22066c) {
-                e10.printStackTrace();
+        } catch (Exception e2) {
+            if (f24588c) {
+                e2.printStackTrace();
             }
         }
         String appPackageName = buglyStrategy.getAppPackageName();
@@ -177,7 +177,7 @@ public class b {
                 X.e("appPackageName %s length is over limit %d substring to %s", appPackageName, 100, substring3);
                 appPackageName = substring3;
             }
-            aVar.f22294g = appPackageName;
+            aVar.f24754g = appPackageName;
             X.c("[param] Set App package: %s", buglyStrategy.getAppPackageName());
         }
         String deviceID = buglyStrategy.getDeviceID();
@@ -190,14 +190,14 @@ public class b {
             aVar.d(deviceID);
             X.c("[param] Set device ID: %s", deviceID);
         }
-        aVar.f22300j = buglyStrategy.isUploadProcess();
-        ba.f22690c = buglyStrategy.isBuglyLogUpload();
+        aVar.f24757j = buglyStrategy.isUploadProcess();
+        ba.f25030c = buglyStrategy.isBuglyLogUpload();
     }
 
     public static synchronized void a(a aVar) {
         synchronized (b.class) {
-            if (!f22065b.contains(aVar)) {
-                f22065b.add(aVar);
+            if (!f24587b.contains(aVar)) {
+                f24587b.add(aVar);
             }
         }
     }

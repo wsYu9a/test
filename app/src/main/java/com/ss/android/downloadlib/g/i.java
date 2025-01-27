@@ -1,40 +1,114 @@
 package com.ss.android.downloadlib.g;
 
-import android.content.Context;
-import android.net.Uri;
-import androidx.annotation.NonNull;
+import android.content.ContentValues;
+import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
+import android.text.TextUtils;
+import com.alipay.mobilesecuritysdk.deviceID.c;
+import com.ss.android.downloadlib.addownload.pa;
+import com.ss.android.socialbase.downloader.setting.DownloadSetting;
+import org.json.JSONObject;
 
 /* loaded from: classes4.dex */
 public class i {
-    public static com.ss.android.downloadlib.addownload.b.g a(Context context, Uri uri) {
-        return h.a(context, uri);
+    private static volatile i zx;
+
+    /* renamed from: j */
+    private SQLiteDatabase f24248j;
+
+    private i() {
+        try {
+            this.f24248j = new zx(pa.getContext()).getWritableDatabase();
+        } catch (Throwable th) {
+            com.ss.android.downloadlib.q.i.j().j(th, "ClickEventHelper");
+        }
     }
 
-    public static com.ss.android.downloadlib.addownload.b.g b(Context context, String str) {
-        return h.b(context, str);
+    public static i j() {
+        if (zx == null) {
+            synchronized (i.class) {
+                if (zx == null) {
+                    zx = new i();
+                }
+            }
+        }
+        return zx;
     }
 
-    public static boolean c(Context context, String str) {
-        return h.c(context, str);
+    public boolean i() {
+        return DownloadSetting.obtainGlobal().optInt("click_event_switch", 0) == 2;
     }
 
-    public static com.ss.android.downloadlib.addownload.b.g a(Context context, String str) {
-        return h.a(context, str);
+    public boolean zx() {
+        return DownloadSetting.obtainGlobal().optInt("click_event_switch", 0) == 1;
     }
 
-    public static com.ss.android.downloadlib.addownload.b.g a(Context context, com.ss.android.downloadlib.addownload.b.e eVar, String str) {
-        return h.a(context, eVar, str);
+    private void i(long j2, String str) {
+        SQLiteDatabase sQLiteDatabase = this.f24248j;
+        if (sQLiteDatabase == null || !sQLiteDatabase.isOpen() || j2 <= 0 || TextUtils.isEmpty(str)) {
+            return;
+        }
+        try {
+            String optString = new JSONObject(str).optString("req_id");
+            if (TextUtils.isEmpty(optString)) {
+                return;
+            }
+            this.f24248j.delete("click_event", "time < ? AND ad_id = ? AND req_id = ?", new String[]{String.valueOf(System.currentTimeMillis() - 1209600000), String.valueOf(j2), optString});
+        } catch (Exception e2) {
+            e2.printStackTrace();
+        }
     }
 
-    public static com.ss.android.downloadlib.addownload.b.g a(Context context, String str, com.ss.android.downloadad.api.a.a aVar) {
-        return h.a(context, str, aVar);
+    public boolean zx(long j2, String str) {
+        SQLiteDatabase sQLiteDatabase = this.f24248j;
+        if (sQLiteDatabase == null || !sQLiteDatabase.isOpen() || j2 <= 0 || TextUtils.isEmpty(str)) {
+            return false;
+        }
+        Cursor cursor = null;
+        try {
+            try {
+                String optString = new JSONObject(str).optString("req_id");
+                if (TextUtils.isEmpty(optString)) {
+                    return false;
+                }
+                cursor = this.f24248j.query("click_event", zx.f24251j, "time > ? AND ad_id = ? AND req_id = ?", new String[]{String.valueOf(System.currentTimeMillis() - 1209600000), String.valueOf(j2), optString}, null, null, null, null);
+                boolean z = cursor.getCount() > 0;
+                cursor.close();
+                return z;
+            } catch (Exception e2) {
+                e2.printStackTrace();
+                if (cursor != null) {
+                    cursor.close();
+                }
+                return false;
+            }
+        } catch (Throwable th) {
+            if (cursor != null) {
+                cursor.close();
+            }
+            throw th;
+        }
     }
 
-    public static com.ss.android.downloadlib.addownload.b.g a(String str, @NonNull com.ss.android.downloadad.api.a.a aVar) {
-        return h.b(str, aVar);
-    }
-
-    public static com.ss.android.downloadlib.addownload.b.g a(@NonNull com.ss.android.downloadad.api.a.b bVar, String str, String str2) {
-        return h.a(bVar, str, str2);
+    public void j(long j2, String str) {
+        String optString;
+        SQLiteDatabase sQLiteDatabase = this.f24248j;
+        if (sQLiteDatabase == null || !sQLiteDatabase.isOpen() || j2 <= 0 || TextUtils.isEmpty(str)) {
+            return;
+        }
+        try {
+            optString = new JSONObject(str).optString("req_id");
+        } catch (Exception e2) {
+            e2.printStackTrace();
+        }
+        if (TextUtils.isEmpty(optString)) {
+            return;
+        }
+        ContentValues contentValues = new ContentValues();
+        contentValues.put("ad_id", Long.valueOf(j2));
+        contentValues.put("req_id", optString);
+        contentValues.put(c.y, Long.valueOf(System.currentTimeMillis()));
+        this.f24248j.insert("click_event", null, contentValues);
+        i(j2, str);
     }
 }

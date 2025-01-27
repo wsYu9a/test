@@ -9,26 +9,26 @@ import java.util.concurrent.ExecutorService;
 
 /* loaded from: classes4.dex */
 public class DownloadService extends Service {
-    private static final String TAG = "DownloadService";
+    private static final String TAG = DownloadService.class.getSimpleName();
     protected IDownloadServiceHandler downloadServiceHandler;
 
     /* renamed from: com.ss.android.socialbase.downloader.downloader.DownloadService$1 */
-    public class AnonymousClass1 implements Runnable {
+    class AnonymousClass1 implements Runnable {
         final /* synthetic */ int val$flags;
         final /* synthetic */ Intent val$intent;
         final /* synthetic */ int val$startId;
 
-        public AnonymousClass1(Intent intent, int i10, int i11) {
+        AnonymousClass1(Intent intent, int i2, int i3) {
             intent = intent;
-            i10 = i10;
-            i11 = i11;
+            i2 = i2;
+            i3 = i3;
         }
 
         @Override // java.lang.Runnable
         public void run() {
             IDownloadServiceHandler iDownloadServiceHandler = DownloadService.this.downloadServiceHandler;
             if (iDownloadServiceHandler != null) {
-                iDownloadServiceHandler.onStartCommand(intent, i10, i11);
+                iDownloadServiceHandler.onStartCommand(intent, i2, i3);
             }
         }
     }
@@ -36,10 +36,10 @@ public class DownloadService extends Service {
     @Override // android.app.Service
     public IBinder onBind(Intent intent) {
         String str = TAG;
-        StringBuilder sb2 = new StringBuilder();
-        sb2.append("onBind downloadServiceHandler != null:");
-        sb2.append(this.downloadServiceHandler != null);
-        Logger.d(str, sb2.toString());
+        StringBuilder sb = new StringBuilder();
+        sb.append("onBind downloadServiceHandler != null:");
+        sb.append(this.downloadServiceHandler != null);
+        Logger.d(str, sb.toString());
         IDownloadServiceHandler iDownloadServiceHandler = this.downloadServiceHandler;
         if (iDownloadServiceHandler != null) {
             return iDownloadServiceHandler.onBind(intent);
@@ -70,7 +70,7 @@ public class DownloadService extends Service {
     }
 
     @Override // android.app.Service
-    public int onStartCommand(Intent intent, int i10, int i11) {
+    public int onStartCommand(Intent intent, int i2, int i3) {
         if (Logger.debug()) {
             Logger.d(TAG, "DownloadService onStartCommand");
         }
@@ -82,17 +82,17 @@ public class DownloadService extends Service {
                 final /* synthetic */ Intent val$intent;
                 final /* synthetic */ int val$startId;
 
-                public AnonymousClass1(Intent intent2, int i102, int i112) {
+                AnonymousClass1(Intent intent2, int i22, int i32) {
                     intent = intent2;
-                    i10 = i102;
-                    i11 = i112;
+                    i2 = i22;
+                    i3 = i32;
                 }
 
                 @Override // java.lang.Runnable
                 public void run() {
                     IDownloadServiceHandler iDownloadServiceHandler = DownloadService.this.downloadServiceHandler;
                     if (iDownloadServiceHandler != null) {
-                        iDownloadServiceHandler.onStartCommand(intent, i10, i11);
+                        iDownloadServiceHandler.onStartCommand(intent, i2, i3);
                     }
                 }
             });

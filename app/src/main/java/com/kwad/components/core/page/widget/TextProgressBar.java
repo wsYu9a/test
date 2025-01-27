@@ -17,27 +17,27 @@ import android.view.ViewGroup;
 import android.widget.ProgressBar;
 import androidx.annotation.ColorInt;
 import androidx.annotation.Nullable;
-import com.kwad.sdk.n.m;
+import com.kwad.sdk.j.k;
 
-/* loaded from: classes3.dex */
+/* loaded from: classes2.dex */
 public class TextProgressBar extends ProgressBar {
+    private boolean NB;
+    private int NC;
+    private int ND;
+    private Drawable NE;
+    private int NF;
+    private Rect NG;
+    private int[] NH;
+    private int NI;
+    private int NJ;
+    private boolean NK;
 
     @Nullable
-    private String SG;
-    private LinearGradient SH;
-    private Matrix SI;
-    private boolean SJ;
-    private boolean SK;
-    private boolean SL;
-    private int SM;
-    private int SN;
-    private Drawable SO;
-    private int SP;
-    private Rect SQ;
-    private int[] SR;
-    private int SS;
-    private int ST;
-    private boolean SU;
+    private String Nv;
+    private LinearGradient Nw;
+    private Matrix Nx;
+    private boolean Ny;
+    private boolean Nz;
     private Paint mPaint;
     private RectF mRectF;
 
@@ -45,208 +45,200 @@ public class TextProgressBar extends ProgressBar {
         this(context, null);
     }
 
-    private void qT() {
+    public TextProgressBar(Context context, AttributeSet attributeSet) {
+        super(k.wrapContextIfNeed(context), attributeSet);
+        this.Nz = false;
+        this.NB = true;
+        this.NG = new Rect();
+        oV();
+    }
+
+    private void oV() {
         Paint paint = new Paint();
         this.mPaint = paint;
         paint.setAntiAlias(true);
         this.mPaint.setColor(-1);
-        this.mPaint.setTextSize(com.kwad.sdk.c.a.a.a(getContext(), 12.0f));
-        this.SP = com.kwad.sdk.c.a.a.a(getContext(), 2.0f);
+        this.mPaint.setTextSize(com.kwad.sdk.c.kwai.a.a(getContext(), 12.0f));
+        this.NF = com.kwad.sdk.c.kwai.a.a(getContext(), 2.0f);
         this.mRectF = new RectF();
-        this.SS = -1;
-        this.ST = -117146;
+        this.NI = -1;
+        this.NJ = -117146;
     }
 
-    private void setProgressText(int i10) {
-        this.SG = String.valueOf((int) (((i10 * 1.0f) / getMax()) * 100.0f)) + "%";
+    private void setProgressText(int i2) {
+        this.Nv = String.valueOf((int) (((i2 * 1.0f) / getMax()) * 100.0f)) + "%";
     }
 
-    public final void e(String str, int i10) {
-        this.SG = str;
-        this.SJ = true;
-        setProgress(i10);
+    public final void f(String str, int i2) {
+        this.Nv = str;
+        this.Ny = true;
+        setProgress(i2);
         invalidate();
     }
 
     @Override // android.widget.ProgressBar, android.view.View
-    public synchronized void onDraw(Canvas canvas) {
+    protected synchronized void onDraw(Canvas canvas) {
         int width;
-        try {
-            if (this.SK) {
-                canvas.save();
-                canvas.rotate(90.0f);
-                canvas.translate(0.0f, -getWidth());
-                super.onDraw(canvas);
-                canvas.restore();
-            } else {
-                super.onDraw(canvas);
-            }
-            if (!TextUtils.isEmpty(this.SG)) {
-                Paint paint = this.mPaint;
-                String str = this.SG;
-                paint.getTextBounds(str, 0, str.length(), this.SQ);
-            }
-            int height = (getHeight() / 2) - this.SQ.centerY();
-            Drawable drawable = this.SO;
-            if (drawable != null) {
-                int intrinsicWidth = drawable.getIntrinsicWidth();
-                int intrinsicHeight = this.SO.getIntrinsicHeight();
-                int width2 = (((getWidth() - this.SQ.width()) - intrinsicWidth) - this.SP) / 2;
-                int i10 = intrinsicWidth + width2;
-                this.SO.setBounds(width2, (getHeight() - intrinsicHeight) / 2, i10, (getHeight() + intrinsicHeight) / 2);
-                this.SO.draw(canvas);
-                width = i10 + this.SP;
-            } else {
-                width = (getWidth() / 2) - this.SQ.centerX();
-            }
-            if (this.SR != null) {
-                float progress = ((getProgress() * 1.0f) / getMax()) * getWidth();
-                float f10 = width;
-                if (progress >= f10) {
-                    if (this.SH == null) {
-                        this.SH = new LinearGradient(f10, 0.0f, width + this.SQ.width(), 0.0f, this.SR, (float[]) null, Shader.TileMode.CLAMP);
-                        Matrix matrix = new Matrix();
-                        this.SI = matrix;
-                        this.SH.setLocalMatrix(matrix);
-                    }
-                    this.mPaint.setShader(this.SH);
-                    this.SI.setScale(((progress - f10) * 1.0f) / this.SQ.width(), 1.0f, f10, 0.0f);
-                    this.SH.setLocalMatrix(this.SI);
-                } else {
-                    this.mPaint.setShader(null);
-                }
-                canvas.drawText(this.SG, f10, height, this.mPaint);
-                return;
-            }
-            if (!isIndeterminate() && !this.SU) {
-                this.mPaint.setColor(this.SS);
-                String str2 = this.SG;
-                if (str2 != null) {
-                    canvas.drawText(str2, width, height, this.mPaint);
-                }
-                return;
-            }
-            float width3 = (getWidth() * getProgress()) / getMax();
-            int save = canvas.save();
-            this.mRectF.set(width3, 0.0f, getWidth(), getHeight());
-            canvas.clipRect(this.mRectF);
-            this.mPaint.setColor(this.ST);
-            String str3 = this.SG;
-            if (str3 != null) {
-                canvas.drawText(str3, width, height, this.mPaint);
-            }
-            canvas.restoreToCount(save);
-            int save2 = canvas.save();
-            this.mRectF.set(0.0f, 0.0f, width3, getHeight());
-            canvas.clipRect(this.mRectF);
-            this.mPaint.setColor(this.SS);
-            String str4 = this.SG;
-            if (str4 != null) {
-                canvas.drawText(str4, width, height, this.mPaint);
-            }
-            canvas.restoreToCount(save2);
-        } catch (Throwable th2) {
-            throw th2;
-        }
-    }
-
-    @Override // android.widget.ProgressBar, android.view.View
-    public synchronized void onMeasure(int i10, int i11) {
-        try {
-            ViewGroup.LayoutParams layoutParams = getLayoutParams();
-            if (layoutParams != null && !TextUtils.isEmpty(this.SG)) {
-                Rect rect = new Rect();
-                Paint paint = this.mPaint;
-                String str = this.SG;
-                paint.getTextBounds(str, 0, str.length(), rect);
-                if (layoutParams.width == -2) {
-                    int width = rect.width() + this.SM + this.SN;
-                    layoutParams.width = width;
-                    i10 = View.MeasureSpec.makeMeasureSpec(width, 1073741824);
-                }
-                if (layoutParams.height == -2) {
-                    int height = rect.height();
-                    layoutParams.height = height;
-                    i11 = View.MeasureSpec.makeMeasureSpec(height, 1073741824);
-                }
-            }
-            if (!this.SK) {
-                super.onMeasure(i10, i11);
-            } else {
-                super.onMeasure(i11, i10);
-                setMeasuredDimension(getMeasuredHeight(), getMeasuredWidth());
-            }
-        } catch (Throwable th2) {
-            throw th2;
-        }
-    }
-
-    @Override // android.widget.ProgressBar, android.view.View
-    public void onSizeChanged(int i10, int i11, int i12, int i13) {
-        if (this.SK) {
-            super.onSizeChanged(i11, i10, i12, i13);
+        if (this.Nz) {
+            canvas.save();
+            canvas.rotate(90.0f);
+            canvas.translate(0.0f, -getWidth());
+            super.onDraw(canvas);
+            canvas.restore();
         } else {
-            super.onSizeChanged(i10, i11, i12, i13);
+            super.onDraw(canvas);
+        }
+        if (!TextUtils.isEmpty(this.Nv)) {
+            Paint paint = this.mPaint;
+            String str = this.Nv;
+            paint.getTextBounds(str, 0, str.length(), this.NG);
+        }
+        int height = (getHeight() / 2) - this.NG.centerY();
+        Drawable drawable = this.NE;
+        if (drawable != null) {
+            int intrinsicWidth = drawable.getIntrinsicWidth();
+            int intrinsicHeight = this.NE.getIntrinsicHeight();
+            int width2 = (((getWidth() - this.NG.width()) - intrinsicWidth) - this.NF) / 2;
+            int i2 = intrinsicWidth + width2;
+            this.NE.setBounds(width2, (getHeight() - intrinsicHeight) / 2, i2, (getHeight() + intrinsicHeight) / 2);
+            this.NE.draw(canvas);
+            width = i2 + this.NF;
+        } else {
+            width = (getWidth() / 2) - this.NG.centerX();
+        }
+        if (this.NH != null) {
+            float progress = ((getProgress() * 1.0f) / getMax()) * getWidth();
+            float f2 = width;
+            if (progress >= f2) {
+                if (this.Nw == null) {
+                    this.Nw = new LinearGradient(f2, 0.0f, width + this.NG.width(), 0.0f, this.NH, (float[]) null, Shader.TileMode.CLAMP);
+                    Matrix matrix = new Matrix();
+                    this.Nx = matrix;
+                    this.Nw.setLocalMatrix(matrix);
+                }
+                this.mPaint.setShader(this.Nw);
+                this.Nx.setScale(((progress - f2) * 1.0f) / this.NG.width(), 1.0f, f2, 0.0f);
+                this.Nw.setLocalMatrix(this.Nx);
+            } else {
+                this.mPaint.setShader(null);
+            }
+            canvas.drawText(this.Nv, f2, height, this.mPaint);
+            return;
+        }
+        if (!isIndeterminate() && !this.NK) {
+            this.mPaint.setColor(this.NI);
+            String str2 = this.Nv;
+            if (str2 != null) {
+                canvas.drawText(str2, width, height, this.mPaint);
+            }
+            return;
+        }
+        float width3 = (getWidth() * getProgress()) / getMax();
+        int save = canvas.save();
+        this.mRectF.set(width3, 0.0f, getWidth(), getHeight());
+        canvas.clipRect(this.mRectF);
+        this.mPaint.setColor(this.NJ);
+        String str3 = this.Nv;
+        if (str3 != null) {
+            canvas.drawText(str3, width, height, this.mPaint);
+        }
+        canvas.restoreToCount(save);
+        int save2 = canvas.save();
+        this.mRectF.set(0.0f, 0.0f, width3, getHeight());
+        canvas.clipRect(this.mRectF);
+        this.mPaint.setColor(this.NI);
+        String str4 = this.Nv;
+        if (str4 != null) {
+            canvas.drawText(str4, width, height, this.mPaint);
+        }
+        canvas.restoreToCount(save2);
+    }
+
+    @Override // android.widget.ProgressBar, android.view.View
+    protected synchronized void onMeasure(int i2, int i3) {
+        ViewGroup.LayoutParams layoutParams = getLayoutParams();
+        if (layoutParams != null && !TextUtils.isEmpty(this.Nv)) {
+            Rect rect = new Rect();
+            Paint paint = this.mPaint;
+            String str = this.Nv;
+            paint.getTextBounds(str, 0, str.length(), rect);
+            if (layoutParams.width == -2) {
+                int width = rect.width() + this.NC + this.ND;
+                layoutParams.width = width;
+                i2 = View.MeasureSpec.makeMeasureSpec(width, 1073741824);
+            }
+            if (layoutParams.height == -2) {
+                int height = rect.height();
+                layoutParams.height = height;
+                i3 = View.MeasureSpec.makeMeasureSpec(height, 1073741824);
+            }
+        }
+        if (!this.Nz) {
+            super.onMeasure(i2, i3);
+        } else {
+            super.onMeasure(i3, i2);
+            setMeasuredDimension(getMeasuredHeight(), getMeasuredWidth());
+        }
+    }
+
+    @Override // android.widget.ProgressBar, android.view.View
+    protected void onSizeChanged(int i2, int i3, int i4, int i5) {
+        if (this.Nz) {
+            super.onSizeChanged(i3, i2, i4, i5);
+        } else {
+            super.onSizeChanged(i2, i3, i4, i5);
         }
     }
 
     public void setDrawableLeft(Drawable drawable) {
-        this.SO = drawable;
+        this.NE = drawable;
     }
 
-    public void setDrawablePadding(int i10) {
-        this.SP = i10;
+    public void setDrawablePadding(int i2) {
+        this.NF = i2;
     }
 
-    public void setHasProgress(boolean z10) {
-        this.SL = z10;
+    public void setHasProgress(boolean z) {
+        this.NB = z;
     }
 
     @Override // android.view.View
-    public void setPadding(int i10, int i11, int i12, int i13) {
-        this.SM = i10;
-        this.SN = i12;
+    public void setPadding(int i2, int i3, int i4, int i5) {
+        this.NC = i2;
+        this.ND = i4;
     }
 
     @Override // android.widget.ProgressBar
-    public void setProgress(int i10) {
-        if (this.SL) {
-            super.setProgress(i10);
+    public void setProgress(int i2) {
+        if (this.NB) {
+            super.setProgress(i2);
         } else {
             super.setProgress(0);
         }
     }
 
-    public void setTextColor(int i10) {
-        this.SU = false;
-        this.SS = i10;
+    public void setTextColor(int i2) {
+        this.NK = false;
+        this.NI = i2;
         postInvalidate();
     }
 
-    public void setTextDimen(float f10) {
-        this.mPaint.setTextSize(f10);
-    }
-
-    public void setTextDimenSp(int i10) {
-        this.mPaint.setTextSize(TypedValue.applyDimension(2, i10, getResources().getDisplayMetrics()));
-    }
-
-    public void setVertical(boolean z10) {
-        this.SK = z10;
-    }
-
-    public TextProgressBar(Context context, AttributeSet attributeSet) {
-        super(m.wrapContextIfNeed(context), attributeSet);
-        this.SK = false;
-        this.SL = true;
-        this.SQ = new Rect();
-        qT();
-    }
-
-    public final void setTextColor(@ColorInt int i10, @ColorInt int i11) {
-        this.SU = true;
-        this.SS = i10;
-        this.ST = i11;
+    public final void setTextColor(@ColorInt int i2, @ColorInt int i3) {
+        this.NK = true;
+        this.NI = i2;
+        this.NJ = i3;
         postInvalidate();
+    }
+
+    public void setTextDimen(float f2) {
+        this.mPaint.setTextSize(f2);
+    }
+
+    public void setTextDimenSp(int i2) {
+        this.mPaint.setTextSize(TypedValue.applyDimension(2, i2, getResources().getDisplayMetrics()));
+    }
+
+    public void setVertical(boolean z) {
+        this.Nz = z;
     }
 }

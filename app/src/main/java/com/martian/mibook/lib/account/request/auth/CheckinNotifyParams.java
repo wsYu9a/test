@@ -1,6 +1,6 @@
 package com.martian.mibook.lib.account.request.auth;
 
-import v8.a;
+import com.martian.libcomm.http.requests.d.a;
 
 /* loaded from: classes3.dex */
 public class CheckinNotifyParams extends TYAuthParams {
@@ -17,7 +17,7 @@ public class CheckinNotifyParams extends TYAuthParams {
         return this.enable;
     }
 
-    public void setEnable(Boolean bool) {
-        this.enable = bool;
+    public void setEnable(Boolean enable) {
+        this.enable = enable;
     }
 }

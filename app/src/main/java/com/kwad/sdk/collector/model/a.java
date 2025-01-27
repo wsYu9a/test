@@ -1,5 +1,5 @@
 package com.kwad.sdk.collector.model;
 
-/* loaded from: classes3.dex */
+/* loaded from: classes2.dex */
 public interface a {
 }

@@ -14,7 +14,7 @@ public class TYActivityList {
         return this.activityList;
     }
 
-    public void setActivityList(List<TYActivity> list) {
-        this.activityList = list;
+    public void setActivityList(List<TYActivity> activityList) {
+        this.activityList = activityList;
     }
 }

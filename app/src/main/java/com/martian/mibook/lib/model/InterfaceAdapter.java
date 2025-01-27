@@ -7,42 +7,42 @@ import com.google.gson.JsonObject;
 import com.google.gson.JsonParseException;
 import com.google.gson.JsonSerializationContext;
 import com.google.gson.JsonSerializer;
-import h3.e;
+import com.martian.mibook.application.MiConfigSingleton;
 import java.lang.reflect.Type;
 
-/* loaded from: classes3.dex */
+/* loaded from: classes.dex */
 public class InterfaceAdapter<T> implements JsonSerializer<T>, JsonDeserializer<T> {
-    public final JsonElement a(JsonObject jsonObject, String str) {
-        JsonElement jsonElement = jsonObject.get(str);
+    private JsonElement a(final JsonObject wrapper, final String memberName) {
+        JsonElement jsonElement = wrapper.get(memberName);
         if (jsonElement != null) {
             return jsonElement;
         }
-        throw new JsonParseException("no '" + str + "' member found in json file.");
+        throw new JsonParseException("no '" + memberName + "' member found in json file.");
     }
 
-    public final Type b(JsonElement jsonElement) {
+    private Type b(final JsonElement typeElem) {
         try {
-            String asString = jsonElement.getAsString();
+            String asString = typeElem.getAsString();
             if (asString.equals("com.martian.bdshucheng.data.BSBook")) {
                 asString = "com.martian.mibook.lib.bdshucheng.data.BSBook";
             }
             return Class.forName(asString);
-        } catch (ClassNotFoundException e10) {
-            throw new JsonParseException(e10);
+        } catch (ClassNotFoundException e2) {
+            throw new JsonParseException(e2);
         }
     }
 
     @Override // com.google.gson.JsonDeserializer
     public final T deserialize(JsonElement jsonElement, Type type, JsonDeserializationContext jsonDeserializationContext) throws JsonParseException {
         JsonObject jsonObject = (JsonObject) jsonElement;
-        return (T) jsonDeserializationContext.deserialize(a(jsonObject, e.f26408m), b(a(jsonObject, "type")));
+        return (T) jsonDeserializationContext.deserialize(a(jsonObject, MiConfigSingleton.t0), b(a(jsonObject, "type")));
     }
 
     @Override // com.google.gson.JsonSerializer
-    public final JsonElement serialize(T t10, Type type, JsonSerializationContext jsonSerializationContext) {
+    public final JsonElement serialize(final T object, final Type interfaceType, final JsonSerializationContext context) {
         JsonObject jsonObject = new JsonObject();
-        jsonObject.addProperty("type", t10.getClass().getName());
-        jsonObject.add(e.f26408m, jsonSerializationContext.serialize(t10));
+        jsonObject.addProperty("type", object.getClass().getName());
+        jsonObject.add(MiConfigSingleton.t0, context.serialize(object));
         return jsonObject;
     }
 }

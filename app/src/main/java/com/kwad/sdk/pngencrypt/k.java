@@ -1,66 +1,66 @@
 package com.kwad.sdk.pngencrypt;
 
-/* loaded from: classes3.dex */
+/* loaded from: classes2.dex */
 public final class k {
-    public final int aPG;
-    public final int aPH;
-    public final boolean aPI;
-    public final boolean aPJ;
-    public final boolean aPK;
-    public final boolean aPL;
-    public final int aPM;
-    public final int aPN;
-    public final int aPO;
-    public final int aPP;
-    public final int aPQ;
-    private long aPR = -1;
-    private long aPS = -1;
-    public final int aPn;
-    public final int aPo;
+    public final int avA;
+    public final int avS;
+    public final int avT;
+    public final boolean avU;
+    public final boolean avV;
+    public final boolean avW;
+    public final boolean avX;
+    public final int avY;
+    public final int avZ;
+    public final int avz;
+    public final int awa;
+    public final int awb;
+    public final int awc;
+    private long awd = -1;
+    private long awe = -1;
 
-    public k(int i10, int i11, int i12, boolean z10, boolean z11, boolean z12) {
-        this.aPo = i10;
-        this.aPn = i11;
-        this.aPI = z10;
-        this.aPK = z12;
-        this.aPJ = z11;
-        if (z11 && z12) {
+    public k(int i2, int i3, int i4, boolean z, boolean z2, boolean z3) {
+        this.avA = i2;
+        this.avz = i3;
+        this.avU = z;
+        this.avW = z3;
+        this.avV = z2;
+        if (z2 && z3) {
             throw new PngjException("palette and greyscale are mutually exclusive");
         }
-        int i13 = (z11 || z12) ? z10 ? 2 : 1 : z10 ? 4 : 3;
-        this.aPH = i13;
-        this.aPG = i12;
-        boolean z13 = i12 < 8;
-        this.aPL = z13;
-        int i14 = i13 * i12;
-        this.aPM = i14;
-        this.aPN = (i14 + 7) / 8;
-        int i15 = ((i14 * i10) + 7) / 8;
-        this.aPO = i15;
-        int i16 = i13 * i10;
-        this.aPP = i16;
-        this.aPQ = z13 ? i15 : i16;
-        if (i12 == 1 || i12 == 2 || i12 == 4) {
-            if (!z12 && !z11) {
-                throw new PngjException("only indexed or grayscale can have bitdepth=" + i12);
+        int i5 = (z2 || z3) ? z ? 2 : 1 : z ? 4 : 3;
+        this.avT = i5;
+        this.avS = i4;
+        boolean z4 = i4 < 8;
+        this.avX = z4;
+        int i6 = i5 * i4;
+        this.avY = i6;
+        this.avZ = (i6 + 7) / 8;
+        int i7 = ((i6 * i2) + 7) / 8;
+        this.awa = i7;
+        int i8 = i5 * i2;
+        this.awb = i8;
+        this.awc = z4 ? i7 : i8;
+        if (i4 == 1 || i4 == 2 || i4 == 4) {
+            if (!z3 && !z2) {
+                throw new PngjException("only indexed or grayscale can have bitdepth=" + i4);
             }
-        } else if (i12 != 8) {
-            if (i12 != 16) {
-                throw new PngjException("invalid bitdepth=" + i12);
+        } else if (i4 != 8) {
+            if (i4 != 16) {
+                throw new PngjException("invalid bitdepth=" + i4);
             }
-            if (z12) {
-                throw new PngjException("indexed can't have bitdepth=" + i12);
+            if (z3) {
+                throw new PngjException("indexed can't have bitdepth=" + i4);
             }
         }
-        if (i10 <= 0 || i10 > 16777216) {
-            throw new PngjException("invalid cols=" + i10 + " ???");
+        if (i2 <= 0 || i2 > 16777216) {
+            throw new PngjException("invalid cols=" + i2 + " ???");
         }
-        if (i11 > 0 && i11 <= 16777216) {
-            if (i16 <= 0) {
+        if (i3 > 0 && i3 <= 16777216) {
+            if (i8 <= 0) {
                 throw new PngjException("invalid image parameters (overflow?)");
             }
         } else {
-            throw new PngjException("invalid rows=" + i11 + " ???");
+            throw new PngjException("invalid rows=" + i3 + " ???");
         }
     }
 
@@ -72,14 +72,14 @@ public final class k {
             return false;
         }
         k kVar = (k) obj;
-        return this.aPI == kVar.aPI && this.aPG == kVar.aPG && this.aPo == kVar.aPo && this.aPJ == kVar.aPJ && this.aPK == kVar.aPK && this.aPn == kVar.aPn;
+        return this.avU == kVar.avU && this.avS == kVar.avS && this.avA == kVar.avA && this.avV == kVar.avV && this.avW == kVar.avW && this.avz == kVar.avz;
     }
 
     public final int hashCode() {
-        return (((((((((((this.aPI ? 1231 : 1237) + 31) * 31) + this.aPG) * 31) + this.aPo) * 31) + (this.aPJ ? 1231 : 1237)) * 31) + (this.aPK ? 1231 : 1237)) * 31) + this.aPn;
+        return (((((((((((this.avU ? 1231 : 1237) + 31) * 31) + this.avS) * 31) + this.avA) * 31) + (this.avV ? 1231 : 1237)) * 31) + (this.avW ? 1231 : 1237)) * 31) + this.avz;
     }
 
     public final String toString() {
-        return "ImageInfo [cols=" + this.aPo + ", rows=" + this.aPn + ", bitDepth=" + this.aPG + ", channels=" + this.aPH + ", alpha=" + this.aPI + ", greyscale=" + this.aPJ + ", indexed=" + this.aPK + "]";
+        return "ImageInfo [cols=" + this.avA + ", rows=" + this.avz + ", bitDepth=" + this.avS + ", channels=" + this.avT + ", alpha=" + this.avU + ", greyscale=" + this.avV + ", indexed=" + this.avW + "]";
     }
 }

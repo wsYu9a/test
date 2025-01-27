@@ -6,40 +6,39 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.SubMenu;
 import android.view.View;
-import androidx.annotation.NonNull;
 import androidx.annotation.RestrictTo;
 import androidx.appcompat.view.menu.MenuBuilder;
 
 @RestrictTo({RestrictTo.Scope.LIBRARY_GROUP_PREFIX})
 /* loaded from: classes.dex */
 public class SubMenuBuilder extends MenuBuilder implements SubMenu {
-    private MenuItemImpl mItem;
-    private MenuBuilder mParentMenu;
+    private MenuBuilder G;
+    private MenuItemImpl H;
 
     public SubMenuBuilder(Context context, MenuBuilder menuBuilder, MenuItemImpl menuItemImpl) {
         super(context);
-        this.mParentMenu = menuBuilder;
-        this.mItem = menuItemImpl;
+        this.G = menuBuilder;
+        this.H = menuItemImpl;
+    }
+
+    @Override // androidx.appcompat.view.menu.MenuBuilder
+    boolean c(MenuBuilder menuBuilder, MenuItem menuItem) {
+        return super.c(menuBuilder, menuItem) || this.G.c(menuBuilder, menuItem);
     }
 
     @Override // androidx.appcompat.view.menu.MenuBuilder
     public boolean collapseItemActionView(MenuItemImpl menuItemImpl) {
-        return this.mParentMenu.collapseItemActionView(menuItemImpl);
-    }
-
-    @Override // androidx.appcompat.view.menu.MenuBuilder
-    public boolean dispatchMenuItemSelected(@NonNull MenuBuilder menuBuilder, @NonNull MenuItem menuItem) {
-        return super.dispatchMenuItemSelected(menuBuilder, menuItem) || this.mParentMenu.dispatchMenuItemSelected(menuBuilder, menuItem);
+        return this.G.collapseItemActionView(menuItemImpl);
     }
 
     @Override // androidx.appcompat.view.menu.MenuBuilder
     public boolean expandItemActionView(MenuItemImpl menuItemImpl) {
-        return this.mParentMenu.expandItemActionView(menuItemImpl);
+        return this.G.expandItemActionView(menuItemImpl);
     }
 
     @Override // androidx.appcompat.view.menu.MenuBuilder
     public String getActionViewStatesKey() {
-        MenuItemImpl menuItemImpl = this.mItem;
+        MenuItemImpl menuItemImpl = this.H;
         int itemId = menuItemImpl != null ? menuItemImpl.getItemId() : 0;
         if (itemId == 0) {
             return null;
@@ -49,87 +48,87 @@ public class SubMenuBuilder extends MenuBuilder implements SubMenu {
 
     @Override // android.view.SubMenu
     public MenuItem getItem() {
-        return this.mItem;
+        return this.H;
     }
 
     public Menu getParentMenu() {
-        return this.mParentMenu;
+        return this.G;
     }
 
     @Override // androidx.appcompat.view.menu.MenuBuilder
     public MenuBuilder getRootMenu() {
-        return this.mParentMenu.getRootMenu();
+        return this.G.getRootMenu();
     }
 
     @Override // androidx.appcompat.view.menu.MenuBuilder
     public boolean isGroupDividerEnabled() {
-        return this.mParentMenu.isGroupDividerEnabled();
+        return this.G.isGroupDividerEnabled();
     }
 
     @Override // androidx.appcompat.view.menu.MenuBuilder
     public boolean isQwertyMode() {
-        return this.mParentMenu.isQwertyMode();
+        return this.G.isQwertyMode();
     }
 
     @Override // androidx.appcompat.view.menu.MenuBuilder
     public boolean isShortcutsVisible() {
-        return this.mParentMenu.isShortcutsVisible();
+        return this.G.isShortcutsVisible();
     }
 
     @Override // androidx.appcompat.view.menu.MenuBuilder
     public void setCallback(MenuBuilder.Callback callback) {
-        this.mParentMenu.setCallback(callback);
+        this.G.setCallback(callback);
     }
 
     @Override // androidx.appcompat.view.menu.MenuBuilder, androidx.core.internal.view.SupportMenu, android.view.Menu
-    public void setGroupDividerEnabled(boolean z10) {
-        this.mParentMenu.setGroupDividerEnabled(z10);
+    public void setGroupDividerEnabled(boolean z) {
+        this.G.setGroupDividerEnabled(z);
     }
 
     @Override // android.view.SubMenu
     public SubMenu setHeaderIcon(Drawable drawable) {
-        return (SubMenu) super.setHeaderIconInt(drawable);
+        return (SubMenu) super.r(drawable);
     }
 
     @Override // android.view.SubMenu
     public SubMenu setHeaderTitle(CharSequence charSequence) {
-        return (SubMenu) super.setHeaderTitleInt(charSequence);
+        return (SubMenu) super.u(charSequence);
     }
 
     @Override // android.view.SubMenu
     public SubMenu setHeaderView(View view) {
-        return (SubMenu) super.setHeaderViewInt(view);
+        return (SubMenu) super.v(view);
     }
 
     @Override // android.view.SubMenu
     public SubMenu setIcon(Drawable drawable) {
-        this.mItem.setIcon(drawable);
+        this.H.setIcon(drawable);
         return this;
     }
 
     @Override // androidx.appcompat.view.menu.MenuBuilder, android.view.Menu
-    public void setQwertyMode(boolean z10) {
-        this.mParentMenu.setQwertyMode(z10);
+    public void setQwertyMode(boolean z) {
+        this.G.setQwertyMode(z);
     }
 
     @Override // androidx.appcompat.view.menu.MenuBuilder
-    public void setShortcutsVisible(boolean z10) {
-        this.mParentMenu.setShortcutsVisible(z10);
+    public void setShortcutsVisible(boolean z) {
+        this.G.setShortcutsVisible(z);
     }
 
     @Override // android.view.SubMenu
-    public SubMenu setHeaderIcon(int i10) {
-        return (SubMenu) super.setHeaderIconInt(i10);
+    public SubMenu setHeaderIcon(int i2) {
+        return (SubMenu) super.q(i2);
     }
 
     @Override // android.view.SubMenu
-    public SubMenu setHeaderTitle(int i10) {
-        return (SubMenu) super.setHeaderTitleInt(i10);
+    public SubMenu setHeaderTitle(int i2) {
+        return (SubMenu) super.t(i2);
     }
 
     @Override // android.view.SubMenu
-    public SubMenu setIcon(int i10) {
-        this.mItem.setIcon(i10);
+    public SubMenu setIcon(int i2) {
+        this.H.setIcon(i2);
         return this;
     }
 }

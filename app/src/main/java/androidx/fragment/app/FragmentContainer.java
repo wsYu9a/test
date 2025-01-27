@@ -16,7 +16,7 @@ public abstract class FragmentContainer {
     }
 
     @Nullable
-    public abstract View onFindViewById(@IdRes int i10);
+    public abstract View onFindViewById(@IdRes int i2);
 
     public abstract boolean onHasView();
 }

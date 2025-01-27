@@ -4,9 +4,9 @@ import androidx.annotation.Nullable;
 import com.kwad.sdk.core.b;
 import org.json.JSONObject;
 
-/* loaded from: classes3.dex */
+/* loaded from: classes2.dex */
 public interface d<T extends b> {
-    void a(T t10, @Nullable JSONObject jSONObject);
+    void a(T t, @Nullable JSONObject jSONObject);
 
-    JSONObject b(T t10, JSONObject jSONObject);
+    JSONObject b(T t, JSONObject jSONObject);
 }

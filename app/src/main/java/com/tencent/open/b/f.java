@@ -5,7 +5,6 @@ import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.text.TextUtils;
-import com.martian.libmars.activity.PermissionActivity;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.ObjectOutputStream;
@@ -16,10 +15,10 @@ import java.util.List;
 public class f extends SQLiteOpenHelper {
 
     /* renamed from: a */
-    protected static final String[] f23185a = {PermissionActivity.f12046p};
+    protected static final String[] f25452a = {"key"};
 
     /* renamed from: b */
-    protected static f f23186b;
+    protected static f f25453b;
 
     public f(Context context) {
         super(context, "sdk_report.db", (SQLiteDatabase.CursorFactory) null, 2);
@@ -28,14 +27,10 @@ public class f extends SQLiteOpenHelper {
     public static synchronized f a() {
         f fVar;
         synchronized (f.class) {
-            try {
-                if (f23186b == null) {
-                    f23186b = new f(com.tencent.open.utils.d.a());
-                }
-                fVar = f23186b;
-            } catch (Throwable th2) {
-                throw th2;
+            if (f25453b == null) {
+                f25453b = new f(com.tencent.open.utils.d.a());
             }
+            fVar = f25453b;
         }
         return fVar;
     }
@@ -51,11 +46,10 @@ public class f extends SQLiteOpenHelper {
             }
             try {
                 writableDatabase.delete("via_cgi_report", "type = ?", new String[]{str});
-            } catch (Exception e10) {
-                com.tencent.open.a.f.b("openSDK_LOG.ReportDatabaseHelper", "clearReportItem has exception.", e10);
+            } catch (Exception e2) {
+                com.tencent.open.a.f.b("openSDK_LOG.ReportDatabaseHelper", "clearReportItem has exception.", e2);
             }
         } finally {
-            writableDatabase.close();
         }
     }
 
@@ -65,12 +59,12 @@ public class f extends SQLiteOpenHelper {
     }
 
     @Override // android.database.sqlite.SQLiteOpenHelper
-    public void onUpgrade(SQLiteDatabase sQLiteDatabase, int i10, int i11) {
+    public void onUpgrade(SQLiteDatabase sQLiteDatabase, int i2, int i3) {
         sQLiteDatabase.execSQL("DROP TABLE IF EXISTS via_cgi_report");
         onCreate(sQLiteDatabase);
     }
 
-    /* JADX WARN: Removed duplicated region for block: B:35:0x0081 A[Catch: all -> 0x0055, Exception -> 0x0058, TRY_ENTER, TryCatch #13 {Exception -> 0x0058, all -> 0x0055, blocks: (B:22:0x002e, B:24:0x0034, B:25:0x0037, B:31:0x0051, B:33:0x005b, B:35:0x0081, B:36:0x0084, B:67:0x006d, B:60:0x0070, B:61:0x0073, B:48:0x0076, B:52:0x0079), top: B:21:0x002e }] */
+    /* JADX WARN: Removed duplicated region for block: B:35:0x0075 A[Catch: all -> 0x007f, Exception -> 0x0082, TRY_ENTER, TryCatch #13 {Exception -> 0x0082, all -> 0x007f, blocks: (B:22:0x0030, B:24:0x0036, B:25:0x0039, B:31:0x0053, B:33:0x0056, B:35:0x0075, B:36:0x0078, B:67:0x0062, B:60:0x0065, B:61:0x0068, B:53:0x006c, B:48:0x006f), top: B:21:0x0030 }] */
     /*
         Code decompiled incorrectly, please refer to instructions dump.
         To view partially-correct code enable 'Show inconsistent code' option in preferences
@@ -79,126 +73,124 @@ public class f extends SQLiteOpenHelper {
         /*
             r11 = this;
             monitor-enter(r11)
-            java.util.ArrayList r0 = new java.util.ArrayList     // Catch: java.lang.Throwable -> L90
-            r0.<init>()     // Catch: java.lang.Throwable -> L90
-            java.util.List r0 = java.util.Collections.synchronizedList(r0)     // Catch: java.lang.Throwable -> L90
-            boolean r1 = android.text.TextUtils.isEmpty(r12)     // Catch: java.lang.Throwable -> L90
+            java.util.ArrayList r0 = new java.util.ArrayList     // Catch: java.lang.Throwable -> La9
+            r0.<init>()     // Catch: java.lang.Throwable -> La9
+            java.util.List r0 = java.util.Collections.synchronizedList(r0)     // Catch: java.lang.Throwable -> La9
+            boolean r1 = android.text.TextUtils.isEmpty(r12)     // Catch: java.lang.Throwable -> La9
             if (r1 == 0) goto L12
             monitor-exit(r11)
             return r0
         L12:
-            android.database.sqlite.SQLiteDatabase r1 = r11.getReadableDatabase()     // Catch: java.lang.Throwable -> L90
+            android.database.sqlite.SQLiteDatabase r1 = r11.getReadableDatabase()     // Catch: java.lang.Throwable -> La9
             if (r1 != 0) goto L1a
             monitor-exit(r11)
             return r0
         L1a:
             r10 = 0
             java.lang.String r3 = "via_cgi_report"
+            r4 = 0
             java.lang.String r5 = "type = ?"
-            java.lang.String[] r6 = new java.lang.String[]{r12}     // Catch: java.lang.Throwable -> L96 java.lang.Exception -> L98
+            r2 = 1
+            java.lang.String[] r6 = new java.lang.String[r2]     // Catch: java.lang.Throwable -> L8e java.lang.Exception -> L90
+            r2 = 0
+            r6[r2] = r12     // Catch: java.lang.Throwable -> L8e java.lang.Exception -> L90
+            r7 = 0
             r8 = 0
             r9 = 0
-            r4 = 0
-            r7 = 0
             r2 = r1
-            android.database.Cursor r12 = r2.query(r3, r4, r5, r6, r7, r8, r9)     // Catch: java.lang.Throwable -> L96 java.lang.Exception -> L98
-            if (r12 == 0) goto L8a
-            int r2 = r12.getCount()     // Catch: java.lang.Throwable -> L55 java.lang.Exception -> L58
-            if (r2 <= 0) goto L8a
-            r12.moveToFirst()     // Catch: java.lang.Throwable -> L55 java.lang.Exception -> L58
-        L37:
+            android.database.Cursor r12 = r2.query(r3, r4, r5, r6, r7, r8, r9)     // Catch: java.lang.Throwable -> L8e java.lang.Exception -> L90
+            if (r12 == 0) goto L85
+            int r2 = r12.getCount()     // Catch: java.lang.Throwable -> L7f java.lang.Exception -> L82
+            if (r2 <= 0) goto L85
+            r12.moveToFirst()     // Catch: java.lang.Throwable -> L7f java.lang.Exception -> L82
+        L39:
             java.lang.String r2 = "blob"
-            int r2 = r12.getColumnIndex(r2)     // Catch: java.lang.Throwable -> L55 java.lang.Exception -> L58
-            byte[] r2 = r12.getBlob(r2)     // Catch: java.lang.Throwable -> L55 java.lang.Exception -> L58
-            java.io.ByteArrayInputStream r3 = new java.io.ByteArrayInputStream     // Catch: java.lang.Throwable -> L55 java.lang.Exception -> L58
-            r3.<init>(r2)     // Catch: java.lang.Throwable -> L55 java.lang.Exception -> L58
-            java.io.ObjectInputStream r2 = new java.io.ObjectInputStream     // Catch: java.lang.Throwable -> L66 java.lang.Exception -> L68
-            r2.<init>(r3)     // Catch: java.lang.Throwable -> L66 java.lang.Exception -> L68
-            java.lang.Object r4 = r2.readObject()     // Catch: java.lang.Throwable -> L61 java.lang.Exception -> L64
-            java.io.Serializable r4 = (java.io.Serializable) r4     // Catch: java.lang.Throwable -> L61 java.lang.Exception -> L64
-            r2.close()     // Catch: java.lang.Throwable -> L55 java.lang.Exception -> L58 java.io.IOException -> L5b
-            goto L5b
-        L55:
-            r0 = move-exception
-            r10 = r12
-            goto La8
-        L58:
-            r2 = move-exception
-            r10 = r12
-            goto L99
-        L5b:
-            r3.close()     // Catch: java.lang.Throwable -> L55 java.lang.Exception -> L58 java.io.IOException -> L5f
-            goto L7f
-        L5f:
-            goto L7f
-        L61:
+            int r2 = r12.getColumnIndex(r2)     // Catch: java.lang.Throwable -> L7f java.lang.Exception -> L82
+            byte[] r2 = r12.getBlob(r2)     // Catch: java.lang.Throwable -> L7f java.lang.Exception -> L82
+            java.io.ByteArrayInputStream r3 = new java.io.ByteArrayInputStream     // Catch: java.lang.Throwable -> L7f java.lang.Exception -> L82
+            r3.<init>(r2)     // Catch: java.lang.Throwable -> L7f java.lang.Exception -> L82
+            java.io.ObjectInputStream r2 = new java.io.ObjectInputStream     // Catch: java.lang.Throwable -> L5f java.lang.Exception -> L69
+            r2.<init>(r3)     // Catch: java.lang.Throwable -> L5f java.lang.Exception -> L69
+            java.lang.Object r4 = r2.readObject()     // Catch: java.lang.Throwable -> L5c java.lang.Exception -> L6a
+            java.io.Serializable r4 = (java.io.Serializable) r4     // Catch: java.lang.Throwable -> L5c java.lang.Exception -> L6a
+            r2.close()     // Catch: java.io.IOException -> L56 java.lang.Throwable -> L7f java.lang.Exception -> L82
+        L56:
+            r3.close()     // Catch: java.io.IOException -> L5a java.lang.Throwable -> L7f java.lang.Exception -> L82
+            goto L73
+        L5a:
+            goto L73
+        L5c:
             r4 = move-exception
             r10 = r2
-            goto L6b
-        L64:
-            goto L74
-        L66:
+            goto L60
+        L5f:
             r4 = move-exception
-            goto L6b
+        L60:
+            if (r10 == 0) goto L65
+            r10.close()     // Catch: java.io.IOException -> L65 java.lang.Throwable -> L7f java.lang.Exception -> L82
+        L65:
+            r3.close()     // Catch: java.io.IOException -> L68 java.lang.Throwable -> L7f java.lang.Exception -> L82
         L68:
+            throw r4     // Catch: java.lang.Throwable -> L7f java.lang.Exception -> L82
+        L69:
             r2 = r10
-            goto L74
-        L6b:
-            if (r10 == 0) goto L70
-            r10.close()     // Catch: java.lang.Throwable -> L55 java.lang.Exception -> L58 java.io.IOException -> L70
-        L70:
-            r3.close()     // Catch: java.lang.Throwable -> L55 java.lang.Exception -> L58 java.io.IOException -> L73
-        L73:
-            throw r4     // Catch: java.lang.Throwable -> L55 java.lang.Exception -> L58
-        L74:
-            if (r2 == 0) goto L79
-            r2.close()     // Catch: java.lang.Throwable -> L55 java.lang.Exception -> L58 java.io.IOException -> L79
-        L79:
-            r3.close()     // Catch: java.lang.Throwable -> L55 java.lang.Exception -> L58 java.io.IOException -> L7d
-            goto L7e
-        L7d:
-        L7e:
+        L6a:
+            if (r2 == 0) goto L6f
+            r2.close()     // Catch: java.io.IOException -> L6f java.lang.Throwable -> L7f java.lang.Exception -> L82
+        L6f:
+            r3.close()     // Catch: java.io.IOException -> L72 java.lang.Throwable -> L7f java.lang.Exception -> L82
+        L72:
             r4 = r10
+        L73:
+            if (r4 == 0) goto L78
+            r0.add(r4)     // Catch: java.lang.Throwable -> L7f java.lang.Exception -> L82
+        L78:
+            boolean r2 = r12.moveToNext()     // Catch: java.lang.Throwable -> L7f java.lang.Exception -> L82
+            if (r2 != 0) goto L39
+            goto L85
         L7f:
-            if (r4 == 0) goto L84
-            r0.add(r4)     // Catch: java.lang.Throwable -> L55 java.lang.Exception -> L58
-        L84:
-            boolean r2 = r12.moveToNext()     // Catch: java.lang.Throwable -> L55 java.lang.Exception -> L58
-            if (r2 != 0) goto L37
-        L8a:
-            if (r12 == 0) goto L92
-            r12.close()     // Catch: java.lang.Throwable -> L90
-            goto L92
-        L90:
-            r12 = move-exception
-            goto Lb1
-        L92:
-            r1.close()     // Catch: java.lang.Throwable -> L90
-            goto La6
-        L96:
             r0 = move-exception
-            goto La8
-        L98:
+            r10 = r12
+            goto La0
+        L82:
             r2 = move-exception
-        L99:
+            r10 = r12
+            goto L91
+        L85:
+            if (r12 == 0) goto L8a
+            r12.close()     // Catch: java.lang.Throwable -> La9
+        L8a:
+            r1.close()     // Catch: java.lang.Throwable -> La9
+            goto L9e
+        L8e:
+            r0 = move-exception
+            goto La0
+        L90:
+            r2 = move-exception
+        L91:
             java.lang.String r12 = "openSDK_LOG.ReportDatabaseHelper"
             java.lang.String r3 = "getReportItemFromDB has exception."
-            com.tencent.open.a.f.b(r12, r3, r2)     // Catch: java.lang.Throwable -> L96
-            if (r10 == 0) goto L92
-            r10.close()     // Catch: java.lang.Throwable -> L90
-            goto L92
-        La6:
+            com.tencent.open.a.f.b(r12, r3, r2)     // Catch: java.lang.Throwable -> L8e
+            if (r10 == 0) goto L8a
+            r10.close()     // Catch: java.lang.Throwable -> La9
+            goto L8a
+        L9e:
             monitor-exit(r11)
             return r0
-        La8:
-            if (r10 == 0) goto Lad
-            r10.close()     // Catch: java.lang.Throwable -> L90
-        Lad:
-            r1.close()     // Catch: java.lang.Throwable -> L90
-            throw r0     // Catch: java.lang.Throwable -> L90
-        Lb1:
-            monitor-exit(r11)     // Catch: java.lang.Throwable -> L90
+        La0:
+            if (r10 == 0) goto La5
+            r10.close()     // Catch: java.lang.Throwable -> La9
+        La5:
+            r1.close()     // Catch: java.lang.Throwable -> La9
+            throw r0     // Catch: java.lang.Throwable -> La9
+        La9:
+            r12 = move-exception
+            monitor-exit(r11)
+            goto Lad
+        Lac:
             throw r12
+        Lad:
+            goto Lac
         */
         throw new UnsupportedOperationException("Method not decompiled: com.tencent.open.b.f.a(java.lang.String):java.util.List");
     }
@@ -220,12 +212,12 @@ public class f extends SQLiteOpenHelper {
         if (writableDatabase == null) {
             return;
         }
+        writableDatabase.beginTransaction();
         try {
-            writableDatabase.beginTransaction();
             try {
                 ContentValues contentValues = new ContentValues();
-                for (int i10 = 0; i10 < size; i10++) {
-                    Serializable serializable = list.get(i10);
+                for (int i2 = 0; i2 < size; i2++) {
+                    Serializable serializable = list.get(i2);
                     if (serializable != null) {
                         contentValues.put("type", str);
                         ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream(512);
@@ -234,8 +226,8 @@ public class f extends SQLiteOpenHelper {
                             objectOutputStream = new ObjectOutputStream(byteArrayOutputStream);
                         } catch (IOException unused) {
                             objectOutputStream = null;
-                        } catch (Throwable th2) {
-                            th = th2;
+                        } catch (Throwable th) {
+                            th = th;
                         }
                         try {
                             objectOutputStream.writeObject(serializable);
@@ -251,8 +243,8 @@ public class f extends SQLiteOpenHelper {
                             contentValues.put("blob", byteArrayOutputStream.toByteArray());
                             writableDatabase.insert("via_cgi_report", null, contentValues);
                             contentValues.clear();
-                        } catch (Throwable th3) {
-                            th = th3;
+                        } catch (Throwable th2) {
+                            th = th2;
                             objectOutputStream2 = objectOutputStream;
                             if (objectOutputStream2 != null) {
                                 try {
@@ -283,10 +275,10 @@ public class f extends SQLiteOpenHelper {
                 writableDatabase.endTransaction();
             }
             writableDatabase.close();
-        } catch (Throwable th4) {
+        } catch (Throwable th3) {
             writableDatabase.endTransaction();
             writableDatabase.close();
-            throw th4;
+            throw th3;
         }
     }
 }

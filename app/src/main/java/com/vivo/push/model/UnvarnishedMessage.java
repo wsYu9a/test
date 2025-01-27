@@ -32,9 +32,9 @@ public class UnvarnishedMessage {
             this.mTragetContent = jSONArray.getString(1);
             this.mMessage = jSONArray.getString(2);
             this.mParams = m.a(new JSONObject(jSONArray.getString(3)));
-        } catch (JSONException e10) {
-            e10.printStackTrace();
-            p.a(TAG, "unvarnishedMsg pack to obj error", e10);
+        } catch (JSONException e2) {
+            e2.printStackTrace();
+            p.a(TAG, "unvarnishedMsg pack to obj error", e2);
         }
     }
 
@@ -62,16 +62,16 @@ public class UnvarnishedMessage {
         this.mMessage = str;
     }
 
-    public void setMsgId(long j10) {
-        this.mMsgId = j10;
+    public void setMsgId(long j2) {
+        this.mMsgId = j2;
     }
 
     public void setParams(Map<String, String> map) {
         this.mParams = map;
     }
 
-    public void setTargetType(int i10) {
-        this.mTargetType = i10;
+    public void setTargetType(int i2) {
+        this.mTargetType = i2;
     }
 
     public void setTragetContent(String str) {

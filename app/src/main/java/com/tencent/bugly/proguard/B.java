@@ -4,107 +4,85 @@ import java.util.HashMap;
 import java.util.Map;
 
 /* loaded from: classes4.dex */
-public final class B extends AbstractC0868m implements Cloneable {
+public final class B extends AbstractC0909m implements Cloneable {
 
     /* renamed from: a */
-    static C0879y f22553a = null;
+    static C0920y f24923a;
 
     /* renamed from: b */
-    static C0878x f22554b = null;
+    static C0919x f24924b;
 
     /* renamed from: c */
-    static C0878x f22555c = null;
+    static C0919x f24925c;
 
     /* renamed from: d */
-    static Map<String, String> f22556d = null;
+    static Map<String, String> f24926d;
 
     /* renamed from: e */
-    static final /* synthetic */ boolean f22557e = true;
+    static final /* synthetic */ boolean f24927e = true;
 
     /* renamed from: f */
-    public String f22558f;
+    public String f24928f;
 
     /* renamed from: g */
-    public String f22559g;
+    public String f24929g;
 
     /* renamed from: h */
-    public long f22560h;
+    public long f24930h;
 
     /* renamed from: i */
-    public int f22561i;
+    public int f24931i;
 
     /* renamed from: j */
-    public C0879y f22562j;
-
-    /* renamed from: k */
-    public C0878x f22563k;
-
-    /* renamed from: l */
-    public byte f22564l;
-
-    /* renamed from: m */
-    public int f22565m;
-
-    /* renamed from: n */
-    public long f22566n;
-
-    /* renamed from: o */
-    public C0878x f22567o;
-
-    /* renamed from: p */
-    public String f22568p;
-
-    /* renamed from: q */
-    public Map<String, String> f22569q;
-
-    /* renamed from: r */
-    public String f22570r;
-
-    /* renamed from: s */
-    public int f22571s;
-
-    /* renamed from: t */
-    public long f22572t;
-
-    /* renamed from: u */
-    public int f22573u;
+    public C0920y f24932j;
+    public C0919x k;
+    public byte l;
+    public int m;
+    public long n;
+    public C0919x o;
+    public String p;
+    public Map<String, String> q;
+    public String r;
+    public int s;
+    public long t;
+    public int u;
 
     public B() {
-        this.f22558f = "";
-        this.f22559g = "";
-        this.f22560h = 0L;
-        this.f22561i = 0;
-        this.f22562j = null;
-        this.f22563k = null;
-        this.f22564l = (byte) 0;
-        this.f22565m = 0;
-        this.f22566n = 0L;
-        this.f22567o = null;
-        this.f22568p = "";
-        this.f22569q = null;
-        this.f22570r = "";
-        this.f22571s = 0;
-        this.f22572t = 0L;
-        this.f22573u = 0;
+        this.f24928f = "";
+        this.f24929g = "";
+        this.f24930h = 0L;
+        this.f24931i = 0;
+        this.f24932j = null;
+        this.k = null;
+        this.l = (byte) 0;
+        this.m = 0;
+        this.n = 0L;
+        this.o = null;
+        this.p = "";
+        this.q = null;
+        this.r = "";
+        this.s = 0;
+        this.t = 0L;
+        this.u = 0;
     }
 
-    public C0878x a() {
-        return this.f22563k;
+    public C0919x a() {
+        return this.k;
     }
 
     public long b() {
-        return this.f22560h;
+        return this.f24930h;
     }
 
     public Map<String, String> c() {
-        return this.f22569q;
+        return this.q;
     }
 
     public Object clone() {
         try {
             return super.clone();
         } catch (CloneNotSupportedException unused) {
-            if (f22557e) {
+            if (f24927e) {
                 return null;
             }
             throw new AssertionError();
@@ -115,122 +93,138 @@ public final class B extends AbstractC0868m implements Cloneable {
         if (obj == null) {
             return false;
         }
-        B b10 = (B) obj;
-        return C0869n.a(this.f22558f, b10.f22558f) && C0869n.a(this.f22559g, b10.f22559g) && C0869n.a(this.f22560h, b10.f22560h) && C0869n.a(this.f22561i, b10.f22561i) && C0869n.a(this.f22562j, b10.f22562j) && C0869n.a(this.f22563k, b10.f22563k) && C0869n.a(this.f22564l, b10.f22564l) && C0869n.a(this.f22565m, b10.f22565m) && C0869n.a(this.f22566n, b10.f22566n) && C0869n.a(this.f22567o, b10.f22567o) && C0869n.a(this.f22568p, b10.f22568p) && C0869n.a(this.f22569q, b10.f22569q) && C0869n.a(this.f22570r, b10.f22570r) && C0869n.a(this.f22571s, b10.f22571s) && C0869n.a(this.f22572t, b10.f22572t) && C0869n.a(this.f22573u, b10.f22573u);
+        B b2 = (B) obj;
+        return C0910n.a(this.f24928f, b2.f24928f) && C0910n.a(this.f24929g, b2.f24929g) && C0910n.a(this.f24930h, b2.f24930h) && C0910n.a(this.f24931i, b2.f24931i) && C0910n.a(this.f24932j, b2.f24932j) && C0910n.a(this.k, b2.k) && C0910n.a(this.l, b2.l) && C0910n.a(this.m, b2.m) && C0910n.a(this.n, b2.n) && C0910n.a(this.o, b2.o) && C0910n.a(this.p, b2.p) && C0910n.a(this.q, b2.q) && C0910n.a(this.r, b2.r) && C0910n.a(this.s, b2.s) && C0910n.a(this.t, b2.t) && C0910n.a(this.u, b2.u);
     }
 
     public int hashCode() {
         try {
             throw new Exception("Need define key first!");
-        } catch (Exception e10) {
-            e10.printStackTrace();
+        } catch (Exception e2) {
+            e2.printStackTrace();
             return 0;
         }
     }
 
-    @Override // com.tencent.bugly.proguard.AbstractC0868m
-    public void a(C0867l c0867l) {
-        c0867l.a(this.f22558f, 0);
-        c0867l.a(this.f22559g, 1);
-        c0867l.a(this.f22560h, 2);
-        c0867l.a(this.f22561i, 3);
-        c0867l.a((AbstractC0868m) this.f22562j, 4);
-        c0867l.a((AbstractC0868m) this.f22563k, 5);
-        c0867l.a(this.f22564l, 6);
-        c0867l.a(this.f22565m, 7);
-        c0867l.a(this.f22566n, 8);
-        C0878x c0878x = this.f22567o;
-        if (c0878x != null) {
-            c0867l.a((AbstractC0868m) c0878x, 9);
+    @Override // com.tencent.bugly.proguard.AbstractC0909m
+    public void a(C0908l c0908l) {
+        c0908l.a(this.f24928f, 0);
+        c0908l.a(this.f24929g, 1);
+        c0908l.a(this.f24930h, 2);
+        c0908l.a(this.f24931i, 3);
+        c0908l.a((AbstractC0909m) this.f24932j, 4);
+        c0908l.a((AbstractC0909m) this.k, 5);
+        c0908l.a(this.l, 6);
+        c0908l.a(this.m, 7);
+        c0908l.a(this.n, 8);
+        C0919x c0919x = this.o;
+        if (c0919x != null) {
+            c0908l.a((AbstractC0909m) c0919x, 9);
         }
-        String str = this.f22568p;
+        String str = this.p;
         if (str != null) {
-            c0867l.a(str, 10);
+            c0908l.a(str, 10);
         }
-        Map<String, String> map = this.f22569q;
+        Map<String, String> map = this.q;
         if (map != null) {
-            c0867l.a((Map) map, 11);
+            c0908l.a((Map) map, 11);
         }
-        String str2 = this.f22570r;
+        String str2 = this.r;
         if (str2 != null) {
-            c0867l.a(str2, 12);
+            c0908l.a(str2, 12);
         }
-        c0867l.a(this.f22571s, 13);
-        c0867l.a(this.f22572t, 14);
-        c0867l.a(this.f22573u, 15);
+        c0908l.a(this.s, 13);
+        c0908l.a(this.t, 14);
+        c0908l.a(this.u, 15);
     }
 
-    public B(String str, String str2, long j10, int i10, C0879y c0879y, C0878x c0878x, byte b10, int i11, long j11, C0878x c0878x2, String str3, Map<String, String> map, String str4, int i12, long j12, int i13) {
-        this.f22558f = str;
-        this.f22559g = str2;
-        this.f22560h = j10;
-        this.f22561i = i10;
-        this.f22562j = c0879y;
-        this.f22563k = c0878x;
-        this.f22564l = b10;
-        this.f22565m = i11;
-        this.f22566n = j11;
-        this.f22567o = c0878x2;
-        this.f22568p = str3;
-        this.f22569q = map;
-        this.f22570r = str4;
-        this.f22571s = i12;
-        this.f22572t = j12;
-        this.f22573u = i13;
+    public B(String str, String str2, long j2, int i2, C0920y c0920y, C0919x c0919x, byte b2, int i3, long j3, C0919x c0919x2, String str3, Map<String, String> map, String str4, int i4, long j4, int i5) {
+        this.f24928f = "";
+        this.f24929g = "";
+        this.f24930h = 0L;
+        this.f24931i = 0;
+        this.f24932j = null;
+        this.k = null;
+        this.l = (byte) 0;
+        this.m = 0;
+        this.n = 0L;
+        this.o = null;
+        this.p = "";
+        this.q = null;
+        this.r = "";
+        this.s = 0;
+        this.t = 0L;
+        this.u = 0;
+        this.f24928f = str;
+        this.f24929g = str2;
+        this.f24930h = j2;
+        this.f24931i = i2;
+        this.f24932j = c0920y;
+        this.k = c0919x;
+        this.l = b2;
+        this.m = i3;
+        this.n = j3;
+        this.o = c0919x2;
+        this.p = str3;
+        this.q = map;
+        this.r = str4;
+        this.s = i4;
+        this.t = j4;
+        this.u = i5;
     }
 
-    @Override // com.tencent.bugly.proguard.AbstractC0868m
-    public void a(C0866k c0866k) {
-        this.f22558f = c0866k.a(0, true);
-        this.f22559g = c0866k.a(1, true);
-        this.f22560h = c0866k.a(this.f22560h, 2, true);
-        this.f22561i = c0866k.a(this.f22561i, 3, true);
-        if (f22553a == null) {
-            f22553a = new C0879y();
+    @Override // com.tencent.bugly.proguard.AbstractC0909m
+    public void a(C0907k c0907k) {
+        this.f24928f = c0907k.a(0, true);
+        this.f24929g = c0907k.a(1, true);
+        this.f24930h = c0907k.a(this.f24930h, 2, true);
+        this.f24931i = c0907k.a(this.f24931i, 3, true);
+        if (f24923a == null) {
+            f24923a = new C0920y();
         }
-        this.f22562j = (C0879y) c0866k.a((AbstractC0868m) f22553a, 4, true);
-        if (f22554b == null) {
-            f22554b = new C0878x();
+        this.f24932j = (C0920y) c0907k.a((AbstractC0909m) f24923a, 4, true);
+        if (f24924b == null) {
+            f24924b = new C0919x();
         }
-        this.f22563k = (C0878x) c0866k.a((AbstractC0868m) f22554b, 5, true);
-        this.f22564l = c0866k.a(this.f22564l, 6, true);
-        this.f22565m = c0866k.a(this.f22565m, 7, false);
-        this.f22566n = c0866k.a(this.f22566n, 8, false);
-        if (f22555c == null) {
-            f22555c = new C0878x();
+        this.k = (C0919x) c0907k.a((AbstractC0909m) f24924b, 5, true);
+        this.l = c0907k.a(this.l, 6, true);
+        this.m = c0907k.a(this.m, 7, false);
+        this.n = c0907k.a(this.n, 8, false);
+        if (f24925c == null) {
+            f24925c = new C0919x();
         }
-        this.f22567o = (C0878x) c0866k.a((AbstractC0868m) f22555c, 9, false);
-        this.f22568p = c0866k.a(10, false);
-        if (f22556d == null) {
+        this.o = (C0919x) c0907k.a((AbstractC0909m) f24925c, 9, false);
+        this.p = c0907k.a(10, false);
+        if (f24926d == null) {
             HashMap hashMap = new HashMap();
-            f22556d = hashMap;
+            f24926d = hashMap;
             hashMap.put("", "");
         }
-        this.f22569q = (Map) c0866k.a((C0866k) f22556d, 11, false);
-        this.f22570r = c0866k.a(12, false);
-        this.f22571s = c0866k.a(this.f22571s, 13, false);
-        this.f22572t = c0866k.a(this.f22572t, 14, false);
-        this.f22573u = c0866k.a(this.f22573u, 15, false);
+        this.q = (Map) c0907k.a((C0907k) f24926d, 11, false);
+        this.r = c0907k.a(12, false);
+        this.s = c0907k.a(this.s, 13, false);
+        this.t = c0907k.a(this.t, 14, false);
+        this.u = c0907k.a(this.u, 15, false);
     }
 
-    @Override // com.tencent.bugly.proguard.AbstractC0868m
-    public void a(StringBuilder sb2, int i10) {
-        C0864i c0864i = new C0864i(sb2, i10);
-        c0864i.a(this.f22558f, "title");
-        c0864i.a(this.f22559g, "newFeature");
-        c0864i.a(this.f22560h, "publishTime");
-        c0864i.a(this.f22561i, "publishType");
-        c0864i.a((AbstractC0868m) this.f22562j, "appBasicInfo");
-        c0864i.a((AbstractC0868m) this.f22563k, "apkBaseInfo");
-        c0864i.a(this.f22564l, "updateStrategy");
-        c0864i.a(this.f22565m, "popTimes");
-        c0864i.a(this.f22566n, "popInterval");
-        c0864i.a((AbstractC0868m) this.f22567o, "diffApkInfo");
-        c0864i.a(this.f22568p, "netType");
-        c0864i.a((Map) this.f22569q, "reserved");
-        c0864i.a(this.f22570r, "strategyId");
-        c0864i.a(this.f22571s, "status");
-        c0864i.a(this.f22572t, "updateTime");
-        c0864i.a(this.f22573u, "updateType");
+    @Override // com.tencent.bugly.proguard.AbstractC0909m
+    public void a(StringBuilder sb, int i2) {
+        C0905i c0905i = new C0905i(sb, i2);
+        c0905i.a(this.f24928f, "title");
+        c0905i.a(this.f24929g, "newFeature");
+        c0905i.a(this.f24930h, "publishTime");
+        c0905i.a(this.f24931i, "publishType");
+        c0905i.a((AbstractC0909m) this.f24932j, "appBasicInfo");
+        c0905i.a((AbstractC0909m) this.k, "apkBaseInfo");
+        c0905i.a(this.l, "updateStrategy");
+        c0905i.a(this.m, "popTimes");
+        c0905i.a(this.n, "popInterval");
+        c0905i.a((AbstractC0909m) this.o, "diffApkInfo");
+        c0905i.a(this.p, "netType");
+        c0905i.a((Map) this.q, "reserved");
+        c0905i.a(this.r, "strategyId");
+        c0905i.a(this.s, "status");
+        c0905i.a(this.t, "updateTime");
+        c0905i.a(this.u, "updateType");
     }
 }

@@ -12,8 +12,8 @@ public class SystemUtils {
                     return true;
                 }
             }
-        } catch (Throwable th2) {
-            th2.printStackTrace();
+        } catch (Throwable th) {
+            th.printStackTrace();
         }
         return false;
     }

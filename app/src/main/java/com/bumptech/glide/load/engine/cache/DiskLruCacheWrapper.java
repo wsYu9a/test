@@ -7,7 +7,7 @@ import com.bumptech.glide.load.engine.cache.DiskCache;
 import java.io.File;
 import java.io.IOException;
 
-/* loaded from: classes2.dex */
+/* loaded from: classes.dex */
 public class DiskLruCacheWrapper implements DiskCache {
     private static final int APP_VERSION = 1;
     private static final String TAG = "DiskLruCacheWrapper";
@@ -20,38 +20,30 @@ public class DiskLruCacheWrapper implements DiskCache {
     private final SafeKeyGenerator safeKeyGenerator = new SafeKeyGenerator();
 
     @Deprecated
-    public DiskLruCacheWrapper(File file, long j10) {
+    protected DiskLruCacheWrapper(File file, long j2) {
         this.directory = file;
-        this.maxSize = j10;
+        this.maxSize = j2;
     }
 
-    public static DiskCache create(File file, long j10) {
-        return new DiskLruCacheWrapper(file, j10);
+    public static DiskCache create(File file, long j2) {
+        return new DiskLruCacheWrapper(file, j2);
     }
 
     @Deprecated
-    public static synchronized DiskCache get(File file, long j10) {
+    public static synchronized DiskCache get(File file, long j2) {
         DiskLruCacheWrapper diskLruCacheWrapper;
         synchronized (DiskLruCacheWrapper.class) {
-            try {
-                if (wrapper == null) {
-                    wrapper = new DiskLruCacheWrapper(file, j10);
-                }
-                diskLruCacheWrapper = wrapper;
-            } catch (Throwable th2) {
-                throw th2;
+            if (wrapper == null) {
+                wrapper = new DiskLruCacheWrapper(file, j2);
             }
+            diskLruCacheWrapper = wrapper;
         }
         return diskLruCacheWrapper;
     }
 
     private synchronized DiskLruCache getDiskCache() throws IOException {
-        try {
-            if (this.diskLruCache == null) {
-                this.diskLruCache = DiskLruCache.open(this.directory, 1, 1, this.maxSize);
-            }
-        } catch (Throwable th2) {
-            throw th2;
+        if (this.diskLruCache == null) {
+            this.diskLruCache = DiskLruCache.open(this.directory, 1, 1, this.maxSize);
         }
         return this.diskLruCache;
     }
@@ -65,9 +57,9 @@ public class DiskLruCacheWrapper implements DiskCache {
         try {
             try {
                 getDiskCache().delete();
-            } catch (IOException e10) {
+            } catch (IOException e2) {
                 if (Log.isLoggable(TAG, 5)) {
-                    Log.w(TAG, "Unable to clear disk cache or disk cache cleared externally", e10);
+                    Log.w(TAG, "Unable to clear disk cache or disk cache cleared externally", e2);
                 }
             }
         } finally {
@@ -79,9 +71,9 @@ public class DiskLruCacheWrapper implements DiskCache {
     public void delete(Key key) {
         try {
             getDiskCache().remove(this.safeKeyGenerator.getSafeKey(key));
-        } catch (IOException e10) {
+        } catch (IOException e2) {
             if (Log.isLoggable(TAG, 5)) {
-                Log.w(TAG, "Unable to delete from disk cache", e10);
+                Log.w(TAG, "Unable to delete from disk cache", e2);
             }
         }
     }
@@ -97,9 +89,9 @@ public class DiskLruCacheWrapper implements DiskCache {
             }
             try {
                 diskCache = getDiskCache();
-            } catch (IOException e10) {
+            } catch (IOException e2) {
                 if (Log.isLoggable(TAG, 5)) {
-                    Log.w(TAG, "Unable to put to disk cache", e10);
+                    Log.w(TAG, "Unable to put to disk cache", e2);
                 }
             }
             if (diskCache.get(safeKey) != null) {
@@ -114,9 +106,9 @@ public class DiskLruCacheWrapper implements DiskCache {
                     edit.commit();
                 }
                 edit.abortUnlessCommitted();
-            } catch (Throwable th2) {
+            } catch (Throwable th) {
                 edit.abortUnlessCommitted();
-                throw th2;
+                throw th;
             }
         } finally {
             this.writeLocker.release(safeKey);
@@ -135,11 +127,11 @@ public class DiskLruCacheWrapper implements DiskCache {
                 return value.getFile(0);
             }
             return null;
-        } catch (IOException e10) {
+        } catch (IOException e2) {
             if (!Log.isLoggable(TAG, 5)) {
                 return null;
             }
-            Log.w(TAG, "Unable to get from disk cache", e10);
+            Log.w(TAG, "Unable to get from disk cache", e2);
             return null;
         }
     }

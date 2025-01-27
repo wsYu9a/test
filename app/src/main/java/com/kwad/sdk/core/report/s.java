@@ -1,10 +1,14 @@
 package com.kwad.sdk.core.report;
 
-/* loaded from: classes3.dex */
-public interface s {
-    boolean ab(long j10);
+import android.content.Context;
+import androidx.annotation.Nullable;
 
-    int uI();
+/* loaded from: classes2.dex */
+public final class s extends c {
+    public static int HE = 1;
+    private static String ajP = "CREATE TABLE IF NOT EXISTS ksad_actions (actionId varchar(60) primary key, aLog TEXT)";
 
-    int zy();
+    public s(@Nullable Context context, int i2) {
+        super(context, "ksadrep.db", i2, ajP);
+    }
 }

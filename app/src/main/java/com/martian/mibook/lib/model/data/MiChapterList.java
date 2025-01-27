@@ -1,8 +1,8 @@
 package com.martian.mibook.lib.model.data;
 
 import android.database.Cursor;
-import ba.k;
-import com.martian.libmars.common.ConfigSingleton;
+import com.martian.libmars.d.h;
+import com.martian.libsupport.j;
 import com.martian.mibook.lib.model.data.abs.Chapter;
 import com.martian.mibook.lib.model.data.abs.ChapterList;
 import java.util.List;
@@ -13,8 +13,8 @@ public class MiChapterList implements ChapterList {
     private final Class<? extends Chapter> chapterClass;
     private Cursor mCursor;
 
-    public MiChapterList(Class<? extends Chapter> cls, Cursor cursor) {
-        this.chapterClass = cls;
+    public MiChapterList(Class<? extends Chapter> chapterClass, Cursor cursor) {
+        this.chapterClass = chapterClass;
         this.mCursor = cursor;
     }
 
@@ -41,11 +41,11 @@ public class MiChapterList implements ChapterList {
     }
 
     @Override // com.martian.mibook.lib.model.data.abs.ChapterList
-    public Chapter getItem(int i10) {
-        if (this.mCursor.moveToPosition(i10)) {
-            return (Chapter) k.h(this.chapterClass, this.mCursor);
+    public Chapter getItem(int position) {
+        if (this.mCursor.moveToPosition(position)) {
+            return (Chapter) j.createInstanceFromCursor(this.chapterClass, this.mCursor);
         }
-        if (ConfigSingleton.D().J0()) {
+        if (h.F().Q0()) {
             throw new NoSuchElementException();
         }
         return null;

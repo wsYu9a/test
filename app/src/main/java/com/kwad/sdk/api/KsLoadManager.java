@@ -10,22 +10,8 @@ import java.util.List;
 
 @KsAdSdkApi
 @Keep
-/* loaded from: classes3.dex */
+/* loaded from: classes2.dex */
 public interface KsLoadManager {
-
-    @KsAdSdkApi
-    @Keep
-    public interface BannerAdListener {
-        @KsAdSdkApi
-        @Keep
-        @MainThread
-        void onBannerAdLoad(@Nullable KsBannerAd ksBannerAd);
-
-        @KsAdSdkApi
-        @Keep
-        @MainThread
-        void onError(int i10, String str);
-    }
 
     @KsAdSdkApi
     @Keep
@@ -38,7 +24,7 @@ public interface KsLoadManager {
         @KsAdSdkApi
         @Keep
         @MainThread
-        void onError(int i10, String str);
+        void onError(int i2, String str);
     }
 
     @KsAdSdkApi
@@ -47,7 +33,7 @@ public interface KsLoadManager {
         @KsAdSdkApi
         @Keep
         @MainThread
-        void onError(int i10, String str);
+        void onError(int i2, String str);
 
         @KsAdSdkApi
         @Keep
@@ -61,7 +47,7 @@ public interface KsLoadManager {
         @KsAdSdkApi
         @Keep
         @MainThread
-        void onError(int i10, String str);
+        void onError(int i2, String str);
 
         @KsAdSdkApi
         @Keep
@@ -80,7 +66,7 @@ public interface KsLoadManager {
         @KsAdSdkApi
         @Keep
         @MainThread
-        void onError(int i10, String str);
+        void onError(int i2, String str);
 
         @KsAdSdkApi
         @Keep
@@ -89,7 +75,7 @@ public interface KsLoadManager {
 
         @KsAdSdkApi
         @Keep
-        void onRequestResult(int i10);
+        void onRequestResult(int i2);
     }
 
     @KsAdSdkApi
@@ -98,7 +84,7 @@ public interface KsLoadManager {
         @KsAdSdkApi
         @Keep
         @MainThread
-        void onError(int i10, String str);
+        void onError(int i2, String str);
 
         @KsAdSdkApi
         @Keep
@@ -112,7 +98,7 @@ public interface KsLoadManager {
         @KsAdSdkApi
         @Keep
         @MainThread
-        void onError(int i10, String str);
+        void onError(int i2, String str);
 
         @KsAdSdkApi
         @Keep
@@ -131,11 +117,11 @@ public interface KsLoadManager {
         @KsAdSdkApi
         @Keep
         @MainThread
-        void onError(int i10, String str);
+        void onError(int i2, String str);
 
         @KsAdSdkApi
         @Keep
-        void onRequestResult(int i10);
+        void onRequestResult(int i2);
 
         @KsAdSdkApi
         @Keep
@@ -150,11 +136,6 @@ public interface KsLoadManager {
     @KsAdSdkApi
     @Keep
     String getBidRequestTokenV2(KsScene ksScene);
-
-    @KsAdSdkApi
-    @Keep
-    @MainThread
-    void loadBannerAd(KsScene ksScene, @NonNull BannerAdListener bannerAdListener);
 
     @KsAdSdkApi
     @Keep

@@ -4,6 +4,7 @@ import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
 import android.animation.AnimatorSet;
 import android.os.Bundle;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.Interpolator;
@@ -12,137 +13,136 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import com.kwad.components.core.e.d.c;
-import com.kwad.components.core.page.c.b;
+import com.kwad.components.core.d.b.c;
+import com.kwad.components.core.l.f;
+import com.kwad.components.core.page.a.b;
 import com.kwad.components.core.page.recycle.e;
 import com.kwad.components.core.page.splitLandingPage.view.SplitScrollWebView;
 import com.kwad.components.core.page.splitLandingPage.view.a;
-import com.kwad.components.core.proxy.h;
-import com.kwad.components.core.s.n;
+import com.kwad.components.core.r.m;
 import com.kwad.components.core.widget.FeedVideoView;
 import com.kwad.sdk.R;
 import com.kwad.sdk.core.config.d;
 import com.kwad.sdk.core.response.model.AdInfo;
 import com.kwad.sdk.core.response.model.AdTemplate;
 import com.kwad.sdk.mvp.Presenter;
-import com.kwad.sdk.utils.bd;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-/* loaded from: classes3.dex */
-public final class a extends h {
-    private FeedVideoView Qd;
-    private LinearLayout Qe;
-    private SplitScrollWebView Sg;
-    private Presenter Sh;
-    private com.kwad.components.core.page.splitLandingPage.view.a Si;
-    private com.kwad.components.core.page.c.a Sj;
-    private boolean Sk;
+/* loaded from: classes2.dex */
+public final class a extends f {
+    private FeedVideoView Ld;
+    private LinearLayout Le;
+    private SplitScrollWebView MV;
+    private Presenter MW;
+    private com.kwad.components.core.page.splitLandingPage.view.a MX;
+    private com.kwad.components.core.page.a.a MY;
+    private boolean MZ;
     private AdTemplate mAdTemplate;
     private c mApkDownloadHelper;
 
     /* renamed from: com.kwad.components.core.page.splitLandingPage.a$1 */
-    public class AnonymousClass1 implements View.OnClickListener {
-        public AnonymousClass1() {
+    final class AnonymousClass1 implements View.OnClickListener {
+        AnonymousClass1() {
         }
 
         @Override // android.view.View.OnClickListener
         public final void onClick(View view) {
-            a.this.Qe.setVisibility(8);
+            a.this.Le.setVisibility(8);
         }
     }
 
     /* renamed from: com.kwad.components.core.page.splitLandingPage.a$2 */
-    public class AnonymousClass2 extends AnimatorListenerAdapter {
-        public AnonymousClass2() {
+    final class AnonymousClass2 extends AnimatorListenerAdapter {
+        AnonymousClass2() {
         }
 
         @Override // android.animation.AnimatorListenerAdapter, android.animation.Animator.AnimatorListener
         public final void onAnimationEnd(Animator animator) {
             super.onAnimationEnd(animator);
-            a.this.qM();
-            a.this.Qd.qR();
+            a.this.oO();
+            a.this.Ld.oT();
             a.a(a.this, false);
         }
     }
 
     /* renamed from: com.kwad.components.core.page.splitLandingPage.a$3 */
-    public class AnonymousClass3 implements a.InterfaceC0441a {
-        public AnonymousClass3() {
+    final class AnonymousClass3 implements a.InterfaceC0184a {
+        AnonymousClass3() {
         }
 
-        @Override // com.kwad.components.core.page.splitLandingPage.view.a.InterfaceC0441a
-        public final boolean qO() {
-            return a.this.qL();
+        @Override // com.kwad.components.core.page.splitLandingPage.view.a.InterfaceC0184a
+        public final boolean oQ() {
+            return a.this.oN();
         }
     }
 
     /* renamed from: com.kwad.components.core.page.splitLandingPage.a$4 */
-    public class AnonymousClass4 extends bd {
-        public AnonymousClass4() {
+    final class AnonymousClass4 implements Runnable {
+        AnonymousClass4() {
         }
 
-        @Override // com.kwad.sdk.utils.bd
-        public final void doTask() {
-            a.this.Sg.setTranslationY(a.this.Sg.getTranslationY() + a.this.Qd.getHeight());
+        @Override // java.lang.Runnable
+        public final void run() {
+            a.this.MV.setTranslationY(a.this.MV.getTranslationY() + a.this.Ld.getHeight());
         }
     }
 
     /* renamed from: com.kwad.components.core.page.splitLandingPage.a$5 */
-    public class AnonymousClass5 implements SplitScrollWebView.a {
+    final class AnonymousClass5 implements SplitScrollWebView.a {
 
         /* renamed from: com.kwad.components.core.page.splitLandingPage.a$5$1 */
-        public class AnonymousClass1 extends AnimatorListenerAdapter {
-            public AnonymousClass1() {
+        final class AnonymousClass1 extends AnimatorListenerAdapter {
+            AnonymousClass1() {
             }
 
             @Override // android.animation.AnimatorListenerAdapter, android.animation.Animator.AnimatorListener
             public final void onAnimationEnd(Animator animator) {
                 super.onAnimationEnd(animator);
-                a.this.Qd.qN();
-                if (d.CT() != 2 || a.this.Qd.isComplete()) {
+                a.this.Ld.oP();
+                if (d.tW() != 2 || a.this.Ld.isComplete()) {
                     return;
                 }
-                a.this.Si.qR();
+                a.this.MX.oT();
             }
         }
 
-        public AnonymousClass5() {
+        AnonymousClass5() {
         }
 
         @Override // com.kwad.components.core.page.splitLandingPage.view.SplitScrollWebView.a
-        public final void f(float f10) {
-            a.this.Sg.setTranslationY(a.this.Sg.getTranslationY() - f10);
+        public final void d(float f2) {
+            a.this.MV.setTranslationY(a.this.MV.getTranslationY() - f2);
         }
 
         @Override // com.kwad.components.core.page.splitLandingPage.view.SplitScrollWebView.a
-        public final boolean qP() {
-            if (!a.this.Si.qQ() && d.CT() == 2) {
+        public final boolean oR() {
+            if (!a.this.MX.oS() && d.tW() == 2) {
                 return false;
             }
             AnimatorSet animatorSet = new AnimatorSet();
-            Animator a10 = n.a(a.this.Sg, (Interpolator) null, a.this.Sg.getTranslationY(), 0.0f);
-            if (d.CT() == 2) {
-                if (a.this.Qd.isComplete()) {
-                    animatorSet.playTogether(a10);
+            Animator a2 = m.a(a.this.MV, (Interpolator) null, a.this.MV.getTranslationY(), 0.0f);
+            if (d.tW() == 2) {
+                if (a.this.Ld.isComplete()) {
+                    animatorSet.playTogether(a2);
                 } else {
-                    animatorSet.playSequentially(a10, a.this.Si.aI(true));
+                    animatorSet.playSequentially(a2, a.this.MX.aE(true));
                 }
-            } else if (d.CT() == 1) {
-                animatorSet.playTogether(a10);
+            } else if (d.tW() == 1) {
+                animatorSet.playTogether(a2);
             }
             animatorSet.addListener(new AnimatorListenerAdapter() { // from class: com.kwad.components.core.page.splitLandingPage.a.5.1
-                public AnonymousClass1() {
+                AnonymousClass1() {
                 }
 
                 @Override // android.animation.AnimatorListenerAdapter, android.animation.Animator.AnimatorListener
                 public final void onAnimationEnd(Animator animator) {
                     super.onAnimationEnd(animator);
-                    a.this.Qd.qN();
-                    if (d.CT() != 2 || a.this.Qd.isComplete()) {
+                    a.this.Ld.oP();
+                    if (d.tW() != 2 || a.this.Ld.isComplete()) {
                         return;
                     }
-                    a.this.Si.qR();
+                    a.this.MX.oT();
                 }
             });
             animatorSet.start();
@@ -150,7 +150,7 @@ public final class a extends h {
         }
     }
 
-    public static a ax(AdTemplate adTemplate) {
+    public static a M(AdTemplate adTemplate) {
         a aVar = new a();
         Bundle bundle = new Bundle();
         bundle.putString("key_photo", adTemplate.toJson().toString());
@@ -159,83 +159,101 @@ public final class a extends h {
         return aVar;
     }
 
+    static /* synthetic */ boolean a(a aVar, boolean z) {
+        aVar.MZ = false;
+        return false;
+    }
+
+    private void i(ViewGroup viewGroup) {
+        Presenter presenter = new Presenter();
+        this.MW = presenter;
+        presenter.E(viewGroup);
+        b bVar = new b();
+        bVar.E(this.MV);
+        com.kwad.components.core.page.a.a aVar = new com.kwad.components.core.page.a.a();
+        this.MY = aVar;
+        aVar.E(this.Ld);
+        this.MW.a(bVar);
+        this.MW.a(this.MY);
+    }
+
     private void initView() {
         e eVar = new e(this.mAdTemplate, this.mApkDownloadHelper, null);
-        this.Sh.k(eVar);
-        com.kwad.components.core.page.splitLandingPage.view.a aVar = new com.kwad.components.core.page.splitLandingPage.view.a(this.mContext, new com.kwad.components.core.page.splitLandingPage.a.a(eVar.adTemplate, eVar.MA));
-        this.Si = aVar;
-        aVar.a(new a.InterfaceC0441a() { // from class: com.kwad.components.core.page.splitLandingPage.a.3
-            public AnonymousClass3() {
+        this.MW.f(eVar);
+        com.kwad.components.core.page.splitLandingPage.view.a aVar = new com.kwad.components.core.page.splitLandingPage.view.a(getContext(), new com.kwad.components.core.page.splitLandingPage.kwai.a(eVar.adTemplate, eVar.IM));
+        this.MX = aVar;
+        aVar.a(new a.InterfaceC0184a() { // from class: com.kwad.components.core.page.splitLandingPage.a.3
+            AnonymousClass3() {
             }
 
-            @Override // com.kwad.components.core.page.splitLandingPage.view.a.InterfaceC0441a
-            public final boolean qO() {
-                return a.this.qL();
+            @Override // com.kwad.components.core.page.splitLandingPage.view.a.InterfaceC0184a
+            public final boolean oQ() {
+                return a.this.oN();
             }
         });
-        this.Qd.post(new bd() { // from class: com.kwad.components.core.page.splitLandingPage.a.4
-            public AnonymousClass4() {
+        this.Ld.post(new Runnable() { // from class: com.kwad.components.core.page.splitLandingPage.a.4
+            AnonymousClass4() {
             }
 
-            @Override // com.kwad.sdk.utils.bd
-            public final void doTask() {
-                a.this.Sg.setTranslationY(a.this.Sg.getTranslationY() + a.this.Qd.getHeight());
+            @Override // java.lang.Runnable
+            public final void run() {
+                a.this.MV.setTranslationY(a.this.MV.getTranslationY() + a.this.Ld.getHeight());
             }
         });
-        this.Sg.setSplitScrollWebViewListener(new SplitScrollWebView.a() { // from class: com.kwad.components.core.page.splitLandingPage.a.5
+        this.MV.setSplitScrollWebViewListener(new SplitScrollWebView.a() { // from class: com.kwad.components.core.page.splitLandingPage.a.5
 
             /* renamed from: com.kwad.components.core.page.splitLandingPage.a$5$1 */
-            public class AnonymousClass1 extends AnimatorListenerAdapter {
-                public AnonymousClass1() {
+            final class AnonymousClass1 extends AnimatorListenerAdapter {
+                AnonymousClass1() {
                 }
 
                 @Override // android.animation.AnimatorListenerAdapter, android.animation.Animator.AnimatorListener
                 public final void onAnimationEnd(Animator animator) {
                     super.onAnimationEnd(animator);
-                    a.this.Qd.qN();
-                    if (d.CT() != 2 || a.this.Qd.isComplete()) {
+                    a.this.Ld.oP();
+                    if (d.tW() != 2 || a.this.Ld.isComplete()) {
                         return;
                     }
-                    a.this.Si.qR();
+                    a.this.MX.oT();
                 }
             }
 
-            public AnonymousClass5() {
+            AnonymousClass5() {
             }
 
             @Override // com.kwad.components.core.page.splitLandingPage.view.SplitScrollWebView.a
-            public final void f(float f10) {
-                a.this.Sg.setTranslationY(a.this.Sg.getTranslationY() - f10);
+            public final void d(float f2) {
+                a.this.MV.setTranslationY(a.this.MV.getTranslationY() - f2);
             }
 
             @Override // com.kwad.components.core.page.splitLandingPage.view.SplitScrollWebView.a
-            public final boolean qP() {
-                if (!a.this.Si.qQ() && d.CT() == 2) {
+            public final boolean oR() {
+                if (!a.this.MX.oS() && d.tW() == 2) {
                     return false;
                 }
                 AnimatorSet animatorSet = new AnimatorSet();
-                Animator a10 = n.a(a.this.Sg, (Interpolator) null, a.this.Sg.getTranslationY(), 0.0f);
-                if (d.CT() == 2) {
-                    if (a.this.Qd.isComplete()) {
-                        animatorSet.playTogether(a10);
+                Animator a2 = m.a(a.this.MV, (Interpolator) null, a.this.MV.getTranslationY(), 0.0f);
+                if (d.tW() == 2) {
+                    if (a.this.Ld.isComplete()) {
+                        animatorSet.playTogether(a2);
                     } else {
-                        animatorSet.playSequentially(a10, a.this.Si.aI(true));
+                        animatorSet.playSequentially(a2, a.this.MX.aE(true));
                     }
-                } else if (d.CT() == 1) {
-                    animatorSet.playTogether(a10);
+                } else if (d.tW() == 1) {
+                    animatorSet.playTogether(a2);
                 }
                 animatorSet.addListener(new AnimatorListenerAdapter() { // from class: com.kwad.components.core.page.splitLandingPage.a.5.1
-                    public AnonymousClass1() {
+                    AnonymousClass1() {
                     }
 
                     @Override // android.animation.AnimatorListenerAdapter, android.animation.Animator.AnimatorListener
                     public final void onAnimationEnd(Animator animator) {
                         super.onAnimationEnd(animator);
-                        a.this.Qd.qN();
-                        if (d.CT() != 2 || a.this.Qd.isComplete()) {
+                        a.this.Ld.oP();
+                        if (d.tW() != 2 || a.this.Ld.isComplete()) {
                             return;
                         }
-                        a.this.Si.qR();
+                        a.this.MX.oT();
                     }
                 });
                 animatorSet.start();
@@ -244,44 +262,31 @@ public final class a extends h {
         });
     }
 
-    private void j(ViewGroup viewGroup) {
-        Presenter presenter = new Presenter();
-        this.Sh = presenter;
-        presenter.I(viewGroup);
-        b bVar = new b();
-        bVar.I(this.Sg);
-        com.kwad.components.core.page.c.a aVar = new com.kwad.components.core.page.c.a();
-        this.Sj = aVar;
-        aVar.I(this.Qd);
-        this.Sh.a(bVar);
-        this.Sh.a(this.Sj);
-    }
-
-    public boolean qL() {
-        SplitScrollWebView splitScrollWebView = this.Sg;
-        if (splitScrollWebView == null || splitScrollWebView.getTranslationY() != 0.0f || this.Sk) {
+    public boolean oN() {
+        SplitScrollWebView splitScrollWebView = this.MV;
+        if (splitScrollWebView == null || splitScrollWebView.getTranslationY() != 0.0f || this.MZ) {
             return false;
         }
-        this.Sg.setDisableAnimation(false);
-        this.Sk = true;
-        SplitScrollWebView splitScrollWebView2 = this.Sg;
-        Animator a10 = n.a((View) splitScrollWebView2, (Interpolator) null, 0.0f, splitScrollWebView2.getTranslationY() + this.Qd.getHeight());
+        this.MV.setDisableAnimation(false);
+        this.MZ = true;
+        SplitScrollWebView splitScrollWebView2 = this.MV;
+        Animator a2 = m.a((View) splitScrollWebView2, (Interpolator) null, 0.0f, splitScrollWebView2.getTranslationY() + this.Ld.getHeight());
         AnimatorSet animatorSet = new AnimatorSet();
-        if (d.CT() == 2 && this.Si.isVisible()) {
-            this.Si.qN();
-            animatorSet.playSequentially(this.Si.aI(false), a10);
+        if (d.tW() == 2 && this.MX.isVisible()) {
+            this.MX.oP();
+            animatorSet.playSequentially(this.MX.aE(false), a2);
         } else {
-            animatorSet.play(a10);
+            animatorSet.play(a2);
         }
         animatorSet.addListener(new AnimatorListenerAdapter() { // from class: com.kwad.components.core.page.splitLandingPage.a.2
-            public AnonymousClass2() {
+            AnonymousClass2() {
             }
 
             @Override // android.animation.AnimatorListenerAdapter, android.animation.Animator.AnimatorListener
             public final void onAnimationEnd(Animator animator) {
                 super.onAnimationEnd(animator);
-                a.this.qM();
-                a.this.Qd.qR();
+                a.this.oO();
+                a.this.Ld.oT();
                 a.a(a.this, false);
             }
         });
@@ -289,54 +294,58 @@ public final class a extends h {
         return true;
     }
 
-    public void qM() {
-        this.Sj.mM();
-        this.Sj.I(this.Qd);
-        this.Sj.k(new e(this.mAdTemplate, this.mApkDownloadHelper, null));
+    public void oO() {
+        this.MY.jW();
+        this.MY.E(this.Ld);
+        this.MY.f(new e(this.mAdTemplate, this.mApkDownloadHelper, null));
     }
 
-    private void x(View view) {
-        this.Qe = (LinearLayout) view.findViewById(R.id.ksad_web_tip_bar);
+    private void v(View view) {
+        this.Le = (LinearLayout) view.findViewById(R.id.ksad_web_tip_bar);
         TextView textView = (TextView) view.findViewById(R.id.ksad_web_tip_bar_textview);
         ((ImageView) view.findViewById(R.id.ksad_web_tip_close_btn)).setOnClickListener(new View.OnClickListener() { // from class: com.kwad.components.core.page.splitLandingPage.a.1
-            public AnonymousClass1() {
+            AnonymousClass1() {
             }
 
             @Override // android.view.View.OnClickListener
             public final void onClick(View view2) {
-                a.this.Qe.setVisibility(8);
+                a.this.Le.setVisibility(8);
             }
         });
-        AdInfo eb2 = com.kwad.sdk.core.response.b.e.eb(this.mAdTemplate);
-        boolean by = com.kwad.sdk.core.response.b.a.by(eb2);
-        String bu = com.kwad.sdk.core.response.b.a.bu(eb2);
-        if (!by) {
-            this.Qe.setVisibility(8);
+        AdInfo cb = com.kwad.sdk.core.response.a.d.cb(this.mAdTemplate);
+        boolean bn = com.kwad.sdk.core.response.a.a.bn(cb);
+        String bj = com.kwad.sdk.core.response.a.a.bj(cb);
+        if (!bn) {
+            this.Le.setVisibility(8);
             return;
         }
-        this.Qe.setVisibility(0);
-        textView.setText(bu);
+        this.Le.setVisibility(0);
+        textView.setText(bj);
         textView.setSelected(true);
     }
 
-    @Override // com.kwad.components.core.proxy.h, com.kwad.sdk.l.a.b
-    public final boolean onBackPressed() {
-        SplitScrollWebView splitScrollWebView = this.Sg;
+    @Override // com.kwad.components.core.l.f, com.kwad.sdk.i.kwai.b
+    public final boolean bX() {
+        SplitScrollWebView splitScrollWebView = this.MV;
         if (splitScrollWebView != null && splitScrollWebView.canGoBack()) {
-            this.Sg.goBack();
+            this.MV.goBack();
             return true;
         }
-        if (qL()) {
+        if (oN()) {
             return true;
         }
-        FeedVideoView feedVideoView = this.Qd;
+        FeedVideoView feedVideoView = this.Ld;
         if (feedVideoView != null) {
-            return feedVideoView.uy();
+            return feedVideoView.ry();
         }
         return false;
     }
 
-    @Override // com.kwad.components.core.proxy.h, com.kwad.sdk.api.core.fragment.KsFragment, com.kwad.sdk.api.core.fragment.AbstractIFragmentLifecycle, com.kwad.sdk.api.core.fragment.IFragmentLifecycle
+    public final void oP() {
+        this.Ld.oP();
+    }
+
+    @Override // com.kwad.sdk.api.core.fragment.KsFragment, com.kwad.sdk.api.core.fragment.AbstractIFragmentLifecycle, com.kwad.sdk.api.core.fragment.IFragmentLifecycle
     public final void onCreate(@Nullable Bundle bundle) {
         super.onCreate(bundle);
         String string = getArguments().getString("key_photo");
@@ -344,8 +353,8 @@ public final class a extends h {
         if (string != null) {
             try {
                 adTemplate.parseJson(new JSONObject(string));
-            } catch (JSONException e10) {
-                com.kwad.sdk.core.d.c.printStackTrace(e10);
+            } catch (JSONException e2) {
+                com.kwad.sdk.core.d.b.printStackTrace(e2);
             }
         }
         this.mAdTemplate = adTemplate;
@@ -353,7 +362,18 @@ public final class a extends h {
         this.mAdTemplate.mAdWebVideoPageShowing = true;
     }
 
-    @Override // com.kwad.components.core.proxy.h, com.kwad.sdk.api.core.fragment.KsFragment, com.kwad.sdk.api.core.fragment.AbstractIFragmentLifecycle, com.kwad.sdk.api.core.fragment.IFragmentLifecycle
+    @Override // com.kwad.sdk.api.core.fragment.KsFragment, com.kwad.sdk.api.core.fragment.AbstractIFragmentLifecycle, com.kwad.sdk.api.core.fragment.IFragmentLifecycle
+    @Nullable
+    public final View onCreateView(@NonNull LayoutInflater layoutInflater, @Nullable ViewGroup viewGroup, @Nullable Bundle bundle) {
+        View inflate = layoutInflater.inflate(R.layout.ksad_split_land_page, viewGroup, false);
+        this.Ld = (FeedVideoView) inflate.findViewById(R.id.ksad_split_land_ad_feed_video);
+        this.MV = (SplitScrollWebView) inflate.findViewById(R.id.ksad_video_webView);
+        v(inflate);
+        i(viewGroup);
+        return inflate;
+    }
+
+    @Override // com.kwad.components.core.l.f, com.kwad.sdk.api.core.fragment.KsFragment, com.kwad.sdk.api.core.fragment.AbstractIFragmentLifecycle, com.kwad.sdk.api.core.fragment.IFragmentLifecycle
     public final void onDestroy() {
         super.onDestroy();
         AdTemplate adTemplate = this.mAdTemplate;
@@ -365,28 +385,10 @@ public final class a extends h {
     @Override // com.kwad.sdk.api.core.fragment.KsFragment, com.kwad.sdk.api.core.fragment.AbstractIFragmentLifecycle, com.kwad.sdk.api.core.fragment.IFragmentLifecycle
     public final void onViewCreated(@NonNull View view, @Nullable Bundle bundle) {
         super.onViewCreated(view, bundle);
-        this.Qd = (FeedVideoView) findViewById(R.id.ksad_split_land_ad_feed_video);
-        this.Sg = (SplitScrollWebView) findViewById(R.id.ksad_video_webView);
-        x(view);
-        j(this.mR);
         initView();
-    }
-
-    @Override // com.kwad.components.core.proxy.h
-    public final int pR() {
-        return R.layout.ksad_split_land_page;
-    }
-
-    public final void qN() {
-        this.Qd.qN();
     }
 
     public final void setApkDownloadHelper(c cVar) {
         this.mApkDownloadHelper = cVar;
-    }
-
-    public static /* synthetic */ boolean a(a aVar, boolean z10) {
-        aVar.Sk = false;
-        return false;
     }
 }

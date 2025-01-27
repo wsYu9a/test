@@ -20,63 +20,83 @@ import androidx.annotation.Nullable;
 
 /* loaded from: classes.dex */
 public class ListFragment extends Fragment {
-    static final int INTERNAL_EMPTY_ID = 16711681;
-    static final int INTERNAL_LIST_CONTAINER_ID = 16711683;
-    static final int INTERNAL_PROGRESS_CONTAINER_ID = 16711682;
-    ListAdapter mAdapter;
-    CharSequence mEmptyText;
-    View mEmptyView;
-    ListView mList;
-    View mListContainer;
-    boolean mListShown;
-    View mProgressContainer;
-    TextView mStandardEmptyView;
-    private final Handler mHandler = new Handler();
-    private final Runnable mRequestFocus = new Runnable() { // from class: androidx.fragment.app.ListFragment.1
-        public AnonymousClass1() {
+
+    /* renamed from: a */
+    static final int f2518a = 16711681;
+
+    /* renamed from: b */
+    static final int f2519b = 16711682;
+
+    /* renamed from: c */
+    static final int f2520c = 16711683;
+
+    /* renamed from: d */
+    private final Handler f2521d = new Handler();
+
+    /* renamed from: e */
+    private final Runnable f2522e = new Runnable() { // from class: androidx.fragment.app.ListFragment.1
+        AnonymousClass1() {
         }
 
         @Override // java.lang.Runnable
         public void run() {
-            ListView listView = ListFragment.this.mList;
+            ListView listView = ListFragment.this.f2525h;
             listView.focusableViewAvailable(listView);
         }
     };
-    private final AdapterView.OnItemClickListener mOnClickListener = new AdapterView.OnItemClickListener() { // from class: androidx.fragment.app.ListFragment.2
-        public AnonymousClass2() {
+
+    /* renamed from: f */
+    private final AdapterView.OnItemClickListener f2523f = new AdapterView.OnItemClickListener() { // from class: androidx.fragment.app.ListFragment.2
+        AnonymousClass2() {
         }
 
         @Override // android.widget.AdapterView.OnItemClickListener
-        public void onItemClick(AdapterView<?> adapterView, View view, int i10, long j10) {
-            ListFragment.this.onListItemClick((ListView) adapterView, view, i10, j10);
+        public void onItemClick(AdapterView<?> adapterView, View view, int i2, long j2) {
+            ListFragment.this.onListItemClick((ListView) adapterView, view, i2, j2);
         }
     };
 
+    /* renamed from: g */
+    ListAdapter f2524g;
+
+    /* renamed from: h */
+    ListView f2525h;
+
+    /* renamed from: i */
+    View f2526i;
+
+    /* renamed from: j */
+    TextView f2527j;
+    View k;
+    View l;
+    CharSequence m;
+    boolean n;
+
     /* renamed from: androidx.fragment.app.ListFragment$1 */
-    public class AnonymousClass1 implements Runnable {
-        public AnonymousClass1() {
+    class AnonymousClass1 implements Runnable {
+        AnonymousClass1() {
         }
 
         @Override // java.lang.Runnable
         public void run() {
-            ListView listView = ListFragment.this.mList;
+            ListView listView = ListFragment.this.f2525h;
             listView.focusableViewAvailable(listView);
         }
     }
 
     /* renamed from: androidx.fragment.app.ListFragment$2 */
-    public class AnonymousClass2 implements AdapterView.OnItemClickListener {
-        public AnonymousClass2() {
+    class AnonymousClass2 implements AdapterView.OnItemClickListener {
+        AnonymousClass2() {
         }
 
         @Override // android.widget.AdapterView.OnItemClickListener
-        public void onItemClick(AdapterView<?> adapterView, View view, int i10, long j10) {
-            ListFragment.this.onListItemClick((ListView) adapterView, view, i10, j10);
+        public void onItemClick(AdapterView<?> adapterView, View view, int i2, long j2) {
+            ListFragment.this.onListItemClick((ListView) adapterView, view, i2, j2);
         }
     }
 
-    private void ensureList() {
-        if (this.mList != null) {
+    private void a() {
+        if (this.f2525h != null) {
             return;
         }
         View view = getView();
@@ -84,17 +104,17 @@ public class ListFragment extends Fragment {
             throw new IllegalStateException("Content view not yet created");
         }
         if (view instanceof ListView) {
-            this.mList = (ListView) view;
+            this.f2525h = (ListView) view;
         } else {
-            TextView textView = (TextView) view.findViewById(INTERNAL_EMPTY_ID);
-            this.mStandardEmptyView = textView;
+            TextView textView = (TextView) view.findViewById(f2518a);
+            this.f2527j = textView;
             if (textView == null) {
-                this.mEmptyView = view.findViewById(R.id.empty);
+                this.f2526i = view.findViewById(R.id.empty);
             } else {
                 textView.setVisibility(8);
             }
-            this.mProgressContainer = view.findViewById(INTERNAL_PROGRESS_CONTAINER_ID);
-            this.mListContainer = view.findViewById(INTERNAL_LIST_CONTAINER_ID);
+            this.k = view.findViewById(f2519b);
+            this.l = view.findViewById(f2520c);
             View findViewById = view.findViewById(R.id.list);
             if (!(findViewById instanceof ListView)) {
                 if (findViewById != null) {
@@ -103,49 +123,82 @@ public class ListFragment extends Fragment {
                 throw new RuntimeException("Your content must have a ListView whose id attribute is 'android.R.id.list'");
             }
             ListView listView = (ListView) findViewById;
-            this.mList = listView;
-            View view2 = this.mEmptyView;
+            this.f2525h = listView;
+            View view2 = this.f2526i;
             if (view2 != null) {
                 listView.setEmptyView(view2);
             } else {
-                CharSequence charSequence = this.mEmptyText;
+                CharSequence charSequence = this.m;
                 if (charSequence != null) {
-                    this.mStandardEmptyView.setText(charSequence);
-                    this.mList.setEmptyView(this.mStandardEmptyView);
+                    this.f2527j.setText(charSequence);
+                    this.f2525h.setEmptyView(this.f2527j);
                 }
             }
         }
-        this.mListShown = true;
-        this.mList.setOnItemClickListener(this.mOnClickListener);
-        ListAdapter listAdapter = this.mAdapter;
+        this.n = true;
+        this.f2525h.setOnItemClickListener(this.f2523f);
+        ListAdapter listAdapter = this.f2524g;
         if (listAdapter != null) {
-            this.mAdapter = null;
+            this.f2524g = null;
             setListAdapter(listAdapter);
-        } else if (this.mProgressContainer != null) {
-            setListShown(false, false);
+        } else if (this.k != null) {
+            b(false, false);
         }
-        this.mHandler.post(this.mRequestFocus);
+        this.f2521d.post(this.f2522e);
+    }
+
+    private void b(boolean z, boolean z2) {
+        a();
+        View view = this.k;
+        if (view == null) {
+            throw new IllegalStateException("Can't be used with a custom content view");
+        }
+        if (this.n == z) {
+            return;
+        }
+        this.n = z;
+        if (z) {
+            if (z2) {
+                view.startAnimation(AnimationUtils.loadAnimation(getContext(), R.anim.fade_out));
+                this.l.startAnimation(AnimationUtils.loadAnimation(getContext(), R.anim.fade_in));
+            } else {
+                view.clearAnimation();
+                this.l.clearAnimation();
+            }
+            this.k.setVisibility(8);
+            this.l.setVisibility(0);
+            return;
+        }
+        if (z2) {
+            view.startAnimation(AnimationUtils.loadAnimation(getContext(), R.anim.fade_in));
+            this.l.startAnimation(AnimationUtils.loadAnimation(getContext(), R.anim.fade_out));
+        } else {
+            view.clearAnimation();
+            this.l.clearAnimation();
+        }
+        this.k.setVisibility(0);
+        this.l.setVisibility(8);
     }
 
     @Nullable
     public ListAdapter getListAdapter() {
-        return this.mAdapter;
+        return this.f2524g;
     }
 
     @NonNull
     public ListView getListView() {
-        ensureList();
-        return this.mList;
+        a();
+        return this.f2525h;
     }
 
     public long getSelectedItemId() {
-        ensureList();
-        return this.mList.getSelectedItemId();
+        a();
+        return this.f2525h.getSelectedItemId();
     }
 
     public int getSelectedItemPosition() {
-        ensureList();
-        return this.mList.getSelectedItemPosition();
+        a();
+        return this.f2525h.getSelectedItemPosition();
     }
 
     @Override // androidx.fragment.app.Fragment
@@ -154,16 +207,16 @@ public class ListFragment extends Fragment {
         Context requireContext = requireContext();
         FrameLayout frameLayout = new FrameLayout(requireContext);
         LinearLayout linearLayout = new LinearLayout(requireContext);
-        linearLayout.setId(INTERNAL_PROGRESS_CONTAINER_ID);
+        linearLayout.setId(f2519b);
         linearLayout.setOrientation(1);
         linearLayout.setVisibility(8);
         linearLayout.setGravity(17);
         linearLayout.addView(new ProgressBar(requireContext, null, R.attr.progressBarStyleLarge), new FrameLayout.LayoutParams(-2, -2));
         frameLayout.addView(linearLayout, new FrameLayout.LayoutParams(-1, -1));
         FrameLayout frameLayout2 = new FrameLayout(requireContext);
-        frameLayout2.setId(INTERNAL_LIST_CONTAINER_ID);
+        frameLayout2.setId(f2520c);
         TextView textView = new TextView(requireContext);
-        textView.setId(INTERNAL_EMPTY_ID);
+        textView.setId(f2518a);
         textView.setGravity(17);
         frameLayout2.addView(textView, new FrameLayout.LayoutParams(-1, -1));
         ListView listView = new ListView(requireContext);
@@ -177,23 +230,23 @@ public class ListFragment extends Fragment {
 
     @Override // androidx.fragment.app.Fragment
     public void onDestroyView() {
-        this.mHandler.removeCallbacks(this.mRequestFocus);
-        this.mList = null;
-        this.mListShown = false;
-        this.mListContainer = null;
-        this.mProgressContainer = null;
-        this.mEmptyView = null;
-        this.mStandardEmptyView = null;
+        this.f2521d.removeCallbacks(this.f2522e);
+        this.f2525h = null;
+        this.n = false;
+        this.l = null;
+        this.k = null;
+        this.f2526i = null;
+        this.f2527j = null;
         super.onDestroyView();
     }
 
-    public void onListItemClick(@NonNull ListView listView, @NonNull View view, int i10, long j10) {
+    public void onListItemClick(@NonNull ListView listView, @NonNull View view, int i2, long j2) {
     }
 
     @Override // androidx.fragment.app.Fragment
     public void onViewCreated(@NonNull View view, @Nullable Bundle bundle) {
         super.onViewCreated(view, bundle);
-        ensureList();
+        a();
     }
 
     @NonNull
@@ -206,74 +259,41 @@ public class ListFragment extends Fragment {
     }
 
     public void setEmptyText(@Nullable CharSequence charSequence) {
-        ensureList();
-        TextView textView = this.mStandardEmptyView;
+        a();
+        TextView textView = this.f2527j;
         if (textView == null) {
             throw new IllegalStateException("Can't be used with a custom content view");
         }
         textView.setText(charSequence);
-        if (this.mEmptyText == null) {
-            this.mList.setEmptyView(this.mStandardEmptyView);
+        if (this.m == null) {
+            this.f2525h.setEmptyView(this.f2527j);
         }
-        this.mEmptyText = charSequence;
+        this.m = charSequence;
     }
 
     public void setListAdapter(@Nullable ListAdapter listAdapter) {
-        boolean z10 = this.mAdapter != null;
-        this.mAdapter = listAdapter;
-        ListView listView = this.mList;
+        boolean z = this.f2524g != null;
+        this.f2524g = listAdapter;
+        ListView listView = this.f2525h;
         if (listView != null) {
             listView.setAdapter(listAdapter);
-            if (this.mListShown || z10) {
+            if (this.n || z) {
                 return;
             }
-            setListShown(true, requireView().getWindowToken() != null);
+            b(true, requireView().getWindowToken() != null);
         }
     }
 
-    public void setListShown(boolean z10) {
-        setListShown(z10, true);
+    public void setListShown(boolean z) {
+        b(z, true);
     }
 
-    public void setListShownNoAnimation(boolean z10) {
-        setListShown(z10, false);
+    public void setListShownNoAnimation(boolean z) {
+        b(z, false);
     }
 
-    public void setSelection(int i10) {
-        ensureList();
-        this.mList.setSelection(i10);
-    }
-
-    private void setListShown(boolean z10, boolean z11) {
-        ensureList();
-        View view = this.mProgressContainer;
-        if (view == null) {
-            throw new IllegalStateException("Can't be used with a custom content view");
-        }
-        if (this.mListShown == z10) {
-            return;
-        }
-        this.mListShown = z10;
-        if (z10) {
-            if (z11) {
-                view.startAnimation(AnimationUtils.loadAnimation(getContext(), R.anim.fade_out));
-                this.mListContainer.startAnimation(AnimationUtils.loadAnimation(getContext(), R.anim.fade_in));
-            } else {
-                view.clearAnimation();
-                this.mListContainer.clearAnimation();
-            }
-            this.mProgressContainer.setVisibility(8);
-            this.mListContainer.setVisibility(0);
-            return;
-        }
-        if (z11) {
-            view.startAnimation(AnimationUtils.loadAnimation(getContext(), R.anim.fade_in));
-            this.mListContainer.startAnimation(AnimationUtils.loadAnimation(getContext(), R.anim.fade_out));
-        } else {
-            view.clearAnimation();
-            this.mListContainer.clearAnimation();
-        }
-        this.mProgressContainer.setVisibility(0);
-        this.mListContainer.setVisibility(8);
+    public void setSelection(int i2) {
+        a();
+        this.f2525h.setSelection(i2);
     }
 }

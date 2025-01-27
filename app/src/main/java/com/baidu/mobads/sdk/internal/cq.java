@@ -1,155 +1,172 @@
 package com.baidu.mobads.sdk.internal;
 
+import android.app.Activity;
+import android.content.Context;
 import android.text.TextUtils;
-import java.net.HttpURLConnection;
-import java.net.URI;
-import java.net.URISyntaxException;
-import java.net.URL;
+import android.widget.RelativeLayout;
+import com.baidu.mobads.sdk.api.CPUWebAdRequestParam;
+import com.baidu.mobads.sdk.api.CpuAdView;
+import com.baidu.mobads.sdk.api.IAdInterListener;
+import com.baidu.mobads.sdk.api.IOAdEvent;
 import java.util.HashMap;
-import java.util.Locale;
 import java.util.Map;
-import javax.net.ssl.HttpsURLConnection;
+import org.json.JSONObject;
 
-/* loaded from: classes2.dex */
-public class cq {
+/* loaded from: classes.dex */
+public class cq extends bf {
 
     /* renamed from: a */
-    private static volatile cq f7111a;
+    private HashMap<String, Object> f5758a;
+    private int q;
+    private RelativeLayout r;
+    private CpuAdView.CpuAdViewInternalStatusListener s;
 
-    /* renamed from: b */
-    private boolean f7112b;
-
-    /* renamed from: c */
-    private boolean f7113c;
-
-    private cq() {
+    public cq(Context context, RelativeLayout relativeLayout, String str, int i2, CPUWebAdRequestParam cPUWebAdRequestParam) {
+        super(context);
+        this.o = str;
+        this.r = relativeLayout;
+        this.q = i2;
+        if (cPUWebAdRequestParam == null) {
+            av.c().e("内容联盟模板需要传入 CPUWebAdRequestParam配置信息");
+        } else {
+            this.f5758a = (HashMap) cPUWebAdRequestParam.getParameters();
+        }
     }
 
-    public static cq a() {
-        if (f7111a == null) {
-            synchronized (cq.class) {
-                try {
-                    if (f7111a == null) {
-                        f7111a = new cq();
-                    }
-                } finally {
+    public void c(Map<String, Object> map) {
+        if (map != null) {
+            Object obj = map.get("adInnerPageInterval");
+            Object obj2 = map.get("adBottomRefreshInterval");
+            Object obj3 = map.get("adFrontChapterInterval");
+            Object obj4 = map.get("isShowFeeds");
+            Object obj5 = map.get("isAdSwitch");
+            Object obj6 = map.get("showCount");
+            Object obj7 = map.get("clickCount");
+            if (obj != null && obj2 != null) {
+                an.a(((Integer) obj).intValue());
+                an.b(((Integer) obj2).intValue());
+            }
+            if ((obj3 instanceof Integer) && (obj4 instanceof Boolean)) {
+                an.a(((Integer) obj3).intValue(), ((Boolean) obj4).booleanValue());
+            }
+            if (obj5 instanceof Integer) {
+                an.a(((Integer) obj5).intValue() != 0);
+            }
+            if ((obj6 instanceof Integer) && (obj7 instanceof Integer)) {
+                an.a(((Integer) obj6).intValue(), ((Integer) obj7).intValue());
+            }
+        }
+    }
+
+    public void h() {
+        an.b();
+    }
+
+    @Override // com.baidu.mobads.sdk.internal.bf
+    protected void b(String str, int i2) {
+        CpuAdView.CpuAdViewInternalStatusListener cpuAdViewInternalStatusListener = this.s;
+        if (cpuAdViewInternalStatusListener != null) {
+            cpuAdViewInternalStatusListener.loadDataError(str);
+        }
+    }
+
+    @Override // com.baidu.mobads.sdk.internal.bf
+    protected void d() {
+        CpuAdView.CpuAdViewInternalStatusListener cpuAdViewInternalStatusListener = this.s;
+        if (cpuAdViewInternalStatusListener != null) {
+            cpuAdViewInternalStatusListener.onExitLp();
+        }
+    }
+
+    @Override // com.baidu.mobads.sdk.internal.bf
+    protected void e(IOAdEvent iOAdEvent) {
+        Map<String, Object> data = iOAdEvent.getData();
+        Boolean bool = (Boolean) data.get("isImpressionFeAd");
+        String str = (String) data.get("nums");
+        if (this.s != null && bool != null && bool.booleanValue()) {
+            this.s.onAdImpression(str);
+            return;
+        }
+        CpuAdView.CpuAdViewInternalStatusListener cpuAdViewInternalStatusListener = this.s;
+        if (cpuAdViewInternalStatusListener == null || bool == null) {
+            return;
+        }
+        cpuAdViewInternalStatusListener.onContentImpression(str);
+    }
+
+    public Activity f() {
+        return an.c();
+    }
+
+    public boolean g() {
+        return an.d();
+    }
+
+    @Override // com.baidu.mobads.sdk.internal.bf
+    protected void h(IOAdEvent iOAdEvent) {
+        Boolean bool = (Boolean) iOAdEvent.getData().get("isClickFeAd");
+        if (this.s != null && bool != null && bool.booleanValue()) {
+            this.s.onAdClick();
+            return;
+        }
+        CpuAdView.CpuAdViewInternalStatusListener cpuAdViewInternalStatusListener = this.s;
+        if (cpuAdViewInternalStatusListener == null || bool == null) {
+            return;
+        }
+        cpuAdViewInternalStatusListener.onContentClick();
+    }
+
+    @Override // com.baidu.mobads.sdk.internal.bf
+    protected void d(IOAdEvent iOAdEvent) {
+        if (this.s == null || iOAdEvent == null) {
+            return;
+        }
+        this.s.onLpContentStatus(iOAdEvent.getData());
+    }
+
+    @Override // com.baidu.mobads.sdk.internal.bf
+    public void a() {
+        if (this.k == null) {
+            this.l = false;
+            return;
+        }
+        this.l = true;
+        JSONObject jSONObject = new JSONObject();
+        if (this.k != null) {
+            try {
+                jSONObject.put("channel", this.q);
+                jSONObject.put(IAdInterListener.AdReqParam.PROD, "cpu_h5");
+                jSONObject.put("timeout", 10000);
+                if (!TextUtils.isEmpty(this.o)) {
+                    jSONObject.put("appid", this.o);
                 }
-            }
-        }
-        return f7111a;
-    }
-
-    public boolean b() {
-        return this.f7113c;
-    }
-
-    public String c(String str) {
-        return (this.f7112b && a(str).booleanValue()) ? str.replaceFirst("(?i)http", "https") : str;
-    }
-
-    public Boolean d(String str) {
-        return Boolean.valueOf(a(str, "sms:").booleanValue() || a(str, "smsto:").booleanValue() || a(str, "mms:").booleanValue());
-    }
-
-    public String e(String str) {
-        try {
-            String path = new URI(str).getPath();
-            return path.substring(path.lastIndexOf(47) + 1, path.length());
-        } catch (URISyntaxException unused) {
-            return "";
-        }
-    }
-
-    public boolean f(String str) {
-        return TextUtils.isEmpty(str) || !str.contains("/thefatherofsalmon.com");
-    }
-
-    public String g(String str) {
-        if (str == null) {
-            return null;
-        }
-        return (a(str).booleanValue() || b(str).booleanValue()) ? str.split("\\?")[0] : str;
-    }
-
-    public String h(String str) {
-        if (str == null) {
-            return null;
-        }
-        String[] split = (a(str).booleanValue() || b(str).booleanValue()) ? str.split("\\?") : null;
-        if (split == null || split.length < 2) {
-            return null;
-        }
-        return split[1];
-    }
-
-    public void i(String str) {
-        new am(str).b();
-    }
-
-    public void b(boolean z10) {
-        this.f7112b = z10;
-    }
-
-    public Boolean b(String str) {
-        return a(str, "https:");
-    }
-
-    public void a(boolean z10) {
-        this.f7113c = z10;
-    }
-
-    public Boolean a(String str) {
-        return a(str, "http:");
-    }
-
-    private Boolean a(String str, String str2) {
-        boolean z10 = false;
-        if (str != null && str.trim().toLowerCase(Locale.getDefault()).indexOf(str2) == 0) {
-            z10 = true;
-        }
-        return Boolean.valueOf(z10);
-    }
-
-    public HttpURLConnection a(URL url) {
-        if (url.getProtocol().toLowerCase().equals("https")) {
-            return (HttpsURLConnection) url.openConnection();
-        }
-        return (HttpURLConnection) url.openConnection();
-    }
-
-    public String a(String str, HashMap<String, String> hashMap) {
-        StringBuilder sb2 = new StringBuilder(str);
-        if (hashMap != null && !hashMap.isEmpty()) {
-            sb2.append("?");
-            for (Map.Entry<String, String> entry : hashMap.entrySet()) {
-                try {
-                    sb2.append(entry.getKey());
-                    sb2.append("=");
-                    sb2.append(entry.getValue());
-                    sb2.append("&");
-                } catch (Exception e10) {
-                    bt.a().c(e10);
+                if (this.r != null) {
+                    JSONObject jSONObject2 = new JSONObject();
+                    jSONObject2.put(IAdInterListener.AdReqParam.PROD, "cpu_h5");
+                    this.k.createProdHandler(jSONObject2);
+                    this.k.setAdContainer(this.r);
+                    n();
+                    this.k.addEventListener("Update_fbReader_Setting", new cr(this));
+                    this.k.addEventListener("closeInterstitialAd", new cs(this));
+                    this.k.addEventListener("feOpenFbReader", new ct(this));
+                    JSONObject a2 = j.a(this.f5758a);
+                    a2.put("isInitNovelSDK", an.f());
+                    this.k.loadAd(jSONObject, a2);
                 }
+            } catch (Exception e2) {
+                e2.printStackTrace();
             }
-            return sb2.toString().substring(0, r3.length() - 1);
         }
-        return sb2.toString();
     }
 
-    public void a(HttpURLConnection httpURLConnection) {
-        if (httpURLConnection != null) {
-            try {
-                httpURLConnection.getInputStream().close();
-            } catch (Throwable unused) {
-            }
-            try {
-                httpURLConnection.getOutputStream().close();
-            } catch (Throwable unused2) {
-            }
-            try {
-                httpURLConnection.disconnect();
-            } catch (Throwable unused3) {
-            }
-        }
+    public void a(int i2, int i3, String str, int i4, int i5, String str2) {
+        an.a(i2);
+        an.b(i3);
+        an.a(new cu(this, i4, i5, str2));
+        an.a(this.f5588h, str);
+    }
+
+    public void a(CpuAdView.CpuAdViewInternalStatusListener cpuAdViewInternalStatusListener) {
+        this.s = cpuAdViewInternalStatusListener;
     }
 }

@@ -17,7 +17,7 @@ public interface IDownloadDiskSpaceAidlHandler extends IInterface {
         }
 
         @Override // com.ss.android.socialbase.downloader.depend.IDownloadDiskSpaceAidlHandler
-        public boolean cleanUpDisk(long j10, long j11, IDownloadDiskSpaceAidlCallback iDownloadDiskSpaceAidlCallback) throws RemoteException {
+        public boolean cleanUpDisk(long j2, long j3, IDownloadDiskSpaceAidlCallback iDownloadDiskSpaceAidlCallback) throws RemoteException {
             return false;
         }
     }
@@ -26,11 +26,11 @@ public interface IDownloadDiskSpaceAidlHandler extends IInterface {
         private static final String DESCRIPTOR = "com.ss.android.socialbase.downloader.depend.IDownloadDiskSpaceAidlHandler";
         static final int TRANSACTION_cleanUpDisk = 1;
 
-        public static class Proxy implements IDownloadDiskSpaceAidlHandler {
+        private static class Proxy implements IDownloadDiskSpaceAidlHandler {
             public static IDownloadDiskSpaceAidlHandler sDefaultImpl;
             private IBinder mRemote;
 
-            public Proxy(IBinder iBinder) {
+            Proxy(IBinder iBinder) {
                 this.mRemote = iBinder;
             }
 
@@ -40,29 +40,22 @@ public interface IDownloadDiskSpaceAidlHandler extends IInterface {
             }
 
             @Override // com.ss.android.socialbase.downloader.depend.IDownloadDiskSpaceAidlHandler
-            public boolean cleanUpDisk(long j10, long j11, IDownloadDiskSpaceAidlCallback iDownloadDiskSpaceAidlCallback) throws RemoteException {
+            public boolean cleanUpDisk(long j2, long j3, IDownloadDiskSpaceAidlCallback iDownloadDiskSpaceAidlCallback) throws RemoteException {
                 Parcel obtain = Parcel.obtain();
                 Parcel obtain2 = Parcel.obtain();
                 try {
                     obtain.writeInterfaceToken(Stub.DESCRIPTOR);
-                    obtain.writeLong(j10);
-                    obtain.writeLong(j11);
+                    obtain.writeLong(j2);
+                    obtain.writeLong(j3);
                     obtain.writeStrongBinder(iDownloadDiskSpaceAidlCallback != null ? iDownloadDiskSpaceAidlCallback.asBinder() : null);
                     if (!this.mRemote.transact(1, obtain, obtain2, 0) && Stub.getDefaultImpl() != null) {
-                        boolean cleanUpDisk = Stub.getDefaultImpl().cleanUpDisk(j10, j11, iDownloadDiskSpaceAidlCallback);
-                        obtain2.recycle();
-                        obtain.recycle();
-                        return cleanUpDisk;
+                        return Stub.getDefaultImpl().cleanUpDisk(j2, j3, iDownloadDiskSpaceAidlCallback);
                     }
                     obtain2.readException();
-                    boolean z10 = obtain2.readInt() != 0;
+                    return obtain2.readInt() != 0;
+                } finally {
                     obtain2.recycle();
                     obtain.recycle();
-                    return z10;
-                } catch (Throwable th2) {
-                    obtain2.recycle();
-                    obtain.recycle();
-                    throw th2;
                 }
             }
 
@@ -101,10 +94,10 @@ public interface IDownloadDiskSpaceAidlHandler extends IInterface {
         }
 
         @Override // android.os.Binder
-        public boolean onTransact(int i10, Parcel parcel, Parcel parcel2, int i11) throws RemoteException {
-            if (i10 != 1) {
-                if (i10 != 1598968902) {
-                    return super.onTransact(i10, parcel, parcel2, i11);
+        public boolean onTransact(int i2, Parcel parcel, Parcel parcel2, int i3) throws RemoteException {
+            if (i2 != 1) {
+                if (i2 != 1598968902) {
+                    return super.onTransact(i2, parcel, parcel2, i3);
                 }
                 parcel2.writeString(DESCRIPTOR);
                 return true;
@@ -117,5 +110,5 @@ public interface IDownloadDiskSpaceAidlHandler extends IInterface {
         }
     }
 
-    boolean cleanUpDisk(long j10, long j11, IDownloadDiskSpaceAidlCallback iDownloadDiskSpaceAidlCallback) throws RemoteException;
+    boolean cleanUpDisk(long j2, long j3, IDownloadDiskSpaceAidlCallback iDownloadDiskSpaceAidlCallback) throws RemoteException;
 }

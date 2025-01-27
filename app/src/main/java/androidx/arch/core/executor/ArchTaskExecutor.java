@@ -8,32 +8,47 @@ import java.util.concurrent.Executor;
 @RestrictTo({RestrictTo.Scope.LIBRARY_GROUP_PREFIX})
 /* loaded from: classes.dex */
 public class ArchTaskExecutor extends TaskExecutor {
-    private static volatile ArchTaskExecutor sInstance;
 
-    @NonNull
-    private TaskExecutor mDefaultTaskExecutor;
+    /* renamed from: a */
+    private static volatile ArchTaskExecutor f1048a;
 
+    /* renamed from: b */
     @NonNull
-    private TaskExecutor mDelegate;
+    private static final Executor f1049b = new Executor() { // from class: androidx.arch.core.executor.ArchTaskExecutor.1
+        AnonymousClass1() {
+        }
 
-    @NonNull
-    private static final Executor sMainThreadExecutor = new Executor() { // from class: androidx.arch.core.executor.ArchTaskExecutor.1
         @Override // java.util.concurrent.Executor
         public void execute(Runnable runnable) {
             ArchTaskExecutor.getInstance().postToMainThread(runnable);
         }
     };
 
+    /* renamed from: c */
     @NonNull
-    private static final Executor sIOThreadExecutor = new Executor() { // from class: androidx.arch.core.executor.ArchTaskExecutor.2
+    private static final Executor f1050c = new Executor() { // from class: androidx.arch.core.executor.ArchTaskExecutor.2
+        AnonymousClass2() {
+        }
+
         @Override // java.util.concurrent.Executor
         public void execute(Runnable runnable) {
             ArchTaskExecutor.getInstance().executeOnDiskIO(runnable);
         }
     };
 
+    /* renamed from: d */
+    @NonNull
+    private TaskExecutor f1051d;
+
+    /* renamed from: e */
+    @NonNull
+    private TaskExecutor f1052e;
+
     /* renamed from: androidx.arch.core.executor.ArchTaskExecutor$1 */
-    public static class AnonymousClass1 implements Executor {
+    static class AnonymousClass1 implements Executor {
+        AnonymousClass1() {
+        }
+
         @Override // java.util.concurrent.Executor
         public void execute(Runnable runnable) {
             ArchTaskExecutor.getInstance().postToMainThread(runnable);
@@ -41,7 +56,10 @@ public class ArchTaskExecutor extends TaskExecutor {
     }
 
     /* renamed from: androidx.arch.core.executor.ArchTaskExecutor$2 */
-    public static class AnonymousClass2 implements Executor {
+    static class AnonymousClass2 implements Executor {
+        AnonymousClass2() {
+        }
+
         @Override // java.util.concurrent.Executor
         public void execute(Runnable runnable) {
             ArchTaskExecutor.getInstance().executeOnDiskIO(runnable);
@@ -50,56 +68,52 @@ public class ArchTaskExecutor extends TaskExecutor {
 
     private ArchTaskExecutor() {
         DefaultTaskExecutor defaultTaskExecutor = new DefaultTaskExecutor();
-        this.mDefaultTaskExecutor = defaultTaskExecutor;
-        this.mDelegate = defaultTaskExecutor;
+        this.f1052e = defaultTaskExecutor;
+        this.f1051d = defaultTaskExecutor;
     }
 
     @NonNull
     public static Executor getIOThreadExecutor() {
-        return sIOThreadExecutor;
+        return f1050c;
     }
 
     @NonNull
     public static ArchTaskExecutor getInstance() {
-        if (sInstance != null) {
-            return sInstance;
+        if (f1048a != null) {
+            return f1048a;
         }
         synchronized (ArchTaskExecutor.class) {
-            try {
-                if (sInstance == null) {
-                    sInstance = new ArchTaskExecutor();
-                }
-            } catch (Throwable th2) {
-                throw th2;
+            if (f1048a == null) {
+                f1048a = new ArchTaskExecutor();
             }
         }
-        return sInstance;
+        return f1048a;
     }
 
     @NonNull
     public static Executor getMainThreadExecutor() {
-        return sMainThreadExecutor;
+        return f1049b;
     }
 
     @Override // androidx.arch.core.executor.TaskExecutor
     public void executeOnDiskIO(Runnable runnable) {
-        this.mDelegate.executeOnDiskIO(runnable);
+        this.f1051d.executeOnDiskIO(runnable);
     }
 
     @Override // androidx.arch.core.executor.TaskExecutor
     public boolean isMainThread() {
-        return this.mDelegate.isMainThread();
+        return this.f1051d.isMainThread();
     }
 
     @Override // androidx.arch.core.executor.TaskExecutor
     public void postToMainThread(Runnable runnable) {
-        this.mDelegate.postToMainThread(runnable);
+        this.f1051d.postToMainThread(runnable);
     }
 
     public void setDelegate(@Nullable TaskExecutor taskExecutor) {
         if (taskExecutor == null) {
-            taskExecutor = this.mDefaultTaskExecutor;
+            taskExecutor = this.f1052e;
         }
-        this.mDelegate = taskExecutor;
+        this.f1051d = taskExecutor;
     }
 }

@@ -2,170 +2,106 @@ package com.kwad.components.core.webview.jshandler;
 
 import android.os.Handler;
 import android.os.Looper;
+import androidx.annotation.MainThread;
 import androidx.annotation.NonNull;
 import com.ksad.json.annotation.KsJson;
-import com.kwad.components.core.e.d.a;
-import com.kwad.sdk.core.response.model.AdInfo;
-import com.kwad.sdk.core.response.model.AdTemplate;
+import org.json.JSONException;
 import org.json.JSONObject;
 
-/* loaded from: classes3.dex */
-public final class ai implements com.kwad.sdk.core.webview.c.a {
-    private final com.kwad.sdk.core.webview.b YR;
-    private final Handler Zm = new Handler(Looper.getMainLooper());
-    private final AdTemplate mAdTemplate;
-    private com.kwad.components.core.e.d.c mApkDownloadHelper;
+/* loaded from: classes2.dex */
+public final class ai implements com.kwad.sdk.core.webview.b.a {
+    private Handler Sw = new Handler(Looper.getMainLooper());
+    private com.kwad.sdk.core.webview.b.c Sx;
+    private b cZ;
+    private String mUrl;
 
     /* renamed from: com.kwad.components.core.webview.jshandler.ai$1 */
-    public class AnonymousClass1 extends com.kwad.sdk.utils.bd {
+    final class AnonymousClass1 implements Runnable {
+        final /* synthetic */ a TL;
 
-        /* renamed from: com.kwad.components.core.webview.jshandler.ai$1$1 */
-        public class C04521 implements a.b {
-            public C04521() {
-            }
-
-            @Override // com.kwad.components.core.e.d.a.b
-            public final void onAdClicked() {
-            }
+        AnonymousClass1(a aVar) {
+            aVar = aVar;
         }
 
-        public AnonymousClass1() {
-        }
-
-        @Override // com.kwad.sdk.utils.bd
-        public final void doTask() {
-            com.kwad.components.core.e.d.a.a(new a.C0427a(ai.this.YR.QI.getContext()).au(ai.this.mAdTemplate).b(ai.this.mApkDownloadHelper).a(new a.b() { // from class: com.kwad.components.core.webview.jshandler.ai.1.1
-                public C04521() {
-                }
-
-                @Override // com.kwad.components.core.e.d.a.b
-                public final void onAdClicked() {
-                }
-            }));
+        @Override // java.lang.Runnable
+        public final void run() {
+            ai.this.b(aVar);
+            if (ai.this.Sx != null) {
+                ai.this.Sx.a(null);
+            }
         }
     }
 
     @KsJson
-    public static final class a extends com.kwad.sdk.core.response.a.a {
-        public int ZS;
-        public String ZU;
-        public String ZV;
+    public static final class a extends com.kwad.sdk.core.response.kwai.a {
+        public String errorMsg;
+        public int status;
 
-        @Deprecated
-        public boolean ZW;
-        public boolean ZX;
-        public boolean ZY;
-        public String appId;
-        public String appName;
-        public String icon;
-        public String md5;
-        public String pkgName;
-        public String rz;
-        public int type;
-        public String url;
-        public String version;
-        public int versionCode;
-    }
-
-    public ai(com.kwad.sdk.core.webview.b bVar) {
-        this.YR = bVar;
-        AdTemplate adTemplate = new AdTemplate();
-        this.mAdTemplate = adTemplate;
-        try {
-            AdTemplate adTemplate2 = bVar.getAdTemplate();
-            if (adTemplate2 != null) {
-                if (adTemplate2.mOriginJString != null) {
-                    adTemplate.parseJson(new JSONObject(adTemplate2.mOriginJString));
-                } else {
-                    adTemplate.parseJson(adTemplate2.toJson());
-                }
-            }
-        } catch (Exception e10) {
-            com.kwad.sdk.core.d.c.printStackTrace(e10);
+        public final boolean isSuccess() {
+            return this.status == 1;
         }
     }
 
-    @Override // com.kwad.sdk.core.webview.c.a
+    public interface b {
+        @MainThread
+        void a(a aVar);
+    }
+
+    @Deprecated
+    public ai(b bVar) {
+        this.cZ = bVar;
+    }
+
+    public ai(b bVar, String str) {
+        this.cZ = bVar;
+        this.mUrl = str;
+    }
+
+    public void b(a aVar) {
+        b bVar = this.cZ;
+        if (bVar != null) {
+            bVar.a(aVar);
+        }
+    }
+
+    @Override // com.kwad.sdk.core.webview.b.a
     @NonNull
     public final String getKey() {
-        return "handleAdUrl";
+        return "pageStatus";
     }
 
-    @Override // com.kwad.sdk.core.webview.c.a
-    public final void onDestroy() {
-        this.Zm.removeCallbacksAndMessages(null);
-    }
-
-    @Override // com.kwad.sdk.core.webview.c.a
-    public final void a(String str, @NonNull com.kwad.sdk.core.webview.c.c cVar) {
-        if (com.kwad.sdk.core.response.b.a.aF(com.kwad.sdk.core.response.b.e.eb(this.mAdTemplate))) {
-            if (this.mApkDownloadHelper == null) {
-                this.mApkDownloadHelper = new com.kwad.components.core.e.d.c(this.mAdTemplate);
-            }
-            this.mApkDownloadHelper.at(2);
-        } else {
-            AdInfo eb2 = com.kwad.sdk.core.response.b.e.eb(this.mAdTemplate);
+    @Override // com.kwad.sdk.core.webview.b.a
+    public final void handleJsCall(String str, @NonNull com.kwad.sdk.core.webview.b.c cVar) {
+        this.Sx = cVar;
+        try {
             a aVar = new a();
-            try {
-                aVar.parseJson(new JSONObject(str));
-            } catch (Exception e10) {
-                com.kwad.sdk.core.d.c.printStackTrace(e10);
-            }
-            a(eb2, aVar);
-            if (this.mApkDownloadHelper == null) {
-                this.mApkDownloadHelper = new com.kwad.components.core.e.d.c(this.mAdTemplate);
-            }
-            this.mApkDownloadHelper.at(1);
+            aVar.parseJson(new JSONObject(str));
+            this.Sw.post(new Runnable() { // from class: com.kwad.components.core.webview.jshandler.ai.1
+                final /* synthetic */ a TL;
+
+                AnonymousClass1(a aVar2) {
+                    aVar = aVar2;
+                }
+
+                @Override // java.lang.Runnable
+                public final void run() {
+                    ai.this.b(aVar);
+                    if (ai.this.Sx != null) {
+                        ai.this.Sx.a(null);
+                    }
+                }
+            });
+        } catch (JSONException e2) {
+            com.kwad.sdk.core.d.b.e("WebCardPageStatusHandler", "handleJsCall error: " + e2);
+            com.kwad.sdk.core.webview.a.b.b.Q(this.mUrl, e2.getMessage());
+            cVar.onError(-1, e2.getMessage());
         }
-        this.Zm.post(new com.kwad.sdk.utils.bd() { // from class: com.kwad.components.core.webview.jshandler.ai.1
-
-            /* renamed from: com.kwad.components.core.webview.jshandler.ai$1$1 */
-            public class C04521 implements a.b {
-                public C04521() {
-                }
-
-                @Override // com.kwad.components.core.e.d.a.b
-                public final void onAdClicked() {
-                }
-            }
-
-            public AnonymousClass1() {
-            }
-
-            @Override // com.kwad.sdk.utils.bd
-            public final void doTask() {
-                com.kwad.components.core.e.d.a.a(new a.C0427a(ai.this.YR.QI.getContext()).au(ai.this.mAdTemplate).b(ai.this.mApkDownloadHelper).a(new a.b() { // from class: com.kwad.components.core.webview.jshandler.ai.1.1
-                    public C04521() {
-                    }
-
-                    @Override // com.kwad.components.core.e.d.a.b
-                    public final void onAdClicked() {
-                    }
-                }));
-            }
-        });
-        cVar.a(null);
     }
 
-    private static void a(@NonNull AdInfo adInfo, @NonNull a aVar) {
-        AdInfo.AdConversionInfo adConversionInfo = adInfo.adConversionInfo;
-        adConversionInfo.deeplinkUrl = aVar.ZU;
-        adConversionInfo.marketUrl = aVar.ZV;
-        AdInfo.AdBaseInfo adBaseInfo = adInfo.adBaseInfo;
-        adBaseInfo.adOperationType = aVar.type;
-        adBaseInfo.appPackageName = aVar.pkgName;
-        adBaseInfo.appName = aVar.appName;
-        adBaseInfo.appVersion = aVar.version;
-        adBaseInfo.packageSize = aVar.ZS;
-        adBaseInfo.appIconUrl = aVar.icon;
-        adBaseInfo.appDescription = aVar.rz;
-        if (com.kwad.sdk.core.response.b.a.aF(adInfo)) {
-            AdInfo.AdConversionInfo adConversionInfo2 = adInfo.adConversionInfo;
-            String str = aVar.url;
-            adConversionInfo2.appDownloadUrl = str;
-            adInfo.downloadId = com.kwad.sdk.utils.ai.by(str);
-            return;
-        }
-        adInfo.adConversionInfo.h5Url = aVar.url;
+    @Override // com.kwad.sdk.core.webview.b.a
+    public final void onDestroy() {
+        this.cZ = null;
+        this.Sx = null;
+        this.Sw.removeCallbacksAndMessages(null);
     }
 }

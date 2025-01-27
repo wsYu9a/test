@@ -3,46 +3,42 @@ package com.kwad.sdk.core.imageloader.core.listener;
 import android.widget.AbsListView;
 import com.kwad.sdk.core.imageloader.core.ImageLoader;
 
-/* loaded from: classes3.dex */
+/* loaded from: classes2.dex */
 public class PauseOnScrollListener implements AbsListView.OnScrollListener {
     private final AbsListView.OnScrollListener externalListener;
     private ImageLoader imageLoader;
     private final boolean pauseOnFling;
     private final boolean pauseOnScroll;
 
-    public PauseOnScrollListener(ImageLoader imageLoader, boolean z10, boolean z11) {
-        this(imageLoader, z10, z11, null);
+    public PauseOnScrollListener(ImageLoader imageLoader, boolean z, boolean z2) {
+        this(imageLoader, z, z2, null);
+    }
+
+    public PauseOnScrollListener(ImageLoader imageLoader, boolean z, boolean z2, AbsListView.OnScrollListener onScrollListener) {
+        this.imageLoader = imageLoader;
+        this.pauseOnScroll = z;
+        this.pauseOnFling = z2;
+        this.externalListener = onScrollListener;
     }
 
     @Override // android.widget.AbsListView.OnScrollListener
-    public void onScroll(AbsListView absListView, int i10, int i11, int i12) {
+    public void onScroll(AbsListView absListView, int i2, int i3, int i4) {
         AbsListView.OnScrollListener onScrollListener = this.externalListener;
         if (onScrollListener != null) {
-            onScrollListener.onScroll(absListView, i10, i11, i12);
+            onScrollListener.onScroll(absListView, i2, i3, i4);
         }
     }
 
     @Override // android.widget.AbsListView.OnScrollListener
-    public void onScrollStateChanged(AbsListView absListView, int i10) {
-        if (i10 == 0) {
+    public void onScrollStateChanged(AbsListView absListView, int i2) {
+        if (i2 == 0) {
             this.imageLoader.resume();
-        } else if (i10 != 1) {
-            if (i10 == 2 && this.pauseOnFling) {
-                this.imageLoader.pause();
-            }
-        } else if (this.pauseOnScroll) {
+        } else if (i2 == 1 ? this.pauseOnScroll : !(i2 != 2 || !this.pauseOnFling)) {
             this.imageLoader.pause();
         }
         AbsListView.OnScrollListener onScrollListener = this.externalListener;
         if (onScrollListener != null) {
-            onScrollListener.onScrollStateChanged(absListView, i10);
+            onScrollListener.onScrollStateChanged(absListView, i2);
         }
-    }
-
-    public PauseOnScrollListener(ImageLoader imageLoader, boolean z10, boolean z11, AbsListView.OnScrollListener onScrollListener) {
-        this.imageLoader = imageLoader;
-        this.pauseOnScroll = z10;
-        this.pauseOnFling = z11;
-        this.externalListener = onScrollListener;
     }
 }

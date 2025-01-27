@@ -1,126 +1,126 @@
 package com.qq.e.ads.hybrid;
 
-/* loaded from: classes3.dex */
+/* loaded from: classes4.dex */
 public class HybridADSetting {
     public static final int TYPE_REWARD_VIDEO = 1;
 
-    /* renamed from: f, reason: collision with root package name */
-    private String f16436f;
+    /* renamed from: f */
+    private String f23925f;
 
-    /* renamed from: g, reason: collision with root package name */
-    private String f16437g;
+    /* renamed from: g */
+    private String f23926g;
 
-    /* renamed from: h, reason: collision with root package name */
-    private String f16438h;
+    /* renamed from: h */
+    private String f23927h;
 
-    /* renamed from: a, reason: collision with root package name */
-    private int f16431a = 1;
+    /* renamed from: a */
+    private int f23920a = 1;
 
-    /* renamed from: b, reason: collision with root package name */
-    private int f16432b = 44;
+    /* renamed from: b */
+    private int f23921b = 44;
 
-    /* renamed from: c, reason: collision with root package name */
-    private int f16433c = -1;
+    /* renamed from: c */
+    private int f23922c = -1;
 
-    /* renamed from: d, reason: collision with root package name */
-    private int f16434d = -14013133;
+    /* renamed from: d */
+    private int f23923d = -14013133;
 
-    /* renamed from: e, reason: collision with root package name */
-    private int f16435e = 16;
+    /* renamed from: e */
+    private int f23924e = 16;
 
-    /* renamed from: i, reason: collision with root package name */
-    private int f16439i = -1776153;
+    /* renamed from: i */
+    private int f23928i = -1776153;
 
-    /* renamed from: j, reason: collision with root package name */
-    private int f16440j = 16;
+    /* renamed from: j */
+    private int f23929j = 16;
 
     public HybridADSetting backButtonImage(String str) {
-        this.f16437g = str;
+        this.f23926g = str;
         return this;
     }
 
-    public HybridADSetting backSeparatorLength(int i10) {
-        this.f16440j = i10;
+    public HybridADSetting backSeparatorLength(int i2) {
+        this.f23929j = i2;
         return this;
     }
 
     public HybridADSetting closeButtonImage(String str) {
-        this.f16438h = str;
+        this.f23927h = str;
         return this;
     }
 
     public String getBackButtonImage() {
-        return this.f16437g;
+        return this.f23926g;
     }
 
     public int getBackSeparatorLength() {
-        return this.f16440j;
+        return this.f23929j;
     }
 
     public String getCloseButtonImage() {
-        return this.f16438h;
+        return this.f23927h;
     }
 
     public int getSeparatorColor() {
-        return this.f16439i;
+        return this.f23928i;
     }
 
     public String getTitle() {
-        return this.f16436f;
+        return this.f23925f;
     }
 
     public int getTitleBarColor() {
-        return this.f16433c;
+        return this.f23922c;
     }
 
     public int getTitleBarHeight() {
-        return this.f16432b;
+        return this.f23921b;
     }
 
     public int getTitleColor() {
-        return this.f16434d;
+        return this.f23923d;
     }
 
     public int getTitleSize() {
-        return this.f16435e;
+        return this.f23924e;
     }
 
     public int getType() {
-        return this.f16431a;
+        return this.f23920a;
     }
 
-    public HybridADSetting separatorColor(int i10) {
-        this.f16439i = i10;
+    public HybridADSetting separatorColor(int i2) {
+        this.f23928i = i2;
         return this;
     }
 
     public HybridADSetting title(String str) {
-        this.f16436f = str;
+        this.f23925f = str;
         return this;
     }
 
-    public HybridADSetting titleBarColor(int i10) {
-        this.f16433c = i10;
+    public HybridADSetting titleBarColor(int i2) {
+        this.f23922c = i2;
         return this;
     }
 
-    public HybridADSetting titleBarHeight(int i10) {
-        this.f16432b = i10;
+    public HybridADSetting titleBarHeight(int i2) {
+        this.f23921b = i2;
         return this;
     }
 
-    public HybridADSetting titleColor(int i10) {
-        this.f16434d = i10;
+    public HybridADSetting titleColor(int i2) {
+        this.f23923d = i2;
         return this;
     }
 
-    public HybridADSetting titleSize(int i10) {
-        this.f16435e = i10;
+    public HybridADSetting titleSize(int i2) {
+        this.f23924e = i2;
         return this;
     }
 
-    public HybridADSetting type(int i10) {
-        this.f16431a = i10;
+    public HybridADSetting type(int i2) {
+        this.f23920a = i2;
         return this;
     }
 }

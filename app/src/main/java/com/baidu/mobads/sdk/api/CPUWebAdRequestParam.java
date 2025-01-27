@@ -4,7 +4,7 @@ import android.text.TextUtils;
 import java.util.HashMap;
 import java.util.Map;
 
-/* loaded from: classes2.dex */
+/* loaded from: classes.dex */
 public class CPUWebAdRequestParam {
     private static final String DARK_MODE = "dark";
     private static final String LIGHT_MODE = "light";
@@ -34,8 +34,8 @@ public class CPUWebAdRequestParam {
             return this;
         }
 
-        public Builder setLpDarkMode(boolean z10) {
-            this.mExtras.put("preferscolortheme", z10 ? CPUWebAdRequestParam.DARK_MODE : CPUWebAdRequestParam.LIGHT_MODE);
+        public Builder setLpDarkMode(boolean z) {
+            this.mExtras.put("preferscolortheme", z ? CPUWebAdRequestParam.DARK_MODE : CPUWebAdRequestParam.LIGHT_MODE);
             return this;
         }
 
@@ -50,7 +50,7 @@ public class CPUWebAdRequestParam {
         }
     }
 
-    public /* synthetic */ CPUWebAdRequestParam(Builder builder, AnonymousClass1 anonymousClass1) {
+    /* synthetic */ CPUWebAdRequestParam(Builder builder, AnonymousClass1 anonymousClass1) {
         this(builder);
     }
 

@@ -1,112 +1,102 @@
 package androidx.core.text;
 
-import android.annotation.SuppressLint;
 import android.icu.util.ULocale;
 import android.os.Build;
 import android.util.Log;
-import androidx.annotation.DoNotInline;
-import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.annotation.RequiresApi;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.util.Locale;
 
 /* loaded from: classes.dex */
 public final class ICUCompat {
-    private static final String TAG = "ICUCompat";
-    private static Method sAddLikelySubtagsMethod;
-    private static Method sGetScriptMethod;
 
-    @RequiresApi(21)
-    public static class Api21Impl {
-        private Api21Impl() {
-        }
+    /* renamed from: a, reason: collision with root package name */
+    private static final String f1924a = "ICUCompat";
 
-        @DoNotInline
-        public static String getScript(Locale locale) {
-            return locale.getScript();
-        }
-    }
+    /* renamed from: b, reason: collision with root package name */
+    private static Method f1925b;
 
-    @RequiresApi(24)
-    public static class Api24Impl {
-        private Api24Impl() {
-        }
-
-        @DoNotInline
-        public static ULocale addLikelySubtags(Object obj) {
-            return ULocale.addLikelySubtags((ULocale) obj);
-        }
-
-        @DoNotInline
-        public static ULocale forLocale(Locale locale) {
-            return ULocale.forLocale(locale);
-        }
-
-        @DoNotInline
-        public static String getScript(Object obj) {
-            return ((ULocale) obj).getScript();
-        }
-    }
+    /* renamed from: c, reason: collision with root package name */
+    private static Method f1926c;
 
     static {
-        if (Build.VERSION.SDK_INT < 24) {
-            try {
-                sAddLikelySubtagsMethod = Class.forName("libcore.icu.ICU").getMethod("addLikelySubtags", Locale.class);
-            } catch (Exception e10) {
-                throw new IllegalStateException(e10);
+        int i2 = Build.VERSION.SDK_INT;
+        if (i2 >= 21) {
+            if (i2 < 24) {
+                try {
+                    f1926c = Class.forName("libcore.icu.ICU").getMethod("addLikelySubtags", Locale.class);
+                    return;
+                } catch (Exception e2) {
+                    throw new IllegalStateException(e2);
+                }
             }
+            return;
+        }
+        try {
+            Class<?> cls = Class.forName("libcore.icu.ICU");
+            f1925b = cls.getMethod("getScript", String.class);
+            f1926c = cls.getMethod("addLikelySubtags", String.class);
+        } catch (Exception e3) {
+            f1925b = null;
+            f1926c = null;
+            Log.w(f1924a, e3);
         }
     }
 
     private ICUCompat() {
     }
 
-    @SuppressLint({"BanUncheckedReflection"})
-    private static String addLikelySubtagsBelowApi21(Locale locale) {
+    private static String a(Locale locale) {
         String locale2 = locale.toString();
         try {
-            Method method = sAddLikelySubtagsMethod;
+            Method method = f1926c;
             if (method != null) {
                 return (String) method.invoke(null, locale2);
             }
-        } catch (IllegalAccessException e10) {
-            Log.w(TAG, e10);
-        } catch (InvocationTargetException e11) {
-            Log.w(TAG, e11);
+        } catch (IllegalAccessException e2) {
+            Log.w(f1924a, e2);
+        } catch (InvocationTargetException e3) {
+            Log.w(f1924a, e3);
         }
         return locale2;
     }
 
-    @SuppressLint({"BanUncheckedReflection"})
-    private static String getScriptBelowApi21(String str) {
+    private static String b(String str) {
         try {
-            Method method = sGetScriptMethod;
+            Method method = f1925b;
             if (method != null) {
                 return (String) method.invoke(null, str);
             }
-        } catch (IllegalAccessException e10) {
-            Log.w(TAG, e10);
-        } catch (InvocationTargetException e11) {
-            Log.w(TAG, e11);
+        } catch (IllegalAccessException e2) {
+            Log.w(f1924a, e2);
+        } catch (InvocationTargetException e3) {
+            Log.w(f1924a, e3);
         }
         return null;
     }
 
     @Nullable
-    public static String maximizeAndGetScript(@NonNull Locale locale) {
-        if (Build.VERSION.SDK_INT >= 24) {
-            return Api24Impl.getScript(Api24Impl.addLikelySubtags(Api24Impl.forLocale(locale)));
+    public static String maximizeAndGetScript(Locale locale) {
+        int i2 = Build.VERSION.SDK_INT;
+        if (i2 >= 24) {
+            return ULocale.addLikelySubtags(ULocale.forLocale(locale)).getScript();
+        }
+        if (i2 < 21) {
+            String a2 = a(locale);
+            if (a2 != null) {
+                return b(a2);
+            }
+            return null;
         }
         try {
-            return Api21Impl.getScript((Locale) sAddLikelySubtagsMethod.invoke(null, locale));
-        } catch (IllegalAccessException e10) {
-            Log.w(TAG, e10);
-            return Api21Impl.getScript(locale);
-        } catch (InvocationTargetException e11) {
-            Log.w(TAG, e11);
-            return Api21Impl.getScript(locale);
+            return ((Locale) f1926c.invoke(null, locale)).getScript();
+        } catch (IllegalAccessException e2) {
+            Log.w(f1924a, e2);
+            return locale.getScript();
+        } catch (InvocationTargetException e3) {
+            Log.w(f1924a, e3);
+            return locale.getScript();
         }
     }
 }

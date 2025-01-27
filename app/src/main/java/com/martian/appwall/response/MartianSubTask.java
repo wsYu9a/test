@@ -1,6 +1,6 @@
 package com.martian.appwall.response;
 
-/* loaded from: classes3.dex */
+/* loaded from: classes2.dex */
 public class MartianSubTask {
     private Integer coins;
     private Long completedTime;
@@ -20,11 +20,11 @@ public class MartianSubTask {
     }
 
     public long getCompletedTime() {
-        Long l10 = this.completedTime;
-        if (l10 == null) {
+        Long l = this.completedTime;
+        if (l == null) {
             return 0L;
         }
-        return l10.longValue();
+        return l.longValue();
     }
 
     public String getContent() {
@@ -64,35 +64,35 @@ public class MartianSubTask {
         return num.intValue();
     }
 
-    public void setCoins(Integer num) {
-        this.coins = num;
+    public void setCoins(Integer coins) {
+        this.coins = coins;
     }
 
-    public void setCompletedTime(Long l10) {
-        this.completedTime = l10;
+    public void setCompletedTime(Long completedTime) {
+        this.completedTime = completedTime;
     }
 
-    public void setContent(String str) {
-        this.content = str;
+    public void setContent(String content) {
+        this.content = content;
     }
 
-    public void setDuration(Integer num) {
-        this.duration = num;
+    public void setDuration(Integer duration) {
+        this.duration = duration;
     }
 
-    public void setIntervalDays(Integer num) {
-        this.intervalDays = num;
+    public void setIntervalDays(Integer intervalDays) {
+        this.intervalDays = intervalDays;
     }
 
-    public void setMoney(Integer num) {
-        this.money = num;
+    public void setMoney(Integer money) {
+        this.money = money;
     }
 
-    public void setStatus(String str) {
-        this.status = str;
+    public void setStatus(String status) {
+        this.status = status;
     }
 
-    public void setUseDurationInMins(Integer num) {
-        this.useDurationInMins = num;
+    public void setUseDurationInMins(Integer useDurationInMins) {
+        this.useDurationInMins = useDurationInMins;
     }
 }

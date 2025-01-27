@@ -23,7 +23,7 @@ import java.nio.ByteBuffer;
 import java.util.ArrayList;
 import java.util.List;
 
-/* loaded from: classes2.dex */
+/* loaded from: classes.dex */
 public class GifDrawable extends Drawable implements GifFrameLoader.FrameCallback, Animatable, Animatable2Compat {
     private static final int GRAVITY = 119;
     public static final int LOOP_FOREVER = -1;
@@ -40,12 +40,12 @@ public class GifDrawable extends Drawable implements GifFrameLoader.FrameCallbac
     private Paint paint;
     private final GifState state;
 
-    public static final class GifState extends Drawable.ConstantState {
+    static final class GifState extends Drawable.ConstantState {
 
         @VisibleForTesting
         final GifFrameLoader frameLoader;
 
-        public GifState(GifFrameLoader gifFrameLoader) {
+        GifState(GifFrameLoader gifFrameLoader) {
             this.frameLoader = gifFrameLoader;
         }
 
@@ -68,8 +68,8 @@ public class GifDrawable extends Drawable implements GifFrameLoader.FrameCallbac
     }
 
     @Deprecated
-    public GifDrawable(Context context, GifDecoder gifDecoder, BitmapPool bitmapPool, Transformation<Bitmap> transformation, int i10, int i11, Bitmap bitmap) {
-        this(context, gifDecoder, transformation, i10, i11, bitmap);
+    public GifDrawable(Context context, GifDecoder gifDecoder, BitmapPool bitmapPool, Transformation<Bitmap> transformation, int i2, int i3, Bitmap bitmap) {
+        this(context, gifDecoder, transformation, i2, i3, bitmap);
     }
 
     /* JADX WARN: Multi-variable type inference failed */
@@ -99,8 +99,8 @@ public class GifDrawable extends Drawable implements GifFrameLoader.FrameCallbac
         List<Animatable2Compat.AnimationCallback> list = this.animationCallbacks;
         if (list != null) {
             int size = list.size();
-            for (int i10 = 0; i10 < size; i10++) {
-                this.animationCallbacks.get(i10).onAnimationEnd(this);
+            for (int i2 = 0; i2 < size; i2++) {
+                this.animationCallbacks.get(i2).onAnimationEnd(this);
             }
         }
     }
@@ -192,7 +192,7 @@ public class GifDrawable extends Drawable implements GifFrameLoader.FrameCallbac
         return this.state.frameLoader.getSize();
     }
 
-    public boolean isRecycled() {
+    boolean isRecycled() {
         return this.isRecycled;
     }
 
@@ -202,7 +202,7 @@ public class GifDrawable extends Drawable implements GifFrameLoader.FrameCallbac
     }
 
     @Override // android.graphics.drawable.Drawable
-    public void onBoundsChange(Rect rect) {
+    protected void onBoundsChange(Rect rect) {
         super.onBoundsChange(rect);
         this.applyGravity = true;
     }
@@ -218,8 +218,8 @@ public class GifDrawable extends Drawable implements GifFrameLoader.FrameCallbac
         if (getFrameIndex() == getFrameCount() - 1) {
             this.loopCount++;
         }
-        int i10 = this.maxLoopCount;
-        if (i10 == -1 || this.loopCount < i10) {
+        int i2 = this.maxLoopCount;
+        if (i2 == -1 || this.loopCount < i2) {
             return;
         }
         notifyAnimationEndToListeners();
@@ -243,8 +243,8 @@ public class GifDrawable extends Drawable implements GifFrameLoader.FrameCallbac
     }
 
     @Override // android.graphics.drawable.Drawable
-    public void setAlpha(int i10) {
-        getPaint().setAlpha(i10);
+    public void setAlpha(int i2) {
+        getPaint().setAlpha(i2);
     }
 
     @Override // android.graphics.drawable.Drawable
@@ -256,16 +256,16 @@ public class GifDrawable extends Drawable implements GifFrameLoader.FrameCallbac
         this.state.frameLoader.setFrameTransformation(transformation, bitmap);
     }
 
-    public void setIsRunning(boolean z10) {
-        this.isRunning = z10;
+    void setIsRunning(boolean z) {
+        this.isRunning = z;
     }
 
-    public void setLoopCount(int i10) {
-        if (i10 <= 0 && i10 != -1 && i10 != 0) {
+    public void setLoopCount(int i2) {
+        if (i2 <= 0 && i2 != -1 && i2 != 0) {
             throw new IllegalArgumentException("Loop count must be greater than 0, or equal to GlideDrawable.LOOP_FOREVER, or equal to GlideDrawable.LOOP_INTRINSIC");
         }
-        if (i10 != 0) {
-            this.maxLoopCount = i10;
+        if (i2 != 0) {
+            this.maxLoopCount = i2;
         } else {
             int loopCount = this.state.frameLoader.getLoopCount();
             this.maxLoopCount = loopCount != 0 ? loopCount : -1;
@@ -273,15 +273,15 @@ public class GifDrawable extends Drawable implements GifFrameLoader.FrameCallbac
     }
 
     @Override // android.graphics.drawable.Drawable
-    public boolean setVisible(boolean z10, boolean z11) {
+    public boolean setVisible(boolean z, boolean z2) {
         Preconditions.checkArgument(!this.isRecycled, "Cannot change the visibility of a recycled resource. Ensure that you unset the Drawable from your View before changing the View's visibility.");
-        this.isVisible = z10;
-        if (!z10) {
+        this.isVisible = z;
+        if (!z) {
             stopRunning();
         } else if (this.isStarted) {
             startRunning();
         }
-        return super.setVisible(z10, z11);
+        return super.setVisible(z, z2);
     }
 
     @Override // android.graphics.drawable.Animatable
@@ -314,18 +314,18 @@ public class GifDrawable extends Drawable implements GifFrameLoader.FrameCallbac
         return list.remove(animationCallback);
     }
 
-    public GifDrawable(Context context, GifDecoder gifDecoder, Transformation<Bitmap> transformation, int i10, int i11, Bitmap bitmap) {
-        this(new GifState(new GifFrameLoader(Glide.get(context), gifDecoder, i10, i11, transformation, bitmap)));
+    public GifDrawable(Context context, GifDecoder gifDecoder, Transformation<Bitmap> transformation, int i2, int i3, Bitmap bitmap) {
+        this(new GifState(new GifFrameLoader(Glide.get(context), gifDecoder, i2, i3, transformation, bitmap)));
     }
 
-    public GifDrawable(GifState gifState) {
+    GifDrawable(GifState gifState) {
         this.isVisible = true;
         this.maxLoopCount = -1;
         this.state = (GifState) Preconditions.checkNotNull(gifState);
     }
 
     @VisibleForTesting
-    public GifDrawable(GifFrameLoader gifFrameLoader, Paint paint) {
+    GifDrawable(GifFrameLoader gifFrameLoader, Paint paint) {
         this(new GifState(gifFrameLoader));
         this.paint = paint;
     }

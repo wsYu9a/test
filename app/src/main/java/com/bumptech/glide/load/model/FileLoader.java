@@ -9,13 +9,14 @@ import com.bumptech.glide.load.Options;
 import com.bumptech.glide.load.data.DataFetcher;
 import com.bumptech.glide.load.model.ModelLoader;
 import com.bumptech.glide.signature.ObjectKey;
+import com.ss.android.socialbase.downloader.utils.DownloadExpSwitchCode;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
 
-/* loaded from: classes2.dex */
+/* loaded from: classes.dex */
 public class FileLoader<Data> implements ModelLoader<File, Data> {
     private static final String TAG = "FileLoader";
     private final FileOpener<Data> fileOpener;
@@ -41,7 +42,10 @@ public class FileLoader<Data> implements ModelLoader<File, Data> {
     public static class FileDescriptorFactory extends Factory<ParcelFileDescriptor> {
 
         /* renamed from: com.bumptech.glide.load.model.FileLoader$FileDescriptorFactory$1 */
-        public class AnonymousClass1 implements FileOpener<ParcelFileDescriptor> {
+        class AnonymousClass1 implements FileOpener<ParcelFileDescriptor> {
+            AnonymousClass1() {
+            }
+
             @Override // com.bumptech.glide.load.model.FileLoader.FileOpener
             public Class<ParcelFileDescriptor> getDataClass() {
                 return ParcelFileDescriptor.class;
@@ -54,12 +58,15 @@ public class FileLoader<Data> implements ModelLoader<File, Data> {
 
             @Override // com.bumptech.glide.load.model.FileLoader.FileOpener
             public ParcelFileDescriptor open(File file) throws FileNotFoundException {
-                return ParcelFileDescriptor.open(file, 268435456);
+                return ParcelFileDescriptor.open(file, DownloadExpSwitchCode.BUGFIX_GETPACKAGEINFO_BY_UNZIP);
             }
         }
 
         public FileDescriptorFactory() {
             super(new FileOpener<ParcelFileDescriptor>() { // from class: com.bumptech.glide.load.model.FileLoader.FileDescriptorFactory.1
+                AnonymousClass1() {
+                }
+
                 @Override // com.bumptech.glide.load.model.FileLoader.FileOpener
                 public Class<ParcelFileDescriptor> getDataClass() {
                     return ParcelFileDescriptor.class;
@@ -72,18 +79,18 @@ public class FileLoader<Data> implements ModelLoader<File, Data> {
 
                 @Override // com.bumptech.glide.load.model.FileLoader.FileOpener
                 public ParcelFileDescriptor open(File file) throws FileNotFoundException {
-                    return ParcelFileDescriptor.open(file, 268435456);
+                    return ParcelFileDescriptor.open(file, DownloadExpSwitchCode.BUGFIX_GETPACKAGEINFO_BY_UNZIP);
                 }
             });
         }
     }
 
-    public static final class FileFetcher<Data> implements DataFetcher<Data> {
+    private static final class FileFetcher<Data> implements DataFetcher<Data> {
         private Data data;
         private final File file;
         private final FileOpener<Data> opener;
 
-        public FileFetcher(File file, FileOpener<Data> fileOpener) {
+        FileFetcher(File file, FileOpener<Data> fileOpener) {
             this.file = file;
             this.opener = fileOpener;
         }
@@ -122,11 +129,11 @@ public class FileLoader<Data> implements ModelLoader<File, Data> {
                 Data open = this.opener.open(this.file);
                 this.data = open;
                 dataCallback.onDataReady(open);
-            } catch (FileNotFoundException e10) {
+            } catch (FileNotFoundException e2) {
                 if (Log.isLoggable(FileLoader.TAG, 3)) {
-                    Log.d(FileLoader.TAG, "Failed to open file", e10);
+                    Log.d(FileLoader.TAG, "Failed to open file", e2);
                 }
-                dataCallback.onLoadFailed(e10);
+                dataCallback.onLoadFailed(e2);
             }
         }
     }
@@ -142,7 +149,10 @@ public class FileLoader<Data> implements ModelLoader<File, Data> {
     public static class StreamFactory extends Factory<InputStream> {
 
         /* renamed from: com.bumptech.glide.load.model.FileLoader$StreamFactory$1 */
-        public class AnonymousClass1 implements FileOpener<InputStream> {
+        class AnonymousClass1 implements FileOpener<InputStream> {
+            AnonymousClass1() {
+            }
+
             @Override // com.bumptech.glide.load.model.FileLoader.FileOpener
             public Class<InputStream> getDataClass() {
                 return InputStream.class;
@@ -161,6 +171,9 @@ public class FileLoader<Data> implements ModelLoader<File, Data> {
 
         public StreamFactory() {
             super(new FileOpener<InputStream>() { // from class: com.bumptech.glide.load.model.FileLoader.StreamFactory.1
+                AnonymousClass1() {
+                }
+
                 @Override // com.bumptech.glide.load.model.FileLoader.FileOpener
                 public Class<InputStream> getDataClass() {
                     return InputStream.class;
@@ -189,7 +202,7 @@ public class FileLoader<Data> implements ModelLoader<File, Data> {
     }
 
     @Override // com.bumptech.glide.load.model.ModelLoader
-    public ModelLoader.LoadData<Data> buildLoadData(@NonNull File file, int i10, int i11, @NonNull Options options) {
+    public ModelLoader.LoadData<Data> buildLoadData(@NonNull File file, int i2, int i3, @NonNull Options options) {
         return new ModelLoader.LoadData<>(new ObjectKey(file), new FileFetcher(file, this.fileOpener));
     }
 }

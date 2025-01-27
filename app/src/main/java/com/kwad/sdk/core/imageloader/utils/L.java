@@ -3,7 +3,7 @@ package com.kwad.sdk.core.imageloader.utils;
 import android.util.Log;
 import com.kwad.sdk.core.imageloader.core.ImageLoader;
 
-/* loaded from: classes3.dex */
+/* loaded from: classes2.dex */
 public final class L {
     private static final String LOG_FORMAT = "%1$s\n%2$s";
     private static volatile boolean writeDebugLogs = false;
@@ -23,8 +23,16 @@ public final class L {
         writeLogs(false);
     }
 
-    public static void e(Throwable th2) {
-        log(6, th2, null, new Object[0]);
+    public static void e(String str, Object... objArr) {
+        log(6, null, str, objArr);
+    }
+
+    public static void e(Throwable th) {
+        log(6, th, null, new Object[0]);
+    }
+
+    public static void e(Throwable th, String str, Object... objArr) {
+        log(6, th, str, objArr);
     }
 
     @Deprecated
@@ -36,18 +44,18 @@ public final class L {
         log(4, null, str, objArr);
     }
 
-    private static void log(int i10, Throwable th2, String str, Object... objArr) {
+    private static void log(int i2, Throwable th, String str, Object... objArr) {
         if (writeLogs) {
             if (objArr.length > 0) {
                 str = String.format(str, objArr);
             }
-            if (th2 != null) {
+            if (th != null) {
                 if (str == null) {
-                    str = th2.getMessage();
+                    str = th.getMessage();
                 }
-                str = String.format("%1$s\n%2$s", str, Log.getStackTraceString(th2));
+                str = String.format(LOG_FORMAT, str, Log.getStackTraceString(th));
             }
-            Log.println(i10, ImageLoader.TAG, str);
+            Log.println(i2, ImageLoader.TAG, str);
         }
     }
 
@@ -55,19 +63,11 @@ public final class L {
         log(5, null, str, objArr);
     }
 
-    public static void writeDebugLogs(boolean z10) {
-        writeDebugLogs = z10;
+    public static void writeDebugLogs(boolean z) {
+        writeDebugLogs = z;
     }
 
-    public static void writeLogs(boolean z10) {
-        writeLogs = z10;
-    }
-
-    public static void e(String str, Object... objArr) {
-        log(6, null, str, objArr);
-    }
-
-    public static void e(Throwable th2, String str, Object... objArr) {
-        log(6, th2, str, objArr);
+    public static void writeLogs(boolean z) {
+        writeLogs = z;
     }
 }

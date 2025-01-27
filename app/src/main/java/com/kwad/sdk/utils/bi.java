@@ -2,39 +2,82 @@ package com.kwad.sdk.utils;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
-import android.content.pm.PackageInfo;
-import android.content.pm.Signature;
-import androidx.annotation.Nullable;
+import android.os.Build;
+import android.os.Handler;
+import android.os.Looper;
+import android.os.Message;
+import android.os.VibrationEffect;
+import android.os.Vibrator;
+import java.io.Closeable;
 
-/* loaded from: classes3.dex */
+/* loaded from: classes2.dex */
 public final class bi {
-    private static String TAG = "plugin.signature";
-    public static Signature[] aUK = new Signature[0];
+    private static final Handler aBx = new Handler(Looper.getMainLooper());
+    private static long ka = 400;
 
-    @Nullable
-    @SuppressLint({"PackageManagerGetSignatures"})
-    private static Signature[] dm(Context context) {
-        Signature[] signatureArr = aUK;
-        if (signatureArr != null && signatureArr.length > 0) {
-            return signatureArr;
-        }
-        PackageInfo packageInfo = ao.getPackageInfo(context, context.getPackageName(), 64);
-        if (packageInfo != null) {
-            aUK = packageInfo.signatures;
-        }
-        return aUK;
+    @SuppressLint({"MissingPermission"})
+    public static void a(Context context, Vibrator vibrator) {
+        vibrate(context, vibrator, ka);
     }
 
-    public static String dn(Context context) {
-        try {
-            Signature[] dm = dm(context);
-            if (dm != null && dm.length > 0) {
-                return ai.l(dm[0].toByteArray());
+    public static void a(Runnable runnable, Object obj, long j2) {
+        Handler handler = aBx;
+        Message obtain = Message.obtain(handler, runnable);
+        obtain.obj = null;
+        handler.sendMessageDelayed(obtain, j2);
+    }
+
+    @SuppressLint({"MissingPermission"})
+    public static void b(Context context, Vibrator vibrator) {
+        if (vibrator == null || al.al(context, "android.permission.VIBRATE") != 0) {
+            return;
+        }
+        vibrator.cancel();
+    }
+
+    public static void b(Runnable runnable) {
+        aBx.removeCallbacks(runnable);
+    }
+
+    public static void c(Closeable closeable) {
+        if (closeable != null) {
+            try {
+                closeable.close();
+            } catch (Throwable unused) {
             }
-            return "";
-        } catch (Exception e10) {
-            com.kwad.sdk.core.d.c.w(TAG, e10);
-            return "";
+        }
+    }
+
+    public static void postOnUiThread(Runnable runnable) {
+        aBx.post(runnable);
+    }
+
+    public static void runOnUiThread(Runnable runnable) {
+        if (Looper.getMainLooper() == Looper.myLooper()) {
+            runnable.run();
+        } else {
+            aBx.post(runnable);
+        }
+    }
+
+    public static void runOnUiThreadDelay(Runnable runnable, long j2) {
+        aBx.postDelayed(runnable, j2);
+    }
+
+    @SuppressLint({"MissingPermission"})
+    public static void vibrate(Context context, Vibrator vibrator, long j2) {
+        if (vibrator != null) {
+            try {
+                if (al.al(context, "android.permission.VIBRATE") == 0) {
+                    if (Build.VERSION.SDK_INT >= 26) {
+                        vibrator.vibrate(VibrationEffect.createOneShot(j2, -1));
+                    } else {
+                        vibrator.vibrate(j2);
+                    }
+                }
+            } catch (Throwable th) {
+                com.kwad.sdk.core.d.b.printStackTrace(th);
+            }
         }
     }
 }

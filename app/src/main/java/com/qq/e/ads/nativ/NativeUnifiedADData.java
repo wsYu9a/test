@@ -11,7 +11,7 @@ import com.qq.e.comm.pi.LADI;
 import com.qq.e.comm.pi.NFBI;
 import java.util.List;
 
-/* loaded from: classes3.dex */
+/* loaded from: classes4.dex */
 public interface NativeUnifiedADData extends LADI, NFBI {
     void bindAdToCustomVideo(ViewGroup viewGroup, Context context, List<View> list, List<View> list2);
 
@@ -21,7 +21,7 @@ public interface NativeUnifiedADData extends LADI, NFBI {
 
     void bindCTAViews(List<View> list);
 
-    void bindImageViews(List<ImageView> list, int i10);
+    void bindImageViews(List<ImageView> list, int i2);
 
     void bindImageViews(List<ImageView> list, byte[] bArr);
 
@@ -89,7 +89,7 @@ public interface NativeUnifiedADData extends LADI, NFBI {
 
     void setNativeAdEventListener(NativeADEventListener nativeADEventListener);
 
-    void setVideoMute(boolean z10);
+    void setVideoMute(boolean z);
 
     void startVideo();
 

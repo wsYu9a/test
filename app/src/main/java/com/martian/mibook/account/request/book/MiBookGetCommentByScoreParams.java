@@ -1,7 +1,7 @@
 package com.martian.mibook.account.request.book;
 
+import com.martian.libcomm.http.requests.d.a;
 import com.martian.mibook.lib.account.request.TYHttpGetParams;
-import v8.a;
 
 /* loaded from: classes3.dex */
 public class MiBookGetCommentByScoreParams extends TYHttpGetParams {
@@ -13,16 +13,10 @@ public class MiBookGetCommentByScoreParams extends TYHttpGetParams {
     private Integer page;
 
     @a
-    private Integer paragraphIdx;
-
-    @a
     private String sourceId;
 
     @a
     private String sourceName;
-
-    @a
-    private Integer type;
 
     public String getChapterId() {
         return this.chapterId;
@@ -32,11 +26,7 @@ public class MiBookGetCommentByScoreParams extends TYHttpGetParams {
         return this.page;
     }
 
-    public Integer getParagraphIdx() {
-        return this.paragraphIdx;
-    }
-
-    @Override // u8.b
+    @Override // com.martian.libcomm.http.requests.b
     public String getRequestMethod() {
         return "/get_comments_by_score.do";
     }
@@ -49,31 +39,19 @@ public class MiBookGetCommentByScoreParams extends TYHttpGetParams {
         return this.sourceName;
     }
 
-    public Integer getType() {
-        return this.type;
+    public void setChapterId(String chapterId) {
+        this.chapterId = chapterId;
     }
 
-    public void setChapterId(String str) {
-        this.chapterId = str;
+    public void setPage(Integer page) {
+        this.page = page;
     }
 
-    public void setPage(Integer num) {
-        this.page = num;
+    public void setSourceId(String sourceId) {
+        this.sourceId = sourceId;
     }
 
-    public void setParagraphIdx(Integer num) {
-        this.paragraphIdx = num;
-    }
-
-    public void setSourceId(String str) {
-        this.sourceId = str;
-    }
-
-    public void setSourceName(String str) {
-        this.sourceName = str;
-    }
-
-    public void setType(Integer num) {
-        this.type = num;
+    public void setSourceName(String sourceName) {
+        this.sourceName = sourceName;
     }
 }

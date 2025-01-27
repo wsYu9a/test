@@ -2,58 +2,55 @@ package kotlin.ranges;
 
 import com.bytedance.sdk.openadsdk.downloadnew.core.TTDownloadField;
 import com.kwad.sdk.api.model.AdnName;
+import f.b.a.d;
+import f.b.a.e;
 import java.util.Iterator;
 import kotlin.Metadata;
 import kotlin.internal.ProgressionUtilKt;
 import kotlin.jvm.internal.DefaultConstructorMarker;
-import kotlin.jvm.internal.Intrinsics;
 import kotlin.jvm.internal.markers.KMappedMarker;
-import r5.c;
-import xi.k;
-import xi.l;
 
-@Metadata(d1 = {"\u00004\n\u0002\u0018\u0002\n\u0002\u0010\u001c\n\u0002\u0010\f\n\u0002\b\u0003\n\u0002\u0010\b\n\u0002\b\t\n\u0002\u0010\u000b\n\u0000\n\u0002\u0010\u0000\n\u0002\b\u0003\n\u0002\u0018\u0002\n\u0000\n\u0002\u0010\u000e\n\u0002\b\u0002\b\u0016\u0018\u0000 \u00192\b\u0012\u0004\u0012\u00020\u00020\u0001:\u0001\u0019B\u001f\b\u0000\u0012\u0006\u0010\u0003\u001a\u00020\u0002\u0012\u0006\u0010\u0004\u001a\u00020\u0002\u0012\u0006\u0010\u0005\u001a\u00020\u0006¢\u0006\u0002\u0010\u0007J\u0013\u0010\u000f\u001a\u00020\u00102\b\u0010\u0011\u001a\u0004\u0018\u00010\u0012H\u0096\u0002J\b\u0010\u0013\u001a\u00020\u0006H\u0016J\b\u0010\u0014\u001a\u00020\u0010H\u0016J\t\u0010\u0015\u001a\u00020\u0016H\u0096\u0002J\b\u0010\u0017\u001a\u00020\u0018H\u0016R\u0011\u0010\b\u001a\u00020\u0002¢\u0006\b\n\u0000\u001a\u0004\b\t\u0010\nR\u0011\u0010\u000b\u001a\u00020\u0002¢\u0006\b\n\u0000\u001a\u0004\b\f\u0010\nR\u0011\u0010\u0005\u001a\u00020\u0006¢\u0006\b\n\u0000\u001a\u0004\b\r\u0010\u000e¨\u0006\u001a"}, d2 = {"Lkotlin/ranges/CharProgression;", "", "", "start", "endInclusive", "step", "", "(CCI)V", "first", "getFirst", "()C", "last", "getLast", "getStep", "()I", "equals", "", AdnName.OTHER, "", TTDownloadField.TT_HASHCODE, "isEmpty", "iterator", "Lkotlin/collections/CharIterator;", "toString", "", "Companion", "kotlin-stdlib"}, k = 1, mv = {1, 9, 0}, xi = 48)
-/* loaded from: classes4.dex */
+@Metadata(bv = {1, 0, 3}, d1 = {"\u00004\n\u0002\u0018\u0002\n\u0002\u0010\u001c\n\u0002\u0010\f\n\u0002\u0018\u0002\n\u0002\b\u0002\n\u0002\u0010\u000b\n\u0002\b\u0002\n\u0002\u0010\u0000\n\u0002\b\u0003\n\u0002\u0010\b\n\u0002\b\u0002\n\u0002\u0010\u000e\n\u0002\b\u0011\b\u0016\u0018\u0000  2\b\u0012\u0004\u0012\u00020\u00020\u0001:\u0001 B!\b\u0000\u0012\u0006\u0010\u001c\u001a\u00020\u0002\u0012\u0006\u0010\u001d\u001a\u00020\u0002\u0012\u0006\u0010\u0013\u001a\u00020\r¢\u0006\u0004\b\u001e\u0010\u001fJ\u0010\u0010\u0004\u001a\u00020\u0003H\u0096\u0002¢\u0006\u0004\b\u0004\u0010\u0005J\u000f\u0010\u0007\u001a\u00020\u0006H\u0016¢\u0006\u0004\b\u0007\u0010\bJ\u001a\u0010\u000b\u001a\u00020\u00062\b\u0010\n\u001a\u0004\u0018\u00010\tH\u0096\u0002¢\u0006\u0004\b\u000b\u0010\fJ\u000f\u0010\u000e\u001a\u00020\rH\u0016¢\u0006\u0004\b\u000e\u0010\u000fJ\u000f\u0010\u0011\u001a\u00020\u0010H\u0016¢\u0006\u0004\b\u0011\u0010\u0012R\u0019\u0010\u0013\u001a\u00020\r8\u0006@\u0006¢\u0006\f\n\u0004\b\u0013\u0010\u0014\u001a\u0004\b\u0015\u0010\u000fR\u0019\u0010\u0016\u001a\u00020\u00028\u0006@\u0006¢\u0006\f\n\u0004\b\u0016\u0010\u0017\u001a\u0004\b\u0018\u0010\u0019R\u0019\u0010\u001a\u001a\u00020\u00028\u0006@\u0006¢\u0006\f\n\u0004\b\u001a\u0010\u0017\u001a\u0004\b\u001b\u0010\u0019¨\u0006!"}, d2 = {"Lkotlin/ranges/CharProgression;", "", "", "Lkotlin/collections/CharIterator;", "iterator", "()Lkotlin/collections/CharIterator;", "", "isEmpty", "()Z", "", AdnName.OTHER, "equals", "(Ljava/lang/Object;)Z", "", TTDownloadField.TT_HASHCODE, "()I", "", "toString", "()Ljava/lang/String;", "step", "I", "getStep", "last", "C", "getLast", "()C", "first", "getFirst", "start", "endInclusive", "<init>", "(CCI)V", "Companion", "kotlin-stdlib"}, k = 1, mv = {1, 4, 0})
+/* loaded from: classes5.dex */
 public class CharProgression implements Iterable<Character>, KMappedMarker {
 
     /* renamed from: Companion, reason: from kotlin metadata */
-    @k
     public static final Companion INSTANCE = new Companion(null);
     private final char first;
     private final char last;
     private final int step;
 
-    @Metadata(d1 = {"\u0000 \n\u0002\u0018\u0002\n\u0002\u0010\u0000\n\u0002\b\u0002\n\u0002\u0018\u0002\n\u0000\n\u0002\u0010\f\n\u0002\b\u0002\n\u0002\u0010\b\n\u0000\b\u0086\u0003\u0018\u00002\u00020\u0001B\u0007\b\u0002¢\u0006\u0002\u0010\u0002J\u001e\u0010\u0003\u001a\u00020\u00042\u0006\u0010\u0005\u001a\u00020\u00062\u0006\u0010\u0007\u001a\u00020\u00062\u0006\u0010\b\u001a\u00020\t¨\u0006\n"}, d2 = {"Lkotlin/ranges/CharProgression$Companion;", "", "()V", "fromClosedRange", "Lkotlin/ranges/CharProgression;", "rangeStart", "", "rangeEnd", "step", "", "kotlin-stdlib"}, k = 1, mv = {1, 9, 0}, xi = 48)
+    @Metadata(bv = {1, 0, 3}, d1 = {"\u0000\u001e\n\u0002\u0018\u0002\n\u0002\u0010\u0000\n\u0002\u0010\f\n\u0002\b\u0002\n\u0002\u0010\b\n\u0000\n\u0002\u0018\u0002\n\u0002\b\u0005\b\u0086\u0003\u0018\u00002\u00020\u0001B\t\b\u0002¢\u0006\u0004\b\n\u0010\u000bJ%\u0010\b\u001a\u00020\u00072\u0006\u0010\u0003\u001a\u00020\u00022\u0006\u0010\u0004\u001a\u00020\u00022\u0006\u0010\u0006\u001a\u00020\u0005¢\u0006\u0004\b\b\u0010\t¨\u0006\f"}, d2 = {"Lkotlin/ranges/CharProgression$Companion;", "", "", "rangeStart", "rangeEnd", "", "step", "Lkotlin/ranges/CharProgression;", "fromClosedRange", "(CCI)Lkotlin/ranges/CharProgression;", "<init>", "()V", "kotlin-stdlib"}, k = 1, mv = {1, 4, 0})
     public static final class Companion {
-        public /* synthetic */ Companion(DefaultConstructorMarker defaultConstructorMarker) {
-            this();
+        private Companion() {
         }
 
-        @k
+        @d
         public final CharProgression fromClosedRange(char rangeStart, char rangeEnd, int step) {
             return new CharProgression(rangeStart, rangeEnd, step);
         }
 
-        private Companion() {
+        public /* synthetic */ Companion(DefaultConstructorMarker defaultConstructorMarker) {
+            this();
         }
     }
 
-    public CharProgression(char c10, char c11, int i10) {
-        if (i10 == 0) {
+    public CharProgression(char c2, char c3, int i2) {
+        if (i2 == 0) {
             throw new IllegalArgumentException("Step must be non-zero.");
         }
-        if (i10 == Integer.MIN_VALUE) {
+        if (i2 == Integer.MIN_VALUE) {
             throw new IllegalArgumentException("Step must be greater than Int.MIN_VALUE to avoid overflow on negation.");
         }
-        this.first = c10;
-        this.last = (char) ProgressionUtilKt.getProgressionLastElement((int) c10, (int) c11, i10);
-        this.step = i10;
+        this.first = c2;
+        this.last = (char) ProgressionUtilKt.getProgressionLastElement((int) c2, (int) c3, i2);
+        this.step = i2;
     }
 
-    public boolean equals(@l Object r32) {
-        if (r32 instanceof CharProgression) {
-            if (!isEmpty() || !((CharProgression) r32).isEmpty()) {
-                CharProgression charProgression = (CharProgression) r32;
+    public boolean equals(@e Object r3) {
+        if (r3 instanceof CharProgression) {
+            if (!isEmpty() || !((CharProgression) r3).isEmpty()) {
+                CharProgression charProgression = (CharProgression) r3;
                 if (this.first != charProgression.first || this.last != charProgression.last || this.step != charProgression.step) {
                 }
             }
@@ -78,45 +75,45 @@ public class CharProgression implements Iterable<Character>, KMappedMarker {
         if (isEmpty()) {
             return -1;
         }
-        return (((this.first * c.f30310b) + this.last) * 31) + this.step;
+        return (((this.first * 31) + this.last) * 31) + this.step;
     }
 
     public boolean isEmpty() {
         if (this.step > 0) {
-            if (Intrinsics.compare((int) this.first, (int) this.last) <= 0) {
-                return false;
+            if (this.first > this.last) {
+                return true;
             }
-        } else if (Intrinsics.compare((int) this.first, (int) this.last) >= 0) {
-            return false;
+        } else if (this.first < this.last) {
+            return true;
         }
-        return true;
+        return false;
     }
 
-    @k
+    @d
     public String toString() {
-        StringBuilder sb2;
-        int i10;
+        StringBuilder sb;
+        int i2;
         if (this.step > 0) {
-            sb2 = new StringBuilder();
-            sb2.append(this.first);
-            sb2.append("..");
-            sb2.append(this.last);
-            sb2.append(" step ");
-            i10 = this.step;
+            sb = new StringBuilder();
+            sb.append(this.first);
+            sb.append("..");
+            sb.append(this.last);
+            sb.append(" step ");
+            i2 = this.step;
         } else {
-            sb2 = new StringBuilder();
-            sb2.append(this.first);
-            sb2.append(" downTo ");
-            sb2.append(this.last);
-            sb2.append(" step ");
-            i10 = -this.step;
+            sb = new StringBuilder();
+            sb.append(this.first);
+            sb.append(" downTo ");
+            sb.append(this.last);
+            sb.append(" step ");
+            i2 = -this.step;
         }
-        sb2.append(i10);
-        return sb2.toString();
+        sb.append(i2);
+        return sb.toString();
     }
 
     @Override // java.lang.Iterable
-    @k
+    @d
     public Iterator<Character> iterator() {
         return new CharProgressionIterator(this.first, this.last, this.step);
     }

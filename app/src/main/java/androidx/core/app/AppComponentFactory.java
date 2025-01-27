@@ -17,75 +17,75 @@ public class AppComponentFactory extends android.app.AppComponentFactory {
     @Override // android.app.AppComponentFactory
     @NonNull
     public final Activity instantiateActivity(@NonNull ClassLoader classLoader, @NonNull String str, @Nullable Intent intent) throws InstantiationException, IllegalAccessException, ClassNotFoundException {
-        return (Activity) CoreComponentFactory.checkCompatWrapper(instantiateActivityCompat(classLoader, str, intent));
+        return (Activity) CoreComponentFactory.a(instantiateActivityCompat(classLoader, str, intent));
     }
 
     @NonNull
     public Activity instantiateActivityCompat(@NonNull ClassLoader classLoader, @NonNull String str, @Nullable Intent intent) throws InstantiationException, IllegalAccessException, ClassNotFoundException {
         try {
-            return (Activity) Class.forName(str, false, classLoader).asSubclass(Activity.class).getDeclaredConstructor(null).newInstance(null);
-        } catch (NoSuchMethodException | InvocationTargetException e10) {
-            throw new RuntimeException("Couldn't call constructor", e10);
+            return (Activity) Class.forName(str, false, classLoader).asSubclass(Activity.class).getDeclaredConstructor(new Class[0]).newInstance(new Object[0]);
+        } catch (NoSuchMethodException | InvocationTargetException e2) {
+            throw new RuntimeException("Couldn't call constructor", e2);
         }
     }
 
     @Override // android.app.AppComponentFactory
     @NonNull
     public final Application instantiateApplication(@NonNull ClassLoader classLoader, @NonNull String str) throws InstantiationException, IllegalAccessException, ClassNotFoundException {
-        return (Application) CoreComponentFactory.checkCompatWrapper(instantiateApplicationCompat(classLoader, str));
+        return (Application) CoreComponentFactory.a(instantiateApplicationCompat(classLoader, str));
     }
 
     @NonNull
     public Application instantiateApplicationCompat(@NonNull ClassLoader classLoader, @NonNull String str) throws InstantiationException, IllegalAccessException, ClassNotFoundException {
         try {
-            return (Application) Class.forName(str, false, classLoader).asSubclass(Application.class).getDeclaredConstructor(null).newInstance(null);
-        } catch (NoSuchMethodException | InvocationTargetException e10) {
-            throw new RuntimeException("Couldn't call constructor", e10);
+            return (Application) Class.forName(str, false, classLoader).asSubclass(Application.class).getDeclaredConstructor(new Class[0]).newInstance(new Object[0]);
+        } catch (NoSuchMethodException | InvocationTargetException e2) {
+            throw new RuntimeException("Couldn't call constructor", e2);
         }
     }
 
     @Override // android.app.AppComponentFactory
     @NonNull
     public final ContentProvider instantiateProvider(@NonNull ClassLoader classLoader, @NonNull String str) throws InstantiationException, IllegalAccessException, ClassNotFoundException {
-        return (ContentProvider) CoreComponentFactory.checkCompatWrapper(instantiateProviderCompat(classLoader, str));
+        return (ContentProvider) CoreComponentFactory.a(instantiateProviderCompat(classLoader, str));
     }
 
     @NonNull
     public ContentProvider instantiateProviderCompat(@NonNull ClassLoader classLoader, @NonNull String str) throws InstantiationException, IllegalAccessException, ClassNotFoundException {
         try {
-            return (ContentProvider) Class.forName(str, false, classLoader).asSubclass(ContentProvider.class).getDeclaredConstructor(null).newInstance(null);
-        } catch (NoSuchMethodException | InvocationTargetException e10) {
-            throw new RuntimeException("Couldn't call constructor", e10);
+            return (ContentProvider) Class.forName(str, false, classLoader).asSubclass(ContentProvider.class).getDeclaredConstructor(new Class[0]).newInstance(new Object[0]);
+        } catch (NoSuchMethodException | InvocationTargetException e2) {
+            throw new RuntimeException("Couldn't call constructor", e2);
         }
     }
 
     @Override // android.app.AppComponentFactory
     @NonNull
     public final BroadcastReceiver instantiateReceiver(@NonNull ClassLoader classLoader, @NonNull String str, @Nullable Intent intent) throws InstantiationException, IllegalAccessException, ClassNotFoundException {
-        return (BroadcastReceiver) CoreComponentFactory.checkCompatWrapper(instantiateReceiverCompat(classLoader, str, intent));
+        return (BroadcastReceiver) CoreComponentFactory.a(instantiateReceiverCompat(classLoader, str, intent));
     }
 
     @NonNull
     public BroadcastReceiver instantiateReceiverCompat(@NonNull ClassLoader classLoader, @NonNull String str, @Nullable Intent intent) throws InstantiationException, IllegalAccessException, ClassNotFoundException {
         try {
-            return (BroadcastReceiver) Class.forName(str, false, classLoader).asSubclass(BroadcastReceiver.class).getDeclaredConstructor(null).newInstance(null);
-        } catch (NoSuchMethodException | InvocationTargetException e10) {
-            throw new RuntimeException("Couldn't call constructor", e10);
+            return (BroadcastReceiver) Class.forName(str, false, classLoader).asSubclass(BroadcastReceiver.class).getDeclaredConstructor(new Class[0]).newInstance(new Object[0]);
+        } catch (NoSuchMethodException | InvocationTargetException e2) {
+            throw new RuntimeException("Couldn't call constructor", e2);
         }
     }
 
     @Override // android.app.AppComponentFactory
     @NonNull
     public final Service instantiateService(@NonNull ClassLoader classLoader, @NonNull String str, @Nullable Intent intent) throws InstantiationException, IllegalAccessException, ClassNotFoundException {
-        return (Service) CoreComponentFactory.checkCompatWrapper(instantiateServiceCompat(classLoader, str, intent));
+        return (Service) CoreComponentFactory.a(instantiateServiceCompat(classLoader, str, intent));
     }
 
     @NonNull
     public Service instantiateServiceCompat(@NonNull ClassLoader classLoader, @NonNull String str, @Nullable Intent intent) throws InstantiationException, IllegalAccessException, ClassNotFoundException {
         try {
-            return (Service) Class.forName(str, false, classLoader).asSubclass(Service.class).getDeclaredConstructor(null).newInstance(null);
-        } catch (NoSuchMethodException | InvocationTargetException e10) {
-            throw new RuntimeException("Couldn't call constructor", e10);
+            return (Service) Class.forName(str, false, classLoader).asSubclass(Service.class).getDeclaredConstructor(new Class[0]).newInstance(new Object[0]);
+        } catch (NoSuchMethodException | InvocationTargetException e2) {
+            throw new RuntimeException("Couldn't call constructor", e2);
         }
     }
 }

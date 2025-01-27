@@ -1,6 +1,6 @@
 package com.umeng.commonsdk.listener;
 
-/* loaded from: classes4.dex */
+/* loaded from: classes.dex */
 public interface OnGetOaidListener {
     void onGetOaid(String str);
 }

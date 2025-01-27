@@ -1,20 +1,20 @@
 package com.kwad.components.core;
 
-/* loaded from: classes3.dex */
+/* loaded from: classes2.dex */
 public final class a {
-    public static final Boolean Kt = Boolean.TRUE;
-    public static final Boolean Ku;
-    public static final Boolean Kv;
-    public static final Boolean Kw;
-    public static final Boolean Kx;
-    public static final Boolean ns;
+    public static final Boolean Hk = Boolean.TRUE;
+    public static final Boolean Hl;
+    public static final Boolean Hm;
+    public static final Boolean Hn;
+    public static final Boolean Ho;
+    public static final Boolean bI;
 
     static {
         Boolean bool = Boolean.FALSE;
-        Ku = bool;
-        ns = bool;
-        Kv = bool;
-        Kw = bool;
-        Kx = bool;
+        Hl = bool;
+        bI = bool;
+        Hm = bool;
+        Hn = bool;
+        Ho = bool;
     }
 }

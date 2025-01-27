@@ -6,13 +6,13 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.webkit.WebView;
 import android.widget.RelativeLayout;
-import com.baidu.mobads.sdk.internal.cr;
-import com.baidu.mobads.sdk.internal.cs;
+import com.baidu.mobads.sdk.internal.co;
+import com.baidu.mobads.sdk.internal.cq;
 import java.util.Map;
 
-/* loaded from: classes2.dex */
+/* loaded from: classes.dex */
 public final class CpuAdView extends RelativeLayout {
-    private cs mAdProd;
+    private cq mAdProd;
 
     public interface CpuAdViewInternalStatusListener {
         void loadDataError(String str);
@@ -34,9 +34,9 @@ public final class CpuAdView extends RelativeLayout {
         super(context);
     }
 
-    public boolean canGoBack() {
+    protected boolean canGoBack() {
         try {
-            WebView webView = (WebView) this.mAdProd.w();
+            WebView webView = (WebView) this.mAdProd.v();
             if (webView != null) {
                 return webView.canGoBack();
             }
@@ -46,9 +46,9 @@ public final class CpuAdView extends RelativeLayout {
         }
     }
 
-    public void goBack() {
+    protected void goBack() {
         try {
-            WebView webView = (WebView) this.mAdProd.w();
+            WebView webView = (WebView) this.mAdProd.v();
             if (webView != null) {
                 webView.goBack();
             }
@@ -57,14 +57,14 @@ public final class CpuAdView extends RelativeLayout {
     }
 
     public void onDestroy() {
-        View w10 = this.mAdProd.w();
-        if (w10 instanceof WebView) {
-            ((WebView) w10).destroy();
+        View v = this.mAdProd.v();
+        if (v instanceof WebView) {
+            ((WebView) v).destroy();
         }
     }
 
-    public boolean onKeyBackDown(int i10, KeyEvent keyEvent) {
-        if (i10 != 4 || !canGoBack()) {
+    public boolean onKeyBackDown(int i2, KeyEvent keyEvent) {
+        if (i2 != 4 || !canGoBack()) {
             return false;
         }
         goBack();
@@ -72,39 +72,39 @@ public final class CpuAdView extends RelativeLayout {
     }
 
     public void onPause() {
-        View w10 = this.mAdProd.w();
-        if (w10 instanceof WebView) {
-            ((WebView) w10).onPause();
+        View v = this.mAdProd.v();
+        if (v instanceof WebView) {
+            ((WebView) v).onPause();
         }
     }
 
     public void onResume() {
-        View w10 = this.mAdProd.w();
-        if (w10 instanceof WebView) {
-            ((WebView) w10).onResume();
+        View v = this.mAdProd.v();
+        if (v instanceof WebView) {
+            ((WebView) v).onResume();
         }
     }
 
     public void requestData() {
-        cs csVar = this.mAdProd;
-        if (csVar != null) {
-            csVar.a();
+        cq cqVar = this.mAdProd;
+        if (cqVar != null) {
+            cqVar.a();
         }
     }
 
-    public CpuAdView(Context context, String str, int i10, CPUWebAdRequestParam cPUWebAdRequestParam) {
+    public CpuAdView(Context context, String str, int i2, CPUWebAdRequestParam cPUWebAdRequestParam) {
         super(context);
-        cr crVar = new cr(context);
-        this.mAdProd = new cs(context, crVar, str, i10, cPUWebAdRequestParam);
-        addView(crVar, new ViewGroup.LayoutParams(-1, -1));
+        co coVar = new co(context);
+        this.mAdProd = new cq(context, coVar, str, i2, cPUWebAdRequestParam);
+        addView(coVar, new ViewGroup.LayoutParams(-1, -1));
     }
 
-    public CpuAdView(Context context, String str, int i10, CPUWebAdRequestParam cPUWebAdRequestParam, CpuAdViewInternalStatusListener cpuAdViewInternalStatusListener) {
+    public CpuAdView(Context context, String str, int i2, CPUWebAdRequestParam cPUWebAdRequestParam, CpuAdViewInternalStatusListener cpuAdViewInternalStatusListener) {
         super(context);
-        cr crVar = new cr(context);
-        cs csVar = new cs(context, crVar, str, i10, cPUWebAdRequestParam);
-        this.mAdProd = csVar;
-        csVar.a(cpuAdViewInternalStatusListener);
-        addView(crVar, new ViewGroup.LayoutParams(-1, -1));
+        co coVar = new co(context);
+        cq cqVar = new cq(context, coVar, str, i2, cPUWebAdRequestParam);
+        this.mAdProd = cqVar;
+        cqVar.a(cpuAdViewInternalStatusListener);
+        addView(coVar, new ViewGroup.LayoutParams(-1, -1));
     }
 }

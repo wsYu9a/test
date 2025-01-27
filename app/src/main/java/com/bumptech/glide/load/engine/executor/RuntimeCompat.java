@@ -1,12 +1,13 @@
 package com.bumptech.glide.load.engine.executor;
 
+import android.os.Build;
 import android.os.StrictMode;
 import android.util.Log;
 import java.io.File;
 import java.io.FilenameFilter;
 import java.util.regex.Pattern;
 
-/* loaded from: classes2.dex */
+/* loaded from: classes.dex */
 final class RuntimeCompat {
     private static final String CPU_LOCATION = "/sys/devices/system/cpu/";
     private static final String CPU_NAME_REGEX = "cpu[0-9]+";
@@ -15,8 +16,9 @@ final class RuntimeCompat {
     private RuntimeCompat() {
     }
 
-    public static int availableProcessors() {
-        return Runtime.getRuntime().availableProcessors();
+    static int availableProcessors() {
+        int availableProcessors = Runtime.getRuntime().availableProcessors();
+        return Build.VERSION.SDK_INT < 17 ? Math.max(getCoreCountPre17(), availableProcessors) : availableProcessors;
     }
 
     private static int getCoreCountPre17() {
@@ -31,10 +33,10 @@ final class RuntimeCompat {
                     return compile.matcher(str).matches();
                 }
             });
-        } catch (Throwable th2) {
+        } catch (Throwable th) {
             try {
                 if (Log.isLoggable(TAG, 6)) {
-                    Log.e(TAG, "Failed to calculate accurate cpu count", th2);
+                    Log.e(TAG, "Failed to calculate accurate cpu count", th);
                 }
                 StrictMode.setThreadPolicy(allowThreadDiskReads);
                 fileArr = null;

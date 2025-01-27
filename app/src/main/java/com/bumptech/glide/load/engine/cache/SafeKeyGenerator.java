@@ -11,43 +11,43 @@ import com.bumptech.glide.util.pool.StateVerifier;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 
-/* loaded from: classes2.dex */
+/* loaded from: classes.dex */
 public class SafeKeyGenerator {
     private final LruCache<Key, String> loadIdToSafeHash = new LruCache<>(1000);
     private final Pools.Pool<PoolableDigestContainer> digestPool = FactoryPools.threadSafe(10, new FactoryPools.Factory<PoolableDigestContainer>() { // from class: com.bumptech.glide.load.engine.cache.SafeKeyGenerator.1
-        public AnonymousClass1() {
+        AnonymousClass1() {
         }
 
         @Override // com.bumptech.glide.util.pool.FactoryPools.Factory
         public PoolableDigestContainer create() {
             try {
                 return new PoolableDigestContainer(MessageDigest.getInstance("SHA-256"));
-            } catch (NoSuchAlgorithmException e10) {
-                throw new RuntimeException(e10);
+            } catch (NoSuchAlgorithmException e2) {
+                throw new RuntimeException(e2);
             }
         }
     });
 
     /* renamed from: com.bumptech.glide.load.engine.cache.SafeKeyGenerator$1 */
-    public class AnonymousClass1 implements FactoryPools.Factory<PoolableDigestContainer> {
-        public AnonymousClass1() {
+    class AnonymousClass1 implements FactoryPools.Factory<PoolableDigestContainer> {
+        AnonymousClass1() {
         }
 
         @Override // com.bumptech.glide.util.pool.FactoryPools.Factory
         public PoolableDigestContainer create() {
             try {
                 return new PoolableDigestContainer(MessageDigest.getInstance("SHA-256"));
-            } catch (NoSuchAlgorithmException e10) {
-                throw new RuntimeException(e10);
+            } catch (NoSuchAlgorithmException e2) {
+                throw new RuntimeException(e2);
             }
         }
     }
 
-    public static final class PoolableDigestContainer implements FactoryPools.Poolable {
+    private static final class PoolableDigestContainer implements FactoryPools.Poolable {
         final MessageDigest messageDigest;
         private final StateVerifier stateVerifier = StateVerifier.newInstance();
 
-        public PoolableDigestContainer(MessageDigest messageDigest) {
+        PoolableDigestContainer(MessageDigest messageDigest) {
             this.messageDigest = messageDigest;
         }
 

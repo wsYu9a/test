@@ -5,7 +5,7 @@ import android.content.Context;
 import android.os.Process;
 import java.lang.reflect.Method;
 
-/* loaded from: classes4.dex */
+/* loaded from: classes5.dex */
 public class a {
     public static String a(Context context, String str, String str2) {
         try {
@@ -13,13 +13,12 @@ public class a {
             Class<?> cls2 = Integer.TYPE;
             Method declaredMethod = cls.getDeclaredMethod("getUserId", cls2);
             declaredMethod.setAccessible(true);
-            Integer num = (Integer) declaredMethod.invoke(null, Integer.valueOf(Process.myUid()));
-            num.intValue();
+            int intValue = ((Integer) declaredMethod.invoke(null, Integer.valueOf(Process.myUid()))).intValue();
             Method declaredMethod2 = Class.forName("android.provider.Settings$" + str).getDeclaredMethod("getStringForUser", ContentResolver.class, String.class, cls2);
             declaredMethod2.setAccessible(true);
-            return (String) declaredMethod2.invoke(null, context.getContentResolver(), str2, num);
-        } catch (Throwable th2) {
-            th2.printStackTrace();
+            return (String) declaredMethod2.invoke(null, context.getContentResolver(), str2, Integer.valueOf(intValue));
+        } catch (Throwable th) {
+            th.printStackTrace();
             return "";
         }
     }

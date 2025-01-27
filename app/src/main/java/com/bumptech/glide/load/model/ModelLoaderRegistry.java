@@ -11,20 +11,23 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
-/* loaded from: classes2.dex */
+/* loaded from: classes.dex */
 public class ModelLoaderRegistry {
     private final ModelLoaderCache cache;
     private final MultiModelLoaderFactory multiModelLoaderFactory;
 
-    public static class ModelLoaderCache {
+    private static class ModelLoaderCache {
         private final Map<Class<?>, Entry<?>> cachedModelLoaders = new HashMap();
 
-        public static class Entry<Model> {
+        private static class Entry<Model> {
             final List<ModelLoader<Model, ?>> loaders;
 
             public Entry(List<ModelLoader<Model, ?>> list) {
                 this.loaders = list;
             }
+        }
+
+        ModelLoaderCache() {
         }
 
         public void clear() {
@@ -53,8 +56,8 @@ public class ModelLoaderRegistry {
     }
 
     @NonNull
-    private static <A> Class<A> getClass(@NonNull A a10) {
-        return (Class<A>) a10.getClass();
+    private static <A> Class<A> getClass(@NonNull A a2) {
+        return (Class<A>) a2.getClass();
     }
 
     @NonNull
@@ -90,26 +93,26 @@ public class ModelLoaderRegistry {
     }
 
     @NonNull
-    public <A> List<ModelLoader<A, ?>> getModelLoaders(@NonNull A a10) {
-        List<ModelLoader<A, ?>> modelLoadersForClass = getModelLoadersForClass(getClass(a10));
+    public <A> List<ModelLoader<A, ?>> getModelLoaders(@NonNull A a2) {
+        List<ModelLoader<A, ?>> modelLoadersForClass = getModelLoadersForClass(getClass(a2));
         if (modelLoadersForClass.isEmpty()) {
-            throw new Registry.NoModelLoaderAvailableException(a10);
+            throw new Registry.NoModelLoaderAvailableException(a2);
         }
         int size = modelLoadersForClass.size();
         List<ModelLoader<A, ?>> emptyList = Collections.emptyList();
-        boolean z10 = true;
-        for (int i10 = 0; i10 < size; i10++) {
-            ModelLoader<A, ?> modelLoader = modelLoadersForClass.get(i10);
-            if (modelLoader.handles(a10)) {
-                if (z10) {
-                    emptyList = new ArrayList<>(size - i10);
-                    z10 = false;
+        boolean z = true;
+        for (int i2 = 0; i2 < size; i2++) {
+            ModelLoader<A, ?> modelLoader = modelLoadersForClass.get(i2);
+            if (modelLoader.handles(a2)) {
+                if (z) {
+                    emptyList = new ArrayList<>(size - i2);
+                    z = false;
                 }
                 emptyList.add(modelLoader);
             }
         }
         if (emptyList.isEmpty()) {
-            throw new Registry.NoModelLoaderAvailableException(a10, modelLoadersForClass);
+            throw new Registry.NoModelLoaderAvailableException(a2, modelLoadersForClass);
         }
         return emptyList;
     }

@@ -4,7 +4,7 @@ import com.martian.mibook.lib.model.data.abs.Chapter;
 import com.martian.mibook.lib.model.data.abs.ChapterList;
 import java.util.List;
 
-/* loaded from: classes3.dex */
+/* loaded from: classes2.dex */
 public class TFChapterList implements ChapterList {
     private List<TFChapter> chapterList;
 
@@ -23,11 +23,11 @@ public class TFChapterList implements ChapterList {
     }
 
     @Override // com.martian.mibook.lib.model.data.abs.ChapterList
-    public Chapter getItem(int i10) {
-        return this.chapterList.get(i10);
+    public Chapter getItem(int position) {
+        return this.chapterList.get(position);
     }
 
-    public void setChapterList(List<TFChapter> list) {
-        this.chapterList = list;
+    public void setChapterList(List<TFChapter> chapterList) {
+        this.chapterList = chapterList;
     }
 }

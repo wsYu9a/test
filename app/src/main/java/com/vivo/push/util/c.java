@@ -5,14 +5,14 @@ import android.graphics.Matrix;
 
 /* loaded from: classes4.dex */
 public final class c {
-    public static Bitmap a(Bitmap bitmap, int i10, int i11) {
+    public static Bitmap a(Bitmap bitmap, int i2, int i3) {
         int width = bitmap.getWidth();
         int height = bitmap.getHeight();
-        float f10 = i10 / width;
-        float f11 = i11 / height;
+        float f2 = i2 / width;
+        float f3 = i3 / height;
         try {
             Matrix matrix = new Matrix();
-            matrix.postScale(f10, f11);
+            matrix.postScale(f2, f3);
             return Bitmap.createBitmap(bitmap, 0, 0, width, height, matrix, true);
         } catch (Exception unused) {
             return bitmap;

@@ -1,7 +1,7 @@
 package com.martian.mibook.lib.account.request;
 
+import com.martian.libcomm.http.requests.d.a;
 import com.martian.mibook.lib.account.request.auth.TYAuthParams;
-import v8.a;
 
 /* loaded from: classes3.dex */
 public class ReadingRecordsParams extends TYAuthParams {
@@ -25,11 +25,11 @@ public class ReadingRecordsParams extends TYAuthParams {
         return this.pageSize;
     }
 
-    public void setPage(Integer num) {
-        this.page = num;
+    public void setPage(Integer page) {
+        this.page = page;
     }
 
-    public void setPageSize(Integer num) {
-        this.pageSize = num;
+    public void setPageSize(Integer pageSize) {
+        this.pageSize = pageSize;
     }
 }

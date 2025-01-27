@@ -1,111 +1,66 @@
 package com.kwad.components.core.h;
 
-import android.content.Context;
-import com.kwad.sdk.core.d.c;
-import com.kwad.sdk.utils.h;
-import java.io.File;
-import java.io.FileFilter;
-import java.util.concurrent.TimeUnit;
+import java.util.concurrent.CopyOnWriteArrayList;
 
-/* loaded from: classes3.dex */
+/* loaded from: classes2.dex */
 public final class a {
+    private CopyOnWriteArrayList<b> JL = new CopyOnWriteArrayList<>();
+    private volatile boolean JM;
 
-    /* renamed from: com.kwad.components.core.h.a$1 */
-    public class AnonymousClass1 implements Runnable {
-        final /* synthetic */ long NU;
-        final /* synthetic */ Context hB;
+    /* renamed from: com.kwad.components.core.h.a$a, reason: collision with other inner class name */
+    static final class C0177a {
+        private static final a JN = new a();
+    }
 
-        public AnonymousClass1(Context context, long j10) {
-            context = context;
-            currentTimeMillis = j10;
-        }
+    public static class b {
+        private final c JO;
+        public boolean JP;
 
-        @Override // java.lang.Runnable
-        public final void run() {
-            try {
-                a.this.a(context, currentTimeMillis);
-            } catch (Throwable th2) {
-                c.printStackTraceOnly(th2);
-            }
+        public b(c cVar) {
+            this.JO = cVar;
         }
     }
 
-    /* renamed from: com.kwad.components.core.h.a$2 */
-    public class AnonymousClass2 implements FileFilter {
-        public AnonymousClass2() {
+    public interface c {
+        void bs();
+    }
+
+    public static boolean b(b bVar) {
+        if (bVar == null) {
+            return true;
         }
-
-        @Override // java.io.FileFilter
-        public final boolean accept(File file) {
-            String name = file.getName();
-            return name.startsWith("dynamic-") && name.endsWith(".apk");
-        }
+        return bVar.JP;
     }
 
-    /* renamed from: com.kwad.components.core.h.a$a */
-    public static final class C0430a {
-        private static final a NW = new a((byte) 0);
+    public static a nC() {
+        return C0177a.JN;
     }
 
-    public /* synthetic */ a(byte b10) {
-        this();
-    }
-
-    private static File an(Context context) {
-        return new File(context.getApplicationInfo().dataDir, "ksad_dynamic");
-    }
-
-    public static a pt() {
-        return C0430a.NW;
-    }
-
-    public final void am(Context context) {
-        h.schedule(new Runnable() { // from class: com.kwad.components.core.h.a.1
-            final /* synthetic */ long NU;
-            final /* synthetic */ Context hB;
-
-            public AnonymousClass1(Context context2, long j10) {
-                context = context2;
-                currentTimeMillis = j10;
-            }
-
-            @Override // java.lang.Runnable
-            public final void run() {
-                try {
-                    a.this.a(context, currentTimeMillis);
-                } catch (Throwable th2) {
-                    c.printStackTraceOnly(th2);
-                }
-            }
-        }, 10L, TimeUnit.SECONDS);
-    }
-
-    private a() {
-    }
-
-    public void a(Context context, long j10) {
-        File[] listFiles = an(context).listFiles(new FileFilter() { // from class: com.kwad.components.core.h.a.2
-            public AnonymousClass2() {
-            }
-
-            @Override // java.io.FileFilter
-            public final boolean accept(File file) {
-                String name = file.getName();
-                return name.startsWith("dynamic-") && name.endsWith(".apk");
-            }
-        });
-        if (listFiles == null || listFiles.length <= 0) {
+    public final void a(b bVar) {
+        if (this.JL.contains(bVar)) {
             return;
         }
-        long j11 = 0;
-        for (File file : listFiles) {
-            j11 = Math.max(j11, file.lastModified());
+        if (!this.JM) {
+            this.JM = true;
+            bVar.JP = true;
         }
-        long min = Math.min(j10, j11);
-        for (File file2 : listFiles) {
-            if (file2.exists() && file2.lastModified() < min) {
-                file2.delete();
-            }
+        this.JL.add(bVar);
+    }
+
+    public final void c(b bVar) {
+        if (bVar == null) {
+            return;
         }
+        if (bVar.JP) {
+            bVar.JP = false;
+            this.JM = false;
+        }
+        this.JL.remove(bVar);
+        if (this.JL.size() == 0 || this.JM) {
+            return;
+        }
+        this.JL.get(0).JP = true;
+        this.JM = true;
+        this.JL.get(0).JO.bs();
     }
 }

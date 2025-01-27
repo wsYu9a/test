@@ -12,8 +12,8 @@ public class InsideNotificationItem extends UPSNotificationMessage {
     private String mSuitReactVersion;
 
     private int parsingNotifyStyle() {
-        int i10 = this.mDisplayStyle;
-        return ((i10 & 32) == 0 && (i10 & 16) != 0) ? 1 : 0;
+        int i2 = this.mDisplayStyle;
+        return ((i2 & 32) == 0 && (i2 & 16) != 0) ? 1 : 0;
     }
 
     public int getAppType() {
@@ -48,25 +48,25 @@ public class InsideNotificationItem extends UPSNotificationMessage {
         return this.mIsShowBigPicOnMobileNet;
     }
 
-    public void setAppType(int i10) {
-        this.mAppType = i10;
+    public void setAppType(int i2) {
+        this.mAppType = i2;
     }
 
-    public void setDisplayStyle(int i10) {
-        this.mDisplayStyle = i10;
+    public void setDisplayStyle(int i2) {
+        this.mDisplayStyle = i2;
         this.mNotifyDisplayStatus = parsingNotifyStyle();
     }
 
-    public void setInnerPriority(int i10) {
-        this.mInnerPriority = i10;
+    public void setInnerPriority(int i2) {
+        this.mInnerPriority = i2;
     }
 
-    public void setIsShowBigPicOnMobileNet(boolean z10) {
-        this.mIsShowBigPicOnMobileNet = z10;
+    public void setIsShowBigPicOnMobileNet(boolean z) {
+        this.mIsShowBigPicOnMobileNet = z;
     }
 
-    public void setMessageType(int i10) {
-        this.mMessageType = i10;
+    public void setMessageType(int i2) {
+        this.mMessageType = i2;
     }
 
     public void setReactPackage(String str) {

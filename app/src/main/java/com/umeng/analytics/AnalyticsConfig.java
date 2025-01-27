@@ -2,8 +2,7 @@ package com.umeng.analytics;
 
 import android.content.Context;
 import android.text.TextUtils;
-import com.umeng.analytics.pro.bd;
-import com.umeng.analytics.pro.l;
+import com.umeng.analytics.pro.j;
 import com.umeng.commonsdk.debug.UMLog;
 import com.umeng.commonsdk.utils.UMUtils;
 import java.util.Map;
@@ -19,39 +18,39 @@ public class AnalyticsConfig {
     public static String GPU_RENDERER = "";
     public static String GPU_VENDER = "";
     public static final String RTD_PERIOD = "period";
+    public static final String RTD_SP_FILE = "um_rtd_conf";
     public static final String RTD_START_TIME = "startTime";
 
     /* renamed from: a */
-    static double[] f23302a = null;
+    static double[] f25568a = null;
 
     /* renamed from: b */
-    private static String f23303b = null;
+    private static String f25569b = null;
 
     /* renamed from: c */
-    private static String f23304c = null;
+    private static String f25570c = null;
 
     /* renamed from: d */
-    private static String f23305d = null;
+    private static String f25571d = null;
 
     /* renamed from: e */
-    private static int f23306e = 0;
+    private static int f25572e = 0;
     public static boolean enable = true;
+
+    /* renamed from: f */
+    private static Object f25573f = new Object();
+
+    /* renamed from: g */
+    private static boolean f25574g = false;
+
+    /* renamed from: h */
+    private static String f25575h = "";
     public static long kContinueSessionMillis = 30000;
     public static String mWrapperType;
     public static String mWrapperVersion;
-    public static final String RTD_SP_FILE = bd.b().b(bd.A);
 
-    /* renamed from: f */
-    private static Object f23307f = new Object();
-
-    /* renamed from: g */
-    private static boolean f23308g = false;
-
-    /* renamed from: h */
-    private static String f23309h = "";
-
-    public static void a(String str) {
-        f23304c = str;
+    static void a(String str) {
+        f25570c = str;
     }
 
     public static String getAppkey(Context context) {
@@ -72,70 +71,66 @@ public class AnalyticsConfig {
     }
 
     public static double[] getLocation() {
-        return f23302a;
+        return f25568a;
     }
 
     public static String getRealTimeDebugKey() {
         String str;
-        synchronized (f23307f) {
-            str = f23309h;
+        synchronized (f25573f) {
+            str = f25575h;
         }
         return str;
     }
 
     public static String getSecretKey(Context context) {
-        if (TextUtils.isEmpty(f23305d)) {
-            f23305d = com.umeng.common.b.a(context).c();
+        if (TextUtils.isEmpty(f25571d)) {
+            f25571d = com.umeng.common.b.a(context).c();
         }
-        return f23305d;
+        return f25571d;
     }
 
     public static int getVerticalType(Context context) {
-        if (f23306e == 0) {
-            f23306e = com.umeng.common.b.a(context).d();
+        if (f25572e == 0) {
+            f25572e = com.umeng.common.b.a(context).d();
         }
-        return f23306e;
+        return f25572e;
     }
 
     public static boolean isRealTimeDebugMode() {
-        boolean z10;
-        synchronized (f23307f) {
-            z10 = f23308g;
+        boolean z;
+        synchronized (f25573f) {
+            z = f25574g;
         }
-        return z10;
+        return z;
     }
 
     public static void turnOffRealTimeDebug() {
-        synchronized (f23307f) {
-            f23308g = false;
-            f23309h = "";
+        synchronized (f25573f) {
+            f25574g = false;
+            f25575h = "";
         }
     }
 
     public static void turnOnRealTimeDebug(Map<String, String> map) {
-        synchronized (f23307f) {
-            try {
-                f23308g = true;
-                if (map != null && map.containsKey(DEBUG_KEY)) {
-                    f23309h = map.get(DEBUG_KEY);
-                }
-            } catch (Throwable th2) {
-                throw th2;
+        synchronized (f25573f) {
+            f25574g = true;
+            if (map != null && map.containsKey(DEBUG_KEY)) {
+                f25575h = map.get(DEBUG_KEY);
             }
         }
     }
 
-    public static void a(Context context, String str) {
+    static void a(Context context, String str) {
         if (TextUtils.isEmpty(str)) {
-            UMLog.aq(l.A, 0, "\\|");
+            UMLog.aq(j.A, 0, "\\|");
         } else {
-            f23305d = str;
-            com.umeng.common.b.a(context).a(f23305d);
+            f25571d = str;
+            com.umeng.common.b.a(context).a(f25571d);
         }
     }
 
-    public static void a(Context context, int i10) {
-        f23306e = i10;
-        com.umeng.common.b.a(context).a(f23306e);
+    static void a(Context context, int i2) {
+        f25572e = i2;
+        com.umeng.common.b.a(context).a(f25572e);
     }
 }

@@ -1,18 +1,18 @@
 package com.bytedance.pangle.g;
 
-/* loaded from: classes2.dex */
+/* loaded from: classes.dex */
 public final class q extends Exception {
 
     /* renamed from: a, reason: collision with root package name */
-    public final int f7661a;
+    public final int f6159a;
 
-    public q(int i10, String str) {
+    public q(int i2, String str) {
         super(str);
-        this.f7661a = i10;
+        this.f6159a = i2;
     }
 
-    public q(int i10, String str, Throwable th2) {
-        super(str, th2);
-        this.f7661a = i10;
+    public q(int i2, String str, Throwable th) {
+        super(str, th);
+        this.f6159a = i2;
     }
 }

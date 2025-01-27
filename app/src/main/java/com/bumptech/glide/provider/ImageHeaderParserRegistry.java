@@ -5,7 +5,7 @@ import com.bumptech.glide.load.ImageHeaderParser;
 import java.util.ArrayList;
 import java.util.List;
 
-/* loaded from: classes2.dex */
+/* loaded from: classes.dex */
 public final class ImageHeaderParserRegistry {
     private final List<ImageHeaderParser> parsers = new ArrayList();
 

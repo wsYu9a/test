@@ -1,154 +1,117 @@
 package com.kwad.sdk.core.diskcache.a;
 
-import java.io.ByteArrayOutputStream;
-import java.io.Closeable;
-import java.io.EOFException;
+import androidx.annotation.NonNull;
+import com.kwad.sdk.core.diskcache.kwai.a;
+import com.kwad.sdk.core.network.kwai.a;
+import com.kwad.sdk.utils.g;
+import java.io.File;
 import java.io.IOException;
-import java.io.InputStream;
-import java.io.UnsupportedEncodingException;
-import java.nio.charset.Charset;
+import java.io.OutputStream;
 
-/* loaded from: classes3.dex */
-public final class b implements Closeable {
-    private final Charset ayc;
-    private byte[] buf;
-    private int end;
-    private final InputStream in;
-    private int pos;
+/* loaded from: classes2.dex */
+public final class b {
 
     /* renamed from: com.kwad.sdk.core.diskcache.a.b$1 */
-    public class AnonymousClass1 extends ByteArrayOutputStream {
-        public AnonymousClass1(int i10) {
-            super(i10);
+    static class AnonymousClass1 implements Runnable {
+        final /* synthetic */ String aeU;
+        final /* synthetic */ String hD;
+
+        AnonymousClass1(String str, String str2) {
+            str2 = str;
+            str = str2;
         }
 
-        @Override // java.io.ByteArrayOutputStream
-        public final String toString() {
-            int i10 = ((ByteArrayOutputStream) this).count;
-            if (i10 > 0 && ((ByteArrayOutputStream) this).buf[i10 - 1] == 13) {
-                i10--;
-            }
+        @Override // java.lang.Runnable
+        public final void run() {
+            OutputStream outputStream = null;
             try {
-                return new String(((ByteArrayOutputStream) this).buf, 0, i10, b.this.ayc.name());
-            } catch (UnsupportedEncodingException e10) {
-                throw new AssertionError(e10);
+                a.C0210a bG = com.kwad.sdk.core.diskcache.kwai.a.this.bG(str2);
+                if (bG != null) {
+                    outputStream = bG.aW(0);
+                    if (b.a(str, outputStream, new a.C0217a())) {
+                        bG.commit();
+                    } else {
+                        bG.abort();
+                    }
+                    com.kwad.sdk.core.diskcache.kwai.a.this.flush();
+                }
+            } catch (IOException unused) {
+            } finally {
+                com.kwad.sdk.crash.utils.b.closeQuietly(outputStream);
             }
         }
     }
 
-    public b(InputStream inputStream, Charset charset) {
-        this(inputStream, 8192, charset);
-    }
-
-    private void EF() {
-        InputStream inputStream = this.in;
-        byte[] bArr = this.buf;
-        int read = inputStream.read(bArr, 0, bArr.length);
-        if (read == -1) {
-            throw new EOFException();
+    static File a(@NonNull com.kwad.sdk.core.diskcache.kwai.a aVar, @NonNull String str) {
+        try {
+            a.c bF = aVar.bF(str);
+            if (bF != null) {
+                return bF.aZ(0);
+            }
+            return null;
+        } catch (IOException unused) {
+            return null;
         }
-        this.pos = 0;
-        this.end = read;
     }
 
-    @Override // java.io.Closeable, java.lang.AutoCloseable
-    public final void close() {
-        synchronized (this.in) {
+    static void a(@NonNull com.kwad.sdk.core.diskcache.kwai.a aVar, @NonNull String str, @NonNull String str2) {
+        g.execute(new Runnable() { // from class: com.kwad.sdk.core.diskcache.a.b.1
+            final /* synthetic */ String aeU;
+            final /* synthetic */ String hD;
+
+            AnonymousClass1(String str22, String str3) {
+                str2 = str22;
+                str = str3;
+            }
+
+            @Override // java.lang.Runnable
+            public final void run() {
+                OutputStream outputStream = null;
+                try {
+                    a.C0210a bG = com.kwad.sdk.core.diskcache.kwai.a.this.bG(str2);
+                    if (bG != null) {
+                        outputStream = bG.aW(0);
+                        if (b.a(str, outputStream, new a.C0217a())) {
+                            bG.commit();
+                        } else {
+                            bG.abort();
+                        }
+                        com.kwad.sdk.core.diskcache.kwai.a.this.flush();
+                    }
+                } catch (IOException unused) {
+                } finally {
+                    com.kwad.sdk.crash.utils.b.closeQuietly(outputStream);
+                }
+            }
+        });
+    }
+
+    static boolean a(@NonNull com.kwad.sdk.core.diskcache.kwai.a aVar, @NonNull String str, @NonNull String str2, a.C0217a c0217a) {
+        boolean z = false;
+        OutputStream outputStream = null;
+        try {
             try {
-                if (this.buf != null) {
-                    this.buf = null;
-                    com.kwad.sdk.crash.utils.b.closeQuietly(this.in);
+                a.C0210a bG = aVar.bG(str2);
+                if (bG != null) {
+                    outputStream = bG.aW(0);
+                    if (a(str, outputStream, c0217a)) {
+                        bG.commit();
+                        z = true;
+                    } else {
+                        bG.abort();
+                    }
+                    aVar.flush();
                 }
-            } catch (Throwable th2) {
-                throw th2;
+            } catch (IOException e2) {
+                c0217a.msg = e2.getMessage();
             }
+            return z;
+        } finally {
+            com.kwad.sdk.crash.utils.b.closeQuietly(outputStream);
         }
     }
 
-    public final String readLine() {
-        int i10;
-        byte[] bArr;
-        int i11;
-        synchronized (this.in) {
-            try {
-                if (this.buf == null) {
-                    throw new IOException("LineReader is closed");
-                }
-                if (this.pos >= this.end) {
-                    EF();
-                }
-                for (int i12 = this.pos; i12 != this.end; i12++) {
-                    byte[] bArr2 = this.buf;
-                    if (bArr2[i12] == 10) {
-                        int i13 = this.pos;
-                        if (i12 != i13) {
-                            i11 = i12 - 1;
-                            if (bArr2[i11] == 13) {
-                                String str = new String(bArr2, i13, i11 - i13, this.ayc.name());
-                                this.pos = i12 + 1;
-                                return str;
-                            }
-                        }
-                        i11 = i12;
-                        String str2 = new String(bArr2, i13, i11 - i13, this.ayc.name());
-                        this.pos = i12 + 1;
-                        return str2;
-                    }
-                }
-                AnonymousClass1 anonymousClass1 = new ByteArrayOutputStream((this.end - this.pos) + 80) { // from class: com.kwad.sdk.core.diskcache.a.b.1
-                    public AnonymousClass1(int i102) {
-                        super(i102);
-                    }
-
-                    @Override // java.io.ByteArrayOutputStream
-                    public final String toString() {
-                        int i102 = ((ByteArrayOutputStream) this).count;
-                        if (i102 > 0 && ((ByteArrayOutputStream) this).buf[i102 - 1] == 13) {
-                            i102--;
-                        }
-                        try {
-                            return new String(((ByteArrayOutputStream) this).buf, 0, i102, b.this.ayc.name());
-                        } catch (UnsupportedEncodingException e10) {
-                            throw new AssertionError(e10);
-                        }
-                    }
-                };
-                loop1: while (true) {
-                    byte[] bArr3 = this.buf;
-                    int i14 = this.pos;
-                    anonymousClass1.write(bArr3, i14, this.end - i14);
-                    this.end = -1;
-                    EF();
-                    i10 = this.pos;
-                    while (i10 != this.end) {
-                        bArr = this.buf;
-                        if (bArr[i10] == 10) {
-                            break loop1;
-                        }
-                        i10++;
-                    }
-                }
-                int i15 = this.pos;
-                if (i10 != i15) {
-                    anonymousClass1.write(bArr, i15, i10 - i15);
-                }
-                this.pos = i10 + 1;
-                return anonymousClass1.toString();
-            } catch (Throwable th2) {
-                throw th2;
-            }
-        }
-    }
-
-    private b(InputStream inputStream, int i10, Charset charset) {
-        if (inputStream == null || charset == null) {
-            throw null;
-        }
-        if (!charset.equals(com.kwad.sdk.crash.utils.a.US_ASCII)) {
-            throw new IllegalArgumentException("Unsupported encoding");
-        }
-        this.in = inputStream;
-        this.ayc = charset;
-        this.buf = new byte[8192];
+    public static boolean a(String str, OutputStream outputStream, a.C0217a c0217a) {
+        return com.kwad.sdk.core.network.kwai.a.a(str, outputStream, c0217a, -1);
     }
 }

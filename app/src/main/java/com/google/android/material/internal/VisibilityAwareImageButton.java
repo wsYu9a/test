@@ -8,36 +8,38 @@ import androidx.annotation.RestrictTo;
 
 @SuppressLint({"AppCompatCustomView"})
 @RestrictTo({RestrictTo.Scope.LIBRARY_GROUP})
-/* loaded from: classes2.dex */
+/* loaded from: classes.dex */
 public class VisibilityAwareImageButton extends ImageButton {
-    private int userSetVisibility;
+
+    /* renamed from: a, reason: collision with root package name */
+    private int f7314a;
 
     public VisibilityAwareImageButton(Context context) {
         this(context, null);
     }
 
-    public final int getUserSetVisibility() {
-        return this.userSetVisibility;
-    }
-
-    public final void internalSetVisibility(int i10, boolean z10) {
-        super.setVisibility(i10);
-        if (z10) {
-            this.userSetVisibility = i10;
+    public final void c(int i2, boolean z) {
+        super.setVisibility(i2);
+        if (z) {
+            this.f7314a = i2;
         }
     }
 
+    public final int getUserSetVisibility() {
+        return this.f7314a;
+    }
+
     @Override // android.widget.ImageView, android.view.View
-    public void setVisibility(int i10) {
-        internalSetVisibility(i10, true);
+    public void setVisibility(int i2) {
+        c(i2, true);
     }
 
     public VisibilityAwareImageButton(Context context, AttributeSet attributeSet) {
         this(context, attributeSet, 0);
     }
 
-    public VisibilityAwareImageButton(Context context, AttributeSet attributeSet, int i10) {
-        super(context, attributeSet, i10);
-        this.userSetVisibility = getVisibility();
+    public VisibilityAwareImageButton(Context context, AttributeSet attributeSet, int i2) {
+        super(context, attributeSet, i2);
+        this.f7314a = getVisibility();
     }
 }

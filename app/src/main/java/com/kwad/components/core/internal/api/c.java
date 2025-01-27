@@ -5,49 +5,49 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.concurrent.CopyOnWriteArrayList;
 
-/* loaded from: classes3.dex */
+/* loaded from: classes2.dex */
 public final class c {
 
     @NonNull
-    private List<b> Ok = new CopyOnWriteArrayList();
-    private boolean Ol = false;
-    private boolean Om = false;
+    private List<b> JI = new CopyOnWriteArrayList();
+    private boolean JJ = false;
+    private boolean JK = false;
+
+    public final void a(a aVar) {
+        com.kwad.sdk.core.d.b.d("KsAdListenerHolder", "notifyAdEnter: " + aVar + ", hadNotifiedEnter: " + this.JK);
+        if (this.JK) {
+            return;
+        }
+        Iterator<b> it = this.JI.iterator();
+        while (it.hasNext()) {
+            it.next().onAdEnter(aVar);
+        }
+        this.JK = true;
+    }
 
     public final void a(b bVar) {
         if (bVar == null) {
             return;
         }
-        this.Ok.add(bVar);
+        this.JI.add(bVar);
+    }
+
+    public final void b(a aVar) {
+        com.kwad.sdk.core.d.b.d("KsAdListenerHolder", "notifyAdExit: " + aVar + ", hadNotifiedExit: " + this.JJ);
+        if (this.JJ) {
+            return;
+        }
+        Iterator<b> it = this.JI.iterator();
+        while (it.hasNext()) {
+            it.next().onAdExit(aVar);
+        }
+        this.JJ = true;
     }
 
     public final void b(b bVar) {
         if (bVar == null) {
             return;
         }
-        this.Ok.remove(bVar);
-    }
-
-    public final void h(a aVar) {
-        com.kwad.sdk.core.d.c.d("KsAdListenerHolder", "notifyAdEnter: " + aVar + ", hadNotifiedEnter: " + this.Om);
-        if (this.Om) {
-            return;
-        }
-        Iterator<b> it = this.Ok.iterator();
-        while (it.hasNext()) {
-            it.next().c(aVar);
-        }
-        this.Om = true;
-    }
-
-    public final void i(a aVar) {
-        com.kwad.sdk.core.d.c.d("KsAdListenerHolder", "notifyAdExit: " + aVar + ", hadNotifiedExit: " + this.Ol);
-        if (this.Ol) {
-            return;
-        }
-        Iterator<b> it = this.Ok.iterator();
-        while (it.hasNext()) {
-            it.next().d(aVar);
-        }
-        this.Ol = true;
+        this.JI.remove(bVar);
     }
 }

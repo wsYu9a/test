@@ -9,7 +9,7 @@ import com.vivo.push.util.p;
 
 /* loaded from: classes4.dex */
 public class CommandService extends Service {
-    public boolean a(String str) {
+    protected boolean a(String str) {
         return "com.vivo.pushservice.action.RECEIVE".equals(str);
     }
 
@@ -32,7 +32,7 @@ public class CommandService extends Service {
     }
 
     @Override // android.app.Service
-    public int onStartCommand(Intent intent, int i10, int i11) {
+    public int onStartCommand(Intent intent, int i2, int i3) {
         p.c("CommandService", getClass().getSimpleName() + " -- onStartCommand " + getPackageName());
         if (intent == null) {
             stopSelf();
@@ -42,8 +42,8 @@ public class CommandService extends Service {
             try {
                 a.a().a(getClass().getName());
                 a.a().a(intent);
-            } catch (Exception e10) {
-                p.a("CommandService", "onStartCommand -- error", e10);
+            } catch (Exception e2) {
+                p.a("CommandService", "onStartCommand -- error", e2);
             }
             stopSelf();
             return 2;

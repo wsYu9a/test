@@ -5,7 +5,7 @@ import com.kwad.components.offline.api.core.network.IOfflineCompoRequest;
 import com.kwad.components.offline.api.core.network.model.BaseOfflineCompoResultData;
 import com.kwad.sdk.core.network.c;
 
-/* loaded from: classes3.dex */
+/* loaded from: classes2.dex */
 public interface IOfflineCompoNetworking<R extends IOfflineCompoRequest, T extends BaseOfflineCompoResultData> {
     void cancel();
 
@@ -16,7 +16,7 @@ public interface IOfflineCompoNetworking<R extends IOfflineCompoRequest, T exten
 
     boolean isPostByJson();
 
-    void onResponse(R r10, c cVar);
+    void onResponse(R r, c cVar);
 
     void request(@NonNull IOfflineCompoRequestListener<R, T> iOfflineCompoRequestListener);
 }

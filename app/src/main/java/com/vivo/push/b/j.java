@@ -4,30 +4,30 @@ package com.vivo.push.b;
 public final class j extends s {
 
     /* renamed from: a */
-    private int f24932a;
+    private int f30905a;
 
     /* renamed from: b */
-    private int f24933b;
+    private int f30906b;
 
     public j() {
         super(12);
-        this.f24932a = -1;
-        this.f24933b = -1;
+        this.f30905a = -1;
+        this.f30906b = -1;
     }
 
     @Override // com.vivo.push.b.s, com.vivo.push.o
-    public final void c(com.vivo.push.a aVar) {
+    protected final void c(com.vivo.push.a aVar) {
         super.c(aVar);
-        aVar.a("OnChangePushStatus.EXTRA_REQ_SERVICE_STATUS", this.f24932a);
-        aVar.a("OnChangePushStatus.EXTRA_REQ_RECEIVER_STATUS", this.f24933b);
+        aVar.a("OnChangePushStatus.EXTRA_REQ_SERVICE_STATUS", this.f30905a);
+        aVar.a("OnChangePushStatus.EXTRA_REQ_RECEIVER_STATUS", this.f30906b);
     }
 
     public final int d() {
-        return this.f24932a;
+        return this.f30905a;
     }
 
     public final int e() {
-        return this.f24933b;
+        return this.f30906b;
     }
 
     @Override // com.vivo.push.b.s, com.vivo.push.o
@@ -36,9 +36,9 @@ public final class j extends s {
     }
 
     @Override // com.vivo.push.b.s, com.vivo.push.o
-    public final void d(com.vivo.push.a aVar) {
+    protected final void d(com.vivo.push.a aVar) {
         super.d(aVar);
-        this.f24932a = aVar.b("OnChangePushStatus.EXTRA_REQ_SERVICE_STATUS", this.f24932a);
-        this.f24933b = aVar.b("OnChangePushStatus.EXTRA_REQ_RECEIVER_STATUS", this.f24933b);
+        this.f30905a = aVar.b("OnChangePushStatus.EXTRA_REQ_SERVICE_STATUS", this.f30905a);
+        this.f30906b = aVar.b("OnChangePushStatus.EXTRA_REQ_RECEIVER_STATUS", this.f30906b);
     }
 }

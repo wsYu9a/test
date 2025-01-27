@@ -16,10 +16,10 @@ public class Channel {
     private static final String UM_VISUAL_IMPRINT = "utm-visual";
 
     /* renamed from: com.umeng.vt.diff.Channel$1 */
-    public class AnonymousClass1 implements UMImprintChangeCallback {
+    class AnonymousClass1 implements UMImprintChangeCallback {
         final /* synthetic */ Context val$context;
 
-        public AnonymousClass1(Context context) {
+        AnonymousClass1(Context context) {
             context = context;
         }
 
@@ -35,12 +35,12 @@ public class Channel {
         Method method;
         try {
             Class<?> findClass = ClassLoadUtil.findClass("com.umeng.vt.vismode.config.ConfigTools");
-            if (findClass == null || (method = findClass.getMethod("download", null)) == null) {
+            if (findClass == null || (method = findClass.getMethod("download", new Class[0])) == null) {
                 return;
             }
-            method.invoke(findClass.getMethod("getInstance", null).invoke(null, null), null);
-        } catch (Exception e10) {
-            e10.printStackTrace();
+            method.invoke(findClass.getMethod("getInstance", new Class[0]).invoke(null, new Object[0]), new Object[0]);
+        } catch (Exception e2) {
+            e2.printStackTrace();
         }
     }
 
@@ -51,9 +51,9 @@ public class Channel {
             if (findClass == null || (method = findClass.getMethod("storeConfig", Map.class)) == null) {
                 return;
             }
-            method.invoke(findClass.getMethod("getInstance", null).invoke(null, null), map);
-        } catch (Exception e10) {
-            e10.printStackTrace();
+            method.invoke(findClass.getMethod("getInstance", new Class[0]).invoke(null, new Object[0]), map);
+        } catch (Exception e2) {
+            e2.printStackTrace();
         }
     }
 
@@ -81,7 +81,7 @@ public class Channel {
         ImprintHandler.getImprintService(context).registImprintCallback(UM_VISUAL_IMPRINT, new UMImprintChangeCallback() { // from class: com.umeng.vt.diff.Channel.1
             final /* synthetic */ Context val$context;
 
-            public AnonymousClass1(Context context2) {
+            AnonymousClass1(Context context2) {
                 context = context2;
             }
 

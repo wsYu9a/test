@@ -1,6 +1,5 @@
 package com.martian.libsliding;
 
-import aa.f;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
@@ -12,472 +11,442 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.ViewParent;
-import com.martian.libsliding.SlidingLayout;
-import com.martian.libsliding.a;
+import androidx.core.os.ParcelableCompat;
+import androidx.core.os.ParcelableCompatCreatorCallbacks;
+import com.martian.libsliding.f;
 import com.martian.libsliding.slider.AutoSlider;
-import z9.d;
+import com.martian.libsliding.slider.g;
 
 /* loaded from: classes3.dex */
 public class SlidingLayout extends ViewGroup {
 
+    /* renamed from: a */
+    private f f10499a;
+
     /* renamed from: b */
-    public com.martian.libsliding.a f12915b;
+    private f.a f10500b;
 
     /* renamed from: c */
-    public a.InterfaceC0522a f12916c;
+    private g f10501c;
 
     /* renamed from: d */
-    public f f12917d;
+    private AutoSlider f10502d;
 
     /* renamed from: e */
-    public AutoSlider f12918e;
+    private boolean f10503e;
 
     /* renamed from: f */
-    public boolean f12919f;
+    private e f10504f;
 
     /* renamed from: g */
-    public d<?> f12920g;
+    private boolean f10505g;
 
     /* renamed from: h */
-    public TouchBlockType f12921h;
+    private float f10506h;
 
     /* renamed from: i */
-    public float f12922i;
+    private float f10507i;
 
     /* renamed from: j */
-    public float f12923j;
-
-    /* renamed from: k */
-    public a f12924k;
-
-    /* renamed from: l */
-    public Canvas f12925l;
-
-    /* renamed from: m */
-    public Bitmap f12926m;
-
-    /* renamed from: n */
-    public Bitmap f12927n;
-
-    /* renamed from: o */
-    public boolean f12928o;
-
-    /* renamed from: p */
-    public boolean f12929p;
-
-    /* renamed from: q */
-    public boolean f12930q;
-
-    /* renamed from: r */
-    public boolean f12931r;
-
-    public static class SavedState extends View.BaseSavedState {
-        public static final Parcelable.Creator<SavedState> CREATOR = new a();
-
-        /* renamed from: b */
-        public Parcelable f12932b;
-
-        public class a implements Parcelable.Creator<SavedState> {
-            @Override // android.os.Parcelable.Creator
-            /* renamed from: a */
-            public SavedState createFromParcel(Parcel parcel) {
-                return new SavedState(parcel);
-            }
-
-            @Override // android.os.Parcelable.Creator
-            /* renamed from: b */
-            public SavedState[] newArray(int i10) {
-                return new SavedState[i10];
-            }
-        }
-
-        public SavedState(Parcelable parcelable) {
-            super(parcelable);
-        }
-
-        public String toString() {
-            return "BaseSlidingLayout.SavedState{" + Integer.toHexString(System.identityHashCode(this)) + p3.f.f29748d;
-        }
-
-        @Override // android.view.View.BaseSavedState, android.view.AbsSavedState, android.os.Parcelable
-        public void writeToParcel(Parcel parcel, int i10) {
-            super.writeToParcel(parcel, i10);
-            parcel.writeParcelable(this.f12932b, i10);
-        }
-
-        public SavedState(Parcel parcel) {
-            super(parcel);
-            this.f12932b = parcel.readParcelable(getClass().getClassLoader());
-        }
-    }
-
-    public enum TouchBlockType {
-        DEFAULT,
-        AD,
-        FORCE
-    }
+    private a f10508j;
+    Canvas k;
+    Bitmap l;
+    Bitmap m;
+    boolean n;
+    boolean o;
+    boolean p;
+    private boolean q;
 
     public interface a {
         void a(Object obj);
 
-        void b(int i10);
+        void b(int touchResult);
+    }
+
+    public static class b extends View.BaseSavedState {
+        public static final Parcelable.Creator<b> CREATOR = ParcelableCompat.newCreator(new a());
+
+        /* renamed from: a */
+        Parcelable f10509a;
+
+        /* renamed from: b */
+        ClassLoader f10510b;
+
+        static class a implements ParcelableCompatCreatorCallbacks<b> {
+            a() {
+            }
+
+            @Override // androidx.core.os.ParcelableCompatCreatorCallbacks
+            /* renamed from: a */
+            public b createFromParcel(Parcel in, ClassLoader loader) {
+                return new b(in, loader);
+            }
+
+            @Override // androidx.core.os.ParcelableCompatCreatorCallbacks
+            /* renamed from: b */
+            public b[] newArray(int size) {
+                return new b[size];
+            }
+        }
+
+        public b(Parcelable superState) {
+            super(superState);
+        }
+
+        public String toString() {
+            return "BaseSlidingLayout.SavedState{" + Integer.toHexString(System.identityHashCode(this)) + "}";
+        }
+
+        @Override // android.view.View.BaseSavedState, android.view.AbsSavedState, android.os.Parcelable
+        public void writeToParcel(Parcel out, int flags) {
+            super.writeToParcel(out, flags);
+            out.writeParcelable(this.f10509a, flags);
+        }
+
+        b(Parcel in, ClassLoader loader) {
+            super(in);
+            loader = loader == null ? getClass().getClassLoader() : loader;
+            this.f10509a = in.readParcelable(loader);
+            this.f10510b = loader;
+        }
     }
 
     public SlidingLayout(Context context) {
         super(context);
-        this.f12919f = false;
-        this.f12921h = TouchBlockType.DEFAULT;
-        this.f12928o = false;
-        this.f12929p = false;
-        this.f12930q = false;
-        this.f12931r = false;
-        i(context);
+        this.f10503e = false;
+        this.f10505g = true;
+        this.n = false;
+        this.o = false;
+        this.p = false;
+        this.q = false;
+        h(context);
     }
 
-    public void A(float f10, float f11) {
-        if (p()) {
-            this.f12922i = f10;
-            this.f12923j = f11;
-            setBlockType(TouchBlockType.AD);
-        }
+    private boolean F(float y) {
+        return !n() && y > this.f10506h && y < this.f10507i;
     }
 
-    public void B(int i10, boolean z10) {
-        AutoSlider autoSlider = this.f12918e;
-        if (autoSlider != null) {
-            autoSlider.I(i10, z10);
-        }
+    private void h(Context context) {
+        setClickable(true);
+        this.f10499a = new f(context, new f.a() { // from class: com.martian.libsliding.b
+            @Override // com.martian.libsliding.f.a
+            public final void r(Point point) {
+                SlidingLayout.this.p(point);
+            }
+        });
     }
 
-    public void C(AutoSlider autoSlider, boolean z10) {
-        setCacheEnabled(z10);
-        this.f12918e = autoSlider;
-        autoSlider.g(this);
-        x(this.f12918e);
-    }
-
-    public void D(boolean z10) {
-        if (this.f12917d == null || n()) {
-            return;
-        }
-        this.f12917d.h(z10);
-    }
-
-    public void E(boolean z10) {
-        if (this.f12917d == null || n()) {
-            return;
-        }
-        this.f12917d.d(z10);
-    }
-
-    public void F(int i10) {
-        a aVar = this.f12924k;
+    /* renamed from: o */
+    public /* synthetic */ void p(Point point) {
+        f.a aVar = this.f10500b;
         if (aVar != null) {
-            aVar.b(i10);
+            aVar.r(point);
         }
     }
 
-    public void G(Object obj) {
-        a aVar = this.f12924k;
+    private void u() {
+        if (this.f10503e) {
+            this.f10502d.d();
+            return;
+        }
+        g gVar = this.f10501c;
+        if (gVar != null) {
+            gVar.d();
+        }
+    }
+
+    public void A(boolean fromTouch) {
+        if (this.f10501c == null || l()) {
+            return;
+        }
+        this.f10501c.c(fromTouch);
+    }
+
+    public void B(int moveDirection) {
+        a aVar = this.f10508j;
+        if (aVar != null) {
+            aVar.b(moveDirection);
+        }
+    }
+
+    public void C(Object obj) {
+        a aVar = this.f10508j;
         if (aVar != null) {
             aVar.a(obj);
         }
     }
 
-    public boolean H() {
-        if (this.f12918e == null) {
-            j(false);
+    public boolean D() {
+        if (this.f10502d == null) {
+            i(false);
         }
-        this.f12919f = true;
-        return this.f12918e.J();
+        this.f10503e = true;
+        return this.f10502d.I();
     }
 
-    public boolean I() {
-        this.f12919f = false;
-        AutoSlider autoSlider = this.f12918e;
+    public boolean E() {
+        this.f10503e = false;
+        AutoSlider autoSlider = this.f10502d;
         if (autoSlider == null) {
             return false;
         }
-        autoSlider.K();
-        this.f12918e.r();
-        this.f12918e = null;
-        f fVar = this.f12917d;
-        if (fVar != null) {
-            fVar.g(this);
+        autoSlider.J();
+        this.f10502d.q();
+        this.f10502d = null;
+        g gVar = this.f10501c;
+        if (gVar != null) {
+            gVar.e(this);
         }
-        w();
+        s();
         return true;
     }
 
-    public final boolean J(float f10) {
-        return l() && f10 > this.f12922i && f10 < this.f12923j;
+    public void a(View view, boolean forceRedraw) {
+        if (view.getWidth() == 0 || view.getHeight() == 0) {
+            return;
+        }
+        Bitmap bitmap = this.l;
+        if (bitmap == null || bitmap.getWidth() != view.getWidth() || this.l.getHeight() != view.getHeight()) {
+            Bitmap bitmap2 = this.l;
+            if (bitmap2 != null) {
+                bitmap2.recycle();
+                this.l = null;
+            }
+            try {
+                this.l = Bitmap.createBitmap(view.getWidth(), view.getHeight(), Bitmap.Config.ARGB_8888);
+            } catch (OutOfMemoryError unused) {
+                System.gc();
+                this.l = Bitmap.createBitmap(view.getWidth(), view.getHeight(), Bitmap.Config.RGB_565);
+            }
+            this.n = false;
+        }
+        if (!this.n || forceRedraw) {
+            Canvas canvas = this.k;
+            if (canvas == null) {
+                this.k = new Canvas(this.l);
+            } else {
+                canvas.setBitmap(this.l);
+            }
+            view.draw(this.k);
+            this.n = true;
+        }
     }
 
     @Override // android.view.ViewGroup
-    public void addView(View view) {
-        ViewParent parent = view.getParent();
+    public void addView(View child) {
+        ViewParent parent = child.getParent();
         if (parent != null && (parent instanceof ViewGroup)) {
-            ((ViewGroup) parent).removeView(view);
+            ((ViewGroup) parent).removeView(child);
         }
-        super.addView(view);
+        super.addView(child);
     }
 
-    public void b(View view, boolean z10) {
+    public void b(View view, boolean forceRedraw) {
         if (view.getWidth() == 0 || view.getHeight() == 0) {
             return;
         }
-        Bitmap bitmap = this.f12926m;
-        if (bitmap == null || bitmap.getWidth() != view.getWidth() || this.f12926m.getHeight() != view.getHeight()) {
-            Bitmap bitmap2 = this.f12926m;
+        Bitmap bitmap = this.m;
+        if (bitmap == null || bitmap.getWidth() != view.getWidth() || this.m.getHeight() != view.getHeight()) {
+            Bitmap bitmap2 = this.m;
             if (bitmap2 != null) {
                 bitmap2.recycle();
-                this.f12926m = null;
+                this.m = null;
             }
             try {
-                this.f12926m = Bitmap.createBitmap(view.getWidth(), view.getHeight(), Bitmap.Config.ARGB_8888);
+                this.m = Bitmap.createBitmap(view.getWidth(), view.getHeight(), Bitmap.Config.ARGB_8888);
             } catch (OutOfMemoryError unused) {
                 System.gc();
-                this.f12926m = Bitmap.createBitmap(view.getWidth(), view.getHeight(), Bitmap.Config.RGB_565);
+                this.m = Bitmap.createBitmap(view.getWidth(), view.getHeight(), Bitmap.Config.RGB_565);
             }
-            this.f12928o = false;
+            this.p = false;
         }
-        if (!this.f12928o || z10) {
-            Canvas canvas = this.f12925l;
+        if (!this.p || forceRedraw) {
+            Canvas canvas = this.k;
             if (canvas == null) {
-                this.f12925l = new Canvas(this.f12926m);
+                this.k = new Canvas(this.m);
             } else {
-                canvas.setBitmap(this.f12926m);
+                canvas.setBitmap(this.m);
             }
-            view.draw(this.f12925l);
-            this.f12928o = true;
+            view.draw(this.k);
+            this.p = true;
         }
     }
 
-    public void c(View view, boolean z10) {
+    public void c(View view, boolean forceRedraw) {
         if (view.getWidth() == 0 || view.getHeight() == 0) {
             return;
         }
-        Bitmap bitmap = this.f12927n;
-        if (bitmap == null || bitmap.getWidth() != view.getWidth() || this.f12927n.getHeight() != view.getHeight()) {
-            Bitmap bitmap2 = this.f12927n;
+        Bitmap bitmap = this.m;
+        if (bitmap == null || bitmap.getWidth() != view.getWidth() || this.m.getHeight() != view.getHeight()) {
+            Bitmap bitmap2 = this.m;
             if (bitmap2 != null) {
                 bitmap2.recycle();
-                this.f12927n = null;
+                this.m = null;
             }
             try {
-                this.f12927n = Bitmap.createBitmap(view.getWidth(), view.getHeight(), Bitmap.Config.ARGB_8888);
+                this.m = Bitmap.createBitmap(view.getWidth(), view.getHeight(), Bitmap.Config.ARGB_8888);
             } catch (OutOfMemoryError unused) {
                 System.gc();
-                this.f12927n = Bitmap.createBitmap(view.getWidth(), view.getHeight(), Bitmap.Config.RGB_565);
+                this.m = Bitmap.createBitmap(view.getWidth(), view.getHeight(), Bitmap.Config.RGB_565);
             }
-            this.f12930q = false;
+            this.o = false;
         }
-        if (!this.f12930q || z10) {
-            Canvas canvas = this.f12925l;
+        if (!this.o || forceRedraw) {
+            Canvas canvas = this.k;
             if (canvas == null) {
-                this.f12925l = new Canvas(this.f12927n);
+                this.k = new Canvas(this.m);
             } else {
-                canvas.setBitmap(this.f12927n);
+                canvas.setBitmap(this.m);
             }
-            view.draw(this.f12925l);
-            this.f12930q = true;
+            view.draw(this.k);
+            this.o = true;
         }
     }
 
     @Override // android.view.View
     public void computeScroll() {
         super.computeScroll();
-        if (n()) {
-            this.f12918e.i();
+        if (l()) {
+            this.f10502d.g();
             return;
         }
-        f fVar = this.f12917d;
-        if (fVar != null) {
-            fVar.i();
+        g gVar = this.f10501c;
+        if (gVar != null) {
+            gVar.g();
         }
     }
 
-    public void d(View view, boolean z10) {
-        if (view.getWidth() == 0 || view.getHeight() == 0) {
-            return;
-        }
-        Bitmap bitmap = this.f12927n;
-        if (bitmap == null || bitmap.getWidth() != view.getWidth() || this.f12927n.getHeight() != view.getHeight()) {
-            Bitmap bitmap2 = this.f12927n;
-            if (bitmap2 != null) {
-                bitmap2.recycle();
-                this.f12927n = null;
-            }
-            try {
-                this.f12927n = Bitmap.createBitmap(view.getWidth(), view.getHeight(), Bitmap.Config.ARGB_8888);
-            } catch (OutOfMemoryError unused) {
-                System.gc();
-                this.f12927n = Bitmap.createBitmap(view.getWidth(), view.getHeight(), Bitmap.Config.RGB_565);
-            }
-            this.f12929p = false;
-        }
-        if (!this.f12929p || z10) {
-            Canvas canvas = this.f12925l;
-            if (canvas == null) {
-                this.f12925l = new Canvas(this.f12927n);
-            } else {
-                canvas.setBitmap(this.f12927n);
-            }
-            view.draw(this.f12925l);
-            this.f12929p = true;
-        }
+    public void d(int direction) {
+        e(false, direction);
     }
 
     @Override // android.view.ViewGroup, android.view.View
-    public void dispatchDraw(Canvas canvas) {
-        if (n()) {
-            this.f12918e.b(canvas);
+    protected void dispatchDraw(Canvas canvas) {
+        if (l()) {
+            this.f10502d.a(canvas);
             return;
         }
-        f fVar = this.f12917d;
-        if (fVar == null || !fVar.b(canvas)) {
+        g gVar = this.f10501c;
+        if (gVar == null || !gVar.a(canvas)) {
             super.dispatchDraw(canvas);
         }
     }
 
-    @Override // android.view.ViewGroup, android.view.View
-    public boolean dispatchTouchEvent(MotionEvent motionEvent) {
-        boolean dispatchTouchEvent = super.dispatchTouchEvent(motionEvent);
-        if (!dispatchTouchEvent || motionEvent.getAction() == 0) {
-            this.f12915b.a(motionEvent);
+    public void e(boolean forceRedraw, int direction) {
+        View d2 = getAdapter().d();
+        if (!this.n && d2 != null) {
+            a(d2, forceRedraw);
         }
-        return dispatchTouchEvent;
-    }
-
-    public void e(int i10) {
-        f(false, i10);
-    }
-
-    public void f(boolean z10, int i10) {
-        View e10 = getAdapter().e();
-        if (!this.f12928o && e10 != null) {
-            b(e10, z10);
-        }
-        if (i10 == 1 && getAdapter().q()) {
-            View i11 = getAdapter().i();
-            if (!this.f12929p && i11 != null) {
-                d(i11, z10);
+        if (direction == 1) {
+            View h2 = getAdapter().h();
+            if (!this.o && h2 != null) {
+                c(h2, forceRedraw);
             }
-            this.f12930q = false;
+            this.p = false;
             return;
         }
-        if (getAdapter().p()) {
-            View g10 = getAdapter().g();
-            if (!this.f12930q && g10 != null) {
-                c(g10, z10);
-            }
-            this.f12929p = false;
+        View f2 = getAdapter().f();
+        if (!this.p && f2 != null) {
+            b(f2, forceRedraw);
         }
+        this.o = false;
     }
 
-    public void g() {
-        Bitmap bitmap = this.f12926m;
+    public void f() {
+        Bitmap bitmap = this.l;
         if (bitmap != null && !bitmap.isRecycled()) {
-            this.f12926m.recycle();
-            this.f12926m = null;
+            this.l.recycle();
+            this.l = null;
         }
-        Bitmap bitmap2 = this.f12927n;
+        Bitmap bitmap2 = this.m;
         if (bitmap2 != null && !bitmap2.isRecycled()) {
-            this.f12927n.recycle();
-            this.f12927n = null;
+            this.m.recycle();
+            this.m = null;
         }
-        this.f12925l = null;
+        this.k = null;
     }
 
-    public d<?> getAdapter() {
-        return this.f12920g;
+    public void g(Canvas canvas, View child) {
+        drawChild(canvas, child, getDrawingTime());
+    }
+
+    public e getAdapter() {
+        return this.f10504f;
     }
 
     public Bitmap getCurrentViewBitmap() {
-        return this.f12926m;
+        return this.l;
+    }
+
+    public f.a getOnTapListener() {
+        return this.f10500b;
     }
 
     public Bitmap getReuseBitmap() {
-        return this.f12927n;
+        return this.m;
     }
 
-    public f getSlider() {
-        return this.f12917d;
+    public g getSlider() {
+        return this.f10501c;
     }
 
-    public void h(Canvas canvas, View view) {
-        drawChild(canvas, view, getDrawingTime());
+    public void i(boolean enableCache) {
+        this.f10502d = new com.martian.libsliding.slider.c();
+        setCacheEnabled(enableCache);
+        this.f10502d.e(this);
+        t(this.f10502d);
     }
 
-    public final void i(Context context) {
-        setClickable(true);
-        this.f12915b = new com.martian.libsliding.a(context, new a.InterfaceC0522a() { // from class: z9.e
-            public /* synthetic */ e() {
-            }
-
-            @Override // com.martian.libsliding.a.InterfaceC0522a
-            public final void g0(Point point) {
-                SlidingLayout.this.r(point);
-            }
-        });
-    }
-
-    public void j(boolean z10) {
-        this.f12918e = new com.martian.libsliding.slider.a();
-        setCacheEnabled(z10);
-        this.f12918e.g(this);
-        x(this.f12918e);
-    }
-
-    public void k() {
-        this.f12929p = false;
-        this.f12928o = false;
-        this.f12930q = false;
+    public void j() {
+        this.o = false;
+        this.n = false;
+        this.p = false;
         invalidate();
     }
 
+    public boolean k() {
+        return this.f10503e && !this.f10502d.y();
+    }
+
     public boolean l() {
-        return this.f12921h == TouchBlockType.AD;
+        return this.f10503e;
     }
 
     public boolean m() {
-        return this.f12919f && !this.f12918e.z();
+        return this.q;
     }
 
     public boolean n() {
-        return this.f12919f;
-    }
-
-    public boolean o() {
-        return this.f12931r;
+        return this.f10505g;
     }
 
     @Override // android.view.ViewGroup, android.view.View
-    public void onDetachedFromWindow() {
+    protected void onDetachedFromWindow() {
         super.onDetachedFromWindow();
-        g();
+        f();
     }
 
     @Override // android.view.ViewGroup
-    public boolean onInterceptTouchEvent(MotionEvent motionEvent) {
-        return t(motionEvent);
+    public boolean onInterceptTouchEvent(MotionEvent event) {
+        g gVar;
+        return l() ? this.f10502d.h(event) : (F(event.getY()) || (gVar = this.f10501c) == null || !gVar.h(event)) ? false : true;
     }
 
     @Override // android.view.ViewGroup, android.view.View
-    public void onLayout(boolean z10, int i10, int i11, int i12, int i13) {
-        if (n()) {
-            AutoSlider autoSlider = this.f12918e;
-            if (autoSlider != null && autoSlider.c(z10, i10, i11, i12, i13)) {
+    protected void onLayout(boolean changed, int l, int t, int r, int b2) {
+        if (l()) {
+            AutoSlider autoSlider = this.f10502d;
+            if (autoSlider != null && autoSlider.b(changed, l, t, r, b2)) {
                 return;
             }
         } else {
-            f fVar = this.f12917d;
-            if (fVar != null && fVar.c(z10, i10, i11, i12, i13)) {
+            g gVar = this.f10501c;
+            if (gVar != null && gVar.b(changed, l, t, r, b2)) {
                 return;
             }
         }
-        for (int i14 = 0; i14 < getChildCount(); i14++) {
-            View childAt = getChildAt(i14);
+        for (int i2 = 0; i2 < getChildCount(); i2++) {
+            View childAt = getChildAt(i2);
             if (childAt != null) {
                 childAt.layout(0, 0, childAt.getMeasuredWidth(), childAt.getMeasuredHeight());
             }
@@ -485,178 +454,167 @@ public class SlidingLayout extends ViewGroup {
     }
 
     @Override // android.view.View
-    public void onMeasure(int i10, int i11) {
-        super.onMeasure(i10, i11);
-        measureChildren(i10, i11);
+    protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
+        super.onMeasure(widthMeasureSpec, heightMeasureSpec);
+        measureChildren(widthMeasureSpec, heightMeasureSpec);
     }
 
     @Override // android.view.View
-    public void onRestoreInstanceState(Parcelable parcelable) {
-        if (!(parcelable instanceof SavedState)) {
-            super.onRestoreInstanceState(parcelable);
+    protected void onRestoreInstanceState(Parcelable state) {
+        if (!(state instanceof b)) {
+            super.onRestoreInstanceState(state);
             return;
         }
-        super.onRestoreInstanceState(((SavedState) parcelable).getSuperState());
-        d<?> dVar = this.f12920g;
-        if (dVar != null) {
-            dVar.w();
-            w();
+        super.onRestoreInstanceState(((b) state).getSuperState());
+        e eVar = this.f10504f;
+        if (eVar != null) {
+            eVar.w();
+            s();
         }
     }
 
     @Override // android.view.View
-    public Parcelable onSaveInstanceState() {
-        SavedState savedState = new SavedState(super.onSaveInstanceState());
-        d<?> dVar = this.f12920g;
-        if (dVar != null) {
-            savedState.f12932b = dVar.x();
+    protected Parcelable onSaveInstanceState() {
+        b bVar = new b(super.onSaveInstanceState());
+        e eVar = this.f10504f;
+        if (eVar != null) {
+            bVar.f10509a = eVar.x();
         }
-        return savedState;
+        return bVar;
     }
 
     @Override // android.view.View
-    public boolean onTouchEvent(MotionEvent motionEvent) {
-        return u(motionEvent);
-    }
-
-    public boolean p() {
-        return this.f12921h == TouchBlockType.DEFAULT;
-    }
-
-    public boolean q() {
-        return this.f12921h == TouchBlockType.FORCE;
-    }
-
-    public final /* synthetic */ void r(Point point) {
-        a.InterfaceC0522a interfaceC0522a = this.f12916c;
-        if (interfaceC0522a != null) {
-            interfaceC0522a.g0(point);
-        }
-    }
-
-    public void s() {
-        d<?> dVar = this.f12920g;
-        if (dVar != null) {
-            dVar.v();
-        }
-    }
-
-    /* JADX WARN: Multi-variable type inference failed */
-    public <T> void setAdapter(d<T> dVar) {
-        this.f12920g = dVar;
-        dVar.A(this);
-        this.f12920g.w();
-        w();
-        postInvalidate();
-    }
-
-    public void setBlockType(TouchBlockType touchBlockType) {
-        this.f12921h = touchBlockType;
-    }
-
-    public void setCacheEnabled(boolean z10) {
-        this.f12931r = z10;
-    }
-
-    public void setOnSlideChangeListener(a aVar) {
-        this.f12924k = aVar;
-    }
-
-    public void setOnTapListener(a.InterfaceC0522a interfaceC0522a) {
-        this.f12916c = interfaceC0522a;
-    }
-
-    public void setSlider(f fVar) {
-        this.f12917d = fVar;
-        fVar.g(this);
-        x(this.f12917d);
-    }
-
-    public final boolean t(MotionEvent motionEvent) {
-        f fVar;
-        return n() ? this.f12918e.j(motionEvent) : (J(motionEvent.getY()) || (fVar = this.f12917d) == null || !fVar.j(motionEvent)) ? false : true;
-    }
-
-    public boolean u(MotionEvent motionEvent) {
-        if (!n()) {
-            f fVar = this.f12917d;
-            if (fVar != null) {
-                if (!fVar.e() && J(motionEvent.getY())) {
-                    return false;
-                }
-                if (this.f12917d.onTouchEvent(motionEvent)) {
-                    return true;
-                }
+    public boolean onTouchEvent(MotionEvent event) {
+        if (l()) {
+            if (this.f10502d.onTouchEvent(event)) {
+                return true;
             }
-        } else if (this.f12918e.onTouchEvent(motionEvent)) {
-            return true;
+        } else if (this.f10501c != null) {
+            if (F(event.getY())) {
+                return false;
+            }
+            if (this.f10501c.onTouchEvent(event)) {
+                return true;
+            }
         }
-        this.f12915b.b(motionEvent);
+        this.f10499a.a(event);
         return true;
     }
 
-    public void v() {
-        AutoSlider autoSlider = this.f12918e;
+    public void q() {
+        e eVar = this.f10504f;
+        if (eVar != null) {
+            eVar.v();
+        }
+    }
+
+    public void r() {
+        AutoSlider autoSlider = this.f10502d;
         if (autoSlider == null) {
             return;
         }
-        autoSlider.F();
+        autoSlider.E();
     }
 
-    public void w() {
+    public void s() {
         removeAllViews();
-        if (this.f12920g != null) {
-            y();
-            G(getAdapter().d());
+        if (this.f10504f != null) {
+            u();
+            C(getAdapter().c());
         }
     }
 
-    public void x(f fVar) {
+    public void setAdapter(e adapter) {
+        this.f10504f = adapter;
+        adapter.B(this);
+        this.f10504f.w();
+        s();
+        postInvalidate();
+    }
+
+    public void setCacheEnabled(boolean enable) {
+        this.q = enable;
+    }
+
+    public void setOnSlideChangeListener(a l) {
+        this.f10508j = l;
+    }
+
+    public void setOnTapListener(f.a mOnTapListener) {
+        this.f10500b = mOnTapListener;
+    }
+
+    public void setSlider(g slider) {
+        this.f10501c = slider;
+        slider.e(this);
+        t(this.f10501c);
+    }
+
+    public void setTouchable(boolean touchable) {
+        this.f10505g = touchable;
+    }
+
+    public void t(g slider) {
         removeAllViews();
-        if (this.f12920g != null) {
-            fVar.f();
-            G(getAdapter().d());
+        if (this.f10504f != null) {
+            slider.d();
+            C(getAdapter().c());
         }
     }
 
-    public final void y() {
-        if (this.f12919f) {
-            this.f12918e.f();
+    public void v() {
+        this.f10503e = true;
+        if (this.f10502d.F()) {
             return;
         }
-        f fVar = this.f12917d;
-        if (fVar != null) {
-            fVar.f();
+        this.f10502d.I();
+    }
+
+    public void w(float tY, float bY) {
+        this.f10506h = tY;
+        this.f10507i = bY;
+    }
+
+    public void x(int dpSpeed, boolean resume) {
+        AutoSlider autoSlider = this.f10502d;
+        if (autoSlider != null) {
+            autoSlider.H(dpSpeed, resume);
         }
     }
 
-    public void z() {
-        this.f12919f = true;
-        if (this.f12918e.G()) {
+    public void y(AutoSlider autoSlider, boolean enableCache) {
+        setCacheEnabled(enableCache);
+        this.f10502d = autoSlider;
+        autoSlider.e(this);
+        t(this.f10502d);
+    }
+
+    public void z(boolean fromTouch) {
+        if (this.f10501c == null || l()) {
             return;
         }
-        this.f12918e.J();
+        this.f10501c.f(fromTouch);
     }
 
-    public SlidingLayout(Context context, AttributeSet attributeSet, int i10) {
-        super(context, attributeSet, i10);
-        this.f12919f = false;
-        this.f12921h = TouchBlockType.DEFAULT;
-        this.f12928o = false;
-        this.f12929p = false;
-        this.f12930q = false;
-        this.f12931r = false;
-        i(context);
+    public SlidingLayout(Context context, AttributeSet attrs, int defStyle) {
+        super(context, attrs, defStyle);
+        this.f10503e = false;
+        this.f10505g = true;
+        this.n = false;
+        this.o = false;
+        this.p = false;
+        this.q = false;
+        h(context);
     }
 
-    public SlidingLayout(Context context, AttributeSet attributeSet) {
-        super(context, attributeSet);
-        this.f12919f = false;
-        this.f12921h = TouchBlockType.DEFAULT;
-        this.f12928o = false;
-        this.f12929p = false;
-        this.f12930q = false;
-        this.f12931r = false;
-        i(context);
+    public SlidingLayout(Context context, AttributeSet attrs) {
+        super(context, attrs);
+        this.f10503e = false;
+        this.f10505g = true;
+        this.n = false;
+        this.o = false;
+        this.p = false;
+        this.q = false;
+        h(context);
     }
 }

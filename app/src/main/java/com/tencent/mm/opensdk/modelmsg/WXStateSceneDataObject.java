@@ -32,17 +32,17 @@ public class WXStateSceneDataObject implements SendMessageToWX.IWXSceneDataObjec
     @Override // com.tencent.mm.opensdk.modelmsg.SendMessageToWX.IWXSceneDataObject
     public boolean checkArgs() {
         String str = this.stateId;
-        if (str != null && str.length() > 10240) {
+        if (str != null && str.length() > LENGTH_LIMIT) {
             Log.e(TAG, "checkArgs fail, stateId is invalid");
             return false;
         }
         String str2 = this.stateTitle;
-        if (str2 != null && str2.length() > 10240) {
+        if (str2 != null && str2.length() > LENGTH_LIMIT) {
             Log.e(TAG, "checkArgs fail, stateId is invalid");
             return false;
         }
         String str3 = this.token;
-        if (str3 != null && str3.length() > 10240) {
+        if (str3 != null && str3.length() > LENGTH_LIMIT) {
             Log.e(TAG, "checkArgs fail, stateId is invalid");
             return false;
         }
@@ -86,8 +86,8 @@ public class WXStateSceneDataObject implements SendMessageToWX.IWXSceneDataObjec
                 IWXStateJumpInfo iWXStateJumpInfo = (IWXStateJumpInfo) Class.forName(string).newInstance();
                 this.stateJumpInfo = iWXStateJumpInfo;
                 iWXStateJumpInfo.unserialize(bundle);
-            } catch (Exception e10) {
-                Log.e(TAG, "get WXSceneDataObject from bundle failed: unknown ident " + string + ", ex = " + e10.getMessage());
+            } catch (Exception e2) {
+                Log.e(TAG, "get WXSceneDataObject from bundle failed: unknown ident " + string + ", ex = " + e2.getMessage());
             }
         }
     }

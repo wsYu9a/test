@@ -28,11 +28,11 @@ public class VipAdInfo {
         return (this.money == null || this.productId == null) ? false : true;
     }
 
-    public void setMoney(Integer num) {
-        this.money = num;
+    public void setMoney(Integer money) {
+        this.money = money;
     }
 
-    public void setProductId(Integer num) {
-        this.productId = num;
+    public void setProductId(Integer productId) {
+        this.productId = productId;
     }
 }

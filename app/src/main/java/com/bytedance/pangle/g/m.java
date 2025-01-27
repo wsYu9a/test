@@ -2,29 +2,29 @@ package com.bytedance.pangle.g;
 
 import java.nio.ByteBuffer;
 
-/* loaded from: classes2.dex */
+/* loaded from: classes.dex */
 final class m {
 
     /* renamed from: a, reason: collision with root package name */
-    public final ByteBuffer f7648a;
+    public final ByteBuffer f6146a;
 
     /* renamed from: b, reason: collision with root package name */
-    public final long f7649b;
+    public final long f6147b;
 
     /* renamed from: c, reason: collision with root package name */
-    public final long f7650c;
+    public final long f6148c;
 
     /* renamed from: d, reason: collision with root package name */
-    public final long f7651d;
+    public final long f6149d;
 
     /* renamed from: e, reason: collision with root package name */
-    public final ByteBuffer f7652e;
+    public final ByteBuffer f6150e;
 
-    public m(ByteBuffer byteBuffer, long j10, long j11, long j12, ByteBuffer byteBuffer2) {
-        this.f7648a = byteBuffer;
-        this.f7649b = j10;
-        this.f7650c = j11;
-        this.f7651d = j12;
-        this.f7652e = byteBuffer2;
+    m(ByteBuffer byteBuffer, long j2, long j3, long j4, ByteBuffer byteBuffer2) {
+        this.f6146a = byteBuffer;
+        this.f6147b = j2;
+        this.f6148c = j3;
+        this.f6149d = j4;
+        this.f6150e = byteBuffer2;
     }
 }

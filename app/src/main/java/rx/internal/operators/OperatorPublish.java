@@ -1,97 +1,89 @@
 package rx.internal.operators;
 
-import ak.k;
-import ck.g0;
-import ck.y;
-import ik.f;
 import java.util.Queue;
 import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.concurrent.atomic.AtomicLong;
 import java.util.concurrent.atomic.AtomicReference;
-import k0.e;
-import qj.a;
-import qj.g;
-import qj.h;
+import rx.a;
 import rx.exceptions.MissingBackpressureException;
-import wj.o;
 
 /* loaded from: classes5.dex */
-public final class OperatorPublish<T> extends dk.b<T> {
+public final class OperatorPublish<T> extends rx.observables.b<T> {
+
+    /* renamed from: c */
+    final rx.a<? extends T> f35819c;
 
     /* renamed from: d */
-    public final qj.a<? extends T> f30503d;
+    final AtomicReference<c<T>> f35820d;
 
-    /* renamed from: e */
-    public final AtomicReference<c<T>> f30504e;
-
-    public static final class InnerProducer<T> extends AtomicLong implements qj.c, h {
+    static final class InnerProducer<T> extends AtomicLong implements rx.c, rx.h {
         static final long NOT_REQUESTED = -4611686018427387904L;
         static final long UNSUBSCRIBED = Long.MIN_VALUE;
         private static final long serialVersionUID = -4453897557930727610L;
-        final g<? super T> child;
+        final rx.g<? super T> child;
         final c<T> parent;
 
-        public InnerProducer(c<T> cVar, g<? super T> gVar) {
+        public InnerProducer(c<T> cVar, rx.g<? super T> gVar) {
             this.parent = cVar;
             this.child = gVar;
             lazySet(NOT_REQUESTED);
         }
 
-        @Override // qj.h
+        @Override // rx.h
         public boolean isUnsubscribed() {
             return get() == Long.MIN_VALUE;
         }
 
-        public long produced(long j10) {
-            long j11;
-            long j12;
-            if (j10 <= 0) {
+        public long produced(long j2) {
+            long j3;
+            long j4;
+            if (j2 <= 0) {
                 throw new IllegalArgumentException("Cant produce zero or less");
             }
             do {
-                j11 = get();
-                if (j11 == NOT_REQUESTED) {
+                j3 = get();
+                if (j3 == NOT_REQUESTED) {
                     throw new IllegalStateException("Produced without request");
                 }
-                if (j11 == Long.MIN_VALUE) {
+                if (j3 == Long.MIN_VALUE) {
                     return Long.MIN_VALUE;
                 }
-                j12 = j11 - j10;
-                if (j12 < 0) {
-                    throw new IllegalStateException("More produced (" + j10 + ") than requested (" + j11 + ")");
+                j4 = j3 - j2;
+                if (j4 < 0) {
+                    throw new IllegalStateException("More produced (" + j2 + ") than requested (" + j3 + ")");
                 }
-            } while (!compareAndSet(j11, j12));
-            return j12;
+            } while (!compareAndSet(j3, j4));
+            return j4;
         }
 
-        @Override // qj.c
-        public void request(long j10) {
-            long j11;
-            long j12;
-            if (j10 < 0) {
+        @Override // rx.c
+        public void request(long j2) {
+            long j3;
+            long j4;
+            if (j2 < 0) {
                 return;
             }
             do {
-                j11 = get();
-                if (j11 == Long.MIN_VALUE) {
+                j3 = get();
+                if (j3 == Long.MIN_VALUE) {
                     return;
                 }
-                if (j11 >= 0 && j10 == 0) {
+                if (j3 >= 0 && j2 == 0) {
                     return;
                 }
-                if (j11 == NOT_REQUESTED) {
-                    j12 = j10;
+                if (j3 == NOT_REQUESTED) {
+                    j4 = j2;
                 } else {
-                    j12 = j11 + j10;
-                    if (j12 < 0) {
-                        j12 = Long.MAX_VALUE;
+                    j4 = j3 + j2;
+                    if (j4 < 0) {
+                        j4 = Long.MAX_VALUE;
                     }
                 }
-            } while (!compareAndSet(j11, j12));
+            } while (!compareAndSet(j3, j4));
             this.parent.i();
         }
 
-        @Override // qj.h
+        @Override // rx.h
         public void unsubscribe() {
             if (get() == Long.MIN_VALUE || getAndSet(Long.MIN_VALUE) == Long.MIN_VALUE) {
                 return;
@@ -101,23 +93,23 @@ public final class OperatorPublish<T> extends dk.b<T> {
         }
     }
 
-    public static class a implements a.m0<T> {
+    static class a implements a.m0<T> {
 
-        /* renamed from: b */
-        public final /* synthetic */ AtomicReference f30505b;
+        /* renamed from: a */
+        final /* synthetic */ AtomicReference f35821a;
 
-        public a(AtomicReference atomicReference) {
-            this.f30505b = atomicReference;
+        a(AtomicReference atomicReference) {
+            this.f35821a = atomicReference;
         }
 
-        @Override // wj.b
-        public void call(g<? super T> gVar) {
+        @Override // rx.k.b
+        public void call(rx.g<? super T> gVar) {
             while (true) {
-                c cVar = (c) this.f30505b.get();
+                c cVar = (c) this.f35821a.get();
                 if (cVar == null || cVar.isUnsubscribed()) {
-                    c cVar2 = new c(this.f30505b);
+                    c cVar2 = new c(this.f35821a);
                     cVar2.j();
-                    if (e.a(this.f30505b, cVar, cVar2)) {
+                    if (this.f35821a.compareAndSet(cVar, cVar2)) {
                         cVar = cVar2;
                     } else {
                         continue;
@@ -133,141 +125,131 @@ public final class OperatorPublish<T> extends dk.b<T> {
         }
     }
 
-    public static class b<R> implements a.m0<R> {
+    static class b<R> implements a.m0<R> {
+
+        /* renamed from: a */
+        final /* synthetic */ rx.a f35822a;
 
         /* renamed from: b */
-        public final /* synthetic */ qj.a f30506b;
+        final /* synthetic */ rx.k.o f35823b;
 
-        /* renamed from: c */
-        public final /* synthetic */ o f30507c;
+        class a implements rx.k.b<rx.h> {
 
-        public class a implements wj.b<h> {
+            /* renamed from: a */
+            final /* synthetic */ rx.g f35824a;
 
-            /* renamed from: b */
-            public final /* synthetic */ g f30508b;
-
-            public a(g gVar) {
-                this.f30508b = gVar;
+            a(rx.g gVar) {
+                this.f35824a = gVar;
             }
 
-            @Override // wj.b
-            public void call(h hVar) {
-                this.f30508b.b(hVar);
+            @Override // rx.k.b
+            public void call(rx.h hVar) {
+                this.f35824a.b(hVar);
             }
         }
 
-        public b(qj.a aVar, o oVar) {
-            this.f30506b = aVar;
-            this.f30507c = oVar;
+        b(rx.a aVar, rx.k.o oVar) {
+            this.f35822a = aVar;
+            this.f35823b = oVar;
         }
 
-        @Override // wj.b
-        public void call(g<? super R> gVar) {
-            dk.b C5 = OperatorPublish.C5(this.f30506b);
-            ((qj.a) this.f30507c.call(C5)).T4(gVar);
-            C5.A5(new a(gVar));
+        @Override // rx.k.b
+        public void call(rx.g<? super R> gVar) {
+            rx.observables.b D5 = OperatorPublish.D5(this.f35822a);
+            ((rx.a) this.f35823b.call(D5)).T4(gVar);
+            D5.A5(new a(gVar));
         }
     }
 
-    public static final class c<T> extends g<T> implements h {
+    static final class c<T> extends rx.g<T> implements rx.h {
 
-        /* renamed from: o */
-        public static final InnerProducer[] f30510o = new InnerProducer[0];
-
-        /* renamed from: p */
-        public static final InnerProducer[] f30511p = new InnerProducer[0];
+        /* renamed from: f */
+        static final InnerProducer[] f35826f = new InnerProducer[0];
 
         /* renamed from: g */
-        public final Queue<Object> f30512g;
+        static final InnerProducer[] f35827g = new InnerProducer[0];
 
         /* renamed from: h */
-        public final NotificationLite<T> f30513h;
+        final Queue<Object> f35828h;
 
         /* renamed from: i */
-        public final AtomicReference<c<T>> f30514i;
+        final NotificationLite<T> f35829i;
 
         /* renamed from: j */
-        public volatile Object f30515j;
+        final AtomicReference<c<T>> f35830j;
+        volatile Object k;
+        final AtomicReference<InnerProducer[]> l;
+        final AtomicBoolean m;
+        boolean n;
+        boolean o;
 
-        /* renamed from: k */
-        public final AtomicReference<InnerProducer[]> f30516k;
-
-        /* renamed from: l */
-        public final AtomicBoolean f30517l;
-
-        /* renamed from: m */
-        public boolean f30518m;
-
-        /* renamed from: n */
-        public boolean f30519n;
-
-        public class a implements wj.a {
-            public a() {
+        class a implements rx.k.a {
+            a() {
             }
 
-            @Override // wj.a
+            @Override // rx.k.a
             public void call() {
-                c.this.f30516k.getAndSet(c.f30511p);
-                c cVar = c.this;
-                e.a(cVar.f30514i, cVar, null);
+                c.this.l.getAndSet(c.f35827g);
+                c<T> cVar = c.this;
+                cVar.f35830j.compareAndSet(cVar, null);
             }
         }
 
         public c(AtomicReference<c<T>> atomicReference) {
-            this.f30512g = g0.f() ? new y<>(ak.e.f246h) : new k<>(ak.e.f246h);
-            this.f30513h = NotificationLite.f();
-            this.f30516k = new AtomicReference<>(f30510o);
-            this.f30514i = atomicReference;
-            this.f30517l = new AtomicBoolean();
+            this.f35828h = rx.internal.util.m.g0.f() ? new rx.internal.util.m.y<>(rx.internal.util.e.f36784c) : new rx.internal.util.k<>(rx.internal.util.e.f36784c);
+            this.f35829i = NotificationLite.f();
+            this.l = new AtomicReference<>(f35826f);
+            this.f35830j = atomicReference;
+            this.m = new AtomicBoolean();
         }
 
-        @Override // qj.g
+        @Override // rx.g
         public void d() {
-            e(ak.e.f246h);
+            e(rx.internal.util.e.f36784c);
         }
 
-        public boolean g(InnerProducer<T> innerProducer) {
+        boolean g(InnerProducer<T> innerProducer) {
             InnerProducer[] innerProducerArr;
             InnerProducer[] innerProducerArr2;
             innerProducer.getClass();
             do {
-                innerProducerArr = this.f30516k.get();
-                if (innerProducerArr == f30511p) {
+                innerProducerArr = this.l.get();
+                if (innerProducerArr == f35827g) {
                     return false;
                 }
                 int length = innerProducerArr.length;
                 innerProducerArr2 = new InnerProducer[length + 1];
                 System.arraycopy(innerProducerArr, 0, innerProducerArr2, 0, length);
                 innerProducerArr2[length] = innerProducer;
-            } while (!e.a(this.f30516k, innerProducerArr, innerProducerArr2));
+            } while (!this.l.compareAndSet(innerProducerArr, innerProducerArr2));
             return true;
         }
 
-        public boolean h(Object obj, boolean z10) {
-            int i10 = 0;
+        boolean h(Object obj, boolean z) {
+            int i2 = 0;
             if (obj != null) {
-                if (!this.f30513h.g(obj)) {
-                    Throwable d10 = this.f30513h.d(obj);
-                    e.a(this.f30514i, this, null);
+                if (!this.f35829i.g(obj)) {
+                    Throwable d2 = this.f35829i.d(obj);
+                    this.f35830j.compareAndSet(this, null);
                     try {
-                        InnerProducer[] andSet = this.f30516k.getAndSet(f30511p);
+                        InnerProducer[] andSet = this.l.getAndSet(f35827g);
                         int length = andSet.length;
-                        while (i10 < length) {
-                            andSet[i10].child.onError(d10);
-                            i10++;
+                        while (i2 < length) {
+                            andSet[i2].child.onError(d2);
+                            i2++;
                         }
                         return true;
                     } finally {
                     }
                 }
-                if (z10) {
-                    e.a(this.f30514i, this, null);
+                if (z) {
+                    this.f35830j.compareAndSet(this, null);
                     try {
-                        InnerProducer[] andSet2 = this.f30516k.getAndSet(f30511p);
+                        InnerProducer[] andSet2 = this.l.getAndSet(f35827g);
                         int length2 = andSet2.length;
-                        while (i10 < length2) {
-                            andSet2[i10].child.onCompleted();
-                            i10++;
+                        while (i2 < length2) {
+                            andSet2[i2].child.onCompleted();
+                            i2++;
                         }
                         return true;
                     } finally {
@@ -277,80 +259,181 @@ public final class OperatorPublish<T> extends dk.b<T> {
             return false;
         }
 
-        /* JADX WARN: Code restructure failed: missing block: B:65:0x00cc, code lost:
-        
-            if (r4 == false) goto L201;
-         */
-        /* JADX WARN: Removed duplicated region for block: B:91:0x00ec  */
-        /*
-            Code decompiled incorrectly, please refer to instructions dump.
-            To view partially-correct code enable 'Show inconsistent code' option in preferences
-        */
-        public void i() {
-            /*
-                Method dump skipped, instructions count: 247
-                To view this dump change 'Code comments level' option to 'DEBUG'
-            */
-            throw new UnsupportedOperationException("Method not decompiled: rx.internal.operators.OperatorPublish.c.i():void");
+        void i() {
+            boolean z;
+            long j2;
+            synchronized (this) {
+                if (this.n) {
+                    this.o = true;
+                    return;
+                }
+                this.n = true;
+                this.o = false;
+                while (true) {
+                    try {
+                        Object obj = this.k;
+                        boolean isEmpty = this.f35828h.isEmpty();
+                        if (h(obj, isEmpty)) {
+                            return;
+                        }
+                        if (!isEmpty) {
+                            InnerProducer[] innerProducerArr = this.l.get();
+                            int length = innerProducerArr.length;
+                            long j3 = Long.MAX_VALUE;
+                            int i2 = 0;
+                            for (InnerProducer innerProducer : innerProducerArr) {
+                                long j4 = innerProducer.get();
+                                if (j4 >= 0) {
+                                    j3 = Math.min(j3, j4);
+                                } else if (j4 == Long.MIN_VALUE) {
+                                    i2++;
+                                }
+                            }
+                            if (length != i2) {
+                                int i3 = 0;
+                                while (true) {
+                                    j2 = i3;
+                                    if (j2 >= j3) {
+                                        break;
+                                    }
+                                    Object obj2 = this.k;
+                                    Object poll = this.f35828h.poll();
+                                    boolean z2 = poll == null;
+                                    if (h(obj2, z2)) {
+                                        return;
+                                    }
+                                    if (z2) {
+                                        isEmpty = z2;
+                                        break;
+                                    }
+                                    T e2 = this.f35829i.e(poll);
+                                    for (InnerProducer innerProducer2 : innerProducerArr) {
+                                        if (innerProducer2.get() > 0) {
+                                            try {
+                                                innerProducer2.child.onNext(e2);
+                                                innerProducer2.produced(1L);
+                                            } catch (Throwable th) {
+                                                innerProducer2.unsubscribe();
+                                                innerProducer2.child.onError(th);
+                                            }
+                                        }
+                                    }
+                                    i3++;
+                                    isEmpty = z2;
+                                }
+                                if (i3 > 0) {
+                                    e(j2);
+                                }
+                                if (j3 != 0 && !isEmpty) {
+                                }
+                            } else if (h(this.k, this.f35828h.poll() == null)) {
+                                return;
+                            } else {
+                                e(1L);
+                            }
+                        }
+                        synchronized (this) {
+                            try {
+                                if (this.o) {
+                                    this.o = false;
+                                } else {
+                                    this.n = false;
+                                    try {
+                                        return;
+                                    } catch (Throwable th2) {
+                                        th = th2;
+                                        z = true;
+                                        while (true) {
+                                            try {
+                                                throw th;
+                                            } catch (Throwable th3) {
+                                                th = th3;
+                                            }
+                                        }
+                                    }
+                                }
+                            } catch (Throwable th4) {
+                                th = th4;
+                                z = false;
+                            }
+                        }
+                        try {
+                            throw th;
+                        } catch (Throwable th5) {
+                            th = th5;
+                            if (!z) {
+                                synchronized (this) {
+                                    this.n = false;
+                                }
+                            }
+                            throw th;
+                        }
+                    } catch (Throwable th6) {
+                        th = th6;
+                        z = false;
+                    }
+                }
+            }
         }
 
-        public void j() {
-            b(f.a(new a()));
+        void j() {
+            b(rx.p.f.a(new a()));
         }
 
-        public void k(InnerProducer<T> innerProducer) {
+        void k(InnerProducer<T> innerProducer) {
             InnerProducer[] innerProducerArr;
             InnerProducer[] innerProducerArr2;
             do {
-                innerProducerArr = this.f30516k.get();
-                if (innerProducerArr == f30510o || innerProducerArr == f30511p) {
+                innerProducerArr = this.l.get();
+                if (innerProducerArr == f35826f || innerProducerArr == f35827g) {
                     return;
                 }
+                int i2 = -1;
                 int length = innerProducerArr.length;
-                int i10 = 0;
+                int i3 = 0;
                 while (true) {
-                    if (i10 >= length) {
-                        i10 = -1;
+                    if (i3 >= length) {
                         break;
-                    } else if (innerProducerArr[i10].equals(innerProducer)) {
-                        break;
-                    } else {
-                        i10++;
                     }
+                    if (innerProducerArr[i3].equals(innerProducer)) {
+                        i2 = i3;
+                        break;
+                    }
+                    i3++;
                 }
-                if (i10 < 0) {
+                if (i2 < 0) {
                     return;
                 }
                 if (length == 1) {
-                    innerProducerArr2 = f30510o;
+                    innerProducerArr2 = f35826f;
                 } else {
                     InnerProducer[] innerProducerArr3 = new InnerProducer[length - 1];
-                    System.arraycopy(innerProducerArr, 0, innerProducerArr3, 0, i10);
-                    System.arraycopy(innerProducerArr, i10 + 1, innerProducerArr3, i10, (length - i10) - 1);
+                    System.arraycopy(innerProducerArr, 0, innerProducerArr3, 0, i2);
+                    System.arraycopy(innerProducerArr, i2 + 1, innerProducerArr3, i2, (length - i2) - 1);
                     innerProducerArr2 = innerProducerArr3;
                 }
-            } while (!e.a(this.f30516k, innerProducerArr, innerProducerArr2));
+            } while (!this.l.compareAndSet(innerProducerArr, innerProducerArr2));
         }
 
-        @Override // qj.b
+        @Override // rx.b
         public void onCompleted() {
-            if (this.f30515j == null) {
-                this.f30515j = this.f30513h.b();
+            if (this.k == null) {
+                this.k = this.f35829i.b();
                 i();
             }
         }
 
-        @Override // qj.b
-        public void onError(Throwable th2) {
-            if (this.f30515j == null) {
-                this.f30515j = this.f30513h.c(th2);
+        @Override // rx.b
+        public void onError(Throwable th) {
+            if (this.k == null) {
+                this.k = this.f35829i.c(th);
                 i();
             }
         }
 
-        @Override // qj.b
-        public void onNext(T t10) {
-            if (this.f30512g.offer(this.f30513h.l(t10))) {
+        @Override // rx.b
+        public void onNext(T t) {
+            if (this.f35828h.offer(this.f35829i.l(t))) {
                 i();
             } else {
                 onError(new MissingBackpressureException());
@@ -358,43 +441,40 @@ public final class OperatorPublish<T> extends dk.b<T> {
         }
     }
 
-    public OperatorPublish(a.m0<T> m0Var, qj.a<? extends T> aVar, AtomicReference<c<T>> atomicReference) {
+    private OperatorPublish(a.m0<T> m0Var, rx.a<? extends T> aVar, AtomicReference<c<T>> atomicReference) {
         super(m0Var);
-        this.f30503d = aVar;
-        this.f30504e = atomicReference;
+        this.f35819c = aVar;
+        this.f35820d = atomicReference;
     }
 
-    public static <T> dk.b<T> C5(qj.a<? extends T> aVar) {
+    public static <T, R> rx.a<R> C5(rx.a<? extends T> aVar, rx.k.o<? super rx.a<T>, ? extends rx.a<R>> oVar) {
+        return rx.a.b0(new b(aVar, oVar));
+    }
+
+    public static <T> rx.observables.b<T> D5(rx.a<? extends T> aVar) {
         AtomicReference atomicReference = new AtomicReference();
         return new OperatorPublish(new a(atomicReference), aVar, atomicReference);
     }
 
-    public static <T, R> qj.a<R> D5(qj.a<? extends T> aVar, o<? super qj.a<T>, ? extends qj.a<R>> oVar) {
-        return qj.a.b0(new b(aVar, oVar));
-    }
-
-    @Override // dk.b
-    public void A5(wj.b<? super h> bVar) {
+    @Override // rx.observables.b
+    public void A5(rx.k.b<? super rx.h> bVar) {
         c<T> cVar;
         while (true) {
-            cVar = this.f30504e.get();
+            cVar = this.f35820d.get();
             if (cVar != null && !cVar.isUnsubscribed()) {
                 break;
             }
-            c<T> cVar2 = new c<>(this.f30504e);
+            c<T> cVar2 = new c<>(this.f35820d);
             cVar2.j();
-            if (e.a(this.f30504e, cVar, cVar2)) {
+            if (this.f35820d.compareAndSet(cVar, cVar2)) {
                 cVar = cVar2;
                 break;
             }
         }
-        boolean z10 = false;
-        if (!cVar.f30517l.get() && cVar.f30517l.compareAndSet(false, true)) {
-            z10 = true;
-        }
+        boolean z = !cVar.m.get() && cVar.m.compareAndSet(false, true);
         bVar.call(cVar);
-        if (z10) {
-            this.f30503d.T4(cVar);
+        if (z) {
+            this.f35819c.T4(cVar);
         }
     }
 }

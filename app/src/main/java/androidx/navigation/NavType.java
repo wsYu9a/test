@@ -5,10 +5,7 @@ import android.os.Parcelable;
 import androidx.annotation.AnyRes;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.constraintlayout.core.motion.utils.TypedValues;
 import java.io.Serializable;
-import okhttp3.HttpUrl;
-import p1.b;
 
 /* loaded from: classes.dex */
 public abstract class NavType<T> {
@@ -45,12 +42,15 @@ public abstract class NavType<T> {
 
     @NonNull
     public static final NavType<String> StringType;
-    private final boolean mNullableAllowed;
+
+    /* renamed from: a, reason: collision with root package name */
+    private final boolean f3043a;
 
     public static final class ParcelableArrayType<D extends Parcelable> extends NavType<D[]> {
 
+        /* renamed from: b, reason: collision with root package name */
         @NonNull
-        private final Class<D[]> mArrayType;
+        private final Class<D[]> f3045b;
 
         public ParcelableArrayType(@NonNull Class<D> cls) {
             super(true);
@@ -58,9 +58,9 @@ public abstract class NavType<T> {
                 throw new IllegalArgumentException(cls + " does not implement Parcelable.");
             }
             try {
-                this.mArrayType = (Class<D[]>) Class.forName("[L" + cls.getName() + ";");
-            } catch (ClassNotFoundException e10) {
-                throw new RuntimeException(e10);
+                this.f3045b = (Class<D[]>) Class.forName("[L" + cls.getName() + ";");
+            } catch (ClassNotFoundException e2) {
+                throw new RuntimeException(e2);
             }
         }
 
@@ -71,17 +71,17 @@ public abstract class NavType<T> {
             if (obj == null || ParcelableArrayType.class != obj.getClass()) {
                 return false;
             }
-            return this.mArrayType.equals(((ParcelableArrayType) obj).mArrayType);
+            return this.f3045b.equals(((ParcelableArrayType) obj).f3045b);
         }
 
         @Override // androidx.navigation.NavType
         @NonNull
         public String getName() {
-            return this.mArrayType.getName();
+            return this.f3045b.getName();
         }
 
         public int hashCode() {
-            return this.mArrayType.hashCode();
+            return this.f3045b.hashCode();
         }
 
         @Override // androidx.navigation.NavType
@@ -98,20 +98,21 @@ public abstract class NavType<T> {
 
         @Override // androidx.navigation.NavType
         public void put(@NonNull Bundle bundle, @NonNull String str, @Nullable D[] dArr) {
-            this.mArrayType.cast(dArr);
+            this.f3045b.cast(dArr);
             bundle.putParcelableArray(str, dArr);
         }
     }
 
     public static final class ParcelableType<D> extends NavType<D> {
 
+        /* renamed from: b, reason: collision with root package name */
         @NonNull
-        private final Class<D> mType;
+        private final Class<D> f3046b;
 
         public ParcelableType(@NonNull Class<D> cls) {
             super(true);
             if (Parcelable.class.isAssignableFrom(cls) || Serializable.class.isAssignableFrom(cls)) {
-                this.mType = cls;
+                this.f3046b = cls;
                 return;
             }
             throw new IllegalArgumentException(cls + " does not implement Parcelable or Serializable.");
@@ -124,7 +125,7 @@ public abstract class NavType<T> {
             if (obj == null || ParcelableType.class != obj.getClass()) {
                 return false;
             }
-            return this.mType.equals(((ParcelableType) obj).mType);
+            return this.f3046b.equals(((ParcelableType) obj).f3046b);
         }
 
         @Override // androidx.navigation.NavType
@@ -136,11 +137,11 @@ public abstract class NavType<T> {
         @Override // androidx.navigation.NavType
         @NonNull
         public String getName() {
-            return this.mType.getName();
+            return this.f3046b.getName();
         }
 
         public int hashCode() {
-            return this.mType.hashCode();
+            return this.f3046b.hashCode();
         }
 
         @Override // androidx.navigation.NavType
@@ -150,20 +151,21 @@ public abstract class NavType<T> {
         }
 
         @Override // androidx.navigation.NavType
-        public void put(@NonNull Bundle bundle, @NonNull String str, @Nullable D d10) {
-            this.mType.cast(d10);
-            if (d10 == null || (d10 instanceof Parcelable)) {
-                bundle.putParcelable(str, (Parcelable) d10);
-            } else if (d10 instanceof Serializable) {
-                bundle.putSerializable(str, (Serializable) d10);
+        public void put(@NonNull Bundle bundle, @NonNull String str, @Nullable D d2) {
+            this.f3046b.cast(d2);
+            if (d2 == null || (d2 instanceof Parcelable)) {
+                bundle.putParcelable(str, (Parcelable) d2);
+            } else if (d2 instanceof Serializable) {
+                bundle.putSerializable(str, (Serializable) d2);
             }
         }
     }
 
     public static final class SerializableArrayType<D extends Serializable> extends NavType<D[]> {
 
+        /* renamed from: b, reason: collision with root package name */
         @NonNull
-        private final Class<D[]> mArrayType;
+        private final Class<D[]> f3047b;
 
         public SerializableArrayType(@NonNull Class<D> cls) {
             super(true);
@@ -171,9 +173,9 @@ public abstract class NavType<T> {
                 throw new IllegalArgumentException(cls + " does not implement Serializable.");
             }
             try {
-                this.mArrayType = (Class<D[]>) Class.forName("[L" + cls.getName() + ";");
-            } catch (ClassNotFoundException e10) {
-                throw new RuntimeException(e10);
+                this.f3047b = (Class<D[]>) Class.forName("[L" + cls.getName() + ";");
+            } catch (ClassNotFoundException e2) {
+                throw new RuntimeException(e2);
             }
         }
 
@@ -184,17 +186,17 @@ public abstract class NavType<T> {
             if (obj == null || SerializableArrayType.class != obj.getClass()) {
                 return false;
             }
-            return this.mArrayType.equals(((SerializableArrayType) obj).mArrayType);
+            return this.f3047b.equals(((SerializableArrayType) obj).f3047b);
         }
 
         @Override // androidx.navigation.NavType
         @NonNull
         public String getName() {
-            return this.mArrayType.getName();
+            return this.f3047b.getName();
         }
 
         public int hashCode() {
-            return this.mArrayType.hashCode();
+            return this.f3047b.hashCode();
         }
 
         @Override // androidx.navigation.NavType
@@ -212,15 +214,16 @@ public abstract class NavType<T> {
         /* JADX WARN: Multi-variable type inference failed */
         @Override // androidx.navigation.NavType
         public void put(@NonNull Bundle bundle, @NonNull String str, @Nullable D[] dArr) {
-            this.mArrayType.cast(dArr);
+            this.f3047b.cast(dArr);
             bundle.putSerializable(str, dArr);
         }
     }
 
     public static class SerializableType<D extends Serializable> extends NavType<D> {
 
+        /* renamed from: b, reason: collision with root package name */
         @NonNull
-        private final Class<D> mType;
+        private final Class<D> f3048b;
 
         public SerializableType(@NonNull Class<D> cls) {
             super(true);
@@ -228,7 +231,7 @@ public abstract class NavType<T> {
                 throw new IllegalArgumentException(cls + " does not implement Serializable.");
             }
             if (!cls.isEnum()) {
-                this.mType = cls;
+                this.f3048b = cls;
                 return;
             }
             throw new IllegalArgumentException(cls + " is an Enum. You should use EnumType instead.");
@@ -239,7 +242,7 @@ public abstract class NavType<T> {
                 return true;
             }
             if (obj instanceof SerializableType) {
-                return this.mType.equals(((SerializableType) obj).mType);
+                return this.f3048b.equals(((SerializableType) obj).f3048b);
             }
             return false;
         }
@@ -247,11 +250,11 @@ public abstract class NavType<T> {
         @Override // androidx.navigation.NavType
         @NonNull
         public String getName() {
-            return this.mType.getName();
+            return this.f3048b.getName();
         }
 
         public int hashCode() {
-            return this.mType.hashCode();
+            return this.f3048b.hashCode();
         }
 
         @Override // androidx.navigation.NavType
@@ -267,15 +270,15 @@ public abstract class NavType<T> {
         }
 
         @Override // androidx.navigation.NavType
-        public void put(@NonNull Bundle bundle, @NonNull String str, @Nullable D d10) {
-            this.mType.cast(d10);
-            bundle.putSerializable(str, d10);
+        public void put(@NonNull Bundle bundle, @NonNull String str, @Nullable D d2) {
+            this.f3048b.cast(d2);
+            bundle.putSerializable(str, d2);
         }
 
-        public SerializableType(boolean z10, @NonNull Class<D> cls) {
-            super(z10);
+        SerializableType(boolean z, @NonNull Class<D> cls) {
+            super(z);
             if (Serializable.class.isAssignableFrom(cls)) {
-                this.mType = cls;
+                this.f3048b = cls;
                 return;
             }
             throw new IllegalArgumentException(cls + " does not implement Serializable.");
@@ -283,12 +286,12 @@ public abstract class NavType<T> {
     }
 
     static {
-        boolean z10 = false;
-        IntType = new NavType<Integer>(z10) { // from class: androidx.navigation.NavType.1
+        boolean z = false;
+        IntType = new NavType<Integer>(z) { // from class: androidx.navigation.NavType.1
             @Override // androidx.navigation.NavType
             @NonNull
             public String getName() {
-                return TypedValues.Custom.S_INT;
+                return "integer";
             }
 
             /* JADX WARN: Can't rename method to resolve collision */
@@ -309,7 +312,7 @@ public abstract class NavType<T> {
                 bundle.putInt(str, num.intValue());
             }
         };
-        ReferenceType = new NavType<Integer>(z10) { // from class: androidx.navigation.NavType.2
+        ReferenceType = new NavType<Integer>(z) { // from class: androidx.navigation.NavType.2
             @Override // androidx.navigation.NavType
             @NonNull
             public String getName() {
@@ -335,8 +338,8 @@ public abstract class NavType<T> {
                 bundle.putInt(str, num.intValue());
             }
         };
-        boolean z11 = true;
-        IntArrayType = new NavType<int[]>(z11) { // from class: androidx.navigation.NavType.3
+        boolean z2 = true;
+        IntArrayType = new NavType<int[]>(z2) { // from class: androidx.navigation.NavType.3
             @Override // androidx.navigation.NavType
             @NonNull
             public String getName() {
@@ -359,7 +362,7 @@ public abstract class NavType<T> {
                 bundle.putIntArray(str, iArr);
             }
         };
-        LongType = new NavType<Long>(z10) { // from class: androidx.navigation.NavType.4
+        LongType = new NavType<Long>(z) { // from class: androidx.navigation.NavType.4
             @Override // androidx.navigation.NavType
             @NonNull
             public String getName() {
@@ -383,11 +386,11 @@ public abstract class NavType<T> {
             }
 
             @Override // androidx.navigation.NavType
-            public void put(@NonNull Bundle bundle, @NonNull String str, @NonNull Long l10) {
-                bundle.putLong(str, l10.longValue());
+            public void put(@NonNull Bundle bundle, @NonNull String str, @NonNull Long l) {
+                bundle.putLong(str, l.longValue());
             }
         };
-        LongArrayType = new NavType<long[]>(z11) { // from class: androidx.navigation.NavType.5
+        LongArrayType = new NavType<long[]>(z2) { // from class: androidx.navigation.NavType.5
             @Override // androidx.navigation.NavType
             @NonNull
             public String getName() {
@@ -410,11 +413,11 @@ public abstract class NavType<T> {
                 bundle.putLongArray(str, jArr);
             }
         };
-        FloatType = new NavType<Float>(z10) { // from class: androidx.navigation.NavType.6
+        FloatType = new NavType<Float>(z) { // from class: androidx.navigation.NavType.6
             @Override // androidx.navigation.NavType
             @NonNull
             public String getName() {
-                return TypedValues.Custom.S_FLOAT;
+                return "float";
             }
 
             /* JADX WARN: Can't rename method to resolve collision */
@@ -431,11 +434,11 @@ public abstract class NavType<T> {
             }
 
             @Override // androidx.navigation.NavType
-            public void put(@NonNull Bundle bundle, @NonNull String str, @NonNull Float f10) {
-                bundle.putFloat(str, f10.floatValue());
+            public void put(@NonNull Bundle bundle, @NonNull String str, @NonNull Float f2) {
+                bundle.putFloat(str, f2.floatValue());
             }
         };
-        FloatArrayType = new NavType<float[]>(z11) { // from class: androidx.navigation.NavType.7
+        FloatArrayType = new NavType<float[]>(z2) { // from class: androidx.navigation.NavType.7
             @Override // androidx.navigation.NavType
             @NonNull
             public String getName() {
@@ -458,11 +461,11 @@ public abstract class NavType<T> {
                 bundle.putFloatArray(str, fArr);
             }
         };
-        BoolType = new NavType<Boolean>(z10) { // from class: androidx.navigation.NavType.8
+        BoolType = new NavType<Boolean>(z) { // from class: androidx.navigation.NavType.8
             @Override // androidx.navigation.NavType
             @NonNull
             public String getName() {
-                return TypedValues.Custom.S_BOOLEAN;
+                return "boolean";
             }
 
             /* JADX WARN: Can't rename method to resolve collision */
@@ -489,7 +492,7 @@ public abstract class NavType<T> {
                 bundle.putBoolean(str, bool.booleanValue());
             }
         };
-        BoolArrayType = new NavType<boolean[]>(z11) { // from class: androidx.navigation.NavType.9
+        BoolArrayType = new NavType<boolean[]>(z2) { // from class: androidx.navigation.NavType.9
             @Override // androidx.navigation.NavType
             @NonNull
             public String getName() {
@@ -512,11 +515,11 @@ public abstract class NavType<T> {
                 bundle.putBooleanArray(str, zArr);
             }
         };
-        StringType = new NavType<String>(z11) { // from class: androidx.navigation.NavType.10
+        StringType = new NavType<String>(z2) { // from class: androidx.navigation.NavType.10
             @Override // androidx.navigation.NavType
             @NonNull
             public String getName() {
-                return TypedValues.Custom.S_STRING;
+                return "string";
             }
 
             @Override // androidx.navigation.NavType
@@ -535,7 +538,7 @@ public abstract class NavType<T> {
                 bundle.putString(str, str2);
             }
         };
-        StringArrayType = new NavType<String[]>(z11) { // from class: androidx.navigation.NavType.11
+        StringArrayType = new NavType<String[]>(z2) { // from class: androidx.navigation.NavType.11
             @Override // androidx.navigation.NavType
             @NonNull
             public String getName() {
@@ -560,8 +563,87 @@ public abstract class NavType<T> {
         };
     }
 
-    public NavType(boolean z10) {
-        this.mNullableAllowed = z10;
+    NavType(boolean z) {
+        this.f3043a = z;
+    }
+
+    @NonNull
+    static NavType a(@NonNull String str) {
+        try {
+            try {
+                try {
+                    try {
+                        NavType<Integer> navType = IntType;
+                        navType.parseValue(str);
+                        return navType;
+                    } catch (IllegalArgumentException unused) {
+                        return StringType;
+                    }
+                } catch (IllegalArgumentException unused2) {
+                    NavType<Long> navType2 = LongType;
+                    navType2.parseValue(str);
+                    return navType2;
+                }
+            } catch (IllegalArgumentException unused3) {
+                NavType<Float> navType3 = FloatType;
+                navType3.parseValue(str);
+                return navType3;
+            }
+        } catch (IllegalArgumentException unused4) {
+            NavType<Boolean> navType4 = BoolType;
+            navType4.parseValue(str);
+            return navType4;
+        }
+    }
+
+    @NonNull
+    static NavType b(@Nullable Object obj) {
+        if (obj instanceof Integer) {
+            return IntType;
+        }
+        if (obj instanceof int[]) {
+            return IntArrayType;
+        }
+        if (obj instanceof Long) {
+            return LongType;
+        }
+        if (obj instanceof long[]) {
+            return LongArrayType;
+        }
+        if (obj instanceof Float) {
+            return FloatType;
+        }
+        if (obj instanceof float[]) {
+            return FloatArrayType;
+        }
+        if (obj instanceof Boolean) {
+            return BoolType;
+        }
+        if (obj instanceof boolean[]) {
+            return BoolArrayType;
+        }
+        if ((obj instanceof String) || obj == null) {
+            return StringType;
+        }
+        if (obj instanceof String[]) {
+            return StringArrayType;
+        }
+        if (obj.getClass().isArray() && Parcelable.class.isAssignableFrom(obj.getClass().getComponentType())) {
+            return new ParcelableArrayType(obj.getClass().getComponentType());
+        }
+        if (obj.getClass().isArray() && Serializable.class.isAssignableFrom(obj.getClass().getComponentType())) {
+            return new SerializableArrayType(obj.getClass().getComponentType());
+        }
+        if (obj instanceof Parcelable) {
+            return new ParcelableType(obj.getClass());
+        }
+        if (obj instanceof Enum) {
+            return new EnumType(obj.getClass());
+        }
+        if (obj instanceof Serializable) {
+            return new SerializableType(obj.getClass());
+        }
+        throw new IllegalArgumentException("Object of type " + obj.getClass().getName() + " is not supported for navigation arguments.");
     }
 
     @NonNull
@@ -615,12 +697,12 @@ public abstract class NavType<T> {
             return navType7;
         }
         try {
-            if (!str.startsWith(b.f29697h) || str2 == null) {
+            if (!str.startsWith(".") || str2 == null) {
                 str3 = str;
             } else {
                 str3 = str2 + str;
             }
-            if (str.endsWith(HttpUrl.PATH_SEGMENT_ENCODE_SET_URI)) {
+            if (str.endsWith("[]")) {
                 str3 = str3.substring(0, str3.length() - 2);
                 Class<?> cls = Class.forName(str3);
                 if (Parcelable.class.isAssignableFrom(cls)) {
@@ -642,88 +724,16 @@ public abstract class NavType<T> {
                 }
             }
             throw new IllegalArgumentException(str3 + " is not Serializable or Parcelable.");
-        } catch (ClassNotFoundException e10) {
-            throw new RuntimeException(e10);
+        } catch (ClassNotFoundException e2) {
+            throw new RuntimeException(e2);
         }
     }
 
     @NonNull
-    public static NavType inferFromValue(@NonNull String str) {
-        try {
-            try {
-                try {
-                    try {
-                        NavType<Integer> navType = IntType;
-                        navType.parseValue(str);
-                        return navType;
-                    } catch (IllegalArgumentException unused) {
-                        return StringType;
-                    }
-                } catch (IllegalArgumentException unused2) {
-                    NavType<Long> navType2 = LongType;
-                    navType2.parseValue(str);
-                    return navType2;
-                }
-            } catch (IllegalArgumentException unused3) {
-                NavType<Float> navType3 = FloatType;
-                navType3.parseValue(str);
-                return navType3;
-            }
-        } catch (IllegalArgumentException unused4) {
-            NavType<Boolean> navType4 = BoolType;
-            navType4.parseValue(str);
-            return navType4;
-        }
-    }
-
-    @NonNull
-    public static NavType inferFromValueType(@Nullable Object obj) {
-        if (obj instanceof Integer) {
-            return IntType;
-        }
-        if (obj instanceof int[]) {
-            return IntArrayType;
-        }
-        if (obj instanceof Long) {
-            return LongType;
-        }
-        if (obj instanceof long[]) {
-            return LongArrayType;
-        }
-        if (obj instanceof Float) {
-            return FloatType;
-        }
-        if (obj instanceof float[]) {
-            return FloatArrayType;
-        }
-        if (obj instanceof Boolean) {
-            return BoolType;
-        }
-        if (obj instanceof boolean[]) {
-            return BoolArrayType;
-        }
-        if ((obj instanceof String) || obj == null) {
-            return StringType;
-        }
-        if (obj instanceof String[]) {
-            return StringArrayType;
-        }
-        if (obj.getClass().isArray() && Parcelable.class.isAssignableFrom(obj.getClass().getComponentType())) {
-            return new ParcelableArrayType(obj.getClass().getComponentType());
-        }
-        if (obj.getClass().isArray() && Serializable.class.isAssignableFrom(obj.getClass().getComponentType())) {
-            return new SerializableArrayType(obj.getClass().getComponentType());
-        }
-        if (obj instanceof Parcelable) {
-            return new ParcelableType(obj.getClass());
-        }
-        if (obj instanceof Enum) {
-            return new EnumType(obj.getClass());
-        }
-        if (obj instanceof Serializable) {
-            return new SerializableType(obj.getClass());
-        }
-        throw new IllegalArgumentException("Object of type " + obj.getClass().getName() + " is not supported for navigation arguments.");
+    T c(@NonNull Bundle bundle, @NonNull String str, @NonNull String str2) {
+        T parseValue = parseValue(str2);
+        put(bundle, str, parseValue);
+        return parseValue;
     }
 
     @Nullable
@@ -733,20 +743,13 @@ public abstract class NavType<T> {
     public abstract String getName();
 
     public boolean isNullableAllowed() {
-        return this.mNullableAllowed;
-    }
-
-    @NonNull
-    public T parseAndPut(@NonNull Bundle bundle, @NonNull String str, @NonNull String str2) {
-        T parseValue = parseValue(str2);
-        put(bundle, str, parseValue);
-        return parseValue;
+        return this.f3043a;
     }
 
     @NonNull
     public abstract T parseValue(@NonNull String str);
 
-    public abstract void put(@NonNull Bundle bundle, @NonNull String str, @Nullable T t10);
+    public abstract void put(@NonNull Bundle bundle, @NonNull String str, @Nullable T t);
 
     @NonNull
     public String toString() {
@@ -755,13 +758,14 @@ public abstract class NavType<T> {
 
     public static final class EnumType<D extends Enum> extends SerializableType<D> {
 
+        /* renamed from: c, reason: collision with root package name */
         @NonNull
-        private final Class<D> mType;
+        private final Class<D> f3044c;
 
         public EnumType(@NonNull Class<D> cls) {
             super(false, cls);
             if (cls.isEnum()) {
-                this.mType = cls;
+                this.f3044c = cls;
                 return;
             }
             throw new IllegalArgumentException(cls + " is not an Enum type.");
@@ -770,18 +774,18 @@ public abstract class NavType<T> {
         @Override // androidx.navigation.NavType.SerializableType, androidx.navigation.NavType
         @NonNull
         public String getName() {
-            return this.mType.getName();
+            return this.f3044c.getName();
         }
 
         @Override // androidx.navigation.NavType.SerializableType, androidx.navigation.NavType
         @NonNull
         public D parseValue(@NonNull String str) {
-            for (D d10 : this.mType.getEnumConstants()) {
-                if (d10.name().equals(str)) {
-                    return d10;
+            for (D d2 : this.f3044c.getEnumConstants()) {
+                if (d2.name().equals(str)) {
+                    return d2;
                 }
             }
-            throw new IllegalArgumentException("Enum value " + str + " not found for type " + this.mType.getName() + b.f29697h);
+            throw new IllegalArgumentException("Enum value " + str + " not found for type " + this.f3044c.getName() + ".");
         }
     }
 }

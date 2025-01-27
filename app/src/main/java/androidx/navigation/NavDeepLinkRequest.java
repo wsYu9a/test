@@ -8,14 +8,26 @@ import java.util.regex.Pattern;
 
 /* loaded from: classes.dex */
 public class NavDeepLinkRequest {
-    private final String mAction;
-    private final String mMimeType;
-    private final Uri mUri;
+
+    /* renamed from: a, reason: collision with root package name */
+    private final Uri f2997a;
+
+    /* renamed from: b, reason: collision with root package name */
+    private final String f2998b;
+
+    /* renamed from: c, reason: collision with root package name */
+    private final String f2999c;
 
     public static final class Builder {
-        private String mAction;
-        private String mMimeType;
-        private Uri mUri;
+
+        /* renamed from: a, reason: collision with root package name */
+        private Uri f3000a;
+
+        /* renamed from: b, reason: collision with root package name */
+        private String f3001b;
+
+        /* renamed from: c, reason: collision with root package name */
+        private String f3002c;
 
         private Builder() {
         }
@@ -46,7 +58,7 @@ public class NavDeepLinkRequest {
 
         @NonNull
         public NavDeepLinkRequest build() {
-            return new NavDeepLinkRequest(this.mUri, this.mAction, this.mMimeType);
+            return new NavDeepLinkRequest(this.f3000a, this.f3001b, this.f3002c);
         }
 
         @NonNull
@@ -54,14 +66,14 @@ public class NavDeepLinkRequest {
             if (str.isEmpty()) {
                 throw new IllegalArgumentException("The NavDeepLinkRequest cannot have an empty action.");
             }
-            this.mAction = str;
+            this.f3001b = str;
             return this;
         }
 
         @NonNull
         public Builder setMimeType(@NonNull String str) {
             if (Pattern.compile("^[-\\w*.]+/[-\\w+*.]+$").matcher(str).matches()) {
-                this.mMimeType = str;
+                this.f3002c = str;
                 return this;
             }
             throw new IllegalArgumentException("The given mimeType " + str + " does not match to required \"type/subtype\" format");
@@ -69,54 +81,54 @@ public class NavDeepLinkRequest {
 
         @NonNull
         public Builder setUri(@NonNull Uri uri) {
-            this.mUri = uri;
+            this.f3000a = uri;
             return this;
         }
     }
 
-    public NavDeepLinkRequest(@NonNull Intent intent) {
+    NavDeepLinkRequest(@NonNull Intent intent) {
         this(intent.getData(), intent.getAction(), intent.getType());
     }
 
     @Nullable
     public String getAction() {
-        return this.mAction;
+        return this.f2998b;
     }
 
     @Nullable
     public String getMimeType() {
-        return this.mMimeType;
+        return this.f2999c;
     }
 
     @Nullable
     public Uri getUri() {
-        return this.mUri;
+        return this.f2997a;
     }
 
     @NonNull
     public String toString() {
-        StringBuilder sb2 = new StringBuilder();
-        sb2.append("NavDeepLinkRequest");
-        sb2.append("{");
-        if (this.mUri != null) {
-            sb2.append(" uri=");
-            sb2.append(this.mUri.toString());
+        StringBuilder sb = new StringBuilder();
+        sb.append("NavDeepLinkRequest");
+        sb.append("{");
+        if (this.f2997a != null) {
+            sb.append(" uri=");
+            sb.append(this.f2997a.toString());
         }
-        if (this.mAction != null) {
-            sb2.append(" action=");
-            sb2.append(this.mAction);
+        if (this.f2998b != null) {
+            sb.append(" action=");
+            sb.append(this.f2998b);
         }
-        if (this.mMimeType != null) {
-            sb2.append(" mimetype=");
-            sb2.append(this.mMimeType);
+        if (this.f2999c != null) {
+            sb.append(" mimetype=");
+            sb.append(this.f2999c);
         }
-        sb2.append(" }");
-        return sb2.toString();
+        sb.append(" }");
+        return sb.toString();
     }
 
-    public NavDeepLinkRequest(@Nullable Uri uri, @Nullable String str, @Nullable String str2) {
-        this.mUri = uri;
-        this.mAction = str;
-        this.mMimeType = str2;
+    NavDeepLinkRequest(@Nullable Uri uri, @Nullable String str, @Nullable String str2) {
+        this.f2997a = uri;
+        this.f2998b = str;
+        this.f2999c = str2;
     }
 }

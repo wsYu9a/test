@@ -1,16 +1,17 @@
 package com.google.gson;
 
-import com.google.gson.internal.C$Gson$Preconditions;
 import com.google.gson.internal.LazilyParsedNumber;
+import com.google.gson.internal.a;
 import java.math.BigDecimal;
 import java.math.BigInteger;
 
-/* loaded from: classes2.dex */
+/* loaded from: classes.dex */
 public final class JsonPrimitive extends JsonElement {
-    private final Object value;
+    private static final Class<?>[] PRIMITIVE_TYPES = {Integer.TYPE, Long.TYPE, Short.TYPE, Float.TYPE, Double.TYPE, Byte.TYPE, Boolean.TYPE, Character.TYPE, Integer.class, Long.class, Short.class, Float.class, Double.class, Byte.class, Boolean.class, Character.class};
+    private Object value;
 
     public JsonPrimitive(Boolean bool) {
-        this.value = C$Gson$Preconditions.checkNotNull(bool);
+        setValue(bool);
     }
 
     private static boolean isIntegral(JsonPrimitive jsonPrimitive) {
@@ -20,6 +21,19 @@ public final class JsonPrimitive extends JsonElement {
         }
         Number number = (Number) obj;
         return (number instanceof BigInteger) || (number instanceof Long) || (number instanceof Integer) || (number instanceof Short) || (number instanceof Byte);
+    }
+
+    private static boolean isPrimitiveOrString(Object obj) {
+        if (obj instanceof String) {
+            return true;
+        }
+        Class<?> cls = obj.getClass();
+        for (Class<?> cls2 : PRIMITIVE_TYPES) {
+            if (cls2.isAssignableFrom(cls)) {
+                return true;
+            }
+        }
+        return false;
     }
 
     @Override // com.google.gson.JsonElement
@@ -67,7 +81,12 @@ public final class JsonPrimitive extends JsonElement {
 
     @Override // com.google.gson.JsonElement
     public boolean getAsBoolean() {
-        return isBoolean() ? ((Boolean) this.value).booleanValue() : Boolean.parseBoolean(getAsString());
+        return isBoolean() ? getAsBooleanWrapper().booleanValue() : Boolean.parseBoolean(getAsString());
+    }
+
+    @Override // com.google.gson.JsonElement
+    Boolean getAsBooleanWrapper() {
+        return (Boolean) this.value;
     }
 
     @Override // com.google.gson.JsonElement
@@ -103,7 +122,7 @@ public final class JsonPrimitive extends JsonElement {
     @Override // com.google.gson.JsonElement
     public Number getAsNumber() {
         Object obj = this.value;
-        return obj instanceof String ? new LazilyParsedNumber((String) obj) : (Number) obj;
+        return obj instanceof String ? new LazilyParsedNumber((String) this.value) : (Number) obj;
     }
 
     @Override // com.google.gson.JsonElement
@@ -113,7 +132,7 @@ public final class JsonPrimitive extends JsonElement {
 
     @Override // com.google.gson.JsonElement
     public String getAsString() {
-        return isNumber() ? getAsNumber().toString() : isBoolean() ? ((Boolean) this.value).toString() : (String) this.value;
+        return isNumber() ? getAsNumber().toString() : isBoolean() ? getAsBooleanWrapper().toString() : (String) this.value;
     }
 
     public int hashCode() {
@@ -145,15 +164,28 @@ public final class JsonPrimitive extends JsonElement {
         return this.value instanceof String;
     }
 
+    void setValue(Object obj) {
+        if (obj instanceof Character) {
+            this.value = String.valueOf(((Character) obj).charValue());
+        } else {
+            a.a((obj instanceof Number) || isPrimitiveOrString(obj));
+            this.value = obj;
+        }
+    }
+
     public JsonPrimitive(Number number) {
-        this.value = C$Gson$Preconditions.checkNotNull(number);
+        setValue(number);
     }
 
     public JsonPrimitive(String str) {
-        this.value = C$Gson$Preconditions.checkNotNull(str);
+        setValue(str);
     }
 
-    public JsonPrimitive(Character ch2) {
-        this.value = ((Character) C$Gson$Preconditions.checkNotNull(ch2)).toString();
+    public JsonPrimitive(Character ch) {
+        setValue(ch);
+    }
+
+    JsonPrimitive(Object obj) {
+        setValue(obj);
     }
 }

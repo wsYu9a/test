@@ -3,6 +3,7 @@ package com.ss.android.socialbase.downloader.network.connectionpool;
 import com.ss.android.socialbase.downloader.downloader.DownloadComponentManager;
 import com.ss.android.socialbase.downloader.model.HttpHeader;
 import com.ss.android.socialbase.downloader.network.IDownloadHeadHttpConnection;
+import com.ss.android.socialbase.downloader.utils.DownloadUtils;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -32,14 +33,14 @@ public class FakeDownloadHeadHttpConnection implements IDownloadHeadHttpConnecti
         arrayList.add("Content-Range");
         arrayList.add("Transfer-Encoding");
         arrayList.add("Accept-Ranges");
-        arrayList.add("Etag");
+        arrayList.add(DownloadUtils.ETAG);
         arrayList.add("Content-Disposition");
     }
 
-    public FakeDownloadHeadHttpConnection(String str, List<HttpHeader> list, long j10) {
+    public FakeDownloadHeadHttpConnection(String str, List<HttpHeader> list, long j2) {
         this.mUrl = str;
         this.mRequestHeaders = list;
-        this.mStartOffset = j10;
+        this.mStartOffset = j2;
     }
 
     private void parseHeaders(IDownloadHeadHttpConnection iDownloadHeadHttpConnection, Map<String, String> map) {
@@ -70,36 +71,30 @@ public class FakeDownloadHeadHttpConnection implements IDownloadHeadHttpConnecti
             this.isRequesting = true;
             this.realConnection = DownloadComponentManager.downloadWithHeadConnection(this.mUrl, this.mRequestHeaders);
             synchronized (this.mJoinLock) {
-                try {
-                    if (this.realConnection != null) {
-                        HashMap hashMap = new HashMap();
-                        this.mResponseHeaders = hashMap;
-                        parseHeaders(this.realConnection, hashMap);
-                        this.mResponseCode = this.realConnection.getResponseCode();
-                        this.mCreateTime = System.currentTimeMillis();
-                        this.isSuccessful = isSuccessful(this.mResponseCode);
-                    }
-                    this.isRequesting = false;
-                    this.mJoinLock.notifyAll();
-                } finally {
+                if (this.realConnection != null) {
+                    HashMap hashMap = new HashMap();
+                    this.mResponseHeaders = hashMap;
+                    parseHeaders(this.realConnection, hashMap);
+                    this.mResponseCode = this.realConnection.getResponseCode();
+                    this.mCreateTime = System.currentTimeMillis();
+                    this.isSuccessful = isSuccessful(this.mResponseCode);
                 }
+                this.isRequesting = false;
+                this.mJoinLock.notifyAll();
             }
-        } catch (Throwable th2) {
+        } catch (Throwable th) {
             synchronized (this.mJoinLock) {
-                try {
-                    if (this.realConnection != null) {
-                        HashMap hashMap2 = new HashMap();
-                        this.mResponseHeaders = hashMap2;
-                        parseHeaders(this.realConnection, hashMap2);
-                        this.mResponseCode = this.realConnection.getResponseCode();
-                        this.mCreateTime = System.currentTimeMillis();
-                        this.isSuccessful = isSuccessful(this.mResponseCode);
-                    }
-                    this.isRequesting = false;
-                    this.mJoinLock.notifyAll();
-                    throw th2;
-                } finally {
+                if (this.realConnection != null) {
+                    HashMap hashMap2 = new HashMap();
+                    this.mResponseHeaders = hashMap2;
+                    parseHeaders(this.realConnection, hashMap2);
+                    this.mResponseCode = this.realConnection.getResponseCode();
+                    this.mCreateTime = System.currentTimeMillis();
+                    this.isSuccessful = isSuccessful(this.mResponseCode);
                 }
+                this.isRequesting = false;
+                this.mJoinLock.notifyAll();
+                throw th;
             }
         }
     }
@@ -135,8 +130,13 @@ public class FakeDownloadHeadHttpConnection implements IDownloadHeadHttpConnecti
         return this.isRequesting;
     }
 
-    public boolean isSuccessful(int i10) {
-        return i10 >= 200 && i10 < 300;
+    @Override // com.ss.android.socialbase.downloader.network.connectionpool.IFakeDownloadHttpConnection
+    public boolean isSuccessful() {
+        return this.isSuccessful;
+    }
+
+    public boolean isSuccessful(int i2) {
+        return i2 >= 200 && i2 < 300;
     }
 
     @Override // com.ss.android.socialbase.downloader.network.connectionpool.IFakeDownloadHttpConnection
@@ -147,18 +147,9 @@ public class FakeDownloadHeadHttpConnection implements IDownloadHeadHttpConnecti
     @Override // com.ss.android.socialbase.downloader.network.connectionpool.IFakeDownloadHttpConnection
     public void joinExecute() throws InterruptedException {
         synchronized (this.mJoinLock) {
-            try {
-                if (this.isRequesting && this.mResponseHeaders == null) {
-                    this.mJoinLock.wait();
-                }
-            } catch (Throwable th2) {
-                throw th2;
+            if (this.isRequesting && this.mResponseHeaders == null) {
+                this.mJoinLock.wait();
             }
         }
-    }
-
-    @Override // com.ss.android.socialbase.downloader.network.connectionpool.IFakeDownloadHttpConnection
-    public boolean isSuccessful() {
-        return this.isSuccessful;
     }
 }

@@ -11,7 +11,7 @@ import java.net.URL;
 import java.security.MessageDigest;
 import java.util.Map;
 
-/* loaded from: classes2.dex */
+/* loaded from: classes.dex */
 public class GlideUrl implements Key {
     private static final String ALLOWED_URI_CHARS = "@#&=*+-_.,:!?()/~'%;$";
 

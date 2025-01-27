@@ -7,7 +7,7 @@ import java.lang.annotation.RetentionPolicy;
 
 @KsAdSdkApi
 @Keep
-/* loaded from: classes3.dex */
+/* loaded from: classes2.dex */
 public interface KsInnerAd {
 
     @KsAdSdkApi
@@ -24,6 +24,7 @@ public interface KsInnerAd {
 
     @Keep
     @Retention(RetentionPolicy.SOURCE)
+    /* loaded from: classes.dex */
     public @interface KsInnerAdType {
         public static final int AGGREGATION = 1;
         public static final int REFLOW = 2;

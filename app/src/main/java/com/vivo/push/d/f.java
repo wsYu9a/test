@@ -10,7 +10,7 @@ import java.util.List;
 
 /* loaded from: classes4.dex */
 final class f extends com.vivo.push.l {
-    public f(com.vivo.push.o oVar) {
+    f(com.vivo.push.o oVar) {
         super(oVar);
     }
 
@@ -74,20 +74,20 @@ final class f extends com.vivo.push.l {
     }
 
     @Override // com.vivo.push.l
-    public final void a(com.vivo.push.o oVar) {
-        if (this.f25064a.getPackageName().equals(com.vivo.push.util.t.b(this.f25064a))) {
+    protected final void a(com.vivo.push.o oVar) {
+        if (this.f31028a.getPackageName().equals(com.vivo.push.util.t.b(this.f31028a))) {
             return;
         }
         com.vivo.push.b.j jVar = (com.vivo.push.b.j) oVar;
-        int d10 = jVar.d();
-        int e10 = jVar.e();
-        com.vivo.push.util.p.d("OnChangePushStatusTask", "OnChangePushStatusTask serviceStatus is " + d10 + " ; receiverStatus is " + e10);
-        if (d10 == 2) {
-            b(this.f25064a);
-        } else if (d10 == 1) {
-            a(this.f25064a);
-        } else if (d10 == 0) {
-            Context context = this.f25064a;
+        int d2 = jVar.d();
+        int e2 = jVar.e();
+        com.vivo.push.util.p.d("OnChangePushStatusTask", "OnChangePushStatusTask serviceStatus is " + d2 + " ; receiverStatus is " + e2);
+        if (d2 == 2) {
+            b(this.f31028a);
+        } else if (d2 == 1) {
+            a(this.f31028a);
+        } else if (d2 == 0) {
+            Context context = this.f31028a;
             Intent intent = new Intent("com.vivo.pushservice.action.PUSH_SERVICE");
             intent.setPackage(context.getPackageName());
             List<ResolveInfo> queryIntentServices = context.getPackageManager().queryIntentServices(intent, 576);
@@ -104,11 +104,11 @@ final class f extends com.vivo.push.l {
                 com.vivo.push.util.p.a("OnChangePushStatusTask", "defaultService error: can not find push service.");
             }
         }
-        if (e10 == 2) {
-            Context context2 = this.f25064a;
-            List<ResolveInfo> c10 = c(context2);
-            if (c10 != null && c10.size() > 0) {
-                String str = c10.get(0).activityInfo.name;
+        if (e2 == 2) {
+            Context context2 = this.f31028a;
+            List<ResolveInfo> c2 = c(context2);
+            if (c2 != null && c2.size() > 0) {
+                String str = c2.get(0).activityInfo.name;
                 if (TextUtils.isEmpty(str)) {
                     com.vivo.push.util.p.d("OnChangePushStatusTask", "disableReceiver error: className is null. ");
                 } else {
@@ -127,11 +127,11 @@ final class f extends com.vivo.push.l {
             com.vivo.push.sdk.a.a().b();
             return;
         }
-        if (e10 == 1) {
-            Context context3 = this.f25064a;
-            List<ResolveInfo> c11 = c(context3);
-            if (c11 != null && c11.size() > 0) {
-                String str2 = c11.get(0).activityInfo.name;
+        if (e2 == 1) {
+            Context context3 = this.f31028a;
+            List<ResolveInfo> c3 = c(context3);
+            if (c3 != null && c3.size() > 0) {
+                String str2 = c3.get(0).activityInfo.name;
                 if (TextUtils.isEmpty(str2)) {
                     com.vivo.push.util.p.d("OnChangePushStatusTask", "enableReceiver error: className is null. ");
                     return;
@@ -150,11 +150,11 @@ final class f extends com.vivo.push.l {
             com.vivo.push.util.p.a("OnChangePushStatusTask", "enableReceiver error: can not find push service.");
             return;
         }
-        if (e10 == 0) {
-            Context context4 = this.f25064a;
-            List<ResolveInfo> c12 = c(context4);
-            if (c12 != null && c12.size() > 0) {
-                String str3 = c12.get(0).activityInfo.name;
+        if (e2 == 0) {
+            Context context4 = this.f31028a;
+            List<ResolveInfo> c4 = c(context4);
+            if (c4 != null && c4.size() > 0) {
+                String str3 = c4.get(0).activityInfo.name;
                 if (TextUtils.isEmpty(str3)) {
                     com.vivo.push.util.p.d("OnChangePushStatusTask", "defaultReceiver error: className is null. ");
                     return;

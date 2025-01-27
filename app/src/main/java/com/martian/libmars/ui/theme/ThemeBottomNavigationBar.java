@@ -5,48 +5,45 @@ import android.util.AttributeSet;
 import androidx.core.content.ContextCompat;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.martian.libmars.R;
-import com.martian.libmars.common.ConfigSingleton;
-import k9.a;
+import com.martian.libmars.d.h;
+import g.a;
 
-/* loaded from: classes3.dex */
+/* loaded from: classes2.dex */
 public class ThemeBottomNavigationBar extends BottomNavigationView implements a {
     public ThemeBottomNavigationBar(Context context) {
         super(context);
-        a();
+        l();
     }
 
-    private void a() {
-        p();
+    private void l() {
+        g();
+    }
+
+    @Override // g.a
+    public void g() {
+        setBackgroundColor(ContextCompat.getColor(getContext(), h.F().I0() ? R.color.night_background_card : R.color.white));
     }
 
     @Override // com.google.android.material.bottomnavigation.BottomNavigationView, android.view.ViewGroup, android.view.View
-    public void onAttachedToWindow() {
+    protected void onAttachedToWindow() {
         super.onAttachedToWindow();
-        p();
-        ConfigSingleton.D().h(this);
+        g();
+        h.F().a(this);
     }
 
     @Override // android.view.ViewGroup, android.view.View
-    public void onDetachedFromWindow() {
+    protected void onDetachedFromWindow() {
         super.onDetachedFromWindow();
-        ConfigSingleton.D().X0(this);
+        h.F().j1(this);
     }
 
-    @Override // k9.a
-    public void p() {
-        if (isInEditMode()) {
-            return;
-        }
-        setBackgroundColor(ContextCompat.getColor(getContext(), ConfigSingleton.D().A0() ? R.color.night_background_card : R.color.white));
+    public ThemeBottomNavigationBar(Context context, AttributeSet attrs) {
+        this(context, attrs, 0);
+        l();
     }
 
-    public ThemeBottomNavigationBar(Context context, AttributeSet attributeSet) {
-        this(context, attributeSet, 0);
-        a();
-    }
-
-    public ThemeBottomNavigationBar(Context context, AttributeSet attributeSet, int i10) {
-        super(context, attributeSet, i10);
-        a();
+    public ThemeBottomNavigationBar(Context context, AttributeSet attrs, int defStyleAttr) {
+        super(context, attrs, defStyleAttr);
+        l();
     }
 }

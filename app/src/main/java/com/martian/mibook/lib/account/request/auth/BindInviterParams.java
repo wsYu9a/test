@@ -1,6 +1,6 @@
 package com.martian.mibook.lib.account.request.auth;
 
-import v8.a;
+import com.martian.libcomm.http.requests.d.a;
 
 /* loaded from: classes3.dex */
 public class BindInviterParams extends TYAuthParams {
@@ -17,7 +17,7 @@ public class BindInviterParams extends TYAuthParams {
         return this.inviteCode;
     }
 
-    public void setInviteCode(String str) {
-        this.inviteCode = str;
+    public void setInviteCode(String inviteCode) {
+        this.inviteCode = inviteCode;
     }
 }

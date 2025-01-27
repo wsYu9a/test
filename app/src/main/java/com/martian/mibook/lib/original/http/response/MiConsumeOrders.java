@@ -3,7 +3,7 @@ package com.martian.mibook.lib.original.http.response;
 import com.martian.mibook.lib.original.data.ORChapter;
 import java.util.List;
 
-/* loaded from: classes3.dex */
+/* loaded from: classes2.dex */
 public class MiConsumeOrders {
     private String bookId;
     private List<ORChapter> chapterList;
@@ -28,19 +28,19 @@ public class MiConsumeOrders {
         return Integer.valueOf(num == null ? 0 : num.intValue());
     }
 
-    public void setBookId(String str) {
-        this.bookId = str;
+    public void setBookId(String bookId) {
+        this.bookId = bookId;
     }
 
-    public void setChapterList(List<ORChapter> list) {
-        this.chapterList = list;
+    public void setChapterList(List<ORChapter> chapterList) {
+        this.chapterList = chapterList;
     }
 
-    public void setCoins(Integer num) {
-        this.coins = num;
+    public void setCoins(Integer coins) {
+        this.coins = coins;
     }
 
-    public void setPrice(Integer num) {
-        this.price = num;
+    public void setPrice(Integer price) {
+        this.price = price;
     }
 }

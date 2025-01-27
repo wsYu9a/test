@@ -2,25 +2,27 @@ package com.bumptech.glide.load.engine.bitmap_recycle;
 
 import java.util.Map;
 import java.util.TreeMap;
-import m5.d;
 
-/* loaded from: classes2.dex */
+/* loaded from: classes.dex */
 class PrettyPrintTreeMap<K, V> extends TreeMap<K, V> {
+    PrettyPrintTreeMap() {
+    }
+
     @Override // java.util.AbstractMap
     public String toString() {
-        StringBuilder sb2 = new StringBuilder();
-        sb2.append("( ");
+        StringBuilder sb = new StringBuilder();
+        sb.append("( ");
         for (Map.Entry<K, V> entry : entrySet()) {
-            sb2.append('{');
-            sb2.append(entry.getKey());
-            sb2.append(d.f28378d);
-            sb2.append(entry.getValue());
-            sb2.append("}, ");
+            sb.append('{');
+            sb.append(entry.getKey());
+            sb.append(':');
+            sb.append(entry.getValue());
+            sb.append("}, ");
         }
         if (!isEmpty()) {
-            sb2.replace(sb2.length() - 2, sb2.length(), "");
+            sb.replace(sb.length() - 2, sb.length(), "");
         }
-        sb2.append(" )");
-        return sb2.toString();
+        sb.append(" )");
+        return sb.toString();
     }
 }

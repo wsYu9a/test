@@ -4,7 +4,7 @@ import android.content.Intent;
 import android.content.res.Configuration;
 import android.os.IBinder;
 
-/* loaded from: classes3.dex */
+/* loaded from: classes4.dex */
 public interface SVSD {
     IBinder onBind(Intent intent);
 
@@ -18,11 +18,11 @@ public interface SVSD {
 
     void onRebind(Intent intent);
 
-    int onStartCommand(Intent intent, int i10, int i11);
+    int onStartCommand(Intent intent, int i2, int i3);
 
     void onTaskRemoved(Intent intent);
 
-    void onTrimMemory(int i10);
+    void onTrimMemory(int i2);
 
     boolean onUnbind(Intent intent);
 }

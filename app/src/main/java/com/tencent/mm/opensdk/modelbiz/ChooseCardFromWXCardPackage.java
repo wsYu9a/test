@@ -54,6 +54,10 @@ public class ChooseCardFromWXCardPackage {
         public Resp() {
         }
 
+        public Resp(Bundle bundle) {
+            fromBundle(bundle);
+        }
+
         @Override // com.tencent.mm.opensdk.modelbase.BaseResp
         public boolean checkArgs() {
             String str = this.cardItemList;
@@ -80,10 +84,6 @@ public class ChooseCardFromWXCardPackage {
         public void toBundle(Bundle bundle) {
             super.toBundle(bundle);
             bundle.putString("_wxapi_choose_card_from_wx_card_list", this.cardItemList);
-        }
-
-        public Resp(Bundle bundle) {
-            fromBundle(bundle);
         }
     }
 }

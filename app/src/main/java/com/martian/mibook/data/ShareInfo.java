@@ -1,9 +1,9 @@
 package com.martian.mibook.data;
 
-import ba.l;
+import com.martian.libsupport.k;
 import com.martian.mibook.application.MiConfigSingleton;
+import com.martian.mibook.j.s2;
 import com.martian.mibook.lib.account.MiUserManager;
-import je.i;
 
 /* loaded from: classes3.dex */
 public class ShareInfo {
@@ -54,7 +54,7 @@ public class ShareInfo {
     }
 
     public String getContent() {
-        return l.q(this.content) ? MiUserManager.r() : this.content;
+        return k.p(this.content) ? MiUserManager.u() : this.content;
     }
 
     public String getImageUrl() {
@@ -104,74 +104,74 @@ public class ShareInfo {
     }
 
     public String getTitle() {
-        return l.q(this.title) ? i.l() : this.title;
+        return k.p(this.title) ? s2.m() : this.title;
     }
 
     public String getUrl() {
-        return l.q(this.url) ? (this.shareType.intValue() == 1 || this.shareType.intValue() == 2) ? MiConfigSingleton.b2().c2().getInviteShareLink() : MiConfigSingleton.b2().c2().getPhoneInviteShareLink() : this.url;
+        return k.p(this.url) ? (this.shareType.intValue() == 1 || this.shareType.intValue() == 2) ? MiConfigSingleton.V3().W3().getInviteShareLink() : MiConfigSingleton.V3().W3().getPhoneInviteShareLink() : this.url;
     }
 
-    public void setCode(String str) {
-        this.code = str;
+    public void setCode(String code) {
+        this.code = code;
     }
 
-    public void setCodeLeft(Integer num) {
-        this.codeLeft = num;
+    public void setCodeLeft(Integer codeLeft) {
+        this.codeLeft = codeLeft;
     }
 
-    public void setCodeTextColor(String str) {
-        this.codeTextColor = str;
+    public void setCodeTextColor(String codeTextColor) {
+        this.codeTextColor = codeTextColor;
     }
 
-    public void setCodeTextSize(Integer num) {
-        this.codeTextSize = num;
+    public void setCodeTextSize(Integer codeTextSize) {
+        this.codeTextSize = codeTextSize;
     }
 
-    public void setCodeTop(Integer num) {
-        this.codeTop = num;
+    public void setCodeTop(Integer codeTop) {
+        this.codeTop = codeTop;
     }
 
-    public void setContent(String str) {
-        this.content = str;
+    public void setContent(String content) {
+        this.content = content;
     }
 
-    public void setImageUrl(String str) {
-        this.imageUrl = str;
+    public void setImageUrl(String imageUrl) {
+        this.imageUrl = imageUrl;
     }
 
-    public void setQrcodeHeight(Integer num) {
-        this.qrcodeHeight = num;
+    public void setQrcodeHeight(Integer qrcodeHeight) {
+        this.qrcodeHeight = qrcodeHeight;
     }
 
-    public void setQrcodeLeft(Integer num) {
-        this.qrcodeLeft = num;
+    public void setQrcodeLeft(Integer qrcodeLeft) {
+        this.qrcodeLeft = qrcodeLeft;
     }
 
-    public void setQrcodeTop(Integer num) {
-        this.qrcodeTop = num;
+    public void setQrcodeTop(Integer qrcodeTop) {
+        this.qrcodeTop = qrcodeTop;
     }
 
-    public void setQrcodeWidth(Integer num) {
-        this.qrcodeWidth = num;
+    public void setQrcodeWidth(Integer qrcodeWidth) {
+        this.qrcodeWidth = qrcodeWidth;
     }
 
-    public void setShareType(Integer num) {
-        this.shareType = num;
+    public void setShareType(Integer shareType) {
+        this.shareType = shareType;
     }
 
-    public void setStag(String str) {
-        this.stag = str;
+    public void setStag(String stag) {
+        this.stag = stag;
     }
 
-    public void setStyle(Integer num) {
-        this.style = num;
+    public void setStyle(Integer style) {
+        this.style = style;
     }
 
-    public void setTitle(String str) {
-        this.title = str;
+    public void setTitle(String title) {
+        this.title = title;
     }
 
-    public void setUrl(String str) {
-        this.url = str;
+    public void setUrl(String url) {
+        this.url = url;
     }
 }

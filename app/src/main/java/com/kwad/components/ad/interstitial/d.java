@@ -1,186 +1,170 @@
 package com.kwad.components.ad.interstitial;
 
 import android.app.Activity;
+import android.text.TextUtils;
 import android.view.View;
 import android.view.ViewGroup;
 import androidx.annotation.NonNull;
-import com.kwad.components.core.e.a.h;
-import com.kwad.components.core.proxy.g;
+import com.kwad.components.ad.interstitial.e.g;
+import com.kwad.components.ad.interstitial.e.h;
 import com.kwad.sdk.api.KsAdVideoPlayConfig;
 import com.kwad.sdk.api.KsInterstitialAd;
 import com.kwad.sdk.api.KsVideoPlayConfig;
+import com.kwad.sdk.core.report.KSLoggerReporter;
 import com.kwad.sdk.core.response.model.AdInfo;
-import com.kwad.sdk.core.response.model.AdResultData;
 import com.kwad.sdk.core.response.model.AdTemplate;
-import com.kwad.sdk.service.ServiceProvider;
-import com.kwad.sdk.utils.bs;
+import com.kwad.sdk.utils.ai;
+import com.kwad.sdk.utils.bh;
+import com.kwai.adclient.kscommerciallogger.model.BusinessType;
+import com.martian.ads.ad.AdConfig;
 
-/* loaded from: classes2.dex */
-public final class d extends g {
-    private com.kwad.components.ad.interstitial.h.a jn;
-    private boolean jo;
-
-    /* renamed from: jp */
-    private com.kwad.components.ad.interstitial.g.b f11584jp;
+/* loaded from: classes.dex */
+public final class d extends com.kwad.components.core.l.e {
+    private com.kwad.components.ad.interstitial.e.a hJ;
+    private boolean hK;
+    private com.kwad.components.ad.interstitial.d.b hL;
 
     @NonNull
-    private final KsAdVideoPlayConfig jq;
-    private KsInterstitialAd.AdInteractionListener jr;
-    private final com.kwad.components.core.widget.g js;
-    private final AdResultData mAdResultData;
+    private final KsAdVideoPlayConfig hM;
+    private KsInterstitialAd.AdInteractionListener hN;
+    private final h hO;
     private final AdTemplate mAdTemplate;
-    private bs mTimerHelper;
+    private bh mTimerHelper;
 
     /* renamed from: com.kwad.components.ad.interstitial.d$1 */
-    public class AnonymousClass1 implements com.kwad.components.core.widget.g {
-        public AnonymousClass1() {
+    final class AnonymousClass1 implements h {
+        AnonymousClass1() {
         }
 
-        @Override // com.kwad.components.core.widget.g
-        public final void k(boolean z10) {
-            if (d.this.jo) {
+        @Override // com.kwad.components.ad.interstitial.e.h
+        public final void j(boolean z) {
+            if (d.this.hK) {
                 Activity activity = d.this.mActivity;
-                com.kwad.sdk.core.c.b.Fi();
-                if (activity == com.kwad.sdk.core.c.b.getCurrentActivity()) {
-                    com.kwad.sdk.core.adlog.c.i(d.this.mAdTemplate, z10 ? 2 : 1);
-                    d.this.cJ();
+                com.kwad.sdk.core.b.b.vS();
+                if (activity == com.kwad.sdk.core.b.b.getCurrentActivity()) {
+                    com.kwad.sdk.core.report.a.j(d.this.mAdTemplate, z ? 2 : 1);
+                    d.this.cp();
                 }
             }
         }
     }
 
     /* renamed from: com.kwad.components.ad.interstitial.d$2 */
-    public class AnonymousClass2 implements com.kwad.sdk.core.h.c {
-        public AnonymousClass2() {
+    final class AnonymousClass2 implements com.kwad.sdk.core.g.c {
+        AnonymousClass2() {
         }
 
-        @Override // com.kwad.sdk.core.h.c
-        public final void bl() {
-            d.this.getTimerHelper().Pn();
+        @Override // com.kwad.sdk.core.g.c
+        public final void onPageInvisible() {
+            d.this.getTimerHelper().EY();
         }
 
-        @Override // com.kwad.sdk.core.h.c
-        public final void bm() {
-            d.this.getTimerHelper().Po();
+        @Override // com.kwad.sdk.core.g.c
+        public final void onPageVisible() {
+            d.this.getTimerHelper().EX();
         }
     }
 
-    public d(@NonNull Activity activity, @NonNull AdResultData adResultData, KsVideoPlayConfig ksVideoPlayConfig, KsInterstitialAd.AdInteractionListener adInteractionListener) {
+    public d(@NonNull Activity activity, @NonNull AdTemplate adTemplate, KsVideoPlayConfig ksVideoPlayConfig, KsInterstitialAd.AdInteractionListener adInteractionListener) {
         super(activity);
-        this.js = new com.kwad.components.core.widget.g() { // from class: com.kwad.components.ad.interstitial.d.1
-            public AnonymousClass1() {
+        this.hO = new h() { // from class: com.kwad.components.ad.interstitial.d.1
+            AnonymousClass1() {
             }
 
-            @Override // com.kwad.components.core.widget.g
-            public final void k(boolean z10) {
-                if (d.this.jo) {
+            @Override // com.kwad.components.ad.interstitial.e.h
+            public final void j(boolean z) {
+                if (d.this.hK) {
                     Activity activity2 = d.this.mActivity;
-                    com.kwad.sdk.core.c.b.Fi();
-                    if (activity2 == com.kwad.sdk.core.c.b.getCurrentActivity()) {
-                        com.kwad.sdk.core.adlog.c.i(d.this.mAdTemplate, z10 ? 2 : 1);
-                        d.this.cJ();
+                    com.kwad.sdk.core.b.b.vS();
+                    if (activity2 == com.kwad.sdk.core.b.b.getCurrentActivity()) {
+                        com.kwad.sdk.core.report.a.j(d.this.mAdTemplate, z ? 2 : 1);
+                        d.this.cp();
                     }
                 }
             }
         };
-        this.jr = adInteractionListener;
-        this.jq = new KsAdVideoPlayConfig.Builder().videoSoundEnable(ksVideoPlayConfig != null && ksVideoPlayConfig.isVideoSoundEnable()).dataFlowAutoStart(com.kwad.components.ad.interstitial.b.b.da()).build();
-        this.mAdResultData = adResultData;
-        this.mAdTemplate = com.kwad.sdk.core.response.b.c.o(adResultData);
+        this.hN = adInteractionListener;
+        this.hM = new KsAdVideoPlayConfig.Builder().videoSoundEnable(ksVideoPlayConfig != null && ksVideoPlayConfig.isVideoSoundEnable()).dataFlowAutoStart(com.kwad.components.ad.interstitial.kwai.b.cH()).build();
+        this.mAdTemplate = adTemplate;
     }
 
-    private boolean cH() {
-        AdInfo eb2 = com.kwad.sdk.core.response.b.e.eb(this.mAdTemplate);
-        return com.kwad.sdk.core.response.b.a.cy(eb2) && !cI() && com.kwad.components.ad.interstitial.c.a.di() < com.kwad.sdk.core.response.b.a.cB(eb2);
+    private boolean cn() {
+        AdInfo cb = com.kwad.sdk.core.response.a.d.cb(this.mAdTemplate);
+        return com.kwad.sdk.core.response.a.a.bY(cb) && !co() && com.kwad.components.ad.interstitial.a.a.cO() < com.kwad.sdk.core.response.a.a.cb(cb);
     }
 
-    private boolean cI() {
-        return com.kwad.sdk.core.response.b.b.co(this.mAdTemplate) && com.kwad.components.ad.interstitial.d.a.dk() < com.kwad.sdk.core.config.d.a(com.kwad.sdk.core.config.c.avg);
+    private boolean co() {
+        return com.kwad.sdk.core.response.a.b.aL(this.mAdTemplate) && com.kwad.components.ad.interstitial.b.a.cQ() < com.kwad.sdk.core.config.d.a(com.kwad.sdk.core.config.c.acC);
     }
 
-    public void cJ() {
-        com.kwad.components.ad.interstitial.h.a bVar = cH() ? new com.kwad.components.ad.interstitial.aggregate.b(this.mContext) : new com.kwad.components.ad.interstitial.h.c(this.mContext);
-        this.jn = bVar;
-        bVar.a(this.mAdResultData, this, this.jq, this.jr);
-        this.AK.removeAllViews();
-        this.AK.addView(this.jn);
-        cK();
+    public void cp() {
+        int bV = com.kwad.sdk.core.response.a.a.bV(com.kwad.sdk.core.response.a.d.cb(this.mAdTemplate));
+        this.hJ = cn() ? new com.kwad.components.ad.interstitial.aggregate.b(this.mContext) : (TextUtils.isEmpty(com.kwad.sdk.core.response.a.b.bg(this.mAdTemplate)) || !ai.DL()) ? new com.kwad.components.ad.interstitial.e.c(this.mContext) : bV == 2 ? new com.kwad.components.ad.interstitial.e.e(this.mContext) : bV == 1 ? new com.kwad.components.ad.interstitial.e.d(this.mContext) : new com.kwad.components.ad.interstitial.e.c(this.mContext);
+        this.hJ.a(this.mAdTemplate, this, this.hM, this.hN);
+        this.yE.removeAllViews();
+        this.yE.addView(this.hJ);
+        cq();
     }
 
-    private void cK() {
-        com.kwad.components.ad.interstitial.g.b bVar = new com.kwad.components.ad.interstitial.g.b(this.jn, 100);
-        this.f11584jp = bVar;
-        bVar.a(new com.kwad.sdk.core.h.c() { // from class: com.kwad.components.ad.interstitial.d.2
-            public AnonymousClass2() {
+    private void cq() {
+        com.kwad.components.ad.interstitial.d.b bVar = new com.kwad.components.ad.interstitial.d.b(this.hJ, 100);
+        this.hL = bVar;
+        bVar.a(new com.kwad.sdk.core.g.c() { // from class: com.kwad.components.ad.interstitial.d.2
+            AnonymousClass2() {
             }
 
-            @Override // com.kwad.sdk.core.h.c
-            public final void bl() {
-                d.this.getTimerHelper().Pn();
+            @Override // com.kwad.sdk.core.g.c
+            public final void onPageInvisible() {
+                d.this.getTimerHelper().EY();
             }
 
-            @Override // com.kwad.sdk.core.h.c
-            public final void bm() {
-                d.this.getTimerHelper().Po();
+            @Override // com.kwad.sdk.core.g.c
+            public final void onPageVisible() {
+                d.this.getTimerHelper().EX();
             }
         });
-        this.f11584jp.uE();
+        this.hL.rD();
     }
 
-    @Override // com.kwad.components.core.proxy.g
-    public final float cF() {
-        return 0.0f;
+    @Override // com.kwad.components.core.l.e
+    public final ViewGroup cm() {
+        g gVar = new g(this.mContext);
+        gVar.setOrientationChangeListener(this.hO);
+        return gVar;
     }
 
-    @Override // com.kwad.components.core.proxy.g
-    public final ViewGroup cG() {
-        com.kwad.components.core.widget.f fVar = new com.kwad.components.core.widget.f(this.mContext);
-        fVar.setOrientationChangeListener(this.js);
-        return fVar;
-    }
-
-    @Override // com.kwad.components.core.proxy.g, android.app.Dialog, android.content.DialogInterface
+    @Override // com.kwad.components.core.l.e, android.app.Dialog, android.content.DialogInterface
     public final void dismiss() {
-        try {
-            super.dismiss();
-            com.kwad.sdk.a.a.c.Bg().Bj();
-            KsInterstitialAd.AdInteractionListener adInteractionListener = this.jr;
-            if (adInteractionListener != null) {
-                adInteractionListener.onPageDismiss();
-            }
-            com.kwad.components.ad.interstitial.h.a aVar = this.jn;
-            if ((aVar instanceof com.kwad.components.ad.interstitial.h.c) && !((com.kwad.components.ad.interstitial.h.c) aVar).ex() && com.kwad.sdk.core.response.b.a.cT(com.kwad.sdk.core.response.b.e.eb(this.mAdTemplate))) {
-                com.kwad.sdk.core.adlog.c.m(this.mAdTemplate, (int) Math.ceil(getTimerHelper().getTime() / 1000.0f));
-            }
-            h.oa();
-        } catch (Throwable th2) {
-            ServiceProvider.reportSdkCaughtException(th2);
+        super.dismiss();
+        com.kwad.sdk.kwai.kwai.c.sZ().tc();
+        KsInterstitialAd.AdInteractionListener adInteractionListener = this.hN;
+        if (adInteractionListener != null) {
+            adInteractionListener.onPageDismiss();
         }
     }
 
-    @Override // com.kwad.components.core.proxy.g
+    @Override // com.kwad.components.core.l.e
+    public final void g(View view) {
+        cp();
+        com.kwad.sdk.g.a.V(AdConfig.AdType.INTERSTITIAL, "show");
+        KSLoggerReporter.ReportClient.CORE_CONVERT.buildMethodCheck(BusinessType.AD_INTERSTITIAL, "adShowSuccess").report();
+    }
+
+    @Override // com.kwad.components.core.l.e
     public final int getLayoutId() {
         return 0;
     }
 
-    public final bs getTimerHelper() {
+    public final bh getTimerHelper() {
         if (this.mTimerHelper == null) {
-            this.mTimerHelper = new bs();
+            this.mTimerHelper = new bh();
         }
         return this.mTimerHelper;
     }
 
-    @Override // com.kwad.components.core.proxy.g
-    public final void h(View view) {
-        h.a(getWindow());
-        cJ();
-        com.kwad.components.ad.interstitial.report.c.em().v(this.mAdTemplate);
-        com.kwad.sdk.commercial.d.c.bG(this.mAdTemplate);
-    }
-
     @Override // android.app.Dialog
     public final void onBackPressed() {
-        if (com.kwad.components.ad.interstitial.b.b.de()) {
+        if (com.kwad.components.ad.interstitial.kwai.b.cL()) {
             super.onBackPressed();
         }
     }
@@ -188,29 +172,29 @@ public final class d extends g {
     @Override // android.app.Dialog, android.view.Window.Callback
     public final void onDetachedFromWindow() {
         super.onDetachedFromWindow();
-        com.kwad.components.ad.interstitial.g.b bVar = this.f11584jp;
+        com.kwad.components.ad.interstitial.d.b bVar = this.hL;
         if (bVar != null) {
             bVar.release();
         }
     }
 
     @Override // android.app.Dialog, android.view.Window.Callback
-    public final void onWindowFocusChanged(boolean z10) {
-        super.onWindowFocusChanged(z10);
-        this.jo = z10;
-        com.kwad.components.ad.interstitial.h.a aVar = this.jn;
+    public final void onWindowFocusChanged(boolean z) {
+        super.onWindowFocusChanged(z);
+        this.hK = z;
+        com.kwad.components.ad.interstitial.e.a aVar = this.hJ;
         if (aVar != null) {
-            if (z10) {
-                aVar.cN();
+            if (z) {
+                aVar.cu();
             } else {
-                aVar.cO();
+                aVar.cv();
             }
         }
     }
 
     public final void setAdInteractionListener(KsInterstitialAd.AdInteractionListener adInteractionListener) {
-        this.jr = adInteractionListener;
-        com.kwad.components.ad.interstitial.h.a aVar = this.jn;
+        this.hN = adInteractionListener;
+        com.kwad.components.ad.interstitial.e.a aVar = this.hJ;
         if (aVar != null) {
             aVar.setAdInteractionListener(adInteractionListener);
         }

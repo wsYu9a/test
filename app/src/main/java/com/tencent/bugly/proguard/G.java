@@ -3,32 +3,32 @@ package com.tencent.bugly.proguard;
 import android.content.SharedPreferences;
 
 /* loaded from: classes4.dex */
-public class G implements Runnable {
+class G implements Runnable {
 
     /* renamed from: a */
-    final /* synthetic */ int f22595a;
+    final /* synthetic */ int f24954a;
 
     /* renamed from: b */
-    final /* synthetic */ H f22596b;
+    final /* synthetic */ H f24955b;
 
-    public G(H h10, int i10) {
-        this.f22596b = h10;
-        this.f22595a = i10;
+    G(H h2, int i2) {
+        this.f24955b = h2;
+        this.f24954a = i2;
     }
 
     @Override // java.lang.Runnable
     public void run() {
-        boolean b10;
+        boolean b2;
         SharedPreferences sharedPreferences;
         String str;
-        b10 = this.f22596b.b(this.f22595a);
-        sharedPreferences = this.f22596b.f22602f;
+        b2 = this.f24955b.b(this.f24954a);
+        sharedPreferences = this.f24955b.f24961f;
         SharedPreferences.Editor edit = sharedPreferences.edit();
-        StringBuilder sb2 = new StringBuilder();
-        sb2.append(this.f22595a);
-        sb2.append(hf.e.f26694a);
-        str = this.f22596b.f22600d;
-        sb2.append(str);
-        edit.putBoolean(sb2.toString(), !b10).commit();
+        StringBuilder sb = new StringBuilder();
+        sb.append(this.f24954a);
+        sb.append("_");
+        str = this.f24955b.f24959d;
+        sb.append(str);
+        edit.putBoolean(sb.toString(), !b2).commit();
     }
 }

@@ -1,138 +1,103 @@
 package com.kwad.sdk;
 
-/* loaded from: classes3.dex */
+import com.kwad.components.offline.api.core.api.ILoggerReporter;
+import com.kwad.sdk.commercial.model.SDKInitMsg;
+import com.kwad.sdk.core.report.KSLoggerReporter;
+import com.kwad.sdk.utils.aw;
+
+/* loaded from: classes2.dex */
 public final class f {
-    private volatile boolean anN = false;
-    private com.kwad.sdk.f.a anO;
+    private static int Yu;
 
     /* renamed from: com.kwad.sdk.f$1 */
-    public class AnonymousClass1 implements com.kwad.sdk.f.a {
-        final /* synthetic */ long anP;
+    static class AnonymousClass1 extends aw {
+        final /* synthetic */ long Yv;
 
-        public AnonymousClass1(long j10) {
-            j10 = j10;
+        AnonymousClass1(long j2) {
+            currentTimeMillis = j2;
         }
 
-        @Override // com.kwad.sdk.f.a
-        public final void accept(Object obj) {
-            m.ad(j10);
+        @Override // com.kwad.sdk.utils.aw
+        public final void doTask() {
+            KSLoggerReporter.a(ILoggerReporter.Category.APM_LOG, com.kwai.adclient.kscommerciallogger.model.a.aEe, new SDKInitMsg().setLaunchIntervalTime(currentTimeMillis).setInitCount(f.Yu).setInitStatus(0).toJson());
         }
     }
 
     /* renamed from: com.kwad.sdk.f$2 */
-    public class AnonymousClass2 implements com.kwad.sdk.f.a {
-        final /* synthetic */ long NU;
+    static class AnonymousClass2 extends aw {
+        final /* synthetic */ long Yw;
 
-        public AnonymousClass2(long j10) {
-            j10 = j10;
+        AnonymousClass2(long j2) {
+            j2 = j2;
         }
 
-        @Override // com.kwad.sdk.f.a
-        public final void accept(Object obj) {
-            m.ae(j10);
+        @Override // com.kwad.sdk.utils.aw
+        public final void doTask() {
+            KSLoggerReporter.a(ILoggerReporter.Category.APM_LOG, com.kwai.adclient.kscommerciallogger.model.a.aEe, new SDKInitMsg().setTotalDurationTime(j2).setInitCount(f.Yu).setInitStatus(1).toJson());
         }
     }
 
     /* renamed from: com.kwad.sdk.f$3 */
-    public class AnonymousClass3 implements com.kwad.sdk.f.a {
-        final /* synthetic */ long anP;
+    static class AnonymousClass3 extends aw {
+        final /* synthetic */ String HZ;
 
-        public AnonymousClass3(long j10) {
-            j10 = j10;
+        AnonymousClass3(String str) {
+            str = str;
         }
 
-        @Override // com.kwad.sdk.f.a
-        public final void accept(Object obj) {
-            m.ah(j10);
-        }
-    }
-
-    /* renamed from: com.kwad.sdk.f$4 */
-    public class AnonymousClass4 implements com.kwad.sdk.f.a {
-        final /* synthetic */ long NU;
-
-        public AnonymousClass4(long j10) {
-            j10 = j10;
-        }
-
-        @Override // com.kwad.sdk.f.a
-        public final void accept(Object obj) {
-            m.ai(j10);
+        @Override // com.kwad.sdk.utils.aw
+        public final void doTask() {
+            KSLoggerReporter.a(ILoggerReporter.Category.ERROR_LOG, com.kwai.adclient.kscommerciallogger.model.d.this, new SDKInitMsg().setInitCount(f.Yu).setErrorReason(str).setInitStatus(2).toJson());
         }
     }
 
-    private f(com.kwad.sdk.f.a aVar) {
-        this.anO = aVar;
-    }
+    public static void F(long j2) {
+        long currentTimeMillis = j2 > 0 ? System.currentTimeMillis() - j2 : -1L;
+        Yu++;
+        com.kwad.sdk.utils.g.execute(new aw() { // from class: com.kwad.sdk.f.1
+            final /* synthetic */ long Yv;
 
-    public static f X(long j10) {
-        return d(new com.kwad.sdk.f.a() { // from class: com.kwad.sdk.f.1
-            final /* synthetic */ long anP;
-
-            public AnonymousClass1(long j102) {
-                j10 = j102;
+            AnonymousClass1(long currentTimeMillis2) {
+                currentTimeMillis = currentTimeMillis2;
             }
 
-            @Override // com.kwad.sdk.f.a
-            public final void accept(Object obj) {
-                m.ad(j10);
+            @Override // com.kwad.sdk.utils.aw
+            public final void doTask() {
+                KSLoggerReporter.a(ILoggerReporter.Category.APM_LOG, com.kwai.adclient.kscommerciallogger.model.a.aEe, new SDKInitMsg().setLaunchIntervalTime(currentTimeMillis).setInitCount(f.Yu).setInitStatus(0).toJson());
             }
         });
     }
 
-    public static f Y(long j10) {
-        return d(new com.kwad.sdk.f.a() { // from class: com.kwad.sdk.f.2
-            final /* synthetic */ long NU;
-
-            public AnonymousClass2(long j102) {
-                j10 = j102;
-            }
-
-            @Override // com.kwad.sdk.f.a
-            public final void accept(Object obj) {
-                m.ae(j10);
-            }
-        });
-    }
-
-    public static f Z(long j10) {
-        return d(new com.kwad.sdk.f.a() { // from class: com.kwad.sdk.f.3
-            final /* synthetic */ long anP;
-
-            public AnonymousClass3(long j102) {
-                j10 = j102;
-            }
-
-            @Override // com.kwad.sdk.f.a
-            public final void accept(Object obj) {
-                m.ah(j10);
-            }
-        });
-    }
-
-    public static f aa(long j10) {
-        return d(new com.kwad.sdk.f.a() { // from class: com.kwad.sdk.f.4
-            final /* synthetic */ long NU;
-
-            public AnonymousClass4(long j102) {
-                j10 = j102;
-            }
-
-            @Override // com.kwad.sdk.f.a
-            public final void accept(Object obj) {
-                m.ai(j10);
-            }
-        });
-    }
-
-    private static f d(com.kwad.sdk.f.a aVar) {
-        return new f(aVar);
-    }
-
-    public final synchronized void report() {
-        if (this.anO != null && !this.anN) {
-            this.anO.accept(null);
-            this.anN = true;
+    public static void G(long j2) {
+        if (j2 > 10000) {
+            j2 = -1;
         }
+        com.kwad.sdk.utils.g.execute(new aw() { // from class: com.kwad.sdk.f.2
+            final /* synthetic */ long Yw;
+
+            AnonymousClass2(long j22) {
+                j2 = j22;
+            }
+
+            @Override // com.kwad.sdk.utils.aw
+            public final void doTask() {
+                KSLoggerReporter.a(ILoggerReporter.Category.APM_LOG, com.kwai.adclient.kscommerciallogger.model.a.aEe, new SDKInitMsg().setTotalDurationTime(j2).setInitCount(f.Yu).setInitStatus(1).toJson());
+            }
+        });
+    }
+
+    public static void a(com.kwai.adclient.kscommerciallogger.model.d dVar, String str) {
+        com.kwad.sdk.utils.g.execute(new aw() { // from class: com.kwad.sdk.f.3
+            final /* synthetic */ String HZ;
+
+            AnonymousClass3(String str2) {
+                str = str2;
+            }
+
+            @Override // com.kwad.sdk.utils.aw
+            public final void doTask() {
+                KSLoggerReporter.a(ILoggerReporter.Category.ERROR_LOG, com.kwai.adclient.kscommerciallogger.model.d.this, new SDKInitMsg().setInitCount(f.Yu).setErrorReason(str).setInitStatus(2).toJson());
+            }
+        });
     }
 }

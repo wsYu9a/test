@@ -12,19 +12,19 @@ import androidx.annotation.NonNull;
 import com.bumptech.glide.manager.ConnectivityMonitor;
 import com.bumptech.glide.util.Preconditions;
 
-/* loaded from: classes2.dex */
+/* loaded from: classes.dex */
 final class DefaultConnectivityMonitor implements ConnectivityMonitor {
     private static final String TAG = "ConnectivityMonitor";
     private final BroadcastReceiver connectivityReceiver = new BroadcastReceiver() { // from class: com.bumptech.glide.manager.DefaultConnectivityMonitor.1
-        public AnonymousClass1() {
+        AnonymousClass1() {
         }
 
         @Override // android.content.BroadcastReceiver
         public void onReceive(@NonNull Context context, Intent intent) {
             DefaultConnectivityMonitor defaultConnectivityMonitor = DefaultConnectivityMonitor.this;
-            boolean z10 = defaultConnectivityMonitor.isConnected;
+            boolean z = defaultConnectivityMonitor.isConnected;
             defaultConnectivityMonitor.isConnected = defaultConnectivityMonitor.isConnected(context);
-            if (z10 != DefaultConnectivityMonitor.this.isConnected) {
+            if (z != DefaultConnectivityMonitor.this.isConnected) {
                 if (Log.isLoggable(DefaultConnectivityMonitor.TAG, 3)) {
                     Log.d(DefaultConnectivityMonitor.TAG, "connectivity changed, isConnected: " + DefaultConnectivityMonitor.this.isConnected);
                 }
@@ -39,16 +39,16 @@ final class DefaultConnectivityMonitor implements ConnectivityMonitor {
     final ConnectivityMonitor.ConnectivityListener listener;
 
     /* renamed from: com.bumptech.glide.manager.DefaultConnectivityMonitor$1 */
-    public class AnonymousClass1 extends BroadcastReceiver {
-        public AnonymousClass1() {
+    class AnonymousClass1 extends BroadcastReceiver {
+        AnonymousClass1() {
         }
 
         @Override // android.content.BroadcastReceiver
         public void onReceive(@NonNull Context context, Intent intent) {
             DefaultConnectivityMonitor defaultConnectivityMonitor = DefaultConnectivityMonitor.this;
-            boolean z10 = defaultConnectivityMonitor.isConnected;
+            boolean z = defaultConnectivityMonitor.isConnected;
             defaultConnectivityMonitor.isConnected = defaultConnectivityMonitor.isConnected(context);
-            if (z10 != DefaultConnectivityMonitor.this.isConnected) {
+            if (z != DefaultConnectivityMonitor.this.isConnected) {
                 if (Log.isLoggable(DefaultConnectivityMonitor.TAG, 3)) {
                     Log.d(DefaultConnectivityMonitor.TAG, "connectivity changed, isConnected: " + DefaultConnectivityMonitor.this.isConnected);
                 }
@@ -58,7 +58,7 @@ final class DefaultConnectivityMonitor implements ConnectivityMonitor {
         }
     }
 
-    public DefaultConnectivityMonitor(@NonNull Context context, @NonNull ConnectivityMonitor.ConnectivityListener connectivityListener) {
+    DefaultConnectivityMonitor(@NonNull Context context, @NonNull ConnectivityMonitor.ConnectivityListener connectivityListener) {
         this.context = context.getApplicationContext();
         this.listener = connectivityListener;
     }
@@ -71,9 +71,9 @@ final class DefaultConnectivityMonitor implements ConnectivityMonitor {
         try {
             this.context.registerReceiver(this.connectivityReceiver, new IntentFilter("android.net.conn.CONNECTIVITY_CHANGE"));
             this.isRegistered = true;
-        } catch (SecurityException e10) {
+        } catch (SecurityException e2) {
             if (Log.isLoggable(TAG, 5)) {
-                Log.w(TAG, "Failed to register", e10);
+                Log.w(TAG, "Failed to register", e2);
             }
         }
     }
@@ -86,13 +86,13 @@ final class DefaultConnectivityMonitor implements ConnectivityMonitor {
     }
 
     @SuppressLint({"MissingPermission"})
-    public boolean isConnected(@NonNull Context context) {
+    boolean isConnected(@NonNull Context context) {
         try {
             NetworkInfo activeNetworkInfo = ((ConnectivityManager) Preconditions.checkNotNull((ConnectivityManager) context.getSystemService("connectivity"))).getActiveNetworkInfo();
             return activeNetworkInfo != null && activeNetworkInfo.isConnected();
-        } catch (RuntimeException e10) {
+        } catch (RuntimeException e2) {
             if (Log.isLoggable(TAG, 5)) {
-                Log.w(TAG, "Failed to determine connectivity status when connectivity changed", e10);
+                Log.w(TAG, "Failed to determine connectivity status when connectivity changed", e2);
             }
             return true;
         }

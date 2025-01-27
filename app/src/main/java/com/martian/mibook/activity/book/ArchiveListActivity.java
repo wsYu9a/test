@@ -11,148 +11,141 @@ import android.widget.LinearLayout;
 import android.widget.ListAdapter;
 import android.widget.PopupWindow;
 import android.widget.TextView;
-import ba.k;
-import ce.h;
-import com.martian.mibook.R;
-import com.martian.mibook.activity.book.ArchiveListActivity;
+import com.martian.libsupport.j;
 import com.martian.mibook.application.MiConfigSingleton;
-import com.martian.mibook.databinding.BookrackClassBinding;
-import com.martian.mibook.fragment.ArchiveListFragment;
-import com.martian.mibook.lib.model.activity.MiBackableActivity;
+import com.martian.mibook.e.l1;
+import com.martian.mibook.f.m3;
+import com.martian.mibook.j.s2;
 import com.martian.mibook.lib.model.data.MiArchiveBookItem;
+import com.martian.mibook.lib.model.data.MiBook;
 import com.martian.mibook.lib.model.data.abs.Book;
+import com.martian.mibook.ui.o.h3;
+import com.martian.ttbookhd.R;
 import java.util.List;
-import je.i;
-import x8.c;
-import xb.b;
 
 /* loaded from: classes3.dex */
-public class ArchiveListActivity extends MiBackableActivity implements AdapterView.OnItemClickListener {
-    public TextView A;
-    public ArchiveListFragment B;
-    public h C;
+public class ArchiveListActivity extends com.martian.mibook.lib.model.b.a implements AdapterView.OnItemClickListener {
+    private TextView F;
+    private m3 G;
+    private h3 H;
 
-    public class a implements b {
+    class a implements com.martian.mibook.lib.model.d.b {
 
         /* renamed from: a */
-        public final /* synthetic */ MiArchiveBookItem f13181a;
+        final /* synthetic */ MiArchiveBookItem f10955a;
 
-        public a(MiArchiveBookItem miArchiveBookItem) {
-            this.f13181a = miArchiveBookItem;
+        /* renamed from: b */
+        final /* synthetic */ MiBook f10956b;
+
+        a(final MiArchiveBookItem val$mibook, final MiBook val$item) {
+            this.f10955a = val$mibook;
+            this.f10956b = val$item;
         }
 
-        @Override // xb.b
+        @Override // com.martian.mibook.lib.model.d.b
         public void a(Book book) {
             if (book == null) {
-                ArchiveListActivity.this.P1("获取书籍信息失败");
+                ArchiveListActivity.this.k1("获取书籍信息失败");
             } else {
-                ArchiveListActivity.this.R2(this.f13181a, book);
+                ArchiveListActivity.this.x2(this.f10955a, book, this.f10956b);
             }
         }
 
-        @Override // xb.b
-        public void onLoading(boolean z10) {
-            if (z10) {
-                ArchiveListActivity.this.P1("加载书籍信息中，请稍等");
+        @Override // com.martian.mibook.lib.model.d.b
+        public void onLoading(boolean loading) {
+            if (loading) {
+                ArchiveListActivity.this.k1("加载书籍信息中，请稍等");
             }
         }
 
-        @Override // xb.b
-        public void onResultError(c cVar) {
-            ArchiveListActivity.this.P1("网络通信失败");
+        @Override // com.martian.mibook.lib.model.d.b
+        public void onResultError(b.d.c.b.c errorResult) {
+            ArchiveListActivity.this.k1("网络通信失败");
         }
     }
 
-    public final /* synthetic */ void O2(View view) {
-        Q2();
+    /* renamed from: s2 */
+    public /* synthetic */ void t2(View view) {
+        w2();
     }
 
-    public final /* synthetic */ void P2(PopupWindow popupWindow, AdapterView adapterView, View view, int i10, long j10) {
-        ArchiveListFragment archiveListFragment = this.B;
-        if (archiveListFragment != null) {
-            archiveListFragment.o(this.C.c(i10).f1490a);
-            this.C.d(i10);
-            this.A.setText(this.C.c(i10).f1490a + "(" + this.C.c(i10).f1491b + ")");
+    /* renamed from: u2 */
+    public /* synthetic */ void v2(final PopupWindow categoryPopupWindow, AdapterView parent, View view, int position, long id) {
+        m3 m3Var = this.G;
+        if (m3Var != null) {
+            m3Var.j(this.H.c(position).f10608a);
+            this.H.d(position);
+            this.F.setText(this.H.c(position).f10608a + "(" + this.H.c(position).f10609b + ")");
         }
-        popupWindow.dismiss();
+        categoryPopupWindow.dismiss();
     }
 
+    public void x2(MiArchiveBookItem item, Book book, MiBook mibook) {
+        if (mibook == null) {
+            mibook = book.buildMibook();
+            MiConfigSingleton.V3().l3().T0(mibook);
+            item.setBookId(mibook.getBookId());
+        }
+        s2.f0(this, mibook, book);
+    }
+
+    @Override // com.martian.mibook.lib.model.b.a, com.martian.libmars.activity.j1, com.martian.libmars.activity.h1, me.imid.swipebacklayout.lib.d.a, androidx.appcompat.app.AppCompatActivity, androidx.fragment.app.FragmentActivity, androidx.activity.ComponentActivity, androidx.core.app.ComponentActivity, android.app.Activity
     @SuppressLint({"SetTextI18n"})
-    public void Q2() {
-        View inflate = getLayoutInflater().inflate(R.layout.bookrack_class, (ViewGroup) null);
-        BookrackClassBinding bind = BookrackClassBinding.bind(inflate);
-        PopupWindow popupWindow = new PopupWindow(inflate, -2, -2);
-        popupWindow.setBackgroundDrawable(new BitmapDrawable());
-        popupWindow.setOutsideTouchable(true);
-        popupWindow.setFocusable(true);
-        popupWindow.showAsDropDown(this.A, 0, 0);
-        bind.brClassList.setAdapter((ListAdapter) this.C);
-        bind.brClassList.setOnItemClickListener(new AdapterView.OnItemClickListener() { // from class: ua.a
-
-            /* renamed from: c */
-            public final /* synthetic */ PopupWindow f30964c;
-
-            public /* synthetic */ a(PopupWindow popupWindow2) {
-                popupWindow = popupWindow2;
-            }
-
-            @Override // android.widget.AdapterView.OnItemClickListener
-            public final void onItemClick(AdapterView adapterView, View view, int i10, long j10) {
-                ArchiveListActivity.this.P2(popupWindow, adapterView, view, i10, j10);
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_load_fragment);
+        Z1("");
+        ViewStub viewStub = (ViewStub) findViewById(R.id.actionbar_container);
+        viewStub.setLayoutResource(R.layout.book_archive_header);
+        viewStub.setVisibility(0);
+        LinearLayout linearLayout = (LinearLayout) findViewById(R.id.archive_setting);
+        this.F = (TextView) findViewById(R.id.br_tag_name);
+        linearLayout.setOnClickListener(new View.OnClickListener() { // from class: com.martian.mibook.activity.book.b
+            @Override // android.view.View.OnClickListener
+            public final void onClick(View view) {
+                ArchiveListActivity.this.t2(view);
             }
         });
-    }
-
-    public final void R2(MiArchiveBookItem miArchiveBookItem, Book book) {
-        i.R(this, book);
-    }
-
-    @Override // com.martian.mibook.lib.model.activity.MiBackableActivity, com.martian.libmars.activity.MartianActivity, com.martian.libmars.activity.BaseActivity, me.imid.swipebacklayout.lib.app.SwipeBackActivity, androidx.fragment.app.FragmentActivity, androidx.activity.ComponentActivity, androidx.core.app.ComponentActivity, android.app.Activity
-    @SuppressLint({"SetTextI18n"})
-    public void onCreate(Bundle bundle) {
-        super.onCreate(bundle);
-        setContentView(com.martian.libsupport.R.layout.activity_load_fragment);
-        t2("");
-        ViewStub B2 = B2();
-        B2.setLayoutResource(R.layout.book_archive_header);
-        B2.setVisibility(0);
-        LinearLayout linearLayout = (LinearLayout) B2.findViewById(R.id.archive_setting);
-        this.A = (TextView) B2.findViewById(R.id.br_tag_name);
-        if (linearLayout != null) {
-            linearLayout.setOnClickListener(new View.OnClickListener() { // from class: ua.b
-                public /* synthetic */ b() {
-                }
-
-                @Override // android.view.View.OnClickListener
-                public final void onClick(View view) {
-                    ArchiveListActivity.this.O2(view);
-                }
-            });
-        }
-        List<k.d> o02 = MiConfigSingleton.b2().M1().o0();
-        this.C = new h(this, o02);
-        ArchiveListFragment archiveListFragment = (ArchiveListFragment) getSupportFragmentManager().findFragmentByTag("FRAGMENT_TAG_ARCHIVE");
-        this.B = archiveListFragment;
-        if (archiveListFragment == null) {
-            ArchiveListFragment archiveListFragment2 = new ArchiveListFragment();
-            this.B = archiveListFragment2;
-            archiveListFragment2.o(o02.get(0).f1490a);
-            TextView textView = this.A;
-            if (textView != null) {
-                textView.setText(this.C.c(0).f1490a + "(" + this.C.c(0).f1491b + ")");
-            }
-            getSupportFragmentManager().beginTransaction().add(R.id.fragmentContainer, this.B, "FRAGMENT_TAG_ARCHIVE").commit();
+        List<j.d> C0 = MiConfigSingleton.V3().l3().C0();
+        this.H = new h3(this, C0);
+        m3 m3Var = (m3) getSupportFragmentManager().findFragmentByTag("FRAGMENT_TAG_ARCHIVE");
+        this.G = m3Var;
+        if (m3Var == null) {
+            m3 m3Var2 = new m3();
+            this.G = m3Var2;
+            m3Var2.j(C0.get(0).f10608a);
+            this.F.setText(this.H.c(0).f10608a + "(" + this.H.c(0).f10609b + ")");
+            getSupportFragmentManager().beginTransaction().add(R.id.fragmentContainer, this.G, "FRAGMENT_TAG_ARCHIVE").commit();
         }
     }
 
     @Override // android.widget.AdapterView.OnItemClickListener
-    public void onItemClick(AdapterView<?> adapterView, View view, int i10, long j10) {
-        MiArchiveBookItem miArchiveBookItem = (MiArchiveBookItem) adapterView.getItemAtPosition(i10);
-        Book I = MiConfigSingleton.b2().M1().I(miArchiveBookItem);
-        if (I != null) {
-            R2(miArchiveBookItem, I);
+    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+        MiArchiveBookItem miArchiveBookItem = (MiArchiveBookItem) parent.getItemAtPosition(position);
+        Book S = MiConfigSingleton.V3().l3().S(miArchiveBookItem);
+        MiBook Q = MiConfigSingleton.V3().l3().Q(miArchiveBookItem.getBookId());
+        if (S != null) {
+            x2(miArchiveBookItem, S, Q);
         } else {
-            MiConfigSingleton.b2().M1().k(miArchiveBookItem, new a(miArchiveBookItem));
+            MiConfigSingleton.V3().l3().m(miArchiveBookItem, new a(miArchiveBookItem, Q));
         }
+    }
+
+    @SuppressLint({"SetTextI18n"})
+    public void w2() {
+        View inflate = getLayoutInflater().inflate(R.layout.bookrack_class, (ViewGroup) null);
+        l1 a2 = l1.a(inflate);
+        final PopupWindow popupWindow = new PopupWindow(inflate, -2, -2);
+        popupWindow.setBackgroundDrawable(new BitmapDrawable());
+        popupWindow.setOutsideTouchable(true);
+        popupWindow.setFocusable(true);
+        popupWindow.showAsDropDown(this.F, 0, 0);
+        a2.f12286b.setAdapter((ListAdapter) this.H);
+        a2.f12286b.setOnItemClickListener(new AdapterView.OnItemClickListener() { // from class: com.martian.mibook.activity.book.a
+            @Override // android.widget.AdapterView.OnItemClickListener
+            public final void onItemClick(AdapterView adapterView, View view, int i2, long j2) {
+                ArchiveListActivity.this.v2(popupWindow, adapterView, view, i2, j2);
+            }
+        });
     }
 }

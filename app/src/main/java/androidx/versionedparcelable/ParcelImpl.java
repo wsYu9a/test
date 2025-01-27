@@ -10,33 +10,41 @@ import androidx.annotation.RestrictTo;
 /* loaded from: classes.dex */
 public class ParcelImpl implements Parcelable {
     public static final Parcelable.Creator<ParcelImpl> CREATOR = new Parcelable.Creator<ParcelImpl>() { // from class: androidx.versionedparcelable.ParcelImpl.1
+        AnonymousClass1() {
+        }
+
         @Override // android.os.Parcelable.Creator
         public ParcelImpl createFromParcel(Parcel parcel) {
             return new ParcelImpl(parcel);
         }
 
         @Override // android.os.Parcelable.Creator
-        public ParcelImpl[] newArray(int i10) {
-            return new ParcelImpl[i10];
+        public ParcelImpl[] newArray(int i2) {
+            return new ParcelImpl[i2];
         }
     };
-    private final VersionedParcelable mParcel;
+
+    /* renamed from: a */
+    private final VersionedParcelable f4017a;
 
     /* renamed from: androidx.versionedparcelable.ParcelImpl$1 */
-    public static class AnonymousClass1 implements Parcelable.Creator<ParcelImpl> {
+    static class AnonymousClass1 implements Parcelable.Creator<ParcelImpl> {
+        AnonymousClass1() {
+        }
+
         @Override // android.os.Parcelable.Creator
         public ParcelImpl createFromParcel(Parcel parcel) {
             return new ParcelImpl(parcel);
         }
 
         @Override // android.os.Parcelable.Creator
-        public ParcelImpl[] newArray(int i10) {
-            return new ParcelImpl[i10];
+        public ParcelImpl[] newArray(int i2) {
+            return new ParcelImpl[i2];
         }
     }
 
     public ParcelImpl(VersionedParcelable versionedParcelable) {
-        this.mParcel = versionedParcelable;
+        this.f4017a = versionedParcelable;
     }
 
     @Override // android.os.Parcelable
@@ -45,15 +53,15 @@ public class ParcelImpl implements Parcelable {
     }
 
     public <T extends VersionedParcelable> T getVersionedParcel() {
-        return (T) this.mParcel;
+        return (T) this.f4017a;
     }
 
     @Override // android.os.Parcelable
-    public void writeToParcel(Parcel parcel, int i10) {
-        new VersionedParcelParcel(parcel).writeVersionedParcelable(this.mParcel);
+    public void writeToParcel(Parcel parcel, int i2) {
+        new VersionedParcelParcel(parcel).F(this.f4017a);
     }
 
-    public ParcelImpl(Parcel parcel) {
-        this.mParcel = new VersionedParcelParcel(parcel).readVersionedParcelable();
+    protected ParcelImpl(Parcel parcel) {
+        this.f4017a = new VersionedParcelParcel(parcel).s();
     }
 }

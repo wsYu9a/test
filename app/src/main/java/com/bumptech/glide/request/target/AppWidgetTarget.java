@@ -11,7 +11,7 @@ import androidx.annotation.Nullable;
 import com.bumptech.glide.request.transition.Transition;
 import com.bumptech.glide.util.Preconditions;
 
-/* loaded from: classes2.dex */
+/* loaded from: classes.dex */
 public class AppWidgetTarget extends CustomTarget<Bitmap> {
     private final ComponentName componentName;
     private final Context context;
@@ -19,15 +19,15 @@ public class AppWidgetTarget extends CustomTarget<Bitmap> {
     private final int viewId;
     private final int[] widgetIds;
 
-    public AppWidgetTarget(Context context, int i10, int i11, int i12, RemoteViews remoteViews, int... iArr) {
-        super(i10, i11);
+    public AppWidgetTarget(Context context, int i2, int i3, int i4, RemoteViews remoteViews, int... iArr) {
+        super(i2, i3);
         if (iArr.length == 0) {
             throw new IllegalArgumentException("WidgetIds must have length > 0");
         }
         this.context = (Context) Preconditions.checkNotNull(context, "Context can not be null!");
         this.remoteViews = (RemoteViews) Preconditions.checkNotNull(remoteViews, "RemoteViews object can not be null!");
         this.widgetIds = (int[]) Preconditions.checkNotNull(iArr, "WidgetIds can not be null!");
-        this.viewId = i12;
+        this.viewId = i4;
         this.componentName = null;
     }
 
@@ -60,20 +60,20 @@ public class AppWidgetTarget extends CustomTarget<Bitmap> {
         setBitmap(bitmap);
     }
 
-    public AppWidgetTarget(Context context, int i10, RemoteViews remoteViews, int... iArr) {
-        this(context, Integer.MIN_VALUE, Integer.MIN_VALUE, i10, remoteViews, iArr);
+    public AppWidgetTarget(Context context, int i2, RemoteViews remoteViews, int... iArr) {
+        this(context, Integer.MIN_VALUE, Integer.MIN_VALUE, i2, remoteViews, iArr);
     }
 
-    public AppWidgetTarget(Context context, int i10, int i11, int i12, RemoteViews remoteViews, ComponentName componentName) {
-        super(i10, i11);
+    public AppWidgetTarget(Context context, int i2, int i3, int i4, RemoteViews remoteViews, ComponentName componentName) {
+        super(i2, i3);
         this.context = (Context) Preconditions.checkNotNull(context, "Context can not be null!");
         this.remoteViews = (RemoteViews) Preconditions.checkNotNull(remoteViews, "RemoteViews object can not be null!");
         this.componentName = (ComponentName) Preconditions.checkNotNull(componentName, "ComponentName can not be null!");
-        this.viewId = i12;
+        this.viewId = i4;
         this.widgetIds = null;
     }
 
-    public AppWidgetTarget(Context context, int i10, RemoteViews remoteViews, ComponentName componentName) {
-        this(context, Integer.MIN_VALUE, Integer.MIN_VALUE, i10, remoteViews, componentName);
+    public AppWidgetTarget(Context context, int i2, RemoteViews remoteViews, ComponentName componentName) {
+        this(context, Integer.MIN_VALUE, Integer.MIN_VALUE, i2, remoteViews, componentName);
     }
 }

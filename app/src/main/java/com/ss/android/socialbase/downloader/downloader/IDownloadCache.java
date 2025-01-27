@@ -8,29 +8,29 @@ import java.util.Map;
 
 /* loaded from: classes4.dex */
 public interface IDownloadCache {
-    DownloadInfo OnDownloadTaskCancel(int i10, long j10);
+    DownloadInfo OnDownloadTaskCancel(int i2, long j2);
 
-    DownloadInfo OnDownloadTaskCompleted(int i10, long j10);
+    DownloadInfo OnDownloadTaskCompleted(int i2, long j2);
 
-    DownloadInfo OnDownloadTaskConnected(int i10, long j10, String str, String str2);
+    DownloadInfo OnDownloadTaskConnected(int i2, long j2, String str, String str2);
 
-    DownloadInfo OnDownloadTaskError(int i10, long j10);
+    DownloadInfo OnDownloadTaskError(int i2, long j2);
 
-    DownloadInfo OnDownloadTaskIntercept(int i10);
+    DownloadInfo OnDownloadTaskIntercept(int i2);
 
-    DownloadInfo OnDownloadTaskPause(int i10, long j10);
+    DownloadInfo OnDownloadTaskPause(int i2, long j2);
 
-    DownloadInfo OnDownloadTaskPrepare(int i10);
+    DownloadInfo OnDownloadTaskPrepare(int i2);
 
-    DownloadInfo OnDownloadTaskProgress(int i10, long j10);
+    DownloadInfo OnDownloadTaskProgress(int i2, long j2);
 
-    DownloadInfo OnDownloadTaskRetry(int i10);
+    DownloadInfo OnDownloadTaskRetry(int i2);
 
     void addDownloadChunk(DownloadChunk downloadChunk);
 
     void addSubDownloadChunk(DownloadChunk downloadChunk);
 
-    boolean cacheExist(int i10);
+    boolean cacheExist(int i2);
 
     void clearData();
 
@@ -38,17 +38,17 @@ public interface IDownloadCache {
 
     List<DownloadInfo> getAllDownloadInfo();
 
-    List<DownloadChunk> getDownloadChunk(int i10);
+    List<DownloadChunk> getDownloadChunk(int i2);
 
-    DownloadInfo getDownloadInfo(int i10);
+    DownloadInfo getDownloadInfo(int i2);
 
     List<DownloadInfo> getDownloadInfoList(String str);
 
     List<DownloadInfo> getFailedDownloadInfosWithMimeType(String str);
 
-    Map<Long, Segment> getSegmentMap(int i10);
+    Map<Long, Segment> getSegmentMap(int i2);
 
-    List<Segment> getSegments(int i10);
+    List<Segment> getSegments(int i2);
 
     List<DownloadInfo> getSuccessedDownloadInfosWithMimeType(String str);
 
@@ -58,31 +58,31 @@ public interface IDownloadCache {
 
     boolean isDownloadCacheSyncSuccess();
 
-    DownloadInfo onDownloadTaskStart(int i10);
+    DownloadInfo onDownloadTaskStart(int i2);
 
-    void removeAllDownloadChunk(int i10);
+    void removeAllDownloadChunk(int i2);
 
-    boolean removeDownloadInfo(int i10);
+    boolean removeDownloadInfo(int i2);
 
-    boolean removeDownloadTaskData(int i10);
+    boolean removeDownloadTaskData(int i2);
 
-    void removeSegments(int i10);
+    void removeSegments(int i2);
 
-    void syncDownloadChunks(int i10, List<DownloadChunk> list);
+    void syncDownloadChunks(int i2, List<DownloadChunk> list);
 
     void syncDownloadInfo(DownloadInfo downloadInfo);
 
-    void syncDownloadInfoFromOtherCache(int i10, List<DownloadChunk> list);
+    void syncDownloadInfoFromOtherCache(int i2, List<DownloadChunk> list);
 
-    DownloadInfo updateChunkCount(int i10, int i11);
+    DownloadInfo updateChunkCount(int i2, int i3);
 
-    void updateDownloadChunk(int i10, int i11, long j10);
+    void updateDownloadChunk(int i2, int i3, long j2);
 
     boolean updateDownloadInfo(DownloadInfo downloadInfo);
 
-    boolean updateSegments(int i10, Map<Long, Segment> map);
+    boolean updateSegments(int i2, Map<Long, Segment> map);
 
-    void updateSubDownloadChunk(int i10, int i11, int i12, long j10);
+    void updateSubDownloadChunk(int i2, int i3, int i4, long j2);
 
-    void updateSubDownloadChunkIndex(int i10, int i11, int i12, int i13);
+    void updateSubDownloadChunkIndex(int i2, int i3, int i4, int i5);
 }

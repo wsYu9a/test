@@ -6,7 +6,7 @@ import java.util.Collection;
 import java.util.Comparator;
 import java.util.Iterator;
 
-/* loaded from: classes3.dex */
+/* loaded from: classes2.dex */
 public class FuzzyKeyMemoryCache implements MemoryCache {
     private final MemoryCache cache;
     private final Comparator<String> keyComparator;
@@ -33,25 +33,21 @@ public class FuzzyKeyMemoryCache implements MemoryCache {
 
     @Override // com.kwad.sdk.core.imageloader.cache.memory.MemoryCache
     public boolean put(String str, DecodedResult decodedResult) {
-        String str2;
         synchronized (this.cache) {
-            try {
-                Iterator<String> it = this.cache.keys().iterator();
-                while (true) {
-                    if (!it.hasNext()) {
-                        str2 = null;
-                        break;
-                    }
-                    str2 = it.next();
-                    if (this.keyComparator.compare(str, str2) == 0) {
-                        break;
-                    }
+            String str2 = null;
+            Iterator<String> it = this.cache.keys().iterator();
+            while (true) {
+                if (!it.hasNext()) {
+                    break;
                 }
-                if (str2 != null) {
-                    this.cache.remove(str2);
+                String next = it.next();
+                if (this.keyComparator.compare(str, next) == 0) {
+                    str2 = next;
+                    break;
                 }
-            } catch (Throwable th2) {
-                throw th2;
+            }
+            if (str2 != null) {
+                this.cache.remove(str2);
             }
         }
         return this.cache.put(str, decodedResult);

@@ -1,75 +1,82 @@
 package com.martian.mibook.lib.model.data;
 
-import android.text.TextUtils;
-import ba.k;
-import ba.l;
+import com.martian.libsupport.j;
+import com.martian.libsupport.k;
 import com.martian.mibook.lib.model.manager.BookManager;
-import hf.e;
 
-@k.h(name = "newmibookstore")
+@j.g(name = "newmibookstore")
 /* loaded from: classes3.dex */
 public class MiBookStoreItem {
     private static final int DELETE_FLAG_MASK = 65535;
     private static final int UPDATE_FLAG_MASK = -65536;
 
-    @k.a
-    @k.b
-    @k.f(ascend = false, index = 2)
+    @j.b
+    @j.a
+    @j.e(ascend = false, index = 2)
     private Integer _id;
 
-    @k.b
+    @j.b
     private Integer addFlag;
 
-    @k.b
+    @j.b
     private Long addTime;
 
-    @k.i
-    @k.b
+    @j.b
+    @j.h
     private String bookId;
 
-    @k.b
+    @j.b
     private String bookName;
 
-    @k.b(name = "dirId")
+    @j.b(name = "dirId")
     private Integer chapterSize;
 
-    @k.b
+    @j.b
     private String coverUrl;
 
-    @k.b
+    @j.b
     private Integer deleteFlag;
 
-    @k.b
+    @j.b
     private String dirName;
 
-    @k.b
-    @k.f(ascend = false, index = 0)
+    @j.b
+    @j.e(ascend = false, index = 0)
     private Boolean flagTop;
 
-    @k.b
-    private Integer lastReadChapterSize;
-
-    @k.b
-    @k.f(ascend = false, index = 1)
+    @j.b
+    @j.e(ascend = false, index = 1)
     private Long lastReadingTime;
 
-    @k.b
+    @j.b
     private Integer readingChapterIndex;
 
-    @k.b
+    @j.b
     private Integer readingContentLength;
 
-    @k.b
+    @j.b
     private Integer readingContentPos;
 
-    @k.b
+    @j.b
     private String sourceString;
 
-    public boolean equals(Object obj) {
-        if (!(obj instanceof MiBookStoreItem)) {
+    public MiBook buildMibook() {
+        MiBook miBook = new MiBook();
+        miBook.setBookId(getBookId());
+        if (k.p(getBookName())) {
+            miBook.setBookName(getSourceString());
+        } else {
+            miBook.setBookName(getBookName());
+        }
+        miBook.setSourceString(getSourceString());
+        return miBook;
+    }
+
+    public boolean equals(Object o) {
+        if (!(o instanceof MiBookStoreItem)) {
             return false;
         }
-        MiBookStoreItem miBookStoreItem = (MiBookStoreItem) obj;
+        MiBookStoreItem miBookStoreItem = (MiBookStoreItem) o;
         String str = this.bookId;
         if (str != null) {
             String str2 = miBookStoreItem.bookId;
@@ -112,23 +119,11 @@ public class MiBookStoreItem {
     }
 
     public String getDirName() {
-        return l.q(this.dirName) ? BookrackCategoryManager.UN_CATEGORY : this.dirName;
-    }
-
-    public int getLastReadChapterSize() {
-        Integer num = this.lastReadChapterSize;
-        if (num == null) {
-            return 0;
-        }
-        return num.intValue();
+        return this.dirName;
     }
 
     public Long getLastReadingTime() {
         return this.lastReadingTime;
-    }
-
-    public Boolean getRawFlagTop() {
-        return this.flagTop;
     }
 
     public Integer getReadingChapterIndex() {
@@ -144,9 +139,6 @@ public class MiBookStoreItem {
     }
 
     public String getSourceString() {
-        if (TextUtils.isEmpty(this.sourceString) && !TextUtils.isEmpty(this.bookId)) {
-            this.sourceString = this.bookId.replace(e.f26694a, "|");
-        }
         return this.sourceString;
     }
 
@@ -161,14 +153,7 @@ public class MiBookStoreItem {
 
     public int hashCode() {
         String str = this.bookId;
-        if (str != null) {
-            return str.hashCode();
-        }
-        String str2 = this.sourceString;
-        if (str2 == null) {
-            return 0;
-        }
-        return str2.hashCode();
+        return str != null ? str.hashCode() : this.sourceString.hashCode();
     }
 
     public boolean isFlagTop() {
@@ -178,7 +163,7 @@ public class MiBookStoreItem {
 
     public boolean isPromoteBook() {
         Integer num = this.readingChapterIndex;
-        return num != null && num.intValue() == BookManager.f13985j;
+        return num != null && num.intValue() == BookManager.f14020b;
     }
 
     public boolean isReaded() {
@@ -188,83 +173,79 @@ public class MiBookStoreItem {
 
     public boolean isRecommendBook() {
         Integer num = this.readingChapterIndex;
-        return num != null && num.intValue() == BookManager.f13984i;
+        return num != null && num.intValue() == BookManager.f14019a;
     }
 
-    public void setAddFlag(Integer num) {
-        this.addFlag = num;
+    public void setAddFlag(Integer addFlag) {
+        this.addFlag = addFlag;
     }
 
-    public void setAddTime(Long l10) {
-        this.addTime = l10;
+    public void setAddTime(Long addTime) {
+        this.addTime = addTime;
     }
 
-    public void setBookId(String str) {
-        this.bookId = str;
+    public void setBookId(String bookId) {
+        this.bookId = bookId;
     }
 
-    public void setBookName(String str) {
-        this.bookName = str;
+    public void setBookName(String bookName) {
+        this.bookName = bookName;
     }
 
-    public void setChapterSize(Integer num) {
-        this.chapterSize = num;
+    public void setChapterSize(Integer chapterSize) {
+        this.chapterSize = chapterSize;
     }
 
-    public void setCoverUrl(String str) {
-        this.coverUrl = str;
+    public void setCoverUrl(String coverUrl) {
+        this.coverUrl = coverUrl;
     }
 
-    public void setDeleteFlag(Integer num) {
+    public void setDeleteFlag(Integer deleteFlag) {
         if (this.deleteFlag == null) {
-            this.deleteFlag = num;
+            this.deleteFlag = deleteFlag;
         } else {
-            this.deleteFlag = Integer.valueOf(num.intValue() + (this.deleteFlag.intValue() & (-65536)));
+            this.deleteFlag = Integer.valueOf(deleteFlag.intValue() + (this.deleteFlag.intValue() & (-65536)));
         }
     }
 
-    public void setDirName(String str) {
-        this.dirName = str;
+    public void setDirName(String dirName) {
+        this.dirName = dirName;
     }
 
-    public void setFlagTop(boolean z10) {
-        this.flagTop = Boolean.valueOf(z10);
+    public void setFlagTop(boolean flagTop) {
+        this.flagTop = Boolean.valueOf(flagTop);
     }
 
-    public void setHasUpdate(boolean z10) {
+    public void setHasUpdate(boolean hasUpdate) {
         Integer num = this.deleteFlag;
         if (num == null) {
-            this.deleteFlag = Integer.valueOf(z10 ? 65536 : 0);
+            this.deleteFlag = Integer.valueOf(hasUpdate ? 65536 : 0);
         } else {
-            this.deleteFlag = Integer.valueOf((num.intValue() & 65535) + (z10 ? 65536 : 0));
+            this.deleteFlag = Integer.valueOf((num.intValue() & 65535) + (hasUpdate ? 65536 : 0));
         }
     }
 
-    public void setLastReadChapterSize(Integer num) {
-        this.lastReadChapterSize = num;
+    public void setLastReadingTime(Long lastReadingTime) {
+        this.lastReadingTime = lastReadingTime;
     }
 
-    public void setLastReadingTime(Long l10) {
-        this.lastReadingTime = l10;
+    public void setReadingChapterIndex(Integer readingChapterIndex) {
+        this.readingChapterIndex = readingChapterIndex;
     }
 
-    public void setReadingChapterIndex(Integer num) {
-        this.readingChapterIndex = num;
+    public void setReadingContentLength(Integer readingContentLength) {
+        this.readingContentLength = readingContentLength;
     }
 
-    public void setReadingContentLength(Integer num) {
-        this.readingContentLength = num;
+    public void setReadingContentPos(Integer readingContentPos) {
+        this.readingContentPos = readingContentPos;
     }
 
-    public void setReadingContentPos(Integer num) {
-        this.readingContentPos = num;
+    public void setSourceString(String zsId) {
+        this.sourceString = zsId;
     }
 
-    public void setSourceString(String str) {
-        this.sourceString = str;
-    }
-
-    public void set_id(Integer num) {
-        this._id = num;
+    public void set_id(Integer _id) {
+        this._id = _id;
     }
 }

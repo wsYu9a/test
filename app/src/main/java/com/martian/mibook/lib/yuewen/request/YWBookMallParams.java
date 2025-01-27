@@ -1,9 +1,9 @@
 package com.martian.mibook.lib.yuewen.request;
 
+import com.martian.libcomm.http.requests.d.a;
 import com.martian.mibook.lib.account.request.TYAuthoptParams;
-import v8.a;
 
-/* loaded from: classes3.dex */
+/* loaded from: classes4.dex */
 public class YWBookMallParams extends TYAuthoptParams {
 
     @a
@@ -70,27 +70,27 @@ public class YWBookMallParams extends TYAuthoptParams {
         return this.tid;
     }
 
-    public void setCount(Integer num) {
-        this.count = num;
+    public void setCount(Integer count) {
+        this.count = count;
     }
 
-    public void setCtype(Integer num) {
-        this.ctype = num;
+    public void setCtype(Integer ctype) {
+        this.ctype = ctype;
     }
 
-    public void setPage(Integer num) {
-        this.page = num;
+    public void setPage(Integer page) {
+        this.page = page;
     }
 
-    public void setPageSize(Integer num) {
-        this.pageSize = num;
+    public void setPageSize(Integer pageSize) {
+        this.pageSize = pageSize;
     }
 
-    public void setSeed(Integer num) {
-        this.seed = num;
+    public void setSeed(Integer seed) {
+        this.seed = seed;
     }
 
-    public void setTid(Integer num) {
-        this.tid = num;
+    public void setTid(Integer tid) {
+        this.tid = tid;
     }
 }

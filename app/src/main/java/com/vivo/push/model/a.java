@@ -4,22 +4,22 @@ package com.vivo.push.model;
 public final class a {
 
     /* renamed from: a */
-    private String f25070a;
+    private String f31034a;
 
     /* renamed from: b */
-    private String f25071b;
+    private String f31035b;
 
     public a(String str, String str2) {
-        this.f25070a = str;
-        this.f25071b = str2;
+        this.f31034a = str;
+        this.f31035b = str2;
     }
 
     public final String a() {
-        return this.f25070a;
+        return this.f31034a;
     }
 
     public final String b() {
-        return this.f25071b;
+        return this.f31035b;
     }
 
     public final boolean equals(Object obj) {
@@ -30,23 +30,23 @@ public final class a {
             return false;
         }
         a aVar = (a) obj;
-        String str = this.f25070a;
+        String str = this.f31034a;
         if (str == null) {
-            if (aVar.f25070a != null) {
+            if (aVar.f31034a != null) {
                 return false;
             }
-        } else if (!str.equals(aVar.f25070a)) {
+        } else if (!str.equals(aVar.f31034a)) {
             return false;
         }
         return true;
     }
 
     public final int hashCode() {
-        String str = this.f25070a;
+        String str = this.f31034a;
         return (str == null ? 0 : str.hashCode()) + 31;
     }
 
     public final String toString() {
-        return "ConfigItem{mKey='" + this.f25070a + "', mValue='" + this.f25071b + "'}";
+        return "ConfigItem{mKey='" + this.f31034a + "', mValue='" + this.f31035b + "'}";
     }
 }

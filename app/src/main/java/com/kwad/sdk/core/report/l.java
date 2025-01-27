@@ -1,14 +1,14 @@
 package com.kwad.sdk.core.report;
 
-import java.util.List;
+import com.ksad.json.annotation.KsJson;
 
-/* loaded from: classes3.dex */
-public interface l<T> {
-    List<T> dn(int i10);
+@KsJson
+/* loaded from: classes2.dex */
+public class l extends com.kwad.sdk.core.response.kwai.a {
+    public String air;
 
-    void j(T t10);
-
-    long size();
-
-    void x(List<T> list);
+    @Override // com.kwad.sdk.core.response.kwai.a
+    public String toString() {
+        return "ErrorLog{log='" + this.air + "'}";
+    }
 }

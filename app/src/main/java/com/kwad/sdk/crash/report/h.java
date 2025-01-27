@@ -7,22 +7,13 @@ import java.util.Calendar;
 import java.util.Iterator;
 import java.util.List;
 
-/* loaded from: classes3.dex */
+/* loaded from: classes2.dex */
 public final class h {
-    private static void a(ReportEvent reportEvent) {
-        ArrayList arrayList = new ArrayList(1);
-        arrayList.add(reportEvent);
-        try {
-            com.kwad.sdk.crash.report.request.b.a(arrayList, null);
-        } catch (Throwable unused) {
-        }
+    public static void R(String str, String str2) {
+        a(S(str, str2));
     }
 
-    public static void ah(String str, String str2) {
-        a(ai(str, str2));
-    }
-
-    private static ReportEvent ai(String str, String str2) {
+    private static ReportEvent S(String str, String str2) {
         ReportEvent reportEvent = new ReportEvent();
         reportEvent.clientTimeStamp = System.currentTimeMillis();
         reportEvent.timeZone = Calendar.getInstance().getTimeZone().getID();
@@ -34,9 +25,11 @@ public final class h {
         return reportEvent;
     }
 
-    private static void a(List<ReportEvent> list, b.a aVar) {
+    private static void a(ReportEvent reportEvent) {
+        ArrayList arrayList = new ArrayList(1);
+        arrayList.add(reportEvent);
         try {
-            com.kwad.sdk.crash.report.request.b.a(list, null, aVar);
+            com.kwad.sdk.crash.report.request.b.a(arrayList, null);
         } catch (Throwable unused) {
         }
     }
@@ -48,8 +41,15 @@ public final class h {
         ArrayList arrayList = new ArrayList();
         Iterator<String> it = list.iterator();
         while (it.hasNext()) {
-            arrayList.add(ai(str, it.next()));
+            arrayList.add(S(str, it.next()));
         }
         a(arrayList, aVar);
+    }
+
+    private static void a(List<ReportEvent> list, b.a aVar) {
+        try {
+            com.kwad.sdk.crash.report.request.b.a(list, null, aVar);
+        } catch (Throwable unused) {
+        }
     }
 }

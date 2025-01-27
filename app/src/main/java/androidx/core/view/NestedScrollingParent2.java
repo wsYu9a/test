@@ -5,13 +5,13 @@ import androidx.annotation.NonNull;
 
 /* loaded from: classes.dex */
 public interface NestedScrollingParent2 extends NestedScrollingParent {
-    void onNestedPreScroll(@NonNull View view, int i10, int i11, @NonNull int[] iArr, int i12);
+    void onNestedPreScroll(@NonNull View view, int i2, int i3, @NonNull int[] iArr, int i4);
 
-    void onNestedScroll(@NonNull View view, int i10, int i11, int i12, int i13, int i14);
+    void onNestedScroll(@NonNull View view, int i2, int i3, int i4, int i5, int i6);
 
-    void onNestedScrollAccepted(@NonNull View view, @NonNull View view2, int i10, int i11);
+    void onNestedScrollAccepted(@NonNull View view, @NonNull View view2, int i2, int i3);
 
-    boolean onStartNestedScroll(@NonNull View view, @NonNull View view2, int i10, int i11);
+    boolean onStartNestedScroll(@NonNull View view, @NonNull View view2, int i2, int i3);
 
-    void onStopNestedScroll(@NonNull View view, int i10);
+    void onStopNestedScroll(@NonNull View view, int i2);
 }

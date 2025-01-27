@@ -2,20 +2,20 @@ package com.bumptech.glide.util.pool;
 
 import androidx.annotation.NonNull;
 
-/* loaded from: classes2.dex */
+/* loaded from: classes.dex */
 public abstract class StateVerifier {
     private static final boolean DEBUG = false;
 
-    public static class DebugStateVerifier extends StateVerifier {
+    private static class DebugStateVerifier extends StateVerifier {
         private volatile RuntimeException recycledAtStackTraceException;
 
-        public DebugStateVerifier() {
+        DebugStateVerifier() {
             super();
         }
 
         @Override // com.bumptech.glide.util.pool.StateVerifier
-        public void setRecycled(boolean z10) {
-            if (z10) {
+        void setRecycled(boolean z) {
+            if (z) {
                 this.recycledAtStackTraceException = new RuntimeException("Released");
             } else {
                 this.recycledAtStackTraceException = null;
@@ -30,16 +30,16 @@ public abstract class StateVerifier {
         }
     }
 
-    public static class DefaultStateVerifier extends StateVerifier {
+    private static class DefaultStateVerifier extends StateVerifier {
         private volatile boolean isReleased;
 
-        public DefaultStateVerifier() {
+        DefaultStateVerifier() {
             super();
         }
 
         @Override // com.bumptech.glide.util.pool.StateVerifier
-        public void setRecycled(boolean z10) {
-            this.isReleased = z10;
+        public void setRecycled(boolean z) {
+            this.isReleased = z;
         }
 
         @Override // com.bumptech.glide.util.pool.StateVerifier
@@ -55,7 +55,7 @@ public abstract class StateVerifier {
         return new DefaultStateVerifier();
     }
 
-    public abstract void setRecycled(boolean z10);
+    abstract void setRecycled(boolean z);
 
     public abstract void throwIfRecycled();
 

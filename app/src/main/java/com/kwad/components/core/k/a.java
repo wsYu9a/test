@@ -1,44 +1,63 @@
 package com.kwad.components.core.k;
 
-import com.ksad.json.annotation.KsJson;
-import com.kwad.sdk.core.d.c;
-import java.text.SimpleDateFormat;
-import java.util.Date;
+import android.text.TextUtils;
+import androidx.annotation.NonNull;
+import com.kwad.components.core.n.kwai.b;
+import com.kwad.components.core.response.model.AdResultData;
+import com.kwad.sdk.core.network.m;
+import com.kwad.sdk.core.response.a.d;
+import com.kwad.sdk.core.response.model.AdInfo;
+import com.kwad.sdk.core.response.model.AdTemplate;
+import org.json.JSONObject;
 
-@KsJson
-/* loaded from: classes3.dex */
-public class a extends com.kwad.sdk.core.response.a.a implements com.kwad.sdk.core.b {
-    private static SimpleDateFormat Os = new SimpleDateFormat("yyyy-MM-dd");
-    public int Ot;
-    public long Ou;
+/* loaded from: classes2.dex */
+public class a extends m<com.kwad.components.core.n.a, AdResultData> {
+    private b JW;
 
-    public final boolean j(int i10, int i11) {
-        c.d("AdForceActiveInfo", "checkAndAddCount forceActiveIntervalHour: " + i10 + ", forceActiveThreshold: " + i11);
-        if (this.Ou <= 0) {
-            px();
-            return true;
-        }
-        long currentTimeMillis = System.currentTimeMillis();
-        String format = Os.format(new Date(this.Ou));
-        String format2 = Os.format(new Date(currentTimeMillis));
-        c.d("AdForceActiveInfo", "checkAndAddCount lastDate: " + format + ", currentDate: " + format2);
-        if (!format.equals(format2)) {
-            this.Ot = 0;
-            px();
-            return true;
-        }
-        long j10 = this.Ou + (i10 * 3600000);
-        c.d("AdForceActiveInfo", "checkAndAddCount minTimestamp: " + j10 + ", currentActiveCount: " + this.Ot);
-        if (j10 >= currentTimeMillis || this.Ot > i11) {
-            return false;
-        }
-        px();
-        return true;
+    public a(b bVar) {
+        this.JW = bVar;
     }
 
-    public final void px() {
-        this.Ou = System.currentTimeMillis();
-        this.Ot++;
-        c.d("AdForceActiveInfo", "doAddCount, lastForceActiveTimestamp: " + this.Ou + ", currentActiveCount " + this.Ot);
+    @Override // com.kwad.sdk.core.network.m
+    /* renamed from: d */
+    public void afterParseData(AdResultData adResultData) {
+        super.afterParseData(adResultData);
+        e(adResultData);
+    }
+
+    private static void e(AdResultData adResultData) {
+        com.kwad.components.core.m.a pb;
+        int i2;
+        for (AdTemplate adTemplate : adResultData.getProceedTemplateList()) {
+            AdInfo cb = d.cb(adTemplate);
+            if (com.kwad.sdk.core.response.a.a.aV(cb)) {
+                if (com.kwad.sdk.core.response.a.a.aT(cb).size() == 0) {
+                    pb = com.kwad.components.core.m.a.pb();
+                    i2 = 21005;
+                    pb.g(adTemplate, i2);
+                }
+            } else if (com.kwad.sdk.core.response.a.a.aZ(cb) && TextUtils.isEmpty(com.kwad.sdk.core.response.a.a.E(cb))) {
+                pb = com.kwad.components.core.m.a.pb();
+                i2 = 21006;
+                pb.g(adTemplate, i2);
+            }
+        }
+    }
+
+    @Override // com.kwad.sdk.core.network.m
+    @NonNull
+    /* renamed from: aj */
+    public AdResultData parseData(String str) {
+        JSONObject jSONObject = new JSONObject(str);
+        AdResultData adResultData = new AdResultData(this.JW.Ow);
+        adResultData.parseJson(jSONObject);
+        return adResultData;
+    }
+
+    @Override // com.kwad.sdk.core.network.a
+    @NonNull
+    /* renamed from: mc */
+    public com.kwad.components.core.n.a createRequest() {
+        return new com.kwad.components.core.n.a(this.JW);
     }
 }

@@ -7,42 +7,41 @@ import android.util.AttributeSet;
 import android.view.MotionEvent;
 import android.widget.Checkable;
 import android.widget.ImageView;
-import da.a;
-import da.b;
+import com.martian.libsupport.bannerView.f.b;
 import java.util.Arrays;
 
 @SuppressLint({"AppCompatCustomView"})
 /* loaded from: classes3.dex */
-public class MTImageView extends ImageView implements Checkable, a {
+public class MTImageView extends ImageView implements Checkable, com.martian.libsupport.bannerView.f.a {
 
-    /* renamed from: b */
-    public b f13008b;
+    /* renamed from: a */
+    com.martian.libsupport.bannerView.f.b f10573a;
 
     public MTImageView(Context context) {
         this(context, null);
     }
 
-    @Override // da.a
+    @Override // com.martian.libsupport.bannerView.f.a
     public boolean a() {
-        return this.f13008b.f25409d;
+        return this.f10573a.f10584d;
     }
 
-    @Override // da.a
+    @Override // com.martian.libsupport.bannerView.f.a
     public boolean b() {
-        return this.f13008b.f25414i;
+        return this.f10573a.f10589i;
     }
 
     @Override // android.view.View
-    public boolean dispatchTouchEvent(MotionEvent motionEvent) {
-        int action = motionEvent.getAction();
+    public boolean dispatchTouchEvent(MotionEvent ev) {
+        int action = ev.getAction();
         if (action == 0 || action == 1) {
             refreshDrawableState();
         } else if (action == 3) {
             setPressed(false);
             refreshDrawableState();
         }
-        if (this.f13008b.f25415j.contains((int) motionEvent.getX(), (int) motionEvent.getY())) {
-            return super.dispatchTouchEvent(motionEvent);
+        if (this.f10573a.f10590j.contains((int) ev.getX(), (int) ev.getY())) {
+            return super.dispatchTouchEvent(ev);
         }
         setPressed(false);
         refreshDrawableState();
@@ -51,169 +50,169 @@ public class MTImageView extends ImageView implements Checkable, a {
 
     @Override // android.view.View
     public void draw(Canvas canvas) {
-        this.f13008b.e(this);
-        if (!this.f13008b.f25414i) {
+        this.f10573a.e(this);
+        if (!this.f10573a.f10589i) {
             super.draw(canvas);
             return;
         }
         canvas.save();
-        canvas.clipPath(this.f13008b.f25407b);
+        canvas.clipPath(this.f10573a.f10582b);
         super.draw(canvas);
         canvas.restore();
     }
 
     @Override // android.widget.ImageView, android.view.View
-    public void drawableStateChanged() {
+    protected void drawableStateChanged() {
         super.drawableStateChanged();
-        this.f13008b.a(this);
+        this.f10573a.a(this);
     }
 
-    @Override // da.a
+    @Override // com.martian.libsupport.bannerView.f.a
     public float getBottomLeftRadius() {
-        return this.f13008b.f25406a[4];
+        return this.f10573a.f10581a[4];
     }
 
-    @Override // da.a
+    @Override // com.martian.libsupport.bannerView.f.a
     public float getBottomRightRadius() {
-        return this.f13008b.f25406a[6];
+        return this.f10573a.f10581a[6];
     }
 
-    @Override // da.a
+    @Override // com.martian.libsupport.bannerView.f.a
     public int getStrokeColor() {
-        return this.f13008b.f25411f;
+        return this.f10573a.f10586f;
     }
 
-    @Override // da.a
+    @Override // com.martian.libsupport.bannerView.f.a
     public int getStrokeWidth() {
-        return this.f13008b.f25413h;
+        return this.f10573a.f10588h;
     }
 
-    @Override // da.a
+    @Override // com.martian.libsupport.bannerView.f.a
     public float getTopLeftRadius() {
-        return this.f13008b.f25406a[0];
+        return this.f10573a.f10581a[0];
     }
 
-    @Override // da.a
+    @Override // com.martian.libsupport.bannerView.f.a
     public float getTopRightRadius() {
-        return this.f13008b.f25406a[2];
+        return this.f10573a.f10581a[2];
     }
 
     @Override // android.widget.Checkable
     public boolean isChecked() {
-        return this.f13008b.f25417l;
+        return this.f10573a.l;
     }
 
     @Override // android.widget.ImageView, android.view.View
-    public void onDraw(Canvas canvas) {
-        canvas.saveLayer(this.f13008b.f25416k, null, 31);
+    protected void onDraw(Canvas canvas) {
+        canvas.saveLayer(this.f10573a.k, null, 31);
         super.onDraw(canvas);
-        this.f13008b.c(canvas);
+        this.f10573a.c(canvas);
         canvas.restore();
     }
 
     @Override // android.view.View
-    public void onSizeChanged(int i10, int i11, int i12, int i13) {
-        super.onSizeChanged(i10, i11, i12, i13);
-        this.f13008b.d(this, i10, i11);
+    protected void onSizeChanged(int w, int h2, int oldw, int oldh) {
+        super.onSizeChanged(w, h2, oldw, oldh);
+        this.f10573a.d(this, w, h2);
     }
 
-    @Override // da.a
-    public void setBottomLeftRadius(int i10) {
-        float[] fArr = this.f13008b.f25406a;
-        float f10 = i10;
-        fArr[6] = f10;
-        fArr[7] = f10;
+    @Override // com.martian.libsupport.bannerView.f.a
+    public void setBottomLeftRadius(int bottomLeftRadius) {
+        float[] fArr = this.f10573a.f10581a;
+        float f2 = bottomLeftRadius;
+        fArr[6] = f2;
+        fArr[7] = f2;
         invalidate();
     }
 
-    @Override // da.a
-    public void setBottomRightRadius(int i10) {
-        float[] fArr = this.f13008b.f25406a;
-        float f10 = i10;
-        fArr[4] = f10;
-        fArr[5] = f10;
+    @Override // com.martian.libsupport.bannerView.f.a
+    public void setBottomRightRadius(int bottomRightRadius) {
+        float[] fArr = this.f10573a.f10581a;
+        float f2 = bottomRightRadius;
+        fArr[4] = f2;
+        fArr[5] = f2;
         invalidate();
     }
 
     @Override // android.widget.Checkable
-    public void setChecked(boolean z10) {
-        b bVar = this.f13008b;
-        if (bVar.f25417l != z10) {
-            bVar.f25417l = z10;
+    public void setChecked(boolean checked) {
+        com.martian.libsupport.bannerView.f.b bVar = this.f10573a;
+        if (bVar.l != checked) {
+            bVar.l = checked;
             refreshDrawableState();
-            b bVar2 = this.f13008b;
-            b.a aVar = bVar2.f25418m;
+            com.martian.libsupport.bannerView.f.b bVar2 = this.f10573a;
+            b.a aVar = bVar2.m;
             if (aVar != null) {
-                aVar.a(this, bVar2.f25417l);
+                aVar.a(this, bVar2.l);
             }
         }
     }
 
-    @Override // da.a
-    public void setClipBackground(boolean z10) {
-        this.f13008b.f25414i = z10;
+    @Override // com.martian.libsupport.bannerView.f.a
+    public void setClipBackground(boolean clipBackground) {
+        this.f10573a.f10589i = clipBackground;
         invalidate();
     }
 
-    public void setOnCheckedChangeListener(b.a aVar) {
-        this.f13008b.f25418m = aVar;
+    public void setOnCheckedChangeListener(b.a listener) {
+        this.f10573a.m = listener;
     }
 
-    @Override // da.a
-    public void setRadius(int i10) {
-        Arrays.fill(this.f13008b.f25406a, i10);
+    @Override // com.martian.libsupport.bannerView.f.a
+    public void setRadius(int radius) {
+        Arrays.fill(this.f10573a.f10581a, radius);
         invalidate();
     }
 
-    @Override // da.a
-    public void setRoundAsCircle(boolean z10) {
-        this.f13008b.f25409d = z10;
+    @Override // com.martian.libsupport.bannerView.f.a
+    public void setRoundAsCircle(boolean roundAsCircle) {
+        this.f10573a.f10584d = roundAsCircle;
         invalidate();
     }
 
-    @Override // da.a
-    public void setStrokeColor(int i10) {
-        this.f13008b.f25411f = i10;
+    @Override // com.martian.libsupport.bannerView.f.a
+    public void setStrokeColor(int strokeColor) {
+        this.f10573a.f10586f = strokeColor;
         invalidate();
     }
 
-    @Override // da.a
-    public void setStrokeWidth(int i10) {
-        this.f13008b.f25413h = i10;
+    @Override // com.martian.libsupport.bannerView.f.a
+    public void setStrokeWidth(int strokeWidth) {
+        this.f10573a.f10588h = strokeWidth;
         invalidate();
     }
 
-    @Override // da.a
-    public void setTopLeftRadius(int i10) {
-        float[] fArr = this.f13008b.f25406a;
-        float f10 = i10;
-        fArr[0] = f10;
-        fArr[1] = f10;
+    @Override // com.martian.libsupport.bannerView.f.a
+    public void setTopLeftRadius(int topLeftRadius) {
+        float[] fArr = this.f10573a.f10581a;
+        float f2 = topLeftRadius;
+        fArr[0] = f2;
+        fArr[1] = f2;
         invalidate();
     }
 
-    @Override // da.a
-    public void setTopRightRadius(int i10) {
-        float[] fArr = this.f13008b.f25406a;
-        float f10 = i10;
-        fArr[2] = f10;
-        fArr[3] = f10;
+    @Override // com.martian.libsupport.bannerView.f.a
+    public void setTopRightRadius(int topRightRadius) {
+        float[] fArr = this.f10573a.f10581a;
+        float f2 = topRightRadius;
+        fArr[2] = f2;
+        fArr[3] = f2;
         invalidate();
     }
 
     @Override // android.widget.Checkable
     public void toggle() {
-        setChecked(!this.f13008b.f25417l);
+        setChecked(!this.f10573a.l);
     }
 
-    public MTImageView(Context context, AttributeSet attributeSet) {
-        this(context, attributeSet, 0);
+    public MTImageView(Context context, AttributeSet attrs) {
+        this(context, attrs, 0);
     }
 
-    public MTImageView(Context context, AttributeSet attributeSet, int i10) {
-        super(context, attributeSet, i10);
-        b bVar = new b();
-        this.f13008b = bVar;
-        bVar.b(context, attributeSet);
+    public MTImageView(Context context, AttributeSet attrs, int defStyleAttr) {
+        super(context, attrs, defStyleAttr);
+        com.martian.libsupport.bannerView.f.b bVar = new com.martian.libsupport.bannerView.f.b();
+        this.f10573a = bVar;
+        bVar.b(context, attrs);
     }
 }

@@ -14,7 +14,7 @@ public interface UMLogDataProtocol {
 
     void removeCacheData(Object obj);
 
-    JSONObject setupReportData(long j10);
+    JSONObject setupReportData(long j2);
 
-    void workEvent(Object obj, int i10);
+    void workEvent(Object obj, int i2);
 }

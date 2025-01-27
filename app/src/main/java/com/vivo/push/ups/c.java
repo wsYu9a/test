@@ -6,18 +6,18 @@ import com.vivo.push.IPushActionListener;
 final class c implements IPushActionListener {
 
     /* renamed from: a */
-    final /* synthetic */ UPSTurnCallback f25103a;
+    final /* synthetic */ UPSTurnCallback f31067a;
 
     /* renamed from: b */
-    final /* synthetic */ VUpsManager f25104b;
+    final /* synthetic */ VUpsManager f31068b;
 
-    public c(VUpsManager vUpsManager, UPSTurnCallback uPSTurnCallback) {
-        this.f25104b = vUpsManager;
-        this.f25103a = uPSTurnCallback;
+    c(VUpsManager vUpsManager, UPSTurnCallback uPSTurnCallback) {
+        this.f31068b = vUpsManager;
+        this.f31067a = uPSTurnCallback;
     }
 
     @Override // com.vivo.push.IPushActionListener
-    public final void onStateChanged(int i10) {
-        this.f25103a.onResult(new CodeResult(i10));
+    public final void onStateChanged(int i2) {
+        this.f31067a.onResult(new CodeResult(i2));
     }
 }

@@ -5,6 +5,7 @@ import android.os.HandlerThread;
 import android.os.Looper;
 import android.os.Process;
 import android.text.TextUtils;
+import com.alipay.mobilesecuritysdk.constant.a;
 import com.ss.android.socialbase.downloader.downloader.DownloadComponentManager;
 import com.ss.android.socialbase.downloader.downloader.Downloader;
 import com.ss.android.socialbase.downloader.model.DownloadInfo;
@@ -27,7 +28,10 @@ public class DownloadPreconnecter {
     private static final HandlerThread sPreconnectThread;
 
     /* renamed from: com.ss.android.socialbase.downloader.network.connectionpool.DownloadPreconnecter$1 */
-    public static class AnonymousClass1 implements Runnable {
+    static class AnonymousClass1 implements Runnable {
+        AnonymousClass1() {
+        }
+
         @Override // java.lang.Runnable
         public void run() {
             try {
@@ -38,11 +42,11 @@ public class DownloadPreconnecter {
     }
 
     /* renamed from: com.ss.android.socialbase.downloader.network.connectionpool.DownloadPreconnecter$2 */
-    public static class AnonymousClass2 implements Runnable {
+    static class AnonymousClass2 implements Runnable {
         final /* synthetic */ IFetchHttpHeadInfoListener val$listener;
         final /* synthetic */ String val$url;
 
-        public AnonymousClass2(String str, IFetchHttpHeadInfoListener iFetchHttpHeadInfoListener) {
+        AnonymousClass2(String str, IFetchHttpHeadInfoListener iFetchHttpHeadInfoListener) {
             str = str;
             iFetchHttpHeadInfoListener = iFetchHttpHeadInfoListener;
         }
@@ -69,13 +73,13 @@ public class DownloadPreconnecter {
                                 DownloadConnectionPool.getInstance().putCachedHeadConnections(str, fakeDownloadHeadHttpConnection);
                             }
                             r1 = fakeDownloadHeadHttpConnection;
-                        } catch (Exception e10) {
-                            e = e10;
+                        } catch (Exception e2) {
+                            e = e2;
                             r1 = fakeDownloadHeadHttpConnection;
                             e.printStackTrace();
                             r1.cancel();
-                        } catch (Throwable th2) {
-                            th = th2;
+                        } catch (Throwable th) {
+                            th = th;
                             r1 = fakeDownloadHeadHttpConnection;
                             try {
                                 r1.cancel();
@@ -89,11 +93,11 @@ public class DownloadPreconnecter {
                     if (iFetchHttpHeadInfoListener2 != null) {
                         iFetchHttpHeadInfoListener2.onFetchFinished(responseHeaders);
                     }
-                } catch (Throwable th3) {
-                    th = th3;
+                } catch (Throwable th2) {
+                    th = th2;
                 }
-            } catch (Exception e11) {
-                e = e11;
+            } catch (Exception e3) {
+                e = e3;
             }
             try {
                 r1.cancel();
@@ -103,7 +107,7 @@ public class DownloadPreconnecter {
     }
 
     /* renamed from: com.ss.android.socialbase.downloader.network.connectionpool.DownloadPreconnecter$3 */
-    public static class AnonymousClass3 implements Runnable {
+    static class AnonymousClass3 implements Runnable {
         final /* synthetic */ List val$extra_headers;
         final /* synthetic */ boolean val$holdConnection;
         final /* synthetic */ boolean val$isHeadMethodAvailable;
@@ -111,23 +115,23 @@ public class DownloadPreconnecter {
         final /* synthetic */ long val$startOffset;
         final /* synthetic */ String val$url;
 
-        public AnonymousClass3(boolean z10, String str, List list, long j10, boolean z11, int i10) {
-            z11 = z10;
+        AnonymousClass3(boolean z, String str, List list, long j2, boolean z2, int i2) {
+            z2 = z;
             str = str;
             list = list;
-            j10 = j10;
-            z10 = z11;
-            i10 = i10;
+            j2 = j2;
+            z = z2;
+            i2 = i2;
         }
 
         @Override // java.lang.Runnable
         public void run() {
             try {
-                if (z11) {
-                    DownloadPreconnecter.fetchHeadInfo(str, list, j10);
+                if (z2) {
+                    DownloadPreconnecter.fetchHeadInfo(str, list, j2);
                 }
-                if (z10) {
-                    DownloadPreconnecter.createConnection(i10, str, list, j10);
+                if (z) {
+                    DownloadPreconnecter.createConnection(i2, str, list, j2);
                     Runnable unused = DownloadPreconnecter.sCancelRunnable = new CancelRunnable(str);
                     DownloadPreconnecter.sHandler.postDelayed(DownloadPreconnecter.sCancelRunnable, DownloadPreconnecter.sConnectionOutdatedTime);
                 }
@@ -136,7 +140,7 @@ public class DownloadPreconnecter {
         }
     }
 
-    public static class CancelRunnable implements Runnable {
+    private static class CancelRunnable implements Runnable {
         private final String mUrl;
 
         public CancelRunnable(String str) {
@@ -160,6 +164,9 @@ public class DownloadPreconnecter {
         Handler handler = new Handler(handlerThread.getLooper());
         sHandler = handler;
         handler.post(new Runnable() { // from class: com.ss.android.socialbase.downloader.network.connectionpool.DownloadPreconnecter.1
+            AnonymousClass1() {
+            }
+
             @Override // java.lang.Runnable
             public void run() {
                 try {
@@ -175,7 +182,7 @@ public class DownloadPreconnecter {
             final /* synthetic */ IFetchHttpHeadInfoListener val$listener;
             final /* synthetic */ String val$url;
 
-            public AnonymousClass2(String str2, IFetchHttpHeadInfoListener iFetchHttpHeadInfoListener2) {
+            AnonymousClass2(String str2, IFetchHttpHeadInfoListener iFetchHttpHeadInfoListener2) {
                 str = str2;
                 iFetchHttpHeadInfoListener = iFetchHttpHeadInfoListener2;
             }
@@ -202,13 +209,13 @@ public class DownloadPreconnecter {
                                     DownloadConnectionPool.getInstance().putCachedHeadConnections(str, fakeDownloadHeadHttpConnection);
                                 }
                                 r1 = fakeDownloadHeadHttpConnection;
-                            } catch (Exception e10) {
-                                e = e10;
+                            } catch (Exception e2) {
+                                e = e2;
                                 r1 = fakeDownloadHeadHttpConnection;
                                 e.printStackTrace();
                                 r1.cancel();
-                            } catch (Throwable th2) {
-                                th = th2;
+                            } catch (Throwable th) {
+                                th = th;
                                 r1 = fakeDownloadHeadHttpConnection;
                                 try {
                                     r1.cancel();
@@ -222,11 +229,11 @@ public class DownloadPreconnecter {
                         if (iFetchHttpHeadInfoListener22 != null) {
                             iFetchHttpHeadInfoListener22.onFetchFinished(responseHeaders);
                         }
-                    } catch (Throwable th3) {
-                        th = th3;
+                    } catch (Throwable th2) {
+                        th = th2;
                     }
-                } catch (Exception e11) {
-                    e = e11;
+                } catch (Exception e3) {
+                    e = e3;
                 }
                 try {
                     r1.cancel();
@@ -236,7 +243,7 @@ public class DownloadPreconnecter {
         });
     }
 
-    private static void asyncPreconnect(int i10, String str, List<HttpHeader> list, long j10, boolean z10, boolean z11) {
+    private static void asyncPreconnect(int i2, String str, List<HttpHeader> list, long j2, boolean z, boolean z2) {
         sHandler.post(new Runnable() { // from class: com.ss.android.socialbase.downloader.network.connectionpool.DownloadPreconnecter.3
             final /* synthetic */ List val$extra_headers;
             final /* synthetic */ boolean val$holdConnection;
@@ -245,23 +252,23 @@ public class DownloadPreconnecter {
             final /* synthetic */ long val$startOffset;
             final /* synthetic */ String val$url;
 
-            public AnonymousClass3(boolean z112, String str2, List list2, long j102, boolean z102, int i102) {
-                z11 = z112;
+            AnonymousClass3(boolean z22, String str2, List list2, long j22, boolean z3, int i22) {
+                z2 = z22;
                 str = str2;
                 list = list2;
-                j10 = j102;
-                z10 = z102;
-                i10 = i102;
+                j2 = j22;
+                z = z3;
+                i2 = i22;
             }
 
             @Override // java.lang.Runnable
             public void run() {
                 try {
-                    if (z11) {
-                        DownloadPreconnecter.fetchHeadInfo(str, list, j10);
+                    if (z2) {
+                        DownloadPreconnecter.fetchHeadInfo(str, list, j2);
                     }
-                    if (z10) {
-                        DownloadPreconnecter.createConnection(i10, str, list, j10);
+                    if (z) {
+                        DownloadPreconnecter.createConnection(i2, str, list, j2);
                         Runnable unused = DownloadPreconnecter.sCancelRunnable = new CancelRunnable(str);
                         DownloadPreconnecter.sHandler.postDelayed(DownloadPreconnecter.sCancelRunnable, DownloadPreconnecter.sConnectionOutdatedTime);
                     }
@@ -271,41 +278,46 @@ public class DownloadPreconnecter {
         });
     }
 
-    public static void createConnection(int i10, String str, List<HttpHeader> list, long j10) {
+    public static void createConnection(int i2, String str, List<HttpHeader> list, long j2) {
         if (DownloadConnectionPool.getInstance().isDownloadConnectionExist(str)) {
             return;
         }
-        FakeDownloadHttpConnection fakeDownloadHttpConnection = new FakeDownloadHttpConnection(i10, str, list, j10);
+        FakeDownloadHttpConnection fakeDownloadHttpConnection = new FakeDownloadHttpConnection(i2, str, list, j2);
         DownloadConnectionPool.getInstance().putCachedDownloadConnections(str, fakeDownloadHttpConnection);
         try {
             fakeDownloadHttpConnection.execute();
-        } catch (Exception e10) {
-            e10.printStackTrace();
+        } catch (Exception e2) {
+            e2.printStackTrace();
         }
     }
 
-    public static void fetchHeadInfo(String str, List<HttpHeader> list, long j10) {
+    public static void fetchHeadInfo(String str, List<HttpHeader> list, long j2) {
         if (DownloadConnectionPool.getInstance().isHeadConnectionExist(str)) {
             return;
         }
-        FakeDownloadHeadHttpConnection fakeDownloadHeadHttpConnection = new FakeDownloadHeadHttpConnection(str, list, j10);
+        FakeDownloadHeadHttpConnection fakeDownloadHeadHttpConnection = new FakeDownloadHeadHttpConnection(str, list, j2);
         DownloadConnectionPool.getInstance().putCachedHeadConnections(str, fakeDownloadHeadHttpConnection);
         try {
             try {
                 fakeDownloadHeadHttpConnection.execute();
-            } finally {
+            } catch (Throwable th) {
                 try {
                     fakeDownloadHeadHttpConnection.cancel();
                 } catch (Throwable unused) {
                 }
+                throw th;
             }
-        } catch (Exception e10) {
-            e10.printStackTrace();
+        } catch (Exception e2) {
+            e2.printStackTrace();
+        }
+        try {
+            fakeDownloadHeadHttpConnection.cancel();
+        } catch (Throwable unused2) {
         }
     }
 
-    public static List<HttpHeader> getExtraHeaders(long j10, DownloadInfo downloadInfo, List<HttpHeader> list) {
-        return DownloadUtils.addRangeHeader(list, downloadInfo == null ? null : downloadInfo.geteTag(), j10, 0L);
+    public static List<HttpHeader> getExtraHeaders(long j2, DownloadInfo downloadInfo, List<HttpHeader> list) {
+        return DownloadUtils.addRangeHeader(list, downloadInfo == null ? null : downloadInfo.geteTag(), j2, 0L);
     }
 
     public static Looper getLooper() {
@@ -313,26 +325,26 @@ public class DownloadPreconnecter {
     }
 
     private static void init() {
-        sConnectionOutdatedTime = DownloadSetting.obtainGlobal().optLong(DownloadSettingKeys.GLOBAL_KEY_PRECONNECT_CONNECTION_OUTDATE_TIME, 300000L);
-        sHeadInfoOutdatedTime = DownloadSetting.obtainGlobal().optLong(DownloadSettingKeys.GLOBAL_KEY_PRECONNECT_HEAD_INFO_OUTDATE_TIME, 300000L);
+        sConnectionOutdatedTime = DownloadSetting.obtainGlobal().optLong(DownloadSettingKeys.GLOBAL_KEY_PRECONNECT_CONNECTION_OUTDATE_TIME, a.k);
+        sHeadInfoOutdatedTime = DownloadSetting.obtainGlobal().optLong(DownloadSettingKeys.GLOBAL_KEY_PRECONNECT_HEAD_INFO_OUTDATE_TIME, a.k);
         DownloadConnectionPool.getInstance().setMaxCachedDownloadConnectionSize(DownloadSetting.obtainGlobal().optInt(DownloadSettingKeys.GLOBAL_KEY_PRECONNECT_MAX_CACHE_SIZE, 3));
     }
 
-    public static void preconnect(String str, String str2, boolean z10) {
-        preconnect(-1, str, str2, null, z10, true);
+    public static void preconnect(String str, String str2, boolean z) {
+        preconnect(-1, str, str2, null, z, true);
     }
 
-    public static void preconnect(int i10, String str, String str2, List<HttpHeader> list, boolean z10, boolean z11) {
-        long j10;
+    public static void preconnect(int i2, String str, String str2, List<HttpHeader> list, boolean z, boolean z2) {
+        long j2;
         DownloadInfo downloadInfo = Downloader.getInstance(DownloadComponentManager.getAppContext()).getDownloadInfo(str, str2);
         if (downloadInfo == null) {
-            j10 = 0;
+            j2 = 0;
         } else if (downloadInfo.isDownloadingStatus() || downloadInfo.isDownloaded() || downloadInfo.getChunkCount() > 1) {
             return;
         } else {
-            j10 = DownloadUtils.getFirstOffset(downloadInfo);
+            j2 = DownloadUtils.getFirstOffset(downloadInfo);
         }
-        long j11 = j10;
-        asyncPreconnect(i10, str, getExtraHeaders(j11, downloadInfo, list), j11, z10, z11);
+        long j3 = j2;
+        asyncPreconnect(i2, str, getExtraHeaders(j3, downloadInfo, list), j3, z, z2);
     }
 }

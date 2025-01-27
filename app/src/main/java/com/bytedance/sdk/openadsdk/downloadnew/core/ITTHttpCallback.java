@@ -1,8 +1,8 @@
 package com.bytedance.sdk.openadsdk.downloadnew.core;
 
-/* loaded from: classes2.dex */
+/* loaded from: classes.dex */
 public interface ITTHttpCallback {
-    void onError(Throwable th2);
+    void onError(Throwable th);
 
     void onResponse(String str);
 }

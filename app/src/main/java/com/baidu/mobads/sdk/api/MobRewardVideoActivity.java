@@ -7,9 +7,9 @@ import android.os.Bundle;
 import android.view.KeyEvent;
 import android.view.MotionEvent;
 import androidx.annotation.NonNull;
-import com.baidu.mobads.sdk.internal.bt;
+import com.baidu.mobads.sdk.internal.bq;
 
-/* loaded from: classes2.dex */
+/* loaded from: classes.dex */
 public class MobRewardVideoActivity extends Activity {
     private static IActivityImpl tempRewardVideo;
     private IActivityImpl mRewardVideo;
@@ -46,7 +46,7 @@ public class MobRewardVideoActivity extends Activity {
     }
 
     @Override // android.app.Activity
-    public void onCreate(Bundle bundle) {
+    protected void onCreate(Bundle bundle) {
         IActivityImpl iActivityImpl = tempRewardVideo;
         if (iActivityImpl != null && this.mRewardVideo == null) {
             this.mRewardVideo = iActivityImpl;
@@ -61,7 +61,7 @@ public class MobRewardVideoActivity extends Activity {
     }
 
     @Override // android.app.Activity
-    public void onDestroy() {
+    protected void onDestroy() {
         IActivityImpl iActivityImpl = this.mRewardVideo;
         if (iActivityImpl != null) {
             iActivityImpl.onDestroy();
@@ -80,17 +80,17 @@ public class MobRewardVideoActivity extends Activity {
     }
 
     @Override // android.app.Activity, android.view.KeyEvent.Callback
-    public boolean onKeyDown(int i10, KeyEvent keyEvent) {
-        return super.onKeyDown(i10, keyEvent);
+    public boolean onKeyDown(int i2, KeyEvent keyEvent) {
+        return super.onKeyDown(i2, keyEvent);
     }
 
     @Override // android.app.Activity, android.view.KeyEvent.Callback
-    public boolean onKeyUp(int i10, KeyEvent keyEvent) {
-        return super.onKeyUp(i10, keyEvent);
+    public boolean onKeyUp(int i2, KeyEvent keyEvent) {
+        return super.onKeyUp(i2, keyEvent);
     }
 
     @Override // android.app.Activity
-    public void onNewIntent(Intent intent) {
+    protected void onNewIntent(Intent intent) {
         super.onNewIntent(intent);
         IActivityImpl iActivityImpl = tempRewardVideo;
         if (iActivityImpl != null && this.mRewardVideo == null) {
@@ -104,7 +104,7 @@ public class MobRewardVideoActivity extends Activity {
     }
 
     @Override // android.app.Activity
-    public void onPause() {
+    protected void onPause() {
         super.onPause();
         IActivityImpl iActivityImpl = this.mRewardVideo;
         if (iActivityImpl != null) {
@@ -113,7 +113,7 @@ public class MobRewardVideoActivity extends Activity {
     }
 
     @Override // android.app.Activity
-    public void onRestoreInstanceState(@NonNull Bundle bundle) {
+    protected void onRestoreInstanceState(@NonNull Bundle bundle) {
         try {
             ClassLoader classLoader = getClass().getClassLoader();
             if (classLoader != null) {
@@ -128,13 +128,13 @@ public class MobRewardVideoActivity extends Activity {
             if (iActivityImpl != null) {
                 iActivityImpl.onRestoreInstanceState(bundle);
             }
-        } catch (Throwable th2) {
-            bt.a().c(th2.getMessage());
+        } catch (Throwable th) {
+            bq.a().c(th.getMessage());
         }
     }
 
     @Override // android.app.Activity
-    public void onResume() {
+    protected void onResume() {
         super.onResume();
         IActivityImpl iActivityImpl = this.mRewardVideo;
         if (iActivityImpl != null) {
@@ -143,7 +143,7 @@ public class MobRewardVideoActivity extends Activity {
     }
 
     @Override // android.app.Activity
-    public void onSaveInstanceState(@NonNull Bundle bundle) {
+    protected void onSaveInstanceState(@NonNull Bundle bundle) {
         super.onSaveInstanceState(bundle);
         IActivityImpl iActivityImpl = this.mRewardVideo;
         if (iActivityImpl != null) {
@@ -152,7 +152,7 @@ public class MobRewardVideoActivity extends Activity {
     }
 
     @Override // android.app.Activity
-    public void onStop() {
+    protected void onStop() {
         super.onStop();
         IActivityImpl iActivityImpl = this.mRewardVideo;
         if (iActivityImpl != null) {
@@ -170,20 +170,20 @@ public class MobRewardVideoActivity extends Activity {
     }
 
     @Override // android.app.Activity, android.view.Window.Callback
-    public void onWindowFocusChanged(boolean z10) {
-        super.onWindowFocusChanged(z10);
+    public void onWindowFocusChanged(boolean z) {
+        super.onWindowFocusChanged(z);
         IActivityImpl iActivityImpl = this.mRewardVideo;
         if (iActivityImpl != null) {
-            iActivityImpl.onWindowFocusChanged(z10);
+            iActivityImpl.onWindowFocusChanged(z);
         }
     }
 
     @Override // android.app.Activity
-    public void overridePendingTransition(int i10, int i11) {
-        super.overridePendingTransition(i10, i11);
+    public void overridePendingTransition(int i2, int i3) {
+        super.overridePendingTransition(i2, i3);
         IActivityImpl iActivityImpl = this.mRewardVideo;
         if (iActivityImpl != null) {
-            iActivityImpl.overridePendingTransition(i10, i11);
+            iActivityImpl.overridePendingTransition(i2, i3);
         }
     }
 }

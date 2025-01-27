@@ -3,7 +3,6 @@ package androidx.appcompat.view.menu;
 import android.content.Context;
 import android.os.Parcelable;
 import android.view.ViewGroup;
-import androidx.annotation.NonNull;
 import androidx.annotation.RestrictTo;
 
 @RestrictTo({RestrictTo.Scope.LIBRARY_GROUP_PREFIX})
@@ -11,9 +10,9 @@ import androidx.annotation.RestrictTo;
 public interface MenuPresenter {
 
     public interface Callback {
-        void onCloseMenu(@NonNull MenuBuilder menuBuilder, boolean z10);
+        void onCloseMenu(MenuBuilder menuBuilder, boolean z);
 
-        boolean onOpenSubMenu(@NonNull MenuBuilder menuBuilder);
+        boolean onOpenSubMenu(MenuBuilder menuBuilder);
     }
 
     boolean collapseItemActionView(MenuBuilder menuBuilder, MenuItemImpl menuItemImpl);
@@ -28,7 +27,7 @@ public interface MenuPresenter {
 
     void initForMenu(Context context, MenuBuilder menuBuilder);
 
-    void onCloseMenu(MenuBuilder menuBuilder, boolean z10);
+    void onCloseMenu(MenuBuilder menuBuilder, boolean z);
 
     void onRestoreInstanceState(Parcelable parcelable);
 
@@ -38,5 +37,5 @@ public interface MenuPresenter {
 
     void setCallback(Callback callback);
 
-    void updateMenuView(boolean z10);
+    void updateMenuView(boolean z);
 }

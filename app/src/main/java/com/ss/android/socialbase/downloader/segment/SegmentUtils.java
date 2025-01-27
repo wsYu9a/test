@@ -6,44 +6,44 @@ import java.util.List;
 /* loaded from: classes4.dex */
 public class SegmentUtils {
     public static long getDownloadedBytes(@NonNull List<Segment> list) {
-        long j10;
-        long j11;
-        long j12 = 0;
+        long j2;
+        long j3;
+        long j4 = 0;
         loop0: while (true) {
-            j10 = -1;
-            j11 = -1;
+            j2 = -1;
+            j3 = -1;
             for (Segment segment : list) {
-                if (j10 == -1) {
+                if (j2 == -1) {
                     if (segment.getDownloadBytes() > 0) {
-                        j10 = segment.getStartOffset();
-                        j11 = segment.getCurrentOffset();
+                        j2 = segment.getStartOffset();
+                        j3 = segment.getCurrentOffset();
                     }
-                } else if (segment.getStartOffset() > j11) {
-                    j12 += j11 - j10;
+                } else if (segment.getStartOffset() > j3) {
+                    j4 += j3 - j2;
                     if (segment.getDownloadBytes() > 0) {
-                        j10 = segment.getStartOffset();
-                        j11 = segment.getCurrentOffset();
+                        j2 = segment.getStartOffset();
+                        j3 = segment.getCurrentOffset();
                     }
-                } else if (segment.getCurrentOffset() > j11) {
-                    j11 = segment.getCurrentOffset();
+                } else if (segment.getCurrentOffset() > j3) {
+                    j3 = segment.getCurrentOffset();
                 }
             }
         }
-        return (j10 < 0 || j11 <= j10) ? j12 : j12 + (j11 - j10);
+        return (j2 < 0 || j3 <= j2) ? j4 : j4 + (j3 - j2);
     }
 
     public static long getFirstOffset(@NonNull List<Segment> list) {
         int size = list.size();
-        long j10 = 0;
-        for (int i10 = 0; i10 < size; i10++) {
-            Segment segment = list.get(i10);
-            if (segment.getStartOffset() > j10) {
+        long j2 = 0;
+        for (int i2 = 0; i2 < size; i2++) {
+            Segment segment = list.get(i2);
+            if (segment.getStartOffset() > j2) {
                 break;
             }
-            if (segment.getCurrentOffsetRead() > j10) {
-                j10 = segment.getCurrentOffsetRead();
+            if (segment.getCurrentOffsetRead() > j2) {
+                j2 = segment.getCurrentOffsetRead();
             }
         }
-        return j10;
+        return j2;
     }
 }

@@ -1,7 +1,9 @@
 package kotlin.collections;
 
 import androidx.exifinterface.media.ExifInterface;
-import com.bytedance.sdk.openadsdk.downloadnew.core.TTDownloadField;
+import com.cdo.oaps.ad.Launcher;
+import com.kwad.sdk.ranger.e;
+import f.b.a.d;
 import java.util.Iterator;
 import java.util.List;
 import kotlin.Metadata;
@@ -10,72 +12,75 @@ import kotlin.coroutines.Continuation;
 import kotlin.coroutines.jvm.internal.DebugMetadata;
 import kotlin.coroutines.jvm.internal.RestrictedSuspendLambda;
 import kotlin.jvm.functions.Function2;
+import kotlin.jvm.internal.Intrinsics;
 import kotlin.sequences.SequenceScope;
-import xi.k;
-import xi.l;
 
-@Metadata(d1 = {"\u0000\u0010\n\u0000\n\u0002\u0010\u0002\n\u0000\n\u0002\u0018\u0002\n\u0002\u0010 \u0010\u0000\u001a\u00020\u0001\"\u0004\b\u0000\u0010\u0002*\u000e\u0012\n\u0012\b\u0012\u0004\u0012\u0002H\u00020\u00040\u0003H\u008a@"}, d2 = {"<anonymous>", "", ExifInterface.GPS_DIRECTION_TRUE, "Lkotlin/sequences/SequenceScope;", ""}, k = 3, mv = {1, 9, 0}, xi = 48)
-@DebugMetadata(c = "kotlin.collections.SlidingWindowKt$windowedIterator$1", f = "SlidingWindow.kt", i = {0, 0, 0, 2, 2, 3, 3}, l = {34, 40, 49, 55, TTDownloadField.CALL_EVENT_CONFIG_GET_CLICK_BUTTON_TAG}, m = "invokeSuspend", n = {"$this$iterator", "buffer", "gap", "$this$iterator", "buffer", "$this$iterator", "buffer"}, s = {"L$0", "L$1", "I$0", "L$0", "L$1", "L$0", "L$1"})
-/* loaded from: classes4.dex */
-public final class SlidingWindowKt$windowedIterator$1<T> extends RestrictedSuspendLambda implements Function2<SequenceScope<? super List<? extends T>>, Continuation<? super Unit>, Object> {
-    final /* synthetic */ Iterator<T> $iterator;
+@Metadata(bv = {1, 0, 3}, d1 = {"\u0000\u0012\n\u0000\n\u0002\u0018\u0002\n\u0002\u0010 \n\u0002\u0010\u0002\n\u0002\b\u0003\u0010\u0006\u001a\u00020\u0003\"\u0004\b\u0000\u0010\u0000*\u000e\u0012\n\u0012\b\u0012\u0004\u0012\u00028\u00000\u00020\u0001H\u008a@¢\u0006\u0004\b\u0004\u0010\u0005"}, d2 = {ExifInterface.GPS_DIRECTION_TRUE, "Lkotlin/sequences/SequenceScope;", "", "", Launcher.Method.INVOKE_CALLBACK, "(Ljava/lang/Object;Ljava/lang/Object;)Ljava/lang/Object;", "<anonymous>"}, k = 3, mv = {1, 4, 0})
+@DebugMetadata(c = "kotlin.collections.SlidingWindowKt$windowedIterator$1", f = "SlidingWindow.kt", i = {0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 1, 2, 2, 2, 2, 2, 3, 3, 3, 3, 4, 4, 4, 4}, l = {34, 40, 49, 55, 58}, m = "invokeSuspend", n = {"$this$iterator", "bufferInitialCapacity", "gap", "buffer", "skip", e.TAG, "$this$iterator", "bufferInitialCapacity", "gap", "buffer", "skip", "$this$iterator", "bufferInitialCapacity", "gap", "buffer", e.TAG, "$this$iterator", "bufferInitialCapacity", "gap", "buffer", "$this$iterator", "bufferInitialCapacity", "gap", "buffer"}, s = {"L$0", "I$0", "I$1", "L$1", "I$2", "L$2", "L$0", "I$0", "I$1", "L$1", "I$2", "L$0", "I$0", "I$1", "L$1", "L$2", "L$0", "I$0", "I$1", "L$1", "L$0", "I$0", "I$1", "L$1"})
+/* loaded from: classes5.dex */
+final class SlidingWindowKt$windowedIterator$1<T> extends RestrictedSuspendLambda implements Function2<SequenceScope<? super List<? extends T>>, Continuation<? super Unit>, Object> {
+    final /* synthetic */ Iterator $iterator;
     final /* synthetic */ boolean $partialWindows;
     final /* synthetic */ boolean $reuseBuffer;
     final /* synthetic */ int $size;
     final /* synthetic */ int $step;
     int I$0;
-    private /* synthetic */ Object L$0;
+    int I$1;
+    int I$2;
+    Object L$0;
     Object L$1;
     Object L$2;
+    Object L$3;
     int label;
+    private SequenceScope p$;
 
     /* JADX WARN: 'super' call moved to the top of the method (can break code semantics) */
-    /* JADX WARN: Multi-variable type inference failed */
-    public SlidingWindowKt$windowedIterator$1(int i10, int i11, Iterator<? extends T> it, boolean z10, boolean z11, Continuation<? super SlidingWindowKt$windowedIterator$1> continuation) {
+    SlidingWindowKt$windowedIterator$1(int i2, int i3, Iterator it, boolean z, boolean z2, Continuation continuation) {
         super(2, continuation);
-        this.$size = i10;
-        this.$step = i11;
+        this.$size = i2;
+        this.$step = i3;
         this.$iterator = it;
-        this.$reuseBuffer = z10;
-        this.$partialWindows = z11;
+        this.$reuseBuffer = z;
+        this.$partialWindows = z2;
     }
 
     @Override // kotlin.coroutines.jvm.internal.BaseContinuationImpl
-    @k
-    public final Continuation<Unit> create(@l Object obj, @k Continuation<?> continuation) {
-        SlidingWindowKt$windowedIterator$1 slidingWindowKt$windowedIterator$1 = new SlidingWindowKt$windowedIterator$1(this.$size, this.$step, this.$iterator, this.$reuseBuffer, this.$partialWindows, continuation);
-        slidingWindowKt$windowedIterator$1.L$0 = obj;
+    @d
+    public final Continuation<Unit> create(@f.b.a.e Object obj, @d Continuation<?> completion) {
+        Intrinsics.checkParameterIsNotNull(completion, "completion");
+        SlidingWindowKt$windowedIterator$1 slidingWindowKt$windowedIterator$1 = new SlidingWindowKt$windowedIterator$1(this.$size, this.$step, this.$iterator, this.$reuseBuffer, this.$partialWindows, completion);
+        slidingWindowKt$windowedIterator$1.p$ = (SequenceScope) obj;
         return slidingWindowKt$windowedIterator$1;
     }
 
-    /* JADX WARN: Removed duplicated region for block: B:15:0x012f  */
-    /* JADX WARN: Removed duplicated region for block: B:22:0x014f  */
-    /* JADX WARN: Removed duplicated region for block: B:34:0x00e7  */
-    /* JADX WARN: Removed duplicated region for block: B:54:0x0125  */
-    /* JADX WARN: Removed duplicated region for block: B:60:0x00a9  */
-    /* JADX WARN: Removed duplicated region for block: B:65:0x0080  */
-    /* JADX WARN: Removed duplicated region for block: B:88:0x00d8 A[RETURN] */
-    /* JADX WARN: Removed duplicated region for block: B:89:0x00ad  */
-    /* JADX WARN: Unsupported multi-entry loop pattern (BACK_EDGE: B:19:0x0146 -> B:12:0x0149). Please report as a decompilation issue!!! */
-    /* JADX WARN: Unsupported multi-entry loop pattern (BACK_EDGE: B:42:0x0118 -> B:30:0x011b). Please report as a decompilation issue!!! */
-    /* JADX WARN: Unsupported multi-entry loop pattern (BACK_EDGE: B:63:0x00a2 -> B:50:0x0055). Please report as a decompilation issue!!! */
+    @Override // kotlin.jvm.functions.Function2
+    public final Object invoke(Object obj, Continuation<? super Unit> continuation) {
+        return ((SlidingWindowKt$windowedIterator$1) create(obj, continuation)).invokeSuspend(Unit.INSTANCE);
+    }
+
+    /* JADX WARN: Multi-variable type inference failed */
+    /* JADX WARN: Removed duplicated region for block: B:19:0x015c  */
+    /* JADX WARN: Removed duplicated region for block: B:26:0x017e  */
+    /* JADX WARN: Removed duplicated region for block: B:36:0x010c  */
+    /* JADX WARN: Removed duplicated region for block: B:56:0x0150  */
+    /* JADX WARN: Removed duplicated region for block: B:61:0x00c5  */
+    /* JADX WARN: Removed duplicated region for block: B:66:0x0094  */
+    /* JADX WARN: Removed duplicated region for block: B:90:0x00f9 A[RETURN] */
+    /* JADX WARN: Removed duplicated region for block: B:91:0x00c9  */
+    /* JADX WARN: Unsupported multi-entry loop pattern (BACK_EDGE: B:23:0x0175 -> B:16:0x0178). Please report as a decompilation issue!!! */
+    /* JADX WARN: Unsupported multi-entry loop pattern (BACK_EDGE: B:44:0x0143 -> B:32:0x0146). Please report as a decompilation issue!!! */
+    /* JADX WARN: Unsupported multi-entry loop pattern (BACK_EDGE: B:66:0x00bf -> B:52:0x00c1). Please report as a decompilation issue!!! */
     @Override // kotlin.coroutines.jvm.internal.BaseContinuationImpl
-    @xi.l
+    @f.b.a.e
     /*
         Code decompiled incorrectly, please refer to instructions dump.
         To view partially-correct code enable 'Show inconsistent code' option in preferences
     */
-    public final java.lang.Object invokeSuspend(@xi.k java.lang.Object r11) {
+    public final java.lang.Object invokeSuspend(@f.b.a.d java.lang.Object r15) {
         /*
-            Method dump skipped, instructions count: 360
+            Method dump skipped, instructions count: 409
             To view this dump change 'Code comments level' option to 'DEBUG'
         */
         throw new UnsupportedOperationException("Method not decompiled: kotlin.collections.SlidingWindowKt$windowedIterator$1.invokeSuspend(java.lang.Object):java.lang.Object");
-    }
-
-    @Override // kotlin.jvm.functions.Function2
-    @l
-    public final Object invoke(@k SequenceScope<? super List<? extends T>> sequenceScope, @l Continuation<? super Unit> continuation) {
-        return ((SlidingWindowKt$windowedIterator$1) create(sequenceScope, continuation)).invokeSuspend(Unit.INSTANCE);
     }
 }

@@ -12,10 +12,9 @@ import java.util.NoSuchElementException;
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.locks.Condition;
 import java.util.concurrent.locks.ReentrantLock;
-import okhttp3.HttpUrl;
 
-/* loaded from: classes3.dex */
-public class LinkedBlockingDeque<E> extends AbstractQueue<E> implements bf.a<E>, Serializable {
+/* loaded from: classes4.dex */
+public class LinkedBlockingDeque<E> extends AbstractQueue<E> implements com.nostra13.universalimageloader.core.assist.deque.a<E>, Serializable {
     private static final long serialVersionUID = -387911632671998426L;
     private final int capacity;
     private transient int count;
@@ -25,89 +24,89 @@ public class LinkedBlockingDeque<E> extends AbstractQueue<E> implements bf.a<E>,
     private final Condition notEmpty;
     private final Condition notFull;
 
-    public abstract class b implements Iterator<E> {
+    private abstract class b implements Iterator<E> {
+
+        /* renamed from: a */
+        e<E> f15921a;
 
         /* renamed from: b */
-        public e<E> f16331b;
+        E f15922b;
 
         /* renamed from: c */
-        public E f16332c;
+        private e<E> f15923c;
 
-        /* renamed from: d */
-        public e<E> f16333d;
-
-        public b() {
+        b() {
             ReentrantLock reentrantLock = LinkedBlockingDeque.this.lock;
             reentrantLock.lock();
             try {
-                e<E> b10 = b();
-                this.f16331b = b10;
-                this.f16332c = b10 == null ? null : b10.f16337a;
+                e<E> b2 = b();
+                this.f15921a = b2;
+                this.f15922b = b2 == null ? null : b2.f15927a;
             } finally {
                 reentrantLock.unlock();
             }
         }
 
-        public void a() {
-            ReentrantLock reentrantLock = LinkedBlockingDeque.this.lock;
-            reentrantLock.lock();
-            try {
-                e<E> d10 = d(this.f16331b);
-                this.f16331b = d10;
-                this.f16332c = d10 == null ? null : d10.f16337a;
-            } finally {
-                reentrantLock.unlock();
-            }
-        }
-
-        public abstract e<E> b();
-
-        public abstract e<E> c(e<E> eVar);
-
-        public final e<E> d(e<E> eVar) {
+        private e<E> d(e<E> eVar) {
             while (true) {
-                e<E> c10 = c(eVar);
-                if (c10 == null) {
+                e<E> c2 = c(eVar);
+                if (c2 == null) {
                     return null;
                 }
-                if (c10.f16337a != null) {
-                    return c10;
+                if (c2.f15927a != null) {
+                    return c2;
                 }
-                if (c10 == eVar) {
+                if (c2 == eVar) {
                     return b();
                 }
-                eVar = c10;
+                eVar = c2;
             }
         }
+
+        void a() {
+            ReentrantLock reentrantLock = LinkedBlockingDeque.this.lock;
+            reentrantLock.lock();
+            try {
+                e<E> d2 = d(this.f15921a);
+                this.f15921a = d2;
+                this.f15922b = d2 == null ? null : d2.f15927a;
+            } finally {
+                reentrantLock.unlock();
+            }
+        }
+
+        abstract e<E> b();
+
+        abstract e<E> c(e<E> eVar);
 
         @Override // java.util.Iterator
         public boolean hasNext() {
-            return this.f16331b != null;
+            return this.f15921a != null;
         }
 
         @Override // java.util.Iterator
         public E next() {
-            e<E> eVar = this.f16331b;
+            e<E> eVar = this.f15921a;
             if (eVar == null) {
                 throw new NoSuchElementException();
             }
-            this.f16333d = eVar;
-            E e10 = this.f16332c;
+            this.f15923c = eVar;
+            E e2 = this.f15922b;
             a();
-            return e10;
+            return e2;
         }
 
         @Override // java.util.Iterator
         public void remove() {
-            e<E> eVar = this.f16333d;
+            e<E> eVar = this.f15923c;
             if (eVar == null) {
                 throw new IllegalStateException();
             }
-            this.f16333d = null;
+            this.f15923c = null;
             ReentrantLock reentrantLock = LinkedBlockingDeque.this.lock;
             reentrantLock.lock();
             try {
-                if (eVar.f16337a != null) {
+                if (eVar.f15927a != null) {
                     LinkedBlockingDeque.this.unlink(eVar);
                 }
             } finally {
@@ -116,59 +115,59 @@ public class LinkedBlockingDeque<E> extends AbstractQueue<E> implements bf.a<E>,
         }
     }
 
-    public class c extends b {
-        public c() {
+    private class c extends b {
+        private c() {
             super();
         }
 
         @Override // com.nostra13.universalimageloader.core.assist.deque.LinkedBlockingDeque.b
-        public e<E> b() {
+        e<E> b() {
             return LinkedBlockingDeque.this.last;
         }
 
         @Override // com.nostra13.universalimageloader.core.assist.deque.LinkedBlockingDeque.b
-        public e<E> c(e<E> eVar) {
-            return eVar.f16338b;
+        e<E> c(e<E> eVar) {
+            return eVar.f15928b;
         }
 
-        public /* synthetic */ c(LinkedBlockingDeque linkedBlockingDeque, a aVar) {
+        /* synthetic */ c(LinkedBlockingDeque linkedBlockingDeque, a aVar) {
             this();
         }
     }
 
-    public class d extends b {
-        public d() {
+    private class d extends b {
+        private d() {
             super();
         }
 
         @Override // com.nostra13.universalimageloader.core.assist.deque.LinkedBlockingDeque.b
-        public e<E> b() {
+        e<E> b() {
             return LinkedBlockingDeque.this.first;
         }
 
         @Override // com.nostra13.universalimageloader.core.assist.deque.LinkedBlockingDeque.b
-        public e<E> c(e<E> eVar) {
-            return eVar.f16339c;
+        e<E> c(e<E> eVar) {
+            return eVar.f15929c;
         }
 
-        public /* synthetic */ d(LinkedBlockingDeque linkedBlockingDeque, a aVar) {
+        /* synthetic */ d(LinkedBlockingDeque linkedBlockingDeque, a aVar) {
             this();
         }
     }
 
-    public static final class e<E> {
+    static final class e<E> {
 
         /* renamed from: a */
-        public E f16337a;
+        E f15927a;
 
         /* renamed from: b */
-        public e<E> f16338b;
+        e<E> f15928b;
 
         /* renamed from: c */
-        public e<E> f16339c;
+        e<E> f15929c;
 
-        public e(E e10) {
-            this.f16337a = e10;
+        e(E e2) {
+            this.f15927a = e2;
         }
     }
 
@@ -177,37 +176,37 @@ public class LinkedBlockingDeque<E> extends AbstractQueue<E> implements bf.a<E>,
     }
 
     private boolean linkFirst(e<E> eVar) {
-        int i10 = this.count;
-        if (i10 >= this.capacity) {
+        int i2 = this.count;
+        if (i2 >= this.capacity) {
             return false;
         }
         e<E> eVar2 = this.first;
-        eVar.f16339c = eVar2;
+        eVar.f15929c = eVar2;
         this.first = eVar;
         if (this.last == null) {
             this.last = eVar;
         } else {
-            eVar2.f16338b = eVar;
+            eVar2.f15928b = eVar;
         }
-        this.count = i10 + 1;
+        this.count = i2 + 1;
         this.notEmpty.signal();
         return true;
     }
 
     private boolean linkLast(e<E> eVar) {
-        int i10 = this.count;
-        if (i10 >= this.capacity) {
+        int i2 = this.count;
+        if (i2 >= this.capacity) {
             return false;
         }
         e<E> eVar2 = this.last;
-        eVar.f16338b = eVar2;
+        eVar.f15928b = eVar2;
         this.last = eVar;
         if (this.first == null) {
             this.first = eVar;
         } else {
-            eVar2.f16339c = eVar;
+            eVar2.f15929c = eVar;
         }
-        this.count = i10 + 1;
+        this.count = i2 + 1;
         this.notEmpty.signal();
         return true;
     }
@@ -233,19 +232,19 @@ public class LinkedBlockingDeque<E> extends AbstractQueue<E> implements bf.a<E>,
         if (eVar == null) {
             return null;
         }
-        e<E> eVar2 = eVar.f16339c;
-        E e10 = eVar.f16337a;
-        eVar.f16337a = null;
-        eVar.f16339c = eVar;
+        e<E> eVar2 = eVar.f15929c;
+        E e2 = eVar.f15927a;
+        eVar.f15927a = null;
+        eVar.f15929c = eVar;
         this.first = eVar2;
         if (eVar2 == null) {
             this.last = null;
         } else {
-            eVar2.f16338b = null;
+            eVar2.f15928b = null;
         }
         this.count--;
         this.notFull.signal();
-        return e10;
+        return e2;
     }
 
     private E unlinkLast() {
@@ -253,19 +252,19 @@ public class LinkedBlockingDeque<E> extends AbstractQueue<E> implements bf.a<E>,
         if (eVar == null) {
             return null;
         }
-        e<E> eVar2 = eVar.f16338b;
-        E e10 = eVar.f16337a;
-        eVar.f16337a = null;
-        eVar.f16338b = eVar;
+        e<E> eVar2 = eVar.f15928b;
+        E e2 = eVar.f15927a;
+        eVar.f15927a = null;
+        eVar.f15928b = eVar;
         this.last = eVar2;
         if (eVar2 == null) {
             this.first = null;
         } else {
-            eVar2.f16339c = null;
+            eVar2.f15929c = null;
         }
         this.count--;
         this.notFull.signal();
-        return e10;
+        return e2;
     }
 
     private void writeObject(ObjectOutputStream objectOutputStream) throws IOException {
@@ -273,33 +272,31 @@ public class LinkedBlockingDeque<E> extends AbstractQueue<E> implements bf.a<E>,
         reentrantLock.lock();
         try {
             objectOutputStream.defaultWriteObject();
-            for (e<E> eVar = this.first; eVar != null; eVar = eVar.f16339c) {
-                objectOutputStream.writeObject(eVar.f16337a);
+            for (e<E> eVar = this.first; eVar != null; eVar = eVar.f15929c) {
+                objectOutputStream.writeObject(eVar.f15927a);
             }
             objectOutputStream.writeObject(null);
+        } finally {
             reentrantLock.unlock();
-        } catch (Throwable th2) {
-            reentrantLock.unlock();
-            throw th2;
         }
     }
 
-    @Override // java.util.AbstractQueue, java.util.AbstractCollection, java.util.Collection, java.util.Queue, bf.a, java.util.concurrent.BlockingQueue, bf.b
-    public boolean add(E e10) {
-        addLast(e10);
+    @Override // java.util.AbstractQueue, java.util.AbstractCollection, java.util.Collection, java.util.Queue, com.nostra13.universalimageloader.core.assist.deque.a, java.util.concurrent.BlockingQueue, com.nostra13.universalimageloader.core.assist.deque.b
+    public boolean add(E e2) {
+        addLast(e2);
         return true;
     }
 
-    @Override // bf.a, bf.b
-    public void addFirst(E e10) {
-        if (!offerFirst(e10)) {
+    @Override // com.nostra13.universalimageloader.core.assist.deque.a, com.nostra13.universalimageloader.core.assist.deque.b
+    public void addFirst(E e2) {
+        if (!offerFirst(e2)) {
             throw new IllegalStateException("Deque full");
         }
     }
 
-    @Override // bf.a, bf.b
-    public void addLast(E e10) {
-        if (!offerLast(e10)) {
+    @Override // com.nostra13.universalimageloader.core.assist.deque.a, com.nostra13.universalimageloader.core.assist.deque.b
+    public void addLast(E e2) {
+        if (!offerLast(e2)) {
             throw new IllegalStateException("Deque full");
         }
     }
@@ -311,24 +308,22 @@ public class LinkedBlockingDeque<E> extends AbstractQueue<E> implements bf.a<E>,
         try {
             e<E> eVar = this.first;
             while (eVar != null) {
-                eVar.f16337a = null;
-                e<E> eVar2 = eVar.f16339c;
-                eVar.f16338b = null;
-                eVar.f16339c = null;
+                eVar.f15927a = null;
+                e<E> eVar2 = eVar.f15929c;
+                eVar.f15928b = null;
+                eVar.f15929c = null;
                 eVar = eVar2;
             }
             this.last = null;
             this.first = null;
             this.count = 0;
             this.notFull.signalAll();
+        } finally {
             reentrantLock.unlock();
-        } catch (Throwable th2) {
-            reentrantLock.unlock();
-            throw th2;
         }
     }
 
-    @Override // java.util.AbstractCollection, java.util.Collection, bf.a, java.util.concurrent.BlockingQueue, bf.b
+    @Override // java.util.AbstractCollection, java.util.Collection, com.nostra13.universalimageloader.core.assist.deque.a, java.util.concurrent.BlockingQueue, com.nostra13.universalimageloader.core.assist.deque.b
     public boolean contains(Object obj) {
         if (obj == null) {
             return false;
@@ -336,9 +331,8 @@ public class LinkedBlockingDeque<E> extends AbstractQueue<E> implements bf.a<E>,
         ReentrantLock reentrantLock = this.lock;
         reentrantLock.lock();
         try {
-            for (e<E> eVar = this.first; eVar != null; eVar = eVar.f16339c) {
-                if (obj.equals(eVar.f16337a)) {
-                    reentrantLock.unlock();
+            for (e<E> eVar = this.first; eVar != null; eVar = eVar.f15929c) {
+                if (obj.equals(eVar.f15927a)) {
                     return true;
                 }
             }
@@ -348,7 +342,7 @@ public class LinkedBlockingDeque<E> extends AbstractQueue<E> implements bf.a<E>,
         }
     }
 
-    @Override // bf.b
+    @Override // com.nostra13.universalimageloader.core.assist.deque.b
     public Iterator<E> descendingIterator() {
         return new c();
     }
@@ -358,12 +352,12 @@ public class LinkedBlockingDeque<E> extends AbstractQueue<E> implements bf.a<E>,
         return drainTo(collection, Integer.MAX_VALUE);
     }
 
-    @Override // java.util.AbstractQueue, java.util.Queue, bf.a, bf.b
+    @Override // java.util.AbstractQueue, java.util.Queue, com.nostra13.universalimageloader.core.assist.deque.a, com.nostra13.universalimageloader.core.assist.deque.b
     public E element() {
         return getFirst();
     }
 
-    @Override // bf.b
+    @Override // com.nostra13.universalimageloader.core.assist.deque.b
     public E getFirst() {
         E peekFirst = peekFirst();
         if (peekFirst != null) {
@@ -372,7 +366,7 @@ public class LinkedBlockingDeque<E> extends AbstractQueue<E> implements bf.a<E>,
         throw new NoSuchElementException();
     }
 
-    @Override // bf.b
+    @Override // com.nostra13.universalimageloader.core.assist.deque.b
     public E getLast() {
         E peekLast = peekLast();
         if (peekLast != null) {
@@ -381,19 +375,19 @@ public class LinkedBlockingDeque<E> extends AbstractQueue<E> implements bf.a<E>,
         throw new NoSuchElementException();
     }
 
-    @Override // java.util.AbstractCollection, java.util.Collection, java.lang.Iterable, bf.a, bf.b
+    @Override // java.util.AbstractCollection, java.util.Collection, java.lang.Iterable, com.nostra13.universalimageloader.core.assist.deque.a, com.nostra13.universalimageloader.core.assist.deque.b
     public Iterator<E> iterator() {
         return new d();
     }
 
-    public boolean offer(E e10) {
-        return offerLast(e10);
+    public boolean offer(E e2) {
+        return offerLast(e2);
     }
 
-    @Override // bf.a, bf.b
-    public boolean offerFirst(E e10) {
-        e10.getClass();
-        e<E> eVar = new e<>(e10);
+    @Override // com.nostra13.universalimageloader.core.assist.deque.a, com.nostra13.universalimageloader.core.assist.deque.b
+    public boolean offerFirst(E e2) {
+        e2.getClass();
+        e<E> eVar = new e<>(e2);
         ReentrantLock reentrantLock = this.lock;
         reentrantLock.lock();
         try {
@@ -403,10 +397,10 @@ public class LinkedBlockingDeque<E> extends AbstractQueue<E> implements bf.a<E>,
         }
     }
 
-    @Override // bf.a, bf.b
-    public boolean offerLast(E e10) {
-        e10.getClass();
-        e<E> eVar = new e<>(e10);
+    @Override // com.nostra13.universalimageloader.core.assist.deque.a, com.nostra13.universalimageloader.core.assist.deque.b
+    public boolean offerLast(E e2) {
+        e2.getClass();
+        e<E> eVar = new e<>(e2);
         ReentrantLock reentrantLock = this.lock;
         reentrantLock.lock();
         try {
@@ -416,41 +410,41 @@ public class LinkedBlockingDeque<E> extends AbstractQueue<E> implements bf.a<E>,
         }
     }
 
-    @Override // java.util.Queue, bf.a, bf.b
+    @Override // java.util.Queue, com.nostra13.universalimageloader.core.assist.deque.a, com.nostra13.universalimageloader.core.assist.deque.b
     public E peek() {
         return peekFirst();
     }
 
-    @Override // bf.b
+    @Override // com.nostra13.universalimageloader.core.assist.deque.b
     public E peekFirst() {
         ReentrantLock reentrantLock = this.lock;
         reentrantLock.lock();
         try {
             e<E> eVar = this.first;
-            return eVar == null ? null : eVar.f16337a;
+            return eVar == null ? null : eVar.f15927a;
         } finally {
             reentrantLock.unlock();
         }
     }
 
-    @Override // bf.b
+    @Override // com.nostra13.universalimageloader.core.assist.deque.b
     public E peekLast() {
         ReentrantLock reentrantLock = this.lock;
         reentrantLock.lock();
         try {
             e<E> eVar = this.last;
-            return eVar == null ? null : eVar.f16337a;
+            return eVar == null ? null : eVar.f15927a;
         } finally {
             reentrantLock.unlock();
         }
     }
 
-    @Override // java.util.Queue, bf.a, bf.b
+    @Override // java.util.Queue, com.nostra13.universalimageloader.core.assist.deque.a, com.nostra13.universalimageloader.core.assist.deque.b
     public E poll() {
         return pollFirst();
     }
 
-    @Override // bf.b
+    @Override // com.nostra13.universalimageloader.core.assist.deque.b
     public E pollFirst() {
         ReentrantLock reentrantLock = this.lock;
         reentrantLock.lock();
@@ -461,7 +455,7 @@ public class LinkedBlockingDeque<E> extends AbstractQueue<E> implements bf.a<E>,
         }
     }
 
-    @Override // bf.b
+    @Override // com.nostra13.universalimageloader.core.assist.deque.b
     public E pollLast() {
         ReentrantLock reentrantLock = this.lock;
         reentrantLock.lock();
@@ -472,25 +466,25 @@ public class LinkedBlockingDeque<E> extends AbstractQueue<E> implements bf.a<E>,
         }
     }
 
-    @Override // bf.b
+    @Override // com.nostra13.universalimageloader.core.assist.deque.b
     public E pop() {
         return removeFirst();
     }
 
-    @Override // bf.a, bf.b
-    public void push(E e10) {
-        addFirst(e10);
+    @Override // com.nostra13.universalimageloader.core.assist.deque.a, com.nostra13.universalimageloader.core.assist.deque.b
+    public void push(E e2) {
+        addFirst(e2);
     }
 
-    @Override // bf.a, java.util.concurrent.BlockingQueue
-    public void put(E e10) throws InterruptedException {
-        putLast(e10);
+    @Override // com.nostra13.universalimageloader.core.assist.deque.a, java.util.concurrent.BlockingQueue
+    public void put(E e2) throws InterruptedException {
+        putLast(e2);
     }
 
-    @Override // bf.a
-    public void putFirst(E e10) throws InterruptedException {
-        e10.getClass();
-        e<E> eVar = new e<>(e10);
+    @Override // com.nostra13.universalimageloader.core.assist.deque.a
+    public void putFirst(E e2) throws InterruptedException {
+        e2.getClass();
+        e<E> eVar = new e<>(e2);
         ReentrantLock reentrantLock = this.lock;
         reentrantLock.lock();
         while (!linkFirst(eVar)) {
@@ -502,10 +496,10 @@ public class LinkedBlockingDeque<E> extends AbstractQueue<E> implements bf.a<E>,
         }
     }
 
-    @Override // bf.a
-    public void putLast(E e10) throws InterruptedException {
-        e10.getClass();
-        e<E> eVar = new e<>(e10);
+    @Override // com.nostra13.universalimageloader.core.assist.deque.a
+    public void putLast(E e2) throws InterruptedException {
+        e2.getClass();
+        e<E> eVar = new e<>(e2);
         ReentrantLock reentrantLock = this.lock;
         reentrantLock.lock();
         while (!linkLast(eVar)) {
@@ -528,12 +522,12 @@ public class LinkedBlockingDeque<E> extends AbstractQueue<E> implements bf.a<E>,
         }
     }
 
-    @Override // java.util.AbstractQueue, java.util.Queue, bf.a, bf.b
+    @Override // java.util.AbstractQueue, java.util.Queue, com.nostra13.universalimageloader.core.assist.deque.a, com.nostra13.universalimageloader.core.assist.deque.b
     public E remove() {
         return removeFirst();
     }
 
-    @Override // bf.b
+    @Override // com.nostra13.universalimageloader.core.assist.deque.b
     public E removeFirst() {
         E pollFirst = pollFirst();
         if (pollFirst != null) {
@@ -542,7 +536,7 @@ public class LinkedBlockingDeque<E> extends AbstractQueue<E> implements bf.a<E>,
         throw new NoSuchElementException();
     }
 
-    @Override // bf.a, bf.b
+    @Override // com.nostra13.universalimageloader.core.assist.deque.a, com.nostra13.universalimageloader.core.assist.deque.b
     public boolean removeFirstOccurrence(Object obj) {
         if (obj == null) {
             return false;
@@ -550,10 +544,9 @@ public class LinkedBlockingDeque<E> extends AbstractQueue<E> implements bf.a<E>,
         ReentrantLock reentrantLock = this.lock;
         reentrantLock.lock();
         try {
-            for (e<E> eVar = this.first; eVar != null; eVar = eVar.f16339c) {
-                if (obj.equals(eVar.f16337a)) {
+            for (e<E> eVar = this.first; eVar != null; eVar = eVar.f15929c) {
+                if (obj.equals(eVar.f15927a)) {
                     unlink(eVar);
-                    reentrantLock.unlock();
                     return true;
                 }
             }
@@ -563,7 +556,7 @@ public class LinkedBlockingDeque<E> extends AbstractQueue<E> implements bf.a<E>,
         }
     }
 
-    @Override // bf.b
+    @Override // com.nostra13.universalimageloader.core.assist.deque.b
     public E removeLast() {
         E pollLast = pollLast();
         if (pollLast != null) {
@@ -572,7 +565,7 @@ public class LinkedBlockingDeque<E> extends AbstractQueue<E> implements bf.a<E>,
         throw new NoSuchElementException();
     }
 
-    @Override // bf.a, bf.b
+    @Override // com.nostra13.universalimageloader.core.assist.deque.a, com.nostra13.universalimageloader.core.assist.deque.b
     public boolean removeLastOccurrence(Object obj) {
         if (obj == null) {
             return false;
@@ -580,10 +573,9 @@ public class LinkedBlockingDeque<E> extends AbstractQueue<E> implements bf.a<E>,
         ReentrantLock reentrantLock = this.lock;
         reentrantLock.lock();
         try {
-            for (e<E> eVar = this.last; eVar != null; eVar = eVar.f16338b) {
-                if (obj.equals(eVar.f16337a)) {
+            for (e<E> eVar = this.last; eVar != null; eVar = eVar.f15928b) {
+                if (obj.equals(eVar.f15927a)) {
                     unlink(eVar);
-                    reentrantLock.unlock();
                     return true;
                 }
             }
@@ -593,7 +585,7 @@ public class LinkedBlockingDeque<E> extends AbstractQueue<E> implements bf.a<E>,
         }
     }
 
-    @Override // java.util.AbstractCollection, java.util.Collection, bf.a, bf.b
+    @Override // java.util.AbstractCollection, java.util.Collection, com.nostra13.universalimageloader.core.assist.deque.a, com.nostra13.universalimageloader.core.assist.deque.b
     public int size() {
         ReentrantLock reentrantLock = this.lock;
         reentrantLock.lock();
@@ -604,12 +596,12 @@ public class LinkedBlockingDeque<E> extends AbstractQueue<E> implements bf.a<E>,
         }
     }
 
-    @Override // bf.a, java.util.concurrent.BlockingQueue
+    @Override // com.nostra13.universalimageloader.core.assist.deque.a, java.util.concurrent.BlockingQueue
     public E take() throws InterruptedException {
         return takeFirst();
     }
 
-    @Override // bf.a
+    @Override // com.nostra13.universalimageloader.core.assist.deque.a
     public E takeFirst() throws InterruptedException {
         ReentrantLock reentrantLock = this.lock;
         reentrantLock.lock();
@@ -626,7 +618,7 @@ public class LinkedBlockingDeque<E> extends AbstractQueue<E> implements bf.a<E>,
         }
     }
 
-    @Override // bf.a
+    @Override // com.nostra13.universalimageloader.core.assist.deque.a
     public E takeLast() throws InterruptedException {
         ReentrantLock reentrantLock = this.lock;
         reentrantLock.lock();
@@ -649,13 +641,13 @@ public class LinkedBlockingDeque<E> extends AbstractQueue<E> implements bf.a<E>,
         reentrantLock.lock();
         try {
             Object[] objArr = new Object[this.count];
+            int i2 = 0;
             e<E> eVar = this.first;
-            int i10 = 0;
             while (eVar != null) {
-                int i11 = i10 + 1;
-                objArr[i10] = eVar.f16337a;
-                eVar = eVar.f16339c;
-                i10 = i11;
+                int i3 = i2 + 1;
+                objArr[i2] = eVar.f15927a;
+                eVar = eVar.f15929c;
+                i2 = i3;
             }
             return objArr;
         } finally {
@@ -670,32 +662,32 @@ public class LinkedBlockingDeque<E> extends AbstractQueue<E> implements bf.a<E>,
         try {
             e<E> eVar = this.first;
             if (eVar == null) {
-                return HttpUrl.PATH_SEGMENT_ENCODE_SET_URI;
+                return "[]";
             }
-            StringBuilder sb2 = new StringBuilder();
-            sb2.append('[');
+            StringBuilder sb = new StringBuilder();
+            sb.append('[');
             while (true) {
-                Object obj = eVar.f16337a;
+                Object obj = eVar.f15927a;
                 if (obj == this) {
                     obj = "(this Collection)";
                 }
-                sb2.append(obj);
-                eVar = eVar.f16339c;
+                sb.append(obj);
+                eVar = eVar.f15929c;
                 if (eVar == null) {
-                    sb2.append(']');
-                    return sb2.toString();
+                    sb.append(']');
+                    return sb.toString();
                 }
-                sb2.append(',');
-                sb2.append(b5.a.O);
+                sb.append(',');
+                sb.append(' ');
             }
         } finally {
             reentrantLock.unlock();
         }
     }
 
-    public void unlink(e<E> eVar) {
-        e<E> eVar2 = eVar.f16338b;
-        e<E> eVar3 = eVar.f16339c;
+    void unlink(e<E> eVar) {
+        e<E> eVar2 = eVar.f15928b;
+        e<E> eVar3 = eVar.f15929c;
         if (eVar2 == null) {
             unlinkFirst();
             return;
@@ -704,26 +696,26 @@ public class LinkedBlockingDeque<E> extends AbstractQueue<E> implements bf.a<E>,
             unlinkLast();
             return;
         }
-        eVar2.f16339c = eVar3;
-        eVar3.f16338b = eVar2;
-        eVar.f16337a = null;
+        eVar2.f15929c = eVar3;
+        eVar3.f15928b = eVar2;
+        eVar.f15927a = null;
         this.count--;
         this.notFull.signal();
     }
 
-    public LinkedBlockingDeque(int i10) {
+    public LinkedBlockingDeque(int i2) {
         ReentrantLock reentrantLock = new ReentrantLock();
         this.lock = reentrantLock;
         this.notEmpty = reentrantLock.newCondition();
         this.notFull = reentrantLock.newCondition();
-        if (i10 <= 0) {
+        if (i2 <= 0) {
             throw new IllegalArgumentException();
         }
-        this.capacity = i10;
+        this.capacity = i2;
     }
 
     @Override // java.util.concurrent.BlockingQueue
-    public int drainTo(Collection<? super E> collection, int i10) {
+    public int drainTo(Collection<? super E> collection, int i2) {
         collection.getClass();
         if (collection == this) {
             throw new IllegalArgumentException();
@@ -731,9 +723,9 @@ public class LinkedBlockingDeque<E> extends AbstractQueue<E> implements bf.a<E>,
         ReentrantLock reentrantLock = this.lock;
         reentrantLock.lock();
         try {
-            int min = Math.min(i10, this.count);
-            for (int i11 = 0; i11 < min; i11++) {
-                collection.add(this.first.f16337a);
+            int min = Math.min(i2, this.count);
+            for (int i3 = 0; i3 < min; i3++) {
+                collection.add(this.first.f15927a);
                 unlinkFirst();
             }
             return min;
@@ -742,24 +734,24 @@ public class LinkedBlockingDeque<E> extends AbstractQueue<E> implements bf.a<E>,
         }
     }
 
-    @Override // bf.a, java.util.concurrent.BlockingQueue
-    public boolean offer(E e10, long j10, TimeUnit timeUnit) throws InterruptedException {
-        return offerLast(e10, j10, timeUnit);
+    @Override // com.nostra13.universalimageloader.core.assist.deque.a, java.util.concurrent.BlockingQueue
+    public boolean offer(E e2, long j2, TimeUnit timeUnit) throws InterruptedException {
+        return offerLast(e2, j2, timeUnit);
     }
 
-    @Override // bf.a, java.util.concurrent.BlockingQueue
-    public E poll(long j10, TimeUnit timeUnit) throws InterruptedException {
-        return pollFirst(j10, timeUnit);
+    @Override // com.nostra13.universalimageloader.core.assist.deque.a, java.util.concurrent.BlockingQueue
+    public E poll(long j2, TimeUnit timeUnit) throws InterruptedException {
+        return pollFirst(j2, timeUnit);
     }
 
-    @Override // java.util.AbstractCollection, java.util.Collection, bf.a, java.util.concurrent.BlockingQueue, bf.b
+    @Override // java.util.AbstractCollection, java.util.Collection, com.nostra13.universalimageloader.core.assist.deque.a, java.util.concurrent.BlockingQueue, com.nostra13.universalimageloader.core.assist.deque.b
     public boolean remove(Object obj) {
         return removeFirstOccurrence(obj);
     }
 
-    @Override // bf.a
-    public E pollFirst(long j10, TimeUnit timeUnit) throws InterruptedException {
-        long nanos = timeUnit.toNanos(j10);
+    @Override // com.nostra13.universalimageloader.core.assist.deque.a
+    public E pollFirst(long j2, TimeUnit timeUnit) throws InterruptedException {
+        long nanos = timeUnit.toNanos(j2);
         ReentrantLock reentrantLock = this.lock;
         reentrantLock.lockInterruptibly();
         while (true) {
@@ -769,7 +761,6 @@ public class LinkedBlockingDeque<E> extends AbstractQueue<E> implements bf.a<E>,
                     return unlinkFirst;
                 }
                 if (nanos <= 0) {
-                    reentrantLock.unlock();
                     return null;
                 }
                 nanos = this.notEmpty.awaitNanos(nanos);
@@ -779,9 +770,9 @@ public class LinkedBlockingDeque<E> extends AbstractQueue<E> implements bf.a<E>,
         }
     }
 
-    @Override // bf.a
-    public E pollLast(long j10, TimeUnit timeUnit) throws InterruptedException {
-        long nanos = timeUnit.toNanos(j10);
+    @Override // com.nostra13.universalimageloader.core.assist.deque.a
+    public E pollLast(long j2, TimeUnit timeUnit) throws InterruptedException {
+        long nanos = timeUnit.toNanos(j2);
         ReentrantLock reentrantLock = this.lock;
         reentrantLock.lockInterruptibly();
         while (true) {
@@ -791,7 +782,6 @@ public class LinkedBlockingDeque<E> extends AbstractQueue<E> implements bf.a<E>,
                     return unlinkLast;
                 }
                 if (nanos <= 0) {
-                    reentrantLock.unlock();
                     return null;
                 }
                 nanos = this.notEmpty.awaitNanos(nanos);
@@ -801,50 +791,56 @@ public class LinkedBlockingDeque<E> extends AbstractQueue<E> implements bf.a<E>,
         }
     }
 
-    @Override // bf.a
-    public boolean offerFirst(E e10, long j10, TimeUnit timeUnit) throws InterruptedException {
-        e10.getClass();
-        e<E> eVar = new e<>(e10);
-        long nanos = timeUnit.toNanos(j10);
+    @Override // com.nostra13.universalimageloader.core.assist.deque.a
+    public boolean offerFirst(E e2, long j2, TimeUnit timeUnit) throws InterruptedException {
+        boolean z;
+        e2.getClass();
+        e<E> eVar = new e<>(e2);
+        long nanos = timeUnit.toNanos(j2);
         ReentrantLock reentrantLock = this.lock;
         reentrantLock.lockInterruptibly();
-        while (!linkFirst(eVar)) {
+        while (true) {
             try {
+                if (linkFirst(eVar)) {
+                    z = true;
+                    break;
+                }
                 if (nanos <= 0) {
-                    reentrantLock.unlock();
-                    return false;
+                    z = false;
+                    break;
                 }
                 nanos = this.notFull.awaitNanos(nanos);
-            } catch (Throwable th2) {
+            } finally {
                 reentrantLock.unlock();
-                throw th2;
             }
         }
-        reentrantLock.unlock();
-        return true;
+        return z;
     }
 
-    @Override // bf.a
-    public boolean offerLast(E e10, long j10, TimeUnit timeUnit) throws InterruptedException {
-        e10.getClass();
-        e<E> eVar = new e<>(e10);
-        long nanos = timeUnit.toNanos(j10);
+    @Override // com.nostra13.universalimageloader.core.assist.deque.a
+    public boolean offerLast(E e2, long j2, TimeUnit timeUnit) throws InterruptedException {
+        boolean z;
+        e2.getClass();
+        e<E> eVar = new e<>(e2);
+        long nanos = timeUnit.toNanos(j2);
         ReentrantLock reentrantLock = this.lock;
         reentrantLock.lockInterruptibly();
-        while (!linkLast(eVar)) {
+        while (true) {
             try {
+                if (linkLast(eVar)) {
+                    z = true;
+                    break;
+                }
                 if (nanos <= 0) {
-                    reentrantLock.unlock();
-                    return false;
+                    z = false;
+                    break;
                 }
                 nanos = this.notFull.awaitNanos(nanos);
-            } catch (Throwable th2) {
+            } finally {
                 reentrantLock.unlock();
-                throw th2;
             }
         }
-        reentrantLock.unlock();
-        return true;
+        return z;
     }
 
     public LinkedBlockingDeque(Collection<? extends E> collection) {
@@ -852,19 +848,17 @@ public class LinkedBlockingDeque<E> extends AbstractQueue<E> implements bf.a<E>,
         ReentrantLock reentrantLock = this.lock;
         reentrantLock.lock();
         try {
-            for (E e10 : collection) {
-                if (e10 != null) {
-                    if (!linkLast(new e<>(e10))) {
+            for (E e2 : collection) {
+                if (e2 != null) {
+                    if (!linkLast(new e<>(e2))) {
                         throw new IllegalStateException("Deque full");
                     }
                 } else {
                     throw new NullPointerException();
                 }
             }
+        } finally {
             reentrantLock.unlock();
-        } catch (Throwable th2) {
-            reentrantLock.unlock();
-            throw th2;
         }
     }
 
@@ -876,21 +870,19 @@ public class LinkedBlockingDeque<E> extends AbstractQueue<E> implements bf.a<E>,
             if (tArr.length < this.count) {
                 tArr = (T[]) ((Object[]) Array.newInstance(tArr.getClass().getComponentType(), this.count));
             }
+            int i2 = 0;
             e<E> eVar = this.first;
-            int i10 = 0;
             while (eVar != null) {
-                tArr[i10] = eVar.f16337a;
-                eVar = eVar.f16339c;
-                i10++;
+                tArr[i2] = eVar.f15927a;
+                eVar = eVar.f15929c;
+                i2++;
             }
-            if (tArr.length > i10) {
-                tArr[i10] = null;
+            if (tArr.length > i2) {
+                tArr[i2] = null;
             }
-            reentrantLock.unlock();
             return tArr;
-        } catch (Throwable th2) {
+        } finally {
             reentrantLock.unlock();
-            throw th2;
         }
     }
 }

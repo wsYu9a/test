@@ -5,6 +5,7 @@ import android.annotation.SuppressLint;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.Paint;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
@@ -30,43 +31,41 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 /* loaded from: classes4.dex */
-public class c extends com.tencent.open.b implements a.InterfaceC0661a {
+public class c extends com.tencent.open.b implements a.InterfaceC0532a {
 
     /* renamed from: c */
-    static Toast f23214c;
+    static Toast f25481c;
 
     /* renamed from: d */
-    private String f23215d;
+    private String f25482d;
 
     /* renamed from: e */
-    private IUiListener f23216e;
+    private IUiListener f25483e;
 
     /* renamed from: f */
-    private C0662c f23217f;
+    private C0533c f25484f;
 
     /* renamed from: g */
-    private Handler f23218g;
+    private Handler f25485g;
 
     /* renamed from: h */
-    private com.tencent.open.c.a f23219h;
+    private com.tencent.open.c.a f25486h;
 
     /* renamed from: i */
-    private com.tencent.open.c.b f23220i;
+    private com.tencent.open.c.b f25487i;
 
     /* renamed from: j */
-    private WeakReference<Context> f23221j;
+    private WeakReference<Context> f25488j;
+    private int k;
 
-    /* renamed from: k */
-    private int f23222k;
-
-    public class a extends WebViewClient {
+    private class a extends WebViewClient {
         private a() {
         }
 
         @Override // android.webkit.WebViewClient
         public void onPageFinished(WebView webView, String str) {
             super.onPageFinished(webView, str);
-            c.this.f23220i.setVisibility(0);
+            c.this.f25487i.setVisibility(0);
         }
 
         @Override // android.webkit.WebViewClient
@@ -76,11 +75,11 @@ public class c extends com.tencent.open.b implements a.InterfaceC0661a {
         }
 
         @Override // android.webkit.WebViewClient
-        public void onReceivedError(WebView webView, int i10, String str, String str2) {
-            super.onReceivedError(webView, i10, str, str2);
-            c.this.f23217f.onError(new UiError(i10, str, str2));
-            if (c.this.f23221j != null && c.this.f23221j.get() != null) {
-                Toast.makeText((Context) c.this.f23221j.get(), "网络连接异常或系统错误", 0).show();
+        public void onReceivedError(WebView webView, int i2, String str, String str2) {
+            super.onReceivedError(webView, i2, str, str2);
+            c.this.f25484f.onError(new UiError(i2, str, str2));
+            if (c.this.f25488j != null && c.this.f25488j.get() != null) {
+                Toast.makeText((Context) c.this.f25488j.get(), "网络连接异常或系统错误", 0).show();
             }
             c.this.dismiss();
         }
@@ -88,13 +87,13 @@ public class c extends com.tencent.open.b implements a.InterfaceC0661a {
         @Override // android.webkit.WebViewClient
         public boolean shouldOverrideUrlLoading(WebView webView, String str) {
             f.a("openSDK_LOG.PKDialog", "Redirect URL: " + str);
-            if (str.startsWith(com.tencent.open.utils.f.a().a((Context) c.this.f23221j.get(), "auth://tauth.qq.com/"))) {
-                c.this.f23217f.onComplete(i.c(str));
+            if (str.startsWith(com.tencent.open.utils.f.a().a((Context) c.this.f25488j.get(), "auth://tauth.qq.com/"))) {
+                c.this.f25484f.onComplete(i.c(str));
                 c.this.dismiss();
                 return true;
             }
             if (str.startsWith(Constants.CANCEL_URI)) {
-                c.this.f23217f.onCancel();
+                c.this.f25484f.onCancel();
                 c.this.dismiss();
                 return true;
             }
@@ -105,63 +104,63 @@ public class c extends com.tencent.open.b implements a.InterfaceC0661a {
             return true;
         }
 
-        public /* synthetic */ a(c cVar, AnonymousClass1 anonymousClass1) {
+        /* synthetic */ a(c cVar, AnonymousClass1 anonymousClass1) {
             this();
         }
     }
 
-    public class b extends a.b {
+    private class b extends a.b {
         private b() {
         }
 
-        public /* synthetic */ b(c cVar, AnonymousClass1 anonymousClass1) {
+        /* synthetic */ b(c cVar, AnonymousClass1 anonymousClass1) {
             this();
         }
     }
 
     /* renamed from: com.tencent.open.c$c */
-    public static class C0662c implements IUiListener {
+    private static class C0533c implements IUiListener {
 
         /* renamed from: a */
-        String f23232a;
+        String f25498a;
 
         /* renamed from: b */
-        String f23233b;
+        String f25499b;
 
         /* renamed from: c */
-        private WeakReference<Context> f23234c;
+        private WeakReference<Context> f25500c;
 
         /* renamed from: d */
-        private String f23235d;
+        private String f25501d;
 
         /* renamed from: e */
-        private IUiListener f23236e;
+        private IUiListener f25502e;
 
-        public C0662c(Context context, String str, String str2, String str3, IUiListener iUiListener) {
-            this.f23234c = new WeakReference<>(context);
-            this.f23235d = str;
-            this.f23232a = str2;
-            this.f23233b = str3;
-            this.f23236e = iUiListener;
+        public C0533c(Context context, String str, String str2, String str3, IUiListener iUiListener) {
+            this.f25500c = new WeakReference<>(context);
+            this.f25501d = str;
+            this.f25498a = str2;
+            this.f25499b = str3;
+            this.f25502e = iUiListener;
         }
 
         @Override // com.tencent.tauth.IUiListener
         public void onCancel() {
-            IUiListener iUiListener = this.f23236e;
+            IUiListener iUiListener = this.f25502e;
             if (iUiListener != null) {
                 iUiListener.onCancel();
-                this.f23236e = null;
+                this.f25502e = null;
             }
         }
 
         @Override // com.tencent.tauth.IUiListener
         public void onComplete(Object obj) {
             JSONObject jSONObject = (JSONObject) obj;
-            g.a().a(this.f23235d + "_H5", SystemClock.elapsedRealtime(), 0L, 0L, jSONObject.optInt("ret", -6), this.f23232a, false);
-            IUiListener iUiListener = this.f23236e;
+            g.a().a(this.f25501d + "_H5", SystemClock.elapsedRealtime(), 0L, 0L, jSONObject.optInt("ret", -6), this.f25498a, false);
+            IUiListener iUiListener = this.f25502e;
             if (iUiListener != null) {
                 iUiListener.onComplete(jSONObject);
-                this.f23236e = null;
+                this.f25502e = null;
             }
         }
 
@@ -169,74 +168,74 @@ public class c extends com.tencent.open.b implements a.InterfaceC0661a {
         public void onError(UiError uiError) {
             String str;
             if (uiError.errorMessage != null) {
-                str = uiError.errorMessage + this.f23232a;
+                str = uiError.errorMessage + this.f25498a;
             } else {
-                str = this.f23232a;
+                str = this.f25498a;
             }
-            String str2 = str;
-            g.a().a(this.f23235d + "_H5", SystemClock.elapsedRealtime(), 0L, 0L, uiError.errorCode, str2, false);
-            IUiListener iUiListener = this.f23236e;
+            g a2 = g.a();
+            a2.a(this.f25501d + "_H5", SystemClock.elapsedRealtime(), 0L, 0L, uiError.errorCode, str, false);
+            IUiListener iUiListener = this.f25502e;
             if (iUiListener != null) {
                 iUiListener.onError(uiError);
-                this.f23236e = null;
+                this.f25502e = null;
             }
         }
 
         public void a(String str) {
             try {
                 onComplete(i.d(str));
-            } catch (JSONException e10) {
-                e10.printStackTrace();
+            } catch (JSONException e2) {
+                e2.printStackTrace();
                 onError(new UiError(-4, Constants.MSG_JSON_ERROR, str));
             }
         }
     }
 
-    public class d extends Handler {
+    private class d extends Handler {
 
         /* renamed from: b */
-        private C0662c f23238b;
+        private C0533c f25504b;
 
-        public d(C0662c c0662c, Looper looper) {
+        public d(C0533c c0533c, Looper looper) {
             super(looper);
-            this.f23238b = c0662c;
+            this.f25504b = c0533c;
         }
 
         @Override // android.os.Handler
         public void handleMessage(Message message) {
             f.b("openSDK_LOG.PKDialog", "msg = " + message.what);
-            int i10 = message.what;
-            if (i10 == 1) {
-                this.f23238b.a((String) message.obj);
+            int i2 = message.what;
+            if (i2 == 1) {
+                this.f25504b.a((String) message.obj);
                 return;
             }
-            if (i10 == 2) {
-                this.f23238b.onCancel();
+            if (i2 == 2) {
+                this.f25504b.onCancel();
                 return;
             }
-            if (i10 == 3) {
-                if (c.this.f23221j == null || c.this.f23221j.get() == null) {
+            if (i2 == 3) {
+                if (c.this.f25488j == null || c.this.f25488j.get() == null) {
                     return;
                 }
-                c.c((Context) c.this.f23221j.get(), (String) message.obj);
+                c.c((Context) c.this.f25488j.get(), (String) message.obj);
                 return;
             }
-            if (i10 != 5 || c.this.f23221j == null || c.this.f23221j.get() == null) {
+            if (i2 != 5 || c.this.f25488j == null || c.this.f25488j.get() == null) {
                 return;
             }
-            c.d((Context) c.this.f23221j.get(), (String) message.obj);
+            c.d((Context) c.this.f25488j.get(), (String) message.obj);
         }
     }
 
     public c(Context context, String str, String str2, IUiListener iUiListener, QQToken qQToken) {
         super(context, R.style.Theme.Translucent.NoTitleBar);
-        this.f23221j = new WeakReference<>(context);
-        this.f23215d = str2;
-        this.f23217f = new C0662c(context, str, str2, qQToken.getAppId(), iUiListener);
-        this.f23218g = new d(this.f23217f, context.getMainLooper());
-        this.f23216e = iUiListener;
-        this.f23222k = Math.round(context.getResources().getDisplayMetrics().density * 185.0f);
-        f.e("openSDK_LOG.PKDialog", "density=" + context.getResources().getDisplayMetrics().density + "; webviewHeight=" + this.f23222k);
+        this.f25488j = new WeakReference<>(context);
+        this.f25482d = str2;
+        this.f25484f = new C0533c(context, str, str2, qQToken.getAppId(), iUiListener);
+        this.f25485g = new d(this.f25484f, context.getMainLooper());
+        this.f25483e = iUiListener;
+        this.k = Math.round(context.getResources().getDisplayMetrics().density * 185.0f);
+        f.e("openSDK_LOG.PKDialog", "density=" + context.getResources().getDisplayMetrics().density + "; webviewHeight=" + this.k);
     }
 
     public static void d(Context context, String str) {
@@ -244,11 +243,11 @@ public class c extends com.tencent.open.b implements a.InterfaceC0661a {
             return;
         }
         try {
-            JSONObject d10 = i.d(str);
-            d10.getInt("action");
-            d10.getString("msg");
-        } catch (JSONException e10) {
-            e10.printStackTrace();
+            JSONObject d2 = i.d(str);
+            d2.getInt("action");
+            d2.getString("msg");
+        } catch (JSONException e2) {
+            e2.printStackTrace();
         }
     }
 
@@ -258,7 +257,7 @@ public class c extends com.tencent.open.b implements a.InterfaceC0661a {
     }
 
     @Override // com.tencent.open.b, android.app.Dialog
-    public void onCreate(Bundle bundle) {
+    protected void onCreate(Bundle bundle) {
         requestWindowFeature(1);
         super.onCreate(bundle);
         getWindow().setSoftInputMode(16);
@@ -269,12 +268,12 @@ public class c extends com.tencent.open.b implements a.InterfaceC0661a {
 
     @SuppressLint({"SetJavaScriptEnabled"})
     private void c() {
-        this.f23220i.setVerticalScrollBarEnabled(false);
-        this.f23220i.setHorizontalScrollBarEnabled(false);
-        this.f23220i.setWebViewClient(new a());
-        this.f23220i.setWebChromeClient(this.f23175b);
-        this.f23220i.clearFormData();
-        WebSettings settings = this.f23220i.getSettings();
+        this.f25487i.setVerticalScrollBarEnabled(false);
+        this.f25487i.setHorizontalScrollBarEnabled(false);
+        this.f25487i.setWebViewClient(new a());
+        this.f25487i.setWebChromeClient(this.f25442b);
+        this.f25487i.clearFormData();
+        WebSettings settings = this.f25487i.getSettings();
         if (settings == null) {
             return;
         }
@@ -286,98 +285,100 @@ public class c extends com.tencent.open.b implements a.InterfaceC0661a {
         settings.setSupportZoom(true);
         settings.setRenderPriority(WebSettings.RenderPriority.HIGH);
         settings.setJavaScriptEnabled(true);
-        WeakReference<Context> weakReference = this.f23221j;
+        WeakReference<Context> weakReference = this.f25488j;
         if (weakReference != null && weakReference.get() != null) {
             settings.setDatabaseEnabled(true);
-            settings.setDatabasePath(this.f23221j.get().getApplicationContext().getDir("databases", 0).getPath());
+            settings.setDatabasePath(this.f25488j.get().getApplicationContext().getDir("databases", 0).getPath());
         }
         settings.setDomStorageEnabled(true);
-        this.f23174a.a(new b(), "sdk_js_if");
-        this.f23220i.clearView();
-        this.f23220i.loadUrl(this.f23215d);
-        this.f23220i.getSettings().setSavePassword(false);
+        this.f25441a.a(new b(), "sdk_js_if");
+        this.f25487i.clearView();
+        this.f25487i.loadUrl(this.f25482d);
+        this.f25487i.getSettings().setSavePassword(false);
     }
 
     private void b() {
-        com.tencent.open.c.a aVar = new com.tencent.open.c.a(this.f23221j.get());
-        this.f23219h = aVar;
+        com.tencent.open.c.a aVar = new com.tencent.open.c.a(this.f25488j.get());
+        this.f25486h = aVar;
         aVar.setBackgroundColor(1711276032);
-        this.f23219h.setLayoutParams(new RelativeLayout.LayoutParams(-1, -1));
-        com.tencent.open.c.b bVar = new com.tencent.open.c.b(this.f23221j.get());
-        this.f23220i = bVar;
+        this.f25486h.setLayoutParams(new RelativeLayout.LayoutParams(-1, -1));
+        com.tencent.open.c.b bVar = new com.tencent.open.c.b(this.f25488j.get());
+        this.f25487i = bVar;
         bVar.setBackgroundColor(0);
-        this.f23220i.setBackgroundDrawable(null);
-        try {
-            View.class.getMethod("setLayerType", Integer.TYPE, Paint.class).invoke(this.f23220i, 1, new Paint());
-        } catch (Exception e10) {
-            e10.printStackTrace();
+        this.f25487i.setBackgroundDrawable(null);
+        if (Build.VERSION.SDK_INT >= 11) {
+            try {
+                View.class.getMethod("setLayerType", Integer.TYPE, Paint.class).invoke(this.f25487i, 1, new Paint());
+            } catch (Exception e2) {
+                e2.printStackTrace();
+            }
         }
-        RelativeLayout.LayoutParams layoutParams = new RelativeLayout.LayoutParams(-1, this.f23222k);
+        RelativeLayout.LayoutParams layoutParams = new RelativeLayout.LayoutParams(-1, this.k);
         layoutParams.addRule(13, -1);
-        this.f23220i.setLayoutParams(layoutParams);
-        this.f23219h.addView(this.f23220i);
-        this.f23219h.a(this);
-        setContentView(this.f23219h);
+        this.f25487i.setLayoutParams(layoutParams);
+        this.f25486h.addView(this.f25487i);
+        this.f25486h.a(this);
+        setContentView(this.f25486h);
     }
 
-    @Override // com.tencent.open.c.a.InterfaceC0661a
-    public void a(int i10) {
-        WeakReference<Context> weakReference = this.f23221j;
+    @Override // com.tencent.open.c.a.InterfaceC0532a
+    public void a(int i2) {
+        WeakReference<Context> weakReference = this.f25488j;
         if (weakReference != null && weakReference.get() != null) {
-            if (i10 < this.f23222k && 2 == this.f23221j.get().getResources().getConfiguration().orientation) {
-                this.f23220i.getLayoutParams().height = i10;
+            if (i2 < this.k && 2 == this.f25488j.get().getResources().getConfiguration().orientation) {
+                this.f25487i.getLayoutParams().height = i2;
             } else {
-                this.f23220i.getLayoutParams().height = this.f23222k;
+                this.f25487i.getLayoutParams().height = this.k;
             }
         }
         f.e("openSDK_LOG.PKDialog", "onKeyboardShown keyboard show");
     }
 
-    @Override // com.tencent.open.c.a.InterfaceC0661a
+    @Override // com.tencent.open.c.a.InterfaceC0532a
     public void a() {
-        this.f23220i.getLayoutParams().height = this.f23222k;
+        this.f25487i.getLayoutParams().height = this.k;
         f.e("openSDK_LOG.PKDialog", "onKeyboardHidden keyboard hide");
     }
 
     @Override // com.tencent.open.b
-    public void a(String str) {
+    protected void a(String str) {
         f.b("openSDK_LOG.PKDialog", "--onConsoleMessage--");
         try {
-            this.f23174a.a(this.f23220i, str);
+            this.f25441a.a(this.f25487i, str);
         } catch (Exception unused) {
         }
     }
 
     public static void c(Context context, String str) {
         try {
-            JSONObject d10 = i.d(str);
-            int i10 = d10.getInt("type");
-            String string = d10.getString("msg");
-            if (i10 == 0) {
-                Toast toast = f23214c;
+            JSONObject d2 = i.d(str);
+            int i2 = d2.getInt("type");
+            String string = d2.getString("msg");
+            if (i2 == 0) {
+                Toast toast = f25481c;
                 if (toast == null) {
-                    f23214c = Toast.makeText(context, string, 0);
+                    f25481c = Toast.makeText(context, string, 0);
                 } else {
                     toast.setView(toast.getView());
-                    f23214c.setText(string);
-                    f23214c.setDuration(0);
+                    f25481c.setText(string);
+                    f25481c.setDuration(0);
                 }
-                f23214c.show();
+                f25481c.show();
                 return;
             }
-            if (i10 == 1) {
-                Toast toast2 = f23214c;
+            if (i2 == 1) {
+                Toast toast2 = f25481c;
                 if (toast2 == null) {
-                    f23214c = Toast.makeText(context, string, 1);
+                    f25481c = Toast.makeText(context, string, 1);
                 } else {
                     toast2.setView(toast2.getView());
-                    f23214c.setText(string);
-                    f23214c.setDuration(1);
+                    f25481c.setText(string);
+                    f25481c.setDuration(1);
                 }
-                f23214c.show();
+                f25481c.show();
             }
-        } catch (JSONException e10) {
-            e10.printStackTrace();
+        } catch (JSONException e2) {
+            e2.printStackTrace();
         }
     }
 }

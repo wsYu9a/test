@@ -7,50 +7,48 @@ import android.content.res.Resources;
 import android.os.Build;
 import android.text.TextUtils;
 import androidx.annotation.RequiresApi;
-import androidx.constraintlayout.core.motion.utils.TypedValues;
-import com.bytedance.pangle.GlobalParam;
 import com.bytedance.pangle.Zeus;
-import com.bytedance.pangle.log.IZeusReporter;
 import com.bytedance.pangle.log.ZeusLogger;
+import com.cdo.oaps.ad.wrapper.BaseWrapper;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.Iterator;
 import java.util.List;
 
-/* loaded from: classes2.dex */
+/* loaded from: classes.dex */
 public final class j {
 
     /* renamed from: a */
-    static volatile ArrayList<String> f7859a;
+    static volatile ArrayList<String> f6336a;
 
     /* renamed from: b */
-    private static String f7860b;
+    private static String f6337b;
 
     public static List<String> a() {
         AssetManager assetManager;
         try {
             assetManager = (AssetManager) AssetManager.class.newInstance();
-        } catch (Exception e10) {
-            ZeusLogger.errReport(ZeusLogger.TAG_RESOURCES, "Execute 'AssetManager.class.newInstance()' failed. ", e10);
+        } catch (Exception e2) {
+            ZeusLogger.errReport(ZeusLogger.TAG_RESOURCES, "Execute 'AssetManager.class.newInstance()' failed. ", e2);
             assetManager = null;
         }
         return a(assetManager);
     }
 
     public static String b(AssetManager assetManager) {
-        List<String> a10 = a(assetManager);
-        StringBuilder sb2 = new StringBuilder("[");
-        if (a10.size() > 0) {
-            Iterator<String> it = a10.iterator();
+        List<String> a2 = a(assetManager);
+        StringBuilder sb = new StringBuilder("[");
+        if (a2.size() > 0) {
+            Iterator<String> it = a2.iterator();
             while (it.hasNext()) {
-                sb2.append(it.next());
-                sb2.append(" , ");
+                sb.append(it.next());
+                sb.append(" , ");
             }
-            sb2.delete(sb2.lastIndexOf(" , "), sb2.length());
+            sb.delete(sb.lastIndexOf(" , "), sb.length());
         }
-        sb2.append("]");
-        return sb2.toString();
+        sb.append("]");
+        return sb.toString();
     }
 
     public static List<String> a(AssetManager assetManager) {
@@ -68,9 +66,9 @@ public final class j {
                 }
             } else {
                 int intValue = ((Integer) MethodUtils.invokeMethod(assetManager, "getStringBlockCount", new Object[0])).intValue();
-                for (int i10 = 0; i10 < intValue; i10++) {
+                for (int i2 = 0; i2 < intValue; i2++) {
                     try {
-                        String str = (String) MethodUtils.invokeMethod(assetManager, "getCookieName", Integer.valueOf(i10 + 1));
+                        String str = (String) MethodUtils.invokeMethod(assetManager, "getCookieName", Integer.valueOf(i2 + 1));
                         if (!TextUtils.isEmpty(str)) {
                             arrayList.add(str);
                         }
@@ -78,54 +76,47 @@ public final class j {
                     }
                 }
             }
-        } catch (Throwable th2) {
-            ZeusLogger.errReport(ZeusLogger.TAG_RESOURCES, "ResUtils GetAssetsPaths error. ", th2);
+        } catch (Throwable th) {
+            ZeusLogger.errReport(ZeusLogger.TAG_RESOURCES, "ResUtils GetAssetsPaths error. ", th);
         }
         return arrayList;
     }
 
     public static synchronized List<String> b() {
         ArrayList<String> arrayList;
-        int i10;
         synchronized (j.class) {
-            try {
-                GlobalParam.getInstance().getReporter().saveRecord(IZeusReporter.ZEUS_STAGE_WEB, "start");
-                if (f7859a == null) {
-                    synchronized (j.class) {
-                        if (f7859a == null) {
-                            f7859a = new ArrayList<>();
-                            if (i.c()) {
-                                try {
-                                    Resources resources = Zeus.getAppApplication().getResources();
-                                    f7859a.add(Zeus.getAppApplication().createPackageContext(resources.getString(resources.getIdentifier("android:string/config_webViewPackageName", TypedValues.Custom.S_STRING, "android")), 0).getApplicationInfo().sourceDir);
-                                } catch (Exception e10) {
-                                    ZeusLogger.w(ZeusLogger.TAG_LOAD, "getWebViewPaths1 failed.", e10);
+            if (f6336a == null) {
+                synchronized (j.class) {
+                    if (f6336a == null) {
+                        f6336a = new ArrayList<>();
+                        boolean z = false;
+                        if (i.c()) {
+                            try {
+                                Resources resources = Zeus.getAppApplication().getResources();
+                                f6336a.add(Zeus.getAppApplication().createPackageContext(resources.getString(resources.getIdentifier("android:string/config_webViewPackageName", "string", BaseWrapper.BASE_PKG_SYSTEM)), 0).getApplicationInfo().sourceDir);
+                            } catch (Exception e2) {
+                                ZeusLogger.w(ZeusLogger.TAG_LOAD, "getWebViewPaths1 failed.", e2);
+                            }
+                        } else if (i.h()) {
+                            try {
+                                Object invokeStaticMethod = MethodUtils.invokeStaticMethod(Class.forName("android.webkit.WebViewFactory"), "getWebViewContextAndSetProvider", new Object[0]);
+                                int i2 = Build.VERSION.SDK_INT;
+                                if (i2 >= 29 || (i2 == 28 && Build.VERSION.PREVIEW_SDK_INT > 0)) {
+                                    z = true;
                                 }
-                            } else if (i.h()) {
-                                try {
-                                    Object invokeStaticMethod = MethodUtils.invokeStaticMethod(Class.forName("android.webkit.WebViewFactory"), "getWebViewContextAndSetProvider", new Object[0]);
-                                    int i11 = Build.VERSION.SDK_INT;
-                                    if (i11 < 29) {
-                                        if (i11 == 28) {
-                                            i10 = Build.VERSION.PREVIEW_SDK_INT;
-                                            if (i10 > 0) {
-                                            }
-                                        }
-                                        f7859a.add(((Context) invokeStaticMethod).getApplicationInfo().sourceDir);
-                                    }
-                                    Collections.addAll(f7859a, a(((Context) invokeStaticMethod).getApplicationInfo()));
-                                } catch (Exception e11) {
-                                    ZeusLogger.w(ZeusLogger.TAG_LOAD, "getWebViewPaths2 failed.", e11);
+                                if (z) {
+                                    Collections.addAll(f6336a, a(((Context) invokeStaticMethod).getApplicationInfo()));
+                                } else {
+                                    f6336a.add(((Context) invokeStaticMethod).getApplicationInfo().sourceDir);
                                 }
+                            } catch (Exception e3) {
+                                ZeusLogger.w(ZeusLogger.TAG_LOAD, "getWebViewPaths2 failed.", e3);
                             }
                         }
                     }
                 }
-                GlobalParam.getInstance().getReporter().saveRecord(IZeusReporter.ZEUS_STAGE_WEB, "finish :" + f7859a);
-                arrayList = f7859a;
-            } catch (Throwable th2) {
-                throw th2;
             }
+            arrayList = f6336a;
         }
         return arrayList;
     }
@@ -143,16 +134,16 @@ public final class j {
                 }
             } else {
                 int intValue = ((Integer) MethodUtils.invokeMethod(assetManager, "getStringBlockCount", new Object[0])).intValue();
-                int i10 = 0;
-                while (i10 < intValue) {
-                    i10++;
-                    if (TextUtils.equals((String) MethodUtils.invokeMethod(assetManager, "getCookieName", Integer.valueOf(i10)), str)) {
+                int i2 = 0;
+                while (i2 < intValue) {
+                    i2++;
+                    if (TextUtils.equals((String) MethodUtils.invokeMethod(assetManager, "getCookieName", Integer.valueOf(i2)), str)) {
                         return true;
                     }
                 }
             }
-        } catch (Throwable th2) {
-            ZeusLogger.errReport(ZeusLogger.TAG_RESOURCES, "containsPath error. ", th2);
+        } catch (Throwable th) {
+            ZeusLogger.errReport(ZeusLogger.TAG_RESOURCES, "containsPath error. ", th);
         }
         return false;
     }
@@ -162,8 +153,8 @@ public final class j {
         String[] strArr;
         try {
             strArr = (String[]) com.bytedance.pangle.b.b.a.a((Class<?>) ApplicationInfo.class, "resourceDirs").get(applicationInfo);
-        } catch (Throwable th2) {
-            ZeusLogger.errReport(ZeusLogger.TAG_LOAD, "get resourceDirs failed.", th2);
+        } catch (Throwable th) {
+            ZeusLogger.errReport(ZeusLogger.TAG_LOAD, "get resourceDirs failed.", th);
             strArr = new String[0];
         }
         String[][] strArr2 = {applicationInfo.splitSourceDirs, applicationInfo.sharedLibraryFiles, strArr};
@@ -172,8 +163,8 @@ public final class j {
         if (str != null) {
             arrayList.add(str);
         }
-        for (int i10 = 0; i10 < 3; i10++) {
-            String[] strArr3 = strArr2[i10];
+        for (int i2 = 0; i2 < 3; i2++) {
+            String[] strArr3 = strArr2[i2];
             if (strArr3 != null) {
                 arrayList.addAll(Arrays.asList(strArr3));
             }

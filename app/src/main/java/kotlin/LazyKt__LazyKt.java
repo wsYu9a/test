@@ -1,24 +1,23 @@
 package kotlin;
 
 import androidx.exifinterface.media.ExifInterface;
-import b7.e;
+import com.vivo.ic.dm.Downloads;
+import f.b.a.d;
 import kotlin.internal.InlineOnly;
 import kotlin.jvm.internal.Intrinsics;
 import kotlin.reflect.KProperty;
-import xi.k;
 
-@Metadata(d1 = {"\u0000\u0018\n\u0000\n\u0002\u0018\u0002\n\u0002\b\u0005\n\u0002\u0010\u0000\n\u0000\n\u0002\u0018\u0002\n\u0002\b\u0002\u001a\u001f\u0010\u0000\u001a\b\u0012\u0004\u0012\u0002H\u00020\u0001\"\u0004\b\u0000\u0010\u00022\u0006\u0010\u0003\u001a\u0002H\u0002¢\u0006\u0002\u0010\u0004\u001a4\u0010\u0005\u001a\u0002H\u0002\"\u0004\b\u0000\u0010\u0002*\b\u0012\u0004\u0012\u0002H\u00020\u00012\b\u0010\u0006\u001a\u0004\u0018\u00010\u00072\n\u0010\b\u001a\u0006\u0012\u0002\b\u00030\tH\u0087\n¢\u0006\u0002\u0010\n¨\u0006\u000b"}, d2 = {"lazyOf", "Lkotlin/Lazy;", ExifInterface.GPS_DIRECTION_TRUE, "value", "(Ljava/lang/Object;)Lkotlin/Lazy;", "getValue", "thisRef", "", e.f1381l, "Lkotlin/reflect/KProperty;", "(Lkotlin/Lazy;Ljava/lang/Object;Lkotlin/reflect/KProperty;)Ljava/lang/Object;", "kotlin-stdlib"}, k = 5, mv = {1, 9, 0}, xi = 49, xs = "kotlin/LazyKt")
-/* loaded from: classes4.dex */
+@Metadata(bv = {1, 0, 3}, d1 = {"\u0000\u001a\n\u0002\b\u0002\n\u0002\u0018\u0002\n\u0002\b\u0002\n\u0002\u0010\u0000\n\u0000\n\u0002\u0018\u0002\n\u0002\b\u0004\u001a!\u0010\u0003\u001a\b\u0012\u0004\u0012\u00028\u00000\u0002\"\u0004\b\u0000\u0010\u00002\u0006\u0010\u0001\u001a\u00028\u0000¢\u0006\u0004\b\u0003\u0010\u0004\u001a6\u0010\t\u001a\u00028\u0000\"\u0004\b\u0000\u0010\u0000*\b\u0012\u0004\u0012\u00028\u00000\u00022\b\u0010\u0006\u001a\u0004\u0018\u00010\u00052\n\u0010\b\u001a\u0006\u0012\u0002\b\u00030\u0007H\u0087\n¢\u0006\u0004\b\t\u0010\n¨\u0006\u000b"}, d2 = {ExifInterface.GPS_DIRECTION_TRUE, Downloads.RequestHeaders.COLUMN_VALUE, "Lkotlin/Lazy;", "lazyOf", "(Ljava/lang/Object;)Lkotlin/Lazy;", "", "thisRef", "Lkotlin/reflect/KProperty;", "property", "getValue", "(Lkotlin/Lazy;Ljava/lang/Object;Lkotlin/reflect/KProperty;)Ljava/lang/Object;", "kotlin-stdlib"}, k = 5, mv = {1, 4, 0}, xs = "kotlin/LazyKt")
+/* loaded from: classes5.dex */
 class LazyKt__LazyKt extends LazyKt__LazyJVMKt {
     @InlineOnly
-    private static final <T> T getValue(Lazy<? extends T> lazy, Object obj, KProperty<?> property) {
-        Intrinsics.checkNotNullParameter(lazy, "<this>");
-        Intrinsics.checkNotNullParameter(property, "property");
-        return lazy.getValue();
+    private static final <T> T getValue(@d Lazy<? extends T> getValue, Object obj, KProperty<?> kProperty) {
+        Intrinsics.checkParameterIsNotNull(getValue, "$this$getValue");
+        return getValue.getValue();
     }
 
-    @k
-    public static final <T> Lazy<T> lazyOf(T t10) {
-        return new InitializedLazyImpl(t10);
+    @d
+    public static final <T> Lazy<T> lazyOf(T t) {
+        return new InitializedLazyImpl(t);
     }
 }

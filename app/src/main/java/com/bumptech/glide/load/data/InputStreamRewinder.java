@@ -7,7 +7,7 @@ import com.bumptech.glide.load.resource.bitmap.RecyclableBufferedInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 
-/* loaded from: classes2.dex */
+/* loaded from: classes.dex */
 public final class InputStreamRewinder implements DataRewinder<InputStream> {
     private static final int MARK_READ_LIMIT = 5242880;
     private final RecyclableBufferedInputStream bufferedStream;

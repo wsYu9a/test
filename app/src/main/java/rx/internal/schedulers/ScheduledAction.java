@@ -1,96 +1,92 @@
 package rx.internal.schedulers;
 
-import ak.i;
 import java.util.concurrent.Future;
 import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.concurrent.atomic.AtomicReference;
-import qj.h;
+import rx.h;
+import rx.internal.util.i;
 
 /* loaded from: classes5.dex */
 public final class ScheduledAction extends AtomicReference<Thread> implements Runnable, h {
     private static final long serialVersionUID = -3962399486978279857L;
-    final wj.a action;
+    final rx.k.a action;
     final i cancel;
 
-    public static final class Remover extends AtomicBoolean implements h {
+    private static final class Remover extends AtomicBoolean implements h {
         private static final long serialVersionUID = 247232374289553518L;
-        final ik.b parent;
+        final rx.p.b parent;
+        final ScheduledAction s;
 
-        /* renamed from: s */
-        final ScheduledAction f30538s;
-
-        public Remover(ScheduledAction scheduledAction, ik.b bVar) {
-            this.f30538s = scheduledAction;
+        public Remover(ScheduledAction scheduledAction, rx.p.b bVar) {
+            this.s = scheduledAction;
             this.parent = bVar;
         }
 
-        @Override // qj.h
+        @Override // rx.h
         public boolean isUnsubscribed() {
-            return this.f30538s.isUnsubscribed();
+            return this.s.isUnsubscribed();
         }
 
-        @Override // qj.h
+        @Override // rx.h
         public void unsubscribe() {
             if (compareAndSet(false, true)) {
-                this.parent.d(this.f30538s);
+                this.parent.d(this.s);
             }
         }
     }
 
-    public static final class Remover2 extends AtomicBoolean implements h {
+    private static final class Remover2 extends AtomicBoolean implements h {
         private static final long serialVersionUID = 247232374289553518L;
         final i parent;
-
-        /* renamed from: s */
-        final ScheduledAction f30539s;
+        final ScheduledAction s;
 
         public Remover2(ScheduledAction scheduledAction, i iVar) {
-            this.f30539s = scheduledAction;
+            this.s = scheduledAction;
             this.parent = iVar;
         }
 
-        @Override // qj.h
+        @Override // rx.h
         public boolean isUnsubscribed() {
-            return this.f30539s.isUnsubscribed();
+            return this.s.isUnsubscribed();
         }
 
-        @Override // qj.h
+        @Override // rx.h
         public void unsubscribe() {
             if (compareAndSet(false, true)) {
-                this.parent.d(this.f30539s);
+                this.parent.d(this.s);
             }
         }
     }
 
-    public final class b implements h {
+    private final class b implements h {
 
-        /* renamed from: b */
-        public final Future<?> f30540b;
+        /* renamed from: a */
+        private final Future<?> f36731a;
 
-        public /* synthetic */ b(ScheduledAction scheduledAction, Future future, a aVar) {
+        /* synthetic */ b(ScheduledAction scheduledAction, Future future, a aVar) {
             this(future);
         }
 
-        @Override // qj.h
+        @Override // rx.h
         public boolean isUnsubscribed() {
-            return this.f30540b.isCancelled();
+            return this.f36731a.isCancelled();
         }
 
-        @Override // qj.h
+        @Override // rx.h
         public void unsubscribe() {
             if (ScheduledAction.this.get() != Thread.currentThread()) {
-                this.f30540b.cancel(true);
+                this.f36731a.cancel(true);
             } else {
-                this.f30540b.cancel(false);
+                this.f36731a.cancel(false);
             }
         }
 
-        public b(Future<?> future) {
-            this.f30540b = future;
+        private b(Future<?> future) {
+            this.f36731a = future;
         }
     }
 
-    public ScheduledAction(wj.a aVar) {
+    public ScheduledAction(rx.k.a aVar) {
         this.action = aVar;
         this.cancel = new i();
     }
@@ -99,11 +95,11 @@ public final class ScheduledAction extends AtomicReference<Thread> implements Ru
         this.cancel.a(hVar);
     }
 
-    public void addParent(ik.b bVar) {
+    public void addParent(rx.p.b bVar) {
         this.cancel.a(new Remover(this, bVar));
     }
 
-    @Override // qj.h
+    @Override // rx.h
     public boolean isUnsubscribed() {
         return this.cancel.isUnsubscribed();
     }
@@ -115,14 +111,12 @@ public final class ScheduledAction extends AtomicReference<Thread> implements Ru
             this.action.call();
         } finally {
             try {
-                unsubscribe();
-            } catch (Throwable th2) {
+            } finally {
             }
         }
-        unsubscribe();
     }
 
-    @Override // qj.h
+    @Override // rx.h
     public void unsubscribe() {
         if (this.cancel.isUnsubscribed()) {
             return;
@@ -138,12 +132,12 @@ public final class ScheduledAction extends AtomicReference<Thread> implements Ru
         this.cancel.a(new Remover2(this, iVar));
     }
 
-    public ScheduledAction(wj.a aVar, ik.b bVar) {
+    public ScheduledAction(rx.k.a aVar, rx.p.b bVar) {
         this.action = aVar;
         this.cancel = new i(new Remover(this, bVar));
     }
 
-    public ScheduledAction(wj.a aVar, i iVar) {
+    public ScheduledAction(rx.k.a aVar, i iVar) {
         this.action = aVar;
         this.cancel = new i(new Remover2(this, iVar));
     }

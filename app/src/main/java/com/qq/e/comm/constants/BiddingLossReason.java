@@ -1,6 +1,6 @@
 package com.qq.e.comm.constants;
 
-/* loaded from: classes3.dex */
+/* loaded from: classes4.dex */
 public interface BiddingLossReason {
     public static final int LOW_PRICE = 1;
     public static final int NOT_COMPETITION = 101;

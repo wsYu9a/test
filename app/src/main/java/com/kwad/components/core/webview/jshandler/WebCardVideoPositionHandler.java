@@ -9,27 +9,25 @@ import java.io.Serializable;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-/* loaded from: classes3.dex */
-public final class WebCardVideoPositionHandler implements com.kwad.sdk.core.webview.c.a {
-    private a abf;
-    private VideoPosition abe = new VideoPosition();
-
-    /* renamed from: hf */
-    private Handler f11944hf = new Handler(Looper.getMainLooper());
+/* loaded from: classes2.dex */
+public final class WebCardVideoPositionHandler implements com.kwad.sdk.core.webview.b.a {
+    private a Ui;
+    private VideoPosition Uh = new VideoPosition();
+    private Handler mHandler = new Handler(Looper.getMainLooper());
 
     /* renamed from: com.kwad.components.core.webview.jshandler.WebCardVideoPositionHandler$1 */
-    public class AnonymousClass1 extends com.kwad.sdk.utils.bd {
-        public AnonymousClass1() {
+    final class AnonymousClass1 implements Runnable {
+        AnonymousClass1() {
         }
 
-        @Override // com.kwad.sdk.utils.bd
-        public final void doTask() {
-            WebCardVideoPositionHandler.this.abf.a(WebCardVideoPositionHandler.this.abe);
+        @Override // java.lang.Runnable
+        public final void run() {
+            WebCardVideoPositionHandler.this.Ui.a(WebCardVideoPositionHandler.this.Uh);
         }
     }
 
     @KsJson
-    public static final class VideoPosition extends com.kwad.sdk.core.response.a.a implements Serializable {
+    public static final class VideoPosition extends com.kwad.sdk.core.response.kwai.a implements Serializable {
         private static final long serialVersionUID = -3445790097441569428L;
         public int borderRadius;
         public KSAdJSCornerModel cornerRadius;
@@ -43,7 +41,7 @@ public final class WebCardVideoPositionHandler implements com.kwad.sdk.core.webv
         public double widthRation;
 
         @KsJson
-        public static class KSAdJSCornerModel extends com.kwad.sdk.core.response.a.a implements Serializable {
+        public static class KSAdJSCornerModel extends com.kwad.sdk.core.response.kwai.a implements Serializable {
             private static final long serialVersionUID = -1503191931449786332L;
             public double bottomLeft;
             public double bottomRight;
@@ -51,7 +49,7 @@ public final class WebCardVideoPositionHandler implements com.kwad.sdk.core.webv
             public double topRight;
         }
 
-        @Override // com.kwad.sdk.core.response.a.a
+        @Override // com.kwad.sdk.core.response.kwai.a
         public final void afterParseJson(@Nullable JSONObject jSONObject) {
             super.afterParseJson(jSONObject);
             if (jSONObject.has("cornerRadius")) {
@@ -67,38 +65,38 @@ public final class WebCardVideoPositionHandler implements com.kwad.sdk.core.webv
     }
 
     public WebCardVideoPositionHandler(a aVar) {
-        this.abf = aVar;
+        this.Ui = aVar;
     }
 
-    @Override // com.kwad.sdk.core.webview.c.a
+    @Override // com.kwad.sdk.core.webview.b.a
     @NonNull
     public final String getKey() {
         return "videoPosition";
     }
 
-    @Override // com.kwad.sdk.core.webview.c.a
-    public final void onDestroy() {
-        this.f11944hf.removeCallbacksAndMessages(null);
-    }
-
-    @Override // com.kwad.sdk.core.webview.c.a
-    public final void a(String str, @NonNull com.kwad.sdk.core.webview.c.c cVar) {
+    @Override // com.kwad.sdk.core.webview.b.a
+    public final void handleJsCall(String str, @NonNull com.kwad.sdk.core.webview.b.c cVar) {
         try {
-            this.abe.parseJson(new JSONObject(str));
-            if (this.abf != null) {
-                this.f11944hf.post(new com.kwad.sdk.utils.bd() { // from class: com.kwad.components.core.webview.jshandler.WebCardVideoPositionHandler.1
-                    public AnonymousClass1() {
+            this.Uh.parseJson(new JSONObject(str));
+            if (this.Ui != null) {
+                this.mHandler.post(new Runnable() { // from class: com.kwad.components.core.webview.jshandler.WebCardVideoPositionHandler.1
+                    AnonymousClass1() {
                     }
 
-                    @Override // com.kwad.sdk.utils.bd
-                    public final void doTask() {
-                        WebCardVideoPositionHandler.this.abf.a(WebCardVideoPositionHandler.this.abe);
+                    @Override // java.lang.Runnable
+                    public final void run() {
+                        WebCardVideoPositionHandler.this.Ui.a(WebCardVideoPositionHandler.this.Uh);
                     }
                 });
             }
-        } catch (JSONException e10) {
-            e10.printStackTrace();
+        } catch (JSONException e2) {
+            e2.printStackTrace();
         }
         cVar.a(null);
+    }
+
+    @Override // com.kwad.sdk.core.webview.b.a
+    public final void onDestroy() {
+        this.mHandler.removeCallbacksAndMessages(null);
     }
 }

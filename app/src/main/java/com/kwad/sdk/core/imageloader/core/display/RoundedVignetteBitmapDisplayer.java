@@ -13,16 +13,16 @@ import com.kwad.sdk.core.imageloader.core.display.RoundedBitmapDisplayer;
 import com.kwad.sdk.core.imageloader.core.imageaware.ImageAware;
 import com.kwad.sdk.core.imageloader.core.imageaware.ImageViewAware;
 
-/* loaded from: classes3.dex */
+/* loaded from: classes2.dex */
 public class RoundedVignetteBitmapDisplayer extends RoundedBitmapDisplayer {
 
-    public static class RoundedVignetteDrawable extends RoundedBitmapDisplayer.RoundedDrawable {
-        public RoundedVignetteDrawable(Bitmap bitmap, int i10, int i11) {
-            super(bitmap, i10, i11);
+    protected static class RoundedVignetteDrawable extends RoundedBitmapDisplayer.RoundedDrawable {
+        RoundedVignetteDrawable(Bitmap bitmap, int i2, int i3) {
+            super(bitmap, i2, i3);
         }
 
         @Override // com.kwad.sdk.core.imageloader.core.display.RoundedBitmapDisplayer.RoundedDrawable, android.graphics.drawable.Drawable
-        public void onBoundsChange(Rect rect) {
+        protected void onBoundsChange(Rect rect) {
             super.onBoundsChange(rect);
             RadialGradient radialGradient = new RadialGradient(this.mRect.centerX(), (this.mRect.centerY() * 1.0f) / 0.7f, 1.3f * this.mRect.centerX(), new int[]{0, 0, 2130706432}, new float[]{0.0f, 0.7f, 1.0f}, Shader.TileMode.CLAMP);
             Matrix matrix = new Matrix();
@@ -32,8 +32,8 @@ public class RoundedVignetteBitmapDisplayer extends RoundedBitmapDisplayer {
         }
     }
 
-    public RoundedVignetteBitmapDisplayer(int i10, int i11) {
-        super(i10, i11);
+    public RoundedVignetteBitmapDisplayer(int i2, int i3) {
+        super(i2, i3);
     }
 
     @Override // com.kwad.sdk.core.imageloader.core.display.RoundedBitmapDisplayer, com.kwad.sdk.core.imageloader.core.display.BitmapDisplayer

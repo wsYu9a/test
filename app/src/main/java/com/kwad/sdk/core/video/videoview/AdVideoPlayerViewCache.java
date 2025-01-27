@@ -3,11 +3,11 @@ package com.kwad.sdk.core.video.videoview;
 import java.lang.ref.WeakReference;
 import java.util.HashMap;
 
-/* loaded from: classes3.dex */
+/* loaded from: classes2.dex */
 public final class AdVideoPlayerViewCache {
-    private HashMap<String, WeakReference<a>> DO;
+    private HashMap<String, WeakReference<a>> BF;
 
-    public enum Holder {
+    enum Holder {
         INSTANCE;
 
         private AdVideoPlayerViewCache mInstance = new AdVideoPlayerViewCache((byte) 0);
@@ -15,12 +15,16 @@ public final class AdVideoPlayerViewCache {
         Holder() {
         }
 
-        public final AdVideoPlayerViewCache getInstance() {
+        final AdVideoPlayerViewCache getInstance() {
             return this.mInstance;
         }
     }
 
-    public /* synthetic */ AdVideoPlayerViewCache(byte b10) {
+    private AdVideoPlayerViewCache() {
+        this.BF = new HashMap<>(1);
+    }
+
+    /* synthetic */ AdVideoPlayerViewCache(byte b2) {
         this();
     }
 
@@ -29,26 +33,22 @@ public final class AdVideoPlayerViewCache {
     }
 
     public final void a(String str, a aVar) {
-        this.DO.put(str, new WeakReference<>(aVar));
+        this.BF.put(str, new WeakReference<>(aVar));
     }
 
-    public final a eI(String str) {
-        WeakReference<a> weakReference = this.DO.get(str);
+    public final a cO(String str) {
+        WeakReference<a> weakReference = this.BF.get(str);
         if (weakReference != null) {
             a aVar = weakReference.get();
             if (aVar != null) {
                 return aVar;
             }
-            this.DO.remove(str);
+            this.BF.remove(str);
         }
         return null;
     }
 
     public final void remove(String str) {
-        this.DO.remove(str);
-    }
-
-    private AdVideoPlayerViewCache() {
-        this.DO = new HashMap<>(1);
+        this.BF.remove(str);
     }
 }

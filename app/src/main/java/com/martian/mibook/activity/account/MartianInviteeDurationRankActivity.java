@@ -1,20 +1,19 @@
 package com.martian.mibook.activity.account;
 
 import android.os.Bundle;
-import com.martian.mibook.R;
-import com.martian.mibook.fragment.InviteeDurationRankFragment;
-import com.martian.mibook.lib.model.activity.MiBackableActivity;
+import com.martian.mibook.f.w3;
+import com.martian.ttbookhd.R;
 
 /* loaded from: classes3.dex */
-public class MartianInviteeDurationRankActivity extends MiBackableActivity {
-    @Override // com.martian.mibook.lib.model.activity.MiBackableActivity, com.martian.libmars.activity.MartianActivity, com.martian.libmars.activity.BaseActivity, me.imid.swipebacklayout.lib.app.SwipeBackActivity, androidx.fragment.app.FragmentActivity, androidx.activity.ComponentActivity, androidx.core.app.ComponentActivity, android.app.Activity
-    public void onCreate(Bundle bundle) {
-        super.onCreate(bundle);
+public class MartianInviteeDurationRankActivity extends com.martian.mibook.lib.model.b.a {
+    @Override // com.martian.mibook.lib.model.b.a, com.martian.libmars.activity.j1, com.martian.libmars.activity.h1, me.imid.swipebacklayout.lib.d.a, androidx.appcompat.app.AppCompatActivity, androidx.fragment.app.FragmentActivity, androidx.activity.ComponentActivity, androidx.core.app.ComponentActivity, android.app.Activity
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
         setContentView(R.layout.martian_activity_withdraw_order_list);
-        u2(true);
-        g2();
-        if (((InviteeDurationRankFragment) getSupportFragmentManager().findFragmentByTag("invitee_duration_rank_fragment")) == null) {
-            getSupportFragmentManager().beginTransaction().add(R.id.fragmentContainer, new InviteeDurationRankFragment(), "invitee_duration_rank_fragment").commit();
+        a2(true);
+        B1();
+        if (((w3) getSupportFragmentManager().findFragmentByTag("invitee_duration_rank_fragment")) == null) {
+            getSupportFragmentManager().beginTransaction().add(R.id.fragmentContainer, new w3(), "invitee_duration_rank_fragment").commit();
         }
     }
 }

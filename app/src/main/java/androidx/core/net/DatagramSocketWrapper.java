@@ -14,84 +14,84 @@ import java.net.SocketImpl;
 /* loaded from: classes.dex */
 class DatagramSocketWrapper extends Socket {
 
-    public static class DatagramSocketImplWrapper extends SocketImpl {
-        public DatagramSocketImplWrapper(DatagramSocket datagramSocket, FileDescriptor fileDescriptor) {
+    private static class DatagramSocketImplWrapper extends SocketImpl {
+        DatagramSocketImplWrapper(DatagramSocket datagramSocket, FileDescriptor fileDescriptor) {
             ((SocketImpl) this).localport = datagramSocket.getLocalPort();
             ((SocketImpl) this).fd = fileDescriptor;
         }
 
         @Override // java.net.SocketImpl
-        public void accept(SocketImpl socketImpl) throws IOException {
+        protected void accept(SocketImpl socketImpl) throws IOException {
             throw new UnsupportedOperationException();
         }
 
         @Override // java.net.SocketImpl
-        public int available() throws IOException {
+        protected int available() throws IOException {
             throw new UnsupportedOperationException();
         }
 
         @Override // java.net.SocketImpl
-        public void bind(InetAddress inetAddress, int i10) throws IOException {
+        protected void bind(InetAddress inetAddress, int i2) throws IOException {
             throw new UnsupportedOperationException();
         }
 
         @Override // java.net.SocketImpl
-        public void close() throws IOException {
+        protected void close() throws IOException {
             throw new UnsupportedOperationException();
         }
 
         @Override // java.net.SocketImpl
-        public void connect(String str, int i10) throws IOException {
+        protected void connect(String str, int i2) throws IOException {
             throw new UnsupportedOperationException();
         }
 
         @Override // java.net.SocketImpl
-        public void create(boolean z10) throws IOException {
+        protected void create(boolean z) throws IOException {
             throw new UnsupportedOperationException();
         }
 
         @Override // java.net.SocketImpl
-        public InputStream getInputStream() throws IOException {
+        protected InputStream getInputStream() throws IOException {
             throw new UnsupportedOperationException();
         }
 
         @Override // java.net.SocketOptions
-        public Object getOption(int i10) throws SocketException {
+        public Object getOption(int i2) throws SocketException {
             throw new UnsupportedOperationException();
         }
 
         @Override // java.net.SocketImpl
-        public OutputStream getOutputStream() throws IOException {
+        protected OutputStream getOutputStream() throws IOException {
             throw new UnsupportedOperationException();
         }
 
         @Override // java.net.SocketImpl
-        public void listen(int i10) throws IOException {
+        protected void listen(int i2) throws IOException {
             throw new UnsupportedOperationException();
         }
 
         @Override // java.net.SocketImpl
-        public void sendUrgentData(int i10) throws IOException {
+        protected void sendUrgentData(int i2) throws IOException {
             throw new UnsupportedOperationException();
         }
 
         @Override // java.net.SocketOptions
-        public void setOption(int i10, Object obj) throws SocketException {
+        public void setOption(int i2, Object obj) throws SocketException {
             throw new UnsupportedOperationException();
         }
 
         @Override // java.net.SocketImpl
-        public void connect(InetAddress inetAddress, int i10) throws IOException {
+        protected void connect(InetAddress inetAddress, int i2) throws IOException {
             throw new UnsupportedOperationException();
         }
 
         @Override // java.net.SocketImpl
-        public void connect(SocketAddress socketAddress, int i10) throws IOException {
+        protected void connect(SocketAddress socketAddress, int i2) throws IOException {
             throw new UnsupportedOperationException();
         }
     }
 
-    public DatagramSocketWrapper(DatagramSocket datagramSocket, FileDescriptor fileDescriptor) throws SocketException {
+    DatagramSocketWrapper(DatagramSocket datagramSocket, FileDescriptor fileDescriptor) throws SocketException {
         super(new DatagramSocketImplWrapper(datagramSocket, fileDescriptor));
     }
 }

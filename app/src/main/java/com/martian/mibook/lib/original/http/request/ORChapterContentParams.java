@@ -1,9 +1,9 @@
 package com.martian.mibook.lib.original.http.request;
 
+import com.martian.libcomm.http.requests.d.a;
 import com.martian.mibook.lib.account.request.TYAuthoptParams;
-import v8.a;
 
-/* loaded from: classes3.dex */
+/* loaded from: classes2.dex */
 public class ORChapterContentParams extends TYAuthoptParams {
 
     @a
@@ -29,11 +29,11 @@ public class ORChapterContentParams extends TYAuthoptParams {
         return num.intValue();
     }
 
-    public void setBookId(String str) {
-        this.bookId = str;
+    public void setBookId(String bookId) {
+        this.bookId = bookId;
     }
 
-    public void setChapterId(Integer num) {
-        this.chapterId = num;
+    public void setChapterId(Integer chapterId) {
+        this.chapterId = chapterId;
     }
 }

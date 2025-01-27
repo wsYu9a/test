@@ -1,12 +1,10 @@
 package com.umeng.vt.diff;
 
-import com.umeng.analytics.pro.bd;
-
 /* loaded from: classes4.dex */
 public class V {
     public static final String EVENT_BINDINGS = "event_bindings";
     public static final String SP_BINDINGS_KEY = "bindings";
-    public static final String SP_EDITS_FILE = bd.b().b(bd.f23530j);
+    public static final String SP_EDITS_FILE = "umeng_general_config";
     public static final int TYPE_ABTEST = 2;
     public static final int TYPE_AUTOTRACK = 1;
     public static final int TYPE_GENERALTRACK = 0;

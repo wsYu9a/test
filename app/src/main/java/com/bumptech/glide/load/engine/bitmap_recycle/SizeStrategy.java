@@ -8,7 +8,7 @@ import com.bumptech.glide.util.Util;
 import java.util.NavigableMap;
 
 @RequiresApi(19)
-/* loaded from: classes2.dex */
+/* loaded from: classes.dex */
 final class SizeStrategy implements LruPoolStrategy {
     private static final int MAX_SIZE_MULTIPLE = 8;
     private final KeyPool keyPool = new KeyPool();
@@ -16,11 +16,11 @@ final class SizeStrategy implements LruPoolStrategy {
     private final NavigableMap<Integer, Integer> sortedSizes = new PrettyPrintTreeMap();
 
     @VisibleForTesting
-    public static final class Key implements Poolable {
+    static final class Key implements Poolable {
         private final KeyPool pool;
         int size;
 
-        public Key(KeyPool keyPool) {
+        Key(KeyPool keyPool) {
             this.pool = keyPool;
         }
 
@@ -32,8 +32,8 @@ final class SizeStrategy implements LruPoolStrategy {
             return this.size;
         }
 
-        public void init(int i10) {
-            this.size = i10;
+        public void init(int i2) {
+            this.size = i2;
         }
 
         @Override // com.bumptech.glide.load.engine.bitmap_recycle.Poolable
@@ -47,10 +47,13 @@ final class SizeStrategy implements LruPoolStrategy {
     }
 
     @VisibleForTesting
-    public static class KeyPool extends BaseKeyPool<Key> {
-        public Key get(int i10) {
+    static class KeyPool extends BaseKeyPool<Key> {
+        KeyPool() {
+        }
+
+        public Key get(int i2) {
             Key key = (Key) super.get();
-            key.init(i10);
+            key.init(i2);
             return key;
         }
 
@@ -60,8 +63,11 @@ final class SizeStrategy implements LruPoolStrategy {
         }
     }
 
+    SizeStrategy() {
+    }
+
     private void decrementBitmapOfSize(Integer num) {
-        Integer num2 = this.sortedSizes.get(num);
+        Integer num2 = (Integer) this.sortedSizes.get(num);
         if (num2.intValue() == 1) {
             this.sortedSizes.remove(num);
         } else {
@@ -75,8 +81,8 @@ final class SizeStrategy implements LruPoolStrategy {
 
     @Override // com.bumptech.glide.load.engine.bitmap_recycle.LruPoolStrategy
     @Nullable
-    public Bitmap get(int i10, int i11, Bitmap.Config config) {
-        int bitmapByteSize = Util.getBitmapByteSize(i10, i11, config);
+    public Bitmap get(int i2, int i3, Bitmap.Config config) {
+        int bitmapByteSize = Util.getBitmapByteSize(i2, i3, config);
         Key key = this.keyPool.get(bitmapByteSize);
         Integer ceilingKey = this.sortedSizes.ceilingKey(Integer.valueOf(bitmapByteSize));
         if (ceilingKey != null && ceilingKey.intValue() != bitmapByteSize && ceilingKey.intValue() <= bitmapByteSize * 8) {
@@ -85,7 +91,7 @@ final class SizeStrategy implements LruPoolStrategy {
         }
         Bitmap bitmap = this.groupedMap.get(key);
         if (bitmap != null) {
-            bitmap.reconfigure(i10, i11, config);
+            bitmap.reconfigure(i2, i3, config);
             decrementBitmapOfSize(ceilingKey);
         }
         return bitmap;
@@ -105,7 +111,7 @@ final class SizeStrategy implements LruPoolStrategy {
     public void put(Bitmap bitmap) {
         Key key = this.keyPool.get(Util.getBitmapByteSize(bitmap));
         this.groupedMap.put(key, bitmap);
-        Integer num = this.sortedSizes.get(Integer.valueOf(key.size));
+        Integer num = (Integer) this.sortedSizes.get(Integer.valueOf(key.size));
         this.sortedSizes.put(Integer.valueOf(key.size), Integer.valueOf(num != null ? 1 + num.intValue() : 1));
     }
 
@@ -124,11 +130,11 @@ final class SizeStrategy implements LruPoolStrategy {
     }
 
     @Override // com.bumptech.glide.load.engine.bitmap_recycle.LruPoolStrategy
-    public String logBitmap(int i10, int i11, Bitmap.Config config) {
-        return getBitmapString(Util.getBitmapByteSize(i10, i11, config));
+    public String logBitmap(int i2, int i3, Bitmap.Config config) {
+        return getBitmapString(Util.getBitmapByteSize(i2, i3, config));
     }
 
-    public static String getBitmapString(int i10) {
-        return "[" + i10 + "]";
+    static String getBitmapString(int i2) {
+        return "[" + i2 + "]";
     }
 }

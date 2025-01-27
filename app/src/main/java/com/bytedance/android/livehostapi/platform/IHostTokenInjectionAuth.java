@@ -1,10 +1,11 @@
 package com.bytedance.android.livehostapi.platform;
 
 import android.app.Activity;
+import com.bytedance.android.live.base.IService;
 import java.util.Map;
 
-/* loaded from: classes2.dex */
-public interface IHostTokenInjectionAuth {
+/* loaded from: classes.dex */
+public interface IHostTokenInjectionAuth extends IService {
     TokenInfo getTokenInfo();
 
     boolean isLogin();

@@ -28,11 +28,11 @@ public final class LinkedQueueNode<E> extends AtomicReference<LinkedQueueNode<E>
         lazySet(linkedQueueNode);
     }
 
-    public void spValue(E e10) {
-        this.value = e10;
+    public void spValue(E e2) {
+        this.value = e2;
     }
 
-    public LinkedQueueNode(E e10) {
-        spValue(e10);
+    public LinkedQueueNode(E e2) {
+        spValue(e2);
     }
 }

@@ -5,7 +5,7 @@ import androidx.annotation.Nullable;
 import com.bumptech.glide.load.Key;
 import java.io.File;
 
-/* loaded from: classes2.dex */
+/* loaded from: classes.dex */
 public interface DiskCache {
 
     public interface Factory {

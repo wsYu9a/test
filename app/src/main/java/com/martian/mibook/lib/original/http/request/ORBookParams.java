@@ -1,9 +1,9 @@
 package com.martian.mibook.lib.original.http.request;
 
+import com.martian.libcomm.http.requests.d.a;
 import com.martian.mibook.lib.account.request.TYHttpGetParams;
-import v8.a;
 
-/* loaded from: classes3.dex */
+/* loaded from: classes2.dex */
 public class ORBookParams extends TYHttpGetParams {
 
     @a
@@ -13,12 +13,12 @@ public class ORBookParams extends TYHttpGetParams {
         return this.bookId;
     }
 
-    @Override // u8.b
+    @Override // com.martian.libcomm.http.requests.b
     public String getRequestMethod() {
         return "or/book";
     }
 
-    public void setBookId(String str) {
-        this.bookId = str;
+    public void setBookId(String bookId) {
+        this.bookId = bookId;
     }
 }

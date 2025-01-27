@@ -11,7 +11,7 @@ public final class DownloadWatchDog implements Handler.Callback {
     private static final int MSG_SCHEDULE_WATCH = 0;
     private volatile Handler handler = new Handler(Holder.LOOPER, this);
 
-    public static class Holder {
+    private static class Holder {
         private static final Looper LOOPER;
 
         static {
@@ -32,7 +32,7 @@ public final class DownloadWatchDog implements Handler.Callback {
         return Holder.LOOPER;
     }
 
-    public void addWatcher(IWatcher iWatcher, long j10) {
+    public void addWatcher(IWatcher iWatcher, long j2) {
         Handler handler = this.handler;
         if (handler == null) {
             return;
@@ -40,7 +40,7 @@ public final class DownloadWatchDog implements Handler.Callback {
         Message obtain = Message.obtain();
         obtain.what = 0;
         obtain.obj = iWatcher;
-        handler.sendMessageDelayed(obtain, j10);
+        handler.sendMessageDelayed(obtain, j2);
     }
 
     @Override // android.os.Handler.Callback
@@ -56,8 +56,8 @@ public final class DownloadWatchDog implements Handler.Callback {
             }
             addWatcher(iWatcher, onScheduleWatch);
             return true;
-        } catch (Throwable th2) {
-            th2.printStackTrace();
+        } catch (Throwable th) {
+            th.printStackTrace();
             return true;
         }
     }

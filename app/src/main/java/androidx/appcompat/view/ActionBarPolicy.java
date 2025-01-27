@@ -4,16 +4,20 @@ import android.content.Context;
 import android.content.res.Configuration;
 import android.content.res.Resources;
 import android.content.res.TypedArray;
+import android.os.Build;
+import android.view.ViewConfiguration;
 import androidx.annotation.RestrictTo;
 import androidx.appcompat.R;
 
 @RestrictTo({RestrictTo.Scope.LIBRARY_GROUP_PREFIX})
 /* loaded from: classes.dex */
 public class ActionBarPolicy {
-    private Context mContext;
+
+    /* renamed from: a */
+    private Context f401a;
 
     private ActionBarPolicy(Context context) {
-        this.mContext = context;
+        this.f401a = context;
     }
 
     public static ActionBarPolicy get(Context context) {
@@ -21,46 +25,46 @@ public class ActionBarPolicy {
     }
 
     public boolean enableHomeButtonByDefault() {
-        return this.mContext.getApplicationInfo().targetSdkVersion < 14;
+        return this.f401a.getApplicationInfo().targetSdkVersion < 14;
     }
 
     public int getEmbeddedMenuWidthLimit() {
-        return this.mContext.getResources().getDisplayMetrics().widthPixels / 2;
+        return this.f401a.getResources().getDisplayMetrics().widthPixels / 2;
     }
 
     public int getMaxActionButtons() {
-        Configuration configuration = this.mContext.getResources().getConfiguration();
-        int i10 = configuration.screenWidthDp;
-        int i11 = configuration.screenHeightDp;
-        if (configuration.smallestScreenWidthDp > 600 || i10 > 600) {
+        Configuration configuration = this.f401a.getResources().getConfiguration();
+        int i2 = configuration.screenWidthDp;
+        int i3 = configuration.screenHeightDp;
+        if (configuration.smallestScreenWidthDp > 600 || i2 > 600) {
             return 5;
         }
-        if (i10 > 960 && i11 > 720) {
+        if (i2 > 960 && i3 > 720) {
             return 5;
         }
-        if (i10 > 720 && i11 > 960) {
+        if (i2 > 720 && i3 > 960) {
             return 5;
         }
-        if (i10 >= 500) {
+        if (i2 >= 500) {
             return 4;
         }
-        if (i10 > 640 && i11 > 480) {
+        if (i2 > 640 && i3 > 480) {
             return 4;
         }
-        if (i10 <= 480 || i11 <= 640) {
-            return i10 >= 360 ? 3 : 2;
+        if (i2 <= 480 || i3 <= 640) {
+            return i2 >= 360 ? 3 : 2;
         }
         return 4;
     }
 
     public int getStackedTabMaxWidth() {
-        return this.mContext.getResources().getDimensionPixelSize(R.dimen.abc_action_bar_stacked_tab_max_width);
+        return this.f401a.getResources().getDimensionPixelSize(R.dimen.abc_action_bar_stacked_tab_max_width);
     }
 
     public int getTabContainerHeight() {
-        TypedArray obtainStyledAttributes = this.mContext.obtainStyledAttributes(null, R.styleable.ActionBar, R.attr.actionBarStyle, 0);
+        TypedArray obtainStyledAttributes = this.f401a.obtainStyledAttributes(null, R.styleable.ActionBar, R.attr.actionBarStyle, 0);
         int layoutDimension = obtainStyledAttributes.getLayoutDimension(R.styleable.ActionBar_height, 0);
-        Resources resources = this.mContext.getResources();
+        Resources resources = this.f401a.getResources();
         if (!hasEmbeddedTabs()) {
             layoutDimension = Math.min(layoutDimension, resources.getDimensionPixelSize(R.dimen.abc_action_bar_stacked_max_height));
         }
@@ -69,10 +73,13 @@ public class ActionBarPolicy {
     }
 
     public boolean hasEmbeddedTabs() {
-        return this.mContext.getResources().getBoolean(R.bool.abc_action_bar_embed_tabs);
+        return this.f401a.getResources().getBoolean(R.bool.abc_action_bar_embed_tabs);
     }
 
     public boolean showsOverflowMenuButton() {
-        return true;
+        if (Build.VERSION.SDK_INT >= 19) {
+            return true;
+        }
+        return !ViewConfiguration.get(this.f401a).hasPermanentMenuKey();
     }
 }

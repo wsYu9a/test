@@ -1,28 +1,30 @@
 package com.ss.android.socialbase.downloader.utils;
 
-import androidx.constraintlayout.core.motion.utils.TypedValues;
-import com.baidu.mobads.sdk.internal.bz;
+import com.baidu.mobads.sdk.internal.bw;
 import com.bytedance.sdk.openadsdk.TTAdConstant;
+import com.martian.mibook.activity.ReadingRechargeActivity;
+import com.tencent.bugly.beta.tinker.TinkerReport;
+import org.apache.http.HttpStatus;
 
 /* loaded from: classes4.dex */
 public class DownloadHttpUtils {
-    public static String httpCodeToMessage(int i10) {
-        if (i10 == 449) {
+    public static String httpCodeToMessage(int i2) {
+        if (i2 == 449) {
             return "Retry With";
         }
-        if (i10 == 451) {
+        if (i2 == 451) {
             return "Unavailable For Legal Reasons";
         }
-        if (i10 == 600) {
+        if (i2 == 600) {
             return "Unparseable Response Headers";
         }
-        if (i10 == 509) {
+        if (i2 == 509) {
             return "Bandwidth Limit Exceeded";
         }
-        if (i10 == 510) {
+        if (i2 == 510) {
             return "Not Extended";
         }
-        switch (i10) {
+        switch (i2) {
             case 100:
                 return "Continue";
             case 101:
@@ -30,9 +32,9 @@ public class DownloadHttpUtils {
             case 102:
                 return "Processing";
             default:
-                switch (i10) {
+                switch (i2) {
                     case 200:
-                        return bz.f6993k;
+                        return bw.k;
                     case 201:
                         return "Created";
                     case 202:
@@ -48,7 +50,7 @@ public class DownloadHttpUtils {
                     case 207:
                         return "Multi-Status";
                     default:
-                        switch (i10) {
+                        switch (i2) {
                             case 300:
                                 return "Multiple Choices";
                             case 301:
@@ -61,12 +63,12 @@ public class DownloadHttpUtils {
                                 return "Not Modified";
                             case 305:
                                 return "Use Proxy";
-                            case 306:
+                            case TinkerReport.KEY_LOADED_MISSING_PATCH_INFO /* 306 */:
                                 return "Switch Proxy";
                             case 307:
                                 return "Temporary Redirect";
                             default:
-                                switch (i10) {
+                                switch (i2) {
                                     case 400:
                                         return "Bad Request";
                                     case 401:
@@ -83,59 +85,59 @@ public class DownloadHttpUtils {
                                         return "Not Acceptable";
                                     case 407:
                                         return "Proxy Authentication Required";
-                                    case TTAdConstant.INTERACTION_TYPE_CODE /* 408 */:
+                                    case 408:
                                         return "Request Timeout";
-                                    case TTAdConstant.IMAGE_LIST_CODE /* 409 */:
+                                    case 409:
                                         return "Conflict";
-                                    case TTAdConstant.IMAGE_LIST_SIZE_CODE /* 410 */:
+                                    case 410:
                                         return "Gone";
-                                    case TTAdConstant.IMAGE_CODE /* 411 */:
+                                    case 411:
                                         return "Length Required";
-                                    case TTAdConstant.IMAGE_URL_CODE /* 412 */:
+                                    case 412:
                                         return "Precondition Failed";
-                                    case TTAdConstant.VIDEO_INFO_CODE /* 413 */:
+                                    case 413:
                                         return "Request Entity Too Large";
-                                    case TTAdConstant.VIDEO_URL_CODE /* 414 */:
+                                    case 414:
                                         return "Request-URI Too Long";
-                                    case TTAdConstant.VIDEO_COVER_URL_CODE /* 415 */:
+                                    case 415:
                                         return "Unsupported Media Type";
                                     case 416:
                                         return "Requested Range Not Satisfiable";
-                                    case TTAdConstant.LIVE_FEED_URL_CODE /* 417 */:
+                                    case 417:
                                         return "Expectation Failed";
                                     case TTAdConstant.DEEPLINK_FALL_BACK_CODE /* 418 */:
                                         return "I'm a teapot";
                                     default:
-                                        switch (i10) {
+                                        switch (i2) {
                                             case 421:
                                                 return "Too Many Connections";
-                                            case TypedValues.CycleType.TYPE_CUSTOM_WAVE_SHAPE /* 422 */:
+                                            case HttpStatus.SC_UNPROCESSABLE_ENTITY /* 422 */:
                                                 return "Unprocessable Entity";
-                                            case TypedValues.CycleType.TYPE_WAVE_PERIOD /* 423 */:
+                                            case HttpStatus.SC_LOCKED /* 423 */:
                                                 return "Locked";
-                                            case TypedValues.CycleType.TYPE_WAVE_OFFSET /* 424 */:
+                                            case HttpStatus.SC_FAILED_DEPENDENCY /* 424 */:
                                                 return "Failed Dependency";
-                                            case 425:
+                                            case ReadingRechargeActivity.x0 /* 425 */:
                                                 return "Unordered Collection";
                                             case 426:
                                                 return "Upgrade Required";
                                             default:
-                                                switch (i10) {
+                                                switch (i2) {
                                                     case 500:
                                                         return "Internal Server Error";
-                                                    case TypedValues.PositionType.TYPE_TRANSITION_EASING /* 501 */:
+                                                    case HttpStatus.SC_NOT_IMPLEMENTED /* 501 */:
                                                         return "Not Implemented";
-                                                    case TypedValues.PositionType.TYPE_DRAWPATH /* 502 */:
+                                                    case HttpStatus.SC_BAD_GATEWAY /* 502 */:
                                                         return "Bad Gateway";
-                                                    case TypedValues.PositionType.TYPE_PERCENT_WIDTH /* 503 */:
+                                                    case 503:
                                                         return "Service Unavailable";
-                                                    case 504:
+                                                    case HttpStatus.SC_GATEWAY_TIMEOUT /* 504 */:
                                                         return "Gateway Timeout";
-                                                    case TypedValues.PositionType.TYPE_SIZE_PERCENT /* 505 */:
+                                                    case HttpStatus.SC_HTTP_VERSION_NOT_SUPPORTED /* 505 */:
                                                         return "HTTP Version Not Supported";
-                                                    case TypedValues.PositionType.TYPE_PERCENT_X /* 506 */:
+                                                    case 506:
                                                         return "Variant Also Negotiates";
-                                                    case TypedValues.PositionType.TYPE_PERCENT_Y /* 507 */:
+                                                    case HttpStatus.SC_INSUFFICIENT_STORAGE /* 507 */:
                                                         return "Insufficient Storage";
                                                     default:
                                                         return "";

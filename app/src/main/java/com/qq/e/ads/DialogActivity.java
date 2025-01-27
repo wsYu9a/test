@@ -1,5 +1,5 @@
 package com.qq.e.ads;
 
-/* loaded from: classes3.dex */
+/* loaded from: classes4.dex */
 public class DialogActivity extends ADActivity {
 }

@@ -9,21 +9,21 @@ import java.util.Iterator;
 public final class n implements o {
 
     /* renamed from: a */
-    private static final String f25141a = "(" + Process.myPid() + ")";
+    private static final String f31105a = "(" + Process.myPid() + ")";
 
     @Override // com.vivo.push.util.o
     public final int a(String str, String str2) {
-        return Log.e("VivoPush.".concat(String.valueOf(str)), f25141a + str2);
+        return Log.e("VivoPush.".concat(String.valueOf(str)), f31105a + str2);
     }
 
     @Override // com.vivo.push.util.o
     public final int b(String str, String str2) {
-        return Log.w("VivoPush.".concat(String.valueOf(str)), f25141a + str2);
+        return Log.w("VivoPush.".concat(String.valueOf(str)), f31105a + str2);
     }
 
     @Override // com.vivo.push.util.o
     public final int c(String str, String str2) {
-        return Log.d("VivoPush.".concat(String.valueOf(str)), f25141a + str2);
+        return Log.d("VivoPush.".concat(String.valueOf(str)), f31105a + str2);
     }
 
     @Override // com.vivo.push.util.o
@@ -31,7 +31,7 @@ public final class n implements o {
         if (!p.a()) {
             return -1;
         }
-        return Log.i("VivoPush.".concat(String.valueOf(str)), f25141a + str2);
+        return Log.i("VivoPush.".concat(String.valueOf(str)), f31105a + str2);
     }
 
     @Override // com.vivo.push.util.o
@@ -39,20 +39,20 @@ public final class n implements o {
         if (!p.a()) {
             return -1;
         }
-        return Log.v("VivoPush.".concat(String.valueOf(str)), f25141a + str2);
+        return Log.v("VivoPush.".concat(String.valueOf(str)), f31105a + str2);
     }
 
     @Override // com.vivo.push.util.o
-    public final int a(String str, Throwable th2) {
-        return Log.e("VivoPush.".concat(String.valueOf(str)), Log.getStackTraceString(th2));
+    public final int a(String str, Throwable th) {
+        return Log.e("VivoPush.".concat(String.valueOf(str)), Log.getStackTraceString(th));
     }
 
     @Override // com.vivo.push.util.o
-    public final int b(String str, String str2, Throwable th2) {
+    public final int b(String str, String str2, Throwable th) {
         if (!p.a()) {
             return -1;
         }
-        return Log.i("VivoPush.".concat(String.valueOf(str)), f25141a + str2, th2);
+        return Log.i("VivoPush.".concat(String.valueOf(str)), f31105a + str2, th);
     }
 
     @Override // com.vivo.push.util.o
@@ -70,13 +70,13 @@ public final class n implements o {
     }
 
     @Override // com.vivo.push.util.o
-    public final int a(String str, String str2, Throwable th2) {
-        return Log.e("VivoPush.".concat(String.valueOf(str)), f25141a + str2, th2);
+    public final int a(String str, String str2, Throwable th) {
+        return Log.e("VivoPush.".concat(String.valueOf(str)), f31105a + str2, th);
     }
 
     @Override // com.vivo.push.util.o
-    public final String a(Throwable th2) {
-        return Log.getStackTraceString(th2);
+    public final String a(Throwable th) {
+        return Log.getStackTraceString(th);
     }
 
     @Override // com.vivo.push.util.o
@@ -86,11 +86,11 @@ public final class n implements o {
         }
     }
 
-    private void a(Context context, String str, int i10) {
+    private void a(Context context, String str, int i2) {
         com.vivo.push.b.n nVar = new com.vivo.push.b.n();
         nVar.b(str);
-        nVar.a(i10);
-        if (i10 > 0) {
+        nVar.a(i2);
+        if (i2 > 0) {
             d("LogController", str);
         }
         if (context.getPackageName().equals("com.vivo.pushservice")) {

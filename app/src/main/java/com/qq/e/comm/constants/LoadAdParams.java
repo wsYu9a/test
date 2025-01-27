@@ -3,93 +3,93 @@ package com.qq.e.comm.constants;
 import java.util.Map;
 import org.json.JSONObject;
 
-/* loaded from: classes3.dex */
+/* loaded from: classes4.dex */
 public class LoadAdParams {
 
     /* renamed from: a */
-    private LoginType f16548a;
+    private LoginType f23999a;
 
     /* renamed from: b */
-    private String f16549b;
+    private String f24000b;
 
     /* renamed from: c */
-    private String f16550c;
+    private String f24001c;
 
     /* renamed from: d */
-    private String f16551d;
+    private String f24002d;
 
     /* renamed from: e */
-    private Map<String, String> f16552e;
+    private Map<String, String> f24003e;
 
     /* renamed from: f */
-    private JSONObject f16553f;
+    private JSONObject f24004f;
 
     /* renamed from: g */
-    private final JSONObject f16554g = new JSONObject();
+    private final JSONObject f24005g = new JSONObject();
 
     public Map getDevExtra() {
-        return this.f16552e;
+        return this.f24003e;
     }
 
     public String getDevExtraJsonString() {
         try {
-            Map<String, String> map = this.f16552e;
-            return (map == null || map.size() <= 0) ? "" : new JSONObject(this.f16552e).toString();
-        } catch (Exception e10) {
-            e10.printStackTrace();
+            Map<String, String> map = this.f24003e;
+            return (map == null || map.size() <= 0) ? "" : new JSONObject(this.f24003e).toString();
+        } catch (Exception e2) {
+            e2.printStackTrace();
             return "";
         }
     }
 
     public JSONObject getExtraInfo() {
-        return this.f16553f;
+        return this.f24004f;
     }
 
     public String getLoginAppId() {
-        return this.f16549b;
+        return this.f24000b;
     }
 
     public String getLoginOpenid() {
-        return this.f16550c;
+        return this.f24001c;
     }
 
     public LoginType getLoginType() {
-        return this.f16548a;
+        return this.f23999a;
     }
 
     public JSONObject getParams() {
-        return this.f16554g;
+        return this.f24005g;
     }
 
     public String getUin() {
-        return this.f16551d;
+        return this.f24002d;
     }
 
     public void setDevExtra(Map<String, String> map) {
-        this.f16552e = map;
+        this.f24003e = map;
     }
 
     public void setExtraInfo(JSONObject jSONObject) {
-        this.f16553f = jSONObject;
+        this.f24004f = jSONObject;
     }
 
     public void setLoginAppId(String str) {
-        this.f16549b = str;
+        this.f24000b = str;
     }
 
     public void setLoginOpenid(String str) {
-        this.f16550c = str;
+        this.f24001c = str;
     }
 
     public void setLoginType(LoginType loginType) {
-        this.f16548a = loginType;
+        this.f23999a = loginType;
     }
 
     public void setUin(String str) {
-        this.f16551d = str;
+        this.f24002d = str;
     }
 
     public String toString() {
-        return "LoadAdParams{, loginType=" + this.f16548a + ", loginAppId=" + this.f16549b + ", loginOpenid=" + this.f16550c + ", uin=" + this.f16551d + ", passThroughInfo=" + this.f16552e + ", extraInfo=" + this.f16553f + '}';
+        return "LoadAdParams{, loginType=" + this.f23999a + ", loginAppId=" + this.f24000b + ", loginOpenid=" + this.f24001c + ", uin=" + this.f24002d + ", passThroughInfo=" + this.f24003e + ", extraInfo=" + this.f24004f + '}';
     }
 }

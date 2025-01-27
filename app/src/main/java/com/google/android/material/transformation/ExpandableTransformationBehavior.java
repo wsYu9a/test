@@ -11,54 +11,46 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
 @Deprecated
-/* loaded from: classes2.dex */
+/* loaded from: classes.dex */
 public abstract class ExpandableTransformationBehavior extends ExpandableBehavior {
 
+    /* renamed from: e */
     @Nullable
-    private AnimatorSet currentAnimation;
+    private AnimatorSet f7973e;
 
-    /* renamed from: com.google.android.material.transformation.ExpandableTransformationBehavior$1 */
-    public class AnonymousClass1 extends AnimatorListenerAdapter {
-        public AnonymousClass1() {
+    class a extends AnimatorListenerAdapter {
+        a() {
         }
 
         @Override // android.animation.AnimatorListenerAdapter, android.animation.Animator.AnimatorListener
         public void onAnimationEnd(Animator animator) {
-            ExpandableTransformationBehavior.this.currentAnimation = null;
+            ExpandableTransformationBehavior.this.f7973e = null;
         }
     }
 
     public ExpandableTransformationBehavior() {
     }
 
-    @NonNull
-    public abstract AnimatorSet onCreateExpandedStateChangeAnimation(View view, View view2, boolean z10, boolean z11);
-
     @Override // com.google.android.material.transformation.ExpandableBehavior
     @CallSuper
-    public boolean onExpandedStateChange(View view, View view2, boolean z10, boolean z11) {
-        AnimatorSet animatorSet = this.currentAnimation;
-        boolean z12 = animatorSet != null;
-        if (z12) {
+    protected boolean e(View view, View view2, boolean z, boolean z2) {
+        AnimatorSet animatorSet = this.f7973e;
+        boolean z3 = animatorSet != null;
+        if (z3) {
             animatorSet.cancel();
         }
-        AnimatorSet onCreateExpandedStateChangeAnimation = onCreateExpandedStateChangeAnimation(view, view2, z10, z12);
-        this.currentAnimation = onCreateExpandedStateChangeAnimation;
-        onCreateExpandedStateChangeAnimation.addListener(new AnimatorListenerAdapter() { // from class: com.google.android.material.transformation.ExpandableTransformationBehavior.1
-            public AnonymousClass1() {
-            }
-
-            @Override // android.animation.AnimatorListenerAdapter, android.animation.Animator.AnimatorListener
-            public void onAnimationEnd(Animator animator) {
-                ExpandableTransformationBehavior.this.currentAnimation = null;
-            }
-        });
-        this.currentAnimation.start();
-        if (!z11) {
-            this.currentAnimation.end();
+        AnimatorSet g2 = g(view, view2, z, z3);
+        this.f7973e = g2;
+        g2.addListener(new a());
+        this.f7973e.start();
+        if (!z2) {
+            this.f7973e.end();
         }
         return true;
     }
+
+    @NonNull
+    protected abstract AnimatorSet g(View view, View view2, boolean z, boolean z2);
 
     public ExpandableTransformationBehavior(Context context, AttributeSet attributeSet) {
         super(context, attributeSet);

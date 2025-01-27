@@ -1,6 +1,6 @@
 package com.bytedance.android.ec.res;
 
-/* loaded from: classes2.dex */
+/* loaded from: classes.dex */
 public final class BuildConfig {
 
     @Deprecated

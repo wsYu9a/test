@@ -11,9 +11,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.annotation.RestrictTo;
 import androidx.core.app.ActivityCompat;
-import androidx.core.content.ContextCompat;
 import androidx.core.util.Preconditions;
 import java.io.FileDescriptor;
 import java.io.PrintWriter;
@@ -21,35 +19,44 @@ import java.io.PrintWriter;
 /* loaded from: classes.dex */
 public abstract class FragmentHostCallback<E> extends FragmentContainer {
 
+    /* renamed from: a */
     @Nullable
-    private final Activity mActivity;
+    private final Activity f2347a;
+
+    /* renamed from: b */
+    @NonNull
+    private final Context f2348b;
+
+    /* renamed from: c */
+    @NonNull
+    private final Handler f2349c;
+
+    /* renamed from: d */
+    private final int f2350d;
+
+    /* renamed from: e */
+    final FragmentManagerImpl f2351e;
+
+    public FragmentHostCallback(@NonNull Context context, @NonNull Handler handler, int i2) {
+        this(context instanceof Activity ? (Activity) context : null, context, handler, i2);
+    }
 
     @NonNull
-    private final Context mContext;
-    final FragmentManager mFragmentManager;
-
-    @NonNull
-    private final Handler mHandler;
-    private final int mWindowAnimations;
-
-    public FragmentHostCallback(@NonNull Context context, @NonNull Handler handler, int i10) {
-        this(context instanceof Activity ? (Activity) context : null, context, handler, i10);
+    Handler a() {
+        return this.f2349c;
     }
 
     @Nullable
-    public Activity getActivity() {
-        return this.mActivity;
+    Activity getActivity() {
+        return this.f2347a;
     }
 
     @NonNull
-    public Context getContext() {
-        return this.mContext;
+    Context getContext() {
+        return this.f2348b;
     }
 
-    @NonNull
-    @RestrictTo({RestrictTo.Scope.LIBRARY})
-    public Handler getHandler() {
-        return this.mHandler;
+    void onAttachFragment(@NonNull Fragment fragment) {
     }
 
     public void onDump(@NonNull String str, @Nullable FileDescriptor fileDescriptor, @NonNull PrintWriter printWriter, @Nullable String[] strArr) {
@@ -57,7 +64,7 @@ public abstract class FragmentHostCallback<E> extends FragmentContainer {
 
     @Override // androidx.fragment.app.FragmentContainer
     @Nullable
-    public View onFindViewById(int i10) {
+    public View onFindViewById(int i2) {
         return null;
     }
 
@@ -66,11 +73,11 @@ public abstract class FragmentHostCallback<E> extends FragmentContainer {
 
     @NonNull
     public LayoutInflater onGetLayoutInflater() {
-        return LayoutInflater.from(this.mContext);
+        return LayoutInflater.from(this.f2348b);
     }
 
     public int onGetWindowAnimations() {
-        return this.mWindowAnimations;
+        return this.f2350d;
     }
 
     @Override // androidx.fragment.app.FragmentContainer
@@ -82,8 +89,7 @@ public abstract class FragmentHostCallback<E> extends FragmentContainer {
         return true;
     }
 
-    @Deprecated
-    public void onRequestPermissionsFromFragment(@NonNull Fragment fragment, @NonNull String[] strArr, int i10) {
+    public void onRequestPermissionsFromFragment(@NonNull Fragment fragment, @NonNull String[] strArr, int i2) {
     }
 
     public boolean onShouldSaveFragmentState(@NonNull Fragment fragment) {
@@ -94,37 +100,36 @@ public abstract class FragmentHostCallback<E> extends FragmentContainer {
         return false;
     }
 
-    public void onStartActivityFromFragment(@NonNull Fragment fragment, @SuppressLint({"UnknownNullness"}) Intent intent, int i10) {
-        onStartActivityFromFragment(fragment, intent, i10, null);
+    public void onStartActivityFromFragment(@NonNull Fragment fragment, @SuppressLint({"UnknownNullness"}) Intent intent, int i2) {
+        onStartActivityFromFragment(fragment, intent, i2, null);
     }
 
-    @Deprecated
-    public void onStartIntentSenderFromFragment(@NonNull Fragment fragment, @SuppressLint({"UnknownNullness"}) IntentSender intentSender, int i10, @Nullable Intent intent, int i11, int i12, int i13, @Nullable Bundle bundle) throws IntentSender.SendIntentException {
-        if (i10 != -1) {
+    public void onStartIntentSenderFromFragment(@NonNull Fragment fragment, @SuppressLint({"UnknownNullness"}) IntentSender intentSender, int i2, @Nullable Intent intent, int i3, int i4, int i5, @Nullable Bundle bundle) throws IntentSender.SendIntentException {
+        if (i2 != -1) {
             throw new IllegalStateException("Starting intent sender with a requestCode requires a FragmentActivity host");
         }
-        ActivityCompat.startIntentSenderForResult(this.mActivity, intentSender, i10, intent, i11, i12, i13, bundle);
+        ActivityCompat.startIntentSenderForResult(this.f2347a, intentSender, i2, intent, i3, i4, i5, bundle);
     }
 
     public void onSupportInvalidateOptionsMenu() {
     }
 
-    public FragmentHostCallback(@NonNull FragmentActivity fragmentActivity) {
+    FragmentHostCallback(@NonNull FragmentActivity fragmentActivity) {
         this(fragmentActivity, fragmentActivity, new Handler(), 0);
     }
 
-    public void onStartActivityFromFragment(@NonNull Fragment fragment, @SuppressLint({"UnknownNullness"}) Intent intent, int i10, @Nullable Bundle bundle) {
-        if (i10 != -1) {
+    public void onStartActivityFromFragment(@NonNull Fragment fragment, @SuppressLint({"UnknownNullness"}) Intent intent, int i2, @Nullable Bundle bundle) {
+        if (i2 != -1) {
             throw new IllegalStateException("Starting activity with a requestCode requires a FragmentActivity host");
         }
-        ContextCompat.startActivity(this.mContext, intent, bundle);
+        this.f2348b.startActivity(intent);
     }
 
-    public FragmentHostCallback(@Nullable Activity activity, @NonNull Context context, @NonNull Handler handler, int i10) {
-        this.mFragmentManager = new FragmentManagerImpl();
-        this.mActivity = activity;
-        this.mContext = (Context) Preconditions.checkNotNull(context, "context == null");
-        this.mHandler = (Handler) Preconditions.checkNotNull(handler, "handler == null");
-        this.mWindowAnimations = i10;
+    FragmentHostCallback(@Nullable Activity activity, @NonNull Context context, @NonNull Handler handler, int i2) {
+        this.f2351e = new FragmentManagerImpl();
+        this.f2347a = activity;
+        this.f2348b = (Context) Preconditions.checkNotNull(context, "context == null");
+        this.f2349c = (Handler) Preconditions.checkNotNull(handler, "handler == null");
+        this.f2350d = i2;
     }
 }

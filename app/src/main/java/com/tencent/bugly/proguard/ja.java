@@ -12,7 +12,7 @@ public class ja implements ha {
     public byte[] a(byte[] bArr) throws Exception {
         ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
         ZipOutputStream zipOutputStream = new ZipOutputStream(byteArrayOutputStream);
-        ZipEntry zipEntry = new ZipEntry(com.sigmob.sdk.archives.d.f17516f);
+        ZipEntry zipEntry = new ZipEntry("zip");
         zipEntry.setSize(bArr.length);
         zipOutputStream.putNextEntry(zipEntry);
         zipOutputStream.write(bArr);

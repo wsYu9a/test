@@ -2,7 +2,7 @@ package com.bytedance.android.live.base.api.outer;
 
 import android.view.View;
 
-/* loaded from: classes2.dex */
+/* loaded from: classes.dex */
 public interface ILiveView {
     View getView();
 
@@ -12,11 +12,9 @@ public interface ILiveView {
 
     void release();
 
-    void reportShow();
-
     void setLiveStatusListener(ILiveStatusListener iLiveStatusListener);
 
-    void setMute(boolean z10);
+    void setMute(boolean z);
 
     void show();
 

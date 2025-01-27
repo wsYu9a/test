@@ -50,10 +50,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Future;
 import java.util.concurrent.LinkedBlockingQueue;
-import java.util.concurrent.ScheduledExecutorService;
-import java.util.concurrent.ScheduledThreadPoolExecutor;
 import java.util.concurrent.ThreadPoolExecutor;
 import java.util.concurrent.TimeUnit;
 import okhttp3.Dispatcher;
@@ -111,7 +108,6 @@ public class DownloadComponentManager {
     private static volatile ExecutorService okHttpDispatcherExecutor;
     private static IReserveWifiStatusListener reserveWifiStatusListener;
     private static volatile IRetryDelayTimeCalculator retryDelayTimeCalculator;
-    private static volatile ScheduledExecutorService scheduledExecutor;
     private static int writeBufferSize;
     private static volatile List<ProcessCallback> processCallbacks = new ArrayList();
     private static volatile boolean downloadInMultiProcess = false;
@@ -120,7 +116,10 @@ public class DownloadComponentManager {
     private static boolean isReceiverRegistered = false;
 
     /* renamed from: com.ss.android.socialbase.downloader.downloader.DownloadComponentManager$1 */
-    public static class AnonymousClass1 implements Runnable {
+    static class AnonymousClass1 implements Runnable {
+        AnonymousClass1() {
+        }
+
         @Override // java.lang.Runnable
         public void run() {
             Context appContext = DownloadComponentManager.getAppContext();
@@ -131,7 +130,10 @@ public class DownloadComponentManager {
     }
 
     /* renamed from: com.ss.android.socialbase.downloader.downloader.DownloadComponentManager$2 */
-    public static class AnonymousClass2 implements IDownloadDns {
+    static class AnonymousClass2 implements IDownloadDns {
+        AnonymousClass2() {
+        }
+
         @Override // com.ss.android.socialbase.downloader.network.IDownloadDns
         public List<InetAddress> lookup(String str) throws UnknownHostException {
             return Dns.SYSTEM.lookup(str);
@@ -139,13 +141,16 @@ public class DownloadComponentManager {
     }
 
     /* renamed from: com.ss.android.socialbase.downloader.downloader.DownloadComponentManager$3 */
-    public static class AnonymousClass3 implements InnerEventListener {
-        @Override // com.ss.android.socialbase.downloader.monitor.InnerEventListener
-        public void onEvent(int i10, String str, JSONObject jSONObject) {
+    static class AnonymousClass3 implements InnerEventListener {
+        AnonymousClass3() {
         }
 
         @Override // com.ss.android.socialbase.downloader.monitor.InnerEventListener
-        public void onUnityEvent(int i10, String str, JSONObject jSONObject) {
+        public void onEvent(int i2, String str, JSONObject jSONObject) {
+        }
+
+        @Override // com.ss.android.socialbase.downloader.monitor.InnerEventListener
+        public void onUnityEvent(int i2, String str, JSONObject jSONObject) {
         }
     }
 
@@ -183,11 +188,8 @@ public class DownloadComponentManager {
         List<IDownloadCompleteHandler> list = downloadCompleteHandlers;
         synchronized (list) {
             if (iDownloadCompleteHandler != null) {
-                try {
-                    if (!list.contains(iDownloadCompleteHandler)) {
-                        list.add(iDownloadCompleteHandler);
-                    }
-                } finally {
+                if (!list.contains(iDownloadCompleteHandler)) {
+                    list.add(iDownloadCompleteHandler);
                 }
             }
         }
@@ -202,7 +204,7 @@ public class DownloadComponentManager {
         }
     }
 
-    public static synchronized void coverComponent(DownloaderBuilder downloaderBuilder) {
+    static synchronized void coverComponent(DownloaderBuilder downloaderBuilder) {
         synchronized (DownloadComponentManager.class) {
             setDownloadBuilder(downloaderBuilder);
         }
@@ -218,18 +220,18 @@ public class DownloadComponentManager {
         return builder;
     }
 
-    public static IDownloadHttpConnection downloadWithConnection(boolean z10, int i10, String str, List<HttpHeader> list) throws Exception {
-        return downloadWithConnection(z10, i10, str, null, list, 0, false, null);
+    public static IDownloadHttpConnection downloadWithConnection(boolean z, int i2, String str, List<HttpHeader> list) throws Exception {
+        return downloadWithConnection(z, i2, str, null, list, 0, false, null);
     }
 
-    /* JADX WARN: Removed duplicated region for block: B:23:0x0045  */
+    /* JADX WARN: Removed duplicated region for block: B:23:0x0044  */
     /*
         Code decompiled incorrectly, please refer to instructions dump.
         To view partially-correct code enable 'Show inconsistent code' option in preferences
     */
-    private static com.ss.android.socialbase.downloader.network.IDownloadHttpConnection downloadWithConnection2(int r10, java.lang.String r11, java.lang.String r12, java.util.List<com.ss.android.socialbase.downloader.model.HttpHeader> r13, int r14, boolean r15, com.ss.android.socialbase.downloader.model.DownloadInfo r16) throws com.ss.android.socialbase.downloader.exception.BaseException, java.io.IOException {
+    private static com.ss.android.socialbase.downloader.network.IDownloadHttpConnection downloadWithConnection2(int r11, java.lang.String r12, java.lang.String r13, java.util.List<com.ss.android.socialbase.downloader.model.HttpHeader> r14, int r15, boolean r16, com.ss.android.socialbase.downloader.model.DownloadInfo r17) throws com.ss.android.socialbase.downloader.exception.BaseException, java.io.IOException {
         /*
-            r7 = r14
+            r7 = r15
             r0 = 1
             if (r7 != r0) goto L9
             com.ss.android.socialbase.downloader.network.IDownloadHttpService r0 = getHttpService()
@@ -237,80 +239,75 @@ public class DownloadComponentManager {
         L9:
             com.ss.android.socialbase.downloader.network.IDownloadHttpService r0 = getDefaultHttpService()
         Ld:
-            if (r0 == 0) goto L58
+            if (r0 == 0) goto L55
+            r1 = 0
             r8 = 0
-            r1 = 0
-            if (r15 == 0) goto L18
-            long r1 = java.lang.System.currentTimeMillis()     // Catch: java.lang.Throwable -> L1c java.io.IOException -> L1f
-        L18:
-            r3 = r10
-            r4 = r11
-            r5 = r13
-            goto L23
-        L1c:
+            r2 = 0
+            if (r16 == 0) goto L20
+            long r2 = java.lang.System.currentTimeMillis()     // Catch: java.lang.Throwable -> L1a java.io.IOException -> L1d
+            goto L20
+        L1a:
             r0 = move-exception
-            r4 = r11
-            goto L43
-        L1f:
+            r5 = r12
+            goto L42
+        L1d:
             r0 = move-exception
+            r5 = r12
+            goto L3e
+        L20:
             r4 = r11
-        L21:
-            r3 = r0
-            goto L40
-        L23:
-            com.ss.android.socialbase.downloader.network.IDownloadHttpConnection r0 = r0.downloadWithConnection(r10, r11, r13)     // Catch: java.lang.Throwable -> L3c java.io.IOException -> L3e
-            if (r15 == 0) goto L3b
-            long r5 = java.lang.System.currentTimeMillis()
-            long r5 = r5 - r1
-            java.lang.String r9 = "get"
+            r5 = r12
+            r6 = r14
+            com.ss.android.socialbase.downloader.network.IDownloadHttpConnection r0 = r0.downloadWithConnection(r11, r12, r14)     // Catch: java.lang.Throwable -> L3b java.io.IOException -> L3d
+            if (r16 == 0) goto L3a
+            long r9 = java.lang.System.currentTimeMillis()
+            long r9 = r9 - r2
+            java.lang.String r6 = "get"
             r1 = r0
-            r2 = r11
-            r3 = r12
-            r4 = r5
-            r6 = r9
-            r7 = r14
-            r9 = r16
+            r2 = r12
+            r3 = r13
+            r4 = r9
+            r7 = r15
+            r9 = r17
             com.ss.android.socialbase.downloader.monitor.DownloadMonitorHelper.monitorDownloadConnect(r1, r2, r3, r4, r6, r7, r8, r9)
-        L3b:
+        L3a:
             return r0
-        L3c:
+        L3b:
             r0 = move-exception
-            goto L43
+            goto L42
+        L3d:
+            r0 = move-exception
         L3e:
-            r0 = move-exception
-            goto L21
+            r4 = r0
+            throw r4     // Catch: java.lang.Throwable -> L40
         L40:
-            throw r3     // Catch: java.lang.Throwable -> L41
-        L41:
             r0 = move-exception
-            r8 = r3
-        L43:
-            if (r15 == 0) goto L57
-            long r5 = java.lang.System.currentTimeMillis()
-            long r5 = r5 - r1
-            java.lang.String r9 = "get"
-            r1 = 0
-            r2 = r11
-            r3 = r12
-            r4 = r5
-            r6 = r9
-            r7 = r14
-            r9 = r16
+            r8 = r4
+        L42:
+            if (r16 == 0) goto L54
+            long r9 = java.lang.System.currentTimeMillis()
+            long r9 = r9 - r2
+            java.lang.String r6 = "get"
+            r2 = r12
+            r3 = r13
+            r4 = r9
+            r7 = r15
+            r9 = r17
             com.ss.android.socialbase.downloader.monitor.DownloadMonitorHelper.monitorDownloadConnect(r1, r2, r3, r4, r6, r7, r8, r9)
-        L57:
+        L54:
             throw r0
-        L58:
+        L55:
             com.ss.android.socialbase.downloader.exception.BaseException r0 = new com.ss.android.socialbase.downloader.exception.BaseException
-            java.io.IOException r1 = new java.io.IOException
-            java.lang.StringBuilder r2 = new java.lang.StringBuilder
-            r2.<init>()
-            java.lang.String r3 = "httpService not exist, netLib = "
-            r2.append(r3)
-            r2.append(r14)
-            java.lang.String r2 = r2.toString()
-            r1.<init>(r2)
-            r2 = 1022(0x3fe, float:1.432E-42)
-            r0.<init>(r2, r1)
+            r1 = 1022(0x3fe, float:1.432E-42)
+            java.io.IOException r2 = new java.io.IOException
+            java.lang.StringBuilder r3 = new java.lang.StringBuilder
+            r3.<init>()
+            java.lang.String r4 = "httpService not exist, netLib = "
+            r3.append(r4)
+            r3.append(r15)
+            java.lang.String r3 = r3.toString()
+            r2.<init>(r3)
+            r0.<init>(r1, r2)
             throw r0
         */
         throw new UnsupportedOperationException("Method not decompiled: com.ss.android.socialbase.downloader.downloader.DownloadComponentManager.downloadWithConnection2(int, java.lang.String, java.lang.String, java.util.List, int, boolean, com.ss.android.socialbase.downloader.model.DownloadInfo):com.ss.android.socialbase.downloader.network.IDownloadHttpConnection");
@@ -320,80 +317,78 @@ public class DownloadComponentManager {
         return downloadWithHeadConnection(str, list, 0, false, null);
     }
 
-    /* JADX WARN: Removed duplicated region for block: B:21:0x0039  */
+    /* JADX WARN: Removed duplicated region for block: B:20:0x0039  */
+    /* JADX WARN: Removed duplicated region for block: B:22:? A[SYNTHETIC] */
     /*
         Code decompiled incorrectly, please refer to instructions dump.
         To view partially-correct code enable 'Show inconsistent code' option in preferences
     */
-    private static com.ss.android.socialbase.downloader.network.IDownloadHeadHttpConnection downloadWithHeadConnection2(java.lang.String r10, java.util.List<com.ss.android.socialbase.downloader.model.HttpHeader> r11, int r12, boolean r13, com.ss.android.socialbase.downloader.model.DownloadInfo r14) throws com.ss.android.socialbase.downloader.exception.BaseException, java.io.IOException {
+    private static com.ss.android.socialbase.downloader.network.IDownloadHeadHttpConnection downloadWithHeadConnection2(java.lang.String r11, java.util.List<com.ss.android.socialbase.downloader.model.HttpHeader> r12, int r13, boolean r14, com.ss.android.socialbase.downloader.model.DownloadInfo r15) throws com.ss.android.socialbase.downloader.exception.BaseException, java.io.IOException {
         /*
             r0 = 1
-            if (r12 != r0) goto L8
+            if (r13 != r0) goto L8
             com.ss.android.socialbase.downloader.network.IDownloadHeadHttpService r0 = getHeadHttpService()
             goto Lc
         L8:
             com.ss.android.socialbase.downloader.network.IDownloadHeadHttpService r0 = getDefaultHeadHttpService()
         Lc:
-            if (r0 == 0) goto L4a
-            r8 = 0
+            if (r0 == 0) goto L49
             r1 = 0
-            if (r13 == 0) goto L1d
-            long r1 = java.lang.System.currentTimeMillis()     // Catch: java.lang.Throwable -> L18 java.io.IOException -> L1a
-            goto L1d
+            r9 = 0
+            r2 = 0
+            if (r14 == 0) goto L18
+            long r2 = java.lang.System.currentTimeMillis()     // Catch: java.lang.Throwable -> L2f java.io.IOException -> L32
         L18:
-            r0 = move-exception
+            com.ss.android.socialbase.downloader.network.IDownloadHeadHttpConnection r12 = r0.downloadWithConnection(r11, r12)     // Catch: java.lang.Throwable -> L2f java.io.IOException -> L32
+            if (r14 == 0) goto L2e
+            r4 = 0
+            long r0 = java.lang.System.currentTimeMillis()
+            long r5 = r0 - r2
+            java.lang.String r7 = "head"
+            r2 = r12
+            r3 = r11
+            r8 = r13
+            r10 = r15
+            com.ss.android.socialbase.downloader.monitor.DownloadMonitorHelper.monitorDownloadConnect(r2, r3, r4, r5, r7, r8, r9, r10)
+        L2e:
+            return r12
+        L2f:
+            r12 = move-exception
+            r8 = r9
             goto L37
-        L1a:
-            r0 = move-exception
-            r4 = r0
-            goto L34
-        L1d:
-            com.ss.android.socialbase.downloader.network.IDownloadHeadHttpConnection r0 = r0.downloadWithConnection(r10, r11)     // Catch: java.lang.Throwable -> L18 java.io.IOException -> L1a
-            if (r13 == 0) goto L33
-            long r4 = java.lang.System.currentTimeMillis()
-            long r4 = r4 - r1
-            java.lang.String r6 = "head"
-            r9 = 0
-            r1 = r0
-            r2 = r10
-            r3 = r9
-            r7 = r12
-            r9 = r14
-            com.ss.android.socialbase.downloader.monitor.DownloadMonitorHelper.monitorDownloadConnect(r1, r2, r3, r4, r6, r7, r8, r9)
-        L33:
-            return r0
+        L32:
+            r12 = move-exception
+            throw r12     // Catch: java.lang.Throwable -> L34
         L34:
-            throw r4     // Catch: java.lang.Throwable -> L35
-        L35:
             r0 = move-exception
-            r8 = r4
+            r8 = r12
+            r12 = r0
         L37:
-            if (r13 == 0) goto L49
+            if (r14 == 0) goto L48
+            r14 = 0
             long r4 = java.lang.System.currentTimeMillis()
-            long r4 = r4 - r1
+            long r4 = r4 - r2
             java.lang.String r6 = "head"
-            r1 = 0
-            r9 = 0
-            r2 = r10
-            r3 = r9
-            r7 = r12
-            r9 = r14
+            r2 = r11
+            r3 = r14
+            r7 = r13
+            r9 = r15
             com.ss.android.socialbase.downloader.monitor.DownloadMonitorHelper.monitorDownloadConnect(r1, r2, r3, r4, r6, r7, r8, r9)
+        L48:
+            throw r12
         L49:
-            throw r0
-        L4a:
-            com.ss.android.socialbase.downloader.exception.BaseException r0 = new com.ss.android.socialbase.downloader.exception.BaseException
-            java.io.IOException r1 = new java.io.IOException
-            java.lang.StringBuilder r2 = new java.lang.StringBuilder
-            r2.<init>()
-            java.lang.String r3 = "httpService not exist, netLib = "
-            r2.append(r3)
-            r2.append(r12)
-            java.lang.String r2 = r2.toString()
-            r1.<init>(r2)
-            r2 = 1022(0x3fe, float:1.432E-42)
-            r0.<init>(r2, r1)
-            throw r0
+            com.ss.android.socialbase.downloader.exception.BaseException r11 = new com.ss.android.socialbase.downloader.exception.BaseException
+            r12 = 1022(0x3fe, float:1.432E-42)
+            java.io.IOException r14 = new java.io.IOException
+            java.lang.StringBuilder r15 = new java.lang.StringBuilder
+            r15.<init>()
+            java.lang.String r0 = "httpService not exist, netLib = "
+            r15.append(r0)
+            r15.append(r13)
+            java.lang.String r13 = r15.toString()
+            r14.<init>(r13)
+            r11.<init>(r12, r14)
+            throw r11
         */
         throw new UnsupportedOperationException("Method not decompiled: com.ss.android.socialbase.downloader.downloader.DownloadComponentManager.downloadWithHeadConnection2(java.lang.String, java.util.List, int, boolean, com.ss.android.socialbase.downloader.model.DownloadInfo):com.ss.android.socialbase.downloader.network.IDownloadHeadHttpConnection");
     }
@@ -420,18 +415,15 @@ public class DownloadComponentManager {
     public static ExecutorService getCPUThreadExecutor() {
         if (cpuThreadExecutor == null) {
             synchronized (DownloadComponentManager.class) {
-                try {
-                    if (cpuThreadExecutor == null) {
-                        int i10 = fixedCPUPoolSize;
-                        ThreadPoolExecutor threadPoolExecutor = new ThreadPoolExecutor(i10, i10, 15L, TimeUnit.SECONDS, new LinkedBlockingQueue(), new DefaultThreadFactory("DownloadThreadPool-cpu-fixed", true));
-                        try {
-                            threadPoolExecutor.allowCoreThreadTimeOut(true);
-                        } catch (Throwable th2) {
-                            th2.printStackTrace();
-                        }
-                        cpuThreadExecutor = threadPoolExecutor;
+                if (cpuThreadExecutor == null) {
+                    int i2 = fixedCPUPoolSize;
+                    ThreadPoolExecutor threadPoolExecutor = new ThreadPoolExecutor(i2, i2, 15L, TimeUnit.SECONDS, new LinkedBlockingQueue(), new DefaultThreadFactory("DownloadThreadPool-cpu-fixed", true));
+                    try {
+                        threadPoolExecutor.allowCoreThreadTimeOut(true);
+                    } catch (Throwable th) {
+                        th.printStackTrace();
                     }
-                } finally {
+                    cpuThreadExecutor = threadPoolExecutor;
                 }
             }
         }
@@ -441,11 +433,8 @@ public class DownloadComponentManager {
     public static IChunkAdjustCalculator getChunkAdjustCalculator() {
         if (chunkAdjustCalculator == null) {
             synchronized (DownloadComponentManager.class) {
-                try {
-                    if (chunkAdjustCalculator == null) {
-                        chunkAdjustCalculator = new DefaultChunkAdjustCalculator();
-                    }
-                } finally {
+                if (chunkAdjustCalculator == null) {
+                    chunkAdjustCalculator = new DefaultChunkAdjustCalculator();
                 }
             }
         }
@@ -455,11 +444,8 @@ public class DownloadComponentManager {
     public static IChunkCntCalculator getChunkCntCalculator() {
         if (chunkCntCalculator == null) {
             synchronized (DownloadComponentManager.class) {
-                try {
-                    if (chunkCntCalculator == null) {
-                        chunkCntCalculator = new DefaultChunkCntCalculator();
-                    }
-                } finally {
+                if (chunkCntCalculator == null) {
+                    chunkCntCalculator = new DefaultChunkCntCalculator();
                 }
             }
         }
@@ -469,18 +455,15 @@ public class DownloadComponentManager {
     public static ExecutorService getChunkDownloadThreadExecutorService() {
         if (chunkDownloadExecutor == null) {
             synchronized (DownloadComponentManager.class) {
-                try {
-                    if (chunkDownloadExecutor == null) {
-                        int i10 = fixedIOPoolSize;
-                        ThreadPoolExecutor threadPoolExecutor = new ThreadPoolExecutor(i10, i10, 15L, TimeUnit.SECONDS, new LinkedBlockingQueue(), new DefaultThreadFactory("DownloadThreadPool-chunk-fixed", true));
-                        try {
-                            threadPoolExecutor.allowCoreThreadTimeOut(true);
-                        } catch (Throwable th2) {
-                            th2.printStackTrace();
-                        }
-                        chunkDownloadExecutor = threadPoolExecutor;
+                if (chunkDownloadExecutor == null) {
+                    int i2 = fixedIOPoolSize;
+                    ThreadPoolExecutor threadPoolExecutor = new ThreadPoolExecutor(i2, i2, 15L, TimeUnit.SECONDS, new LinkedBlockingQueue(), new DefaultThreadFactory("DownloadThreadPool-chunk-fixed", true));
+                    try {
+                        threadPoolExecutor.allowCoreThreadTimeOut(true);
+                    } catch (Throwable th) {
+                        th.printStackTrace();
                     }
-                } finally {
+                    chunkDownloadExecutor = threadPoolExecutor;
                 }
             }
         }
@@ -490,18 +473,15 @@ public class DownloadComponentManager {
     public static ExecutorService getDBThreadExecutorService() {
         if (dbThreadExecutor == null) {
             synchronized (DownloadComponentManager.class) {
-                try {
-                    if (dbThreadExecutor == null) {
-                        int i10 = fixedDBPoolSize;
-                        ThreadPoolExecutor threadPoolExecutor = new ThreadPoolExecutor(i10, i10, 15L, TimeUnit.SECONDS, new LinkedBlockingQueue(), new DefaultThreadFactory("DownloadThreadPool-db-fixed", true));
-                        try {
-                            threadPoolExecutor.allowCoreThreadTimeOut(true);
-                        } catch (Throwable th2) {
-                            th2.printStackTrace();
-                        }
-                        dbThreadExecutor = threadPoolExecutor;
+                if (dbThreadExecutor == null) {
+                    int i2 = fixedDBPoolSize;
+                    ThreadPoolExecutor threadPoolExecutor = new ThreadPoolExecutor(i2, i2, 15L, TimeUnit.SECONDS, new LinkedBlockingQueue(), new DefaultThreadFactory("DownloadThreadPool-db-fixed", true));
+                    try {
+                        threadPoolExecutor.allowCoreThreadTimeOut(true);
+                    } catch (Throwable th) {
+                        th.printStackTrace();
                     }
-                } finally {
+                    dbThreadExecutor = threadPoolExecutor;
                 }
             }
         }
@@ -511,16 +491,16 @@ public class DownloadComponentManager {
     public static IDownloadDns getDefaultDownloadDns() {
         if (defaultDownloadDns == null) {
             synchronized (DownloadComponentManager.class) {
-                try {
-                    if (defaultDownloadDns == null) {
-                        defaultDownloadDns = new IDownloadDns() { // from class: com.ss.android.socialbase.downloader.downloader.DownloadComponentManager.2
-                            @Override // com.ss.android.socialbase.downloader.network.IDownloadDns
-                            public List<InetAddress> lookup(String str) throws UnknownHostException {
-                                return Dns.SYSTEM.lookup(str);
-                            }
-                        };
-                    }
-                } finally {
+                if (defaultDownloadDns == null) {
+                    defaultDownloadDns = new IDownloadDns() { // from class: com.ss.android.socialbase.downloader.downloader.DownloadComponentManager.2
+                        AnonymousClass2() {
+                        }
+
+                        @Override // com.ss.android.socialbase.downloader.network.IDownloadDns
+                        public List<InetAddress> lookup(String str) throws UnknownHostException {
+                            return Dns.SYSTEM.lookup(str);
+                        }
+                    };
                 }
             }
         }
@@ -530,11 +510,8 @@ public class DownloadComponentManager {
     public static IDownloadHeadHttpService getDefaultHeadHttpService() {
         if (defaultHeadHttpService == null) {
             synchronized (DownloadComponentManager.class) {
-                try {
-                    if (defaultHeadHttpService == null) {
-                        defaultHeadHttpService = new DefaultDownloadHeadHttpService();
-                    }
-                } finally {
+                if (defaultHeadHttpService == null) {
+                    defaultHeadHttpService = new DefaultDownloadHeadHttpService();
                 }
             }
         }
@@ -544,11 +521,8 @@ public class DownloadComponentManager {
     public static IDownloadHttpService getDefaultHttpService() {
         if (defaultHttpService == null) {
             synchronized (DownloadComponentManager.class) {
-                try {
-                    if (defaultHttpService == null) {
-                        defaultHttpService = new DefaultDownloadHttpService();
-                    }
-                } finally {
+                if (defaultHttpService == null) {
+                    defaultHttpService = new DefaultDownloadHttpService();
                 }
             }
         }
@@ -558,11 +532,8 @@ public class DownloadComponentManager {
     public static IDownloadCache getDownloadCache() {
         if (downloadCache == null) {
             synchronized (DownloadComponentManager.class) {
-                try {
-                    if (downloadCache == null) {
-                        downloadCache = new DefaultDownloadCache();
-                    }
-                } finally {
+                if (downloadCache == null) {
+                    downloadCache = new DefaultDownloadCache();
                 }
             }
         }
@@ -572,11 +543,8 @@ public class DownloadComponentManager {
     public static OkHttpClient getDownloadClient() {
         if (sOkHttpClient == null) {
             synchronized (DownloadComponentManager.class) {
-                try {
-                    if (sOkHttpClient == null) {
-                        sOkHttpClient = createDownloadClientBuilder().build();
-                    }
-                } finally {
+                if (sOkHttpClient == null) {
+                    sOkHttpClient = createDownloadClientBuilder().build();
                 }
             }
         }
@@ -594,11 +562,8 @@ public class DownloadComponentManager {
     public static AbsDownloadEngine getDownloadEngine() {
         if (downloadEngine == null) {
             synchronized (DownloadComponentManager.class) {
-                try {
-                    if (downloadEngine == null) {
-                        downloadEngine = new DefaultDownloadEngine();
-                    }
-                } finally {
+                if (downloadEngine == null) {
+                    downloadEngine = new DefaultDownloadEngine();
                 }
             }
         }
@@ -613,11 +578,7 @@ public class DownloadComponentManager {
         if (downloadInfo == null) {
             return 0;
         }
-        String taskKey = downloadInfo.getTaskKey();
-        if (TextUtils.isEmpty(taskKey)) {
-            taskKey = downloadInfo.getUrl();
-        }
-        return getDownloadId(taskKey, downloadInfo.getSavePath());
+        return getDownloadId(downloadInfo.getUrl(), downloadInfo.getSavePath());
     }
 
     public static synchronized IDownloadLaunchHandler getDownloadLaunchHandler() {
@@ -632,18 +593,15 @@ public class DownloadComponentManager {
         return downloadMonitorListener;
     }
 
-    private static int[] getDownloadNetLibs(int i10) {
-        return i10 != 1 ? i10 != 2 ? i10 != 3 ? new int[]{1, 0} : new int[]{0, 1} : new int[]{1} : new int[]{0};
+    private static int[] getDownloadNetLibs(int i2) {
+        return i2 != 1 ? i2 != 2 ? i2 != 3 ? new int[]{1, 0} : new int[]{0, 1} : new int[]{1} : new int[]{0};
     }
 
     public static IDownloadServiceHandler getDownloadServiceHandler() {
         if (downloadServiceHandler == null) {
             synchronized (DownloadComponentManager.class) {
-                try {
-                    if (downloadServiceHandler == null) {
-                        downloadServiceHandler = new DefaultDownloadServiceHandler();
-                    }
-                } finally {
+                if (downloadServiceHandler == null) {
+                    downloadServiceHandler = new DefaultDownloadServiceHandler();
                 }
             }
         }
@@ -659,12 +617,15 @@ public class DownloadComponentManager {
     public static InnerEventListener getEventListener() {
         if (downloadEventListener == null) {
             downloadEventListener = new InnerEventListener() { // from class: com.ss.android.socialbase.downloader.downloader.DownloadComponentManager.3
-                @Override // com.ss.android.socialbase.downloader.monitor.InnerEventListener
-                public void onEvent(int i10, String str, JSONObject jSONObject) {
+                AnonymousClass3() {
                 }
 
                 @Override // com.ss.android.socialbase.downloader.monitor.InnerEventListener
-                public void onUnityEvent(int i10, String str, JSONObject jSONObject) {
+                public void onEvent(int i2, String str, JSONObject jSONObject) {
+                }
+
+                @Override // com.ss.android.socialbase.downloader.monitor.InnerEventListener
+                public void onUnityEvent(int i2, String str, JSONObject jSONObject) {
                 }
             };
         }
@@ -686,11 +647,8 @@ public class DownloadComponentManager {
     public static IDownloadIdGenerator getIdGenerator() {
         if (idGenerator == null) {
             synchronized (DownloadComponentManager.class) {
-                try {
-                    if (idGenerator == null) {
-                        idGenerator = new DefaultIdGenerator();
-                    }
-                } finally {
+                if (idGenerator == null) {
+                    idGenerator = new DefaultIdGenerator();
                 }
             }
         }
@@ -700,11 +658,8 @@ public class DownloadComponentManager {
     public static IDownloadServiceHandler getIndependentDownloadServiceHandler() {
         if (independentDownloadServiceHandler == null) {
             synchronized (DownloadComponentManager.class) {
-                try {
-                    if (independentDownloadServiceHandler == null) {
-                        independentDownloadServiceHandler = independentHolderCreator.createServiceHandler();
-                    }
-                } finally {
+                if (independentDownloadServiceHandler == null) {
+                    independentDownloadServiceHandler = independentHolderCreator.createServiceHandler();
                 }
             }
         }
@@ -716,8 +671,8 @@ public class DownloadComponentManager {
     }
 
     private static int getMaxDownloadPoolSize() {
-        int i10 = maxDownloadPoolSize;
-        if (i10 <= 0 || i10 > fixedCPUPoolSize) {
+        int i2 = maxDownloadPoolSize;
+        if (i2 <= 0 || i2 > fixedCPUPoolSize) {
             maxDownloadPoolSize = fixedCPUPoolSize;
         }
         return maxDownloadPoolSize;
@@ -730,18 +685,15 @@ public class DownloadComponentManager {
     public static ExecutorService getMixDefaultThreadExecutor() {
         if (mixDefaultDownloadExecutor == null) {
             synchronized (DownloadComponentManager.class) {
-                try {
-                    if (mixDefaultDownloadExecutor == null) {
-                        int i10 = fixedMIXPoolSize;
-                        ThreadPoolExecutor threadPoolExecutor = new ThreadPoolExecutor(i10, i10, 15L, TimeUnit.SECONDS, new LinkedBlockingQueue(), new DefaultThreadFactory("DownloadThreadPool-mix-fixed", true));
-                        try {
-                            threadPoolExecutor.allowCoreThreadTimeOut(true);
-                        } catch (Throwable th2) {
-                            th2.printStackTrace();
-                        }
-                        mixDefaultDownloadExecutor = threadPoolExecutor;
+                if (mixDefaultDownloadExecutor == null) {
+                    int i2 = fixedMIXPoolSize;
+                    ThreadPoolExecutor threadPoolExecutor = new ThreadPoolExecutor(i2, i2, 15L, TimeUnit.SECONDS, new LinkedBlockingQueue(), new DefaultThreadFactory("DownloadThreadPool-mix-fixed", true));
+                    try {
+                        threadPoolExecutor.allowCoreThreadTimeOut(true);
+                    } catch (Throwable th) {
+                        th.printStackTrace();
                     }
-                } finally {
+                    mixDefaultDownloadExecutor = threadPoolExecutor;
                 }
             }
         }
@@ -779,39 +731,19 @@ public class DownloadComponentManager {
     public static IRetryDelayTimeCalculator getRetryDelayTimeCalculator() {
         if (retryDelayTimeCalculator == null) {
             synchronized (DownloadComponentManager.class) {
-                try {
-                    if (retryDelayTimeCalculator == null) {
-                        retryDelayTimeCalculator = new DefaultRetryDelayTimeCalculator();
-                    }
-                } finally {
+                if (retryDelayTimeCalculator == null) {
+                    retryDelayTimeCalculator = new DefaultRetryDelayTimeCalculator();
                 }
             }
         }
         return retryDelayTimeCalculator;
     }
 
-    public static ScheduledExecutorService getScheduledExecutorService() {
-        if (scheduledExecutor == null) {
-            synchronized (DownloadComponentManager.class) {
-                try {
-                    if (scheduledExecutor == null) {
-                        scheduledExecutor = new ScheduledThreadPoolExecutor(1, new DefaultThreadFactory("DownloadThreadPool-Schedule", true));
-                    }
-                } finally {
-                }
-            }
-        }
-        return scheduledExecutor;
-    }
-
     public static ITTNetHandler getTTNetHandler() {
         if (iTTNetHandler == null) {
             synchronized (DownloadComponentManager.class) {
-                try {
-                    if (iTTNetHandler == null) {
-                        iTTNetHandler = new ITTNetHandler.DefaultTTNetHandler();
-                    }
-                } finally {
+                if (iTTNetHandler == null) {
+                    iTTNetHandler = new ITTNetHandler.DefaultTTNetHandler();
                 }
             }
         }
@@ -819,20 +751,20 @@ public class DownloadComponentManager {
     }
 
     public static synchronized int getWriteBufferSize() {
-        int i10;
+        int i2;
         synchronized (DownloadComponentManager.class) {
-            i10 = writeBufferSize;
+            i2 = writeBufferSize;
         }
-        return i10;
+        return i2;
     }
 
-    public static synchronized void initComponent(DownloaderBuilder downloaderBuilder) {
+    static synchronized void initComponent(DownloaderBuilder downloaderBuilder) {
         synchronized (DownloadComponentManager.class) {
             if (hasInit) {
                 Logger.e("DownloadComponentManager", "component has init");
                 return;
             }
-            boolean z10 = downloadInMultiProcess;
+            boolean z = downloadInMultiProcess;
             setDownloadBuilder(downloaderBuilder);
             if (downloadCache == null) {
                 downloadCache = new DefaultDownloadCache();
@@ -858,17 +790,20 @@ public class DownloadComponentManager {
             if (retryDelayTimeCalculator == null) {
                 retryDelayTimeCalculator = new DefaultRetryDelayTimeCalculator();
             }
-            int i10 = maxDownloadPoolSize;
-            if (i10 <= 0 || i10 > fixedCPUPoolSize) {
+            int i2 = maxDownloadPoolSize;
+            if (i2 <= 0 || i2 > fixedCPUPoolSize) {
                 maxDownloadPoolSize = fixedCPUPoolSize;
             }
             registerDownloadReceiver();
-            if (downloadInMultiProcess && !z10 && !DownloadUtils.isDownloaderProcess()) {
+            if (downloadInMultiProcess && !z && !DownloadUtils.isDownloaderProcess()) {
                 DownloadProxy.get(true).startService();
             } else if (DownloadUtils.isMainThread()) {
                 ExecutorService iOThreadExecutor = getIOThreadExecutor();
                 if (iOThreadExecutor != null) {
                     iOThreadExecutor.execute(new Runnable() { // from class: com.ss.android.socialbase.downloader.downloader.DownloadComponentManager.1
+                        AnonymousClass1() {
+                        }
+
                         @Override // java.lang.Runnable
                         public void run() {
                             Context appContext2 = DownloadComponentManager.getAppContext();
@@ -890,27 +825,27 @@ public class DownloadComponentManager {
     }
 
     public static synchronized boolean isDownloadInMultiProcess() {
-        boolean z10;
+        boolean z;
         synchronized (DownloadComponentManager.class) {
-            z10 = downloadInMultiProcess;
+            z = downloadInMultiProcess;
         }
-        return z10;
+        return z;
     }
 
     public static synchronized boolean isHttpServiceInit() {
-        boolean z10;
+        boolean z;
         synchronized (DownloadComponentManager.class) {
-            z10 = httpServiceInit;
+            z = httpServiceInit;
         }
-        return z10;
+        return z;
     }
 
     public static boolean isInit() {
         return hasInit;
     }
 
-    private static void needAutoRefreshUnSuccessTask(boolean z10) {
-        needAutoRefreshUnSuccessTask = z10;
+    private static void needAutoRefreshUnSuccessTask(boolean z) {
+        needAutoRefreshUnSuccessTask = z;
     }
 
     public static boolean notAutoRebootService() {
@@ -920,51 +855,39 @@ public class DownloadComponentManager {
     public static void onDownloadCacheSyncCallback(DownloadCacheSyncStatus downloadCacheSyncStatus) {
         List<IDownloadCacheSyncStatusListener> list = downloadCacheSyncStatusListeners;
         synchronized (list) {
-            try {
-                for (IDownloadCacheSyncStatusListener iDownloadCacheSyncStatusListener : list) {
-                    if (iDownloadCacheSyncStatusListener != null) {
-                        if (downloadCacheSyncStatus == DownloadCacheSyncStatus.SYNC_START) {
-                            iDownloadCacheSyncStatusListener.onStart();
-                        } else if (downloadCacheSyncStatus == DownloadCacheSyncStatus.SYNC_SUCCESS) {
-                            iDownloadCacheSyncStatusListener.onSuccess();
-                        }
+            for (IDownloadCacheSyncStatusListener iDownloadCacheSyncStatusListener : list) {
+                if (iDownloadCacheSyncStatusListener != null) {
+                    if (downloadCacheSyncStatus == DownloadCacheSyncStatus.SYNC_START) {
+                        iDownloadCacheSyncStatusListener.onStart();
+                    } else if (downloadCacheSyncStatus == DownloadCacheSyncStatus.SYNC_SUCCESS) {
+                        iDownloadCacheSyncStatusListener.onSuccess();
                     }
                 }
-                if (downloadCacheSyncStatus == DownloadCacheSyncStatus.SYNC_SUCCESS) {
-                    downloadCacheSyncStatusListeners.clear();
-                }
-            } catch (Throwable th2) {
-                throw th2;
+            }
+            if (downloadCacheSyncStatus == DownloadCacheSyncStatus.SYNC_SUCCESS) {
+                downloadCacheSyncStatusListeners.clear();
             }
         }
     }
 
-    public static void onDownloadTaskFinish(DownloadTask downloadTask, @BoundType int i10) {
+    public static void onDownloadTaskFinish(DownloadTask downloadTask, @BoundType int i2) {
         List<IDownloadTaskExecuteListener> list = downloadTaskExecuteListeners;
         synchronized (list) {
-            try {
-                for (IDownloadTaskExecuteListener iDownloadTaskExecuteListener : list) {
-                    if (iDownloadTaskExecuteListener != null) {
-                        iDownloadTaskExecuteListener.onFinish(downloadTask, i10);
-                    }
+            for (IDownloadTaskExecuteListener iDownloadTaskExecuteListener : list) {
+                if (iDownloadTaskExecuteListener != null) {
+                    iDownloadTaskExecuteListener.onFinish(downloadTask, i2);
                 }
-            } catch (Throwable th2) {
-                throw th2;
             }
         }
     }
 
-    public static void onDownloadTaskStart(DownloadTask downloadTask, @BoundType int i10) {
+    public static void onDownloadTaskStart(DownloadTask downloadTask, @BoundType int i2) {
         List<IDownloadTaskExecuteListener> list = downloadTaskExecuteListeners;
         synchronized (list) {
-            try {
-                for (IDownloadTaskExecuteListener iDownloadTaskExecuteListener : list) {
-                    if (iDownloadTaskExecuteListener != null) {
-                        iDownloadTaskExecuteListener.onStart(downloadTask, i10);
-                    }
+            for (IDownloadTaskExecuteListener iDownloadTaskExecuteListener : list) {
+                if (iDownloadTaskExecuteListener != null) {
+                    iDownloadTaskExecuteListener.onStart(downloadTask, i2);
                 }
-            } catch (Throwable th2) {
-                throw th2;
             }
         }
     }
@@ -973,11 +896,8 @@ public class DownloadComponentManager {
         List<IDownloadCacheSyncStatusListener> list = downloadCacheSyncStatusListeners;
         synchronized (list) {
             if (iDownloadCacheSyncStatusListener != null) {
-                try {
-                    if (!list.contains(iDownloadCacheSyncStatusListener)) {
-                        list.add(iDownloadCacheSyncStatusListener);
-                    }
-                } finally {
+                if (!list.contains(iDownloadCacheSyncStatusListener)) {
+                    list.add(iDownloadCacheSyncStatusListener);
                 }
             }
         }
@@ -995,8 +915,8 @@ public class DownloadComponentManager {
             intentFilter.addAction("android.net.conn.CONNECTIVITY_CHANGE");
             appContext.registerReceiver(downloadReceiver, intentFilter);
             isReceiverRegistered = true;
-        } catch (Throwable th2) {
-            th2.printStackTrace();
+        } catch (Throwable th) {
+            th.printStackTrace();
         }
     }
 
@@ -1004,11 +924,8 @@ public class DownloadComponentManager {
         List<IDownloadTaskExecuteListener> list = downloadTaskExecuteListeners;
         synchronized (list) {
             if (iDownloadTaskExecuteListener != null) {
-                try {
-                    if (!list.contains(iDownloadTaskExecuteListener)) {
-                        list.add(iDownloadTaskExecuteListener);
-                    }
-                } finally {
+                if (!list.contains(iDownloadTaskExecuteListener)) {
+                    list.add(iDownloadTaskExecuteListener);
                 }
             }
         }
@@ -1018,11 +935,8 @@ public class DownloadComponentManager {
         List<IDownloadCompleteHandler> list = downloadCompleteHandlers;
         synchronized (list) {
             if (iDownloadCompleteHandler != null) {
-                try {
-                    if (list.contains(iDownloadCompleteHandler)) {
-                        list.remove(iDownloadCompleteHandler);
-                    }
-                } finally {
+                if (list.contains(iDownloadCompleteHandler)) {
+                    list.remove(iDownloadCompleteHandler);
                 }
             }
         }
@@ -1195,9 +1109,9 @@ public class DownloadComponentManager {
                 if (!DownloadUtils.isDownloaderProcess()) {
                     DownloadProxy.get(true).startService();
                 }
-            } catch (Throwable th2) {
+            } catch (Throwable th) {
                 downloadInMultiProcess = false;
-                th2.printStackTrace();
+                th.printStackTrace();
             }
         }
     }
@@ -1254,9 +1168,9 @@ public class DownloadComponentManager {
         independentHolderCreator = independentHolderCreator2;
     }
 
-    private static void setMaxDownloadPoolSize(int i10) {
-        if (i10 > 0) {
-            maxDownloadPoolSize = i10;
+    private static void setMaxDownloadPoolSize(int i2) {
+        if (i2 > 0) {
+            maxDownloadPoolSize = i2;
         }
     }
 
@@ -1278,8 +1192,8 @@ public class DownloadComponentManager {
         }
     }
 
-    public static void setNotAutoRebootService(boolean z10) {
-        notAutoRebootService = z10;
+    public static void setNotAutoRebootService(boolean z) {
+        notAutoRebootService = z;
     }
 
     public static void setNotificationClickCallback(INotificationClickCallback iNotificationClickCallback) {
@@ -1316,18 +1230,11 @@ public class DownloadComponentManager {
         submitIOTask(runnable, false);
     }
 
-    public static Future submitScheduleTask(Runnable runnable, long j10, TimeUnit timeUnit) {
-        if (runnable == null) {
-            return null;
-        }
-        return getScheduledExecutorService().schedule(runnable, j10, timeUnit);
-    }
-
     public static boolean supportMultiProc() {
-        StringBuilder sb2 = new StringBuilder();
-        sb2.append("supportMultiProc::=");
-        sb2.append(independentHolderCreator != null);
-        Logger.v("wjd", sb2.toString());
+        StringBuilder sb = new StringBuilder();
+        sb.append("supportMultiProc::=");
+        sb.append(independentHolderCreator != null);
+        Logger.v("wjd", sb.toString());
         return independentHolderCreator != null;
     }
 
@@ -1335,25 +1242,22 @@ public class DownloadComponentManager {
         List<IDownloadCacheSyncStatusListener> list = downloadCacheSyncStatusListeners;
         synchronized (list) {
             if (iDownloadCacheSyncStatusListener != null) {
-                try {
-                    if (list.contains(iDownloadCacheSyncStatusListener)) {
-                        list.remove(iDownloadCacheSyncStatusListener);
-                    }
-                } finally {
+                if (list.contains(iDownloadCacheSyncStatusListener)) {
+                    list.remove(iDownloadCacheSyncStatusListener);
                 }
             }
         }
     }
 
-    public static synchronized void unRegisterDownloadReceiver() {
+    static synchronized void unRegisterDownloadReceiver() {
         synchronized (DownloadComponentManager.class) {
             try {
                 if (isReceiverRegistered && downloadReceiver != null && appContext != null) {
                     appContext.unregisterReceiver(downloadReceiver);
                     isReceiverRegistered = false;
                 }
-            } catch (Exception e10) {
-                e10.printStackTrace();
+            } catch (Exception e2) {
+                e2.printStackTrace();
             }
         }
     }
@@ -1362,43 +1266,40 @@ public class DownloadComponentManager {
         List<IDownloadTaskExecuteListener> list = downloadTaskExecuteListeners;
         synchronized (list) {
             if (iDownloadTaskExecuteListener != null) {
-                try {
-                    if (list.contains(iDownloadTaskExecuteListener)) {
-                        list.remove(iDownloadTaskExecuteListener);
-                    }
-                } finally {
+                if (list.contains(iDownloadTaskExecuteListener)) {
+                    list.remove(iDownloadTaskExecuteListener);
                 }
             }
         }
     }
 
-    public static IDownloadHttpConnection downloadWithConnection(boolean z10, int i10, String str, String str2, List<HttpHeader> list, int i11, boolean z11, DownloadInfo downloadInfo) throws Exception {
+    public static IDownloadHttpConnection downloadWithConnection(boolean z, int i2, String str, String str2, List<HttpHeader> list, int i3, boolean z2, DownloadInfo downloadInfo) throws Exception {
         List<HttpHeader> list2;
-        int i12;
+        int i4;
         IDownloadHttpConnection downloadWithConnection2;
         if (!TextUtils.isEmpty(str2)) {
             List<HttpHeader> arrayList = list == null ? new ArrayList<>() : list;
             arrayList.add(new HttpHeader(DownloadConstants.EXTRA_REQUEST_HOST_IP, str2));
             list2 = arrayList;
-            i12 = 1;
-        } else if (z10) {
+            i4 = 1;
+        } else if (z) {
             list2 = list;
-            i12 = i11;
+            i4 = i3;
         } else {
-            i12 = 2;
+            i4 = 2;
             list2 = list;
         }
-        int[] downloadNetLibs = getDownloadNetLibs(i12);
+        int[] downloadNetLibs = getDownloadNetLibs(i4);
         Exception exc = null;
-        for (int i13 : downloadNetLibs) {
+        for (int i5 : downloadNetLibs) {
             try {
-                downloadWithConnection2 = downloadWithConnection2(i10, str, str2, list2, i13, z11, downloadInfo);
-            } catch (Exception e10) {
-                if (downloadInfo.isExpiredRedownload() && DownloadUtils.isResponseCode304Error(e10) && DownloadUtils.hasDownloadCacheHeader(list2)) {
-                    Logger.d("dcach::http exception 304, throw excepiton, not retry " + e10);
-                    throw e10;
+                downloadWithConnection2 = downloadWithConnection2(i2, str, str2, list2, i5, z2, downloadInfo);
+            } catch (Exception e2) {
+                if (downloadInfo.isExpiredRedownload() && DownloadUtils.isResponseCode304Error(e2) && DownloadUtils.hasDownloadCacheHeader(list2)) {
+                    Logger.d("dcach::http exception 304, throw excepiton, not retry " + e2);
+                    throw e2;
                 }
-                exc = e10;
+                exc = e2;
             }
             if (downloadWithConnection2 != null) {
                 return downloadWithConnection2;
@@ -1410,49 +1311,23 @@ public class DownloadComponentManager {
         throw exc;
     }
 
-    public static IDownloadHeadHttpConnection downloadWithHeadConnection(String str, List<HttpHeader> list, int i10, boolean z10, DownloadInfo downloadInfo) throws Exception {
+    public static IDownloadHeadHttpConnection downloadWithHeadConnection(String str, List<HttpHeader> list, int i2, boolean z, DownloadInfo downloadInfo) throws Exception {
         IDownloadHeadHttpConnection downloadWithHeadConnection2;
-        Exception e10 = null;
-        for (int i11 : getDownloadNetLibs(i10)) {
+        Exception e2 = null;
+        for (int i3 : getDownloadNetLibs(i2)) {
             try {
-                downloadWithHeadConnection2 = downloadWithHeadConnection2(str, list, i11, z10, downloadInfo);
-            } catch (Exception e11) {
-                e10 = e11;
+                downloadWithHeadConnection2 = downloadWithHeadConnection2(str, list, i3, z, downloadInfo);
+            } catch (Exception e3) {
+                e2 = e3;
             }
             if (downloadWithHeadConnection2 != null) {
                 return downloadWithHeadConnection2;
             }
         }
-        if (e10 == null) {
+        if (e2 == null) {
             return null;
         }
-        throw e10;
-    }
-
-    public static boolean needAutoRefreshUnSuccessTask() {
-        return needAutoRefreshUnSuccessTask;
-    }
-
-    public static void submitCPUTask(Runnable runnable, boolean z10) {
-        if (runnable == null) {
-            return;
-        }
-        if (!z10 || DownloadUtils.isMainThread()) {
-            getCPUThreadExecutor().execute(runnable);
-        } else {
-            runnable.run();
-        }
-    }
-
-    public static void submitIOTask(Runnable runnable, boolean z10) {
-        if (runnable == null) {
-            return;
-        }
-        if (!z10 || DownloadUtils.isMainThread()) {
-            getIOThreadExecutor().execute(runnable);
-        } else {
-            runnable.run();
-        }
+        throw e2;
     }
 
     public static int getDownloadId(String str, String str2) {
@@ -1461,5 +1336,31 @@ public class DownloadComponentManager {
             return 0;
         }
         return idGenerator2.generate(str, str2);
+    }
+
+    public static boolean needAutoRefreshUnSuccessTask() {
+        return needAutoRefreshUnSuccessTask;
+    }
+
+    public static void submitCPUTask(Runnable runnable, boolean z) {
+        if (runnable == null) {
+            return;
+        }
+        if (!z || DownloadUtils.isMainThread()) {
+            getCPUThreadExecutor().execute(runnable);
+        } else {
+            runnable.run();
+        }
+    }
+
+    public static void submitIOTask(Runnable runnable, boolean z) {
+        if (runnable == null) {
+            return;
+        }
+        if (!z || DownloadUtils.isMainThread()) {
+            getIOThreadExecutor().execute(runnable);
+        } else {
+            runnable.run();
+        }
     }
 }

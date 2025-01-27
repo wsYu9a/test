@@ -2,8 +2,6 @@ package com.martian.mibook.lib.model.data.abs;
 
 /* loaded from: classes3.dex */
 public abstract class Chapter {
-    public abstract String getChapterId();
-
     public Integer getChargeType() {
         return -1;
     }
@@ -24,7 +22,7 @@ public abstract class Chapter {
         return false;
     }
 
-    public abstract void setSrcLink(String str);
+    public abstract void setSrcLink(String link);
 
     public String toString() {
         return getTitle();

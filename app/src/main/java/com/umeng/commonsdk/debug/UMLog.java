@@ -27,10 +27,10 @@ public class UMLog {
     private static final String TOP_BORDER_AQ = "┌───────────────────问题─────────────────────────────────────────────────────────────────────────────";
     private static final char TOP_LEFT_CORNER = 9484;
 
-    public static void aq(int i10, String str, String str2) {
+    public static void aq(int i2, String str, String str2) {
         try {
             if (UMConfigure.isDebugLog()) {
-                UInterface logger = getLogger(i10);
+                UInterface logger = getLogger(i2);
                 logger.log(TAG, TOP_BORDER_AQ);
                 logger.log(TAG, "│     " + str);
                 logger.log(TAG, AQ);
@@ -41,12 +41,12 @@ public class UMLog {
         }
     }
 
-    public static void bundle(int i10, Bundle bundle) {
-        bundle(null, i10, bundle);
+    public static void bundle(int i2, Bundle bundle) {
+        bundle(null, i2, bundle);
     }
 
-    public static UInterface getLogger(int i10) {
-        return i10 != 0 ? i10 != 1 ? i10 != 2 ? i10 != 3 ? new D() : new D() : new I() : new W() : new E();
+    public static UInterface getLogger(int i2) {
+        return i2 != 0 ? i2 != 1 ? i2 != 2 ? i2 != 3 ? new D() : new D() : new I() : new W() : new E();
     }
 
     public static void jsonArry(JSONArray jSONArray) {
@@ -67,20 +67,20 @@ public class UMLog {
         }
     }
 
-    public static void mutlInfo(int i10, String... strArr) {
+    public static void mutlInfo(int i2, String... strArr) {
         try {
             if (UMConfigure.isDebugLog()) {
                 int length = strArr.length;
-                UInterface logger = getLogger(i10);
+                UInterface logger = getLogger(i2);
                 if (length == 1) {
                     logger.log(TAG, strArr[0]);
                     return;
                 }
                 if (length >= 2) {
                     logger.log(TAG, TOP_BORDER);
-                    for (int i11 = 0; i11 < length; i11++) {
-                        logger.log(TAG, "│     " + strArr[i11]);
-                        if (i11 != length - 1) {
+                    for (int i3 = 0; i3 < length; i3++) {
+                        logger.log(TAG, "│     " + strArr[i3]);
+                        if (i3 != length - 1) {
                             logger.log(TAG, MIDDLE_BORDER);
                         }
                     }
@@ -91,12 +91,12 @@ public class UMLog {
         }
     }
 
-    public static void bundle(String str, int i10, Bundle bundle) {
+    public static void bundle(String str, int i2, Bundle bundle) {
         try {
             if (UMConfigure.isDebugLog()) {
                 String str2 = TextUtils.isEmpty(str) ? TAG : "UMLog_" + str;
                 if (bundle != null) {
-                    UInterface logger = getLogger(i10);
+                    UInterface logger = getLogger(i2);
                     logger.log(str2, TOP_BORDER);
                     logger.log(str2, "│key│value");
                     logger.log(str2, MIDDLE_BORDER);
@@ -131,10 +131,10 @@ public class UMLog {
         }
     }
 
-    public static void aq(String str, int i10, String str2, String str3) {
+    public static void aq(String str, int i2, String str2, String str3) {
         try {
             if (UMConfigure.isDebugLog()) {
-                UInterface logger = getLogger(i10);
+                UInterface logger = getLogger(i2);
                 String str4 = "UMLog_" + str;
                 logger.log(str4, TOP_BORDER_AQ);
                 logger.log(str4, "│     " + str2);
@@ -146,11 +146,11 @@ public class UMLog {
         }
     }
 
-    public static void mutlInfo(String str, int i10, String... strArr) {
+    public static void mutlInfo(String str, int i2, String... strArr) {
         try {
             if (UMConfigure.isDebugLog()) {
                 int length = strArr.length;
-                UInterface logger = getLogger(i10);
+                UInterface logger = getLogger(i2);
                 String str2 = "UMLog_" + str;
                 if (length == 1) {
                     logger.log(str2, strArr[0]);
@@ -158,9 +158,9 @@ public class UMLog {
                 }
                 if (length >= 2) {
                     logger.log(str2, TOP_BORDER);
-                    for (int i11 = 0; i11 < length; i11++) {
-                        logger.log(str2, "│     " + strArr[i11]);
-                        if (i11 != length - 1) {
+                    for (int i3 = 0; i3 < length; i3++) {
+                        logger.log(str2, "│     " + strArr[i3]);
+                        if (i3 != length - 1) {
                             logger.log(str2, MIDDLE_BORDER);
                         }
                     }
@@ -171,19 +171,23 @@ public class UMLog {
         }
     }
 
-    public static void aq(String str, int i10, String str2) {
-        aq((String) null, str, i10, str2);
+    public static void aq(String str, int i2, String str2) {
+        aq((String) null, str, i2, str2);
     }
 
-    public static void aq(String str, int i10, String str2, String[] strArr, String[] strArr2, String[] strArr3, String[] strArr4) {
-        aq(null, str, i10, str2, strArr, strArr2, strArr3, strArr4);
+    public static void aq(String str, int i2, String str2, String[] strArr, String[] strArr2, String[] strArr3, String[] strArr4) {
+        aq(null, str, i2, str2, strArr, strArr2, strArr3, strArr4);
     }
 
-    public static void aq(String str, String str2, int i10, String str3) {
-        aq(str, str2, i10, str3, null, null, null, null);
+    public static void aq(String str, String str2, int i2, String str3) {
+        aq(str, str2, i2, str3, null, null, null, null);
     }
 
-    public static void aq(String str, String str2, int i10, String str3, String[] strArr, String[] strArr2, String[] strArr3, String[] strArr4) {
+    public static void mutlInfo(String str, int i2, String str2) {
+        mutlInfo(null, str, i2, str2);
+    }
+
+    public static void aq(String str, String str2, int i2, String str3, String[] strArr, String[] strArr2, String[] strArr3, String[] strArr4) {
         String[] split;
         try {
             if (UMConfigure.isDebugLog()) {
@@ -192,16 +196,16 @@ public class UMLog {
                     return;
                 }
                 if (strArr != null && strArr.length > 0 && strArr2 != null && strArr2.length > 0) {
-                    for (int i11 = 0; i11 < strArr.length && i11 < strArr2.length; i11++) {
-                        split[0] = split[0].replace(strArr[i11], strArr2[i11]);
+                    for (int i3 = 0; i3 < strArr.length && i3 < strArr2.length; i3++) {
+                        split[0] = split[0].replace(strArr[i3], strArr2[i3]);
                     }
                 }
                 if (strArr3 != null && strArr3.length > 0 && strArr4 != null && strArr4.length > 0) {
-                    for (int i12 = 0; i12 < strArr3.length && i12 < strArr4.length; i12++) {
-                        split[1] = split[1].replace(strArr3[i12], strArr4[i12]);
+                    for (int i4 = 0; i4 < strArr3.length && i4 < strArr4.length; i4++) {
+                        split[1] = split[1].replace(strArr3[i4], strArr4[i4]);
                     }
                 }
-                UInterface logger = getLogger(i10);
+                UInterface logger = getLogger(i2);
                 logger.log(str4, TOP_BORDER_AQ);
                 logger.log(str4, "│     " + split[0]);
                 logger.log(str4, AQ);
@@ -212,19 +216,15 @@ public class UMLog {
         }
     }
 
-    public static void mutlInfo(String str, int i10, String str2) {
-        mutlInfo(null, str, i10, str2);
+    public static void mutlInfo(String str, int i2, String str2, String[] strArr, String[] strArr2) {
+        mutlInfo(null, str, i2, str2, strArr, strArr2);
     }
 
-    public static void mutlInfo(String str, int i10, String str2, String[] strArr, String[] strArr2) {
-        mutlInfo(null, str, i10, str2, strArr, strArr2);
+    public static void mutlInfo(String str, String str2, int i2, String str3) {
+        mutlInfo(str, str2, i2, str3, null, null);
     }
 
-    public static void mutlInfo(String str, String str2, int i10, String str3) {
-        mutlInfo(str, str2, i10, str3, null, null);
-    }
-
-    public static void mutlInfo(String str, String str2, int i10, String str3, String[] strArr, String[] strArr2) {
+    public static void mutlInfo(String str, String str2, int i2, String str3, String[] strArr, String[] strArr2) {
         try {
             if (UMConfigure.isDebugLog()) {
                 String str4 = TextUtils.isEmpty(str) ? TAG : "UMLog_" + str;
@@ -232,11 +232,11 @@ public class UMLog {
                     return;
                 }
                 if (strArr != null && strArr.length > 0 && strArr2 != null && strArr2.length > 0) {
-                    for (int i11 = 0; i11 < strArr.length && i11 < strArr2.length; i11++) {
-                        str2 = str2.replace(strArr[i11], strArr2[i11]);
+                    for (int i3 = 0; i3 < strArr.length && i3 < strArr2.length; i3++) {
+                        str2 = str2.replace(strArr[i3], strArr2[i3]);
                     }
                 }
-                UInterface logger = getLogger(i10);
+                UInterface logger = getLogger(i2);
                 if (TextUtils.isEmpty(str3)) {
                     logger.log(str4, str2);
                     return;
@@ -244,9 +244,9 @@ public class UMLog {
                 String[] split = str2.split(str3);
                 if (split != null) {
                     logger.log(str4, TOP_BORDER);
-                    for (int i12 = 0; i12 < split.length; i12++) {
-                        logger.log(str4, "│     " + split[i12]);
-                        if (i12 != split.length - 1) {
+                    for (int i4 = 0; i4 < split.length; i4++) {
+                        logger.log(str4, "│     " + split[i4]);
+                        if (i4 != split.length - 1) {
                             logger.log(str4, MIDDLE_BORDER);
                         }
                     }

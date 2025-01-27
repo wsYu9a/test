@@ -5,6 +5,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
+import com.ss.android.socialbase.downloader.utils.DownloadExpSwitchCode;
 import com.tencent.mm.opensdk.channel.a.a;
 import com.tencent.mm.opensdk.constants.Build;
 import com.tencent.mm.opensdk.constants.ConstantsAPI;
@@ -19,10 +20,13 @@ public class MMessageActV2 {
     private static final String TAG = "MicroMsg.SDK.MMessageAct";
 
     /* renamed from: com.tencent.mm.opensdk.channel.MMessageActV2$1 */
-    public static class AnonymousClass1 implements PendingIntent.OnFinished {
+    static class AnonymousClass1 implements PendingIntent.OnFinished {
+        AnonymousClass1() {
+        }
+
         @Override // android.app.PendingIntent.OnFinished
-        public void onSendFinished(PendingIntent pendingIntent, Intent intent, int i10, String str, Bundle bundle) {
-            Log.i(MMessageActV2.TAG, "sendUsingPendingIntent onSendFinished resultCode: " + i10 + ", resultData: " + str);
+        public void onSendFinished(PendingIntent pendingIntent, Intent intent, int i2, String str, Bundle bundle) {
+            Log.i(MMessageActV2.TAG, "sendUsingPendingIntent onSendFinished resultCode: " + i2 + ", resultData: " + str);
         }
     }
 
@@ -64,11 +68,11 @@ public class MMessageActV2 {
             intent.putExtra(ConstantsAPI.CONTENT, args.content);
             intent.putExtra(ConstantsAPI.CHECK_SUM, a.a(args.content, Build.SDK_INT, packageName));
             intent.putExtra(ConstantsAPI.TOKEN, args.token);
-            int i10 = args.flags;
-            if (i10 == -1) {
-                intent.addFlags(268435456).addFlags(134217728);
+            int i2 = args.flags;
+            if (i2 == -1) {
+                intent.addFlags(DownloadExpSwitchCode.BUGFIX_GETPACKAGEINFO_BY_UNZIP).addFlags(134217728);
             } else {
-                intent.setFlags(i10);
+                intent.setFlags(i2);
             }
             try {
                 if (Build.VERSION.SDK_INT < 29 || args.launchMode != 2) {
@@ -78,8 +82,8 @@ public class MMessageActV2 {
                 }
                 Log.d(TAG, "send mm message, intent=" + intent);
                 return true;
-            } catch (Exception e10) {
-                str = "send fail, ex = " + e10.getMessage();
+            } catch (Exception e2) {
+                str = "send fail, ex = " + e2.getMessage();
             }
         }
         Log.e(TAG, str);
@@ -90,13 +94,16 @@ public class MMessageActV2 {
         try {
             Log.i(TAG, "sendUsingPendingIntent");
             PendingIntent.getActivity(context, 3, intent, 134217728).send(context, 4, null, new PendingIntent.OnFinished() { // from class: com.tencent.mm.opensdk.channel.MMessageActV2.1
+                AnonymousClass1() {
+                }
+
                 @Override // android.app.PendingIntent.OnFinished
-                public void onSendFinished(PendingIntent pendingIntent, Intent intent2, int i10, String str, Bundle bundle) {
-                    Log.i(MMessageActV2.TAG, "sendUsingPendingIntent onSendFinished resultCode: " + i10 + ", resultData: " + str);
+                public void onSendFinished(PendingIntent pendingIntent, Intent intent2, int i2, String str, Bundle bundle) {
+                    Log.i(MMessageActV2.TAG, "sendUsingPendingIntent onSendFinished resultCode: " + i2 + ", resultData: " + str);
                 }
             }, null);
-        } catch (Exception e10) {
-            Log.e(TAG, "sendUsingPendingIntent fail, ex = " + e10.getMessage());
+        } catch (Exception e2) {
+            Log.e(TAG, "sendUsingPendingIntent fail, ex = " + e2.getMessage());
             context.startActivity(intent);
         }
     }

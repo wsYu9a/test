@@ -9,7 +9,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 @RestrictTo({RestrictTo.Scope.LIBRARY_GROUP})
-/* loaded from: classes2.dex */
+/* loaded from: classes.dex */
 public class NavigationMenuView extends RecyclerView implements MenuView {
     public NavigationMenuView(Context context) {
         this(context, null);
@@ -28,8 +28,8 @@ public class NavigationMenuView extends RecyclerView implements MenuView {
         this(context, attributeSet, 0);
     }
 
-    public NavigationMenuView(Context context, AttributeSet attributeSet, int i10) {
-        super(context, attributeSet, i10);
+    public NavigationMenuView(Context context, AttributeSet attributeSet, int i2) {
+        super(context, attributeSet, i2);
         setLayoutManager(new LinearLayoutManager(context, 1, false));
     }
 }

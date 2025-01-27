@@ -3,24 +3,24 @@ package com.kwad.sdk.core.request.model;
 import com.ksad.json.annotation.KsJson;
 
 @KsJson
-/* loaded from: classes3.dex */
-public class f extends com.kwad.sdk.core.response.a.a implements com.kwad.sdk.core.b {
-    public long aEb;
+/* loaded from: classes2.dex */
+public class f extends com.kwad.sdk.core.response.kwai.a implements com.kwad.sdk.core.b {
     public int adStyle;
+    public long alK;
     public int count;
     public int taskType;
 
     public f() {
     }
 
-    public final void aA(long j10) {
-        this.aEb = j10;
+    public f(int i2, int i3, int i4, long j2) {
+        this.adStyle = i2;
+        this.taskType = i3;
+        this.count = 1;
+        this.alK = j2;
     }
 
-    public f(int i10, int i11, int i12, long j10) {
-        this.adStyle = i10;
-        this.taskType = i11;
-        this.count = 1;
-        this.aEb = j10;
+    public final void T(long j2) {
+        this.alK = j2;
     }
 }

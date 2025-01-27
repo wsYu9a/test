@@ -5,10 +5,12 @@ import androidx.annotation.NonNull;
 
 /* loaded from: classes.dex */
 public final class ActionOnlyNavDirections implements NavDirections {
-    private final int mActionId;
 
-    public ActionOnlyNavDirections(int i10) {
-        this.mActionId = i10;
+    /* renamed from: a */
+    private final int f2919a;
+
+    public ActionOnlyNavDirections(int i2) {
+        this.f2919a = i2;
     }
 
     public boolean equals(Object obj) {
@@ -20,7 +22,7 @@ public final class ActionOnlyNavDirections implements NavDirections {
 
     @Override // androidx.navigation.NavDirections
     public int getActionId() {
-        return this.mActionId;
+        return this.f2919a;
     }
 
     @Override // androidx.navigation.NavDirections

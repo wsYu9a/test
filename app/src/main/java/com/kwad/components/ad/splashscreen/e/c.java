@@ -4,31 +4,47 @@ import android.content.Context;
 import android.util.DisplayMetrics;
 import android.view.View;
 import android.view.ViewGroup;
-import androidx.annotation.NonNull;
-import com.kwad.sdk.core.response.model.AdInfo;
+import com.kwad.components.ad.splashscreen.h;
 
 /* loaded from: classes2.dex */
 public final class c {
-    public static void a(View view, int i10, int i11, int i12, int i13) {
+    public static void a(View view, int i2, int i3, int i4, int i5) {
         ViewGroup.LayoutParams layoutParams = view.getLayoutParams();
         if (layoutParams instanceof ViewGroup.MarginLayoutParams) {
             ViewGroup.MarginLayoutParams marginLayoutParams = (ViewGroup.MarginLayoutParams) layoutParams;
-            if (i11 >= 0) {
-                marginLayoutParams.bottomMargin = com.kwad.sdk.c.a.a.a(view.getContext(), i11);
+            if (i3 >= 0) {
+                marginLayoutParams.bottomMargin = com.kwad.sdk.c.kwai.a.a(view.getContext(), i3);
             }
-            marginLayoutParams.leftMargin = com.kwad.sdk.c.a.a.a(view.getContext(), 16.0f);
+            if (i4 >= 0) {
+                marginLayoutParams.leftMargin = com.kwad.sdk.c.kwai.a.a(view.getContext(), i4);
+            }
+            if (i5 >= 0) {
+                marginLayoutParams.rightMargin = com.kwad.sdk.c.kwai.a.a(view.getContext(), i5);
+            }
         }
     }
 
-    public static boolean z(@NonNull AdInfo adInfo) {
-        return adInfo.adSplashInfo.skipButtonPosition == 0;
+    public static boolean a(Context context, int i2, int i3) {
+        DisplayMetrics displayMetrics = context.getResources().getDisplayMetrics();
+        int i4 = displayMetrics.widthPixels;
+        int i5 = displayMetrics.heightPixels;
+        int a2 = com.kwad.sdk.c.kwai.a.a(context, 10.0f);
+        return Math.abs(i2 - i4) <= a2 && Math.abs(i3 - i5) <= a2;
     }
 
-    public static boolean a(Context context, int i10, int i11) {
-        DisplayMetrics displayMetrics = context.getResources().getDisplayMetrics();
-        int i12 = displayMetrics.widthPixels;
-        int i13 = displayMetrics.heightPixels;
-        int a10 = com.kwad.sdk.c.a.a.a(context, 10.0f);
-        return Math.abs(i10 - i12) <= a10 && Math.abs(i11 - i13) <= a10;
+    public static boolean c(h hVar) {
+        int i2 = hVar.Bz;
+        return i2 == 2 || i2 == 3;
+    }
+
+    public static int d(h hVar) {
+        int i2 = hVar.Bz;
+        if (i2 == 0) {
+            return 1;
+        }
+        if (i2 == 3 || i2 == 1) {
+            return 2;
+        }
+        return i2 == 2 ? 3 : 1;
     }
 }

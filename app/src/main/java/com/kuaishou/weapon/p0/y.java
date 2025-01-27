@@ -2,7 +2,7 @@ package com.kuaishou.weapon.p0;
 
 import java.io.Serializable;
 
-/* loaded from: classes2.dex */
+/* loaded from: classes.dex */
 public class y implements Serializable {
     private String A;
     private int B;
@@ -12,1131 +12,1075 @@ public class y implements Serializable {
     private String F;
 
     /* renamed from: a, reason: collision with root package name */
-    private String f11270a;
+    private String f9437a;
 
     /* renamed from: b, reason: collision with root package name */
-    private String f11271b;
+    private String f9438b;
 
     /* renamed from: c, reason: collision with root package name */
-    private h f11272c;
+    private h f9439c;
 
     /* renamed from: d, reason: collision with root package name */
-    private String f11273d;
+    private String f9440d;
 
     /* renamed from: e, reason: collision with root package name */
-    private String f11274e;
+    private String f9441e;
 
     /* renamed from: f, reason: collision with root package name */
-    private String f11275f;
+    private String f9442f;
 
     /* renamed from: g, reason: collision with root package name */
-    private String f11276g;
+    private String f9443g;
 
     /* renamed from: h, reason: collision with root package name */
-    private int f11277h;
+    private int f9444h;
 
     /* renamed from: i, reason: collision with root package name */
-    private String f11278i;
+    private String f9445i;
 
     /* renamed from: j, reason: collision with root package name */
-    private String f11279j;
-
-    /* renamed from: k, reason: collision with root package name */
-    private int f11280k;
-
-    /* renamed from: l, reason: collision with root package name */
-    private int f11281l;
-
-    /* renamed from: m, reason: collision with root package name */
-    private String f11282m;
-
-    /* renamed from: n, reason: collision with root package name */
-    private String f11283n;
-
-    /* renamed from: o, reason: collision with root package name */
-    private int f11284o;
-
-    /* renamed from: p, reason: collision with root package name */
-    private String f11285p;
-
-    /* renamed from: q, reason: collision with root package name */
-    private a f11286q;
-
-    /* renamed from: r, reason: collision with root package name */
-    private b f11287r;
-
-    /* renamed from: s, reason: collision with root package name */
-    private c f11288s;
-
-    /* renamed from: t, reason: collision with root package name */
-    private String f11289t;
-
-    /* renamed from: u, reason: collision with root package name */
-    private d f11290u;
-
-    /* renamed from: v, reason: collision with root package name */
-    private e f11291v;
-
-    /* renamed from: w, reason: collision with root package name */
-    private String f11292w;
-
-    /* renamed from: x, reason: collision with root package name */
-    private f f11293x;
-
-    /* renamed from: y, reason: collision with root package name */
-    private String f11294y;
-
-    /* renamed from: z, reason: collision with root package name */
-    private g f11295z;
+    private String f9446j;
+    private int k;
+    private int l;
+    private String m;
+    private String n;
+    private int o;
+    private String p;
+    private a q;
+    private b r;
+    private c s;
+    private String t;
+    private d u;
+    private e v;
+    private String w;
+    private f x;
+    private String y;
+    private g z;
 
     public static class a {
 
         /* renamed from: a, reason: collision with root package name */
-        private int f11296a;
+        private int f9447a;
 
         /* renamed from: b, reason: collision with root package name */
-        private int f11297b;
+        private int f9448b;
 
         /* renamed from: c, reason: collision with root package name */
-        private int f11298c;
+        private int f9449c;
 
         /* renamed from: d, reason: collision with root package name */
-        private int f11299d;
+        private int f9450d;
 
         /* renamed from: e, reason: collision with root package name */
-        private int f11300e;
+        private int f9451e;
 
         public int a() {
-            return this.f11296a;
+            return this.f9447a;
+        }
+
+        public void a(int i2) {
+            this.f9447a = i2;
         }
 
         public int b() {
-            return this.f11297b;
+            return this.f9448b;
+        }
+
+        public void b(int i2) {
+            this.f9448b = i2;
         }
 
         public int c() {
-            return this.f11298c;
+            return this.f9449c;
+        }
+
+        public void c(int i2) {
+            this.f9449c = i2;
         }
 
         public int d() {
-            return this.f11299d;
+            return this.f9450d;
+        }
+
+        public void d(int i2) {
+            this.f9450d = i2;
         }
 
         public int e() {
-            return this.f11300e;
+            return this.f9451e;
         }
 
-        public void a(int i10) {
-            this.f11296a = i10;
-        }
-
-        public void b(int i10) {
-            this.f11297b = i10;
-        }
-
-        public void c(int i10) {
-            this.f11298c = i10;
-        }
-
-        public void d(int i10) {
-            this.f11299d = i10;
-        }
-
-        public void e(int i10) {
-            this.f11300e = i10;
+        public void e(int i2) {
+            this.f9451e = i2;
         }
     }
 
     public static class b {
 
         /* renamed from: a, reason: collision with root package name */
-        private int f11301a;
+        private int f9452a;
 
         /* renamed from: b, reason: collision with root package name */
-        private int f11302b;
+        private int f9453b;
 
         /* renamed from: c, reason: collision with root package name */
-        private int f11303c;
+        private int f9454c;
 
         public int a() {
-            return this.f11301a;
+            return this.f9452a;
+        }
+
+        public void a(int i2) {
+            this.f9452a = i2;
         }
 
         public int b() {
-            return this.f11302b;
+            return this.f9453b;
+        }
+
+        public void b(int i2) {
+            this.f9453b = i2;
         }
 
         public int c() {
-            return this.f11303c;
+            return this.f9454c;
         }
 
-        public void a(int i10) {
-            this.f11301a = i10;
-        }
-
-        public void b(int i10) {
-            this.f11302b = i10;
-        }
-
-        public void c(int i10) {
-            this.f11303c = i10;
+        public void c(int i2) {
+            this.f9454c = i2;
         }
     }
 
     public static class c {
 
         /* renamed from: a, reason: collision with root package name */
-        private int f11304a;
+        private int f9455a;
 
         /* renamed from: b, reason: collision with root package name */
-        private int f11305b;
+        private int f9456b;
 
         /* renamed from: c, reason: collision with root package name */
-        private int f11306c;
+        private int f9457c;
 
         /* renamed from: d, reason: collision with root package name */
-        private a f11307d;
+        private a f9458d;
 
         /* renamed from: e, reason: collision with root package name */
-        private b f11308e;
+        private b f9459e;
 
         public static class a {
 
             /* renamed from: a, reason: collision with root package name */
-            private int f11309a;
+            private int f9460a;
 
             /* renamed from: b, reason: collision with root package name */
-            private int f11310b;
+            private int f9461b;
 
             /* renamed from: c, reason: collision with root package name */
-            private int f11311c;
+            private int f9462c;
 
             /* renamed from: d, reason: collision with root package name */
-            private int f11312d;
+            private int f9463d;
 
             /* renamed from: e, reason: collision with root package name */
-            private int f11313e;
+            private int f9464e;
 
             /* renamed from: f, reason: collision with root package name */
-            private int f11314f;
+            private int f9465f;
 
             /* renamed from: g, reason: collision with root package name */
-            private int f11315g;
+            private int f9466g;
 
             /* renamed from: h, reason: collision with root package name */
-            private int f11316h;
+            private int f9467h;
 
             /* renamed from: i, reason: collision with root package name */
-            private int f11317i;
+            private int f9468i;
 
             /* renamed from: j, reason: collision with root package name */
-            private int f11318j;
-
-            /* renamed from: k, reason: collision with root package name */
-            private int f11319k;
-
-            /* renamed from: l, reason: collision with root package name */
-            private int f11320l;
-
-            /* renamed from: m, reason: collision with root package name */
-            private int f11321m;
-
-            /* renamed from: n, reason: collision with root package name */
-            private int f11322n;
-
-            /* renamed from: o, reason: collision with root package name */
-            private int f11323o;
-
-            /* renamed from: p, reason: collision with root package name */
-            private int f11324p;
-
-            /* renamed from: q, reason: collision with root package name */
-            private int f11325q;
-
-            /* renamed from: r, reason: collision with root package name */
-            private int f11326r;
+            private int f9469j;
+            private int k;
+            private int l;
+            private int m;
+            private int n;
+            private int o;
+            private int p;
+            private int q;
+            private int r;
 
             public int a() {
-                return this.f11309a;
+                return this.f9460a;
+            }
+
+            public void a(int i2) {
+                this.f9460a = i2;
             }
 
             public int b() {
-                return this.f11310b;
+                return this.f9461b;
+            }
+
+            public void b(int i2) {
+                this.f9461b = i2;
             }
 
             public int c() {
-                return this.f11311c;
+                return this.f9462c;
+            }
+
+            public void c(int i2) {
+                this.f9462c = i2;
             }
 
             public int d() {
-                return this.f11312d;
+                return this.f9463d;
+            }
+
+            public void d(int i2) {
+                this.f9463d = i2;
             }
 
             public int e() {
-                return this.f11313e;
+                return this.f9464e;
+            }
+
+            public void e(int i2) {
+                this.f9464e = i2;
             }
 
             public int f() {
-                return this.f11314f;
+                return this.f9465f;
+            }
+
+            public void f(int i2) {
+                this.f9465f = i2;
             }
 
             public int g() {
-                return this.f11315g;
+                return this.f9466g;
+            }
+
+            public void g(int i2) {
+                this.f9466g = i2;
             }
 
             public int h() {
-                return this.f11316h;
+                return this.f9467h;
+            }
+
+            public void h(int i2) {
+                this.f9467h = i2;
             }
 
             public int i() {
-                return this.f11317i;
+                return this.f9468i;
+            }
+
+            public void i(int i2) {
+                this.f9468i = i2;
             }
 
             public int j() {
-                return this.f11318j;
+                return this.f9469j;
+            }
+
+            public void j(int i2) {
+                this.f9469j = i2;
             }
 
             public int k() {
-                return this.f11319k;
+                return this.k;
+            }
+
+            public void k(int i2) {
+                this.k = i2;
             }
 
             public int l() {
-                return this.f11320l;
+                return this.l;
+            }
+
+            public void l(int i2) {
+                this.l = i2;
             }
 
             public int m() {
-                return this.f11321m;
+                return this.m;
+            }
+
+            public void m(int i2) {
+                this.m = i2;
             }
 
             public int n() {
-                return this.f11322n;
+                return this.n;
+            }
+
+            public void n(int i2) {
+                this.n = i2;
             }
 
             public int o() {
-                return this.f11323o;
+                return this.o;
+            }
+
+            public void o(int i2) {
+                this.o = i2;
             }
 
             public int p() {
-                return this.f11324p;
+                return this.p;
+            }
+
+            public void p(int i2) {
+                this.p = i2;
             }
 
             public int q() {
-                return this.f11325q;
+                return this.q;
+            }
+
+            public void q(int i2) {
+                this.q = i2;
             }
 
             public int r() {
-                return this.f11326r;
+                return this.r;
             }
 
-            public void a(int i10) {
-                this.f11309a = i10;
-            }
-
-            public void b(int i10) {
-                this.f11310b = i10;
-            }
-
-            public void c(int i10) {
-                this.f11311c = i10;
-            }
-
-            public void d(int i10) {
-                this.f11312d = i10;
-            }
-
-            public void e(int i10) {
-                this.f11313e = i10;
-            }
-
-            public void f(int i10) {
-                this.f11314f = i10;
-            }
-
-            public void g(int i10) {
-                this.f11315g = i10;
-            }
-
-            public void h(int i10) {
-                this.f11316h = i10;
-            }
-
-            public void i(int i10) {
-                this.f11317i = i10;
-            }
-
-            public void j(int i10) {
-                this.f11318j = i10;
-            }
-
-            public void k(int i10) {
-                this.f11319k = i10;
-            }
-
-            public void l(int i10) {
-                this.f11320l = i10;
-            }
-
-            public void m(int i10) {
-                this.f11321m = i10;
-            }
-
-            public void n(int i10) {
-                this.f11322n = i10;
-            }
-
-            public void o(int i10) {
-                this.f11323o = i10;
-            }
-
-            public void p(int i10) {
-                this.f11324p = i10;
-            }
-
-            public void q(int i10) {
-                this.f11325q = i10;
-            }
-
-            public void r(int i10) {
-                this.f11326r = i10;
+            public void r(int i2) {
+                this.r = i2;
             }
         }
 
         public static class b {
 
             /* renamed from: a, reason: collision with root package name */
-            private int f11327a;
+            private int f9470a;
 
             /* renamed from: b, reason: collision with root package name */
-            private int f11328b;
+            private int f9471b;
 
             /* renamed from: c, reason: collision with root package name */
-            private int f11329c;
+            private int f9472c;
 
             /* renamed from: d, reason: collision with root package name */
-            private int f11330d;
+            private int f9473d;
 
             /* renamed from: e, reason: collision with root package name */
-            private int f11331e;
+            private int f9474e;
 
             /* renamed from: f, reason: collision with root package name */
-            private int f11332f;
+            private int f9475f;
 
             /* renamed from: g, reason: collision with root package name */
-            private int f11333g;
+            private int f9476g;
 
             /* renamed from: h, reason: collision with root package name */
-            private int f11334h;
+            private int f9477h;
 
             /* renamed from: i, reason: collision with root package name */
-            private int f11335i;
+            private int f9478i;
 
             public int a() {
-                return this.f11327a;
+                return this.f9470a;
+            }
+
+            public void a(int i2) {
+                this.f9470a = i2;
             }
 
             public int b() {
-                return this.f11328b;
+                return this.f9471b;
+            }
+
+            public void b(int i2) {
+                this.f9471b = i2;
             }
 
             public int c() {
-                return this.f11329c;
+                return this.f9472c;
+            }
+
+            public void c(int i2) {
+                this.f9472c = i2;
             }
 
             public int d() {
-                return this.f11330d;
+                return this.f9473d;
+            }
+
+            public void d(int i2) {
+                this.f9473d = i2;
             }
 
             public int e() {
-                return this.f11331e;
+                return this.f9474e;
+            }
+
+            public void e(int i2) {
+                this.f9474e = i2;
             }
 
             public int f() {
-                return this.f11332f;
+                return this.f9475f;
+            }
+
+            public void f(int i2) {
+                this.f9475f = i2;
             }
 
             public int g() {
-                return this.f11333g;
+                return this.f9476g;
+            }
+
+            public void g(int i2) {
+                this.f9476g = i2;
             }
 
             public int h() {
-                return this.f11334h;
+                return this.f9477h;
+            }
+
+            public void h(int i2) {
+                this.f9477h = i2;
             }
 
             public int i() {
-                return this.f11335i;
+                return this.f9478i;
             }
 
-            public void a(int i10) {
-                this.f11327a = i10;
-            }
-
-            public void b(int i10) {
-                this.f11328b = i10;
-            }
-
-            public void c(int i10) {
-                this.f11329c = i10;
-            }
-
-            public void d(int i10) {
-                this.f11330d = i10;
-            }
-
-            public void e(int i10) {
-                this.f11331e = i10;
-            }
-
-            public void f(int i10) {
-                this.f11332f = i10;
-            }
-
-            public void g(int i10) {
-                this.f11333g = i10;
-            }
-
-            public void h(int i10) {
-                this.f11334h = i10;
-            }
-
-            public void i(int i10) {
-                this.f11335i = i10;
+            public void i(int i2) {
+                this.f9478i = i2;
             }
         }
 
         public int a() {
-            return this.f11304a;
+            return this.f9455a;
         }
 
-        public int b() {
-            return this.f11305b;
-        }
-
-        public int c() {
-            return this.f11306c;
-        }
-
-        public a d() {
-            return this.f11307d;
-        }
-
-        public b e() {
-            return this.f11308e;
-        }
-
-        public void a(int i10) {
-            this.f11304a = i10;
-        }
-
-        public void b(int i10) {
-            this.f11305b = i10;
-        }
-
-        public void c(int i10) {
-            this.f11306c = i10;
+        public void a(int i2) {
+            this.f9455a = i2;
         }
 
         public void a(a aVar) {
-            this.f11307d = aVar;
+            this.f9458d = aVar;
         }
 
         public void a(b bVar) {
-            this.f11308e = bVar;
+            this.f9459e = bVar;
+        }
+
+        public int b() {
+            return this.f9456b;
+        }
+
+        public void b(int i2) {
+            this.f9456b = i2;
+        }
+
+        public int c() {
+            return this.f9457c;
+        }
+
+        public void c(int i2) {
+            this.f9457c = i2;
+        }
+
+        public a d() {
+            return this.f9458d;
+        }
+
+        public b e() {
+            return this.f9459e;
         }
     }
 
     public static class d {
 
         /* renamed from: a, reason: collision with root package name */
-        private int f11336a;
+        private int f9479a;
 
         /* renamed from: b, reason: collision with root package name */
-        private int f11337b;
+        private int f9480b;
 
         /* renamed from: c, reason: collision with root package name */
-        private int f11338c;
+        private int f9481c;
 
         /* renamed from: d, reason: collision with root package name */
-        private a f11339d;
+        private a f9482d;
 
         /* renamed from: e, reason: collision with root package name */
-        private int f11340e;
+        private int f9483e;
 
         public static class a {
 
             /* renamed from: a, reason: collision with root package name */
-            private int f11341a;
+            private int f9484a;
 
             /* renamed from: b, reason: collision with root package name */
-            private int f11342b;
+            private int f9485b;
 
             /* renamed from: c, reason: collision with root package name */
-            private int f11343c;
+            private int f9486c;
 
             /* renamed from: d, reason: collision with root package name */
-            private int f11344d;
+            private int f9487d;
 
             /* renamed from: e, reason: collision with root package name */
-            private int f11345e;
+            private int f9488e;
 
             /* renamed from: f, reason: collision with root package name */
-            private int f11346f;
+            private int f9489f;
 
             /* renamed from: g, reason: collision with root package name */
-            private int f11347g;
+            private int f9490g;
 
             /* renamed from: h, reason: collision with root package name */
-            private int f11348h;
+            private int f9491h;
 
             public int a() {
-                return this.f11341a;
+                return this.f9484a;
+            }
+
+            public void a(int i2) {
+                this.f9484a = i2;
             }
 
             public int b() {
-                return this.f11342b;
+                return this.f9485b;
+            }
+
+            public void b(int i2) {
+                this.f9485b = i2;
             }
 
             public int c() {
-                return this.f11343c;
+                return this.f9486c;
+            }
+
+            public void c(int i2) {
+                this.f9486c = i2;
             }
 
             public int d() {
-                return this.f11344d;
+                return this.f9487d;
+            }
+
+            public void d(int i2) {
+                this.f9487d = i2;
             }
 
             public int e() {
-                return this.f11345e;
+                return this.f9488e;
+            }
+
+            public void e(int i2) {
+                this.f9488e = i2;
             }
 
             public int f() {
-                return this.f11346f;
+                return this.f9489f;
+            }
+
+            public void f(int i2) {
+                this.f9489f = i2;
             }
 
             public int g() {
-                return this.f11347g;
+                return this.f9490g;
+            }
+
+            public void g(int i2) {
+                this.f9490g = i2;
             }
 
             public int h() {
-                return this.f11348h;
+                return this.f9491h;
             }
 
-            public void a(int i10) {
-                this.f11341a = i10;
-            }
-
-            public void b(int i10) {
-                this.f11342b = i10;
-            }
-
-            public void c(int i10) {
-                this.f11343c = i10;
-            }
-
-            public void d(int i10) {
-                this.f11344d = i10;
-            }
-
-            public void e(int i10) {
-                this.f11345e = i10;
-            }
-
-            public void f(int i10) {
-                this.f11346f = i10;
-            }
-
-            public void g(int i10) {
-                this.f11347g = i10;
-            }
-
-            public void h(int i10) {
-                this.f11348h = i10;
+            public void h(int i2) {
+                this.f9491h = i2;
             }
         }
 
         public int a() {
-            return this.f11336a;
+            return this.f9479a;
         }
 
-        public int b() {
-            return this.f11337b;
-        }
-
-        public int c() {
-            return this.f11338c;
-        }
-
-        public a d() {
-            return this.f11339d;
-        }
-
-        public int e() {
-            return this.f11340e;
-        }
-
-        public void a(int i10) {
-            this.f11336a = i10;
-        }
-
-        public void b(int i10) {
-            this.f11337b = i10;
-        }
-
-        public void c(int i10) {
-            this.f11338c = i10;
-        }
-
-        public void d(int i10) {
-            this.f11340e = i10;
+        public void a(int i2) {
+            this.f9479a = i2;
         }
 
         public void a(a aVar) {
-            this.f11339d = aVar;
+            this.f9482d = aVar;
+        }
+
+        public int b() {
+            return this.f9480b;
+        }
+
+        public void b(int i2) {
+            this.f9480b = i2;
+        }
+
+        public int c() {
+            return this.f9481c;
+        }
+
+        public void c(int i2) {
+            this.f9481c = i2;
+        }
+
+        public a d() {
+            return this.f9482d;
+        }
+
+        public void d(int i2) {
+            this.f9483e = i2;
+        }
+
+        public int e() {
+            return this.f9483e;
         }
     }
 
     public static class e {
 
         /* renamed from: a, reason: collision with root package name */
-        private int f11349a;
+        private int f9492a;
 
         /* renamed from: b, reason: collision with root package name */
-        private int f11350b;
+        private int f9493b;
 
         /* renamed from: c, reason: collision with root package name */
-        private int f11351c;
+        private int f9494c;
 
         /* renamed from: d, reason: collision with root package name */
-        private int f11352d;
+        private int f9495d;
 
         /* renamed from: e, reason: collision with root package name */
-        private int f11353e;
+        private int f9496e;
 
         /* renamed from: f, reason: collision with root package name */
-        private String f11354f;
+        private String f9497f;
 
         public int a() {
-            return this.f11349a;
+            return this.f9492a;
         }
 
-        public int b() {
-            return this.f11350b;
-        }
-
-        public int c() {
-            return this.f11351c;
-        }
-
-        public int d() {
-            return this.f11352d;
-        }
-
-        public int e() {
-            return this.f11353e;
-        }
-
-        public String f() {
-            return this.f11354f;
-        }
-
-        public void a(int i10) {
-            this.f11349a = i10;
-        }
-
-        public void b(int i10) {
-            this.f11350b = i10;
-        }
-
-        public void c(int i10) {
-            this.f11351c = i10;
-        }
-
-        public void d(int i10) {
-            this.f11352d = i10;
-        }
-
-        public void e(int i10) {
-            this.f11353e = i10;
+        public void a(int i2) {
+            this.f9492a = i2;
         }
 
         public void a(String str) {
-            this.f11354f = str;
+            this.f9497f = str;
+        }
+
+        public int b() {
+            return this.f9493b;
+        }
+
+        public void b(int i2) {
+            this.f9493b = i2;
+        }
+
+        public int c() {
+            return this.f9494c;
+        }
+
+        public void c(int i2) {
+            this.f9494c = i2;
+        }
+
+        public int d() {
+            return this.f9495d;
+        }
+
+        public void d(int i2) {
+            this.f9495d = i2;
+        }
+
+        public int e() {
+            return this.f9496e;
+        }
+
+        public void e(int i2) {
+            this.f9496e = i2;
+        }
+
+        public String f() {
+            return this.f9497f;
         }
     }
 
     public static class f {
 
         /* renamed from: a, reason: collision with root package name */
-        private int f11355a;
+        private int f9498a;
 
         /* renamed from: b, reason: collision with root package name */
-        private int f11356b;
+        private int f9499b;
 
         /* renamed from: c, reason: collision with root package name */
-        private a f11357c;
+        private a f9500c;
 
         /* renamed from: d, reason: collision with root package name */
-        private int f11358d;
+        private int f9501d;
 
         public static class a {
 
             /* renamed from: a, reason: collision with root package name */
-            private int f11359a;
+            private int f9502a;
 
             /* renamed from: b, reason: collision with root package name */
-            private int f11360b;
+            private int f9503b;
 
             /* renamed from: c, reason: collision with root package name */
-            private int f11361c;
+            private int f9504c;
 
             /* renamed from: d, reason: collision with root package name */
-            private int f11362d;
+            private int f9505d;
 
             /* renamed from: e, reason: collision with root package name */
-            private int f11363e;
+            private int f9506e;
 
             public int a() {
-                return this.f11363e;
+                return this.f9506e;
+            }
+
+            public void a(int i2) {
+                this.f9506e = i2;
             }
 
             public int b() {
-                return this.f11361c;
+                return this.f9504c;
+            }
+
+            public void b(int i2) {
+                this.f9504c = i2;
             }
 
             public int c() {
-                return this.f11360b;
+                return this.f9503b;
+            }
+
+            public void c(int i2) {
+                this.f9503b = i2;
             }
 
             public int d() {
-                return this.f11359a;
+                return this.f9502a;
+            }
+
+            public void d(int i2) {
+                this.f9502a = i2;
             }
 
             public int e() {
-                return this.f11362d;
+                return this.f9505d;
             }
 
-            public void a(int i10) {
-                this.f11363e = i10;
-            }
-
-            public void b(int i10) {
-                this.f11361c = i10;
-            }
-
-            public void c(int i10) {
-                this.f11360b = i10;
-            }
-
-            public void d(int i10) {
-                this.f11359a = i10;
-            }
-
-            public void e(int i10) {
-                this.f11362d = i10;
+            public void e(int i2) {
+                this.f9505d = i2;
             }
         }
 
         public int a() {
-            return this.f11355a;
+            return this.f9498a;
         }
 
-        public int b() {
-            return this.f11356b;
-        }
-
-        public a c() {
-            return this.f11357c;
-        }
-
-        public int d() {
-            return this.f11358d;
-        }
-
-        public void a(int i10) {
-            this.f11355a = i10;
-        }
-
-        public void b(int i10) {
-            this.f11356b = i10;
-        }
-
-        public void c(int i10) {
-            this.f11358d = i10;
+        public void a(int i2) {
+            this.f9498a = i2;
         }
 
         public void a(a aVar) {
-            this.f11357c = aVar;
+            this.f9500c = aVar;
+        }
+
+        public int b() {
+            return this.f9499b;
+        }
+
+        public void b(int i2) {
+            this.f9499b = i2;
+        }
+
+        public a c() {
+            return this.f9500c;
+        }
+
+        public void c(int i2) {
+            this.f9501d = i2;
+        }
+
+        public int d() {
+            return this.f9501d;
         }
     }
 
     public static class g {
 
         /* renamed from: a, reason: collision with root package name */
-        private int f11364a;
+        private int f9507a;
 
         /* renamed from: b, reason: collision with root package name */
-        private int f11365b;
+        private int f9508b;
 
         /* renamed from: c, reason: collision with root package name */
-        private int f11366c;
+        private int f9509c;
 
         /* renamed from: d, reason: collision with root package name */
-        private int f11367d;
+        private int f9510d;
 
         /* renamed from: e, reason: collision with root package name */
-        private a f11368e;
+        private a f9511e;
 
         /* renamed from: f, reason: collision with root package name */
-        private int f11369f;
+        private int f9512f;
 
         public static class a {
 
             /* renamed from: a, reason: collision with root package name */
-            private int f11370a;
+            private int f9513a;
 
             /* renamed from: b, reason: collision with root package name */
-            private int f11371b;
+            private int f9514b;
 
             /* renamed from: c, reason: collision with root package name */
-            private int f11372c;
+            private int f9515c;
 
             /* renamed from: d, reason: collision with root package name */
-            private int f11373d;
+            private int f9516d;
 
             /* renamed from: e, reason: collision with root package name */
-            private int f11374e;
+            private int f9517e;
 
             /* renamed from: f, reason: collision with root package name */
-            private int f11375f;
+            private int f9518f;
 
             /* renamed from: g, reason: collision with root package name */
-            private int f11376g;
+            private int f9519g;
 
             /* renamed from: h, reason: collision with root package name */
-            private int f11377h;
+            private int f9520h;
 
             /* renamed from: i, reason: collision with root package name */
-            private int f11378i;
+            private int f9521i;
 
             /* renamed from: j, reason: collision with root package name */
-            private int f11379j;
-
-            /* renamed from: k, reason: collision with root package name */
-            private int f11380k;
-
-            /* renamed from: l, reason: collision with root package name */
-            private int f11381l;
-
-            /* renamed from: m, reason: collision with root package name */
-            private int f11382m;
-
-            /* renamed from: n, reason: collision with root package name */
-            private int f11383n;
+            private int f9522j;
+            private int k;
+            private int l;
+            private int m;
+            private int n;
 
             public int a() {
-                return this.f11370a;
+                return this.f9513a;
+            }
+
+            public void a(int i2) {
+                this.f9513a = i2;
             }
 
             public int b() {
-                return this.f11371b;
+                return this.f9514b;
+            }
+
+            public void b(int i2) {
+                this.f9514b = i2;
             }
 
             public int c() {
-                return this.f11372c;
+                return this.f9515c;
+            }
+
+            public void c(int i2) {
+                this.f9515c = i2;
             }
 
             public int d() {
-                return this.f11373d;
+                return this.f9516d;
+            }
+
+            public void d(int i2) {
+                this.f9516d = i2;
             }
 
             public int e() {
-                return this.f11374e;
+                return this.f9517e;
+            }
+
+            public void e(int i2) {
+                this.f9517e = i2;
             }
 
             public int f() {
-                return this.f11375f;
+                return this.f9518f;
+            }
+
+            public void f(int i2) {
+                this.f9518f = i2;
             }
 
             public int g() {
-                return this.f11376g;
+                return this.f9519g;
+            }
+
+            public void g(int i2) {
+                this.f9519g = i2;
             }
 
             public int h() {
-                return this.f11377h;
+                return this.f9520h;
+            }
+
+            public void h(int i2) {
+                this.f9520h = i2;
             }
 
             public int i() {
-                return this.f11378i;
+                return this.f9521i;
+            }
+
+            public void i(int i2) {
+                this.f9521i = i2;
             }
 
             public int j() {
-                return this.f11379j;
+                return this.f9522j;
+            }
+
+            public void j(int i2) {
+                this.f9522j = i2;
             }
 
             public int k() {
-                return this.f11380k;
+                return this.k;
+            }
+
+            public void k(int i2) {
+                this.k = i2;
             }
 
             public int l() {
-                return this.f11381l;
+                return this.l;
+            }
+
+            public void l(int i2) {
+                this.l = i2;
             }
 
             public int m() {
-                return this.f11382m;
+                return this.m;
+            }
+
+            public void m(int i2) {
+                this.m = i2;
             }
 
             public int n() {
-                return this.f11383n;
+                return this.n;
             }
 
-            public void a(int i10) {
-                this.f11370a = i10;
-            }
-
-            public void b(int i10) {
-                this.f11371b = i10;
-            }
-
-            public void c(int i10) {
-                this.f11372c = i10;
-            }
-
-            public void d(int i10) {
-                this.f11373d = i10;
-            }
-
-            public void e(int i10) {
-                this.f11374e = i10;
-            }
-
-            public void f(int i10) {
-                this.f11375f = i10;
-            }
-
-            public void g(int i10) {
-                this.f11376g = i10;
-            }
-
-            public void h(int i10) {
-                this.f11377h = i10;
-            }
-
-            public void i(int i10) {
-                this.f11378i = i10;
-            }
-
-            public void j(int i10) {
-                this.f11379j = i10;
-            }
-
-            public void k(int i10) {
-                this.f11380k = i10;
-            }
-
-            public void l(int i10) {
-                this.f11381l = i10;
-            }
-
-            public void m(int i10) {
-                this.f11382m = i10;
-            }
-
-            public void n(int i10) {
-                this.f11383n = i10;
+            public void n(int i2) {
+                this.n = i2;
             }
         }
 
         public int a() {
-            return this.f11364a;
+            return this.f9507a;
         }
 
-        public int b() {
-            return this.f11365b;
-        }
-
-        public int c() {
-            return this.f11366c;
-        }
-
-        public int d() {
-            return this.f11367d;
-        }
-
-        public a e() {
-            return this.f11368e;
-        }
-
-        public int f() {
-            return this.f11369f;
-        }
-
-        public void a(int i10) {
-            this.f11364a = i10;
-        }
-
-        public void b(int i10) {
-            this.f11365b = i10;
-        }
-
-        public void c(int i10) {
-            this.f11366c = i10;
-        }
-
-        public void d(int i10) {
-            this.f11367d = i10;
-        }
-
-        public void e(int i10) {
-            this.f11369f = i10;
+        public void a(int i2) {
+            this.f9507a = i2;
         }
 
         public void a(a aVar) {
-            this.f11368e = aVar;
+            this.f9511e = aVar;
+        }
+
+        public int b() {
+            return this.f9508b;
+        }
+
+        public void b(int i2) {
+            this.f9508b = i2;
+        }
+
+        public int c() {
+            return this.f9509c;
+        }
+
+        public void c(int i2) {
+            this.f9509c = i2;
+        }
+
+        public int d() {
+            return this.f9510d;
+        }
+
+        public void d(int i2) {
+            this.f9510d = i2;
+        }
+
+        public a e() {
+            return this.f9511e;
+        }
+
+        public void e(int i2) {
+            this.f9512f = i2;
+        }
+
+        public int f() {
+            return this.f9512f;
         }
     }
 
     public static class h {
 
         /* renamed from: a, reason: collision with root package name */
-        private int f11384a;
+        private int f9523a;
 
         /* renamed from: b, reason: collision with root package name */
-        private int f11385b;
+        private int f9524b;
 
         /* renamed from: c, reason: collision with root package name */
-        private int f11386c;
+        private int f9525c;
 
         /* renamed from: d, reason: collision with root package name */
-        private int f11387d;
+        private int f9526d;
 
         public int a() {
-            return this.f11384a;
+            return this.f9523a;
+        }
+
+        public void a(int i2) {
+            this.f9523a = i2;
         }
 
         public int b() {
-            return this.f11385b;
+            return this.f9524b;
+        }
+
+        public void b(int i2) {
+            this.f9524b = i2;
         }
 
         public int c() {
-            return this.f11386c;
+            return this.f9525c;
+        }
+
+        public void c(int i2) {
+            this.f9525c = i2;
         }
 
         public int d() {
-            return this.f11387d;
+            return this.f9526d;
         }
 
-        public void a(int i10) {
-            this.f11384a = i10;
-        }
-
-        public void b(int i10) {
-            this.f11385b = i10;
-        }
-
-        public void c(int i10) {
-            this.f11386c = i10;
-        }
-
-        public void d(int i10) {
-            this.f11387d = i10;
+        public void d(int i2) {
+            this.f9526d = i2;
         }
     }
 
@@ -1153,99 +1097,215 @@ public class y implements Serializable {
     }
 
     public String a() {
-        return this.f11270a;
+        return this.f9437a;
+    }
+
+    public void a(int i2) {
+        this.f9444h = i2;
+    }
+
+    public void a(a aVar) {
+        this.q = aVar;
+    }
+
+    public void a(b bVar) {
+        this.r = bVar;
+    }
+
+    public void a(c cVar) {
+        this.s = cVar;
+    }
+
+    public void a(d dVar) {
+        this.u = dVar;
+    }
+
+    public void a(e eVar) {
+        this.v = eVar;
+    }
+
+    public void a(f fVar) {
+        this.x = fVar;
+    }
+
+    public void a(g gVar) {
+        this.z = gVar;
+    }
+
+    public void a(h hVar) {
+        this.f9439c = hVar;
+    }
+
+    public void a(String str) {
+        this.f9437a = str;
     }
 
     public String b() {
-        return this.f11271b;
+        return this.f9438b;
+    }
+
+    public void b(int i2) {
+        this.k = i2;
+    }
+
+    public void b(String str) {
+        this.f9438b = str;
     }
 
     public h c() {
-        return this.f11272c;
+        return this.f9439c;
+    }
+
+    public void c(int i2) {
+        this.l = i2;
+    }
+
+    public void c(String str) {
+        this.f9440d = str;
     }
 
     public String d() {
-        return this.f11273d;
+        return this.f9440d;
+    }
+
+    public void d(int i2) {
+        this.o = i2;
+    }
+
+    public void d(String str) {
+        this.f9441e = str;
     }
 
     public String e() {
-        return this.f11274e;
+        return this.f9441e;
+    }
+
+    public void e(int i2) {
+        this.B = i2;
+    }
+
+    public void e(String str) {
+        this.f9442f = str;
     }
 
     public String f() {
-        return this.f11275f;
+        return this.f9442f;
+    }
+
+    public void f(int i2) {
+        this.C = i2;
+    }
+
+    public void f(String str) {
+        this.f9443g = str;
     }
 
     public String g() {
-        return this.f11276g;
+        return this.f9443g;
+    }
+
+    public void g(int i2) {
+        this.D = i2;
+    }
+
+    public void g(String str) {
+        this.f9445i = str;
     }
 
     public int h() {
-        return this.f11277h;
+        return this.f9444h;
+    }
+
+    public void h(int i2) {
+        this.E = i2;
+    }
+
+    public void h(String str) {
+        this.f9446j = str;
     }
 
     public String i() {
-        return this.f11278i;
+        return this.f9445i;
+    }
+
+    public void i(String str) {
+        this.n = str;
     }
 
     public String j() {
-        return this.f11279j;
+        return this.f9446j;
+    }
+
+    public void j(String str) {
+        this.t = str;
     }
 
     public int k() {
-        return this.f11280k;
+        return this.k;
+    }
+
+    public void k(String str) {
+        this.w = str;
     }
 
     public int l() {
-        return this.f11281l;
+        return this.l;
+    }
+
+    public void l(String str) {
+        this.y = str;
     }
 
     public String m() {
-        return this.f11283n;
+        return this.n;
+    }
+
+    public void m(String str) {
+        this.A = str;
     }
 
     public int n() {
-        return this.f11284o;
+        return this.o;
     }
 
     public a o() {
-        return this.f11286q;
+        return this.q;
     }
 
     public b p() {
-        return this.f11287r;
+        return this.r;
     }
 
     public c q() {
-        return this.f11288s;
+        return this.s;
     }
 
     public String r() {
-        return this.f11289t;
+        return this.t;
     }
 
     public d s() {
-        return this.f11290u;
+        return this.u;
     }
 
     public e t() {
-        return this.f11291v;
+        return this.v;
     }
 
     public String u() {
-        return this.f11292w;
+        return this.w;
     }
 
     public f v() {
-        return this.f11293x;
+        return this.x;
     }
 
     public String w() {
-        return this.f11294y;
+        return this.y;
     }
 
     public g x() {
-        return this.f11295z;
+        return this.z;
     }
 
     public String y() {
@@ -1254,121 +1314,5 @@ public class y implements Serializable {
 
     public int z() {
         return this.B;
-    }
-
-    public void a(String str) {
-        this.f11270a = str;
-    }
-
-    public void b(String str) {
-        this.f11271b = str;
-    }
-
-    public void c(String str) {
-        this.f11273d = str;
-    }
-
-    public void d(String str) {
-        this.f11274e = str;
-    }
-
-    public void e(String str) {
-        this.f11275f = str;
-    }
-
-    public void f(String str) {
-        this.f11276g = str;
-    }
-
-    public void g(String str) {
-        this.f11278i = str;
-    }
-
-    public void h(String str) {
-        this.f11279j = str;
-    }
-
-    public void i(String str) {
-        this.f11283n = str;
-    }
-
-    public void j(String str) {
-        this.f11289t = str;
-    }
-
-    public void k(String str) {
-        this.f11292w = str;
-    }
-
-    public void l(String str) {
-        this.f11294y = str;
-    }
-
-    public void m(String str) {
-        this.A = str;
-    }
-
-    public void a(h hVar) {
-        this.f11272c = hVar;
-    }
-
-    public void b(int i10) {
-        this.f11280k = i10;
-    }
-
-    public void c(int i10) {
-        this.f11281l = i10;
-    }
-
-    public void d(int i10) {
-        this.f11284o = i10;
-    }
-
-    public void e(int i10) {
-        this.B = i10;
-    }
-
-    public void f(int i10) {
-        this.C = i10;
-    }
-
-    public void g(int i10) {
-        this.D = i10;
-    }
-
-    public void h(int i10) {
-        this.E = i10;
-    }
-
-    public void a(int i10) {
-        this.f11277h = i10;
-    }
-
-    public void a(a aVar) {
-        this.f11286q = aVar;
-    }
-
-    public void a(b bVar) {
-        this.f11287r = bVar;
-    }
-
-    public void a(c cVar) {
-        this.f11288s = cVar;
-    }
-
-    public void a(d dVar) {
-        this.f11290u = dVar;
-    }
-
-    public void a(e eVar) {
-        this.f11291v = eVar;
-    }
-
-    public void a(f fVar) {
-        this.f11293x = fVar;
-    }
-
-    public void a(g gVar) {
-        this.f11295z = gVar;
     }
 }

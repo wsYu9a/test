@@ -5,15 +5,15 @@ import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.widget.ImageView;
 
-/* loaded from: classes2.dex */
+/* loaded from: classes.dex */
 public class BitmapThumbnailImageViewTarget extends ThumbnailImageViewTarget<Bitmap> {
     public BitmapThumbnailImageViewTarget(ImageView imageView) {
         super(imageView);
     }
 
     @Deprecated
-    public BitmapThumbnailImageViewTarget(ImageView imageView, boolean z10) {
-        super(imageView, z10);
+    public BitmapThumbnailImageViewTarget(ImageView imageView, boolean z) {
+        super(imageView, z);
     }
 
     @Override // com.bumptech.glide.request.target.ThumbnailImageViewTarget

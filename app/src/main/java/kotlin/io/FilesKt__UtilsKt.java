@@ -1,130 +1,82 @@
 package kotlin.io;
 
 import com.kwad.sdk.api.model.AdnName;
-import com.martian.libmars.widget.FoldedTextView;
+import f.b.a.d;
+import f.b.a.e;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
-import kotlin.Deprecated;
 import kotlin.Metadata;
-import kotlin.Unit;
 import kotlin.collections.CollectionsKt;
 import kotlin.collections.CollectionsKt___CollectionsKt;
 import kotlin.jvm.functions.Function2;
 import kotlin.jvm.internal.Intrinsics;
-import kotlin.jvm.internal.SourceDebugExtension;
-import kotlin.text.StringsKt;
-import p1.b;
-import xi.k;
-import xi.l;
+import kotlin.text.StringsKt__StringsJVMKt;
+import kotlin.text.StringsKt__StringsKt;
 
-@Metadata(d1 = {"\u0000<\n\u0000\n\u0002\u0010\u000e\n\u0002\u0018\u0002\n\u0002\b\f\n\u0002\u0010\u000b\n\u0002\b\u0003\n\u0002\u0018\u0002\n\u0002\u0018\u0002\n\u0002\u0018\u0002\n\u0002\b\u0002\n\u0002\u0010\b\n\u0002\b\u0004\n\u0002\u0010 \n\u0000\n\u0002\u0018\u0002\n\u0002\b\f\u001a*\u0010\t\u001a\u00020\u00022\b\b\u0002\u0010\n\u001a\u00020\u00012\n\b\u0002\u0010\u000b\u001a\u0004\u0018\u00010\u00012\n\b\u0002\u0010\f\u001a\u0004\u0018\u00010\u0002H\u0007\u001a*\u0010\r\u001a\u00020\u00022\b\b\u0002\u0010\n\u001a\u00020\u00012\n\b\u0002\u0010\u000b\u001a\u0004\u0018\u00010\u00012\n\b\u0002\u0010\f\u001a\u0004\u0018\u00010\u0002H\u0007\u001a8\u0010\u000e\u001a\u00020\u000f*\u00020\u00022\u0006\u0010\u0010\u001a\u00020\u00022\b\b\u0002\u0010\u0011\u001a\u00020\u000f2\u001a\b\u0002\u0010\u0012\u001a\u0014\u0012\u0004\u0012\u00020\u0002\u0012\u0004\u0012\u00020\u0014\u0012\u0004\u0012\u00020\u00150\u0013\u001a&\u0010\u0016\u001a\u00020\u0002*\u00020\u00022\u0006\u0010\u0010\u001a\u00020\u00022\b\b\u0002\u0010\u0011\u001a\u00020\u000f2\b\b\u0002\u0010\u0017\u001a\u00020\u0018\u001a\n\u0010\u0019\u001a\u00020\u000f*\u00020\u0002\u001a\u0012\u0010\u001a\u001a\u00020\u000f*\u00020\u00022\u0006\u0010\u001b\u001a\u00020\u0002\u001a\u0012\u0010\u001a\u001a\u00020\u000f*\u00020\u00022\u0006\u0010\u001b\u001a\u00020\u0001\u001a\n\u0010\u001c\u001a\u00020\u0002*\u00020\u0002\u001a\u001d\u0010\u001c\u001a\b\u0012\u0004\u0012\u00020\u00020\u001d*\b\u0012\u0004\u0012\u00020\u00020\u001dH\u0002¢\u0006\u0002\b\u001e\u001a\u0011\u0010\u001c\u001a\u00020\u001f*\u00020\u001fH\u0002¢\u0006\u0002\b\u001e\u001a\u0012\u0010 \u001a\u00020\u0002*\u00020\u00022\u0006\u0010!\u001a\u00020\u0002\u001a\u0014\u0010\"\u001a\u0004\u0018\u00010\u0002*\u00020\u00022\u0006\u0010!\u001a\u00020\u0002\u001a\u0012\u0010#\u001a\u00020\u0002*\u00020\u00022\u0006\u0010!\u001a\u00020\u0002\u001a\u0012\u0010$\u001a\u00020\u0002*\u00020\u00022\u0006\u0010%\u001a\u00020\u0002\u001a\u0012\u0010$\u001a\u00020\u0002*\u00020\u00022\u0006\u0010%\u001a\u00020\u0001\u001a\u0012\u0010&\u001a\u00020\u0002*\u00020\u00022\u0006\u0010%\u001a\u00020\u0002\u001a\u0012\u0010&\u001a\u00020\u0002*\u00020\u00022\u0006\u0010%\u001a\u00020\u0001\u001a\u0012\u0010'\u001a\u00020\u000f*\u00020\u00022\u0006\u0010\u001b\u001a\u00020\u0002\u001a\u0012\u0010'\u001a\u00020\u000f*\u00020\u00022\u0006\u0010\u001b\u001a\u00020\u0001\u001a\u0012\u0010(\u001a\u00020\u0001*\u00020\u00022\u0006\u0010!\u001a\u00020\u0002\u001a\u001b\u0010)\u001a\u0004\u0018\u00010\u0001*\u00020\u00022\u0006\u0010!\u001a\u00020\u0002H\u0002¢\u0006\u0002\b*\"\u0015\u0010\u0000\u001a\u00020\u0001*\u00020\u00028F¢\u0006\u0006\u001a\u0004\b\u0003\u0010\u0004\"\u0015\u0010\u0005\u001a\u00020\u0001*\u00020\u00028F¢\u0006\u0006\u001a\u0004\b\u0006\u0010\u0004\"\u0015\u0010\u0007\u001a\u00020\u0001*\u00020\u00028F¢\u0006\u0006\u001a\u0004\b\b\u0010\u0004¨\u0006+"}, d2 = {"extension", "", "Ljava/io/File;", "getExtension", "(Ljava/io/File;)Ljava/lang/String;", "invariantSeparatorsPath", "getInvariantSeparatorsPath", "nameWithoutExtension", "getNameWithoutExtension", "createTempDir", "prefix", "suffix", "directory", "createTempFile", "copyRecursively", "", "target", "overwrite", "onError", "Lkotlin/Function2;", "Ljava/io/IOException;", "Lkotlin/io/OnErrorAction;", "copyTo", "bufferSize", "", "deleteRecursively", "endsWith", AdnName.OTHER, "normalize", "", "normalize$FilesKt__UtilsKt", "Lkotlin/io/FilePathComponents;", "relativeTo", "base", "relativeToOrNull", "relativeToOrSelf", "resolve", "relative", "resolveSibling", "startsWith", "toRelativeString", "toRelativeStringOrNull", "toRelativeStringOrNull$FilesKt__UtilsKt", "kotlin-stdlib"}, k = 5, mv = {1, 9, 0}, xi = 49, xs = "kotlin/io/FilesKt")
-@SourceDebugExtension({"SMAP\nUtils.kt\nKotlin\n*S Kotlin\n*F\n+ 1 Utils.kt\nkotlin/io/FilesKt__UtilsKt\n+ 2 fake.kt\nkotlin/jvm/internal/FakeKt\n+ 3 _Sequences.kt\nkotlin/sequences/SequencesKt___SequencesKt\n*L\n1#1,473:1\n1#2:474\n1284#3,3:475\n*S KotlinDebug\n*F\n+ 1 Utils.kt\nkotlin/io/FilesKt__UtilsKt\n*L\n347#1:475,3\n*E\n"})
-/* loaded from: classes4.dex */
+@Metadata(bv = {1, 0, 3}, d1 = {"\u0000>\n\u0002\u0010\u000e\n\u0002\b\u0002\n\u0002\u0018\u0002\n\u0002\b\u000e\n\u0002\u0010\u000b\n\u0000\n\u0002\u0010\b\n\u0002\b\u0003\n\u0002\u0018\u0002\n\u0002\u0018\u0002\n\u0002\u0018\u0002\n\u0002\b\f\n\u0002\u0018\u0002\n\u0002\b\u0002\n\u0002\u0010 \n\u0002\b\r\u001a/\u0010\u0005\u001a\u00020\u00032\b\b\u0002\u0010\u0001\u001a\u00020\u00002\n\b\u0002\u0010\u0002\u001a\u0004\u0018\u00010\u00002\n\b\u0002\u0010\u0004\u001a\u0004\u0018\u00010\u0003¢\u0006\u0004\b\u0005\u0010\u0006\u001a/\u0010\u0007\u001a\u00020\u00032\b\b\u0002\u0010\u0001\u001a\u00020\u00002\n\b\u0002\u0010\u0002\u001a\u0004\u0018\u00010\u00002\n\b\u0002\u0010\u0004\u001a\u0004\u0018\u00010\u0003¢\u0006\u0004\b\u0007\u0010\u0006\u001a\u0019\u0010\t\u001a\u00020\u0000*\u00020\u00032\u0006\u0010\b\u001a\u00020\u0003¢\u0006\u0004\b\t\u0010\n\u001a\u0019\u0010\u000b\u001a\u00020\u0003*\u00020\u00032\u0006\u0010\b\u001a\u00020\u0003¢\u0006\u0004\b\u000b\u0010\f\u001a\u0019\u0010\r\u001a\u00020\u0003*\u00020\u00032\u0006\u0010\b\u001a\u00020\u0003¢\u0006\u0004\b\r\u0010\f\u001a\u001b\u0010\u000e\u001a\u0004\u0018\u00010\u0003*\u00020\u00032\u0006\u0010\b\u001a\u00020\u0003¢\u0006\u0004\b\u000e\u0010\f\u001a\u001d\u0010\u0010\u001a\u0004\u0018\u00010\u0000*\u00020\u00032\u0006\u0010\b\u001a\u00020\u0003H\u0002¢\u0006\u0004\b\u000f\u0010\n\u001a-\u0010\u0016\u001a\u00020\u0003*\u00020\u00032\u0006\u0010\u0011\u001a\u00020\u00032\b\b\u0002\u0010\u0013\u001a\u00020\u00122\b\b\u0002\u0010\u0015\u001a\u00020\u0014¢\u0006\u0004\b\u0016\u0010\u0017\u001a?\u0010\u001c\u001a\u00020\u0012*\u00020\u00032\u0006\u0010\u0011\u001a\u00020\u00032\b\b\u0002\u0010\u0013\u001a\u00020\u00122\u001a\b\u0002\u0010\u001b\u001a\u0014\u0012\u0004\u0012\u00020\u0003\u0012\u0004\u0012\u00020\u0019\u0012\u0004\u0012\u00020\u001a0\u0018¢\u0006\u0004\b\u001c\u0010\u001d\u001a\u0011\u0010\u001e\u001a\u00020\u0012*\u00020\u0003¢\u0006\u0004\b\u001e\u0010\u001f\u001a\u0019\u0010!\u001a\u00020\u0012*\u00020\u00032\u0006\u0010 \u001a\u00020\u0003¢\u0006\u0004\b!\u0010\"\u001a\u0019\u0010!\u001a\u00020\u0012*\u00020\u00032\u0006\u0010 \u001a\u00020\u0000¢\u0006\u0004\b!\u0010#\u001a\u0019\u0010$\u001a\u00020\u0012*\u00020\u00032\u0006\u0010 \u001a\u00020\u0003¢\u0006\u0004\b$\u0010\"\u001a\u0019\u0010$\u001a\u00020\u0012*\u00020\u00032\u0006\u0010 \u001a\u00020\u0000¢\u0006\u0004\b$\u0010#\u001a\u0011\u0010%\u001a\u00020\u0003*\u00020\u0003¢\u0006\u0004\b%\u0010&\u001a\u0013\u0010%\u001a\u00020'*\u00020'H\u0002¢\u0006\u0004\b(\u0010)\u001a\u001f\u0010%\u001a\b\u0012\u0004\u0012\u00020\u00030**\b\u0012\u0004\u0012\u00020\u00030*H\u0002¢\u0006\u0004\b(\u0010+\u001a\u0019\u0010-\u001a\u00020\u0003*\u00020\u00032\u0006\u0010,\u001a\u00020\u0003¢\u0006\u0004\b-\u0010\f\u001a\u0019\u0010-\u001a\u00020\u0003*\u00020\u00032\u0006\u0010,\u001a\u00020\u0000¢\u0006\u0004\b-\u0010.\u001a\u0019\u0010/\u001a\u00020\u0003*\u00020\u00032\u0006\u0010,\u001a\u00020\u0003¢\u0006\u0004\b/\u0010\f\u001a\u0019\u0010/\u001a\u00020\u0003*\u00020\u00032\u0006\u0010,\u001a\u00020\u0000¢\u0006\u0004\b/\u0010.\"\u0017\u00102\u001a\u00020\u0000*\u00020\u00038F@\u0006¢\u0006\u0006\u001a\u0004\b0\u00101\"\u0017\u00104\u001a\u00020\u0000*\u00020\u00038F@\u0006¢\u0006\u0006\u001a\u0004\b3\u00101\"\u0017\u00106\u001a\u00020\u0000*\u00020\u00038F@\u0006¢\u0006\u0006\u001a\u0004\b5\u00101¨\u00067"}, d2 = {"", "prefix", "suffix", "Ljava/io/File;", "directory", "createTempDir", "(Ljava/lang/String;Ljava/lang/String;Ljava/io/File;)Ljava/io/File;", "createTempFile", "base", "toRelativeString", "(Ljava/io/File;Ljava/io/File;)Ljava/lang/String;", "relativeTo", "(Ljava/io/File;Ljava/io/File;)Ljava/io/File;", "relativeToOrSelf", "relativeToOrNull", "toRelativeStringOrNull$FilesKt__UtilsKt", "toRelativeStringOrNull", "target", "", "overwrite", "", "bufferSize", "copyTo", "(Ljava/io/File;Ljava/io/File;ZI)Ljava/io/File;", "Lkotlin/Function2;", "Ljava/io/IOException;", "Lkotlin/io/OnErrorAction;", "onError", "copyRecursively", "(Ljava/io/File;Ljava/io/File;ZLkotlin/jvm/functions/Function2;)Z", "deleteRecursively", "(Ljava/io/File;)Z", AdnName.OTHER, "startsWith", "(Ljava/io/File;Ljava/io/File;)Z", "(Ljava/io/File;Ljava/lang/String;)Z", "endsWith", "normalize", "(Ljava/io/File;)Ljava/io/File;", "Lkotlin/io/FilePathComponents;", "normalize$FilesKt__UtilsKt", "(Lkotlin/io/FilePathComponents;)Lkotlin/io/FilePathComponents;", "", "(Ljava/util/List;)Ljava/util/List;", "relative", "resolve", "(Ljava/io/File;Ljava/lang/String;)Ljava/io/File;", "resolveSibling", "getNameWithoutExtension", "(Ljava/io/File;)Ljava/lang/String;", "nameWithoutExtension", "getInvariantSeparatorsPath", "invariantSeparatorsPath", "getExtension", "extension", "kotlin-stdlib"}, k = 5, mv = {1, 4, 0}, xs = "kotlin/io/FilesKt")
+/* loaded from: classes5.dex */
 class FilesKt__UtilsKt extends FilesKt__FileTreeWalkKt {
-    public static final boolean copyRecursively(@k File file, @k File target, boolean z10, @k Function2<? super File, ? super IOException, ? extends OnErrorAction> onError) {
-        Intrinsics.checkNotNullParameter(file, "<this>");
-        Intrinsics.checkNotNullParameter(target, "target");
-        Intrinsics.checkNotNullParameter(onError, "onError");
-        if (!file.exists()) {
-            return onError.invoke(file, new NoSuchFileException(file, null, "The source file doesn't exist.", 2, null)) != OnErrorAction.TERMINATE;
+    /* JADX WARN: Removed duplicated region for block: B:41:0x00b2 A[SYNTHETIC] */
+    /* JADX WARN: Removed duplicated region for block: B:42:0x00a0 A[SYNTHETIC] */
+    /*
+        Code decompiled incorrectly, please refer to instructions dump.
+        To view partially-correct code enable 'Show inconsistent code' option in preferences
+    */
+    public static final boolean copyRecursively(@f.b.a.d java.io.File r11, @f.b.a.d java.io.File r12, boolean r13, @f.b.a.d final kotlin.jvm.functions.Function2<? super java.io.File, ? super java.io.IOException, ? extends kotlin.io.OnErrorAction> r14) {
+        /*
+            Method dump skipped, instructions count: 229
+            To view this dump change 'Code comments level' option to 'DEBUG'
+        */
+        throw new UnsupportedOperationException("Method not decompiled: kotlin.io.FilesKt__UtilsKt.copyRecursively(java.io.File, java.io.File, boolean, kotlin.jvm.functions.Function2):boolean");
+    }
+
+    public static /* synthetic */ boolean copyRecursively$default(File file, File file2, boolean z, Function2 function2, int i2, Object obj) {
+        if ((i2 & 2) != 0) {
+            z = false;
         }
-        try {
-            Iterator<File> it = FilesKt__FileTreeWalkKt.walkTopDown(file).onFail(new Function2<File, IOException, Unit>() { // from class: kotlin.io.FilesKt__UtilsKt$copyRecursively$2
-                final /* synthetic */ Function2<File, IOException, OnErrorAction> $onError;
-
-                /* JADX WARN: 'super' call moved to the top of the method (can break code semantics) */
-                /* JADX WARN: Multi-variable type inference failed */
-                public FilesKt__UtilsKt$copyRecursively$2(Function2<? super File, ? super IOException, ? extends OnErrorAction> onError2) {
-                    super(2);
-                    onError = onError2;
-                }
-
+        if ((i2 & 4) != 0) {
+            function2 = new Function2() { // from class: kotlin.io.FilesKt__UtilsKt$copyRecursively$1
                 @Override // kotlin.jvm.functions.Function2
-                public /* bridge */ /* synthetic */ Unit invoke(File file2, IOException iOException) {
-                    invoke2(file2, iOException);
-                    return Unit.INSTANCE;
+                @d
+                public final Void invoke(@d File file3, @d IOException exception) {
+                    Intrinsics.checkParameterIsNotNull(file3, "<anonymous parameter 0>");
+                    Intrinsics.checkParameterIsNotNull(exception, "exception");
+                    throw exception;
                 }
-
-                /* renamed from: invoke */
-                public final void invoke2(@k File f10, @k IOException e10) {
-                    Intrinsics.checkNotNullParameter(f10, "f");
-                    Intrinsics.checkNotNullParameter(e10, "e");
-                    if (onError.invoke(f10, e10) == OnErrorAction.TERMINATE) {
-                        throw new TerminateException(f10);
-                    }
-                }
-            }).iterator();
-            while (it.hasNext()) {
-                File next = it.next();
-                if (next.exists()) {
-                    File file2 = new File(target, toRelativeString(next, file));
-                    if (file2.exists() && (!next.isDirectory() || !file2.isDirectory())) {
-                        if (z10) {
-                            if (file2.isDirectory()) {
-                                if (!deleteRecursively(file2)) {
-                                }
-                            } else if (!file2.delete()) {
-                            }
-                        }
-                        if (onError2.invoke(file2, new FileAlreadyExistsException(next, file2, "The destination file already exists.")) == OnErrorAction.TERMINATE) {
-                            return false;
-                        }
-                    }
-                    if (next.isDirectory()) {
-                        file2.mkdirs();
-                    } else if (copyTo$default(next, file2, z10, 0, 4, null).length() != next.length() && onError2.invoke(next, new IOException("Source file wasn't copied completely, length of destination file differs.")) == OnErrorAction.TERMINATE) {
-                        return false;
-                    }
-                } else if (onError2.invoke(next, new NoSuchFileException(next, null, "The source file doesn't exist.", 2, null)) == OnErrorAction.TERMINATE) {
-                    return false;
-                }
-            }
-            return true;
-        } catch (TerminateException unused) {
-            return false;
+            };
         }
+        return copyRecursively(file, file2, z, function2);
     }
 
-    public static /* synthetic */ boolean copyRecursively$default(File file, File file2, boolean z10, Function2 function2, int i10, Object obj) {
-        if ((i10 & 2) != 0) {
-            z10 = false;
-        }
-        if ((i10 & 4) != 0) {
-            function2 = FilesKt__UtilsKt$copyRecursively$1.INSTANCE;
-        }
-        return copyRecursively(file, file2, z10, function2);
-    }
-
-    @k
-    public static final File copyTo(@k File file, @k File target, boolean z10, int i10) {
-        Intrinsics.checkNotNullParameter(file, "<this>");
-        Intrinsics.checkNotNullParameter(target, "target");
-        if (!file.exists()) {
-            throw new NoSuchFileException(file, null, "The source file doesn't exist.", 2, null);
+    @d
+    public static final File copyTo(@d File copyTo, @d File target, boolean z, int i2) {
+        Intrinsics.checkParameterIsNotNull(copyTo, "$this$copyTo");
+        Intrinsics.checkParameterIsNotNull(target, "target");
+        if (!copyTo.exists()) {
+            throw new NoSuchFileException(copyTo, null, "The source file doesn't exist.", 2, null);
         }
         if (target.exists()) {
-            if (!z10) {
-                throw new FileAlreadyExistsException(file, target, "The destination file already exists.");
+            if (!z) {
+                throw new FileAlreadyExistsException(copyTo, target, "The destination file already exists.");
             }
             if (!target.delete()) {
-                throw new FileAlreadyExistsException(file, target, "Tried to overwrite the destination, but failed to delete it.");
+                throw new FileAlreadyExistsException(copyTo, target, "Tried to overwrite the destination, but failed to delete it.");
             }
         }
-        if (!file.isDirectory()) {
+        if (!copyTo.isDirectory()) {
             File parentFile = target.getParentFile();
             if (parentFile != null) {
                 parentFile.mkdirs();
             }
-            FileInputStream fileInputStream = new FileInputStream(file);
+            FileInputStream fileInputStream = new FileInputStream(copyTo);
             try {
                 FileOutputStream fileOutputStream = new FileOutputStream(target);
                 try {
-                    ByteStreamsKt.copyTo(fileInputStream, fileOutputStream, i10);
+                    ByteStreamsKt.copyTo(fileInputStream, fileOutputStream, i2);
                     CloseableKt.closeFinally(fileOutputStream, null);
                     CloseableKt.closeFinally(fileInputStream, null);
                 } finally {
@@ -132,92 +84,90 @@ class FilesKt__UtilsKt extends FilesKt__FileTreeWalkKt {
             } finally {
             }
         } else if (!target.mkdirs()) {
-            throw new FileSystemException(file, target, "Failed to create target directory.");
+            throw new FileSystemException(copyTo, target, "Failed to create target directory.");
         }
         return target;
     }
 
-    public static /* synthetic */ File copyTo$default(File file, File file2, boolean z10, int i10, int i11, Object obj) {
-        if ((i11 & 2) != 0) {
-            z10 = false;
+    public static /* synthetic */ File copyTo$default(File file, File file2, boolean z, int i2, int i3, Object obj) {
+        if ((i3 & 2) != 0) {
+            z = false;
         }
-        if ((i11 & 4) != 0) {
-            i10 = 8192;
+        if ((i3 & 4) != 0) {
+            i2 = 8192;
         }
-        return copyTo(file, file2, z10, i10);
+        return copyTo(file, file2, z, i2);
     }
 
-    @Deprecated(message = "Avoid creating temporary directories in the default temp location with this function due to too wide permissions on the newly created directory. Use kotlin.io.path.createTempDirectory instead.")
-    @k
-    public static final File createTempDir(@k String prefix, @l String str, @l File file) {
-        Intrinsics.checkNotNullParameter(prefix, "prefix");
-        File createTempFile = File.createTempFile(prefix, str, file);
-        createTempFile.delete();
-        if (createTempFile.mkdir()) {
-            Intrinsics.checkNotNull(createTempFile);
-            return createTempFile;
+    @d
+    public static final File createTempDir(@d String prefix, @e String str, @e File file) {
+        Intrinsics.checkParameterIsNotNull(prefix, "prefix");
+        File dir = File.createTempFile(prefix, str, file);
+        dir.delete();
+        if (dir.mkdir()) {
+            Intrinsics.checkExpressionValueIsNotNull(dir, "dir");
+            return dir;
         }
-        throw new IOException("Unable to create temporary directory " + createTempFile + '.');
+        throw new IOException("Unable to create temporary directory " + dir + '.');
     }
 
-    public static /* synthetic */ File createTempDir$default(String str, String str2, File file, int i10, Object obj) {
-        if ((i10 & 1) != 0) {
+    public static /* synthetic */ File createTempDir$default(String str, String str2, File file, int i2, Object obj) {
+        if ((i2 & 1) != 0) {
             str = "tmp";
         }
-        if ((i10 & 2) != 0) {
+        if ((i2 & 2) != 0) {
             str2 = null;
         }
-        if ((i10 & 4) != 0) {
+        if ((i2 & 4) != 0) {
             file = null;
         }
         return createTempDir(str, str2, file);
     }
 
-    @Deprecated(message = "Avoid creating temporary files in the default temp location with this function due to too wide permissions on the newly created file. Use kotlin.io.path.createTempFile instead or resort to java.io.File.createTempFile.")
-    @k
-    public static final File createTempFile(@k String prefix, @l String str, @l File file) {
-        Intrinsics.checkNotNullParameter(prefix, "prefix");
+    @d
+    public static final File createTempFile(@d String prefix, @e String str, @e File file) {
+        Intrinsics.checkParameterIsNotNull(prefix, "prefix");
         File createTempFile = File.createTempFile(prefix, str, file);
-        Intrinsics.checkNotNullExpressionValue(createTempFile, "createTempFile(...)");
+        Intrinsics.checkExpressionValueIsNotNull(createTempFile, "File.createTempFile(prefix, suffix, directory)");
         return createTempFile;
     }
 
-    public static /* synthetic */ File createTempFile$default(String str, String str2, File file, int i10, Object obj) {
-        if ((i10 & 1) != 0) {
+    public static /* synthetic */ File createTempFile$default(String str, String str2, File file, int i2, Object obj) {
+        if ((i2 & 1) != 0) {
             str = "tmp";
         }
-        if ((i10 & 2) != 0) {
+        if ((i2 & 2) != 0) {
             str2 = null;
         }
-        if ((i10 & 4) != 0) {
+        if ((i2 & 4) != 0) {
             file = null;
         }
         return createTempFile(str, str2, file);
     }
 
-    public static final boolean deleteRecursively(@k File file) {
-        Intrinsics.checkNotNullParameter(file, "<this>");
+    public static final boolean deleteRecursively(@d File deleteRecursively) {
+        Intrinsics.checkParameterIsNotNull(deleteRecursively, "$this$deleteRecursively");
         while (true) {
-            boolean z10 = true;
-            for (File file2 : FilesKt__FileTreeWalkKt.walkBottomUp(file)) {
-                if (file2.delete() || !file2.exists()) {
-                    if (z10) {
+            boolean z = true;
+            for (File file : FilesKt__FileTreeWalkKt.walkBottomUp(deleteRecursively)) {
+                if (file.delete() || !file.exists()) {
+                    if (z) {
                         break;
                     }
                 }
-                z10 = false;
+                z = false;
             }
-            return z10;
+            return z;
         }
     }
 
-    public static final boolean endsWith(@k File file, @k File other) {
-        Intrinsics.checkNotNullParameter(file, "<this>");
-        Intrinsics.checkNotNullParameter(other, "other");
-        FilePathComponents components = FilesKt__FilePathComponentsKt.toComponents(file);
+    public static final boolean endsWith(@d File endsWith, @d File other) {
+        Intrinsics.checkParameterIsNotNull(endsWith, "$this$endsWith");
+        Intrinsics.checkParameterIsNotNull(other, "other");
+        FilePathComponents components = FilesKt__FilePathComponentsKt.toComponents(endsWith);
         FilePathComponents components2 = FilesKt__FilePathComponentsKt.toComponents(other);
         if (components2.isRooted()) {
-            return Intrinsics.areEqual(file, other);
+            return Intrinsics.areEqual(endsWith, other);
         }
         int size = components.getSize() - components2.getSize();
         if (size < 0) {
@@ -226,121 +176,131 @@ class FilesKt__UtilsKt extends FilesKt__FileTreeWalkKt {
         return components.getSegments().subList(size, components.getSize()).equals(components2.getSegments());
     }
 
-    @k
-    public static final String getExtension(@k File file) {
-        Intrinsics.checkNotNullParameter(file, "<this>");
-        String name = file.getName();
-        Intrinsics.checkNotNullExpressionValue(name, "getName(...)");
-        return StringsKt.substringAfterLast(name, '.', "");
+    @d
+    public static final String getExtension(@d File extension) {
+        Intrinsics.checkParameterIsNotNull(extension, "$this$extension");
+        String name = extension.getName();
+        Intrinsics.checkExpressionValueIsNotNull(name, "name");
+        return StringsKt__StringsKt.substringAfterLast(name, '.', "");
     }
 
-    @k
-    public static final String getInvariantSeparatorsPath(@k File file) {
-        Intrinsics.checkNotNullParameter(file, "<this>");
-        char c10 = File.separatorChar;
-        String path = file.getPath();
-        Intrinsics.checkNotNullExpressionValue(path, "getPath(...)");
-        return c10 != '/' ? StringsKt.replace$default(path, c10, '/', false, 4, (Object) null) : path;
+    @d
+    public static final String getInvariantSeparatorsPath(@d File invariantSeparatorsPath) {
+        String replace$default;
+        Intrinsics.checkParameterIsNotNull(invariantSeparatorsPath, "$this$invariantSeparatorsPath");
+        if (File.separatorChar == '/') {
+            String path = invariantSeparatorsPath.getPath();
+            Intrinsics.checkExpressionValueIsNotNull(path, "path");
+            return path;
+        }
+        String path2 = invariantSeparatorsPath.getPath();
+        Intrinsics.checkExpressionValueIsNotNull(path2, "path");
+        replace$default = StringsKt__StringsJVMKt.replace$default(path2, File.separatorChar, '/', false, 4, (Object) null);
+        return replace$default;
     }
 
-    @k
-    public static final String getNameWithoutExtension(@k File file) {
-        Intrinsics.checkNotNullParameter(file, "<this>");
-        String name = file.getName();
-        Intrinsics.checkNotNullExpressionValue(name, "getName(...)");
-        return StringsKt.substringBeforeLast$default(name, b.f29697h, (String) null, 2, (Object) null);
+    @d
+    public static final String getNameWithoutExtension(@d File nameWithoutExtension) {
+        String substringBeforeLast$default;
+        Intrinsics.checkParameterIsNotNull(nameWithoutExtension, "$this$nameWithoutExtension");
+        String name = nameWithoutExtension.getName();
+        Intrinsics.checkExpressionValueIsNotNull(name, "name");
+        substringBeforeLast$default = StringsKt__StringsKt.substringBeforeLast$default(name, ".", (String) null, 2, (Object) null);
+        return substringBeforeLast$default;
     }
 
-    @k
-    public static final File normalize(@k File file) {
-        Intrinsics.checkNotNullParameter(file, "<this>");
-        FilePathComponents components = FilesKt__FilePathComponentsKt.toComponents(file);
+    @d
+    public static final File normalize(@d File normalize) {
+        Intrinsics.checkParameterIsNotNull(normalize, "$this$normalize");
+        FilePathComponents components = FilesKt__FilePathComponentsKt.toComponents(normalize);
         File root = components.getRoot();
         List<File> normalize$FilesKt__UtilsKt = normalize$FilesKt__UtilsKt(components.getSegments());
-        String separator = File.separator;
-        Intrinsics.checkNotNullExpressionValue(separator, "separator");
-        return resolve(root, CollectionsKt.joinToString$default(normalize$FilesKt__UtilsKt, separator, null, null, 0, null, null, 62, null));
+        String str = File.separator;
+        Intrinsics.checkExpressionValueIsNotNull(str, "File.separator");
+        return resolve(root, CollectionsKt___CollectionsKt.joinToString$default(normalize$FilesKt__UtilsKt, str, null, null, 0, null, null, 62, null));
     }
 
-    private static final FilePathComponents normalize$FilesKt__UtilsKt(FilePathComponents filePathComponents) {
+    private static final FilePathComponents normalize$FilesKt__UtilsKt(@d FilePathComponents filePathComponents) {
         return new FilePathComponents(filePathComponents.getRoot(), normalize$FilesKt__UtilsKt(filePathComponents.getSegments()));
     }
 
-    @k
-    public static final File relativeTo(@k File file, @k File base) {
-        Intrinsics.checkNotNullParameter(file, "<this>");
-        Intrinsics.checkNotNullParameter(base, "base");
-        return new File(toRelativeString(file, base));
+    @d
+    public static final File relativeTo(@d File relativeTo, @d File base) {
+        Intrinsics.checkParameterIsNotNull(relativeTo, "$this$relativeTo");
+        Intrinsics.checkParameterIsNotNull(base, "base");
+        return new File(toRelativeString(relativeTo, base));
     }
 
-    @l
-    public static final File relativeToOrNull(@k File file, @k File base) {
-        Intrinsics.checkNotNullParameter(file, "<this>");
-        Intrinsics.checkNotNullParameter(base, "base");
-        String relativeStringOrNull$FilesKt__UtilsKt = toRelativeStringOrNull$FilesKt__UtilsKt(file, base);
+    @e
+    public static final File relativeToOrNull(@d File relativeToOrNull, @d File base) {
+        Intrinsics.checkParameterIsNotNull(relativeToOrNull, "$this$relativeToOrNull");
+        Intrinsics.checkParameterIsNotNull(base, "base");
+        String relativeStringOrNull$FilesKt__UtilsKt = toRelativeStringOrNull$FilesKt__UtilsKt(relativeToOrNull, base);
         if (relativeStringOrNull$FilesKt__UtilsKt != null) {
             return new File(relativeStringOrNull$FilesKt__UtilsKt);
         }
         return null;
     }
 
-    @k
-    public static final File relativeToOrSelf(@k File file, @k File base) {
-        Intrinsics.checkNotNullParameter(file, "<this>");
-        Intrinsics.checkNotNullParameter(base, "base");
-        String relativeStringOrNull$FilesKt__UtilsKt = toRelativeStringOrNull$FilesKt__UtilsKt(file, base);
-        return relativeStringOrNull$FilesKt__UtilsKt != null ? new File(relativeStringOrNull$FilesKt__UtilsKt) : file;
+    @d
+    public static final File relativeToOrSelf(@d File relativeToOrSelf, @d File base) {
+        Intrinsics.checkParameterIsNotNull(relativeToOrSelf, "$this$relativeToOrSelf");
+        Intrinsics.checkParameterIsNotNull(base, "base");
+        String relativeStringOrNull$FilesKt__UtilsKt = toRelativeStringOrNull$FilesKt__UtilsKt(relativeToOrSelf, base);
+        return relativeStringOrNull$FilesKt__UtilsKt != null ? new File(relativeStringOrNull$FilesKt__UtilsKt) : relativeToOrSelf;
     }
 
-    @k
-    public static final File resolve(@k File file, @k File relative) {
-        Intrinsics.checkNotNullParameter(file, "<this>");
-        Intrinsics.checkNotNullParameter(relative, "relative");
+    @d
+    public static final File resolve(@d File resolve, @d File relative) {
+        boolean endsWith$default;
+        Intrinsics.checkParameterIsNotNull(resolve, "$this$resolve");
+        Intrinsics.checkParameterIsNotNull(relative, "relative");
         if (FilesKt__FilePathComponentsKt.isRooted(relative)) {
             return relative;
         }
-        String file2 = file.toString();
-        Intrinsics.checkNotNullExpressionValue(file2, "toString(...)");
-        if (file2.length() != 0) {
-            char c10 = File.separatorChar;
-            if (!StringsKt.endsWith$default((CharSequence) file2, c10, false, 2, (Object) null)) {
-                return new File(file2 + c10 + relative);
+        String file = resolve.toString();
+        Intrinsics.checkExpressionValueIsNotNull(file, "this.toString()");
+        if (!(file.length() == 0)) {
+            endsWith$default = StringsKt__StringsKt.endsWith$default((CharSequence) file, File.separatorChar, false, 2, (Object) null);
+            if (!endsWith$default) {
+                return new File(file + File.separatorChar + relative);
             }
         }
-        return new File(file2 + relative);
+        return new File(file + relative);
     }
 
-    @k
-    public static final File resolveSibling(@k File file, @k File relative) {
-        Intrinsics.checkNotNullParameter(file, "<this>");
-        Intrinsics.checkNotNullParameter(relative, "relative");
-        FilePathComponents components = FilesKt__FilePathComponentsKt.toComponents(file);
+    @d
+    public static final File resolveSibling(@d File resolveSibling, @d File relative) {
+        Intrinsics.checkParameterIsNotNull(resolveSibling, "$this$resolveSibling");
+        Intrinsics.checkParameterIsNotNull(relative, "relative");
+        FilePathComponents components = FilesKt__FilePathComponentsKt.toComponents(resolveSibling);
         return resolve(resolve(components.getRoot(), components.getSize() == 0 ? new File("..") : components.subPath(0, components.getSize() - 1)), relative);
     }
 
-    public static final boolean startsWith(@k File file, @k File other) {
-        Intrinsics.checkNotNullParameter(file, "<this>");
-        Intrinsics.checkNotNullParameter(other, "other");
-        FilePathComponents components = FilesKt__FilePathComponentsKt.toComponents(file);
+    public static final boolean startsWith(@d File startsWith, @d File other) {
+        Intrinsics.checkParameterIsNotNull(startsWith, "$this$startsWith");
+        Intrinsics.checkParameterIsNotNull(other, "other");
+        FilePathComponents components = FilesKt__FilePathComponentsKt.toComponents(startsWith);
         FilePathComponents components2 = FilesKt__FilePathComponentsKt.toComponents(other);
-        if (Intrinsics.areEqual(components.getRoot(), components2.getRoot()) && components.getSize() >= components2.getSize()) {
+        if (!(!Intrinsics.areEqual(components.getRoot(), components2.getRoot())) && components.getSize() >= components2.getSize()) {
             return components.getSegments().subList(0, components2.getSize()).equals(components2.getSegments());
         }
         return false;
     }
 
-    @k
-    public static final String toRelativeString(@k File file, @k File base) {
-        Intrinsics.checkNotNullParameter(file, "<this>");
-        Intrinsics.checkNotNullParameter(base, "base");
-        String relativeStringOrNull$FilesKt__UtilsKt = toRelativeStringOrNull$FilesKt__UtilsKt(file, base);
+    @d
+    public static final String toRelativeString(@d File toRelativeString, @d File base) {
+        Intrinsics.checkParameterIsNotNull(toRelativeString, "$this$toRelativeString");
+        Intrinsics.checkParameterIsNotNull(base, "base");
+        String relativeStringOrNull$FilesKt__UtilsKt = toRelativeStringOrNull$FilesKt__UtilsKt(toRelativeString, base);
         if (relativeStringOrNull$FilesKt__UtilsKt != null) {
             return relativeStringOrNull$FilesKt__UtilsKt;
         }
-        throw new IllegalArgumentException("this and base files have different roots: " + file + " and " + base + '.');
+        throw new IllegalArgumentException("this and base files have different roots: " + toRelativeString + " and " + base + '.');
     }
 
-    private static final String toRelativeStringOrNull$FilesKt__UtilsKt(File file, File file2) {
+    private static final String toRelativeStringOrNull$FilesKt__UtilsKt(@d File file, File file2) {
+        List drop;
         FilePathComponents normalize$FilesKt__UtilsKt = normalize$FilesKt__UtilsKt(FilesKt__FilePathComponentsKt.toComponents(file));
         FilePathComponents normalize$FilesKt__UtilsKt2 = normalize$FilesKt__UtilsKt(FilesKt__FilePathComponentsKt.toComponents(file2));
         if (!Intrinsics.areEqual(normalize$FilesKt__UtilsKt.getRoot(), normalize$FilesKt__UtilsKt2.getRoot())) {
@@ -348,77 +308,82 @@ class FilesKt__UtilsKt extends FilesKt__FileTreeWalkKt {
         }
         int size = normalize$FilesKt__UtilsKt2.getSize();
         int size2 = normalize$FilesKt__UtilsKt.getSize();
+        int i2 = 0;
         int min = Math.min(size2, size);
-        int i10 = 0;
-        while (i10 < min && Intrinsics.areEqual(normalize$FilesKt__UtilsKt.getSegments().get(i10), normalize$FilesKt__UtilsKt2.getSegments().get(i10))) {
-            i10++;
+        while (i2 < min && Intrinsics.areEqual(normalize$FilesKt__UtilsKt.getSegments().get(i2), normalize$FilesKt__UtilsKt2.getSegments().get(i2))) {
+            i2++;
         }
-        StringBuilder sb2 = new StringBuilder();
-        int i11 = size - 1;
-        if (i10 <= i11) {
-            while (!Intrinsics.areEqual(normalize$FilesKt__UtilsKt2.getSegments().get(i11).getName(), "..")) {
-                sb2.append("..");
-                if (i11 != i10) {
-                    sb2.append(File.separatorChar);
+        StringBuilder sb = new StringBuilder();
+        int i3 = size - 1;
+        if (i3 >= i2) {
+            while (!Intrinsics.areEqual(normalize$FilesKt__UtilsKt2.getSegments().get(i3).getName(), "..")) {
+                sb.append("..");
+                if (i3 != i2) {
+                    sb.append(File.separatorChar);
                 }
-                if (i11 != i10) {
-                    i11--;
+                if (i3 != i2) {
+                    i3--;
                 }
             }
             return null;
         }
-        if (i10 < size2) {
-            if (i10 < size) {
-                sb2.append(File.separatorChar);
+        if (i2 < size2) {
+            if (i2 < size) {
+                sb.append(File.separatorChar);
             }
-            List drop = CollectionsKt.drop(normalize$FilesKt__UtilsKt.getSegments(), i10);
-            String separator = File.separator;
-            Intrinsics.checkNotNullExpressionValue(separator, "separator");
-            CollectionsKt___CollectionsKt.joinTo(drop, sb2, (r14 & 2) != 0 ? ", " : separator, (r14 & 4) != 0 ? "" : null, (r14 & 8) == 0 ? null : "", (r14 & 16) != 0 ? -1 : 0, (r14 & 32) != 0 ? FoldedTextView.f12585y : null, (r14 & 64) != 0 ? null : null);
+            drop = CollectionsKt___CollectionsKt.drop(normalize$FilesKt__UtilsKt.getSegments(), i2);
+            String str = File.separator;
+            Intrinsics.checkExpressionValueIsNotNull(str, "File.separator");
+            CollectionsKt.joinTo$default(drop, sb, str, null, null, 0, null, null, 124, null);
         }
-        return sb2.toString();
+        return sb.toString();
     }
 
-    private static final List<File> normalize$FilesKt__UtilsKt(List<? extends File> list) {
+    private static final List<File> normalize$FilesKt__UtilsKt(@d List<? extends File> list) {
         ArrayList arrayList = new ArrayList(list.size());
         for (File file : list) {
             String name = file.getName();
-            if (!Intrinsics.areEqual(name, b.f29697h)) {
-                if (!Intrinsics.areEqual(name, "..")) {
-                    arrayList.add(file);
-                } else if (arrayList.isEmpty() || Intrinsics.areEqual(((File) CollectionsKt.last((List) arrayList)).getName(), "..")) {
-                    arrayList.add(file);
-                } else {
-                    arrayList.remove(arrayList.size() - 1);
+            if (name != null) {
+                int hashCode = name.hashCode();
+                if (hashCode != 46) {
+                    if (hashCode == 1472 && name.equals("..")) {
+                        if (arrayList.isEmpty() || !(!Intrinsics.areEqual(((File) CollectionsKt.last((List) arrayList)).getName(), ".."))) {
+                            arrayList.add(file);
+                        } else {
+                            arrayList.remove(arrayList.size() - 1);
+                        }
+                    }
+                } else if (name.equals(".")) {
                 }
             }
+            arrayList.add(file);
         }
         return arrayList;
     }
 
-    @k
-    public static final File resolve(@k File file, @k String relative) {
-        Intrinsics.checkNotNullParameter(file, "<this>");
-        Intrinsics.checkNotNullParameter(relative, "relative");
-        return resolve(file, new File(relative));
+    @d
+    public static final File resolve(@d File resolve, @d String relative) {
+        Intrinsics.checkParameterIsNotNull(resolve, "$this$resolve");
+        Intrinsics.checkParameterIsNotNull(relative, "relative");
+        return resolve(resolve, new File(relative));
     }
 
-    @k
-    public static final File resolveSibling(@k File file, @k String relative) {
-        Intrinsics.checkNotNullParameter(file, "<this>");
-        Intrinsics.checkNotNullParameter(relative, "relative");
-        return resolveSibling(file, new File(relative));
+    @d
+    public static final File resolveSibling(@d File resolveSibling, @d String relative) {
+        Intrinsics.checkParameterIsNotNull(resolveSibling, "$this$resolveSibling");
+        Intrinsics.checkParameterIsNotNull(relative, "relative");
+        return resolveSibling(resolveSibling, new File(relative));
     }
 
-    public static final boolean startsWith(@k File file, @k String other) {
-        Intrinsics.checkNotNullParameter(file, "<this>");
-        Intrinsics.checkNotNullParameter(other, "other");
-        return startsWith(file, new File(other));
+    public static final boolean startsWith(@d File startsWith, @d String other) {
+        Intrinsics.checkParameterIsNotNull(startsWith, "$this$startsWith");
+        Intrinsics.checkParameterIsNotNull(other, "other");
+        return startsWith(startsWith, new File(other));
     }
 
-    public static final boolean endsWith(@k File file, @k String other) {
-        Intrinsics.checkNotNullParameter(file, "<this>");
-        Intrinsics.checkNotNullParameter(other, "other");
-        return endsWith(file, new File(other));
+    public static final boolean endsWith(@d File endsWith, @d String other) {
+        Intrinsics.checkParameterIsNotNull(endsWith, "$this$endsWith");
+        Intrinsics.checkParameterIsNotNull(other, "other");
+        return endsWith(endsWith, new File(other));
     }
 }

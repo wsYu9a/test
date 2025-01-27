@@ -8,34 +8,34 @@ import java.util.List;
 final class ac implements Runnable {
 
     /* renamed from: a */
-    final /* synthetic */ int f24986a;
+    final /* synthetic */ int f30959a;
 
     /* renamed from: b */
-    final /* synthetic */ List f24987b;
+    final /* synthetic */ List f30960b;
 
     /* renamed from: c */
-    final /* synthetic */ List f24988c;
+    final /* synthetic */ List f30961c;
 
     /* renamed from: d */
-    final /* synthetic */ String f24989d;
+    final /* synthetic */ String f30962d;
 
     /* renamed from: e */
-    final /* synthetic */ aa f24990e;
+    final /* synthetic */ aa f30963e;
 
-    public ac(aa aaVar, int i10, List list, List list2, String str) {
-        this.f24990e = aaVar;
-        this.f24986a = i10;
-        this.f24987b = list;
-        this.f24988c = list2;
-        this.f24989d = str;
+    ac(aa aaVar, int i2, List list, List list2, String str) {
+        this.f30963e = aaVar;
+        this.f30959a = i2;
+        this.f30960b = list;
+        this.f30961c = list2;
+        this.f30962d = str;
     }
 
     @Override // java.lang.Runnable
     public final void run() {
         Context context;
-        aa aaVar = this.f24990e;
-        PushMessageCallback pushMessageCallback = ((z) aaVar).f25023b;
-        context = ((com.vivo.push.l) aaVar).f25064a;
-        pushMessageCallback.onSetAlias(context, this.f24986a, this.f24987b, this.f24988c, this.f24989d);
+        aa aaVar = this.f30963e;
+        PushMessageCallback pushMessageCallback = ((z) aaVar).f30996b;
+        context = ((com.vivo.push.l) aaVar).f31028a;
+        pushMessageCallback.onSetAlias(context, this.f30959a, this.f30960b, this.f30961c, this.f30962d);
     }
 }

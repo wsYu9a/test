@@ -2,8 +2,7 @@ package com.qq.e.mediation.interfaces;
 
 import java.util.Map;
 
-@Deprecated
-/* loaded from: classes3.dex */
+/* loaded from: classes4.dex */
 public interface IBaseAd {
     int getECPM();
 
@@ -11,11 +10,11 @@ public interface IBaseAd {
 
     String getReqId();
 
-    void sendLossNotification(int i10, int i11, String str);
+    void sendLossNotification(int i2, int i3, String str);
 
-    void sendWinNotification(int i10);
+    void sendWinNotification(int i2);
 
-    void setBidECPM(int i10);
+    void setBidECPM(int i2);
 
     void setPayload(String str);
 }

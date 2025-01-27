@@ -1,6 +1,6 @@
 package com.kwai.adclient.kscommerciallogger.model;
 
-/* loaded from: classes3.dex */
+/* loaded from: classes2.dex */
 public enum BusinessType {
     TACHIKOMA("TACHIKOMA"),
     AD_SPLASH("AD_SPLASH"),

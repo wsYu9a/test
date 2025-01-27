@@ -7,7 +7,7 @@ import java.util.List;
 
 @KsAdSdkApi
 @Keep
-/* loaded from: classes3.dex */
+/* loaded from: classes2.dex */
 public abstract class KsCustomController {
     @KsAdSdkApi
     @Keep
@@ -42,12 +42,6 @@ public abstract class KsCustomController {
     @KsAdSdkApi
     @Keep
     public boolean canUsePhoneState() {
-        return true;
-    }
-
-    @KsAdSdkApi
-    @Keep
-    public boolean canUseSensorManager() {
         return true;
     }
 

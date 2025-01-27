@@ -1,12 +1,12 @@
 package com.martian.mibook.lib.account.request;
 
-import com.martian.libmars.common.ConfigSingleton;
-import u8.c;
+import com.martian.libcomm.http.requests.c;
+import com.martian.libmars.d.h;
 
 /* loaded from: classes3.dex */
 public class TYBookUrlProvider extends c {
-    @Override // u8.c
+    @Override // com.martian.libcomm.http.requests.c
     public String getBaseUrl() {
-        return ConfigSingleton.D().J0() ? "http://testm.taoyuewenhua.com/" : ConfigSingleton.D().z0() ? "http://betam.taoyuewenhua.com/" : "http://m.taoyuewenhua.com/";
+        return h.F().Q0() ? "http://testm.taoyuewenhua.com/" : h.F().G0() ? "http://betam.taoyuewenhua.com/" : "http://m.taoyuewenhua.com/";
     }
 }

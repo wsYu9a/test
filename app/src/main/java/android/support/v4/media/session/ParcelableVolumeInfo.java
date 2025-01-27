@@ -1,10 +1,8 @@
 package android.support.v4.media.session;
 
-import android.annotation.SuppressLint;
 import android.os.Parcel;
 import android.os.Parcelable;
 
-@SuppressLint({"BanParcelableUsage"})
 /* loaded from: classes.dex */
 public class ParcelableVolumeInfo implements Parcelable {
     public static final Parcelable.Creator<ParcelableVolumeInfo> CREATOR = new Parcelable.Creator<ParcelableVolumeInfo>() { // from class: android.support.v4.media.session.ParcelableVolumeInfo.1
@@ -16,8 +14,8 @@ public class ParcelableVolumeInfo implements Parcelable {
 
         /* JADX WARN: Can't rename method to resolve collision */
         @Override // android.os.Parcelable.Creator
-        public ParcelableVolumeInfo[] newArray(int i10) {
-            return new ParcelableVolumeInfo[i10];
+        public ParcelableVolumeInfo[] newArray(int i2) {
+            return new ParcelableVolumeInfo[i2];
         }
     };
     public int audioStream;
@@ -26,12 +24,12 @@ public class ParcelableVolumeInfo implements Parcelable {
     public int maxVolume;
     public int volumeType;
 
-    public ParcelableVolumeInfo(int i10, int i11, int i12, int i13, int i14) {
-        this.volumeType = i10;
-        this.audioStream = i11;
-        this.controlType = i12;
-        this.maxVolume = i13;
-        this.currentVolume = i14;
+    public ParcelableVolumeInfo(int i2, int i3, int i4, int i5, int i6) {
+        this.volumeType = i2;
+        this.audioStream = i3;
+        this.controlType = i4;
+        this.maxVolume = i5;
+        this.currentVolume = i6;
     }
 
     @Override // android.os.Parcelable
@@ -40,7 +38,7 @@ public class ParcelableVolumeInfo implements Parcelable {
     }
 
     @Override // android.os.Parcelable
-    public void writeToParcel(Parcel parcel, int i10) {
+    public void writeToParcel(Parcel parcel, int i2) {
         parcel.writeInt(this.volumeType);
         parcel.writeInt(this.controlType);
         parcel.writeInt(this.maxVolume);

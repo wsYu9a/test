@@ -6,13 +6,13 @@ import com.ksad.json.annotation.KsJson;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-/* loaded from: classes3.dex */
+/* loaded from: classes2.dex */
 public final class h extends b<a> {
 
     @KsJson
-    public static final class a extends com.kwad.sdk.core.response.a.a {
-        public String axi = "";
-        public String axj = "";
+    public static final class a extends com.kwad.sdk.core.response.kwai.a {
+        public String adV = "";
+        public String adW = "";
     }
 
     public h() {
@@ -28,9 +28,9 @@ public final class h extends b<a> {
         String string = sharedPreferences.getString(getKey(), "");
         if (!TextUtils.isEmpty(string)) {
             try {
-                value.parseJson(new JSONObject(b.dw(string)));
-            } catch (JSONException e10) {
-                com.kwad.sdk.core.d.c.printStackTraceOnly(e10);
+                value.parseJson(new JSONObject(b.bC(string)));
+            } catch (JSONException e2) {
+                com.kwad.sdk.core.d.b.printStackTraceOnly(e2);
             }
         }
         setValue(value);
@@ -41,22 +41,12 @@ public final class h extends b<a> {
         if (getValue() == null || getValue().toJson() == null) {
             editor.putString(getKey(), "");
         } else {
-            editor.putString(getKey(), b.dv(getValue().toJson().toString()));
+            editor.putString(getKey(), b.bB(getValue().toJson().toString()));
         }
     }
 
-    public final String getImei() {
-        a value = getValue();
-        return (value == null || TextUtils.isEmpty(value.axi)) ? "" : value.axi;
-    }
-
-    public final String getOaid() {
-        a value = getValue();
-        return (value == null || TextUtils.isEmpty(value.axj)) ? "" : value.axj;
-    }
-
     @Override // com.kwad.sdk.core.config.item.b
-    public final void k(JSONObject jSONObject) {
+    public final void g(JSONObject jSONObject) {
         JSONObject optJSONObject = jSONObject.optJSONObject(getKey());
         if (optJSONObject == null) {
             return;
@@ -64,5 +54,15 @@ public final class h extends b<a> {
         a aVar = new a();
         aVar.parseJson(optJSONObject);
         setValue(aVar);
+    }
+
+    public final String getImei() {
+        a value = getValue();
+        return (value == null || TextUtils.isEmpty(value.adV)) ? "" : value.adV;
+    }
+
+    public final String getOaid() {
+        a value = getValue();
+        return (value == null || TextUtils.isEmpty(value.adW)) ? "" : value.adW;
     }
 }

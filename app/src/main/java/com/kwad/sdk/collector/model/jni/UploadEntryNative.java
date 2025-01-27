@@ -2,19 +2,27 @@ package com.kwad.sdk.collector.model.jni;
 
 import androidx.annotation.Nullable;
 import androidx.annotation.WorkerThread;
-import com.bytedance.sdk.openadsdk.downloadnew.core.TTDownloadField;
 import com.kwad.sdk.collector.AppStatusNative;
 import com.kwad.sdk.collector.model.e;
-import com.kwad.sdk.utils.x;
+import com.kwad.sdk.utils.t;
+import com.ss.android.socialbase.downloader.constants.DBDefinition;
 import org.json.JSONObject;
 
-/* loaded from: classes3.dex */
+/* loaded from: classes2.dex */
 public class UploadEntryNative extends NativeObject implements e {
-    public UploadEntryNative(long j10) {
-        this.mPtr = j10;
+    public UploadEntryNative() {
+        this.mPtr = AppStatusNative.nativeCreateUploadEntry();
     }
 
-    private String Cb() {
+    public UploadEntryNative(long j2) {
+        this.mPtr = j2;
+    }
+
+    private static String a(UploadEntryNative uploadEntryNative) {
+        return AppStatusNative.uploadEntryGetPackageName(uploadEntryNative);
+    }
+
+    private String tM() {
         try {
             String uploadEntryGetPackageName = AppStatusNative.uploadEntryGetPackageName(this);
             String uploadEntryGetOriginFilePath = AppStatusNative.uploadEntryGetOriginFilePath(this);
@@ -24,30 +32,11 @@ public class UploadEntryNative extends NativeObject implements e {
         }
     }
 
-    private static String a(UploadEntryNative uploadEntryNative) {
-        return AppStatusNative.uploadEntryGetPackageName(uploadEntryNative);
-    }
-
-    @Override // com.kwad.sdk.collector.model.e
-    @Nullable
-    @WorkerThread
-    public final JSONObject BZ() {
-        try {
-            JSONObject jSONObject = new JSONObject();
-            x.putValue(jSONObject, "packageName", AppStatusNative.uploadEntryGetPackageName(this));
-            x.putValue(jSONObject, "content", com.kwad.sdk.collector.e.cz(AppStatusNative.uploadEntryGetOriginFilePath(this)));
-            x.putValue(jSONObject, TTDownloadField.TT_FILE_NAME, Cb());
-            return jSONObject;
-        } catch (Throwable unused) {
-            return null;
-        }
-    }
-
     @Override // com.kwad.sdk.collector.model.jni.NativeObject
     public void destroy() {
-        long j10 = this.mPtr;
-        if (j10 != 0) {
-            AppStatusNative.nativeDeleteUploadEntry(j10);
+        long j2 = this.mPtr;
+        if (j2 != 0) {
+            AppStatusNative.nativeDeleteUploadEntry(j2);
             this.mPtr = 0L;
         }
     }
@@ -63,10 +52,11 @@ public class UploadEntryNative extends NativeObject implements e {
             if (uploadEntryGetPackageName == null ? a(uploadEntryNative) != null : !uploadEntryGetPackageName.equals(a(uploadEntryNative))) {
                 return false;
             }
+            String uploadEntryGetOriginFilePath2 = AppStatusNative.uploadEntryGetOriginFilePath(uploadEntryNative);
             if (uploadEntryGetOriginFilePath != null) {
-                return uploadEntryGetOriginFilePath.equals(AppStatusNative.uploadEntryGetOriginFilePath(uploadEntryNative));
+                return uploadEntryGetOriginFilePath.equals(uploadEntryGetOriginFilePath2);
             }
-            if (AppStatusNative.uploadEntryGetOriginFilePath(uploadEntryNative) == null) {
+            if (uploadEntryGetOriginFilePath2 == null) {
                 return true;
             }
         }
@@ -84,25 +74,36 @@ public class UploadEntryNative extends NativeObject implements e {
         if (jSONObject == null) {
             return;
         }
-        String optString = jSONObject.optString("packageName");
+        String optString = jSONObject.optString(DBDefinition.PACKAGE_NAME);
         String optString2 = jSONObject.optString("originFilePath");
         AppStatusNative.uploadEntrySetPackageName(this, optString);
         AppStatusNative.uploadEntrySetOriginFilePath(this, optString2);
     }
 
+    @Override // com.kwad.sdk.collector.model.e
+    @Nullable
+    @WorkerThread
+    public final JSONObject tK() {
+        try {
+            JSONObject jSONObject = new JSONObject();
+            t.putValue(jSONObject, DBDefinition.PACKAGE_NAME, AppStatusNative.uploadEntryGetPackageName(this));
+            t.putValue(jSONObject, "content", com.kwad.sdk.collector.e.bq(AppStatusNative.uploadEntryGetOriginFilePath(this)));
+            t.putValue(jSONObject, "fileName", tM());
+            return jSONObject;
+        } catch (Throwable unused) {
+            return null;
+        }
+    }
+
     @Override // com.kwad.sdk.core.b
     public JSONObject toJson() {
         JSONObject jSONObject = new JSONObject();
-        x.putValue(jSONObject, "packageName", AppStatusNative.uploadEntryGetPackageName(this));
-        x.putValue(jSONObject, "originFilePath", AppStatusNative.uploadEntryGetOriginFilePath(this));
+        t.putValue(jSONObject, DBDefinition.PACKAGE_NAME, AppStatusNative.uploadEntryGetPackageName(this));
+        t.putValue(jSONObject, "originFilePath", AppStatusNative.uploadEntryGetOriginFilePath(this));
         return jSONObject;
     }
 
     public String toString() {
         return "UploadEntry{packageName='" + AppStatusNative.uploadEntryGetPackageName(this) + "', originFile=" + AppStatusNative.uploadEntryGetOriginFilePath(this) + '}';
-    }
-
-    public UploadEntryNative() {
-        this.mPtr = AppStatusNative.nativeCreateUploadEntry();
     }
 }

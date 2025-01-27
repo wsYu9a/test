@@ -2,351 +2,349 @@ package com.martian.apptask;
 
 import android.content.Context;
 import android.text.TextUtils;
-import ba.j;
 import com.martian.apptask.data.AlipayRedpaper;
 import com.martian.apptask.data.AppTask;
 import com.martian.apptask.data.AppTaskList;
-import com.martian.libmars.common.ConfigSingleton;
-import i8.g;
-import x8.c;
+import com.martian.apptask.g.g;
+import com.martian.libsupport.h;
 
-/* loaded from: classes3.dex */
+/* loaded from: classes2.dex */
 public class AppTaskManager {
 
+    /* renamed from: a */
+    private static final String f9624a = "package_";
+
     /* renamed from: b */
-    public static final String f11985b = "package_";
+    private static final String f9625b = "package_time_";
 
     /* renamed from: c */
-    public static final String f11986c = "package_time_";
+    private static final String f9626c = "PREF_PACKAGE_OPENED_";
 
     /* renamed from: d */
-    public static final String f11987d = "PREF_PACKAGE_OPENED_";
+    public static final String f9627d = "PREF_TOTAL_COINS";
 
     /* renamed from: e */
-    public static final String f11988e = "PREF_TOTAL_COINS";
+    public static final String f9628e = "TOUSHI_STATE";
 
     /* renamed from: f */
-    public static final String f11989f = "TOUSHI_STATE";
+    public static final String f9629f = "PREF_VIP_DEADLINE";
 
     /* renamed from: g */
-    public static final String f11990g = "PREF_VIP_DEADLINE";
+    public static final String f9630g = "PREF_FIRST_GRAP";
 
     /* renamed from: h */
-    public static final String f11991h = "PREF_FIRST_GRAP";
+    private static final String f9631h = "PREF_REDPAPER_OPENED_";
 
     /* renamed from: i */
-    public static final String f11992i = "PREF_REDPAPER_OPENED_";
-
-    /* renamed from: a */
-    public final Context f11993a;
+    private final Context f9632i;
 
     public interface a {
         void a(AppTaskList appTaskList);
 
-        void onLoading(boolean z10);
+        void onLoading(boolean loading);
 
-        void onResultError(c cVar);
+        void onResultError(b.d.c.b.c errorResult);
     }
 
     public interface b {
         void a(AppTask appTask);
 
-        void onLoading(boolean z10);
+        void onLoading(boolean loading);
 
-        void onResultError(c cVar);
+        void onResultError(b.d.c.b.c errorResult);
     }
 
     public AppTaskManager(Context context) {
-        this.f11993a = context;
+        this.f9632i = context;
     }
 
-    public static boolean A(Context context, String str) {
-        return i(context, str) == -1;
+    public static boolean A(Context context, String packageName) {
+        return i(context, packageName) == -1;
     }
 
-    public static boolean C(Context context, AppTask appTask) {
-        if (!g.m(context, appTask.packageName)) {
+    public static boolean C(Context context, AppTask app) {
+        if (!g.g(context, app.packageName)) {
             return false;
         }
-        StringBuilder sb2 = new StringBuilder();
-        sb2.append(f11987d);
-        sb2.append(appTask.packageName);
-        return j.d(context, sb2.toString(), false);
+        StringBuilder sb = new StringBuilder();
+        sb.append(f9626c);
+        sb.append(app.packageName);
+        return h.d(context, sb.toString(), false);
     }
 
-    public static boolean D(Context context, String str) {
-        if (!g.m(context, str)) {
+    public static boolean D(Context context, String packageName) {
+        if (!g.g(context, packageName)) {
             return false;
         }
-        StringBuilder sb2 = new StringBuilder();
-        sb2.append(f11987d);
-        sb2.append(str);
-        return j.d(context, sb2.toString(), false);
+        StringBuilder sb = new StringBuilder();
+        sb.append(f9626c);
+        sb.append(packageName);
+        return h.d(context, sb.toString(), false);
     }
 
-    public static boolean E(Context context, AlipayRedpaper alipayRedpaper) {
-        if (j.h(context, f11986c + alipayRedpaper.getPackageName(), -1L) == -1) {
+    public static boolean E(Context context, AlipayRedpaper redpaper) {
+        if (h.h(context, f9625b + redpaper.getPackageName(), -1L) == -1) {
             return true;
         }
-        return w(context, alipayRedpaper.getPackageName(), 120L);
+        return w(context, redpaper.getPackageName(), 120L);
     }
 
-    public static boolean F(Context context, AlipayRedpaper alipayRedpaper) {
-        return E(context, alipayRedpaper) && G(context, alipayRedpaper);
+    public static boolean F(Context context, AlipayRedpaper redpaper) {
+        return E(context, redpaper) && G(context, redpaper);
     }
 
-    public static boolean G(Context context, AlipayRedpaper alipayRedpaper) {
-        if (l(alipayRedpaper) >= 5) {
+    public static boolean G(Context context, AlipayRedpaper redpaper) {
+        if (l(redpaper) >= 5) {
             return true;
         }
-        long h10 = j.h(context, f11992i + alipayRedpaper.getTime(), -1L);
-        return h10 != -1 && System.currentTimeMillis() - h10 > 60000;
+        long h2 = h.h(context, f9631h + redpaper.getTime(), -1L);
+        return h2 != -1 && System.currentTimeMillis() - h2 > 60000;
     }
 
     public static boolean H(Context context) {
-        return j.d(context, f11989f, false);
+        return h.d(context, f9628e, false);
     }
 
     public static boolean I(Context context) {
-        long h10 = j.h(context, f11990g, -1L);
-        if (h10 != -1 || !H(context)) {
-            return System.currentTimeMillis() < h10;
+        long h2 = h.h(context, f9629f, -1L);
+        if (h2 != -1 || !H(context)) {
+            return System.currentTimeMillis() < h2;
         }
         S(context, 92);
         return true;
     }
 
-    public static void J(Context context, AppTask appTask) {
-        j.p(context, f11987d + appTask.packageName, true);
+    public static void J(Context context, AppTask app) {
+        h.p(context, f9626c + app.packageName, true);
     }
 
-    public static void K(Context context, String str) {
-        j.p(context, f11987d + str, true);
+    public static void K(Context context, String packageName) {
+        h.p(context, f9626c + packageName, true);
     }
 
-    public static void L(Context context, String str) {
-        j.n(context, f11986c + str, System.currentTimeMillis());
+    public static void L(Context context, String packageName) {
+        h.n(context, f9625b + packageName, System.currentTimeMillis());
     }
 
-    public static void N(Context context, AppTask appTask) {
-        if (TextUtils.isEmpty(appTask.packageName) || A(context, appTask.packageName)) {
+    public static void N(Context context, AppTask app) {
+        if (TextUtils.isEmpty(app.packageName) || A(context, app.packageName)) {
             return;
         }
-        j.m(context, f11985b + appTask.packageName, appTask.taskCoins);
-        L(context, appTask.packageName);
+        h.m(context, f9624a + app.packageName, app.taskCoins);
+        L(context, app.packageName);
     }
 
-    public static void O(Context context, String str, int i10) {
-        if (TextUtils.isEmpty(str) || A(context, str)) {
+    public static void O(Context context, String packageName, int coins) {
+        if (TextUtils.isEmpty(packageName) || A(context, packageName)) {
             return;
         }
-        j.m(context, f11985b + str, i10);
-        L(context, str);
+        h.m(context, f9624a + packageName, coins);
+        L(context, packageName);
     }
 
     public static void Q(Context context) {
-        j.p(context, f11991h, false);
+        h.p(context, f9630g, false);
     }
 
-    public static void R(Context context, int i10) {
-        j.m(context, f11988e, i10);
+    public static void R(Context context, int nCoins) {
+        h.m(context, f9627d, nCoins);
     }
 
-    public static void S(Context context, int i10) {
-        j.n(context, f11990g, System.currentTimeMillis() + (i10 * 86400000));
+    public static void S(Context context, int days) {
+        h.n(context, f9629f, System.currentTimeMillis() + (days * 24 * 60 * 60 * 1000));
     }
 
-    public static boolean T(Context context, String str, long j10) {
-        if (h(context, str, j10) > 0) {
+    public static boolean T(Context context, String packageName, long activateSeconds) {
+        if (h(context, packageName, activateSeconds) > 0) {
             return false;
         }
-        K(context, str);
-        return V(context, str, j10);
+        K(context, packageName);
+        return V(context, packageName, activateSeconds);
     }
 
-    public static boolean U(Context context, AppTask appTask) {
-        return V(context, appTask.packageName, appTask.activateSeconds);
+    public static boolean U(Context context, AppTask app) {
+        return V(context, app.packageName, app.activateSeconds);
     }
 
-    public static boolean V(Context context, String str, long j10) {
-        if (TextUtils.isEmpty(str)) {
+    public static boolean V(Context context, String packageName, long activateSeconds) {
+        if (TextUtils.isEmpty(packageName)) {
             return false;
         }
-        if (str.startsWith("package:")) {
-            str = str.substring(8);
+        if (packageName.startsWith("package:")) {
+            packageName = packageName.substring(8);
         }
-        if (!w(context, str, j10) || A(context, str)) {
+        if (!w(context, packageName, activateSeconds) || A(context, packageName)) {
             return false;
         }
-        r(context, i(context, str));
-        t(context, str);
+        r(context, i(context, packageName));
+        t(context, packageName);
         return true;
     }
 
-    public static void X(Context context, AlipayRedpaper alipayRedpaper) {
-        if (m(context, alipayRedpaper) == -1) {
-            j.n(context, f11992i + alipayRedpaper.getTime(), System.currentTimeMillis());
+    public static void X(Context context, AlipayRedpaper redpaper) {
+        if (m(context, redpaper) == -1) {
+            h.n(context, f9631h + redpaper.getTime(), System.currentTimeMillis());
         }
     }
 
-    public static boolean a(Context context, int i10) {
-        return o(context) >= i10;
+    public static boolean a(Context context, int nCoins) {
+        return o(context) >= nCoins;
     }
 
     public static void b(Context context) {
-        j.n(context, f11990g, -1L);
-        j.p(context, f11989f, false);
+        h.n(context, f9629f, -1L);
+        h.p(context, f9628e, false);
     }
 
-    public static boolean d(Context context, int i10) {
-        int o10 = o(context);
-        if (o10 < i10) {
+    public static boolean d(Context context, int nCoins) {
+        int o = o(context);
+        if (o < nCoins) {
             return false;
         }
-        j.m(context, f11988e, o10 - i10);
+        h.m(context, f9627d, o - nCoins);
         return true;
     }
 
     public static void e(Context context) {
-        j.p(context, f11989f, false);
+        h.p(context, f9628e, false);
     }
 
     public static void f(Context context) {
-        j.p(context, f11989f, true);
+        h.p(context, f9628e, true);
     }
 
-    public static long g(Context context, AppTask appTask) {
-        long h10 = j.h(context, f11986c + appTask.packageName, -1L);
-        if (h10 == -1) {
-            return appTask.activateSeconds;
+    public static long g(Context context, AppTask app) {
+        long h2 = h.h(context, f9625b + app.packageName, -1L);
+        if (h2 == -1) {
+            return app.activateSeconds;
         }
-        long currentTimeMillis = (appTask.activateSeconds * 1000) - (System.currentTimeMillis() - h10);
+        long currentTimeMillis = (app.activateSeconds * 1000) - (System.currentTimeMillis() - h2);
         if (currentTimeMillis < 0) {
             return 0L;
         }
         return currentTimeMillis;
     }
 
-    public static long h(Context context, String str, long j10) {
-        long h10 = j.h(context, f11986c + str, -1L);
-        if (h10 == -1) {
-            return j10;
+    public static long h(Context context, String packageName, long activateSeconds) {
+        long h2 = h.h(context, f9625b + packageName, -1L);
+        if (h2 == -1) {
+            return activateSeconds;
         }
-        long currentTimeMillis = (j10 * 1000) - (System.currentTimeMillis() - h10);
+        long currentTimeMillis = (activateSeconds * 1000) - (System.currentTimeMillis() - h2);
         if (currentTimeMillis < 0) {
             return 0L;
         }
         return currentTimeMillis;
     }
 
-    public static int i(Context context, String str) {
-        if (TextUtils.isEmpty(str)) {
+    public static int i(Context context, String packageName) {
+        if (TextUtils.isEmpty(packageName)) {
             return 0;
         }
-        return j.f(context, f11985b + str, 0);
+        return h.f(context, f9624a + packageName, 0);
     }
 
     public static boolean k(Context context) {
-        return j.d(context, f11991h, true);
+        return h.d(context, f9630g, true);
     }
 
-    public static int l(AlipayRedpaper alipayRedpaper) {
-        return ConfigSingleton.D().v("ALIPAY_REDPAPER_PACKAGE_" + alipayRedpaper.getPackageName());
+    public static int l(AlipayRedpaper redpaper) {
+        return com.martian.libmars.d.h.F().q("ALIPAY_REDPAPER_PACKAGE_" + redpaper.getPackageName());
     }
 
-    public static long m(Context context, AlipayRedpaper alipayRedpaper) {
-        return j.h(context, f11992i + alipayRedpaper.getTime(), -1L);
+    private static long m(Context context, AlipayRedpaper redpaper) {
+        return h.h(context, f9631h + redpaper.getTime(), -1L);
     }
 
     public static int o(Context context) {
-        return j.f(context, f11988e, 0);
+        return h.f(context, f9627d, 0);
     }
 
     public static long p(Context context) {
-        return j.h(context, f11990g, -1L);
+        return h.h(context, f9629f, -1L);
     }
 
-    public static void r(Context context, int i10) {
-        j.m(context, f11988e, o(context) + i10);
+    public static void r(Context context, int nCoins) {
+        h.m(context, f9627d, o(context) + nCoins);
     }
 
-    public static void s(AlipayRedpaper alipayRedpaper) {
-        if (ConfigSingleton.D().E0("FIRST_IN_PROCEED_" + alipayRedpaper.getTime())) {
-            ConfigSingleton.D().t0("ALIPAY_REDPAPER_PACKAGE_" + alipayRedpaper.getPackageName());
+    public static void s(AlipayRedpaper redpaper) {
+        if (com.martian.libmars.d.h.F().L0("FIRST_IN_PROCEED_" + redpaper.getTime())) {
+            com.martian.libmars.d.h.F().B0("ALIPAY_REDPAPER_PACKAGE_" + redpaper.getPackageName());
         }
     }
 
-    public static void t(Context context, String str) {
-        j.m(context, f11985b + str, -1);
+    public static void t(Context context, String packageName) {
+        h.m(context, f9624a + packageName, -1);
     }
 
-    public static boolean v(Context context, AppTask appTask) {
-        if (!C(context, appTask)) {
+    public static boolean v(Context context, AppTask app) {
+        if (!C(context, app)) {
             return false;
         }
-        long h10 = j.h(context, f11986c + appTask.packageName, -1L);
-        return h10 != -1 && System.currentTimeMillis() - h10 > appTask.activateSeconds * 1000;
+        long h2 = h.h(context, f9625b + app.packageName, -1L);
+        return h2 != -1 && System.currentTimeMillis() - h2 > app.activateSeconds * 1000;
     }
 
-    public static boolean w(Context context, String str, long j10) {
-        if (!D(context, str)) {
+    public static boolean w(Context context, String packageName, long activateSeconds) {
+        if (!D(context, packageName)) {
             return false;
         }
-        long h10 = j.h(context, f11986c + str, -1L);
-        return h10 != -1 && System.currentTimeMillis() - h10 > j10 * 1000;
+        long h2 = h.h(context, f9625b + packageName, -1L);
+        return h2 != -1 && System.currentTimeMillis() - h2 > activateSeconds * 1000;
     }
 
-    public static boolean y(Context context, String str) {
-        if (TextUtils.isEmpty(str)) {
+    public static boolean y(Context context, String packageName) {
+        if (TextUtils.isEmpty(packageName)) {
             return false;
         }
-        StringBuilder sb2 = new StringBuilder();
-        sb2.append(f11985b);
-        sb2.append(str);
-        return j.f(context, sb2.toString(), -1) != -1;
+        StringBuilder sb = new StringBuilder();
+        sb.append(f9624a);
+        sb.append(packageName);
+        return h.f(context, sb.toString(), -1) != -1;
     }
 
-    public boolean B(String str) {
-        return A(this.f11993a, str);
+    public boolean B(String packageName) {
+        return A(this.f9632i, packageName);
     }
 
-    public void M(String str) {
-        L(this.f11993a, str);
+    public void M(String packageName) {
+        L(this.f9632i, packageName);
     }
 
-    public void P(AppTask appTask) {
-        N(this.f11993a, appTask);
+    public void P(AppTask app) {
+        N(this.f9632i, app);
     }
 
-    public boolean W(AppTask appTask) {
-        return U(this.f11993a, appTask);
+    public boolean W(AppTask app) {
+        return U(this.f9632i, app);
     }
 
-    public boolean c(int i10) {
-        return d(this.f11993a, i10);
+    public boolean c(int nCoins) {
+        return d(this.f9632i, nCoins);
     }
 
-    public int j(String str) {
-        return i(this.f11993a, str);
+    public int j(String packageName) {
+        return i(this.f9632i, packageName);
     }
 
     public int n() {
-        return o(this.f11993a);
+        return o(this.f9632i);
     }
 
-    public void q(int i10) {
-        r(this.f11993a, i10);
+    public void q(int nCoins) {
+        r(this.f9632i, nCoins);
     }
 
-    public void u(String str) {
-        t(this.f11993a, str);
+    public void u(String packageName) {
+        t(this.f9632i, packageName);
     }
 
-    public boolean x(AppTask appTask) {
-        return v(this.f11993a, appTask);
+    public boolean x(AppTask app) {
+        return v(this.f9632i, app);
     }
 
-    public boolean z(String str) {
-        return y(this.f11993a, str);
+    public boolean z(String packageName) {
+        return y(this.f9632i, packageName);
     }
 }

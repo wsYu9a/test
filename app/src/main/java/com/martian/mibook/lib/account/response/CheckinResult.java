@@ -38,11 +38,11 @@ public class CheckinResult {
     }
 
     public long getExtraId() {
-        Long l10 = this.extraId;
-        if (l10 == null) {
+        Long l = this.extraId;
+        if (l == null) {
             return 0L;
         }
-        return l10.longValue();
+        return l.longValue();
     }
 
     public int getMoney() {
@@ -57,27 +57,27 @@ public class CheckinResult {
         this.bonusPool = bonusPool;
     }
 
-    public void setCoins(Integer num) {
-        this.coins = num;
+    public void setCoins(Integer coins) {
+        this.coins = coins;
     }
 
-    public void setDuration(Integer num) {
-        this.duration = num;
+    public void setDuration(Integer duration) {
+        this.duration = duration;
     }
 
-    public void setExtraCoins(Integer num) {
-        this.extraCoins = num;
+    public void setExtraCoins(Integer extraCoins) {
+        this.extraCoins = extraCoins;
     }
 
-    public void setExtraDuration(Integer num) {
-        this.extraDuration = num;
+    public void setExtraDuration(Integer extraDuration) {
+        this.extraDuration = extraDuration;
     }
 
-    public void setExtraId(Long l10) {
-        this.extraId = l10;
+    public void setExtraId(Long extraId) {
+        this.extraId = extraId;
     }
 
-    public void setMoney(Integer num) {
-        this.money = num;
+    public void setMoney(Integer money) {
+        this.money = money;
     }
 }

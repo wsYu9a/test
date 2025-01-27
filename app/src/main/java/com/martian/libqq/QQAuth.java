@@ -6,8 +6,6 @@ public class QQAuth extends QQResult {
     public Long expires_in;
     public String openid;
     public String pay_token;
-
-    /* renamed from: pf */
-    public String f12908pf;
+    public String pf;
     public String pfkey;
 }

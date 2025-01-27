@@ -25,7 +25,7 @@ public abstract class Navigator<D extends NavDestination> {
     public abstract D createDestination();
 
     @Nullable
-    public abstract NavDestination navigate(@NonNull D d10, @Nullable Bundle bundle, @Nullable NavOptions navOptions, @Nullable Extras extras);
+    public abstract NavDestination navigate(@NonNull D d2, @Nullable Bundle bundle, @Nullable NavOptions navOptions, @Nullable Extras extras);
 
     public void onRestoreState(@NonNull Bundle bundle) {
     }

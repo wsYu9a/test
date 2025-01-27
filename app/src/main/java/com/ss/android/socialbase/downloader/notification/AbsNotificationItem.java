@@ -10,25 +10,23 @@ public abstract class AbsNotificationItem {
     private long curBytes;
     private String description;
     private long firstShowTime;
-
-    /* renamed from: id */
-    private int f21975id;
+    private int id;
     protected Notification notification;
     private boolean ongoing;
     private int status = 0;
     private String title;
     private long totalBytes;
 
-    public AbsNotificationItem(int i10, String str) {
-        this.f21975id = i10;
+    public AbsNotificationItem(int i2, String str) {
+        this.id = i2;
         this.title = str;
     }
 
     public void cancel() {
-        if (this.f21975id == 0) {
+        if (this.id == 0) {
             return;
         }
-        DownloadNotificationManager.getInstance().cancel(this.f21975id);
+        DownloadNotificationManager.getInstance().cancel(this.id);
     }
 
     public int getClickInstallTimes() {
@@ -51,7 +49,7 @@ public abstract class AbsNotificationItem {
     }
 
     public int getId() {
-        return this.f21975id;
+        return this.id;
     }
 
     public Notification getNotification() {
@@ -75,65 +73,65 @@ public abstract class AbsNotificationItem {
     }
 
     public void notify(Notification notification) {
-        if (this.f21975id == 0 || notification == null) {
+        if (this.id == 0 || notification == null) {
             return;
         }
-        DownloadNotificationManager.getInstance().notifyByService(this.f21975id, this.status, notification);
+        DownloadNotificationManager.getInstance().notifyByService(this.id, this.status, notification);
     }
 
     public synchronized void recordClickInstall() {
         this.clickInstallTimes++;
     }
 
-    public void refreshProgress(long j10, long j11) {
-        this.curBytes = j10;
-        this.totalBytes = j11;
+    public void refreshProgress(long j2, long j3) {
+        this.curBytes = j2;
+        this.totalBytes = j3;
         this.status = 4;
         updateNotification(null, false);
     }
 
-    public void refreshStatus(int i10, BaseException baseException, boolean z10) {
-        refreshStatus(i10, baseException, z10, false);
+    public void refreshStatus(int i2, BaseException baseException, boolean z) {
+        refreshStatus(i2, baseException, z, false);
     }
 
-    public void setCurBytes(long j10) {
-        this.curBytes = j10;
+    public void setCurBytes(long j2) {
+        this.curBytes = j2;
     }
 
     public void setDescription(String str) {
         this.description = str;
     }
 
-    public void setId(int i10) {
-        this.f21975id = i10;
+    public void setId(int i2) {
+        this.id = i2;
     }
 
-    public void setOngoing(boolean z10) {
-        this.ongoing = z10;
+    protected void setOngoing(boolean z) {
+        this.ongoing = z;
     }
 
     public void setTitle(String str) {
         this.title = str;
     }
 
-    public void setTotalBytes(long j10) {
-        this.totalBytes = j10;
+    public void setTotalBytes(long j2) {
+        this.totalBytes = j2;
     }
 
-    public abstract void updateNotification(BaseException baseException, boolean z10);
+    public abstract void updateNotification(BaseException baseException, boolean z);
 
     public void updateNotificationItem(DownloadInfo downloadInfo) {
         if (downloadInfo == null) {
             return;
         }
-        this.f21975id = downloadInfo.getId();
+        this.id = downloadInfo.getId();
         this.title = downloadInfo.getTitle();
     }
 
-    public void refreshStatus(int i10, BaseException baseException, boolean z10, boolean z11) {
-        if (z11 || this.status != i10) {
-            this.status = i10;
-            updateNotification(baseException, z10);
+    public void refreshStatus(int i2, BaseException baseException, boolean z, boolean z2) {
+        if (z2 || this.status != i2) {
+            this.status = i2;
+            updateNotification(baseException, z);
         }
     }
 }

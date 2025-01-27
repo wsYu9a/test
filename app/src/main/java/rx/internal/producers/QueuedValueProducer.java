@@ -1,14 +1,13 @@
 package rx.internal.producers;
 
-import ck.f0;
-import ck.g0;
 import java.util.Queue;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.concurrent.atomic.AtomicLong;
-import qj.c;
-import qj.g;
+import rx.c;
 import rx.exceptions.OnErrorThrowable;
-import vj.a;
+import rx.g;
+import rx.internal.util.m.f0;
+import rx.internal.util.m.g0;
 
 /* loaded from: classes5.dex */
 public final class QueuedValueProducer<T> extends AtomicLong implements c {
@@ -19,7 +18,7 @@ public final class QueuedValueProducer<T> extends AtomicLong implements c {
     final AtomicInteger wip;
 
     public QueuedValueProducer(g<? super T> gVar) {
-        this(gVar, g0.f() ? new f0() : new bk.c());
+        this(gVar, g0.f() ? new f0() : new rx.internal.util.atomic.c());
     }
 
     private void drain() {
@@ -29,9 +28,9 @@ public final class QueuedValueProducer<T> extends AtomicLong implements c {
             Queue<Object> queue = this.queue;
             while (!gVar.isUnsubscribed()) {
                 this.wip.lazySet(1);
-                long j10 = get();
-                long j11 = 0;
-                while (j10 != 0 && (poll = queue.poll()) != null) {
+                long j2 = get();
+                long j3 = 0;
+                while (j2 != 0 && (poll = queue.poll()) != null) {
                     try {
                         if (poll == NULL_SENTINEL) {
                             gVar.onNext(null);
@@ -41,19 +40,19 @@ public final class QueuedValueProducer<T> extends AtomicLong implements c {
                         if (gVar.isUnsubscribed()) {
                             return;
                         }
-                        j10--;
-                        j11++;
-                    } catch (Throwable th2) {
-                        a.e(th2);
+                        j2--;
+                        j3++;
+                    } catch (Throwable th) {
+                        rx.exceptions.a.e(th);
                         if (poll == NULL_SENTINEL) {
                             poll = null;
                         }
-                        gVar.onError(OnErrorThrowable.addValueAsLastCause(th2, poll));
+                        gVar.onError(OnErrorThrowable.addValueAsLastCause(th, poll));
                         return;
                     }
                 }
-                if (j11 != 0 && get() != Long.MAX_VALUE) {
-                    addAndGet(-j11);
+                if (j3 != 0 && get() != Long.MAX_VALUE) {
+                    addAndGet(-j3);
                 }
                 if (this.wip.decrementAndGet() == 0) {
                     return;
@@ -62,25 +61,25 @@ public final class QueuedValueProducer<T> extends AtomicLong implements c {
         }
     }
 
-    public boolean offer(T t10) {
-        if (t10 == null) {
+    public boolean offer(T t) {
+        if (t == null) {
             if (!this.queue.offer(NULL_SENTINEL)) {
                 return false;
             }
-        } else if (!this.queue.offer(t10)) {
+        } else if (!this.queue.offer(t)) {
             return false;
         }
         drain();
         return true;
     }
 
-    @Override // qj.c
-    public void request(long j10) {
-        if (j10 < 0) {
+    @Override // rx.c
+    public void request(long j2) {
+        if (j2 < 0) {
             throw new IllegalArgumentException("n >= 0 required");
         }
-        if (j10 > 0) {
-            xj.a.a(this, j10);
+        if (j2 > 0) {
+            rx.internal.operators.a.a(this, j2);
             drain();
         }
     }

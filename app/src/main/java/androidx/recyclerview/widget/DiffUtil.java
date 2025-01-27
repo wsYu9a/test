@@ -3,11 +3,10 @@ package androidx.recyclerview.widget;
 import androidx.annotation.IntRange;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.annotation.VisibleForTesting;
 import androidx.recyclerview.widget.RecyclerView;
-import java.util.ArrayDeque;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Collection;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.Iterator;
@@ -15,28 +14,38 @@ import java.util.List;
 
 /* loaded from: classes.dex */
 public class DiffUtil {
-    private static final Comparator<Diagonal> DIAGONAL_COMPARATOR = new Comparator<Diagonal>() { // from class: androidx.recyclerview.widget.DiffUtil.1
+
+    /* renamed from: a */
+    private static final Comparator<Snake> f3228a = new Comparator<Snake>() { // from class: androidx.recyclerview.widget.DiffUtil.1
+        AnonymousClass1() {
+        }
+
         @Override // java.util.Comparator
-        public int compare(Diagonal diagonal, Diagonal diagonal2) {
-            return diagonal.f1086x - diagonal2.f1086x;
+        public int compare(Snake snake, Snake snake2) {
+            int i2 = snake.f3246a - snake2.f3246a;
+            return i2 == 0 ? snake.f3247b - snake2.f3247b : i2;
         }
     };
 
     /* renamed from: androidx.recyclerview.widget.DiffUtil$1 */
-    public class AnonymousClass1 implements Comparator<Diagonal> {
+    static class AnonymousClass1 implements Comparator<Snake> {
+        AnonymousClass1() {
+        }
+
         @Override // java.util.Comparator
-        public int compare(Diagonal diagonal, Diagonal diagonal2) {
-            return diagonal.f1086x - diagonal2.f1086x;
+        public int compare(Snake snake, Snake snake2) {
+            int i2 = snake.f3246a - snake2.f3246a;
+            return i2 == 0 ? snake.f3247b - snake2.f3247b : i2;
         }
     }
 
     public static abstract class Callback {
-        public abstract boolean areContentsTheSame(int i10, int i11);
+        public abstract boolean areContentsTheSame(int i2, int i3);
 
-        public abstract boolean areItemsTheSame(int i10, int i11);
+        public abstract boolean areItemsTheSame(int i2, int i3);
 
         @Nullable
-        public Object getChangePayload(int i10, int i11) {
+        public Object getChangePayload(int i2, int i3) {
             return null;
         }
 
@@ -45,377 +54,398 @@ public class DiffUtil {
         public abstract int getOldListSize();
     }
 
-    public static class CenteredArray {
-        private final int[] mData;
-        private final int mMid;
-
-        public CenteredArray(int i10) {
-            int[] iArr = new int[i10];
-            this.mData = iArr;
-            this.mMid = iArr.length / 2;
-        }
-
-        public int[] backingData() {
-            return this.mData;
-        }
-
-        public void fill(int i10) {
-            Arrays.fill(this.mData, i10);
-        }
-
-        public int get(int i10) {
-            return this.mData[i10 + this.mMid];
-        }
-
-        public void set(int i10, int i11) {
-            this.mData[i10 + this.mMid] = i11;
-        }
-    }
-
-    public static class Diagonal {
-        public final int size;
-
-        /* renamed from: x */
-        public final int f1086x;
-
-        /* renamed from: y */
-        public final int f1087y;
-
-        public Diagonal(int i10, int i11, int i12) {
-            this.f1086x = i10;
-            this.f1087y = i11;
-            this.size = i12;
-        }
-
-        public int endX() {
-            return this.f1086x + this.size;
-        }
-
-        public int endY() {
-            return this.f1087y + this.size;
-        }
-    }
-
     public static class DiffResult {
-        private static final int FLAG_CHANGED = 2;
-        private static final int FLAG_MASK = 15;
-        private static final int FLAG_MOVED = 12;
-        private static final int FLAG_MOVED_CHANGED = 4;
-        private static final int FLAG_MOVED_NOT_CHANGED = 8;
-        private static final int FLAG_NOT_CHANGED = 1;
-        private static final int FLAG_OFFSET = 4;
         public static final int NO_POSITION = -1;
-        private final Callback mCallback;
-        private final boolean mDetectMoves;
-        private final List<Diagonal> mDiagonals;
-        private final int[] mNewItemStatuses;
-        private final int mNewListSize;
-        private final int[] mOldItemStatuses;
-        private final int mOldListSize;
 
-        public DiffResult(Callback callback, List<Diagonal> list, int[] iArr, int[] iArr2, boolean z10) {
-            this.mDiagonals = list;
-            this.mOldItemStatuses = iArr;
-            this.mNewItemStatuses = iArr2;
+        /* renamed from: a */
+        private static final int f3229a = 1;
+
+        /* renamed from: b */
+        private static final int f3230b = 2;
+
+        /* renamed from: c */
+        private static final int f3231c = 4;
+
+        /* renamed from: d */
+        private static final int f3232d = 8;
+
+        /* renamed from: e */
+        private static final int f3233e = 16;
+
+        /* renamed from: f */
+        private static final int f3234f = 5;
+
+        /* renamed from: g */
+        private static final int f3235g = 31;
+
+        /* renamed from: h */
+        private final List<Snake> f3236h;
+
+        /* renamed from: i */
+        private final int[] f3237i;
+
+        /* renamed from: j */
+        private final int[] f3238j;
+        private final Callback k;
+        private final int l;
+        private final int m;
+        private final boolean n;
+
+        DiffResult(Callback callback, List<Snake> list, int[] iArr, int[] iArr2, boolean z) {
+            this.f3236h = list;
+            this.f3237i = iArr;
+            this.f3238j = iArr2;
             Arrays.fill(iArr, 0);
             Arrays.fill(iArr2, 0);
-            this.mCallback = callback;
-            this.mOldListSize = callback.getOldListSize();
-            this.mNewListSize = callback.getNewListSize();
-            this.mDetectMoves = z10;
-            addEdgeDiagonals();
-            findMatchingItems();
+            this.k = callback;
+            this.l = callback.getOldListSize();
+            this.m = callback.getNewListSize();
+            this.n = z;
+            a();
+            f();
         }
 
-        private void addEdgeDiagonals() {
-            Diagonal diagonal = this.mDiagonals.isEmpty() ? null : this.mDiagonals.get(0);
-            if (diagonal == null || diagonal.f1086x != 0 || diagonal.f1087y != 0) {
-                this.mDiagonals.add(0, new Diagonal(0, 0, 0));
+        private void a() {
+            Snake snake = this.f3236h.isEmpty() ? null : this.f3236h.get(0);
+            if (snake != null && snake.f3246a == 0 && snake.f3247b == 0) {
+                return;
             }
-            this.mDiagonals.add(new Diagonal(this.mOldListSize, this.mNewListSize, 0));
+            Snake snake2 = new Snake();
+            snake2.f3246a = 0;
+            snake2.f3247b = 0;
+            snake2.f3249d = false;
+            snake2.f3248c = 0;
+            snake2.f3250e = false;
+            this.f3236h.add(0, snake2);
         }
 
-        private void findMatchingAddition(int i10) {
-            int size = this.mDiagonals.size();
-            int i11 = 0;
-            for (int i12 = 0; i12 < size; i12++) {
-                Diagonal diagonal = this.mDiagonals.get(i12);
-                while (i11 < diagonal.f1087y) {
-                    if (this.mNewItemStatuses[i11] == 0 && this.mCallback.areItemsTheSame(i10, i11)) {
-                        int i13 = this.mCallback.areContentsTheSame(i10, i11) ? 8 : 4;
-                        this.mOldItemStatuses[i10] = (i11 << 4) | i13;
-                        this.mNewItemStatuses[i11] = (i10 << 4) | i13;
-                        return;
+        private void b(List<PostponedUpdate> list, ListUpdateCallback listUpdateCallback, int i2, int i3, int i4) {
+            if (!this.n) {
+                listUpdateCallback.onInserted(i2, i3);
+                return;
+            }
+            for (int i5 = i3 - 1; i5 >= 0; i5--) {
+                int[] iArr = this.f3238j;
+                int i6 = i4 + i5;
+                int i7 = iArr[i6] & 31;
+                if (i7 == 0) {
+                    listUpdateCallback.onInserted(i2, 1);
+                    Iterator<PostponedUpdate> it = list.iterator();
+                    while (it.hasNext()) {
+                        it.next().f3240b++;
                     }
-                    i11++;
-                }
-                i11 = diagonal.endY();
-            }
-        }
-
-        private void findMatchingItems() {
-            for (Diagonal diagonal : this.mDiagonals) {
-                for (int i10 = 0; i10 < diagonal.size; i10++) {
-                    int i11 = diagonal.f1086x + i10;
-                    int i12 = diagonal.f1087y + i10;
-                    int i13 = this.mCallback.areContentsTheSame(i11, i12) ? 1 : 2;
-                    this.mOldItemStatuses[i11] = (i12 << 4) | i13;
-                    this.mNewItemStatuses[i12] = (i11 << 4) | i13;
-                }
-            }
-            if (this.mDetectMoves) {
-                findMoveMatches();
-            }
-        }
-
-        private void findMoveMatches() {
-            int i10 = 0;
-            for (Diagonal diagonal : this.mDiagonals) {
-                while (i10 < diagonal.f1086x) {
-                    if (this.mOldItemStatuses[i10] == 0) {
-                        findMatchingAddition(i10);
+                } else if (i7 == 4 || i7 == 8) {
+                    int i8 = iArr[i6] >> 5;
+                    listUpdateCallback.onMoved(i(list, i8, true).f3240b, i2);
+                    if (i7 == 4) {
+                        listUpdateCallback.onChanged(i2, 1, this.k.getChangePayload(i8, i6));
                     }
-                    i10++;
-                }
-                i10 = diagonal.endX();
-            }
-        }
-
-        @Nullable
-        private static PostponedUpdate getPostponedUpdate(Collection<PostponedUpdate> collection, int i10, boolean z10) {
-            PostponedUpdate postponedUpdate;
-            Iterator<PostponedUpdate> it = collection.iterator();
-            while (true) {
-                if (!it.hasNext()) {
-                    postponedUpdate = null;
-                    break;
-                }
-                postponedUpdate = it.next();
-                if (postponedUpdate.posInOwnerList == i10 && postponedUpdate.removal == z10) {
-                    it.remove();
-                    break;
-                }
-            }
-            while (it.hasNext()) {
-                PostponedUpdate next = it.next();
-                if (z10) {
-                    next.currentPos--;
                 } else {
-                    next.currentPos++;
+                    if (i7 != 16) {
+                        throw new IllegalStateException("unknown flag for pos " + i6 + " " + Long.toBinaryString(i7));
+                    }
+                    list.add(new PostponedUpdate(i6, i2, false));
                 }
             }
-            return postponedUpdate;
         }
 
-        public int convertNewPositionToOld(@IntRange(from = 0) int i10) {
-            if (i10 >= 0 && i10 < this.mNewListSize) {
-                int i11 = this.mNewItemStatuses[i10];
-                if ((i11 & 15) == 0) {
-                    return -1;
-                }
-                return i11 >> 4;
+        private void c(List<PostponedUpdate> list, ListUpdateCallback listUpdateCallback, int i2, int i3, int i4) {
+            if (!this.n) {
+                listUpdateCallback.onRemoved(i2, i3);
+                return;
             }
-            throw new IndexOutOfBoundsException("Index out of bounds - passed position = " + i10 + ", new list size = " + this.mNewListSize);
+            for (int i5 = i3 - 1; i5 >= 0; i5--) {
+                int[] iArr = this.f3237i;
+                int i6 = i4 + i5;
+                int i7 = iArr[i6] & 31;
+                if (i7 == 0) {
+                    listUpdateCallback.onRemoved(i2 + i5, 1);
+                    Iterator<PostponedUpdate> it = list.iterator();
+                    while (it.hasNext()) {
+                        it.next().f3240b--;
+                    }
+                } else if (i7 == 4 || i7 == 8) {
+                    int i8 = iArr[i6] >> 5;
+                    PostponedUpdate i9 = i(list, i8, false);
+                    listUpdateCallback.onMoved(i2 + i5, i9.f3240b - 1);
+                    if (i7 == 4) {
+                        listUpdateCallback.onChanged(i9.f3240b - 1, 1, this.k.getChangePayload(i6, i8));
+                    }
+                } else {
+                    if (i7 != 16) {
+                        throw new IllegalStateException("unknown flag for pos " + i6 + " " + Long.toBinaryString(i7));
+                    }
+                    list.add(new PostponedUpdate(i6, i2 + i5, true));
+                }
+            }
         }
 
-        public int convertOldPositionToNew(@IntRange(from = 0) int i10) {
-            if (i10 >= 0 && i10 < this.mOldListSize) {
-                int i11 = this.mOldItemStatuses[i10];
-                if ((i11 & 15) == 0) {
+        private void d(int i2, int i3, int i4) {
+            if (this.f3237i[i2 - 1] != 0) {
+                return;
+            }
+            e(i2, i3, i4, false);
+        }
+
+        private boolean e(int i2, int i3, int i4, boolean z) {
+            int i5;
+            int i6;
+            int i7;
+            if (z) {
+                i3--;
+                i6 = i2;
+                i5 = i3;
+            } else {
+                i5 = i2 - 1;
+                i6 = i5;
+            }
+            while (i4 >= 0) {
+                Snake snake = this.f3236h.get(i4);
+                int i8 = snake.f3246a;
+                int i9 = snake.f3248c;
+                int i10 = i8 + i9;
+                int i11 = snake.f3247b + i9;
+                if (z) {
+                    for (int i12 = i6 - 1; i12 >= i10; i12--) {
+                        if (this.k.areItemsTheSame(i12, i5)) {
+                            i7 = this.k.areContentsTheSame(i12, i5) ? 8 : 4;
+                            this.f3238j[i5] = (i12 << 5) | 16;
+                            this.f3237i[i12] = (i5 << 5) | i7;
+                            return true;
+                        }
+                    }
+                } else {
+                    for (int i13 = i3 - 1; i13 >= i11; i13--) {
+                        if (this.k.areItemsTheSame(i5, i13)) {
+                            i7 = this.k.areContentsTheSame(i5, i13) ? 8 : 4;
+                            int i14 = i2 - 1;
+                            this.f3237i[i14] = (i13 << 5) | 16;
+                            this.f3238j[i13] = (i14 << 5) | i7;
+                            return true;
+                        }
+                    }
+                }
+                i6 = snake.f3246a;
+                i3 = snake.f3247b;
+                i4--;
+            }
+            return false;
+        }
+
+        private void f() {
+            int i2 = this.l;
+            int i3 = this.m;
+            for (int size = this.f3236h.size() - 1; size >= 0; size--) {
+                Snake snake = this.f3236h.get(size);
+                int i4 = snake.f3246a;
+                int i5 = snake.f3248c;
+                int i6 = i4 + i5;
+                int i7 = snake.f3247b + i5;
+                if (this.n) {
+                    while (i2 > i6) {
+                        d(i2, i3, size);
+                        i2--;
+                    }
+                    while (i3 > i7) {
+                        g(i2, i3, size);
+                        i3--;
+                    }
+                }
+                for (int i8 = 0; i8 < snake.f3248c; i8++) {
+                    int i9 = snake.f3246a + i8;
+                    int i10 = snake.f3247b + i8;
+                    int i11 = this.k.areContentsTheSame(i9, i10) ? 1 : 2;
+                    this.f3237i[i9] = (i10 << 5) | i11;
+                    this.f3238j[i10] = (i9 << 5) | i11;
+                }
+                i2 = snake.f3246a;
+                i3 = snake.f3247b;
+            }
+        }
+
+        private void g(int i2, int i3, int i4) {
+            if (this.f3238j[i3 - 1] != 0) {
+                return;
+            }
+            e(i2, i3, i4, true);
+        }
+
+        private static PostponedUpdate i(List<PostponedUpdate> list, int i2, boolean z) {
+            int size = list.size() - 1;
+            while (size >= 0) {
+                PostponedUpdate postponedUpdate = list.get(size);
+                if (postponedUpdate.f3239a == i2 && postponedUpdate.f3241c == z) {
+                    list.remove(size);
+                    while (size < list.size()) {
+                        list.get(size).f3240b += z ? 1 : -1;
+                        size++;
+                    }
+                    return postponedUpdate;
+                }
+                size--;
+            }
+            return null;
+        }
+
+        public int convertNewPositionToOld(@IntRange(from = 0) int i2) {
+            if (i2 >= 0 && i2 < this.m) {
+                int i3 = this.f3238j[i2];
+                if ((i3 & 31) == 0) {
                     return -1;
                 }
-                return i11 >> 4;
+                return i3 >> 5;
             }
-            throw new IndexOutOfBoundsException("Index out of bounds - passed position = " + i10 + ", old list size = " + this.mOldListSize);
+            throw new IndexOutOfBoundsException("Index out of bounds - passed position = " + i2 + ", new list size = " + this.m);
+        }
+
+        public int convertOldPositionToNew(@IntRange(from = 0) int i2) {
+            if (i2 >= 0 && i2 < this.l) {
+                int i3 = this.f3237i[i2];
+                if ((i3 & 31) == 0) {
+                    return -1;
+                }
+                return i3 >> 5;
+            }
+            throw new IndexOutOfBoundsException("Index out of bounds - passed position = " + i2 + ", old list size = " + this.l);
         }
 
         public void dispatchUpdatesTo(@NonNull RecyclerView.Adapter adapter) {
             dispatchUpdatesTo(new AdapterListUpdateCallback(adapter));
         }
 
+        @VisibleForTesting
+        List<Snake> h() {
+            return this.f3236h;
+        }
+
         public void dispatchUpdatesTo(@NonNull ListUpdateCallback listUpdateCallback) {
-            int i10;
             BatchingListUpdateCallback batchingListUpdateCallback = listUpdateCallback instanceof BatchingListUpdateCallback ? (BatchingListUpdateCallback) listUpdateCallback : new BatchingListUpdateCallback(listUpdateCallback);
-            int i11 = this.mOldListSize;
-            ArrayDeque arrayDeque = new ArrayDeque();
-            int i12 = this.mOldListSize;
-            int i13 = this.mNewListSize;
-            for (int size = this.mDiagonals.size() - 1; size >= 0; size--) {
-                Diagonal diagonal = this.mDiagonals.get(size);
-                int endX = diagonal.endX();
-                int endY = diagonal.endY();
-                while (true) {
-                    if (i12 <= endX) {
-                        break;
-                    }
-                    i12--;
-                    int i14 = this.mOldItemStatuses[i12];
-                    if ((i14 & 12) != 0) {
-                        int i15 = i14 >> 4;
-                        PostponedUpdate postponedUpdate = getPostponedUpdate(arrayDeque, i15, false);
-                        if (postponedUpdate != null) {
-                            int i16 = (i11 - postponedUpdate.currentPos) - 1;
-                            batchingListUpdateCallback.onMoved(i12, i16);
-                            if ((i14 & 4) != 0) {
-                                batchingListUpdateCallback.onChanged(i16, 1, this.mCallback.getChangePayload(i12, i15));
-                            }
-                        } else {
-                            arrayDeque.add(new PostponedUpdate(i12, (i11 - i12) - 1, true));
-                        }
-                    } else {
-                        batchingListUpdateCallback.onRemoved(i12, 1);
-                        i11--;
+            ArrayList arrayList = new ArrayList();
+            int i2 = this.l;
+            int i3 = this.m;
+            for (int size = this.f3236h.size() - 1; size >= 0; size--) {
+                Snake snake = this.f3236h.get(size);
+                int i4 = snake.f3248c;
+                int i5 = snake.f3246a + i4;
+                int i6 = snake.f3247b + i4;
+                if (i5 < i2) {
+                    c(arrayList, batchingListUpdateCallback, i5, i2 - i5, i5);
+                }
+                if (i6 < i3) {
+                    b(arrayList, batchingListUpdateCallback, i5, i3 - i6, i6);
+                }
+                for (int i7 = i4 - 1; i7 >= 0; i7--) {
+                    int[] iArr = this.f3237i;
+                    int i8 = snake.f3246a;
+                    if ((iArr[i8 + i7] & 31) == 2) {
+                        batchingListUpdateCallback.onChanged(i8 + i7, 1, this.k.getChangePayload(i8 + i7, snake.f3247b + i7));
                     }
                 }
-                while (i13 > endY) {
-                    i13--;
-                    int i17 = this.mNewItemStatuses[i13];
-                    if ((i17 & 12) != 0) {
-                        int i18 = i17 >> 4;
-                        PostponedUpdate postponedUpdate2 = getPostponedUpdate(arrayDeque, i18, true);
-                        if (postponedUpdate2 == null) {
-                            arrayDeque.add(new PostponedUpdate(i13, i11 - i12, false));
-                        } else {
-                            batchingListUpdateCallback.onMoved((i11 - postponedUpdate2.currentPos) - 1, i12);
-                            if ((i17 & 4) != 0) {
-                                batchingListUpdateCallback.onChanged(i12, 1, this.mCallback.getChangePayload(i18, i13));
-                            }
-                        }
-                    } else {
-                        batchingListUpdateCallback.onInserted(i12, 1);
-                        i11++;
-                    }
-                }
-                int i19 = diagonal.f1086x;
-                int i20 = diagonal.f1087y;
-                for (i10 = 0; i10 < diagonal.size; i10++) {
-                    if ((this.mOldItemStatuses[i19] & 15) == 2) {
-                        batchingListUpdateCallback.onChanged(i19, 1, this.mCallback.getChangePayload(i19, i20));
-                    }
-                    i19++;
-                    i20++;
-                }
-                i12 = diagonal.f1086x;
-                i13 = diagonal.f1087y;
+                i2 = snake.f3246a;
+                i3 = snake.f3247b;
             }
             batchingListUpdateCallback.dispatchLastEvent();
         }
     }
 
     public static abstract class ItemCallback<T> {
-        public abstract boolean areContentsTheSame(@NonNull T t10, @NonNull T t11);
+        public abstract boolean areContentsTheSame(@NonNull T t, @NonNull T t2);
 
-        public abstract boolean areItemsTheSame(@NonNull T t10, @NonNull T t11);
+        public abstract boolean areItemsTheSame(@NonNull T t, @NonNull T t2);
 
         @Nullable
-        public Object getChangePayload(@NonNull T t10, @NonNull T t11) {
+        public Object getChangePayload(@NonNull T t, @NonNull T t2) {
             return null;
         }
     }
 
-    public static class PostponedUpdate {
-        int currentPos;
-        int posInOwnerList;
-        boolean removal;
+    private static class PostponedUpdate {
 
-        public PostponedUpdate(int i10, int i11, boolean z10) {
-            this.posInOwnerList = i10;
-            this.currentPos = i11;
-            this.removal = z10;
+        /* renamed from: a */
+        int f3239a;
+
+        /* renamed from: b */
+        int f3240b;
+
+        /* renamed from: c */
+        boolean f3241c;
+
+        public PostponedUpdate(int i2, int i3, boolean z) {
+            this.f3239a = i2;
+            this.f3240b = i3;
+            this.f3241c = z;
         }
     }
 
-    public static class Range {
-        int newListEnd;
-        int newListStart;
-        int oldListEnd;
-        int oldListStart;
+    static class Range {
+
+        /* renamed from: a */
+        int f3242a;
+
+        /* renamed from: b */
+        int f3243b;
+
+        /* renamed from: c */
+        int f3244c;
+
+        /* renamed from: d */
+        int f3245d;
 
         public Range() {
         }
 
-        public int newSize() {
-            return this.newListEnd - this.newListStart;
-        }
-
-        public int oldSize() {
-            return this.oldListEnd - this.oldListStart;
-        }
-
-        public Range(int i10, int i11, int i12, int i13) {
-            this.oldListStart = i10;
-            this.oldListEnd = i11;
-            this.newListStart = i12;
-            this.newListEnd = i13;
+        public Range(int i2, int i3, int i4, int i5) {
+            this.f3242a = i2;
+            this.f3243b = i3;
+            this.f3244c = i4;
+            this.f3245d = i5;
         }
     }
 
-    public static class Snake {
-        public int endX;
-        public int endY;
-        public boolean reverse;
-        public int startX;
-        public int startY;
+    static class Snake {
 
-        public int diagonalSize() {
-            return Math.min(this.endX - this.startX, this.endY - this.startY);
-        }
+        /* renamed from: a */
+        int f3246a;
 
-        public boolean hasAdditionOrRemoval() {
-            return this.endY - this.startY != this.endX - this.startX;
-        }
+        /* renamed from: b */
+        int f3247b;
 
-        public boolean isAddition() {
-            return this.endY - this.startY > this.endX - this.startX;
-        }
+        /* renamed from: c */
+        int f3248c;
 
-        @NonNull
-        public Diagonal toDiagonal() {
-            if (hasAdditionOrRemoval()) {
-                return this.reverse ? new Diagonal(this.startX, this.startY, diagonalSize()) : isAddition() ? new Diagonal(this.startX, this.startY + 1, diagonalSize()) : new Diagonal(this.startX + 1, this.startY, diagonalSize());
-            }
-            int i10 = this.startX;
-            return new Diagonal(i10, this.startY, this.endX - i10);
+        /* renamed from: d */
+        boolean f3249d;
+
+        /* renamed from: e */
+        boolean f3250e;
+
+        Snake() {
         }
     }
 
     private DiffUtil() {
     }
 
-    @Nullable
-    private static Snake backward(Range range, Callback callback, CenteredArray centeredArray, CenteredArray centeredArray2, int i10) {
-        int i11;
-        int i12;
-        int i13;
-        boolean z10 = (range.oldSize() - range.newSize()) % 2 == 0;
-        int oldSize = range.oldSize() - range.newSize();
-        int i14 = -i10;
-        for (int i15 = i14; i15 <= i10; i15 += 2) {
-            if (i15 == i14 || (i15 != i10 && centeredArray2.get(i15 + 1) < centeredArray2.get(i15 - 1))) {
-                i11 = centeredArray2.get(i15 + 1);
-                i12 = i11;
-            } else {
-                i11 = centeredArray2.get(i15 - 1);
-                i12 = i11 - 1;
-            }
-            int i16 = range.newListEnd - ((range.oldListEnd - i12) - i15);
-            int i17 = (i10 == 0 || i12 != i11) ? i16 : i16 + 1;
-            while (i12 > range.oldListStart && i16 > range.newListStart && callback.areItemsTheSame(i12 - 1, i16 - 1)) {
-                i12--;
-                i16--;
-            }
-            centeredArray2.set(i15, i12);
-            if (z10 && (i13 = oldSize - i15) >= i14 && i13 <= i10 && centeredArray.get(i13) >= i12) {
-                Snake snake = new Snake();
-                snake.startX = i12;
-                snake.startY = i16;
-                snake.endX = i11;
-                snake.endY = i17;
-                snake.reverse = true;
-                return snake;
-            }
-        }
-        return null;
+    /* JADX WARN: Code restructure failed: missing block: B:14:0x0042, code lost:
+    
+        if (r24[r13 - 1] < r24[r13 + r5]) goto L112;
+     */
+    /* JADX WARN: Code restructure failed: missing block: B:51:0x00b8, code lost:
+    
+        if (r25[r12 - 1] < r25[r12 + 1]) goto L142;
+     */
+    /* JADX WARN: Removed duplicated region for block: B:58:0x00e1 A[LOOP:4: B:54:0x00cd->B:58:0x00e1, LOOP_END] */
+    /* JADX WARN: Removed duplicated region for block: B:59:0x00ec A[EDGE_INSN: B:59:0x00ec->B:60:0x00ec BREAK  A[LOOP:4: B:54:0x00cd->B:58:0x00e1], SYNTHETIC] */
+    /*
+        Code decompiled incorrectly, please refer to instructions dump.
+        To view partially-correct code enable 'Show inconsistent code' option in preferences
+    */
+    private static androidx.recyclerview.widget.DiffUtil.Snake a(androidx.recyclerview.widget.DiffUtil.Callback r19, int r20, int r21, int r22, int r23, int[] r24, int[] r25, int r26) {
+        /*
+            Method dump skipped, instructions count: 305
+            To view this dump change 'Code comments level' option to 'DEBUG'
+        */
+        throw new UnsupportedOperationException("Method not decompiled: androidx.recyclerview.widget.DiffUtil.a(androidx.recyclerview.widget.DiffUtil$Callback, int, int, int, int, int[], int[], int):androidx.recyclerview.widget.DiffUtil$Snake");
     }
 
     @NonNull
@@ -423,96 +453,63 @@ public class DiffUtil {
         return calculateDiff(callback, true);
     }
 
-    @Nullable
-    private static Snake forward(Range range, Callback callback, CenteredArray centeredArray, CenteredArray centeredArray2, int i10) {
-        int i11;
-        int i12;
-        int i13;
-        boolean z10 = Math.abs(range.oldSize() - range.newSize()) % 2 == 1;
-        int oldSize = range.oldSize() - range.newSize();
-        int i14 = -i10;
-        for (int i15 = i14; i15 <= i10; i15 += 2) {
-            if (i15 == i14 || (i15 != i10 && centeredArray.get(i15 + 1) > centeredArray.get(i15 - 1))) {
-                i11 = centeredArray.get(i15 + 1);
-                i12 = i11;
-            } else {
-                i11 = centeredArray.get(i15 - 1);
-                i12 = i11 + 1;
-            }
-            int i16 = (range.newListStart + (i12 - range.oldListStart)) - i15;
-            int i17 = (i10 == 0 || i12 != i11) ? i16 : i16 - 1;
-            while (i12 < range.oldListEnd && i16 < range.newListEnd && callback.areItemsTheSame(i12, i16)) {
-                i12++;
-                i16++;
-            }
-            centeredArray.set(i15, i12);
-            if (z10 && (i13 = oldSize - i15) >= i14 + 1 && i13 <= i10 - 1 && centeredArray2.get(i13) <= i12) {
-                Snake snake = new Snake();
-                snake.startX = i11;
-                snake.startY = i17;
-                snake.endX = i12;
-                snake.endY = i16;
-                snake.reverse = false;
-                return snake;
-            }
-        }
-        return null;
-    }
-
-    @Nullable
-    private static Snake midPoint(Range range, Callback callback, CenteredArray centeredArray, CenteredArray centeredArray2) {
-        if (range.oldSize() >= 1 && range.newSize() >= 1) {
-            int oldSize = ((range.oldSize() + range.newSize()) + 1) / 2;
-            centeredArray.set(1, range.oldListStart);
-            centeredArray2.set(1, range.oldListEnd);
-            for (int i10 = 0; i10 < oldSize; i10++) {
-                Snake forward = forward(range, callback, centeredArray, centeredArray2, i10);
-                if (forward != null) {
-                    return forward;
-                }
-                Snake backward = backward(range, callback, centeredArray, centeredArray2, i10);
-                if (backward != null) {
-                    return backward;
-                }
-            }
-        }
-        return null;
-    }
-
     @NonNull
-    public static DiffResult calculateDiff(@NonNull Callback callback, boolean z10) {
+    public static DiffResult calculateDiff(@NonNull Callback callback, boolean z) {
         int oldListSize = callback.getOldListSize();
         int newListSize = callback.getNewListSize();
         ArrayList arrayList = new ArrayList();
         ArrayList arrayList2 = new ArrayList();
         arrayList2.add(new Range(0, oldListSize, 0, newListSize));
-        int i10 = ((((oldListSize + newListSize) + 1) / 2) * 2) + 1;
-        CenteredArray centeredArray = new CenteredArray(i10);
-        CenteredArray centeredArray2 = new CenteredArray(i10);
+        int abs = oldListSize + newListSize + Math.abs(oldListSize - newListSize);
+        int i2 = abs * 2;
+        int[] iArr = new int[i2];
+        int[] iArr2 = new int[i2];
         ArrayList arrayList3 = new ArrayList();
         while (!arrayList2.isEmpty()) {
             Range range = (Range) arrayList2.remove(arrayList2.size() - 1);
-            Snake midPoint = midPoint(range, callback, centeredArray, centeredArray2);
-            if (midPoint != null) {
-                if (midPoint.diagonalSize() > 0) {
-                    arrayList.add(midPoint.toDiagonal());
+            Snake a2 = a(callback, range.f3242a, range.f3243b, range.f3244c, range.f3245d, iArr, iArr2, abs);
+            if (a2 != null) {
+                if (a2.f3248c > 0) {
+                    arrayList.add(a2);
                 }
+                a2.f3246a += range.f3242a;
+                a2.f3247b += range.f3244c;
                 Range range2 = arrayList3.isEmpty() ? new Range() : (Range) arrayList3.remove(arrayList3.size() - 1);
-                range2.oldListStart = range.oldListStart;
-                range2.newListStart = range.newListStart;
-                range2.oldListEnd = midPoint.startX;
-                range2.newListEnd = midPoint.startY;
+                range2.f3242a = range.f3242a;
+                range2.f3244c = range.f3244c;
+                if (a2.f3250e) {
+                    range2.f3243b = a2.f3246a;
+                    range2.f3245d = a2.f3247b;
+                } else if (a2.f3249d) {
+                    range2.f3243b = a2.f3246a - 1;
+                    range2.f3245d = a2.f3247b;
+                } else {
+                    range2.f3243b = a2.f3246a;
+                    range2.f3245d = a2.f3247b - 1;
+                }
                 arrayList2.add(range2);
-                range.oldListEnd = range.oldListEnd;
-                range.newListEnd = range.newListEnd;
-                range.oldListStart = midPoint.endX;
-                range.newListStart = midPoint.endY;
+                if (!a2.f3250e) {
+                    int i3 = a2.f3246a;
+                    int i4 = a2.f3248c;
+                    range.f3242a = i3 + i4;
+                    range.f3244c = a2.f3247b + i4;
+                } else if (a2.f3249d) {
+                    int i5 = a2.f3246a;
+                    int i6 = a2.f3248c;
+                    range.f3242a = i5 + i6 + 1;
+                    range.f3244c = a2.f3247b + i6;
+                } else {
+                    int i7 = a2.f3246a;
+                    int i8 = a2.f3248c;
+                    range.f3242a = i7 + i8;
+                    range.f3244c = a2.f3247b + i8 + 1;
+                }
                 arrayList2.add(range);
             } else {
                 arrayList3.add(range);
             }
         }
-        Collections.sort(arrayList, DIAGONAL_COMPARATOR);
-        return new DiffResult(callback, arrayList, centeredArray.backingData(), centeredArray2.backingData(), z10);
+        Collections.sort(arrayList, f3228a);
+        return new DiffResult(callback, arrayList, iArr, iArr2, z);
     }
 }

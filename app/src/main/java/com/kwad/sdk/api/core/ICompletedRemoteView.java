@@ -7,7 +7,7 @@ import androidx.annotation.Keep;
 
 @KsAdSdkDynamicApi
 @Keep
-/* loaded from: classes3.dex */
+/* loaded from: classes2.dex */
 public interface ICompletedRemoteView {
     @KsAdSdkDynamicApi
     @Keep
@@ -15,7 +15,7 @@ public interface ICompletedRemoteView {
 
     @KsAdSdkDynamicApi
     @Keep
-    void setIcon(@DrawableRes int i10);
+    void setIcon(@DrawableRes int i2);
 
     @KsAdSdkDynamicApi
     @Keep

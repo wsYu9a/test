@@ -5,8 +5,8 @@ import com.kwad.sdk.core.response.model.AdInfo;
 import java.io.Serializable;
 
 @KsJson
-/* loaded from: classes3.dex */
-public class DownloadParams extends com.kwad.sdk.core.response.a.a implements Serializable {
+/* loaded from: classes2.dex */
+public class DownloadParams extends com.kwad.sdk.core.response.kwai.a implements Serializable {
     private static final long serialVersionUID = -4966891183505507851L;
     public boolean downloadEnablePause = false;
     public int downloadPlace = 1;
@@ -33,7 +33,8 @@ public class DownloadParams extends com.kwad.sdk.core.response.a.a implements Se
         downloadParams.mFileUrl = adInfo.adConversionInfo.appDownloadUrl;
         downloadParams.mAppIcon = adBaseInfo.appIconUrl;
         downloadParams.mShortDesc = adBaseInfo.adDescription;
-        downloadParams.downloadEnablePause = adInfo.downloadSafeInfo.downloadPauseEnable;
+        AdInfo.DownloadSafeInfo downloadSafeInfo = adInfo.downloadSafeInfo;
+        downloadParams.downloadEnablePause = downloadSafeInfo != null && downloadSafeInfo.downloadPauseEnable;
         return downloadParams;
     }
 }

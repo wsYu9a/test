@@ -4,81 +4,68 @@ import android.content.Context;
 import android.hardware.Sensor;
 import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
+import android.hardware.SensorManager;
 import androidx.annotation.Nullable;
 import com.kwad.sdk.core.response.model.AdMatrixInfo;
-import com.kwad.sdk.utils.bf;
-import java.util.Arrays;
-import p3.f;
+import com.umeng.analytics.pro.am;
 
-/* loaded from: classes3.dex */
+/* loaded from: classes2.dex */
 public final class c {
+    private volatile boolean alV = true;
+    private long alW = 0;
+    private double alX = 9.999999717180685E-10d;
+    private double[] alY = {0.0d, 0.0d, 0.0d};
+    private double[] alZ = {0.0d, 0.0d, 0.0d};
 
     @Nullable
-    private com.kwad.sdk.core.f.a aEt;
+    private com.kwad.sdk.core.f.a ama;
 
     @Nullable
-    private a aEu;
+    private a amb;
     private AdMatrixInfo.RotateInfo rotateInfo;
-    private volatile boolean aEo = true;
-    private long aEp = 0;
-    private double aEq = 9.999999717180685E-10d;
-    private double[] aEr = {l5.c.f27899e, l5.c.f27899e, l5.c.f27899e};
-    private double[] aEs = {l5.c.f27899e, l5.c.f27899e, l5.c.f27899e};
-    private final bf.b aEv = new bf.b() { // from class: com.kwad.sdk.core.f.c.1
-        public AnonymousClass1() {
-        }
 
-        @Override // com.kwad.sdk.utils.bf.b
-        public final void onFailed() {
-            if (c.this.aEt != null) {
-                c.this.aEt.bx();
-            }
-        }
-    };
-
-    /* renamed from: com.kwad.sdk.core.f.c$1 */
-    public class AnonymousClass1 implements bf.b {
-        public AnonymousClass1() {
-        }
-
-        @Override // com.kwad.sdk.utils.bf.b
-        public final void onFailed() {
-            if (c.this.aEt != null) {
-                c.this.aEt.bx();
-            }
-        }
-    }
-
-    public class a implements SensorEventListener {
+    class a implements SensorEventListener {
         private a() {
         }
 
+        /* synthetic */ a(c cVar, byte b2) {
+            this();
+        }
+
         @Override // android.hardware.SensorEventListener
-        public final void onAccuracyChanged(Sensor sensor, int i10) {
+        public final void onAccuracyChanged(Sensor sensor, int i2) {
         }
 
         @Override // android.hardware.SensorEventListener
         public final void onSensorChanged(SensorEvent sensorEvent) {
             float[] fArr = sensorEvent.values;
-            float f10 = fArr[0];
-            float f11 = fArr[1];
-            float f12 = fArr[2];
-            if (c.this.aEp != 0) {
-                double d10 = (sensorEvent.timestamp - c.this.aEp) * c.this.aEq;
-                double[] dArr = c.this.aEs;
-                dArr[0] = dArr[0] + Math.toDegrees(f10 * d10);
-                double[] dArr2 = c.this.aEs;
-                dArr2[1] = dArr2[1] + Math.toDegrees(f11 * d10);
-                double[] dArr3 = c.this.aEs;
-                dArr3[2] = dArr3[2] + Math.toDegrees(f12 * d10);
-                c.this.GY();
-                c.this.GZ();
+            float f2 = fArr[0];
+            float f3 = fArr[1];
+            float f4 = fArr[2];
+            if (c.this.alW != 0) {
+                double d2 = sensorEvent.timestamp - c.this.alW;
+                double d3 = c.this.alX;
+                Double.isNaN(d2);
+                double d4 = d2 * d3;
+                double[] dArr = c.this.alZ;
+                double d5 = dArr[0];
+                double d6 = f2;
+                Double.isNaN(d6);
+                dArr[0] = d5 + Math.toDegrees(d6 * d4);
+                double[] dArr2 = c.this.alZ;
+                double d7 = dArr2[1];
+                double d8 = f3;
+                Double.isNaN(d8);
+                dArr2[1] = d7 + Math.toDegrees(d8 * d4);
+                double[] dArr3 = c.this.alZ;
+                double d9 = dArr3[2];
+                double d10 = f4;
+                Double.isNaN(d10);
+                dArr3[2] = d9 + Math.toDegrees(d10 * d4);
+                c.this.xE();
+                c.this.xF();
             }
-            c.this.aEp = sensorEvent.timestamp;
-        }
-
-        public /* synthetic */ a(c cVar, byte b10) {
-            this();
+            c.this.alW = sensorEvent.timestamp;
         }
     }
 
@@ -86,84 +73,87 @@ public final class c {
         this.rotateInfo = rotateInfo;
     }
 
-    private void GX() {
-        Arrays.fill(this.aEr, l5.c.f27899e);
-        Arrays.fill(this.aEs, l5.c.f27899e);
-        this.aEp = 0L;
+    private boolean a(int i2, double d2, int i3) {
+        if (d2 <= 0.0d || Math.abs(this.alZ[i2]) < d2) {
+            return false;
+        }
+        double[] dArr = this.alZ;
+        return (dArr[i2] <= 0.0d || i3 != 1) && (dArr[i2] >= 0.0d || i3 != 2);
     }
 
-    public void GY() {
-        if (this.aEo) {
-            if (Math.abs(this.aEs[0]) > Math.abs(this.aEr[0])) {
-                this.aEr[0] = this.aEs[0];
+    public void xE() {
+        if (this.alV) {
+            if (Math.abs(this.alZ[0]) > Math.abs(this.alY[0])) {
+                this.alY[0] = this.alZ[0];
             }
-            if (Math.abs(this.aEs[1]) > Math.abs(this.aEr[1])) {
-                this.aEr[1] = this.aEs[1];
+            if (Math.abs(this.alZ[1]) > Math.abs(this.alY[1])) {
+                this.alY[1] = this.alZ[1];
             }
-            if (Math.abs(this.aEs[2]) > Math.abs(this.aEr[2])) {
-                this.aEr[2] = this.aEs[2];
+            if (Math.abs(this.alZ[2]) > Math.abs(this.alY[2])) {
+                this.alY[2] = this.alZ[2];
             }
         }
     }
 
-    public void GZ() {
+    public void xF() {
         AdMatrixInfo.RotateInfo rotateInfo;
-        if (!this.aEo || (rotateInfo = this.rotateInfo) == null || this.aEt == null) {
+        if (!this.alV || (rotateInfo = this.rotateInfo) == null || this.ama == null) {
             return;
         }
-        if (!a(0, r0.rotateDegree, rotateInfo.f11970x.direction)) {
-            if (!a(1, r0.rotateDegree, this.rotateInfo.f11971y.direction)) {
-                if (!a(2, r0.rotateDegree, this.rotateInfo.f11972z.direction)) {
+        if (!a(0, r0.rotateDegree, rotateInfo.x.direction)) {
+            if (!a(1, r1.rotateDegree, this.rotateInfo.y.direction)) {
+                if (!a(2, r1.rotateDegree, this.rotateInfo.z.direction)) {
                     return;
                 }
             }
         }
-        this.aEo = false;
-        this.aEt.o(Ha());
+        this.alV = false;
+        this.ama.ae(xG());
+        this.alZ = new double[]{0.0d, 0.0d, 0.0d};
+        this.alY = new double[]{0.0d, 0.0d, 0.0d};
     }
 
-    private String Ha() {
-        return "{\"x\": " + this.aEr[0] + ",\"y\":" + this.aEr[1] + ",\"z\":" + this.aEr[2] + f.f29748d;
+    private String xG() {
+        return "{\"x\": " + this.alY[0] + ",\"y\":" + this.alY[1] + ",\"z\":" + this.alY[2] + "}";
     }
 
-    public final synchronized void bA(Context context) {
-        if (context != null) {
-            if (this.aEu != null) {
-                bf.Ox().a(this.aEu);
-                this.aEu = null;
-            }
-        }
-    }
-
-    public final void bz(Context context) {
-        if (context == null) {
-            return;
-        }
-        GX();
-        this.aEo = true;
-        if (this.aEu == null) {
-            this.aEu = new a(this, (byte) 0);
-        }
-        bf.Ox().a(2, 2, this.aEu, this.aEv);
-    }
-
-    public final void b(AdMatrixInfo.RotateInfo rotateInfo) {
-        this.rotateInfo = rotateInfo;
+    public final void a(@Nullable com.kwad.sdk.core.f.a aVar) {
+        this.ama = aVar;
     }
 
     public final void a(AdMatrixInfo.RotateInfo rotateInfo) {
         this.rotateInfo = rotateInfo;
     }
 
-    public final void a(@Nullable com.kwad.sdk.core.f.a aVar) {
-        this.aEt = aVar;
+    public final void aX(Context context) {
+        if (context == null) {
+            return;
+        }
+        SensorManager sensorManager = (SensorManager) context.getSystemService(am.ac);
+        Sensor defaultSensor = sensorManager.getDefaultSensor(4);
+        if (defaultSensor != null) {
+            if (this.amb == null) {
+                this.amb = new a(this, (byte) 0);
+            }
+            sensorManager.registerListener(this.amb, defaultSensor, 2);
+        } else {
+            com.kwad.sdk.core.f.a aVar = this.ama;
+            if (aVar != null) {
+                aVar.la();
+            }
+        }
     }
 
-    private boolean a(int i10, double d10, int i11) {
-        if (d10 <= l5.c.f27899e || Math.abs(this.aEs[i10]) < d10) {
-            return false;
+    public final synchronized void aY(Context context) {
+        if (context != null) {
+            if (this.amb != null) {
+                ((SensorManager) context.getSystemService(am.ac)).unregisterListener(this.amb);
+                this.amb = null;
+            }
         }
-        double d11 = this.aEs[i10];
-        return (d11 <= l5.c.f27899e || i11 != 1) && (d11 >= l5.c.f27899e || i11 != 2);
+    }
+
+    public final synchronized void xD() {
+        this.alV = true;
     }
 }

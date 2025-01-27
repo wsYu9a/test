@@ -4,18 +4,18 @@ package com.tencent.bugly.beta.global;
 public class d implements Runnable {
 
     /* renamed from: a */
-    int f22097a;
+    int f24618a;
 
     /* renamed from: b */
-    public final Object[] f22098b;
+    public final Object[] f24619b;
 
-    public d(int i10, Object... objArr) {
-        this.f22097a = i10;
-        this.f22098b = objArr;
+    public d(int i2, Object... objArr) {
+        this.f24618a = i2;
+        this.f24619b = objArr;
     }
 
-    /* JADX WARN: Removed duplicated region for block: B:354:0x063f  */
-    /* JADX WARN: Removed duplicated region for block: B:356:? A[RETURN, SYNTHETIC] */
+    /* JADX WARN: Removed duplicated region for block: B:349:0x062d  */
+    /* JADX WARN: Removed duplicated region for block: B:351:? A[RETURN, SYNTHETIC] */
     @Override // java.lang.Runnable
     /*
         Code decompiled incorrectly, please refer to instructions dump.
@@ -23,7 +23,7 @@ public class d implements Runnable {
     */
     public void run() {
         /*
-            Method dump skipped, instructions count: 1644
+            Method dump skipped, instructions count: 1626
             To view this dump change 'Code comments level' option to 'DEBUG'
         */
         throw new UnsupportedOperationException("Method not decompiled: com.tencent.bugly.beta.global.d.run():void");

@@ -1,6 +1,6 @@
 package com.qq.e.comm.adevent;
 
-/* loaded from: classes3.dex */
+/* loaded from: classes4.dex */
 public interface AdEventType {
     public static final int ADAPTER_APK_DOWNLOAD_FAIL = 404;
     public static final int ADAPTER_APK_DOWNLOAD_FINISH = 405;

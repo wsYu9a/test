@@ -10,146 +10,136 @@ import androidx.annotation.NonNull;
 import com.kwad.components.core.video.a;
 import com.kwad.sdk.R;
 import com.kwad.sdk.core.response.model.AdTemplate;
-import com.kwad.sdk.utils.bw;
-import com.kwad.sdk.utils.bx;
+import com.kwad.sdk.utils.bl;
+import com.kwad.sdk.utils.bm;
 import java.util.concurrent.atomic.AtomicBoolean;
 
 @SuppressLint({"ViewConstructor"})
-/* loaded from: classes3.dex */
-public final class f extends com.kwad.components.core.video.a implements bx.a {
-    private boolean FS;
-    private boolean Xu;
-    private boolean Xv;
-    private View bN;
-    private final bx bO;
-    private final AtomicBoolean bP;
+/* loaded from: classes2.dex */
+public final class f extends com.kwad.components.core.video.a implements bm.a {
+    private boolean Dr;
+    private View Ru;
+    private boolean Rx;
+    private final bm gK;
+    private final AtomicBoolean mIsViewDetached;
 
     public interface a extends a.c {
-        void onVideoPlayError(int i10, int i11);
+        void onVideoPlayError(int i2, int i3);
     }
 
     public f(Context context, AdTemplate adTemplate, @NonNull com.kwad.sdk.core.video.videoview.c cVar) {
         super(context, adTemplate, cVar);
-        this.bO = new bx(this);
-        this.bP = new AtomicBoolean(true);
-        this.FS = false;
-        this.Xu = false;
-        this.Xv = false;
-        this.bN = this;
+        this.gK = new bm(this);
+        this.mIsViewDetached = new AtomicBoolean(true);
+        this.Dr = false;
+        this.Rx = false;
+        this.Ru = this;
     }
 
-    private void Z() {
-        if (this.bP.getAndSet(false)) {
-            com.kwad.sdk.core.d.c.i("InterstitialVideoPlayerController", "onViewAttached");
-            this.bO.sendEmptyMessage(1);
+    private void onViewAttached() {
+        if (this.mIsViewDetached.getAndSet(false)) {
+            com.kwad.sdk.core.d.b.i("InterstitialVideoPlayerController", "onViewAttached");
+            this.gK.sendEmptyMessage(1);
         }
     }
 
-    private void aa() {
-        if (this.bP.getAndSet(true)) {
+    private void onViewDetached() {
+        if (this.mIsViewDetached.getAndSet(true)) {
             return;
         }
-        com.kwad.sdk.core.d.c.i("InterstitialVideoPlayerController", "onViewDetached");
-        this.bO.removeCallbacksAndMessages(null);
+        com.kwad.sdk.core.d.b.i("InterstitialVideoPlayerController", "onViewDetached");
+        this.gK.removeCallbacksAndMessages(null);
         release();
     }
 
-    private void sP() {
-        this.FS = false;
+    private void qy() {
+        this.Dr = false;
     }
 
-    @Override // com.kwad.sdk.utils.bx.a
+    @Override // com.kwad.sdk.utils.bm.a
     public final void a(Message message) {
-        if (!this.FS && message.what == 1) {
-            if (this.Xv) {
-                this.bO.sendEmptyMessageDelayed(1, 500L);
-                return;
-            }
-            if (bw.o(this.bN, 70)) {
-                ab();
+        if (!this.Dr && message.what == 1) {
+            if (bl.o(this.Ru, 70)) {
+                pZ();
             } else {
-                ss();
+                qb();
             }
-            this.bO.sendEmptyMessageDelayed(1, 500L);
+            this.gK.sendEmptyMessageDelayed(1, 500L);
         }
     }
 
     @Override // com.kwad.components.core.video.a
-    public final void ab() {
-        super.ab();
-    }
-
-    @Override // com.kwad.components.core.video.a
-    public final void eR() {
-        if (this.Xu) {
-            super.eR();
+    protected final void eU() {
+        if (this.Rx) {
+            super.eU();
         }
     }
 
     @Override // android.view.ViewGroup, android.view.View
-    public final void onAttachedToWindow() {
+    protected final void onAttachedToWindow() {
         super.onAttachedToWindow();
-        com.kwad.sdk.core.d.c.i("InterstitialVideoPlayerController", "onAttachedToWindow");
-        sP();
-        Z();
+        com.kwad.sdk.core.d.b.i("InterstitialVideoPlayerController", "onAttachedToWindow");
+        qy();
+        onViewAttached();
     }
 
     @Override // android.view.ViewGroup, android.view.View
-    public final void onDetachedFromWindow() {
+    protected final void onDetachedFromWindow() {
         super.onDetachedFromWindow();
-        com.kwad.sdk.core.d.c.i("InterstitialVideoPlayerController", "onDetachedFromWindow");
-        aa();
+        com.kwad.sdk.core.d.b.i("InterstitialVideoPlayerController", "onDetachedFromWindow");
+        onViewDetached();
     }
 
     @Override // android.view.View
     public final void onFinishTemporaryDetach() {
         super.onFinishTemporaryDetach();
-        com.kwad.sdk.core.d.c.i("InterstitialVideoPlayerController", "onFinishTemporaryDetach");
-        Z();
+        com.kwad.sdk.core.d.b.i("InterstitialVideoPlayerController", "onFinishTemporaryDetach");
+        onViewAttached();
     }
 
     @Override // android.view.View
     public final void onStartTemporaryDetach() {
         super.onStartTemporaryDetach();
-        com.kwad.sdk.core.d.c.i("InterstitialVideoPlayerController", "onStartTemporaryDetach");
-        aa();
+        com.kwad.sdk.core.d.b.i("InterstitialVideoPlayerController", "onStartTemporaryDetach");
+        onViewDetached();
     }
 
     @Override // android.view.View
-    public final void onWindowFocusChanged(boolean z10) {
-        super.onWindowFocusChanged(z10);
+    public final void onWindowFocusChanged(boolean z) {
+        super.onWindowFocusChanged(z);
     }
 
     @Override // android.view.View
-    public final void onWindowVisibilityChanged(int i10) {
-        super.onWindowVisibilityChanged(i10);
+    protected final void onWindowVisibilityChanged(int i2) {
+        super.onWindowVisibilityChanged(i2);
     }
 
     @Override // com.kwad.components.core.video.a
-    public final void release() {
-        super.release();
-        this.FS = true;
-    }
-
-    public final void setShowLandingPage(boolean z10) {
-        this.Xv = z10;
-    }
-
-    @Override // com.kwad.components.core.video.a
-    public final void sl() {
-        super.sl();
-        ImageView imageView = this.ol;
+    protected final void pT() {
+        super.pT();
+        ImageView imageView = this.nn;
         if (imageView != null) {
             imageView.setImageResource(R.drawable.ksad_interstitial_video_play);
         }
-        TextView textView = this.om;
+        TextView textView = this.no;
         if (textView != null) {
             textView.setVisibility(8);
         }
     }
 
     @Override // com.kwad.components.core.video.a
-    public final void ss() {
-        super.ss();
+    public final void pZ() {
+        super.pZ();
+    }
+
+    @Override // com.kwad.components.core.video.a
+    public final void qb() {
+        super.qb();
+    }
+
+    @Override // com.kwad.components.core.video.a
+    public final void release() {
+        super.release();
+        this.Dr = true;
     }
 }

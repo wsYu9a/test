@@ -10,7 +10,7 @@ import com.bumptech.glide.load.resource.bitmap.BitmapResource;
 import com.bumptech.glide.util.Preconditions;
 import java.security.MessageDigest;
 
-/* loaded from: classes2.dex */
+/* loaded from: classes.dex */
 public class GifDrawableTransformation implements Transformation<GifDrawable> {
     private final Transformation<Bitmap> wrapped;
 
@@ -33,10 +33,10 @@ public class GifDrawableTransformation implements Transformation<GifDrawable> {
 
     @Override // com.bumptech.glide.load.Transformation
     @NonNull
-    public Resource<GifDrawable> transform(@NonNull Context context, @NonNull Resource<GifDrawable> resource, int i10, int i11) {
+    public Resource<GifDrawable> transform(@NonNull Context context, @NonNull Resource<GifDrawable> resource, int i2, int i3) {
         GifDrawable gifDrawable = resource.get();
         Resource<Bitmap> bitmapResource = new BitmapResource(gifDrawable.getFirstFrame(), Glide.get(context).getBitmapPool());
-        Resource<Bitmap> transform = this.wrapped.transform(context, bitmapResource, i10, i11);
+        Resource<Bitmap> transform = this.wrapped.transform(context, bitmapResource, i2, i3);
         if (!bitmapResource.equals(transform)) {
             bitmapResource.recycle();
         }

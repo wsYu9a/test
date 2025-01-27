@@ -1,49 +1,49 @@
 package com.yxcorp.kuaishou.addfp.android.b;
 
 import android.text.TextUtils;
-import com.bytedance.sdk.openadsdk.mediation.MediationConstant;
+import com.vivo.ic.dm.Downloads;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-/* loaded from: classes4.dex */
+/* loaded from: classes5.dex */
 class c {
 
     /* renamed from: a */
-    boolean f25180a;
+    boolean f34699a;
 
     /* renamed from: b */
-    int f25181b;
+    int f34700b;
 
     /* renamed from: c */
-    boolean f25182c;
+    boolean f34701c;
 
     /* renamed from: d */
-    String f25183d;
+    String f34702d;
 
-    public c(String str) {
-        this.f25180a = true;
+    c(String str) {
+        this.f34699a = true;
         if (TextUtils.isEmpty(str)) {
-            this.f25180a = false;
+            this.f34699a = false;
         }
         try {
             JSONObject jSONObject = new JSONObject(str);
-            this.f25181b = jSONObject.optInt(MediationConstant.KEY_ERROR_CODE, 2);
-            this.f25182c = jSONObject.optBoolean("userSet", true);
-            this.f25183d = jSONObject.optString("value", "KWE_OTHER");
-        } catch (JSONException e10) {
-            this.f25180a = false;
-            e10.printStackTrace();
+            this.f34700b = jSONObject.optInt("errorCode", 2);
+            this.f34701c = jSONObject.optBoolean("userSet", true);
+            this.f34702d = jSONObject.optString(Downloads.RequestHeaders.COLUMN_VALUE, "KWE_OTHER");
+        } catch (JSONException e2) {
+            this.f34699a = false;
+            e2.printStackTrace();
         }
     }
 
-    public String a(boolean z10) {
-        if (!this.f25180a) {
+    public String a(boolean z) {
+        if (!this.f34699a) {
             return "KWE_OTHER";
         }
-        if (z10 != this.f25182c) {
+        if (z != this.f34701c) {
             return "KWE_NPN";
         }
-        int i10 = this.f25181b;
-        return i10 != 0 ? i10 != 1 ? i10 != 2 ? i10 != 3 ? i10 != 4 ? "KWE_OTHER" : "KWE_NS" : "KWE_N" : "KWE_PE" : "KWE_PN" : !TextUtils.isEmpty(this.f25183d) ? this.f25183d : "KWE_N";
+        int i2 = this.f34700b;
+        return i2 != 0 ? i2 != 1 ? i2 != 2 ? i2 != 3 ? i2 != 4 ? "KWE_OTHER" : "KWE_NS" : "KWE_N" : "KWE_PE" : "KWE_PN" : !TextUtils.isEmpty(this.f34702d) ? this.f34702d : "KWE_N";
     }
 }

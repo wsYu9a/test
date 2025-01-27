@@ -1,5 +1,5 @@
 package com.martian.mibook.lib.yuewen.response;
 
-/* loaded from: classes3.dex */
+/* loaded from: classes4.dex */
 public class YWBookDiscount {
 }

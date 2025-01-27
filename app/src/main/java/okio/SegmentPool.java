@@ -1,96 +1,75 @@
 package okio;
 
-import java.util.concurrent.atomic.AtomicReference;
-import k0.e;
+import f.b.a.d;
+import f.b.a.e;
 import kotlin.Metadata;
-import kotlin.jvm.JvmStatic;
+import kotlin.Unit;
 import kotlin.jvm.internal.Intrinsics;
-import xi.k;
 
-@Metadata(d1 = {"\u0000.\n\u0002\u0018\u0002\n\u0002\u0010\u0000\n\u0002\b\u0002\n\u0002\u0010\b\n\u0000\n\u0002\u0018\u0002\n\u0002\b\u0006\n\u0002\u0010\u0011\n\u0002\u0018\u0002\n\u0002\b\u0003\n\u0002\u0010\u0002\n\u0002\b\u0003\bÀ\u0002\u0018\u00002\u00020\u0001B\u0007\b\u0002¢\u0006\u0002\u0010\u0002J\u0010\u0010\u0010\u001a\n\u0012\u0006\u0012\u0004\u0018\u00010\u00060\u000eH\u0002J\u0010\u0010\u0011\u001a\u00020\u00122\u0006\u0010\u0013\u001a\u00020\u0006H\u0007J\b\u0010\u0014\u001a\u00020\u0006H\u0007R\u000e\u0010\u0003\u001a\u00020\u0004X\u0082\u0004¢\u0006\u0002\n\u0000R\u000e\u0010\u0005\u001a\u00020\u0006X\u0082\u0004¢\u0006\u0002\n\u0000R\u0014\u0010\u0007\u001a\u00020\u0004X\u0086D¢\u0006\b\n\u0000\u001a\u0004\b\b\u0010\tR\u0011\u0010\n\u001a\u00020\u00048F¢\u0006\u0006\u001a\u0004\b\u000b\u0010\tR\u001e\u0010\f\u001a\u0010\u0012\f\u0012\n\u0012\u0006\u0012\u0004\u0018\u00010\u00060\u000e0\rX\u0082\u0004¢\u0006\u0004\n\u0002\u0010\u000f¨\u0006\u0015"}, d2 = {"Lokio/SegmentPool;", "", "()V", "HASH_BUCKET_COUNT", "", "LOCK", "Lokio/Segment;", "MAX_SIZE", "getMAX_SIZE", "()I", "byteCount", "getByteCount", "hashBuckets", "", "Ljava/util/concurrent/atomic/AtomicReference;", "[Ljava/util/concurrent/atomic/AtomicReference;", "firstRef", "recycle", "", "segment", "take", "okio"}, k = 1, mv = {1, 6, 0}, xi = 48)
-/* loaded from: classes4.dex */
+@Metadata(bv = {1, 0, 3}, d1 = {"\u0000 \n\u0002\u0018\u0002\n\u0002\u0010\u0000\n\u0002\u0018\u0002\n\u0002\b\u0003\n\u0002\u0010\u0002\n\u0002\b\u0002\n\u0002\u0010\t\n\u0002\b\u000e\bÁ\u0002\u0018\u00002\u00020\u0001B\t\b\u0002¢\u0006\u0004\b\u0015\u0010\u0016J\r\u0010\u0003\u001a\u00020\u0002¢\u0006\u0004\b\u0003\u0010\u0004J\u0015\u0010\u0007\u001a\u00020\u00062\u0006\u0010\u0005\u001a\u00020\u0002¢\u0006\u0004\b\u0007\u0010\bR\"\u0010\n\u001a\u00020\t8\u0006@\u0006X\u0086\u000e¢\u0006\u0012\n\u0004\b\n\u0010\u000b\u001a\u0004\b\f\u0010\r\"\u0004\b\u000e\u0010\u000fR\u0016\u0010\u0010\u001a\u00020\t8\u0006@\u0006X\u0086T¢\u0006\u0006\n\u0004\b\u0010\u0010\u000bR$\u0010\u0011\u001a\u0004\u0018\u00010\u00028\u0006@\u0006X\u0086\u000e¢\u0006\u0012\n\u0004\b\u0011\u0010\u0012\u001a\u0004\b\u0013\u0010\u0004\"\u0004\b\u0014\u0010\b¨\u0006\u0017"}, d2 = {"Lokio/SegmentPool;", "", "Lokio/Segment;", "take", "()Lokio/Segment;", "segment", "", "recycle", "(Lokio/Segment;)V", "", "byteCount", "J", "getByteCount", "()J", "setByteCount", "(J)V", "MAX_SIZE", "next", "Lokio/Segment;", "getNext", "setNext", "<init>", "()V", "okio"}, k = 1, mv = {1, 4, 0})
+/* loaded from: classes5.dex */
 public final class SegmentPool {
-    private static final int HASH_BUCKET_COUNT;
-
-    @k
-    private static final AtomicReference<Segment>[] hashBuckets;
-
-    @k
     public static final SegmentPool INSTANCE = new SegmentPool();
-    private static final int MAX_SIZE = 65536;
+    public static final long MAX_SIZE = 65536;
+    private static long byteCount;
 
-    @k
-    private static final Segment LOCK = new Segment(new byte[0], 0, 0, false, false);
-
-    static {
-        int highestOneBit = Integer.highestOneBit((Runtime.getRuntime().availableProcessors() * 2) - 1);
-        HASH_BUCKET_COUNT = highestOneBit;
-        AtomicReference<Segment>[] atomicReferenceArr = new AtomicReference[highestOneBit];
-        for (int i10 = 0; i10 < highestOneBit; i10++) {
-            atomicReferenceArr[i10] = new AtomicReference<>();
-        }
-        hashBuckets = atomicReferenceArr;
-    }
+    @e
+    private static Segment next;
 
     private SegmentPool() {
     }
 
-    private final AtomicReference<Segment> firstRef() {
-        return hashBuckets[(int) (Thread.currentThread().getId() & (HASH_BUCKET_COUNT - 1))];
+    public final long getByteCount() {
+        return byteCount;
     }
 
-    @JvmStatic
-    public static final void recycle(@k Segment segment) {
-        AtomicReference<Segment> firstRef;
-        Segment segment2;
-        Intrinsics.checkNotNullParameter(segment, "segment");
-        if (segment.next != null || segment.prev != null) {
+    @e
+    public final Segment getNext() {
+        return next;
+    }
+
+    public final void recycle(@d Segment segment) {
+        Intrinsics.checkParameterIsNotNull(segment, "segment");
+        if (!(segment.next == null && segment.prev == null)) {
             throw new IllegalArgumentException("Failed requirement.".toString());
         }
-        if (segment.shared || (segment2 = (firstRef = INSTANCE.firstRef()).get()) == LOCK) {
+        if (segment.shared) {
             return;
         }
-        int i10 = segment2 != null ? segment2.limit : 0;
-        if (i10 >= MAX_SIZE) {
-            return;
+        synchronized (this) {
+            long j2 = byteCount;
+            long j3 = 8192;
+            if (j2 + j3 > 65536) {
+                return;
+            }
+            byteCount = j2 + j3;
+            segment.next = next;
+            segment.limit = 0;
+            segment.pos = 0;
+            next = segment;
+            Unit unit = Unit.INSTANCE;
         }
-        segment.next = segment2;
-        segment.pos = 0;
-        segment.limit = i10 + 8192;
-        if (e.a(firstRef, segment2, segment)) {
-            return;
-        }
-        segment.next = null;
     }
 
-    @JvmStatic
-    @k
-    public static final Segment take() {
-        AtomicReference<Segment> firstRef = INSTANCE.firstRef();
-        Segment segment = LOCK;
-        Segment andSet = firstRef.getAndSet(segment);
-        if (andSet == segment) {
-            return new Segment();
-        }
-        if (andSet == null) {
-            firstRef.set(null);
-            return new Segment();
-        }
-        firstRef.set(andSet.next);
-        andSet.next = null;
-        andSet.limit = 0;
-        return andSet;
+    public final void setByteCount(long j2) {
+        byteCount = j2;
     }
 
-    public final int getByteCount() {
-        Segment segment = firstRef().get();
-        if (segment == null) {
-            return 0;
-        }
-        return segment.limit;
+    public final void setNext(@e Segment segment) {
+        next = segment;
     }
 
-    public final int getMAX_SIZE() {
-        return MAX_SIZE;
+    @d
+    public final Segment take() {
+        synchronized (this) {
+            Segment segment = next;
+            if (segment == null) {
+                return new Segment();
+            }
+            next = segment.next;
+            segment.next = null;
+            byteCount -= 8192;
+            return segment;
+        }
     }
 }

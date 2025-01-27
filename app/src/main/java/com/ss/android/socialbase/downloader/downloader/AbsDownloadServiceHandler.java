@@ -28,7 +28,7 @@ public abstract class AbsDownloadServiceHandler implements IDownloadServiceHandl
     protected volatile boolean isInvokeStartService = false;
     private Handler handler = new Handler(Looper.getMainLooper());
     private Runnable debounceStartServiceRunnable = new Runnable() { // from class: com.ss.android.socialbase.downloader.downloader.AbsDownloadServiceHandler.1
-        public AnonymousClass1() {
+        AnonymousClass1() {
         }
 
         @Override // java.lang.Runnable
@@ -47,8 +47,8 @@ public abstract class AbsDownloadServiceHandler implements IDownloadServiceHandl
     };
 
     /* renamed from: com.ss.android.socialbase.downloader.downloader.AbsDownloadServiceHandler$1 */
-    public class AnonymousClass1 implements Runnable {
-        public AnonymousClass1() {
+    class AnonymousClass1 implements Runnable {
+        AnonymousClass1() {
         }
 
         @Override // java.lang.Runnable
@@ -89,7 +89,7 @@ public abstract class AbsDownloadServiceHandler implements IDownloadServiceHandl
     }
 
     @Override // com.ss.android.socialbase.downloader.downloader.IDownloadServiceHandler
-    public void onStartCommand(Intent intent, int i10, int i11) {
+    public void onStartCommand(Intent intent, int i2, int i3) {
     }
 
     @Override // com.ss.android.socialbase.downloader.downloader.IDownloadServiceHandler
@@ -103,24 +103,20 @@ public abstract class AbsDownloadServiceHandler implements IDownloadServiceHandl
         }
         int downloadId = downloadTask.getDownloadId();
         synchronized (this.pendingTasks) {
-            try {
-                String str = TAG;
-                Logger.d(str, "pendDownloadTask pendingTasks.size:" + this.pendingTasks.size() + " downloadId:" + downloadId);
-                List<DownloadTask> list = this.pendingTasks.get(downloadId);
-                if (list == null) {
-                    list = new ArrayList<>();
-                    this.pendingTasks.put(downloadId, list);
-                }
-                Logger.d(str, "before pendDownloadTask taskArray.size:" + list.size());
-                list.add(downloadTask);
-                Logger.d(str, "after pendDownloadTask pendingTasks.size:" + this.pendingTasks.size());
-            } catch (Throwable th2) {
-                throw th2;
+            String str = TAG;
+            Logger.d(str, "pendDownloadTask pendingTasks.size:" + this.pendingTasks.size() + " downloadId:" + downloadId);
+            List<DownloadTask> list = this.pendingTasks.get(downloadId);
+            if (list == null) {
+                list = new ArrayList<>();
+                this.pendingTasks.put(downloadId, list);
             }
+            Logger.d(str, "before pendDownloadTask taskArray.size:" + list.size());
+            list.add(downloadTask);
+            Logger.d(str, "after pendDownloadTask pendingTasks.size:" + this.pendingTasks.size());
         }
     }
 
-    public void resumePendingTask() {
+    protected void resumePendingTask() {
         SparseArray<List<DownloadTask>> clone;
         synchronized (this.pendingTasks) {
             Logger.d(TAG, "resumePendingTask pendingTasks.size:" + this.pendingTasks.size());
@@ -129,8 +125,8 @@ public abstract class AbsDownloadServiceHandler implements IDownloadServiceHandl
         }
         AbsDownloadEngine downloadEngine = DownloadComponentManager.getDownloadEngine();
         if (downloadEngine != null) {
-            for (int i10 = 0; i10 < clone.size(); i10++) {
-                List<DownloadTask> list = clone.get(clone.keyAt(i10));
+            for (int i2 = 0; i2 < clone.size(); i2++) {
+                List<DownloadTask> list = clone.get(clone.keyAt(i2));
                 if (list != null) {
                     for (DownloadTask downloadTask : list) {
                         Logger.d(TAG, "resumePendingTask key:" + downloadTask.getDownloadId());
@@ -147,8 +143,8 @@ public abstract class AbsDownloadServiceHandler implements IDownloadServiceHandl
     }
 
     @Override // com.ss.android.socialbase.downloader.downloader.IDownloadServiceHandler
-    public void setLogLevel(int i10) {
-        Logger.setLogLevel(i10);
+    public void setLogLevel(int i2) {
+        Logger.setLogLevel(i2);
     }
 
     @Override // com.ss.android.socialbase.downloader.downloader.IDownloadServiceHandler
@@ -156,26 +152,37 @@ public abstract class AbsDownloadServiceHandler implements IDownloadServiceHandl
     }
 
     @Override // com.ss.android.socialbase.downloader.downloader.IDownloadServiceHandler
-    public void startForeground(int i10, Notification notification) {
+    public void startForeground(int i2, Notification notification) {
         WeakReference<Service> weakReference = this.downloadService;
         if (weakReference == null || weakReference.get() == null) {
             Logger.w(TAG, "startForeground: downloadService is null, do nothing!");
             return;
         }
-        Logger.i(TAG, "startForeground  id = " + i10 + ", service = " + this.downloadService.get() + ",  isServiceAlive = " + this.isServiceAlive);
+        Logger.i(TAG, "startForeground  id = " + i2 + ", service = " + this.downloadService.get() + ",  isServiceAlive = " + this.isServiceAlive);
         try {
-            this.downloadService.get().startForeground(i10, notification);
+            this.downloadService.get().startForeground(i2, notification);
             this.isServiceForeground = true;
-        } catch (Exception e10) {
-            e10.printStackTrace();
+        } catch (Exception e2) {
+            e2.printStackTrace();
         }
     }
 
-    public void startService(Context context, ServiceConnection serviceConnection) {
+    @Override // com.ss.android.socialbase.downloader.downloader.IDownloadServiceHandler
+    public void startService() {
+        if (this.isServiceAlive) {
+            return;
+        }
+        if (Logger.debug()) {
+            Logger.d(TAG, "startService");
+        }
+        startService(DownloadComponentManager.getAppContext(), null);
+    }
+
+    protected void startService(Context context, ServiceConnection serviceConnection) {
     }
 
     @Override // com.ss.android.socialbase.downloader.downloader.IDownloadServiceHandler
-    public void stopForeground(boolean z10) {
+    public void stopForeground(boolean z) {
         WeakReference<Service> weakReference = this.downloadService;
         if (weakReference == null || weakReference.get() == null) {
             return;
@@ -183,13 +190,13 @@ public abstract class AbsDownloadServiceHandler implements IDownloadServiceHandl
         Logger.i(TAG, "stopForeground  service = " + this.downloadService.get() + ",  isServiceAlive = " + this.isServiceAlive);
         try {
             this.isServiceForeground = false;
-            this.downloadService.get().stopForeground(z10);
-        } catch (Exception e10) {
-            e10.printStackTrace();
+            this.downloadService.get().stopForeground(z);
+        } catch (Exception e2) {
+            e2.printStackTrace();
         }
     }
 
-    public void stopService(Context context, ServiceConnection serviceConnection) {
+    protected void stopService(Context context, ServiceConnection serviceConnection) {
     }
 
     @Override // com.ss.android.socialbase.downloader.downloader.IDownloadServiceHandler
@@ -232,16 +239,5 @@ public abstract class AbsDownloadServiceHandler implements IDownloadServiceHandl
 
     @Override // com.ss.android.socialbase.downloader.downloader.IDownloadServiceHandler
     public void tryDownloadWithEngine(DownloadTask downloadTask) {
-    }
-
-    @Override // com.ss.android.socialbase.downloader.downloader.IDownloadServiceHandler
-    public void startService() {
-        if (this.isServiceAlive) {
-            return;
-        }
-        if (Logger.debug()) {
-            Logger.d(TAG, "startService");
-        }
-        startService(DownloadComponentManager.getAppContext(), null);
     }
 }

@@ -7,11 +7,11 @@ import com.bytedance.pangle.Zeus;
 import java.lang.ref.WeakReference;
 import java.util.HashMap;
 
-/* loaded from: classes2.dex */
+/* loaded from: classes.dex */
 public class IntentUtils {
 
     /* renamed from: a */
-    static HashMap<Long, WeakReference<Bundle>> f7468a = new HashMap<>();
+    static HashMap<Long, WeakReference<Bundle>> f5991a = new HashMap<>();
 
     public static void a(Intent intent, String str) {
         long longExtra = intent.getLongExtra("pangle_use_memory", 0L);
@@ -21,7 +21,7 @@ public class IntentUtils {
         if (longExtra != 0) {
             Bundle extras = intent.getExtras();
             intent.replaceExtras((Bundle) null);
-            f7468a.put(Long.valueOf(longExtra), new WeakReference<>(extras));
+            f5991a.put(Long.valueOf(longExtra), new WeakReference<>(extras));
             intent.putExtra("pangle_use_memory", longExtra);
         }
     }
@@ -34,7 +34,7 @@ public class IntentUtils {
     public static void a(Intent intent) {
         long longExtra = intent.getLongExtra("pangle_use_memory", 0L);
         if (longExtra != 0) {
-            WeakReference<Bundle> remove = f7468a.remove(Long.valueOf(longExtra));
+            WeakReference<Bundle> remove = f5991a.remove(Long.valueOf(longExtra));
             Bundle bundle = remove != null ? remove.get() : null;
             if (bundle != null) {
                 intent.putExtras(bundle);

@@ -27,8 +27,8 @@ class SegmentOutput implements IOutput {
         try {
             createOutputStream.seek(segment.getCurrentOffsetRead());
             return createOutputStream;
-        } catch (IOException e10) {
-            throw new BaseException(DownloadErrorCode.ERROR_RANDOM_ACCESS_SEEK_IO, e10);
+        } catch (IOException e2) {
+            throw new BaseException(DownloadErrorCode.ERROR_RANDOM_ACCESS_SEEK_IO, e2);
         }
     }
 

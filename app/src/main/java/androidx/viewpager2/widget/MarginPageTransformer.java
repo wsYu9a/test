@@ -10,14 +10,16 @@ import androidx.viewpager2.widget.ViewPager2;
 
 /* loaded from: classes.dex */
 public final class MarginPageTransformer implements ViewPager2.PageTransformer {
-    private final int mMarginPx;
 
-    public MarginPageTransformer(@Px int i10) {
-        Preconditions.checkArgumentNonnegative(i10, "Margin must be non-negative");
-        this.mMarginPx = i10;
+    /* renamed from: a */
+    private final int f4111a;
+
+    public MarginPageTransformer(@Px int i2) {
+        Preconditions.checkArgumentNonnegative(i2, "Margin must be non-negative");
+        this.f4111a = i2;
     }
 
-    private ViewPager2 requireViewPager(@NonNull View view) {
+    private ViewPager2 a(@NonNull View view) {
         ViewParent parent = view.getParent();
         ViewParent parent2 = parent.getParent();
         if ((parent instanceof RecyclerView) && (parent2 instanceof ViewPager2)) {
@@ -27,16 +29,16 @@ public final class MarginPageTransformer implements ViewPager2.PageTransformer {
     }
 
     @Override // androidx.viewpager2.widget.ViewPager2.PageTransformer
-    public void transformPage(@NonNull View view, float f10) {
-        ViewPager2 requireViewPager = requireViewPager(view);
-        float f11 = this.mMarginPx * f10;
-        if (requireViewPager.getOrientation() != 0) {
-            view.setTranslationY(f11);
+    public void transformPage(@NonNull View view, float f2) {
+        ViewPager2 a2 = a(view);
+        float f3 = this.f4111a * f2;
+        if (a2.getOrientation() != 0) {
+            view.setTranslationY(f3);
             return;
         }
-        if (requireViewPager.isRtl()) {
-            f11 = -f11;
+        if (a2.c()) {
+            f3 = -f3;
         }
-        view.setTranslationX(f11);
+        view.setTranslationX(f3);
     }
 }

@@ -14,11 +14,11 @@ public class VoteResult {
         return this.upCount;
     }
 
-    public void setHasUp(Boolean bool) {
-        this.hasUp = bool;
+    public void setHasUp(Boolean hasUp) {
+        this.hasUp = hasUp;
     }
 
-    public void setUpCount(Integer num) {
-        this.upCount = num;
+    public void setUpCount(Integer upCount) {
+        this.upCount = upCount;
     }
 }

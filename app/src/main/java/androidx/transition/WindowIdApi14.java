@@ -4,17 +4,19 @@ import android.os.IBinder;
 
 /* loaded from: classes.dex */
 class WindowIdApi14 implements WindowIdImpl {
-    private final IBinder mToken;
 
-    public WindowIdApi14(IBinder iBinder) {
-        this.mToken = iBinder;
+    /* renamed from: a */
+    private final IBinder f3921a;
+
+    WindowIdApi14(IBinder iBinder) {
+        this.f3921a = iBinder;
     }
 
     public boolean equals(Object obj) {
-        return (obj instanceof WindowIdApi14) && ((WindowIdApi14) obj).mToken.equals(this.mToken);
+        return (obj instanceof WindowIdApi14) && ((WindowIdApi14) obj).f3921a.equals(this.f3921a);
     }
 
     public int hashCode() {
-        return this.mToken.hashCode();
+        return this.f3921a.hashCode();
     }
 }

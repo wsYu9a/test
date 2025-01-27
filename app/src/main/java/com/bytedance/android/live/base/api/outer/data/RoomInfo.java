@@ -1,22 +1,27 @@
 package com.bytedance.android.live.base.api.outer.data;
 
-import java.util.HashMap;
-
-/* loaded from: classes2.dex */
+/* loaded from: classes.dex */
 public class RoomInfo {
     City city;
     String count;
     String cover;
-    HashMap<Integer, String> extraCover;
     String openRoomId;
     long orientation;
     AnchorInfo owner;
     String requestId;
     long status;
     String title;
-    String trackExtra;
 
-    public RoomInfo() {
+    public RoomInfo(String str, String str2, String str3, String str4, long j2, City city, long j3, AnchorInfo anchorInfo, String str5) {
+        this.openRoomId = str;
+        this.title = str2;
+        this.cover = str3;
+        this.count = str4;
+        this.orientation = j2;
+        this.city = city;
+        this.status = j3;
+        this.owner = anchorInfo;
+        this.requestId = str5;
     }
 
     public City getCity() {
@@ -29,10 +34,6 @@ public class RoomInfo {
 
     public String getCover() {
         return this.cover;
-    }
-
-    public HashMap<Integer, String> getExtraCover() {
-        return this.extraCover;
     }
 
     public String getOpenRoomId() {
@@ -59,10 +60,6 @@ public class RoomInfo {
         return this.title;
     }
 
-    public String getTrackExtra() {
-        return this.trackExtra;
-    }
-
     public void setCity(City city) {
         this.city = city;
     }
@@ -79,8 +76,8 @@ public class RoomInfo {
         this.openRoomId = str;
     }
 
-    public void setOrientation(long j10) {
-        this.orientation = j10;
+    public void setOrientation(long j2) {
+        this.orientation = j2;
     }
 
     public void setOwner(AnchorInfo anchorInfo) {
@@ -91,29 +88,11 @@ public class RoomInfo {
         this.requestId = str;
     }
 
-    public void setStatus(long j10) {
-        this.status = j10;
+    public void setStatus(long j2) {
+        this.status = j2;
     }
 
     public void setTitle(String str) {
         this.title = str;
-    }
-
-    public void setTrackExtra(String str) {
-        this.trackExtra = str;
-    }
-
-    public RoomInfo(String str, String str2, String str3, String str4, long j10, City city, long j11, AnchorInfo anchorInfo, String str5, String str6, HashMap<Integer, String> hashMap) {
-        this.openRoomId = str;
-        this.title = str2;
-        this.cover = str3;
-        this.count = str4;
-        this.orientation = j10;
-        this.city = city;
-        this.status = j11;
-        this.owner = anchorInfo;
-        this.requestId = str5;
-        this.trackExtra = str6;
-        this.extraCover = hashMap;
     }
 }

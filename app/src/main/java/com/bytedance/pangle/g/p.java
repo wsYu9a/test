@@ -4,19 +4,19 @@ import java.security.cert.CertificateEncodingException;
 import java.security.cert.X509Certificate;
 import java.util.Arrays;
 
-/* loaded from: classes2.dex */
+/* loaded from: classes.dex */
 final class p extends r {
 
     /* renamed from: a */
-    private final byte[] f7659a;
+    private final byte[] f6157a;
 
     /* renamed from: b */
-    private int f7660b;
+    private int f6158b;
 
-    public p(X509Certificate x509Certificate, byte[] bArr) {
+    p(X509Certificate x509Certificate, byte[] bArr) {
         super(x509Certificate);
-        this.f7660b = -1;
-        this.f7659a = bArr;
+        this.f6158b = -1;
+        this.f6157a = bArr;
     }
 
     @Override // java.security.cert.Certificate
@@ -36,18 +36,18 @@ final class p extends r {
 
     @Override // com.bytedance.pangle.g.r, java.security.cert.Certificate
     public final byte[] getEncoded() {
-        return this.f7659a;
+        return this.f6157a;
     }
 
     @Override // java.security.cert.Certificate
     public final int hashCode() {
-        if (this.f7660b == -1) {
+        if (this.f6158b == -1) {
             try {
-                this.f7660b = Arrays.hashCode(getEncoded());
+                this.f6158b = Arrays.hashCode(getEncoded());
             } catch (CertificateEncodingException unused) {
-                this.f7660b = 0;
+                this.f6158b = 0;
             }
         }
-        return this.f7660b;
+        return this.f6158b;
     }
 }

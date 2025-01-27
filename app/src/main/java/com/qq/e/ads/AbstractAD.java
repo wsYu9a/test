@@ -3,61 +3,53 @@ package com.qq.e.ads;
 import android.content.Context;
 import android.os.Handler;
 import android.os.Looper;
-import android.os.SystemClock;
 import android.text.TextUtils;
+import com.qq.e.comm.a;
 import com.qq.e.comm.constants.ErrorCode;
-import com.qq.e.comm.managers.a;
-import com.qq.e.comm.managers.setting.GlobalSetting;
+import com.qq.e.comm.managers.b;
 import com.qq.e.comm.pi.POFactory;
 import com.qq.e.comm.util.GDTLogger;
-import java.util.concurrent.atomic.AtomicBoolean;
 
-/* loaded from: classes3.dex */
+/* loaded from: classes4.dex */
 public abstract class AbstractAD<T> {
 
-    /* renamed from: g */
-    private static final AtomicBoolean f16366g = new AtomicBoolean(true);
-
     /* renamed from: a */
-    protected T f16367a;
+    protected T f23859a;
 
     /* renamed from: e */
-    private volatile boolean f16371e;
+    private volatile boolean f23863e;
 
     /* renamed from: c */
-    private volatile boolean f16369c = false;
+    private volatile boolean f23861c = false;
 
     /* renamed from: d */
-    private volatile boolean f16370d = false;
-
-    /* renamed from: f */
-    private volatile long f16372f = -1;
+    private volatile boolean f23862d = false;
 
     /* renamed from: b */
-    private final Handler f16368b = new Handler(Looper.getMainLooper());
+    private final Handler f23860b = new Handler(Looper.getMainLooper());
 
     /* renamed from: com.qq.e.ads.AbstractAD$1 */
     class AnonymousClass1 implements Runnable {
 
         /* renamed from: a */
-        final /* synthetic */ Context f16373a;
+        final /* synthetic */ Context f23864a;
 
         /* renamed from: b */
-        final /* synthetic */ String f16374b;
+        final /* synthetic */ String f23865b;
 
         /* renamed from: c */
-        final /* synthetic */ String f16375c;
+        final /* synthetic */ String f23866c;
 
         /* renamed from: d */
-        final /* synthetic */ String f16376d;
+        final /* synthetic */ String f23867d;
 
         /* renamed from: com.qq.e.ads.AbstractAD$1$1 */
-        public class RunnableC05461 implements Runnable {
+        class RunnableC04901 implements Runnable {
 
             /* renamed from: a */
-            final /* synthetic */ POFactory f16378a;
+            final /* synthetic */ POFactory f23869a;
 
-            public RunnableC05461(POFactory pOFactory) {
+            RunnableC04901(POFactory pOFactory) {
                 pOFactory = pOFactory;
             }
 
@@ -68,31 +60,30 @@ public abstract class AbstractAD<T> {
                     if (pOFactory != null) {
                         AnonymousClass1 anonymousClass1 = AnonymousClass1.this;
                         AbstractAD abstractAD = AbstractAD.this;
-                        abstractAD.f16367a = (T) abstractAD.a(context, pOFactory, a10, str, str2);
-                        AbstractAD.this.f16369c = true;
+                        abstractAD.f23859a = (T) abstractAD.a(context, pOFactory, a2, str, str2);
+                        AbstractAD.this.f23861c = true;
                         AbstractAD abstractAD2 = AbstractAD.this;
-                        if (abstractAD2.f16367a == null) {
+                        T t = abstractAD2.f23859a;
+                        if (t == null) {
                             abstractAD2.a(ErrorCode.POFACTORY_GET_INTERFACE_ERROR);
                         } else {
-                            AbstractAD.a(abstractAD2);
-                            AbstractAD abstractAD3 = AbstractAD.this;
-                            abstractAD3.a((AbstractAD) abstractAD3.f16367a);
+                            abstractAD2.a((AbstractAD) t);
                         }
                     } else {
-                        AbstractAD.this.f16369c = true;
+                        AbstractAD.this.f23861c = true;
                         AbstractAD.this.a(ErrorCode.PLUGIN_INIT_ERROR);
                     }
-                } catch (Throwable th2) {
-                    GDTLogger.e("初始化错误：初始化广告实例时发生异常", th2);
-                    AbstractAD.this.f16369c = true;
+                } catch (Throwable th) {
+                    GDTLogger.e("初始化错误：初始化广告实例时发生异常", th);
+                    AbstractAD.this.f23861c = true;
                     AbstractAD.this.a(2001);
                 }
             }
         }
 
-        public AnonymousClass1(Context context, String str, String str2, String str3) {
+        AnonymousClass1(Context context, String str, String str2, String str3) {
             context = context;
-            a10 = str;
+            a2 = str;
             str = str2;
             str2 = str3;
         }
@@ -100,12 +91,12 @@ public abstract class AbstractAD<T> {
         @Override // java.lang.Runnable
         public void run() {
             try {
-                AbstractAD.this.f16368b.post(new Runnable() { // from class: com.qq.e.ads.AbstractAD.1.1
+                AbstractAD.this.f23860b.post(new Runnable() { // from class: com.qq.e.ads.AbstractAD.1.1
 
                     /* renamed from: a */
-                    final /* synthetic */ POFactory f16378a;
+                    final /* synthetic */ POFactory f23869a;
 
-                    public RunnableC05461(POFactory pOFactory) {
+                    RunnableC04901(POFactory pOFactory) {
                         pOFactory = pOFactory;
                     }
 
@@ -116,79 +107,195 @@ public abstract class AbstractAD<T> {
                             if (pOFactory != null) {
                                 AnonymousClass1 anonymousClass1 = AnonymousClass1.this;
                                 AbstractAD abstractAD = AbstractAD.this;
-                                abstractAD.f16367a = (T) abstractAD.a(context, pOFactory, a10, str, str2);
-                                AbstractAD.this.f16369c = true;
+                                abstractAD.f23859a = (T) abstractAD.a(context, pOFactory, a2, str, str2);
+                                AbstractAD.this.f23861c = true;
                                 AbstractAD abstractAD2 = AbstractAD.this;
-                                if (abstractAD2.f16367a == null) {
+                                T t = abstractAD2.f23859a;
+                                if (t == null) {
                                     abstractAD2.a(ErrorCode.POFACTORY_GET_INTERFACE_ERROR);
                                 } else {
-                                    AbstractAD.a(abstractAD2);
-                                    AbstractAD abstractAD3 = AbstractAD.this;
-                                    abstractAD3.a((AbstractAD) abstractAD3.f16367a);
+                                    abstractAD2.a((AbstractAD) t);
                                 }
                             } else {
-                                AbstractAD.this.f16369c = true;
+                                AbstractAD.this.f23861c = true;
                                 AbstractAD.this.a(ErrorCode.PLUGIN_INIT_ERROR);
                             }
-                        } catch (Throwable th2) {
-                            GDTLogger.e("初始化错误：初始化广告实例时发生异常", th2);
-                            AbstractAD.this.f16369c = true;
+                        } catch (Throwable th) {
+                            GDTLogger.e("初始化错误：初始化广告实例时发生异常", th);
+                            AbstractAD.this.f23861c = true;
                             AbstractAD.this.a(2001);
                         }
                     }
                 });
-            } catch (Throwable th2) {
-                GDTLogger.e("初始化错误：初始化插件时发生异常", th2);
-                AbstractAD.this.f16369c = true;
+            } catch (Throwable th) {
+                GDTLogger.e("初始化错误：初始化插件时发生异常", th);
+                AbstractAD.this.f23861c = true;
                 AbstractAD.this.a(ErrorCode.PLUGIN_INIT_ERROR);
             }
         }
     }
 
     /* renamed from: com.qq.e.ads.AbstractAD$2 */
-    public class AnonymousClass2 implements Runnable {
+    class AnonymousClass2 implements Runnable {
 
         /* renamed from: a */
-        final /* synthetic */ int f16380a;
+        final /* synthetic */ int f23871a;
 
-        public AnonymousClass2(int i10) {
-            i10 = i10;
+        AnonymousClass2(int i2) {
+            i2 = i2;
         }
 
         @Override // java.lang.Runnable
         public void run() {
-            AbstractAD.this.b(i10);
+            AbstractAD.this.b(i2);
         }
     }
 
-    public abstract T a(Context context, POFactory pOFactory, String str, String str2, String str3);
-
-    public final void a(int i10) {
-        if (Thread.currentThread() == Looper.getMainLooper().getThread()) {
-            b(i10);
-        } else {
-            this.f16368b.post(new Runnable() { // from class: com.qq.e.ads.AbstractAD.2
+    private void b(Context context, String str, String str2) {
+        this.f23863e = true;
+        if (!b.b().d()) {
+            a(2003);
+            return;
+        }
+        String a2 = b.b().a();
+        if (a.a(context)) {
+            this.f23862d = true;
+            b.f24009g.execute(new Runnable() { // from class: com.qq.e.ads.AbstractAD.1
 
                 /* renamed from: a */
-                final /* synthetic */ int f16380a;
+                final /* synthetic */ Context f23864a;
 
-                public AnonymousClass2(int i102) {
-                    i10 = i102;
+                /* renamed from: b */
+                final /* synthetic */ String f23865b;
+
+                /* renamed from: c */
+                final /* synthetic */ String f23866c;
+
+                /* renamed from: d */
+                final /* synthetic */ String f23867d;
+
+                /* renamed from: com.qq.e.ads.AbstractAD$1$1 */
+                class RunnableC04901 implements Runnable {
+
+                    /* renamed from: a */
+                    final /* synthetic */ POFactory f23869a;
+
+                    RunnableC04901(POFactory pOFactory) {
+                        pOFactory = pOFactory;
+                    }
+
+                    @Override // java.lang.Runnable
+                    public void run() {
+                        try {
+                            POFactory pOFactory = pOFactory;
+                            if (pOFactory != null) {
+                                AnonymousClass1 anonymousClass1 = AnonymousClass1.this;
+                                AbstractAD abstractAD = AbstractAD.this;
+                                abstractAD.f23859a = (T) abstractAD.a(context, pOFactory, a2, str, str2);
+                                AbstractAD.this.f23861c = true;
+                                AbstractAD abstractAD2 = AbstractAD.this;
+                                T t = abstractAD2.f23859a;
+                                if (t == null) {
+                                    abstractAD2.a(ErrorCode.POFACTORY_GET_INTERFACE_ERROR);
+                                } else {
+                                    abstractAD2.a((AbstractAD) t);
+                                }
+                            } else {
+                                AbstractAD.this.f23861c = true;
+                                AbstractAD.this.a(ErrorCode.PLUGIN_INIT_ERROR);
+                            }
+                        } catch (Throwable th) {
+                            GDTLogger.e("初始化错误：初始化广告实例时发生异常", th);
+                            AbstractAD.this.f23861c = true;
+                            AbstractAD.this.a(2001);
+                        }
+                    }
+                }
+
+                AnonymousClass1(Context context2, String a22, String str3, String str22) {
+                    context = context2;
+                    a2 = a22;
+                    str = str3;
+                    str2 = str22;
                 }
 
                 @Override // java.lang.Runnable
                 public void run() {
-                    AbstractAD.this.b(i10);
+                    try {
+                        AbstractAD.this.f23860b.post(new Runnable() { // from class: com.qq.e.ads.AbstractAD.1.1
+
+                            /* renamed from: a */
+                            final /* synthetic */ POFactory f23869a;
+
+                            RunnableC04901(POFactory pOFactory) {
+                                pOFactory = pOFactory;
+                            }
+
+                            @Override // java.lang.Runnable
+                            public void run() {
+                                try {
+                                    POFactory pOFactory = pOFactory;
+                                    if (pOFactory != null) {
+                                        AnonymousClass1 anonymousClass1 = AnonymousClass1.this;
+                                        AbstractAD abstractAD = AbstractAD.this;
+                                        abstractAD.f23859a = (T) abstractAD.a(context, pOFactory, a2, str, str2);
+                                        AbstractAD.this.f23861c = true;
+                                        AbstractAD abstractAD2 = AbstractAD.this;
+                                        T t = abstractAD2.f23859a;
+                                        if (t == null) {
+                                            abstractAD2.a(ErrorCode.POFACTORY_GET_INTERFACE_ERROR);
+                                        } else {
+                                            abstractAD2.a((AbstractAD) t);
+                                        }
+                                    } else {
+                                        AbstractAD.this.f23861c = true;
+                                        AbstractAD.this.a(ErrorCode.PLUGIN_INIT_ERROR);
+                                    }
+                                } catch (Throwable th) {
+                                    GDTLogger.e("初始化错误：初始化广告实例时发生异常", th);
+                                    AbstractAD.this.f23861c = true;
+                                    AbstractAD.this.a(2001);
+                                }
+                            }
+                        });
+                    } catch (Throwable th) {
+                        GDTLogger.e("初始化错误：初始化插件时发生异常", th);
+                        AbstractAD.this.f23861c = true;
+                        AbstractAD.this.a(ErrorCode.PLUGIN_INIT_ERROR);
+                    }
+                }
+            });
+        } else {
+            GDTLogger.e("Manifest文件中Activity/Service/Permission的声明有问题或者Permission权限未授予");
+            a(4002);
+        }
+    }
+
+    protected abstract T a(Context context, POFactory pOFactory, String str, String str2, String str3);
+
+    /* JADX INFO: Access modifiers changed from: protected */
+    public final void a(int i2) {
+        if (Thread.currentThread() == Looper.getMainLooper().getThread()) {
+            b(i2);
+        } else {
+            this.f23860b.post(new Runnable() { // from class: com.qq.e.ads.AbstractAD.2
+
+                /* renamed from: a */
+                final /* synthetic */ int f23871a;
+
+                AnonymousClass2(int i22) {
+                    i2 = i22;
+                }
+
+                @Override // java.lang.Runnable
+                public void run() {
+                    AbstractAD.this.b(i2);
                 }
             });
         }
     }
 
-    public abstract void a(T t10);
-
-    public abstract void b(int i10);
-
-    public final void a(Context context, String str) {
+    protected final void a(Context context, String str) {
         if (context != null && !TextUtils.isEmpty(str)) {
             b(context, str, "");
         } else {
@@ -197,137 +304,7 @@ public abstract class AbstractAD<T> {
         }
     }
 
-    public final boolean b() {
-        if (!this.f16369c && f16366g.compareAndSet(true, false)) {
-            this.f16372f = SystemClock.elapsedRealtime();
-        }
-        return this.f16369c;
-    }
-
-    private void b(Context context, String str, String str2) {
-        this.f16371e = true;
-        if (a.b().d()) {
-            String a10 = a.b().a();
-            if (com.qq.e.comm.a.a(context)) {
-                this.f16370d = true;
-                a.f16557g.execute(new Runnable() { // from class: com.qq.e.ads.AbstractAD.1
-
-                    /* renamed from: a */
-                    final /* synthetic */ Context f16373a;
-
-                    /* renamed from: b */
-                    final /* synthetic */ String f16374b;
-
-                    /* renamed from: c */
-                    final /* synthetic */ String f16375c;
-
-                    /* renamed from: d */
-                    final /* synthetic */ String f16376d;
-
-                    /* renamed from: com.qq.e.ads.AbstractAD$1$1 */
-                    public class RunnableC05461 implements Runnable {
-
-                        /* renamed from: a */
-                        final /* synthetic */ POFactory f16378a;
-
-                        public RunnableC05461(POFactory pOFactory) {
-                            pOFactory = pOFactory;
-                        }
-
-                        @Override // java.lang.Runnable
-                        public void run() {
-                            try {
-                                POFactory pOFactory = pOFactory;
-                                if (pOFactory != null) {
-                                    AnonymousClass1 anonymousClass1 = AnonymousClass1.this;
-                                    AbstractAD abstractAD = AbstractAD.this;
-                                    abstractAD.f16367a = (T) abstractAD.a(context, pOFactory, a10, str, str2);
-                                    AbstractAD.this.f16369c = true;
-                                    AbstractAD abstractAD2 = AbstractAD.this;
-                                    if (abstractAD2.f16367a == null) {
-                                        abstractAD2.a(ErrorCode.POFACTORY_GET_INTERFACE_ERROR);
-                                    } else {
-                                        AbstractAD.a(abstractAD2);
-                                        AbstractAD abstractAD3 = AbstractAD.this;
-                                        abstractAD3.a((AbstractAD) abstractAD3.f16367a);
-                                    }
-                                } else {
-                                    AbstractAD.this.f16369c = true;
-                                    AbstractAD.this.a(ErrorCode.PLUGIN_INIT_ERROR);
-                                }
-                            } catch (Throwable th2) {
-                                GDTLogger.e("初始化错误：初始化广告实例时发生异常", th2);
-                                AbstractAD.this.f16369c = true;
-                                AbstractAD.this.a(2001);
-                            }
-                        }
-                    }
-
-                    public AnonymousClass1(Context context2, String a102, String str3, String str22) {
-                        context = context2;
-                        a10 = a102;
-                        str = str3;
-                        str2 = str22;
-                    }
-
-                    @Override // java.lang.Runnable
-                    public void run() {
-                        try {
-                            AbstractAD.this.f16368b.post(new Runnable() { // from class: com.qq.e.ads.AbstractAD.1.1
-
-                                /* renamed from: a */
-                                final /* synthetic */ POFactory f16378a;
-
-                                public RunnableC05461(POFactory pOFactory) {
-                                    pOFactory = pOFactory;
-                                }
-
-                                @Override // java.lang.Runnable
-                                public void run() {
-                                    try {
-                                        POFactory pOFactory = pOFactory;
-                                        if (pOFactory != null) {
-                                            AnonymousClass1 anonymousClass1 = AnonymousClass1.this;
-                                            AbstractAD abstractAD = AbstractAD.this;
-                                            abstractAD.f16367a = (T) abstractAD.a(context, pOFactory, a10, str, str2);
-                                            AbstractAD.this.f16369c = true;
-                                            AbstractAD abstractAD2 = AbstractAD.this;
-                                            if (abstractAD2.f16367a == null) {
-                                                abstractAD2.a(ErrorCode.POFACTORY_GET_INTERFACE_ERROR);
-                                            } else {
-                                                AbstractAD.a(abstractAD2);
-                                                AbstractAD abstractAD3 = AbstractAD.this;
-                                                abstractAD3.a((AbstractAD) abstractAD3.f16367a);
-                                            }
-                                        } else {
-                                            AbstractAD.this.f16369c = true;
-                                            AbstractAD.this.a(ErrorCode.PLUGIN_INIT_ERROR);
-                                        }
-                                    } catch (Throwable th2) {
-                                        GDTLogger.e("初始化错误：初始化广告实例时发生异常", th2);
-                                        AbstractAD.this.f16369c = true;
-                                        AbstractAD.this.a(2001);
-                                    }
-                                }
-                            });
-                        } catch (Throwable th2) {
-                            GDTLogger.e("初始化错误：初始化插件时发生异常", th2);
-                            AbstractAD.this.f16369c = true;
-                            AbstractAD.this.a(ErrorCode.PLUGIN_INIT_ERROR);
-                        }
-                    }
-                });
-                return;
-            } else {
-                GDTLogger.e("Manifest文件中Activity/Service/Permission的声明有问题或者Permission权限未授予");
-                a(4002);
-                return;
-            }
-        }
-        a(2003);
-    }
-
-    public final void a(Context context, String str, String str2) {
+    protected final void a(Context context, String str, String str2) {
         if (context != null && !TextUtils.isEmpty(str) && !TextUtils.isEmpty(str2)) {
             b(context, str, str2);
         } else {
@@ -336,20 +313,20 @@ public abstract class AbstractAD<T> {
         }
     }
 
-    public final void a(String str) {
+    protected abstract void a(T t);
+
+    protected final void a(String str) {
         GDTLogger.e(getClass().getSimpleName() + ":调用方法 " + str + "异常，广告实例还未初始化");
     }
 
-    public final boolean a() {
-        return this.f16371e && this.f16370d;
+    protected final boolean a() {
+        return this.f23863e && this.f23862d;
     }
 
-    public static void a(AbstractAD abstractAD) {
-        if (abstractAD.f16372f > 0) {
-            try {
-                GlobalSetting.getSettings().putOpt("gdtwict", Long.valueOf(SystemClock.elapsedRealtime() - abstractAD.f16372f));
-            } catch (Throwable unused) {
-            }
-        }
+    protected abstract void b(int i2);
+
+    /* JADX INFO: Access modifiers changed from: protected */
+    public final boolean b() {
+        return this.f23861c;
     }
 }

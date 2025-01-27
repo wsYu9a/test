@@ -2,7 +2,7 @@ package com.martian.mibook.lib.yuewen.response;
 
 import java.util.List;
 
-/* loaded from: classes3.dex */
+/* loaded from: classes4.dex */
 public class YWBookSaleList {
     private List<YWBookSaleItem> bookList;
 
@@ -10,7 +10,7 @@ public class YWBookSaleList {
         return this.bookList;
     }
 
-    public void setBookList(List<YWBookSaleItem> list) {
-        this.bookList = list;
+    public void setBookList(List<YWBookSaleItem> bookList) {
+        this.bookList = bookList;
     }
 }

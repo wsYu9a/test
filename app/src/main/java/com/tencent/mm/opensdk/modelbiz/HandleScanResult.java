@@ -15,7 +15,7 @@ public class HandleScanResult {
         @Override // com.tencent.mm.opensdk.modelbase.BaseReq
         public boolean checkArgs() {
             String str = this.scanResult;
-            return str != null && str.length() >= 0 && this.scanResult.length() <= 10240;
+            return str != null && str.length() >= 0 && this.scanResult.length() <= MAX_URL_LENGHT;
         }
 
         @Override // com.tencent.mm.opensdk.modelbase.BaseReq
@@ -32,6 +32,10 @@ public class HandleScanResult {
 
     public static class Resp extends BaseResp {
         public Resp() {
+        }
+
+        public Resp(Bundle bundle) {
+            fromBundle(bundle);
         }
 
         @Override // com.tencent.mm.opensdk.modelbase.BaseResp
@@ -52,10 +56,6 @@ public class HandleScanResult {
         @Override // com.tencent.mm.opensdk.modelbase.BaseResp
         public void toBundle(Bundle bundle) {
             super.toBundle(bundle);
-        }
-
-        public Resp(Bundle bundle) {
-            fromBundle(bundle);
         }
     }
 }

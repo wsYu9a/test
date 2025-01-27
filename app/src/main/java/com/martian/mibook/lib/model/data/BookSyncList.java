@@ -6,15 +6,15 @@ import java.util.List;
 public class BookSyncList {
     private List<BookSyncInfo> oplist;
 
-    public BookSyncList(List<BookSyncInfo> list) {
-        this.oplist = list;
+    public BookSyncList(List<BookSyncInfo> oplist) {
+        this.oplist = oplist;
     }
 
     public List<BookSyncInfo> getOplist() {
         return this.oplist;
     }
 
-    public void setOplist(List<BookSyncInfo> list) {
-        this.oplist = list;
+    public void setOplist(List<BookSyncInfo> oplist) {
+        this.oplist = oplist;
     }
 }

@@ -20,13 +20,9 @@ import com.kwad.sdk.R;
 
 /* loaded from: classes2.dex */
 public class JinniuCouponLayout extends LinearLayout {
-    private float BP;
-    private Rect BQ;
-    private RectF BR;
-    private RectF BS;
-    private RectF BT;
-    private RectF BU;
-    private Path BV;
+    private RectF Aa;
+    private RectF Ab;
+    private Path Ac;
 
     @ColorInt
     private int endColor;
@@ -35,27 +31,120 @@ public class JinniuCouponLayout extends LinearLayout {
 
     @ColorInt
     private int startColor;
+    private float zW;
+    private Rect zX;
+    private RectF zY;
+    private RectF zZ;
 
     public JinniuCouponLayout(Context context) {
         super(context);
         this.mPaint = new Paint();
-        this.BP = 4.0f;
+        this.zW = 4.0f;
         this.mRadius = 10.0f;
-        this.BQ = new Rect();
-        this.BR = new RectF();
-        this.BS = new RectF();
-        this.BT = new RectF();
-        this.BU = new RectF();
-        this.BV = new Path();
+        this.zX = new Rect();
+        this.zY = new RectF();
+        this.zZ = new RectF();
+        this.Aa = new RectF();
+        this.Ab = new RectF();
+        this.Ac = new Path();
         this.startColor = Color.parseColor("#FFFE3666");
         this.endColor = Color.parseColor("#FFFD7200");
-        a(context, null, 0);
+        init(context, null, 0);
     }
 
-    private void a(Context context, @Nullable AttributeSet attributeSet, int i10) {
-        TypedArray obtainStyledAttributes = context.obtainStyledAttributes(attributeSet, R.styleable.ksad_JinniuCouponLayout, i10, 0);
+    public JinniuCouponLayout(Context context, @Nullable AttributeSet attributeSet) {
+        super(context, attributeSet);
+        this.mPaint = new Paint();
+        this.zW = 4.0f;
+        this.mRadius = 10.0f;
+        this.zX = new Rect();
+        this.zY = new RectF();
+        this.zZ = new RectF();
+        this.Aa = new RectF();
+        this.Ab = new RectF();
+        this.Ac = new Path();
+        this.startColor = Color.parseColor("#FFFE3666");
+        this.endColor = Color.parseColor("#FFFD7200");
+        init(context, attributeSet, 0);
+    }
+
+    public JinniuCouponLayout(Context context, @Nullable AttributeSet attributeSet, int i2) {
+        super(context, attributeSet, i2);
+        this.mPaint = new Paint();
+        this.zW = 4.0f;
+        this.mRadius = 10.0f;
+        this.zX = new Rect();
+        this.zY = new RectF();
+        this.zZ = new RectF();
+        this.Aa = new RectF();
+        this.Ab = new RectF();
+        this.Ac = new Path();
+        this.startColor = Color.parseColor("#FFFE3666");
+        this.endColor = Color.parseColor("#FFFD7200");
+        init(context, attributeSet, i2);
+    }
+
+    @RequiresApi(api = 21)
+    public JinniuCouponLayout(Context context, AttributeSet attributeSet, int i2, int i3) {
+        super(context, attributeSet, i2, i3);
+        this.mPaint = new Paint();
+        this.zW = 4.0f;
+        this.mRadius = 10.0f;
+        this.zX = new Rect();
+        this.zY = new RectF();
+        this.zZ = new RectF();
+        this.Aa = new RectF();
+        this.Ab = new RectF();
+        this.Ac = new Path();
+        this.startColor = Color.parseColor("#FFFE3666");
+        this.endColor = Color.parseColor("#FFFD7200");
+        init(context, attributeSet, i2);
+    }
+
+    private void a(Path path, RectF rectF, RectF rectF2, RectF rectF3) {
+        path.reset();
+        RectF rectF4 = this.zY;
+        path.moveTo(rectF4.left, rectF4.top + this.mRadius);
+        this.Ab.set(rectF);
+        RectF rectF5 = this.Ab;
+        float f2 = rectF5.top;
+        float f3 = this.mRadius;
+        rectF5.bottom = f2 + (f3 * 2.0f);
+        rectF5.right = rectF5.left + (f3 * 2.0f);
+        path.arcTo(rectF5, 180.0f, 90.0f);
+        path.lineTo(rectF2.left, rectF2.top);
+        path.arcTo(rectF2, -180.0f, -180.0f);
+        path.lineTo(rectF.width() - this.mRadius, rectF.top);
+        this.Ab.set(rectF);
+        RectF rectF6 = this.Ab;
+        float f4 = rectF6.right;
+        float f5 = this.mRadius;
+        rectF6.left = f4 - (f5 * 2.0f);
+        rectF6.bottom = rectF6.top + (f5 * 2.0f);
+        path.arcTo(rectF6, 270.0f, 90.0f);
+        this.Ab.set(rectF);
+        RectF rectF7 = this.Ab;
+        float f6 = rectF7.right;
+        float f7 = this.mRadius;
+        rectF7.left = f6 - (f7 * 2.0f);
+        rectF7.top = rectF7.bottom - (f7 * 2.0f);
+        path.arcTo(rectF7, 0.0f, 90.0f);
+        path.lineTo(rectF3.right, rectF3.bottom);
+        path.arcTo(rectF3, 0.0f, -180.0f);
+        path.lineTo(rectF.left + this.mRadius, rectF.bottom);
+        this.Ab.set(rectF);
+        RectF rectF8 = this.Ab;
+        float f8 = rectF8.left;
+        float f9 = this.mRadius;
+        rectF8.right = f8 + (f9 * 2.0f);
+        rectF8.top = rectF8.bottom - (f9 * 2.0f);
+        path.arcTo(rectF8, 90.0f, 90.0f);
+    }
+
+    private void init(Context context, @Nullable AttributeSet attributeSet, int i2) {
+        TypedArray obtainStyledAttributes = context.obtainStyledAttributes(attributeSet, R.styleable.ksad_JinniuCouponLayout, i2, 0);
         this.mRadius = obtainStyledAttributes.getDimension(R.styleable.ksad_JinniuCouponLayout_ksad_outerRadius, 4.0f);
-        this.BP = obtainStyledAttributes.getDimension(R.styleable.ksad_JinniuCouponLayout_ksad_verticalRadius, 10.0f);
+        this.zW = obtainStyledAttributes.getDimension(R.styleable.ksad_JinniuCouponLayout_ksad_verticalRadius, 10.0f);
         obtainStyledAttributes.recycle();
         this.mPaint.setAntiAlias(true);
     }
@@ -65,130 +154,41 @@ public class JinniuCouponLayout extends LinearLayout {
     }
 
     @Override // android.view.ViewGroup, android.view.View
-    public void dispatchDraw(Canvas canvas) {
-        this.BQ.setEmpty();
-        getDrawingRect(this.BQ);
-        this.BR.set(this.BQ);
+    protected void dispatchDraw(Canvas canvas) {
+        this.zX.setEmpty();
+        getDrawingRect(this.zX);
+        this.zY.set(this.zX);
         if (getChildCount() > 1) {
             View childAt = getChildAt(0);
-            RectF rectF = this.BS;
+            RectF rectF = this.zZ;
             if (rectF == null) {
-                this.BS = new RectF();
+                this.zZ = new RectF();
             } else {
                 rectF.setEmpty();
             }
-            RectF rectF2 = this.BT;
+            RectF rectF2 = this.Aa;
             if (rectF2 == null) {
-                this.BT = new RectF();
+                this.Aa = new RectF();
             } else {
                 rectF2.setEmpty();
             }
             float measuredWidth = childAt.getMeasuredWidth();
-            Rect rect = this.BQ;
-            float f10 = rect.left + measuredWidth;
-            RectF rectF3 = this.BS;
-            int i10 = rect.top;
-            float f11 = this.BP;
-            rectF3.set(f10, i10 - f11, (2.0f * f11) + f10, i10 + f11);
-            RectF rectF4 = this.BT;
-            RectF rectF5 = this.BS;
-            float f12 = rectF5.left;
-            int i11 = this.BQ.bottom;
-            float f13 = this.BP;
-            rectF4.set(f12, i11 - f13, rectF5.right, i11 + f13);
-            a(this.BV, this.BR, this.BS, this.BT);
-            setGradientPaint(this.BR);
-            canvas.drawPath(this.BV, this.mPaint);
+            Rect rect = this.zX;
+            float f2 = rect.left + measuredWidth;
+            RectF rectF3 = this.zZ;
+            int i2 = rect.top;
+            float f3 = this.zW;
+            rectF3.set(f2, i2 - f3, (2.0f * f3) + f2, i2 + f3);
+            RectF rectF4 = this.Aa;
+            RectF rectF5 = this.zZ;
+            float f4 = rectF5.left;
+            int i3 = this.zX.bottom;
+            float f5 = this.zW;
+            rectF4.set(f4, i3 - f5, rectF5.right, i3 + f5);
+            a(this.Ac, this.zY, this.zZ, this.Aa);
+            setGradientPaint(this.zY);
+            canvas.drawPath(this.Ac, this.mPaint);
         }
         super.dispatchDraw(canvas);
-    }
-
-    private void a(Path path, RectF rectF, RectF rectF2, RectF rectF3) {
-        path.reset();
-        RectF rectF4 = this.BR;
-        path.moveTo(rectF4.left, rectF4.top + this.mRadius);
-        this.BU.set(rectF);
-        RectF rectF5 = this.BU;
-        float f10 = rectF5.top;
-        float f11 = this.mRadius;
-        rectF5.bottom = f10 + (f11 * 2.0f);
-        rectF5.right = rectF5.left + (f11 * 2.0f);
-        path.arcTo(rectF5, 180.0f, 90.0f);
-        path.lineTo(rectF2.left, rectF2.top);
-        path.arcTo(rectF2, -180.0f, -180.0f);
-        path.lineTo(rectF.width() - this.mRadius, rectF.top);
-        this.BU.set(rectF);
-        RectF rectF6 = this.BU;
-        float f12 = rectF6.right;
-        float f13 = this.mRadius;
-        rectF6.left = f12 - (f13 * 2.0f);
-        rectF6.bottom = rectF6.top + (f13 * 2.0f);
-        path.arcTo(rectF6, 270.0f, 90.0f);
-        this.BU.set(rectF);
-        RectF rectF7 = this.BU;
-        float f14 = rectF7.right;
-        float f15 = this.mRadius;
-        rectF7.left = f14 - (f15 * 2.0f);
-        rectF7.top = rectF7.bottom - (f15 * 2.0f);
-        path.arcTo(rectF7, 0.0f, 90.0f);
-        path.lineTo(rectF3.right, rectF3.bottom);
-        path.arcTo(rectF3, 0.0f, -180.0f);
-        path.lineTo(rectF.left + this.mRadius, rectF.bottom);
-        this.BU.set(rectF);
-        RectF rectF8 = this.BU;
-        float f16 = rectF8.left;
-        float f17 = this.mRadius;
-        rectF8.right = f16 + (f17 * 2.0f);
-        rectF8.top = rectF8.bottom - (f17 * 2.0f);
-        path.arcTo(rectF8, 90.0f, 90.0f);
-    }
-
-    public JinniuCouponLayout(Context context, @Nullable AttributeSet attributeSet) {
-        super(context, attributeSet);
-        this.mPaint = new Paint();
-        this.BP = 4.0f;
-        this.mRadius = 10.0f;
-        this.BQ = new Rect();
-        this.BR = new RectF();
-        this.BS = new RectF();
-        this.BT = new RectF();
-        this.BU = new RectF();
-        this.BV = new Path();
-        this.startColor = Color.parseColor("#FFFE3666");
-        this.endColor = Color.parseColor("#FFFD7200");
-        a(context, attributeSet, 0);
-    }
-
-    public JinniuCouponLayout(Context context, @Nullable AttributeSet attributeSet, int i10) {
-        super(context, attributeSet, i10);
-        this.mPaint = new Paint();
-        this.BP = 4.0f;
-        this.mRadius = 10.0f;
-        this.BQ = new Rect();
-        this.BR = new RectF();
-        this.BS = new RectF();
-        this.BT = new RectF();
-        this.BU = new RectF();
-        this.BV = new Path();
-        this.startColor = Color.parseColor("#FFFE3666");
-        this.endColor = Color.parseColor("#FFFD7200");
-        a(context, attributeSet, i10);
-    }
-
-    @RequiresApi(api = 21)
-    public JinniuCouponLayout(Context context, AttributeSet attributeSet, int i10, int i11) {
-        super(context, attributeSet, i10, i11);
-        this.mPaint = new Paint();
-        this.BP = 4.0f;
-        this.mRadius = 10.0f;
-        this.BQ = new Rect();
-        this.BR = new RectF();
-        this.BS = new RectF();
-        this.BT = new RectF();
-        this.BU = new RectF();
-        this.BV = new Path();
-        this.startColor = Color.parseColor("#FFFE3666");
-        this.endColor = Color.parseColor("#FFFD7200");
-        a(context, attributeSet, i10);
     }
 }

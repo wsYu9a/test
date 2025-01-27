@@ -1,26 +1,26 @@
 package com.martian.mibook.lib.model.data;
 
-import ba.k;
-import vb.e;
+import com.martian.libsupport.j;
+import com.martian.mibook.lib.model.manager.d;
 
-@k.h(name = "micache_records")
+@j.g(name = "micache_records")
 /* loaded from: classes3.dex */
 public class MiCacheItem {
 
-    @k.b
+    @j.b
     private Integer chapterIndex;
 
-    @k.b
+    @j.b
     private String chapterLink;
 
-    @k.b
+    @j.b
     private Integer chapterSize;
 
-    @k.b
+    @j.b
     private String chapterTitle;
 
-    @k.g
-    @k.b
+    @j.b
+    @j.f
     private String sourceStr;
 
     public MiCacheItem() {
@@ -43,42 +43,42 @@ public class MiCacheItem {
     }
 
     public String getSourceId() {
-        return e.d(this.sourceStr);
+        return d.c(this.sourceStr);
     }
 
     public String getSourceName() {
-        return e.e(this.sourceStr);
+        return d.d(this.sourceStr);
     }
 
     public String getSourceStr() {
         return this.sourceStr;
     }
 
-    public void setChapterIndex(Integer num) {
-        this.chapterIndex = num;
+    public void setChapterIndex(Integer chapterIndex) {
+        this.chapterIndex = chapterIndex;
     }
 
-    public void setChapterLink(String str) {
-        this.chapterLink = str;
+    public void setChapterLink(String chapterLink) {
+        this.chapterLink = chapterLink;
     }
 
-    public void setChapterSize(Integer num) {
-        this.chapterSize = num;
+    public void setChapterSize(Integer chapterSize) {
+        this.chapterSize = chapterSize;
     }
 
-    public void setChapterTitle(String str) {
-        this.chapterTitle = str;
+    public void setChapterTitle(String chapterTitle) {
+        this.chapterTitle = chapterTitle;
     }
 
-    public void setSourceStr(String str) {
-        this.sourceStr = str;
+    public void setSourceStr(String sourceStr) {
+        this.sourceStr = sourceStr;
     }
 
-    public MiCacheItem(String str, String str2, Integer num, Integer num2, String str3, String str4) {
-        this.sourceStr = e.j(str, str2);
-        this.chapterIndex = num;
-        this.chapterSize = num2;
-        this.chapterTitle = str3;
-        this.chapterLink = str4;
+    public MiCacheItem(String source, String sourceId, Integer chapterIndex, Integer chapterSize, String chapterTitle, String chapterLink) {
+        this.sourceStr = d.j(source, sourceId);
+        this.chapterIndex = chapterIndex;
+        this.chapterSize = chapterSize;
+        this.chapterTitle = chapterTitle;
+        this.chapterLink = chapterLink;
     }
 }

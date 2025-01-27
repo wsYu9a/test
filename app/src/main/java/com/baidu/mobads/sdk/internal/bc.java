@@ -1,14 +1,21 @@
 package com.baidu.mobads.sdk.internal;
 
-/* loaded from: classes2.dex */
-public class bc {
+import java.util.concurrent.ThreadFactory;
+import java.util.concurrent.atomic.AtomicInteger;
 
-    /* renamed from: a, reason: collision with root package name */
-    public static final String f6856a = "permission_module";
+/* loaded from: classes.dex */
+final class bc implements ThreadFactory {
 
-    /* renamed from: b, reason: collision with root package name */
-    public static final String f6857b = "limitpersonalads_module";
+    /* renamed from: a */
+    private final AtomicInteger f5579a = new AtomicInteger(1);
 
-    /* renamed from: c, reason: collision with root package name */
-    public static final String f6858c = "clear_memory_cache";
+    bc() {
+    }
+
+    @Override // java.util.concurrent.ThreadFactory
+    public Thread newThread(Runnable runnable) {
+        Thread thread = new Thread(runnable, "TaskScheduler #" + this.f5579a.getAndIncrement());
+        thread.setUncaughtExceptionHandler(new bd(this));
+        return thread;
+    }
 }

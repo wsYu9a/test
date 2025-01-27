@@ -4,55 +4,55 @@ import android.content.Context;
 import android.util.Log;
 import java.lang.reflect.Method;
 
-/* loaded from: classes4.dex */
+/* loaded from: classes5.dex */
 public class OpenIdHelper {
 
     /* renamed from: a */
-    private static final String f29371a = "OpenIdHelper";
+    private static final String f35561a = "OpenIdHelper";
 
     /* renamed from: b */
-    private static Method f29372b;
+    private static Method f35562b;
 
     public static String a(Context context) {
-        b a10 = b.a();
-        return a10.a(context.getApplicationContext(), a10.f29380a);
+        b a2 = b.a();
+        return a2.a(context.getApplicationContext(), a2.f35570a);
     }
 
-    public static String b(Context context) {
-        b a10 = b.a();
-        return a10.a(context.getApplicationContext(), a10.f29381b);
-    }
-
-    public static String c(Context context) {
-        b a10 = b.a();
-        return a10.a(context.getApplicationContext(), a10.f29383d);
-    }
-
-    public static String d(Context context) {
-        b a10 = b.a();
-        return a10.a(context.getApplicationContext(), a10.f29382c);
-    }
-
-    public static void a(boolean z10) {
+    public static void a(boolean z) {
         b.a();
-        b.a(z10);
+        b.a(z);
     }
 
     public static final boolean a() {
         Context context = null;
         try {
-            if (f29372b == null) {
-                Method method = Class.forName("android.app.ActivityThread").getMethod("currentApplication", null);
-                f29372b = method;
+            if (f35562b == null) {
+                Method method = Class.forName("android.app.ActivityThread").getMethod("currentApplication", new Class[0]);
+                f35562b = method;
                 method.setAccessible(true);
             }
-            context = (Context) f29372b.invoke(null, null);
-        } catch (Exception e10) {
-            Log.e("OpenIdHelper", "ActivityThread:currentApplication --> " + e10.toString());
+            context = (Context) f35562b.invoke(null, new Object[0]);
+        } catch (Exception e2) {
+            Log.e(f35561a, "ActivityThread:currentApplication --> " + e2.toString());
         }
         if (context == null) {
             return false;
         }
         return b.a().a(context, false);
+    }
+
+    public static String b(Context context) {
+        b a2 = b.a();
+        return a2.a(context.getApplicationContext(), a2.f35571b);
+    }
+
+    public static String c(Context context) {
+        b a2 = b.a();
+        return a2.a(context.getApplicationContext(), a2.f35573d);
+    }
+
+    public static String d(Context context) {
+        b a2 = b.a();
+        return a2.a(context.getApplicationContext(), a2.f35572c);
     }
 }

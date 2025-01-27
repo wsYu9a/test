@@ -6,9 +6,9 @@ public class UiError {
     public String errorDetail;
     public String errorMessage;
 
-    public UiError(int i10, String str, String str2) {
+    public UiError(int i2, String str, String str2) {
         this.errorMessage = str;
-        this.errorCode = i10;
+        this.errorCode = i2;
         this.errorDetail = str2;
     }
 }

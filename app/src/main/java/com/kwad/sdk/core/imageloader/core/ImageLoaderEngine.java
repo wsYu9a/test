@@ -11,7 +11,7 @@ import java.util.concurrent.ExecutorService;
 import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.concurrent.locks.ReentrantLock;
 
-/* loaded from: classes3.dex */
+/* loaded from: classes2.dex */
 class ImageLoaderEngine {
     final ImageLoaderConfiguration configuration;
     private Executor taskDistributor;
@@ -25,27 +25,23 @@ class ImageLoaderEngine {
     private final Object pauseLock = new Object();
 
     /* renamed from: com.kwad.sdk.core.imageloader.core.ImageLoaderEngine$1 */
-    public class AnonymousClass1 implements Runnable {
+    class AnonymousClass1 implements Runnable {
         final /* synthetic */ LoadAndDisplayImageTask val$task;
 
-        public AnonymousClass1(LoadAndDisplayImageTask loadAndDisplayImageTask) {
+        AnonymousClass1(LoadAndDisplayImageTask loadAndDisplayImageTask) {
             loadAndDisplayImageTask = loadAndDisplayImageTask;
         }
 
         @Override // java.lang.Runnable
         public void run() {
             File file = ImageLoaderEngine.this.configuration.diskCache.get(loadAndDisplayImageTask.getLoadingUri());
-            boolean z10 = file != null && file.exists();
+            boolean z = file != null && file.exists();
             ImageLoaderEngine.this.initExecutorsIfNeed();
-            if (z10) {
-                ImageLoaderEngine.this.taskExecutorForCachedImages.execute(loadAndDisplayImageTask);
-            } else {
-                ImageLoaderEngine.this.taskExecutor.execute(loadAndDisplayImageTask);
-            }
+            (z ? ImageLoaderEngine.this.taskExecutorForCachedImages : ImageLoaderEngine.this.taskExecutor).execute(loadAndDisplayImageTask);
         }
     }
 
-    public ImageLoaderEngine(ImageLoaderConfiguration imageLoaderConfiguration) {
+    ImageLoaderEngine(ImageLoaderConfiguration imageLoaderConfiguration) {
         this.configuration = imageLoaderConfiguration;
         this.taskExecutor = imageLoaderConfiguration.taskExecutor;
         this.taskExecutorForCachedImages = imageLoaderConfiguration.taskExecutorForCachedImages;
@@ -67,23 +63,23 @@ class ImageLoaderEngine {
         this.taskExecutorForCachedImages = createTaskExecutor();
     }
 
-    public void cancelDisplayTaskFor(ImageAware imageAware) {
+    void cancelDisplayTaskFor(ImageAware imageAware) {
         this.cacheKeysForImageAwares.remove(Integer.valueOf(imageAware.getId()));
     }
 
-    public void denyNetworkDownloads(boolean z10) {
-        this.networkDenied.set(z10);
+    void denyNetworkDownloads(boolean z) {
+        this.networkDenied.set(z);
     }
 
-    public void fireCallback(Runnable runnable) {
+    void fireCallback(Runnable runnable) {
         this.taskDistributor.execute(runnable);
     }
 
-    public String getLoadingUriForView(ImageAware imageAware) {
+    String getLoadingUriForView(ImageAware imageAware) {
         return this.cacheKeysForImageAwares.get(Integer.valueOf(imageAware.getId()));
     }
 
-    public ReentrantLock getLockForUri(String str) {
+    ReentrantLock getLockForUri(String str) {
         ReentrantLock reentrantLock = this.uriLocks.get(str);
         if (reentrantLock != null) {
             return reentrantLock;
@@ -93,42 +89,42 @@ class ImageLoaderEngine {
         return reentrantLock2;
     }
 
-    public AtomicBoolean getPause() {
+    AtomicBoolean getPause() {
         return this.paused;
     }
 
-    public Object getPauseLock() {
+    Object getPauseLock() {
         return this.pauseLock;
     }
 
-    public void handleSlowNetwork(boolean z10) {
-        this.slowNetwork.set(z10);
+    void handleSlowNetwork(boolean z) {
+        this.slowNetwork.set(z);
     }
 
-    public boolean isNetworkDenied() {
+    boolean isNetworkDenied() {
         return this.networkDenied.get();
     }
 
-    public boolean isSlowNetwork() {
+    boolean isSlowNetwork() {
         return this.slowNetwork.get();
     }
 
-    public void pause() {
+    void pause() {
         this.paused.set(true);
     }
 
-    public void prepareDisplayTaskFor(ImageAware imageAware, String str) {
+    void prepareDisplayTaskFor(ImageAware imageAware, String str) {
         this.cacheKeysForImageAwares.put(Integer.valueOf(imageAware.getId()), str);
     }
 
-    public void resume() {
+    void resume() {
         this.paused.set(false);
         synchronized (this.pauseLock) {
             this.pauseLock.notifyAll();
         }
     }
 
-    public void stop() {
+    void stop() {
         if (!this.configuration.customExecutor) {
             ((ExecutorService) this.taskExecutor).shutdownNow();
         }
@@ -139,29 +135,25 @@ class ImageLoaderEngine {
         this.uriLocks.clear();
     }
 
-    public void submit(LoadAndDisplayImageTask loadAndDisplayImageTask) {
+    void submit(LoadAndDisplayImageTask loadAndDisplayImageTask) {
         this.taskDistributor.execute(new Runnable() { // from class: com.kwad.sdk.core.imageloader.core.ImageLoaderEngine.1
             final /* synthetic */ LoadAndDisplayImageTask val$task;
 
-            public AnonymousClass1(LoadAndDisplayImageTask loadAndDisplayImageTask2) {
+            AnonymousClass1(LoadAndDisplayImageTask loadAndDisplayImageTask2) {
                 loadAndDisplayImageTask = loadAndDisplayImageTask2;
             }
 
             @Override // java.lang.Runnable
             public void run() {
                 File file = ImageLoaderEngine.this.configuration.diskCache.get(loadAndDisplayImageTask.getLoadingUri());
-                boolean z10 = file != null && file.exists();
+                boolean z = file != null && file.exists();
                 ImageLoaderEngine.this.initExecutorsIfNeed();
-                if (z10) {
-                    ImageLoaderEngine.this.taskExecutorForCachedImages.execute(loadAndDisplayImageTask);
-                } else {
-                    ImageLoaderEngine.this.taskExecutor.execute(loadAndDisplayImageTask);
-                }
+                (z ? ImageLoaderEngine.this.taskExecutorForCachedImages : ImageLoaderEngine.this.taskExecutor).execute(loadAndDisplayImageTask);
             }
         });
     }
 
-    public void submit(ProcessAndDisplayImageTask processAndDisplayImageTask) {
+    void submit(ProcessAndDisplayImageTask processAndDisplayImageTask) {
         initExecutorsIfNeed();
         this.taskExecutorForCachedImages.execute(processAndDisplayImageTask);
     }

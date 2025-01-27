@@ -2,10 +2,9 @@ package com.umeng.commonsdk.statistics.idtracking;
 
 import android.content.Context;
 import android.content.SharedPreferences;
-import com.umeng.analytics.pro.bd;
-import com.umeng.analytics.pro.bt;
-import com.umeng.analytics.pro.bu;
-import com.umeng.analytics.pro.cq;
+import com.umeng.analytics.pro.am;
+import com.umeng.analytics.pro.an;
+import com.umeng.analytics.pro.be;
 import com.umeng.commonsdk.framework.UMEnvelopeBuild;
 import com.umeng.commonsdk.internal.crash.UMCrashManager;
 import com.umeng.commonsdk.statistics.common.DataHelper;
@@ -57,18 +56,18 @@ public class Envelope {
     public static Envelope genEncryptEnvelope(Context context, String str, byte[] bArr) {
         try {
             SharedPreferences sharedPreferences = PreferenceWrapper.getDefault(context);
-            String string = sharedPreferences.getString(com.umeng.ccg.a.f24247x, null);
-            int i10 = sharedPreferences.getInt("serial", 1);
+            String string = sharedPreferences.getString("signature", null);
+            int i2 = sharedPreferences.getInt("serial", 1);
             Envelope envelope = new Envelope(bArr, str, "123456789098765432102:00:00:00:00:00".getBytes());
             envelope.setEncrypt(true);
             envelope.setSignature(string);
-            envelope.setSerialNumber(i10);
+            envelope.setSerialNumber(i2);
             envelope.seal();
-            sharedPreferences.edit().putInt("serial", i10 + 1).putString(com.umeng.ccg.a.f24247x, envelope.getSignature()).commit();
+            sharedPreferences.edit().putInt("serial", i2 + 1).putString("signature", envelope.getSignature()).commit();
             envelope.export(context);
             return envelope;
-        } catch (Exception e10) {
-            UMCrashManager.reportCrash(context, e10);
+        } catch (Exception e2) {
+            UMCrashManager.reportCrash(context, e2);
             return null;
         }
     }
@@ -76,39 +75,39 @@ public class Envelope {
     public static Envelope genEnvelope(Context context, String str, byte[] bArr) {
         try {
             SharedPreferences sharedPreferences = PreferenceWrapper.getDefault(context);
-            String string = sharedPreferences.getString(com.umeng.ccg.a.f24247x, null);
-            int i10 = sharedPreferences.getInt("serial", 1);
+            String string = sharedPreferences.getString("signature", null);
+            int i2 = sharedPreferences.getInt("serial", 1);
             Envelope envelope = new Envelope(bArr, str, "123456789098765432102:00:00:00:00:00".getBytes());
             envelope.setSignature(string);
-            envelope.setSerialNumber(i10);
+            envelope.setSerialNumber(i2);
             envelope.seal();
-            sharedPreferences.edit().putInt("serial", i10 + 1).putString(com.umeng.ccg.a.f24247x, envelope.getSignature()).commit();
+            sharedPreferences.edit().putInt("serial", i2 + 1).putString("signature", envelope.getSignature()).commit();
             envelope.export(context);
             return envelope;
-        } catch (Exception e10) {
-            UMCrashManager.reportCrash(context, e10);
+        } catch (Exception e2) {
+            UMCrashManager.reportCrash(context, e2);
             return null;
         }
     }
 
-    private byte[] genGuid(byte[] bArr, int i10) {
+    private byte[] genGuid(byte[] bArr, int i2) {
         byte[] hash = DataHelper.hash(this.identity);
         byte[] hash2 = DataHelper.hash(this.mEntity);
         int length = hash.length;
-        int i11 = length * 2;
-        byte[] bArr2 = new byte[i11];
-        for (int i12 = 0; i12 < length; i12++) {
-            int i13 = i12 * 2;
-            bArr2[i13] = hash2[i12];
-            bArr2[i13 + 1] = hash[i12];
+        int i3 = length * 2;
+        byte[] bArr2 = new byte[i3];
+        for (int i4 = 0; i4 < length; i4++) {
+            int i5 = i4 * 2;
+            bArr2[i5] = hash2[i4];
+            bArr2[i5 + 1] = hash[i4];
         }
-        for (int i14 = 0; i14 < 2; i14++) {
-            bArr2[i14] = bArr[i14];
-            bArr2[(i11 - i14) - 1] = bArr[(bArr.length - i14) - 1];
+        for (int i6 = 0; i6 < 2; i6++) {
+            bArr2[i6] = bArr[i6];
+            bArr2[(i3 - i6) - 1] = bArr[(bArr.length - i6) - 1];
         }
-        byte[] bArr3 = {(byte) (i10 & 255), (byte) ((i10 >> 8) & 255), (byte) ((i10 >> 16) & 255), (byte) (i10 >>> 24)};
-        for (int i15 = 0; i15 < i11; i15++) {
-            bArr2[i15] = (byte) (bArr2[i15] ^ bArr3[i15 % 4]);
+        byte[] bArr3 = {(byte) (i2 & 255), (byte) ((i2 >> 8) & 255), (byte) ((i2 >> 16) & 255), (byte) (i2 >>> 24)};
+        for (int i7 = 0; i7 < i3; i7++) {
+            bArr2[i7] = (byte) (bArr2[i7] ^ bArr3[i7 % 4]);
         }
         return bArr2;
     }
@@ -122,12 +121,12 @@ public class Envelope {
         if (sharedPreferences == null) {
             return null;
         }
-        return sharedPreferences.getString(com.umeng.ccg.a.f24247x, null);
+        return sharedPreferences.getString("signature", null);
     }
 
     public void export(Context context) {
         String str = this.mAddress;
-        String imprintProperty = UMEnvelopeBuild.imprintProperty(context, bt.f23611g, null);
+        String imprintProperty = UMEnvelopeBuild.imprintProperty(context, am.f25657g, null);
         String hexString = DataHelper.toHexString(this.mSignature);
         byte[] bArr = new byte[16];
         System.arraycopy(this.mSignature, 2, bArr, 0, 16);
@@ -136,28 +135,28 @@ public class Envelope {
             JSONObject jSONObject = new JSONObject();
             jSONObject.put("appkey", str);
             if (imprintProperty != null) {
-                jSONObject.put(bt.f23611g, imprintProperty);
+                jSONObject.put(am.f25657g, imprintProperty);
             }
-            jSONObject.put(com.umeng.ccg.a.f24247x, hexString);
+            jSONObject.put("signature", hexString);
             jSONObject.put("checksum", hexString2);
-            File file = new File(context.getFilesDir(), bd.b().b(bd.f23522b));
+            File file = new File(context.getFilesDir(), ".umeng");
             if (!file.exists()) {
                 file.mkdir();
             }
             HelperUtils.writeFile(new File(file, "exchangeIdentity.json"), jSONObject.toString());
-        } catch (Throwable th2) {
-            th2.printStackTrace();
+        } catch (Throwable th) {
+            th.printStackTrace();
         }
         try {
             JSONObject jSONObject2 = new JSONObject();
             jSONObject2.put("appkey", str);
             jSONObject2.put("channel", UMUtils.getChannel(context));
             if (imprintProperty != null) {
-                jSONObject2.put(bt.f23611g, HelperUtils.getUmengMD5(imprintProperty));
+                jSONObject2.put(am.f25657g, HelperUtils.getUmengMD5(imprintProperty));
             }
-            HelperUtils.writeFile(new File(context.getFilesDir(), bd.b().b(bd.f23528h)), jSONObject2.toString());
-        } catch (Throwable th3) {
-            th3.printStackTrace();
+            HelperUtils.writeFile(new File(context.getFilesDir(), "exid.dat"), jSONObject2.toString());
+        } catch (Throwable th2) {
+            th2.printStackTrace();
         }
     }
 
@@ -177,12 +176,12 @@ public class Envelope {
         this.mChecksum = genCheckSum();
     }
 
-    public void setEncrypt(boolean z10) {
-        this.encrypt = z10;
+    public void setEncrypt(boolean z) {
+        this.encrypt = z;
     }
 
-    public void setSerialNumber(int i10) {
-        this.mSerialNo = i10;
+    public void setSerialNumber(int i2) {
+        this.mSerialNo = i2;
     }
 
     public void setSignature(String str) {
@@ -190,21 +189,21 @@ public class Envelope {
     }
 
     public byte[] toBinary() {
-        bu buVar = new bu();
-        buVar.a(this.mVersion);
-        buVar.b(this.mAddress);
-        buVar.c(DataHelper.toHexString(this.mSignature));
-        buVar.a(this.mSerialNo);
-        buVar.b(this.mTimestamp);
-        buVar.c(this.mLength);
-        buVar.a(this.mEntity);
-        buVar.d(this.encrypt ? 1 : 0);
-        buVar.d(DataHelper.toHexString(this.mGuid));
-        buVar.e(DataHelper.toHexString(this.mChecksum));
+        an anVar = new an();
+        anVar.a(this.mVersion);
+        anVar.b(this.mAddress);
+        anVar.c(DataHelper.toHexString(this.mSignature));
+        anVar.a(this.mSerialNo);
+        anVar.b(this.mTimestamp);
+        anVar.c(this.mLength);
+        anVar.a(this.mEntity);
+        anVar.d(this.encrypt ? 1 : 0);
+        anVar.d(DataHelper.toHexString(this.mGuid));
+        anVar.e(DataHelper.toHexString(this.mChecksum));
         try {
-            return new cq().a(buVar);
-        } catch (Exception e10) {
-            e10.printStackTrace();
+            return new be().a(anVar);
+        } catch (Exception e2) {
+            e2.printStackTrace();
             return null;
         }
     }

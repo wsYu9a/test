@@ -1,9 +1,10 @@
 package com.qq.e.comm.pi;
 
+import com.qq.e.ads.cfg.DownAPPConfirmPolicy;
 import com.qq.e.ads.rewardvideo.ServerSideVerificationOptions;
 import com.qq.e.comm.constants.LoadAdParams;
 
-/* loaded from: classes3.dex */
+/* loaded from: classes4.dex */
 public interface UBVI extends LADI {
     void destroy();
 
@@ -11,11 +12,13 @@ public interface UBVI extends LADI {
 
     String getAdNetWorkName();
 
-    void onWindowFocusChanged(boolean z10);
+    void onWindowFocusChanged(boolean z);
+
+    void setDownAPPConfirmPolicy(DownAPPConfirmPolicy downAPPConfirmPolicy);
 
     void setLoadAdParams(LoadAdParams loadAdParams);
 
-    void setRefresh(int i10);
+    void setRefresh(int i2);
 
     void setServerSideVerificationOptions(ServerSideVerificationOptions serverSideVerificationOptions);
 }

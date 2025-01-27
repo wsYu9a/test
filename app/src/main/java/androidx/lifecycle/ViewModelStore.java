@@ -7,28 +7,30 @@ import java.util.Set;
 
 /* loaded from: classes.dex */
 public class ViewModelStore {
-    private final HashMap<String, ViewModel> mMap = new HashMap<>();
+
+    /* renamed from: a */
+    private final HashMap<String, ViewModel> f2661a = new HashMap<>();
+
+    final ViewModel a(String str) {
+        return this.f2661a.get(str);
+    }
+
+    Set<String> b() {
+        return new HashSet(this.f2661a.keySet());
+    }
+
+    final void c(String str, ViewModel viewModel) {
+        ViewModel put = this.f2661a.put(str, viewModel);
+        if (put != null) {
+            put.d();
+        }
+    }
 
     public final void clear() {
-        Iterator<ViewModel> it = this.mMap.values().iterator();
+        Iterator<ViewModel> it = this.f2661a.values().iterator();
         while (it.hasNext()) {
-            it.next().clear();
+            it.next().a();
         }
-        this.mMap.clear();
-    }
-
-    public final ViewModel get(String str) {
-        return this.mMap.get(str);
-    }
-
-    public Set<String> keys() {
-        return new HashSet(this.mMap.keySet());
-    }
-
-    public final void put(String str, ViewModel viewModel) {
-        ViewModel put = this.mMap.put(str, viewModel);
-        if (put != null) {
-            put.onCleared();
-        }
+        this.f2661a.clear();
     }
 }

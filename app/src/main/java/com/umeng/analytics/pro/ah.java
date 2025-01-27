@@ -1,49 +1,30 @@
 package com.umeng.analytics.pro;
 
-import android.content.SharedPreferences;
-import com.umeng.commonsdk.debug.UMRTLog;
-import com.umeng.commonsdk.service.UMGlobalContext;
+import android.content.Context;
+import com.umeng.commonsdk.debug.UMLog;
+import org.repackage.com.heytap.openid.sdk.OpenIDSDK;
 
 /* loaded from: classes4.dex */
-public class ah implements ac {
+public class ah implements z {
 
     /* renamed from: a */
-    private String f23400a;
+    private boolean f25645a = false;
 
-    /* renamed from: b */
-    private long f23401b;
-
-    public ah(String str, long j10) {
-        this.f23400a = str;
-        this.f23401b = j10;
-    }
-
-    @Override // com.umeng.analytics.pro.ac
-    public boolean a() {
+    @Override // com.umeng.analytics.pro.z
+    public String a(Context context) {
         try {
-            String str = au.f23461b + this.f23400a;
-            SharedPreferences a10 = au.a(UMGlobalContext.getAppContext());
-            if (a10 == null) {
-                return false;
+            if (!this.f25645a) {
+                OpenIDSDK.a(context);
+                this.f25645a = true;
             }
-            long currentTimeMillis = System.currentTimeMillis() - a10.getLong(str, 0L);
-            if (currentTimeMillis > this.f23401b * 1000) {
-                return true;
+            if (OpenIDSDK.a()) {
+                return OpenIDSDK.c(context);
             }
-            UMRTLog.i(UMRTLog.RTLOG_TAG, "internal period skipped. elapse: " + currentTimeMillis + "; config: " + (this.f23401b * 1000));
-            return false;
-        } catch (Throwable unused) {
-            return false;
+            UMLog.mutlInfo(2, "当前设备不支持获取OAID");
+            return null;
+        } catch (Exception unused) {
+            UMLog.mutlInfo(2, "未检测到您集成OAID SDK包");
+            return null;
         }
-    }
-
-    @Override // com.umeng.analytics.pro.ac
-    public boolean b() {
-        return !a();
-    }
-
-    @Override // com.umeng.analytics.pro.ac
-    public long c() {
-        return 0L;
     }
 }

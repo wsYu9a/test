@@ -3,6 +3,7 @@ package com.tencent.open;
 import android.annotation.SuppressLint;
 import android.app.Dialog;
 import android.content.Context;
+import android.os.Build;
 import android.os.Bundle;
 import android.webkit.ConsoleMessage;
 import android.webkit.WebChromeClient;
@@ -12,16 +13,16 @@ import com.tencent.open.a.f;
 public abstract class b extends Dialog {
 
     /* renamed from: a */
-    protected a f23174a;
+    protected a f25441a;
 
     /* renamed from: b */
     @SuppressLint({"NewApi"})
-    protected final WebChromeClient f23175b;
+    protected final WebChromeClient f25442b;
 
-    public b(Context context, int i10) {
-        super(context, i10);
-        this.f23175b = new WebChromeClient() { // from class: com.tencent.open.b.1
-            public AnonymousClass1() {
+    public b(Context context, int i2) {
+        super(context, i2);
+        this.f25442b = new WebChromeClient() { // from class: com.tencent.open.b.1
+            AnonymousClass1() {
             }
 
             @Override // android.webkit.WebChromeClient
@@ -30,28 +31,34 @@ public abstract class b extends Dialog {
                     return false;
                 }
                 f.c("openSDK_LOG.JsDialog", "WebChromeClient onConsoleMessage" + consoleMessage.message() + " -- From  111 line " + consoleMessage.lineNumber() + " of " + consoleMessage.sourceId());
+                if (Build.VERSION.SDK_INT <= 7) {
+                    return true;
+                }
                 b.this.a(consoleMessage.message());
                 return true;
             }
 
             @Override // android.webkit.WebChromeClient
-            public void onConsoleMessage(String str, int i11, String str2) {
-                f.c("openSDK_LOG.JsDialog", "WebChromeClient onConsoleMessage" + str + " -- From 222 line " + i11 + " of " + str2);
+            public void onConsoleMessage(String str, int i3, String str2) {
+                f.c("openSDK_LOG.JsDialog", "WebChromeClient onConsoleMessage" + str + " -- From 222 line " + i3 + " of " + str2);
+                if (Build.VERSION.SDK_INT == 7) {
+                    b.this.a(str);
+                }
             }
         };
     }
 
-    public abstract void a(String str);
+    protected abstract void a(String str);
 
     @Override // android.app.Dialog
-    public void onCreate(Bundle bundle) {
+    protected void onCreate(Bundle bundle) {
         super.onCreate(bundle);
-        this.f23174a = new a();
+        this.f25441a = new a();
     }
 
     /* renamed from: com.tencent.open.b$1 */
-    public class AnonymousClass1 extends WebChromeClient {
-        public AnonymousClass1() {
+    class AnonymousClass1 extends WebChromeClient {
+        AnonymousClass1() {
         }
 
         @Override // android.webkit.WebChromeClient
@@ -60,13 +67,19 @@ public abstract class b extends Dialog {
                 return false;
             }
             f.c("openSDK_LOG.JsDialog", "WebChromeClient onConsoleMessage" + consoleMessage.message() + " -- From  111 line " + consoleMessage.lineNumber() + " of " + consoleMessage.sourceId());
+            if (Build.VERSION.SDK_INT <= 7) {
+                return true;
+            }
             b.this.a(consoleMessage.message());
             return true;
         }
 
         @Override // android.webkit.WebChromeClient
-        public void onConsoleMessage(String str, int i11, String str2) {
-            f.c("openSDK_LOG.JsDialog", "WebChromeClient onConsoleMessage" + str + " -- From 222 line " + i11 + " of " + str2);
+        public void onConsoleMessage(String str, int i3, String str2) {
+            f.c("openSDK_LOG.JsDialog", "WebChromeClient onConsoleMessage" + str + " -- From 222 line " + i3 + " of " + str2);
+            if (Build.VERSION.SDK_INT == 7) {
+                b.this.a(str);
+            }
         }
     }
 }

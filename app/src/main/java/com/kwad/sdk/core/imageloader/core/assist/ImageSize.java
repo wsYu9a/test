@@ -2,16 +2,26 @@ package com.kwad.sdk.core.imageloader.core.assist;
 
 import com.tencent.bugly.beta.tinker.TinkerReport;
 
-/* loaded from: classes3.dex */
+/* loaded from: classes2.dex */
 public class ImageSize {
     private static final String SEPARATOR = "x";
     private static final int TO_STRING_MAX_LENGHT = 9;
     private final int height;
     private final int width;
 
-    public ImageSize(int i10, int i11) {
-        this.width = i10;
-        this.height = i11;
+    public ImageSize(int i2, int i3) {
+        this.width = i2;
+        this.height = i3;
+    }
+
+    public ImageSize(int i2, int i3, int i4) {
+        if (i4 % TinkerReport.KEY_APPLIED_VERSION_CHECK == 0) {
+            this.width = i2;
+            this.height = i3;
+        } else {
+            this.width = i3;
+            this.height = i2;
+        }
     }
 
     public int getHeight() {
@@ -22,29 +32,19 @@ public class ImageSize {
         return this.width;
     }
 
-    public ImageSize scale(float f10) {
-        return new ImageSize((int) (this.width * f10), (int) (this.height * f10));
+    public ImageSize scale(float f2) {
+        return new ImageSize((int) (this.width * f2), (int) (this.height * f2));
     }
 
-    public ImageSize scaleDown(int i10) {
-        return new ImageSize(this.width / i10, this.height / i10);
+    public ImageSize scaleDown(int i2) {
+        return new ImageSize(this.width / i2, this.height / i2);
     }
 
     public String toString() {
-        StringBuilder sb2 = new StringBuilder(9);
-        sb2.append(this.width);
-        sb2.append("x");
-        sb2.append(this.height);
-        return sb2.toString();
-    }
-
-    public ImageSize(int i10, int i11, int i12) {
-        if (i12 % TinkerReport.KEY_APPLIED_VERSION_CHECK == 0) {
-            this.width = i10;
-            this.height = i11;
-        } else {
-            this.width = i11;
-            this.height = i10;
-        }
+        StringBuilder sb = new StringBuilder(9);
+        sb.append(this.width);
+        sb.append(SEPARATOR);
+        sb.append(this.height);
+        return sb.toString();
     }
 }

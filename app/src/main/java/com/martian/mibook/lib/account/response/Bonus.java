@@ -21,8 +21,8 @@ public class Bonus {
     }
 
     public Long getExtraId() {
-        Long l10 = this.extraId;
-        return Long.valueOf(l10 == null ? 0L : l10.longValue());
+        Long l = this.extraId;
+        return Long.valueOf(l == null ? 0L : l.longValue());
     }
 
     public int getMoney() {
@@ -33,19 +33,19 @@ public class Bonus {
         return num.intValue();
     }
 
-    public void setCoins(Integer num) {
-        this.coins = num;
+    public void setCoins(Integer coins) {
+        this.coins = coins;
     }
 
-    public void setExtraCoins(Integer num) {
-        this.extraCoins = num;
+    public void setExtraCoins(Integer extraCoins) {
+        this.extraCoins = extraCoins;
     }
 
-    public void setExtraId(Long l10) {
-        this.extraId = l10;
+    public void setExtraId(Long extraId) {
+        this.extraId = extraId;
     }
 
-    public void setMoney(Integer num) {
-        this.money = num;
+    public void setMoney(Integer money) {
+        this.money = money;
     }
 }

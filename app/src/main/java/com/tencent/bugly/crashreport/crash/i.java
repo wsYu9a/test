@@ -1,17 +1,17 @@
 package com.tencent.bugly.crashreport.crash;
 
 /* loaded from: classes4.dex */
-public class i implements Runnable {
+class i implements Runnable {
 
     /* renamed from: a */
-    final /* synthetic */ k f22506a;
+    final /* synthetic */ k f24882a;
 
-    public i(k kVar) {
-        this.f22506a = kVar;
+    i(k kVar) {
+        this.f24882a = kVar;
     }
 
     @Override // java.lang.Runnable
     public void run() {
-        this.f22506a.b();
+        this.f24882a.b();
     }
 }

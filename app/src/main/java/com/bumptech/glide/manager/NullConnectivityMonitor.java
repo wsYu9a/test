@@ -1,7 +1,10 @@
 package com.bumptech.glide.manager;
 
-/* loaded from: classes2.dex */
+/* loaded from: classes.dex */
 class NullConnectivityMonitor implements ConnectivityMonitor {
+    NullConnectivityMonitor() {
+    }
+
     @Override // com.bumptech.glide.manager.LifecycleListener
     public void onDestroy() {
     }

@@ -11,13 +11,13 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 
-/* loaded from: classes2.dex */
+/* loaded from: classes.dex */
 public final class b {
 
     /* renamed from: a */
-    private static final c f7738a;
+    private static final c f6231a;
 
-    public static class a implements c {
+    static class a implements c {
         private a() {
         }
 
@@ -37,27 +37,27 @@ public final class b {
 
         @Override // com.bytedance.pangle.receiver.b.c
         public boolean a(Context context) {
-            Object b10 = b(context);
-            Object a10 = a(b10, "mWhiteList");
-            if (!(a10 instanceof String[])) {
-                if (b10 == null) {
+            Object b2 = b(context);
+            Object a2 = a(b2, "mWhiteList");
+            if (!(a2 instanceof String[])) {
+                if (b2 == null) {
                     return false;
                 }
-                FieldUtils.writeField(b10, "mResourceConfig", (Object) null);
+                FieldUtils.writeField(b2, "mResourceConfig", (Object) null);
                 return false;
             }
             ArrayList arrayList = new ArrayList();
             arrayList.add(context.getPackageName());
-            Collections.addAll(arrayList, (String[]) a10);
-            FieldUtils.writeField(b10, "mWhiteList", arrayList.toArray(new String[arrayList.size()]));
+            Collections.addAll(arrayList, (String[]) a2);
+            FieldUtils.writeField(b2, "mWhiteList", arrayList.toArray(new String[arrayList.size()]));
             return true;
         }
 
-        public /* synthetic */ a(byte b10) {
+        /* synthetic */ a(byte b2) {
             this();
         }
 
-        public static Object a(Context context, String str) {
+        static Object a(Context context, String str) {
             return a(b(context), str);
         }
 
@@ -74,8 +74,8 @@ public final class b {
     }
 
     /* renamed from: com.bytedance.pangle.receiver.b$b */
-    public static class C0233b extends e {
-        private C0233b() {
+    static class C0073b extends e {
+        private C0073b() {
             super((byte) 0);
         }
 
@@ -84,47 +84,47 @@ public final class b {
             return false;
         }
 
-        public /* synthetic */ C0233b(byte b10) {
+        /* synthetic */ C0073b(byte b2) {
             this();
         }
     }
 
-    public interface c {
+    interface c {
         boolean a(Context context);
     }
 
-    public static class d extends a {
+    static class d extends a {
         private d() {
             super((byte) 0);
         }
 
         @Override // com.bytedance.pangle.receiver.b.a, com.bytedance.pangle.receiver.b.c
         public final boolean a(Context context) {
-            Object a10 = a.a(context, "mWhiteList");
-            if (!(a10 instanceof List)) {
+            Object a2 = a.a(context, "mWhiteList");
+            if (!(a2 instanceof List)) {
                 return false;
             }
-            ((List) a10).add(context.getPackageName());
+            ((List) a2).add(context.getPackageName());
             return true;
         }
 
-        public /* synthetic */ d(byte b10) {
+        /* synthetic */ d(byte b2) {
             this();
         }
     }
 
-    public static class e extends a {
+    static class e extends a {
         private e() {
             super((byte) 0);
         }
 
         @Override // com.bytedance.pangle.receiver.b.a, com.bytedance.pangle.receiver.b.c
         public boolean a(Context context) {
-            Object a10 = a.a(context, "mWhiteListMap");
-            if (!(a10 instanceof Map)) {
+            Object a2 = a.a(context, "mWhiteListMap");
+            if (!(a2 instanceof Map)) {
                 return false;
             }
-            Map map = (Map) a10;
+            Map map = (Map) a2;
             List list = (List) map.get(0);
             if (list == null) {
                 list = new ArrayList();
@@ -134,23 +134,23 @@ public final class b {
             return true;
         }
 
-        public /* synthetic */ e(byte b10) {
+        /* synthetic */ e(byte b2) {
             this();
         }
     }
 
     static {
-        int i10 = Build.VERSION.SDK_INT;
-        if (i10 < 24) {
-            f7738a = new a((byte) 0);
+        int i2 = Build.VERSION.SDK_INT;
+        if (i2 < 24) {
+            f6231a = new a((byte) 0);
             return;
         }
-        if (i10 < 26) {
-            f7738a = new d((byte) 0);
-        } else if (i10 < 28) {
-            f7738a = new e((byte) 0);
+        if (i2 < 26) {
+            f6231a = new d((byte) 0);
+        } else if (i2 < 28) {
+            f6231a = new e((byte) 0);
         } else {
-            f7738a = new C0233b((byte) 0);
+            f6231a = new C0073b((byte) 0);
         }
     }
 
@@ -158,7 +158,7 @@ public final class b {
         if (application != null) {
             try {
                 if (TextUtils.equals(Build.BRAND.toLowerCase(), "huawei")) {
-                    f7738a.a(application.getBaseContext());
+                    f6231a.a(application.getBaseContext());
                 }
             } catch (Throwable unused) {
             }

@@ -8,14 +8,14 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import com.bytedance.pangle.log.ZeusLogger;
 
-/* loaded from: classes2.dex */
+/* loaded from: classes.dex */
 final class b implements Application.ActivityLifecycleCallbacks {
 
     /* renamed from: a */
-    Fragment f7621a;
+    Fragment f6116a;
 
     public b(Fragment fragment) {
-        this.f7621a = fragment;
+        this.f6116a = fragment;
     }
 
     @Override // android.app.Application.ActivityLifecycleCallbacks
@@ -32,7 +32,7 @@ final class b implements Application.ActivityLifecycleCallbacks {
 
     @Override // android.app.Application.ActivityLifecycleCallbacks
     public final void onActivityPostSaveInstanceState(@NonNull Activity activity, @NonNull Bundle bundle) {
-        if (this.f7621a.getActivity() == activity && activity.getClassLoader() != this.f7621a.getClass().getClassLoader()) {
+        if (this.f6116a.getActivity() == activity && activity.getClassLoader() != this.f6116a.getClass().getClassLoader()) {
             try {
                 Object obj = bundle.get("androidx.lifecycle.BundlableSavedStateRegistry.key");
                 if (obj != null) {

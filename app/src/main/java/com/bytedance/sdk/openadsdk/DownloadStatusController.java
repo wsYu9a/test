@@ -1,6 +1,6 @@
 package com.bytedance.sdk.openadsdk;
 
-/* loaded from: classes2.dex */
+/* loaded from: classes.dex */
 public interface DownloadStatusController {
     void cancelDownload();
 

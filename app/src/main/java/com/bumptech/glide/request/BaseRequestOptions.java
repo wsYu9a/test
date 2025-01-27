@@ -38,7 +38,7 @@ import com.bumptech.glide.util.Preconditions;
 import com.bumptech.glide.util.Util;
 import java.util.Map;
 
-/* loaded from: classes2.dex */
+/* loaded from: classes.dex */
 public abstract class BaseRequestOptions<T extends BaseRequestOptions<T>> implements Cloneable {
     private static final int DISK_CACHE_STRATEGY = 4;
     private static final int ERROR_ID = 32;
@@ -108,8 +108,12 @@ public abstract class BaseRequestOptions<T extends BaseRequestOptions<T>> implem
     private Class<?> resourceClass = Object.class;
     private boolean isScaleOnlyOrNoTransform = true;
 
-    private static boolean isSet(int i10, int i11) {
-        return (i10 & i11) != 0;
+    private boolean isSet(int i2) {
+        return isSet(this.fields, i2);
+    }
+
+    private static boolean isSet(int i2, int i3) {
+        return (i2 & i3) != 0;
     }
 
     @NonNull
@@ -138,7 +142,7 @@ public abstract class BaseRequestOptions<T extends BaseRequestOptions<T>> implem
     @CheckResult
     public T apply(@NonNull BaseRequestOptions<?> baseRequestOptions) {
         if (this.isAutoCloneEnabled) {
-            return (T) mo29clone().apply(baseRequestOptions);
+            return (T) mo37clone().apply(baseRequestOptions);
         }
         if (isSet(baseRequestOptions.fields, 2)) {
             this.sizeMultiplier = baseRequestOptions.sizeMultiplier;
@@ -216,9 +220,10 @@ public abstract class BaseRequestOptions<T extends BaseRequestOptions<T>> implem
         }
         if (!this.isTransformationAllowed) {
             this.transformations.clear();
-            int i10 = this.fields;
+            int i2 = this.fields & (-2049);
+            this.fields = i2;
             this.isTransformationRequired = false;
-            this.fields = i10 & (-133121);
+            this.fields = i2 & (-131073);
             this.isScaleOnlyOrNoTransform = true;
         }
         this.fields |= baseRequestOptions.fields;
@@ -257,7 +262,7 @@ public abstract class BaseRequestOptions<T extends BaseRequestOptions<T>> implem
     @CheckResult
     public T decode(@NonNull Class<?> cls) {
         if (this.isAutoCloneEnabled) {
-            return (T) mo29clone().decode(cls);
+            return (T) mo37clone().decode(cls);
         }
         this.resourceClass = (Class) Preconditions.checkNotNull(cls);
         this.fields |= 4096;
@@ -274,7 +279,7 @@ public abstract class BaseRequestOptions<T extends BaseRequestOptions<T>> implem
     @CheckResult
     public T diskCacheStrategy(@NonNull DiskCacheStrategy diskCacheStrategy) {
         if (this.isAutoCloneEnabled) {
-            return (T) mo29clone().diskCacheStrategy(diskCacheStrategy);
+            return (T) mo37clone().diskCacheStrategy(diskCacheStrategy);
         }
         this.diskCacheStrategy = (DiskCacheStrategy) Preconditions.checkNotNull(diskCacheStrategy);
         this.fields |= 4;
@@ -291,13 +296,16 @@ public abstract class BaseRequestOptions<T extends BaseRequestOptions<T>> implem
     @CheckResult
     public T dontTransform() {
         if (this.isAutoCloneEnabled) {
-            return (T) mo29clone().dontTransform();
+            return (T) mo37clone().dontTransform();
         }
         this.transformations.clear();
-        int i10 = this.fields;
+        int i2 = this.fields & (-2049);
+        this.fields = i2;
         this.isTransformationRequired = false;
+        int i3 = i2 & (-131073);
+        this.fields = i3;
         this.isTransformationAllowed = false;
-        this.fields = (i10 & (-133121)) | 65536;
+        this.fields = i3 | 65536;
         this.isScaleOnlyOrNoTransform = true;
         return selfOrThrowIfLocked();
     }
@@ -316,8 +324,8 @@ public abstract class BaseRequestOptions<T extends BaseRequestOptions<T>> implem
 
     @NonNull
     @CheckResult
-    public T encodeQuality(@IntRange(from = 0, to = 100) int i10) {
-        return set(BitmapEncoder.COMPRESSION_QUALITY, Integer.valueOf(i10));
+    public T encodeQuality(@IntRange(from = 0, to = 100) int i2) {
+        return set(BitmapEncoder.COMPRESSION_QUALITY, Integer.valueOf(i2));
     }
 
     public boolean equals(Object obj) {
@@ -332,12 +340,13 @@ public abstract class BaseRequestOptions<T extends BaseRequestOptions<T>> implem
     @CheckResult
     public T error(@Nullable Drawable drawable) {
         if (this.isAutoCloneEnabled) {
-            return (T) mo29clone().error(drawable);
+            return (T) mo37clone().error(drawable);
         }
         this.errorPlaceholder = drawable;
-        int i10 = this.fields | 16;
+        int i2 = this.fields | 16;
+        this.fields = i2;
         this.errorId = 0;
-        this.fields = i10 & (-33);
+        this.fields = i2 & (-33);
         return selfOrThrowIfLocked();
     }
 
@@ -345,12 +354,13 @@ public abstract class BaseRequestOptions<T extends BaseRequestOptions<T>> implem
     @CheckResult
     public T fallback(@Nullable Drawable drawable) {
         if (this.isAutoCloneEnabled) {
-            return (T) mo29clone().fallback(drawable);
+            return (T) mo37clone().fallback(drawable);
         }
         this.fallbackDrawable = drawable;
-        int i10 = this.fields | 8192;
+        int i2 = this.fields | 8192;
+        this.fields = i2;
         this.fallbackId = 0;
-        this.fields = i10 & (-16385);
+        this.fields = i2 & (-16385);
         return selfOrThrowIfLocked();
     }
 
@@ -369,8 +379,8 @@ public abstract class BaseRequestOptions<T extends BaseRequestOptions<T>> implem
 
     @NonNull
     @CheckResult
-    public T frame(@IntRange(from = 0) long j10) {
-        return set(VideoDecoder.TARGET_FRAME, Long.valueOf(j10));
+    public T frame(@IntRange(from = 0) long j2) {
+        return set(VideoDecoder.TARGET_FRAME, Long.valueOf(j2));
     }
 
     @NonNull
@@ -463,7 +473,7 @@ public abstract class BaseRequestOptions<T extends BaseRequestOptions<T>> implem
         return Util.hashCode(this.theme, Util.hashCode(this.signature, Util.hashCode(this.resourceClass, Util.hashCode(this.transformations, Util.hashCode(this.options, Util.hashCode(this.priority, Util.hashCode(this.diskCacheStrategy, Util.hashCode(this.onlyRetrieveFromCache, Util.hashCode(this.useUnlimitedSourceGeneratorsPool, Util.hashCode(this.isTransformationAllowed, Util.hashCode(this.isTransformationRequired, Util.hashCode(this.overrideWidth, Util.hashCode(this.overrideHeight, Util.hashCode(this.isCacheable, Util.hashCode(this.fallbackDrawable, Util.hashCode(this.fallbackId, Util.hashCode(this.placeholderDrawable, Util.hashCode(this.placeholderId, Util.hashCode(this.errorPlaceholder, Util.hashCode(this.errorId, Util.hashCode(this.sizeMultiplier)))))))))))))))))))));
     }
 
-    public boolean isAutoCloneEnabled() {
+    protected boolean isAutoCloneEnabled() {
         return this.isAutoCloneEnabled;
     }
 
@@ -483,7 +493,7 @@ public abstract class BaseRequestOptions<T extends BaseRequestOptions<T>> implem
         return isSet(8);
     }
 
-    public boolean isScaleOnlyOrNoTransform() {
+    boolean isScaleOnlyOrNoTransform() {
         return this.isScaleOnlyOrNoTransform;
     }
 
@@ -515,11 +525,11 @@ public abstract class BaseRequestOptions<T extends BaseRequestOptions<T>> implem
 
     @NonNull
     @CheckResult
-    public T onlyRetrieveFromCache(boolean z10) {
+    public T onlyRetrieveFromCache(boolean z) {
         if (this.isAutoCloneEnabled) {
-            return (T) mo29clone().onlyRetrieveFromCache(z10);
+            return (T) mo37clone().onlyRetrieveFromCache(z);
         }
-        this.onlyRetrieveFromCache = z10;
+        this.onlyRetrieveFromCache = z;
         this.fields |= 524288;
         return selfOrThrowIfLocked();
     }
@@ -549,9 +559,9 @@ public abstract class BaseRequestOptions<T extends BaseRequestOptions<T>> implem
     }
 
     @NonNull
-    public final T optionalTransform(@NonNull DownsampleStrategy downsampleStrategy, @NonNull Transformation<Bitmap> transformation) {
+    final T optionalTransform(@NonNull DownsampleStrategy downsampleStrategy, @NonNull Transformation<Bitmap> transformation) {
         if (this.isAutoCloneEnabled) {
-            return (T) mo29clone().optionalTransform(downsampleStrategy, transformation);
+            return (T) mo37clone().optionalTransform(downsampleStrategy, transformation);
         }
         downsample(downsampleStrategy);
         return transform(transformation, false);
@@ -559,12 +569,12 @@ public abstract class BaseRequestOptions<T extends BaseRequestOptions<T>> implem
 
     @NonNull
     @CheckResult
-    public T override(int i10, int i11) {
+    public T override(int i2, int i3) {
         if (this.isAutoCloneEnabled) {
-            return (T) mo29clone().override(i10, i11);
+            return (T) mo37clone().override(i2, i3);
         }
-        this.overrideWidth = i10;
-        this.overrideHeight = i11;
+        this.overrideWidth = i2;
+        this.overrideHeight = i3;
         this.fields |= 512;
         return selfOrThrowIfLocked();
     }
@@ -573,12 +583,13 @@ public abstract class BaseRequestOptions<T extends BaseRequestOptions<T>> implem
     @CheckResult
     public T placeholder(@Nullable Drawable drawable) {
         if (this.isAutoCloneEnabled) {
-            return (T) mo29clone().placeholder(drawable);
+            return (T) mo37clone().placeholder(drawable);
         }
         this.placeholderDrawable = drawable;
-        int i10 = this.fields | 64;
+        int i2 = this.fields | 64;
+        this.fields = i2;
         this.placeholderId = 0;
-        this.fields = i10 & (-129);
+        this.fields = i2 & (-129);
         return selfOrThrowIfLocked();
     }
 
@@ -586,7 +597,7 @@ public abstract class BaseRequestOptions<T extends BaseRequestOptions<T>> implem
     @CheckResult
     public T priority(@NonNull Priority priority) {
         if (this.isAutoCloneEnabled) {
-            return (T) mo29clone().priority(priority);
+            return (T) mo37clone().priority(priority);
         }
         this.priority = (Priority) Preconditions.checkNotNull(priority);
         this.fields |= 8;
@@ -595,13 +606,13 @@ public abstract class BaseRequestOptions<T extends BaseRequestOptions<T>> implem
 
     @NonNull
     @CheckResult
-    public <Y> T set(@NonNull Option<Y> option, @NonNull Y y10) {
+    public <Y> T set(@NonNull Option<Y> option, @NonNull Y y) {
         if (this.isAutoCloneEnabled) {
-            return (T) mo29clone().set(option, y10);
+            return (T) mo37clone().set(option, y);
         }
         Preconditions.checkNotNull(option);
-        Preconditions.checkNotNull(y10);
-        this.options.set(option, y10);
+        Preconditions.checkNotNull(y);
+        this.options.set(option, y);
         return selfOrThrowIfLocked();
     }
 
@@ -609,7 +620,7 @@ public abstract class BaseRequestOptions<T extends BaseRequestOptions<T>> implem
     @CheckResult
     public T signature(@NonNull Key key) {
         if (this.isAutoCloneEnabled) {
-            return (T) mo29clone().signature(key);
+            return (T) mo37clone().signature(key);
         }
         this.signature = (Key) Preconditions.checkNotNull(key);
         this.fields |= 1024;
@@ -618,25 +629,25 @@ public abstract class BaseRequestOptions<T extends BaseRequestOptions<T>> implem
 
     @NonNull
     @CheckResult
-    public T sizeMultiplier(@FloatRange(from = 0.0d, to = 1.0d) float f10) {
+    public T sizeMultiplier(@FloatRange(from = 0.0d, to = 1.0d) float f2) {
         if (this.isAutoCloneEnabled) {
-            return (T) mo29clone().sizeMultiplier(f10);
+            return (T) mo37clone().sizeMultiplier(f2);
         }
-        if (f10 < 0.0f || f10 > 1.0f) {
+        if (f2 < 0.0f || f2 > 1.0f) {
             throw new IllegalArgumentException("sizeMultiplier must be between 0 and 1");
         }
-        this.sizeMultiplier = f10;
+        this.sizeMultiplier = f2;
         this.fields |= 2;
         return selfOrThrowIfLocked();
     }
 
     @NonNull
     @CheckResult
-    public T skipMemoryCache(boolean z10) {
+    public T skipMemoryCache(boolean z) {
         if (this.isAutoCloneEnabled) {
-            return (T) mo29clone().skipMemoryCache(true);
+            return (T) mo37clone().skipMemoryCache(true);
         }
-        this.isCacheable = !z10;
+        this.isCacheable = !z;
         this.fields |= 256;
         return selfOrThrowIfLocked();
     }
@@ -645,7 +656,7 @@ public abstract class BaseRequestOptions<T extends BaseRequestOptions<T>> implem
     @CheckResult
     public T theme(@Nullable Resources.Theme theme) {
         if (this.isAutoCloneEnabled) {
-            return (T) mo29clone().theme(theme);
+            return (T) mo37clone().theme(theme);
         }
         this.theme = theme;
         this.fields |= 32768;
@@ -654,15 +665,15 @@ public abstract class BaseRequestOptions<T extends BaseRequestOptions<T>> implem
 
     @NonNull
     @CheckResult
-    public T timeout(@IntRange(from = 0) int i10) {
-        return set(HttpGlideUrlLoader.TIMEOUT, Integer.valueOf(i10));
+    public T timeout(@IntRange(from = 0) int i2) {
+        return set(HttpGlideUrlLoader.TIMEOUT, Integer.valueOf(i2));
     }
 
     @NonNull
     @CheckResult
-    public final T transform(@NonNull DownsampleStrategy downsampleStrategy, @NonNull Transformation<Bitmap> transformation) {
+    final T transform(@NonNull DownsampleStrategy downsampleStrategy, @NonNull Transformation<Bitmap> transformation) {
         if (this.isAutoCloneEnabled) {
-            return (T) mo29clone().transform(downsampleStrategy, transformation);
+            return (T) mo37clone().transform(downsampleStrategy, transformation);
         }
         downsample(downsampleStrategy);
         return transform(transformation);
@@ -677,33 +688,29 @@ public abstract class BaseRequestOptions<T extends BaseRequestOptions<T>> implem
 
     @NonNull
     @CheckResult
-    public T useAnimationPool(boolean z10) {
+    public T useAnimationPool(boolean z) {
         if (this.isAutoCloneEnabled) {
-            return (T) mo29clone().useAnimationPool(z10);
+            return (T) mo37clone().useAnimationPool(z);
         }
-        this.useAnimationPool = z10;
+        this.useAnimationPool = z;
         this.fields |= 1048576;
         return selfOrThrowIfLocked();
     }
 
     @NonNull
     @CheckResult
-    public T useUnlimitedSourceGeneratorsPool(boolean z10) {
+    public T useUnlimitedSourceGeneratorsPool(boolean z) {
         if (this.isAutoCloneEnabled) {
-            return (T) mo29clone().useUnlimitedSourceGeneratorsPool(z10);
+            return (T) mo37clone().useUnlimitedSourceGeneratorsPool(z);
         }
-        this.useUnlimitedSourceGeneratorsPool = z10;
+        this.useUnlimitedSourceGeneratorsPool = z;
         this.fields |= 262144;
         return selfOrThrowIfLocked();
     }
 
-    private boolean isSet(int i10) {
-        return isSet(this.fields, i10);
-    }
-
     @NonNull
-    private T scaleOnlyTransform(@NonNull DownsampleStrategy downsampleStrategy, @NonNull Transformation<Bitmap> transformation, boolean z10) {
-        T transform = z10 ? transform(downsampleStrategy, transformation) : optionalTransform(downsampleStrategy, transformation);
+    private T scaleOnlyTransform(@NonNull DownsampleStrategy downsampleStrategy, @NonNull Transformation<Bitmap> transformation, boolean z) {
+        T transform = z ? transform(downsampleStrategy, transformation) : optionalTransform(downsampleStrategy, transformation);
         transform.isScaleOnlyOrNoTransform = true;
         return transform;
     }
@@ -711,20 +718,20 @@ public abstract class BaseRequestOptions<T extends BaseRequestOptions<T>> implem
     @Override // 
     @CheckResult
     /* renamed from: clone */
-    public T mo29clone() {
+    public T mo37clone() {
         try {
-            T t10 = (T) super.clone();
+            T t = (T) super.clone();
             Options options = new Options();
-            t10.options = options;
+            t.options = options;
             options.putAll(this.options);
             CachedHashCodeArrayMap cachedHashCodeArrayMap = new CachedHashCodeArrayMap();
-            t10.transformations = cachedHashCodeArrayMap;
+            t.transformations = cachedHashCodeArrayMap;
             cachedHashCodeArrayMap.putAll(this.transformations);
-            t10.isLocked = false;
-            t10.isAutoCloneEnabled = false;
-            return t10;
-        } catch (CloneNotSupportedException e10) {
-            throw new RuntimeException(e10);
+            t.isLocked = false;
+            t.isAutoCloneEnabled = false;
+            return t;
+        } catch (CloneNotSupportedException e2) {
+            throw new RuntimeException(e2);
         }
     }
 
@@ -760,77 +767,82 @@ public abstract class BaseRequestOptions<T extends BaseRequestOptions<T>> implem
 
     @NonNull
     @CheckResult
-    public T override(int i10) {
-        return override(i10, i10);
+    public T override(int i2) {
+        return override(i2, i2);
     }
 
     @NonNull
     @CheckResult
-    public T error(@DrawableRes int i10) {
+    public T error(@DrawableRes int i2) {
         if (this.isAutoCloneEnabled) {
-            return (T) mo29clone().error(i10);
+            return (T) mo37clone().error(i2);
         }
-        this.errorId = i10;
-        int i11 = this.fields | 32;
+        this.errorId = i2;
+        int i3 = this.fields | 32;
+        this.fields = i3;
         this.errorPlaceholder = null;
-        this.fields = i11 & (-17);
+        this.fields = i3 & (-17);
         return selfOrThrowIfLocked();
     }
 
     @NonNull
     @CheckResult
-    public T fallback(@DrawableRes int i10) {
+    public T fallback(@DrawableRes int i2) {
         if (this.isAutoCloneEnabled) {
-            return (T) mo29clone().fallback(i10);
+            return (T) mo37clone().fallback(i2);
         }
-        this.fallbackId = i10;
-        int i11 = this.fields | 16384;
+        this.fallbackId = i2;
+        int i3 = this.fields | 16384;
+        this.fields = i3;
         this.fallbackDrawable = null;
-        this.fields = i11 & (-8193);
+        this.fields = i3 & (-8193);
         return selfOrThrowIfLocked();
     }
 
     @NonNull
     @CheckResult
-    public T placeholder(@DrawableRes int i10) {
+    public T placeholder(@DrawableRes int i2) {
         if (this.isAutoCloneEnabled) {
-            return (T) mo29clone().placeholder(i10);
+            return (T) mo37clone().placeholder(i2);
         }
-        this.placeholderId = i10;
-        int i11 = this.fields | 128;
+        this.placeholderId = i2;
+        int i3 = this.fields | 128;
+        this.fields = i3;
         this.placeholderDrawable = null;
-        this.fields = i11 & (-65);
+        this.fields = i3 & (-65);
         return selfOrThrowIfLocked();
     }
 
     /* JADX WARN: Multi-variable type inference failed */
     @NonNull
-    public T transform(@NonNull Transformation<Bitmap> transformation, boolean z10) {
+    T transform(@NonNull Transformation<Bitmap> transformation, boolean z) {
         if (this.isAutoCloneEnabled) {
-            return (T) mo29clone().transform(transformation, z10);
+            return (T) mo37clone().transform(transformation, z);
         }
-        DrawableTransformation drawableTransformation = new DrawableTransformation(transformation, z10);
-        transform(Bitmap.class, transformation, z10);
-        transform(Drawable.class, drawableTransformation, z10);
-        transform(BitmapDrawable.class, drawableTransformation.asBitmapDrawable(), z10);
-        transform(GifDrawable.class, new GifDrawableTransformation(transformation), z10);
+        DrawableTransformation drawableTransformation = new DrawableTransformation(transformation, z);
+        transform(Bitmap.class, transformation, z);
+        transform(Drawable.class, drawableTransformation, z);
+        transform(BitmapDrawable.class, drawableTransformation.asBitmapDrawable(), z);
+        transform(GifDrawable.class, new GifDrawableTransformation(transformation), z);
         return selfOrThrowIfLocked();
     }
 
     @NonNull
-    public <Y> T transform(@NonNull Class<Y> cls, @NonNull Transformation<Y> transformation, boolean z10) {
+    <Y> T transform(@NonNull Class<Y> cls, @NonNull Transformation<Y> transformation, boolean z) {
         if (this.isAutoCloneEnabled) {
-            return (T) mo29clone().transform(cls, transformation, z10);
+            return (T) mo37clone().transform(cls, transformation, z);
         }
         Preconditions.checkNotNull(cls);
         Preconditions.checkNotNull(transformation);
         this.transformations.put(cls, transformation);
-        int i10 = this.fields;
+        int i2 = this.fields | 2048;
+        this.fields = i2;
         this.isTransformationAllowed = true;
-        this.fields = 67584 | i10;
+        int i3 = i2 | 65536;
+        this.fields = i3;
         this.isScaleOnlyOrNoTransform = false;
-        if (z10) {
-            this.fields = i10 | 198656;
+        if (z) {
+            this.fields = i3 | 131072;
             this.isTransformationRequired = true;
         }
         return selfOrThrowIfLocked();

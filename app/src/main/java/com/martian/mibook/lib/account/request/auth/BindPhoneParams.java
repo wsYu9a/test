@@ -1,6 +1,6 @@
 package com.martian.mibook.lib.account.request.auth;
 
-import v8.a;
+import com.martian.libcomm.http.requests.d.a;
 
 /* loaded from: classes3.dex */
 public class BindPhoneParams extends TYAuthParams {
@@ -24,11 +24,11 @@ public class BindPhoneParams extends TYAuthParams {
         return this.phone;
     }
 
-    public void setCode(String str) {
-        this.code = str;
+    public void setCode(String code) {
+        this.code = code;
     }
 
-    public void setPhone(String str) {
-        this.phone = str;
+    public void setPhone(String phone) {
+        this.phone = phone;
     }
 }

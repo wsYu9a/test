@@ -5,7 +5,7 @@ import androidx.annotation.Nullable;
 import com.bumptech.glide.load.Key;
 import com.bumptech.glide.load.engine.Resource;
 
-/* loaded from: classes2.dex */
+/* loaded from: classes.dex */
 public interface MemoryCache {
 
     public interface ResourceRemovedListener {
@@ -26,7 +26,7 @@ public interface MemoryCache {
 
     void setResourceRemovedListener(@NonNull ResourceRemovedListener resourceRemovedListener);
 
-    void setSizeMultiplier(float f10);
+    void setSizeMultiplier(float f2);
 
-    void trimMemory(int i10);
+    void trimMemory(int i2);
 }

@@ -7,10 +7,10 @@ import com.kwad.sdk.api.proxy.app.KsFullScreenLandScapeVideoActivity;
 
 @KsAdSdkDynamicImpl(KsFullScreenLandScapeVideoActivity.class)
 @Keep
-/* loaded from: classes2.dex */
+/* loaded from: classes.dex */
 public class KsFullScreenLandScapeVideoActivityProxy extends KsFullScreenVideoActivityProxy {
-    @InvokeBy(invokerClass = com.kwad.sdk.service.b.class, methodId = "initComponentProxyForInvoker")
+    @InvokeBy(invokerClass = com.kwad.sdk.service.a.class, methodId = "initComponentProxyForInvoker")
     public static void register() {
-        com.kwad.sdk.service.b.a(KsFullScreenLandScapeVideoActivity.class, KsFullScreenLandScapeVideoActivityProxy.class);
+        com.kwad.sdk.service.a.a(KsFullScreenLandScapeVideoActivity.class, KsFullScreenLandScapeVideoActivityProxy.class);
     }
 }

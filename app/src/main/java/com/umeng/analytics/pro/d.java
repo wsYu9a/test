@@ -1,188 +1,115 @@
 package com.umeng.analytics.pro;
 
-import android.os.Binder;
-import android.os.IBinder;
-import android.os.IInterface;
-import android.os.Parcel;
-import android.os.RemoteException;
+import com.cdo.oaps.ad.OapsKey;
 
 /* loaded from: classes4.dex */
-public interface d extends IInterface {
+public class d {
+    public static final String A = "ts";
+    public static final String B = "locations";
+    public static final String C = "lat";
+    public static final String D = "lng";
+    public static final String E = "ts";
+    public static final String F = "traffic";
+    public static final String G = "upload_traffic";
+    public static final String H = "download_traffic";
+    public static final String I = "activate_msg";
+    public static final String J = "ts";
+    public static final String K = "group_info";
+    public static final String L = "active_user";
+    public static final String M = "provider";
+    public static final String N = "puid";
+    public static final String O = "error";
+    public static final String P = "ts";
+    public static final String Q = "error_source";
+    public static final String R = "context";
+    public static final String S = "ekv";
+    public static final String T = "gkv";
+    public static final String U = "id";
+    public static final String V = "ts";
+    public static final String X = "userlevel";
+    public static final String Z = "dplus";
 
-    public static class a implements d {
-        @Override // com.umeng.analytics.pro.d
-        public String a() throws RemoteException {
-            return null;
-        }
+    /* renamed from: a */
+    public static final String f25830a = "appkey";
+    public static final String aA = "userlevel";
+    public static final String aB = "eof";
+    public static final String aC = "exception";
+    public static final String aa = "analytics";
+    public static final String ab = "push";
+    public static final String ac = "share";
 
-        @Override // android.os.IInterface
-        public IBinder asBinder() {
-            return null;
-        }
+    /* renamed from: ad */
+    public static final String f25831ad = "content";
+    public static final String ae = "header";
+    public static final String af = "ds";
+    public static final String ag = "pn";
+    public static final String ah = "pro_ver";
+    public static final String ai = "1.0.0";
+    public static final String aj = "atm";
+    public static final String ak = "st";
+    public static final String al = "ekv_bl";
+    public static final String am = "ekv_wl";
+    public static final String an = "ekv_bl_ver";
+    public static final String ao = "ekv_wl_ver";
+    public static final String ap = "$ekv_bl_ver";
+    public static final String aq = "$ekv_wl_ver";
+    public static final String ar = "events";
+    public static final String av = "_$pp";
+    public static final String aw = "session";
+    public static final String ax = "pageview";
+    public static final String ay = "versioncode";
+    public static final String az = "versionname";
 
-        @Override // com.umeng.analytics.pro.d
-        public String b(String str) throws RemoteException {
-            return null;
-        }
+    /* renamed from: b */
+    public static final String f25832b = "channel";
 
-        @Override // com.umeng.analytics.pro.d
-        public String a(String str) throws RemoteException {
-            return null;
-        }
-    }
+    /* renamed from: c */
+    public static final String f25833c = "secret";
 
-    String a() throws RemoteException;
+    /* renamed from: d */
+    public static final String f25834d = "app_version";
 
-    String a(String str) throws RemoteException;
+    /* renamed from: e */
+    public static final String f25835e = "version_code";
 
-    String b(String str) throws RemoteException;
+    /* renamed from: f */
+    public static final String f25836f = "wrapper_type";
 
-    public static abstract class b extends Binder implements d {
+    /* renamed from: g */
+    public static final String f25837g = "wrapper_version";
 
-        /* renamed from: a */
-        static final int f23791a = 1;
+    /* renamed from: h */
+    public static final String f25838h = "sdk_version";
 
-        /* renamed from: b */
-        static final int f23792b = 2;
+    /* renamed from: i */
+    public static final String f25839i = "vertical_type";
 
-        /* renamed from: c */
-        static final int f23793c = 3;
-
-        /* renamed from: d */
-        private static final String f23794d = "com.samsung.android.deviceidservice.IDeviceIdService";
-
-        public static class a implements d {
-
-            /* renamed from: a */
-            public static d f23795a;
-
-            /* renamed from: b */
-            private IBinder f23796b;
-
-            public a(IBinder iBinder) {
-                this.f23796b = iBinder;
-            }
-
-            @Override // com.umeng.analytics.pro.d
-            public String a() throws RemoteException {
-                Parcel obtain = Parcel.obtain();
-                Parcel obtain2 = Parcel.obtain();
-                try {
-                    obtain.writeInterfaceToken("com.samsung.android.deviceidservice.IDeviceIdService");
-                    if (!this.f23796b.transact(1, obtain, obtain2, 0) && b.b() != null) {
-                        return b.b().a();
-                    }
-                    obtain2.readException();
-                    return obtain2.readString();
-                } finally {
-                    obtain2.recycle();
-                    obtain.recycle();
-                }
-            }
-
-            @Override // android.os.IInterface
-            public IBinder asBinder() {
-                return this.f23796b;
-            }
-
-            public String b() {
-                return "com.samsung.android.deviceidservice.IDeviceIdService";
-            }
-
-            @Override // com.umeng.analytics.pro.d
-            public String b(String str) throws RemoteException {
-                Parcel obtain = Parcel.obtain();
-                Parcel obtain2 = Parcel.obtain();
-                try {
-                    obtain.writeInterfaceToken("com.samsung.android.deviceidservice.IDeviceIdService");
-                    obtain.writeString(str);
-                    if (!this.f23796b.transact(3, obtain, obtain2, 0) && b.b() != null) {
-                        return b.b().b(str);
-                    }
-                    obtain2.readException();
-                    return obtain2.readString();
-                } finally {
-                    obtain2.recycle();
-                    obtain.recycle();
-                }
-            }
-
-            @Override // com.umeng.analytics.pro.d
-            public String a(String str) throws RemoteException {
-                Parcel obtain = Parcel.obtain();
-                Parcel obtain2 = Parcel.obtain();
-                try {
-                    obtain.writeInterfaceToken("com.samsung.android.deviceidservice.IDeviceIdService");
-                    obtain.writeString(str);
-                    if (!this.f23796b.transact(2, obtain, obtain2, 0) && b.b() != null) {
-                        return b.b().a(str);
-                    }
-                    obtain2.readException();
-                    return obtain2.readString();
-                } finally {
-                    obtain2.recycle();
-                    obtain.recycle();
-                }
-            }
-        }
-
-        public b() {
-            attachInterface(this, "com.samsung.android.deviceidservice.IDeviceIdService");
-        }
-
-        public static d a(IBinder iBinder) {
-            if (iBinder == null) {
-                return null;
-            }
-            IInterface queryLocalInterface = iBinder.queryLocalInterface("com.samsung.android.deviceidservice.IDeviceIdService");
-            return (queryLocalInterface == null || !(queryLocalInterface instanceof d)) ? new a(iBinder) : (d) queryLocalInterface;
-        }
-
-        public static d b() {
-            return a.f23795a;
-        }
-
-        @Override // android.os.IInterface
-        public IBinder asBinder() {
-            return this;
-        }
-
-        @Override // android.os.Binder
-        public boolean onTransact(int i10, Parcel parcel, Parcel parcel2, int i11) throws RemoteException {
-            if (i10 == 1) {
-                parcel.enforceInterface("com.samsung.android.deviceidservice.IDeviceIdService");
-                String a10 = a();
-                parcel2.writeNoException();
-                parcel2.writeString(a10);
-                return true;
-            }
-            if (i10 == 2) {
-                parcel.enforceInterface("com.samsung.android.deviceidservice.IDeviceIdService");
-                String a11 = a(parcel.readString());
-                parcel2.writeNoException();
-                parcel2.writeString(a11);
-                return true;
-            }
-            if (i10 != 3) {
-                if (i10 != 1598968902) {
-                    return super.onTransact(i10, parcel, parcel2, i11);
-                }
-                parcel2.writeString("com.samsung.android.deviceidservice.IDeviceIdService");
-                return true;
-            }
-            parcel.enforceInterface("com.samsung.android.deviceidservice.IDeviceIdService");
-            String b10 = b(parcel.readString());
-            parcel2.writeNoException();
-            parcel2.writeString(b10);
-            return true;
-        }
-
-        public static boolean a(d dVar) {
-            if (a.f23795a != null || dVar == null) {
-                return false;
-            }
-            a.f23795a = dVar;
-            return true;
-        }
-    }
+    /* renamed from: j */
+    public static final String f25840j = "device_id";
+    public static final String k = "device_model";
+    public static final String l = "$pr_ve";
+    public static final String m = "$ud_da";
+    public static final String n = "sessions";
+    public static final String o = "id";
+    public static final String p = "start_time";
+    public static final String q = "end_time";
+    public static final String r = "duration";
+    public static final String s = "duration_old";
+    public static final String t = "pages";
+    public static final String u = "autopages";
+    public static final String v = "page_name";
+    public static final String w = "duration";
+    public static final String x = "page_start";
+    public static final String y = "type";
+    public static final String z = "$page_num";
+    public static final String aD = "_$!deep_link";
+    public static final String aE = "_$!link";
+    public static final String[] aF = {aD, aE};
+    public static final String W = "du";
+    public static final String Y = "$st_fl";
+    public static final String au = "_$sp";
+    public static final String[] aG = {"id", "ts", W, Y, "ds", "pn", au};
+    public static final String as = "_$!ts";
+    public static final String at = "_$!id";
+    public static final String[] aH = {as, at, "_$!du", "_$!c", Y, "_$!sp", "event_name", OapsKey.KEY_TOKEN, com.alipay.mobilesecuritysdk.deviceID.c.y, "ip", am.O, "region", "city", "browser", am.x, am.F, "device_version", am.ai, "screen_width", "screen_height", "referrer", "referrer_domain", "initial_referrer", "initial_referrer_domain", "initial_view_time", "search_engine", "keyword", "ali_lib", "utm_source", "utm_medium", "utm_term", "utm_content", "utm_campaign", "date", "hour", "minute", "app_version", "sp"};
 }

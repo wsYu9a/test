@@ -5,10 +5,10 @@ import android.util.AttributeSet;
 import android.widget.EditText;
 import androidx.core.content.ContextCompat;
 import com.martian.libmars.R;
-import com.martian.libmars.common.ConfigSingleton;
-import k9.a;
+import com.martian.libmars.d.h;
+import g.a;
 
-/* loaded from: classes3.dex */
+/* loaded from: classes2.dex */
 public class ThemeEditText extends EditText implements a {
     public ThemeEditText(Context context) {
         super(context);
@@ -19,25 +19,9 @@ public class ThemeEditText extends EditText implements a {
         setFocusableInTouchMode(true);
     }
 
-    @Override // android.widget.TextView, android.view.View
-    public void onAttachedToWindow() {
-        super.onAttachedToWindow();
-        p();
-        ConfigSingleton.D().h(this);
-    }
-
-    @Override // android.view.View
-    public void onDetachedFromWindow() {
-        super.onDetachedFromWindow();
-        ConfigSingleton.D().X0(this);
-    }
-
-    @Override // k9.a
-    public void p() {
-        if (isInEditMode()) {
-            return;
-        }
-        if (ConfigSingleton.D().A0()) {
+    @Override // g.a
+    public void g() {
+        if (h.F().I0()) {
             setTextColor(ContextCompat.getColor(getContext(), R.color.night_text_color_primary));
             setHintTextColor(ContextCompat.getColor(getContext(), R.color.night_text_color_thirdly));
         } else {
@@ -46,13 +30,26 @@ public class ThemeEditText extends EditText implements a {
         }
     }
 
-    public ThemeEditText(Context context, AttributeSet attributeSet) {
-        super(context, attributeSet, 0);
+    @Override // android.widget.TextView, android.view.View
+    protected void onAttachedToWindow() {
+        super.onAttachedToWindow();
+        g();
+        h.F().a(this);
+    }
+
+    @Override // android.view.View
+    protected void onDetachedFromWindow() {
+        super.onDetachedFromWindow();
+        h.F().j1(this);
+    }
+
+    public ThemeEditText(Context context, AttributeSet attrs) {
+        super(context, attrs, 0);
         a();
     }
 
-    public ThemeEditText(Context context, AttributeSet attributeSet, int i10) {
-        super(context, attributeSet, i10);
+    public ThemeEditText(Context context, AttributeSet attrs, int defStyle) {
+        super(context, attrs, defStyle);
         a();
     }
 }

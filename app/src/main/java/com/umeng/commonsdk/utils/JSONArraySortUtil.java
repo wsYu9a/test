@@ -16,8 +16,8 @@ public class JSONArraySortUtil implements Comparator<JSONObject> {
     public int compare(JSONObject jSONObject, JSONObject jSONObject2) {
         try {
             return (int) (jSONObject.getLong(this.mCompareKey) - jSONObject2.getLong(this.mCompareKey));
-        } catch (JSONException e10) {
-            e10.printStackTrace();
+        } catch (JSONException e2) {
+            e2.printStackTrace();
             return 0;
         }
     }

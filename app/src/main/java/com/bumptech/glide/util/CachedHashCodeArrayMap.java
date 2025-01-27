@@ -3,7 +3,7 @@ package com.bumptech.glide.util;
 import androidx.collection.ArrayMap;
 import androidx.collection.SimpleArrayMap;
 
-/* loaded from: classes2.dex */
+/* loaded from: classes.dex */
 public final class CachedHashCodeArrayMap<K, V> extends ArrayMap<K, V> {
     private int hashCode;
 
@@ -22,9 +22,9 @@ public final class CachedHashCodeArrayMap<K, V> extends ArrayMap<K, V> {
     }
 
     @Override // androidx.collection.SimpleArrayMap, java.util.Map
-    public V put(K k10, V v10) {
+    public V put(K k, V v) {
         this.hashCode = 0;
-        return (V) super.put(k10, v10);
+        return (V) super.put(k, v);
     }
 
     @Override // androidx.collection.SimpleArrayMap
@@ -34,14 +34,14 @@ public final class CachedHashCodeArrayMap<K, V> extends ArrayMap<K, V> {
     }
 
     @Override // androidx.collection.SimpleArrayMap
-    public V removeAt(int i10) {
+    public V removeAt(int i2) {
         this.hashCode = 0;
-        return (V) super.removeAt(i10);
+        return (V) super.removeAt(i2);
     }
 
     @Override // androidx.collection.SimpleArrayMap
-    public V setValueAt(int i10, V v10) {
+    public V setValueAt(int i2, V v) {
         this.hashCode = 0;
-        return (V) super.setValueAt(i10, v10);
+        return (V) super.setValueAt(i2, v);
     }
 }

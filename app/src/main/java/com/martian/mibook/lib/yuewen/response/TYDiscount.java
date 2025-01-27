@@ -3,7 +3,7 @@ package com.martian.mibook.lib.yuewen.response;
 import com.martian.mibook.lib.model.data.TYBookItem;
 import java.util.List;
 
-/* loaded from: classes3.dex */
+/* loaded from: classes4.dex */
 public class TYDiscount {
     private List<TYBookItem> books;
     private String desc;
@@ -49,31 +49,31 @@ public class TYDiscount {
         return this.startTime.longValue();
     }
 
-    public void setBooks(List<TYBookItem> list) {
-        this.books = list;
+    public void setBooks(List<TYBookItem> books) {
+        this.books = books;
     }
 
-    public void setDesc(String str) {
-        this.desc = str;
+    public void setDesc(String desc) {
+        this.desc = desc;
     }
 
-    public void setDistType(Integer num) {
-        this.distType = num;
+    public void setDistType(Integer distType) {
+        this.distType = distType;
     }
 
-    public void setEndTime(Long l10) {
-        this.endTime = l10;
+    public void setEndTime(Long endTime) {
+        this.endTime = endTime;
     }
 
-    public void setName(String str) {
-        this.name = str;
+    public void setName(String name) {
+        this.name = name;
     }
 
-    public void setPrice(Integer num) {
-        this.price = num;
+    public void setPrice(Integer price) {
+        this.price = price;
     }
 
-    public void setStartTime(Long l10) {
-        this.startTime = l10;
+    public void setStartTime(Long startTime) {
+        this.startTime = startTime;
     }
 }

@@ -1,70 +1,84 @@
 package com.kwad.components.ad.interstitial.d;
 
-import android.content.Context;
-import android.text.TextUtils;
-import com.ksad.json.annotation.KsJson;
-import com.kwad.sdk.core.d.c;
-import com.kwad.sdk.utils.ad;
-import java.text.SimpleDateFormat;
-import java.util.Date;
+import android.app.Activity;
+import android.content.DialogInterface;
+import com.kwad.components.ad.interstitial.c.c;
+import com.kwad.components.ad.interstitial.d;
+import com.kwad.components.core.page.widget.a;
+import com.kwad.sdk.core.report.i;
+import com.kwad.sdk.core.response.model.AdInfo;
+import com.tencent.bugly.beta.tinker.TinkerReport;
 import org.json.JSONObject;
 
-@KsJson
-/* loaded from: classes2.dex */
-public class a extends com.kwad.sdk.core.response.a.a {
-    private static SimpleDateFormat hX = new SimpleDateFormat("yyyy-MM-dd");
-    public long kN = -1;
-    public int kO = 0;
+/* loaded from: classes.dex */
+public final class a {
 
-    public static void K(Context context) {
-        String Ny = ad.Ny();
-        a aVar = new a();
-        if (TextUtils.isEmpty(Ny)) {
-            aVar.kO = 1;
-            aVar.kN = System.currentTimeMillis();
-            ad.af(context, aVar.toJson().toString());
-            return;
+    /* renamed from: com.kwad.components.ad.interstitial.d.a$1 */
+    static class AnonymousClass1 implements a.InterfaceC0185a {
+        AnonymousClass1() {
         }
-        try {
-            aVar.parseJson(new JSONObject(Ny));
-            if (c(aVar.kN, System.currentTimeMillis())) {
-                aVar.kO++;
-            } else {
-                aVar.kO = 1;
-                aVar.kN = System.currentTimeMillis();
-            }
-            ad.af(context, aVar.toJson().toString());
-        } catch (Exception e10) {
-            c.printStackTrace(e10);
+
+        @Override // com.kwad.components.core.page.widget.a.InterfaceC0185a
+        public final void a(DialogInterface dialogInterface) {
+            dialogInterface.dismiss();
+            com.kwad.sdk.core.report.a.c(c.this.mAdTemplate, (JSONObject) null, new i().bn(8));
+        }
+
+        @Override // com.kwad.components.core.page.widget.a.InterfaceC0185a
+        public final void b(DialogInterface dialogInterface) {
+            c cVar = c.this;
+            cVar.a(false, -1, cVar.eN);
+            dialogInterface.dismiss();
+            com.kwad.sdk.core.report.a.a(c.this.mAdTemplate, new i().bl(TinkerReport.KEY_APPLIED_PACKAGE_CHECK_DEX_META).bn(8));
+            c.this.hU.dismiss();
+        }
+
+        @Override // com.kwad.components.core.page.widget.a.InterfaceC0185a
+        public final void c(DialogInterface dialogInterface) {
         }
     }
 
-    private static boolean c(long j10, long j11) {
-        if (j10 > 0 && j11 > 0) {
-            try {
-                return hX.format(new Date(j10)).equals(hX.format(new Date(j11)));
-            } catch (Exception e10) {
-                c.printStackTrace(e10);
+    public static boolean c(c cVar) {
+        Activity ownerActivity;
+        d dVar = cVar.hU;
+        if (dVar != null && (ownerActivity = dVar.getOwnerActivity()) != null && !ownerActivity.isFinishing()) {
+            AdInfo cb = com.kwad.sdk.core.response.a.d.cb(cVar.mAdTemplate);
+            int cO = com.kwad.components.ad.interstitial.a.b.cO();
+            int cP = com.kwad.components.ad.interstitial.a.b.cP();
+            if (cO > com.kwad.sdk.core.response.a.a.bS(cb) && cP < com.kwad.sdk.core.response.a.a.bT(cb)) {
+                if (com.kwad.sdk.core.response.a.a.bU(cb) == 2) {
+                    com.kwad.components.ad.interstitial.e.b.d(cVar);
+                    return true;
+                }
+                if (com.kwad.sdk.core.response.a.a.bU(cb) == 1) {
+                    new com.kwad.components.core.page.widget.a(ownerActivity, com.kwad.sdk.core.response.a.a.bX(cb), new a.InterfaceC0185a() { // from class: com.kwad.components.ad.interstitial.d.a.1
+                        AnonymousClass1() {
+                        }
+
+                        @Override // com.kwad.components.core.page.widget.a.InterfaceC0185a
+                        public final void a(DialogInterface dialogInterface) {
+                            dialogInterface.dismiss();
+                            com.kwad.sdk.core.report.a.c(c.this.mAdTemplate, (JSONObject) null, new i().bn(8));
+                        }
+
+                        @Override // com.kwad.components.core.page.widget.a.InterfaceC0185a
+                        public final void b(DialogInterface dialogInterface) {
+                            c cVar2 = c.this;
+                            cVar2.a(false, -1, cVar2.eN);
+                            dialogInterface.dismiss();
+                            com.kwad.sdk.core.report.a.a(c.this.mAdTemplate, new i().bl(TinkerReport.KEY_APPLIED_PACKAGE_CHECK_DEX_META).bn(8));
+                            c.this.hU.dismiss();
+                        }
+
+                        @Override // com.kwad.components.core.page.widget.a.InterfaceC0185a
+                        public final void c(DialogInterface dialogInterface) {
+                        }
+                    }).show();
+                    com.kwad.sdk.core.report.a.d(cVar.mAdTemplate, new JSONObject(), new i().bl(149).bn(8));
+                    return true;
+                }
             }
         }
         return false;
-    }
-
-    public static int dk() {
-        String Ny = ad.Ny();
-        if (TextUtils.isEmpty(Ny)) {
-            return 0;
-        }
-        a aVar = new a();
-        try {
-            aVar.parseJson(new JSONObject(Ny));
-            if (c(aVar.kN, System.currentTimeMillis())) {
-                return aVar.kO;
-            }
-            return 0;
-        } catch (Exception e10) {
-            c.printStackTrace(e10);
-            return 0;
-        }
     }
 }

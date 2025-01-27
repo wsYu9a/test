@@ -4,20 +4,21 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.DialogInterface;
 import com.kwad.components.ad.adbit.c;
+import com.kwad.components.ad.g.b;
+import com.kwad.sdk.KsAdSDKImpl;
 import com.kwad.sdk.api.KsExitInstallListener;
 import com.kwad.sdk.api.KsScene;
-import com.kwad.sdk.components.e;
+import com.kwad.sdk.components.d;
 import com.kwad.sdk.internal.api.SceneImpl;
-import com.kwad.sdk.l;
 
-/* loaded from: classes2.dex */
-public final class a extends e implements com.kwad.components.ad.b.b {
+/* loaded from: classes.dex */
+public final class a extends d implements com.kwad.components.ad.a.a {
 
     /* renamed from: com.kwad.components.ad.a$1 */
-    public class AnonymousClass1 implements DialogInterface.OnDismissListener {
-        final /* synthetic */ KsExitInstallListener bx;
+    final class AnonymousClass1 implements DialogInterface.OnDismissListener {
+        final /* synthetic */ KsExitInstallListener bJ;
 
-        public AnonymousClass1(KsExitInstallListener ksExitInstallListener) {
+        AnonymousClass1(KsExitInstallListener ksExitInstallListener) {
             ksExitInstallListener = ksExitInstallListener;
         }
 
@@ -31,55 +32,55 @@ public final class a extends e implements com.kwad.components.ad.b.b {
     }
 
     /* renamed from: com.kwad.components.ad.a$2 */
-    public class AnonymousClass2 implements DialogInterface.OnClickListener {
-        final /* synthetic */ KsExitInstallListener bx;
+    final class AnonymousClass2 implements DialogInterface.OnClickListener {
+        final /* synthetic */ KsExitInstallListener bJ;
 
-        public AnonymousClass2(KsExitInstallListener ksExitInstallListener) {
+        AnonymousClass2(KsExitInstallListener ksExitInstallListener) {
             ksExitInstallListener = ksExitInstallListener;
         }
 
         @Override // android.content.DialogInterface.OnClickListener
-        public final void onClick(DialogInterface dialogInterface, int i10) {
+        public final void onClick(DialogInterface dialogInterface, int i2) {
             KsExitInstallListener ksExitInstallListener = ksExitInstallListener;
-            if (ksExitInstallListener == null || i10 != -1) {
+            if (ksExitInstallListener == null || i2 != -1) {
                 return;
             }
             ksExitInstallListener.onInstallClick();
         }
     }
 
-    @Override // com.kwad.components.ad.b.b
+    @Override // com.kwad.components.ad.a.a
     public final String getBidRequestToken(KsScene ksScene) {
         return c.a(SceneImpl.covert(ksScene));
     }
 
-    @Override // com.kwad.components.ad.b.b
+    @Override // com.kwad.components.ad.a.a
     public final String getBidRequestTokenV2(KsScene ksScene) {
         return c.getBidRequestTokenV2(ksScene);
     }
 
-    @Override // com.kwad.sdk.components.b
+    @Override // com.kwad.sdk.components.a
     public final Class getComponentsType() {
-        return com.kwad.components.ad.b.b.class;
+        return com.kwad.components.ad.a.a.class;
     }
 
-    @Override // com.kwad.sdk.components.b
+    @Override // com.kwad.sdk.components.a
     public final void init(Context context) {
-        com.kwad.components.ad.k.c.mT().init();
+        b.lE().init();
     }
 
-    @Override // com.kwad.sdk.components.e, com.kwad.sdk.components.b
+    @Override // com.kwad.sdk.components.d, com.kwad.sdk.components.a
     public final int priority() {
         return -100;
     }
 
-    @Override // com.kwad.components.ad.b.b
+    @Override // com.kwad.components.ad.a.a
     public final boolean showInstallDialog(Activity activity, KsExitInstallListener ksExitInstallListener) {
-        if (l.At().zE()) {
-            return com.kwad.sdk.a.a.a.a(activity, new DialogInterface.OnDismissListener() { // from class: com.kwad.components.ad.a.1
-                final /* synthetic */ KsExitInstallListener bx;
+        if (KsAdSDKImpl.get().hasInitFinish()) {
+            return com.kwad.sdk.kwai.kwai.a.a(activity, new DialogInterface.OnDismissListener() { // from class: com.kwad.components.ad.a.1
+                final /* synthetic */ KsExitInstallListener bJ;
 
-                public AnonymousClass1(KsExitInstallListener ksExitInstallListener2) {
+                AnonymousClass1(KsExitInstallListener ksExitInstallListener2) {
                     ksExitInstallListener = ksExitInstallListener2;
                 }
 
@@ -91,16 +92,16 @@ public final class a extends e implements com.kwad.components.ad.b.b {
                     }
                 }
             }, new DialogInterface.OnClickListener() { // from class: com.kwad.components.ad.a.2
-                final /* synthetic */ KsExitInstallListener bx;
+                final /* synthetic */ KsExitInstallListener bJ;
 
-                public AnonymousClass2(KsExitInstallListener ksExitInstallListener2) {
+                AnonymousClass2(KsExitInstallListener ksExitInstallListener2) {
                     ksExitInstallListener = ksExitInstallListener2;
                 }
 
                 @Override // android.content.DialogInterface.OnClickListener
-                public final void onClick(DialogInterface dialogInterface, int i10) {
+                public final void onClick(DialogInterface dialogInterface, int i2) {
                     KsExitInstallListener ksExitInstallListener2 = ksExitInstallListener;
-                    if (ksExitInstallListener2 == null || i10 != -1) {
+                    if (ksExitInstallListener2 == null || i2 != -1) {
                         return;
                     }
                     ksExitInstallListener2.onInstallClick();

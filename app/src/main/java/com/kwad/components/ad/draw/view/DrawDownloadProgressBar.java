@@ -8,18 +8,18 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import com.kwad.components.core.page.widget.TextProgressBar;
 import com.kwad.sdk.R;
-import com.kwad.sdk.c.a.a;
-import com.kwad.sdk.n.m;
+import com.kwad.sdk.c.kwai.a;
+import com.kwad.sdk.j.k;
 
-/* loaded from: classes2.dex */
+/* loaded from: classes.dex */
 public class DrawDownloadProgressBar extends FrameLayout {
-    private TextProgressBar ew;
-    private View ex;
+    private TextProgressBar dm;
+    private View dn;
     private Context mContext;
 
     /* renamed from: com.kwad.components.ad.draw.view.DrawDownloadProgressBar$1 */
-    public class AnonymousClass1 implements View.OnClickListener {
-        public AnonymousClass1() {
+    final class AnonymousClass1 implements View.OnClickListener {
+        AnonymousClass1() {
         }
 
         @Override // android.view.View.OnClickListener
@@ -30,17 +30,27 @@ public class DrawDownloadProgressBar extends FrameLayout {
 
     public DrawDownloadProgressBar(@NonNull Context context) {
         super(context);
-        A(context);
+        D(context);
     }
 
-    private void A(Context context) {
+    public DrawDownloadProgressBar(@NonNull Context context, @Nullable AttributeSet attributeSet) {
+        super(context, attributeSet);
+        D(context);
+    }
+
+    public DrawDownloadProgressBar(@NonNull Context context, @Nullable AttributeSet attributeSet, int i2) {
+        super(context, attributeSet, i2);
+        D(context);
+    }
+
+    private void D(Context context) {
         this.mContext = context;
-        m.inflate(context, R.layout.ksad_draw_download_bar, this);
-        this.ew = (TextProgressBar) findViewById(R.id.ksad_download_progress);
+        k.inflate(context, R.layout.ksad_draw_download_bar, this);
+        this.dm = (TextProgressBar) findViewById(R.id.ksad_download_progress);
         View findViewById = findViewById(R.id.ksad_download_progress_cover);
-        this.ex = findViewById;
+        this.dn = findViewById;
         findViewById.setOnClickListener(new View.OnClickListener() { // from class: com.kwad.components.ad.draw.view.DrawDownloadProgressBar.1
-            public AnonymousClass1() {
+            AnonymousClass1() {
             }
 
             @Override // android.view.View.OnClickListener
@@ -50,34 +60,29 @@ public class DrawDownloadProgressBar extends FrameLayout {
         });
     }
 
-    public final void e(String str, int i10) {
-        if (i10 == 0 || i10 == getMax()) {
-            this.ex.setVisibility(0);
+    public final void f(String str, int i2) {
+        View view;
+        int i3;
+        if (i2 == 0 || i2 == getMax()) {
+            view = this.dn;
+            i3 = 0;
         } else {
-            this.ex.setVisibility(8);
+            view = this.dn;
+            i3 = 8;
         }
-        this.ew.e(str, i10);
+        view.setVisibility(i3);
+        this.dm.f(str, i2);
     }
 
     public int getMax() {
-        return this.ew.getMax();
+        return this.dm.getMax();
     }
 
-    public void setTextColor(int i10) {
-        this.ew.setTextColor(i10);
+    public void setTextColor(int i2) {
+        this.dm.setTextColor(i2);
     }
 
-    public void setTextSize(int i10) {
-        this.ew.setTextDimen(a.a(getContext(), i10));
-    }
-
-    public DrawDownloadProgressBar(@NonNull Context context, @Nullable AttributeSet attributeSet) {
-        super(context, attributeSet);
-        A(context);
-    }
-
-    public DrawDownloadProgressBar(@NonNull Context context, @Nullable AttributeSet attributeSet, int i10) {
-        super(context, attributeSet, i10);
-        A(context);
+    public void setTextSize(int i2) {
+        this.dm.setTextDimen(a.a(getContext(), i2));
     }
 }

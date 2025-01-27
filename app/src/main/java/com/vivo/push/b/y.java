@@ -4,21 +4,21 @@ package com.vivo.push.b;
 public final class y extends com.vivo.push.o {
 
     /* renamed from: a */
-    private String f24959a;
+    private String f30932a;
 
     public y(String str) {
         super(2008);
-        this.f24959a = str;
+        this.f30932a = str;
     }
 
     @Override // com.vivo.push.o
-    public final void c(com.vivo.push.a aVar) {
-        aVar.a("package_name", this.f24959a);
+    protected final void c(com.vivo.push.a aVar) {
+        aVar.a("package_name", this.f30932a);
     }
 
     @Override // com.vivo.push.o
-    public final void d(com.vivo.push.a aVar) {
-        this.f24959a = aVar.a("package_name");
+    protected final void d(com.vivo.push.a aVar) {
+        this.f30932a = aVar.a("package_name");
     }
 
     @Override // com.vivo.push.o

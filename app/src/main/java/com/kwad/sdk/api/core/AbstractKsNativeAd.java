@@ -11,7 +11,7 @@ import com.kwad.sdk.api.loader.Wrapper;
 
 @KsAdSdkDynamicApi
 @Keep
-/* loaded from: classes3.dex */
+/* loaded from: classes2.dex */
 public abstract class AbstractKsNativeAd implements KsNativeAd {
     @KsAdSdkDynamicApi
     @Keep
@@ -21,23 +21,23 @@ public abstract class AbstractKsNativeAd implements KsNativeAd {
     @Nullable
     @KsAdSdkDynamicApi
     @Keep
-    public final View getVideoView(Context context, boolean z10) {
-        return getVideoView2(Wrapper.wrapContextIfNeed(context), z10);
+    public final View getVideoView(Context context, @Nullable KsAdVideoPlayConfig ksAdVideoPlayConfig) {
+        return getVideoView2(Wrapper.wrapContextIfNeed(context), ksAdVideoPlayConfig);
     }
-
-    @KsAdSdkDynamicApi
-    @Keep
-    public abstract View getVideoView2(Context context, @Nullable KsAdVideoPlayConfig ksAdVideoPlayConfig);
-
-    @KsAdSdkDynamicApi
-    @Keep
-    public abstract View getVideoView2(Context context, boolean z10);
 
     @Override // com.kwad.sdk.api.KsNativeAd
     @Nullable
     @KsAdSdkDynamicApi
     @Keep
-    public final View getVideoView(Context context, @Nullable KsAdVideoPlayConfig ksAdVideoPlayConfig) {
-        return getVideoView2(Wrapper.wrapContextIfNeed(context), ksAdVideoPlayConfig);
+    public final View getVideoView(Context context, boolean z) {
+        return getVideoView2(Wrapper.wrapContextIfNeed(context), z);
     }
+
+    @KsAdSdkDynamicApi
+    @Keep
+    protected abstract View getVideoView2(Context context, @Nullable KsAdVideoPlayConfig ksAdVideoPlayConfig);
+
+    @KsAdSdkDynamicApi
+    @Keep
+    protected abstract View getVideoView2(Context context, boolean z);
 }

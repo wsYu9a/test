@@ -8,12 +8,12 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
-/* loaded from: classes2.dex */
+/* loaded from: classes.dex */
 public class ResourceDecoderRegistry {
     private final List<String> bucketPriorityList = new ArrayList();
     private final Map<String, List<Entry<?, ?>>> decoders = new HashMap();
 
-    public static class Entry<T, R> {
+    private static class Entry<T, R> {
         private final Class<T> dataClass;
         final ResourceDecoder<T, R> decoder;
         final Class<R> resourceClass;
@@ -32,17 +32,13 @@ public class ResourceDecoderRegistry {
     @NonNull
     private synchronized List<Entry<?, ?>> getOrAddEntryList(@NonNull String str) {
         List<Entry<?, ?>> list;
-        try {
-            if (!this.bucketPriorityList.contains(str)) {
-                this.bucketPriorityList.add(str);
-            }
-            list = this.decoders.get(str);
-            if (list == null) {
-                list = new ArrayList<>();
-                this.decoders.put(str, list);
-            }
-        } catch (Throwable th2) {
-            throw th2;
+        if (!this.bucketPriorityList.contains(str)) {
+            this.bucketPriorityList.add(str);
+        }
+        list = this.decoders.get(str);
+        if (list == null) {
+            list = new ArrayList<>();
+            this.decoders.put(str, list);
         }
         return list;
     }
@@ -92,20 +88,16 @@ public class ResourceDecoderRegistry {
     }
 
     public synchronized void setBucketPriorityList(@NonNull List<String> list) {
-        try {
-            ArrayList<String> arrayList = new ArrayList(this.bucketPriorityList);
-            this.bucketPriorityList.clear();
-            Iterator<String> it = list.iterator();
-            while (it.hasNext()) {
-                this.bucketPriorityList.add(it.next());
+        ArrayList<String> arrayList = new ArrayList(this.bucketPriorityList);
+        this.bucketPriorityList.clear();
+        Iterator<String> it = list.iterator();
+        while (it.hasNext()) {
+            this.bucketPriorityList.add(it.next());
+        }
+        for (String str : arrayList) {
+            if (!list.contains(str)) {
+                this.bucketPriorityList.add(str);
             }
-            for (String str : arrayList) {
-                if (!list.contains(str)) {
-                    this.bucketPriorityList.add(str);
-                }
-            }
-        } catch (Throwable th2) {
-            throw th2;
         }
     }
 }

@@ -10,33 +10,30 @@ import java.io.File;
 public class f {
 
     /* renamed from: a */
-    public static f f23164a = null;
+    public static f f25431a = null;
 
     /* renamed from: c */
-    protected static final b f23165c = new b(c(), c.f23158m, c.f23152g, c.f23153h, c.f23148c, c.f23154i, 10, c.f23150e, c.f23159n);
+    protected static final b f25432c = new b(c(), c.m, c.f25423g, c.f25424h, c.f25419c, c.f25425i, 10, c.f25421e, c.n);
 
     /* renamed from: d */
-    private static boolean f23166d = false;
+    private static boolean f25433d = false;
 
     /* renamed from: b */
-    protected a f23167b = new a(f23165c);
+    protected a f25434b = new a(f25432c);
 
     private f() {
     }
 
     public static f a() {
-        if (f23164a == null) {
+        if (f25431a == null) {
             synchronized (f.class) {
-                try {
-                    if (f23164a == null) {
-                        f23164a = new f();
-                        f23166d = true;
-                    }
-                } finally {
+                if (f25431a == null) {
+                    f25431a = new f();
+                    f25433d = true;
                 }
             }
         }
-        return f23164a;
+        return f25431a;
     }
 
     public static final void b(String str, String str2) {
@@ -55,64 +52,60 @@ public class f {
         a().a(16, str, str2, null);
     }
 
-    public static final void b(String str, String str2, Throwable th2) {
-        a().a(16, str, str2, th2);
+    public static final void b(String str, String str2, Throwable th) {
+        a().a(16, str, str2, th);
     }
 
-    public static File c() {
-        String str = c.f23149d;
-        d.c b10 = d.b.b();
-        return (b10 == null || b10.c() <= c.f23151f) ? new File(com.tencent.open.utils.d.c(), str) : new File(Environment.getExternalStorageDirectory(), str);
+    protected static File c() {
+        String str = c.f25420d;
+        d.c b2 = d.b.b();
+        return b2 != null && (b2.c() > c.f25422f ? 1 : (b2.c() == c.f25422f ? 0 : -1)) > 0 ? new File(Environment.getExternalStorageDirectory(), str) : new File(com.tencent.open.utils.d.c(), str);
     }
 
-    public void d() {
-        a aVar = this.f23167b;
+    protected void d() {
+        a aVar = this.f25434b;
         if (aVar != null) {
             aVar.a();
-            this.f23167b.b();
-            this.f23167b = null;
+            this.f25434b.b();
+            this.f25434b = null;
         }
     }
 
     public static void b() {
         synchronized (f.class) {
-            try {
-                a().d();
-                if (f23164a != null) {
-                    f23164a = null;
-                }
-            } catch (Throwable th2) {
-                throw th2;
+            a().d();
+            if (f25431a != null) {
+                f25431a = null;
             }
         }
     }
 
-    public void a(int i10, String str, String str2, Throwable th2) {
+    protected void a(int i2, String str, String str2, Throwable th) {
         a aVar;
-        if (f23166d) {
-            String b10 = com.tencent.open.utils.d.b();
-            if (!TextUtils.isEmpty(b10)) {
-                String str3 = b10 + " SDK_VERSION:" + Constants.SDK_VERSION;
-                if (this.f23167b == null) {
+        if (f25433d) {
+            String b2 = com.tencent.open.utils.d.b();
+            if (!TextUtils.isEmpty(b2)) {
+                String str3 = b2 + " SDK_VERSION:" + Constants.SDK_VERSION;
+                if (this.f25434b == null) {
                     return;
                 }
-                e.f23163a.b(32, Thread.currentThread(), System.currentTimeMillis(), "openSDK_LOG", str3, null);
-                this.f23167b.b(32, Thread.currentThread(), System.currentTimeMillis(), "openSDK_LOG", str3, null);
-                f23166d = false;
+                e.f25430a.b(32, Thread.currentThread(), System.currentTimeMillis(), "openSDK_LOG", str3, null);
+                this.f25434b.b(32, Thread.currentThread(), System.currentTimeMillis(), "openSDK_LOG", str3, null);
+                f25433d = false;
             }
         }
-        e.f23163a.b(i10, Thread.currentThread(), System.currentTimeMillis(), str, str2, th2);
-        if (!d.a.a(c.f23147b, i10) || (aVar = this.f23167b) == null) {
+        e.f25430a.b(i2, Thread.currentThread(), System.currentTimeMillis(), str, str2, th);
+        if (!d.a.a(c.f25418b, i2) || (aVar = this.f25434b) == null) {
             return;
         }
-        aVar.b(i10, Thread.currentThread(), System.currentTimeMillis(), str, str2, th2);
+        aVar.b(i2, Thread.currentThread(), System.currentTimeMillis(), str, str2, th);
     }
 
     public static final void a(String str, String str2) {
         a().a(1, str, str2, null);
     }
 
-    public static final void a(String str, String str2, Throwable th2) {
-        a().a(2, str, str2, th2);
+    public static final void a(String str, String str2, Throwable th) {
+        a().a(2, str, str2, th);
     }
 }

@@ -1,452 +1,680 @@
 package com.kwad.components.ad.reward.presenter;
 
 import android.animation.Animator;
+import android.animation.AnimatorListenerAdapter;
 import android.animation.AnimatorSet;
 import android.animation.ObjectAnimator;
 import android.animation.ValueAnimator;
+import android.app.Activity;
+import android.content.Context;
+import android.content.res.Resources;
+import android.graphics.drawable.GradientDrawable;
+import android.os.Vibrator;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.Interpolator;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
+import android.widget.TextView;
 import androidx.annotation.Nullable;
-import androidx.core.view.animation.PathInterpolatorCompat;
-import com.kwad.components.ad.m.b;
-import com.kwad.components.ad.reward.presenter.RewardPreEndCardPresenter;
-import com.kwad.components.core.i.a;
-import com.kwad.components.core.video.DetailVideoView;
-import com.kwad.components.core.webview.jshandler.x;
-import com.kwad.components.core.widget.KsLogoView;
 import com.kwad.sdk.R;
-import com.kwad.sdk.core.response.model.AdTemplate;
-import java.util.ArrayList;
-import java.util.List;
+import com.kwad.sdk.core.response.model.AdInfo;
+import com.kwad.sdk.core.response.model.AdMatrixInfo;
+import com.kwad.sdk.core.view.AdBaseFrameLayout;
+import com.kwad.sdk.utils.bi;
+import com.tencent.bugly.beta.tinker.TinkerReport;
+import org.json.JSONObject;
 
-/* loaded from: classes2.dex */
-public final class s extends b implements com.kwad.components.ad.reward.e.g, a.InterfaceC0432a, x.b {
-    private List<com.kwad.components.core.i.c> bJ;
+/* loaded from: classes.dex */
+public final class s extends a implements View.OnClickListener, com.kwad.components.ad.reward.d.m, com.kwad.sdk.core.f.b {
+    private com.kwad.sdk.core.f.d ef;
+    private Vibrator eg;
+    private ViewGroup hd;
+    private TextView he;
+    private TextView hf;
+    private ImageView hg;
+    private FrameLayout hh;
+    private ImageView hi;
+    private FrameLayout hj;
+    private TextView hk;
 
     @Nullable
-    private com.kwad.components.ad.reward.d ql;
-    private ImageView tF;
-    private View uG;
-    private KsLogoView uH;
-    private DetailVideoView uI;
-    private int uJ;
-    private View uK;
-    private FrameLayout uL;
-    private Animator uM;
-    private Animator uN;
-    private Animator uO;
-    private AdTemplate uP;
-    private boolean uX;
-
-    @RewardPreEndCardPresenter.PreEndPageStatus
-    private int uF = 1;
-    private long uQ = 500;
-    private long uR = 50;
-    private float uS = 1.2254902f;
-    private float uT = 0.80472106f;
-    private float uU = 0.0f;
-    private boolean uV = false;
-    private long showTime = -1;
-    private long uW = -1;
-
-    /* renamed from: ia */
-    private com.kwad.components.core.video.l f11860ia = new com.kwad.components.core.video.l() { // from class: com.kwad.components.ad.reward.presenter.s.1
-        public AnonymousClass1() {
+    private Animator hl;
+    private com.kwad.components.ad.reward.d.f mPlayEndPageListener = new com.kwad.components.ad.reward.d.a() { // from class: com.kwad.components.ad.reward.presenter.s.1
+        AnonymousClass1() {
         }
 
-        @Override // com.kwad.components.core.video.l, com.kwad.components.core.video.h
-        public final void onMediaPlayProgress(long j10, long j11) {
-            s.this.g(j11);
-        }
-    };
-
-    /* renamed from: ee */
-    private com.kwad.sdk.core.webview.d.a.a f11859ee = new com.kwad.sdk.core.webview.d.a.a() { // from class: com.kwad.components.ad.reward.presenter.s.5
-        public AnonymousClass5() {
-        }
-
-        @Override // com.kwad.sdk.core.webview.d.a.a
-        public final void a(com.kwad.sdk.core.webview.d.b.a aVar) {
-            if (aVar == null || com.kwad.sdk.core.response.b.e.c(s.this.mAdTemplate, aVar.creativeId, aVar.adStyle)) {
-                s.this.rO.f11688qe.cg();
-                return;
+        @Override // com.kwad.components.ad.reward.d.f
+        public final void bM() {
+            if (s.this.hd != null) {
+                s.this.hd.setVisibility(8);
             }
-            com.kwad.components.core.i.c a10 = com.kwad.components.ad.reward.g.a((List<com.kwad.components.core.i.c>) s.this.bJ, aVar.creativeId);
-            if (a10 != null) {
-                s.this.rO.a(a10);
+            if (s.this.hj != null) {
+                s.this.hj.setVisibility(8);
+            }
+            if (s.this.ef != null) {
+                s.this.ef.aY(s.this.getContext());
+            }
+            if (s.this.hl != null) {
+                s.this.hl.cancel();
+                s.this.hl = null;
             }
         }
     };
 
     /* renamed from: com.kwad.components.ad.reward.presenter.s$1 */
-    public class AnonymousClass1 extends com.kwad.components.core.video.l {
-        public AnonymousClass1() {
+    final class AnonymousClass1 extends com.kwad.components.ad.reward.d.a {
+        AnonymousClass1() {
         }
 
-        @Override // com.kwad.components.core.video.l, com.kwad.components.core.video.h
-        public final void onMediaPlayProgress(long j10, long j11) {
-            s.this.g(j11);
+        @Override // com.kwad.components.ad.reward.d.f
+        public final void bM() {
+            if (s.this.hd != null) {
+                s.this.hd.setVisibility(8);
+            }
+            if (s.this.hj != null) {
+                s.this.hj.setVisibility(8);
+            }
+            if (s.this.ef != null) {
+                s.this.ef.aY(s.this.getContext());
+            }
+            if (s.this.hl != null) {
+                s.this.hl.cancel();
+                s.this.hl = null;
+            }
+        }
+    }
+
+    /* renamed from: com.kwad.components.ad.reward.presenter.s$10 */
+    final class AnonymousClass10 implements ValueAnimator.AnimatorUpdateListener {
+        final /* synthetic */ int hu;
+        final /* synthetic */ int hv;
+
+        AnonymousClass10(int i2, int i3) {
+            color2 = i2;
+            dimensionPixelSize = i3;
+        }
+
+        @Override // android.animation.ValueAnimator.AnimatorUpdateListener
+        public final void onAnimationUpdate(ValueAnimator valueAnimator) {
+            try {
+                int intValue = ((Integer) valueAnimator.getAnimatedValue()).intValue();
+                GradientDrawable gradientDrawable = (GradientDrawable) s.this.hi.getBackground();
+                gradientDrawable.mutate();
+                gradientDrawable.setColor(intValue);
+                if (intValue == color2) {
+                    gradientDrawable.setStroke(dimensionPixelSize, -1);
+                }
+                s.this.hi.setBackground(gradientDrawable);
+            } catch (Throwable th) {
+                com.kwad.sdk.core.d.b.printStackTrace(th);
+            }
+        }
+    }
+
+    /* renamed from: com.kwad.components.ad.reward.presenter.s$11 */
+    final class AnonymousClass11 implements ValueAnimator.AnimatorUpdateListener {
+        AnonymousClass11() {
+        }
+
+        @Override // android.animation.ValueAnimator.AnimatorUpdateListener
+        public final void onAnimationUpdate(ValueAnimator valueAnimator) {
+            try {
+                float floatValue = ((Float) valueAnimator.getAnimatedValue()).floatValue();
+                s.this.he.setAlpha(floatValue);
+                s.this.hf.setAlpha(floatValue);
+            } catch (Throwable th) {
+                com.kwad.sdk.core.d.b.printStackTrace(th);
+            }
+        }
+    }
+
+    /* renamed from: com.kwad.components.ad.reward.presenter.s$12 */
+    final class AnonymousClass12 extends com.kwad.components.ad.widget.a {
+        AnonymousClass12(View view) {
+            super(view);
+        }
+
+        @Override // com.kwad.components.ad.widget.a
+        public final void a(ViewGroup.LayoutParams layoutParams, Object obj) {
+            layoutParams.height = (int) ((Float) obj).floatValue();
+        }
+    }
+
+    /* renamed from: com.kwad.components.ad.reward.presenter.s$13 */
+    final class AnonymousClass13 extends com.kwad.components.ad.widget.a {
+        AnonymousClass13(View view) {
+            super(view);
+        }
+
+        @Override // com.kwad.components.ad.widget.a
+        public final void a(ViewGroup.LayoutParams layoutParams, Object obj) {
+            layoutParams.height = (int) ((Float) obj).floatValue();
         }
     }
 
     /* renamed from: com.kwad.components.ad.reward.presenter.s$2 */
-    public class AnonymousClass2 implements b.InterfaceC0390b {
-        public AnonymousClass2() {
+    final class AnonymousClass2 extends AnimatorListenerAdapter {
+        private boolean hn = false;
+        final /* synthetic */ float ho;
+        final /* synthetic */ Animator hp;
+
+        AnonymousClass2(float f2, Animator animator) {
+            dimension2 = f2;
+            clone = animator;
         }
 
-        @Override // com.kwad.components.ad.m.b.InterfaceC0390b
-        public final void ie() {
-            com.kwad.sdk.core.d.c.d("RewardPreEndCardPresenter", "onPreloadSuccess");
-            s.this.rO.qN = true;
+        @Override // android.animation.AnimatorListenerAdapter, android.animation.Animator.AnimatorListener
+        public final void onAnimationCancel(Animator animator) {
+            super.onAnimationCancel(animator);
+            this.hn = true;
+        }
+
+        @Override // android.animation.AnimatorListenerAdapter, android.animation.Animator.AnimatorListener
+        public final void onAnimationEnd(Animator animator) {
+            super.onAnimationEnd(animator);
+            if (this.hn) {
+                return;
+            }
+            clone.start();
+        }
+
+        @Override // android.animation.AnimatorListenerAdapter, android.animation.Animator.AnimatorListener
+        public final void onAnimationStart(Animator animator) {
+            super.onAnimationStart(animator);
+            s.this.hg.setPivotX(dimension2);
+            s.this.hg.setPivotY(dimension2);
         }
     }
 
     /* renamed from: com.kwad.components.ad.reward.presenter.s$3 */
-    public class AnonymousClass3 implements ValueAnimator.AnimatorUpdateListener {
-        final /* synthetic */ ViewGroup.LayoutParams uZ;
+    final class AnonymousClass3 implements ValueAnimator.AnimatorUpdateListener {
+        final /* synthetic */ ViewGroup.LayoutParams hq;
 
-        public AnonymousClass3(ViewGroup.LayoutParams layoutParams) {
+        AnonymousClass3(ViewGroup.LayoutParams layoutParams) {
             layoutParams = layoutParams;
         }
 
         @Override // android.animation.ValueAnimator.AnimatorUpdateListener
         public final void onAnimationUpdate(ValueAnimator valueAnimator) {
-            layoutParams.height = (int) ((Float) valueAnimator.getAnimatedValue()).floatValue();
-            s.this.uG.setLayoutParams(layoutParams);
+            try {
+                s.this.hj.setVisibility(0);
+                layoutParams.width = (int) ((Float) valueAnimator.getAnimatedValue()).floatValue();
+                s.this.hj.setLayoutParams(layoutParams);
+            } catch (Throwable th) {
+                com.kwad.sdk.core.d.b.printStackTrace(th);
+            }
         }
     }
 
     /* renamed from: com.kwad.components.ad.reward.presenter.s$4 */
-    public class AnonymousClass4 implements ValueAnimator.AnimatorUpdateListener {
-
-        /* renamed from: va */
-        final /* synthetic */ ViewGroup.LayoutParams f11861va;
-
-        public AnonymousClass4(ViewGroup.LayoutParams layoutParams) {
-            layoutParams2 = layoutParams;
+    final class AnonymousClass4 implements Runnable {
+        AnonymousClass4() {
         }
 
-        @Override // android.animation.ValueAnimator.AnimatorUpdateListener
-        public final void onAnimationUpdate(ValueAnimator valueAnimator) {
-            int intValue = ((Integer) valueAnimator.getAnimatedValue()).intValue();
-            ViewGroup.LayoutParams layoutParams = layoutParams2;
-            if (layoutParams != null) {
-                layoutParams.height = intValue;
-                s.this.tF.setLayoutParams(layoutParams2);
-            }
+        @Override // java.lang.Runnable
+        public final void run() {
+            s.this.ef.xD();
         }
     }
 
     /* renamed from: com.kwad.components.ad.reward.presenter.s$5 */
-    public class AnonymousClass5 implements com.kwad.sdk.core.webview.d.a.a {
-        public AnonymousClass5() {
+    final class AnonymousClass5 implements Runnable {
+        AnonymousClass5() {
         }
 
-        @Override // com.kwad.sdk.core.webview.d.a.a
-        public final void a(com.kwad.sdk.core.webview.d.b.a aVar) {
-            if (aVar == null || com.kwad.sdk.core.response.b.e.c(s.this.mAdTemplate, aVar.creativeId, aVar.adStyle)) {
-                s.this.rO.f11688qe.cg();
-                return;
+        @Override // java.lang.Runnable
+        public final void run() {
+            com.kwad.sdk.core.d.b.d("RewardShakePresenter", "onShakeEvent openGate2");
+            s.this.ef.xD();
+        }
+    }
+
+    /* renamed from: com.kwad.components.ad.reward.presenter.s$6 */
+    final class AnonymousClass6 implements Runnable {
+        final /* synthetic */ AdBaseFrameLayout hr;
+        final /* synthetic */ int hs;
+        final /* synthetic */ int ht;
+
+        AnonymousClass6(AdBaseFrameLayout adBaseFrameLayout, int i2, int i3) {
+            adBaseFrameLayout = adBaseFrameLayout;
+            dimensionPixelSize = i2;
+            dimensionPixelSize2 = i3;
+        }
+
+        @Override // java.lang.Runnable
+        public final void run() {
+            int height = adBaseFrameLayout.getHeight();
+            s sVar = s.this;
+            sVar.hl = sVar.a(dimensionPixelSize, height - dimensionPixelSize2);
+            if (s.this.hl != null) {
+                s.this.hl.start();
             }
-            com.kwad.components.core.i.c a10 = com.kwad.components.ad.reward.g.a((List<com.kwad.components.core.i.c>) s.this.bJ, aVar.creativeId);
-            if (a10 != null) {
-                s.this.rO.a(a10);
+        }
+    }
+
+    /* renamed from: com.kwad.components.ad.reward.presenter.s$7 */
+    final class AnonymousClass7 extends AnimatorListenerAdapter {
+        AnonymousClass7() {
+        }
+
+        @Override // android.animation.AnimatorListenerAdapter, android.animation.Animator.AnimatorListener
+        public final void onAnimationStart(Animator animator) {
+            super.onAnimationStart(animator);
+            s.this.hg.setPivotX(s.this.hg.getWidth());
+            s.this.hg.setPivotY(s.this.hg.getHeight());
+        }
+    }
+
+    /* renamed from: com.kwad.components.ad.reward.presenter.s$8 */
+    final class AnonymousClass8 extends com.kwad.components.ad.widget.a {
+        AnonymousClass8(View view) {
+            super(view);
+        }
+
+        @Override // com.kwad.components.ad.widget.a
+        public final void a(ViewGroup.LayoutParams layoutParams, Object obj) {
+            float floatValue = ((Float) obj).floatValue();
+            if (layoutParams != null) {
+                int i2 = (int) floatValue;
+                layoutParams.height = i2;
+                layoutParams.width = i2;
             }
         }
     }
 
-    private boolean J(boolean z10) {
-        int b10 = b(ic());
-        O(b10);
-        com.kwad.components.ad.reward.d dVar = this.ql;
-        boolean aQ = dVar != null ? dVar.aQ() : false;
-        com.kwad.sdk.core.d.c.d("RewardPreEndCardPresenter", "webLoadSuccess: " + aQ);
-        if (!aQ) {
-            return false;
+    /* renamed from: com.kwad.components.ad.reward.presenter.s$9 */
+    final class AnonymousClass9 extends com.kwad.components.ad.widget.a {
+        AnonymousClass9(View view) {
+            super(view);
         }
-        int a10 = a(ic());
-        float f10 = -b10;
-        this.uU = f10;
-        Animator a11 = a(true, f10, a10, true, z10);
-        this.uM = a11;
-        a11.start();
-        Animator ib2 = ib();
-        this.uO = ib2;
-        ib2.start();
-        this.uF = 2;
-        return true;
-    }
 
-    private void K(boolean z10) {
-        Animator a10 = a(false, (ic() - id()) + this.uU, a(id()), false, z10);
-        this.uN = a10;
-        a10.start();
-        com.kwad.sdk.core.local.a.Fk();
-        com.kwad.sdk.core.local.a.cc(this.uP);
-        this.uF = 3;
-        com.kwad.components.ad.reward.d dVar = this.ql;
-        if (dVar != null) {
-            dVar.fF();
+        @Override // com.kwad.components.ad.widget.a
+        public final void a(ViewGroup.LayoutParams layoutParams, Object obj) {
+            float floatValue = ((Float) obj).floatValue();
+            if (layoutParams != null) {
+                int i2 = (int) floatValue;
+                layoutParams.height = i2;
+                layoutParams.width = i2;
+            }
         }
     }
 
-    private void O(int i10) {
-        ViewGroup.LayoutParams layoutParams = this.uG.getLayoutParams();
-        if (layoutParams instanceof FrameLayout.LayoutParams) {
-            FrameLayout.LayoutParams layoutParams2 = (FrameLayout.LayoutParams) layoutParams;
-            layoutParams2.height = i10;
-            layoutParams2.bottomMargin = -i10;
-        } else {
-            FrameLayout.LayoutParams layoutParams3 = new FrameLayout.LayoutParams(-1, i10);
-            layoutParams3.height = i10;
-            layoutParams3.bottomMargin = -i10;
-            this.uG.setLayoutParams(layoutParams3);
+    @Nullable
+    public Animator a(float f2, float f3) {
+        if (this.hd == null) {
+            return null;
         }
-    }
-
-    private void f(List<AdTemplate> list) {
-        com.kwad.components.ad.reward.d dVar = new com.kwad.components.ad.reward.d(list, this.rO.mReportExtData, this);
-        this.ql = dVar;
-        this.rO.ql = dVar;
-        dVar.setShowLandingPage(com.kwad.sdk.core.response.b.b.cB(this.mAdTemplate));
-        this.ql.a(this.f11859ee);
-        com.kwad.components.ad.reward.d dVar2 = this.ql;
-        FrameLayout frameLayout = this.uL;
-        com.kwad.components.ad.reward.g gVar = this.rO;
-        dVar2.a(frameLayout, gVar.mRootContainer, this.mAdTemplate, gVar.mApkDownloadHelper, gVar.mScreenOrientation);
-        com.kwad.sdk.core.d.c.d("RewardPreEndCardPresenter", "startPreloadWebView");
-        this.ql.a(new b.InterfaceC0390b() { // from class: com.kwad.components.ad.reward.presenter.s.2
-            public AnonymousClass2() {
+        AnimatorSet animatorSet = new AnimatorSet();
+        Resources resources = this.hd.getResources();
+        Animator a2 = com.kwad.components.core.r.m.a((View) this.hg, (Interpolator) null, 100L, 16.0f);
+        a2.addListener(new AnimatorListenerAdapter() { // from class: com.kwad.components.ad.reward.presenter.s.7
+            AnonymousClass7() {
             }
 
-            @Override // com.kwad.components.ad.m.b.InterfaceC0390b
-            public final void ie() {
-                com.kwad.sdk.core.d.c.d("RewardPreEndCardPresenter", "onPreloadSuccess");
-                s.this.rO.qN = true;
+            @Override // android.animation.AnimatorListenerAdapter, android.animation.Animator.AnimatorListener
+            public final void onAnimationStart(Animator animator) {
+                super.onAnimationStart(animator);
+                s.this.hg.setPivotX(s.this.hg.getWidth());
+                s.this.hg.setPivotY(s.this.hg.getHeight());
+            }
+        });
+        ObjectAnimator ofFloat = ObjectAnimator.ofFloat(this.hd, "translationX", f2 - (this.hd.getLeft() + (this.hd.getWidth() / 2.0f)));
+        ObjectAnimator ofFloat2 = ObjectAnimator.ofFloat(this.hd, "translationY", f3 - (this.hd.getTop() + (this.hd.getHeight() / 2.0f)));
+        float dimension = resources.getDimension(R.dimen.ksad_reward_shake_tips_height);
+        float dimension2 = resources.getDimension(R.dimen.ksad_reward_shake_tips_icon_size);
+        float width = this.hh.getWidth();
+        float width2 = this.hg.getWidth();
+        if (width == 0.0f || width2 == 0.0f) {
+            return null;
+        }
+        ValueAnimator ofFloat3 = ValueAnimator.ofFloat(width, dimension);
+        ofFloat3.addUpdateListener(new com.kwad.components.ad.widget.a(this.hi) { // from class: com.kwad.components.ad.reward.presenter.s.8
+            AnonymousClass8(View view) {
+                super(view);
+            }
+
+            @Override // com.kwad.components.ad.widget.a
+            public final void a(ViewGroup.LayoutParams layoutParams, Object obj) {
+                float floatValue = ((Float) obj).floatValue();
+                if (layoutParams != null) {
+                    int i2 = (int) floatValue;
+                    layoutParams.height = i2;
+                    layoutParams.width = i2;
+                }
+            }
+        });
+        ValueAnimator ofFloat4 = ValueAnimator.ofFloat(width2, dimension2);
+        ofFloat4.addUpdateListener(new com.kwad.components.ad.widget.a(this.hg) { // from class: com.kwad.components.ad.reward.presenter.s.9
+            AnonymousClass9(View view) {
+                super(view);
+            }
+
+            @Override // com.kwad.components.ad.widget.a
+            public final void a(ViewGroup.LayoutParams layoutParams, Object obj) {
+                float floatValue = ((Float) obj).floatValue();
+                if (layoutParams != null) {
+                    int i2 = (int) floatValue;
+                    layoutParams.height = i2;
+                    layoutParams.width = i2;
+                }
+            }
+        });
+        int color = resources.getColor(R.color.ksad_shake_icon_bg_start_color);
+        int color2 = resources.getColor(R.color.ksad_reward_main_color);
+        int dimensionPixelSize = resources.getDimensionPixelSize(R.dimen.ksad_reward_shake_tips_icon_stroke_size);
+        ValueAnimator ofArgb = com.kwad.sdk.widget.a.ofArgb(color, color2);
+        ofArgb.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() { // from class: com.kwad.components.ad.reward.presenter.s.10
+            final /* synthetic */ int hu;
+            final /* synthetic */ int hv;
+
+            AnonymousClass10(int color22, int dimensionPixelSize2) {
+                color2 = color22;
+                dimensionPixelSize = dimensionPixelSize2;
+            }
+
+            @Override // android.animation.ValueAnimator.AnimatorUpdateListener
+            public final void onAnimationUpdate(ValueAnimator valueAnimator) {
+                try {
+                    int intValue = ((Integer) valueAnimator.getAnimatedValue()).intValue();
+                    GradientDrawable gradientDrawable = (GradientDrawable) s.this.hi.getBackground();
+                    gradientDrawable.mutate();
+                    gradientDrawable.setColor(intValue);
+                    if (intValue == color2) {
+                        gradientDrawable.setStroke(dimensionPixelSize, -1);
+                    }
+                    s.this.hi.setBackground(gradientDrawable);
+                } catch (Throwable th) {
+                    com.kwad.sdk.core.d.b.printStackTrace(th);
+                }
+            }
+        });
+        ValueAnimator ofFloat5 = ValueAnimator.ofFloat(1.0f, 0.0f);
+        ofFloat5.setDuration(200L);
+        ofFloat5.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() { // from class: com.kwad.components.ad.reward.presenter.s.11
+            AnonymousClass11() {
+            }
+
+            @Override // android.animation.ValueAnimator.AnimatorUpdateListener
+            public final void onAnimationUpdate(ValueAnimator valueAnimator) {
+                try {
+                    float floatValue = ((Float) valueAnimator.getAnimatedValue()).floatValue();
+                    s.this.he.setAlpha(floatValue);
+                    s.this.hf.setAlpha(floatValue);
+                } catch (Throwable th) {
+                    com.kwad.sdk.core.d.b.printStackTrace(th);
+                }
+            }
+        });
+        ValueAnimator ofFloat6 = ValueAnimator.ofFloat(this.he.getHeight(), 0.0f);
+        ofFloat6.addUpdateListener(new com.kwad.components.ad.widget.a(this.he) { // from class: com.kwad.components.ad.reward.presenter.s.12
+            AnonymousClass12(View view) {
+                super(view);
+            }
+
+            @Override // com.kwad.components.ad.widget.a
+            public final void a(ViewGroup.LayoutParams layoutParams, Object obj) {
+                layoutParams.height = (int) ((Float) obj).floatValue();
+            }
+        });
+        ValueAnimator ofFloat7 = ValueAnimator.ofFloat(this.hf.getHeight(), 0.0f);
+        ofFloat7.addUpdateListener(new com.kwad.components.ad.widget.a(this.hf) { // from class: com.kwad.components.ad.reward.presenter.s.13
+            AnonymousClass13(View view) {
+                super(view);
+            }
+
+            @Override // com.kwad.components.ad.widget.a
+            public final void a(ViewGroup.LayoutParams layoutParams, Object obj) {
+                layoutParams.height = (int) ((Float) obj).floatValue();
+            }
+        });
+        AnimatorSet animatorSet2 = new AnimatorSet();
+        animatorSet2.setDuration(500L);
+        animatorSet2.playTogether(ofFloat, ofFloat2, ofFloat3, ofFloat4, ofArgb, ofFloat6, ofFloat7);
+        AnimatorSet animatorSet3 = new AnimatorSet();
+        Animator clone = a2.clone();
+        clone.addListener(new AnimatorListenerAdapter() { // from class: com.kwad.components.ad.reward.presenter.s.2
+            private boolean hn = false;
+            final /* synthetic */ float ho;
+            final /* synthetic */ Animator hp;
+
+            AnonymousClass2(float dimension22, Animator clone2) {
+                dimension2 = dimension22;
+                clone = clone2;
+            }
+
+            @Override // android.animation.AnimatorListenerAdapter, android.animation.Animator.AnimatorListener
+            public final void onAnimationCancel(Animator animator) {
+                super.onAnimationCancel(animator);
+                this.hn = true;
+            }
+
+            @Override // android.animation.AnimatorListenerAdapter, android.animation.Animator.AnimatorListener
+            public final void onAnimationEnd(Animator animator) {
+                super.onAnimationEnd(animator);
+                if (this.hn) {
+                    return;
+                }
+                clone.start();
+            }
+
+            @Override // android.animation.AnimatorListenerAdapter, android.animation.Animator.AnimatorListener
+            public final void onAnimationStart(Animator animator) {
+                super.onAnimationStart(animator);
+                s.this.hg.setPivotX(dimension2);
+                s.this.hg.setPivotY(dimension2);
+            }
+        });
+        ViewGroup.LayoutParams layoutParams = this.hj.getLayoutParams();
+        ValueAnimator duration = ValueAnimator.ofFloat(0.0f, resources.getDimension(R.dimen.ksad_reward_shake_tips_width)).setDuration(500L);
+        duration.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() { // from class: com.kwad.components.ad.reward.presenter.s.3
+            final /* synthetic */ ViewGroup.LayoutParams hq;
+
+            AnonymousClass3(ViewGroup.LayoutParams layoutParams2) {
+                layoutParams = layoutParams2;
+            }
+
+            @Override // android.animation.ValueAnimator.AnimatorUpdateListener
+            public final void onAnimationUpdate(ValueAnimator valueAnimator) {
+                try {
+                    s.this.hj.setVisibility(0);
+                    layoutParams.width = (int) ((Float) valueAnimator.getAnimatedValue()).floatValue();
+                    s.this.hj.setLayoutParams(layoutParams);
+                } catch (Throwable th) {
+                    com.kwad.sdk.core.d.b.printStackTrace(th);
+                }
+            }
+        });
+        animatorSet3.playTogether(clone2, duration, ObjectAnimator.ofFloat(this.hk, "alpha", 0.0f, 1.0f).setDuration(500L));
+        animatorSet.playSequentially(a2, a2.clone(), a2.clone(), ofFloat5, animatorSet2, animatorSet3);
+        return animatorSet;
+    }
+
+    private static String a(com.kwad.components.ad.reward.j jVar, AdInfo adInfo) {
+        String dq = com.kwad.sdk.core.response.a.b.dq(adInfo);
+        com.kwad.components.core.d.b.c cVar = jVar.mApkDownloadHelper;
+        if (!com.kwad.sdk.core.response.a.a.ax(adInfo) || cVar == null) {
+            return dq;
+        }
+        int nb = cVar.nb();
+        AdMatrixInfo.DownloadTexts ds = com.kwad.sdk.core.response.a.b.ds(adInfo);
+        return nb != 8 ? nb != 12 ? ds.adActionDescription : ds.openAppLabel : ds.installAppLabel;
+    }
+
+    private void a(AdInfo adInfo) {
+        String m59do = com.kwad.sdk.core.response.a.b.m59do(adInfo);
+        TextView textView = this.he;
+        if (textView != null) {
+            textView.setText(m59do);
+        }
+        TextView textView2 = this.hk;
+        if (textView2 != null) {
+            textView2.setText(m59do);
+        }
+        String a2 = a(this.qt, adInfo);
+        TextView textView3 = this.hf;
+        if (textView3 != null) {
+            textView3.setText("或点击" + a2);
+        }
+    }
+
+    private void ci() {
+        AdBaseFrameLayout adBaseFrameLayout = (AdBaseFrameLayout) findViewById(R.id.ksad_root_container);
+        ViewGroup viewGroup = (ViewGroup) com.kwad.sdk.j.k.a(getContext(), R.layout.ksad_shake_center, adBaseFrameLayout, false);
+        this.hd = viewGroup;
+        viewGroup.setVisibility(0);
+        Resources resources = this.hd.getResources();
+        int dimensionPixelSize = resources.getDimensionPixelSize(R.dimen.ksad_reward_shake_tips_icon_marginLeft);
+        int dimensionPixelSize2 = this.qt.mScreenOrientation == 1 ? resources.getDimensionPixelSize(R.dimen.ksad_reward_shake_tips_icon_marginBottom) + com.kwad.sdk.c.kwai.a.a(getContext(), 50.0f) : resources.getDimensionPixelSize(R.dimen.ksad_reward_shake_tips_icon_marginBottom);
+        int dimensionPixelSize3 = this.qt.mScreenOrientation == 1 ? resources.getDimensionPixelSize(R.dimen.ksad_reward_shake_tips_title_marginBottom) + com.kwad.sdk.c.kwai.a.a(getContext(), 50.0f) : resources.getDimensionPixelSize(R.dimen.ksad_reward_shake_tips_title_marginBottom);
+        int dimensionPixelSize4 = resources.getDimensionPixelSize(R.dimen.ksad_reward_shake_tips_height);
+        FrameLayout frameLayout = (FrameLayout) com.kwad.sdk.j.k.a(getContext(), R.layout.ksad_shake_tips_title, adBaseFrameLayout, false);
+        this.hj = frameLayout;
+        this.hk = (TextView) frameLayout.findViewById(R.id.ksad_shake_tips_label);
+        this.hj.setVisibility(4);
+        FrameLayout.LayoutParams layoutParams = new FrameLayout.LayoutParams(-2, dimensionPixelSize4);
+        layoutParams.leftMargin = dimensionPixelSize;
+        layoutParams.bottomMargin = dimensionPixelSize3;
+        layoutParams.gravity = 83;
+        adBaseFrameLayout.addView(this.hj, layoutParams);
+        FrameLayout.LayoutParams layoutParams2 = new FrameLayout.LayoutParams(-2, -2);
+        layoutParams2.gravity = 17;
+        adBaseFrameLayout.addView(this.hd, layoutParams2);
+        com.kwad.sdk.core.report.a.b(this.qt.mAdTemplate, 185, (JSONObject) null);
+        this.hd.post(new Runnable() { // from class: com.kwad.components.ad.reward.presenter.s.6
+            final /* synthetic */ AdBaseFrameLayout hr;
+            final /* synthetic */ int hs;
+            final /* synthetic */ int ht;
+
+            AnonymousClass6(AdBaseFrameLayout adBaseFrameLayout2, int dimensionPixelSize5, int dimensionPixelSize22) {
+                adBaseFrameLayout = adBaseFrameLayout2;
+                dimensionPixelSize = dimensionPixelSize5;
+                dimensionPixelSize2 = dimensionPixelSize22;
+            }
+
+            @Override // java.lang.Runnable
+            public final void run() {
+                int height = adBaseFrameLayout.getHeight();
+                s sVar = s.this;
+                sVar.hl = sVar.a(dimensionPixelSize, height - dimensionPixelSize2);
+                if (s.this.hl != null) {
+                    s.this.hl.start();
+                }
             }
         });
     }
 
-    public void g(long j10) {
-        AdTemplate adTemplate = this.uP;
-        if (adTemplate == null || this.uX) {
+    private void initView() {
+        this.he = (TextView) this.hd.findViewById(R.id.ksad_shake_center_title);
+        this.hf = (TextView) this.hd.findViewById(R.id.ksad_shake_center_sub_title);
+        this.hg = (ImageView) this.hd.findViewById(R.id.ksad_shake_center_icon);
+        this.hh = (FrameLayout) this.hd.findViewById(R.id.ksad_shake_center_circle_area);
+        this.hi = (ImageView) this.hd.findViewById(R.id.ksad_shake_center_circle_area_bg);
+        this.he.setOnClickListener(this);
+        this.hf.setOnClickListener(this);
+        this.hh.setOnClickListener(this);
+        this.hk.setOnClickListener(this);
+    }
+
+    @Override // com.kwad.sdk.core.f.b
+    public final void a(double d2) {
+        com.kwad.sdk.core.b.b.vS();
+        Activity currentActivity = com.kwad.sdk.core.b.b.getCurrentActivity();
+        Activity activity = getActivity();
+        boolean z = activity != null && activity.equals(currentActivity);
+        if (com.kwad.components.core.d.a.b.mF() || !z) {
+            bi.a(new Runnable() { // from class: com.kwad.components.ad.reward.presenter.s.4
+                AnonymousClass4() {
+                }
+
+                @Override // java.lang.Runnable
+                public final void run() {
+                    s.this.ef.xD();
+                }
+            }, null, 500L);
             return;
         }
-        if (this.showTime <= 0) {
-            this.showTime = com.kwad.sdk.core.response.b.b.cy(adTemplate);
-            this.uW = com.kwad.sdk.core.response.b.b.cx(this.uP) + this.showTime;
+        com.kwad.components.ad.reward.j jVar = this.qt;
+        if (jVar != null && !jVar.fW()) {
+            com.kwad.sdk.core.report.i iVar = new com.kwad.sdk.core.report.i();
+            iVar.i(d2);
+            this.qt.a(1, getContext(), TinkerReport.KEY_APPLIED_PACKAGE_CHECK_RES_META, 1, 0L, false, iVar);
         }
-        long j11 = this.showTime;
-        if (j11 > 0 && !this.uV && j10 > j11) {
-            this.uX = !J(true);
-            com.kwad.sdk.core.d.c.d("RewardPreEndCardPresenter", "showError: " + this.uX);
-            if (this.uX) {
-                return;
-            } else {
-                this.uV = true;
+        bi.a(new Runnable() { // from class: com.kwad.components.ad.reward.presenter.s.5
+            AnonymousClass5() {
             }
-        }
-        boolean z10 = this.uF == 3;
-        long j12 = this.uW;
-        if (j12 <= 0 || z10 || j10 <= j12) {
+
+            @Override // java.lang.Runnable
+            public final void run() {
+                com.kwad.sdk.core.d.b.d("RewardShakePresenter", "onShakeEvent openGate2");
+                s.this.ef.xD();
+            }
+        }, null, 500L);
+        com.kwad.sdk.core.response.a.d.cb(this.qt.mAdTemplate);
+        if (this.qt.fW()) {
             return;
         }
-        K(true);
+        bi.a(getContext(), this.eg);
     }
 
-    private Animator ib() {
-        ObjectAnimator ofFloat = ObjectAnimator.ofFloat(this.uK, "alpha", 255.0f, 0.0f);
-        ofFloat.setInterpolator(PathInterpolatorCompat.create(0.25f, 0.1f, 0.25f, 1.0f));
-        ofFloat.setDuration(200L);
-        return ofFloat;
-    }
-
-    private float ic() {
-        return com.kwad.sdk.c.a.a.f(getActivity()) / this.uS;
-    }
-
-    private float id() {
-        return com.kwad.sdk.c.a.a.f(getActivity()) / this.uT;
-    }
-
-    @Override // com.kwad.components.core.webview.jshandler.x.b
-    public final void R(AdTemplate adTemplate) {
-        com.kwad.components.core.i.c cVar = new com.kwad.components.core.i.c(adTemplate, com.kwad.components.core.i.e.AGGREGATION);
-        com.kwad.components.ad.reward.g gVar = this.rO;
-        if (gVar != null) {
-            gVar.b(cVar);
+    @Override // com.kwad.components.ad.reward.presenter.a, com.kwad.sdk.mvp.Presenter
+    public final void ar() {
+        super.ar();
+        AdInfo cb = com.kwad.sdk.core.response.a.d.cb(this.qt.mAdTemplate);
+        this.qt.a(this);
+        this.qt.b(this.mPlayEndPageListener);
+        ci();
+        initView();
+        a(cb);
+        float dm = com.kwad.sdk.core.response.a.b.dm(cb);
+        com.kwad.sdk.core.f.d dVar = this.ef;
+        if (dVar == null) {
+            com.kwad.sdk.core.f.d dVar2 = new com.kwad.sdk.core.f.d(dm);
+            this.ef = dVar2;
+            dVar2.a(this);
+        } else {
+            dVar.e(dm);
+        }
+        this.ef.aX(getContext());
+        Context context = getContext();
+        if (context != null) {
+            this.eg = (Vibrator) context.getSystemService("vibrator");
         }
     }
 
-    @Override // com.kwad.components.ad.reward.presenter.b, com.kwad.sdk.mvp.Presenter
-    public final void as() {
-        super.as();
-        this.rO.f11689qf.a(this.f11860ia);
-        this.rO.b((com.kwad.components.ad.reward.e.g) this);
-        this.rO.a(this);
-        this.uJ = com.kwad.sdk.c.a.a.H(this.uI);
-        com.kwad.sdk.c.a.a.n(this.uI, 49);
-        this.uH.aK(this.mAdTemplate);
+    @Override // com.kwad.sdk.core.f.b
+    public final void bd() {
     }
 
-    @Override // com.kwad.components.ad.reward.e.g
-    public final void ch() {
-        int i10;
-        if (this.uP == null || (i10 = this.uF) == 3) {
-            return;
+    @Override // com.kwad.components.ad.reward.d.m
+    public final int ch() {
+        return com.kwad.sdk.c.kwai.a.g(getContext(), R.dimen.ksad_reward_shake_tips_title_marginBottom) + com.kwad.sdk.c.kwai.a.g(getContext(), R.dimen.ksad_reward_shake_tips_height);
+    }
+
+    @Override // android.view.View.OnClickListener
+    public final void onClick(View view) {
+        if (com.kwad.sdk.core.response.a.b.dk(com.kwad.sdk.core.response.a.d.cb(this.qt.mAdTemplate))) {
+            this.qt.a(1, getContext(), TinkerReport.KEY_APPLIED_PACKAGE_CHECK_TINKERFLAG_NOT_SUPPORT, 1);
         }
-        if (i10 == 1) {
-            J(false);
-            K(false);
-        } else if (i10 == 2) {
-            K(true);
-        }
-    }
-
-    @Override // com.kwad.components.core.i.a.InterfaceC0432a
-    public final void e(@Nullable List<com.kwad.components.core.i.c> list) {
-        com.kwad.sdk.core.d.c.d("RewardPreEndCardPresenter", "onInnerAdLoad: " + list);
-        if (list == null || list.size() == 0) {
-            return;
-        }
-        this.uP = list.get(0).getAdTemplate();
-        this.bJ = list;
-        ArrayList arrayList = new ArrayList();
-        arrayList.add(this.mAdTemplate);
-        arrayList.addAll(com.kwad.components.core.i.c.m(list));
-        f(arrayList);
-    }
-
-    @Override // com.kwad.components.ad.reward.e.g
-    public final int getPriority() {
-        return 0;
-    }
-
-    @Override // com.kwad.sdk.mvp.Presenter
-    public final void onCreate() {
-        super.onCreate();
-        this.uG = findViewById(R.id.ksad_middle_end_card);
-        this.uI = (DetailVideoView) findViewById(R.id.ksad_video_player);
-        this.uH = (KsLogoView) findViewById(R.id.ksad_splash_logo_container);
-        this.tF = (ImageView) findViewById(R.id.ksad_blur_video_cover);
-        this.uK = findViewById(R.id.ksad_play_web_card_webView);
-        this.uL = (FrameLayout) findViewById(R.id.ksad_middle_end_card_webview_container);
-    }
-
-    @Override // com.kwad.components.core.i.a.InterfaceC0432a
-    public final void onError(int i10, String str) {
-        com.kwad.sdk.core.d.c.w("RewardPreEndCardPresenter", "onError : msg " + str);
-    }
-
-    @Override // com.kwad.components.core.i.a.InterfaceC0432a
-    public final void onRequestResult(int i10) {
-        com.kwad.sdk.core.d.c.w("RewardPreEndCardPresenter", "onRequestResult : adNumber " + i10);
     }
 
     @Override // com.kwad.sdk.mvp.Presenter
     public final void onUnbind() {
         super.onUnbind();
-        com.kwad.components.ad.reward.g gVar = this.rO;
-        gVar.qN = false;
-        gVar.f11689qf.b(this.f11860ia);
-        this.rO.c(this);
-        this.rO.b((a.InterfaceC0432a) this);
-        com.kwad.components.ad.reward.d dVar = this.ql;
-        if (dVar != null) {
-            dVar.mM();
+        ViewGroup viewGroup = this.hd;
+        if (viewGroup != null) {
+            if (viewGroup.getParent() != null) {
+                ((ViewGroup) this.hd.getParent()).removeView(this.hd);
+            }
+            this.hd = null;
         }
-        Animator animator = this.uO;
+        bi.b(getContext(), this.eg);
+        this.eg = null;
+        Animator animator = this.hl;
         if (animator != null) {
             animator.cancel();
+            this.hl = null;
         }
-        DetailVideoView detailVideoView = this.uI;
-        if (detailVideoView != null) {
-            com.kwad.sdk.c.a.a.n(detailVideoView, this.uJ);
-        }
-        Animator animator2 = this.uM;
-        if (animator2 != null) {
-            animator2.cancel();
-        }
-        this.uO = null;
-        this.uM = null;
-    }
-
-    private int b(float f10) {
-        return (int) (f10 + getContext().getResources().getDimensionPixelSize(R.dimen.ksad_reward_middle_end_card_logo_view_height) + getContext().getResources().getDimensionPixelSize(R.dimen.ksad_reward_middle_end_card_logo_view_margin_bottom));
-    }
-
-    private Animator a(boolean z10, float f10, int i10, boolean z11, boolean z12) {
-        ValueAnimator ofFloat;
-        com.kwad.sdk.core.d.c.d("RewardPreEndCardPresenter", "getUpAnimator: translationY0: " + f10 + ", videoTargetHeight: " + i10);
-        if (z10) {
-            ofFloat = ObjectAnimator.ofFloat(this.uG, "translationY", f10);
-        } else {
-            int height = this.uG.getHeight();
-            ViewGroup.LayoutParams layoutParams = this.uG.getLayoutParams();
-            ofFloat = ValueAnimator.ofFloat(height, Math.abs(f10));
-            ofFloat.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() { // from class: com.kwad.components.ad.reward.presenter.s.3
-                final /* synthetic */ ViewGroup.LayoutParams uZ;
-
-                public AnonymousClass3(ViewGroup.LayoutParams layoutParams2) {
-                    layoutParams = layoutParams2;
-                }
-
-                @Override // android.animation.ValueAnimator.AnimatorUpdateListener
-                public final void onAnimationUpdate(ValueAnimator valueAnimator) {
-                    layoutParams.height = (int) ((Float) valueAnimator.getAnimatedValue()).floatValue();
-                    s.this.uG.setLayoutParams(layoutParams);
-                }
-            });
-        }
-        ObjectAnimator ofFloat2 = z11 ? ObjectAnimator.ofFloat(this.uH, "alpha", 0.0f, 255.0f) : null;
-        ValueAnimator a10 = this.uI.a(this.mAdTemplate, i10, new ValueAnimator.AnimatorUpdateListener() { // from class: com.kwad.components.ad.reward.presenter.s.4
-
-            /* renamed from: va */
-            final /* synthetic */ ViewGroup.LayoutParams f11861va;
-
-            public AnonymousClass4(ViewGroup.LayoutParams layoutParams2) {
-                layoutParams2 = layoutParams2;
-            }
-
-            @Override // android.animation.ValueAnimator.AnimatorUpdateListener
-            public final void onAnimationUpdate(ValueAnimator valueAnimator) {
-                int intValue = ((Integer) valueAnimator.getAnimatedValue()).intValue();
-                ViewGroup.LayoutParams layoutParams2 = layoutParams2;
-                if (layoutParams2 != null) {
-                    layoutParams2.height = intValue;
-                    s.this.tF.setLayoutParams(layoutParams2);
-                }
-            }
-        });
-        long j10 = z12 ? this.uQ : this.uR;
-        Interpolator create = PathInterpolatorCompat.create(0.0f, 0.0f, 0.58f, 1.0f);
-        AnimatorSet animatorSet = new AnimatorSet();
-        animatorSet.setDuration(j10);
-        animatorSet.setInterpolator(create);
-        if (ofFloat2 != null) {
-            if (z12) {
-                animatorSet.playTogether(ofFloat, ofFloat2, a10);
-            } else {
-                animatorSet.playTogether(ofFloat, ofFloat2);
-            }
-        } else if (z12) {
-            animatorSet.playTogether(ofFloat, a10);
-        } else {
-            animatorSet.playTogether(ofFloat);
-        }
-        return animatorSet;
-    }
-
-    private int a(float f10) {
-        return (int) (com.kwad.sdk.c.a.a.g(getActivity()) - f10);
-    }
-
-    @Override // java.lang.Comparable
-    /* renamed from: a */
-    public int compareTo(com.kwad.components.ad.reward.e.g gVar) {
-        return getPriority() - gVar.getPriority();
+        this.qt.c(this.mPlayEndPageListener);
     }
 }

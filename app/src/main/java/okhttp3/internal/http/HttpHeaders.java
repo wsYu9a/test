@@ -1,88 +1,54 @@
 package okhttp3.internal.http;
 
-import com.bytedance.sdk.openadsdk.downloadnew.core.TTDownloadField;
-import com.sigmob.sdk.downloader.core.c;
 import java.io.EOFException;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
-import kotlin.Deprecated;
-import kotlin.DeprecationLevel;
-import kotlin.Metadata;
-import kotlin.ReplaceWith;
-import kotlin.jvm.JvmName;
-import kotlin.jvm.internal.Intrinsics;
-import kotlin.text.StringsKt;
+import java.util.Set;
+import java.util.TreeSet;
 import okhttp3.Challenge;
 import okhttp3.Cookie;
 import okhttp3.CookieJar;
 import okhttp3.Headers;
 import okhttp3.HttpUrl;
+import okhttp3.Request;
 import okhttp3.Response;
 import okhttp3.internal.Util;
-import okhttp3.internal.platform.Platform;
 import okio.Buffer;
 import okio.ByteString;
-import p3.i;
-import xi.k;
+import org.apache.http.message.BasicHeaderValueFormatter;
 
-@Metadata(d1 = {"\u0000R\n\u0000\n\u0002\u0018\u0002\n\u0002\b\u0002\n\u0002\u0010\u000b\n\u0000\n\u0002\u0018\u0002\n\u0000\n\u0002\u0010 \n\u0002\u0018\u0002\n\u0002\u0018\u0002\n\u0000\n\u0002\u0010\u000e\n\u0002\b\u0002\n\u0002\u0010\u0002\n\u0002\u0018\u0002\n\u0000\n\u0002\u0010!\n\u0002\b\u0003\n\u0002\u0018\u0002\n\u0000\n\u0002\u0018\u0002\n\u0002\b\u0004\n\u0002\u0010\u0005\n\u0000\u001a\u0010\u0010\u0003\u001a\u00020\u00042\u0006\u0010\u0005\u001a\u00020\u0006H\u0007\u001a\u0018\u0010\u0007\u001a\b\u0012\u0004\u0012\u00020\t0\b*\u00020\n2\u0006\u0010\u000b\u001a\u00020\f\u001a\n\u0010\r\u001a\u00020\u0004*\u00020\u0006\u001a\u001a\u0010\u000e\u001a\u00020\u000f*\u00020\u00102\f\u0010\u0011\u001a\b\u0012\u0004\u0012\u00020\t0\u0012H\u0002\u001a\u000e\u0010\u0013\u001a\u0004\u0018\u00010\f*\u00020\u0010H\u0002\u001a\u000e\u0010\u0014\u001a\u0004\u0018\u00010\f*\u00020\u0010H\u0002\u001a\u001a\u0010\u0015\u001a\u00020\u000f*\u00020\u00162\u0006\u0010\u0017\u001a\u00020\u00182\u0006\u0010\u0019\u001a\u00020\n\u001a\f\u0010\u001a\u001a\u00020\u0004*\u00020\u0010H\u0002\u001a\u0014\u0010\u001b\u001a\u00020\u0004*\u00020\u00102\u0006\u0010\u001c\u001a\u00020\u001dH\u0002\"\u000e\u0010\u0000\u001a\u00020\u0001X\u0082\u0004¢\u0006\u0002\n\u0000\"\u000e\u0010\u0002\u001a\u00020\u0001X\u0082\u0004¢\u0006\u0002\n\u0000¨\u0006\u001e"}, d2 = {"QUOTED_STRING_DELIMITERS", "Lokio/ByteString;", "TOKEN_DELIMITERS", "hasBody", "", "response", "Lokhttp3/Response;", "parseChallenges", "", "Lokhttp3/Challenge;", "Lokhttp3/Headers;", "headerName", "", "promisesBody", "readChallengeHeader", "", "Lokio/Buffer;", i.f29758c, "", "readQuotedString", "readToken", "receiveHeaders", "Lokhttp3/CookieJar;", "url", "Lokhttp3/HttpUrl;", TTDownloadField.TT_HEADERS, "skipCommasAndWhitespace", "startsWith", "prefix", "", "okhttp"}, k = 2, mv = {1, 6, 0}, xi = 48)
-@JvmName(name = "HttpHeaders")
-/* loaded from: classes4.dex */
+/* loaded from: classes5.dex */
 public final class HttpHeaders {
+    private static final ByteString QUOTED_STRING_DELIMITERS = ByteString.encodeUtf8(BasicHeaderValueFormatter.UNSAFE_CHARS);
+    private static final ByteString TOKEN_DELIMITERS = ByteString.encodeUtf8("\t ,=");
 
-    @k
-    private static final ByteString QUOTED_STRING_DELIMITERS;
-
-    @k
-    private static final ByteString TOKEN_DELIMITERS;
-
-    static {
-        ByteString.Companion companion = ByteString.INSTANCE;
-        QUOTED_STRING_DELIMITERS = companion.encodeUtf8("\"\\");
-        TOKEN_DELIMITERS = companion.encodeUtf8("\t ,=");
+    private HttpHeaders() {
     }
 
-    @Deprecated(level = DeprecationLevel.ERROR, message = "No longer supported", replaceWith = @ReplaceWith(expression = "response.promisesBody()", imports = {}))
-    public static final boolean hasBody(@k Response response) {
-        Intrinsics.checkNotNullParameter(response, "response");
-        return promisesBody(response);
+    public static long contentLength(Response response) {
+        return contentLength(response.headers());
     }
 
-    @k
-    public static final List<Challenge> parseChallenges(@k Headers headers, @k String headerName) {
-        Intrinsics.checkNotNullParameter(headers, "<this>");
-        Intrinsics.checkNotNullParameter(headerName, "headerName");
-        ArrayList arrayList = new ArrayList();
-        int size = headers.size();
-        int i10 = 0;
-        while (i10 < size) {
-            int i11 = i10 + 1;
-            if (StringsKt.equals(headerName, headers.name(i10), true)) {
-                try {
-                    readChallengeHeader(new Buffer().writeUtf8(headers.value(i10)), arrayList);
-                } catch (EOFException e10) {
-                    Platform.INSTANCE.get().log("Unable to parse challenge", 5, e10);
-                }
-            }
-            i10 = i11;
-        }
-        return arrayList;
-    }
-
-    public static final boolean promisesBody(@k Response response) {
-        Intrinsics.checkNotNullParameter(response, "<this>");
-        if (Intrinsics.areEqual(response.request().method(), c.f19078a)) {
+    public static boolean hasBody(Response response) {
+        if (response.request().method().equals("HEAD")) {
             return false;
         }
         int code = response.code();
-        return (((code >= 100 && code < 200) || code == 204 || code == 304) && Util.headersContentLength(response) == -1 && !StringsKt.equals("chunked", Response.header$default(response, "Transfer-Encoding", null, 2, null), true)) ? false : true;
+        return (((code >= 100 && code < 200) || code == 204 || code == 304) && contentLength(response) == -1 && !"chunked".equalsIgnoreCase(response.header("Transfer-Encoding"))) ? false : true;
     }
 
-    /* JADX WARN: Code restructure failed: missing block: B:24:0x0079, code lost:
+    public static boolean hasVaryAll(Response response) {
+        return hasVaryAll(response.headers());
+    }
+
+    /* JADX WARN: Code restructure failed: missing block: B:24:0x007d, code lost:
     
         continue;
      */
-    /* JADX WARN: Code restructure failed: missing block: B:55:0x0079, code lost:
+    /* JADX WARN: Code restructure failed: missing block: B:57:0x007d, code lost:
     
         continue;
      */
@@ -90,110 +56,139 @@ public final class HttpHeaders {
         Code decompiled incorrectly, please refer to instructions dump.
         To view partially-correct code enable 'Show inconsistent code' option in preferences
     */
-    private static final void readChallengeHeader(okio.Buffer r7, java.util.List<okhttp3.Challenge> r8) throws java.io.EOFException {
+    private static void parseChallengeHeader(java.util.List<okhttp3.Challenge> r8, okio.Buffer r9) {
         /*
             r0 = 0
         L1:
             r1 = r0
         L2:
             if (r1 != 0) goto Le
-            skipCommasAndWhitespace(r7)
-            java.lang.String r1 = readToken(r7)
+            skipWhitespaceAndCommas(r9)
+            java.lang.String r1 = readToken(r9)
             if (r1 != 0) goto Le
             return
         Le:
-            boolean r2 = skipCommasAndWhitespace(r7)
-            java.lang.String r3 = readToken(r7)
+            boolean r2 = skipWhitespaceAndCommas(r9)
+            java.lang.String r3 = readToken(r9)
             if (r3 != 0) goto L2c
-            boolean r7 = r7.exhausted()
-            if (r7 != 0) goto L1f
+            boolean r9 = r9.exhausted()
+            if (r9 != 0) goto L1f
             return
         L1f:
-            okhttp3.Challenge r7 = new okhttp3.Challenge
-            java.util.Map r0 = kotlin.collections.MapsKt.emptyMap()
-            r7.<init>(r1, r0)
-            r8.add(r7)
+            okhttp3.Challenge r9 = new okhttp3.Challenge
+            java.util.Map r0 = java.util.Collections.emptyMap()
+            r9.<init>(r1, r0)
+            r8.add(r9)
             return
         L2c:
             r4 = 61
-            int r5 = okhttp3.internal.Util.skipAll(r7, r4)
-            boolean r6 = skipCommasAndWhitespace(r7)
-            if (r2 != 0) goto L5c
+            int r5 = skipAll(r9, r4)
+            boolean r6 = skipWhitespaceAndCommas(r9)
+            if (r2 != 0) goto L60
             if (r6 != 0) goto L40
-            boolean r2 = r7.exhausted()
-            if (r2 == 0) goto L5c
+            boolean r2 = r9.exhausted()
+            if (r2 == 0) goto L60
         L40:
             okhttp3.Challenge r2 = new okhttp3.Challenge
-            java.lang.String r4 = "="
-            java.lang.String r4 = kotlin.text.StringsKt.repeat(r4, r5)
-            java.lang.String r3 = kotlin.jvm.internal.Intrinsics.stringPlus(r3, r4)
+            java.lang.StringBuilder r6 = new java.lang.StringBuilder
+            r6.<init>()
+            r6.append(r3)
+            java.lang.String r3 = repeat(r4, r5)
+            r6.append(r3)
+            java.lang.String r3 = r6.toString()
             java.util.Map r3 = java.util.Collections.singletonMap(r0, r3)
-            java.lang.String r4 = "singletonMap<String, Str…ek + \"=\".repeat(eqCount))"
-            kotlin.jvm.internal.Intrinsics.checkNotNullExpressionValue(r3, r4)
             r2.<init>(r1, r3)
             r8.add(r2)
             goto L1
-        L5c:
+        L60:
             java.util.LinkedHashMap r2 = new java.util.LinkedHashMap
             r2.<init>()
-            int r6 = okhttp3.internal.Util.skipAll(r7, r4)
+            int r6 = skipAll(r9, r4)
             int r5 = r5 + r6
-        L66:
-            if (r3 != 0) goto L77
-            java.lang.String r3 = readToken(r7)
-            boolean r5 = skipCommasAndWhitespace(r7)
-            if (r5 == 0) goto L73
-            goto L79
-        L73:
-            int r5 = okhttp3.internal.Util.skipAll(r7, r4)
+        L6a:
+            if (r3 != 0) goto L7b
+            java.lang.String r3 = readToken(r9)
+            boolean r5 = skipWhitespaceAndCommas(r9)
+            if (r5 == 0) goto L77
+            goto L7d
         L77:
-            if (r5 != 0) goto L84
-        L79:
+            int r5 = skipAll(r9, r4)
+        L7b:
+            if (r5 != 0) goto L88
+        L7d:
             okhttp3.Challenge r4 = new okhttp3.Challenge
             r4.<init>(r1, r2)
             r8.add(r4)
             r1 = r3
             goto L2
-        L84:
-            r6 = 1
-            if (r5 <= r6) goto L88
-            return
         L88:
-            boolean r6 = skipCommasAndWhitespace(r7)
-            if (r6 == 0) goto L8f
+            r6 = 1
+            if (r5 <= r6) goto L8c
             return
-        L8f:
-            r6 = 34
-            boolean r6 = startsWith(r7, r6)
-            if (r6 == 0) goto L9c
-            java.lang.String r6 = readQuotedString(r7)
-            goto La0
-        L9c:
-            java.lang.String r6 = readToken(r7)
-        La0:
-            if (r6 != 0) goto La3
+        L8c:
+            boolean r6 = skipWhitespaceAndCommas(r9)
+            if (r6 == 0) goto L93
             return
-        La3:
+        L93:
+            boolean r6 = r9.exhausted()
+            if (r6 != 0) goto La8
+            r6 = 0
+            byte r6 = r9.getByte(r6)
+            r7 = 34
+            if (r6 != r7) goto La8
+            java.lang.String r6 = readQuotedString(r9)
+            goto Lac
+        La8:
+            java.lang.String r6 = readToken(r9)
+        Lac:
+            if (r6 != 0) goto Laf
+            return
+        Laf:
             java.lang.Object r3 = r2.put(r3, r6)
             java.lang.String r3 = (java.lang.String) r3
-            if (r3 == 0) goto Lac
+            if (r3 == 0) goto Lb8
             return
-        Lac:
-            boolean r3 = skipCommasAndWhitespace(r7)
-            if (r3 != 0) goto Lb9
-            boolean r3 = r7.exhausted()
-            if (r3 != 0) goto Lb9
+        Lb8:
+            boolean r3 = skipWhitespaceAndCommas(r9)
+            if (r3 != 0) goto Lc5
+            boolean r3 = r9.exhausted()
+            if (r3 != 0) goto Lc5
             return
-        Lb9:
+        Lc5:
             r3 = r0
-            goto L66
+            goto L6a
         */
-        throw new UnsupportedOperationException("Method not decompiled: okhttp3.internal.http.HttpHeaders.readChallengeHeader(okio.Buffer, java.util.List):void");
+        throw new UnsupportedOperationException("Method not decompiled: okhttp3.internal.http.HttpHeaders.parseChallengeHeader(java.util.List, okio.Buffer):void");
     }
 
-    private static final String readQuotedString(Buffer buffer) throws EOFException {
+    public static List<Challenge> parseChallenges(Headers headers, String str) {
+        ArrayList arrayList = new ArrayList();
+        for (int i2 = 0; i2 < headers.size(); i2++) {
+            if (str.equalsIgnoreCase(headers.name(i2))) {
+                parseChallengeHeader(arrayList, new Buffer().writeUtf8(headers.value(i2)));
+            }
+        }
+        return arrayList;
+    }
+
+    public static int parseSeconds(String str, int i2) {
+        try {
+            long parseLong = Long.parseLong(str);
+            if (parseLong > 2147483647L) {
+                return Integer.MAX_VALUE;
+            }
+            if (parseLong < 0) {
+                return 0;
+            }
+            return (int) parseLong;
+        } catch (NumberFormatException unused) {
+            return i2;
+        }
+    }
+
+    private static String readQuotedString(Buffer buffer) {
         if (buffer.readByte() != 34) {
-            throw new IllegalArgumentException("Failed requirement.".toString());
+            throw new IllegalArgumentException();
         }
         Buffer buffer2 = new Buffer();
         while (true) {
@@ -215,49 +210,145 @@ public final class HttpHeaders {
         }
     }
 
-    private static final String readToken(Buffer buffer) {
-        long indexOfElement = buffer.indexOfElement(TOKEN_DELIMITERS);
-        if (indexOfElement == -1) {
-            indexOfElement = buffer.size();
+    private static String readToken(Buffer buffer) {
+        try {
+            long indexOfElement = buffer.indexOfElement(TOKEN_DELIMITERS);
+            if (indexOfElement == -1) {
+                indexOfElement = buffer.size();
+            }
+            if (indexOfElement != 0) {
+                return buffer.readUtf8(indexOfElement);
+            }
+            return null;
+        } catch (EOFException unused) {
+            throw new AssertionError();
         }
-        if (indexOfElement != 0) {
-            return buffer.readUtf8(indexOfElement);
-        }
-        return null;
     }
 
-    public static final void receiveHeaders(@k CookieJar cookieJar, @k HttpUrl url, @k Headers headers) {
-        Intrinsics.checkNotNullParameter(cookieJar, "<this>");
-        Intrinsics.checkNotNullParameter(url, "url");
-        Intrinsics.checkNotNullParameter(headers, "headers");
+    public static void receiveHeaders(CookieJar cookieJar, HttpUrl httpUrl, Headers headers) {
         if (cookieJar == CookieJar.NO_COOKIES) {
             return;
         }
-        List<Cookie> parseAll = Cookie.INSTANCE.parseAll(url, headers);
+        List<Cookie> parseAll = Cookie.parseAll(httpUrl, headers);
         if (parseAll.isEmpty()) {
             return;
         }
-        cookieJar.saveFromResponse(url, parseAll);
+        cookieJar.saveFromResponse(httpUrl, parseAll);
     }
 
-    private static final boolean skipCommasAndWhitespace(Buffer buffer) {
-        boolean z10 = false;
+    private static String repeat(char c2, int i2) {
+        char[] cArr = new char[i2];
+        Arrays.fill(cArr, c2);
+        return new String(cArr);
+    }
+
+    private static int skipAll(Buffer buffer, byte b2) {
+        int i2 = 0;
+        while (!buffer.exhausted() && buffer.getByte(0L) == b2) {
+            i2++;
+            buffer.readByte();
+        }
+        return i2;
+    }
+
+    public static int skipUntil(String str, int i2, String str2) {
+        while (i2 < str.length() && str2.indexOf(str.charAt(i2)) == -1) {
+            i2++;
+        }
+        return i2;
+    }
+
+    public static int skipWhitespace(String str, int i2) {
+        char charAt;
+        while (i2 < str.length() && ((charAt = str.charAt(i2)) == ' ' || charAt == '\t')) {
+            i2++;
+        }
+        return i2;
+    }
+
+    private static boolean skipWhitespaceAndCommas(Buffer buffer) {
+        boolean z = false;
         while (!buffer.exhausted()) {
-            byte b10 = buffer.getByte(0L);
-            if (b10 == 44) {
-                buffer.readByte();
-                z10 = true;
-            } else {
-                if (b10 != 32 && b10 != 9) {
+            byte b2 = buffer.getByte(0L);
+            if (b2 != 44) {
+                if (b2 != 32 && b2 != 9) {
                     break;
                 }
                 buffer.readByte();
+            } else {
+                buffer.readByte();
+                z = true;
             }
         }
-        return z10;
+        return z;
     }
 
-    private static final boolean startsWith(Buffer buffer, byte b10) {
-        return !buffer.exhausted() && buffer.getByte(0L) == b10;
+    private static long stringToLong(String str) {
+        if (str == null) {
+            return -1L;
+        }
+        try {
+            return Long.parseLong(str);
+        } catch (NumberFormatException unused) {
+            return -1L;
+        }
+    }
+
+    private static Set<String> varyFields(Response response) {
+        return varyFields(response.headers());
+    }
+
+    public static Headers varyHeaders(Response response) {
+        return varyHeaders(response.networkResponse().request().headers(), response.headers());
+    }
+
+    public static boolean varyMatches(Response response, Headers headers, Request request) {
+        for (String str : varyFields(response)) {
+            if (!Util.equal(headers.values(str), request.headers(str))) {
+                return false;
+            }
+        }
+        return true;
+    }
+
+    public static long contentLength(Headers headers) {
+        return stringToLong(headers.get("Content-Length"));
+    }
+
+    public static boolean hasVaryAll(Headers headers) {
+        return varyFields(headers).contains("*");
+    }
+
+    public static Set<String> varyFields(Headers headers) {
+        Set<String> emptySet = Collections.emptySet();
+        int size = headers.size();
+        for (int i2 = 0; i2 < size; i2++) {
+            if (org.apache.http.HttpHeaders.VARY.equalsIgnoreCase(headers.name(i2))) {
+                String value = headers.value(i2);
+                if (emptySet.isEmpty()) {
+                    emptySet = new TreeSet<>((Comparator<? super String>) String.CASE_INSENSITIVE_ORDER);
+                }
+                for (String str : value.split(",")) {
+                    emptySet.add(str.trim());
+                }
+            }
+        }
+        return emptySet;
+    }
+
+    public static Headers varyHeaders(Headers headers, Headers headers2) {
+        Set<String> varyFields = varyFields(headers2);
+        if (varyFields.isEmpty()) {
+            return new Headers.Builder().build();
+        }
+        Headers.Builder builder = new Headers.Builder();
+        int size = headers.size();
+        for (int i2 = 0; i2 < size; i2++) {
+            String name = headers.name(i2);
+            if (varyFields.contains(name)) {
+                builder.add(name, headers.value(i2));
+            }
+        }
+        return builder.build();
     }
 }

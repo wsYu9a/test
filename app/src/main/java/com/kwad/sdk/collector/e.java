@@ -1,18 +1,21 @@
 package com.kwad.sdk.collector;
 
-import com.kwad.sdk.utils.o;
-import com.kwad.sdk.utils.u;
+import android.os.Build;
+import com.kwad.sdk.utils.m;
+import com.kwad.sdk.utils.q;
 import java.io.File;
 import java.io.IOException;
 
-/* loaded from: classes3.dex */
+/* loaded from: classes2.dex */
 public final class e {
-    public static String cz(String str) {
-        try {
-            return new String(com.kwad.sdk.core.a.c.EW().encode(o.k(u.V(new File(str)))));
-        } catch (IOException e10) {
-            com.kwad.sdk.core.d.c.printStackTrace(e10);
-            return null;
+    public static String bq(String str) {
+        if (Build.VERSION.SDK_INT >= 19) {
+            try {
+                return new String(com.kwad.sdk.core.kwai.c.vH().encode(m.k(q.P(new File(str)))));
+            } catch (IOException e2) {
+                com.kwad.sdk.core.d.b.printStackTrace(e2);
+            }
         }
+        return null;
     }
 }

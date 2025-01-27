@@ -4,28 +4,36 @@ import java.io.FilterInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 
-/* loaded from: classes2.dex */
+/* loaded from: classes.dex */
 public abstract class j extends FilterInputStream {
     public j(InputStream inputStream) {
         super(inputStream);
     }
 
-    public void a(int i10) {
+    protected void a(int i2) {
     }
 
     @Override // java.io.FilterInputStream, java.io.InputStream
     public int available() {
-        return super.available();
+        try {
+            return super.available();
+        } catch (IOException e2) {
+            throw e2;
+        }
     }
 
     @Override // java.io.FilterInputStream, java.io.InputStream, java.io.Closeable, java.lang.AutoCloseable
     public void close() {
-        ((FilterInputStream) this).in.close();
+        try {
+            ((FilterInputStream) this).in.close();
+        } catch (IOException e2) {
+            throw e2;
+        }
     }
 
     @Override // java.io.FilterInputStream, java.io.InputStream
-    public synchronized void mark(int i10) {
-        ((FilterInputStream) this).in.mark(i10);
+    public synchronized void mark(int i2) {
+        ((FilterInputStream) this).in.mark(i2);
     }
 
     @Override // java.io.FilterInputStream, java.io.InputStream
@@ -35,36 +43,52 @@ public abstract class j extends FilterInputStream {
 
     @Override // java.io.FilterInputStream, java.io.InputStream
     public int read() {
-        int read = ((FilterInputStream) this).in.read();
-        a(read != -1 ? 1 : -1);
-        return read;
+        try {
+            int read = ((FilterInputStream) this).in.read();
+            a(read != -1 ? 1 : -1);
+            return read;
+        } catch (IOException e2) {
+            throw e2;
+        }
     }
 
     @Override // java.io.FilterInputStream, java.io.InputStream
     public synchronized void reset() {
         try {
             ((FilterInputStream) this).in.reset();
-        } catch (IOException e10) {
-            throw e10;
+        } catch (IOException e2) {
+            throw e2;
         }
     }
 
     @Override // java.io.FilterInputStream, java.io.InputStream
-    public long skip(long j10) {
-        return ((FilterInputStream) this).in.skip(j10);
+    public long skip(long j2) {
+        try {
+            return ((FilterInputStream) this).in.skip(j2);
+        } catch (IOException e2) {
+            throw e2;
+        }
     }
 
     @Override // java.io.FilterInputStream, java.io.InputStream
     public int read(byte[] bArr) {
-        int read = ((FilterInputStream) this).in.read(bArr);
-        a(read);
-        return read;
+        try {
+            int read = ((FilterInputStream) this).in.read(bArr);
+            a(read);
+            return read;
+        } catch (IOException e2) {
+            throw e2;
+        }
     }
 
     @Override // java.io.FilterInputStream, java.io.InputStream
-    public int read(byte[] bArr, int i10, int i11) {
-        int read = ((FilterInputStream) this).in.read(bArr, i10, i11);
-        a(read);
-        return read;
+    public int read(byte[] bArr, int i2, int i3) {
+        try {
+            int read = ((FilterInputStream) this).in.read(bArr, i2, i3);
+            a(read);
+            return read;
+        } catch (IOException e2) {
+            throw e2;
+        }
     }
 }

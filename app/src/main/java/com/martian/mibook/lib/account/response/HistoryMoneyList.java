@@ -10,7 +10,7 @@ public class HistoryMoneyList {
         return this.moneyList;
     }
 
-    public void setHistoryMoneyList(List<HistoryMoney> list) {
-        this.moneyList = list;
+    public void setHistoryMoneyList(List<HistoryMoney> moneyList) {
+        this.moneyList = moneyList;
     }
 }

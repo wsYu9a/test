@@ -1,6 +1,6 @@
 package com.baidu.mobads.sdk.api;
 
-/* loaded from: classes2.dex */
+/* loaded from: classes.dex */
 public enum AdSize {
     Banner(0),
     Square(1),
@@ -17,8 +17,8 @@ public enum AdSize {
 
     private int value;
 
-    AdSize(int i10) {
-        this.value = i10;
+    AdSize(int i2) {
+        this.value = i2;
     }
 
     public int getValue() {

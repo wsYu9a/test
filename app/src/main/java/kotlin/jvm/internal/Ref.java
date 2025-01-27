@@ -2,7 +2,7 @@ package kotlin.jvm.internal;
 
 import java.io.Serializable;
 
-/* loaded from: classes4.dex */
+/* loaded from: classes5.dex */
 public class Ref {
 
     public static final class BooleanRef implements Serializable {

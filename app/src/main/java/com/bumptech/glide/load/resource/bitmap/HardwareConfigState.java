@@ -9,7 +9,7 @@ import androidx.annotation.GuardedBy;
 import androidx.annotation.VisibleForTesting;
 import java.io.File;
 
-/* loaded from: classes2.dex */
+/* loaded from: classes.dex */
 public final class HardwareConfigState {
     private static final File FD_SIZE_LIST = new File("/proc/self/fd");
     private static final int MAXIMUM_FDS_FOR_HARDWARE_CONFIGS_O = 700;
@@ -31,12 +31,12 @@ public final class HardwareConfigState {
     private final int minHardwareDimension;
 
     @VisibleForTesting
-    public HardwareConfigState() {
+    HardwareConfigState() {
         if (Build.VERSION.SDK_INT >= 28) {
             this.fdCountLimit = 20000;
             this.minHardwareDimension = 0;
         } else {
-            this.fdCountLimit = 700;
+            this.fdCountLimit = MAXIMUM_FDS_FOR_HARDWARE_CONFIGS_O;
             this.minHardwareDimension = 128;
         }
     }
@@ -44,11 +44,8 @@ public final class HardwareConfigState {
     public static HardwareConfigState getInstance() {
         if (instance == null) {
             synchronized (HardwareConfigState.class) {
-                try {
-                    if (instance == null) {
-                        instance = new HardwareConfigState();
-                    }
-                } finally {
+                if (instance == null) {
+                    instance = new HardwareConfigState();
                 }
             }
         }
@@ -56,23 +53,19 @@ public final class HardwareConfigState {
     }
 
     private synchronized boolean isFdSizeBelowHardwareLimit() {
-        try {
-            boolean z10 = true;
-            int i10 = this.decodesSinceLastFdCheck + 1;
-            this.decodesSinceLastFdCheck = i10;
-            if (i10 >= 50) {
-                this.decodesSinceLastFdCheck = 0;
-                int length = FD_SIZE_LIST.list().length;
-                if (length >= this.fdCountLimit) {
-                    z10 = false;
-                }
-                this.isFdSizeBelowHardwareLimit = z10;
-                if (!z10 && Log.isLoggable("Downsampler", 5)) {
-                    Log.w("Downsampler", "Excluding HARDWARE bitmap config because we're over the file descriptor limit, file descriptors " + length + ", limit " + this.fdCountLimit);
-                }
+        boolean z = true;
+        int i2 = this.decodesSinceLastFdCheck + 1;
+        this.decodesSinceLastFdCheck = i2;
+        if (i2 >= 50) {
+            this.decodesSinceLastFdCheck = 0;
+            int length = FD_SIZE_LIST.list().length;
+            if (length >= this.fdCountLimit) {
+                z = false;
             }
-        } catch (Throwable th2) {
-            throw th2;
+            this.isFdSizeBelowHardwareLimit = z;
+            if (!z && Log.isLoggable("Downsampler", 5)) {
+                Log.w("Downsampler", "Excluding HARDWARE bitmap config because we're over the file descriptor limit, file descriptors " + length + ", limit " + this.fdCountLimit);
+            }
         }
         return this.isFdSizeBelowHardwareLimit;
     }
@@ -99,18 +92,16 @@ public final class HardwareConfigState {
         return true;
     }
 
-    public boolean isHardwareConfigAllowed(int i10, int i11, boolean z10, boolean z11) {
-        int i12;
-        return z10 && this.isHardwareConfigAllowedByDeviceModel && Build.VERSION.SDK_INT >= 26 && !z11 && i10 >= (i12 = this.minHardwareDimension) && i11 >= i12 && isFdSizeBelowHardwareLimit();
+    public boolean isHardwareConfigAllowed(int i2, int i3, boolean z, boolean z2) {
+        int i4;
+        return z && this.isHardwareConfigAllowedByDeviceModel && Build.VERSION.SDK_INT >= 26 && !z2 && i2 >= (i4 = this.minHardwareDimension) && i3 >= i4 && isFdSizeBelowHardwareLimit();
     }
 
     @TargetApi(26)
-    public boolean setHardwareConfigIfAllowed(int i10, int i11, BitmapFactory.Options options, boolean z10, boolean z11) {
-        Bitmap.Config config;
-        boolean isHardwareConfigAllowed = isHardwareConfigAllowed(i10, i11, z10, z11);
+    boolean setHardwareConfigIfAllowed(int i2, int i3, BitmapFactory.Options options, boolean z, boolean z2) {
+        boolean isHardwareConfigAllowed = isHardwareConfigAllowed(i2, i3, z, z2);
         if (isHardwareConfigAllowed) {
-            config = Bitmap.Config.HARDWARE;
-            options.inPreferredConfig = config;
+            options.inPreferredConfig = Bitmap.Config.HARDWARE;
             options.inMutable = false;
         }
         return isHardwareConfigAllowed;

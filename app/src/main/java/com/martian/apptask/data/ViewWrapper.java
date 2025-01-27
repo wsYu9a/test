@@ -2,7 +2,7 @@ package com.martian.apptask.data;
 
 import android.view.View;
 
-/* loaded from: classes3.dex */
+/* loaded from: classes2.dex */
 public class ViewWrapper {
     private boolean isInit = false;
     private boolean recycled = false;
@@ -36,10 +36,10 @@ public class ViewWrapper {
         return this.recycled;
     }
 
-    public void onDestroy() {
+    protected void onDestroy() {
     }
 
-    public void onInit() {
+    protected void onInit() {
     }
 
     public void setView(View view) {

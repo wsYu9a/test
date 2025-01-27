@@ -4,20 +4,17 @@ import kotlin.SinceKotlin;
 import kotlin.reflect.KCallable;
 import kotlin.reflect.KFunction;
 
-/* loaded from: classes4.dex */
+/* loaded from: classes5.dex */
 public class FunctionReference extends CallableReference implements FunctionBase, KFunction {
     private final int arity;
 
-    @SinceKotlin(version = "1.4")
-    private final int flags;
-
-    public FunctionReference(int i10) {
-        this(i10, CallableReference.NO_RECEIVER, null, null, null, 0);
+    public FunctionReference(int i2) {
+        this.arity = i2;
     }
 
     @Override // kotlin.jvm.internal.CallableReference
     @SinceKotlin(version = "1.1")
-    public KCallable computeReflected() {
+    protected KCallable computeReflected() {
         return Reflection.function(this);
     }
 
@@ -25,12 +22,17 @@ public class FunctionReference extends CallableReference implements FunctionBase
         if (obj == this) {
             return true;
         }
-        if (obj instanceof FunctionReference) {
-            FunctionReference functionReference = (FunctionReference) obj;
-            return getName().equals(functionReference.getName()) && getSignature().equals(functionReference.getSignature()) && this.flags == functionReference.flags && this.arity == functionReference.arity && Intrinsics.areEqual(getBoundReceiver(), functionReference.getBoundReceiver()) && Intrinsics.areEqual(getOwner(), functionReference.getOwner());
+        if (!(obj instanceof FunctionReference)) {
+            if (obj instanceof KFunction) {
+                return obj.equals(compute());
+            }
+            return false;
         }
-        if (obj instanceof KFunction) {
-            return obj.equals(compute());
+        FunctionReference functionReference = (FunctionReference) obj;
+        if (getOwner() != null ? getOwner().equals(functionReference.getOwner()) : functionReference.getOwner() == null) {
+            if (getName().equals(functionReference.getName()) && getSignature().equals(functionReference.getSignature()) && Intrinsics.areEqual(getBoundReceiver(), functionReference.getBoundReceiver())) {
+                return true;
+            }
         }
         return false;
     }
@@ -85,21 +87,15 @@ public class FunctionReference extends CallableReference implements FunctionBase
         return "function " + getName() + " (Kotlin reflection is not available)";
     }
 
-    @SinceKotlin(version = "1.1")
-    public FunctionReference(int i10, Object obj) {
-        this(i10, obj, null, null, null, 0);
-    }
-
     @Override // kotlin.jvm.internal.CallableReference
     @SinceKotlin(version = "1.1")
     public KFunction getReflected() {
         return (KFunction) super.getReflected();
     }
 
-    @SinceKotlin(version = "1.4")
-    public FunctionReference(int i10, Object obj, Class cls, String str, String str2, int i11) {
-        super(obj, cls, str, str2, (i11 & 1) == 1);
-        this.arity = i10;
-        this.flags = i11 >> 1;
+    @SinceKotlin(version = "1.1")
+    public FunctionReference(int i2, Object obj) {
+        super(obj);
+        this.arity = i2;
     }
 }

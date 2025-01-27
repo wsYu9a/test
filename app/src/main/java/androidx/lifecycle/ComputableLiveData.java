@@ -9,35 +9,45 @@ import androidx.arch.core.executor.ArchTaskExecutor;
 import java.util.concurrent.Executor;
 import java.util.concurrent.atomic.AtomicBoolean;
 
-@RestrictTo({RestrictTo.Scope.LIBRARY_GROUP_PREFIX})
+@RestrictTo({RestrictTo.Scope.LIBRARY_GROUP})
 /* loaded from: classes.dex */
 public abstract class ComputableLiveData<T> {
-    final AtomicBoolean mComputing;
-    final Executor mExecutor;
-    final AtomicBoolean mInvalid;
 
-    @VisibleForTesting
-    final Runnable mInvalidationRunnable;
-    final LiveData<T> mLiveData;
+    /* renamed from: a */
+    final Executor f2572a;
 
+    /* renamed from: b */
+    final LiveData<T> f2573b;
+
+    /* renamed from: c */
+    final AtomicBoolean f2574c;
+
+    /* renamed from: d */
+    final AtomicBoolean f2575d;
+
+    /* renamed from: e */
     @VisibleForTesting
-    final Runnable mRefreshRunnable;
+    final Runnable f2576e;
+
+    /* renamed from: f */
+    @VisibleForTesting
+    final Runnable f2577f;
 
     /* renamed from: androidx.lifecycle.ComputableLiveData$1 */
-    public class AnonymousClass1 extends LiveData<T> {
-        public AnonymousClass1() {
+    class AnonymousClass1 extends LiveData<T> {
+        AnonymousClass1() {
         }
 
         @Override // androidx.lifecycle.LiveData
-        public void onActive() {
+        protected void e() {
             ComputableLiveData computableLiveData = ComputableLiveData.this;
-            computableLiveData.mExecutor.execute(computableLiveData.mRefreshRunnable);
+            computableLiveData.f2572a.execute(computableLiveData.f2576e);
         }
     }
 
     /* renamed from: androidx.lifecycle.ComputableLiveData$2 */
-    public class AnonymousClass2 implements Runnable {
-        public AnonymousClass2() {
+    class AnonymousClass2 implements Runnable {
+        AnonymousClass2() {
         }
 
         /* JADX WARN: Multi-variable type inference failed */
@@ -45,44 +55,44 @@ public abstract class ComputableLiveData<T> {
         @WorkerThread
         public void run() {
             do {
-                boolean z10 = false;
-                if (ComputableLiveData.this.mComputing.compareAndSet(false, true)) {
+                boolean z = false;
+                if (ComputableLiveData.this.f2575d.compareAndSet(false, true)) {
                     Object obj = null;
-                    boolean z11 = false;
-                    while (ComputableLiveData.this.mInvalid.compareAndSet(true, false)) {
+                    boolean z2 = false;
+                    while (ComputableLiveData.this.f2574c.compareAndSet(true, false)) {
                         try {
-                            obj = ComputableLiveData.this.compute();
-                            z11 = true;
-                        } catch (Throwable th2) {
-                            ComputableLiveData.this.mComputing.set(false);
-                            throw th2;
+                            obj = ComputableLiveData.this.a();
+                            z2 = true;
+                        } catch (Throwable th) {
+                            ComputableLiveData.this.f2575d.set(false);
+                            throw th;
                         }
                     }
-                    if (z11) {
-                        ComputableLiveData.this.mLiveData.postValue(obj);
+                    if (z2) {
+                        ComputableLiveData.this.f2573b.postValue(obj);
                     }
-                    ComputableLiveData.this.mComputing.set(false);
-                    z10 = z11;
+                    ComputableLiveData.this.f2575d.set(false);
+                    z = z2;
                 }
-                if (!z10) {
+                if (!z) {
                     return;
                 }
-            } while (ComputableLiveData.this.mInvalid.get());
+            } while (ComputableLiveData.this.f2574c.get());
         }
     }
 
     /* renamed from: androidx.lifecycle.ComputableLiveData$3 */
-    public class AnonymousClass3 implements Runnable {
-        public AnonymousClass3() {
+    class AnonymousClass3 implements Runnable {
+        AnonymousClass3() {
         }
 
         @Override // java.lang.Runnable
         @MainThread
         public void run() {
-            boolean hasActiveObservers = ComputableLiveData.this.mLiveData.hasActiveObservers();
-            if (ComputableLiveData.this.mInvalid.compareAndSet(false, true) && hasActiveObservers) {
+            boolean hasActiveObservers = ComputableLiveData.this.f2573b.hasActiveObservers();
+            if (ComputableLiveData.this.f2574c.compareAndSet(false, true) && hasActiveObservers) {
                 ComputableLiveData computableLiveData = ComputableLiveData.this;
-                computableLiveData.mExecutor.execute(computableLiveData.mRefreshRunnable);
+                computableLiveData.f2572a.execute(computableLiveData.f2576e);
             }
         }
     }
@@ -92,22 +102,22 @@ public abstract class ComputableLiveData<T> {
     }
 
     @WorkerThread
-    public abstract T compute();
+    protected abstract T a();
 
     @NonNull
     public LiveData<T> getLiveData() {
-        return this.mLiveData;
+        return this.f2573b;
     }
 
     public void invalidate() {
-        ArchTaskExecutor.getInstance().executeOnMainThread(this.mInvalidationRunnable);
+        ArchTaskExecutor.getInstance().executeOnMainThread(this.f2577f);
     }
 
     public ComputableLiveData(@NonNull Executor executor) {
-        this.mInvalid = new AtomicBoolean(true);
-        this.mComputing = new AtomicBoolean(false);
-        this.mRefreshRunnable = new Runnable() { // from class: androidx.lifecycle.ComputableLiveData.2
-            public AnonymousClass2() {
+        this.f2574c = new AtomicBoolean(true);
+        this.f2575d = new AtomicBoolean(false);
+        this.f2576e = new Runnable() { // from class: androidx.lifecycle.ComputableLiveData.2
+            AnonymousClass2() {
             }
 
             /* JADX WARN: Multi-variable type inference failed */
@@ -115,54 +125,54 @@ public abstract class ComputableLiveData<T> {
             @WorkerThread
             public void run() {
                 do {
-                    boolean z10 = false;
-                    if (ComputableLiveData.this.mComputing.compareAndSet(false, true)) {
+                    boolean z = false;
+                    if (ComputableLiveData.this.f2575d.compareAndSet(false, true)) {
                         Object obj = null;
-                        boolean z11 = false;
-                        while (ComputableLiveData.this.mInvalid.compareAndSet(true, false)) {
+                        boolean z2 = false;
+                        while (ComputableLiveData.this.f2574c.compareAndSet(true, false)) {
                             try {
-                                obj = ComputableLiveData.this.compute();
-                                z11 = true;
-                            } catch (Throwable th2) {
-                                ComputableLiveData.this.mComputing.set(false);
-                                throw th2;
+                                obj = ComputableLiveData.this.a();
+                                z2 = true;
+                            } catch (Throwable th) {
+                                ComputableLiveData.this.f2575d.set(false);
+                                throw th;
                             }
                         }
-                        if (z11) {
-                            ComputableLiveData.this.mLiveData.postValue(obj);
+                        if (z2) {
+                            ComputableLiveData.this.f2573b.postValue(obj);
                         }
-                        ComputableLiveData.this.mComputing.set(false);
-                        z10 = z11;
+                        ComputableLiveData.this.f2575d.set(false);
+                        z = z2;
                     }
-                    if (!z10) {
+                    if (!z) {
                         return;
                     }
-                } while (ComputableLiveData.this.mInvalid.get());
+                } while (ComputableLiveData.this.f2574c.get());
             }
         };
-        this.mInvalidationRunnable = new Runnable() { // from class: androidx.lifecycle.ComputableLiveData.3
-            public AnonymousClass3() {
+        this.f2577f = new Runnable() { // from class: androidx.lifecycle.ComputableLiveData.3
+            AnonymousClass3() {
             }
 
             @Override // java.lang.Runnable
             @MainThread
             public void run() {
-                boolean hasActiveObservers = ComputableLiveData.this.mLiveData.hasActiveObservers();
-                if (ComputableLiveData.this.mInvalid.compareAndSet(false, true) && hasActiveObservers) {
+                boolean hasActiveObservers = ComputableLiveData.this.f2573b.hasActiveObservers();
+                if (ComputableLiveData.this.f2574c.compareAndSet(false, true) && hasActiveObservers) {
                     ComputableLiveData computableLiveData = ComputableLiveData.this;
-                    computableLiveData.mExecutor.execute(computableLiveData.mRefreshRunnable);
+                    computableLiveData.f2572a.execute(computableLiveData.f2576e);
                 }
             }
         };
-        this.mExecutor = executor;
-        this.mLiveData = new LiveData<T>() { // from class: androidx.lifecycle.ComputableLiveData.1
-            public AnonymousClass1() {
+        this.f2572a = executor;
+        this.f2573b = new LiveData<T>() { // from class: androidx.lifecycle.ComputableLiveData.1
+            AnonymousClass1() {
             }
 
             @Override // androidx.lifecycle.LiveData
-            public void onActive() {
+            protected void e() {
                 ComputableLiveData computableLiveData = ComputableLiveData.this;
-                computableLiveData.mExecutor.execute(computableLiveData.mRefreshRunnable);
+                computableLiveData.f2572a.execute(computableLiveData.f2576e);
             }
         };
     }

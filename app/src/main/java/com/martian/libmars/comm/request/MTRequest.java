@@ -1,16 +1,16 @@
 package com.martian.libmars.comm.request;
 
+import com.martian.libcomm.http.requests.c;
 import com.martian.libcomm.utils.GsonUtils;
 import okhttp3.MediaType;
 import okhttp3.RequestBody;
-import u8.c;
 
-/* loaded from: classes3.dex */
+/* loaded from: classes2.dex */
 public abstract class MTRequest {
     private c provider;
 
-    public MTRequest(c cVar) {
-        this.provider = cVar;
+    public MTRequest(c provider) {
+        this.provider = provider;
     }
 
     public c getProvider() {
@@ -19,11 +19,11 @@ public abstract class MTRequest {
 
     public abstract String getRequestMethod();
 
-    public void setProvider(c cVar) {
-        this.provider = cVar;
+    public void setProvider(c provider) {
+        this.provider = provider;
     }
 
-    public RequestBody toPostContent(String str) {
+    public RequestBody toPostContent(String charset) {
         return RequestBody.create(MediaType.parse("application/json; charset=utf-8"), GsonUtils.c().toJson(this));
     }
 }

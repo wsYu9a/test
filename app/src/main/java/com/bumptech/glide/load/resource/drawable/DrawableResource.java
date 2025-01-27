@@ -8,20 +8,20 @@ import com.bumptech.glide.load.engine.Resource;
 import com.bumptech.glide.load.resource.gif.GifDrawable;
 import com.bumptech.glide.util.Preconditions;
 
-/* loaded from: classes2.dex */
+/* loaded from: classes.dex */
 public abstract class DrawableResource<T extends Drawable> implements Resource<T>, Initializable {
     protected final T drawable;
 
-    public DrawableResource(T t10) {
-        this.drawable = (T) Preconditions.checkNotNull(t10);
+    public DrawableResource(T t) {
+        this.drawable = (T) Preconditions.checkNotNull(t);
     }
 
     public void initialize() {
-        T t10 = this.drawable;
-        if (t10 instanceof BitmapDrawable) {
-            ((BitmapDrawable) t10).getBitmap().prepareToDraw();
-        } else if (t10 instanceof GifDrawable) {
-            ((GifDrawable) t10).getFirstFrame().prepareToDraw();
+        T t = this.drawable;
+        if (t instanceof BitmapDrawable) {
+            ((BitmapDrawable) t).getBitmap().prepareToDraw();
+        } else if (t instanceof GifDrawable) {
+            ((GifDrawable) t).getFirstFrame().prepareToDraw();
         }
     }
 

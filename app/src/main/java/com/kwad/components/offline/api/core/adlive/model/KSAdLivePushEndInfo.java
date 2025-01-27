@@ -1,11 +1,11 @@
 package com.kwad.components.offline.api.core.adlive.model;
 
 import androidx.annotation.Nullable;
-import com.kwad.sdk.utils.x;
+import com.kwad.sdk.utils.t;
 import java.io.Serializable;
 import org.json.JSONObject;
 
-/* loaded from: classes3.dex */
+/* loaded from: classes2.dex */
 public class KSAdLivePushEndInfo implements Serializable {
     public static final String KET_CONFIG_DISPLAY_LIKE_USER_COUNT = "displayLikeUserCount";
     public static final String KET_CONFIG_DISPLAY_WATCHING_USER_COUNT = "displayWatchingUserCount";
@@ -34,12 +34,12 @@ public class KSAdLivePushEndInfo implements Serializable {
     }
 
     public JSONObject toJson(JSONObject jSONObject) {
-        x.putValue(jSONObject, "totalWatchingDuration", this.mTotalWatchingDuration);
-        x.putValue(jSONObject, "watchingUserCount", this.mWatchingUserCount);
-        x.putValue(jSONObject, "displayWatchingUserCount", this.mDisplayWatchingUserCount);
-        x.putValue(jSONObject, "liveDuration", this.mLiveDuration);
-        x.putValue(jSONObject, "likeUserCount", this.mLikeUserCount);
-        x.putValue(jSONObject, "displayLikeUserCount", this.mDisplayLikeUserCount);
+        t.putValue(jSONObject, "totalWatchingDuration", this.mTotalWatchingDuration);
+        t.putValue(jSONObject, "watchingUserCount", this.mWatchingUserCount);
+        t.putValue(jSONObject, "displayWatchingUserCount", this.mDisplayWatchingUserCount);
+        t.putValue(jSONObject, "liveDuration", this.mLiveDuration);
+        t.putValue(jSONObject, "likeUserCount", this.mLikeUserCount);
+        t.putValue(jSONObject, "displayLikeUserCount", this.mDisplayLikeUserCount);
         return jSONObject;
     }
 }

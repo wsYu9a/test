@@ -38,23 +38,23 @@ public class WithdrawRank {
         return num.intValue();
     }
 
-    public void setHeader(String str) {
-        this.header = str;
+    public void setHeader(String header) {
+        this.header = header;
     }
 
-    public void setNickname(String str) {
-        this.nickname = str;
+    public void setNickname(String nickname) {
+        this.nickname = nickname;
     }
 
-    public void setTotalMoney(Integer num) {
-        this.totalMoney = num;
+    public void setTotalMoney(Integer totalMoney) {
+        this.totalMoney = totalMoney;
     }
 
-    public void setUid(Long l10) {
-        this.uid = l10;
+    public void setUid(Long uid) {
+        this.uid = uid;
     }
 
-    public void setValidInviteeNum(Integer num) {
-        this.validInviteeNum = num;
+    public void setValidInviteeNum(Integer validInviteeNum) {
+        this.validInviteeNum = validInviteeNum;
     }
 }

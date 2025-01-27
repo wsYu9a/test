@@ -7,7 +7,7 @@ import java.lang.reflect.Method;
 import java.util.HashMap;
 import java.util.Map;
 
-/* loaded from: classes2.dex */
+/* loaded from: classes.dex */
 public class JavaCallsUtils {
     private static final String LOG_TAG = "JavaCalls";
     private static final Map<Class<?>, Class<?>> PRIMITIVE_MAP;
@@ -16,9 +16,9 @@ public class JavaCallsUtils {
         public final Class<? extends T> clazz;
         public final T obj;
 
-        public JavaParam(Class<? extends T> cls, T t10) {
+        public JavaParam(Class<? extends T> cls, T t) {
             this.clazz = cls;
-            this.obj = t10;
+            this.obj = t;
         }
     }
 
@@ -27,35 +27,35 @@ public class JavaCallsUtils {
         PRIMITIVE_MAP = hashMap;
         Class cls = Boolean.TYPE;
         hashMap.put(Boolean.class, cls);
-        Class cls2 = Byte.TYPE;
-        hashMap.put(Byte.class, cls2);
-        Class cls3 = Character.TYPE;
-        hashMap.put(Character.class, cls3);
-        Class cls4 = Short.TYPE;
-        hashMap.put(Short.class, cls4);
-        Class cls5 = Integer.TYPE;
-        hashMap.put(Integer.class, cls5);
-        Class cls6 = Float.TYPE;
-        hashMap.put(Float.class, cls6);
-        Class cls7 = Long.TYPE;
-        hashMap.put(Long.class, cls7);
-        Class cls8 = Double.TYPE;
-        hashMap.put(Double.class, cls8);
+        hashMap.put(Byte.class, Byte.TYPE);
+        hashMap.put(Character.class, Character.TYPE);
+        hashMap.put(Short.class, Short.TYPE);
+        Class cls2 = Integer.TYPE;
+        hashMap.put(Integer.class, cls2);
+        Class cls3 = Float.TYPE;
+        hashMap.put(Float.class, cls3);
+        Class cls4 = Long.TYPE;
+        hashMap.put(Long.class, cls4);
+        hashMap.put(Double.class, Double.TYPE);
         hashMap.put(cls, cls);
+        Class cls5 = Byte.TYPE;
+        hashMap.put(cls5, cls5);
+        Class cls6 = Character.TYPE;
+        hashMap.put(cls6, cls6);
+        Class cls7 = Short.TYPE;
+        hashMap.put(cls7, cls7);
         hashMap.put(cls2, cls2);
         hashMap.put(cls3, cls3);
         hashMap.put(cls4, cls4);
-        hashMap.put(cls5, cls5);
-        hashMap.put(cls6, cls6);
-        hashMap.put(cls7, cls7);
+        Class cls8 = Double.TYPE;
         hashMap.put(cls8, cls8);
     }
 
     public static <T> T callMethod(Object obj, String str, Object... objArr) {
         try {
             return (T) callMethodOrThrow(obj, str, objArr);
-        } catch (Exception e10) {
-            Log.w(LOG_TAG, "Meet exception when call Method '" + str + "' in " + obj, e10);
+        } catch (Exception e2) {
+            Log.w(LOG_TAG, "Meet exception when call Method '" + str + "' in " + obj, e2);
             return null;
         }
     }
@@ -67,8 +67,8 @@ public class JavaCallsUtils {
     public static <T> T callStaticMethod(String str, String str2, Object... objArr) {
         try {
             return (T) callStaticMethodOrThrow(Class.forName(str), str2, objArr);
-        } catch (Exception e10) {
-            Log.w(LOG_TAG, "Meet exception when call Method '" + str2 + "' in " + str, e10);
+        } catch (Exception e2) {
+            Log.w(LOG_TAG, "Meet exception when call Method '" + str2 + "' in " + str, e2);
             return null;
         }
     }
@@ -77,11 +77,15 @@ public class JavaCallsUtils {
         return (T) getDeclaredMethod(cls, str, getParameterTypes(objArr)).invoke(null, getParameters(objArr));
     }
 
+    public static <T> T callStaticMethodOrThrow(String str, String str2, Object... objArr) {
+        return (T) getDeclaredMethod(Class.forName(str), str2, getParameterTypes(objArr)).invoke(null, getParameters(objArr));
+    }
+
     public static <T> T callStaticMethodWithClassLoader(String str, String str2, ClassLoader classLoader, Object... objArr) {
         try {
             return (T) callStaticMethodOrThrow(Class.forName(str, true, classLoader), str2, objArr);
-        } catch (Exception e10) {
-            Log.w(LOG_TAG, "Meet exception when call Method '" + str2 + "' in " + str, e10);
+        } catch (Exception e2) {
+            Log.w(LOG_TAG, "Meet exception when call Method '" + str2 + "' in " + str, e2);
             return null;
         }
     }
@@ -96,10 +100,10 @@ public class JavaCallsUtils {
         if (clsArr.length != clsArr2.length) {
             return false;
         }
-        for (int i10 = 0; i10 < clsArr.length; i10++) {
-            if (!clsArr[i10].isAssignableFrom(clsArr2[i10])) {
+        for (int i2 = 0; i2 < clsArr.length; i2++) {
+            if (!clsArr[i2].isAssignableFrom(clsArr2[i2])) {
                 Map<Class<?>, Class<?>> map = PRIMITIVE_MAP;
-                if (!map.containsKey(clsArr[i10]) || !map.get(clsArr[i10]).equals(map.get(clsArr2[i10]))) {
+                if (!map.containsKey(clsArr[i2]) || !map.get(clsArr[i2]).equals(map.get(clsArr2[i2]))) {
                     return false;
                 }
             }
@@ -141,8 +145,11 @@ public class JavaCallsUtils {
     public static <T> T getField(Object obj, String str) {
         try {
             return (T) getFieldOrThrow(obj, str);
-        } catch (IllegalAccessException | NoSuchFieldException e10) {
-            e10.printStackTrace();
+        } catch (IllegalAccessException e2) {
+            e2.printStackTrace();
+            return null;
+        } catch (NoSuchFieldException e3) {
+            e3.printStackTrace();
             return null;
         }
     }
@@ -170,12 +177,12 @@ public class JavaCallsUtils {
             return null;
         }
         Class<?>[] clsArr = new Class[objArr.length];
-        for (int i10 = 0; i10 < objArr.length; i10++) {
-            Object obj = objArr[i10];
+        for (int i2 = 0; i2 < objArr.length; i2++) {
+            Object obj = objArr[i2];
             if (obj == null || !(obj instanceof JavaParam)) {
-                clsArr[i10] = obj == null ? null : obj.getClass();
+                clsArr[i2] = obj == null ? null : obj.getClass();
             } else {
-                clsArr[i10] = ((JavaParam) obj).clazz;
+                clsArr[i2] = ((JavaParam) obj).clazz;
             }
         }
         return clsArr;
@@ -186,12 +193,12 @@ public class JavaCallsUtils {
             return null;
         }
         Object[] objArr2 = new Object[objArr.length];
-        for (int i10 = 0; i10 < objArr.length; i10++) {
-            Object obj = objArr[i10];
+        for (int i2 = 0; i2 < objArr.length; i2++) {
+            Object obj = objArr[i2];
             if (obj == null || !(obj instanceof JavaParam)) {
-                objArr2[i10] = obj;
+                objArr2[i2] = obj;
             } else {
-                objArr2[i10] = ((JavaParam) obj).obj;
+                objArr2[i2] = ((JavaParam) obj).obj;
             }
         }
         return objArr2;
@@ -200,8 +207,8 @@ public class JavaCallsUtils {
     public static <T> T newEmptyInstance(Class<?> cls) {
         try {
             return (T) newEmptyInstanceOrThrow(cls);
-        } catch (Exception e10) {
-            Log.w(LOG_TAG, "Meet exception when make instance as a " + cls.getSimpleName(), e10);
+        } catch (Exception e2) {
+            Log.w(LOG_TAG, "Meet exception when make instance as a " + cls.getSimpleName(), e2);
             return null;
         }
     }
@@ -215,11 +222,11 @@ public class JavaCallsUtils {
         constructor.setAccessible(true);
         Class<?>[] parameterTypes = constructor.getParameterTypes();
         if (parameterTypes == null || parameterTypes.length == 0) {
-            return (T) constructor.newInstance(null);
+            return (T) constructor.newInstance(new Object[0]);
         }
         Object[] objArr = new Object[parameterTypes.length];
-        for (int i10 = 0; i10 < parameterTypes.length; i10++) {
-            objArr[i10] = getDefaultValue(parameterTypes[i10]);
+        for (int i2 = 0; i2 < parameterTypes.length; i2++) {
+            objArr[i2] = getDefaultValue(parameterTypes[i2]);
         }
         return (T) constructor.newInstance(objArr);
     }
@@ -227,8 +234,17 @@ public class JavaCallsUtils {
     public static <T> T newInstance(Class<?> cls, Object... objArr) {
         try {
             return (T) newInstanceOrThrow(cls, objArr);
-        } catch (Exception e10) {
-            Log.w(LOG_TAG, "Meet exception when make instance as a " + cls.getSimpleName(), e10);
+        } catch (Exception e2) {
+            Log.w(LOG_TAG, "Meet exception when make instance as a " + cls.getSimpleName(), e2);
+            return null;
+        }
+    }
+
+    public static Object newInstance(String str, Object... objArr) {
+        try {
+            return newInstanceOrThrow(str, objArr);
+        } catch (Exception e2) {
+            Log.w(LOG_TAG, "Meet exception when make instance as a " + str, e2);
             return null;
         }
     }
@@ -239,11 +255,17 @@ public class JavaCallsUtils {
         return (T) constructor.newInstance(getParameters(objArr));
     }
 
+    public static Object newInstanceOrThrow(String str, Object... objArr) {
+        return newInstanceOrThrow(Class.forName(str), getParameters(objArr));
+    }
+
     public static void setField(Object obj, String str, Object obj2) {
         try {
             setFieldOrThrow(obj, str, obj2);
-        } catch (IllegalAccessException | NoSuchFieldException e10) {
-            e10.printStackTrace();
+        } catch (IllegalAccessException e2) {
+            e2.printStackTrace();
+        } catch (NoSuchFieldException e3) {
+            e3.printStackTrace();
         }
     }
 
@@ -262,22 +284,5 @@ public class JavaCallsUtils {
         }
         field.setAccessible(true);
         field.set(obj, obj2);
-    }
-
-    public static <T> T callStaticMethodOrThrow(String str, String str2, Object... objArr) {
-        return (T) getDeclaredMethod(Class.forName(str), str2, getParameterTypes(objArr)).invoke(null, getParameters(objArr));
-    }
-
-    public static Object newInstance(String str, Object... objArr) {
-        try {
-            return newInstanceOrThrow(str, objArr);
-        } catch (Exception e10) {
-            Log.w(LOG_TAG, "Meet exception when make instance as a " + str, e10);
-            return null;
-        }
-    }
-
-    public static Object newInstanceOrThrow(String str, Object... objArr) {
-        return newInstanceOrThrow(Class.forName(str), getParameters(objArr));
     }
 }

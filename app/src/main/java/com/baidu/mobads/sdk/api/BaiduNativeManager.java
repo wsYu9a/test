@@ -4,13 +4,13 @@ import android.content.Context;
 import android.text.TextUtils;
 import com.baidu.mobads.sdk.api.IAdInterListener;
 import com.baidu.mobads.sdk.api.RequestParameters;
-import com.baidu.mobads.sdk.internal.ad;
+import com.baidu.mobads.sdk.internal.ac;
 import com.baidu.mobads.sdk.internal.ak;
-import com.baidu.mobads.sdk.internal.de;
-import com.baidu.mobads.sdk.internal.g;
+import com.baidu.mobads.sdk.internal.dd;
+import com.baidu.mobads.sdk.internal.e;
 import java.util.List;
 
-/* loaded from: classes2.dex */
+/* loaded from: classes.dex */
 public class BaiduNativeManager {
     private static final int FEED_TIMEOUT = 8000;
     private static final String TAG = "BaiduNativeManager";
@@ -26,21 +26,21 @@ public class BaiduNativeManager {
     public interface EntryAdListener {
         void onLpClosed();
 
-        void onNativeFail(int i10, String str);
+        void onNativeFail(int i2, String str);
 
         void onNativeLoad(List<EntryResponse> list);
 
-        void onNoAd(int i10, String str);
+        void onNoAd(int i2, String str);
     }
 
     public interface ExpressAdListener {
         void onLpClosed();
 
-        void onNativeFail(int i10, String str, ExpressResponse expressResponse);
+        void onNativeFail(int i2, String str);
 
         void onNativeLoad(List<ExpressResponse> list);
 
-        void onNoAd(int i10, String str, ExpressResponse expressResponse);
+        void onNoAd(int i2, String str);
 
         void onVideoDownloadFailed();
 
@@ -50,24 +50,23 @@ public class BaiduNativeManager {
     public interface FeedAdListener {
         void onLpClosed();
 
-        void onNativeFail(int i10, String str, NativeResponse nativeResponse);
+        void onNativeFail(int i2, String str);
 
         void onNativeLoad(List<NativeResponse> list);
 
-        void onNoAd(int i10, String str, NativeResponse nativeResponse);
+        void onNoAd(int i2, String str);
 
         void onVideoDownloadFailed();
 
         void onVideoDownloadSuccess();
     }
 
-    @Deprecated
     public interface PortraitVideoAdListener extends FeedAdListener {
         void onAdClick();
     }
 
     public BaiduNativeManager(Context context, String str) {
-        this(context, str, FEED_TIMEOUT);
+        this(context, str, 8000);
     }
 
     private String getAdPlacemenId(RequestParameters requestParameters) {
@@ -86,127 +85,126 @@ public class BaiduNativeManager {
     }
 
     private void loadBiddingAd(RequestParameters requestParameters, String str, String str2, FeedAdListener feedAdListener, ExpressAdListener expressAdListener) {
-        de deVar = new de(this.mContext, getAdPlacemenId(requestParameters), str, this.isCacheVideo, this.mTimeoutMillis);
+        dd ddVar = new dd(this.mContext, getAdPlacemenId(requestParameters), str, this.isCacheVideo, this.mTimeoutMillis);
         if (!TextUtils.isEmpty(this.mAppSid)) {
-            deVar.h(this.mAppSid);
+            ddVar.g(this.mAppSid);
         }
-        deVar.f6889r = getBidFloor(requestParameters);
-        deVar.c(this.isCacheVideoOnlyWifi);
+        ddVar.p = getBidFloor(requestParameters);
+        ddVar.c(this.isCacheVideoOnlyWifi);
         if (feedAdListener != null) {
-            deVar.a(new ad(feedAdListener));
+            ddVar.a(new ac(feedAdListener));
         } else if (expressAdListener != null) {
-            deVar.a(expressAdListener);
-            deVar.a(1);
+            ddVar.a(expressAdListener);
+            ddVar.a(1);
         }
-        deVar.a(new ak());
+        ddVar.a(new ak());
         if (requestParameters == null) {
             requestParameters = new RequestParameters.Builder().build();
         }
-        deVar.a(requestParameters);
-        deVar.l();
-        deVar.c(str2);
+        ddVar.a(requestParameters);
+        ddVar.m();
+        ddVar.c(str2);
     }
 
     public String getExpressFeedBiddingToken(RequestParameters requestParameters) {
-        de deVar = new de(this.mContext, getAdPlacemenId(requestParameters), "feed", this.isCacheVideo, this.mTimeoutMillis);
-        deVar.a(1);
+        dd ddVar = new dd(this.mContext, getAdPlacemenId(requestParameters), IAdInterListener.AdProdType.PRODUCT_FEEDS, this.isCacheVideo, this.mTimeoutMillis);
+        ddVar.a(1);
         RequestParameters build = requestParameters == null ? new RequestParameters.Builder().build() : requestParameters;
         if (!TextUtils.isEmpty(this.mAppSid)) {
-            deVar.h(this.mAppSid);
+            ddVar.g(this.mAppSid);
         }
-        deVar.f6889r = getBidFloor(requestParameters);
-        deVar.a(build);
+        ddVar.p = getBidFloor(requestParameters);
+        ddVar.a(build);
         this.mRequestParameters = build;
-        return deVar.l();
+        return ddVar.m();
     }
 
     public String getFeedBiddingToken(RequestParameters requestParameters) {
-        de deVar = new de(this.mContext, getAdPlacemenId(requestParameters), "feed", this.isCacheVideo, this.mTimeoutMillis);
+        dd ddVar = new dd(this.mContext, getAdPlacemenId(requestParameters), IAdInterListener.AdProdType.PRODUCT_FEEDS, this.isCacheVideo, this.mTimeoutMillis);
         RequestParameters build = requestParameters == null ? new RequestParameters.Builder().build() : requestParameters;
         if (!TextUtils.isEmpty(this.mAppSid)) {
-            deVar.h(this.mAppSid);
+            ddVar.g(this.mAppSid);
         }
-        deVar.f6889r = getBidFloor(requestParameters);
-        deVar.a(build);
+        ddVar.p = getBidFloor(requestParameters);
+        ddVar.a(build);
         this.mRequestParameters = build;
-        return deVar.l();
+        return ddVar.m();
     }
 
     public String getPortraitVideoBiddingToken(RequestParameters requestParameters) {
-        de deVar = new de(this.mContext, getAdPlacemenId(requestParameters), IAdInterListener.AdProdType.PRODUCT_PORTRAITVIDEO, this.isCacheVideo, this.mTimeoutMillis);
+        dd ddVar = new dd(this.mContext, getAdPlacemenId(requestParameters), IAdInterListener.AdProdType.PRODUCT_PORTRAITVIDEO, this.isCacheVideo, this.mTimeoutMillis);
         RequestParameters build = requestParameters == null ? new RequestParameters.Builder().build() : requestParameters;
         if (!TextUtils.isEmpty(this.mAppSid)) {
-            deVar.h(this.mAppSid);
+            ddVar.g(this.mAppSid);
         }
-        deVar.f6889r = getBidFloor(requestParameters);
-        deVar.a(build);
+        ddVar.p = getBidFloor(requestParameters);
+        ddVar.a(build);
         this.mRequestParameters = build;
-        return deVar.l();
+        return ddVar.m();
     }
 
     public void loadBidAdForExpress(String str, ExpressAdListener expressAdListener) {
-        loadBiddingAd(this.mRequestParameters, "feed", str, null, expressAdListener);
+        loadBiddingAd(this.mRequestParameters, IAdInterListener.AdProdType.PRODUCT_FEEDS, str, null, expressAdListener);
     }
 
     public void loadBidAdForFeed(String str, FeedAdListener feedAdListener) {
-        loadBiddingAd(this.mRequestParameters, "feed", str, feedAdListener, null);
+        loadBiddingAd(this.mRequestParameters, IAdInterListener.AdProdType.PRODUCT_FEEDS, str, feedAdListener, null);
     }
 
-    @Deprecated
     public void loadBidAdForPortraitVideo(String str, PortraitVideoAdListener portraitVideoAdListener) {
         loadBiddingAd(this.mRequestParameters, IAdInterListener.AdProdType.PRODUCT_PORTRAITVIDEO, str, portraitVideoAdListener, null);
     }
 
     public void loadContentAd(RequestParameters requestParameters, FeedAdListener feedAdListener) {
-        g gVar = new g(this.mContext, new ad(feedAdListener), new de(this.mContext, getAdPlacemenId(requestParameters), "content", this.isCacheVideo, this.mTimeoutMillis));
+        e eVar = new e(this.mContext, new ac(feedAdListener), new dd(this.mContext, getAdPlacemenId(requestParameters), "content", this.isCacheVideo, this.mTimeoutMillis));
         if (!TextUtils.isEmpty(this.mAppSid)) {
-            gVar.b(this.mAppSid);
+            eVar.b(this.mAppSid);
         }
-        gVar.a(getBidFloor(requestParameters));
-        gVar.a(this.isCacheVideoOnlyWifi);
-        gVar.a(new ak());
-        gVar.b(requestParameters);
+        eVar.a(getBidFloor(requestParameters));
+        eVar.a(this.isCacheVideoOnlyWifi);
+        eVar.a(new ak());
+        eVar.b(requestParameters);
     }
 
     public void loadExpressAd(RequestParameters requestParameters, ExpressAdListener expressAdListener) {
-        g gVar = new g(this.mContext, getAdPlacemenId(requestParameters), expressAdListener, this.isCacheVideo, this.mTimeoutMillis);
+        e eVar = new e(this.mContext, getAdPlacemenId(requestParameters), expressAdListener, this.isCacheVideo, this.mTimeoutMillis);
         if (!TextUtils.isEmpty(this.mAppSid)) {
-            gVar.b(this.mAppSid);
+            eVar.b(this.mAppSid);
         }
-        gVar.a(getBidFloor(requestParameters));
-        gVar.a(this.isCacheVideoOnlyWifi);
-        gVar.a(new ak());
-        gVar.b(requestParameters);
+        eVar.a(getBidFloor(requestParameters));
+        eVar.a(this.isCacheVideoOnlyWifi);
+        eVar.a(new ak());
+        eVar.b(requestParameters);
     }
 
     public void loadFeedAd(RequestParameters requestParameters, FeedAdListener feedAdListener) {
-        g gVar = new g(this.mContext, getAdPlacemenId(requestParameters), new ad(feedAdListener), this.isCacheVideo, this.mTimeoutMillis);
+        e eVar = new e(this.mContext, getAdPlacemenId(requestParameters), new ac(feedAdListener), this.isCacheVideo, this.mTimeoutMillis);
         if (!TextUtils.isEmpty(this.mAppSid)) {
-            gVar.b(this.mAppSid);
+            eVar.b(this.mAppSid);
         }
-        gVar.a(getBidFloor(requestParameters));
-        gVar.a(this.isCacheVideoOnlyWifi);
-        gVar.a(new ak());
-        gVar.b(requestParameters);
+        eVar.a(getBidFloor(requestParameters));
+        eVar.a(this.isCacheVideoOnlyWifi);
+        eVar.a(new ak());
+        eVar.b(requestParameters);
     }
 
     public void loadFeedEntryAd(RequestParameters requestParameters, EntryAdListener entryAdListener) {
-        g gVar = new g(this.mContext, getAdPlacemenId(requestParameters), entryAdListener, this.isCacheVideo, this.mTimeoutMillis);
+        e eVar = new e(this.mContext, getAdPlacemenId(requestParameters), entryAdListener, this.isCacheVideo, this.mTimeoutMillis);
         if (!TextUtils.isEmpty(this.mAppSid)) {
-            gVar.b(this.mAppSid);
+            eVar.b(this.mAppSid);
         }
-        gVar.b(requestParameters);
+        eVar.b(requestParameters);
     }
 
     public void loadInsiteAd(RequestParameters requestParameters, FeedAdListener feedAdListener) {
-        g gVar = new g(this.mContext, new ad(feedAdListener), new de(this.mContext, getAdPlacemenId(requestParameters), IAdInterListener.AdProdType.PRODUCT_INSITE, this.isCacheVideo, this.mTimeoutMillis));
+        e eVar = new e(this.mContext, new ac(feedAdListener), new dd(this.mContext, getAdPlacemenId(requestParameters), IAdInterListener.AdProdType.PRODUCT_INSITE, this.isCacheVideo, this.mTimeoutMillis));
         if (!TextUtils.isEmpty(this.mAppSid)) {
-            gVar.b(this.mAppSid);
+            eVar.b(this.mAppSid);
         }
-        gVar.a(getBidFloor(requestParameters));
-        gVar.a(this.isCacheVideoOnlyWifi);
-        gVar.a(new ak());
-        gVar.b(requestParameters);
+        eVar.a(getBidFloor(requestParameters));
+        eVar.a(this.isCacheVideoOnlyWifi);
+        eVar.a(new ak());
+        eVar.b(requestParameters);
     }
 
     public void loadPortraitVideoAd(RequestParameters requestParameters, PortraitVideoAdListener portraitVideoAdListener) {
@@ -214,67 +212,67 @@ public class BaiduNativeManager {
     }
 
     public void loadPrerollVideo(RequestParameters requestParameters, FeedAdListener feedAdListener) {
-        g gVar = new g(this.mContext, getAdPlacemenId(requestParameters), new ad(feedAdListener), this.isCacheVideo, FEED_TIMEOUT, IAdInterListener.AdProdType.PRODUCT_PREROLL);
+        e eVar = new e(this.mContext, getAdPlacemenId(requestParameters), new ac(feedAdListener), this.isCacheVideo, 8000, IAdInterListener.AdProdType.PRODUCT_PREROLL);
         if (!TextUtils.isEmpty(this.mAppSid)) {
-            gVar.b(this.mAppSid);
+            eVar.b(this.mAppSid);
         }
-        gVar.a(getBidFloor(requestParameters));
-        gVar.b(requestParameters);
+        eVar.a(getBidFloor(requestParameters));
+        eVar.b(requestParameters);
     }
 
     public void setAppSid(String str) {
         this.mAppSid = str;
     }
 
-    public void setBidFloor(int i10) {
-        this.mBidFloor = i10;
+    public void setBidFloor(int i2) {
+        this.mBidFloor = i2;
     }
 
-    public void setCacheVideoOnlyWifi(boolean z10) {
-        this.isCacheVideoOnlyWifi = z10;
+    public void setCacheVideoOnlyWifi(boolean z) {
+        this.isCacheVideoOnlyWifi = z;
     }
 
     @Deprecated
     public void setExpressFeedBiddingData(RequestParameters requestParameters, String str, ExpressAdListener expressAdListener) {
-        g gVar = new g(this.mContext, getAdPlacemenId(requestParameters), expressAdListener, this.isCacheVideo, this.mTimeoutMillis);
+        e eVar = new e(this.mContext, getAdPlacemenId(requestParameters), expressAdListener, this.isCacheVideo, this.mTimeoutMillis);
         if (!TextUtils.isEmpty(this.mAppSid)) {
-            gVar.b(this.mAppSid);
+            eVar.b(this.mAppSid);
         }
-        gVar.a(getBidFloor(requestParameters));
-        gVar.a(this.isCacheVideoOnlyWifi);
-        gVar.a(new ak());
-        gVar.a(requestParameters);
-        gVar.a(str);
+        eVar.a(getBidFloor(requestParameters));
+        eVar.a(this.isCacheVideoOnlyWifi);
+        eVar.a(new ak());
+        eVar.a(requestParameters);
+        eVar.a(str);
     }
 
     @Deprecated
     public void setFeedBiddingData(RequestParameters requestParameters, String str, FeedAdListener feedAdListener) {
-        g gVar = new g(this.mContext, getAdPlacemenId(requestParameters), new ad(feedAdListener), this.isCacheVideo, this.mTimeoutMillis);
+        e eVar = new e(this.mContext, getAdPlacemenId(requestParameters), new ac(feedAdListener), this.isCacheVideo, this.mTimeoutMillis);
         if (!TextUtils.isEmpty(this.mAppSid)) {
-            gVar.b(this.mAppSid);
+            eVar.b(this.mAppSid);
         }
-        gVar.a(getBidFloor(requestParameters));
-        gVar.a(this.isCacheVideoOnlyWifi);
-        gVar.a(new ak());
-        gVar.a(requestParameters);
-        gVar.a(str);
+        eVar.a(getBidFloor(requestParameters));
+        eVar.a(this.isCacheVideoOnlyWifi);
+        eVar.a(new ak());
+        eVar.a(requestParameters);
+        eVar.a(str);
     }
 
     @Deprecated
     public void setPortraitVideoBiddingData(RequestParameters requestParameters, String str, PortraitVideoAdListener portraitVideoAdListener) {
-        g gVar = new g(this.mContext, new ad(portraitVideoAdListener), new de(this.mContext, getAdPlacemenId(requestParameters), IAdInterListener.AdProdType.PRODUCT_PORTRAITVIDEO, this.isCacheVideo, this.mTimeoutMillis));
+        e eVar = new e(this.mContext, new ac(portraitVideoAdListener), new dd(this.mContext, getAdPlacemenId(requestParameters), IAdInterListener.AdProdType.PRODUCT_PORTRAITVIDEO, this.isCacheVideo, this.mTimeoutMillis));
         if (!TextUtils.isEmpty(this.mAppSid)) {
-            gVar.b(this.mAppSid);
+            eVar.b(this.mAppSid);
         }
-        gVar.a(getBidFloor(requestParameters));
-        gVar.a(this.isCacheVideoOnlyWifi);
-        gVar.a(new ak());
-        gVar.a(requestParameters);
-        gVar.a(str);
+        eVar.a(getBidFloor(requestParameters));
+        eVar.a(this.isCacheVideoOnlyWifi);
+        eVar.a(new ak());
+        eVar.a(requestParameters);
+        eVar.a(str);
     }
 
-    public BaiduNativeManager(Context context, String str, int i10) {
-        this(context, str, true, i10);
+    public BaiduNativeManager(Context context, String str, int i2) {
+        this(context, str, true, i2);
     }
 
     public void loadBidAdForPortraitVideo(String str, FeedAdListener feedAdListener) {
@@ -282,26 +280,28 @@ public class BaiduNativeManager {
     }
 
     public void loadPortraitVideoAd(RequestParameters requestParameters, FeedAdListener feedAdListener) {
-        g gVar = new g(this.mContext, new ad(feedAdListener), new de(this.mContext, getAdPlacemenId(requestParameters), IAdInterListener.AdProdType.PRODUCT_PORTRAITVIDEO, this.isCacheVideo, this.mTimeoutMillis));
+        e eVar = new e(this.mContext, new ac(feedAdListener), new dd(this.mContext, getAdPlacemenId(requestParameters), IAdInterListener.AdProdType.PRODUCT_PORTRAITVIDEO, this.isCacheVideo, this.mTimeoutMillis));
         if (!TextUtils.isEmpty(this.mAppSid)) {
-            gVar.b(this.mAppSid);
+            eVar.b(this.mAppSid);
         }
-        gVar.a(getBidFloor(requestParameters));
-        gVar.a(this.isCacheVideoOnlyWifi);
-        gVar.a(new ak());
-        gVar.b(requestParameters);
+        eVar.a(getBidFloor(requestParameters));
+        eVar.a(this.isCacheVideoOnlyWifi);
+        eVar.a(new ak());
+        eVar.b(requestParameters);
     }
 
-    public BaiduNativeManager(Context context, String str, boolean z10) {
-        this(context, str, z10, FEED_TIMEOUT);
+    public BaiduNativeManager(Context context, String str, boolean z) {
+        this(context, str, z, 8000);
     }
 
-    public BaiduNativeManager(Context context, String str, boolean z10, int i10) {
+    public BaiduNativeManager(Context context, String str, boolean z, int i2) {
+        this.isCacheVideo = true;
+        this.mTimeoutMillis = 8000;
         this.isCacheVideoOnlyWifi = false;
         this.mBidFloor = -1;
         this.mContext = context;
         this.mAdPlacementId = str;
-        this.isCacheVideo = z10;
-        this.mTimeoutMillis = i10;
+        this.isCacheVideo = z;
+        this.mTimeoutMillis = i2;
     }
 }

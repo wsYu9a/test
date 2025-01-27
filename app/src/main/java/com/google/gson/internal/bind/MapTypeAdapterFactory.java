@@ -7,36 +7,41 @@ import com.google.gson.JsonSyntaxException;
 import com.google.gson.TypeAdapter;
 import com.google.gson.TypeAdapterFactory;
 import com.google.gson.internal.C$Gson$Types;
-import com.google.gson.internal.ConstructorConstructor;
-import com.google.gson.internal.JsonReaderInternalAccess;
-import com.google.gson.internal.ObjectConstructor;
-import com.google.gson.internal.Streams;
-import com.google.gson.reflect.TypeToken;
-import com.google.gson.stream.JsonReader;
+import com.google.gson.internal.d;
+import com.google.gson.internal.f;
 import com.google.gson.stream.JsonToken;
-import com.google.gson.stream.JsonWriter;
 import java.io.IOException;
 import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.Map;
 
-/* loaded from: classes2.dex */
+/* loaded from: classes.dex */
 public final class MapTypeAdapterFactory implements TypeAdapterFactory {
-    final boolean complexMapKeySerialization;
-    private final ConstructorConstructor constructorConstructor;
 
-    public final class Adapter<K, V> extends TypeAdapter<Map<K, V>> {
-        private final ObjectConstructor<? extends Map<K, V>> constructor;
-        private final TypeAdapter<K> keyTypeAdapter;
-        private final TypeAdapter<V> valueTypeAdapter;
+    /* renamed from: a */
+    private final com.google.gson.internal.b f8090a;
 
-        public Adapter(Gson gson, Type type, TypeAdapter<K> typeAdapter, Type type2, TypeAdapter<V> typeAdapter2, ObjectConstructor<? extends Map<K, V>> objectConstructor) {
-            this.keyTypeAdapter = new TypeAdapterRuntimeTypeWrapper(gson, typeAdapter, type);
-            this.valueTypeAdapter = new TypeAdapterRuntimeTypeWrapper(gson, typeAdapter2, type2);
-            this.constructor = objectConstructor;
+    /* renamed from: b */
+    private final boolean f8091b;
+
+    private final class a<K, V> extends TypeAdapter<Map<K, V>> {
+
+        /* renamed from: a */
+        private final TypeAdapter<K> f8092a;
+
+        /* renamed from: b */
+        private final TypeAdapter<V> f8093b;
+
+        /* renamed from: c */
+        private final d<? extends Map<K, V>> f8094c;
+
+        public a(Gson gson, Type type, TypeAdapter<K> typeAdapter, Type type2, TypeAdapter<V> typeAdapter2, d<? extends Map<K, V>> dVar) {
+            this.f8092a = new c(gson, typeAdapter, type);
+            this.f8093b = new c(gson, typeAdapter2, type2);
+            this.f8094c = dVar;
         }
 
-        private String keyToString(JsonElement jsonElement) {
+        private String a(JsonElement jsonElement) {
             if (!jsonElement.isJsonPrimitive()) {
                 if (jsonElement.isJsonNull()) {
                     return "null";
@@ -57,105 +62,103 @@ public final class MapTypeAdapterFactory implements TypeAdapterFactory {
         }
 
         @Override // com.google.gson.TypeAdapter
-        /* renamed from: read */
-        public Map<K, V> read2(JsonReader jsonReader) throws IOException {
-            JsonToken peek = jsonReader.peek();
-            if (peek == JsonToken.NULL) {
-                jsonReader.nextNull();
+        /* renamed from: b */
+        public Map<K, V> read2(com.google.gson.stream.a aVar) throws IOException {
+            JsonToken C = aVar.C();
+            if (C == JsonToken.NULL) {
+                aVar.y();
                 return null;
             }
-            Map<K, V> construct = this.constructor.construct();
-            if (peek == JsonToken.BEGIN_ARRAY) {
-                jsonReader.beginArray();
-                while (jsonReader.hasNext()) {
-                    jsonReader.beginArray();
-                    K read2 = this.keyTypeAdapter.read2(jsonReader);
-                    if (construct.put(read2, this.valueTypeAdapter.read2(jsonReader)) != null) {
+            Map<K, V> a2 = this.f8094c.a();
+            if (C == JsonToken.BEGIN_ARRAY) {
+                aVar.f();
+                while (aVar.p()) {
+                    aVar.f();
+                    K read2 = this.f8092a.read2(aVar);
+                    if (a2.put(read2, this.f8093b.read2(aVar)) != null) {
                         throw new JsonSyntaxException("duplicate key: " + read2);
                     }
-                    jsonReader.endArray();
+                    aVar.k();
                 }
-                jsonReader.endArray();
+                aVar.k();
             } else {
-                jsonReader.beginObject();
-                while (jsonReader.hasNext()) {
-                    JsonReaderInternalAccess.INSTANCE.promoteNameToValue(jsonReader);
-                    K read22 = this.keyTypeAdapter.read2(jsonReader);
-                    if (construct.put(read22, this.valueTypeAdapter.read2(jsonReader)) != null) {
+                aVar.g();
+                while (aVar.p()) {
+                    com.google.gson.internal.c.f8153a.a(aVar);
+                    K read22 = this.f8092a.read2(aVar);
+                    if (a2.put(read22, this.f8093b.read2(aVar)) != null) {
                         throw new JsonSyntaxException("duplicate key: " + read22);
                     }
                 }
-                jsonReader.endObject();
+                aVar.l();
             }
-            return construct;
+            return a2;
         }
 
         @Override // com.google.gson.TypeAdapter
-        public void write(JsonWriter jsonWriter, Map<K, V> map) throws IOException {
+        /* renamed from: c */
+        public void write(com.google.gson.stream.c cVar, Map<K, V> map) throws IOException {
             if (map == null) {
-                jsonWriter.nullValue();
+                cVar.m();
                 return;
             }
-            if (!MapTypeAdapterFactory.this.complexMapKeySerialization) {
-                jsonWriter.beginObject();
+            if (!MapTypeAdapterFactory.this.f8091b) {
+                cVar.d();
                 for (Map.Entry<K, V> entry : map.entrySet()) {
-                    jsonWriter.name(String.valueOf(entry.getKey()));
-                    this.valueTypeAdapter.write(jsonWriter, entry.getValue());
+                    cVar.k(String.valueOf(entry.getKey()));
+                    this.f8093b.write(cVar, entry.getValue());
                 }
-                jsonWriter.endObject();
+                cVar.g();
                 return;
             }
             ArrayList arrayList = new ArrayList(map.size());
             ArrayList arrayList2 = new ArrayList(map.size());
-            int i10 = 0;
-            boolean z10 = false;
+            int i2 = 0;
+            boolean z = false;
             for (Map.Entry<K, V> entry2 : map.entrySet()) {
-                JsonElement jsonTree = this.keyTypeAdapter.toJsonTree(entry2.getKey());
+                JsonElement jsonTree = this.f8092a.toJsonTree(entry2.getKey());
                 arrayList.add(jsonTree);
                 arrayList2.add(entry2.getValue());
-                z10 |= jsonTree.isJsonArray() || jsonTree.isJsonObject();
+                z |= jsonTree.isJsonArray() || jsonTree.isJsonObject();
             }
-            if (!z10) {
-                jsonWriter.beginObject();
-                int size = arrayList.size();
-                while (i10 < size) {
-                    jsonWriter.name(keyToString((JsonElement) arrayList.get(i10)));
-                    this.valueTypeAdapter.write(jsonWriter, arrayList2.get(i10));
-                    i10++;
+            if (!z) {
+                cVar.d();
+                while (i2 < arrayList.size()) {
+                    cVar.k(a((JsonElement) arrayList.get(i2)));
+                    this.f8093b.write(cVar, arrayList2.get(i2));
+                    i2++;
                 }
-                jsonWriter.endObject();
+                cVar.g();
                 return;
             }
-            jsonWriter.beginArray();
-            int size2 = arrayList.size();
-            while (i10 < size2) {
-                jsonWriter.beginArray();
-                Streams.write((JsonElement) arrayList.get(i10), jsonWriter);
-                this.valueTypeAdapter.write(jsonWriter, arrayList2.get(i10));
-                jsonWriter.endArray();
-                i10++;
+            cVar.c();
+            while (i2 < arrayList.size()) {
+                cVar.c();
+                f.b((JsonElement) arrayList.get(i2), cVar);
+                this.f8093b.write(cVar, arrayList2.get(i2));
+                cVar.f();
+                i2++;
             }
-            jsonWriter.endArray();
+            cVar.f();
         }
     }
 
-    public MapTypeAdapterFactory(ConstructorConstructor constructorConstructor, boolean z10) {
-        this.constructorConstructor = constructorConstructor;
-        this.complexMapKeySerialization = z10;
+    public MapTypeAdapterFactory(com.google.gson.internal.b bVar, boolean z) {
+        this.f8090a = bVar;
+        this.f8091b = z;
     }
 
-    private TypeAdapter<?> getKeyAdapter(Gson gson, Type type) {
-        return (type == Boolean.TYPE || type == Boolean.class) ? TypeAdapters.BOOLEAN_AS_STRING : gson.getAdapter(TypeToken.get(type));
+    private TypeAdapter<?> b(Gson gson, Type type) {
+        return (type == Boolean.TYPE || type == Boolean.class) ? TypeAdapters.f8122f : gson.getAdapter(com.google.gson.b.a.c(type));
     }
 
     @Override // com.google.gson.TypeAdapterFactory
-    public <T> TypeAdapter<T> create(Gson gson, TypeToken<T> typeToken) {
-        Type type = typeToken.getType();
-        Class<? super T> rawType = typeToken.getRawType();
-        if (!Map.class.isAssignableFrom(rawType)) {
+    public <T> TypeAdapter<T> create(Gson gson, com.google.gson.b.a<T> aVar) {
+        Type type = aVar.getType();
+        if (!Map.class.isAssignableFrom(aVar.d())) {
             return null;
         }
-        Type[] mapKeyAndValueTypes = C$Gson$Types.getMapKeyAndValueTypes(type, rawType);
-        return new Adapter(gson, mapKeyAndValueTypes[0], getKeyAdapter(gson, mapKeyAndValueTypes[0]), mapKeyAndValueTypes[1], gson.getAdapter(TypeToken.get(mapKeyAndValueTypes[1])), this.constructorConstructor.get(typeToken));
+        Type[] l = C$Gson$Types.l(type, C$Gson$Types.m(type));
+        return new a(gson, l[0], b(gson, l[0]), l[1], gson.getAdapter(com.google.gson.b.a.c(l[1])), this.f8090a.a(aVar));
     }
 }

@@ -19,7 +19,7 @@ public class HotfixDialog extends BaseDialogFrag {
 
     @Override // com.tencent.bugly.beta.ui.BaseDialogFrag, androidx.fragment.app.Fragment
     public View onCreateView(LayoutInflater layoutInflater, ViewGroup viewGroup, Bundle bundle) {
-        this.mLayoutResId = e.f22100b.f22117m;
+        this.mLayoutResId = e.f24621b.m;
         View onCreateView = super.onCreateView(layoutInflater, viewGroup, bundle);
         if (this.mLayoutResId == 0) {
             LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(-1, -2);
@@ -39,19 +39,19 @@ public class HotfixDialog extends BaseDialogFrag {
             this.mTipsTextView.setText("检测到当前版本需要重启，是否重启应用？");
             this.mTitleTextView.setText("更新提示");
             setBtn("取消", new b(8, this), "重启应用", new b(7, this));
-        } catch (Exception e10) {
+        } catch (Exception e2) {
             if (this.mLayoutResId != 0) {
                 X.b("please confirm your argument: [Beta.tipsDialogLayoutId] is correct", new Object[0]);
             }
-            if (!X.a(e10)) {
-                e10.printStackTrace();
+            if (!X.a(e2)) {
+                e2.printStackTrace();
             }
         }
         return onCreateView;
     }
 
     @Override // com.tencent.bugly.beta.ui.BaseFrag
-    public boolean onKeyDown(int i10, KeyEvent keyEvent) {
+    public boolean onKeyDown(int i2, KeyEvent keyEvent) {
         return false;
     }
 }

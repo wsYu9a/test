@@ -3,13 +3,39 @@ package com.kwad.sdk.crash.utils;
 import java.io.Serializable;
 import java.io.Writer;
 
-/* loaded from: classes3.dex */
+/* loaded from: classes2.dex */
 public class StringBuilderWriter extends Writer implements Serializable {
     private static final long serialVersionUID = 4424285024471074820L;
     private final StringBuilder builder;
 
     public StringBuilderWriter() {
         this.builder = new StringBuilder();
+    }
+
+    public StringBuilderWriter(int i2) {
+        this.builder = new StringBuilder(i2);
+    }
+
+    public StringBuilderWriter(StringBuilder sb) {
+        this.builder = sb == null ? new StringBuilder() : sb;
+    }
+
+    @Override // java.io.Writer, java.lang.Appendable
+    public Writer append(char c2) {
+        this.builder.append(c2);
+        return this;
+    }
+
+    @Override // java.io.Writer, java.lang.Appendable
+    public Writer append(CharSequence charSequence) {
+        this.builder.append(charSequence);
+        return this;
+    }
+
+    @Override // java.io.Writer, java.lang.Appendable
+    public Writer append(CharSequence charSequence, int i2, int i3) {
+        this.builder.append(charSequence, i2, i3);
+        return this;
     }
 
     @Override // java.io.Writer, java.io.Closeable, java.lang.AutoCloseable
@@ -36,35 +62,9 @@ public class StringBuilderWriter extends Writer implements Serializable {
     }
 
     @Override // java.io.Writer
-    public void write(char[] cArr, int i10, int i11) {
+    public void write(char[] cArr, int i2, int i3) {
         if (cArr != null) {
-            this.builder.append(cArr, i10, i11);
+            this.builder.append(cArr, i2, i3);
         }
-    }
-
-    public StringBuilderWriter(int i10) {
-        this.builder = new StringBuilder(i10);
-    }
-
-    @Override // java.io.Writer, java.lang.Appendable
-    public Writer append(char c10) {
-        this.builder.append(c10);
-        return this;
-    }
-
-    public StringBuilderWriter(StringBuilder sb2) {
-        this.builder = sb2 == null ? new StringBuilder() : sb2;
-    }
-
-    @Override // java.io.Writer, java.lang.Appendable
-    public Writer append(CharSequence charSequence) {
-        this.builder.append(charSequence);
-        return this;
-    }
-
-    @Override // java.io.Writer, java.lang.Appendable
-    public Writer append(CharSequence charSequence, int i10, int i11) {
-        this.builder.append(charSequence, i10, i11);
-        return this;
     }
 }

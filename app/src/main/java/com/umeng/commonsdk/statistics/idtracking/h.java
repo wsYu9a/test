@@ -1,33 +1,44 @@
 package com.umeng.commonsdk.statistics.idtracking;
 
 import android.content.Context;
-import com.umeng.commonsdk.internal.crash.UMCrashManager;
-import com.umeng.commonsdk.statistics.AnalyticsConstants;
-import com.umeng.commonsdk.statistics.common.DeviceConfig;
+import android.content.SharedPreferences;
+import com.umeng.commonsdk.config.FieldManager;
 
 /* loaded from: classes4.dex */
 public class h extends a {
 
     /* renamed from: a */
-    private static final String f24678a = "mac";
+    public static final String f26355a = "umeng_sp_oaid";
 
     /* renamed from: b */
-    private Context f24679b;
+    public static final String f26356b = "key_umeng_sp_oaid";
+
+    /* renamed from: c */
+    public static final String f26357c = "key_umeng_sp_oaid_required_time";
+
+    /* renamed from: d */
+    private static final String f26358d = "oaid";
+
+    /* renamed from: e */
+    private Context f26359e;
 
     public h(Context context) {
-        super(f24678a);
-        this.f24679b = context;
+        super(f26358d);
+        this.f26359e = context;
     }
 
     @Override // com.umeng.commonsdk.statistics.idtracking.a
     public String f() {
+        if (!FieldManager.allow(com.umeng.commonsdk.utils.d.G)) {
+            return null;
+        }
         try {
-            return DeviceConfig.getMac(this.f24679b);
-        } catch (Exception e10) {
-            if (AnalyticsConstants.UM_DEBUG) {
-                e10.printStackTrace();
+            SharedPreferences sharedPreferences = this.f26359e.getSharedPreferences(f26355a, 0);
+            if (sharedPreferences != null) {
+                return sharedPreferences.getString(f26356b, "");
             }
-            UMCrashManager.reportCrash(this.f24679b, e10);
+            return null;
+        } catch (Throwable unused) {
             return null;
         }
     }

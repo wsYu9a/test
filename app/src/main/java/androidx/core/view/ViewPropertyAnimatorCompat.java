@@ -4,30 +4,39 @@ import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
 import android.animation.ValueAnimator;
 import android.annotation.SuppressLint;
+import android.os.Build;
 import android.view.View;
-import android.view.ViewPropertyAnimator;
 import android.view.animation.Interpolator;
-import androidx.annotation.DoNotInline;
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.annotation.RequiresApi;
-import androidx.core.view.ViewPropertyAnimatorUpdateListener;
 import java.lang.ref.WeakReference;
 
 /* loaded from: classes.dex */
 public final class ViewPropertyAnimatorCompat {
-    static final int LISTENER_TAG_ID = 2113929216;
-    private final WeakReference<View> mView;
-    Runnable mStartAction = null;
-    Runnable mEndAction = null;
-    int mOldLayerType = -1;
+
+    /* renamed from: a */
+    static final int f2081a = 2113929216;
+
+    /* renamed from: b */
+    private WeakReference<View> f2082b;
+
+    /* renamed from: c */
+    Runnable f2083c = null;
+
+    /* renamed from: d */
+    Runnable f2084d = null;
+
+    /* renamed from: e */
+    int f2085e = -1;
 
     /* renamed from: androidx.core.view.ViewPropertyAnimatorCompat$1 */
-    public class AnonymousClass1 extends AnimatorListenerAdapter {
-        final /* synthetic */ ViewPropertyAnimatorListener val$listener;
-        final /* synthetic */ View val$view;
+    class AnonymousClass1 extends AnimatorListenerAdapter {
 
-        public AnonymousClass1(ViewPropertyAnimatorListener viewPropertyAnimatorListener, View view) {
+        /* renamed from: a */
+        final /* synthetic */ ViewPropertyAnimatorListener f2086a;
+
+        /* renamed from: b */
+        final /* synthetic */ View f2087b;
+
+        AnonymousClass1(ViewPropertyAnimatorListener viewPropertyAnimatorListener, View view) {
             viewPropertyAnimatorListener = viewPropertyAnimatorListener;
             view = view;
         }
@@ -48,86 +57,41 @@ public final class ViewPropertyAnimatorCompat {
         }
     }
 
-    @RequiresApi(16)
-    public static class Api16Impl {
-        private Api16Impl() {
+    /* renamed from: androidx.core.view.ViewPropertyAnimatorCompat$2 */
+    class AnonymousClass2 implements ValueAnimator.AnimatorUpdateListener {
+
+        /* renamed from: a */
+        final /* synthetic */ ViewPropertyAnimatorUpdateListener f2089a;
+
+        /* renamed from: b */
+        final /* synthetic */ View f2090b;
+
+        AnonymousClass2(ViewPropertyAnimatorUpdateListener viewPropertyAnimatorUpdateListener, View view) {
+            viewPropertyAnimatorUpdateListener = viewPropertyAnimatorUpdateListener;
+            view = view;
         }
 
-        @DoNotInline
-        public static ViewPropertyAnimator withEndAction(ViewPropertyAnimator viewPropertyAnimator, Runnable runnable) {
-            return viewPropertyAnimator.withEndAction(runnable);
-        }
-
-        @DoNotInline
-        public static ViewPropertyAnimator withLayer(ViewPropertyAnimator viewPropertyAnimator) {
-            return viewPropertyAnimator.withLayer();
-        }
-
-        @DoNotInline
-        public static ViewPropertyAnimator withStartAction(ViewPropertyAnimator viewPropertyAnimator, Runnable runnable) {
-            return viewPropertyAnimator.withStartAction(runnable);
-        }
-    }
-
-    @RequiresApi(18)
-    public static class Api18Impl {
-        private Api18Impl() {
-        }
-
-        @DoNotInline
-        public static Interpolator getInterpolator(ViewPropertyAnimator viewPropertyAnimator) {
-            return (Interpolator) viewPropertyAnimator.getInterpolator();
+        @Override // android.animation.ValueAnimator.AnimatorUpdateListener
+        public void onAnimationUpdate(ValueAnimator valueAnimator) {
+            viewPropertyAnimatorUpdateListener.onAnimationUpdate(view);
         }
     }
 
-    @RequiresApi(19)
-    public static class Api19Impl {
-        private Api19Impl() {
-        }
+    static class ViewPropertyAnimatorListenerApi14 implements ViewPropertyAnimatorListener {
 
-        @DoNotInline
-        public static ViewPropertyAnimator setUpdateListener(ViewPropertyAnimator viewPropertyAnimator, ValueAnimator.AnimatorUpdateListener animatorUpdateListener) {
-            return viewPropertyAnimator.setUpdateListener(animatorUpdateListener);
-        }
-    }
+        /* renamed from: a */
+        ViewPropertyAnimatorCompat f2092a;
 
-    @RequiresApi(21)
-    public static class Api21Impl {
-        private Api21Impl() {
-        }
+        /* renamed from: b */
+        boolean f2093b;
 
-        @DoNotInline
-        public static ViewPropertyAnimator translationZ(ViewPropertyAnimator viewPropertyAnimator, float f10) {
-            return viewPropertyAnimator.translationZ(f10);
-        }
-
-        @DoNotInline
-        public static ViewPropertyAnimator translationZBy(ViewPropertyAnimator viewPropertyAnimator, float f10) {
-            return viewPropertyAnimator.translationZBy(f10);
-        }
-
-        @DoNotInline
-        public static ViewPropertyAnimator z(ViewPropertyAnimator viewPropertyAnimator, float f10) {
-            return viewPropertyAnimator.z(f10);
-        }
-
-        @DoNotInline
-        public static ViewPropertyAnimator zBy(ViewPropertyAnimator viewPropertyAnimator, float f10) {
-            return viewPropertyAnimator.zBy(f10);
-        }
-    }
-
-    public static class ViewPropertyAnimatorListenerApi14 implements ViewPropertyAnimatorListener {
-        boolean mAnimEndCalled;
-        ViewPropertyAnimatorCompat mVpa;
-
-        public ViewPropertyAnimatorListenerApi14(ViewPropertyAnimatorCompat viewPropertyAnimatorCompat) {
-            this.mVpa = viewPropertyAnimatorCompat;
+        ViewPropertyAnimatorListenerApi14(ViewPropertyAnimatorCompat viewPropertyAnimatorCompat) {
+            this.f2092a = viewPropertyAnimatorCompat;
         }
 
         @Override // androidx.core.view.ViewPropertyAnimatorListener
-        public void onAnimationCancel(@NonNull View view) {
-            Object tag = view.getTag(ViewPropertyAnimatorCompat.LISTENER_TAG_ID);
+        public void onAnimationCancel(View view) {
+            Object tag = view.getTag(ViewPropertyAnimatorCompat.f2081a);
             ViewPropertyAnimatorListener viewPropertyAnimatorListener = tag instanceof ViewPropertyAnimatorListener ? (ViewPropertyAnimatorListener) tag : null;
             if (viewPropertyAnimatorListener != null) {
                 viewPropertyAnimatorListener.onAnimationCancel(view);
@@ -136,39 +100,41 @@ public final class ViewPropertyAnimatorCompat {
 
         @Override // androidx.core.view.ViewPropertyAnimatorListener
         @SuppressLint({"WrongConstant"})
-        public void onAnimationEnd(@NonNull View view) {
-            int i10 = this.mVpa.mOldLayerType;
-            if (i10 > -1) {
-                view.setLayerType(i10, null);
-                this.mVpa.mOldLayerType = -1;
+        public void onAnimationEnd(View view) {
+            int i2 = this.f2092a.f2085e;
+            if (i2 > -1) {
+                view.setLayerType(i2, null);
+                this.f2092a.f2085e = -1;
             }
-            ViewPropertyAnimatorCompat viewPropertyAnimatorCompat = this.mVpa;
-            Runnable runnable = viewPropertyAnimatorCompat.mEndAction;
-            if (runnable != null) {
-                viewPropertyAnimatorCompat.mEndAction = null;
-                runnable.run();
+            if (Build.VERSION.SDK_INT >= 16 || !this.f2093b) {
+                ViewPropertyAnimatorCompat viewPropertyAnimatorCompat = this.f2092a;
+                Runnable runnable = viewPropertyAnimatorCompat.f2084d;
+                if (runnable != null) {
+                    viewPropertyAnimatorCompat.f2084d = null;
+                    runnable.run();
+                }
+                Object tag = view.getTag(ViewPropertyAnimatorCompat.f2081a);
+                ViewPropertyAnimatorListener viewPropertyAnimatorListener = tag instanceof ViewPropertyAnimatorListener ? (ViewPropertyAnimatorListener) tag : null;
+                if (viewPropertyAnimatorListener != null) {
+                    viewPropertyAnimatorListener.onAnimationEnd(view);
+                }
+                this.f2093b = true;
             }
-            Object tag = view.getTag(ViewPropertyAnimatorCompat.LISTENER_TAG_ID);
-            ViewPropertyAnimatorListener viewPropertyAnimatorListener = tag instanceof ViewPropertyAnimatorListener ? (ViewPropertyAnimatorListener) tag : null;
-            if (viewPropertyAnimatorListener != null) {
-                viewPropertyAnimatorListener.onAnimationEnd(view);
-            }
-            this.mAnimEndCalled = true;
         }
 
         @Override // androidx.core.view.ViewPropertyAnimatorListener
-        public void onAnimationStart(@NonNull View view) {
-            this.mAnimEndCalled = false;
-            if (this.mVpa.mOldLayerType > -1) {
+        public void onAnimationStart(View view) {
+            this.f2093b = false;
+            if (this.f2092a.f2085e > -1) {
                 view.setLayerType(2, null);
             }
-            ViewPropertyAnimatorCompat viewPropertyAnimatorCompat = this.mVpa;
-            Runnable runnable = viewPropertyAnimatorCompat.mStartAction;
+            ViewPropertyAnimatorCompat viewPropertyAnimatorCompat = this.f2092a;
+            Runnable runnable = viewPropertyAnimatorCompat.f2083c;
             if (runnable != null) {
-                viewPropertyAnimatorCompat.mStartAction = null;
+                viewPropertyAnimatorCompat.f2083c = null;
                 runnable.run();
             }
-            Object tag = view.getTag(ViewPropertyAnimatorCompat.LISTENER_TAG_ID);
+            Object tag = view.getTag(ViewPropertyAnimatorCompat.f2081a);
             ViewPropertyAnimatorListener viewPropertyAnimatorListener = tag instanceof ViewPropertyAnimatorListener ? (ViewPropertyAnimatorListener) tag : null;
             if (viewPropertyAnimatorListener != null) {
                 viewPropertyAnimatorListener.onAnimationStart(view);
@@ -176,17 +142,21 @@ public final class ViewPropertyAnimatorCompat {
         }
     }
 
-    public ViewPropertyAnimatorCompat(View view) {
-        this.mView = new WeakReference<>(view);
+    ViewPropertyAnimatorCompat(View view) {
+        this.f2082b = new WeakReference<>(view);
     }
 
-    private void setListenerInternal(View view, ViewPropertyAnimatorListener viewPropertyAnimatorListener) {
+    private void a(View view, ViewPropertyAnimatorListener viewPropertyAnimatorListener) {
         if (viewPropertyAnimatorListener != null) {
             view.animate().setListener(new AnimatorListenerAdapter() { // from class: androidx.core.view.ViewPropertyAnimatorCompat.1
-                final /* synthetic */ ViewPropertyAnimatorListener val$listener;
-                final /* synthetic */ View val$view;
 
-                public AnonymousClass1(ViewPropertyAnimatorListener viewPropertyAnimatorListener2, View view2) {
+                /* renamed from: a */
+                final /* synthetic */ ViewPropertyAnimatorListener f2086a;
+
+                /* renamed from: b */
+                final /* synthetic */ View f2087b;
+
+                AnonymousClass1(ViewPropertyAnimatorListener viewPropertyAnimatorListener2, View view2) {
                     viewPropertyAnimatorListener = viewPropertyAnimatorListener2;
                     view = view2;
                 }
@@ -211,198 +181,189 @@ public final class ViewPropertyAnimatorCompat {
         }
     }
 
-    @NonNull
-    public ViewPropertyAnimatorCompat alpha(float f10) {
-        View view = this.mView.get();
+    public ViewPropertyAnimatorCompat alpha(float f2) {
+        View view = this.f2082b.get();
         if (view != null) {
-            view.animate().alpha(f10);
+            view.animate().alpha(f2);
         }
         return this;
     }
 
-    @NonNull
-    public ViewPropertyAnimatorCompat alphaBy(float f10) {
-        View view = this.mView.get();
+    public ViewPropertyAnimatorCompat alphaBy(float f2) {
+        View view = this.f2082b.get();
         if (view != null) {
-            view.animate().alphaBy(f10);
+            view.animate().alphaBy(f2);
         }
         return this;
     }
 
     public void cancel() {
-        View view = this.mView.get();
+        View view = this.f2082b.get();
         if (view != null) {
             view.animate().cancel();
         }
     }
 
     public long getDuration() {
-        View view = this.mView.get();
+        View view = this.f2082b.get();
         if (view != null) {
             return view.animate().getDuration();
         }
         return 0L;
     }
 
-    @Nullable
     public Interpolator getInterpolator() {
-        View view = this.mView.get();
-        if (view != null) {
-            return Api18Impl.getInterpolator(view.animate());
+        View view = this.f2082b.get();
+        if (view == null || Build.VERSION.SDK_INT < 18) {
+            return null;
         }
-        return null;
+        return (Interpolator) view.animate().getInterpolator();
     }
 
     public long getStartDelay() {
-        View view = this.mView.get();
+        View view = this.f2082b.get();
         if (view != null) {
             return view.animate().getStartDelay();
         }
         return 0L;
     }
 
-    @NonNull
-    public ViewPropertyAnimatorCompat rotation(float f10) {
-        View view = this.mView.get();
+    public ViewPropertyAnimatorCompat rotation(float f2) {
+        View view = this.f2082b.get();
         if (view != null) {
-            view.animate().rotation(f10);
+            view.animate().rotation(f2);
         }
         return this;
     }
 
-    @NonNull
-    public ViewPropertyAnimatorCompat rotationBy(float f10) {
-        View view = this.mView.get();
+    public ViewPropertyAnimatorCompat rotationBy(float f2) {
+        View view = this.f2082b.get();
         if (view != null) {
-            view.animate().rotationBy(f10);
+            view.animate().rotationBy(f2);
         }
         return this;
     }
 
-    @NonNull
-    public ViewPropertyAnimatorCompat rotationX(float f10) {
-        View view = this.mView.get();
+    public ViewPropertyAnimatorCompat rotationX(float f2) {
+        View view = this.f2082b.get();
         if (view != null) {
-            view.animate().rotationX(f10);
+            view.animate().rotationX(f2);
         }
         return this;
     }
 
-    @NonNull
-    public ViewPropertyAnimatorCompat rotationXBy(float f10) {
-        View view = this.mView.get();
+    public ViewPropertyAnimatorCompat rotationXBy(float f2) {
+        View view = this.f2082b.get();
         if (view != null) {
-            view.animate().rotationXBy(f10);
+            view.animate().rotationXBy(f2);
         }
         return this;
     }
 
-    @NonNull
-    public ViewPropertyAnimatorCompat rotationY(float f10) {
-        View view = this.mView.get();
+    public ViewPropertyAnimatorCompat rotationY(float f2) {
+        View view = this.f2082b.get();
         if (view != null) {
-            view.animate().rotationY(f10);
+            view.animate().rotationY(f2);
         }
         return this;
     }
 
-    @NonNull
-    public ViewPropertyAnimatorCompat rotationYBy(float f10) {
-        View view = this.mView.get();
+    public ViewPropertyAnimatorCompat rotationYBy(float f2) {
+        View view = this.f2082b.get();
         if (view != null) {
-            view.animate().rotationYBy(f10);
+            view.animate().rotationYBy(f2);
         }
         return this;
     }
 
-    @NonNull
-    public ViewPropertyAnimatorCompat scaleX(float f10) {
-        View view = this.mView.get();
+    public ViewPropertyAnimatorCompat scaleX(float f2) {
+        View view = this.f2082b.get();
         if (view != null) {
-            view.animate().scaleX(f10);
+            view.animate().scaleX(f2);
         }
         return this;
     }
 
-    @NonNull
-    public ViewPropertyAnimatorCompat scaleXBy(float f10) {
-        View view = this.mView.get();
+    public ViewPropertyAnimatorCompat scaleXBy(float f2) {
+        View view = this.f2082b.get();
         if (view != null) {
-            view.animate().scaleXBy(f10);
+            view.animate().scaleXBy(f2);
         }
         return this;
     }
 
-    @NonNull
-    public ViewPropertyAnimatorCompat scaleY(float f10) {
-        View view = this.mView.get();
+    public ViewPropertyAnimatorCompat scaleY(float f2) {
+        View view = this.f2082b.get();
         if (view != null) {
-            view.animate().scaleY(f10);
+            view.animate().scaleY(f2);
         }
         return this;
     }
 
-    @NonNull
-    public ViewPropertyAnimatorCompat scaleYBy(float f10) {
-        View view = this.mView.get();
+    public ViewPropertyAnimatorCompat scaleYBy(float f2) {
+        View view = this.f2082b.get();
         if (view != null) {
-            view.animate().scaleYBy(f10);
+            view.animate().scaleYBy(f2);
         }
         return this;
     }
 
-    @NonNull
-    public ViewPropertyAnimatorCompat setDuration(long j10) {
-        View view = this.mView.get();
+    public ViewPropertyAnimatorCompat setDuration(long j2) {
+        View view = this.f2082b.get();
         if (view != null) {
-            view.animate().setDuration(j10);
+            view.animate().setDuration(j2);
         }
         return this;
     }
 
-    @NonNull
-    public ViewPropertyAnimatorCompat setInterpolator(@Nullable Interpolator interpolator) {
-        View view = this.mView.get();
+    public ViewPropertyAnimatorCompat setInterpolator(Interpolator interpolator) {
+        View view = this.f2082b.get();
         if (view != null) {
             view.animate().setInterpolator(interpolator);
         }
         return this;
     }
 
-    @NonNull
-    public ViewPropertyAnimatorCompat setListener(@Nullable ViewPropertyAnimatorListener viewPropertyAnimatorListener) {
-        View view = this.mView.get();
+    public ViewPropertyAnimatorCompat setListener(ViewPropertyAnimatorListener viewPropertyAnimatorListener) {
+        View view = this.f2082b.get();
         if (view != null) {
-            setListenerInternal(view, viewPropertyAnimatorListener);
+            if (Build.VERSION.SDK_INT >= 16) {
+                a(view, viewPropertyAnimatorListener);
+            } else {
+                view.setTag(f2081a, viewPropertyAnimatorListener);
+                a(view, new ViewPropertyAnimatorListenerApi14(this));
+            }
         }
         return this;
     }
 
-    @NonNull
-    public ViewPropertyAnimatorCompat setStartDelay(long j10) {
-        View view = this.mView.get();
+    public ViewPropertyAnimatorCompat setStartDelay(long j2) {
+        View view = this.f2082b.get();
         if (view != null) {
-            view.animate().setStartDelay(j10);
+            view.animate().setStartDelay(j2);
         }
         return this;
     }
 
-    @NonNull
-    public ViewPropertyAnimatorCompat setUpdateListener(@Nullable ViewPropertyAnimatorUpdateListener viewPropertyAnimatorUpdateListener) {
-        View view = this.mView.get();
-        if (view != null) {
-            Api19Impl.setUpdateListener(view.animate(), viewPropertyAnimatorUpdateListener != null ? new ValueAnimator.AnimatorUpdateListener() { // from class: b0.a0
+    public ViewPropertyAnimatorCompat setUpdateListener(ViewPropertyAnimatorUpdateListener viewPropertyAnimatorUpdateListener) {
+        View view = this.f2082b.get();
+        if (view != null && Build.VERSION.SDK_INT >= 19) {
+            view.animate().setUpdateListener(viewPropertyAnimatorUpdateListener != null ? new ValueAnimator.AnimatorUpdateListener() { // from class: androidx.core.view.ViewPropertyAnimatorCompat.2
 
-                /* renamed from: c */
-                public final /* synthetic */ View f1091c;
+                /* renamed from: a */
+                final /* synthetic */ ViewPropertyAnimatorUpdateListener f2089a;
 
-                public /* synthetic */ a0(View view2) {
+                /* renamed from: b */
+                final /* synthetic */ View f2090b;
+
+                AnonymousClass2(ViewPropertyAnimatorUpdateListener viewPropertyAnimatorUpdateListener2, View view2) {
+                    viewPropertyAnimatorUpdateListener = viewPropertyAnimatorUpdateListener2;
                     view = view2;
                 }
 
                 @Override // android.animation.ValueAnimator.AnimatorUpdateListener
-                public final void onAnimationUpdate(ValueAnimator valueAnimator) {
-                    ViewPropertyAnimatorUpdateListener.this.onAnimationUpdate(view);
+                public void onAnimationUpdate(ValueAnimator valueAnimator) {
+                    viewPropertyAnimatorUpdateListener.onAnimationUpdate(view);
                 }
             } : null);
         }
@@ -410,144 +371,144 @@ public final class ViewPropertyAnimatorCompat {
     }
 
     public void start() {
-        View view = this.mView.get();
+        View view = this.f2082b.get();
         if (view != null) {
             view.animate().start();
         }
     }
 
-    @NonNull
-    public ViewPropertyAnimatorCompat translationX(float f10) {
-        View view = this.mView.get();
+    public ViewPropertyAnimatorCompat translationX(float f2) {
+        View view = this.f2082b.get();
         if (view != null) {
-            view.animate().translationX(f10);
+            view.animate().translationX(f2);
         }
         return this;
     }
 
-    @NonNull
-    public ViewPropertyAnimatorCompat translationXBy(float f10) {
-        View view = this.mView.get();
+    public ViewPropertyAnimatorCompat translationXBy(float f2) {
+        View view = this.f2082b.get();
         if (view != null) {
-            view.animate().translationXBy(f10);
+            view.animate().translationXBy(f2);
         }
         return this;
     }
 
-    @NonNull
-    public ViewPropertyAnimatorCompat translationY(float f10) {
-        View view = this.mView.get();
+    public ViewPropertyAnimatorCompat translationY(float f2) {
+        View view = this.f2082b.get();
         if (view != null) {
-            view.animate().translationY(f10);
+            view.animate().translationY(f2);
         }
         return this;
     }
 
-    @NonNull
-    public ViewPropertyAnimatorCompat translationYBy(float f10) {
-        View view = this.mView.get();
+    public ViewPropertyAnimatorCompat translationYBy(float f2) {
+        View view = this.f2082b.get();
         if (view != null) {
-            view.animate().translationYBy(f10);
+            view.animate().translationYBy(f2);
         }
         return this;
     }
 
-    @NonNull
-    public ViewPropertyAnimatorCompat translationZ(float f10) {
-        View view = this.mView.get();
-        if (view != null) {
-            Api21Impl.translationZ(view.animate(), f10);
+    public ViewPropertyAnimatorCompat translationZ(float f2) {
+        View view = this.f2082b.get();
+        if (view != null && Build.VERSION.SDK_INT >= 21) {
+            view.animate().translationZ(f2);
         }
         return this;
     }
 
-    @NonNull
-    public ViewPropertyAnimatorCompat translationZBy(float f10) {
-        View view = this.mView.get();
-        if (view != null) {
-            Api21Impl.translationZBy(view.animate(), f10);
+    public ViewPropertyAnimatorCompat translationZBy(float f2) {
+        View view = this.f2082b.get();
+        if (view != null && Build.VERSION.SDK_INT >= 21) {
+            view.animate().translationZBy(f2);
         }
         return this;
     }
 
-    @NonNull
-    public ViewPropertyAnimatorCompat withEndAction(@NonNull Runnable runnable) {
-        View view = this.mView.get();
+    public ViewPropertyAnimatorCompat withEndAction(Runnable runnable) {
+        View view = this.f2082b.get();
         if (view != null) {
-            Api16Impl.withEndAction(view.animate(), runnable);
+            if (Build.VERSION.SDK_INT >= 16) {
+                view.animate().withEndAction(runnable);
+            } else {
+                a(view, new ViewPropertyAnimatorListenerApi14(this));
+                this.f2084d = runnable;
+            }
         }
         return this;
     }
 
-    @NonNull
     @SuppressLint({"WrongConstant"})
     public ViewPropertyAnimatorCompat withLayer() {
-        View view = this.mView.get();
+        View view = this.f2082b.get();
         if (view != null) {
-            Api16Impl.withLayer(view.animate());
+            if (Build.VERSION.SDK_INT >= 16) {
+                view.animate().withLayer();
+            } else {
+                this.f2085e = view.getLayerType();
+                a(view, new ViewPropertyAnimatorListenerApi14(this));
+            }
         }
         return this;
     }
 
-    @NonNull
-    public ViewPropertyAnimatorCompat withStartAction(@NonNull Runnable runnable) {
-        View view = this.mView.get();
+    public ViewPropertyAnimatorCompat withStartAction(Runnable runnable) {
+        View view = this.f2082b.get();
         if (view != null) {
-            Api16Impl.withStartAction(view.animate(), runnable);
+            if (Build.VERSION.SDK_INT >= 16) {
+                view.animate().withStartAction(runnable);
+            } else {
+                a(view, new ViewPropertyAnimatorListenerApi14(this));
+                this.f2083c = runnable;
+            }
         }
         return this;
     }
 
-    @NonNull
-    public ViewPropertyAnimatorCompat x(float f10) {
-        View view = this.mView.get();
+    public ViewPropertyAnimatorCompat x(float f2) {
+        View view = this.f2082b.get();
         if (view != null) {
-            view.animate().x(f10);
+            view.animate().x(f2);
         }
         return this;
     }
 
-    @NonNull
-    public ViewPropertyAnimatorCompat xBy(float f10) {
-        View view = this.mView.get();
+    public ViewPropertyAnimatorCompat xBy(float f2) {
+        View view = this.f2082b.get();
         if (view != null) {
-            view.animate().xBy(f10);
+            view.animate().xBy(f2);
         }
         return this;
     }
 
-    @NonNull
-    public ViewPropertyAnimatorCompat y(float f10) {
-        View view = this.mView.get();
+    public ViewPropertyAnimatorCompat y(float f2) {
+        View view = this.f2082b.get();
         if (view != null) {
-            view.animate().y(f10);
+            view.animate().y(f2);
         }
         return this;
     }
 
-    @NonNull
-    public ViewPropertyAnimatorCompat yBy(float f10) {
-        View view = this.mView.get();
+    public ViewPropertyAnimatorCompat yBy(float f2) {
+        View view = this.f2082b.get();
         if (view != null) {
-            view.animate().yBy(f10);
+            view.animate().yBy(f2);
         }
         return this;
     }
 
-    @NonNull
-    public ViewPropertyAnimatorCompat z(float f10) {
-        View view = this.mView.get();
-        if (view != null) {
-            Api21Impl.z(view.animate(), f10);
+    public ViewPropertyAnimatorCompat z(float f2) {
+        View view = this.f2082b.get();
+        if (view != null && Build.VERSION.SDK_INT >= 21) {
+            view.animate().z(f2);
         }
         return this;
     }
 
-    @NonNull
-    public ViewPropertyAnimatorCompat zBy(float f10) {
-        View view = this.mView.get();
-        if (view != null) {
-            Api21Impl.zBy(view.animate(), f10);
+    public ViewPropertyAnimatorCompat zBy(float f2) {
+        View view = this.f2082b.get();
+        if (view != null && Build.VERSION.SDK_INT >= 21) {
+            view.animate().zBy(f2);
         }
         return this;
     }

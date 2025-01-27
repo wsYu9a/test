@@ -43,10 +43,10 @@ public class TinkerUtils {
     public static class ScreenState {
 
         /* renamed from: com.tencent.bugly.beta.tinker.TinkerUtils$ScreenState$1 */
-        public class AnonymousClass1 extends BroadcastReceiver {
+        class AnonymousClass1 extends BroadcastReceiver {
             final /* synthetic */ IOnScreenOff val$onScreenOffInterface;
 
-            public AnonymousClass1(IOnScreenOff iOnScreenOff) {
+            AnonymousClass1(IOnScreenOff iOnScreenOff) {
                 iOnScreenOff = iOnScreenOff;
             }
 
@@ -64,17 +64,17 @@ public class TinkerUtils {
             }
         }
 
-        public interface IOnScreenOff {
+        interface IOnScreenOff {
             void onScreenOff();
         }
 
-        public ScreenState(Context context, IOnScreenOff iOnScreenOff) {
+        ScreenState(Context context, IOnScreenOff iOnScreenOff) {
             IntentFilter intentFilter = new IntentFilter();
             intentFilter.addAction("android.intent.action.SCREEN_OFF");
             context.registerReceiver(new BroadcastReceiver() { // from class: com.tencent.bugly.beta.tinker.TinkerUtils.ScreenState.1
                 final /* synthetic */ IOnScreenOff val$onScreenOffInterface;
 
-                public AnonymousClass1(IOnScreenOff iOnScreenOff2) {
+                AnonymousClass1(IOnScreenOff iOnScreenOff2) {
                     iOnScreenOff = iOnScreenOff2;
                 }
 
@@ -94,46 +94,47 @@ public class TinkerUtils {
         }
     }
 
-    public static String bytesToHexString(byte[] bArr, boolean z10) {
+    public static String bytesToHexString(byte[] bArr, boolean z) {
         if (bArr == null) {
             return "";
         }
         StringBuffer stringBuffer = new StringBuffer(bArr.length * 2);
         Formatter formatter = new Formatter(stringBuffer);
-        for (byte b10 : bArr) {
-            formatter.format("%02x", Byte.valueOf(b10));
+        for (byte b2 : bArr) {
+            formatter.format("%02x", Byte.valueOf(b2));
         }
         formatter.close();
-        return z10 ? stringBuffer.toString().toUpperCase() : stringBuffer.toString().toLowerCase();
+        return z ? stringBuffer.toString().toUpperCase() : stringBuffer.toString().toLowerCase();
     }
 
-    public static int checkForPatchRecover(long j10, int i10) {
+    public static int checkForPatchRecover(long j2, int i2) {
         if (isGooglePlay()) {
             return -20;
         }
-        if (i10 < 45) {
+        if (i2 < 45) {
             return -22;
         }
-        return !checkRomSpaceEnough(j10) ? -21 : 0;
+        return !checkRomSpaceEnough(j2) ? -21 : 0;
     }
 
     @Deprecated
-    public static boolean checkRomSpaceEnough(long j10) {
-        long j11;
-        long j12;
+    public static boolean checkRomSpaceEnough(long j2) {
+        long j3;
+        long j4;
+        StatFs statFs;
         try {
-            StatFs statFs = new StatFs(Environment.getDataDirectory().getPath());
-            j11 = statFs.getAvailableBlocks() * statFs.getBlockSize();
-            try {
-                j12 = statFs.getBlockCount() * statFs.getBlockSize();
-            } catch (Exception unused) {
-                j12 = 0;
-                return j12 == 0 ? false : false;
-            }
-        } catch (Exception unused2) {
-            j11 = 0;
+            statFs = new StatFs(Environment.getDataDirectory().getPath());
+            j3 = statFs.getAvailableBlocks() * statFs.getBlockSize();
+        } catch (Exception unused) {
+            j3 = 0;
         }
-        if (j12 == 0 && j11 > j10) {
+        try {
+            j4 = statFs.getBlockCount() * statFs.getBlockSize();
+        } catch (Exception unused2) {
+            j4 = 0;
+            return j4 == 0 ? false : false;
+        }
+        if (j4 == 0 && j3 > j2) {
             return true;
         }
     }
@@ -155,13 +156,13 @@ public class TinkerUtils {
             bufferedInputStream = new BufferedInputStream(new FileInputStream(file));
             try {
                 bufferedOutputStream2 = new BufferedOutputStream(new FileOutputStream(file2));
-            } catch (Throwable th2) {
-                th = th2;
+            } catch (Throwable th) {
+                th = th;
                 bufferedOutputStream = null;
                 bufferedInputStream2 = bufferedInputStream;
             }
-        } catch (Throwable th3) {
-            th = th3;
+        } catch (Throwable th2) {
+            th = th2;
             bufferedOutputStream = null;
         }
         try {
@@ -176,25 +177,24 @@ public class TinkerUtils {
             bufferedOutputStream2.flush();
             try {
                 bufferedInputStream.close();
-            } catch (IOException e10) {
-                e10.printStackTrace();
+            } catch (IOException e2) {
+                e2.printStackTrace();
             }
             try {
                 bufferedOutputStream2.close();
-                return true;
-            } catch (IOException e11) {
-                e11.printStackTrace();
-                return true;
+            } catch (IOException e3) {
+                e3.printStackTrace();
             }
-        } catch (Throwable th4) {
+            return true;
+        } catch (Throwable th3) {
             bufferedInputStream2 = bufferedInputStream;
             bufferedOutputStream = bufferedOutputStream2;
-            th = th4;
+            th = th3;
             if (bufferedInputStream2 != null) {
                 try {
                     bufferedInputStream2.close();
-                } catch (IOException e12) {
-                    e12.printStackTrace();
+                } catch (IOException e4) {
+                    e4.printStackTrace();
                 }
             }
             if (bufferedOutputStream == null) {
@@ -203,39 +203,39 @@ public class TinkerUtils {
             try {
                 bufferedOutputStream.close();
                 throw th;
-            } catch (IOException e13) {
-                e13.printStackTrace();
+            } catch (IOException e5) {
+                e5.printStackTrace();
                 throw th;
             }
         }
     }
 
-    public static String getExceptionCauseString(Throwable th2) {
+    public static String getExceptionCauseString(Throwable th) {
         ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
         PrintStream printStream = new PrintStream(byteArrayOutputStream);
-        while (th2 != null) {
+        while (th != null) {
             try {
-                if (th2.getCause() == null) {
+                if (th.getCause() == null) {
                     break;
                 }
-                th2 = th2.getCause();
-            } catch (Throwable th3) {
+                th = th.getCause();
+            } catch (Throwable th2) {
                 try {
                     byteArrayOutputStream.close();
-                } catch (IOException e10) {
-                    e10.printStackTrace();
+                } catch (IOException e2) {
+                    e2.printStackTrace();
                 }
-                throw th3;
+                throw th2;
             }
         }
-        if (th2 != null) {
-            th2.printStackTrace(printStream);
+        if (th != null) {
+            th.printStackTrace(printStream);
         }
         String visualString = toVisualString(byteArrayOutputStream.toString());
         try {
             byteArrayOutputStream.close();
-        } catch (IOException e11) {
-            e11.printStackTrace();
+        } catch (IOException e3) {
+            e3.printStackTrace();
         }
         return visualString;
     }
@@ -248,8 +248,8 @@ public class TinkerUtils {
                 MessageDigest.getInstance("SHA-1");
                 return new String(x509Certificate.getEncoded());
             }
-        } catch (Exception e10) {
-            e10.printStackTrace();
+        } catch (Exception e2) {
+            e2.printStackTrace();
         }
         return "";
     }
@@ -262,10 +262,10 @@ public class TinkerUtils {
         return false;
     }
 
-    public static boolean isXposedExists(Throwable th2) {
-        for (StackTraceElement stackTraceElement : th2.getStackTrace()) {
+    public static boolean isXposedExists(Throwable th) {
+        for (StackTraceElement stackTraceElement : th.getStackTrace()) {
             String className = stackTraceElement.getClassName();
-            if (className != null && className.contains(an.f10772b)) {
+            if (className != null && className.contains(an.f9076b)) {
                 return true;
             }
         }
@@ -283,8 +283,8 @@ public class TinkerUtils {
                 }
                 byteArrayOutputStream.write(bArr, 0, read);
             }
-        } catch (Exception e10) {
-            e10.printStackTrace();
+        } catch (Exception e2) {
+            e2.printStackTrace();
             return null;
         }
     }
@@ -295,8 +295,8 @@ public class TinkerUtils {
                 if (file.exists() && !TextUtils.isEmpty(str)) {
                     return readJarEntry(new JarFile(file), str);
                 }
-            } catch (Exception e10) {
-                e10.printStackTrace();
+            } catch (Exception e2) {
+                e2.printStackTrace();
             }
         }
         return null;
@@ -306,22 +306,30 @@ public class TinkerUtils {
         Tinker.with(context).rollbackPatch();
     }
 
-    public static void setBackground(boolean z10) {
-        background = z10;
+    public static void setBackground(boolean z) {
+        background = z;
     }
 
     private static String toVisualString(String str) {
         char[] charArray;
+        boolean z;
         if (str == null || (charArray = str.toCharArray()) == null) {
             return null;
         }
-        for (int i10 = 0; i10 < charArray.length; i10++) {
-            if (charArray[i10] > 127) {
-                charArray[i10] = 0;
-                return new String(charArray, 0, i10);
+        int i2 = 0;
+        while (true) {
+            if (i2 >= charArray.length) {
+                z = false;
+                break;
             }
+            if (charArray[i2] > 127) {
+                charArray[i2] = 0;
+                z = true;
+                break;
+            }
+            i2++;
         }
-        return str;
+        return z ? new String(charArray, 0, i2) : str;
     }
 
     public static byte[] readJarEntry(JarFile jarFile, String str) {
@@ -330,8 +338,8 @@ public class TinkerUtils {
                 if (!TextUtils.isEmpty(str)) {
                     return readJarEntry(jarFile, jarFile.getJarEntry(str));
                 }
-            } catch (Exception e10) {
-                e10.printStackTrace();
+            } catch (Exception e2) {
+                e2.printStackTrace();
             }
         }
         return null;
@@ -341,8 +349,8 @@ public class TinkerUtils {
         if (jarFile != null && jarEntry != null) {
             try {
                 return readBytes(jarFile.getInputStream(jarEntry));
-            } catch (Exception e10) {
-                e10.printStackTrace();
+            } catch (Exception e2) {
+                e2.printStackTrace();
             }
         }
         return null;

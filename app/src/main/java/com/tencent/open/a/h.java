@@ -8,46 +8,46 @@ import androidx.exifinterface.media.ExifInterface;
 public final class h {
 
     /* renamed from: a */
-    public static final h f23170a = new h();
+    public static final h f25437a = new h();
 
-    public final String a(int i10) {
-        return i10 != 1 ? i10 != 2 ? i10 != 4 ? i10 != 8 ? i10 != 16 ? i10 != 32 ? "-" : ExifInterface.GPS_MEASUREMENT_IN_PROGRESS : ExifInterface.LONGITUDE_EAST : ExifInterface.LONGITUDE_WEST : "I" : "D" : ExifInterface.GPS_MEASUREMENT_INTERRUPTED;
+    public final String a(int i2) {
+        return i2 != 1 ? i2 != 2 ? i2 != 4 ? i2 != 8 ? i2 != 16 ? i2 != 32 ? "-" : ExifInterface.GPS_MEASUREMENT_IN_PROGRESS : ExifInterface.LONGITUDE_EAST : ExifInterface.LONGITUDE_WEST : "I" : "D" : ExifInterface.GPS_MEASUREMENT_INTERRUPTED;
     }
 
-    public String a(int i10, Thread thread, long j10, String str, String str2, Throwable th2) {
-        long j11 = j10 % 1000;
+    public String a(int i2, Thread thread, long j2, String str, String str2, Throwable th) {
+        long j3 = j2 % 1000;
         Time time = new Time();
-        time.set(j10);
-        StringBuilder sb2 = new StringBuilder();
-        sb2.append(a(i10));
-        sb2.append('/');
-        sb2.append(time.format("%Y-%m-%d %H:%M:%S"));
-        sb2.append('.');
-        if (j11 < 10) {
-            sb2.append(com.sigmob.sdk.archives.tar.e.S);
-        } else if (j11 < 100) {
-            sb2.append('0');
+        time.set(j2);
+        StringBuilder sb = new StringBuilder();
+        sb.append(a(i2));
+        sb.append('/');
+        sb.append(time.format("%Y-%m-%d %H:%M:%S"));
+        sb.append('.');
+        if (j3 < 10) {
+            sb.append("00");
+        } else if (j3 < 100) {
+            sb.append('0');
         }
-        sb2.append(j11);
-        sb2.append(b5.a.O);
-        sb2.append('[');
+        sb.append(j3);
+        sb.append(' ');
+        sb.append('[');
         if (thread == null) {
-            sb2.append("N/A");
+            sb.append("N/A");
         } else {
-            sb2.append(thread.getName());
+            sb.append(thread.getName());
         }
-        sb2.append(']');
-        sb2.append('[');
-        sb2.append(str);
-        sb2.append(']');
-        sb2.append(b5.a.O);
-        sb2.append(str2);
-        sb2.append('\n');
-        if (th2 != null) {
-            sb2.append("* Exception : \n");
-            sb2.append(Log.getStackTraceString(th2));
-            sb2.append('\n');
+        sb.append(']');
+        sb.append('[');
+        sb.append(str);
+        sb.append(']');
+        sb.append(' ');
+        sb.append(str2);
+        sb.append('\n');
+        if (th != null) {
+            sb.append("* Exception : \n");
+            sb.append(Log.getStackTraceString(th));
+            sb.append('\n');
         }
-        return sb2.toString();
+        return sb.toString();
     }
 }

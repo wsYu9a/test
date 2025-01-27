@@ -13,44 +13,49 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.concurrent.CopyOnWriteArrayList;
 
-/* loaded from: classes3.dex */
+/* loaded from: classes2.dex */
 public final class NetworkMonitor {
-    private static volatile boolean ast = false;
-    private final List<a> asu;
-    private boolean asv;
-    private final BroadcastReceiver asw;
+    private static volatile boolean abz = false;
+    private final List<a> abA;
+    private boolean abB;
+    private final BroadcastReceiver abC;
 
     /* renamed from: com.kwad.sdk.core.NetworkMonitor$1 */
-    public class AnonymousClass1 extends BroadcastReceiver {
-        public AnonymousClass1() {
+    final class AnonymousClass1 extends BroadcastReceiver {
+        AnonymousClass1() {
         }
 
         @Override // android.content.BroadcastReceiver
         public final void onReceive(@NonNull Context context, Intent intent) {
             ConnectivityManager connectivityManager;
+            NetworkMonitor networkMonitor;
+            NetworkState networkState;
             try {
-                if (ContextCompat.checkSelfPermission(context, g.f11101b) != 0 || (connectivityManager = (ConnectivityManager) context.getSystemService("connectivity")) == null) {
-                    return;
+                if ((ContextCompat.checkSelfPermission(context, g.f9317b) == 0) && (connectivityManager = (ConnectivityManager) context.getSystemService("connectivity")) != null) {
+                    NetworkInfo activeNetworkInfo = connectivityManager.getActiveNetworkInfo();
+                    if (activeNetworkInfo == null || !activeNetworkInfo.isConnected()) {
+                        NetworkMonitor.this.b(NetworkState.NETWORK_NONE);
+                        return;
+                    }
+                    if (1 == activeNetworkInfo.getType()) {
+                        networkMonitor = NetworkMonitor.this;
+                        networkState = NetworkState.NETWORK_WIFI;
+                    } else if (activeNetworkInfo.getType() == 0) {
+                        networkMonitor = NetworkMonitor.this;
+                        networkState = NetworkState.NETWORK_MOBILE;
+                    } else {
+                        networkMonitor = NetworkMonitor.this;
+                        networkState = NetworkState.NETWORK_NONE;
+                    }
+                    networkMonitor.b(networkState);
                 }
-                NetworkInfo activeNetworkInfo = connectivityManager.getActiveNetworkInfo();
-                if (activeNetworkInfo == null || !activeNetworkInfo.isConnected()) {
-                    NetworkMonitor.this.b(NetworkState.NETWORK_NONE);
-                    return;
-                }
-                if (1 == activeNetworkInfo.getType()) {
-                    NetworkMonitor.this.b(NetworkState.NETWORK_WIFI);
-                } else if (activeNetworkInfo.getType() == 0) {
-                    NetworkMonitor.this.b(NetworkState.NETWORK_MOBILE);
-                } else {
-                    NetworkMonitor.this.b(NetworkState.NETWORK_NONE);
-                }
-            } catch (Throwable th2) {
-                th2.printStackTrace();
+            } catch (Throwable th) {
+                th.printStackTrace();
             }
         }
     }
 
-    public enum Holder {
+    enum Holder {
         INSTANCE;
 
         private final NetworkMonitor mInstance = new NetworkMonitor((byte) 0);
@@ -58,7 +63,7 @@ public final class NetworkMonitor {
         Holder() {
         }
 
-        public final NetworkMonitor getInstance() {
+        final NetworkMonitor getInstance() {
             return this.mInstance;
         }
     }
@@ -73,26 +78,64 @@ public final class NetworkMonitor {
         void a(NetworkState networkState);
     }
 
-    public /* synthetic */ NetworkMonitor(byte b10) {
+    private NetworkMonitor() {
+        this.abA = new CopyOnWriteArrayList();
+        this.abB = false;
+        this.abC = new BroadcastReceiver() { // from class: com.kwad.sdk.core.NetworkMonitor.1
+            AnonymousClass1() {
+            }
+
+            @Override // android.content.BroadcastReceiver
+            public final void onReceive(@NonNull Context context, Intent intent) {
+                ConnectivityManager connectivityManager;
+                NetworkMonitor networkMonitor;
+                NetworkState networkState;
+                try {
+                    if ((ContextCompat.checkSelfPermission(context, g.f9317b) == 0) && (connectivityManager = (ConnectivityManager) context.getSystemService("connectivity")) != null) {
+                        NetworkInfo activeNetworkInfo = connectivityManager.getActiveNetworkInfo();
+                        if (activeNetworkInfo == null || !activeNetworkInfo.isConnected()) {
+                            NetworkMonitor.this.b(NetworkState.NETWORK_NONE);
+                            return;
+                        }
+                        if (1 == activeNetworkInfo.getType()) {
+                            networkMonitor = NetworkMonitor.this;
+                            networkState = NetworkState.NETWORK_WIFI;
+                        } else if (activeNetworkInfo.getType() == 0) {
+                            networkMonitor = NetworkMonitor.this;
+                            networkState = NetworkState.NETWORK_MOBILE;
+                        } else {
+                            networkMonitor = NetworkMonitor.this;
+                            networkState = NetworkState.NETWORK_NONE;
+                        }
+                        networkMonitor.b(networkState);
+                    }
+                } catch (Throwable th) {
+                    th.printStackTrace();
+                }
+            }
+        };
+    }
+
+    /* synthetic */ NetworkMonitor(byte b2) {
         this();
     }
 
-    public void b(NetworkState networkState) {
-        Iterator<a> it = this.asu.iterator();
-        while (it.hasNext()) {
-            it.next().a(networkState);
-        }
-    }
-
-    private synchronized void bg(Context context) {
-        if (ast || context == null) {
+    private synchronized void aD(Context context) {
+        if (abz || context == null) {
             return;
         }
         try {
-            context.getApplicationContext().registerReceiver(this.asw, new IntentFilter("android.net.conn.CONNECTIVITY_CHANGE"));
-            ast = true;
-        } catch (Throwable th2) {
-            com.kwad.sdk.core.d.c.printStackTrace(th2);
+            context.getApplicationContext().registerReceiver(this.abC, new IntentFilter("android.net.conn.CONNECTIVITY_CHANGE"));
+            abz = true;
+        } catch (Throwable th) {
+            com.kwad.sdk.core.d.b.printStackTrace(th);
+        }
+    }
+
+    public void b(NetworkState networkState) {
+        Iterator<a> it = this.abA.iterator();
+        while (it.hasNext()) {
+            it.next().a(networkState);
         }
     }
 
@@ -100,51 +143,12 @@ public final class NetworkMonitor {
         return Holder.INSTANCE.getInstance();
     }
 
-    private NetworkMonitor() {
-        this.asu = new CopyOnWriteArrayList();
-        this.asv = false;
-        this.asw = new BroadcastReceiver() { // from class: com.kwad.sdk.core.NetworkMonitor.1
-            public AnonymousClass1() {
-            }
-
-            @Override // android.content.BroadcastReceiver
-            public final void onReceive(@NonNull Context context, Intent intent) {
-                ConnectivityManager connectivityManager;
-                try {
-                    if (ContextCompat.checkSelfPermission(context, g.f11101b) != 0 || (connectivityManager = (ConnectivityManager) context.getSystemService("connectivity")) == null) {
-                        return;
-                    }
-                    NetworkInfo activeNetworkInfo = connectivityManager.getActiveNetworkInfo();
-                    if (activeNetworkInfo == null || !activeNetworkInfo.isConnected()) {
-                        NetworkMonitor.this.b(NetworkState.NETWORK_NONE);
-                        return;
-                    }
-                    if (1 == activeNetworkInfo.getType()) {
-                        NetworkMonitor.this.b(NetworkState.NETWORK_WIFI);
-                    } else if (activeNetworkInfo.getType() == 0) {
-                        NetworkMonitor.this.b(NetworkState.NETWORK_MOBILE);
-                    } else {
-                        NetworkMonitor.this.b(NetworkState.NETWORK_NONE);
-                    }
-                } catch (Throwable th2) {
-                    th2.printStackTrace();
-                }
-            }
-        };
-    }
-
     public final void a(Context context, @NonNull a aVar) {
-        bg(context);
-        if (this.asu.contains(aVar)) {
-            return;
-        }
-        this.asu.add(aVar);
+        aD(context);
+        this.abA.add(aVar);
     }
 
     public final void a(a aVar) {
-        if (aVar == null) {
-            return;
-        }
-        this.asu.remove(aVar);
+        this.abA.remove(aVar);
     }
 }

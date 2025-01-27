@@ -1,102 +1,89 @@
 package com.martian.mibook.activity.book;
 
-import android.app.Activity;
-import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.RelativeLayout;
 import androidx.annotation.NonNull;
-import ba.l;
-import com.martian.mibook.R;
-import com.martian.mibook.activity.book.TeenagerBookmallActivity;
+import com.martian.libmars.activity.j1;
+import com.martian.libmars.utils.k0;
 import com.martian.mibook.application.MiConfigSingleton;
-import com.martian.mibook.databinding.ActivityTeenagerBookmallBinding;
-import com.martian.mibook.lib.model.activity.MiBackableActivity;
-import com.martian.mibook.mvvm.yuewen.fragment.YWBookMallFragment;
-import je.i;
-import l9.i0;
+import com.martian.mibook.e.v;
+import com.martian.mibook.f.f4.e0;
+import com.martian.mibook.j.s2;
+import com.martian.ttbookhd.R;
 
 /* loaded from: classes3.dex */
-public class TeenagerBookmallActivity extends MiBackableActivity {
-    public static final String B = "INTENT_IS_TEENAGER_MODE";
-    public boolean A;
+public class TeenagerBookmallActivity extends com.martian.mibook.lib.model.b.a {
+    private static final String F = "INTENT_IS_TEENAGER_MODE";
+    private boolean G;
 
-    public static void N2(Activity activity, boolean z10) {
-        Bundle bundle = new Bundle();
-        bundle.putBoolean(B, z10);
-        Intent intent = new Intent(activity, (Class<?>) TeenagerBookmallActivity.class);
-        intent.putExtras(bundle);
-        activity.startActivity(intent);
-    }
-
-    public final /* synthetic */ void M2(String str, String str2) {
-        if (l.q(str2)) {
-            P1("密码不能为空,请重试");
-        } else if (!str2.equals(str)) {
-            P1("密码输入有误，请重试");
+    /* renamed from: r2 */
+    public /* synthetic */ void s2(final String password, String text) {
+        if (com.martian.libsupport.k.p(text)) {
+            k1("密码不能为空,请重试");
+        } else if (!text.equals(password)) {
+            k1("密码输入有误，请重试");
         } else {
-            MiConfigSingleton.b2().i3("");
-            i.A(this);
+            MiConfigSingleton.V3().R7("");
+            s2.D(this);
         }
     }
 
-    @Override // com.martian.mibook.lib.model.activity.MiBackableActivity, com.martian.libmars.activity.MartianActivity, com.martian.libmars.activity.BaseActivity, me.imid.swipebacklayout.lib.app.SwipeBackActivity, androidx.fragment.app.FragmentActivity, androidx.activity.ComponentActivity, androidx.core.app.ComponentActivity, android.app.Activity
-    public void onCreate(Bundle bundle) {
-        super.onCreate(bundle);
+    public static void t2(j1 activity, boolean isTeenagerMode) {
+        Bundle bundle = new Bundle();
+        bundle.putBoolean(F, isTeenagerMode);
+        activity.startActivity(TeenagerBookmallActivity.class, bundle);
+    }
+
+    @Override // com.martian.mibook.lib.model.b.a, com.martian.libmars.activity.j1, com.martian.libmars.activity.h1, me.imid.swipebacklayout.lib.d.a, androidx.appcompat.app.AppCompatActivity, androidx.fragment.app.FragmentActivity, androidx.activity.ComponentActivity, androidx.core.app.ComponentActivity, android.app.Activity
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_teenager_bookmall);
-        ActivityTeenagerBookmallBinding bind = ActivityTeenagerBookmallBinding.bind(D2());
-        g(false);
-        C1(true);
-        J2(false);
-        I2(true);
-        if (bundle != null) {
-            this.A = bundle.getBoolean(B);
+        v a2 = v.a(g2());
+        d(false);
+        W0(true);
+        p2(false);
+        n2(true);
+        if (savedInstanceState != null) {
+            this.G = savedInstanceState.getBoolean(F);
         } else {
             Bundle extras = getIntent().getExtras();
             if (extras != null) {
-                this.A = extras.getBoolean(B);
+                this.G = extras.getBoolean(F);
             }
         }
-        if (!this.A) {
-            bind.teenagerBookmallTitle.setText(getString(R.string.app_name));
-            bind.teenagerBookmallButton.setVisibility(8);
-            bind.teenagerBookmallLogo.setVisibility(8);
-            bind.teenagerBookmallBg.setVisibility(8);
-            bind.teenagerBookmallExit.setVisibility(0);
+        if (!this.G) {
+            a2.f12807h.setText(getString(R.string.app_name));
+            a2.f12802c.setVisibility(8);
+            a2.f12806g.setVisibility(8);
+            a2.f12801b.setVisibility(8);
+            a2.f12804e.setVisibility(0);
         }
-        ((RelativeLayout.LayoutParams) bind.teenagerBookmallHeader.getLayoutParams()).topMargin = p1();
-        if (((YWBookMallFragment) getSupportFragmentManager().findFragmentByTag("teenager_bookmall_fragment")) == null) {
-            getSupportFragmentManager().beginTransaction().add(R.id.teenager_bookmall_container, YWBookMallFragment.INSTANCE.a(this.A ? 3 : 4, false), "teenager_bookmall_fragment").commit();
+        ((RelativeLayout.LayoutParams) a2.f12805f.getLayoutParams()).topMargin = F0();
+        if (((e0) getSupportFragmentManager().findFragmentByTag("teenager_bookmall_fragment")) == null) {
+            getSupportFragmentManager().beginTransaction().add(R.id.teenager_bookmall_container, e0.f0(this.G ? 3 : 4, MiConfigSingleton.V3().k(), false), "teenager_bookmall_fragment").commit();
         }
     }
 
     public void onExitBaseFunctionModeClick(View view) {
-        i.h(this, false);
+        s2.c(this, false);
     }
 
-    @Override // androidx.activity.ComponentActivity, androidx.core.app.ComponentActivity, android.app.Activity
-    public void onSaveInstanceState(@NonNull Bundle bundle) {
-        super.onSaveInstanceState(bundle);
-        bundle.putBoolean(B, this.A);
+    @Override // androidx.appcompat.app.AppCompatActivity, androidx.fragment.app.FragmentActivity, androidx.activity.ComponentActivity, androidx.core.app.ComponentActivity, android.app.Activity
+    protected void onSaveInstanceState(@NonNull Bundle outState) {
+        super.onSaveInstanceState(outState);
+        outState.putBoolean(F, this.G);
     }
 
     public void onTeenagerCloseClick(View view) {
-        String q22 = MiConfigSingleton.b2().q2();
-        if (l.q(q22)) {
-            i.A(this);
+        final String y4 = MiConfigSingleton.V3().y4();
+        if (com.martian.libsupport.k.p(y4)) {
+            s2.D(this);
         } else {
-            i0.D0(this, "输入密码", "请输入四位数字密码", false, true, new i0.j() { // from class: ua.e
-
-                /* renamed from: b */
-                public final /* synthetic */ String f30969b;
-
-                public /* synthetic */ e(String q222) {
-                    q22 = q222;
-                }
-
-                @Override // l9.i0.j
+            k0.V(this, "输入密码", "请输入四位数字密码", false, true, new k0.i() { // from class: com.martian.mibook.activity.book.u
+                @Override // com.martian.libmars.utils.k0.i
                 public final void a(String str) {
-                    TeenagerBookmallActivity.this.M2(q22, str);
+                    TeenagerBookmallActivity.this.s2(y4, str);
                 }
             });
         }

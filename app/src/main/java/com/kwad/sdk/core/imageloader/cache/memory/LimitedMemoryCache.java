@@ -7,7 +7,7 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.concurrent.atomic.AtomicInteger;
 
-/* loaded from: classes3.dex */
+/* loaded from: classes2.dex */
 public abstract class LimitedMemoryCache extends BaseMemoryCache {
     private static final int MAX_NORMAL_CACHE_SIZE = 16777216;
     private static final int MAX_NORMAL_CACHE_SIZE_IN_MB = 16;
@@ -15,9 +15,9 @@ public abstract class LimitedMemoryCache extends BaseMemoryCache {
     private final List<DecodedResult> hardCache = Collections.synchronizedList(new LinkedList());
     private final AtomicInteger cacheSize = new AtomicInteger();
 
-    public LimitedMemoryCache(int i10) {
-        this.sizeLimit = i10;
-        if (i10 > 16777216) {
+    public LimitedMemoryCache(int i2) {
+        this.sizeLimit = i2;
+        if (i2 > 16777216) {
             L.w("You set too large memory cache size (more than %1$d Mb)", 16);
         }
     }
@@ -29,33 +29,33 @@ public abstract class LimitedMemoryCache extends BaseMemoryCache {
         super.clear();
     }
 
-    public abstract int getSize(DecodedResult decodedResult);
+    protected abstract int getSize(DecodedResult decodedResult);
 
-    public int getSizeLimit() {
+    protected int getSizeLimit() {
         return this.sizeLimit;
     }
 
     @Override // com.kwad.sdk.core.imageloader.cache.memory.BaseMemoryCache, com.kwad.sdk.core.imageloader.cache.memory.MemoryCache
     public boolean put(String str, DecodedResult decodedResult) {
-        boolean z10;
+        boolean z;
         int size = getSize(decodedResult);
         int sizeLimit = getSizeLimit();
-        int i10 = this.cacheSize.get();
+        int i2 = this.cacheSize.get();
         if (size < sizeLimit) {
-            while (i10 + size > sizeLimit) {
+            while (i2 + size > sizeLimit) {
                 DecodedResult removeNext = removeNext();
                 if (this.hardCache.remove(removeNext)) {
-                    i10 = this.cacheSize.addAndGet(-getSize(removeNext));
+                    i2 = this.cacheSize.addAndGet(-getSize(removeNext));
                 }
             }
             this.hardCache.add(decodedResult);
             this.cacheSize.addAndGet(size);
-            z10 = true;
+            z = true;
         } else {
-            z10 = false;
+            z = false;
         }
         super.put(str, decodedResult);
-        return z10;
+        return z;
     }
 
     @Override // com.kwad.sdk.core.imageloader.cache.memory.BaseMemoryCache, com.kwad.sdk.core.imageloader.cache.memory.MemoryCache
@@ -67,5 +67,5 @@ public abstract class LimitedMemoryCache extends BaseMemoryCache {
         return super.remove(str);
     }
 
-    public abstract DecodedResult removeNext();
+    protected abstract DecodedResult removeNext();
 }

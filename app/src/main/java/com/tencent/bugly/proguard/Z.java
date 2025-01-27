@@ -1,25 +1,25 @@
 package com.tencent.bugly.proguard;
 
 /* loaded from: classes4.dex */
-public class Z implements Runnable {
+class Z implements Runnable {
 
     /* renamed from: a */
-    final /* synthetic */ String f22682a;
+    final /* synthetic */ String f25022a;
 
     /* renamed from: b */
-    final /* synthetic */ String f22683b;
+    final /* synthetic */ String f25023b;
 
     /* renamed from: c */
-    final /* synthetic */ String f22684c;
+    final /* synthetic */ String f25024c;
 
-    public Z(String str, String str2, String str3) {
-        this.f22682a = str;
-        this.f22683b = str2;
-        this.f22684c = str3;
+    Z(String str, String str2, String str3) {
+        this.f25022a = str;
+        this.f25023b = str2;
+        this.f25024c = str3;
     }
 
     @Override // java.lang.Runnable
     public void run() {
-        ba.f(this.f22682a, this.f22683b, this.f22684c);
+        ba.f(this.f25022a, this.f25023b, this.f25024c);
     }
 }

@@ -1,18 +1,18 @@
 package com.vivo.push.d;
 
-import com.kwad.library.solder.lib.ext.PluginError;
+import com.kwai.sodler.lib.ext.PluginError;
 
 /* loaded from: classes4.dex */
 public final class ag {
     public static com.vivo.push.l a(com.vivo.push.o oVar) {
         com.vivo.push.l afVar;
-        int b10 = oVar.b();
-        if (b10 == 20) {
+        int b2 = oVar.b();
+        if (b2 == 20) {
             afVar = new af(oVar);
-        } else if (b10 == 100) {
+        } else if (b2 == 100) {
             afVar = new b(oVar);
-        } else if (b10 != 101) {
-            switch (b10) {
+        } else if (b2 != 101) {
+            switch (b2) {
                 case 0:
                     break;
                 case 1:
@@ -52,26 +52,26 @@ public final class ag {
                     afVar = new f(oVar);
                     break;
                 default:
-                    switch (b10) {
+                    switch (b2) {
                         case 2000:
                         case 2001:
                         case 2002:
                         case 2003:
-                        case 2004:
-                        case 2005:
+                        case PluginError.ERROR_UPD_EXTRACT /* 2004 */:
+                        case PluginError.ERROR_UPD_CAPACITY /* 2005 */:
                         case 2008:
-                        case PluginError.ERROR_UPD_FILE_NOT_FOUND /* 2009 */:
-                        case PluginError.ERROR_UPD_PLUGIN_CONNECTION /* 2010 */:
+                        case 2009:
+                        case 2010:
                         case 2011:
                         case 2012:
                         case 2013:
                         case 2014:
                         case 2015:
                             break;
-                        case 2006:
+                        case PluginError.ERROR_UPD_REQUEST /* 2006 */:
                             afVar = new a(oVar);
                             break;
-                        case 2007:
+                        case PluginError.ERROR_UPD_NOT_WIFI_DOWNLOAD /* 2007 */:
                             afVar = new ai(oVar);
                             break;
                         default:
@@ -87,11 +87,11 @@ public final class ag {
 
     public static z b(com.vivo.push.o oVar) {
         z afVar;
-        int b10 = oVar.b();
-        if (b10 == 20) {
+        int b2 = oVar.b();
+        if (b2 == 20) {
             afVar = new af(oVar);
-        } else if (b10 != 2016) {
-            switch (b10) {
+        } else if (b2 != 2016) {
+            switch (b2) {
                 case 1:
                     afVar = new aa(oVar);
                     break;

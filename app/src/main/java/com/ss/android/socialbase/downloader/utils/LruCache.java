@@ -13,20 +13,20 @@ public class LruCache<K, T> extends LinkedHashMap<K, T> {
     }
 
     @Override // java.util.LinkedHashMap
-    public boolean removeEldestEntry(Map.Entry<K, T> entry) {
+    protected boolean removeEldestEntry(Map.Entry<K, T> entry) {
         return size() > this.mMaxSize;
     }
 
-    public void setMaxSize(int i10) {
-        this.mMaxSize = i10;
+    public void setMaxSize(int i2) {
+        this.mMaxSize = i2;
     }
 
-    public LruCache(int i10, int i11) {
-        this(i10, i11, true);
+    public LruCache(int i2, int i3) {
+        this(i2, i3, true);
     }
 
-    public LruCache(int i10, int i11, boolean z10) {
-        super(i10, 0.75f, z10);
-        setMaxSize(i11);
+    public LruCache(int i2, int i3, boolean z) {
+        super(i2, 0.75f, z);
+        setMaxSize(i3);
     }
 }

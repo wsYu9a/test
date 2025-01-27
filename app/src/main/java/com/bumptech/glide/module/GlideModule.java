@@ -7,7 +7,7 @@ import com.bumptech.glide.GlideBuilder;
 import com.bumptech.glide.Registry;
 
 @Deprecated
-/* loaded from: classes2.dex */
+/* loaded from: classes.dex */
 public interface GlideModule extends RegistersComponents, AppliesOptions {
     @Override // com.bumptech.glide.module.AppliesOptions
     /* synthetic */ void applyOptions(@NonNull Context context, @NonNull GlideBuilder glideBuilder);

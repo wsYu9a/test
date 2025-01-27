@@ -5,8 +5,8 @@ import com.ksad.json.annotation.KsJson;
 import java.io.Serializable;
 
 @KsJson
-/* loaded from: classes3.dex */
-public class TemplateConfig extends com.kwad.sdk.core.response.a.a implements com.kwad.sdk.core.b, Serializable {
+/* loaded from: classes2.dex */
+public class TemplateConfig extends com.kwad.sdk.core.response.kwai.a implements com.kwad.sdk.core.b, Serializable {
     private static final long serialVersionUID = -6943205584670122269L;
     public String h5Checksum;
     public String h5Url;

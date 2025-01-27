@@ -1,88 +1,84 @@
 package com.kuaishou.weapon.p0;
 
 import android.content.Context;
+import com.tencent.connect.common.Constants;
 
-/* loaded from: classes2.dex */
+/* loaded from: classes.dex */
 public class dc {
 
     /* renamed from: b */
-    private static volatile dc f11013b;
+    private static volatile dc f9275b;
 
     /* renamed from: a */
-    private Context f11014a;
+    private Context f9276a;
 
     /* renamed from: com.kuaishou.weapon.p0.dc$1 */
-    public class AnonymousClass1 implements Runnable {
-
-        /* renamed from: a */
-        final /* synthetic */ int f11015a;
-
-        public AnonymousClass1(int i10) {
-            i10 = i10;
+    class AnonymousClass1 implements Runnable {
+        AnonymousClass1() {
         }
 
         @Override // java.lang.Runnable
         public void run() {
             try {
-                h a10 = h.a(dc.this.f11014a, "re_po_rt");
-                if (a10.b(df.ap, 1) == 1) {
-                    long a11 = df.a(dc.this.f11014a).a(df.bl);
+                if (h.a(dc.this.f9276a, "re_po_rt").b(de.z, 0) == 1) {
+                    long a2 = de.a(dc.this.f9276a).a(de.bf);
                     long currentTimeMillis = System.currentTimeMillis();
-                    int b10 = a10.b(df.as, 0);
-                    long j10 = currentTimeMillis - a11;
-                    if (j10 >= a10.b(df.ar, 6) * 3600000 || (i10 == 100 && b10 == 1 && j10 >= 14400000)) {
-                        cg.a(dc.this.f11014a, new bw(dc.this.f11014a, i10, false).a(ck.f10909e), ck.f10909e, true);
-                        df.a(dc.this.f11014a).a(df.bl, currentTimeMillis);
+                    if (currentTimeMillis - a2 >= r1.b(de.C, 2) * 3600000) {
+                        try {
+                            String a3 = new cn(dc.this.f9276a).a(cj.f9195h);
+                            int intValue = Integer.valueOf(cj.f9195h).intValue();
+                            if (a3 != null && a3.length() > 10) {
+                                new bb(dc.this.f9276a, a3, intValue).a(Constants.DEFAULT_UIN);
+                            }
+                        } catch (Throwable unused) {
+                        }
+                        de.a(dc.this.f9276a).a(de.bf, currentTimeMillis);
                     }
                 }
-            } catch (Throwable unused) {
+            } catch (Throwable unused2) {
             }
         }
     }
 
     private dc(Context context) {
-        this.f11014a = context;
+        this.f9276a = context;
     }
 
     public static dc a(Context context) {
-        if (f11013b == null) {
+        if (f9275b == null) {
             synchronized (dc.class) {
-                try {
-                    if (f11013b == null) {
-                        f11013b = new dc(context);
-                    }
-                } finally {
+                if (f9275b == null) {
+                    f9275b = new dc(context);
                 }
             }
         }
-        return f11013b;
+        return f9275b;
     }
 
-    public void a(int i10) {
+    public void a() {
         n.a().a(new Runnable() { // from class: com.kuaishou.weapon.p0.dc.1
-
-            /* renamed from: a */
-            final /* synthetic */ int f11015a;
-
-            public AnonymousClass1(int i102) {
-                i10 = i102;
+            AnonymousClass1() {
             }
 
             @Override // java.lang.Runnable
             public void run() {
                 try {
-                    h a10 = h.a(dc.this.f11014a, "re_po_rt");
-                    if (a10.b(df.ap, 1) == 1) {
-                        long a11 = df.a(dc.this.f11014a).a(df.bl);
+                    if (h.a(dc.this.f9276a, "re_po_rt").b(de.z, 0) == 1) {
+                        long a2 = de.a(dc.this.f9276a).a(de.bf);
                         long currentTimeMillis = System.currentTimeMillis();
-                        int b10 = a10.b(df.as, 0);
-                        long j10 = currentTimeMillis - a11;
-                        if (j10 >= a10.b(df.ar, 6) * 3600000 || (i10 == 100 && b10 == 1 && j10 >= 14400000)) {
-                            cg.a(dc.this.f11014a, new bw(dc.this.f11014a, i10, false).a(ck.f10909e), ck.f10909e, true);
-                            df.a(dc.this.f11014a).a(df.bl, currentTimeMillis);
+                        if (currentTimeMillis - a2 >= r1.b(de.C, 2) * 3600000) {
+                            try {
+                                String a3 = new cn(dc.this.f9276a).a(cj.f9195h);
+                                int intValue = Integer.valueOf(cj.f9195h).intValue();
+                                if (a3 != null && a3.length() > 10) {
+                                    new bb(dc.this.f9276a, a3, intValue).a(Constants.DEFAULT_UIN);
+                                }
+                            } catch (Throwable unused) {
+                            }
+                            de.a(dc.this.f9276a).a(de.bf, currentTimeMillis);
                         }
                     }
-                } catch (Throwable unused) {
+                } catch (Throwable unused2) {
                 }
             }
         });

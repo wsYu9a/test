@@ -6,39 +6,39 @@ import com.tencent.bugly.proguard.P;
 public class a implements P {
 
     /* renamed from: a */
-    public final int f22142a;
+    public final int f24641a;
 
     /* renamed from: b */
-    public final int f22143b;
+    public final int f24642b;
 
     /* renamed from: c */
-    public final Object[] f22144c;
+    public final Object[] f24643c;
 
     /* renamed from: d */
-    public boolean f22145d = false;
+    public boolean f24644d = false;
 
-    public a(int i10, int i11, Object... objArr) {
-        this.f22142a = i10;
-        this.f22143b = i11;
-        this.f22144c = objArr;
+    public a(int i2, int i3, Object... objArr) {
+        this.f24641a = i2;
+        this.f24642b = i3;
+        this.f24643c = objArr;
     }
 
     @Override // com.tencent.bugly.proguard.P
-    public void a(int i10) {
+    public void a(int i2) {
     }
 
-    /* JADX WARN: Removed duplicated region for block: B:52:0x00de  */
-    /* JADX WARN: Removed duplicated region for block: B:55:0x00e9 A[Catch: all -> 0x0014, Exception -> 0x0068, Merged into TryCatch #0 {all -> 0x0014, Exception -> 0x0068, blocks: (B:4:0x0005, B:6:0x0009, B:11:0x0019, B:15:0x016a, B:17:0x003b, B:20:0x0049, B:25:0x0054, B:27:0x0060, B:28:0x006b, B:30:0x0075, B:31:0x007c, B:33:0x0082, B:37:0x0093, B:45:0x00b4, B:47:0x00b9, B:49:0x00c7, B:50:0x00d1, B:55:0x00e9, B:61:0x00f4, B:62:0x00fb, B:65:0x0100, B:67:0x0109, B:70:0x0122, B:71:0x0131, B:74:0x0138, B:76:0x013d, B:78:0x0143, B:81:0x015c, B:83:0x00e2, B:94:0x016d, B:96:0x0173), top: B:3:0x0005 }, TRY_LEAVE] */
-    /* JADX WARN: Removed duplicated region for block: B:76:0x013d A[Catch: all -> 0x0014, Exception -> 0x0068, Merged into TryCatch #0 {all -> 0x0014, Exception -> 0x0068, blocks: (B:4:0x0005, B:6:0x0009, B:11:0x0019, B:15:0x016a, B:17:0x003b, B:20:0x0049, B:25:0x0054, B:27:0x0060, B:28:0x006b, B:30:0x0075, B:31:0x007c, B:33:0x0082, B:37:0x0093, B:45:0x00b4, B:47:0x00b9, B:49:0x00c7, B:50:0x00d1, B:55:0x00e9, B:61:0x00f4, B:62:0x00fb, B:65:0x0100, B:67:0x0109, B:70:0x0122, B:71:0x0131, B:74:0x0138, B:76:0x013d, B:78:0x0143, B:81:0x015c, B:83:0x00e2, B:94:0x016d, B:96:0x0173), top: B:3:0x0005 }] */
-    /* JADX WARN: Removed duplicated region for block: B:82:0x00e0  */
+    /* JADX WARN: Removed duplicated region for block: B:56:0x00d7  */
+    /* JADX WARN: Removed duplicated region for block: B:59:0x00e2 A[Catch: all -> 0x0174, Exception -> 0x0176, TRY_LEAVE, TryCatch #1 {Exception -> 0x0176, blocks: (B:4:0x0003, B:6:0x0007, B:11:0x000f, B:15:0x0019, B:19:0x0171, B:21:0x003b, B:24:0x0049, B:29:0x0054, B:31:0x0060, B:32:0x0067, B:34:0x0071, B:35:0x0078, B:37:0x007e, B:41:0x008f, B:49:0x00b0, B:51:0x00b5, B:53:0x00c3, B:54:0x00ca, B:59:0x00e2, B:65:0x00ed, B:66:0x00f4, B:69:0x00f9, B:71:0x0102, B:74:0x011f, B:75:0x012e, B:78:0x0133, B:79:0x0140, B:81:0x0146, B:84:0x0163, B:86:0x00db), top: B:3:0x0003, outer: #0 }] */
+    /* JADX WARN: Removed duplicated region for block: B:79:0x0140 A[Catch: all -> 0x0174, Exception -> 0x0176, TryCatch #1 {Exception -> 0x0176, blocks: (B:4:0x0003, B:6:0x0007, B:11:0x000f, B:15:0x0019, B:19:0x0171, B:21:0x003b, B:24:0x0049, B:29:0x0054, B:31:0x0060, B:32:0x0067, B:34:0x0071, B:35:0x0078, B:37:0x007e, B:41:0x008f, B:49:0x00b0, B:51:0x00b5, B:53:0x00c3, B:54:0x00ca, B:59:0x00e2, B:65:0x00ed, B:66:0x00f4, B:69:0x00f9, B:71:0x0102, B:74:0x011f, B:75:0x012e, B:78:0x0133, B:79:0x0140, B:81:0x0146, B:84:0x0163, B:86:0x00db), top: B:3:0x0003, outer: #0 }] */
+    /* JADX WARN: Removed duplicated region for block: B:85:0x00d9  */
     @Override // com.tencent.bugly.proguard.P
     /*
         Code decompiled incorrectly, please refer to instructions dump.
         To view partially-correct code enable 'Show inconsistent code' option in preferences
     */
-    public synchronized void a(int r8, com.tencent.bugly.proguard.qa r9, long r10, long r12, boolean r14, java.lang.String r15) {
+    public synchronized void a(int r13, com.tencent.bugly.proguard.qa r14, long r15, long r17, boolean r19, java.lang.String r20) {
         /*
-            Method dump skipped, instructions count: 378
+            Method dump skipped, instructions count: 388
             To view this dump change 'Code comments level' option to 'DEBUG'
         */
         throw new UnsupportedOperationException("Method not decompiled: com.tencent.bugly.beta.upgrade.a.a(int, com.tencent.bugly.proguard.qa, long, long, boolean, java.lang.String):void");

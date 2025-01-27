@@ -1,91 +1,42 @@
 package com.kwad.sdk.utils;
 
-import android.os.Build;
-import android.text.TextUtils;
-import com.martian.ads.ad.AdConfig;
+import android.annotation.SuppressLint;
+import android.content.Context;
+import android.content.pm.PackageInfo;
+import android.content.pm.PackageManager;
+import android.content.pm.Signature;
+import androidx.annotation.Nullable;
 
-/* loaded from: classes3.dex */
+/* loaded from: classes2.dex */
 public final class ay {
-    private static String aUm;
-    private static String aUn;
+    private static String TAG = "plugin.signature";
 
-    public static boolean NX() {
-        return gW("EMUI");
-    }
-
-    public static boolean NY() {
-        return gW("MIUI");
-    }
-
-    public static boolean NZ() {
-        return gW("FLYME");
-    }
-
-    private static boolean gW(String str) {
-        String str2 = aUm;
-        if (str2 != null) {
-            return str2.contains(str);
-        }
-        String str3 = bn.get("ro.build.version.opporom");
-        aUn = str3;
-        if (TextUtils.isEmpty(str3)) {
-            String str4 = bn.get("ro.vivo.os.version");
-            aUn = str4;
-            if (TextUtils.isEmpty(str4)) {
-                String str5 = bn.get("ro.build.version.emui");
-                aUn = str5;
-                if (TextUtils.isEmpty(str5)) {
-                    String str6 = bn.get("ro.miui.ui.version.name");
-                    aUn = str6;
-                    if (TextUtils.isEmpty(str6)) {
-                        String str7 = bn.get("ro.product.system.manufacturer");
-                        aUn = str7;
-                        if (TextUtils.isEmpty(str7)) {
-                            String str8 = bn.get("ro.smartisan.version");
-                            aUn = str8;
-                            if (!TextUtils.isEmpty(str8)) {
-                                aUm = "SMARTISAN";
-                            } else if (bn.get("ro.product.manufacturer").toUpperCase().contains("SAMSUNG")) {
-                                aUm = "SAMSUNG";
-                            } else {
-                                String str9 = Build.DISPLAY;
-                                aUn = str9;
-                                if (str9.toUpperCase().contains("FLYME")) {
-                                    aUm = "FLYME";
-                                } else {
-                                    aUn = "unknown";
-                                    aUm = Build.MANUFACTURER.toUpperCase();
-                                }
-                            }
-                        } else {
-                            aUm = ke.e.f27808f;
-                        }
-                    } else {
-                        aUm = "MIUI";
-                    }
-                } else {
-                    aUm = "EMUI";
-                }
-            } else {
-                aUm = AdConfig.UnionType.VIVO;
+    @Nullable
+    @SuppressLint({"PackageManagerGetSignatures"})
+    private static Signature[] cM(Context context) {
+        try {
+            PackageInfo packageInfo = context.getPackageManager().getPackageInfo(context.getPackageName(), 64);
+            if (packageInfo != null) {
+                return packageInfo.signatures;
             }
-        } else {
-            aUm = "OPPO";
+            return null;
+        } catch (PackageManager.NameNotFoundException e2) {
+            com.kwad.sdk.core.d.b.w(TAG, "Can not get signature, error = " + e2.getLocalizedMessage());
+            com.kwad.sdk.core.d.b.w(TAG, e2);
+            return null;
         }
-        return aUm.contains(str);
     }
 
-    public static String getName() {
-        if (aUm == null) {
-            gW("");
+    public static String cN(Context context) {
+        try {
+            Signature[] cM = cM(context);
+            if (cM != null && cM.length > 0) {
+                return ad.l(cM[0].toByteArray());
+            }
+            return "";
+        } catch (Exception e2) {
+            com.kwad.sdk.core.d.b.w(TAG, e2);
+            return "";
         }
-        return aUm;
-    }
-
-    public static String getVersion() {
-        if (aUn == null) {
-            gW("");
-        }
-        return aUn;
     }
 }

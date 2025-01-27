@@ -4,6 +4,7 @@ import android.annotation.SuppressLint;
 import android.annotation.TargetApi;
 import android.app.Activity;
 import android.app.Fragment;
+import android.os.Build;
 import android.util.Log;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -13,10 +14,9 @@ import com.bumptech.glide.RequestManager;
 import java.util.Collections;
 import java.util.HashSet;
 import java.util.Set;
-import p3.f;
 
 @Deprecated
-/* loaded from: classes2.dex */
+/* loaded from: classes.dex */
 public class RequestManagerFragment extends Fragment {
     private static final String TAG = "RMFragment";
     private final Set<RequestManagerFragment> childRequestManagerFragments;
@@ -32,8 +32,8 @@ public class RequestManagerFragment extends Fragment {
     @Nullable
     private RequestManagerFragment rootRequestManagerFragment;
 
-    public class FragmentRequestManagerTreeNode implements RequestManagerTreeNode {
-        public FragmentRequestManagerTreeNode() {
+    private class FragmentRequestManagerTreeNode implements RequestManagerTreeNode {
+        FragmentRequestManagerTreeNode() {
         }
 
         @Override // com.bumptech.glide.manager.RequestManagerTreeNode
@@ -50,7 +50,7 @@ public class RequestManagerFragment extends Fragment {
         }
 
         public String toString() {
-            return super.toString() + "{fragment=" + RequestManagerFragment.this + f.f29748d;
+            return super.toString() + "{fragment=" + RequestManagerFragment.this + "}";
         }
     }
 
@@ -65,7 +65,7 @@ public class RequestManagerFragment extends Fragment {
     @Nullable
     @TargetApi(17)
     private Fragment getParentFragmentUsingHint() {
-        Fragment parentFragment = getParentFragment();
+        Fragment parentFragment = Build.VERSION.SDK_INT >= 17 ? getParentFragment() : null;
         return parentFragment != null ? parentFragment : this.parentFragmentHint;
     }
 
@@ -108,11 +108,11 @@ public class RequestManagerFragment extends Fragment {
 
     @NonNull
     @TargetApi(17)
-    public Set<RequestManagerFragment> getDescendantRequestManagerFragments() {
+    Set<RequestManagerFragment> getDescendantRequestManagerFragments() {
         if (equals(this.rootRequestManagerFragment)) {
             return Collections.unmodifiableSet(this.childRequestManagerFragments);
         }
-        if (this.rootRequestManagerFragment == null) {
+        if (this.rootRequestManagerFragment == null || Build.VERSION.SDK_INT < 17) {
             return Collections.emptySet();
         }
         HashSet hashSet = new HashSet();
@@ -125,7 +125,7 @@ public class RequestManagerFragment extends Fragment {
     }
 
     @NonNull
-    public ActivityFragmentLifecycle getGlideLifecycle() {
+    ActivityFragmentLifecycle getGlideLifecycle() {
         return this.lifecycle;
     }
 
@@ -144,9 +144,9 @@ public class RequestManagerFragment extends Fragment {
         super.onAttach(activity);
         try {
             registerFragmentWithRoot(activity);
-        } catch (IllegalStateException e10) {
+        } catch (IllegalStateException e2) {
             if (Log.isLoggable(TAG, 5)) {
-                Log.w(TAG, "Unable to register fragment with root", e10);
+                Log.w(TAG, "Unable to register fragment with root", e2);
             }
         }
     }
@@ -176,7 +176,7 @@ public class RequestManagerFragment extends Fragment {
         this.lifecycle.onStop();
     }
 
-    public void setParentFragmentHint(@Nullable Fragment fragment) {
+    void setParentFragmentHint(@Nullable Fragment fragment) {
         this.parentFragmentHint = fragment;
         if (fragment == null || fragment.getActivity() == null) {
             return;
@@ -190,12 +190,12 @@ public class RequestManagerFragment extends Fragment {
 
     @Override // android.app.Fragment
     public String toString() {
-        return super.toString() + "{parent=" + getParentFragmentUsingHint() + f.f29748d;
+        return super.toString() + "{parent=" + getParentFragmentUsingHint() + "}";
     }
 
     @SuppressLint({"ValidFragment"})
     @VisibleForTesting
-    public RequestManagerFragment(@NonNull ActivityFragmentLifecycle activityFragmentLifecycle) {
+    RequestManagerFragment(@NonNull ActivityFragmentLifecycle activityFragmentLifecycle) {
         this.requestManagerTreeNode = new FragmentRequestManagerTreeNode();
         this.childRequestManagerFragments = new HashSet();
         this.lifecycle = activityFragmentLifecycle;

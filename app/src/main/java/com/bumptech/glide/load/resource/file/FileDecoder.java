@@ -6,7 +6,7 @@ import com.bumptech.glide.load.ResourceDecoder;
 import com.bumptech.glide.load.engine.Resource;
 import java.io.File;
 
-/* loaded from: classes2.dex */
+/* loaded from: classes.dex */
 public class FileDecoder implements ResourceDecoder<File, File> {
     @Override // com.bumptech.glide.load.ResourceDecoder
     public boolean handles(@NonNull File file, @NonNull Options options) {
@@ -14,7 +14,7 @@ public class FileDecoder implements ResourceDecoder<File, File> {
     }
 
     @Override // com.bumptech.glide.load.ResourceDecoder
-    public Resource<File> decode(@NonNull File file, int i10, int i11, @NonNull Options options) {
+    public Resource<File> decode(@NonNull File file, int i2, int i3, @NonNull Options options) {
         return new FileResource(file);
     }
 }

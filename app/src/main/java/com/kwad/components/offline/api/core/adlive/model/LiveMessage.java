@@ -2,11 +2,11 @@ package com.kwad.components.offline.api.core.adlive.model;
 
 import com.kwad.components.offline.api.core.model.BaseOfflineCompoJsonParse;
 import com.kwad.components.offline.api.core.utils.LiveStringUtil;
-import com.kwad.sdk.utils.x;
+import com.kwad.sdk.utils.t;
 import java.io.Serializable;
 import org.json.JSONObject;
 
-/* loaded from: classes3.dex */
+/* loaded from: classes2.dex */
 public class LiveMessage extends BaseOfflineCompoJsonParse<LiveMessage> implements Serializable {
     private static final long serialVersionUID = 2264410572624564928L;
     public String content;
@@ -23,16 +23,19 @@ public class LiveMessage extends BaseOfflineCompoJsonParse<LiveMessage> implemen
             return;
         }
         liveMessage.userName = jSONObject.optString("userName");
-        Object opt = jSONObject.opt("userName");
-        Object obj = JSONObject.NULL;
-        if (opt == obj) {
+        if (jSONObject.opt("userName") == JSONObject.NULL) {
             liveMessage.userName = "";
         }
         liveMessage.content = jSONObject.optString("content");
-        if (jSONObject.opt("content") == obj) {
+        if (jSONObject.opt("content") == JSONObject.NULL) {
             liveMessage.content = "";
         }
         liveMessage.mSortRank = jSONObject.optInt("sortRank");
+    }
+
+    @Override // com.kwad.components.offline.api.core.model.BaseOfflineCompoJsonParse
+    public JSONObject toJson(LiveMessage liveMessage) {
+        return toJson(liveMessage, (JSONObject) null);
     }
 
     @Override // com.kwad.components.offline.api.core.model.BaseOfflineCompoJsonParse
@@ -42,21 +45,16 @@ public class LiveMessage extends BaseOfflineCompoJsonParse<LiveMessage> implemen
         }
         String str = liveMessage.userName;
         if (str != null && !str.equals("")) {
-            x.putValue(jSONObject, "userName", liveMessage.userName);
+            t.putValue(jSONObject, "userName", liveMessage.userName);
         }
         String str2 = liveMessage.content;
         if (str2 != null && !str2.equals("")) {
-            x.putValue(jSONObject, "content", liveMessage.content);
+            t.putValue(jSONObject, "content", liveMessage.content);
         }
-        long j10 = liveMessage.mSortRank;
-        if (j10 != 0) {
-            x.putValue(jSONObject, "sortRank", j10);
+        long j2 = liveMessage.mSortRank;
+        if (j2 != 0) {
+            t.putValue(jSONObject, "sortRank", j2);
         }
         return jSONObject;
-    }
-
-    @Override // com.kwad.components.offline.api.core.model.BaseOfflineCompoJsonParse
-    public JSONObject toJson(LiveMessage liveMessage) {
-        return toJson(liveMessage, (JSONObject) null);
     }
 }

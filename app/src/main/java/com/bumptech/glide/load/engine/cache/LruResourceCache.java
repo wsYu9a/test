@@ -8,12 +8,12 @@ import com.bumptech.glide.load.engine.Resource;
 import com.bumptech.glide.load.engine.cache.MemoryCache;
 import com.bumptech.glide.util.LruCache;
 
-/* loaded from: classes2.dex */
+/* loaded from: classes.dex */
 public class LruResourceCache extends LruCache<Key, Resource<?>> implements MemoryCache {
     private MemoryCache.ResourceRemovedListener listener;
 
-    public LruResourceCache(long j10) {
-        super(j10);
+    public LruResourceCache(long j2) {
+        super(j2);
     }
 
     @Override // com.bumptech.glide.load.engine.cache.MemoryCache
@@ -35,10 +35,10 @@ public class LruResourceCache extends LruCache<Key, Resource<?>> implements Memo
 
     @Override // com.bumptech.glide.load.engine.cache.MemoryCache
     @SuppressLint({"InlinedApi"})
-    public void trimMemory(int i10) {
-        if (i10 >= 40) {
+    public void trimMemory(int i2) {
+        if (i2 >= 40) {
             clearMemory();
-        } else if (i10 >= 20 || i10 == 15) {
+        } else if (i2 >= 20 || i2 == 15) {
             trimToSize(getMaxSize() / 2);
         }
     }

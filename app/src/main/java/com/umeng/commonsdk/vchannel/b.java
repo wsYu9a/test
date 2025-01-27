@@ -10,56 +10,56 @@ import org.json.JSONObject;
 public class b {
 
     /* renamed from: b */
-    private String f24881b;
+    private String f26515b;
 
     /* renamed from: a */
-    private String f24880a = "_$unknown";
+    private String f26514a = "_$unknown";
 
     /* renamed from: c */
-    private long f24882c = 0;
+    private long f26516c = 0;
 
     /* renamed from: d */
-    private long f24883d = 0;
+    private long f26517d = 0;
 
     /* renamed from: e */
-    private String f24884e = a.f24879j;
+    private String f26518e = a.f26513j;
 
     /* renamed from: f */
-    private Map<String, Object> f24885f = null;
+    private Map<String, Object> f26519f = null;
 
     public b(Context context) {
-        this.f24881b = UMGlobalContext.getInstance(context).getProcessName(context);
+        this.f26515b = UMGlobalContext.getInstance(context).getProcessName(context);
     }
 
     public String a() {
-        return this.f24880a;
+        return this.f26514a;
     }
 
     public long b() {
-        return this.f24882c;
+        return this.f26516c;
     }
 
     public Map<String, Object> c() {
-        return this.f24885f;
+        return this.f26519f;
     }
 
     public JSONObject d() {
         try {
             JSONObject jSONObject = new JSONObject();
-            jSONObject.put("id", this.f24880a);
-            jSONObject.put("pn", this.f24881b);
-            jSONObject.put("ds", this.f24883d);
-            jSONObject.put("ts", this.f24882c);
-            Map<String, Object> map = this.f24885f;
+            jSONObject.put("id", this.f26514a);
+            jSONObject.put("pn", this.f26515b);
+            jSONObject.put("ds", this.f26517d);
+            jSONObject.put("ts", this.f26516c);
+            Map<String, Object> map = this.f26519f;
             if (map != null && map.size() > 0) {
-                for (String str : this.f24885f.keySet()) {
-                    jSONObject.put(str, this.f24885f.get(str));
+                for (String str : this.f26519f.keySet()) {
+                    jSONObject.put(str, this.f26519f.get(str));
                 }
             }
             JSONArray jSONArray = new JSONArray();
             jSONArray.put(jSONObject);
             JSONObject jSONObject2 = new JSONObject();
-            jSONObject2.put(this.f24884e, jSONArray);
+            jSONObject2.put(this.f26518e, jSONArray);
             JSONArray jSONArray2 = new JSONArray();
             jSONArray2.put(jSONObject2);
             JSONObject jSONObject3 = new JSONObject();
@@ -71,30 +71,30 @@ public class b {
     }
 
     public String toString() {
-        StringBuilder sb2 = new StringBuilder("[");
-        sb2.append("id:" + this.f24880a + ",");
-        sb2.append("pn:" + this.f24881b + ",");
-        sb2.append("ts:" + this.f24882c + ",");
-        Map<String, Object> map = this.f24885f;
+        StringBuilder sb = new StringBuilder("[");
+        sb.append("id:" + this.f26514a + ",");
+        sb.append("pn:" + this.f26515b + ",");
+        sb.append("ts:" + this.f26516c + ",");
+        Map<String, Object> map = this.f26519f;
         if (map != null && map.size() > 0) {
-            for (String str : this.f24885f.keySet()) {
-                Object obj = this.f24885f.get(str);
-                sb2.append(obj == null ? str + ": null," : str + ": " + obj.toString() + ",");
+            for (String str : this.f26519f.keySet()) {
+                Object obj = this.f26519f.get(str);
+                sb.append(obj == null ? str + ": null," : str + ": " + obj.toString() + ",");
             }
         }
-        sb2.append("ds:" + this.f24883d + "]");
-        return sb2.toString();
+        sb.append("ds:" + this.f26517d + "]");
+        return sb.toString();
     }
 
     public void a(String str) {
-        this.f24880a = str;
+        this.f26514a = str;
     }
 
-    public void a(long j10) {
-        this.f24882c = j10;
+    public void a(long j2) {
+        this.f26516c = j2;
     }
 
     public void a(Map<String, Object> map) {
-        this.f24885f = map;
+        this.f26519f = map;
     }
 }

@@ -10,8 +10,8 @@ public class TinkerApplicationLike extends DefaultApplicationLike {
     public static final String TAG = "Tinker.TinkerApplicationLike";
     private static ApplicationLike tinkerPatchApplicationLike;
 
-    public TinkerApplicationLike(Application application, int i10, boolean z10, long j10, long j11, Intent intent) {
-        super(application, i10, z10, j10, j11, intent);
+    public TinkerApplicationLike(Application application, int i2, boolean z, long j2, long j3, Intent intent) {
+        super(application, i2, z, j2, j3, intent);
         setTinkerPatchApplicationLike(this);
     }
 

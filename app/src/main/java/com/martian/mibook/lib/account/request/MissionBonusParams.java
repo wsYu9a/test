@@ -8,7 +8,7 @@ public class MissionBonusParams extends MTHttpGetParams {
         super(new TYUrlProvider());
     }
 
-    @Override // u8.b
+    @Override // com.martian.libcomm.http.requests.b
     public String getRequestMethod() {
         return "authopt/mission_bonus";
     }

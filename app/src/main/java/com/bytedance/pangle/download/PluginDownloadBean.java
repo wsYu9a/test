@@ -4,7 +4,7 @@ import androidx.annotation.Keep;
 import java.util.List;
 
 @Keep
-/* loaded from: classes2.dex */
+/* loaded from: classes.dex */
 public class PluginDownloadBean {
     public List<String> mBackupUrlList;
     public int mFlag;

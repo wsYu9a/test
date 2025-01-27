@@ -4,160 +4,132 @@ import android.content.Context;
 import android.hardware.Sensor;
 import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
+import android.hardware.SensorManager;
 import androidx.annotation.Nullable;
 import com.kwad.sdk.components.DevelopMangerComponents;
-import com.kwad.sdk.utils.bf;
+import com.umeng.analytics.pro.am;
 import java.util.Random;
 
-/* loaded from: classes3.dex */
+/* loaded from: classes2.dex */
 public final class d {
-    private static float aEy = 9.81f;
-    private static double aEz = 0.01d;
+    private volatile boolean alV = true;
+    private float amd;
 
     @Nullable
-    private b aEA;
+    private b ame;
 
     @Nullable
-    private a aEB;
-    private volatile boolean aEo = true;
-    private final bf.b aEv = new bf.b() { // from class: com.kwad.sdk.core.f.d.1
-        public AnonymousClass1() {
-        }
+    private a amf;
 
-        @Override // com.kwad.sdk.utils.bf.b
-        public final void onFailed() {
-            if (d.this.aEA != null) {
-                d.this.aEA.bw();
-            }
-        }
-    };
-    private float aEx;
-
-    /* renamed from: com.kwad.sdk.core.f.d$1 */
-    public class AnonymousClass1 implements bf.b {
-        public AnonymousClass1() {
-        }
-
-        @Override // com.kwad.sdk.utils.bf.b
-        public final void onFailed() {
-            if (d.this.aEA != null) {
-                d.this.aEA.bw();
-            }
-        }
-    }
-
-    public class a implements SensorEventListener {
-        private Random aAE;
-        private boolean aEE;
-        private final float[] aED = {0.0f, 0.0f, 9.8f};
-        private final float[] aEF = {0.0f, 0.0f, 0.0f};
+    class a implements SensorEventListener {
+        private Random ahn;
+        private boolean amh;
+        private final float[] amg = {0.0f, 0.0f, 9.8f};
+        private final float[] ami = {0.0f, 0.0f, 0.0f};
 
         public a() {
-            this.aEE = false;
-            if (((DevelopMangerComponents) com.kwad.sdk.components.d.f(DevelopMangerComponents.class)) != null) {
-                this.aEE = false;
-            }
-        }
-
-        private void He() {
-            if (this.aAE == null) {
-                this.aAE = new Random();
-            }
-            if (this.aAE.nextInt(100) == 1) {
-                a(this.aED);
+            this.amh = false;
+            if (((DevelopMangerComponents) com.kwad.sdk.components.c.f(DevelopMangerComponents.class)) != null) {
+                this.amh = false;
             }
         }
 
         private void a(float[] fArr) {
-            c(fArr);
-            float f10 = fArr[0];
-            float f11 = fArr[1];
-            float f12 = fArr[2];
-            double abs = Math.abs(Math.sqrt((f10 * f10) + (f11 * f11) + (f12 * f12)));
-            if (b(fArr)) {
-                abs = Math.abs(abs - d.aEy);
-            }
-            if (!d.this.aEo || abs < d.this.aEx || d.this.aEA == null) {
+            b(fArr);
+            float f2 = fArr[0];
+            float f3 = fArr[1];
+            float f4 = fArr[2];
+            double sqrt = Math.sqrt((f2 * f2) + (f3 * f3) + (f4 * f4));
+            if (!d.this.alV || sqrt < d.this.amd || d.this.ame == null) {
                 return;
             }
             d.a(d.this, false);
-            d.this.aEA.a(abs);
+            d.this.ame.a(sqrt);
         }
 
-        private static boolean b(float[] fArr) {
-            float f10 = fArr[0];
-            float f11 = fArr[1];
-            float f12 = fArr[2];
-            return Math.abs(Math.abs(Math.sqrt((double) (((f10 * f10) + (f11 * f11)) + (f12 * f12)))) - ((double) d.aEy)) <= d.aEz;
-        }
-
-        private void c(float[] fArr) {
-            float[] fArr2 = this.aEF;
-            float f10 = fArr2[0];
-            float f11 = (f10 == 0.0f && fArr2[1] == 0.0f && fArr2[2] == 0.0f) ? 1.0f : 0.6f;
-            float f12 = 1.0f - f11;
-            fArr[0] = (fArr[0] * f11) + (f10 * f12);
-            fArr[1] = (fArr[1] * f11) + (fArr2[1] * f12);
-            fArr[2] = (f11 * fArr[2]) + (f12 * fArr2[2]);
+        private void b(float[] fArr) {
+            float f2 = fArr[0] * 0.6f;
+            float[] fArr2 = this.ami;
+            fArr[0] = f2 + (fArr2[0] * 0.39999998f);
+            fArr[1] = (fArr[1] * 0.6f) + (fArr2[1] * 0.39999998f);
+            fArr[2] = (fArr[2] * 0.6f) + (fArr2[2] * 0.39999998f);
             System.arraycopy(fArr, 0, fArr2, 0, 3);
         }
 
+        private void xH() {
+            if (this.ahn == null) {
+                this.ahn = new Random();
+            }
+            if (this.ahn.nextInt(100) == 1) {
+                a(this.amg);
+            }
+        }
+
         @Override // android.hardware.SensorEventListener
-        public final void onAccuracyChanged(Sensor sensor, int i10) {
+        public final void onAccuracyChanged(Sensor sensor, int i2) {
         }
 
         @Override // android.hardware.SensorEventListener
         public final void onSensorChanged(SensorEvent sensorEvent) {
             a(sensorEvent.values);
-            if (this.aEE) {
-                He();
+            if (this.amh) {
+                xH();
             }
         }
     }
 
-    public d(float f10) {
-        if (f10 <= 0.0f) {
-            this.aEx = 5.0f;
+    public d(float f2) {
+        if (f2 <= 0.0f) {
+            this.amd = 5.0f;
         } else {
-            this.aEx = f10;
+            this.amd = f2;
         }
     }
 
-    public final synchronized void Hb() {
-        this.aEo = true;
-    }
-
-    public final synchronized void bA(Context context) {
-        if (context != null) {
-            if (this.aEB != null) {
-                bf.Ox().a(this.aEB);
-                this.aEB = null;
-            }
-        }
-    }
-
-    public final void bz(Context context) {
-        if (context == null) {
-            com.kwad.sdk.core.d.c.d("ShakeDetector", "startDetect context is null");
-            return;
-        }
-        this.aEo = true;
-        if (this.aEB == null) {
-            this.aEB = new a();
-        }
-        bf.Ox().a(1, 2, this.aEB, this.aEv);
-    }
-
-    public final void g(float f10) {
-        this.aEx = f10;
-    }
-
-    public static /* synthetic */ boolean a(d dVar, boolean z10) {
-        dVar.aEo = false;
+    static /* synthetic */ boolean a(d dVar, boolean z) {
+        dVar.alV = false;
         return false;
     }
 
     public final void a(@Nullable b bVar) {
-        this.aEA = bVar;
+        this.ame = bVar;
+    }
+
+    public final void aX(Context context) {
+        if (context == null) {
+            com.kwad.sdk.core.d.b.d("ShakeDetector", "startDetect context is null");
+            return;
+        }
+        SensorManager sensorManager = (SensorManager) context.getSystemService(am.ac);
+        Sensor defaultSensor = sensorManager.getDefaultSensor(10);
+        if (defaultSensor != null) {
+            if (this.amf == null) {
+                this.amf = new a();
+            }
+            sensorManager.registerListener(this.amf, defaultSensor, 2);
+        } else {
+            b bVar = this.ame;
+            if (bVar != null) {
+                bVar.bd();
+            }
+            com.kwad.sdk.core.d.b.d("ShakeDetector", "startDetect default linear acceleration is null");
+        }
+    }
+
+    public final synchronized void aY(Context context) {
+        if (context != null) {
+            if (this.amf != null) {
+                ((SensorManager) context.getSystemService(am.ac)).unregisterListener(this.amf);
+                this.amf = null;
+            }
+        }
+    }
+
+    public final void e(float f2) {
+        this.amd = f2;
+    }
+
+    public final synchronized void xD() {
+        this.alV = true;
     }
 }

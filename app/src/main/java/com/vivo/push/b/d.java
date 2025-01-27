@@ -4,22 +4,22 @@ package com.vivo.push.b;
 public final class d extends com.vivo.push.o {
 
     /* renamed from: a */
-    private boolean f24927a;
+    private boolean f30900a;
 
     @Override // com.vivo.push.o
-    public final void c(com.vivo.push.a aVar) {
+    protected final void c(com.vivo.push.a aVar) {
     }
 
     @Override // com.vivo.push.o
-    public final void d(com.vivo.push.a aVar) {
+    protected final void d(com.vivo.push.a aVar) {
+    }
+
+    public final boolean d() {
+        return this.f30900a;
     }
 
     @Override // com.vivo.push.o
     public final String toString() {
         return "ChangeNetPromissCommand";
-    }
-
-    public final boolean d() {
-        return this.f24927a;
     }
 }

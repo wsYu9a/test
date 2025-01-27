@@ -2,69 +2,50 @@ package com.tencent.bugly;
 
 import java.util.Map;
 
-/* loaded from: classes4.dex */
+/* loaded from: classes.dex */
 public class BuglyStrategy {
 
     /* renamed from: a */
-    private String f22038a;
+    private String f24571a;
 
     /* renamed from: b */
-    private String f22039b;
+    private String f24572b;
 
     /* renamed from: c */
-    private String f22040c;
+    private String f24573c;
 
     /* renamed from: d */
-    private long f22041d;
+    private long f24574d;
 
     /* renamed from: e */
-    private String f22042e;
+    private String f24575e;
 
     /* renamed from: f */
-    private String f22043f;
-
-    /* renamed from: q */
-    private a f22054q;
+    private String f24576f;
+    private a q;
 
     /* renamed from: g */
-    private boolean f22044g = true;
+    private boolean f24577g = true;
 
     /* renamed from: h */
-    private boolean f22045h = true;
+    private boolean f24578h = true;
 
     /* renamed from: i */
-    private boolean f22046i = false;
+    private boolean f24579i = false;
 
     /* renamed from: j */
-    private boolean f22047j = true;
+    private boolean f24580j = true;
+    private Class<?> k = null;
+    private boolean l = true;
+    private boolean m = true;
+    private boolean n = true;
+    private boolean o = true;
+    private boolean p = false;
+    protected int r = 31;
+    protected boolean s = false;
+    private boolean t = true;
 
-    /* renamed from: k */
-    private Class<?> f22048k = null;
-
-    /* renamed from: l */
-    private boolean f22049l = true;
-
-    /* renamed from: m */
-    private boolean f22050m = true;
-
-    /* renamed from: n */
-    private boolean f22051n = true;
-
-    /* renamed from: o */
-    private boolean f22052o = true;
-
-    /* renamed from: p */
-    private boolean f22053p = false;
-
-    /* renamed from: r */
-    protected int f22055r = 31;
-
-    /* renamed from: s */
-    protected boolean f22056s = false;
-
-    /* renamed from: t */
-    private boolean f22057t = true;
-
+    /* loaded from: classes4.dex */
     public static class a {
         public static final int CRASHTYPE_ANR = 4;
         public static final int CRASHTYPE_BLOCK = 7;
@@ -77,18 +58,18 @@ public class BuglyStrategy {
         public static final int MAX_USERDATA_KEY_LENGTH = 100;
         public static final int MAX_USERDATA_VALUE_LENGTH = 100000;
 
-        public synchronized Map<String, String> onCrashHandleStart(int i10, String str, String str2, String str3) {
+        public synchronized Map<String, String> onCrashHandleStart(int i2, String str, String str2, String str3) {
             return null;
         }
 
-        public synchronized byte[] onCrashHandleStart2GetExtraDatas(int i10, String str, String str2, String str3) {
+        public synchronized byte[] onCrashHandleStart2GetExtraDatas(int i2, String str, String str2, String str3) {
             return null;
         }
     }
 
     public synchronized String getAppChannel() {
         String str;
-        str = this.f22039b;
+        str = this.f24572b;
         if (str == null) {
             str = com.tencent.bugly.crashreport.common.info.a.m().I;
         }
@@ -97,20 +78,20 @@ public class BuglyStrategy {
 
     public synchronized String getAppPackageName() {
         String str;
-        str = this.f22040c;
+        str = this.f24573c;
         if (str == null) {
-            str = com.tencent.bugly.crashreport.common.info.a.m().f22294g;
+            str = com.tencent.bugly.crashreport.common.info.a.m().f24754g;
         }
         return str;
     }
 
     public synchronized long getAppReportDelay() {
-        return this.f22041d;
+        return this.f24574d;
     }
 
     public synchronized String getAppVersion() {
         String str;
-        str = this.f22038a;
+        str = this.f24571a;
         if (str == null) {
             str = com.tencent.bugly.crashreport.common.info.a.m().E;
         }
@@ -118,160 +99,160 @@ public class BuglyStrategy {
     }
 
     public synchronized int getCallBackType() {
-        return this.f22055r;
+        return this.r;
     }
 
     public synchronized boolean getCloseErrorCallback() {
-        return this.f22056s;
+        return this.s;
     }
 
     public synchronized a getCrashHandleCallback() {
-        return this.f22054q;
+        return this.q;
     }
 
     public synchronized String getDeviceID() {
-        return this.f22043f;
+        return this.f24576f;
     }
 
     public synchronized String getLibBuglySOFilePath() {
-        return this.f22042e;
+        return this.f24575e;
     }
 
     public synchronized Class<?> getUserInfoActivity() {
-        return this.f22048k;
+        return this.k;
     }
 
     public synchronized boolean isBuglyLogUpload() {
-        return this.f22049l;
+        return this.l;
     }
 
     public synchronized boolean isEnableANRCrashMonitor() {
-        return this.f22045h;
+        return this.f24578h;
     }
 
     public synchronized boolean isEnableCatchAnrTrace() {
-        return this.f22046i;
+        return this.f24579i;
     }
 
     public synchronized boolean isEnableNativeCrashMonitor() {
-        return this.f22044g;
+        return this.f24577g;
     }
 
     public synchronized boolean isEnableUserInfo() {
-        return this.f22047j;
+        return this.f24580j;
     }
 
     public boolean isMerged() {
-        return this.f22057t;
+        return this.t;
     }
 
     public boolean isReplaceOldChannel() {
-        return this.f22050m;
+        return this.m;
     }
 
     public synchronized boolean isUploadProcess() {
-        return this.f22051n;
+        return this.n;
     }
 
     public synchronized boolean isUploadSpotCrash() {
-        return this.f22052o;
+        return this.o;
     }
 
     public synchronized boolean recordUserInfoOnceADay() {
-        return this.f22053p;
+        return this.p;
     }
 
     public synchronized BuglyStrategy setAppChannel(String str) {
-        this.f22039b = str;
+        this.f24572b = str;
         return this;
     }
 
     public synchronized BuglyStrategy setAppPackageName(String str) {
-        this.f22040c = str;
+        this.f24573c = str;
         return this;
     }
 
-    public synchronized BuglyStrategy setAppReportDelay(long j10) {
-        this.f22041d = j10;
+    public synchronized BuglyStrategy setAppReportDelay(long j2) {
+        this.f24574d = j2;
         return this;
     }
 
     public synchronized BuglyStrategy setAppVersion(String str) {
-        this.f22038a = str;
+        this.f24571a = str;
         return this;
     }
 
-    public synchronized BuglyStrategy setBuglyLogUpload(boolean z10) {
-        this.f22049l = z10;
+    public synchronized BuglyStrategy setBuglyLogUpload(boolean z) {
+        this.l = z;
         return this;
     }
 
-    public synchronized void setCallBackType(int i10) {
-        this.f22055r = i10;
+    public synchronized void setCallBackType(int i2) {
+        this.r = i2;
     }
 
-    public synchronized void setCloseErrorCallback(boolean z10) {
-        this.f22056s = z10;
+    public synchronized void setCloseErrorCallback(boolean z) {
+        this.s = z;
     }
 
     public synchronized BuglyStrategy setCrashHandleCallback(a aVar) {
-        this.f22054q = aVar;
+        this.q = aVar;
         return this;
     }
 
     public synchronized BuglyStrategy setDeviceID(String str) {
-        this.f22043f = str;
+        this.f24576f = str;
         return this;
     }
 
-    public synchronized BuglyStrategy setEnableANRCrashMonitor(boolean z10) {
-        this.f22045h = z10;
+    public synchronized BuglyStrategy setEnableANRCrashMonitor(boolean z) {
+        this.f24578h = z;
         return this;
     }
 
-    public void setEnableCatchAnrTrace(boolean z10) {
-        this.f22046i = z10;
+    public void setEnableCatchAnrTrace(boolean z) {
+        this.f24579i = z;
     }
 
-    public synchronized BuglyStrategy setEnableNativeCrashMonitor(boolean z10) {
-        this.f22044g = z10;
+    public synchronized BuglyStrategy setEnableNativeCrashMonitor(boolean z) {
+        this.f24577g = z;
         return this;
     }
 
-    public synchronized BuglyStrategy setEnableUserInfo(boolean z10) {
-        this.f22047j = z10;
+    public synchronized BuglyStrategy setEnableUserInfo(boolean z) {
+        this.f24580j = z;
         return this;
     }
 
     public synchronized BuglyStrategy setLibBuglySOFilePath(String str) {
-        this.f22042e = str;
+        this.f24575e = str;
         return this;
     }
 
-    public void setMerged(boolean z10) {
-        this.f22057t = z10;
+    public void setMerged(boolean z) {
+        this.t = z;
     }
 
-    public synchronized BuglyStrategy setRecordUserInfoOnceADay(boolean z10) {
-        this.f22053p = z10;
+    public synchronized BuglyStrategy setRecordUserInfoOnceADay(boolean z) {
+        this.p = z;
         return this;
     }
 
-    public void setReplaceOldChannel(boolean z10) {
-        this.f22050m = z10;
+    public void setReplaceOldChannel(boolean z) {
+        this.m = z;
     }
 
-    public synchronized BuglyStrategy setUploadProcess(boolean z10) {
-        this.f22051n = z10;
+    public synchronized BuglyStrategy setUploadProcess(boolean z) {
+        this.n = z;
         return this;
     }
 
-    public synchronized void setUploadSpotCrash(boolean z10) {
-        this.f22052o = z10;
+    public synchronized void setUploadSpotCrash(boolean z) {
+        this.o = z;
     }
 
     public synchronized BuglyStrategy setUserInfoActivity(Class<?> cls) {
-        this.f22048k = cls;
+        this.k = cls;
         return this;
     }
 }

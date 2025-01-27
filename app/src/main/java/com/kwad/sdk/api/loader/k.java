@@ -1,106 +1,90 @@
 package com.kwad.sdk.api.loader;
 
-import com.kwad.sdk.api.core.TLSConnectionUtils;
-import java.io.Closeable;
-import java.io.IOException;
-import java.net.HttpURLConnection;
-import java.net.URL;
+import android.content.Context;
+import android.content.res.Resources;
+import android.text.TextUtils;
+import com.kwad.sdk.api.core.IKsAdSDK;
+import java.io.File;
 
-/* loaded from: classes3.dex */
-public final class k {
-    /* JADX WARN: Multi-variable type inference failed */
-    /* JADX WARN: Removed duplicated region for block: B:27:0x0053  */
-    /* JADX WARN: Type inference failed for: r7v10 */
-    /* JADX WARN: Type inference failed for: r7v11 */
-    /* JADX WARN: Type inference failed for: r7v3, types: [java.io.Closeable] */
-    /*
-        Code decompiled incorrectly, please refer to instructions dump.
-        To view partially-correct code enable 'Show inconsistent code' option in preferences
-    */
-    public static void c(java.lang.String r6, java.io.File r7) {
-        /*
-            r0 = 0
-            boolean r1 = r7.exists()     // Catch: java.lang.Throwable -> Lb
-            if (r1 == 0) goto Lf
-            com.kwad.sdk.api.loader.j.j(r7)     // Catch: java.lang.Throwable -> Lb
-            goto Lf
-        Lb:
-            r6 = move-exception
-            r7 = r0
-        Ld:
-            r1 = r7
-            goto L4b
-        Lf:
-            java.io.FileOutputStream r1 = new java.io.FileOutputStream     // Catch: java.lang.Throwable -> Lb
-            r2 = 0
-            r1.<init>(r7, r2)     // Catch: java.lang.Throwable -> Lb
-            java.net.HttpURLConnection r6 = cn(r6)     // Catch: java.lang.Throwable -> L47
-            java.io.BufferedInputStream r7 = new java.io.BufferedInputStream     // Catch: java.lang.Throwable -> L41
-            java.io.InputStream r3 = r6.getInputStream()     // Catch: java.lang.Throwable -> L41
-            r7.<init>(r3)     // Catch: java.lang.Throwable -> L41
-            r0 = 10240(0x2800, float:1.4349E-41)
-            byte[] r0 = new byte[r0]     // Catch: java.lang.Throwable -> L31
-        L26:
-            int r3 = r7.read(r0)     // Catch: java.lang.Throwable -> L31
-            r4 = -1
-            if (r3 == r4) goto L37
-            r1.write(r0, r2, r3)     // Catch: java.lang.Throwable -> L31
-            goto L26
-        L31:
-            r0 = move-exception
-            r5 = r1
-            r1 = r6
-            r6 = r0
-        L35:
-            r0 = r5
-            goto L4b
-        L37:
-            closeQuietly(r1)
-            closeQuietly(r7)
-            r6.disconnect()
-            return
-        L41:
-            r7 = move-exception
-            r5 = r1
-            r1 = r6
-            r6 = r7
-            r7 = r0
-            goto L35
-        L47:
-            r6 = move-exception
-            r7 = r0
-            r0 = r1
-            goto Ld
-        L4b:
-            closeQuietly(r0)
-            closeQuietly(r7)
-            if (r1 == 0) goto L56
-            r1.disconnect()
-        L56:
-            throw r6
-        */
-        throw new UnsupportedOperationException("Method not decompiled: com.kwad.sdk.api.loader.k.c(java.lang.String, java.io.File):void");
+/* loaded from: classes2.dex */
+final class k {
+    private final String ZO;
+    private final String ZP;
+    private final String ZQ;
+    private Resources ZR;
+    private ClassLoader ZS;
+    private IKsAdSDK ZU;
+
+    private k(String str, String str2, String str3) {
+        this.ZO = str;
+        this.ZP = str2;
+        this.ZQ = str3;
     }
 
-    private static void closeQuietly(Closeable closeable) {
-        if (closeable != null) {
+    static synchronized k a(Context context, ClassLoader classLoader, String str) {
+        k b2;
+        synchronized (k.class) {
             try {
-                closeable.close();
-            } catch (IOException unused) {
+                b2 = b(context, classLoader, h.n(context, str), h.o(context, str), h.p(context, str));
+            } catch (Exception e2) {
+                e2.printStackTrace();
+                return null;
             }
+        }
+        return b2;
+    }
+
+    static k b(Context context, ClassLoader classLoader, String str, String str2, String str3) {
+        if (TextUtils.isEmpty(str)) {
+            throw new RuntimeException("mApk is null");
+        }
+        File file = new File(str);
+        if (!file.exists() || !file.isFile()) {
+            throw new RuntimeException("mApk not a file");
+        }
+        k kVar = new k(str, str2, str3);
+        kVar.c(context, classLoader);
+        return kVar;
+    }
+
+    private void c(Context context, ClassLoader classLoader) {
+        tr();
+        Resources a2 = q.a(context, context.getResources(), this.ZO);
+        ClassLoader a3 = e.a(context, classLoader, this.ZO, this.ZP, this.ZQ);
+        IKsAdSDK a4 = Loader.a(a3);
+        this.ZR = a2;
+        this.ZS = a3;
+        this.ZU = a4;
+        int sDKType = a4.getSDKType();
+        if (sDKType == 1) {
+            return;
+        }
+        throw new RuntimeException("sdkType error apiType: 1 , sdkType:" + sDKType);
+    }
+
+    private void tr() {
+        if (TextUtils.isEmpty(this.ZO)) {
+            throw new RuntimeException("mApk is null");
+        }
+        File file = new File(this.ZO);
+        if (!file.isFile() || !file.exists()) {
+            throw new RuntimeException("mApk not a file");
         }
     }
 
-    private static HttpURLConnection cn(String str) {
-        HttpURLConnection httpURLConnection = (HttpURLConnection) new URL(str).openConnection();
-        TLSConnectionUtils.wrapHttpURLConnection(httpURLConnection);
-        httpURLConnection.setRequestProperty(m5.c.f28319k, "zh-CN");
-        httpURLConnection.setConnectTimeout(10000);
-        httpURLConnection.setReadTimeout(120000);
-        httpURLConnection.setUseCaches(false);
-        httpURLConnection.setDoInput(true);
-        httpURLConnection.setRequestProperty(m5.c.f28331o, "keep-alive");
-        httpURLConnection.setRequestProperty("Charset", "UTF-8");
-        return httpURLConnection;
+    final ClassLoader getClassLoader() {
+        return this.ZS;
+    }
+
+    public final String toString() {
+        return "ExternalPackage{mApk='" + this.ZO + "', mDexDir='" + this.ZP + "', mNativeLibDir='" + this.ZQ + "', mResource=" + this.ZR + ", mClassLoader=" + this.ZS + ", mKsSdk=" + this.ZU + '}';
+    }
+
+    final Resources tp() {
+        return this.ZR;
+    }
+
+    final IKsAdSDK tq() {
+        return this.ZU;
     }
 }

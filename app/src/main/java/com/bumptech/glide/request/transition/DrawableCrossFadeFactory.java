@@ -3,7 +3,7 @@ package com.bumptech.glide.request.transition;
 import android.graphics.drawable.Drawable;
 import com.bumptech.glide.load.DataSource;
 
-/* loaded from: classes2.dex */
+/* loaded from: classes.dex */
 public class DrawableCrossFadeFactory implements TransitionFactory<Drawable> {
     private final int duration;
     private final boolean isCrossFadeEnabled;
@@ -22,19 +22,19 @@ public class DrawableCrossFadeFactory implements TransitionFactory<Drawable> {
             return new DrawableCrossFadeFactory(this.durationMillis, this.isCrossFadeEnabled);
         }
 
-        public Builder setCrossFadeEnabled(boolean z10) {
-            this.isCrossFadeEnabled = z10;
+        public Builder setCrossFadeEnabled(boolean z) {
+            this.isCrossFadeEnabled = z;
             return this;
         }
 
-        public Builder(int i10) {
-            this.durationMillis = i10;
+        public Builder(int i2) {
+            this.durationMillis = i2;
         }
     }
 
-    public DrawableCrossFadeFactory(int i10, boolean z10) {
-        this.duration = i10;
-        this.isCrossFadeEnabled = z10;
+    protected DrawableCrossFadeFactory(int i2, boolean z) {
+        this.duration = i2;
+        this.isCrossFadeEnabled = z;
     }
 
     private Transition<Drawable> getResourceTransition() {
@@ -45,7 +45,7 @@ public class DrawableCrossFadeFactory implements TransitionFactory<Drawable> {
     }
 
     @Override // com.bumptech.glide.request.transition.TransitionFactory
-    public Transition<Drawable> build(DataSource dataSource, boolean z10) {
+    public Transition<Drawable> build(DataSource dataSource, boolean z) {
         return dataSource == DataSource.MEMORY_CACHE ? NoTransition.get() : getResourceTransition();
     }
 }

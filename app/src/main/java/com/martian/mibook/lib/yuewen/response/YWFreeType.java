@@ -3,7 +3,7 @@ package com.martian.mibook.lib.yuewen.response;
 import java.util.ArrayList;
 import java.util.List;
 
-/* loaded from: classes3.dex */
+/* loaded from: classes4.dex */
 public class YWFreeType {
     private List<YWCategory> categoryList;
     private Integer freeType;
@@ -28,15 +28,15 @@ public class YWFreeType {
         return this.freeTypeName;
     }
 
-    public void setCategoryList(List<YWCategory> list) {
-        this.categoryList = list;
+    public void setCategoryList(List<YWCategory> categoryList) {
+        this.categoryList = categoryList;
     }
 
-    public void setFreeType(Integer num) {
-        this.freeType = num;
+    public void setFreeType(Integer freeType) {
+        this.freeType = freeType;
     }
 
-    public void setFreeTypeName(String str) {
-        this.freeTypeName = str;
+    public void setFreeTypeName(String freeTypeName) {
+        this.freeTypeName = freeTypeName;
     }
 }

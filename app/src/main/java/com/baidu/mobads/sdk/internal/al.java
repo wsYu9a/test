@@ -1,169 +1,168 @@
 package com.baidu.mobads.sdk.internal;
 
 import android.content.Context;
-import com.baidu.mobads.sdk.internal.x;
+import com.baidu.mobads.sdk.internal.u;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.Observable;
+import org.apache.http.HttpHeaders;
 
-/* loaded from: classes2.dex */
-public class al extends Observable implements x, Runnable {
+/* loaded from: classes.dex */
+public class al extends Observable implements u, Runnable {
 
     /* renamed from: i */
-    protected static final int f6721i = 10240;
+    protected static final int f5507i = 10240;
 
     /* renamed from: j */
-    protected static final int f6722j = 10240;
-
-    /* renamed from: k */
-    public static final String f6723k = ".tmp";
-
-    /* renamed from: m */
-    private static final String f6724m = "FileDownloader";
+    protected static final int f5508j = 10240;
+    public static final String k = ".tmp";
+    private static final String m = "FileDownloader";
 
     /* renamed from: a */
-    protected Context f6725a;
+    protected Context f5509a;
 
     /* renamed from: b */
-    protected URL f6726b;
+    protected URL f5510b;
 
     /* renamed from: c */
-    protected String f6727c;
+    protected String f5511c;
 
     /* renamed from: d */
-    protected String f6728d;
+    protected String f5512d;
 
     /* renamed from: e */
-    protected int f6729e;
+    protected int f5513e;
 
     /* renamed from: f */
-    protected x.a f6730f;
+    protected u.a f5514f;
 
     /* renamed from: g */
-    protected int f6731g;
+    protected int f5515g;
 
     /* renamed from: h */
-    protected int f6732h;
+    protected int f5516h;
+    protected byte[] l;
+    private boolean n;
 
-    /* renamed from: l */
-    protected byte[] f6733l;
-
-    /* renamed from: n */
-    private boolean f6734n;
-
-    public al(Context context, URL url, String str, String str2, boolean z10) {
-        this.f6725a = context;
-        this.f6726b = url;
-        this.f6727c = str;
-        this.f6734n = z10;
+    public al(Context context, URL url, String str, String str2, boolean z) {
+        this.n = false;
+        this.f5509a = context;
+        this.f5510b = url;
+        this.f5511c = str;
+        this.n = z;
         if (str2 == null || str2.trim().length() <= 0) {
             String file = url.getFile();
-            this.f6728d = file.substring(file.lastIndexOf(47) + 1);
+            this.f5512d = file.substring(file.lastIndexOf(47) + 1);
         } else {
-            this.f6728d = str2;
+            this.f5512d = str2;
         }
-        this.f6729e = -1;
-        this.f6730f = x.a.DOWNLOADING;
-        this.f6731g = 0;
-        this.f6732h = 0;
+        this.f5513e = -1;
+        this.f5514f = u.a.DOWNLOADING;
+        this.f5515g = 0;
+        this.f5516h = 0;
     }
 
     private void s() {
-        a(x.a.ERROR);
+        a(u.a.ERROR);
     }
 
-    @Override // com.baidu.mobads.sdk.internal.x
-    public void a(boolean z10) {
+    @Override // com.baidu.mobads.sdk.internal.u
+    public void a() {
+        a(u.a.DOWNLOADING);
+        p();
     }
 
-    @Override // com.baidu.mobads.sdk.internal.x
+    @Override // com.baidu.mobads.sdk.internal.u
+    public void a(boolean z) {
+    }
+
+    @Override // com.baidu.mobads.sdk.internal.u
     @Deprecated
     public void b() {
     }
 
-    @Override // com.baidu.mobads.sdk.internal.x
+    @Override // com.baidu.mobads.sdk.internal.u
     @Deprecated
     public void c() {
     }
 
-    @Override // com.baidu.mobads.sdk.internal.x
+    @Override // com.baidu.mobads.sdk.internal.u
     @Deprecated
     public void d() {
     }
 
-    @Override // com.baidu.mobads.sdk.internal.x
+    @Override // com.baidu.mobads.sdk.internal.u
     public String e() {
-        return this.f6726b.toString();
+        return this.f5510b.toString();
     }
 
-    @Override // com.baidu.mobads.sdk.internal.x
+    @Override // com.baidu.mobads.sdk.internal.u
     @Deprecated
     public String f() {
         return null;
     }
 
-    @Override // com.baidu.mobads.sdk.internal.x
+    @Override // com.baidu.mobads.sdk.internal.u
     public String g() {
-        return this.f6727c + this.f6728d;
+        return this.f5511c + this.f5512d;
     }
 
-    @Override // com.baidu.mobads.sdk.internal.x
+    @Override // com.baidu.mobads.sdk.internal.u
     @Deprecated
     public String h() {
         return null;
     }
 
-    @Override // com.baidu.mobads.sdk.internal.x
+    @Override // com.baidu.mobads.sdk.internal.u
     @Deprecated
     public String i() {
         return null;
     }
 
-    @Override // com.baidu.mobads.sdk.internal.x
+    @Override // com.baidu.mobads.sdk.internal.u
     public int j() {
-        return this.f6729e;
+        return this.f5513e;
     }
 
-    @Override // com.baidu.mobads.sdk.internal.x
+    @Override // com.baidu.mobads.sdk.internal.u
     public float k() {
-        return Math.abs((this.f6731g / this.f6729e) * 100.0f);
+        return Math.abs((this.f5515g / this.f5513e) * 100.0f);
     }
 
-    @Override // com.baidu.mobads.sdk.internal.x
-    public x.a l() {
-        return this.f6730f;
+    @Override // com.baidu.mobads.sdk.internal.u
+    public u.a l() {
+        return this.f5514f;
     }
 
-    @Override // com.baidu.mobads.sdk.internal.x
+    @Override // com.baidu.mobads.sdk.internal.u
     public void m() {
     }
 
-    @Override // com.baidu.mobads.sdk.internal.x
+    @Override // com.baidu.mobads.sdk.internal.u
     public boolean n() {
         return false;
     }
 
     public byte[] o() {
-        return this.f6733l;
+        return this.l;
     }
 
-    public void p() {
-        bd.a().a(this);
+    protected void p() {
+        ba.a().a(this);
     }
 
-    public void q() {
+    protected void q() {
         setChanged();
         notifyObservers();
     }
 
-    public void r() {
-        br.a(this.f6727c + this.f6728d + ".tmp", this.f6727c + this.f6728d);
+    protected void r() {
+        bo.a(this.f5511c + this.f5512d + ".tmp", this.f5511c + this.f5512d);
     }
 
-    /* JADX WARN: Multi-variable type inference failed */
-    /* JADX WARN: Removed duplicated region for block: B:104:0x01f3 A[EXC_TOP_SPLITTER, SYNTHETIC] */
-    /* JADX WARN: Removed duplicated region for block: B:109:0x01db A[EXC_TOP_SPLITTER, SYNTHETIC] */
-    /* JADX WARN: Removed duplicated region for block: B:114:0x01c3 A[EXC_TOP_SPLITTER, SYNTHETIC] */
+    /* JADX WARN: Removed duplicated region for block: B:103:0x01ba A[EXC_TOP_SPLITTER, SYNTHETIC] */
+    /* JADX WARN: Removed duplicated region for block: B:108:0x01a2 A[EXC_TOP_SPLITTER, SYNTHETIC] */
+    /* JADX WARN: Removed duplicated region for block: B:98:0x01d2 A[EXC_TOP_SPLITTER, SYNTHETIC] */
     @Override // java.lang.Runnable
     /*
         Code decompiled incorrectly, please refer to instructions dump.
@@ -171,25 +170,19 @@ public class al extends Observable implements x, Runnable {
     */
     public void run() {
         /*
-            Method dump skipped, instructions count: 529
+            Method dump skipped, instructions count: 498
             To view this dump change 'Code comments level' option to 'DEBUG'
         */
         throw new UnsupportedOperationException("Method not decompiled: com.baidu.mobads.sdk.internal.al.run():void");
     }
 
-    @Override // com.baidu.mobads.sdk.internal.x
-    public void a() {
-        a(x.a.DOWNLOADING);
-        p();
-    }
-
-    public void a(x.a aVar) {
-        this.f6730f = aVar;
+    protected void a(u.a aVar) {
+        this.f5514f = aVar;
         q();
     }
 
-    public void a(int i10, float f10) {
-        this.f6731g += i10;
+    protected void a(int i2, float f2) {
+        this.f5515g += i2;
         q();
     }
 
@@ -200,13 +193,13 @@ public class al extends Observable implements x, Runnable {
                 if (responseCode != 302 && responseCode != 301) {
                     return httpURLConnection;
                 }
-                URL url = new URL(httpURLConnection.getHeaderField(m5.c.f28347t0));
-                this.f6726b = url;
+                URL url = new URL(httpURLConnection.getHeaderField(HttpHeaders.LOCATION));
+                this.f5510b = url;
                 HttpURLConnection httpURLConnection2 = (HttpURLConnection) url.openConnection();
                 try {
                     httpURLConnection2.setConnectTimeout(10000);
                     httpURLConnection2.setInstanceFollowRedirects(false);
-                    httpURLConnection2.setRequestProperty("Range", "bytes=0-");
+                    httpURLConnection2.setRequestProperty(HttpHeaders.RANGE, "bytes=0-");
                     httpURLConnection = httpURLConnection2;
                 } catch (Exception unused) {
                     return httpURLConnection2;

@@ -1,165 +1,165 @@
 package okio;
 
+import com.cdo.oaps.ad.OapsKey;
 import com.ss.android.socialbase.downloader.constants.MonitorConstants;
+import f.b.a.d;
 import java.util.List;
 import java.util.RandomAccess;
 import kotlin.Metadata;
 import kotlin.collections.AbstractList;
 import kotlin.jvm.JvmStatic;
 import kotlin.jvm.internal.DefaultConstructorMarker;
-import xi.k;
 
-@Metadata(d1 = {"\u0000,\n\u0002\u0018\u0002\n\u0002\u0018\u0002\n\u0002\u0018\u0002\n\u0002\u0018\u0002\n\u0002\u0018\u0002\n\u0000\n\u0002\u0010\u0011\n\u0000\n\u0002\u0010\u0015\n\u0002\b\u0005\n\u0002\u0010\b\n\u0002\b\b\u0018\u0000 \u00152\b\u0012\u0004\u0012\u00020\u00020\u00012\u00060\u0003j\u0002`\u0004:\u0001\u0015B\u001f\b\u0002\u0012\u000e\u0010\u0005\u001a\n\u0012\u0006\b\u0001\u0012\u00020\u00020\u0006\u0012\u0006\u0010\u0007\u001a\u00020\b¢\u0006\u0002\u0010\tJ\u0011\u0010\u0013\u001a\u00020\u00022\u0006\u0010\u0014\u001a\u00020\u000eH\u0096\u0002R\u001e\u0010\u0005\u001a\n\u0012\u0006\b\u0001\u0012\u00020\u00020\u0006X\u0080\u0004¢\u0006\n\n\u0002\u0010\f\u001a\u0004\b\n\u0010\u000bR\u0014\u0010\r\u001a\u00020\u000e8VX\u0096\u0004¢\u0006\u0006\u001a\u0004\b\u000f\u0010\u0010R\u0014\u0010\u0007\u001a\u00020\bX\u0080\u0004¢\u0006\b\n\u0000\u001a\u0004\b\u0011\u0010\u0012¨\u0006\u0016"}, d2 = {"Lokio/Options;", "Lkotlin/collections/AbstractList;", "Lokio/ByteString;", "Ljava/util/RandomAccess;", "Lkotlin/collections/RandomAccess;", "byteStrings", "", "trie", "", "([Lokio/ByteString;[I)V", "getByteStrings$okio", "()[Lokio/ByteString;", "[Lokio/ByteString;", "size", "", "getSize", "()I", "getTrie$okio", "()[I", MonitorConstants.CONNECT_TYPE_GET, "index", "Companion", "okio"}, k = 1, mv = {1, 6, 0}, xi = 48)
-/* loaded from: classes4.dex */
+@Metadata(bv = {1, 0, 3}, d1 = {"\u0000,\n\u0002\u0018\u0002\n\u0002\u0018\u0002\n\u0002\u0018\u0002\n\u0002\u0018\u0002\n\u0002\u0018\u0002\n\u0002\u0010\b\n\u0002\b\u0003\n\u0002\u0010\u0015\n\u0002\b\u0004\n\u0002\u0010\u0011\n\u0002\b\u000b\u0018\u0000 \u00182\b\u0012\u0004\u0012\u00020\u00020\u00012\u00060\u0003j\u0002`\u0004:\u0001\u0018B!\b\u0002\u0012\u000e\u0010\u000f\u001a\n\u0012\u0006\b\u0001\u0012\u00020\u00020\u000e\u0012\u0006\u0010\n\u001a\u00020\t¢\u0006\u0004\b\u0016\u0010\u0017J\u0018\u0010\u0007\u001a\u00020\u00022\u0006\u0010\u0006\u001a\u00020\u0005H\u0096\u0002¢\u0006\u0004\b\u0007\u0010\bR\u001c\u0010\n\u001a\u00020\t8\u0000@\u0000X\u0080\u0004¢\u0006\f\n\u0004\b\n\u0010\u000b\u001a\u0004\b\f\u0010\rR$\u0010\u000f\u001a\n\u0012\u0006\b\u0001\u0012\u00020\u00020\u000e8\u0000@\u0000X\u0080\u0004¢\u0006\f\n\u0004\b\u000f\u0010\u0010\u001a\u0004\b\u0011\u0010\u0012R\u0016\u0010\u0015\u001a\u00020\u00058V@\u0016X\u0096\u0004¢\u0006\u0006\u001a\u0004\b\u0013\u0010\u0014¨\u0006\u0019"}, d2 = {"Lokio/Options;", "Lkotlin/collections/AbstractList;", "Lokio/ByteString;", "Ljava/util/RandomAccess;", "Lkotlin/collections/RandomAccess;", "", "index", MonitorConstants.CONNECT_TYPE_GET, "(I)Lokio/ByteString;", "", "trie", "[I", "getTrie$okio", "()[I", "", "byteStrings", "[Lokio/ByteString;", "getByteStrings$okio", "()[Lokio/ByteString;", "getSize", "()I", OapsKey.KEY_SIZE, "<init>", "([Lokio/ByteString;[I)V", "Companion", "okio"}, k = 1, mv = {1, 4, 0})
+/* loaded from: classes5.dex */
 public final class Options extends AbstractList<ByteString> implements RandomAccess {
 
     /* renamed from: Companion, reason: from kotlin metadata */
-    @k
     public static final Companion INSTANCE = new Companion(null);
 
-    @k
+    @d
     private final ByteString[] byteStrings;
 
-    @k
+    @d
     private final int[] trie;
 
-    @Metadata(d1 = {"\u0000>\n\u0002\u0018\u0002\n\u0002\u0010\u0000\n\u0002\b\u0002\n\u0002\u0010\t\n\u0002\u0018\u0002\n\u0002\b\u0003\n\u0002\u0010\u0002\n\u0002\b\u0003\n\u0002\u0010\b\n\u0000\n\u0002\u0010 \n\u0002\u0018\u0002\n\u0002\b\u0004\n\u0002\u0018\u0002\n\u0002\u0010\u0011\n\u0002\b\u0002\b\u0086\u0003\u0018\u00002\u00020\u0001B\u0007\b\u0002¢\u0006\u0002\u0010\u0002JT\u0010\b\u001a\u00020\t2\b\b\u0002\u0010\n\u001a\u00020\u00042\u0006\u0010\u000b\u001a\u00020\u00052\b\b\u0002\u0010\f\u001a\u00020\r2\f\u0010\u000e\u001a\b\u0012\u0004\u0012\u00020\u00100\u000f2\b\b\u0002\u0010\u0011\u001a\u00020\r2\b\b\u0002\u0010\u0012\u001a\u00020\r2\f\u0010\u0013\u001a\b\u0012\u0004\u0012\u00020\r0\u000fH\u0002J!\u0010\u0014\u001a\u00020\u00152\u0012\u0010\u000e\u001a\n\u0012\u0006\b\u0001\u0012\u00020\u00100\u0016\"\u00020\u0010H\u0007¢\u0006\u0002\u0010\u0017R\u0018\u0010\u0003\u001a\u00020\u0004*\u00020\u00058BX\u0082\u0004¢\u0006\u0006\u001a\u0004\b\u0006\u0010\u0007¨\u0006\u0018"}, d2 = {"Lokio/Options$Companion;", "", "()V", "intCount", "", "Lokio/Buffer;", "getIntCount", "(Lokio/Buffer;)J", "buildTrieRecursive", "", "nodeOffset", "node", "byteStringOffset", "", "byteStrings", "", "Lokio/ByteString;", "fromIndex", "toIndex", "indexes", "of", "Lokio/Options;", "", "([Lokio/ByteString;)Lokio/Options;", "okio"}, k = 1, mv = {1, 6, 0}, xi = 48)
+    @Metadata(bv = {1, 0, 3}, d1 = {"\u0000:\n\u0002\u0018\u0002\n\u0002\u0010\u0000\n\u0002\u0010\t\n\u0000\n\u0002\u0018\u0002\n\u0000\n\u0002\u0010\b\n\u0000\n\u0002\u0010 \n\u0002\u0018\u0002\n\u0002\b\u0004\n\u0002\u0010\u0002\n\u0002\b\u0002\n\u0002\u0010\u0011\n\u0002\u0018\u0002\n\u0002\b\b\b\u0086\u0003\u0018\u00002\u00020\u0001B\t\b\u0002¢\u0006\u0004\b\u0018\u0010\u0019J[\u0010\u000f\u001a\u00020\u000e2\b\b\u0002\u0010\u0003\u001a\u00020\u00022\u0006\u0010\u0005\u001a\u00020\u00042\b\b\u0002\u0010\u0007\u001a\u00020\u00062\f\u0010\n\u001a\b\u0012\u0004\u0012\u00020\t0\b2\b\b\u0002\u0010\u000b\u001a\u00020\u00062\b\b\u0002\u0010\f\u001a\u00020\u00062\f\u0010\r\u001a\b\u0012\u0004\u0012\u00020\u00060\bH\u0002¢\u0006\u0004\b\u000f\u0010\u0010J#\u0010\u0013\u001a\u00020\u00122\u0012\u0010\n\u001a\n\u0012\u0006\b\u0001\u0012\u00020\t0\u0011\"\u00020\tH\u0007¢\u0006\u0004\b\u0013\u0010\u0014R\u001a\u0010\u0017\u001a\u00020\u0002*\u00020\u00048B@\u0002X\u0082\u0004¢\u0006\u0006\u001a\u0004\b\u0015\u0010\u0016¨\u0006\u001a"}, d2 = {"Lokio/Options$Companion;", "", "", "nodeOffset", "Lokio/Buffer;", "node", "", "byteStringOffset", "", "Lokio/ByteString;", "byteStrings", "fromIndex", "toIndex", "indexes", "", "buildTrieRecursive", "(JLokio/Buffer;ILjava/util/List;IILjava/util/List;)V", "", "Lokio/Options;", "of", "([Lokio/ByteString;)Lokio/Options;", "getIntCount", "(Lokio/Buffer;)J", "intCount", "<init>", "()V", "okio"}, k = 1, mv = {1, 4, 0})
     public static final class Companion {
-        public /* synthetic */ Companion(DefaultConstructorMarker defaultConstructorMarker) {
-            this();
+        private Companion() {
         }
 
         private final void buildTrieRecursive(long nodeOffset, Buffer node, int byteStringOffset, List<? extends ByteString> byteStrings, int fromIndex, int toIndex, List<Integer> indexes) {
-            int i10;
-            int i11;
-            int i12;
-            int i13;
+            int i2;
+            int i3;
+            int i4;
+            int i5;
             Buffer buffer;
-            int i14 = byteStringOffset;
-            if (fromIndex >= toIndex) {
+            int i6 = byteStringOffset;
+            if (!(fromIndex < toIndex)) {
                 throw new IllegalArgumentException("Failed requirement.".toString());
             }
-            for (int i15 = fromIndex; i15 < toIndex; i15++) {
-                if (byteStrings.get(i15).size() < i14) {
+            for (int i7 = fromIndex; i7 < toIndex; i7++) {
+                if (!(byteStrings.get(i7).size() >= i6)) {
                     throw new IllegalArgumentException("Failed requirement.".toString());
                 }
             }
             ByteString byteString = byteStrings.get(fromIndex);
             ByteString byteString2 = byteStrings.get(toIndex - 1);
-            if (i14 == byteString.size()) {
+            if (i6 == byteString.size()) {
                 int intValue = indexes.get(fromIndex).intValue();
-                int i16 = fromIndex + 1;
-                ByteString byteString3 = byteStrings.get(i16);
-                i10 = i16;
-                i11 = intValue;
+                int i8 = fromIndex + 1;
+                ByteString byteString3 = byteStrings.get(i8);
+                i2 = i8;
+                i3 = intValue;
                 byteString = byteString3;
             } else {
-                i10 = fromIndex;
-                i11 = -1;
+                i2 = fromIndex;
+                i3 = -1;
             }
-            if (byteString.getByte(i14) == byteString2.getByte(i14)) {
+            if (byteString.getByte(i6) == byteString2.getByte(i6)) {
                 int min = Math.min(byteString.size(), byteString2.size());
-                int i17 = 0;
-                for (int i18 = i14; i18 < min && byteString.getByte(i18) == byteString2.getByte(i18); i18++) {
-                    i17++;
+                int i9 = 0;
+                for (int i10 = i6; i10 < min && byteString.getByte(i10) == byteString2.getByte(i10); i10++) {
+                    i9++;
                 }
-                long intCount = nodeOffset + getIntCount(node) + 2 + i17 + 1;
-                node.writeInt(-i17);
-                node.writeInt(i11);
-                int i19 = i17 + i14;
-                while (i14 < i19) {
-                    node.writeInt(byteString.getByte(i14) & 255);
-                    i14++;
+                long intCount = nodeOffset + getIntCount(node) + 2 + i9 + 1;
+                node.writeInt(-i9);
+                node.writeInt(i3);
+                int i11 = i6 + i9;
+                while (i6 < i11) {
+                    node.writeInt(byteString.getByte(i6) & 255);
+                    i6++;
                 }
-                if (i10 + 1 == toIndex) {
-                    if (i19 != byteStrings.get(i10).size()) {
+                if (i2 + 1 == toIndex) {
+                    if (!(i11 == byteStrings.get(i2).size())) {
                         throw new IllegalStateException("Check failed.".toString());
                     }
-                    node.writeInt(indexes.get(i10).intValue());
+                    node.writeInt(indexes.get(i2).intValue());
                     return;
                 } else {
                     Buffer buffer2 = new Buffer();
                     node.writeInt(((int) (getIntCount(buffer2) + intCount)) * (-1));
-                    buildTrieRecursive(intCount, buffer2, i19, byteStrings, i10, toIndex, indexes);
+                    buildTrieRecursive(intCount, buffer2, i11, byteStrings, i2, toIndex, indexes);
                     node.writeAll(buffer2);
                     return;
                 }
             }
-            int i20 = 1;
-            for (int i21 = i10 + 1; i21 < toIndex; i21++) {
-                if (byteStrings.get(i21 - 1).getByte(i14) != byteStrings.get(i21).getByte(i14)) {
-                    i20++;
+            int i12 = 1;
+            for (int i13 = i2 + 1; i13 < toIndex; i13++) {
+                if (byteStrings.get(i13 - 1).getByte(i6) != byteStrings.get(i13).getByte(i6)) {
+                    i12++;
                 }
             }
-            long intCount2 = nodeOffset + getIntCount(node) + 2 + (i20 * 2);
-            node.writeInt(i20);
-            node.writeInt(i11);
-            for (int i22 = i10; i22 < toIndex; i22++) {
-                byte b10 = byteStrings.get(i22).getByte(i14);
-                if (i22 == i10 || b10 != byteStrings.get(i22 - 1).getByte(i14)) {
-                    node.writeInt(b10 & 255);
+            long intCount2 = nodeOffset + getIntCount(node) + 2 + (i12 * 2);
+            node.writeInt(i12);
+            node.writeInt(i3);
+            for (int i14 = i2; i14 < toIndex; i14++) {
+                byte b2 = byteStrings.get(i14).getByte(i6);
+                if (i14 == i2 || b2 != byteStrings.get(i14 - 1).getByte(i6)) {
+                    node.writeInt(b2 & 255);
                 }
             }
             Buffer buffer3 = new Buffer();
-            while (i10 < toIndex) {
-                byte b11 = byteStrings.get(i10).getByte(i14);
-                int i23 = i10 + 1;
-                int i24 = i23;
+            while (i2 < toIndex) {
+                byte b3 = byteStrings.get(i2).getByte(i6);
+                int i15 = i2 + 1;
+                int i16 = i15;
                 while (true) {
-                    if (i24 >= toIndex) {
-                        i12 = toIndex;
+                    if (i16 >= toIndex) {
+                        i4 = toIndex;
                         break;
                     } else {
-                        if (b11 != byteStrings.get(i24).getByte(i14)) {
-                            i12 = i24;
+                        if (b3 != byteStrings.get(i16).getByte(i6)) {
+                            i4 = i16;
                             break;
                         }
-                        i24++;
+                        i16++;
                     }
                 }
-                if (i23 == i12 && i14 + 1 == byteStrings.get(i10).size()) {
-                    node.writeInt(indexes.get(i10).intValue());
-                    i13 = i12;
+                if (i15 == i4 && i6 + 1 == byteStrings.get(i2).size()) {
+                    node.writeInt(indexes.get(i2).intValue());
+                    i5 = i4;
                     buffer = buffer3;
                 } else {
                     node.writeInt(((int) (intCount2 + getIntCount(buffer3))) * (-1));
-                    i13 = i12;
+                    i5 = i4;
                     buffer = buffer3;
-                    buildTrieRecursive(intCount2, buffer3, i14 + 1, byteStrings, i10, i12, indexes);
+                    buildTrieRecursive(intCount2, buffer3, i6 + 1, byteStrings, i2, i4, indexes);
                 }
                 buffer3 = buffer;
-                i10 = i13;
+                i2 = i5;
             }
             node.writeAll(buffer3);
         }
 
-        public static /* synthetic */ void buildTrieRecursive$default(Companion companion, long j10, Buffer buffer, int i10, List list, int i11, int i12, List list2, int i13, Object obj) {
-            companion.buildTrieRecursive((i13 & 1) != 0 ? 0L : j10, buffer, (i13 & 4) != 0 ? 0 : i10, list, (i13 & 16) != 0 ? 0 : i11, (i13 & 32) != 0 ? list.size() : i12, list2);
+        static /* synthetic */ void buildTrieRecursive$default(Companion companion, long j2, Buffer buffer, int i2, List list, int i3, int i4, List list2, int i5, Object obj) {
+            companion.buildTrieRecursive((i5 & 1) != 0 ? 0L : j2, buffer, (i5 & 4) != 0 ? 0 : i2, list, (i5 & 16) != 0 ? 0 : i3, (i5 & 32) != 0 ? list.size() : i4, list2);
         }
 
-        private final long getIntCount(Buffer buffer) {
+        private final long getIntCount(@d Buffer buffer) {
             return buffer.size() / 4;
         }
 
-        /* JADX WARN: Code restructure failed: missing block: B:40:0x00d9, code lost:
+        /* JADX WARN: Code restructure failed: missing block: B:48:0x00ee, code lost:
         
             continue;
          */
+        @f.b.a.d
         @kotlin.jvm.JvmStatic
-        @xi.k
         /*
             Code decompiled incorrectly, please refer to instructions dump.
             To view partially-correct code enable 'Show inconsistent code' option in preferences
         */
-        public final okio.Options of(@xi.k okio.ByteString... r17) {
+        public final okio.Options of(@f.b.a.d okio.ByteString... r17) {
             /*
-                Method dump skipped, instructions count: 306
+                Method dump skipped, instructions count: 338
                 To view this dump change 'Code comments level' option to 'DEBUG'
             */
             throw new UnsupportedOperationException("Method not decompiled: okio.Options.Companion.of(okio.ByteString[]):okio.Options");
         }
 
-        private Companion() {
+        public /* synthetic */ Companion(DefaultConstructorMarker defaultConstructorMarker) {
+            this();
         }
     }
 
@@ -167,9 +167,9 @@ public final class Options extends AbstractList<ByteString> implements RandomAcc
         this(byteStringArr, iArr);
     }
 
+    @d
     @JvmStatic
-    @k
-    public static final Options of(@k ByteString... byteStringArr) {
+    public static final Options of(@d ByteString... byteStringArr) {
         return INSTANCE.of(byteStringArr);
     }
 
@@ -181,7 +181,7 @@ public final class Options extends AbstractList<ByteString> implements RandomAcc
         return false;
     }
 
-    @k
+    @d
     /* renamed from: getByteStrings$okio, reason: from getter */
     public final ByteString[] getByteStrings() {
         return this.byteStrings;
@@ -193,7 +193,7 @@ public final class Options extends AbstractList<ByteString> implements RandomAcc
         return this.byteStrings.length;
     }
 
-    @k
+    @d
     /* renamed from: getTrie$okio, reason: from getter */
     public final int[] getTrie() {
         return this.trie;
@@ -221,20 +221,20 @@ public final class Options extends AbstractList<ByteString> implements RandomAcc
     }
 
     public /* bridge */ boolean contains(ByteString byteString) {
-        return super.contains((Options) byteString);
+        return super.contains((Object) byteString);
     }
 
     @Override // kotlin.collections.AbstractList, java.util.List
-    @k
-    public ByteString get(int i10) {
-        return this.byteStrings[i10];
+    @d
+    public ByteString get(int i2) {
+        return this.byteStrings[i2];
     }
 
     public /* bridge */ int indexOf(ByteString byteString) {
-        return super.indexOf((Options) byteString);
+        return super.indexOf((Object) byteString);
     }
 
     public /* bridge */ int lastIndexOf(ByteString byteString) {
-        return super.lastIndexOf((Options) byteString);
+        return super.lastIndexOf((Object) byteString);
     }
 }

@@ -4,22 +4,20 @@ import androidx.exifinterface.media.ExifInterface;
 import java.util.Comparator;
 import kotlin.Metadata;
 import kotlin.jvm.functions.Function1;
-import kotlin.jvm.internal.SourceDebugExtension;
 
-@Metadata(d1 = {"\u0000\n\n\u0000\n\u0002\u0010\b\n\u0002\b\u0006\u0010\u0000\u001a\u00020\u0001\"\u0004\b\u0000\u0010\u00022\u000e\u0010\u0003\u001a\n \u0004*\u0004\u0018\u0001H\u0002H\u00022\u000e\u0010\u0005\u001a\n \u0004*\u0004\u0018\u0001H\u0002H\u0002H\n¢\u0006\u0004\b\u0006\u0010\u0007"}, d2 = {"<anonymous>", "", ExifInterface.GPS_DIRECTION_TRUE, "a", "kotlin.jvm.PlatformType", "b", "compare", "(Ljava/lang/Object;Ljava/lang/Object;)I"}, k = 3, mv = {1, 9, 0}, xi = 176)
-@SourceDebugExtension({"SMAP\nComparisons.kt\nKotlin\n*S Kotlin\n*F\n+ 1 Comparisons.kt\nkotlin/comparisons/ComparisonsKt__ComparisonsKt$compareByDescending$1\n*L\n1#1,328:1\n*E\n"})
-/* loaded from: classes4.dex */
-public final class ComparisonsKt__ComparisonsKt$compareByDescending$1<T> implements Comparator {
-    final /* synthetic */ Function1<T, Comparable<?>> $selector;
+@Metadata(bv = {1, 0, 3}, d1 = {"\u0000\f\n\u0002\b\u0004\n\u0002\u0010\b\n\u0002\b\u0003\u0010\u0007\u001a\u00020\u0004\"\u0004\b\u0000\u0010\u00002\u000e\u0010\u0002\u001a\n \u0001*\u0004\u0018\u00018\u00008\u00002\u000e\u0010\u0003\u001a\n \u0001*\u0004\u0018\u00018\u00008\u0000H\n¢\u0006\u0004\b\u0005\u0010\u0006"}, d2 = {ExifInterface.GPS_DIRECTION_TRUE, "kotlin.jvm.PlatformType", "a", "b", "", "compare", "(Ljava/lang/Object;Ljava/lang/Object;)I", "<anonymous>"}, k = 3, mv = {1, 4, 0})
+/* loaded from: classes5.dex */
+public final class ComparisonsKt__ComparisonsKt$compareByDescending$1<T> implements Comparator<T> {
+    final /* synthetic */ Function1 $selector;
 
-    /* JADX WARN: Multi-variable type inference failed */
-    public ComparisonsKt__ComparisonsKt$compareByDescending$1(Function1<? super T, ? extends Comparable<?>> function1) {
+    public ComparisonsKt__ComparisonsKt$compareByDescending$1(Function1 function1) {
         this.$selector = function1;
     }
 
     @Override // java.util.Comparator
-    public final int compare(T t10, T t11) {
-        Function1<T, Comparable<?>> function1 = this.$selector;
-        return ComparisonsKt.compareValues(function1.invoke(t11), function1.invoke(t10));
+    public final int compare(T t, T t2) {
+        int compareValues;
+        compareValues = ComparisonsKt__ComparisonsKt.compareValues((Comparable) this.$selector.invoke(t2), (Comparable) this.$selector.invoke(t));
+        return compareValues;
     }
 }

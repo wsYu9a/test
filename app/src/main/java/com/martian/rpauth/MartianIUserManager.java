@@ -1,80 +1,106 @@
 package com.martian.rpauth;
 
 import android.content.Context;
-import ba.j;
-import com.martian.libmars.comm.request.MTHttpGetParams;
+import android.content.Intent;
+import b.d.c.b.c;
+import com.martian.libmars.activity.j1;
+import com.martian.libqq.QQAPIInstance;
+import com.martian.libsupport.h;
 import com.martian.rpauth.response.IAccount;
 import com.martian.rpauth.response.MartianRPAccount;
-import java.lang.ref.WeakReference;
-import me.b;
 
-/* loaded from: classes3.dex */
+/* loaded from: classes.dex */
 public abstract class MartianIUserManager {
 
-    /* renamed from: c */
-    public static MartianIUserManager f16179c;
-
     /* renamed from: a */
-    public WeakReference<Context> f16180a;
+    protected static MartianIUserManager f14914a;
 
     /* renamed from: b */
-    public MartianRPAccount f16181b = null;
+    protected Context f14915b;
 
-    public MartianIUserManager(Context context) {
-        this.f16180a = new WeakReference<>(context);
+    /* renamed from: c */
+    private MartianRPAccount f14916c = null;
+
+    /* loaded from: classes4.dex */
+    public interface a {
+        void a();
+
+        void b(c errorResult);
+
+        void c(MartianRPAccount rpAccount);
+
+        void onLoading(boolean loading);
     }
 
-    public static long a() {
-        return System.currentTimeMillis() + MTHttpGetParams.diffServerTime;
+    /* loaded from: classes4.dex */
+    public interface b {
+        void a(c errorResult);
+
+        void b(com.martian.rpauth.b user);
+
+        void onLoading(boolean loading);
+
+        void onLoginCancelled();
+    }
+
+    public MartianIUserManager(Context context) {
+        this.f14915b = context;
     }
 
     public static MartianIUserManager b() {
-        return f16179c;
+        return f14914a;
     }
 
-    private void g() {
-        this.f16181b = new MartianRPAccount();
-        if (j.l(getContext(), this.f16181b)) {
-            return;
+    private boolean g() {
+        MartianRPAccount martianRPAccount = new MartianRPAccount();
+        this.f14916c = martianRPAccount;
+        if (h.l(this.f14915b, martianRPAccount)) {
+            return true;
         }
-        this.f16181b = null;
+        this.f14916c = null;
+        return false;
     }
 
-    private void m() {
-        if (this.f16181b != null) {
-            j.u(getContext(), this.f16181b);
+    public static void j(int requestCode, int resultCode, Intent data) {
+        QQAPIInstance.getInstance().onActivityResult(requestCode, resultCode, data);
+    }
+
+    private void n() {
+        MartianRPAccount martianRPAccount = this.f14916c;
+        if (martianRPAccount != null) {
+            h.u(this.f14915b, martianRPAccount);
         }
     }
+
+    public abstract boolean a();
 
     public MartianRPAccount c() {
-        if (this.f16181b == null) {
+        if (this.f14916c == null) {
             g();
         }
-        return this.f16181b;
+        return this.f14916c;
     }
 
     public abstract IAccount d();
 
-    public abstract b e();
+    public abstract com.martian.rpauth.b e();
 
     public abstract boolean f();
 
-    public Context getContext() {
-        return this.f16180a.get();
-    }
-
-    public abstract void h();
+    public abstract boolean h();
 
     public abstract void i();
 
-    public void j(MartianRPAccount martianRPAccount) {
-        this.f16181b = martianRPAccount;
-        m();
+    public void k(MartianRPAccount rpAccount) {
+        this.f14916c = rpAccount;
+        n();
     }
 
-    public abstract void k(IAccount iAccount);
+    public abstract void l(IAccount taskAccount);
 
-    public abstract void l(b bVar);
+    public abstract void m(com.martian.rpauth.b user);
 
-    public abstract void n();
+    public abstract void o();
+
+    public abstract void p(j1 activity, String nickname, Character gender, final b.d.c.c.b<com.martian.rpauth.b> listener);
 }

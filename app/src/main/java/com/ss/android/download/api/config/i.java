@@ -1,14 +1,15 @@
 package com.ss.android.download.api.config;
 
-import android.app.Activity;
 import android.content.Context;
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import com.ss.android.download.api.download.DownloadController;
+import com.ss.android.download.api.download.DownloadEventConfig;
+import com.ss.android.download.api.download.DownloadModel;
 
 /* loaded from: classes4.dex */
 public interface i {
-    void a(@NonNull Activity activity, int i10, @NonNull String[] strArr, @NonNull int[] iArr);
+    void j(@Nullable Context context, @NonNull DownloadModel downloadModel, @Nullable DownloadController downloadController, @Nullable DownloadEventConfig downloadEventConfig);
 
-    void a(@NonNull Activity activity, @NonNull String[] strArr, t tVar);
-
-    boolean a(@NonNull Context context, @NonNull String str);
+    void j(@Nullable Context context, @NonNull DownloadModel downloadModel, @Nullable DownloadController downloadController, @Nullable DownloadEventConfig downloadEventConfig, String str, @NonNull String str2);
 }

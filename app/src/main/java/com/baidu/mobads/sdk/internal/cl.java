@@ -1,30 +1,40 @@
 package com.baidu.mobads.sdk.internal;
 
-/* loaded from: classes2.dex */
-public class cl {
+import android.content.Context;
+import android.text.TextUtils;
 
-    /* renamed from: a */
-    public static final boolean f7049a;
+/* loaded from: classes.dex */
+class cl extends h {
 
     /* renamed from: b */
-    public static final boolean f7050b = false;
+    final /* synthetic */ ck f5740b;
 
-    /* renamed from: c */
-    public static final int f7051c;
+    cl(ck ckVar) {
+        this.f5740b = ckVar;
+    }
 
-    /* renamed from: d */
-    public static final String f7052d = "0.0";
-
-    /* renamed from: e */
-    public static String f7053e = null;
-
-    /* renamed from: f */
-    public static final String f7054f = "4.1.30";
-
-    static {
-        boolean booleanValue = cm.f7057c.booleanValue();
-        f7049a = booleanValue;
-        f7051c = booleanValue ? 2 : 4;
-        f7053e = f7052d;
+    @Override // com.baidu.mobads.sdk.internal.h
+    protected Object i() {
+        String a2;
+        String a3;
+        Context context;
+        String a4;
+        try {
+            a2 = this.f5740b.a("key_crash_trace");
+            a3 = this.f5740b.a("key_crash_ad");
+            if (TextUtils.isEmpty(a2)) {
+                return null;
+            }
+            ch a5 = ch.a();
+            context = this.f5740b.f5738h;
+            a5.a(context);
+            a4 = this.f5740b.a("key_crash_source");
+            a5.a(a4, a2, a3);
+            this.f5740b.g();
+            return null;
+        } catch (Exception e2) {
+            bq.a().a(e2);
+            return null;
+        }
     }
 }

@@ -8,10 +8,10 @@ public class SubscribeAppInfo {
     private String mName;
     private int mTargetStatus;
 
-    public SubscribeAppInfo(String str, int i10, int i11) {
+    public SubscribeAppInfo(String str, int i2, int i3) {
         this.mName = str;
-        this.mTargetStatus = i10;
-        this.mActualStatus = i11;
+        this.mTargetStatus = i2;
+        this.mActualStatus = i3;
     }
 
     public boolean equals(Object obj) {
@@ -50,16 +50,16 @@ public class SubscribeAppInfo {
         return (((str == null ? 0 : str.hashCode()) + 31) * 31) + this.mTargetStatus;
     }
 
-    public void setActualStatus(int i10) {
-        this.mActualStatus = i10;
+    public void setActualStatus(int i2) {
+        this.mActualStatus = i2;
     }
 
     public void setName(String str) {
         this.mName = str;
     }
 
-    public void setTargetStatus(int i10) {
-        this.mTargetStatus = i10;
+    public void setTargetStatus(int i2) {
+        this.mTargetStatus = i2;
     }
 
     public String toString() {

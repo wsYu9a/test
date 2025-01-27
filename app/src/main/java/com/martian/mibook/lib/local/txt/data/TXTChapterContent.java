@@ -10,7 +10,6 @@ public class TXTChapterContent extends ChapterContent {
     private Long startOffset;
     private String title;
 
-    @Override // com.martian.mibook.lib.model.data.abs.ChapterContent
     public String getContent() {
         return this.content;
     }
@@ -46,33 +45,33 @@ public class TXTChapterContent extends ChapterContent {
         return getContentLength() == 0;
     }
 
-    public void setContent(String str) {
-        this.content = str;
+    public void setContent(String content) {
+        this.content = content;
     }
 
-    public void setEndOffset(Long l10) {
-        this.endOffset = l10;
+    public void setEndOffset(Long endOffset) {
+        this.endOffset = endOffset;
     }
 
-    public void setFilepath(String str) {
-        this.filepath = str;
+    public void setFilepath(String filepath) {
+        this.filepath = filepath;
     }
 
     @Override // com.martian.mibook.lib.model.data.abs.ChapterContent
-    public void setSrcLink(String str) {
+    public void setSrcLink(String srcLink) {
         throw new UnsupportedOperationException();
     }
 
-    public void setStartOffset(Long l10) {
-        this.startOffset = l10;
+    public void setStartOffset(Long startOffset) {
+        this.startOffset = startOffset;
     }
 
-    public void setTitle(String str) {
-        this.title = str;
+    public void setTitle(String title) {
+        this.title = title;
     }
 
     @Override // com.martian.mibook.lib.model.data.abs.ChapterContent
-    public String getContent(int i10, int i11) {
-        return this.content.substring(i10, i11);
+    public String getContent(int start, int end) {
+        return this.content.substring(start, end);
     }
 }

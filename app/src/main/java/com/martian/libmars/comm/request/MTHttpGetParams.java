@@ -1,16 +1,13 @@
 package com.martian.libmars.comm.request;
 
 import com.martian.libcomm.http.requests.HttpGetParams;
-import com.martian.libmars.common.ConfigSingleton;
-import u8.c;
-import v8.a;
+import com.martian.libcomm.http.requests.c;
+import com.martian.libcomm.http.requests.d.a;
+import com.martian.libmars.d.h;
 
-/* loaded from: classes3.dex */
+/* loaded from: classes.dex */
 public abstract class MTHttpGetParams extends HttpGetParams {
     public static long diffServerTime;
-
-    @a
-    private String android_id;
 
     @a
     private String appid;
@@ -45,9 +42,8 @@ public abstract class MTHttpGetParams extends HttpGetParams {
     @a
     private final String package_name;
 
-    /* renamed from: t */
     @a
-    private long f12076t;
+    private long t;
 
     @a
     private String token;
@@ -61,31 +57,27 @@ public abstract class MTHttpGetParams extends HttpGetParams {
     @a
     private final String version_name;
 
-    public MTHttpGetParams(c cVar) {
-        super(cVar);
-        this.appid = ConfigSingleton.D().l().f26178a;
-        this.device_id = ConfigSingleton.D().y();
-        this.f12076t = System.currentTimeMillis() + diffServerTime;
-        this.version_code = Integer.valueOf(ConfigSingleton.D().o0());
-        this.version_name = ConfigSingleton.D().p0();
-        this.package_name = ConfigSingleton.D().getPackageName();
-        this.channel = ConfigSingleton.D().r();
+    public MTHttpGetParams(c provider) {
+        super(provider);
+        this.appid = h.F().f().f9879a;
+        this.device_id = h.F().t();
+        this.t = System.currentTimeMillis() + diffServerTime;
+        this.version_code = Integer.valueOf(h.F().w0());
+        this.version_name = h.F().x0();
+        this.package_name = h.F().getPackageName();
+        this.channel = h.F().m();
         this.ostype = 0;
-        if (ConfigSingleton.D().y0() || !ConfigSingleton.D().V0()) {
+        if (h.F().F0() || !h.F().h1()) {
             return;
         }
-        this.model = ConfigSingleton.D().K();
-        this.brand = ConfigSingleton.D().o();
-        this.osversion = ConfigSingleton.D().k();
-        this.optype = Integer.valueOf(ConfigSingleton.D().P());
+        this.model = h.F().S();
+        this.brand = h.F().j();
+        this.osversion = h.F().e();
+        this.optype = Integer.valueOf(h.F().X());
     }
 
-    private void setT(long j10) {
-        this.f12076t = j10;
-    }
-
-    public String getAndroid_id() {
-        return this.android_id;
+    private void setT(long t) {
+        this.t = t;
     }
 
     public String getAppid() {
@@ -101,7 +93,7 @@ public abstract class MTHttpGetParams extends HttpGetParams {
     }
 
     public long getT() {
-        return this.f12076t;
+        return this.t;
     }
 
     public String getToken() {
@@ -113,34 +105,30 @@ public abstract class MTHttpGetParams extends HttpGetParams {
     }
 
     public void initTime() {
-        this.f12076t = System.currentTimeMillis() + diffServerTime;
+        this.t = System.currentTimeMillis() + diffServerTime;
     }
 
-    public void setAndroid_id(String str) {
-        this.android_id = str;
+    public void setAppid(String appid) {
+        this.appid = appid;
     }
 
-    public void setAppid(String str) {
-        this.appid = str;
+    public void setDevice_id(String device_id) {
+        this.device_id = device_id;
     }
 
-    public void setDevice_id(String str) {
-        this.device_id = str;
+    public void setImei(String imei) {
+        this.imei = imei;
     }
 
-    public void setImei(String str) {
-        this.imei = str;
+    public void setOaid(String oaid) {
+        this.oaid = oaid;
     }
 
-    public void setOaid(String str) {
-        this.oaid = str;
+    public void setToken(String token) {
+        this.token = token;
     }
 
-    public void setToken(String str) {
-        this.token = str;
-    }
-
-    public void setUid(Long l10) {
-        this.uid = l10;
+    public void setUid(Long uid) {
+        this.uid = uid;
     }
 }

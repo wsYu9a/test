@@ -1,10 +1,8 @@
 package com.google.gson;
 
-import b5.a;
 import java.lang.reflect.Field;
-import java.util.Locale;
 
-/* loaded from: classes2.dex */
+/* loaded from: classes.dex */
 public enum FieldNamingPolicy implements FieldNamingStrategy {
     IDENTITY { // from class: com.google.gson.FieldNamingPolicy.1
         @Override // com.google.gson.FieldNamingStrategy
@@ -21,36 +19,24 @@ public enum FieldNamingPolicy implements FieldNamingStrategy {
     UPPER_CAMEL_CASE_WITH_SPACES { // from class: com.google.gson.FieldNamingPolicy.3
         @Override // com.google.gson.FieldNamingStrategy
         public String translateName(Field field) {
-            return FieldNamingPolicy.upperCaseFirstLetter(FieldNamingPolicy.separateCamelCase(field.getName(), a.O));
+            return FieldNamingPolicy.upperCaseFirstLetter(FieldNamingPolicy.separateCamelCase(field.getName(), " "));
         }
     },
-    UPPER_CASE_WITH_UNDERSCORES { // from class: com.google.gson.FieldNamingPolicy.4
+    LOWER_CASE_WITH_UNDERSCORES { // from class: com.google.gson.FieldNamingPolicy.4
         @Override // com.google.gson.FieldNamingStrategy
         public String translateName(Field field) {
-            return FieldNamingPolicy.separateCamelCase(field.getName(), '_').toUpperCase(Locale.ENGLISH);
+            return FieldNamingPolicy.separateCamelCase(field.getName(), "_").toLowerCase();
         }
     },
-    LOWER_CASE_WITH_UNDERSCORES { // from class: com.google.gson.FieldNamingPolicy.5
+    LOWER_CASE_WITH_DASHES { // from class: com.google.gson.FieldNamingPolicy.5
         @Override // com.google.gson.FieldNamingStrategy
         public String translateName(Field field) {
-            return FieldNamingPolicy.separateCamelCase(field.getName(), '_').toLowerCase(Locale.ENGLISH);
-        }
-    },
-    LOWER_CASE_WITH_DASHES { // from class: com.google.gson.FieldNamingPolicy.6
-        @Override // com.google.gson.FieldNamingStrategy
-        public String translateName(Field field) {
-            return FieldNamingPolicy.separateCamelCase(field.getName(), '-').toLowerCase(Locale.ENGLISH);
-        }
-    },
-    LOWER_CASE_WITH_DOTS { // from class: com.google.gson.FieldNamingPolicy.7
-        @Override // com.google.gson.FieldNamingStrategy
-        public String translateName(Field field) {
-            return FieldNamingPolicy.separateCamelCase(field.getName(), '.').toLowerCase(Locale.ENGLISH);
+            return FieldNamingPolicy.separateCamelCase(field.getName(), "-").toLowerCase();
         }
     };
 
     /* renamed from: com.google.gson.FieldNamingPolicy$1 */
-    public enum AnonymousClass1 extends FieldNamingPolicy {
+    enum AnonymousClass1 extends FieldNamingPolicy {
         @Override // com.google.gson.FieldNamingStrategy
         public String translateName(Field field) {
             return field.getName();
@@ -58,7 +44,7 @@ public enum FieldNamingPolicy implements FieldNamingStrategy {
     }
 
     /* renamed from: com.google.gson.FieldNamingPolicy$2 */
-    public enum AnonymousClass2 extends FieldNamingPolicy {
+    enum AnonymousClass2 extends FieldNamingPolicy {
         @Override // com.google.gson.FieldNamingStrategy
         public String translateName(Field field) {
             return FieldNamingPolicy.upperCaseFirstLetter(field.getName());
@@ -66,74 +52,65 @@ public enum FieldNamingPolicy implements FieldNamingStrategy {
     }
 
     /* renamed from: com.google.gson.FieldNamingPolicy$3 */
-    public enum AnonymousClass3 extends FieldNamingPolicy {
+    enum AnonymousClass3 extends FieldNamingPolicy {
         @Override // com.google.gson.FieldNamingStrategy
         public String translateName(Field field) {
-            return FieldNamingPolicy.upperCaseFirstLetter(FieldNamingPolicy.separateCamelCase(field.getName(), a.O));
+            return FieldNamingPolicy.upperCaseFirstLetter(FieldNamingPolicy.separateCamelCase(field.getName(), " "));
         }
     }
 
     /* renamed from: com.google.gson.FieldNamingPolicy$4 */
-    public enum AnonymousClass4 extends FieldNamingPolicy {
+    enum AnonymousClass4 extends FieldNamingPolicy {
         @Override // com.google.gson.FieldNamingStrategy
         public String translateName(Field field) {
-            return FieldNamingPolicy.separateCamelCase(field.getName(), '_').toUpperCase(Locale.ENGLISH);
+            return FieldNamingPolicy.separateCamelCase(field.getName(), "_").toLowerCase();
         }
     }
 
     /* renamed from: com.google.gson.FieldNamingPolicy$5 */
-    public enum AnonymousClass5 extends FieldNamingPolicy {
+    enum AnonymousClass5 extends FieldNamingPolicy {
         @Override // com.google.gson.FieldNamingStrategy
         public String translateName(Field field) {
-            return FieldNamingPolicy.separateCamelCase(field.getName(), '_').toLowerCase(Locale.ENGLISH);
+            return FieldNamingPolicy.separateCamelCase(field.getName(), "-").toLowerCase();
         }
     }
 
-    /* renamed from: com.google.gson.FieldNamingPolicy$6 */
-    public enum AnonymousClass6 extends FieldNamingPolicy {
-        @Override // com.google.gson.FieldNamingStrategy
-        public String translateName(Field field) {
-            return FieldNamingPolicy.separateCamelCase(field.getName(), '-').toLowerCase(Locale.ENGLISH);
+    private static String modifyString(char c2, String str, int i2) {
+        if (i2 >= str.length()) {
+            return String.valueOf(c2);
         }
+        return c2 + str.substring(i2);
     }
 
-    /* renamed from: com.google.gson.FieldNamingPolicy$7 */
-    public enum AnonymousClass7 extends FieldNamingPolicy {
-        @Override // com.google.gson.FieldNamingStrategy
-        public String translateName(Field field) {
-            return FieldNamingPolicy.separateCamelCase(field.getName(), '.').toLowerCase(Locale.ENGLISH);
-        }
-    }
-
-    public static String separateCamelCase(String str, char c10) {
-        StringBuilder sb2 = new StringBuilder();
-        int length = str.length();
-        for (int i10 = 0; i10 < length; i10++) {
-            char charAt = str.charAt(i10);
-            if (Character.isUpperCase(charAt) && sb2.length() != 0) {
-                sb2.append(c10);
+    public static String separateCamelCase(String str, String str2) {
+        StringBuilder sb = new StringBuilder();
+        for (int i2 = 0; i2 < str.length(); i2++) {
+            char charAt = str.charAt(i2);
+            if (Character.isUpperCase(charAt) && sb.length() != 0) {
+                sb.append(str2);
             }
-            sb2.append(charAt);
+            sb.append(charAt);
         }
-        return sb2.toString();
+        return sb.toString();
     }
 
     public static String upperCaseFirstLetter(String str) {
-        int length = str.length();
-        for (int i10 = 0; i10 < length; i10++) {
-            char charAt = str.charAt(i10);
-            if (Character.isLetter(charAt)) {
-                if (Character.isUpperCase(charAt)) {
-                    return str;
-                }
-                char upperCase = Character.toUpperCase(charAt);
-                if (i10 == 0) {
-                    return upperCase + str.substring(1);
-                }
-                return str.substring(0, i10) + upperCase + str.substring(i10 + 1);
-            }
+        StringBuilder sb = new StringBuilder();
+        int i2 = 0;
+        char charAt = str.charAt(0);
+        while (i2 < str.length() - 1 && !Character.isLetter(charAt)) {
+            sb.append(charAt);
+            i2++;
+            charAt = str.charAt(i2);
         }
-        return str;
+        if (i2 == str.length()) {
+            return sb.toString();
+        }
+        if (Character.isUpperCase(charAt)) {
+            return str;
+        }
+        sb.append(modifyString(Character.toUpperCase(charAt), str, i2 + 1));
+        return sb.toString();
     }
 
     /* synthetic */ FieldNamingPolicy(AnonymousClass1 anonymousClass1) {

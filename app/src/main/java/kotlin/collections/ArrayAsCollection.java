@@ -1,33 +1,32 @@
 package kotlin.collections;
 
 import androidx.exifinterface.media.ExifInterface;
+import com.cdo.oaps.ad.OapsKey;
+import f.b.a.d;
 import java.util.Collection;
 import java.util.Iterator;
 import kotlin.Metadata;
 import kotlin.jvm.internal.ArrayIteratorKt;
 import kotlin.jvm.internal.CollectionToArray;
 import kotlin.jvm.internal.Intrinsics;
-import kotlin.jvm.internal.SourceDebugExtension;
 import kotlin.jvm.internal.markers.KMappedMarker;
-import xi.k;
 
-@Metadata(d1 = {"\u0000.\n\u0002\u0018\u0002\n\u0000\n\u0002\u0010\u001e\n\u0000\n\u0002\u0010\u0011\n\u0000\n\u0002\u0010\u000b\n\u0002\b\u0003\n\u0002\u0010\b\n\u0002\b\f\n\u0002\u0010(\n\u0000\n\u0002\u0010\u0000\n\u0000\b\u0002\u0018\u0000*\u0004\b\u0000\u0010\u00012\b\u0012\u0004\u0012\u0002H\u00010\u0002B\u001d\u0012\u000e\u0010\u0003\u001a\n\u0012\u0006\b\u0001\u0012\u00028\u00000\u0004\u0012\u0006\u0010\u0005\u001a\u00020\u0006¢\u0006\u0002\u0010\u0007J\u0016\u0010\u0010\u001a\u00020\u00062\u0006\u0010\u0011\u001a\u00028\u0000H\u0096\u0002¢\u0006\u0002\u0010\u0012J\u0016\u0010\u0013\u001a\u00020\u00062\f\u0010\u0014\u001a\b\u0012\u0004\u0012\u00028\u00000\u0002H\u0016J\b\u0010\u0015\u001a\u00020\u0006H\u0016J\u000f\u0010\u0016\u001a\b\u0012\u0004\u0012\u00028\u00000\u0017H\u0096\u0002J\u0015\u0010\u0018\u001a\f\u0012\b\b\u0001\u0012\u0004\u0018\u00010\u00190\u0004¢\u0006\u0002\u0010\u000eR\u0011\u0010\u0005\u001a\u00020\u0006¢\u0006\b\n\u0000\u001a\u0004\b\u0005\u0010\bR\u0014\u0010\t\u001a\u00020\n8VX\u0096\u0004¢\u0006\u0006\u001a\u0004\b\u000b\u0010\fR\u001b\u0010\u0003\u001a\n\u0012\u0006\b\u0001\u0012\u00028\u00000\u0004¢\u0006\n\n\u0002\u0010\u000f\u001a\u0004\b\r\u0010\u000e¨\u0006\u001a"}, d2 = {"Lkotlin/collections/ArrayAsCollection;", ExifInterface.GPS_DIRECTION_TRUE, "", "values", "", "isVarargs", "", "([Ljava/lang/Object;Z)V", "()Z", "size", "", "getSize", "()I", "getValues", "()[Ljava/lang/Object;", "[Ljava/lang/Object;", "contains", "element", "(Ljava/lang/Object;)Z", "containsAll", "elements", "isEmpty", "iterator", "", "toArray", "", "kotlin-stdlib"}, k = 1, mv = {1, 9, 0}, xi = 48)
-@SourceDebugExtension({"SMAP\nCollections.kt\nKotlin\n*S Kotlin\n*F\n+ 1 Collections.kt\nkotlin/collections/ArrayAsCollection\n+ 2 _Collections.kt\nkotlin/collections/CollectionsKt___CollectionsKt\n*L\n1#1,522:1\n1726#2,3:523\n*S KotlinDebug\n*F\n+ 1 Collections.kt\nkotlin/collections/ArrayAsCollection\n*L\n62#1:523,3\n*E\n"})
-/* loaded from: classes4.dex */
+@Metadata(bv = {1, 0, 3}, d1 = {"\u0000.\n\u0002\u0018\u0002\n\u0000\n\u0002\u0010\u001e\n\u0002\u0010\u000b\n\u0002\b\b\n\u0002\u0010(\n\u0002\b\u0002\n\u0002\u0010\u0011\n\u0002\u0010\u0000\n\u0002\b\u0007\n\u0002\u0010\b\n\u0002\b\u0006\b\u0002\u0018\u0000*\u0004\b\u0000\u0010\u00012\b\u0012\u0004\u0012\u00028\u00000\u0002B\u001f\u0012\u000e\u0010\u0015\u001a\n\u0012\u0006\b\u0001\u0012\u00028\u00000\u000f\u0012\u0006\u0010\u0013\u001a\u00020\u0003¢\u0006\u0004\b\u001c\u0010\u001dJ\u000f\u0010\u0004\u001a\u00020\u0003H\u0016¢\u0006\u0004\b\u0004\u0010\u0005J\u0018\u0010\u0007\u001a\u00020\u00032\u0006\u0010\u0006\u001a\u00028\u0000H\u0096\u0002¢\u0006\u0004\b\u0007\u0010\bJ\u001d\u0010\n\u001a\u00020\u00032\f\u0010\t\u001a\b\u0012\u0004\u0012\u00028\u00000\u0002H\u0016¢\u0006\u0004\b\n\u0010\u000bJ\u0016\u0010\r\u001a\b\u0012\u0004\u0012\u00028\u00000\fH\u0096\u0002¢\u0006\u0004\b\r\u0010\u000eJ\u0017\u0010\u0011\u001a\f\u0012\b\b\u0001\u0012\u0004\u0018\u00010\u00100\u000f¢\u0006\u0004\b\u0011\u0010\u0012R\u0019\u0010\u0013\u001a\u00020\u00038\u0006@\u0006¢\u0006\f\n\u0004\b\u0013\u0010\u0014\u001a\u0004\b\u0013\u0010\u0005R!\u0010\u0015\u001a\n\u0012\u0006\b\u0001\u0012\u00028\u00000\u000f8\u0006@\u0006¢\u0006\f\n\u0004\b\u0015\u0010\u0016\u001a\u0004\b\u0017\u0010\u0012R\u0016\u0010\u001b\u001a\u00020\u00188V@\u0016X\u0096\u0004¢\u0006\u0006\u001a\u0004\b\u0019\u0010\u001a¨\u0006\u001e"}, d2 = {"Lkotlin/collections/ArrayAsCollection;", ExifInterface.GPS_DIRECTION_TRUE, "", "", "isEmpty", "()Z", "element", "contains", "(Ljava/lang/Object;)Z", "elements", "containsAll", "(Ljava/util/Collection;)Z", "", "iterator", "()Ljava/util/Iterator;", "", "", "toArray", "()[Ljava/lang/Object;", "isVarargs", "Z", "values", "[Ljava/lang/Object;", "getValues", "", "getSize", "()I", OapsKey.KEY_SIZE, "<init>", "([Ljava/lang/Object;Z)V", "kotlin-stdlib"}, k = 1, mv = {1, 4, 0})
+/* loaded from: classes5.dex */
 final class ArrayAsCollection<T> implements Collection<T>, KMappedMarker {
     private final boolean isVarargs;
 
-    @k
+    @d
     private final T[] values;
 
-    public ArrayAsCollection(@k T[] values, boolean z10) {
-        Intrinsics.checkNotNullParameter(values, "values");
+    public ArrayAsCollection(@d T[] values, boolean z) {
+        Intrinsics.checkParameterIsNotNull(values, "values");
         this.values = values;
-        this.isVarargs = z10;
+        this.isVarargs = z;
     }
 
     @Override // java.util.Collection
-    public boolean add(T t10) {
+    public boolean add(T t) {
         throw new UnsupportedOperationException("Operation is not supported for read-only collection");
     }
 
@@ -43,17 +42,16 @@ final class ArrayAsCollection<T> implements Collection<T>, KMappedMarker {
 
     @Override // java.util.Collection
     public boolean contains(Object element) {
-        return ArraysKt.contains(this.values, element);
+        return ArraysKt___ArraysKt.contains(this.values, element);
     }
 
     @Override // java.util.Collection
-    public boolean containsAll(@k Collection<? extends Object> elements) {
-        Intrinsics.checkNotNullParameter(elements, "elements");
-        Collection<? extends Object> collection = elements;
-        if (collection.isEmpty()) {
+    public boolean containsAll(@d Collection<? extends Object> elements) {
+        Intrinsics.checkParameterIsNotNull(elements, "elements");
+        if (elements.isEmpty()) {
             return true;
         }
-        Iterator<T> it = collection.iterator();
+        Iterator<T> it = elements.iterator();
         while (it.hasNext()) {
             if (!contains(it.next())) {
                 return false;
@@ -66,7 +64,7 @@ final class ArrayAsCollection<T> implements Collection<T>, KMappedMarker {
         return this.values.length;
     }
 
-    @k
+    @d
     public final T[] getValues() {
         return this.values;
     }
@@ -82,7 +80,7 @@ final class ArrayAsCollection<T> implements Collection<T>, KMappedMarker {
     }
 
     @Override // java.util.Collection, java.lang.Iterable
-    @k
+    @d
     public Iterator<T> iterator() {
         return ArrayIteratorKt.iterator(this.values);
     }
@@ -108,14 +106,13 @@ final class ArrayAsCollection<T> implements Collection<T>, KMappedMarker {
     }
 
     @Override // java.util.Collection
-    public <T> T[] toArray(T[] array) {
-        Intrinsics.checkNotNullParameter(array, "array");
-        return (T[]) CollectionToArray.toArray(this, array);
+    @d
+    public final Object[] toArray() {
+        return CollectionsKt__CollectionsJVMKt.copyToArrayOfAny(this.values, this.isVarargs);
     }
 
     @Override // java.util.Collection
-    @k
-    public final Object[] toArray() {
-        return CollectionsKt__CollectionsJVMKt.copyToArrayOfAny(this.values, this.isVarargs);
+    public <T> T[] toArray(T[] tArr) {
+        return (T[]) CollectionToArray.toArray(this, tArr);
     }
 }

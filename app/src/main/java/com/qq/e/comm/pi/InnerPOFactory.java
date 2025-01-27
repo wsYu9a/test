@@ -11,9 +11,8 @@ import com.qq.e.ads.hybrid.HybridADSetting;
 import com.qq.e.ads.nativ.ADSize;
 import com.qq.e.comm.adevent.ADListener;
 import java.util.Map;
-import org.json.JSONObject;
 
-/* loaded from: classes3.dex */
+/* loaded from: classes4.dex */
 interface InnerPOFactory {
     SVSD getAPKDownloadServiceDelegate(Service service);
 
@@ -42,6 +41,4 @@ interface InnerPOFactory {
     UIADI getUnifiedInterstitialADDelegate(Activity activity, String str, String str2, String str3, ADListener aDListener);
 
     int showOpenOrInstallAppDialog(GDTAppDialogClickListener gDTAppDialogClickListener);
-
-    void start(JSONObject jSONObject);
 }

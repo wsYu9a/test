@@ -11,7 +11,7 @@ public class MiHistoryBookCoinsList {
         return this.bookCoinsList;
     }
 
-    public void setHistoryBookCoinsList(List<MiHistoryBookCoins> list) {
-        this.bookCoinsList = list;
+    public void setHistoryBookCoinsList(List<MiHistoryBookCoins> bookCoinsList) {
+        this.bookCoinsList = bookCoinsList;
     }
 }

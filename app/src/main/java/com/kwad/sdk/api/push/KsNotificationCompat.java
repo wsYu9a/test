@@ -15,13 +15,19 @@ import com.kwad.sdk.api.core.KsAdSdkApi;
 
 @KsAdSdkApi
 @Keep
-/* loaded from: classes3.dex */
+/* loaded from: classes2.dex */
 public class KsNotificationCompat {
 
     @KsAdSdkApi
     @Keep
     public static final class Builder {
         private NotificationCompat.Builder mBuilder;
+
+        @KsAdSdkApi
+        @Keep
+        public Builder(Context context) {
+            this(context, null);
+        }
 
         public Builder(@NonNull Context context, @NonNull String str) {
             try {
@@ -33,8 +39,8 @@ public class KsNotificationCompat {
 
         @KsAdSdkApi
         @Keep
-        public final Builder addAction(int i10, CharSequence charSequence, PendingIntent pendingIntent) {
-            this.mBuilder.addAction(i10, charSequence, pendingIntent);
+        public final Builder addAction(int i2, CharSequence charSequence, PendingIntent pendingIntent) {
+            this.mBuilder.addAction(i2, charSequence, pendingIntent);
             return this;
         }
 
@@ -72,15 +78,15 @@ public class KsNotificationCompat {
 
         @KsAdSdkApi
         @Keep
-        public final Builder setAutoCancel(boolean z10) {
-            this.mBuilder.setAutoCancel(z10);
+        public final Builder setAutoCancel(boolean z) {
+            this.mBuilder.setAutoCancel(z);
             return this;
         }
 
         @KsAdSdkApi
         @Keep
-        public final Builder setBadgeIconType(int i10) {
-            this.mBuilder.setBadgeIconType(i10);
+        public final Builder setBadgeIconType(int i2) {
+            this.mBuilder.setBadgeIconType(i2);
             return this;
         }
 
@@ -100,15 +106,15 @@ public class KsNotificationCompat {
 
         @KsAdSdkApi
         @Keep
-        public final Builder setColor(@ColorInt int i10) {
-            this.mBuilder.setColor(i10);
+        public final Builder setColor(@ColorInt int i2) {
+            this.mBuilder.setColor(i2);
             return this;
         }
 
         @KsAdSdkApi
         @Keep
-        public final Builder setColorized(boolean z10) {
-            this.mBuilder.setColorized(z10);
+        public final Builder setColorized(boolean z) {
+            this.mBuilder.setColorized(z);
             return this;
         }
 
@@ -170,15 +176,8 @@ public class KsNotificationCompat {
 
         @KsAdSdkApi
         @Keep
-        public final Builder setDecoratedCustomStyle() {
-            this.mBuilder.setStyle(new NotificationCompat.DecoratedCustomViewStyle());
-            return this;
-        }
-
-        @KsAdSdkApi
-        @Keep
-        public final Builder setDefaults(int i10) {
-            this.mBuilder.setDefaults(i10);
+        public final Builder setDefaults(int i2) {
+            this.mBuilder.setDefaults(i2);
             return this;
         }
 
@@ -198,8 +197,8 @@ public class KsNotificationCompat {
 
         @KsAdSdkApi
         @Keep
-        public final Builder setFullScreenIntent(PendingIntent pendingIntent, boolean z10) {
-            this.mBuilder.setFullScreenIntent(pendingIntent, z10);
+        public final Builder setFullScreenIntent(PendingIntent pendingIntent, boolean z) {
+            this.mBuilder.setFullScreenIntent(pendingIntent, z);
             return this;
         }
 
@@ -212,15 +211,15 @@ public class KsNotificationCompat {
 
         @KsAdSdkApi
         @Keep
-        public final Builder setGroupAlertBehavior(int i10) {
-            this.mBuilder.setGroupAlertBehavior(i10);
+        public final Builder setGroupAlertBehavior(int i2) {
+            this.mBuilder.setGroupAlertBehavior(i2);
             return this;
         }
 
         @KsAdSdkApi
         @Keep
-        public final Builder setGroupSummary(boolean z10) {
-            this.mBuilder.setGroupSummary(z10);
+        public final Builder setGroupSummary(boolean z) {
+            this.mBuilder.setGroupSummary(z);
             return this;
         }
 
@@ -233,50 +232,50 @@ public class KsNotificationCompat {
 
         @KsAdSdkApi
         @Keep
-        public final Builder setLights(@ColorInt int i10, int i11, int i12) {
-            this.mBuilder.setLights(i10, i11, i12);
+        public final Builder setLights(@ColorInt int i2, int i3, int i4) {
+            this.mBuilder.setLights(i2, i3, i4);
             return this;
         }
 
         @KsAdSdkApi
         @Keep
-        public final Builder setLocalOnly(boolean z10) {
-            this.mBuilder.setLocalOnly(z10);
+        public final Builder setLocalOnly(boolean z) {
+            this.mBuilder.setLocalOnly(z);
             return this;
         }
 
         @KsAdSdkApi
         @Keep
-        public final Builder setNumber(int i10) {
-            this.mBuilder.setNumber(i10);
+        public final Builder setNumber(int i2) {
+            this.mBuilder.setNumber(i2);
             return this;
         }
 
         @KsAdSdkApi
         @Keep
-        public final Builder setOngoing(boolean z10) {
-            this.mBuilder.setOngoing(z10);
+        public final Builder setOngoing(boolean z) {
+            this.mBuilder.setOngoing(z);
             return this;
         }
 
         @KsAdSdkApi
         @Keep
-        public final Builder setOnlyAlertOnce(boolean z10) {
-            this.mBuilder.setOnlyAlertOnce(z10);
+        public final Builder setOnlyAlertOnce(boolean z) {
+            this.mBuilder.setOnlyAlertOnce(z);
             return this;
         }
 
         @KsAdSdkApi
         @Keep
-        public final Builder setPriority(int i10) {
-            this.mBuilder.setPriority(i10);
+        public final Builder setPriority(int i2) {
+            this.mBuilder.setPriority(i2);
             return this;
         }
 
         @KsAdSdkApi
         @Keep
-        public final Builder setProgress(int i10, int i11, boolean z10) {
-            this.mBuilder.setProgress(i10, i11, z10);
+        public final Builder setProgress(int i2, int i3, boolean z) {
+            this.mBuilder.setProgress(i2, i3, z);
             return this;
         }
 
@@ -303,15 +302,22 @@ public class KsNotificationCompat {
 
         @KsAdSdkApi
         @Keep
-        public final Builder setShowWhen(boolean z10) {
-            this.mBuilder.setShowWhen(z10);
+        public final Builder setShowWhen(boolean z) {
+            this.mBuilder.setShowWhen(z);
             return this;
         }
 
         @KsAdSdkApi
         @Keep
-        public final Builder setSmallIcon(int i10) {
-            this.mBuilder.setSmallIcon(i10);
+        public final Builder setSmallIcon(int i2) {
+            this.mBuilder.setSmallIcon(i2);
+            return this;
+        }
+
+        @KsAdSdkApi
+        @Keep
+        public final Builder setSmallIcon(int i2, int i3) {
+            this.mBuilder.setSmallIcon(i2, i3);
             return this;
         }
 
@@ -331,6 +337,13 @@ public class KsNotificationCompat {
 
         @KsAdSdkApi
         @Keep
+        public final Builder setSound(Uri uri, int i2) {
+            this.mBuilder.setSound(uri, i2);
+            return this;
+        }
+
+        @KsAdSdkApi
+        @Keep
         public final Builder setSubText(CharSequence charSequence) {
             this.mBuilder.setSubText(charSequence);
             return this;
@@ -345,15 +358,22 @@ public class KsNotificationCompat {
 
         @KsAdSdkApi
         @Keep
-        public final Builder setTimeoutAfter(long j10) {
-            this.mBuilder.setTimeoutAfter(j10);
+        public final Builder setTicker(CharSequence charSequence, RemoteViews remoteViews) {
+            this.mBuilder.setTicker(charSequence, remoteViews);
             return this;
         }
 
         @KsAdSdkApi
         @Keep
-        public final Builder setUsesChronometer(boolean z10) {
-            this.mBuilder.setUsesChronometer(z10);
+        public final Builder setTimeoutAfter(long j2) {
+            this.mBuilder.setTimeoutAfter(j2);
+            return this;
+        }
+
+        @KsAdSdkApi
+        @Keep
+        public final Builder setUsesChronometer(boolean z) {
+            this.mBuilder.setUsesChronometer(z);
             return this;
         }
 
@@ -366,43 +386,16 @@ public class KsNotificationCompat {
 
         @KsAdSdkApi
         @Keep
-        public final Builder setVisibility(int i10) {
-            this.mBuilder.setVisibility(i10);
+        public final Builder setVisibility(int i2) {
+            this.mBuilder.setVisibility(i2);
             return this;
         }
 
         @KsAdSdkApi
         @Keep
-        public final Builder setWhen(long j10) {
-            this.mBuilder.setWhen(j10);
+        public final Builder setWhen(long j2) {
+            this.mBuilder.setWhen(j2);
             return this;
-        }
-
-        @KsAdSdkApi
-        @Keep
-        public final Builder setSmallIcon(int i10, int i11) {
-            this.mBuilder.setSmallIcon(i10, i11);
-            return this;
-        }
-
-        @KsAdSdkApi
-        @Keep
-        public final Builder setSound(Uri uri, int i10) {
-            this.mBuilder.setSound(uri, i10);
-            return this;
-        }
-
-        @KsAdSdkApi
-        @Keep
-        public final Builder setTicker(CharSequence charSequence, RemoteViews remoteViews) {
-            this.mBuilder.setTicker(charSequence, remoteViews);
-            return this;
-        }
-
-        @KsAdSdkApi
-        @Keep
-        public Builder(Context context) {
-            this(context, null);
         }
     }
 }

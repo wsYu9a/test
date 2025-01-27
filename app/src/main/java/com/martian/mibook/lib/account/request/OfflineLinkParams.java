@@ -1,6 +1,6 @@
 package com.martian.mibook.lib.account.request;
 
-import v8.a;
+import com.martian.libcomm.http.requests.d.a;
 
 /* loaded from: classes3.dex */
 public class OfflineLinkParams extends TYBookHttpGetParams {
@@ -14,16 +14,16 @@ public class OfflineLinkParams extends TYBookHttpGetParams {
     @a
     private int ctype = 0;
 
-    @Override // u8.b
+    @Override // com.martian.libcomm.http.requests.b
     public String getRequestMethod() {
         return "offline_notification";
     }
 
-    public void setCtype(int i10) {
-        this.ctype = i10;
+    public void setCtype(int ctype) {
+        this.ctype = ctype;
     }
 
-    public void setNotchHeight(int i10) {
-        this.notchHeight = i10;
+    public void setNotchHeight(int notchHeight) {
+        this.notchHeight = notchHeight;
     }
 }

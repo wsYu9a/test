@@ -6,76 +6,76 @@ import android.content.Context;
 public final class p {
 
     /* renamed from: a */
-    public static final o f25142a = new n();
+    public static final o f31106a = new n();
 
     /* renamed from: b */
-    private static boolean f25143b;
+    private static boolean f31107b;
 
     /* renamed from: c */
-    private static boolean f25144c;
+    private static boolean f31108c;
 
     static {
         b();
     }
 
     public static boolean a() {
-        return f25143b && f25144c;
+        return f31107b && f31108c;
     }
 
     private static void b() {
-        f25143b = z.b("persist.sys.log.ctrl", "no").equals("yes");
+        f31107b = z.b("persist.sys.log.ctrl", "no").equals("yes");
     }
 
     public static int c(String str, String str2) {
-        return f25142a.c(str, str2);
+        return f31106a.c(str, str2);
     }
 
     public static int d(String str, String str2) {
-        return f25142a.d(str, str2);
+        return f31106a.d(str, str2);
     }
 
     public static int e(String str, String str2) {
-        return f25142a.e(str, str2);
+        return f31106a.e(str, str2);
     }
 
     public static int b(String str, String str2) {
-        return f25142a.b(str, str2);
+        return f31106a.b(str, str2);
     }
 
     public static void c(Context context, String str) {
-        f25142a.c(context, str);
+        f31106a.c(context, str);
     }
 
-    public static void a(boolean z10) {
+    public static void a(boolean z) {
         b();
-        f25144c = z10;
+        f31108c = z;
     }
 
-    public static int b(String str, String str2, Throwable th2) {
-        return f25142a.b(str, str2, th2);
+    public static int b(String str, String str2, Throwable th) {
+        return f31106a.b(str, str2, th);
     }
 
     public static void b(Context context, String str) {
-        f25142a.b(context, str);
+        f31106a.b(context, str);
     }
 
     public static int a(String str, String str2) {
-        return f25142a.a(str, str2);
+        return f31106a.a(str, str2);
     }
 
-    public static int a(String str, Throwable th2) {
-        return f25142a.a(str, th2);
+    public static int a(String str, Throwable th) {
+        return f31106a.a(str, th);
     }
 
-    public static int a(String str, String str2, Throwable th2) {
-        return f25142a.a(str, str2, th2);
+    public static int a(String str, String str2, Throwable th) {
+        return f31106a.a(str, str2, th);
     }
 
-    public static String a(Throwable th2) {
-        return f25142a.a(th2);
+    public static String a(Throwable th) {
+        return f31106a.a(th);
     }
 
     public static void a(Context context, String str) {
-        f25142a.a(context, str);
+        f31106a.a(context, str);
     }
 }

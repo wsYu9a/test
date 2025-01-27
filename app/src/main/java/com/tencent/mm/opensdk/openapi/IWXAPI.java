@@ -19,7 +19,7 @@ public interface IWXAPI {
 
     boolean registerApp(String str);
 
-    boolean registerApp(String str, long j10);
+    boolean registerApp(String str, long j2);
 
     boolean sendReq(BaseReq baseReq);
 

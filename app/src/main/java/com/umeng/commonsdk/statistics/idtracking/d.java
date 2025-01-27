@@ -7,18 +7,18 @@ import com.umeng.commonsdk.statistics.common.DeviceConfig;
 public class d extends a {
 
     /* renamed from: a */
-    private static final String f24660a = "idfa";
+    private static final String f26337a = "idmd5";
 
     /* renamed from: b */
-    private Context f24661b;
+    private Context f26338b;
 
     public d(Context context) {
-        super(f24660a);
-        this.f24661b = context;
+        super("idmd5");
+        this.f26338b = context;
     }
 
     @Override // com.umeng.commonsdk.statistics.idtracking.a
     public String f() {
-        return DeviceConfig.getIdfa(this.f24661b);
+        return DeviceConfig.getDeviceIdUmengMD5(this.f26338b);
     }
 }

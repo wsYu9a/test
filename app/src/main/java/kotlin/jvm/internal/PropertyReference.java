@@ -4,17 +4,9 @@ import kotlin.SinceKotlin;
 import kotlin.reflect.KCallable;
 import kotlin.reflect.KProperty;
 
-/* loaded from: classes4.dex */
+/* loaded from: classes5.dex */
 public abstract class PropertyReference extends CallableReference implements KProperty {
-    private final boolean syntheticJavaProperty;
-
     public PropertyReference() {
-        this.syntheticJavaProperty = false;
-    }
-
-    @Override // kotlin.jvm.internal.CallableReference
-    public KCallable compute() {
-        return this.syntheticJavaProperty ? this : super.compute();
     }
 
     public boolean equals(Object obj) {
@@ -55,24 +47,14 @@ public abstract class PropertyReference extends CallableReference implements KPr
         return "property " + getName() + " (Kotlin reflection is not available)";
     }
 
-    @Override // kotlin.jvm.internal.CallableReference
-    @SinceKotlin(version = "1.1")
-    public KProperty getReflected() {
-        if (this.syntheticJavaProperty) {
-            throw new UnsupportedOperationException("Kotlin reflection is not yet supported for synthetic Java properties");
-        }
-        return (KProperty) super.getReflected();
-    }
-
     @SinceKotlin(version = "1.1")
     public PropertyReference(Object obj) {
         super(obj);
-        this.syntheticJavaProperty = false;
     }
 
-    @SinceKotlin(version = "1.4")
-    public PropertyReference(Object obj, Class cls, String str, String str2, int i10) {
-        super(obj, cls, str, str2, (i10 & 1) == 1);
-        this.syntheticJavaProperty = (i10 & 2) == 2;
+    @Override // kotlin.jvm.internal.CallableReference
+    @SinceKotlin(version = "1.1")
+    public KProperty getReflected() {
+        return (KProperty) super.getReflected();
     }
 }

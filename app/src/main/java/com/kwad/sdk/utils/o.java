@@ -1,104 +1,52 @@
 package com.kwad.sdk.utils;
 
-import androidx.annotation.RequiresApi;
-import java.io.BufferedInputStream;
-import java.io.BufferedOutputStream;
-import java.io.ByteArrayOutputStream;
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.util.zip.GZIPOutputStream;
-import java.util.zip.ZipEntry;
-import java.util.zip.ZipOutputStream;
+import com.kwad.sdk.service.ServiceProvider;
 
-/* loaded from: classes3.dex */
+/* loaded from: classes2.dex */
 public final class o {
-    public static void a(File[] fileArr, String str) {
-        a(fileArr, str, -1);
+    private static boolean azs;
+    private static boolean azt;
+
+    public static boolean CU() {
+        return (!((com.kwad.sdk.service.kwai.f) ServiceProvider.get(com.kwad.sdk.service.kwai.f.class)).E(2L)) & azs;
     }
 
-    @RequiresApi(api = 19)
-    public static byte[] k(byte[] bArr) {
-        byte[] bArr2 = null;
-        if (bArr != null) {
-            try {
-                ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream(bArr.length);
-                try {
-                    GZIPOutputStream gZIPOutputStream = new GZIPOutputStream(byteArrayOutputStream);
-                    try {
-                        gZIPOutputStream.write(bArr);
-                        gZIPOutputStream.flush();
-                        gZIPOutputStream.close();
-                        byteArrayOutputStream.flush();
-                        byteArrayOutputStream.close();
-                        bArr2 = byteArrayOutputStream.toByteArray();
-                        gZIPOutputStream.close();
-                        byteArrayOutputStream.close();
-                    } finally {
-                    }
-                } finally {
-                }
-            } catch (IOException e10) {
-                com.kwad.sdk.core.d.c.printStackTrace(e10);
-            }
-        }
-        return bArr2;
+    public static boolean CV() {
+        return (!((com.kwad.sdk.service.kwai.f) ServiceProvider.get(com.kwad.sdk.service.kwai.f.class)).E(4L)) & azs;
     }
 
-    private static void a(File[] fileArr, String str, int i10) {
-        ZipOutputStream zipOutputStream;
-        BufferedInputStream bufferedInputStream = null;
-        try {
-            zipOutputStream = new ZipOutputStream(new BufferedOutputStream(new FileOutputStream(str)));
-            try {
-                try {
-                    byte[] bArr = new byte[4096];
-                    int i11 = 0;
-                    while (i11 < fileArr.length) {
-                        BufferedInputStream bufferedInputStream2 = new BufferedInputStream(new FileInputStream(fileArr[i11]), 4096);
-                        try {
-                            String absolutePath = fileArr[i11].getAbsolutePath();
-                            zipOutputStream.putNextEntry(new ZipEntry(absolutePath.substring(absolutePath.lastIndexOf("/") + 1)));
-                            while (true) {
-                                int read = bufferedInputStream2.read(bArr, 0, 4096);
-                                if (read == -1) {
-                                    break;
-                                } else {
-                                    zipOutputStream.write(bArr, 0, read);
-                                }
-                            }
-                            bufferedInputStream2.close();
-                            i11++;
-                            bufferedInputStream = bufferedInputStream2;
-                        } catch (Exception e10) {
-                            e = e10;
-                            bufferedInputStream = bufferedInputStream2;
-                            com.kwad.sdk.core.d.c.printStackTrace(e);
-                            com.kwad.sdk.crash.utils.b.closeQuietly(bufferedInputStream);
-                            com.kwad.sdk.crash.utils.b.closeQuietly(zipOutputStream);
-                        } catch (Throwable th2) {
-                            th = th2;
-                            bufferedInputStream = bufferedInputStream2;
-                            com.kwad.sdk.crash.utils.b.closeQuietly(bufferedInputStream);
-                            com.kwad.sdk.crash.utils.b.closeQuietly(zipOutputStream);
-                            throw th;
-                        }
-                    }
-                } catch (Throwable th3) {
-                    th = th3;
-                }
-            } catch (Exception e11) {
-                e = e11;
+    public static boolean CW() {
+        return ((com.kwad.sdk.service.kwai.f) ServiceProvider.get(com.kwad.sdk.service.kwai.f.class)).sy() && azs;
+    }
+
+    public static boolean CX() {
+        return (!((com.kwad.sdk.service.kwai.f) ServiceProvider.get(com.kwad.sdk.service.kwai.f.class)).E(16L)) & azs;
+    }
+
+    public static boolean CY() {
+        return (!((com.kwad.sdk.service.kwai.f) ServiceProvider.get(com.kwad.sdk.service.kwai.f.class)).E(4096L)) & azs;
+    }
+
+    public static boolean CZ() {
+        return (!((com.kwad.sdk.service.kwai.f) ServiceProvider.get(com.kwad.sdk.service.kwai.f.class)).E(1L)) & azs;
+    }
+
+    public static boolean Da() {
+        return (!((com.kwad.sdk.service.kwai.f) ServiceProvider.get(com.kwad.sdk.service.kwai.f.class)).E(128L)) & azs;
+    }
+
+    public static boolean Db() {
+        return (!((com.kwad.sdk.service.kwai.f) ServiceProvider.get(com.kwad.sdk.service.kwai.f.class)).E(128L)) & azs;
+    }
+
+    public static synchronized void bw(boolean z) {
+        synchronized (o.class) {
+            if (azt) {
+                return;
             }
-        } catch (Exception e12) {
-            e = e12;
-            zipOutputStream = null;
-        } catch (Throwable th4) {
-            th = th4;
-            zipOutputStream = null;
+            azt = true;
+            azs = true;
+            ((com.kwad.sdk.service.kwai.b) ServiceProvider.get(com.kwad.sdk.service.kwai.b.class)).st();
         }
-        com.kwad.sdk.crash.utils.b.closeQuietly(bufferedInputStream);
-        com.kwad.sdk.crash.utils.b.closeQuietly(zipOutputStream);
     }
 }

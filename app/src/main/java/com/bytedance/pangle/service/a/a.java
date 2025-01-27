@@ -8,57 +8,52 @@ import android.os.Looper;
 import android.os.RemoteException;
 import androidx.annotation.Nullable;
 import com.bytedance.pangle.Zeus;
-import com.bytedance.pangle.e;
-import com.bytedance.pangle.g;
+import com.bytedance.pangle.d;
+import com.bytedance.pangle.f;
 import com.bytedance.pangle.log.ZeusLogger;
 import com.bytedance.pangle.plugin.Plugin;
 import com.bytedance.pangle.plugin.PluginManager;
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Iterator;
-import java.util.List;
 
-/* loaded from: classes2.dex */
-public class a extends e.a {
-
-    /* renamed from: c */
-    private static volatile a f7796c;
-
-    /* renamed from: d */
-    private final HashMap<ComponentName, IBinder> f7799d = new HashMap<>();
-
-    /* renamed from: e */
-    private final HashMap<ComponentName, b> f7800e = new HashMap<>();
-
-    /* renamed from: f */
-    private final C0235a<Intent> f7801f = new C0235a<>();
-
-    /* renamed from: g */
-    private final HashMap<ComponentName, com.bytedance.pangle.service.a> f7802g = new HashMap<>();
-
-    /* renamed from: h */
-    private final HashSet<ComponentName> f7803h = new HashSet<>();
-
-    /* renamed from: i */
-    private final HashSet<ComponentName> f7804i = new HashSet<>();
+/* loaded from: classes.dex */
+public class a extends d.a {
 
     /* renamed from: b */
-    public final List<Runnable> f7798b = new ArrayList();
+    private static volatile a f6282b;
+
+    /* renamed from: c */
+    private final HashMap<ComponentName, IBinder> f6284c = new HashMap<>();
+
+    /* renamed from: d */
+    private final HashMap<ComponentName, b> f6285d = new HashMap<>();
+
+    /* renamed from: e */
+    private final C0075a<Intent> f6286e = new C0075a<>();
+
+    /* renamed from: f */
+    private final HashMap<ComponentName, com.bytedance.pangle.service.a> f6287f = new HashMap<>();
+
+    /* renamed from: g */
+    private final HashSet<ComponentName> f6288g = new HashSet<>();
+
+    /* renamed from: h */
+    private final HashSet<ComponentName> f6289h = new HashSet<>();
 
     /* renamed from: a */
-    public final Handler f7797a = new Handler(Looper.getMainLooper());
+    private final Handler f6283a = new Handler(Looper.getMainLooper());
 
     /* renamed from: com.bytedance.pangle.service.a.a$1 */
-    public class AnonymousClass1 implements Runnable {
+    final class AnonymousClass1 implements Runnable {
 
         /* renamed from: a */
-        final /* synthetic */ Intent f7805a;
+        final /* synthetic */ Intent f6290a;
 
         /* renamed from: b */
-        final /* synthetic */ String f7806b;
+        final /* synthetic */ String f6291b;
 
-        public AnonymousClass1(Intent intent, String str) {
+        AnonymousClass1(Intent intent, String str) {
             intent = intent;
             str = str;
         }
@@ -70,32 +65,12 @@ public class a extends e.a {
     }
 
     /* renamed from: com.bytedance.pangle.service.a.a$2 */
-    public class AnonymousClass2 implements Runnable {
+    final class AnonymousClass2 implements Runnable {
 
         /* renamed from: a */
-        final /* synthetic */ Intent f7808a;
+        final /* synthetic */ Intent f6293a;
 
-        /* renamed from: b */
-        final /* synthetic */ String f7809b;
-
-        public AnonymousClass2(Intent intent, String str) {
-            intent = intent;
-            str = str;
-        }
-
-        @Override // java.lang.Runnable
-        public final void run() {
-            a.this.c(intent, str);
-        }
-    }
-
-    /* renamed from: com.bytedance.pangle.service.a.a$3 */
-    public class AnonymousClass3 implements Runnable {
-
-        /* renamed from: a */
-        final /* synthetic */ Intent f7811a;
-
-        public AnonymousClass3(Intent intent) {
+        AnonymousClass2(Intent intent) {
             intent = intent;
         }
 
@@ -105,89 +80,57 @@ public class a extends e.a {
         }
     }
 
+    /* renamed from: com.bytedance.pangle.service.a.a$3 */
+    final class AnonymousClass3 implements Runnable {
+
+        /* renamed from: a */
+        final /* synthetic */ Intent f6295a;
+
+        /* renamed from: b */
+        final /* synthetic */ f f6296b;
+
+        /* renamed from: c */
+        final /* synthetic */ int f6297c;
+
+        /* renamed from: d */
+        final /* synthetic */ String f6298d;
+
+        AnonymousClass3(Intent intent, f fVar, int i2, String str) {
+            intent = intent;
+            fVar = fVar;
+            i2 = i2;
+            str = str;
+        }
+
+        @Override // java.lang.Runnable
+        public final void run() {
+            try {
+                a.this.a(intent, fVar, str);
+            } catch (RemoteException e2) {
+                ZeusLogger.errReport(ZeusLogger.TAG_SERVICE, "bindService failed", e2);
+            }
+        }
+    }
+
     /* renamed from: com.bytedance.pangle.service.a.a$4 */
-    public class AnonymousClass4 implements Runnable {
+    final class AnonymousClass4 implements Runnable {
 
         /* renamed from: a */
-        final /* synthetic */ Intent f7813a;
+        final /* synthetic */ f f6300a;
 
-        /* renamed from: b */
-        final /* synthetic */ g f7814b;
-
-        /* renamed from: c */
-        final /* synthetic */ int f7815c;
-
-        /* renamed from: d */
-        final /* synthetic */ String f7816d;
-
-        public AnonymousClass4(Intent intent, g gVar, int i10, String str) {
-            intent = intent;
-            gVar = gVar;
-            i10 = i10;
-            str = str;
+        AnonymousClass4(f fVar) {
+            fVar = fVar;
         }
 
         @Override // java.lang.Runnable
         public final void run() {
-            try {
-                a.this.a(intent, gVar, str);
-            } catch (RemoteException e10) {
-                ZeusLogger.errReport(ZeusLogger.TAG_SERVICE, "bindService failed", e10);
-            }
-        }
-    }
-
-    /* renamed from: com.bytedance.pangle.service.a.a$5 */
-    public class AnonymousClass5 implements Runnable {
-
-        /* renamed from: a */
-        final /* synthetic */ Intent f7818a;
-
-        /* renamed from: b */
-        final /* synthetic */ g f7819b;
-
-        /* renamed from: c */
-        final /* synthetic */ int f7820c;
-
-        /* renamed from: d */
-        final /* synthetic */ String f7821d;
-
-        public AnonymousClass5(Intent intent, g gVar, int i10, String str) {
-            intent = intent;
-            gVar = gVar;
-            i10 = i10;
-            str = str;
-        }
-
-        @Override // java.lang.Runnable
-        public final void run() {
-            try {
-                a.this.a(intent, gVar, str);
-            } catch (RemoteException e10) {
-                ZeusLogger.errReport(ZeusLogger.TAG_SERVICE, "pending bindService failed", e10);
-            }
-        }
-    }
-
-    /* renamed from: com.bytedance.pangle.service.a.a$6 */
-    public class AnonymousClass6 implements Runnable {
-
-        /* renamed from: a */
-        final /* synthetic */ g f7823a;
-
-        public AnonymousClass6(g gVar) {
-            gVar = gVar;
-        }
-
-        @Override // java.lang.Runnable
-        public final void run() {
-            a.this.b(gVar);
+            a.this.b(fVar);
         }
     }
 
     /* renamed from: com.bytedance.pangle.service.a.a$a */
-    public class C0235a<T> extends HashMap<g, T> {
-        public C0235a() {
+    class C0075a<T> extends HashMap<f, T> {
+        C0075a() {
         }
 
         @Override // java.util.HashMap, java.util.AbstractMap, java.util.Map
@@ -195,16 +138,16 @@ public class a extends e.a {
             if (super.containsKey(obj)) {
                 return true;
             }
-            if (!(obj instanceof g)) {
+            if (!(obj instanceof f)) {
                 return false;
             }
-            Iterator<g> it = keySet().iterator();
+            Iterator<f> it = keySet().iterator();
             while (it.hasNext()) {
                 try {
-                } catch (RemoteException e10) {
-                    e10.printStackTrace();
+                } catch (RemoteException e2) {
+                    e2.printStackTrace();
                 }
-                if (it.next().a() == ((g) obj).a()) {
+                if (it.next().a() == ((f) obj).a()) {
                     return true;
                 }
             }
@@ -214,32 +157,32 @@ public class a extends e.a {
         @Override // java.util.HashMap, java.util.AbstractMap, java.util.Map
         @Nullable
         public final T remove(@Nullable Object obj) {
-            g gVar;
-            T t10 = (T) super.remove(obj);
-            if (t10 != null) {
-                return t10;
+            f fVar;
+            T t = (T) super.remove(obj);
+            if (t != null) {
+                return t;
             }
-            Iterator<g> it = keySet().iterator();
+            Iterator<f> it = keySet().iterator();
             while (true) {
                 if (!it.hasNext()) {
-                    gVar = null;
+                    fVar = null;
                     break;
                 }
-                gVar = it.next();
+                fVar = it.next();
                 try {
-                } catch (RemoteException e10) {
-                    e10.printStackTrace();
+                } catch (RemoteException e2) {
+                    e2.printStackTrace();
                 }
-                if (gVar.a() == ((g) obj).a()) {
+                if (fVar.a() == ((f) obj).a()) {
                     break;
                 }
             }
-            return (T) super.remove(gVar);
+            return (T) super.remove(fVar);
         }
     }
 
-    public class b extends HashSet<g> {
-        public b() {
+    class b extends HashSet<f> {
+        b() {
         }
 
         @Override // java.util.HashSet, java.util.AbstractCollection, java.util.Collection, java.util.Set
@@ -247,16 +190,16 @@ public class a extends e.a {
             if (super.contains(obj)) {
                 return true;
             }
-            if (!(obj instanceof g)) {
+            if (!(obj instanceof f)) {
                 return false;
             }
-            Iterator<g> it = iterator();
+            Iterator<f> it = iterator();
             while (it.hasNext()) {
                 try {
-                } catch (RemoteException e10) {
-                    e10.printStackTrace();
+                } catch (RemoteException e2) {
+                    e2.printStackTrace();
                 }
-                if (it.next().a() == ((g) obj).a()) {
+                if (it.next().a() == ((f) obj).a()) {
                     return true;
                 }
             }
@@ -265,26 +208,26 @@ public class a extends e.a {
 
         @Override // java.util.HashSet, java.util.AbstractCollection, java.util.Collection, java.util.Set
         public final boolean remove(@Nullable Object obj) {
-            g gVar;
             if (super.remove(obj)) {
                 return true;
             }
-            Iterator it = iterator();
+            f fVar = null;
+            Iterator<f> it = iterator();
             while (true) {
                 if (!it.hasNext()) {
-                    gVar = null;
                     break;
                 }
-                gVar = (g) it.next();
+                f next = it.next();
                 try {
-                } catch (RemoteException e10) {
-                    e10.printStackTrace();
+                } catch (RemoteException e2) {
+                    e2.printStackTrace();
                 }
-                if (gVar.a() == ((g) obj).a()) {
+                if (next.a() == ((f) obj).a()) {
+                    fVar = next;
                     break;
                 }
             }
-            return super.remove(gVar);
+            return super.remove(fVar);
         }
     }
 
@@ -292,133 +235,105 @@ public class a extends e.a {
     }
 
     public static a b() {
-        if (f7796c == null) {
+        if (f6282b == null) {
             synchronized (a.class) {
-                try {
-                    if (f7796c == null) {
-                        f7796c = new a();
-                    }
-                } finally {
+                if (f6282b == null) {
+                    f6282b = new a();
                 }
             }
         }
-        return f7796c;
+        return f6282b;
     }
 
     public synchronized ComponentName c(Intent intent, String str) {
-        try {
-            ComponentName component = intent.getComponent();
-            if (!this.f7802g.containsKey(component)) {
-                com.bytedance.pangle.service.a d10 = d(intent, str);
-                if (d10 == null) {
-                    return component;
-                }
-                this.f7802g.put(component, d10);
-                this.f7803h.add(component);
+        ComponentName component = intent.getComponent();
+        if (!this.f6287f.containsKey(component)) {
+            com.bytedance.pangle.service.a d2 = d(intent, str);
+            if (d2 == null) {
+                return component;
             }
-            com.bytedance.pangle.service.a aVar = this.f7802g.get(component);
-            if (aVar != null) {
-                aVar.onStartCommand(intent, 0, 0);
-            }
-            return component;
-        } catch (Throwable th2) {
-            throw th2;
+            this.f6287f.put(component, d2);
+            this.f6288g.add(component);
         }
+        com.bytedance.pangle.service.a aVar = this.f6287f.get(component);
+        if (aVar != null) {
+            aVar.onStartCommand(intent, 0, 0);
+        }
+        return component;
     }
 
     private static com.bytedance.pangle.service.a d(Intent intent, String str) {
-        com.bytedance.pangle.service.a e10 = e(intent, str);
-        if (e10 != null) {
-            e10.onCreate();
+        com.bytedance.pangle.service.a e2 = e(intent, str);
+        if (e2 != null) {
+            e2.onCreate();
         }
-        return e10;
+        return e2;
     }
 
     private static com.bytedance.pangle.service.a e(Intent intent, String str) {
-        boolean z10;
+        boolean z;
         ComponentName component = intent.getComponent();
         Plugin plugin = PluginManager.getInstance().getPlugin(str);
         try {
-            z10 = Zeus.loadPlugin(str);
+            z = Zeus.loadPlugin(str);
             try {
                 com.bytedance.pangle.service.a aVar = (com.bytedance.pangle.service.a) plugin.mClassLoader.loadClass(component.getClassName()).newInstance();
                 aVar.attach(plugin);
                 return aVar;
-            } catch (Exception e10) {
-                e = e10;
-                ZeusLogger.errReport(ZeusLogger.TAG_SERVICE, "newServiceInstance failed! loadPlugin = ".concat(String.valueOf(z10)), e);
-                return null;
+            } catch (Exception e2) {
+                e = e2;
+                ZeusLogger.errReport(ZeusLogger.TAG_SERVICE, "newServiceInstance failed! loadPlugin = ".concat(String.valueOf(z)), e);
+                throw new RuntimeException(e);
             }
-        } catch (Exception e11) {
-            e = e11;
-            z10 = false;
+        } catch (Exception e3) {
+            e = e3;
+            z = false;
         }
     }
 
-    @Override // com.bytedance.pangle.e.a, android.os.IInterface
+    @Override // com.bytedance.pangle.d.a, android.os.IInterface
     public IBinder asBinder() {
         return null;
     }
 
-    @Override // com.bytedance.pangle.e
+    @Override // com.bytedance.pangle.d
     public final ComponentName a(Intent intent, String str) {
-        if (Zeus.hasInit()) {
-            if (Looper.myLooper() == Looper.getMainLooper()) {
-                return c(intent, str);
-            }
-            this.f7797a.post(new Runnable() { // from class: com.bytedance.pangle.service.a.a.1
-
-                /* renamed from: a */
-                final /* synthetic */ Intent f7805a;
-
-                /* renamed from: b */
-                final /* synthetic */ String f7806b;
-
-                public AnonymousClass1(Intent intent2, String str2) {
-                    intent = intent2;
-                    str = str2;
-                }
-
-                @Override // java.lang.Runnable
-                public final void run() {
-                    a.this.c(intent, str);
-                }
-            });
-        } else {
-            this.f7798b.add(new Runnable() { // from class: com.bytedance.pangle.service.a.a.2
-
-                /* renamed from: a */
-                final /* synthetic */ Intent f7808a;
-
-                /* renamed from: b */
-                final /* synthetic */ String f7809b;
-
-                public AnonymousClass2(Intent intent2, String str2) {
-                    intent = intent2;
-                    str = str2;
-                }
-
-                @Override // java.lang.Runnable
-                public final void run() {
-                    a.this.c(intent, str);
-                }
-            });
+        if (Looper.myLooper() == Looper.getMainLooper()) {
+            return c(intent, str);
         }
+        this.f6283a.post(new Runnable() { // from class: com.bytedance.pangle.service.a.a.1
+
+            /* renamed from: a */
+            final /* synthetic */ Intent f6290a;
+
+            /* renamed from: b */
+            final /* synthetic */ String f6291b;
+
+            AnonymousClass1(Intent intent2, String str2) {
+                intent = intent2;
+                str = str2;
+            }
+
+            @Override // java.lang.Runnable
+            public final void run() {
+                a.this.c(intent, str);
+            }
+        });
         return intent2.getComponent();
     }
 
-    @Override // com.bytedance.pangle.e
+    @Override // com.bytedance.pangle.d
     public final boolean b(Intent intent, String str) {
         if (Looper.myLooper() == Looper.getMainLooper()) {
             b().a(intent.getComponent());
             return true;
         }
-        this.f7797a.post(new Runnable() { // from class: com.bytedance.pangle.service.a.a.3
+        this.f6283a.post(new Runnable() { // from class: com.bytedance.pangle.service.a.a.2
 
             /* renamed from: a */
-            final /* synthetic */ Intent f7811a;
+            final /* synthetic */ Intent f6293a;
 
-            public AnonymousClass3(Intent intent2) {
+            AnonymousClass2(Intent intent2) {
                 intent = intent2;
             }
 
@@ -430,15 +345,23 @@ public class a extends e.a {
         return true;
     }
 
+    public final synchronized boolean a(ComponentName componentName) {
+        if (!this.f6287f.containsKey(componentName)) {
+            return false;
+        }
+        this.f6289h.add(componentName);
+        return b(componentName);
+    }
+
     private boolean b(ComponentName componentName) {
-        if (!this.f7803h.contains(componentName)) {
-            if (this.f7800e.get(componentName) != null) {
+        if (!this.f6288g.contains(componentName)) {
+            if (this.f6285d.get(componentName) != null) {
                 return false;
             }
             c(componentName);
             return true;
         }
-        if (!this.f7804i.contains(componentName) || this.f7800e.containsKey(componentName)) {
+        if (!this.f6289h.contains(componentName) || this.f6285d.containsKey(componentName)) {
             return false;
         }
         c(componentName);
@@ -446,170 +369,121 @@ public class a extends e.a {
     }
 
     private void c(ComponentName componentName) {
-        com.bytedance.pangle.service.a remove = this.f7802g.remove(componentName);
-        this.f7804i.remove(componentName);
-        this.f7799d.remove(componentName);
-        this.f7803h.remove(componentName);
+        com.bytedance.pangle.service.a remove = this.f6287f.remove(componentName);
+        this.f6289h.remove(componentName);
+        this.f6284c.remove(componentName);
+        this.f6288g.remove(componentName);
         if (remove != null) {
             remove.onDestroy();
         }
     }
 
-    public final synchronized boolean a(ComponentName componentName) {
-        if (!this.f7802g.containsKey(componentName)) {
-            return false;
+    @Override // com.bytedance.pangle.d
+    public final boolean a(Intent intent, f fVar, int i2, String str) {
+        if (Looper.myLooper() == Looper.getMainLooper()) {
+            return a(intent, fVar, str);
         }
-        this.f7804i.add(componentName);
-        return b(componentName);
-    }
-
-    @Override // com.bytedance.pangle.e
-    public final boolean a(Intent intent, g gVar, int i10, String str) {
-        if (Zeus.hasInit()) {
-            if (Looper.myLooper() == Looper.getMainLooper()) {
-                return a(intent, gVar, str);
-            }
-            this.f7797a.post(new Runnable() { // from class: com.bytedance.pangle.service.a.a.4
-
-                /* renamed from: a */
-                final /* synthetic */ Intent f7813a;
-
-                /* renamed from: b */
-                final /* synthetic */ g f7814b;
-
-                /* renamed from: c */
-                final /* synthetic */ int f7815c;
-
-                /* renamed from: d */
-                final /* synthetic */ String f7816d;
-
-                public AnonymousClass4(Intent intent2, g gVar2, int i102, String str2) {
-                    intent = intent2;
-                    gVar = gVar2;
-                    i10 = i102;
-                    str = str2;
-                }
-
-                @Override // java.lang.Runnable
-                public final void run() {
-                    try {
-                        a.this.a(intent, gVar, str);
-                    } catch (RemoteException e10) {
-                        ZeusLogger.errReport(ZeusLogger.TAG_SERVICE, "bindService failed", e10);
-                    }
-                }
-            });
-            return true;
-        }
-        this.f7798b.add(new Runnable() { // from class: com.bytedance.pangle.service.a.a.5
+        this.f6283a.post(new Runnable() { // from class: com.bytedance.pangle.service.a.a.3
 
             /* renamed from: a */
-            final /* synthetic */ Intent f7818a;
+            final /* synthetic */ Intent f6295a;
 
             /* renamed from: b */
-            final /* synthetic */ g f7819b;
+            final /* synthetic */ f f6296b;
 
             /* renamed from: c */
-            final /* synthetic */ int f7820c;
+            final /* synthetic */ int f6297c;
 
             /* renamed from: d */
-            final /* synthetic */ String f7821d;
+            final /* synthetic */ String f6298d;
 
-            public AnonymousClass5(Intent intent2, g gVar2, int i102, String str2) {
+            AnonymousClass3(Intent intent2, f fVar2, int i22, String str2) {
                 intent = intent2;
-                gVar = gVar2;
-                i10 = i102;
+                fVar = fVar2;
+                i2 = i22;
                 str = str2;
             }
 
             @Override // java.lang.Runnable
             public final void run() {
                 try {
-                    a.this.a(intent, gVar, str);
-                } catch (RemoteException e10) {
-                    ZeusLogger.errReport(ZeusLogger.TAG_SERVICE, "pending bindService failed", e10);
+                    a.this.a(intent, fVar, str);
+                } catch (RemoteException e2) {
+                    ZeusLogger.errReport(ZeusLogger.TAG_SERVICE, "bindService failed", e2);
                 }
             }
         });
         return true;
     }
 
-    public synchronized void b(g gVar) {
-        try {
-            for (ComponentName componentName : this.f7800e.keySet()) {
-                b bVar = this.f7800e.get(componentName);
-                if (bVar.contains(gVar)) {
-                    bVar.remove(gVar);
-                    Intent remove = this.f7801f.remove(gVar);
-                    if (bVar.size() == 0) {
-                        this.f7800e.remove(componentName);
-                        com.bytedance.pangle.service.a aVar = this.f7802g.get(componentName);
-                        if (aVar != null) {
-                            aVar.onUnbind(remove);
-                        }
-                    }
-                    b(componentName);
-                    return;
-                }
+    public synchronized boolean a(Intent intent, f fVar, String str) {
+        ComponentName component = intent.getComponent();
+        if (!this.f6287f.containsKey(component)) {
+            com.bytedance.pangle.service.a d2 = d(intent, str);
+            if (d2 == null) {
+                return false;
             }
-        } catch (Throwable th2) {
-            throw th2;
+            this.f6287f.put(component, d2);
+        }
+        com.bytedance.pangle.service.a aVar = this.f6287f.get(component);
+        if (!this.f6284c.containsKey(component)) {
+            this.f6284c.put(component, aVar.onBind(intent));
+        }
+        IBinder iBinder = this.f6284c.get(component);
+        if (iBinder != null) {
+            if (this.f6285d.containsKey(component)) {
+                if (!this.f6285d.get(component).contains(fVar)) {
+                    this.f6285d.get(component).add(fVar);
+                    this.f6286e.put(fVar, intent);
+                    fVar.a(component, iBinder);
+                }
+            } else {
+                b bVar = new b();
+                bVar.add(fVar);
+                this.f6285d.put(component, bVar);
+                this.f6286e.put(fVar, intent);
+                fVar.a(component, iBinder);
+            }
+        }
+        return true;
+    }
+
+    public synchronized void b(f fVar) {
+        for (ComponentName componentName : this.f6285d.keySet()) {
+            b bVar = this.f6285d.get(componentName);
+            if (bVar.contains(fVar)) {
+                bVar.remove(fVar);
+                Intent remove = this.f6286e.remove(fVar);
+                if (bVar.size() == 0) {
+                    this.f6285d.remove(componentName);
+                    com.bytedance.pangle.service.a aVar = this.f6287f.get(componentName);
+                    if (aVar != null) {
+                        aVar.onUnbind(remove);
+                    }
+                }
+                b(componentName);
+                return;
+            }
         }
     }
 
-    public synchronized boolean a(Intent intent, g gVar, String str) {
-        try {
-            ComponentName component = intent.getComponent();
-            if (!this.f7802g.containsKey(component)) {
-                com.bytedance.pangle.service.a d10 = d(intent, str);
-                if (d10 == null) {
-                    return false;
-                }
-                this.f7802g.put(component, d10);
-            }
-            com.bytedance.pangle.service.a aVar = this.f7802g.get(component);
-            if (!this.f7799d.containsKey(component)) {
-                this.f7799d.put(component, aVar.onBind(intent));
-            }
-            IBinder iBinder = this.f7799d.get(component);
-            if (iBinder != null) {
-                if (this.f7800e.containsKey(component)) {
-                    if (!this.f7800e.get(component).contains(gVar)) {
-                        this.f7800e.get(component).add(gVar);
-                        this.f7801f.put(gVar, intent);
-                        gVar.a(component, iBinder);
-                    }
-                } else {
-                    b bVar = new b();
-                    bVar.add(gVar);
-                    this.f7800e.put(component, bVar);
-                    this.f7801f.put(gVar, intent);
-                    gVar.a(component, iBinder);
-                }
-            }
-            return true;
-        } catch (Throwable th2) {
-            throw th2;
-        }
-    }
-
-    @Override // com.bytedance.pangle.e
-    public final void a(g gVar) {
+    @Override // com.bytedance.pangle.d
+    public final void a(f fVar) {
         if (Looper.myLooper() == Looper.getMainLooper()) {
-            b(gVar);
+            b(fVar);
         } else {
-            this.f7797a.post(new Runnable() { // from class: com.bytedance.pangle.service.a.a.6
+            this.f6283a.post(new Runnable() { // from class: com.bytedance.pangle.service.a.a.4
 
                 /* renamed from: a */
-                final /* synthetic */ g f7823a;
+                final /* synthetic */ f f6300a;
 
-                public AnonymousClass6(g gVar2) {
-                    gVar = gVar2;
+                AnonymousClass4(f fVar2) {
+                    fVar = fVar2;
                 }
 
                 @Override // java.lang.Runnable
                 public final void run() {
-                    a.this.b(gVar);
+                    a.this.b(fVar);
                 }
             });
         }

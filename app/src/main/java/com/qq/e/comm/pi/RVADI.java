@@ -4,7 +4,7 @@ import android.app.Activity;
 import com.qq.e.ads.rewardvideo.ServerSideVerificationOptions;
 import com.qq.e.comm.constants.LoadAdParams;
 
-/* loaded from: classes3.dex */
+/* loaded from: classes4.dex */
 public interface RVADI extends LADI {
     String getAdNetWorkName();
 
@@ -23,7 +23,7 @@ public interface RVADI extends LADI {
 
     void setServerSideVerificationOptions(ServerSideVerificationOptions serverSideVerificationOptions);
 
-    void setVolumeOn(boolean z10);
+    void setVolumeOn(boolean z);
 
     void showAD();
 

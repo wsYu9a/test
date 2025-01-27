@@ -6,13 +6,23 @@ import java.net.UnknownHostException;
 import java.util.regex.Pattern;
 import org.apache.http.conn.ConnectTimeoutException;
 
-/* loaded from: classes3.dex */
+/* loaded from: classes2.dex */
 public class DomainException extends Exception {
     private final Pattern CONNECT_ERR_PATTERN;
     private final int httpCode;
 
-    public DomainException(int i10) {
-        this(i10, null);
+    public DomainException(int i2) {
+        this(i2, null);
+    }
+
+    public DomainException(int i2, Throwable th) {
+        super(th);
+        this.CONNECT_ERR_PATTERN = Pattern.compile(".*(ECONN(RESET|REFUSED|ABORTED)|ETIMEDOUT|ENETUNREACH|EHOSTUNREACH).*", 2);
+        this.httpCode = i2;
+    }
+
+    public DomainException(Throwable th) {
+        this(-1, th);
     }
 
     private Exception getInternal() {
@@ -27,7 +37,7 @@ public class DomainException extends Exception {
         return this.httpCode;
     }
 
-    public boolean isConnectException() {
+    boolean isConnectException() {
         String message;
         Exception internal = getInternal();
         if (internal == null) {
@@ -40,15 +50,5 @@ public class DomainException extends Exception {
             return false;
         }
         return this.CONNECT_ERR_PATTERN.matcher(message).find();
-    }
-
-    public DomainException(Throwable th2) {
-        this(-1, th2);
-    }
-
-    public DomainException(int i10, Throwable th2) {
-        super(th2);
-        this.CONNECT_ERR_PATTERN = Pattern.compile(".*(ECONN(RESET|REFUSED|ABORTED)|ETIMEDOUT|ENETUNREACH|EHOSTUNREACH).*", 2);
-        this.httpCode = i10;
     }
 }

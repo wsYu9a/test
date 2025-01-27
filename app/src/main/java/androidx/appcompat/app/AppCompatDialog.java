@@ -1,5 +1,6 @@
 package androidx.appcompat.app;
 
+import android.app.Dialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.os.Bundle;
@@ -7,63 +8,72 @@ import android.util.TypedValue;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.ViewGroup;
-import androidx.activity.ComponentDialog;
 import androidx.annotation.IdRes;
 import androidx.annotation.LayoutRes;
-import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.annotation.RestrictTo;
 import androidx.appcompat.R;
-import androidx.appcompat.app.AppCompatDialog;
 import androidx.appcompat.view.ActionMode;
 import androidx.core.view.KeyEventDispatcher;
 
 /* loaded from: classes.dex */
-public class AppCompatDialog extends ComponentDialog implements AppCompatCallback {
-    private AppCompatDelegate mDelegate;
-    private final KeyEventDispatcher.Component mKeyDispatcher;
+public class AppCompatDialog extends Dialog implements AppCompatCallback {
 
-    public AppCompatDialog(@NonNull Context context) {
+    /* renamed from: a */
+    private AppCompatDelegate f269a;
+
+    /* renamed from: b */
+    private final KeyEventDispatcher.Component f270b;
+
+    /* renamed from: androidx.appcompat.app.AppCompatDialog$1 */
+    class AnonymousClass1 implements KeyEventDispatcher.Component {
+        AnonymousClass1() {
+        }
+
+        @Override // androidx.core.view.KeyEventDispatcher.Component
+        public boolean superDispatchKeyEvent(KeyEvent keyEvent) {
+            return AppCompatDialog.this.b(keyEvent);
+        }
+    }
+
+    public AppCompatDialog(Context context) {
         this(context, 0);
     }
 
-    private static int getThemeResId(Context context, int i10) {
-        if (i10 != 0) {
-            return i10;
+    private static int a(Context context, int i2) {
+        if (i2 != 0) {
+            return i2;
         }
         TypedValue typedValue = new TypedValue();
         context.getTheme().resolveAttribute(R.attr.dialogTheme, typedValue, true);
         return typedValue.resourceId;
     }
 
-    @Override // androidx.activity.ComponentDialog, android.app.Dialog
-    public void addContentView(@NonNull View view, ViewGroup.LayoutParams layoutParams) {
+    @Override // android.app.Dialog
+    public void addContentView(View view, ViewGroup.LayoutParams layoutParams) {
         getDelegate().addContentView(view, layoutParams);
     }
 
-    @Override // android.app.Dialog, android.content.DialogInterface
-    public void dismiss() {
-        super.dismiss();
-        getDelegate().onDestroy();
+    boolean b(KeyEvent keyEvent) {
+        return super.dispatchKeyEvent(keyEvent);
     }
 
     @Override // android.app.Dialog, android.view.Window.Callback
     public boolean dispatchKeyEvent(KeyEvent keyEvent) {
-        return KeyEventDispatcher.dispatchKeyEvent(this.mKeyDispatcher, getWindow().getDecorView(), this, keyEvent);
+        return KeyEventDispatcher.dispatchKeyEvent(this.f270b, getWindow().getDecorView(), this, keyEvent);
     }
 
     @Override // android.app.Dialog
     @Nullable
-    public <T extends View> T findViewById(@IdRes int i10) {
-        return (T) getDelegate().findViewById(i10);
+    public <T extends View> T findViewById(@IdRes int i2) {
+        return (T) getDelegate().findViewById(i2);
     }
 
-    @NonNull
     public AppCompatDelegate getDelegate() {
-        if (this.mDelegate == null) {
-            this.mDelegate = AppCompatDelegate.create(this, this);
+        if (this.f269a == null) {
+            this.f269a = AppCompatDelegate.create(this, this);
         }
-        return this.mDelegate;
+        return this.f269a;
     }
 
     public ActionBar getSupportActionBar() {
@@ -76,15 +86,15 @@ public class AppCompatDialog extends ComponentDialog implements AppCompatCallbac
         getDelegate().invalidateOptionsMenu();
     }
 
-    @Override // androidx.activity.ComponentDialog, android.app.Dialog
-    public void onCreate(Bundle bundle) {
+    @Override // android.app.Dialog
+    protected void onCreate(Bundle bundle) {
         getDelegate().installViewFactory();
         super.onCreate(bundle);
         getDelegate().onCreate(bundle);
     }
 
-    @Override // androidx.activity.ComponentDialog, android.app.Dialog
-    public void onStop() {
+    @Override // android.app.Dialog
+    protected void onStop() {
         super.onStop();
         getDelegate().onStop();
     }
@@ -103,9 +113,9 @@ public class AppCompatDialog extends ComponentDialog implements AppCompatCallbac
         return null;
     }
 
-    @Override // androidx.activity.ComponentDialog, android.app.Dialog
-    public void setContentView(@LayoutRes int i10) {
-        getDelegate().setContentView(i10);
+    @Override // android.app.Dialog
+    public void setContentView(@LayoutRes int i2) {
+        getDelegate().setContentView(i2);
     }
 
     @Override // android.app.Dialog
@@ -114,58 +124,52 @@ public class AppCompatDialog extends ComponentDialog implements AppCompatCallbac
         getDelegate().setTitle(charSequence);
     }
 
-    public boolean superDispatchKeyEvent(KeyEvent keyEvent) {
-        return super.dispatchKeyEvent(keyEvent);
+    public boolean supportRequestWindowFeature(int i2) {
+        return getDelegate().requestWindowFeature(i2);
     }
 
-    public boolean supportRequestWindowFeature(int i10) {
-        return getDelegate().requestWindowFeature(i10);
-    }
-
-    public AppCompatDialog(@NonNull Context context, int i10) {
-        super(context, getThemeResId(context, i10));
-        this.mKeyDispatcher = new KeyEventDispatcher.Component() { // from class: h.p
-            public /* synthetic */ p() {
+    public AppCompatDialog(Context context, int i2) {
+        super(context, a(context, i2));
+        this.f270b = new KeyEventDispatcher.Component() { // from class: androidx.appcompat.app.AppCompatDialog.1
+            AnonymousClass1() {
             }
 
             @Override // androidx.core.view.KeyEventDispatcher.Component
-            public final boolean superDispatchKeyEvent(KeyEvent keyEvent) {
-                return AppCompatDialog.this.superDispatchKeyEvent(keyEvent);
+            public boolean superDispatchKeyEvent(KeyEvent keyEvent) {
+                return AppCompatDialog.this.b(keyEvent);
             }
         };
         AppCompatDelegate delegate = getDelegate();
-        delegate.setTheme(getThemeResId(context, i10));
+        delegate.setTheme(a(context, i2));
         delegate.onCreate(null);
     }
 
-    @Override // androidx.activity.ComponentDialog, android.app.Dialog
-    public void setContentView(@NonNull View view) {
+    @Override // android.app.Dialog
+    public void setContentView(View view) {
         getDelegate().setContentView(view);
     }
 
-    @Override // androidx.activity.ComponentDialog, android.app.Dialog
-    public void setContentView(@NonNull View view, ViewGroup.LayoutParams layoutParams) {
+    @Override // android.app.Dialog
+    public void setContentView(View view, ViewGroup.LayoutParams layoutParams) {
         getDelegate().setContentView(view, layoutParams);
     }
 
     @Override // android.app.Dialog
-    public void setTitle(int i10) {
-        super.setTitle(i10);
-        getDelegate().setTitle(getContext().getString(i10));
+    public void setTitle(int i2) {
+        super.setTitle(i2);
+        getDelegate().setTitle(getContext().getString(i2));
     }
 
-    public AppCompatDialog(@NonNull Context context, boolean z10, @Nullable DialogInterface.OnCancelListener onCancelListener) {
-        super(context);
-        this.mKeyDispatcher = new KeyEventDispatcher.Component() { // from class: h.p
-            public /* synthetic */ p() {
+    protected AppCompatDialog(Context context, boolean z, DialogInterface.OnCancelListener onCancelListener) {
+        super(context, z, onCancelListener);
+        this.f270b = new KeyEventDispatcher.Component() { // from class: androidx.appcompat.app.AppCompatDialog.1
+            AnonymousClass1() {
             }
 
             @Override // androidx.core.view.KeyEventDispatcher.Component
-            public final boolean superDispatchKeyEvent(KeyEvent keyEvent) {
-                return AppCompatDialog.this.superDispatchKeyEvent(keyEvent);
+            public boolean superDispatchKeyEvent(KeyEvent keyEvent) {
+                return AppCompatDialog.this.b(keyEvent);
             }
         };
-        setCancelable(z10);
-        setOnCancelListener(onCancelListener);
     }
 }

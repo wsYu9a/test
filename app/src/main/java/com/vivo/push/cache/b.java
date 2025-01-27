@@ -8,10 +8,10 @@ import java.lang.reflect.Method;
 public final class b {
 
     /* renamed from: a */
-    private static volatile b f24973a;
+    private static volatile b f30946a;
 
     /* renamed from: b */
-    private d f24974b;
+    private d f30947b;
 
     private b() {
     }
@@ -19,32 +19,28 @@ public final class b {
     public static synchronized b a() {
         b bVar;
         synchronized (b.class) {
-            try {
-                if (f24973a == null) {
-                    f24973a = new b();
-                }
-                bVar = f24973a;
-            } catch (Throwable th2) {
-                throw th2;
+            if (f30946a == null) {
+                f30946a = new b();
             }
+            bVar = f30946a;
         }
         return bVar;
     }
 
     public final d a(Context context) {
-        d dVar = this.f24974b;
+        d dVar = this.f30947b;
         if (dVar != null) {
             return dVar;
         }
         try {
-            Method method = ClientConfigManagerImpl.class.getMethod("getInstance", Context.class);
+            Method method = Class.forName("com.vivo.push.cache.ClientConfigManagerImpl").getMethod("getInstance", Context.class);
             p.d("ConfigManagerFactory", "createConfig success is ".concat("com.vivo.push.cache.ClientConfigManagerImpl"));
             d dVar2 = (d) method.invoke(null, context);
-            this.f24974b = dVar2;
+            this.f30947b = dVar2;
             return dVar2;
-        } catch (Exception e10) {
-            e10.printStackTrace();
-            p.b("ConfigManagerFactory", "createConfig error", e10);
+        } catch (Exception e2) {
+            e2.printStackTrace();
+            p.b("ConfigManagerFactory", "createConfig error", e2);
             return null;
         }
     }

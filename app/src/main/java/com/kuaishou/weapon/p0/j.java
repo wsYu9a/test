@@ -1,6 +1,6 @@
 package com.kuaishou.weapon.p0;
 
-/* loaded from: classes2.dex */
+/* loaded from: classes.dex */
 public interface j {
     void a(String str);
 

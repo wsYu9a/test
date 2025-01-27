@@ -9,7 +9,7 @@ import android.os.IBinder;
 import androidx.annotation.Keep;
 
 @Keep
-/* loaded from: classes2.dex */
+/* loaded from: classes.dex */
 public abstract class AbsServerManager extends ContentProvider {
     static final String BUNDLE_BINDER = "binder";
     static final String METHOD_QUERY_BINDER = "query_binder";
@@ -42,7 +42,7 @@ public abstract class AbsServerManager extends ContentProvider {
         return null;
     }
 
-    public IBinder onBind(String str) {
+    protected IBinder onBind(String str) {
         str.hashCode();
         if (str.equals(PACKAGE_QUERY_BINDER)) {
             return com.bytedance.pangle.f.a.b();

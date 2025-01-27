@@ -3,7 +3,7 @@ package com.kwad.sdk.api.model;
 import androidx.annotation.Keep;
 
 @Keep
-/* loaded from: classes3.dex */
+/* loaded from: classes2.dex */
 public class NativeAdExtraData {
     private boolean enableShake;
     private int showLiveStatus;
@@ -21,18 +21,15 @@ public class NativeAdExtraData {
         return this.enableShake;
     }
 
-    public NativeAdExtraData setEnableShake(boolean z10) {
-        this.enableShake = z10;
-        return this;
+    public void setEnableShake(boolean z) {
+        this.enableShake = z;
     }
 
-    public NativeAdExtraData setShowLiveStatus(int i10) {
-        this.showLiveStatus = i10;
-        return this;
+    public void setShowLiveStatus(int i2) {
+        this.showLiveStatus = i2;
     }
 
-    public NativeAdExtraData setShowLiveStyle(int i10) {
-        this.showLiveStyle = i10;
-        return this;
+    public void setShowLiveStyle(int i2) {
+        this.showLiveStyle = i2;
     }
 }

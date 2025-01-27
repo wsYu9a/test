@@ -2,14 +2,13 @@ package com.kwai.adclient.kscommerciallogger.model;
 
 import android.text.TextUtils;
 import androidx.annotation.NonNull;
-import com.bytedance.sdk.openadsdk.downloadnew.core.TTDownloadField;
 import com.kwad.components.offline.api.core.api.ILoggerReporter;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-/* loaded from: classes3.dex */
+/* loaded from: classes2.dex */
 public final class c {
-    private final d arC;
+    private final d aiD;
     private final BusinessType biz;
     private final String category;
     private final String eventId;
@@ -19,106 +18,125 @@ public final class c {
     private final String tag;
 
     public static class a {
-        private final String aYQ;
-        private BusinessType aYR;
-        private SubBusinessType aYS;
-        private d aYT;
-        private JSONObject aYU;
-        private String aYV;
+        private BusinessType aEC;
+        private SubBusinessType aED;
+        private d aEE;
+        private JSONObject aEF;
+        private final String mCategory;
+        private String mEventId;
         private String mTag;
         private JSONObject msg;
 
         private a(@NonNull String str) {
-            this.aYQ = str;
+            this.mCategory = str;
         }
 
-        public static a Qm() {
+        public static a Gc() {
             return new a(ILoggerReporter.Category.ERROR_LOG);
         }
 
-        public static a Qn() {
+        public static a Gd() {
             return new a(ILoggerReporter.Category.APM_LOG);
         }
 
-        public final a A(JSONObject jSONObject) {
-            this.msg = jSONObject;
-            return this;
-        }
-
-        public final c Qo() {
-            if (com.kwai.adclient.kscommerciallogger.a.Qd().isDebug()) {
-                if (TextUtils.isEmpty(this.aYQ) || TextUtils.isEmpty(this.mTag) || TextUtils.isEmpty(this.aYV)) {
+        public final c Ge() {
+            if (com.kwai.adclient.kscommerciallogger.a.FS().isDebug()) {
+                if (TextUtils.isEmpty(this.mCategory) || TextUtils.isEmpty(this.mTag) || TextUtils.isEmpty(this.mEventId)) {
                     throw new IllegalArgumentException("param is error, please check it");
                 }
-                if (com.kwai.adclient.kscommerciallogger.a.Qd().Qf() && !com.kwai.adclient.kscommerciallogger.b.hx(this.aYV)) {
+                if (com.kwai.adclient.kscommerciallogger.a.FS().FU() && !com.kwai.adclient.kscommerciallogger.b.fe(this.mEventId)) {
                     throw new IllegalArgumentException("event_id format error, please check it");
                 }
             } else {
-                if (TextUtils.isEmpty(this.aYQ) || TextUtils.isEmpty(this.mTag) || TextUtils.isEmpty(this.aYV)) {
+                if (TextUtils.isEmpty(this.mCategory) || TextUtils.isEmpty(this.mTag) || TextUtils.isEmpty(this.mEventId)) {
                     return null;
                 }
-                if (com.kwai.adclient.kscommerciallogger.a.Qd().Qf() && !com.kwai.adclient.kscommerciallogger.b.hx(this.aYV)) {
+                if (com.kwai.adclient.kscommerciallogger.a.FS().FU() && !com.kwai.adclient.kscommerciallogger.b.fe(this.mEventId)) {
                     return null;
                 }
             }
-            if (com.kwai.adclient.kscommerciallogger.a.Qd().Qe() != null) {
-                this.aYU = com.kwai.adclient.kscommerciallogger.a.Qd().Qe();
+            if (com.kwai.adclient.kscommerciallogger.a.FS().FT() != null) {
+                this.aEF = com.kwai.adclient.kscommerciallogger.a.FS().FT();
             }
             return new c(this, (byte) 0);
         }
 
-        public final a hy(@NonNull String str) {
-            this.mTag = str;
-            return this;
-        }
-
-        public final a hz(@NonNull String str) {
-            this.aYV = str;
-            return this;
-        }
-
-        public final a b(BusinessType businessType) {
-            this.aYR = businessType;
+        public final a P(JSONObject jSONObject) {
+            this.msg = jSONObject;
             return this;
         }
 
         public final a b(SubBusinessType subBusinessType) {
-            this.aYS = subBusinessType;
+            this.aED = subBusinessType;
             return this;
         }
 
         public final a b(d dVar) {
-            this.aYT = dVar;
+            this.aEE = dVar;
+            return this;
+        }
+
+        public final a c(BusinessType businessType) {
+            this.aEC = businessType;
+            return this;
+        }
+
+        public final a ff(@NonNull String str) {
+            this.mTag = str;
+            return this;
+        }
+
+        public final a fg(@NonNull String str) {
+            this.mEventId = str;
             return this;
         }
     }
 
-    public /* synthetic */ c(a aVar, byte b10) {
+    private c(a aVar) {
+        this.category = aVar.mCategory;
+        this.biz = aVar.aEC;
+        this.subBiz = aVar.aED;
+        this.tag = aVar.mTag;
+        this.aiD = aVar.aEE;
+        this.extraParam = aVar.aEF;
+        this.eventId = aVar.mEventId;
+        this.msg = aVar.msg == null ? new JSONObject() : aVar.msg;
+    }
+
+    /* synthetic */ c(a aVar, byte b2) {
         this(aVar);
     }
 
-    public final String Qg() {
+    public final String FV() {
         return this.category;
     }
 
-    public final SubBusinessType Qh() {
+    public final BusinessType FW() {
+        return this.biz;
+    }
+
+    public final SubBusinessType FX() {
         return this.subBiz;
     }
 
-    public final d Qi() {
-        return this.arC;
+    public final d FY() {
+        return this.aiD;
     }
 
-    public final JSONObject Qj() {
+    public final JSONObject FZ() {
         return this.msg;
     }
 
-    public final JSONObject Qk() {
+    public final JSONObject Ga() {
         return this.extraParam;
     }
 
-    public final String Ql() {
+    public final String Gb() {
         return this.eventId;
+    }
+
+    public final String getTag() {
+        return this.tag;
     }
 
     public final String toString() {
@@ -126,14 +144,14 @@ public final class c {
         try {
             BusinessType businessType = this.biz;
             if (businessType != null) {
-                jSONObject.put(x2.b.f31789l, businessType.value);
+                jSONObject.put("biz", businessType.value);
             }
             SubBusinessType subBusinessType = this.subBiz;
             if (subBusinessType != null) {
                 jSONObject.put("sub_biz", subBusinessType.value);
             }
-            jSONObject.put(TTDownloadField.TT_TAG, this.tag);
-            d dVar = this.arC;
+            jSONObject.put("tag", this.tag);
+            d dVar = this.aiD;
             if (dVar != null) {
                 jSONObject.put("type", dVar.getValue());
             }
@@ -146,20 +164,9 @@ public final class c {
                 jSONObject.put("extra_param", jSONObject3);
             }
             jSONObject.put("event_id", this.eventId);
-        } catch (JSONException e10) {
-            e10.printStackTrace();
+        } catch (JSONException e2) {
+            e2.printStackTrace();
         }
         return jSONObject.toString();
-    }
-
-    private c(a aVar) {
-        this.category = aVar.aYQ;
-        this.biz = aVar.aYR;
-        this.subBiz = aVar.aYS;
-        this.tag = aVar.mTag;
-        this.arC = aVar.aYT;
-        this.extraParam = aVar.aYU;
-        this.eventId = aVar.aYV;
-        this.msg = aVar.msg == null ? new JSONObject() : aVar.msg;
     }
 }

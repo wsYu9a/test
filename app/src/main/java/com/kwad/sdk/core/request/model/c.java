@@ -3,35 +3,30 @@ package com.kwad.sdk.core.request.model;
 import android.location.Location;
 import androidx.annotation.Nullable;
 import com.kwad.sdk.service.ServiceProvider;
-import com.kwad.sdk.utils.ba;
-import com.kwad.sdk.utils.x;
+import com.kwad.sdk.utils.au;
+import com.kwad.sdk.utils.t;
+import com.opos.acs.st.STManager;
 import org.json.JSONObject;
 
-/* loaded from: classes3.dex */
+/* loaded from: classes2.dex */
 public final class c implements com.kwad.sdk.core.b {
-    private static c aDQ;
-    private double latitude;
-    private double longitude;
-    private int type;
+    private static c aly;
+    private double alA;
+    private double alz;
 
-    public static c GI() {
-        Location location;
-        c cVar = aDQ;
+    public static c xr() {
+        c cVar = aly;
         if (cVar != null) {
             return cVar;
         }
-        try {
-            aDQ = new c();
-            com.kwad.sdk.utils.c.a cm = ba.cm(((com.kwad.sdk.service.a.f) ServiceProvider.get(com.kwad.sdk.service.a.f.class)).getContext());
-            if (cm != null && (location = cm.aWW) != null) {
-                aDQ.latitude = location.getLatitude();
-                aDQ.longitude = cm.aWW.getLongitude();
-                aDQ.type = cm.type;
-            }
-        } catch (Throwable th2) {
-            ServiceProvider.reportSdkCaughtException(th2);
+        Location bL = au.bL(((com.kwad.sdk.service.kwai.e) ServiceProvider.get(com.kwad.sdk.service.kwai.e.class)).getContext());
+        if (bL != null) {
+            c cVar2 = new c();
+            aly = cVar2;
+            cVar2.alz = bL.getLatitude();
+            aly.alA = bL.getLongitude();
         }
-        return aDQ;
+        return aly;
     }
 
     @Override // com.kwad.sdk.core.b
@@ -41,9 +36,8 @@ public final class c implements com.kwad.sdk.core.b {
     @Override // com.kwad.sdk.core.b
     public final JSONObject toJson() {
         JSONObject jSONObject = new JSONObject();
-        x.putValue(jSONObject, "latitude", this.latitude);
-        x.putValue(jSONObject, "longitude", this.longitude);
-        x.putValue(jSONObject, "type", this.type);
+        t.putValue(jSONObject, STManager.KEY_LATITUDE, this.alz);
+        t.putValue(jSONObject, STManager.KEY_LONGITUDE, this.alA);
         return jSONObject;
     }
 }

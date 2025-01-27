@@ -2,7 +2,7 @@ package com.martian.apptask.data;
 
 import java.util.List;
 
-/* loaded from: classes3.dex */
+/* loaded from: classes2.dex */
 public class Video {
     private Integer duration;
     private Integer keepSeconds;
@@ -60,39 +60,39 @@ public class Video {
         return this.vhtml;
     }
 
-    public void setDuration(Integer num) {
-        this.duration = num;
+    public void setDuration(Integer duration) {
+        this.duration = duration;
     }
 
-    public void setKeepSeconds(Integer num) {
-        this.keepSeconds = num;
+    public void setKeepSeconds(Integer keepSeconds) {
+        this.keepSeconds = keepSeconds;
     }
 
-    public void setPageClickTrackers(List<String> list) {
-        this.pageClickTrackers = list;
+    public void setPageClickTrackers(List<String> pageClickTrackers) {
+        this.pageClickTrackers = pageClickTrackers;
     }
 
-    public void setPageCloseTrackers(List<String> list) {
-        this.pageCloseTrackers = list;
+    public void setPageCloseTrackers(List<String> pageCloseTrackers) {
+        this.pageCloseTrackers = pageCloseTrackers;
     }
 
-    public void setPlayEndTrackers(List<String> list) {
-        this.playEndTrackers = list;
+    public void setPlayEndTrackers(List<String> playEndTrackers) {
+        this.playEndTrackers = playEndTrackers;
     }
 
-    public void setPlayInterruptTrackers(List<String> list) {
-        this.playInterruptTrackers = list;
+    public void setPlayInterruptTrackers(List<String> playInterruptTrackers) {
+        this.playInterruptTrackers = playInterruptTrackers;
     }
 
-    public void setPlayStartTrackers(List<String> list) {
-        this.playStartTrackers = list;
+    public void setPlayStartTrackers(List<String> playStartTrackers) {
+        this.playStartTrackers = playStartTrackers;
     }
 
-    public void setUrl(String str) {
-        this.url = str;
+    public void setUrl(String url) {
+        this.url = url;
     }
 
-    public void setVhtml(String str) {
-        this.vhtml = str;
+    public void setVhtml(String vhtml) {
+        this.vhtml = vhtml;
     }
 }

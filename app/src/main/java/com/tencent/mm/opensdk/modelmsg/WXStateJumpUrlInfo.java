@@ -17,7 +17,7 @@ public class WXStateJumpUrlInfo implements WXStateSceneDataObject.IWXStateJumpIn
         if (str2 == null || str2.length() <= 0) {
             str = "checkArgs fail, jumpUrl is null";
         } else {
-            if (this.jumpUrl.length() < 10240) {
+            if (this.jumpUrl.length() < LENGTH_LIMIT) {
                 return true;
             }
             str = "checkArgs fail, jumpUrl is invalid";

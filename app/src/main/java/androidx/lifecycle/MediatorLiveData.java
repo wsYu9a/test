@@ -10,73 +10,76 @@ import java.util.Map;
 
 /* loaded from: classes.dex */
 public class MediatorLiveData<T> extends MutableLiveData<T> {
-    private SafeIterableMap<LiveData<?>, Source<?>> mSources = new SafeIterableMap<>();
+    private SafeIterableMap<LiveData<?>, Source<?>> l = new SafeIterableMap<>();
 
-    public static class Source<V> implements Observer<V> {
-        final LiveData<V> mLiveData;
-        final Observer<? super V> mObserver;
-        int mVersion = -1;
+    private static class Source<V> implements Observer<V> {
 
-        public Source(LiveData<V> liveData, Observer<? super V> observer) {
-            this.mLiveData = liveData;
-            this.mObserver = observer;
+        /* renamed from: a */
+        final LiveData<V> f2618a;
+
+        /* renamed from: b */
+        final Observer<? super V> f2619b;
+
+        /* renamed from: c */
+        int f2620c = -1;
+
+        Source(LiveData<V> liveData, Observer<? super V> observer) {
+            this.f2618a = liveData;
+            this.f2619b = observer;
+        }
+
+        void a() {
+            this.f2618a.observeForever(this);
+        }
+
+        void b() {
+            this.f2618a.removeObserver(this);
         }
 
         @Override // androidx.lifecycle.Observer
-        public void onChanged(@Nullable V v10) {
-            if (this.mVersion != this.mLiveData.getVersion()) {
-                this.mVersion = this.mLiveData.getVersion();
-                this.mObserver.onChanged(v10);
+        public void onChanged(@Nullable V v) {
+            if (this.f2620c != this.f2618a.d()) {
+                this.f2620c = this.f2618a.d();
+                this.f2619b.onChanged(v);
             }
-        }
-
-        public void plug() {
-            this.mLiveData.observeForever(this);
-        }
-
-        public void unplug() {
-            this.mLiveData.removeObserver(this);
         }
     }
 
     @MainThread
     public <S> void addSource(@NonNull LiveData<S> liveData, @NonNull Observer<? super S> observer) {
-        if (liveData == null) {
-            throw new NullPointerException("source cannot be null");
-        }
         Source<?> source = new Source<>(liveData, observer);
-        Source<?> putIfAbsent = this.mSources.putIfAbsent(liveData, source);
-        if (putIfAbsent != null && putIfAbsent.mObserver != observer) {
+        Source<?> putIfAbsent = this.l.putIfAbsent(liveData, source);
+        if (putIfAbsent != null && putIfAbsent.f2619b != observer) {
             throw new IllegalArgumentException("This source was already added with the different observer");
         }
         if (putIfAbsent == null && hasActiveObservers()) {
-            source.plug();
+            source.a();
         }
     }
 
     @Override // androidx.lifecycle.LiveData
     @CallSuper
-    public void onActive() {
-        Iterator<Map.Entry<LiveData<?>, Source<?>>> it = this.mSources.iterator();
+    protected void e() {
+        Iterator<Map.Entry<LiveData<?>, Source<?>>> it = this.l.iterator();
         while (it.hasNext()) {
-            it.next().getValue().plug();
+            it.next().getValue().a();
         }
     }
 
     @Override // androidx.lifecycle.LiveData
     @CallSuper
-    public void onInactive() {
-        Iterator<Map.Entry<LiveData<?>, Source<?>>> it = this.mSources.iterator();
+    protected void f() {
+        Iterator<Map.Entry<LiveData<?>, Source<?>>> it = this.l.iterator();
         while (it.hasNext()) {
-            it.next().getValue().unplug();
+            it.next().getValue().b();
         }
     }
 
     @MainThread
     public <S> void removeSource(@NonNull LiveData<S> liveData) {
-        Source<?> remove = this.mSources.remove(liveData);
+        Source<?> remove = this.l.remove(liveData);
         if (remove != null) {
-            remove.unplug();
+            remove.b();
         }
     }
 }

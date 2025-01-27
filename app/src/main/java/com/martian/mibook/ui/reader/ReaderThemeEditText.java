@@ -3,13 +3,12 @@ package com.martian.mibook.ui.reader;
 import android.content.Context;
 import android.util.AttributeSet;
 import androidx.appcompat.widget.AppCompatEditText;
-import com.martian.libmars.common.ConfigSingleton;
+import com.martian.libmars.d.h;
 import com.martian.mibook.application.MiConfigSingleton;
-import com.martian.mibook.data.theme.MiReadingTheme;
-import k9.a;
+import com.martian.mibook.lib.model.data.MiReadingTheme;
 
-/* loaded from: classes3.dex */
-public class ReaderThemeEditText extends AppCompatEditText implements a {
+/* loaded from: classes4.dex */
+public class ReaderThemeEditText extends AppCompatEditText implements g.a {
     public ReaderThemeEditText(Context context) {
         super(context);
         a();
@@ -19,36 +18,33 @@ public class ReaderThemeEditText extends AppCompatEditText implements a {
         setFocusableInTouchMode(true);
     }
 
+    @Override // g.a
+    public void g() {
+        MiReadingTheme r = MiConfigSingleton.V3().J4.r();
+        setTextColor(r.getTextColorPrimary(getContext()));
+        setHintTextColor(r.getTextColorThirdly(getContext()));
+    }
+
     @Override // android.widget.TextView, android.view.View
-    public void onAttachedToWindow() {
+    protected void onAttachedToWindow() {
         super.onAttachedToWindow();
-        p();
-        ConfigSingleton.D().h(this);
+        g();
+        h.F().a(this);
     }
 
     @Override // android.view.View
-    public void onDetachedFromWindow() {
+    protected void onDetachedFromWindow() {
         super.onDetachedFromWindow();
-        ConfigSingleton.D().X0(this);
+        h.F().j1(this);
     }
 
-    @Override // k9.a
-    public void p() {
-        if (isInEditMode()) {
-            return;
-        }
-        MiReadingTheme k10 = MiConfigSingleton.b2().h2().k();
-        setTextColor(k10.getTextColorPrimary());
-        setHintTextColor(k10.getTextColorThirdly());
-    }
-
-    public ReaderThemeEditText(Context context, AttributeSet attributeSet) {
-        super(context, attributeSet, 0);
+    public ReaderThemeEditText(Context context, AttributeSet attrs) {
+        super(context, attrs, 0);
         a();
     }
 
-    public ReaderThemeEditText(Context context, AttributeSet attributeSet, int i10) {
-        super(context, attributeSet, i10);
+    public ReaderThemeEditText(Context context, AttributeSet attrs, int defStyle) {
+        super(context, attrs, defStyle);
         a();
     }
 }

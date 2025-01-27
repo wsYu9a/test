@@ -6,7 +6,7 @@ import android.widget.RelativeLayout;
 import java.util.Map;
 import org.json.JSONObject;
 
-/* loaded from: classes2.dex */
+/* loaded from: classes.dex */
 public interface IAdInterListener {
 
     public interface AdClickActionInt {
@@ -86,11 +86,11 @@ public interface IAdInterListener {
 
     void onDetachedFromWindow();
 
-    boolean onKeyDown(int i10, KeyEvent keyEvent);
+    boolean onKeyDown(int i2, KeyEvent keyEvent);
 
-    void onWindowFocusChanged(boolean z10);
+    void onWindowFocusChanged(boolean z);
 
-    void onWindowVisibilityChanged(int i10);
+    void onWindowVisibilityChanged(int i2);
 
     void removeAllListeners();
 

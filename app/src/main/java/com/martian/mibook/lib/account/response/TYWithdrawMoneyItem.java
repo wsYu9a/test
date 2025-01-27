@@ -45,31 +45,31 @@ public class TYWithdrawMoneyItem {
         return num.intValue();
     }
 
-    public void setDesc(String str) {
-        this.desc = str;
+    public void setDesc(String desc) {
+        this.desc = desc;
     }
 
-    public void setMoney(Integer num) {
-        this.money = num;
+    public void setMoney(Integer money) {
+        this.money = money;
     }
 
-    public void setPromotion(String str) {
-        this.promotion = str;
+    public void setPromotion(String promotion) {
+        this.promotion = promotion;
     }
 
-    public void setVideoCount(Integer num) {
-        this.videoCount = num;
+    public void setVideoCount(Integer videoCount) {
+        this.videoCount = videoCount;
     }
 
-    public void setVideoLeftSeconds(Integer num) {
-        this.videoLeftSeconds = num;
+    public void setVideoLeftSeconds(Integer videoLeftSeconds) {
+        this.videoLeftSeconds = videoLeftSeconds;
     }
 
-    public void setVideoWatchCount(Integer num) {
-        this.videoWatchCount = num;
+    public void setVideoWatchCount(Integer videoWatchCount) {
+        this.videoWatchCount = videoWatchCount;
     }
 
-    public void setWithdrawLeftCount(Integer num) {
-        this.withdrawLeftCount = num;
+    public void setWithdrawLeftCount(Integer withdrawLeftCount) {
+        this.withdrawLeftCount = withdrawLeftCount;
     }
 }

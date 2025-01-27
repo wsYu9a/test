@@ -15,7 +15,7 @@ interface CardViewDelegate {
 
     void setCardBackground(Drawable drawable);
 
-    void setMinWidthHeightInternal(int i10, int i11);
+    void setMinWidthHeightInternal(int i2, int i3);
 
-    void setShadowPadding(int i10, int i11, int i12, int i13);
+    void setShadowPadding(int i2, int i3, int i4, int i5);
 }

@@ -9,38 +9,40 @@ import java.util.Map;
 @RestrictTo({RestrictTo.Scope.LIBRARY_GROUP_PREFIX})
 /* loaded from: classes.dex */
 public class FastSafeIterableMap<K, V> extends SafeIterableMap<K, V> {
-    private HashMap<K, SafeIterableMap.Entry<K, V>> mHashMap = new HashMap<>();
 
-    public Map.Entry<K, V> ceil(K k10) {
-        if (contains(k10)) {
-            return this.mHashMap.get(k10).mPrevious;
+    /* renamed from: e */
+    private HashMap<K, SafeIterableMap.Entry<K, V>> f1059e = new HashMap<>();
+
+    @Override // androidx.arch.core.internal.SafeIterableMap
+    protected SafeIterableMap.Entry<K, V> a(K k) {
+        return this.f1059e.get(k);
+    }
+
+    public Map.Entry<K, V> ceil(K k) {
+        if (contains(k)) {
+            return this.f1059e.get(k).f1067d;
         }
         return null;
     }
 
-    public boolean contains(K k10) {
-        return this.mHashMap.containsKey(k10);
+    public boolean contains(K k) {
+        return this.f1059e.containsKey(k);
     }
 
     @Override // androidx.arch.core.internal.SafeIterableMap
-    public SafeIterableMap.Entry<K, V> get(K k10) {
-        return this.mHashMap.get(k10);
-    }
-
-    @Override // androidx.arch.core.internal.SafeIterableMap
-    public V putIfAbsent(@NonNull K k10, @NonNull V v10) {
-        SafeIterableMap.Entry<K, V> entry = get(k10);
-        if (entry != null) {
-            return entry.mValue;
+    public V putIfAbsent(@NonNull K k, @NonNull V v) {
+        SafeIterableMap.Entry<K, V> a2 = a(k);
+        if (a2 != null) {
+            return a2.f1065b;
         }
-        this.mHashMap.put(k10, put(k10, v10));
+        this.f1059e.put(k, b(k, v));
         return null;
     }
 
     @Override // androidx.arch.core.internal.SafeIterableMap
-    public V remove(@NonNull K k10) {
-        V v10 = (V) super.remove(k10);
-        this.mHashMap.remove(k10);
-        return v10;
+    public V remove(@NonNull K k) {
+        V v = (V) super.remove(k);
+        this.f1059e.remove(k);
+        return v;
     }
 }

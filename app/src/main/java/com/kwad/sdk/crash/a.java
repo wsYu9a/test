@@ -5,10 +5,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 @KsJson
-/* loaded from: classes3.dex */
-public class a extends com.kwad.sdk.core.response.a.a {
-    public List<String> aJr = new ArrayList();
-    public List<String> aJs = new ArrayList();
-    public List<String> aJt = new ArrayList();
-    public double aJu;
+/* loaded from: classes2.dex */
+public class a extends com.kwad.sdk.core.response.kwai.a {
+    public double aqB;
+    public List<String> aqy = new ArrayList();
+    public List<String> aqz = new ArrayList();
+    public List<String> aqA = new ArrayList();
 }

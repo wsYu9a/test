@@ -1,146 +1,128 @@
 package com.baidu.mobads.sdk.internal;
 
+import android.app.Activity;
 import android.content.Context;
-import android.graphics.Bitmap;
-import android.net.http.SslError;
-import android.text.TextUtils;
-import android.webkit.SslErrorHandler;
-import android.webkit.WebView;
-import com.baidu.mobads.sdk.api.BaiduHybridAdViewListener;
-import com.baidu.mobads.sdk.api.IAdInterListener;
-import com.baidu.mobads.sdk.api.IOAdEvent;
-import com.baidu.mobads.sdk.api.IXHybridAdRenderer;
-import org.json.JSONException;
-import org.json.JSONObject;
+import android.os.CountDownTimer;
+import android.view.KeyEvent;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.RelativeLayout;
+import android.widget.TextView;
+import com.baidu.mobads.sdk.api.AdSize;
 
-/* loaded from: classes2.dex */
-public class dg extends bi {
+/* loaded from: classes.dex */
+public class dg {
+
+    /* renamed from: f */
+    private static final int f5782f = 5;
+
+    /* renamed from: c */
+    private RelativeLayout f5785c;
+
+    /* renamed from: d */
+    private TextView f5786d;
+
+    /* renamed from: e */
+    private CountDownTimer f5787e;
+
+    /* renamed from: g */
+    private dj f5788g;
+
+    /* renamed from: j */
+    private Activity f5791j;
+    private Boolean k;
 
     /* renamed from: a */
-    private WebView f7163a;
+    public final String f5783a = "html5_intersitial";
 
-    /* renamed from: t */
-    private BaiduHybridAdViewListener f7164t;
+    /* renamed from: h */
+    private boolean f5789h = false;
 
-    /* renamed from: u */
-    private IXHybridAdRenderer f7165u;
+    /* renamed from: i */
+    private boolean f5790i = false;
 
-    public dg(WebView webView) {
-        super(webView.getContext());
-        this.f7163a = webView;
-        webView.removeJavascriptInterface("searchBoxJavaBridge_");
-        this.f7163a.removeJavascriptInterface("accessibility");
-        this.f7163a.removeJavascriptInterface("accessibilityTraversal");
-        this.f7163a.getSettings().setAllowContentAccess(false);
-        this.f7163a.getSettings().setSavePassword(false);
-        this.f7163a.getSettings().setAllowFileAccess(false);
+    /* renamed from: b */
+    protected final bq f5784b = bq.a();
+
+    public dg(Context context, RelativeLayout relativeLayout, Boolean bool, AdSize adSize, String str) {
     }
 
-    public void a(BaiduHybridAdViewListener baiduHybridAdViewListener) {
-        this.f7164t = baiduHybridAdViewListener;
+    private boolean e() {
+        return b();
     }
 
-    public boolean b(WebView webView, String str) {
-        IXHybridAdRenderer iXHybridAdRenderer = this.f7165u;
-        if (iXHybridAdRenderer == null) {
-            return false;
+    private View f() {
+        this.f5787e = new di(this, 6000L, 1000L).start();
+        return this.f5785c;
+    }
+
+    private void g() {
+        RelativeLayout relativeLayout = this.f5785c;
+        if (relativeLayout != null && relativeLayout.getParent() != null) {
+            ((ViewGroup) this.f5785c.getParent()).removeView(this.f5785c);
         }
-        return iXHybridAdRenderer.shouldOverrideUrlLoading(webView, str);
-    }
-
-    @Override // com.baidu.mobads.sdk.internal.bi
-    public void h() {
-        IXHybridAdRenderer iXHybridAdRenderer = (IXHybridAdRenderer) au.a(z.f7382j, bs.a(this.f6880i), (Class<?>[]) new Class[]{Context.class}, this.f6880i);
-        this.f7165u = iXHybridAdRenderer;
-        this.f6884m = iXHybridAdRenderer;
-        if (this.f6885n) {
-            return;
-        }
-        a();
-    }
-
-    @Override // com.baidu.mobads.sdk.internal.bi
-    public void q() {
-        super.q();
-        BaiduHybridAdViewListener baiduHybridAdViewListener = this.f7164t;
-        if (baiduHybridAdViewListener != null) {
-            baiduHybridAdViewListener.onAdShow(0, null);
-        }
-    }
-
-    public void a(WebView webView, String str, Bitmap bitmap) {
-        IXHybridAdRenderer iXHybridAdRenderer = this.f7165u;
-        if (iXHybridAdRenderer != null) {
-            iXHybridAdRenderer.onPageStarted(webView, str, bitmap);
-        }
-    }
-
-    public void a(WebView webView, String str) {
-        IXHybridAdRenderer iXHybridAdRenderer = this.f7165u;
-        if (iXHybridAdRenderer != null) {
-            iXHybridAdRenderer.onPageFinished(webView, str);
-        }
-    }
-
-    public void a(WebView webView, int i10, String str, String str2) {
-        IXHybridAdRenderer iXHybridAdRenderer = this.f7165u;
-        if (iXHybridAdRenderer != null) {
-            iXHybridAdRenderer.onReceivedError(webView, i10, str, str2);
-        }
-    }
-
-    @Override // com.baidu.mobads.sdk.internal.bi
-    public void h(IOAdEvent iOAdEvent) {
-        super.h(iOAdEvent);
-        BaiduHybridAdViewListener baiduHybridAdViewListener = this.f7164t;
-        if (baiduHybridAdViewListener != null) {
-            baiduHybridAdViewListener.onAdClick(0, null);
-        }
-    }
-
-    public void a(WebView webView, SslErrorHandler sslErrorHandler, SslError sslError) {
-        IXHybridAdRenderer iXHybridAdRenderer = this.f7165u;
-        if (iXHybridAdRenderer != null) {
-            iXHybridAdRenderer.onReceivedSslError(webView, sslErrorHandler, sslError);
-        }
-    }
-
-    @Override // com.baidu.mobads.sdk.internal.bi
-    public void a() {
-        if (this.f7165u == null) {
-            this.f6885n = false;
-            return;
-        }
-        this.f6885n = true;
-        JSONObject jSONObject = new JSONObject();
-        JSONObject jSONObject2 = new JSONObject();
-        try {
-            JSONObject jSONObject3 = new JSONObject();
-            jSONObject3.put(IAdInterListener.AdReqParam.PROD, IAdInterListener.AdProdType.PRODUCT_JSSDK);
-            this.f7165u.createProdHandler(jSONObject3);
-            m();
-            if (!TextUtils.isEmpty(this.f6888q)) {
-                jSONObject.put("appid", this.f6888q);
+        if (this.f5787e != null) {
+            this.f5784b.a("cancel countDownTimer before it finished");
+            try {
+                this.f5787e.cancel();
+            } catch (Exception e2) {
+                this.f5784b.a(e2);
             }
-            jSONObject.put(IAdInterListener.AdReqParam.PROD, IAdInterListener.AdProdType.PRODUCT_JSSDK);
-            jSONObject2.put("timeout", 10000);
-        } catch (JSONException e10) {
-            e10.printStackTrace();
         }
-        this.f7165u.loadAd(jSONObject, jSONObject2);
     }
 
-    @Override // com.baidu.mobads.sdk.internal.bi
-    public void a(IOAdEvent iOAdEvent) {
-        this.f7165u.setCustomerWebView(this.f7163a);
+    private RelativeLayout.LayoutParams h() {
+        return null;
     }
 
-    @Override // com.baidu.mobads.sdk.internal.bi
-    public void a(String str, int i10, String str2) {
-        super.a(str, i10, str2);
-        BaiduHybridAdViewListener baiduHybridAdViewListener = this.f7164t;
-        if (baiduHybridAdViewListener != null) {
-            baiduHybridAdViewListener.onAdFailed(0, "", str);
+    public void a() {
+    }
+
+    public void a(int i2, int i3) {
+    }
+
+    public boolean a(int i2, KeyEvent keyEvent) {
+        return true;
+    }
+
+    protected boolean b() {
+        return AdSize.InterstitialForVideoBeforePlay.getValue() == 0;
+    }
+
+    protected void c() {
+        Activity activity = this.f5791j;
+        if (activity == null) {
+            return;
+        }
+        activity.runOnUiThread(new dh(this));
+    }
+
+    public boolean d() {
+        return this.f5789h;
+    }
+
+    public void a(Activity activity, RelativeLayout relativeLayout) {
+        try {
+            this.f5784b.a("showInterstitialAdInit");
+            boolean z = this.f5789h;
+            if (z && !this.f5790i) {
+                this.f5790i = true;
+                this.f5789h = false;
+                this.f5791j = activity;
+                a();
+                c();
+                return;
+            }
+            if (this.f5790i) {
+                this.f5784b.b("interstitial ad is showing now");
+            } else {
+                if (z) {
+                    return;
+                }
+                this.f5784b.b("interstitial ad is not ready");
+            }
+        } catch (Exception e2) {
+            this.f5784b.a(e2);
         }
     }
 }

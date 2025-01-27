@@ -23,7 +23,10 @@ import android.os.Parcelable;
 import android.telephony.TelephonyManager;
 import android.text.TextUtils;
 import android.util.DisplayMetrics;
-import com.tencent.bugly.proguard.C0871p;
+import com.baidu.mobads.sdk.internal.bu;
+import com.ss.android.downloadad.api.constant.AdBaseConstants;
+import com.ss.android.socialbase.downloader.utils.DownloadExpSwitchCode;
+import com.tencent.bugly.proguard.C0912p;
 import com.tencent.bugly.proguard.X;
 import com.tencent.bugly.proguard.ca;
 import java.io.File;
@@ -36,9 +39,9 @@ public class a {
         TelephonyManager telephonyManager;
         try {
             activeNetworkInfo = ((ConnectivityManager) context.getSystemService("connectivity")).getActiveNetworkInfo();
-        } catch (Exception e10) {
-            if (!X.b(e10)) {
-                e10.printStackTrace();
+        } catch (Exception e2) {
+            if (!X.b(e2)) {
+                e2.printStackTrace();
             }
         }
         if (activeNetworkInfo == null) {
@@ -79,55 +82,55 @@ public class a {
     }
 
     public static void b(String str, String str2) {
-        SharedPreferences sharedPreferences = e.f22100b.D;
+        SharedPreferences sharedPreferences = e.f24621b.D;
         if (sharedPreferences != null) {
             sharedPreferences.edit().putString(str, str2).apply();
         }
     }
 
-    public static void b(String str, boolean z10) {
-        SharedPreferences sharedPreferences = e.f22100b.D;
+    public static void b(String str, boolean z) {
+        SharedPreferences sharedPreferences = e.f24621b.D;
         if (sharedPreferences != null) {
-            sharedPreferences.edit().putBoolean(str, z10).apply();
+            sharedPreferences.edit().putBoolean(str, z).apply();
         }
     }
 
-    public static int a(Context context, float f10) {
-        return (int) ((f10 * context.getResources().getDisplayMetrics().density) + 0.5f);
+    public static int a(Context context, float f2) {
+        return (int) ((f2 * context.getResources().getDisplayMetrics().density) + 0.5f);
     }
 
-    public static BitmapDrawable a(Bitmap bitmap, int i10, int i11, float f10) {
-        DisplayMetrics displayMetrics = e.f22100b.E;
-        int i12 = (int) (displayMetrics.widthPixels * displayMetrics.heightPixels * 0.8f);
-        if (bitmap == null || i10 * i11 > i12) {
+    public static BitmapDrawable a(Bitmap bitmap, int i2, int i3, float f2) {
+        DisplayMetrics displayMetrics = e.f24621b.E;
+        int i4 = (int) (displayMetrics.widthPixels * displayMetrics.heightPixels * 0.8f);
+        if (bitmap == null || i2 * i3 > i4) {
             return null;
         }
-        Bitmap createBitmap = Bitmap.createBitmap(i10, i11, Bitmap.Config.ARGB_8888);
+        Bitmap createBitmap = Bitmap.createBitmap(i2, i3, Bitmap.Config.ARGB_8888);
         Canvas canvas = new Canvas(createBitmap);
         Paint paint = new Paint();
-        Rect rect = new Rect(0, 0, i10, i11);
+        Rect rect = new Rect(0, 0, i2, i3);
         RectF rectF = new RectF(rect);
         canvas.setDrawFilter(new PaintFlagsDrawFilter(0, 3));
         canvas.drawARGB(0, 0, 0, 0);
         paint.setColor(-16777216);
-        canvas.drawRoundRect(rectF, f10, f10, paint);
-        canvas.drawRect(0.0f, f10, i10, i11, paint);
+        canvas.drawRoundRect(rectF, f2, f2, paint);
+        canvas.drawRect(0.0f, f2, i2, i3, paint);
         paint.setXfermode(new PorterDuffXfermode(PorterDuff.Mode.SRC_IN));
         canvas.drawBitmap(bitmap, new Rect(0, 0, bitmap.getWidth(), bitmap.getHeight()), rect, paint);
         return new BitmapDrawable(createBitmap);
     }
 
-    /* JADX WARN: Removed duplicated region for block: B:23:0x0057 A[Catch: Exception -> 0x003d, TryCatch #0 {Exception -> 0x003d, blocks: (B:11:0x0015, B:15:0x0020, B:17:0x002f, B:21:0x004f, B:23:0x0057, B:25:0x0060, B:26:0x0071, B:38:0x00ca, B:40:0x00d2, B:42:0x00e2, B:46:0x00ee, B:49:0x00cd, B:53:0x00a7, B:54:0x008d, B:56:0x006a, B:60:0x0043), top: B:9:0x0013 }] */
-    /* JADX WARN: Removed duplicated region for block: B:42:0x00e2 A[Catch: Exception -> 0x003d, TryCatch #0 {Exception -> 0x003d, blocks: (B:11:0x0015, B:15:0x0020, B:17:0x002f, B:21:0x004f, B:23:0x0057, B:25:0x0060, B:26:0x0071, B:38:0x00ca, B:40:0x00d2, B:42:0x00e2, B:46:0x00ee, B:49:0x00cd, B:53:0x00a7, B:54:0x008d, B:56:0x006a, B:60:0x0043), top: B:9:0x0013 }] */
-    /* JADX WARN: Removed duplicated region for block: B:44:0x00eb  */
-    /* JADX WARN: Removed duplicated region for block: B:57:0x00dd  */
+    /* JADX WARN: Removed duplicated region for block: B:22:0x0050 A[Catch: Exception -> 0x0108, TryCatch #0 {Exception -> 0x0108, blocks: (B:11:0x0014, B:15:0x001f, B:17:0x002e, B:20:0x0048, B:22:0x0050, B:24:0x0059, B:25:0x006a, B:38:0x00db, B:40:0x00e3, B:42:0x00f3, B:46:0x00ff, B:49:0x00de, B:54:0x00b6, B:56:0x00c1, B:58:0x009a, B:61:0x0063, B:65:0x003c), top: B:9:0x0012 }] */
+    /* JADX WARN: Removed duplicated region for block: B:42:0x00f3 A[Catch: Exception -> 0x0108, TryCatch #0 {Exception -> 0x0108, blocks: (B:11:0x0014, B:15:0x001f, B:17:0x002e, B:20:0x0048, B:22:0x0050, B:24:0x0059, B:25:0x006a, B:38:0x00db, B:40:0x00e3, B:42:0x00f3, B:46:0x00ff, B:49:0x00de, B:54:0x00b6, B:56:0x00c1, B:58:0x009a, B:61:0x0063, B:65:0x003c), top: B:9:0x0012 }] */
+    /* JADX WARN: Removed duplicated region for block: B:44:0x00fc  */
+    /* JADX WARN: Removed duplicated region for block: B:62:0x00ee  */
     /*
         Code decompiled incorrectly, please refer to instructions dump.
         To view partially-correct code enable 'Show inconsistent code' option in preferences
     */
     public static android.graphics.Bitmap a(android.content.Context r18, int r19, java.lang.Object... r20) {
         /*
-            Method dump skipped, instructions count: 254
+            Method dump skipped, instructions count: 272
             To view this dump change 'Code comments level' option to 'DEBUG'
         */
         throw new UnsupportedOperationException("Method not decompiled: com.tencent.bugly.beta.global.a.a(android.content.Context, int, java.lang.Object[]):android.graphics.Bitmap");
@@ -137,47 +140,51 @@ public class a {
         if (file != null) {
             try {
                 if (file.exists() && file.getName().endsWith(".apk")) {
-                    String a10 = ca.a(file, "MD5");
-                    if (!TextUtils.isEmpty(str) && !TextUtils.equals(str.toUpperCase(), a10)) {
-                        X.c("md5 error [file md5: %s] [target md5: %s]", a10, str);
+                    String a2 = ca.a(file, bu.f5659a);
+                    if (!TextUtils.isEmpty(str) && !TextUtils.equals(str.toUpperCase(), a2)) {
+                        X.c("md5 error [file md5: %s] [target md5: %s]", a2, str);
                         return false;
                     }
-                    StringBuilder sb2 = new StringBuilder();
-                    sb2.append("chmod 777 ");
-                    sb2.append(file.getAbsolutePath());
-                    Runtime.getRuntime().exec(sb2.toString());
+                    StringBuilder sb = new StringBuilder();
+                    sb.append("chmod 777 ");
+                    sb.append(file.getAbsolutePath());
+                    Runtime.getRuntime().exec(sb.toString());
                     Intent intent = new Intent("android.intent.action.VIEW");
                     if (Build.VERSION.SDK_INT >= 24) {
                         intent.addFlags(1);
                         Class.forName("androidx.core.content.FileProvider");
                         Class[] clsArr = {Context.class, String.class, File.class};
-                        StringBuilder sb3 = new StringBuilder();
-                        sb3.append(com.tencent.bugly.crashreport.common.info.a.a(context).f22294g);
-                        sb3.append(".fileProvider");
-                        Uri uri = (Uri) ca.a("androidx.core.content.FileProvider", "getUriForFile", null, clsArr, new Object[]{context, sb3.toString(), file});
+                        Object[] objArr = new Object[3];
+                        objArr[0] = context;
+                        StringBuilder sb2 = new StringBuilder();
+                        sb2.append(com.tencent.bugly.crashreport.common.info.a.a(context).f24754g);
+                        sb2.append(".fileProvider");
+                        objArr[1] = sb2.toString();
+                        objArr[2] = file;
+                        Uri uri = (Uri) ca.a("androidx.core.content.FileProvider", "getUriForFile", null, clsArr, objArr);
                         if (uri == null) {
-                            StringBuilder sb4 = new StringBuilder();
-                            sb4.append("file location is ");
-                            sb4.append(file.toString());
-                            X.b(sb4.toString(), new Object[0]);
+                            StringBuilder sb3 = new StringBuilder();
+                            sb3.append("file location is ");
+                            sb3.append(file.toString());
+                            X.b(sb3.toString(), new Object[0]);
                             X.b("install failed, contentUri is null!", new Object[0]);
                             return false;
                         }
-                        StringBuilder sb5 = new StringBuilder();
-                        sb5.append("contentUri is ");
-                        sb5.append(uri);
-                        X.a(sb5.toString(), new Object[0]);
-                        intent.setDataAndType(uri, "application/vnd.android.package-archive");
+                        StringBuilder sb4 = new StringBuilder();
+                        sb4.append("contentUri is ");
+                        sb4.append(uri);
+                        X.a(sb4.toString(), new Object[0]);
+                        intent.setDataAndType(uri, AdBaseConstants.MIME_APK);
                     } else {
-                        intent.setDataAndType(Uri.fromFile(file), "application/vnd.android.package-archive");
+                        intent.setDataAndType(Uri.fromFile(file), AdBaseConstants.MIME_APK);
                     }
-                    intent.addFlags(268435456);
+                    intent.addFlags(DownloadExpSwitchCode.BUGFIX_GETPACKAGEINFO_BY_UNZIP);
                     context.startActivity(intent);
                     return true;
                 }
-            } catch (Exception e10) {
-                if (!X.a(e10)) {
-                    e10.printStackTrace();
+            } catch (Exception e2) {
+                if (!X.a(e2)) {
+                    e2.printStackTrace();
                 }
             }
         }
@@ -188,11 +195,11 @@ public class a {
         if (file != null) {
             try {
                 if (file.exists()) {
-                    String a10 = ca.a(file, str2);
-                    if (!TextUtils.isEmpty(str) && TextUtils.equals(str.toUpperCase(), a10)) {
+                    String a2 = ca.a(file, str2);
+                    if (!TextUtils.isEmpty(str) && TextUtils.equals(str.toUpperCase(), a2)) {
                         return true;
                     }
-                    X.c("checkFileUniqueId failed [file  uniqueId %s] [target uniqueId %s]", a10, str);
+                    X.c("checkFileUniqueId failed [file  uniqueId %s] [target uniqueId %s]", a2, str);
                     return false;
                 }
             } catch (Exception unused) {
@@ -203,8 +210,8 @@ public class a {
     }
 
     /* JADX WARN: Multi-variable type inference failed */
-    /* JADX WARN: Removed duplicated region for block: B:51:0x0074 A[Catch: IOException -> 0x0070, TRY_LEAVE, TryCatch #8 {IOException -> 0x0070, blocks: (B:58:0x006c, B:51:0x0074), top: B:57:0x006c }] */
-    /* JADX WARN: Removed duplicated region for block: B:57:0x006c A[EXC_TOP_SPLITTER, SYNTHETIC] */
+    /* JADX WARN: Removed duplicated region for block: B:50:0x006d A[Catch: IOException -> 0x0069, TRY_LEAVE, TryCatch #0 {IOException -> 0x0069, blocks: (B:57:0x0065, B:50:0x006d), top: B:56:0x0065 }] */
+    /* JADX WARN: Removed duplicated region for block: B:56:0x0065 A[EXC_TOP_SPLITTER, SYNTHETIC] */
     /* JADX WARN: Type inference failed for: r3v12 */
     /* JADX WARN: Type inference failed for: r3v13 */
     /* JADX WARN: Type inference failed for: r3v14, types: [java.io.FileOutputStream] */
@@ -222,111 +229,99 @@ public class a {
     public static boolean a(java.io.File r3, java.io.File r4) {
         /*
             r0 = 0
-            if (r3 == 0) goto L7c
+            if (r3 == 0) goto L75
             r1 = 0
-            boolean r2 = r3.exists()     // Catch: java.lang.Throwable -> L48 java.lang.Exception -> L4a
-            if (r2 == 0) goto L7c
-            boolean r2 = r3.isDirectory()     // Catch: java.lang.Throwable -> L48 java.lang.Exception -> L4a
+            boolean r2 = r3.exists()     // Catch: java.lang.Throwable -> L42 java.lang.Exception -> L45
+            if (r2 == 0) goto L75
+            boolean r2 = r3.isDirectory()     // Catch: java.lang.Throwable -> L42 java.lang.Exception -> L45
             if (r2 == 0) goto L12
-            goto L7c
+            goto L75
         L12:
-            java.io.FileInputStream r2 = new java.io.FileInputStream     // Catch: java.lang.Throwable -> L48 java.lang.Exception -> L4a
-            r2.<init>(r3)     // Catch: java.lang.Throwable -> L48 java.lang.Exception -> L4a
-            java.io.FileOutputStream r3 = new java.io.FileOutputStream     // Catch: java.lang.Throwable -> L3e java.lang.Exception -> L40
-            r3.<init>(r4, r0)     // Catch: java.lang.Throwable -> L3e java.lang.Exception -> L40
+            java.io.FileInputStream r2 = new java.io.FileInputStream     // Catch: java.lang.Throwable -> L42 java.lang.Exception -> L45
+            r2.<init>(r3)     // Catch: java.lang.Throwable -> L42 java.lang.Exception -> L45
+            java.io.FileOutputStream r3 = new java.io.FileOutputStream     // Catch: java.lang.Throwable -> L3b java.lang.Exception -> L3d
+            r3.<init>(r4, r0)     // Catch: java.lang.Throwable -> L3b java.lang.Exception -> L3d
             r4 = 1048576(0x100000, float:1.469368E-39)
-            byte[] r4 = new byte[r4]     // Catch: java.lang.Throwable -> L2a java.lang.Exception -> L2d
+            byte[] r4 = new byte[r4]     // Catch: java.lang.Throwable -> L37 java.lang.Exception -> L39
         L20:
-            int r1 = r2.read(r4)     // Catch: java.lang.Throwable -> L2a java.lang.Exception -> L2d
-            if (r1 <= 0) goto L2f
-            r3.write(r4, r0, r1)     // Catch: java.lang.Throwable -> L2a java.lang.Exception -> L2d
+            int r1 = r2.read(r4)     // Catch: java.lang.Throwable -> L37 java.lang.Exception -> L39
+            if (r1 <= 0) goto L2a
+            r3.write(r4, r0, r1)     // Catch: java.lang.Throwable -> L37 java.lang.Exception -> L39
             goto L20
         L2a:
-            r4 = move-exception
-        L2b:
-            r1 = r3
-            goto L68
-        L2d:
-            r4 = move-exception
-            goto L3c
-        L2f:
-            r2.close()     // Catch: java.io.IOException -> L36
-            r3.close()     // Catch: java.io.IOException -> L36
-            goto L3a
-        L36:
+            r0 = 1
+            r2.close()     // Catch: java.io.IOException -> L32
+            r3.close()     // Catch: java.io.IOException -> L32
+            goto L5c
+        L32:
             r3 = move-exception
             r3.printStackTrace()
-        L3a:
-            r0 = 1
-            goto L64
-        L3c:
-            r1 = r2
-            goto L50
-        L3e:
-            r3 = move-exception
-            goto L43
-        L40:
-            r3 = move-exception
-            r4 = r3
-            goto L46
-        L43:
-            r4 = r1
-            r1 = r2
-            goto L6a
-        L46:
-            r3 = r1
-            goto L3c
-        L48:
-            r3 = move-exception
-            goto L4d
-        L4a:
-            r3 = move-exception
-            r4 = r3
-            goto L4f
-        L4d:
-            r4 = r1
-            goto L6a
-        L4f:
-            r3 = r1
-        L50:
-            r4.printStackTrace()     // Catch: java.lang.Throwable -> L65
-            if (r1 == 0) goto L5b
-            r1.close()     // Catch: java.io.IOException -> L59
-            goto L5b
-        L59:
+            goto L5c
+        L37:
+            r4 = move-exception
+            goto L5f
+        L39:
+            r4 = move-exception
+            goto L40
+        L3b:
             r3 = move-exception
             goto L61
-        L5b:
-            if (r3 == 0) goto L64
-            r3.close()     // Catch: java.io.IOException -> L59
-            goto L64
-        L61:
+        L3d:
+            r3 = move-exception
+            r4 = r3
+            r3 = r1
+        L40:
+            r1 = r2
+            goto L48
+        L42:
+            r3 = move-exception
+            r4 = r1
+            goto L63
+        L45:
+            r3 = move-exception
+            r4 = r3
+            r3 = r1
+        L48:
+            r4.printStackTrace()     // Catch: java.lang.Throwable -> L5d
+            if (r1 == 0) goto L53
+            r1.close()     // Catch: java.io.IOException -> L51
+            goto L53
+        L51:
+            r3 = move-exception
+            goto L59
+        L53:
+            if (r3 == 0) goto L5c
+            r3.close()     // Catch: java.io.IOException -> L51
+            goto L5c
+        L59:
             r3.printStackTrace()
-        L64:
+        L5c:
             return r0
-        L65:
+        L5d:
             r4 = move-exception
             r2 = r1
-            goto L2b
-        L68:
+        L5f:
+            r1 = r3
             r3 = r4
-            goto L43
-        L6a:
-            if (r1 == 0) goto L72
-            r1.close()     // Catch: java.io.IOException -> L70
-            goto L72
-        L70:
+        L61:
+            r4 = r1
+            r1 = r2
+        L63:
+            if (r1 == 0) goto L6b
+            r1.close()     // Catch: java.io.IOException -> L69
+            goto L6b
+        L69:
             r4 = move-exception
-            goto L78
-        L72:
-            if (r4 == 0) goto L7b
-            r4.close()     // Catch: java.io.IOException -> L70
-            goto L7b
-        L78:
+            goto L71
+        L6b:
+            if (r4 == 0) goto L74
+            r4.close()     // Catch: java.io.IOException -> L69
+            goto L74
+        L71:
             r4.printStackTrace()
-        L7b:
+        L74:
             throw r3
-        L7c:
+        L75:
             return r0
         */
         throw new UnsupportedOperationException("Method not decompiled: com.tencent.bugly.beta.global.a.a(java.io.File, java.io.File):boolean");
@@ -363,29 +358,29 @@ public class a {
         }
     }
 
-    public static synchronized <T extends Parcelable> boolean a(String str, T t10) {
+    public static synchronized <T extends Parcelable> boolean a(String str, T t) {
         synchronized (a.class) {
-            boolean z10 = false;
-            if (t10 == null) {
+            boolean z = false;
+            if (t == null) {
                 return false;
             }
-            byte[] a10 = ca.a(t10);
-            if (a10 != null) {
-                if (C0871p.f22799a.a(1002, str, a10)) {
-                    z10 = true;
+            byte[] a2 = ca.a(t);
+            if (a2 != null) {
+                if (C0912p.f25111a.a(1002, str, a2)) {
+                    z = true;
                 }
             }
-            return z10;
+            return z;
         }
     }
 
     public static synchronized <T extends Parcelable> T a(String str, Parcelable.Creator<T> creator) {
         synchronized (a.class) {
-            Map<String, byte[]> c10 = C0871p.f22799a.c();
-            if (c10 == null) {
+            Map<String, byte[]> c2 = C0912p.f25111a.c();
+            if (c2 == null) {
                 return null;
             }
-            byte[] bArr = c10.get(str);
+            byte[] bArr = c2.get(str);
             if (bArr != null && bArr.length > 0) {
                 return (T) ca.a(bArr, creator);
             }
@@ -394,21 +389,21 @@ public class a {
     }
 
     public static synchronized boolean a(String str) {
-        boolean a10;
+        boolean a2;
         synchronized (a.class) {
-            a10 = C0871p.f22799a.a(str);
+            a2 = C0912p.f25111a.a(str);
         }
-        return a10;
+        return a2;
     }
 
     public static String a(String str, String str2) {
-        SharedPreferences sharedPreferences = e.f22100b.D;
+        SharedPreferences sharedPreferences = e.f24621b.D;
         return sharedPreferences != null ? sharedPreferences.getString(str, str2) : str2;
     }
 
-    public static boolean a(String str, boolean z10) {
-        SharedPreferences sharedPreferences = e.f22100b.D;
-        return sharedPreferences != null ? sharedPreferences.getBoolean(str, z10) : z10;
+    public static boolean a(String str, boolean z) {
+        SharedPreferences sharedPreferences = e.f24621b.D;
+        return sharedPreferences != null ? sharedPreferences.getBoolean(str, z) : z;
     }
 
     public static String a(Context context, String str) {
@@ -420,8 +415,8 @@ public class a {
                 return null;
             }
             return String.valueOf(obj);
-        } catch (Exception e10) {
-            X.b(a.class, "getManifestMetaDataValue exception:" + e10.getMessage(), new Object[0]);
+        } catch (Exception e2) {
+            X.b(a.class, "getManifestMetaDataValue exception:" + e2.getMessage(), new Object[0]);
             return null;
         }
     }

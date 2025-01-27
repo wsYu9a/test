@@ -1,145 +1,147 @@
 package com.baidu.mobads.sdk.internal;
 
-import android.content.Context;
-import java.lang.reflect.Constructor;
-import java.lang.reflect.Method;
-import java.util.HashMap;
-import java.util.Map;
+import android.os.Build;
+import android.util.Log;
+import androidx.annotation.NonNull;
+import com.baidu.mobads.sdk.internal.av;
+import java.util.ArrayList;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
-/* loaded from: classes2.dex */
-public class at {
-
-    /* renamed from: c */
-    private static volatile Map<String, at> f6787c = new HashMap();
+/* loaded from: classes.dex */
+public class at extends av.a {
 
     /* renamed from: a */
-    private Class<?> f6788a;
+    public static final String f5543a = "local";
 
     /* renamed from: b */
-    private Method[] f6789b;
+    private static final int f5544b = 4000;
 
-    private at(Context context, String str) {
-        this.f6789b = null;
-        try {
-            Class<?> cls = Class.forName(str, true, bs.a(context));
-            this.f6788a = cls;
-            this.f6789b = cls.getMethods();
-        } catch (Throwable th2) {
-            bt.a().a(th2);
-        }
+    /* renamed from: c */
+    private static final int f5545c = 23;
+
+    /* renamed from: d */
+    private static final int f5546d = 5;
+
+    /* renamed from: e */
+    private static final Pattern f5547e = Pattern.compile("(\\$\\d+)+$");
+
+    /* renamed from: f */
+    private static final char f5548f = 9556;
+
+    /* renamed from: g */
+    private static final char f5549g = 9562;
+
+    /* renamed from: h */
+    private static final char f5550h = 9567;
+
+    /* renamed from: i */
+    private static final char f5551i = 9553;
+
+    /* renamed from: j */
+    private static final String f5552j = "════════════════════════════════════════════";
+    private static final String k = "------------------------------------------";
+    private static final String l = "╔════════════════════════════════════════════════════════════════════════════════════════";
+    private static final String m = "╚════════════════════════════════════════════════════════════════════════════════════════";
+    private static final String n = "╟------------------------------------------------------------------------------------";
+
+    @Override // com.baidu.mobads.sdk.internal.av.a
+    @NonNull
+    String a() {
+        return f5543a;
     }
 
-    public static at a(Context context, String str) {
-        if (!f6787c.containsKey(str) || f6787c.get(str).f6788a == null) {
-            synchronized (at.class) {
-                try {
-                    if (f6787c.containsKey(str)) {
-                        if (f6787c.get(str).f6788a == null) {
+    protected String a(StackTraceElement stackTraceElement) {
+        String className = stackTraceElement.getClassName();
+        Matcher matcher = f5547e.matcher(className);
+        if (matcher.find()) {
+            className = matcher.replaceAll("");
+        }
+        String substring = className.substring(className.lastIndexOf(46) + 1);
+        return (substring.length() <= 23 || Build.VERSION.SDK_INT >= 24) ? substring : substring.substring(0, 23);
+    }
+
+    @Override // com.baidu.mobads.sdk.internal.av.a
+    final String b() {
+        String b2 = super.b();
+        if (b2 != null) {
+            return b2;
+        }
+        StackTraceElement[] stackTrace = new Throwable().getStackTrace();
+        return stackTrace.length <= 5 ? "" : a(stackTrace[5]);
+    }
+
+    protected String c() {
+        StackTraceElement[] stackTrace = Thread.currentThread().getStackTrace();
+        boolean z = false;
+        int i2 = 0;
+        for (StackTraceElement stackTraceElement : stackTrace) {
+            String className = stackTraceElement.getClassName();
+            Matcher matcher = f5547e.matcher(className);
+            if (matcher.find()) {
+                className = matcher.replaceAll("");
+            }
+            if (!className.equals(av.class.getName()) && !className.equals(bq.class.getName())) {
+                if (z) {
+                    break;
+                }
+            } else {
+                z = true;
+            }
+            i2++;
+        }
+        return "   (" + stackTrace[i2].getFileName() + ":" + stackTrace[i2].getLineNumber() + ")# " + stackTrace[i2].getMethodName();
+    }
+
+    @Override // com.baidu.mobads.sdk.internal.av.a
+    protected void a(int i2, String str, String str2, Throwable th) {
+        int min;
+        try {
+            StringBuilder sb = new StringBuilder();
+            sb.append("当前线程：");
+            sb.append(Thread.currentThread().getName());
+            sb.append(";  ");
+            sb.append("调用位置：");
+            sb.append(c());
+            sb.append(";  ");
+            sb.append("打印消息：");
+            if (str2.length() > f5544b) {
+                ArrayList arrayList = new ArrayList();
+                int length = str2.length();
+                int i3 = 0;
+                while (i3 < length) {
+                    int indexOf = str2.indexOf(10, i3);
+                    if (indexOf == -1) {
+                        indexOf = length;
+                    }
+                    while (true) {
+                        min = Math.min(indexOf, i3 + f5544b);
+                        arrayList.add(str2.substring(i3, min));
+                        if (min >= indexOf) {
+                            break;
+                        } else {
+                            i3 = min;
                         }
                     }
-                    f6787c.put(str, new at(context, str));
-                } catch (Throwable th2) {
-                    throw th2;
+                    i3 = min + 1;
                 }
-            }
-        }
-        return f6787c.get(str);
-    }
-
-    public Object b(Object obj, String str, Object... objArr) {
-        try {
-            Method a10 = a(str);
-            if (a10 != null) {
-                if (objArr != null && objArr.length != 0) {
-                    return a10.invoke(obj, objArr);
+                for (String str3 : (String[]) arrayList.toArray(new String[arrayList.size()])) {
+                    a(i2, str, sb.toString() + str3);
                 }
-                return a10.invoke(obj, null);
+                return;
             }
+            sb.append(str2);
+            a(i2, str, sb.toString());
         } catch (Throwable th2) {
-            bt.a().a(th2);
-        }
-        return null;
-    }
-
-    /* JADX WARN: Removed duplicated region for block: B:12:0x001c A[Catch: all -> 0x0012, TRY_LEAVE, TryCatch #0 {all -> 0x0012, blocks: (B:3:0x0001, B:6:0x0009, B:9:0x000d, B:10:0x0018, B:12:0x001c, B:16:0x0014), top: B:2:0x0001 }] */
-    /*
-        Code decompiled incorrectly, please refer to instructions dump.
-        To view partially-correct code enable 'Show inconsistent code' option in preferences
-    */
-    public java.lang.String c(java.lang.Object r3, java.lang.String r4, java.lang.Object... r5) {
-        /*
-            r2 = this;
-            r0 = 0
-            java.lang.reflect.Method r4 = r2.a(r4)     // Catch: java.lang.Throwable -> L12
-            if (r4 == 0) goto L26
-            if (r5 == 0) goto L14
-            int r1 = r5.length     // Catch: java.lang.Throwable -> L12
-            if (r1 != 0) goto Ld
-            goto L14
-        Ld:
-            java.lang.Object r3 = r4.invoke(r3, r5)     // Catch: java.lang.Throwable -> L12
-            goto L18
-        L12:
-            r3 = move-exception
-            goto L1f
-        L14:
-            java.lang.Object r3 = r4.invoke(r3, r0)     // Catch: java.lang.Throwable -> L12
-        L18:
-            boolean r4 = r3 instanceof java.lang.String     // Catch: java.lang.Throwable -> L12
-            if (r4 == 0) goto L26
-            java.lang.String r3 = (java.lang.String) r3     // Catch: java.lang.Throwable -> L12
-            return r3
-        L1f:
-            com.baidu.mobads.sdk.internal.bt r4 = com.baidu.mobads.sdk.internal.bt.a()
-            r4.a(r3)
-        L26:
-            return r0
-        */
-        throw new UnsupportedOperationException("Method not decompiled: com.baidu.mobads.sdk.internal.at.c(java.lang.Object, java.lang.String, java.lang.Object[]):java.lang.String");
-    }
-
-    public Object a(Class<?>[] clsArr, Object... objArr) {
-        Constructor<?> constructor;
-        if (objArr != null) {
-            try {
-                if (objArr.length != 0) {
-                    constructor = this.f6788a.getConstructor(clsArr);
-                    return constructor.newInstance(objArr);
-                }
-            } catch (Throwable th2) {
-                bt.a().a(th2);
-                return null;
-            }
-        }
-        constructor = this.f6788a.getConstructor(null);
-        return constructor.newInstance(objArr);
-    }
-
-    public void a(Object obj, String str, Object... objArr) {
-        try {
-            Method a10 = a(str);
-            if (a10 != null) {
-                if (objArr != null && objArr.length != 0) {
-                    a10.invoke(obj, objArr);
-                }
-                a10.invoke(obj, null);
-            }
-        } catch (Throwable th2) {
-            bt.a().a(th2);
+            a(6, str, th2.toString());
         }
     }
 
-    private Method a(String str) {
-        Method[] methodArr = this.f6789b;
-        if (methodArr == null) {
-            return null;
+    private static void a(int i2, String str, String str2) {
+        if (i2 == 7) {
+            Log.wtf(str, str2);
+        } else {
+            Log.println(i2, str, str2);
         }
-        for (Method method : methodArr) {
-            if (method.getName().equals(str)) {
-                method.setAccessible(true);
-                return method;
-            }
-        }
-        return null;
     }
 }

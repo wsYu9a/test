@@ -5,25 +5,26 @@ import androidx.annotation.Nullable;
 import com.kwad.sdk.collector.AppStatusNative;
 import com.kwad.sdk.collector.model.b;
 import com.kwad.sdk.collector.model.c;
-import com.kwad.sdk.utils.x;
+import com.kwad.sdk.utils.t;
+import com.ss.android.socialbase.downloader.constants.DBDefinition;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import org.json.JSONObject;
 
-/* loaded from: classes3.dex */
+/* loaded from: classes2.dex */
 public class AppRunningInfoNative extends NativeObject implements b<AppRunningInfoNative> {
-    private static SimpleDateFormat abp = new SimpleDateFormat("yyyy-MM-dd:HH:mm:ss");
+    private static SimpleDateFormat abi = new SimpleDateFormat("yyyy-MM-dd:HH:mm:ss");
 
-    public AppRunningInfoNative(long j10, String str, String str2) {
-        this.mPtr = AppStatusNative.nativeCreateAppRunningInfo(j10, str, str2);
+    public AppRunningInfoNative(long j2) {
+        this.mPtr = j2;
     }
 
-    @NonNull
-    /* renamed from: Ca */
-    public AppRunningInfoNative clone() {
-        AppRunningInfoNative appRunningInfoNative = new AppRunningInfoNative(AppStatusNative.appRunningInfoGetGranularity(this), AppStatusNative.appRunningInfoGetName(this), AppStatusNative.appRunningInfoGetPackageName(this));
-        c.a(appRunningInfoNative, AppStatusNative.appRunningInfoGetLastRunningTime(this));
-        return appRunningInfoNative;
+    public AppRunningInfoNative(long j2, String str, String str2) {
+        this.mPtr = AppStatusNative.nativeCreateAppRunningInfo(j2, str, str2);
+    }
+
+    private static String I(long j2) {
+        return abi.format(new Date(j2));
     }
 
     @Override // java.lang.Comparable
@@ -39,15 +40,19 @@ public class AppRunningInfoNative extends NativeObject implements b<AppRunningIn
         return appRunningInfoGetLastRunningTime > 0 ? 1 : -1;
     }
 
-    private static String ak(long j10) {
-        return abp.format(new Date(j10));
+    @NonNull
+    /* renamed from: tL */
+    public AppRunningInfoNative clone() {
+        AppRunningInfoNative appRunningInfoNative = new AppRunningInfoNative(AppStatusNative.appRunningInfoGetGranularity(this), AppStatusNative.appRunningInfoGetName(this), AppStatusNative.appRunningInfoGetPackageName(this));
+        c.a(appRunningInfoNative, AppStatusNative.appRunningInfoGetLastRunningTime(this));
+        return appRunningInfoNative;
     }
 
     @Override // com.kwad.sdk.collector.model.jni.NativeObject
     public void destroy() {
-        long j10 = this.mPtr;
-        if (j10 != 0) {
-            AppStatusNative.nativeDeleteAppRunningInfo(j10);
+        long j2 = this.mPtr;
+        if (j2 != 0) {
+            AppStatusNative.nativeDeleteAppRunningInfo(j2);
             this.mPtr = 0L;
         }
     }
@@ -92,17 +97,13 @@ public class AppRunningInfoNative extends NativeObject implements b<AppRunningIn
     @Override // com.kwad.sdk.core.b
     public JSONObject toJson() {
         JSONObject jSONObject = new JSONObject();
-        x.putValue(jSONObject, "name", AppStatusNative.appRunningInfoGetName(this));
-        x.putValue(jSONObject, "packageName", AppStatusNative.appRunningInfoGetPackageName(this));
-        x.putValue(jSONObject, "lastRunningTime", AppStatusNative.appRunningInfoGetLastRunningTime(this));
+        t.putValue(jSONObject, "name", AppStatusNative.appRunningInfoGetName(this));
+        t.putValue(jSONObject, DBDefinition.PACKAGE_NAME, AppStatusNative.appRunningInfoGetPackageName(this));
+        t.putValue(jSONObject, "lastRunningTime", AppStatusNative.appRunningInfoGetLastRunningTime(this));
         return jSONObject;
     }
 
     public String toString() {
-        return "AppRunningInfo{packageName='" + c.b(this) + "', lastRunningTime=" + ak(c.c(this)) + '}';
-    }
-
-    public AppRunningInfoNative(long j10) {
-        this.mPtr = j10;
+        return "AppRunningInfo{packageName='" + c.b(this) + "', lastRunningTime=" + I(c.c(this)) + '}';
     }
 }

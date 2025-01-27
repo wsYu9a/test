@@ -12,41 +12,69 @@ import java.util.UUID;
 /* loaded from: classes.dex */
 final class NavBackStackEntryState implements Parcelable {
     public static final Parcelable.Creator<NavBackStackEntryState> CREATOR = new Parcelable.Creator<NavBackStackEntryState>() { // from class: androidx.navigation.NavBackStackEntryState.1
+        AnonymousClass1() {
+        }
+
         @Override // android.os.Parcelable.Creator
         public NavBackStackEntryState createFromParcel(Parcel parcel) {
             return new NavBackStackEntryState(parcel);
         }
 
         @Override // android.os.Parcelable.Creator
-        public NavBackStackEntryState[] newArray(int i10) {
-            return new NavBackStackEntryState[i10];
+        public NavBackStackEntryState[] newArray(int i2) {
+            return new NavBackStackEntryState[i2];
         }
     };
-    private final Bundle mArgs;
-    private final int mDestinationId;
-    private final Bundle mSavedState;
-    private final UUID mUUID;
+
+    /* renamed from: a */
+    private final UUID f2955a;
+
+    /* renamed from: b */
+    private final int f2956b;
+
+    /* renamed from: c */
+    private final Bundle f2957c;
+
+    /* renamed from: d */
+    private final Bundle f2958d;
 
     /* renamed from: androidx.navigation.NavBackStackEntryState$1 */
-    public class AnonymousClass1 implements Parcelable.Creator<NavBackStackEntryState> {
+    class AnonymousClass1 implements Parcelable.Creator<NavBackStackEntryState> {
+        AnonymousClass1() {
+        }
+
         @Override // android.os.Parcelable.Creator
         public NavBackStackEntryState createFromParcel(Parcel parcel) {
             return new NavBackStackEntryState(parcel);
         }
 
         @Override // android.os.Parcelable.Creator
-        public NavBackStackEntryState[] newArray(int i10) {
-            return new NavBackStackEntryState[i10];
+        public NavBackStackEntryState[] newArray(int i2) {
+            return new NavBackStackEntryState[i2];
         }
     }
 
-    public NavBackStackEntryState(NavBackStackEntry navBackStackEntry) {
-        this.mUUID = navBackStackEntry.mId;
-        this.mDestinationId = navBackStackEntry.getDestination().getId();
-        this.mArgs = navBackStackEntry.getArguments();
+    NavBackStackEntryState(NavBackStackEntry navBackStackEntry) {
+        this.f2955a = navBackStackEntry.f2948f;
+        this.f2956b = navBackStackEntry.getDestination().getId();
+        this.f2957c = navBackStackEntry.getArguments();
         Bundle bundle = new Bundle();
-        this.mSavedState = bundle;
-        navBackStackEntry.saveState(bundle);
+        this.f2958d = bundle;
+        navBackStackEntry.e(bundle);
+    }
+
+    @Nullable
+    Bundle a() {
+        return this.f2957c;
+    }
+
+    int b() {
+        return this.f2956b;
+    }
+
+    @NonNull
+    Bundle d() {
+        return this.f2958d;
     }
 
     @Override // android.os.Parcelable
@@ -54,37 +82,23 @@ final class NavBackStackEntryState implements Parcelable {
         return 0;
     }
 
-    @Nullable
-    public Bundle getArgs() {
-        return this.mArgs;
-    }
-
-    public int getDestinationId() {
-        return this.mDestinationId;
-    }
-
     @NonNull
-    public Bundle getSavedState() {
-        return this.mSavedState;
-    }
-
-    @NonNull
-    public UUID getUUID() {
-        return this.mUUID;
+    UUID e() {
+        return this.f2955a;
     }
 
     @Override // android.os.Parcelable
-    public void writeToParcel(@NonNull Parcel parcel, int i10) {
-        parcel.writeString(this.mUUID.toString());
-        parcel.writeInt(this.mDestinationId);
-        parcel.writeBundle(this.mArgs);
-        parcel.writeBundle(this.mSavedState);
+    public void writeToParcel(@NonNull Parcel parcel, int i2) {
+        parcel.writeString(this.f2955a.toString());
+        parcel.writeInt(this.f2956b);
+        parcel.writeBundle(this.f2957c);
+        parcel.writeBundle(this.f2958d);
     }
 
-    public NavBackStackEntryState(Parcel parcel) {
-        this.mUUID = UUID.fromString(parcel.readString());
-        this.mDestinationId = parcel.readInt();
-        this.mArgs = parcel.readBundle(NavBackStackEntryState.class.getClassLoader());
-        this.mSavedState = parcel.readBundle(NavBackStackEntryState.class.getClassLoader());
+    NavBackStackEntryState(Parcel parcel) {
+        this.f2955a = UUID.fromString(parcel.readString());
+        this.f2956b = parcel.readInt();
+        this.f2957c = parcel.readBundle(NavBackStackEntryState.class.getClassLoader());
+        this.f2958d = parcel.readBundle(NavBackStackEntryState.class.getClassLoader());
     }
 }

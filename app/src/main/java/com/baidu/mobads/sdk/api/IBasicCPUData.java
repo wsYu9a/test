@@ -5,13 +5,13 @@ import java.util.List;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
-/* loaded from: classes2.dex */
+/* loaded from: classes.dex */
 public interface IBasicCPUData extends AbstractData {
 
     public interface CpuNativeStatusCB {
         void onAdDownloadWindowShow();
 
-        void onAdStatusChanged(String str, int i10);
+        void onAdStatusChanged(String str, int i2);
 
         void onNotifyPerformance(String str);
 
@@ -23,8 +23,6 @@ public interface IBasicCPUData extends AbstractData {
 
         void onPrivacyLpClose();
     }
-
-    void cancelAppDownload();
 
     void clickHotItem(View view);
 
@@ -119,7 +117,7 @@ public interface IBasicCPUData extends AbstractData {
 
     void handleCreativeView(View view);
 
-    void handleDislikeClick(View view, int i10);
+    void handleDislikeClick(View view, int i2);
 
     boolean isAutoplay();
 

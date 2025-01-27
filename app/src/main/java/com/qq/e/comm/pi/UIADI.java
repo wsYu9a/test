@@ -1,11 +1,12 @@
 package com.qq.e.comm.pi;
 
 import android.app.Activity;
+import com.qq.e.ads.cfg.DownAPPConfirmPolicy;
 import com.qq.e.ads.cfg.VideoOption;
 import com.qq.e.ads.rewardvideo.ServerSideVerificationOptions;
 import com.qq.e.comm.constants.LoadAdParams;
 
-/* loaded from: classes3.dex */
+/* loaded from: classes4.dex */
 public interface UIADI extends LADI {
     void close();
 
@@ -21,11 +22,13 @@ public interface UIADI extends LADI {
 
     void loadFullScreenAD();
 
+    void setDownAPPConfirmPolicy(DownAPPConfirmPolicy downAPPConfirmPolicy);
+
     void setLoadAdParams(LoadAdParams loadAdParams);
 
-    void setMaxVideoDuration(int i10);
+    void setMaxVideoDuration(int i2);
 
-    void setMinVideoDuration(int i10);
+    void setMinVideoDuration(int i2);
 
     void setServerSideVerificationOptions(ServerSideVerificationOptions serverSideVerificationOptions);
 
@@ -34,6 +37,10 @@ public interface UIADI extends LADI {
     void show();
 
     void show(Activity activity);
+
+    void showAsPopupWindow();
+
+    void showAsPopupWindow(Activity activity);
 
     void showFullScreenAD(Activity activity);
 }

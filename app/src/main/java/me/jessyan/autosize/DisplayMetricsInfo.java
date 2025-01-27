@@ -3,17 +3,20 @@ package me.jessyan.autosize;
 import android.os.Parcel;
 import android.os.Parcelable;
 
-/* loaded from: classes4.dex */
+/* loaded from: classes5.dex */
 public class DisplayMetricsInfo implements Parcelable {
     public static final Parcelable.Creator<DisplayMetricsInfo> CREATOR = new Parcelable.Creator<DisplayMetricsInfo>() { // from class: me.jessyan.autosize.DisplayMetricsInfo.1
+        AnonymousClass1() {
+        }
+
         @Override // android.os.Parcelable.Creator
         public DisplayMetricsInfo createFromParcel(Parcel parcel) {
             return new DisplayMetricsInfo(parcel);
         }
 
         @Override // android.os.Parcelable.Creator
-        public DisplayMetricsInfo[] newArray(int i10) {
-            return new DisplayMetricsInfo[i10];
+        public DisplayMetricsInfo[] newArray(int i2) {
+            return new DisplayMetricsInfo[i2];
         }
     };
     private float density;
@@ -24,23 +27,26 @@ public class DisplayMetricsInfo implements Parcelable {
     private float xdpi;
 
     /* renamed from: me.jessyan.autosize.DisplayMetricsInfo$1 */
-    public static class AnonymousClass1 implements Parcelable.Creator<DisplayMetricsInfo> {
+    static class AnonymousClass1 implements Parcelable.Creator<DisplayMetricsInfo> {
+        AnonymousClass1() {
+        }
+
         @Override // android.os.Parcelable.Creator
         public DisplayMetricsInfo createFromParcel(Parcel parcel) {
             return new DisplayMetricsInfo(parcel);
         }
 
         @Override // android.os.Parcelable.Creator
-        public DisplayMetricsInfo[] newArray(int i10) {
-            return new DisplayMetricsInfo[i10];
+        public DisplayMetricsInfo[] newArray(int i2) {
+            return new DisplayMetricsInfo[i2];
         }
     }
 
-    public DisplayMetricsInfo(float f10, int i10, float f11, float f12) {
-        this.density = f10;
-        this.densityDpi = i10;
-        this.scaledDensity = f11;
-        this.xdpi = f12;
+    public DisplayMetricsInfo(float f2, int i2, float f3, float f4) {
+        this.density = f2;
+        this.densityDpi = i2;
+        this.scaledDensity = f3;
+        this.xdpi = f4;
     }
 
     @Override // android.os.Parcelable
@@ -72,28 +78,28 @@ public class DisplayMetricsInfo implements Parcelable {
         return this.xdpi;
     }
 
-    public void setDensity(float f10) {
-        this.density = f10;
+    public void setDensity(float f2) {
+        this.density = f2;
     }
 
-    public void setDensityDpi(int i10) {
-        this.densityDpi = i10;
+    public void setDensityDpi(int i2) {
+        this.densityDpi = i2;
     }
 
-    public void setScaledDensity(float f10) {
-        this.scaledDensity = f10;
+    public void setScaledDensity(float f2) {
+        this.scaledDensity = f2;
     }
 
-    public void setScreenHeightDp(int i10) {
-        this.screenHeightDp = i10;
+    public void setScreenHeightDp(int i2) {
+        this.screenHeightDp = i2;
     }
 
-    public void setScreenWidthDp(int i10) {
-        this.screenWidthDp = i10;
+    public void setScreenWidthDp(int i2) {
+        this.screenWidthDp = i2;
     }
 
-    public void setXdpi(float f10) {
-        this.xdpi = f10;
+    public void setXdpi(float f2) {
+        this.xdpi = f2;
     }
 
     public String toString() {
@@ -101,7 +107,7 @@ public class DisplayMetricsInfo implements Parcelable {
     }
 
     @Override // android.os.Parcelable
-    public void writeToParcel(Parcel parcel, int i10) {
+    public void writeToParcel(Parcel parcel, int i2) {
         parcel.writeFloat(this.density);
         parcel.writeInt(this.densityDpi);
         parcel.writeFloat(this.scaledDensity);
@@ -110,16 +116,16 @@ public class DisplayMetricsInfo implements Parcelable {
         parcel.writeInt(this.screenHeightDp);
     }
 
-    public DisplayMetricsInfo(float f10, int i10, float f11, float f12, int i11, int i12) {
-        this.density = f10;
-        this.densityDpi = i10;
-        this.scaledDensity = f11;
-        this.xdpi = f12;
-        this.screenWidthDp = i11;
-        this.screenHeightDp = i12;
+    public DisplayMetricsInfo(float f2, int i2, float f3, float f4, int i3, int i4) {
+        this.density = f2;
+        this.densityDpi = i2;
+        this.scaledDensity = f3;
+        this.xdpi = f4;
+        this.screenWidthDp = i3;
+        this.screenHeightDp = i4;
     }
 
-    public DisplayMetricsInfo(Parcel parcel) {
+    protected DisplayMetricsInfo(Parcel parcel) {
         this.density = parcel.readFloat();
         this.densityDpi = parcel.readInt();
         this.scaledDensity = parcel.readFloat();

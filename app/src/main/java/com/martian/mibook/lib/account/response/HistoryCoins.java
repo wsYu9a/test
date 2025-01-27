@@ -15,23 +15,23 @@ public class HistoryCoins {
     }
 
     public Long getCreatedOn() {
-        Long l10 = this.createdOn;
-        return Long.valueOf(l10 == null ? 0L : l10.longValue());
+        Long l = this.createdOn;
+        return Long.valueOf(l == null ? 0L : l.longValue());
     }
 
     public String getCtype() {
         return this.coinsType;
     }
 
-    public void setCoins(Integer num) {
-        this.coins = num;
+    public void setCoins(Integer coins) {
+        this.coins = coins;
     }
 
-    public void setCreatedOn(Long l10) {
-        this.createdOn = l10;
+    public void setCreatedOn(Long createdOn) {
+        this.createdOn = createdOn;
     }
 
-    public void setCtype(String str) {
-        this.coinsType = str;
+    public void setCtype(String coinsType) {
+        this.coinsType = coinsType;
     }
 }

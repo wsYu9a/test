@@ -5,10 +5,6 @@ import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.os.Build;
 import android.view.PointerIcon;
-import androidx.annotation.DoNotInline;
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.annotation.RequiresApi;
 import androidx.annotation.RestrictTo;
 
 /* loaded from: classes.dex */
@@ -36,51 +32,28 @@ public final class PointerIconCompat {
     public static final int TYPE_WAIT = 1004;
     public static final int TYPE_ZOOM_IN = 1018;
     public static final int TYPE_ZOOM_OUT = 1019;
-    private final PointerIcon mPointerIcon;
 
-    @RequiresApi(24)
-    public static class Api24Impl {
-        private Api24Impl() {
-        }
+    /* renamed from: a, reason: collision with root package name */
+    private Object f2056a;
 
-        @DoNotInline
-        public static PointerIcon create(Bitmap bitmap, float f10, float f11) {
-            return PointerIcon.create(bitmap, f10, f11);
-        }
-
-        @DoNotInline
-        public static PointerIcon getSystemIcon(Context context, int i10) {
-            return PointerIcon.getSystemIcon(context, i10);
-        }
-
-        @DoNotInline
-        public static PointerIcon load(Resources resources, int i10) {
-            return PointerIcon.load(resources, i10);
-        }
+    private PointerIconCompat(Object obj) {
+        this.f2056a = obj;
     }
 
-    private PointerIconCompat(PointerIcon pointerIcon) {
-        this.mPointerIcon = pointerIcon;
+    public static PointerIconCompat create(Bitmap bitmap, float f2, float f3) {
+        return Build.VERSION.SDK_INT >= 24 ? new PointerIconCompat(PointerIcon.create(bitmap, f2, f3)) : new PointerIconCompat(null);
     }
 
-    @NonNull
-    public static PointerIconCompat create(@NonNull Bitmap bitmap, float f10, float f11) {
-        return Build.VERSION.SDK_INT >= 24 ? new PointerIconCompat(Api24Impl.create(bitmap, f10, f11)) : new PointerIconCompat(null);
+    public static PointerIconCompat getSystemIcon(Context context, int i2) {
+        return Build.VERSION.SDK_INT >= 24 ? new PointerIconCompat(PointerIcon.getSystemIcon(context, i2)) : new PointerIconCompat(null);
     }
 
-    @NonNull
-    public static PointerIconCompat getSystemIcon(@NonNull Context context, int i10) {
-        return Build.VERSION.SDK_INT >= 24 ? new PointerIconCompat(Api24Impl.getSystemIcon(context, i10)) : new PointerIconCompat(null);
+    public static PointerIconCompat load(Resources resources, int i2) {
+        return Build.VERSION.SDK_INT >= 24 ? new PointerIconCompat(PointerIcon.load(resources, i2)) : new PointerIconCompat(null);
     }
 
-    @NonNull
-    public static PointerIconCompat load(@NonNull Resources resources, int i10) {
-        return Build.VERSION.SDK_INT >= 24 ? new PointerIconCompat(Api24Impl.load(resources, i10)) : new PointerIconCompat(null);
-    }
-
-    @Nullable
     @RestrictTo({RestrictTo.Scope.LIBRARY_GROUP_PREFIX})
     public Object getPointerIcon() {
-        return this.mPointerIcon;
+        return this.f2056a;
     }
 }

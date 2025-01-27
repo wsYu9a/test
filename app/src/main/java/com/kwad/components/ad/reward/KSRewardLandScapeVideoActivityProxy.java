@@ -7,10 +7,10 @@ import com.kwad.sdk.api.proxy.app.KSRewardLandScapeVideoActivity;
 
 @KsAdSdkDynamicImpl(KSRewardLandScapeVideoActivity.class)
 @Keep
-/* loaded from: classes2.dex */
+/* loaded from: classes.dex */
 public class KSRewardLandScapeVideoActivityProxy extends KSRewardVideoActivityProxy {
-    @InvokeBy(invokerClass = com.kwad.sdk.service.b.class, methodId = "initComponentProxyForInvoker")
+    @InvokeBy(invokerClass = com.kwad.sdk.service.a.class, methodId = "initComponentProxyForInvoker")
     public static void register() {
-        com.kwad.sdk.service.b.a(KSRewardLandScapeVideoActivity.class, KSRewardLandScapeVideoActivityProxy.class);
+        com.kwad.sdk.service.a.a(KSRewardLandScapeVideoActivity.class, KSRewardLandScapeVideoActivityProxy.class);
     }
 }

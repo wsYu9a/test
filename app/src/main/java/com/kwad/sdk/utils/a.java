@@ -3,16 +3,17 @@ package com.kwad.sdk.utils;
 import android.text.TextUtils;
 import androidx.annotation.Nullable;
 import androidx.annotation.WorkerThread;
+import com.baidu.mobads.sdk.internal.bu;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.security.MessageDigest;
 
-/* loaded from: classes3.dex */
+/* loaded from: classes2.dex */
 public final class a {
     @Nullable
     @WorkerThread
-    public static byte[] gC(String str) {
+    public static byte[] es(String str) {
         if (TextUtils.isEmpty(str)) {
             return null;
         }
@@ -25,11 +26,11 @@ public final class a {
         try {
             byte[] fileMD5Digest = getFileMD5Digest(file);
             if (fileMD5Digest != null && fileMD5Digest.length != 0) {
-                return ai.toHexString(fileMD5Digest, 0, fileMD5Digest.length);
+                return ad.toHexString(fileMD5Digest, 0, fileMD5Digest.length);
             }
             return null;
-        } catch (IOException e10) {
-            com.kwad.sdk.core.d.c.e("FileMD5Utils", "cannot calculate md5 of file", e10);
+        } catch (IOException e2) {
+            com.kwad.sdk.core.d.b.e("FileMD5Utils", "cannot calculate md5 of file", e2);
             return null;
         }
     }
@@ -42,26 +43,20 @@ public final class a {
         }
         FileInputStream fileInputStream = new FileInputStream(file);
         try {
-            try {
-                MessageDigest messageDigest = MessageDigest.getInstance("MD5");
-                byte[] bArr = new byte[4096];
-                while (true) {
-                    int read = fileInputStream.read(bArr);
-                    if (read == -1) {
-                        byte[] digest = messageDigest.digest();
-                        com.kwad.sdk.crash.utils.b.closeQuietly(fileInputStream);
-                        return digest;
-                    }
-                    messageDigest.update(bArr, 0, read);
+            MessageDigest messageDigest = MessageDigest.getInstance(bu.f5659a);
+            byte[] bArr = new byte[4096];
+            while (true) {
+                int read = fileInputStream.read(bArr);
+                if (read == -1) {
+                    return messageDigest.digest();
                 }
-            } catch (Exception e10) {
-                com.kwad.sdk.core.d.c.e("FileMD5Utils", "getting file md5 digest error.", e10);
-                com.kwad.sdk.crash.utils.b.closeQuietly(fileInputStream);
-                return null;
+                messageDigest.update(bArr, 0, read);
             }
-        } catch (Throwable th2) {
+        } catch (Exception e2) {
+            com.kwad.sdk.core.d.b.e("FileMD5Utils", "getting file md5 digest error.", e2);
+            return null;
+        } finally {
             com.kwad.sdk.crash.utils.b.closeQuietly(fileInputStream);
-            throw th2;
         }
     }
 }

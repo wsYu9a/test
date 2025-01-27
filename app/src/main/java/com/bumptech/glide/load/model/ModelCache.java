@@ -7,29 +7,29 @@ import com.bumptech.glide.util.LruCache;
 import com.bumptech.glide.util.Util;
 import java.util.Queue;
 
-/* loaded from: classes2.dex */
+/* loaded from: classes.dex */
 public class ModelCache<A, B> {
     private static final int DEFAULT_SIZE = 250;
     private final LruCache<ModelKey<A>, B> cache;
 
     /* renamed from: com.bumptech.glide.load.model.ModelCache$1 */
-    public class AnonymousClass1 extends LruCache<ModelKey<A>, B> {
-        public AnonymousClass1(long j10) {
-            super(j10);
+    class AnonymousClass1 extends LruCache<ModelKey<A>, B> {
+        AnonymousClass1(long j2) {
+            super(j2);
         }
 
         @Override // com.bumptech.glide.util.LruCache
-        public /* bridge */ /* synthetic */ void onItemEvicted(@NonNull Object obj, @Nullable Object obj2) {
+        protected /* bridge */ /* synthetic */ void onItemEvicted(@NonNull Object obj, @Nullable Object obj2) {
             onItemEvicted((ModelKey) obj, (ModelKey<A>) obj2);
         }
 
-        public void onItemEvicted(@NonNull ModelKey<A> modelKey, @Nullable B b10) {
+        protected void onItemEvicted(@NonNull ModelKey<A> modelKey, @Nullable B b2) {
             modelKey.release();
         }
     }
 
     @VisibleForTesting
-    public static final class ModelKey<A> {
+    static final class ModelKey<A> {
         private static final Queue<ModelKey<?>> KEY_QUEUE = Util.createQueue(0);
         private int height;
         private A model;
@@ -38,7 +38,7 @@ public class ModelCache<A, B> {
         private ModelKey() {
         }
 
-        public static <A> ModelKey<A> get(A a10, int i10, int i11) {
+        static <A> ModelKey<A> get(A a2, int i2, int i3) {
             ModelKey<A> modelKey;
             Queue<ModelKey<?>> queue = KEY_QUEUE;
             synchronized (queue) {
@@ -47,14 +47,14 @@ public class ModelCache<A, B> {
             if (modelKey == null) {
                 modelKey = new ModelKey<>();
             }
-            modelKey.init(a10, i10, i11);
+            modelKey.init(a2, i2, i3);
             return modelKey;
         }
 
-        private void init(A a10, int i10, int i11) {
-            this.model = a10;
-            this.width = i10;
-            this.height = i11;
+        private void init(A a2, int i2, int i3) {
+            this.model = a2;
+            this.width = i2;
+            this.height = i3;
         }
 
         public boolean equals(Object obj) {
@@ -86,29 +86,29 @@ public class ModelCache<A, B> {
     }
 
     @Nullable
-    public B get(A a10, int i10, int i11) {
-        ModelKey<A> modelKey = ModelKey.get(a10, i10, i11);
-        B b10 = this.cache.get(modelKey);
+    public B get(A a2, int i2, int i3) {
+        ModelKey<A> modelKey = ModelKey.get(a2, i2, i3);
+        B b2 = this.cache.get(modelKey);
         modelKey.release();
-        return b10;
+        return b2;
     }
 
-    public void put(A a10, int i10, int i11, B b10) {
-        this.cache.put(ModelKey.get(a10, i10, i11), b10);
+    public void put(A a2, int i2, int i3, B b2) {
+        this.cache.put(ModelKey.get(a2, i2, i3), b2);
     }
 
-    public ModelCache(long j10) {
-        this.cache = new LruCache<ModelKey<A>, B>(j10) { // from class: com.bumptech.glide.load.model.ModelCache.1
-            public AnonymousClass1(long j102) {
-                super(j102);
+    public ModelCache(long j2) {
+        this.cache = new LruCache<ModelKey<A>, B>(j2) { // from class: com.bumptech.glide.load.model.ModelCache.1
+            AnonymousClass1(long j22) {
+                super(j22);
             }
 
             @Override // com.bumptech.glide.util.LruCache
-            public /* bridge */ /* synthetic */ void onItemEvicted(@NonNull Object obj, @Nullable Object obj2) {
+            protected /* bridge */ /* synthetic */ void onItemEvicted(@NonNull Object obj, @Nullable Object obj2) {
                 onItemEvicted((ModelKey) obj, (ModelKey<A>) obj2);
             }
 
-            public void onItemEvicted(@NonNull ModelKey<A> modelKey, @Nullable B b10) {
+            protected void onItemEvicted(@NonNull ModelKey<A> modelKey, @Nullable B b2) {
                 modelKey.release();
             }
         };

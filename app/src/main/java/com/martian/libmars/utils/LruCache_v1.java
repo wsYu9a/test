@@ -6,84 +6,84 @@ import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
-/* loaded from: classes3.dex */
+/* loaded from: classes2.dex */
 public class LruCache_v1<K, V> {
 
     /* renamed from: a, reason: collision with root package name */
-    public final HashMap<K, V> f12395a;
+    private final HashMap<K, V> f10109a;
 
     /* renamed from: b, reason: collision with root package name */
-    public final HashMap<K, a<K, V>> f12396b = new HashMap<>();
+    private final HashMap<K, a<K, V>> f10110b = new HashMap<>();
 
     /* renamed from: c, reason: collision with root package name */
-    public ReferenceQueue<V> f12397c = new ReferenceQueue<>();
+    private ReferenceQueue<V> f10111c = new ReferenceQueue<>();
 
     /* renamed from: d, reason: collision with root package name */
-    public b<K, V> f12398d = null;
+    private b<K, V> f10112d = null;
 
-    public static class a<K, V> extends WeakReference<V> {
+    private static class a<K, V> extends WeakReference<V> {
 
         /* renamed from: a, reason: collision with root package name */
-        public K f12399a;
+        K f10113a;
 
-        public a(K k10, V v10, ReferenceQueue<V> referenceQueue) {
-            super(v10, referenceQueue);
-            this.f12399a = k10;
+        public a(K key, V value, ReferenceQueue<V> queue) {
+            super(value, queue);
+            this.f10113a = key;
         }
     }
 
     public interface b<K, V> {
-        void a(Map.Entry<K, V> entry);
+        void a(Map.Entry<K, V> eldest);
     }
 
-    public LruCache_v1(final int i10) {
-        this.f12395a = new LinkedHashMap<K, V>(16, 0.75f, true) { // from class: com.martian.libmars.utils.LruCache_v1.1
+    public LruCache_v1(final int capacity) {
+        this.f10109a = new LinkedHashMap<K, V>(16, 0.75f, true) { // from class: com.martian.libmars.utils.LruCache_v1.1
             @Override // java.util.LinkedHashMap
-            public boolean removeEldestEntry(Map.Entry<K, V> entry) {
+            protected boolean removeEldestEntry(Map.Entry<K, V> eldest) {
                 int size = size();
-                int i11 = i10;
-                boolean z10 = size > i11 && i11 != -1;
-                if (z10 && LruCache_v1.this.f12398d != null) {
-                    LruCache_v1.this.f12398d.a(entry);
+                int i2 = capacity;
+                boolean z = size > i2 && i2 != -1;
+                if (z && LruCache_v1.this.f10112d != null) {
+                    LruCache_v1.this.f10112d.a(eldest);
                 }
-                return z10;
+                return z;
             }
         };
     }
 
-    public final void b() {
-        a aVar = (a) this.f12397c.poll();
+    private void b() {
+        a aVar = (a) this.f10111c.poll();
         while (aVar != null) {
-            this.f12396b.remove(aVar.f12399a);
-            aVar = (a) this.f12397c.poll();
+            this.f10110b.remove(aVar.f10113a);
+            aVar = (a) this.f10111c.poll();
         }
     }
 
     public synchronized void c() {
-        this.f12395a.clear();
-        this.f12396b.clear();
-        this.f12397c = new ReferenceQueue<>();
+        this.f10109a.clear();
+        this.f10110b.clear();
+        this.f10111c = new ReferenceQueue<>();
     }
 
-    public synchronized V d(K k10) {
+    public synchronized V d(K key) {
         b();
-        V v10 = this.f12395a.get(k10);
-        if (v10 != null) {
-            return v10;
+        V v = this.f10109a.get(key);
+        if (v != null) {
+            return v;
         }
-        a<K, V> aVar = this.f12396b.get(k10);
+        a<K, V> aVar = this.f10110b.get(key);
         return aVar == null ? null : aVar.get();
     }
 
-    public synchronized V e(K k10, V v10) {
+    public synchronized V e(K key, V value) {
         a<K, V> put;
         b();
-        this.f12395a.put(k10, v10);
-        put = this.f12396b.put(k10, new a<>(k10, v10, this.f12397c));
+        this.f10109a.put(key, value);
+        put = this.f10110b.put(key, new a<>(key, value, this.f10111c));
         return put == null ? null : put.get();
     }
 
-    public void f(b<K, V> bVar) {
-        this.f12398d = bVar;
+    public void f(b<K, V> l) {
+        this.f10112d = l;
     }
 }

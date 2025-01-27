@@ -5,16 +5,16 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
-/* loaded from: classes2.dex */
+/* loaded from: classes.dex */
 public class TranscoderRegistry {
     private final List<Entry<?, ?>> transcoders = new ArrayList();
 
-    public static final class Entry<Z, R> {
+    private static final class Entry<Z, R> {
         private final Class<Z> fromClass;
         private final Class<R> toClass;
         final ResourceTranscoder<Z, R> transcoder;
 
-        public Entry(@NonNull Class<Z> cls, @NonNull Class<R> cls2, @NonNull ResourceTranscoder<Z, R> resourceTranscoder) {
+        Entry(@NonNull Class<Z> cls, @NonNull Class<R> cls2, @NonNull ResourceTranscoder<Z, R> resourceTranscoder) {
             this.fromClass = cls;
             this.toClass = cls2;
             this.transcoder = resourceTranscoder;

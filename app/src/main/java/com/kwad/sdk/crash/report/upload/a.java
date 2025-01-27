@@ -1,8 +1,8 @@
 package com.kwad.sdk.crash.report.upload;
 
-/* loaded from: classes3.dex */
+/* loaded from: classes2.dex */
 public interface a {
-    void JQ();
+    void Af();
 
-    void JR();
+    void Ag();
 }

@@ -7,21 +7,21 @@ import androidx.annotation.NonNull;
 
 /* loaded from: classes.dex */
 class ViewGroupOverlayApi14 extends ViewOverlayApi14 implements ViewGroupOverlayImpl {
-    public ViewGroupOverlayApi14(Context context, ViewGroup viewGroup, View view) {
+    ViewGroupOverlayApi14(Context context, ViewGroup viewGroup, View view) {
         super(context, viewGroup, view);
     }
 
-    public static ViewGroupOverlayApi14 createFrom(ViewGroup viewGroup) {
-        return (ViewGroupOverlayApi14) ViewOverlayApi14.createFrom(viewGroup);
+    static ViewGroupOverlayApi14 c(ViewGroup viewGroup) {
+        return (ViewGroupOverlayApi14) ViewOverlayApi14.a(viewGroup);
     }
 
     @Override // androidx.transition.ViewGroupOverlayImpl
     public void add(@NonNull View view) {
-        this.mOverlayViewGroup.add(view);
+        this.f3880a.add(view);
     }
 
     @Override // androidx.transition.ViewGroupOverlayImpl
     public void remove(@NonNull View view) {
-        this.mOverlayViewGroup.remove(view);
+        this.f3880a.remove(view);
     }
 }

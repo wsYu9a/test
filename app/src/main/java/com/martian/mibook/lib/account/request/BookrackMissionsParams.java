@@ -1,6 +1,6 @@
 package com.martian.mibook.lib.account.request;
 
-import v8.a;
+import com.martian.libcomm.http.requests.d.a;
 
 /* loaded from: classes3.dex */
 public class BookrackMissionsParams extends TYAuthoptParams {
@@ -26,11 +26,11 @@ public class BookrackMissionsParams extends TYAuthoptParams {
         return this.type;
     }
 
-    public void setCtype(Integer num) {
-        this.ctype = num;
+    public void setCtype(Integer ctype) {
+        this.ctype = ctype;
     }
 
-    public void setType(Integer num) {
-        this.type = num;
+    public void setType(Integer type) {
+        this.type = type;
     }
 }

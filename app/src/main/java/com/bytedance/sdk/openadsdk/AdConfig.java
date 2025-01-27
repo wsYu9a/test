@@ -1,10 +1,19 @@
 package com.bytedance.sdk.openadsdk;
 
-import java.util.Map;
+import com.bytedance.sdk.openadsdk.live.ITTLiveTokenInjectionAuth;
 
-/* loaded from: classes2.dex */
+/* loaded from: classes.dex */
 public interface AdConfig {
-    int getAgeGroup();
+
+    public interface SdkInfo {
+        boolean isPlugin();
+
+        String pluginName();
+
+        int sdkVersionCode();
+
+        String sdkVersionName();
+    }
 
     String getAppId();
 
@@ -19,21 +28,36 @@ public interface AdConfig {
     @Deprecated
     Object getExtra(String str);
 
-    Map<String, Object> getInitExtra();
+    ITTLiveTokenInjectionAuth getInjectionAuth();
 
     String getKeywords();
 
-    int getPluginUpdateConfig();
+    @Deprecated
+    String[] getNeedClearTaskReset();
 
-    int getThemeStatus();
+    SdkInfo getSdkInfo();
 
     int getTitleBarTheme();
 
     boolean isAllowShowNotify();
+
+    boolean isAllowShowPageWhenScreenLock();
+
+    boolean isAsyncInit();
 
     boolean isDebug();
 
     boolean isPaid();
 
     boolean isSupportMultiProcess();
+
+    boolean isUseTextureView();
+
+    @Deprecated
+    Object removeExtra(String str);
+
+    void setAgeGroup(int i2);
+
+    @Deprecated
+    void setExtra(String str, Object obj);
 }

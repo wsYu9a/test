@@ -61,8 +61,8 @@ public class AddCardToWXCardPackage {
                 }
                 jSONStringer.endArray();
                 jSONStringer.endObject();
-            } catch (Exception e10) {
-                Log.e(AddCardToWXCardPackage.TAG, "Req.toBundle exception:" + e10.getMessage());
+            } catch (Exception e2) {
+                Log.e(AddCardToWXCardPackage.TAG, "Req.toBundle exception:" + e2.getMessage());
             }
             bundle.putString("_wxapi_add_card_to_wx_card_list", jSONStringer.toString());
         }
@@ -72,6 +72,10 @@ public class AddCardToWXCardPackage {
         public List<WXCardItem> cardArrary;
 
         public Resp() {
+        }
+
+        public Resp(Bundle bundle) {
+            fromBundle(bundle);
         }
 
         @Override // com.tencent.mm.opensdk.modelbase.BaseResp
@@ -92,8 +96,8 @@ public class AddCardToWXCardPackage {
             }
             try {
                 JSONArray jSONArray = ((JSONObject) new JSONTokener(string).nextValue()).getJSONArray("card_list");
-                for (int i10 = 0; i10 < jSONArray.length(); i10++) {
-                    JSONObject jSONObject = jSONArray.getJSONObject(i10);
+                for (int i2 = 0; i2 < jSONArray.length(); i2++) {
+                    JSONObject jSONObject = jSONArray.getJSONObject(i2);
                     WXCardItem wXCardItem = new WXCardItem();
                     wXCardItem.cardId = jSONObject.optString("card_id");
                     wXCardItem.cardExtMsg = jSONObject.optString("card_ext");
@@ -133,14 +137,10 @@ public class AddCardToWXCardPackage {
                 }
                 jSONStringer.endArray();
                 jSONStringer.endObject();
-            } catch (Exception e10) {
-                Log.e(AddCardToWXCardPackage.TAG, "Resp.toBundle exception:" + e10.getMessage());
+            } catch (Exception e2) {
+                Log.e(AddCardToWXCardPackage.TAG, "Resp.toBundle exception:" + e2.getMessage());
             }
             bundle.putString("_wxapi_add_card_to_wx_card_list", jSONStringer.toString());
-        }
-
-        public Resp(Bundle bundle) {
-            fromBundle(bundle);
         }
     }
 

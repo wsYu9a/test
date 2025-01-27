@@ -7,13 +7,13 @@ import com.bumptech.glide.load.ResourceDecoder;
 import com.bumptech.glide.load.engine.Resource;
 import com.bumptech.glide.util.Util;
 
-/* loaded from: classes2.dex */
+/* loaded from: classes.dex */
 public final class UnitBitmapDecoder implements ResourceDecoder<Bitmap, Bitmap> {
 
-    public static final class NonOwnedBitmapResource implements Resource<Bitmap> {
+    private static final class NonOwnedBitmapResource implements Resource<Bitmap> {
         private final Bitmap bitmap;
 
-        public NonOwnedBitmapResource(@NonNull Bitmap bitmap) {
+        NonOwnedBitmapResource(@NonNull Bitmap bitmap) {
             this.bitmap = bitmap;
         }
 
@@ -45,7 +45,7 @@ public final class UnitBitmapDecoder implements ResourceDecoder<Bitmap, Bitmap> 
     }
 
     @Override // com.bumptech.glide.load.ResourceDecoder
-    public Resource<Bitmap> decode(@NonNull Bitmap bitmap, int i10, int i11, @NonNull Options options) {
+    public Resource<Bitmap> decode(@NonNull Bitmap bitmap, int i2, int i3, @NonNull Options options) {
         return new NonOwnedBitmapResource(bitmap);
     }
 }

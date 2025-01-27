@@ -13,32 +13,39 @@ import android.view.animation.Interpolator;
 import android.view.animation.LinearInterpolator;
 import android.widget.ProgressBar;
 import fr.castorflex.android.smoothprogressbar.SmoothProgressDrawable;
-import lh.b;
 
-/* loaded from: classes4.dex */
+/* loaded from: classes5.dex */
 public class SmoothProgressBar extends ProgressBar {
 
+    /* renamed from: a */
+    private static final int f35258a = 0;
+
     /* renamed from: b */
-    public static final int f26073b = 0;
+    private static final int f35259b = 1;
 
     /* renamed from: c */
-    public static final int f26074c = 1;
+    private static final int f35260c = 2;
 
     /* renamed from: d */
-    public static final int f26075d = 2;
-
-    /* renamed from: e */
-    public static final int f26076e = 3;
+    private static final int f35261d = 3;
 
     public SmoothProgressBar(Context context) {
         this(context, null);
     }
 
-    public void a(int i10) {
+    private SmoothProgressDrawable b() {
+        Drawable indeterminateDrawable = getIndeterminateDrawable();
+        if (indeterminateDrawable == null || !(indeterminateDrawable instanceof SmoothProgressDrawable)) {
+            throw new RuntimeException("The drawable is not a SmoothProgressDrawable");
+        }
+        return (SmoothProgressDrawable) indeterminateDrawable;
+    }
+
+    public void a(int i2) {
         int resourceId;
         int[] intArray;
         Interpolator interpolator = null;
-        TypedArray obtainStyledAttributes = getContext().obtainStyledAttributes(null, R.styleable.SmoothProgressBar, 0, i10);
+        TypedArray obtainStyledAttributes = getContext().obtainStyledAttributes(null, R.styleable.SmoothProgressBar, 0, i2);
         if (obtainStyledAttributes.hasValue(1)) {
             setSmoothProgressDrawableColor(obtainStyledAttributes.getColor(1, 0));
         }
@@ -96,14 +103,6 @@ public class SmoothProgressBar extends ProgressBar {
         obtainStyledAttributes.recycle();
     }
 
-    public final SmoothProgressDrawable b() {
-        Drawable indeterminateDrawable = getIndeterminateDrawable();
-        if (indeterminateDrawable == null || !(indeterminateDrawable instanceof SmoothProgressDrawable)) {
-            throw new RuntimeException("The drawable is not a SmoothProgressDrawable");
-        }
-        return (SmoothProgressDrawable) indeterminateDrawable;
-    }
-
     public void c() {
         b().v();
     }
@@ -113,7 +112,7 @@ public class SmoothProgressBar extends ProgressBar {
     }
 
     @Override // android.widget.ProgressBar, android.view.View
-    public synchronized void onDraw(Canvas canvas) {
+    protected synchronized void onDraw(Canvas canvas) {
         super.onDraw(canvas);
         if (isIndeterminate() && (getIndeterminateDrawable() instanceof SmoothProgressDrawable) && !((SmoothProgressDrawable) getIndeterminateDrawable()).isRunning()) {
             getIndeterminateDrawable().draw(canvas);
@@ -130,8 +129,8 @@ public class SmoothProgressBar extends ProgressBar {
         ((SmoothProgressDrawable) indeterminateDrawable).D(interpolator);
     }
 
-    public void setProgressiveStartActivated(boolean z10) {
-        b().F(z10);
+    public void setProgressiveStartActivated(boolean z) {
+        b().F(z);
     }
 
     public void setSmoothProgressDrawableBackgroundDrawable(Drawable drawable) {
@@ -142,8 +141,8 @@ public class SmoothProgressBar extends ProgressBar {
         b().A(bVar);
     }
 
-    public void setSmoothProgressDrawableColor(int i10) {
-        b().B(i10);
+    public void setSmoothProgressDrawableColor(int i2) {
+        b().B(i2);
     }
 
     public void setSmoothProgressDrawableColors(int[] iArr) {
@@ -154,60 +153,60 @@ public class SmoothProgressBar extends ProgressBar {
         b().D(interpolator);
     }
 
-    public void setSmoothProgressDrawableMirrorMode(boolean z10) {
-        b().E(z10);
+    public void setSmoothProgressDrawableMirrorMode(boolean z) {
+        b().E(z);
     }
 
-    public void setSmoothProgressDrawableProgressiveStartSpeed(float f10) {
-        b().G(f10);
+    public void setSmoothProgressDrawableProgressiveStartSpeed(float f2) {
+        b().G(f2);
     }
 
-    public void setSmoothProgressDrawableProgressiveStopSpeed(float f10) {
-        b().H(f10);
+    public void setSmoothProgressDrawableProgressiveStopSpeed(float f2) {
+        b().H(f2);
     }
 
-    public void setSmoothProgressDrawableReversed(boolean z10) {
-        b().I(z10);
+    public void setSmoothProgressDrawableReversed(boolean z) {
+        b().I(z);
     }
 
-    public void setSmoothProgressDrawableSectionsCount(int i10) {
-        b().J(i10);
+    public void setSmoothProgressDrawableSectionsCount(int i2) {
+        b().J(i2);
     }
 
-    public void setSmoothProgressDrawableSeparatorLength(int i10) {
-        b().K(i10);
+    public void setSmoothProgressDrawableSeparatorLength(int i2) {
+        b().K(i2);
     }
 
-    public void setSmoothProgressDrawableSpeed(float f10) {
-        b().L(f10);
+    public void setSmoothProgressDrawableSpeed(float f2) {
+        b().L(f2);
     }
 
-    public void setSmoothProgressDrawableStrokeWidth(float f10) {
-        b().M(f10);
+    public void setSmoothProgressDrawableStrokeWidth(float f2) {
+        b().M(f2);
     }
 
     public SmoothProgressBar(Context context, AttributeSet attributeSet) {
         this(context, attributeSet, R.attr.spbStyle);
     }
 
-    public SmoothProgressBar(Context context, AttributeSet attributeSet, int i10) {
-        super(context, attributeSet, i10);
+    public SmoothProgressBar(Context context, AttributeSet attributeSet, int i2) {
+        super(context, attributeSet, i2);
         Resources resources = context.getResources();
-        TypedArray obtainStyledAttributes = context.obtainStyledAttributes(attributeSet, R.styleable.SmoothProgressBar, i10, 0);
+        TypedArray obtainStyledAttributes = context.obtainStyledAttributes(attributeSet, R.styleable.SmoothProgressBar, i2, 0);
         int color = obtainStyledAttributes.getColor(1, resources.getColor(R.color.spb_default_color));
         int integer = obtainStyledAttributes.getInteger(4, resources.getInteger(R.integer.spb_default_sections_count));
         int dimensionPixelSize = obtainStyledAttributes.getDimensionPixelSize(3, resources.getDimensionPixelSize(R.dimen.spb_default_stroke_separator_length));
         float dimension = obtainStyledAttributes.getDimension(2, resources.getDimension(R.dimen.spb_default_stroke_width));
-        float f10 = obtainStyledAttributes.getFloat(5, Float.parseFloat(resources.getString(R.string.spb_default_speed)));
-        float f11 = obtainStyledAttributes.getFloat(6, f10);
-        float f12 = obtainStyledAttributes.getFloat(7, f10);
+        float f2 = obtainStyledAttributes.getFloat(5, Float.parseFloat(resources.getString(R.string.spb_default_speed)));
+        float f3 = obtainStyledAttributes.getFloat(6, f2);
+        float f4 = obtainStyledAttributes.getFloat(7, f2);
         int integer2 = obtainStyledAttributes.getInteger(8, -1);
-        boolean z10 = obtainStyledAttributes.getBoolean(9, resources.getBoolean(R.bool.spb_default_reversed));
-        boolean z11 = obtainStyledAttributes.getBoolean(10, resources.getBoolean(R.bool.spb_default_mirror_mode));
+        boolean z = obtainStyledAttributes.getBoolean(9, resources.getBoolean(R.bool.spb_default_reversed));
+        boolean z2 = obtainStyledAttributes.getBoolean(10, resources.getBoolean(R.bool.spb_default_mirror_mode));
         int resourceId = obtainStyledAttributes.getResourceId(11, 0);
-        boolean z12 = obtainStyledAttributes.getBoolean(12, resources.getBoolean(R.bool.spb_default_progressiveStart_activated));
+        boolean z3 = obtainStyledAttributes.getBoolean(12, resources.getBoolean(R.bool.spb_default_progressiveStart_activated));
         Drawable drawable = obtainStyledAttributes.getDrawable(13);
-        boolean z13 = obtainStyledAttributes.getBoolean(14, false);
+        boolean z4 = obtainStyledAttributes.getBoolean(14, false);
         obtainStyledAttributes.recycle();
         Interpolator interpolator = integer2 == -1 ? getInterpolator() : null;
         if (interpolator == null) {
@@ -222,18 +221,18 @@ public class SmoothProgressBar extends ProgressBar {
             }
         }
         int[] intArray = resourceId != 0 ? resources.getIntArray(resourceId) : null;
-        SmoothProgressDrawable.Builder j10 = new SmoothProgressDrawable.Builder(context).p(f10).k(f11).l(f12).h(interpolator).n(integer).o(dimensionPixelSize).q(dimension).m(z10).i(z11).j(z12);
+        SmoothProgressDrawable.Builder j2 = new SmoothProgressDrawable.Builder(context).p(f2).k(f3).l(f4).h(interpolator).n(integer).o(dimensionPixelSize).q(dimension).m(z).i(z2).j(z3);
         if (drawable != null) {
-            j10.a(drawable);
+            j2.a(drawable);
         }
-        if (z13) {
-            j10.f();
+        if (z4) {
+            j2.f();
         }
         if (intArray != null && intArray.length > 0) {
-            j10.e(intArray);
+            j2.e(intArray);
         } else {
-            j10.d(color);
+            j2.d(color);
         }
-        setIndeterminateDrawable(j10.b());
+        setIndeterminateDrawable(j2.b());
     }
 }

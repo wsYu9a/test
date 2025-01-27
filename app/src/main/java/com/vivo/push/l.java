@@ -6,47 +6,47 @@ import android.content.Context;
 public abstract class l implements Runnable {
 
     /* renamed from: a */
-    protected Context f25064a;
+    protected Context f31028a;
 
     /* renamed from: b */
-    private int f25065b;
+    private int f31029b;
 
     /* renamed from: c */
-    private o f25066c;
+    private o f31030c;
 
     public l(o oVar) {
-        this.f25065b = -1;
-        this.f25066c = oVar;
-        int b10 = oVar.b();
-        this.f25065b = b10;
-        if (b10 < 0) {
+        this.f31029b = -1;
+        this.f31030c = oVar;
+        int b2 = oVar.b();
+        this.f31029b = b2;
+        if (b2 < 0) {
             throw new IllegalArgumentException("PushTask need a > 0 task id.");
         }
-        this.f25064a = e.a().h();
+        this.f31028a = e.a().h();
     }
 
     public final int a() {
-        return this.f25065b;
+        return this.f31029b;
     }
 
-    public abstract void a(o oVar);
+    protected abstract void a(o oVar);
 
     @Override // java.lang.Runnable
     public final void run() {
-        Context context = this.f25064a;
-        if (context != null && !(this.f25066c instanceof com.vivo.push.b.n)) {
-            com.vivo.push.util.p.a(context, "[执行指令]" + this.f25066c);
+        Context context = this.f31028a;
+        if (context != null && !(this.f31030c instanceof com.vivo.push.b.n)) {
+            com.vivo.push.util.p.a(context, "[执行指令]" + this.f31030c);
         }
-        a(this.f25066c);
+        a(this.f31030c);
     }
 
     public String toString() {
-        StringBuilder sb2 = new StringBuilder();
-        sb2.append(getClass().getSimpleName());
-        sb2.append("{");
-        o oVar = this.f25066c;
-        sb2.append(oVar == null ? "[null]" : oVar.toString());
-        sb2.append(p3.f.f29748d);
-        return sb2.toString();
+        StringBuilder sb = new StringBuilder();
+        sb.append(getClass().getSimpleName());
+        sb.append("{");
+        o oVar = this.f31030c;
+        sb.append(oVar == null ? "[null]" : oVar.toString());
+        sb.append("}");
+        return sb.toString();
     }
 }

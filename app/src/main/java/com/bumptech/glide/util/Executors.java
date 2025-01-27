@@ -8,7 +8,7 @@ import java.util.concurrent.Executor;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.TimeUnit;
 
-/* loaded from: classes2.dex */
+/* loaded from: classes.dex */
 public final class Executors {
     private static final Executor MAIN_THREAD_EXECUTOR = new Executor() { // from class: com.bumptech.glide.util.Executors.1
         private final Handler handler = new Handler(Looper.getMainLooper());
@@ -49,10 +49,10 @@ public final class Executors {
             } else {
                 throw new RuntimeException("Failed to shutdown");
             }
-        } catch (InterruptedException e10) {
+        } catch (InterruptedException e2) {
             executorService.shutdownNow();
             Thread.currentThread().interrupt();
-            throw new RuntimeException(e10);
+            throw new RuntimeException(e2);
         }
     }
 }

@@ -9,7 +9,7 @@ import com.bumptech.glide.util.Preconditions;
 import java.util.Collections;
 import java.util.List;
 
-/* loaded from: classes2.dex */
+/* loaded from: classes.dex */
 public interface ModelLoader<Model, Data> {
 
     public static class LoadData<Data> {
@@ -29,7 +29,7 @@ public interface ModelLoader<Model, Data> {
     }
 
     @Nullable
-    LoadData<Data> buildLoadData(@NonNull Model model, int i10, int i11, @NonNull Options options);
+    LoadData<Data> buildLoadData(@NonNull Model model, int i2, int i3, @NonNull Options options);
 
     boolean handles(@NonNull Model model);
 }

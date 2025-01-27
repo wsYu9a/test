@@ -21,11 +21,11 @@ public class PhoneCodeResponse {
         return num.intValue();
     }
 
-    public void setExpireSeconds(Integer num) {
-        this.expireSeconds = num;
+    public void setExpireSeconds(Integer expireSeconds) {
+        this.expireSeconds = expireSeconds;
     }
 
-    public void setRequestIntervalSeconds(Integer num) {
-        this.requestIntervalSeconds = num;
+    public void setRequestIntervalSeconds(Integer requestIntervalSeconds) {
+        this.requestIntervalSeconds = requestIntervalSeconds;
     }
 }

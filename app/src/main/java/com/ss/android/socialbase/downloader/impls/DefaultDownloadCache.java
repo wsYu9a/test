@@ -35,36 +35,36 @@ public class DefaultDownloadCache implements IDownloadCache {
     private WeakDownloadHandler.IHandler IHandler = new WeakDownloadHandler.IHandler() { // from class: com.ss.android.socialbase.downloader.impls.DefaultDownloadCache.1
 
         /* renamed from: com.ss.android.socialbase.downloader.impls.DefaultDownloadCache$1$1 */
-        public class RunnableC06491 implements Runnable {
-            public RunnableC06491() {
+        class RunnableC05111 implements Runnable {
+            RunnableC05111() {
             }
 
             @Override // java.lang.Runnable
             public void run() {
                 try {
                     DefaultDownloadCache.this.resumeUnCompleteTask();
-                } catch (Exception e10) {
-                    e10.printStackTrace();
+                } catch (Exception e2) {
+                    e2.printStackTrace();
                 }
             }
         }
 
-        public AnonymousClass1() {
+        AnonymousClass1() {
         }
 
         @Override // com.ss.android.socialbase.downloader.thread.WeakDownloadHandler.IHandler
         public void handleMsg(Message message) {
             if (message.what == 1) {
                 DownloadComponentManager.getCPUThreadExecutor().execute(new Runnable() { // from class: com.ss.android.socialbase.downloader.impls.DefaultDownloadCache.1.1
-                    public RunnableC06491() {
+                    RunnableC05111() {
                     }
 
                     @Override // java.lang.Runnable
                     public void run() {
                         try {
                             DefaultDownloadCache.this.resumeUnCompleteTask();
-                        } catch (Exception e10) {
-                            e10.printStackTrace();
+                        } catch (Exception e2) {
+                            e2.printStackTrace();
                         }
                     }
                 });
@@ -78,39 +78,39 @@ public class DefaultDownloadCache implements IDownloadCache {
     private WeakDownloadHandler weakHandler;
 
     /* renamed from: com.ss.android.socialbase.downloader.impls.DefaultDownloadCache$1 */
-    public class AnonymousClass1 implements WeakDownloadHandler.IHandler {
+    class AnonymousClass1 implements WeakDownloadHandler.IHandler {
 
         /* renamed from: com.ss.android.socialbase.downloader.impls.DefaultDownloadCache$1$1 */
-        public class RunnableC06491 implements Runnable {
-            public RunnableC06491() {
+        class RunnableC05111 implements Runnable {
+            RunnableC05111() {
             }
 
             @Override // java.lang.Runnable
             public void run() {
                 try {
                     DefaultDownloadCache.this.resumeUnCompleteTask();
-                } catch (Exception e10) {
-                    e10.printStackTrace();
+                } catch (Exception e2) {
+                    e2.printStackTrace();
                 }
             }
         }
 
-        public AnonymousClass1() {
+        AnonymousClass1() {
         }
 
         @Override // com.ss.android.socialbase.downloader.thread.WeakDownloadHandler.IHandler
         public void handleMsg(Message message) {
             if (message.what == 1) {
                 DownloadComponentManager.getCPUThreadExecutor().execute(new Runnable() { // from class: com.ss.android.socialbase.downloader.impls.DefaultDownloadCache.1.1
-                    public RunnableC06491() {
+                    RunnableC05111() {
                     }
 
                     @Override // java.lang.Runnable
                     public void run() {
                         try {
                             DefaultDownloadCache.this.resumeUnCompleteTask();
-                        } catch (Exception e10) {
-                            e10.printStackTrace();
+                        } catch (Exception e2) {
+                            e2.printStackTrace();
                         }
                     }
                 });
@@ -119,8 +119,8 @@ public class DefaultDownloadCache implements IDownloadCache {
     }
 
     /* renamed from: com.ss.android.socialbase.downloader.impls.DefaultDownloadCache$2 */
-    public class AnonymousClass2 implements DownloadComponentManager.IndependentHolderCreator.OnMainProcessRebindErrorListener {
-        public AnonymousClass2() {
+    class AnonymousClass2 implements DownloadComponentManager.IndependentHolderCreator.OnMainProcessRebindErrorListener {
+        AnonymousClass2() {
         }
 
         @Override // com.ss.android.socialbase.downloader.downloader.DownloadComponentManager.IndependentHolderCreator.OnMainProcessRebindErrorListener
@@ -131,11 +131,11 @@ public class DefaultDownloadCache implements IDownloadCache {
     }
 
     /* renamed from: com.ss.android.socialbase.downloader.impls.DefaultDownloadCache$3 */
-    public class AnonymousClass3 implements SqlCacheLoadCompleteCallback {
+    class AnonymousClass3 implements SqlCacheLoadCompleteCallback {
         final /* synthetic */ SparseArray val$copyDownloadChunkMap;
         final /* synthetic */ SparseArray val$copyDownloadInfoMap;
 
-        public AnonymousClass3(SparseArray sparseArray, SparseArray sparseArray2) {
+        AnonymousClass3(SparseArray sparseArray, SparseArray sparseArray2) {
             sparseArray = sparseArray;
             sparseArray2 = sparseArray2;
         }
@@ -143,27 +143,23 @@ public class DefaultDownloadCache implements IDownloadCache {
         @Override // com.ss.android.socialbase.downloader.db.SqlCacheLoadCompleteCallback
         public void callback() {
             synchronized (DefaultDownloadCache.this.downloadCache) {
-                try {
-                    SparseArray<DownloadInfo> downloadInfoMap = DefaultDownloadCache.this.downloadCache.getDownloadInfoMap();
-                    if (sparseArray != null) {
-                        for (int i10 = 0; i10 < sparseArray.size(); i10++) {
-                            int keyAt = sparseArray.keyAt(i10);
-                            if (keyAt != 0) {
-                                downloadInfoMap.put(keyAt, (DownloadInfo) sparseArray.get(keyAt));
-                            }
+                SparseArray<DownloadInfo> downloadInfoMap = DefaultDownloadCache.this.downloadCache.getDownloadInfoMap();
+                if (sparseArray != null) {
+                    for (int i2 = 0; i2 < sparseArray.size(); i2++) {
+                        int keyAt = sparseArray.keyAt(i2);
+                        if (keyAt != 0) {
+                            downloadInfoMap.put(keyAt, (DownloadInfo) sparseArray.get(keyAt));
                         }
                     }
-                    SparseArray<List<DownloadChunk>> chunkListMap = DefaultDownloadCache.this.downloadCache.getChunkListMap();
-                    if (sparseArray2 != null) {
-                        for (int i11 = 0; i11 < sparseArray2.size(); i11++) {
-                            int keyAt2 = sparseArray2.keyAt(i11);
-                            if (keyAt2 != 0) {
-                                chunkListMap.put(keyAt2, (List) sparseArray2.get(keyAt2));
-                            }
+                }
+                SparseArray<List<DownloadChunk>> chunkListMap = DefaultDownloadCache.this.downloadCache.getChunkListMap();
+                if (sparseArray2 != null) {
+                    for (int i3 = 0; i3 < sparseArray2.size(); i3++) {
+                        int keyAt2 = sparseArray2.keyAt(i3);
+                        if (keyAt2 != 0) {
+                            chunkListMap.put(keyAt2, (List) sparseArray2.get(keyAt2));
                         }
                     }
-                } catch (Throwable th2) {
-                    throw th2;
                 }
             }
             DefaultDownloadCache.this.onDownloadCacheSyncSuccess();
@@ -180,7 +176,7 @@ public class DefaultDownloadCache implements IDownloadCache {
             this.sqlDownloadCache = new SqlDownloadCache();
         } else {
             this.sqlDownloadCache = DownloadComponentManager.getIndependentHolderCreator().createCache(new DownloadComponentManager.IndependentHolderCreator.OnMainProcessRebindErrorListener() { // from class: com.ss.android.socialbase.downloader.impls.DefaultDownloadCache.2
-                public AnonymousClass2() {
+                AnonymousClass2() {
                 }
 
                 @Override // com.ss.android.socialbase.downloader.downloader.DownloadComponentManager.IndependentHolderCreator.OnMainProcessRebindErrorListener
@@ -214,64 +210,64 @@ public class DefaultDownloadCache implements IDownloadCache {
     }
 
     @Override // com.ss.android.socialbase.downloader.downloader.IDownloadCache
-    public DownloadInfo OnDownloadTaskCancel(int i10, long j10) {
-        DownloadInfo OnDownloadTaskCancel = this.downloadCache.OnDownloadTaskCancel(i10, j10);
-        syncDownloadInfoFromOtherCache(i10, null);
+    public DownloadInfo OnDownloadTaskCancel(int i2, long j2) {
+        DownloadInfo OnDownloadTaskCancel = this.downloadCache.OnDownloadTaskCancel(i2, j2);
+        syncDownloadInfoFromOtherCache(i2, null);
         return OnDownloadTaskCancel;
     }
 
     @Override // com.ss.android.socialbase.downloader.downloader.IDownloadCache
-    public DownloadInfo OnDownloadTaskCompleted(int i10, long j10) {
-        DownloadInfo OnDownloadTaskCompleted = this.downloadCache.OnDownloadTaskCompleted(i10, j10);
-        syncDownloadInfoFromOtherCache(i10, null);
+    public DownloadInfo OnDownloadTaskCompleted(int i2, long j2) {
+        DownloadInfo OnDownloadTaskCompleted = this.downloadCache.OnDownloadTaskCompleted(i2, j2);
+        syncDownloadInfoFromOtherCache(i2, null);
         return OnDownloadTaskCompleted;
     }
 
     @Override // com.ss.android.socialbase.downloader.downloader.IDownloadCache
-    public DownloadInfo OnDownloadTaskConnected(int i10, long j10, String str, String str2) {
-        DownloadInfo OnDownloadTaskConnected = this.downloadCache.OnDownloadTaskConnected(i10, j10, str, str2);
+    public DownloadInfo OnDownloadTaskConnected(int i2, long j2, String str, String str2) {
+        DownloadInfo OnDownloadTaskConnected = this.downloadCache.OnDownloadTaskConnected(i2, j2, str, str2);
         updateDownloadInfoInDB(OnDownloadTaskConnected);
         return OnDownloadTaskConnected;
     }
 
     @Override // com.ss.android.socialbase.downloader.downloader.IDownloadCache
-    public DownloadInfo OnDownloadTaskError(int i10, long j10) {
-        DownloadInfo OnDownloadTaskError = this.downloadCache.OnDownloadTaskError(i10, j10);
-        syncDownloadInfoFromOtherCache(i10, null);
+    public DownloadInfo OnDownloadTaskError(int i2, long j2) {
+        DownloadInfo OnDownloadTaskError = this.downloadCache.OnDownloadTaskError(i2, j2);
+        syncDownloadInfoFromOtherCache(i2, null);
         return OnDownloadTaskError;
     }
 
     @Override // com.ss.android.socialbase.downloader.downloader.IDownloadCache
-    public DownloadInfo OnDownloadTaskIntercept(int i10) {
-        DownloadInfo OnDownloadTaskIntercept = this.downloadCache.OnDownloadTaskIntercept(i10);
+    public DownloadInfo OnDownloadTaskIntercept(int i2) {
+        DownloadInfo OnDownloadTaskIntercept = this.downloadCache.OnDownloadTaskIntercept(i2);
         updateDownloadInfoInDB(OnDownloadTaskIntercept);
         return OnDownloadTaskIntercept;
     }
 
     @Override // com.ss.android.socialbase.downloader.downloader.IDownloadCache
-    public DownloadInfo OnDownloadTaskPause(int i10, long j10) {
-        DownloadInfo OnDownloadTaskPause = this.downloadCache.OnDownloadTaskPause(i10, j10);
-        syncDownloadInfoFromOtherCache(i10, null);
+    public DownloadInfo OnDownloadTaskPause(int i2, long j2) {
+        DownloadInfo OnDownloadTaskPause = this.downloadCache.OnDownloadTaskPause(i2, j2);
+        syncDownloadInfoFromOtherCache(i2, null);
         return OnDownloadTaskPause;
     }
 
     @Override // com.ss.android.socialbase.downloader.downloader.IDownloadCache
-    public DownloadInfo OnDownloadTaskPrepare(int i10) {
-        DownloadInfo OnDownloadTaskPrepare = this.downloadCache.OnDownloadTaskPrepare(i10);
+    public DownloadInfo OnDownloadTaskPrepare(int i2) {
+        DownloadInfo OnDownloadTaskPrepare = this.downloadCache.OnDownloadTaskPrepare(i2);
         updateDownloadInfoInDB(OnDownloadTaskPrepare);
         return OnDownloadTaskPrepare;
     }
 
     @Override // com.ss.android.socialbase.downloader.downloader.IDownloadCache
-    public DownloadInfo OnDownloadTaskProgress(int i10, long j10) {
-        DownloadInfo OnDownloadTaskProgress = this.downloadCache.OnDownloadTaskProgress(i10, j10);
+    public DownloadInfo OnDownloadTaskProgress(int i2, long j2) {
+        DownloadInfo OnDownloadTaskProgress = this.downloadCache.OnDownloadTaskProgress(i2, j2);
         updateDownloadInfoInDB(OnDownloadTaskProgress, false);
         return OnDownloadTaskProgress;
     }
 
     @Override // com.ss.android.socialbase.downloader.downloader.IDownloadCache
-    public DownloadInfo OnDownloadTaskRetry(int i10) {
-        DownloadInfo OnDownloadTaskRetry = this.downloadCache.OnDownloadTaskRetry(i10);
+    public DownloadInfo OnDownloadTaskRetry(int i2) {
+        DownloadInfo OnDownloadTaskRetry = this.downloadCache.OnDownloadTaskRetry(i2);
         updateDownloadInfoInDB(OnDownloadTaskRetry);
         return OnDownloadTaskRetry;
     }
@@ -308,16 +304,16 @@ public class DefaultDownloadCache implements IDownloadCache {
     }
 
     @Override // com.ss.android.socialbase.downloader.downloader.IDownloadCache
-    public boolean cacheExist(int i10) {
-        return getDownloadInfo(i10) != null;
+    public boolean cacheExist(int i2) {
+        return getDownloadInfo(i2) != null;
     }
 
     @Override // com.ss.android.socialbase.downloader.downloader.IDownloadCache
     public void clearData() {
         try {
             this.downloadCache.clearData();
-        } catch (SQLiteException e10) {
-            e10.printStackTrace();
+        } catch (SQLiteException e2) {
+            e2.printStackTrace();
         }
         if (!DownloadUtils.needNotifyDownloaderProcess()) {
             this.sqlDownloadCache.clearData();
@@ -341,8 +337,8 @@ public class DefaultDownloadCache implements IDownloadCache {
                 Logger.w(TAG, "ensureDownloadCacheSyncSuccess: waiting start!!!!");
                 try {
                     wait(5000L);
-                } catch (InterruptedException e10) {
-                    e10.printStackTrace();
+                } catch (InterruptedException e2) {
+                    e2.printStackTrace();
                 }
                 Logger.w(TAG, "ensureDownloadCacheSyncSuccess: waiting end!!!!");
             }
@@ -360,13 +356,13 @@ public class DefaultDownloadCache implements IDownloadCache {
     }
 
     @Override // com.ss.android.socialbase.downloader.downloader.IDownloadCache
-    public List<DownloadChunk> getDownloadChunk(int i10) {
-        return this.downloadCache.getDownloadChunk(i10);
+    public List<DownloadChunk> getDownloadChunk(int i2) {
+        return this.downloadCache.getDownloadChunk(i2);
     }
 
     @Override // com.ss.android.socialbase.downloader.downloader.IDownloadCache
-    public DownloadInfo getDownloadInfo(int i10) {
-        return this.downloadCache.getDownloadInfo(i10);
+    public DownloadInfo getDownloadInfo(int i2) {
+        return this.downloadCache.getDownloadInfo(i2);
     }
 
     @Override // com.ss.android.socialbase.downloader.downloader.IDownloadCache
@@ -380,20 +376,20 @@ public class DefaultDownloadCache implements IDownloadCache {
     }
 
     @Override // com.ss.android.socialbase.downloader.downloader.IDownloadCache
-    public Map<Long, Segment> getSegmentMap(int i10) {
-        Map<Long, Segment> segmentMap = this.downloadCache.getSegmentMap(i10);
+    public Map<Long, Segment> getSegmentMap(int i2) {
+        Map<Long, Segment> segmentMap = this.downloadCache.getSegmentMap(i2);
         if (segmentMap != null && !segmentMap.isEmpty()) {
             return segmentMap;
         }
-        Map<Long, Segment> segmentMap2 = this.sqlDownloadCache.getSegmentMap(i10);
-        this.downloadCache.updateSegments(i10, segmentMap2);
+        Map<Long, Segment> segmentMap2 = this.sqlDownloadCache.getSegmentMap(i2);
+        this.downloadCache.updateSegments(i2, segmentMap2);
         return segmentMap2;
     }
 
     @Override // com.ss.android.socialbase.downloader.downloader.IDownloadCache
-    public List<Segment> getSegments(int i10) {
-        List<Segment> segments = this.downloadCache.getSegments(i10);
-        return (segments == null || segments.size() == 0) ? this.sqlDownloadCache.getSegments(i10) : segments;
+    public List<Segment> getSegments(int i2) {
+        List<Segment> segments = this.downloadCache.getSegments(i2);
+        return (segments == null || segments.size() == 0) ? this.sqlDownloadCache.getSegments(i2) : segments;
     }
 
     public ISqlDownloadCache getSqlDownloadCache() {
@@ -418,30 +414,26 @@ public class DefaultDownloadCache implements IDownloadCache {
         SparseArray<DownloadInfo> sparseArray = new SparseArray<>();
         SparseArray<List<DownloadChunk>> sparseArray2 = new SparseArray<>();
         synchronized (this.downloadCache) {
-            try {
-                SparseArray<DownloadInfo> downloadInfoMap = this.downloadCache.getDownloadInfoMap();
-                for (int i10 = 0; i10 < downloadInfoMap.size(); i10++) {
-                    int keyAt = downloadInfoMap.keyAt(i10);
-                    if (keyAt != 0 && (downloadInfo = downloadInfoMap.get(keyAt)) != null) {
-                        sparseArray.put(keyAt, downloadInfo);
-                    }
+            SparseArray<DownloadInfo> downloadInfoMap = this.downloadCache.getDownloadInfoMap();
+            for (int i2 = 0; i2 < downloadInfoMap.size(); i2++) {
+                int keyAt = downloadInfoMap.keyAt(i2);
+                if (keyAt != 0 && (downloadInfo = downloadInfoMap.get(keyAt)) != null) {
+                    sparseArray.put(keyAt, downloadInfo);
                 }
-                SparseArray<List<DownloadChunk>> chunkListMap = this.downloadCache.getChunkListMap();
-                for (int i11 = 0; i11 < chunkListMap.size(); i11++) {
-                    int keyAt2 = chunkListMap.keyAt(i11);
-                    if (keyAt2 != 0 && (list = chunkListMap.get(keyAt2)) != null) {
-                        sparseArray2.put(keyAt2, new CopyOnWriteArrayList(list));
-                    }
+            }
+            SparseArray<List<DownloadChunk>> chunkListMap = this.downloadCache.getChunkListMap();
+            for (int i3 = 0; i3 < chunkListMap.size(); i3++) {
+                int keyAt2 = chunkListMap.keyAt(i3);
+                if (keyAt2 != 0 && (list = chunkListMap.get(keyAt2)) != null) {
+                    sparseArray2.put(keyAt2, new CopyOnWriteArrayList(list));
                 }
-            } catch (Throwable th2) {
-                throw th2;
             }
         }
         this.sqlDownloadCache.init(sparseArray, sparseArray2, new SqlCacheLoadCompleteCallback() { // from class: com.ss.android.socialbase.downloader.impls.DefaultDownloadCache.3
             final /* synthetic */ SparseArray val$copyDownloadChunkMap;
             final /* synthetic */ SparseArray val$copyDownloadInfoMap;
 
-            public AnonymousClass3(SparseArray sparseArray3, SparseArray sparseArray22) {
+            AnonymousClass3(SparseArray sparseArray3, SparseArray sparseArray22) {
                 sparseArray = sparseArray3;
                 sparseArray2 = sparseArray22;
             }
@@ -449,27 +441,23 @@ public class DefaultDownloadCache implements IDownloadCache {
             @Override // com.ss.android.socialbase.downloader.db.SqlCacheLoadCompleteCallback
             public void callback() {
                 synchronized (DefaultDownloadCache.this.downloadCache) {
-                    try {
-                        SparseArray<DownloadInfo> downloadInfoMap2 = DefaultDownloadCache.this.downloadCache.getDownloadInfoMap();
-                        if (sparseArray != null) {
-                            for (int i102 = 0; i102 < sparseArray.size(); i102++) {
-                                int keyAt3 = sparseArray.keyAt(i102);
-                                if (keyAt3 != 0) {
-                                    downloadInfoMap2.put(keyAt3, (DownloadInfo) sparseArray.get(keyAt3));
-                                }
+                    SparseArray<DownloadInfo> downloadInfoMap2 = DefaultDownloadCache.this.downloadCache.getDownloadInfoMap();
+                    if (sparseArray != null) {
+                        for (int i22 = 0; i22 < sparseArray.size(); i22++) {
+                            int keyAt3 = sparseArray.keyAt(i22);
+                            if (keyAt3 != 0) {
+                                downloadInfoMap2.put(keyAt3, (DownloadInfo) sparseArray.get(keyAt3));
                             }
                         }
-                        SparseArray<List<DownloadChunk>> chunkListMap2 = DefaultDownloadCache.this.downloadCache.getChunkListMap();
-                        if (sparseArray2 != null) {
-                            for (int i112 = 0; i112 < sparseArray2.size(); i112++) {
-                                int keyAt22 = sparseArray2.keyAt(i112);
-                                if (keyAt22 != 0) {
-                                    chunkListMap2.put(keyAt22, (List) sparseArray2.get(keyAt22));
-                                }
+                    }
+                    SparseArray<List<DownloadChunk>> chunkListMap2 = DefaultDownloadCache.this.downloadCache.getChunkListMap();
+                    if (sparseArray2 != null) {
+                        for (int i32 = 0; i32 < sparseArray2.size(); i32++) {
+                            int keyAt22 = sparseArray2.keyAt(i32);
+                            if (keyAt22 != 0) {
+                                chunkListMap2.put(keyAt22, (List) sparseArray2.get(keyAt22));
                             }
                         }
-                    } catch (Throwable th22) {
-                        throw th22;
                     }
                 }
                 DefaultDownloadCache.this.onDownloadCacheSyncSuccess();
@@ -485,65 +473,65 @@ public class DefaultDownloadCache implements IDownloadCache {
     }
 
     @Override // com.ss.android.socialbase.downloader.downloader.IDownloadCache
-    public DownloadInfo onDownloadTaskStart(int i10) {
-        DownloadInfo onDownloadTaskStart = this.downloadCache.onDownloadTaskStart(i10);
+    public DownloadInfo onDownloadTaskStart(int i2) {
+        DownloadInfo onDownloadTaskStart = this.downloadCache.onDownloadTaskStart(i2);
         updateDownloadInfoInDB(onDownloadTaskStart);
         return onDownloadTaskStart;
     }
 
     @Override // com.ss.android.socialbase.downloader.downloader.IDownloadCache
-    public void removeAllDownloadChunk(int i10) {
-        this.downloadCache.removeAllDownloadChunk(i10);
+    public void removeAllDownloadChunk(int i2) {
+        this.downloadCache.removeAllDownloadChunk(i2);
         if (!DownloadUtils.needNotifyDownloaderProcess()) {
-            this.sqlDownloadCache.removeAllDownloadChunk(i10);
+            this.sqlDownloadCache.removeAllDownloadChunk(i2);
             return;
         }
         IDownloadProxy iDownloadProxy = DownloadProxy.get(true);
         if (iDownloadProxy != null) {
-            iDownloadProxy.removeAllDownloadChunk(i10);
+            iDownloadProxy.removeAllDownloadChunk(i2);
         } else {
-            this.sqlDownloadCache.removeAllDownloadChunk(i10);
+            this.sqlDownloadCache.removeAllDownloadChunk(i2);
         }
     }
 
     @Override // com.ss.android.socialbase.downloader.downloader.IDownloadCache
-    public boolean removeDownloadInfo(int i10) {
+    public boolean removeDownloadInfo(int i2) {
         try {
             if (DownloadUtils.needNotifyDownloaderProcess()) {
                 IDownloadProxy iDownloadProxy = DownloadProxy.get(true);
                 if (iDownloadProxy != null) {
-                    iDownloadProxy.removeDownloadInfo(i10);
+                    iDownloadProxy.removeDownloadInfo(i2);
                 } else {
-                    this.sqlDownloadCache.removeDownloadInfo(i10);
+                    this.sqlDownloadCache.removeDownloadInfo(i2);
                 }
             } else {
-                this.sqlDownloadCache.removeDownloadInfo(i10);
+                this.sqlDownloadCache.removeDownloadInfo(i2);
             }
-        } catch (SQLiteException e10) {
-            e10.printStackTrace();
+        } catch (SQLiteException e2) {
+            e2.printStackTrace();
         }
-        return this.downloadCache.removeDownloadInfo(i10);
+        return this.downloadCache.removeDownloadInfo(i2);
     }
 
     @Override // com.ss.android.socialbase.downloader.downloader.IDownloadCache
-    public boolean removeDownloadTaskData(int i10) {
+    public boolean removeDownloadTaskData(int i2) {
         if (DownloadUtils.needNotifyDownloaderProcess()) {
             IDownloadProxy iDownloadProxy = DownloadProxy.get(true);
             if (iDownloadProxy != null) {
-                iDownloadProxy.removeDownloadTaskData(i10);
+                iDownloadProxy.removeDownloadTaskData(i2);
             } else {
-                this.sqlDownloadCache.removeDownloadTaskData(i10);
+                this.sqlDownloadCache.removeDownloadTaskData(i2);
             }
         } else {
-            this.sqlDownloadCache.removeDownloadTaskData(i10);
+            this.sqlDownloadCache.removeDownloadTaskData(i2);
         }
-        return this.downloadCache.removeDownloadTaskData(i10);
+        return this.downloadCache.removeDownloadTaskData(i2);
     }
 
     @Override // com.ss.android.socialbase.downloader.downloader.IDownloadCache
-    public void removeSegments(int i10) {
-        this.downloadCache.removeSegments(i10);
-        this.sqlDownloadCache.removeSegments(i10);
+    public void removeSegments(int i2) {
+        this.downloadCache.removeSegments(i2);
+        this.sqlDownloadCache.removeSegments(i2);
     }
 
     public void resumeUnCompleteTask() {
@@ -568,23 +556,19 @@ public class DefaultDownloadCache implements IDownloadCache {
                 }
                 SparseArray sparseArray = new SparseArray();
                 synchronized (this) {
-                    try {
-                        SparseArray<DownloadInfo> downloadInfoMap = this.downloadCache.getDownloadInfoMap();
-                        for (int i10 = 0; i10 < downloadInfoMap.size(); i10++) {
-                            int keyAt = downloadInfoMap.keyAt(i10);
-                            if (keyAt != 0 && (downloadInfo2 = downloadInfoMap.get(keyAt)) != null) {
-                                sparseArray.put(keyAt, downloadInfo2);
-                            }
+                    SparseArray<DownloadInfo> downloadInfoMap = this.downloadCache.getDownloadInfoMap();
+                    for (int i2 = 0; i2 < downloadInfoMap.size(); i2++) {
+                        int keyAt = downloadInfoMap.keyAt(i2);
+                        if (keyAt != 0 && (downloadInfo2 = downloadInfoMap.get(keyAt)) != null) {
+                            sparseArray.put(keyAt, downloadInfo2);
                         }
-                    } catch (Throwable th2) {
-                        throw th2;
                     }
                 }
                 if (sparseArray.size() == 0) {
                     return;
                 }
-                for (int i11 = 0; i11 < sparseArray.size(); i11++) {
-                    int keyAt2 = sparseArray.keyAt(i11);
+                for (int i3 = 0; i3 < sparseArray.size(); i3++) {
+                    int keyAt2 = sparseArray.keyAt(i3);
                     if (keyAt2 != 0 && (downloadInfo = (DownloadInfo) sparseArray.get(keyAt2)) != null) {
                         int realStatus = downloadInfo.getRealStatus();
                         int statusAtDbInit = downloadInfo.getStatusAtDbInit();
@@ -610,13 +594,13 @@ public class DefaultDownloadCache implements IDownloadCache {
     }
 
     @Override // com.ss.android.socialbase.downloader.downloader.IDownloadCache
-    public void syncDownloadChunks(int i10, List<DownloadChunk> list) {
+    public void syncDownloadChunks(int i2, List<DownloadChunk> list) {
         if (list == null || list.size() == 0) {
             return;
         }
-        this.downloadCache.syncDownloadChunks(i10, list);
+        this.downloadCache.syncDownloadChunks(i2, list);
         if (DownloadUtils.isDownloaderProcess()) {
-            this.sqlDownloadCache.syncDownloadInfoFromOtherCache(i10, list);
+            this.sqlDownloadCache.syncDownloadInfoFromOtherCache(i2, list);
         }
     }
 
@@ -629,46 +613,46 @@ public class DefaultDownloadCache implements IDownloadCache {
     }
 
     @Override // com.ss.android.socialbase.downloader.downloader.IDownloadCache
-    public void syncDownloadInfoFromOtherCache(int i10, List<DownloadChunk> list) {
+    public void syncDownloadInfoFromOtherCache(int i2, List<DownloadChunk> list) {
         try {
-            updateDownloadInfo(this.downloadCache.getDownloadInfo(i10));
+            updateDownloadInfo(this.downloadCache.getDownloadInfo(i2));
             if (list == null) {
-                list = this.downloadCache.getDownloadChunk(i10);
+                list = this.downloadCache.getDownloadChunk(i2);
             }
             if (!DownloadUtils.needNotifyDownloaderProcess()) {
-                this.sqlDownloadCache.syncDownloadInfoFromOtherCache(i10, list);
+                this.sqlDownloadCache.syncDownloadInfoFromOtherCache(i2, list);
                 return;
             }
             IDownloadProxy iDownloadProxy = DownloadProxy.get(true);
             if (iDownloadProxy != null) {
-                iDownloadProxy.syncDownloadInfoFromOtherCache(i10, list);
+                iDownloadProxy.syncDownloadInfoFromOtherCache(i2, list);
             } else {
-                this.sqlDownloadCache.syncDownloadInfoFromOtherCache(i10, list);
+                this.sqlDownloadCache.syncDownloadInfoFromOtherCache(i2, list);
             }
-        } catch (Exception e10) {
-            e10.printStackTrace();
+        } catch (Exception e2) {
+            e2.printStackTrace();
         }
     }
 
     @Override // com.ss.android.socialbase.downloader.downloader.IDownloadCache
-    public DownloadInfo updateChunkCount(int i10, int i11) {
-        DownloadInfo updateChunkCount = this.downloadCache.updateChunkCount(i10, i11);
+    public DownloadInfo updateChunkCount(int i2, int i3) {
+        DownloadInfo updateChunkCount = this.downloadCache.updateChunkCount(i2, i3);
         updateDownloadInfoInDB(updateChunkCount);
         return updateChunkCount;
     }
 
     @Override // com.ss.android.socialbase.downloader.downloader.IDownloadCache
-    public void updateDownloadChunk(int i10, int i11, long j10) {
-        this.downloadCache.updateDownloadChunk(i10, i11, j10);
+    public void updateDownloadChunk(int i2, int i3, long j2) {
+        this.downloadCache.updateDownloadChunk(i2, i3, j2);
         if (!DownloadUtils.needNotifyDownloaderProcess()) {
-            this.sqlDownloadCache.updateDownloadChunk(i10, i11, j10);
+            this.sqlDownloadCache.updateDownloadChunk(i2, i3, j2);
             return;
         }
         IDownloadProxy iDownloadProxy = DownloadProxy.get(true);
         if (iDownloadProxy != null) {
-            iDownloadProxy.updateDownloadChunk(i10, i11, j10);
+            iDownloadProxy.updateDownloadChunk(i2, i3, j2);
         } else {
-            this.sqlDownloadCache.updateDownloadChunk(i10, i11, j10);
+            this.sqlDownloadCache.updateDownloadChunk(i2, i3, j2);
         }
     }
 
@@ -683,41 +667,41 @@ public class DefaultDownloadCache implements IDownloadCache {
     }
 
     @Override // com.ss.android.socialbase.downloader.downloader.IDownloadCache
-    public boolean updateSegments(int i10, Map<Long, Segment> map) {
-        this.downloadCache.updateSegments(i10, map);
-        this.sqlDownloadCache.updateSegments(i10, map);
+    public boolean updateSegments(int i2, Map<Long, Segment> map) {
+        this.downloadCache.updateSegments(i2, map);
+        this.sqlDownloadCache.updateSegments(i2, map);
         return false;
     }
 
     @Override // com.ss.android.socialbase.downloader.downloader.IDownloadCache
-    public void updateSubDownloadChunk(int i10, int i11, int i12, long j10) {
+    public void updateSubDownloadChunk(int i2, int i3, int i4, long j2) {
         if (!DownloadUtils.needNotifyDownloaderProcess()) {
-            this.sqlDownloadCache.updateSubDownloadChunk(i10, i11, i12, j10);
+            this.sqlDownloadCache.updateSubDownloadChunk(i2, i3, i4, j2);
             return;
         }
         IDownloadProxy iDownloadProxy = DownloadProxy.get(true);
         if (iDownloadProxy != null) {
-            iDownloadProxy.updateSubDownloadChunk(i10, i11, i12, j10);
+            iDownloadProxy.updateSubDownloadChunk(i2, i3, i4, j2);
         } else {
-            this.sqlDownloadCache.updateSubDownloadChunk(i10, i11, i12, j10);
+            this.sqlDownloadCache.updateSubDownloadChunk(i2, i3, i4, j2);
         }
     }
 
     @Override // com.ss.android.socialbase.downloader.downloader.IDownloadCache
-    public void updateSubDownloadChunkIndex(int i10, int i11, int i12, int i13) {
+    public void updateSubDownloadChunkIndex(int i2, int i3, int i4, int i5) {
         if (!DownloadUtils.needNotifyDownloaderProcess()) {
-            this.sqlDownloadCache.updateSubDownloadChunkIndex(i10, i11, i12, i13);
+            this.sqlDownloadCache.updateSubDownloadChunkIndex(i2, i3, i4, i5);
             return;
         }
         IDownloadProxy iDownloadProxy = DownloadProxy.get(true);
         if (iDownloadProxy != null) {
-            iDownloadProxy.updateSubDownloadChunkIndex(i10, i11, i12, i13);
+            iDownloadProxy.updateSubDownloadChunkIndex(i2, i3, i4, i5);
         } else {
-            this.sqlDownloadCache.updateSubDownloadChunkIndex(i10, i11, i12, i13);
+            this.sqlDownloadCache.updateSubDownloadChunkIndex(i2, i3, i4, i5);
         }
     }
 
-    private void updateDownloadInfoInDB(DownloadInfo downloadInfo, boolean z10) {
+    private void updateDownloadInfoInDB(DownloadInfo downloadInfo, boolean z) {
         if (downloadInfo == null) {
             return;
         }
@@ -725,7 +709,7 @@ public class DefaultDownloadCache implements IDownloadCache {
             this.sqlDownloadCache.updateDownloadInfo(downloadInfo);
             return;
         }
-        if (z10) {
+        if (z) {
             IDownloadProxy iDownloadProxy = DownloadProxy.get(true);
             if (iDownloadProxy != null) {
                 iDownloadProxy.updateDownloadInfo(downloadInfo);

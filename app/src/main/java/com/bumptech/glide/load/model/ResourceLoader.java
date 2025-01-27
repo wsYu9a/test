@@ -11,7 +11,7 @@ import com.bumptech.glide.load.Options;
 import com.bumptech.glide.load.model.ModelLoader;
 import java.io.InputStream;
 
-/* loaded from: classes2.dex */
+/* loaded from: classes.dex */
 public class ResourceLoader<Data> implements ModelLoader<Integer, Data> {
     private static final String TAG = "ResourceLoader";
     private final Resources resources;
@@ -97,11 +97,11 @@ public class ResourceLoader<Data> implements ModelLoader<Integer, Data> {
     private Uri getResourceUri(Integer num) {
         try {
             return Uri.parse("android.resource://" + this.resources.getResourcePackageName(num.intValue()) + '/' + this.resources.getResourceTypeName(num.intValue()) + '/' + this.resources.getResourceEntryName(num.intValue()));
-        } catch (Resources.NotFoundException e10) {
+        } catch (Resources.NotFoundException e2) {
             if (!Log.isLoggable(TAG, 5)) {
                 return null;
             }
-            Log.w(TAG, "Received invalid resource id: " + num, e10);
+            Log.w(TAG, "Received invalid resource id: " + num, e2);
             return null;
         }
     }
@@ -112,11 +112,11 @@ public class ResourceLoader<Data> implements ModelLoader<Integer, Data> {
     }
 
     @Override // com.bumptech.glide.load.model.ModelLoader
-    public ModelLoader.LoadData<Data> buildLoadData(@NonNull Integer num, int i10, int i11, @NonNull Options options) {
+    public ModelLoader.LoadData<Data> buildLoadData(@NonNull Integer num, int i2, int i3, @NonNull Options options) {
         Uri resourceUri = getResourceUri(num);
         if (resourceUri == null) {
             return null;
         }
-        return this.uriLoader.buildLoadData(resourceUri, i10, i11, options);
+        return this.uriLoader.buildLoadData(resourceUri, i2, i3, options);
     }
 }

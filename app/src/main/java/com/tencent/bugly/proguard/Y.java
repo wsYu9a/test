@@ -9,25 +9,25 @@ import java.net.Proxy;
 public class Y {
 
     /* renamed from: a */
-    private static Proxy f22681a;
+    private static Proxy f25021a;
 
-    public static void a(String str, int i10) {
+    public static void a(String str, int i2) {
         if (TextUtils.isEmpty(str)) {
-            f22681a = null;
+            f25021a = null;
         } else {
-            f22681a = new Proxy(Proxy.Type.HTTP, new InetSocketAddress(str, i10));
+            f25021a = new Proxy(Proxy.Type.HTTP, new InetSocketAddress(str, i2));
         }
     }
 
-    public static void a(InetAddress inetAddress, int i10) {
+    public static void a(InetAddress inetAddress, int i2) {
         if (inetAddress == null) {
-            f22681a = null;
+            f25021a = null;
         } else {
-            f22681a = new Proxy(Proxy.Type.HTTP, new InetSocketAddress(inetAddress, i10));
+            f25021a = new Proxy(Proxy.Type.HTTP, new InetSocketAddress(inetAddress, i2));
         }
     }
 
     public static Proxy a() {
-        return f22681a;
+        return f25021a;
     }
 }

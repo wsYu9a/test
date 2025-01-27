@@ -6,17 +6,21 @@ import android.graphics.drawable.Drawable;
 import android.view.View;
 import android.widget.ImageView;
 import com.kwad.sdk.core.imageloader.core.assist.ViewScaleType;
-import com.kwad.sdk.utils.w;
+import com.kwad.sdk.utils.s;
 
-/* loaded from: classes3.dex */
+/* loaded from: classes2.dex */
 public class ImageViewAware extends ViewAware {
     public ImageViewAware(ImageView imageView) {
         super(imageView);
     }
 
+    public ImageViewAware(ImageView imageView, boolean z) {
+        super(imageView, z);
+    }
+
     private static int getImageViewFieldValue(Object obj, String str) {
         try {
-            int intValue = ((Integer) w.getField(obj, str)).intValue();
+            int intValue = ((Integer) s.d(obj, str)).intValue();
             if (intValue <= 0 || intValue >= Integer.MAX_VALUE) {
                 return 0;
             }
@@ -46,25 +50,21 @@ public class ImageViewAware extends ViewAware {
         return (width > 0 || (imageView = (ImageView) this.viewRef.get()) == null) ? width : getImageViewFieldValue(imageView, "mMaxWidth");
     }
 
+    @Override // com.kwad.sdk.core.imageloader.core.imageaware.ViewAware, com.kwad.sdk.core.imageloader.core.imageaware.ImageAware
+    public ImageView getWrappedView() {
+        return (ImageView) super.getWrappedView();
+    }
+
     @Override // com.kwad.sdk.core.imageloader.core.imageaware.ViewAware
-    public void setImageBitmapInto(Bitmap bitmap, View view) {
+    protected void setImageBitmapInto(Bitmap bitmap, View view) {
         ((ImageView) view).setImageBitmap(bitmap);
     }
 
     @Override // com.kwad.sdk.core.imageloader.core.imageaware.ViewAware
-    public void setImageDrawableInto(Drawable drawable, View view) {
+    protected void setImageDrawableInto(Drawable drawable, View view) {
         ((ImageView) view).setImageDrawable(drawable);
         if (drawable instanceof AnimationDrawable) {
             ((AnimationDrawable) drawable).start();
         }
-    }
-
-    public ImageViewAware(ImageView imageView, boolean z10) {
-        super(imageView, z10);
-    }
-
-    @Override // com.kwad.sdk.core.imageloader.core.imageaware.ViewAware, com.kwad.sdk.core.imageloader.core.imageaware.ImageAware
-    public ImageView getWrappedView() {
-        return (ImageView) super.getWrappedView();
     }
 }

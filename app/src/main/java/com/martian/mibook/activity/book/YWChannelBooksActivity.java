@@ -1,68 +1,63 @@
 package com.martian.mibook.activity.book;
 
-import android.app.Activity;
-import android.content.Intent;
 import android.os.Bundle;
 import androidx.annotation.NonNull;
-import ba.l;
-import com.martian.libsupport.R;
+import com.martian.libmars.activity.j1;
 import com.martian.mibook.application.MiConfigSingleton;
-import com.martian.mibook.lib.model.activity.MiBackableActivity;
-import com.martian.mibook.mvvm.yuewen.fragment.YWChannelBookListFragment;
+import com.martian.mibook.f.f4.i0;
+import com.martian.ttbookhd.R;
 
 /* loaded from: classes3.dex */
-public class YWChannelBooksActivity extends MiBackableActivity {
-    public String A;
-    public String B;
-    public int C;
-    public int D;
-    public int E;
+public class YWChannelBooksActivity extends com.martian.mibook.lib.model.b.a {
+    private String F;
+    private String G;
+    private int H;
+    private int I;
+    private int J;
 
-    public static void L2(Activity activity, String str, Integer num, int i10, int i11, String str2) {
+    public static void r2(j1 activity, String title, Integer mcid, int seed, int pageIndex, String ext) {
         Bundle bundle = new Bundle();
-        bundle.putString(MiConfigSingleton.f13316b1, str);
-        bundle.putString(MiConfigSingleton.f13318d1, str2);
-        bundle.putInt(MiConfigSingleton.Z0, num.intValue());
-        bundle.putInt(MiConfigSingleton.f13315a1, i10);
-        bundle.putInt(MiConfigSingleton.f13317c1, i11);
-        Intent intent = new Intent(activity, (Class<?>) YWChannelBooksActivity.class);
-        intent.putExtras(bundle);
-        activity.startActivity(intent);
+        bundle.putString(MiConfigSingleton.W0, title);
+        bundle.putString(MiConfigSingleton.Y0, ext);
+        bundle.putInt(MiConfigSingleton.U0, mcid.intValue());
+        bundle.putInt(MiConfigSingleton.V0, seed);
+        bundle.putInt(MiConfigSingleton.X0, pageIndex);
+        activity.startActivity(YWChannelBooksActivity.class, bundle);
     }
 
-    @Override // com.martian.mibook.lib.model.activity.MiBackableActivity, com.martian.libmars.activity.MartianActivity, com.martian.libmars.activity.BaseActivity, me.imid.swipebacklayout.lib.app.SwipeBackActivity, androidx.fragment.app.FragmentActivity, androidx.activity.ComponentActivity, androidx.core.app.ComponentActivity, android.app.Activity
-    public void onCreate(Bundle bundle) {
-        super.onCreate(bundle);
+    @Override // com.martian.mibook.lib.model.b.a, com.martian.libmars.activity.j1, com.martian.libmars.activity.h1, me.imid.swipebacklayout.lib.d.a, androidx.appcompat.app.AppCompatActivity, androidx.fragment.app.FragmentActivity, androidx.activity.ComponentActivity, androidx.core.app.ComponentActivity, android.app.Activity
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_load_fragment);
-        g2();
-        if (bundle != null) {
-            this.A = bundle.getString(MiConfigSingleton.f13316b1);
-            this.B = bundle.getString(MiConfigSingleton.f13318d1);
-            this.C = bundle.getInt(MiConfigSingleton.Z0);
-            this.D = bundle.getInt(MiConfigSingleton.f13315a1);
-            this.E = bundle.getInt(MiConfigSingleton.f13317c1);
+        B1();
+        if (savedInstanceState != null) {
+            this.F = savedInstanceState.getString(MiConfigSingleton.W0);
+            this.G = savedInstanceState.getString(MiConfigSingleton.Y0);
+            this.H = savedInstanceState.getInt(MiConfigSingleton.U0);
+            this.I = savedInstanceState.getInt(MiConfigSingleton.V0);
+            this.J = savedInstanceState.getInt(MiConfigSingleton.X0);
         } else {
-            this.A = q1(MiConfigSingleton.f13316b1);
-            this.B = q1(MiConfigSingleton.f13318d1);
-            this.C = g1(MiConfigSingleton.Z0, -1);
-            this.D = g1(MiConfigSingleton.f13315a1, -1);
-            this.E = g1(MiConfigSingleton.f13317c1, 0);
+            this.F = G0(MiConfigSingleton.W0);
+            this.G = G0(MiConfigSingleton.Y0);
+            this.H = v0(MiConfigSingleton.U0, -1);
+            this.I = v0(MiConfigSingleton.V0, -1);
+            this.J = v0(MiConfigSingleton.X0, 0);
         }
-        if (!l.q(this.A)) {
-            t2(this.A);
+        if (!com.martian.libsupport.k.p(this.F)) {
+            Z1(this.F);
         }
-        if (((YWChannelBookListFragment) getSupportFragmentManager().findFragmentByTag("channel_books_fragment")) == null) {
-            getSupportFragmentManager().beginTransaction().add(com.martian.mibook.R.id.fragmentContainer, YWChannelBookListFragment.INSTANCE.a(this.A, this.C, this.D, this.E, this.B), "channel_books_fragment").commit();
+        if (((i0) getSupportFragmentManager().findFragmentByTag("channel_books_fragment")) == null) {
+            getSupportFragmentManager().beginTransaction().add(R.id.fragmentContainer, i0.w(this.F, this.H, this.I, this.J, this.G), "channel_books_fragment").commit();
         }
     }
 
-    @Override // androidx.activity.ComponentActivity, androidx.core.app.ComponentActivity, android.app.Activity
-    public void onSaveInstanceState(@NonNull Bundle bundle) {
-        super.onSaveInstanceState(bundle);
-        bundle.putString(MiConfigSingleton.f13316b1, this.A);
-        bundle.putString(MiConfigSingleton.f13318d1, this.B);
-        bundle.putInt(MiConfigSingleton.Z0, this.C);
-        bundle.putInt(MiConfigSingleton.f13315a1, this.D);
-        bundle.putInt(MiConfigSingleton.f13317c1, this.E);
+    @Override // androidx.appcompat.app.AppCompatActivity, androidx.fragment.app.FragmentActivity, androidx.activity.ComponentActivity, androidx.core.app.ComponentActivity, android.app.Activity
+    protected void onSaveInstanceState(@NonNull Bundle outState) {
+        super.onSaveInstanceState(outState);
+        outState.putString(MiConfigSingleton.W0, this.F);
+        outState.putString(MiConfigSingleton.Y0, this.G);
+        outState.putInt(MiConfigSingleton.U0, this.H);
+        outState.putInt(MiConfigSingleton.V0, this.I);
+        outState.putInt(MiConfigSingleton.X0, this.J);
     }
 }

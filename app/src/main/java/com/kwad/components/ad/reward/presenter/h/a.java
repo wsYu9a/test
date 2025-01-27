@@ -1,542 +1,491 @@
 package com.kwad.components.ad.reward.presenter.h;
 
 import android.content.DialogInterface;
+import android.widget.FrameLayout;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import com.kwad.components.ad.reward.g;
-import com.kwad.components.ad.reward.k.a.d;
-import com.kwad.components.ad.reward.m.e;
-import com.kwad.components.ad.reward.presenter.f.g;
-import com.kwad.components.ad.reward.presenter.i;
-import com.kwad.components.core.l.a.b;
-import com.kwad.components.core.video.l;
-import com.kwad.components.core.webview.jshandler.ad;
-import com.kwad.components.core.webview.jshandler.ay;
-import com.kwad.components.core.webview.tachikoma.TKRenderFailReason;
-import com.kwad.components.core.webview.tachikoma.a.o;
-import com.kwad.components.core.webview.tachikoma.a.p;
-import com.kwad.components.core.webview.tachikoma.b.m;
-import com.kwad.components.core.webview.tachikoma.b.t;
-import com.kwad.components.core.webview.tachikoma.b.v;
-import com.kwad.components.core.webview.tachikoma.f;
-import com.kwad.components.core.webview.tachikoma.j;
+import com.kwad.components.ad.reward.h.kwai.d;
+import com.kwad.components.ad.reward.j;
+import com.kwad.components.ad.reward.presenter.h;
+import com.kwad.components.core.j.kwai.b;
+import com.kwad.components.core.webview.a.a.m;
+import com.kwad.components.core.webview.a.a.w;
+import com.kwad.components.core.webview.a.g;
+import com.kwad.components.core.webview.a.i;
+import com.kwad.components.core.webview.a.kwai.o;
+import com.kwad.components.core.webview.a.kwai.p;
+import com.kwad.components.core.webview.jshandler.an;
+import com.kwad.components.core.webview.jshandler.u;
 import com.kwad.sdk.R;
 import com.kwad.sdk.commercial.model.WebCloseStatus;
-import com.kwad.sdk.components.s;
+import com.kwad.sdk.components.l;
 import com.kwad.sdk.core.response.model.AdInfo;
-import com.kwad.sdk.core.webview.c.c;
-import com.kwad.sdk.utils.an;
-import com.kwad.sdk.utils.ap;
-import com.kwad.sdk.utils.bo;
-import com.kwad.sdk.utils.bt;
+import com.kwad.sdk.core.webview.b.c;
+import com.kwad.sdk.utils.ai;
+import com.kwad.sdk.utils.ak;
+import com.kwad.sdk.utils.bd;
+import com.kwad.sdk.utils.bi;
+import com.kwad.sdk.widget.e;
 
 /* loaded from: classes2.dex */
-public final class a extends g implements j {
+public final class a extends com.kwad.components.ad.reward.presenter.a implements i {
+    private FrameLayout lE;
     private AdInfo mAdInfo;
-    private boolean vl;
-    private boolean vm;
-    private d xN;
-    private f yA;
-    private long yB;
-    private boolean yz;
-    private g.b vn = new g.b() { // from class: com.kwad.components.ad.reward.presenter.h.a.1
-        public AnonymousClass1() {
+    private boolean tx;
+    private boolean ty;
+    private d vM;
+    private boolean wO;
+    private g wP;
+    private long wQ;
+    private j.b tz = new j.b() { // from class: com.kwad.components.ad.reward.presenter.h.a.1
+        AnonymousClass1() {
         }
 
-        @Override // com.kwad.components.ad.reward.g.b
+        @Override // com.kwad.components.ad.reward.j.b
         public final boolean interceptPlayCardResume() {
-            return a.this.f11778yf != null && a.this.f11778yf.getVisibility() == 0;
+            return a.this.lE != null && a.this.lE.getVisibility() == 0;
         }
     };
-    private final com.kwad.components.core.l.a.a tQ = new b() { // from class: com.kwad.components.ad.reward.presenter.h.a.2
-        public AnonymousClass2() {
+    private final com.kwad.components.core.j.kwai.a sd = new b() { // from class: com.kwad.components.ad.reward.presenter.h.a.2
+        AnonymousClass2() {
         }
 
-        @Override // com.kwad.components.core.l.a.b, com.kwad.components.core.l.a.a
-        public final void c(com.kwad.components.core.proxy.f fVar) {
-            a.this.yz = false;
-            if (a.this.yA == null) {
+        @Override // com.kwad.components.core.j.kwai.b, com.kwad.components.core.j.kwai.a
+        public final void a(com.kwad.components.core.l.d dVar) {
+            int i2 = 0;
+            a.this.wO = false;
+            if (a.this.wP == null) {
                 return;
             }
-            v vVar = new v();
-            if (com.kwad.components.core.q.a.rJ().rP()) {
-                com.kwad.components.core.q.a.rJ().aN(false);
-                if (com.kwad.sdk.core.response.b.a.aN(a.this.mAdInfo) == 0) {
-                    vVar.adz = 1;
-                    a.this.yA.b(vVar);
-                    return;
-                } else if (com.kwad.components.core.q.a.rJ().rL()) {
-                    vVar.adz = 1;
-                    a.this.yA.b(vVar);
-                    return;
-                } else {
-                    vVar.adz = 0;
-                    a.this.yA.b(vVar);
-                    return;
-                }
-            }
-            if (com.kwad.components.core.q.a.rJ().rN() && com.kwad.sdk.core.response.b.a.aN(a.this.mAdInfo) == 1) {
-                if (com.kwad.components.core.q.a.rJ().rO() != 1) {
-                    if (com.kwad.components.core.q.a.rJ().rO() == 3) {
-                        vVar.adz = 1;
-                        com.kwad.components.core.q.a.rJ().aJ(0);
-                        a.this.yA.b(vVar);
+            w wVar = new w();
+            if (!com.kwad.components.core.p.a.pt().pz()) {
+                if (com.kwad.components.core.p.a.pt().px() && com.kwad.sdk.core.response.a.a.aF(a.this.mAdInfo) == 1) {
+                    if (com.kwad.components.core.p.a.pt().py() == 1) {
+                        if (ak.ah(a.this.getContext(), com.kwad.sdk.core.response.a.a.aq(a.this.mAdInfo))) {
+                            i2 = 2;
+                            wVar.Vn = 2;
+                        }
+                    } else if (com.kwad.components.core.p.a.pt().py() != 3) {
                         return;
+                    } else {
+                        wVar.Vn = 1;
                     }
+                    com.kwad.components.core.p.a.pt().aG(i2);
+                    a.this.wP.b(wVar);
                     return;
                 }
-                if (!ap.an(a.this.getContext(), com.kwad.sdk.core.response.b.a.ay(a.this.mAdInfo))) {
-                    vVar.adz = 0;
-                    a.this.yA.b(vVar);
-                } else {
-                    vVar.adz = 2;
-                    com.kwad.components.core.q.a.rJ().aJ(2);
-                    a.this.yA.b(vVar);
-                }
-            }
-        }
-
-        @Override // com.kwad.components.core.l.a.b, com.kwad.components.core.l.a.a
-        public final void d(com.kwad.components.core.proxy.f fVar) {
-            super.d(fVar);
-            a.this.yz = true;
-        }
-    };
-
-    /* renamed from: ia */
-    private final l f11789ia = new l() { // from class: com.kwad.components.ad.reward.presenter.h.a.3
-        public AnonymousClass3() {
-        }
-
-        @Override // com.kwad.components.core.video.l, com.kwad.components.core.video.h
-        public final void onMediaPlayProgress(long j10, long j11) {
-            super.onMediaPlayProgress(j10, j11);
-            long a10 = com.kwad.components.ad.reward.g.a(j10, a.this.mAdInfo);
-            long aM = com.kwad.sdk.core.response.b.a.aM(a.this.mAdInfo) * 1000;
-            if (j11 <= a.this.yB || a10 - j11 <= aM || a.this.vl) {
                 return;
             }
-            if (com.kwad.sdk.core.response.b.a.aN(a.this.mAdInfo) == 1) {
-                if (ap.an(a.this.getContext(), com.kwad.sdk.core.response.b.a.ay(a.this.mAdInfo))) {
+            com.kwad.components.core.p.a.pt().aK(false);
+            if (com.kwad.sdk.core.response.a.a.aF(a.this.mAdInfo) == 0 || com.kwad.components.core.p.a.pt().pv()) {
+                wVar.Vn = 1;
+                a.this.wP.b(wVar);
+            }
+            wVar.Vn = 0;
+            a.this.wP.b(wVar);
+        }
+
+        @Override // com.kwad.components.core.j.kwai.b, com.kwad.components.core.j.kwai.a
+        public final void b(com.kwad.components.core.l.d dVar) {
+            super.b(dVar);
+            a.this.wO = true;
+        }
+    };
+    private final com.kwad.components.core.video.j mVideoPlayStateListener = new com.kwad.components.core.video.j() { // from class: com.kwad.components.ad.reward.presenter.h.a.3
+        AnonymousClass3() {
+        }
+
+        @Override // com.kwad.components.core.video.j, com.kwad.components.core.video.i
+        public final void onVideoPlayProgress(long j2, long j3) {
+            super.onVideoPlayProgress(j2, j3);
+            long a2 = j.a(j2, a.this.mAdInfo);
+            long aE = com.kwad.sdk.core.response.a.a.aE(a.this.mAdInfo) * 1000;
+            if (j3 <= a.this.wQ || a2 - j3 <= aE || a.this.tx) {
+                return;
+            }
+            if (com.kwad.sdk.core.response.a.a.aF(a.this.mAdInfo) == 1) {
+                if (ak.ah(a.this.getContext(), com.kwad.sdk.core.response.a.a.aq(a.this.mAdInfo))) {
                     return;
                 }
-            } else if (a.this.rO.f11685hc) {
+            } else if (a.this.qt.fO) {
                 return;
             }
             a.b(a.this, true);
-            a.this.xN.a(a.this.rO.getActivity(), a.this.rO.mAdResultData, a.this);
-            a.this.jz();
+            a.this.vM.bind(a.this.qt.getActivity(), a.this.qt.mAdTemplate, a.this);
         }
     };
 
     /* renamed from: com.kwad.components.ad.reward.presenter.h.a$1 */
-    public class AnonymousClass1 implements g.b {
-        public AnonymousClass1() {
+    final class AnonymousClass1 implements j.b {
+        AnonymousClass1() {
         }
 
-        @Override // com.kwad.components.ad.reward.g.b
+        @Override // com.kwad.components.ad.reward.j.b
         public final boolean interceptPlayCardResume() {
-            return a.this.f11778yf != null && a.this.f11778yf.getVisibility() == 0;
+            return a.this.lE != null && a.this.lE.getVisibility() == 0;
         }
     }
 
     /* renamed from: com.kwad.components.ad.reward.presenter.h.a$2 */
-    public class AnonymousClass2 extends b {
-        public AnonymousClass2() {
+    final class AnonymousClass2 extends b {
+        AnonymousClass2() {
         }
 
-        @Override // com.kwad.components.core.l.a.b, com.kwad.components.core.l.a.a
-        public final void c(com.kwad.components.core.proxy.f fVar) {
-            a.this.yz = false;
-            if (a.this.yA == null) {
+        @Override // com.kwad.components.core.j.kwai.b, com.kwad.components.core.j.kwai.a
+        public final void a(com.kwad.components.core.l.d dVar) {
+            int i2 = 0;
+            a.this.wO = false;
+            if (a.this.wP == null) {
                 return;
             }
-            v vVar = new v();
-            if (com.kwad.components.core.q.a.rJ().rP()) {
-                com.kwad.components.core.q.a.rJ().aN(false);
-                if (com.kwad.sdk.core.response.b.a.aN(a.this.mAdInfo) == 0) {
-                    vVar.adz = 1;
-                    a.this.yA.b(vVar);
-                    return;
-                } else if (com.kwad.components.core.q.a.rJ().rL()) {
-                    vVar.adz = 1;
-                    a.this.yA.b(vVar);
-                    return;
-                } else {
-                    vVar.adz = 0;
-                    a.this.yA.b(vVar);
-                    return;
-                }
-            }
-            if (com.kwad.components.core.q.a.rJ().rN() && com.kwad.sdk.core.response.b.a.aN(a.this.mAdInfo) == 1) {
-                if (com.kwad.components.core.q.a.rJ().rO() != 1) {
-                    if (com.kwad.components.core.q.a.rJ().rO() == 3) {
-                        vVar.adz = 1;
-                        com.kwad.components.core.q.a.rJ().aJ(0);
-                        a.this.yA.b(vVar);
+            w wVar = new w();
+            if (!com.kwad.components.core.p.a.pt().pz()) {
+                if (com.kwad.components.core.p.a.pt().px() && com.kwad.sdk.core.response.a.a.aF(a.this.mAdInfo) == 1) {
+                    if (com.kwad.components.core.p.a.pt().py() == 1) {
+                        if (ak.ah(a.this.getContext(), com.kwad.sdk.core.response.a.a.aq(a.this.mAdInfo))) {
+                            i2 = 2;
+                            wVar.Vn = 2;
+                        }
+                    } else if (com.kwad.components.core.p.a.pt().py() != 3) {
                         return;
+                    } else {
+                        wVar.Vn = 1;
                     }
+                    com.kwad.components.core.p.a.pt().aG(i2);
+                    a.this.wP.b(wVar);
                     return;
                 }
-                if (!ap.an(a.this.getContext(), com.kwad.sdk.core.response.b.a.ay(a.this.mAdInfo))) {
-                    vVar.adz = 0;
-                    a.this.yA.b(vVar);
-                } else {
-                    vVar.adz = 2;
-                    com.kwad.components.core.q.a.rJ().aJ(2);
-                    a.this.yA.b(vVar);
-                }
+                return;
             }
+            com.kwad.components.core.p.a.pt().aK(false);
+            if (com.kwad.sdk.core.response.a.a.aF(a.this.mAdInfo) == 0 || com.kwad.components.core.p.a.pt().pv()) {
+                wVar.Vn = 1;
+                a.this.wP.b(wVar);
+            }
+            wVar.Vn = 0;
+            a.this.wP.b(wVar);
         }
 
-        @Override // com.kwad.components.core.l.a.b, com.kwad.components.core.l.a.a
-        public final void d(com.kwad.components.core.proxy.f fVar) {
-            super.d(fVar);
-            a.this.yz = true;
+        @Override // com.kwad.components.core.j.kwai.b, com.kwad.components.core.j.kwai.a
+        public final void b(com.kwad.components.core.l.d dVar) {
+            super.b(dVar);
+            a.this.wO = true;
         }
     }
 
     /* renamed from: com.kwad.components.ad.reward.presenter.h.a$3 */
-    public class AnonymousClass3 extends l {
-        public AnonymousClass3() {
+    final class AnonymousClass3 extends com.kwad.components.core.video.j {
+        AnonymousClass3() {
         }
 
-        @Override // com.kwad.components.core.video.l, com.kwad.components.core.video.h
-        public final void onMediaPlayProgress(long j10, long j11) {
-            super.onMediaPlayProgress(j10, j11);
-            long a10 = com.kwad.components.ad.reward.g.a(j10, a.this.mAdInfo);
-            long aM = com.kwad.sdk.core.response.b.a.aM(a.this.mAdInfo) * 1000;
-            if (j11 <= a.this.yB || a10 - j11 <= aM || a.this.vl) {
+        @Override // com.kwad.components.core.video.j, com.kwad.components.core.video.i
+        public final void onVideoPlayProgress(long j2, long j3) {
+            super.onVideoPlayProgress(j2, j3);
+            long a2 = j.a(j2, a.this.mAdInfo);
+            long aE = com.kwad.sdk.core.response.a.a.aE(a.this.mAdInfo) * 1000;
+            if (j3 <= a.this.wQ || a2 - j3 <= aE || a.this.tx) {
                 return;
             }
-            if (com.kwad.sdk.core.response.b.a.aN(a.this.mAdInfo) == 1) {
-                if (ap.an(a.this.getContext(), com.kwad.sdk.core.response.b.a.ay(a.this.mAdInfo))) {
+            if (com.kwad.sdk.core.response.a.a.aF(a.this.mAdInfo) == 1) {
+                if (ak.ah(a.this.getContext(), com.kwad.sdk.core.response.a.a.aq(a.this.mAdInfo))) {
                     return;
                 }
-            } else if (a.this.rO.f11685hc) {
+            } else if (a.this.qt.fO) {
                 return;
             }
             a.b(a.this, true);
-            a.this.xN.a(a.this.rO.getActivity(), a.this.rO.mAdResultData, a.this);
-            a.this.jz();
+            a.this.vM.bind(a.this.qt.getActivity(), a.this.qt.mAdTemplate, a.this);
         }
     }
 
     /* renamed from: com.kwad.components.ad.reward.presenter.h.a$4 */
-    public class AnonymousClass4 implements DialogInterface.OnDismissListener {
-        public AnonymousClass4() {
+    final class AnonymousClass4 implements DialogInterface.OnDismissListener {
+        AnonymousClass4() {
         }
 
         @Override // android.content.DialogInterface.OnDismissListener
         public final void onDismiss(DialogInterface dialogInterface) {
-            if (a.this.yA == null) {
+            if (a.this.wP == null) {
                 return;
             }
-            v vVar = new v();
-            if (com.kwad.components.core.q.a.rJ().rP()) {
-                com.kwad.components.core.q.a.rJ().aN(false);
-                if (com.kwad.sdk.core.response.b.a.aN(a.this.mAdInfo) == 0) {
-                    vVar.adz = 1;
-                    a.this.yA.b(vVar);
-                    return;
-                } else if (com.kwad.components.core.q.a.rJ().rL()) {
-                    vVar.adz = 1;
-                    a.this.yA.b(vVar);
-                    return;
+            w wVar = new w();
+            if (com.kwad.components.core.p.a.pt().pz()) {
+                com.kwad.components.core.p.a.pt().aK(false);
+                if (com.kwad.sdk.core.response.a.a.aF(a.this.mAdInfo) == 0 || com.kwad.components.core.p.a.pt().pv()) {
+                    wVar.Vn = 1;
                 } else {
-                    vVar.adz = 0;
-                    a.this.yA.b(vVar);
-                    return;
+                    wVar.Vn = 0;
                 }
+                a.this.wP.b(wVar);
+                return;
             }
-            if (com.kwad.components.core.q.a.rJ().rN() && com.kwad.sdk.core.response.b.a.aN(a.this.mAdInfo) == 1) {
-                if (com.kwad.components.core.q.a.rJ().rO() == 1) {
-                    if (ap.an(a.this.getContext(), com.kwad.sdk.core.response.b.a.ay(a.this.mAdInfo))) {
+            if (com.kwad.components.core.p.a.pt().px() && com.kwad.sdk.core.response.a.a.aF(a.this.mAdInfo) == 1) {
+                if (com.kwad.components.core.p.a.pt().py() == 1) {
+                    if (ak.ah(a.this.getContext(), com.kwad.sdk.core.response.a.a.aq(a.this.mAdInfo))) {
                         return;
                     }
-                    vVar.adz = 0;
-                    a.this.yA.b(vVar);
+                    wVar.Vn = 0;
+                    a.this.wP.b(wVar);
                     return;
                 }
-                if (com.kwad.components.core.q.a.rJ().rO() == 3) {
-                    vVar.adz = 1;
-                    com.kwad.components.core.q.a.rJ().aJ(0);
-                    a.this.yA.b(vVar);
+                if (com.kwad.components.core.p.a.pt().py() == 3) {
+                    wVar.Vn = 1;
+                    com.kwad.components.core.p.a.pt().aG(0);
+                    a.this.wP.b(wVar);
                 }
             }
         }
     }
 
     /* renamed from: com.kwad.components.ad.reward.presenter.h.a$5 */
-    public class AnonymousClass5 extends f {
-        public AnonymousClass5() {
+    final class AnonymousClass5 extends g {
+        AnonymousClass5() {
         }
 
-        @Override // com.kwad.components.core.webview.tachikoma.a.w, com.kwad.sdk.core.webview.c.a
-        public final void a(String str, @NonNull c cVar) {
-            super.a(str, cVar);
+        @Override // com.kwad.components.core.webview.a.kwai.v, com.kwad.sdk.core.webview.b.a
+        public final void handleJsCall(String str, @NonNull c cVar) {
+            super.handleJsCall(str, cVar);
         }
     }
 
     /* renamed from: com.kwad.components.ad.reward.presenter.h.a$6 */
-    public class AnonymousClass6 implements Runnable {
-        public AnonymousClass6() {
+    final class AnonymousClass6 implements Runnable {
+        AnonymousClass6() {
         }
 
         @Override // java.lang.Runnable
         public final void run() {
-            if (a.this.rO.f11688qe != null) {
-                a.this.rO.f11688qe.onRewardVerify();
+            if (a.this.qt.mAdOpenInteractionListener != null) {
+                a.this.qt.mAdOpenInteractionListener.onRewardVerify();
             }
-            a.this.rO.f11689qf.pause();
-            a.this.rO.fV();
+            a.this.qt.oN.pause();
+            a.this.qt.fH();
         }
     }
 
-    private void hR() {
-        boolean z10 = i.z(this.rO);
-        com.kwad.sdk.core.d.c.d("jky", "onPlayCompleted: " + z10);
-        if (z10) {
-            bt.runOnUiThreadDelay(new Runnable() { // from class: com.kwad.components.ad.reward.presenter.h.a.6
-                public AnonymousClass6() {
+    static /* synthetic */ boolean b(a aVar, boolean z) {
+        aVar.tx = true;
+        return true;
+    }
+
+    private void hx() {
+        if (h.y(this.qt)) {
+            bi.runOnUiThreadDelay(new Runnable() { // from class: com.kwad.components.ad.reward.presenter.h.a.6
+                AnonymousClass6() {
                 }
 
                 @Override // java.lang.Runnable
                 public final void run() {
-                    if (a.this.rO.f11688qe != null) {
-                        a.this.rO.f11688qe.onRewardVerify();
+                    if (a.this.qt.mAdOpenInteractionListener != null) {
+                        a.this.qt.mAdOpenInteractionListener.onRewardVerify();
                     }
-                    a.this.rO.f11689qf.pause();
-                    a.this.rO.fV();
+                    a.this.qt.oN.pause();
+                    a.this.qt.fH();
                 }
             }, 200L);
             return;
         }
-        com.kwad.components.ad.reward.e.b bVar = this.rO.f11688qe;
+        com.kwad.components.ad.reward.d.b bVar = this.qt.mAdOpenInteractionListener;
         if (bVar != null) {
             bVar.onRewardVerify();
         }
-        this.rO.f11689qf.pause();
-        this.rO.fV();
+        this.qt.oN.pause();
+        this.qt.fH();
     }
 
-    private f jA() {
-        return new f() { // from class: com.kwad.components.ad.reward.presenter.h.a.5
-            public AnonymousClass5() {
+    private g jb() {
+        return new g() { // from class: com.kwad.components.ad.reward.presenter.h.a.5
+            AnonymousClass5() {
             }
 
-            @Override // com.kwad.components.core.webview.tachikoma.a.w, com.kwad.sdk.core.webview.c.a
-            public final void a(String str, @NonNull c cVar) {
-                super.a(str, cVar);
+            @Override // com.kwad.components.core.webview.a.kwai.v, com.kwad.sdk.core.webview.b.a
+            public final void handleJsCall(String str, @NonNull c cVar) {
+                super.handleJsCall(str, cVar);
             }
         };
     }
 
-    public void jz() {
-        this.f11778yf.setVisibility(0);
-        e eVar = this.rO.f11689qf;
-        if (eVar != null) {
-            eVar.pause();
-        }
-        this.vm = true;
-    }
+    @Override // com.kwad.components.ad.reward.presenter.a, com.kwad.sdk.mvp.Presenter
+    public final void ar() {
+        super.ar();
+        this.wO = false;
+        com.kwad.sdk.core.d.b.d("TkRewardVideoTaskPresenter", "onBind: ");
+        if (this.vM == null) {
+            this.vM = new d(this.qt, -1L, getContext(), new DialogInterface.OnDismissListener() { // from class: com.kwad.components.ad.reward.presenter.h.a.4
+                AnonymousClass4() {
+                }
 
-    @Override // com.kwad.components.ad.reward.presenter.f.d, com.kwad.components.core.webview.tachikoma.j
-    public final void a(ay ayVar) {
-    }
-
-    @Override // com.kwad.components.ad.reward.presenter.f.d, com.kwad.components.ad.reward.presenter.b, com.kwad.sdk.mvp.Presenter
-    public final void as() {
-        super.as();
-        getContext();
-        if (an.NS()) {
-            this.yz = false;
-            com.kwad.sdk.core.d.c.d("TkRewardVideoTaskPresenter", "onBind: ");
-            if (this.xN == null) {
-                this.xN = new d(this.rO, -1L, getContext(), new DialogInterface.OnDismissListener() { // from class: com.kwad.components.ad.reward.presenter.h.a.4
-                    public AnonymousClass4() {
+                @Override // android.content.DialogInterface.OnDismissListener
+                public final void onDismiss(DialogInterface dialogInterface) {
+                    if (a.this.wP == null) {
+                        return;
                     }
-
-                    @Override // android.content.DialogInterface.OnDismissListener
-                    public final void onDismiss(DialogInterface dialogInterface) {
-                        if (a.this.yA == null) {
+                    w wVar = new w();
+                    if (com.kwad.components.core.p.a.pt().pz()) {
+                        com.kwad.components.core.p.a.pt().aK(false);
+                        if (com.kwad.sdk.core.response.a.a.aF(a.this.mAdInfo) == 0 || com.kwad.components.core.p.a.pt().pv()) {
+                            wVar.Vn = 1;
+                        } else {
+                            wVar.Vn = 0;
+                        }
+                        a.this.wP.b(wVar);
+                        return;
+                    }
+                    if (com.kwad.components.core.p.a.pt().px() && com.kwad.sdk.core.response.a.a.aF(a.this.mAdInfo) == 1) {
+                        if (com.kwad.components.core.p.a.pt().py() == 1) {
+                            if (ak.ah(a.this.getContext(), com.kwad.sdk.core.response.a.a.aq(a.this.mAdInfo))) {
+                                return;
+                            }
+                            wVar.Vn = 0;
+                            a.this.wP.b(wVar);
                             return;
                         }
-                        v vVar = new v();
-                        if (com.kwad.components.core.q.a.rJ().rP()) {
-                            com.kwad.components.core.q.a.rJ().aN(false);
-                            if (com.kwad.sdk.core.response.b.a.aN(a.this.mAdInfo) == 0) {
-                                vVar.adz = 1;
-                                a.this.yA.b(vVar);
-                                return;
-                            } else if (com.kwad.components.core.q.a.rJ().rL()) {
-                                vVar.adz = 1;
-                                a.this.yA.b(vVar);
-                                return;
-                            } else {
-                                vVar.adz = 0;
-                                a.this.yA.b(vVar);
-                                return;
-                            }
-                        }
-                        if (com.kwad.components.core.q.a.rJ().rN() && com.kwad.sdk.core.response.b.a.aN(a.this.mAdInfo) == 1) {
-                            if (com.kwad.components.core.q.a.rJ().rO() == 1) {
-                                if (ap.an(a.this.getContext(), com.kwad.sdk.core.response.b.a.ay(a.this.mAdInfo))) {
-                                    return;
-                                }
-                                vVar.adz = 0;
-                                a.this.yA.b(vVar);
-                                return;
-                            }
-                            if (com.kwad.components.core.q.a.rJ().rO() == 3) {
-                                vVar.adz = 1;
-                                com.kwad.components.core.q.a.rJ().aJ(0);
-                                a.this.yA.b(vVar);
-                            }
+                        if (com.kwad.components.core.p.a.pt().py() == 3) {
+                            wVar.Vn = 1;
+                            com.kwad.components.core.p.a.pt().aG(0);
+                            a.this.wP.b(wVar);
                         }
                     }
-                });
+                }
+            });
+        }
+        this.mAdInfo = com.kwad.sdk.core.response.a.d.cb(this.qt.mAdTemplate);
+        this.wQ = com.kwad.sdk.core.response.a.a.aD(r0) * 1000;
+        this.qt.oN.a(this.mVideoPlayStateListener, null);
+        this.qt.a(this.tz);
+        this.qt.JT.add(this.sd);
+    }
+
+    @Override // com.kwad.components.core.webview.a.i
+    public final FrameLayout getTKContainer() {
+        return this.lE;
+    }
+
+    @Override // com.kwad.components.core.webview.a.i
+    public final String getTkTemplateId() {
+        com.kwad.sdk.core.d.b.d("TkRewardVideoTaskPresenter", "getTkTemplateId: ");
+        return com.kwad.components.core.webview.a.j.b("ksad-video-task-card", this.qt.mAdTemplate);
+    }
+
+    @Override // com.kwad.components.core.webview.a.i
+    public final e getTouchCoordsView() {
+        return this.qt.mRootContainer;
+    }
+
+    @Override // com.kwad.components.core.webview.a.i
+    public final void onAdClicked(@Nullable com.kwad.sdk.core.webview.c.a.a aVar) {
+        int i2;
+        this.qt.mAdOpenInteractionListener.bN();
+        if (com.kwad.sdk.core.response.a.a.aG(this.mAdInfo)) {
+            com.kwad.components.core.p.a.pt().aF(aVar.aqn);
+            if (aVar.aqn == -1) {
+                i2 = 0;
+                com.kwad.components.core.p.a.pt().aK(false);
+            } else {
+                i2 = 1;
+                if (!com.kwad.sdk.core.response.a.a.ax(this.mAdInfo)) {
+                    com.kwad.components.core.p.a.pt().aK(true);
+                    return;
+                } else if (com.kwad.components.core.p.a.pt().py() == 2) {
+                    com.kwad.components.core.p.a.pt().aG(3);
+                    return;
+                }
             }
-            this.mAdInfo = com.kwad.sdk.core.response.b.e.eb(this.rO.mAdTemplate);
-            this.yB = com.kwad.sdk.core.response.b.a.aL(r0) * 1000;
-            e eVar = this.rO.f11689qf;
-            if (eVar != null) {
-                eVar.a(this.f11789ia);
-            }
-            this.rO.a(this.vn);
-            this.rO.Ov.add(this.tQ);
+            com.kwad.components.core.p.a.pt().aG(i2);
         }
     }
 
-    @Override // com.kwad.components.ad.reward.presenter.f.d, com.kwad.components.core.webview.tachikoma.j
-    public final void az() {
+    @Override // com.kwad.components.core.webview.a.i
+    public final void onCloseTKDialogClick() {
     }
 
-    @Override // com.kwad.components.core.webview.tachikoma.j
-    public final String getTKReaderScene() {
-        return "tk_reward_task_card";
+    @Override // com.kwad.sdk.mvp.Presenter
+    public final void onCreate() {
+        super.onCreate();
+        com.kwad.sdk.core.d.b.d("TkRewardVideoTaskPresenter", "onCreate: ");
+        this.lE = (FrameLayout) findViewById(R.id.ksad_js_task);
     }
 
-    @Override // com.kwad.components.core.webview.tachikoma.j
-    public final String getTkTemplateId() {
-        return com.kwad.sdk.core.response.b.b.dA(this.rO.mAdTemplate);
+    @Override // com.kwad.components.core.webview.a.i
+    public final void onGetContainerLimited(u.a aVar) {
+        float ax = com.kwad.sdk.c.kwai.a.ax(getContext());
+        aVar.width = (int) ((bd.getScreenWidth(getContext()) / ax) + 0.5f);
+        aVar.height = (int) ((bd.getScreenHeight(getContext()) / ax) + 0.5f);
     }
 
-    @Override // com.kwad.components.ad.reward.presenter.f.d, com.kwad.components.core.webview.tachikoma.j
-    public final com.kwad.sdk.widget.e getTouchCoordsView() {
-        return this.rO.mRootContainer;
+    @Override // com.kwad.components.core.webview.a.i
+    public final void onRegisterLifecycleLisener(an anVar) {
     }
 
-    @Override // com.kwad.components.ad.reward.presenter.f.g
-    public final int ih() {
-        return R.id.ksad_js_task;
+    @Override // com.kwad.components.core.webview.a.i
+    public final void onRegisterVideoMuteStateListener(o oVar) {
     }
 
-    @Override // com.kwad.components.ad.reward.presenter.f.d, com.kwad.sdk.mvp.Presenter
+    @Override // com.kwad.components.core.webview.a.i
+    public final void onRegisterVideoProgressListener(p pVar, com.kwad.components.core.video.i iVar) {
+    }
+
+    @Override // com.kwad.components.core.webview.a.i
+    public final void onRegisterWebCardHandler(l lVar, com.kwad.sdk.core.webview.b bVar) {
+        g jb = jb();
+        this.wP = jb;
+        lVar.c(jb);
+    }
+
+    @Override // com.kwad.components.core.webview.a.i
+    public final void onSkipClick(com.kwad.components.core.webview.a.a.u uVar) {
+    }
+
+    @Override // com.kwad.components.core.webview.a.i
+    public final void onTkLoadFailed() {
+        com.kwad.sdk.core.d.b.d("TkRewardVideoTaskPresenter", "onTkLoadFailed: ");
+        this.lE.setVisibility(8);
+    }
+
+    @Override // com.kwad.components.core.webview.a.i
+    public final void onTkLoadSuccess() {
+        com.kwad.sdk.core.d.b.d("TkRewardVideoTaskPresenter", "onTkLoadSuccess: ");
+        getContext();
+        if (ai.DL()) {
+            this.lE.setVisibility(0);
+            this.qt.oN.pause();
+            this.ty = true;
+        }
+    }
+
+    @Override // com.kwad.sdk.mvp.Presenter
     public final void onUnbind() {
         super.onUnbind();
-        e eVar = this.rO.f11689qf;
-        if (eVar != null) {
-            eVar.b(this.f11789ia);
-        }
-        this.rO.b(this.vn);
-        this.rO.Ov.remove(this.tQ);
-        d dVar = this.xN;
-        if (dVar != null) {
-            dVar.jK();
-            this.xN = null;
-        }
-        this.f11778yf.setVisibility(8);
-        com.kwad.components.core.q.a.rJ().clear();
-        this.vl = false;
-        this.vm = false;
-        this.yz = false;
+        this.qt.oN.b(this.mVideoPlayStateListener, null);
+        this.qt.b(this.tz);
+        this.qt.JT.remove(this.sd);
+        this.vM.unBind();
+        this.vM = null;
+        this.lE.setVisibility(8);
+        com.kwad.components.core.p.a.pt().clear();
+        this.tx = false;
+        this.ty = false;
+        this.wO = false;
     }
 
-    public static /* synthetic */ boolean b(a aVar, boolean z10) {
-        aVar.vl = true;
-        return true;
+    @Override // com.kwad.components.core.webview.a.i
+    public final void onUpdateMuteStatus(m mVar) {
     }
 
-    @Override // com.kwad.components.ad.reward.presenter.f.d, com.kwad.components.core.webview.tachikoma.j
-    public final void a(o oVar) {
-    }
-
-    @Override // com.kwad.components.ad.reward.presenter.f.d, com.kwad.components.core.webview.tachikoma.j
-    public final void a(p pVar) {
-    }
-
-    @Override // com.kwad.components.ad.reward.presenter.f.d, com.kwad.components.core.webview.tachikoma.j
-    public final void a(m mVar) {
-    }
-
-    @Override // com.kwad.components.ad.reward.presenter.f.d, com.kwad.components.core.webview.tachikoma.j
-    public final void a(t tVar) {
-    }
-
-    @Override // com.kwad.components.ad.reward.presenter.f.d, com.kwad.components.core.webview.tachikoma.j
-    public final void a(TKRenderFailReason tKRenderFailReason) {
-        com.kwad.sdk.core.d.c.d("TkRewardVideoTaskPresenter", "onTkLoadFailed: ");
-        this.f11778yf.setVisibility(8);
-    }
-
-    @Override // com.kwad.components.ad.reward.presenter.f.d, com.kwad.components.core.webview.tachikoma.j
-    public final void a(s sVar, com.kwad.sdk.core.webview.b bVar) {
-        f jA = jA();
-        this.yA = jA;
-        sVar.c(jA);
-    }
-
-    @Override // com.kwad.components.ad.reward.presenter.f.d, com.kwad.components.core.webview.tachikoma.j
-    public final void a(@Nullable com.kwad.sdk.core.webview.d.b.a aVar) {
-        this.rO.f11688qe.cg();
-        com.kwad.sdk.core.d.c.d("jky", "onAdClicked convertPageType: " + aVar.aJe);
-        if (com.kwad.sdk.core.response.b.a.aO(this.mAdInfo)) {
-            com.kwad.components.core.q.a.rJ().aI(aVar.aJe);
-            if (aVar.aJe == -1) {
-                com.kwad.components.core.q.a.rJ().aN(false);
-                com.kwad.components.core.q.a.rJ().aJ(0);
-            } else {
-                if (com.kwad.sdk.core.response.b.a.aF(this.mAdInfo)) {
-                    if (com.kwad.components.core.q.a.rJ().rO() == 2) {
-                        com.kwad.components.core.q.a.rJ().aJ(3);
-                        return;
-                    } else {
-                        com.kwad.components.core.q.a.rJ().aJ(1);
-                        return;
-                    }
-                }
-                com.kwad.components.core.q.a.rJ().aN(true);
+    @Override // com.kwad.components.core.webview.a.i
+    public final void pageClose(WebCloseStatus webCloseStatus) {
+        j jVar = this.qt;
+        boolean z = webCloseStatus != null && webCloseStatus.interactSuccess;
+        jVar.pi = z;
+        if (z) {
+            jVar.oN.jH().jD();
+            if (com.kwad.components.core.p.a.pt().pu() == 1) {
+                hx();
             }
         }
-    }
-
-    @Override // com.kwad.components.core.webview.tachikoma.j
-    public final void a(ad.a aVar) {
-        float ba2 = com.kwad.sdk.c.a.a.ba(getContext());
-        aVar.width = (int) ((bo.getScreenWidth(getContext()) / ba2) + 0.5f);
-        aVar.height = (int) ((bo.getScreenHeight(getContext()) / ba2) + 0.5f);
-    }
-
-    @Override // com.kwad.components.ad.reward.presenter.f.d, com.kwad.components.core.webview.tachikoma.j
-    public final void a(WebCloseStatus webCloseStatus) {
-        boolean z10 = false;
-        this.rO.qx = webCloseStatus != null && webCloseStatus.interactSuccess;
-        int rK = com.kwad.components.core.q.a.rJ().rK();
-        com.kwad.components.ad.reward.g gVar = this.rO;
-        e eVar = gVar.f11689qf;
-        if (eVar != null) {
-            if (gVar.qx) {
-                eVar.ke();
-                if (rK == 1) {
-                    hR();
-                    z10 = true;
-                }
-            }
-            if (this.vm && !this.yz && !z10) {
-                this.rO.f11689qf.resume();
-            }
+        if (this.ty && !this.wO) {
+            this.qt.oN.resume();
         }
-        this.f11778yf.setVisibility(8);
+        this.lE.setVisibility(8);
     }
 }

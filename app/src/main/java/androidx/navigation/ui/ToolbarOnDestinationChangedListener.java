@@ -15,37 +15,39 @@ import java.lang.ref.WeakReference;
 @RestrictTo({RestrictTo.Scope.LIBRARY})
 /* loaded from: classes.dex */
 class ToolbarOnDestinationChangedListener extends AbstractAppBarOnDestinationChangedListener {
-    private final WeakReference<Toolbar> mToolbarWeakReference;
 
-    public ToolbarOnDestinationChangedListener(@NonNull Toolbar toolbar, @NonNull AppBarConfiguration appBarConfiguration) {
+    /* renamed from: f */
+    private final WeakReference<Toolbar> f3079f;
+
+    ToolbarOnDestinationChangedListener(@NonNull Toolbar toolbar, @NonNull AppBarConfiguration appBarConfiguration) {
         super(toolbar.getContext(), appBarConfiguration);
-        this.mToolbarWeakReference = new WeakReference<>(toolbar);
-    }
-
-    @Override // androidx.navigation.ui.AbstractAppBarOnDestinationChangedListener, androidx.navigation.NavController.OnDestinationChangedListener
-    public void onDestinationChanged(@NonNull NavController navController, @NonNull NavDestination navDestination, @Nullable Bundle bundle) {
-        if (this.mToolbarWeakReference.get() == null) {
-            navController.removeOnDestinationChangedListener(this);
-        } else {
-            super.onDestinationChanged(navController, navDestination, bundle);
-        }
+        this.f3079f = new WeakReference<>(toolbar);
     }
 
     @Override // androidx.navigation.ui.AbstractAppBarOnDestinationChangedListener
-    public void setNavigationIcon(Drawable drawable, @StringRes int i10) {
-        Toolbar toolbar = this.mToolbarWeakReference.get();
+    protected void b(Drawable drawable, @StringRes int i2) {
+        Toolbar toolbar = this.f3079f.get();
         if (toolbar != null) {
-            boolean z10 = drawable == null && toolbar.getNavigationIcon() != null;
+            boolean z = drawable == null && toolbar.getNavigationIcon() != null;
             toolbar.setNavigationIcon(drawable);
-            toolbar.setNavigationContentDescription(i10);
-            if (z10) {
+            toolbar.setNavigationContentDescription(i2);
+            if (z) {
                 TransitionManager.beginDelayedTransition(toolbar);
             }
         }
     }
 
     @Override // androidx.navigation.ui.AbstractAppBarOnDestinationChangedListener
-    public void setTitle(CharSequence charSequence) {
-        this.mToolbarWeakReference.get().setTitle(charSequence);
+    protected void c(CharSequence charSequence) {
+        this.f3079f.get().setTitle(charSequence);
+    }
+
+    @Override // androidx.navigation.ui.AbstractAppBarOnDestinationChangedListener, androidx.navigation.NavController.OnDestinationChangedListener
+    public void onDestinationChanged(@NonNull NavController navController, @NonNull NavDestination navDestination, @Nullable Bundle bundle) {
+        if (this.f3079f.get() == null) {
+            navController.removeOnDestinationChangedListener(this);
+        } else {
+            super.onDestinationChanged(navController, navDestination, bundle);
+        }
     }
 }

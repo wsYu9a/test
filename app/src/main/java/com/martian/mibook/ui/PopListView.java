@@ -3,13 +3,14 @@ package com.martian.mibook.ui;
 import android.content.Context;
 import android.util.AttributeSet;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.ListAdapter;
 import android.widget.ListView;
 
-/* loaded from: classes3.dex */
+/* loaded from: classes4.dex */
 public class PopListView extends ListView {
-    public PopListView(Context context, AttributeSet attributeSet) {
-        super(context, attributeSet);
+    public PopListView(Context context, AttributeSet attrs) {
+        super(context, attrs);
     }
 
     public PopListView(Context context) {
@@ -17,21 +18,24 @@ public class PopListView extends ListView {
     }
 
     @Override // android.widget.AdapterView
-    public void setAdapter(ListAdapter listAdapter) {
-        super.setAdapter(listAdapter);
-        if (listAdapter == null || listAdapter.getCount() <= 0) {
+    public void setAdapter(ListAdapter adapter) {
+        super.setAdapter(adapter);
+        if (adapter == null || adapter.getCount() <= 0) {
             return;
         }
-        View view = listAdapter.getView(0, null, this);
+        View view = adapter.getView(0, null, this);
         view.measure(0, 0);
-        if (listAdapter.getCount() > 6) {
-            getLayoutParams().height = (int) (view.getMeasuredHeight() * 6.6d);
+        if (adapter.getCount() <= 6) {
+            getLayoutParams().height = view.getMeasuredHeight() * adapter.getCount();
         } else {
-            getLayoutParams().height = view.getMeasuredHeight() * listAdapter.getCount();
+            ViewGroup.LayoutParams layoutParams = getLayoutParams();
+            double measuredHeight = view.getMeasuredHeight();
+            Double.isNaN(measuredHeight);
+            layoutParams.height = (int) (measuredHeight * 6.6d);
         }
     }
 
-    public PopListView(Context context, AttributeSet attributeSet, int i10) {
-        super(context, attributeSet, i10);
+    public PopListView(Context context, AttributeSet attrs, int defStyle) {
+        super(context, attrs, defStyle);
     }
 }

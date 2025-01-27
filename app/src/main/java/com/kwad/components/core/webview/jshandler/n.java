@@ -1,62 +1,88 @@
 package com.kwad.components.core.webview.jshandler;
 
-import android.text.TextUtils;
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
+import com.kwad.sdk.utils.bi;
+import org.json.JSONException;
 import org.json.JSONObject;
 
-/* loaded from: classes3.dex */
-public final class n implements com.kwad.sdk.core.webview.c.a {
-    com.kwad.sdk.core.webview.b YR;
+/* loaded from: classes2.dex */
+public class n implements com.kwad.sdk.core.webview.b.a {
 
-    public static class a implements com.kwad.sdk.core.b {
-        public String url;
+    /* renamed from: com.kwad.components.core.webview.jshandler.n$1 */
+    final class AnonymousClass1 implements Runnable {
+        final /* synthetic */ com.kwad.components.core.webview.a.a.y Sq;
 
-        @Override // com.kwad.sdk.core.b
-        public final void parseJson(@Nullable JSONObject jSONObject) {
-            if (jSONObject == null) {
+        AnonymousClass1(com.kwad.components.core.webview.a.a.y yVar) {
+            yVar = yVar;
+        }
+
+        @Override // java.lang.Runnable
+        public final void run() {
+            if (yVar.rg()) {
+                n.this.a(yVar);
                 return;
             }
-            this.url = jSONObject.optString("url");
-        }
-
-        @Override // com.kwad.sdk.core.b
-        public final JSONObject toJson() {
-            JSONObject jSONObject = new JSONObject();
-            com.kwad.sdk.utils.x.putValue(jSONObject, "url", this.url);
-            return jSONObject;
-        }
-    }
-
-    public n(com.kwad.sdk.core.webview.b bVar) {
-        this.YR = bVar;
-    }
-
-    @Override // com.kwad.sdk.core.webview.c.a
-    public final void a(String str, @NonNull com.kwad.sdk.core.webview.c.c cVar) {
-        try {
-            a aVar = new a();
-            aVar.parseJson(new JSONObject(str));
-            String str2 = aVar.url;
-            if (TextUtils.isEmpty(str2)) {
-                cVar.onError(-1, "no download url specified");
-            } else {
-                com.kwad.sdk.core.download.a.dJ(str2);
-                cVar.a(null);
+            if (yVar.ri()) {
+                n.this.b(yVar);
+            } else if (yVar.rh()) {
+                n.this.c(yVar);
+            } else if (yVar.isFailed()) {
+                n.this.d(yVar);
             }
-        } catch (Throwable th2) {
-            com.kwad.sdk.core.d.c.printStackTraceOnly(th2);
-            cVar.onError(-1, th2.getMessage());
         }
     }
 
-    @Override // com.kwad.sdk.core.webview.c.a
-    @NonNull
-    public final String getKey() {
-        return "cancelAppDownload";
+    protected void a(com.kwad.components.core.webview.a.a.y yVar) {
     }
 
-    @Override // com.kwad.sdk.core.webview.c.a
-    public final void onDestroy() {
+    protected void b(com.kwad.components.core.webview.a.a.y yVar) {
+    }
+
+    protected void c(com.kwad.components.core.webview.a.a.y yVar) {
+    }
+
+    protected void d(com.kwad.components.core.webview.a.a.y yVar) {
+    }
+
+    @Override // com.kwad.sdk.core.webview.b.a
+    @NonNull
+    public String getKey() {
+        return "updateVideoPlayStatus";
+    }
+
+    @Override // com.kwad.sdk.core.webview.b.a
+    public final void handleJsCall(String str, @NonNull com.kwad.sdk.core.webview.b.c cVar) {
+        com.kwad.components.core.webview.a.a.y yVar = new com.kwad.components.core.webview.a.a.y();
+        try {
+            yVar.parseJson(new JSONObject(str));
+        } catch (JSONException e2) {
+            com.kwad.sdk.core.d.b.printStackTrace(e2);
+        }
+        bi.runOnUiThread(new Runnable() { // from class: com.kwad.components.core.webview.jshandler.n.1
+            final /* synthetic */ com.kwad.components.core.webview.a.a.y Sq;
+
+            AnonymousClass1(com.kwad.components.core.webview.a.a.y yVar2) {
+                yVar = yVar2;
+            }
+
+            @Override // java.lang.Runnable
+            public final void run() {
+                if (yVar.rg()) {
+                    n.this.a(yVar);
+                    return;
+                }
+                if (yVar.ri()) {
+                    n.this.b(yVar);
+                } else if (yVar.rh()) {
+                    n.this.c(yVar);
+                } else if (yVar.isFailed()) {
+                    n.this.d(yVar);
+                }
+            }
+        });
+    }
+
+    @Override // com.kwad.sdk.core.webview.b.a
+    public void onDestroy() {
     }
 }

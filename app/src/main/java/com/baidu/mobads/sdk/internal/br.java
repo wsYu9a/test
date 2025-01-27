@@ -1,97 +1,39 @@
 package com.baidu.mobads.sdk.internal;
 
 import android.content.Context;
-import android.text.TextUtils;
-import java.io.File;
-import java.io.FileOutputStream;
-import java.io.InputStream;
+import android.content.Intent;
+import android.content.pm.ApplicationInfo;
+import android.content.pm.PackageManager;
+import android.net.Uri;
+import com.ss.android.socialbase.downloader.utils.DownloadExpSwitchCode;
 
-/* loaded from: classes2.dex */
+/* loaded from: classes.dex */
 public class br {
 
-    /* renamed from: a */
-    public static final String f6941a = "IOUtils";
+    /* renamed from: a, reason: collision with root package name */
+    public static final String f5647a = "PackageUtils";
 
-    public static boolean a(String str, String str2) {
+    public static boolean a(Context context, String str) {
         try {
-            File file = new File(str);
-            File file2 = new File(str2);
-            if (file.exists()) {
-                return file.renameTo(file2);
+            ApplicationInfo applicationInfo = context.getPackageManager().getApplicationInfo(str, 0);
+            if (applicationInfo != null) {
+                return str.equals(applicationInfo.packageName);
             }
             return false;
-        } catch (Exception unused) {
+        } catch (Throwable unused) {
             return false;
         }
     }
 
-    public static void a(InputStream inputStream, String str) {
-        FileOutputStream fileOutputStream;
-        FileOutputStream fileOutputStream2 = null;
-        try {
-            fileOutputStream = new FileOutputStream(str);
-        } catch (Throwable th2) {
-            th = th2;
-        }
-        try {
-            byte[] bArr = new byte[1024];
-            while (true) {
-                int read = inputStream.read(bArr);
-                if (read > 0) {
-                    fileOutputStream.write(bArr, 0, read);
-                } else {
-                    inputStream.close();
-                    fileOutputStream.close();
-                    inputStream.close();
-                    fileOutputStream.close();
-                    return;
-                }
-            }
-        } catch (Throwable th3) {
-            th = th3;
-            fileOutputStream2 = fileOutputStream;
-            if (inputStream != null) {
-                inputStream.close();
-            }
-            if (fileOutputStream2 != null) {
-                fileOutputStream2.close();
-            }
-            throw th;
-        }
-    }
-
-    public static void a(Context context, String str, String str2) {
-        try {
-            a(context.getAssets().open(str), str2);
-        } catch (Exception e10) {
-            bt.a().a(e10);
-        }
-    }
-
-    public static boolean a(File file) {
-        if (file == null) {
+    public static boolean b(Context context, String str) {
+        if (context == null) {
             return false;
         }
         try {
-            if (file.exists() && file.canRead()) {
-                return file.length() > 0;
-            }
-            return false;
-        } catch (Exception unused) {
-            return false;
-        }
-    }
-
-    public static boolean a(String str) {
-        try {
-            if (TextUtils.isEmpty(str)) {
-                return false;
-            }
-            File file = new File(str);
-            if (file.exists() && file.canRead()) {
-                return file.length() > 0;
-            }
-            return false;
+            PackageManager packageManager = context.getPackageManager();
+            Intent intent = new Intent("android.intent.action.VIEW", Uri.parse(str));
+            intent.addFlags(DownloadExpSwitchCode.BUGFIX_GETPACKAGEINFO_BY_UNZIP);
+            return packageManager.queryIntentActivities(intent, 65536).size() > 0;
         } catch (Exception unused) {
             return false;
         }

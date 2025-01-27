@@ -1,10 +1,20 @@
 package com.kwad.components.ad.interstitial.d;
 
-import com.kwad.sdk.core.response.model.AdTemplate;
+import android.view.View;
+import androidx.annotation.NonNull;
+import com.kwad.sdk.utils.bl;
 
-/* loaded from: classes2.dex */
-public final class b {
-    public static boolean o(AdTemplate adTemplate) {
-        return com.kwad.sdk.core.response.b.b.cp(adTemplate).closeAfterClick || com.kwad.components.ad.interstitial.b.b.dg();
+/* loaded from: classes.dex */
+public final class b extends com.kwad.components.core.widget.kwai.a {
+    private View mRootView;
+
+    public b(@NonNull View view, int i2) {
+        super(view, 100);
+        this.mRootView = view;
+    }
+
+    @Override // com.kwad.components.core.widget.kwai.a
+    public final boolean et() {
+        return bl.o(this.mRootView, 100);
     }
 }

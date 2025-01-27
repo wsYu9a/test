@@ -14,7 +14,7 @@ import org.json.JSONObject;
 
 @KsAdSdkDynamicApi("com.kwad.sdk.KsAdSDKImpl")
 @Keep
-/* loaded from: classes3.dex */
+/* loaded from: classes2.dex */
 public interface IKsAdSDK {
     @Keep
     void addHp(@NonNull Map<String, String> map);
@@ -112,7 +112,7 @@ public interface IKsAdSDK {
     @KsAdSdkDynamicApi
     @Keep
     @Deprecated
-    void reportBatchEvent(int i10, Map<String, Object> map);
+    void reportBatchEvent(int i2, Map<String, Object> map);
 
     @KsAdSdkDynamicApi
     @Keep
@@ -123,7 +123,7 @@ public interface IKsAdSDK {
 
     @KsAdSdkApi
     @Keep
-    void setAdxEnable(boolean z10);
+    void setAdxEnable(boolean z);
 
     @KsAdSdkDynamicApi
     @Keep
@@ -131,7 +131,7 @@ public interface IKsAdSDK {
 
     @KsAdSdkDynamicApi
     @Keep
-    void setApiVersionCode(int i10);
+    void setApiVersionCode(int i2);
 
     @KsAdSdkDynamicApi
     @Keep
@@ -139,39 +139,31 @@ public interface IKsAdSDK {
 
     @KsAdSdkDynamicApi
     @Keep
-    void setInitStartTime(long j10);
+    void setIsExternal(boolean z);
 
     @KsAdSdkDynamicApi
     @Keep
-    void setIsExternal(boolean z10);
+    void setLaunchTime(long j2);
 
     @KsAdSdkDynamicApi
     @Keep
-    void setLaunchTime(long j10);
+    void setLoadingLottieAnimation(boolean z, @RawRes int i2);
 
     @KsAdSdkDynamicApi
     @Keep
-    void setLoadingLottieAnimation(boolean z10, @RawRes int i10);
+    void setLoadingLottieAnimationColor(boolean z, @ColorInt int i2);
 
     @KsAdSdkDynamicApi
     @Keep
-    void setLoadingLottieAnimationColor(boolean z10, @ColorInt int i10);
+    void setPersonalRecommend(boolean z);
 
     @KsAdSdkDynamicApi
     @Keep
-    void setPersonalRecommend(boolean z10);
+    void setProgrammaticRecommend(boolean z);
 
     @KsAdSdkDynamicApi
     @Keep
-    void setProgrammaticRecommend(boolean z10);
-
-    @KsAdSdkDynamicApi
-    @Keep
-    void setThemeMode(int i10);
-
-    @KsAdSdkDynamicApi
-    @Keep
-    void start();
+    void setThemeMode(int i2);
 
     @KsAdSdkDynamicApi
     @Keep

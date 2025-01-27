@@ -10,7 +10,7 @@ public class MartianWithdrawOrderList {
         return this.withdrawOrders;
     }
 
-    public void setWithdrawOrders(List<MartianWithdrawOrder> list) {
-        this.withdrawOrders = list;
+    public void setWithdrawOrders(List<MartianWithdrawOrder> withdrawOrders) {
+        this.withdrawOrders = withdrawOrders;
     }
 }

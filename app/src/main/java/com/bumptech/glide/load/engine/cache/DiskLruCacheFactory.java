@@ -3,16 +3,16 @@ package com.bumptech.glide.load.engine.cache;
 import com.bumptech.glide.load.engine.cache.DiskCache;
 import java.io.File;
 
-/* loaded from: classes2.dex */
+/* loaded from: classes.dex */
 public class DiskLruCacheFactory implements DiskCache.Factory {
     private final CacheDirectoryGetter cacheDirectoryGetter;
     private final long diskCacheSize;
 
     /* renamed from: com.bumptech.glide.load.engine.cache.DiskLruCacheFactory$1 */
-    public class AnonymousClass1 implements CacheDirectoryGetter {
+    class AnonymousClass1 implements CacheDirectoryGetter {
         final /* synthetic */ String val$diskCacheFolder;
 
-        public AnonymousClass1(String str) {
+        AnonymousClass1(String str) {
             str = str;
         }
 
@@ -23,11 +23,11 @@ public class DiskLruCacheFactory implements DiskCache.Factory {
     }
 
     /* renamed from: com.bumptech.glide.load.engine.cache.DiskLruCacheFactory$2 */
-    public class AnonymousClass2 implements CacheDirectoryGetter {
+    class AnonymousClass2 implements CacheDirectoryGetter {
         final /* synthetic */ String val$diskCacheFolder;
         final /* synthetic */ String val$diskCacheName;
 
-        public AnonymousClass2(String str, String str2) {
+        AnonymousClass2(String str, String str2) {
             str = str;
             str2 = str2;
         }
@@ -42,11 +42,11 @@ public class DiskLruCacheFactory implements DiskCache.Factory {
         File getCacheDirectory();
     }
 
-    public DiskLruCacheFactory(String str, long j10) {
+    public DiskLruCacheFactory(String str, long j2) {
         this(new CacheDirectoryGetter() { // from class: com.bumptech.glide.load.engine.cache.DiskLruCacheFactory.1
             final /* synthetic */ String val$diskCacheFolder;
 
-            public AnonymousClass1(String str2) {
+            AnonymousClass1(String str2) {
                 str = str2;
             }
 
@@ -54,7 +54,7 @@ public class DiskLruCacheFactory implements DiskCache.Factory {
             public File getCacheDirectory() {
                 return new File(str);
             }
-        }, j10);
+        }, j2);
     }
 
     @Override // com.bumptech.glide.load.engine.cache.DiskCache.Factory
@@ -69,12 +69,12 @@ public class DiskLruCacheFactory implements DiskCache.Factory {
         return null;
     }
 
-    public DiskLruCacheFactory(String str, String str2, long j10) {
+    public DiskLruCacheFactory(String str, String str2, long j2) {
         this(new CacheDirectoryGetter() { // from class: com.bumptech.glide.load.engine.cache.DiskLruCacheFactory.2
             final /* synthetic */ String val$diskCacheFolder;
             final /* synthetic */ String val$diskCacheName;
 
-            public AnonymousClass2(String str3, String str22) {
+            AnonymousClass2(String str3, String str22) {
                 str = str3;
                 str2 = str22;
             }
@@ -83,11 +83,11 @@ public class DiskLruCacheFactory implements DiskCache.Factory {
             public File getCacheDirectory() {
                 return new File(str, str2);
             }
-        }, j10);
+        }, j2);
     }
 
-    public DiskLruCacheFactory(CacheDirectoryGetter cacheDirectoryGetter, long j10) {
-        this.diskCacheSize = j10;
+    public DiskLruCacheFactory(CacheDirectoryGetter cacheDirectoryGetter, long j2) {
+        this.diskCacheSize = j2;
         this.cacheDirectoryGetter = cacheDirectoryGetter;
     }
 }

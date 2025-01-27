@@ -7,7 +7,7 @@ public final class Buffer {
     IOutput output;
     public int size;
 
-    public Buffer(int i10) {
-        this.data = new byte[i10];
+    public Buffer(int i2) {
+        this.data = new byte[i2];
     }
 }

@@ -20,15 +20,15 @@ public class UserDetail {
         return this.userInfo;
     }
 
-    public void setAccount(MartianRPAccount martianRPAccount) {
-        this.account = martianRPAccount;
+    public void setAccount(MartianRPAccount account) {
+        this.account = account;
     }
 
-    public void setTaskAccount(MiTaskAccount miTaskAccount) {
-        this.taskAccount = miTaskAccount;
+    public void setTaskAccount(MiTaskAccount taskAccount) {
+        this.taskAccount = taskAccount;
     }
 
-    public void setUserInfo(MiUser miUser) {
-        this.userInfo = miUser;
+    public void setUserInfo(MiUser userInfo) {
+        this.userInfo = userInfo;
     }
 }

@@ -1,17 +1,18 @@
 package com.nostra13.universalimageloader.core.download;
 
-import com.sigmob.sdk.base.k;
+import b.b.a.b.b;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.Locale;
+import org.apache.http.HttpHost;
 
-/* loaded from: classes3.dex */
+/* loaded from: classes4.dex */
 public interface ImageDownloader {
 
     public enum Scheme {
-        HTTP("http"),
-        HTTPS("https"),
-        FILE(k.f18193y),
+        HTTP(HttpHost.DEFAULT_SCHEME_NAME),
+        HTTPS(b.f4198a),
+        FILE("file"),
         CONTENT("content"),
         ASSETS("assets"),
         DRAWABLE("drawable"),

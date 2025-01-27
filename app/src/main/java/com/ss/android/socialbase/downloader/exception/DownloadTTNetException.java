@@ -2,8 +2,8 @@ package com.ss.android.socialbase.downloader.exception;
 
 /* loaded from: classes4.dex */
 public class DownloadTTNetException extends BaseException {
-    public DownloadTTNetException(int i10, String str) {
-        super(i10, str);
+    public DownloadTTNetException(int i2, String str) {
+        super(i2, str);
     }
 
     public String getRequestLog() {
@@ -15,7 +15,7 @@ public class DownloadTTNetException extends BaseException {
         return this;
     }
 
-    public DownloadTTNetException(int i10, Throwable th2) {
-        super(i10, th2);
+    public DownloadTTNetException(int i2, Throwable th) {
+        super(i2, th);
     }
 }

@@ -16,32 +16,32 @@ public abstract class LoaderManager {
     public interface LoaderCallbacks<D> {
         @NonNull
         @MainThread
-        Loader<D> onCreateLoader(int i10, @Nullable Bundle bundle);
+        Loader<D> onCreateLoader(int i2, @Nullable Bundle bundle);
 
         @MainThread
-        void onLoadFinished(@NonNull Loader<D> loader, D d10);
+        void onLoadFinished(@NonNull Loader<D> loader, D d2);
 
         @MainThread
         void onLoaderReset(@NonNull Loader<D> loader);
     }
 
-    public static void enableDebugLogging(boolean z10) {
-        LoaderManagerImpl.DEBUG = z10;
+    public static void enableDebugLogging(boolean z) {
+        LoaderManagerImpl.f2663b = z;
     }
 
     @NonNull
-    public static <T extends LifecycleOwner & ViewModelStoreOwner> LoaderManager getInstance(@NonNull T t10) {
-        return new LoaderManagerImpl(t10, t10.getViewModelStore());
+    public static <T extends LifecycleOwner & ViewModelStoreOwner> LoaderManager getInstance(@NonNull T t) {
+        return new LoaderManagerImpl(t, t.getViewModelStore());
     }
 
     @MainThread
-    public abstract void destroyLoader(int i10);
+    public abstract void destroyLoader(int i2);
 
     @Deprecated
     public abstract void dump(String str, FileDescriptor fileDescriptor, PrintWriter printWriter, String[] strArr);
 
     @Nullable
-    public abstract <D> Loader<D> getLoader(int i10);
+    public abstract <D> Loader<D> getLoader(int i2);
 
     public boolean hasRunningLoaders() {
         return false;
@@ -49,11 +49,11 @@ public abstract class LoaderManager {
 
     @NonNull
     @MainThread
-    public abstract <D> Loader<D> initLoader(int i10, @Nullable Bundle bundle, @NonNull LoaderCallbacks<D> loaderCallbacks);
+    public abstract <D> Loader<D> initLoader(int i2, @Nullable Bundle bundle, @NonNull LoaderCallbacks<D> loaderCallbacks);
 
     public abstract void markForRedelivery();
 
     @NonNull
     @MainThread
-    public abstract <D> Loader<D> restartLoader(int i10, @Nullable Bundle bundle, @NonNull LoaderCallbacks<D> loaderCallbacks);
+    public abstract <D> Loader<D> restartLoader(int i2, @Nullable Bundle bundle, @NonNull LoaderCallbacks<D> loaderCallbacks);
 }

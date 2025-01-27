@@ -18,12 +18,12 @@ import android.view.animation.Animation;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
-/* loaded from: classes3.dex */
+/* loaded from: classes2.dex */
 interface IFragmentLifecycle {
     @Deprecated
     void onActivityCreated(@Nullable Bundle bundle);
 
-    void onActivityResult(int i10, int i11, Intent intent);
+    void onActivityResult(int i2, int i3, Intent intent);
 
     void onAttach(Activity activity);
 
@@ -37,9 +37,9 @@ interface IFragmentLifecycle {
 
     void onCreate(@Nullable Bundle bundle);
 
-    Animation onCreateAnimation(int i10, boolean z10, int i11);
+    Animation onCreateAnimation(int i2, boolean z, int i3);
 
-    Animator onCreateAnimator(int i10, boolean z10, int i11);
+    Animator onCreateAnimator(int i2, boolean z, int i3);
 
     void onCreateContextMenu(ContextMenu contextMenu, View view, ContextMenu.ContextMenuInfo contextMenuInfo);
 
@@ -56,7 +56,7 @@ interface IFragmentLifecycle {
 
     void onDetach();
 
-    void onHiddenChanged(boolean z10);
+    void onHiddenChanged(boolean z);
 
     void onInflate(Activity activity, AttributeSet attributeSet, Bundle bundle);
 
@@ -64,7 +64,7 @@ interface IFragmentLifecycle {
 
     void onLowMemory();
 
-    void onMultiWindowModeChanged(boolean z10);
+    void onMultiWindowModeChanged(boolean z);
 
     boolean onOptionsItemSelected(MenuItem menuItem);
 
@@ -72,11 +72,11 @@ interface IFragmentLifecycle {
 
     void onPause();
 
-    void onPictureInPictureModeChanged(boolean z10);
+    void onPictureInPictureModeChanged(boolean z);
 
     void onPrepareOptionsMenu(Menu menu);
 
-    void onRequestPermissionsResult(int i10, @NonNull String[] strArr, @NonNull int[] iArr);
+    void onRequestPermissionsResult(int i2, @NonNull String[] strArr, @NonNull int[] iArr);
 
     void onResume();
 

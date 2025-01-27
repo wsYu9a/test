@@ -1,14 +1,14 @@
 package com.bytedance.sdk.openadsdk.api;
 
-/* loaded from: classes2.dex */
+/* loaded from: classes.dex */
 public interface TTILog {
     void d(String str, String str2);
 
     void e(String str, String str2);
 
-    void e(String str, String str2, Throwable th2);
+    void e(String str, String str2, Throwable th);
 
-    void e(String str, Throwable th2);
+    void e(String str, Throwable th);
 
     void flush();
 
@@ -20,7 +20,7 @@ public interface TTILog {
 
     void w(String str, String str2);
 
-    void w(String str, String str2, Throwable th2);
+    void w(String str, String str2, Throwable th);
 
-    void w(String str, Throwable th2);
+    void w(String str, Throwable th);
 }

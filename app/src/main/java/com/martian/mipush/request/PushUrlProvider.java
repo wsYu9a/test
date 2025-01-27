@@ -1,28 +1,28 @@
 package com.martian.mipush.request;
 
 import android.text.TextUtils;
-import com.martian.libmars.common.ConfigSingleton;
-import f9.d;
-import u8.a;
-import u8.b;
+import com.martian.libcomm.http.requests.a;
+import com.martian.libcomm.http.requests.b;
+import com.martian.libmars.c.d;
+import com.martian.libmars.d.h;
 
-/* loaded from: classes3.dex */
+/* loaded from: classes4.dex */
 public class PushUrlProvider extends d {
-    @Override // u8.c
+    @Override // com.martian.libcomm.http.requests.c
     public String getBaseUrl() {
-        return ConfigSingleton.D().J0() ? "http://testpush.taoyuewenhua.net/" : ConfigSingleton.D().z0() ? "http://betapush.taoyuewenhua.net/" : "https://push.taoyuewenhua.net/";
+        return h.F().Q0() ? "http://testpush.taoyuewenhua.net/" : h.F().G0() ? "http://betapush.taoyuewenhua.net/" : "https://push.taoyuewenhua.net/";
     }
 
-    @Override // f9.d, u8.c
-    public String getRequestUrl(b bVar, String str) {
-        StringBuilder sb2 = new StringBuilder(getBaseUrl());
-        sb2.append(bVar.getRequestMethod());
-        sb2.append("?");
-        String d10 = a.d(bVar, str);
-        sb2.append(d10);
-        if (!TextUtils.isEmpty(d10)) {
-            sb2.append("&");
+    @Override // com.martian.libmars.c.d, com.martian.libcomm.http.requests.c
+    public String getRequestUrl(b params, String charset) {
+        StringBuilder sb = new StringBuilder(getBaseUrl());
+        sb.append(params.getRequestMethod());
+        sb.append("?");
+        String d2 = a.d(params, charset);
+        sb.append(d2);
+        if (!TextUtils.isEmpty(d2)) {
+            sb.append("&");
         }
-        return sb2.toString();
+        return sb.toString();
     }
 }

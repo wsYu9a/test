@@ -9,15 +9,15 @@ import java.util.Iterator;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
-/* loaded from: classes3.dex */
+/* loaded from: classes2.dex */
 public class LRULimitedMemoryCache extends LimitedMemoryCache {
     private static final int INITIAL_CAPACITY = 10;
     private static final float LOAD_FACTOR = 1.1f;
     private final Map<String, DecodedResult> lruCache;
 
-    public LRULimitedMemoryCache(int i10) {
-        super(i10);
-        this.lruCache = Collections.synchronizedMap(new LinkedHashMap(10, 1.1f, true));
+    public LRULimitedMemoryCache(int i2) {
+        super(i2);
+        this.lruCache = Collections.synchronizedMap(new LinkedHashMap(10, LOAD_FACTOR, true));
     }
 
     @Override // com.kwad.sdk.core.imageloader.cache.memory.LimitedMemoryCache, com.kwad.sdk.core.imageloader.cache.memory.BaseMemoryCache, com.kwad.sdk.core.imageloader.cache.memory.MemoryCache
@@ -61,16 +61,12 @@ public class LRULimitedMemoryCache extends LimitedMemoryCache {
     public DecodedResult removeNext() {
         DecodedResult decodedResult;
         synchronized (this.lruCache) {
-            try {
-                Iterator<Map.Entry<String, DecodedResult>> it = this.lruCache.entrySet().iterator();
-                if (it.hasNext()) {
-                    decodedResult = it.next().getValue();
-                    it.remove();
-                } else {
-                    decodedResult = null;
-                }
-            } catch (Throwable th2) {
-                throw th2;
+            Iterator<Map.Entry<String, DecodedResult>> it = this.lruCache.entrySet().iterator();
+            if (it.hasNext()) {
+                decodedResult = it.next().getValue();
+                it.remove();
+            } else {
+                decodedResult = null;
             }
         }
         return decodedResult;

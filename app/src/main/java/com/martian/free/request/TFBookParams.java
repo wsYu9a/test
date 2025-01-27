@@ -1,9 +1,9 @@
 package com.martian.free.request;
 
+import com.martian.libcomm.http.requests.d.a;
 import com.martian.mibook.lib.account.request.TYHttpGetParams;
-import v8.a;
 
-/* loaded from: classes3.dex */
+/* loaded from: classes2.dex */
 public class TFBookParams extends TYHttpGetParams {
 
     @a
@@ -13,12 +13,12 @@ public class TFBookParams extends TYHttpGetParams {
         return this.bid;
     }
 
-    @Override // u8.b
+    @Override // com.martian.libcomm.http.requests.b
     public String getRequestMethod() {
         return "tf/book";
     }
 
-    public void setBid(String str) {
-        this.bid = str;
+    public void setBid(String bid) {
+        this.bid = bid;
     }
 }

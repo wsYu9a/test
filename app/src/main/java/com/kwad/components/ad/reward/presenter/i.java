@@ -1,20 +1,45 @@
 package com.kwad.components.ad.reward.presenter;
 
-import com.kwad.sdk.core.response.model.AdInfo;
-import com.kwad.sdk.core.response.model.AdTemplate;
+import com.kwad.sdk.utils.aw;
+import com.kwad.sdk.utils.bi;
 
-/* loaded from: classes2.dex */
-public final class i {
-    public static boolean z(com.kwad.components.ad.reward.g gVar) {
-        com.kwad.components.core.playable.a aVar;
-        AdTemplate adTemplate = gVar.mAdTemplate;
-        AdInfo eb2 = com.kwad.sdk.core.response.b.e.eb(adTemplate);
-        if ((com.kwad.sdk.core.response.b.a.bJ(eb2) && (aVar = gVar.f11691qh) != null && aVar.qW()) || com.kwad.components.ad.reward.a.b.k(eb2) || adTemplate.mXiaomiAppStoreDetailViewOpen) {
-            return false;
+/* loaded from: classes.dex */
+public final class i extends a {
+
+    /* renamed from: com.kwad.components.ad.reward.presenter.i$1 */
+    final class AnonymousClass1 extends aw {
+        final /* synthetic */ Throwable sa;
+
+        AnonymousClass1(Throwable th) {
+            th = th;
         }
-        if (com.kwad.components.ad.reward.a.b.gW()) {
-            return true;
+
+        @Override // com.kwad.sdk.utils.aw
+        public final void doTask() {
+            com.kwad.sdk.crash.b.g(th);
+            i.this.hq();
         }
-        return com.kwad.sdk.core.response.b.a.aF(eb2) && com.kwad.sdk.core.response.b.a.at(eb2);
+    }
+
+    @Override // com.kwad.components.ad.reward.presenter.a, com.kwad.sdk.mvp.Presenter
+    public final void ar() {
+        super.ar();
+        try {
+            this.qt.oN.jH().jB();
+        } catch (Throwable th) {
+            bi.postOnUiThread(new aw() { // from class: com.kwad.components.ad.reward.presenter.i.1
+                final /* synthetic */ Throwable sa;
+
+                AnonymousClass1(Throwable th2) {
+                    th = th2;
+                }
+
+                @Override // com.kwad.sdk.utils.aw
+                public final void doTask() {
+                    com.kwad.sdk.crash.b.g(th);
+                    i.this.hq();
+                }
+            });
+        }
     }
 }

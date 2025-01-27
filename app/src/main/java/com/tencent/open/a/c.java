@@ -1,76 +1,68 @@
 package com.tencent.open.a;
 
-import com.baidu.mobads.sdk.internal.bm;
+import com.baidu.mobads.sdk.internal.bj;
 import java.io.File;
 
 /* loaded from: classes4.dex */
 public class c {
 
     /* renamed from: a */
-    public static int f23146a = 62;
+    public static int f25417a = 62;
 
     /* renamed from: b */
-    public static int f23147b = 60;
+    public static int f25418b = 60;
 
     /* renamed from: c */
-    public static String f23148c = "OpenSDK.Client.File.Tracer";
+    public static String f25419c = "OpenSDK.Client.File.Tracer";
 
     /* renamed from: d */
-    public static String f23149d;
+    public static String f25420d;
 
     /* renamed from: e */
-    public static String f23150e;
+    public static String f25421e;
 
     /* renamed from: f */
-    public static long f23151f;
+    public static long f25422f;
 
     /* renamed from: g */
-    public static int f23152g;
+    public static int f25423g;
 
     /* renamed from: h */
-    public static int f23153h;
+    public static int f25424h;
 
     /* renamed from: i */
-    public static int f23154i;
+    public static int f25425i;
 
     /* renamed from: j */
-    public static String f23155j;
-
-    /* renamed from: k */
-    public static String f23156k;
-
-    /* renamed from: l */
-    public static String f23157l;
-
-    /* renamed from: m */
-    public static int f23158m;
-
-    /* renamed from: n */
-    public static long f23159n;
+    public static String f25426j;
+    public static String k;
+    public static String l;
+    public static int m;
+    public static long n;
 
     static {
-        StringBuilder sb2 = new StringBuilder();
-        sb2.append("Tencent");
+        StringBuilder sb = new StringBuilder();
+        sb.append("Tencent");
         String str = File.separator;
-        sb2.append(str);
-        sb2.append("msflogs");
-        sb2.append(str);
-        sb2.append("com");
-        sb2.append(str);
-        sb2.append("tencent");
-        sb2.append(str);
-        sb2.append("mobileqq");
-        sb2.append(str);
-        f23149d = sb2.toString();
-        f23150e = ".log";
-        f23151f = 8388608L;
-        f23152g = 262144;
-        f23153h = 1024;
-        f23154i = 10000;
-        f23155j = "debug.file.blockcount";
-        f23156k = "debug.file.keepperiod";
-        f23157l = "debug.file.tracelevel";
-        f23158m = 24;
-        f23159n = bm.f6899d;
+        sb.append(str);
+        sb.append("msflogs");
+        sb.append(str);
+        sb.append("com");
+        sb.append(str);
+        sb.append("tencent");
+        sb.append(str);
+        sb.append("mobileqq");
+        sb.append(str);
+        f25420d = sb.toString();
+        f25421e = ".log";
+        f25422f = 8388608L;
+        f25423g = 262144;
+        f25424h = 1024;
+        f25425i = 10000;
+        f25426j = "debug.file.blockcount";
+        k = "debug.file.keepperiod";
+        l = "debug.file.tracelevel";
+        m = 24;
+        n = bj.f5599d;
     }
 }

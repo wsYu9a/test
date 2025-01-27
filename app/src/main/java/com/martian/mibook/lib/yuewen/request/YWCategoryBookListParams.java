@@ -1,9 +1,9 @@
 package com.martian.mibook.lib.yuewen.request;
 
+import com.martian.libcomm.http.requests.d.a;
 import com.martian.mibook.lib.account.request.TYHttpGetParams;
-import v8.a;
 
-/* loaded from: classes3.dex */
+/* loaded from: classes4.dex */
 public class YWCategoryBookListParams extends TYHttpGetParams {
 
     @a
@@ -67,7 +67,7 @@ public class YWCategoryBookListParams extends TYHttpGetParams {
         return num.intValue();
     }
 
-    @Override // u8.b
+    @Override // com.martian.libcomm.http.requests.b
     public String getRequestMethod() {
         return "ty/search_by_category";
     }
@@ -92,43 +92,43 @@ public class YWCategoryBookListParams extends TYHttpGetParams {
         return this.wordCountUpper;
     }
 
-    public void setCategoryId(Integer num) {
-        this.categoryId = num;
+    public void setCategoryId(Integer categoryId) {
+        this.categoryId = categoryId;
     }
 
-    public void setFreeType(Integer num) {
-        this.freeType = num;
+    public void setFreeType(Integer freeType) {
+        this.freeType = freeType;
     }
 
-    public void setFrom(int i10) {
-        this.from = Integer.valueOf(i10);
+    public void setFrom(int from) {
+        this.from = Integer.valueOf(from);
     }
 
-    public void setOrder(Integer num) {
-        this.order = num;
+    public void setOrder(Integer order) {
+        this.order = order;
     }
 
-    public void setPage(Integer num) {
-        this.page = num;
+    public void setPage(Integer page) {
+        this.page = page;
     }
 
-    public void setStatus(Integer num) {
-        this.status = num;
+    public void setStatus(Integer status) {
+        this.status = status;
     }
 
-    public void setSubCategoryId(Integer num) {
-        this.subCategoryId = num;
+    public void setSubCategoryId(Integer subCategoryId) {
+        this.subCategoryId = subCategoryId;
     }
 
-    public void setTags(String str) {
-        this.tags = str;
+    public void setTags(String tags) {
+        this.tags = tags;
     }
 
-    public void setWordCountLower(Integer num) {
-        this.wordCountLower = num;
+    public void setWordCountLower(Integer wordCountLower) {
+        this.wordCountLower = wordCountLower;
     }
 
-    public void setWordCountUpper(Integer num) {
-        this.wordCountUpper = num;
+    public void setWordCountUpper(Integer wordCountUpper) {
+        this.wordCountUpper = wordCountUpper;
     }
 }

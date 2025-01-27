@@ -1,10 +1,10 @@
 package com.baidu.mobads.sdk.api;
 
-import com.baidu.mobads.sdk.internal.bt;
+import com.baidu.mobads.sdk.internal.bq;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-/* loaded from: classes2.dex */
+/* loaded from: classes.dex */
 public class BDDialogParams {
     public static final int ANIM_STYLE_BREATHE = 1;
     public static final int ANIM_STYLE_GUIDE = 3;
@@ -23,18 +23,18 @@ public class BDDialogParams {
             return new BDDialogParams(this);
         }
 
-        public Builder setDlDialogAnimStyle(int i10) {
-            this.mDlDialogAnimStyle = i10;
+        public Builder setDlDialogAnimStyle(int i2) {
+            this.mDlDialogAnimStyle = i2;
             return this;
         }
 
-        public Builder setDlDialogType(int i10) {
-            this.mDlDialogType = i10;
+        public Builder setDlDialogType(int i2) {
+            this.mDlDialogType = i2;
             return this;
         }
     }
 
-    public /* synthetic */ BDDialogParams(Builder builder, AnonymousClass1 anonymousClass1) {
+    /* synthetic */ BDDialogParams(Builder builder, AnonymousClass1 anonymousClass1) {
         this(builder);
     }
 
@@ -43,8 +43,8 @@ public class BDDialogParams {
         try {
             jSONObject.put("type", this.mBuilder.mDlDialogType);
             jSONObject.put("anim_style", this.mBuilder.mDlDialogAnimStyle);
-        } catch (JSONException e10) {
-            bt.a().a(e10);
+        } catch (JSONException e2) {
+            bq.a().a(e2);
         }
         return jSONObject;
     }

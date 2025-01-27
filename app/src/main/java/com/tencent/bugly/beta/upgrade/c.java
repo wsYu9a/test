@@ -1,21 +1,21 @@
 package com.tencent.bugly.beta.upgrade;
 
 /* loaded from: classes4.dex */
-public class c implements Runnable {
+class c implements Runnable {
 
     /* renamed from: a */
-    final /* synthetic */ boolean f22147a;
+    final /* synthetic */ boolean f24646a;
 
     /* renamed from: b */
-    final /* synthetic */ d f22148b;
+    final /* synthetic */ d f24647b;
 
-    public c(d dVar, boolean z10) {
-        this.f22148b = dVar;
-        this.f22147a = z10;
+    c(d dVar, boolean z) {
+        this.f24647b = dVar;
+        this.f24646a = z;
     }
 
     @Override // java.lang.Runnable
     public void run() {
-        this.f22148b.a(this.f22147a);
+        this.f24647b.a(this.f24646a);
     }
 }

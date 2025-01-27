@@ -13,7 +13,7 @@ import com.kwad.sdk.api.core.KsAdSdkDynamicApi;
 
 @KsAdSdkDynamicApi
 @Keep
-/* loaded from: classes3.dex */
+/* loaded from: classes2.dex */
 public class KsFragmentActivity extends FragmentActivity {
     private KsFragmentManager mFragmentManager;
 
@@ -31,29 +31,6 @@ public class KsFragmentActivity extends FragmentActivity {
         return this.mFragmentManager;
     }
 
-    @KsAdSdkDynamicApi
-    @Keep
-    public void onAttachFragment(KsFragment ksFragment) {
-    }
-
-    @Override // androidx.fragment.app.FragmentActivity, android.app.Activity
-    public void onDestroy() {
-        super.onDestroy();
-        ComponentDestroyer.destroyActivity(this);
-    }
-
-    @Override // androidx.fragment.app.FragmentActivity
-    @Keep
-    public final void startActivityFromFragment(@NonNull Fragment fragment, Intent intent, int i10) {
-        super.startActivityFromFragment(fragment, intent, i10);
-    }
-
-    @Override // androidx.fragment.app.FragmentActivity
-    @Keep
-    public void supportFinishAfterTransition() {
-        super.supportFinishAfterTransition();
-    }
-
     /* JADX WARN: Multi-variable type inference failed */
     @Override // androidx.fragment.app.FragmentActivity
     @Keep
@@ -64,9 +41,32 @@ public class KsFragmentActivity extends FragmentActivity {
         }
     }
 
+    @KsAdSdkDynamicApi
+    @Keep
+    public void onAttachFragment(KsFragment ksFragment) {
+    }
+
+    @Override // androidx.fragment.app.FragmentActivity, android.app.Activity
+    protected void onDestroy() {
+        super.onDestroy();
+        ComponentDestroyer.destroyActivity(this);
+    }
+
     @Override // androidx.fragment.app.FragmentActivity
     @Keep
-    public final void startActivityFromFragment(@NonNull Fragment fragment, Intent intent, int i10, @Nullable Bundle bundle) {
-        super.startActivityFromFragment(fragment, intent, i10, bundle);
+    public final void startActivityFromFragment(@NonNull Fragment fragment, Intent intent, int i2) {
+        super.startActivityFromFragment(fragment, intent, i2);
+    }
+
+    @Override // androidx.fragment.app.FragmentActivity
+    @Keep
+    public final void startActivityFromFragment(@NonNull Fragment fragment, Intent intent, int i2, @Nullable Bundle bundle) {
+        super.startActivityFromFragment(fragment, intent, i2, bundle);
+    }
+
+    @Override // androidx.fragment.app.FragmentActivity
+    @Keep
+    public void supportFinishAfterTransition() {
+        super.supportFinishAfterTransition();
     }
 }

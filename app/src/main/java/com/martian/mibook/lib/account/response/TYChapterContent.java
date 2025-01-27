@@ -33,27 +33,27 @@ public class TYChapterContent {
         return this.sourceName;
     }
 
-    public void setChapterId(String str) {
-        this.chapterId = str;
+    public void setChapterId(String chapterId) {
+        this.chapterId = chapterId;
     }
 
-    public void setChapterTitle(String str) {
-        this.chapterTitle = str;
+    public void setChapterTitle(String chapterTitle) {
+        this.chapterTitle = chapterTitle;
     }
 
-    public void setContent(String str) {
-        this.content = str;
+    public void setContent(String content) {
+        this.content = content;
     }
 
-    public void setNextChapterId(String str) {
-        this.nextChapterId = str;
+    public void setNextChapterId(String nextChapterId) {
+        this.nextChapterId = nextChapterId;
     }
 
-    public void setSourceId(String str) {
-        this.sourceId = str;
+    public void setSourceId(String sourceId) {
+        this.sourceId = sourceId;
     }
 
-    public void setSourceName(String str) {
-        this.sourceName = str;
+    public void setSourceName(String sourceName) {
+        this.sourceName = sourceName;
     }
 }

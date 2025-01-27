@@ -3,13 +3,13 @@ package com.kwad.components.ad.feed;
 import androidx.annotation.NonNull;
 import com.kwad.sdk.core.response.model.AdTemplate;
 
-/* loaded from: classes2.dex */
+/* loaded from: classes.dex */
 public final class f {
-    public static String g(@NonNull AdTemplate adTemplate) {
-        String au = com.kwad.sdk.core.response.b.a.au(com.kwad.sdk.core.response.b.e.eb(adTemplate));
-        if (!com.kwad.components.core.c.b.nl()) {
-            return au;
+    public static String b(@NonNull AdTemplate adTemplate) {
+        String an = com.kwad.sdk.core.response.a.a.an(com.kwad.sdk.core.response.a.d.cb(adTemplate));
+        if (!com.kwad.components.core.b.b.lY()) {
+            return an;
         }
-        return (adTemplate.fromCache ? "【cache】" : "") + au;
+        return (adTemplate.fromCache ? "【cache】" : "") + an;
     }
 }

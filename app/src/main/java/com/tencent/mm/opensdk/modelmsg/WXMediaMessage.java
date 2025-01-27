@@ -45,8 +45,8 @@ public final class WXMediaMessage {
                     wXMediaMessage.mediaObject = iMediaObject;
                     iMediaObject.unserialize(bundle);
                     return wXMediaMessage;
-                } catch (Exception e10) {
-                    Log.e(WXMediaMessage.TAG, "get media object from bundle failed: unknown ident " + pathOldToNew + ", ex = " + e10.getMessage());
+                } catch (Exception e2) {
+                    Log.e(WXMediaMessage.TAG, "get media object from bundle failed: unknown ident " + pathOldToNew + ", ex = " + e2.getMessage());
                 }
             }
             return wXMediaMessage;
@@ -142,7 +142,11 @@ public final class WXMediaMessage {
         this(null);
     }
 
-    public boolean checkArgs() {
+    public WXMediaMessage(IMediaObject iMediaObject) {
+        this.mediaObject = iMediaObject;
+    }
+
+    boolean checkArgs() {
         String str;
         byte[] bArr;
         byte[] bArr2;
@@ -202,12 +206,8 @@ public final class WXMediaMessage {
             bitmap.compress(Bitmap.CompressFormat.JPEG, 85, byteArrayOutputStream);
             this.thumbData = byteArrayOutputStream.toByteArray();
             byteArrayOutputStream.close();
-        } catch (Exception e10) {
-            Log.e(TAG, "setThumbImage exception:" + e10.getMessage());
+        } catch (Exception e2) {
+            Log.e(TAG, "setThumbImage exception:" + e2.getMessage());
         }
-    }
-
-    public WXMediaMessage(IMediaObject iMediaObject) {
-        this.mediaObject = iMediaObject;
     }
 }

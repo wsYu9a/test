@@ -36,6 +36,10 @@ public class SendMessageToWX {
         public Req() {
         }
 
+        public Req(Bundle bundle) {
+            fromBundle(bundle);
+        }
+
         @Override // com.tencent.mm.opensdk.modelbase.BaseReq
         public boolean checkArgs() {
             String str;
@@ -46,13 +50,13 @@ public class SendMessageToWX {
                 if (wXMediaMessage.mediaObject.type() == 6 && this.scene == 2) {
                     ((WXFileObject) this.message.mediaObject).setContentLengthLimit(FAV_CONTENT_LENGTH_LIMIT);
                 }
-                int i10 = this.scene;
-                if (i10 == 3 && this.userOpenId == null) {
+                int i2 = this.scene;
+                if (i2 == 3 && this.userOpenId == null) {
                     str = "Send specifiedContact userOpenId can not be null.";
-                } else if (i10 == 3 && this.openId == null) {
+                } else if (i2 == 3 && this.openId == null) {
                     str = "Send specifiedContact openid can not be null.";
                 } else {
-                    if (i10 != 4) {
+                    if (i2 != 4) {
                         return this.message.checkArgs();
                     }
                     if (this.sceneDataObject != null) {
@@ -77,8 +81,8 @@ public class SendMessageToWX {
                     IWXSceneDataObject iWXSceneDataObject = (IWXSceneDataObject) Class.forName(string).newInstance();
                     this.sceneDataObject = iWXSceneDataObject;
                     iWXSceneDataObject.unserialize(bundle);
-                } catch (Exception e10) {
-                    Log.e(TAG, "get WXSceneDataObject from bundle failed: unknown ident " + string + ", ex = " + e10.getMessage());
+                } catch (Exception e2) {
+                    Log.e(TAG, "get WXSceneDataObject from bundle failed: unknown ident " + string + ", ex = " + e2.getMessage());
                 }
             }
         }
@@ -101,14 +105,14 @@ public class SendMessageToWX {
                 this.sceneDataObject.serialize(bundle);
             }
         }
-
-        public Req(Bundle bundle) {
-            fromBundle(bundle);
-        }
     }
 
     public static class Resp extends BaseResp {
         public Resp() {
+        }
+
+        public Resp(Bundle bundle) {
+            fromBundle(bundle);
         }
 
         @Override // com.tencent.mm.opensdk.modelbase.BaseResp
@@ -129,10 +133,6 @@ public class SendMessageToWX {
         @Override // com.tencent.mm.opensdk.modelbase.BaseResp
         public void toBundle(Bundle bundle) {
             super.toBundle(bundle);
-        }
-
-        public Resp(Bundle bundle) {
-            fromBundle(bundle);
         }
     }
 

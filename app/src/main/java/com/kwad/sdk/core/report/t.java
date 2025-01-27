@@ -1,62 +1,59 @@
 package com.kwad.sdk.core.report;
 
 import android.content.Context;
-import android.content.SharedPreferences;
-import androidx.annotation.WorkerThread;
-import java.util.UUID;
+import android.database.Cursor;
+import androidx.annotation.NonNull;
+import java.util.ArrayList;
+import java.util.List;
+import org.json.JSONException;
+import org.json.JSONObject;
 
-/* loaded from: classes3.dex */
-public final class t {
-    private static String aDh = GC();
-    private static long aDi = 0;
-    private static Context aDj;
+/* loaded from: classes2.dex */
+public class t extends d {
+    private static volatile t ajQ;
+    private final List<r> ajR;
 
-    @WorkerThread
-    public static long GA() {
-        long bx = bx(aDj);
-        b(aDj, 1 + bx);
-        return bx;
+    private t(Context context) {
+        super(new s(context, s.HE));
+        ArrayList arrayList = new ArrayList();
+        this.ajR = arrayList;
+        arrayList.add(new k());
     }
 
-    public static long GB() {
-        return aDi;
-    }
-
-    private static String GC() {
-        return UUID.randomUUID().toString();
-    }
-
-    public static String Gy() {
-        com.kwad.sdk.core.d.c.d("ReportIdManager", ">> updateSessionId");
-        String GC = GC();
-        aDh = GC;
-        return GC;
-    }
-
-    public static String Gz() {
-        return aDh;
-    }
-
-    @WorkerThread
-    private static boolean b(Context context, long j10) {
-        if (context == null) {
-            return false;
+    public static t aU(Context context) {
+        if (ajQ == null) {
+            synchronized (t.class) {
+                if (ajQ == null) {
+                    ajQ = new t(context);
+                }
+            }
         }
-        SharedPreferences.Editor edit = context.getSharedPreferences("ksadsdk_seq", 0).edit();
-        edit.putLong("seq", j10);
-        return edit.commit();
+        return ajQ;
     }
 
-    @WorkerThread
-    private static long bx(Context context) {
-        SharedPreferences sharedPreferences;
-        if (context == null || (sharedPreferences = context.getSharedPreferences("ksadsdk_seq", 0)) == null) {
-            return 0L;
+    @Override // com.kwad.sdk.core.report.d
+    /* renamed from: f */
+    public synchronized q e(@NonNull Cursor cursor) {
+        try {
+            JSONObject jSONObject = new JSONObject(cursor.getString(cursor.getColumnIndex("aLog")));
+            int size = this.ajR.size() - 1;
+            if (size >= 0) {
+                return this.ajR.get(size).h(jSONObject);
+            }
+            return new q(jSONObject);
+        } catch (JSONException e2) {
+            com.kwad.sdk.core.d.b.printStackTrace(e2);
+            return new q("");
         }
-        return sharedPreferences.getLong("seq", 1L);
     }
 
-    public static void init(Context context) {
-        aDj = context;
+    @Override // com.kwad.sdk.core.report.d
+    protected final String getTag() {
+        return "ReportActionDBManager";
+    }
+
+    @Override // com.kwad.sdk.core.report.d
+    protected final String wU() {
+        return "ksad_actions";
     }
 }

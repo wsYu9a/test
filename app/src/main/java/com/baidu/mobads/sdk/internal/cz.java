@@ -1,22 +1,35 @@
 package com.baidu.mobads.sdk.internal;
 
-import com.baidu.mobads.sdk.api.IOAdEvent;
-import com.baidu.mobads.sdk.api.IOAdEventListener;
+import android.app.Activity;
+import android.view.ViewTreeObserver;
+import android.widget.RelativeLayout;
+import java.util.HashMap;
 
-/* loaded from: classes2.dex */
-class cz implements IOAdEventListener {
+/* loaded from: classes.dex */
+class cz implements ViewTreeObserver.OnWindowFocusChangeListener {
 
     /* renamed from: a */
-    final /* synthetic */ cx f7136a;
+    final /* synthetic */ RelativeLayout f5770a;
 
-    public cz(cx cxVar) {
-        this.f7136a = cxVar;
+    /* renamed from: b */
+    final /* synthetic */ cv f5771b;
+
+    cz(cv cvVar, RelativeLayout relativeLayout) {
+        this.f5771b = cvVar;
+        this.f5770a = relativeLayout;
     }
 
-    @Override // com.baidu.mobads.sdk.api.IOAdEventListener
-    public void run(IOAdEvent iOAdEvent) {
-        if (iOAdEvent != null) {
-            this.f7136a.z();
+    @Override // android.view.ViewTreeObserver.OnWindowFocusChangeListener
+    public void onWindowFocusChanged(boolean z) {
+        if (z) {
+            HashMap<String, Object> hashMap = new HashMap<>();
+            hashMap.put("novel_activity", (Activity) this.f5771b.f5588h);
+            hashMap.put("banner_container", this.f5770a);
+            hashMap.put("entry", Integer.valueOf(this.f5771b.D));
+            hashMap.put("channelId", Integer.valueOf(this.f5771b.E));
+            hashMap.put("novel_id", this.f5771b.F);
+            hashMap.put("isnight", Boolean.valueOf(this.f5771b.w()));
+            this.f5771b.a(cv.u, hashMap);
         }
     }
 }

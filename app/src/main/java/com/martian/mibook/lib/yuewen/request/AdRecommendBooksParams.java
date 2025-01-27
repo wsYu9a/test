@@ -1,9 +1,9 @@
 package com.martian.mibook.lib.yuewen.request;
 
+import com.martian.libcomm.http.requests.d.a;
 import com.martian.mibook.lib.account.request.TYAuthoptParams;
-import v8.a;
 
-/* loaded from: classes3.dex */
+/* loaded from: classes4.dex */
 public class AdRecommendBooksParams extends TYAuthoptParams {
 
     @a
@@ -11,9 +11,6 @@ public class AdRecommendBooksParams extends TYAuthoptParams {
 
     @a
     private Integer pageSize;
-
-    @a
-    private Integer seed;
 
     @a
     private String sourceId;
@@ -38,10 +35,6 @@ public class AdRecommendBooksParams extends TYAuthoptParams {
         return this.pageSize;
     }
 
-    public Integer getSeed() {
-        return this.seed;
-    }
-
     public String getSourceId() {
         return this.sourceId;
     }
@@ -50,23 +43,19 @@ public class AdRecommendBooksParams extends TYAuthoptParams {
         return this.sourceName;
     }
 
-    public void setPage(Integer num) {
-        this.page = num;
+    public void setPage(Integer page) {
+        this.page = page;
     }
 
-    public void setPageSize(Integer num) {
-        this.pageSize = num;
+    public void setPageSize(Integer pageSize) {
+        this.pageSize = pageSize;
     }
 
-    public void setSeed(Integer num) {
-        this.seed = num;
+    public void setSourceId(String sourceId) {
+        this.sourceId = sourceId;
     }
 
-    public void setSourceId(String str) {
-        this.sourceId = str;
-    }
-
-    public void setSourceName(String str) {
-        this.sourceName = str;
+    public void setSourceName(String sourceName) {
+        this.sourceName = sourceName;
     }
 }

@@ -3,6 +3,7 @@ package com.tencent.mm.opensdk.channel.a;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import com.baidu.mobads.sdk.internal.bu;
 import com.tencent.mm.opensdk.constants.Build;
 import com.tencent.mm.opensdk.constants.ConstantsAPI;
 import com.tencent.mm.opensdk.utils.Log;
@@ -13,39 +14,39 @@ import java.security.MessageDigest;
 public class a {
 
     /* renamed from: com.tencent.mm.opensdk.channel.a.a$a */
-    public static class C0656a {
+    public static class C0527a {
 
         /* renamed from: a */
-        public String f23048a;
+        public String f25324a;
 
         /* renamed from: b */
-        public String f23049b;
+        public String f25325b;
 
         /* renamed from: c */
-        public String f23050c;
+        public String f25326c;
 
         /* renamed from: d */
-        public long f23051d;
+        public long f25327d;
 
         /* renamed from: e */
-        public Bundle f23052e;
+        public Bundle f25328e;
     }
 
-    public static int a(Bundle bundle, String str, int i10) {
+    public static int a(Bundle bundle, String str, int i2) {
         if (bundle == null) {
-            return i10;
+            return i2;
         }
         try {
-            return bundle.getInt(str, i10);
-        } catch (Exception e10) {
-            Log.e("MicroMsg.IntentUtil", "getIntExtra exception:" + e10.getMessage());
-            return i10;
+            return bundle.getInt(str, i2);
+        } catch (Exception e2) {
+            Log.e("MicroMsg.IntentUtil", "getIntExtra exception:" + e2.getMessage());
+            return i2;
         }
     }
 
-    public static Object a(int i10, String str) {
+    public static Object a(int i2, String str) {
         try {
-            switch (i10) {
+            switch (i2) {
                 case 1:
                     return Integer.valueOf(str);
                 case 2:
@@ -62,8 +63,8 @@ public class a {
                     Log.e("MicroMsg.SDK.PluginProvider.Resolver", "unknown type");
                     return null;
             }
-        } catch (Exception e10) {
-            Log.e("MicroMsg.SDK.PluginProvider.Resolver", "resolveObj exception:" + e10.getMessage());
+        } catch (Exception e2) {
+            Log.e("MicroMsg.SDK.PluginProvider.Resolver", "resolveObj exception:" + e2.getMessage());
             return null;
         }
     }
@@ -74,35 +75,33 @@ public class a {
         }
         try {
             return bundle.getString(str);
-        } catch (Exception e10) {
-            Log.e("MicroMsg.IntentUtil", "getStringExtra exception:" + e10.getMessage());
+        } catch (Exception e2) {
+            Log.e("MicroMsg.IntentUtil", "getStringExtra exception:" + e2.getMessage());
             return null;
         }
     }
 
-    public static boolean a(Context context, C0656a c0656a) {
+    public static boolean a(Context context, C0527a c0527a) {
         String str;
-        String str2;
-        if (context == null || c0656a == null) {
+        if (context == null || c0527a == null) {
             str = "send fail, invalid argument";
         } else {
-            if (!b.b(c0656a.f23049b)) {
-                if (b.b(c0656a.f23048a)) {
-                    str2 = null;
-                } else {
-                    str2 = c0656a.f23048a + ".permission.MM_MESSAGE";
+            if (!b.b(c0527a.f25325b)) {
+                String str2 = null;
+                if (!b.b(c0527a.f25324a)) {
+                    str2 = c0527a.f25324a + ".permission.MM_MESSAGE";
                 }
-                Intent intent = new Intent(c0656a.f23049b);
-                Bundle bundle = c0656a.f23052e;
+                Intent intent = new Intent(c0527a.f25325b);
+                Bundle bundle = c0527a.f25328e;
                 if (bundle != null) {
                     intent.putExtras(bundle);
                 }
                 String packageName = context.getPackageName();
                 intent.putExtra(ConstantsAPI.SDK_VERSION, Build.SDK_INT);
                 intent.putExtra(ConstantsAPI.APP_PACKAGE, packageName);
-                intent.putExtra(ConstantsAPI.CONTENT, c0656a.f23050c);
-                intent.putExtra(ConstantsAPI.APP_SUPORT_CONTENT_TYPE, c0656a.f23051d);
-                intent.putExtra(ConstantsAPI.CHECK_SUM, a(c0656a.f23050c, Build.SDK_INT, packageName));
+                intent.putExtra(ConstantsAPI.CONTENT, c0527a.f25326c);
+                intent.putExtra(ConstantsAPI.APP_SUPORT_CONTENT_TYPE, c0527a.f25327d);
+                intent.putExtra(ConstantsAPI.CHECK_SUM, a(c0527a.f25326c, Build.SDK_INT, packageName));
                 context.sendBroadcast(intent, str2);
                 Log.d("MicroMsg.SDK.MMessage", "send mm message, intent=" + intent + ", perm=" + str2);
                 return true;
@@ -114,25 +113,25 @@ public class a {
     }
 
     /* JADX WARN: Multi-variable type inference failed */
-    /* JADX WARN: Not initialized variable reg: 4, insn: 0x010d: MOVE (r2 I:??[OBJECT, ARRAY]) = (r4 I:??[OBJECT, ARRAY]), block:B:174:0x010d */
-    /* JADX WARN: Removed duplicated region for block: B:101:0x0108 A[EXC_TOP_SPLITTER, SYNTHETIC] */
-    /* JADX WARN: Removed duplicated region for block: B:105:0x0101 A[EXC_TOP_SPLITTER, SYNTHETIC] */
-    /* JADX WARN: Removed duplicated region for block: B:109:0x00fa A[EXC_TOP_SPLITTER, SYNTHETIC] */
-    /* JADX WARN: Removed duplicated region for block: B:119:0x0177 A[EXC_TOP_SPLITTER, SYNTHETIC] */
-    /* JADX WARN: Removed duplicated region for block: B:125:? A[SYNTHETIC] */
-    /* JADX WARN: Removed duplicated region for block: B:126:0x0170 A[EXC_TOP_SPLITTER, SYNTHETIC] */
-    /* JADX WARN: Removed duplicated region for block: B:130:0x0169 A[EXC_TOP_SPLITTER, SYNTHETIC] */
-    /* JADX WARN: Removed duplicated region for block: B:61:0x0161 A[EXC_TOP_SPLITTER, SYNTHETIC] */
-    /* JADX WARN: Removed duplicated region for block: B:65:0x015a A[EXC_TOP_SPLITTER, SYNTHETIC] */
-    /* JADX WARN: Removed duplicated region for block: B:69:0x0153 A[EXC_TOP_SPLITTER, SYNTHETIC] */
-    /* JADX WARN: Removed duplicated region for block: B:81:0x0136 A[EXC_TOP_SPLITTER, SYNTHETIC] */
-    /* JADX WARN: Removed duplicated region for block: B:85:0x012f A[EXC_TOP_SPLITTER, SYNTHETIC] */
-    /* JADX WARN: Removed duplicated region for block: B:89:0x0128 A[EXC_TOP_SPLITTER, SYNTHETIC] */
+    /* JADX WARN: Not initialized variable reg: 4, insn: 0x015b: MOVE (r2 I:??[OBJECT, ARRAY]) = (r4 I:??[OBJECT, ARRAY]), block:B:171:0x015b */
+    /* JADX WARN: Removed duplicated region for block: B:102:0x00f1 A[EXC_TOP_SPLITTER, SYNTHETIC] */
+    /* JADX WARN: Removed duplicated region for block: B:106:0x00ea A[EXC_TOP_SPLITTER, SYNTHETIC] */
+    /* JADX WARN: Removed duplicated region for block: B:116:0x016e A[EXC_TOP_SPLITTER, SYNTHETIC] */
+    /* JADX WARN: Removed duplicated region for block: B:122:? A[SYNTHETIC] */
+    /* JADX WARN: Removed duplicated region for block: B:123:0x0167 A[EXC_TOP_SPLITTER, SYNTHETIC] */
+    /* JADX WARN: Removed duplicated region for block: B:127:0x0160 A[EXC_TOP_SPLITTER, SYNTHETIC] */
+    /* JADX WARN: Removed duplicated region for block: B:60:0x0156 A[EXC_TOP_SPLITTER, SYNTHETIC] */
+    /* JADX WARN: Removed duplicated region for block: B:64:0x014f A[EXC_TOP_SPLITTER, SYNTHETIC] */
+    /* JADX WARN: Removed duplicated region for block: B:68:0x0148 A[EXC_TOP_SPLITTER, SYNTHETIC] */
+    /* JADX WARN: Removed duplicated region for block: B:79:0x0127 A[EXC_TOP_SPLITTER, SYNTHETIC] */
+    /* JADX WARN: Removed duplicated region for block: B:83:0x0120 A[EXC_TOP_SPLITTER, SYNTHETIC] */
+    /* JADX WARN: Removed duplicated region for block: B:87:0x0119 A[EXC_TOP_SPLITTER, SYNTHETIC] */
+    /* JADX WARN: Removed duplicated region for block: B:98:0x00f8 A[EXC_TOP_SPLITTER, SYNTHETIC] */
     /* JADX WARN: Type inference failed for: r3v1 */
     /* JADX WARN: Type inference failed for: r3v27 */
     /* JADX WARN: Type inference failed for: r3v31 */
     /* JADX WARN: Type inference failed for: r8v2, types: [java.net.HttpURLConnection] */
-    /* JADX WARN: Type inference failed for: r8v20, types: [java.net.HttpURLConnection, java.net.URLConnection] */
+    /* JADX WARN: Type inference failed for: r8v20, types: [java.net.HttpURLConnection] */
     /* JADX WARN: Type inference failed for: r8v32 */
     /* JADX WARN: Type inference failed for: r8v33 */
     /* JADX WARN: Type inference failed for: r8v34 */
@@ -142,34 +141,34 @@ public class a {
     */
     public static byte[] a(java.lang.String r8, int r9) {
         /*
-            Method dump skipped, instructions count: 385
+            Method dump skipped, instructions count: 376
             To view this dump change 'Code comments level' option to 'DEBUG'
         */
         throw new UnsupportedOperationException("Method not decompiled: com.tencent.mm.opensdk.channel.a.a.a(java.lang.String, int):byte[]");
     }
 
-    public static byte[] a(String str, int i10, String str2) {
+    public static byte[] a(String str, int i2, String str2) {
         String str3;
         StringBuffer stringBuffer = new StringBuffer();
         if (str != null) {
             stringBuffer.append(str);
         }
-        stringBuffer.append(i10);
+        stringBuffer.append(i2);
         stringBuffer.append(str2);
         stringBuffer.append("mMcShCsTr");
         byte[] bytes = stringBuffer.toString().substring(1, 9).getBytes();
         char[] cArr = {'0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'a', 'b', 'c', 'd', 'e', 'f'};
         try {
-            MessageDigest messageDigest = MessageDigest.getInstance("MD5");
+            MessageDigest messageDigest = MessageDigest.getInstance(bu.f5659a);
             messageDigest.update(bytes);
             byte[] digest = messageDigest.digest();
             char[] cArr2 = new char[digest.length * 2];
-            int i11 = 0;
-            for (byte b10 : digest) {
-                int i12 = i11 + 1;
-                cArr2[i11] = cArr[(b10 >>> 4) & 15];
-                i11 += 2;
-                cArr2[i12] = cArr[b10 & 15];
+            int i3 = 0;
+            for (byte b2 : digest) {
+                int i4 = i3 + 1;
+                cArr2[i3] = cArr[(b2 >>> 4) & 15];
+                i3 = i4 + 1;
+                cArr2[i4] = cArr[b2 & 15];
             }
             str3 = new String(cArr2);
         } catch (Exception unused) {

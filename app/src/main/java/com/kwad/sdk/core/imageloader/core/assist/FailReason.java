@@ -1,6 +1,6 @@
 package com.kwad.sdk.core.imageloader.core.assist;
 
-/* loaded from: classes3.dex */
+/* loaded from: classes2.dex */
 public class FailReason {
     private final Throwable cause;
     private final FailType type;
@@ -13,9 +13,9 @@ public class FailReason {
         UNKNOWN
     }
 
-    public FailReason(FailType failType, Throwable th2) {
+    public FailReason(FailType failType, Throwable th) {
         this.type = failType;
-        this.cause = th2;
+        this.cause = th;
     }
 
     public Throwable getCause() {

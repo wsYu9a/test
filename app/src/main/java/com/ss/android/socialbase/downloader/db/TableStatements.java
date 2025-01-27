@@ -26,12 +26,8 @@ public class TableStatements {
         if (this.deleteStatement == null) {
             SQLiteStatement compileStatement = this.database.compileStatement(SqlUtils.createSqlDelete(this.tableName, this.pkColumns));
             synchronized (this) {
-                try {
-                    if (this.deleteStatement == null) {
-                        this.deleteStatement = compileStatement;
-                    }
-                } catch (Throwable th2) {
-                    throw th2;
+                if (this.deleteStatement == null) {
+                    this.deleteStatement = compileStatement;
                 }
             }
             if (this.deleteStatement != compileStatement) {
@@ -45,12 +41,8 @@ public class TableStatements {
         if (this.insertOrReplaceStatement == null) {
             SQLiteStatement compileStatement = this.database.compileStatement(SqlUtils.createSqlInsertOrReplace(this.tableName, this.allColumns, this.pkColumns));
             synchronized (this) {
-                try {
-                    if (this.insertOrReplaceStatement == null) {
-                        this.insertOrReplaceStatement = compileStatement;
-                    }
-                } catch (Throwable th2) {
-                    throw th2;
+                if (this.insertOrReplaceStatement == null) {
+                    this.insertOrReplaceStatement = compileStatement;
                 }
             }
             if (this.insertOrReplaceStatement != compileStatement) {
@@ -64,12 +56,8 @@ public class TableStatements {
         if (this.insertStatement == null) {
             SQLiteStatement compileStatement = this.database.compileStatement(SqlUtils.createSqlInsert("INSERT INTO ", this.tableName, this.allColumns));
             synchronized (this) {
-                try {
-                    if (this.insertStatement == null) {
-                        this.insertStatement = compileStatement;
-                    }
-                } catch (Throwable th2) {
-                    throw th2;
+                if (this.insertStatement == null) {
+                    this.insertStatement = compileStatement;
                 }
             }
             if (this.insertStatement != compileStatement) {
@@ -83,12 +71,8 @@ public class TableStatements {
         if (this.updateStatement == null) {
             SQLiteStatement compileStatement = this.database.compileStatement(SqlUtils.createSqlUpdate(this.tableName, this.allColumns, this.pkColumns));
             synchronized (this) {
-                try {
-                    if (this.updateStatement == null) {
-                        this.updateStatement = compileStatement;
-                    }
-                } catch (Throwable th2) {
-                    throw th2;
+                if (this.updateStatement == null) {
+                    this.updateStatement = compileStatement;
                 }
             }
             if (this.updateStatement != compileStatement) {

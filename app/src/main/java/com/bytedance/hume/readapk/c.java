@@ -1,25 +1,29 @@
 package com.bytedance.hume.readapk;
 
-/* loaded from: classes2.dex */
+/* loaded from: classes.dex */
 public final class c<A, B> {
 
     /* renamed from: a, reason: collision with root package name */
-    private final A f7446a;
+    private final A f5969a;
 
     /* renamed from: b, reason: collision with root package name */
-    private final B f7447b;
+    private final B f5970b;
 
-    private c(A a10, B b10) {
-        this.f7446a = a10;
-        this.f7447b = b10;
+    private c(A a2, B b2) {
+        this.f5969a = a2;
+        this.f5970b = b2;
     }
 
-    public static <A, B> c<A, B> a(A a10, B b10) {
-        return new c<>(a10, b10);
+    public static <A, B> c<A, B> a(A a2, B b2) {
+        return new c<>(a2, b2);
+    }
+
+    public A a() {
+        return this.f5969a;
     }
 
     public B b() {
-        return this.f7447b;
+        return this.f5970b;
     }
 
     public boolean equals(Object obj) {
@@ -30,34 +34,30 @@ public final class c<A, B> {
             return false;
         }
         c cVar = (c) obj;
-        A a10 = this.f7446a;
-        if (a10 == null) {
-            if (cVar.f7446a != null) {
+        A a2 = this.f5969a;
+        if (a2 == null) {
+            if (cVar.f5969a != null) {
                 return false;
             }
-        } else if (!a10.equals(cVar.f7446a)) {
+        } else if (!a2.equals(cVar.f5969a)) {
             return false;
         }
-        B b10 = this.f7447b;
-        B b11 = cVar.f7447b;
-        if (b10 == null) {
-            if (b11 != null) {
+        B b2 = this.f5970b;
+        B b3 = cVar.f5970b;
+        if (b2 == null) {
+            if (b3 != null) {
                 return false;
             }
-        } else if (!b10.equals(b11)) {
+        } else if (!b2.equals(b3)) {
             return false;
         }
         return true;
     }
 
     public int hashCode() {
-        A a10 = this.f7446a;
-        int hashCode = ((a10 == null ? 0 : a10.hashCode()) + 31) * 31;
-        B b10 = this.f7447b;
-        return hashCode + (b10 != null ? b10.hashCode() : 0);
-    }
-
-    public A a() {
-        return this.f7446a;
+        A a2 = this.f5969a;
+        int hashCode = ((a2 == null ? 0 : a2.hashCode()) + 31) * 31;
+        B b2 = this.f5970b;
+        return hashCode + (b2 != null ? b2.hashCode() : 0);
     }
 }

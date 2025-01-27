@@ -4,7 +4,7 @@ import org.json.JSONObject;
 
 /* loaded from: classes4.dex */
 public interface InnerEventListener {
-    void onEvent(int i10, String str, JSONObject jSONObject);
+    void onEvent(int i2, String str, JSONObject jSONObject);
 
-    void onUnityEvent(int i10, String str, JSONObject jSONObject);
+    void onUnityEvent(int i2, String str, JSONObject jSONObject);
 }

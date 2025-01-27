@@ -8,7 +8,7 @@ import androidx.appcompat.view.menu.MenuBuilder;
 import androidx.appcompat.view.menu.MenuItemImpl;
 
 @RestrictTo({RestrictTo.Scope.LIBRARY_GROUP})
-/* loaded from: classes2.dex */
+/* loaded from: classes.dex */
 public class NavigationMenu extends MenuBuilder {
     public NavigationMenu(Context context) {
         super(context);
@@ -16,10 +16,10 @@ public class NavigationMenu extends MenuBuilder {
 
     @Override // androidx.appcompat.view.menu.MenuBuilder, android.view.Menu
     @NonNull
-    public SubMenu addSubMenu(int i10, int i11, int i12, CharSequence charSequence) {
-        MenuItemImpl menuItemImpl = (MenuItemImpl) addInternal(i10, i11, i12, charSequence);
-        NavigationSubMenu navigationSubMenu = new NavigationSubMenu(getContext(), this, menuItemImpl);
-        menuItemImpl.setSubMenu(navigationSubMenu);
-        return navigationSubMenu;
+    public SubMenu addSubMenu(int i2, int i3, int i4, CharSequence charSequence) {
+        MenuItemImpl menuItemImpl = (MenuItemImpl) a(i2, i3, i4, charSequence);
+        g gVar = new g(getContext(), this, menuItemImpl);
+        menuItemImpl.setSubMenu(gVar);
+        return gVar;
     }
 }

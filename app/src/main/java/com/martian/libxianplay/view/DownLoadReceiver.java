@@ -7,12 +7,13 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.net.Uri;
-import android.text.TextUtils;
+import android.os.Build;
+import android.os.Environment;
 import android.util.Log;
 import androidx.core.content.FileProvider;
-import ba.b;
-import ba.m;
+import com.ss.android.downloadad.api.constant.AdBaseConstants;
 import com.ss.android.socialbase.downloader.constants.DownloadConstants;
+import com.ss.android.socialbase.downloader.utils.DownloadExpSwitchCode;
 import java.io.File;
 
 /* loaded from: classes3.dex */
@@ -29,26 +30,28 @@ public class DownLoadReceiver extends BroadcastReceiver {
         this.downloadManager = downloadManager;
         Cursor query2 = downloadManager.query(query);
         if (query2.moveToFirst()) {
-            int i10 = query2.getInt(Math.max(0, query2.getColumnIndex("status")));
-            this.apkName = query2.getString(Math.max(0, query2.getColumnIndex("title")));
-            if (i10 != 1) {
-                if (i10 != 2) {
-                    if (i10 != 4) {
-                        if (i10 != 8) {
-                            if (i10 != 16) {
+            int i2 = query2.getInt(query2.getColumnIndex("status"));
+            this.apkName = query2.getString(query2.getColumnIndex("title"));
+            if (i2 != 1) {
+                if (i2 != 2) {
+                    if (i2 != 4) {
+                        if (i2 != 8) {
+                            if (i2 != 16) {
                                 return;
                             }
                             Log.i("DownLoadService", ">>>下载失败");
                             return;
-                        } else {
-                            Log.i("DownLoadService", ">>>下载完成");
-                            File i11 = b.i();
-                            if (i11 == null || TextUtils.isEmpty(this.apkName)) {
-                                return;
-                            }
-                            installAPK(context, new File(i11, this.apkName));
-                            return;
                         }
+                        Log.i("DownLoadService", ">>>下载完成");
+                        StringBuilder sb = new StringBuilder();
+                        sb.append(Environment.getExternalStorageDirectory().getAbsolutePath());
+                        String str = File.separator;
+                        sb.append(str);
+                        sb.append("51xianwan");
+                        sb.append(str);
+                        sb.append(this.apkName);
+                        installAPK(context, new File(sb.toString()));
+                        return;
                     }
                     Log.i("DownLoadService", ">>>下载暂停");
                 }
@@ -59,19 +62,19 @@ public class DownLoadReceiver extends BroadcastReceiver {
         }
     }
 
-    public void installAPK(Context context, File file) {
+    protected void installAPK(Context context, File file) {
         Uri parse;
         if (file.exists()) {
             Intent intent = new Intent("android.intent.action.VIEW");
-            int i10 = context.getApplicationInfo().targetSdkVersion;
-            if (!m.o() || i10 < 24) {
-                parse = Uri.parse("file://" + file);
-                intent.setFlags(268435456);
+            int i2 = context.getApplicationInfo().targetSdkVersion;
+            if (Build.VERSION.SDK_INT < 24 || i2 < 24) {
+                parse = Uri.parse("file://" + file.toString());
+                intent.setFlags(DownloadExpSwitchCode.BUGFIX_GETPACKAGEINFO_BY_UNZIP);
             } else {
                 parse = FileProvider.getUriForFile(context, this.mContext.getApplicationContext().getPackageName() + ".fileProvider", file);
                 intent.addFlags(268435457);
             }
-            intent.setDataAndType(parse, "application/vnd.android.package-archive");
+            intent.setDataAndType(parse, AdBaseConstants.MIME_APK);
             context.startActivity(intent);
         }
     }

@@ -21,22 +21,36 @@ import androidx.appcompat.view.menu.ShowableListMenu;
 
 /* loaded from: classes.dex */
 public class PopupMenu {
-    private final View mAnchor;
-    private final Context mContext;
-    private View.OnTouchListener mDragListener;
-    private final MenuBuilder mMenu;
-    OnMenuItemClickListener mMenuItemClickListener;
-    OnDismissListener mOnDismissListener;
-    final MenuPopupHelper mPopup;
+
+    /* renamed from: a */
+    private final Context f865a;
+
+    /* renamed from: b */
+    private final MenuBuilder f866b;
+
+    /* renamed from: c */
+    private final View f867c;
+
+    /* renamed from: d */
+    final MenuPopupHelper f868d;
+
+    /* renamed from: e */
+    OnMenuItemClickListener f869e;
+
+    /* renamed from: f */
+    OnDismissListener f870f;
+
+    /* renamed from: g */
+    private View.OnTouchListener f871g;
 
     /* renamed from: androidx.appcompat.widget.PopupMenu$1 */
-    public class AnonymousClass1 implements MenuBuilder.Callback {
-        public AnonymousClass1() {
+    class AnonymousClass1 implements MenuBuilder.Callback {
+        AnonymousClass1() {
         }
 
         @Override // androidx.appcompat.view.menu.MenuBuilder.Callback
-        public boolean onMenuItemSelected(@NonNull MenuBuilder menuBuilder, @NonNull MenuItem menuItem) {
-            OnMenuItemClickListener onMenuItemClickListener = PopupMenu.this.mMenuItemClickListener;
+        public boolean onMenuItemSelected(MenuBuilder menuBuilder, MenuItem menuItem) {
+            OnMenuItemClickListener onMenuItemClickListener = PopupMenu.this.f869e;
             if (onMenuItemClickListener != null) {
                 return onMenuItemClickListener.onMenuItemClick(menuItem);
             }
@@ -44,19 +58,19 @@ public class PopupMenu {
         }
 
         @Override // androidx.appcompat.view.menu.MenuBuilder.Callback
-        public void onMenuModeChange(@NonNull MenuBuilder menuBuilder) {
+        public void onMenuModeChange(MenuBuilder menuBuilder) {
         }
     }
 
     /* renamed from: androidx.appcompat.widget.PopupMenu$2 */
-    public class AnonymousClass2 implements PopupWindow.OnDismissListener {
-        public AnonymousClass2() {
+    class AnonymousClass2 implements PopupWindow.OnDismissListener {
+        AnonymousClass2() {
         }
 
         @Override // android.widget.PopupWindow.OnDismissListener
         public void onDismiss() {
             PopupMenu popupMenu = PopupMenu.this;
-            OnDismissListener onDismissListener = popupMenu.mOnDismissListener;
+            OnDismissListener onDismissListener = popupMenu.f870f;
             if (onDismissListener != null) {
                 onDismissListener.onDismiss(popupMenu);
             }
@@ -64,24 +78,24 @@ public class PopupMenu {
     }
 
     /* renamed from: androidx.appcompat.widget.PopupMenu$3 */
-    public class AnonymousClass3 extends ForwardingListener {
-        public AnonymousClass3(View view) {
+    class AnonymousClass3 extends ForwardingListener {
+        AnonymousClass3(View view) {
             super(view);
         }
 
         @Override // androidx.appcompat.widget.ForwardingListener
         public ShowableListMenu getPopup() {
-            return PopupMenu.this.mPopup.getPopup();
+            return PopupMenu.this.f868d.getPopup();
         }
 
         @Override // androidx.appcompat.widget.ForwardingListener
-        public boolean onForwardingStarted() {
+        protected boolean onForwardingStarted() {
             PopupMenu.this.show();
             return true;
         }
 
         @Override // androidx.appcompat.widget.ForwardingListener
-        public boolean onForwardingStopped() {
+        protected boolean onForwardingStopped() {
             PopupMenu.this.dismiss();
             return true;
         }
@@ -99,101 +113,97 @@ public class PopupMenu {
         this(context, view, 0);
     }
 
+    @RestrictTo({RestrictTo.Scope.LIBRARY_GROUP_PREFIX})
+    ListView a() {
+        if (this.f868d.isShowing()) {
+            return this.f868d.getListView();
+        }
+        return null;
+    }
+
     public void dismiss() {
-        this.mPopup.dismiss();
+        this.f868d.dismiss();
     }
 
     @NonNull
     public View.OnTouchListener getDragToOpenListener() {
-        if (this.mDragListener == null) {
-            this.mDragListener = new ForwardingListener(this.mAnchor) { // from class: androidx.appcompat.widget.PopupMenu.3
-                public AnonymousClass3(View view) {
+        if (this.f871g == null) {
+            this.f871g = new ForwardingListener(this.f867c) { // from class: androidx.appcompat.widget.PopupMenu.3
+                AnonymousClass3(View view) {
                     super(view);
                 }
 
                 @Override // androidx.appcompat.widget.ForwardingListener
                 public ShowableListMenu getPopup() {
-                    return PopupMenu.this.mPopup.getPopup();
+                    return PopupMenu.this.f868d.getPopup();
                 }
 
                 @Override // androidx.appcompat.widget.ForwardingListener
-                public boolean onForwardingStarted() {
+                protected boolean onForwardingStarted() {
                     PopupMenu.this.show();
                     return true;
                 }
 
                 @Override // androidx.appcompat.widget.ForwardingListener
-                public boolean onForwardingStopped() {
+                protected boolean onForwardingStopped() {
                     PopupMenu.this.dismiss();
                     return true;
                 }
             };
         }
-        return this.mDragListener;
+        return this.f871g;
     }
 
     public int getGravity() {
-        return this.mPopup.getGravity();
+        return this.f868d.getGravity();
     }
 
     @NonNull
     public Menu getMenu() {
-        return this.mMenu;
+        return this.f866b;
     }
 
     @NonNull
     public MenuInflater getMenuInflater() {
-        return new SupportMenuInflater(this.mContext);
+        return new SupportMenuInflater(this.f865a);
     }
 
-    @RestrictTo({RestrictTo.Scope.LIBRARY_GROUP_PREFIX})
-    public ListView getMenuListView() {
-        if (this.mPopup.isShowing()) {
-            return this.mPopup.getListView();
-        }
-        return null;
+    public void inflate(@MenuRes int i2) {
+        getMenuInflater().inflate(i2, this.f866b);
     }
 
-    public void inflate(@MenuRes int i10) {
-        getMenuInflater().inflate(i10, this.mMenu);
-    }
-
-    public void setForceShowIcon(boolean z10) {
-        this.mPopup.setForceShowIcon(z10);
-    }
-
-    public void setGravity(int i10) {
-        this.mPopup.setGravity(i10);
+    public void setGravity(int i2) {
+        this.f868d.setGravity(i2);
     }
 
     public void setOnDismissListener(@Nullable OnDismissListener onDismissListener) {
-        this.mOnDismissListener = onDismissListener;
+        this.f870f = onDismissListener;
     }
 
     public void setOnMenuItemClickListener(@Nullable OnMenuItemClickListener onMenuItemClickListener) {
-        this.mMenuItemClickListener = onMenuItemClickListener;
+        this.f869e = onMenuItemClickListener;
     }
 
     public void show() {
-        this.mPopup.show();
+        this.f868d.show();
     }
 
-    public PopupMenu(@NonNull Context context, @NonNull View view, int i10) {
-        this(context, view, i10, R.attr.popupMenuStyle, 0);
+    public PopupMenu(@NonNull Context context, @NonNull View view, int i2) {
+        this(context, view, i2, R.attr.popupMenuStyle, 0);
     }
 
-    public PopupMenu(@NonNull Context context, @NonNull View view, int i10, @AttrRes int i11, @StyleRes int i12) {
-        this.mContext = context;
-        this.mAnchor = view;
+    public PopupMenu(@NonNull Context context, @NonNull View view, int i2, @AttrRes int i3, @StyleRes int i4) {
+        this.f865a = context;
+        this.f867c = view;
         MenuBuilder menuBuilder = new MenuBuilder(context);
-        this.mMenu = menuBuilder;
+        this.f866b = menuBuilder;
         menuBuilder.setCallback(new MenuBuilder.Callback() { // from class: androidx.appcompat.widget.PopupMenu.1
-            public AnonymousClass1() {
+            AnonymousClass1() {
             }
 
             @Override // androidx.appcompat.view.menu.MenuBuilder.Callback
-            public boolean onMenuItemSelected(@NonNull MenuBuilder menuBuilder2, @NonNull MenuItem menuItem) {
-                OnMenuItemClickListener onMenuItemClickListener = PopupMenu.this.mMenuItemClickListener;
+            public boolean onMenuItemSelected(MenuBuilder menuBuilder2, MenuItem menuItem) {
+                OnMenuItemClickListener onMenuItemClickListener = PopupMenu.this.f869e;
                 if (onMenuItemClickListener != null) {
                     return onMenuItemClickListener.onMenuItemClick(menuItem);
                 }
@@ -201,20 +211,20 @@ public class PopupMenu {
             }
 
             @Override // androidx.appcompat.view.menu.MenuBuilder.Callback
-            public void onMenuModeChange(@NonNull MenuBuilder menuBuilder2) {
+            public void onMenuModeChange(MenuBuilder menuBuilder2) {
             }
         });
-        MenuPopupHelper menuPopupHelper = new MenuPopupHelper(context, menuBuilder, view, false, i11, i12);
-        this.mPopup = menuPopupHelper;
-        menuPopupHelper.setGravity(i10);
+        MenuPopupHelper menuPopupHelper = new MenuPopupHelper(context, menuBuilder, view, false, i3, i4);
+        this.f868d = menuPopupHelper;
+        menuPopupHelper.setGravity(i2);
         menuPopupHelper.setOnDismissListener(new PopupWindow.OnDismissListener() { // from class: androidx.appcompat.widget.PopupMenu.2
-            public AnonymousClass2() {
+            AnonymousClass2() {
             }
 
             @Override // android.widget.PopupWindow.OnDismissListener
             public void onDismiss() {
                 PopupMenu popupMenu = PopupMenu.this;
-                OnDismissListener onDismissListener = popupMenu.mOnDismissListener;
+                OnDismissListener onDismissListener = popupMenu.f870f;
                 if (onDismissListener != null) {
                     onDismissListener.onDismiss(popupMenu);
                 }

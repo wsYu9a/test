@@ -9,74 +9,64 @@ import android.widget.FrameLayout;
 import android.widget.HorizontalScrollView;
 import android.widget.LinearLayout;
 import com.martian.libmars.R;
-import com.martian.libmars.common.ConfigSingleton;
-import com.martian.libmars.utils.tablayout.a;
+import com.martian.libmars.utils.tablayout.k;
 import java.util.ArrayList;
 import java.util.List;
-import m9.e;
-import m9.f;
-import m9.g;
-import m9.i;
 
-/* loaded from: classes3.dex */
-public class CommonNavigator extends FrameLayout implements f, a.InterfaceC0521a, k9.a {
+/* loaded from: classes2.dex */
+public class CommonNavigator extends FrameLayout implements i, k.a, g.a {
+
+    /* renamed from: a */
+    private HorizontalScrollView f10197a;
 
     /* renamed from: b */
-    public HorizontalScrollView f12415b;
+    private LinearLayout f10198b;
 
     /* renamed from: c */
-    public LinearLayout f12416c;
+    private LinearLayout f10199c;
 
     /* renamed from: d */
-    public LinearLayout f12417d;
+    private h f10200d;
 
     /* renamed from: e */
-    public e f12418e;
+    private f f10201e;
 
     /* renamed from: f */
-    public m9.b f12419f;
+    private final k f10202f;
 
     /* renamed from: g */
-    public final com.martian.libmars.utils.tablayout.a f12420g;
+    private int f10203g;
 
     /* renamed from: h */
-    public int f12421h;
+    private int f10204h;
 
     /* renamed from: i */
-    public int f12422i;
+    private float f10205i;
 
     /* renamed from: j */
-    public float f12423j;
+    private int f10206j;
+    private boolean k;
+    private boolean l;
+    private float m;
+    private boolean n;
+    private boolean o;
+    private int p;
+    private int q;
+    private boolean r;
+    private boolean s;
+    private boolean t;
+    private int u;
+    private final List<l> v;
+    private final DataSetObserver w;
 
-    /* renamed from: k */
-    public int f12424k;
-
-    /* renamed from: l */
-    public boolean f12425l;
-
-    /* renamed from: m */
-    public final boolean f12426m;
-
-    /* renamed from: n */
-    public int f12427n;
-
-    /* renamed from: o */
-    public int f12428o;
-
-    /* renamed from: p */
-    public final List<i> f12429p;
-
-    /* renamed from: q */
-    public final DataSetObserver f12430q;
-
-    public class a extends DataSetObserver {
-        public a() {
+    class a extends DataSetObserver {
+        a() {
         }
 
         @Override // android.database.DataSetObserver
         public void onChanged() {
-            CommonNavigator.this.f12420g.m(CommonNavigator.this.f12419f.a());
-            CommonNavigator.this.k();
+            CommonNavigator.this.f10202f.m(CommonNavigator.this.f10201e.a());
+            CommonNavigator.this.m();
         }
 
         @Override // android.database.DataSetObserver
@@ -84,7 +74,7 @@ public class CommonNavigator extends FrameLayout implements f, a.InterfaceC0521a
         }
     }
 
-    public interface b extends g {
+    public interface b extends j {
         int getContentBottom();
 
         int getContentLeft();
@@ -96,310 +86,436 @@ public class CommonNavigator extends FrameLayout implements f, a.InterfaceC0521a
 
     public CommonNavigator(Context context) {
         super(context);
-        this.f12421h = 0;
-        this.f12426m = true;
-        this.f12428o = ConfigSingleton.i(12.0f);
-        this.f12429p = new ArrayList();
-        this.f12430q = new a();
-        com.martian.libmars.utils.tablayout.a aVar = new com.martian.libmars.utils.tablayout.a();
-        this.f12420g = aVar;
-        aVar.k(this);
+        this.f10203g = 0;
+        this.m = 0.5f;
+        this.n = true;
+        this.o = true;
+        this.t = true;
+        this.u = com.martian.libmars.d.h.b(12.0f);
+        this.v = new ArrayList();
+        this.w = new a();
+        k kVar = new k();
+        this.f10202f = kVar;
+        kVar.k(this);
     }
 
-    public void k() {
+    public void m() {
         removeAllViews();
-        View inflate = this.f12425l ? LayoutInflater.from(getContext()).inflate(R.layout.pager_navigator_layout_no_scroll, this) : LayoutInflater.from(getContext()).inflate(R.layout.pager_navigator_layout, this);
-        this.f12415b = (HorizontalScrollView) inflate.findViewById(R.id.scroll_view);
+        View inflate = this.k ? LayoutInflater.from(getContext()).inflate(R.layout.pager_navigator_layout_no_scroll, this) : LayoutInflater.from(getContext()).inflate(R.layout.pager_navigator_layout, this);
+        this.f10197a = (HorizontalScrollView) inflate.findViewById(R.id.scroll_view);
         LinearLayout linearLayout = (LinearLayout) inflate.findViewById(R.id.title_container);
-        this.f12416c = linearLayout;
-        linearLayout.setPadding(this.f12427n, 0, 0, 0);
-        this.f12417d = (LinearLayout) inflate.findViewById(R.id.indicator_container);
-        l();
+        this.f10198b = linearLayout;
+        linearLayout.setPadding(this.q, 0, this.p, 0);
+        LinearLayout linearLayout2 = (LinearLayout) inflate.findViewById(R.id.indicator_container);
+        this.f10199c = linearLayout2;
+        if (this.r) {
+            linearLayout2.getParent().bringChildToFront(this.f10199c);
+        }
+        n();
     }
 
-    @Override // m9.f
-    public void a() {
-        m9.b bVar = this.f12419f;
-        if (bVar != null) {
-            bVar.e();
+    private void n() {
+        LinearLayout.LayoutParams layoutParams;
+        int g2 = this.f10202f.g();
+        for (int i2 = 0; i2 < g2; i2++) {
+            Object c2 = this.f10201e.c(getContext(), i2);
+            if (c2 instanceof View) {
+                View view = (View) c2;
+                if (this.k) {
+                    layoutParams = new LinearLayout.LayoutParams(0, -1);
+                    layoutParams.weight = this.f10201e.d(getContext(), i2);
+                } else {
+                    layoutParams = new LinearLayout.LayoutParams(-2, -1);
+                    int i3 = this.u;
+                    layoutParams.setMargins(i3, 0, i3, 0);
+                }
+                this.f10198b.addView(view, layoutParams);
+            }
+        }
+        f fVar = this.f10201e;
+        if (fVar != null) {
+            h b2 = fVar.b(getContext());
+            this.f10200d = b2;
+            if (b2 instanceof View) {
+                this.f10199c.addView((View) this.f10200d, new FrameLayout.LayoutParams(-1, -1));
+            }
         }
     }
 
-    @Override // com.martian.libmars.utils.tablayout.a.InterfaceC0521a
-    public void b(int i10, int i11) {
-        LinearLayout linearLayout = this.f12416c;
+    /* JADX WARN: Multi-variable type inference failed */
+    private void v() {
+        this.v.clear();
+        int g2 = this.f10202f.g();
+        for (int i2 = 0; i2 < g2; i2++) {
+            l lVar = new l();
+            View childAt = this.f10198b.getChildAt(i2);
+            if (childAt != 0) {
+                lVar.f10255a = childAt.getLeft();
+                lVar.f10256b = childAt.getTop();
+                lVar.f10257c = childAt.getRight();
+                int bottom = childAt.getBottom();
+                lVar.f10258d = bottom;
+                if (childAt instanceof b) {
+                    b bVar = (b) childAt;
+                    lVar.f10259e = bVar.getContentLeft();
+                    lVar.f10260f = bVar.getContentTop();
+                    lVar.f10261g = bVar.getContentRight();
+                    lVar.f10262h = bVar.getContentBottom();
+                } else {
+                    lVar.f10259e = lVar.f10255a;
+                    lVar.f10260f = lVar.f10256b;
+                    lVar.f10261g = lVar.f10257c;
+                    lVar.f10262h = bottom;
+                }
+            }
+            this.v.add(lVar);
+        }
+    }
+
+    @Override // com.martian.libmars.utils.tablayout.k.a
+    public void a(int index, int totalCount) {
+        LinearLayout linearLayout = this.f10198b;
         if (linearLayout == null) {
             return;
         }
-        KeyEvent.Callback childAt = linearLayout.getChildAt(i10);
-        if (childAt instanceof g) {
-            ((g) childAt).b(i10, i11);
+        KeyEvent.Callback childAt = linearLayout.getChildAt(index);
+        if (childAt instanceof j) {
+            ((j) childAt).a(index, totalCount);
         }
     }
 
-    @Override // com.martian.libmars.utils.tablayout.a.InterfaceC0521a
-    public void c(int i10, int i11, float f10, boolean z10) {
-        LinearLayout linearLayout = this.f12416c;
+    @Override // com.martian.libmars.utils.tablayout.k.a
+    public void b(int index, int totalCount, float enterPercent, boolean leftToRight) {
+        LinearLayout linearLayout = this.f10198b;
         if (linearLayout == null) {
             return;
         }
-        KeyEvent.Callback childAt = linearLayout.getChildAt(i10);
-        if (childAt instanceof g) {
-            ((g) childAt).c(i10, i11, f10, z10);
+        KeyEvent.Callback childAt = linearLayout.getChildAt(index);
+        if (childAt instanceof j) {
+            ((j) childAt).b(index, totalCount, enterPercent, leftToRight);
         }
     }
 
-    @Override // com.martian.libmars.utils.tablayout.a.InterfaceC0521a
-    public void d(int i10, int i11) {
-        LinearLayout linearLayout = this.f12416c;
+    @Override // com.martian.libmars.utils.tablayout.k.a
+    public void c(int index, int totalCount) {
+        LinearLayout linearLayout = this.f10198b;
         if (linearLayout == null) {
             return;
         }
-        KeyEvent.Callback childAt = linearLayout.getChildAt(i10);
-        if (childAt instanceof g) {
-            this.f12421h = i10;
-            ((g) childAt).d(i10, i11);
+        KeyEvent.Callback childAt = linearLayout.getChildAt(index);
+        if (childAt instanceof j) {
+            this.f10203g = index;
+            ((j) childAt).c(index, totalCount);
+        }
+        if (this.k || this.o || this.f10197a == null || this.v.size() <= 0) {
+            return;
+        }
+        l lVar = this.v.get(Math.min(this.v.size() - 1, index));
+        if (this.l) {
+            float d2 = lVar.d() - (this.f10197a.getWidth() * this.m);
+            if (this.n) {
+                this.f10197a.smoothScrollTo((int) d2, 0);
+                return;
+            } else {
+                this.f10197a.scrollTo((int) d2, 0);
+                return;
+            }
+        }
+        int scrollX = this.f10197a.getScrollX();
+        int i2 = lVar.f10255a;
+        if (scrollX > i2) {
+            if (this.n) {
+                this.f10197a.smoothScrollTo(i2, 0);
+                return;
+            } else {
+                this.f10197a.scrollTo(i2, 0);
+                return;
+            }
+        }
+        int scrollX2 = this.f10197a.getScrollX() + getWidth();
+        int i3 = lVar.f10257c;
+        if (scrollX2 < i3) {
+            if (this.n) {
+                this.f10197a.smoothScrollTo(i3 - getWidth(), 0);
+            } else {
+                this.f10197a.scrollTo(i3 - getWidth(), 0);
+            }
         }
     }
 
-    @Override // com.martian.libmars.utils.tablayout.a.InterfaceC0521a
-    public void e(int i10, int i11, float f10, boolean z10) {
-        LinearLayout linearLayout = this.f12416c;
+    @Override // com.martian.libmars.utils.tablayout.k.a
+    public void d(int index, int totalCount, float leavePercent, boolean leftToRight) {
+        LinearLayout linearLayout = this.f10198b;
         if (linearLayout == null) {
             return;
         }
-        KeyEvent.Callback childAt = linearLayout.getChildAt(i10);
-        if (childAt instanceof g) {
-            ((g) childAt).e(i10, i11, f10, z10);
+        KeyEvent.Callback childAt = linearLayout.getChildAt(index);
+        if (childAt instanceof j) {
+            ((j) childAt).d(index, totalCount, leavePercent, leftToRight);
         }
     }
 
-    @Override // m9.f
+    @Override // com.martian.libmars.utils.tablayout.i
+    public void e() {
+        f fVar = this.f10201e;
+        if (fVar != null) {
+            fVar.e();
+        }
+    }
+
+    @Override // com.martian.libmars.utils.tablayout.i
     public void f() {
-        k();
+        m();
     }
 
-    @Override // m9.f
+    @Override // g.a
     public void g() {
+        e();
     }
 
-    public m9.b getAdapter() {
-        return this.f12419f;
+    public f getAdapter() {
+        return this.f10201e;
     }
 
-    public int getSelectedPosition() {
-        return this.f12421h;
+    public int getLeftPadding() {
+        return this.q;
+    }
+
+    public int getMarginHorizontal() {
+        return this.u;
+    }
+
+    public h getPagerIndicator() {
+        return this.f10200d;
+    }
+
+    public int getRightPadding() {
+        return this.p;
+    }
+
+    public float getScrollPivotX() {
+        return this.m;
     }
 
     public LinearLayout getTitleContainer() {
-        return this.f12416c;
+        return this.f10198b;
     }
 
     public int getTitleCount() {
-        LinearLayout linearLayout = this.f12416c;
+        LinearLayout linearLayout = this.f10198b;
         if (linearLayout == null) {
             return 0;
         }
         return linearLayout.getChildCount();
     }
 
-    public final void l() {
-        LinearLayout.LayoutParams layoutParams;
-        int g10 = this.f12420g.g();
-        for (int i10 = 0; i10 < g10; i10++) {
-            Object c10 = this.f12419f.c(getContext(), i10);
-            if (c10 instanceof View) {
-                View view = (View) c10;
-                if (this.f12425l) {
-                    layoutParams = new LinearLayout.LayoutParams(0, -1);
-                    layoutParams.weight = this.f12419f.d(getContext(), i10);
-                } else {
-                    layoutParams = new LinearLayout.LayoutParams(-2, -1);
-                    int i11 = this.f12428o;
-                    layoutParams.setMargins(i11, 0, i11, 0);
-                }
-                this.f12416c.addView(view, layoutParams);
-            }
-        }
-        m9.b bVar = this.f12419f;
-        if (bVar != null) {
-            e b10 = bVar.b(getContext());
-            this.f12418e = b10;
-            if (b10 instanceof View) {
-                this.f12417d.addView((View) this.f12418e, new FrameLayout.LayoutParams(-1, -1));
-            }
-        }
+    @Override // com.martian.libmars.utils.tablayout.i
+    public void h() {
     }
 
-    /* JADX WARN: Multi-variable type inference failed */
-    public final void m() {
-        this.f12429p.clear();
-        int g10 = this.f12420g.g();
-        for (int i10 = 0; i10 < g10; i10++) {
-            i iVar = new i();
-            View childAt = this.f12416c.getChildAt(i10);
-            if (childAt != 0) {
-                iVar.f28543a = childAt.getLeft();
-                iVar.f28544b = childAt.getTop();
-                iVar.f28545c = childAt.getRight();
-                int bottom = childAt.getBottom();
-                iVar.f28546d = bottom;
-                if (childAt instanceof b) {
-                    b bVar = (b) childAt;
-                    iVar.f28547e = bVar.getContentLeft();
-                    iVar.f28548f = bVar.getContentTop();
-                    iVar.f28549g = bVar.getContentRight();
-                    iVar.f28550h = bVar.getContentBottom();
-                } else {
-                    iVar.f28547e = iVar.f28543a;
-                    iVar.f28548f = iVar.f28544b;
-                    iVar.f28549g = iVar.f28545c;
-                    iVar.f28550h = bottom;
-                }
-            }
-            this.f12429p.add(iVar);
+    public j l(int index) {
+        LinearLayout linearLayout = this.f10198b;
+        if (linearLayout == null) {
+            return null;
         }
+        return (j) linearLayout.getChildAt(index);
     }
 
-    public void n(int i10) {
-        LinearLayout linearLayout = this.f12417d;
-        if (linearLayout == null || linearLayout.getChildCount() <= 0) {
-            return;
-        }
-        View childAt = this.f12417d.getChildAt(0);
-        if (childAt instanceof LinePagerIndicator) {
-            LinePagerIndicator linePagerIndicator = (LinePagerIndicator) childAt;
-            linePagerIndicator.d(Integer.valueOf(i10));
-            linePagerIndicator.onPageScrolled(this.f12422i, this.f12423j, this.f12424k);
-        }
-    }
-
-    public void o(int i10, int i11) {
-        if (this.f12416c == null) {
-            return;
-        }
-        for (int i12 = 0; i12 < this.f12416c.getChildCount(); i12++) {
-            if (this.f12416c.getChildAt(i12) instanceof SimplePagerTitleView) {
-                SimplePagerTitleView simplePagerTitleView = (SimplePagerTitleView) this.f12416c.getChildAt(i12);
-                simplePagerTitleView.setNormalColor(i10);
-                simplePagerTitleView.setSelectedColor(i11);
-                if (this.f12421h == i12) {
-                    simplePagerTitleView.setTextColor(i11);
-                } else {
-                    simplePagerTitleView.setTextColor(i10);
-                }
-            }
-        }
+    public boolean o() {
+        return this.k;
     }
 
     @Override // android.view.ViewGroup, android.view.View
-    public void onAttachedToWindow() {
+    protected void onAttachedToWindow() {
         super.onAttachedToWindow();
-        ConfigSingleton.D().h(this);
+        com.martian.libmars.d.h.F().a(this);
     }
 
     @Override // android.view.ViewGroup, android.view.View
-    public void onDetachedFromWindow() {
+    protected void onDetachedFromWindow() {
         super.onDetachedFromWindow();
-        ConfigSingleton.D().X0(this);
+        com.martian.libmars.d.h.F().j1(this);
     }
 
     @Override // android.widget.FrameLayout, android.view.ViewGroup, android.view.View
-    public void onLayout(boolean z10, int i10, int i11, int i12, int i13) {
-        super.onLayout(z10, i10, i11, i12, i13);
-        if (this.f12419f != null) {
-            m();
-            e eVar = this.f12418e;
-            if (eVar != null) {
-                eVar.a(this.f12429p);
+    protected void onLayout(boolean changed, int left, int top, int right, int bottom) {
+        super.onLayout(changed, left, top, right, bottom);
+        if (this.f10201e != null) {
+            v();
+            h hVar = this.f10200d;
+            if (hVar != null) {
+                hVar.a(this.v);
             }
-            if (this.f12420g.f() == 0) {
-                onPageSelected(this.f12420g.e());
-                onPageScrolled(this.f12420g.e(), 0.0f, 0);
-            }
-        }
-    }
-
-    @Override // m9.f
-    public void onPageScrollStateChanged(int i10) {
-        if (this.f12419f != null) {
-            this.f12420g.h(i10);
-            e eVar = this.f12418e;
-            if (eVar != null) {
-                eVar.onPageScrollStateChanged(i10);
+            if (this.t && this.f10202f.f() == 0) {
+                onPageSelected(this.f10202f.e());
+                onPageScrolled(this.f10202f.e(), 0.0f, 0);
             }
         }
     }
 
-    @Override // m9.f
-    public void onPageScrolled(int i10, float f10, int i11) {
-        if (this.f12419f != null) {
-            this.f12420g.i(i10, f10, i11);
-            e eVar = this.f12418e;
-            if (eVar != null) {
-                this.f12422i = i10;
-                this.f12423j = f10;
-                this.f12424k = i11;
-                eVar.onPageScrolled(i10, f10, i11);
+    @Override // com.martian.libmars.utils.tablayout.i
+    public void onPageScrollStateChanged(int state) {
+        if (this.f10201e != null) {
+            this.f10202f.h(state);
+            h hVar = this.f10200d;
+            if (hVar != null) {
+                hVar.onPageScrollStateChanged(state);
             }
-            if (this.f12415b == null || this.f12429p.size() <= 0 || i10 < 0 || i10 >= this.f12429p.size()) {
+        }
+    }
+
+    @Override // com.martian.libmars.utils.tablayout.i
+    public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+        if (this.f10201e != null) {
+            this.f10202f.i(position, positionOffset, positionOffsetPixels);
+            h hVar = this.f10200d;
+            if (hVar != null) {
+                this.f10204h = position;
+                this.f10205i = positionOffset;
+                this.f10206j = positionOffsetPixels;
+                hVar.onPageScrolled(position, positionOffset, positionOffsetPixels);
+            }
+            if (this.f10197a == null || this.v.size() <= 0 || position < 0 || position >= this.v.size() || !this.o) {
                 return;
             }
-            int min = Math.min(this.f12429p.size() - 1, i10);
-            int min2 = Math.min(this.f12429p.size() - 1, i10 + 1);
-            i iVar = this.f12429p.get(min);
-            i iVar2 = this.f12429p.get(min2);
-            float d10 = iVar.d() - (this.f12415b.getWidth() * 0.5f);
-            this.f12415b.scrollTo((int) (d10 + (((iVar2.d() - (this.f12415b.getWidth() * 0.5f)) - d10) * f10)), 0);
+            int min = Math.min(this.v.size() - 1, position);
+            int min2 = Math.min(this.v.size() - 1, position + 1);
+            l lVar = this.v.get(min);
+            l lVar2 = this.v.get(min2);
+            float d2 = lVar.d() - (this.f10197a.getWidth() * this.m);
+            this.f10197a.scrollTo((int) (d2 + (((lVar2.d() - (this.f10197a.getWidth() * this.m)) - d2) * positionOffset)), 0);
         }
     }
 
-    @Override // m9.f
-    public void onPageSelected(int i10) {
-        if (this.f12419f != null) {
-            this.f12420g.j(i10);
-            e eVar = this.f12418e;
-            if (eVar != null) {
-                eVar.onPageSelected(i10);
+    @Override // com.martian.libmars.utils.tablayout.i
+    public void onPageSelected(int position) {
+        if (this.f10201e != null) {
+            this.f10202f.j(position);
+            h hVar = this.f10200d;
+            if (hVar != null) {
+                hVar.onPageSelected(position);
             }
         }
     }
 
-    @Override // k9.a
-    public void p() {
-        a();
+    public boolean p() {
+        return this.l;
     }
 
-    public void setAdapter(m9.b bVar) {
-        m9.b bVar2 = this.f12419f;
-        if (bVar2 == bVar) {
+    public boolean q() {
+        return this.o;
+    }
+
+    public boolean r() {
+        return this.r;
+    }
+
+    public boolean s() {
+        return this.t;
+    }
+
+    public void setAdapter(f adapter) {
+        f fVar = this.f10201e;
+        if (fVar == adapter) {
             return;
         }
-        if (bVar2 != null) {
-            bVar2.h(this.f12430q);
+        if (fVar != null) {
+            fVar.h(this.w);
         }
-        this.f12419f = bVar;
-        if (bVar == null) {
-            this.f12420g.m(0);
-            k();
+        this.f10201e = adapter;
+        if (adapter == null) {
+            this.f10202f.m(0);
+            m();
             return;
         }
-        bVar.g(this.f12430q);
-        this.f12420g.m(this.f12419f.a());
-        if (this.f12416c != null) {
-            this.f12419f.e();
+        adapter.g(this.w);
+        this.f10202f.m(this.f10201e.a());
+        if (this.f10198b != null) {
+            this.f10201e.e();
         }
     }
 
-    public void setAdjustMode(boolean z10) {
-        this.f12425l = z10;
+    public void setAdjustMode(boolean is) {
+        this.k = is;
     }
 
-    public void setLeftPadding(int i10) {
-        this.f12427n = i10;
+    public void setEnablePivotScroll(boolean is) {
+        this.l = is;
     }
 
-    public void setMarginHorizontal(int i10) {
-        this.f12428o = i10;
+    public void setFollowTouch(boolean followTouch) {
+        this.o = followTouch;
+    }
+
+    public void setIndicatorOnTop(boolean indicatorOnTop) {
+        this.r = indicatorOnTop;
+    }
+
+    public void setLeftPadding(int leftPadding) {
+        this.q = leftPadding;
+    }
+
+    public void setMarginHorizontal(int marginHorizontal) {
+        this.u = marginHorizontal;
+    }
+
+    public void setReselectWhenLayout(boolean reselectWhenLayout) {
+        this.t = reselectWhenLayout;
+    }
+
+    public void setRightPadding(int rightPadding) {
+        this.p = rightPadding;
+    }
+
+    public void setScrollPivotX(float scrollPivotX) {
+        this.m = scrollPivotX;
+    }
+
+    public void setSkimOver(boolean skimOver) {
+        this.s = skimOver;
+        this.f10202f.l(skimOver);
+    }
+
+    public void setSmoothScroll(boolean smoothScroll) {
+        this.n = smoothScroll;
+    }
+
+    public boolean t() {
+        return this.s;
+    }
+
+    public boolean u() {
+        return this.n;
+    }
+
+    public void w(int Color) {
+        LinearLayout linearLayout = this.f10199c;
+        if (linearLayout == null || linearLayout.getChildCount() <= 0) {
+            return;
+        }
+        View childAt = this.f10199c.getChildAt(0);
+        if (childAt instanceof LinePagerIndicator) {
+            LinePagerIndicator linePagerIndicator = (LinePagerIndicator) childAt;
+            linePagerIndicator.c(Integer.valueOf(Color));
+            linePagerIndicator.onPageScrolled(this.f10204h, this.f10205i, this.f10206j);
+        }
+    }
+
+    public void x(int normalColor, int selectedColor) {
+        if (this.f10198b == null) {
+            return;
+        }
+        for (int i2 = 0; i2 < this.f10198b.getChildCount(); i2++) {
+            if (this.f10198b.getChildAt(i2) instanceof o) {
+                o oVar = (o) this.f10198b.getChildAt(i2);
+                oVar.setNormalColor(normalColor);
+                oVar.setSelectedColor(selectedColor);
+                if (this.f10203g == i2) {
+                    oVar.setTextColor(selectedColor);
+                } else {
+                    oVar.setTextColor(normalColor);
+                }
+            }
+        }
     }
 }

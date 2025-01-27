@@ -1,36 +1,33 @@
 package com.kwad.sdk;
 
-/* loaded from: classes3.dex */
-public abstract class b extends a {
-    @Override // com.kwad.sdk.a
-    public void a(DownloadTask downloadTask) {
+import androidx.annotation.NonNull;
+import com.kwad.sdk.components.DevelopMangerComponents;
+import com.kwad.sdk.export.proxy.AdHttpProxy;
+import java.util.Random;
+
+/* loaded from: classes2.dex */
+public final class b {
+    private static AdHttpProxy Yk;
+
+    @NonNull
+    public static AdHttpProxy rZ() {
+        AdHttpProxy adHttpProxy = Yk;
+        if (adHttpProxy != null) {
+            return adHttpProxy;
+        }
+        if (com.kwad.b.kwai.a.bI.booleanValue()) {
+            return sa();
+        }
+        try {
+            Yk = com.kwad.sdk.core.network.kwai.c.wk() != null ? new com.kwad.sdk.core.network.b.b() : new com.kwad.sdk.core.network.b.a();
+        } catch (Throwable unused) {
+            Yk = new com.kwad.sdk.core.network.b.a();
+        }
+        return Yk;
     }
 
-    @Override // com.kwad.sdk.a
-    public void b(DownloadTask downloadTask) {
-    }
-
-    @Override // com.kwad.sdk.a
-    public void c(DownloadTask downloadTask) {
-    }
-
-    @Override // com.kwad.sdk.a
-    public void d(DownloadTask downloadTask) {
-    }
-
-    @Override // com.kwad.sdk.a
-    public void e(DownloadTask downloadTask) {
-    }
-
-    @Override // com.kwad.sdk.a
-    public void f(DownloadTask downloadTask) {
-    }
-
-    @Override // com.kwad.sdk.a
-    public void a(DownloadTask downloadTask, int i10, int i11) {
-    }
-
-    @Override // com.kwad.sdk.a
-    public void a(DownloadTask downloadTask, Throwable th2) {
+    private static AdHttpProxy sa() {
+        com.kwad.sdk.components.c.f(DevelopMangerComponents.class);
+        return new Random().nextInt(5) != 0 ? new com.kwad.sdk.core.network.b.b() : new com.kwad.sdk.core.network.b.a();
     }
 }

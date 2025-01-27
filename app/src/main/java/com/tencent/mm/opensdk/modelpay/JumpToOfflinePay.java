@@ -35,6 +35,10 @@ public class JumpToOfflinePay {
         public Resp() {
         }
 
+        public Resp(Bundle bundle) {
+            fromBundle(bundle);
+        }
+
         @Override // com.tencent.mm.opensdk.modelbase.BaseResp
         public boolean checkArgs() {
             return true;
@@ -53,10 +57,6 @@ public class JumpToOfflinePay {
         @Override // com.tencent.mm.opensdk.modelbase.BaseResp
         public void toBundle(Bundle bundle) {
             super.toBundle(bundle);
-        }
-
-        public Resp(Bundle bundle) {
-            fromBundle(bundle);
         }
     }
 }

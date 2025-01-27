@@ -28,6 +28,10 @@ public class WXQRCodePay {
         public Resp() {
         }
 
+        public Resp(Bundle bundle) {
+            fromBundle(bundle);
+        }
+
         @Override // com.tencent.mm.opensdk.modelbase.BaseResp
         public boolean checkArgs() {
             return true;
@@ -46,10 +50,6 @@ public class WXQRCodePay {
         @Override // com.tencent.mm.opensdk.modelbase.BaseResp
         public void toBundle(Bundle bundle) {
             super.toBundle(bundle);
-        }
-
-        public Resp(Bundle bundle) {
-            fromBundle(bundle);
         }
     }
 }

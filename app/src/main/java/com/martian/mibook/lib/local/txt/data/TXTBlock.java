@@ -28,23 +28,23 @@ public class TXTBlock {
         return this.startOffset;
     }
 
-    public void setCharset(String str) {
-        this.charset = str;
+    public void setCharset(String charset) {
+        this.charset = charset;
     }
 
-    public void setEndOffset(long j10) {
-        this.endOffset = j10;
+    public void setEndOffset(long endOffset) {
+        this.endOffset = endOffset;
     }
 
-    public void setFilepath(String str) {
-        this.filepath = str;
+    public void setFilepath(String filepath) {
+        this.filepath = filepath;
     }
 
-    public void setIndex(int i10) {
-        this.index = i10;
+    public void setIndex(int index) {
+        this.index = index;
     }
 
-    public void setStartOffset(long j10) {
-        this.startOffset = j10;
+    public void setStartOffset(long startOffset) {
+        this.startOffset = startOffset;
     }
 }

@@ -14,7 +14,7 @@ import java.nio.ByteOrder;
 import java.util.Arrays;
 import java.util.Iterator;
 
-/* loaded from: classes2.dex */
+/* loaded from: classes.dex */
 public class StandardGifDecoder implements GifDecoder {
     private static final int BYTES_PER_INTEGER = 4;
 
@@ -62,162 +62,161 @@ public class StandardGifDecoder implements GifDecoder {
     }
 
     @ColorInt
-    private int averageColorsNear(int i10, int i11, int i12) {
-        int i13 = 0;
-        int i14 = 0;
-        int i15 = 0;
-        int i16 = 0;
-        int i17 = 0;
-        for (int i18 = i10; i18 < this.sampleSize + i10; i18++) {
+    private int averageColorsNear(int i2, int i3, int i4) {
+        int i5 = 0;
+        int i6 = 0;
+        int i7 = 0;
+        int i8 = 0;
+        int i9 = 0;
+        for (int i10 = i2; i10 < this.sampleSize + i2; i10++) {
             byte[] bArr = this.mainPixels;
-            if (i18 >= bArr.length || i18 >= i11) {
+            if (i10 >= bArr.length || i10 >= i3) {
                 break;
             }
-            int i19 = this.act[bArr[i18] & 255];
-            if (i19 != 0) {
-                i13 += (i19 >> 24) & 255;
-                i14 += (i19 >> 16) & 255;
-                i15 += (i19 >> 8) & 255;
-                i16 += i19 & 255;
-                i17++;
+            int i11 = this.act[bArr[i10] & 255];
+            if (i11 != 0) {
+                i5 += (i11 >> 24) & 255;
+                i6 += (i11 >> 16) & 255;
+                i7 += (i11 >> 8) & 255;
+                i8 += i11 & 255;
+                i9++;
             }
         }
-        int i20 = i10 + i12;
-        for (int i21 = i20; i21 < this.sampleSize + i20; i21++) {
+        int i12 = i2 + i4;
+        for (int i13 = i12; i13 < this.sampleSize + i12; i13++) {
             byte[] bArr2 = this.mainPixels;
-            if (i21 >= bArr2.length || i21 >= i11) {
+            if (i13 >= bArr2.length || i13 >= i3) {
                 break;
             }
-            int i22 = this.act[bArr2[i21] & 255];
-            if (i22 != 0) {
-                i13 += (i22 >> 24) & 255;
-                i14 += (i22 >> 16) & 255;
-                i15 += (i22 >> 8) & 255;
-                i16 += i22 & 255;
-                i17++;
+            int i14 = this.act[bArr2[i13] & 255];
+            if (i14 != 0) {
+                i5 += (i14 >> 24) & 255;
+                i6 += (i14 >> 16) & 255;
+                i7 += (i14 >> 8) & 255;
+                i8 += i14 & 255;
+                i9++;
             }
         }
-        if (i17 == 0) {
+        if (i9 == 0) {
             return 0;
         }
-        return ((i13 / i17) << 24) | ((i14 / i17) << 16) | ((i15 / i17) << 8) | (i16 / i17);
+        return ((i5 / i9) << 24) | ((i6 / i9) << 16) | ((i7 / i9) << 8) | (i8 / i9);
     }
 
     private void copyCopyIntoScratchRobust(GifFrame gifFrame) {
-        int i10;
-        int i11;
-        int i12;
-        int i13;
-        int i14;
+        int i2;
+        int i3;
+        int i4;
+        int i5;
+        int i6;
         int[] iArr = this.mainScratch;
-        int i15 = gifFrame.f7399ih;
-        int i16 = this.sampleSize;
-        int i17 = i15 / i16;
-        int i18 = gifFrame.iy / i16;
-        int i19 = gifFrame.iw / i16;
-        int i20 = gifFrame.ix / i16;
-        boolean z10 = this.framePointer == 0;
-        int i21 = this.downsampledWidth;
-        int i22 = this.downsampledHeight;
+        int i7 = gifFrame.ih;
+        int i8 = this.sampleSize;
+        int i9 = i7 / i8;
+        int i10 = gifFrame.iy / i8;
+        int i11 = gifFrame.iw / i8;
+        int i12 = gifFrame.ix / i8;
+        boolean z = this.framePointer == 0;
+        int i13 = this.downsampledWidth;
+        int i14 = this.downsampledHeight;
         byte[] bArr = this.mainPixels;
         int[] iArr2 = this.act;
         Boolean bool = this.isFirstFrameTransparent;
-        int i23 = 8;
-        int i24 = 0;
-        int i25 = 0;
-        int i26 = 1;
-        while (i25 < i17) {
+        int i15 = 8;
+        int i16 = 0;
+        int i17 = 0;
+        int i18 = 1;
+        while (i16 < i9) {
             Boolean bool2 = bool;
             if (gifFrame.interlace) {
-                if (i24 >= i17) {
-                    int i27 = i26 + 1;
-                    i10 = i17;
-                    if (i27 == 2) {
-                        i26 = i27;
-                        i24 = 4;
-                    } else if (i27 == 3) {
-                        i26 = i27;
-                        i24 = 2;
-                        i23 = 4;
-                    } else if (i27 != 4) {
-                        i26 = i27;
+                if (i17 >= i9) {
+                    i2 = i9;
+                    int i19 = i18 + 1;
+                    if (i19 == 2) {
+                        i18 = i19;
+                        i17 = 4;
+                    } else if (i19 == 3) {
+                        i18 = i19;
+                        i17 = 2;
+                        i15 = 4;
+                    } else if (i19 != 4) {
+                        i18 = i19;
                     } else {
-                        i26 = i27;
-                        i24 = 1;
-                        i23 = 2;
+                        i18 = i19;
+                        i17 = 1;
+                        i15 = 2;
                     }
                 } else {
-                    i10 = i17;
+                    i2 = i9;
                 }
-                i11 = i24 + i23;
+                i3 = i17 + i15;
             } else {
-                i10 = i17;
-                i11 = i24;
-                i24 = i25;
+                i2 = i9;
+                i3 = i17;
+                i17 = i16;
             }
-            int i28 = i24 + i18;
-            boolean z11 = i16 == 1;
-            if (i28 < i22) {
-                int i29 = i28 * i21;
-                int i30 = i29 + i20;
-                int i31 = i30 + i19;
-                int i32 = i29 + i21;
-                if (i32 < i31) {
-                    i31 = i32;
+            int i20 = i17 + i10;
+            boolean z2 = i8 == 1;
+            if (i20 < i14) {
+                int i21 = i20 * i13;
+                int i22 = i21 + i12;
+                int i23 = i22 + i11;
+                int i24 = i21 + i13;
+                if (i24 < i23) {
+                    i23 = i24;
                 }
-                i12 = i11;
-                int i33 = i25 * i16 * gifFrame.iw;
-                if (z11) {
-                    int i34 = i30;
-                    while (i34 < i31) {
-                        int i35 = i18;
-                        int i36 = iArr2[bArr[i33] & 255];
-                        if (i36 != 0) {
-                            iArr[i34] = i36;
-                        } else if (z10 && bool2 == null) {
+                i4 = i3;
+                int i25 = i16 * i8 * gifFrame.iw;
+                if (z2) {
+                    int i26 = i22;
+                    while (i26 < i23) {
+                        int i27 = i10;
+                        int i28 = iArr2[bArr[i25] & 255];
+                        if (i28 != 0) {
+                            iArr[i26] = i28;
+                        } else if (z && bool2 == null) {
                             bool2 = Boolean.TRUE;
                         }
-                        i33 += i16;
-                        i34++;
-                        i18 = i35;
+                        i25 += i8;
+                        i26++;
+                        i10 = i27;
                     }
                 } else {
-                    i14 = i18;
-                    int i37 = ((i31 - i30) * i16) + i33;
-                    int i38 = i30;
+                    i6 = i10;
+                    int i29 = ((i23 - i22) * i8) + i25;
+                    int i30 = i22;
                     while (true) {
-                        i13 = i19;
-                        if (i38 >= i31) {
-                            break;
+                        i5 = i11;
+                        if (i30 < i23) {
+                            int averageColorsNear = averageColorsNear(i25, i29, gifFrame.iw);
+                            if (averageColorsNear != 0) {
+                                iArr[i30] = averageColorsNear;
+                            } else if (z && bool2 == null) {
+                                bool2 = Boolean.TRUE;
+                            }
+                            i25 += i8;
+                            i30++;
+                            i11 = i5;
                         }
-                        int averageColorsNear = averageColorsNear(i33, i37, gifFrame.iw);
-                        if (averageColorsNear != 0) {
-                            iArr[i38] = averageColorsNear;
-                        } else if (z10 && bool2 == null) {
-                            bool2 = Boolean.TRUE;
-                        }
-                        i33 += i16;
-                        i38++;
-                        i19 = i13;
                     }
                     bool = bool2;
-                    i25++;
-                    i18 = i14;
-                    i17 = i10;
-                    i19 = i13;
-                    i24 = i12;
+                    i16++;
+                    i10 = i6;
+                    i11 = i5;
+                    i9 = i2;
+                    i17 = i4;
                 }
             } else {
-                i12 = i11;
+                i4 = i3;
             }
-            i14 = i18;
-            i13 = i19;
+            i6 = i10;
+            i5 = i11;
             bool = bool2;
-            i25++;
-            i18 = i14;
-            i17 = i10;
-            i19 = i13;
-            i24 = i12;
+            i16++;
+            i10 = i6;
+            i11 = i5;
+            i9 = i2;
+            i17 = i4;
         }
         Boolean bool3 = bool;
         if (this.isFirstFrameTransparent == null) {
@@ -228,47 +227,47 @@ public class StandardGifDecoder implements GifDecoder {
     private void copyIntoScratchFast(GifFrame gifFrame) {
         GifFrame gifFrame2 = gifFrame;
         int[] iArr = this.mainScratch;
-        int i10 = gifFrame2.f7399ih;
-        int i11 = gifFrame2.iy;
-        int i12 = gifFrame2.iw;
-        int i13 = gifFrame2.ix;
-        boolean z10 = this.framePointer == 0;
-        int i14 = this.downsampledWidth;
+        int i2 = gifFrame2.ih;
+        int i3 = gifFrame2.iy;
+        int i4 = gifFrame2.iw;
+        int i5 = gifFrame2.ix;
+        boolean z = this.framePointer == 0;
+        int i6 = this.downsampledWidth;
         byte[] bArr = this.mainPixels;
         int[] iArr2 = this.act;
-        int i15 = 0;
-        byte b10 = -1;
-        while (i15 < i10) {
-            int i16 = (i15 + i11) * i14;
-            int i17 = i16 + i13;
-            int i18 = i17 + i12;
-            int i19 = i16 + i14;
-            if (i19 < i18) {
-                i18 = i19;
+        int i7 = 0;
+        byte b2 = -1;
+        while (i7 < i2) {
+            int i8 = (i7 + i3) * i6;
+            int i9 = i8 + i5;
+            int i10 = i9 + i4;
+            int i11 = i8 + i6;
+            if (i11 < i10) {
+                i10 = i11;
             }
-            int i20 = gifFrame2.iw * i15;
-            int i21 = i17;
-            while (i21 < i18) {
-                byte b11 = bArr[i20];
-                int i22 = i10;
-                int i23 = b11 & 255;
-                if (i23 != b10) {
-                    int i24 = iArr2[i23];
-                    if (i24 != 0) {
-                        iArr[i21] = i24;
+            int i12 = gifFrame2.iw * i7;
+            int i13 = i9;
+            while (i13 < i10) {
+                byte b3 = bArr[i12];
+                int i14 = i2;
+                int i15 = b3 & 255;
+                if (i15 != b2) {
+                    int i16 = iArr2[i15];
+                    if (i16 != 0) {
+                        iArr[i13] = i16;
                     } else {
-                        b10 = b11;
+                        b2 = b3;
                     }
                 }
-                i20++;
-                i21++;
-                i10 = i22;
+                i12++;
+                i13++;
+                i2 = i14;
             }
-            i15++;
+            i7++;
             gifFrame2 = gifFrame;
         }
         Boolean bool = this.isFirstFrameTransparent;
-        this.isFirstFrameTransparent = Boolean.valueOf((bool != null && bool.booleanValue()) || (this.isFirstFrameTransparent == null && z10 && b10 != -1));
+        this.isFirstFrameTransparent = Boolean.valueOf((bool != null && bool.booleanValue()) || (this.isFirstFrameTransparent == null && z && b2 != -1));
     }
 
     /* JADX WARN: Multi-variable type inference failed */
@@ -278,25 +277,25 @@ public class StandardGifDecoder implements GifDecoder {
     /* JADX WARN: Type inference failed for: r7v15, types: [short] */
     /* JADX WARN: Type inference failed for: r7v17 */
     private void decodeBitmapData(GifFrame gifFrame) {
-        int i10;
-        int i11;
-        short s10;
+        int i2;
+        int i3;
+        short s;
         StandardGifDecoder standardGifDecoder = this;
         if (gifFrame != null) {
             standardGifDecoder.rawData.position(gifFrame.bufferFrameStart);
         }
         if (gifFrame == null) {
             GifHeader gifHeader = standardGifDecoder.header;
-            i10 = gifHeader.width;
-            i11 = gifHeader.height;
+            i2 = gifHeader.width;
+            i3 = gifHeader.height;
         } else {
-            i10 = gifFrame.iw;
-            i11 = gifFrame.f7399ih;
+            i2 = gifFrame.iw;
+            i3 = gifFrame.ih;
         }
-        int i12 = i10 * i11;
+        int i4 = i2 * i3;
         byte[] bArr = standardGifDecoder.mainPixels;
-        if (bArr == null || bArr.length < i12) {
-            standardGifDecoder.mainPixels = standardGifDecoder.bitmapProvider.obtainByteArray(i12);
+        if (bArr == null || bArr.length < i4) {
+            standardGifDecoder.mainPixels = standardGifDecoder.bitmapProvider.obtainByteArray(i4);
         }
         byte[] bArr2 = standardGifDecoder.mainPixels;
         if (standardGifDecoder.prefix == null) {
@@ -312,134 +311,134 @@ public class StandardGifDecoder implements GifDecoder {
         }
         byte[] bArr4 = standardGifDecoder.pixelStack;
         int readByte = readByte();
-        int i13 = 1 << readByte;
-        int i14 = i13 + 1;
-        int i15 = i13 + 2;
-        int i16 = readByte + 1;
-        int i17 = (1 << i16) - 1;
-        int i18 = 0;
-        for (int i19 = 0; i19 < i13; i19++) {
-            sArr[i19] = 0;
-            bArr3[i19] = (byte) i19;
+        int i5 = 1 << readByte;
+        int i6 = i5 + 1;
+        int i7 = i5 + 2;
+        int i8 = readByte + 1;
+        int i9 = (1 << i8) - 1;
+        int i10 = 0;
+        for (int i11 = 0; i11 < i5; i11++) {
+            sArr[i11] = 0;
+            bArr3[i11] = (byte) i11;
         }
         byte[] bArr5 = standardGifDecoder.block;
-        int i20 = i16;
-        int i21 = i15;
-        int i22 = i17;
-        int i23 = 0;
-        int i24 = 0;
-        int i25 = 0;
-        int i26 = 0;
-        int i27 = 0;
-        int i28 = -1;
-        int i29 = 0;
-        int i30 = 0;
+        int i12 = i8;
+        int i13 = i7;
+        int i14 = i9;
+        int i15 = 0;
+        int i16 = 0;
+        int i17 = 0;
+        int i18 = 0;
+        int i19 = 0;
+        int i20 = -1;
+        int i21 = 0;
+        int i22 = 0;
         while (true) {
-            if (i18 >= i12) {
+            if (i10 >= i4) {
                 break;
             }
-            if (i23 == 0) {
-                i23 = readBlock();
-                if (i23 <= 0) {
+            if (i15 == 0) {
+                i15 = readBlock();
+                if (i15 <= 0) {
                     standardGifDecoder.status = 3;
                     break;
                 }
-                i24 = 0;
+                i16 = 0;
             }
-            i26 += (bArr5[i24] & 255) << i25;
-            i24++;
-            i23--;
-            int i31 = i25 + 8;
-            int i32 = i21;
-            int i33 = i20;
-            int i34 = i28;
-            int i35 = i16;
-            int i36 = i29;
+            i18 += (bArr5[i16] & 255) << i17;
+            i16++;
+            i15--;
+            int i23 = i17 + 8;
+            int i24 = i13;
+            int i25 = i12;
+            int i26 = i20;
+            int i27 = i8;
+            int i28 = i21;
             while (true) {
-                if (i31 < i33) {
-                    i28 = i34;
-                    i21 = i32;
-                    i25 = i31;
+                if (i23 < i25) {
+                    i20 = i26;
+                    i13 = i24;
+                    i17 = i23;
                     standardGifDecoder = this;
-                    i29 = i36;
-                    i16 = i35;
-                    i20 = i33;
+                    i21 = i28;
+                    i8 = i27;
+                    i12 = i25;
                     break;
                 }
-                int i37 = i15;
-                int i38 = i26 & i22;
-                i26 >>= i33;
-                i31 -= i33;
-                if (i38 == i13) {
-                    i22 = i17;
-                    i33 = i35;
-                    i32 = i37;
-                    i15 = i32;
-                    i34 = -1;
+                int i29 = i7;
+                int i30 = i18 & i14;
+                i18 >>= i25;
+                i23 -= i25;
+                if (i30 == i5) {
+                    i14 = i9;
+                    i25 = i27;
+                    i24 = i29;
+                    i7 = i24;
+                    i26 = -1;
                 } else {
-                    if (i38 == i14) {
-                        i25 = i31;
-                        i29 = i36;
-                        i21 = i32;
-                        i16 = i35;
-                        i15 = i37;
-                        i28 = i34;
-                        i20 = i33;
+                    if (i30 == i6) {
+                        i17 = i23;
+                        i21 = i28;
+                        i13 = i24;
+                        i8 = i27;
+                        i7 = i29;
+                        i20 = i26;
+                        i12 = i25;
                         standardGifDecoder = this;
                         break;
                     }
-                    if (i34 == -1) {
-                        bArr2[i27] = bArr3[i38];
-                        i27++;
-                        i18++;
-                        i34 = i38;
-                        i36 = i34;
-                        i15 = i37;
-                        i31 = i31;
+                    if (i26 == -1) {
+                        bArr2[i19] = bArr3[i30];
+                        i19++;
+                        i10++;
+                        i26 = i30;
+                        i28 = i26;
+                        i7 = i29;
+                        i23 = i23;
                     } else {
-                        if (i38 >= i32) {
-                            bArr4[i30] = (byte) i36;
-                            i30++;
-                            s10 = i34;
+                        if (i30 >= i24) {
+                            bArr4[i22] = (byte) i28;
+                            i22++;
+                            s = i26;
                         } else {
-                            s10 = i38;
+                            s = i30;
                         }
-                        while (s10 >= i13) {
-                            bArr4[i30] = bArr3[s10];
-                            i30++;
-                            s10 = sArr[s10];
+                        while (s >= i5) {
+                            bArr4[i22] = bArr3[s];
+                            i22++;
+                            s = sArr[s];
                         }
-                        i36 = bArr3[s10] & 255;
-                        byte b10 = (byte) i36;
-                        bArr2[i27] = b10;
+                        i28 = bArr3[s] & 255;
+                        byte b2 = (byte) i28;
+                        bArr2[i19] = b2;
                         while (true) {
-                            i27++;
-                            i18++;
-                            if (i30 <= 0) {
+                            i19++;
+                            i10++;
+                            if (i22 <= 0) {
                                 break;
                             }
-                            i30--;
-                            bArr2[i27] = bArr4[i30];
+                            i22--;
+                            bArr2[i19] = bArr4[i22];
                         }
                         byte[] bArr6 = bArr4;
-                        if (i32 < 4096) {
-                            sArr[i32] = (short) i34;
-                            bArr3[i32] = b10;
-                            i32++;
-                            if ((i32 & i22) == 0 && i32 < 4096) {
-                                i33++;
-                                i22 += i32;
+                        if (i24 < 4096) {
+                            sArr[i24] = (short) i26;
+                            bArr3[i24] = b2;
+                            i24++;
+                            if ((i24 & i14) == 0 && i24 < 4096) {
+                                i25++;
+                                i14 += i24;
                             }
                         }
-                        i34 = i38;
-                        i15 = i37;
-                        i31 = i31;
+                        i26 = i30;
+                        i7 = i29;
+                        i23 = i23;
                         bArr4 = bArr6;
                     }
                 }
             }
         }
-        Arrays.fill(bArr2, i27, i12, (byte) 0);
+        Arrays.fill(bArr2, i19, i4, (byte) 0);
     }
 
     @NonNull
@@ -472,11 +471,11 @@ public class StandardGifDecoder implements GifDecoder {
     }
 
     private Bitmap setPixels(GifFrame gifFrame, GifFrame gifFrame2) {
-        int i10;
-        int i11;
+        int i2;
+        int i3;
         Bitmap bitmap;
         int[] iArr = this.mainScratch;
-        int i12 = 0;
+        int i4 = 0;
         if (gifFrame2 == null) {
             Bitmap bitmap2 = this.previousImage;
             if (bitmap2 != null) {
@@ -488,34 +487,34 @@ public class StandardGifDecoder implements GifDecoder {
         if (gifFrame2 != null && gifFrame2.dispose == 3 && this.previousImage == null) {
             Arrays.fill(iArr, 0);
         }
-        if (gifFrame2 != null && (i11 = gifFrame2.dispose) > 0) {
-            if (i11 == 2) {
+        if (gifFrame2 != null && (i3 = gifFrame2.dispose) > 0) {
+            if (i3 == 2) {
                 if (!gifFrame.transparency) {
                     GifHeader gifHeader = this.header;
-                    int i13 = gifHeader.bgColor;
+                    int i5 = gifHeader.bgColor;
                     if (gifFrame.lct == null || gifHeader.bgIndex != gifFrame.transIndex) {
-                        i12 = i13;
+                        i4 = i5;
                     }
                 }
-                int i14 = gifFrame2.f7399ih;
-                int i15 = this.sampleSize;
-                int i16 = i14 / i15;
-                int i17 = gifFrame2.iy / i15;
-                int i18 = gifFrame2.iw / i15;
-                int i19 = gifFrame2.ix / i15;
-                int i20 = this.downsampledWidth;
-                int i21 = (i17 * i20) + i19;
-                int i22 = (i16 * i20) + i21;
-                while (i21 < i22) {
-                    int i23 = i21 + i18;
-                    for (int i24 = i21; i24 < i23; i24++) {
-                        iArr[i24] = i12;
+                int i6 = gifFrame2.ih;
+                int i7 = this.sampleSize;
+                int i8 = i6 / i7;
+                int i9 = gifFrame2.iy / i7;
+                int i10 = gifFrame2.iw / i7;
+                int i11 = gifFrame2.ix / i7;
+                int i12 = this.downsampledWidth;
+                int i13 = (i9 * i12) + i11;
+                int i14 = (i8 * i12) + i13;
+                while (i13 < i14) {
+                    int i15 = i13 + i10;
+                    for (int i16 = i13; i16 < i15; i16++) {
+                        iArr[i16] = i4;
                     }
-                    i21 += this.downsampledWidth;
+                    i13 += this.downsampledWidth;
                 }
-            } else if (i11 == 3 && (bitmap = this.previousImage) != null) {
-                int i25 = this.downsampledWidth;
-                bitmap.getPixels(iArr, 0, i25, 0, 0, i25, this.downsampledHeight);
+            } else if (i3 == 3 && (bitmap = this.previousImage) != null) {
+                int i17 = this.downsampledWidth;
+                bitmap.getPixels(iArr, 0, i17, 0, 0, i17, this.downsampledHeight);
             }
         }
         decodeBitmapData(gifFrame);
@@ -524,17 +523,17 @@ public class StandardGifDecoder implements GifDecoder {
         } else {
             copyIntoScratchFast(gifFrame);
         }
-        if (this.savePrevious && ((i10 = gifFrame.dispose) == 0 || i10 == 1)) {
+        if (this.savePrevious && ((i2 = gifFrame.dispose) == 0 || i2 == 1)) {
             if (this.previousImage == null) {
                 this.previousImage = getNextBitmap();
             }
             Bitmap bitmap3 = this.previousImage;
-            int i26 = this.downsampledWidth;
-            bitmap3.setPixels(iArr, 0, i26, 0, 0, i26, this.downsampledHeight);
+            int i18 = this.downsampledWidth;
+            bitmap3.setPixels(iArr, 0, i18, 0, 0, i18, this.downsampledHeight);
         }
         Bitmap nextBitmap = getNextBitmap();
-        int i27 = this.downsampledWidth;
-        nextBitmap.setPixels(iArr, 0, i27, 0, 0, i27, this.downsampledHeight);
+        int i19 = this.downsampledWidth;
+        nextBitmap.setPixels(iArr, 0, i19, 0, 0, i19, this.downsampledHeight);
         return nextBitmap;
     }
 
@@ -584,11 +583,11 @@ public class StandardGifDecoder implements GifDecoder {
     }
 
     @Override // com.bumptech.glide.gifdecoder.GifDecoder
-    public int getDelay(int i10) {
-        if (i10 >= 0) {
+    public int getDelay(int i2) {
+        if (i2 >= 0) {
             GifHeader gifHeader = this.header;
-            if (i10 < gifHeader.frameCount) {
-                return gifHeader.frames.get(i10).delay;
+            if (i2 < gifHeader.frameCount) {
+                return gifHeader.frames.get(i2).delay;
             }
         }
         return -1;
@@ -607,11 +606,11 @@ public class StandardGifDecoder implements GifDecoder {
     @Override // com.bumptech.glide.gifdecoder.GifDecoder
     @Deprecated
     public int getLoopCount() {
-        int i10 = this.header.loopCount;
-        if (i10 == -1) {
+        int i2 = this.header.loopCount;
+        if (i2 == -1) {
             return 1;
         }
-        return i10;
+        return i2;
     }
 
     @Override // com.bumptech.glide.gifdecoder.GifDecoder
@@ -621,33 +620,61 @@ public class StandardGifDecoder implements GifDecoder {
 
     @Override // com.bumptech.glide.gifdecoder.GifDecoder
     public int getNextDelay() {
-        int i10;
-        if (this.header.frameCount <= 0 || (i10 = this.framePointer) < 0) {
+        int i2;
+        if (this.header.frameCount <= 0 || (i2 = this.framePointer) < 0) {
             return 0;
         }
-        return getDelay(i10);
+        return getDelay(i2);
     }
 
-    /* JADX WARN: Removed duplicated region for block: B:15:0x004e A[Catch: all -> 0x000e, TryCatch #0 {all -> 0x000e, blocks: (B:3:0x0001, B:5:0x0009, B:8:0x003d, B:13:0x0047, B:15:0x004e, B:16:0x0058, B:18:0x0069, B:19:0x0075, B:22:0x007e, B:24:0x0082, B:26:0x008a, B:27:0x00a0, B:31:0x00a4, B:33:0x00a8, B:35:0x00ba, B:37:0x00be, B:38:0x00c2, B:41:0x007a, B:43:0x00c8, B:45:0x00d0, B:48:0x0011, B:50:0x0019, B:51:0x003b), top: B:2:0x0001 }] */
-    /* JADX WARN: Removed duplicated region for block: B:18:0x0069 A[Catch: all -> 0x000e, TryCatch #0 {all -> 0x000e, blocks: (B:3:0x0001, B:5:0x0009, B:8:0x003d, B:13:0x0047, B:15:0x004e, B:16:0x0058, B:18:0x0069, B:19:0x0075, B:22:0x007e, B:24:0x0082, B:26:0x008a, B:27:0x00a0, B:31:0x00a4, B:33:0x00a8, B:35:0x00ba, B:37:0x00be, B:38:0x00c2, B:41:0x007a, B:43:0x00c8, B:45:0x00d0, B:48:0x0011, B:50:0x0019, B:51:0x003b), top: B:2:0x0001 }] */
-    /* JADX WARN: Removed duplicated region for block: B:21:0x0079  */
-    /* JADX WARN: Removed duplicated region for block: B:24:0x0082 A[Catch: all -> 0x000e, TryCatch #0 {all -> 0x000e, blocks: (B:3:0x0001, B:5:0x0009, B:8:0x003d, B:13:0x0047, B:15:0x004e, B:16:0x0058, B:18:0x0069, B:19:0x0075, B:22:0x007e, B:24:0x0082, B:26:0x008a, B:27:0x00a0, B:31:0x00a4, B:33:0x00a8, B:35:0x00ba, B:37:0x00be, B:38:0x00c2, B:41:0x007a, B:43:0x00c8, B:45:0x00d0, B:48:0x0011, B:50:0x0019, B:51:0x003b), top: B:2:0x0001 }] */
-    /* JADX WARN: Removed duplicated region for block: B:31:0x00a4 A[Catch: all -> 0x000e, TRY_ENTER, TryCatch #0 {all -> 0x000e, blocks: (B:3:0x0001, B:5:0x0009, B:8:0x003d, B:13:0x0047, B:15:0x004e, B:16:0x0058, B:18:0x0069, B:19:0x0075, B:22:0x007e, B:24:0x0082, B:26:0x008a, B:27:0x00a0, B:31:0x00a4, B:33:0x00a8, B:35:0x00ba, B:37:0x00be, B:38:0x00c2, B:41:0x007a, B:43:0x00c8, B:45:0x00d0, B:48:0x0011, B:50:0x0019, B:51:0x003b), top: B:2:0x0001 }] */
-    /* JADX WARN: Removed duplicated region for block: B:41:0x007a A[Catch: all -> 0x000e, TryCatch #0 {all -> 0x000e, blocks: (B:3:0x0001, B:5:0x0009, B:8:0x003d, B:13:0x0047, B:15:0x004e, B:16:0x0058, B:18:0x0069, B:19:0x0075, B:22:0x007e, B:24:0x0082, B:26:0x008a, B:27:0x00a0, B:31:0x00a4, B:33:0x00a8, B:35:0x00ba, B:37:0x00be, B:38:0x00c2, B:41:0x007a, B:43:0x00c8, B:45:0x00d0, B:48:0x0011, B:50:0x0019, B:51:0x003b), top: B:2:0x0001 }] */
-    /* JADX WARN: Removed duplicated region for block: B:42:0x0074  */
-    /* JADX WARN: Removed duplicated region for block: B:45:0x00d0 A[Catch: all -> 0x000e, TRY_LEAVE, TryCatch #0 {all -> 0x000e, blocks: (B:3:0x0001, B:5:0x0009, B:8:0x003d, B:13:0x0047, B:15:0x004e, B:16:0x0058, B:18:0x0069, B:19:0x0075, B:22:0x007e, B:24:0x0082, B:26:0x008a, B:27:0x00a0, B:31:0x00a4, B:33:0x00a8, B:35:0x00ba, B:37:0x00be, B:38:0x00c2, B:41:0x007a, B:43:0x00c8, B:45:0x00d0, B:48:0x0011, B:50:0x0019, B:51:0x003b), top: B:2:0x0001 }] */
     @Override // com.bumptech.glide.gifdecoder.GifDecoder
-    @androidx.annotation.Nullable
-    /*
-        Code decompiled incorrectly, please refer to instructions dump.
-        To view partially-correct code enable 'Show inconsistent code' option in preferences
-    */
-    public synchronized android.graphics.Bitmap getNextFrame() {
-        /*
-            Method dump skipped, instructions count: 234
-            To view this dump change 'Code comments level' option to 'DEBUG'
-        */
-        throw new UnsupportedOperationException("Method not decompiled: com.bumptech.glide.gifdecoder.StandardGifDecoder.getNextFrame():android.graphics.Bitmap");
+    @Nullable
+    public synchronized Bitmap getNextFrame() {
+        if (this.header.frameCount <= 0 || this.framePointer < 0) {
+            String str = TAG;
+            if (Log.isLoggable(str, 3)) {
+                Log.d(str, "Unable to decode frame, frameCount=" + this.header.frameCount + ", framePointer=" + this.framePointer);
+            }
+            this.status = 1;
+        }
+        int i2 = this.status;
+        if (i2 != 1 && i2 != 2) {
+            this.status = 0;
+            if (this.block == null) {
+                this.block = this.bitmapProvider.obtainByteArray(255);
+            }
+            GifFrame gifFrame = this.header.frames.get(this.framePointer);
+            int i3 = this.framePointer - 1;
+            GifFrame gifFrame2 = i3 >= 0 ? this.header.frames.get(i3) : null;
+            int[] iArr = gifFrame.lct;
+            if (iArr == null) {
+                iArr = this.header.gct;
+            }
+            this.act = iArr;
+            if (iArr == null) {
+                String str2 = TAG;
+                if (Log.isLoggable(str2, 3)) {
+                    Log.d(str2, "No valid color table found for frame #" + this.framePointer);
+                }
+                this.status = 1;
+                return null;
+            }
+            if (gifFrame.transparency) {
+                System.arraycopy(iArr, 0, this.pct, 0, iArr.length);
+                int[] iArr2 = this.pct;
+                this.act = iArr2;
+                iArr2[gifFrame.transIndex] = 0;
+                if (gifFrame.dispose == 2 && this.framePointer == 0) {
+                    this.isFirstFrameTransparent = Boolean.TRUE;
+                }
+            }
+            return setPixels(gifFrame, gifFrame2);
+        }
+        String str3 = TAG;
+        if (Log.isLoggable(str3, 3)) {
+            Log.d(str3, "Unable to decode frame, status=" + this.status);
+        }
+        return null;
     }
 
     @Override // com.bumptech.glide.gifdecoder.GifDecoder
@@ -657,14 +684,14 @@ public class StandardGifDecoder implements GifDecoder {
 
     @Override // com.bumptech.glide.gifdecoder.GifDecoder
     public int getTotalIterationCount() {
-        int i10 = this.header.loopCount;
-        if (i10 == -1) {
+        int i2 = this.header.loopCount;
+        if (i2 == -1) {
             return 1;
         }
-        if (i10 == 0) {
+        if (i2 == 0) {
             return 0;
         }
-        return i10 + 1;
+        return i2 + 1;
     }
 
     @Override // com.bumptech.glide.gifdecoder.GifDecoder
@@ -673,10 +700,10 @@ public class StandardGifDecoder implements GifDecoder {
     }
 
     @Override // com.bumptech.glide.gifdecoder.GifDecoder
-    public int read(@Nullable InputStream inputStream, int i10) {
+    public int read(@Nullable InputStream inputStream, int i2) {
         if (inputStream != null) {
             try {
-                ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream(i10 > 0 ? i10 + 4096 : 16384);
+                ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream(i2 > 0 ? i2 + 4096 : 16384);
                 byte[] bArr = new byte[16384];
                 while (true) {
                     int read = inputStream.read(bArr, 0, 16384);
@@ -687,8 +714,8 @@ public class StandardGifDecoder implements GifDecoder {
                 }
                 byteArrayOutputStream.flush();
                 read(byteArrayOutputStream.toByteArray());
-            } catch (IOException e10) {
-                Log.w(TAG, "Error reading data from stream", e10);
+            } catch (IOException e2) {
+                Log.w(TAG, "Error reading data from stream", e2);
             }
         } else {
             this.status = 2;
@@ -696,8 +723,8 @@ public class StandardGifDecoder implements GifDecoder {
         if (inputStream != null) {
             try {
                 inputStream.close();
-            } catch (IOException e11) {
-                Log.w(TAG, "Error closing stream", e11);
+            } catch (IOException e3) {
+                Log.w(TAG, "Error closing stream", e3);
             }
         }
         return this.status;
@@ -715,18 +742,16 @@ public class StandardGifDecoder implements GifDecoder {
 
     @Override // com.bumptech.glide.gifdecoder.GifDecoder
     public void setDefaultBitmapConfig(@NonNull Bitmap.Config config) {
-        Bitmap.Config config2;
-        Bitmap.Config config3 = Bitmap.Config.ARGB_8888;
-        if (config == config3 || config == (config2 = Bitmap.Config.RGB_565)) {
+        if (config == Bitmap.Config.ARGB_8888 || config == Bitmap.Config.RGB_565) {
             this.bitmapConfig = config;
             return;
         }
-        throw new IllegalArgumentException("Unsupported format: " + config + ", must be one of " + config3 + " or " + config2);
+        throw new IllegalArgumentException("Unsupported format: " + config + ", must be one of " + Bitmap.Config.ARGB_8888 + " or " + Bitmap.Config.RGB_565);
     }
 
-    public StandardGifDecoder(@NonNull GifDecoder.BitmapProvider bitmapProvider, GifHeader gifHeader, ByteBuffer byteBuffer, int i10) {
+    public StandardGifDecoder(@NonNull GifDecoder.BitmapProvider bitmapProvider, GifHeader gifHeader, ByteBuffer byteBuffer, int i2) {
         this(bitmapProvider);
-        setData(gifHeader, byteBuffer, i10);
+        setData(gifHeader, byteBuffer, i2);
     }
 
     @Override // com.bumptech.glide.gifdecoder.GifDecoder
@@ -742,52 +767,44 @@ public class StandardGifDecoder implements GifDecoder {
     }
 
     @Override // com.bumptech.glide.gifdecoder.GifDecoder
-    public synchronized void setData(@NonNull GifHeader gifHeader, @NonNull ByteBuffer byteBuffer, int i10) {
-        try {
-            if (i10 > 0) {
-                int highestOneBit = Integer.highestOneBit(i10);
-                this.status = 0;
-                this.header = gifHeader;
-                this.framePointer = -1;
-                ByteBuffer asReadOnlyBuffer = byteBuffer.asReadOnlyBuffer();
-                this.rawData = asReadOnlyBuffer;
-                asReadOnlyBuffer.position(0);
-                this.rawData.order(ByteOrder.LITTLE_ENDIAN);
-                this.savePrevious = false;
-                Iterator<GifFrame> it = gifHeader.frames.iterator();
-                while (true) {
-                    if (!it.hasNext()) {
-                        break;
-                    } else if (it.next().dispose == 3) {
-                        this.savePrevious = true;
-                        break;
-                    }
+    public synchronized void setData(@NonNull GifHeader gifHeader, @NonNull ByteBuffer byteBuffer, int i2) {
+        if (i2 > 0) {
+            int highestOneBit = Integer.highestOneBit(i2);
+            this.status = 0;
+            this.header = gifHeader;
+            this.framePointer = -1;
+            ByteBuffer asReadOnlyBuffer = byteBuffer.asReadOnlyBuffer();
+            this.rawData = asReadOnlyBuffer;
+            asReadOnlyBuffer.position(0);
+            this.rawData.order(ByteOrder.LITTLE_ENDIAN);
+            this.savePrevious = false;
+            Iterator<GifFrame> it = gifHeader.frames.iterator();
+            while (true) {
+                if (!it.hasNext()) {
+                    break;
+                } else if (it.next().dispose == 3) {
+                    this.savePrevious = true;
+                    break;
                 }
-                this.sampleSize = highestOneBit;
-                int i11 = gifHeader.width;
-                this.downsampledWidth = i11 / highestOneBit;
-                int i12 = gifHeader.height;
-                this.downsampledHeight = i12 / highestOneBit;
-                this.mainPixels = this.bitmapProvider.obtainByteArray(i11 * i12);
-                this.mainScratch = this.bitmapProvider.obtainIntArray(this.downsampledWidth * this.downsampledHeight);
-            } else {
-                throw new IllegalArgumentException("Sample size must be >=0, not: " + i10);
             }
-        } catch (Throwable th2) {
-            throw th2;
+            this.sampleSize = highestOneBit;
+            int i3 = gifHeader.width;
+            this.downsampledWidth = i3 / highestOneBit;
+            int i4 = gifHeader.height;
+            this.downsampledHeight = i4 / highestOneBit;
+            this.mainPixels = this.bitmapProvider.obtainByteArray(i3 * i4);
+            this.mainScratch = this.bitmapProvider.obtainIntArray(this.downsampledWidth * this.downsampledHeight);
+        } else {
+            throw new IllegalArgumentException("Sample size must be >=0, not: " + i2);
         }
     }
 
     @Override // com.bumptech.glide.gifdecoder.GifDecoder
     public synchronized int read(@Nullable byte[] bArr) {
-        try {
-            GifHeader parseHeader = getHeaderParser().setData(bArr).parseHeader();
-            this.header = parseHeader;
-            if (bArr != null) {
-                setData(parseHeader, bArr);
-            }
-        } catch (Throwable th2) {
-            throw th2;
+        GifHeader parseHeader = getHeaderParser().setData(bArr).parseHeader();
+        this.header = parseHeader;
+        if (bArr != null) {
+            setData(parseHeader, bArr);
         }
         return this.status;
     }

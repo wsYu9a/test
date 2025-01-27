@@ -15,11 +15,11 @@ public class AssistActivity extends Activity {
     public static final String EXTRA_INTENT = "openSDK_LOG.AssistActivity.ExtraIntent";
 
     /* renamed from: b */
-    private boolean f23003b = false;
+    private boolean f25279b = false;
 
     /* renamed from: a */
-    protected Handler f23002a = new Handler() { // from class: com.tencent.connect.common.AssistActivity.1
-        public AnonymousClass1() {
+    protected Handler f25278a = new Handler() { // from class: com.tencent.connect.common.AssistActivity.1
+        AnonymousClass1() {
         }
 
         @Override // android.os.Handler
@@ -32,8 +32,8 @@ public class AssistActivity extends Activity {
     };
 
     /* renamed from: com.tencent.connect.common.AssistActivity$1 */
-    public class AnonymousClass1 extends Handler {
-        public AnonymousClass1() {
+    class AnonymousClass1 extends Handler {
+        AnonymousClass1() {
         }
 
         @Override // android.os.Handler
@@ -45,8 +45,8 @@ public class AssistActivity extends Activity {
         }
     }
 
-    /* JADX WARN: Removed duplicated region for block: B:14:0x006f  */
-    /* JADX WARN: Removed duplicated region for block: B:7:0x0044  */
+    /* JADX WARN: Removed duplicated region for block: B:14:0x006e  */
+    /* JADX WARN: Removed duplicated region for block: B:7:0x0043  */
     /*
         Code decompiled incorrectly, please refer to instructions dump.
         To view partially-correct code enable 'Show inconsistent code' option in preferences
@@ -66,55 +66,54 @@ public class AssistActivity extends Activity {
             java.lang.String r3 = r13.getString(r3)
             java.lang.String r13 = "shareToQQ"
             boolean r13 = r13.equals(r0)
-            if (r13 == 0) goto L2d
+            java.lang.String r4 = ""
+            if (r13 == 0) goto L2f
             java.lang.String r13 = "ANDROIDQQ.SHARETOQQ.XX"
             java.lang.String r4 = "10"
-        L2a:
+        L2c:
             r5 = r4
             r4 = r13
-            goto L3e
-        L2d:
+            goto L3d
+        L2f:
             java.lang.String r13 = "shareToQzone"
             boolean r13 = r13.equals(r0)
-            if (r13 == 0) goto L3a
+            if (r13 == 0) goto L3c
             java.lang.String r13 = "ANDROIDQQ.SHARETOQZ.XX"
             java.lang.String r4 = "11"
-            goto L2a
-        L3a:
-            java.lang.String r13 = ""
-            r4 = r13
+            goto L2c
+        L3c:
             r5 = r4
-        L3e:
+        L3d:
             boolean r13 = com.tencent.open.utils.i.a(r12, r1)
-            if (r13 != 0) goto L6f
+            if (r13 != 0) goto L6e
             com.tencent.connect.common.UIListenerManager r13 = com.tencent.connect.common.UIListenerManager.getInstance()
             com.tencent.tauth.IUiListener r13 = r13.getListnerWithAction(r0)
-            if (r13 == 0) goto L5a
+            if (r13 == 0) goto L59
             com.tencent.tauth.UiError r0 = new com.tencent.tauth.UiError
-            java.lang.String r1 = "打开浏览器失败!"
+            r1 = -6
             r6 = 0
-            r7 = -6
-            r0.<init>(r7, r1, r6)
+            java.lang.String r7 = "打开浏览器失败!"
+            r0.<init>(r1, r7, r6)
             r13.onError(r0)
-        L5a:
+        L59:
             com.tencent.open.b.d r1 = com.tencent.open.b.d.a()
-            java.lang.String r10 = "2"
-            java.lang.String r11 = "0"
             java.lang.String r6 = "3"
             java.lang.String r7 = "1"
             java.lang.String r9 = "0"
-            r1.a(r2, r3, r4, r5, r6, r7, r8, r9, r10, r11)
-            r12.finish()
-            goto L80
-        L6f:
-            com.tencent.open.b.d r1 = com.tencent.open.b.d.a()
             java.lang.String r10 = "2"
             java.lang.String r11 = "0"
+            r1.a(r2, r3, r4, r5, r6, r7, r8, r9, r10, r11)
+            r12.finish()
+            goto L7f
+        L6e:
+            com.tencent.open.b.d r1 = com.tencent.open.b.d.a()
             java.lang.String r6 = "3"
             java.lang.String r7 = "0"
             java.lang.String r9 = "0"
+            java.lang.String r10 = "2"
+            java.lang.String r11 = "0"
             r1.a(r2, r3, r4, r5, r6, r7, r8, r9, r10, r11)
-        L80:
+        L7f:
             android.content.Intent r13 = r12.getIntent()
             java.lang.String r0 = "shareH5"
             r13.removeExtra(r0)
@@ -128,28 +127,28 @@ public class AssistActivity extends Activity {
     }
 
     @Override // android.app.Activity
-    public void onActivityResult(int i10, int i11, Intent intent) {
-        StringBuilder sb2 = new StringBuilder();
-        sb2.append("--onActivityResult--requestCode: ");
-        sb2.append(i10);
-        sb2.append(" | resultCode: ");
-        sb2.append(i11);
-        sb2.append("data = null ? ");
-        sb2.append(intent == null);
-        f.c("openSDK_LOG.AssistActivity", sb2.toString());
-        super.onActivityResult(i10, i11, intent);
-        if (i10 == 0) {
+    protected void onActivityResult(int i2, int i3, Intent intent) {
+        StringBuilder sb = new StringBuilder();
+        sb.append("--onActivityResult--requestCode: ");
+        sb.append(i2);
+        sb.append(" | resultCode: ");
+        sb.append(i3);
+        sb.append("data = null ? ");
+        sb.append(intent == null);
+        f.c("openSDK_LOG.AssistActivity", sb.toString());
+        super.onActivityResult(i2, i3, intent);
+        if (i2 == 0) {
             return;
         }
         if (intent != null) {
             intent.putExtra(Constants.KEY_ACTION, "action_login");
         }
-        setResultData(i11, intent);
+        setResultData(i3, intent);
         finish();
     }
 
     @Override // android.app.Activity
-    public void onCreate(Bundle bundle) {
+    protected void onCreate(Bundle bundle) {
         requestWindowFeature(1);
         super.onCreate(bundle);
         setRequestedOrientation(3);
@@ -162,9 +161,9 @@ public class AssistActivity extends Activity {
         int intExtra = intent != null ? intent.getIntExtra(Constants.KEY_REQUEST_CODE, 0) : 0;
         Bundle bundleExtra = getIntent().getBundleExtra("h5_share_data");
         if (bundle != null) {
-            this.f23003b = bundle.getBoolean("RESTART_FLAG");
+            this.f25279b = bundle.getBoolean("RESTART_FLAG");
         }
-        if (this.f23003b) {
+        if (this.f25279b) {
             f.b("openSDK_LOG.AssistActivity", "is restart");
             return;
         }
@@ -183,13 +182,13 @@ public class AssistActivity extends Activity {
     }
 
     @Override // android.app.Activity
-    public void onDestroy() {
+    protected void onDestroy() {
         f.b("openSDK_LOG.AssistActivity", "-->onDestroy");
         super.onDestroy();
     }
 
     @Override // android.app.Activity
-    public void onNewIntent(Intent intent) {
+    protected void onNewIntent(Intent intent) {
         f.c("openSDK_LOG.AssistActivity", "--onNewIntent");
         super.onNewIntent(intent);
         intent.putExtra(Constants.KEY_ACTION, "action_share");
@@ -202,46 +201,46 @@ public class AssistActivity extends Activity {
     }
 
     @Override // android.app.Activity
-    public void onPause() {
+    protected void onPause() {
         f.b("openSDK_LOG.AssistActivity", "-->onPause");
-        this.f23002a.removeMessages(0);
+        this.f25278a.removeMessages(0);
         super.onPause();
     }
 
     @Override // android.app.Activity
-    public void onResume() {
+    protected void onResume() {
         f.b("openSDK_LOG.AssistActivity", "-->onResume");
         super.onResume();
         Intent intent = getIntent();
         if (intent.getBooleanExtra("is_login", false)) {
             return;
         }
-        if (!intent.getBooleanExtra("is_qq_mobile_share", false) && this.f23003b && !isFinishing()) {
+        if (!intent.getBooleanExtra("is_qq_mobile_share", false) && this.f25279b && !isFinishing()) {
             finish();
         }
-        this.f23002a.sendMessage(this.f23002a.obtainMessage(0));
+        this.f25278a.sendMessage(this.f25278a.obtainMessage(0));
     }
 
     @Override // android.app.Activity
-    public void onSaveInstanceState(Bundle bundle) {
+    protected void onSaveInstanceState(Bundle bundle) {
         f.b("openSDK_LOG.AssistActivity", "--onSaveInstanceState--");
         bundle.putBoolean("RESTART_FLAG", true);
         super.onSaveInstanceState(bundle);
     }
 
     @Override // android.app.Activity
-    public void onStart() {
+    protected void onStart() {
         f.b("openSDK_LOG.AssistActivity", "-->onStart");
         super.onStart();
     }
 
     @Override // android.app.Activity
-    public void onStop() {
+    protected void onStop() {
         f.b("openSDK_LOG.AssistActivity", "-->onStop");
         super.onStop();
     }
 
-    public void setResultData(int i10, Intent intent) {
+    public void setResultData(int i2, Intent intent) {
         if (intent == null) {
             f.d("openSDK_LOG.AssistActivity", "--setResultData--intent is null, setResult ACTIVITY_CANCEL");
             setResult(0, intent);
@@ -265,9 +264,9 @@ public class AssistActivity extends Activity {
                     setResult(-1, intent);
                 }
             }
-        } catch (Exception e10) {
+        } catch (Exception e2) {
             f.e("openSDK_LOG.AssistActivity", "--setResultData--parse response failed");
-            e10.printStackTrace();
+            e2.printStackTrace();
         }
     }
 }

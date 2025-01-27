@@ -6,10 +6,10 @@ public class ClockInfo {
     private boolean isChecked;
     private String name;
 
-    public ClockInfo(int i10, String str, boolean z10) {
-        this.idx = i10;
-        this.name = str;
-        this.isChecked = z10;
+    public ClockInfo(int index, String name, boolean isChecked) {
+        this.idx = index;
+        this.name = name;
+        this.isChecked = isChecked;
     }
 
     public int getIdx() {
@@ -24,15 +24,15 @@ public class ClockInfo {
         return this.isChecked;
     }
 
-    public void setChecked(boolean z10) {
-        this.isChecked = z10;
+    public void setChecked(boolean checked) {
+        this.isChecked = checked;
     }
 
-    public void setIdx(int i10) {
-        this.idx = i10;
+    public void setIdx(int idx) {
+        this.idx = idx;
     }
 
-    public void setName(String str) {
-        this.name = str;
+    public void setName(String name) {
+        this.name = name;
     }
 }

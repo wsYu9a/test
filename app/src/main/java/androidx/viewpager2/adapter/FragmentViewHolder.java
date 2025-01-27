@@ -13,7 +13,7 @@ public final class FragmentViewHolder extends RecyclerView.ViewHolder {
     }
 
     @NonNull
-    public static FragmentViewHolder create(@NonNull ViewGroup viewGroup) {
+    static FragmentViewHolder a(@NonNull ViewGroup viewGroup) {
         FrameLayout frameLayout = new FrameLayout(viewGroup.getContext());
         frameLayout.setLayoutParams(new ViewGroup.LayoutParams(-1, -1));
         frameLayout.setId(ViewCompat.generateViewId());
@@ -22,7 +22,7 @@ public final class FragmentViewHolder extends RecyclerView.ViewHolder {
     }
 
     @NonNull
-    public FrameLayout getContainer() {
+    FrameLayout B() {
         return (FrameLayout) this.itemView;
     }
 }

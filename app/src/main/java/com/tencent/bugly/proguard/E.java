@@ -6,29 +6,29 @@ import java.io.Serializable;
 public class E implements Comparable<E>, Serializable {
 
     /* renamed from: a */
-    public long f22585a;
+    public long f24944a;
 
     /* renamed from: b */
-    public String f22586b;
+    public String f24945b;
 
     /* renamed from: c */
-    public long f22587c;
+    public long f24946c;
 
     /* renamed from: d */
-    public int f22588d;
+    public int f24947d;
 
     /* renamed from: e */
-    public String f22589e;
+    public String f24948e;
 
     /* renamed from: f */
-    public String f22590f;
+    public String f24949f;
 
     /* renamed from: g */
-    public long f22591g;
+    public long f24950g;
 
     @Override // java.lang.Comparable
     /* renamed from: a */
-    public int compareTo(E e10) {
-        return (int) (this.f22587c - e10.f22587c);
+    public int compareTo(E e2) {
+        return (int) (this.f24946c - e2.f24946c);
     }
 }

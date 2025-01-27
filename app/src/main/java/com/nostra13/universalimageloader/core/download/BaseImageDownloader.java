@@ -6,6 +6,7 @@ import android.graphics.Bitmap;
 import android.net.Uri;
 import android.provider.ContactsContract;
 import android.provider.MediaStore;
+import b.g.a.b.c;
 import com.nostra13.universalimageloader.core.download.ImageDownloader;
 import java.io.BufferedInputStream;
 import java.io.ByteArrayInputStream;
@@ -17,99 +18,107 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.net.HttpURLConnection;
 import java.net.URL;
-import m5.c;
+import org.apache.http.HttpHeaders;
 
-/* loaded from: classes3.dex */
+/* loaded from: classes4.dex */
 public class BaseImageDownloader implements ImageDownloader {
 
-    /* renamed from: d */
-    public static final int f16353d = 5000;
-
-    /* renamed from: e */
-    public static final int f16354e = 20000;
-
-    /* renamed from: f */
-    public static final int f16355f = 32768;
-
-    /* renamed from: g */
-    public static final String f16356g = "@#&=*+-_.,:!?()/~'%";
-
-    /* renamed from: h */
-    public static final int f16357h = 5;
-
-    /* renamed from: i */
-    public static final String f16358i = "content://com.android.contacts/";
-
-    /* renamed from: j */
-    public static final String f16359j = "UIL doesn't support scheme(protocol) by default [%s]. You should implement this support yourself (BaseImageDownloader.getStreamFromOtherSource(...))";
-
     /* renamed from: a */
-    public final Context f16360a;
+    public static final int f15971a = 5000;
 
     /* renamed from: b */
-    public final int f16361b;
+    public static final int f15972b = 20000;
 
     /* renamed from: c */
-    public final int f16362c;
+    protected static final int f15973c = 32768;
 
-    public static /* synthetic */ class a {
+    /* renamed from: d */
+    protected static final String f15974d = "@#&=*+-_.,:!?()/~'%";
+
+    /* renamed from: e */
+    protected static final int f15975e = 5;
+
+    /* renamed from: f */
+    protected static final String f15976f = "content://com.android.contacts/";
+
+    /* renamed from: g */
+    private static final String f15977g = "UIL doesn't support scheme(protocol) by default [%s]. You should implement this support yourself (BaseImageDownloader.getStreamFromOtherSource(...))";
+
+    /* renamed from: h */
+    protected final Context f15978h;
+
+    /* renamed from: i */
+    protected final int f15979i;
+
+    /* renamed from: j */
+    protected final int f15980j;
+
+    static /* synthetic */ class a {
 
         /* renamed from: a */
-        public static final /* synthetic */ int[] f16363a;
+        static final /* synthetic */ int[] f15981a;
 
         static {
             int[] iArr = new int[ImageDownloader.Scheme.values().length];
-            f16363a = iArr;
+            f15981a = iArr;
             try {
                 iArr[ImageDownloader.Scheme.HTTP.ordinal()] = 1;
             } catch (NoSuchFieldError unused) {
             }
             try {
-                f16363a[ImageDownloader.Scheme.HTTPS.ordinal()] = 2;
+                f15981a[ImageDownloader.Scheme.HTTPS.ordinal()] = 2;
             } catch (NoSuchFieldError unused2) {
             }
             try {
-                f16363a[ImageDownloader.Scheme.FILE.ordinal()] = 3;
+                f15981a[ImageDownloader.Scheme.FILE.ordinal()] = 3;
             } catch (NoSuchFieldError unused3) {
             }
             try {
-                f16363a[ImageDownloader.Scheme.CONTENT.ordinal()] = 4;
+                f15981a[ImageDownloader.Scheme.CONTENT.ordinal()] = 4;
             } catch (NoSuchFieldError unused4) {
             }
             try {
-                f16363a[ImageDownloader.Scheme.ASSETS.ordinal()] = 5;
+                f15981a[ImageDownloader.Scheme.ASSETS.ordinal()] = 5;
             } catch (NoSuchFieldError unused5) {
             }
             try {
-                f16363a[ImageDownloader.Scheme.DRAWABLE.ordinal()] = 6;
+                f15981a[ImageDownloader.Scheme.DRAWABLE.ordinal()] = 6;
             } catch (NoSuchFieldError unused6) {
             }
             try {
-                f16363a[ImageDownloader.Scheme.UNKNOWN.ordinal()] = 7;
+                f15981a[ImageDownloader.Scheme.UNKNOWN.ordinal()] = 7;
             } catch (NoSuchFieldError unused7) {
             }
         }
     }
 
     public BaseImageDownloader(Context context) {
-        this.f16360a = context.getApplicationContext();
-        this.f16361b = 5000;
-        this.f16362c = 20000;
+        this.f15978h = context.getApplicationContext();
+        this.f15979i = 5000;
+        this.f15980j = 20000;
     }
 
-    public HttpURLConnection a(String str, Object obj) throws IOException {
-        HttpURLConnection httpURLConnection = (HttpURLConnection) new URL(Uri.encode(str, f16356g)).openConnection();
-        httpURLConnection.setConnectTimeout(this.f16361b);
-        httpURLConnection.setReadTimeout(this.f16362c);
+    private boolean h(Uri uri) {
+        String type = this.f15978h.getContentResolver().getType(uri);
+        if (type == null) {
+            return false;
+        }
+        return type.startsWith("video/");
+    }
+
+    protected HttpURLConnection a(String str, Object obj) throws IOException {
+        HttpURLConnection httpURLConnection = (HttpURLConnection) new URL(Uri.encode(str, f15974d)).openConnection();
+        httpURLConnection.setConnectTimeout(this.f15979i);
+        httpURLConnection.setReadTimeout(this.f15980j);
         return httpURLConnection;
     }
 
-    public InputStream b(String str, Object obj) throws IOException {
-        return this.f16360a.getAssets().open(ImageDownloader.Scheme.ASSETS.crop(str));
+    protected InputStream b(String str, Object obj) throws IOException {
+        return this.f15978h.getAssets().open(ImageDownloader.Scheme.ASSETS.crop(str));
     }
 
-    public InputStream c(String str, Object obj) throws FileNotFoundException {
-        ContentResolver contentResolver = this.f16360a.getContentResolver();
+    protected InputStream c(String str, Object obj) throws FileNotFoundException {
+        ContentResolver contentResolver = this.f15978h.getContentResolver();
         Uri parse = Uri.parse(str);
         if (h(parse)) {
             Bitmap thumbnail = MediaStore.Video.Thumbnails.getThumbnail(contentResolver, Long.valueOf(parse.getLastPathSegment()).longValue(), 1, null);
@@ -118,41 +127,41 @@ public class BaseImageDownloader implements ImageDownloader {
                 thumbnail.compress(Bitmap.CompressFormat.PNG, 0, byteArrayOutputStream);
                 return new ByteArrayInputStream(byteArrayOutputStream.toByteArray());
             }
-        } else if (str.startsWith(f16358i)) {
+        } else if (str.startsWith(f15976f)) {
             return ContactsContract.Contacts.openContactPhotoInputStream(contentResolver, parse);
         }
         return contentResolver.openInputStream(parse);
     }
 
-    public InputStream d(String str, Object obj) {
-        return this.f16360a.getResources().openRawResource(Integer.parseInt(ImageDownloader.Scheme.DRAWABLE.crop(str)));
+    protected InputStream d(String str, Object obj) {
+        return this.f15978h.getResources().openRawResource(Integer.parseInt(ImageDownloader.Scheme.DRAWABLE.crop(str)));
     }
 
-    public InputStream e(String str, Object obj) throws IOException {
+    protected InputStream e(String str, Object obj) throws IOException {
         String crop = ImageDownloader.Scheme.FILE.crop(str);
-        return new af.a(new BufferedInputStream(new FileInputStream(crop), 32768), (int) new File(crop).length());
+        return new com.nostra13.universalimageloader.core.assist.a(new BufferedInputStream(new FileInputStream(crop), 32768), (int) new File(crop).length());
     }
 
-    public InputStream f(String str, Object obj) throws IOException {
-        HttpURLConnection a10 = a(str, obj);
-        for (int i10 = 0; a10.getResponseCode() / 100 == 3 && i10 < 5; i10++) {
-            a10 = a(a10.getHeaderField(c.f28347t0), obj);
+    protected InputStream f(String str, Object obj) throws IOException {
+        HttpURLConnection a2 = a(str, obj);
+        for (int i2 = 0; a2.getResponseCode() / 100 == 3 && i2 < 5; i2++) {
+            a2 = a(a2.getHeaderField(HttpHeaders.LOCATION), obj);
         }
         try {
-            return new af.a(new BufferedInputStream(a10.getInputStream(), 32768), a10.getContentLength());
-        } catch (IOException e10) {
-            hf.c.d(a10.getErrorStream());
-            throw e10;
+            return new com.nostra13.universalimageloader.core.assist.a(new BufferedInputStream(a2.getInputStream(), 32768), a2.getContentLength());
+        } catch (IOException e2) {
+            c.d(a2.getErrorStream());
+            throw e2;
         }
     }
 
-    public InputStream g(String str, Object obj) throws IOException {
-        throw new UnsupportedOperationException(String.format(f16359j, str));
+    protected InputStream g(String str, Object obj) throws IOException {
+        throw new UnsupportedOperationException(String.format(f15977g, str));
     }
 
     @Override // com.nostra13.universalimageloader.core.download.ImageDownloader
     public InputStream getStream(String str, Object obj) throws IOException {
-        switch (a.f16363a[ImageDownloader.Scheme.ofUri(str).ordinal()]) {
+        switch (a.f15981a[ImageDownloader.Scheme.ofUri(str).ordinal()]) {
             case 1:
             case 2:
                 return f(str, obj);
@@ -169,17 +178,9 @@ public class BaseImageDownloader implements ImageDownloader {
         }
     }
 
-    public final boolean h(Uri uri) {
-        String type = this.f16360a.getContentResolver().getType(uri);
-        if (type == null) {
-            return false;
-        }
-        return type.startsWith("video/");
-    }
-
-    public BaseImageDownloader(Context context, int i10, int i11) {
-        this.f16360a = context.getApplicationContext();
-        this.f16361b = i10;
-        this.f16362c = i11;
+    public BaseImageDownloader(Context context, int i2, int i3) {
+        this.f15978h = context.getApplicationContext();
+        this.f15979i = i2;
+        this.f15980j = i3;
     }
 }

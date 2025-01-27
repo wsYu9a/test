@@ -7,7 +7,7 @@ import com.kwad.sdk.collector.model.jni.RulesTargetNative;
 import com.kwad.sdk.collector.model.jni.UploadEntryNative;
 
 @Keep
-/* loaded from: classes3.dex */
+/* loaded from: classes2.dex */
 public class AppStatusNative {
     public static native String[] analyseTaskGetPathSuffixSet(AnalyseTaskNative analyseTaskNative);
 
@@ -25,25 +25,25 @@ public class AppStatusNative {
 
     public static native String appRunningInfoGetPackageName(AppRunningInfoNative appRunningInfoNative);
 
-    public static native void appRunningInfoSetLastRunningTime(AppRunningInfoNative appRunningInfoNative, long j10);
+    public static native void appRunningInfoSetLastRunningTime(AppRunningInfoNative appRunningInfoNative, long j2);
 
-    public static native long nativeCreateAnalyseTask(long j10, String[] strArr, long j11);
+    public static native long nativeCreateAnalyseTask(long j2, String[] strArr, long j3);
 
-    public static native long nativeCreateAppRunningInfo(long j10, String str, String str2);
+    public static native long nativeCreateAppRunningInfo(long j2, String str, String str2);
 
     public static native long nativeCreateRulesTarget();
 
     public static native long nativeCreateUploadEntry();
 
-    public static native void nativeDeleteAnalyseTask(long j10);
+    public static native void nativeDeleteAnalyseTask(long j2);
 
-    public static native void nativeDeleteAppRunningInfo(long j10);
+    public static native void nativeDeleteAppRunningInfo(long j2);
 
-    public static native void nativeDeleteRulesTarget(long j10);
+    public static native void nativeDeleteRulesTarget(long j2);
 
-    public static native void nativeDeleteUploadEntry(long j10);
+    public static native void nativeDeleteUploadEntry(long j2);
 
-    public static native long[] nativeGetUploadEntry(long[] jArr, long j10, String str);
+    public static native long[] nativeGetUploadEntry(long[] jArr, long j2, String str);
 
     public static native String rulesTargetGetPackageName(RulesTargetNative rulesTargetNative);
 

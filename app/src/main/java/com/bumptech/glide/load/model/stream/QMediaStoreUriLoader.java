@@ -20,23 +20,24 @@ import com.bumptech.glide.load.model.ModelLoader;
 import com.bumptech.glide.load.model.ModelLoaderFactory;
 import com.bumptech.glide.load.model.MultiModelLoaderFactory;
 import com.bumptech.glide.signature.ObjectKey;
+import com.vivo.ic.dm.Downloads;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.InputStream;
 
 @RequiresApi(29)
-/* loaded from: classes2.dex */
+/* loaded from: classes.dex */
 public final class QMediaStoreUriLoader<DataT> implements ModelLoader<Uri, DataT> {
     private final Context context;
     private final Class<DataT> dataClass;
     private final ModelLoader<File, DataT> fileDelegate;
     private final ModelLoader<Uri, DataT> uriDelegate;
 
-    public static abstract class Factory<DataT> implements ModelLoaderFactory<Uri, DataT> {
+    private static abstract class Factory<DataT> implements ModelLoaderFactory<Uri, DataT> {
         private final Context context;
         private final Class<DataT> dataClass;
 
-        public Factory(Context context, Class<DataT> cls) {
+        Factory(Context context, Class<DataT> cls) {
             this.context = context;
             this.dataClass = cls;
         }
@@ -66,8 +67,8 @@ public final class QMediaStoreUriLoader<DataT> implements ModelLoader<Uri, DataT
         }
     }
 
-    public static final class QMediaStoreUriFetcher<DataT> implements DataFetcher<DataT> {
-        private static final String[] PROJECTION = {"_data"};
+    private static final class QMediaStoreUriFetcher<DataT> implements DataFetcher<DataT> {
+        private static final String[] PROJECTION = {Downloads.Column.DATA};
         private final Context context;
         private final Class<DataT> dataClass;
 
@@ -81,22 +82,20 @@ public final class QMediaStoreUriLoader<DataT> implements ModelLoader<Uri, DataT
         private final ModelLoader<Uri, DataT> uriDelegate;
         private final int width;
 
-        public QMediaStoreUriFetcher(Context context, ModelLoader<File, DataT> modelLoader, ModelLoader<Uri, DataT> modelLoader2, Uri uri, int i10, int i11, Options options, Class<DataT> cls) {
+        QMediaStoreUriFetcher(Context context, ModelLoader<File, DataT> modelLoader, ModelLoader<Uri, DataT> modelLoader2, Uri uri, int i2, int i3, Options options, Class<DataT> cls) {
             this.context = context.getApplicationContext();
             this.fileDelegate = modelLoader;
             this.uriDelegate = modelLoader2;
             this.uri = uri;
-            this.width = i10;
-            this.height = i11;
+            this.width = i2;
+            this.height = i3;
             this.options = options;
             this.dataClass = cls;
         }
 
         @Nullable
         private ModelLoader.LoadData<DataT> buildDelegateData() throws FileNotFoundException {
-            boolean isExternalStorageLegacy;
-            isExternalStorageLegacy = Environment.isExternalStorageLegacy();
-            if (isExternalStorageLegacy) {
+            if (Environment.isExternalStorageLegacy()) {
                 return this.fileDelegate.buildLoadData(queryForFilePath(this.uri), this.width, this.height, this.options);
             }
             return this.uriDelegate.buildLoadData(isAccessMediaLocationGranted() ? MediaStore.setRequireOriginal(this.uri) : this.uri, this.width, this.height, this.options);
@@ -112,9 +111,7 @@ public final class QMediaStoreUriLoader<DataT> implements ModelLoader<Uri, DataT
         }
 
         private boolean isAccessMediaLocationGranted() {
-            int checkSelfPermission;
-            checkSelfPermission = this.context.checkSelfPermission("android.permission.ACCESS_MEDIA_LOCATION");
-            return checkSelfPermission == 0;
+            return this.context.checkSelfPermission("android.permission.ACCESS_MEDIA_LOCATION") == 0;
         }
 
         @NonNull
@@ -125,18 +122,18 @@ public final class QMediaStoreUriLoader<DataT> implements ModelLoader<Uri, DataT
                 if (query == null || !query.moveToFirst()) {
                     throw new FileNotFoundException("Failed to media store entry for: " + uri);
                 }
-                String string = query.getString(query.getColumnIndexOrThrow("_data"));
+                String string = query.getString(query.getColumnIndexOrThrow(Downloads.Column.DATA));
                 if (!TextUtils.isEmpty(string)) {
                     File file = new File(string);
                     query.close();
                     return file;
                 }
                 throw new FileNotFoundException("File path was empty in media store for: " + uri);
-            } catch (Throwable th2) {
+            } catch (Throwable th) {
                 if (0 != 0) {
                     cursor.close();
                 }
-                throw th2;
+                throw th;
             }
         }
 
@@ -183,13 +180,13 @@ public final class QMediaStoreUriLoader<DataT> implements ModelLoader<Uri, DataT
                 } else {
                     buildDelegateFetcher.loadData(priority, dataCallback);
                 }
-            } catch (FileNotFoundException e10) {
-                dataCallback.onLoadFailed(e10);
+            } catch (FileNotFoundException e2) {
+                dataCallback.onLoadFailed(e2);
             }
         }
     }
 
-    public QMediaStoreUriLoader(Context context, ModelLoader<File, DataT> modelLoader, ModelLoader<Uri, DataT> modelLoader2, Class<DataT> cls) {
+    QMediaStoreUriLoader(Context context, ModelLoader<File, DataT> modelLoader, ModelLoader<Uri, DataT> modelLoader2, Class<DataT> cls) {
         this.context = context.getApplicationContext();
         this.fileDelegate = modelLoader;
         this.uriDelegate = modelLoader2;
@@ -197,8 +194,8 @@ public final class QMediaStoreUriLoader<DataT> implements ModelLoader<Uri, DataT
     }
 
     @Override // com.bumptech.glide.load.model.ModelLoader
-    public ModelLoader.LoadData<DataT> buildLoadData(@NonNull Uri uri, int i10, int i11, @NonNull Options options) {
-        return new ModelLoader.LoadData<>(new ObjectKey(uri), new QMediaStoreUriFetcher(this.context, this.fileDelegate, this.uriDelegate, uri, i10, i11, options, this.dataClass));
+    public ModelLoader.LoadData<DataT> buildLoadData(@NonNull Uri uri, int i2, int i3, @NonNull Options options) {
+        return new ModelLoader.LoadData<>(new ObjectKey(uri), new QMediaStoreUriFetcher(this.context, this.fileDelegate, this.uriDelegate, uri, i2, i3, options, this.dataClass));
     }
 
     @Override // com.bumptech.glide.load.model.ModelLoader

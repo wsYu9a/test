@@ -13,48 +13,48 @@ import java.util.HashMap;
 public class l implements Thread.UncaughtExceptionHandler {
 
     /* renamed from: a */
-    private static String f22540a;
+    private static String f24910a;
 
     /* renamed from: b */
-    private static final Object f22541b = new Object();
+    private static final Object f24911b = new Object();
 
     /* renamed from: c */
-    protected final Context f22542c;
+    protected final Context f24912c;
 
     /* renamed from: d */
-    protected final e f22543d;
+    protected final e f24913d;
 
     /* renamed from: e */
-    protected final com.tencent.bugly.crashreport.common.strategy.c f22544e;
+    protected final com.tencent.bugly.crashreport.common.strategy.c f24914e;
 
     /* renamed from: f */
-    protected final com.tencent.bugly.crashreport.common.info.a f22545f;
+    protected final com.tencent.bugly.crashreport.common.info.a f24915f;
 
     /* renamed from: g */
-    protected Thread.UncaughtExceptionHandler f22546g;
+    protected Thread.UncaughtExceptionHandler f24916g;
 
     /* renamed from: h */
-    protected Thread.UncaughtExceptionHandler f22547h;
+    protected Thread.UncaughtExceptionHandler f24917h;
 
     /* renamed from: i */
-    protected boolean f22548i = false;
+    protected boolean f24918i = false;
 
     /* renamed from: j */
-    private int f22549j;
+    private int f24919j;
 
     public l(Context context, e eVar, com.tencent.bugly.crashreport.common.strategy.c cVar, com.tencent.bugly.crashreport.common.info.a aVar) {
-        this.f22542c = context;
-        this.f22543d = eVar;
-        this.f22544e = cVar;
-        this.f22545f = aVar;
+        this.f24912c = context;
+        this.f24913d = eVar;
+        this.f24914e = cVar;
+        this.f24915f = aVar;
     }
 
     public synchronized void a() {
-        if (this.f22549j >= 10) {
+        if (this.f24919j >= 10) {
             X.c("java crash handler over %d, no need set.", 10);
             return;
         }
-        this.f22548i = true;
+        this.f24918i = true;
         Thread.UncaughtExceptionHandler defaultUncaughtExceptionHandler = Thread.getDefaultUncaughtExceptionHandler();
         if (defaultUncaughtExceptionHandler != null) {
             if (l.class.getName().equals(defaultUncaughtExceptionHandler.getClass().getName())) {
@@ -62,326 +62,327 @@ public class l implements Thread.UncaughtExceptionHandler {
             }
             if ("com.android.internal.os.RuntimeInit$UncaughtHandler".equals(defaultUncaughtExceptionHandler.getClass().getName())) {
                 X.c("backup system java handler: %s", defaultUncaughtExceptionHandler.toString());
-                this.f22547h = defaultUncaughtExceptionHandler;
-                this.f22546g = defaultUncaughtExceptionHandler;
+                this.f24917h = defaultUncaughtExceptionHandler;
+                this.f24916g = defaultUncaughtExceptionHandler;
             } else {
                 X.c("backup java handler: %s", defaultUncaughtExceptionHandler.toString());
-                this.f22546g = defaultUncaughtExceptionHandler;
+                this.f24916g = defaultUncaughtExceptionHandler;
             }
         }
         Thread.setDefaultUncaughtExceptionHandler(this);
-        this.f22549j++;
+        this.f24919j++;
         X.c("registered java monitor: %s", toString());
     }
 
     public synchronized void b() {
-        this.f22548i = false;
+        this.f24918i = false;
         X.c("close java monitor!", new Object[0]);
         if (Thread.getDefaultUncaughtExceptionHandler().getClass().getName().contains("bugly")) {
             X.c("Java monitor to unregister: %s", toString());
-            Thread.setDefaultUncaughtExceptionHandler(this.f22546g);
-            this.f22549j--;
+            Thread.setDefaultUncaughtExceptionHandler(this.f24916g);
+            this.f24919j--;
         }
     }
 
     @Override // java.lang.Thread.UncaughtExceptionHandler
-    public void uncaughtException(Thread thread, Throwable th2) {
-        synchronized (f22541b) {
-            b(thread, th2, true, null, null);
+    public void uncaughtException(Thread thread, Throwable th) {
+        synchronized (f24911b) {
+            b(thread, th, true, null, null);
         }
     }
 
-    public void b(Thread thread, Throwable th2, boolean z10, String str, byte[] bArr) {
-        if (z10) {
+    public void b(Thread thread, Throwable th, boolean z, String str, byte[] bArr) {
+        if (z) {
             X.b("Java Crash Happen cause by %s(%d)", thread.getName(), Long.valueOf(thread.getId()));
             if (a(thread)) {
                 X.c("this class has handled this exception", new Object[0]);
-                if (this.f22547h != null) {
+                if (this.f24917h != null) {
                     X.c("call system handler", new Object[0]);
-                    this.f22547h.uncaughtException(thread, th2);
+                    this.f24917h.uncaughtException(thread, th);
                 } else {
-                    a(thread, th2);
+                    a(thread, th);
                 }
             }
         } else {
             X.b("Java Catch Happen", new Object[0]);
         }
         try {
-            if (!this.f22548i) {
+            if (!this.f24918i) {
                 X.a("Java crash handler is disable. Just return.", new Object[0]);
-                if (z10) {
-                    Thread.UncaughtExceptionHandler uncaughtExceptionHandler = this.f22546g;
+                if (z) {
+                    Thread.UncaughtExceptionHandler uncaughtExceptionHandler = this.f24916g;
                     if (uncaughtExceptionHandler != null && a(uncaughtExceptionHandler)) {
                         X.b("sys default last handle start!", new Object[0]);
-                        this.f22546g.uncaughtException(thread, th2);
+                        this.f24916g.uncaughtException(thread, th);
                         X.b("sys default last handle end!", new Object[0]);
                         return;
-                    } else if (this.f22547h != null) {
+                    } else if (this.f24917h != null) {
                         X.b("system handle start!", new Object[0]);
-                        this.f22547h.uncaughtException(thread, th2);
+                        this.f24917h.uncaughtException(thread, th);
                         X.b("system handle end!", new Object[0]);
                         return;
                     } else {
                         X.b("crashreport last handle start!", new Object[0]);
-                        a(thread, th2);
+                        a(thread, th);
                         X.b("crashreport last handle end!", new Object[0]);
                         return;
                     }
                 }
                 return;
             }
-            if (!this.f22544e.d()) {
+            if (!this.f24914e.d()) {
                 X.e("no remote but still store!", new Object[0]);
             }
-            if (!this.f22544e.c().f22342f && this.f22544e.d()) {
+            if (!this.f24914e.c().f24768f && this.f24914e.d()) {
                 X.b("crash report was closed by remote , will not upload to Bugly , print local for helpful!", new Object[0]);
-                e.a(z10 ? "JAVA_CRASH" : "JAVA_CATCH", ca.a(), this.f22545f.f22296h, thread.getName(), ca.b(th2), null);
-                if (z10) {
-                    Thread.UncaughtExceptionHandler uncaughtExceptionHandler2 = this.f22546g;
+                e.a(z ? "JAVA_CRASH" : "JAVA_CATCH", ca.a(), this.f24915f.f24755h, thread.getName(), ca.b(th), null);
+                if (z) {
+                    Thread.UncaughtExceptionHandler uncaughtExceptionHandler2 = this.f24916g;
                     if (uncaughtExceptionHandler2 != null && a(uncaughtExceptionHandler2)) {
                         X.b("sys default last handle start!", new Object[0]);
-                        this.f22546g.uncaughtException(thread, th2);
+                        this.f24916g.uncaughtException(thread, th);
                         X.b("sys default last handle end!", new Object[0]);
                         return;
-                    } else if (this.f22547h != null) {
+                    } else if (this.f24917h != null) {
                         X.b("system handle start!", new Object[0]);
-                        this.f22547h.uncaughtException(thread, th2);
+                        this.f24917h.uncaughtException(thread, th);
                         X.b("system handle end!", new Object[0]);
                         return;
                     } else {
                         X.b("crashreport last handle start!", new Object[0]);
-                        a(thread, th2);
+                        a(thread, th);
                         X.b("crashreport last handle end!", new Object[0]);
                         return;
                     }
                 }
                 return;
             }
-            CrashDetailBean a10 = a(thread, th2, z10, str, bArr);
-            if (a10 == null) {
+            CrashDetailBean a2 = a(thread, th, z, str, bArr);
+            if (a2 == null) {
                 X.b("pkg crash datas fail!", new Object[0]);
-                if (z10) {
-                    Thread.UncaughtExceptionHandler uncaughtExceptionHandler3 = this.f22546g;
+                if (z) {
+                    Thread.UncaughtExceptionHandler uncaughtExceptionHandler3 = this.f24916g;
                     if (uncaughtExceptionHandler3 != null && a(uncaughtExceptionHandler3)) {
                         X.b("sys default last handle start!", new Object[0]);
-                        this.f22546g.uncaughtException(thread, th2);
+                        this.f24916g.uncaughtException(thread, th);
                         X.b("sys default last handle end!", new Object[0]);
                         return;
-                    } else if (this.f22547h != null) {
+                    } else if (this.f24917h != null) {
                         X.b("system handle start!", new Object[0]);
-                        this.f22547h.uncaughtException(thread, th2);
+                        this.f24917h.uncaughtException(thread, th);
                         X.b("system handle end!", new Object[0]);
                         return;
                     } else {
                         X.b("crashreport last handle start!", new Object[0]);
-                        a(thread, th2);
+                        a(thread, th);
                         X.b("crashreport last handle end!", new Object[0]);
                         return;
                     }
                 }
                 return;
             }
-            e.a(z10 ? "JAVA_CRASH" : "JAVA_CATCH", ca.a(), this.f22545f.f22296h, thread.getName(), ca.b(th2), a10);
-            if (!this.f22543d.c(a10)) {
-                this.f22543d.a(a10, 3000L, z10);
+            e.a(z ? "JAVA_CRASH" : "JAVA_CATCH", ca.a(), this.f24915f.f24755h, thread.getName(), ca.b(th), a2);
+            if (!this.f24913d.c(a2)) {
+                this.f24913d.a(a2, 3000L, z);
             }
-            if (z10) {
-                this.f22543d.e(a10);
+            if (z) {
+                this.f24913d.e(a2);
             }
-            if (z10) {
-                Thread.UncaughtExceptionHandler uncaughtExceptionHandler4 = this.f22546g;
+            if (z) {
+                Thread.UncaughtExceptionHandler uncaughtExceptionHandler4 = this.f24916g;
                 if (uncaughtExceptionHandler4 != null && a(uncaughtExceptionHandler4)) {
                     X.b("sys default last handle start!", new Object[0]);
-                    this.f22546g.uncaughtException(thread, th2);
+                    this.f24916g.uncaughtException(thread, th);
                     X.b("sys default last handle end!", new Object[0]);
-                } else if (this.f22547h != null) {
+                } else if (this.f24917h != null) {
                     X.b("system handle start!", new Object[0]);
-                    this.f22547h.uncaughtException(thread, th2);
+                    this.f24917h.uncaughtException(thread, th);
                     X.b("system handle end!", new Object[0]);
                 } else {
                     X.b("crashreport last handle start!", new Object[0]);
-                    a(thread, th2);
+                    a(thread, th);
                     X.b("crashreport last handle end!", new Object[0]);
                 }
             }
-        } catch (Throwable th3) {
+        } catch (Throwable th2) {
             try {
-                if (!X.b(th3)) {
-                    th3.printStackTrace();
+                if (!X.b(th2)) {
+                    th2.printStackTrace();
                 }
-                if (z10) {
-                    Thread.UncaughtExceptionHandler uncaughtExceptionHandler5 = this.f22546g;
+                if (z) {
+                    Thread.UncaughtExceptionHandler uncaughtExceptionHandler5 = this.f24916g;
                     if (uncaughtExceptionHandler5 != null && a(uncaughtExceptionHandler5)) {
                         X.b("sys default last handle start!", new Object[0]);
-                        this.f22546g.uncaughtException(thread, th2);
+                        this.f24916g.uncaughtException(thread, th);
                         X.b("sys default last handle end!", new Object[0]);
-                    } else if (this.f22547h != null) {
+                    } else if (this.f24917h != null) {
                         X.b("system handle start!", new Object[0]);
-                        this.f22547h.uncaughtException(thread, th2);
+                        this.f24917h.uncaughtException(thread, th);
                         X.b("system handle end!", new Object[0]);
                     } else {
                         X.b("crashreport last handle start!", new Object[0]);
-                        a(thread, th2);
+                        a(thread, th);
                         X.b("crashreport last handle end!", new Object[0]);
                     }
                 }
-            } catch (Throwable th4) {
-                if (z10) {
-                    Thread.UncaughtExceptionHandler uncaughtExceptionHandler6 = this.f22546g;
+            } catch (Throwable th3) {
+                if (z) {
+                    Thread.UncaughtExceptionHandler uncaughtExceptionHandler6 = this.f24916g;
                     if (uncaughtExceptionHandler6 != null && a(uncaughtExceptionHandler6)) {
                         X.b("sys default last handle start!", new Object[0]);
-                        this.f22546g.uncaughtException(thread, th2);
+                        this.f24916g.uncaughtException(thread, th);
                         X.b("sys default last handle end!", new Object[0]);
-                    } else if (this.f22547h != null) {
+                    } else if (this.f24917h != null) {
                         X.b("system handle start!", new Object[0]);
-                        this.f22547h.uncaughtException(thread, th2);
+                        this.f24917h.uncaughtException(thread, th);
                         X.b("system handle end!", new Object[0]);
                     } else {
                         X.b("crashreport last handle start!", new Object[0]);
-                        a(thread, th2);
+                        a(thread, th);
                         X.b("crashreport last handle end!", new Object[0]);
                     }
                 }
-                throw th4;
+                throw th3;
             }
         }
     }
 
-    public void a(Thread thread, Throwable th2) {
+    protected void a(Thread thread, Throwable th) {
         X.b("current process die", new Object[0]);
         Process.killProcess(Process.myPid());
         System.exit(1);
     }
 
-    public CrashDetailBean a(Thread thread, Throwable th2, boolean z10, String str, byte[] bArr) {
-        String b10;
-        if (th2 == null) {
+    public CrashDetailBean a(Thread thread, Throwable th, boolean z, String str, byte[] bArr) {
+        String b2;
+        if (th == null) {
             X.e("We can do nothing with a null throwable.", new Object[0]);
             return null;
         }
-        boolean i10 = h.g().i();
-        String str2 = (i10 && z10) ? " This Crash Caused By ANR , PLS To Fix ANR , This Trace May Be Not Useful![Bugly]" : "";
-        if (i10 && z10) {
+        boolean i2 = h.g().i();
+        String str2 = (i2 && z) ? " This Crash Caused By ANR , PLS To Fix ANR , This Trace May Be Not Useful![Bugly]" : "";
+        if (i2 && z) {
             X.b("This Crash Caused By ANR , PLS To Fix ANR , This Trace May Be Not Useful!", new Object[0]);
         }
         CrashDetailBean crashDetailBean = new CrashDetailBean();
         crashDetailBean.C = com.tencent.bugly.crashreport.common.info.b.h();
         crashDetailBean.D = com.tencent.bugly.crashreport.common.info.b.j();
         crashDetailBean.E = com.tencent.bugly.crashreport.common.info.b.g();
-        crashDetailBean.F = this.f22545f.v();
-        crashDetailBean.G = this.f22545f.w();
-        crashDetailBean.H = this.f22545f.x();
-        crashDetailBean.f22396w = ca.a(this.f22542c, h.f22466e, h.f22469h);
-        byte[] b11 = ba.b();
-        crashDetailBean.f22398y = b11;
-        X.c("user log size:%d", Integer.valueOf(b11 == null ? 0 : b11.length));
-        crashDetailBean.f22375b = z10 ? 0 : 2;
-        crashDetailBean.f22378e = this.f22545f.l();
-        com.tencent.bugly.crashreport.common.info.a aVar = this.f22545f;
-        crashDetailBean.f22379f = aVar.E;
-        crashDetailBean.f22380g = aVar.i();
-        crashDetailBean.f22386m = this.f22545f.y();
-        String name = th2.getClass().getName();
-        String a10 = a(th2, 1000);
-        if (a10 == null) {
-            a10 = "";
+        crashDetailBean.F = this.f24915f.v();
+        crashDetailBean.G = this.f24915f.w();
+        crashDetailBean.H = this.f24915f.x();
+        crashDetailBean.w = ca.a(this.f24912c, h.f24859e, h.f24862h);
+        byte[] b3 = ba.b();
+        crashDetailBean.y = b3;
+        Object[] objArr = new Object[1];
+        objArr[0] = Integer.valueOf(b3 == null ? 0 : b3.length);
+        X.c("user log size:%d", objArr);
+        crashDetailBean.f24788b = z ? 0 : 2;
+        crashDetailBean.f24791e = this.f24915f.l();
+        com.tencent.bugly.crashreport.common.info.a aVar = this.f24915f;
+        crashDetailBean.f24792f = aVar.E;
+        crashDetailBean.f24793g = aVar.i();
+        crashDetailBean.m = this.f24915f.y();
+        String name = th.getClass().getName();
+        String a2 = a(th, 1000);
+        if (a2 == null) {
+            a2 = "";
         }
-        X.b("stack frame :%d, has cause %b", Integer.valueOf(th2.getStackTrace().length), Boolean.valueOf(th2.getCause() != null));
-        String stackTraceElement = th2.getStackTrace().length > 0 ? th2.getStackTrace()[0].toString() : "";
-        Throwable th3 = th2;
-        while (th3 != null && th3.getCause() != null) {
-            th3 = th3.getCause();
+        Object[] objArr2 = new Object[2];
+        objArr2[0] = Integer.valueOf(th.getStackTrace().length);
+        objArr2[1] = Boolean.valueOf(th.getCause() != null);
+        X.b("stack frame :%d, has cause %b", objArr2);
+        String stackTraceElement = th.getStackTrace().length > 0 ? th.getStackTrace()[0].toString() : "";
+        Throwable th2 = th;
+        while (th2 != null && th2.getCause() != null) {
+            th2 = th2.getCause();
         }
-        if (th3 != null && th3 != th2) {
-            crashDetailBean.f22387n = th3.getClass().getName();
-            String a11 = a(th3, 1000);
-            crashDetailBean.f22388o = a11;
-            if (a11 == null) {
-                crashDetailBean.f22388o = "";
+        if (th2 != null && th2 != th) {
+            crashDetailBean.n = th2.getClass().getName();
+            String a3 = a(th2, 1000);
+            crashDetailBean.o = a3;
+            if (a3 == null) {
+                crashDetailBean.o = "";
             }
-            if (th3.getStackTrace().length > 0) {
-                crashDetailBean.f22389p = th3.getStackTrace()[0].toString();
+            if (th2.getStackTrace().length > 0) {
+                crashDetailBean.p = th2.getStackTrace()[0].toString();
             }
-            StringBuilder sb2 = new StringBuilder();
-            sb2.append(name);
-            sb2.append(":");
-            sb2.append(a10);
-            sb2.append("\n");
-            sb2.append(stackTraceElement);
-            sb2.append("\n......");
-            sb2.append("\nCaused by:\n");
-            sb2.append(crashDetailBean.f22387n);
-            sb2.append(":");
-            sb2.append(crashDetailBean.f22388o);
-            sb2.append("\n");
-            b10 = b(th3, h.f22467f);
-            sb2.append(b10);
-            crashDetailBean.f22390q = sb2.toString();
+            StringBuilder sb = new StringBuilder();
+            sb.append(name);
+            sb.append(":");
+            sb.append(a2);
+            sb.append("\n");
+            sb.append(stackTraceElement);
+            sb.append("\n......");
+            sb.append("\nCaused by:\n");
+            sb.append(crashDetailBean.n);
+            sb.append(":");
+            sb.append(crashDetailBean.o);
+            sb.append("\n");
+            b2 = b(th2, h.f24860f);
+            sb.append(b2);
+            crashDetailBean.q = sb.toString();
         } else {
-            crashDetailBean.f22387n = name;
-            String str3 = a10 + "" + str2;
-            crashDetailBean.f22388o = str3;
+            crashDetailBean.n = name;
+            String str3 = a2 + "" + str2;
+            crashDetailBean.o = str3;
             if (str3 == null) {
-                crashDetailBean.f22388o = "";
+                crashDetailBean.o = "";
             }
-            crashDetailBean.f22389p = stackTraceElement;
-            b10 = b(th2, h.f22467f);
-            crashDetailBean.f22390q = b10;
+            crashDetailBean.p = stackTraceElement;
+            b2 = b(th, h.f24860f);
+            crashDetailBean.q = b2;
         }
-        crashDetailBean.f22391r = System.currentTimeMillis();
-        crashDetailBean.f22394u = ca.c(crashDetailBean.f22390q.getBytes());
+        crashDetailBean.r = System.currentTimeMillis();
+        crashDetailBean.u = ca.c(crashDetailBean.q.getBytes());
         try {
-            crashDetailBean.f22399z = ca.a(h.f22467f, false);
-            crashDetailBean.A = this.f22545f.f22296h;
-            StringBuilder sb3 = new StringBuilder();
-            sb3.append(thread.getName());
-            sb3.append("(");
-            sb3.append(thread.getId());
-            sb3.append(")");
-            String sb4 = sb3.toString();
-            crashDetailBean.B = sb4;
-            crashDetailBean.f22399z.put(sb4, b10);
-            crashDetailBean.I = this.f22545f.r();
-            crashDetailBean.f22381h = this.f22545f.p();
-            crashDetailBean.f22382i = this.f22545f.o();
-            com.tencent.bugly.crashreport.common.info.a aVar2 = this.f22545f;
-            crashDetailBean.N = aVar2.f22288d;
+            crashDetailBean.z = ca.a(h.f24860f, false);
+            crashDetailBean.A = this.f24915f.f24755h;
+            StringBuilder sb2 = new StringBuilder();
+            sb2.append(thread.getName());
+            sb2.append("(");
+            sb2.append(thread.getId());
+            sb2.append(")");
+            String sb3 = sb2.toString();
+            crashDetailBean.B = sb3;
+            crashDetailBean.z.put(sb3, b2);
+            crashDetailBean.I = this.f24915f.r();
+            crashDetailBean.f24794h = this.f24915f.p();
+            crashDetailBean.f24795i = this.f24915f.o();
+            com.tencent.bugly.crashreport.common.info.a aVar2 = this.f24915f;
+            crashDetailBean.N = aVar2.f24751d;
             crashDetailBean.O = aVar2.C();
-            if (z10) {
-                this.f22543d.d(crashDetailBean);
+            if (z) {
+                this.f24913d.d(crashDetailBean);
             } else {
-                boolean z11 = str != null && str.length() > 0;
-                boolean z12 = bArr != null && bArr.length > 0;
-                if (z11) {
+                boolean z2 = str != null && str.length() > 0;
+                boolean z3 = bArr != null && bArr.length > 0;
+                if (z2) {
                     HashMap hashMap = new HashMap(1);
                     crashDetailBean.P = hashMap;
                     hashMap.put("UserData", str);
                 }
-                if (z12) {
+                if (z3) {
                     crashDetailBean.V = bArr;
                 }
             }
-            crashDetailBean.R = this.f22545f.A();
-            crashDetailBean.S = this.f22545f.t();
-            crashDetailBean.T = this.f22545f.h();
-            crashDetailBean.U = this.f22545f.g();
-        } catch (Throwable th4) {
-            X.b("handle crash error %s", th4.toString());
+            crashDetailBean.R = this.f24915f.A();
+            crashDetailBean.S = this.f24915f.t();
+            crashDetailBean.T = this.f24915f.h();
+            crashDetailBean.U = this.f24915f.g();
+        } catch (Throwable th3) {
+            X.b("handle crash error %s", th3.toString());
         }
         return crashDetailBean;
     }
 
     private boolean a(Thread thread) {
-        synchronized (f22541b) {
-            try {
-                if (f22540a != null && thread.getName().equals(f22540a)) {
-                    return true;
-                }
-                f22540a = thread.getName();
-                return false;
-            } catch (Throwable th2) {
-                throw th2;
+        synchronized (f24911b) {
+            if (f24910a != null && thread.getName().equals(f24910a)) {
+                return true;
             }
+            f24910a = thread.getName();
+            return false;
         }
     }
 
@@ -400,57 +401,53 @@ public class l implements Thread.UncaughtExceptionHandler {
         return true;
     }
 
-    public static String b(Throwable th2, int i10) {
-        if (th2 == null) {
+    public static String b(Throwable th, int i2) {
+        if (th == null) {
             return null;
         }
-        StringBuilder sb2 = new StringBuilder();
+        StringBuilder sb = new StringBuilder();
         try {
-            if (th2.getStackTrace() != null) {
-                for (StackTraceElement stackTraceElement : th2.getStackTrace()) {
-                    if (i10 > 0 && sb2.length() >= i10) {
-                        StringBuilder sb3 = new StringBuilder();
-                        sb3.append("\n[Stack over limit size :");
-                        sb3.append(i10);
-                        sb3.append(" , has been cutted !]");
-                        sb2.append(sb3.toString());
-                        return sb2.toString();
+            if (th.getStackTrace() != null) {
+                for (StackTraceElement stackTraceElement : th.getStackTrace()) {
+                    if (i2 > 0 && sb.length() >= i2) {
+                        StringBuilder sb2 = new StringBuilder();
+                        sb2.append("\n[Stack over limit size :");
+                        sb2.append(i2);
+                        sb2.append(" , has been cutted !]");
+                        sb.append(sb2.toString());
+                        return sb.toString();
                     }
-                    sb2.append(stackTraceElement.toString());
-                    sb2.append("\n");
+                    sb.append(stackTraceElement.toString());
+                    sb.append("\n");
                 }
             }
-        } catch (Throwable th3) {
-            X.b("gen stack error %s", th3.toString());
+        } catch (Throwable th2) {
+            X.b("gen stack error %s", th2.toString());
         }
-        return sb2.toString();
+        return sb.toString();
     }
 
     public synchronized void a(StrategyBean strategyBean) {
         if (strategyBean != null) {
-            try {
-                boolean z10 = strategyBean.f22342f;
-                if (z10 != this.f22548i) {
-                    X.c("java changed to %b", Boolean.valueOf(z10));
-                    if (strategyBean.f22342f) {
-                        a();
-                    } else {
-                        b();
-                    }
+            boolean z = strategyBean.f24768f;
+            if (z != this.f24918i) {
+                X.c("java changed to %b", Boolean.valueOf(z));
+                if (strategyBean.f24768f) {
+                    a();
+                } else {
+                    b();
                 }
-            } catch (Throwable th2) {
-                throw th2;
             }
         }
     }
 
-    public static String a(Throwable th2, int i10) {
-        if (th2.getMessage() == null) {
+    public static String a(Throwable th, int i2) {
+        if (th.getMessage() == null) {
             return "";
         }
-        if (i10 >= 0 && th2.getMessage().length() > i10) {
-            return th2.getMessage().substring(0, i10) + "\n[Message over limit size:" + i10 + ", has been cutted!]";
+        if (i2 >= 0 && th.getMessage().length() > i2) {
+            return th.getMessage().substring(0, i2) + "\n[Message over limit size:" + i2 + ", has been cutted!]";
         }
-        return th2.getMessage();
+        return th.getMessage();
     }
 }

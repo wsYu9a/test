@@ -2,7 +2,7 @@ package com.kwad.components.offline.api.core.api;
 
 import java.util.concurrent.TimeUnit;
 
-/* loaded from: classes3.dex */
+/* loaded from: classes2.dex */
 public interface IAsync {
     void execute(Runnable runnable);
 
@@ -10,7 +10,7 @@ public interface IAsync {
 
     void runOnUiThread(Runnable runnable);
 
-    void runOnUiThreadDelay(Runnable runnable, long j10);
+    void runOnUiThreadDelay(Runnable runnable, long j2);
 
-    void schedule(Runnable runnable, long j10, TimeUnit timeUnit);
+    void schedule(Runnable runnable, long j2, TimeUnit timeUnit);
 }

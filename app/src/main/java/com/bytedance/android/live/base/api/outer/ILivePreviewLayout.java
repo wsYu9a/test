@@ -5,11 +5,11 @@ import android.os.Bundle;
 import android.view.View;
 import com.bytedance.android.live.base.api.ILiveBorderAnimController;
 
-/* loaded from: classes2.dex */
+/* loaded from: classes.dex */
 public interface ILivePreviewLayout {
 
     public static class Builder {
-        private Context context;
+        private final Context context;
         private ILiveBorderAnimController liveBorderAnimController = null;
         private final Bundle arguments = new Bundle();
         private boolean showTopList = false;
@@ -19,7 +19,8 @@ public interface ILivePreviewLayout {
         private boolean autoEnterEnable = false;
         private boolean canShowDislike = true;
 
-        public Builder() {
+        public Builder(Context context) {
+            this.context = context;
         }
 
         public Bundle getArguments() {
@@ -65,23 +66,18 @@ public interface ILivePreviewLayout {
             return this;
         }
 
-        public Builder setAutoEnterEnable(boolean z10) {
-            this.autoEnterEnable = z10;
+        public Builder setAutoEnterEnable(boolean z) {
+            this.autoEnterEnable = z;
             return this;
         }
 
-        public Builder setCanShowDislike(boolean z10) {
-            this.canShowDislike = z10;
+        public Builder setCanShowDislike(boolean z) {
+            this.canShowDislike = z;
             return this;
         }
 
-        public Builder setContext(Context context) {
-            this.context = context;
-            return this;
-        }
-
-        public Builder setEnablePullToRefresh(boolean z10) {
-            this.enablePullToRefresh = z10;
+        public Builder setEnablePullToRefresh(boolean z) {
+            this.enablePullToRefresh = z;
             return this;
         }
 
@@ -90,23 +86,19 @@ public interface ILivePreviewLayout {
             return this;
         }
 
-        public Builder setShowTopList(boolean z10) {
-            this.showTopList = z10;
+        public Builder setShowTopList(boolean z) {
+            this.showTopList = z;
             return this;
         }
 
-        public Builder setShowTopListAtOnce(boolean z10) {
-            this.showTopListAtOnce = z10;
+        public Builder setShowTopListAtOnce(boolean z) {
+            this.showTopListAtOnce = z;
             return this;
         }
 
-        public Builder setSmoothEnterEnable(boolean z10) {
-            this.smoothEnterEnable = z10;
+        public Builder setSmoothEnterEnable(boolean z) {
+            this.smoothEnterEnable = z;
             return this;
-        }
-
-        public Builder(Context context) {
-            this.context = context;
         }
     }
 

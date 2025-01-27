@@ -8,197 +8,195 @@ import android.text.style.ForegroundColorSpan;
 import android.text.style.StyleSpan;
 import android.util.AttributeSet;
 import androidx.appcompat.widget.AppCompatTextView;
+import com.martian.libmars.utils.p0;
 import com.martian.rpauth.MartianRPUserManager;
-import l9.o0;
 
-/* loaded from: classes3.dex */
+/* loaded from: classes4.dex */
 public class IntervalCountdownTextView extends AppCompatTextView {
 
-    /* renamed from: b */
-    public long f15836b;
-
-    /* renamed from: c */
-    public long f15837c;
-
-    /* renamed from: d */
-    public String f15838d;
-
     /* renamed from: e */
-    public boolean f15839e;
+    private long f14153e;
 
     /* renamed from: f */
-    public boolean f15840f;
+    private long f14154f;
 
     /* renamed from: g */
-    public b f15841g;
+    private String f14155g;
 
     /* renamed from: h */
-    public final Runnable f15842h;
+    private boolean f14156h;
 
-    public class a implements Runnable {
-        public a() {
+    /* renamed from: i */
+    private boolean f14157i;
+
+    /* renamed from: j */
+    private b f14158j;
+    private final Runnable k;
+
+    class a implements Runnable {
+        a() {
         }
 
         @Override // java.lang.Runnable
         public void run() {
-            long a10 = MartianRPUserManager.a();
-            if (IntervalCountdownTextView.this.f15837c <= a10) {
+            long t = MartianRPUserManager.t();
+            if (IntervalCountdownTextView.this.f14154f <= t) {
                 IntervalCountdownTextView intervalCountdownTextView = IntervalCountdownTextView.this;
-                intervalCountdownTextView.setText(intervalCountdownTextView.f15838d);
-                if (IntervalCountdownTextView.this.f15841g != null) {
-                    IntervalCountdownTextView.this.f15841g.a(IntervalCountdownTextView.this);
+                intervalCountdownTextView.setText(intervalCountdownTextView.f14155g);
+                if (IntervalCountdownTextView.this.f14158j != null) {
+                    IntervalCountdownTextView.this.f14158j.a(IntervalCountdownTextView.this);
                     return;
                 }
                 return;
             }
-            if (IntervalCountdownTextView.this.f15840f) {
-                IntervalCountdownTextView.this.setVerticalModeText(o0.d(IntervalCountdownTextView.this.f15837c - a10));
+            if (IntervalCountdownTextView.this.f14157i) {
+                IntervalCountdownTextView.this.setVerticalModeText(p0.c(IntervalCountdownTextView.this.f14154f - t));
             } else {
-                String e10 = o0.e(IntervalCountdownTextView.this.f15837c - a10);
-                if (IntervalCountdownTextView.this.f15839e) {
-                    IntervalCountdownTextView.this.setColorText(e10);
+                String d2 = p0.d(IntervalCountdownTextView.this.f14154f - t);
+                if (IntervalCountdownTextView.this.f14156h) {
+                    IntervalCountdownTextView.this.setColorText(d2);
                 } else {
-                    IntervalCountdownTextView.this.setText(e10);
+                    IntervalCountdownTextView.this.setText(d2);
                 }
             }
             IntervalCountdownTextView intervalCountdownTextView2 = IntervalCountdownTextView.this;
-            intervalCountdownTextView2.postDelayed(intervalCountdownTextView2.f15842h, 1000L);
+            intervalCountdownTextView2.postDelayed(intervalCountdownTextView2.k, 1000L);
         }
     }
 
     public interface b {
-        void a(IntervalCountdownTextView intervalCountdownTextView);
+        void a(IntervalCountdownTextView textView);
     }
 
     public IntervalCountdownTextView(Context context) {
         super(context);
-        this.f15836b = 0L;
-        this.f15839e = false;
-        this.f15840f = false;
-        this.f15842h = new a();
+        this.f14153e = 0L;
+        this.f14156h = false;
+        this.f14157i = false;
+        this.k = new a();
     }
 
-    public boolean k() {
-        return this.f15837c <= MartianRPUserManager.a();
+    public boolean m() {
+        return this.f14154f <= MartianRPUserManager.t();
     }
 
-    public void l(long j10) {
-        this.f15839e = true;
-        this.f15837c = j10;
-        removeCallbacks(this.f15842h);
-        post(this.f15842h);
+    public void n(long targetTime) {
+        this.f14156h = true;
+        this.f14154f = targetTime;
+        removeCallbacks(this.k);
+        post(this.k);
     }
 
-    public void m(long j10) {
-        this.f15837c = j10;
-        removeCallbacks(this.f15842h);
-        post(this.f15842h);
-    }
-
-    public void n(long j10, String str) {
-        this.f15837c = j10;
-        this.f15838d = str;
-        removeCallbacks(this.f15842h);
-        post(this.f15842h);
-    }
-
-    public void o(long j10, boolean z10) {
-        this.f15837c = System.currentTimeMillis() + this.f15836b + j10;
-        removeCallbacks(this.f15842h);
-        post(this.f15842h);
+    public void o(long targetTime) {
+        this.f14154f = targetTime;
+        removeCallbacks(this.k);
+        post(this.k);
     }
 
     @Override // android.view.View
-    public void onDetachedFromWindow() {
+    protected void onDetachedFromWindow() {
         super.onDetachedFromWindow();
-        removeCallbacks(this.f15842h);
+        removeCallbacks(this.k);
     }
 
-    public void q(long j10) {
-        this.f15837c = j10;
-        this.f15840f = true;
-        removeCallbacks(this.f15842h);
-        post(this.f15842h);
+    public void p(long targetTime, String targetText) {
+        this.f14154f = targetTime;
+        this.f14155g = targetText;
+        removeCallbacks(this.k);
+        post(this.k);
     }
 
-    public void r() {
-        Runnable runnable = this.f15842h;
+    public void q(long timeDiff, boolean isTimeDiff) {
+        this.f14154f = System.currentTimeMillis() + this.f14153e + timeDiff;
+        removeCallbacks(this.k);
+        post(this.k);
+    }
+
+    public void r(long targetTime) {
+        this.f14154f = targetTime;
+        this.f14157i = true;
+        removeCallbacks(this.k);
+        post(this.k);
+    }
+
+    public void s() {
+        Runnable runnable = this.k;
         if (runnable != null) {
             removeCallbacks(runnable);
         }
     }
 
-    public void setColorText(String str) {
+    public void setColorText(String time) {
         try {
-            SpannableString spannableString = new SpannableString(str);
-            int indexOf = str.indexOf(":");
-            int lastIndexOf = str.lastIndexOf(":");
-            int indexOf2 = str.indexOf("天");
+            SpannableString spannableString = new SpannableString(time);
+            int indexOf = time.indexOf(":");
+            int lastIndexOf = time.lastIndexOf(":");
+            int indexOf2 = time.indexOf("天");
             int parseColor = Color.parseColor("#30363D");
             int parseColor2 = Color.parseColor("#FFFFFF");
             if (indexOf2 > 0) {
-                spannableString.setSpan(new be.b(parseColor, parseColor2), 0, indexOf2 + 1, 33);
+                spannableString.setSpan(new l(parseColor, parseColor2), 0, indexOf2 + 1, 33);
             }
             if (indexOf > 0) {
-                spannableString.setSpan(new be.b(parseColor, parseColor2), indexOf2 > 0 ? indexOf2 + 2 : 0, indexOf, 33);
-                int i10 = indexOf + 1;
-                spannableString.setSpan(new StyleSpan(1), indexOf, i10, 33);
-                spannableString.setSpan(new ForegroundColorSpan(parseColor), indexOf, i10, 33);
+                spannableString.setSpan(new l(parseColor, parseColor2), indexOf2 > 0 ? indexOf2 + 2 : 0, indexOf, 33);
+                int i2 = indexOf + 1;
+                spannableString.setSpan(new StyleSpan(1), indexOf, i2, 33);
+                spannableString.setSpan(new ForegroundColorSpan(parseColor), indexOf, i2, 33);
             }
             if (lastIndexOf > indexOf) {
-                spannableString.setSpan(new be.b(parseColor, parseColor2), indexOf + 1, lastIndexOf, 33);
-                int i11 = lastIndexOf + 1;
-                spannableString.setSpan(new StyleSpan(1), lastIndexOf, i11, 33);
-                spannableString.setSpan(new ForegroundColorSpan(parseColor), lastIndexOf, i11, 33);
+                spannableString.setSpan(new l(parseColor, parseColor2), indexOf + 1, lastIndexOf, 33);
+                int i3 = lastIndexOf + 1;
+                spannableString.setSpan(new StyleSpan(1), lastIndexOf, i3, 33);
+                spannableString.setSpan(new ForegroundColorSpan(parseColor), lastIndexOf, i3, 33);
             }
             if (lastIndexOf > 0) {
-                spannableString.setSpan(new be.b(parseColor, parseColor2), lastIndexOf + 1, lastIndexOf + 3, 33);
+                spannableString.setSpan(new l(parseColor, parseColor2), lastIndexOf + 1, lastIndexOf + 3, 33);
             }
             setText(spannableString);
         } catch (Exception unused) {
-            setText(str);
+            setText(time);
         }
     }
 
-    public void setOnCountDownFinishListener(b bVar) {
-        this.f15841g = bVar;
+    public void setOnCountDownFinishListener(b l) {
+        this.f14158j = l;
     }
 
-    public void setServerDiffTime(long j10) {
-        this.f15836b = j10;
+    public void setServerDiffTime(long serverDiffTime) {
+        this.f14153e = serverDiffTime;
     }
 
-    public void setVerticalModeText(String str) {
+    public void setVerticalModeText(String time) {
         try {
-            int indexOf = str.indexOf("分");
-            int indexOf2 = str.indexOf("秒");
-            SpannableString spannableString = new SpannableString(str);
-            spannableString.setSpan(new ForegroundColorSpan(Color.parseColor("#FFFFFF")), 0, str.length(), 17);
+            int indexOf = time.indexOf("分");
+            int indexOf2 = time.indexOf("秒");
+            SpannableString spannableString = new SpannableString(time);
+            spannableString.setSpan(new ForegroundColorSpan(Color.parseColor("#FFFFFF")), 0, time.length(), 17);
             spannableString.setSpan(new AbsoluteSizeSpan(10, true), 0, indexOf, 17);
-            int i10 = indexOf + 1;
-            spannableString.setSpan(new AbsoluteSizeSpan(11, true), indexOf, i10, 17);
-            spannableString.setSpan(new AbsoluteSizeSpan(10, true), i10, indexOf2, 17);
-            spannableString.setSpan(new AbsoluteSizeSpan(11, true), indexOf2, str.length(), 17);
-            spannableString.setSpan(new StyleSpan(1), 0, str.length(), 17);
+            int i2 = indexOf + 1;
+            spannableString.setSpan(new AbsoluteSizeSpan(11, true), indexOf, i2, 17);
+            spannableString.setSpan(new AbsoluteSizeSpan(10, true), i2, indexOf2, 17);
+            spannableString.setSpan(new AbsoluteSizeSpan(11, true), indexOf2, time.length(), 17);
+            spannableString.setSpan(new StyleSpan(1), 0, time.length(), 17);
             setText(spannableString);
         } catch (Exception unused) {
-            setText(str);
+            setText(time);
         }
     }
 
-    public IntervalCountdownTextView(Context context, AttributeSet attributeSet) {
-        super(context, attributeSet);
-        this.f15836b = 0L;
-        this.f15839e = false;
-        this.f15840f = false;
-        this.f15842h = new a();
+    public IntervalCountdownTextView(Context context, AttributeSet attrs) {
+        super(context, attrs);
+        this.f14153e = 0L;
+        this.f14156h = false;
+        this.f14157i = false;
+        this.k = new a();
     }
 
-    public IntervalCountdownTextView(Context context, AttributeSet attributeSet, int i10) {
-        super(context, attributeSet, i10);
-        this.f15836b = 0L;
-        this.f15839e = false;
-        this.f15840f = false;
-        this.f15842h = new a();
+    public IntervalCountdownTextView(Context context, AttributeSet attrs, int defStyle) {
+        super(context, attrs, defStyle);
+        this.f14153e = 0L;
+        this.f14156h = false;
+        this.f14157i = false;
+        this.k = new a();
     }
 }

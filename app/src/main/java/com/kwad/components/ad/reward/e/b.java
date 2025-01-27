@@ -1,18 +1,10 @@
 package com.kwad.components.ad.reward.e;
 
-/* loaded from: classes2.dex */
-public interface b {
-    void cg();
+import com.ksad.json.annotation.KsJson;
 
-    void i(boolean z10);
-
-    void onRewardVerify();
-
-    void onVideoPlayEnd();
-
-    void onVideoPlayError(int i10, int i11);
-
-    void onVideoPlayStart();
-
-    void onVideoSkipToEnd(long j10);
+@KsJson
+/* loaded from: classes.dex */
+public class b extends com.kwad.sdk.core.response.kwai.a {
+    public long gq = -1;
+    public int rB = 0;
 }

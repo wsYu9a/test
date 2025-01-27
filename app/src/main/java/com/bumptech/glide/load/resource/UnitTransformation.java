@@ -6,7 +6,7 @@ import com.bumptech.glide.load.Transformation;
 import com.bumptech.glide.load.engine.Resource;
 import java.security.MessageDigest;
 
-/* loaded from: classes2.dex */
+/* loaded from: classes.dex */
 public final class UnitTransformation<T> implements Transformation<T> {
     private static final Transformation<?> TRANSFORMATION = new UnitTransformation();
 
@@ -20,7 +20,7 @@ public final class UnitTransformation<T> implements Transformation<T> {
 
     @Override // com.bumptech.glide.load.Transformation
     @NonNull
-    public Resource<T> transform(@NonNull Context context, @NonNull Resource<T> resource, int i10, int i11) {
+    public Resource<T> transform(@NonNull Context context, @NonNull Resource<T> resource, int i2, int i3) {
         return resource;
     }
 

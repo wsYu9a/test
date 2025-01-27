@@ -3,10 +3,8 @@ package com.google.zxing.common;
 import com.google.zxing.FormatException;
 import java.util.HashMap;
 import java.util.Map;
-import rb.b;
-import z5.k;
 
-/* loaded from: classes2.dex */
+/* loaded from: classes.dex */
 public enum CharacterSetECI {
     Cp437(new int[]{0, 2}, new String[0]),
     ISO8859_1(new int[]{1, 3}, "ISO-8859-1"),
@@ -33,7 +31,7 @@ public enum CharacterSetECI {
     UTF8(26, "UTF-8"),
     ASCII(new int[]{27, 170}, "US-ASCII"),
     Big5(28),
-    GB18030(29, k.f33692c, "EUC_CN", b.f30389e),
+    GB18030(29, k.f8328c, "EUC_CN", com.martian.mibook.lib.local.c.b.b.f13937d),
     EUC_KR(30, "EUC-KR");
 
     private final String[] otherEncodingNames;
@@ -43,8 +41,8 @@ public enum CharacterSetECI {
 
     static {
         for (CharacterSetECI characterSetECI : values()) {
-            for (int i10 : characterSetECI.values) {
-                VALUE_TO_ECI.put(Integer.valueOf(i10), characterSetECI);
+            for (int i2 : characterSetECI.values) {
+                VALUE_TO_ECI.put(Integer.valueOf(i2), characterSetECI);
             }
             NAME_TO_ECI.put(characterSetECI.name(), characterSetECI);
             for (String str : characterSetECI.otherEncodingNames) {
@@ -53,27 +51,27 @@ public enum CharacterSetECI {
         }
     }
 
-    CharacterSetECI(int i10) {
-        this(new int[]{i10}, new String[0]);
+    CharacterSetECI(int i2) {
+        this(new int[]{i2}, new String[0]);
     }
 
     public static CharacterSetECI getCharacterSetECIByName(String str) {
         return NAME_TO_ECI.get(str);
     }
 
-    public static CharacterSetECI getCharacterSetECIByValue(int i10) throws FormatException {
-        if (i10 < 0 || i10 >= 900) {
+    public static CharacterSetECI getCharacterSetECIByValue(int i2) throws FormatException {
+        if (i2 < 0 || i2 >= 900) {
             throw FormatException.getFormatInstance();
         }
-        return VALUE_TO_ECI.get(Integer.valueOf(i10));
+        return VALUE_TO_ECI.get(Integer.valueOf(i2));
     }
 
     public int getValue() {
         return this.values[0];
     }
 
-    CharacterSetECI(int i10, String... strArr) {
-        this.values = new int[]{i10};
+    CharacterSetECI(int i2, String... strArr) {
+        this.values = new int[]{i2};
         this.otherEncodingNames = strArr;
     }
 

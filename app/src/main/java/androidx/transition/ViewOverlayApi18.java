@@ -9,19 +9,21 @@ import androidx.annotation.RequiresApi;
 @RequiresApi(18)
 /* loaded from: classes.dex */
 class ViewOverlayApi18 implements ViewOverlayImpl {
-    private final ViewOverlay mViewOverlay;
 
-    public ViewOverlayApi18(@NonNull View view) {
-        this.mViewOverlay = view.getOverlay();
+    /* renamed from: a */
+    private final ViewOverlay f3887a;
+
+    ViewOverlayApi18(@NonNull View view) {
+        this.f3887a = view.getOverlay();
     }
 
     @Override // androidx.transition.ViewOverlayImpl
     public void add(@NonNull Drawable drawable) {
-        this.mViewOverlay.add(drawable);
+        this.f3887a.add(drawable);
     }
 
     @Override // androidx.transition.ViewOverlayImpl
     public void remove(@NonNull Drawable drawable) {
-        this.mViewOverlay.remove(drawable);
+        this.f3887a.remove(drawable);
     }
 }

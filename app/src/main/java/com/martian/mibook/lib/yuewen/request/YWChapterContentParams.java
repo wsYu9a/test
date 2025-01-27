@@ -1,9 +1,9 @@
 package com.martian.mibook.lib.yuewen.request;
 
+import com.martian.libcomm.http.requests.d.a;
 import com.martian.mibook.lib.account.request.TYHttpGetParams;
-import v8.a;
 
-/* loaded from: classes3.dex */
+/* loaded from: classes4.dex */
 public class YWChapterContentParams extends TYHttpGetParams {
 
     @a
@@ -27,20 +27,20 @@ public class YWChapterContentParams extends TYHttpGetParams {
         return this.ccid;
     }
 
-    @Override // u8.b
+    @Override // com.martian.libcomm.http.requests.b
     public String getRequestMethod() {
         return "authopt/yw/chapter_content";
     }
 
-    public void setAutoBuy(Boolean bool) {
-        this.autoBuy = bool;
+    public void setAutoBuy(Boolean autoBuy) {
+        this.autoBuy = autoBuy;
     }
 
-    public void setCbid(String str) {
-        this.cbid = str;
+    public void setCbid(String cbid) {
+        this.cbid = cbid;
     }
 
-    public void setCcid(Long l10) {
-        this.ccid = l10;
+    public void setCcid(Long ccid) {
+        this.ccid = ccid;
     }
 }

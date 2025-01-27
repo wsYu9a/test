@@ -4,12 +4,12 @@ import androidx.annotation.NonNull;
 import com.bumptech.glide.load.Key;
 import java.security.MessageDigest;
 
-/* loaded from: classes2.dex */
+/* loaded from: classes.dex */
 final class DataCacheKey implements Key {
     private final Key signature;
     private final Key sourceKey;
 
-    public DataCacheKey(Key key, Key key2) {
+    DataCacheKey(Key key, Key key2) {
         this.sourceKey = key;
         this.signature = key2;
     }
@@ -23,7 +23,7 @@ final class DataCacheKey implements Key {
         return this.sourceKey.equals(dataCacheKey.sourceKey) && this.signature.equals(dataCacheKey.signature);
     }
 
-    public Key getSourceKey() {
+    Key getSourceKey() {
         return this.sourceKey;
     }
 

@@ -1,52 +1,39 @@
 package com.martian.mibook.lib.model.data;
 
-import ba.k;
-import ba.l;
+import com.martian.libsupport.j;
+import com.martian.libsupport.k;
 
-@k.e(columns = "sourceString, chapterIndex, contentPos", name = "scc")
 /* loaded from: classes3.dex */
 public class MiBookMark {
-    public static final int TYPE_BOOK_MARK = 0;
-    public static final int TYPE_BOOK_UNDERLINE = 1;
 
-    @k.a
-    @k.b
+    @j.b
+    @j.a
     private Integer _id;
 
-    @k.e(columns = "chapterId", name = "chapterId")
-    @k.b
-    private String chapterId;
-
-    @k.b
+    @j.b
     private Integer chapterIndex;
 
-    @k.b
+    @j.b
     private String chapterTitle;
 
-    @k.b(name = "contentSize")
-    private Integer contentEnd;
-
-    @k.b
+    @j.b
     private Integer contentPos;
 
-    @k.b
+    @j.b
+    private Integer contentSize;
+
+    @j.b
     private Integer dimiPercent;
 
-    @k.b
+    @j.b
+    @j.e(ascend = true)
     private Long markTime;
 
-    @k.b
+    @j.b
     private String sourceString;
 
-    @k.b
+    @j.b
     private String summary;
-
-    @k.b
-    private Integer type;
-
-    public String getChapterId() {
-        return this.chapterId;
-    }
 
     public Integer getChapterIndex() {
         return this.chapterIndex;
@@ -56,20 +43,16 @@ public class MiBookMark {
         return this.chapterTitle;
     }
 
-    public Integer getContentEnd() {
-        return this.contentEnd;
-    }
-
     public Integer getContentPos() {
         return this.contentPos;
     }
 
-    public Integer getDimiPercent() {
-        return this.dimiPercent;
+    public Integer getContentSize() {
+        return this.contentSize;
     }
 
-    public Integer getEnd() {
-        return this.contentEnd;
+    public Integer getDimiPercent() {
+        return this.dimiPercent;
     }
 
     public Long getMarkTime() {
@@ -80,63 +63,39 @@ public class MiBookMark {
         return this.sourceString;
     }
 
-    public Integer getStart() {
-        return this.contentPos;
-    }
-
     public String getSummary() {
         return this.summary;
     }
 
-    public Integer getType() {
-        return this.type;
+    public void setChapterIndex(Integer chapterIndex) {
+        this.chapterIndex = chapterIndex;
     }
 
-    public Integer get_id() {
-        return this._id;
+    public void setChapterTitle(String chapterTitle) {
+        this.chapterTitle = chapterTitle;
     }
 
-    public void setChapterId(String str) {
-        this.chapterId = str;
+    public void setContentPos(Integer contentPos) {
+        this.contentPos = contentPos;
     }
 
-    public void setChapterIndex(Integer num) {
-        this.chapterIndex = num;
+    public void setContentSize(Integer contentSize) {
+        this.contentSize = contentSize;
     }
 
-    public void setChapterTitle(String str) {
-        this.chapterTitle = str;
+    public void setDimiPercent(Integer dimiPercent) {
+        this.dimiPercent = dimiPercent;
     }
 
-    public void setContentEnd(Integer num) {
-        this.contentEnd = num;
+    public void setMarkTime(Long markTime) {
+        this.markTime = markTime;
     }
 
-    public void setContentPos(Integer num) {
-        this.contentPos = num;
+    public void setSourceString(String sourceString) {
+        this.sourceString = sourceString;
     }
 
-    public void setDimiPercent(Integer num) {
-        this.dimiPercent = num;
-    }
-
-    public void setMarkTime(Long l10) {
-        this.markTime = l10;
-    }
-
-    public void setSourceString(String str) {
-        this.sourceString = str;
-    }
-
-    public void setSummary(String str) {
-        this.summary = l.b(str);
-    }
-
-    public void setType(Integer num) {
-        this.type = num;
-    }
-
-    public void set_id(Integer num) {
-        this._id = num;
+    public void setSummary(String summary) {
+        this.summary = k.b(summary);
     }
 }

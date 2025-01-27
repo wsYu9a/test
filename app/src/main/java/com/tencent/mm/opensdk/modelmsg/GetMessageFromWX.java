@@ -17,6 +17,10 @@ public final class GetMessageFromWX {
         public Req() {
         }
 
+        public Req(Bundle bundle) {
+            fromBundle(bundle);
+        }
+
         @Override // com.tencent.mm.opensdk.modelbase.BaseReq
         public boolean checkArgs() {
             return true;
@@ -40,10 +44,6 @@ public final class GetMessageFromWX {
             bundle.putString("_wxapi_getmessage_req_lang", this.lang);
             bundle.putString("_wxapi_getmessage_req_country", this.country);
         }
-
-        public Req(Bundle bundle) {
-            fromBundle(bundle);
-        }
     }
 
     public static class Resp extends BaseResp {
@@ -51,6 +51,10 @@ public final class GetMessageFromWX {
         public WXMediaMessage message;
 
         public Resp() {
+        }
+
+        public Resp(Bundle bundle) {
+            fromBundle(bundle);
         }
 
         @Override // com.tencent.mm.opensdk.modelbase.BaseResp
@@ -78,10 +82,6 @@ public final class GetMessageFromWX {
         public void toBundle(Bundle bundle) {
             super.toBundle(bundle);
             bundle.putAll(WXMediaMessage.Builder.toBundle(this.message));
-        }
-
-        public Resp(Bundle bundle) {
-            fromBundle(bundle);
         }
     }
 

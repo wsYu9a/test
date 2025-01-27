@@ -1,34 +1,45 @@
 package com.bytedance.sdk.openadsdk;
 
+import com.bytedance.sdk.openadsdk.common.CommonListener;
 import java.util.List;
 
-/* loaded from: classes2.dex */
+/* loaded from: classes.dex */
 public interface TTAdNative {
+
+    public interface BannerAdListener extends CommonListener {
+        void onBannerAdLoad(TTBannerAd tTBannerAd);
+
+        @Override // com.bytedance.sdk.openadsdk.common.CommonListener
+        void onError(int i2, String str);
+    }
 
     public interface CSJSplashAdListener {
         void onSplashLoadFail(CSJAdError cSJAdError);
 
-        void onSplashLoadSuccess(CSJSplashAd cSJSplashAd);
+        void onSplashLoadSuccess();
 
         void onSplashRenderFail(CSJSplashAd cSJSplashAd, CSJAdError cSJAdError);
 
         void onSplashRenderSuccess(CSJSplashAd cSJSplashAd);
     }
 
-    public interface DrawFeedAdListener {
+    public interface DrawFeedAdListener extends CommonListener {
         void onDrawFeedAdLoad(List<TTDrawFeedAd> list);
 
-        void onError(int i10, String str);
+        @Override // com.bytedance.sdk.openadsdk.common.CommonListener
+        void onError(int i2, String str);
     }
 
-    public interface FeedAdListener {
-        void onError(int i10, String str);
+    public interface FeedAdListener extends CommonListener {
+        @Override // com.bytedance.sdk.openadsdk.common.CommonListener
+        void onError(int i2, String str);
 
         void onFeedAdLoad(List<TTFeedAd> list);
     }
 
-    public interface FullScreenVideoAdListener {
-        void onError(int i10, String str);
+    public interface FullScreenVideoAdListener extends CommonListener {
+        @Override // com.bytedance.sdk.openadsdk.common.CommonListener
+        void onError(int i2, String str);
 
         void onFullScreenVideoAdLoad(TTFullScreenVideoAd tTFullScreenVideoAd);
 
@@ -38,20 +49,30 @@ public interface TTAdNative {
         void onFullScreenVideoCached(TTFullScreenVideoAd tTFullScreenVideoAd);
     }
 
-    public interface NativeAdListener {
-        void onError(int i10, String str);
+    public interface InteractionAdListener extends CommonListener {
+        @Override // com.bytedance.sdk.openadsdk.common.CommonListener
+        void onError(int i2, String str);
+
+        void onInteractionAdLoad(TTInteractionAd tTInteractionAd);
+    }
+
+    public interface NativeAdListener extends CommonListener {
+        @Override // com.bytedance.sdk.openadsdk.common.CommonListener
+        void onError(int i2, String str);
 
         void onNativeAdLoad(List<TTNativeAd> list);
     }
 
-    public interface NativeExpressAdListener {
-        void onError(int i10, String str);
+    public interface NativeExpressAdListener extends CommonListener {
+        @Override // com.bytedance.sdk.openadsdk.common.CommonListener
+        void onError(int i2, String str);
 
         void onNativeExpressAdLoad(List<TTNativeExpressAd> list);
     }
 
-    public interface RewardVideoAdListener {
-        void onError(int i10, String str);
+    public interface RewardVideoAdListener extends CommonListener {
+        @Override // com.bytedance.sdk.openadsdk.common.CommonListener
+        void onError(int i2, String str);
 
         void onRewardVideoAdLoad(TTRewardVideoAd tTRewardVideoAd);
 
@@ -59,6 +80,15 @@ public interface TTAdNative {
         void onRewardVideoCached();
 
         void onRewardVideoCached(TTRewardVideoAd tTRewardVideoAd);
+    }
+
+    public interface SplashAdListener extends CommonListener {
+        @Override // com.bytedance.sdk.openadsdk.common.CommonListener
+        void onError(int i2, String str);
+
+        void onSplashAdLoad(TTSplashAd tTSplashAd);
+
+        void onTimeout();
     }
 
     void loadBannerExpressAd(AdSlot adSlot, NativeExpressAdListener nativeExpressAdListener);
@@ -80,7 +110,13 @@ public interface TTAdNative {
 
     void loadRewardVideoAd(AdSlot adSlot, RewardVideoAdListener rewardVideoAdListener);
 
-    void loadSplashAd(AdSlot adSlot, CSJSplashAdListener cSJSplashAdListener, int i10);
+    void loadSplashAd(AdSlot adSlot, CSJSplashAdListener cSJSplashAdListener, int i2);
+
+    @Deprecated
+    void loadSplashAd(AdSlot adSlot, SplashAdListener splashAdListener);
+
+    @Deprecated
+    void loadSplashAd(AdSlot adSlot, SplashAdListener splashAdListener, int i2);
 
     void loadStream(AdSlot adSlot, FeedAdListener feedAdListener);
 }

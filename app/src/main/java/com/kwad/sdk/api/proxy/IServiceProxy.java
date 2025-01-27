@@ -9,7 +9,7 @@ import com.kwad.sdk.api.core.KsAdSdkDynamicApi;
 
 @KsAdSdkDynamicApi
 @Keep
-/* loaded from: classes3.dex */
+/* loaded from: classes2.dex */
 public interface IServiceProxy extends IComponentProxy {
     @KsAdSdkDynamicApi
     @Keep
@@ -29,7 +29,7 @@ public interface IServiceProxy extends IComponentProxy {
 
     @KsAdSdkDynamicApi
     @Keep
-    int onStartCommand(@NonNull Service service, Intent intent, int i10, int i11);
+    int onStartCommand(@NonNull Service service, Intent intent, int i2, int i3);
 
     boolean onUnbind(Service service, Intent intent);
 }

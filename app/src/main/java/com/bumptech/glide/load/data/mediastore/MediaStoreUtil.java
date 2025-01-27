@@ -2,7 +2,7 @@ package com.bumptech.glide.load.data.mediastore;
 
 import android.net.Uri;
 
-/* loaded from: classes2.dex */
+/* loaded from: classes.dex */
 public final class MediaStoreUtil {
     private static final int MINI_THUMB_HEIGHT = 384;
     private static final int MINI_THUMB_WIDTH = 512;
@@ -22,8 +22,8 @@ public final class MediaStoreUtil {
         return isMediaStoreUri(uri) && isVideoUri(uri);
     }
 
-    public static boolean isThumbnailSize(int i10, int i11) {
-        return i10 != Integer.MIN_VALUE && i11 != Integer.MIN_VALUE && i10 <= 512 && i11 <= MINI_THUMB_HEIGHT;
+    public static boolean isThumbnailSize(int i2, int i3) {
+        return i2 != Integer.MIN_VALUE && i3 != Integer.MIN_VALUE && i2 <= 512 && i3 <= MINI_THUMB_HEIGHT;
     }
 
     private static boolean isVideoUri(Uri uri) {

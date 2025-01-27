@@ -8,17 +8,20 @@ import android.os.Build;
 import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.annotation.RequiresApi;
 import androidx.annotation.RestrictTo;
 import androidx.lifecycle.Lifecycle;
 
 @RestrictTo({RestrictTo.Scope.LIBRARY_GROUP_PREFIX})
 /* loaded from: classes.dex */
 public class ReportFragment extends Fragment {
-    private static final String REPORT_FRAGMENT_TAG = "androidx.lifecycle.LifecycleDispatcher.report_fragment_tag";
-    private ActivityInitializationListener mProcessListener;
 
-    public interface ActivityInitializationListener {
+    /* renamed from: a */
+    private static final String f2624a = "androidx.lifecycle.LifecycleDispatcher.report_fragment_tag";
+
+    /* renamed from: b */
+    private ActivityInitializationListener f2625b;
+
+    interface ActivityInitializationListener {
         void onCreate();
 
         void onResume();
@@ -26,10 +29,8 @@ public class ReportFragment extends Fragment {
         void onStart();
     }
 
-    @RequiresApi(29)
-    public static class LifecycleCallbacks implements Application.ActivityLifecycleCallbacks {
-        public static void registerIn(Activity activity) {
-            activity.registerActivityLifecycleCallbacks(new LifecycleCallbacks());
+    static class LifecycleCallbacks implements Application.ActivityLifecycleCallbacks {
+        LifecycleCallbacks() {
         }
 
         @Override // android.app.Application.ActivityLifecycleCallbacks
@@ -46,32 +47,32 @@ public class ReportFragment extends Fragment {
 
         @Override // android.app.Application.ActivityLifecycleCallbacks
         public void onActivityPostCreated(@NonNull Activity activity, @Nullable Bundle bundle) {
-            ReportFragment.dispatch(activity, Lifecycle.Event.ON_CREATE);
+            ReportFragment.a(activity, Lifecycle.Event.ON_CREATE);
         }
 
         @Override // android.app.Application.ActivityLifecycleCallbacks
         public void onActivityPostResumed(@NonNull Activity activity) {
-            ReportFragment.dispatch(activity, Lifecycle.Event.ON_RESUME);
+            ReportFragment.a(activity, Lifecycle.Event.ON_RESUME);
         }
 
         @Override // android.app.Application.ActivityLifecycleCallbacks
         public void onActivityPostStarted(@NonNull Activity activity) {
-            ReportFragment.dispatch(activity, Lifecycle.Event.ON_START);
+            ReportFragment.a(activity, Lifecycle.Event.ON_START);
         }
 
         @Override // android.app.Application.ActivityLifecycleCallbacks
         public void onActivityPreDestroyed(@NonNull Activity activity) {
-            ReportFragment.dispatch(activity, Lifecycle.Event.ON_DESTROY);
+            ReportFragment.a(activity, Lifecycle.Event.ON_DESTROY);
         }
 
         @Override // android.app.Application.ActivityLifecycleCallbacks
         public void onActivityPrePaused(@NonNull Activity activity) {
-            ReportFragment.dispatch(activity, Lifecycle.Event.ON_PAUSE);
+            ReportFragment.a(activity, Lifecycle.Event.ON_PAUSE);
         }
 
         @Override // android.app.Application.ActivityLifecycleCallbacks
         public void onActivityPreStopped(@NonNull Activity activity) {
-            ReportFragment.dispatch(activity, Lifecycle.Event.ON_STOP);
+            ReportFragment.a(activity, Lifecycle.Event.ON_STOP);
         }
 
         @Override // android.app.Application.ActivityLifecycleCallbacks
@@ -92,7 +93,7 @@ public class ReportFragment extends Fragment {
     }
 
     /* JADX WARN: Multi-variable type inference failed */
-    public static void dispatch(@NonNull Activity activity, @NonNull Lifecycle.Event event) {
+    static void a(@NonNull Activity activity, @NonNull Lifecycle.Event event) {
         if (activity instanceof LifecycleRegistryOwner) {
             ((LifecycleRegistryOwner) activity).getLifecycle().handleLifecycleEvent(event);
         } else if (activity instanceof LifecycleOwner) {
@@ -103,86 +104,86 @@ public class ReportFragment extends Fragment {
         }
     }
 
-    private void dispatchCreate(ActivityInitializationListener activityInitializationListener) {
+    private void b(@NonNull Lifecycle.Event event) {
+        if (Build.VERSION.SDK_INT < 29) {
+            a(getActivity(), event);
+        }
+    }
+
+    private void c(ActivityInitializationListener activityInitializationListener) {
         if (activityInitializationListener != null) {
             activityInitializationListener.onCreate();
         }
     }
 
-    private void dispatchResume(ActivityInitializationListener activityInitializationListener) {
+    private void d(ActivityInitializationListener activityInitializationListener) {
         if (activityInitializationListener != null) {
             activityInitializationListener.onResume();
         }
     }
 
-    private void dispatchStart(ActivityInitializationListener activityInitializationListener) {
+    private void e(ActivityInitializationListener activityInitializationListener) {
         if (activityInitializationListener != null) {
             activityInitializationListener.onStart();
         }
     }
 
-    public static ReportFragment get(Activity activity) {
-        return (ReportFragment) activity.getFragmentManager().findFragmentByTag(REPORT_FRAGMENT_TAG);
+    static ReportFragment f(Activity activity) {
+        return (ReportFragment) activity.getFragmentManager().findFragmentByTag(f2624a);
     }
 
     public static void injectIfNeededIn(Activity activity) {
         if (Build.VERSION.SDK_INT >= 29) {
-            LifecycleCallbacks.registerIn(activity);
+            activity.registerActivityLifecycleCallbacks(new LifecycleCallbacks());
         }
         FragmentManager fragmentManager = activity.getFragmentManager();
-        if (fragmentManager.findFragmentByTag(REPORT_FRAGMENT_TAG) == null) {
-            fragmentManager.beginTransaction().add(new ReportFragment(), REPORT_FRAGMENT_TAG).commit();
+        if (fragmentManager.findFragmentByTag(f2624a) == null) {
+            fragmentManager.beginTransaction().add(new ReportFragment(), f2624a).commit();
             fragmentManager.executePendingTransactions();
         }
+    }
+
+    void g(ActivityInitializationListener activityInitializationListener) {
+        this.f2625b = activityInitializationListener;
     }
 
     @Override // android.app.Fragment
     public void onActivityCreated(Bundle bundle) {
         super.onActivityCreated(bundle);
-        dispatchCreate(this.mProcessListener);
-        dispatch(Lifecycle.Event.ON_CREATE);
+        c(this.f2625b);
+        b(Lifecycle.Event.ON_CREATE);
     }
 
     @Override // android.app.Fragment
     public void onDestroy() {
         super.onDestroy();
-        dispatch(Lifecycle.Event.ON_DESTROY);
-        this.mProcessListener = null;
+        b(Lifecycle.Event.ON_DESTROY);
+        this.f2625b = null;
     }
 
     @Override // android.app.Fragment
     public void onPause() {
         super.onPause();
-        dispatch(Lifecycle.Event.ON_PAUSE);
+        b(Lifecycle.Event.ON_PAUSE);
     }
 
     @Override // android.app.Fragment
     public void onResume() {
         super.onResume();
-        dispatchResume(this.mProcessListener);
-        dispatch(Lifecycle.Event.ON_RESUME);
+        d(this.f2625b);
+        b(Lifecycle.Event.ON_RESUME);
     }
 
     @Override // android.app.Fragment
     public void onStart() {
         super.onStart();
-        dispatchStart(this.mProcessListener);
-        dispatch(Lifecycle.Event.ON_START);
+        e(this.f2625b);
+        b(Lifecycle.Event.ON_START);
     }
 
     @Override // android.app.Fragment
     public void onStop() {
         super.onStop();
-        dispatch(Lifecycle.Event.ON_STOP);
-    }
-
-    public void setProcessListener(ActivityInitializationListener activityInitializationListener) {
-        this.mProcessListener = activityInitializationListener;
-    }
-
-    private void dispatch(@NonNull Lifecycle.Event event) {
-        if (Build.VERSION.SDK_INT < 29) {
-            dispatch(getActivity(), event);
-        }
+        b(Lifecycle.Event.ON_STOP);
     }
 }

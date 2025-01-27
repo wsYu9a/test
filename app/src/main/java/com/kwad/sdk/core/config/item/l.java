@@ -1,59 +1,46 @@
 package com.kwad.sdk.core.config.item;
 
 import android.content.SharedPreferences;
+import androidx.annotation.NonNull;
 import org.json.JSONObject;
 
-/* loaded from: classes3.dex */
-public final class l<ValueType> extends b<JSONObject> {
-    public l(String str) {
-        super(str, new JSONObject());
+/* loaded from: classes2.dex */
+public final class l extends b<String> {
+    private boolean adZ;
+
+    public l(String str, String str2) {
+        super(str, str2);
+        this.adZ = false;
+    }
+
+    public l(String str, String str2, boolean z) {
+        this(str, str2);
+        this.adZ = false;
     }
 
     @Override // com.kwad.sdk.core.config.item.b
-    public final void a(SharedPreferences sharedPreferences) {
-        JSONObject jSONObject;
-        JSONObject value = getValue();
-        if (value == null) {
-            value = new JSONObject();
-        }
-        try {
-            jSONObject = new JSONObject(sharedPreferences.getString(getKey(), ""));
-        } catch (Throwable unused) {
-            jSONObject = null;
-        }
-        if (jSONObject != null) {
-            value = jSONObject;
-        }
-        setValue(value);
-    }
-
-    @Override // com.kwad.sdk.core.config.item.b
-    public final void b(SharedPreferences.Editor editor) {
-        if (getValue() != null) {
-            editor.putString(getKey(), getValue().toString());
-        } else {
-            editor.putString(getKey(), "");
-        }
-    }
-
-    public final ValueType getValue(String str) {
-        try {
-            if (getValue().has(str)) {
-                return (ValueType) getValue().get(str);
-            }
-            return null;
-        } catch (Throwable unused) {
-            return null;
+    public final void a(@NonNull SharedPreferences sharedPreferences) {
+        if (this.adZ) {
+            setValue(sharedPreferences.getString(getKey(), uX()));
         }
     }
 
     @Override // com.kwad.sdk.core.config.item.b
-    public final void k(JSONObject jSONObject) {
+    public final void b(@NonNull SharedPreferences.Editor editor) {
+        if (this.adZ) {
+            editor.putString(getKey(), getValue());
+        }
+    }
+
+    @Override // com.kwad.sdk.core.config.item.b
+    public final void g(JSONObject jSONObject) {
         JSONObject optJSONObject;
-        if (jSONObject == null || (optJSONObject = jSONObject.optJSONObject(getKey())) == null) {
-            setValue(El());
-        } else {
-            setValue(optJSONObject);
-        }
+        setValue((jSONObject == null || (optJSONObject = jSONObject.optJSONObject(getKey())) == null) ? uX() : optJSONObject.toString());
+    }
+
+    @Override // com.kwad.sdk.core.config.item.b
+    @NonNull
+    public final String getValue() {
+        return (String) super.getValue();
     }
 }

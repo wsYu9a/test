@@ -3,7 +3,7 @@ package com.baidu.mobads.sdk.api;
 import android.view.View;
 import com.baidu.mobads.sdk.api.NativeResponse;
 
-/* loaded from: classes2.dex */
+/* loaded from: classes.dex */
 public class XAdVideoResponse implements PrerollVideoResponse {
     XAdNativeResponse adNativeResponse;
 
@@ -78,11 +78,11 @@ public class XAdVideoResponse implements PrerollVideoResponse {
     public String getMaterialType() {
         XAdNativeResponse xAdNativeResponse = this.adNativeResponse;
         if (xAdNativeResponse != null) {
-            int i10 = AnonymousClass1.$SwitchMap$com$baidu$mobads$sdk$api$NativeResponse$MaterialType[xAdNativeResponse.getMaterialType().ordinal()];
-            if (i10 == 1) {
+            int i2 = AnonymousClass1.$SwitchMap$com$baidu$mobads$sdk$api$NativeResponse$MaterialType[xAdNativeResponse.getMaterialType().ordinal()];
+            if (i2 == 1) {
                 return "video";
             }
-            if (i10 == 2 && this.adNativeResponse.getImageUrl().contains(".gif")) {
+            if (i2 == 2 && this.adNativeResponse.getImageUrl().contains(".gif")) {
                 return "gif";
             }
         }
@@ -124,10 +124,10 @@ public class XAdVideoResponse implements PrerollVideoResponse {
     }
 
     @Override // com.baidu.mobads.sdk.api.PrerollVideoResponse
-    public void handleClick(View view, int i10) {
+    public void handleClick(View view, int i2) {
         XAdNativeResponse xAdNativeResponse = this.adNativeResponse;
         if (xAdNativeResponse != null) {
-            xAdNativeResponse.handleClick(view, i10);
+            xAdNativeResponse.handleClick(view, i2);
         }
     }
 }

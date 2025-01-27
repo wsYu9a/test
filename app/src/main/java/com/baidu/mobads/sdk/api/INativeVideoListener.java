@@ -1,6 +1,6 @@
 package com.baidu.mobads.sdk.api;
 
-/* loaded from: classes2.dex */
+/* loaded from: classes.dex */
 public interface INativeVideoListener {
     void onCompletion();
 

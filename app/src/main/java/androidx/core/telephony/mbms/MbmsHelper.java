@@ -1,51 +1,44 @@
 package androidx.core.telephony.mbms;
 
+import android.annotation.SuppressLint;
+import android.annotation.TargetApi;
 import android.content.Context;
 import android.os.Build;
+import android.os.LocaleList;
 import android.telephony.mbms.ServiceInfo;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.annotation.RequiresApi;
 import java.util.Iterator;
 import java.util.Locale;
-import java.util.Set;
 
 /* loaded from: classes.dex */
 public final class MbmsHelper {
-
-    @RequiresApi(28)
-    public static class Api28Impl {
-        private Api28Impl() {
-        }
-
-        public static CharSequence getBestNameForService(Context context, ServiceInfo serviceInfo) {
-            Set<Locale> namedContentLocales = serviceInfo.getNamedContentLocales();
-            if (namedContentLocales.isEmpty()) {
-                return null;
-            }
-            String[] strArr = new String[namedContentLocales.size()];
-            Iterator<Locale> it = serviceInfo.getNamedContentLocales().iterator();
-            int i10 = 0;
-            while (it.hasNext()) {
-                strArr[i10] = it.next().toLanguageTag();
-                i10++;
-            }
-            Locale firstMatch = context.getResources().getConfiguration().getLocales().getFirstMatch(strArr);
-            if (firstMatch == null) {
-                return null;
-            }
-            return serviceInfo.getNameForLocale(firstMatch);
-        }
-    }
-
     private MbmsHelper() {
     }
 
     @Nullable
+    @SuppressLint({"BanTargetApiAnnotation"})
+    @TargetApi(28)
     public static CharSequence getBestNameForService(@NonNull Context context, @NonNull ServiceInfo serviceInfo) {
-        if (Build.VERSION.SDK_INT >= 28) {
-            return Api28Impl.getBestNameForService(context, serviceInfo);
+        if (Build.VERSION.SDK_INT < 28) {
+            return null;
         }
-        return null;
+        LocaleList locales = context.getResources().getConfiguration().getLocales();
+        int size = serviceInfo.getNamedContentLocales().size();
+        if (size == 0) {
+            return null;
+        }
+        String[] strArr = new String[size];
+        int i2 = 0;
+        Iterator<Locale> it = serviceInfo.getNamedContentLocales().iterator();
+        while (it.hasNext()) {
+            strArr[i2] = it.next().toLanguageTag();
+            i2++;
+        }
+        Locale firstMatch = locales.getFirstMatch(strArr);
+        if (firstMatch == null) {
+            return null;
+        }
+        return serviceInfo.getNameForLocale(firstMatch);
     }
 }

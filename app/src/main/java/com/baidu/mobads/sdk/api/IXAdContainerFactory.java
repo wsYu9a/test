@@ -2,7 +2,7 @@ package com.baidu.mobads.sdk.api;
 
 import org.json.JSONObject;
 
-/* loaded from: classes2.dex */
+/* loaded from: classes.dex */
 public interface IXAdContainerFactory {
     Object getRemoteParam(String str, Object... objArr);
 

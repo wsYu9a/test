@@ -3,60 +3,60 @@ package com.kwad.sdk.core.request.model;
 import com.ksad.json.annotation.KsJson;
 import com.kwad.sdk.internal.api.SceneImpl;
 import com.kwad.sdk.service.ServiceProvider;
-import com.kwad.sdk.utils.x;
+import com.kwad.sdk.utils.t;
 import java.io.Serializable;
 import java.util.List;
 import org.json.JSONObject;
 
 @KsJson
-/* loaded from: classes3.dex */
-public class StatusInfo extends com.kwad.sdk.core.response.a.a {
-    public int aDW;
-    public int aDX;
-    public SplashAdInfo aDY;
-    public NativeAdRequestInfo aDZ;
-    public List<f> aEa;
+/* loaded from: classes2.dex */
+public class StatusInfo extends com.kwad.sdk.core.response.kwai.a {
+    public SplashAdInfo alH;
+    public NativeAdRequestInfo alI;
+    public int alF = ((com.kwad.sdk.service.kwai.e) ServiceProvider.get(com.kwad.sdk.service.kwai.e.class)).isPersonalRecommend() ? 1 : 0;
+    public int alG = ((com.kwad.sdk.service.kwai.e) ServiceProvider.get(com.kwad.sdk.service.kwai.e.class)).isProgrammaticRecommend() ? 1 : 0;
+    public List<f> alJ = com.kwad.sdk.core.c.a.vW();
 
     @KsJson
-    public static final class NativeAdRequestInfo extends com.kwad.sdk.core.response.a.a implements Serializable {
+    public static final class NativeAdRequestInfo extends com.kwad.sdk.core.response.kwai.a implements Serializable {
         private static final long serialVersionUID = -7917397487136276024L;
         public NativeAdStyleControl nativeAdStyleControl;
 
         public static NativeAdRequestInfo create(SceneImpl sceneImpl) {
             NativeAdRequestInfo nativeAdRequestInfo = new NativeAdRequestInfo();
-            nativeAdRequestInfo.nativeAdStyleControl = com.kwad.sdk.utils.c.e(sceneImpl);
+            nativeAdRequestInfo.nativeAdStyleControl = com.kwad.sdk.utils.b.d(sceneImpl);
             return nativeAdRequestInfo;
         }
     }
 
     @KsJson
-    public static final class NativeAdStyleControl extends com.kwad.sdk.core.response.a.a implements Serializable {
+    public static final class NativeAdStyleControl extends com.kwad.sdk.core.response.kwai.a implements Serializable {
         private static final long serialVersionUID = -6047032783829467891L;
         public boolean enableShake;
 
-        @Override // com.kwad.sdk.core.response.a.a
+        @Override // com.kwad.sdk.core.response.kwai.a
         public final void afterToJson(JSONObject jSONObject) {
             super.afterToJson(jSONObject);
-            x.putValue(jSONObject, "enableShake", this.enableShake);
+            t.putValue(jSONObject, "enableShake", this.enableShake);
         }
     }
 
     @KsJson
-    public static final class SplashAdInfo extends com.kwad.sdk.core.response.a.a implements Serializable {
+    public static final class SplashAdInfo extends com.kwad.sdk.core.response.kwai.a implements Serializable {
         private static final long serialVersionUID = 7910709346852904072L;
         public int dailyShowCount;
         public SplashStyleControl splashStyleControl;
 
         public static SplashAdInfo create(SceneImpl sceneImpl) {
             SplashAdInfo splashAdInfo = new SplashAdInfo();
-            splashAdInfo.dailyShowCount = com.kwad.sdk.utils.c.MC();
-            splashAdInfo.splashStyleControl = com.kwad.sdk.utils.c.d(sceneImpl);
+            splashAdInfo.dailyShowCount = com.kwad.sdk.utils.b.CC();
+            splashAdInfo.splashStyleControl = com.kwad.sdk.utils.b.c(sceneImpl);
             return splashAdInfo;
         }
     }
 
     @KsJson
-    public static final class SplashStyleControl extends com.kwad.sdk.core.response.a.a implements Serializable {
+    public static final class SplashStyleControl extends com.kwad.sdk.core.response.kwai.a implements Serializable {
         private static final long serialVersionUID = -6510852657198503314L;
         public boolean disableRotate;
         public boolean disableShake;
@@ -64,18 +64,11 @@ public class StatusInfo extends com.kwad.sdk.core.response.a.a {
     }
 
     private StatusInfo(SceneImpl sceneImpl) {
-        try {
-            this.aDW = ((com.kwad.sdk.service.a.f) ServiceProvider.get(com.kwad.sdk.service.a.f.class)).zC() ? 1 : 0;
-            this.aDX = ((com.kwad.sdk.service.a.f) ServiceProvider.get(com.kwad.sdk.service.a.f.class)).zD() ? 1 : 0;
-            this.aEa = com.kwad.sdk.core.local.a.Fm();
-            this.aDZ = NativeAdRequestInfo.create(sceneImpl);
-            this.aDY = SplashAdInfo.create(sceneImpl);
-        } catch (Throwable th2) {
-            ServiceProvider.reportSdkCaughtException(th2);
-        }
+        this.alI = NativeAdRequestInfo.create(sceneImpl);
+        this.alH = SplashAdInfo.create(sceneImpl);
     }
 
-    public static StatusInfo c(SceneImpl sceneImpl) {
+    public static StatusInfo b(SceneImpl sceneImpl) {
         return new StatusInfo(sceneImpl);
     }
 }

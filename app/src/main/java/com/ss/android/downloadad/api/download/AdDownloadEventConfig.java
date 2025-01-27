@@ -1,8 +1,7 @@
 package com.ss.android.downloadad.api.download;
 
-import com.bytedance.sdk.openadsdk.downloadnew.core.TTDownloadField;
 import com.ss.android.download.api.download.DownloadEventConfig;
-import com.ss.android.downloadlib.addownload.k;
+import com.ss.android.downloadlib.addownload.pa;
 import org.json.JSONObject;
 
 /* loaded from: classes4.dex */
@@ -110,8 +109,8 @@ public class AdDownloadEventConfig implements DownloadEventConfig {
             return this;
         }
 
-        public Builder setDownloadScene(int i10) {
-            this.eventConfig.mDownloadScene = i10;
+        public Builder setDownloadScene(int i2) {
+            this.eventConfig.mDownloadScene = i2;
             return this;
         }
 
@@ -125,23 +124,23 @@ public class AdDownloadEventConfig implements DownloadEventConfig {
             return this;
         }
 
-        public Builder setIsEnableClickEvent(boolean z10) {
-            this.eventConfig.mIsEnableClickEvent = z10;
+        public Builder setIsEnableClickEvent(boolean z) {
+            this.eventConfig.mIsEnableClickEvent = z;
             return this;
         }
 
         @Deprecated
-        public Builder setIsEnableCompletedEvent(boolean z10) {
+        public Builder setIsEnableCompletedEvent(boolean z) {
             return this;
         }
 
         @Deprecated
-        public Builder setIsEnableNoChargeClickEvent(boolean z10) {
+        public Builder setIsEnableNoChargeClickEvent(boolean z) {
             return this;
         }
 
-        public Builder setIsEnableV3Event(boolean z10) {
-            this.eventConfig.mIsEnableV3Event = z10;
+        public Builder setIsEnableV3Event(boolean z) {
+            this.eventConfig.mIsEnableV3Event = z;
             return this;
         }
 
@@ -200,14 +199,14 @@ public class AdDownloadEventConfig implements DownloadEventConfig {
             builder.setClickPauseLabel(jSONObject.optString("click_pause_label"));
             builder.setClickInstallLabel(jSONObject.optString("click_install_label"));
             builder.setStorageDenyLabel(jSONObject.optString("storage_deny_label"));
-            builder.setRefer(jSONObject.optString(TTDownloadField.TT_REFER));
+            builder.setRefer(jSONObject.optString("refer"));
             builder.setDownloadScene(jSONObject.optInt("download_scene"));
             builder.setIsEnableClickEvent(jSONObject.optInt("enable_click_event") == 1);
             builder.setIsEnableV3Event(jSONObject.optInt("enable_v3_event") == 1);
             builder.setExtraJson(jSONObject.optJSONObject("extra"));
             builder.setParamsJson(jSONObject.optJSONObject("params_json"));
-        } catch (Exception e10) {
-            k.u().a(e10, "AdDownloadEventConfig fromJson");
+        } catch (Exception e2) {
+            pa.v().j(e2, "AdDownloadEventConfig fromJson");
         }
         return builder.build();
     }
@@ -296,8 +295,8 @@ public class AdDownloadEventConfig implements DownloadEventConfig {
     }
 
     @Override // com.ss.android.download.api.download.DownloadEventConfig
-    public void setDownloadScene(int i10) {
-        this.mDownloadScene = i10;
+    public void setDownloadScene(int i2) {
+        this.mDownloadScene = i2;
     }
 
     public void setExtraEventObject(Object obj) {
@@ -332,14 +331,18 @@ public class AdDownloadEventConfig implements DownloadEventConfig {
             jSONObject.putOpt("click_pause_label", this.mClickPauseLabel);
             jSONObject.putOpt("click_install_label", this.mClickInstallLabel);
             jSONObject.putOpt("storage_deny_label", this.mStorageDenyLabel);
-            jSONObject.putOpt(TTDownloadField.TT_REFER, this.mRefer);
+            jSONObject.putOpt("refer", this.mRefer);
             jSONObject.putOpt("download_scene", Integer.valueOf(this.mDownloadScene));
+            int i2 = 1;
             jSONObject.putOpt("enable_click_event", Integer.valueOf(this.mIsEnableClickEvent ? 1 : 0));
-            jSONObject.putOpt("enable_v3_event", Integer.valueOf(this.mIsEnableV3Event ? 1 : 0));
+            if (!this.mIsEnableV3Event) {
+                i2 = 0;
+            }
+            jSONObject.putOpt("enable_v3_event", Integer.valueOf(i2));
             jSONObject.putOpt("extra", this.mExtraJson);
             jSONObject.putOpt("params_json", this.mParamsJson);
-        } catch (Exception e10) {
-            k.u().a(e10, "AdDownloadEventConfig toJson");
+        } catch (Exception e2) {
+            pa.v().j(e2, "AdDownloadEventConfig toJson");
         }
         return jSONObject;
     }

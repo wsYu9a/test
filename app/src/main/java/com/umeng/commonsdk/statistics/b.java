@@ -2,18 +2,12 @@ package com.umeng.commonsdk.statistics;
 
 import android.content.Context;
 import android.content.SharedPreferences;
-import android.os.Build;
 import android.text.TextUtils;
 import android.util.Base64;
 import android.util.Log;
-import com.kuaishou.weapon.p0.g;
-import com.umeng.analytics.AnalyticsConfig;
-import com.umeng.analytics.pro.at;
-import com.umeng.analytics.pro.br;
-import com.umeng.analytics.pro.bt;
-import com.umeng.analytics.pro.cq;
-import com.umeng.analytics.pro.f;
-import com.umeng.commonsdk.config.FieldManager;
+import com.umeng.analytics.pro.am;
+import com.umeng.analytics.pro.be;
+import com.umeng.analytics.pro.d;
 import com.umeng.commonsdk.framework.UMEnvelopeBuild;
 import com.umeng.commonsdk.framework.UMFrUtils;
 import com.umeng.commonsdk.internal.crash.UMCrashManager;
@@ -21,15 +15,12 @@ import com.umeng.commonsdk.statistics.common.DataHelper;
 import com.umeng.commonsdk.statistics.common.DeviceConfig;
 import com.umeng.commonsdk.statistics.common.ULog;
 import com.umeng.commonsdk.statistics.idtracking.Envelope;
-import com.umeng.commonsdk.statistics.idtracking.ImprintHandler;
+import com.umeng.commonsdk.statistics.idtracking.e;
 import com.umeng.commonsdk.statistics.internal.PreferenceWrapper;
 import com.umeng.commonsdk.utils.UMUtils;
-import com.umeng.commonsdk.utils.d;
-import hf.e;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
-import m5.h;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -37,145 +28,140 @@ import org.json.JSONObject;
 public class b {
 
     /* renamed from: a */
-    public static String f24591a = null;
+    public static String f26279a = null;
 
     /* renamed from: b */
-    public static String f24592b = "";
+    public static String f26280b = "";
 
     /* renamed from: c */
-    private static final String f24593c = "EnvelopeManager";
+    private static final String f26281c = "EnvelopeManager";
 
     /* renamed from: d */
-    private static final String f24594d = "debug.umeng.umTaskId";
+    private static final String f26282d = "debug.umeng.umTaskId";
 
     /* renamed from: e */
-    private static final String f24595e = "debug.umeng.umCaseId";
+    private static final String f26283e = "debug.umeng.umCaseId";
 
     /* renamed from: f */
-    private static final String f24596f = "empty";
+    private static final String f26284f = "empty";
 
     /* renamed from: g */
-    private static String f24597g = "";
+    private static String f26285g = "";
 
     /* renamed from: h */
-    private static String f24598h = "";
+    private static String f26286h = "";
 
     /* renamed from: i */
-    private static String f24599i;
+    private static String f26287i;
 
     /* renamed from: j */
-    private static Map<String, String> f24600j;
-
-    /* renamed from: l */
-    private static boolean f24601l;
-
-    /* renamed from: k */
-    private int f24602k = 0;
+    private static Map<String, String> f26288j;
+    private static boolean l;
+    private int k = 0;
 
     static {
         HashMap hashMap = new HashMap();
-        f24600j = hashMap;
+        f26288j = hashMap;
         hashMap.put("header", "#h");
-        f24600j.put(bt.f23625u, "#sdt");
-        f24600j.put(bt.Q, "#ac");
-        f24600j.put("device_model", "#dm");
-        f24600j.put(bt.f23611g, "#umid");
-        f24600j.put(bt.f23628x, bt.f23628x);
-        f24600j.put(bt.N, "#lang");
-        f24600j.put(bt.f23592ai, "#dt");
-        f24600j.put(bt.f23630z, "#rl");
-        f24600j.put(bt.H, "#dmf");
-        f24600j.put(bt.J, "#dn");
-        f24600j.put("platform_version", "#pv");
-        f24600j.put("font_size_setting", "#fss");
-        f24600j.put(bt.f23629y, "#ov");
-        f24600j.put(bt.I, "#did");
-        f24600j.put("platform_sdk_version", "#psv");
-        f24600j.put(bt.F, "#db");
-        f24600j.put("appkey", "#ak");
-        f24600j.put(bt.Y, "#itr");
-        f24600j.put("id_type", "#it");
-        f24600j.put("uuid", "#ud");
-        f24600j.put("device_id", "#dd");
-        f24600j.put(bt.X, "#imp");
-        f24600j.put("sdk_version", "#sv");
-        f24600j.put("st", "#st");
-        f24600j.put("analytics", "#a");
-        f24600j.put("package_name", "#pkg");
-        f24600j.put(bt.f23620p, "#sig");
-        f24600j.put(bt.f23621q, "#sis1");
-        f24600j.put(bt.f23622r, "#sis");
-        f24600j.put("app_version", "#av");
-        f24600j.put("version_code", "#vc");
-        f24600j.put(bt.f23626v, "#imd");
-        f24600j.put(bt.B, "#mnc");
-        f24600j.put(bt.E, "#boa");
-        f24600j.put(bt.G, "#mant");
-        f24600j.put(bt.M, "#tz");
-        f24600j.put(bt.O, "#ct");
-        f24600j.put(bt.P, "#car");
-        f24600j.put(bt.f23623s, "#disn");
-        f24600j.put(bt.T, "#nt");
-        f24600j.put(bt.f23595b, "#cv");
-        f24600j.put(bt.f23608d, "#mv");
-        f24600j.put(bt.f23607c, "#cot");
-        f24600j.put(bt.f23609e, "#mod");
-        f24600j.put(bt.f23593aj, "#al");
-        f24600j.put("session_id", "#sid");
-        f24600j.put(bt.S, "#ip");
-        f24600j.put(bt.U, "#sre");
-        f24600j.put(bt.V, "#fre");
-        f24600j.put(bt.W, "#ret");
-        f24600j.put("channel", "#chn");
-        f24600j.put("wrapper_type", "#wt");
-        f24600j.put("wrapper_version", "#wv");
-        f24600j.put(bt.f23597bb, "#tsv");
-        f24600j.put(bt.f23598bc, "#rps");
-        f24600j.put(bt.f23603bh, "#mov");
-        f24600j.put(f.f23901i, "#vt");
-        f24600j.put("secret", "#sec");
-        f24600j.put(f.an, "#prv");
-        f24600j.put(f.f23904l, "#$prv");
-        f24600j.put(f.f23905m, "#uda");
-        f24600j.put(bt.f23583a, "#tok");
-        f24600j.put(bt.aT, "#iv");
-        f24600j.put(bt.R, "#ast");
-        f24600j.put("backstate", "#bst");
-        f24600j.put("zdata_ver", "#zv");
-        f24600j.put("zdata_req_ts", "#zrt");
-        f24600j.put("app_b_v", "#bv");
-        f24600j.put("zdata", "#zta");
-        f24600j.put(bt.ap, "#mt");
-        f24600j.put(bt.am, "#zsv");
-        f24600j.put(bt.ao, "#oos");
+        f26288j.put(am.u, "#sdt");
+        f26288j.put(am.Q, "#ac");
+        f26288j.put("device_model", "#dm");
+        f26288j.put(am.f25657g, "#umid");
+        f26288j.put(am.x, am.x);
+        f26288j.put(am.N, "#lang");
+        f26288j.put(am.ai, "#dt");
+        f26288j.put(am.z, "#rl");
+        f26288j.put(am.H, "#dmf");
+        f26288j.put(am.J, "#dn");
+        f26288j.put("platform_version", "#pv");
+        f26288j.put("font_size_setting", "#fss");
+        f26288j.put(am.y, "#ov");
+        f26288j.put(am.I, "#did");
+        f26288j.put("platform_sdk_version", "#psv");
+        f26288j.put(am.F, "#db");
+        f26288j.put("appkey", "#ak");
+        f26288j.put(am.Y, "#itr");
+        f26288j.put("id_type", "#it");
+        f26288j.put("uuid", "#ud");
+        f26288j.put("device_id", "#dd");
+        f26288j.put(am.X, "#imp");
+        f26288j.put("sdk_version", "#sv");
+        f26288j.put("st", "#st");
+        f26288j.put("analytics", "#a");
+        f26288j.put("package_name", "#pkg");
+        f26288j.put(am.p, "#sig");
+        f26288j.put(am.q, "#sis1");
+        f26288j.put(am.r, "#sis");
+        f26288j.put("app_version", "#av");
+        f26288j.put("version_code", "#vc");
+        f26288j.put(am.v, "#imd");
+        f26288j.put(am.B, "#mnc");
+        f26288j.put(am.E, "#boa");
+        f26288j.put(am.G, "#mant");
+        f26288j.put(am.M, "#tz");
+        f26288j.put(am.O, "#ct");
+        f26288j.put(am.P, "#car");
+        f26288j.put(am.s, "#disn");
+        f26288j.put(am.T, "#nt");
+        f26288j.put(am.f25652b, "#cv");
+        f26288j.put(am.f25654d, "#mv");
+        f26288j.put(am.f25653c, "#cot");
+        f26288j.put(am.f25655e, "#mod");
+        f26288j.put(am.aj, "#al");
+        f26288j.put("session_id", "#sid");
+        f26288j.put(am.S, "#ip");
+        f26288j.put(am.U, "#sre");
+        f26288j.put(am.V, "#fre");
+        f26288j.put(am.W, "#ret");
+        f26288j.put("channel", "#chn");
+        f26288j.put("wrapper_type", "#wt");
+        f26288j.put("wrapper_version", "#wv");
+        f26288j.put(am.aV, "#tsv");
+        f26288j.put(am.aW, "#rps");
+        f26288j.put(am.aZ, "#mov");
+        f26288j.put(d.f25839i, "#vt");
+        f26288j.put("secret", "#sec");
+        f26288j.put(d.ah, "#prv");
+        f26288j.put(d.l, "#$prv");
+        f26288j.put(d.m, "#uda");
+        f26288j.put(am.f25650a, "#tok");
+        f26288j.put(am.aN, "#iv");
+        f26288j.put(am.R, "#ast");
+        f26288j.put("backstate", "#bst");
+        f26288j.put("zdata_ver", "#zv");
+        f26288j.put("zdata_req_ts", "#zrt");
+        f26288j.put("app_b_v", "#bv");
+        f26288j.put("zdata", "#zta");
+        f26288j.put(am.ap, "#mt");
+        f26288j.put(am.am, "#zsv");
+        f26288j.put(am.ao, "#oos");
     }
 
     public static String a(String str) {
-        return f24600j.containsKey(str) ? f24600j.get(str) : str;
+        return f26288j.containsKey(str) ? f26288j.get(str) : str;
     }
 
     private static boolean b() {
-        f24597g = UMUtils.getSystemProperty(f24594d, "");
-        f24598h = UMUtils.getSystemProperty(f24595e, "");
-        return (!TextUtils.isEmpty(f24597g) && !f24596f.equals(f24597g)) && (!TextUtils.isEmpty(f24598h) && !f24596f.equals(f24598h));
+        f26285g = UMUtils.getSystemProperty(f26282d, "");
+        f26286h = UMUtils.getSystemProperty(f26283e, "");
+        return (!TextUtils.isEmpty(f26285g) && !f26284f.equals(f26285g)) && (!TextUtils.isEmpty(f26286h) && !f26284f.equals(f26286h));
     }
 
     public static void a() {
-        if (f24599i != null) {
-            f24599i = null;
-            com.umeng.commonsdk.statistics.idtracking.f.a();
+        if (f26287i != null) {
+            f26287i = null;
+            e.a();
         }
     }
 
     public JSONObject b(Context context, JSONObject jSONObject, JSONObject jSONObject2, String str) {
-        Envelope envelope;
         try {
             JSONObject jSONObject3 = new JSONObject();
             jSONObject3.put(a("header"), new JSONObject());
             try {
                 if (b()) {
-                    jSONObject.put("umTaskId", f24597g);
-                    jSONObject.put("umCaseId", f24598h);
+                    jSONObject.put("umTaskId", f26285g);
+                    jSONObject.put("umCaseId", f26286h);
                 }
             } catch (Throwable unused) {
             }
@@ -204,51 +190,47 @@ public class b {
                 }
                 return a(113, jSONObject3);
             }
-            if (jSONObject3 != null) {
-                envelope = a(context, jSONObject3.toString().getBytes());
-                if (envelope == null) {
-                    return a(111, jSONObject3);
-                }
-            } else {
-                envelope = null;
+            Envelope envelope = null;
+            if (jSONObject3 != null && (envelope = a(context, jSONObject3.toString().getBytes())) == null) {
+                return a(111, jSONObject3);
             }
             Envelope envelope2 = envelope;
             if (envelope2 != null && DataHelper.largeThanMaxSize(envelope2.toBinary().length, DataHelper.ENVELOPE_LENGTH_MAX)) {
                 return a(114, jSONObject3);
             }
-            int a10 = a(context, envelope2, "z==1.2.0", DeviceConfig.getAppVersionName(context), str);
-            if (a10 != 0) {
-                return a(a10, jSONObject3);
+            int a2 = a(context, envelope2, "z==1.2.0", DeviceConfig.getAppVersionName(context), str);
+            if (a2 != 0) {
+                return a(a2, jSONObject3);
             }
             if (ULog.DEBUG) {
-                Log.i(f24593c, "constructHeader size is " + jSONObject3.toString().getBytes().length);
+                Log.i(f26281c, "constructHeader size is " + jSONObject3.toString().getBytes().length);
             }
             return jSONObject3;
-        } catch (Throwable th2) {
-            UMCrashManager.reportCrash(context, th2);
+        } catch (Throwable th) {
+            UMCrashManager.reportCrash(context, th);
             return a(110, new JSONObject());
         }
     }
 
     public static long a(Context context) {
-        long j10 = DataHelper.ENVELOPE_ENTITY_RAW_LENGTH_MAX - DataHelper.ENVELOPE_EXTRA_LENGTH;
+        long j2 = DataHelper.ENVELOPE_ENTITY_RAW_LENGTH_MAX - DataHelper.ENVELOPE_EXTRA_LENGTH;
         if (ULog.DEBUG) {
-            Log.i(f24593c, "free size is " + j10);
+            Log.i(f26281c, "free size is " + j2);
         }
-        return j10;
+        return j2;
     }
 
-    private JSONObject a(int i10, JSONObject jSONObject) {
+    private JSONObject a(int i2, JSONObject jSONObject) {
         if (jSONObject != null) {
             try {
-                jSONObject.put("exception", i10);
+                jSONObject.put("exception", i2);
             } catch (Exception unused) {
             }
             return jSONObject;
         }
         JSONObject jSONObject2 = new JSONObject();
         try {
-            jSONObject2.put("exception", i10);
+            jSONObject2.put("exception", i2);
         } catch (Exception unused2) {
         }
         return jSONObject2;
@@ -257,28 +239,28 @@ public class b {
     public JSONObject a(Context context, JSONObject jSONObject, JSONObject jSONObject2, String str, String str2, String str3) {
         JSONObject jSONObject3;
         String str4;
-        boolean z10;
+        boolean z;
         String str5;
         Envelope envelope;
         JSONObject optJSONObject;
         if (ULog.DEBUG && jSONObject != null && jSONObject2 != null) {
-            Log.i(f24593c, "headerJSONObject size is " + jSONObject.toString().getBytes().length);
-            Log.i(f24593c, "bodyJSONObject size is " + jSONObject2.toString().getBytes().length);
+            Log.i(f26281c, "headerJSONObject size is " + jSONObject.toString().getBytes().length);
+            Log.i(f26281c, "bodyJSONObject size is " + jSONObject2.toString().getBytes().length);
         }
         if (context != null && jSONObject2 != null) {
             try {
-                if (jSONObject2.has("analytics") && (optJSONObject = jSONObject2.optJSONObject("analytics")) != null && optJSONObject.has(f.f23906n)) {
+                if (jSONObject2.has("analytics") && (optJSONObject = jSONObject2.optJSONObject("analytics")) != null && optJSONObject.has(d.n)) {
                     str4 = str2;
-                    z10 = true;
+                    z = true;
                 } else {
                     str4 = str2;
-                    z10 = false;
+                    z = false;
                 }
-                JSONObject a10 = a(context, str4, z10);
-                if (a10 != null && jSONObject != null) {
-                    a10 = a(a10, jSONObject);
+                JSONObject a2 = a(context, str4, z);
+                if (a2 != null && jSONObject != null) {
+                    a2 = a(a2, jSONObject);
                 }
-                JSONObject jSONObject4 = a10;
+                JSONObject jSONObject4 = a2;
                 if (jSONObject4 != null) {
                     Iterator<String> keys = jSONObject2.keys();
                     while (keys.hasNext()) {
@@ -312,13 +294,13 @@ public class b {
                 }
                 if (jSONObject4 != null) {
                     try {
-                        com.umeng.commonsdk.statistics.idtracking.f a11 = com.umeng.commonsdk.statistics.idtracking.f.a(context);
-                        if (a11 != null) {
-                            a11.b();
-                            String encodeToString = Base64.encodeToString(new cq().a(a11.c()), 0);
+                        e a3 = e.a(context);
+                        if (a3 != null) {
+                            a3.b();
+                            String encodeToString = Base64.encodeToString(new be().a(a3.c()), 0);
                             if (!TextUtils.isEmpty(encodeToString)) {
                                 JSONObject jSONObject5 = jSONObject4.getJSONObject(a("header"));
-                                jSONObject5.put(a(bt.Y), encodeToString);
+                                jSONObject5.put(a(am.Y), encodeToString);
                                 jSONObject4.put(a("header"), jSONObject5);
                             }
                         }
@@ -333,46 +315,46 @@ public class b {
                     return a(113, jSONObject4);
                 }
                 if (jSONObject4 != null) {
-                    Envelope a12 = a(context, jSONObject4.toString().getBytes());
-                    if (a12 == null) {
+                    Envelope a4 = a(context, jSONObject4.toString().getBytes());
+                    if (a4 == null) {
                         return a(111, jSONObject4);
                     }
-                    envelope = a12;
+                    envelope = a4;
                 } else {
                     envelope = null;
                 }
                 if (envelope != null && DataHelper.largeThanMaxSize(envelope.toBinary().length, DataHelper.ENVELOPE_LENGTH_MAX)) {
                     return a(114, jSONObject4);
                 }
-                int a13 = a(context, envelope, str5, jSONObject4 != null ? jSONObject4.optJSONObject(a("header")).optString(a("app_version")) : null, str);
-                if (a13 != 0) {
-                    return a(a13, jSONObject4);
+                int a5 = a(context, envelope, str5, jSONObject4 != null ? jSONObject4.optJSONObject(a("header")).optString(a("app_version")) : null, str);
+                if (a5 != 0) {
+                    return a(a5, jSONObject4);
                 }
                 if (ULog.DEBUG) {
-                    Log.i(f24593c, "constructHeader size is " + jSONObject4.toString().getBytes().length);
+                    Log.i(f26281c, "constructHeader size is " + jSONObject4.toString().getBytes().length);
                 }
-                if (!str5.startsWith(bt.aJ) && !str5.startsWith("i") && !str5.startsWith(bt.aO) && !str5.startsWith("a") && !com.umeng.commonsdk.stateless.b.a()) {
+                if (!str5.startsWith(am.aD) && !str5.startsWith("i") && !str5.startsWith("t") && !str5.startsWith("a") && !com.umeng.commonsdk.stateless.b.a()) {
                     new com.umeng.commonsdk.stateless.b(context);
                     com.umeng.commonsdk.stateless.b.b();
                 }
                 return jSONObject4;
-            } catch (Throwable th2) {
-                UMCrashManager.reportCrash(context, th2);
+            } catch (Throwable th) {
+                UMCrashManager.reportCrash(context, th);
                 if (jSONObject != null) {
                     try {
                         JSONObject jSONObject6 = new JSONObject();
                         try {
                             jSONObject6.put("header", jSONObject);
                         } catch (JSONException unused3) {
-                        } catch (Exception e10) {
-                            e = e10;
+                        } catch (Exception e2) {
+                            e = e2;
                             jSONObject3 = jSONObject6;
                             UMCrashManager.reportCrash(context, e);
                             return a(110, jSONObject3);
                         }
                         jSONObject3 = jSONObject6;
-                    } catch (Exception e11) {
-                        e = e11;
+                    } catch (Exception e3) {
+                        e = e3;
                         jSONObject3 = null;
                     }
                 } else {
@@ -381,8 +363,8 @@ public class b {
                 if (jSONObject3 == null) {
                     try {
                         jSONObject3 = new JSONObject();
-                    } catch (Exception e12) {
-                        e = e12;
+                    } catch (Exception e4) {
+                        e = e4;
                         UMCrashManager.reportCrash(context, e);
                         return a(110, jSONObject3);
                     }
@@ -409,10 +391,10 @@ public class b {
     private static int[] b(Context context) {
         int[] iArr = new int[3];
         try {
-            SharedPreferences sharedPreferences = context.getApplicationContext().getSharedPreferences(com.umeng.commonsdk.internal.c.f24494a, 0);
+            SharedPreferences sharedPreferences = context.getApplicationContext().getSharedPreferences(com.umeng.commonsdk.internal.c.f26191a, 0);
             if (sharedPreferences != null) {
-                iArr[0] = sharedPreferences.getInt(com.umeng.commonsdk.internal.c.f24495b, 0);
-                iArr[1] = sharedPreferences.getInt(com.umeng.commonsdk.internal.c.f24496c, 0);
+                iArr[0] = sharedPreferences.getInt(com.umeng.commonsdk.internal.c.f26192b, 0);
+                iArr[1] = sharedPreferences.getInt(com.umeng.commonsdk.internal.c.f26193c, 0);
                 iArr[2] = sharedPreferences.getInt("policyGrantResult", 0);
             }
         } catch (Throwable unused) {
@@ -421,7 +403,6 @@ public class b {
     }
 
     public JSONObject a(Context context, JSONObject jSONObject, JSONObject jSONObject2, String str) {
-        Envelope envelope;
         try {
             JSONObject jSONObject3 = new JSONObject();
             jSONObject3.put(a("header"), new JSONObject());
@@ -450,294 +431,41 @@ public class b {
                 }
                 return a(113, jSONObject3);
             }
-            if (jSONObject3 != null) {
-                envelope = a(context, jSONObject3.toString().getBytes());
-                if (envelope == null) {
-                    return a(111, jSONObject3);
-                }
-            } else {
-                envelope = null;
+            Envelope envelope = null;
+            if (jSONObject3 != null && (envelope = a(context, jSONObject3.toString().getBytes())) == null) {
+                return a(111, jSONObject3);
             }
             Envelope envelope2 = envelope;
             if (envelope2 != null && DataHelper.largeThanMaxSize(envelope2.toBinary().length, DataHelper.ENVELOPE_LENGTH_MAX)) {
                 return a(114, jSONObject3);
             }
-            int a10 = a(context, envelope2, "h==1.2.0", "", str);
-            if (a10 != 0) {
-                return a(a10, jSONObject3);
+            int a2 = a(context, envelope2, "h==1.2.0", "", str);
+            if (a2 != 0) {
+                return a(a2, jSONObject3);
             }
             if (ULog.DEBUG) {
-                Log.i(f24593c, "constructHeader size is " + jSONObject3.toString().getBytes().length);
+                Log.i(f26281c, "constructHeader size is " + jSONObject3.toString().getBytes().length);
             }
             return jSONObject3;
-        } catch (Throwable th2) {
-            UMCrashManager.reportCrash(context, th2);
+        } catch (Throwable th) {
+            UMCrashManager.reportCrash(context, th);
             return a(110, new JSONObject());
         }
     }
 
-    private static JSONObject a(Context context, String str, boolean z10) {
-        SharedPreferences sharedPreferences;
-        JSONObject jSONObject;
-        try {
-            SharedPreferences sharedPreferences2 = PreferenceWrapper.getDefault(context);
-            if (!TextUtils.isEmpty(f24599i)) {
-                try {
-                    jSONObject = new JSONObject(f24599i);
-                    sharedPreferences = sharedPreferences2;
-                } catch (Exception unused) {
-                    sharedPreferences = sharedPreferences2;
-                    jSONObject = null;
-                }
-            } else {
-                JSONObject jSONObject2 = new JSONObject();
-                jSONObject2.put(a(bt.f23620p), DeviceConfig.getAppMD5Signature(context));
-                jSONObject2.put(a(bt.f23621q), DeviceConfig.getAppSHA1Key(context));
-                jSONObject2.put(a(bt.f23622r), DeviceConfig.getAppHashKey(context));
-                jSONObject2.put(a("app_version"), DeviceConfig.getAppVersionName(context));
-                jSONObject2.put(a("version_code"), Integer.parseInt(DeviceConfig.getAppVersionCode(context)));
-                jSONObject2.put(a(bt.f23626v), DeviceConfig.getDeviceIdUmengMD5(context));
-                jSONObject2.put(a("cpu"), DeviceConfig.getCPU());
-                String mccmnc = DeviceConfig.getMCCMNC(context);
-                if (!TextUtils.isEmpty(mccmnc)) {
-                    jSONObject2.put(a(bt.B), mccmnc);
-                    f24592b = mccmnc;
-                } else {
-                    jSONObject2.put(a(bt.B), "");
-                }
-                if (FieldManager.allow(d.I)) {
-                    String subOSName = DeviceConfig.getSubOSName(context);
-                    if (!TextUtils.isEmpty(subOSName)) {
-                        jSONObject2.put(a(bt.K), subOSName);
-                    }
-                    String subOSVersion = DeviceConfig.getSubOSVersion(context);
-                    if (!TextUtils.isEmpty(subOSVersion)) {
-                        jSONObject2.put(a(bt.L), subOSVersion);
-                    }
-                }
-                String deviceType = DeviceConfig.getDeviceType(context);
-                if (!TextUtils.isEmpty(deviceType)) {
-                    jSONObject2.put(a(bt.f23592ai), deviceType);
-                }
-                jSONObject2.put(a("package_name"), DeviceConfig.getPackageName(context));
-                jSONObject2.put(a(bt.f23625u), "Android");
-                jSONObject2.put(a("device_id"), DeviceConfig.getDeviceId(context));
-                jSONObject2.put(a("device_model"), Build.MODEL);
-                jSONObject2.put(a(bt.E), Build.BOARD);
-                jSONObject2.put(a(bt.F), Build.BRAND);
-                sharedPreferences = sharedPreferences2;
-                jSONObject2.put(a(bt.G), Build.TIME);
-                jSONObject2.put(a(bt.H), Build.MANUFACTURER);
-                jSONObject2.put(a(bt.I), Build.ID);
-                jSONObject2.put(a(bt.J), Build.DEVICE);
-                jSONObject2.put(a(bt.f23629y), Build.VERSION.RELEASE);
-                jSONObject2.put(a(bt.f23628x), "Android");
-                int[] resolutionArray = DeviceConfig.getResolutionArray(context);
-                if (resolutionArray != null) {
-                    jSONObject2.put(a(bt.f23630z), resolutionArray[1] + h.f28447r + resolutionArray[0]);
-                }
-                jSONObject2.put(a(bt.A), DeviceConfig.getMac(context));
-                jSONObject2.put(a(bt.M), DeviceConfig.getTimeZone(context));
-                String[] localeInfo = DeviceConfig.getLocaleInfo(context);
-                jSONObject2.put(a(bt.O), localeInfo[0]);
-                jSONObject2.put(a(bt.N), localeInfo[1]);
-                jSONObject2.put(a(bt.P), DeviceConfig.getNetworkOperatorName(context));
-                jSONObject2.put(a(bt.f23623s), DeviceConfig.getAppName(context));
-                String[] networkAccessMode = DeviceConfig.getNetworkAccessMode(context);
-                if ("Wi-Fi".equals(networkAccessMode[0])) {
-                    jSONObject2.put(a(bt.Q), "wifi");
-                } else if ("2G/3G".equals(networkAccessMode[0])) {
-                    jSONObject2.put(a(bt.Q), "2G/3G");
-                } else {
-                    jSONObject2.put(a(bt.Q), "unknow");
-                }
-                if (!"".equals(networkAccessMode[1])) {
-                    jSONObject2.put(a(bt.R), networkAccessMode[1]);
-                }
-                if (DeviceConfig.isHarmony(context)) {
-                    jSONObject2.put(a(bt.ao), "harmony");
-                } else {
-                    jSONObject2.put(a(bt.ao), "Android");
-                }
-                jSONObject2.put(a(bt.T), DeviceConfig.getNetworkType(context));
-                jSONObject2.put(a(bt.f23595b), "9.7.9");
-                jSONObject2.put(a(bt.f23607c), SdkVersion.SDK_TYPE);
-                jSONObject2.put(a(bt.f23608d), "1");
-                if (!TextUtils.isEmpty(f24591a)) {
-                    jSONObject2.put(a(bt.f23609e), f24591a);
-                }
-                jSONObject2.put(a(bt.f23593aj), Build.VERSION.SDK_INT);
-                if (!TextUtils.isEmpty(UMUtils.VALUE_REC_VERSION_NAME)) {
-                    jSONObject2.put(a(bt.f23589af), UMUtils.VALUE_REC_VERSION_NAME);
-                }
-                try {
-                    String uUIDForZid = UMUtils.getUUIDForZid(context);
-                    if (TextUtils.isEmpty(uUIDForZid)) {
-                        UMUtils.setUUIDForZid(context);
-                        uUIDForZid = UMUtils.getUUIDForZid(context);
-                    }
-                    jSONObject2.put(a("session_id"), uUIDForZid);
-                } catch (Throwable unused2) {
-                }
-                try {
-                    if (DeviceConfig.hasRequestPermission(context, "android.permission.PACKAGE_USAGE_STATS")) {
-                        jSONObject2.put(bt.ar, "1");
-                        if (DeviceConfig.hasOpsPermission(context.getApplicationContext())) {
-                            jSONObject2.put(bt.as, "1");
-                        }
-                    }
-                    if (DeviceConfig.isSystemApp(context)) {
-                        jSONObject2.put(bt.aq, "1");
-                    }
-                } catch (Throwable unused3) {
-                }
-                if (DeviceConfig.isHonorDevice()) {
-                    try {
-                        if (br.c()) {
-                            jSONObject2.put(bt.at, 2);
-                        }
-                        if (br.b()) {
-                            jSONObject2.put(bt.at, 3);
-                        }
-                    } catch (Throwable unused4) {
-                    }
-                }
-                try {
-                    jSONObject2.put(bt.au, DeviceConfig.getNotificationStatus(context));
-                } catch (Throwable unused5) {
-                }
-                try {
-                    jSONObject2.put(bt.av, DeviceConfig.getRingerMode(context));
-                } catch (Throwable unused6) {
-                }
-                f24599i = jSONObject2.toString();
-                jSONObject = jSONObject2;
-            }
-            if (jSONObject == null) {
-                return null;
-            }
-            try {
-                jSONObject.put(a(bt.f23594ak), UMUtils.getOaidRequiredTime(context));
-            } catch (Exception unused7) {
-            }
-            try {
-                SharedPreferences sharedPreferences3 = sharedPreferences;
-                jSONObject.put(a(bt.U), sharedPreferences3.getInt("successful_request", 0));
-                jSONObject.put(a(bt.V), sharedPreferences3.getInt(bt.V, 0));
-                jSONObject.put(a(bt.W), sharedPreferences3.getInt("last_request_spent_ms", 0));
-                String zid = UMUtils.getZid(context);
-                if (!TextUtils.isEmpty(zid)) {
-                    jSONObject.put(a(bt.al), zid);
-                }
-                if (!TextUtils.isEmpty(UMUtils.VALUE_ASMS_VERSION)) {
-                    jSONObject.put(a(bt.am), UMUtils.VALUE_ASMS_VERSION);
-                }
-            } catch (Exception unused8) {
-            }
-            jSONObject.put(a("channel"), UMUtils.getChannel(context));
-            jSONObject.put(a("appkey"), UMUtils.getAppkey(context));
-            try {
-                String deviceToken = UMUtils.getDeviceToken(context);
-                if (!TextUtils.isEmpty(deviceToken)) {
-                    jSONObject.put(a(bt.f23583a), deviceToken);
-                }
-            } catch (Exception e10) {
-                UMCrashManager.reportCrash(context, e10);
-            }
-            try {
-                String imprintProperty = UMEnvelopeBuild.imprintProperty(context, bt.f23611g, null);
-                if (!TextUtils.isEmpty(imprintProperty)) {
-                    jSONObject.put(a(bt.f23611g), imprintProperty);
-                }
-            } catch (Exception e11) {
-                UMCrashManager.reportCrash(context, e11);
-            }
-            try {
-                jSONObject.put(a("wrapper_type"), a.f24588a);
-                jSONObject.put(a("wrapper_version"), a.f24589b);
-            } catch (Exception unused9) {
-            }
-            try {
-                int targetSdkVersion = UMUtils.getTargetSdkVersion(context);
-                boolean checkPermission = UMUtils.checkPermission(context, g.f11102c);
-                jSONObject.put(a(bt.f23597bb), targetSdkVersion);
-                if (checkPermission) {
-                    jSONObject.put(a(bt.f23598bc), "yes");
-                } else {
-                    jSONObject.put(a(bt.f23598bc), "no");
-                }
-            } catch (Throwable unused10) {
-            }
-            try {
-                if (b()) {
-                    jSONObject.put("umTaskId", f24597g);
-                    jSONObject.put("umCaseId", f24598h);
-                }
-            } catch (Throwable unused11) {
-            }
-            if ((bt.aO.equals(str) || "a".equals(str)) && z10) {
-                try {
-                    int[] b10 = b(context);
-                    jSONObject.put(a(bt.by), String.valueOf(b10[0]) + String.valueOf(b10[1]) + String.valueOf(b10[2]));
-                } catch (Throwable unused12) {
-                }
-            }
-            try {
-                Map<String, String> moduleTags = TagHelper.getModuleTags();
-                if (moduleTags != null && moduleTags.size() > 0) {
-                    JSONObject jSONObject3 = new JSONObject();
-                    for (Map.Entry<String, String> entry : moduleTags.entrySet()) {
-                        jSONObject3.put(entry.getKey(), entry.getValue());
-                    }
-                    jSONObject.put(a(bt.ap), jSONObject3);
-                }
-            } catch (Throwable unused13) {
-            }
-            try {
-                String realTimeDebugKey = AnalyticsConfig.getRealTimeDebugKey();
-                if (!TextUtils.isEmpty(realTimeDebugKey)) {
-                    jSONObject.put(a(bt.bx), realTimeDebugKey);
-                }
-            } catch (Throwable unused14) {
-            }
-            try {
-                JSONObject moduleVer = UMUtils.getModuleVer();
-                if (moduleVer.length() > 0) {
-                    jSONObject.put(a(bt.f23603bh), moduleVer);
-                }
-            } catch (Throwable unused15) {
-            }
-            try {
-                String apmFlag = UMUtils.getApmFlag();
-                if (!TextUtils.isEmpty(apmFlag)) {
-                    jSONObject.put(a(bt.bw), apmFlag);
-                }
-            } catch (Throwable unused16) {
-            }
-            try {
-                String str2 = Build.BRAND;
-                String a10 = at.a(str2);
-                String b11 = at.b(str2);
-                jSONObject.put(bt.f23601bf, a10);
-                jSONObject.put(bt.f23602bg, b11);
-            } catch (Throwable unused17) {
-            }
-            byte[] a11 = ImprintHandler.getImprintService(context).a();
-            if (a11 != null && a11.length > 0) {
-                try {
-                    jSONObject.put(a(bt.X), Base64.encodeToString(a11, 0));
-                } catch (JSONException e12) {
-                    UMCrashManager.reportCrash(context, e12);
-                }
-            }
-            if (jSONObject.length() > 0) {
-                return new JSONObject().put(a("header"), jSONObject);
-            }
-            return null;
-        } catch (Throwable th2) {
-            UMCrashManager.reportCrash(context, th2);
-            return null;
-        }
+    /*  JADX ERROR: JadxRuntimeException in pass: RegionMakerVisitor
+        jadx.core.utils.exceptions.JadxRuntimeException: Can't find top splitter block for handler:B:83:0x03ad
+        	at jadx.core.utils.BlockUtils.getTopSplitterForHandler(BlockUtils.java:1179)
+        	at jadx.core.dex.visitors.regions.maker.ExcHandlersRegionMaker.collectHandlerRegions(ExcHandlersRegionMaker.java:53)
+        	at jadx.core.dex.visitors.regions.maker.ExcHandlersRegionMaker.process(ExcHandlersRegionMaker.java:38)
+        	at jadx.core.dex.visitors.regions.RegionMakerVisitor.visit(RegionMakerVisitor.java:27)
+        */
+    private static org.json.JSONObject a(android.content.Context r16, java.lang.String r17, boolean r18) {
+        /*
+            Method dump skipped, instructions count: 1440
+            To view this dump change 'Code comments level' option to 'DEBUG'
+        */
+        throw new UnsupportedOperationException("Method not decompiled: com.umeng.commonsdk.statistics.b.a(android.content.Context, java.lang.String, boolean):org.json.JSONObject");
     }
 
     private JSONObject a(JSONObject jSONObject, JSONObject jSONObject2) {
@@ -751,8 +479,8 @@ public class b {
                     if (jSONObject2.opt(str) != null) {
                         try {
                             jSONObject3.put(str, jSONObject2.opt(str));
-                            if (str.equals(a(f.f23901i)) && (jSONObject2.opt(str) instanceof Integer)) {
-                                this.f24602k = ((Integer) jSONObject2.opt(str)).intValue();
+                            if (str.equals(a(d.f25839i)) && (jSONObject2.opt(str) instanceof Integer)) {
+                                this.k = ((Integer) jSONObject2.opt(str)).intValue();
                             }
                         } catch (Exception unused) {
                         }
@@ -765,21 +493,21 @@ public class b {
 
     private Envelope a(Context context, byte[] bArr) {
         String imprintProperty = UMEnvelopeBuild.imprintProperty(context, "codex", null);
-        int i10 = -1;
+        int i2 = -1;
         try {
             if (!TextUtils.isEmpty(imprintProperty)) {
-                i10 = Integer.valueOf(imprintProperty).intValue();
+                i2 = Integer.valueOf(imprintProperty).intValue();
             }
-        } catch (NumberFormatException e10) {
-            UMCrashManager.reportCrash(context, e10);
+        } catch (NumberFormatException e2) {
+            UMCrashManager.reportCrash(context, e2);
         }
-        if (i10 == 0) {
+        if (i2 == 0) {
             return Envelope.genEnvelope(context, UMUtils.getAppkey(context), bArr);
         }
-        if (i10 == 1) {
+        if (i2 == 1) {
             return Envelope.genEncryptEnvelope(context, UMUtils.getAppkey(context), bArr);
         }
-        if (f24601l) {
+        if (l) {
             return Envelope.genEncryptEnvelope(context, UMUtils.getAppkey(context), bArr);
         }
         return Envelope.genEnvelope(context, UMUtils.getAppkey(context), bArr);
@@ -792,33 +520,33 @@ public class b {
         if (TextUtils.isEmpty(str2)) {
             str2 = DeviceConfig.getAppVersionName(context);
         }
-        String b10 = com.umeng.commonsdk.stateless.d.b(str3);
-        StringBuilder sb2 = new StringBuilder();
-        sb2.append(str);
-        sb2.append("&&");
-        sb2.append(str2);
-        sb2.append(e.f26694a);
-        sb2.append(System.currentTimeMillis());
-        sb2.append(e.f26694a);
-        sb2.append(b10);
-        sb2.append(".log");
+        String b2 = com.umeng.commonsdk.stateless.d.b(str3);
+        StringBuilder sb = new StringBuilder();
+        sb.append(str);
+        sb.append("&&");
+        sb.append(str2);
+        sb.append("_");
+        sb.append(System.currentTimeMillis());
+        sb.append("_");
+        sb.append(b2);
+        sb.append(".log");
         byte[] binary = envelope.toBinary();
         if (com.umeng.commonsdk.utils.c.a()) {
             if (str.startsWith("h")) {
-                return UMFrUtils.saveEnvelopeFile(context, sb2.toString(), binary);
+                return UMFrUtils.saveEnvelopeFile(context, sb.toString(), binary);
             }
             return 122;
         }
         if (str.startsWith("h")) {
             return 122;
         }
-        if (!str.startsWith(bt.aJ) && !str.startsWith("i") && !str.startsWith("a") && !str.startsWith(bt.aO)) {
-            return com.umeng.commonsdk.stateless.d.a(context, com.umeng.commonsdk.stateless.a.f24564f, sb2.toString(), binary);
+        if (!str.startsWith(am.aD) && !str.startsWith("i") && !str.startsWith("a") && !str.startsWith("t")) {
+            return com.umeng.commonsdk.stateless.d.a(context, com.umeng.commonsdk.stateless.a.f26254f, sb.toString(), binary);
         }
-        return UMFrUtils.saveEnvelopeFile(context, sb2.toString(), binary);
+        return UMFrUtils.saveEnvelopeFile(context, sb.toString(), binary);
     }
 
-    public static void a(boolean z10) {
-        f24601l = z10;
+    public static void a(boolean z) {
+        l = z;
     }
 }

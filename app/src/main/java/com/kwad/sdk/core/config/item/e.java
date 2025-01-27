@@ -1,29 +1,30 @@
 package com.kwad.sdk.core.config.item;
 
 import android.content.SharedPreferences;
+import com.kwad.sdk.service.ServiceProvider;
 import org.json.JSONObject;
 
-/* loaded from: classes3.dex */
+/* loaded from: classes2.dex */
 public final class e extends b<JSONObject> {
     public e() {
-        super(En(), new JSONObject());
+        super(uZ(), new JSONObject());
     }
 
-    private static String En() {
-        return "commercialLogRatioConfig";
+    private static String uZ() {
+        com.kwad.sdk.service.kwai.e eVar = (com.kwad.sdk.service.kwai.e) ServiceProvider.get(com.kwad.sdk.service.kwai.e.class);
+        return (eVar == null || !eVar.getIsExternal()) ? "commercialReportConf" : "commercialExternalReportConf";
     }
 
     @Override // com.kwad.sdk.core.config.item.b
     public final void a(SharedPreferences sharedPreferences) {
-        JSONObject jSONObject;
         JSONObject value = getValue();
         if (value == null) {
             value = new JSONObject();
         }
+        JSONObject jSONObject = null;
         try {
             jSONObject = new JSONObject(sharedPreferences.getString(getKey(), ""));
         } catch (Throwable unused) {
-            jSONObject = null;
         }
         if (jSONObject != null) {
             value = jSONObject;
@@ -33,18 +34,23 @@ public final class e extends b<JSONObject> {
 
     @Override // com.kwad.sdk.core.config.item.b
     public final void b(SharedPreferences.Editor editor) {
+        String key;
+        String str;
         if (getValue() != null) {
-            editor.putString(getKey(), getValue().toString());
+            key = getKey();
+            str = getValue().toString();
         } else {
-            editor.putString(getKey(), "");
+            key = getKey();
+            str = "";
         }
+        editor.putString(key, str);
     }
 
     @Override // com.kwad.sdk.core.config.item.b
-    public final void k(JSONObject jSONObject) {
+    public final void g(JSONObject jSONObject) {
         JSONObject optJSONObject;
         if (jSONObject == null || (optJSONObject = jSONObject.optJSONObject(getKey())) == null) {
-            setValue(El());
+            setValue(uX());
         } else {
             setValue(optJSONObject);
         }

@@ -9,15 +9,15 @@ import com.bumptech.glide.util.Util;
 import java.nio.ByteBuffer;
 import java.security.MessageDigest;
 
-/* loaded from: classes2.dex */
+/* loaded from: classes.dex */
 public final class RoundedCorners extends BitmapTransformation {
     private static final String ID = "com.bumptech.glide.load.resource.bitmap.RoundedCorners";
     private static final byte[] ID_BYTES = ID.getBytes(Key.CHARSET);
     private final int roundingRadius;
 
-    public RoundedCorners(int i10) {
-        Preconditions.checkArgument(i10 > 0, "roundingRadius must be greater than 0.");
-        this.roundingRadius = i10;
+    public RoundedCorners(int i2) {
+        Preconditions.checkArgument(i2 > 0, "roundingRadius must be greater than 0.");
+        this.roundingRadius = i2;
     }
 
     @Override // com.bumptech.glide.load.Key
@@ -31,7 +31,7 @@ public final class RoundedCorners extends BitmapTransformation {
     }
 
     @Override // com.bumptech.glide.load.resource.bitmap.BitmapTransformation
-    public Bitmap transform(@NonNull BitmapPool bitmapPool, @NonNull Bitmap bitmap, int i10, int i11) {
+    protected Bitmap transform(@NonNull BitmapPool bitmapPool, @NonNull Bitmap bitmap, int i2, int i3) {
         return TransformationUtils.roundedCorners(bitmapPool, bitmap, this.roundingRadius);
     }
 

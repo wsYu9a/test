@@ -18,6 +18,16 @@ public class WXAppExtendObject implements WXMediaMessage.IMediaObject {
     public WXAppExtendObject() {
     }
 
+    public WXAppExtendObject(String str, String str2) {
+        this.extInfo = str;
+        this.filePath = str2;
+    }
+
+    public WXAppExtendObject(String str, byte[] bArr) {
+        this.extInfo = str;
+        this.fileData = bArr;
+    }
+
     private int getFileSize(String str) {
         return b.a(str);
     }
@@ -34,7 +44,7 @@ public class WXAppExtendObject implements WXMediaMessage.IMediaObject {
             String str4 = this.extInfo;
             if (str4 == null || str4.length() <= 2048) {
                 String str5 = this.filePath;
-                if (str5 == null || str5.length() <= 10240) {
+                if (str5 == null || str5.length() <= PATH_LENGTH_LIMIT) {
                     String str6 = this.filePath;
                     if (str6 == null || getFileSize(str6) <= CONTENT_LENGTH_LIMIT) {
                         byte[] bArr2 = this.fileData;
@@ -73,15 +83,5 @@ public class WXAppExtendObject implements WXMediaMessage.IMediaObject {
         this.extInfo = bundle.getString("_wxappextendobject_extInfo");
         this.fileData = bundle.getByteArray("_wxappextendobject_fileData");
         this.filePath = bundle.getString("_wxappextendobject_filePath");
-    }
-
-    public WXAppExtendObject(String str, String str2) {
-        this.extInfo = str;
-        this.filePath = str2;
-    }
-
-    public WXAppExtendObject(String str, byte[] bArr) {
-        this.extInfo = str;
-        this.fileData = bArr;
     }
 }

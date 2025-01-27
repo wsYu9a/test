@@ -5,18 +5,18 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import androidx.annotation.Nullable;
 
-/* loaded from: classes2.dex */
+/* loaded from: classes.dex */
 public abstract class ThumbnailImageViewTarget<T> extends ImageViewTarget<T> {
     public ThumbnailImageViewTarget(ImageView imageView) {
         super(imageView);
     }
 
-    public abstract Drawable getDrawable(T t10);
+    protected abstract Drawable getDrawable(T t);
 
     @Override // com.bumptech.glide.request.target.ImageViewTarget
-    public void setResource(@Nullable T t10) {
+    protected void setResource(@Nullable T t) {
         ViewGroup.LayoutParams layoutParams = ((ImageView) this.view).getLayoutParams();
-        Drawable drawable = getDrawable(t10);
+        Drawable drawable = getDrawable(t);
         if (layoutParams != null && layoutParams.width > 0 && layoutParams.height > 0) {
             drawable = new FixedSizeDrawable(drawable, layoutParams.width, layoutParams.height);
         }
@@ -24,7 +24,7 @@ public abstract class ThumbnailImageViewTarget<T> extends ImageViewTarget<T> {
     }
 
     @Deprecated
-    public ThumbnailImageViewTarget(ImageView imageView, boolean z10) {
-        super(imageView, z10);
+    public ThumbnailImageViewTarget(ImageView imageView, boolean z) {
+        super(imageView, z);
     }
 }

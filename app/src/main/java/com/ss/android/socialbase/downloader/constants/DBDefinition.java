@@ -13,9 +13,7 @@ public interface DBDefinition {
     public static final String FORCE = "force";
     public static final String ID = "_id";
     public static final String MD5 = "md5";
-    public static final String MIME_TYPE = "mimeType";
     public static final String NAME = "name";
-    public static final String PACKAGE_NAME = "packageName";
     public static final String SEGMENT_TABLE_NAME = "segments";
     public static final String STATUS = "status";
     public static final String TITLE = "title";
@@ -43,12 +41,14 @@ public interface DBDefinition {
     public static final String ETAG = "eTag";
     public static final String ONLY_WIFI = "onlyWifi";
     public static final String RETRY_COUNT = "retryCount";
+    public static final String MIME_TYPE = "mimeType";
     public static final String NOTIFICATION_ENABLE = "notificationEnable";
     public static final String NOTIFICATION_VISIBILITY = "notificationVisibility";
     public static final String FIRST_DOWNLOAD = "isFirstDownload";
     public static final String FIRST_SUCCESS = "isFirstSuccess";
     public static final String NEED_HTTPS_TO_HTTP_RETRY = "needHttpsToHttpRetry";
     public static final String DOWNLOAD_TIME = "downloadTime";
+    public static final String PACKAGE_NAME = "packageName";
     public static final String RETRY_DELAY = "retryDelay";
     public static final String CUR_RETRY_TIME = "curRetryTime";
     public static final String RETRY_DELAY_STATUS = "retryDelayStatus";
@@ -65,7 +65,7 @@ public interface DBDefinition {
     public static final String ICON_URL = "iconUrl";
     public static final String APP_VERSION_CODE = "appVersionCode";
     public static final String TASK_ID = "taskId";
-    public static final String[] DOWNLOAD_ALL_COLUMNS = {"_id", "url", SAVE_PATH, TEMP_PATH, "name", CHUNK_COUNT, "status", CUR_BYTES, TOTAL_BYTES, ETAG, ONLY_WIFI, "force", RETRY_COUNT, "extra", "mimeType", "title", NOTIFICATION_ENABLE, NOTIFICATION_VISIBILITY, FIRST_DOWNLOAD, FIRST_SUCCESS, NEED_HTTPS_TO_HTTP_RETRY, DOWNLOAD_TIME, "packageName", "md5", RETRY_DELAY, CUR_RETRY_TIME, RETRY_DELAY_STATUS, DEFAULT_HTTP_SERVICE_BACKUP, CHUNK_RUNNABLE_REUSE, RETRY_DELAY_TIME_ARRAY, CHUNK_DOWNGRADE_RETRY, BACKUP_URLS_STR, BACKUP_URL_RETRY_COUNT, REAL_DOWNLOAD_TIME, RETRY_SCHEDULE_MINUTES, INDEPENDENT_PROCESS, AUXILIARY_JSONOBJECT_STRING, ICON_URL, APP_VERSION_CODE, TASK_ID};
+    public static final String[] DOWNLOAD_ALL_COLUMNS = {"_id", "url", SAVE_PATH, TEMP_PATH, "name", CHUNK_COUNT, "status", CUR_BYTES, TOTAL_BYTES, ETAG, ONLY_WIFI, "force", RETRY_COUNT, "extra", MIME_TYPE, "title", NOTIFICATION_ENABLE, NOTIFICATION_VISIBILITY, FIRST_DOWNLOAD, FIRST_SUCCESS, NEED_HTTPS_TO_HTTP_RETRY, DOWNLOAD_TIME, PACKAGE_NAME, "md5", RETRY_DELAY, CUR_RETRY_TIME, RETRY_DELAY_STATUS, DEFAULT_HTTP_SERVICE_BACKUP, CHUNK_RUNNABLE_REUSE, RETRY_DELAY_TIME_ARRAY, CHUNK_DOWNGRADE_RETRY, BACKUP_URLS_STR, BACKUP_URL_RETRY_COUNT, REAL_DOWNLOAD_TIME, RETRY_SCHEDULE_MINUTES, INDEPENDENT_PROCESS, AUXILIARY_JSONOBJECT_STRING, ICON_URL, APP_VERSION_CODE, TASK_ID};
     public static final String[] DOWNLOAD_PK_COLUMNS = {"_id"};
     public static final String CHUNK_INDEX = "chunkIndex";
     public static final String START_OFFSET = "startOffset";

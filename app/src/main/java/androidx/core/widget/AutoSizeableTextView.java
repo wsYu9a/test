@@ -9,7 +9,6 @@ import androidx.annotation.RestrictTo;
 public interface AutoSizeableTextView {
 
     @RestrictTo({RestrictTo.Scope.LIBRARY_GROUP_PREFIX})
-    @Deprecated
     public static final boolean PLATFORM_SUPPORTS_AUTOSIZE;
 
     static {
@@ -26,9 +25,9 @@ public interface AutoSizeableTextView {
 
     int getAutoSizeTextType();
 
-    void setAutoSizeTextTypeUniformWithConfiguration(int i10, int i11, int i12, int i13) throws IllegalArgumentException;
+    void setAutoSizeTextTypeUniformWithConfiguration(int i2, int i3, int i4, int i5) throws IllegalArgumentException;
 
-    void setAutoSizeTextTypeUniformWithPresetSizes(@NonNull int[] iArr, int i10) throws IllegalArgumentException;
+    void setAutoSizeTextTypeUniformWithPresetSizes(@NonNull int[] iArr, int i2) throws IllegalArgumentException;
 
-    void setAutoSizeTextTypeWithDefaults(int i10);
+    void setAutoSizeTextTypeWithDefaults(int i2);
 }

@@ -12,22 +12,24 @@ import com.google.gson.JsonSerializer;
 import java.lang.reflect.Type;
 import java.util.Date;
 
-/* loaded from: classes3.dex */
+/* loaded from: classes.dex */
 public class GsonUtils {
 
+    /* loaded from: classes2.dex */
     public static class DateDeserializer implements JsonDeserializer<Date> {
         @Override // com.google.gson.JsonDeserializer
         /* renamed from: a */
-        public Date deserialize(JsonElement jsonElement, Type type, JsonDeserializationContext jsonDeserializationContext) throws JsonParseException {
-            return new Date(jsonElement.getAsJsonPrimitive().getAsLong());
+        public Date deserialize(JsonElement json, Type typeOfT, JsonDeserializationContext context) throws JsonParseException {
+            return new Date(json.getAsJsonPrimitive().getAsLong());
         }
     }
 
+    /* loaded from: classes2.dex */
     public static class DateSerializer implements JsonSerializer<Date> {
         @Override // com.google.gson.JsonSerializer
         /* renamed from: a */
-        public JsonElement serialize(Date date, Type type, JsonSerializationContext jsonSerializationContext) {
-            return new JsonPrimitive(Long.valueOf(date.getTime()));
+        public JsonElement serialize(Date src, Type typeOfSrc, JsonSerializationContext context) {
+            return new JsonPrimitive((Number) Long.valueOf(src.getTime()));
         }
     }
 
@@ -36,7 +38,7 @@ public class GsonUtils {
     }
 
     public static Gson b() {
-        return new GsonBuilder().setDateFormat("yyyy-MM-dd HH:mm:ss").create();
+        return new GsonBuilder().setDateFormat(b.d.b.f.f4408b).create();
     }
 
     public static Gson c() {

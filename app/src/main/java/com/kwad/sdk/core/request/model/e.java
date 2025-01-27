@@ -1,21 +1,20 @@
 package com.kwad.sdk.core.request.model;
 
 import androidx.annotation.Nullable;
-import com.kwad.sdk.core.network.k;
+import com.kwad.sdk.core.network.l;
 import com.kwad.sdk.service.ServiceProvider;
-import com.kwad.sdk.utils.x;
+import com.kwad.sdk.utils.t;
 import org.json.JSONObject;
 
-/* loaded from: classes3.dex */
+/* loaded from: classes2.dex */
 public final class e implements com.kwad.sdk.core.b {
-    private com.kwad.sdk.core.b aDV;
+    private com.kwad.sdk.core.b alE;
 
-    public static e GL() {
+    public static e xu() {
         e eVar = new e();
-        try {
-            eVar.aDV = ((k) ServiceProvider.get(k.class)).zw();
-        } catch (Throwable th2) {
-            ServiceProvider.reportSdkCaughtException(th2);
+        l lVar = (l) ServiceProvider.get(l.class);
+        if (lVar != null) {
+            eVar.alE = lVar.ss();
         }
         return eVar;
     }
@@ -27,7 +26,7 @@ public final class e implements com.kwad.sdk.core.b {
     @Override // com.kwad.sdk.core.b
     public final JSONObject toJson() {
         JSONObject jSONObject = new JSONObject();
-        x.a(jSONObject, "modeInfo", this.aDV);
+        t.a(jSONObject, "modeInfo", this.alE);
         return jSONObject;
     }
 }

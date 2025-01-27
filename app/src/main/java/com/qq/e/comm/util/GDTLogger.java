@@ -2,7 +2,7 @@ package com.qq.e.comm.util;
 
 import android.util.Log;
 
-/* loaded from: classes3.dex */
+/* loaded from: classes4.dex */
 public class GDTLogger {
     public static final boolean DEBUG_ENABLE = false;
 
@@ -13,6 +13,14 @@ public class GDTLogger {
         Log.e("gdt_ad_mob", str);
     }
 
+    public static void e(String str, Throwable th) {
+        if (th == null) {
+            Log.e("gdt_ad_mob", str);
+        } else {
+            Log.e("gdt_ad_mob", str, th);
+        }
+    }
+
     public static void i(String str) {
     }
 
@@ -20,19 +28,11 @@ public class GDTLogger {
         Log.e("gdt_ad_mob", str);
     }
 
-    public static void e(String str, Throwable th2) {
-        if (th2 == null) {
-            Log.e("gdt_ad_mob", str);
-        } else {
-            Log.e("gdt_ad_mob", str, th2);
-        }
-    }
-
-    public static void w(String str, Throwable th2) {
-        if (th2 == null) {
+    public static void w(String str, Throwable th) {
+        if (th == null) {
             Log.w("gdt_ad_mob", str);
         } else {
-            Log.w("gdt_ad_mob", str, th2);
+            Log.w("gdt_ad_mob", str, th);
         }
     }
 }

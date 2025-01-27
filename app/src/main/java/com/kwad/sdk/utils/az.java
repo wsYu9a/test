@@ -1,244 +1,100 @@
 package com.kwad.sdk.utils;
 
-import android.location.Location;
-import com.kwad.sdk.api.KsCustomController;
-import com.kwad.sdk.api.SdkConfig;
-import com.kwad.sdk.components.DevelopMangerComponents;
-import com.kwad.sdk.service.ServiceProvider;
-import java.util.ArrayList;
-import java.util.List;
+import android.content.Context;
+import android.text.TextUtils;
+import androidx.annotation.Nullable;
+import androidx.annotation.WorkerThread;
+import java.io.File;
 
-/* loaded from: classes3.dex */
+/* loaded from: classes2.dex */
 public final class az {
-    private static boolean Oa() {
-        if (!com.kwad.framework.a.a.ns.booleanValue()) {
-            return false;
-        }
-        com.kwad.sdk.components.d.f(DevelopMangerComponents.class);
-        return false;
-    }
 
-    public static boolean Ob() {
-        KsCustomController ksCustomController;
-        if (Oa()) {
-            return true;
-        }
-        try {
-            SdkConfig MB = ServiceProvider.MB();
-            if (MB != null && (ksCustomController = MB.ksCustomController) != null) {
-                if (!ksCustomController.canReadLocation()) {
-                    return true;
-                }
-            }
-        } catch (Throwable unused) {
-        }
-        return false;
-    }
+    /* renamed from: com.kwad.sdk.utils.az$1 */
+    static class AnonymousClass1 implements Runnable {
+        final /* synthetic */ String aAB;
+        final /* synthetic */ String asa;
+        final /* synthetic */ Context jN;
 
-    public static Location Oc() {
-        KsCustomController ksCustomController;
-        try {
-            SdkConfig MB = ServiceProvider.MB();
-            if (MB == null || (ksCustomController = MB.ksCustomController) == null) {
-                return null;
-            }
-            return ksCustomController.getLocation();
-        } catch (Throwable unused) {
-            return null;
+        AnonymousClass1(Context context, String str, String str2) {
+            context = context;
+            str = str;
+            str2 = str2;
+        }
+
+        @Override // java.lang.Runnable
+        public final void run() {
+            az.k(context, str, str2);
         }
     }
 
-    public static String Od() {
-        KsCustomController ksCustomController;
+    public static boolean Es() {
+        return y.i("ksadsdk_pref", "config_data_transfer", false);
+    }
+
+    private static void Et() {
+        y.h("ksadsdk_pref", "config_data_transfer", true);
+    }
+
+    public static void Eu() {
+        y.h("ksadsdk_pref", "splash_daily_transfer", true);
+    }
+
+    public static boolean Ev() {
+        return y.i("ksadsdk_pref", "splash_daily_transfer", false);
+    }
+
+    public static void Ew() {
+        y.h("ksadsdk_pref", "reward_auto_transfer", true);
+    }
+
+    public static boolean Ex() {
+        return y.i("ksadsdk_pref", "reward_auto_transfer", false);
+    }
+
+    public static void Ey() {
+        y.h("ksadsdk_pref", "interstitial_aggregate_transfer", true);
+    }
+
+    public static boolean Ez() {
+        return y.i("ksadsdk_pref", "interstitial_aggregate_transfer", false);
+    }
+
+    @Nullable
+    @WorkerThread
+    public static String ap(Context context, String str) {
+        File file = new File(context.getFilesDir(), str);
+        if (!file.exists()) {
+            return "";
+        }
         try {
-            SdkConfig MB = ServiceProvider.MB();
-            return (MB == null || (ksCustomController = MB.ksCustomController) == null) ? "" : ksCustomController.getImei();
+            String D = com.kwad.sdk.crash.utils.h.D(file);
+            return TextUtils.isEmpty(D) ? "" : D;
         } catch (Throwable unused) {
             return "";
         }
     }
 
-    public static String[] Oe() {
-        KsCustomController ksCustomController;
-        try {
-            SdkConfig MB = ServiceProvider.MB();
-            if (MB != null && (ksCustomController = MB.ksCustomController) != null) {
-                return ksCustomController.getImeis();
+    public static void j(Context context, String str, String str2) {
+        g.execute(new Runnable() { // from class: com.kwad.sdk.utils.az.1
+            final /* synthetic */ String aAB;
+            final /* synthetic */ String asa;
+            final /* synthetic */ Context jN;
+
+            AnonymousClass1(Context context2, String str3, String str22) {
+                context = context2;
+                str = str3;
+                str2 = str22;
             }
-        } catch (Throwable unused) {
-        }
-        return new String[]{"", ""};
-    }
 
-    public static String Of() {
-        KsCustomController ksCustomController;
-        try {
-            SdkConfig MB = ServiceProvider.MB();
-            return (MB == null || (ksCustomController = MB.ksCustomController) == null) ? "" : ksCustomController.getAndroidId();
-        } catch (Throwable unused) {
-            return "";
-        }
-    }
-
-    public static boolean Og() {
-        KsCustomController ksCustomController;
-        if (Oa()) {
-            return true;
-        }
-        try {
-            SdkConfig MB = ServiceProvider.MB();
-            if (MB != null && (ksCustomController = MB.ksCustomController) != null) {
-                if (!ksCustomController.canUseMacAddress()) {
-                    return true;
-                }
+            @Override // java.lang.Runnable
+            public final void run() {
+                az.k(context, str, str2);
             }
-        } catch (Throwable unused) {
-        }
-        return false;
+        });
     }
 
-    public static String Oh() {
-        KsCustomController ksCustomController;
-        try {
-            SdkConfig MB = ServiceProvider.MB();
-            return (MB == null || (ksCustomController = MB.ksCustomController) == null) ? "" : ksCustomController.getMacAddress();
-        } catch (Throwable unused) {
-            return "";
-        }
-    }
-
-    public static boolean Oi() {
-        KsCustomController ksCustomController;
-        if (Oa()) {
-            return true;
-        }
-        try {
-            SdkConfig MB = ServiceProvider.MB();
-            if (MB != null && (ksCustomController = MB.ksCustomController) != null) {
-                if (!ksCustomController.canUseOaid()) {
-                    return true;
-                }
-            }
-        } catch (Throwable unused) {
-        }
-        return false;
-    }
-
-    public static String Oj() {
-        KsCustomController ksCustomController;
-        try {
-            SdkConfig MB = ServiceProvider.MB();
-            return (MB == null || (ksCustomController = MB.ksCustomController) == null) ? "" : ksCustomController.getOaid();
-        } catch (Throwable unused) {
-            return "";
-        }
-    }
-
-    public static boolean Ok() {
-        KsCustomController ksCustomController;
-        if (Oa()) {
-            return true;
-        }
-        try {
-            SdkConfig MB = ServiceProvider.MB();
-            if (MB != null && (ksCustomController = MB.ksCustomController) != null) {
-                if (!ksCustomController.canUseNetworkState()) {
-                    return true;
-                }
-            }
-        } catch (Throwable unused) {
-        }
-        return false;
-    }
-
-    public static boolean Ol() {
-        KsCustomController ksCustomController;
-        if (Oa()) {
-            return true;
-        }
-        try {
-            SdkConfig MB = ServiceProvider.MB();
-            if (MB != null && (ksCustomController = MB.ksCustomController) != null) {
-                if (!ksCustomController.canUseStoragePermission()) {
-                    return true;
-                }
-            }
-        } catch (Throwable unused) {
-        }
-        return false;
-    }
-
-    public static boolean Om() {
-        KsCustomController ksCustomController;
-        if (Oa()) {
-            return true;
-        }
-        try {
-            SdkConfig MB = ServiceProvider.MB();
-            if (MB != null && (ksCustomController = MB.ksCustomController) != null) {
-                if (!ksCustomController.canReadInstalledPackages()) {
-                    return true;
-                }
-            }
-        } catch (Throwable unused) {
-        }
-        return false;
-    }
-
-    public static List<String> On() {
-        KsCustomController ksCustomController;
-        try {
-            SdkConfig MB = ServiceProvider.MB();
-            if (MB != null && (ksCustomController = MB.ksCustomController) != null) {
-                return ksCustomController.getInstalledPackages();
-            }
-        } catch (Throwable unused) {
-        }
-        return new ArrayList();
-    }
-
-    public static boolean Oo() {
-        KsCustomController ksCustomController;
-        if (Op()) {
-            return true;
-        }
-        try {
-            SdkConfig MB = ServiceProvider.MB();
-            if (MB != null && (ksCustomController = MB.ksCustomController) != null) {
-                if (!ksCustomController.canUseSensorManager()) {
-                    return true;
-                }
-            }
-        } catch (Throwable unused) {
-        }
-        return false;
-    }
-
-    private static boolean Op() {
-        if (!com.kwad.sdk.core.d.a.ns.booleanValue()) {
-            return false;
-        }
-        try {
-            com.kwad.sdk.components.d.f(DevelopMangerComponents.class);
-        } catch (Throwable unused) {
-        }
-        return false;
-    }
-
-    public static boolean usePhoneStateDisable() {
-        KsCustomController ksCustomController;
-        if (Oa()) {
-            return true;
-        }
-        try {
-            SdkConfig MB = ServiceProvider.MB();
-            if (MB != null && (ksCustomController = MB.ksCustomController) != null) {
-                if (!ksCustomController.canUsePhoneState()) {
-                    return true;
-                }
-            }
-        } catch (Throwable unused) {
-        }
-        return false;
+    public static void k(Context context, String str, String str2) {
+        com.kwad.sdk.crash.utils.h.g(new File(context.getFilesDir(), str).getAbsolutePath(), str2, false);
+        Et();
     }
 }

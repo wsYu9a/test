@@ -14,28 +14,28 @@ import java.util.concurrent.TimeUnit;
 public final class b {
 
     /* renamed from: a */
-    public static Context f23087a;
+    public static Context f25363a;
 
     /* renamed from: b */
-    private static final int f23088b;
+    private static final int f25364b;
 
     /* renamed from: c */
-    private static final int f23089c;
+    private static final int f25365c;
 
     /* renamed from: d */
-    private static final int f23090d;
+    private static final int f25366d;
 
     /* renamed from: e */
-    public static ThreadPoolExecutor f23091e;
+    public static ThreadPoolExecutor f25367e;
 
     static {
         int availableProcessors = Runtime.getRuntime().availableProcessors();
-        f23088b = availableProcessors;
-        int i10 = availableProcessors + 1;
-        f23089c = i10;
-        int i11 = (availableProcessors * 2) + 1;
-        f23090d = i11;
-        f23091e = new ThreadPoolExecutor(i10, i11, 1L, TimeUnit.SECONDS, new LinkedBlockingDeque());
+        f25364b = availableProcessors;
+        int i2 = availableProcessors + 1;
+        f25365c = i2;
+        int i3 = (availableProcessors * 2) + 1;
+        f25366d = i3;
+        f25367e = new ThreadPoolExecutor(i2, i3, 1L, TimeUnit.SECONDS, new LinkedBlockingDeque());
     }
 
     public static int a(ContentResolver contentResolver, Uri uri) {
@@ -63,8 +63,8 @@ public final class b {
                 } catch (IOException unused2) {
                 }
                 return available;
-            } catch (Exception e10) {
-                Log.w("MicroMsg.SDK.Util", "getFileSize fail, " + e10.getMessage());
+            } catch (Exception e2) {
+                Log.w("MicroMsg.SDK.Util", "getFileSize fail, " + e2.getMessage());
                 if (0 != 0) {
                     try {
                         inputStream.close();
@@ -73,19 +73,15 @@ public final class b {
                 }
                 return 0;
             }
-        } catch (Throwable th2) {
+        } catch (Throwable th) {
             if (0 != 0) {
                 try {
                     inputStream.close();
                 } catch (IOException unused4) {
                 }
             }
-            throw th2;
+            throw th;
         }
-    }
-
-    public static boolean b(String str) {
-        return str == null || str.length() <= 0;
     }
 
     public static int a(String str) {
@@ -96,27 +92,31 @@ public final class b {
         if (file.exists()) {
             return (int) file.length();
         }
-        if (f23087a != null && str.startsWith("content")) {
+        if (f25363a != null && str.startsWith("content")) {
             try {
-                return a(f23087a.getContentResolver(), Uri.parse(str));
+                return a(f25363a.getContentResolver(), Uri.parse(str));
             } catch (Exception unused) {
             }
         }
         return 0;
     }
 
-    public static int a(String str, int i10) {
+    public static int a(String str, int i2) {
         if (str == null) {
-            return i10;
+            return i2;
         }
         try {
-            return str.length() <= 0 ? i10 : Integer.parseInt(str);
+            return str.length() <= 0 ? i2 : Integer.parseInt(str);
         } catch (Exception unused) {
-            return i10;
+            return i2;
         }
     }
 
-    public static boolean a(int i10) {
-        return i10 == 36 || i10 == 46;
+    public static boolean a(int i2) {
+        return i2 == 36 || i2 == 46;
+    }
+
+    public static boolean b(String str) {
+        return str == null || str.length() <= 0;
     }
 }

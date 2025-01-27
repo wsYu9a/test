@@ -11,15 +11,15 @@ import java.io.ByteArrayInputStream;
 import java.io.InputStream;
 import java.nio.ByteBuffer;
 
-/* loaded from: classes2.dex */
+/* loaded from: classes.dex */
 public class ByteArrayLoader<Data> implements ModelLoader<byte[], Data> {
     private final Converter<Data> converter;
 
     public static class ByteBufferFactory implements ModelLoaderFactory<byte[], ByteBuffer> {
 
         /* renamed from: com.bumptech.glide.load.model.ByteArrayLoader$ByteBufferFactory$1 */
-        public class AnonymousClass1 implements Converter<ByteBuffer> {
-            public AnonymousClass1() {
+        class AnonymousClass1 implements Converter<ByteBuffer> {
+            AnonymousClass1() {
             }
 
             @Override // com.bumptech.glide.load.model.ByteArrayLoader.Converter
@@ -37,7 +37,7 @@ public class ByteArrayLoader<Data> implements ModelLoader<byte[], Data> {
         @NonNull
         public ModelLoader<byte[], ByteBuffer> build(@NonNull MultiModelLoaderFactory multiModelLoaderFactory) {
             return new ByteArrayLoader(new Converter<ByteBuffer>() { // from class: com.bumptech.glide.load.model.ByteArrayLoader.ByteBufferFactory.1
-                public AnonymousClass1() {
+                AnonymousClass1() {
                 }
 
                 @Override // com.bumptech.glide.load.model.ByteArrayLoader.Converter
@@ -63,11 +63,11 @@ public class ByteArrayLoader<Data> implements ModelLoader<byte[], Data> {
         Class<Data> getDataClass();
     }
 
-    public static class Fetcher<Data> implements DataFetcher<Data> {
+    private static class Fetcher<Data> implements DataFetcher<Data> {
         private final Converter<Data> converter;
         private final byte[] model;
 
-        public Fetcher(byte[] bArr, Converter<Data> converter) {
+        Fetcher(byte[] bArr, Converter<Data> converter) {
             this.model = bArr;
             this.converter = converter;
         }
@@ -101,8 +101,8 @@ public class ByteArrayLoader<Data> implements ModelLoader<byte[], Data> {
     public static class StreamFactory implements ModelLoaderFactory<byte[], InputStream> {
 
         /* renamed from: com.bumptech.glide.load.model.ByteArrayLoader$StreamFactory$1 */
-        public class AnonymousClass1 implements Converter<InputStream> {
-            public AnonymousClass1() {
+        class AnonymousClass1 implements Converter<InputStream> {
+            AnonymousClass1() {
             }
 
             @Override // com.bumptech.glide.load.model.ByteArrayLoader.Converter
@@ -120,7 +120,7 @@ public class ByteArrayLoader<Data> implements ModelLoader<byte[], Data> {
         @NonNull
         public ModelLoader<byte[], InputStream> build(@NonNull MultiModelLoaderFactory multiModelLoaderFactory) {
             return new ByteArrayLoader(new Converter<InputStream>() { // from class: com.bumptech.glide.load.model.ByteArrayLoader.StreamFactory.1
-                public AnonymousClass1() {
+                AnonymousClass1() {
                 }
 
                 @Override // com.bumptech.glide.load.model.ByteArrayLoader.Converter
@@ -150,7 +150,7 @@ public class ByteArrayLoader<Data> implements ModelLoader<byte[], Data> {
     }
 
     @Override // com.bumptech.glide.load.model.ModelLoader
-    public ModelLoader.LoadData<Data> buildLoadData(@NonNull byte[] bArr, int i10, int i11, @NonNull Options options) {
+    public ModelLoader.LoadData<Data> buildLoadData(@NonNull byte[] bArr, int i2, int i3, @NonNull Options options) {
         return new ModelLoader.LoadData<>(new ObjectKey(bArr), new Fetcher(bArr, this.converter));
     }
 }

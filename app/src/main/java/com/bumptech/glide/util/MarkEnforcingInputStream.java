@@ -5,7 +5,7 @@ import java.io.FilterInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 
-/* loaded from: classes2.dex */
+/* loaded from: classes.dex */
 public class MarkEnforcingInputStream extends FilterInputStream {
     private static final int END_OF_STREAM = -1;
     private static final int UNSET = Integer.MIN_VALUE;
@@ -16,32 +16,32 @@ public class MarkEnforcingInputStream extends FilterInputStream {
         this.availableBytes = Integer.MIN_VALUE;
     }
 
-    private long getBytesToRead(long j10) {
-        int i10 = this.availableBytes;
-        if (i10 == 0) {
+    private long getBytesToRead(long j2) {
+        int i2 = this.availableBytes;
+        if (i2 == 0) {
             return -1L;
         }
-        return (i10 == Integer.MIN_VALUE || j10 <= ((long) i10)) ? j10 : i10;
+        return (i2 == Integer.MIN_VALUE || j2 <= ((long) i2)) ? j2 : i2;
     }
 
-    private void updateAvailableBytesAfterRead(long j10) {
-        int i10 = this.availableBytes;
-        if (i10 == Integer.MIN_VALUE || j10 == -1) {
+    private void updateAvailableBytesAfterRead(long j2) {
+        int i2 = this.availableBytes;
+        if (i2 == Integer.MIN_VALUE || j2 == -1) {
             return;
         }
-        this.availableBytes = (int) (i10 - j10);
+        this.availableBytes = (int) (i2 - j2);
     }
 
     @Override // java.io.FilterInputStream, java.io.InputStream
     public int available() throws IOException {
-        int i10 = this.availableBytes;
-        return i10 == Integer.MIN_VALUE ? super.available() : Math.min(i10, super.available());
+        int i2 = this.availableBytes;
+        return i2 == Integer.MIN_VALUE ? super.available() : Math.min(i2, super.available());
     }
 
     @Override // java.io.FilterInputStream, java.io.InputStream
-    public synchronized void mark(int i10) {
-        super.mark(i10);
-        this.availableBytes = i10;
+    public synchronized void mark(int i2) {
+        super.mark(i2);
+        this.availableBytes = i2;
     }
 
     @Override // java.io.FilterInputStream, java.io.InputStream
@@ -61,8 +61,8 @@ public class MarkEnforcingInputStream extends FilterInputStream {
     }
 
     @Override // java.io.FilterInputStream, java.io.InputStream
-    public long skip(long j10) throws IOException {
-        long bytesToRead = getBytesToRead(j10);
+    public long skip(long j2) throws IOException {
+        long bytesToRead = getBytesToRead(j2);
         if (bytesToRead == -1) {
             return 0L;
         }
@@ -72,12 +72,12 @@ public class MarkEnforcingInputStream extends FilterInputStream {
     }
 
     @Override // java.io.FilterInputStream, java.io.InputStream
-    public int read(@NonNull byte[] bArr, int i10, int i11) throws IOException {
-        int bytesToRead = (int) getBytesToRead(i11);
+    public int read(@NonNull byte[] bArr, int i2, int i3) throws IOException {
+        int bytesToRead = (int) getBytesToRead(i3);
         if (bytesToRead == -1) {
             return -1;
         }
-        int read = super.read(bArr, i10, bytesToRead);
+        int read = super.read(bArr, i2, bytesToRead);
         updateAvailableBytesAfterRead(read);
         return read;
     }

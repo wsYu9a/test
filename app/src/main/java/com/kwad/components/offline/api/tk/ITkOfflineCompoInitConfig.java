@@ -4,7 +4,7 @@ import android.content.Context;
 import com.kwad.components.offline.api.IOfflineCompoInitConfig;
 import com.kwad.components.offline.api.core.soloader.ISoLoader;
 
-/* loaded from: classes3.dex */
+/* loaded from: classes2.dex */
 public interface ITkOfflineCompoInitConfig extends IOfflineCompoInitConfig {
     String getSpKeyTkSoLoadTimes();
 
@@ -16,11 +16,11 @@ public interface ITkOfflineCompoInitConfig extends IOfflineCompoInitConfig {
 
     String getTkVersion();
 
+    boolean isCanUseTk();
+
     boolean isLocalDebugEnable();
 
     ISoLoader soLoader();
 
     boolean useTkLite();
-
-    boolean useTkSoAll();
 }

@@ -13,55 +13,90 @@ import androidx.core.view.ViewCompat;
 
 /* loaded from: classes.dex */
 class AppCompatSeekBarHelper extends AppCompatProgressBarHelper {
-    private boolean mHasTickMarkTint;
-    private boolean mHasTickMarkTintMode;
-    private Drawable mTickMark;
-    private ColorStateList mTickMarkTintList;
-    private PorterDuff.Mode mTickMarkTintMode;
-    private final SeekBar mView;
 
-    public AppCompatSeekBarHelper(SeekBar seekBar) {
+    /* renamed from: d */
+    private final SeekBar f732d;
+
+    /* renamed from: e */
+    private Drawable f733e;
+
+    /* renamed from: f */
+    private ColorStateList f734f;
+
+    /* renamed from: g */
+    private PorterDuff.Mode f735g;
+
+    /* renamed from: h */
+    private boolean f736h;
+
+    /* renamed from: i */
+    private boolean f737i;
+
+    AppCompatSeekBarHelper(SeekBar seekBar) {
         super(seekBar);
-        this.mTickMarkTintList = null;
-        this.mTickMarkTintMode = null;
-        this.mHasTickMarkTint = false;
-        this.mHasTickMarkTintMode = false;
-        this.mView = seekBar;
+        this.f734f = null;
+        this.f735g = null;
+        this.f736h = false;
+        this.f737i = false;
+        this.f732d = seekBar;
     }
 
-    private void applyTickMarkTint() {
-        Drawable drawable = this.mTickMark;
+    private void f() {
+        Drawable drawable = this.f733e;
         if (drawable != null) {
-            if (this.mHasTickMarkTint || this.mHasTickMarkTintMode) {
+            if (this.f736h || this.f737i) {
                 Drawable wrap = DrawableCompat.wrap(drawable.mutate());
-                this.mTickMark = wrap;
-                if (this.mHasTickMarkTint) {
-                    DrawableCompat.setTintList(wrap, this.mTickMarkTintList);
+                this.f733e = wrap;
+                if (this.f736h) {
+                    DrawableCompat.setTintList(wrap, this.f734f);
                 }
-                if (this.mHasTickMarkTintMode) {
-                    DrawableCompat.setTintMode(this.mTickMark, this.mTickMarkTintMode);
+                if (this.f737i) {
+                    DrawableCompat.setTintMode(this.f733e, this.f735g);
                 }
-                if (this.mTickMark.isStateful()) {
-                    this.mTickMark.setState(this.mView.getDrawableState());
+                if (this.f733e.isStateful()) {
+                    this.f733e.setState(this.f732d.getDrawableState());
                 }
             }
         }
     }
 
-    public void drawTickMarks(Canvas canvas) {
-        if (this.mTickMark != null) {
-            int max = this.mView.getMax();
+    @Override // androidx.appcompat.widget.AppCompatProgressBarHelper
+    void c(AttributeSet attributeSet, int i2) {
+        super.c(attributeSet, i2);
+        TintTypedArray obtainStyledAttributes = TintTypedArray.obtainStyledAttributes(this.f732d.getContext(), attributeSet, R.styleable.AppCompatSeekBar, i2, 0);
+        Drawable drawableIfKnown = obtainStyledAttributes.getDrawableIfKnown(R.styleable.AppCompatSeekBar_android_thumb);
+        if (drawableIfKnown != null) {
+            this.f732d.setThumb(drawableIfKnown);
+        }
+        m(obtainStyledAttributes.getDrawable(R.styleable.AppCompatSeekBar_tickMark));
+        int i3 = R.styleable.AppCompatSeekBar_tickMarkTintMode;
+        if (obtainStyledAttributes.hasValue(i3)) {
+            this.f735g = DrawableUtils.parseTintMode(obtainStyledAttributes.getInt(i3, -1), this.f735g);
+            this.f737i = true;
+        }
+        int i4 = R.styleable.AppCompatSeekBar_tickMarkTint;
+        if (obtainStyledAttributes.hasValue(i4)) {
+            this.f734f = obtainStyledAttributes.getColorStateList(i4);
+            this.f736h = true;
+        }
+        obtainStyledAttributes.recycle();
+        f();
+    }
+
+    void g(Canvas canvas) {
+        if (this.f733e != null) {
+            int max = this.f732d.getMax();
             if (max > 1) {
-                int intrinsicWidth = this.mTickMark.getIntrinsicWidth();
-                int intrinsicHeight = this.mTickMark.getIntrinsicHeight();
-                int i10 = intrinsicWidth >= 0 ? intrinsicWidth / 2 : 1;
-                int i11 = intrinsicHeight >= 0 ? intrinsicHeight / 2 : 1;
-                this.mTickMark.setBounds(-i10, -i11, i10, i11);
-                float width = ((this.mView.getWidth() - this.mView.getPaddingLeft()) - this.mView.getPaddingRight()) / max;
+                int intrinsicWidth = this.f733e.getIntrinsicWidth();
+                int intrinsicHeight = this.f733e.getIntrinsicHeight();
+                int i2 = intrinsicWidth >= 0 ? intrinsicWidth / 2 : 1;
+                int i3 = intrinsicHeight >= 0 ? intrinsicHeight / 2 : 1;
+                this.f733e.setBounds(-i2, -i3, i2, i3);
+                float width = ((this.f732d.getWidth() - this.f732d.getPaddingLeft()) - this.f732d.getPaddingRight()) / max;
                 int save = canvas.save();
-                canvas.translate(this.mView.getPaddingLeft(), this.mView.getHeight() / 2);
-                for (int i12 = 0; i12 <= max; i12++) {
-                    this.mTickMark.draw(canvas);
+                canvas.translate(this.f732d.getPaddingLeft(), this.f732d.getHeight() / 2);
+                for (int i4 = 0; i4 <= max; i4++) {
+                    this.f733e.draw(canvas);
                     canvas.translate(width, 0.0f);
                 }
                 canvas.restoreToCount(save);
@@ -69,84 +104,61 @@ class AppCompatSeekBarHelper extends AppCompatProgressBarHelper {
         }
     }
 
-    public void drawableStateChanged() {
-        Drawable drawable = this.mTickMark;
-        if (drawable != null && drawable.isStateful() && drawable.setState(this.mView.getDrawableState())) {
-            this.mView.invalidateDrawable(drawable);
+    void h() {
+        Drawable drawable = this.f733e;
+        if (drawable != null && drawable.isStateful() && drawable.setState(this.f732d.getDrawableState())) {
+            this.f732d.invalidateDrawable(drawable);
         }
     }
 
     @Nullable
-    public Drawable getTickMark() {
-        return this.mTickMark;
+    Drawable i() {
+        return this.f733e;
     }
 
     @Nullable
-    public ColorStateList getTickMarkTintList() {
-        return this.mTickMarkTintList;
+    ColorStateList j() {
+        return this.f734f;
     }
 
     @Nullable
-    public PorterDuff.Mode getTickMarkTintMode() {
-        return this.mTickMarkTintMode;
+    PorterDuff.Mode k() {
+        return this.f735g;
     }
 
-    public void jumpDrawablesToCurrentState() {
-        Drawable drawable = this.mTickMark;
+    void l() {
+        Drawable drawable = this.f733e;
         if (drawable != null) {
             drawable.jumpToCurrentState();
         }
     }
 
-    @Override // androidx.appcompat.widget.AppCompatProgressBarHelper
-    public void loadFromAttributes(AttributeSet attributeSet, int i10) {
-        super.loadFromAttributes(attributeSet, i10);
-        TintTypedArray obtainStyledAttributes = TintTypedArray.obtainStyledAttributes(this.mView.getContext(), attributeSet, R.styleable.AppCompatSeekBar, i10, 0);
-        SeekBar seekBar = this.mView;
-        ViewCompat.saveAttributeDataForStyleable(seekBar, seekBar.getContext(), R.styleable.AppCompatSeekBar, attributeSet, obtainStyledAttributes.getWrappedTypeArray(), i10, 0);
-        Drawable drawableIfKnown = obtainStyledAttributes.getDrawableIfKnown(R.styleable.AppCompatSeekBar_android_thumb);
-        if (drawableIfKnown != null) {
-            this.mView.setThumb(drawableIfKnown);
-        }
-        setTickMark(obtainStyledAttributes.getDrawable(R.styleable.AppCompatSeekBar_tickMark));
-        if (obtainStyledAttributes.hasValue(R.styleable.AppCompatSeekBar_tickMarkTintMode)) {
-            this.mTickMarkTintMode = DrawableUtils.parseTintMode(obtainStyledAttributes.getInt(R.styleable.AppCompatSeekBar_tickMarkTintMode, -1), this.mTickMarkTintMode);
-            this.mHasTickMarkTintMode = true;
-        }
-        if (obtainStyledAttributes.hasValue(R.styleable.AppCompatSeekBar_tickMarkTint)) {
-            this.mTickMarkTintList = obtainStyledAttributes.getColorStateList(R.styleable.AppCompatSeekBar_tickMarkTint);
-            this.mHasTickMarkTint = true;
-        }
-        obtainStyledAttributes.recycle();
-        applyTickMarkTint();
-    }
-
-    public void setTickMark(@Nullable Drawable drawable) {
-        Drawable drawable2 = this.mTickMark;
+    void m(@Nullable Drawable drawable) {
+        Drawable drawable2 = this.f733e;
         if (drawable2 != null) {
             drawable2.setCallback(null);
         }
-        this.mTickMark = drawable;
+        this.f733e = drawable;
         if (drawable != null) {
-            drawable.setCallback(this.mView);
-            DrawableCompat.setLayoutDirection(drawable, ViewCompat.getLayoutDirection(this.mView));
+            drawable.setCallback(this.f732d);
+            DrawableCompat.setLayoutDirection(drawable, ViewCompat.getLayoutDirection(this.f732d));
             if (drawable.isStateful()) {
-                drawable.setState(this.mView.getDrawableState());
+                drawable.setState(this.f732d.getDrawableState());
             }
-            applyTickMarkTint();
+            f();
         }
-        this.mView.invalidate();
+        this.f732d.invalidate();
     }
 
-    public void setTickMarkTintList(@Nullable ColorStateList colorStateList) {
-        this.mTickMarkTintList = colorStateList;
-        this.mHasTickMarkTint = true;
-        applyTickMarkTint();
+    void n(@Nullable ColorStateList colorStateList) {
+        this.f734f = colorStateList;
+        this.f736h = true;
+        f();
     }
 
-    public void setTickMarkTintMode(@Nullable PorterDuff.Mode mode) {
-        this.mTickMarkTintMode = mode;
-        this.mHasTickMarkTintMode = true;
-        applyTickMarkTint();
+    void o(@Nullable PorterDuff.Mode mode) {
+        this.f735g = mode;
+        this.f737i = true;
+        f();
     }
 }

@@ -1,18 +1,31 @@
 package com.baidu.mobads.sdk.internal;
 
-/* loaded from: classes2.dex */
-class dj extends j {
+import android.app.Activity;
+import android.content.Context;
+import java.util.HashMap;
 
-    /* renamed from: b */
-    final /* synthetic */ di f7182b;
+/* loaded from: classes.dex */
+public class dj {
 
-    public dj(di diVar) {
-        this.f7182b = diVar;
+    /* renamed from: a, reason: collision with root package name */
+    private Boolean f5794a;
+
+    public dj(Context context, Activity activity, Boolean bool) {
+        this.f5794a = bool;
+        a().booleanValue();
     }
 
-    @Override // com.baidu.mobads.sdk.internal.j
-    public Object i() {
-        di unused = di.P = null;
-        return null;
+    public Boolean a() {
+        return this.f5794a;
+    }
+
+    protected HashMap<String, String> b() {
+        HashMap<String, String> hashMap = new HashMap<>();
+        hashMap.put("xyz", "hihihi");
+        return hashMap;
+    }
+
+    public String c() {
+        return "http://211.151.146.65:8080/wlantest/shanghai_sun/mock_ad_server_intersitial_video.json";
     }
 }

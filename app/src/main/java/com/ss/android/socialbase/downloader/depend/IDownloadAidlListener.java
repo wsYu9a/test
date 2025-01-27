@@ -87,11 +87,11 @@ public interface IDownloadAidlListener extends IInterface {
         static final int TRANSACTION_onSuccessed = 6;
         static final int TRANSACTION_onWaitingDownloadCompleteHandler = 13;
 
-        public static class Proxy implements IDownloadAidlListener {
+        private static class Proxy implements IDownloadAidlListener {
             public static IDownloadAidlListener sDefaultImpl;
             private IBinder mRemote;
 
-            public Proxy(IBinder iBinder) {
+            Proxy(IBinder iBinder) {
                 this.mRemote = iBinder;
             }
 
@@ -135,17 +135,12 @@ public interface IDownloadAidlListener extends IInterface {
                     }
                     if (this.mRemote.transact(8, obtain, obtain2, 0) || Stub.getDefaultImpl() == null) {
                         obtain2.readException();
-                        obtain2.recycle();
-                        obtain.recycle();
                     } else {
                         Stub.getDefaultImpl().onCanceled(downloadInfo);
-                        obtain2.recycle();
-                        obtain.recycle();
                     }
-                } catch (Throwable th2) {
+                } finally {
                     obtain2.recycle();
                     obtain.recycle();
-                    throw th2;
                 }
             }
 
@@ -169,17 +164,12 @@ public interface IDownloadAidlListener extends IInterface {
                     }
                     if (this.mRemote.transact(7, obtain, obtain2, 0) || Stub.getDefaultImpl() == null) {
                         obtain2.readException();
-                        obtain2.recycle();
-                        obtain.recycle();
                     } else {
                         Stub.getDefaultImpl().onFailed(downloadInfo, baseException);
-                        obtain2.recycle();
-                        obtain.recycle();
                     }
-                } catch (Throwable th2) {
+                } finally {
                     obtain2.recycle();
                     obtain.recycle();
-                    throw th2;
                 }
             }
 
@@ -197,17 +187,12 @@ public interface IDownloadAidlListener extends IInterface {
                     }
                     if (this.mRemote.transact(9, obtain, obtain2, 0) || Stub.getDefaultImpl() == null) {
                         obtain2.readException();
-                        obtain2.recycle();
-                        obtain.recycle();
                     } else {
                         Stub.getDefaultImpl().onFirstStart(downloadInfo);
-                        obtain2.recycle();
-                        obtain.recycle();
                     }
-                } catch (Throwable th2) {
+                } finally {
                     obtain2.recycle();
                     obtain.recycle();
-                    throw th2;
                 }
             }
 
@@ -225,17 +210,12 @@ public interface IDownloadAidlListener extends IInterface {
                     }
                     if (this.mRemote.transact(10, obtain, obtain2, 0) || Stub.getDefaultImpl() == null) {
                         obtain2.readException();
-                        obtain2.recycle();
-                        obtain.recycle();
                     } else {
                         Stub.getDefaultImpl().onFirstSuccess(downloadInfo);
-                        obtain2.recycle();
-                        obtain.recycle();
                     }
-                } catch (Throwable th2) {
+                } finally {
                     obtain2.recycle();
                     obtain.recycle();
-                    throw th2;
                 }
             }
 
@@ -253,17 +233,12 @@ public interface IDownloadAidlListener extends IInterface {
                     }
                     if (this.mRemote.transact(5, obtain, obtain2, 0) || Stub.getDefaultImpl() == null) {
                         obtain2.readException();
-                        obtain2.recycle();
-                        obtain.recycle();
                     } else {
                         Stub.getDefaultImpl().onPause(downloadInfo);
-                        obtain2.recycle();
-                        obtain.recycle();
                     }
-                } catch (Throwable th2) {
+                } finally {
                     obtain2.recycle();
                     obtain.recycle();
-                    throw th2;
                 }
             }
 
@@ -281,17 +256,12 @@ public interface IDownloadAidlListener extends IInterface {
                     }
                     if (this.mRemote.transact(2, obtain, obtain2, 0) || Stub.getDefaultImpl() == null) {
                         obtain2.readException();
-                        obtain2.recycle();
-                        obtain.recycle();
                     } else {
                         Stub.getDefaultImpl().onPrepare(downloadInfo);
-                        obtain2.recycle();
-                        obtain.recycle();
                     }
-                } catch (Throwable th2) {
+                } finally {
                     obtain2.recycle();
                     obtain.recycle();
-                    throw th2;
                 }
             }
 
@@ -309,17 +279,12 @@ public interface IDownloadAidlListener extends IInterface {
                     }
                     if (this.mRemote.transact(4, obtain, obtain2, 0) || Stub.getDefaultImpl() == null) {
                         obtain2.readException();
-                        obtain2.recycle();
-                        obtain.recycle();
                     } else {
                         Stub.getDefaultImpl().onProgress(downloadInfo);
-                        obtain2.recycle();
-                        obtain.recycle();
                     }
-                } catch (Throwable th2) {
+                } finally {
                     obtain2.recycle();
                     obtain.recycle();
-                    throw th2;
                 }
             }
 
@@ -343,17 +308,12 @@ public interface IDownloadAidlListener extends IInterface {
                     }
                     if (this.mRemote.transact(11, obtain, obtain2, 0) || Stub.getDefaultImpl() == null) {
                         obtain2.readException();
-                        obtain2.recycle();
-                        obtain.recycle();
                     } else {
                         Stub.getDefaultImpl().onRetry(downloadInfo, baseException);
-                        obtain2.recycle();
-                        obtain.recycle();
                     }
-                } catch (Throwable th2) {
+                } finally {
                     obtain2.recycle();
                     obtain.recycle();
-                    throw th2;
                 }
             }
 
@@ -377,17 +337,12 @@ public interface IDownloadAidlListener extends IInterface {
                     }
                     if (this.mRemote.transact(12, obtain, obtain2, 0) || Stub.getDefaultImpl() == null) {
                         obtain2.readException();
-                        obtain2.recycle();
-                        obtain.recycle();
                     } else {
                         Stub.getDefaultImpl().onRetryDelay(downloadInfo, baseException);
-                        obtain2.recycle();
-                        obtain.recycle();
                     }
-                } catch (Throwable th2) {
+                } finally {
                     obtain2.recycle();
                     obtain.recycle();
-                    throw th2;
                 }
             }
 
@@ -405,17 +360,12 @@ public interface IDownloadAidlListener extends IInterface {
                     }
                     if (this.mRemote.transact(3, obtain, obtain2, 0) || Stub.getDefaultImpl() == null) {
                         obtain2.readException();
-                        obtain2.recycle();
-                        obtain.recycle();
                     } else {
                         Stub.getDefaultImpl().onStart(downloadInfo);
-                        obtain2.recycle();
-                        obtain.recycle();
                     }
-                } catch (Throwable th2) {
+                } finally {
                     obtain2.recycle();
                     obtain.recycle();
-                    throw th2;
                 }
             }
 
@@ -433,17 +383,12 @@ public interface IDownloadAidlListener extends IInterface {
                     }
                     if (this.mRemote.transact(6, obtain, obtain2, 0) || Stub.getDefaultImpl() == null) {
                         obtain2.readException();
-                        obtain2.recycle();
-                        obtain.recycle();
                     } else {
                         Stub.getDefaultImpl().onSuccessed(downloadInfo);
-                        obtain2.recycle();
-                        obtain.recycle();
                     }
-                } catch (Throwable th2) {
+                } finally {
                     obtain2.recycle();
                     obtain.recycle();
-                    throw th2;
                 }
             }
 
@@ -461,17 +406,12 @@ public interface IDownloadAidlListener extends IInterface {
                     }
                     if (this.mRemote.transact(13, obtain, obtain2, 0) || Stub.getDefaultImpl() == null) {
                         obtain2.readException();
-                        obtain2.recycle();
-                        obtain.recycle();
                     } else {
                         Stub.getDefaultImpl().onWaitingDownloadCompleteHandler(downloadInfo);
-                        obtain2.recycle();
-                        obtain.recycle();
                     }
-                } catch (Throwable th2) {
+                } finally {
                     obtain2.recycle();
                     obtain.recycle();
-                    throw th2;
                 }
             }
         }
@@ -506,12 +446,12 @@ public interface IDownloadAidlListener extends IInterface {
         }
 
         @Override // android.os.Binder
-        public boolean onTransact(int i10, Parcel parcel, Parcel parcel2, int i11) throws RemoteException {
-            if (i10 == 1598968902) {
+        public boolean onTransact(int i2, Parcel parcel, Parcel parcel2, int i3) throws RemoteException {
+            if (i2 == 1598968902) {
                 parcel2.writeString(DESCRIPTOR);
                 return true;
             }
-            switch (i10) {
+            switch (i2) {
                 case 1:
                     parcel.enforceInterface(DESCRIPTOR);
                     int originHashCode = getOriginHashCode();
@@ -579,7 +519,7 @@ public interface IDownloadAidlListener extends IInterface {
                     parcel2.writeNoException();
                     return true;
                 default:
-                    return super.onTransact(i10, parcel, parcel2, i11);
+                    return super.onTransact(i2, parcel, parcel2, i3);
             }
         }
     }

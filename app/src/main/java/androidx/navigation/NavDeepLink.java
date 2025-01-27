@@ -12,21 +12,50 @@ import java.util.regex.Pattern;
 
 /* loaded from: classes.dex */
 public final class NavDeepLink {
-    private static final Pattern SCHEME_PATTERN = Pattern.compile("^[a-zA-Z]+[+\\w\\-.]*:");
-    private final String mAction;
-    private final ArrayList<String> mArguments;
-    private boolean mExactDeepLink;
-    private boolean mIsParameterizedQuery;
-    private final String mMimeType;
-    private Pattern mMimeTypePattern;
-    private final Map<String, ParamQuery> mParamArgMap;
-    private Pattern mPattern;
-    private final String mUri;
+
+    /* renamed from: a */
+    private static final Pattern f2973a = Pattern.compile("^[a-zA-Z]+[+\\w\\-.]*:");
+
+    /* renamed from: b */
+    private final ArrayList<String> f2974b;
+
+    /* renamed from: c */
+    private final Map<String, ParamQuery> f2975c;
+
+    /* renamed from: d */
+    private Pattern f2976d;
+
+    /* renamed from: e */
+    private boolean f2977e;
+
+    /* renamed from: f */
+    private boolean f2978f;
+
+    /* renamed from: g */
+    private final String f2979g;
+
+    /* renamed from: h */
+    private final String f2980h;
+
+    /* renamed from: i */
+    private Pattern f2981i;
+
+    /* renamed from: j */
+    private final String f2982j;
 
     public static final class Builder {
-        private String mAction;
-        private String mMimeType;
-        private String mUriPattern;
+
+        /* renamed from: a */
+        private String f2983a;
+
+        /* renamed from: b */
+        private String f2984b;
+
+        /* renamed from: c */
+        private String f2985c;
+
+        Builder() {
+        }
 
         @NonNull
         public static Builder fromAction(@NonNull String str) {
@@ -54,7 +83,7 @@ public final class NavDeepLink {
 
         @NonNull
         public NavDeepLink build() {
-            return new NavDeepLink(this.mUriPattern, this.mAction, this.mMimeType);
+            return new NavDeepLink(this.f2983a, this.f2984b, this.f2985c);
         }
 
         @NonNull
@@ -62,171 +91,182 @@ public final class NavDeepLink {
             if (str.isEmpty()) {
                 throw new IllegalArgumentException("The NavDeepLink cannot have an empty action.");
             }
-            this.mAction = str;
+            this.f2984b = str;
             return this;
         }
 
         @NonNull
         public Builder setMimeType(@NonNull String str) {
-            this.mMimeType = str;
+            this.f2985c = str;
             return this;
         }
 
         @NonNull
         public Builder setUriPattern(@NonNull String str) {
-            this.mUriPattern = str;
+            this.f2983a = str;
             return this;
         }
     }
 
-    public static class MimeType implements Comparable<MimeType> {
-        String mSubType;
-        String mType;
+    private static class MimeType implements Comparable<MimeType> {
 
-        public MimeType(@NonNull String str) {
+        /* renamed from: a */
+        String f2986a;
+
+        /* renamed from: b */
+        String f2987b;
+
+        MimeType(@NonNull String str) {
             String[] split = str.split("/", -1);
-            this.mType = split[0];
-            this.mSubType = split[1];
+            this.f2986a = split[0];
+            this.f2987b = split[1];
         }
 
         @Override // java.lang.Comparable
         public int compareTo(@NonNull MimeType mimeType) {
-            int i10 = this.mType.equals(mimeType.mType) ? 2 : 0;
-            return this.mSubType.equals(mimeType.mSubType) ? i10 + 1 : i10;
+            int i2 = this.f2986a.equals(mimeType.f2986a) ? 2 : 0;
+            return this.f2987b.equals(mimeType.f2987b) ? i2 + 1 : i2;
         }
     }
 
-    public static class ParamQuery {
-        private ArrayList<String> mArguments = new ArrayList<>();
-        private String mParamRegex;
+    private static class ParamQuery {
 
-        public void addArgumentName(String str) {
-            this.mArguments.add(str);
+        /* renamed from: a */
+        private String f2988a;
+
+        /* renamed from: b */
+        private ArrayList<String> f2989b = new ArrayList<>();
+
+        ParamQuery() {
         }
 
-        public String getArgumentName(int i10) {
-            return this.mArguments.get(i10);
+        void a(String str) {
+            this.f2989b.add(str);
         }
 
-        public String getParamRegex() {
-            return this.mParamRegex;
+        String b(int i2) {
+            return this.f2989b.get(i2);
         }
 
-        public void setParamRegex(String str) {
-            this.mParamRegex = str;
+        String c() {
+            return this.f2988a;
+        }
+
+        void d(String str) {
+            this.f2988a = str;
         }
 
         public int size() {
-            return this.mArguments.size();
+            return this.f2989b.size();
         }
     }
 
-    public NavDeepLink(@Nullable String str, @Nullable String str2, @Nullable String str3) {
-        this.mArguments = new ArrayList<>();
-        this.mParamArgMap = new HashMap();
-        this.mPattern = null;
-        this.mExactDeepLink = false;
-        this.mIsParameterizedQuery = false;
-        this.mMimeTypePattern = null;
-        this.mUri = str;
-        this.mAction = str2;
-        this.mMimeType = str3;
+    NavDeepLink(@Nullable String str, @Nullable String str2, @Nullable String str3) {
+        this.f2974b = new ArrayList<>();
+        this.f2975c = new HashMap();
+        this.f2976d = null;
+        this.f2977e = false;
+        this.f2978f = false;
+        this.f2981i = null;
+        this.f2979g = str;
+        this.f2980h = str2;
+        this.f2982j = str3;
         if (str != null) {
             Uri parse = Uri.parse(str);
-            this.mIsParameterizedQuery = parse.getQuery() != null;
-            StringBuilder sb2 = new StringBuilder("^");
-            if (!SCHEME_PATTERN.matcher(str).find()) {
-                sb2.append("http[s]?://");
+            this.f2978f = parse.getQuery() != null;
+            StringBuilder sb = new StringBuilder("^");
+            if (!f2973a.matcher(str).find()) {
+                sb.append("http[s]?://");
             }
             Pattern compile = Pattern.compile("\\{(.+?)\\}");
-            if (this.mIsParameterizedQuery) {
+            if (this.f2978f) {
                 Matcher matcher = Pattern.compile("(\\?)").matcher(str);
                 if (matcher.find()) {
-                    buildPathRegex(str.substring(0, matcher.start()), sb2, compile);
+                    a(str.substring(0, matcher.start()), sb, compile);
                 }
-                this.mExactDeepLink = false;
+                this.f2977e = false;
                 for (String str4 : parse.getQueryParameterNames()) {
-                    StringBuilder sb3 = new StringBuilder();
+                    StringBuilder sb2 = new StringBuilder();
                     String queryParameter = parse.getQueryParameter(str4);
                     Matcher matcher2 = compile.matcher(queryParameter);
                     ParamQuery paramQuery = new ParamQuery();
-                    int i10 = 0;
+                    int i2 = 0;
                     while (matcher2.find()) {
-                        paramQuery.addArgumentName(matcher2.group(1));
-                        sb3.append(Pattern.quote(queryParameter.substring(i10, matcher2.start())));
-                        sb3.append("(.+?)?");
-                        i10 = matcher2.end();
+                        paramQuery.a(matcher2.group(1));
+                        sb2.append(Pattern.quote(queryParameter.substring(i2, matcher2.start())));
+                        sb2.append("(.+?)?");
+                        i2 = matcher2.end();
                     }
-                    if (i10 < queryParameter.length()) {
-                        sb3.append(Pattern.quote(queryParameter.substring(i10)));
+                    if (i2 < queryParameter.length()) {
+                        sb2.append(Pattern.quote(queryParameter.substring(i2)));
                     }
-                    paramQuery.setParamRegex(sb3.toString().replace(".*", "\\E.*\\Q"));
-                    this.mParamArgMap.put(str4, paramQuery);
+                    paramQuery.d(sb2.toString().replace(".*", "\\E.*\\Q"));
+                    this.f2975c.put(str4, paramQuery);
                 }
             } else {
-                this.mExactDeepLink = buildPathRegex(str, sb2, compile);
+                this.f2977e = a(str, sb, compile);
             }
-            this.mPattern = Pattern.compile(sb2.toString().replace(".*", "\\E.*\\Q"));
+            this.f2976d = Pattern.compile(sb.toString().replace(".*", "\\E.*\\Q"));
         }
         if (str3 != null) {
             if (!Pattern.compile("^[\\s\\S]+/[\\s\\S]+$").matcher(str3).matches()) {
                 throw new IllegalArgumentException("The given mimeType " + str3 + " does not match to required \"type/subtype\" format");
             }
             MimeType mimeType = new MimeType(str3);
-            this.mMimeTypePattern = Pattern.compile(("^(" + mimeType.mType + "|[*]+)/(" + mimeType.mSubType + "|[*]+)$").replace("*|[*]", "[\\s\\S]"));
+            this.f2981i = Pattern.compile(("^(" + mimeType.f2986a + "|[*]+)/(" + mimeType.f2987b + "|[*]+)$").replace("*|[*]", "[\\s\\S]"));
         }
     }
 
-    private boolean buildPathRegex(@NonNull String str, StringBuilder sb2, Pattern pattern) {
+    private boolean a(@NonNull String str, StringBuilder sb, Pattern pattern) {
         Matcher matcher = pattern.matcher(str);
-        boolean z10 = !str.contains(".*");
-        int i10 = 0;
+        boolean z = !str.contains(".*");
+        int i2 = 0;
         while (matcher.find()) {
-            this.mArguments.add(matcher.group(1));
-            sb2.append(Pattern.quote(str.substring(i10, matcher.start())));
-            sb2.append("(.+?)");
-            i10 = matcher.end();
-            z10 = false;
+            this.f2974b.add(matcher.group(1));
+            sb.append(Pattern.quote(str.substring(i2, matcher.start())));
+            sb.append("(.+?)");
+            i2 = matcher.end();
+            z = false;
         }
-        if (i10 < str.length()) {
-            sb2.append(Pattern.quote(str.substring(i10)));
+        if (i2 < str.length()) {
+            sb.append(Pattern.quote(str.substring(i2)));
         }
-        sb2.append("($|(\\?(.)*))");
-        return z10;
+        sb.append("($|(\\?(.)*))");
+        return z;
     }
 
-    private boolean matchAction(String str) {
-        boolean z10 = str == null;
-        String str2 = this.mAction;
-        if (z10 == (str2 != null)) {
+    private boolean e(String str) {
+        boolean z = str == null;
+        String str2 = this.f2980h;
+        if (z == (str2 != null)) {
             return false;
         }
         return str == null || str2.equals(str);
     }
 
-    private boolean matchMimeType(String str) {
-        if ((str == null) == (this.mMimeType != null)) {
+    private boolean f(String str) {
+        if ((str == null) == (this.f2982j != null)) {
             return false;
         }
-        return str == null || this.mMimeTypePattern.matcher(str).matches();
+        return str == null || this.f2981i.matcher(str).matches();
     }
 
-    private boolean matchUri(Uri uri) {
-        boolean z10 = uri == null;
-        Pattern pattern = this.mPattern;
-        if (z10 == (pattern != null)) {
+    private boolean g(Uri uri) {
+        boolean z = uri == null;
+        Pattern pattern = this.f2976d;
+        if (z == (pattern != null)) {
             return false;
         }
         return uri == null || pattern.matcher(uri.toString()).matches();
     }
 
-    private boolean parseArgument(Bundle bundle, String str, String str2, NavArgument navArgument) {
+    private boolean j(Bundle bundle, String str, String str2, NavArgument navArgument) {
         if (navArgument == null) {
             bundle.putString(str, str2);
             return false;
         }
         try {
-            navArgument.getType().parseAndPut(bundle, str, str2);
+            navArgument.getType().c(bundle, str, str2);
             return false;
         } catch (IllegalArgumentException unused) {
             return true;
@@ -234,44 +274,39 @@ public final class NavDeepLink {
     }
 
     @Nullable
-    public String getAction() {
-        return this.mAction;
-    }
-
-    @Nullable
-    public Bundle getMatchingArguments(@NonNull Uri uri, @NonNull Map<String, NavArgument> map) {
+    Bundle b(@NonNull Uri uri, @NonNull Map<String, NavArgument> map) {
         Matcher matcher;
-        Matcher matcher2 = this.mPattern.matcher(uri.toString());
+        Matcher matcher2 = this.f2976d.matcher(uri.toString());
         if (!matcher2.matches()) {
             return null;
         }
         Bundle bundle = new Bundle();
-        int size = this.mArguments.size();
-        int i10 = 0;
-        while (i10 < size) {
-            String str = this.mArguments.get(i10);
-            i10++;
-            if (parseArgument(bundle, str, Uri.decode(matcher2.group(i10)), map.get(str))) {
+        int size = this.f2974b.size();
+        int i2 = 0;
+        while (i2 < size) {
+            String str = this.f2974b.get(i2);
+            i2++;
+            if (j(bundle, str, Uri.decode(matcher2.group(i2)), map.get(str))) {
                 return null;
             }
         }
-        if (this.mIsParameterizedQuery) {
-            for (String str2 : this.mParamArgMap.keySet()) {
-                ParamQuery paramQuery = this.mParamArgMap.get(str2);
+        if (this.f2978f) {
+            for (String str2 : this.f2975c.keySet()) {
+                ParamQuery paramQuery = this.f2975c.get(str2);
                 String queryParameter = uri.getQueryParameter(str2);
                 if (queryParameter != null) {
-                    matcher = Pattern.compile(paramQuery.getParamRegex()).matcher(queryParameter);
+                    matcher = Pattern.compile(paramQuery.c()).matcher(queryParameter);
                     if (!matcher.matches()) {
                         return null;
                     }
                 } else {
                     matcher = null;
                 }
-                for (int i11 = 0; i11 < paramQuery.size(); i11++) {
-                    String decode = matcher != null ? Uri.decode(matcher.group(i11 + 1)) : null;
-                    String argumentName = paramQuery.getArgumentName(i11);
-                    NavArgument navArgument = map.get(argumentName);
-                    if (decode != null && !decode.replaceAll("[{}]", "").equals(argumentName) && parseArgument(bundle, argumentName, decode, navArgument)) {
+                for (int i3 = 0; i3 < paramQuery.size(); i3++) {
+                    String decode = matcher != null ? Uri.decode(matcher.group(i3 + 1)) : null;
+                    String b2 = paramQuery.b(i3);
+                    NavArgument navArgument = map.get(b2);
+                    if (decode != null && !decode.replaceAll("[{}]", "").equals(b2) && j(bundle, b2, decode, navArgument)) {
                         return null;
                     }
                 }
@@ -280,39 +315,44 @@ public final class NavDeepLink {
         return bundle;
     }
 
-    @Nullable
-    public String getMimeType() {
-        return this.mMimeType;
-    }
-
-    public int getMimeTypeMatchRating(@NonNull String str) {
-        if (this.mMimeType == null || !this.mMimeTypePattern.matcher(str).matches()) {
+    int c(@NonNull String str) {
+        if (this.f2982j == null || !this.f2981i.matcher(str).matches()) {
             return -1;
         }
-        return new MimeType(this.mMimeType).compareTo(new MimeType(str));
+        return new MimeType(this.f2982j).compareTo(new MimeType(str));
+    }
+
+    boolean d() {
+        return this.f2977e;
+    }
+
+    @Nullable
+    public String getAction() {
+        return this.f2980h;
+    }
+
+    @Nullable
+    public String getMimeType() {
+        return this.f2982j;
     }
 
     @Nullable
     public String getUriPattern() {
-        return this.mUri;
+        return this.f2979g;
     }
 
-    public boolean isExactDeepLink() {
-        return this.mExactDeepLink;
+    boolean h(@NonNull Uri uri) {
+        return i(new NavDeepLinkRequest(uri, null, null));
     }
 
-    public boolean matches(@NonNull Uri uri) {
-        return matches(new NavDeepLinkRequest(uri, null, null));
-    }
-
-    public boolean matches(@NonNull NavDeepLinkRequest navDeepLinkRequest) {
-        if (matchUri(navDeepLinkRequest.getUri()) && matchAction(navDeepLinkRequest.getAction())) {
-            return matchMimeType(navDeepLinkRequest.getMimeType());
+    boolean i(@NonNull NavDeepLinkRequest navDeepLinkRequest) {
+        if (g(navDeepLinkRequest.getUri()) && e(navDeepLinkRequest.getAction())) {
+            return f(navDeepLinkRequest.getMimeType());
         }
         return false;
     }
 
-    public NavDeepLink(@NonNull String str) {
+    NavDeepLink(@NonNull String str) {
         this(str, null, null);
     }
 }

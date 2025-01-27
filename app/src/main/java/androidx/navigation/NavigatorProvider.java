@@ -11,17 +11,21 @@ import java.util.Map;
 @SuppressLint({"TypeParameterUnusedInFormals"})
 /* loaded from: classes.dex */
 public class NavigatorProvider {
-    private static final HashMap<Class<?>, String> sAnnotationNames = new HashMap<>();
-    private final HashMap<String, Navigator<? extends NavDestination>> mNavigators = new HashMap<>();
+
+    /* renamed from: a */
+    private static final HashMap<Class<?>, String> f3052a = new HashMap<>();
+
+    /* renamed from: b */
+    private final HashMap<String, Navigator<? extends NavDestination>> f3053b = new HashMap<>();
 
     @NonNull
-    public static String getNameForNavigator(@NonNull Class<? extends Navigator> cls) {
-        HashMap<Class<?>, String> hashMap = sAnnotationNames;
+    static String a(@NonNull Class<? extends Navigator> cls) {
+        HashMap<Class<?>, String> hashMap = f3052a;
         String str = hashMap.get(cls);
         if (str == null) {
             Navigator.Name name = (Navigator.Name) cls.getAnnotation(Navigator.Name.class);
             str = name != null ? name.value() : null;
-            if (!validateName(str)) {
+            if (!c(str)) {
                 throw new IllegalArgumentException("No @Navigator.Name annotation found for " + cls.getSimpleName());
             }
             hashMap.put(cls, str);
@@ -29,29 +33,29 @@ public class NavigatorProvider {
         return str;
     }
 
-    private static boolean validateName(String str) {
+    private static boolean c(String str) {
         return (str == null || str.isEmpty()) ? false : true;
     }
 
     @Nullable
     public final Navigator<? extends NavDestination> addNavigator(@NonNull Navigator<? extends NavDestination> navigator) {
-        return addNavigator(getNameForNavigator(navigator.getClass()), navigator);
+        return addNavigator(a(navigator.getClass()), navigator);
+    }
+
+    Map<String, Navigator<? extends NavDestination>> b() {
+        return this.f3053b;
     }
 
     @NonNull
     public final <T extends Navigator<?>> T getNavigator(@NonNull Class<T> cls) {
-        return (T) getNavigator(getNameForNavigator(cls));
-    }
-
-    public Map<String, Navigator<? extends NavDestination>> getNavigators() {
-        return this.mNavigators;
+        return (T) getNavigator(a(cls));
     }
 
     @Nullable
     @CallSuper
     public Navigator<? extends NavDestination> addNavigator(@NonNull String str, @NonNull Navigator<? extends NavDestination> navigator) {
-        if (validateName(str)) {
-            return this.mNavigators.put(str, navigator);
+        if (c(str)) {
+            return this.f3053b.put(str, navigator);
         }
         throw new IllegalArgumentException("navigator name cannot be an empty string");
     }
@@ -59,8 +63,8 @@ public class NavigatorProvider {
     @NonNull
     @CallSuper
     public <T extends Navigator<?>> T getNavigator(@NonNull String str) {
-        if (validateName(str)) {
-            Navigator<? extends NavDestination> navigator = this.mNavigators.get(str);
+        if (c(str)) {
+            Navigator<? extends NavDestination> navigator = this.f3053b.get(str);
             if (navigator != null) {
                 return navigator;
             }

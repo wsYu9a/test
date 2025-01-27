@@ -7,35 +7,36 @@ import androidx.annotation.Nullable;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
-import p1.b;
 
 /* loaded from: classes.dex */
 class RawDocumentFile extends DocumentFile {
-    private File mFile;
 
-    public RawDocumentFile(@Nullable DocumentFile documentFile, File file) {
+    /* renamed from: c */
+    private File f2265c;
+
+    RawDocumentFile(@Nullable DocumentFile documentFile, File file) {
         super(documentFile);
-        this.mFile = file;
+        this.f2265c = file;
     }
 
-    private static boolean deleteContents(File file) {
+    private static boolean a(File file) {
         File[] listFiles = file.listFiles();
-        boolean z10 = true;
+        boolean z = true;
         if (listFiles != null) {
             for (File file2 : listFiles) {
                 if (file2.isDirectory()) {
-                    z10 &= deleteContents(file2);
+                    z &= a(file2);
                 }
                 if (!file2.delete()) {
                     Log.w("DocumentFile", "Failed to delete " + file2);
-                    z10 = false;
+                    z = false;
                 }
             }
         }
-        return z10;
+        return z;
     }
 
-    private static String getTypeForName(String str) {
+    private static String b(String str) {
         int lastIndexOf = str.lastIndexOf(46);
         if (lastIndexOf < 0) {
             return "application/octet-stream";
@@ -46,18 +47,18 @@ class RawDocumentFile extends DocumentFile {
 
     @Override // androidx.documentfile.provider.DocumentFile
     public boolean canRead() {
-        return this.mFile.canRead();
+        return this.f2265c.canRead();
     }
 
     @Override // androidx.documentfile.provider.DocumentFile
     public boolean canWrite() {
-        return this.mFile.canWrite();
+        return this.f2265c.canWrite();
     }
 
     @Override // androidx.documentfile.provider.DocumentFile
     @Nullable
     public DocumentFile createDirectory(String str) {
-        File file = new File(this.mFile, str);
+        File file = new File(this.f2265c, str);
         if (file.isDirectory() || file.mkdir()) {
             return new RawDocumentFile(this, file);
         }
@@ -69,56 +70,56 @@ class RawDocumentFile extends DocumentFile {
     public DocumentFile createFile(String str, String str2) {
         String extensionFromMimeType = MimeTypeMap.getSingleton().getExtensionFromMimeType(str);
         if (extensionFromMimeType != null) {
-            str2 = str2 + b.f29697h + extensionFromMimeType;
+            str2 = str2 + "." + extensionFromMimeType;
         }
-        File file = new File(this.mFile, str2);
+        File file = new File(this.f2265c, str2);
         try {
             file.createNewFile();
             return new RawDocumentFile(this, file);
-        } catch (IOException e10) {
-            Log.w("DocumentFile", "Failed to createFile: " + e10);
+        } catch (IOException e2) {
+            Log.w("DocumentFile", "Failed to createFile: " + e2);
             return null;
         }
     }
 
     @Override // androidx.documentfile.provider.DocumentFile
     public boolean delete() {
-        deleteContents(this.mFile);
-        return this.mFile.delete();
+        a(this.f2265c);
+        return this.f2265c.delete();
     }
 
     @Override // androidx.documentfile.provider.DocumentFile
     public boolean exists() {
-        return this.mFile.exists();
+        return this.f2265c.exists();
     }
 
     @Override // androidx.documentfile.provider.DocumentFile
     public String getName() {
-        return this.mFile.getName();
+        return this.f2265c.getName();
     }
 
     @Override // androidx.documentfile.provider.DocumentFile
     @Nullable
     public String getType() {
-        if (this.mFile.isDirectory()) {
+        if (this.f2265c.isDirectory()) {
             return null;
         }
-        return getTypeForName(this.mFile.getName());
+        return b(this.f2265c.getName());
     }
 
     @Override // androidx.documentfile.provider.DocumentFile
     public Uri getUri() {
-        return Uri.fromFile(this.mFile);
+        return Uri.fromFile(this.f2265c);
     }
 
     @Override // androidx.documentfile.provider.DocumentFile
     public boolean isDirectory() {
-        return this.mFile.isDirectory();
+        return this.f2265c.isDirectory();
     }
 
     @Override // androidx.documentfile.provider.DocumentFile
     public boolean isFile() {
-        return this.mFile.isFile();
+        return this.f2265c.isFile();
     }
 
     @Override // androidx.documentfile.provider.DocumentFile
@@ -128,18 +129,18 @@ class RawDocumentFile extends DocumentFile {
 
     @Override // androidx.documentfile.provider.DocumentFile
     public long lastModified() {
-        return this.mFile.lastModified();
+        return this.f2265c.lastModified();
     }
 
     @Override // androidx.documentfile.provider.DocumentFile
     public long length() {
-        return this.mFile.length();
+        return this.f2265c.length();
     }
 
     @Override // androidx.documentfile.provider.DocumentFile
     public DocumentFile[] listFiles() {
         ArrayList arrayList = new ArrayList();
-        File[] listFiles = this.mFile.listFiles();
+        File[] listFiles = this.f2265c.listFiles();
         if (listFiles != null) {
             for (File file : listFiles) {
                 arrayList.add(new RawDocumentFile(this, file));
@@ -150,11 +151,11 @@ class RawDocumentFile extends DocumentFile {
 
     @Override // androidx.documentfile.provider.DocumentFile
     public boolean renameTo(String str) {
-        File file = new File(this.mFile.getParentFile(), str);
-        if (!this.mFile.renameTo(file)) {
+        File file = new File(this.f2265c.getParentFile(), str);
+        if (!this.f2265c.renameTo(file)) {
             return false;
         }
-        this.mFile = file;
+        this.f2265c = file;
         return true;
     }
 }

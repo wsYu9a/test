@@ -6,13 +6,16 @@ import com.bumptech.glide.manager.RequestManagerRetriever;
 import com.bumptech.glide.module.AppGlideModule;
 import java.util.Set;
 
-/* loaded from: classes2.dex */
+/* loaded from: classes.dex */
 abstract class GeneratedAppGlideModule extends AppGlideModule {
+    GeneratedAppGlideModule() {
+    }
+
     @NonNull
-    public abstract Set<Class<?>> getExcludedModuleClasses();
+    abstract Set<Class<?>> getExcludedModuleClasses();
 
     @Nullable
-    public RequestManagerRetriever.RequestManagerFactory getRequestManagerFactory() {
+    RequestManagerRetriever.RequestManagerFactory getRequestManagerFactory() {
         return null;
     }
 }

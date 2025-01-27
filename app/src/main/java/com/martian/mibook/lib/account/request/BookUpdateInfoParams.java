@@ -1,6 +1,6 @@
 package com.martian.mibook.lib.account.request;
 
-import v8.c;
+import com.martian.libcomm.http.requests.d.c;
 
 /* loaded from: classes3.dex */
 public class BookUpdateInfoParams extends TYHttpPostParams {
@@ -8,7 +8,7 @@ public class BookUpdateInfoParams extends TYHttpPostParams {
     @c
     private String sourceStrings;
 
-    @Override // u8.b
+    @Override // com.martian.libcomm.http.requests.b
     public String getRequestMethod() {
         return "ty/books/update_info";
     }
@@ -17,7 +17,7 @@ public class BookUpdateInfoParams extends TYHttpPostParams {
         return this.sourceStrings;
     }
 
-    public void setSourceStrings(String str) {
-        this.sourceStrings = str;
+    public void setSourceStrings(String sourceStrings) {
+        this.sourceStrings = sourceStrings;
     }
 }

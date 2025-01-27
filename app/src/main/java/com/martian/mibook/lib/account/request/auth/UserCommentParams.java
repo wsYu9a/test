@@ -1,14 +1,13 @@
 package com.martian.mibook.lib.account.request.auth;
 
+import com.martian.libcomm.http.requests.d.a;
 import com.martian.mibook.lib.account.request.TYAuthoptParams;
-import v8.a;
 
-/* loaded from: classes3.dex */
+/* loaded from: classes.dex */
 public class UserCommentParams extends TYAuthoptParams {
 
-    /* renamed from: s */
     @a
-    private String f13980s;
+    private String s;
 
     @a
     private Integer sec;
@@ -19,18 +18,18 @@ public class UserCommentParams extends TYAuthoptParams {
     }
 
     public String getS() {
-        return this.f13980s;
+        return this.s;
     }
 
     public Integer getSec() {
         return this.sec;
     }
 
-    public void setS(String str) {
-        this.f13980s = str;
+    public void setS(String s) {
+        this.s = s;
     }
 
-    public void setSec(Integer num) {
-        this.sec = num;
+    public void setSec(Integer sec) {
+        this.sec = sec;
     }
 }

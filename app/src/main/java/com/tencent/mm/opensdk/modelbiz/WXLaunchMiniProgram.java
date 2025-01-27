@@ -25,8 +25,8 @@ public class WXLaunchMiniProgram {
             if (b.b(this.userName)) {
                 str = "userName is null";
             } else {
-                int i10 = this.miniprogramType;
-                if (i10 >= 0 && i10 <= 2) {
+                int i2 = this.miniprogramType;
+                if (i2 >= 0 && i2 <= 2) {
                     return true;
                 }
                 str = "miniprogram type should between MINIPTOGRAM_TYPE_RELEASE and MINIPROGRAM_TYPE_PREVIEW";
@@ -56,6 +56,10 @@ public class WXLaunchMiniProgram {
         public Resp() {
         }
 
+        public Resp(Bundle bundle) {
+            fromBundle(bundle);
+        }
+
         @Override // com.tencent.mm.opensdk.modelbase.BaseResp
         public boolean checkArgs() {
             return true;
@@ -76,10 +80,6 @@ public class WXLaunchMiniProgram {
         public void toBundle(Bundle bundle) {
             super.toBundle(bundle);
             bundle.putString("_launch_wxminiprogram_ext_msg", this.extMsg);
-        }
-
-        public Resp(Bundle bundle) {
-            fromBundle(bundle);
         }
     }
 }

@@ -4,5 +4,5 @@ import com.tencent.bugly.beta.UpgradeInfo;
 
 /* loaded from: classes4.dex */
 public interface UpgradeListener {
-    void onUpgrade(int i10, UpgradeInfo upgradeInfo, boolean z10, boolean z11);
+    void onUpgrade(int i2, UpgradeInfo upgradeInfo, boolean z, boolean z2);
 }

@@ -1,7 +1,6 @@
 package com.bytedance.pangle;
 
 import androidx.annotation.Keep;
-import androidx.media3.common.C;
 import com.bytedance.pangle.download.IDownloaderProvider;
 import com.bytedance.pangle.log.IZeusLogger;
 import com.bytedance.pangle.log.IZeusReporter;
@@ -10,13 +9,12 @@ import java.util.HashMap;
 import java.util.Map;
 
 @Keep
-/* loaded from: classes2.dex */
+/* loaded from: classes.dex */
 public class GlobalParam {
     private static GlobalParam mInstance;
     private boolean mCheckPermission;
     private boolean mCloseCrashMonitor;
     private boolean mCloseFlipped;
-    private boolean mCloseHookHuaweiOnInit;
     private String mDid;
     private File mDownloadDir;
     private IDownloaderProvider mDownloaderProvider;
@@ -32,12 +30,11 @@ public class GlobalParam {
     private final Map<String, Boolean> unInstallPluginWhenHostChange = new HashMap();
     private final Map<String, Map<String, String>> mCustomTag = new HashMap();
     private final Map<String, String> mSignature = new HashMap();
-    private long mDexOptDelayTime = C.DEFAULT_SEEK_FORWARD_INCREMENT_MS;
+    private long mDexOptDelayTime = 15000;
     private boolean mPostBgDexOptByInit = true;
     private boolean mAutoFetch = true;
     private final Map<String, Integer> mRemoveApkEntry = new HashMap();
     private int mApmFlag = -1;
-    private boolean mCloseBgDex2oat = false;
 
     private void ensureInit() {
         if (this.hasInit) {
@@ -48,11 +45,8 @@ public class GlobalParam {
     public static GlobalParam getInstance() {
         if (mInstance == null) {
             synchronized (GlobalParam.class) {
-                try {
-                    if (mInstance == null) {
-                        mInstance = new GlobalParam();
-                    }
-                } finally {
+                if (mInstance == null) {
+                    mInstance = new GlobalParam();
                 }
             }
         }
@@ -76,19 +70,9 @@ public class GlobalParam {
         return this.mCheckPermission;
     }
 
-    public void closeBgDex2oat(boolean z10) {
+    public void closeCrashMonitor(boolean z) {
         ensureInit();
-        this.mCloseBgDex2oat = z10;
-    }
-
-    public void closeCrashMonitor(boolean z10) {
-        ensureInit();
-        this.mCloseCrashMonitor = z10;
-    }
-
-    public void closeHookHuaweiOnInit(boolean z10) {
-        ensureInit();
-        this.mCloseHookHuaweiOnInit = z10;
+        this.mCloseCrashMonitor = z;
     }
 
     public int getApmFlag() {
@@ -154,10 +138,6 @@ public class GlobalParam {
         this.hasInit = true;
     }
 
-    public boolean isCloseBgDex2oat() {
-        return this.mCloseBgDex2oat;
-    }
-
     public boolean isCloseCrashMonitor() {
         return this.mCloseCrashMonitor;
     }
@@ -178,19 +158,19 @@ public class GlobalParam {
         return this.mPostBgDexOptByInit;
     }
 
-    public void postBgDexOptByInit(boolean z10) {
+    public void postBgDexOptByInit(boolean z) {
         ensureInit();
         this.mPostBgDexOptByInit = this.mPostBgDexOptByInit;
     }
 
     /* JADX WARN: Multi-variable type inference failed */
-    public void removeApkEntry(String str, boolean z10, boolean z11) {
+    public void removeApkEntry(String str, boolean z, boolean z2) {
         ensureInit();
-        int i10 = z10;
-        if (z11) {
-            i10 = (z10 ? 1 : 0) | 2;
+        int i2 = z;
+        if (z2) {
+            i2 = (z ? 1 : 0) | 2;
         }
-        this.mRemoveApkEntry.put(str, Integer.valueOf(i10));
+        this.mRemoveApkEntry.put(str, Integer.valueOf(i2));
     }
 
     /* JADX WARN: Multi-variable type inference failed */
@@ -201,51 +181,51 @@ public class GlobalParam {
     /* JADX WARN: Type inference failed for: r1v3, types: [int] */
     /* JADX WARN: Type inference failed for: r1v4 */
     /* JADX WARN: Type inference failed for: r1v5 */
-    public void setApmFlag(boolean z10, boolean z11, boolean z12, boolean z13) {
+    public void setApmFlag(boolean z, boolean z2, boolean z3, boolean z4) {
         ensureInit();
-        ?? r12 = z10;
-        if (z11) {
-            r12 = (z10 ? 1 : 0) | 2;
+        ?? r1 = z;
+        if (z2) {
+            r1 = (z ? 1 : 0) | 2;
         }
-        if (z12) {
-            r12 = (r12 == true ? 1 : 0) | 4;
+        if (z3) {
+            r1 = (r1 == true ? 1 : 0) | 4;
         }
-        if (z13) {
-            r12 = (r12 == true ? 1 : 0) | '\b';
+        if (z4) {
+            r1 = (r1 == true ? 1 : 0) | '\b';
         }
-        this.mApmFlag = r12;
+        this.mApmFlag = r1;
     }
 
-    public void setAutoFetch(boolean z10) {
+    public void setAutoFetch(boolean z) {
         ensureInit();
-        this.mAutoFetch = z10;
+        this.mAutoFetch = z;
     }
 
-    public void setCheckMatchHostAbi(boolean z10) {
-        this.mCheckMatchHostAbi = z10;
+    public void setCheckMatchHostAbi(boolean z) {
+        this.mCheckMatchHostAbi = z;
     }
 
-    public void setCheckPermission(boolean z10) {
-        this.mCheckPermission = z10;
+    public void setCheckPermission(boolean z) {
+        this.mCheckPermission = z;
     }
 
-    public void setCloseFlipped(boolean z10) {
+    public void setCloseFlipped(boolean z) {
         ensureInit();
-        this.mCloseFlipped = z10;
+        this.mCloseFlipped = z;
     }
 
     public void setCustomTag(String str, Map<String, String> map) {
         this.mCustomTag.put(str, map);
     }
 
-    public void setDebug(boolean z10) {
+    public void setDebug(boolean z) {
         ensureInit();
-        this.mDebug = z10;
+        this.mDebug = z;
     }
 
-    public void setDexOptDelayTime(long j10) {
+    public void setDexOptDelayTime(long j2) {
         ensureInit();
-        this.mDexOptDelayTime = j10;
+        this.mDexOptDelayTime = j2;
     }
 
     public void setDid(String str) {
@@ -262,8 +242,8 @@ public class GlobalParam {
         this.mDownloaderProvider = iDownloaderProvider;
     }
 
-    public void setFastDex2oat(boolean z10) {
-        this.mFastDex2oat = z10;
+    public void setFastDex2oat(boolean z) {
+        this.mFastDex2oat = z;
     }
 
     public void setHostUrl(String str) {
@@ -271,9 +251,9 @@ public class GlobalParam {
         this.mHostUrl = str;
     }
 
-    public void setInstallThreads(int i10) {
+    public void setInstallThreads(int i2) {
         ensureInit();
-        this.mInstallThreads = i10;
+        this.mInstallThreads = i2;
     }
 
     public void setLogger(IZeusLogger iZeusLogger) {
@@ -291,9 +271,9 @@ public class GlobalParam {
         this.mSignature.put(str, str2);
     }
 
-    public void setUnInstallPluginWhenHostChange(String str, boolean z10) {
+    public void setUnInstallPluginWhenHostChange(String str, boolean z) {
         ensureInit();
-        this.unInstallPluginWhenHostChange.put(str, Boolean.valueOf(z10));
+        this.unInstallPluginWhenHostChange.put(str, Boolean.valueOf(z));
     }
 
     public boolean unInstallPluginWhenHostChange(String str) {
@@ -302,9 +282,5 @@ public class GlobalParam {
             return false;
         }
         return bool.booleanValue();
-    }
-
-    public boolean closeHookHuaweiOnInit() {
-        return this.mCloseHookHuaweiOnInit;
     }
 }

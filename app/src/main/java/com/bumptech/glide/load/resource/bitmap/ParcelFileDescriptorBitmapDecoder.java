@@ -11,7 +11,7 @@ import com.bumptech.glide.load.engine.Resource;
 import java.io.IOException;
 
 @RequiresApi(21)
-/* loaded from: classes2.dex */
+/* loaded from: classes.dex */
 public final class ParcelFileDescriptorBitmapDecoder implements ResourceDecoder<ParcelFileDescriptor, Bitmap> {
     private final Downsampler downsampler;
 
@@ -21,8 +21,8 @@ public final class ParcelFileDescriptorBitmapDecoder implements ResourceDecoder<
 
     @Override // com.bumptech.glide.load.ResourceDecoder
     @Nullable
-    public Resource<Bitmap> decode(@NonNull ParcelFileDescriptor parcelFileDescriptor, int i10, int i11, @NonNull Options options) throws IOException {
-        return this.downsampler.decode(parcelFileDescriptor, i10, i11, options);
+    public Resource<Bitmap> decode(@NonNull ParcelFileDescriptor parcelFileDescriptor, int i2, int i3, @NonNull Options options) throws IOException {
+        return this.downsampler.decode(parcelFileDescriptor, i2, i3, options);
     }
 
     @Override // com.bumptech.glide.load.ResourceDecoder

@@ -5,14 +5,13 @@ import android.app.Activity;
 import android.content.Context;
 import android.text.TextUtils;
 import android.view.KeyEvent;
-import android.view.MotionEvent;
 import com.baidu.mobads.sdk.internal.a;
-import com.baidu.mobads.sdk.internal.ay;
-import com.baidu.mobads.sdk.internal.cr;
-import com.baidu.mobads.sdk.internal.dd;
-import java.util.LinkedHashMap;
+import com.baidu.mobads.sdk.internal.av;
+import com.baidu.mobads.sdk.internal.co;
+import com.baidu.mobads.sdk.internal.db;
+import java.util.HashMap;
 
-/* loaded from: classes2.dex */
+/* loaded from: classes.dex */
 public class ExpressInterstitialAd {
     private InterstitialAdDislikeListener mAdDislikeListener;
     private String mAdPlaceId;
@@ -22,8 +21,7 @@ public class ExpressInterstitialAd {
     private ExpressInterstitialListener mExpressInterstitialListener;
     private int mHeight;
     private InterAdDownloadWindowListener mInterAdDownloadWindowListener;
-    private long mLoadTime;
-    private dd mNativeInterstitialAdProd;
+    private db mNativeInterstitialAdProd;
     private RequestParameters mRequestParameters;
     private boolean mUseDialogContainer;
     private boolean mUseDialogFrame;
@@ -31,42 +29,37 @@ public class ExpressInterstitialAd {
     private boolean onlyFetchAd;
 
     /* renamed from: com.baidu.mobads.sdk.api.ExpressInterstitialAd$1 */
-    class AnonymousClass1 implements cr.a {
-        public AnonymousClass1() {
+    class AnonymousClass1 implements co.a {
+        AnonymousClass1() {
         }
 
-        @Override // com.baidu.mobads.sdk.internal.cr.a
-        public void dispatchTouchEvent(MotionEvent motionEvent) {
-            ExpressInterstitialAd.this.mNativeInterstitialAdProd.a(motionEvent);
-        }
-
-        @Override // com.baidu.mobads.sdk.internal.cr.a
+        @Override // com.baidu.mobads.sdk.internal.co.a
         public void onAttachedToWindow() {
         }
 
-        @Override // com.baidu.mobads.sdk.internal.cr.a
+        @Override // com.baidu.mobads.sdk.internal.co.a
         @SuppressLint({"MissingSuperCall"})
         public void onDetachedFromWindow() {
             if (ExpressInterstitialAd.this.mNativeInterstitialAdProd != null) {
-                ExpressInterstitialAd.this.mNativeInterstitialAdProd.o();
+                ExpressInterstitialAd.this.mNativeInterstitialAdProd.p();
             }
         }
 
-        @Override // com.baidu.mobads.sdk.internal.cr.a
-        public boolean onKeyDown(int i10, KeyEvent keyEvent) {
-            return i10 == 4;
+        @Override // com.baidu.mobads.sdk.internal.co.a
+        public boolean onKeyDown(int i2, KeyEvent keyEvent) {
+            return i2 == 4;
         }
 
-        @Override // com.baidu.mobads.sdk.internal.cr.a
-        public void onLayoutComplete(int i10, int i11) {
+        @Override // com.baidu.mobads.sdk.internal.co.a
+        public void onLayoutComplete(int i2, int i3) {
         }
 
-        @Override // com.baidu.mobads.sdk.internal.cr.a
-        public void onWindowFocusChanged(boolean z10) {
+        @Override // com.baidu.mobads.sdk.internal.co.a
+        public void onWindowFocusChanged(boolean z) {
         }
 
-        @Override // com.baidu.mobads.sdk.internal.cr.a
-        public void onWindowVisibilityChanged(int i10) {
+        @Override // com.baidu.mobads.sdk.internal.co.a
+        public void onWindowVisibilityChanged(int i2) {
         }
     }
 
@@ -93,54 +86,48 @@ public class ExpressInterstitialAd {
     }
 
     private void initNativeInterstitialAdProd() {
-        System.currentTimeMillis();
-        cr crVar = new cr(this.mContext);
-        crVar.a(new cr.a() { // from class: com.baidu.mobads.sdk.api.ExpressInterstitialAd.1
-            public AnonymousClass1() {
+        co coVar = new co(this.mContext);
+        coVar.a(new co.a() { // from class: com.baidu.mobads.sdk.api.ExpressInterstitialAd.1
+            AnonymousClass1() {
             }
 
-            @Override // com.baidu.mobads.sdk.internal.cr.a
-            public void dispatchTouchEvent(MotionEvent motionEvent) {
-                ExpressInterstitialAd.this.mNativeInterstitialAdProd.a(motionEvent);
-            }
-
-            @Override // com.baidu.mobads.sdk.internal.cr.a
+            @Override // com.baidu.mobads.sdk.internal.co.a
             public void onAttachedToWindow() {
             }
 
-            @Override // com.baidu.mobads.sdk.internal.cr.a
+            @Override // com.baidu.mobads.sdk.internal.co.a
             @SuppressLint({"MissingSuperCall"})
             public void onDetachedFromWindow() {
                 if (ExpressInterstitialAd.this.mNativeInterstitialAdProd != null) {
-                    ExpressInterstitialAd.this.mNativeInterstitialAdProd.o();
+                    ExpressInterstitialAd.this.mNativeInterstitialAdProd.p();
                 }
             }
 
-            @Override // com.baidu.mobads.sdk.internal.cr.a
-            public boolean onKeyDown(int i10, KeyEvent keyEvent) {
-                return i10 == 4;
+            @Override // com.baidu.mobads.sdk.internal.co.a
+            public boolean onKeyDown(int i2, KeyEvent keyEvent) {
+                return i2 == 4;
             }
 
-            @Override // com.baidu.mobads.sdk.internal.cr.a
-            public void onLayoutComplete(int i10, int i11) {
+            @Override // com.baidu.mobads.sdk.internal.co.a
+            public void onLayoutComplete(int i2, int i3) {
             }
 
-            @Override // com.baidu.mobads.sdk.internal.cr.a
-            public void onWindowFocusChanged(boolean z10) {
+            @Override // com.baidu.mobads.sdk.internal.co.a
+            public void onWindowFocusChanged(boolean z) {
             }
 
-            @Override // com.baidu.mobads.sdk.internal.cr.a
-            public void onWindowVisibilityChanged(int i10) {
+            @Override // com.baidu.mobads.sdk.internal.co.a
+            public void onWindowVisibilityChanged(int i2) {
             }
         });
-        this.mNativeInterstitialAdProd = new dd(this.mContext, crVar, this.mAdPlaceId);
+        this.mNativeInterstitialAdProd = new db(this.mContext, coVar, this.mAdPlaceId);
         if (!TextUtils.isEmpty(this.mAppsid)) {
-            this.mNativeInterstitialAdProd.f6888q = this.mAppsid;
+            this.mNativeInterstitialAdProd.o = this.mAppsid;
         }
-        dd ddVar = this.mNativeInterstitialAdProd;
-        ddVar.f6889r = this.mBidFloor;
-        ddVar.f7147t = this.onlyFetchAd;
-        ddVar.a(this.mExpressInterstitialListener);
+        db dbVar = this.mNativeInterstitialAdProd;
+        dbVar.p = this.mBidFloor;
+        dbVar.q = this.onlyFetchAd;
+        dbVar.a(this.mExpressInterstitialListener);
         this.mNativeInterstitialAdProd.a(this.mInterAdDownloadWindowListener);
         this.mNativeInterstitialAdProd.a(this.mAdDislikeListener);
         this.mNativeInterstitialAdProd.c(this.mUseDialogFrame);
@@ -156,67 +143,49 @@ public class ExpressInterstitialAd {
         this.mNativeInterstitialAdProd.a();
     }
 
-    public void biddingFail(LinkedHashMap<String, Object> linkedHashMap, BiddingListener biddingListener) {
-        dd ddVar = this.mNativeInterstitialAdProd;
-        if (ddVar != null) {
-            ddVar.a(false, linkedHashMap, biddingListener);
-        }
+    public void biddingFail(String str) {
+        biddingFail(str, null);
     }
 
-    public void biddingSuccess(LinkedHashMap<String, Object> linkedHashMap, BiddingListener biddingListener) {
-        dd ddVar = this.mNativeInterstitialAdProd;
-        if (ddVar != null) {
-            ddVar.a(true, linkedHashMap, biddingListener);
+    public void biddingSuccess(String str) {
+        db dbVar = this.mNativeInterstitialAdProd;
+        if (dbVar != null) {
+            dbVar.a(true, str);
         }
     }
 
     public void destroy() {
-        dd ddVar = this.mNativeInterstitialAdProd;
-        if (ddVar == null) {
+        db dbVar = this.mNativeInterstitialAdProd;
+        if (dbVar == null) {
             return;
         }
-        ddVar.p();
-    }
-
-    public Object getAdDataForKey(String str) {
-        dd ddVar = this.mNativeInterstitialAdProd;
-        if (ddVar != null) {
-            return ddVar.a(str);
-        }
-        return null;
+        dbVar.e();
     }
 
     public String getBiddingToken() {
         this.onlyFetchAd = true;
         initNativeInterstitialAdProd();
-        return this.mNativeInterstitialAdProd.l();
+        return this.mNativeInterstitialAdProd.m();
     }
 
     public String getECPMLevel() {
-        a x10;
-        dd ddVar = this.mNativeInterstitialAdProd;
-        return (ddVar == null || (x10 = ddVar.x()) == null) ? "" : x10.z();
-    }
-
-    public String getPECPM() {
-        a x10;
-        dd ddVar = this.mNativeInterstitialAdProd;
-        return (ddVar == null || (x10 = ddVar.x()) == null) ? "" : x10.A();
+        a w;
+        db dbVar = this.mNativeInterstitialAdProd;
+        return (dbVar == null || (w = dbVar.w()) == null) ? "" : w.z();
     }
 
     public boolean isReady() {
         IAdInterListener iAdInterListener;
-        dd ddVar = this.mNativeInterstitialAdProd;
-        if (ddVar == null || (iAdInterListener = ddVar.f6884m) == null) {
+        db dbVar = this.mNativeInterstitialAdProd;
+        if (dbVar == null || (iAdInterListener = dbVar.k) == null) {
             return false;
         }
         return iAdInterListener.isAdReady();
     }
 
     public void load() {
-        this.mLoadTime = System.currentTimeMillis();
         if (this.mContext == null) {
-            ay.c().e("ExpressInterstitialAd", "请传一个非空的context再进行load");
+            av.c().e("ExpressInterstitialAd", "请传一个非空的context再进行load");
         } else {
             this.onlyFetchAd = true;
             reallyLoad();
@@ -224,9 +193,9 @@ public class ExpressInterstitialAd {
     }
 
     public void loadBiddingAd(String str) {
-        dd ddVar = this.mNativeInterstitialAdProd;
-        if (ddVar != null) {
-            ddVar.c(str);
+        db dbVar = this.mNativeInterstitialAdProd;
+        if (dbVar != null) {
+            dbVar.c(str);
         }
     }
 
@@ -238,20 +207,20 @@ public class ExpressInterstitialAd {
         this.mAppsid = str;
     }
 
-    public void setBidFloor(int i10) {
-        this.mBidFloor = i10;
+    public void setBidFloor(int i2) {
+        this.mBidFloor = i2;
     }
 
     @Deprecated
     public void setBiddingData(String str) {
-        dd ddVar = this.mNativeInterstitialAdProd;
-        if (ddVar != null) {
-            ddVar.b(str);
+        db dbVar = this.mNativeInterstitialAdProd;
+        if (dbVar != null) {
+            dbVar.b(str);
         }
     }
 
-    public void setDialogFrame(boolean z10) {
-        this.mUseDialogFrame = z10;
+    public void setDialogFrame(boolean z) {
+        this.mUseDialogFrame = z;
     }
 
     public void setDownloadListener(InterAdDownloadWindowListener interAdDownloadWindowListener) {
@@ -260,10 +229,6 @@ public class ExpressInterstitialAd {
 
     public void setLoadListener(ExpressInterstitialListener expressInterstitialListener) {
         this.mExpressInterstitialListener = expressInterstitialListener;
-        dd ddVar = this.mNativeInterstitialAdProd;
-        if (ddVar != null) {
-            ddVar.a(expressInterstitialListener);
-        }
     }
 
     public void setRequestParameters(RequestParameters requestParameters) {
@@ -271,37 +236,44 @@ public class ExpressInterstitialAd {
     }
 
     public void show() {
-        dd ddVar = this.mNativeInterstitialAdProd;
-        if (ddVar == null) {
+        db dbVar = this.mNativeInterstitialAdProd;
+        if (dbVar == null) {
             return;
         }
-        if (ddVar.f()) {
-            this.mNativeInterstitialAdProd.g();
+        if (dbVar.g()) {
+            this.mNativeInterstitialAdProd.h();
         } else {
             this.mNativeInterstitialAdProd.f((IOAdEvent) null);
         }
     }
 
-    public void useUseDialogContainer(boolean z10) {
-        this.mUseDialogContainer = z10;
+    public void useUseDialogContainer(boolean z) {
+        this.mUseDialogContainer = z;
     }
 
-    public ExpressInterstitialAd(Context context, String str, int i10, int i11) {
+    public ExpressInterstitialAd(Context context, String str, int i2, int i3) {
         this.mUseDialogFrame = false;
         this.mBidFloor = -1;
         this.mUseDialogContainer = false;
         this.mContext = context;
         this.mAdPlaceId = str;
-        this.mWidth = i10;
-        this.mHeight = i11;
+        this.mWidth = i2;
+        this.mHeight = i3;
+    }
+
+    public void biddingFail(String str, HashMap<String, Object> hashMap) {
+        db dbVar = this.mNativeInterstitialAdProd;
+        if (dbVar != null) {
+            dbVar.a(false, str, hashMap);
+        }
     }
 
     public void show(Activity activity) {
-        dd ddVar = this.mNativeInterstitialAdProd;
-        if (ddVar == null) {
+        db dbVar = this.mNativeInterstitialAdProd;
+        if (dbVar == null) {
             return;
         }
-        ddVar.a(activity);
+        dbVar.a(activity);
         show();
     }
 }

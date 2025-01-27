@@ -2,7 +2,7 @@ package com.bumptech.glide.load.engine;
 
 import androidx.annotation.NonNull;
 
-/* loaded from: classes2.dex */
+/* loaded from: classes.dex */
 public interface Resource<Z> {
     @NonNull
     Z get();

@@ -4,7 +4,7 @@ import androidx.annotation.NonNull;
 import com.bumptech.glide.load.data.DataRewinder;
 import java.nio.ByteBuffer;
 
-/* loaded from: classes2.dex */
+/* loaded from: classes.dex */
 public class ByteBufferRewinder implements DataRewinder<ByteBuffer> {
     private final ByteBuffer buffer;
 

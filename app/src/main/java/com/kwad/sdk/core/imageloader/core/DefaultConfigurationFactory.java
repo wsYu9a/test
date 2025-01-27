@@ -3,6 +3,7 @@ package com.kwad.sdk.core.imageloader.core;
 import android.annotation.TargetApi;
 import android.app.ActivityManager;
 import android.content.Context;
+import android.os.Build;
 import com.bytedance.sdk.openadsdk.downloadnew.core.TTDownloadField;
 import com.kwad.sdk.core.imageloader.cache.disc.DiskCache;
 import com.kwad.sdk.core.imageloader.cache.disc.impl.UnlimitedDiskCache;
@@ -32,18 +33,18 @@ import java.util.concurrent.ThreadPoolExecutor;
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.atomic.AtomicInteger;
 
-/* loaded from: classes3.dex */
+/* loaded from: classes2.dex */
 public class DefaultConfigurationFactory {
 
-    public static class DefaultThreadFactory implements ThreadFactory {
+    static class DefaultThreadFactory implements ThreadFactory {
         private static final AtomicInteger poolNumber = new AtomicInteger(1);
         private final String namePrefix;
         private final int threadPriority;
         private final AtomicInteger threadNumber = new AtomicInteger(1);
         private final ThreadGroup group = Thread.currentThread().getThreadGroup();
 
-        public DefaultThreadFactory(int i10, String str) {
-            this.threadPriority = i10;
+        DefaultThreadFactory(int i2, String str) {
+            this.threadPriority = i2;
             this.namePrefix = str + poolNumber.getAndIncrement() + "-thread-";
         }
 
@@ -62,44 +63,44 @@ public class DefaultConfigurationFactory {
         return new SimpleBitmapDisplayer();
     }
 
-    public static DiskCache createDiskCache(Context context, FileNameGenerator fileNameGenerator, long j10, int i10, String str) {
+    public static DiskCache createDiskCache(Context context, FileNameGenerator fileNameGenerator, long j2, int i2, String str) {
         File createReserveDiskCacheDir = createReserveDiskCacheDir(context, str);
-        if (j10 > 0 || i10 > 0) {
+        if (j2 > 0 || i2 > 0) {
             try {
-                return new LruDiskCache(StorageUtils.getIndividualCacheDirectory(context, str), createReserveDiskCacheDir, fileNameGenerator, j10, i10);
-            } catch (IOException e10) {
-                L.e(e10);
+                return new LruDiskCache(StorageUtils.getIndividualCacheDirectory(context, str), createReserveDiskCacheDir, fileNameGenerator, j2, i2);
+            } catch (IOException e2) {
+                L.e(e2);
             }
         }
         return new UnlimitedDiskCache(new File(str), createReserveDiskCacheDir, fileNameGenerator);
     }
 
-    public static Executor createExecutor(int i10, int i11, QueueProcessingType queueProcessingType) {
-        return new ThreadPoolExecutor(i10, i10, 0L, TimeUnit.MILLISECONDS, (BlockingQueue<Runnable>) (queueProcessingType == QueueProcessingType.LIFO ? new LIFOLinkedBlockingDeque() : new LinkedBlockingQueue()), createThreadFactory(i11, "uil-pool-"));
+    public static Executor createExecutor(int i2, int i3, QueueProcessingType queueProcessingType) {
+        return new ThreadPoolExecutor(i2, i2, 0L, TimeUnit.MILLISECONDS, (BlockingQueue<Runnable>) (queueProcessingType == QueueProcessingType.LIFO ? new LIFOLinkedBlockingDeque() : new LinkedBlockingQueue()), createThreadFactory(i3, "uil-pool-"));
     }
 
     public static FileNameGenerator createFileNameGenerator() {
         return new HashCodeFileNameGenerator();
     }
 
-    public static ImageDecoder createImageDecoder(boolean z10) {
-        return new BaseImageDecoder(z10);
+    public static ImageDecoder createImageDecoder(boolean z) {
+        return new BaseImageDecoder(z);
     }
 
     public static ImageDownloader createImageDownloader(Context context) {
         return new BaseImageDownloader(context);
     }
 
-    public static MemoryCache createMemoryCache(Context context, int i10) {
-        if (i10 == 0) {
+    public static MemoryCache createMemoryCache(Context context, int i2) {
+        if (i2 == 0) {
             ActivityManager activityManager = (ActivityManager) context.getSystemService(TTDownloadField.TT_ACTIVITY);
             int memoryClass = activityManager.getMemoryClass();
             if (hasHoneycomb() && isLargeHeap(context)) {
                 memoryClass = getLargeMemoryClass(activityManager);
             }
-            i10 = (memoryClass * 1048576) / 8;
+            i2 = (memoryClass * 1048576) / 8;
         }
-        return new LruMemoryCache(i10);
+        return new LruMemoryCache(i2);
     }
 
     private static File createReserveDiskCacheDir(Context context, String str) {
@@ -112,8 +113,8 @@ public class DefaultConfigurationFactory {
         return Executors.newCachedThreadPool(createThreadFactory(5, "uil-pool-d-"));
     }
 
-    private static ThreadFactory createThreadFactory(int i10, String str) {
-        return new DefaultThreadFactory(i10, str);
+    private static ThreadFactory createThreadFactory(int i2, String str) {
+        return new DefaultThreadFactory(i2, str);
     }
 
     @TargetApi(11)
@@ -122,7 +123,7 @@ public class DefaultConfigurationFactory {
     }
 
     private static boolean hasHoneycomb() {
-        return true;
+        return Build.VERSION.SDK_INT >= 11;
     }
 
     @TargetApi(11)

@@ -9,20 +9,20 @@ import androidx.annotation.Nullable;
 import com.kwad.sdk.api.loader.Loader;
 import com.kwad.sdk.api.loader.Wrapper;
 
-/* loaded from: classes3.dex */
+/* loaded from: classes2.dex */
 public abstract class BaseProxyService extends Service {
     private IServiceProxy mDelegate;
     private Context mNewBase;
 
     @Override // android.app.Service, android.content.ContextWrapper
-    public void attachBaseContext(Context context) {
+    protected void attachBaseContext(Context context) {
         this.mNewBase = context;
         this.mDelegate = getDelegate(context);
         super.attachBaseContext(Wrapper.wrapContextIfNeed(context));
     }
 
     @NonNull
-    public abstract IServiceProxy getDelegate(Context context);
+    protected abstract IServiceProxy getDelegate(Context context);
 
     @Override // android.app.Service
     @Nullable
@@ -58,12 +58,12 @@ public abstract class BaseProxyService extends Service {
     }
 
     @Override // android.app.Service
-    public int onStartCommand(Intent intent, int i10, int i11) {
+    public int onStartCommand(Intent intent, int i2, int i3) {
         ClassLoader externalClassLoader = Loader.get().getExternalClassLoader();
         if (externalClassLoader != null && intent != null) {
             intent.setExtrasClassLoader(externalClassLoader);
         }
-        return this.mDelegate.onStartCommand(this, intent, i10, i11);
+        return this.mDelegate.onStartCommand(this, intent, i2, i3);
     }
 
     @Override // android.app.Service
@@ -71,8 +71,8 @@ public abstract class BaseProxyService extends Service {
         return this.mDelegate.onUnbind(this, intent);
     }
 
-    public int superOnStartCommand(Intent intent, int i10, int i11) {
-        return super.onStartCommand(intent, i10, i11);
+    public int superOnStartCommand(Intent intent, int i2, int i3) {
+        return super.onStartCommand(intent, i2, i3);
     }
 
     public boolean superOnUnbind(Intent intent) {

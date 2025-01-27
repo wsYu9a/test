@@ -2,42 +2,43 @@ package com.kwad.sdk.pngencrypt.chunk;
 
 import com.kwad.sdk.pngencrypt.PngjException;
 
-/* loaded from: classes3.dex */
+/* loaded from: classes2.dex */
 public final class m extends p {
-    private int aQT;
-    private int[] aQU;
+    private int axg;
+    private int[] axh;
 
     public m(com.kwad.sdk.pngencrypt.k kVar) {
         super("PLTE", kVar);
-        this.aQT = 0;
+        this.axg = 0;
     }
 
-    private void ea(int i10) {
-        this.aQT = i10;
-        if (i10 <= 0 || i10 > 256) {
-            throw new PngjException("invalid pallette - nentries=" + this.aQT);
+    private void a(int i2, int i3, int i4, int i5) {
+        this.axh[i2] = (i3 << 16) | (i4 << 8) | i5;
+    }
+
+    private void cc(int i2) {
+        this.axg = i2;
+        if (i2 <= 0 || i2 > 256) {
+            throw new PngjException("invalid pallette - nentries=" + this.axg);
         }
-        int[] iArr = this.aQU;
-        if (iArr == null || iArr.length != i10) {
-            this.aQU = new int[i10];
+        int[] iArr = this.axh;
+        if (iArr == null || iArr.length != i2) {
+            this.axh = new int[i2];
         }
     }
 
     @Override // com.kwad.sdk.pngencrypt.chunk.PngChunk
     public final void a(d dVar) {
-        ea(dVar.len / 3);
-        int i10 = 0;
-        for (int i11 = 0; i11 < this.aQT; i11++) {
+        cc(dVar.len / 3);
+        int i2 = 0;
+        int i3 = 0;
+        while (i2 < this.axg) {
             byte[] bArr = dVar.data;
-            int i12 = bArr[i10] & 255;
-            int i13 = i10 + 2;
-            int i14 = bArr[i10 + 1] & 255;
-            i10 += 3;
-            a(i11, i12, i14, bArr[i13] & 255);
+            int i4 = i3 + 1;
+            int i5 = i4 + 1;
+            a(i2, bArr[i3] & 255, bArr[i4] & 255, bArr[i5] & 255);
+            i2++;
+            i3 = i5 + 1;
         }
-    }
-
-    private void a(int i10, int i11, int i12, int i13) {
-        this.aQU[i10] = (i11 << 16) | (i12 << 8) | i13;
     }
 }

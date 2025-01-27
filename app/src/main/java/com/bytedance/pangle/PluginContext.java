@@ -17,8 +17,8 @@ import com.bytedance.pangle.util.FieldUtils;
 import com.bytedance.pangle.wrapper.PluginApplicationWrapper;
 
 @Keep
-/* loaded from: classes2.dex */
-public class PluginContext extends f {
+/* loaded from: classes.dex */
+public class PluginContext extends e {
     private LayoutInflater mInflater;
     public boolean mIsHostApplicationContext;
     public Context mOriginContext;
@@ -50,8 +50,8 @@ public class PluginContext extends f {
         if (context instanceof ContextThemeWrapper) {
             try {
                 return ((Integer) FieldUtils.readField(context, "mThemeResource")).intValue();
-            } catch (IllegalAccessException e10) {
-                e10.printStackTrace();
+            } catch (IllegalAccessException e2) {
+                e2.printStackTrace();
             }
         }
         if (context instanceof androidx.appcompat.view.ContextThemeWrapper) {
@@ -80,8 +80,8 @@ public class PluginContext extends f {
             } catch (Throwable unused) {
                 com.bytedance.pangle.b.b.a.a(createConfigurationContext.getClass(), "mResources").set(createConfigurationContext, this.mPlugin.mResources);
             }
-        } catch (Throwable th2) {
-            th2.printStackTrace();
+        } catch (Throwable th) {
+            th.printStackTrace();
         }
         return createConfigurationContext;
     }
@@ -121,8 +121,8 @@ public class PluginContext extends f {
         return this.mPlugin.mPkgName;
     }
 
-    @Override // com.bytedance.pangle.f
-    public String getPluginPkg() {
+    @Override // com.bytedance.pangle.e
+    protected String getPluginPkg() {
         return this.mPlugin.mPkgName;
     }
 
@@ -163,10 +163,10 @@ public class PluginContext extends f {
         }
     }
 
-    public PluginContext(Context context, Plugin plugin, boolean z10) {
+    public PluginContext(Context context, Plugin plugin, boolean z) {
         super(getContextWithoutTheme(context), getThemeResourceId(context));
         this.mPlugin = plugin;
         this.mOriginContext = context;
-        this.mIsHostApplicationContext = z10;
+        this.mIsHostApplicationContext = z;
     }
 }

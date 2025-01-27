@@ -2,58 +2,56 @@ package com.bytedance.sdk.openadsdk.downloadnew.core;
 
 import org.json.JSONObject;
 
-/* loaded from: classes2.dex */
+/* loaded from: classes.dex */
 public class TTDownloadEventModel {
 
-    /* renamed from: a, reason: collision with root package name */
-    private String f8167a;
+    /* renamed from: g, reason: collision with root package name */
+    private JSONObject f6454g;
 
-    /* renamed from: b, reason: collision with root package name */
-    private String f8168b;
+    /* renamed from: i, reason: collision with root package name */
+    private JSONObject f6455i;
 
-    /* renamed from: c, reason: collision with root package name */
-    private JSONObject f8169c;
-
-    /* renamed from: d, reason: collision with root package name */
-    private JSONObject f8170d;
+    /* renamed from: j, reason: collision with root package name */
+    private String f6456j;
+    private String zx;
 
     public static TTDownloadEventModel builder() {
         return new TTDownloadEventModel();
     }
 
     public JSONObject getExtJson() {
-        return this.f8169c;
+        return this.f6455i;
     }
 
     public String getLabel() {
-        return this.f8168b;
+        return this.zx;
     }
 
     public JSONObject getMaterialMeta() {
-        return this.f8170d;
+        return this.f6454g;
     }
 
     public String getTag() {
-        return this.f8167a;
+        return this.f6456j;
     }
 
     public TTDownloadEventModel setExtJson(JSONObject jSONObject) {
-        this.f8169c = jSONObject;
+        this.f6455i = jSONObject;
         return this;
     }
 
     public TTDownloadEventModel setLabel(String str) {
-        this.f8168b = str;
+        this.zx = str;
         return this;
     }
 
     public TTDownloadEventModel setMaterialMeta(JSONObject jSONObject) {
-        this.f8170d = jSONObject;
+        this.f6454g = jSONObject;
         return this;
     }
 
     public TTDownloadEventModel setTag(String str) {
-        this.f8167a = str;
+        this.f6456j = str;
         return this;
     }
 }

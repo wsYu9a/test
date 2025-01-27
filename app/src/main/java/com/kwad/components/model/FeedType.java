@@ -1,11 +1,11 @@
 package com.kwad.components.model;
 
 import androidx.annotation.NonNull;
-import com.kwad.sdk.core.response.b.a;
-import com.kwad.sdk.core.response.b.e;
+import com.kwad.sdk.core.response.a.a;
+import com.kwad.sdk.core.response.a.d;
 import com.kwad.sdk.core.response.model.AdTemplate;
 
-/* loaded from: classes3.dex */
+/* loaded from: classes2.dex */
 public enum FeedType {
     FEED_TYPE_UNKNOWN(0),
     FEED_TYPE_TEXT_IMMERSE(1),
@@ -21,26 +21,26 @@ public enum FeedType {
 
     private int type;
 
-    FeedType(int i10) {
-        this.type = i10;
+    FeedType(int i2) {
+        this.type = i2;
     }
 
     public static boolean checkTypeValid(@NonNull AdTemplate adTemplate) {
-        int be2 = a.be(e.eb(adTemplate));
-        int i10 = adTemplate.type;
+        int aW = a.aW(d.cb(adTemplate));
+        int i2 = adTemplate.type;
         FeedType feedType = FEED_TYPE_TEXT_ABOVE_GROUP;
-        if (i10 > feedType.type) {
+        if (i2 > feedType.type) {
             return true;
         }
-        FeedType fromInt = fromInt(i10);
-        if (be2 != 1) {
-            if (be2 == 2) {
+        FeedType fromInt = fromInt(i2);
+        if (aW != 1) {
+            if (aW == 2) {
                 return (fromInt == FEED_TYPE_UNKNOWN || fromInt == feedType) ? false : true;
             }
-            if (be2 == 3) {
+            if (aW == 3) {
                 return fromInt != FEED_TYPE_UNKNOWN;
             }
-            if (be2 != 8) {
+            if (aW != 8) {
                 return false;
             }
         }
@@ -48,17 +48,17 @@ public enum FeedType {
     }
 
     @NonNull
-    public static FeedType fromInt(int i10) {
+    public static FeedType fromInt(int i2) {
         for (FeedType feedType : values()) {
-            if (feedType.type == i10) {
+            if (feedType.type == i2) {
                 return feedType;
             }
         }
-        return isH5Type(i10) ? FEED_TYPE_TEXT_NEW : FEED_TYPE_UNKNOWN;
+        return isH5Type(i2) ? FEED_TYPE_TEXT_NEW : FEED_TYPE_UNKNOWN;
     }
 
-    private static boolean isH5Type(int i10) {
-        return i10 == 7 || i10 == 8 || i10 == 14 || i10 == 15 || i10 == 16 || i10 == 17 || i10 == 18 || i10 == 19 || i10 >= 2000;
+    private static boolean isH5Type(int i2) {
+        return i2 == 7 || i2 == 8 || i2 == 14 || i2 == 15 || i2 == 16 || i2 == 17 || i2 == 18 || i2 == 19 || i2 >= 2000;
     }
 
     public final int getType() {

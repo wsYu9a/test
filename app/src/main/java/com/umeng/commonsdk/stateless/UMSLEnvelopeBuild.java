@@ -16,12 +16,12 @@ public class UMSLEnvelopeBuild {
     public static String module;
 
     /* renamed from: com.umeng.commonsdk.stateless.UMSLEnvelopeBuild$1 */
-    public class AnonymousClass1 extends Thread {
+    class AnonymousClass1 extends Thread {
 
         /* renamed from: a */
-        final /* synthetic */ Context f24557a;
+        final /* synthetic */ Context f26247a;
 
-        public AnonymousClass1(Context context) {
+        AnonymousClass1(Context context) {
             context = context;
         }
 
@@ -40,17 +40,17 @@ public class UMSLEnvelopeBuild {
         return false;
     }
 
-    public static void setEncryptEnabled(boolean z10) {
-        isEncryptEnabled = z10;
+    public static void setEncryptEnabled(boolean z) {
+        isEncryptEnabled = z;
     }
 
     public JSONObject buildSLBaseHeader(Context context) {
         new Thread() { // from class: com.umeng.commonsdk.stateless.UMSLEnvelopeBuild.1
 
             /* renamed from: a */
-            final /* synthetic */ Context f24557a;
+            final /* synthetic */ Context f26247a;
 
-            public AnonymousClass1(Context context2) {
+            AnonymousClass1(Context context2) {
                 context = context2;
             }
 

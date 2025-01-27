@@ -1,7 +1,9 @@
 package com.bytedance.android.live.base.api;
 
-/* loaded from: classes2.dex */
-public interface IHostPermission {
+import com.bytedance.android.live.base.IService;
+
+/* loaded from: classes.dex */
+public interface IHostPermission extends IService {
     boolean alist();
 
     String getAndroidID();

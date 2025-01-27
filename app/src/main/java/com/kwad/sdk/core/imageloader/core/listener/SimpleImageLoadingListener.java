@@ -5,7 +5,7 @@ import com.kwad.sdk.core.imageloader.core.assist.FailReason;
 import com.kwad.sdk.core.imageloader.core.decode.DecodedResult;
 import java.io.InputStream;
 
-/* loaded from: classes3.dex */
+/* loaded from: classes2.dex */
 public class SimpleImageLoadingListener implements ImageLoadingListener {
     @Override // com.kwad.sdk.core.imageloader.core.listener.ImageLoadingListener
     public boolean onDecode(String str, InputStream inputStream, DecodedResult decodedResult) {

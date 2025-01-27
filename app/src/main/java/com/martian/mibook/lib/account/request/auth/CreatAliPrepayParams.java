@@ -1,6 +1,6 @@
 package com.martian.mibook.lib.account.request.auth;
 
-import v8.a;
+import com.martian.libcomm.http.requests.d.a;
 
 /* loaded from: classes3.dex */
 public class CreatAliPrepayParams extends TYAuthParams {
@@ -31,15 +31,15 @@ public class CreatAliPrepayParams extends TYAuthParams {
         return this.productId;
     }
 
-    public void setExtra(String str) {
-        this.extra = str;
+    public void setExtra(String extra) {
+        this.extra = extra;
     }
 
-    public void setMoney(Integer num) {
-        this.money = num;
+    public void setMoney(Integer money) {
+        this.money = money;
     }
 
-    public void setProductId(Integer num) {
-        this.productId = num;
+    public void setProductId(Integer productId) {
+        this.productId = productId;
     }
 }

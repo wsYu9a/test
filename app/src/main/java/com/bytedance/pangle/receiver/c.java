@@ -11,46 +11,46 @@ import java.util.Set;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.CopyOnWriteArraySet;
 
-/* loaded from: classes2.dex */
+/* loaded from: classes.dex */
 public final class c {
 
     /* renamed from: d */
-    private static c f7739d;
+    private static c f6232d;
 
     /* renamed from: a */
-    public final Map<String, a> f7740a = new ConcurrentHashMap();
+    public final Map<String, a> f6233a = new ConcurrentHashMap();
 
     /* renamed from: b */
-    public final Map<PluginBroadcastReceiver, BroadcastReceiver> f7741b = new ConcurrentHashMap();
+    public final Map<PluginBroadcastReceiver, BroadcastReceiver> f6234b = new ConcurrentHashMap();
 
     /* renamed from: c */
-    public final Set<Integer> f7742c = new CopyOnWriteArraySet();
+    public final Set<Integer> f6235c = new CopyOnWriteArraySet();
 
     public static class a {
 
         /* renamed from: a */
-        public String f7743a;
+        public String f6236a;
 
         /* renamed from: b */
-        public final Set<PluginBroadcastReceiver> f7744b = new CopyOnWriteArraySet();
+        public final Set<PluginBroadcastReceiver> f6237b = new CopyOnWriteArraySet();
 
         public final void a(PluginBroadcastReceiver pluginBroadcastReceiver) {
             if (pluginBroadcastReceiver != null) {
-                this.f7744b.add(pluginBroadcastReceiver);
+                this.f6237b.add(pluginBroadcastReceiver);
             }
         }
 
         public final void a(Context context, Intent intent) {
-            Set<PluginBroadcastReceiver> set = this.f7744b;
+            Set<PluginBroadcastReceiver> set = this.f6237b;
             if (set == null || set.size() <= 0) {
                 return;
             }
-            for (PluginBroadcastReceiver pluginBroadcastReceiver : this.f7744b) {
+            for (PluginBroadcastReceiver pluginBroadcastReceiver : this.f6237b) {
                 if (pluginBroadcastReceiver != null) {
                     try {
                         pluginBroadcastReceiver.onReceive(context, intent);
-                    } catch (Throwable th2) {
-                        ZeusLogger.w(ZeusLogger.TAG_RECEIVER, "plugin-receiver->action:" + (intent != null ? intent.getAction() : "") + "[exception]:", th2);
+                    } catch (Throwable th) {
+                        ZeusLogger.w(ZeusLogger.TAG_RECEIVER, "plugin-receiver->action:" + (intent != null ? intent.getAction() : "") + "[exception]:", th);
                     }
                 }
             }
@@ -61,17 +61,14 @@ public final class c {
     }
 
     public static c a() {
-        if (f7739d == null) {
+        if (f6232d == null) {
             synchronized (com.bytedance.pangle.service.a.a.class) {
-                try {
-                    if (f7739d == null) {
-                        f7739d = new c();
-                    }
-                } finally {
+                if (f6232d == null) {
+                    f6232d = new c();
                 }
             }
         }
-        return f7739d;
+        return f6232d;
     }
 
     public final void a(IntentFilter intentFilter, PluginBroadcastReceiver pluginBroadcastReceiver) {
@@ -82,14 +79,14 @@ public final class c {
         while (actionsIterator.hasNext()) {
             String next = actionsIterator.next();
             if (next != null) {
-                a aVar = this.f7740a.get(next);
+                a aVar = this.f6233a.get(next);
                 if (aVar != null) {
                     aVar.a(pluginBroadcastReceiver);
                 } else {
                     a aVar2 = new a();
-                    aVar2.f7743a = next;
+                    aVar2.f6236a = next;
                     aVar2.a(pluginBroadcastReceiver);
-                    this.f7740a.put(next, aVar2);
+                    this.f6233a.put(next, aVar2);
                 }
             }
         }
@@ -101,11 +98,11 @@ public final class c {
             return;
         }
         String action = intent.getAction();
-        Map<String, a> map = this.f7740a;
+        Map<String, a> map = this.f6233a;
         if (map == null || map.size() <= 0) {
             return;
         }
-        for (Map.Entry<String, a> entry : this.f7740a.entrySet()) {
+        for (Map.Entry<String, a> entry : this.f6233a.entrySet()) {
             if (action.equals(entry.getKey()) && (value = entry.getValue()) != null) {
                 value.a(context, intent);
             }

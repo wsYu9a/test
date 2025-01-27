@@ -7,11 +7,14 @@ import java.util.Iterator;
 import java.util.Set;
 import java.util.WeakHashMap;
 
-/* loaded from: classes2.dex */
+/* loaded from: classes.dex */
 class ActivityFragmentLifecycle implements Lifecycle {
     private boolean isDestroyed;
     private boolean isStarted;
     private final Set<LifecycleListener> lifecycleListeners = Collections.newSetFromMap(new WeakHashMap());
+
+    ActivityFragmentLifecycle() {
+    }
 
     @Override // com.bumptech.glide.manager.Lifecycle
     public void addListener(@NonNull LifecycleListener lifecycleListener) {
@@ -25,7 +28,7 @@ class ActivityFragmentLifecycle implements Lifecycle {
         }
     }
 
-    public void onDestroy() {
+    void onDestroy() {
         this.isDestroyed = true;
         Iterator it = Util.getSnapshot(this.lifecycleListeners).iterator();
         while (it.hasNext()) {
@@ -33,7 +36,7 @@ class ActivityFragmentLifecycle implements Lifecycle {
         }
     }
 
-    public void onStart() {
+    void onStart() {
         this.isStarted = true;
         Iterator it = Util.getSnapshot(this.lifecycleListeners).iterator();
         while (it.hasNext()) {
@@ -41,7 +44,7 @@ class ActivityFragmentLifecycle implements Lifecycle {
         }
     }
 
-    public void onStop() {
+    void onStop() {
         this.isStarted = false;
         Iterator it = Util.getSnapshot(this.lifecycleListeners).iterator();
         while (it.hasNext()) {

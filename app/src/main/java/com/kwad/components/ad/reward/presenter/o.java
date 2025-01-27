@@ -1,260 +1,234 @@
 package com.kwad.components.ad.reward.presenter;
 
-import android.animation.Animator;
-import android.animation.AnimatorSet;
-import android.animation.ObjectAnimator;
-import android.animation.ValueAnimator;
-import android.graphics.drawable.ColorDrawable;
-import android.graphics.drawable.Drawable;
-import android.view.View;
-import android.view.ViewGroup;
-import android.view.ViewStub;
-import android.widget.ImageView;
-import android.widget.TextView;
-import com.kwad.components.ad.reward.presenter.platdetail.actionbar.RewardActionBarControl;
+import androidx.annotation.Nullable;
+import com.kwad.components.core.page.DownloadLandPageActivity;
 import com.kwad.components.core.playable.PlayableSource;
+import com.kwad.components.core.webview.jshandler.ai;
 import com.kwad.sdk.R;
-import com.sigmob.sdk.base.common.y;
-import java.lang.ref.WeakReference;
-import org.json.JSONObject;
+import com.kwad.sdk.core.response.model.AdInfo;
+import com.kwad.sdk.core.webview.KsAdWebView;
 
-/* loaded from: classes2.dex */
-public final class o extends b implements View.OnClickListener, com.kwad.components.ad.reward.presenter.platdetail.actionbar.a {
-
-    /* renamed from: ub */
-    private static long f11799ub = 300;
-    private ImageView gG;
-
-    /* renamed from: uc */
-    private ViewGroup f11800uc;
-
-    /* renamed from: ud */
-    private TextView f11801ud;
-
-    /* renamed from: ue */
-    private boolean f11802ue;
-
-    /* renamed from: uf */
-    private float f11803uf;
-
-    /* renamed from: ug */
-    private WeakReference<View> f11804ug;
-
-    /* renamed from: uh */
-    private r f11805uh;
-
-    /* renamed from: ui */
-    private boolean f11806ui = false;
-    private com.kwad.components.ad.reward.e.g mPlayEndPageListener = new com.kwad.components.ad.reward.e.a() { // from class: com.kwad.components.ad.reward.presenter.o.1
-        public AnonymousClass1() {
+/* loaded from: classes.dex */
+public final class o extends a {
+    private com.kwad.components.core.playable.a oP;
+    private PlayableSource sw;
+    private final com.kwad.components.ad.reward.d.h sx = new com.kwad.components.ad.reward.d.i() { // from class: com.kwad.components.ad.reward.presenter.o.1
+        AnonymousClass1() {
         }
 
-        @Override // com.kwad.components.ad.reward.e.g
-        public final void ch() {
-            o.this.hide();
+        @Override // com.kwad.components.ad.reward.d.i, com.kwad.components.ad.reward.d.h
+        public final void a(PlayableSource playableSource, @Nullable com.kwad.components.ad.reward.d.l lVar) {
+            o.this.sw = playableSource;
+            if (o.this.oP != null && o.this.oP.oY()) {
+                o.this.oP.e(playableSource);
+                com.kwad.components.ad.reward.j jVar = o.this.qt;
+                if (jVar != null) {
+                    jVar.d(playableSource);
+                    o.this.qt.F(true);
+                    if (o.this.qt.oN.jF()) {
+                        o.this.qt.oN.jG().pause();
+                    }
+                }
+                com.kwad.components.ad.reward.b.ff().b(playableSource);
+                return;
+            }
+            if (o.this.oP != null) {
+                o.this.oP.hA();
+            }
+            if (lVar != null) {
+                lVar.gW();
+                com.kwad.sdk.core.d.b.d("RewardPlayablePresenter", "onEnterPlayable outer handled");
+            } else if (com.kwad.sdk.core.response.a.a.ax(com.kwad.sdk.core.response.a.d.cb(o.this.qt.mAdTemplate))) {
+                DownloadLandPageActivity.launch(o.this.getActivity(), o.this.qt.mAdTemplate, true);
+            }
+        }
+
+        @Override // com.kwad.components.ad.reward.d.i, com.kwad.components.ad.reward.d.h
+        public final void ca() {
+            o.this.oP.hA();
+            com.kwad.components.ad.reward.j jVar = o.this.qt;
+            if (jVar != null) {
+                jVar.d((PlayableSource) null);
+                if (o.this.qt.oN.jF()) {
+                    o.this.qt.oN.jG().resume();
+                }
+            }
         }
     };
 
     /* renamed from: com.kwad.components.ad.reward.presenter.o$1 */
-    public class AnonymousClass1 extends com.kwad.components.ad.reward.e.a {
-        public AnonymousClass1() {
+    final class AnonymousClass1 extends com.kwad.components.ad.reward.d.i {
+        AnonymousClass1() {
         }
 
-        @Override // com.kwad.components.ad.reward.e.g
-        public final void ch() {
-            o.this.hide();
+        @Override // com.kwad.components.ad.reward.d.i, com.kwad.components.ad.reward.d.h
+        public final void a(PlayableSource playableSource, @Nullable com.kwad.components.ad.reward.d.l lVar) {
+            o.this.sw = playableSource;
+            if (o.this.oP != null && o.this.oP.oY()) {
+                o.this.oP.e(playableSource);
+                com.kwad.components.ad.reward.j jVar = o.this.qt;
+                if (jVar != null) {
+                    jVar.d(playableSource);
+                    o.this.qt.F(true);
+                    if (o.this.qt.oN.jF()) {
+                        o.this.qt.oN.jG().pause();
+                    }
+                }
+                com.kwad.components.ad.reward.b.ff().b(playableSource);
+                return;
+            }
+            if (o.this.oP != null) {
+                o.this.oP.hA();
+            }
+            if (lVar != null) {
+                lVar.gW();
+                com.kwad.sdk.core.d.b.d("RewardPlayablePresenter", "onEnterPlayable outer handled");
+            } else if (com.kwad.sdk.core.response.a.a.ax(com.kwad.sdk.core.response.a.d.cb(o.this.qt.mAdTemplate))) {
+                DownloadLandPageActivity.launch(o.this.getActivity(), o.this.qt.mAdTemplate, true);
+            }
+        }
+
+        @Override // com.kwad.components.ad.reward.d.i, com.kwad.components.ad.reward.d.h
+        public final void ca() {
+            o.this.oP.hA();
+            com.kwad.components.ad.reward.j jVar = o.this.qt;
+            if (jVar != null) {
+                jVar.d((PlayableSource) null);
+                if (o.this.qt.oN.jF()) {
+                    o.this.qt.oN.jG().resume();
+                }
+            }
         }
     }
 
     /* renamed from: com.kwad.components.ad.reward.presenter.o$2 */
-    public class AnonymousClass2 implements Runnable {
-        public AnonymousClass2() {
+    final class AnonymousClass2 implements ai.b {
+        AnonymousClass2() {
         }
 
-        @Override // java.lang.Runnable
-        public final void run() {
-            o.this.hT().start();
+        @Override // com.kwad.components.core.webview.jshandler.ai.b
+        public final void a(ai.a aVar) {
+            if (aVar.isSuccess()) {
+                return;
+            }
+            AdInfo cb = com.kwad.sdk.core.response.a.d.cb(o.this.qt.mAdTemplate);
+            long loadTime = o.this.qt.oP.getLoadTime();
+            if (loadTime == -1) {
+                return;
+            }
+            com.kwad.components.ad.reward.monitor.a.a(o.this.qt.pf, "playable", com.kwad.sdk.core.response.a.a.bB(cb), System.currentTimeMillis() - loadTime, 3);
         }
     }
 
     /* renamed from: com.kwad.components.ad.reward.presenter.o$3 */
-    public class AnonymousClass3 implements ValueAnimator.AnimatorUpdateListener {
-
-        /* renamed from: uk */
-        final /* synthetic */ ColorDrawable f11810uk;
-
-        public AnonymousClass3(ColorDrawable colorDrawable) {
-            colorDrawable = colorDrawable;
+    final class AnonymousClass3 implements KsAdWebView.d {
+        AnonymousClass3() {
         }
 
-        @Override // android.animation.ValueAnimator.AnimatorUpdateListener
-        public final void onAnimationUpdate(ValueAnimator valueAnimator) {
-            colorDrawable.setColor(((Integer) valueAnimator.getAnimatedValue()).intValue());
-        }
-    }
-
-    public o(r rVar) {
-        this.f11805uh = rVar;
-    }
-
-    private synchronized void hS() {
-        if (this.f11806ui) {
-            return;
-        }
-        com.kwad.sdk.core.adlog.c.d(this.rO.mAdTemplate, (JSONObject) null, new com.kwad.sdk.core.adlog.c.b().cN(192).aq(this.rO.f11689qf.getPlayDuration()));
-        this.f11806ui = true;
-    }
-
-    public Animator hT() {
-        ValueAnimator valueAnimator;
-        AnimatorSet animatorSet = new AnimatorSet();
-        ObjectAnimator ofFloat = ObjectAnimator.ofFloat(this.f11800uc, "translationX", getContext().getResources().getDimension(R.dimen.ksad_reward_playable_pre_tips_transx));
-        Drawable background = this.gG.getBackground();
-        if (background instanceof ColorDrawable) {
-            valueAnimator = com.kwad.sdk.widget.a.ofArgb(getContext().getResources().getColor(R.color.ksad_playable_pre_tips_icon_bg), getContext().getResources().getColor(R.color.ksad_reward_main_color));
-            valueAnimator.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() { // from class: com.kwad.components.ad.reward.presenter.o.3
-
-                /* renamed from: uk */
-                final /* synthetic */ ColorDrawable f11810uk;
-
-                public AnonymousClass3(ColorDrawable colorDrawable) {
-                    colorDrawable = colorDrawable;
-                }
-
-                @Override // android.animation.ValueAnimator.AnimatorUpdateListener
-                public final void onAnimationUpdate(ValueAnimator valueAnimator2) {
-                    colorDrawable.setColor(((Integer) valueAnimator2.getAnimatedValue()).intValue());
-                }
-            });
-        } else {
-            valueAnimator = null;
-        }
-        animatorSet.playTogether(ofFloat, valueAnimator, ObjectAnimator.ofFloat(this.f11801ud, "alpha", 0.0f, 1.0f));
-        animatorSet.setDuration(f11799ub);
-        return animatorSet;
-    }
-
-    private void initView() {
-        ViewGroup viewGroup = this.f11800uc;
-        if (viewGroup == null) {
-            return;
-        }
-        ImageView imageView = (ImageView) viewGroup.findViewById(R.id.ksad_playabel_pre_tips_icon);
-        this.gG = imageView;
-        imageView.setBackgroundColor(getContext().getResources().getColor(R.color.ksad_playable_pre_tips_icon_bg));
-        this.f11801ud = (TextView) this.f11800uc.findViewById(R.id.ksad_playabel_pre_tips_text);
-        this.f11800uc.setOnClickListener(this);
-    }
-
-    public final void I(boolean z10) {
-        ViewGroup viewGroup = this.f11800uc;
-        if (viewGroup == null || viewGroup.getVisibility() == 0) {
-            return;
-        }
-        hS();
-        WeakReference<View> weakReference = this.f11804ug;
-        if (weakReference != null && weakReference.get() != null) {
-            a(this.f11804ug.get().getLayoutParams());
-        }
-        this.f11800uc.setVisibility(0);
-        if (z10) {
-            this.f11800uc.postDelayed(new Runnable() { // from class: com.kwad.components.ad.reward.presenter.o.2
-                public AnonymousClass2() {
-                }
-
-                @Override // java.lang.Runnable
-                public final void run() {
-                    o.this.hT().start();
-                }
-            }, y.f.f18076n);
-        }
-    }
-
-    @Override // com.kwad.components.ad.reward.presenter.b, com.kwad.sdk.mvp.Presenter
-    public final void as() {
-        super.as();
-        if (this.f11800uc == null) {
-            ViewStub viewStub = (ViewStub) findViewById(R.id.ksad_playable_pre_tips_stub);
-            if (viewStub != null) {
-                this.f11800uc = (ViewGroup) viewStub.inflate();
-            } else {
-                this.f11800uc = (ViewGroup) findViewById(R.id.ksad_playable_pre_tips_root);
+        @Override // com.kwad.sdk.core.webview.KsAdWebView.d
+        public final void onPageFinished() {
+            AdInfo cb = com.kwad.sdk.core.response.a.d.cb(o.this.qt.mAdTemplate);
+            long loadTime = o.this.qt.oP.getLoadTime();
+            if (loadTime == -1) {
+                return;
             }
-            initView();
+            com.kwad.components.ad.reward.monitor.a.a(o.this.qt.pf, "playable", com.kwad.sdk.core.response.a.a.bB(cb), System.currentTimeMillis() - loadTime);
         }
-        if (this.rO.fZ()) {
-            a(new ViewGroup.LayoutParams(-1, this.f11800uc.getResources().getDimensionPixelSize(R.dimen.ksad_reward_js_actionbar_height)));
-        } else {
-            this.rO.f11692qi.a(this);
+
+        @Override // com.kwad.sdk.core.webview.KsAdWebView.d
+        public final void onPageStart() {
         }
-        this.rO.b(this.mPlayEndPageListener);
+
+        @Override // com.kwad.sdk.core.webview.KsAdWebView.d
+        public final void onReceivedHttpError(int i2, String str, String str2) {
+            com.kwad.components.ad.reward.j jVar = o.this.qt;
+            com.kwad.components.ad.reward.monitor.a.a(jVar.pf, "playable", com.kwad.sdk.core.response.a.a.bB(com.kwad.sdk.core.response.a.d.cb(jVar.mAdTemplate)), System.currentTimeMillis() - o.this.qt.oP.getLoadTime(), 2);
+        }
     }
 
-    public final void hide() {
-        ViewGroup viewGroup = this.f11800uc;
-        if (viewGroup == null) {
-            return;
-        }
-        viewGroup.setVisibility(8);
+    @Override // com.kwad.components.ad.reward.presenter.a, com.kwad.sdk.mvp.Presenter
+    public final void ar() {
+        super.ar();
+        com.kwad.components.ad.reward.j jVar = this.qt;
+        com.kwad.components.core.playable.a aVar = jVar.oP;
+        this.oP = aVar;
+        aVar.a(jVar.mAdTemplate, jVar.mRootContainer, jVar.mApkDownloadHelper);
+        com.kwad.components.ad.reward.monitor.a.a(this.qt.pf, "playable");
+        com.kwad.components.ad.reward.monitor.a.a(this.qt.pf, "playable", com.kwad.sdk.core.response.a.a.bB(com.kwad.sdk.core.response.a.d.cb(this.qt.mAdTemplate)));
+        this.oP.oX();
+        this.oP.a(new ai.b() { // from class: com.kwad.components.ad.reward.presenter.o.2
+            AnonymousClass2() {
+            }
+
+            @Override // com.kwad.components.core.webview.jshandler.ai.b
+            public final void a(ai.a aVar2) {
+                if (aVar2.isSuccess()) {
+                    return;
+                }
+                AdInfo cb = com.kwad.sdk.core.response.a.d.cb(o.this.qt.mAdTemplate);
+                long loadTime = o.this.qt.oP.getLoadTime();
+                if (loadTime == -1) {
+                    return;
+                }
+                com.kwad.components.ad.reward.monitor.a.a(o.this.qt.pf, "playable", com.kwad.sdk.core.response.a.a.bB(cb), System.currentTimeMillis() - loadTime, 3);
+            }
+        });
+        this.oP.a(new KsAdWebView.d() { // from class: com.kwad.components.ad.reward.presenter.o.3
+            AnonymousClass3() {
+            }
+
+            @Override // com.kwad.sdk.core.webview.KsAdWebView.d
+            public final void onPageFinished() {
+                AdInfo cb = com.kwad.sdk.core.response.a.d.cb(o.this.qt.mAdTemplate);
+                long loadTime = o.this.qt.oP.getLoadTime();
+                if (loadTime == -1) {
+                    return;
+                }
+                com.kwad.components.ad.reward.monitor.a.a(o.this.qt.pf, "playable", com.kwad.sdk.core.response.a.a.bB(cb), System.currentTimeMillis() - loadTime);
+            }
+
+            @Override // com.kwad.sdk.core.webview.KsAdWebView.d
+            public final void onPageStart() {
+            }
+
+            @Override // com.kwad.sdk.core.webview.KsAdWebView.d
+            public final void onReceivedHttpError(int i2, String str, String str2) {
+                com.kwad.components.ad.reward.j jVar2 = o.this.qt;
+                com.kwad.components.ad.reward.monitor.a.a(jVar2.pf, "playable", com.kwad.sdk.core.response.a.a.bB(com.kwad.sdk.core.response.a.d.cb(jVar2.mAdTemplate)), System.currentTimeMillis() - o.this.qt.oP.getLoadTime(), 2);
+            }
+        });
+        com.kwad.components.ad.reward.b.ff().a(this.sx);
     }
 
-    @Override // android.view.View.OnClickListener
-    public final void onClick(View view) {
-        ViewGroup viewGroup = this.f11800uc;
-        if (viewGroup != null) {
-            viewGroup.setVisibility(8);
+    public final void e(@Nullable PlayableSource playableSource) {
+        com.kwad.components.core.playable.a aVar = this.oP;
+        if (aVar != null) {
+            if (playableSource != null) {
+                aVar.e(playableSource);
+            } else {
+                aVar.e(this.sw);
+            }
         }
-        com.kwad.components.ad.reward.a.fr().a(PlayableSource.PENDANT_CLICK_NOT_AUTO);
-        com.kwad.sdk.core.adlog.c.e(this.rO.mAdTemplate, (JSONObject) null, new com.kwad.sdk.core.adlog.c.b().cN(192).aq(this.rO.f11689qf.getPlayDuration()));
+    }
+
+    public final void hA() {
+        com.kwad.components.core.playable.a aVar = this.oP;
+        if (aVar != null) {
+            aVar.hA();
+        }
     }
 
     @Override // com.kwad.sdk.mvp.Presenter
     public final void onCreate() {
         super.onCreate();
-        this.f11803uf = com.kwad.components.ad.reward.a.b.gQ();
-        this.f11802ue = !com.kwad.components.ad.reward.a.b.gS() && com.kwad.components.ad.reward.a.b.gR();
+        ((KsAdWebView) findViewById(R.id.ksad_playable_webview)).setVisibility(4);
     }
 
     @Override // com.kwad.sdk.mvp.Presenter
     public final void onUnbind() {
         super.onUnbind();
-        this.rO.c(this.mPlayEndPageListener);
-        this.rO.f11692qi.b(this);
-    }
-
-    @Override // com.kwad.components.ad.reward.presenter.platdetail.actionbar.a
-    public final void a(RewardActionBarControl.ShowActionBarResult showActionBarResult, View view) {
-        this.f11804ug = new WeakReference<>(view);
-        ViewGroup.LayoutParams layoutParams = view.getLayoutParams();
-        com.kwad.sdk.core.d.c.d("RewardPlayablePreTips", "onActionBarShown: type: " + showActionBarResult + ", params.height: " + layoutParams.height + ", params.width: " + layoutParams.width);
-        a(layoutParams);
-    }
-
-    private void a(ViewGroup.LayoutParams layoutParams) {
-        if (layoutParams == null) {
-            return;
-        }
-        ViewGroup.LayoutParams layoutParams2 = this.f11800uc.getLayoutParams();
-        if (layoutParams2 instanceof ViewGroup.MarginLayoutParams) {
-            ViewGroup.MarginLayoutParams marginLayoutParams = (ViewGroup.MarginLayoutParams) layoutParams2;
-            if (layoutParams.height == -1) {
-                marginLayoutParams.bottomMargin = this.f11800uc.getResources().getDimensionPixelSize(R.dimen.ksad_reward_playable_pre_tips_margin_bottom_without_actionbar);
-            } else {
-                int dimensionPixelSize = this.f11800uc.getResources().getDimensionPixelSize(R.dimen.ksad_reward_playable_pre_tips_margin_bottom);
-                if (layoutParams instanceof ViewGroup.MarginLayoutParams) {
-                    ViewGroup.MarginLayoutParams marginLayoutParams2 = (ViewGroup.MarginLayoutParams) layoutParams;
-                    WeakReference<View> weakReference = this.f11804ug;
-                    View view = weakReference != null ? weakReference.get() : null;
-                    int i10 = marginLayoutParams2.height;
-                    if (i10 <= 0 && view != null) {
-                        i10 = view.getHeight();
-                    }
-                    marginLayoutParams.bottomMargin = i10 + marginLayoutParams2.bottomMargin + dimensionPixelSize;
-                } else {
-                    marginLayoutParams.bottomMargin = layoutParams.height + dimensionPixelSize;
-                }
-            }
-            this.f11800uc.setLayoutParams(marginLayoutParams);
-        }
+        this.oP.oW();
+        this.oP.hA();
+        com.kwad.components.ad.reward.b.ff().b(this.sx);
     }
 }

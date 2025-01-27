@@ -1,6 +1,7 @@
 package com.vivo.push.c;
 
 import android.content.Context;
+import android.os.Build;
 import android.security.KeyPairGeneratorSpec;
 import android.text.TextUtils;
 import android.util.Base64;
@@ -18,28 +19,28 @@ import javax.security.auth.x500.X500Principal;
 public final class e implements b {
 
     /* renamed from: a */
-    private static PrivateKey f24968a;
+    private static PrivateKey f30941a;
 
     /* renamed from: b */
-    private static PublicKey f24969b;
+    private static PublicKey f30942b;
 
     /* renamed from: c */
-    private static KeyStore f24970c;
+    private static KeyStore f30943c;
 
     /* renamed from: d */
-    private static X500Principal f24971d;
+    private static X500Principal f30944d;
 
     /* renamed from: e */
-    private Context f24972e;
+    private Context f30945e;
 
     public e(Context context) {
-        this.f24972e = context;
+        this.f30945e = context;
         try {
             b();
             a(context);
-        } catch (Exception e10) {
-            e10.printStackTrace();
-            p.a("RsaSecurity", "init error" + e10.getMessage());
+        } catch (Exception e2) {
+            e2.printStackTrace();
+            p.a("RsaSecurity", "init error" + e2.getMessage());
         }
     }
 
@@ -48,13 +49,13 @@ public final class e implements b {
             return false;
         }
         try {
-            if (f24970c == null) {
+            if (f30943c == null) {
                 b();
             }
-            return f24970c.containsAlias(str);
-        } catch (Exception e10) {
-            e10.printStackTrace();
-            p.a("RsaSecurity", "getPrivateKeySigin error" + e10.getMessage());
+            return f30943c.containsAlias(str);
+        } catch (Exception e2) {
+            e2.printStackTrace();
+            p.a("RsaSecurity", "getPrivateKeySigin error" + e2.getMessage());
             return false;
         }
     }
@@ -62,20 +63,20 @@ public final class e implements b {
     @Override // com.vivo.push.c.b
     public final String a(String str) {
         try {
-            if (TextUtils.isEmpty(str) || b(this.f24972e) == null) {
+            if (TextUtils.isEmpty(str) || b(this.f30945e) == null) {
                 return null;
             }
             byte[] bytes = str.getBytes("UTF-8");
-            PrivateKey b10 = b(this.f24972e);
+            PrivateKey b2 = b(this.f30945e);
             Signature signature = Signature.getInstance("SHA256withRSA");
-            signature.initSign(b10);
+            signature.initSign(b2);
             signature.update(bytes);
             String encodeToString = Base64.encodeToString(signature.sign(), 2);
             p.d("RsaSecurity", str.hashCode() + " = " + encodeToString);
             return encodeToString;
-        } catch (Exception e10) {
-            e10.printStackTrace();
-            p.a("RsaSecurity", "signClientSDK error" + e10.getMessage());
+        } catch (Exception e2) {
+            e2.printStackTrace();
+            p.a("RsaSecurity", "signClientSDK error" + e2.getMessage());
             return null;
         }
     }
@@ -83,12 +84,12 @@ public final class e implements b {
     private static void b() {
         try {
             KeyStore keyStore = KeyStore.getInstance("AndroidKeyStore");
-            f24970c = keyStore;
+            f30943c = keyStore;
             keyStore.load(null);
-            f24971d = new X500Principal("CN=Push SDK, OU=VIVO, O=VIVO PUSH, C=CN");
-        } catch (Exception e10) {
-            e10.printStackTrace();
-            p.a("RsaSecurity", "initKeyStore error" + e10.getMessage());
+            f30944d = new X500Principal("CN=Push SDK, OU=VIVO, O=VIVO PUSH, C=CN");
+        } catch (Exception e2) {
+            e2.printStackTrace();
+            p.a("RsaSecurity", "initKeyStore error" + e2.getMessage());
         }
     }
 
@@ -99,9 +100,9 @@ public final class e implements b {
             signature.initVerify(publicKey);
             signature.update(bArr);
             return signature.verify(bArr2);
-        } catch (Exception e10) {
-            e10.printStackTrace();
-            p.a("RsaSecurity", "verifyClientSDK error" + e10.getMessage());
+        } catch (Exception e2) {
+            e2.printStackTrace();
+            p.a("RsaSecurity", "verifyClientSDK error" + e2.getMessage());
             return false;
         }
     }
@@ -109,10 +110,10 @@ public final class e implements b {
     private static PrivateKey b(Context context) {
         PrivateKey privateKey;
         try {
-            privateKey = f24968a;
-        } catch (Exception e10) {
-            e10.printStackTrace();
-            p.a("RsaSecurity", "getPrivateKeySigin error" + e10.getMessage());
+            privateKey = f30941a;
+        } catch (Exception e2) {
+            e2.printStackTrace();
+            p.a("RsaSecurity", "getPrivateKeySigin error" + e2.getMessage());
         }
         if (privateKey != null) {
             return privateKey;
@@ -124,10 +125,10 @@ public final class e implements b {
         if (!b("PushRsaKeyAlias")) {
             a(context);
         }
-        KeyStore.Entry entry = f24970c.getEntry("PushRsaKeyAlias", null);
+        KeyStore.Entry entry = f30943c.getEntry("PushRsaKeyAlias", null);
         if (entry instanceof KeyStore.PrivateKeyEntry) {
             PrivateKey privateKey2 = ((KeyStore.PrivateKeyEntry) entry).getPrivateKey();
-            f24968a = privateKey2;
+            f30941a = privateKey2;
             return privateKey2;
         }
         return null;
@@ -143,16 +144,19 @@ public final class e implements b {
                 Calendar calendar = Calendar.getInstance();
                 Calendar calendar2 = Calendar.getInstance();
                 calendar2.add(1, 999);
-                KeyPairGeneratorSpec build = new KeyPairGeneratorSpec.Builder(context.getApplicationContext()).setAlias("PushRsaKeyAlias").setSubject(f24971d).setSerialNumber(BigInteger.valueOf(1337L)).setStartDate(calendar.getTime()).setEndDate(calendar2.getTime()).build();
-                KeyPairGenerator keyPairGenerator = KeyPairGenerator.getInstance(d3.d.f25247a, "AndroidKeyStore");
-                keyPairGenerator.initialize(build);
-                keyPairGenerator.generateKeyPair();
+                if (Build.VERSION.SDK_INT >= 18) {
+                    KeyPairGeneratorSpec build = new KeyPairGeneratorSpec.Builder(context.getApplicationContext()).setAlias("PushRsaKeyAlias").setSubject(f30944d).setSerialNumber(BigInteger.valueOf(1337L)).setStartDate(calendar.getTime()).setEndDate(calendar2.getTime()).build();
+                    KeyPairGenerator keyPairGenerator = KeyPairGenerator.getInstance("RSA", "AndroidKeyStore");
+                    keyPairGenerator.initialize(build);
+                    keyPairGenerator.generateKeyPair();
+                    return;
+                }
                 return;
             }
             p.d("RsaSecurity", " generateRSAKeyPairSign this keyAlias PushRsaKeyAlias is Created ");
-        } catch (Exception e10) {
-            e10.printStackTrace();
-            p.a("RsaSecurity", "generateRSAKeyPairSign error" + e10.getMessage());
+        } catch (Exception e2) {
+            e2.printStackTrace();
+            p.a("RsaSecurity", "generateRSAKeyPairSign error" + e2.getMessage());
         }
     }
 
@@ -160,21 +164,21 @@ public final class e implements b {
     public final PublicKey a() {
         PublicKey publicKey;
         try {
-            publicKey = f24969b;
-        } catch (Exception e10) {
-            e10.printStackTrace();
-            p.a("RsaSecurity", "getPublicKeySign error" + e10.getMessage());
+            publicKey = f30942b;
+        } catch (Exception e2) {
+            e2.printStackTrace();
+            p.a("RsaSecurity", "getPublicKeySign error" + e2.getMessage());
         }
         if (publicKey != null) {
             return publicKey;
         }
         if (!b("PushRsaKeyAlias")) {
-            a(this.f24972e);
+            a(this.f30945e);
         }
-        KeyStore.Entry entry = f24970c.getEntry("PushRsaKeyAlias", null);
+        KeyStore.Entry entry = f30943c.getEntry("PushRsaKeyAlias", null);
         if (entry instanceof KeyStore.PrivateKeyEntry) {
             PublicKey publicKey2 = ((KeyStore.PrivateKeyEntry) entry).getCertificate().getPublicKey();
-            f24969b = publicKey2;
+            f30942b = publicKey2;
             return publicKey2;
         }
         return null;

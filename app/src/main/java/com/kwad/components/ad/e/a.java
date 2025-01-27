@@ -1,25 +1,28 @@
 package com.kwad.components.ad.e;
 
-import com.ksad.annotation.invoker.InvokeBy;
-import com.kwad.sdk.core.config.d;
-import com.kwad.sdk.core.config.item.r;
+import android.content.Context;
+import androidx.annotation.NonNull;
+import com.kwad.sdk.api.KsLoadManager;
+import com.kwad.sdk.api.KsScene;
 
-/* loaded from: classes2.dex */
-public final class a {
+/* loaded from: classes.dex */
+public final class a extends com.kwad.sdk.components.d implements com.kwad.components.ad.a.f {
+    @Override // com.kwad.sdk.components.a
+    public final Class getComponentsType() {
+        return com.kwad.components.ad.a.f.class;
+    }
 
-    /* renamed from: da */
-    public static r f11452da = new r("kwaiLogoUrl", null);
+    @Override // com.kwad.sdk.components.a
+    public final void init(Context context) {
+    }
 
-    /* renamed from: db */
-    public static r f11453db = new r("attentionTips", "去关注TA");
+    @Override // com.kwad.components.ad.a.f
+    public final void loadNativeAd(KsScene ksScene, @NonNull KsLoadManager.NativeAdListener nativeAdListener) {
+        c.loadNativeAd(ksScene, nativeAdListener);
+    }
 
-    /* renamed from: dc */
-    public static r f11454dc = new r("viewHomeTips", "查看TA的主页");
-
-    /* renamed from: dd */
-    public static r f11455dd = new r("buyNowTips", "立即抢购");
-
-    @InvokeBy(invokerClass = d.class, methodId = "initConfigList")
-    public static void init() {
+    @Override // com.kwad.components.ad.a.f
+    public final void loadNativeAd(String str, @NonNull KsLoadManager.NativeAdListener nativeAdListener) {
+        c.loadNativeAd(str, nativeAdListener);
     }
 }

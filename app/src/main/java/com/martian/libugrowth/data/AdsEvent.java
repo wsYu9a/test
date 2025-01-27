@@ -1,15 +1,10 @@
 package com.martian.libugrowth.data;
 
-import android.text.TextUtils;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
-import x8.c;
 
 /* loaded from: classes3.dex */
 public class AdsEvent {
-    private Map<Long, Integer> errCodes;
     private List<AdEvent> eventValues;
     private String itemId;
     private String pid;
@@ -17,18 +12,14 @@ public class AdsEvent {
     private String unionType;
 
     public String getAdActionsString() {
-        StringBuilder sb2 = new StringBuilder();
+        StringBuilder sb = new StringBuilder();
         for (AdEvent adEvent : getEventValues()) {
-            sb2.append(adEvent.getType());
-            sb2.append(":");
-            sb2.append(adEvent.getValue());
-            sb2.append("   ");
+            sb.append(adEvent.getType());
+            sb.append(":");
+            sb.append(adEvent.getValue());
+            sb.append("   ");
         }
-        return sb2.toString();
-    }
-
-    public Map<Long, Integer> getErrCodes() {
-        return this.errCodes;
+        return sb.toString();
     }
 
     public List<AdEvent> getEventValues() {
@@ -54,52 +45,28 @@ public class AdsEvent {
         return this.unionType;
     }
 
-    public void increaseErrCode(c cVar) {
-        if (cVar == null) {
-            return;
-        }
-        if (this.errCodes == null) {
-            this.errCodes = new HashMap();
-        }
-        long c10 = cVar.c();
-        Integer num = this.errCodes.get(Long.valueOf(c10));
-        if (num == null) {
-            this.errCodes.put(Long.valueOf(c10), 1);
-        } else {
-            this.errCodes.put(Long.valueOf(c10), Integer.valueOf(num.intValue() + 1));
-        }
-    }
-
-    public boolean isPidEvent() {
-        return TextUtils.isEmpty(this.unionType) && TextUtils.isEmpty(this.slotId);
-    }
-
-    public void setErrCodes(Map<Long, Integer> map) {
-        this.errCodes = map;
-    }
-
-    public AdsEvent setEventValues(List<AdEvent> list) {
-        this.eventValues = list;
+    public AdsEvent setEventValues(List<AdEvent> eventValues) {
+        this.eventValues = eventValues;
         return this;
     }
 
-    public AdsEvent setItemId(String str) {
-        this.itemId = str;
+    public AdsEvent setItemId(String itemId) {
+        this.itemId = itemId;
         return this;
     }
 
-    public AdsEvent setPid(String str) {
-        this.pid = str;
+    public AdsEvent setPid(String pid) {
+        this.pid = pid;
         return this;
     }
 
-    public AdsEvent setSlotId(String str) {
-        this.slotId = str;
+    public AdsEvent setSlotId(String slotId) {
+        this.slotId = slotId;
         return this;
     }
 
-    public AdsEvent setUnionType(String str) {
-        this.unionType = str;
+    public AdsEvent setUnionType(String unionType) {
+        this.unionType = unionType;
         return this;
     }
 }

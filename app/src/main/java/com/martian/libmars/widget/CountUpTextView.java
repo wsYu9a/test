@@ -8,95 +8,103 @@ import android.util.AttributeSet;
 import android.view.animation.AccelerateDecelerateInterpolator;
 import android.widget.TextView;
 import androidx.core.content.ContextCompat;
-import com.martian.libmars.R;
-import com.martian.libmars.common.ConfigSingleton;
-import com.martian.libmars.widget.CountUpTextView;
+import com.martian.theme.yellow.R;
 import java.util.Locale;
-import k9.a;
 
 @SuppressLint({"AppCompatCustomView"})
-/* loaded from: classes3.dex */
-public class CountUpTextView extends TextView implements a {
+/* loaded from: classes2.dex */
+public class CountUpTextView extends TextView implements g.a {
 
-    /* renamed from: e */
-    public static final int f12522e = 1000;
+    /* renamed from: a */
+    private static final int f10311a = 1000;
 
     /* renamed from: b */
-    public int f12523b;
+    private int f10312b;
 
     /* renamed from: c */
-    public float f12524c;
+    private float f10313c;
 
     /* renamed from: d */
-    public int f12525d;
+    private int f10314d;
 
     public CountUpTextView(Context context) {
         super(context);
-        this.f12523b = 0;
-        this.f12524c = 0.0f;
-        c();
+        this.f10312b = 0;
+        this.f10313c = 0.0f;
+        a();
     }
 
-    private void c() {
-        p();
+    private void a() {
+        g();
     }
 
-    private void f(Context context, AttributeSet attributeSet) {
-        TypedArray obtainStyledAttributes = context.obtainStyledAttributes(attributeSet, R.styleable.ThemeCountUpTextView);
-        this.f12525d = obtainStyledAttributes.getColor(R.styleable.ThemeCountUpTextView_countUpTextViewBackgroundType, 0);
-        obtainStyledAttributes.recycle();
-    }
-
-    public final /* synthetic */ void d(int i10, ValueAnimator valueAnimator) {
-        float floatValue = ((Float) valueAnimator.getAnimatedValue()).floatValue();
+    /* renamed from: b */
+    public /* synthetic */ void c(final int dot, ValueAnimator valueAnimator1) {
+        float floatValue = ((Float) valueAnimator1.getAnimatedValue()).floatValue();
         if (((int) floatValue) - floatValue == 0.0f) {
             setText(String.valueOf(floatValue));
             return;
         }
-        setText(String.format(Locale.getDefault(), "%." + i10 + "f", valueAnimator.getAnimatedValue()));
+        setText(String.format(Locale.getDefault(), "%." + dot + "f", valueAnimator1.getAnimatedValue()));
     }
 
-    public final /* synthetic */ void e(String str, ValueAnimator valueAnimator) {
-        setText(str + valueAnimator.getAnimatedValue().toString());
+    /* renamed from: d */
+    public /* synthetic */ void e(final String str, ValueAnimator valueAnimator1) {
+        setText(str + valueAnimator1.getAnimatedValue().toString());
     }
 
-    public void g(float f10, float f11, int i10) {
-        ValueAnimator ofFloat = ValueAnimator.ofFloat(f10, f11);
+    private void f(Context context, AttributeSet attrs) {
+        TypedArray obtainStyledAttributes = context.obtainStyledAttributes(attrs, R.styleable.ThemeTextView);
+        this.f10314d = obtainStyledAttributes.getColor(R.styleable.ThemeTextView_textColorType, 0);
+        obtainStyledAttributes.recycle();
+    }
+
+    @Override // g.a
+    public void g() {
+        int i2;
+        if (this.f10314d == -1) {
+            return;
+        }
+        if (com.martian.libmars.d.h.F().I0()) {
+            int i3 = this.f10314d;
+            i2 = i3 == 3 ? com.martian.libmars.R.color.night_text_color_unclickable : i3 == 2 ? com.martian.libmars.R.color.night_text_color_thirdly : i3 == 1 ? com.martian.libmars.R.color.night_text_color_secondary : com.martian.libmars.R.color.night_text_color_primary;
+        } else {
+            int i4 = this.f10314d;
+            i2 = i4 == 3 ? com.martian.libmars.R.color.day_text_color_unclickable : i4 == 2 ? com.martian.libmars.R.color.day_text_color_thirdly : i4 == 1 ? com.martian.libmars.R.color.day_text_color_secondary : com.martian.libmars.R.color.day_text_color_primary;
+        }
+        setTextColor(ContextCompat.getColor(getContext(), i2));
+    }
+
+    public void h() {
+        this.f10312b = 0;
+        this.f10313c = 0.0f;
+    }
+
+    public void i(float oldNumber, float newNumber, final int dot) {
+        ValueAnimator ofFloat = ValueAnimator.ofFloat(oldNumber, newNumber);
         ofFloat.setDuration(1000L);
-        ofFloat.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() { // from class: n9.d
-
-            /* renamed from: c */
-            public final /* synthetic */ int f28808c;
-
-            public /* synthetic */ d(int i102) {
-                i10 = i102;
-            }
-
+        ofFloat.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() { // from class: com.martian.libmars.widget.a
             @Override // android.animation.ValueAnimator.AnimatorUpdateListener
             public final void onAnimationUpdate(ValueAnimator valueAnimator) {
-                CountUpTextView.this.d(i10, valueAnimator);
+                CountUpTextView.this.c(dot, valueAnimator);
             }
         });
         ofFloat.start();
     }
 
-    public void h(int i10, int i11) {
-        i(i10, i11, "");
+    public void j(int oldNumber, int newNumber) {
+        k(oldNumber, newNumber, "");
     }
 
-    public void i(int i10, int i11, String str) {
-        ValueAnimator ofInt = ValueAnimator.ofInt(i10, i11);
+    public void k(int oldNumber, int newNumber, final String str) {
+        if (!com.martian.libsupport.l.q()) {
+            setText(str);
+            return;
+        }
+        ValueAnimator ofInt = ValueAnimator.ofInt(oldNumber, newNumber);
         ofInt.setDuration(1000L);
         ofInt.setInterpolator(new AccelerateDecelerateInterpolator());
-        ofInt.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() { // from class: n9.c
-
-            /* renamed from: c */
-            public final /* synthetic */ String f28806c;
-
-            public /* synthetic */ c(String str2) {
-                str = str2;
-            }
-
+        ofInt.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() { // from class: com.martian.libmars.widget.b
             @Override // android.animation.ValueAnimator.AnimatorUpdateListener
             public final void onAnimationUpdate(ValueAnimator valueAnimator) {
                 CountUpTextView.this.e(str, valueAnimator);
@@ -105,80 +113,63 @@ public class CountUpTextView extends TextView implements a {
         ofInt.start();
     }
 
-    public void j(float f10, int i10) {
-        float f11 = this.f12524c;
-        if (f10 > f11) {
-            g(f11, f10, i10);
-        } else if (((int) f10) - f10 == 0.0f) {
-            setText(String.valueOf(f10));
+    public void l(float newNumber, int dot) {
+        if (newNumber > this.f10313c && com.martian.libsupport.l.q()) {
+            i(this.f10313c, newNumber, dot);
+        } else if (((int) newNumber) - newNumber == 0.0f) {
+            setText(String.valueOf(newNumber));
         } else {
-            setText(String.format(Locale.getDefault(), "%." + i10 + "f", Float.valueOf(f10)));
+            setText(String.format(Locale.getDefault(), "%." + dot + "f", Float.valueOf(newNumber)));
         }
-        this.f12524c = f10;
+        this.f10313c = newNumber;
     }
 
     @Override // android.widget.TextView, android.view.View
-    public void onAttachedToWindow() {
+    protected void onAttachedToWindow() {
         super.onAttachedToWindow();
-        p();
-        ConfigSingleton.D().h(this);
+        g();
+        com.martian.libmars.d.h.F().a(this);
     }
 
     @Override // android.view.View
-    public void onDetachedFromWindow() {
+    protected void onDetachedFromWindow() {
         super.onDetachedFromWindow();
-        ConfigSingleton.D().X0(this);
+        com.martian.libmars.d.h.F().j1(this);
     }
 
-    @Override // k9.a
-    public void p() {
-        int i10;
-        if (isInEditMode() || this.f12525d == -1) {
-            return;
-        }
-        if (ConfigSingleton.D().A0()) {
-            int i11 = this.f12525d;
-            i10 = i11 == 3 ? R.color.night_text_color_unclickable : i11 == 2 ? R.color.night_text_color_thirdly : i11 == 1 ? R.color.night_text_color_secondary : R.color.night_text_color_primary;
+    public void setNumber(int newNumber) {
+        this.f10312b = newNumber;
+        this.f10313c = newNumber;
+    }
+
+    public void setNumberText(int newNumber) {
+        int i2 = this.f10312b;
+        if (newNumber > i2) {
+            j(i2, newNumber);
         } else {
-            int i12 = this.f12525d;
-            i10 = i12 == 3 ? R.color.day_text_color_unclickable : i12 == 2 ? R.color.day_text_color_thirdly : i12 == 1 ? R.color.day_text_color_secondary : R.color.day_text_color_primary;
+            setText(String.valueOf(newNumber));
         }
-        setTextColor(ContextCompat.getColor(getContext(), i10));
+        this.f10312b = newNumber;
     }
 
-    public void setNumber(int i10) {
-        this.f12523b = i10;
-        this.f12524c = i10;
+    public void setNumber(float newNumber) {
+        this.f10312b = (int) newNumber;
+        this.f10313c = newNumber;
     }
 
-    public void setNumberText(int i10) {
-        int i11 = this.f12523b;
-        if (i10 > i11) {
-            h(i11, i10);
-        } else {
-            setText(String.valueOf(i10));
-        }
-        this.f12523b = i10;
+    public CountUpTextView(Context context, AttributeSet attrs) {
+        super(context, attrs);
+        this.f10312b = 0;
+        this.f10313c = 0.0f;
+        f(context, attrs);
+        a();
     }
 
-    public void setNumber(float f10) {
-        this.f12523b = (int) f10;
-        this.f12524c = f10;
-    }
-
-    public CountUpTextView(Context context, AttributeSet attributeSet) {
-        super(context, attributeSet);
-        this.f12523b = 0;
-        this.f12524c = 0.0f;
-        f(context, attributeSet);
-        c();
-    }
-
-    public CountUpTextView(Context context, AttributeSet attributeSet, int i10) {
-        super(context, attributeSet, i10);
-        this.f12523b = 0;
-        this.f12524c = 0.0f;
-        f(context, attributeSet);
-        c();
+    public CountUpTextView(Context context, AttributeSet attrs, int defStyle) {
+        super(context, attrs, defStyle);
+        this.f10312b = 0;
+        this.f10313c = 0.0f;
+        f(context, attrs);
+        a();
     }
 }

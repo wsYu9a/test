@@ -1,9 +1,9 @@
 package com.martian.mibook.lib.original.http.request;
 
+import com.martian.libcomm.http.requests.d.a;
 import com.martian.mibook.lib.account.request.TYAuthoptParams;
-import v8.a;
 
-/* loaded from: classes3.dex */
+/* loaded from: classes2.dex */
 public class ORSearchBookParams extends TYAuthoptParams {
 
     @a
@@ -46,23 +46,23 @@ public class ORSearchBookParams extends TYAuthoptParams {
         return this.searchType;
     }
 
-    public void setCtype(Integer num) {
-        this.ctype = num;
+    public void setCtype(Integer ctype) {
+        this.ctype = ctype;
     }
 
-    public void setKeywords(String str) {
-        this.keywords = str;
+    public void setKeywords(String keywords) {
+        this.keywords = keywords;
     }
 
-    public void setPage(Integer num) {
-        this.page = num;
+    public void setPage(Integer page) {
+        this.page = page;
     }
 
-    public void setPageSize(Integer num) {
-        this.pageSize = num;
+    public void setPageSize(Integer pageSize) {
+        this.pageSize = pageSize;
     }
 
-    public void setSearchType(Integer num) {
-        this.searchType = num;
+    public void setSearchType(Integer searchType) {
+        this.searchType = searchType;
     }
 }

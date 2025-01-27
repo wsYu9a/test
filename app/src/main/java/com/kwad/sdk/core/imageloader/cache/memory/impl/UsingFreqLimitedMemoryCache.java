@@ -9,12 +9,12 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Set;
 
-/* loaded from: classes3.dex */
+/* loaded from: classes2.dex */
 public class UsingFreqLimitedMemoryCache extends LimitedMemoryCache {
     private final Map<DecodedResult, Integer> usingCounts;
 
-    public UsingFreqLimitedMemoryCache(int i10) {
-        super(i10);
+    public UsingFreqLimitedMemoryCache(int i2) {
+        super(i2);
         this.usingCounts = Collections.synchronizedMap(new HashMap());
     }
 
@@ -67,23 +67,19 @@ public class UsingFreqLimitedMemoryCache extends LimitedMemoryCache {
         DecodedResult decodedResult;
         Set<Map.Entry<DecodedResult, Integer>> entrySet = this.usingCounts.entrySet();
         synchronized (this.usingCounts) {
-            try {
-                decodedResult = null;
-                Integer num = null;
-                for (Map.Entry<DecodedResult, Integer> entry : entrySet) {
-                    if (decodedResult == null) {
+            decodedResult = null;
+            Integer num = null;
+            for (Map.Entry<DecodedResult, Integer> entry : entrySet) {
+                if (decodedResult == null) {
+                    decodedResult = entry.getKey();
+                    num = entry.getValue();
+                } else {
+                    Integer value = entry.getValue();
+                    if (value.intValue() < num.intValue()) {
                         decodedResult = entry.getKey();
-                        num = entry.getValue();
-                    } else {
-                        Integer value = entry.getValue();
-                        if (value.intValue() < num.intValue()) {
-                            decodedResult = entry.getKey();
-                            num = value;
-                        }
+                        num = value;
                     }
                 }
-            } catch (Throwable th2) {
-                throw th2;
             }
         }
         this.usingCounts.remove(decodedResult);

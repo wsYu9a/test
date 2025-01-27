@@ -21,7 +21,7 @@ import java.io.IOException;
 import java.nio.ByteBuffer;
 import java.security.MessageDigest;
 
-/* loaded from: classes2.dex */
+/* loaded from: classes.dex */
 public class VideoDecoder<T> implements ResourceDecoder<T, Bitmap> {
     public static final long DEFAULT_FRAME = -1;
 
@@ -34,17 +34,23 @@ public class VideoDecoder<T> implements ResourceDecoder<T, Bitmap> {
     public static final Option<Long> TARGET_FRAME = Option.disk("com.bumptech.glide.load.resource.bitmap.VideoBitmapDecode.TargetFrame", -1L, new Option.CacheKeyUpdater<Long>() { // from class: com.bumptech.glide.load.resource.bitmap.VideoDecoder.1
         private final ByteBuffer buffer = ByteBuffer.allocate(8);
 
+        AnonymousClass1() {
+        }
+
         @Override // com.bumptech.glide.load.Option.CacheKeyUpdater
-        public void update(@NonNull byte[] bArr, @NonNull Long l10, @NonNull MessageDigest messageDigest) {
+        public void update(@NonNull byte[] bArr, @NonNull Long l, @NonNull MessageDigest messageDigest) {
             messageDigest.update(bArr);
             synchronized (this.buffer) {
                 this.buffer.position(0);
-                messageDigest.update(this.buffer.putLong(l10.longValue()).array());
+                messageDigest.update(this.buffer.putLong(l.longValue()).array());
             }
         }
     });
     public static final Option<Integer> FRAME_OPTION = Option.disk("com.bumptech.glide.load.resource.bitmap.VideoBitmapDecode.FrameOption", 2, new Option.CacheKeyUpdater<Integer>() { // from class: com.bumptech.glide.load.resource.bitmap.VideoDecoder.2
         private final ByteBuffer buffer = ByteBuffer.allocate(4);
+
+        AnonymousClass2() {
+        }
 
         @Override // com.bumptech.glide.load.Option.CacheKeyUpdater
         public void update(@NonNull byte[] bArr, @NonNull Integer num, @NonNull MessageDigest messageDigest) {
@@ -61,22 +67,28 @@ public class VideoDecoder<T> implements ResourceDecoder<T, Bitmap> {
     private static final MediaMetadataRetrieverFactory DEFAULT_FACTORY = new MediaMetadataRetrieverFactory();
 
     /* renamed from: com.bumptech.glide.load.resource.bitmap.VideoDecoder$1 */
-    public class AnonymousClass1 implements Option.CacheKeyUpdater<Long> {
+    class AnonymousClass1 implements Option.CacheKeyUpdater<Long> {
         private final ByteBuffer buffer = ByteBuffer.allocate(8);
 
+        AnonymousClass1() {
+        }
+
         @Override // com.bumptech.glide.load.Option.CacheKeyUpdater
-        public void update(@NonNull byte[] bArr, @NonNull Long l10, @NonNull MessageDigest messageDigest) {
+        public void update(@NonNull byte[] bArr, @NonNull Long l, @NonNull MessageDigest messageDigest) {
             messageDigest.update(bArr);
             synchronized (this.buffer) {
                 this.buffer.position(0);
-                messageDigest.update(this.buffer.putLong(l10.longValue()).array());
+                messageDigest.update(this.buffer.putLong(l.longValue()).array());
             }
         }
     }
 
     /* renamed from: com.bumptech.glide.load.resource.bitmap.VideoDecoder$2 */
-    public class AnonymousClass2 implements Option.CacheKeyUpdater<Integer> {
+    class AnonymousClass2 implements Option.CacheKeyUpdater<Integer> {
         private final ByteBuffer buffer = ByteBuffer.allocate(4);
+
+        AnonymousClass2() {
+        }
 
         @Override // com.bumptech.glide.load.Option.CacheKeyUpdater
         public void update(@NonNull byte[] bArr, @NonNull Integer num, @NonNull MessageDigest messageDigest) {
@@ -91,11 +103,11 @@ public class VideoDecoder<T> implements ResourceDecoder<T, Bitmap> {
         }
     }
 
-    public static final class AssetFileDescriptorInitializer implements MediaMetadataRetrieverInitializer<AssetFileDescriptor> {
+    private static final class AssetFileDescriptorInitializer implements MediaMetadataRetrieverInitializer<AssetFileDescriptor> {
         private AssetFileDescriptorInitializer() {
         }
 
-        public /* synthetic */ AssetFileDescriptorInitializer(AnonymousClass1 anonymousClass1) {
+        /* synthetic */ AssetFileDescriptorInitializer(AnonymousClass1 anonymousClass1) {
             this();
         }
 
@@ -106,13 +118,13 @@ public class VideoDecoder<T> implements ResourceDecoder<T, Bitmap> {
     }
 
     @RequiresApi(23)
-    public static final class ByteBufferInitializer implements MediaMetadataRetrieverInitializer<ByteBuffer> {
+    static final class ByteBufferInitializer implements MediaMetadataRetrieverInitializer<ByteBuffer> {
 
         /* renamed from: com.bumptech.glide.load.resource.bitmap.VideoDecoder$ByteBufferInitializer$1 */
-        public class AnonymousClass1 extends MediaDataSource {
+        class AnonymousClass1 extends MediaDataSource {
             final /* synthetic */ ByteBuffer val$data;
 
-            public AnonymousClass1(ByteBuffer byteBuffer) {
+            AnonymousClass1(ByteBuffer byteBuffer) {
                 byteBuffer = byteBuffer;
             }
 
@@ -126,15 +138,18 @@ public class VideoDecoder<T> implements ResourceDecoder<T, Bitmap> {
             }
 
             @Override // android.media.MediaDataSource
-            public int readAt(long j10, byte[] bArr, int i10, int i11) {
-                if (j10 >= byteBuffer.limit()) {
+            public int readAt(long j2, byte[] bArr, int i2, int i3) {
+                if (j2 >= byteBuffer.limit()) {
                     return -1;
                 }
-                byteBuffer.position((int) j10);
-                int min = Math.min(i11, byteBuffer.remaining());
-                byteBuffer.get(bArr, i10, min);
+                byteBuffer.position((int) j2);
+                int min = Math.min(i3, byteBuffer.remaining());
+                byteBuffer.get(bArr, i2, min);
                 return min;
             }
+        }
+
+        ByteBufferInitializer() {
         }
 
         @Override // com.bumptech.glide.load.resource.bitmap.VideoDecoder.MediaMetadataRetrieverInitializer
@@ -142,7 +157,7 @@ public class VideoDecoder<T> implements ResourceDecoder<T, Bitmap> {
             mediaMetadataRetriever.setDataSource(new MediaDataSource() { // from class: com.bumptech.glide.load.resource.bitmap.VideoDecoder.ByteBufferInitializer.1
                 final /* synthetic */ ByteBuffer val$data;
 
-                public AnonymousClass1(ByteBuffer byteBuffer2) {
+                AnonymousClass1(ByteBuffer byteBuffer2) {
                     byteBuffer = byteBuffer2;
                 }
 
@@ -156,13 +171,13 @@ public class VideoDecoder<T> implements ResourceDecoder<T, Bitmap> {
                 }
 
                 @Override // android.media.MediaDataSource
-                public int readAt(long j10, byte[] bArr, int i10, int i11) {
-                    if (j10 >= byteBuffer.limit()) {
+                public int readAt(long j2, byte[] bArr, int i2, int i3) {
+                    if (j2 >= byteBuffer.limit()) {
                         return -1;
                     }
-                    byteBuffer.position((int) j10);
-                    int min = Math.min(i11, byteBuffer.remaining());
-                    byteBuffer.get(bArr, i10, min);
+                    byteBuffer.position((int) j2);
+                    int min = Math.min(i3, byteBuffer.remaining());
+                    byteBuffer.get(bArr, i2, min);
                     return min;
                 }
             });
@@ -170,25 +185,31 @@ public class VideoDecoder<T> implements ResourceDecoder<T, Bitmap> {
     }
 
     @VisibleForTesting
-    public static class MediaMetadataRetrieverFactory {
+    static class MediaMetadataRetrieverFactory {
+        MediaMetadataRetrieverFactory() {
+        }
+
         public MediaMetadataRetriever build() {
             return new MediaMetadataRetriever();
         }
     }
 
     @VisibleForTesting
-    public interface MediaMetadataRetrieverInitializer<T> {
-        void initialize(MediaMetadataRetriever mediaMetadataRetriever, T t10);
+    interface MediaMetadataRetrieverInitializer<T> {
+        void initialize(MediaMetadataRetriever mediaMetadataRetriever, T t);
     }
 
-    public static final class ParcelFileDescriptorInitializer implements MediaMetadataRetrieverInitializer<ParcelFileDescriptor> {
+    static final class ParcelFileDescriptorInitializer implements MediaMetadataRetrieverInitializer<ParcelFileDescriptor> {
+        ParcelFileDescriptorInitializer() {
+        }
+
         @Override // com.bumptech.glide.load.resource.bitmap.VideoDecoder.MediaMetadataRetrieverInitializer
         public void initialize(MediaMetadataRetriever mediaMetadataRetriever, ParcelFileDescriptor parcelFileDescriptor) {
             mediaMetadataRetriever.setDataSource(parcelFileDescriptor.getFileDescriptor());
         }
     }
 
-    public VideoDecoder(BitmapPool bitmapPool, MediaMetadataRetrieverInitializer<T> mediaMetadataRetrieverInitializer) {
+    VideoDecoder(BitmapPool bitmapPool, MediaMetadataRetrieverInitializer<T> mediaMetadataRetrieverInitializer) {
         this(bitmapPool, mediaMetadataRetrieverInitializer, DEFAULT_FACTORY);
     }
 
@@ -202,18 +223,17 @@ public class VideoDecoder<T> implements ResourceDecoder<T, Bitmap> {
     }
 
     @Nullable
-    private static Bitmap decodeFrame(MediaMetadataRetriever mediaMetadataRetriever, long j10, int i10, int i11, int i12, DownsampleStrategy downsampleStrategy) {
-        Bitmap decodeScaledFrame = (Build.VERSION.SDK_INT < 27 || i11 == Integer.MIN_VALUE || i12 == Integer.MIN_VALUE || downsampleStrategy == DownsampleStrategy.NONE) ? null : decodeScaledFrame(mediaMetadataRetriever, j10, i10, i11, i12, downsampleStrategy);
-        return decodeScaledFrame == null ? decodeOriginalFrame(mediaMetadataRetriever, j10, i10) : decodeScaledFrame;
+    private static Bitmap decodeFrame(MediaMetadataRetriever mediaMetadataRetriever, long j2, int i2, int i3, int i4, DownsampleStrategy downsampleStrategy) {
+        Bitmap decodeScaledFrame = (Build.VERSION.SDK_INT < 27 || i3 == Integer.MIN_VALUE || i4 == Integer.MIN_VALUE || downsampleStrategy == DownsampleStrategy.NONE) ? null : decodeScaledFrame(mediaMetadataRetriever, j2, i2, i3, i4, downsampleStrategy);
+        return decodeScaledFrame == null ? decodeOriginalFrame(mediaMetadataRetriever, j2, i2) : decodeScaledFrame;
     }
 
-    private static Bitmap decodeOriginalFrame(MediaMetadataRetriever mediaMetadataRetriever, long j10, int i10) {
-        return mediaMetadataRetriever.getFrameAtTime(j10, i10);
+    private static Bitmap decodeOriginalFrame(MediaMetadataRetriever mediaMetadataRetriever, long j2, int i2) {
+        return mediaMetadataRetriever.getFrameAtTime(j2, i2);
     }
 
     @TargetApi(27)
-    private static Bitmap decodeScaledFrame(MediaMetadataRetriever mediaMetadataRetriever, long j10, int i10, int i11, int i12, DownsampleStrategy downsampleStrategy) {
-        Bitmap scaledFrameAtTime;
+    private static Bitmap decodeScaledFrame(MediaMetadataRetriever mediaMetadataRetriever, long j2, int i2, int i3, int i4, DownsampleStrategy downsampleStrategy) {
         try {
             int parseInt = Integer.parseInt(mediaMetadataRetriever.extractMetadata(18));
             int parseInt2 = Integer.parseInt(mediaMetadataRetriever.extractMetadata(19));
@@ -222,14 +242,13 @@ public class VideoDecoder<T> implements ResourceDecoder<T, Bitmap> {
                 parseInt2 = parseInt;
                 parseInt = parseInt2;
             }
-            float scaleFactor = downsampleStrategy.getScaleFactor(parseInt, parseInt2, i11, i12);
-            scaledFrameAtTime = mediaMetadataRetriever.getScaledFrameAtTime(j10, i10, Math.round(parseInt * scaleFactor), Math.round(scaleFactor * parseInt2));
-            return scaledFrameAtTime;
-        } catch (Throwable th2) {
+            float scaleFactor = downsampleStrategy.getScaleFactor(parseInt, parseInt2, i3, i4);
+            return mediaMetadataRetriever.getScaledFrameAtTime(j2, i2, Math.round(parseInt * scaleFactor), Math.round(scaleFactor * parseInt2));
+        } catch (Throwable th) {
             if (!Log.isLoggable(TAG, 3)) {
                 return null;
             }
-            Log.d(TAG, "Exception trying to decode frame on oreo+", th2);
+            Log.d(TAG, "Exception trying to decode frame on oreo+", th);
             return null;
         }
     }
@@ -239,7 +258,7 @@ public class VideoDecoder<T> implements ResourceDecoder<T, Bitmap> {
     }
 
     @Override // com.bumptech.glide.load.ResourceDecoder
-    public Resource<Bitmap> decode(@NonNull T t10, int i10, int i11, @NonNull Options options) throws IOException {
+    public Resource<Bitmap> decode(@NonNull T t, int i2, int i3, @NonNull Options options) throws IOException {
         long longValue = ((Long) options.get(TARGET_FRAME)).longValue();
         if (longValue < 0 && longValue != -1) {
             throw new IllegalArgumentException("Requested frame must be non-negative, or DEFAULT_FRAME, given: " + longValue);
@@ -256,26 +275,26 @@ public class VideoDecoder<T> implements ResourceDecoder<T, Bitmap> {
         MediaMetadataRetriever build = this.factory.build();
         try {
             try {
-                this.initializer.initialize(build, t10);
-                Bitmap decodeFrame = decodeFrame(build, longValue, num.intValue(), i10, i11, downsampleStrategy2);
+                this.initializer.initialize(build, t);
+                Bitmap decodeFrame = decodeFrame(build, longValue, num.intValue(), i2, i3, downsampleStrategy2);
                 build.release();
                 return BitmapResource.obtain(decodeFrame, this.bitmapPool);
-            } catch (RuntimeException e10) {
-                throw new IOException(e10);
+            } catch (RuntimeException e2) {
+                throw new IOException(e2);
             }
-        } catch (Throwable th2) {
+        } catch (Throwable th) {
             build.release();
-            throw th2;
+            throw th;
         }
     }
 
     @Override // com.bumptech.glide.load.ResourceDecoder
-    public boolean handles(@NonNull T t10, @NonNull Options options) {
+    public boolean handles(@NonNull T t, @NonNull Options options) {
         return true;
     }
 
     @VisibleForTesting
-    public VideoDecoder(BitmapPool bitmapPool, MediaMetadataRetrieverInitializer<T> mediaMetadataRetrieverInitializer, MediaMetadataRetrieverFactory mediaMetadataRetrieverFactory) {
+    VideoDecoder(BitmapPool bitmapPool, MediaMetadataRetrieverInitializer<T> mediaMetadataRetrieverInitializer, MediaMetadataRetrieverFactory mediaMetadataRetrieverFactory) {
         this.bitmapPool = bitmapPool;
         this.initializer = mediaMetadataRetrieverInitializer;
         this.factory = mediaMetadataRetrieverFactory;

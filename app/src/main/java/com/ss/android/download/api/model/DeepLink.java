@@ -4,9 +4,7 @@ import org.json.JSONObject;
 
 /* loaded from: classes4.dex */
 public class DeepLink {
-
-    /* renamed from: id */
-    private long f20977id;
+    private long id;
     private JSONObject json;
     private String mCloudGameUrl;
     private String mOpenUrl;
@@ -25,7 +23,7 @@ public class DeepLink {
     }
 
     public long getId() {
-        return this.f20977id;
+        return this.id;
     }
 
     public JSONObject getJson() {
@@ -52,8 +50,8 @@ public class DeepLink {
         this.mCloudGameUrl = str;
     }
 
-    public void setId(long j10) {
-        this.f20977id = j10;
+    public void setId(long j2) {
+        this.id = j2;
     }
 
     public void setJson(JSONObject jSONObject) {

@@ -1,86 +1,58 @@
 package androidx.activity;
 
 import android.annotation.SuppressLint;
-import android.window.OnBackInvokedCallback;
-import android.window.OnBackInvokedDispatcher;
-import androidx.activity.OnBackPressedDispatcher;
-import androidx.annotation.DoNotInline;
 import androidx.annotation.MainThread;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.annotation.OptIn;
-import androidx.annotation.RequiresApi;
-import androidx.core.os.BuildCompat;
-import androidx.core.util.Consumer;
 import androidx.lifecycle.Lifecycle;
 import androidx.lifecycle.LifecycleEventObserver;
 import androidx.lifecycle.LifecycleOwner;
-import e.h;
 import java.util.ArrayDeque;
 import java.util.Iterator;
-import java.util.Objects;
 
 /* loaded from: classes.dex */
 public final class OnBackPressedDispatcher {
-    private boolean mBackInvokedCallbackRegistered;
-    private Consumer<Boolean> mEnabledConsumer;
 
+    /* renamed from: a */
     @Nullable
-    private final Runnable mFallbackOnBackPressed;
-    private OnBackInvokedDispatcher mInvokedDispatcher;
-    private OnBackInvokedCallback mOnBackInvokedCallback;
-    final ArrayDeque<OnBackPressedCallback> mOnBackPressedCallbacks;
+    private final Runnable f153a;
 
-    @RequiresApi(33)
-    public static class Api33Impl {
-        private Api33Impl() {
-        }
+    /* renamed from: b */
+    final ArrayDeque<OnBackPressedCallback> f154b;
 
-        @DoNotInline
-        public static OnBackInvokedCallback createOnBackInvokedCallback(Runnable runnable) {
-            Objects.requireNonNull(runnable);
-            return new h(runnable);
-        }
+    private class LifecycleOnBackPressedCancellable implements LifecycleEventObserver, Cancellable {
 
-        @DoNotInline
-        public static void registerOnBackInvokedCallback(Object obj, int i10, Object obj2) {
-            ((OnBackInvokedDispatcher) obj).registerOnBackInvokedCallback(i10, (OnBackInvokedCallback) obj2);
-        }
+        /* renamed from: a */
+        private final Lifecycle f155a;
 
-        @DoNotInline
-        public static void unregisterOnBackInvokedCallback(Object obj, Object obj2) {
-            ((OnBackInvokedDispatcher) obj).unregisterOnBackInvokedCallback((OnBackInvokedCallback) obj2);
-        }
-    }
+        /* renamed from: b */
+        private final OnBackPressedCallback f156b;
 
-    public class LifecycleOnBackPressedCancellable implements LifecycleEventObserver, Cancellable {
-
+        /* renamed from: c */
         @Nullable
-        private Cancellable mCurrentCancellable;
-        private final Lifecycle mLifecycle;
-        private final OnBackPressedCallback mOnBackPressedCallback;
+        private Cancellable f157c;
 
-        public LifecycleOnBackPressedCancellable(@NonNull Lifecycle lifecycle, @NonNull OnBackPressedCallback onBackPressedCallback) {
-            this.mLifecycle = lifecycle;
-            this.mOnBackPressedCallback = onBackPressedCallback;
+        LifecycleOnBackPressedCancellable(@NonNull Lifecycle lifecycle, @NonNull OnBackPressedCallback onBackPressedCallback) {
+            this.f155a = lifecycle;
+            this.f156b = onBackPressedCallback;
             lifecycle.addObserver(this);
         }
 
         @Override // androidx.activity.Cancellable
         public void cancel() {
-            this.mLifecycle.removeObserver(this);
-            this.mOnBackPressedCallback.removeCancellable(this);
-            Cancellable cancellable = this.mCurrentCancellable;
+            this.f155a.removeObserver(this);
+            this.f156b.b(this);
+            Cancellable cancellable = this.f157c;
             if (cancellable != null) {
                 cancellable.cancel();
-                this.mCurrentCancellable = null;
+                this.f157c = null;
             }
         }
 
         @Override // androidx.lifecycle.LifecycleEventObserver
         public void onStateChanged(@NonNull LifecycleOwner lifecycleOwner, @NonNull Lifecycle.Event event) {
             if (event == Lifecycle.Event.ON_START) {
-                this.mCurrentCancellable = OnBackPressedDispatcher.this.addCancellableCallback(this.mOnBackPressedCallback);
+                this.f157c = OnBackPressedDispatcher.this.a(this.f156b);
                 return;
             }
             if (event != Lifecycle.Event.ON_STOP) {
@@ -88,7 +60,7 @@ public final class OnBackPressedDispatcher {
                     cancel();
                 }
             } else {
-                Cancellable cancellable = this.mCurrentCancellable;
+                Cancellable cancellable = this.f157c;
                 if (cancellable != null) {
                     cancellable.cancel();
                 }
@@ -96,22 +68,19 @@ public final class OnBackPressedDispatcher {
         }
     }
 
-    public class OnBackPressedCancellable implements Cancellable {
-        private final OnBackPressedCallback mOnBackPressedCallback;
+    private class OnBackPressedCancellable implements Cancellable {
 
-        public OnBackPressedCancellable(OnBackPressedCallback onBackPressedCallback) {
-            this.mOnBackPressedCallback = onBackPressedCallback;
+        /* renamed from: a */
+        private final OnBackPressedCallback f159a;
+
+        OnBackPressedCancellable(OnBackPressedCallback onBackPressedCallback) {
+            this.f159a = onBackPressedCallback;
         }
 
         @Override // androidx.activity.Cancellable
-        @OptIn(markerClass = {BuildCompat.PrereleaseSdkCheck.class})
         public void cancel() {
-            OnBackPressedDispatcher.this.mOnBackPressedCallbacks.remove(this.mOnBackPressedCallback);
-            this.mOnBackPressedCallback.removeCancellable(this);
-            if (BuildCompat.isAtLeastT()) {
-                this.mOnBackPressedCallback.setIsEnabledConsumer(null);
-                OnBackPressedDispatcher.this.updateBackInvokedCallbackState();
-            }
+            OnBackPressedDispatcher.this.f154b.remove(this.f159a);
+            this.f159a.b(this);
         }
     }
 
@@ -119,34 +88,23 @@ public final class OnBackPressedDispatcher {
         this(null);
     }
 
-    public /* synthetic */ void lambda$new$0(Boolean bool) {
-        if (BuildCompat.isAtLeastT()) {
-            updateBackInvokedCallbackState();
-        }
-    }
-
-    @MainThread
-    public void addCallback(@NonNull OnBackPressedCallback onBackPressedCallback) {
-        addCancellableCallback(onBackPressedCallback);
-    }
-
     @NonNull
-    @OptIn(markerClass = {BuildCompat.PrereleaseSdkCheck.class})
     @MainThread
-    public Cancellable addCancellableCallback(@NonNull OnBackPressedCallback onBackPressedCallback) {
-        this.mOnBackPressedCallbacks.add(onBackPressedCallback);
+    Cancellable a(@NonNull OnBackPressedCallback onBackPressedCallback) {
+        this.f154b.add(onBackPressedCallback);
         OnBackPressedCancellable onBackPressedCancellable = new OnBackPressedCancellable(onBackPressedCallback);
-        onBackPressedCallback.addCancellable(onBackPressedCancellable);
-        if (BuildCompat.isAtLeastT()) {
-            updateBackInvokedCallbackState();
-            onBackPressedCallback.setIsEnabledConsumer(this.mEnabledConsumer);
-        }
+        onBackPressedCallback.a(onBackPressedCancellable);
         return onBackPressedCancellable;
     }
 
     @MainThread
+    public void addCallback(@NonNull OnBackPressedCallback onBackPressedCallback) {
+        a(onBackPressedCallback);
+    }
+
+    @MainThread
     public boolean hasEnabledCallbacks() {
-        Iterator<OnBackPressedCallback> descendingIterator = this.mOnBackPressedCallbacks.descendingIterator();
+        Iterator<OnBackPressedCallback> descendingIterator = this.f154b.descendingIterator();
         while (descendingIterator.hasNext()) {
             if (descendingIterator.next().isEnabled()) {
                 return true;
@@ -157,7 +115,7 @@ public final class OnBackPressedDispatcher {
 
     @MainThread
     public void onBackPressed() {
-        Iterator<OnBackPressedCallback> descendingIterator = this.mOnBackPressedCallbacks.descendingIterator();
+        Iterator<OnBackPressedCallback> descendingIterator = this.f154b.descendingIterator();
         while (descendingIterator.hasNext()) {
             OnBackPressedCallback next = descendingIterator.next();
             if (next.isEnabled()) {
@@ -165,64 +123,17 @@ public final class OnBackPressedDispatcher {
                 return;
             }
         }
-        Runnable runnable = this.mFallbackOnBackPressed;
+        Runnable runnable = this.f153a;
         if (runnable != null) {
             runnable.run();
         }
     }
 
-    @RequiresApi(33)
-    public void setOnBackInvokedDispatcher(@NonNull OnBackInvokedDispatcher onBackInvokedDispatcher) {
-        this.mInvokedDispatcher = onBackInvokedDispatcher;
-        updateBackInvokedCallbackState();
-    }
-
-    @RequiresApi(33)
-    public void updateBackInvokedCallbackState() {
-        boolean hasEnabledCallbacks = hasEnabledCallbacks();
-        OnBackInvokedDispatcher onBackInvokedDispatcher = this.mInvokedDispatcher;
-        if (onBackInvokedDispatcher != null) {
-            if (hasEnabledCallbacks && !this.mBackInvokedCallbackRegistered) {
-                Api33Impl.registerOnBackInvokedCallback(onBackInvokedDispatcher, 0, this.mOnBackInvokedCallback);
-                this.mBackInvokedCallbackRegistered = true;
-            } else {
-                if (hasEnabledCallbacks || !this.mBackInvokedCallbackRegistered) {
-                    return;
-                }
-                Api33Impl.unregisterOnBackInvokedCallback(onBackInvokedDispatcher, this.mOnBackInvokedCallback);
-                this.mBackInvokedCallbackRegistered = false;
-            }
-        }
-    }
-
-    @OptIn(markerClass = {BuildCompat.PrereleaseSdkCheck.class})
     public OnBackPressedDispatcher(@Nullable Runnable runnable) {
-        this.mOnBackPressedCallbacks = new ArrayDeque<>();
-        this.mBackInvokedCallbackRegistered = false;
-        this.mFallbackOnBackPressed = runnable;
-        if (BuildCompat.isAtLeastT()) {
-            this.mEnabledConsumer = new Consumer() { // from class: e.f
-                public /* synthetic */ f() {
-                }
-
-                @Override // androidx.core.util.Consumer
-                public final void accept(Object obj) {
-                    OnBackPressedDispatcher.this.lambda$new$0((Boolean) obj);
-                }
-            };
-            this.mOnBackInvokedCallback = Api33Impl.createOnBackInvokedCallback(new Runnable() { // from class: e.g
-                public /* synthetic */ g() {
-                }
-
-                @Override // java.lang.Runnable
-                public final void run() {
-                    OnBackPressedDispatcher.this.onBackPressed();
-                }
-            });
-        }
+        this.f154b = new ArrayDeque<>();
+        this.f153a = runnable;
     }
 
-    @OptIn(markerClass = {BuildCompat.PrereleaseSdkCheck.class})
     @SuppressLint({"LambdaLast"})
     @MainThread
     public void addCallback(@NonNull LifecycleOwner lifecycleOwner, @NonNull OnBackPressedCallback onBackPressedCallback) {
@@ -230,10 +141,6 @@ public final class OnBackPressedDispatcher {
         if (lifecycle.getCurrentState() == Lifecycle.State.DESTROYED) {
             return;
         }
-        onBackPressedCallback.addCancellable(new LifecycleOnBackPressedCancellable(lifecycle, onBackPressedCallback));
-        if (BuildCompat.isAtLeastT()) {
-            updateBackInvokedCallbackState();
-            onBackPressedCallback.setIsEnabledConsumer(this.mEnabledConsumer);
-        }
+        onBackPressedCallback.a(new LifecycleOnBackPressedCancellable(lifecycle, onBackPressedCallback));
     }
 }

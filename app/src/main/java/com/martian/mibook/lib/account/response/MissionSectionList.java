@@ -10,7 +10,7 @@ public class MissionSectionList {
         return this.missionSections;
     }
 
-    public void setMissionSections(List<MissionSection> list) {
-        this.missionSections = list;
+    public void setMissionSections(List<MissionSection> missionSections) {
+        this.missionSections = missionSections;
     }
 }

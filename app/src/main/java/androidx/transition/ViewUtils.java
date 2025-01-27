@@ -11,31 +11,39 @@ import androidx.core.view.ViewCompat;
 
 /* loaded from: classes.dex */
 class ViewUtils {
-    static final Property<View, Rect> CLIP_BOUNDS;
-    private static final ViewUtilsBase IMPL;
-    private static final String TAG = "ViewUtils";
-    static final Property<View, Float> TRANSITION_ALPHA;
+
+    /* renamed from: a */
+    private static final ViewUtilsBase f3888a;
+
+    /* renamed from: b */
+    private static final String f3889b = "ViewUtils";
+
+    /* renamed from: c */
+    static final Property<View, Float> f3890c;
+
+    /* renamed from: d */
+    static final Property<View, Rect> f3891d;
 
     /* renamed from: androidx.transition.ViewUtils$1 */
-    public static class AnonymousClass1 extends Property<View, Float> {
-        public AnonymousClass1(Class cls, String str) {
+    static class AnonymousClass1 extends Property<View, Float> {
+        AnonymousClass1(Class cls, String str) {
             super(cls, str);
         }
 
         @Override // android.util.Property
         public Float get(View view) {
-            return Float.valueOf(ViewUtils.getTransitionAlpha(view));
+            return Float.valueOf(ViewUtils.c(view));
         }
 
         @Override // android.util.Property
-        public void set(View view, Float f10) {
-            ViewUtils.setTransitionAlpha(view, f10.floatValue());
+        public void set(View view, Float f2) {
+            ViewUtils.h(view, f2.floatValue());
         }
     }
 
     /* renamed from: androidx.transition.ViewUtils$2 */
-    public static class AnonymousClass2 extends Property<View, Rect> {
-        public AnonymousClass2(Class cls, String str) {
+    static class AnonymousClass2 extends Property<View, Rect> {
+        AnonymousClass2(Class cls, String str) {
             super(cls, str);
         }
 
@@ -51,33 +59,37 @@ class ViewUtils {
     }
 
     static {
-        int i10 = Build.VERSION.SDK_INT;
-        if (i10 >= 29) {
-            IMPL = new ViewUtilsApi29();
-        } else if (i10 >= 23) {
-            IMPL = new ViewUtilsApi23();
-        } else if (i10 >= 22) {
-            IMPL = new ViewUtilsApi22();
+        int i2 = Build.VERSION.SDK_INT;
+        if (i2 >= 29) {
+            f3888a = new ViewUtilsApi29();
+        } else if (i2 >= 23) {
+            f3888a = new ViewUtilsApi23();
+        } else if (i2 >= 22) {
+            f3888a = new ViewUtilsApi22();
+        } else if (i2 >= 21) {
+            f3888a = new ViewUtilsApi21();
+        } else if (i2 >= 19) {
+            f3888a = new ViewUtilsApi19();
         } else {
-            IMPL = new ViewUtilsApi21();
+            f3888a = new ViewUtilsBase();
         }
-        TRANSITION_ALPHA = new Property<View, Float>(Float.class, "translationAlpha") { // from class: androidx.transition.ViewUtils.1
-            public AnonymousClass1(Class cls, String str) {
+        f3890c = new Property<View, Float>(Float.class, "translationAlpha") { // from class: androidx.transition.ViewUtils.1
+            AnonymousClass1(Class cls, String str) {
                 super(cls, str);
             }
 
             @Override // android.util.Property
             public Float get(View view) {
-                return Float.valueOf(ViewUtils.getTransitionAlpha(view));
+                return Float.valueOf(ViewUtils.c(view));
             }
 
             @Override // android.util.Property
-            public void set(View view, Float f10) {
-                ViewUtils.setTransitionAlpha(view, f10.floatValue());
+            public void set(View view, Float f2) {
+                ViewUtils.h(view, f2.floatValue());
             }
         };
-        CLIP_BOUNDS = new Property<View, Rect>(Rect.class, "clipBounds") { // from class: androidx.transition.ViewUtils.2
-            public AnonymousClass2(Class cls, String str) {
+        f3891d = new Property<View, Rect>(Rect.class, "clipBounds") { // from class: androidx.transition.ViewUtils.2
+            AnonymousClass2(Class cls, String str) {
                 super(cls, str);
             }
 
@@ -96,47 +108,47 @@ class ViewUtils {
     private ViewUtils() {
     }
 
-    public static void clearNonTransitionAlpha(@NonNull View view) {
-        IMPL.clearNonTransitionAlpha(view);
+    static void a(@NonNull View view) {
+        f3888a.clearNonTransitionAlpha(view);
     }
 
-    public static ViewOverlayImpl getOverlay(@NonNull View view) {
-        return new ViewOverlayApi18(view);
+    static ViewOverlayImpl b(@NonNull View view) {
+        return Build.VERSION.SDK_INT >= 18 ? new ViewOverlayApi18(view) : ViewOverlayApi14.a(view);
     }
 
-    public static float getTransitionAlpha(@NonNull View view) {
-        return IMPL.getTransitionAlpha(view);
+    static float c(@NonNull View view) {
+        return f3888a.getTransitionAlpha(view);
     }
 
-    public static WindowIdImpl getWindowId(@NonNull View view) {
-        return new WindowIdApi18(view);
+    static WindowIdImpl d(@NonNull View view) {
+        return Build.VERSION.SDK_INT >= 18 ? new WindowIdApi18(view) : new WindowIdApi14(view.getWindowToken());
     }
 
-    public static void saveNonTransitionAlpha(@NonNull View view) {
-        IMPL.saveNonTransitionAlpha(view);
+    static void e(@NonNull View view) {
+        f3888a.saveNonTransitionAlpha(view);
     }
 
-    public static void setAnimationMatrix(@NonNull View view, @Nullable Matrix matrix) {
-        IMPL.setAnimationMatrix(view, matrix);
+    static void f(@NonNull View view, @Nullable Matrix matrix) {
+        f3888a.setAnimationMatrix(view, matrix);
     }
 
-    public static void setLeftTopRightBottom(@NonNull View view, int i10, int i11, int i12, int i13) {
-        IMPL.setLeftTopRightBottom(view, i10, i11, i12, i13);
+    static void g(@NonNull View view, int i2, int i3, int i4, int i5) {
+        f3888a.setLeftTopRightBottom(view, i2, i3, i4, i5);
     }
 
-    public static void setTransitionAlpha(@NonNull View view, float f10) {
-        IMPL.setTransitionAlpha(view, f10);
+    static void h(@NonNull View view, float f2) {
+        f3888a.setTransitionAlpha(view, f2);
     }
 
-    public static void setTransitionVisibility(@NonNull View view, int i10) {
-        IMPL.setTransitionVisibility(view, i10);
+    static void i(@NonNull View view, int i2) {
+        f3888a.setTransitionVisibility(view, i2);
     }
 
-    public static void transformMatrixToGlobal(@NonNull View view, @NonNull Matrix matrix) {
-        IMPL.transformMatrixToGlobal(view, matrix);
+    static void j(@NonNull View view, @NonNull Matrix matrix) {
+        f3888a.transformMatrixToGlobal(view, matrix);
     }
 
-    public static void transformMatrixToLocal(@NonNull View view, @NonNull Matrix matrix) {
-        IMPL.transformMatrixToLocal(view, matrix);
+    static void k(@NonNull View view, @NonNull Matrix matrix) {
+        f3888a.transformMatrixToLocal(view, matrix);
     }
 }

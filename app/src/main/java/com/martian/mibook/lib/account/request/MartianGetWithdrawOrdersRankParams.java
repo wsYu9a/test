@@ -1,7 +1,7 @@
 package com.martian.mibook.lib.account.request;
 
+import com.martian.libcomm.http.requests.d.a;
 import com.martian.libmars.comm.request.MTHttpGetParams;
-import v8.a;
 
 /* loaded from: classes3.dex */
 public class MartianGetWithdrawOrdersRankParams extends MTHttpGetParams {
@@ -41,7 +41,7 @@ public class MartianGetWithdrawOrdersRankParams extends MTHttpGetParams {
         return num.intValue();
     }
 
-    @Override // u8.b
+    @Override // com.martian.libcomm.http.requests.b
     public String getRequestMethod() {
         return "withdraw_rank";
     }
@@ -58,19 +58,19 @@ public class MartianGetWithdrawOrdersRankParams extends MTHttpGetParams {
         return this.withHeader;
     }
 
-    public void setPage(Integer num) {
-        this.page = num;
+    public void setPage(Integer page) {
+        this.page = page;
     }
 
-    public void setPageSize(Integer num) {
-        this.pageSize = num;
+    public void setPageSize(Integer pageSize) {
+        this.pageSize = pageSize;
     }
 
-    public void setType(Integer num) {
-        this.type = num;
+    public void setType(Integer type) {
+        this.type = type;
     }
 
-    public void setWithHeader(boolean z10) {
-        this.withHeader = z10;
+    public void setWithHeader(boolean withHeader) {
+        this.withHeader = withHeader;
     }
 }

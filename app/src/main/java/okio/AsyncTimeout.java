@@ -1,10 +1,11 @@
 package okio;
 
 import androidx.exifinterface.media.ExifInterface;
-import androidx.media3.common.C;
-import com.sigmob.sdk.downloader.core.breakpoint.e;
 import com.ss.android.socialbase.downloader.constants.MonitorConstants;
-import id.c;
+import com.tencent.open.SocialConstants;
+import com.vivo.google.android.exoplayer3.C;
+import f.b.a.d;
+import f.b.a.e;
 import java.io.IOException;
 import java.io.InterruptedIOException;
 import java.util.concurrent.TimeUnit;
@@ -15,41 +16,28 @@ import kotlin.jvm.functions.Function0;
 import kotlin.jvm.internal.DefaultConstructorMarker;
 import kotlin.jvm.internal.InlineMarker;
 import kotlin.jvm.internal.Intrinsics;
-import r3.d;
-import xi.k;
-import xi.l;
 
-@Metadata(d1 = {"\u0000@\n\u0002\u0018\u0002\n\u0002\u0018\u0002\n\u0002\b\u0002\n\u0002\u0010\u000b\n\u0002\b\u0002\n\u0002\u0010\t\n\u0000\n\u0002\u0018\u0002\n\u0002\b\u0002\n\u0002\u0010\u0002\n\u0002\b\u0005\n\u0002\u0018\u0002\n\u0000\n\u0002\u0018\u0002\n\u0002\b\u0004\n\u0002\u0018\u0002\n\u0002\b\u0004\b\u0016\u0018\u0000 \u001b2\u00020\u0001:\u0002\u001b\u001cB\u0005¢\u0006\u0002\u0010\u0002J\u0012\u0010\b\u001a\u00020\t2\b\u0010\n\u001a\u0004\u0018\u00010\tH\u0001J\u0006\u0010\u000b\u001a\u00020\fJ\u0006\u0010\r\u001a\u00020\u0004J\u0012\u0010\u000e\u001a\u00020\t2\b\u0010\n\u001a\u0004\u0018\u00010\tH\u0014J\u0010\u0010\u000f\u001a\u00020\u00072\u0006\u0010\u0010\u001a\u00020\u0007H\u0002J\u000e\u0010\u0011\u001a\u00020\u00122\u0006\u0010\u0011\u001a\u00020\u0012J\u000e\u0010\u0013\u001a\u00020\u00142\u0006\u0010\u0013\u001a\u00020\u0014J\b\u0010\u0015\u001a\u00020\fH\u0014J%\u0010\u0016\u001a\u0002H\u0017\"\u0004\b\u0000\u0010\u00172\f\u0010\u0018\u001a\b\u0012\u0004\u0012\u0002H\u00170\u0019H\u0086\bø\u0001\u0000¢\u0006\u0002\u0010\u001aR\u000e\u0010\u0003\u001a\u00020\u0004X\u0082\u000e¢\u0006\u0002\n\u0000R\u0010\u0010\u0005\u001a\u0004\u0018\u00010\u0000X\u0082\u000e¢\u0006\u0002\n\u0000R\u000e\u0010\u0006\u001a\u00020\u0007X\u0082\u000e¢\u0006\u0002\n\u0000\u0082\u0002\u0007\n\u0005\b\u009920\u0001¨\u0006\u001d"}, d2 = {"Lokio/AsyncTimeout;", "Lokio/Timeout;", "()V", "inQueue", "", c.f26970g, "timeoutAt", "", "access$newTimeoutException", "Ljava/io/IOException;", "cause", "enter", "", d.A, "newTimeoutException", "remainingNanos", "now", "sink", "Lokio/Sink;", "source", "Lokio/Source;", "timedOut", "withTimeout", ExifInterface.GPS_DIRECTION_TRUE, e.f19025e, "Lkotlin/Function0;", "(Lkotlin/jvm/functions/Function0;)Ljava/lang/Object;", "Companion", "Watchdog", "okio"}, k = 1, mv = {1, 6, 0}, xi = 48)
-/* loaded from: classes4.dex */
+@Metadata(bv = {1, 0, 3}, d1 = {"\u0000@\n\u0002\u0018\u0002\n\u0002\u0018\u0002\n\u0002\u0010\t\n\u0002\b\u0003\n\u0002\u0010\u0002\n\u0002\b\u0002\n\u0002\u0010\u000b\n\u0002\b\u0003\n\u0002\u0018\u0002\n\u0002\b\u0002\n\u0002\u0018\u0002\n\u0002\b\u0003\n\u0002\u0018\u0002\n\u0002\b\u0003\n\u0002\u0018\u0002\n\u0002\b\u000e\b\u0016\u0018\u0000 $2\u00020\u0001:\u0002$%B\u0007¢\u0006\u0004\b#\u0010\bJ\u0017\u0010\u0004\u001a\u00020\u00022\u0006\u0010\u0003\u001a\u00020\u0002H\u0002¢\u0006\u0004\b\u0004\u0010\u0005J\r\u0010\u0007\u001a\u00020\u0006¢\u0006\u0004\b\u0007\u0010\bJ\r\u0010\n\u001a\u00020\t¢\u0006\u0004\b\n\u0010\u000bJ\u000f\u0010\f\u001a\u00020\u0006H\u0014¢\u0006\u0004\b\f\u0010\bJ\u0015\u0010\u000e\u001a\u00020\r2\u0006\u0010\u000e\u001a\u00020\r¢\u0006\u0004\b\u000e\u0010\u000fJ\u0015\u0010\u0011\u001a\u00020\u00102\u0006\u0010\u0011\u001a\u00020\u0010¢\u0006\u0004\b\u0011\u0010\u0012J$\u0010\u0016\u001a\u00028\u0000\"\u0004\b\u0000\u0010\u00132\f\u0010\u0015\u001a\b\u0012\u0004\u0012\u00028\u00000\u0014H\u0086\b¢\u0006\u0004\b\u0016\u0010\u0017J\u0019\u0010\u001a\u001a\u00020\u00182\b\u0010\u0019\u001a\u0004\u0018\u00010\u0018H\u0001¢\u0006\u0004\b\u001a\u0010\u001bJ\u0019\u0010\u001c\u001a\u00020\u00182\b\u0010\u0019\u001a\u0004\u0018\u00010\u0018H\u0014¢\u0006\u0004\b\u001c\u0010\u001bR\u0016\u0010\u001d\u001a\u00020\t8\u0002@\u0002X\u0082\u000e¢\u0006\u0006\n\u0004\b\u001d\u0010\u001eR\u0016\u0010\u001f\u001a\u00020\u00028\u0002@\u0002X\u0082\u000e¢\u0006\u0006\n\u0004\b\u001f\u0010 R\u0018\u0010!\u001a\u0004\u0018\u00010\u00008\u0002@\u0002X\u0082\u000e¢\u0006\u0006\n\u0004\b!\u0010\"¨\u0006&"}, d2 = {"Lokio/AsyncTimeout;", "Lokio/Timeout;", "", "now", "remainingNanos", "(J)J", "", "enter", "()V", "", "exit", "()Z", "timedOut", "Lokio/Sink;", "sink", "(Lokio/Sink;)Lokio/Sink;", "Lokio/Source;", SocialConstants.PARAM_SOURCE, "(Lokio/Source;)Lokio/Source;", ExifInterface.GPS_DIRECTION_TRUE, "Lkotlin/Function0;", "block", "withTimeout", "(Lkotlin/jvm/functions/Function0;)Ljava/lang/Object;", "Ljava/io/IOException;", "cause", "access$newTimeoutException", "(Ljava/io/IOException;)Ljava/io/IOException;", "newTimeoutException", "inQueue", "Z", "timeoutAt", "J", "next", "Lokio/AsyncTimeout;", "<init>", "Companion", "Watchdog", "okio"}, k = 1, mv = {1, 4, 0})
+/* loaded from: classes5.dex */
 public class AsyncTimeout extends Timeout {
 
     /* renamed from: Companion, reason: from kotlin metadata */
-    @k
     public static final Companion INSTANCE = new Companion(null);
     private static final long IDLE_TIMEOUT_MILLIS;
     private static final long IDLE_TIMEOUT_NANOS;
     private static final int TIMEOUT_WRITE_SIZE = 65536;
-
-    @l
     private static AsyncTimeout head;
     private boolean inQueue;
-
-    @l
     private AsyncTimeout next;
     private long timeoutAt;
 
-    @Metadata(d1 = {"\u00002\n\u0002\u0018\u0002\n\u0002\u0010\u0000\n\u0002\b\u0002\n\u0002\u0010\t\n\u0002\b\u0002\n\u0002\u0010\b\n\u0000\n\u0002\u0018\u0002\n\u0002\b\u0003\n\u0002\u0010\u000b\n\u0002\b\u0002\n\u0002\u0010\u0002\n\u0002\b\u0003\b\u0086\u0003\u0018\u00002\u00020\u0001B\u0007\b\u0002¢\u0006\u0002\u0010\u0002J\u000f\u0010\n\u001a\u0004\u0018\u00010\tH\u0000¢\u0006\u0002\b\u000bJ\u0010\u0010\f\u001a\u00020\r2\u0006\u0010\u000e\u001a\u00020\tH\u0002J \u0010\u000f\u001a\u00020\u00102\u0006\u0010\u000e\u001a\u00020\t2\u0006\u0010\u0011\u001a\u00020\u00042\u0006\u0010\u0012\u001a\u00020\rH\u0002R\u000e\u0010\u0003\u001a\u00020\u0004X\u0082\u0004¢\u0006\u0002\n\u0000R\u000e\u0010\u0005\u001a\u00020\u0004X\u0082\u0004¢\u0006\u0002\n\u0000R\u000e\u0010\u0006\u001a\u00020\u0007X\u0082T¢\u0006\u0002\n\u0000R\u0010\u0010\b\u001a\u0004\u0018\u00010\tX\u0082\u000e¢\u0006\u0002\n\u0000¨\u0006\u0013"}, d2 = {"Lokio/AsyncTimeout$Companion;", "", "()V", "IDLE_TIMEOUT_MILLIS", "", "IDLE_TIMEOUT_NANOS", "TIMEOUT_WRITE_SIZE", "", MonitorConstants.CONNECT_TYPE_HEAD, "Lokio/AsyncTimeout;", "awaitTimeout", "awaitTimeout$okio", "cancelScheduledTimeout", "", "node", "scheduleTimeout", "", "timeoutNanos", "hasDeadline", "okio"}, k = 1, mv = {1, 6, 0}, xi = 48)
+    @Metadata(bv = {1, 0, 3}, d1 = {"\u0000*\n\u0002\u0018\u0002\n\u0002\u0010\u0000\n\u0002\u0018\u0002\n\u0000\n\u0002\u0010\t\n\u0000\n\u0002\u0010\u000b\n\u0000\n\u0002\u0010\u0002\n\u0002\b\n\n\u0002\u0010\b\n\u0002\b\u0007\b\u0086\u0003\u0018\u00002\u00020\u0001B\t\b\u0002¢\u0006\u0004\b\u0018\u0010\u0019J'\u0010\t\u001a\u00020\b2\u0006\u0010\u0003\u001a\u00020\u00022\u0006\u0010\u0005\u001a\u00020\u00042\u0006\u0010\u0007\u001a\u00020\u0006H\u0002¢\u0006\u0004\b\t\u0010\nJ\u0017\u0010\u000b\u001a\u00020\u00062\u0006\u0010\u0003\u001a\u00020\u0002H\u0002¢\u0006\u0004\b\u000b\u0010\fJ\u0011\u0010\u000f\u001a\u0004\u0018\u00010\u0002H\u0000¢\u0006\u0004\b\r\u0010\u000eR\u0016\u0010\u0010\u001a\u00020\u00048\u0002@\u0002X\u0082\u0004¢\u0006\u0006\n\u0004\b\u0010\u0010\u0011R\u0016\u0010\u0012\u001a\u00020\u00048\u0002@\u0002X\u0082\u0004¢\u0006\u0006\n\u0004\b\u0012\u0010\u0011R\u0016\u0010\u0014\u001a\u00020\u00138\u0002@\u0002X\u0082T¢\u0006\u0006\n\u0004\b\u0014\u0010\u0015R\u0018\u0010\u0016\u001a\u0004\u0018\u00010\u00028\u0002@\u0002X\u0082\u000e¢\u0006\u0006\n\u0004\b\u0016\u0010\u0017¨\u0006\u001a"}, d2 = {"Lokio/AsyncTimeout$Companion;", "", "Lokio/AsyncTimeout;", "node", "", "timeoutNanos", "", "hasDeadline", "", "scheduleTimeout", "(Lokio/AsyncTimeout;JZ)V", "cancelScheduledTimeout", "(Lokio/AsyncTimeout;)Z", "awaitTimeout$okio", "()Lokio/AsyncTimeout;", "awaitTimeout", "IDLE_TIMEOUT_MILLIS", "J", "IDLE_TIMEOUT_NANOS", "", "TIMEOUT_WRITE_SIZE", "I", MonitorConstants.CONNECT_TYPE_HEAD, "Lokio/AsyncTimeout;", "<init>", "()V", "okio"}, k = 1, mv = {1, 4, 0})
     public static final class Companion {
-        public /* synthetic */ Companion(DefaultConstructorMarker defaultConstructorMarker) {
-            this();
+        private Companion() {
         }
 
         public final boolean cancelScheduledTimeout(AsyncTimeout node) {
             synchronized (AsyncTimeout.class) {
-                if (!node.inQueue) {
-                    return false;
-                }
-                node.inQueue = false;
                 for (AsyncTimeout asyncTimeout = AsyncTimeout.head; asyncTimeout != null; asyncTimeout = asyncTimeout.next) {
                     if (asyncTimeout.next == node) {
                         asyncTimeout.next = node.next;
@@ -63,61 +51,62 @@ public class AsyncTimeout extends Timeout {
 
         public final void scheduleTimeout(AsyncTimeout node, long timeoutNanos, boolean hasDeadline) {
             synchronized (AsyncTimeout.class) {
-                try {
-                    if (!(!node.inQueue)) {
-                        throw new IllegalStateException("Unbalanced enter/exit".toString());
-                    }
-                    node.inQueue = true;
-                    if (AsyncTimeout.head == null) {
-                        Companion companion = AsyncTimeout.INSTANCE;
-                        AsyncTimeout.head = new AsyncTimeout();
-                        new Watchdog().start();
-                    }
-                    long nanoTime = System.nanoTime();
-                    if (timeoutNanos != 0 && hasDeadline) {
-                        node.timeoutAt = Math.min(timeoutNanos, node.deadlineNanoTime() - nanoTime) + nanoTime;
-                    } else if (timeoutNanos != 0) {
-                        node.timeoutAt = timeoutNanos + nanoTime;
-                    } else {
-                        if (!hasDeadline) {
-                            throw new AssertionError();
-                        }
-                        node.timeoutAt = node.deadlineNanoTime();
-                    }
-                    long remainingNanos = node.remainingNanos(nanoTime);
-                    AsyncTimeout asyncTimeout = AsyncTimeout.head;
-                    Intrinsics.checkNotNull(asyncTimeout);
-                    while (asyncTimeout.next != null) {
-                        AsyncTimeout asyncTimeout2 = asyncTimeout.next;
-                        Intrinsics.checkNotNull(asyncTimeout2);
-                        if (remainingNanos < asyncTimeout2.remainingNanos(nanoTime)) {
-                            break;
-                        }
-                        asyncTimeout = asyncTimeout.next;
-                        Intrinsics.checkNotNull(asyncTimeout);
-                    }
-                    node.next = asyncTimeout.next;
-                    asyncTimeout.next = node;
-                    if (asyncTimeout == AsyncTimeout.head) {
-                        AsyncTimeout.class.notify();
-                    }
-                    Unit unit = Unit.INSTANCE;
-                } catch (Throwable th2) {
-                    throw th2;
+                if (AsyncTimeout.head == null) {
+                    AsyncTimeout.head = new AsyncTimeout();
+                    new Watchdog().start();
                 }
+                long nanoTime = System.nanoTime();
+                if (timeoutNanos != 0 && hasDeadline) {
+                    node.timeoutAt = Math.min(timeoutNanos, node.deadlineNanoTime() - nanoTime) + nanoTime;
+                } else if (timeoutNanos != 0) {
+                    node.timeoutAt = timeoutNanos + nanoTime;
+                } else {
+                    if (!hasDeadline) {
+                        throw new AssertionError();
+                    }
+                    node.timeoutAt = node.deadlineNanoTime();
+                }
+                long remainingNanos = node.remainingNanos(nanoTime);
+                AsyncTimeout asyncTimeout = AsyncTimeout.head;
+                if (asyncTimeout == null) {
+                    Intrinsics.throwNpe();
+                }
+                while (asyncTimeout.next != null) {
+                    AsyncTimeout asyncTimeout2 = asyncTimeout.next;
+                    if (asyncTimeout2 == null) {
+                        Intrinsics.throwNpe();
+                    }
+                    if (remainingNanos < asyncTimeout2.remainingNanos(nanoTime)) {
+                        break;
+                    }
+                    asyncTimeout = asyncTimeout.next;
+                    if (asyncTimeout == null) {
+                        Intrinsics.throwNpe();
+                    }
+                }
+                node.next = asyncTimeout.next;
+                asyncTimeout.next = node;
+                if (asyncTimeout == AsyncTimeout.head) {
+                    AsyncTimeout.class.notify();
+                }
+                Unit unit = Unit.INSTANCE;
             }
         }
 
-        @l
+        @e
         public final AsyncTimeout awaitTimeout$okio() throws InterruptedException {
             AsyncTimeout asyncTimeout = AsyncTimeout.head;
-            Intrinsics.checkNotNull(asyncTimeout);
+            if (asyncTimeout == null) {
+                Intrinsics.throwNpe();
+            }
             AsyncTimeout asyncTimeout2 = asyncTimeout.next;
             if (asyncTimeout2 == null) {
                 long nanoTime = System.nanoTime();
                 AsyncTimeout.class.wait(AsyncTimeout.IDLE_TIMEOUT_MILLIS);
                 AsyncTimeout asyncTimeout3 = AsyncTimeout.head;
-                Intrinsics.checkNotNull(asyncTimeout3);
+                if (asyncTimeout3 == null) {
+                    Intrinsics.throwNpe();
+                }
                 if (asyncTimeout3.next != null || System.nanoTime() - nanoTime < AsyncTimeout.IDLE_TIMEOUT_NANOS) {
                     return null;
                 }
@@ -125,23 +114,26 @@ public class AsyncTimeout extends Timeout {
             }
             long remainingNanos = asyncTimeout2.remainingNanos(System.nanoTime());
             if (remainingNanos > 0) {
-                long j10 = remainingNanos / C.MICROS_PER_SECOND;
-                AsyncTimeout.class.wait(j10, (int) (remainingNanos - (C.MICROS_PER_SECOND * j10)));
+                long j2 = remainingNanos / C.MICROS_PER_SECOND;
+                AsyncTimeout.class.wait(j2, (int) (remainingNanos - (C.MICROS_PER_SECOND * j2)));
                 return null;
             }
             AsyncTimeout asyncTimeout4 = AsyncTimeout.head;
-            Intrinsics.checkNotNull(asyncTimeout4);
+            if (asyncTimeout4 == null) {
+                Intrinsics.throwNpe();
+            }
             asyncTimeout4.next = asyncTimeout2.next;
             asyncTimeout2.next = null;
             return asyncTimeout2;
         }
 
-        private Companion() {
+        public /* synthetic */ Companion(DefaultConstructorMarker defaultConstructorMarker) {
+            this();
         }
     }
 
-    @Metadata(d1 = {"\u0000\u0012\n\u0002\u0018\u0002\n\u0002\u0018\u0002\n\u0002\b\u0002\n\u0002\u0010\u0002\n\u0000\b\u0002\u0018\u00002\u00020\u0001B\u0007\b\u0000¢\u0006\u0002\u0010\u0002J\b\u0010\u0003\u001a\u00020\u0004H\u0016¨\u0006\u0005"}, d2 = {"Lokio/AsyncTimeout$Watchdog;", "Ljava/lang/Thread;", "()V", "run", "", "okio"}, k = 1, mv = {1, 6, 0}, xi = 48)
-    public static final class Watchdog extends Thread {
+    @Metadata(bv = {1, 0, 3}, d1 = {"\u0000\u0010\n\u0002\u0018\u0002\n\u0002\u0018\u0002\n\u0002\u0010\u0002\n\u0002\b\u0004\b\u0002\u0018\u00002\u00020\u0001B\t\b\u0000¢\u0006\u0004\b\u0005\u0010\u0004J\u000f\u0010\u0003\u001a\u00020\u0002H\u0016¢\u0006\u0004\b\u0003\u0010\u0004¨\u0006\u0006"}, d2 = {"Lokio/AsyncTimeout$Watchdog;", "Ljava/lang/Thread;", "", "run", "()V", "<init>", "okio"}, k = 1, mv = {1, 4, 0})
+    private static final class Watchdog extends Thread {
         public Watchdog() {
             super("Okio Watchdog");
             setDaemon(true);
@@ -153,18 +145,21 @@ public class AsyncTimeout extends Timeout {
             while (true) {
                 try {
                     synchronized (AsyncTimeout.class) {
-                        awaitTimeout$okio = AsyncTimeout.INSTANCE.awaitTimeout$okio();
-                        if (awaitTimeout$okio == AsyncTimeout.head) {
-                            AsyncTimeout.head = null;
-                            return;
+                        try {
+                            awaitTimeout$okio = AsyncTimeout.INSTANCE.awaitTimeout$okio();
+                            if (awaitTimeout$okio == AsyncTimeout.head) {
+                                AsyncTimeout.head = null;
+                                return;
+                            }
+                            Unit unit = Unit.INSTANCE;
+                        } catch (Throwable th) {
+                            throw th;
                         }
-                        Unit unit = Unit.INSTANCE;
                     }
                     if (awaitTimeout$okio != null) {
                         awaitTimeout$okio.timedOut();
                     }
                 } catch (InterruptedException unused) {
-                    continue;
                 }
             }
         }
@@ -180,26 +175,34 @@ public class AsyncTimeout extends Timeout {
         return this.timeoutAt - now;
     }
 
-    @k
+    @d
     @PublishedApi
-    public final IOException access$newTimeoutException(@l IOException cause) {
+    public final IOException access$newTimeoutException(@e IOException cause) {
         return newTimeoutException(cause);
     }
 
     public final void enter() {
+        if (!(!this.inQueue)) {
+            throw new IllegalStateException("Unbalanced enter/exit".toString());
+        }
         long timeoutNanos = getTimeoutNanos();
         boolean hasDeadline = getHasDeadline();
         if (timeoutNanos != 0 || hasDeadline) {
+            this.inQueue = true;
             INSTANCE.scheduleTimeout(this, timeoutNanos, hasDeadline);
         }
     }
 
     public final boolean exit() {
+        if (!this.inQueue) {
+            return false;
+        }
+        this.inQueue = false;
         return INSTANCE.cancelScheduledTimeout(this);
     }
 
-    @k
-    public IOException newTimeoutException(@l IOException cause) {
+    @d
+    protected IOException newTimeoutException(@e IOException cause) {
         InterruptedIOException interruptedIOException = new InterruptedIOException("timeout");
         if (cause != null) {
             interruptedIOException.initCause(cause);
@@ -207,32 +210,25 @@ public class AsyncTimeout extends Timeout {
         return interruptedIOException;
     }
 
-    @k
-    public final Sink sink(@k Sink sink) {
-        Intrinsics.checkNotNullParameter(sink, "sink");
+    @d
+    public final Sink sink(@d final Sink sink) {
+        Intrinsics.checkParameterIsNotNull(sink, "sink");
         return new Sink() { // from class: okio.AsyncTimeout$sink$1
-            final /* synthetic */ Sink $sink;
-
-            public AsyncTimeout$sink$1(Sink sink2) {
-                sink = sink2;
-            }
-
             @Override // okio.Sink, java.io.Closeable, java.lang.AutoCloseable
             public void close() {
                 AsyncTimeout asyncTimeout = AsyncTimeout.this;
-                Sink sink2 = sink;
                 asyncTimeout.enter();
                 try {
-                    sink2.close();
+                    sink.close();
                     Unit unit = Unit.INSTANCE;
                     if (asyncTimeout.exit()) {
                         throw asyncTimeout.access$newTimeoutException(null);
                     }
-                } catch (IOException e10) {
+                } catch (IOException e2) {
                     if (!asyncTimeout.exit()) {
-                        throw e10;
+                        throw e2;
                     }
-                    throw asyncTimeout.access$newTimeoutException(e10);
+                    throw asyncTimeout.access$newTimeoutException(e2);
                 } finally {
                     asyncTimeout.exit();
                 }
@@ -241,68 +237,70 @@ public class AsyncTimeout extends Timeout {
             @Override // okio.Sink, java.io.Flushable
             public void flush() {
                 AsyncTimeout asyncTimeout = AsyncTimeout.this;
-                Sink sink2 = sink;
                 asyncTimeout.enter();
                 try {
-                    sink2.flush();
+                    sink.flush();
                     Unit unit = Unit.INSTANCE;
                     if (asyncTimeout.exit()) {
                         throw asyncTimeout.access$newTimeoutException(null);
                     }
-                } catch (IOException e10) {
+                } catch (IOException e2) {
                     if (!asyncTimeout.exit()) {
-                        throw e10;
+                        throw e2;
                     }
-                    throw asyncTimeout.access$newTimeoutException(e10);
+                    throw asyncTimeout.access$newTimeoutException(e2);
                 } finally {
                     asyncTimeout.exit();
                 }
             }
 
-            @k
+            @d
             public String toString() {
                 return "AsyncTimeout.sink(" + sink + ')';
             }
 
             @Override // okio.Sink
-            public void write(@k Buffer source, long byteCount) {
-                Intrinsics.checkNotNullParameter(source, "source");
-                _UtilKt.checkOffsetAndCount(source.size(), 0L, byteCount);
+            public void write(@d Buffer source, long byteCount) {
+                Intrinsics.checkParameterIsNotNull(source, "source");
+                Util.checkOffsetAndCount(source.size(), 0L, byteCount);
                 while (true) {
-                    long j10 = 0;
+                    long j2 = 0;
                     if (byteCount <= 0) {
                         return;
                     }
                     Segment segment = source.head;
-                    Intrinsics.checkNotNull(segment);
+                    if (segment == null) {
+                        Intrinsics.throwNpe();
+                    }
                     while (true) {
-                        if (j10 >= 65536) {
+                        if (j2 >= 65536) {
                             break;
                         }
-                        j10 += segment.limit - segment.pos;
-                        if (j10 >= byteCount) {
-                            j10 = byteCount;
+                        j2 += segment.limit - segment.pos;
+                        if (j2 >= byteCount) {
+                            j2 = byteCount;
                             break;
                         } else {
                             segment = segment.next;
-                            Intrinsics.checkNotNull(segment);
+                            if (segment == null) {
+                                Intrinsics.throwNpe();
+                            }
                         }
                     }
                     AsyncTimeout asyncTimeout = AsyncTimeout.this;
-                    Sink sink2 = sink;
                     asyncTimeout.enter();
                     try {
-                        sink2.write(source, j10);
+                        sink.write(source, j2);
                         Unit unit = Unit.INSTANCE;
                         if (asyncTimeout.exit()) {
                             throw asyncTimeout.access$newTimeoutException(null);
                         }
-                        byteCount -= j10;
-                    } catch (IOException e10) {
+                        byteCount -= j2;
+                    } catch (IOException e2) {
                         if (!asyncTimeout.exit()) {
-                            throw e10;
+                            throw e2;
                         }
-                        throw asyncTimeout.access$newTimeoutException(e10);
+                        throw asyncTimeout.access$newTimeoutException(e2);
                     } finally {
                         asyncTimeout.exit();
                     }
@@ -310,107 +308,99 @@ public class AsyncTimeout extends Timeout {
             }
 
             @Override // okio.Sink
-            @k
+            @d
             /* renamed from: timeout, reason: from getter */
-            public AsyncTimeout getThis$0() {
+            public AsyncTimeout getTimeout() {
                 return AsyncTimeout.this;
             }
         };
     }
 
-    @k
-    public final Source source(@k Source source) {
-        Intrinsics.checkNotNullParameter(source, "source");
+    @d
+    public final Source source(@d final Source source) {
+        Intrinsics.checkParameterIsNotNull(source, "source");
         return new Source() { // from class: okio.AsyncTimeout$source$1
-            final /* synthetic */ Source $source;
-
-            public AsyncTimeout$source$1(Source source2) {
-                source = source2;
-            }
-
             @Override // okio.Source, java.io.Closeable, java.lang.AutoCloseable
             public void close() {
                 AsyncTimeout asyncTimeout = AsyncTimeout.this;
-                Source source2 = source;
                 asyncTimeout.enter();
                 try {
-                    source2.close();
+                    source.close();
                     Unit unit = Unit.INSTANCE;
                     if (asyncTimeout.exit()) {
                         throw asyncTimeout.access$newTimeoutException(null);
                     }
-                } catch (IOException e10) {
+                } catch (IOException e2) {
                     if (!asyncTimeout.exit()) {
-                        throw e10;
+                        throw e2;
                     }
-                    throw asyncTimeout.access$newTimeoutException(e10);
+                    throw asyncTimeout.access$newTimeoutException(e2);
                 } finally {
                     asyncTimeout.exit();
                 }
             }
 
             @Override // okio.Source
-            public long read(@k Buffer sink, long byteCount) {
-                Intrinsics.checkNotNullParameter(sink, "sink");
+            public long read(@d Buffer sink, long byteCount) {
+                Intrinsics.checkParameterIsNotNull(sink, "sink");
                 AsyncTimeout asyncTimeout = AsyncTimeout.this;
-                Source source2 = source;
                 asyncTimeout.enter();
                 try {
-                    long read = source2.read(sink, byteCount);
+                    long read = source.read(sink, byteCount);
                     if (asyncTimeout.exit()) {
                         throw asyncTimeout.access$newTimeoutException(null);
                     }
                     return read;
-                } catch (IOException e10) {
+                } catch (IOException e2) {
                     if (asyncTimeout.exit()) {
-                        throw asyncTimeout.access$newTimeoutException(e10);
+                        throw asyncTimeout.access$newTimeoutException(e2);
                     }
-                    throw e10;
+                    throw e2;
                 } finally {
                     asyncTimeout.exit();
                 }
             }
 
-            @k
+            @d
             public String toString() {
                 return "AsyncTimeout.source(" + source + ')';
             }
 
             @Override // okio.Source
-            @k
+            @d
             /* renamed from: timeout, reason: from getter */
-            public AsyncTimeout getThis$0() {
+            public AsyncTimeout getTimeout() {
                 return AsyncTimeout.this;
             }
         };
     }
 
-    public void timedOut() {
+    protected void timedOut() {
     }
 
-    public final <T> T withTimeout(@k Function0<? extends T> r32) {
-        Intrinsics.checkNotNullParameter(r32, "block");
+    public final <T> T withTimeout(@d Function0<? extends T> block) {
+        Intrinsics.checkParameterIsNotNull(block, "block");
         enter();
         try {
             try {
-                T invoke = r32.invoke();
+                T invoke = block.invoke();
                 InlineMarker.finallyStart(1);
                 if (exit()) {
                     throw access$newTimeoutException(null);
                 }
                 InlineMarker.finallyEnd(1);
                 return invoke;
-            } catch (IOException e10) {
+            } catch (IOException e2) {
                 if (exit()) {
-                    throw access$newTimeoutException(e10);
+                    throw access$newTimeoutException(e2);
                 }
-                throw e10;
+                throw e2;
             }
-        } catch (Throwable th2) {
+        } catch (Throwable th) {
             InlineMarker.finallyStart(1);
             exit();
             InlineMarker.finallyEnd(1);
-            throw th2;
+            throw th;
         }
     }
 }

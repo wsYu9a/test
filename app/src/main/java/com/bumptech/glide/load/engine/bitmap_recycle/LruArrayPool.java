@@ -9,7 +9,7 @@ import java.util.Map;
 import java.util.NavigableMap;
 import java.util.TreeMap;
 
-/* loaded from: classes2.dex */
+/* loaded from: classes.dex */
 public final class LruArrayPool implements ArrayPool {
     private static final int DEFAULT_SIZE = 4194304;
 
@@ -23,12 +23,12 @@ public final class LruArrayPool implements ArrayPool {
     private final int maxSize;
     private final Map<Class<?>, NavigableMap<Integer, Integer>> sortedSizes;
 
-    public static final class Key implements Poolable {
+    private static final class Key implements Poolable {
         private Class<?> arrayClass;
         private final KeyPool pool;
         int size;
 
-        public Key(KeyPool keyPool) {
+        Key(KeyPool keyPool) {
             this.pool = keyPool;
         }
 
@@ -41,13 +41,13 @@ public final class LruArrayPool implements ArrayPool {
         }
 
         public int hashCode() {
-            int i10 = this.size * 31;
+            int i2 = this.size * 31;
             Class<?> cls = this.arrayClass;
-            return i10 + (cls != null ? cls.hashCode() : 0);
+            return i2 + (cls != null ? cls.hashCode() : 0);
         }
 
-        public void init(int i10, Class<?> cls) {
-            this.size = i10;
+        void init(int i2, Class<?> cls) {
+            this.size = i2;
             this.arrayClass = cls;
         }
 
@@ -61,10 +61,13 @@ public final class LruArrayPool implements ArrayPool {
         }
     }
 
-    public static final class KeyPool extends BaseKeyPool<Key> {
-        public Key get(int i10, Class<?> cls) {
+    private static final class KeyPool extends BaseKeyPool<Key> {
+        KeyPool() {
+        }
+
+        Key get(int i2, Class<?> cls) {
             Key key = get();
-            key.init(i10, cls);
+            key.init(i2, cls);
             return key;
         }
 
@@ -83,27 +86,27 @@ public final class LruArrayPool implements ArrayPool {
         this.maxSize = 4194304;
     }
 
-    private void decrementArrayOfSize(int i10, Class<?> cls) {
+    private void decrementArrayOfSize(int i2, Class<?> cls) {
         NavigableMap<Integer, Integer> sizesForAdapter = getSizesForAdapter(cls);
-        Integer num = sizesForAdapter.get(Integer.valueOf(i10));
+        Integer num = (Integer) sizesForAdapter.get(Integer.valueOf(i2));
         if (num != null) {
             if (num.intValue() == 1) {
-                sizesForAdapter.remove(Integer.valueOf(i10));
+                sizesForAdapter.remove(Integer.valueOf(i2));
                 return;
             } else {
-                sizesForAdapter.put(Integer.valueOf(i10), Integer.valueOf(num.intValue() - 1));
+                sizesForAdapter.put(Integer.valueOf(i2), Integer.valueOf(num.intValue() - 1));
                 return;
             }
         }
-        throw new NullPointerException("Tried to decrement empty size, size: " + i10 + ", this: " + this);
+        throw new NullPointerException("Tried to decrement empty size, size: " + i2 + ", this: " + this);
     }
 
     private void evict() {
         evictToSize(this.maxSize);
     }
 
-    private void evictToSize(int i10) {
-        while (this.currentSize > i10) {
+    private void evictToSize(int i2) {
+        while (this.currentSize > i2) {
             Object removeLast = this.groupedMap.removeLast();
             Preconditions.checkNotNull(removeLast);
             ArrayAdapterInterface adapterFromObject = getAdapterFromObject(removeLast);
@@ -115,8 +118,8 @@ public final class LruArrayPool implements ArrayPool {
         }
     }
 
-    private <T> ArrayAdapterInterface<T> getAdapterFromObject(T t10) {
-        return getAdapterFromType(t10.getClass());
+    private <T> ArrayAdapterInterface<T> getAdapterFromObject(T t) {
+        return getAdapterFromType(t.getClass());
     }
 
     private <T> ArrayAdapterInterface<T> getAdapterFromType(Class<T> cls) {
@@ -142,13 +145,13 @@ public final class LruArrayPool implements ArrayPool {
 
     private <T> T getForKey(Key key, Class<T> cls) {
         ArrayAdapterInterface<T> adapterFromType = getAdapterFromType(cls);
-        T t10 = (T) getArrayForKey(key);
-        if (t10 != null) {
-            this.currentSize -= adapterFromType.getArrayLength(t10) * adapterFromType.getElementSizeInBytes();
-            decrementArrayOfSize(adapterFromType.getArrayLength(t10), cls);
+        T t = (T) getArrayForKey(key);
+        if (t != null) {
+            this.currentSize -= adapterFromType.getArrayLength(t) * adapterFromType.getElementSizeInBytes();
+            decrementArrayOfSize(adapterFromType.getArrayLength(t), cls);
         }
-        if (t10 != null) {
-            return t10;
+        if (t != null) {
+            return t;
         }
         if (Log.isLoggable(adapterFromType.getTag(), 2)) {
             Log.v(adapterFromType.getTag(), "Allocated " + key.size + " bytes");
@@ -167,16 +170,16 @@ public final class LruArrayPool implements ArrayPool {
     }
 
     private boolean isNoMoreThanHalfFull() {
-        int i10 = this.currentSize;
-        return i10 == 0 || this.maxSize / i10 >= 2;
+        int i2 = this.currentSize;
+        return i2 == 0 || this.maxSize / i2 >= 2;
     }
 
-    private boolean isSmallEnoughForReuse(int i10) {
-        return i10 <= this.maxSize / 2;
+    private boolean isSmallEnoughForReuse(int i2) {
+        return i2 <= this.maxSize / 2;
     }
 
-    private boolean mayFillRequest(int i10, Integer num) {
-        return num != null && (isNoMoreThanHalfFull() || num.intValue() <= i10 * 8);
+    private boolean mayFillRequest(int i2, Integer num) {
+        return num != null && (isNoMoreThanHalfFull() || num.intValue() <= i2 * 8);
     }
 
     @Override // com.bumptech.glide.load.engine.bitmap_recycle.ArrayPool
@@ -185,77 +188,73 @@ public final class LruArrayPool implements ArrayPool {
     }
 
     @Override // com.bumptech.glide.load.engine.bitmap_recycle.ArrayPool
-    public synchronized <T> T get(int i10, Class<T> cls) {
+    public synchronized <T> T get(int i2, Class<T> cls) {
         Integer ceilingKey;
-        try {
-            ceilingKey = getSizesForAdapter(cls).ceilingKey(Integer.valueOf(i10));
-        } catch (Throwable th2) {
-            throw th2;
-        }
-        return (T) getForKey(mayFillRequest(i10, ceilingKey) ? this.keyPool.get(ceilingKey.intValue(), cls) : this.keyPool.get(i10, cls), cls);
+        ceilingKey = getSizesForAdapter(cls).ceilingKey(Integer.valueOf(i2));
+        return (T) getForKey(mayFillRequest(i2, ceilingKey) ? this.keyPool.get(ceilingKey.intValue(), cls) : this.keyPool.get(i2, cls), cls);
     }
 
-    public int getCurrentSize() {
-        int i10 = 0;
+    int getCurrentSize() {
+        int i2 = 0;
         for (Class<?> cls : this.sortedSizes.keySet()) {
             for (Integer num : this.sortedSizes.get(cls).keySet()) {
-                i10 += num.intValue() * this.sortedSizes.get(cls).get(num).intValue() * getAdapterFromType(cls).getElementSizeInBytes();
+                i2 += num.intValue() * ((Integer) this.sortedSizes.get(cls).get(num)).intValue() * getAdapterFromType(cls).getElementSizeInBytes();
             }
         }
-        return i10;
+        return i2;
     }
 
     @Override // com.bumptech.glide.load.engine.bitmap_recycle.ArrayPool
-    public synchronized <T> T getExact(int i10, Class<T> cls) {
-        return (T) getForKey(this.keyPool.get(i10, cls), cls);
+    public synchronized <T> T getExact(int i2, Class<T> cls) {
+        return (T) getForKey(this.keyPool.get(i2, cls), cls);
     }
 
     @Override // com.bumptech.glide.load.engine.bitmap_recycle.ArrayPool
     @Deprecated
-    public <T> void put(T t10, Class<T> cls) {
-        put(t10);
+    public <T> void put(T t, Class<T> cls) {
+        put(t);
     }
 
     @Override // com.bumptech.glide.load.engine.bitmap_recycle.ArrayPool
-    public synchronized void trimMemory(int i10) {
+    public synchronized void trimMemory(int i2) {
         try {
-            if (i10 >= 40) {
+            if (i2 >= 40) {
                 clearMemory();
-            } else if (i10 >= 20 || i10 == 15) {
+            } else if (i2 >= 20 || i2 == 15) {
                 evictToSize(this.maxSize / 2);
             }
-        } catch (Throwable th2) {
-            throw th2;
+        } catch (Throwable th) {
+            throw th;
         }
     }
 
     @Override // com.bumptech.glide.load.engine.bitmap_recycle.ArrayPool
-    public synchronized <T> void put(T t10) {
-        Class<?> cls = t10.getClass();
+    public synchronized <T> void put(T t) {
+        Class<?> cls = t.getClass();
         ArrayAdapterInterface<T> adapterFromType = getAdapterFromType(cls);
-        int arrayLength = adapterFromType.getArrayLength(t10);
+        int arrayLength = adapterFromType.getArrayLength(t);
         int elementSizeInBytes = adapterFromType.getElementSizeInBytes() * arrayLength;
         if (isSmallEnoughForReuse(elementSizeInBytes)) {
             Key key = this.keyPool.get(arrayLength, cls);
-            this.groupedMap.put(key, t10);
+            this.groupedMap.put(key, t);
             NavigableMap<Integer, Integer> sizesForAdapter = getSizesForAdapter(cls);
-            Integer num = sizesForAdapter.get(Integer.valueOf(key.size));
+            Integer num = (Integer) sizesForAdapter.get(Integer.valueOf(key.size));
             Integer valueOf = Integer.valueOf(key.size);
-            int i10 = 1;
+            int i2 = 1;
             if (num != null) {
-                i10 = 1 + num.intValue();
+                i2 = 1 + num.intValue();
             }
-            sizesForAdapter.put(valueOf, Integer.valueOf(i10));
+            sizesForAdapter.put(valueOf, Integer.valueOf(i2));
             this.currentSize += elementSizeInBytes;
             evict();
         }
     }
 
-    public LruArrayPool(int i10) {
+    public LruArrayPool(int i2) {
         this.groupedMap = new GroupedLinkedMap<>();
         this.keyPool = new KeyPool();
         this.sortedSizes = new HashMap();
         this.adapters = new HashMap();
-        this.maxSize = i10;
+        this.maxSize = i2;
     }
 }

@@ -6,15 +6,15 @@ import android.view.animation.AnimationUtils;
 import com.bumptech.glide.load.DataSource;
 import com.bumptech.glide.request.transition.ViewTransition;
 
-/* loaded from: classes2.dex */
+/* loaded from: classes.dex */
 public class ViewAnimationFactory<R> implements TransitionFactory<R> {
     private Transition<R> transition;
     private final ViewTransition.ViewTransitionAnimationFactory viewTransitionAnimationFactory;
 
-    public static class ConcreteViewTransitionAnimationFactory implements ViewTransition.ViewTransitionAnimationFactory {
+    private static class ConcreteViewTransitionAnimationFactory implements ViewTransition.ViewTransitionAnimationFactory {
         private final Animation animation;
 
-        public ConcreteViewTransitionAnimationFactory(Animation animation) {
+        ConcreteViewTransitionAnimationFactory(Animation animation) {
             this.animation = animation;
         }
 
@@ -24,11 +24,11 @@ public class ViewAnimationFactory<R> implements TransitionFactory<R> {
         }
     }
 
-    public static class ResourceViewTransitionAnimationFactory implements ViewTransition.ViewTransitionAnimationFactory {
+    private static class ResourceViewTransitionAnimationFactory implements ViewTransition.ViewTransitionAnimationFactory {
         private final int animationId;
 
-        public ResourceViewTransitionAnimationFactory(int i10) {
-            this.animationId = i10;
+        ResourceViewTransitionAnimationFactory(int i2) {
+            this.animationId = i2;
         }
 
         @Override // com.bumptech.glide.request.transition.ViewTransition.ViewTransitionAnimationFactory
@@ -42,8 +42,8 @@ public class ViewAnimationFactory<R> implements TransitionFactory<R> {
     }
 
     @Override // com.bumptech.glide.request.transition.TransitionFactory
-    public Transition<R> build(DataSource dataSource, boolean z10) {
-        if (dataSource == DataSource.MEMORY_CACHE || !z10) {
+    public Transition<R> build(DataSource dataSource, boolean z) {
+        if (dataSource == DataSource.MEMORY_CACHE || !z) {
             return NoTransition.get();
         }
         if (this.transition == null) {
@@ -52,11 +52,11 @@ public class ViewAnimationFactory<R> implements TransitionFactory<R> {
         return this.transition;
     }
 
-    public ViewAnimationFactory(int i10) {
-        this(new ResourceViewTransitionAnimationFactory(i10));
+    public ViewAnimationFactory(int i2) {
+        this(new ResourceViewTransitionAnimationFactory(i2));
     }
 
-    public ViewAnimationFactory(ViewTransition.ViewTransitionAnimationFactory viewTransitionAnimationFactory) {
+    ViewAnimationFactory(ViewTransition.ViewTransitionAnimationFactory viewTransitionAnimationFactory) {
         this.viewTransitionAnimationFactory = viewTransitionAnimationFactory;
     }
 }

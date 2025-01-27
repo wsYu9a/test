@@ -1,6 +1,6 @@
 package com.bytedance.android.live.base.api;
 
-/* loaded from: classes2.dex */
+/* loaded from: classes.dex */
 public class DefaultHostPermission implements IHostPermission {
     @Override // com.bytedance.android.live.base.api.IHostPermission
     public boolean alist() {

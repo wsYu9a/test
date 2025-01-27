@@ -1,109 +1,112 @@
 package rx.internal.util;
 
-import wj.n;
-import wj.o;
-import wj.p;
-import wj.q;
-import wj.r;
-import wj.s;
-import wj.t;
-import wj.u;
-import wj.v;
-import wj.w;
-import wj.x;
+import rx.k.n;
+import rx.k.o;
+import rx.k.p;
+import rx.k.q;
+import rx.k.r;
+import rx.k.s;
+import rx.k.t;
+import rx.k.u;
+import rx.k.v;
+import rx.k.w;
+import rx.k.x;
 
 /* loaded from: classes5.dex */
 public final class UtilityFunctions {
 
     /* renamed from: a */
-    public static final b f30550a = new b(null);
+    private static final b f36755a = new b(null);
 
-    public enum AlwaysFalse implements o<Object, Boolean> {
+    private enum AlwaysFalse implements o<Object, Boolean> {
         INSTANCE;
 
-        @Override // wj.o
+        @Override // rx.k.o
         public Boolean call(Object obj) {
             return Boolean.FALSE;
         }
     }
 
-    public enum AlwaysTrue implements o<Object, Boolean> {
+    private enum AlwaysTrue implements o<Object, Boolean> {
         INSTANCE;
 
-        @Override // wj.o
+        @Override // rx.k.o
         public Boolean call(Object obj) {
             return Boolean.TRUE;
         }
     }
 
-    public static class a<T> implements o<T, T> {
-        @Override // wj.o
-        public T call(T t10) {
-            return t10;
+    static class a<T> implements o<T, T> {
+        a() {
+        }
+
+        @Override // rx.k.o
+        public T call(T t) {
+            return t;
         }
     }
 
-    public static final class b<T0, T1, T2, T3, T4, T5, T6, T7, T8, T9, R> implements n<R>, o<T0, R>, p<T0, T1, R>, q<T0, T1, T2, R>, r<T0, T1, T2, T3, R>, s<T0, T1, T2, T3, T4, R>, t<T0, T1, T2, T3, T4, T5, R>, u<T0, T1, T2, T3, T4, T5, T6, R>, v<T0, T1, T2, T3, T4, T5, T6, T7, R>, w<T0, T1, T2, T3, T4, T5, T6, T7, T8, R>, x<R> {
-        public b() {
+    private static final class b<T0, T1, T2, T3, T4, T5, T6, T7, T8, T9, R> implements n<R>, o<T0, R>, p<T0, T1, R>, q<T0, T1, T2, R>, r<T0, T1, T2, T3, R>, s<T0, T1, T2, T3, T4, R>, t<T0, T1, T2, T3, T4, T5, R>, u<T0, T1, T2, T3, T4, T5, T6, R>, v<T0, T1, T2, T3, T4, T5, T6, T7, R>, w<T0, T1, T2, T3, T4, T5, T6, T7, T8, R>, x<R> {
+        private b() {
         }
 
-        @Override // wj.n, java.util.concurrent.Callable
+        @Override // rx.k.n, java.util.concurrent.Callable
         public R call() {
             return null;
         }
 
-        public /* synthetic */ b(a aVar) {
-            this();
-        }
-
-        @Override // wj.o
-        public R call(T0 t02) {
+        @Override // rx.k.o
+        public R call(T0 t0) {
             return null;
         }
 
-        @Override // wj.p
-        public R call(T0 t02, T1 t12) {
+        @Override // rx.k.p
+        public R call(T0 t0, T1 t1) {
             return null;
         }
 
-        @Override // wj.q
-        public R call(T0 t02, T1 t12, T2 t22) {
+        @Override // rx.k.q
+        public R call(T0 t0, T1 t1, T2 t2) {
             return null;
         }
 
-        @Override // wj.r
-        public R call(T0 t02, T1 t12, T2 t22, T3 t32) {
+        @Override // rx.k.r
+        public R call(T0 t0, T1 t1, T2 t2, T3 t3) {
             return null;
         }
 
-        @Override // wj.s
-        public R call(T0 t02, T1 t12, T2 t22, T3 t32, T4 t42) {
+        @Override // rx.k.s
+        public R call(T0 t0, T1 t1, T2 t2, T3 t3, T4 t4) {
             return null;
         }
 
-        @Override // wj.t
-        public R call(T0 t02, T1 t12, T2 t22, T3 t32, T4 t42, T5 t52) {
+        @Override // rx.k.t
+        public R call(T0 t0, T1 t1, T2 t2, T3 t3, T4 t4, T5 t5) {
             return null;
         }
 
-        @Override // wj.u
-        public R call(T0 t02, T1 t12, T2 t22, T3 t32, T4 t42, T5 t52, T6 t62) {
+        @Override // rx.k.u
+        public R call(T0 t0, T1 t1, T2 t2, T3 t3, T4 t4, T5 t5, T6 t6) {
             return null;
         }
 
-        @Override // wj.v
-        public R call(T0 t02, T1 t12, T2 t22, T3 t32, T4 t42, T5 t52, T6 t62, T7 t72) {
+        @Override // rx.k.v
+        public R call(T0 t0, T1 t1, T2 t2, T3 t3, T4 t4, T5 t5, T6 t6, T7 t7) {
             return null;
         }
 
-        @Override // wj.w
-        public R call(T0 t02, T1 t12, T2 t22, T3 t32, T4 t42, T5 t52, T6 t62, T7 t72, T8 t82) {
+        @Override // rx.k.w
+        public R call(T0 t0, T1 t1, T2 t2, T3 t3, T4 t4, T5 t5, T6 t6, T7 t7, T8 t8) {
             return null;
         }
 
-        @Override // wj.x
+        @Override // rx.k.x
         public R call(Object... objArr) {
             return null;
+        }
+
+        /* synthetic */ b(a aVar) {
+            this();
         }
     }
 
@@ -120,6 +123,6 @@ public final class UtilityFunctions {
     }
 
     public static <T0, T1, T2, T3, T4, T5, T6, T7, T8, T9, R> b<T0, T1, T2, T3, T4, T5, T6, T7, T8, T9, R> d() {
-        return f30550a;
+        return f36755a;
     }
 }

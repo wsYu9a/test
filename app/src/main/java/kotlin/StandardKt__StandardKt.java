@@ -1,16 +1,13 @@
 package kotlin;
 
 import androidx.exifinterface.media.ExifInterface;
-import com.bytedance.sdk.openadsdk.mediation.MediationConstant;
-import com.sigmob.sdk.downloader.core.breakpoint.e;
 import com.tencent.open.SocialConstants;
 import kotlin.internal.InlineOnly;
 import kotlin.jvm.functions.Function0;
 import kotlin.jvm.functions.Function1;
-import kotlin.jvm.internal.Intrinsics;
 
-@Metadata(d1 = {"\u0000:\n\u0000\n\u0002\u0010\u0001\n\u0000\n\u0002\u0010\u000e\n\u0000\n\u0002\u0010\u0002\n\u0000\n\u0002\u0010\b\n\u0000\n\u0002\u0018\u0002\n\u0002\b\u0003\n\u0002\u0018\u0002\n\u0002\b\u0004\n\u0002\u0018\u0002\n\u0002\b\u0006\n\u0002\u0010\u000b\n\u0002\b\u0002\u001a\t\u0010\u0000\u001a\u00020\u0001H\u0087\b\u001a\u0011\u0010\u0000\u001a\u00020\u00012\u0006\u0010\u0002\u001a\u00020\u0003H\u0087\b\u001a3\u0010\u0004\u001a\u00020\u00052\u0006\u0010\u0006\u001a\u00020\u00072\u0012\u0010\b\u001a\u000e\u0012\u0004\u0012\u00020\u0007\u0012\u0004\u0012\u00020\u00050\tH\u0087\bø\u0001\u0000\u0082\u0002\b\n\u0006\b\u0001\u0012\u0002\u0010\u0002\u001a2\u0010\n\u001a\u0002H\u000b\"\u0004\b\u0000\u0010\u000b2\f\u0010\f\u001a\b\u0012\u0004\u0012\u0002H\u000b0\rH\u0087\bø\u0001\u0000\u0082\u0002\n\n\b\b\u0001\u0012\u0002\u0010\u0001 \u0001¢\u0006\u0002\u0010\u000e\u001aK\u0010\u000f\u001a\u0002H\u000b\"\u0004\b\u0000\u0010\u0010\"\u0004\b\u0001\u0010\u000b2\u0006\u0010\u0011\u001a\u0002H\u00102\u0017\u0010\f\u001a\u0013\u0012\u0004\u0012\u0002H\u0010\u0012\u0004\u0012\u0002H\u000b0\t¢\u0006\u0002\b\u0012H\u0087\bø\u0001\u0000\u0082\u0002\n\n\b\b\u0001\u0012\u0002\u0010\u0002 \u0001¢\u0006\u0002\u0010\u0013\u001a<\u0010\u0014\u001a\u0002H\u0010\"\u0004\b\u0000\u0010\u0010*\u0002H\u00102\u0012\u0010\f\u001a\u000e\u0012\u0004\u0012\u0002H\u0010\u0012\u0004\u0012\u00020\u00050\tH\u0087\bø\u0001\u0000\u0082\u0002\n\n\b\b\u0001\u0012\u0002\u0010\u0001 \u0001¢\u0006\u0002\u0010\u0013\u001aA\u0010\u0015\u001a\u0002H\u0010\"\u0004\b\u0000\u0010\u0010*\u0002H\u00102\u0017\u0010\f\u001a\u0013\u0012\u0004\u0012\u0002H\u0010\u0012\u0004\u0012\u00020\u00050\t¢\u0006\u0002\b\u0012H\u0087\bø\u0001\u0000\u0082\u0002\n\n\b\b\u0001\u0012\u0002\u0010\u0001 \u0001¢\u0006\u0002\u0010\u0013\u001aB\u0010\u0016\u001a\u0002H\u000b\"\u0004\b\u0000\u0010\u0010\"\u0004\b\u0001\u0010\u000b*\u0002H\u00102\u0012\u0010\f\u001a\u000e\u0012\u0004\u0012\u0002H\u0010\u0012\u0004\u0012\u0002H\u000b0\tH\u0087\bø\u0001\u0000\u0082\u0002\n\n\b\b\u0001\u0012\u0002\u0010\u0001 \u0001¢\u0006\u0002\u0010\u0013\u001aG\u0010\n\u001a\u0002H\u000b\"\u0004\b\u0000\u0010\u0010\"\u0004\b\u0001\u0010\u000b*\u0002H\u00102\u0017\u0010\f\u001a\u0013\u0012\u0004\u0012\u0002H\u0010\u0012\u0004\u0012\u0002H\u000b0\t¢\u0006\u0002\b\u0012H\u0087\bø\u0001\u0000\u0082\u0002\n\n\b\b\u0001\u0012\u0002\u0010\u0001 \u0001¢\u0006\u0002\u0010\u0013\u001a>\u0010\u0017\u001a\u0004\u0018\u0001H\u0010\"\u0004\b\u0000\u0010\u0010*\u0002H\u00102\u0012\u0010\u0018\u001a\u000e\u0012\u0004\u0012\u0002H\u0010\u0012\u0004\u0012\u00020\u00190\tH\u0087\bø\u0001\u0000\u0082\u0002\n\n\b\b\u0001\u0012\u0002\u0010\u0001 \u0001¢\u0006\u0002\u0010\u0013\u001a>\u0010\u001a\u001a\u0004\u0018\u0001H\u0010\"\u0004\b\u0000\u0010\u0010*\u0002H\u00102\u0012\u0010\u0018\u001a\u000e\u0012\u0004\u0012\u0002H\u0010\u0012\u0004\u0012\u00020\u00190\tH\u0087\bø\u0001\u0000\u0082\u0002\n\n\b\b\u0001\u0012\u0002\u0010\u0001 \u0001¢\u0006\u0002\u0010\u0013\u0082\u0002\u0007\n\u0005\b\u009920\u0001¨\u0006\u001b"}, d2 = {"TODO", "", MediationConstant.KEY_REASON, "", "repeat", "", "times", "", "action", "Lkotlin/Function1;", "run", "R", e.f19025e, "Lkotlin/Function0;", "(Lkotlin/jvm/functions/Function0;)Ljava/lang/Object;", "with", ExifInterface.GPS_DIRECTION_TRUE, SocialConstants.PARAM_RECEIVER, "Lkotlin/ExtensionFunctionType;", "(Ljava/lang/Object;Lkotlin/jvm/functions/Function1;)Ljava/lang/Object;", "also", "apply", "let", "takeIf", "predicate", "", "takeUnless", "kotlin-stdlib"}, k = 5, mv = {1, 9, 0}, xi = 49, xs = "kotlin/StandardKt")
-/* loaded from: classes4.dex */
+@Metadata(bv = {1, 0, 3}, d1 = {"\u0000<\n\u0002\u0010\u0001\n\u0002\b\u0002\n\u0002\u0010\u000e\n\u0002\b\u0003\n\u0002\u0018\u0002\n\u0002\b\u0004\n\u0002\u0018\u0002\n\u0002\u0018\u0002\n\u0002\b\u0003\n\u0002\u0010\u0002\n\u0002\b\u0003\n\u0002\u0010\u000b\n\u0002\b\u0003\n\u0002\u0010\b\n\u0002\b\u0005\u001a\u0010\u0010\u0001\u001a\u00020\u0000H\u0087\b¢\u0006\u0004\b\u0001\u0010\u0002\u001a\u0018\u0010\u0001\u001a\u00020\u00002\u0006\u0010\u0004\u001a\u00020\u0003H\u0087\b¢\u0006\u0004\b\u0001\u0010\u0005\u001a1\u0010\t\u001a\u00028\u0000\"\u0004\b\u0000\u0010\u00062\f\u0010\b\u001a\b\u0012\u0004\u0012\u00028\u00000\u0007H\u0087\b\u0082\u0002\n\n\b\b\u0001\u0012\u0002\u0010\u0001 \u0001¢\u0006\u0004\b\t\u0010\n\u001aF\u0010\t\u001a\u00028\u0001\"\u0004\b\u0000\u0010\u000b\"\u0004\b\u0001\u0010\u0006*\u00028\u00002\u0017\u0010\b\u001a\u0013\u0012\u0004\u0012\u00028\u0000\u0012\u0004\u0012\u00028\u00010\f¢\u0006\u0002\b\rH\u0087\b\u0082\u0002\n\n\b\b\u0001\u0012\u0002\u0010\u0001 \u0001¢\u0006\u0004\b\t\u0010\u000e\u001aJ\u0010\u0010\u001a\u00028\u0001\"\u0004\b\u0000\u0010\u000b\"\u0004\b\u0001\u0010\u00062\u0006\u0010\u000f\u001a\u00028\u00002\u0017\u0010\b\u001a\u0013\u0012\u0004\u0012\u00028\u0000\u0012\u0004\u0012\u00028\u00010\f¢\u0006\u0002\b\rH\u0087\b\u0082\u0002\n\n\b\b\u0001\u0012\u0002\u0010\u0002 \u0001¢\u0006\u0004\b\u0010\u0010\u000e\u001a@\u0010\u0012\u001a\u00028\u0000\"\u0004\b\u0000\u0010\u000b*\u00028\u00002\u0017\u0010\b\u001a\u0013\u0012\u0004\u0012\u00028\u0000\u0012\u0004\u0012\u00020\u00110\f¢\u0006\u0002\b\rH\u0087\b\u0082\u0002\n\n\b\b\u0001\u0012\u0002\u0010\u0001 \u0001¢\u0006\u0004\b\u0012\u0010\u000e\u001a;\u0010\u0013\u001a\u00028\u0000\"\u0004\b\u0000\u0010\u000b*\u00028\u00002\u0012\u0010\b\u001a\u000e\u0012\u0004\u0012\u00028\u0000\u0012\u0004\u0012\u00020\u00110\fH\u0087\b\u0082\u0002\n\n\b\b\u0001\u0012\u0002\u0010\u0001 \u0001¢\u0006\u0004\b\u0013\u0010\u000e\u001aA\u0010\u0014\u001a\u00028\u0001\"\u0004\b\u0000\u0010\u000b\"\u0004\b\u0001\u0010\u0006*\u00028\u00002\u0012\u0010\b\u001a\u000e\u0012\u0004\u0012\u00028\u0000\u0012\u0004\u0012\u00028\u00010\fH\u0087\b\u0082\u0002\n\n\b\b\u0001\u0012\u0002\u0010\u0001 \u0001¢\u0006\u0004\b\u0014\u0010\u000e\u001a=\u0010\u0017\u001a\u0004\u0018\u00018\u0000\"\u0004\b\u0000\u0010\u000b*\u00028\u00002\u0012\u0010\u0016\u001a\u000e\u0012\u0004\u0012\u00028\u0000\u0012\u0004\u0012\u00020\u00150\fH\u0087\b\u0082\u0002\n\n\b\b\u0001\u0012\u0002\u0010\u0001 \u0001¢\u0006\u0004\b\u0017\u0010\u000e\u001a=\u0010\u0018\u001a\u0004\u0018\u00018\u0000\"\u0004\b\u0000\u0010\u000b*\u00028\u00002\u0012\u0010\u0016\u001a\u000e\u0012\u0004\u0012\u00028\u0000\u0012\u0004\u0012\u00020\u00150\fH\u0087\b\u0082\u0002\n\n\b\b\u0001\u0012\u0002\u0010\u0001 \u0001¢\u0006\u0004\b\u0018\u0010\u000e\u001a7\u0010\u001c\u001a\u00020\u00112\u0006\u0010\u001a\u001a\u00020\u00192\u0012\u0010\u001b\u001a\u000e\u0012\u0004\u0012\u00020\u0019\u0012\u0004\u0012\u00020\u00110\fH\u0087\b\u0082\u0002\b\n\u0006\b\u0001\u0012\u0002\u0010\u0002¢\u0006\u0004\b\u001c\u0010\u001d¨\u0006\u001e"}, d2 = {"", "TODO", "()Ljava/lang/Void;", "", "reason", "(Ljava/lang/String;)Ljava/lang/Void;", "R", "Lkotlin/Function0;", "block", "run", "(Lkotlin/jvm/functions/Function0;)Ljava/lang/Object;", ExifInterface.GPS_DIRECTION_TRUE, "Lkotlin/Function1;", "Lkotlin/ExtensionFunctionType;", "(Ljava/lang/Object;Lkotlin/jvm/functions/Function1;)Ljava/lang/Object;", SocialConstants.PARAM_RECEIVER, "with", "", "apply", "also", "let", "", "predicate", "takeIf", "takeUnless", "", "times", "action", "repeat", "(ILkotlin/jvm/functions/Function1;)V", "kotlin-stdlib"}, k = 5, mv = {1, 4, 0}, xs = "kotlin/StandardKt")
+/* loaded from: classes5.dex */
 class StandardKt__StandardKt {
     @InlineOnly
     private static final Void TODO() {
@@ -19,74 +16,64 @@ class StandardKt__StandardKt {
 
     @SinceKotlin(version = "1.1")
     @InlineOnly
-    private static final <T> T also(T t10, Function1<? super T, Unit> block) {
-        Intrinsics.checkNotNullParameter(block, "block");
-        block.invoke(t10);
-        return t10;
+    private static final <T> T also(T t, Function1<? super T, Unit> function1) {
+        function1.invoke(t);
+        return t;
     }
 
     @InlineOnly
-    private static final <T> T apply(T t10, Function1<? super T, Unit> block) {
-        Intrinsics.checkNotNullParameter(block, "block");
-        block.invoke(t10);
-        return t10;
+    private static final <T> T apply(T t, Function1<? super T, Unit> function1) {
+        function1.invoke(t);
+        return t;
     }
 
     @InlineOnly
-    private static final <T, R> R let(T t10, Function1<? super T, ? extends R> block) {
-        Intrinsics.checkNotNullParameter(block, "block");
-        return block.invoke(t10);
+    private static final <T, R> R let(T t, Function1<? super T, ? extends R> function1) {
+        return function1.invoke(t);
     }
 
     @InlineOnly
-    private static final void repeat(int i10, Function1<? super Integer, Unit> action) {
-        Intrinsics.checkNotNullParameter(action, "action");
-        for (int i11 = 0; i11 < i10; i11++) {
-            action.invoke(Integer.valueOf(i11));
+    private static final void repeat(int i2, Function1<? super Integer, Unit> function1) {
+        for (int i3 = 0; i3 < i2; i3++) {
+            function1.invoke(Integer.valueOf(i3));
         }
     }
 
     @InlineOnly
-    private static final <R> R run(Function0<? extends R> block) {
-        Intrinsics.checkNotNullParameter(block, "block");
-        return block.invoke();
+    private static final <R> R run(Function0<? extends R> function0) {
+        return function0.invoke();
     }
 
     @SinceKotlin(version = "1.1")
     @InlineOnly
-    private static final <T> T takeIf(T t10, Function1<? super T, Boolean> predicate) {
-        Intrinsics.checkNotNullParameter(predicate, "predicate");
-        if (predicate.invoke(t10).booleanValue()) {
-            return t10;
+    private static final <T> T takeIf(T t, Function1<? super T, Boolean> function1) {
+        if (function1.invoke(t).booleanValue()) {
+            return t;
         }
         return null;
     }
 
     @SinceKotlin(version = "1.1")
     @InlineOnly
-    private static final <T> T takeUnless(T t10, Function1<? super T, Boolean> predicate) {
-        Intrinsics.checkNotNullParameter(predicate, "predicate");
-        if (predicate.invoke(t10).booleanValue()) {
+    private static final <T> T takeUnless(T t, Function1<? super T, Boolean> function1) {
+        if (function1.invoke(t).booleanValue()) {
             return null;
         }
-        return t10;
+        return t;
     }
 
     @InlineOnly
-    private static final <T, R> R with(T t10, Function1<? super T, ? extends R> block) {
-        Intrinsics.checkNotNullParameter(block, "block");
-        return block.invoke(t10);
+    private static final <T, R> R with(T t, Function1<? super T, ? extends R> function1) {
+        return function1.invoke(t);
     }
 
     @InlineOnly
-    private static final Void TODO(String reason) {
-        Intrinsics.checkNotNullParameter(reason, "reason");
-        throw new NotImplementedError("An operation is not implemented: " + reason);
+    private static final Void TODO(String str) {
+        throw new NotImplementedError("An operation is not implemented: " + str);
     }
 
     @InlineOnly
-    private static final <T, R> R run(T t10, Function1<? super T, ? extends R> block) {
-        Intrinsics.checkNotNullParameter(block, "block");
-        return block.invoke(t10);
+    private static final <T, R> R run(T t, Function1<? super T, ? extends R> function1) {
+        return function1.invoke(t);
     }
 }

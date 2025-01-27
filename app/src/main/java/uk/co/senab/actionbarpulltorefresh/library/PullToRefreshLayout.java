@@ -9,37 +9,33 @@ import android.util.AttributeSet;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.FrameLayout;
-import uk.d;
-import uk.e;
-import uk.f;
-import xk.c;
 
 /* loaded from: classes5.dex */
 public class PullToRefreshLayout extends FrameLayout {
 
-    /* renamed from: c */
-    public static final boolean f31144c = false;
-
-    /* renamed from: d */
-    public static final String f31145d = "PullToRefreshLayout";
+    /* renamed from: a */
+    private static final boolean f37128a = false;
 
     /* renamed from: b */
-    public f f31146b;
+    private static final String f37129b = "PullToRefreshLayout";
 
-    public static class a extends FrameLayout.LayoutParams {
+    /* renamed from: c */
+    private h f37130c;
+
+    static class a extends FrameLayout.LayoutParams {
 
         /* renamed from: a */
-        public final String f31147a;
+        private final String f37131a;
 
-        public a(Context context, AttributeSet attributeSet) {
+        a(Context context, AttributeSet attributeSet) {
             super(context, attributeSet);
             TypedArray obtainStyledAttributes = context.obtainStyledAttributes(attributeSet, R.styleable.PullToRefreshView);
-            this.f31147a = obtainStyledAttributes.getString(0);
+            this.f37131a = obtainStyledAttributes.getString(0);
             obtainStyledAttributes.recycle();
         }
 
-        public String a() {
-            return this.f31147a;
+        String a() {
+            return this.f37131a;
         }
     }
 
@@ -47,136 +43,137 @@ public class PullToRefreshLayout extends FrameLayout {
         this(context, null);
     }
 
-    public void a() {
-        f();
-        int childCount = getChildCount();
-        for (int i10 = 0; i10 < childCount; i10++) {
-            d(getChildAt(i10));
-        }
-    }
-
-    public void b(int[] iArr) {
-        int length = iArr.length;
-        for (int i10 = 0; i10 < length; i10++) {
-            if (findViewById(iArr[i10]) != null) {
-                d(findViewById(iArr[i10]));
-            }
-        }
-    }
-
-    public void c(View[] viewArr) {
-        for (View view : viewArr) {
-            if (view != null) {
-                d(view);
-            }
-        }
-    }
-
-    public void d(View view) {
-        f fVar = this.f31146b;
-        if (fVar != null) {
-            fVar.d(view, g(view));
-        }
-    }
-
-    public f e(Activity activity, b bVar) {
-        if (bVar == null) {
-            bVar = new b();
-        }
-        return new f(activity, bVar);
-    }
-
-    public final void f() {
-        if (this.f31146b == null) {
+    private void f() {
+        if (this.f37130c == null) {
             throw new IllegalStateException("You need to setup the PullToRefreshLayout before using it");
         }
     }
 
-    public c g(View view) {
+    void a() {
+        f();
+        int childCount = getChildCount();
+        for (int i2 = 0; i2 < childCount; i2++) {
+            d(getChildAt(i2));
+        }
+    }
+
+    void b(int[] iArr) {
+        int length = iArr.length;
+        for (int i2 = 0; i2 < length; i2++) {
+            if (findViewById(iArr[i2]) != null) {
+                d(findViewById(iArr[i2]));
+            }
+        }
+    }
+
+    void c(View[] viewArr) {
+        int length = viewArr.length;
+        for (int i2 = 0; i2 < length; i2++) {
+            if (viewArr[i2] != null) {
+                d(viewArr[i2]);
+            }
+        }
+    }
+
+    void d(View view) {
+        h hVar = this.f37130c;
+        if (hVar != null) {
+            hVar.d(view, g(view));
+        }
+    }
+
+    protected h e(Activity activity, g gVar) {
+        if (gVar == null) {
+            gVar = new g();
+        }
+        return new h(activity, gVar);
+    }
+
+    uk.co.senab.actionbarpulltorefresh.library.k.c g(View view) {
         if (view == null || !(view.getLayoutParams() instanceof a)) {
             return null;
         }
-        String a10 = ((a) view.getLayoutParams()).a();
-        if (TextUtils.isEmpty(a10)) {
+        String a2 = ((a) view.getLayoutParams()).a();
+        if (TextUtils.isEmpty(a2)) {
             return null;
         }
-        int indexOf = a10.indexOf(46);
+        int indexOf = a2.indexOf(46);
         if (indexOf == -1) {
-            a10 = getContext().getPackageName() + p1.b.f29697h + a10;
+            a2 = getContext().getPackageName() + "." + a2;
         } else if (indexOf == 0) {
-            a10 = getContext().getPackageName() + a10;
+            a2 = getContext().getPackageName() + a2;
         }
-        return (c) e.d(getContext(), a10);
+        return (uk.co.senab.actionbarpulltorefresh.library.k.c) f.d(getContext(), a2);
     }
 
-    public d getHeaderTransformer() {
+    public e getHeaderTransformer() {
         f();
-        return this.f31146b.l();
+        return this.f37130c.l();
     }
 
     public final View getHeaderView() {
         f();
-        return this.f31146b.m();
+        return this.f37130c.m();
     }
 
     public final boolean h() {
         f();
-        return this.f31146b.q();
+        return this.f37130c.q();
     }
 
     public final void i() {
         f();
-        this.f31146b.E();
+        this.f37130c.E();
     }
 
     @Override // android.view.View
-    public void onConfigurationChanged(Configuration configuration) {
-        f fVar = this.f31146b;
-        if (fVar != null) {
-            fVar.t(configuration);
+    protected void onConfigurationChanged(Configuration configuration) {
+        h hVar = this.f37130c;
+        if (hVar != null) {
+            hVar.t(configuration);
         }
         super.onConfigurationChanged(configuration);
     }
 
     @Override // android.view.ViewGroup, android.view.View
-    public void onDetachedFromWindow() {
-        f fVar = this.f31146b;
-        if (fVar != null) {
-            fVar.j();
+    protected void onDetachedFromWindow() {
+        h hVar = this.f37130c;
+        if (hVar != null) {
+            hVar.j();
         }
         super.onDetachedFromWindow();
     }
 
     @Override // android.view.ViewGroup
     public final boolean onInterceptTouchEvent(MotionEvent motionEvent) {
-        if (!isEnabled() || this.f31146b == null || getChildCount() <= 0) {
+        if (!isEnabled() || this.f37130c == null || getChildCount() <= 0) {
             return false;
         }
-        return this.f31146b.u(motionEvent);
+        return this.f37130c.u(motionEvent);
     }
 
     @Override // android.view.View
     public final boolean onTouchEvent(MotionEvent motionEvent) {
-        f fVar;
-        return (!isEnabled() || (fVar = this.f31146b) == null) ? super.onTouchEvent(motionEvent) : fVar.y(motionEvent);
+        h hVar;
+        return (!isEnabled() || (hVar = this.f37130c) == null) ? super.onTouchEvent(motionEvent) : hVar.y(motionEvent);
     }
 
-    public final void setHeaderViewListener(vk.a aVar) {
+    public final void setHeaderViewListener(uk.co.senab.actionbarpulltorefresh.library.i.a aVar) {
         f();
-        this.f31146b.C(aVar);
+        this.f37130c.C(aVar);
     }
 
-    public void setPullToRefreshAttacher(f fVar) {
-        f fVar2 = this.f31146b;
-        if (fVar2 != null) {
-            fVar2.j();
+    void setPullToRefreshAttacher(h hVar) {
+        h hVar2 = this.f37130c;
+        if (hVar2 != null) {
+            hVar2.j();
         }
-        this.f31146b = fVar;
+        this.f37130c = hVar;
     }
 
-    public final void setRefreshing(boolean z10) {
+    public final void setRefreshing(boolean z) {
         f();
-        this.f31146b.F(z10);
+        this.f37130c.F(z);
     }
 
     public PullToRefreshLayout(Context context, AttributeSet attributeSet) {
@@ -188,7 +185,7 @@ public class PullToRefreshLayout extends FrameLayout {
         return new a(getContext(), attributeSet);
     }
 
-    public PullToRefreshLayout(Context context, AttributeSet attributeSet, int i10) {
-        super(context, attributeSet, i10);
+    public PullToRefreshLayout(Context context, AttributeSet attributeSet, int i2) {
+        super(context, attributeSet, i2);
     }
 }

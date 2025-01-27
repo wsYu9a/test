@@ -2,88 +2,88 @@ package com.bytedance.pangle.res.a;
 
 import java.io.DataInput;
 
-/* loaded from: classes2.dex */
+/* loaded from: classes.dex */
 public abstract class f implements DataInput {
 
     /* renamed from: a */
-    public final i f7784a;
+    public final i f6270a;
 
     public f(i iVar) {
-        this.f7784a = iVar;
+        this.f6270a = iVar;
     }
 
     @Override // java.io.DataInput
     public boolean readBoolean() {
-        return this.f7784a.readBoolean();
+        return this.f6270a.readBoolean();
     }
 
     @Override // java.io.DataInput
     public byte readByte() {
-        return this.f7784a.readByte();
+        return this.f6270a.readByte();
     }
 
     @Override // java.io.DataInput
     public char readChar() {
-        return this.f7784a.readChar();
+        return this.f6270a.readChar();
     }
 
     @Override // java.io.DataInput
     public double readDouble() {
-        return this.f7784a.readDouble();
+        return this.f6270a.readDouble();
     }
 
     @Override // java.io.DataInput
     public float readFloat() {
-        return this.f7784a.readFloat();
+        return this.f6270a.readFloat();
     }
 
     @Override // java.io.DataInput
-    public void readFully(byte[] bArr, int i10, int i11) {
-        this.f7784a.readFully(bArr, i10, i11);
+    public void readFully(byte[] bArr, int i2, int i3) {
+        this.f6270a.readFully(bArr, i2, i3);
     }
 
     @Override // java.io.DataInput
     public int readInt() {
-        return this.f7784a.readInt();
+        return this.f6270a.readInt();
     }
 
     @Override // java.io.DataInput
     public String readLine() {
-        return this.f7784a.readLine();
+        return this.f6270a.readLine();
     }
 
     @Override // java.io.DataInput
     public long readLong() {
-        return this.f7784a.readLong();
+        return this.f6270a.readLong();
     }
 
     @Override // java.io.DataInput
     public short readShort() {
-        return this.f7784a.readShort();
+        return this.f6270a.readShort();
     }
 
     @Override // java.io.DataInput
     public String readUTF() {
-        return this.f7784a.readUTF();
+        return this.f6270a.readUTF();
     }
 
     @Override // java.io.DataInput
     public int readUnsignedByte() {
-        return this.f7784a.readUnsignedByte();
+        return this.f6270a.readUnsignedByte();
     }
 
     @Override // java.io.DataInput
     public int readUnsignedShort() {
-        return this.f7784a.readUnsignedShort();
+        return this.f6270a.readUnsignedShort();
     }
 
     @Override // java.io.DataInput
-    public int skipBytes(int i10) {
-        return this.f7784a.skipBytes(i10);
+    public int skipBytes(int i2) {
+        return this.f6270a.skipBytes(i2);
     }
 
     @Override // java.io.DataInput
     public void readFully(byte[] bArr) {
-        this.f7784a.readFully(bArr);
+        this.f6270a.readFully(bArr);
     }
 }

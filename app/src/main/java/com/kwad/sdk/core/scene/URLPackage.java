@@ -4,18 +4,19 @@ import android.text.TextUtils;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import com.ksad.json.annotation.KsJson;
-import com.kwad.sdk.core.d.c;
-import com.kwad.sdk.core.response.a.a;
-import com.kwad.sdk.utils.y;
+import com.kwad.sdk.core.d.b;
+import com.kwad.sdk.core.response.kwai.a;
+import com.kwad.sdk.utils.u;
 import java.io.Serializable;
 import org.json.JSONException;
 import org.json.JSONObject;
 
 @KsJson
-/* loaded from: classes3.dex */
+/* loaded from: classes2.dex */
 public class URLPackage extends a implements Serializable {
     public static final String KEY_AUTHOR_ID = "authorId";
     public static final String KEY_CHANNEL_ID = "channelId";
+    public static final String KEY_TUBE_ID = "tubeId";
     private static final long serialVersionUID = -7365796297335816787L;
     public String identity;
     public transient JSONObject mJsonObjectParams;
@@ -24,7 +25,12 @@ public class URLPackage extends a implements Serializable {
     public URLPackage() {
     }
 
-    @Override // com.kwad.sdk.core.response.a.a
+    public URLPackage(@NonNull String str, int i2) {
+        this.page = i2;
+        this.identity = str;
+    }
+
+    @Override // com.kwad.sdk.core.response.kwai.a
     public void afterParseJson(@Nullable JSONObject jSONObject) {
         super.afterParseJson(jSONObject);
         if (jSONObject == null) {
@@ -36,34 +42,24 @@ public class URLPackage extends a implements Serializable {
         }
         try {
             this.mJsonObjectParams = new JSONObject(optString);
-        } catch (JSONException e10) {
-            c.printStackTrace(e10);
+        } catch (JSONException e2) {
+            b.printStackTrace(e2);
         }
     }
 
-    @Override // com.kwad.sdk.core.response.a.a
+    @Override // com.kwad.sdk.core.response.kwai.a
     public void afterToJson(JSONObject jSONObject) {
         super.afterToJson(jSONObject);
         JSONObject jSONObject2 = this.mJsonObjectParams;
         if (jSONObject2 != null) {
-            y.putValue(jSONObject, "params", jSONObject2.toString());
+            u.putValue(jSONObject, "params", jSONObject2.toString());
         }
     }
 
-    public void putParams(String str, long j10) {
+    public void putParams(String str, long j2) {
         if (this.mJsonObjectParams == null) {
             this.mJsonObjectParams = new JSONObject();
         }
-        y.putValue(this.mJsonObjectParams, str, j10);
-    }
-
-    public URLPackage(@NonNull String str, int i10) {
-        this.page = i10;
-        this.identity = str;
-    }
-
-    public URLPackage(int i10) {
-        this.page = i10;
-        this.identity = String.valueOf(hashCode());
+        u.putValue(this.mJsonObjectParams, str, j2);
     }
 }

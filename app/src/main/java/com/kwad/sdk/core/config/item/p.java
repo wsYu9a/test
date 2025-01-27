@@ -5,54 +5,35 @@ import android.text.TextUtils;
 import androidx.annotation.NonNull;
 import org.json.JSONObject;
 
-/* loaded from: classes3.dex */
-public final class p extends b<String> {
-    private static volatile String[] axo;
-
+/* loaded from: classes2.dex */
+public final class p extends a<String> {
     public p(String str, String str2) {
         super(str, str2);
-        axo = null;
-    }
-
-    public static boolean ab(long j10) {
-        if (axo == null) {
-            return false;
-        }
-        for (String str : axo) {
-            if (str != null && String.valueOf(j10).equals(str.trim())) {
-                return true;
-            }
-        }
-        return false;
-    }
-
-    private static void dy(String str) {
-        if (TextUtils.isEmpty(str)) {
-            return;
-        }
-        axo = str.split(",");
     }
 
     @Override // com.kwad.sdk.core.config.item.b
     public final void a(@NonNull SharedPreferences sharedPreferences) {
-        String string = sharedPreferences.getString(getKey(), El());
-        setValue(string);
-        dy(string);
+        setValue(b.bC(sharedPreferences.getString(getKey(), uX())));
     }
 
     @Override // com.kwad.sdk.core.config.item.b
     public final void b(@NonNull SharedPreferences.Editor editor) {
-        editor.putString(getKey(), getValue());
+        editor.putString(getKey(), b.bB(getValue()));
     }
 
     @Override // com.kwad.sdk.core.config.item.b
-    public final void k(JSONObject jSONObject) {
-        if (jSONObject == null) {
-            setValue(El());
-            return;
+    public final void g(JSONObject jSONObject) {
+        String optString = jSONObject != null ? jSONObject.optString(getKey(), uX()) : null;
+        if (TextUtils.isEmpty(optString)) {
+            setValue(uX());
+        } else {
+            setValue(optString);
         }
-        String optString = jSONObject.optString(getKey(), El());
-        setValue(optString);
-        dy(optString);
+    }
+
+    @Override // com.kwad.sdk.core.config.item.b
+    @NonNull
+    public final String getValue() {
+        return (String) super.getValue();
     }
 }

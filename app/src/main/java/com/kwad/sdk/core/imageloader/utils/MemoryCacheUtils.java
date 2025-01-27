@@ -8,16 +8,19 @@ import java.util.Comparator;
 import java.util.Iterator;
 import java.util.List;
 
-/* loaded from: classes3.dex */
+/* loaded from: classes2.dex */
 public final class MemoryCacheUtils {
     private static final String URI_AND_SIZE_SEPARATOR = "_";
     private static final String WIDTH_AND_HEIGHT_SEPARATOR = "x";
 
     /* renamed from: com.kwad.sdk.core.imageloader.utils.MemoryCacheUtils$1 */
-    public class AnonymousClass1 implements Comparator<String> {
+    static class AnonymousClass1 implements Comparator<String> {
+        AnonymousClass1() {
+        }
+
         @Override // java.util.Comparator
-        public int compare(String str, String str2) {
-            return str.substring(0, str.lastIndexOf("_")).compareTo(str2.substring(0, str2.lastIndexOf("_")));
+        public final int compare(String str, String str2) {
+            return str.substring(0, str.lastIndexOf(MemoryCacheUtils.URI_AND_SIZE_SEPARATOR)).compareTo(str2.substring(0, str2.lastIndexOf(MemoryCacheUtils.URI_AND_SIZE_SEPARATOR)));
         }
     }
 
@@ -26,9 +29,12 @@ public final class MemoryCacheUtils {
 
     public static Comparator<String> createFuzzyKeyComparator() {
         return new Comparator<String>() { // from class: com.kwad.sdk.core.imageloader.utils.MemoryCacheUtils.1
+            AnonymousClass1() {
+            }
+
             @Override // java.util.Comparator
-            public int compare(String str, String str2) {
-                return str.substring(0, str.lastIndexOf("_")).compareTo(str2.substring(0, str2.lastIndexOf("_")));
+            public final int compare(String str, String str2) {
+                return str.substring(0, str.lastIndexOf(MemoryCacheUtils.URI_AND_SIZE_SEPARATOR)).compareTo(str2.substring(0, str2.lastIndexOf(MemoryCacheUtils.URI_AND_SIZE_SEPARATOR)));
             }
         };
     }
@@ -54,7 +60,7 @@ public final class MemoryCacheUtils {
     }
 
     public static String generateKey(String str, ImageSize imageSize) {
-        return str + "_" + imageSize.getWidth() + "x" + imageSize.getHeight();
+        return str + URI_AND_SIZE_SEPARATOR + imageSize.getWidth() + WIDTH_AND_HEIGHT_SEPARATOR + imageSize.getHeight();
     }
 
     public static void removeFromCache(String str, MemoryCache memoryCache) {

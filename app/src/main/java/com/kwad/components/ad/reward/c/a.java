@@ -1,138 +1,96 @@
 package com.kwad.components.ad.reward.c;
 
 import android.content.Context;
+import android.text.TextUtils;
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import com.kwad.components.ad.reward.g;
-import com.kwad.components.core.webview.jshandler.i;
-import com.kwad.sdk.core.response.model.AdGlobalConfigInfo;
-import com.kwad.sdk.core.response.model.AdTemplate;
-import com.kwad.sdk.utils.z;
-import java.lang.ref.WeakReference;
-import java.util.List;
-import java.util.concurrent.CopyOnWriteArrayList;
+import com.kwad.sdk.core.response.model.AdInfo;
+import com.kwad.sdk.utils.y;
+import org.json.JSONObject;
 
-/* loaded from: classes2.dex */
-public class a {
-    private static volatile a sH;
-    private g rO;
-
-    @Nullable
-    private b sI;
-    private volatile boolean sJ = false;
-    private volatile boolean sK = false;
-    private List<WeakReference<i>> sL = new CopyOnWriteArrayList();
-
-    private a() {
-    }
-
-    public static a hg() {
-        if (sH == null) {
-            synchronized (a.class) {
-                try {
-                    if (sH == null) {
-                        sH = new a();
-                    }
-                } finally {
+/* loaded from: classes.dex */
+public final class a {
+    public static void P(@NonNull Context context) {
+        long currentTimeMillis = System.currentTimeMillis();
+        b bVar = new b();
+        String bU = y.bU(context);
+        int i2 = 0;
+        if (!TextUtils.isEmpty(bU)) {
+            try {
+                bVar.parseJson(new JSONObject(bU));
+                if (b(bVar.gq, currentTimeMillis)) {
+                    i2 = bVar.f9538rx;
                 }
+            } catch (Exception e2) {
+                com.kwad.sdk.core.d.b.printStackTraceOnly(e2);
             }
         }
-        return sH;
+        bVar.gq = currentTimeMillis;
+        bVar.f9538rx = i2 + 1;
+        y.T(context, bVar.toJson().toString());
     }
 
-    private synchronized boolean hi() {
-        b bVar = this.sI;
-        if (bVar != null) {
-            if (bVar.sP == b.sM) {
-                return true;
-            }
+    private static boolean b(long j2, long j3) {
+        return j2 > 0 && j3 > 0 && j2 / 2460601000L == j3 / 2460601000L;
+    }
+
+    public static boolean b(@NonNull Context context, AdInfo adInfo) {
+        if (!com.kwad.sdk.core.response.a.a.ay(adInfo)) {
+            return false;
         }
-        return false;
+        int max = Math.max(com.kwad.sdk.core.response.a.a.az(adInfo) + 1, 1);
+        boolean d2 = d(context, max);
+        c(context, max);
+        return d2 && e(context, com.kwad.sdk.core.response.a.a.aA(adInfo));
     }
 
-    private boolean isNeoScan() {
-        AdGlobalConfigInfo adGlobalConfigInfo = this.rO.mAdResultData.adGlobalConfigInfo;
-        return adGlobalConfigInfo != null && adGlobalConfigInfo.neoPageType == 1;
-    }
-
-    public final void O(Context context) {
-        boolean hi2 = hi();
-        com.kwad.sdk.core.d.c.d("CurrentExtraRewardHolder", "checkStatusAndToast isCurrentHadExtra: " + hi2 + ", hadToast: " + this.sK);
-        if (this.sK || !hi2) {
-            return;
-        }
-        this.sK = true;
-        z.P(context, "恭喜获得第2份奖励");
-    }
-
-    public final synchronized void a(AdTemplate adTemplate, b bVar) {
-        if (adTemplate == null) {
-            return;
-        }
-        try {
-            com.kwad.sdk.core.d.c.d("CurrentExtraRewardHolder", "updateExtraReward: " + bVar.toJson().toString());
-            this.sI = bVar;
-            if (bVar.sP == b.sM && !this.sJ) {
-                this.sJ = true;
-                c.a(this.sI, com.kwad.components.ad.reward.e.f.J(adTemplate.getUniqueId()));
-                com.kwad.sdk.core.adlog.c.j(adTemplate, isNeoScan());
-            }
-            for (WeakReference<i> weakReference : this.sL) {
-                if (weakReference.get() == null) {
-                    this.sL.remove(weakReference);
-                } else {
-                    b hh2 = hh();
-                    com.kwad.sdk.core.d.c.d("CurrentExtraRewardHolder", "GetNativeDataHandler callback: " + hh2.toJson().toString());
-                    weakReference.get().a(hh2);
-                }
-            }
-        } catch (Throwable th2) {
-            throw th2;
+    private static void c(@NonNull Context context, int i2) {
+        int bT = y.bT(context);
+        if (bT % i2 == 0) {
+            y.k(context, 1);
+        } else {
+            y.k(context, bT + 1);
         }
     }
 
-    public final synchronized void c(AdTemplate adTemplate, int i10) {
-        com.kwad.sdk.core.d.c.d("CurrentExtraRewardHolder", "updateExtraReward: " + i10);
-        g gVar = this.rO;
-        if (gVar != null && gVar.gh() && i10 == b.STATUS_NONE) {
-            com.kwad.sdk.core.d.c.d("CurrentExtraRewardHolder", "updateExtraReward: cant update to status 2");
-            return;
-        }
-        b hh2 = hg().hh();
-        hh2.N(i10);
-        hg().a(adTemplate, hh2);
+    private static boolean d(@NonNull Context context, int i2) {
+        return i2 != 0 && y.bT(context) % i2 == 0;
     }
 
-    @NonNull
-    public final synchronized b hh() {
-        try {
-            if (this.sI == null) {
-                b hk2 = c.hk();
-                this.sI = hk2;
-                hk2.sP = 0;
-            }
-            com.kwad.sdk.core.d.c.d("CurrentExtraRewardHolder", "getCurrentExtraReward: " + this.sI.sP);
-        } catch (Throwable th2) {
-            throw th2;
-        }
-        return this.sI;
-    }
-
-    public final synchronized void reset() {
-        this.sI = null;
-        this.sK = false;
-        this.sJ = false;
-        this.rO = null;
-    }
-
-    public final void setCallerContext(g gVar) {
-        this.rO = gVar;
-    }
-
-    public final void a(i iVar) {
-        com.kwad.sdk.core.d.c.d("CurrentExtraRewardHolder", "addGetNativeHandler: " + iVar);
-        if (iVar != null) {
-            this.sL.add(new WeakReference<>(iVar));
-        }
+    /* JADX WARN: Removed duplicated region for block: B:5:0x002e A[RETURN] */
+    /* JADX WARN: Removed duplicated region for block: B:7:0x0030 A[RETURN] */
+    /*
+        Code decompiled incorrectly, please refer to instructions dump.
+        To view partially-correct code enable 'Show inconsistent code' option in preferences
+    */
+    private static boolean e(@androidx.annotation.NonNull android.content.Context r7, int r8) {
+        /*
+            long r0 = java.lang.System.currentTimeMillis()
+            com.kwad.components.ad.reward.c.b r2 = new com.kwad.components.ad.reward.c.b
+            r2.<init>()
+            java.lang.String r7 = com.kwad.sdk.utils.y.bU(r7)
+            boolean r3 = android.text.TextUtils.isEmpty(r7)
+            r4 = 0
+            if (r3 != 0) goto L2b
+            org.json.JSONObject r3 = new org.json.JSONObject     // Catch: java.lang.Exception -> L27
+            r3.<init>(r7)     // Catch: java.lang.Exception -> L27
+            r2.parseJson(r3)     // Catch: java.lang.Exception -> L27
+            long r5 = r2.gq     // Catch: java.lang.Exception -> L27
+            boolean r7 = b(r5, r0)     // Catch: java.lang.Exception -> L27
+            if (r7 == 0) goto L2b
+            int r7 = r2.f9538rx     // Catch: java.lang.Exception -> L27
+            goto L2c
+        L27:
+            r7 = move-exception
+            com.kwad.sdk.core.d.b.printStackTraceOnly(r7)
+        L2b:
+            r7 = 0
+        L2c:
+            if (r7 >= r8) goto L30
+            r7 = 1
+            return r7
+        L30:
+            return r4
+        */
+        throw new UnsupportedOperationException("Method not decompiled: com.kwad.components.ad.reward.c.a.e(android.content.Context, int):boolean");
     }
 }

@@ -2,50 +2,50 @@ package me.jessyan.autosize.utils;
 
 import android.os.Looper;
 
-/* loaded from: classes4.dex */
+/* loaded from: classes5.dex */
 public final class Preconditions {
     private Preconditions() {
         throw new IllegalStateException("you can't instantiate me!");
     }
 
-    private static String badElementIndex(int i10, int i11, String str) {
-        if (i10 < 0) {
-            return format("%s (%s) must not be negative", str, Integer.valueOf(i10));
+    private static String badElementIndex(int i2, int i3, String str) {
+        if (i2 < 0) {
+            return format("%s (%s) must not be negative", str, Integer.valueOf(i2));
         }
-        if (i11 >= 0) {
-            return format("%s (%s) must be less than size (%s)", str, Integer.valueOf(i10), Integer.valueOf(i11));
+        if (i3 >= 0) {
+            return format("%s (%s) must be less than size (%s)", str, Integer.valueOf(i2), Integer.valueOf(i3));
         }
-        StringBuilder sb2 = new StringBuilder(26);
-        sb2.append("negative size: ");
-        sb2.append(i11);
-        throw new IllegalArgumentException(sb2.toString());
+        StringBuilder sb = new StringBuilder(26);
+        sb.append("negative size: ");
+        sb.append(i3);
+        throw new IllegalArgumentException(sb.toString());
     }
 
-    private static String badPositionIndex(int i10, int i11, String str) {
-        if (i10 < 0) {
-            return format("%s (%s) must not be negative", str, Integer.valueOf(i10));
+    private static String badPositionIndex(int i2, int i3, String str) {
+        if (i2 < 0) {
+            return format("%s (%s) must not be negative", str, Integer.valueOf(i2));
         }
-        if (i11 >= 0) {
-            return format("%s (%s) must not be greater than size (%s)", str, Integer.valueOf(i10), Integer.valueOf(i11));
+        if (i3 >= 0) {
+            return format("%s (%s) must not be greater than size (%s)", str, Integer.valueOf(i2), Integer.valueOf(i3));
         }
-        StringBuilder sb2 = new StringBuilder(26);
-        sb2.append("negative size: ");
-        sb2.append(i11);
-        throw new IllegalArgumentException(sb2.toString());
+        StringBuilder sb = new StringBuilder(26);
+        sb.append("negative size: ");
+        sb.append(i3);
+        throw new IllegalArgumentException(sb.toString());
     }
 
-    private static String badPositionIndexes(int i10, int i11, int i12) {
-        return (i10 < 0 || i10 > i12) ? badPositionIndex(i10, i12, "start index") : (i11 < 0 || i11 > i12) ? badPositionIndex(i11, i12, "end index") : format("end index (%s) must not be less than start index (%s)", Integer.valueOf(i11), Integer.valueOf(i10));
+    private static String badPositionIndexes(int i2, int i3, int i4) {
+        return (i2 < 0 || i2 > i4) ? badPositionIndex(i2, i4, "start index") : (i3 < 0 || i3 > i4) ? badPositionIndex(i3, i4, "end index") : format("end index (%s) must not be less than start index (%s)", Integer.valueOf(i3), Integer.valueOf(i2));
     }
 
-    public static void checkArgument(boolean z10) {
-        if (!z10) {
+    public static void checkArgument(boolean z) {
+        if (!z) {
             throw new IllegalArgumentException();
         }
     }
 
-    public static int checkElementIndex(int i10, int i11) {
-        return checkElementIndex(i10, i11, "index");
+    public static int checkElementIndex(int i2, int i3) {
+        return checkElementIndex(i2, i3, "index");
     }
 
     public static void checkMainThread() {
@@ -54,100 +54,100 @@ public final class Preconditions {
         }
     }
 
-    public static <T> T checkNotNull(T t10) {
-        t10.getClass();
-        return t10;
+    public static <T> T checkNotNull(T t) {
+        t.getClass();
+        return t;
     }
 
-    public static int checkPositionIndex(int i10, int i11) {
-        return checkPositionIndex(i10, i11, "index");
+    public static int checkPositionIndex(int i2, int i3) {
+        return checkPositionIndex(i2, i3, "index");
     }
 
-    public static void checkPositionIndexes(int i10, int i11, int i12) {
-        if (i10 < 0 || i11 < i10 || i11 > i12) {
-            throw new IndexOutOfBoundsException(badPositionIndexes(i10, i11, i12));
+    public static void checkPositionIndexes(int i2, int i3, int i4) {
+        if (i2 < 0 || i3 < i2 || i3 > i4) {
+            throw new IndexOutOfBoundsException(badPositionIndexes(i2, i3, i4));
         }
     }
 
-    public static void checkState(boolean z10) {
-        if (!z10) {
+    public static void checkState(boolean z) {
+        if (!z) {
             throw new IllegalStateException();
         }
     }
 
-    public static String format(String str, Object... objArr) {
+    static String format(String str, Object... objArr) {
         int indexOf;
         String valueOf = String.valueOf(str);
-        StringBuilder sb2 = new StringBuilder(valueOf.length() + (objArr.length * 16));
-        int i10 = 0;
-        int i11 = 0;
-        while (i10 < objArr.length && (indexOf = valueOf.indexOf("%s", i11)) != -1) {
-            sb2.append(valueOf.substring(i11, indexOf));
-            sb2.append(objArr[i10]);
-            i11 = indexOf + 2;
-            i10++;
+        StringBuilder sb = new StringBuilder(valueOf.length() + (objArr.length * 16));
+        int i2 = 0;
+        int i3 = 0;
+        while (i2 < objArr.length && (indexOf = valueOf.indexOf("%s", i3)) != -1) {
+            sb.append(valueOf.substring(i3, indexOf));
+            sb.append(objArr[i2]);
+            i3 = indexOf + 2;
+            i2++;
         }
-        sb2.append(valueOf.substring(i11));
-        if (i10 < objArr.length) {
-            sb2.append(" [");
-            sb2.append(objArr[i10]);
-            for (int i12 = i10 + 1; i12 < objArr.length; i12++) {
-                sb2.append(", ");
-                sb2.append(objArr[i12]);
+        sb.append(valueOf.substring(i3));
+        if (i2 < objArr.length) {
+            sb.append(" [");
+            sb.append(objArr[i2]);
+            for (int i4 = i2 + 1; i4 < objArr.length; i4++) {
+                sb.append(", ");
+                sb.append(objArr[i4]);
             }
-            sb2.append(']');
+            sb.append(']');
         }
-        return sb2.toString();
+        return sb.toString();
     }
 
-    public static void checkArgument(boolean z10, Object obj) {
-        if (!z10) {
+    public static void checkArgument(boolean z, Object obj) {
+        if (!z) {
             throw new IllegalArgumentException(String.valueOf(obj));
         }
     }
 
-    public static int checkElementIndex(int i10, int i11, String str) {
-        if (i10 < 0 || i10 >= i11) {
-            throw new IndexOutOfBoundsException(badElementIndex(i10, i11, str));
+    public static int checkElementIndex(int i2, int i3, String str) {
+        if (i2 < 0 || i2 >= i3) {
+            throw new IndexOutOfBoundsException(badElementIndex(i2, i3, str));
         }
-        return i10;
+        return i2;
     }
 
-    public static <T> T checkNotNull(T t10, Object obj) {
-        if (t10 != null) {
-            return t10;
+    public static <T> T checkNotNull(T t, Object obj) {
+        if (t != null) {
+            return t;
         }
         throw new NullPointerException(String.valueOf(obj));
     }
 
-    public static int checkPositionIndex(int i10, int i11, String str) {
-        if (i10 < 0 || i10 > i11) {
-            throw new IndexOutOfBoundsException(badPositionIndex(i10, i11, str));
+    public static int checkPositionIndex(int i2, int i3, String str) {
+        if (i2 < 0 || i2 > i3) {
+            throw new IndexOutOfBoundsException(badPositionIndex(i2, i3, str));
         }
-        return i10;
+        return i2;
     }
 
-    public static void checkState(boolean z10, Object obj) {
-        if (!z10) {
+    public static void checkState(boolean z, Object obj) {
+        if (!z) {
             throw new IllegalStateException(String.valueOf(obj));
         }
     }
 
-    public static void checkArgument(boolean z10, String str, Object... objArr) {
-        if (!z10) {
+    public static void checkArgument(boolean z, String str, Object... objArr) {
+        if (!z) {
             throw new IllegalArgumentException(format(str, objArr));
         }
     }
 
-    public static <T> T checkNotNull(T t10, String str, Object... objArr) {
-        if (t10 != null) {
-            return t10;
+    public static <T> T checkNotNull(T t, String str, Object... objArr) {
+        if (t != null) {
+            return t;
         }
         throw new NullPointerException(format(str, objArr));
     }
 
-    public static void checkState(boolean z10, String str, Object... objArr) {
-        if (!z10) {
+    public static void checkState(boolean z, String str, Object... objArr) {
+        if (!z) {
             throw new IllegalStateException(format(str, objArr));
         }
     }

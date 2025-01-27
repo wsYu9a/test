@@ -1,16 +1,22 @@
 package com.kwad.components.ad.draw.a;
 
-import com.kwad.sdk.mvp.Presenter;
+import com.kwad.components.core.widget.ComplianceTextView;
+import com.kwad.sdk.R;
 
-/* loaded from: classes2.dex */
-public class a extends Presenter {
+/* loaded from: classes.dex */
+public final class a extends com.kwad.components.ad.draw.kwai.a {
+    private ComplianceTextView cq;
 
-    /* renamed from: df */
-    public b f11413df;
+    @Override // com.kwad.components.ad.draw.kwai.a, com.kwad.sdk.mvp.Presenter
+    public final void ar() {
+        super.ar();
+        this.cq.setVisibility(0);
+        this.cq.setAdTemplate(this.bW.mAdTemplate);
+    }
 
     @Override // com.kwad.sdk.mvp.Presenter
-    public void as() {
-        super.as();
-        this.f11413df = (b) Lj();
+    public final void onCreate() {
+        super.onCreate();
+        this.cq = (ComplianceTextView) findViewById(R.id.ksad_compliance_view);
     }
 }

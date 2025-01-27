@@ -1,76 +1,24 @@
 package com.kwad.components.core.video;
 
-import android.os.SystemClock;
-import androidx.annotation.NonNull;
+/* loaded from: classes2.dex */
+public interface i {
+    void onVideoPlayBufferingPaused();
 
-/* loaded from: classes3.dex */
-public final class i {
-    private volatile boolean XD;
-    private long XE;
-    private a XF = new a();
+    void onVideoPlayBufferingPlaying();
 
-    public static class a {
-        private long XG = 0;
-        private int XH = 0;
+    void onVideoPlayCompleted();
 
-        public final void accumulate(long j10) {
-            this.XG += j10;
-            this.XH++;
-        }
+    void onVideoPlayError(int i2, int i3);
 
-        public final void reset() {
-            this.XG = 0L;
-            this.XH = 0;
-        }
+    void onVideoPlayPaused();
 
-        public final int sY() {
-            return this.XH;
-        }
+    void onVideoPlayProgress(long j2, long j3);
 
-        public final long sZ() {
-            return this.XG;
-        }
-    }
+    void onVideoPlayStart();
 
-    public final void reset() {
-        this.XD = false;
-        this.XE = 0L;
-        this.XF.reset();
-    }
+    void onVideoPlaying();
 
-    public final void sT() {
-        if (this.XD) {
-            return;
-        }
-        this.XD = true;
-        this.XE = SystemClock.elapsedRealtime();
-        com.kwad.sdk.core.video.a.a.a.eH("videoStartBlock");
-    }
+    void onVideoPrepared();
 
-    public final void sU() {
-        if (this.XD) {
-            long elapsedRealtime = SystemClock.elapsedRealtime() - this.XE;
-            this.XF.accumulate(elapsedRealtime);
-            this.XD = false;
-            com.kwad.sdk.core.video.a.a.a.eH("videoEndBlock");
-            com.kwad.sdk.core.video.a.a.a.eH("videoBlockTime_" + elapsedRealtime);
-        }
-    }
-
-    public final boolean sV() {
-        return this.XD;
-    }
-
-    @NonNull
-    public final a sW() {
-        if (this.XD) {
-            this.XF.accumulate(SystemClock.elapsedRealtime() - this.XE);
-            this.XD = false;
-        }
-        return this.XF;
-    }
-
-    public final long sX() {
-        return this.XE;
-    }
+    void onVideoPreparing();
 }

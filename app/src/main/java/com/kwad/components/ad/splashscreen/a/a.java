@@ -1,12 +1,18 @@
 package com.kwad.components.ad.splashscreen.a;
 
-import com.kwad.sdk.api.KsSplashScreenAd;
-import com.kwad.sdk.api.core.fragment.KsFragment;
-import com.kwad.sdk.components.e;
-import com.kwad.sdk.core.h.b;
-import com.kwad.sdk.core.response.model.AdResultData;
+import com.ksad.annotation.invoker.InvokeBy;
+import com.kwad.sdk.core.config.item.d;
+import com.kwad.sdk.core.config.item.k;
+import com.kwad.sdk.core.config.item.p;
 
 /* loaded from: classes2.dex */
-public abstract class a extends e {
-    public abstract KsFragment a(AdResultData adResultData, b bVar, KsSplashScreenAd.SplashScreenAdInteractionListener splashScreenAdInteractionListener);
+public final class a {
+    public static k BP = new k("splashTimeOutMilliSecond", 5000);
+    public static p BQ = new p("splashTimerTips", "");
+    public static p BR = new p("splashBtnText", "点击跳过详情页或第三方应用");
+    public static d BS = new d("splashCropNewSwitch", true);
+
+    @InvokeBy(invokerClass = com.kwad.sdk.core.config.d.class, methodId = "initConfigList")
+    public static void init() {
+    }
 }

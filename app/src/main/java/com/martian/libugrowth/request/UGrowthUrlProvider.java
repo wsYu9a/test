@@ -1,13 +1,12 @@
 package com.martian.libugrowth.request;
 
-import com.martian.libmars.common.ConfigSingleton;
-import f9.d;
-import s8.b;
+import com.martian.libmars.c.d;
+import com.martian.libmars.d.h;
 
 /* loaded from: classes3.dex */
 public class UGrowthUrlProvider extends d {
-    @Override // u8.c
+    @Override // com.martian.libcomm.http.requests.c
     public String getBaseUrl() {
-        return ConfigSingleton.D().J0() ? b.f30627w : ConfigSingleton.D().z0() ? b.f30628x : b.f30629y;
+        return h.F().Q0() ? "http://testugrowth.taoyuewenhua.net/" : h.F().G0() ? "http://betaugrowth.taoyuewenhua.net/" : "https://ugrowth.taoyuewenhua.net/";
     }
 }

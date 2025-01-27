@@ -10,126 +10,144 @@ import org.xmlpull.v1.XmlPullParser;
 
 /* loaded from: classes.dex */
 public class ArcMotion extends PathMotion {
-    private static final float DEFAULT_MAX_ANGLE_DEGREES = 70.0f;
-    private static final float DEFAULT_MAX_TANGENT = (float) Math.tan(Math.toRadians(35.0d));
-    private static final float DEFAULT_MIN_ANGLE_DEGREES = 0.0f;
-    private float mMaximumAngle;
-    private float mMaximumTangent;
-    private float mMinimumHorizontalAngle;
-    private float mMinimumHorizontalTangent;
-    private float mMinimumVerticalAngle;
-    private float mMinimumVerticalTangent;
+
+    /* renamed from: a */
+    private static final float f3677a = 0.0f;
+
+    /* renamed from: b */
+    private static final float f3678b = 70.0f;
+
+    /* renamed from: c */
+    private static final float f3679c = (float) Math.tan(Math.toRadians(35.0d));
+
+    /* renamed from: d */
+    private float f3680d;
+
+    /* renamed from: e */
+    private float f3681e;
+
+    /* renamed from: f */
+    private float f3682f;
+
+    /* renamed from: g */
+    private float f3683g;
+
+    /* renamed from: h */
+    private float f3684h;
+
+    /* renamed from: i */
+    private float f3685i;
 
     public ArcMotion() {
-        this.mMinimumHorizontalAngle = 0.0f;
-        this.mMinimumVerticalAngle = 0.0f;
-        this.mMaximumAngle = DEFAULT_MAX_ANGLE_DEGREES;
-        this.mMinimumHorizontalTangent = 0.0f;
-        this.mMinimumVerticalTangent = 0.0f;
-        this.mMaximumTangent = DEFAULT_MAX_TANGENT;
+        this.f3680d = 0.0f;
+        this.f3681e = 0.0f;
+        this.f3682f = f3678b;
+        this.f3683g = 0.0f;
+        this.f3684h = 0.0f;
+        this.f3685i = f3679c;
     }
 
-    private static float toTangent(float f10) {
-        if (f10 < 0.0f || f10 > 90.0f) {
+    private static float a(float f2) {
+        if (f2 < 0.0f || f2 > 90.0f) {
             throw new IllegalArgumentException("Arc must be between 0 and 90 degrees");
         }
-        return (float) Math.tan(Math.toRadians(f10 / 2.0f));
+        return (float) Math.tan(Math.toRadians(f2 / 2.0f));
     }
 
     public float getMaximumAngle() {
-        return this.mMaximumAngle;
+        return this.f3682f;
     }
 
     public float getMinimumHorizontalAngle() {
-        return this.mMinimumHorizontalAngle;
+        return this.f3680d;
     }
 
     public float getMinimumVerticalAngle() {
-        return this.mMinimumVerticalAngle;
+        return this.f3681e;
     }
 
     @Override // androidx.transition.PathMotion
-    public Path getPath(float f10, float f11, float f12, float f13) {
-        float f14;
-        float f15;
-        float f16;
+    public Path getPath(float f2, float f3, float f4, float f5) {
+        float f6;
+        float f7;
+        float f8;
         Path path = new Path();
-        path.moveTo(f10, f11);
-        float f17 = f12 - f10;
-        float f18 = f13 - f11;
-        float f19 = (f17 * f17) + (f18 * f18);
-        float f20 = (f10 + f12) / 2.0f;
-        float f21 = (f11 + f13) / 2.0f;
-        float f22 = 0.25f * f19;
-        boolean z10 = f11 > f13;
-        if (Math.abs(f17) < Math.abs(f18)) {
-            float abs = Math.abs(f19 / (f18 * 2.0f));
-            if (z10) {
-                f15 = abs + f13;
-                f14 = f12;
+        path.moveTo(f2, f3);
+        float f9 = f4 - f2;
+        float f10 = f5 - f3;
+        float f11 = (f9 * f9) + (f10 * f10);
+        float f12 = (f2 + f4) / 2.0f;
+        float f13 = (f3 + f5) / 2.0f;
+        float f14 = 0.25f * f11;
+        boolean z = f3 > f5;
+        if (Math.abs(f9) < Math.abs(f10)) {
+            float abs = Math.abs(f11 / (f10 * 2.0f));
+            if (z) {
+                f7 = abs + f5;
+                f6 = f4;
             } else {
-                f15 = abs + f11;
-                f14 = f10;
+                f7 = abs + f3;
+                f6 = f2;
             }
-            f16 = this.mMinimumVerticalTangent;
+            f8 = this.f3684h;
         } else {
-            float f23 = f19 / (f17 * 2.0f);
-            if (z10) {
-                f15 = f11;
-                f14 = f23 + f10;
+            float f15 = f11 / (f9 * 2.0f);
+            if (z) {
+                f7 = f3;
+                f6 = f15 + f2;
             } else {
-                f14 = f12 - f23;
-                f15 = f13;
+                f6 = f4 - f15;
+                f7 = f5;
             }
-            f16 = this.mMinimumHorizontalTangent;
+            f8 = this.f3683g;
         }
-        float f24 = f22 * f16 * f16;
-        float f25 = f20 - f14;
-        float f26 = f21 - f15;
-        float f27 = (f25 * f25) + (f26 * f26);
-        float f28 = this.mMaximumTangent;
-        float f29 = f22 * f28 * f28;
-        if (f27 >= f24) {
-            f24 = f27 > f29 ? f29 : 0.0f;
+        float f16 = f14 * f8 * f8;
+        float f17 = f12 - f6;
+        float f18 = f13 - f7;
+        float f19 = (f17 * f17) + (f18 * f18);
+        float f20 = this.f3685i;
+        float f21 = f14 * f20 * f20;
+        if (f19 >= f16) {
+            f16 = f19 > f21 ? f21 : 0.0f;
         }
-        if (f24 != 0.0f) {
-            float sqrt = (float) Math.sqrt(f24 / f27);
-            f14 = ((f14 - f20) * sqrt) + f20;
-            f15 = f21 + (sqrt * (f15 - f21));
+        if (f16 != 0.0f) {
+            float sqrt = (float) Math.sqrt(f16 / f19);
+            f6 = ((f6 - f12) * sqrt) + f12;
+            f7 = f13 + (sqrt * (f7 - f13));
         }
-        path.cubicTo((f10 + f14) / 2.0f, (f11 + f15) / 2.0f, (f14 + f12) / 2.0f, (f15 + f13) / 2.0f, f12, f13);
+        path.cubicTo((f2 + f6) / 2.0f, (f3 + f7) / 2.0f, (f6 + f4) / 2.0f, (f7 + f5) / 2.0f, f4, f5);
         return path;
     }
 
-    public void setMaximumAngle(float f10) {
-        this.mMaximumAngle = f10;
-        this.mMaximumTangent = toTangent(f10);
+    public void setMaximumAngle(float f2) {
+        this.f3682f = f2;
+        this.f3685i = a(f2);
     }
 
-    public void setMinimumHorizontalAngle(float f10) {
-        this.mMinimumHorizontalAngle = f10;
-        this.mMinimumHorizontalTangent = toTangent(f10);
+    public void setMinimumHorizontalAngle(float f2) {
+        this.f3680d = f2;
+        this.f3683g = a(f2);
     }
 
-    public void setMinimumVerticalAngle(float f10) {
-        this.mMinimumVerticalAngle = f10;
-        this.mMinimumVerticalTangent = toTangent(f10);
+    public void setMinimumVerticalAngle(float f2) {
+        this.f3681e = f2;
+        this.f3684h = a(f2);
     }
 
     @SuppressLint({"RestrictedApi"})
     public ArcMotion(Context context, AttributeSet attributeSet) {
         super(context, attributeSet);
-        this.mMinimumHorizontalAngle = 0.0f;
-        this.mMinimumVerticalAngle = 0.0f;
-        this.mMaximumAngle = DEFAULT_MAX_ANGLE_DEGREES;
-        this.mMinimumHorizontalTangent = 0.0f;
-        this.mMinimumVerticalTangent = 0.0f;
-        this.mMaximumTangent = DEFAULT_MAX_TANGENT;
-        TypedArray obtainStyledAttributes = context.obtainStyledAttributes(attributeSet, Styleable.ARC_MOTION);
+        this.f3680d = 0.0f;
+        this.f3681e = 0.0f;
+        this.f3682f = f3678b;
+        this.f3683g = 0.0f;
+        this.f3684h = 0.0f;
+        this.f3685i = f3679c;
+        TypedArray obtainStyledAttributes = context.obtainStyledAttributes(attributeSet, Styleable.f3813j);
         XmlPullParser xmlPullParser = (XmlPullParser) attributeSet;
         setMinimumVerticalAngle(TypedArrayUtils.getNamedFloat(obtainStyledAttributes, xmlPullParser, "minimumVerticalAngle", 1, 0.0f));
         setMinimumHorizontalAngle(TypedArrayUtils.getNamedFloat(obtainStyledAttributes, xmlPullParser, "minimumHorizontalAngle", 0, 0.0f));
-        setMaximumAngle(TypedArrayUtils.getNamedFloat(obtainStyledAttributes, xmlPullParser, "maximumAngle", 2, DEFAULT_MAX_ANGLE_DEGREES));
+        setMaximumAngle(TypedArrayUtils.getNamedFloat(obtainStyledAttributes, xmlPullParser, "maximumAngle", 2, f3678b));
         obtainStyledAttributes.recycle();
     }
 }

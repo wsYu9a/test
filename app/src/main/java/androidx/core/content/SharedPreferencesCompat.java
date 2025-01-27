@@ -9,10 +9,17 @@ public final class SharedPreferencesCompat {
 
     @Deprecated
     public static final class EditorCompat {
-        private static EditorCompat sInstance;
-        private final Helper mHelper = new Helper();
 
-        public static class Helper {
+        /* renamed from: a, reason: collision with root package name */
+        private static EditorCompat f1675a;
+
+        /* renamed from: b, reason: collision with root package name */
+        private final Helper f1676b = new Helper();
+
+        private static class Helper {
+            Helper() {
+            }
+
             public void apply(@NonNull SharedPreferences.Editor editor) {
                 try {
                     editor.apply();
@@ -27,15 +34,15 @@ public final class SharedPreferencesCompat {
 
         @Deprecated
         public static EditorCompat getInstance() {
-            if (sInstance == null) {
-                sInstance = new EditorCompat();
+            if (f1675a == null) {
+                f1675a = new EditorCompat();
             }
-            return sInstance;
+            return f1675a;
         }
 
         @Deprecated
         public void apply(@NonNull SharedPreferences.Editor editor) {
-            this.mHelper.apply(editor);
+            this.f1676b.apply(editor);
         }
     }
 

@@ -1,22 +1,10 @@
 package com.kwad.sdk.components;
 
-/* loaded from: classes3.dex */
+/* loaded from: classes2.dex */
 public interface j {
-    void a(i iVar);
+    void a(g gVar);
 
-    void cancelDownload();
+    void a(h hVar);
 
-    void installApp();
-
-    void openApp();
-
-    void pauseDownload();
-
-    void resumeDownload();
-
-    void setCustomReportParam(String str);
-
-    void startDownload();
-
-    void stopDownload();
+    void b(g gVar);
 }

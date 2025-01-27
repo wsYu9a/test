@@ -1,6 +1,6 @@
 package com.martian.rpauth.response;
 
-/* loaded from: classes3.dex */
+/* loaded from: classes4.dex */
 public class MartianVideoPlayBefore {
     private Boolean playBefore;
 
@@ -9,7 +9,7 @@ public class MartianVideoPlayBefore {
         return bool == null || bool.booleanValue();
     }
 
-    public void setPlayBefore(Boolean bool) {
-        this.playBefore = bool;
+    public void setPlayBefore(Boolean playBefore) {
+        this.playBefore = playBefore;
     }
 }

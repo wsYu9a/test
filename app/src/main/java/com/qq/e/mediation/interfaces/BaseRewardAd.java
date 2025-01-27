@@ -6,13 +6,12 @@ import com.qq.e.ads.rewardvideo.ServerSideVerificationOptions;
 import com.qq.e.comm.adevent.ADListener;
 import com.qq.e.comm.constants.LoadAdParams;
 
-@Deprecated
-/* loaded from: classes3.dex */
+/* loaded from: classes4.dex */
 public abstract class BaseRewardAd implements IBaseAd {
     public static final int DEFAULT_PRIORITY = -1;
 
     /* renamed from: a */
-    private LoadAdParams f16625a = null;
+    private LoadAdParams f24057a = null;
 
     public BaseRewardAd(Context context, String str, String str2, String str3) {
     }
@@ -27,7 +26,7 @@ public abstract class BaseRewardAd implements IBaseAd {
     public abstract long getExpireTimestamp();
 
     public LoadAdParams getLoadAdParams() {
-        return this.f16625a;
+        return this.f24057a;
     }
 
     public int getRewardAdType() {
@@ -43,21 +42,21 @@ public abstract class BaseRewardAd implements IBaseAd {
     public abstract void loadAD();
 
     @Override // com.qq.e.mediation.interfaces.IBaseAd
-    public void sendLossNotification(int i10, int i11, String str) {
+    public void sendLossNotification(int i2, int i3, String str) {
     }
 
     @Override // com.qq.e.mediation.interfaces.IBaseAd
-    public void sendWinNotification(int i10) {
+    public void sendWinNotification(int i2) {
     }
 
     public abstract void setAdListener(ADListener aDListener);
 
     @Override // com.qq.e.mediation.interfaces.IBaseAd
-    public void setBidECPM(int i10) {
+    public void setBidECPM(int i2) {
     }
 
     public void setLoadAdParams(LoadAdParams loadAdParams) {
-        this.f16625a = loadAdParams;
+        this.f24057a = loadAdParams;
     }
 
     @Override // com.qq.e.mediation.interfaces.IBaseAd
@@ -66,7 +65,7 @@ public abstract class BaseRewardAd implements IBaseAd {
 
     public abstract void setServerSideVerificationOptions(ServerSideVerificationOptions serverSideVerificationOptions);
 
-    public abstract void setVolumeOn(boolean z10);
+    public abstract void setVolumeOn(boolean z);
 
     public abstract void showAD();
 

@@ -18,8 +18,8 @@ public class WXDynamicVideoMiniProgramObject extends WXMiniProgramObject {
         } else if (b.b(this.userName)) {
             str = "userName is null";
         } else {
-            int i10 = this.miniprogramType;
-            if (i10 >= 0 && i10 <= 2) {
+            int i2 = this.miniprogramType;
+            if (i2 >= 0 && i2 <= 2) {
                 return true;
             }
             str = "miniprogram type should between MINIPTOGRAM_TYPE_RELEASE and MINIPROGRAM_TYPE_PREVIEW";

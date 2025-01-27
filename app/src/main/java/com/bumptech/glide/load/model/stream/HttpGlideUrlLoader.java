@@ -10,11 +10,12 @@ import com.bumptech.glide.load.model.ModelCache;
 import com.bumptech.glide.load.model.ModelLoader;
 import com.bumptech.glide.load.model.ModelLoaderFactory;
 import com.bumptech.glide.load.model.MultiModelLoaderFactory;
+import com.vivo.google.android.exoplayer3.DefaultLoadControl;
 import java.io.InputStream;
 
-/* loaded from: classes2.dex */
+/* loaded from: classes.dex */
 public class HttpGlideUrlLoader implements ModelLoader<GlideUrl, InputStream> {
-    public static final Option<Integer> TIMEOUT = Option.memory("com.bumptech.glide.load.model.stream.HttpGlideUrlLoader.Timeout", 2500);
+    public static final Option<Integer> TIMEOUT = Option.memory("com.bumptech.glide.load.model.stream.HttpGlideUrlLoader.Timeout", Integer.valueOf(DefaultLoadControl.DEFAULT_BUFFER_FOR_PLAYBACK_MS));
 
     @Nullable
     private final ModelCache<GlideUrl, GlideUrl> modelCache;
@@ -47,7 +48,7 @@ public class HttpGlideUrlLoader implements ModelLoader<GlideUrl, InputStream> {
     }
 
     @Override // com.bumptech.glide.load.model.ModelLoader
-    public ModelLoader.LoadData<InputStream> buildLoadData(@NonNull GlideUrl glideUrl, int i10, int i11, @NonNull Options options) {
+    public ModelLoader.LoadData<InputStream> buildLoadData(@NonNull GlideUrl glideUrl, int i2, int i3, @NonNull Options options) {
         ModelCache<GlideUrl, GlideUrl> modelCache = this.modelCache;
         if (modelCache != null) {
             GlideUrl glideUrl2 = modelCache.get(glideUrl, 0, 0);

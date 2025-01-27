@@ -1,24 +1,18 @@
 package com.baidu.mobads.sdk.internal;
 
-import com.baidu.mobads.sdk.internal.an;
+import android.content.SharedPreferences;
 
-/* loaded from: classes2.dex */
-class cg implements an.a {
+/* loaded from: classes.dex */
+class cg implements SharedPreferences.OnSharedPreferenceChangeListener {
 
     /* renamed from: a */
-    final /* synthetic */ bz f7022a;
+    final /* synthetic */ cf f5705a;
 
-    public cg(bz bzVar) {
-        this.f7022a = bzVar;
+    cg(cf cfVar) {
+        this.f5705a = cfVar;
     }
 
-    @Override // com.baidu.mobads.sdk.internal.an.a
-    public void a() {
-        boolean z10;
-        z10 = this.f7022a.A;
-        if (z10) {
-            this.f7022a.A = false;
-            this.f7022a.a(false, "remote update Network access failed");
-        }
+    @Override // android.content.SharedPreferences.OnSharedPreferenceChangeListener
+    public void onSharedPreferenceChanged(SharedPreferences sharedPreferences, String str) {
     }
 }

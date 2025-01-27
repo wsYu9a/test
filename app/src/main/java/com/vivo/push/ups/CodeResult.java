@@ -4,8 +4,8 @@ package com.vivo.push.ups;
 public class CodeResult {
     int returnCode;
 
-    public CodeResult(int i10) {
-        this.returnCode = i10;
+    public CodeResult(int i2) {
+        this.returnCode = i2;
     }
 
     public int getReturnCode() {

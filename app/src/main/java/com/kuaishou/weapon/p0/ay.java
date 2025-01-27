@@ -5,27 +5,27 @@ import android.text.TextUtils;
 import com.kuaishou.weapon.p0.jni.Engine;
 import org.json.JSONObject;
 
-/* loaded from: classes2.dex */
+/* loaded from: classes.dex */
 public class ay {
 
     /* renamed from: a */
-    private JSONObject f10786a;
+    private JSONObject f9090a;
 
-    public ay(Context context, int i10) {
+    public ay(Context context, int i2) {
         if (Engine.loadSuccess) {
             try {
-                String pqr = Engine.getInstance(context).pqr(Integer.valueOf(ck.f10907c).intValue(), 2, i10, "");
+                String pqr = Engine.getInstance(context).pqr(Integer.valueOf(cj.f9190c).intValue(), 2, i2 < 10 ? 10 : i2, "");
                 if (TextUtils.isEmpty(pqr)) {
                     return;
                 }
-                this.f10786a = new JSONObject(pqr);
+                this.f9090a = new JSONObject(pqr);
             } catch (Throwable unused) {
             }
         }
     }
 
-    public String a(String str) {
-        JSONObject jSONObject = this.f10786a;
+    private String b(String str) {
+        JSONObject jSONObject = this.f9090a;
         if (jSONObject == null) {
             return null;
         }
@@ -36,7 +36,15 @@ public class ay {
         }
     }
 
-    public JSONObject a() {
-        return this.f10786a;
+    public JSONObject a(String str) {
+        try {
+            String b2 = b(str);
+            if (TextUtils.isEmpty(b2)) {
+                return null;
+            }
+            return new JSONObject(b2);
+        } catch (Exception unused) {
+            return null;
+        }
     }
 }

@@ -1,50 +1,38 @@
 package com.umeng.analytics.pro;
 
-import android.text.TextUtils;
-import org.json.JSONObject;
-
 /* loaded from: classes4.dex */
-public class aq implements Runnable {
+public class aq {
 
     /* renamed from: a */
-    public static final String f23439a = "https://aspect-upush.umeng.com/occa/v1/event/report";
+    public static final int f25693a = 1;
 
     /* renamed from: b */
-    public static final String f23440b = "https://cnlogs.umeng.com/ext_event";
+    public static final String f25694b = "umeng_zero_cache.db";
 
     /* renamed from: c */
-    public static final String f23441c = "https://cnlogs.umeng.com/uapp_ekverr_logs";
+    public static final String f25695c = "stf";
 
     /* renamed from: d */
-    private String f23442d;
+    public static final String f25696d = "_id";
 
     /* renamed from: e */
-    private String f23443e;
+    public static final String f25697e = "_tp";
 
     /* renamed from: f */
-    private String f23444f;
+    public static final String f25698f = "_hd";
 
-    public aq(String str, JSONObject jSONObject) {
-        this.f23444f = null;
-        this.f23442d = str;
-        this.f23443e = jSONObject.toString();
-    }
+    /* renamed from: g */
+    public static final String f25699g = "_bd";
 
-    @Override // java.lang.Runnable
-    public void run() {
-        try {
-            if (TextUtils.isEmpty(this.f23443e)) {
-                return;
-            }
-            ap.a(this.f23442d, this.f23443e.getBytes(), this.f23444f);
-        } catch (Throwable unused) {
-        }
-    }
+    /* renamed from: h */
+    public static final String f25700h = "_ts";
 
-    public aq(String str, JSONObject jSONObject, String str2) {
-        this.f23444f = null;
-        this.f23442d = str;
-        this.f23443e = jSONObject.toString();
-        this.f23444f = str2;
-    }
+    /* renamed from: i */
+    public static final String f25701i = "_uuid";
+
+    /* renamed from: j */
+    public static final String f25702j = "_re1";
+    public static final String k = "_re2";
+    public static final String l = "umeng_zcfg_flag";
+    public static final String m = "umeng_policy_result_flag";
 }

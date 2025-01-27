@@ -7,31 +7,31 @@ import java.util.Map;
 public class b implements f {
 
     /* renamed from: a */
-    private static Map<String, Boolean> f24339a = new HashMap();
+    private static Map<String, Boolean> f26114a = new HashMap();
 
     /* renamed from: b */
-    private static Object f24340b = new Object();
+    private static Object f26115b = new Object();
 
-    public static class a {
+    private static class a {
 
         /* renamed from: a */
-        private static final b f24341a = new b();
+        private static final b f26116a = new b();
 
         private a() {
         }
     }
 
-    public /* synthetic */ b(AnonymousClass1 anonymousClass1) {
+    /* synthetic */ b(AnonymousClass1 anonymousClass1) {
         this();
     }
 
     public static b b() {
-        return a.f24341a;
+        return a.f26116a;
     }
 
     public void a() {
-        synchronized (f24340b) {
-            f24339a.clear();
+        synchronized (f26115b) {
+            f26114a.clear();
         }
     }
 
@@ -42,29 +42,21 @@ public class b implements f {
         if (!d.a(str)) {
             return false;
         }
-        synchronized (f24340b) {
-            try {
-                if (!f24339a.containsKey(str)) {
-                    return true;
-                }
-                return f24339a.get(str).booleanValue();
-            } catch (Throwable th2) {
-                throw th2;
+        synchronized (f26115b) {
+            if (!f26114a.containsKey(str)) {
+                return true;
             }
+            return f26114a.get(str).booleanValue();
         }
     }
 
     @Override // com.umeng.commonsdk.config.f
     public void a(String str, Boolean bool) {
         if (d.a(str)) {
-            synchronized (f24340b) {
-                try {
-                    Map<String, Boolean> map = f24339a;
-                    if (map != null) {
-                        map.put(str, bool);
-                    }
-                } catch (Throwable th2) {
-                    throw th2;
+            synchronized (f26115b) {
+                Map<String, Boolean> map = f26114a;
+                if (map != null) {
+                    map.put(str, bool);
                 }
             }
         }

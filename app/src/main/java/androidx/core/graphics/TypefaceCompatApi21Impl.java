@@ -27,37 +27,54 @@ import java.lang.reflect.Method;
 @RestrictTo({RestrictTo.Scope.LIBRARY_GROUP_PREFIX})
 /* loaded from: classes.dex */
 class TypefaceCompatApi21Impl extends TypefaceCompatBaseImpl {
-    private static final String ADD_FONT_WEIGHT_STYLE_METHOD = "addFontWeightStyle";
-    private static final String CREATE_FROM_FAMILIES_WITH_DEFAULT_METHOD = "createFromFamiliesWithDefault";
-    private static final String FONT_FAMILY_CLASS = "android.graphics.FontFamily";
-    private static final String TAG = "TypefaceCompatApi21Impl";
-    private static Method sAddFontWeightStyle = null;
-    private static Method sCreateFromFamiliesWithDefault = null;
-    private static Class<?> sFontFamily = null;
-    private static Constructor<?> sFontFamilyCtor = null;
-    private static boolean sHasInitBeenCalled = false;
 
-    private static boolean addFontWeightStyle(Object obj, String str, int i10, boolean z10) {
-        init();
+    /* renamed from: d */
+    private static final String f1744d = "TypefaceCompatApi21Impl";
+
+    /* renamed from: e */
+    private static final String f1745e = "android.graphics.FontFamily";
+
+    /* renamed from: f */
+    private static final String f1746f = "addFontWeightStyle";
+
+    /* renamed from: g */
+    private static final String f1747g = "createFromFamiliesWithDefault";
+
+    /* renamed from: h */
+    private static Class<?> f1748h;
+
+    /* renamed from: i */
+    private static Constructor<?> f1749i;
+
+    /* renamed from: j */
+    private static Method f1750j;
+    private static Method k;
+    private static boolean l;
+
+    TypefaceCompatApi21Impl() {
+    }
+
+    private static boolean h(Object obj, String str, int i2, boolean z) {
+        k();
         try {
-            return ((Boolean) sAddFontWeightStyle.invoke(obj, str, Integer.valueOf(i10), Boolean.valueOf(z10))).booleanValue();
-        } catch (IllegalAccessException | InvocationTargetException e10) {
-            throw new RuntimeException(e10);
+            return ((Boolean) f1750j.invoke(obj, str, Integer.valueOf(i2), Boolean.valueOf(z))).booleanValue();
+        } catch (IllegalAccessException | InvocationTargetException e2) {
+            throw new RuntimeException(e2);
         }
     }
 
-    private static Typeface createFromFamiliesWithDefault(Object obj) {
-        init();
+    private static Typeface i(Object obj) {
+        k();
         try {
-            Object newInstance = Array.newInstance(sFontFamily, 1);
+            Object newInstance = Array.newInstance(f1748h, 1);
             Array.set(newInstance, 0, obj);
-            return (Typeface) sCreateFromFamiliesWithDefault.invoke(null, newInstance);
-        } catch (IllegalAccessException | InvocationTargetException e10) {
-            throw new RuntimeException(e10);
+            return (Typeface) k.invoke(null, newInstance);
+        } catch (IllegalAccessException | InvocationTargetException e2) {
+            throw new RuntimeException(e2);
         }
     }
 
-    private File getFile(@NonNull ParcelFileDescriptor parcelFileDescriptor) {
+    private File j(@NonNull ParcelFileDescriptor parcelFileDescriptor) {
         try {
             String readlink = Os.readlink("/proc/self/fd/" + parcelFileDescriptor.getFd());
             if (OsConstants.S_ISREG(Os.stat(readlink).st_mode)) {
@@ -68,45 +85,45 @@ class TypefaceCompatApi21Impl extends TypefaceCompatBaseImpl {
         return null;
     }
 
-    private static void init() {
+    private static void k() {
         Method method;
         Class<?> cls;
         Method method2;
-        if (sHasInitBeenCalled) {
+        if (l) {
             return;
         }
-        sHasInitBeenCalled = true;
+        l = true;
         Constructor<?> constructor = null;
         try {
-            cls = Class.forName(FONT_FAMILY_CLASS);
-            Constructor<?> constructor2 = cls.getConstructor(null);
-            method2 = cls.getMethod(ADD_FONT_WEIGHT_STYLE_METHOD, String.class, Integer.TYPE, Boolean.TYPE);
-            method = Typeface.class.getMethod(CREATE_FROM_FAMILIES_WITH_DEFAULT_METHOD, Array.newInstance(cls, 1).getClass());
+            cls = Class.forName(f1745e);
+            Constructor<?> constructor2 = cls.getConstructor(new Class[0]);
+            method2 = cls.getMethod(f1746f, String.class, Integer.TYPE, Boolean.TYPE);
+            method = Typeface.class.getMethod(f1747g, Array.newInstance(cls, 1).getClass());
             constructor = constructor2;
-        } catch (ClassNotFoundException | NoSuchMethodException e10) {
-            Log.e(TAG, e10.getClass().getName(), e10);
+        } catch (ClassNotFoundException | NoSuchMethodException e2) {
+            Log.e(f1744d, e2.getClass().getName(), e2);
             method = null;
             cls = null;
             method2 = null;
         }
-        sFontFamilyCtor = constructor;
-        sFontFamily = cls;
-        sAddFontWeightStyle = method2;
-        sCreateFromFamiliesWithDefault = method;
+        f1749i = constructor;
+        f1748h = cls;
+        f1750j = method2;
+        k = method;
     }
 
-    private static Object newFamily() {
-        init();
+    private static Object l() {
+        k();
         try {
-            return sFontFamilyCtor.newInstance(null);
-        } catch (IllegalAccessException | InstantiationException | InvocationTargetException e10) {
-            throw new RuntimeException(e10);
+            return f1749i.newInstance(new Object[0]);
+        } catch (IllegalAccessException | InstantiationException | InvocationTargetException e2) {
+            throw new RuntimeException(e2);
         }
     }
 
     @Override // androidx.core.graphics.TypefaceCompatBaseImpl
-    public Typeface createFromFontFamilyFilesResourceEntry(Context context, FontResourcesParserCompat.FontFamilyFilesResourceEntry fontFamilyFilesResourceEntry, Resources resources, int i10) {
-        Object newFamily = newFamily();
+    public Typeface createFromFontFamilyFilesResourceEntry(Context context, FontResourcesParserCompat.FontFamilyFilesResourceEntry fontFamilyFilesResourceEntry, Resources resources, int i2) {
+        Object l2 = l();
         for (FontResourcesParserCompat.FontFileResourceEntry fontFileResourceEntry : fontFamilyFilesResourceEntry.getEntries()) {
             File tempFile = TypefaceCompatUtil.getTempFile(context);
             if (tempFile == null) {
@@ -116,7 +133,7 @@ class TypefaceCompatApi21Impl extends TypefaceCompatBaseImpl {
                 if (!TypefaceCompatUtil.copyToFile(tempFile, resources, fontFileResourceEntry.getResourceId())) {
                     return null;
                 }
-                if (!addFontWeightStyle(newFamily, tempFile.getPath(), fontFileResourceEntry.getWeight(), fontFileResourceEntry.isItalic())) {
+                if (!h(l2, tempFile.getPath(), fontFileResourceEntry.getWeight(), fontFileResourceEntry.isItalic())) {
                     return null;
                 }
                 tempFile.delete();
@@ -126,54 +143,50 @@ class TypefaceCompatApi21Impl extends TypefaceCompatBaseImpl {
                 tempFile.delete();
             }
         }
-        return createFromFamiliesWithDefault(newFamily);
+        return i(l2);
     }
 
     @Override // androidx.core.graphics.TypefaceCompatBaseImpl
-    public Typeface createFromFontInfo(Context context, CancellationSignal cancellationSignal, @NonNull FontsContractCompat.FontInfo[] fontInfoArr, int i10) {
+    public Typeface createFromFontInfo(Context context, CancellationSignal cancellationSignal, @NonNull FontsContractCompat.FontInfo[] fontInfoArr, int i2) {
         if (fontInfoArr.length < 1) {
             return null;
         }
-        FontsContractCompat.FontInfo findBestInfo = findBestInfo(fontInfoArr, i10);
+        FontsContractCompat.FontInfo e2 = e(fontInfoArr, i2);
         try {
-            ParcelFileDescriptor openFileDescriptor = context.getContentResolver().openFileDescriptor(findBestInfo.getUri(), t.f11211k, cancellationSignal);
+            ParcelFileDescriptor openFileDescriptor = context.getContentResolver().openFileDescriptor(e2.getUri(), t.k, cancellationSignal);
             if (openFileDescriptor == null) {
                 if (openFileDescriptor != null) {
-                    openFileDescriptor.close();
                 }
                 return null;
             }
             try {
-                File file = getFile(openFileDescriptor);
-                if (file != null && file.canRead()) {
-                    Typeface createFromFile = Typeface.createFromFile(file);
+                File j2 = j(openFileDescriptor);
+                if (j2 != null && j2.canRead()) {
+                    Typeface createFromFile = Typeface.createFromFile(j2);
                     openFileDescriptor.close();
                     return createFromFile;
                 }
                 FileInputStream fileInputStream = new FileInputStream(openFileDescriptor.getFileDescriptor());
                 try {
-                    Typeface createFromInputStream = super.createFromInputStream(context, fileInputStream);
+                    Typeface b2 = super.b(context, fileInputStream);
                     fileInputStream.close();
                     openFileDescriptor.close();
-                    return createFromInputStream;
-                } finally {
+                    return b2;
+                } catch (Throwable th) {
+                    try {
+                        fileInputStream.close();
+                    } catch (Throwable unused) {
+                    }
+                    throw th;
                 }
             } finally {
+                try {
+                    openFileDescriptor.close();
+                } catch (Throwable unused2) {
+                }
             }
-        } catch (IOException unused) {
+        } catch (IOException unused3) {
             return null;
         }
-    }
-
-    @Override // androidx.core.graphics.TypefaceCompatBaseImpl
-    @NonNull
-    public Typeface createWeightStyle(@NonNull Context context, @NonNull Typeface typeface, int i10, boolean z10) {
-        Typeface typeface2;
-        try {
-            typeface2 = WeightTypefaceApi21.createWeightStyle(typeface, i10, z10);
-        } catch (RuntimeException unused) {
-            typeface2 = null;
-        }
-        return typeface2 == null ? super.createWeightStyle(context, typeface, i10, z10) : typeface2;
     }
 }

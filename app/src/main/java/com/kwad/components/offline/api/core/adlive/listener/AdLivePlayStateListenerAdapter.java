@@ -1,9 +1,9 @@
 package com.kwad.components.offline.api.core.adlive.listener;
 
-/* loaded from: classes3.dex */
+/* loaded from: classes2.dex */
 public class AdLivePlayStateListenerAdapter implements AdLivePlayStateListener {
     @Override // com.kwad.components.offline.api.core.adlive.listener.AdLivePlayStateListener
-    public void onLiveAudioEnableChange(boolean z10) {
+    public void onLiveAudioEnableChange(boolean z) {
     }
 
     @Override // com.kwad.components.offline.api.core.adlive.listener.AdLivePlayStateListener
@@ -19,7 +19,7 @@ public class AdLivePlayStateListenerAdapter implements AdLivePlayStateListener {
     }
 
     @Override // com.kwad.components.offline.api.core.adlive.listener.AdLivePlayStateListener
-    public void onLivePlayProgress(long j10) {
+    public void onLivePlayProgress(long j2) {
     }
 
     @Override // com.kwad.components.offline.api.core.adlive.listener.AdLivePlayStateListener

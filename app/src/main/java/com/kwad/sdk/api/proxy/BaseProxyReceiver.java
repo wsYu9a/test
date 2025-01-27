@@ -7,12 +7,12 @@ import androidx.annotation.NonNull;
 import com.kwad.sdk.api.loader.Loader;
 import com.kwad.sdk.api.loader.Wrapper;
 
-/* loaded from: classes3.dex */
+/* loaded from: classes2.dex */
 public abstract class BaseProxyReceiver extends BroadcastReceiver {
     private IReceiverProxy mDelegate;
 
     @NonNull
-    public abstract IReceiverProxy getDelegate(Context context);
+    protected abstract IReceiverProxy getDelegate(Context context);
 
     @Override // android.content.BroadcastReceiver
     public void onReceive(Context context, Intent intent) {

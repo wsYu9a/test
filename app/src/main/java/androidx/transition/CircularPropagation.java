@@ -5,52 +5,54 @@ import android.view.ViewGroup;
 
 /* loaded from: classes.dex */
 public class CircularPropagation extends VisibilityPropagation {
-    private float mPropagationSpeed = 3.0f;
 
-    private static float distance(float f10, float f11, float f12, float f13) {
-        float f14 = f12 - f10;
-        float f15 = f13 - f11;
-        return (float) Math.sqrt((f14 * f14) + (f15 * f15));
+    /* renamed from: d */
+    private float f3741d = 3.0f;
+
+    private static float b(float f2, float f3, float f4, float f5) {
+        float f6 = f4 - f2;
+        float f7 = f5 - f3;
+        return (float) Math.sqrt((f6 * f6) + (f7 * f7));
     }
 
     @Override // androidx.transition.TransitionPropagation
     public long getStartDelay(ViewGroup viewGroup, Transition transition, TransitionValues transitionValues, TransitionValues transitionValues2) {
-        int i10;
+        int i2;
         int round;
-        int i11;
+        int i3;
         if (transitionValues == null && transitionValues2 == null) {
             return 0L;
         }
         if (transitionValues2 == null || getViewVisibility(transitionValues) == 0) {
-            i10 = -1;
+            i2 = -1;
         } else {
             transitionValues = transitionValues2;
-            i10 = 1;
+            i2 = 1;
         }
         int viewX = getViewX(transitionValues);
         int viewY = getViewY(transitionValues);
         Rect epicenter = transition.getEpicenter();
         if (epicenter != null) {
-            i11 = epicenter.centerX();
+            i3 = epicenter.centerX();
             round = epicenter.centerY();
         } else {
             viewGroup.getLocationOnScreen(new int[2]);
             int round2 = Math.round(r5[0] + (viewGroup.getWidth() / 2) + viewGroup.getTranslationX());
             round = Math.round(r5[1] + (viewGroup.getHeight() / 2) + viewGroup.getTranslationY());
-            i11 = round2;
+            i3 = round2;
         }
-        float distance = distance(viewX, viewY, i11, round) / distance(0.0f, 0.0f, viewGroup.getWidth(), viewGroup.getHeight());
+        float b2 = b(viewX, viewY, i3, round) / b(0.0f, 0.0f, viewGroup.getWidth(), viewGroup.getHeight());
         long duration = transition.getDuration();
         if (duration < 0) {
             duration = 300;
         }
-        return Math.round(((duration * i10) / this.mPropagationSpeed) * distance);
+        return Math.round(((duration * i2) / this.f3741d) * b2);
     }
 
-    public void setPropagationSpeed(float f10) {
-        if (f10 == 0.0f) {
+    public void setPropagationSpeed(float f2) {
+        if (f2 == 0.0f) {
             throw new IllegalArgumentException("propagationSpeed may not be 0");
         }
-        this.mPropagationSpeed = f10;
+        this.f3741d = f2;
     }
 }

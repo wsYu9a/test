@@ -2,354 +2,218 @@ package com.google.gson.internal.bind;
 
 import com.google.gson.FieldNamingStrategy;
 import com.google.gson.Gson;
-import com.google.gson.JsonIOException;
 import com.google.gson.JsonSyntaxException;
-import com.google.gson.ReflectionAccessFilter;
 import com.google.gson.TypeAdapter;
 import com.google.gson.TypeAdapterFactory;
-import com.google.gson.annotations.JsonAdapter;
-import com.google.gson.annotations.SerializedName;
 import com.google.gson.internal.C$Gson$Types;
-import com.google.gson.internal.ConstructorConstructor;
 import com.google.gson.internal.Excluder;
-import com.google.gson.internal.ObjectConstructor;
-import com.google.gson.internal.Primitives;
-import com.google.gson.internal.ReflectionAccessFilterHelper;
-import com.google.gson.internal.reflect.ReflectionHelper;
-import com.google.gson.reflect.TypeToken;
-import com.google.gson.stream.JsonReader;
+import com.google.gson.internal.d;
+import com.google.gson.internal.e;
 import com.google.gson.stream.JsonToken;
-import com.google.gson.stream.JsonWriter;
 import java.io.IOException;
 import java.lang.reflect.Field;
-import java.lang.reflect.Modifier;
 import java.lang.reflect.Type;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Iterator;
 import java.util.LinkedHashMap;
-import java.util.List;
 import java.util.Map;
 
-/* loaded from: classes2.dex */
+/* loaded from: classes.dex */
 public final class ReflectiveTypeAdapterFactory implements TypeAdapterFactory {
-    private final ConstructorConstructor constructorConstructor;
-    private final Excluder excluder;
-    private final FieldNamingStrategy fieldNamingPolicy;
-    private final JsonAdapterAnnotationTypeAdapterFactory jsonAdapterFactory;
-    private final List<ReflectionAccessFilter> reflectionFilters;
 
-    /* renamed from: com.google.gson.internal.bind.ReflectiveTypeAdapterFactory$1 */
-    public class AnonymousClass1 extends BoundField {
-        final /* synthetic */ boolean val$blockInaccessible;
-        final /* synthetic */ Gson val$context;
-        final /* synthetic */ Field val$field;
-        final /* synthetic */ TypeToken val$fieldType;
-        final /* synthetic */ boolean val$isPrimitive;
-        final /* synthetic */ boolean val$jsonAdapterPresent;
-        final /* synthetic */ TypeAdapter val$typeAdapter;
+    /* renamed from: a */
+    private final com.google.gson.internal.b f8099a;
+
+    /* renamed from: b */
+    private final FieldNamingStrategy f8100b;
+
+    /* renamed from: c */
+    private final Excluder f8101c;
+
+    class a extends c {
+
+        /* renamed from: d */
+        final TypeAdapter<?> f8102d;
+
+        /* renamed from: e */
+        final /* synthetic */ Gson f8103e;
+
+        /* renamed from: f */
+        final /* synthetic */ Field f8104f;
+
+        /* renamed from: g */
+        final /* synthetic */ com.google.gson.b.a f8105g;
+
+        /* renamed from: h */
+        final /* synthetic */ boolean f8106h;
 
         /* JADX WARN: 'super' call moved to the top of the method (can break code semantics) */
-        public AnonymousClass1(String str, boolean z10, boolean z11, boolean z12, Field field, boolean z13, TypeAdapter typeAdapter, Gson gson, TypeToken typeToken, boolean z14) {
-            super(str, z10, z11);
-            z12 = z12;
-            field = field;
-            z13 = z13;
-            typeAdapter2 = typeAdapter;
-            gson = gson;
-            typeToken = typeToken;
-            isPrimitive = z14;
+        a(String str, boolean z, boolean z2, Gson gson, Field field, com.google.gson.b.a aVar, boolean z3) {
+            super(str, z, z2);
+            this.f8103e = gson;
+            this.f8104f = field;
+            this.f8105g = aVar;
+            this.f8106h = z3;
+            this.f8102d = ReflectiveTypeAdapterFactory.this.e(gson, field, aVar);
         }
 
-        @Override // com.google.gson.internal.bind.ReflectiveTypeAdapterFactory.BoundField
-        public void read(JsonReader jsonReader, Object obj) throws IOException, IllegalAccessException {
-            Object read2 = typeAdapter2.read2(jsonReader);
-            if (read2 == null && isPrimitive) {
+        @Override // com.google.gson.internal.bind.ReflectiveTypeAdapterFactory.c
+        void a(com.google.gson.stream.a aVar, Object obj) throws IOException, IllegalAccessException {
+            Object read2 = this.f8102d.read2(aVar);
+            if (read2 == null && this.f8106h) {
                 return;
             }
-            if (z12) {
-                ReflectiveTypeAdapterFactory.checkAccessible(obj, field);
-            }
-            field.set(obj, read2);
+            this.f8104f.set(obj, read2);
         }
 
-        @Override // com.google.gson.internal.bind.ReflectiveTypeAdapterFactory.BoundField
-        public void write(JsonWriter jsonWriter, Object obj) throws IOException, IllegalAccessException {
-            if (this.serialized) {
-                if (z12) {
-                    ReflectiveTypeAdapterFactory.checkAccessible(obj, field);
-                }
-                Object obj2 = field.get(obj);
-                if (obj2 == obj) {
-                    return;
-                }
-                jsonWriter.name(this.name);
-                (z13 ? typeAdapter2 : new TypeAdapterRuntimeTypeWrapper(gson, typeAdapter2, typeToken.getType())).write(jsonWriter, obj2);
-            }
+        @Override // com.google.gson.internal.bind.ReflectiveTypeAdapterFactory.c
+        void b(com.google.gson.stream.c cVar, Object obj) throws IOException, IllegalAccessException {
+            new com.google.gson.internal.bind.c(this.f8103e, this.f8102d, this.f8105g.getType()).write(cVar, this.f8104f.get(obj));
         }
     }
 
-    public static final class Adapter<T> extends TypeAdapter<T> {
-        private final Map<String, BoundField> boundFields;
-        private final ObjectConstructor<T> constructor;
+    public static final class b<T> extends TypeAdapter<T> {
 
-        public Adapter(ObjectConstructor<T> objectConstructor, Map<String, BoundField> map) {
-            this.constructor = objectConstructor;
-            this.boundFields = map;
+        /* renamed from: a */
+        private final d<T> f8108a;
+
+        /* renamed from: b */
+        private final Map<String, c> f8109b;
+
+        /* synthetic */ b(d dVar, Map map, a aVar) {
+            this(dVar, map);
         }
 
         @Override // com.google.gson.TypeAdapter
         /* renamed from: read */
-        public T read2(JsonReader jsonReader) throws IOException {
-            if (jsonReader.peek() == JsonToken.NULL) {
-                jsonReader.nextNull();
+        public T read2(com.google.gson.stream.a aVar) throws IOException {
+            if (aVar.C() == JsonToken.NULL) {
+                aVar.y();
                 return null;
             }
-            T construct = this.constructor.construct();
+            T a2 = this.f8108a.a();
             try {
-                jsonReader.beginObject();
-                while (jsonReader.hasNext()) {
-                    BoundField boundField = this.boundFields.get(jsonReader.nextName());
-                    if (boundField != null && boundField.deserialized) {
-                        boundField.read(jsonReader, construct);
+                aVar.g();
+                while (aVar.p()) {
+                    c cVar = this.f8109b.get(aVar.w());
+                    if (cVar != null && cVar.f8112c) {
+                        cVar.a(aVar, a2);
                     }
-                    jsonReader.skipValue();
+                    aVar.M();
                 }
-                jsonReader.endObject();
-                return construct;
-            } catch (IllegalAccessException e10) {
-                throw ReflectionHelper.createExceptionForUnexpectedIllegalAccess(e10);
-            } catch (IllegalStateException e11) {
-                throw new JsonSyntaxException(e11);
+                aVar.l();
+                return a2;
+            } catch (IllegalAccessException e2) {
+                throw new AssertionError(e2);
+            } catch (IllegalStateException e3) {
+                throw new JsonSyntaxException(e3);
             }
         }
 
         @Override // com.google.gson.TypeAdapter
-        public void write(JsonWriter jsonWriter, T t10) throws IOException {
-            if (t10 == null) {
-                jsonWriter.nullValue();
+        public void write(com.google.gson.stream.c cVar, T t) throws IOException {
+            if (t == null) {
+                cVar.m();
                 return;
             }
-            jsonWriter.beginObject();
+            cVar.d();
             try {
-                Iterator<BoundField> it = this.boundFields.values().iterator();
-                while (it.hasNext()) {
-                    it.next().write(jsonWriter, t10);
-                }
-                jsonWriter.endObject();
-            } catch (IllegalAccessException e10) {
-                throw ReflectionHelper.createExceptionForUnexpectedIllegalAccess(e10);
-            }
-        }
-    }
-
-    public static abstract class BoundField {
-        final boolean deserialized;
-        final String name;
-        final boolean serialized;
-
-        public BoundField(String str, boolean z10, boolean z11) {
-            this.name = str;
-            this.serialized = z10;
-            this.deserialized = z11;
-        }
-
-        public abstract void read(JsonReader jsonReader, Object obj) throws IOException, IllegalAccessException;
-
-        public abstract void write(JsonWriter jsonWriter, Object obj) throws IOException, IllegalAccessException;
-    }
-
-    public ReflectiveTypeAdapterFactory(ConstructorConstructor constructorConstructor, FieldNamingStrategy fieldNamingStrategy, Excluder excluder, JsonAdapterAnnotationTypeAdapterFactory jsonAdapterAnnotationTypeAdapterFactory, List<ReflectionAccessFilter> list) {
-        this.constructorConstructor = constructorConstructor;
-        this.fieldNamingPolicy = fieldNamingStrategy;
-        this.excluder = excluder;
-        this.jsonAdapterFactory = jsonAdapterAnnotationTypeAdapterFactory;
-        this.reflectionFilters = list;
-    }
-
-    public static void checkAccessible(Object obj, Field field) {
-        if (Modifier.isStatic(field.getModifiers())) {
-            obj = null;
-        }
-        if (ReflectionAccessFilterHelper.canAccess(field, obj)) {
-            return;
-        }
-        throw new JsonIOException("Field '" + field.getDeclaringClass().getName() + "#" + field.getName() + "' is not accessible and ReflectionAccessFilter does not permit making it accessible. Register a TypeAdapter for the declaring type or adjust the access filter.");
-    }
-
-    private BoundField createBoundField(Gson gson, Field field, String str, TypeToken<?> typeToken, boolean z10, boolean z11, boolean z12) {
-        boolean isPrimitive = Primitives.isPrimitive(typeToken.getRawType());
-        JsonAdapter jsonAdapter = (JsonAdapter) field.getAnnotation(JsonAdapter.class);
-        TypeAdapter<?> typeAdapter = jsonAdapter != null ? this.jsonAdapterFactory.getTypeAdapter(this.constructorConstructor, gson, typeToken, jsonAdapter) : null;
-        boolean z13 = typeAdapter != null;
-        if (typeAdapter == null) {
-            typeAdapter = gson.getAdapter(typeToken);
-        }
-        return new BoundField(str, z10, z11) { // from class: com.google.gson.internal.bind.ReflectiveTypeAdapterFactory.1
-            final /* synthetic */ boolean val$blockInaccessible;
-            final /* synthetic */ Gson val$context;
-            final /* synthetic */ Field val$field;
-            final /* synthetic */ TypeToken val$fieldType;
-            final /* synthetic */ boolean val$isPrimitive;
-            final /* synthetic */ boolean val$jsonAdapterPresent;
-            final /* synthetic */ TypeAdapter val$typeAdapter;
-
-            /* JADX WARN: 'super' call moved to the top of the method (can break code semantics) */
-            public AnonymousClass1(String str2, boolean z102, boolean z112, boolean z122, Field field2, boolean z132, TypeAdapter typeAdapter2, Gson gson2, TypeToken typeToken2, boolean isPrimitive2) {
-                super(str2, z102, z112);
-                z12 = z122;
-                field = field2;
-                z13 = z132;
-                typeAdapter2 = typeAdapter2;
-                gson = gson2;
-                typeToken = typeToken2;
-                isPrimitive = isPrimitive2;
-            }
-
-            @Override // com.google.gson.internal.bind.ReflectiveTypeAdapterFactory.BoundField
-            public void read(JsonReader jsonReader, Object obj) throws IOException, IllegalAccessException {
-                Object read2 = typeAdapter2.read2(jsonReader);
-                if (read2 == null && isPrimitive) {
-                    return;
-                }
-                if (z12) {
-                    ReflectiveTypeAdapterFactory.checkAccessible(obj, field);
-                }
-                field.set(obj, read2);
-            }
-
-            @Override // com.google.gson.internal.bind.ReflectiveTypeAdapterFactory.BoundField
-            public void write(JsonWriter jsonWriter, Object obj) throws IOException, IllegalAccessException {
-                if (this.serialized) {
-                    if (z12) {
-                        ReflectiveTypeAdapterFactory.checkAccessible(obj, field);
+                for (c cVar2 : this.f8109b.values()) {
+                    if (cVar2.f8111b) {
+                        cVar.k(cVar2.f8110a);
+                        cVar2.b(cVar, t);
                     }
-                    Object obj2 = field.get(obj);
-                    if (obj2 == obj) {
-                        return;
-                    }
-                    jsonWriter.name(this.name);
-                    (z13 ? typeAdapter2 : new TypeAdapterRuntimeTypeWrapper(gson, typeAdapter2, typeToken.getType())).write(jsonWriter, obj2);
                 }
+                cVar.g();
+            } catch (IllegalAccessException unused) {
+                throw new AssertionError();
             }
-        };
+        }
+
+        private b(d<T> dVar, Map<String, c> map) {
+            this.f8108a = dVar;
+            this.f8109b = map;
+        }
     }
 
-    private Map<String, BoundField> getBoundFields(Gson gson, TypeToken<?> typeToken, Class<?> cls, boolean z10) {
-        int i10;
-        int i11;
-        ReflectiveTypeAdapterFactory reflectiveTypeAdapterFactory = this;
-        Class<?> cls2 = cls;
+    static abstract class c {
+
+        /* renamed from: a */
+        final String f8110a;
+
+        /* renamed from: b */
+        final boolean f8111b;
+
+        /* renamed from: c */
+        final boolean f8112c;
+
+        protected c(String str, boolean z, boolean z2) {
+            this.f8110a = str;
+            this.f8111b = z;
+            this.f8112c = z2;
+        }
+
+        abstract void a(com.google.gson.stream.a aVar, Object obj) throws IOException, IllegalAccessException;
+
+        abstract void b(com.google.gson.stream.c cVar, Object obj) throws IOException, IllegalAccessException;
+    }
+
+    public ReflectiveTypeAdapterFactory(com.google.gson.internal.b bVar, FieldNamingStrategy fieldNamingStrategy, Excluder excluder) {
+        this.f8099a = bVar;
+        this.f8100b = fieldNamingStrategy;
+        this.f8101c = excluder;
+    }
+
+    private c b(Gson gson, Field field, String str, com.google.gson.b.a<?> aVar, boolean z, boolean z2) {
+        return new a(str, z, z2, gson, field, aVar, e.b(aVar.d()));
+    }
+
+    private Map<String, c> d(Gson gson, com.google.gson.b.a<?> aVar, Class<?> cls) {
         LinkedHashMap linkedHashMap = new LinkedHashMap();
         if (cls.isInterface()) {
             return linkedHashMap;
         }
-        Type type = typeToken.getType();
-        TypeToken<?> typeToken2 = typeToken;
-        boolean z11 = z10;
-        Class<?> cls3 = cls2;
-        while (cls3 != Object.class) {
-            Field[] declaredFields = cls3.getDeclaredFields();
-            boolean z12 = true;
-            boolean z13 = false;
-            if (cls3 != cls2 && declaredFields.length > 0) {
-                ReflectionAccessFilter.FilterResult filterResult = ReflectionAccessFilterHelper.getFilterResult(reflectiveTypeAdapterFactory.reflectionFilters, cls3);
-                if (filterResult == ReflectionAccessFilter.FilterResult.BLOCK_ALL) {
-                    throw new JsonIOException("ReflectionAccessFilter does not permit using reflection for " + cls3 + " (supertype of " + cls2 + "). Register a TypeAdapter for this type or adjust the access filter.");
+        Type type = aVar.getType();
+        com.google.gson.b.a<?> aVar2 = aVar;
+        Class<?> cls2 = cls;
+        while (cls2 != Object.class) {
+            for (Field field : cls2.getDeclaredFields()) {
+                boolean c2 = c(field, true);
+                boolean c3 = c(field, false);
+                if (c2 || c3) {
+                    field.setAccessible(true);
+                    c b2 = b(gson, field, f(field), com.google.gson.b.a.c(C$Gson$Types.r(aVar2.getType(), cls2, field.getGenericType())), c2, c3);
+                    c cVar = (c) linkedHashMap.put(b2.f8110a, b2);
+                    if (cVar != null) {
+                        throw new IllegalArgumentException(type + " declares multiple JSON fields named " + cVar.f8110a);
+                    }
                 }
-                z11 = filterResult == ReflectionAccessFilter.FilterResult.BLOCK_INACCESSIBLE;
             }
-            boolean z14 = z11;
-            int length = declaredFields.length;
-            int i12 = 0;
-            while (i12 < length) {
-                Field field = declaredFields[i12];
-                boolean includeField = reflectiveTypeAdapterFactory.includeField(field, z12);
-                boolean includeField2 = reflectiveTypeAdapterFactory.includeField(field, z13);
-                if (includeField || includeField2) {
-                    if (!z14) {
-                        ReflectionHelper.makeAccessible(field);
-                    }
-                    Type resolve = C$Gson$Types.resolve(typeToken2.getType(), cls3, field.getGenericType());
-                    List<String> fieldNames = reflectiveTypeAdapterFactory.getFieldNames(field);
-                    int size = fieldNames.size();
-                    BoundField boundField = null;
-                    int i13 = 0;
-                    while (i13 < size) {
-                        String str = fieldNames.get(i13);
-                        boolean z15 = i13 != 0 ? false : includeField;
-                        BoundField boundField2 = boundField;
-                        int i14 = size;
-                        List<String> list = fieldNames;
-                        Field field2 = field;
-                        int i15 = i12;
-                        int i16 = length;
-                        boundField = boundField2 == null ? (BoundField) linkedHashMap.put(str, createBoundField(gson, field, str, TypeToken.get(resolve), z15, includeField2, z14)) : boundField2;
-                        i13++;
-                        includeField = z15;
-                        i12 = i15;
-                        size = i14;
-                        fieldNames = list;
-                        field = field2;
-                        length = i16;
-                    }
-                    BoundField boundField3 = boundField;
-                    i10 = i12;
-                    i11 = length;
-                    if (boundField3 != null) {
-                        throw new IllegalArgumentException(type + " declares multiple JSON fields named " + boundField3.name);
-                    }
-                } else {
-                    i10 = i12;
-                    i11 = length;
-                }
-                i12 = i10 + 1;
-                z13 = false;
-                z12 = true;
-                reflectiveTypeAdapterFactory = this;
-                length = i11;
-            }
-            typeToken2 = TypeToken.get(C$Gson$Types.resolve(typeToken2.getType(), cls3, cls3.getGenericSuperclass()));
-            cls3 = typeToken2.getRawType();
-            reflectiveTypeAdapterFactory = this;
-            cls2 = cls;
-            z11 = z14;
+            aVar2 = com.google.gson.b.a.c(C$Gson$Types.r(aVar2.getType(), cls2, cls2.getGenericSuperclass()));
+            cls2 = aVar2.d();
         }
         return linkedHashMap;
     }
 
-    private List<String> getFieldNames(Field field) {
-        SerializedName serializedName = (SerializedName) field.getAnnotation(SerializedName.class);
-        if (serializedName == null) {
-            return Collections.singletonList(this.fieldNamingPolicy.translateName(field));
-        }
-        String value = serializedName.value();
-        String[] alternate = serializedName.alternate();
-        if (alternate.length == 0) {
-            return Collections.singletonList(value);
-        }
-        ArrayList arrayList = new ArrayList(alternate.length + 1);
-        arrayList.add(value);
-        for (String str : alternate) {
-            arrayList.add(str);
-        }
-        return arrayList;
+    public TypeAdapter<?> e(Gson gson, Field field, com.google.gson.b.a<?> aVar) {
+        TypeAdapter<?> a2;
+        com.google.gson.a.b bVar = (com.google.gson.a.b) field.getAnnotation(com.google.gson.a.b.class);
+        return (bVar == null || (a2 = JsonAdapterAnnotationTypeAdapterFactory.a(this.f8099a, gson, aVar, bVar)) == null) ? gson.getAdapter(aVar) : a2;
     }
 
-    private boolean includeField(Field field, boolean z10) {
-        return (this.excluder.excludeClass(field.getType(), z10) || this.excluder.excludeField(field, z10)) ? false : true;
+    private String f(Field field) {
+        com.google.gson.a.c cVar = (com.google.gson.a.c) field.getAnnotation(com.google.gson.a.c.class);
+        return cVar == null ? this.f8100b.translateName(field) : cVar.value();
+    }
+
+    public boolean c(Field field, boolean z) {
+        return (this.f8101c.c(field.getType(), z) || this.f8101c.d(field, z)) ? false : true;
     }
 
     @Override // com.google.gson.TypeAdapterFactory
-    public <T> TypeAdapter<T> create(Gson gson, TypeToken<T> typeToken) {
-        Class<? super T> rawType = typeToken.getRawType();
-        if (!Object.class.isAssignableFrom(rawType)) {
-            return null;
+    public <T> TypeAdapter<T> create(Gson gson, com.google.gson.b.a<T> aVar) {
+        Class<? super T> d2 = aVar.d();
+        if (Object.class.isAssignableFrom(d2)) {
+            return new b(this.f8099a.a(aVar), d(gson, aVar, d2), null);
         }
-        ReflectionAccessFilter.FilterResult filterResult = ReflectionAccessFilterHelper.getFilterResult(this.reflectionFilters, rawType);
-        if (filterResult != ReflectionAccessFilter.FilterResult.BLOCK_ALL) {
-            return new Adapter(this.constructorConstructor.get(typeToken), getBoundFields(gson, typeToken, rawType, filterResult == ReflectionAccessFilter.FilterResult.BLOCK_INACCESSIBLE));
-        }
-        throw new JsonIOException("ReflectionAccessFilter does not permit using reflection for " + rawType + ". Register a TypeAdapter for this type or adjust the access filter.");
+        return null;
     }
 }

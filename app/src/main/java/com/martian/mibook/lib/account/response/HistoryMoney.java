@@ -7,8 +7,8 @@ public class HistoryMoney {
     private String type;
 
     public Long getCreatedOn() {
-        Long l10 = this.createdOn;
-        return Long.valueOf(l10 == null ? 0L : l10.longValue());
+        Long l = this.createdOn;
+        return Long.valueOf(l == null ? 0L : l.longValue());
     }
 
     public int getMoney() {
@@ -23,15 +23,15 @@ public class HistoryMoney {
         return this.type;
     }
 
-    public void setCreatedOn(Long l10) {
-        this.createdOn = l10;
+    public void setCreatedOn(Long createdOn) {
+        this.createdOn = createdOn;
     }
 
-    public void setMoney(Integer num) {
-        this.money = num;
+    public void setMoney(Integer money) {
+        this.money = money;
     }
 
-    public void setMoneyType(String str) {
-        this.type = str;
+    public void setMoneyType(String type) {
+        this.type = type;
     }
 }

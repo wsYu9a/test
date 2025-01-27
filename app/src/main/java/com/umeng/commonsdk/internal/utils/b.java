@@ -4,20 +4,20 @@ package com.umeng.commonsdk.internal.utils;
 public class b {
 
     /* renamed from: a */
-    public int f24517a;
+    public int f26209a;
 
     /* renamed from: b */
-    public int f24518b;
+    public int f26210b;
 
     /* renamed from: c */
-    public int f24519c;
+    public int f26211c;
 
     /* renamed from: d */
-    public int f24520d;
+    public int f26212d;
 
     /* renamed from: e */
-    public int f24521e;
+    public int f26213e;
 
     /* renamed from: f */
-    public long f24522f;
+    public long f26214f;
 }

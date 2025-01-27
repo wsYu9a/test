@@ -21,7 +21,7 @@ public class NetNotifyDialog extends BaseDialogFrag {
 
     @Override // com.tencent.bugly.beta.ui.BaseDialogFrag, androidx.fragment.app.Fragment
     public View onCreateView(LayoutInflater layoutInflater, ViewGroup viewGroup, Bundle bundle) {
-        this.mLayoutResId = e.f22100b.f22117m;
+        this.mLayoutResId = e.f24621b.m;
         View onCreateView = super.onCreateView(layoutInflater, viewGroup, bundle);
         if (this.mLayoutResId == 0) {
             LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(-1, -2);
@@ -41,12 +41,12 @@ public class NetNotifyDialog extends BaseDialogFrag {
             this.mTipsTextView.setText(Beta.strNetworkTipsMessage);
             this.mTitleTextView.setText(Beta.strNetworkTipsTitle);
             setBtn(Beta.strNetworkTipsCancelBtn, new b(2, this), Beta.strNetworkTipsConfirmBtn, new b(3, this, this.task));
-        } catch (Exception e10) {
+        } catch (Exception e2) {
             if (this.mLayoutResId != 0) {
                 X.b("please confirm your argument: [Beta.tipsDialogLayoutId] is correct", new Object[0]);
             }
-            if (!X.a(e10)) {
-                e10.printStackTrace();
+            if (!X.a(e2)) {
+                e2.printStackTrace();
             }
         }
         return onCreateView;
@@ -59,7 +59,7 @@ public class NetNotifyDialog extends BaseDialogFrag {
     }
 
     @Override // com.tencent.bugly.beta.ui.BaseFrag
-    public boolean onKeyDown(int i10, KeyEvent keyEvent) {
+    public boolean onKeyDown(int i2, KeyEvent keyEvent) {
         return false;
     }
 }

@@ -10,7 +10,7 @@ public class WithdrawRankList {
         return this.withdrawRanks;
     }
 
-    public void setWithdrawRanks(List<WithdrawRank> list) {
-        this.withdrawRanks = list;
+    public void setWithdrawRanks(List<WithdrawRank> withdrawRanks) {
+        this.withdrawRanks = withdrawRanks;
     }
 }

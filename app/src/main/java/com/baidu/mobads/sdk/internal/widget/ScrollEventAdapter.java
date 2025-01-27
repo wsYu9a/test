@@ -10,143 +10,128 @@ import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 import java.util.Locale;
 
-/* loaded from: classes2.dex */
+/* loaded from: classes.dex */
 final class ScrollEventAdapter extends RecyclerView.OnScrollListener {
 
     /* renamed from: a */
-    private static final int f7283a = 0;
+    private static final int f5891a = 0;
 
     /* renamed from: b */
-    private static final int f7284b = 1;
+    private static final int f5892b = 1;
 
     /* renamed from: c */
-    private static final int f7285c = 2;
+    private static final int f5893c = 2;
 
     /* renamed from: d */
-    private static final int f7286d = 3;
+    private static final int f5894d = 3;
 
     /* renamed from: e */
-    private static final int f7287e = 4;
+    private static final int f5895e = 4;
 
     /* renamed from: f */
-    private static final int f7288f = -1;
+    private static final int f5896f = -1;
 
     /* renamed from: g */
-    private ViewPager2.OnPageChangeCallback f7289g;
+    private ViewPager2.OnPageChangeCallback f5897g;
 
     /* renamed from: h */
     @NonNull
-    private final ViewPager2 f7290h;
+    private final ViewPager2 f5898h;
 
     /* renamed from: i */
     @NonNull
-    private final RecyclerView f7291i;
+    private final RecyclerView f5899i;
 
     /* renamed from: j */
     @NonNull
-    private final LinearLayoutManager f7292j;
-
-    /* renamed from: k */
-    private int f7293k;
-
-    /* renamed from: l */
-    private int f7294l;
-
-    /* renamed from: m */
-    private ScrollEventValues f7295m;
-
-    /* renamed from: n */
-    private int f7296n;
-
-    /* renamed from: o */
-    private int f7297o;
-
-    /* renamed from: p */
-    private boolean f7298p;
-
-    /* renamed from: q */
-    private boolean f7299q;
-
-    /* renamed from: r */
-    private boolean f7300r;
-
-    /* renamed from: s */
-    private boolean f7301s;
+    private final LinearLayoutManager f5900j;
+    private int k;
+    private int l;
+    private ScrollEventValues m;
+    private int n;
+    private int o;
+    private boolean p;
+    private boolean q;
+    private boolean r;
+    private boolean s;
 
     @Retention(RetentionPolicy.SOURCE)
-    public @interface AdapterState {
+    private @interface AdapterState {
     }
 
-    public static final class ScrollEventValues {
+    private static final class ScrollEventValues {
 
         /* renamed from: a */
-        int f7302a;
+        int f5901a;
 
         /* renamed from: b */
-        float f7303b;
+        float f5902b;
 
         /* renamed from: c */
-        int f7304c;
+        int f5903c;
 
-        public void a() {
-            this.f7302a = -1;
-            this.f7303b = 0.0f;
-            this.f7304c = 0;
+        ScrollEventValues() {
+        }
+
+        void a() {
+            this.f5901a = -1;
+            this.f5902b = 0.0f;
+            this.f5903c = 0;
         }
     }
 
-    public ScrollEventAdapter(@NonNull ViewPager2 viewPager2) {
-        this.f7290h = viewPager2;
-        RecyclerView recyclerView = viewPager2.f7314j;
-        this.f7291i = recyclerView;
-        this.f7292j = (LinearLayoutManager) recyclerView.getLayoutManager();
-        this.f7295m = new ScrollEventValues();
+    ScrollEventAdapter(@NonNull ViewPager2 viewPager2) {
+        this.f5898h = viewPager2;
+        RecyclerView recyclerView = viewPager2.f5913j;
+        this.f5899i = recyclerView;
+        this.f5900j = (LinearLayoutManager) recyclerView.getLayoutManager();
+        this.m = new ScrollEventValues();
         i();
     }
 
-    private void a(boolean z10) {
-        this.f7301s = z10;
-        this.f7293k = z10 ? 4 : 1;
-        int i10 = this.f7297o;
-        if (i10 != -1) {
-            this.f7296n = i10;
-            this.f7297o = -1;
-        } else if (this.f7296n == -1) {
-            this.f7296n = l();
+    private void a(boolean z) {
+        this.s = z;
+        this.k = z ? 4 : 1;
+        int i2 = this.o;
+        if (i2 != -1) {
+            this.n = i2;
+            this.o = -1;
+        } else if (this.n == -1) {
+            this.n = l();
         }
         a(1);
     }
 
     private void i() {
-        this.f7293k = 0;
-        this.f7294l = 0;
-        this.f7295m.a();
-        this.f7296n = -1;
-        this.f7297o = -1;
-        this.f7298p = false;
-        this.f7299q = false;
-        this.f7301s = false;
-        this.f7300r = false;
+        this.k = 0;
+        this.l = 0;
+        this.m.a();
+        this.n = -1;
+        this.o = -1;
+        this.p = false;
+        this.q = false;
+        this.s = false;
+        this.r = false;
     }
 
     private void j() {
         int top;
-        ScrollEventValues scrollEventValues = this.f7295m;
-        int findFirstVisibleItemPosition = this.f7292j.findFirstVisibleItemPosition();
-        scrollEventValues.f7302a = findFirstVisibleItemPosition;
+        ScrollEventValues scrollEventValues = this.m;
+        int findFirstVisibleItemPosition = this.f5900j.findFirstVisibleItemPosition();
+        scrollEventValues.f5901a = findFirstVisibleItemPosition;
         if (findFirstVisibleItemPosition == -1) {
             scrollEventValues.a();
             return;
         }
-        View findViewByPosition = this.f7292j.findViewByPosition(findFirstVisibleItemPosition);
+        View findViewByPosition = this.f5900j.findViewByPosition(findFirstVisibleItemPosition);
         if (findViewByPosition == null) {
             scrollEventValues.a();
             return;
         }
-        int leftDecorationWidth = this.f7292j.getLeftDecorationWidth(findViewByPosition);
-        int rightDecorationWidth = this.f7292j.getRightDecorationWidth(findViewByPosition);
-        int topDecorationHeight = this.f7292j.getTopDecorationHeight(findViewByPosition);
-        int bottomDecorationHeight = this.f7292j.getBottomDecorationHeight(findViewByPosition);
+        int leftDecorationWidth = this.f5900j.getLeftDecorationWidth(findViewByPosition);
+        int rightDecorationWidth = this.f5900j.getRightDecorationWidth(findViewByPosition);
+        int topDecorationHeight = this.f5900j.getTopDecorationHeight(findViewByPosition);
+        int bottomDecorationHeight = this.f5900j.getBottomDecorationHeight(findViewByPosition);
         ViewGroup.LayoutParams layoutParams = findViewByPosition.getLayoutParams();
         if (layoutParams instanceof ViewGroup.MarginLayoutParams) {
             ViewGroup.MarginLayoutParams marginLayoutParams = (ViewGroup.MarginLayoutParams) layoutParams;
@@ -157,126 +142,135 @@ final class ScrollEventAdapter extends RecyclerView.OnScrollListener {
         }
         int height = findViewByPosition.getHeight() + topDecorationHeight + bottomDecorationHeight;
         int width = findViewByPosition.getWidth() + leftDecorationWidth + rightDecorationWidth;
-        if (this.f7292j.getOrientation() == 0) {
-            top = (findViewByPosition.getLeft() - leftDecorationWidth) - this.f7291i.getPaddingLeft();
-            if (this.f7290h.c()) {
+        if (this.f5900j.getOrientation() == 0) {
+            top = (findViewByPosition.getLeft() - leftDecorationWidth) - this.f5899i.getPaddingLeft();
+            if (this.f5898h.c()) {
                 top = -top;
             }
             height = width;
         } else {
-            top = (findViewByPosition.getTop() - topDecorationHeight) - this.f7291i.getPaddingTop();
+            top = (findViewByPosition.getTop() - topDecorationHeight) - this.f5899i.getPaddingTop();
         }
-        int i10 = -top;
-        scrollEventValues.f7304c = i10;
-        if (i10 >= 0) {
-            scrollEventValues.f7303b = height == 0 ? 0.0f : i10 / height;
+        int i2 = -top;
+        scrollEventValues.f5903c = i2;
+        if (i2 >= 0) {
+            scrollEventValues.f5902b = height == 0 ? 0.0f : i2 / height;
         } else {
-            if (!new AnimateLayoutChangeDetector(this.f7292j).a()) {
-                throw new IllegalStateException(String.format(Locale.US, "Page can only be offset by a positive amount, not by %d", Integer.valueOf(scrollEventValues.f7304c)));
+            if (!new AnimateLayoutChangeDetector(this.f5900j).a()) {
+                throw new IllegalStateException(String.format(Locale.US, "Page can only be offset by a positive amount, not by %d", Integer.valueOf(scrollEventValues.f5903c)));
             }
             throw new IllegalStateException("Page(s) contain a ViewGroup with a LayoutTransition (or animateLayoutChanges=\"true\"), which interferes with the scrolling animation. Make sure to call getLayoutTransition().setAnimateParentHierarchy(false) on all ViewGroups with a LayoutTransition before an animation is started.");
         }
     }
 
     private boolean k() {
-        int i10 = this.f7293k;
-        return i10 == 1 || i10 == 4;
+        int i2 = this.k;
+        return i2 == 1 || i2 == 4;
     }
 
     private int l() {
-        return this.f7292j.findFirstVisibleItemPosition();
+        return this.f5900j.findFirstVisibleItemPosition();
     }
 
-    public void b() {
-        this.f7293k = 4;
+    void b() {
+        this.k = 4;
         a(true);
     }
 
-    public void c() {
-        if (!f() || this.f7301s) {
-            this.f7301s = false;
+    void c() {
+        if (!f() || this.s) {
+            this.s = false;
             j();
-            ScrollEventValues scrollEventValues = this.f7295m;
-            if (scrollEventValues.f7304c != 0) {
+            ScrollEventValues scrollEventValues = this.m;
+            if (scrollEventValues.f5903c != 0) {
                 a(2);
                 return;
             }
-            int i10 = scrollEventValues.f7302a;
-            if (i10 != this.f7296n) {
-                b(i10);
+            int i2 = scrollEventValues.f5901a;
+            if (i2 != this.n) {
+                b(i2);
             }
             a(0);
             i();
         }
     }
 
-    public int d() {
-        return this.f7294l;
+    int d() {
+        return this.l;
     }
 
-    public boolean e() {
-        return this.f7294l == 0;
+    boolean e() {
+        return this.l == 0;
     }
 
-    public boolean f() {
-        return this.f7294l == 1;
+    boolean f() {
+        return this.l == 1;
     }
 
-    public boolean g() {
-        return this.f7301s;
+    boolean g() {
+        return this.s;
     }
 
-    public double h() {
+    double h() {
         j();
-        ScrollEventValues scrollEventValues = this.f7295m;
-        return scrollEventValues.f7302a + scrollEventValues.f7303b;
+        ScrollEventValues scrollEventValues = this.m;
+        double d2 = scrollEventValues.f5901a;
+        double d3 = scrollEventValues.f5902b;
+        Double.isNaN(d2);
+        Double.isNaN(d3);
+        return d2 + d3;
     }
 
     @Override // androidx.recyclerview.widget.RecyclerView.OnScrollListener
-    public void onScrollStateChanged(@NonNull RecyclerView recyclerView, int i10) {
-        if (!(this.f7293k == 1 && this.f7294l == 1) && i10 == 1) {
+    public void onScrollStateChanged(@NonNull RecyclerView recyclerView, int i2) {
+        boolean z = true;
+        if (!(this.k == 1 && this.l == 1) && i2 == 1) {
             a(false);
             return;
         }
-        if (k() && i10 == 2) {
-            if (this.f7299q) {
+        if (k() && i2 == 2) {
+            if (this.q) {
                 a(2);
-                this.f7298p = true;
+                this.p = true;
                 return;
             }
             return;
         }
-        if (k() && i10 == 0) {
+        if (k() && i2 == 0) {
             j();
-            if (this.f7299q) {
-                ScrollEventValues scrollEventValues = this.f7295m;
-                if (scrollEventValues.f7304c == 0) {
-                    int i11 = this.f7296n;
-                    int i12 = scrollEventValues.f7302a;
-                    if (i11 != i12) {
-                        b(i12);
+            if (this.q) {
+                ScrollEventValues scrollEventValues = this.m;
+                if (scrollEventValues.f5903c == 0) {
+                    int i3 = this.n;
+                    int i4 = scrollEventValues.f5901a;
+                    if (i3 != i4) {
+                        b(i4);
                     }
+                } else {
+                    z = false;
                 }
             } else {
-                int i13 = this.f7295m.f7302a;
-                if (i13 != -1) {
-                    a(i13, 0.0f, 0);
+                int i5 = this.m.f5901a;
+                if (i5 != -1) {
+                    a(i5, 0.0f, 0);
                 }
             }
-            a(0);
-            i();
+            if (z) {
+                a(0);
+                i();
+            }
         }
-        if (this.f7293k == 2 && i10 == 0 && this.f7300r) {
+        if (this.k == 2 && i2 == 0 && this.r) {
             j();
-            ScrollEventValues scrollEventValues2 = this.f7295m;
-            if (scrollEventValues2.f7304c == 0) {
-                int i14 = this.f7297o;
-                int i15 = scrollEventValues2.f7302a;
-                if (i14 != i15) {
-                    if (i15 == -1) {
-                        i15 = 0;
+            ScrollEventValues scrollEventValues2 = this.m;
+            if (scrollEventValues2.f5903c == 0) {
+                int i6 = this.o;
+                int i7 = scrollEventValues2.f5901a;
+                if (i6 != i7) {
+                    if (i7 == -1) {
+                        i7 = 0;
                     }
-                    b(i15);
+                    b(i7);
                 }
                 a(0);
                 i();
@@ -286,9 +280,10 @@ final class ScrollEventAdapter extends RecyclerView.OnScrollListener {
 
     /* JADX WARN: Code restructure failed: missing block: B:9:0x001d, code lost:
     
-        if ((r5 < 0) == r3.f7290h.c()) goto L92;
+        if ((r5 < 0) == r3.f5898h.c()) goto L58;
      */
-    /* JADX WARN: Removed duplicated region for block: B:14:0x0033  */
+    /* JADX WARN: Removed duplicated region for block: B:13:0x0025  */
+    /* JADX WARN: Removed duplicated region for block: B:18:0x0039  */
     @Override // androidx.recyclerview.widget.RecyclerView.OnScrollListener
     /*
         Code decompiled incorrectly, please refer to instructions dump.
@@ -298,117 +293,124 @@ final class ScrollEventAdapter extends RecyclerView.OnScrollListener {
         /*
             r3 = this;
             r4 = 1
-            r3.f7299q = r4
+            r3.q = r4
             r3.j()
-            boolean r0 = r3.f7298p
+            boolean r0 = r3.p
             r1 = -1
             r2 = 0
-            if (r0 == 0) goto L37
-            r3.f7298p = r2
-            if (r6 > 0) goto L1f
-            if (r6 != 0) goto L29
+            if (r0 == 0) goto L3d
+            r3.p = r2
+            if (r6 > 0) goto L22
+            if (r6 != 0) goto L20
             if (r5 >= 0) goto L16
             r5 = 1
             goto L17
         L16:
             r5 = 0
         L17:
-            com.baidu.mobads.sdk.internal.widget.ViewPager2 r6 = r3.f7290h
+            com.baidu.mobads.sdk.internal.widget.ViewPager2 r6 = r3.f5898h
             boolean r6 = r6.c()
-            if (r5 != r6) goto L29
-        L1f:
-            com.baidu.mobads.sdk.internal.widget.ScrollEventAdapter$ScrollEventValues r5 = r3.f7295m
-            int r6 = r5.f7304c
-            if (r6 == 0) goto L29
-            int r5 = r5.f7302a
-            int r5 = r5 + r4
-            goto L2d
-        L29:
-            com.baidu.mobads.sdk.internal.widget.ScrollEventAdapter$ScrollEventValues r5 = r3.f7295m
-            int r5 = r5.f7302a
-        L2d:
-            r3.f7297o = r5
-            int r6 = r3.f7296n
-            if (r6 == r5) goto L45
-            r3.b(r5)
-            goto L45
-        L37:
-            int r5 = r3.f7293k
-            if (r5 != 0) goto L45
-            com.baidu.mobads.sdk.internal.widget.ScrollEventAdapter$ScrollEventValues r5 = r3.f7295m
-            int r5 = r5.f7302a
-            if (r5 != r1) goto L42
+            if (r5 != r6) goto L20
+            goto L22
+        L20:
             r5 = 0
-        L42:
+            goto L23
+        L22:
+            r5 = 1
+        L23:
+            if (r5 == 0) goto L2f
+            com.baidu.mobads.sdk.internal.widget.ScrollEventAdapter$ScrollEventValues r5 = r3.m
+            int r6 = r5.f5903c
+            if (r6 == 0) goto L2f
+            int r5 = r5.f5901a
+            int r5 = r5 + r4
+            goto L33
+        L2f:
+            com.baidu.mobads.sdk.internal.widget.ScrollEventAdapter$ScrollEventValues r5 = r3.m
+            int r5 = r5.f5901a
+        L33:
+            r3.o = r5
+            int r6 = r3.n
+            if (r6 == r5) goto L4b
             r3.b(r5)
-        L45:
-            com.baidu.mobads.sdk.internal.widget.ScrollEventAdapter$ScrollEventValues r5 = r3.f7295m
-            int r6 = r5.f7302a
-            if (r6 != r1) goto L4c
+            goto L4b
+        L3d:
+            int r5 = r3.k
+            if (r5 != 0) goto L4b
+            com.baidu.mobads.sdk.internal.widget.ScrollEventAdapter$ScrollEventValues r5 = r3.m
+            int r5 = r5.f5901a
+            if (r5 != r1) goto L48
+            r5 = 0
+        L48:
+            r3.b(r5)
+        L4b:
+            com.baidu.mobads.sdk.internal.widget.ScrollEventAdapter$ScrollEventValues r5 = r3.m
+            int r6 = r5.f5901a
+            if (r6 != r1) goto L52
             r6 = 0
-        L4c:
-            float r0 = r5.f7303b
-            int r5 = r5.f7304c
+        L52:
+            float r0 = r5.f5902b
+            int r5 = r5.f5903c
             r3.a(r6, r0, r5)
-            com.baidu.mobads.sdk.internal.widget.ScrollEventAdapter$ScrollEventValues r5 = r3.f7295m
-            int r6 = r5.f7302a
-            int r0 = r3.f7297o
-            if (r6 == r0) goto L5d
-            if (r0 != r1) goto L6b
-        L5d:
-            int r5 = r5.f7304c
-            if (r5 != 0) goto L6b
-            int r5 = r3.f7294l
-            if (r5 == r4) goto L6b
+            com.baidu.mobads.sdk.internal.widget.ScrollEventAdapter$ScrollEventValues r5 = r3.m
+            int r6 = r5.f5901a
+            int r0 = r3.o
+            if (r6 == r0) goto L63
+            if (r0 != r1) goto L71
+        L63:
+            int r5 = r5.f5903c
+            if (r5 != 0) goto L71
+            int r5 = r3.l
+            if (r5 == r4) goto L71
             r3.a(r2)
             r3.i()
-        L6b:
+        L71:
             return
         */
         throw new UnsupportedOperationException("Method not decompiled: com.baidu.mobads.sdk.internal.widget.ScrollEventAdapter.onScrolled(androidx.recyclerview.widget.RecyclerView, int, int):void");
     }
 
-    private void b(int i10) {
-        ViewPager2.OnPageChangeCallback onPageChangeCallback = this.f7289g;
+    private void b(int i2) {
+        ViewPager2.OnPageChangeCallback onPageChangeCallback = this.f5897g;
         if (onPageChangeCallback != null) {
-            onPageChangeCallback.onPageSelected(i10);
+            onPageChangeCallback.onPageSelected(i2);
         }
     }
 
-    public void a() {
-        this.f7300r = true;
+    void a() {
+        this.r = true;
     }
 
-    public void a(int i10, boolean z10) {
-        this.f7293k = z10 ? 2 : 3;
-        this.f7301s = false;
-        boolean z11 = this.f7297o != i10;
-        this.f7297o = i10;
+    void a(int i2, boolean z) {
+        this.k = z ? 2 : 3;
+        this.s = false;
+        boolean z2 = this.o != i2;
+        this.o = i2;
         a(2);
-        if (z11) {
-            b(i10);
+        if (z2) {
+            b(i2);
         }
     }
 
-    public void a(ViewPager2.OnPageChangeCallback onPageChangeCallback) {
-        this.f7289g = onPageChangeCallback;
+    void a(ViewPager2.OnPageChangeCallback onPageChangeCallback) {
+        this.f5897g = onPageChangeCallback;
     }
 
-    private void a(int i10) {
-        if ((this.f7293k == 3 && this.f7294l == 0) || this.f7294l == i10) {
+    private void a(int i2) {
+        if ((this.k == 3 && this.l == 0) || this.l == i2) {
             return;
         }
-        this.f7294l = i10;
-        ViewPager2.OnPageChangeCallback onPageChangeCallback = this.f7289g;
+        this.l = i2;
+        ViewPager2.OnPageChangeCallback onPageChangeCallback = this.f5897g;
         if (onPageChangeCallback != null) {
-            onPageChangeCallback.onPageScrollStateChanged(i10);
+            onPageChangeCallback.onPageScrollStateChanged(i2);
         }
     }
 
-    private void a(int i10, float f10, int i11) {
-        ViewPager2.OnPageChangeCallback onPageChangeCallback = this.f7289g;
+    private void a(int i2, float f2, int i3) {
+        ViewPager2.OnPageChangeCallback onPageChangeCallback = this.f5897g;
         if (onPageChangeCallback != null) {
-            onPageChangeCallback.onPageScrolled(i10, f10, i11);
+            onPageChangeCallback.onPageScrolled(i2, f2, i3);
         }
     }
 }

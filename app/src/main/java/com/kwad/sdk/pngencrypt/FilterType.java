@@ -2,7 +2,7 @@ package com.kwad.sdk.pngencrypt;
 
 import java.util.HashMap;
 
-/* loaded from: classes3.dex */
+/* loaded from: classes2.dex */
 public enum FilterType {
     FILTER_NONE(0),
     FILTER_SUB(1),
@@ -29,8 +29,8 @@ public enum FilterType {
         }
     }
 
-    FilterType(int i10) {
-        this.val = i10;
+    FilterType(int i2) {
+        this.val = i2;
     }
 
     public static FilterType[] getAllStandard() {
@@ -41,7 +41,7 @@ public enum FilterType {
         return new FilterType[]{FILTER_SUB, FILTER_UP, FILTER_AVERAGE, FILTER_PAETH};
     }
 
-    public static FilterType[] getAllStandardForFirstRow() {
+    static FilterType[] getAllStandardForFirstRow() {
         return new FilterType[]{FILTER_SUB, FILTER_NONE};
     }
 
@@ -49,17 +49,17 @@ public enum FilterType {
         return new FilterType[]{FILTER_SUB, FILTER_UP, FILTER_AVERAGE, FILTER_PAETH, FILTER_NONE};
     }
 
-    public static FilterType getByVal(int i10) {
-        return byVal.get(Integer.valueOf(i10));
+    public static FilterType getByVal(int i2) {
+        return byVal.get(Integer.valueOf(i2));
     }
 
     public static boolean isAdaptive(FilterType filterType) {
-        int i10 = filterType.val;
-        return i10 <= -2 && i10 >= -4;
+        int i2 = filterType.val;
+        return i2 <= -2 && i2 >= -4;
     }
 
-    public static boolean isValidStandard(int i10) {
-        return i10 >= 0 && i10 <= 4;
+    public static boolean isValidStandard(int i2) {
+        return i2 >= 0 && i2 <= 4;
     }
 
     public static boolean isValidStandard(FilterType filterType) {

@@ -7,14 +7,14 @@ public class MiUrlItem implements UrlItem {
     public String title;
     public String url;
 
-    public MiUrlItem(String str, String str2) {
-        this.title = str;
-        this.url = str2;
+    public MiUrlItem(String title, String url) {
+        this.title = title;
+        this.url = url;
     }
 
-    public boolean equals(Object obj) {
-        if (obj instanceof MiUrlItem) {
-            return this.url.equals(((MiUrlItem) obj).url);
+    public boolean equals(Object o) {
+        if (o instanceof MiUrlItem) {
+            return this.url.equals(((MiUrlItem) o).url);
         }
         return false;
     }
@@ -30,10 +30,6 @@ public class MiUrlItem implements UrlItem {
     }
 
     public int hashCode() {
-        String str = this.url;
-        if (str == null) {
-            return 0;
-        }
-        return str.hashCode();
+        return this.url.hashCode();
     }
 }

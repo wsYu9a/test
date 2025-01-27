@@ -24,19 +24,19 @@ public class MiHistoryBookCoins {
         return this.createdOn;
     }
 
-    public void setBookCoins(Integer num) {
-        this.bookCoins = num;
+    public void setBookCoins(Integer bookCoins) {
+        this.bookCoins = bookCoins;
     }
 
-    public void setBookCoinsType(String str) {
-        this.bookCoinsType = str;
+    public void setBookCoinsType(String bookCoinsType) {
+        this.bookCoinsType = bookCoinsType;
     }
 
-    public void setConsume(Boolean bool) {
-        this.consume = bool;
+    public void setConsume(Boolean consume) {
+        this.consume = consume;
     }
 
-    public void setCreatedOn(Long l10) {
-        this.createdOn = l10;
+    public void setCreatedOn(Long createdOn) {
+        this.createdOn = createdOn;
     }
 }

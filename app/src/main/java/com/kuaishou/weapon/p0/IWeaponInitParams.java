@@ -1,6 +1,6 @@
 package com.kuaishou.weapon.p0;
 
-/* loaded from: classes2.dex */
+/* loaded from: classes.dex */
 public interface IWeaponInitParams {
     boolean getAPPLISTSwitch();
 
@@ -17,6 +17,4 @@ public interface IWeaponInitParams {
     String getSecKey();
 
     String getUserId();
-
-    boolean isLoadSo();
 }

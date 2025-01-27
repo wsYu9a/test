@@ -1,6 +1,8 @@
 package kotlin.ranges;
 
-import androidx.constraintlayout.core.motion.utils.TypedValues;
+import com.vivo.ic.dm.Downloads;
+import f.b.a.d;
+import f.b.a.e;
 import java.util.NoSuchElementException;
 import kotlin.ExperimentalStdlibApi;
 import kotlin.ExperimentalUnsignedTypes;
@@ -10,523 +12,400 @@ import kotlin.UByte;
 import kotlin.UInt;
 import kotlin.ULong;
 import kotlin.UShort;
-import kotlin.WasExperimental;
+import kotlin.UnsignedKt;
 import kotlin.internal.InlineOnly;
 import kotlin.jvm.internal.Intrinsics;
 import kotlin.random.Random;
 import kotlin.random.URandomKt;
 import kotlin.ranges.UIntProgression;
 import kotlin.ranges.ULongProgression;
-import okhttp3.internal.ws.WebSocketProtocol;
-import xi.k;
-import xi.l;
 
-@Metadata(d1 = {"\u0000b\n\u0000\n\u0002\u0018\u0002\n\u0002\b\u0003\n\u0002\u0018\u0002\n\u0002\b\u0002\n\u0002\u0018\u0002\n\u0002\b\u0002\n\u0002\u0018\u0002\n\u0002\b\u000e\n\u0002\u0018\u0002\n\u0002\b\t\n\u0002\u0010\u000b\n\u0002\u0018\u0002\n\u0002\b\t\n\u0002\u0018\u0002\n\u0002\b\b\n\u0002\u0018\u0002\n\u0002\b\u0005\n\u0002\u0018\u0002\n\u0002\b\f\n\u0002\u0018\u0002\n\u0002\b\u0006\n\u0002\u0010\b\n\u0002\u0010\t\n\u0002\b\n\u001a\u001b\u0010\u0000\u001a\u00020\u0001*\u00020\u00012\u0006\u0010\u0002\u001a\u00020\u0001H\u0007¢\u0006\u0004\b\u0003\u0010\u0004\u001a\u001b\u0010\u0000\u001a\u00020\u0005*\u00020\u00052\u0006\u0010\u0002\u001a\u00020\u0005H\u0007¢\u0006\u0004\b\u0006\u0010\u0007\u001a\u001b\u0010\u0000\u001a\u00020\b*\u00020\b2\u0006\u0010\u0002\u001a\u00020\bH\u0007¢\u0006\u0004\b\t\u0010\n\u001a\u001b\u0010\u0000\u001a\u00020\u000b*\u00020\u000b2\u0006\u0010\u0002\u001a\u00020\u000bH\u0007¢\u0006\u0004\b\f\u0010\r\u001a\u001b\u0010\u000e\u001a\u00020\u0001*\u00020\u00012\u0006\u0010\u000f\u001a\u00020\u0001H\u0007¢\u0006\u0004\b\u0010\u0010\u0004\u001a\u001b\u0010\u000e\u001a\u00020\u0005*\u00020\u00052\u0006\u0010\u000f\u001a\u00020\u0005H\u0007¢\u0006\u0004\b\u0011\u0010\u0007\u001a\u001b\u0010\u000e\u001a\u00020\b*\u00020\b2\u0006\u0010\u000f\u001a\u00020\bH\u0007¢\u0006\u0004\b\u0012\u0010\n\u001a\u001b\u0010\u000e\u001a\u00020\u000b*\u00020\u000b2\u0006\u0010\u000f\u001a\u00020\u000bH\u0007¢\u0006\u0004\b\u0013\u0010\r\u001a#\u0010\u0014\u001a\u00020\u0001*\u00020\u00012\u0006\u0010\u0002\u001a\u00020\u00012\u0006\u0010\u000f\u001a\u00020\u0001H\u0007¢\u0006\u0004\b\u0015\u0010\u0016\u001a#\u0010\u0014\u001a\u00020\u0005*\u00020\u00052\u0006\u0010\u0002\u001a\u00020\u00052\u0006\u0010\u000f\u001a\u00020\u0005H\u0007¢\u0006\u0004\b\u0017\u0010\u0018\u001a!\u0010\u0014\u001a\u00020\u0005*\u00020\u00052\f\u0010\u0019\u001a\b\u0012\u0004\u0012\u00020\u00050\u001aH\u0007¢\u0006\u0004\b\u001b\u0010\u001c\u001a#\u0010\u0014\u001a\u00020\b*\u00020\b2\u0006\u0010\u0002\u001a\u00020\b2\u0006\u0010\u000f\u001a\u00020\bH\u0007¢\u0006\u0004\b\u001d\u0010\u001e\u001a!\u0010\u0014\u001a\u00020\b*\u00020\b2\f\u0010\u0019\u001a\b\u0012\u0004\u0012\u00020\b0\u001aH\u0007¢\u0006\u0004\b\u001f\u0010 \u001a#\u0010\u0014\u001a\u00020\u000b*\u00020\u000b2\u0006\u0010\u0002\u001a\u00020\u000b2\u0006\u0010\u000f\u001a\u00020\u000bH\u0007¢\u0006\u0004\b!\u0010\"\u001a\u001c\u0010#\u001a\u00020$*\u00020%2\u0006\u0010&\u001a\u00020\u0001H\u0087\u0002¢\u0006\u0004\b'\u0010(\u001a\u001c\u0010#\u001a\u00020$*\u00020%2\b\u0010)\u001a\u0004\u0018\u00010\u0005H\u0087\n¢\u0006\u0002\b*\u001a\u001c\u0010#\u001a\u00020$*\u00020%2\u0006\u0010&\u001a\u00020\bH\u0087\u0002¢\u0006\u0004\b+\u0010,\u001a\u001c\u0010#\u001a\u00020$*\u00020%2\u0006\u0010&\u001a\u00020\u000bH\u0087\u0002¢\u0006\u0004\b-\u0010.\u001a\u001c\u0010#\u001a\u00020$*\u00020/2\u0006\u0010&\u001a\u00020\u0001H\u0087\u0002¢\u0006\u0004\b0\u00101\u001a\u001c\u0010#\u001a\u00020$*\u00020/2\u0006\u0010&\u001a\u00020\u0005H\u0087\u0002¢\u0006\u0004\b2\u00103\u001a\u001c\u0010#\u001a\u00020$*\u00020/2\b\u0010)\u001a\u0004\u0018\u00010\bH\u0087\n¢\u0006\u0002\b4\u001a\u001c\u0010#\u001a\u00020$*\u00020/2\u0006\u0010&\u001a\u00020\u000bH\u0087\u0002¢\u0006\u0004\b5\u00106\u001a\u001c\u00107\u001a\u000208*\u00020\u00012\u0006\u00109\u001a\u00020\u0001H\u0087\u0004¢\u0006\u0004\b:\u0010;\u001a\u001c\u00107\u001a\u000208*\u00020\u00052\u0006\u00109\u001a\u00020\u0005H\u0087\u0004¢\u0006\u0004\b<\u0010=\u001a\u001c\u00107\u001a\u00020>*\u00020\b2\u0006\u00109\u001a\u00020\bH\u0087\u0004¢\u0006\u0004\b?\u0010@\u001a\u001c\u00107\u001a\u000208*\u00020\u000b2\u0006\u00109\u001a\u00020\u000bH\u0087\u0004¢\u0006\u0004\bA\u0010B\u001a\u0011\u0010C\u001a\u00020\u0005*\u000208H\u0007¢\u0006\u0002\u0010D\u001a\u0011\u0010C\u001a\u00020\b*\u00020>H\u0007¢\u0006\u0002\u0010E\u001a\u000e\u0010F\u001a\u0004\u0018\u00010\u0005*\u000208H\u0007\u001a\u000e\u0010F\u001a\u0004\u0018\u00010\b*\u00020>H\u0007\u001a\u0011\u0010G\u001a\u00020\u0005*\u000208H\u0007¢\u0006\u0002\u0010D\u001a\u0011\u0010G\u001a\u00020\b*\u00020>H\u0007¢\u0006\u0002\u0010E\u001a\u000e\u0010H\u001a\u0004\u0018\u00010\u0005*\u000208H\u0007\u001a\u000e\u0010H\u001a\u0004\u0018\u00010\b*\u00020>H\u0007\u001a\u0012\u0010I\u001a\u00020\u0005*\u00020%H\u0087\b¢\u0006\u0002\u0010J\u001a\u0019\u0010I\u001a\u00020\u0005*\u00020%2\u0006\u0010I\u001a\u00020KH\u0007¢\u0006\u0002\u0010L\u001a\u0012\u0010I\u001a\u00020\b*\u00020/H\u0087\b¢\u0006\u0002\u0010M\u001a\u0019\u0010I\u001a\u00020\b*\u00020/2\u0006\u0010I\u001a\u00020KH\u0007¢\u0006\u0002\u0010N\u001a\u000f\u0010O\u001a\u0004\u0018\u00010\u0005*\u00020%H\u0087\b\u001a\u0016\u0010O\u001a\u0004\u0018\u00010\u0005*\u00020%2\u0006\u0010I\u001a\u00020KH\u0007\u001a\u000f\u0010O\u001a\u0004\u0018\u00010\b*\u00020/H\u0087\b\u001a\u0016\u0010O\u001a\u0004\u0018\u00010\b*\u00020/2\u0006\u0010I\u001a\u00020KH\u0007\u001a\f\u0010P\u001a\u000208*\u000208H\u0007\u001a\f\u0010P\u001a\u00020>*\u00020>H\u0007\u001a\u0015\u0010Q\u001a\u000208*\u0002082\u0006\u0010Q\u001a\u00020RH\u0087\u0004\u001a\u0015\u0010Q\u001a\u00020>*\u00020>2\u0006\u0010Q\u001a\u00020SH\u0087\u0004\u001a\u001c\u0010T\u001a\u00020%*\u00020\u00012\u0006\u00109\u001a\u00020\u0001H\u0087\u0004¢\u0006\u0004\bU\u0010V\u001a\u001c\u0010T\u001a\u00020%*\u00020\u00052\u0006\u00109\u001a\u00020\u0005H\u0087\u0004¢\u0006\u0004\bW\u0010X\u001a\u001c\u0010T\u001a\u00020/*\u00020\b2\u0006\u00109\u001a\u00020\bH\u0087\u0004¢\u0006\u0004\bY\u0010Z\u001a\u001c\u0010T\u001a\u00020%*\u00020\u000b2\u0006\u00109\u001a\u00020\u000bH\u0087\u0004¢\u0006\u0004\b[\u0010\\¨\u0006]"}, d2 = {"coerceAtLeast", "Lkotlin/UByte;", "minimumValue", "coerceAtLeast-Kr8caGY", "(BB)B", "Lkotlin/UInt;", "coerceAtLeast-J1ME1BU", "(II)I", "Lkotlin/ULong;", "coerceAtLeast-eb3DHEI", "(JJ)J", "Lkotlin/UShort;", "coerceAtLeast-5PvTz6A", "(SS)S", "coerceAtMost", "maximumValue", "coerceAtMost-Kr8caGY", "coerceAtMost-J1ME1BU", "coerceAtMost-eb3DHEI", "coerceAtMost-5PvTz6A", "coerceIn", "coerceIn-b33U2AM", "(BBB)B", "coerceIn-WZ9TVnA", "(III)I", "range", "Lkotlin/ranges/ClosedRange;", "coerceIn-wuiCnnA", "(ILkotlin/ranges/ClosedRange;)I", "coerceIn-sambcqE", "(JJJ)J", "coerceIn-JPwROB0", "(JLkotlin/ranges/ClosedRange;)J", "coerceIn-VKSA0NQ", "(SSS)S", "contains", "", "Lkotlin/ranges/UIntRange;", "value", "contains-68kG9v0", "(Lkotlin/ranges/UIntRange;B)Z", "element", "contains-biwQdVI", "contains-fz5IDCE", "(Lkotlin/ranges/UIntRange;J)Z", "contains-ZsK3CEQ", "(Lkotlin/ranges/UIntRange;S)Z", "Lkotlin/ranges/ULongRange;", "contains-ULb-yJY", "(Lkotlin/ranges/ULongRange;B)Z", "contains-Gab390E", "(Lkotlin/ranges/ULongRange;I)Z", "contains-GYNo2lE", "contains-uhHAxoY", "(Lkotlin/ranges/ULongRange;S)Z", "downTo", "Lkotlin/ranges/UIntProgression;", TypedValues.TransitionType.S_TO, "downTo-Kr8caGY", "(BB)Lkotlin/ranges/UIntProgression;", "downTo-J1ME1BU", "(II)Lkotlin/ranges/UIntProgression;", "Lkotlin/ranges/ULongProgression;", "downTo-eb3DHEI", "(JJ)Lkotlin/ranges/ULongProgression;", "downTo-5PvTz6A", "(SS)Lkotlin/ranges/UIntProgression;", "first", "(Lkotlin/ranges/UIntProgression;)I", "(Lkotlin/ranges/ULongProgression;)J", "firstOrNull", "last", "lastOrNull", "random", "(Lkotlin/ranges/UIntRange;)I", "Lkotlin/random/Random;", "(Lkotlin/ranges/UIntRange;Lkotlin/random/Random;)I", "(Lkotlin/ranges/ULongRange;)J", "(Lkotlin/ranges/ULongRange;Lkotlin/random/Random;)J", "randomOrNull", "reversed", "step", "", "", "until", "until-Kr8caGY", "(BB)Lkotlin/ranges/UIntRange;", "until-J1ME1BU", "(II)Lkotlin/ranges/UIntRange;", "until-eb3DHEI", "(JJ)Lkotlin/ranges/ULongRange;", "until-5PvTz6A", "(SS)Lkotlin/ranges/UIntRange;", "kotlin-stdlib"}, k = 5, mv = {1, 9, 0}, xi = 49, xs = "kotlin/ranges/URangesKt")
-/* loaded from: classes4.dex */
-public class URangesKt___URangesKt {
-    @SinceKotlin(version = "1.5")
-    @WasExperimental(markerClass = {ExperimentalUnsignedTypes.class})
+@Metadata(bv = {1, 0, 3}, d1 = {"\u0000^\n\u0002\u0018\u0002\n\u0002\u0018\u0002\n\u0002\b\u0002\n\u0002\u0018\u0002\n\u0002\u0018\u0002\n\u0000\n\u0002\u0018\u0002\n\u0002\b\b\n\u0002\u0010\u000b\n\u0002\b\u0005\n\u0002\u0018\u0002\n\u0002\b\t\n\u0002\u0018\u0002\n\u0002\b\u0005\n\u0002\u0018\u0002\n\u0002\b\u0005\n\u0002\u0018\u0002\n\u0002\b\u0007\n\u0002\u0010\b\n\u0002\b\u0002\n\u0002\u0010\t\n\u0002\b#\n\u0002\u0018\u0002\n\u0002\b\u0006\u001a\u0017\u0010\u0002\u001a\u00020\u0001*\u00020\u0000H\u0087\bø\u0001\u0000¢\u0006\u0004\b\u0002\u0010\u0003\u001a\u0017\u0010\u0002\u001a\u00020\u0005*\u00020\u0004H\u0087\bø\u0001\u0000¢\u0006\u0004\b\u0002\u0010\u0006\u001a\u001e\u0010\u0002\u001a\u00020\u0001*\u00020\u00002\u0006\u0010\u0002\u001a\u00020\u0007H\u0007ø\u0001\u0000¢\u0006\u0004\b\u0002\u0010\b\u001a\u001e\u0010\u0002\u001a\u00020\u0005*\u00020\u00042\u0006\u0010\u0002\u001a\u00020\u0007H\u0007ø\u0001\u0000¢\u0006\u0004\b\u0002\u0010\t\u001a\u0019\u0010\n\u001a\u0004\u0018\u00010\u0001*\u00020\u0000H\u0087\bø\u0001\u0000¢\u0006\u0004\b\n\u0010\u000b\u001a\u0019\u0010\n\u001a\u0004\u0018\u00010\u0005*\u00020\u0004H\u0087\bø\u0001\u0000¢\u0006\u0004\b\n\u0010\f\u001a \u0010\n\u001a\u0004\u0018\u00010\u0001*\u00020\u00002\u0006\u0010\u0002\u001a\u00020\u0007H\u0007ø\u0001\u0000¢\u0006\u0004\b\n\u0010\r\u001a \u0010\n\u001a\u0004\u0018\u00010\u0005*\u00020\u00042\u0006\u0010\u0002\u001a\u00020\u0007H\u0007ø\u0001\u0000¢\u0006\u0004\b\n\u0010\u000e\u001a!\u0010\u0013\u001a\u00020\u0010*\u00020\u00002\b\u0010\u000f\u001a\u0004\u0018\u00010\u0001H\u0087\nø\u0001\u0000¢\u0006\u0004\b\u0011\u0010\u0012\u001a!\u0010\u0013\u001a\u00020\u0010*\u00020\u00042\b\u0010\u000f\u001a\u0004\u0018\u00010\u0005H\u0087\nø\u0001\u0000¢\u0006\u0004\b\u0014\u0010\u0015\u001a\u001f\u0010\u0013\u001a\u00020\u0010*\u00020\u00002\u0006\u0010\u0017\u001a\u00020\u0016H\u0087\u0002ø\u0001\u0000¢\u0006\u0004\b\u0018\u0010\u0019\u001a\u001f\u0010\u0013\u001a\u00020\u0010*\u00020\u00042\u0006\u0010\u0017\u001a\u00020\u0016H\u0087\u0002ø\u0001\u0000¢\u0006\u0004\b\u001a\u0010\u001b\u001a\u001f\u0010\u0013\u001a\u00020\u0010*\u00020\u00042\u0006\u0010\u0017\u001a\u00020\u0001H\u0087\u0002ø\u0001\u0000¢\u0006\u0004\b\u001c\u0010\u001d\u001a\u001f\u0010\u0013\u001a\u00020\u0010*\u00020\u00002\u0006\u0010\u0017\u001a\u00020\u0005H\u0087\u0002ø\u0001\u0000¢\u0006\u0004\b\u001e\u0010\u001f\u001a\u001f\u0010\u0013\u001a\u00020\u0010*\u00020\u00002\u0006\u0010\u0017\u001a\u00020 H\u0087\u0002ø\u0001\u0000¢\u0006\u0004\b!\u0010\"\u001a\u001f\u0010\u0013\u001a\u00020\u0010*\u00020\u00042\u0006\u0010\u0017\u001a\u00020 H\u0087\u0002ø\u0001\u0000¢\u0006\u0004\b#\u0010$\u001a\u001f\u0010)\u001a\u00020&*\u00020\u00162\u0006\u0010%\u001a\u00020\u0016H\u0087\u0004ø\u0001\u0000¢\u0006\u0004\b'\u0010(\u001a\u001f\u0010)\u001a\u00020&*\u00020\u00012\u0006\u0010%\u001a\u00020\u0001H\u0087\u0004ø\u0001\u0000¢\u0006\u0004\b*\u0010+\u001a\u001f\u0010)\u001a\u00020,*\u00020\u00052\u0006\u0010%\u001a\u00020\u0005H\u0087\u0004ø\u0001\u0000¢\u0006\u0004\b-\u0010.\u001a\u001f\u0010)\u001a\u00020&*\u00020 2\u0006\u0010%\u001a\u00020 H\u0087\u0004ø\u0001\u0000¢\u0006\u0004\b/\u00100\u001a\u0013\u00101\u001a\u00020&*\u00020&H\u0007¢\u0006\u0004\b1\u00102\u001a\u0013\u00101\u001a\u00020,*\u00020,H\u0007¢\u0006\u0004\b1\u00103\u001a\u001c\u00105\u001a\u00020&*\u00020&2\u0006\u00105\u001a\u000204H\u0087\u0004¢\u0006\u0004\b5\u00106\u001a\u001c\u00105\u001a\u00020,*\u00020,2\u0006\u00105\u001a\u000207H\u0087\u0004¢\u0006\u0004\b5\u00108\u001a\u001f\u0010;\u001a\u00020\u0000*\u00020\u00162\u0006\u0010%\u001a\u00020\u0016H\u0087\u0004ø\u0001\u0000¢\u0006\u0004\b9\u0010:\u001a\u001f\u0010;\u001a\u00020\u0000*\u00020\u00012\u0006\u0010%\u001a\u00020\u0001H\u0087\u0004ø\u0001\u0000¢\u0006\u0004\b<\u0010=\u001a\u001f\u0010;\u001a\u00020\u0004*\u00020\u00052\u0006\u0010%\u001a\u00020\u0005H\u0087\u0004ø\u0001\u0000¢\u0006\u0004\b>\u0010?\u001a\u001f\u0010;\u001a\u00020\u0000*\u00020 2\u0006\u0010%\u001a\u00020 H\u0087\u0004ø\u0001\u0000¢\u0006\u0004\b@\u0010A\u001a\u001e\u0010E\u001a\u00020\u0001*\u00020\u00012\u0006\u0010B\u001a\u00020\u0001H\u0007ø\u0001\u0000¢\u0006\u0004\bC\u0010D\u001a\u001e\u0010E\u001a\u00020\u0005*\u00020\u00052\u0006\u0010B\u001a\u00020\u0005H\u0007ø\u0001\u0000¢\u0006\u0004\bF\u0010G\u001a\u001e\u0010E\u001a\u00020\u0016*\u00020\u00162\u0006\u0010B\u001a\u00020\u0016H\u0007ø\u0001\u0000¢\u0006\u0004\bH\u0010I\u001a\u001e\u0010E\u001a\u00020 *\u00020 2\u0006\u0010B\u001a\u00020 H\u0007ø\u0001\u0000¢\u0006\u0004\bJ\u0010K\u001a\u001e\u0010N\u001a\u00020\u0001*\u00020\u00012\u0006\u0010L\u001a\u00020\u0001H\u0007ø\u0001\u0000¢\u0006\u0004\bM\u0010D\u001a\u001e\u0010N\u001a\u00020\u0005*\u00020\u00052\u0006\u0010L\u001a\u00020\u0005H\u0007ø\u0001\u0000¢\u0006\u0004\bO\u0010G\u001a\u001e\u0010N\u001a\u00020\u0016*\u00020\u00162\u0006\u0010L\u001a\u00020\u0016H\u0007ø\u0001\u0000¢\u0006\u0004\bP\u0010I\u001a\u001e\u0010N\u001a\u00020 *\u00020 2\u0006\u0010L\u001a\u00020 H\u0007ø\u0001\u0000¢\u0006\u0004\bQ\u0010K\u001a&\u0010T\u001a\u00020\u0001*\u00020\u00012\u0006\u0010B\u001a\u00020\u00012\u0006\u0010L\u001a\u00020\u0001H\u0007ø\u0001\u0000¢\u0006\u0004\bR\u0010S\u001a&\u0010T\u001a\u00020\u0005*\u00020\u00052\u0006\u0010B\u001a\u00020\u00052\u0006\u0010L\u001a\u00020\u0005H\u0007ø\u0001\u0000¢\u0006\u0004\bU\u0010V\u001a&\u0010T\u001a\u00020\u0016*\u00020\u00162\u0006\u0010B\u001a\u00020\u00162\u0006\u0010L\u001a\u00020\u0016H\u0007ø\u0001\u0000¢\u0006\u0004\bW\u0010X\u001a&\u0010T\u001a\u00020 *\u00020 2\u0006\u0010B\u001a\u00020 2\u0006\u0010L\u001a\u00020 H\u0007ø\u0001\u0000¢\u0006\u0004\bY\u0010Z\u001a$\u0010T\u001a\u00020\u0001*\u00020\u00012\f\u0010\\\u001a\b\u0012\u0004\u0012\u00020\u00010[H\u0007ø\u0001\u0000¢\u0006\u0004\b]\u0010^\u001a$\u0010T\u001a\u00020\u0005*\u00020\u00052\f\u0010\\\u001a\b\u0012\u0004\u0012\u00020\u00050[H\u0007ø\u0001\u0000¢\u0006\u0004\b_\u0010`\u0082\u0002\u0004\n\u0002\b\u0019¨\u0006a"}, d2 = {"Lkotlin/ranges/UIntRange;", "Lkotlin/UInt;", "random", "(Lkotlin/ranges/UIntRange;)I", "Lkotlin/ranges/ULongRange;", "Lkotlin/ULong;", "(Lkotlin/ranges/ULongRange;)J", "Lkotlin/random/Random;", "(Lkotlin/ranges/UIntRange;Lkotlin/random/Random;)I", "(Lkotlin/ranges/ULongRange;Lkotlin/random/Random;)J", "randomOrNull", "(Lkotlin/ranges/UIntRange;)Lkotlin/UInt;", "(Lkotlin/ranges/ULongRange;)Lkotlin/ULong;", "(Lkotlin/ranges/UIntRange;Lkotlin/random/Random;)Lkotlin/UInt;", "(Lkotlin/ranges/ULongRange;Lkotlin/random/Random;)Lkotlin/ULong;", "element", "", "contains-biwQdVI", "(Lkotlin/ranges/UIntRange;Lkotlin/UInt;)Z", "contains", "contains-GYNo2lE", "(Lkotlin/ranges/ULongRange;Lkotlin/ULong;)Z", "Lkotlin/UByte;", Downloads.RequestHeaders.COLUMN_VALUE, "contains-68kG9v0", "(Lkotlin/ranges/UIntRange;B)Z", "contains-ULb-yJY", "(Lkotlin/ranges/ULongRange;B)Z", "contains-Gab390E", "(Lkotlin/ranges/ULongRange;I)Z", "contains-fz5IDCE", "(Lkotlin/ranges/UIntRange;J)Z", "Lkotlin/UShort;", "contains-ZsK3CEQ", "(Lkotlin/ranges/UIntRange;S)Z", "contains-uhHAxoY", "(Lkotlin/ranges/ULongRange;S)Z", "to", "Lkotlin/ranges/UIntProgression;", "downTo-Kr8caGY", "(BB)Lkotlin/ranges/UIntProgression;", "downTo", "downTo-J1ME1BU", "(II)Lkotlin/ranges/UIntProgression;", "Lkotlin/ranges/ULongProgression;", "downTo-eb3DHEI", "(JJ)Lkotlin/ranges/ULongProgression;", "downTo-5PvTz6A", "(SS)Lkotlin/ranges/UIntProgression;", "reversed", "(Lkotlin/ranges/UIntProgression;)Lkotlin/ranges/UIntProgression;", "(Lkotlin/ranges/ULongProgression;)Lkotlin/ranges/ULongProgression;", "", "step", "(Lkotlin/ranges/UIntProgression;I)Lkotlin/ranges/UIntProgression;", "", "(Lkotlin/ranges/ULongProgression;J)Lkotlin/ranges/ULongProgression;", "until-Kr8caGY", "(BB)Lkotlin/ranges/UIntRange;", "until", "until-J1ME1BU", "(II)Lkotlin/ranges/UIntRange;", "until-eb3DHEI", "(JJ)Lkotlin/ranges/ULongRange;", "until-5PvTz6A", "(SS)Lkotlin/ranges/UIntRange;", "minimumValue", "coerceAtLeast-J1ME1BU", "(II)I", "coerceAtLeast", "coerceAtLeast-eb3DHEI", "(JJ)J", "coerceAtLeast-Kr8caGY", "(BB)B", "coerceAtLeast-5PvTz6A", "(SS)S", "maximumValue", "coerceAtMost-J1ME1BU", "coerceAtMost", "coerceAtMost-eb3DHEI", "coerceAtMost-Kr8caGY", "coerceAtMost-5PvTz6A", "coerceIn-WZ9TVnA", "(III)I", "coerceIn", "coerceIn-sambcqE", "(JJJ)J", "coerceIn-b33U2AM", "(BBB)B", "coerceIn-VKSA0NQ", "(SSS)S", "Lkotlin/ranges/ClosedRange;", "range", "coerceIn-wuiCnnA", "(ILkotlin/ranges/ClosedRange;)I", "coerceIn-JPwROB0", "(JLkotlin/ranges/ClosedRange;)J", "kotlin-stdlib"}, k = 5, mv = {1, 4, 0}, xs = "kotlin/ranges/URangesKt")
+/* loaded from: classes5.dex */
+class URangesKt___URangesKt {
+    @SinceKotlin(version = "1.3")
+    @ExperimentalUnsignedTypes
     /* renamed from: coerceAtLeast-5PvTz6A */
-    public static final short m1298coerceAtLeast5PvTz6A(short s10, short s11) {
-        return Intrinsics.compare(s10 & UShort.MAX_VALUE, 65535 & s11) < 0 ? s11 : s10;
+    public static final short m1007coerceAtLeast5PvTz6A(short s, short s2) {
+        return Intrinsics.compare(s & UShort.MAX_VALUE, 65535 & s2) < 0 ? s2 : s;
     }
 
-    @SinceKotlin(version = "1.5")
-    @WasExperimental(markerClass = {ExperimentalUnsignedTypes.class})
+    @SinceKotlin(version = "1.3")
+    @ExperimentalUnsignedTypes
     /* renamed from: coerceAtLeast-J1ME1BU */
-    public static final int m1299coerceAtLeastJ1ME1BU(int i10, int i11) {
-        int compare;
-        compare = Integer.compare(i10 ^ Integer.MIN_VALUE, i11 ^ Integer.MIN_VALUE);
-        return compare < 0 ? i11 : i10;
+    public static final int m1008coerceAtLeastJ1ME1BU(int i2, int i3) {
+        return UnsignedKt.uintCompare(i2, i3) < 0 ? i3 : i2;
     }
 
-    @SinceKotlin(version = "1.5")
-    @WasExperimental(markerClass = {ExperimentalUnsignedTypes.class})
+    @SinceKotlin(version = "1.3")
+    @ExperimentalUnsignedTypes
     /* renamed from: coerceAtLeast-Kr8caGY */
-    public static final byte m1300coerceAtLeastKr8caGY(byte b10, byte b11) {
-        return Intrinsics.compare(b10 & 255, b11 & 255) < 0 ? b11 : b10;
+    public static final byte m1009coerceAtLeastKr8caGY(byte b2, byte b3) {
+        return Intrinsics.compare(b2 & 255, b3 & 255) < 0 ? b3 : b2;
     }
 
-    @SinceKotlin(version = "1.5")
-    @WasExperimental(markerClass = {ExperimentalUnsignedTypes.class})
+    @SinceKotlin(version = "1.3")
+    @ExperimentalUnsignedTypes
     /* renamed from: coerceAtLeast-eb3DHEI */
-    public static final long m1301coerceAtLeasteb3DHEI(long j10, long j11) {
-        int compare;
-        compare = Long.compare(j10 ^ Long.MIN_VALUE, j11 ^ Long.MIN_VALUE);
-        return compare < 0 ? j11 : j10;
+    public static final long m1010coerceAtLeasteb3DHEI(long j2, long j3) {
+        return UnsignedKt.ulongCompare(j2, j3) < 0 ? j3 : j2;
     }
 
-    @SinceKotlin(version = "1.5")
-    @WasExperimental(markerClass = {ExperimentalUnsignedTypes.class})
+    @SinceKotlin(version = "1.3")
+    @ExperimentalUnsignedTypes
     /* renamed from: coerceAtMost-5PvTz6A */
-    public static final short m1302coerceAtMost5PvTz6A(short s10, short s11) {
-        return Intrinsics.compare(s10 & UShort.MAX_VALUE, 65535 & s11) > 0 ? s11 : s10;
+    public static final short m1011coerceAtMost5PvTz6A(short s, short s2) {
+        return Intrinsics.compare(s & UShort.MAX_VALUE, 65535 & s2) > 0 ? s2 : s;
     }
 
-    @SinceKotlin(version = "1.5")
-    @WasExperimental(markerClass = {ExperimentalUnsignedTypes.class})
+    @SinceKotlin(version = "1.3")
+    @ExperimentalUnsignedTypes
     /* renamed from: coerceAtMost-J1ME1BU */
-    public static final int m1303coerceAtMostJ1ME1BU(int i10, int i11) {
-        int compare;
-        compare = Integer.compare(i10 ^ Integer.MIN_VALUE, i11 ^ Integer.MIN_VALUE);
-        return compare > 0 ? i11 : i10;
+    public static final int m1012coerceAtMostJ1ME1BU(int i2, int i3) {
+        return UnsignedKt.uintCompare(i2, i3) > 0 ? i3 : i2;
     }
 
-    @SinceKotlin(version = "1.5")
-    @WasExperimental(markerClass = {ExperimentalUnsignedTypes.class})
+    @SinceKotlin(version = "1.3")
+    @ExperimentalUnsignedTypes
     /* renamed from: coerceAtMost-Kr8caGY */
-    public static final byte m1304coerceAtMostKr8caGY(byte b10, byte b11) {
-        return Intrinsics.compare(b10 & 255, b11 & 255) > 0 ? b11 : b10;
+    public static final byte m1013coerceAtMostKr8caGY(byte b2, byte b3) {
+        return Intrinsics.compare(b2 & 255, b3 & 255) > 0 ? b3 : b2;
     }
 
-    @SinceKotlin(version = "1.5")
-    @WasExperimental(markerClass = {ExperimentalUnsignedTypes.class})
+    @SinceKotlin(version = "1.3")
+    @ExperimentalUnsignedTypes
     /* renamed from: coerceAtMost-eb3DHEI */
-    public static final long m1305coerceAtMosteb3DHEI(long j10, long j11) {
-        int compare;
-        compare = Long.compare(j10 ^ Long.MIN_VALUE, j11 ^ Long.MIN_VALUE);
-        return compare > 0 ? j11 : j10;
+    public static final long m1014coerceAtMosteb3DHEI(long j2, long j3) {
+        return UnsignedKt.ulongCompare(j2, j3) > 0 ? j3 : j2;
     }
 
-    @SinceKotlin(version = "1.5")
-    @WasExperimental(markerClass = {ExperimentalUnsignedTypes.class})
+    @SinceKotlin(version = "1.3")
+    @ExperimentalUnsignedTypes
     /* renamed from: coerceIn-JPwROB0 */
-    public static final long m1306coerceInJPwROB0(long j10, @k ClosedRange<ULong> range) {
-        int compare;
-        int compare2;
-        Intrinsics.checkNotNullParameter(range, "range");
+    public static final long m1015coerceInJPwROB0(long j2, @d ClosedRange<ULong> range) {
+        Intrinsics.checkParameterIsNotNull(range, "range");
         if (range instanceof ClosedFloatingPointRange) {
-            return ((ULong) RangesKt___RangesKt.coerceIn(ULong.m226boximpl(j10), (ClosedFloatingPointRange<ULong>) range)).getData();
+            return ((ULong) RangesKt___RangesKt.coerceIn(ULong.m231boximpl(j2), (ClosedFloatingPointRange<ULong>) range)).getData();
         }
-        if (range.isEmpty()) {
-            throw new IllegalArgumentException("Cannot coerce value to an empty range: " + range + '.');
+        if (!range.isEmpty()) {
+            return UnsignedKt.ulongCompare(j2, range.getStart().getData()) < 0 ? range.getStart().getData() : UnsignedKt.ulongCompare(j2, range.getEndInclusive().getData()) > 0 ? range.getEndInclusive().getData() : j2;
         }
-        compare = Long.compare(j10 ^ Long.MIN_VALUE, range.getStart().getData() ^ Long.MIN_VALUE);
-        if (compare < 0) {
-            return range.getStart().getData();
-        }
-        compare2 = Long.compare(j10 ^ Long.MIN_VALUE, range.getEndInclusive().getData() ^ Long.MIN_VALUE);
-        return compare2 > 0 ? range.getEndInclusive().getData() : j10;
+        throw new IllegalArgumentException("Cannot coerce value to an empty range: " + range + '.');
     }
 
-    @SinceKotlin(version = "1.5")
-    @WasExperimental(markerClass = {ExperimentalUnsignedTypes.class})
+    @SinceKotlin(version = "1.3")
+    @ExperimentalUnsignedTypes
     /* renamed from: coerceIn-VKSA0NQ */
-    public static final short m1307coerceInVKSA0NQ(short s10, short s11, short s12) {
-        int i10 = s11 & UShort.MAX_VALUE;
-        int i11 = s12 & UShort.MAX_VALUE;
-        if (Intrinsics.compare(i10, i11) <= 0) {
-            int i12 = 65535 & s10;
-            return Intrinsics.compare(i12, i10) < 0 ? s11 : Intrinsics.compare(i12, i11) > 0 ? s12 : s10;
+    public static final short m1016coerceInVKSA0NQ(short s, short s2, short s3) {
+        int i2 = s2 & UShort.MAX_VALUE;
+        int i3 = s3 & UShort.MAX_VALUE;
+        if (Intrinsics.compare(i2, i3) <= 0) {
+            int i4 = 65535 & s;
+            return Intrinsics.compare(i4, i2) < 0 ? s2 : Intrinsics.compare(i4, i3) > 0 ? s3 : s;
         }
-        throw new IllegalArgumentException("Cannot coerce value to an empty range: maximum " + ((Object) UShort.m383toStringimpl(s12)) + " is less than minimum " + ((Object) UShort.m383toStringimpl(s11)) + '.');
+        throw new IllegalArgumentException("Cannot coerce value to an empty range: maximum " + UShort.m369toStringimpl(s3) + " is less than minimum " + UShort.m369toStringimpl(s2) + '.');
     }
 
-    @SinceKotlin(version = "1.5")
-    @WasExperimental(markerClass = {ExperimentalUnsignedTypes.class})
+    @SinceKotlin(version = "1.3")
+    @ExperimentalUnsignedTypes
     /* renamed from: coerceIn-WZ9TVnA */
-    public static final int m1308coerceInWZ9TVnA(int i10, int i11, int i12) {
-        int compare;
-        int compare2;
-        int compare3;
-        compare = Integer.compare(i11 ^ Integer.MIN_VALUE, i12 ^ Integer.MIN_VALUE);
-        if (compare <= 0) {
-            compare2 = Integer.compare(i10 ^ Integer.MIN_VALUE, i11 ^ Integer.MIN_VALUE);
-            if (compare2 < 0) {
-                return i11;
-            }
-            compare3 = Integer.compare(i10 ^ Integer.MIN_VALUE, i12 ^ Integer.MIN_VALUE);
-            return compare3 > 0 ? i12 : i10;
+    public static final int m1017coerceInWZ9TVnA(int i2, int i3, int i4) {
+        if (UnsignedKt.uintCompare(i3, i4) <= 0) {
+            return UnsignedKt.uintCompare(i2, i3) < 0 ? i3 : UnsignedKt.uintCompare(i2, i4) > 0 ? i4 : i2;
         }
-        throw new IllegalArgumentException("Cannot coerce value to an empty range: maximum " + ((Object) UInt.m199toStringimpl(i12)) + " is less than minimum " + ((Object) UInt.m199toStringimpl(i11)) + '.');
+        throw new IllegalArgumentException("Cannot coerce value to an empty range: maximum " + UInt.m205toStringimpl(i4) + " is less than minimum " + UInt.m205toStringimpl(i3) + '.');
     }
 
-    @SinceKotlin(version = "1.5")
-    @WasExperimental(markerClass = {ExperimentalUnsignedTypes.class})
+    @SinceKotlin(version = "1.3")
+    @ExperimentalUnsignedTypes
     /* renamed from: coerceIn-b33U2AM */
-    public static final byte m1309coerceInb33U2AM(byte b10, byte b11, byte b12) {
-        int i10 = b11 & 255;
-        int i11 = b12 & 255;
-        if (Intrinsics.compare(i10, i11) <= 0) {
-            int i12 = b10 & 255;
-            return Intrinsics.compare(i12, i10) < 0 ? b11 : Intrinsics.compare(i12, i11) > 0 ? b12 : b10;
+    public static final byte m1018coerceInb33U2AM(byte b2, byte b3, byte b4) {
+        int i2 = b3 & 255;
+        int i3 = b4 & 255;
+        if (Intrinsics.compare(i2, i3) <= 0) {
+            int i4 = b2 & 255;
+            return Intrinsics.compare(i4, i2) < 0 ? b3 : Intrinsics.compare(i4, i3) > 0 ? b4 : b2;
         }
-        throw new IllegalArgumentException("Cannot coerce value to an empty range: maximum " + ((Object) UByte.m120toStringimpl(b12)) + " is less than minimum " + ((Object) UByte.m120toStringimpl(b11)) + '.');
+        throw new IllegalArgumentException("Cannot coerce value to an empty range: maximum " + UByte.m136toStringimpl(b4) + " is less than minimum " + UByte.m136toStringimpl(b3) + '.');
     }
 
-    @SinceKotlin(version = "1.5")
-    @WasExperimental(markerClass = {ExperimentalUnsignedTypes.class})
+    @SinceKotlin(version = "1.3")
+    @ExperimentalUnsignedTypes
     /* renamed from: coerceIn-sambcqE */
-    public static final long m1310coerceInsambcqE(long j10, long j11, long j12) {
-        int compare;
-        int compare2;
-        int compare3;
-        compare = Long.compare(j11 ^ Long.MIN_VALUE, j12 ^ Long.MIN_VALUE);
-        if (compare <= 0) {
-            compare2 = Long.compare(j10 ^ Long.MIN_VALUE, j11 ^ Long.MIN_VALUE);
-            if (compare2 < 0) {
-                return j11;
-            }
-            compare3 = Long.compare(j10 ^ Long.MIN_VALUE, j12 ^ Long.MIN_VALUE);
-            return compare3 > 0 ? j12 : j10;
+    public static final long m1019coerceInsambcqE(long j2, long j3, long j4) {
+        if (UnsignedKt.ulongCompare(j3, j4) <= 0) {
+            return UnsignedKt.ulongCompare(j2, j3) < 0 ? j3 : UnsignedKt.ulongCompare(j2, j4) > 0 ? j4 : j2;
         }
-        throw new IllegalArgumentException("Cannot coerce value to an empty range: maximum " + ((Object) ULong.m278toStringimpl(j12)) + " is less than minimum " + ((Object) ULong.m278toStringimpl(j11)) + '.');
+        throw new IllegalArgumentException("Cannot coerce value to an empty range: maximum " + ULong.m274toStringimpl(j4) + " is less than minimum " + ULong.m274toStringimpl(j3) + '.');
     }
 
-    @SinceKotlin(version = "1.5")
-    @WasExperimental(markerClass = {ExperimentalUnsignedTypes.class})
+    @SinceKotlin(version = "1.3")
+    @ExperimentalUnsignedTypes
     /* renamed from: coerceIn-wuiCnnA */
-    public static final int m1311coerceInwuiCnnA(int i10, @k ClosedRange<UInt> range) {
-        int compare;
-        int compare2;
-        Intrinsics.checkNotNullParameter(range, "range");
+    public static final int m1020coerceInwuiCnnA(int i2, @d ClosedRange<UInt> range) {
+        Intrinsics.checkParameterIsNotNull(range, "range");
         if (range instanceof ClosedFloatingPointRange) {
-            return ((UInt) RangesKt___RangesKt.coerceIn(UInt.m147boximpl(i10), (ClosedFloatingPointRange<UInt>) range)).getData();
+            return ((UInt) RangesKt___RangesKt.coerceIn(UInt.m162boximpl(i2), (ClosedFloatingPointRange<UInt>) range)).getData();
         }
-        if (range.isEmpty()) {
-            throw new IllegalArgumentException("Cannot coerce value to an empty range: " + range + '.');
+        if (!range.isEmpty()) {
+            return UnsignedKt.uintCompare(i2, range.getStart().getData()) < 0 ? range.getStart().getData() : UnsignedKt.uintCompare(i2, range.getEndInclusive().getData()) > 0 ? range.getEndInclusive().getData() : i2;
         }
-        compare = Integer.compare(i10 ^ Integer.MIN_VALUE, range.getStart().getData() ^ Integer.MIN_VALUE);
-        if (compare < 0) {
-            return range.getStart().getData();
-        }
-        compare2 = Integer.compare(i10 ^ Integer.MIN_VALUE, range.getEndInclusive().getData() ^ Integer.MIN_VALUE);
-        return compare2 > 0 ? range.getEndInclusive().getData() : i10;
+        throw new IllegalArgumentException("Cannot coerce value to an empty range: " + range + '.');
     }
 
-    @SinceKotlin(version = "1.5")
-    @WasExperimental(markerClass = {ExperimentalUnsignedTypes.class})
+    @SinceKotlin(version = "1.3")
+    @ExperimentalUnsignedTypes
     /* renamed from: contains-68kG9v0 */
-    public static final boolean m1312contains68kG9v0(@k UIntRange contains, byte b10) {
-        Intrinsics.checkNotNullParameter(contains, "$this$contains");
-        return contains.m1285containsWZ4Q5Ns(UInt.m153constructorimpl(b10 & 255));
+    public static final boolean m1021contains68kG9v0(@d UIntRange contains, byte b2) {
+        Intrinsics.checkParameterIsNotNull(contains, "$this$contains");
+        return contains.m1004containsWZ4Q5Ns(UInt.m168constructorimpl(b2 & 255));
     }
 
-    @SinceKotlin(version = "1.5")
-    @WasExperimental(markerClass = {ExperimentalUnsignedTypes.class})
+    @SinceKotlin(version = "1.3")
+    @ExperimentalUnsignedTypes
     @InlineOnly
     /* renamed from: contains-GYNo2lE */
-    private static final boolean m1313containsGYNo2lE(ULongRange contains, ULong uLong) {
-        Intrinsics.checkNotNullParameter(contains, "$this$contains");
-        return uLong != null && contains.m1294containsVKZWuLQ(uLong.getData());
+    private static final boolean m1022containsGYNo2lE(@d ULongRange contains, ULong uLong) {
+        Intrinsics.checkParameterIsNotNull(contains, "$this$contains");
+        return uLong != null && contains.m1006containsVKZWuLQ(uLong.getData());
     }
 
-    @SinceKotlin(version = "1.5")
-    @WasExperimental(markerClass = {ExperimentalUnsignedTypes.class})
+    @SinceKotlin(version = "1.3")
+    @ExperimentalUnsignedTypes
     /* renamed from: contains-Gab390E */
-    public static final boolean m1314containsGab390E(@k ULongRange contains, int i10) {
-        Intrinsics.checkNotNullParameter(contains, "$this$contains");
-        return contains.m1294containsVKZWuLQ(ULong.m232constructorimpl(i10 & 4294967295L));
+    public static final boolean m1023containsGab390E(@d ULongRange contains, int i2) {
+        Intrinsics.checkParameterIsNotNull(contains, "$this$contains");
+        return contains.m1006containsVKZWuLQ(ULong.m237constructorimpl(i2 & 4294967295L));
     }
 
-    @SinceKotlin(version = "1.5")
-    @WasExperimental(markerClass = {ExperimentalUnsignedTypes.class})
+    @SinceKotlin(version = "1.3")
+    @ExperimentalUnsignedTypes
     /* renamed from: contains-ULb-yJY */
-    public static final boolean m1315containsULbyJY(@k ULongRange contains, byte b10) {
-        Intrinsics.checkNotNullParameter(contains, "$this$contains");
-        return contains.m1294containsVKZWuLQ(ULong.m232constructorimpl(b10 & 255));
+    public static final boolean m1024containsULbyJY(@d ULongRange contains, byte b2) {
+        Intrinsics.checkParameterIsNotNull(contains, "$this$contains");
+        return contains.m1006containsVKZWuLQ(ULong.m237constructorimpl(b2 & 255));
     }
 
-    @SinceKotlin(version = "1.5")
-    @WasExperimental(markerClass = {ExperimentalUnsignedTypes.class})
+    @SinceKotlin(version = "1.3")
+    @ExperimentalUnsignedTypes
     /* renamed from: contains-ZsK3CEQ */
-    public static final boolean m1316containsZsK3CEQ(@k UIntRange contains, short s10) {
-        Intrinsics.checkNotNullParameter(contains, "$this$contains");
-        return contains.m1285containsWZ4Q5Ns(UInt.m153constructorimpl(s10 & UShort.MAX_VALUE));
+    public static final boolean m1025containsZsK3CEQ(@d UIntRange contains, short s) {
+        Intrinsics.checkParameterIsNotNull(contains, "$this$contains");
+        return contains.m1004containsWZ4Q5Ns(UInt.m168constructorimpl(s & UShort.MAX_VALUE));
     }
 
-    @SinceKotlin(version = "1.5")
-    @WasExperimental(markerClass = {ExperimentalUnsignedTypes.class})
+    @SinceKotlin(version = "1.3")
+    @ExperimentalUnsignedTypes
     @InlineOnly
     /* renamed from: contains-biwQdVI */
-    private static final boolean m1317containsbiwQdVI(UIntRange contains, UInt uInt) {
-        Intrinsics.checkNotNullParameter(contains, "$this$contains");
-        return uInt != null && contains.m1285containsWZ4Q5Ns(uInt.getData());
+    private static final boolean m1026containsbiwQdVI(@d UIntRange contains, UInt uInt) {
+        Intrinsics.checkParameterIsNotNull(contains, "$this$contains");
+        return uInt != null && contains.m1004containsWZ4Q5Ns(uInt.getData());
     }
 
-    @SinceKotlin(version = "1.5")
-    @WasExperimental(markerClass = {ExperimentalUnsignedTypes.class})
+    @SinceKotlin(version = "1.3")
+    @ExperimentalUnsignedTypes
     /* renamed from: contains-fz5IDCE */
-    public static final boolean m1318containsfz5IDCE(@k UIntRange contains, long j10) {
-        Intrinsics.checkNotNullParameter(contains, "$this$contains");
-        return ULong.m232constructorimpl(j10 >>> 32) == 0 && contains.m1285containsWZ4Q5Ns(UInt.m153constructorimpl((int) j10));
+    public static final boolean m1027containsfz5IDCE(@d UIntRange contains, long j2) {
+        Intrinsics.checkParameterIsNotNull(contains, "$this$contains");
+        return ULong.m237constructorimpl(j2 >>> 32) == 0 && contains.m1004containsWZ4Q5Ns(UInt.m168constructorimpl((int) j2));
     }
 
-    @SinceKotlin(version = "1.5")
-    @WasExperimental(markerClass = {ExperimentalUnsignedTypes.class})
+    @SinceKotlin(version = "1.3")
+    @ExperimentalUnsignedTypes
     /* renamed from: contains-uhHAxoY */
-    public static final boolean m1319containsuhHAxoY(@k ULongRange contains, short s10) {
-        Intrinsics.checkNotNullParameter(contains, "$this$contains");
-        return contains.m1294containsVKZWuLQ(ULong.m232constructorimpl(s10 & WebSocketProtocol.PAYLOAD_SHORT_MAX));
+    public static final boolean m1028containsuhHAxoY(@d ULongRange contains, short s) {
+        Intrinsics.checkParameterIsNotNull(contains, "$this$contains");
+        return contains.m1006containsVKZWuLQ(ULong.m237constructorimpl(s & 65535));
     }
 
-    @SinceKotlin(version = "1.5")
-    @k
-    @WasExperimental(markerClass = {ExperimentalUnsignedTypes.class})
+    @d
+    @SinceKotlin(version = "1.3")
+    @ExperimentalUnsignedTypes
     /* renamed from: downTo-5PvTz6A */
-    public static final UIntProgression m1320downTo5PvTz6A(short s10, short s11) {
-        return UIntProgression.INSTANCE.m1282fromClosedRangeNkh28Cs(UInt.m153constructorimpl(s10 & UShort.MAX_VALUE), UInt.m153constructorimpl(s11 & UShort.MAX_VALUE), -1);
+    public static final UIntProgression m1029downTo5PvTz6A(short s, short s2) {
+        return UIntProgression.INSTANCE.m1003fromClosedRangeNkh28Cs(UInt.m168constructorimpl(s & UShort.MAX_VALUE), UInt.m168constructorimpl(s2 & UShort.MAX_VALUE), -1);
     }
 
-    @SinceKotlin(version = "1.5")
-    @k
-    @WasExperimental(markerClass = {ExperimentalUnsignedTypes.class})
+    @d
+    @SinceKotlin(version = "1.3")
+    @ExperimentalUnsignedTypes
     /* renamed from: downTo-J1ME1BU */
-    public static final UIntProgression m1321downToJ1ME1BU(int i10, int i11) {
-        return UIntProgression.INSTANCE.m1282fromClosedRangeNkh28Cs(i10, i11, -1);
+    public static final UIntProgression m1030downToJ1ME1BU(int i2, int i3) {
+        return UIntProgression.INSTANCE.m1003fromClosedRangeNkh28Cs(i2, i3, -1);
     }
 
-    @SinceKotlin(version = "1.5")
-    @k
-    @WasExperimental(markerClass = {ExperimentalUnsignedTypes.class})
+    @d
+    @SinceKotlin(version = "1.3")
+    @ExperimentalUnsignedTypes
     /* renamed from: downTo-Kr8caGY */
-    public static final UIntProgression m1322downToKr8caGY(byte b10, byte b11) {
-        return UIntProgression.INSTANCE.m1282fromClosedRangeNkh28Cs(UInt.m153constructorimpl(b10 & 255), UInt.m153constructorimpl(b11 & 255), -1);
+    public static final UIntProgression m1031downToKr8caGY(byte b2, byte b3) {
+        return UIntProgression.INSTANCE.m1003fromClosedRangeNkh28Cs(UInt.m168constructorimpl(b2 & 255), UInt.m168constructorimpl(b3 & 255), -1);
     }
 
-    @SinceKotlin(version = "1.5")
-    @k
-    @WasExperimental(markerClass = {ExperimentalUnsignedTypes.class})
+    @d
+    @SinceKotlin(version = "1.3")
+    @ExperimentalUnsignedTypes
     /* renamed from: downTo-eb3DHEI */
-    public static final ULongProgression m1323downToeb3DHEI(long j10, long j11) {
-        return ULongProgression.INSTANCE.m1291fromClosedRange7ftBX0g(j10, j11, -1L);
+    public static final ULongProgression m1032downToeb3DHEI(long j2, long j3) {
+        return ULongProgression.INSTANCE.m1005fromClosedRange7ftBX0g(j2, j3, -1L);
     }
 
-    @SinceKotlin(version = "1.7")
-    public static final int first(@k UIntProgression uIntProgression) {
-        Intrinsics.checkNotNullParameter(uIntProgression, "<this>");
-        if (!uIntProgression.isEmpty()) {
-            return uIntProgression.getFirst();
-        }
-        throw new NoSuchElementException("Progression " + uIntProgression + " is empty.");
-    }
-
-    @SinceKotlin(version = "1.7")
-    @l
-    public static final UInt firstOrNull(@k UIntProgression uIntProgression) {
-        Intrinsics.checkNotNullParameter(uIntProgression, "<this>");
-        if (uIntProgression.isEmpty()) {
-            return null;
-        }
-        return UInt.m147boximpl(uIntProgression.getFirst());
-    }
-
-    @SinceKotlin(version = "1.7")
-    public static final int last(@k UIntProgression uIntProgression) {
-        Intrinsics.checkNotNullParameter(uIntProgression, "<this>");
-        if (!uIntProgression.isEmpty()) {
-            return uIntProgression.getLast();
-        }
-        throw new NoSuchElementException("Progression " + uIntProgression + " is empty.");
-    }
-
-    @SinceKotlin(version = "1.7")
-    @l
-    public static final UInt lastOrNull(@k UIntProgression uIntProgression) {
-        Intrinsics.checkNotNullParameter(uIntProgression, "<this>");
-        if (uIntProgression.isEmpty()) {
-            return null;
-        }
-        return UInt.m147boximpl(uIntProgression.getLast());
-    }
-
-    @SinceKotlin(version = "1.5")
-    @WasExperimental(markerClass = {ExperimentalUnsignedTypes.class})
+    @SinceKotlin(version = "1.3")
+    @ExperimentalUnsignedTypes
     @InlineOnly
-    private static final int random(UIntRange uIntRange) {
-        Intrinsics.checkNotNullParameter(uIntRange, "<this>");
+    private static final int random(@d UIntRange uIntRange) {
         return random(uIntRange, Random.INSTANCE);
     }
 
-    @SinceKotlin(version = "1.5")
-    @WasExperimental(markerClass = {ExperimentalStdlibApi.class, ExperimentalUnsignedTypes.class})
+    @SinceKotlin(version = "1.3")
+    @ExperimentalStdlibApi
+    @ExperimentalUnsignedTypes
     @InlineOnly
-    private static final UInt randomOrNull(UIntRange uIntRange) {
-        Intrinsics.checkNotNullParameter(uIntRange, "<this>");
+    private static final UInt randomOrNull(@d UIntRange uIntRange) {
         return randomOrNull(uIntRange, Random.INSTANCE);
     }
 
-    @SinceKotlin(version = "1.5")
-    @k
-    @WasExperimental(markerClass = {ExperimentalUnsignedTypes.class})
-    public static final UIntProgression reversed(@k UIntProgression uIntProgression) {
-        Intrinsics.checkNotNullParameter(uIntProgression, "<this>");
-        return UIntProgression.INSTANCE.m1282fromClosedRangeNkh28Cs(uIntProgression.getLast(), uIntProgression.getFirst(), -uIntProgression.getStep());
+    @d
+    @SinceKotlin(version = "1.3")
+    @ExperimentalUnsignedTypes
+    public static final UIntProgression reversed(@d UIntProgression reversed) {
+        Intrinsics.checkParameterIsNotNull(reversed, "$this$reversed");
+        return UIntProgression.INSTANCE.m1003fromClosedRangeNkh28Cs(reversed.getLast(), reversed.getFirst(), -reversed.getStep());
     }
 
-    @SinceKotlin(version = "1.5")
-    @k
-    @WasExperimental(markerClass = {ExperimentalUnsignedTypes.class})
-    public static final UIntProgression step(@k UIntProgression uIntProgression, int i10) {
-        Intrinsics.checkNotNullParameter(uIntProgression, "<this>");
-        RangesKt__RangesKt.checkStepIsPositive(i10 > 0, Integer.valueOf(i10));
+    @d
+    @SinceKotlin(version = "1.3")
+    @ExperimentalUnsignedTypes
+    public static final UIntProgression step(@d UIntProgression step, int i2) {
+        Intrinsics.checkParameterIsNotNull(step, "$this$step");
+        RangesKt__RangesKt.checkStepIsPositive(i2 > 0, Integer.valueOf(i2));
         UIntProgression.Companion companion = UIntProgression.INSTANCE;
-        int first = uIntProgression.getFirst();
-        int last = uIntProgression.getLast();
-        if (uIntProgression.getStep() <= 0) {
-            i10 = -i10;
+        int first = step.getFirst();
+        int last = step.getLast();
+        if (step.getStep() <= 0) {
+            i2 = -i2;
         }
-        return companion.m1282fromClosedRangeNkh28Cs(first, last, i10);
+        return companion.m1003fromClosedRangeNkh28Cs(first, last, i2);
     }
 
-    @SinceKotlin(version = "1.5")
-    @k
-    @WasExperimental(markerClass = {ExperimentalUnsignedTypes.class})
+    @d
+    @SinceKotlin(version = "1.3")
+    @ExperimentalUnsignedTypes
     /* renamed from: until-5PvTz6A */
-    public static final UIntRange m1324until5PvTz6A(short s10, short s11) {
-        return Intrinsics.compare(s11 & UShort.MAX_VALUE, 0) <= 0 ? UIntRange.INSTANCE.getEMPTY() : new UIntRange(UInt.m153constructorimpl(s10 & UShort.MAX_VALUE), UInt.m153constructorimpl(UInt.m153constructorimpl(r3) - 1), null);
+    public static final UIntRange m1033until5PvTz6A(short s, short s2) {
+        return Intrinsics.compare(s2 & UShort.MAX_VALUE, 0) <= 0 ? UIntRange.INSTANCE.getEMPTY() : new UIntRange(UInt.m168constructorimpl(s & UShort.MAX_VALUE), UInt.m168constructorimpl(UInt.m168constructorimpl(r3) - 1), null);
     }
 
-    @SinceKotlin(version = "1.5")
-    @k
-    @WasExperimental(markerClass = {ExperimentalUnsignedTypes.class})
+    @d
+    @SinceKotlin(version = "1.3")
+    @ExperimentalUnsignedTypes
     /* renamed from: until-J1ME1BU */
-    public static UIntRange m1325untilJ1ME1BU(int i10, int i11) {
-        int compare;
-        compare = Integer.compare(i11 ^ Integer.MIN_VALUE, 0 ^ Integer.MIN_VALUE);
-        return compare <= 0 ? UIntRange.INSTANCE.getEMPTY() : new UIntRange(i10, UInt.m153constructorimpl(i11 - 1), null);
+    public static final UIntRange m1034untilJ1ME1BU(int i2, int i3) {
+        return UnsignedKt.uintCompare(i3, 0) <= 0 ? UIntRange.INSTANCE.getEMPTY() : new UIntRange(i2, UInt.m168constructorimpl(i3 - 1), null);
     }
 
-    @SinceKotlin(version = "1.5")
-    @k
-    @WasExperimental(markerClass = {ExperimentalUnsignedTypes.class})
+    @d
+    @SinceKotlin(version = "1.3")
+    @ExperimentalUnsignedTypes
     /* renamed from: until-Kr8caGY */
-    public static final UIntRange m1326untilKr8caGY(byte b10, byte b11) {
-        return Intrinsics.compare(b11 & 255, 0) <= 0 ? UIntRange.INSTANCE.getEMPTY() : new UIntRange(UInt.m153constructorimpl(b10 & 255), UInt.m153constructorimpl(UInt.m153constructorimpl(r3) - 1), null);
+    public static final UIntRange m1035untilKr8caGY(byte b2, byte b3) {
+        return Intrinsics.compare(b3 & 255, 0) <= 0 ? UIntRange.INSTANCE.getEMPTY() : new UIntRange(UInt.m168constructorimpl(b2 & 255), UInt.m168constructorimpl(UInt.m168constructorimpl(r3) - 1), null);
     }
 
-    @SinceKotlin(version = "1.5")
-    @k
-    @WasExperimental(markerClass = {ExperimentalUnsignedTypes.class})
+    @d
+    @SinceKotlin(version = "1.3")
+    @ExperimentalUnsignedTypes
     /* renamed from: until-eb3DHEI */
-    public static ULongRange m1327untileb3DHEI(long j10, long j11) {
-        int compare;
-        compare = Long.compare(j11 ^ Long.MIN_VALUE, 0 ^ Long.MIN_VALUE);
-        return compare <= 0 ? ULongRange.INSTANCE.getEMPTY() : new ULongRange(j10, ULong.m232constructorimpl(j11 - ULong.m232constructorimpl(1 & 4294967295L)), null);
+    public static final ULongRange m1036untileb3DHEI(long j2, long j3) {
+        return UnsignedKt.ulongCompare(j3, 0L) <= 0 ? ULongRange.INSTANCE.getEMPTY() : new ULongRange(j2, ULong.m237constructorimpl(j3 - ULong.m237constructorimpl(1 & 4294967295L)), null);
     }
 
-    @SinceKotlin(version = "1.7")
-    @l
-    public static final ULong firstOrNull(@k ULongProgression uLongProgression) {
-        Intrinsics.checkNotNullParameter(uLongProgression, "<this>");
-        if (uLongProgression.isEmpty()) {
-            return null;
-        }
-        return ULong.m226boximpl(uLongProgression.getFirst());
-    }
-
-    @SinceKotlin(version = "1.7")
-    @l
-    public static final ULong lastOrNull(@k ULongProgression uLongProgression) {
-        Intrinsics.checkNotNullParameter(uLongProgression, "<this>");
-        if (uLongProgression.isEmpty()) {
-            return null;
-        }
-        return ULong.m226boximpl(uLongProgression.getLast());
-    }
-
-    @SinceKotlin(version = "1.5")
-    @WasExperimental(markerClass = {ExperimentalUnsignedTypes.class})
+    @SinceKotlin(version = "1.3")
+    @ExperimentalUnsignedTypes
     @InlineOnly
-    private static final long random(ULongRange uLongRange) {
-        Intrinsics.checkNotNullParameter(uLongRange, "<this>");
+    private static final long random(@d ULongRange uLongRange) {
         return random(uLongRange, Random.INSTANCE);
     }
 
-    @SinceKotlin(version = "1.5")
-    @WasExperimental(markerClass = {ExperimentalStdlibApi.class, ExperimentalUnsignedTypes.class})
+    @SinceKotlin(version = "1.3")
+    @ExperimentalStdlibApi
+    @ExperimentalUnsignedTypes
     @InlineOnly
-    private static final ULong randomOrNull(ULongRange uLongRange) {
-        Intrinsics.checkNotNullParameter(uLongRange, "<this>");
+    private static final ULong randomOrNull(@d ULongRange uLongRange) {
         return randomOrNull(uLongRange, Random.INSTANCE);
     }
 
-    @SinceKotlin(version = "1.5")
-    @k
-    @WasExperimental(markerClass = {ExperimentalUnsignedTypes.class})
-    public static final ULongProgression reversed(@k ULongProgression uLongProgression) {
-        Intrinsics.checkNotNullParameter(uLongProgression, "<this>");
-        return ULongProgression.INSTANCE.m1291fromClosedRange7ftBX0g(uLongProgression.getLast(), uLongProgression.getFirst(), -uLongProgression.getStep());
+    @d
+    @SinceKotlin(version = "1.3")
+    @ExperimentalUnsignedTypes
+    public static final ULongProgression reversed(@d ULongProgression reversed) {
+        Intrinsics.checkParameterIsNotNull(reversed, "$this$reversed");
+        return ULongProgression.INSTANCE.m1005fromClosedRange7ftBX0g(reversed.getLast(), reversed.getFirst(), -reversed.getStep());
     }
 
-    @SinceKotlin(version = "1.5")
-    @WasExperimental(markerClass = {ExperimentalUnsignedTypes.class})
-    public static final int random(@k UIntRange uIntRange, @k Random random) {
-        Intrinsics.checkNotNullParameter(uIntRange, "<this>");
-        Intrinsics.checkNotNullParameter(random, "random");
+    @SinceKotlin(version = "1.3")
+    @ExperimentalUnsignedTypes
+    public static final int random(@d UIntRange random, @d Random random2) {
+        Intrinsics.checkParameterIsNotNull(random, "$this$random");
+        Intrinsics.checkParameterIsNotNull(random2, "random");
         try {
-            return URandomKt.nextUInt(random, uIntRange);
-        } catch (IllegalArgumentException e10) {
-            throw new NoSuchElementException(e10.getMessage());
+            return URandomKt.nextUInt(random2, random);
+        } catch (IllegalArgumentException e2) {
+            throw new NoSuchElementException(e2.getMessage());
         }
     }
 
-    @SinceKotlin(version = "1.5")
-    @l
-    @WasExperimental(markerClass = {ExperimentalStdlibApi.class, ExperimentalUnsignedTypes.class})
-    public static final UInt randomOrNull(@k UIntRange uIntRange, @k Random random) {
-        Intrinsics.checkNotNullParameter(uIntRange, "<this>");
-        Intrinsics.checkNotNullParameter(random, "random");
-        if (uIntRange.isEmpty()) {
+    @SinceKotlin(version = "1.3")
+    @ExperimentalStdlibApi
+    @ExperimentalUnsignedTypes
+    @e
+    public static final UInt randomOrNull(@d UIntRange randomOrNull, @d Random random) {
+        Intrinsics.checkParameterIsNotNull(randomOrNull, "$this$randomOrNull");
+        Intrinsics.checkParameterIsNotNull(random, "random");
+        if (randomOrNull.isEmpty()) {
             return null;
         }
-        return UInt.m147boximpl(URandomKt.nextUInt(random, uIntRange));
+        return UInt.m162boximpl(URandomKt.nextUInt(random, randomOrNull));
     }
 
-    @SinceKotlin(version = "1.5")
-    @k
-    @WasExperimental(markerClass = {ExperimentalUnsignedTypes.class})
-    public static final ULongProgression step(@k ULongProgression uLongProgression, long j10) {
-        Intrinsics.checkNotNullParameter(uLongProgression, "<this>");
-        RangesKt__RangesKt.checkStepIsPositive(j10 > 0, Long.valueOf(j10));
+    @d
+    @SinceKotlin(version = "1.3")
+    @ExperimentalUnsignedTypes
+    public static final ULongProgression step(@d ULongProgression step, long j2) {
+        Intrinsics.checkParameterIsNotNull(step, "$this$step");
+        RangesKt__RangesKt.checkStepIsPositive(j2 > 0, Long.valueOf(j2));
         ULongProgression.Companion companion = ULongProgression.INSTANCE;
-        long first = uLongProgression.getFirst();
-        long last = uLongProgression.getLast();
-        if (uLongProgression.getStep() <= 0) {
-            j10 = -j10;
+        long first = step.getFirst();
+        long last = step.getLast();
+        if (step.getStep() <= 0) {
+            j2 = -j2;
         }
-        return companion.m1291fromClosedRange7ftBX0g(first, last, j10);
+        return companion.m1005fromClosedRange7ftBX0g(first, last, j2);
     }
 
-    @SinceKotlin(version = "1.7")
-    public static final long first(@k ULongProgression uLongProgression) {
-        Intrinsics.checkNotNullParameter(uLongProgression, "<this>");
-        if (!uLongProgression.isEmpty()) {
-            return uLongProgression.getFirst();
-        }
-        throw new NoSuchElementException("Progression " + uLongProgression + " is empty.");
-    }
-
-    @SinceKotlin(version = "1.7")
-    public static final long last(@k ULongProgression uLongProgression) {
-        Intrinsics.checkNotNullParameter(uLongProgression, "<this>");
-        if (!uLongProgression.isEmpty()) {
-            return uLongProgression.getLast();
-        }
-        throw new NoSuchElementException("Progression " + uLongProgression + " is empty.");
-    }
-
-    @SinceKotlin(version = "1.5")
-    @WasExperimental(markerClass = {ExperimentalUnsignedTypes.class})
-    public static final long random(@k ULongRange uLongRange, @k Random random) {
-        Intrinsics.checkNotNullParameter(uLongRange, "<this>");
-        Intrinsics.checkNotNullParameter(random, "random");
+    @SinceKotlin(version = "1.3")
+    @ExperimentalUnsignedTypes
+    public static final long random(@d ULongRange random, @d Random random2) {
+        Intrinsics.checkParameterIsNotNull(random, "$this$random");
+        Intrinsics.checkParameterIsNotNull(random2, "random");
         try {
-            return URandomKt.nextULong(random, uLongRange);
-        } catch (IllegalArgumentException e10) {
-            throw new NoSuchElementException(e10.getMessage());
+            return URandomKt.nextULong(random2, random);
+        } catch (IllegalArgumentException e2) {
+            throw new NoSuchElementException(e2.getMessage());
         }
     }
 
-    @SinceKotlin(version = "1.5")
-    @l
-    @WasExperimental(markerClass = {ExperimentalStdlibApi.class, ExperimentalUnsignedTypes.class})
-    public static final ULong randomOrNull(@k ULongRange uLongRange, @k Random random) {
-        Intrinsics.checkNotNullParameter(uLongRange, "<this>");
-        Intrinsics.checkNotNullParameter(random, "random");
-        if (uLongRange.isEmpty()) {
+    @SinceKotlin(version = "1.3")
+    @ExperimentalStdlibApi
+    @ExperimentalUnsignedTypes
+    @e
+    public static final ULong randomOrNull(@d ULongRange randomOrNull, @d Random random) {
+        Intrinsics.checkParameterIsNotNull(randomOrNull, "$this$randomOrNull");
+        Intrinsics.checkParameterIsNotNull(random, "random");
+        if (randomOrNull.isEmpty()) {
             return null;
         }
-        return ULong.m226boximpl(URandomKt.nextULong(random, uLongRange));
+        return ULong.m231boximpl(URandomKt.nextULong(random, randomOrNull));
     }
 }

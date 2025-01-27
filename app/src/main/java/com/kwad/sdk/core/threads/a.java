@@ -4,22 +4,21 @@ import android.os.Handler;
 import android.os.HandlerThread;
 import android.text.TextUtils;
 import androidx.annotation.NonNull;
+import com.kwad.sdk.utils.bm;
 import java.lang.ref.WeakReference;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
-/* loaded from: classes3.dex */
+/* loaded from: classes2.dex */
 public final class a {
-    private static Map<String, WeakReference<C0499a>> aEG = new ConcurrentHashMap();
+    private static Map<String, WeakReference<C0219a>> amk = new ConcurrentHashMap();
 
-    /* renamed from: com.kwad.sdk.core.threads.a$a, reason: collision with other inner class name */
-    public static class C0499a {
-        private HandlerThread aEH;
+    /* renamed from: com.kwad.sdk.core.threads.a$a */
+    public static class C0219a {
+        private HandlerThread aml;
+        private Handler mHandler;
 
-        /* renamed from: hf, reason: collision with root package name */
-        private Handler f11973hf;
-
-        public C0499a(String str) {
+        public C0219a(String str) {
             String str2;
             if (TextUtils.isEmpty(str)) {
                 str2 = "ksad-HT";
@@ -27,40 +26,52 @@ public final class a {
                 str2 = "ksad-" + str;
             }
             HandlerThread handlerThread = new HandlerThread(str2);
-            this.aEH = handlerThread;
+            this.aml = handlerThread;
             handlerThread.start();
-            this.f11973hf = new Handler(this.aEH.getLooper());
+            this.mHandler = new Handler(this.aml.getLooper());
+        }
+
+        public final bm b(bm.a aVar) {
+            return new bm(aVar, this.aml.getLooper());
         }
 
         public final Handler getHandler() {
-            return this.f11973hf;
+            return this.mHandler;
         }
     }
 
-    public static synchronized Handler Hf() {
-        Handler handler;
+    public static synchronized bm a(bm.a aVar) {
+        bm b2;
         synchronized (a.class) {
-            handler = eE("commonHT").getHandler();
+            b2 = cJ("commonHT").b(aVar);
         }
-        return handler;
-    }
-
-    public static synchronized Handler Hg() {
-        Handler handler;
-        synchronized (a.class) {
-            handler = eE("reportHT").getHandler();
-        }
-        return handler;
+        return b2;
     }
 
     @NonNull
-    private static C0499a eE(String str) {
-        WeakReference<C0499a> weakReference = aEG.get(str);
+    private static C0219a cJ(String str) {
+        WeakReference<C0219a> weakReference = amk.get(str);
         if (weakReference != null && weakReference.get() != null) {
             return weakReference.get();
         }
-        C0499a c0499a = new C0499a(str);
-        aEG.put(str, new WeakReference<>(c0499a));
-        return c0499a;
+        C0219a c0219a = new C0219a(str);
+        amk.put(str, new WeakReference<>(c0219a));
+        return c0219a;
+    }
+
+    public static synchronized Handler xI() {
+        Handler handler;
+        synchronized (a.class) {
+            handler = cJ("commonHT").getHandler();
+        }
+        return handler;
+    }
+
+    public static synchronized Handler xJ() {
+        Handler handler;
+        synchronized (a.class) {
+            handler = cJ("reportHT").getHandler();
+        }
+        return handler;
     }
 }

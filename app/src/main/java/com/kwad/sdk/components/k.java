@@ -1,8 +1,8 @@
 package com.kwad.sdk.components;
 
-/* loaded from: classes3.dex */
+/* loaded from: classes2.dex */
 public interface k {
-    j aT(int i10);
+    void onFailed(Throwable th);
 
-    j aY(String str);
+    void onSuccess();
 }

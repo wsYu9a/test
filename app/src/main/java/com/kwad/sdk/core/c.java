@@ -2,7 +2,7 @@ package com.kwad.sdk.core;
 
 import com.kwad.sdk.core.b;
 
-/* loaded from: classes3.dex */
+/* loaded from: classes2.dex */
 public interface c<T extends b> {
-    T Ct();
+    T tU();
 }

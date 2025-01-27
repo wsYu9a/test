@@ -4,12 +4,12 @@ import com.kwad.components.offline.api.core.network.model.NormalOfflineCompoResu
 import com.kwad.sdk.core.network.NormalResultData;
 import com.kwad.sdk.core.network.c;
 
-/* loaded from: classes3.dex */
+/* loaded from: classes2.dex */
 public class NormalResultDataAdapter<T extends NormalOfflineCompoResultData> extends NormalResultData {
     private final T mOfflineCompoResultData;
 
-    public NormalResultDataAdapter(T t10) {
-        this.mOfflineCompoResultData = t10;
+    public NormalResultDataAdapter(T t) {
+        this.mOfflineCompoResultData = t;
     }
 
     public T getOfflineCompoResultData() {

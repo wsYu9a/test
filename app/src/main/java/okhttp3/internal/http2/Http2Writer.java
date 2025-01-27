@@ -1,75 +1,60 @@
 package okhttp3.internal.http2;
 
-import com.bytedance.sdk.openadsdk.downloadnew.core.TTDownloadField;
-import com.bytedance.sdk.openadsdk.mediation.MediationConstant;
-import com.sigmob.sdk.videocache.n;
-import com.sigmob.sdk.videocache.sourcestorage.a;
-import h3.e;
 import java.io.Closeable;
 import java.io.IOException;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import kotlin.Metadata;
-import kotlin.jvm.internal.Intrinsics;
 import okhttp3.internal.Util;
 import okhttp3.internal.http2.Hpack;
 import okio.Buffer;
 import okio.BufferedSink;
-import xi.k;
-import xi.l;
 
-@Metadata(d1 = {"\u0000\\\n\u0002\u0018\u0002\n\u0002\u0018\u0002\n\u0000\n\u0002\u0018\u0002\n\u0000\n\u0002\u0010\u000b\n\u0002\b\u0003\n\u0002\u0018\u0002\n\u0000\n\u0002\u0018\u0002\n\u0002\b\u0003\n\u0002\u0010\b\n\u0000\n\u0002\u0010\u0002\n\u0000\n\u0002\u0018\u0002\n\u0002\b\u0011\n\u0002\u0018\u0002\n\u0000\n\u0002\u0010\u0012\n\u0002\b\u0002\n\u0002\u0010 \n\u0002\u0018\u0002\n\u0002\b\f\n\u0002\u0010\t\n\u0002\b\u0003\u0018\u0000 :2\u00020\u0001:\u0001:B\u0015\u0012\u0006\u0010\u0002\u001a\u00020\u0003\u0012\u0006\u0010\u0004\u001a\u00020\u0005¢\u0006\u0002\u0010\u0006J\u000e\u0010\u0010\u001a\u00020\u00112\u0006\u0010\u0012\u001a\u00020\u0013J\b\u0010\u0014\u001a\u00020\u0011H\u0016J\u0006\u0010\u0015\u001a\u00020\u0011J(\u0010\u0016\u001a\u00020\u00112\u0006\u0010\u0017\u001a\u00020\u00052\u0006\u0010\u0018\u001a\u00020\u000f2\b\u0010\u0019\u001a\u0004\u0018\u00010\t2\u0006\u0010\u001a\u001a\u00020\u000fJ(\u0010\u001b\u001a\u00020\u00112\u0006\u0010\u0018\u001a\u00020\u000f2\u0006\u0010\u001c\u001a\u00020\u000f2\b\u0010\u001d\u001a\u0004\u0018\u00010\t2\u0006\u0010\u001a\u001a\u00020\u000fJ\u0006\u0010\u001e\u001a\u00020\u0011J&\u0010\u001f\u001a\u00020\u00112\u0006\u0010\u0018\u001a\u00020\u000f2\u0006\u0010 \u001a\u00020\u000f2\u0006\u0010!\u001a\u00020\u000f2\u0006\u0010\u001c\u001a\u00020\u000fJ\u001e\u0010\"\u001a\u00020\u00112\u0006\u0010#\u001a\u00020\u000f2\u0006\u0010$\u001a\u00020%2\u0006\u0010&\u001a\u00020'J$\u0010(\u001a\u00020\u00112\u0006\u0010\u0017\u001a\u00020\u00052\u0006\u0010\u0018\u001a\u00020\u000f2\f\u0010)\u001a\b\u0012\u0004\u0012\u00020+0*J\u0006\u0010,\u001a\u00020\u000fJ\u001e\u0010-\u001a\u00020\u00112\u0006\u0010.\u001a\u00020\u00052\u0006\u0010/\u001a\u00020\u000f2\u0006\u00100\u001a\u00020\u000fJ$\u00101\u001a\u00020\u00112\u0006\u0010\u0018\u001a\u00020\u000f2\u0006\u00102\u001a\u00020\u000f2\f\u00103\u001a\b\u0012\u0004\u0012\u00020+0*J\u0016\u00104\u001a\u00020\u00112\u0006\u0010\u0018\u001a\u00020\u000f2\u0006\u0010$\u001a\u00020%J\u000e\u00105\u001a\u00020\u00112\u0006\u00105\u001a\u00020\u0013J\u0016\u00106\u001a\u00020\u00112\u0006\u0010\u0018\u001a\u00020\u000f2\u0006\u00107\u001a\u000208J\u0018\u00109\u001a\u00020\u00112\u0006\u0010\u0018\u001a\u00020\u000f2\u0006\u0010\u001a\u001a\u000208H\u0002R\u000e\u0010\u0004\u001a\u00020\u0005X\u0082\u0004¢\u0006\u0002\n\u0000R\u000e\u0010\u0007\u001a\u00020\u0005X\u0082\u000e¢\u0006\u0002\n\u0000R\u000e\u0010\b\u001a\u00020\tX\u0082\u0004¢\u0006\u0002\n\u0000R\u0011\u0010\n\u001a\u00020\u000b¢\u0006\b\n\u0000\u001a\u0004\b\f\u0010\rR\u000e\u0010\u000e\u001a\u00020\u000fX\u0082\u000e¢\u0006\u0002\n\u0000R\u000e\u0010\u0002\u001a\u00020\u0003X\u0082\u0004¢\u0006\u0002\n\u0000¨\u0006;"}, d2 = {"Lokhttp3/internal/http2/Http2Writer;", "Ljava/io/Closeable;", "sink", "Lokio/BufferedSink;", "client", "", "(Lokio/BufferedSink;Z)V", "closed", "hpackBuffer", "Lokio/Buffer;", "hpackWriter", "Lokhttp3/internal/http2/Hpack$Writer;", "getHpackWriter", "()Lokhttp3/internal/http2/Hpack$Writer;", "maxFrameSize", "", "applyAndAckSettings", "", "peerSettings", "Lokhttp3/internal/http2/Settings;", "close", "connectionPreface", e.f26408m, "outFinished", "streamId", "source", "byteCount", "dataFrame", "flags", "buffer", "flush", "frameHeader", a.f20681d, "type", "goAway", "lastGoodStreamId", MediationConstant.KEY_ERROR_CODE, "Lokhttp3/internal/http2/ErrorCode;", "debugData", "", TTDownloadField.TT_HEADERS, "headerBlock", "", "Lokhttp3/internal/http2/Header;", "maxDataLength", n.f20655d, "ack", "payload1", "payload2", "pushPromise", "promisedStreamId", "requestHeaders", "rstStream", "settings", "windowUpdate", "windowSizeIncrement", "", "writeContinuationFrames", "Companion", "okhttp"}, k = 1, mv = {1, 6, 0}, xi = 48)
-/* loaded from: classes4.dex */
-public final class Http2Writer implements Closeable {
+/* loaded from: classes5.dex */
+final class Http2Writer implements Closeable {
     private static final Logger logger = Logger.getLogger(Http2.class.getName());
     private final boolean client;
     private boolean closed;
-
-    @k
     private final Buffer hpackBuffer;
-
-    @k
-    private final Hpack.Writer hpackWriter;
+    final Hpack.Writer hpackWriter;
     private int maxFrameSize;
-
-    @k
     private final BufferedSink sink;
 
-    public Http2Writer(@k BufferedSink sink, boolean z10) {
-        Intrinsics.checkNotNullParameter(sink, "sink");
-        this.sink = sink;
-        this.client = z10;
+    Http2Writer(BufferedSink bufferedSink, boolean z) {
+        this.sink = bufferedSink;
+        this.client = z;
         Buffer buffer = new Buffer();
         this.hpackBuffer = buffer;
+        this.hpackWriter = new Hpack.Writer(buffer);
         this.maxFrameSize = 16384;
-        this.hpackWriter = new Hpack.Writer(0, false, buffer, 3, null);
     }
 
-    private final void writeContinuationFrames(int streamId, long byteCount) throws IOException {
-        while (byteCount > 0) {
-            long min = Math.min(this.maxFrameSize, byteCount);
-            byteCount -= min;
-            frameHeader(streamId, (int) min, 9, byteCount == 0 ? 4 : 0);
-            this.sink.write(this.hpackBuffer, min);
+    private void writeContinuationFrames(int i2, long j2) throws IOException {
+        while (j2 > 0) {
+            int min = (int) Math.min(this.maxFrameSize, j2);
+            long j3 = min;
+            j2 -= j3;
+            frameHeader(i2, min, (byte) 9, j2 == 0 ? (byte) 4 : (byte) 0);
+            this.sink.write(this.hpackBuffer, j3);
         }
     }
 
-    public final synchronized void applyAndAckSettings(@k Settings peerSettings) throws IOException {
-        try {
-            Intrinsics.checkNotNullParameter(peerSettings, "peerSettings");
-            if (this.closed) {
-                throw new IOException("closed");
-            }
-            this.maxFrameSize = peerSettings.getMaxFrameSize(this.maxFrameSize);
-            if (peerSettings.getHeaderTableSize() != -1) {
-                this.hpackWriter.resizeHeaderTable(peerSettings.getHeaderTableSize());
-            }
-            frameHeader(0, 0, 4, 1);
-            this.sink.flush();
-        } catch (Throwable th2) {
-            throw th2;
+    private static void writeMedium(BufferedSink bufferedSink, int i2) throws IOException {
+        bufferedSink.writeByte((i2 >>> 16) & 255);
+        bufferedSink.writeByte((i2 >>> 8) & 255);
+        bufferedSink.writeByte(i2 & 255);
+    }
+
+    public synchronized void applyAndAckSettings(Settings settings) throws IOException {
+        if (this.closed) {
+            throw new IOException("closed");
         }
+        this.maxFrameSize = settings.getMaxFrameSize(this.maxFrameSize);
+        if (settings.getHeaderTableSize() != -1) {
+            this.hpackWriter.setHeaderTableSizeSetting(settings.getHeaderTableSize());
+        }
+        frameHeader(0, 0, (byte) 4, (byte) 1);
+        this.sink.flush();
     }
 
     @Override // java.io.Closeable, java.lang.AutoCloseable
@@ -78,186 +63,184 @@ public final class Http2Writer implements Closeable {
         this.sink.close();
     }
 
-    public final synchronized void connectionPreface() throws IOException {
-        try {
-            if (this.closed) {
-                throw new IOException("closed");
-            }
-            if (this.client) {
-                Logger logger2 = logger;
-                if (logger2.isLoggable(Level.FINE)) {
-                    logger2.fine(Util.format(Intrinsics.stringPlus(">> CONNECTION ", Http2.CONNECTION_PREFACE.hex()), new Object[0]));
-                }
-                this.sink.write(Http2.CONNECTION_PREFACE);
-                this.sink.flush();
-            }
-        } catch (Throwable th2) {
-            throw th2;
-        }
-    }
-
-    public final synchronized void data(boolean z10, int i10, @l Buffer buffer, int i11) throws IOException {
+    public synchronized void connectionPreface() throws IOException {
         if (this.closed) {
             throw new IOException("closed");
         }
-        dataFrame(i10, z10 ? 1 : 0, buffer, i11);
-    }
-
-    public final void dataFrame(int streamId, int flags, @l Buffer buffer, int byteCount) throws IOException {
-        frameHeader(streamId, byteCount, 0, flags);
-        if (byteCount > 0) {
-            BufferedSink bufferedSink = this.sink;
-            Intrinsics.checkNotNull(buffer);
-            bufferedSink.write(buffer, byteCount);
+        if (this.client) {
+            Logger logger2 = logger;
+            if (logger2.isLoggable(Level.FINE)) {
+                logger2.fine(Util.format(">> CONNECTION %s", Http2.CONNECTION_PREFACE.hex()));
+            }
+            this.sink.write(Http2.CONNECTION_PREFACE.toByteArray());
+            this.sink.flush();
         }
     }
 
-    public final synchronized void flush() throws IOException {
+    public synchronized void data(boolean z, int i2, Buffer buffer, int i3) throws IOException {
+        if (this.closed) {
+            throw new IOException("closed");
+        }
+        dataFrame(i2, z ? (byte) 1 : (byte) 0, buffer, i3);
+    }
+
+    void dataFrame(int i2, byte b2, Buffer buffer, int i3) throws IOException {
+        frameHeader(i2, i3, (byte) 0, b2);
+        if (i3 > 0) {
+            this.sink.write(buffer, i3);
+        }
+    }
+
+    public synchronized void flush() throws IOException {
         if (this.closed) {
             throw new IOException("closed");
         }
         this.sink.flush();
     }
 
-    public final void frameHeader(int streamId, int r10, int type, int flags) throws IOException {
+    public void frameHeader(int i2, int i3, byte b2, byte b3) throws IOException {
         Logger logger2 = logger;
         if (logger2.isLoggable(Level.FINE)) {
-            logger2.fine(Http2.INSTANCE.frameLog(false, streamId, r10, type, flags));
+            logger2.fine(Http2.frameLog(false, i2, i3, b2, b3));
         }
-        if (r10 > this.maxFrameSize) {
-            throw new IllegalArgumentException(("FRAME_SIZE_ERROR length > " + this.maxFrameSize + ": " + r10).toString());
+        int i4 = this.maxFrameSize;
+        if (i3 > i4) {
+            throw Http2.illegalArgument("FRAME_SIZE_ERROR length > %d: %d", Integer.valueOf(i4), Integer.valueOf(i3));
         }
-        if ((Integer.MIN_VALUE & streamId) != 0) {
-            throw new IllegalArgumentException(Intrinsics.stringPlus("reserved bit set: ", Integer.valueOf(streamId)).toString());
+        if ((Integer.MIN_VALUE & i2) != 0) {
+            throw Http2.illegalArgument("reserved bit set: %s", Integer.valueOf(i2));
         }
-        Util.writeMedium(this.sink, r10);
-        this.sink.writeByte(type & 255);
-        this.sink.writeByte(flags & 255);
-        this.sink.writeInt(streamId & Integer.MAX_VALUE);
+        writeMedium(this.sink, i3);
+        this.sink.writeByte(b2 & 255);
+        this.sink.writeByte(b3 & 255);
+        this.sink.writeInt(i2 & Integer.MAX_VALUE);
     }
 
-    @k
-    public final Hpack.Writer getHpackWriter() {
-        return this.hpackWriter;
-    }
-
-    public final synchronized void goAway(int lastGoodStreamId, @k ErrorCode r52, @k byte[] debugData) throws IOException {
-        try {
-            Intrinsics.checkNotNullParameter(r52, "errorCode");
-            Intrinsics.checkNotNullParameter(debugData, "debugData");
-            if (this.closed) {
-                throw new IOException("closed");
-            }
-            if (r52.getHttpCode() == -1) {
-                throw new IllegalArgumentException("errorCode.httpCode == -1".toString());
-            }
-            frameHeader(0, debugData.length + 8, 7, 0);
-            this.sink.writeInt(lastGoodStreamId);
-            this.sink.writeInt(r52.getHttpCode());
-            if (!(debugData.length == 0)) {
-                this.sink.write(debugData);
-            }
-            this.sink.flush();
-        } catch (Throwable th2) {
-            throw th2;
-        }
-    }
-
-    public final synchronized void headers(boolean z10, int i10, @k List<Header> headerBlock) throws IOException {
-        Intrinsics.checkNotNullParameter(headerBlock, "headerBlock");
+    public synchronized void goAway(int i2, ErrorCode errorCode, byte[] bArr) throws IOException {
         if (this.closed) {
             throw new IOException("closed");
         }
-        this.hpackWriter.writeHeaders(headerBlock);
-        long size = this.hpackBuffer.size();
-        long min = Math.min(this.maxFrameSize, size);
-        int i11 = size == min ? 4 : 0;
-        if (z10) {
-            i11 |= 1;
+        if (errorCode.httpCode == -1) {
+            throw Http2.illegalArgument("errorCode.httpCode == -1", new Object[0]);
         }
-        frameHeader(i10, (int) min, 1, i11);
-        this.sink.write(this.hpackBuffer, min);
-        if (size > min) {
-            writeContinuationFrames(i10, size - min);
+        frameHeader(0, bArr.length + 8, (byte) 7, (byte) 0);
+        this.sink.writeInt(i2);
+        this.sink.writeInt(errorCode.httpCode);
+        if (bArr.length > 0) {
+            this.sink.write(bArr);
         }
+        this.sink.flush();
     }
 
-    /* renamed from: maxDataLength, reason: from getter */
-    public final int getMaxFrameSize() {
+    public synchronized void headers(int i2, List<Header> list) throws IOException {
+        if (this.closed) {
+            throw new IOException("closed");
+        }
+        headers(false, i2, list);
+    }
+
+    public int maxDataLength() {
         return this.maxFrameSize;
     }
 
-    public final synchronized void ping(boolean z10, int i10, int i11) throws IOException {
+    public synchronized void ping(boolean z, int i2, int i3) throws IOException {
         if (this.closed) {
             throw new IOException("closed");
         }
-        frameHeader(0, 8, 6, z10 ? 1 : 0);
-        this.sink.writeInt(i10);
-        this.sink.writeInt(i11);
+        frameHeader(0, 8, (byte) 6, z ? (byte) 1 : (byte) 0);
+        this.sink.writeInt(i2);
+        this.sink.writeInt(i3);
         this.sink.flush();
     }
 
-    public final synchronized void pushPromise(int streamId, int promisedStreamId, @k List<Header> requestHeaders) throws IOException {
-        Intrinsics.checkNotNullParameter(requestHeaders, "requestHeaders");
+    public synchronized void pushPromise(int i2, int i3, List<Header> list) throws IOException {
         if (this.closed) {
             throw new IOException("closed");
         }
-        this.hpackWriter.writeHeaders(requestHeaders);
+        this.hpackWriter.writeHeaders(list);
         long size = this.hpackBuffer.size();
         int min = (int) Math.min(this.maxFrameSize - 4, size);
-        long j10 = min;
-        frameHeader(streamId, min + 4, 5, size == j10 ? 4 : 0);
-        this.sink.writeInt(promisedStreamId & Integer.MAX_VALUE);
-        this.sink.write(this.hpackBuffer, j10);
-        if (size > j10) {
-            writeContinuationFrames(streamId, size - j10);
+        long j2 = min;
+        frameHeader(i2, min + 4, (byte) 5, size == j2 ? (byte) 4 : (byte) 0);
+        this.sink.writeInt(i3 & Integer.MAX_VALUE);
+        this.sink.write(this.hpackBuffer, j2);
+        if (size > j2) {
+            writeContinuationFrames(i2, size - j2);
         }
     }
 
-    public final synchronized void rstStream(int streamId, @k ErrorCode r52) throws IOException {
-        Intrinsics.checkNotNullParameter(r52, "errorCode");
+    public synchronized void rstStream(int i2, ErrorCode errorCode) throws IOException {
         if (this.closed) {
             throw new IOException("closed");
         }
-        if (r52.getHttpCode() == -1) {
-            throw new IllegalArgumentException("Failed requirement.".toString());
+        if (errorCode.httpCode == -1) {
+            throw new IllegalArgumentException();
         }
-        frameHeader(streamId, 4, 3, 0);
-        this.sink.writeInt(r52.getHttpCode());
+        frameHeader(i2, 4, (byte) 3, (byte) 0);
+        this.sink.writeInt(errorCode.httpCode);
         this.sink.flush();
     }
 
-    public final synchronized void settings(@k Settings settings) throws IOException {
-        try {
-            Intrinsics.checkNotNullParameter(settings, "settings");
-            if (this.closed) {
-                throw new IOException("closed");
-            }
-            int i10 = 0;
-            frameHeader(0, settings.size() * 6, 4, 0);
-            while (i10 < 10) {
-                int i11 = i10 + 1;
-                if (settings.isSet(i10)) {
-                    this.sink.writeShort(i10 != 4 ? i10 != 7 ? i10 : 4 : 3);
-                    this.sink.writeInt(settings.get(i10));
-                }
-                i10 = i11;
-            }
-            this.sink.flush();
-        } catch (Throwable th2) {
-            throw th2;
-        }
-    }
-
-    public final synchronized void windowUpdate(int streamId, long windowSizeIncrement) throws IOException {
+    public synchronized void settings(Settings settings) throws IOException {
         if (this.closed) {
             throw new IOException("closed");
         }
-        if (windowSizeIncrement == 0 || windowSizeIncrement > 2147483647L) {
-            throw new IllegalArgumentException(Intrinsics.stringPlus("windowSizeIncrement == 0 || windowSizeIncrement > 0x7fffffffL: ", Long.valueOf(windowSizeIncrement)).toString());
+        int i2 = 0;
+        frameHeader(0, settings.size() * 6, (byte) 4, (byte) 0);
+        while (i2 < 10) {
+            if (settings.isSet(i2)) {
+                this.sink.writeShort(i2 == 4 ? 3 : i2 == 7 ? 4 : i2);
+                this.sink.writeInt(settings.get(i2));
+            }
+            i2++;
         }
-        frameHeader(streamId, 4, 8, 0);
-        this.sink.writeInt((int) windowSizeIncrement);
         this.sink.flush();
+    }
+
+    public synchronized void synReply(boolean z, int i2, List<Header> list) throws IOException {
+        if (this.closed) {
+            throw new IOException("closed");
+        }
+        headers(z, i2, list);
+    }
+
+    public synchronized void synStream(boolean z, int i2, int i3, List<Header> list) throws IOException {
+        if (this.closed) {
+            throw new IOException("closed");
+        }
+        headers(z, i2, list);
+    }
+
+    public synchronized void windowUpdate(int i2, long j2) throws IOException {
+        if (this.closed) {
+            throw new IOException("closed");
+        }
+        if (j2 == 0 || j2 > 2147483647L) {
+            throw Http2.illegalArgument("windowSizeIncrement == 0 || windowSizeIncrement > 0x7fffffffL: %s", Long.valueOf(j2));
+        }
+        frameHeader(i2, 4, (byte) 8, (byte) 0);
+        this.sink.writeInt((int) j2);
+        this.sink.flush();
+    }
+
+    void headers(boolean z, int i2, List<Header> list) throws IOException {
+        if (!this.closed) {
+            this.hpackWriter.writeHeaders(list);
+            long size = this.hpackBuffer.size();
+            int min = (int) Math.min(this.maxFrameSize, size);
+            long j2 = min;
+            byte b2 = size == j2 ? (byte) 4 : (byte) 0;
+            if (z) {
+                b2 = (byte) (b2 | 1);
+            }
+            frameHeader(i2, min, (byte) 1, b2);
+            this.sink.write(this.hpackBuffer, j2);
+            if (size > j2) {
+                writeContinuationFrames(i2, size - j2);
+                return;
+            }
+            return;
+        }
+        throw new IOException("closed");
     }
 }

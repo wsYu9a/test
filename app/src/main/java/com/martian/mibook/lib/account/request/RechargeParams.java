@@ -1,6 +1,6 @@
 package com.martian.mibook.lib.account.request;
 
-import v8.a;
+import com.martian.libcomm.http.requests.d.a;
 
 /* loaded from: classes3.dex */
 public class RechargeParams extends TYBookHttpGetParams {
@@ -39,7 +39,7 @@ public class RechargeParams extends TYBookHttpGetParams {
         return this.price;
     }
 
-    @Override // u8.b
+    @Override // com.martian.libcomm.http.requests.b
     public String getRequestMethod() {
         return "recharge";
     }
@@ -52,27 +52,27 @@ public class RechargeParams extends TYBookHttpGetParams {
         return this.sourceName;
     }
 
-    public void setBookName(String str) {
-        this.bookName = str;
+    public void setBookName(String bookName) {
+        this.bookName = bookName;
     }
 
-    public void setMethod(Integer num) {
-        this.method = num;
+    public void setMethod(Integer method) {
+        this.method = method;
     }
 
-    public void setNight_mode(Boolean bool) {
-        this.night_mode = bool;
+    public void setNight_mode(Boolean night_mode) {
+        this.night_mode = night_mode;
     }
 
-    public void setPrice(Integer num) {
-        this.price = num;
+    public void setPrice(Integer price) {
+        this.price = price;
     }
 
-    public void setSourceId(String str) {
-        this.sourceId = str;
+    public void setSourceId(String sourceId) {
+        this.sourceId = sourceId;
     }
 
-    public void setSourceName(String str) {
-        this.sourceName = str;
+    public void setSourceName(String sourceName) {
+        this.sourceName = sourceName;
     }
 }

@@ -1,111 +1,117 @@
 package com.bytedance.pangle.util.a;
 
-/* loaded from: classes2.dex */
+/* loaded from: classes.dex */
 public final class a {
-    /* JADX WARN: Removed duplicated region for block: B:37:0x00b0  */
+    /* JADX WARN: Removed duplicated region for block: B:38:0x00b6  */
     /*
         Code decompiled incorrectly, please refer to instructions dump.
         To view partially-correct code enable 'Show inconsistent code' option in preferences
     */
-    public static java.lang.String[] a(java.io.File r10) {
+    public static java.lang.String[] a(java.io.File r11) {
         /*
             java.lang.String r0 = ""
-            r1 = 0
-            java.util.zip.ZipFile r2 = new java.util.zip.ZipFile     // Catch: java.lang.Throwable -> L9f java.lang.Exception -> La4
-            r2.<init>(r10)     // Catch: java.lang.Throwable -> L9f java.lang.Exception -> La4
-            java.util.Enumeration r10 = r2.entries()     // Catch: java.lang.Throwable -> L62 java.lang.Exception -> L9d
-            java.util.ArrayList r1 = new java.util.ArrayList     // Catch: java.lang.Throwable -> L62 java.lang.Exception -> L9d
-            r1.<init>()     // Catch: java.lang.Throwable -> L62 java.lang.Exception -> L9d
+            r1 = 1
+            r2 = 0
             r3 = 0
-            r4 = 0
+            java.util.zip.ZipFile r4 = new java.util.zip.ZipFile     // Catch: java.lang.Throwable -> La0 java.lang.Exception -> La5
+            r4.<init>(r11)     // Catch: java.lang.Throwable -> La0 java.lang.Exception -> La5
+            java.util.Enumeration r11 = r4.entries()     // Catch: java.lang.Throwable -> L9b java.lang.Exception -> L9e
+            java.util.ArrayList r3 = new java.util.ArrayList     // Catch: java.lang.Throwable -> L9b java.lang.Exception -> L9e
+            r3.<init>()     // Catch: java.lang.Throwable -> L9b java.lang.Exception -> L9e
             r5 = 0
-        L14:
-            boolean r6 = r10.hasMoreElements()     // Catch: java.lang.Throwable -> L62 java.lang.Exception -> L9d
-            if (r6 == 0) goto L65
-            java.lang.Object r6 = r10.nextElement()     // Catch: java.lang.Throwable -> L62 java.lang.Exception -> L9d
-            java.util.zip.ZipEntry r6 = (java.util.zip.ZipEntry) r6     // Catch: java.lang.Throwable -> L62 java.lang.Exception -> L9d
-            java.lang.String r7 = r6.getName()     // Catch: java.lang.Throwable -> L62 java.lang.Exception -> L9d
-            java.lang.String r8 = "META-INF/"
-            boolean r7 = r7.startsWith(r8)     // Catch: java.lang.Throwable -> L62 java.lang.Exception -> L9d
-            if (r7 == 0) goto L14
-            java.lang.String r7 = r6.getName()     // Catch: java.lang.Throwable -> L62 java.lang.Exception -> L9d
-            java.lang.String r8 = "MANIFEST.MF"
-            boolean r7 = r7.endsWith(r8)     // Catch: java.lang.Throwable -> L62 java.lang.Exception -> L9d
-            r8 = 1
-            if (r7 == 0) goto L3b
+            r6 = 0
+            r7 = 0
+        L16:
+            boolean r8 = r11.hasMoreElements()     // Catch: java.lang.Throwable -> L9b java.lang.Exception -> L9e
+            if (r8 == 0) goto L63
+            java.lang.Object r8 = r11.nextElement()     // Catch: java.lang.Throwable -> L9b java.lang.Exception -> L9e
+            java.util.zip.ZipEntry r8 = (java.util.zip.ZipEntry) r8     // Catch: java.lang.Throwable -> L9b java.lang.Exception -> L9e
+            java.lang.String r9 = r8.getName()     // Catch: java.lang.Throwable -> L9b java.lang.Exception -> L9e
+            java.lang.String r10 = "META-INF/"
+            boolean r9 = r9.startsWith(r10)     // Catch: java.lang.Throwable -> L9b java.lang.Exception -> L9e
+            if (r9 == 0) goto L16
+            java.lang.String r9 = r8.getName()     // Catch: java.lang.Throwable -> L9b java.lang.Exception -> L9e
+            java.lang.String r10 = "MANIFEST.MF"
+            boolean r9 = r9.endsWith(r10)     // Catch: java.lang.Throwable -> L9b java.lang.Exception -> L9e
+            if (r9 == 0) goto L3c
+            r7 = 1
+            goto L57
+        L3c:
+            java.lang.String r9 = r8.getName()     // Catch: java.lang.Throwable -> L9b java.lang.Exception -> L9e
+            java.lang.String r10 = ".SF"
+            boolean r9 = r9.endsWith(r10)     // Catch: java.lang.Throwable -> L9b java.lang.Exception -> L9e
+            if (r9 == 0) goto L4a
             r5 = 1
-            goto L56
-        L3b:
-            java.lang.String r7 = r6.getName()     // Catch: java.lang.Throwable -> L62 java.lang.Exception -> L9d
-            java.lang.String r9 = ".SF"
-            boolean r7 = r7.endsWith(r9)     // Catch: java.lang.Throwable -> L62 java.lang.Exception -> L9d
-            if (r7 == 0) goto L49
-            r3 = 1
-            goto L56
-        L49:
-            java.lang.String r7 = r6.getName()     // Catch: java.lang.Throwable -> L62 java.lang.Exception -> L9d
-            java.lang.String r9 = ".RSA"
-            boolean r7 = r7.endsWith(r9)     // Catch: java.lang.Throwable -> L62 java.lang.Exception -> L9d
-            if (r7 == 0) goto L56
-            r4 = 1
-        L56:
-            long r6 = r6.getCrc()     // Catch: java.lang.Throwable -> L62 java.lang.Exception -> L9d
-            java.lang.Long r6 = java.lang.Long.valueOf(r6)     // Catch: java.lang.Throwable -> L62 java.lang.Exception -> L9d
-            r1.add(r6)     // Catch: java.lang.Throwable -> L62 java.lang.Exception -> L9d
-            goto L14
-        L62:
-            r10 = move-exception
-            r1 = r2
-            goto La0
-        L65:
-            java.util.Comparator r10 = java.util.Collections.reverseOrder()     // Catch: java.lang.Throwable -> L62 java.lang.Exception -> L9d
-            java.util.Collections.sort(r1, r10)     // Catch: java.lang.Throwable -> L62 java.lang.Exception -> L9d
-            java.lang.StringBuilder r10 = new java.lang.StringBuilder     // Catch: java.lang.Throwable -> L62 java.lang.Exception -> L9d
-            r10.<init>()     // Catch: java.lang.Throwable -> L62 java.lang.Exception -> L9d
-            java.util.Iterator r1 = r1.iterator()     // Catch: java.lang.Throwable -> L62 java.lang.Exception -> L9d
-        L75:
-            boolean r6 = r1.hasNext()     // Catch: java.lang.Throwable -> L62 java.lang.Exception -> L9d
-            if (r6 == 0) goto L85
-            java.lang.Object r6 = r1.next()     // Catch: java.lang.Throwable -> L62 java.lang.Exception -> L9d
-            java.lang.Long r6 = (java.lang.Long) r6     // Catch: java.lang.Throwable -> L62 java.lang.Exception -> L9d
-            r10.append(r6)     // Catch: java.lang.Throwable -> L62 java.lang.Exception -> L9d
-            goto L75
-        L85:
-            if (r5 == 0) goto L95
-            if (r3 == 0) goto L95
-            if (r4 == 0) goto L95
-            java.lang.String r10 = r10.toString()     // Catch: java.lang.Throwable -> L62 java.lang.Exception -> L9d
-            java.lang.String r10 = com.bytedance.pangle.util.f.a(r10)     // Catch: java.lang.Throwable -> L62 java.lang.Exception -> L9d
-            r1 = r0
-            goto L99
-        L95:
-            java.lang.String r10 = "without v1 signature."
-            r1 = r10
-            r10 = r0
-        L99:
-            com.bytedance.pangle.util.a.c.a(r2)
-            goto La9
-        L9d:
-            r1 = r2
-            goto La4
-        L9f:
-            r10 = move-exception
+            goto L57
+        L4a:
+            java.lang.String r9 = r8.getName()     // Catch: java.lang.Throwable -> L9b java.lang.Exception -> L9e
+            java.lang.String r10 = ".RSA"
+            boolean r9 = r9.endsWith(r10)     // Catch: java.lang.Throwable -> L9b java.lang.Exception -> L9e
+            if (r9 == 0) goto L57
+            r6 = 1
+        L57:
+            long r8 = r8.getCrc()     // Catch: java.lang.Throwable -> L9b java.lang.Exception -> L9e
+            java.lang.Long r8 = java.lang.Long.valueOf(r8)     // Catch: java.lang.Throwable -> L9b java.lang.Exception -> L9e
+            r3.add(r8)     // Catch: java.lang.Throwable -> L9b java.lang.Exception -> L9e
+            goto L16
+        L63:
+            java.util.Comparator r11 = java.util.Collections.reverseOrder()     // Catch: java.lang.Throwable -> L9b java.lang.Exception -> L9e
+            java.util.Collections.sort(r3, r11)     // Catch: java.lang.Throwable -> L9b java.lang.Exception -> L9e
+            java.lang.StringBuilder r11 = new java.lang.StringBuilder     // Catch: java.lang.Throwable -> L9b java.lang.Exception -> L9e
+            r11.<init>()     // Catch: java.lang.Throwable -> L9b java.lang.Exception -> L9e
+            java.util.Iterator r3 = r3.iterator()     // Catch: java.lang.Throwable -> L9b java.lang.Exception -> L9e
+        L73:
+            boolean r8 = r3.hasNext()     // Catch: java.lang.Throwable -> L9b java.lang.Exception -> L9e
+            if (r8 == 0) goto L83
+            java.lang.Object r8 = r3.next()     // Catch: java.lang.Throwable -> L9b java.lang.Exception -> L9e
+            java.lang.Long r8 = (java.lang.Long) r8     // Catch: java.lang.Throwable -> L9b java.lang.Exception -> L9e
+            r11.append(r8)     // Catch: java.lang.Throwable -> L9b java.lang.Exception -> L9e
+            goto L73
+        L83:
+            if (r7 == 0) goto L93
+            if (r5 == 0) goto L93
+            if (r6 == 0) goto L93
+            java.lang.String r11 = r11.toString()     // Catch: java.lang.Throwable -> L9b java.lang.Exception -> L9e
+            java.lang.String r11 = com.bytedance.pangle.util.f.a(r11)     // Catch: java.lang.Throwable -> L9b java.lang.Exception -> L9e
+            r3 = r0
+            goto L97
+        L93:
+            java.lang.String r11 = "without v1 signature."
+            r3 = r11
+            r11 = r0
+        L97:
+            com.bytedance.pangle.util.a.c.a(r4)
+            goto Laa
+        L9b:
+            r11 = move-exception
+            r3 = r4
+            goto La1
+        L9e:
+            r3 = r4
+            goto La5
         La0:
-            com.bytedance.pangle.util.a.c.a(r1)
-            throw r10
-        La4:
-            com.bytedance.pangle.util.a.c.a(r1)
-            r10 = r0
-            r1 = r10
-        La9:
-            boolean r2 = android.text.TextUtils.isEmpty(r10)
-            if (r2 == 0) goto Lb0
-            goto Lb2
-        Lb0:
+            r11 = move-exception
+        La1:
+            com.bytedance.pangle.util.a.c.a(r3)
+            throw r11
+        La5:
+            com.bytedance.pangle.util.a.c.a(r3)
+            r11 = r0
+            r3 = r11
+        Laa:
+            r4 = 3
+            java.lang.String[] r4 = new java.lang.String[r4]
+            r4[r2] = r11
+            boolean r11 = android.text.TextUtils.isEmpty(r11)
+            if (r11 == 0) goto Lb6
+            goto Lb8
+        Lb6:
             java.lang.String r0 = "V1"
-        Lb2:
-            java.lang.String[] r10 = new java.lang.String[]{r10, r0, r1}
-            return r10
+        Lb8:
+            r4[r1] = r0
+            r11 = 2
+            r4[r11] = r3
+            return r4
         */
         throw new UnsupportedOperationException("Method not decompiled: com.bytedance.pangle.util.a.a.a(java.io.File):java.lang.String[]");
     }

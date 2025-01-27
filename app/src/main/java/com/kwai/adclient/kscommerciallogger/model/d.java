@@ -1,11 +1,11 @@
 package com.kwai.adclient.kscommerciallogger.model;
 
-/* loaded from: classes3.dex */
+/* loaded from: classes2.dex */
 public class d {
-    public static final d aYW = new d("OTHER");
+    public static final d aEG = new d("OTHER");
     private final String value;
 
-    public d(String str) {
+    d(String str) {
         this.value = str;
     }
 

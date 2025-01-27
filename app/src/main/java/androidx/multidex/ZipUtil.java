@@ -9,62 +9,77 @@ import java.util.zip.ZipException;
 
 /* loaded from: classes.dex */
 final class ZipUtil {
-    private static final int BUFFER_SIZE = 16384;
-    private static final int ENDHDR = 22;
-    private static final int ENDSIG = 101010256;
 
-    public static class CentralDirectory {
-        long offset;
-        long size;
+    /* renamed from: a, reason: collision with root package name */
+    private static final int f2914a = 22;
+
+    /* renamed from: b, reason: collision with root package name */
+    private static final int f2915b = 101010256;
+
+    /* renamed from: c, reason: collision with root package name */
+    private static final int f2916c = 16384;
+
+    static class CentralDirectory {
+
+        /* renamed from: a, reason: collision with root package name */
+        long f2917a;
+
+        /* renamed from: b, reason: collision with root package name */
+        long f2918b;
+
+        CentralDirectory() {
+        }
     }
 
-    public static long computeCrcOfCentralDir(RandomAccessFile randomAccessFile, CentralDirectory centralDirectory) throws IOException {
+    ZipUtil() {
+    }
+
+    static long a(RandomAccessFile randomAccessFile, CentralDirectory centralDirectory) throws IOException {
         CRC32 crc32 = new CRC32();
-        long j10 = centralDirectory.size;
-        randomAccessFile.seek(centralDirectory.offset);
+        long j2 = centralDirectory.f2918b;
+        randomAccessFile.seek(centralDirectory.f2917a);
         byte[] bArr = new byte[16384];
-        int read = randomAccessFile.read(bArr, 0, (int) Math.min(16384L, j10));
+        int read = randomAccessFile.read(bArr, 0, (int) Math.min(16384L, j2));
         while (read != -1) {
             crc32.update(bArr, 0, read);
-            j10 -= read;
-            if (j10 == 0) {
+            j2 -= read;
+            if (j2 == 0) {
                 break;
             }
-            read = randomAccessFile.read(bArr, 0, (int) Math.min(16384L, j10));
+            read = randomAccessFile.read(bArr, 0, (int) Math.min(16384L, j2));
         }
         return crc32.getValue();
     }
 
-    public static CentralDirectory findCentralDirectory(RandomAccessFile randomAccessFile) throws IOException, ZipException {
-        long length = randomAccessFile.length();
-        long j10 = length - 22;
-        if (j10 < 0) {
+    static CentralDirectory b(RandomAccessFile randomAccessFile) throws IOException, ZipException {
+        long length = randomAccessFile.length() - 22;
+        if (length < 0) {
             throw new ZipException("File too short to be a zip file: " + randomAccessFile.length());
         }
-        long j11 = length - 65558;
-        long j12 = j11 >= 0 ? j11 : 0L;
-        int reverseBytes = Integer.reverseBytes(ENDSIG);
+        long j2 = length - 65536;
+        long j3 = j2 >= 0 ? j2 : 0L;
+        int reverseBytes = Integer.reverseBytes(f2915b);
         do {
-            randomAccessFile.seek(j10);
+            randomAccessFile.seek(length);
             if (randomAccessFile.readInt() == reverseBytes) {
                 randomAccessFile.skipBytes(2);
                 randomAccessFile.skipBytes(2);
                 randomAccessFile.skipBytes(2);
                 randomAccessFile.skipBytes(2);
                 CentralDirectory centralDirectory = new CentralDirectory();
-                centralDirectory.size = Integer.reverseBytes(randomAccessFile.readInt()) & 4294967295L;
-                centralDirectory.offset = Integer.reverseBytes(randomAccessFile.readInt()) & 4294967295L;
+                centralDirectory.f2918b = Integer.reverseBytes(randomAccessFile.readInt()) & 4294967295L;
+                centralDirectory.f2917a = Integer.reverseBytes(randomAccessFile.readInt()) & 4294967295L;
                 return centralDirectory;
             }
-            j10--;
-        } while (j10 >= j12);
+            length--;
+        } while (length >= j3);
         throw new ZipException("End Of Central Directory signature not found");
     }
 
-    public static long getZipCrc(File file) throws IOException {
-        RandomAccessFile randomAccessFile = new RandomAccessFile(file, t.f11211k);
+    static long c(File file) throws IOException {
+        RandomAccessFile randomAccessFile = new RandomAccessFile(file, t.k);
         try {
-            return computeCrcOfCentralDir(randomAccessFile, findCentralDirectory(randomAccessFile));
+            return a(randomAccessFile, b(randomAccessFile));
         } finally {
             randomAccessFile.close();
         }

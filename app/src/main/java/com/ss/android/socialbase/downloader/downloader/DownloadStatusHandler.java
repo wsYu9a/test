@@ -58,8 +58,8 @@ public class DownloadStatusHandler {
     private boolean hasSyncProgressBefore = false;
 
     /* renamed from: com.ss.android.socialbase.downloader.downloader.DownloadStatusHandler$1 */
-    public class AnonymousClass1 implements Runnable {
-        public AnonymousClass1() {
+    class AnonymousClass1 implements Runnable {
+        AnonymousClass1() {
         }
 
         @Override // java.lang.Runnable
@@ -70,17 +70,17 @@ public class DownloadStatusHandler {
     }
 
     /* renamed from: com.ss.android.socialbase.downloader.downloader.DownloadStatusHandler$2 */
-    public class AnonymousClass2 implements ITempFileSaveCompleteCallback {
-        public AnonymousClass2() {
+    class AnonymousClass2 implements ITempFileSaveCompleteCallback {
+        AnonymousClass2() {
         }
 
         @Override // com.ss.android.socialbase.downloader.depend.ITempFileSaveCompleteCallback
         public void onFailed(BaseException baseException) {
             String str = DownloadStatusHandler.TAG;
-            StringBuilder sb2 = new StringBuilder();
-            sb2.append("saveFileAsTargetName onFailed : ");
-            sb2.append(baseException != null ? baseException.getErrorMessage() : "");
-            Logger.d(str, sb2.toString());
+            StringBuilder sb = new StringBuilder();
+            sb.append("saveFileAsTargetName onFailed : ");
+            sb.append(baseException != null ? baseException.getErrorMessage() : "");
+            Logger.d(str, sb.toString());
             DownloadStatusHandler.this.onError(baseException);
         }
 
@@ -129,10 +129,10 @@ public class DownloadStatusHandler {
                     iDownloadCompleteHandler.handle(downloadInfo);
                     this.downloadCache.updateDownloadInfo(downloadInfo);
                 }
-            } catch (BaseException e10) {
-                throw e10;
-            } catch (Throwable th2) {
-                throw new BaseException(DownloadErrorCode.ERROR_DOWNLOAD_COMPLETE_HANDLER, th2);
+            } catch (BaseException e2) {
+                throw e2;
+            } catch (Throwable th) {
+                throw new BaseException(DownloadErrorCode.ERROR_DOWNLOAD_COMPLETE_HANDLER, th);
             }
         }
     }
@@ -143,8 +143,8 @@ public class DownloadStatusHandler {
             try {
                 try {
                     this.downloadCache.OnDownloadTaskError(this.downloadInfo.getId(), this.downloadInfo.getCurBytes());
-                } catch (SQLiteException e10) {
-                    e10.printStackTrace();
+                } catch (SQLiteException e2) {
+                    e2.printStackTrace();
                 }
             } catch (SQLiteException unused) {
                 this.downloadCache.removeDownloadTaskData(this.downloadInfo.getId());
@@ -152,8 +152,8 @@ public class DownloadStatusHandler {
         } else {
             try {
                 this.downloadCache.removeDownloadTaskData(this.downloadInfo.getId());
-            } catch (SQLiteException e11) {
-                e11.printStackTrace();
+            } catch (SQLiteException e3) {
+                e3.printStackTrace();
             }
         }
         BaseException reviseFailedException = reviseFailedException(baseException);
@@ -168,7 +168,7 @@ public class DownloadStatusHandler {
         ExecutorService cPUThreadExecutor = DownloadComponentManager.getCPUThreadExecutor();
         if (cPUThreadExecutor != null) {
             cPUThreadExecutor.execute(new Runnable() { // from class: com.ss.android.socialbase.downloader.downloader.DownloadStatusHandler.1
-                public AnonymousClass1() {
+                AnonymousClass1() {
                 }
 
                 @Override // java.lang.Runnable
@@ -180,13 +180,13 @@ public class DownloadStatusHandler {
         }
     }
 
-    private boolean handleProgress(long j10, boolean z10) {
-        boolean z11 = false;
+    private boolean handleProgress(long j2, boolean z) {
+        boolean z2 = false;
         if (this.downloadInfo.getCurBytes() == this.downloadInfo.getTotalBytes()) {
             try {
                 this.downloadCache.OnDownloadTaskProgress(this.downloadInfo.getId(), this.downloadInfo.getCurBytes());
-            } catch (Exception e10) {
-                e10.printStackTrace();
+            } catch (Exception e2) {
+                e2.printStackTrace();
             }
             return false;
         }
@@ -194,33 +194,33 @@ public class DownloadStatusHandler {
             this.forceRefreshProcess = false;
             this.downloadInfo.setStatus(4);
         }
-        if (this.downloadInfo.isNeedPostProgress() && z10) {
-            z11 = true;
+        if (this.downloadInfo.isNeedPostProgress() && z) {
+            z2 = true;
         }
-        onStatusChanged(4, null, z11);
-        return z10;
+        onStatusChanged(4, null, z2);
+        return z;
     }
 
-    private void handleRetry(BaseException baseException, boolean z10) {
+    private void handleRetry(BaseException baseException, boolean z) {
         this.downloadCache.OnDownloadTaskRetry(this.downloadInfo.getId());
-        onStatusChanged(z10 ? 7 : 5, baseException);
+        onStatusChanged(z ? 7 : 5, baseException);
     }
 
-    private boolean needSyncProgress(long j10) {
-        boolean z10 = true;
+    private boolean needSyncProgress(long j2) {
+        boolean z = true;
         if (!this.hasSyncProgressBefore) {
             this.hasSyncProgressBefore = true;
             return true;
         }
-        long j11 = j10 - this.lastSyncProgressTime;
-        if (this.msgPostDataBuffer.get() < this.minByteIntervalForSyncProgress && j11 < this.minTimeIntervalForSyncProgress) {
-            z10 = false;
+        long j3 = j2 - this.lastSyncProgressTime;
+        if (this.msgPostDataBuffer.get() < this.minByteIntervalForSyncProgress && j3 < this.minTimeIntervalForSyncProgress) {
+            z = false;
         }
-        if (z10) {
-            this.lastSyncProgressTime = j10;
+        if (z) {
+            this.lastSyncProgressTime = j2;
             this.msgPostDataBuffer.set(0L);
         }
-        return z10;
+        return z;
     }
 
     public void onSaveTempFileSuccess() {
@@ -234,16 +234,16 @@ public class DownloadStatusHandler {
                 this.downloadCache.OnDownloadTaskCompleted(this.downloadInfo.getId(), this.downloadInfo.getTotalBytes());
                 this.downloadCache.removeAllDownloadChunk(this.downloadInfo.getId());
                 this.downloadCache.removeSegments(this.downloadInfo.getId());
-            } catch (BaseException e10) {
-                onError(e10);
+            } catch (BaseException e2) {
+                onError(e2);
             }
-        } catch (Throwable th2) {
-            onError(new BaseException(1008, DownloadUtils.getErrorMsgWithTagPrefix(th2, "onCompleted")));
+        } catch (Throwable th) {
+            onError(new BaseException(1008, DownloadUtils.getErrorMsgWithTagPrefix(th, "onCompleted")));
         }
     }
 
-    public void onStatusChanged(int i10, BaseException baseException) {
-        onStatusChanged(i10, baseException, true);
+    public void onStatusChanged(int i2, BaseException baseException) {
+        onStatusChanged(i2, baseException, true);
     }
 
     private BaseException reviseFailedException(BaseException baseException) {
@@ -320,16 +320,16 @@ public class DownloadStatusHandler {
             iDownloadMonitorDepend = downloadTask.getMonitorDepend();
         }
         DownloadUtils.saveFileAsTargetName(this.downloadInfo, iDownloadMonitorDepend, new ITempFileSaveCompleteCallback() { // from class: com.ss.android.socialbase.downloader.downloader.DownloadStatusHandler.2
-            public AnonymousClass2() {
+            AnonymousClass2() {
             }
 
             @Override // com.ss.android.socialbase.downloader.depend.ITempFileSaveCompleteCallback
             public void onFailed(BaseException baseException) {
                 String str = DownloadStatusHandler.TAG;
-                StringBuilder sb2 = new StringBuilder();
-                sb2.append("saveFileAsTargetName onFailed : ");
-                sb2.append(baseException != null ? baseException.getErrorMessage() : "");
-                Logger.d(str, sb2.toString());
+                StringBuilder sb = new StringBuilder();
+                sb.append("saveFileAsTargetName onFailed : ");
+                sb.append(baseException != null ? baseException.getErrorMessage() : "");
+                Logger.d(str, sb.toString());
                 DownloadStatusHandler.this.onError(baseException);
             }
 
@@ -345,19 +345,19 @@ public class DownloadStatusHandler {
         handleError(baseException);
     }
 
-    public void onFirstConnectionSuccessed(long j10, String str, String str2) {
-        this.downloadInfo.setTotalBytes(j10);
+    public void onFirstConnectionSuccessed(long j2, String str, String str2) {
+        this.downloadInfo.setTotalBytes(j2);
         this.downloadInfo.seteTag(str);
         if (!TextUtils.isEmpty(str2) && TextUtils.isEmpty(this.downloadInfo.getName())) {
             this.downloadInfo.setName(str2);
         }
         try {
-            this.downloadCache.OnDownloadTaskConnected(this.downloadInfo.getId(), j10, str, str2);
-        } catch (Exception e10) {
-            e10.printStackTrace();
+            this.downloadCache.OnDownloadTaskConnected(this.downloadInfo.getId(), j2, str, str2);
+        } catch (Exception e2) {
+            e2.printStackTrace();
         }
         onStatusChanged(3, null);
-        this.minByteIntervalForSyncProgress = this.downloadInfo.getMinByteIntervalForPostToMainThread(j10);
+        this.minByteIntervalForSyncProgress = this.downloadInfo.getMinByteIntervalForPostToMainThread(j2);
         this.minTimeIntervalForSyncProgress = this.downloadInfo.getMinProgressTimeMsInterval();
         this.forceRefreshProcess = true;
         RetryScheduler.getInstance().scheduleRetryWhenHasTaskConnected();
@@ -367,8 +367,8 @@ public class DownloadStatusHandler {
         this.downloadInfo.setStatus(-7);
         try {
             this.downloadCache.OnDownloadTaskIntercept(this.downloadInfo.getId());
-        } catch (SQLiteException e10) {
-            e10.printStackTrace();
+        } catch (SQLiteException e2) {
+            e2.printStackTrace();
         }
         onStatusChanged(-7, null);
     }
@@ -377,8 +377,8 @@ public class DownloadStatusHandler {
         this.downloadInfo.setStatus(-2);
         try {
             this.downloadCache.OnDownloadTaskPause(this.downloadInfo.getId(), this.downloadInfo.getCurBytes());
-        } catch (SQLiteException e10) {
-            e10.printStackTrace();
+        } catch (SQLiteException e2) {
+            e2.printStackTrace();
         }
         onStatusChanged(-2, null);
     }
@@ -391,24 +391,24 @@ public class DownloadStatusHandler {
         handlePrepare();
     }
 
-    public boolean onProgress(long j10) {
-        this.msgPostDataBuffer.addAndGet(j10);
-        this.downloadInfo.increaseCurBytes(j10);
+    public boolean onProgress(long j2) {
+        this.msgPostDataBuffer.addAndGet(j2);
+        this.downloadInfo.increaseCurBytes(j2);
         long uptimeMillis = SystemClock.uptimeMillis();
         return handleProgress(uptimeMillis, needSyncProgress(uptimeMillis));
     }
 
-    public void onRetry(BaseException baseException, boolean z10) {
+    public void onRetry(BaseException baseException, boolean z) {
         this.downloadInfo.setFirstDownload(false);
         this.msgPostDataBuffer.set(0L);
-        handleRetry(baseException, z10);
+        handleRetry(baseException, z);
     }
 
-    public void onSingleChunkRetry(DownloadChunk downloadChunk, BaseException baseException, boolean z10) {
+    public void onSingleChunkRetry(DownloadChunk downloadChunk, BaseException baseException, boolean z) {
         this.downloadInfo.setFirstDownload(false);
         this.msgPostDataBuffer.set(0L);
         this.downloadCache.OnDownloadTaskRetry(this.downloadInfo.getId());
-        onStatusChanged(z10 ? 10 : 9, baseException, true);
+        onStatusChanged(z ? 10 : 9, baseException, true);
     }
 
     public void onStart() {
@@ -423,29 +423,29 @@ public class DownloadStatusHandler {
         onStatusChanged(2, null);
     }
 
-    private void onStatusChanged(int i10, BaseException baseException, boolean z10) {
+    private void onStatusChanged(int i2, BaseException baseException, boolean z) {
         SparseArray<IDownloadListener> sparseArray;
         SparseArray<IDownloadListener> sparseArray2;
         int status = this.downloadInfo.getStatus();
-        if (status == -3 && i10 == 4) {
+        if (status == -3 && i2 == 4) {
             return;
         }
         checkInit();
-        if (i10 != 4 && DownloadStatus.isRealTimeUploadStatus(i10)) {
+        if (i2 != 4 && DownloadStatus.isRealTimeUploadStatus(i2)) {
             this.downloadInfo.updateRealDownloadTime(false);
-            if (DownloadStatus.isTimeUploadStatus(i10)) {
+            if (DownloadStatus.isTimeUploadStatus(i2)) {
                 this.downloadInfo.updateDownloadTime();
             }
         }
         if (!this.downloadInfo.isAddListenerToSameTask()) {
-            DownloadMonitorHelper.monitorSend(this.downloadTask, baseException, i10);
+            DownloadMonitorHelper.monitorSend(this.downloadTask, baseException, i2);
         }
-        if (i10 == 6) {
+        if (i2 == 6) {
             this.downloadInfo.setStatus(2);
-        } else if (i10 == -6) {
+        } else if (i2 == -6) {
             this.downloadInfo.setStatus(-3);
         } else {
-            this.downloadInfo.setStatus(i10);
+            this.downloadInfo.setStatus(i2);
         }
         if (status == -3 || status == -1) {
             if (this.downloadInfo.getRetryDelayStatus() == RetryDelayStatus.DELAY_RETRY_DOWNLOADING) {
@@ -458,17 +458,17 @@ public class DownloadStatusHandler {
                 this.downloadInfo.setByteInvalidRetryStatus(ByteInvalidRetryStatus.BYTE_INVALID_RETRY_STATUS_DOWNLOADED);
             }
         }
-        DownloadListenerUtils.notifyListener(i10, this.subThreadListeners, true, this.downloadInfo, baseException);
-        if (i10 == -4) {
+        DownloadListenerUtils.notifyListener(i2, this.subThreadListeners, true, this.downloadInfo, baseException);
+        if (i2 == -4) {
             return;
         }
-        if (z10 && this.mainThreadHandler != null && (((sparseArray = this.mainThreadListeners) != null && sparseArray.size() > 0) || ((sparseArray2 = this.notificationListeners) != null && sparseArray2.size() > 0 && (this.downloadInfo.canShowNotification() || this.downloadInfo.isAutoInstallWithoutNotification())))) {
-            this.mainThreadHandler.obtainMessage(i10, this.downloadInfo.getId(), this.downloadTask.getHashCodeForSameTask(), baseException).sendToTarget();
+        if (z && this.mainThreadHandler != null && (((sparseArray = this.mainThreadListeners) != null && sparseArray.size() > 0) || ((sparseArray2 = this.notificationListeners) != null && sparseArray2.size() > 0 && (this.downloadInfo.canShowNotification() || this.downloadInfo.isAutoInstallWithoutNotification())))) {
+            this.mainThreadHandler.obtainMessage(i2, this.downloadInfo.getId(), this.downloadTask.getHashCodeForSameTask(), baseException).sendToTarget();
             return;
         }
         AbsDownloadEngine downloadEngine = DownloadComponentManager.getDownloadEngine();
         if (downloadEngine != null) {
-            downloadEngine.refreshDownloadTaskMap(this.downloadInfo.getId(), this.downloadTask.getHashCodeForSameTask(), i10);
+            downloadEngine.refreshDownloadTaskMap(this.downloadInfo.getId(), this.downloadTask.getHashCodeForSameTask(), i2);
         }
     }
 

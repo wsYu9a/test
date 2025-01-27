@@ -9,7 +9,7 @@ import com.kwad.sdk.api.model.AdExposureFailedReason;
 
 @KsAdSdkApi
 @Keep
-/* loaded from: classes3.dex */
+/* loaded from: classes2.dex */
 public interface KsDrawAd extends BaseKSAd {
 
     @KsAdSdkApi
@@ -63,7 +63,7 @@ public interface KsDrawAd extends BaseKSAd {
 
     @KsAdSdkApi
     @Keep
-    void reportAdExposureFailed(int i10, AdExposureFailedReason adExposureFailedReason);
+    void reportAdExposureFailed(int i2, AdExposureFailedReason adExposureFailedReason);
 
     @KsAdSdkApi
     @Keep
@@ -72,13 +72,9 @@ public interface KsDrawAd extends BaseKSAd {
     @KsAdSdkApi
     @Keep
     @Deprecated
-    void setBidEcpm(int i10);
+    void setBidEcpm(int i2);
 
     @KsAdSdkApi
     @Keep
-    void setBidEcpm(long j10, long j11);
-
-    @KsAdSdkApi
-    @Keep
-    void setVideoSoundEnable(boolean z10);
+    void setBidEcpm(long j2, long j3);
 }

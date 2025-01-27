@@ -3,63 +3,72 @@ package com.kwad.sdk.widget;
 import android.content.Context;
 import android.util.AttributeSet;
 import android.view.MotionEvent;
+import android.view.ViewParent;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.viewpager.widget.ViewPager;
 
-/* loaded from: classes3.dex */
+/* loaded from: classes2.dex */
 public class d extends ViewPager {
-    private int aXA;
-    private boolean aXB;
+    private int aDm;
+    private boolean aDn;
 
     public d(@NonNull Context context) {
         super(context);
-        this.aXB = false;
+        this.aDn = false;
+    }
+
+    public d(@NonNull Context context, @Nullable AttributeSet attributeSet) {
+        super(context, attributeSet);
+        this.aDn = false;
     }
 
     @Override // androidx.viewpager.widget.ViewPager, android.view.View
-    public boolean canScrollHorizontally(int i10) {
-        if (this.aXB) {
-            return super.canScrollHorizontally(i10);
+    public boolean canScrollHorizontally(int i2) {
+        if (this.aDn) {
+            return super.canScrollHorizontally(i2);
         }
         return false;
     }
 
     @Override // android.view.ViewGroup, android.view.View
     public boolean dispatchTouchEvent(MotionEvent motionEvent) {
-        if (!this.aXB) {
+        ViewParent parent;
+        boolean z;
+        if (!this.aDn) {
             return super.dispatchTouchEvent(motionEvent);
         }
-        int x10 = (int) motionEvent.getX();
+        int x = (int) motionEvent.getX();
         int action = motionEvent.getAction();
-        if (action == 0) {
-            getParent().requestDisallowInterceptTouchEvent(true);
-        } else if (action == 2) {
-            int i10 = x10 - this.aXA;
-            if (getCurrentItem() == 0 && i10 > 0) {
-                getParent().requestDisallowInterceptTouchEvent(false);
+        if (action != 0) {
+            if (action == 2) {
+                int i2 = x - this.aDm;
+                if (getCurrentItem() == 0 && i2 > 0) {
+                    parent = getParent();
+                    z = false;
+                }
             }
+            this.aDm = x;
+            return super.dispatchTouchEvent(motionEvent);
         }
-        this.aXA = x10;
+        parent = getParent();
+        z = true;
+        parent.requestDisallowInterceptTouchEvent(z);
+        this.aDm = x;
         return super.dispatchTouchEvent(motionEvent);
     }
 
     @Override // androidx.viewpager.widget.ViewPager, android.view.ViewGroup
     public boolean onInterceptTouchEvent(MotionEvent motionEvent) {
-        return this.aXB && super.onInterceptTouchEvent(motionEvent);
+        return this.aDn && super.onInterceptTouchEvent(motionEvent);
     }
 
     @Override // androidx.viewpager.widget.ViewPager, android.view.View
     public boolean onTouchEvent(MotionEvent motionEvent) {
-        return this.aXB && super.onTouchEvent(motionEvent);
+        return this.aDn && super.onTouchEvent(motionEvent);
     }
 
-    public void setScrollable(boolean z10) {
-        this.aXB = z10;
-    }
-
-    public d(@NonNull Context context, @Nullable AttributeSet attributeSet) {
-        super(context, attributeSet);
-        this.aXB = false;
+    public void setScrollable(boolean z) {
+        this.aDn = z;
     }
 }

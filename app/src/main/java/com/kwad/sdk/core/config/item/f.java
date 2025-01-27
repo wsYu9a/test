@@ -4,22 +4,22 @@ import android.content.SharedPreferences;
 import androidx.annotation.NonNull;
 import org.json.JSONObject;
 
-/* loaded from: classes3.dex */
+/* loaded from: classes2.dex */
 public final class f extends a<Double> {
-    public f(String str, Double d10) {
-        super(str, d10);
+    public f(String str, Double d2) {
+        super(str, d2);
     }
 
     @Override // com.kwad.sdk.core.config.item.b
     @NonNull
-    /* renamed from: Eo */
+    /* renamed from: va */
     public Double getValue() {
         return (Double) super.getValue();
     }
 
     @Override // com.kwad.sdk.core.config.item.b
     public final void a(@NonNull SharedPreferences sharedPreferences) {
-        setValue(Double.valueOf(Double.parseDouble(sharedPreferences.getString(getKey(), El().toString()))));
+        setValue(Double.valueOf(Double.parseDouble(sharedPreferences.getString(getKey(), uX().toString()))));
     }
 
     @Override // com.kwad.sdk.core.config.item.b
@@ -28,11 +28,7 @@ public final class f extends a<Double> {
     }
 
     @Override // com.kwad.sdk.core.config.item.b
-    public final void k(JSONObject jSONObject) {
-        if (jSONObject != null) {
-            setValue(Double.valueOf(jSONObject.optDouble(getKey(), El().doubleValue())));
-        } else {
-            setValue(El());
-        }
+    public final void g(JSONObject jSONObject) {
+        setValue(jSONObject != null ? Double.valueOf(jSONObject.optDouble(getKey(), uX().doubleValue())) : uX());
     }
 }

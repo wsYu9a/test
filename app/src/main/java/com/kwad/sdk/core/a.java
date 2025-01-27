@@ -4,105 +4,105 @@ import android.text.TextUtils;
 import com.kwad.sdk.core.download.DownloadParams;
 import com.kwad.sdk.core.response.model.AdTemplate;
 import com.kwad.sdk.service.ServiceProvider;
-import com.kwad.sdk.service.a.f;
+import com.kwad.sdk.service.kwai.e;
 import java.util.concurrent.ConcurrentHashMap;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-/* loaded from: classes3.dex */
+/* loaded from: classes2.dex */
 public final class a {
-    private ConcurrentHashMap<String, DownloadParams> asq;
-    private ConcurrentHashMap<String, AdTemplate> asr;
+    private ConcurrentHashMap<String, DownloadParams> abw;
+    private ConcurrentHashMap<String, AdTemplate> abx;
 
     /* renamed from: com.kwad.sdk.core.a$a */
-    public static final class C0483a {
-        private static final a ass = new a((byte) 0);
+    static final class C0206a {
+        private static final a aby = new a((byte) 0);
     }
 
-    public /* synthetic */ a(byte b10) {
+    private a() {
+        this.abw = new ConcurrentHashMap<>();
+        this.abx = new ConcurrentHashMap<>();
+    }
+
+    /* synthetic */ a(byte b2) {
         this();
     }
 
-    public static a CA() {
-        return C0483a.ass;
+    public static a tS() {
+        return C0206a.aby;
     }
 
     public final void a(String str, DownloadParams downloadParams) {
-        if (((f) ServiceProvider.get(f.class)).getContext() == null) {
+        if (((e) ServiceProvider.get(e.class)).getContext() == null) {
             return;
         }
-        this.asq.put(str, downloadParams);
-        ((f) ServiceProvider.get(f.class)).getContext().getSharedPreferences("ksadsdk_notification_download_complete", 0).edit().putString(str, downloadParams.toJson().toString()).apply();
+        this.abw.put(str, downloadParams);
+        ((e) ServiceProvider.get(e.class)).getContext().getSharedPreferences("ksadsdk_notification_download_complete", 0).edit().putString(str, downloadParams.toJson().toString()).apply();
     }
 
-    public final DownloadParams de(String str) {
-        if (((f) ServiceProvider.get(f.class)).getContext() == null) {
+    public final DownloadParams bu(String str) {
+        if (((e) ServiceProvider.get(e.class)).getContext() == null) {
             return null;
         }
-        DownloadParams downloadParams = this.asq.get(str);
+        DownloadParams downloadParams = this.abw.get(str);
         if (downloadParams != null) {
             return downloadParams;
         }
-        String string = ((f) ServiceProvider.get(f.class)).getContext().getSharedPreferences("ksadsdk_notification_download_complete", 0).getString(str, "");
+        String string = ((e) ServiceProvider.get(e.class)).getContext().getSharedPreferences("ksadsdk_notification_download_complete", 0).getString(str, "");
         if (!TextUtils.isEmpty(string)) {
             DownloadParams downloadParams2 = new DownloadParams();
             try {
                 downloadParams2.parseJson(new JSONObject(string));
                 return downloadParams2;
-            } catch (JSONException e10) {
-                com.kwad.sdk.core.d.c.printStackTrace(e10);
+            } catch (JSONException e2) {
+                com.kwad.sdk.core.d.b.printStackTrace(e2);
             }
         }
         return null;
     }
 
-    public final void df(String str) {
-        if (((f) ServiceProvider.get(f.class)).getContext() == null) {
+    public final void bv(String str) {
+        if (((e) ServiceProvider.get(e.class)).getContext() == null) {
             return;
         }
-        this.asq.remove(str);
-        ((f) ServiceProvider.get(f.class)).getContext().getSharedPreferences("ksadsdk_notification_download_complete", 0).edit().remove(str).apply();
+        this.abw.remove(str);
+        ((e) ServiceProvider.get(e.class)).getContext().getSharedPreferences("ksadsdk_notification_download_complete", 0).edit().remove(str).apply();
     }
 
-    public final AdTemplate dg(String str) {
-        if (((f) ServiceProvider.get(f.class)).getContext() == null) {
+    public final AdTemplate bw(String str) {
+        if (((e) ServiceProvider.get(e.class)).getContext() == null) {
             return null;
         }
-        AdTemplate adTemplate = this.asr.get(str);
+        AdTemplate adTemplate = this.abx.get(str);
         if (adTemplate != null) {
             return adTemplate;
         }
-        String string = ((f) ServiceProvider.get(f.class)).getContext().getSharedPreferences("ksadsdk_notification_download_complete", 0).getString(str, "");
+        String string = ((e) ServiceProvider.get(e.class)).getContext().getSharedPreferences("ksadsdk_notification_download_complete", 0).getString(str, "");
         if (!TextUtils.isEmpty(string)) {
             AdTemplate adTemplate2 = new AdTemplate();
             try {
                 adTemplate2.parseJson(new JSONObject(string));
                 return adTemplate2;
-            } catch (JSONException e10) {
-                e10.printStackTrace();
+            } catch (JSONException e2) {
+                e2.printStackTrace();
             }
         }
         return null;
     }
 
-    public final void dh(String str) {
-        if (((f) ServiceProvider.get(f.class)).getContext() == null) {
+    public final void bx(String str) {
+        if (((e) ServiceProvider.get(e.class)).getContext() == null) {
             return;
         }
-        this.asr.remove(str);
-        ((f) ServiceProvider.get(f.class)).getContext().getSharedPreferences("ksadsdk_notification_download_complete", 0).edit().remove(str).apply();
+        this.abx.remove(str);
+        ((e) ServiceProvider.get(e.class)).getContext().getSharedPreferences("ksadsdk_notification_download_complete", 0).edit().remove(str).apply();
     }
 
-    public final void e(String str, AdTemplate adTemplate) {
-        if (((f) ServiceProvider.get(f.class)).getContext() == null) {
+    public final void c(String str, AdTemplate adTemplate) {
+        if (((e) ServiceProvider.get(e.class)).getContext() == null) {
             return;
         }
-        this.asr.put(str, adTemplate);
-        ((f) ServiceProvider.get(f.class)).getContext().getSharedPreferences("ksadsdk_notification_download_complete", 0).edit().putString(str, adTemplate.toJson().toString()).apply();
-    }
-
-    private a() {
-        this.asq = new ConcurrentHashMap<>();
-        this.asr = new ConcurrentHashMap<>();
+        this.abx.put(str, adTemplate);
+        ((e) ServiceProvider.get(e.class)).getContext().getSharedPreferences("ksadsdk_notification_download_complete", 0).edit().putString(str, adTemplate.toJson().toString()).apply();
     }
 }

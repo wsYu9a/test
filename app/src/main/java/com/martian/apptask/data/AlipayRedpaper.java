@@ -2,7 +2,7 @@ package com.martian.apptask.data;
 
 import java.util.Date;
 
-/* loaded from: classes3.dex */
+/* loaded from: classes2.dex */
 public class AlipayRedpaper {
     private String adsTitle;
     private String adsUrl;
@@ -74,59 +74,59 @@ public class AlipayRedpaper {
         return this.forceInstall;
     }
 
-    public void setAdsTitle(String str) {
-        this.adsTitle = str;
+    public void setAdsTitle(String adsTitle) {
+        this.adsTitle = adsTitle;
     }
 
-    public void setAdsUrl(String str) {
-        this.adsUrl = str;
+    public void setAdsUrl(String adsUrl) {
+        this.adsUrl = adsUrl;
     }
 
-    public void setBgImgUrl(String str) {
-        this.bgImgUrl = str;
+    public void setBgImgUrl(String bgImgUrl) {
+        this.bgImgUrl = bgImgUrl;
     }
 
     public void setDate(Date date) {
         this.date = date;
     }
 
-    public void setDesc(String str) {
-        this.desc = str;
+    public void setDesc(String desc) {
+        this.desc = desc;
     }
 
-    public void setDownloadUrl(String str) {
-        this.downloadUrl = str;
+    public void setDownloadUrl(String downloadUrl) {
+        this.downloadUrl = downloadUrl;
     }
 
-    public void setForceInstall(boolean z10) {
-        this.forceInstall = z10;
+    public void setForceInstall(boolean forceInstall) {
+        this.forceInstall = forceInstall;
     }
 
-    public void setIconUrl(String str) {
-        this.iconUrl = str;
+    public void setIconUrl(String iconUrl) {
+        this.iconUrl = iconUrl;
     }
 
-    public void setMoney(int i10) {
-        this.money = i10;
+    public void setMoney(int money) {
+        this.money = money;
     }
 
-    public void setPackageName(String str) {
-        this.packageName = str;
+    public void setPackageName(String packageName) {
+        this.packageName = packageName;
     }
 
-    public void setPasscode(String str) {
-        this.passcode = str;
+    public void setPasscode(String passcode) {
+        this.passcode = passcode;
     }
 
-    public void setRpid(int i10) {
-        this.rpid = i10;
+    public void setRpid(int rpid) {
+        this.rpid = rpid;
     }
 
-    public void setTime(long j10) {
-        this.date = new Date(j10);
+    public void setTime(long time) {
+        this.date = new Date(time);
     }
 
-    public void setTitle(String str) {
-        this.title = str;
+    public void setTitle(String title) {
+        this.title = title;
     }
 }

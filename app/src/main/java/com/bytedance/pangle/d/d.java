@@ -13,41 +13,40 @@ import java.io.InputStreamReader;
 import java.util.List;
 import java.util.concurrent.CopyOnWriteArrayList;
 
-/* loaded from: classes2.dex */
+/* loaded from: classes.dex */
 public final class d {
 
     /* renamed from: a */
-    private static String f7531a;
+    private static String f6036a;
 
     /* renamed from: b */
-    private static List<String> f7532b = new CopyOnWriteArrayList();
+    private static List<String> f6037b = new CopyOnWriteArrayList();
 
     public static String a() {
-        String processName;
-        if (!TextUtils.isEmpty(f7531a)) {
-            return f7531a;
+        if (!TextUtils.isEmpty(f6036a)) {
+            return f6036a;
         }
         try {
             if (Build.VERSION.SDK_INT >= 28) {
-                processName = Application.getProcessName();
+                String processName = Application.getProcessName();
                 if (!TextUtils.isEmpty(processName)) {
-                    f7531a = processName;
+                    f6036a = processName;
                 }
-                return f7531a;
+                return f6036a;
             }
         } catch (Throwable unused) {
         }
         try {
             Object invokeStaticMethod = MethodUtils.invokeStaticMethod(Class.forName("android.app.ActivityThread"), "currentProcessName", new Object[0]);
             if (!TextUtils.isEmpty((String) invokeStaticMethod)) {
-                f7531a = (String) invokeStaticMethod;
+                f6036a = (String) invokeStaticMethod;
             }
-            return f7531a;
-        } catch (Exception e10) {
-            e10.printStackTrace();
-            String b10 = b();
-            f7531a = b10;
-            return b10;
+            return f6036a;
+        } catch (Exception e2) {
+            e2.printStackTrace();
+            String b2 = b();
+            f6036a = b2;
+            return b2;
         }
     }
 
@@ -56,23 +55,23 @@ public final class d {
         try {
             bufferedReader = new BufferedReader(new InputStreamReader(new FileInputStream("/proc/" + Process.myPid() + "/cmdline"), "iso-8859-1"));
             try {
-                StringBuilder sb2 = new StringBuilder();
+                StringBuilder sb = new StringBuilder();
                 while (true) {
                     int read = bufferedReader.read();
                     if (read <= 0) {
                         break;
                     }
-                    sb2.append((char) read);
+                    sb.append((char) read);
                 }
                 if (ZeusLogger.isDebug()) {
-                    ZeusLogger.d("Process", "get processName = " + sb2.toString());
+                    ZeusLogger.d("Process", "get processName = " + sb.toString());
                 }
-                String sb3 = sb2.toString();
+                String sb2 = sb.toString();
                 try {
                     bufferedReader.close();
                 } catch (Exception unused) {
                 }
-                return sb3;
+                return sb2;
             } catch (Throwable unused2) {
                 if (bufferedReader != null) {
                     try {
@@ -88,14 +87,11 @@ public final class d {
     }
 
     public static boolean a(Context context) {
-        String a10 = a();
-        return (a10 == null || !a10.contains(":")) && a10 != null && a10.equals(context.getPackageName());
+        String a2 = a();
+        return (a2 == null || !a2.contains(":")) && a2 != null && a2.equals(context.getPackageName());
     }
 
     public static String a(String str) {
-        if (!TextUtils.isEmpty(str) && str.contains(":")) {
-            return str.split(":")[1];
-        }
-        return "main";
+        return (TextUtils.isEmpty(str) || !str.contains(":")) ? "main" : str.split(":")[1];
     }
 }

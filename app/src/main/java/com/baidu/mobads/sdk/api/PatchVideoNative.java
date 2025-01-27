@@ -6,7 +6,7 @@ import com.baidu.mobads.sdk.api.BaiduNativeManager;
 import java.util.ArrayList;
 import java.util.List;
 
-/* loaded from: classes2.dex */
+/* loaded from: classes.dex */
 public class PatchVideoNative {
     private String mAdPlaceId;
     private PrerollVideoResponse mAdResponse;
@@ -20,7 +20,7 @@ public class PatchVideoNative {
 
     /* renamed from: com.baidu.mobads.sdk.api.PatchVideoNative$1 */
     class AnonymousClass1 implements BaiduNativeManager.FeedAdListener {
-        public AnonymousClass1() {
+        AnonymousClass1() {
         }
 
         @Override // com.baidu.mobads.sdk.api.BaiduNativeManager.FeedAdListener
@@ -28,23 +28,23 @@ public class PatchVideoNative {
         }
 
         @Override // com.baidu.mobads.sdk.api.BaiduNativeManager.FeedAdListener
-        public void onNativeFail(int i10, String str, NativeResponse nativeResponse) {
-            PatchVideoNative.this.callLoadFail(i10, str);
+        public void onNativeFail(int i2, String str) {
+            PatchVideoNative.this.callLoadFail(i2, str);
         }
 
         @Override // com.baidu.mobads.sdk.api.BaiduNativeManager.FeedAdListener
         public void onNativeLoad(List<NativeResponse> list) {
             ArrayList arrayList = new ArrayList();
-            for (int i10 = 0; i10 < list.size(); i10++) {
-                arrayList.add(new XAdVideoResponse(list.get(i10)));
+            for (int i2 = 0; i2 < list.size(); i2++) {
+                arrayList.add(new XAdVideoResponse(list.get(i2)));
             }
             PatchVideoNative.this.mAdResponse = (PrerollVideoResponse) arrayList.get(0);
             PatchVideoNative.this.callLoadSucc();
         }
 
         @Override // com.baidu.mobads.sdk.api.BaiduNativeManager.FeedAdListener
-        public void onNoAd(int i10, String str, NativeResponse nativeResponse) {
-            PatchVideoNative.this.callLoadFail(i10, str);
+        public void onNoAd(int i2, String str) {
+            PatchVideoNative.this.callLoadFail(i2, str);
         }
 
         @Override // com.baidu.mobads.sdk.api.BaiduNativeManager.FeedAdListener
@@ -58,7 +58,7 @@ public class PatchVideoNative {
 
     /* renamed from: com.baidu.mobads.sdk.api.PatchVideoNative$2 */
     class AnonymousClass2 implements IPatchAdListener {
-        public AnonymousClass2() {
+        AnonymousClass2() {
         }
 
         @Override // com.baidu.mobads.sdk.api.IPatchAdListener
@@ -85,7 +85,7 @@ public class PatchVideoNative {
     public interface IPatchVideoNativeListener {
         void onAdClick();
 
-        void onAdFailed(int i10, String str);
+        void onAdFailed(int i2, String str);
 
         void onAdLoad(String str);
 
@@ -118,10 +118,10 @@ public class PatchVideoNative {
         }
     }
 
-    public void callLoadFail(int i10, String str) {
+    public void callLoadFail(int i2, String str) {
         IPatchVideoNativeListener iPatchVideoNativeListener = this.mListener;
         if (iPatchVideoNativeListener != null) {
-            iPatchVideoNativeListener.onAdFailed(i10, str);
+            iPatchVideoNativeListener.onAdFailed(i2, str);
         }
     }
 
@@ -135,7 +135,7 @@ public class PatchVideoNative {
         patchAdView.setVideoVolume(this.mIsMute);
         this.mParentView.addView(this.mPatchView, new RelativeLayout.LayoutParams(-1, -1));
         this.mPatchView.setPatchAdListener(new IPatchAdListener() { // from class: com.baidu.mobads.sdk.api.PatchVideoNative.2
-            public AnonymousClass2() {
+            AnonymousClass2() {
             }
 
             @Override // com.baidu.mobads.sdk.api.IPatchAdListener
@@ -196,7 +196,7 @@ public class PatchVideoNative {
         if (baiduNativeManager != null) {
             baiduNativeManager.setAppSid(this.mAppSid);
             this.mBaiduNativeManager.loadPrerollVideo(requestParameters, new BaiduNativeManager.FeedAdListener() { // from class: com.baidu.mobads.sdk.api.PatchVideoNative.1
-                public AnonymousClass1() {
+                AnonymousClass1() {
                 }
 
                 @Override // com.baidu.mobads.sdk.api.BaiduNativeManager.FeedAdListener
@@ -204,23 +204,23 @@ public class PatchVideoNative {
                 }
 
                 @Override // com.baidu.mobads.sdk.api.BaiduNativeManager.FeedAdListener
-                public void onNativeFail(int i10, String str, NativeResponse nativeResponse) {
-                    PatchVideoNative.this.callLoadFail(i10, str);
+                public void onNativeFail(int i2, String str) {
+                    PatchVideoNative.this.callLoadFail(i2, str);
                 }
 
                 @Override // com.baidu.mobads.sdk.api.BaiduNativeManager.FeedAdListener
                 public void onNativeLoad(List<NativeResponse> list) {
                     ArrayList arrayList = new ArrayList();
-                    for (int i10 = 0; i10 < list.size(); i10++) {
-                        arrayList.add(new XAdVideoResponse(list.get(i10)));
+                    for (int i2 = 0; i2 < list.size(); i2++) {
+                        arrayList.add(new XAdVideoResponse(list.get(i2)));
                     }
                     PatchVideoNative.this.mAdResponse = (PrerollVideoResponse) arrayList.get(0);
                     PatchVideoNative.this.callLoadSucc();
                 }
 
                 @Override // com.baidu.mobads.sdk.api.BaiduNativeManager.FeedAdListener
-                public void onNoAd(int i10, String str, NativeResponse nativeResponse) {
-                    PatchVideoNative.this.callLoadFail(i10, str);
+                public void onNoAd(int i2, String str) {
+                    PatchVideoNative.this.callLoadFail(i2, str);
                 }
 
                 @Override // com.baidu.mobads.sdk.api.BaiduNativeManager.FeedAdListener
@@ -238,11 +238,11 @@ public class PatchVideoNative {
         this.mAppSid = str;
     }
 
-    public void setVideoMute(boolean z10) {
-        this.mIsMute = z10;
+    public void setVideoMute(boolean z) {
+        this.mIsMute = z;
         PatchAdView patchAdView = this.mPatchView;
         if (patchAdView != null) {
-            patchAdView.setVideoVolume(z10);
+            patchAdView.setVideoVolume(z);
         }
     }
 }

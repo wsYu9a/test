@@ -4,12 +4,12 @@ import com.vivo.push.cache.ClientConfigManagerImpl;
 
 /* loaded from: classes4.dex */
 final class c extends com.vivo.push.l {
-    public c(com.vivo.push.o oVar) {
+    c(com.vivo.push.o oVar) {
         super(oVar);
     }
 
     @Override // com.vivo.push.l
-    public final void a(com.vivo.push.o oVar) {
-        com.vivo.push.util.p.a(ClientConfigManagerImpl.getInstance(this.f25064a).isDebug());
+    protected final void a(com.vivo.push.o oVar) {
+        com.vivo.push.util.p.a(ClientConfigManagerImpl.getInstance(this.f31028a).isDebug());
     }
 }

@@ -4,7 +4,7 @@ import com.martian.mibook.lib.model.data.TYBookItem;
 import java.util.ArrayList;
 import java.util.List;
 
-/* loaded from: classes3.dex */
+/* loaded from: classes4.dex */
 public class TYSearchRecommedInfo {
     private List<TYBookItem> books;
     private List<TYSearchTag> tags;
@@ -28,15 +28,15 @@ public class TYSearchRecommedInfo {
         return this.tip;
     }
 
-    public void setBooks(List<TYBookItem> list) {
-        this.books = list;
+    public void setBooks(List<TYBookItem> books) {
+        this.books = books;
     }
 
-    public void setTags(List<TYSearchTag> list) {
-        this.tags = list;
+    public void setTags(List<TYSearchTag> tags) {
+        this.tags = tags;
     }
 
-    public void setTip(String str) {
-        this.tip = str;
+    public void setTip(String tip) {
+        this.tip = tip;
     }
 }

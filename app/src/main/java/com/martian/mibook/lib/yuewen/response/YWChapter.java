@@ -1,54 +1,48 @@
 package com.martian.mibook.lib.yuewen.response;
 
-import ba.k;
+import com.martian.libsupport.j;
 import com.martian.mibook.lib.model.data.abs.Chapter;
-import com.martian.mibook.mvvm.tts.service.BaseReadAloudService;
 
-@k.h(name = "ywchapter")
-/* loaded from: classes3.dex */
+@j.g(name = "ywchapter")
+/* loaded from: classes4.dex */
 public class YWChapter extends Chapter {
 
-    @k.a
-    @k.b
+    @j.b
+    @j.a
     private Integer _id;
 
-    @k.i
-    @k.b
+    @j.b
+    @j.h
     private Long ccid;
 
-    @k.b(name = BaseReadAloudService.f15168x)
-    @k.f
+    @j.b(name = "chapterIndex")
+    @j.e
     private Long chapterSort;
 
-    @k.b(name = "title")
+    @j.b(name = "title")
     private String chapterTitle;
     private Integer chargeType;
 
-    @k.b
+    @j.b
     private Integer freeStatus;
 
-    @k.b
+    @j.b
     private Integer isTaked;
 
-    @k.b
+    @j.b
     private Integer price;
 
-    @k.b
+    @j.b
     private String srcLink;
 
-    @k.b
+    @j.b
     private Integer vipflag;
 
-    @k.b
+    @j.b
     private Long words;
 
     public Long getCcid() {
         return this.ccid;
-    }
-
-    @Override // com.martian.mibook.lib.model.data.abs.Chapter
-    public String getChapterId() {
-        return "" + this.ccid;
     }
 
     public Long getChapterSort() {
@@ -121,44 +115,44 @@ public class YWChapter extends Chapter {
         return getVipflag().intValue() == 1 && getFreeStatus().intValue() == 1;
     }
 
-    public void setCcid(long j10) {
-        this.ccid = Long.valueOf(j10);
+    public void setCcid(long ccid) {
+        this.ccid = Long.valueOf(ccid);
     }
 
-    public void setChapterSort(Long l10) {
-        this.chapterSort = l10;
+    public void setChapterSort(Long chapterSort) {
+        this.chapterSort = chapterSort;
     }
 
-    public void setChapterTitle(String str) {
-        this.chapterTitle = str;
+    public void setChapterTitle(String chapterTitle) {
+        this.chapterTitle = chapterTitle;
     }
 
-    public void setChargeType(int i10) {
-        this.chargeType = Integer.valueOf(i10);
+    public void setChargeType(int chargeType) {
+        this.chargeType = Integer.valueOf(chargeType);
     }
 
-    public void setFreeStatus(Integer num) {
-        this.freeStatus = num;
+    public void setFreeStatus(Integer freeStatus) {
+        this.freeStatus = freeStatus;
     }
 
-    public void setIsTaked(Integer num) {
-        this.isTaked = num;
+    public void setIsTaked(Integer isTaked) {
+        this.isTaked = isTaked;
     }
 
-    public void setPrice(Integer num) {
-        this.price = num;
+    public void setPrice(Integer price) {
+        this.price = price;
     }
 
     @Override // com.martian.mibook.lib.model.data.abs.Chapter
-    public void setSrcLink(String str) {
-        this.srcLink = str;
+    public void setSrcLink(String link) {
+        this.srcLink = link;
     }
 
-    public void setVipflag(Integer num) {
-        this.vipflag = num;
+    public void setVipflag(Integer vipflag) {
+        this.vipflag = vipflag;
     }
 
-    public void setWords(Long l10) {
-        this.words = l10;
+    public void setWords(Long words) {
+        this.words = words;
     }
 }

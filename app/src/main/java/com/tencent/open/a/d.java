@@ -10,8 +10,8 @@ import java.text.SimpleDateFormat;
 public class d {
 
     public static final class a {
-        public static final boolean a(int i10, int i11) {
-            return i11 == (i10 & i11);
+        public static final boolean a(int i2, int i3) {
+            return i3 == (i2 & i3);
         }
     }
 
@@ -32,24 +32,24 @@ public class d {
     public static class c {
 
         /* renamed from: a */
-        private File f23160a;
+        private File f25427a;
 
         /* renamed from: b */
-        private long f23161b;
+        private long f25428b;
 
         /* renamed from: c */
-        private long f23162c;
+        private long f25429c;
 
         public File a() {
-            return this.f23160a;
+            return this.f25427a;
         }
 
         public long b() {
-            return this.f23161b;
+            return this.f25428b;
         }
 
         public long c() {
-            return this.f23162c;
+            return this.f25429c;
         }
 
         public String toString() {
@@ -57,11 +57,11 @@ public class d {
         }
 
         public void a(File file) {
-            this.f23160a = file;
+            this.f25427a = file;
         }
 
-        public void b(long j10) {
-            this.f23162c = j10;
+        public void b(long j2) {
+            this.f25429c = j2;
         }
 
         public static c b(File file) {
@@ -76,13 +76,13 @@ public class d {
             return cVar;
         }
 
-        public void a(long j10) {
-            this.f23161b = j10;
+        public void a(long j2) {
+            this.f25428b = j2;
         }
     }
 
     /* renamed from: com.tencent.open.a.d$d */
-    public static final class C0660d {
+    public static final class C0531d {
         @SuppressLint({"SimpleDateFormat"})
         public static SimpleDateFormat a(String str) {
             return new SimpleDateFormat(str);

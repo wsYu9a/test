@@ -2,46 +2,41 @@ package com.bytedance.android.live.base.api.push;
 
 import android.app.Activity;
 import android.content.Context;
-import android.os.Bundle;
 import com.bytedance.android.live.base.api.push.model.PushData;
 import com.bytedance.android.live.base.api.push.model.PushUIConfig;
 
-/* loaded from: classes2.dex */
+/* loaded from: classes.dex */
 public interface ILivePush {
     public static final String TAG = "livePush";
 
-    public static class ClickType {
-        public static final String CLOSE = "close";
-        public static final String LIVE = "live";
-        private String value;
+    public enum ClickType {
+        LIVE("live"),
+        CLOSE("close");
 
-        public ClickType() {
+        private final String value;
+
+        ClickType(String str) {
+            this.value = str;
         }
 
         public final String getValue() {
             return this.value;
         }
-
-        public ClickType(String str) {
-            this.value = str;
-        }
     }
 
-    public static class PushType {
-        public static final int CLOD_LAUNCH = 2;
-        public static final int SELF_DRIVING = 1;
-        public static final int VIDEO = 3;
-        private int value;
+    public enum PushType {
+        SELF_DRIVING(1),
+        CLOD_LAUNCH(2),
+        VIDEO(3);
 
-        public PushType() {
+        private final int value;
+
+        PushType(int i2) {
+            this.value = i2;
         }
 
         public final int getValue() {
             return this.value;
-        }
-
-        public PushType(int i10) {
-            this.value = i10;
         }
     }
 
@@ -63,7 +58,5 @@ public interface ILivePush {
 
     void requestPush(PushCallback pushCallback);
 
-    void requestPushAndShow(boolean z10, Activity activity, PushType pushType, PushCallback pushCallback, PushUIConfig pushUIConfig);
-
-    void requestPushAndShow(boolean z10, Activity activity, PushType pushType, PushCallback pushCallback, PushUIConfig pushUIConfig, Bundle bundle);
+    void requestPushAndShow(boolean z, Activity activity, PushType pushType, PushCallback pushCallback, PushUIConfig pushUIConfig);
 }

@@ -4,11 +4,11 @@ package com.umeng.commonsdk.statistics;
 public class a {
 
     /* renamed from: a */
-    public static String f24588a = "native";
+    public static String f26276a = "native";
 
     /* renamed from: b */
-    public static String f24589b = "";
+    public static String f26277b = "";
 
     /* renamed from: c */
-    public static int f24590c;
+    public static int f26278c;
 }

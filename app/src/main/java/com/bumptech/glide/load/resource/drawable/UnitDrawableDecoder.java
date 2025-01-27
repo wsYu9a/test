@@ -7,7 +7,7 @@ import com.bumptech.glide.load.Options;
 import com.bumptech.glide.load.ResourceDecoder;
 import com.bumptech.glide.load.engine.Resource;
 
-/* loaded from: classes2.dex */
+/* loaded from: classes.dex */
 public class UnitDrawableDecoder implements ResourceDecoder<Drawable, Drawable> {
     @Override // com.bumptech.glide.load.ResourceDecoder
     public boolean handles(@NonNull Drawable drawable, @NonNull Options options) {
@@ -16,7 +16,7 @@ public class UnitDrawableDecoder implements ResourceDecoder<Drawable, Drawable> 
 
     @Override // com.bumptech.glide.load.ResourceDecoder
     @Nullable
-    public Resource<Drawable> decode(@NonNull Drawable drawable, int i10, int i11, @NonNull Options options) {
+    public Resource<Drawable> decode(@NonNull Drawable drawable, int i2, int i3, @NonNull Options options) {
         return NonOwnedDrawableResource.newInstance(drawable);
     }
 }

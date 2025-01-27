@@ -1,13 +1,13 @@
 package com.martian.appwall.request.auth;
 
-import v8.a;
+import com.martian.libcomm.http.requests.d.a;
 
-/* loaded from: classes3.dex */
+/* loaded from: classes2.dex */
 public class MartianFinishRewardVideoParams extends MartianAppwallAuthParams {
 
     /* renamed from: c */
     @a
-    private String f12008c;
+    private String f9682c;
 
     @a
     private String extra;
@@ -21,7 +21,7 @@ public class MartianFinishRewardVideoParams extends MartianAppwallAuthParams {
     }
 
     public String getC() {
-        return this.f12008c;
+        return this.f9682c;
     }
 
     public String getExtra() {
@@ -32,15 +32,15 @@ public class MartianFinishRewardVideoParams extends MartianAppwallAuthParams {
         return this.vendor;
     }
 
-    public void setC(String str) {
-        this.f12008c = str;
+    public void setC(String c2) {
+        this.f9682c = c2;
     }
 
-    public void setExtra(String str) {
-        this.extra = str;
+    public void setExtra(String extra) {
+        this.extra = extra;
     }
 
-    public void setVendor(String str) {
-        this.vendor = str;
+    public void setVendor(String vendor) {
+        this.vendor = vendor;
     }
 }

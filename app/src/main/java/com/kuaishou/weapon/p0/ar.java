@@ -5,11 +5,11 @@ import android.text.TextUtils;
 import com.kuaishou.weapon.p0.jni.Engine;
 import org.json.JSONObject;
 
-/* loaded from: classes2.dex */
+/* loaded from: classes.dex */
 public class ar {
 
     /* renamed from: a */
-    private JSONObject f10776a;
+    private JSONObject f9080a;
 
     public ar(Context context) {
         if (Engine.loadSuccess) {
@@ -18,14 +18,14 @@ public class ar {
                 if (TextUtils.isEmpty(klm)) {
                     return;
                 }
-                this.f10776a = new JSONObject(klm);
+                this.f9080a = new JSONObject(klm);
             } catch (Throwable unused) {
             }
         }
     }
 
     public String a(String str) {
-        JSONObject jSONObject = this.f10776a;
+        JSONObject jSONObject = this.f9080a;
         if (jSONObject == null) {
             return null;
         }

@@ -1,18 +1,19 @@
 package com.bumptech.glide.load.engine.cache;
 
 import android.content.Context;
+import com.bumptech.glide.load.engine.cache.DiskCache;
 import com.bumptech.glide.load.engine.cache.DiskLruCacheFactory;
 import java.io.File;
 
-/* loaded from: classes2.dex */
+/* loaded from: classes.dex */
 public final class InternalCacheDiskCacheFactory extends DiskLruCacheFactory {
 
     /* renamed from: com.bumptech.glide.load.engine.cache.InternalCacheDiskCacheFactory$1 */
-    public class AnonymousClass1 implements DiskLruCacheFactory.CacheDirectoryGetter {
+    class AnonymousClass1 implements DiskLruCacheFactory.CacheDirectoryGetter {
         final /* synthetic */ Context val$context;
         final /* synthetic */ String val$diskCacheName;
 
-        public AnonymousClass1(Context context, String str) {
+        AnonymousClass1(Context context, String str) {
             context = context;
             str = str;
         }
@@ -28,19 +29,19 @@ public final class InternalCacheDiskCacheFactory extends DiskLruCacheFactory {
     }
 
     public InternalCacheDiskCacheFactory(Context context) {
-        this(context, "image_manager_disk_cache", 262144000L);
+        this(context, DiskCache.Factory.DEFAULT_DISK_CACHE_DIR, 262144000L);
     }
 
-    public InternalCacheDiskCacheFactory(Context context, long j10) {
-        this(context, "image_manager_disk_cache", j10);
+    public InternalCacheDiskCacheFactory(Context context, long j2) {
+        this(context, DiskCache.Factory.DEFAULT_DISK_CACHE_DIR, j2);
     }
 
-    public InternalCacheDiskCacheFactory(Context context, String str, long j10) {
+    public InternalCacheDiskCacheFactory(Context context, String str, long j2) {
         super(new DiskLruCacheFactory.CacheDirectoryGetter() { // from class: com.bumptech.glide.load.engine.cache.InternalCacheDiskCacheFactory.1
             final /* synthetic */ Context val$context;
             final /* synthetic */ String val$diskCacheName;
 
-            public AnonymousClass1(Context context2, String str2) {
+            AnonymousClass1(Context context2, String str2) {
                 context = context2;
                 str = str2;
             }
@@ -53,6 +54,6 @@ public final class InternalCacheDiskCacheFactory extends DiskLruCacheFactory {
                 }
                 return str != null ? new File(cacheDir, str) : cacheDir;
             }
-        }, j10);
+        }, j2);
     }
 }

@@ -4,103 +4,94 @@ import com.google.gson.Gson;
 import com.google.gson.JsonSyntaxException;
 import com.google.gson.TypeAdapter;
 import com.google.gson.TypeAdapterFactory;
-import com.google.gson.internal.JavaVersion;
-import com.google.gson.internal.PreJava9DateFormatProvider;
-import com.google.gson.internal.bind.util.ISO8601Utils;
-import com.google.gson.reflect.TypeToken;
-import com.google.gson.stream.JsonReader;
 import com.google.gson.stream.JsonToken;
-import com.google.gson.stream.JsonWriter;
 import java.io.IOException;
 import java.text.DateFormat;
 import java.text.ParseException;
-import java.text.ParsePosition;
-import java.util.ArrayList;
+import java.text.SimpleDateFormat;
 import java.util.Date;
-import java.util.Iterator;
-import java.util.List;
 import java.util.Locale;
+import java.util.TimeZone;
 
-/* loaded from: classes2.dex */
+/* loaded from: classes.dex */
 public final class DateTypeAdapter extends TypeAdapter<Date> {
-    public static final TypeAdapterFactory FACTORY = new TypeAdapterFactory() { // from class: com.google.gson.internal.bind.DateTypeAdapter.1
+
+    /* renamed from: a */
+    public static final TypeAdapterFactory f8085a = new TypeAdapterFactory() { // from class: com.google.gson.internal.bind.DateTypeAdapter.1
+        AnonymousClass1() {
+        }
+
         @Override // com.google.gson.TypeAdapterFactory
-        public <T> TypeAdapter<T> create(Gson gson, TypeToken<T> typeToken) {
-            if (typeToken.getRawType() == Date.class) {
+        public <T> TypeAdapter<T> create(Gson gson, com.google.gson.b.a<T> aVar) {
+            if (aVar.d() == Date.class) {
                 return new DateTypeAdapter();
             }
             return null;
         }
     };
-    private final List<DateFormat> dateFormats;
+
+    /* renamed from: b */
+    private final DateFormat f8086b = DateFormat.getDateTimeInstance(2, 2, Locale.US);
+
+    /* renamed from: c */
+    private final DateFormat f8087c = DateFormat.getDateTimeInstance(2, 2);
+
+    /* renamed from: d */
+    private final DateFormat f8088d = a();
 
     /* renamed from: com.google.gson.internal.bind.DateTypeAdapter$1 */
-    public class AnonymousClass1 implements TypeAdapterFactory {
+    static class AnonymousClass1 implements TypeAdapterFactory {
+        AnonymousClass1() {
+        }
+
         @Override // com.google.gson.TypeAdapterFactory
-        public <T> TypeAdapter<T> create(Gson gson, TypeToken<T> typeToken) {
-            if (typeToken.getRawType() == Date.class) {
+        public <T> TypeAdapter<T> create(Gson gson, com.google.gson.b.a<T> aVar) {
+            if (aVar.d() == Date.class) {
                 return new DateTypeAdapter();
             }
             return null;
         }
     }
 
-    public DateTypeAdapter() {
-        ArrayList arrayList = new ArrayList();
-        this.dateFormats = arrayList;
-        Locale locale = Locale.US;
-        arrayList.add(DateFormat.getDateTimeInstance(2, 2, locale));
-        if (!Locale.getDefault().equals(locale)) {
-            arrayList.add(DateFormat.getDateTimeInstance(2, 2));
-        }
-        if (JavaVersion.isJava9OrLater()) {
-            arrayList.add(PreJava9DateFormatProvider.getUSDateTimeFormat(2, 2));
-        }
+    private static DateFormat a() {
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss'Z'", Locale.US);
+        simpleDateFormat.setTimeZone(TimeZone.getTimeZone("UTC"));
+        return simpleDateFormat;
     }
 
-    private Date deserializeToDate(JsonReader jsonReader) throws IOException {
-        String nextString = jsonReader.nextString();
-        synchronized (this.dateFormats) {
+    private synchronized Date b(String str) {
+        try {
             try {
-                Iterator<DateFormat> it = this.dateFormats.iterator();
-                while (it.hasNext()) {
-                    try {
-                        return it.next().parse(nextString);
-                    } catch (ParseException unused) {
-                    }
-                }
                 try {
-                    return ISO8601Utils.parse(nextString, new ParsePosition(0));
-                } catch (ParseException e10) {
-                    throw new JsonSyntaxException("Failed parsing '" + nextString + "' as Date; at path " + jsonReader.getPreviousPath(), e10);
+                } catch (ParseException unused) {
+                    return this.f8086b.parse(str);
                 }
-            } catch (Throwable th2) {
-                throw th2;
+            } catch (ParseException e2) {
+                throw new JsonSyntaxException(str, e2);
             }
+        } catch (ParseException unused2) {
+            return this.f8088d.parse(str);
         }
+        return this.f8087c.parse(str);
     }
 
     @Override // com.google.gson.TypeAdapter
-    /* renamed from: read */
-    public Date read2(JsonReader jsonReader) throws IOException {
-        if (jsonReader.peek() != JsonToken.NULL) {
-            return deserializeToDate(jsonReader);
+    /* renamed from: c */
+    public Date read2(com.google.gson.stream.a aVar) throws IOException {
+        if (aVar.C() != JsonToken.NULL) {
+            return b(aVar.A());
         }
-        jsonReader.nextNull();
+        aVar.y();
         return null;
     }
 
     @Override // com.google.gson.TypeAdapter
-    public void write(JsonWriter jsonWriter, Date date) throws IOException {
-        String format;
+    /* renamed from: d */
+    public synchronized void write(com.google.gson.stream.c cVar, Date date) throws IOException {
         if (date == null) {
-            jsonWriter.nullValue();
-            return;
+            cVar.m();
+        } else {
+            cVar.z(this.f8086b.format(date));
         }
-        DateFormat dateFormat = this.dateFormats.get(0);
-        synchronized (this.dateFormats) {
-            format = dateFormat.format(date);
-        }
-        jsonWriter.value(format);
     }
 }

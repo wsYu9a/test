@@ -1,71 +1,28 @@
 package com.kwad.sdk.core.download;
 
-import com.kwad.sdk.core.response.model.AdInfo;
-import com.kwad.sdk.core.response.model.AdTemplate;
+/* loaded from: classes2.dex */
+public interface d {
+    void a(String str, int i2, int i3, int i4);
 
-/* loaded from: classes3.dex */
-public class d implements c {
-    private AdInfo mAdInfo;
+    void a(String str, int i2, f fVar);
 
-    public d(AdTemplate adTemplate) {
-        this.mAdInfo = com.kwad.sdk.core.response.b.e.eb(adTemplate);
-    }
+    void a(String str, int i2, String str2, f fVar);
 
-    @Override // com.kwad.sdk.core.download.c
-    public final void a(String str, int i10, int i11, int i12) {
-    }
+    void a(String str, f fVar);
 
-    @Override // com.kwad.sdk.core.download.c
-    public final void b(String str, e eVar) {
-    }
+    void a(String str, String str2, f fVar);
 
-    @Override // com.kwad.sdk.core.download.c
-    public final void c(String str, e eVar) {
-    }
+    void aq(String str);
 
-    @Override // com.kwad.sdk.core.download.c
-    public final void d(String str, e eVar) {
-    }
+    void b(String str, f fVar);
 
-    @Override // com.kwad.sdk.core.download.c
-    public final void e(String str, e eVar) {
-    }
+    void c(String str, f fVar);
 
-    @Override // com.kwad.sdk.core.download.c
-    public final void f(String str, e eVar) {
-    }
+    void d(String str, f fVar);
 
-    @Override // com.kwad.sdk.core.download.c
-    public final void g(String str, e eVar) {
-    }
+    void e(String str, f fVar);
 
-    @Override // com.kwad.sdk.core.download.c
-    public final String oL() {
-        return this.mAdInfo.downloadId;
-    }
+    String nc();
 
-    @Override // com.kwad.sdk.core.download.c
-    public final String oM() {
-        return this.mAdInfo.adBaseInfo.appPackageName;
-    }
-
-    @Override // com.kwad.sdk.core.download.c
-    public final void a(String str, int i10, String str2, e eVar) {
-    }
-
-    @Override // com.kwad.sdk.core.download.c
-    public void b(String str, String str2, e eVar) {
-    }
-
-    @Override // com.kwad.sdk.core.download.c
-    public final void a(String str, e eVar) {
-    }
-
-    @Override // com.kwad.sdk.core.download.c
-    public final void a(String str, String str2, e eVar) {
-    }
-
-    @Override // com.kwad.sdk.core.download.c
-    public final void a(String str, Throwable th2, e eVar) {
-    }
+    String nd();
 }

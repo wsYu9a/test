@@ -1,82 +1,39 @@
 package com.umeng.analytics.pro;
 
-import android.util.Log;
-
 /* loaded from: classes4.dex */
-public class bs {
+public final class bs {
 
     /* renamed from: a */
-    private static final String f23581a = "OpenId";
+    public final String f25787a;
 
     /* renamed from: b */
-    private static boolean f23582b = false;
+    public final byte f25788b;
 
-    public static void a(boolean z10) {
-        Log.d("OpenId", "setDebug:" + z10);
-        f23582b = z10;
+    /* renamed from: c */
+    public final int f25789c;
+
+    public bs() {
+        this("", (byte) 0, 0);
     }
 
-    public static void b(String str, Object... objArr) {
-        if (f23582b) {
-            Log.i("OpenId", e(str, objArr));
-        }
+    public boolean a(bs bsVar) {
+        return this.f25787a.equals(bsVar.f25787a) && this.f25788b == bsVar.f25788b && this.f25789c == bsVar.f25789c;
     }
 
-    public static void c(String str, Object... objArr) {
-        if (f23582b) {
-            Log.w("OpenId", e(str, objArr));
+    public boolean equals(Object obj) {
+        if (obj instanceof bs) {
+            return a((bs) obj);
         }
+        return false;
     }
 
-    public static void d(String str, Object... objArr) {
-        if (f23582b) {
-            Log.e("OpenId", e(str, objArr));
-        }
+    public String toString() {
+        return "<TMessage name:'" + this.f25787a + "' type: " + ((int) this.f25788b) + " seqid:" + this.f25789c + ">";
     }
 
-    private static String e(String str, Object... objArr) {
-        int i10 = 0;
-        if (str == null && objArr == null) {
-            return "";
-        }
-        StringBuilder sb2 = new StringBuilder();
-        if (str == null) {
-            str = "-";
-        }
-        sb2.append(String.format("[%s] ", str));
-        if (objArr != null) {
-            int length = objArr.length;
-            while (true) {
-                int i11 = i10 + 1;
-                if (i11 >= objArr.length) {
-                    break;
-                }
-                sb2.append(a(objArr[i10], objArr[i11]));
-                if (i11 < length - 1) {
-                    sb2.append(",");
-                }
-                i10 += 2;
-            }
-            if (i10 == objArr.length - 1) {
-                sb2.append(objArr[i10]);
-            }
-        }
-        return sb2.toString();
-    }
-
-    public static void a(String str, Object... objArr) {
-        if (f23582b) {
-            Log.d("OpenId", e(str, objArr));
-        }
-    }
-
-    private static String a(Object obj, Object obj2) {
-        if (obj == null) {
-            obj = "";
-        }
-        if (obj2 == null) {
-            obj2 = "";
-        }
-        return String.format("%s:%s", obj, obj2);
+    public bs(String str, byte b2, int i2) {
+        this.f25787a = str;
+        this.f25788b = b2;
+        this.f25789c = i2;
     }
 }

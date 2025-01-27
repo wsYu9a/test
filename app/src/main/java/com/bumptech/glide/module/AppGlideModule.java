@@ -4,8 +4,9 @@ import android.content.Context;
 import androidx.annotation.NonNull;
 import com.bumptech.glide.GlideBuilder;
 
-/* loaded from: classes2.dex */
+/* loaded from: classes.dex */
 public abstract class AppGlideModule extends LibraryGlideModule implements AppliesOptions {
+    @Override // com.bumptech.glide.module.AppliesOptions
     public void applyOptions(@NonNull Context context, @NonNull GlideBuilder glideBuilder) {
     }
 

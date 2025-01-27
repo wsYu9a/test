@@ -6,36 +6,36 @@ import android.content.pm.PackageManager;
 import com.kuaishou.weapon.p0.jni.A;
 import org.json.JSONArray;
 
-/* loaded from: classes2.dex */
+/* loaded from: classes.dex */
 public class w {
 
     /* renamed from: a */
-    private Context f11267a;
+    private Context f9434a;
 
     /* renamed from: b */
-    private int f11268b;
+    private int f9435b;
 
     /* renamed from: c */
-    private h f11269c;
+    private h f9436c;
 
     public w(Context context) {
-        this.f11268b = 0;
-        this.f11267a = context;
-        h a10 = h.a(context, "re_po_rt");
-        this.f11269c = a10;
-        if (a10 != null) {
-            this.f11268b = a10.b(df.f11064r, 0);
+        this.f9435b = 0;
+        this.f9434a = context;
+        h a2 = h.a(context, "re_po_rt");
+        this.f9436c = a2;
+        if (a2 != null) {
+            this.f9435b = a2.b(de.p, 0);
         }
     }
 
-    public JSONArray a(int i10) {
+    public JSONArray a(int i2) {
         try {
-            new A(this.f11267a, i10);
+            new A(this.f9434a, i2);
             JSONArray jsonObject = A.getJsonObject();
             JSONArray jSONArray = new JSONArray();
             if (jsonObject != null) {
-                for (int i11 = 0; i11 < jsonObject.length(); i11++) {
-                    jSONArray.put(jsonObject.get(i11));
+                for (int i3 = 0; i3 < jsonObject.length(); i3++) {
+                    jSONArray.put(jsonObject.get(i3));
                 }
                 A.setJsonObject(null);
                 return jSONArray;
@@ -45,35 +45,34 @@ public class w {
         return null;
     }
 
-    public JSONArray b(int i10) {
+    public JSONArray b(int i2) {
         try {
-            return c(i10);
+            return c(i2);
         } catch (Throwable unused) {
             return null;
         }
     }
 
-    public JSONArray c(int i10) {
-        return d(i10);
+    public JSONArray c(int i2) {
+        return d(i2);
     }
 
-    public JSONArray d(int i10) {
-        String[] strArr;
+    public JSONArray d(int i2) {
         JSONArray jSONArray = new JSONArray();
         try {
-            PackageManager packageManager = this.f11267a.getPackageManager();
-            for (int i11 = 1000; i11 <= 19999; i11++) {
+            PackageManager packageManager = this.f9434a.getPackageManager();
+            for (int i3 = 1000; i3 <= 19999; i3++) {
+                String[] strArr = null;
                 try {
-                    strArr = packageManager.getPackagesForUid(i11);
+                    strArr = packageManager.getPackagesForUid(i3);
                 } catch (Exception unused) {
-                    strArr = null;
                 }
                 if (strArr != null) {
                     for (String str : strArr) {
                         try {
                             PackageInfo packageInfo = packageManager.getPackageInfo(str, 0);
-                            if (i10 != 1 || (packageInfo.applicationInfo.flags & 1) != 1) {
-                                v vVar = new v(packageInfo, this.f11267a);
+                            if (i2 != 1 || (packageInfo.applicationInfo.flags & 1) != 1) {
+                                v vVar = new v(packageInfo, this.f9434a);
                                 vVar.h();
                                 jSONArray.put(vVar.k());
                             }

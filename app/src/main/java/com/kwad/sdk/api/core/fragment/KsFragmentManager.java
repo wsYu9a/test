@@ -16,7 +16,7 @@ import java.util.List;
 
 @KsAdSdkDynamicApi
 @Keep
-/* loaded from: classes3.dex */
+/* loaded from: classes2.dex */
 public class KsFragmentManager {
 
     @Keep
@@ -33,7 +33,7 @@ public class KsFragmentManager {
         }
 
         @Keep
-        public FragmentManager.FragmentLifecycleCallbacks getBase() {
+        FragmentManager.FragmentLifecycleCallbacks getBase() {
             return this.mBase;
         }
 
@@ -108,19 +108,19 @@ public class KsFragmentManager {
         }
 
         @Keep
-        public void setBase(FragmentManager.FragmentLifecycleCallbacks fragmentLifecycleCallbacks) {
+        void setBase(FragmentManager.FragmentLifecycleCallbacks fragmentLifecycleCallbacks) {
             this.mBase = fragmentLifecycleCallbacks;
         }
     }
 
     @Keep
-    public KsFragmentManager(FragmentManager fragmentManager) {
+    KsFragmentManager(FragmentManager fragmentManager) {
         this.mBase = fragmentManager;
     }
 
     @KsAdSdkDynamicApi
     @Keep
-    public static void enableDebugLogging(boolean z10) {
+    public static void enableDebugLogging(boolean z) {
         while (true) {
         }
     }
@@ -145,8 +145,8 @@ public class KsFragmentManager {
 
     @KsAdSdkDynamicApi
     @Keep
-    public KsFragment findFragmentById(int i10) {
-        Object findFragmentById = this.mBase.findFragmentById(i10);
+    public KsFragment findFragmentById(int i2) {
+        Object findFragmentById = this.mBase.findFragmentById(i2);
         if (findFragmentById instanceof IDelegateFragment) {
             return ((IDelegateFragment) findFragmentById).getBase();
         }
@@ -176,7 +176,7 @@ public class KsFragmentManager {
     }
 
     @Keep
-    public FragmentManager getBase() {
+    FragmentManager getBase() {
         return this.mBase;
     }
 
@@ -236,8 +236,32 @@ public class KsFragmentManager {
 
     @KsAdSdkDynamicApi
     @Keep
+    public void popBackStack(int i2, int i3) {
+        this.mBase.popBackStack(i2, i3);
+    }
+
+    @KsAdSdkDynamicApi
+    @Keep
+    public void popBackStack(String str, int i2) {
+        this.mBase.popBackStack(str, i2);
+    }
+
+    @KsAdSdkDynamicApi
+    @Keep
     public boolean popBackStackImmediate() {
         return this.mBase.popBackStackImmediate();
+    }
+
+    @KsAdSdkDynamicApi
+    @Keep
+    public boolean popBackStackImmediate(int i2, int i3) {
+        return this.mBase.popBackStackImmediate(i2, i3);
+    }
+
+    @KsAdSdkDynamicApi
+    @Keep
+    public boolean popBackStackImmediate(String str, int i2) {
+        return this.mBase.popBackStackImmediate(str, i2);
     }
 
     @KsAdSdkDynamicApi
@@ -248,9 +272,9 @@ public class KsFragmentManager {
 
     @KsAdSdkDynamicApi
     @Keep
-    public void registerFragmentLifecycleCallbacks(FragmentLifecycleCallbacks fragmentLifecycleCallbacks, boolean z10) {
+    public void registerFragmentLifecycleCallbacks(FragmentLifecycleCallbacks fragmentLifecycleCallbacks, boolean z) {
         fragmentLifecycleCallbacks.setBase(new DelegateFragmentLifecycleCallbacks(this, fragmentLifecycleCallbacks));
-        this.mBase.registerFragmentLifecycleCallbacks(fragmentLifecycleCallbacks.getBase(), z10);
+        this.mBase.registerFragmentLifecycleCallbacks(fragmentLifecycleCallbacks.getBase(), z);
     }
 
     @KsAdSdkDynamicApi
@@ -263,29 +287,5 @@ public class KsFragmentManager {
     @Keep
     public void unregisterFragmentLifecycleCallbacks(FragmentLifecycleCallbacks fragmentLifecycleCallbacks) {
         this.mBase.unregisterFragmentLifecycleCallbacks(fragmentLifecycleCallbacks.getBase());
-    }
-
-    @KsAdSdkDynamicApi
-    @Keep
-    public void popBackStack(String str, int i10) {
-        this.mBase.popBackStack(str, i10);
-    }
-
-    @KsAdSdkDynamicApi
-    @Keep
-    public boolean popBackStackImmediate(String str, int i10) {
-        return this.mBase.popBackStackImmediate(str, i10);
-    }
-
-    @KsAdSdkDynamicApi
-    @Keep
-    public void popBackStack(int i10, int i11) {
-        this.mBase.popBackStack(i10, i11);
-    }
-
-    @KsAdSdkDynamicApi
-    @Keep
-    public boolean popBackStackImmediate(int i10, int i11) {
-        return this.mBase.popBackStackImmediate(i10, i11);
     }
 }

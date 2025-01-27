@@ -4,179 +4,175 @@ import android.os.Handler;
 import android.os.Looper;
 import androidx.annotation.MainThread;
 import androidx.annotation.NonNull;
-import com.kwad.sdk.core.d.c;
-import com.kwad.sdk.core.network.f;
-import com.kwad.sdk.core.network.l;
-import com.kwad.sdk.core.network.o;
-import com.kwad.sdk.core.response.model.BaseResultData;
-import com.kwad.sdk.core.webview.d.b;
-import com.kwad.sdk.utils.bd;
+import com.kwad.sdk.core.network.BaseResultData;
+import com.kwad.sdk.core.network.g;
+import com.kwad.sdk.core.network.m;
+import com.kwad.sdk.core.network.p;
+import com.kwad.sdk.core.webview.c.b;
 import org.json.JSONObject;
 
-/* loaded from: classes3.dex */
+/* loaded from: classes2.dex */
 public final class b {
-
-    /* renamed from: hf */
-    private static final Handler f11977hf = new Handler(Looper.getMainLooper());
+    private static final Handler mHandler = new Handler(Looper.getMainLooper());
 
     /* renamed from: com.kwad.sdk.core.webview.request.b$1 */
-    public class AnonymousClass1 extends l<com.kwad.sdk.core.webview.request.a, WebCardGetDataResponse> {
-        final /* synthetic */ b.a aJl;
+    final class AnonymousClass1 extends m<com.kwad.sdk.core.webview.request.a, WebCardGetDataResponse> {
+        final /* synthetic */ b.a aqs;
 
         /* renamed from: com.kwad.sdk.core.webview.request.b$1$1 */
-        public class C05031 extends com.kwad.sdk.core.webview.request.a {
-            public C05031(String str, String str2, String str3) {
+        final class C02231 extends com.kwad.sdk.core.webview.request.a {
+            C02231(String str, String str2, String str3) {
                 super(str, str2, str3);
             }
 
-            @Override // com.kwad.sdk.core.webview.request.a, com.kwad.sdk.core.network.b, com.kwad.sdk.core.network.f
+            @Override // com.kwad.sdk.core.webview.request.a, com.kwad.sdk.core.network.b, com.kwad.sdk.core.network.g
             public final String getUrl() {
                 return aVar.url;
             }
         }
 
-        public AnonymousClass1(b.a aVar) {
+        AnonymousClass1(b.a aVar) {
             aVar = aVar;
         }
 
-        @Override // com.kwad.sdk.core.network.a
         @NonNull
-        /* renamed from: IS */
-        public com.kwad.sdk.core.webview.request.a createRequest() {
-            b.a aVar = aVar;
-            return new com.kwad.sdk.core.webview.request.a(aVar.url, aVar.method, aVar.params) { // from class: com.kwad.sdk.core.webview.request.b.1.1
-                public C05031(String str, String str2, String str3) {
-                    super(str, str2, str3);
-                }
-
-                @Override // com.kwad.sdk.core.webview.request.a, com.kwad.sdk.core.network.b, com.kwad.sdk.core.network.f
-                public final String getUrl() {
-                    return aVar.url;
-                }
-            };
-        }
-
-        @NonNull
-        private static WebCardGetDataResponse fk(String str) {
+        private static WebCardGetDataResponse dp(String str) {
             JSONObject jSONObject = new JSONObject(str);
             WebCardGetDataResponse webCardGetDataResponse = new WebCardGetDataResponse();
             webCardGetDataResponse.parseJson(jSONObject);
             return webCardGetDataResponse;
         }
 
-        @Override // com.kwad.sdk.core.network.l
+        @Override // com.kwad.sdk.core.network.a
+        @NonNull
+        /* renamed from: zh */
+        public com.kwad.sdk.core.webview.request.a createRequest() {
+            b.a aVar = aVar;
+            return new com.kwad.sdk.core.webview.request.a(aVar.url, aVar.method, aVar.params) { // from class: com.kwad.sdk.core.webview.request.b.1.1
+                C02231(String str, String str2, String str3) {
+                    super(str, str2, str3);
+                }
+
+                @Override // com.kwad.sdk.core.webview.request.a, com.kwad.sdk.core.network.b, com.kwad.sdk.core.network.g
+                public final String getUrl() {
+                    return aVar.url;
+                }
+            };
+        }
+
+        @Override // com.kwad.sdk.core.network.m
         @NonNull
         public final /* synthetic */ WebCardGetDataResponse parseData(String str) {
-            return fk(str);
+            return dp(str);
         }
     }
 
     /* renamed from: com.kwad.sdk.core.webview.request.b$2 */
-    public class AnonymousClass2 extends o<com.kwad.sdk.core.webview.request.a, WebCardGetDataResponse> {
-        final /* synthetic */ a aJo;
+    final class AnonymousClass2 extends p<com.kwad.sdk.core.webview.request.a, WebCardGetDataResponse> {
+        final /* synthetic */ a aqv;
 
         /* renamed from: com.kwad.sdk.core.webview.request.b$2$1 */
-        public class AnonymousClass1 extends bd {
-            public AnonymousClass1() {
+        final class AnonymousClass1 implements Runnable {
+            AnonymousClass1() {
             }
 
-            @Override // com.kwad.sdk.utils.bd
-            public final void doTask() {
+            @Override // java.lang.Runnable
+            public final void run() {
             }
         }
 
         /* renamed from: com.kwad.sdk.core.webview.request.b$2$2 */
-        public class C05042 extends bd {
-            final /* synthetic */ WebCardGetDataResponse aJq;
+        final class RunnableC02242 implements Runnable {
+            final /* synthetic */ WebCardGetDataResponse aqx;
 
-            public C05042(WebCardGetDataResponse webCardGetDataResponse) {
+            RunnableC02242(WebCardGetDataResponse webCardGetDataResponse) {
                 webCardGetDataResponse = webCardGetDataResponse;
             }
 
-            @Override // com.kwad.sdk.utils.bd
-            public final void doTask() {
+            @Override // java.lang.Runnable
+            public final void run() {
                 aVar2.a(webCardGetDataResponse);
             }
         }
 
         /* renamed from: com.kwad.sdk.core.webview.request.b$2$3 */
-        public class AnonymousClass3 extends bd {
-            final /* synthetic */ int Lw;
-            final /* synthetic */ String Lx;
+        final class AnonymousClass3 implements Runnable {
+            final /* synthetic */ int HY;
+            final /* synthetic */ String HZ;
 
-            public AnonymousClass3(int i10, String str) {
-                i10 = i10;
+            AnonymousClass3(int i2, String str) {
+                i2 = i2;
                 str = str;
             }
 
-            @Override // com.kwad.sdk.utils.bd
-            public final void doTask() {
-                c.d("WebCardGetDataRequestManager", "load onError:" + String.format("code:%s__msg:%s", Integer.valueOf(i10), str));
-                aVar2.onError(i10, str);
+            @Override // java.lang.Runnable
+            public final void run() {
+                com.kwad.sdk.core.d.b.d("WebCardGetDataRequestManager", "load onError:" + String.format("code:%s__msg:%s", Integer.valueOf(i2), str));
+                aVar2.onError(i2, str);
             }
         }
 
-        public AnonymousClass2(a aVar) {
+        AnonymousClass2(a aVar) {
             aVar2 = aVar;
         }
 
-        @Override // com.kwad.sdk.core.network.o, com.kwad.sdk.core.network.g
+        @Override // com.kwad.sdk.core.network.p, com.kwad.sdk.core.network.h
         /* renamed from: a */
         public void onStartRequest(@NonNull com.kwad.sdk.core.webview.request.a aVar) {
             super.onStartRequest(aVar);
-            c.d("WebCardGetDataRequestManager", "onStartRequest");
-            b.f11977hf.post(new bd() { // from class: com.kwad.sdk.core.webview.request.b.2.1
-                public AnonymousClass1() {
+            com.kwad.sdk.core.d.b.d("WebCardGetDataRequestManager", "onStartRequest");
+            b.mHandler.post(new Runnable() { // from class: com.kwad.sdk.core.webview.request.b.2.1
+                AnonymousClass1() {
                 }
 
-                @Override // com.kwad.sdk.utils.bd
-                public final void doTask() {
+                @Override // java.lang.Runnable
+                public final void run() {
                 }
             });
         }
 
         private void b(@NonNull WebCardGetDataResponse webCardGetDataResponse) {
-            c.d("WebCardGetDataRequestManager", "onSuccess");
-            b.f11977hf.post(new bd() { // from class: com.kwad.sdk.core.webview.request.b.2.2
-                final /* synthetic */ WebCardGetDataResponse aJq;
+            com.kwad.sdk.core.d.b.d("WebCardGetDataRequestManager", "onSuccess");
+            b.mHandler.post(new Runnable() { // from class: com.kwad.sdk.core.webview.request.b.2.2
+                final /* synthetic */ WebCardGetDataResponse aqx;
 
-                public C05042(WebCardGetDataResponse webCardGetDataResponse2) {
+                RunnableC02242(WebCardGetDataResponse webCardGetDataResponse2) {
                     webCardGetDataResponse = webCardGetDataResponse2;
                 }
 
-                @Override // com.kwad.sdk.utils.bd
-                public final void doTask() {
+                @Override // java.lang.Runnable
+                public final void run() {
                     aVar2.a(webCardGetDataResponse);
                 }
             });
         }
 
-        private void u(int i10, String str) {
-            c.d("WebCardGetDataRequestManager", "onError errorCode=" + i10 + " errorMsg=" + str);
-            b.f11977hf.post(new bd() { // from class: com.kwad.sdk.core.webview.request.b.2.3
-                final /* synthetic */ int Lw;
-                final /* synthetic */ String Lx;
+        private void j(int i2, String str) {
+            com.kwad.sdk.core.d.b.d("WebCardGetDataRequestManager", "onError errorCode=" + i2 + " errorMsg=" + str);
+            b.mHandler.post(new Runnable() { // from class: com.kwad.sdk.core.webview.request.b.2.3
+                final /* synthetic */ int HY;
+                final /* synthetic */ String HZ;
 
-                public AnonymousClass3(int i102, String str2) {
-                    i10 = i102;
+                AnonymousClass3(int i22, String str2) {
+                    i2 = i22;
                     str = str2;
                 }
 
-                @Override // com.kwad.sdk.utils.bd
-                public final void doTask() {
-                    c.d("WebCardGetDataRequestManager", "load onError:" + String.format("code:%s__msg:%s", Integer.valueOf(i10), str));
-                    aVar2.onError(i10, str);
+                @Override // java.lang.Runnable
+                public final void run() {
+                    com.kwad.sdk.core.d.b.d("WebCardGetDataRequestManager", "load onError:" + String.format("code:%s__msg:%s", Integer.valueOf(i2), str));
+                    aVar2.onError(i2, str);
                 }
             });
         }
 
-        @Override // com.kwad.sdk.core.network.o, com.kwad.sdk.core.network.g
-        public final /* synthetic */ void onError(@NonNull f fVar, int i10, String str) {
-            u(i10, str);
+        @Override // com.kwad.sdk.core.network.p, com.kwad.sdk.core.network.h
+        public final /* synthetic */ void onError(@NonNull g gVar, int i2, String str) {
+            j(i2, str);
         }
 
-        @Override // com.kwad.sdk.core.network.o, com.kwad.sdk.core.network.g
-        public final /* synthetic */ void onSuccess(@NonNull f fVar, @NonNull BaseResultData baseResultData) {
+        @Override // com.kwad.sdk.core.network.p, com.kwad.sdk.core.network.h
+        public final /* synthetic */ void onSuccess(@NonNull g gVar, @NonNull BaseResultData baseResultData) {
             b((WebCardGetDataResponse) baseResultData);
         }
     }
@@ -186,164 +182,164 @@ public final class b {
         void a(@NonNull WebCardGetDataResponse webCardGetDataResponse);
 
         @MainThread
-        void onError(int i10, String str);
+        void onError(int i2, String str);
     }
 
     public final void a(b.a aVar, @NonNull a aVar2) {
-        new l<com.kwad.sdk.core.webview.request.a, WebCardGetDataResponse>() { // from class: com.kwad.sdk.core.webview.request.b.1
-            final /* synthetic */ b.a aJl;
+        new m<com.kwad.sdk.core.webview.request.a, WebCardGetDataResponse>() { // from class: com.kwad.sdk.core.webview.request.b.1
+            final /* synthetic */ b.a aqs;
 
             /* renamed from: com.kwad.sdk.core.webview.request.b$1$1 */
-            public class C05031 extends com.kwad.sdk.core.webview.request.a {
-                public C05031(String str, String str2, String str3) {
+            final class C02231 extends com.kwad.sdk.core.webview.request.a {
+                C02231(String str, String str2, String str3) {
                     super(str, str2, str3);
                 }
 
-                @Override // com.kwad.sdk.core.webview.request.a, com.kwad.sdk.core.network.b, com.kwad.sdk.core.network.f
+                @Override // com.kwad.sdk.core.webview.request.a, com.kwad.sdk.core.network.b, com.kwad.sdk.core.network.g
                 public final String getUrl() {
                     return aVar.url;
                 }
             }
 
-            public AnonymousClass1(b.a aVar3) {
+            AnonymousClass1(b.a aVar3) {
                 aVar = aVar3;
             }
 
-            @Override // com.kwad.sdk.core.network.a
             @NonNull
-            /* renamed from: IS */
-            public com.kwad.sdk.core.webview.request.a createRequest() {
-                b.a aVar3 = aVar;
-                return new com.kwad.sdk.core.webview.request.a(aVar3.url, aVar3.method, aVar3.params) { // from class: com.kwad.sdk.core.webview.request.b.1.1
-                    public C05031(String str, String str2, String str3) {
-                        super(str, str2, str3);
-                    }
-
-                    @Override // com.kwad.sdk.core.webview.request.a, com.kwad.sdk.core.network.b, com.kwad.sdk.core.network.f
-                    public final String getUrl() {
-                        return aVar.url;
-                    }
-                };
-            }
-
-            @NonNull
-            private static WebCardGetDataResponse fk(String str) {
+            private static WebCardGetDataResponse dp(String str) {
                 JSONObject jSONObject = new JSONObject(str);
                 WebCardGetDataResponse webCardGetDataResponse = new WebCardGetDataResponse();
                 webCardGetDataResponse.parseJson(jSONObject);
                 return webCardGetDataResponse;
             }
 
-            @Override // com.kwad.sdk.core.network.l
+            @Override // com.kwad.sdk.core.network.a
+            @NonNull
+            /* renamed from: zh */
+            public com.kwad.sdk.core.webview.request.a createRequest() {
+                b.a aVar3 = aVar;
+                return new com.kwad.sdk.core.webview.request.a(aVar3.url, aVar3.method, aVar3.params) { // from class: com.kwad.sdk.core.webview.request.b.1.1
+                    C02231(String str, String str2, String str3) {
+                        super(str, str2, str3);
+                    }
+
+                    @Override // com.kwad.sdk.core.webview.request.a, com.kwad.sdk.core.network.b, com.kwad.sdk.core.network.g
+                    public final String getUrl() {
+                        return aVar.url;
+                    }
+                };
+            }
+
+            @Override // com.kwad.sdk.core.network.m
             @NonNull
             public final /* synthetic */ WebCardGetDataResponse parseData(String str) {
-                return fk(str);
+                return dp(str);
             }
-        }.request(new o<com.kwad.sdk.core.webview.request.a, WebCardGetDataResponse>() { // from class: com.kwad.sdk.core.webview.request.b.2
-            final /* synthetic */ a aJo;
+        }.request(new p<com.kwad.sdk.core.webview.request.a, WebCardGetDataResponse>() { // from class: com.kwad.sdk.core.webview.request.b.2
+            final /* synthetic */ a aqv;
 
             /* renamed from: com.kwad.sdk.core.webview.request.b$2$1 */
-            public class AnonymousClass1 extends bd {
-                public AnonymousClass1() {
+            final class AnonymousClass1 implements Runnable {
+                AnonymousClass1() {
                 }
 
-                @Override // com.kwad.sdk.utils.bd
-                public final void doTask() {
+                @Override // java.lang.Runnable
+                public final void run() {
                 }
             }
 
             /* renamed from: com.kwad.sdk.core.webview.request.b$2$2 */
-            public class C05042 extends bd {
-                final /* synthetic */ WebCardGetDataResponse aJq;
+            final class RunnableC02242 implements Runnable {
+                final /* synthetic */ WebCardGetDataResponse aqx;
 
-                public C05042(WebCardGetDataResponse webCardGetDataResponse2) {
+                RunnableC02242(WebCardGetDataResponse webCardGetDataResponse2) {
                     webCardGetDataResponse = webCardGetDataResponse2;
                 }
 
-                @Override // com.kwad.sdk.utils.bd
-                public final void doTask() {
+                @Override // java.lang.Runnable
+                public final void run() {
                     aVar2.a(webCardGetDataResponse);
                 }
             }
 
             /* renamed from: com.kwad.sdk.core.webview.request.b$2$3 */
-            public class AnonymousClass3 extends bd {
-                final /* synthetic */ int Lw;
-                final /* synthetic */ String Lx;
+            final class AnonymousClass3 implements Runnable {
+                final /* synthetic */ int HY;
+                final /* synthetic */ String HZ;
 
-                public AnonymousClass3(int i102, String str2) {
-                    i10 = i102;
+                AnonymousClass3(int i22, String str2) {
+                    i2 = i22;
                     str = str2;
                 }
 
-                @Override // com.kwad.sdk.utils.bd
-                public final void doTask() {
-                    c.d("WebCardGetDataRequestManager", "load onError:" + String.format("code:%s__msg:%s", Integer.valueOf(i10), str));
-                    aVar2.onError(i10, str);
+                @Override // java.lang.Runnable
+                public final void run() {
+                    com.kwad.sdk.core.d.b.d("WebCardGetDataRequestManager", "load onError:" + String.format("code:%s__msg:%s", Integer.valueOf(i2), str));
+                    aVar2.onError(i2, str);
                 }
             }
 
-            public AnonymousClass2(a aVar22) {
+            AnonymousClass2(a aVar22) {
                 aVar2 = aVar22;
             }
 
-            @Override // com.kwad.sdk.core.network.o, com.kwad.sdk.core.network.g
+            @Override // com.kwad.sdk.core.network.p, com.kwad.sdk.core.network.h
             /* renamed from: a */
             public void onStartRequest(@NonNull com.kwad.sdk.core.webview.request.a aVar3) {
                 super.onStartRequest(aVar3);
-                c.d("WebCardGetDataRequestManager", "onStartRequest");
-                b.f11977hf.post(new bd() { // from class: com.kwad.sdk.core.webview.request.b.2.1
-                    public AnonymousClass1() {
+                com.kwad.sdk.core.d.b.d("WebCardGetDataRequestManager", "onStartRequest");
+                b.mHandler.post(new Runnable() { // from class: com.kwad.sdk.core.webview.request.b.2.1
+                    AnonymousClass1() {
                     }
 
-                    @Override // com.kwad.sdk.utils.bd
-                    public final void doTask() {
+                    @Override // java.lang.Runnable
+                    public final void run() {
                     }
                 });
             }
 
             private void b(@NonNull WebCardGetDataResponse webCardGetDataResponse2) {
-                c.d("WebCardGetDataRequestManager", "onSuccess");
-                b.f11977hf.post(new bd() { // from class: com.kwad.sdk.core.webview.request.b.2.2
-                    final /* synthetic */ WebCardGetDataResponse aJq;
+                com.kwad.sdk.core.d.b.d("WebCardGetDataRequestManager", "onSuccess");
+                b.mHandler.post(new Runnable() { // from class: com.kwad.sdk.core.webview.request.b.2.2
+                    final /* synthetic */ WebCardGetDataResponse aqx;
 
-                    public C05042(WebCardGetDataResponse webCardGetDataResponse22) {
+                    RunnableC02242(WebCardGetDataResponse webCardGetDataResponse22) {
                         webCardGetDataResponse = webCardGetDataResponse22;
                     }
 
-                    @Override // com.kwad.sdk.utils.bd
-                    public final void doTask() {
+                    @Override // java.lang.Runnable
+                    public final void run() {
                         aVar2.a(webCardGetDataResponse);
                     }
                 });
             }
 
-            private void u(int i102, String str2) {
-                c.d("WebCardGetDataRequestManager", "onError errorCode=" + i102 + " errorMsg=" + str2);
-                b.f11977hf.post(new bd() { // from class: com.kwad.sdk.core.webview.request.b.2.3
-                    final /* synthetic */ int Lw;
-                    final /* synthetic */ String Lx;
+            private void j(int i22, String str2) {
+                com.kwad.sdk.core.d.b.d("WebCardGetDataRequestManager", "onError errorCode=" + i22 + " errorMsg=" + str2);
+                b.mHandler.post(new Runnable() { // from class: com.kwad.sdk.core.webview.request.b.2.3
+                    final /* synthetic */ int HY;
+                    final /* synthetic */ String HZ;
 
-                    public AnonymousClass3(int i1022, String str22) {
-                        i10 = i1022;
+                    AnonymousClass3(int i222, String str22) {
+                        i2 = i222;
                         str = str22;
                     }
 
-                    @Override // com.kwad.sdk.utils.bd
-                    public final void doTask() {
-                        c.d("WebCardGetDataRequestManager", "load onError:" + String.format("code:%s__msg:%s", Integer.valueOf(i10), str));
-                        aVar2.onError(i10, str);
+                    @Override // java.lang.Runnable
+                    public final void run() {
+                        com.kwad.sdk.core.d.b.d("WebCardGetDataRequestManager", "load onError:" + String.format("code:%s__msg:%s", Integer.valueOf(i2), str));
+                        aVar2.onError(i2, str);
                     }
                 });
             }
 
-            @Override // com.kwad.sdk.core.network.o, com.kwad.sdk.core.network.g
-            public final /* synthetic */ void onError(@NonNull f fVar, int i10, String str) {
-                u(i10, str);
+            @Override // com.kwad.sdk.core.network.p, com.kwad.sdk.core.network.h
+            public final /* synthetic */ void onError(@NonNull g gVar, int i2, String str) {
+                j(i2, str);
             }
 
-            @Override // com.kwad.sdk.core.network.o, com.kwad.sdk.core.network.g
-            public final /* synthetic */ void onSuccess(@NonNull f fVar, @NonNull BaseResultData baseResultData) {
+            @Override // com.kwad.sdk.core.network.p, com.kwad.sdk.core.network.h
+            public final /* synthetic */ void onSuccess(@NonNull g gVar, @NonNull BaseResultData baseResultData) {
                 b((WebCardGetDataResponse) baseResultData);
             }
         });

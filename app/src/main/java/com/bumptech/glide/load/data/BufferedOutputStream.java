@@ -6,7 +6,7 @@ import com.bumptech.glide.load.engine.bitmap_recycle.ArrayPool;
 import java.io.IOException;
 import java.io.OutputStream;
 
-/* loaded from: classes2.dex */
+/* loaded from: classes.dex */
 public final class BufferedOutputStream extends OutputStream {
     private ArrayPool arrayPool;
     private byte[] buffer;
@@ -20,9 +20,9 @@ public final class BufferedOutputStream extends OutputStream {
     }
 
     private void flushBuffer() throws IOException {
-        int i10 = this.index;
-        if (i10 > 0) {
-            this.out.write(this.buffer, 0, i10);
+        int i2 = this.index;
+        if (i2 > 0) {
+            this.out.write(this.buffer, 0, i2);
             this.index = 0;
         }
     }
@@ -47,9 +47,9 @@ public final class BufferedOutputStream extends OutputStream {
             flush();
             this.out.close();
             release();
-        } catch (Throwable th2) {
+        } catch (Throwable th) {
             this.out.close();
-            throw th2;
+            throw th;
         }
     }
 
@@ -60,19 +60,19 @@ public final class BufferedOutputStream extends OutputStream {
     }
 
     @Override // java.io.OutputStream
-    public void write(int i10) throws IOException {
+    public void write(int i2) throws IOException {
         byte[] bArr = this.buffer;
-        int i11 = this.index;
-        this.index = i11 + 1;
-        bArr[i11] = (byte) i10;
+        int i3 = this.index;
+        this.index = i3 + 1;
+        bArr[i3] = (byte) i2;
         maybeFlushBuffer();
     }
 
     @VisibleForTesting
-    public BufferedOutputStream(@NonNull OutputStream outputStream, ArrayPool arrayPool, int i10) {
+    BufferedOutputStream(@NonNull OutputStream outputStream, ArrayPool arrayPool, int i2) {
         this.out = outputStream;
         this.arrayPool = arrayPool;
-        this.buffer = (byte[]) arrayPool.get(i10, byte[].class);
+        this.buffer = (byte[]) arrayPool.get(i2, byte[].class);
     }
 
     @Override // java.io.OutputStream
@@ -81,21 +81,21 @@ public final class BufferedOutputStream extends OutputStream {
     }
 
     @Override // java.io.OutputStream
-    public void write(@NonNull byte[] bArr, int i10, int i11) throws IOException {
-        int i12 = 0;
+    public void write(@NonNull byte[] bArr, int i2, int i3) throws IOException {
+        int i4 = 0;
         do {
-            int i13 = i11 - i12;
-            int i14 = i10 + i12;
-            int i15 = this.index;
-            if (i15 == 0 && i13 >= this.buffer.length) {
-                this.out.write(bArr, i14, i13);
+            int i5 = i3 - i4;
+            int i6 = i2 + i4;
+            int i7 = this.index;
+            if (i7 == 0 && i5 >= this.buffer.length) {
+                this.out.write(bArr, i6, i5);
                 return;
             }
-            int min = Math.min(i13, this.buffer.length - i15);
-            System.arraycopy(bArr, i14, this.buffer, this.index, min);
+            int min = Math.min(i5, this.buffer.length - i7);
+            System.arraycopy(bArr, i6, this.buffer, this.index, min);
             this.index += min;
-            i12 += min;
+            i4 += min;
             maybeFlushBuffer();
-        } while (i12 < i11);
+        } while (i4 < i3);
     }
 }

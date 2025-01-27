@@ -4,7 +4,6 @@ import android.graphics.Rect;
 import android.os.Build;
 import android.util.Log;
 import android.view.View;
-import androidx.annotation.ChecksSdkIntAtLeast;
 import androidx.annotation.RestrictTo;
 import androidx.core.view.ViewCompat;
 import java.lang.reflect.InvocationTargetException;
@@ -14,23 +13,24 @@ import java.lang.reflect.Method;
 /* loaded from: classes.dex */
 public class ViewUtils {
 
-    @ChecksSdkIntAtLeast(api = 27)
-    @RestrictTo({RestrictTo.Scope.LIBRARY})
-    static final boolean SDK_LEVEL_SUPPORTS_AUTOSIZE;
-    private static final String TAG = "ViewUtils";
-    private static Method sComputeFitSystemWindowsMethod;
+    /* renamed from: a */
+    private static final String f1046a = "ViewUtils";
+
+    /* renamed from: b */
+    private static Method f1047b;
 
     static {
-        SDK_LEVEL_SUPPORTS_AUTOSIZE = Build.VERSION.SDK_INT >= 27;
-        try {
-            Method declaredMethod = View.class.getDeclaredMethod("computeFitSystemWindows", Rect.class, Rect.class);
-            sComputeFitSystemWindowsMethod = declaredMethod;
-            if (declaredMethod.isAccessible()) {
-                return;
+        if (Build.VERSION.SDK_INT >= 18) {
+            try {
+                Method declaredMethod = View.class.getDeclaredMethod("computeFitSystemWindows", Rect.class, Rect.class);
+                f1047b = declaredMethod;
+                if (declaredMethod.isAccessible()) {
+                    return;
+                }
+                f1047b.setAccessible(true);
+            } catch (NoSuchMethodException unused) {
+                Log.d(f1046a, "Could not find method computeFitSystemWindows. Oh well.");
             }
-            sComputeFitSystemWindowsMethod.setAccessible(true);
-        } catch (NoSuchMethodException unused) {
-            Log.d(TAG, "Could not find method computeFitSystemWindows. Oh well.");
         }
     }
 
@@ -38,12 +38,12 @@ public class ViewUtils {
     }
 
     public static void computeFitSystemWindows(View view, Rect rect, Rect rect2) {
-        Method method = sComputeFitSystemWindowsMethod;
+        Method method = f1047b;
         if (method != null) {
             try {
                 method.invoke(view, rect, rect2);
-            } catch (Exception e10) {
-                Log.d(TAG, "Could not invoke computeFitSystemWindows", e10);
+            } catch (Exception e2) {
+                Log.d(f1046a, "Could not invoke computeFitSystemWindows", e2);
             }
         }
     }
@@ -53,18 +53,20 @@ public class ViewUtils {
     }
 
     public static void makeOptionalFitsSystemWindows(View view) {
-        try {
-            Method method = view.getClass().getMethod("makeOptionalFitsSystemWindows", null);
-            if (!method.isAccessible()) {
-                method.setAccessible(true);
+        if (Build.VERSION.SDK_INT >= 16) {
+            try {
+                Method method = view.getClass().getMethod("makeOptionalFitsSystemWindows", new Class[0]);
+                if (!method.isAccessible()) {
+                    method.setAccessible(true);
+                }
+                method.invoke(view, new Object[0]);
+            } catch (IllegalAccessException e2) {
+                Log.d(f1046a, "Could not invoke makeOptionalFitsSystemWindows", e2);
+            } catch (NoSuchMethodException unused) {
+                Log.d(f1046a, "Could not find method makeOptionalFitsSystemWindows. Oh well...");
+            } catch (InvocationTargetException e3) {
+                Log.d(f1046a, "Could not invoke makeOptionalFitsSystemWindows", e3);
             }
-            method.invoke(view, null);
-        } catch (IllegalAccessException e10) {
-            Log.d(TAG, "Could not invoke makeOptionalFitsSystemWindows", e10);
-        } catch (NoSuchMethodException unused) {
-            Log.d(TAG, "Could not find method makeOptionalFitsSystemWindows. Oh well...");
-        } catch (InvocationTargetException e11) {
-            Log.d(TAG, "Could not invoke makeOptionalFitsSystemWindows", e11);
         }
     }
 }

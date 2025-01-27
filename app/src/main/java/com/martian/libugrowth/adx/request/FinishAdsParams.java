@@ -1,6 +1,6 @@
 package com.martian.libugrowth.adx.request;
 
-import v8.a;
+import com.martian.libcomm.http.requests.d.a;
 
 /* loaded from: classes3.dex */
 public class FinishAdsParams extends AdxHttpGetParams {
@@ -19,16 +19,16 @@ public class FinishAdsParams extends AdxHttpGetParams {
         return this.planId;
     }
 
-    @Override // u8.b
+    @Override // com.martian.libcomm.http.requests.b
     public String getRequestMethod() {
         return "lm/finish_ads";
     }
 
-    public void setAdIds(String str) {
-        this.adIds = str;
+    public void setAdIds(String adIds) {
+        this.adIds = adIds;
     }
 
-    public void setPlanId(String str) {
-        this.planId = str;
+    public void setPlanId(String planId) {
+        this.planId = planId;
     }
 }

@@ -1,173 +1,111 @@
 package com.kwad.components.core.f;
 
 import android.content.Context;
-import android.text.TextUtils;
-import com.kwad.components.offline.api.IOfflineCompo;
-import com.kwad.sdk.components.e;
-import com.kwad.sdk.components.h;
-import com.kwad.sdk.core.a.g;
-import com.kwad.sdk.core.config.d;
-import com.kwad.sdk.core.d.c;
-import com.kwad.sdk.utils.ad;
-import com.kwad.sdk.utils.bm;
-import com.kwad.sdk.utils.bo;
-import com.yxcorp.kuaishou.addfp.KWEGIDDFP;
-import com.yxcorp.kuaishou.addfp.ResponseDfpCallback;
-import org.json.JSONObject;
+import com.kwad.sdk.core.d.b;
+import com.kwad.sdk.utils.g;
+import java.io.File;
+import java.io.FileFilter;
+import java.util.concurrent.TimeUnit;
 
-/* loaded from: classes3.dex */
-public final class a extends e implements h {
-    private long NB;
-    private String NC;
-    private String Nz;
-    private Context mContext;
+/* loaded from: classes2.dex */
+public final class a {
 
     /* renamed from: com.kwad.components.core.f.a$1 */
-    public class AnonymousClass1 implements ResponseDfpCallback {
-        public AnonymousClass1() {
+    final class AnonymousClass1 implements Runnable {
+        final /* synthetic */ long Js;
+        final /* synthetic */ Context jN;
+
+        AnonymousClass1(Context context, long j2) {
+            context = context;
+            currentTimeMillis = j2;
         }
 
-        @Override // com.yxcorp.kuaishou.addfp.ResponseDfpCallback
-        public final void onFailed(int i10, String str) {
-            c.e("EncryptComponentsImpl", "initGId onFailed errorCode:" + i10 + "errorMessage :" + str);
-        }
-
-        @Override // com.yxcorp.kuaishou.addfp.ResponseDfpCallback
-        public final void onSuccess(String str, String str2) {
-            c.d("initGId onSuccess", "deviceInfo：" + str2);
-            a.this.pk();
-            a.this.al(str2);
+        @Override // java.lang.Runnable
+        public final void run() {
+            try {
+                a.this.c(context, currentTimeMillis);
+            } catch (Throwable th) {
+                b.printStackTraceOnly(th);
+            }
         }
     }
 
-    private void al(Context context) {
-        c.i("EncryptComponentsImpl", "initGId");
-        try {
-            JSONObject jSONObject = new JSONObject();
-            jSONObject.put("64", 0);
-            if (d.a(com.kwad.sdk.core.config.c.awG)) {
-                jSONObject.put("64_level", 1);
-            }
-            KWEGIDDFP.handlePolicy(jSONObject);
-        } catch (Throwable th2) {
-            c.printStackTrace(th2);
+    /* renamed from: com.kwad.components.core.f.a$2 */
+    final class AnonymousClass2 implements FileFilter {
+        AnonymousClass2() {
         }
-        KWEGIDDFP.instance().getEGidByCallback(context, false, new ResponseDfpCallback() { // from class: com.kwad.components.core.f.a.1
-            public AnonymousClass1() {
+
+        @Override // java.io.FileFilter
+        public final boolean accept(File file) {
+            String name = file.getName();
+            return name.startsWith("dynamic-") && name.endsWith(".apk");
+        }
+    }
+
+    /* renamed from: com.kwad.components.core.f.a$a */
+    static final class C0174a {
+        private static final a Ju = new a((byte) 0);
+    }
+
+    private a() {
+    }
+
+    /* synthetic */ a(byte b2) {
+        this();
+    }
+
+    private static File ab(Context context) {
+        return new File(context.getApplicationInfo().dataDir, "ksad_dynamic");
+    }
+
+    public void c(Context context, long j2) {
+        File[] listFiles = ab(context).listFiles(new FileFilter() { // from class: com.kwad.components.core.f.a.2
+            AnonymousClass2() {
             }
 
-            @Override // com.yxcorp.kuaishou.addfp.ResponseDfpCallback
-            public final void onFailed(int i10, String str) {
-                c.e("EncryptComponentsImpl", "initGId onFailed errorCode:" + i10 + "errorMessage :" + str);
-            }
-
-            @Override // com.yxcorp.kuaishou.addfp.ResponseDfpCallback
-            public final void onSuccess(String str, String str2) {
-                c.d("initGId onSuccess", "deviceInfo：" + str2);
-                a.this.pk();
-                a.this.al(str2);
+            @Override // java.io.FileFilter
+            public final boolean accept(File file) {
+                String name = file.getName();
+                return name.startsWith("dynamic-") && name.endsWith(".apk");
             }
         });
-    }
-
-    public void pk() {
-        String ct = ad.ct(this.mContext);
-        String OV = bo.OV();
-        if (TextUtils.isEmpty(ct)) {
-            ad.Y(this.mContext, OV);
+        if (listFiles == null || listFiles.length <= 0) {
             return;
         }
-        if (TextUtils.equals(ct, OV)) {
-            return;
+        long j3 = 0;
+        for (File file : listFiles) {
+            j3 = Math.max(j3, file.lastModified());
         }
-        this.Nz = "";
-        this.NB = 0L;
-        this.NC = "";
-        ad.X(this.mContext, "");
-        ad.d(this.mContext, this.NB);
-        ad.ag(this.mContext, this.NC);
-        ad.Y(this.mContext, OV);
-    }
-
-    private String pn() {
-        if (TextUtils.isEmpty(this.Nz)) {
-            this.Nz = ad.cq(this.mContext);
-        }
-        return this.Nz;
-    }
-
-    private long po() {
-        if (this.NB == 0) {
-            this.NB = ad.cr(this.mContext);
-        }
-        return this.NB;
-    }
-
-    private String pp() {
-        if (TextUtils.isEmpty(this.NC)) {
-            this.NC = ad.cw(this.mContext);
-        }
-        return this.NC;
-    }
-
-    @Override // com.kwad.sdk.components.h
-    public final void am(String str) {
-        if (this.mContext == null || bm.isNullString(str) || bm.isEquals(pn(), str)) {
-            return;
-        }
-        try {
-            this.Nz = str;
-            ad.X(this.mContext, str);
-            KWEGIDDFP.instance().setEgid(this.mContext, str);
-        } catch (Throwable th2) {
-            c.e("EncryptComponentsImpl", "setEGid error : " + th2);
+        long min = Math.min(j2, j3);
+        for (File file2 : listFiles) {
+            if (file2.exists() && file2.lastModified() < min) {
+                file2.delete();
+            }
         }
     }
 
-    @Override // com.kwad.sdk.components.b
-    public final Class getComponentsType() {
-        return h.class;
+    public static a nA() {
+        return C0174a.Ju;
     }
 
-    @Override // com.kwad.sdk.components.b
-    public final void init(Context context) {
-        try {
-            this.mContext = context;
-            al(context);
-        } catch (Throwable th2) {
-            c.e("EncryptComponentsImpl", "initGId error : " + th2);
-        }
-    }
+    public final void aa(Context context) {
+        g.schedule(new Runnable() { // from class: com.kwad.components.core.f.a.1
+            final /* synthetic */ long Js;
+            final /* synthetic */ Context jN;
 
-    @Override // com.kwad.sdk.components.h
-    public final String pl() {
-        return (d.Dw() || System.currentTimeMillis() >= po() || TextUtils.isEmpty(pn())) ? pp() : "";
-    }
+            AnonymousClass1(Context context2, long j2) {
+                context = context2;
+                currentTimeMillis = j2;
+            }
 
-    @Override // com.kwad.sdk.components.h
-    public final g pm() {
-        return new com.kwad.sdk.core.a.a();
-    }
-
-    @Override // com.kwad.sdk.components.e, com.kwad.sdk.components.b
-    public final int priority() {
-        return IOfflineCompo.Priority.HIGHEST;
-    }
-
-    @Override // com.kwad.sdk.components.h
-    public final void x(long j10) {
-        if (this.mContext == null || j10 <= 0 || j10 == po()) {
-            return;
-        }
-        this.NB = j10;
-        ad.d(this.mContext, j10);
-    }
-
-    public void al(String str) {
-        if (this.mContext == null || bm.isNullString(str) || bm.isEquals(pp(), str)) {
-            return;
-        }
-        this.NC = str;
-        ad.ag(this.mContext, str);
+            @Override // java.lang.Runnable
+            public final void run() {
+                try {
+                    a.this.c(context, currentTimeMillis);
+                } catch (Throwable th) {
+                    b.printStackTraceOnly(th);
+                }
+            }
+        }, 10L, TimeUnit.SECONDS);
     }
 }

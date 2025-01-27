@@ -3,11 +3,13 @@ package com.kwad.components.offline.api.tk;
 import android.content.Context;
 import androidx.annotation.NonNull;
 import com.kwad.components.offline.api.IOfflineCompo;
+import com.kwad.components.offline.api.InitCallBack;
 import com.kwad.components.offline.api.tk.model.StyleTemplate;
+import com.kwad.sdk.api.SdkConfig;
 import org.json.JSONObject;
 
-/* loaded from: classes3.dex */
-public interface ITkOfflineCompo extends IOfflineCompo<ITkOfflineCompoInitConfig> {
+/* loaded from: classes2.dex */
+public interface ITkOfflineCompo extends IOfflineCompo {
     public static final String IMPL = "com.kwad.tachikoma.TkOfflineCompoImpl";
     public static final String PACKAGE_NAME = "com.kwad.components.tachikoma";
 
@@ -16,9 +18,7 @@ public interface ITkOfflineCompo extends IOfflineCompo<ITkOfflineCompoInitConfig
         SO_FAIL
     }
 
-    StyleTemplate checkStyleTemplateById(Context context, String str, String str2, String str3, int i10);
-
-    IOfflineCompoTachikomaContext getContext(Context context, String str, int i10, int i11, boolean z10);
+    StyleTemplate checkStyleTemplateById(Context context, String str, String str2, String str3, int i2);
 
     String getJsBaseDir(Context context, String str);
 
@@ -26,7 +26,11 @@ public interface ITkOfflineCompo extends IOfflineCompo<ITkOfflineCompoInitConfig
 
     String getTKVersion();
 
-    void loadTkFileByTemplateId(Context context, String str, String str2, String str3, int i10, TKDownloadListener tKDownloadListener);
+    IOfflineCompoTachikomaView getView(Context context, String str, int i2, int i3);
+
+    void initReal(Context context, SdkConfig sdkConfig, ITkOfflineCompoInitConfig iTkOfflineCompoInitConfig, InitCallBack initCallBack);
+
+    void loadTkFileByTemplateId(Context context, String str, String str2, String str3, int i2, TKDownloadListener tKDownloadListener);
 
     void onConfigRefresh(Context context, @NonNull JSONObject jSONObject);
 

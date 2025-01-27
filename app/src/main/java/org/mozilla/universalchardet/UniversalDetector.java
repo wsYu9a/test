@@ -1,58 +1,45 @@
 package org.mozilla.universalchardet;
 
-import java.io.BufferedInputStream;
-import java.io.File;
-import java.io.IOException;
-import java.io.InputStream;
-import java.nio.file.Files;
-import java.nio.file.OpenOption;
-import java.nio.file.Path;
+import java.io.FileInputStream;
 import org.mozilla.universalchardet.prober.CharsetProber;
 import org.mozilla.universalchardet.prober.e;
 import org.mozilla.universalchardet.prober.h;
 import org.mozilla.universalchardet.prober.i;
 import org.mozilla.universalchardet.prober.j;
-import yi.a;
-import yi.b;
 
-/* loaded from: classes4.dex */
+/* loaded from: classes5.dex */
 public class UniversalDetector {
 
-    /* renamed from: k */
-    public static final float f29234k = 0.95f;
-
-    /* renamed from: l */
-    public static final float f29235l = 0.2f;
-
     /* renamed from: a */
-    public InputState f29236a;
+    public static final float f35396a = 0.95f;
 
     /* renamed from: b */
-    public boolean f29237b;
+    public static final float f35397b = 0.2f;
 
     /* renamed from: c */
-    public boolean f29238c;
+    private InputState f35398c;
 
     /* renamed from: d */
-    public boolean f29239d;
+    private boolean f35399d;
 
     /* renamed from: e */
-    public boolean f29240e;
+    private boolean f35400e;
 
     /* renamed from: f */
-    public byte f29241f;
+    private boolean f35401f;
 
     /* renamed from: g */
-    public String f29242g;
+    private byte f35402g;
 
     /* renamed from: h */
-    public CharsetProber[] f29243h;
-
-    /* renamed from: i */
-    public CharsetProber f29244i;
+    private String f35403h;
+    private org.mozilla.universalchardet.a k;
 
     /* renamed from: j */
-    public a f29245j;
+    private CharsetProber f35405j = null;
+
+    /* renamed from: i */
+    private CharsetProber[] f35404i = new CharsetProber[3];
 
     public enum InputState {
         PURE_ASCII,
@@ -60,283 +47,234 @@ public class UniversalDetector {
         HIGHBYTE
     }
 
-    public UniversalDetector() {
-        this(null);
+    static class a implements org.mozilla.universalchardet.a {
+        a() {
+        }
+
+        @Override // org.mozilla.universalchardet.a
+        public void a(String str) {
+            System.out.println("charset = " + str);
+        }
     }
 
-    public static String b(File file) throws IOException {
-        Path path;
-        path = file.toPath();
-        return d(path);
-    }
-
-    public static String c(InputStream inputStream) throws IOException {
-        byte[] bArr = new byte[4096];
-        UniversalDetector universalDetector = new UniversalDetector(null);
+    public UniversalDetector(org.mozilla.universalchardet.a aVar) {
+        this.k = aVar;
+        int i2 = 0;
         while (true) {
-            int read = inputStream.read(bArr);
-            if (read <= 0 || universalDetector.k()) {
-                break;
+            CharsetProber[] charsetProberArr = this.f35404i;
+            if (i2 >= charsetProberArr.length) {
+                g();
+                return;
+            } else {
+                charsetProberArr[i2] = null;
+                i2++;
             }
-            universalDetector.j(bArr, 0, read);
+        }
+    }
+
+    public static void f(String[] strArr) throws Exception {
+        if (strArr.length != 1) {
+            System.out.println("USAGE: java UniversalDetector filename");
+            return;
+        }
+        UniversalDetector universalDetector = new UniversalDetector(new a());
+        byte[] bArr = new byte[4096];
+        FileInputStream fileInputStream = new FileInputStream(strArr[0]);
+        while (true) {
+            int read = fileInputStream.read(bArr);
+            if (read <= 0 || universalDetector.e()) {
+                break;
+            } else {
+                universalDetector.d(bArr, 0, read);
+            }
         }
         universalDetector.a();
-        String g10 = universalDetector.g();
-        universalDetector.l();
-        return g10;
-    }
-
-    public static String d(Path path) throws IOException {
-        InputStream newInputStream;
-        newInputStream = Files.newInputStream(path, new OpenOption[0]);
-        BufferedInputStream bufferedInputStream = new BufferedInputStream(newInputStream);
-        try {
-            String c10 = c(bufferedInputStream);
-            bufferedInputStream.close();
-            return c10;
-        } catch (Throwable th2) {
-            try {
-                throw th2;
-            } catch (Throwable th3) {
-                try {
-                    bufferedInputStream.close();
-                } catch (Throwable th4) {
-                    th2.addSuppressed(th4);
-                }
-                throw th3;
-            }
-        }
-    }
-
-    public static String e(byte[] bArr) {
-        return f(bArr, 0);
-    }
-
-    public static String f(byte[] bArr, int i10) {
-        int i11 = i10 + 3;
-        if (bArr.length <= i11) {
-            return null;
-        }
-        int i12 = bArr[i10] & 255;
-        int i13 = bArr[i10 + 1] & 255;
-        int i14 = bArr[i10 + 2] & 255;
-        int i15 = bArr[i11] & 255;
-        if (i12 == 0) {
-            if (i13 == 0 && i14 == 254 && i15 == 255) {
-                return b.f33527x;
-            }
-            if (i13 == 0 && i14 == 255 && i15 == 254) {
-                return b.D;
-            }
-            return null;
-        }
-        if (i12 == 239) {
-            if (i13 == 187 && i14 == 191) {
-                return b.f33524u;
-            }
-            return null;
-        }
-        if (i12 == 254) {
-            if (i13 == 255 && i14 == 0 && i15 == 0) {
-                return b.C;
-            }
-            if (i13 == 255) {
-                return b.f33525v;
-            }
-            return null;
-        }
-        if (i12 != 255) {
-            return null;
-        }
-        if (i13 == 254 && i14 == 0 && i15 == 0) {
-            return b.f33528y;
-        }
-        if (i13 == 254) {
-            return b.f33526w;
-        }
-        return null;
     }
 
     public void a() {
         CharsetProber[] charsetProberArr;
-        if (this.f29239d) {
-            String str = this.f29242g;
+        if (this.f35401f) {
+            String str = this.f35403h;
             if (str != null) {
-                this.f29237b = true;
-                a aVar = this.f29245j;
+                this.f35399d = true;
+                org.mozilla.universalchardet.a aVar = this.k;
                 if (aVar != null) {
                     aVar.a(str);
                     return;
                 }
                 return;
             }
-            InputState inputState = this.f29236a;
-            if (inputState != InputState.HIGHBYTE) {
-                if (inputState != InputState.ESC_ASCII && inputState == InputState.PURE_ASCII && this.f29240e) {
-                    this.f29242g = b.A;
-                    return;
-                }
+            if (this.f35398c != InputState.HIGHBYTE) {
+                InputState inputState = InputState.ESC_ASCII;
                 return;
             }
-            int i10 = 0;
-            int i11 = 0;
-            float f10 = 0.0f;
+            float f2 = 0.0f;
+            int i2 = 0;
+            int i3 = 0;
             while (true) {
-                charsetProberArr = this.f29243h;
-                if (i10 >= charsetProberArr.length) {
+                charsetProberArr = this.f35404i;
+                if (i2 >= charsetProberArr.length) {
                     break;
                 }
-                float d10 = charsetProberArr[i10].d();
-                if (d10 > f10) {
-                    i11 = i10;
-                    f10 = d10;
+                float d2 = charsetProberArr[i2].d();
+                if (d2 > f2) {
+                    i3 = i2;
+                    f2 = d2;
                 }
-                i10++;
+                i2++;
             }
-            if (f10 > 0.2f) {
-                String c10 = charsetProberArr[i11].c();
-                this.f29242g = c10;
-                a aVar2 = this.f29245j;
+            if (f2 > 0.2f) {
+                String c2 = charsetProberArr[i3].c();
+                this.f35403h = c2;
+                org.mozilla.universalchardet.a aVar2 = this.k;
                 if (aVar2 != null) {
-                    aVar2.a(c10);
+                    aVar2.a(c2);
                 }
             }
         }
     }
 
-    public String g() {
-        return this.f29242g;
+    public String b() {
+        return this.f35403h;
     }
 
-    public a h() {
-        return this.f29245j;
+    public org.mozilla.universalchardet.a c() {
+        return this.k;
     }
 
-    public void i(byte[] bArr) {
-        j(bArr, 0, bArr.length);
-    }
-
-    public void j(byte[] bArr, int i10, int i11) {
-        String f10;
-        if (this.f29237b) {
+    public void d(byte[] bArr, int i2, int i3) {
+        if (this.f35399d) {
             return;
         }
-        if (i11 > 0) {
-            this.f29239d = true;
+        if (i3 > 0) {
+            this.f35401f = true;
         }
-        int i12 = 0;
-        if (this.f29238c) {
-            this.f29238c = false;
-            if (i11 > 3 && (f10 = f(bArr, i10)) != null) {
-                this.f29242g = f10;
-                this.f29237b = true;
-                return;
+        int i4 = 0;
+        if (this.f35400e) {
+            this.f35400e = false;
+            if (i3 > 3) {
+                int i5 = bArr[i2] & 255;
+                int i6 = bArr[i2 + 1] & 255;
+                int i7 = bArr[i2 + 2] & 255;
+                int i8 = bArr[i2 + 3] & 255;
+                if (i5 != 0) {
+                    if (i5 != 239) {
+                        if (i5 != 254) {
+                            if (i5 == 255) {
+                                if (i6 == 254 && i7 == 0 && i8 == 0) {
+                                    this.f35403h = b.y;
+                                } else if (i6 == 254) {
+                                    this.f35403h = b.w;
+                                }
+                            }
+                        } else if (i6 == 255 && i7 == 0 && i8 == 0) {
+                            this.f35403h = b.A;
+                        } else if (i6 == 255) {
+                            this.f35403h = b.v;
+                        }
+                    } else if (i6 == 187 && i7 == 191) {
+                        this.f35403h = b.u;
+                    }
+                } else if (i6 == 0 && i7 == 254 && i8 == 255) {
+                    this.f35403h = b.x;
+                } else if (i6 == 0 && i7 == 255 && i8 == 254) {
+                    this.f35403h = b.B;
+                }
+                if (this.f35403h != null) {
+                    this.f35399d = true;
+                    return;
+                }
             }
         }
-        int i13 = i10 + i11;
-        for (int i14 = i10; i14 < i13; i14++) {
-            byte b10 = bArr[i14];
-            int i15 = b10 & 255;
-            if ((b10 & 128) == 0 || i15 == 160) {
-                InputState inputState = this.f29236a;
-                InputState inputState2 = InputState.PURE_ASCII;
-                if (inputState == inputState2 && (i15 == 27 || (i15 == 123 && this.f29241f == 126))) {
-                    this.f29236a = InputState.ESC_ASCII;
+        int i9 = i2 + i3;
+        for (int i10 = i2; i10 < i9; i10++) {
+            int i11 = bArr[i10] & 255;
+            if ((i11 & 128) == 0 || i11 == 160) {
+                if (this.f35398c == InputState.PURE_ASCII && (i11 == 27 || (i11 == 123 && this.f35402g == 126))) {
+                    this.f35398c = InputState.ESC_ASCII;
                 }
-                if (this.f29236a == inputState2 && this.f29240e) {
-                    this.f29240e = (i15 >= 32 && i15 <= 126) || i15 == 10 || i15 == 13 || i15 == 9;
-                }
-                this.f29241f = b10;
+                this.f35402g = bArr[i10];
             } else {
-                InputState inputState3 = this.f29236a;
-                InputState inputState4 = InputState.HIGHBYTE;
-                if (inputState3 != inputState4) {
-                    this.f29236a = inputState4;
-                    if (this.f29244i != null) {
-                        this.f29244i = null;
+                InputState inputState = this.f35398c;
+                InputState inputState2 = InputState.HIGHBYTE;
+                if (inputState != inputState2) {
+                    this.f35398c = inputState2;
+                    if (this.f35405j != null) {
+                        this.f35405j = null;
                     }
-                    CharsetProber[] charsetProberArr = this.f29243h;
+                    CharsetProber[] charsetProberArr = this.f35404i;
                     if (charsetProberArr[0] == null) {
                         charsetProberArr[0] = new i();
                     }
-                    CharsetProber[] charsetProberArr2 = this.f29243h;
+                    CharsetProber[] charsetProberArr2 = this.f35404i;
                     if (charsetProberArr2[1] == null) {
                         charsetProberArr2[1] = new j();
                     }
-                    CharsetProber[] charsetProberArr3 = this.f29243h;
+                    CharsetProber[] charsetProberArr3 = this.f35404i;
                     if (charsetProberArr3[2] == null) {
                         charsetProberArr3[2] = new h();
                     }
                 }
             }
         }
-        InputState inputState5 = this.f29236a;
-        if (inputState5 == InputState.ESC_ASCII) {
-            if (this.f29244i == null) {
-                this.f29244i = new e();
+        InputState inputState3 = this.f35398c;
+        if (inputState3 == InputState.ESC_ASCII) {
+            if (this.f35405j == null) {
+                this.f35405j = new e();
             }
-            if (this.f29244i.f(bArr, i10, i11) == CharsetProber.ProbingState.FOUND_IT) {
-                this.f29237b = true;
-                this.f29242g = this.f29244i.c();
+            if (this.f35405j.f(bArr, i2, i3) == CharsetProber.ProbingState.FOUND_IT) {
+                this.f35399d = true;
+                this.f35403h = this.f35405j.c();
                 return;
             }
             return;
         }
-        if (inputState5 != InputState.HIGHBYTE) {
+        if (inputState3 != InputState.HIGHBYTE) {
             return;
         }
         while (true) {
-            CharsetProber[] charsetProberArr4 = this.f29243h;
-            if (i12 >= charsetProberArr4.length) {
+            CharsetProber[] charsetProberArr4 = this.f35404i;
+            if (i4 >= charsetProberArr4.length) {
                 return;
             }
-            if (charsetProberArr4[i12].f(bArr, i10, i11) == CharsetProber.ProbingState.FOUND_IT) {
-                this.f29237b = true;
-                this.f29242g = this.f29243h[i12].c();
+            if (charsetProberArr4[i4].f(bArr, i2, i3) == CharsetProber.ProbingState.FOUND_IT) {
+                this.f35399d = true;
+                this.f35403h = this.f35404i[i4].c();
                 return;
             }
-            i12++;
+            i4++;
         }
     }
 
-    public boolean k() {
-        return this.f29237b;
+    public boolean e() {
+        return this.f35399d;
     }
 
-    public final void l() {
-        int i10 = 0;
-        this.f29237b = false;
-        this.f29238c = true;
-        this.f29242g = null;
-        this.f29239d = false;
-        this.f29236a = InputState.PURE_ASCII;
-        this.f29241f = (byte) 0;
-        CharsetProber charsetProber = this.f29244i;
+    public void g() {
+        int i2 = 0;
+        this.f35399d = false;
+        this.f35400e = true;
+        this.f35403h = null;
+        this.f35401f = false;
+        this.f35398c = InputState.PURE_ASCII;
+        this.f35402g = (byte) 0;
+        CharsetProber charsetProber = this.f35405j;
         if (charsetProber != null) {
-            charsetProber.j();
+            charsetProber.i();
         }
         while (true) {
-            CharsetProber[] charsetProberArr = this.f29243h;
-            if (i10 >= charsetProberArr.length) {
+            CharsetProber[] charsetProberArr = this.f35404i;
+            if (i2 >= charsetProberArr.length) {
                 return;
             }
-            CharsetProber charsetProber2 = charsetProberArr[i10];
-            if (charsetProber2 != null) {
-                charsetProber2.j();
+            if (charsetProberArr[i2] != null) {
+                charsetProberArr[i2].i();
             }
-            i10++;
+            i2++;
         }
     }
 
-    public void m(a aVar) {
-        this.f29245j = aVar;
-    }
-
-    public UniversalDetector(a aVar) {
-        this.f29240e = true;
-        this.f29245j = aVar;
-        this.f29244i = null;
-        this.f29243h = new CharsetProber[3];
-        l();
+    public void h(org.mozilla.universalchardet.a aVar) {
+        this.k = aVar;
     }
 }

@@ -7,9 +7,9 @@ import android.net.Uri;
 import com.bytedance.sdk.openadsdk.ITTProvider;
 import com.bytedance.sdk.openadsdk.TTAdSdk;
 
-/* loaded from: classes2.dex */
+/* loaded from: classes.dex */
 public class TTMultiProvider extends ContentProvider {
-    private ITTProvider a() {
+    private ITTProvider j() {
         if (TTAdSdk.getAdManager() != null) {
             return (ITTProvider) TTAdSdk.getAdManager().getExtra(ITTProvider.class, null);
         }
@@ -18,21 +18,21 @@ public class TTMultiProvider extends ContentProvider {
 
     @Override // android.content.ContentProvider
     public int delete(Uri uri, String str, String[] strArr) {
-        if (a() != null) {
-            return a().delete(uri, str, strArr);
+        if (j() != null) {
+            return j().delete(uri, str, strArr);
         }
         return 0;
     }
 
     @Override // android.content.ContentProvider
     public String getType(Uri uri) {
-        return a() != null ? a().getType(uri) : "";
+        return j() != null ? j().getType(uri) : "";
     }
 
     @Override // android.content.ContentProvider
     public Uri insert(Uri uri, ContentValues contentValues) {
-        if (a() != null) {
-            return a().insert(uri, contentValues);
+        if (j() != null) {
+            return j().insert(uri, contentValues);
         }
         return null;
     }
@@ -44,16 +44,16 @@ public class TTMultiProvider extends ContentProvider {
 
     @Override // android.content.ContentProvider
     public Cursor query(Uri uri, String[] strArr, String str, String[] strArr2, String str2) {
-        if (a() != null) {
-            return a().query(uri, strArr, str, strArr2, str2);
+        if (j() != null) {
+            return j().query(uri, strArr, str, strArr2, str2);
         }
         return null;
     }
 
     @Override // android.content.ContentProvider
     public int update(Uri uri, ContentValues contentValues, String str, String[] strArr) {
-        if (a() != null) {
-            return a().update(uri, contentValues, str, strArr);
+        if (j() != null) {
+            return j().update(uri, contentValues, str, strArr);
         }
         return 0;
     }

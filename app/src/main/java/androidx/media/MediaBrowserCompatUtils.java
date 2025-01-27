@@ -4,7 +4,7 @@ import android.os.Bundle;
 import android.support.v4.media.MediaBrowserCompat;
 import androidx.annotation.RestrictTo;
 
-@RestrictTo({RestrictTo.Scope.LIBRARY})
+@RestrictTo({RestrictTo.Scope.LIBRARY_GROUP})
 /* loaded from: classes.dex */
 public class MediaBrowserCompatUtils {
     private MediaBrowserCompatUtils() {
@@ -18,27 +18,27 @@ public class MediaBrowserCompatUtils {
     }
 
     public static boolean hasDuplicatedItems(Bundle bundle, Bundle bundle2) {
-        int i10;
-        int i11;
-        int i12;
-        int i13 = bundle == null ? -1 : bundle.getInt(MediaBrowserCompat.EXTRA_PAGE, -1);
-        int i14 = bundle2 == null ? -1 : bundle2.getInt(MediaBrowserCompat.EXTRA_PAGE, -1);
-        int i15 = bundle == null ? -1 : bundle.getInt(MediaBrowserCompat.EXTRA_PAGE_SIZE, -1);
-        int i16 = bundle2 == null ? -1 : bundle2.getInt(MediaBrowserCompat.EXTRA_PAGE_SIZE, -1);
-        int i17 = Integer.MAX_VALUE;
-        if (i13 == -1 || i15 == -1) {
-            i10 = Integer.MAX_VALUE;
-            i11 = 0;
+        int i2;
+        int i3;
+        int i4;
+        int i5 = bundle == null ? -1 : bundle.getInt(MediaBrowserCompat.EXTRA_PAGE, -1);
+        int i6 = bundle2 == null ? -1 : bundle2.getInt(MediaBrowserCompat.EXTRA_PAGE, -1);
+        int i7 = bundle == null ? -1 : bundle.getInt(MediaBrowserCompat.EXTRA_PAGE_SIZE, -1);
+        int i8 = bundle2 == null ? -1 : bundle2.getInt(MediaBrowserCompat.EXTRA_PAGE_SIZE, -1);
+        int i9 = Integer.MAX_VALUE;
+        if (i5 == -1 || i7 == -1) {
+            i2 = Integer.MAX_VALUE;
+            i3 = 0;
         } else {
-            i11 = i13 * i15;
-            i10 = (i15 + i11) - 1;
+            i3 = i5 * i7;
+            i2 = (i7 + i3) - 1;
         }
-        if (i14 == -1 || i16 == -1) {
-            i12 = 0;
+        if (i6 == -1 || i8 == -1) {
+            i4 = 0;
         } else {
-            i12 = i14 * i16;
-            i17 = (i16 + i12) - 1;
+            i4 = i6 * i8;
+            i9 = (i8 + i4) - 1;
         }
-        return i10 >= i12 && i17 >= i11;
+        return i2 >= i4 && i9 >= i3;
     }
 }

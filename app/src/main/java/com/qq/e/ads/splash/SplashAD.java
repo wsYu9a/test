@@ -17,101 +17,102 @@ import com.qq.e.comm.util.AdErrorConvertor;
 import com.qq.e.comm.util.GDTLogger;
 import java.util.HashMap;
 
-/* loaded from: classes3.dex */
+/* loaded from: classes4.dex */
 public final class SplashAD extends LiteAbstractAD<NSPVI> implements IReward {
 
+    /* renamed from: g */
+    private volatile ViewGroup f23979g;
+
+    /* renamed from: h */
+    private volatile SplashADListener f23980h;
+
     /* renamed from: i */
-    private volatile ViewGroup f16512i;
+    private volatile ADRewardListener f23981i;
 
     /* renamed from: j */
-    private volatile SplashADListener f16513j;
+    private volatile LoadAdParams f23982j;
+    private volatile boolean k;
+    private volatile boolean l;
+    private volatile boolean m;
+    private volatile int n;
+    private volatile byte[] o;
+    private volatile ServerSideVerificationOptions p;
+    private int q;
 
-    /* renamed from: k */
-    private volatile ADRewardListener f16514k;
-
-    /* renamed from: l */
-    private volatile LoadAdParams f16515l;
-
-    /* renamed from: m */
-    private volatile boolean f16516m;
-
-    /* renamed from: n */
-    private volatile boolean f16517n;
-
-    /* renamed from: o */
-    private volatile boolean f16518o;
-
-    /* renamed from: p */
-    private volatile int f16519p;
-
-    /* renamed from: q */
-    private volatile byte[] f16520q;
-
-    /* renamed from: r */
-    private volatile ServerSideVerificationOptions f16521r;
-
-    /* renamed from: s */
-    private int f16522s;
-
-    public class ADListenerAdapter implements ADListener {
+    private class ADListenerAdapter implements ADListener {
         private ADListenerAdapter() {
+        }
+
+        /* synthetic */ ADListenerAdapter(SplashAD splashAD, AnonymousClass1 anonymousClass1) {
+            this();
         }
 
         @Override // com.qq.e.comm.adevent.ADListener
         public void onADEvent(ADEvent aDEvent) {
             String str;
-            if (SplashAD.this.f16513j == null) {
+            if (SplashAD.this.f23980h == null) {
                 GDTLogger.d("SplashADListener == null");
                 return;
             }
             int type = aDEvent.getType();
-            if (type == 112) {
-                Long l10 = (Long) aDEvent.getParam(Long.class);
-                if (l10 != null) {
-                    SplashAD.this.f16513j.onADTick(l10.longValue());
-                }
-                return;
-            }
             switch (type) {
                 case 100:
-                    Long l11 = (Long) aDEvent.getParam(Long.class);
-                    if (l11 != null) {
-                        SplashAD.this.f16513j.onADLoaded(l11.longValue());
+                    Long l = (Long) aDEvent.getParam(Long.class);
+                    if (l != null) {
+                        SplashAD.this.f23980h.onADLoaded(l.longValue());
                         break;
                     }
                     break;
                 case 101:
                     Integer num = (Integer) aDEvent.getParam(Integer.class);
                     if (num != null) {
-                        SplashAD.this.f16513j.onNoAD(AdErrorConvertor.formatErrorCode(num.intValue()));
+                        SplashAD.this.f23980h.onNoAD(AdErrorConvertor.formatErrorCode(num.intValue()));
                         break;
                     }
                     break;
                 case 102:
-                    SplashAD.this.f16513j.onADPresent();
+                    SplashAD.this.f23980h.onADPresent();
                     break;
                 case 103:
-                    SplashAD.this.f16513j.onADExposure();
+                    SplashAD.this.f23980h.onADExposure();
                     break;
                 case 104:
-                    if (SplashAD.this.f16514k != null && (str = (String) aDEvent.getParam(String.class)) != null) {
+                    if (SplashAD.this.f23981i != null && (str = (String) aDEvent.getParam(String.class)) != null) {
                         HashMap hashMap = new HashMap();
-                        hashMap.put("transId", str);
-                        SplashAD.this.f16514k.onReward(hashMap);
+                        hashMap.put(ServerSideVerificationOptions.TRANS_ID, str);
+                        SplashAD.this.f23981i.onReward(hashMap);
                         break;
                     }
                     break;
                 case 105:
-                    SplashAD.this.f16513j.onADClicked();
+                    SplashAD.this.f23980h.onADClicked();
                     break;
                 case 106:
-                    SplashAD.this.f16513j.onADDismissed();
+                    SplashAD.this.f23980h.onADDismissed();
                     break;
+                default:
+                    switch (type) {
+                        case 112:
+                            Long l2 = (Long) aDEvent.getParam(Long.class);
+                            if (l2 != null) {
+                                SplashAD.this.f23980h.onADTick(l2.longValue());
+                                break;
+                            }
+                            break;
+                        case 113:
+                            if (SplashAD.this.f23980h instanceof SplashADZoomOutListener) {
+                                ((SplashADZoomOutListener) SplashAD.this.f23980h).onZoomOut();
+                                break;
+                            }
+                            break;
+                        case 114:
+                            if (SplashAD.this.f23980h instanceof SplashADZoomOutListener) {
+                                ((SplashADZoomOutListener) SplashAD.this.f23980h).onZoomOutPlayFinish();
+                                break;
+                            }
+                            break;
+                    }
             }
-        }
-
-        public /* synthetic */ ADListenerAdapter(SplashAD splashAD, AnonymousClass1 anonymousClass1) {
-            this();
         }
     }
 
@@ -119,38 +120,135 @@ public final class SplashAD extends LiteAbstractAD<NSPVI> implements IReward {
         this(context, str, splashADListener, 0);
     }
 
+    public SplashAD(Context context, String str, SplashADListener splashADListener, int i2) {
+        this.k = false;
+        this.f23980h = splashADListener;
+        this.q = i2;
+        a(context, str);
+    }
+
+    public SplashAD(Context context, String str, SplashADListener splashADListener, int i2, String str2) {
+        this.k = false;
+        this.f23980h = splashADListener;
+        this.q = i2;
+        a(context, str, str2);
+    }
+
+    private void a(ViewGroup viewGroup, boolean z) {
+        if (viewGroup == null) {
+            GDTLogger.e("传入参数有误：传入container参数为空");
+            a(4001);
+            return;
+        }
+        T t = this.f23859a;
+        if (t == 0) {
+            this.m = z;
+            this.f23979g = viewGroup;
+            return;
+        }
+        NSPVI nspvi = (NSPVI) t;
+        if (z) {
+            nspvi.fetchFullScreenAndShowIn(viewGroup);
+        } else {
+            nspvi.fetchAndShowIn(viewGroup);
+        }
+    }
+
+    private void a(boolean z) {
+        if (a()) {
+            if (!b()) {
+                this.m = z;
+                this.l = true;
+                return;
+            }
+            T t = this.f23859a;
+            if (t == 0) {
+                a("fetchAdInner");
+                return;
+            }
+            NSPVI nspvi = (NSPVI) t;
+            if (z) {
+                nspvi.fetchFullScreenAdOnly();
+            } else {
+                nspvi.fetchAdOnly();
+            }
+        }
+    }
+
+    private void b(ViewGroup viewGroup, boolean z) {
+        if (viewGroup == null) {
+            GDTLogger.e("传入参数错误，container参数为空");
+            a(4001);
+            return;
+        }
+        T t = this.f23859a;
+        if (t == 0) {
+            this.f23979g = viewGroup;
+            return;
+        }
+        NSPVI nspvi = (NSPVI) t;
+        if (z) {
+            nspvi.showFullScreenAd(viewGroup);
+        } else {
+            nspvi.showAd(viewGroup);
+        }
+    }
+
+    @Override // com.qq.e.ads.AbstractAD
+    protected Object a(Context context, POFactory pOFactory, String str, String str2, String str3) {
+        return pOFactory.getNativeSplashAdView(context, str, str2, str3);
+    }
+
+    @Override // com.qq.e.ads.AbstractAD
+    protected void b(int i2) {
+        if (this.f23980h != null) {
+            this.f23980h.onNoAD(AdErrorConvertor.formatErrorCode(i2));
+        }
+    }
+
     public void fetchAdOnly() {
         a(false);
+    }
+
+    public void fetchAndShowIn(ViewGroup viewGroup) {
+        a(viewGroup, false);
     }
 
     public void fetchFullScreenAdOnly() {
         a(true);
     }
 
+    public void fetchFullScreenAndShowIn(ViewGroup viewGroup) {
+        a(viewGroup, true);
+    }
+
     public String getAdNetWorkName() {
-        T t10 = this.f16367a;
-        if (t10 != 0) {
-            return ((NSPVI) t10).getAdNetWorkName();
+        T t = this.f23859a;
+        if (t != 0) {
+            return ((NSPVI) t).getAdNetWorkName();
         }
         a("getAdNetWorkName");
         return null;
     }
 
-    @Deprecated
     public Bitmap getZoomOutBitmap() {
-        GDTLogger.e("注意！开屏V+功能已废弃，调用不生效");
+        T t = this.f23859a;
+        if (t != 0) {
+            return ((NSPVI) t).getZoomOutBitmap();
+        }
+        a("getZoomOutBitmap");
         return null;
     }
 
     public void preLoad() {
         if (a()) {
             if (!b()) {
-                this.f16516m = true;
+                this.k = true;
                 return;
             }
-            T t10 = this.f16367a;
-            if (t10 != 0) {
-                ((NSPVI) t10).preload();
+            T t = this.f23859a;
+            if (t != 0) {
+                ((NSPVI) t).preload();
             } else {
                 a("preLoad");
             }
@@ -158,24 +256,33 @@ public final class SplashAD extends LiteAbstractAD<NSPVI> implements IReward {
     }
 
     @Deprecated
-    public void setAdLogoMargin(int i10, int i11) {
+    public void setAdLogoMargin(int i2, int i3) {
     }
 
-    public void setDeveloperLogo(int i10) {
-        T t10 = this.f16367a;
-        if (t10 == 0) {
-            this.f16519p = i10;
+    public void setDeveloperLogo(int i2) {
+        T t = this.f23859a;
+        if (t == 0) {
+            this.n = i2;
         } else {
-            ((NSPVI) t10).setDeveloperLogo(i10);
+            ((NSPVI) t).setDeveloperLogo(i2);
+        }
+    }
+
+    public void setDeveloperLogo(byte[] bArr) {
+        T t = this.f23859a;
+        if (t == 0) {
+            this.o = bArr;
+        } else {
+            ((NSPVI) t).setDeveloperLogo(bArr);
         }
     }
 
     public void setLoadAdParams(LoadAdParams loadAdParams) {
-        T t10 = this.f16367a;
-        if (t10 != 0) {
-            ((NSPVI) t10).setLoadAdParams(loadAdParams);
+        T t = this.f23859a;
+        if (t != 0) {
+            ((NSPVI) t).setLoadAdParams(loadAdParams);
         } else {
-            this.f16515l = loadAdParams;
+            this.f23982j = loadAdParams;
         }
     }
 
@@ -185,15 +292,15 @@ public final class SplashAD extends LiteAbstractAD<NSPVI> implements IReward {
 
     @Override // com.qq.e.comm.pi.IReward
     public void setRewardListener(ADRewardListener aDRewardListener) {
-        this.f16514k = aDRewardListener;
+        this.f23981i = aDRewardListener;
     }
 
     @Override // com.qq.e.comm.pi.IReward
     public void setServerSideVerificationOptions(ServerSideVerificationOptions serverSideVerificationOptions) {
-        this.f16521r = serverSideVerificationOptions;
-        T t10 = this.f16367a;
-        if (t10 != 0) {
-            ((NSPVI) t10).setServerSideVerificationOptions(serverSideVerificationOptions);
+        this.p = serverSideVerificationOptions;
+        T t = this.f23859a;
+        if (t != 0) {
+            ((NSPVI) t).setServerSideVerificationOptions(serverSideVerificationOptions);
         }
     }
 
@@ -205,139 +312,51 @@ public final class SplashAD extends LiteAbstractAD<NSPVI> implements IReward {
         b(viewGroup, true);
     }
 
-    @Deprecated
     public void zoomOutAnimationFinish() {
-        GDTLogger.e("注意！开屏V+功能已废弃，调用不生效");
-    }
-
-    public SplashAD(Context context, String str, SplashADListener splashADListener, int i10) {
-        this.f16516m = false;
-        this.f16513j = splashADListener;
-        this.f16522s = i10;
-        a(context, str);
-    }
-
-    private void a(ViewGroup viewGroup, boolean z10) {
-        if (viewGroup == null) {
-            GDTLogger.e("传入参数有误：传入container参数为空");
-            a(4001);
-            return;
-        }
-        T t10 = this.f16367a;
-        if (t10 == 0) {
-            this.f16518o = z10;
-            this.f16512i = viewGroup;
-            return;
-        }
-        NSPVI nspvi = (NSPVI) t10;
-        if (z10) {
-            nspvi.fetchFullScreenAndShowIn(viewGroup);
+        T t = this.f23859a;
+        if (t != 0) {
+            ((NSPVI) t).zoomOutAnimationFinish();
         } else {
-            nspvi.fetchAndShowIn(viewGroup);
+            a("zoomOutAnimationFinish");
         }
     }
 
     @Override // com.qq.e.ads.AbstractAD
-    public void b(int i10) {
-        if (this.f16513j != null) {
-            this.f16513j.onNoAD(AdErrorConvertor.formatErrorCode(i10));
-        }
-    }
-
-    public void setDeveloperLogo(byte[] bArr) {
-        T t10 = this.f16367a;
-        if (t10 == 0) {
-            this.f16520q = bArr;
-        } else {
-            ((NSPVI) t10).setDeveloperLogo(bArr);
-        }
-    }
-
-    public SplashAD(Context context, String str, SplashADListener splashADListener, int i10, String str2) {
-        this.f16516m = false;
-        this.f16513j = splashADListener;
-        this.f16522s = i10;
-        a(context, str, str2);
-    }
-
-    private void a(boolean z10) {
-        if (a()) {
-            if (!b()) {
-                this.f16518o = z10;
-                this.f16517n = true;
-                return;
-            }
-            T t10 = this.f16367a;
-            if (t10 == 0) {
-                a("fetchAdInner");
-                return;
-            }
-            NSPVI nspvi = (NSPVI) t10;
-            if (z10) {
-                nspvi.fetchFullScreenAdOnly();
-            } else {
-                nspvi.fetchAdOnly();
-            }
-        }
-    }
-
-    private void b(ViewGroup viewGroup, boolean z10) {
-        if (viewGroup == null) {
-            GDTLogger.e("传入参数错误，container参数为空");
-            a(4001);
-            return;
-        }
-        T t10 = this.f16367a;
-        if (t10 == 0) {
-            this.f16512i = viewGroup;
-            return;
-        }
-        NSPVI nspvi = (NSPVI) t10;
-        if (z10) {
-            nspvi.showFullScreenAd(viewGroup);
-        } else {
-            nspvi.showAd(viewGroup);
-        }
-    }
-
-    @Override // com.qq.e.ads.AbstractAD
-    public Object a(Context context, POFactory pOFactory, String str, String str2, String str3) {
-        return pOFactory.getNativeSplashAdView(context, str, str2, str3);
-    }
-
-    @Override // com.qq.e.ads.AbstractAD
-    public void a(Object obj) {
+    protected void a(Object obj) {
         NSPVI nspvi = (NSPVI) obj;
-        if (this.f16515l != null) {
-            nspvi.setLoadAdParams(this.f16515l);
+        if (this.f23982j != null) {
+            nspvi.setLoadAdParams(this.f23982j);
         }
-        if (this.f16519p != 0) {
-            nspvi.setDeveloperLogo(this.f16519p);
+        if (this.n != 0) {
+            nspvi.setDeveloperLogo(this.n);
         }
-        if (this.f16520q != null) {
-            nspvi.setDeveloperLogo(this.f16520q);
+        if (this.o != null) {
+            nspvi.setDeveloperLogo(this.o);
         }
-        nspvi.setFetchDelay(this.f16522s);
+        nspvi.setFetchDelay(this.q);
         nspvi.setAdListener(new ADListenerAdapter());
-        nspvi.setServerSideVerificationOptions(this.f16521r);
-        if (this.f16512i != null) {
-            if (this.f16518o) {
-                a(this.f16512i, true);
+        nspvi.setServerSideVerificationOptions(this.p);
+        if ((this.f23980h instanceof SplashADZoomOutListener) && ((SplashADZoomOutListener) this.f23980h).isSupportZoomOut()) {
+            nspvi.setSupportZoomOut(true);
+        }
+        if (this.f23979g != null) {
+            if (this.m) {
+                fetchFullScreenAndShowIn(this.f23979g);
             } else {
-                a(this.f16512i, false);
+                fetchAndShowIn(this.f23979g);
             }
         }
-        if (this.f16516m) {
+        if (this.k) {
             nspvi.preload();
-            this.f16516m = false;
+            this.k = false;
         }
-        if (this.f16517n) {
-            if (this.f16518o) {
+        if (this.l) {
+            if (this.m) {
                 nspvi.fetchFullScreenAdOnly();
             } else {
                 nspvi.fetchAdOnly();
             }
-            this.f16517n = false;
+            this.l = false;
         }
     }
 }

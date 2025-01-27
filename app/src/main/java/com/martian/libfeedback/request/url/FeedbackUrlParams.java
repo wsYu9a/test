@@ -1,14 +1,14 @@
 package com.martian.libfeedback.request.url;
 
-import v8.a;
+import com.martian.libcomm.http.requests.d.a;
 
-/* loaded from: classes3.dex */
+/* loaded from: classes2.dex */
 public class FeedbackUrlParams extends FeedbacklUrlHttpGetParams {
 
     @a
     private boolean enableNotification;
 
-    @Override // u8.b
+    @Override // com.martian.libcomm.http.requests.b
     public String getRequestMethod() {
         return "#/feedback/categories";
     }
@@ -17,7 +17,7 @@ public class FeedbackUrlParams extends FeedbacklUrlHttpGetParams {
         return this.enableNotification;
     }
 
-    public void setEnableNotification(boolean z10) {
-        this.enableNotification = z10;
+    public void setEnableNotification(boolean enableNotification) {
+        this.enableNotification = enableNotification;
     }
 }

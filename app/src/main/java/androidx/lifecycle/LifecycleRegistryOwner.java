@@ -7,9 +7,5 @@ import androidx.annotation.NonNull;
 public interface LifecycleRegistryOwner extends LifecycleOwner {
     @Override // androidx.lifecycle.LifecycleOwner
     @NonNull
-    /* bridge */ /* synthetic */ Lifecycle getLifecycle();
-
-    @Override // androidx.lifecycle.LifecycleOwner
-    @NonNull
     LifecycleRegistry getLifecycle();
 }

@@ -4,7 +4,7 @@ import androidx.collection.SimpleArrayMap;
 import androidx.fragment.app.Fragment;
 import java.lang.reflect.Field;
 
-/* loaded from: classes2.dex */
+/* loaded from: classes.dex */
 final class a {
     public static void a(Class cls) {
         try {
@@ -12,29 +12,29 @@ final class a {
                 ((SimpleArrayMap) a(Fragment.class, "sClassMap").get(null)).put(cls.getName(), cls);
                 return;
             }
-            Field a10 = a(Fragment.class, "sClassMap");
-            if (a10 != null) {
-                ((SimpleArrayMap) a10.get(null)).put(cls.getName(), cls);
+            Field a2 = a(Fragment.class, "sClassMap");
+            if (a2 != null) {
+                ((SimpleArrayMap) a2.get(null)).put(cls.getName(), cls);
                 return;
             }
-            Class a11 = a("androidx.fragment.app.FragmentFactory");
-            if (a11 == null) {
+            Class a3 = a("androidx.fragment.app.FragmentFactory");
+            if (a3 == null) {
                 return;
             }
-            Field a12 = a(a11, "sClassMap");
-            if (a12 != null) {
-                ((SimpleArrayMap) a12.get(null)).put(cls.getName(), cls);
+            Field a4 = a(a3, "sClassMap");
+            if (a4 != null) {
+                ((SimpleArrayMap) a4.get(null)).put(cls.getName(), cls);
                 return;
             }
-            Field a13 = a(a11, "sClassCacheMap");
-            if (a13 != null) {
-                SimpleArrayMap simpleArrayMap = (SimpleArrayMap) a13.get(null);
+            Field a5 = a(a3, "sClassCacheMap");
+            if (a5 != null) {
+                SimpleArrayMap simpleArrayMap = (SimpleArrayMap) a5.get(null);
                 SimpleArrayMap simpleArrayMap2 = new SimpleArrayMap();
                 simpleArrayMap2.put(cls.getName(), cls);
                 simpleArrayMap.put(cls.getClassLoader(), simpleArrayMap2);
             }
-        } catch (Exception e10) {
-            e10.printStackTrace();
+        } catch (Exception e2) {
+            e2.printStackTrace();
         }
     }
 

@@ -2,14 +2,12 @@ package androidx.media;
 
 import android.media.AudioAttributes;
 import android.os.Build;
+import android.os.Bundle;
+import android.util.Log;
 import android.util.SparseIntArray;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.annotation.RestrictTo;
-import androidx.media.AudioAttributesImpl;
-import androidx.media.AudioAttributesImplApi21;
-import androidx.media.AudioAttributesImplApi26;
-import androidx.media.AudioAttributesImplBase;
 import androidx.versionedparcelable.VersionedParcelable;
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
@@ -21,24 +19,8 @@ public class AudioAttributesCompat implements VersionedParcelable {
     public static final int CONTENT_TYPE_SONIFICATION = 4;
     public static final int CONTENT_TYPE_SPEECH = 1;
     public static final int CONTENT_TYPE_UNKNOWN = 0;
-    static final int FLAG_ALL = 1023;
-    static final int FLAG_ALL_PUBLIC = 273;
     public static final int FLAG_AUDIBILITY_ENFORCED = 1;
-    static final int FLAG_BEACON = 8;
-    static final int FLAG_BYPASS_INTERRUPTION_POLICY = 64;
-    static final int FLAG_BYPASS_MUTE = 128;
-    static final int FLAG_DEEP_BUFFER = 512;
     public static final int FLAG_HW_AV_SYNC = 16;
-    static final int FLAG_HW_HOTWORD = 32;
-    static final int FLAG_LOW_LATENCY = 256;
-    static final int FLAG_SCO = 4;
-    static final int FLAG_SECURE = 2;
-    static final int INVALID_STREAM_TYPE = -1;
-    private static final int[] SDK_USAGES;
-    private static final int SUPPRESSIBLE_CALL = 2;
-    private static final int SUPPRESSIBLE_NOTIFICATION = 1;
-    private static final SparseIntArray SUPPRESSIBLE_USAGES;
-    static final String TAG = "AudioAttributesCompat";
     public static final int USAGE_ALARM = 4;
     public static final int USAGE_ASSISTANCE_ACCESSIBILITY = 11;
     public static final int USAGE_ASSISTANCE_NAVIGATION_GUIDANCE = 12;
@@ -53,25 +35,64 @@ public class AudioAttributesCompat implements VersionedParcelable {
     public static final int USAGE_NOTIFICATION_EVENT = 10;
     public static final int USAGE_NOTIFICATION_RINGTONE = 6;
     public static final int USAGE_UNKNOWN = 0;
-    static final int USAGE_VIRTUAL_SOURCE = 15;
     public static final int USAGE_VOICE_COMMUNICATION = 2;
     public static final int USAGE_VOICE_COMMUNICATION_SIGNALLING = 3;
-    static boolean sForceLegacyBehavior;
 
-    @RestrictTo({RestrictTo.Scope.LIBRARY})
-    public AudioAttributesImpl mImpl;
+    /* renamed from: a */
+    private static final String f2717a = "AudioAttributesCompat";
+
+    /* renamed from: b */
+    private static final int f2718b = 15;
+
+    /* renamed from: c */
+    private static final int f2719c = 1;
+
+    /* renamed from: d */
+    private static final int f2720d = 2;
+
+    /* renamed from: e */
+    private static final SparseIntArray f2721e;
+
+    /* renamed from: f */
+    static boolean f2722f = false;
+
+    /* renamed from: g */
+    private static final int[] f2723g;
+
+    /* renamed from: h */
+    static final int f2724h = 2;
+
+    /* renamed from: i */
+    static final int f2725i = 4;
+
+    /* renamed from: j */
+    static final int f2726j = 8;
+    static final int k = 32;
+    static final int l = 64;
+    static final int m = 128;
+    static final int n = 256;
+    static final int o = 512;
+    static final int p = 1023;
+    static final int q = 273;
+    static final int r = -1;
+    static final String s = "androidx.media.audio_attrs.FRAMEWORKS";
+    static final String t = "androidx.media.audio_attrs.USAGE";
+    static final String u = "androidx.media.audio_attrs.CONTENT_TYPE";
+    static final String v = "androidx.media.audio_attrs.FLAGS";
+    static final String w = "androidx.media.audio_attrs.LEGACY_STREAM_TYPE";
+    AudioAttributesImpl x;
 
     @Retention(RetentionPolicy.SOURCE)
-    @RestrictTo({RestrictTo.Scope.LIBRARY})
+    @RestrictTo({RestrictTo.Scope.LIBRARY_GROUP})
     public @interface AttributeContentType {
     }
 
     @Retention(RetentionPolicy.SOURCE)
-    @RestrictTo({RestrictTo.Scope.LIBRARY})
+    @RestrictTo({RestrictTo.Scope.LIBRARY_GROUP})
     public @interface AttributeUsage {
     }
 
-    public static abstract class AudioManagerHidden {
+    static abstract class AudioManagerHidden {
         public static final int STREAM_ACCESSIBILITY = 10;
         public static final int STREAM_BLUETOOTH_SCO = 6;
         public static final int STREAM_SYSTEM_ENFORCED = 7;
@@ -83,34 +104,29 @@ public class AudioAttributesCompat implements VersionedParcelable {
 
     static {
         SparseIntArray sparseIntArray = new SparseIntArray();
-        SUPPRESSIBLE_USAGES = sparseIntArray;
+        f2721e = sparseIntArray;
         sparseIntArray.put(5, 1);
         sparseIntArray.put(6, 2);
         sparseIntArray.put(7, 2);
         sparseIntArray.put(8, 1);
         sparseIntArray.put(9, 1);
         sparseIntArray.put(10, 1);
-        SDK_USAGES = new int[]{0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 16};
+        f2723g = new int[]{0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 16};
     }
 
-    @RestrictTo({RestrictTo.Scope.LIBRARY})
-    public AudioAttributesCompat() {
+    AudioAttributesCompat() {
     }
 
-    @RestrictTo({RestrictTo.Scope.LIBRARY})
-    public static void setForceLegacyBehavior(boolean z10) {
-        sForceLegacyBehavior = z10;
-    }
-
-    public static int toVolumeStreamType(boolean z10, int i10, int i11) {
-        if ((i10 & 1) == 1) {
-            return z10 ? 1 : 7;
+    static int a(boolean z, int i2, int i3) {
+        if ((i2 & 1) == 1) {
+            return z ? 1 : 7;
         }
-        if ((i10 & 4) == 4) {
-            return z10 ? 0 : 6;
+        if ((i2 & 4) == 4) {
+            return z ? 0 : 6;
         }
-        switch (i11) {
+        switch (i3) {
             case 0:
+                return z ? Integer.MIN_VALUE : 3;
             case 1:
             case 12:
             case 14:
@@ -119,7 +135,7 @@ public class AudioAttributesCompat implements VersionedParcelable {
             case 2:
                 return 0;
             case 3:
-                return z10 ? 0 : 8;
+                return z ? 0 : 8;
             case 4:
                 return 4;
             case 5:
@@ -136,15 +152,25 @@ public class AudioAttributesCompat implements VersionedParcelable {
                 return 1;
             case 15:
             default:
-                if (!z10) {
+                if (!z) {
                     return 3;
                 }
-                throw new IllegalArgumentException("Unknown usage value " + i11 + " in audio attributes");
+                throw new IllegalArgumentException("Unknown usage value " + i3 + " in audio attributes");
         }
     }
 
-    public static String usageToString(int i10) {
-        switch (i10) {
+    static int b(boolean z, AudioAttributesCompat audioAttributesCompat) {
+        return a(z, audioAttributesCompat.getFlags(), audioAttributesCompat.getUsage());
+    }
+
+    static int c(int i2) {
+        switch (i2) {
+        }
+        return 2;
+    }
+
+    static String d(int i2) {
+        switch (i2) {
             case 0:
                 return "USAGE_UNKNOWN";
             case 1:
@@ -177,18 +203,35 @@ public class AudioAttributesCompat implements VersionedParcelable {
                 return "USAGE_GAME";
             case 15:
             default:
-                return "unknown usage " + i10;
+                return "unknown usage " + i2;
             case 16:
                 return "USAGE_ASSISTANT";
         }
     }
 
-    @Nullable
-    public static AudioAttributesCompat wrap(@NonNull Object obj) {
-        if (sForceLegacyBehavior) {
+    @RestrictTo({RestrictTo.Scope.LIBRARY_GROUP})
+    public static AudioAttributesCompat fromBundle(Bundle bundle) {
+        AudioAttributesImpl fromBundle = Build.VERSION.SDK_INT >= 21 ? AudioAttributesImplApi21.fromBundle(bundle) : AudioAttributesImplBase.fromBundle(bundle);
+        if (fromBundle == null) {
             return null;
         }
-        return Build.VERSION.SDK_INT >= 26 ? new AudioAttributesCompat(new AudioAttributesImplApi26((AudioAttributes) obj)) : new AudioAttributesCompat(new AudioAttributesImplApi21((AudioAttributes) obj));
+        return new AudioAttributesCompat(fromBundle);
+    }
+
+    @RestrictTo({RestrictTo.Scope.LIBRARY_GROUP})
+    public static void setForceLegacyBehavior(boolean z) {
+        f2722f = z;
+    }
+
+    @Nullable
+    public static AudioAttributesCompat wrap(@NonNull Object obj) {
+        if (Build.VERSION.SDK_INT < 21 || f2722f) {
+            return null;
+        }
+        AudioAttributesImplApi21 audioAttributesImplApi21 = new AudioAttributesImplApi21((AudioAttributes) obj);
+        AudioAttributesCompat audioAttributesCompat = new AudioAttributesCompat();
+        audioAttributesCompat.x = audioAttributesImplApi21;
+        return audioAttributesCompat;
     }
 
     public boolean equals(Object obj) {
@@ -196,96 +239,203 @@ public class AudioAttributesCompat implements VersionedParcelable {
             return false;
         }
         AudioAttributesCompat audioAttributesCompat = (AudioAttributesCompat) obj;
-        AudioAttributesImpl audioAttributesImpl = this.mImpl;
-        return audioAttributesImpl == null ? audioAttributesCompat.mImpl == null : audioAttributesImpl.equals(audioAttributesCompat.mImpl);
+        AudioAttributesImpl audioAttributesImpl = this.x;
+        return audioAttributesImpl == null ? audioAttributesCompat.x == null : audioAttributesImpl.equals(audioAttributesCompat.x);
     }
 
     public int getContentType() {
-        return this.mImpl.getContentType();
+        return this.x.getContentType();
     }
 
     public int getFlags() {
-        return this.mImpl.getFlags();
+        return this.x.getFlags();
     }
 
     public int getLegacyStreamType() {
-        return this.mImpl.getLegacyStreamType();
+        return this.x.getLegacyStreamType();
     }
 
-    public int getRawLegacyStreamType() {
-        return this.mImpl.getRawLegacyStreamType();
+    int getRawLegacyStreamType() {
+        return this.x.getRawLegacyStreamType();
     }
 
     public int getUsage() {
-        return this.mImpl.getUsage();
+        return this.x.getUsage();
     }
 
     public int getVolumeControlStream() {
-        return this.mImpl.getVolumeControlStream();
+        return this.x.getVolumeControlStream();
     }
 
     public int hashCode() {
-        return this.mImpl.hashCode();
+        return this.x.hashCode();
+    }
+
+    @NonNull
+    @RestrictTo({RestrictTo.Scope.LIBRARY_GROUP})
+    public Bundle toBundle() {
+        return this.x.toBundle();
     }
 
     public String toString() {
-        return this.mImpl.toString();
+        return this.x.toString();
     }
 
     @Nullable
     public Object unwrap() {
-        return this.mImpl.getAudioAttributes();
+        return this.x.getAudioAttributes();
     }
 
-    public AudioAttributesCompat(AudioAttributesImpl audioAttributesImpl) {
-        this.mImpl = audioAttributesImpl;
+    AudioAttributesCompat(AudioAttributesImpl audioAttributesImpl) {
+        this.x = audioAttributesImpl;
     }
 
     public static class Builder {
-        final AudioAttributesImpl.Builder mBuilderImpl;
+
+        /* renamed from: a */
+        private int f2727a;
+
+        /* renamed from: b */
+        private int f2728b;
+
+        /* renamed from: c */
+        private int f2729c;
+
+        /* renamed from: d */
+        private int f2730d;
 
         public Builder() {
-            if (AudioAttributesCompat.sForceLegacyBehavior) {
-                this.mBuilderImpl = new AudioAttributesImplBase.Builder();
-            } else if (Build.VERSION.SDK_INT >= 26) {
-                this.mBuilderImpl = new AudioAttributesImplApi26.Builder();
-            } else {
-                this.mBuilderImpl = new AudioAttributesImplApi21.Builder();
+            this.f2727a = 0;
+            this.f2728b = 0;
+            this.f2729c = 0;
+            this.f2730d = -1;
+        }
+
+        /* JADX WARN: Can't fix incorrect switch cases order, some code will duplicate */
+        Builder a(int i2) {
+            switch (i2) {
+                case 0:
+                    this.f2728b = 1;
+                    break;
+                case 1:
+                    this.f2728b = 4;
+                    break;
+                case 2:
+                    this.f2728b = 4;
+                    break;
+                case 3:
+                    this.f2728b = 2;
+                    break;
+                case 4:
+                    this.f2728b = 4;
+                    break;
+                case 5:
+                    this.f2728b = 4;
+                    break;
+                case 6:
+                    this.f2728b = 1;
+                    this.f2729c |= 4;
+                    break;
+                case 7:
+                    this.f2729c = 1 | this.f2729c;
+                    this.f2728b = 4;
+                    break;
+                case 8:
+                    this.f2728b = 4;
+                    break;
+                case 9:
+                    this.f2728b = 4;
+                    break;
+                case 10:
+                    this.f2728b = 1;
+                    break;
+                default:
+                    Log.e(AudioAttributesCompat.f2717a, "Invalid stream type " + i2 + " for AudioAttributesCompat");
+                    break;
             }
+            this.f2727a = AudioAttributesCompat.c(i2);
+            return this;
         }
 
         public AudioAttributesCompat build() {
-            return new AudioAttributesCompat(this.mBuilderImpl.build());
+            AudioAttributesImpl audioAttributesImplBase;
+            if (AudioAttributesCompat.f2722f || Build.VERSION.SDK_INT < 21) {
+                audioAttributesImplBase = new AudioAttributesImplBase(this.f2728b, this.f2729c, this.f2727a, this.f2730d);
+            } else {
+                AudioAttributes.Builder usage = new AudioAttributes.Builder().setContentType(this.f2728b).setFlags(this.f2729c).setUsage(this.f2727a);
+                int i2 = this.f2730d;
+                if (i2 != -1) {
+                    usage.setLegacyStreamType(i2);
+                }
+                audioAttributesImplBase = new AudioAttributesImplApi21(usage.build(), this.f2730d);
+            }
+            return new AudioAttributesCompat(audioAttributesImplBase);
         }
 
-        public Builder setContentType(int i10) {
-            this.mBuilderImpl.setContentType(i10);
+        public Builder setContentType(int i2) {
+            if (i2 == 0 || i2 == 1 || i2 == 2 || i2 == 3 || i2 == 4) {
+                this.f2728b = i2;
+            } else {
+                this.f2727a = 0;
+            }
             return this;
         }
 
-        public Builder setFlags(int i10) {
-            this.mBuilderImpl.setFlags(i10);
+        public Builder setFlags(int i2) {
+            this.f2729c = (i2 & 1023) | this.f2729c;
             return this;
         }
 
-        public Builder setLegacyStreamType(int i10) {
-            this.mBuilderImpl.setLegacyStreamType(i10);
-            return this;
+        public Builder setLegacyStreamType(int i2) {
+            if (i2 == 10) {
+                throw new IllegalArgumentException("STREAM_ACCESSIBILITY is not a legacy stream type that was used for audio playback");
+            }
+            this.f2730d = i2;
+            return Build.VERSION.SDK_INT >= 21 ? a(i2) : this;
         }
 
-        public Builder setUsage(int i10) {
-            this.mBuilderImpl.setUsage(i10);
-            return this;
+        public Builder setUsage(int i2) {
+            switch (i2) {
+                case 0:
+                case 1:
+                case 2:
+                case 3:
+                case 4:
+                case 5:
+                case 6:
+                case 7:
+                case 8:
+                case 9:
+                case 10:
+                case 11:
+                case 12:
+                case 13:
+                case 14:
+                case 15:
+                    this.f2727a = i2;
+                    return this;
+                case 16:
+                    if (AudioAttributesCompat.f2722f || Build.VERSION.SDK_INT <= 25) {
+                        this.f2727a = 12;
+                    } else {
+                        this.f2727a = i2;
+                    }
+                    return this;
+                default:
+                    this.f2727a = 0;
+                    return this;
+            }
         }
 
         public Builder(AudioAttributesCompat audioAttributesCompat) {
-            if (AudioAttributesCompat.sForceLegacyBehavior) {
-                this.mBuilderImpl = new AudioAttributesImplBase.Builder(audioAttributesCompat);
-            } else if (Build.VERSION.SDK_INT >= 26) {
-                this.mBuilderImpl = new AudioAttributesImplApi26.Builder(audioAttributesCompat.unwrap());
-            } else {
-                this.mBuilderImpl = new AudioAttributesImplApi21.Builder(audioAttributesCompat.unwrap());
-            }
+            this.f2727a = 0;
+            this.f2728b = 0;
+            this.f2729c = 0;
+            this.f2730d = -1;
+            this.f2727a = audioAttributesCompat.getUsage();
+            this.f2728b = audioAttributesCompat.getContentType();
+            this.f2729c = audioAttributesCompat.getFlags();
+            this.f2730d = audioAttributesCompat.getRawLegacyStreamType();
         }
     }
 }

@@ -1,134 +1,122 @@
 package okhttp3.internal.http2;
 
-import com.sigmob.sdk.videocache.sourcestorage.a;
-import kotlin.Metadata;
-import kotlin.jvm.JvmField;
-import kotlin.jvm.internal.Intrinsics;
-import kotlin.text.StringsKt;
+import java.io.IOException;
 import okhttp3.internal.Util;
 import okio.ByteString;
-import xi.k;
+import org.mozilla.universalchardet.prober.g;
 
-@Metadata(d1 = {"\u00000\n\u0002\u0018\u0002\n\u0002\u0010\u0000\n\u0002\b\u0002\n\u0002\u0010\u0011\n\u0002\u0010\u000e\n\u0002\b\u0002\n\u0002\u0018\u0002\n\u0002\b\u0002\n\u0002\u0010\b\n\u0002\b\u001a\n\u0002\u0010\u000b\n\u0002\b\u0003\bÆ\u0002\u0018\u00002\u00020\u0001B\u0007\b\u0002¢\u0006\u0002\u0010\u0002J\u0016\u0010\u001f\u001a\u00020\u00052\u0006\u0010 \u001a\u00020\u000b2\u0006\u0010!\u001a\u00020\u000bJ\u0015\u0010\"\u001a\u00020\u00052\u0006\u0010 \u001a\u00020\u000bH\u0000¢\u0006\u0002\b#J.\u0010$\u001a\u00020\u00052\u0006\u0010%\u001a\u00020&2\u0006\u0010'\u001a\u00020\u000b2\u0006\u0010(\u001a\u00020\u000b2\u0006\u0010 \u001a\u00020\u000b2\u0006\u0010!\u001a\u00020\u000bR\u0016\u0010\u0003\u001a\b\u0012\u0004\u0012\u00020\u00050\u0004X\u0082\u0004¢\u0006\u0004\n\u0002\u0010\u0006R\u0010\u0010\u0007\u001a\u00020\b8\u0006X\u0087\u0004¢\u0006\u0002\n\u0000R\u0018\u0010\t\u001a\n\u0012\u0006\u0012\u0004\u0018\u00010\u00050\u0004X\u0082\u0004¢\u0006\u0004\n\u0002\u0010\u0006R\u000e\u0010\n\u001a\u00020\u000bX\u0086T¢\u0006\u0002\n\u0000R\u000e\u0010\f\u001a\u00020\u000bX\u0086T¢\u0006\u0002\n\u0000R\u000e\u0010\r\u001a\u00020\u000bX\u0086T¢\u0006\u0002\n\u0000R\u000e\u0010\u000e\u001a\u00020\u000bX\u0086T¢\u0006\u0002\n\u0000R\u000e\u0010\u000f\u001a\u00020\u000bX\u0086T¢\u0006\u0002\n\u0000R\u000e\u0010\u0010\u001a\u00020\u000bX\u0086T¢\u0006\u0002\n\u0000R\u000e\u0010\u0011\u001a\u00020\u000bX\u0086T¢\u0006\u0002\n\u0000R\u000e\u0010\u0012\u001a\u00020\u000bX\u0086T¢\u0006\u0002\n\u0000R\u0016\u0010\u0013\u001a\b\u0012\u0004\u0012\u00020\u00050\u0004X\u0082\u0004¢\u0006\u0004\n\u0002\u0010\u0006R\u000e\u0010\u0014\u001a\u00020\u000bX\u0086T¢\u0006\u0002\n\u0000R\u000e\u0010\u0015\u001a\u00020\u000bX\u0086T¢\u0006\u0002\n\u0000R\u000e\u0010\u0016\u001a\u00020\u000bX\u0086T¢\u0006\u0002\n\u0000R\u000e\u0010\u0017\u001a\u00020\u000bX\u0086T¢\u0006\u0002\n\u0000R\u000e\u0010\u0018\u001a\u00020\u000bX\u0086T¢\u0006\u0002\n\u0000R\u000e\u0010\u0019\u001a\u00020\u000bX\u0086T¢\u0006\u0002\n\u0000R\u000e\u0010\u001a\u001a\u00020\u000bX\u0086T¢\u0006\u0002\n\u0000R\u000e\u0010\u001b\u001a\u00020\u000bX\u0086T¢\u0006\u0002\n\u0000R\u000e\u0010\u001c\u001a\u00020\u000bX\u0086T¢\u0006\u0002\n\u0000R\u000e\u0010\u001d\u001a\u00020\u000bX\u0086T¢\u0006\u0002\n\u0000R\u000e\u0010\u001e\u001a\u00020\u000bX\u0086T¢\u0006\u0002\n\u0000¨\u0006)"}, d2 = {"Lokhttp3/internal/http2/Http2;", "", "()V", "BINARY", "", "", "[Ljava/lang/String;", "CONNECTION_PREFACE", "Lokio/ByteString;", "FLAGS", "FLAG_ACK", "", "FLAG_COMPRESSED", "FLAG_END_HEADERS", "FLAG_END_PUSH_PROMISE", "FLAG_END_STREAM", "FLAG_NONE", "FLAG_PADDED", "FLAG_PRIORITY", "FRAME_NAMES", "INITIAL_MAX_FRAME_SIZE", "TYPE_CONTINUATION", "TYPE_DATA", "TYPE_GOAWAY", "TYPE_HEADERS", "TYPE_PING", "TYPE_PRIORITY", "TYPE_PUSH_PROMISE", "TYPE_RST_STREAM", "TYPE_SETTINGS", "TYPE_WINDOW_UPDATE", "formatFlags", "type", "flags", "formattedType", "formattedType$okhttp", "frameLog", "inbound", "", "streamId", a.f20681d, "okhttp"}, k = 1, mv = {1, 6, 0}, xi = 48)
-/* loaded from: classes4.dex */
+/* loaded from: classes5.dex */
 public final class Http2 {
-
-    @k
-    private static final String[] BINARY;
-    public static final int FLAG_ACK = 1;
-    public static final int FLAG_COMPRESSED = 32;
-    public static final int FLAG_END_HEADERS = 4;
-    public static final int FLAG_END_PUSH_PROMISE = 4;
-    public static final int FLAG_END_STREAM = 1;
-    public static final int FLAG_NONE = 0;
-    public static final int FLAG_PADDED = 8;
-    public static final int FLAG_PRIORITY = 32;
-    public static final int INITIAL_MAX_FRAME_SIZE = 16384;
-    public static final int TYPE_CONTINUATION = 9;
-    public static final int TYPE_DATA = 0;
-    public static final int TYPE_GOAWAY = 7;
-    public static final int TYPE_HEADERS = 1;
-    public static final int TYPE_PING = 6;
-    public static final int TYPE_PRIORITY = 2;
-    public static final int TYPE_PUSH_PROMISE = 5;
-    public static final int TYPE_RST_STREAM = 3;
-    public static final int TYPE_SETTINGS = 4;
-    public static final int TYPE_WINDOW_UPDATE = 8;
-
-    @k
-    public static final Http2 INSTANCE = new Http2();
-
-    @k
-    @JvmField
-    public static final ByteString CONNECTION_PREFACE = ByteString.INSTANCE.encodeUtf8("PRI * HTTP/2.0\r\n\r\nSM\r\n\r\n");
-
-    @k
+    static final byte FLAG_ACK = 1;
+    static final byte FLAG_COMPRESSED = 32;
+    static final byte FLAG_END_HEADERS = 4;
+    static final byte FLAG_END_PUSH_PROMISE = 4;
+    static final byte FLAG_END_STREAM = 1;
+    static final byte FLAG_NONE = 0;
+    static final byte FLAG_PADDED = 8;
+    static final byte FLAG_PRIORITY = 32;
+    static final int INITIAL_MAX_FRAME_SIZE = 16384;
+    static final byte TYPE_CONTINUATION = 9;
+    static final byte TYPE_DATA = 0;
+    static final byte TYPE_GOAWAY = 7;
+    static final byte TYPE_HEADERS = 1;
+    static final byte TYPE_PING = 6;
+    static final byte TYPE_PRIORITY = 2;
+    static final byte TYPE_PUSH_PROMISE = 5;
+    static final byte TYPE_RST_STREAM = 3;
+    static final byte TYPE_SETTINGS = 4;
+    static final byte TYPE_WINDOW_UPDATE = 8;
+    static final ByteString CONNECTION_PREFACE = ByteString.encodeUtf8("PRI * HTTP/2.0\r\n\r\nSM\r\n\r\n");
     private static final String[] FRAME_NAMES = {"DATA", "HEADERS", "PRIORITY", "RST_STREAM", "SETTINGS", "PUSH_PROMISE", "PING", "GOAWAY", "WINDOW_UPDATE", "CONTINUATION"};
-
-    @k
-    private static final String[] FLAGS = new String[64];
+    static final String[] FLAGS = new String[64];
+    static final String[] BINARY = new String[256];
 
     static {
-        String[] strArr = new String[256];
-        int i10 = 0;
-        for (int i11 = 0; i11 < 256; i11++) {
-            String binaryString = Integer.toBinaryString(i11);
-            Intrinsics.checkNotNullExpressionValue(binaryString, "toBinaryString(it)");
-            strArr[i11] = StringsKt.replace$default(Util.format("%8s", binaryString), b5.a.O, '0', false, 4, (Object) null);
+        int i2 = 0;
+        int i3 = 0;
+        while (true) {
+            String[] strArr = BINARY;
+            if (i3 >= strArr.length) {
+                break;
+            }
+            strArr[i3] = Util.format("%8s", Integer.toBinaryString(i3)).replace(' ', '0');
+            i3++;
         }
-        BINARY = strArr;
         String[] strArr2 = FLAGS;
         strArr2[0] = "";
         strArr2[1] = "END_STREAM";
         int[] iArr = {1};
         strArr2[8] = "PADDED";
-        int i12 = iArr[0];
-        strArr2[i12 | 8] = Intrinsics.stringPlus(strArr2[i12], "|PADDED");
-        strArr2[4] = "END_HEADERS";
-        strArr2[32] = "PRIORITY";
-        strArr2[36] = "END_HEADERS|PRIORITY";
-        int[] iArr2 = {4, 32, 36};
-        int i13 = 0;
-        while (i13 < 3) {
-            int i14 = iArr2[i13];
-            i13++;
-            int i15 = iArr[0];
+        for (int i4 = 0; i4 < 1; i4++) {
+            int i5 = iArr[i4];
             String[] strArr3 = FLAGS;
-            int i16 = i15 | i14;
-            StringBuilder sb2 = new StringBuilder();
-            sb2.append((Object) strArr3[i15]);
-            sb2.append('|');
-            sb2.append((Object) strArr3[i14]);
-            strArr3[i16] = sb2.toString();
-            strArr3[i16 | 8] = ((Object) strArr3[i15]) + '|' + ((Object) strArr3[i14]) + "|PADDED";
+            strArr3[i5 | 8] = strArr3[i5] + "|PADDED";
         }
-        int length = FLAGS.length;
-        while (i10 < length) {
-            int i17 = i10 + 1;
-            String[] strArr4 = FLAGS;
-            if (strArr4[i10] == null) {
-                strArr4[i10] = BINARY[i10];
+        String[] strArr4 = FLAGS;
+        strArr4[4] = "END_HEADERS";
+        strArr4[32] = "PRIORITY";
+        strArr4[36] = "END_HEADERS|PRIORITY";
+        int[] iArr2 = {4, 32, 36};
+        for (int i6 = 0; i6 < 3; i6++) {
+            int i7 = iArr2[i6];
+            for (int i8 = 0; i8 < 1; i8++) {
+                int i9 = iArr[i8];
+                String[] strArr5 = FLAGS;
+                int i10 = i9 | i7;
+                strArr5[i10] = strArr5[i9] + '|' + strArr5[i7];
+                strArr5[i10 | 8] = strArr5[i9] + '|' + strArr5[i7] + "|PADDED";
             }
-            i10 = i17;
+        }
+        while (true) {
+            String[] strArr6 = FLAGS;
+            if (i2 >= strArr6.length) {
+                return;
+            }
+            if (strArr6[i2] == null) {
+                strArr6[i2] = BINARY[i2];
+            }
+            i2++;
         }
     }
 
     private Http2() {
     }
 
-    @k
-    public final String formatFlags(int type, int flags) {
-        String str;
-        if (flags == 0) {
+    static String formatFlags(byte b2, byte b3) {
+        if (b3 == 0) {
             return "";
         }
-        if (type != 2 && type != 3) {
-            if (type == 4 || type == 6) {
-                return flags == 1 ? "ACK" : BINARY[flags];
+        if (b2 != 2 && b2 != 3) {
+            if (b2 == 4 || b2 == 6) {
+                return b3 == 1 ? "ACK" : BINARY[b3];
             }
-            if (type != 7 && type != 8) {
+            if (b2 != 7 && b2 != 8) {
                 String[] strArr = FLAGS;
-                if (flags < strArr.length) {
-                    str = strArr[flags];
-                    Intrinsics.checkNotNull(str);
-                } else {
-                    str = BINARY[flags];
-                }
-                String str2 = str;
-                return (type != 5 || (flags & 4) == 0) ? (type != 0 || (flags & 32) == 0) ? str2 : StringsKt.replace$default(str2, "PRIORITY", "COMPRESSED", false, 4, (Object) null) : StringsKt.replace$default(str2, "HEADERS", "PUSH_PROMISE", false, 4, (Object) null);
+                String str = b3 < strArr.length ? strArr[b3] : BINARY[b3];
+                return (b2 != 5 || (b3 & 4) == 0) ? (b2 != 0 || (b3 & g.s) == 0) ? str : str.replace("PRIORITY", "COMPRESSED") : str.replace("HEADERS", "PUSH_PROMISE");
             }
         }
-        return BINARY[flags];
+        return BINARY[b3];
     }
 
-    @k
-    public final String formattedType$okhttp(int type) {
+    static String frameLog(boolean z, int i2, int i3, byte b2, byte b3) {
         String[] strArr = FRAME_NAMES;
-        return type < strArr.length ? strArr[type] : Util.format("0x%02x", Integer.valueOf(type));
+        String format = b2 < strArr.length ? strArr[b2] : Util.format("0x%02x", Byte.valueOf(b2));
+        String formatFlags = formatFlags(b2, b3);
+        Object[] objArr = new Object[5];
+        objArr[0] = z ? "<<" : ">>";
+        objArr[1] = Integer.valueOf(i2);
+        objArr[2] = Integer.valueOf(i3);
+        objArr[3] = format;
+        objArr[4] = formatFlags;
+        return Util.format("%s 0x%08x %5d %-13s %s", objArr);
     }
 
-    @k
-    public final String frameLog(boolean inbound, int streamId, int r52, int type, int flags) {
-        return Util.format("%s 0x%08x %5d %-13s %s", inbound ? "<<" : ">>", Integer.valueOf(streamId), Integer.valueOf(r52), formattedType$okhttp(type), formatFlags(type, flags));
+    static IllegalArgumentException illegalArgument(String str, Object... objArr) {
+        throw new IllegalArgumentException(Util.format(str, objArr));
+    }
+
+    static IOException ioException(String str, Object... objArr) throws IOException {
+        throw new IOException(Util.format(str, objArr));
     }
 }

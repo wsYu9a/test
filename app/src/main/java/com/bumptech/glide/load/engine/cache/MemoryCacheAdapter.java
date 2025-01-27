@@ -6,7 +6,7 @@ import com.bumptech.glide.load.Key;
 import com.bumptech.glide.load.engine.Resource;
 import com.bumptech.glide.load.engine.cache.MemoryCache;
 
-/* loaded from: classes2.dex */
+/* loaded from: classes.dex */
 public class MemoryCacheAdapter implements MemoryCache {
     private MemoryCache.ResourceRemovedListener listener;
 
@@ -46,10 +46,10 @@ public class MemoryCacheAdapter implements MemoryCache {
     }
 
     @Override // com.bumptech.glide.load.engine.cache.MemoryCache
-    public void setSizeMultiplier(float f10) {
+    public void setSizeMultiplier(float f2) {
     }
 
     @Override // com.bumptech.glide.load.engine.cache.MemoryCache
-    public void trimMemory(int i10) {
+    public void trimMemory(int i2) {
     }
 }

@@ -3,132 +3,69 @@ package androidx.core.widget;
 import android.content.Context;
 import android.graphics.Canvas;
 import android.os.Build;
-import android.util.AttributeSet;
 import android.widget.EdgeEffect;
-import androidx.annotation.DoNotInline;
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.annotation.RequiresApi;
 
 /* loaded from: classes.dex */
 public final class EdgeEffectCompat {
-    private final EdgeEffect mEdgeEffect;
 
-    @RequiresApi(21)
-    public static class Api21Impl {
-        private Api21Impl() {
-        }
-
-        @DoNotInline
-        public static void onPull(EdgeEffect edgeEffect, float f10, float f11) {
-            edgeEffect.onPull(f10, f11);
-        }
-    }
-
-    @RequiresApi(31)
-    public static class Api31Impl {
-        private Api31Impl() {
-        }
-
-        @DoNotInline
-        public static EdgeEffect create(Context context, AttributeSet attributeSet) {
-            try {
-                return new EdgeEffect(context, attributeSet);
-            } catch (Throwable unused) {
-                return new EdgeEffect(context);
-            }
-        }
-
-        @DoNotInline
-        public static float getDistance(EdgeEffect edgeEffect) {
-            try {
-                return edgeEffect.getDistance();
-            } catch (Throwable unused) {
-                return 0.0f;
-            }
-        }
-
-        @DoNotInline
-        public static float onPullDistance(EdgeEffect edgeEffect, float f10, float f11) {
-            try {
-                return edgeEffect.onPullDistance(f10, f11);
-            } catch (Throwable unused) {
-                edgeEffect.onPull(f10, f11);
-                return 0.0f;
-            }
-        }
-    }
+    /* renamed from: a, reason: collision with root package name */
+    private EdgeEffect f2198a;
 
     @Deprecated
     public EdgeEffectCompat(Context context) {
-        this.mEdgeEffect = new EdgeEffect(context);
-    }
-
-    @NonNull
-    public static EdgeEffect create(@NonNull Context context, @Nullable AttributeSet attributeSet) {
-        return Build.VERSION.SDK_INT >= 31 ? Api31Impl.create(context, attributeSet) : new EdgeEffect(context);
-    }
-
-    public static float getDistance(@NonNull EdgeEffect edgeEffect) {
-        if (Build.VERSION.SDK_INT >= 31) {
-            return Api31Impl.getDistance(edgeEffect);
-        }
-        return 0.0f;
-    }
-
-    public static float onPullDistance(@NonNull EdgeEffect edgeEffect, float f10, float f11) {
-        if (Build.VERSION.SDK_INT >= 31) {
-            return Api31Impl.onPullDistance(edgeEffect, f10, f11);
-        }
-        onPull(edgeEffect, f10, f11);
-        return f10;
+        this.f2198a = new EdgeEffect(context);
     }
 
     @Deprecated
     public boolean draw(Canvas canvas) {
-        return this.mEdgeEffect.draw(canvas);
+        return this.f2198a.draw(canvas);
     }
 
     @Deprecated
     public void finish() {
-        this.mEdgeEffect.finish();
+        this.f2198a.finish();
     }
 
     @Deprecated
     public boolean isFinished() {
-        return this.mEdgeEffect.isFinished();
+        return this.f2198a.isFinished();
     }
 
     @Deprecated
-    public boolean onAbsorb(int i10) {
-        this.mEdgeEffect.onAbsorb(i10);
+    public boolean onAbsorb(int i2) {
+        this.f2198a.onAbsorb(i2);
         return true;
     }
 
     @Deprecated
-    public boolean onPull(float f10) {
-        this.mEdgeEffect.onPull(f10);
+    public boolean onPull(float f2) {
+        this.f2198a.onPull(f2);
         return true;
     }
 
     @Deprecated
     public boolean onRelease() {
-        this.mEdgeEffect.onRelease();
-        return this.mEdgeEffect.isFinished();
+        this.f2198a.onRelease();
+        return this.f2198a.isFinished();
     }
 
     @Deprecated
-    public void setSize(int i10, int i11) {
-        this.mEdgeEffect.setSize(i10, i11);
+    public void setSize(int i2, int i3) {
+        this.f2198a.setSize(i2, i3);
     }
 
     @Deprecated
-    public boolean onPull(float f10, float f11) {
-        onPull(this.mEdgeEffect, f10, f11);
+    public boolean onPull(float f2, float f3) {
+        onPull(this.f2198a, f2, f3);
         return true;
     }
 
-    public static void onPull(@NonNull EdgeEffect edgeEffect, float f10, float f11) {
-        Api21Impl.onPull(edgeEffect, f10, f11);
+    public static void onPull(@NonNull EdgeEffect edgeEffect, float f2, float f3) {
+        if (Build.VERSION.SDK_INT >= 21) {
+            edgeEffect.onPull(f2, f3);
+        } else {
+            edgeEffect.onPull(f2);
+        }
     }
 }

@@ -13,11 +13,9 @@ import kotlin.reflect.KProperty0;
 import kotlin.reflect.KProperty1;
 import kotlin.reflect.KProperty2;
 import kotlin.reflect.KType;
-import kotlin.reflect.KTypeParameter;
 import kotlin.reflect.KTypeProjection;
-import kotlin.reflect.KVariance;
 
-/* loaded from: classes4.dex */
+/* loaded from: classes5.dex */
 public class ReflectionFactory {
     private static final String KOTLIN_JVM_FUNCTIONS = "kotlin.jvm.functions.";
 
@@ -37,12 +35,6 @@ public class ReflectionFactory {
         return new PackageReference(cls, str);
     }
 
-    @SinceKotlin(version = "1.6")
-    public KType mutableCollectionType(KType kType) {
-        TypeReference typeReference = (TypeReference) kType;
-        return new TypeReference(kType.getClassifier(), kType.getArguments(), typeReference.getPlatformTypeUpperBound(), typeReference.getFlags() | 2);
-    }
-
     public KMutableProperty0 mutableProperty0(MutablePropertyReference0 mutablePropertyReference0) {
         return mutablePropertyReference0;
     }
@@ -53,17 +45,6 @@ public class ReflectionFactory {
 
     public KMutableProperty2 mutableProperty2(MutablePropertyReference2 mutablePropertyReference2) {
         return mutablePropertyReference2;
-    }
-
-    @SinceKotlin(version = "1.6")
-    public KType nothingType(KType kType) {
-        TypeReference typeReference = (TypeReference) kType;
-        return new TypeReference(kType.getClassifier(), kType.getArguments(), typeReference.getPlatformTypeUpperBound(), typeReference.getFlags() | 4);
-    }
-
-    @SinceKotlin(version = "1.6")
-    public KType platformType(KType kType, KType kType2) {
-        return new TypeReference(kType.getClassifier(), kType.getArguments(), kType2, ((TypeReference) kType).getFlags());
     }
 
     public KProperty0 property0(PropertyReference0 propertyReference0) {
@@ -84,18 +65,8 @@ public class ReflectionFactory {
     }
 
     @SinceKotlin(version = "1.4")
-    public void setUpperBounds(KTypeParameter kTypeParameter, List<KType> list) {
-        ((TypeParameterReference) kTypeParameter).setUpperBounds(list);
-    }
-
-    @SinceKotlin(version = "1.4")
-    public KType typeOf(KClassifier kClassifier, List<KTypeProjection> list, boolean z10) {
-        return new TypeReference(kClassifier, list, z10);
-    }
-
-    @SinceKotlin(version = "1.4")
-    public KTypeParameter typeParameter(Object obj, String str, KVariance kVariance, boolean z10) {
-        return new TypeParameterReference(obj, str, kVariance, z10);
+    public KType typeOf(KClassifier kClassifier, List<KTypeProjection> list, boolean z) {
+        return new TypeReference(kClassifier, list, z);
     }
 
     public KClass createKotlinClass(Class cls, String str) {

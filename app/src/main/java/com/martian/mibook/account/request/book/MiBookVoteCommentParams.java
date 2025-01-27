@@ -1,7 +1,7 @@
 package com.martian.mibook.account.request.book;
 
+import com.martian.libcomm.http.requests.d.a;
 import com.martian.mibook.lib.account.request.auth.TYAuthParams;
-import v8.a;
 
 /* loaded from: classes3.dex */
 public class MiBookVoteCommentParams extends TYAuthParams {
@@ -32,15 +32,15 @@ public class MiBookVoteCommentParams extends TYAuthParams {
         return this.rid;
     }
 
-    public void setCancel(Boolean bool) {
-        this.cancel = bool;
+    public void setCancel(Boolean cancel) {
+        this.cancel = cancel;
     }
 
-    public void setCid(Integer num) {
-        this.cid = num;
+    public void setCid(Integer cid) {
+        this.cid = cid;
     }
 
-    public void setRid(Integer num) {
-        this.rid = num;
+    public void setRid(Integer rid) {
+        this.rid = rid;
     }
 }

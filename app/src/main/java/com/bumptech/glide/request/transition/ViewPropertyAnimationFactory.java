@@ -3,7 +3,7 @@ package com.bumptech.glide.request.transition;
 import com.bumptech.glide.load.DataSource;
 import com.bumptech.glide.request.transition.ViewPropertyTransition;
 
-/* loaded from: classes2.dex */
+/* loaded from: classes.dex */
 public class ViewPropertyAnimationFactory<R> implements TransitionFactory<R> {
     private ViewPropertyTransition<R> animation;
     private final ViewPropertyTransition.Animator animator;
@@ -13,8 +13,8 @@ public class ViewPropertyAnimationFactory<R> implements TransitionFactory<R> {
     }
 
     @Override // com.bumptech.glide.request.transition.TransitionFactory
-    public Transition<R> build(DataSource dataSource, boolean z10) {
-        if (dataSource == DataSource.MEMORY_CACHE || !z10) {
+    public Transition<R> build(DataSource dataSource, boolean z) {
+        if (dataSource == DataSource.MEMORY_CACHE || !z) {
             return NoTransition.get();
         }
         if (this.animation == null) {

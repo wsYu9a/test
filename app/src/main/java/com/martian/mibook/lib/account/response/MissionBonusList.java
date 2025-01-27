@@ -15,7 +15,7 @@ public class MissionBonusList {
         return list == null || list.isEmpty();
     }
 
-    public void setBonusList(List<MissionItem> list) {
-        this.bonusList = list;
+    public void setBonusList(List<MissionItem> bonusList) {
+        this.bonusList = bonusList;
     }
 }

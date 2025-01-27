@@ -16,18 +16,6 @@ import java.util.concurrent.atomic.AtomicLong;
 
 /* loaded from: classes4.dex */
 public class DownloadChunk implements Parcelable {
-    public static final Parcelable.Creator<DownloadChunk> CREATOR = new Parcelable.Creator<DownloadChunk>() { // from class: com.ss.android.socialbase.downloader.model.DownloadChunk.1
-        @Override // android.os.Parcelable.Creator
-        public DownloadChunk createFromParcel(Parcel parcel) {
-            return new DownloadChunk(parcel);
-        }
-
-        @Override // android.os.Parcelable.Creator
-        public DownloadChunk[] newArray(int i10) {
-            return new DownloadChunk[i10];
-        }
-    };
-    private static final String TAG = "DownloadChunk";
     private int bindValueCount;
     private int chunkIndex;
     private DownloadChunkRunnable chunkRunnable;
@@ -36,25 +24,41 @@ public class DownloadChunk implements Parcelable {
     private long endOffset;
     private DownloadChunk hostChunk;
     private AtomicInteger hostChunkIndex;
-
-    /* renamed from: id */
-    private int f21971id;
+    private int id;
     private AtomicBoolean isDownloading;
     private long oldOffset;
     private boolean reuseingFirstConnection;
     private long startOffset;
     private List<DownloadChunk> subChunkList;
+    private static final String TAG = DownloadChunk.class.getSimpleName();
+    public static final Parcelable.Creator<DownloadChunk> CREATOR = new Parcelable.Creator<DownloadChunk>() { // from class: com.ss.android.socialbase.downloader.model.DownloadChunk.1
+        AnonymousClass1() {
+        }
 
-    /* renamed from: com.ss.android.socialbase.downloader.model.DownloadChunk$1 */
-    public static class AnonymousClass1 implements Parcelable.Creator<DownloadChunk> {
         @Override // android.os.Parcelable.Creator
         public DownloadChunk createFromParcel(Parcel parcel) {
             return new DownloadChunk(parcel);
         }
 
         @Override // android.os.Parcelable.Creator
-        public DownloadChunk[] newArray(int i10) {
-            return new DownloadChunk[i10];
+        public DownloadChunk[] newArray(int i2) {
+            return new DownloadChunk[i2];
+        }
+    };
+
+    /* renamed from: com.ss.android.socialbase.downloader.model.DownloadChunk$1 */
+    static class AnonymousClass1 implements Parcelable.Creator<DownloadChunk> {
+        AnonymousClass1() {
+        }
+
+        @Override // android.os.Parcelable.Creator
+        public DownloadChunk createFromParcel(Parcel parcel) {
+            return new DownloadChunk(parcel);
+        }
+
+        @Override // android.os.Parcelable.Creator
+        public DownloadChunk[] newArray(int i2) {
+            return new DownloadChunk[i2];
         }
     }
 
@@ -64,37 +68,35 @@ public class DownloadChunk implements Parcelable {
         private long currentOffset;
         private long endOffset;
         private DownloadChunk hostChunk;
-
-        /* renamed from: id */
-        private int f21972id;
+        private int id;
         private long oldOffset;
         private long startOffset;
 
-        public Builder(int i10) {
-            this.f21972id = i10;
+        public Builder(int i2) {
+            this.id = i2;
         }
 
         public DownloadChunk build() {
             return new DownloadChunk(this);
         }
 
-        public Builder chunkIndex(int i10) {
-            this.chunkIndex = i10;
+        public Builder chunkIndex(int i2) {
+            this.chunkIndex = i2;
             return this;
         }
 
-        public Builder contentLength(long j10) {
-            this.contentLength = j10;
+        public Builder contentLength(long j2) {
+            this.contentLength = j2;
             return this;
         }
 
-        public Builder currentOffset(long j10) {
-            this.currentOffset = j10;
+        public Builder currentOffset(long j2) {
+            this.currentOffset = j2;
             return this;
         }
 
-        public Builder endOffset(long j10) {
-            this.endOffset = j10;
+        public Builder endOffset(long j2) {
+            this.endOffset = j2;
             return this;
         }
 
@@ -103,23 +105,23 @@ public class DownloadChunk implements Parcelable {
             return this;
         }
 
-        public Builder id(int i10) {
-            this.f21972id = i10;
+        public Builder id(int i2) {
+            this.id = i2;
             return this;
         }
 
-        public Builder oldOffset(long j10) {
-            this.oldOffset = j10;
+        public Builder oldOffset(long j2) {
+            this.oldOffset = j2;
             return this;
         }
 
-        public Builder startOffset(long j10) {
-            this.startOffset = j10;
+        public Builder startOffset(long j2) {
+            this.startOffset = j2;
             return this;
         }
     }
 
-    public /* synthetic */ DownloadChunk(Builder builder, AnonymousClass1 anonymousClass1) {
+    /* synthetic */ DownloadChunk(Builder builder, AnonymousClass1 anonymousClass1) {
         this(builder);
     }
 
@@ -129,27 +131,27 @@ public class DownloadChunk implements Parcelable {
         }
         this.bindValueCount = 0;
         sQLiteStatement.clearBindings();
-        int i10 = this.bindValueCount + 1;
-        this.bindValueCount = i10;
-        sQLiteStatement.bindLong(i10, this.f21971id);
-        int i11 = this.bindValueCount + 1;
-        this.bindValueCount = i11;
-        sQLiteStatement.bindLong(i11, this.chunkIndex);
-        int i12 = this.bindValueCount + 1;
-        this.bindValueCount = i12;
-        sQLiteStatement.bindLong(i12, this.startOffset);
-        int i13 = this.bindValueCount + 1;
-        this.bindValueCount = i13;
-        sQLiteStatement.bindLong(i13, getCurrentOffset());
-        int i14 = this.bindValueCount + 1;
-        this.bindValueCount = i14;
-        sQLiteStatement.bindLong(i14, this.endOffset);
-        int i15 = this.bindValueCount + 1;
-        this.bindValueCount = i15;
-        sQLiteStatement.bindLong(i15, this.contentLength);
-        int i16 = this.bindValueCount + 1;
-        this.bindValueCount = i16;
-        sQLiteStatement.bindLong(i16, getHostChunkIndex());
+        int i2 = this.bindValueCount + 1;
+        this.bindValueCount = i2;
+        sQLiteStatement.bindLong(i2, this.id);
+        int i3 = this.bindValueCount + 1;
+        this.bindValueCount = i3;
+        sQLiteStatement.bindLong(i3, this.chunkIndex);
+        int i4 = this.bindValueCount + 1;
+        this.bindValueCount = i4;
+        sQLiteStatement.bindLong(i4, this.startOffset);
+        int i5 = this.bindValueCount + 1;
+        this.bindValueCount = i5;
+        sQLiteStatement.bindLong(i5, getCurrentOffset());
+        int i6 = this.bindValueCount + 1;
+        this.bindValueCount = i6;
+        sQLiteStatement.bindLong(i6, this.endOffset);
+        int i7 = this.bindValueCount + 1;
+        this.bindValueCount = i7;
+        sQLiteStatement.bindLong(i7, this.contentLength);
+        int i8 = this.bindValueCount + 1;
+        this.bindValueCount = i8;
+        sQLiteStatement.bindLong(i8, getHostChunkIndex());
     }
 
     public boolean canRefreshCurOffsetForReuseChunk() {
@@ -160,14 +162,14 @@ public class DownloadChunk implements Parcelable {
         if (!downloadChunk.hasChunkDivided()) {
             return false;
         }
-        for (int i10 = 0; i10 < this.hostChunk.getSubChunkList().size(); i10++) {
-            DownloadChunk downloadChunk2 = this.hostChunk.getSubChunkList().get(i10);
+        for (int i2 = 0; i2 < this.hostChunk.getSubChunkList().size(); i2++) {
+            DownloadChunk downloadChunk2 = this.hostChunk.getSubChunkList().get(i2);
             if (downloadChunk2 != null) {
                 int indexOf = this.hostChunk.getSubChunkList().indexOf(this);
-                if (indexOf > i10 && !downloadChunk2.hasNoBytesDownload()) {
+                if (indexOf > i2 && !downloadChunk2.hasNoBytesDownload()) {
                     return false;
                 }
-                if (indexOf == i10) {
+                if (indexOf == i2) {
                     return true;
                 }
             }
@@ -180,78 +182,78 @@ public class DownloadChunk implements Parcelable {
         return 0;
     }
 
-    public List<DownloadChunk> divideChunkForReuse(int i10, long j10) {
+    public List<DownloadChunk> divideChunkForReuse(int i2, long j2) {
         DownloadChunk downloadChunk;
-        long j11;
-        long j12;
-        long j13;
-        long j14;
+        long j3;
+        long j4;
+        long j5;
+        long j6;
         DownloadChunk downloadChunk2 = this;
-        int i11 = i10;
+        int i3 = i2;
         if (!isHostChunk() || hasChunkDivided()) {
             return null;
         }
         ArrayList arrayList = new ArrayList();
         long curOffset = getCurOffset();
         long retainLength = downloadChunk2.getRetainLength(true);
-        long j15 = retainLength / i11;
-        Logger.d(TAG, "retainLen:" + retainLength + " divideChunkForReuse chunkSize:" + j15 + " current host downloadChunk index:" + downloadChunk2.chunkIndex);
-        int i12 = 0;
-        while (i12 < i11) {
-            if (i12 == 0) {
-                j12 = getStartOffset();
-                j11 = (curOffset + j15) - 1;
+        long j7 = retainLength / i3;
+        Logger.d(TAG, "retainLen:" + retainLength + " divideChunkForReuse chunkSize:" + j7 + " current host downloadChunk index:" + downloadChunk2.chunkIndex);
+        int i4 = 0;
+        while (i4 < i3) {
+            if (i4 == 0) {
+                j4 = getStartOffset();
+                j3 = (curOffset + j7) - 1;
             } else {
-                int i13 = i11 - 1;
-                if (i12 == i13) {
+                int i5 = i3 - 1;
+                if (i4 == i5) {
                     long endOffset = getEndOffset();
-                    j13 = endOffset > curOffset ? (endOffset - curOffset) + 1 : retainLength - (i13 * j15);
-                    j14 = endOffset;
-                    j12 = curOffset;
-                    long j16 = retainLength;
-                    long j17 = j14;
-                    DownloadChunk build = new Builder(downloadChunk2.f21971id).chunkIndex((-i12) - 1).startOffset(j12).currentOffset(curOffset).oldOffset(curOffset).endOffset(j17).contentLength(j13).hostChunk(downloadChunk2).build();
-                    Logger.d(TAG, "divide sub chunk : " + i12 + " startOffset:" + j12 + " curOffset:" + curOffset + " endOffset:" + j17 + " contentLen:" + j13);
+                    j5 = endOffset > curOffset ? (endOffset - curOffset) + 1 : retainLength - (i5 * j7);
+                    j6 = endOffset;
+                    j4 = curOffset;
+                    long j8 = retainLength;
+                    long j9 = j6;
+                    DownloadChunk build = new Builder(downloadChunk2.id).chunkIndex((-i4) - 1).startOffset(j4).currentOffset(curOffset).oldOffset(curOffset).endOffset(j9).contentLength(j5).hostChunk(downloadChunk2).build();
+                    Logger.d(TAG, "divide sub chunk : " + i4 + " startOffset:" + j4 + " curOffset:" + curOffset + " endOffset:" + j9 + " contentLen:" + j5);
                     arrayList.add(build);
-                    curOffset += j15;
-                    i12++;
+                    curOffset += j7;
+                    i4++;
                     downloadChunk2 = this;
-                    i11 = i10;
-                    retainLength = j16;
+                    i3 = i2;
+                    retainLength = j8;
                 } else {
-                    j11 = (curOffset + j15) - 1;
-                    j12 = curOffset;
+                    j3 = (curOffset + j7) - 1;
+                    j4 = curOffset;
                 }
             }
-            j13 = j15;
-            j14 = j11;
-            long j162 = retainLength;
-            long j172 = j14;
-            DownloadChunk build2 = new Builder(downloadChunk2.f21971id).chunkIndex((-i12) - 1).startOffset(j12).currentOffset(curOffset).oldOffset(curOffset).endOffset(j172).contentLength(j13).hostChunk(downloadChunk2).build();
-            Logger.d(TAG, "divide sub chunk : " + i12 + " startOffset:" + j12 + " curOffset:" + curOffset + " endOffset:" + j172 + " contentLen:" + j13);
+            j5 = j7;
+            j6 = j3;
+            long j82 = retainLength;
+            long j92 = j6;
+            DownloadChunk build2 = new Builder(downloadChunk2.id).chunkIndex((-i4) - 1).startOffset(j4).currentOffset(curOffset).oldOffset(curOffset).endOffset(j92).contentLength(j5).hostChunk(downloadChunk2).build();
+            Logger.d(TAG, "divide sub chunk : " + i4 + " startOffset:" + j4 + " curOffset:" + curOffset + " endOffset:" + j92 + " contentLen:" + j5);
             arrayList.add(build2);
-            curOffset += j15;
-            i12++;
+            curOffset += j7;
+            i4++;
             downloadChunk2 = this;
-            i11 = i10;
-            retainLength = j162;
+            i3 = i2;
+            retainLength = j82;
         }
-        long j18 = 0;
+        long j10 = 0;
         for (int size = arrayList.size() - 1; size > 0; size--) {
             DownloadChunk downloadChunk3 = arrayList.get(size);
             if (downloadChunk3 != null) {
-                j18 += downloadChunk3.getContentLength();
+                j10 += downloadChunk3.getContentLength();
             }
         }
-        Logger.d(TAG, "reuseChunkContentLen:" + j18);
+        Logger.d(TAG, "reuseChunkContentLen:" + j10);
         DownloadChunk downloadChunk4 = arrayList.get(0);
         if (downloadChunk4 != null) {
-            downloadChunk4.setContentLength((getEndOffset() == 0 ? j10 - getStartOffset() : (getEndOffset() - getStartOffset()) + 1) - j18);
+            downloadChunk4.setContentLength((getEndOffset() == 0 ? j2 - getStartOffset() : (getEndOffset() - getStartOffset()) + 1) - j10);
             downloadChunk = this;
             downloadChunk4.setChunkIndex(downloadChunk.chunkIndex);
             DownloadChunkRunnable downloadChunkRunnable = downloadChunk.chunkRunnable;
             if (downloadChunkRunnable != null) {
-                downloadChunkRunnable.refreshResponseHandleOffset(downloadChunk4.getEndOffset(), getContentLength() - j18);
+                downloadChunkRunnable.refreshResponseHandleOffset(downloadChunk4.getEndOffset(), getContentLength() - j10);
             }
         } else {
             downloadChunk = this;
@@ -284,27 +286,27 @@ public class DownloadChunk implements Parcelable {
         if (!isHostChunk() || !hasChunkDivided()) {
             return getCurOffset();
         }
-        long j10 = 0;
-        for (int i10 = 0; i10 < this.subChunkList.size(); i10++) {
-            DownloadChunk downloadChunk = this.subChunkList.get(i10);
+        long j2 = 0;
+        for (int i2 = 0; i2 < this.subChunkList.size(); i2++) {
+            DownloadChunk downloadChunk = this.subChunkList.get(i2);
             if (downloadChunk != null) {
                 if (!downloadChunk.hasNoBytesDownload()) {
                     return downloadChunk.getCurOffset();
                 }
-                if (j10 < downloadChunk.getCurOffset()) {
-                    j10 = downloadChunk.getCurOffset();
+                if (j2 < downloadChunk.getCurOffset()) {
+                    j2 = downloadChunk.getCurOffset();
                 }
             }
         }
-        return j10;
+        return j2;
     }
 
     public long getDownloadChunkBytes() {
         long currentOffset = getCurrentOffset() - this.startOffset;
         if (hasChunkDivided()) {
             currentOffset = 0;
-            for (int i10 = 0; i10 < this.subChunkList.size(); i10++) {
-                DownloadChunk downloadChunk = this.subChunkList.get(i10);
+            for (int i2 = 0; i2 < this.subChunkList.size(); i2++) {
+                DownloadChunk downloadChunk = this.subChunkList.get(i2);
                 if (downloadChunk != null) {
                     currentOffset += downloadChunk.getCurrentOffset() - downloadChunk.getStartOffset();
                 }
@@ -338,22 +340,22 @@ public class DownloadChunk implements Parcelable {
     }
 
     public int getId() {
-        return this.f21971id;
+        return this.id;
     }
 
     public long getNextChunkCurOffset() {
         DownloadChunk downloadChunk = this.hostChunk;
         if (downloadChunk != null && downloadChunk.getSubChunkList() != null) {
             int indexOf = this.hostChunk.getSubChunkList().indexOf(this);
-            boolean z10 = false;
-            for (int i10 = 0; i10 < this.hostChunk.getSubChunkList().size(); i10++) {
-                DownloadChunk downloadChunk2 = this.hostChunk.getSubChunkList().get(i10);
+            boolean z = false;
+            for (int i2 = 0; i2 < this.hostChunk.getSubChunkList().size(); i2++) {
+                DownloadChunk downloadChunk2 = this.hostChunk.getSubChunkList().get(i2);
                 if (downloadChunk2 != null) {
-                    if (z10) {
+                    if (z) {
                         return downloadChunk2.getCurrentOffset();
                     }
-                    if (indexOf == i10) {
-                        z10 = true;
+                    if (indexOf == i2) {
+                        z = true;
                     }
                 }
             }
@@ -365,19 +367,19 @@ public class DownloadChunk implements Parcelable {
         return this.oldOffset;
     }
 
-    public long getRetainLength(boolean z10) {
+    public long getRetainLength(boolean z) {
         long currentOffset = getCurrentOffset();
-        long j10 = this.contentLength;
-        long j11 = this.oldOffset;
-        long j12 = j10 - (currentOffset - j11);
-        if (!z10 && currentOffset == j11) {
-            j12 = j10 - (currentOffset - this.startOffset);
+        long j2 = this.contentLength;
+        long j3 = this.oldOffset;
+        long j4 = j2 - (currentOffset - j3);
+        if (!z && currentOffset == j3) {
+            j4 = j2 - (currentOffset - this.startOffset);
         }
-        Logger.d(TAG, "contentLength:" + this.contentLength + " curOffset:" + getCurrentOffset() + " oldOffset:" + this.oldOffset + " retainLen:" + j12);
-        if (j12 < 0) {
+        Logger.d("DownloadChunk", "contentLength:" + this.contentLength + " curOffset:" + getCurrentOffset() + " oldOffset:" + this.oldOffset + " retainLen:" + j4);
+        if (j4 < 0) {
             return 0L;
         }
-        return j12;
+        return j4;
     }
 
     public long getStartOffset() {
@@ -394,14 +396,14 @@ public class DownloadChunk implements Parcelable {
     }
 
     public boolean hasNoBytesDownload() {
-        long j10 = this.startOffset;
+        long j2 = this.startOffset;
         if (isHostChunk()) {
-            long j11 = this.oldOffset;
-            if (j11 > this.startOffset) {
-                j10 = j11;
+            long j3 = this.oldOffset;
+            if (j3 > this.startOffset) {
+                j2 = j3;
             }
         }
-        return getCurrentOffset() - j10 >= this.contentLength;
+        return getCurrentOffset() - j2 >= this.contentLength;
     }
 
     public boolean isDownloading() {
@@ -420,8 +422,8 @@ public class DownloadChunk implements Parcelable {
         return this.chunkIndex == 0 && this.reuseingFirstConnection;
     }
 
-    public void setChunkIndex(int i10) {
-        this.chunkIndex = i10;
+    public void setChunkIndex(int i2) {
+        this.chunkIndex = i2;
     }
 
     public void setChunkRunnable(DownloadChunkRunnable downloadChunkRunnable) {
@@ -429,25 +431,25 @@ public class DownloadChunk implements Parcelable {
         setOldOffset();
     }
 
-    public void setContentLength(long j10) {
-        this.contentLength = j10;
+    public void setContentLength(long j2) {
+        this.contentLength = j2;
     }
 
-    public void setCurrentOffset(long j10) {
+    public void setCurrentOffset(long j2) {
         AtomicLong atomicLong = this.currentOffset;
         if (atomicLong != null) {
-            atomicLong.set(j10);
+            atomicLong.set(j2);
         } else {
-            this.currentOffset = new AtomicLong(j10);
+            this.currentOffset = new AtomicLong(j2);
         }
     }
 
-    public void setDownloading(boolean z10) {
+    public void setDownloading(boolean z) {
         AtomicBoolean atomicBoolean = this.isDownloading;
         if (atomicBoolean == null) {
-            this.isDownloading = new AtomicBoolean(z10);
+            this.isDownloading = new AtomicBoolean(z);
         } else {
-            atomicBoolean.set(z10);
+            atomicBoolean.set(z);
         }
         this.chunkRunnable = null;
     }
@@ -459,25 +461,25 @@ public class DownloadChunk implements Parcelable {
         }
     }
 
-    public void setHostChunkIndex(int i10) {
+    public void setHostChunkIndex(int i2) {
         AtomicInteger atomicInteger = this.hostChunkIndex;
         if (atomicInteger == null) {
-            this.hostChunkIndex = new AtomicInteger(i10);
+            this.hostChunkIndex = new AtomicInteger(i2);
         } else {
-            atomicInteger.set(i10);
+            atomicInteger.set(i2);
         }
     }
 
-    public void setId(int i10) {
-        this.f21971id = i10;
+    public void setId(int i2) {
+        this.id = i2;
     }
 
-    public void setOldOffset(long j10) {
-        this.oldOffset = j10;
+    public void setOldOffset(long j2) {
+        this.oldOffset = j2;
     }
 
-    public void setReuseingFirstConnection(boolean z10) {
-        this.reuseingFirstConnection = z10;
+    public void setReuseingFirstConnection(boolean z) {
+        this.reuseingFirstConnection = z;
     }
 
     public void setSubChunkList(List<DownloadChunk> list) {
@@ -486,7 +488,7 @@ public class DownloadChunk implements Parcelable {
 
     public ContentValues toContentValues() {
         ContentValues contentValues = new ContentValues();
-        contentValues.put("_id", Integer.valueOf(this.f21971id));
+        contentValues.put("_id", Integer.valueOf(this.id));
         contentValues.put(DBDefinition.CHUNK_INDEX, Integer.valueOf(this.chunkIndex));
         contentValues.put(DBDefinition.START_OFFSET, Long.valueOf(this.startOffset));
         contentValues.put(DBDefinition.CUR_OFFSET, Long.valueOf(getCurrentOffset()));
@@ -497,8 +499,8 @@ public class DownloadChunk implements Parcelable {
     }
 
     @Override // android.os.Parcelable
-    public void writeToParcel(Parcel parcel, int i10) {
-        parcel.writeInt(this.f21971id);
+    public void writeToParcel(Parcel parcel, int i2) {
+        parcel.writeInt(this.id);
         parcel.writeLong(this.startOffset);
         AtomicLong atomicLong = this.currentOffset;
         parcel.writeLong(atomicLong != null ? atomicLong.get() : 0L);
@@ -513,7 +515,7 @@ public class DownloadChunk implements Parcelable {
         if (builder == null) {
             return;
         }
-        this.f21971id = builder.f21972id;
+        this.id = builder.id;
         this.startOffset = builder.startOffset;
         this.currentOffset = new AtomicLong(builder.currentOffset);
         this.endOffset = builder.endOffset;
@@ -533,7 +535,7 @@ public class DownloadChunk implements Parcelable {
         if (cursor == null) {
             return;
         }
-        this.f21971id = cursor.getInt(cursor.getColumnIndex("_id"));
+        this.id = cursor.getInt(cursor.getColumnIndex("_id"));
         this.chunkIndex = cursor.getInt(cursor.getColumnIndex(DBDefinition.CHUNK_INDEX));
         this.startOffset = cursor.getLong(cursor.getColumnIndex(DBDefinition.START_OFFSET));
         int columnIndex = cursor.getColumnIndex(DBDefinition.CUR_OFFSET);
@@ -556,8 +558,8 @@ public class DownloadChunk implements Parcelable {
         this.isDownloading = new AtomicBoolean(false);
     }
 
-    public DownloadChunk(Parcel parcel) {
-        this.f21971id = parcel.readInt();
+    protected DownloadChunk(Parcel parcel) {
+        this.id = parcel.readInt();
         this.startOffset = parcel.readLong();
         this.currentOffset = new AtomicLong(parcel.readLong());
         this.endOffset = parcel.readLong();

@@ -4,85 +4,64 @@ import android.content.Context;
 import android.content.pm.ActivityInfo;
 import android.content.pm.PackageInfo;
 
-/* loaded from: classes2.dex */
+/* loaded from: classes.dex */
 public class s {
 
     /* renamed from: a, reason: collision with root package name */
-    public int f11176a;
+    public int f9391a;
 
     /* renamed from: b, reason: collision with root package name */
-    public int f11177b;
+    public int f9392b;
 
     /* renamed from: c, reason: collision with root package name */
-    public String f11178c;
+    public String f9393c;
 
     /* renamed from: d, reason: collision with root package name */
-    public String f11179d;
+    public String f9394d;
 
     /* renamed from: e, reason: collision with root package name */
-    public String f11180e;
+    public String f9395e;
 
     /* renamed from: f, reason: collision with root package name */
-    public Context f11181f;
+    public Context f9396f;
 
     /* renamed from: g, reason: collision with root package name */
-    public ClassLoader f11182g;
+    public ClassLoader f9397g;
 
     /* renamed from: h, reason: collision with root package name */
-    public String f11183h;
+    public String f9398h;
 
     /* renamed from: i, reason: collision with root package name */
-    public String f11184i;
+    public String f9399i;
 
     /* renamed from: j, reason: collision with root package name */
-    public String f11185j;
-
-    /* renamed from: k, reason: collision with root package name */
-    public String f11186k;
-
-    /* renamed from: l, reason: collision with root package name */
-    public ActivityInfo[] f11187l;
-
-    /* renamed from: m, reason: collision with root package name */
-    public String f11188m;
-
-    /* renamed from: n, reason: collision with root package name */
-    public String f11189n;
-
-    /* renamed from: o, reason: collision with root package name */
-    public String f11190o;
-
-    /* renamed from: p, reason: collision with root package name */
-    public int f11191p;
-
-    /* renamed from: q, reason: collision with root package name */
-    public int f11192q;
-
-    /* renamed from: r, reason: collision with root package name */
-    public PackageInfo f11193r;
-
-    /* renamed from: s, reason: collision with root package name */
-    public long f11194s;
-
-    /* renamed from: t, reason: collision with root package name */
-    public int f11195t;
-
-    /* renamed from: u, reason: collision with root package name */
-    public int f11196u;
-
-    /* renamed from: v, reason: collision with root package name */
-    public boolean f11197v;
-
-    /* renamed from: w, reason: collision with root package name */
-    public int f11198w;
-
-    /* renamed from: x, reason: collision with root package name */
-    public int f11199x = -1;
-
-    /* renamed from: y, reason: collision with root package name */
-    public boolean f11200y;
+    public String f9400j;
+    public String k;
+    public ActivityInfo[] l;
+    public String m;
+    public String n;
+    public String o;
+    public int p;
+    public int q;
+    public PackageInfo r;
+    public long s;
+    public int t;
+    public int u;
+    public boolean v;
+    public int w;
+    public int x = -1;
+    public boolean y;
 
     public s() {
+    }
+
+    public s(PackageInfo packageInfo, int i2, String str, String str2, String str3, String str4) {
+        this.r = packageInfo;
+        this.f9391a = i2;
+        this.f9393c = str;
+        this.f9394d = str2;
+        this.f9399i = str3;
+        this.f9400j = str4;
     }
 
     public boolean equals(Object obj) {
@@ -92,29 +71,20 @@ public class s {
         if (obj == null || getClass() != obj.getClass()) {
             return false;
         }
-        s sVar = (s) obj;
-        String str = this.f11178c;
+        String str = this.f9393c;
+        String str2 = ((s) obj).f9393c;
         if (str == null) {
-            if (sVar.f11178c != null) {
+            if (str2 != null) {
                 return false;
             }
-        } else if (!str.equals(sVar.f11178c)) {
+        } else if (!str.equals(str2)) {
             return false;
         }
         return true;
     }
 
     public int hashCode() {
-        String str = this.f11178c;
+        String str = this.f9393c;
         return (str == null ? 0 : str.hashCode()) + 31;
-    }
-
-    public s(PackageInfo packageInfo, int i10, String str, String str2, String str3, String str4) {
-        this.f11193r = packageInfo;
-        this.f11176a = i10;
-        this.f11178c = str;
-        this.f11179d = str2;
-        this.f11184i = str3;
-        this.f11185j = str4;
     }
 }

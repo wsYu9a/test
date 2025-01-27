@@ -2,9 +2,8 @@ package com.baidu.mobads.sdk.api;
 
 import java.util.HashMap;
 import java.util.Map;
-import qe.c;
 
-/* loaded from: classes2.dex */
+/* loaded from: classes.dex */
 public final class RequestParameters {
     public static final int ADS_TYPE_DOWNLOAD = 2;
     public static final int ADS_TYPE_OPENPAGE = 1;
@@ -34,8 +33,8 @@ public final class RequestParameters {
         private int adsType = 3;
         private boolean clickConfirm = false;
         private int width = 640;
-        private int height = c.f30024n;
-        private int downloadAppConfirmPolicy = 3;
+        private int height = 480;
+        private int downloadAppConfirmPolicy = 1;
         private boolean customSize = false;
         private int bidFloor = -1;
 
@@ -54,8 +53,8 @@ public final class RequestParameters {
         }
 
         @Deprecated
-        public final Builder confirmDownloading(boolean z10) {
-            if (z10) {
+        public final Builder confirmDownloading(boolean z) {
+            if (z) {
                 downloadAppConfirmPolicy(2);
             } else {
                 downloadAppConfirmPolicy(3);
@@ -63,9 +62,8 @@ public final class RequestParameters {
             return this;
         }
 
-        @Deprecated
-        public final Builder downloadAppConfirmPolicy(int i10) {
-            this.downloadAppConfirmPolicy = i10;
+        public final Builder downloadAppConfirmPolicy(int i2) {
+            this.downloadAppConfirmPolicy = i2;
             return this;
         }
 
@@ -74,19 +72,19 @@ public final class RequestParameters {
             return this;
         }
 
-        public final Builder setBidFloor(int i10) {
-            this.bidFloor = i10;
+        public final Builder setBidFloor(int i2) {
+            this.bidFloor = i2;
             return this;
         }
 
-        public final Builder setHeight(int i10) {
-            this.height = i10;
+        public final Builder setHeight(int i2) {
+            this.height = i2;
             this.customSize = true;
             return this;
         }
 
-        public final Builder setWidth(int i10) {
-            this.width = i10;
+        public final Builder setWidth(int i2) {
+            this.width = i2;
             this.customSize = true;
             return this;
         }
@@ -136,8 +134,8 @@ public final class RequestParameters {
         return this.customSize;
     }
 
-    public void setAdsType(int i10) {
-        this.adsType = i10;
+    public void setAdsType(int i2) {
+        this.adsType = i2;
     }
 
     public void setExt(Map<String, String> map) {

@@ -7,7 +7,6 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.annotation.RestrictTo;
 import androidx.core.app.AppOpsManagerCompat;
-import androidx.core.util.ObjectsCompat;
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 
@@ -36,8 +35,8 @@ public final class PermissionChecker {
         return checkPermission(context, str, Binder.getCallingPid(), Binder.getCallingUid(), str2);
     }
 
-    public static int checkPermission(@NonNull Context context, @NonNull String str, int i10, int i11, @Nullable String str2) {
-        if (context.checkPermission(str, i10, i11) == -1) {
+    public static int checkPermission(@NonNull Context context, @NonNull String str, int i2, int i3, @Nullable String str2) {
+        if (context.checkPermission(str, i2, i3) == -1) {
             return -1;
         }
         String permissionToOp = AppOpsManagerCompat.permissionToOp(str);
@@ -45,13 +44,13 @@ public final class PermissionChecker {
             return 0;
         }
         if (str2 == null) {
-            String[] packagesForUid = context.getPackageManager().getPackagesForUid(i11);
+            String[] packagesForUid = context.getPackageManager().getPackagesForUid(i3);
             if (packagesForUid == null || packagesForUid.length <= 0) {
                 return -1;
             }
             str2 = packagesForUid[0];
         }
-        return ((Process.myUid() != i11 || !ObjectsCompat.equals(context.getPackageName(), str2)) ? AppOpsManagerCompat.noteProxyOpNoThrow(context, permissionToOp, str2) : AppOpsManagerCompat.checkOrNoteProxyOp(context, i11, permissionToOp, str2)) == 0 ? 0 : -2;
+        return AppOpsManagerCompat.noteProxyOpNoThrow(context, permissionToOp, str2) != 0 ? -2 : 0;
     }
 
     public static int checkSelfPermission(@NonNull Context context, @NonNull String str) {

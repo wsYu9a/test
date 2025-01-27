@@ -1,6 +1,6 @@
 package com.martian.mibook.lib.yuewen.response;
 
-/* loaded from: classes3.dex */
+/* loaded from: classes4.dex */
 public class TYCategoryTagItem {
     private Integer categoryId;
     private String coverUrl;
@@ -46,32 +46,32 @@ public class TYCategoryTagItem {
         return num.intValue();
     }
 
-    public TYCategoryTagItem setCategoryId(Integer num) {
-        this.categoryId = num;
+    public TYCategoryTagItem setCategoryId(Integer categoryId) {
+        this.categoryId = categoryId;
         return this;
     }
 
-    public void setCoverUrl(String str) {
-        this.coverUrl = str;
+    public void setCoverUrl(String coverUrl) {
+        this.coverUrl = coverUrl;
     }
 
-    public void setDesc(String str) {
-        this.desc = str;
+    public void setDesc(String desc) {
+        this.desc = desc;
     }
 
-    public void setFrom(Integer num) {
-        this.from = num;
+    public void setFrom(Integer from) {
+        this.from = from;
     }
 
-    public void setLabel(String str) {
-        this.label = str;
+    public void setLabel(String label) {
+        this.label = label;
     }
 
-    public void setName(String str) {
-        this.name = str;
+    public void setName(String name) {
+        this.name = name;
     }
 
-    public void setType(Integer num) {
-        this.type = num;
+    public void setType(Integer type) {
+        this.type = type;
     }
 }

@@ -19,19 +19,12 @@ public class AdsEventRequest extends UGrowthRequest {
         return "ads/events";
     }
 
-    public void setAdEvents(List<AdsEvent> list) {
-        this.adEvents = list;
+    public void setAdEvents(List<AdsEvent> adEvents) {
+        this.adEvents = adEvents;
     }
 
     @Override // com.martian.libmars.comm.request.MTRequest
-    public RequestBody toPostContent(String str) {
-        String str2;
-        try {
-            str2 = GsonUtils.c().toJson(this.adEvents);
-        } catch (Exception e10) {
-            e10.printStackTrace();
-            str2 = "";
-        }
-        return RequestBody.create(MediaType.parse("application/json; charset=utf-8"), str2);
+    public RequestBody toPostContent(String charset) {
+        return RequestBody.create(MediaType.parse("application/json; charset=utf-8"), GsonUtils.c().toJson(this.adEvents));
     }
 }

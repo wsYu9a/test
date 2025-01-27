@@ -2,6 +2,7 @@ package androidx.documentfile.provider;
 
 import android.content.Context;
 import android.net.Uri;
+import android.os.Build;
 import android.provider.DocumentsContract;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -9,13 +10,16 @@ import java.io.File;
 
 /* loaded from: classes.dex */
 public abstract class DocumentFile {
-    static final String TAG = "DocumentFile";
 
+    /* renamed from: a */
+    static final String f2261a = "DocumentFile";
+
+    /* renamed from: b */
     @Nullable
-    private final DocumentFile mParent;
+    private final DocumentFile f2262b;
 
-    public DocumentFile(@Nullable DocumentFile documentFile) {
-        this.mParent = documentFile;
+    DocumentFile(@Nullable DocumentFile documentFile) {
+        this.f2262b = documentFile;
     }
 
     @NonNull
@@ -25,16 +29,25 @@ public abstract class DocumentFile {
 
     @Nullable
     public static DocumentFile fromSingleUri(@NonNull Context context, @NonNull Uri uri) {
-        return new SingleDocumentFile(null, context, uri);
+        if (Build.VERSION.SDK_INT >= 19) {
+            return new SingleDocumentFile(null, context, uri);
+        }
+        return null;
     }
 
     @Nullable
     public static DocumentFile fromTreeUri(@NonNull Context context, @NonNull Uri uri) {
-        return new TreeDocumentFile(null, context, DocumentsContract.buildDocumentUriUsingTree(uri, DocumentsContract.getTreeDocumentId(uri)));
+        if (Build.VERSION.SDK_INT >= 21) {
+            return new TreeDocumentFile(null, context, DocumentsContract.buildDocumentUriUsingTree(uri, DocumentsContract.getTreeDocumentId(uri)));
+        }
+        return null;
     }
 
     public static boolean isDocumentUri(@NonNull Context context, @Nullable Uri uri) {
-        return DocumentsContract.isDocumentUri(context, uri);
+        if (Build.VERSION.SDK_INT >= 19) {
+            return DocumentsContract.isDocumentUri(context, uri);
+        }
+        return false;
     }
 
     public abstract boolean canRead();
@@ -66,7 +79,7 @@ public abstract class DocumentFile {
 
     @Nullable
     public DocumentFile getParentFile() {
-        return this.mParent;
+        return this.f2262b;
     }
 
     @Nullable

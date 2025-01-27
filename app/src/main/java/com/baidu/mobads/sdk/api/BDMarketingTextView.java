@@ -6,11 +6,11 @@ import android.text.TextUtils;
 import android.util.AttributeSet;
 import android.view.View;
 import android.widget.RelativeLayout;
-import com.baidu.mobads.sdk.internal.au;
-import com.baidu.mobads.sdk.internal.bs;
-import com.baidu.mobads.sdk.internal.z;
+import com.baidu.mobads.sdk.internal.ar;
+import com.baidu.mobads.sdk.internal.bp;
+import com.baidu.mobads.sdk.internal.w;
 
-/* loaded from: classes2.dex */
+/* loaded from: classes.dex */
 public class BDMarketingTextView extends RelativeLayout {
     private View mAdView;
     private Context mContext;
@@ -26,85 +26,85 @@ public class BDMarketingTextView extends RelativeLayout {
         try {
             this.mContext = context;
             Object[] objArr = {context};
-            ClassLoader a10 = bs.a(context);
-            this.mLoader = a10;
-            View view = (View) au.a(z.f7378f, a10, (Class<?>[]) new Class[]{Context.class}, objArr);
+            ClassLoader a2 = bp.a(context);
+            this.mLoader = a2;
+            View view = (View) ar.a(w.f5863f, a2, (Class<?>[]) new Class[]{Context.class}, objArr);
             this.mAdView = view;
             if (view != null) {
                 addView(view, new RelativeLayout.LayoutParams(-2, -2));
             }
-        } catch (Throwable th2) {
-            th2.printStackTrace();
+        } catch (Throwable th) {
+            th.printStackTrace();
         }
     }
 
     public void setAdData(NativeResponse nativeResponse, String str) {
         View view = this.mAdView;
         if (view != null) {
-            au.a(z.f7378f, view, this.mLoader, "setAdData", new Class[]{Object.class, String.class}, nativeResponse, str);
+            ar.a(w.f5863f, view, this.mLoader, "setAdData", new Class[]{Object.class, String.class}, nativeResponse, str);
         }
     }
 
     public void setEllipsize(TextUtils.TruncateAt truncateAt) {
         View view = this.mAdView;
         if (view != null) {
-            au.a(z.f7378f, view, this.mLoader, "setEllipsize", new Class[]{TextUtils.TruncateAt.class}, truncateAt);
+            ar.a(w.f5863f, view, this.mLoader, "setEllipsize", new Class[]{TextUtils.TruncateAt.class}, truncateAt);
         }
     }
 
-    public void setLabelFontSizeSp(int i10) {
+    public void setLabelFontSizeSp(int i2) {
         View view = this.mAdView;
         if (view != null) {
-            au.a(z.f7378f, view, this.mLoader, "setLabelFontSizeSp", new Class[]{Integer.TYPE}, Integer.valueOf(i10));
+            ar.a(w.f5863f, view, this.mLoader, "setLabelFontSizeSp", new Class[]{Integer.TYPE}, Integer.valueOf(i2));
         }
     }
 
     public void setLabelFontTypeFace(Typeface typeface) {
         View view = this.mAdView;
         if (view != null) {
-            au.a(z.f7378f, view, this.mLoader, "setLabelFontTypeFace", new Class[]{Typeface.class}, typeface);
+            ar.a(w.f5863f, view, this.mLoader, "setLabelFontTypeFace", new Class[]{Typeface.class}, typeface);
         }
     }
 
-    public void setLabelVisibility(int i10) {
+    public void setLabelVisibility(int i2) {
         View view = this.mAdView;
         if (view != null) {
-            au.a(z.f7378f, view, this.mLoader, "setLabelVisibility", new Class[]{Integer.TYPE}, Integer.valueOf(i10));
+            ar.a(w.f5863f, view, this.mLoader, "setLabelVisibility", new Class[]{Integer.TYPE}, Integer.valueOf(i2));
         }
     }
 
-    public void setLineSpacingExtra(int i10) {
+    public void setLineSpacingExtra(int i2) {
         View view = this.mAdView;
         if (view != null) {
-            au.a(z.f7378f, view, this.mLoader, "setLineSpacingExtra", new Class[]{Integer.TYPE}, Integer.valueOf(i10));
+            ar.a(w.f5863f, view, this.mLoader, "setLineSpacingExtra", new Class[]{Integer.TYPE}, Integer.valueOf(i2));
         }
     }
 
-    public void setTextFontColor(int i10) {
+    public void setTextFontColor(int i2) {
         View view = this.mAdView;
         if (view != null) {
-            au.a(z.f7378f, view, this.mLoader, "setTextFontColor", new Class[]{Integer.TYPE}, Integer.valueOf(i10));
+            ar.a(w.f5863f, view, this.mLoader, "setTextFontColor", new Class[]{Integer.TYPE}, Integer.valueOf(i2));
         }
     }
 
-    public void setTextFontSizeSp(int i10) {
+    public void setTextFontSizeSp(int i2) {
         View view = this.mAdView;
         if (view != null) {
-            au.a(z.f7378f, view, this.mLoader, "setTextFontSizeSp", new Class[]{Integer.TYPE}, Integer.valueOf(i10));
+            ar.a(w.f5863f, view, this.mLoader, "setTextFontSizeSp", new Class[]{Integer.TYPE}, Integer.valueOf(i2));
         }
     }
 
     public void setTextFontTypeFace(Typeface typeface) {
         View view = this.mAdView;
         if (view != null) {
-            au.a(z.f7378f, view, this.mLoader, "setTextFontTypeFace", new Class[]{Typeface.class}, typeface);
+            ar.a(w.f5863f, view, this.mLoader, "setTextFontTypeFace", new Class[]{Typeface.class}, typeface);
         }
     }
 
-    public void setTextMaxLines(int i10) {
+    public void setTextMaxLines(int i2) {
         View view = this.mAdView;
         if (view != null) {
-            au.a(z.f7378f, view, this.mLoader, "setTextMaxLines", new Class[]{Integer.TYPE}, Integer.valueOf(i10));
+            ar.a(w.f5863f, view, this.mLoader, "setTextMaxLines", new Class[]{Integer.TYPE}, Integer.valueOf(i2));
         }
     }
 
@@ -112,8 +112,8 @@ public class BDMarketingTextView extends RelativeLayout {
         this(context, attributeSet, 0);
     }
 
-    public BDMarketingTextView(Context context, AttributeSet attributeSet, int i10) {
-        super(context, attributeSet, i10);
+    public BDMarketingTextView(Context context, AttributeSet attributeSet, int i2) {
+        super(context, attributeSet, i2);
         initView(context);
     }
 }

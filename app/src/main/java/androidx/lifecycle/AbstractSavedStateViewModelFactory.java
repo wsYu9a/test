@@ -1,71 +1,58 @@
 package androidx.lifecycle;
 
-import android.annotation.SuppressLint;
 import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.annotation.RestrictTo;
 import androidx.lifecycle.ViewModelProvider;
-import androidx.lifecycle.viewmodel.CreationExtras;
 import androidx.savedstate.SavedStateRegistry;
 import androidx.savedstate.SavedStateRegistryOwner;
 
 /* loaded from: classes.dex */
-public abstract class AbstractSavedStateViewModelFactory extends ViewModelProvider.OnRequeryFactory implements ViewModelProvider.Factory {
-    static final String TAG_SAVED_STATE_HANDLE_CONTROLLER = "androidx.lifecycle.savedstate.vm.tag";
-    private Bundle mDefaultArgs;
-    private Lifecycle mLifecycle;
-    private SavedStateRegistry mSavedStateRegistry;
+public abstract class AbstractSavedStateViewModelFactory extends ViewModelProvider.KeyedFactory {
 
-    public AbstractSavedStateViewModelFactory() {
+    /* renamed from: a */
+    static final String f2556a = "androidx.lifecycle.savedstate.vm.tag";
+
+    /* renamed from: b */
+    private final SavedStateRegistry f2557b;
+
+    /* renamed from: c */
+    private final Lifecycle f2558c;
+
+    /* renamed from: d */
+    private final Bundle f2559d;
+
+    public AbstractSavedStateViewModelFactory(@NonNull SavedStateRegistryOwner savedStateRegistryOwner, @Nullable Bundle bundle) {
+        this.f2557b = savedStateRegistryOwner.getSavedStateRegistry();
+        this.f2558c = savedStateRegistryOwner.getLifecycle();
+        this.f2559d = bundle;
     }
-
-    @Override // androidx.lifecycle.ViewModelProvider.Factory
-    @NonNull
-    public final <T extends ViewModel> T create(@NonNull Class<T> cls, @NonNull CreationExtras creationExtras) {
-        String str = (String) creationExtras.get(ViewModelProvider.NewInstanceFactory.VIEW_MODEL_KEY);
-        if (str != null) {
-            return this.mSavedStateRegistry != null ? (T) create(str, cls) : (T) create(str, cls, SavedStateHandleSupport.createSavedStateHandle(creationExtras));
-        }
-        throw new IllegalStateException("VIEW_MODEL_KEY must always be provided by ViewModelProvider");
-    }
-
-    @NonNull
-    public abstract <T extends ViewModel> T create(@NonNull String str, @NonNull Class<T> cls, @NonNull SavedStateHandle savedStateHandle);
 
     @Override // androidx.lifecycle.ViewModelProvider.OnRequeryFactory
-    @RestrictTo({RestrictTo.Scope.LIBRARY_GROUP})
-    public void onRequery(@NonNull ViewModel viewModel) {
-        SavedStateRegistry savedStateRegistry = this.mSavedStateRegistry;
-        if (savedStateRegistry != null) {
-            LegacySavedStateHandleController.attachHandleIfNeeded(viewModel, savedStateRegistry, this.mLifecycle);
-        }
-    }
-
-    @SuppressLint({"LambdaLast"})
-    public AbstractSavedStateViewModelFactory(@NonNull SavedStateRegistryOwner savedStateRegistryOwner, @Nullable Bundle bundle) {
-        this.mSavedStateRegistry = savedStateRegistryOwner.getSavedStateRegistry();
-        this.mLifecycle = savedStateRegistryOwner.getLifecycle();
-        this.mDefaultArgs = bundle;
+    void a(@NonNull ViewModel viewModel) {
+        SavedStateHandleController.a(viewModel, this.f2557b, this.f2558c);
     }
 
     @NonNull
-    private <T extends ViewModel> T create(@NonNull String str, @NonNull Class<T> cls) {
-        SavedStateHandleController create = LegacySavedStateHandleController.create(this.mSavedStateRegistry, this.mLifecycle, str, this.mDefaultArgs);
-        T t10 = (T) create(str, cls, create.getHandle());
-        t10.setTagIfAbsent(TAG_SAVED_STATE_HANDLE_CONTROLLER, create);
-        return t10;
+    protected abstract <T extends ViewModel> T b(@NonNull String str, @NonNull Class<T> cls, @NonNull SavedStateHandle savedStateHandle);
+
+    @Override // androidx.lifecycle.ViewModelProvider.KeyedFactory
+    @NonNull
+    @RestrictTo({RestrictTo.Scope.LIBRARY_GROUP})
+    public final <T extends ViewModel> T create(@NonNull String str, @NonNull Class<T> cls) {
+        SavedStateHandleController c2 = SavedStateHandleController.c(this.f2557b, this.f2558c, str, this.f2559d);
+        T t = (T) b(str, cls, c2.d());
+        t.e(f2556a, c2);
+        return t;
     }
 
-    @Override // androidx.lifecycle.ViewModelProvider.Factory
+    @Override // androidx.lifecycle.ViewModelProvider.KeyedFactory, androidx.lifecycle.ViewModelProvider.Factory
     @NonNull
     public final <T extends ViewModel> T create(@NonNull Class<T> cls) {
         String canonicalName = cls.getCanonicalName();
         if (canonicalName != null) {
-            if (this.mLifecycle != null) {
-                return (T) create(canonicalName, cls);
-            }
-            throw new UnsupportedOperationException("AbstractSavedStateViewModelFactory constructed with empty constructor supports only calls to create(modelClass: Class<T>, extras: CreationExtras).");
+            return (T) create(canonicalName, cls);
         }
         throw new IllegalArgumentException("Local and anonymous classes can not be ViewModels");
     }

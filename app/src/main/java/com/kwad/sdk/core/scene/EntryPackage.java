@@ -2,20 +2,26 @@ package com.kwad.sdk.core.scene;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import com.kwad.sdk.utils.x;
+import androidx.core.os.EnvironmentCompat;
+import com.kwad.sdk.utils.t;
 import org.json.JSONObject;
 
-/* loaded from: classes3.dex */
+/* loaded from: classes2.dex */
 public class EntryPackage extends URLPackage {
     private static final long serialVersionUID = 8251709184937662571L;
     public String entryId;
     public String entryPageSource;
 
     public EntryPackage() {
-        this.entryPageSource = "unknown";
+        this.entryPageSource = EnvironmentCompat.MEDIA_UNKNOWN;
     }
 
-    @Override // com.kwad.sdk.core.response.a.a, com.kwad.sdk.core.b
+    public EntryPackage(@NonNull String str, int i2) {
+        super(str, i2);
+        this.entryPageSource = EnvironmentCompat.MEDIA_UNKNOWN;
+    }
+
+    @Override // com.kwad.sdk.core.response.kwai.a, com.kwad.sdk.core.b
     public void parseJson(@Nullable JSONObject jSONObject) {
         super.parseJson(jSONObject);
         if (jSONObject == null) {
@@ -25,16 +31,11 @@ public class EntryPackage extends URLPackage {
         this.entryId = jSONObject.optString("entryId");
     }
 
-    @Override // com.kwad.sdk.core.response.a.a, com.kwad.sdk.core.b
+    @Override // com.kwad.sdk.core.response.kwai.a, com.kwad.sdk.core.b
     public JSONObject toJson() {
         JSONObject json = super.toJson();
-        x.putValue(json, "entryPageSource", this.entryPageSource);
-        x.putValue(json, "entryId", this.entryId);
+        t.putValue(json, "entryPageSource", this.entryPageSource);
+        t.putValue(json, "entryId", this.entryId);
         return json;
-    }
-
-    public EntryPackage(@NonNull String str, int i10) {
-        super(str, i10);
-        this.entryPageSource = "unknown";
     }
 }

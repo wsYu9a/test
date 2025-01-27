@@ -1,37 +1,37 @@
 package com.martian.mibook.lib.yuewen.response;
 
 import android.text.TextUtils;
-import ba.k;
+import com.martian.libsupport.j;
 import com.martian.mibook.lib.model.data.abs.ChapterContent;
 
-@k.h(name = "yw_chapter_content")
-/* loaded from: classes3.dex */
+@j.g(name = "yw_chapter_content")
+/* loaded from: classes4.dex */
 public class YWChapterContent extends ChapterContent {
 
-    @k.b
+    @j.b
     private Long cbid;
 
-    @k.g
-    @k.b
+    @j.b
+    @j.f
     private Long ccid;
 
-    @k.b
+    @j.b
     private Integer chargeType;
 
-    @k.b
+    @j.b
     private String content;
 
-    @k.b
+    @j.b
     private Integer isTaked;
 
-    @k.b
+    @j.b
     private Integer price;
 
-    @k.b
+    @j.b
     private String srcLink;
     private String title;
 
-    @k.b
+    @j.b
     private Integer totalPrice;
 
     public long getCbid() {
@@ -39,11 +39,11 @@ public class YWChapterContent extends ChapterContent {
     }
 
     public long getCcid() {
-        Long l10 = this.ccid;
-        if (l10 == null) {
+        Long l = this.ccid;
+        if (l == null) {
             return -1L;
         }
-        return l10.longValue();
+        return l.longValue();
     }
 
     public Integer getChargeType() {
@@ -51,8 +51,8 @@ public class YWChapterContent extends ChapterContent {
     }
 
     @Override // com.martian.mibook.lib.model.data.abs.ChapterContent
-    public String getContent(int i10, int i11) {
-        return this.content.substring(i10, i11);
+    public String getContent(int start, int end) {
+        return this.content.substring(start, end);
     }
 
     @Override // com.martian.mibook.lib.model.data.abs.ChapterContent
@@ -90,44 +90,43 @@ public class YWChapterContent extends ChapterContent {
         return TextUtils.isEmpty(this.content);
     }
 
-    public void setCbid(long j10) {
-        this.cbid = Long.valueOf(j10);
+    public void setCbid(long cbid) {
+        this.cbid = Long.valueOf(cbid);
     }
 
-    public void setCcid(long j10) {
-        this.ccid = Long.valueOf(j10);
+    public void setCcid(long ccid) {
+        this.ccid = Long.valueOf(ccid);
     }
 
-    public void setChargeType(int i10) {
-        this.chargeType = Integer.valueOf(i10);
+    public void setChargeType(int chargeType) {
+        this.chargeType = Integer.valueOf(chargeType);
     }
 
-    public void setContent(String str) {
-        this.content = str;
+    public void setContent(String content) {
+        this.content = content;
     }
 
-    public void setIsTaked(int i10) {
-        this.isTaked = Integer.valueOf(i10);
+    public void setIsTaked(int isTaked) {
+        this.isTaked = Integer.valueOf(isTaked);
     }
 
-    public void setPrice(int i10) {
-        this.price = Integer.valueOf(i10);
-    }
-
-    @Override // com.martian.mibook.lib.model.data.abs.ChapterContent
-    public void setSrcLink(String str) {
-        this.srcLink = str;
-    }
-
-    public void setTitle(String str) {
-        this.title = str;
-    }
-
-    public void setTotalPrice(int i10) {
-        this.totalPrice = Integer.valueOf(i10);
+    public void setPrice(int price) {
+        this.price = Integer.valueOf(price);
     }
 
     @Override // com.martian.mibook.lib.model.data.abs.ChapterContent
+    public void setSrcLink(String srcLink) {
+        this.srcLink = srcLink;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
+    }
+
+    public void setTotalPrice(int totalPrice) {
+        this.totalPrice = Integer.valueOf(totalPrice);
+    }
+
     public String getContent() {
         return this.content;
     }

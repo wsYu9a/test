@@ -16,7 +16,7 @@ public class WXChannelJumpUrlInfo extends WXChannelBaseJumpInfo {
         if (str2 == null || str2.length() <= 0) {
             str = "checkArgs fail, url is null";
         } else {
-            if (this.url.length() < 10240) {
+            if (this.url.length() < LENGTH_LIMIT) {
                 return true;
             }
             str = "checkArgs fail, url is invalid";

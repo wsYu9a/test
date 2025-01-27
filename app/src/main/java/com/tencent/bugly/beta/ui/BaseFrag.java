@@ -19,7 +19,7 @@ public abstract class BaseFrag extends Fragment {
         return this.mIsShowing;
     }
 
-    public abstract boolean onKeyDown(int i10, KeyEvent keyEvent);
+    public abstract boolean onKeyDown(int i2, KeyEvent keyEvent);
 
     @Override // androidx.fragment.app.Fragment
     public void onPause() {

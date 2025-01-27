@@ -4,10 +4,10 @@ import android.content.Context;
 import com.kwad.sdk.crash.model.message.JavaExceptionMessage;
 import java.lang.Thread;
 
-/* loaded from: classes3.dex */
+/* loaded from: classes2.dex */
 public final class d implements Thread.UncaughtExceptionHandler {
-    private volatile boolean aKy = false;
-    private Thread.UncaughtExceptionHandler aKz = Thread.getDefaultUncaughtExceptionHandler();
+    private volatile boolean arv = false;
+    private Thread.UncaughtExceptionHandler arw = Thread.getDefaultUncaughtExceptionHandler();
     private Context context;
 
     public d(Context context) {
@@ -15,32 +15,32 @@ public final class d implements Thread.UncaughtExceptionHandler {
     }
 
     @Override // java.lang.Thread.UncaughtExceptionHandler
-    public final void uncaughtException(Thread thread, Throwable th2) {
+    public final void uncaughtException(Thread thread, Throwable th) {
         try {
-            if (this.aKy) {
-                com.kwad.sdk.core.d.c.d("AnrAndNativeAdExceptionCollector", "SDK捕获 uncaughtException 正在处理 ex=" + th2.getMessage());
-                Thread.UncaughtExceptionHandler uncaughtExceptionHandler = this.aKz;
+            if (this.arv) {
+                com.kwad.sdk.core.d.b.d("ExceptionCollector", "SDK捕获 uncaughtException 正在处理 ex=" + th.getMessage());
+                Thread.UncaughtExceptionHandler uncaughtExceptionHandler = this.arw;
                 if (uncaughtExceptionHandler != null) {
-                    uncaughtExceptionHandler.uncaughtException(thread, th2);
+                    uncaughtExceptionHandler.uncaughtException(thread, th);
                     return;
                 }
                 return;
             }
-            this.aKy = true;
-            com.kwad.sdk.core.d.c.d("AnrAndNativeAdExceptionCollector", "thread=" + thread + " ex=" + th2.getMessage());
-            if (com.kwad.sdk.crash.b.a.o(th2)) {
+            this.arv = true;
+            com.kwad.sdk.core.d.b.d("ExceptionCollector", "thread=" + thread + " ex=" + th.getMessage());
+            if (com.kwad.sdk.crash.a.a.h(th)) {
                 JavaExceptionMessage javaExceptionMessage = new JavaExceptionMessage();
                 javaExceptionMessage.mCrashSource = 1;
-                c.Jz().a(th2, javaExceptionMessage, this.context);
+                c.zO().a(th, javaExceptionMessage, this.context);
             }
-            Thread.UncaughtExceptionHandler uncaughtExceptionHandler2 = this.aKz;
+            Thread.UncaughtExceptionHandler uncaughtExceptionHandler2 = this.arw;
             if (uncaughtExceptionHandler2 != null) {
-                uncaughtExceptionHandler2.uncaughtException(thread, th2);
+                uncaughtExceptionHandler2.uncaughtException(thread, th);
             }
         } catch (Throwable unused) {
-            Thread.UncaughtExceptionHandler uncaughtExceptionHandler3 = this.aKz;
+            Thread.UncaughtExceptionHandler uncaughtExceptionHandler3 = this.arw;
             if (uncaughtExceptionHandler3 != null) {
-                uncaughtExceptionHandler3.uncaughtException(thread, th2);
+                uncaughtExceptionHandler3.uncaughtException(thread, th);
             }
         }
     }

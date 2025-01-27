@@ -1,19 +1,19 @@
 package com.bumptech.glide.load.engine.bitmap_recycle;
 
-/* loaded from: classes2.dex */
+/* loaded from: classes.dex */
 public interface ArrayPool {
     public static final int STANDARD_BUFFER_SIZE_BYTES = 65536;
 
     void clearMemory();
 
-    <T> T get(int i10, Class<T> cls);
+    <T> T get(int i2, Class<T> cls);
 
-    <T> T getExact(int i10, Class<T> cls);
+    <T> T getExact(int i2, Class<T> cls);
 
-    <T> void put(T t10);
+    <T> void put(T t);
 
     @Deprecated
-    <T> void put(T t10, Class<T> cls);
+    <T> void put(T t, Class<T> cls);
 
-    void trimMemory(int i10);
+    void trimMemory(int i2);
 }

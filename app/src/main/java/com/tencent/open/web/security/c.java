@@ -1,32 +1,31 @@
 package com.tencent.open.web.security;
 
 import android.webkit.WebView;
+import com.martian.mibook.application.MiConfigSingleton;
 import com.tencent.open.a;
 import com.tencent.open.a.f;
-import h3.e;
 import org.json.JSONException;
 import org.json.JSONObject;
-import p3.i;
 
 /* loaded from: classes4.dex */
-public class c extends a.C0659a {
+public class c extends a.C0530a {
 
     /* renamed from: d */
-    private String f23298d;
+    private String f25564d;
 
-    public c(WebView webView, long j10, String str, String str2) {
-        super(webView, j10, str);
-        this.f23298d = str2;
+    public c(WebView webView, long j2, String str, String str2) {
+        super(webView, j2, str);
+        this.f25564d = str2;
     }
 
     private void b(String str) {
-        WebView webView = this.f23133a.get();
+        WebView webView = this.f25404a.get();
         if (webView != null) {
             StringBuffer stringBuffer = new StringBuffer("javascript:");
             stringBuffer.append("if(!!");
-            stringBuffer.append(this.f23298d);
+            stringBuffer.append(this.f25564d);
             stringBuffer.append("){");
-            stringBuffer.append(this.f23298d);
+            stringBuffer.append(this.f25564d);
             stringBuffer.append("(");
             stringBuffer.append(str);
             stringBuffer.append(")}");
@@ -36,26 +35,26 @@ public class c extends a.C0659a {
         }
     }
 
-    @Override // com.tencent.open.a.C0659a
+    @Override // com.tencent.open.a.C0530a
     public void a(Object obj) {
         f.a("openSDK_LOG.SecureJsListener", "-->onComplete, result: " + obj);
     }
 
-    @Override // com.tencent.open.a.C0659a
+    @Override // com.tencent.open.a.C0530a
     public void a() {
         f.b("openSDK_LOG.SecureJsListener", "-->onNoMatchMethod...");
     }
 
-    @Override // com.tencent.open.a.C0659a
+    @Override // com.tencent.open.a.C0530a
     public void a(String str) {
         f.a("openSDK_LOG.SecureJsListener", "-->onCustomCallback, js: " + str);
         JSONObject jSONObject = new JSONObject();
         try {
-            jSONObject.put(i.f29758c, !com.tencent.open.c.c.f23229a ? -4 : 0);
-            jSONObject.put("sn", this.f23134b);
-            jSONObject.put(e.f26408m, str);
-        } catch (JSONException e10) {
-            e10.printStackTrace();
+            jSONObject.put("result", !com.tencent.open.c.c.f25495a ? -4 : 0);
+            jSONObject.put("sn", this.f25405b);
+            jSONObject.put(MiConfigSingleton.t0, str);
+        } catch (JSONException e2) {
+            e2.printStackTrace();
         }
         b(jSONObject.toString());
     }

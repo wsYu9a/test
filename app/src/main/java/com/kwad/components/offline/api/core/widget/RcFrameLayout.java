@@ -9,7 +9,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import com.kwad.components.offline.api.core.utils.TkViewRCHelper;
 
-/* loaded from: classes3.dex */
+/* loaded from: classes2.dex */
 public class RcFrameLayout extends FrameLayout {
     private float mRatio;
     private TkViewRCHelper mViewRCHelper;
@@ -22,8 +22,22 @@ public class RcFrameLayout extends FrameLayout {
         init(context, null);
     }
 
-    private float[] getRadius(float f10, float f11, float f12, float f13) {
-        return new float[]{f10, f10, f11, f11, f12, f12, f13, f13};
+    public RcFrameLayout(@NonNull Context context, @Nullable AttributeSet attributeSet) {
+        super(context, attributeSet);
+        this.mRatio = 0.0f;
+        this.widthBasedRatio = true;
+        init(context, null);
+    }
+
+    public RcFrameLayout(@NonNull Context context, @Nullable AttributeSet attributeSet, int i2) {
+        super(context, attributeSet, i2);
+        this.mRatio = 0.0f;
+        this.widthBasedRatio = true;
+        init(context, null);
+    }
+
+    private float[] getRadius(float f2, float f3, float f4, float f5) {
+        return new float[]{f2, f2, f3, f3, f4, f4, f5, f5};
     }
 
     private void init(@NonNull Context context, @Nullable AttributeSet attributeSet) {
@@ -33,7 +47,7 @@ public class RcFrameLayout extends FrameLayout {
     }
 
     @Override // android.view.ViewGroup, android.view.View
-    public void dispatchDraw(Canvas canvas) {
+    protected void dispatchDraw(Canvas canvas) {
         this.mViewRCHelper.beforeDispatchDraw(canvas);
         super.dispatchDraw(canvas);
         this.mViewRCHelper.afterDispatchDraw(canvas);
@@ -46,7 +60,7 @@ public class RcFrameLayout extends FrameLayout {
         this.mViewRCHelper.afterDraw(canvas);
     }
 
-    public boolean enableFirstVisible() {
+    protected boolean enableFirstVisible() {
         return true;
     }
 
@@ -55,52 +69,38 @@ public class RcFrameLayout extends FrameLayout {
     }
 
     @Override // android.widget.FrameLayout, android.view.View
-    public void onMeasure(int i10, int i11) {
+    protected void onMeasure(int i2, int i3) {
         if (this.mRatio != 0.0f) {
             if (this.widthBasedRatio) {
-                i11 = View.MeasureSpec.makeMeasureSpec((int) (View.MeasureSpec.getSize(i10) * this.mRatio), 1073741824);
+                i3 = View.MeasureSpec.makeMeasureSpec((int) (View.MeasureSpec.getSize(i2) * this.mRatio), 1073741824);
             } else {
-                i10 = View.MeasureSpec.makeMeasureSpec((int) (View.MeasureSpec.getSize(i11) / this.mRatio), 1073741824);
+                i2 = View.MeasureSpec.makeMeasureSpec((int) (View.MeasureSpec.getSize(i3) / this.mRatio), 1073741824);
             }
         }
-        super.onMeasure(i10, i11);
+        super.onMeasure(i2, i3);
     }
 
     @Override // android.view.View
-    public void onSizeChanged(int i10, int i11, int i12, int i13) {
-        super.onSizeChanged(i10, i11, i12, i13);
-        this.mViewRCHelper.onSizeChanged(i10, i11);
+    protected void onSizeChanged(int i2, int i3, int i4, int i5) {
+        super.onSizeChanged(i2, i3, i4, i5);
+        this.mViewRCHelper.onSizeChanged(i2, i3);
     }
 
-    public void setRadius(float f10) {
-        this.mViewRCHelper.setRadius(f10);
+    public void setRadius(float f2) {
+        this.mViewRCHelper.setRadius(f2);
         postInvalidate();
     }
 
-    public void setRatio(float f10) {
-        this.mRatio = f10;
-    }
-
-    public void setWidthBasedRatio(boolean z10) {
-        this.widthBasedRatio = z10;
-    }
-
-    public void setRadius(float f10, float f11, float f12, float f13) {
-        this.mViewRCHelper.setRadius(getRadius(f10, f11, f12, f13));
+    public void setRadius(float f2, float f3, float f4, float f5) {
+        this.mViewRCHelper.setRadius(getRadius(f2, f3, f4, f5));
         postInvalidate();
     }
 
-    public RcFrameLayout(@NonNull Context context, @Nullable AttributeSet attributeSet) {
-        super(context, attributeSet);
-        this.mRatio = 0.0f;
-        this.widthBasedRatio = true;
-        init(context, null);
+    public void setRatio(float f2) {
+        this.mRatio = f2;
     }
 
-    public RcFrameLayout(@NonNull Context context, @Nullable AttributeSet attributeSet, int i10) {
-        super(context, attributeSet, i10);
-        this.mRatio = 0.0f;
-        this.widthBasedRatio = true;
-        init(context, null);
+    public void setWidthBasedRatio(boolean z) {
+        this.widthBasedRatio = z;
     }
 }

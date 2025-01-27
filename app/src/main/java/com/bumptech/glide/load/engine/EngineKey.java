@@ -8,7 +8,7 @@ import com.bumptech.glide.util.Preconditions;
 import java.security.MessageDigest;
 import java.util.Map;
 
-/* loaded from: classes2.dex */
+/* loaded from: classes.dex */
 class EngineKey implements Key {
     private int hashCode;
     private final int height;
@@ -20,11 +20,11 @@ class EngineKey implements Key {
     private final Map<Class<?>, Transformation<?>> transformations;
     private final int width;
 
-    public EngineKey(Object obj, Key key, int i10, int i11, Map<Class<?>, Transformation<?>> map, Class<?> cls, Class<?> cls2, Options options) {
+    EngineKey(Object obj, Key key, int i2, int i3, Map<Class<?>, Transformation<?>> map, Class<?> cls, Class<?> cls2, Options options) {
         this.model = Preconditions.checkNotNull(obj);
         this.signature = (Key) Preconditions.checkNotNull(key, "Signature must not be null");
-        this.width = i10;
-        this.height = i11;
+        this.width = i2;
+        this.height = i3;
         this.transformations = (Map) Preconditions.checkNotNull(map);
         this.resourceClass = (Class) Preconditions.checkNotNull(cls, "Resource class must not be null");
         this.transcodeClass = (Class) Preconditions.checkNotNull(cls2, "Transcode class must not be null");
@@ -45,9 +45,13 @@ class EngineKey implements Key {
         if (this.hashCode == 0) {
             int hashCode = this.model.hashCode();
             this.hashCode = hashCode;
-            int hashCode2 = (((((hashCode * 31) + this.signature.hashCode()) * 31) + this.width) * 31) + this.height;
+            int hashCode2 = (hashCode * 31) + this.signature.hashCode();
             this.hashCode = hashCode2;
-            int hashCode3 = (hashCode2 * 31) + this.transformations.hashCode();
+            int i2 = (hashCode2 * 31) + this.width;
+            this.hashCode = i2;
+            int i3 = (i2 * 31) + this.height;
+            this.hashCode = i3;
+            int hashCode3 = (i3 * 31) + this.transformations.hashCode();
             this.hashCode = hashCode3;
             int hashCode4 = (hashCode3 * 31) + this.resourceClass.hashCode();
             this.hashCode = hashCode4;

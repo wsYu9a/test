@@ -1,12 +1,11 @@
 package com.kwad.sdk.export.proxy;
 
-import androidx.annotation.Nullable;
 import com.kwad.sdk.core.network.c;
 import java.io.OutputStream;
 import java.util.Map;
 import org.json.JSONObject;
 
-/* loaded from: classes3.dex */
+/* loaded from: classes2.dex */
 public interface AdHttpProxy {
     c doGet(String str, Map<String, String> map);
 
@@ -18,5 +17,5 @@ public interface AdHttpProxy {
 
     c doPost(String str, Map<String, String> map, JSONObject jSONObject);
 
-    boolean downloadUrlToStream(String str, OutputStream outputStream, long j10, @Nullable AdHttpResponseListener adHttpResponseListener);
+    boolean downloadUrlToStream(String str, OutputStream outputStream, int i2);
 }

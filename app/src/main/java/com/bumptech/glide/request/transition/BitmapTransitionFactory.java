@@ -4,7 +4,7 @@ import android.graphics.Bitmap;
 import android.graphics.drawable.Drawable;
 import androidx.annotation.NonNull;
 
-/* loaded from: classes2.dex */
+/* loaded from: classes.dex */
 public class BitmapTransitionFactory extends BitmapContainerTransitionFactory<Bitmap> {
     public BitmapTransitionFactory(@NonNull TransitionFactory<Drawable> transitionFactory) {
         super(transitionFactory);

@@ -11,26 +11,26 @@ import androidx.annotation.Nullable;
 
 /* loaded from: classes.dex */
 public class ChangeScroll extends Transition {
-    private static final String PROPNAME_SCROLL_X = "android:changeScroll:x";
-    private static final String PROPNAME_SCROLL_Y = "android:changeScroll:y";
-    private static final String[] PROPERTIES = {PROPNAME_SCROLL_X, PROPNAME_SCROLL_Y};
+    private static final String S = "android:changeScroll:x";
+    private static final String T = "android:changeScroll:y";
+    private static final String[] U = {S, T};
 
     public ChangeScroll() {
     }
 
-    private void captureValues(TransitionValues transitionValues) {
-        transitionValues.values.put(PROPNAME_SCROLL_X, Integer.valueOf(transitionValues.view.getScrollX()));
-        transitionValues.values.put(PROPNAME_SCROLL_Y, Integer.valueOf(transitionValues.view.getScrollY()));
+    private void H(TransitionValues transitionValues) {
+        transitionValues.values.put(S, Integer.valueOf(transitionValues.view.getScrollX()));
+        transitionValues.values.put(T, Integer.valueOf(transitionValues.view.getScrollY()));
     }
 
     @Override // androidx.transition.Transition
     public void captureEndValues(@NonNull TransitionValues transitionValues) {
-        captureValues(transitionValues);
+        H(transitionValues);
     }
 
     @Override // androidx.transition.Transition
     public void captureStartValues(@NonNull TransitionValues transitionValues) {
-        captureValues(transitionValues);
+        H(transitionValues);
     }
 
     @Override // androidx.transition.Transition
@@ -42,10 +42,10 @@ public class ChangeScroll extends Transition {
             return null;
         }
         View view = transitionValues2.view;
-        int intValue = ((Integer) transitionValues.values.get(PROPNAME_SCROLL_X)).intValue();
-        int intValue2 = ((Integer) transitionValues2.values.get(PROPNAME_SCROLL_X)).intValue();
-        int intValue3 = ((Integer) transitionValues.values.get(PROPNAME_SCROLL_Y)).intValue();
-        int intValue4 = ((Integer) transitionValues2.values.get(PROPNAME_SCROLL_Y)).intValue();
+        int intValue = ((Integer) transitionValues.values.get(S)).intValue();
+        int intValue2 = ((Integer) transitionValues2.values.get(S)).intValue();
+        int intValue3 = ((Integer) transitionValues.values.get(T)).intValue();
+        int intValue4 = ((Integer) transitionValues2.values.get(T)).intValue();
         if (intValue != intValue2) {
             view.setScrollX(intValue);
             objectAnimator = ObjectAnimator.ofInt(view, "scrollX", intValue, intValue2);
@@ -56,13 +56,13 @@ public class ChangeScroll extends Transition {
             view.setScrollY(intValue3);
             objectAnimator2 = ObjectAnimator.ofInt(view, "scrollY", intValue3, intValue4);
         }
-        return TransitionUtils.mergeAnimators(objectAnimator, objectAnimator2);
+        return TransitionUtils.c(objectAnimator, objectAnimator2);
     }
 
     @Override // androidx.transition.Transition
     @Nullable
     public String[] getTransitionProperties() {
-        return PROPERTIES;
+        return U;
     }
 
     public ChangeScroll(Context context, AttributeSet attributeSet) {

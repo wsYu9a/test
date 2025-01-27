@@ -1,9 +1,9 @@
 package com.martian.mipush.request;
 
+import com.martian.libcomm.http.requests.d.c;
 import com.martian.libmars.comm.request.MTHttpPostParams;
-import v8.c;
 
-/* loaded from: classes3.dex */
+/* loaded from: classes4.dex */
 public class SendPushTokenParams extends MTHttpPostParams {
 
     @c
@@ -24,16 +24,16 @@ public class SendPushTokenParams extends MTHttpPostParams {
         return this.regId;
     }
 
-    @Override // u8.b
+    @Override // com.martian.libcomm.http.requests.b
     public String getRequestMethod() {
         return "regIds";
     }
 
-    public void setPushChannel(String str) {
-        this.pushChannel = str;
+    public void setPushChannel(String pushChannel) {
+        this.pushChannel = pushChannel;
     }
 
-    public void setRegId(String str) {
-        this.regId = str;
+    public void setRegId(String regId) {
+        this.regId = regId;
     }
 }

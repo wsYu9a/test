@@ -15,29 +15,27 @@ import java.io.RandomAccessFile;
 public class RandomAccessOutputStream implements Closeable {
     private static final int MAX_FLUSH_BUFFER_SIZE = 131072;
     private static final int MIN_FLUSH_BUFFER_SIZE = 8192;
-
-    /* renamed from: fd */
-    private FileDescriptor f21974fd;
+    private FileDescriptor fd;
     private BufferedOutputStream outputStream;
     private RandomAccessFile randomAccess;
 
-    public RandomAccessOutputStream(File file, int i10) throws BaseException {
+    public RandomAccessOutputStream(File file, int i2) throws BaseException {
         try {
             RandomAccessFile randomAccessFile = new RandomAccessFile(file, "rw");
             this.randomAccess = randomAccessFile;
-            this.f21974fd = randomAccessFile.getFD();
-            if (i10 <= 0) {
+            this.fd = randomAccessFile.getFD();
+            if (i2 <= 0) {
                 this.outputStream = new BufferedOutputStream(new FileOutputStream(this.randomAccess.getFD()));
                 return;
             }
-            if (i10 < 8192) {
-                i10 = 8192;
-            } else if (i10 > 131072) {
-                i10 = 131072;
+            if (i2 < 8192) {
+                i2 = 8192;
+            } else if (i2 > 131072) {
+                i2 = 131072;
             }
-            this.outputStream = new BufferedOutputStream(new FileOutputStream(this.randomAccess.getFD()), i10);
-        } catch (IOException e10) {
-            throw new BaseException(DownloadErrorCode.ERROR_OUTPUT_STREAM_CREATE_IO, e10);
+            this.outputStream = new BufferedOutputStream(new FileOutputStream(this.randomAccess.getFD()), i2);
+        } catch (IOException e2) {
+            throw new BaseException(DownloadErrorCode.ERROR_OUTPUT_STREAM_CREATE_IO, e2);
         }
     }
 
@@ -58,28 +56,28 @@ public class RandomAccessOutputStream implements Closeable {
         if (bufferedOutputStream != null) {
             bufferedOutputStream.flush();
         }
-        FileDescriptor fileDescriptor = this.f21974fd;
+        FileDescriptor fileDescriptor = this.fd;
         if (fileDescriptor != null) {
             fileDescriptor.sync();
         }
     }
 
-    public void seek(long j10) throws IOException {
-        this.randomAccess.seek(j10);
+    public void seek(long j2) throws IOException {
+        this.randomAccess.seek(j2);
     }
 
-    public void setLength(long j10) throws IOException {
-        this.randomAccess.setLength(j10);
+    public void setLength(long j2) throws IOException {
+        this.randomAccess.setLength(j2);
     }
 
     public void sync() throws IOException {
-        FileDescriptor fileDescriptor = this.f21974fd;
+        FileDescriptor fileDescriptor = this.fd;
         if (fileDescriptor != null) {
             fileDescriptor.sync();
         }
     }
 
-    public void write(byte[] bArr, int i10, int i11) throws IOException {
-        this.outputStream.write(bArr, i10, i11);
+    public void write(byte[] bArr, int i2, int i3) throws IOException {
+        this.outputStream.write(bArr, i2, i3);
     }
 }

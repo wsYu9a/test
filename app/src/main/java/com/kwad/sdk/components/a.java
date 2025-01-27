@@ -1,8 +1,12 @@
 package com.kwad.sdk.components;
 
-import org.json.JSONObject;
+import android.content.Context;
 
-/* loaded from: classes3.dex */
-public interface a extends b {
-    JSONObject Cv();
+/* loaded from: classes2.dex */
+public interface a {
+    Class getComponentsType();
+
+    void init(Context context);
+
+    int priority();
 }

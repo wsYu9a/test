@@ -5,7 +5,7 @@ import androidx.annotation.NonNull;
 import org.json.JSONObject;
 
 @Keep
-/* loaded from: classes2.dex */
+/* loaded from: classes.dex */
 public abstract class AbsApm {
     public abstract String getDid();
 
@@ -13,5 +13,5 @@ public abstract class AbsApm {
 
     public abstract void monitorEvent(String str, JSONObject jSONObject, JSONObject jSONObject2, JSONObject jSONObject3);
 
-    public abstract void reportError(String str, @NonNull Throwable th2);
+    public abstract void reportError(String str, @NonNull Throwable th);
 }

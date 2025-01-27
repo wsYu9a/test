@@ -7,7 +7,7 @@ import com.kwad.sdk.api.core.KsAdSdkDynamicApi;
 
 @KsAdSdkDynamicApi
 @Keep
-/* loaded from: classes3.dex */
+/* loaded from: classes2.dex */
 public interface IReceiverProxy extends IComponentProxy {
     @KsAdSdkDynamicApi
     @Keep

@@ -1,11 +1,12 @@
 package com.kwad.sdk.commercial.model;
 
 import com.ksad.json.annotation.KsJson;
+import com.kwad.sdk.core.response.kwai.a;
 import java.io.Serializable;
 
 @KsJson
-/* loaded from: classes3.dex */
-public class WebViewLoadMsg extends com.kwad.sdk.commercial.c.a implements Serializable {
+/* loaded from: classes2.dex */
+public class WebViewLoadMsg extends a implements Serializable {
     public static final int FAIL = 2;
     public static final int SUCCESS = 1;
     private static final long serialVersionUID = -8132509704708242619L;
@@ -30,8 +31,8 @@ public class WebViewLoadMsg extends com.kwad.sdk.commercial.c.a implements Seria
         return this;
     }
 
-    public WebViewLoadMsg setState(int i10) {
-        this.state = i10;
+    public WebViewLoadMsg setState(int i2) {
+        this.state = i2;
         return this;
     }
 

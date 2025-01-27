@@ -1,67 +1,41 @@
 package com.baidu.mobads.sdk.internal;
 
-import android.text.TextUtils;
-import com.baidu.mobads.sdk.api.CpuChannelListManager;
-import com.baidu.mobads.sdk.api.CpuChannelResponse;
-import com.baidu.mobads.sdk.api.IOAdEvent;
-import java.util.List;
-import java.util.Map;
-import org.json.JSONArray;
+import android.app.PendingIntent;
+import android.content.Context;
+import android.graphics.Bitmap;
+import androidx.core.app.NotificationCompat;
+import com.baidu.mobads.sdk.api.CustomNotification;
+import com.baidu.mobads.sdk.api.ICommonModuleObj;
+import org.json.JSONObject;
 
-/* loaded from: classes2.dex */
-class q implements Runnable {
+/* loaded from: classes.dex */
+public class q implements ICommonModuleObj {
 
     /* renamed from: a */
-    final /* synthetic */ IOAdEvent f7229a;
+    private static volatile q f5845a;
 
     /* renamed from: b */
-    final /* synthetic */ p f7230b;
+    private CustomNotification f5846b = new CustomNotification();
 
-    public q(p pVar, IOAdEvent iOAdEvent) {
-        this.f7230b = pVar;
-        this.f7229a = iOAdEvent;
+    private q() {
     }
 
-    @Override // java.lang.Runnable
-    public void run() {
-        String str;
-        CpuChannelListManager.CpuChannelListListener cpuChannelListListener;
-        CpuChannelListManager.CpuChannelListListener cpuChannelListListener2;
-        CpuChannelListManager.CpuChannelListListener cpuChannelListListener3;
-        CpuChannelListManager.CpuChannelListListener cpuChannelListListener4;
-        IOAdEvent iOAdEvent = this.f7229a;
-        if (iOAdEvent == null || TextUtils.isEmpty(iOAdEvent.getType())) {
-            return;
-        }
-        String type = this.f7229a.getType();
-        if (z.ap.equals(type)) {
-            List<CpuChannelResponse> a10 = n.a((JSONArray) this.f7229a.getData().get("cpuChannelList"));
-            cpuChannelListListener3 = this.f7230b.f7228a.f7225t;
-            if (cpuChannelListListener3 != null) {
-                cpuChannelListListener4 = this.f7230b.f7228a.f7225t;
-                cpuChannelListListener4.onChannelListLoaded(a10);
-                return;
-            }
-            return;
-        }
-        if (z.aq.equals(type)) {
-            Map<String, Object> data = this.f7229a.getData();
-            int i10 = 0;
-            if (data != null) {
-                str = (String) data.get("error_message");
-                Object obj = data.get("error_code");
-                if (obj == null) {
-                    obj = 0;
+    public static q a() {
+        if (f5845a == null) {
+            synchronized (q.class) {
+                if (f5845a == null) {
+                    f5845a = new q();
                 }
-                i10 = ((Integer) obj).intValue();
-            } else {
-                str = "";
-            }
-            cpuChannelListListener = this.f7230b.f7228a.f7225t;
-            if (cpuChannelListListener != null) {
-                cpuChannelListListener2 = this.f7230b.f7228a.f7225t;
-                cpuChannelListListener2.onChannelListError(str, i10);
             }
         }
+        return f5845a;
+    }
+
+    @Override // com.baidu.mobads.sdk.api.ICommonModuleObj
+    public Object createModuleObj(String str, JSONObject jSONObject) {
+        if (!ICommonModuleObj.KEY_NOTIFICATION.equals(str) || jSONObject == null) {
+            return null;
+        }
+        return this.f5846b.getCustomNotification((Context) jSONObject.opt("context"), jSONObject.optString("channelId"), jSONObject.optString("ticker"), (Bitmap) jSONObject.opt("icon"), jSONObject.optString("title"), jSONObject.optString("content"), jSONObject.optString("status"), jSONObject.optBoolean("autoCancel"), jSONObject.optInt(NotificationCompat.CATEGORY_PROGRESS), jSONObject.optInt("smallIcon"), jSONObject.optString("action"), (PendingIntent) jSONObject.opt("pendingIntent"));
     }
 }

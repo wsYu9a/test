@@ -1,20 +1,27 @@
 package com.kwad.sdk.components;
 
-/* loaded from: classes3.dex */
+import android.view.View;
+import java.util.Map;
+
+/* loaded from: classes2.dex */
 public interface l {
-    void a(p pVar);
+    void a(j jVar);
 
-    void callTKBridge(String str);
+    void a(com.kwad.sdk.core.webview.b.g gVar);
 
-    void callbackDialogDismiss();
+    void a(String str, String str2, k kVar);
 
-    void callbackPageStatus(boolean z10, String str);
+    void c(com.kwad.sdk.core.webview.b.a aVar);
 
-    int getDialogId();
+    Object execute(String str);
 
-    String getStyleTemplate();
+    int getUniqId();
 
-    String getViewKey();
+    View getView();
 
-    boolean isHideNavigationBar();
+    void onDestroy();
+
+    void setCustomEnv(Map<String, Object> map);
+
+    void unregisterJsBridge();
 }

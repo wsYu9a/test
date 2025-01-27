@@ -6,7 +6,7 @@ import java.util.Map;
 
 @KsAdSdkApi
 @Keep
-/* loaded from: classes3.dex */
+/* loaded from: classes2.dex */
 public interface BaseKSAd {
     @KsAdSdkApi
     @Keep

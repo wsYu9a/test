@@ -13,8 +13,8 @@ public class VivoPushException extends Exception {
         return this.mReasonCode;
     }
 
-    public VivoPushException(int i10, String str) {
+    public VivoPushException(int i2, String str) {
         super(str);
-        this.mReasonCode = i10;
+        this.mReasonCode = i2;
     }
 }

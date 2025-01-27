@@ -1,6 +1,6 @@
 package com.martian.mibook.lib.account.request;
 
-import v8.a;
+import com.martian.libcomm.http.requests.d.a;
 
 /* loaded from: classes3.dex */
 public class BookShareParams extends TYBookHttpGetParams {
@@ -18,7 +18,7 @@ public class BookShareParams extends TYBookHttpGetParams {
         return this.inviter;
     }
 
-    @Override // u8.b
+    @Override // com.martian.libcomm.http.requests.b
     public String getRequestMethod() {
         return "book";
     }
@@ -31,15 +31,15 @@ public class BookShareParams extends TYBookHttpGetParams {
         return this.sourceName;
     }
 
-    public void setInviter(String str) {
-        this.inviter = str;
+    public void setInviter(String inviter) {
+        this.inviter = inviter;
     }
 
-    public void setSourceId(String str) {
-        this.sourceId = str;
+    public void setSourceId(String sourceId) {
+        this.sourceId = sourceId;
     }
 
-    public void setSourceName(String str) {
-        this.sourceName = str;
+    public void setSourceName(String sourceName) {
+        this.sourceName = sourceName;
     }
 }

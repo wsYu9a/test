@@ -5,9 +5,9 @@ import com.kwad.sdk.api.core.KsAdSdkApi;
 
 @KsAdSdkApi
 @Keep
-/* loaded from: classes3.dex */
+/* loaded from: classes2.dex */
 public interface KsApkDownloadListener extends KsAppDownloadListener {
     @KsAdSdkApi
     @Keep
-    void onPaused(int i10);
+    void onPaused(int i2);
 }

@@ -4,12 +4,11 @@ import android.content.Context;
 import android.util.AttributeSet;
 import android.view.View;
 import android.widget.RelativeLayout;
-import com.baidu.mobads.sdk.internal.au;
-import com.baidu.mobads.sdk.internal.bs;
-import com.baidu.mobads.sdk.internal.z;
+import com.baidu.mobads.sdk.internal.ar;
+import com.baidu.mobads.sdk.internal.bp;
+import com.baidu.mobads.sdk.internal.w;
 
-@Deprecated
-/* loaded from: classes2.dex */
+/* loaded from: classes.dex */
 public class FeedNativeView extends RelativeLayout {
     private View mAdView;
     private Context mContext;
@@ -23,9 +22,9 @@ public class FeedNativeView extends RelativeLayout {
     private void init(Context context) {
         this.mContext = context;
         Object[] objArr = {context};
-        ClassLoader a10 = bs.a(context);
-        this.mLoader = a10;
-        View view = (View) au.a(z.f7377e, a10, (Class<?>[]) new Class[]{Context.class}, objArr);
+        ClassLoader a2 = bp.a(context);
+        this.mLoader = a2;
+        View view = (View) ar.a(w.f5862e, a2, (Class<?>[]) new Class[]{Context.class}, objArr);
         this.mAdView = view;
         if (view != null) {
             addView(view, new RelativeLayout.LayoutParams(-2, -2));
@@ -35,16 +34,16 @@ public class FeedNativeView extends RelativeLayout {
     public void changeViewLayoutParams(Object obj) {
         View view = this.mAdView;
         if (view != null) {
-            au.a(z.f7377e, view, this.mLoader, "changeLayoutParams", new Class[]{Object.class}, obj);
+            ar.a(w.f5862e, view, this.mLoader, "changeLayoutParams", new Class[]{Object.class}, obj);
         }
     }
 
     public int getAdContainerHeight() {
         View view = this.mAdView;
         if (view != null) {
-            Object a10 = au.a(z.f7377e, view, this.mLoader, "getAdContainerHeight", new Class[0], new Object[0]);
-            if (a10 instanceof Number) {
-                return ((Integer) a10).intValue();
+            Object a2 = ar.a(w.f5862e, view, this.mLoader, "getAdContainerHeight", new Class[0], new Object[0]);
+            if (a2 instanceof Number) {
+                return ((Integer) a2).intValue();
             }
         }
         return 0;
@@ -53,9 +52,9 @@ public class FeedNativeView extends RelativeLayout {
     public int getAdContainerWidth() {
         View view = this.mAdView;
         if (view != null) {
-            Object a10 = au.a(z.f7377e, view, this.mLoader, "getAdContainerWidth", new Class[0], new Object[0]);
-            if (a10 instanceof Number) {
-                return ((Integer) a10).intValue();
+            Object a2 = ar.a(w.f5862e, view, this.mLoader, "getAdContainerWidth", new Class[0], new Object[0]);
+            if (a2 instanceof Number) {
+                return ((Integer) a2).intValue();
             }
         }
         return 0;
@@ -64,7 +63,7 @@ public class FeedNativeView extends RelativeLayout {
     public RelativeLayout getContainerView() {
         View view = this.mAdView;
         if (view != null) {
-            return (RelativeLayout) au.a(z.f7377e, view, this.mLoader, "getAdView", new Class[0], new Object[0]);
+            return (RelativeLayout) ar.a(w.f5862e, view, this.mLoader, "getAdView", new Class[0], new Object[0]);
         }
         return null;
     }
@@ -72,7 +71,7 @@ public class FeedNativeView extends RelativeLayout {
     public void setAdData(XAdNativeResponse xAdNativeResponse) {
         View view = this.mAdView;
         if (view != null) {
-            au.a(z.f7377e, view, this.mLoader, "setAdResponse", new Class[]{Object.class}, xAdNativeResponse);
+            ar.a(w.f5862e, view, this.mLoader, "setAdResponse", new Class[]{Object.class}, xAdNativeResponse);
         }
     }
 
@@ -81,8 +80,8 @@ public class FeedNativeView extends RelativeLayout {
         init(context);
     }
 
-    public FeedNativeView(Context context, AttributeSet attributeSet, int i10) {
-        super(context, attributeSet, i10);
+    public FeedNativeView(Context context, AttributeSet attributeSet, int i2) {
+        super(context, attributeSet, i2);
         init(context);
     }
 }

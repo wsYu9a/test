@@ -1,16 +1,14 @@
 package com.kwad.components.ad.a;
 
-import com.kwad.sdk.h;
+import android.app.Activity;
+import com.kwad.sdk.api.KsExitInstallListener;
+import com.kwad.sdk.api.KsScene;
 
-/* loaded from: classes2.dex */
-public final class a extends com.kwad.components.core.request.a {
-    public a(com.kwad.components.core.request.model.a aVar) {
-        super(aVar);
-        putBody("requestTime", System.currentTimeMillis());
-    }
+/* loaded from: classes.dex */
+public interface a extends com.kwad.sdk.components.a {
+    String getBidRequestToken(KsScene ksScene);
 
-    @Override // com.kwad.components.core.request.a, com.kwad.sdk.core.network.b, com.kwad.sdk.core.network.f
-    public final String getUrl() {
-        return h.zh();
-    }
+    String getBidRequestTokenV2(KsScene ksScene);
+
+    boolean showInstallDialog(Activity activity, KsExitInstallListener ksExitInstallListener);
 }

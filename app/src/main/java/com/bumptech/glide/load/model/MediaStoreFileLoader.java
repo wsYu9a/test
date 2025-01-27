@@ -12,10 +12,11 @@ import com.bumptech.glide.load.data.DataFetcher;
 import com.bumptech.glide.load.data.mediastore.MediaStoreUtil;
 import com.bumptech.glide.load.model.ModelLoader;
 import com.bumptech.glide.signature.ObjectKey;
+import com.vivo.ic.dm.Downloads;
 import java.io.File;
 import java.io.FileNotFoundException;
 
-/* loaded from: classes2.dex */
+/* loaded from: classes.dex */
 public final class MediaStoreFileLoader implements ModelLoader<Uri, File> {
     private final Context context;
 
@@ -37,12 +38,12 @@ public final class MediaStoreFileLoader implements ModelLoader<Uri, File> {
         }
     }
 
-    public static class FilePathFetcher implements DataFetcher<File> {
-        private static final String[] PROJECTION = {"_data"};
+    private static class FilePathFetcher implements DataFetcher<File> {
+        private static final String[] PROJECTION = {Downloads.Column.DATA};
         private final Context context;
         private final Uri uri;
 
-        public FilePathFetcher(Context context, Uri uri) {
+        FilePathFetcher(Context context, Uri uri) {
             this.context = context;
             this.uri = uri;
         }
@@ -72,7 +73,7 @@ public final class MediaStoreFileLoader implements ModelLoader<Uri, File> {
             Cursor query = this.context.getContentResolver().query(this.uri, PROJECTION, null, null, null);
             if (query != null) {
                 try {
-                    r0 = query.moveToFirst() ? query.getString(query.getColumnIndexOrThrow("_data")) : null;
+                    r0 = query.moveToFirst() ? query.getString(query.getColumnIndexOrThrow(Downloads.Column.DATA)) : null;
                 } finally {
                     query.close();
                 }
@@ -90,7 +91,7 @@ public final class MediaStoreFileLoader implements ModelLoader<Uri, File> {
     }
 
     @Override // com.bumptech.glide.load.model.ModelLoader
-    public ModelLoader.LoadData<File> buildLoadData(@NonNull Uri uri, int i10, int i11, @NonNull Options options) {
+    public ModelLoader.LoadData<File> buildLoadData(@NonNull Uri uri, int i2, int i3, @NonNull Options options) {
         return new ModelLoader.LoadData<>(new ObjectKey(uri), new FilePathFetcher(this.context, uri));
     }
 

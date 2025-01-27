@@ -4,39 +4,35 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
-/* loaded from: classes3.dex */
+/* loaded from: classes2.dex */
 public final class w {
-    private final e aRi;
-    private final boolean aRj;
+    private final e axv;
+    private final boolean axw;
 
     public w(e eVar) {
-        this.aRi = eVar;
-        if (eVar instanceof f) {
-            this.aRj = false;
-        } else {
-            this.aRj = true;
-        }
+        this.axv = eVar;
+        this.axw = !(eVar instanceof f);
     }
 
-    private List<? extends t> gz(String str) {
+    private List<? extends t> ep(String str) {
         ArrayList arrayList = new ArrayList();
-        arrayList.addAll(this.aRi.al("tEXt", str));
-        arrayList.addAll(this.aRi.al("zTXt", str));
-        arrayList.addAll(this.aRi.al("iTXt", str));
+        arrayList.addAll(this.axv.W("tEXt", str));
+        arrayList.addAll(this.axv.W("zTXt", str));
+        arrayList.addAll(this.axv.W("iTXt", str));
         return arrayList;
     }
 
-    public final String gA(String str) {
-        List<? extends t> gz = gz(str);
-        if (gz.isEmpty()) {
+    public final String eq(String str) {
+        List<? extends t> ep = ep(str);
+        if (ep.isEmpty()) {
             return "";
         }
-        StringBuilder sb2 = new StringBuilder();
-        Iterator<? extends t> it = gz.iterator();
+        StringBuilder sb = new StringBuilder();
+        Iterator<? extends t> it = ep.iterator();
         while (it.hasNext()) {
-            sb2.append(it.next().Mj());
-            sb2.append("\n");
+            sb.append(it.next().Ch());
+            sb.append("\n");
         }
-        return sb2.toString().trim();
+        return sb.toString().trim();
     }
 }

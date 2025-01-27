@@ -2,6 +2,7 @@ package com.umeng.commonsdk.statistics.internal;
 
 import android.content.Context;
 import android.content.SharedPreferences;
+import com.ss.android.download.api.constant.BaseConstants;
 import com.umeng.commonsdk.statistics.common.MLog;
 
 /* loaded from: classes4.dex */
@@ -21,16 +22,16 @@ public class StatTracer implements b {
     public long mLastSuccessfulRequestTime;
     public int mSuccessfulRequest;
 
-    public static class a {
+    private static class a {
 
         /* renamed from: a */
-        public static final StatTracer f24688a = new StatTracer();
+        public static final StatTracer f26363a = new StatTracer();
 
         private a() {
         }
     }
 
-    public /* synthetic */ StatTracer(AnonymousClass1 anonymousClass1) {
+    /* synthetic */ StatTracer(AnonymousClass1 anonymousClass1) {
         this();
     }
 
@@ -42,7 +43,7 @@ public class StatTracer implements b {
                 MLog.e("inside StatTracer. please check context. context must not be null!");
             }
         }
-        return a.f24688a;
+        return a.f26363a;
     }
 
     private void init() {
@@ -56,9 +57,9 @@ public class StatTracer implements b {
 
     public long getFirstActivateTime() {
         SharedPreferences sharedPreferences = PreferenceWrapper.getDefault(mContext);
-        long j10 = PreferenceWrapper.getDefault(mContext).getLong(KEY_FIRST_ACTIVATE_TIME, 0L);
-        this.firstActivateTime = j10;
-        if (j10 == 0) {
+        long j2 = PreferenceWrapper.getDefault(mContext).getLong(KEY_FIRST_ACTIVATE_TIME, 0L);
+        this.firstActivateTime = j2;
+        if (j2 == 0) {
             this.firstActivateTime = System.currentTimeMillis();
             sharedPreferences.edit().putLong(KEY_FIRST_ACTIVATE_TIME, this.firstActivateTime).commit();
         }
@@ -70,11 +71,8 @@ public class StatTracer implements b {
     }
 
     public int getLastRequestLatency() {
-        int i10 = this.mLastRequestLatency;
-        if (i10 > 3600000) {
-            return 3600000;
-        }
-        return i10;
+        int i2 = this.mLastRequestLatency;
+        return i2 > 3600000 ? BaseConstants.Time.HOUR : i2;
     }
 
     public boolean isFirstRequest() {
@@ -93,9 +91,9 @@ public class StatTracer implements b {
         this.lastRequestTime = System.currentTimeMillis();
     }
 
-    public void logSuccessfulRequest(boolean z10) {
+    public void logSuccessfulRequest(boolean z) {
         this.mSuccessfulRequest++;
-        if (z10) {
+        if (z) {
             this.mLastSuccessfulRequestTime = this.lastRequestTime;
         }
     }
@@ -116,8 +114,8 @@ public class StatTracer implements b {
     }
 
     @Override // com.umeng.commonsdk.statistics.internal.b
-    public void onRequestSucceed(boolean z10) {
-        logSuccessfulRequest(z10);
+    public void onRequestSucceed(boolean z) {
+        logSuccessfulRequest(z);
     }
 
     public void saveSate() {
@@ -125,7 +123,7 @@ public class StatTracer implements b {
     }
 
     private StatTracer() {
-        this.MAX_REQUEST_LIMIT = 3600000;
+        this.MAX_REQUEST_LIMIT = BaseConstants.Time.HOUR;
         this.lastRequestTime = 0L;
         this.firstActivateTime = 0L;
         init();

@@ -7,7 +7,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import com.bumptech.glide.request.transition.Transition;
 
-/* loaded from: classes2.dex */
+/* loaded from: classes.dex */
 public abstract class ImageViewTarget<Z> extends ViewTarget<ImageView, Z> implements Transition.ViewAdapter {
 
     @Nullable
@@ -17,19 +17,19 @@ public abstract class ImageViewTarget<Z> extends ViewTarget<ImageView, Z> implem
         super(imageView);
     }
 
-    private void maybeUpdateAnimatable(@Nullable Z z10) {
-        if (!(z10 instanceof Animatable)) {
+    private void maybeUpdateAnimatable(@Nullable Z z) {
+        if (!(z instanceof Animatable)) {
             this.animatable = null;
             return;
         }
-        Animatable animatable = (Animatable) z10;
+        Animatable animatable = (Animatable) z;
         this.animatable = animatable;
         animatable.start();
     }
 
-    private void setResourceInternal(@Nullable Z z10) {
-        setResource(z10);
-        maybeUpdateAnimatable(z10);
+    private void setResourceInternal(@Nullable Z z) {
+        setResource(z);
+        maybeUpdateAnimatable(z);
     }
 
     @Override // com.bumptech.glide.request.transition.Transition.ViewAdapter
@@ -64,11 +64,11 @@ public abstract class ImageViewTarget<Z> extends ViewTarget<ImageView, Z> implem
     }
 
     @Override // com.bumptech.glide.request.target.Target
-    public void onResourceReady(@NonNull Z z10, @Nullable Transition<? super Z> transition) {
-        if (transition == null || !transition.transition(z10, this)) {
-            setResourceInternal(z10);
+    public void onResourceReady(@NonNull Z z, @Nullable Transition<? super Z> transition) {
+        if (transition == null || !transition.transition(z, this)) {
+            setResourceInternal(z);
         } else {
-            maybeUpdateAnimatable(z10);
+            maybeUpdateAnimatable(z);
         }
     }
 
@@ -93,10 +93,10 @@ public abstract class ImageViewTarget<Z> extends ViewTarget<ImageView, Z> implem
         ((ImageView) this.view).setImageDrawable(drawable);
     }
 
-    public abstract void setResource(@Nullable Z z10);
+    protected abstract void setResource(@Nullable Z z);
 
     @Deprecated
-    public ImageViewTarget(ImageView imageView, boolean z10) {
-        super(imageView, z10);
+    public ImageViewTarget(ImageView imageView, boolean z) {
+        super(imageView, z);
     }
 }

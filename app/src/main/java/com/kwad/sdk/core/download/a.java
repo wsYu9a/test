@@ -7,21 +7,33 @@ import android.webkit.URLUtil;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.core.app.NotificationCompat;
-import com.kwad.sdk.DownloadTask;
-import com.kwad.sdk.core.network.r;
+import com.ksad.download.DownloadTask;
+import com.kwad.sdk.core.network.s;
 import com.kwad.sdk.core.response.model.AdInfo;
+import com.kwad.sdk.core.response.model.AdTemplate;
 import com.kwad.sdk.service.ServiceProvider;
-import com.kwad.sdk.utils.ab;
-import com.kwad.sdk.utils.ai;
-import com.kwad.sdk.utils.al;
-import com.kwad.sdk.utils.bb;
-import com.kwad.sdk.utils.z;
+import com.kwad.sdk.utils.ad;
+import com.kwad.sdk.utils.ag;
+import com.kwad.sdk.utils.av;
+import com.kwad.sdk.utils.v;
+import com.kwad.sdk.utils.w;
+import java.io.Closeable;
 import java.io.File;
+import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
+import java.net.HttpURLConnection;
+import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLConnection;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Map;
+import java.util.zip.GZIPInputStream;
+import org.apache.http.HttpHeaders;
 
-/* loaded from: classes3.dex */
+/* loaded from: classes2.dex */
 public final class a {
 
     @SuppressLint({"StaticFieldLeak"})
@@ -29,63 +41,220 @@ public final class a {
     private static volatile boolean mHasInit;
 
     /* renamed from: com.kwad.sdk.core.download.a$a */
-    public interface InterfaceC0490a {
-    }
+    public static class C0212a implements c {
+        final OutputStream aeV;
 
-    @Nullable
-    public static String H(AdInfo adInfo) {
-        return dG(DownloadParams.transform(adInfo).mFileUrl);
-    }
+        public C0212a(File file, boolean z) {
+            this.aeV = new FileOutputStream(file, z);
+        }
 
-    public static void I(@NonNull AdInfo adInfo) {
-        a(adInfo, false);
-    }
+        @Override // java.io.Closeable, java.lang.AutoCloseable
+        public final void close() {
+            this.aeV.close();
+        }
 
-    private static void a(@NonNull AdInfo adInfo, boolean z10) {
-        try {
-            Context context = mContext;
-            if (context == null) {
-                return;
-            }
-            if (!al.isNetworkConnected(context)) {
-                Context context2 = mContext;
-                z.P(context2, ab.co(context2));
-                return;
-            }
-            DownloadParams transform = DownloadParams.transform(adInfo);
-            transform.requestInstallPermission = false;
-            String str = transform.mFileUrl;
-            if (!TextUtils.isEmpty(str) && URLUtil.isNetworkUrl(str)) {
-                DownloadTask.DownloadRequest downloadRequest = new DownloadTask.DownloadRequest(transform.mFileUrl);
-                downloadRequest.setDestinationFileName(dH(str));
-                downloadRequest.setTag(transform);
-                downloadRequest.setDownloadEnablePause(transform.downloadEnablePause);
-                if (ServiceProvider.MB().showNotification && bn(mContext)) {
-                    downloadRequest.setNotificationVisibility(3);
-                } else {
-                    downloadRequest.setNotificationVisibility(0);
-                }
-                com.kwad.sdk.d.a.a(mContext, transform.mDownloadid, downloadRequest);
-            }
-        } catch (Throwable th2) {
-            ServiceProvider.reportSdkCaughtException(th2);
+        @Override // com.kwad.sdk.core.download.a.c
+        public final void write(byte[] bArr, int i2, int i3) {
+            this.aeV.write(bArr, 0, i3);
         }
     }
 
-    public static synchronized void bm(Context context) {
+    public interface b {
+    }
+
+    public interface c extends Closeable {
+        void write(byte[] bArr, int i2, int i3);
+    }
+
+    @Nullable
+    public static String A(AdInfo adInfo) {
+        if (mContext == null) {
+            return "";
+        }
+        DownloadParams transform = DownloadParams.transform(adInfo);
+        if (TextUtils.isEmpty(transform.mFileUrl)) {
+            return null;
+        }
+        return av.cB(mContext) + File.separator + bL(transform.mFileUrl);
+    }
+
+    public static void B(@NonNull AdInfo adInfo) {
+        a(adInfo, false);
+    }
+
+    private static InputStream a(Map<String, List<String>> map, InputStream inputStream) {
+        List<String> value;
+        for (Map.Entry<String, List<String>> entry : map.entrySet()) {
+            if ("Content-Encoding".equalsIgnoreCase(entry.getKey()) && (value = entry.getValue()) != null && !value.isEmpty()) {
+                boolean z = false;
+                Iterator<String> it = value.iterator();
+                while (true) {
+                    if (!it.hasNext()) {
+                        break;
+                    }
+                    if ("gzip".equalsIgnoreCase(it.next())) {
+                        z = true;
+                        break;
+                    }
+                }
+                if (z) {
+                    try {
+                        return new GZIPInputStream(inputStream);
+                    } catch (IOException unused) {
+                    }
+                } else {
+                    continue;
+                }
+            }
+        }
+        return inputStream;
+    }
+
+    private static URLConnection a(String str, int i2, int i3, boolean z) {
+        try {
+            URLConnection openConnection = new URL(str).openConnection();
+            s.wrapHttpURLConnection(openConnection);
+            openConnection.setRequestProperty(HttpHeaders.ACCEPT_LANGUAGE, "zh-CN");
+            openConnection.setConnectTimeout(10000);
+            if (i3 > 0) {
+                openConnection.setReadTimeout(i3);
+            }
+            openConnection.setUseCaches(false);
+            openConnection.setDoInput(true);
+            openConnection.setRequestProperty("Connection", "keep-alive");
+            openConnection.setRequestProperty("Charset", "UTF-8");
+            return openConnection;
+        } catch (MalformedURLException e2) {
+            com.kwad.sdk.core.d.b.printStackTrace(e2);
+            return null;
+        }
+    }
+
+    private static void a(@NonNull AdInfo adInfo, boolean z) {
+        Context context = mContext;
+        if (context == null) {
+            return;
+        }
+        if (!ag.isNetworkConnected(context)) {
+            Context context2 = mContext;
+            v.H(context2, w.bN(context2));
+            return;
+        }
+        DownloadParams transform = DownloadParams.transform(adInfo);
+        int i2 = 0;
+        transform.requestInstallPermission = false;
+        String str = transform.mFileUrl;
+        if (TextUtils.isEmpty(str) || !URLUtil.isNetworkUrl(str)) {
+            return;
+        }
+        DownloadTask.DownloadRequest downloadRequest = new DownloadTask.DownloadRequest(transform.mFileUrl);
+        downloadRequest.setDestinationFileName(bL(str));
+        downloadRequest.setTag(transform);
+        downloadRequest.setDownloadEnablePause(transform.downloadEnablePause);
+        if (ServiceProvider.CB().showNotification && aL(mContext)) {
+            i2 = 3;
+        }
+        downloadRequest.setNotificationVisibility(i2);
+        com.ksad.download.kwai.a.a(mContext, transform.mDownloadid, downloadRequest);
+    }
+
+    private static boolean a(String str, File file, b bVar, int i2) {
+        C0212a c0212a = null;
+        try {
+            C0212a c0212a2 = new C0212a(file, false);
+            try {
+                boolean a2 = a(str, (String) null, c0212a2, (b) null, 0);
+                com.kwad.sdk.crash.utils.b.closeQuietly(c0212a2);
+                return a2;
+            } catch (Throwable th) {
+                th = th;
+                c0212a = c0212a2;
+                com.kwad.sdk.crash.utils.b.closeQuietly(c0212a);
+                throw th;
+            }
+        } catch (Throwable th2) {
+            th = th2;
+        }
+    }
+
+    public static boolean a(String str, File file, b bVar, int i2, boolean z) {
+        C0212a c0212a;
+        C0212a c0212a2 = null;
+        try {
+            c0212a = new C0212a(file, true);
+        } catch (Throwable th) {
+            th = th;
+        }
+        try {
+            boolean a2 = a(str, (String) null, (c) c0212a, (b) null, -1, file.length(), -1L, true);
+            com.kwad.sdk.crash.utils.b.closeQuietly(c0212a);
+            return a2;
+        } catch (Throwable th2) {
+            th = th2;
+            c0212a2 = c0212a;
+            com.kwad.sdk.crash.utils.b.closeQuietly(c0212a2);
+            throw th;
+        }
+    }
+
+    private static boolean a(String str, String str2, c cVar, b bVar, int i2) {
+        return a(str, (String) null, cVar, bVar, i2, -1L, -1L, false);
+    }
+
+    private static boolean a(String str, String str2, c cVar, b bVar, int i2, long j2, long j3, boolean z) {
+        HttpURLConnection httpURLConnection = null;
+        try {
+            HttpURLConnection httpURLConnection2 = (HttpURLConnection) a(str, 10000, i2 > 0 ? i2 : 120000, false);
+            try {
+                if (httpURLConnection2 == null) {
+                    throw new IOException("Fail to createUrlConnection");
+                }
+                boolean a2 = a(httpURLConnection2, str2, cVar, bVar, i2, j2, -1L, z);
+                com.kwad.sdk.crash.utils.b.closeQuietly(cVar);
+                httpURLConnection2.disconnect();
+                return a2;
+            } catch (Throwable th) {
+                th = th;
+                httpURLConnection = httpURLConnection2;
+                com.kwad.sdk.crash.utils.b.closeQuietly(cVar);
+                if (httpURLConnection != null) {
+                    httpURLConnection.disconnect();
+                }
+                throw th;
+            }
+        } catch (Throwable th2) {
+            th = th2;
+        }
+    }
+
+    /* JADX WARN: Removed duplicated region for block: B:15:0x0135 A[Catch: all -> 0x015f, TryCatch #6 {all -> 0x015f, blocks: (B:13:0x0131, B:15:0x0135, B:19:0x015e, B:18:0x0138), top: B:12:0x0131 }] */
+    /* JADX WARN: Removed duplicated region for block: B:18:0x0138 A[Catch: all -> 0x015f, TryCatch #6 {all -> 0x015f, blocks: (B:13:0x0131, B:15:0x0135, B:19:0x015e, B:18:0x0138), top: B:12:0x0131 }] */
+    /*
+        Code decompiled incorrectly, please refer to instructions dump.
+        To view partially-correct code enable 'Show inconsistent code' option in preferences
+    */
+    private static boolean a(java.net.HttpURLConnection r14, java.lang.String r15, com.kwad.sdk.core.download.a.c r16, com.kwad.sdk.core.download.a.b r17, int r18, long r19, long r21, boolean r23) {
+        /*
+            Method dump skipped, instructions count: 374
+            To view this dump change 'Code comments level' option to 'DEBUG'
+        */
+        throw new UnsupportedOperationException("Method not decompiled: com.kwad.sdk.core.download.a.a(java.net.HttpURLConnection, java.lang.String, com.kwad.sdk.core.download.a$c, com.kwad.sdk.core.download.a$b, int, long, long, boolean):boolean");
+    }
+
+    public static synchronized void aK(Context context) {
         synchronized (a.class) {
             if (context != null) {
                 if (!mHasInit) {
                     mContext = context;
-                    com.kwad.sdk.c.yU().init(context);
-                    b.EI().init(context);
+                    com.ksad.download.c.M().init(context);
+                    com.kwad.sdk.core.download.c.vu().init(context);
                     mHasInit = true;
                 }
             }
         }
     }
 
-    private static boolean bn(Context context) {
+    private static boolean aL(Context context) {
         try {
             new NotificationCompat.Builder(context, "");
             return true;
@@ -94,135 +263,30 @@ public final class a {
         }
     }
 
-    public static boolean d(String str, File file) {
-        try {
-            return a(str, file, null, false);
-        } catch (IOException e10) {
-            e10.printStackTrace();
-            return false;
-        }
+    private static String bL(String str) {
+        return ad.eC(str) + ".apk";
     }
 
-    private static String dG(String str) {
-        if (mContext == null) {
-            return "";
-        }
-        if (TextUtils.isEmpty(str)) {
-            return null;
-        }
-        return bb.de(mContext) + File.separator + dH(str);
-    }
-
-    private static String dH(String str) {
-        return ai.by(str) + ".apk";
-    }
-
-    public static void dI(String str) {
+    public static void bM(String str) {
         if (mContext == null || TextUtils.isEmpty(str)) {
             return;
         }
-        com.kwad.sdk.d.a.D(mContext, str);
+        com.ksad.download.kwai.a.e(mContext, str);
     }
 
-    public static void dJ(String str) {
-        if (mContext == null) {
-            return;
+    public static void c(int i2, AdTemplate adTemplate) {
+        com.kwad.sdk.core.download.b bVar = (com.kwad.sdk.core.download.b) ServiceProvider.get(com.kwad.sdk.core.download.b.class);
+        if (bVar != null) {
+            bVar.b(1, adTemplate);
         }
-        String dG = dG(str);
-        com.kwad.sdk.d.a.e(mContext, ai.by(str), dG);
     }
 
-    private static URLConnection dK(String str) {
-        URLConnection openConnection = new URL(str).openConnection();
-        r.wrapHttpURLConnection(openConnection);
-        openConnection.setRequestProperty(m5.c.f28319k, "zh-CN");
-        openConnection.setConnectTimeout(10000);
-        openConnection.setReadTimeout(120000);
-        openConnection.setUseCaches(false);
-        openConnection.setDoInput(true);
-        openConnection.setRequestProperty(m5.c.f28331o, "keep-alive");
-        openConnection.setRequestProperty("Charset", "UTF-8");
-        return openConnection;
-    }
-
-    public static void a(String str, File file, boolean z10) {
-        a(str, file, null, true);
-    }
-
-    /* JADX WARN: Multi-variable type inference failed */
-    /* JADX WARN: Removed duplicated region for block: B:17:0x0116 A[Catch: all -> 0x0119, TryCatch #7 {all -> 0x0119, blocks: (B:15:0x0112, B:17:0x0116, B:21:0x0141, B:20:0x011b), top: B:14:0x0112 }] */
-    /* JADX WARN: Removed duplicated region for block: B:20:0x011b A[Catch: all -> 0x0119, TryCatch #7 {all -> 0x0119, blocks: (B:15:0x0112, B:17:0x0116, B:21:0x0141, B:20:0x011b), top: B:14:0x0112 }] */
-    /* JADX WARN: Type inference failed for: r12v1 */
-    /* JADX WARN: Type inference failed for: r12v2 */
-    /* JADX WARN: Type inference failed for: r12v3, types: [java.io.Closeable] */
-    /* JADX WARN: Type inference failed for: r12v4 */
-    /* JADX WARN: Type inference failed for: r12v5 */
-    /* JADX WARN: Type inference failed for: r12v6, types: [java.io.FileOutputStream] */
-    /* JADX WARN: Type inference failed for: r12v7 */
-    /* JADX WARN: Type inference failed for: r12v8, types: [java.io.Closeable, java.io.FileOutputStream] */
-    /* JADX WARN: Type inference failed for: r12v9, types: [java.io.FileOutputStream] */
-    /* JADX WARN: Type inference failed for: r2v1, types: [java.io.Closeable] */
-    /* JADX WARN: Type inference failed for: r2v23 */
-    /* JADX WARN: Type inference failed for: r2v24 */
-    /* JADX WARN: Type inference failed for: r2v25 */
-    /* JADX WARN: Type inference failed for: r2v9 */
-    /*
-        Code decompiled incorrectly, please refer to instructions dump.
-        To view partially-correct code enable 'Show inconsistent code' option in preferences
-    */
-    private static boolean a(java.lang.String r9, java.io.File r10, com.kwad.sdk.core.download.a.InterfaceC0490a r11, boolean r12) {
-        /*
-            Method dump skipped, instructions count: 342
-            To view this dump change 'Code comments level' option to 'DEBUG'
-        */
-        throw new UnsupportedOperationException("Method not decompiled: com.kwad.sdk.core.download.a.a(java.lang.String, java.io.File, com.kwad.sdk.core.download.a$a, boolean):boolean");
-    }
-
-    /* JADX WARN: Code restructure failed: missing block: B:29:0x0008, code lost:
-    
-        continue;
-     */
-    /*
-        Code decompiled incorrectly, please refer to instructions dump.
-        To view partially-correct code enable 'Show inconsistent code' option in preferences
-    */
-    private static java.io.InputStream a(java.util.Map<java.lang.String, java.util.List<java.lang.String>> r3, java.io.InputStream r4) {
-        /*
-            java.util.Set r3 = r3.entrySet()
-            java.util.Iterator r3 = r3.iterator()
-        L8:
-            boolean r0 = r3.hasNext()
-            if (r0 == 0) goto L51
-            java.lang.Object r0 = r3.next()
-            java.util.Map$Entry r0 = (java.util.Map.Entry) r0
-            java.lang.Object r1 = r0.getKey()
-            java.lang.String r1 = (java.lang.String) r1
-            java.lang.String r2 = "Content-Encoding"
-            boolean r1 = r2.equalsIgnoreCase(r1)
-            if (r1 == 0) goto L8
-            java.lang.Object r0 = r0.getValue()
-            java.util.List r0 = (java.util.List) r0
-            if (r0 == 0) goto L8
-            boolean r1 = r0.isEmpty()
-            if (r1 != 0) goto L8
-            java.util.Iterator r0 = r0.iterator()
-        L34:
-            boolean r1 = r0.hasNext()
-            if (r1 == 0) goto L8
-            java.lang.Object r1 = r0.next()
-            java.lang.String r1 = (java.lang.String) r1
-            java.lang.String r2 = "gzip"
-            boolean r1 = r2.equalsIgnoreCase(r1)
-            if (r1 == 0) goto L34
-            java.util.zip.GZIPInputStream r0 = new java.util.zip.GZIPInputStream     // Catch: java.io.IOException -> L4f
-            r0.<init>(r4)     // Catch: java.io.IOException -> L4f
-            r4 = r0
-            goto L51
-        L4f:
-            goto L8
-        L51:
-            return r4
-        */
-        throw new UnsupportedOperationException("Method not decompiled: com.kwad.sdk.core.download.a.a(java.util.Map, java.io.InputStream):java.io.InputStream");
+    public static boolean c(String str, File file) {
+        try {
+            return a(str, file, (b) null, 0);
+        } catch (Throwable th) {
+            com.kwad.sdk.core.d.b.printStackTraceOnly(th);
+            return false;
+        }
     }
 }

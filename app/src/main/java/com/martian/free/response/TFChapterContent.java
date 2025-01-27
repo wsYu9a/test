@@ -1,22 +1,22 @@
 package com.martian.free.response;
 
 import android.text.TextUtils;
-import ba.k;
+import com.martian.libsupport.j;
 import com.martian.mibook.lib.model.data.abs.ChapterContent;
 
-@k.h(name = "tf_chapter_content")
-/* loaded from: classes3.dex */
+@j.g(name = "tf_chapter_content")
+/* loaded from: classes2.dex */
 public class TFChapterContent extends ChapterContent {
 
-    @k.b
+    @j.b
     private String bid;
     private Integer chargeType;
 
-    @k.g
-    @k.b
+    @j.b
+    @j.f
     private String cid;
 
-    @k.b
+    @j.b
     private String content;
     private Integer isTaked;
     private Integer price;
@@ -36,8 +36,8 @@ public class TFChapterContent extends ChapterContent {
     }
 
     @Override // com.martian.mibook.lib.model.data.abs.ChapterContent
-    public String getContent(int i10, int i11) {
-        return this.content.substring(i10, i11);
+    public String getContent(int start, int end) {
+        return this.content.substring(start, end);
     }
 
     @Override // com.martian.mibook.lib.model.data.abs.ChapterContent
@@ -71,39 +71,38 @@ public class TFChapterContent extends ChapterContent {
         return getIsTaked() > 0;
     }
 
-    public void setBid(String str) {
-        this.bid = str;
+    public void setBid(String bid) {
+        this.bid = bid;
     }
 
-    public void setChargeType(Integer num) {
-        this.chargeType = num;
+    public void setChargeType(Integer chargeType) {
+        this.chargeType = chargeType;
     }
 
-    public void setCid(String str) {
-        this.cid = str;
+    public void setCid(String cid) {
+        this.cid = cid;
     }
 
-    public void setContent(String str) {
-        this.content = str;
+    public void setContent(String content) {
+        this.content = content;
     }
 
-    public void setIsTaked(Integer num) {
-        this.isTaked = num;
+    public void setIsTaked(Integer isTaked) {
+        this.isTaked = isTaked;
     }
 
-    public void setPrice(Integer num) {
-        this.price = num;
-    }
-
-    @Override // com.martian.mibook.lib.model.data.abs.ChapterContent
-    public void setSrcLink(String str) {
-    }
-
-    public void setTitle(String str) {
-        this.title = str;
+    public void setPrice(Integer price) {
+        this.price = price;
     }
 
     @Override // com.martian.mibook.lib.model.data.abs.ChapterContent
+    public void setSrcLink(String srcLink) {
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
+    }
+
     public String getContent() {
         return this.content;
     }

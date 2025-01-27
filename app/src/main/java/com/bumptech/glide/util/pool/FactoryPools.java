@@ -6,10 +6,13 @@ import androidx.core.util.Pools;
 import java.util.ArrayList;
 import java.util.List;
 
-/* loaded from: classes2.dex */
+/* loaded from: classes.dex */
 public final class FactoryPools {
     private static final int DEFAULT_POOL_SIZE = 20;
     private static final Resetter<Object> EMPTY_RESETTER = new Resetter<Object>() { // from class: com.bumptech.glide.util.pool.FactoryPools.1
+        AnonymousClass1() {
+        }
+
         @Override // com.bumptech.glide.util.pool.FactoryPools.Resetter
         public void reset(@NonNull Object obj) {
         }
@@ -17,14 +20,20 @@ public final class FactoryPools {
     private static final String TAG = "FactoryPools";
 
     /* renamed from: com.bumptech.glide.util.pool.FactoryPools$1 */
-    public class AnonymousClass1 implements Resetter<Object> {
+    class AnonymousClass1 implements Resetter<Object> {
+        AnonymousClass1() {
+        }
+
         @Override // com.bumptech.glide.util.pool.FactoryPools.Resetter
         public void reset(@NonNull Object obj) {
         }
     }
 
     /* renamed from: com.bumptech.glide.util.pool.FactoryPools$2 */
-    public class AnonymousClass2<T> implements Factory<List<T>> {
+    class AnonymousClass2<T> implements Factory<List<T>> {
+        AnonymousClass2() {
+        }
+
         @Override // com.bumptech.glide.util.pool.FactoryPools.Factory
         @NonNull
         public List<T> create() {
@@ -33,7 +42,10 @@ public final class FactoryPools {
     }
 
     /* renamed from: com.bumptech.glide.util.pool.FactoryPools$3 */
-    public class AnonymousClass3<T> implements Resetter<List<T>> {
+    class AnonymousClass3<T> implements Resetter<List<T>> {
+        AnonymousClass3() {
+        }
+
         @Override // com.bumptech.glide.util.pool.FactoryPools.Resetter
         public void reset(@NonNull List<T> list) {
             list.clear();
@@ -44,12 +56,12 @@ public final class FactoryPools {
         T create();
     }
 
-    public static final class FactoryPool<T> implements Pools.Pool<T> {
+    private static final class FactoryPool<T> implements Pools.Pool<T> {
         private final Factory<T> factory;
         private final Pools.Pool<T> pool;
         private final Resetter<T> resetter;
 
-        public FactoryPool(@NonNull Pools.Pool<T> pool, @NonNull Factory<T> factory, @NonNull Resetter<T> resetter) {
+        FactoryPool(@NonNull Pools.Pool<T> pool, @NonNull Factory<T> factory, @NonNull Resetter<T> resetter) {
             this.pool = pool;
             this.factory = factory;
             this.resetter = resetter;
@@ -71,12 +83,12 @@ public final class FactoryPools {
         }
 
         @Override // androidx.core.util.Pools.Pool
-        public boolean release(@NonNull T t10) {
-            if (t10 instanceof Poolable) {
-                ((Poolable) t10).getVerifier().setRecycled(true);
+        public boolean release(@NonNull T t) {
+            if (t instanceof Poolable) {
+                ((Poolable) t).getVerifier().setRecycled(true);
             }
-            this.resetter.reset(t10);
-            return this.pool.release(t10);
+            this.resetter.reset(t);
+            return this.pool.release(t);
         }
     }
 
@@ -86,7 +98,7 @@ public final class FactoryPools {
     }
 
     public interface Resetter<T> {
-        void reset(@NonNull T t10);
+        void reset(@NonNull T t);
     }
 
     private FactoryPools() {
@@ -103,13 +115,13 @@ public final class FactoryPools {
     }
 
     @NonNull
-    public static <T extends Poolable> Pools.Pool<T> simple(int i10, @NonNull Factory<T> factory) {
-        return build(new Pools.SimplePool(i10), factory);
+    public static <T extends Poolable> Pools.Pool<T> simple(int i2, @NonNull Factory<T> factory) {
+        return build(new Pools.SimplePool(i2), factory);
     }
 
     @NonNull
-    public static <T extends Poolable> Pools.Pool<T> threadSafe(int i10, @NonNull Factory<T> factory) {
-        return build(new Pools.SynchronizedPool(i10), factory);
+    public static <T extends Poolable> Pools.Pool<T> threadSafe(int i2, @NonNull Factory<T> factory) {
+        return build(new Pools.SynchronizedPool(i2), factory);
     }
 
     @NonNull
@@ -123,14 +135,20 @@ public final class FactoryPools {
     }
 
     @NonNull
-    public static <T> Pools.Pool<List<T>> threadSafeList(int i10) {
-        return build(new Pools.SynchronizedPool(i10), new Factory<List<T>>() { // from class: com.bumptech.glide.util.pool.FactoryPools.2
+    public static <T> Pools.Pool<List<T>> threadSafeList(int i2) {
+        return build(new Pools.SynchronizedPool(i2), new Factory<List<T>>() { // from class: com.bumptech.glide.util.pool.FactoryPools.2
+            AnonymousClass2() {
+            }
+
             @Override // com.bumptech.glide.util.pool.FactoryPools.Factory
             @NonNull
             public List<T> create() {
                 return new ArrayList();
             }
         }, new Resetter<List<T>>() { // from class: com.bumptech.glide.util.pool.FactoryPools.3
+            AnonymousClass3() {
+            }
+
             @Override // com.bumptech.glide.util.pool.FactoryPools.Resetter
             public void reset(@NonNull List<T> list) {
                 list.clear();

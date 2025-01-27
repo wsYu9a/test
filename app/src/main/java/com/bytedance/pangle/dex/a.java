@@ -11,24 +11,24 @@ import java.lang.reflect.Constructor;
 import java.lang.reflect.Field;
 import java.util.ArrayList;
 
-/* loaded from: classes2.dex */
+/* loaded from: classes.dex */
 public final class a {
 
     /* renamed from: a */
-    private static volatile int f7538a;
+    private static volatile int f6043a;
 
     /* renamed from: b */
-    private static volatile Constructor<?> f7539b;
+    private static volatile Constructor<?> f6044b;
 
-    public static void a(ClassLoader classLoader, String str, int i10) {
+    public static void a(ClassLoader classLoader, String str, int i2) {
         Object obj = FieldUtils.getField(classLoader.getClass(), "pathList").get(classLoader);
         ArrayList arrayList = new ArrayList();
-        String[] split = g.a(str, i10).split(":");
-        String c10 = c.c(str, i10);
+        String[] split = g.a(str, i2).split(":");
+        String c2 = c.c(str, i2);
         for (String str2 : split) {
             Object native_load_direct_dex = DirectDex.native_load_direct_dex(str2);
             if (native_load_direct_dex == null) {
-                native_load_direct_dex = DexFile.loadDex(str2, c10 + File.separator + b.a(str2), 0);
+                native_load_direct_dex = DexFile.loadDex(str2, c2 + File.separator + b.a(str2), 0);
             }
             arrayList.add(a(new File(str2), native_load_direct_dex));
         }
@@ -41,113 +41,121 @@ public final class a {
         field.set(obj, objArr2);
     }
 
-    /* JADX WARN: Removed duplicated region for block: B:11:0x007f  */
-    /* JADX WARN: Removed duplicated region for block: B:20:0x0063 A[EXC_TOP_SPLITTER, SYNTHETIC] */
-    /* JADX WARN: Removed duplicated region for block: B:25:0x004e A[EXC_TOP_SPLITTER, SYNTHETIC] */
+    /* JADX WARN: Removed duplicated region for block: B:11:0x008d  */
+    /* JADX WARN: Removed duplicated region for block: B:20:0x006b A[EXC_TOP_SPLITTER, SYNTHETIC] */
+    /* JADX WARN: Removed duplicated region for block: B:25:0x0051 A[EXC_TOP_SPLITTER, SYNTHETIC] */
     /* JADX WARN: Removed duplicated region for block: B:30:0x0037 A[EXC_TOP_SPLITTER, SYNTHETIC] */
-    /* JADX WARN: Removed duplicated region for block: B:35:0x001d A[EXC_TOP_SPLITTER, SYNTHETIC] */
+    /* JADX WARN: Removed duplicated region for block: B:35:0x0018 A[EXC_TOP_SPLITTER, SYNTHETIC] */
     /*
         Code decompiled incorrectly, please refer to instructions dump.
         To view partially-correct code enable 'Show inconsistent code' option in preferences
     */
-    private static java.lang.Object a(java.io.File r13, java.lang.Object r14) {
+    private static java.lang.Object a(java.io.File r11, java.lang.Object r12) {
         /*
-            r0 = 4
-            r1 = 3
+            int r0 = com.bytedance.pangle.dex.a.f6043a
+            java.lang.reflect.Constructor<?> r1 = com.bytedance.pangle.dex.a.f6044b
             r2 = 0
-            r3 = 2
-            r4 = 1
-            int r5 = com.bytedance.pangle.dex.a.f7538a
-            java.lang.reflect.Constructor<?> r6 = com.bytedance.pangle.dex.a.f7539b
-            r7 = 0
-            if (r6 != 0) goto L14
-            java.lang.String r8 = "dalvik.system.DexPathList$Element"
-            java.lang.Class r8 = java.lang.Class.forName(r8)     // Catch: java.lang.Exception -> L13
-            goto L15
-        L13:
-        L14:
-            r8 = r7
-        L15:
-            r9 = 8
-            java.lang.Class<dalvik.system.DexFile> r10 = dalvik.system.DexFile.class
-            java.lang.Class<java.io.File> r11 = java.io.File.class
-            if (r6 != 0) goto L35
-            java.lang.Class[] r6 = new java.lang.Class[r0]     // Catch: java.lang.Exception -> L33
-            r6[r2] = r11     // Catch: java.lang.Exception -> L33
-            java.lang.Class r12 = java.lang.Boolean.TYPE     // Catch: java.lang.Exception -> L33
-            r6[r4] = r12     // Catch: java.lang.Exception -> L33
-            r6[r3] = r11     // Catch: java.lang.Exception -> L33
-            r6[r1] = r10     // Catch: java.lang.Exception -> L33
-            java.lang.reflect.Constructor r6 = r8.getConstructor(r6)     // Catch: java.lang.Exception -> L33
-            r6.setAccessible(r4)     // Catch: java.lang.Exception -> L33
-            r5 = 8
-            goto L35
-        L33:
-            r6 = r7
-        L35:
-            if (r6 != 0) goto L4c
-            java.lang.Class[] r6 = new java.lang.Class[r1]     // Catch: java.lang.Exception -> L4a
-            r6[r2] = r11     // Catch: java.lang.Exception -> L4a
-            java.lang.Class<java.util.zip.ZipFile> r12 = java.util.zip.ZipFile.class
-            r6[r4] = r12     // Catch: java.lang.Exception -> L4a
-            r6[r3] = r10     // Catch: java.lang.Exception -> L4a
-            java.lang.reflect.Constructor r6 = r8.getConstructor(r6)     // Catch: java.lang.Exception -> L4a
-            r6.setAccessible(r4)     // Catch: java.lang.Exception -> L4a
+            if (r1 != 0) goto Le
+            java.lang.String r3 = "dalvik.system.DexPathList$Element"
+            java.lang.Class r3 = java.lang.Class.forName(r3)     // Catch: java.lang.Exception -> Le
+            goto Lf
+        Le:
+            r3 = r2
+        Lf:
+            r4 = 8
             r5 = 4
-            goto L4c
-        L4a:
-            r6 = r7
-        L4c:
-            if (r6 != 0) goto L61
-            java.lang.Class[] r6 = new java.lang.Class[r1]     // Catch: java.lang.Exception -> L5f
-            r6[r2] = r11     // Catch: java.lang.Exception -> L5f
-            r6[r4] = r11     // Catch: java.lang.Exception -> L5f
-            r6[r3] = r10     // Catch: java.lang.Exception -> L5f
-            java.lang.reflect.Constructor r6 = r8.getConstructor(r6)     // Catch: java.lang.Exception -> L5f
-            r6.setAccessible(r4)     // Catch: java.lang.Exception -> L5f
-            r5 = 2
-            goto L61
-        L5f:
-            r6 = r7
-        L61:
-            if (r6 != 0) goto L79
-            java.lang.Class[] r6 = new java.lang.Class[r0]     // Catch: java.lang.Exception -> L78
-            r6[r2] = r11     // Catch: java.lang.Exception -> L78
-            java.lang.Class r12 = java.lang.Boolean.TYPE     // Catch: java.lang.Exception -> L78
-            r6[r4] = r12     // Catch: java.lang.Exception -> L78
-            r6[r3] = r11     // Catch: java.lang.Exception -> L78
-            r6[r1] = r10     // Catch: java.lang.Exception -> L78
-            java.lang.reflect.Constructor r6 = r8.getConstructor(r6)     // Catch: java.lang.Exception -> L78
-            r6.setAccessible(r4)     // Catch: java.lang.Exception -> L78
-            r5 = 1
-            goto L79
-        L78:
-            r6 = r7
-        L79:
-            com.bytedance.pangle.dex.a.f7539b = r6
-            com.bytedance.pangle.dex.a.f7538a = r5
-            if (r5 == r4) goto L93
-            if (r5 == r3) goto L86
-            if (r5 == r0) goto L86
-            if (r5 == r9) goto L93
-            goto La3
+            r6 = 0
+            r7 = 3
+            r8 = 2
+            r9 = 1
+            if (r1 != 0) goto L35
+            java.lang.Class[] r1 = new java.lang.Class[r5]     // Catch: java.lang.Exception -> L34
+            java.lang.Class<java.io.File> r10 = java.io.File.class
+            r1[r6] = r10     // Catch: java.lang.Exception -> L34
+            java.lang.Class r10 = java.lang.Boolean.TYPE     // Catch: java.lang.Exception -> L34
+            r1[r9] = r10     // Catch: java.lang.Exception -> L34
+            java.lang.Class<java.io.File> r10 = java.io.File.class
+            r1[r8] = r10     // Catch: java.lang.Exception -> L34
+            java.lang.Class<dalvik.system.DexFile> r10 = dalvik.system.DexFile.class
+            r1[r7] = r10     // Catch: java.lang.Exception -> L34
+            java.lang.reflect.Constructor r1 = r3.getConstructor(r1)     // Catch: java.lang.Exception -> L34
+            r1.setAccessible(r9)     // Catch: java.lang.Exception -> L34
+            r0 = 8
+            goto L35
+        L34:
+            r1 = r2
+        L35:
+            if (r1 != 0) goto L4f
+            java.lang.Class[] r1 = new java.lang.Class[r7]     // Catch: java.lang.Exception -> L4e
+            java.lang.Class<java.io.File> r10 = java.io.File.class
+            r1[r6] = r10     // Catch: java.lang.Exception -> L4e
+            java.lang.Class<java.util.zip.ZipFile> r10 = java.util.zip.ZipFile.class
+            r1[r9] = r10     // Catch: java.lang.Exception -> L4e
+            java.lang.Class<dalvik.system.DexFile> r10 = dalvik.system.DexFile.class
+            r1[r8] = r10     // Catch: java.lang.Exception -> L4e
+            java.lang.reflect.Constructor r1 = r3.getConstructor(r1)     // Catch: java.lang.Exception -> L4e
+            r1.setAccessible(r9)     // Catch: java.lang.Exception -> L4e
+            r0 = 4
+            goto L4f
+        L4e:
+            r1 = r2
+        L4f:
+            if (r1 != 0) goto L69
+            java.lang.Class[] r1 = new java.lang.Class[r7]     // Catch: java.lang.Exception -> L68
+            java.lang.Class<java.io.File> r10 = java.io.File.class
+            r1[r6] = r10     // Catch: java.lang.Exception -> L68
+            java.lang.Class<java.io.File> r10 = java.io.File.class
+            r1[r9] = r10     // Catch: java.lang.Exception -> L68
+            java.lang.Class<dalvik.system.DexFile> r10 = dalvik.system.DexFile.class
+            r1[r8] = r10     // Catch: java.lang.Exception -> L68
+            java.lang.reflect.Constructor r1 = r3.getConstructor(r1)     // Catch: java.lang.Exception -> L68
+            r1.setAccessible(r9)     // Catch: java.lang.Exception -> L68
+            r0 = 2
+            goto L69
+        L68:
+            r1 = r2
+        L69:
+            if (r1 != 0) goto L87
+            java.lang.Class[] r1 = new java.lang.Class[r5]     // Catch: java.lang.Exception -> L86
+            java.lang.Class<java.io.File> r10 = java.io.File.class
+            r1[r6] = r10     // Catch: java.lang.Exception -> L86
+            java.lang.Class r10 = java.lang.Boolean.TYPE     // Catch: java.lang.Exception -> L86
+            r1[r9] = r10     // Catch: java.lang.Exception -> L86
+            java.lang.Class<java.io.File> r10 = java.io.File.class
+            r1[r8] = r10     // Catch: java.lang.Exception -> L86
+            java.lang.Class<dalvik.system.DexFile> r10 = dalvik.system.DexFile.class
+            r1[r7] = r10     // Catch: java.lang.Exception -> L86
+            java.lang.reflect.Constructor r1 = r3.getConstructor(r1)     // Catch: java.lang.Exception -> L86
+            r1.setAccessible(r9)     // Catch: java.lang.Exception -> L86
+            r0 = 1
+            goto L87
         L86:
-            java.lang.Object[] r0 = new java.lang.Object[r1]
-            r0[r2] = r13
-            r0[r4] = r7
-            r0[r3] = r14
-            java.lang.Object r7 = a(r6, r0)
-            goto La3
-        L93:
-            java.lang.Object[] r0 = new java.lang.Object[r0]
-            r0[r2] = r13
-            java.lang.Boolean r13 = java.lang.Boolean.FALSE
-            r0[r4] = r13
-            r0[r3] = r7
-            r0[r1] = r14
-            java.lang.Object r7 = a(r6, r0)
-        La3:
-            return r7
+            r1 = r2
+        L87:
+            com.bytedance.pangle.dex.a.f6044b = r1
+            com.bytedance.pangle.dex.a.f6043a = r0
+            if (r0 == r9) goto La1
+            if (r0 == r8) goto L94
+            if (r0 == r5) goto L94
+            if (r0 == r4) goto La1
+            goto Lb1
+        L94:
+            java.lang.Object[] r0 = new java.lang.Object[r7]
+            r0[r6] = r11
+            r0[r9] = r2
+            r0[r8] = r12
+            java.lang.Object r2 = a(r1, r0)
+            goto Lb1
+        La1:
+            java.lang.Object[] r0 = new java.lang.Object[r5]
+            r0[r6] = r11
+            java.lang.Boolean r11 = java.lang.Boolean.FALSE
+            r0[r9] = r11
+            r0[r8] = r2
+            r0[r7] = r12
+            java.lang.Object r2 = a(r1, r0)
+        Lb1:
+            return r2
         */
         throw new UnsupportedOperationException("Method not decompiled: com.bytedance.pangle.dex.a.a(java.io.File, java.lang.Object):java.lang.Object");
     }

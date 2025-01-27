@@ -7,6 +7,7 @@ import android.content.res.AssetManager;
 import android.os.Build;
 import android.os.Process;
 import android.text.TextUtils;
+import com.baidu.mobads.sdk.internal.bu;
 import com.bytedance.sdk.openadsdk.downloadnew.core.TTDownloadField;
 import com.qq.e.comm.constants.CustomPkgConstants;
 import com.qq.e.comm.constants.Sig;
@@ -23,23 +24,21 @@ import java.util.Arrays;
 import java.util.Iterator;
 import java.util.List;
 
-/* loaded from: classes3.dex */
+/* loaded from: classes4.dex */
 class b {
 
     /* renamed from: a */
-    private static volatile String f16593a;
+    private static volatile String f24031a;
 
     public static synchronized String a(Context context) {
         ActivityManager.RunningAppProcessInfo next;
-        String processName;
         synchronized (b.class) {
-            if (!TextUtils.isEmpty(f16593a)) {
-                return f16593a;
+            if (!TextUtils.isEmpty(f24031a)) {
+                return f24031a;
             }
             if (Build.VERSION.SDK_INT >= 28) {
-                processName = Application.getProcessName();
-                f16593a = processName;
-                return f16593a;
+                f24031a = Application.getProcessName();
+                return f24031a;
             }
             int myPid = Process.myPid();
             List<ActivityManager.RunningAppProcessInfo> runningAppProcesses = ((ActivityManager) context.getSystemService(TTDownloadField.TT_ACTIVITY)).getRunningAppProcesses();
@@ -51,8 +50,8 @@ class b {
                     } catch (Exception unused) {
                     }
                     if (next.pid == myPid) {
-                        f16593a = next.processName;
-                        return f16593a;
+                        f24031a = next.processName;
+                        return f24031a;
                     }
                     continue;
                 }
@@ -61,12 +60,41 @@ class b {
         }
     }
 
-    public static void a(Context context, File file, File file2) throws Throwable {
+    public static synchronized String a(String str) {
+        synchronized (b.class) {
+            if (TextUtils.isEmpty(str)) {
+                return str;
+            }
+            String str2 = f24031a;
+            if (TextUtils.isEmpty(str2)) {
+                return str;
+            }
+            boolean endsWith = str2.endsWith("_");
+            StringBuilder sb = new StringBuilder();
+            sb.append(str);
+            sb.append(endsWith ? "" : "_");
+            String str3 = null;
+            try {
+                String str4 = new String(str2);
+                try {
+                    str3 = d.a(MessageDigest.getInstance(bu.f5659a).digest(str4.getBytes("UTF-8")));
+                } catch (Exception unused) {
+                    str3 = str4;
+                }
+            } catch (Exception unused2) {
+            }
+            sb.append(str3);
+            return sb.toString();
+        }
+    }
+
+    static void a(Context context, File file, File file2) throws Throwable {
         InputStream inputStream;
+        Throwable th;
         String str;
         FileOutputStream fileOutputStream;
         InputStream inputStream2;
-        boolean z10;
+        boolean z;
         AssetManager assets = context.getAssets();
         FileOutputStream fileOutputStream2 = null;
         try {
@@ -89,77 +117,66 @@ class b {
             if (str4 == null) {
                 str4 = "";
             }
-            h.a(context);
             h.a(SDKStatus.getBuildInPluginVersion() + "#####" + str4, file2);
             if (TextUtils.isEmpty(CustomPkgConstants.getAssetPluginXorKey())) {
-                z10 = h.a(assets.open(str3), file);
+                z = h.a(assets.open(str3), file);
                 inputStream2 = null;
             } else {
-                inputStream = assets.open(str3);
+                InputStream inputStream3 = assets.open(str3);
                 try {
-                    if (!file.canWrite()) {
-                        file.setWritable(true);
-                    }
                     fileOutputStream = new FileOutputStream(file);
                 } catch (Throwable th2) {
+                    inputStream = inputStream3;
                     th = th2;
+                    InputStream inputStream4 = inputStream;
+                    th = th;
+                    inputStream3 = inputStream4;
+                    try {
+                        GDTLogger.e("插件加载失败", th);
+                        throw th;
+                    } finally {
+                        a(inputStream3);
+                        a(fileOutputStream2);
+                    }
                 }
                 try {
                     byte[] bytes = CustomPkgConstants.getAssetPluginXorKey().getBytes(Charset.forName("UTF-8"));
                     byte[] bArr = new byte[1024];
                     int length = bytes.length;
-                    int i10 = 0;
-                    int i11 = 0;
+                    int i2 = 0;
+                    int i3 = 0;
                     while (true) {
-                        int read = inputStream.read(bArr);
+                        int read = inputStream3.read(bArr);
                         if (read <= 0) {
                             break;
                         }
-                        int i12 = 0;
-                        while (i12 < read) {
-                            int i13 = i11 + 1;
-                            if (i11 >= 64) {
-                                bArr[i12] = (byte) (bytes[i10 % length] ^ bArr[i12]);
-                                i10++;
+                        int i4 = 0;
+                        while (i4 < read) {
+                            int i5 = i3 + 1;
+                            if (i3 >= 64) {
+                                bArr[i4] = (byte) (bytes[i2 % length] ^ bArr[i4]);
+                                i2++;
                             }
-                            i12++;
-                            i11 = i13;
+                            i4++;
+                            i3 = i5;
                         }
                         fileOutputStream.write(bArr, 0, read);
                     }
+                    inputStream2 = inputStream3;
                     fileOutputStream2 = fileOutputStream;
-                    inputStream2 = inputStream;
-                    z10 = true;
+                    z = true;
                 } catch (Throwable th3) {
                     th = th3;
                     fileOutputStream2 = fileOutputStream;
-                    try {
-                        GDTLogger.e("插件加载失败", th);
-                        throw th;
-                    } catch (Throwable th4) {
-                        a(inputStream);
-                        a(fileOutputStream2);
-                        throw th4;
-                    }
-                }
-            }
-            if (z10) {
-                try {
-                    z10 = h.a(file, context);
-                } catch (Throwable th5) {
-                    th = th5;
-                    inputStream = inputStream2;
                     GDTLogger.e("插件加载失败", th);
                     throw th;
                 }
             }
-            a(inputStream2);
-            a(fileOutputStream2);
-            if (!z10) {
+            if (!z) {
                 throw new Exception("Plugin prepare failed");
             }
-        } catch (Throwable th6) {
-            th = th6;
+        } catch (Throwable th4) {
+            th = th4;
             inputStream = null;
         }
     }
@@ -169,38 +186,6 @@ class b {
             try {
                 closeable.close();
             } catch (IOException unused) {
-            }
-        }
-    }
-
-    public static synchronized String a(String str) {
-        String str2;
-        synchronized (b.class) {
-            try {
-                if (TextUtils.isEmpty(str)) {
-                    return str;
-                }
-                String str3 = f16593a;
-                if (TextUtils.isEmpty(str3)) {
-                    return str;
-                }
-                boolean endsWith = str3.endsWith(hf.e.f26694a);
-                StringBuilder sb2 = new StringBuilder();
-                sb2.append(str);
-                sb2.append(endsWith ? "" : hf.e.f26694a);
-                try {
-                    str2 = new String(str3);
-                    try {
-                        str2 = d.a(MessageDigest.getInstance("MD5").digest(str2.getBytes("UTF-8")));
-                    } catch (Exception unused) {
-                    }
-                } catch (Exception unused2) {
-                    str2 = null;
-                }
-                sb2.append(str2);
-                return sb2.toString();
-            } catch (Throwable th2) {
-                throw th2;
             }
         }
     }

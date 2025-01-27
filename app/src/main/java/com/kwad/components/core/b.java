@@ -3,11 +3,11 @@ package com.kwad.components.core;
 import android.app.Activity;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import com.kwad.components.ad.b.c;
-import com.kwad.components.ad.b.f;
-import com.kwad.components.ad.b.g;
-import com.kwad.components.ad.b.h;
-import com.kwad.components.ad.b.i;
+import com.baidu.mobads.sdk.api.IAdInterListener;
+import com.kwad.components.ad.a.d;
+import com.kwad.components.ad.a.e;
+import com.kwad.components.ad.a.g;
+import com.kwad.components.ad.a.h;
 import com.kwad.sdk.api.KsDrawAd;
 import com.kwad.sdk.api.KsExitInstallListener;
 import com.kwad.sdk.api.KsFeedAd;
@@ -18,25 +18,27 @@ import com.kwad.sdk.api.KsNativeAd;
 import com.kwad.sdk.api.KsRewardVideoAd;
 import com.kwad.sdk.api.KsScene;
 import com.kwad.sdk.api.KsSplashScreenAd;
-import com.kwad.sdk.components.d;
-import com.kwad.sdk.core.network.e;
-import com.kwad.sdk.service.ServiceProvider;
+import com.kwad.sdk.components.c;
+import com.kwad.sdk.core.network.f;
+import com.kwad.sdk.core.report.KSLoggerReporter;
+import com.kwai.adclient.kscommerciallogger.model.BusinessType;
+import com.martian.ads.ad.AdConfig;
 import java.util.List;
 
-/* loaded from: classes3.dex */
+/* loaded from: classes2.dex */
 public final class b implements KsLoadManager {
 
     /* renamed from: com.kwad.components.core.b$1 */
-    public class AnonymousClass1 implements KsLoadManager.FullScreenVideoAdListener {
-        final /* synthetic */ KsLoadManager.FullScreenVideoAdListener Ky;
+    final class AnonymousClass1 implements KsLoadManager.FullScreenVideoAdListener {
+        final /* synthetic */ KsLoadManager.FullScreenVideoAdListener gg;
 
-        public AnonymousClass1(KsLoadManager.FullScreenVideoAdListener fullScreenVideoAdListener) {
+        AnonymousClass1(KsLoadManager.FullScreenVideoAdListener fullScreenVideoAdListener) {
             fullScreenVideoAdListener = fullScreenVideoAdListener;
         }
 
         @Override // com.kwad.sdk.api.KsLoadManager.FullScreenVideoAdListener
-        public final void onError(int i10, String str) {
-            fullScreenVideoAdListener.onError(i10, str);
+        public final void onError(int i2, String str) {
+            fullScreenVideoAdListener.onError(i2, str);
         }
 
         @Override // com.kwad.sdk.api.KsLoadManager.FullScreenVideoAdListener
@@ -51,16 +53,16 @@ public final class b implements KsLoadManager {
     }
 
     /* renamed from: com.kwad.components.core.b$2 */
-    public class AnonymousClass2 implements KsLoadManager.RewardVideoAdListener {
-        final /* synthetic */ KsLoadManager.RewardVideoAdListener KA;
+    final class AnonymousClass2 implements KsLoadManager.RewardVideoAdListener {
+        final /* synthetic */ KsLoadManager.RewardVideoAdListener oz;
 
-        public AnonymousClass2(KsLoadManager.RewardVideoAdListener rewardVideoAdListener) {
+        AnonymousClass2(KsLoadManager.RewardVideoAdListener rewardVideoAdListener) {
             rewardVideoAdListener = rewardVideoAdListener;
         }
 
         @Override // com.kwad.sdk.api.KsLoadManager.RewardVideoAdListener
-        public final void onError(int i10, String str) {
-            rewardVideoAdListener.onError(i10, str);
+        public final void onError(int i2, String str) {
+            rewardVideoAdListener.onError(i2, str);
         }
 
         @Override // com.kwad.sdk.api.KsLoadManager.RewardVideoAdListener
@@ -75,16 +77,16 @@ public final class b implements KsLoadManager {
     }
 
     /* renamed from: com.kwad.components.core.b$3 */
-    public class AnonymousClass3 implements KsLoadManager.FeedAdListener {
-        final /* synthetic */ KsLoadManager.FeedAdListener fE;
+    final class AnonymousClass3 implements KsLoadManager.FeedAdListener {
+        final /* synthetic */ KsLoadManager.FeedAdListener ek;
 
-        public AnonymousClass3(KsLoadManager.FeedAdListener feedAdListener) {
+        AnonymousClass3(KsLoadManager.FeedAdListener feedAdListener) {
             feedAdListener = feedAdListener;
         }
 
         @Override // com.kwad.sdk.api.KsLoadManager.FeedAdListener
-        public final void onError(int i10, String str) {
-            feedAdListener.onError(i10, str);
+        public final void onError(int i2, String str) {
+            feedAdListener.onError(i2, str);
         }
 
         @Override // com.kwad.sdk.api.KsLoadManager.FeedAdListener
@@ -94,16 +96,16 @@ public final class b implements KsLoadManager {
     }
 
     /* renamed from: com.kwad.components.core.b$4 */
-    public class AnonymousClass4 implements KsLoadManager.FeedAdListener {
-        final /* synthetic */ KsLoadManager.FeedAdListener fE;
+    final class AnonymousClass4 implements KsLoadManager.FeedAdListener {
+        final /* synthetic */ KsLoadManager.FeedAdListener ek;
 
-        public AnonymousClass4(KsLoadManager.FeedAdListener feedAdListener) {
+        AnonymousClass4(KsLoadManager.FeedAdListener feedAdListener) {
             feedAdListener = feedAdListener;
         }
 
         @Override // com.kwad.sdk.api.KsLoadManager.FeedAdListener
-        public final void onError(int i10, String str) {
-            feedAdListener.onError(i10, str);
+        public final void onError(int i2, String str) {
+            feedAdListener.onError(i2, str);
         }
 
         @Override // com.kwad.sdk.api.KsLoadManager.FeedAdListener
@@ -113,10 +115,10 @@ public final class b implements KsLoadManager {
     }
 
     /* renamed from: com.kwad.components.core.b$5 */
-    public class AnonymousClass5 implements KsLoadManager.DrawAdListener {
-        final /* synthetic */ KsLoadManager.DrawAdListener ds;
+    final class AnonymousClass5 implements KsLoadManager.DrawAdListener {
+        final /* synthetic */ KsLoadManager.DrawAdListener cj;
 
-        public AnonymousClass5(KsLoadManager.DrawAdListener drawAdListener) {
+        AnonymousClass5(KsLoadManager.DrawAdListener drawAdListener) {
             drawAdListener = drawAdListener;
         }
 
@@ -126,22 +128,22 @@ public final class b implements KsLoadManager {
         }
 
         @Override // com.kwad.sdk.api.KsLoadManager.DrawAdListener
-        public final void onError(int i10, String str) {
-            drawAdListener.onError(i10, str);
+        public final void onError(int i2, String str) {
+            drawAdListener.onError(i2, str);
         }
     }
 
     /* renamed from: com.kwad.components.core.b$6 */
-    public class AnonymousClass6 implements KsLoadManager.NativeAdListener {
-        final /* synthetic */ KsLoadManager.NativeAdListener nA;
+    final class AnonymousClass6 implements KsLoadManager.NativeAdListener {
+        final /* synthetic */ KsLoadManager.NativeAdListener mG;
 
-        public AnonymousClass6(KsLoadManager.NativeAdListener nativeAdListener) {
+        AnonymousClass6(KsLoadManager.NativeAdListener nativeAdListener) {
             nativeAdListener = nativeAdListener;
         }
 
         @Override // com.kwad.sdk.api.KsLoadManager.NativeAdListener
-        public final void onError(int i10, String str) {
-            nativeAdListener.onError(i10, str);
+        public final void onError(int i2, String str) {
+            nativeAdListener.onError(i2, str);
         }
 
         @Override // com.kwad.sdk.api.KsLoadManager.NativeAdListener
@@ -151,21 +153,21 @@ public final class b implements KsLoadManager {
     }
 
     /* renamed from: com.kwad.components.core.b$7 */
-    public class AnonymousClass7 implements KsLoadManager.SplashScreenAdListener {
-        final /* synthetic */ KsLoadManager.SplashScreenAdListener Dw;
+    final class AnonymousClass7 implements KsLoadManager.SplashScreenAdListener {
+        final /* synthetic */ KsLoadManager.SplashScreenAdListener Bm;
 
-        public AnonymousClass7(KsLoadManager.SplashScreenAdListener splashScreenAdListener) {
+        AnonymousClass7(KsLoadManager.SplashScreenAdListener splashScreenAdListener) {
             splashScreenAdListener = splashScreenAdListener;
         }
 
         @Override // com.kwad.sdk.api.KsLoadManager.SplashScreenAdListener
-        public final void onError(int i10, String str) {
-            splashScreenAdListener.onError(i10, str);
+        public final void onError(int i2, String str) {
+            splashScreenAdListener.onError(i2, str);
         }
 
         @Override // com.kwad.sdk.api.KsLoadManager.SplashScreenAdListener
-        public final void onRequestResult(int i10) {
-            splashScreenAdListener.onRequestResult(i10);
+        public final void onRequestResult(int i2) {
+            splashScreenAdListener.onRequestResult(i2);
         }
 
         @Override // com.kwad.sdk.api.KsLoadManager.SplashScreenAdListener
@@ -175,16 +177,16 @@ public final class b implements KsLoadManager {
     }
 
     /* renamed from: com.kwad.components.core.b$8 */
-    public class AnonymousClass8 implements KsLoadManager.InterstitialAdListener {
-        final /* synthetic */ KsLoadManager.InterstitialAdListener ju;
+    final class AnonymousClass8 implements KsLoadManager.InterstitialAdListener {
+        final /* synthetic */ KsLoadManager.InterstitialAdListener hQ;
 
-        public AnonymousClass8(KsLoadManager.InterstitialAdListener interstitialAdListener) {
+        AnonymousClass8(KsLoadManager.InterstitialAdListener interstitialAdListener) {
             interstitialAdListener = interstitialAdListener;
         }
 
         @Override // com.kwad.sdk.api.KsLoadManager.InterstitialAdListener
-        public final void onError(int i10, String str) {
-            interstitialAdListener.onError(i10, str);
+        public final void onError(int i2, String str) {
+            interstitialAdListener.onError(i2, str);
         }
 
         @Override // com.kwad.sdk.api.KsLoadManager.InterstitialAdListener
@@ -193,54 +195,39 @@ public final class b implements KsLoadManager {
         }
 
         @Override // com.kwad.sdk.api.KsLoadManager.InterstitialAdListener
-        public final void onRequestResult(int i10) {
-            interstitialAdListener.onRequestResult(i10);
+        public final void onRequestResult(int i2) {
+            interstitialAdListener.onRequestResult(i2);
         }
     }
 
     @Override // com.kwad.sdk.api.KsLoadManager
     public final String getBidRequestToken(KsScene ksScene) {
-        com.kwad.components.ad.b.b bVar = (com.kwad.components.ad.b.b) d.f(com.kwad.components.ad.b.b.class);
-        return bVar != null ? bVar.getBidRequestToken(ksScene) : "";
+        com.kwad.components.ad.a.a aVar = (com.kwad.components.ad.a.a) c.f(com.kwad.components.ad.a.a.class);
+        return aVar != null ? aVar.getBidRequestToken(ksScene) : "";
     }
 
     @Override // com.kwad.sdk.api.KsLoadManager
     public final String getBidRequestTokenV2(KsScene ksScene) {
-        com.kwad.components.ad.b.b bVar = (com.kwad.components.ad.b.b) d.f(com.kwad.components.ad.b.b.class);
-        return bVar != null ? bVar.getBidRequestTokenV2(ksScene) : "";
-    }
-
-    @Override // com.kwad.sdk.api.KsLoadManager
-    public final void loadBannerAd(KsScene ksScene, @NonNull KsLoadManager.BannerAdListener bannerAdListener) {
-        try {
-            com.kwad.components.ad.b.a aVar = (com.kwad.components.ad.b.a) d.f(com.kwad.components.ad.b.a.class);
-            if (aVar != null) {
-                aVar.loadBannerAd(ksScene, bannerAdListener);
-            } else if (com.kwad.components.ad.f.a.ns.booleanValue()) {
-                e eVar = e.azx;
-                bannerAdListener.onError(eVar.errorCode, eVar.msg);
-            }
-        } catch (Throwable th2) {
-            ServiceProvider.reportSdkCaughtException(th2);
-            e eVar2 = e.azF;
-            bannerAdListener.onError(eVar2.errorCode, eVar2.msg);
-        }
+        com.kwad.components.ad.a.a aVar = (com.kwad.components.ad.a.a) c.f(com.kwad.components.ad.a.a.class);
+        return aVar != null ? aVar.getBidRequestTokenV2(ksScene) : "";
     }
 
     @Override // com.kwad.sdk.api.KsLoadManager
     public final void loadConfigFeedAd(KsScene ksScene, @NonNull KsLoadManager.FeedAdListener feedAdListener) {
-        com.kwad.components.ad.b.d dVar = (com.kwad.components.ad.b.d) d.f(com.kwad.components.ad.b.d.class);
-        if (dVar != null) {
-            dVar.loadConfigFeedAd(ksScene, new KsLoadManager.FeedAdListener() { // from class: com.kwad.components.core.b.4
-                final /* synthetic */ KsLoadManager.FeedAdListener fE;
+        com.kwad.sdk.g.a.U(IAdInterListener.AdProdType.PRODUCT_FEEDS, "request");
+        KSLoggerReporter.ReportClient.CORE_CONVERT.buildMethodCheck(BusinessType.AD_FEED, "loadRequest").bw(ksScene.getAdNum()).report();
+        com.kwad.components.ad.a.c cVar = (com.kwad.components.ad.a.c) c.f(com.kwad.components.ad.a.c.class);
+        if (cVar != null) {
+            cVar.loadConfigFeedAd(ksScene, new KsLoadManager.FeedAdListener() { // from class: com.kwad.components.core.b.4
+                final /* synthetic */ KsLoadManager.FeedAdListener ek;
 
-                public AnonymousClass4(KsLoadManager.FeedAdListener feedAdListener2) {
+                AnonymousClass4(KsLoadManager.FeedAdListener feedAdListener2) {
                     feedAdListener = feedAdListener2;
                 }
 
                 @Override // com.kwad.sdk.api.KsLoadManager.FeedAdListener
-                public final void onError(int i10, String str) {
-                    feedAdListener.onError(i10, str);
+                public final void onError(int i2, String str) {
+                    feedAdListener.onError(i2, str);
                 }
 
                 @Override // com.kwad.sdk.api.KsLoadManager.FeedAdListener
@@ -248,20 +235,22 @@ public final class b implements KsLoadManager {
                     feedAdListener.onFeedAdLoad(list);
                 }
             });
-        } else if (com.kwad.components.ad.f.a.ns.booleanValue()) {
-            e eVar = e.azx;
-            feedAdListener2.onError(eVar.errorCode, eVar.msg);
+            com.kwad.sdk.g.a.V(IAdInterListener.AdProdType.PRODUCT_FEEDS, "request");
+        } else if (com.kwad.components.ad.d.a.bI.booleanValue()) {
+            f fVar = f.agk;
+            feedAdListener2.onError(fVar.errorCode, fVar.msg);
         }
     }
 
     @Override // com.kwad.sdk.api.KsLoadManager
     public final void loadDrawAd(KsScene ksScene, @NonNull KsLoadManager.DrawAdListener drawAdListener) {
-        c cVar = (c) d.f(c.class);
-        if (cVar != null) {
-            cVar.loadDrawAd(ksScene, new KsLoadManager.DrawAdListener() { // from class: com.kwad.components.core.b.5
-                final /* synthetic */ KsLoadManager.DrawAdListener ds;
+        com.kwad.sdk.g.a.U("draw", "request");
+        com.kwad.components.ad.a.b bVar = (com.kwad.components.ad.a.b) c.f(com.kwad.components.ad.a.b.class);
+        if (bVar != null) {
+            bVar.loadDrawAd(ksScene, new KsLoadManager.DrawAdListener() { // from class: com.kwad.components.core.b.5
+                final /* synthetic */ KsLoadManager.DrawAdListener cj;
 
-                public AnonymousClass5(KsLoadManager.DrawAdListener drawAdListener2) {
+                AnonymousClass5(KsLoadManager.DrawAdListener drawAdListener2) {
                     drawAdListener = drawAdListener2;
                 }
 
@@ -271,30 +260,33 @@ public final class b implements KsLoadManager {
                 }
 
                 @Override // com.kwad.sdk.api.KsLoadManager.DrawAdListener
-                public final void onError(int i10, String str) {
-                    drawAdListener.onError(i10, str);
+                public final void onError(int i2, String str) {
+                    drawAdListener.onError(i2, str);
                 }
             });
-        } else if (com.kwad.components.ad.f.a.ns.booleanValue()) {
-            e eVar = e.azx;
-            drawAdListener2.onError(eVar.errorCode, eVar.msg);
+            com.kwad.sdk.g.a.V("draw", "request");
+        } else if (com.kwad.components.ad.d.a.bI.booleanValue()) {
+            f fVar = f.agk;
+            drawAdListener2.onError(fVar.errorCode, fVar.msg);
         }
     }
 
     @Override // com.kwad.sdk.api.KsLoadManager
     public final void loadFeedAd(KsScene ksScene, @NonNull KsLoadManager.FeedAdListener feedAdListener) {
-        com.kwad.components.ad.b.d dVar = (com.kwad.components.ad.b.d) d.f(com.kwad.components.ad.b.d.class);
-        if (dVar != null) {
-            dVar.loadFeedAd(ksScene, new KsLoadManager.FeedAdListener() { // from class: com.kwad.components.core.b.3
-                final /* synthetic */ KsLoadManager.FeedAdListener fE;
+        com.kwad.sdk.g.a.U(IAdInterListener.AdProdType.PRODUCT_FEEDS, "request");
+        KSLoggerReporter.ReportClient.CORE_CONVERT.buildMethodCheck(BusinessType.AD_FEED, "loadRequest").bw(ksScene.getAdNum()).report();
+        com.kwad.components.ad.a.c cVar = (com.kwad.components.ad.a.c) c.f(com.kwad.components.ad.a.c.class);
+        if (cVar != null) {
+            cVar.loadFeedAd(ksScene, new KsLoadManager.FeedAdListener() { // from class: com.kwad.components.core.b.3
+                final /* synthetic */ KsLoadManager.FeedAdListener ek;
 
-                public AnonymousClass3(KsLoadManager.FeedAdListener feedAdListener2) {
+                AnonymousClass3(KsLoadManager.FeedAdListener feedAdListener2) {
                     feedAdListener = feedAdListener2;
                 }
 
                 @Override // com.kwad.sdk.api.KsLoadManager.FeedAdListener
-                public final void onError(int i10, String str) {
-                    feedAdListener.onError(i10, str);
+                public final void onError(int i2, String str) {
+                    feedAdListener.onError(i2, str);
                 }
 
                 @Override // com.kwad.sdk.api.KsLoadManager.FeedAdListener
@@ -302,26 +294,29 @@ public final class b implements KsLoadManager {
                     feedAdListener.onFeedAdLoad(list);
                 }
             });
-        } else if (com.kwad.components.ad.f.a.ns.booleanValue()) {
-            e eVar = e.azx;
-            feedAdListener2.onError(eVar.errorCode, eVar.msg);
+            com.kwad.sdk.g.a.V(IAdInterListener.AdProdType.PRODUCT_FEEDS, "request");
+        } else if (com.kwad.components.ad.d.a.bI.booleanValue()) {
+            f fVar = f.agk;
+            feedAdListener2.onError(fVar.errorCode, fVar.msg);
         }
     }
 
     @Override // com.kwad.sdk.api.KsLoadManager
     public final void loadFullScreenVideoAd(KsScene ksScene, @NonNull KsLoadManager.FullScreenVideoAdListener fullScreenVideoAdListener) {
-        com.kwad.components.ad.b.e eVar = (com.kwad.components.ad.b.e) d.f(com.kwad.components.ad.b.e.class);
-        if (eVar != null) {
-            eVar.loadFullScreenVideoAd(ksScene, new KsLoadManager.FullScreenVideoAdListener() { // from class: com.kwad.components.core.b.1
-                final /* synthetic */ KsLoadManager.FullScreenVideoAdListener Ky;
+        com.kwad.sdk.g.a.U("fullscreen", "request");
+        KSLoggerReporter.ReportClient.CORE_CONVERT.buildMethodCheck(BusinessType.AD_FULLSCREEN, "loadRequest").report();
+        d dVar = (d) c.f(d.class);
+        if (dVar != null) {
+            dVar.loadFullScreenVideoAd(ksScene, new KsLoadManager.FullScreenVideoAdListener() { // from class: com.kwad.components.core.b.1
+                final /* synthetic */ KsLoadManager.FullScreenVideoAdListener gg;
 
-                public AnonymousClass1(KsLoadManager.FullScreenVideoAdListener fullScreenVideoAdListener2) {
+                AnonymousClass1(KsLoadManager.FullScreenVideoAdListener fullScreenVideoAdListener2) {
                     fullScreenVideoAdListener = fullScreenVideoAdListener2;
                 }
 
                 @Override // com.kwad.sdk.api.KsLoadManager.FullScreenVideoAdListener
-                public final void onError(int i10, String str) {
-                    fullScreenVideoAdListener.onError(i10, str);
+                public final void onError(int i2, String str) {
+                    fullScreenVideoAdListener.onError(i2, str);
                 }
 
                 @Override // com.kwad.sdk.api.KsLoadManager.FullScreenVideoAdListener
@@ -334,26 +329,29 @@ public final class b implements KsLoadManager {
                     fullScreenVideoAdListener.onFullScreenVideoResult(list);
                 }
             });
-        } else if (com.kwad.components.ad.f.a.ns.booleanValue()) {
-            e eVar2 = e.azx;
-            fullScreenVideoAdListener2.onError(eVar2.errorCode, eVar2.msg);
+            com.kwad.sdk.g.a.V("fullscreen", "request");
+        } else if (com.kwad.components.ad.d.a.bI.booleanValue()) {
+            f fVar = f.agk;
+            fullScreenVideoAdListener2.onError(fVar.errorCode, fVar.msg);
         }
     }
 
     @Override // com.kwad.sdk.api.KsLoadManager
     public final void loadInterstitialAd(@NonNull KsScene ksScene, @NonNull KsLoadManager.InterstitialAdListener interstitialAdListener) {
-        f fVar = (f) d.f(f.class);
-        if (fVar != null) {
-            fVar.loadInterstitialAd(ksScene, new KsLoadManager.InterstitialAdListener() { // from class: com.kwad.components.core.b.8
-                final /* synthetic */ KsLoadManager.InterstitialAdListener ju;
+        com.kwad.sdk.g.a.U(AdConfig.AdType.INTERSTITIAL, "request");
+        KSLoggerReporter.ReportClient.CORE_CONVERT.buildMethodCheck(BusinessType.AD_INTERSTITIAL, "loadRequest").report();
+        e eVar = (e) c.f(e.class);
+        if (eVar != null) {
+            eVar.loadInterstitialAd(ksScene, new KsLoadManager.InterstitialAdListener() { // from class: com.kwad.components.core.b.8
+                final /* synthetic */ KsLoadManager.InterstitialAdListener hQ;
 
-                public AnonymousClass8(KsLoadManager.InterstitialAdListener interstitialAdListener2) {
+                AnonymousClass8(KsLoadManager.InterstitialAdListener interstitialAdListener2) {
                     interstitialAdListener = interstitialAdListener2;
                 }
 
                 @Override // com.kwad.sdk.api.KsLoadManager.InterstitialAdListener
-                public final void onError(int i10, String str) {
-                    interstitialAdListener.onError(i10, str);
+                public final void onError(int i2, String str) {
+                    interstitialAdListener.onError(i2, str);
                 }
 
                 @Override // com.kwad.sdk.api.KsLoadManager.InterstitialAdListener
@@ -362,30 +360,33 @@ public final class b implements KsLoadManager {
                 }
 
                 @Override // com.kwad.sdk.api.KsLoadManager.InterstitialAdListener
-                public final void onRequestResult(int i10) {
-                    interstitialAdListener.onRequestResult(i10);
+                public final void onRequestResult(int i2) {
+                    interstitialAdListener.onRequestResult(i2);
                 }
             });
-        } else if (com.kwad.components.ad.f.a.ns.booleanValue()) {
-            e eVar = e.azx;
-            interstitialAdListener2.onError(eVar.errorCode, eVar.msg);
+            com.kwad.sdk.g.a.V(AdConfig.AdType.INTERSTITIAL, "request");
+        } else if (com.kwad.components.ad.d.a.bI.booleanValue()) {
+            f fVar = f.agk;
+            interstitialAdListener2.onError(fVar.errorCode, fVar.msg);
         }
     }
 
     @Override // com.kwad.sdk.api.KsLoadManager
     public final void loadNativeAd(KsScene ksScene, @NonNull KsLoadManager.NativeAdListener nativeAdListener) {
-        g gVar = (g) d.f(g.class);
-        if (gVar != null) {
-            gVar.loadNativeAd(ksScene, new KsLoadManager.NativeAdListener() { // from class: com.kwad.components.core.b.6
-                final /* synthetic */ KsLoadManager.NativeAdListener nA;
+        com.kwad.sdk.g.a.U(AdConfig.AdType.NATIVE, "request");
+        KSLoggerReporter.ReportClient.CORE_CONVERT.buildMethodCheck(BusinessType.AD_NATIVE, "loadRequest").bw(ksScene.getAdNum()).report();
+        com.kwad.components.ad.a.f fVar = (com.kwad.components.ad.a.f) c.f(com.kwad.components.ad.a.f.class);
+        if (fVar != null) {
+            fVar.loadNativeAd(ksScene, new KsLoadManager.NativeAdListener() { // from class: com.kwad.components.core.b.6
+                final /* synthetic */ KsLoadManager.NativeAdListener mG;
 
-                public AnonymousClass6(KsLoadManager.NativeAdListener nativeAdListener2) {
+                AnonymousClass6(KsLoadManager.NativeAdListener nativeAdListener2) {
                     nativeAdListener = nativeAdListener2;
                 }
 
                 @Override // com.kwad.sdk.api.KsLoadManager.NativeAdListener
-                public final void onError(int i10, String str) {
-                    nativeAdListener.onError(i10, str);
+                public final void onError(int i2, String str) {
+                    nativeAdListener.onError(i2, str);
                 }
 
                 @Override // com.kwad.sdk.api.KsLoadManager.NativeAdListener
@@ -393,26 +394,41 @@ public final class b implements KsLoadManager {
                     nativeAdListener.onNativeAdLoad(list);
                 }
             });
-        } else if (com.kwad.components.ad.f.a.ns.booleanValue()) {
-            e eVar = e.azx;
-            nativeAdListener2.onError(eVar.errorCode, eVar.msg);
+            com.kwad.sdk.g.a.V(AdConfig.AdType.NATIVE, "request");
+        } else if (com.kwad.components.ad.d.a.bI.booleanValue()) {
+            f fVar2 = f.agk;
+            nativeAdListener2.onError(fVar2.errorCode, fVar2.msg);
+        }
+    }
+
+    @Override // com.kwad.sdk.api.KsLoadManager
+    public final void loadNativeAd(String str, @NonNull KsLoadManager.NativeAdListener nativeAdListener) {
+        KSLoggerReporter.ReportClient.CORE_CONVERT.buildMethodCheck(BusinessType.AD_NATIVE, "loadRequest").aW(true).report();
+        com.kwad.components.ad.a.f fVar = (com.kwad.components.ad.a.f) c.f(com.kwad.components.ad.a.f.class);
+        if (fVar != null) {
+            fVar.loadNativeAd(str, nativeAdListener);
+        } else if (com.kwad.components.ad.d.a.bI.booleanValue()) {
+            f fVar2 = f.agk;
+            nativeAdListener.onError(fVar2.errorCode, fVar2.msg);
         }
     }
 
     @Override // com.kwad.sdk.api.KsLoadManager
     public final void loadRewardVideoAd(KsScene ksScene, @NonNull KsLoadManager.RewardVideoAdListener rewardVideoAdListener) {
-        h hVar = (h) d.f(h.class);
-        if (hVar != null) {
-            hVar.loadRewardVideoAd(ksScene, new KsLoadManager.RewardVideoAdListener() { // from class: com.kwad.components.core.b.2
-                final /* synthetic */ KsLoadManager.RewardVideoAdListener KA;
+        com.kwad.sdk.g.a.U("reward", "request");
+        KSLoggerReporter.ReportClient.CORE_CONVERT.buildMethodCheck(BusinessType.AD_REWARD, "loadRequest").report();
+        g gVar = (g) c.f(g.class);
+        if (gVar != null) {
+            gVar.loadRewardVideoAd(ksScene, new KsLoadManager.RewardVideoAdListener() { // from class: com.kwad.components.core.b.2
+                final /* synthetic */ KsLoadManager.RewardVideoAdListener oz;
 
-                public AnonymousClass2(KsLoadManager.RewardVideoAdListener rewardVideoAdListener2) {
+                AnonymousClass2(KsLoadManager.RewardVideoAdListener rewardVideoAdListener2) {
                     rewardVideoAdListener = rewardVideoAdListener2;
                 }
 
                 @Override // com.kwad.sdk.api.KsLoadManager.RewardVideoAdListener
-                public final void onError(int i10, String str) {
-                    rewardVideoAdListener.onError(i10, str);
+                public final void onError(int i2, String str) {
+                    rewardVideoAdListener.onError(i2, str);
                 }
 
                 @Override // com.kwad.sdk.api.KsLoadManager.RewardVideoAdListener
@@ -425,67 +441,54 @@ public final class b implements KsLoadManager {
                     rewardVideoAdListener.onRewardVideoResult(list);
                 }
             });
-        } else if (com.kwad.components.ad.f.a.ns.booleanValue()) {
-            e eVar = e.azx;
-            rewardVideoAdListener2.onError(eVar.errorCode, eVar.msg);
+        } else if (com.kwad.components.ad.d.a.bI.booleanValue()) {
+            f fVar = f.agk;
+            rewardVideoAdListener2.onError(fVar.errorCode, fVar.msg);
         }
+        com.kwad.sdk.g.a.V("reward", "request");
     }
 
     @Override // com.kwad.sdk.api.KsLoadManager
     public final void loadSplashScreenAd(@NonNull KsScene ksScene, @NonNull KsLoadManager.SplashScreenAdListener splashScreenAdListener) {
-        try {
-            i iVar = (i) d.f(i.class);
-            if (iVar != null) {
-                iVar.loadSplashScreenAd(ksScene, new KsLoadManager.SplashScreenAdListener() { // from class: com.kwad.components.core.b.7
-                    final /* synthetic */ KsLoadManager.SplashScreenAdListener Dw;
+        com.kwad.sdk.g.a.U("splash", "request");
+        KSLoggerReporter.ReportClient.CORE_CONVERT.buildMethodCheck(BusinessType.AD_SPLASH, "loadRequest").report();
+        h hVar = (h) c.f(h.class);
+        if (hVar != null) {
+            hVar.loadSplashScreenAd(ksScene, new KsLoadManager.SplashScreenAdListener() { // from class: com.kwad.components.core.b.7
+                final /* synthetic */ KsLoadManager.SplashScreenAdListener Bm;
 
-                    public AnonymousClass7(KsLoadManager.SplashScreenAdListener splashScreenAdListener2) {
-                        splashScreenAdListener = splashScreenAdListener2;
-                    }
+                AnonymousClass7(KsLoadManager.SplashScreenAdListener splashScreenAdListener2) {
+                    splashScreenAdListener = splashScreenAdListener2;
+                }
 
-                    @Override // com.kwad.sdk.api.KsLoadManager.SplashScreenAdListener
-                    public final void onError(int i10, String str) {
-                        splashScreenAdListener.onError(i10, str);
-                    }
+                @Override // com.kwad.sdk.api.KsLoadManager.SplashScreenAdListener
+                public final void onError(int i2, String str) {
+                    splashScreenAdListener.onError(i2, str);
+                }
 
-                    @Override // com.kwad.sdk.api.KsLoadManager.SplashScreenAdListener
-                    public final void onRequestResult(int i10) {
-                        splashScreenAdListener.onRequestResult(i10);
-                    }
+                @Override // com.kwad.sdk.api.KsLoadManager.SplashScreenAdListener
+                public final void onRequestResult(int i2) {
+                    splashScreenAdListener.onRequestResult(i2);
+                }
 
-                    @Override // com.kwad.sdk.api.KsLoadManager.SplashScreenAdListener
-                    public final void onSplashScreenAdLoad(@Nullable KsSplashScreenAd ksSplashScreenAd) {
-                        splashScreenAdListener.onSplashScreenAdLoad(ksSplashScreenAd);
-                    }
-                });
-            } else if (com.kwad.components.ad.f.a.ns.booleanValue()) {
-                e eVar = e.azx;
-                splashScreenAdListener2.onError(eVar.errorCode, eVar.msg);
-            }
-        } catch (Throwable th2) {
-            ServiceProvider.reportSdkCaughtException(th2);
-            e eVar2 = e.azF;
-            splashScreenAdListener2.onError(eVar2.errorCode, eVar2.msg);
+                @Override // com.kwad.sdk.api.KsLoadManager.SplashScreenAdListener
+                public final void onSplashScreenAdLoad(@Nullable KsSplashScreenAd ksSplashScreenAd) {
+                    splashScreenAdListener.onSplashScreenAdLoad(ksSplashScreenAd);
+                }
+            });
+            com.kwad.sdk.g.a.V("splash", "request");
+        } else if (com.kwad.components.ad.d.a.bI.booleanValue()) {
+            f fVar = f.agk;
+            splashScreenAdListener2.onError(fVar.errorCode, fVar.msg);
         }
     }
 
     @Override // com.kwad.sdk.api.KsLoadManager
     public final boolean showInstallDialog(Activity activity, KsExitInstallListener ksExitInstallListener) {
-        com.kwad.components.ad.b.b bVar = (com.kwad.components.ad.b.b) d.f(com.kwad.components.ad.b.b.class);
-        if (bVar != null) {
-            return bVar.showInstallDialog(activity, ksExitInstallListener);
+        com.kwad.components.ad.a.a aVar = (com.kwad.components.ad.a.a) c.f(com.kwad.components.ad.a.a.class);
+        if (aVar != null) {
+            return aVar.showInstallDialog(activity, ksExitInstallListener);
         }
         return false;
-    }
-
-    @Override // com.kwad.sdk.api.KsLoadManager
-    public final void loadNativeAd(String str, @NonNull KsLoadManager.NativeAdListener nativeAdListener) {
-        g gVar = (g) d.f(g.class);
-        if (gVar != null) {
-            gVar.loadNativeAd(str, nativeAdListener);
-        } else if (com.kwad.components.ad.f.a.ns.booleanValue()) {
-            e eVar = e.azx;
-            nativeAdListener.onError(eVar.errorCode, eVar.msg);
-        }
     }
 }

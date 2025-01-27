@@ -9,32 +9,32 @@ import com.tencent.bugly.proguard.X;
 public class c implements View.OnTouchListener {
 
     /* renamed from: a */
-    final int f22095a;
+    final int f24616a;
 
     /* renamed from: b */
-    final Object[] f22096b;
+    final Object[] f24617b;
 
-    public c(int i10, Object... objArr) {
-        this.f22095a = i10;
-        this.f22096b = objArr;
+    public c(int i2, Object... objArr) {
+        this.f24616a = i2;
+        this.f24617b = objArr;
     }
 
     @Override // android.view.View.OnTouchListener
     public boolean onTouch(View view, MotionEvent motionEvent) {
         try {
-        } catch (Exception e10) {
-            if (!X.a(e10)) {
-                e10.printStackTrace();
+        } catch (Exception e2) {
+            if (!X.a(e2)) {
+                e2.printStackTrace();
             }
         }
-        if (this.f22095a != 1) {
+        if (this.f24616a != 1) {
             return false;
         }
         int action = motionEvent.getAction();
         if (action == 0 || action == 2) {
-            view.setBackgroundDrawable((Drawable) this.f22096b[0]);
+            view.setBackgroundDrawable((Drawable) this.f24617b[0]);
         } else {
-            view.setBackgroundDrawable((Drawable) this.f22096b[1]);
+            view.setBackgroundDrawable((Drawable) this.f24617b[1]);
         }
         return false;
     }

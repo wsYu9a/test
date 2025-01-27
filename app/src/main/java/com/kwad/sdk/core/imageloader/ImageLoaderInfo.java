@@ -1,10 +1,10 @@
 package com.kwad.sdk.core.imageloader;
 
 import com.ksad.json.annotation.KsJson;
-import com.kwad.sdk.commercial.c.a;
+import com.kwad.sdk.core.response.kwai.a;
 
 @KsJson
-/* loaded from: classes3.dex */
+/* loaded from: classes2.dex */
 public class ImageLoaderInfo extends a {
     public double duration;
     public int failedCount;

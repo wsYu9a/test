@@ -1,81 +1,111 @@
 package com.qq.e.comm.managers.plugin;
 
-import android.content.Context;
-import android.os.Build;
 import android.text.TextUtils;
 import com.qq.e.comm.managers.plugin.c;
 import com.qq.e.comm.util.GDTLogger;
+import java.io.BufferedReader;
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.io.InputStreamReader;
 
-/* loaded from: classes3.dex */
+/* loaded from: classes4.dex */
 class g {
 
     /* renamed from: a */
-    private final File f16599a;
+    private final File f24037a;
 
     /* renamed from: b */
-    private final File f16600b;
+    private final File f24038b;
 
     /* renamed from: c */
-    private String f16601c;
+    private String f24039c;
 
     /* renamed from: d */
-    private int f16602d;
+    private int f24040d;
 
     /* renamed from: e */
-    private String f16603e;
+    private String f24041e;
 
     public g(File file, File file2) {
-        this.f16599a = file;
-        this.f16600b = file2;
+        this.f24037a = file;
+        this.f24038b = file2;
     }
 
-    public String a() {
-        return this.f16601c;
-    }
-
-    public int b() {
-        return this.f16602d;
-    }
-
-    public String c() {
-        return this.f16603e;
-    }
-
-    public boolean a(File file, File file2, Context context) {
-        if (file.equals(this.f16599a) || h.a(this.f16599a, file, context, true)) {
-            return file2.equals(this.f16600b) || h.a(this.f16600b, file2, context, false);
+    /* JADX WARN: Multi-variable type inference failed */
+    /* JADX WARN: Type inference failed for: r1v0 */
+    /* JADX WARN: Type inference failed for: r1v2 */
+    /* JADX WARN: Type inference failed for: r1v3, types: [java.io.BufferedReader] */
+    private String a(File file) throws IOException {
+        Throwable th;
+        ?? r1 = 0;
+        if (file != null) {
+            try {
+                if (file.exists()) {
+                    try {
+                        BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(new FileInputStream(file), "UTF-8"));
+                        try {
+                            StringBuilder sb = new StringBuilder();
+                            while (true) {
+                                String readLine = bufferedReader.readLine();
+                                if (readLine == null) {
+                                    break;
+                                }
+                                sb.append(readLine);
+                            }
+                            String sb2 = sb.toString();
+                            try {
+                                bufferedReader.close();
+                            } catch (Exception unused) {
+                                GDTLogger.d("Exception while close bufferreader");
+                            }
+                            return sb2;
+                        } catch (IOException e2) {
+                            throw e2;
+                        }
+                    } catch (IOException e3) {
+                        throw e3;
+                    } catch (Throwable th2) {
+                        th = th2;
+                        if (r1 != 0) {
+                            try {
+                                r1.close();
+                            } catch (Exception unused2) {
+                                GDTLogger.d("Exception while close bufferreader");
+                            }
+                        }
+                        throw th;
+                    }
+                }
+            } catch (Throwable th3) {
+                r1 = file;
+                th = th3;
+            }
         }
-        return false;
+        return null;
     }
 
-    public boolean a(Context context, boolean z10) {
-        int i10;
+    boolean a() {
+        int i2;
         try {
-            if (this.f16600b.exists() && this.f16599a.exists()) {
-                String a10 = h.a(this.f16600b);
-                this.f16603e = a10;
-                if (TextUtils.isEmpty(a10)) {
+            if (this.f24038b.exists() && this.f24037a.exists()) {
+                String a2 = a(this.f24038b);
+                this.f24041e = a2;
+                if (TextUtils.isEmpty(a2)) {
                     return false;
                 }
-                String[] split = this.f16603e.split("#####");
+                String[] split = this.f24041e.split("#####");
                 if (split.length == 2) {
                     String str = split[1];
                     try {
-                        i10 = Integer.parseInt(split[0]);
+                        i2 = Integer.parseInt(split[0]);
                     } catch (Throwable unused) {
-                        i10 = 0;
+                        i2 = 0;
                     }
-                    if (c.b.f16597a.a(str, this.f16599a)) {
-                        this.f16601c = str;
-                        this.f16602d = i10;
-                        if (Build.VERSION.SDK_INT < 34 || context == null || context.getApplicationInfo() == null || context.getApplicationInfo().targetSdkVersion < 34 || !z10) {
-                            return true;
-                        }
-                        if (!this.f16599a.canWrite() && !this.f16599a.canExecute()) {
-                            return this.f16599a.canRead();
-                        }
-                        return this.f16599a.setReadOnly();
+                    if (c.b.f24035a.a(str, this.f24037a)) {
+                        this.f24039c = str;
+                        this.f24040d = i2;
+                        return true;
                     }
                 }
             }
@@ -84,5 +114,21 @@ class g {
             GDTLogger.d("Exception while checking plugin");
             return false;
         }
+    }
+
+    boolean a(File file, File file2) {
+        return (file.equals(this.f24037a) || h.a(this.f24037a, file)) && (file2.equals(this.f24038b) || h.a(this.f24038b, file2));
+    }
+
+    String b() {
+        return this.f24039c;
+    }
+
+    int c() {
+        return this.f24040d;
+    }
+
+    public String d() {
+        return this.f24041e;
     }
 }

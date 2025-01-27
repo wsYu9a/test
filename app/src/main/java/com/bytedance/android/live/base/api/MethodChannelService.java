@@ -1,10 +1,10 @@
 package com.bytedance.android.live.base.api;
 
-import java.util.Map;
+import com.bytedance.android.live.base.IService;
 
-/* loaded from: classes2.dex */
-public interface MethodChannelService {
+/* loaded from: classes.dex */
+public interface MethodChannelService extends IService {
     String identity();
 
-    Object invokeMethod(String str, Map<String, String> map);
+    Object invokeMethod(String str, Object... objArr);
 }

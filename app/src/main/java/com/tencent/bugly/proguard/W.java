@@ -9,56 +9,52 @@ import java.util.concurrent.atomic.AtomicInteger;
 public class W {
 
     /* renamed from: a */
-    private static final AtomicInteger f22675a = new AtomicInteger(1);
+    private static final AtomicInteger f25015a = new AtomicInteger(1);
 
     /* renamed from: b */
-    private static W f22676b;
+    private static W f25016b;
 
     /* renamed from: c */
-    private ScheduledExecutorService f22677c;
+    private ScheduledExecutorService f25017c;
 
-    public W() {
-        this.f22677c = null;
+    protected W() {
+        this.f25017c = null;
         ScheduledExecutorService newScheduledThreadPool = Executors.newScheduledThreadPool(3, new V(this));
-        this.f22677c = newScheduledThreadPool;
+        this.f25017c = newScheduledThreadPool;
         if (newScheduledThreadPool == null || newScheduledThreadPool.isShutdown()) {
             X.e("[AsyncTaskHandler] ScheduledExecutorService is not valiable!", new Object[0]);
         }
     }
 
     public static synchronized W c() {
-        W w10;
+        W w;
         synchronized (W.class) {
-            try {
-                if (f22676b == null) {
-                    f22676b = new W();
-                }
-                w10 = f22676b;
-            } catch (Throwable th2) {
-                throw th2;
+            if (f25016b == null) {
+                f25016b = new W();
             }
+            w = f25016b;
         }
-        return w10;
+        return w;
     }
 
     public synchronized void b() {
-        ScheduledExecutorService scheduledExecutorService = this.f22677c;
+        ScheduledExecutorService scheduledExecutorService = this.f25017c;
         if (scheduledExecutorService != null && !scheduledExecutorService.isShutdown()) {
             X.a("[AsyncTaskHandler] Close async handler.", new Object[0]);
-            this.f22677c.shutdownNow();
+            this.f25017c.shutdownNow();
         }
     }
 
     public synchronized boolean d() {
-        boolean z10;
-        ScheduledExecutorService scheduledExecutorService = this.f22677c;
+        boolean z;
+        ScheduledExecutorService scheduledExecutorService = this.f25017c;
         if (scheduledExecutorService != null) {
-            z10 = scheduledExecutorService.isShutdown() ? false : true;
+            z = scheduledExecutorService.isShutdown() ? false : true;
         }
-        return z10;
+        return z;
     }
 
-    public synchronized boolean a(Runnable runnable, long j10) {
+    public synchronized boolean a(Runnable runnable, long j2) {
         if (!d()) {
             X.e("[AsyncTaskHandler] Async handler was closed, should not post task.", new Object[0]);
             return false;
@@ -67,16 +63,16 @@ public class W {
             X.e("[AsyncTaskHandler] Task input is null.", new Object[0]);
             return false;
         }
-        if (j10 <= 0) {
-            j10 = 0;
+        if (j2 <= 0) {
+            j2 = 0;
         }
-        X.a("[AsyncTaskHandler] Post a delay(time: %dms) task: %s", Long.valueOf(j10), runnable.getClass().getName());
+        X.a("[AsyncTaskHandler] Post a delay(time: %dms) task: %s", Long.valueOf(j2), runnable.getClass().getName());
         try {
-            this.f22677c.schedule(runnable, j10, TimeUnit.MILLISECONDS);
+            this.f25017c.schedule(runnable, j2, TimeUnit.MILLISECONDS);
             return true;
-        } catch (Throwable th2) {
-            if (com.tencent.bugly.b.f22066c) {
-                th2.printStackTrace();
+        } catch (Throwable th) {
+            if (com.tencent.bugly.b.f24588c) {
+                th.printStackTrace();
             }
             return false;
         }
@@ -93,11 +89,11 @@ public class W {
         }
         X.a("[AsyncTaskHandler] Post a normal task: %s", runnable.getClass().getName());
         try {
-            this.f22677c.execute(runnable);
+            this.f25017c.execute(runnable);
             return true;
-        } catch (Throwable th2) {
-            if (com.tencent.bugly.b.f22066c) {
-                th2.printStackTrace();
+        } catch (Throwable th) {
+            if (com.tencent.bugly.b.f24588c) {
+                th.printStackTrace();
             }
             return false;
         }

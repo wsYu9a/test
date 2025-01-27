@@ -1,8 +1,8 @@
 package com.martian.mibook.lib.yuewen.response;
 
-import com.martian.libmars.common.ConfigSingleton;
+import com.martian.libmars.d.h;
 
-/* loaded from: classes3.dex */
+/* loaded from: classes4.dex */
 public class TYSearchTag {
     private Integer ctype;
     private String dplink;
@@ -11,7 +11,7 @@ public class TYSearchTag {
 
     public int getCtype() {
         Integer num = this.ctype;
-        return num == null ? ConfigSingleton.D().p() : num.intValue();
+        return num == null ? h.F().k() : num.intValue();
     }
 
     public String getDplink() {
@@ -26,19 +26,19 @@ public class TYSearchTag {
         return this.url;
     }
 
-    public void setCtype(Integer num) {
-        this.ctype = num;
+    public void setCtype(Integer ctype) {
+        this.ctype = ctype;
     }
 
-    public void setDplink(String str) {
-        this.dplink = str;
+    public void setDplink(String dplink) {
+        this.dplink = dplink;
     }
 
-    public void setName(String str) {
-        this.name = str;
+    public void setName(String name) {
+        this.name = name;
     }
 
-    public void setUrl(String str) {
-        this.url = str;
+    public void setUrl(String url) {
+        this.url = url;
     }
 }

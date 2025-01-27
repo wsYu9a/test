@@ -3,7 +3,7 @@ package com.bumptech.glide.request.target;
 import android.graphics.drawable.Drawable;
 import android.widget.ImageView;
 
-/* loaded from: classes2.dex */
+/* loaded from: classes.dex */
 public class DrawableThumbnailImageViewTarget extends ThumbnailImageViewTarget<Drawable> {
     public DrawableThumbnailImageViewTarget(ImageView imageView) {
         super(imageView);
@@ -15,7 +15,7 @@ public class DrawableThumbnailImageViewTarget extends ThumbnailImageViewTarget<D
     }
 
     @Deprecated
-    public DrawableThumbnailImageViewTarget(ImageView imageView, boolean z10) {
-        super(imageView, z10);
+    public DrawableThumbnailImageViewTarget(ImageView imageView, boolean z) {
+        super(imageView, z);
     }
 }

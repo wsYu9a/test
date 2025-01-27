@@ -22,12 +22,12 @@ public interface IDownloadNotificationEventAidlListener extends IInterface {
         }
 
         @Override // com.ss.android.socialbase.downloader.depend.IDownloadNotificationEventAidlListener
-        public boolean interceptAfterNotificationSuccess(boolean z10) throws RemoteException {
+        public boolean interceptAfterNotificationSuccess(boolean z) throws RemoteException {
             return false;
         }
 
         @Override // com.ss.android.socialbase.downloader.depend.IDownloadNotificationEventAidlListener
-        public void onNotificationEvent(int i10, DownloadInfo downloadInfo, String str, String str2) throws RemoteException {
+        public void onNotificationEvent(int i2, DownloadInfo downloadInfo, String str, String str2) throws RemoteException {
         }
     }
 
@@ -37,11 +37,11 @@ public interface IDownloadNotificationEventAidlListener extends IInterface {
         static final int TRANSACTION_interceptAfterNotificationSuccess = 2;
         static final int TRANSACTION_onNotificationEvent = 1;
 
-        public static class Proxy implements IDownloadNotificationEventAidlListener {
+        private static class Proxy implements IDownloadNotificationEventAidlListener {
             public static IDownloadNotificationEventAidlListener sDefaultImpl;
             private IBinder mRemote;
 
-            public Proxy(IBinder iBinder) {
+            Proxy(IBinder iBinder) {
                 this.mRemote = iBinder;
             }
 
@@ -72,14 +72,14 @@ public interface IDownloadNotificationEventAidlListener extends IInterface {
             }
 
             @Override // com.ss.android.socialbase.downloader.depend.IDownloadNotificationEventAidlListener
-            public boolean interceptAfterNotificationSuccess(boolean z10) throws RemoteException {
+            public boolean interceptAfterNotificationSuccess(boolean z) throws RemoteException {
                 Parcel obtain = Parcel.obtain();
                 Parcel obtain2 = Parcel.obtain();
                 try {
                     obtain.writeInterfaceToken(Stub.DESCRIPTOR);
-                    obtain.writeInt(z10 ? 1 : 0);
+                    obtain.writeInt(z ? 1 : 0);
                     if (!this.mRemote.transact(2, obtain, obtain2, 0) && Stub.getDefaultImpl() != null) {
-                        return Stub.getDefaultImpl().interceptAfterNotificationSuccess(z10);
+                        return Stub.getDefaultImpl().interceptAfterNotificationSuccess(z);
                     }
                     obtain2.readException();
                     return obtain2.readInt() != 0;
@@ -90,12 +90,12 @@ public interface IDownloadNotificationEventAidlListener extends IInterface {
             }
 
             @Override // com.ss.android.socialbase.downloader.depend.IDownloadNotificationEventAidlListener
-            public void onNotificationEvent(int i10, DownloadInfo downloadInfo, String str, String str2) throws RemoteException {
+            public void onNotificationEvent(int i2, DownloadInfo downloadInfo, String str, String str2) throws RemoteException {
                 Parcel obtain = Parcel.obtain();
                 Parcel obtain2 = Parcel.obtain();
                 try {
                     obtain.writeInterfaceToken(Stub.DESCRIPTOR);
-                    obtain.writeInt(i10);
+                    obtain.writeInt(i2);
                     if (downloadInfo != null) {
                         obtain.writeInt(1);
                         downloadInfo.writeToParcel(obtain, 0);
@@ -106,17 +106,12 @@ public interface IDownloadNotificationEventAidlListener extends IInterface {
                     obtain.writeString(str2);
                     if (this.mRemote.transact(1, obtain, obtain2, 0) || Stub.getDefaultImpl() == null) {
                         obtain2.readException();
-                        obtain2.recycle();
-                        obtain.recycle();
                     } else {
-                        Stub.getDefaultImpl().onNotificationEvent(i10, downloadInfo, str, str2);
-                        obtain2.recycle();
-                        obtain.recycle();
+                        Stub.getDefaultImpl().onNotificationEvent(i2, downloadInfo, str, str2);
                     }
-                } catch (Throwable th2) {
+                } finally {
                     obtain2.recycle();
                     obtain.recycle();
-                    throw th2;
                 }
             }
         }
@@ -151,23 +146,23 @@ public interface IDownloadNotificationEventAidlListener extends IInterface {
         }
 
         @Override // android.os.Binder
-        public boolean onTransact(int i10, Parcel parcel, Parcel parcel2, int i11) throws RemoteException {
-            if (i10 == 1) {
+        public boolean onTransact(int i2, Parcel parcel, Parcel parcel2, int i3) throws RemoteException {
+            if (i2 == 1) {
                 parcel.enforceInterface(DESCRIPTOR);
                 onNotificationEvent(parcel.readInt(), parcel.readInt() != 0 ? DownloadInfo.CREATOR.createFromParcel(parcel) : null, parcel.readString(), parcel.readString());
                 parcel2.writeNoException();
                 return true;
             }
-            if (i10 == 2) {
+            if (i2 == 2) {
                 parcel.enforceInterface(DESCRIPTOR);
                 boolean interceptAfterNotificationSuccess = interceptAfterNotificationSuccess(parcel.readInt() != 0);
                 parcel2.writeNoException();
                 parcel2.writeInt(interceptAfterNotificationSuccess ? 1 : 0);
                 return true;
             }
-            if (i10 != 3) {
-                if (i10 != 1598968902) {
-                    return super.onTransact(i10, parcel, parcel2, i11);
+            if (i2 != 3) {
+                if (i2 != 1598968902) {
+                    return super.onTransact(i2, parcel, parcel2, i3);
                 }
                 parcel2.writeString(DESCRIPTOR);
                 return true;
@@ -182,7 +177,7 @@ public interface IDownloadNotificationEventAidlListener extends IInterface {
 
     String getNotifyProcessName() throws RemoteException;
 
-    boolean interceptAfterNotificationSuccess(boolean z10) throws RemoteException;
+    boolean interceptAfterNotificationSuccess(boolean z) throws RemoteException;
 
-    void onNotificationEvent(int i10, DownloadInfo downloadInfo, String str, String str2) throws RemoteException;
+    void onNotificationEvent(int i2, DownloadInfo downloadInfo, String str, String str2) throws RemoteException;
 }

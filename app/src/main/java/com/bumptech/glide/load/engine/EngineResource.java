@@ -4,7 +4,7 @@ import androidx.annotation.NonNull;
 import com.bumptech.glide.load.Key;
 import com.bumptech.glide.util.Preconditions;
 
-/* loaded from: classes2.dex */
+/* loaded from: classes.dex */
 class EngineResource<Z> implements Resource<Z> {
     private int acquired;
     private final boolean isMemoryCacheable;
@@ -14,19 +14,19 @@ class EngineResource<Z> implements Resource<Z> {
     private final ResourceListener listener;
     private final Resource<Z> resource;
 
-    public interface ResourceListener {
+    interface ResourceListener {
         void onResourceReleased(Key key, EngineResource<?> engineResource);
     }
 
-    public EngineResource(Resource<Z> resource, boolean z10, boolean z11, Key key, ResourceListener resourceListener) {
+    EngineResource(Resource<Z> resource, boolean z, boolean z2, Key key, ResourceListener resourceListener) {
         this.resource = (Resource) Preconditions.checkNotNull(resource);
-        this.isMemoryCacheable = z10;
-        this.isRecyclable = z11;
+        this.isMemoryCacheable = z;
+        this.isRecyclable = z2;
         this.key = key;
         this.listener = (ResourceListener) Preconditions.checkNotNull(resourceListener);
     }
 
-    public synchronized void acquire() {
+    synchronized void acquire() {
         if (this.isRecycled) {
             throw new IllegalStateException("Cannot acquire a recycled resource");
         }
@@ -39,7 +39,7 @@ class EngineResource<Z> implements Resource<Z> {
         return this.resource.get();
     }
 
-    public Resource<Z> getResource() {
+    Resource<Z> getResource() {
         return this.resource;
     }
 
@@ -54,7 +54,7 @@ class EngineResource<Z> implements Resource<Z> {
         return this.resource.getSize();
     }
 
-    public boolean isMemoryCacheable() {
+    boolean isMemoryCacheable() {
         return this.isMemoryCacheable;
     }
 
@@ -72,21 +72,21 @@ class EngineResource<Z> implements Resource<Z> {
         }
     }
 
-    public void release() {
-        boolean z10;
+    void release() {
+        boolean z;
         synchronized (this) {
-            int i10 = this.acquired;
-            if (i10 <= 0) {
+            int i2 = this.acquired;
+            if (i2 <= 0) {
                 throw new IllegalStateException("Cannot release a recycled or not yet acquired resource");
             }
-            z10 = true;
-            int i11 = i10 - 1;
-            this.acquired = i11;
-            if (i11 != 0) {
-                z10 = false;
+            z = true;
+            int i3 = i2 - 1;
+            this.acquired = i3;
+            if (i3 != 0) {
+                z = false;
             }
         }
-        if (z10) {
+        if (z) {
             this.listener.onResourceReleased(this.key, this);
         }
     }

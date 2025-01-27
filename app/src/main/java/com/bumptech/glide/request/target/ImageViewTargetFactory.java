@@ -5,7 +5,7 @@ import android.graphics.drawable.Drawable;
 import android.widget.ImageView;
 import androidx.annotation.NonNull;
 
-/* loaded from: classes2.dex */
+/* loaded from: classes.dex */
 public class ImageViewTargetFactory {
     @NonNull
     public <Z> ViewTarget<ImageView, Z> buildTarget(@NonNull ImageView imageView, @NonNull Class<Z> cls) {

@@ -4,33 +4,33 @@ import com.tencent.bugly.proguard.X;
 import java.util.Map;
 
 /* loaded from: classes4.dex */
-public class j implements Runnable {
+class j implements Runnable {
 
     /* renamed from: a */
-    final /* synthetic */ Thread f22507a;
+    final /* synthetic */ Thread f24883a;
 
     /* renamed from: b */
-    final /* synthetic */ int f22508b;
+    final /* synthetic */ int f24884b;
 
     /* renamed from: c */
-    final /* synthetic */ String f22509c;
+    final /* synthetic */ String f24885c;
 
     /* renamed from: d */
-    final /* synthetic */ String f22510d;
+    final /* synthetic */ String f24886d;
 
     /* renamed from: e */
-    final /* synthetic */ String f22511e;
+    final /* synthetic */ String f24887e;
 
     /* renamed from: f */
-    final /* synthetic */ Map f22512f;
+    final /* synthetic */ Map f24888f;
 
-    public j(Thread thread, int i10, String str, String str2, String str3, Map map) {
-        this.f22507a = thread;
-        this.f22508b = i10;
-        this.f22509c = str;
-        this.f22510d = str2;
-        this.f22511e = str3;
-        this.f22512f = map;
+    j(Thread thread, int i2, String str, String str2, String str3, Map map) {
+        this.f24883a = thread;
+        this.f24884b = i2;
+        this.f24885c = str;
+        this.f24886d = str2;
+        this.f24887e = str3;
+        this.f24888f = map;
     }
 
     @Override // java.lang.Runnable
@@ -38,18 +38,18 @@ public class j implements Runnable {
         k kVar;
         k kVar2;
         try {
-            kVar = k.f22535a;
+            kVar = k.f24905a;
             if (kVar == null) {
                 X.b("[ExtraCrashManager] Extra crash manager has not been initialized.", new Object[0]);
             } else {
-                kVar2 = k.f22535a;
-                kVar2.b(this.f22507a, this.f22508b, this.f22509c, this.f22510d, this.f22511e, this.f22512f);
+                kVar2 = k.f24905a;
+                kVar2.b(this.f24883a, this.f24884b, this.f24885c, this.f24886d, this.f24887e, this.f24888f);
             }
-        } catch (Throwable th2) {
-            if (!X.a(th2)) {
-                th2.printStackTrace();
+        } catch (Throwable th) {
+            if (!X.a(th)) {
+                th.printStackTrace();
             }
-            X.b("[ExtraCrashManager] Crash error %s %s %s", this.f22509c, this.f22510d, this.f22511e);
+            X.b("[ExtraCrashManager] Crash error %s %s %s", this.f24885c, this.f24886d, this.f24887e);
         }
     }
 }

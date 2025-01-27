@@ -4,7 +4,7 @@ import java.io.File;
 
 /* loaded from: classes4.dex */
 public interface FileLockCallback {
-    boolean onFileLock(File file, int i10);
+    boolean onFileLock(File file, int i2);
 
     boolean onFileLock(String str);
 

@@ -2,69 +2,63 @@ package androidx.core.hardware.display;
 
 import android.content.Context;
 import android.hardware.display.DisplayManager;
+import android.os.Build;
 import android.view.Display;
-import androidx.annotation.DoNotInline;
+import android.view.WindowManager;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.annotation.RequiresApi;
 import java.util.WeakHashMap;
 
 /* loaded from: classes.dex */
 public final class DisplayManagerCompat {
     public static final String DISPLAY_CATEGORY_PRESENTATION = "android.hardware.display.category.PRESENTATION";
-    private static final WeakHashMap<Context, DisplayManagerCompat> sInstances = new WeakHashMap<>();
-    private final Context mContext;
 
-    @RequiresApi(17)
-    public static class Api17Impl {
-        private Api17Impl() {
-        }
+    /* renamed from: a, reason: collision with root package name */
+    private static final WeakHashMap<Context, DisplayManagerCompat> f1804a = new WeakHashMap<>();
 
-        @DoNotInline
-        public static Display getDisplay(DisplayManager displayManager, int i10) {
-            return displayManager.getDisplay(i10);
-        }
-
-        @DoNotInline
-        public static Display[] getDisplays(DisplayManager displayManager) {
-            return displayManager.getDisplays();
-        }
-    }
+    /* renamed from: b, reason: collision with root package name */
+    private final Context f1805b;
 
     private DisplayManagerCompat(Context context) {
-        this.mContext = context;
+        this.f1805b = context;
     }
 
     @NonNull
     public static DisplayManagerCompat getInstance(@NonNull Context context) {
         DisplayManagerCompat displayManagerCompat;
-        WeakHashMap<Context, DisplayManagerCompat> weakHashMap = sInstances;
+        WeakHashMap<Context, DisplayManagerCompat> weakHashMap = f1804a;
         synchronized (weakHashMap) {
-            try {
-                displayManagerCompat = weakHashMap.get(context);
-                if (displayManagerCompat == null) {
-                    displayManagerCompat = new DisplayManagerCompat(context);
-                    weakHashMap.put(context, displayManagerCompat);
-                }
-            } catch (Throwable th2) {
-                throw th2;
+            displayManagerCompat = weakHashMap.get(context);
+            if (displayManagerCompat == null) {
+                displayManagerCompat = new DisplayManagerCompat(context);
+                weakHashMap.put(context, displayManagerCompat);
             }
         }
         return displayManagerCompat;
     }
 
     @Nullable
-    public Display getDisplay(int i10) {
-        return Api17Impl.getDisplay((DisplayManager) this.mContext.getSystemService("display"), i10);
+    public Display getDisplay(int i2) {
+        if (Build.VERSION.SDK_INT >= 17) {
+            return ((DisplayManager) this.f1805b.getSystemService("display")).getDisplay(i2);
+        }
+        Display defaultDisplay = ((WindowManager) this.f1805b.getSystemService("window")).getDefaultDisplay();
+        if (defaultDisplay.getDisplayId() == i2) {
+            return defaultDisplay;
+        }
+        return null;
     }
 
     @NonNull
     public Display[] getDisplays() {
-        return Api17Impl.getDisplays((DisplayManager) this.mContext.getSystemService("display"));
+        return Build.VERSION.SDK_INT >= 17 ? ((DisplayManager) this.f1805b.getSystemService("display")).getDisplays() : new Display[]{((WindowManager) this.f1805b.getSystemService("window")).getDefaultDisplay()};
     }
 
     @NonNull
     public Display[] getDisplays(@Nullable String str) {
-        return Api17Impl.getDisplays((DisplayManager) this.mContext.getSystemService("display"));
+        if (Build.VERSION.SDK_INT >= 17) {
+            return ((DisplayManager) this.f1805b.getSystemService("display")).getDisplays(str);
+        }
+        return str == null ? new Display[0] : new Display[]{((WindowManager) this.f1805b.getSystemService("window")).getDefaultDisplay()};
     }
 }

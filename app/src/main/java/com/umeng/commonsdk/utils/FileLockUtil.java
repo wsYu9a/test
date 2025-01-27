@@ -8,7 +8,7 @@ import java.nio.channels.FileLock;
 public class FileLockUtil {
     private final Object lockObject = new Object();
 
-    /* JADX WARN: Removed duplicated region for block: B:14:0x0024 A[EXC_TOP_SPLITTER, SYNTHETIC] */
+    /* JADX WARN: Removed duplicated region for block: B:14:0x0022 A[EXC_TOP_SPLITTER, SYNTHETIC] */
     /*
         Code decompiled incorrectly, please refer to instructions dump.
         To view partially-correct code enable 'Show inconsistent code' option in preferences
@@ -16,39 +16,37 @@ public class FileLockUtil {
     private static java.nio.channels.FileLock getFileLock(java.lang.String r3) {
         /*
             r0 = 0
-            java.io.RandomAccessFile r1 = new java.io.RandomAccessFile     // Catch: java.io.IOException -> L15 java.io.FileNotFoundException -> L18
+            java.io.RandomAccessFile r1 = new java.io.RandomAccessFile     // Catch: java.io.IOException -> L15 java.io.FileNotFoundException -> L1b
             java.lang.String r2 = "rw"
-            r1.<init>(r3, r2)     // Catch: java.io.IOException -> L15 java.io.FileNotFoundException -> L18
-            java.nio.channels.FileChannel r3 = r1.getChannel()     // Catch: java.io.IOException -> L15 java.io.FileNotFoundException -> L18
+            r1.<init>(r3, r2)     // Catch: java.io.IOException -> L15 java.io.FileNotFoundException -> L1b
+            java.nio.channels.FileChannel r3 = r1.getChannel()     // Catch: java.io.IOException -> L15 java.io.FileNotFoundException -> L1b
             java.nio.channels.FileLock r3 = r3.lock()     // Catch: java.io.IOException -> L11 java.io.FileNotFoundException -> L13
             return r3
         L11:
             r1 = move-exception
-            goto L1b
+            goto L17
         L13:
             r1 = move-exception
-            goto L1f
+            goto L1d
         L15:
             r1 = move-exception
             r3 = r0
-            goto L1b
-        L18:
+        L17:
+            r1.printStackTrace()
+            goto L20
+        L1b:
             r1 = move-exception
             r3 = r0
-            goto L1f
-        L1b:
+        L1d:
             r1.printStackTrace()
-            goto L22
-        L1f:
-            r1.printStackTrace()
-        L22:
-            if (r3 == 0) goto L2c
-            r3.close()     // Catch: java.io.IOException -> L28
-            goto L2c
-        L28:
+        L20:
+            if (r3 == 0) goto L2a
+            r3.close()     // Catch: java.io.IOException -> L26
+            goto L2a
+        L26:
             r3 = move-exception
             r3.printStackTrace()
-        L2c:
+        L2a:
             return r0
         */
         throw new UnsupportedOperationException("Method not decompiled: com.umeng.commonsdk.utils.FileLockUtil.getFileLock(java.lang.String):java.nio.channels.FileLock");
@@ -65,19 +63,19 @@ public class FileLockUtil {
                             try {
                                 fileLock.release();
                                 fileLock.channel().close();
-                            } catch (IOException e10) {
-                                e = e10;
+                            } catch (IOException e2) {
+                                e = e2;
                                 e.printStackTrace();
                             }
                         } finally {
                         }
-                    } catch (Exception e11) {
-                        e11.printStackTrace();
+                    } catch (Exception e3) {
+                        e3.printStackTrace();
                         try {
                             fileLock.release();
                             fileLock.channel().close();
-                        } catch (IOException e12) {
-                            e = e12;
+                        } catch (IOException e4) {
+                            e = e4;
                             e.printStackTrace();
                         }
                     }
@@ -86,18 +84,24 @@ public class FileLockUtil {
         }
     }
 
-    public void doFileOperateion(File file, FileLockCallback fileLockCallback, int i10) {
+    public void doFileOperateion(File file, FileLockCallback fileLockCallback, int i2) {
         if (file.exists()) {
             synchronized (this.lockObject) {
                 FileLock fileLock = getFileLock(file.getAbsolutePath());
                 if (fileLock != null) {
                     try {
                         try {
-                            fileLockCallback.onFileLock(file, i10);
-                        } finally {
+                            fileLockCallback.onFileLock(file, i2);
+                        } catch (Exception e2) {
+                            e2.printStackTrace();
+                            try {
+                                fileLock.release();
+                                fileLock.channel().close();
+                            } catch (Throwable th) {
+                                th = th;
+                                th.printStackTrace();
+                            }
                         }
-                    } catch (Exception e10) {
-                        e10.printStackTrace();
                         try {
                             fileLock.release();
                             fileLock.channel().close();
@@ -105,13 +109,7 @@ public class FileLockUtil {
                             th = th2;
                             th.printStackTrace();
                         }
-                    }
-                    try {
-                        fileLock.release();
-                        fileLock.channel().close();
-                    } catch (Throwable th3) {
-                        th = th3;
-                        th.printStackTrace();
+                    } finally {
                     }
                 }
             }
@@ -129,19 +127,19 @@ public class FileLockUtil {
                             try {
                                 fileLock.release();
                                 fileLock.channel().close();
-                            } catch (IOException e10) {
-                                e = e10;
+                            } catch (IOException e2) {
+                                e = e2;
                                 e.printStackTrace();
                             }
                         } finally {
                         }
-                    } catch (Exception e11) {
-                        e11.printStackTrace();
+                    } catch (Exception e3) {
+                        e3.printStackTrace();
                         try {
                             fileLock.release();
                             fileLock.channel().close();
-                        } catch (IOException e12) {
-                            e = e12;
+                        } catch (IOException e4) {
+                            e = e4;
                             e.printStackTrace();
                         }
                     }
@@ -161,21 +159,21 @@ public class FileLockUtil {
                             fileLockCallback.onFileLock(file.getName());
                         } finally {
                         }
-                    } catch (Exception e10) {
-                        e10.printStackTrace();
+                    } catch (Exception e2) {
+                        e2.printStackTrace();
                         try {
                             fileLock.release();
                             fileLock.channel().close();
-                        } catch (IOException e11) {
-                            e = e11;
+                        } catch (IOException e3) {
+                            e = e3;
                             e.printStackTrace();
                         }
                     }
                     try {
                         fileLock.release();
                         fileLock.channel().close();
-                    } catch (IOException e12) {
-                        e = e12;
+                    } catch (IOException e4) {
+                        e = e4;
                         e.printStackTrace();
                     }
                 }

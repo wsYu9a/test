@@ -1,41 +1,36 @@
 package com.martian.free.response;
 
-import ba.k;
+import com.martian.libsupport.j;
 import com.martian.mibook.lib.model.data.abs.Chapter;
 
-@k.h(name = "tfchapter")
-/* loaded from: classes3.dex */
+@j.g(name = "tfchapter")
+/* loaded from: classes2.dex */
 public class TFChapter extends Chapter {
 
-    @k.a
-    @k.b
+    @j.b
+    @j.a
     private Integer _id;
 
-    @k.b
+    @j.b
     private String bid;
     private Integer chargeType;
 
-    @k.i
-    @k.b
+    @j.b
+    @j.h
     private String cid;
 
-    @k.b
+    @j.b
     private Long modifiedOn;
     private Integer price;
 
-    @k.b
+    @j.b
     private String title;
 
-    @k.b
+    @j.b
     private Long words;
 
     public String getBid() {
         return this.bid;
-    }
-
-    @Override // com.martian.mibook.lib.model.data.abs.Chapter
-    public String getChapterId() {
-        return this.cid;
     }
 
     @Override // com.martian.mibook.lib.model.data.abs.Chapter
@@ -82,35 +77,35 @@ public class TFChapter extends Chapter {
         return false;
     }
 
-    public void setBid(String str) {
-        this.bid = str;
+    public void setBid(String bid) {
+        this.bid = bid;
     }
 
-    public void setChargeType(Integer num) {
-        this.chargeType = num;
+    public void setChargeType(Integer chargeType) {
+        this.chargeType = chargeType;
     }
 
-    public void setCid(String str) {
-        this.cid = str;
+    public void setCid(String cid) {
+        this.cid = cid;
     }
 
-    public void setModifiedOn(Long l10) {
-        this.modifiedOn = l10;
+    public void setModifiedOn(Long modifiedOn) {
+        this.modifiedOn = modifiedOn;
     }
 
-    public void setPrice(Integer num) {
-        this.price = num;
+    public void setPrice(Integer price) {
+        this.price = price;
     }
 
     @Override // com.martian.mibook.lib.model.data.abs.Chapter
-    public void setSrcLink(String str) {
+    public void setSrcLink(String link) {
     }
 
-    public void setTitle(String str) {
-        this.title = str;
+    public void setTitle(String title) {
+        this.title = title;
     }
 
-    public void setWords(Long l10) {
-        this.words = l10;
+    public void setWords(Long words) {
+        this.words = words;
     }
 }

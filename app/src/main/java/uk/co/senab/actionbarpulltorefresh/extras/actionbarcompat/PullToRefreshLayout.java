@@ -3,8 +3,8 @@ package uk.co.senab.actionbarpulltorefresh.extras.actionbarcompat;
 import android.app.Activity;
 import android.content.Context;
 import android.util.AttributeSet;
-import uk.co.senab.actionbarpulltorefresh.library.b;
-import uk.f;
+import uk.co.senab.actionbarpulltorefresh.library.g;
+import uk.co.senab.actionbarpulltorefresh.library.h;
 
 /* loaded from: classes5.dex */
 public class PullToRefreshLayout extends uk.co.senab.actionbarpulltorefresh.library.PullToRefreshLayout {
@@ -13,15 +13,15 @@ public class PullToRefreshLayout extends uk.co.senab.actionbarpulltorefresh.libr
     }
 
     @Override // uk.co.senab.actionbarpulltorefresh.library.PullToRefreshLayout
-    public f e(Activity activity, b bVar) {
-        return new tk.a(activity, bVar);
+    protected h e(Activity activity, g gVar) {
+        return new b(activity, gVar);
     }
 
     public PullToRefreshLayout(Context context, AttributeSet attributeSet) {
         super(context, attributeSet);
     }
 
-    public PullToRefreshLayout(Context context, AttributeSet attributeSet, int i10) {
-        super(context, attributeSet, i10);
+    public PullToRefreshLayout(Context context, AttributeSet attributeSet, int i2) {
+        super(context, attributeSet, i2);
     }
 }

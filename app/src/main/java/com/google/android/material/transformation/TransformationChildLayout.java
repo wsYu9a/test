@@ -7,7 +7,7 @@ import androidx.annotation.Nullable;
 import com.google.android.material.circularreveal.CircularRevealFrameLayout;
 
 @Deprecated
-/* loaded from: classes2.dex */
+/* loaded from: classes.dex */
 public class TransformationChildLayout extends CircularRevealFrameLayout {
     public TransformationChildLayout(@NonNull Context context) {
         this(context, null);

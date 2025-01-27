@@ -1,8 +1,8 @@
 package com.martian.libfeedback.request.url;
 
-import v8.a;
+import com.martian.libcomm.http.requests.d.a;
 
-/* loaded from: classes3.dex */
+/* loaded from: classes2.dex */
 public class MessageUrlParams extends FeedbacklUrlHttpGetParams {
 
     @a
@@ -13,12 +13,12 @@ public class MessageUrlParams extends FeedbacklUrlHttpGetParams {
         return Integer.valueOf(num == null ? 0 : num.intValue());
     }
 
-    @Override // u8.b
+    @Override // com.martian.libcomm.http.requests.b
     public String getRequestMethod() {
         return "#/messages";
     }
 
-    public void setLastNid(Integer num) {
-        this.lastNid = num;
+    public void setLastNid(Integer lastNid) {
+        this.lastNid = lastNid;
     }
 }

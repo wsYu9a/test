@@ -1,9 +1,9 @@
 package com.martian.free.request;
 
+import com.martian.libcomm.http.requests.d.a;
 import com.martian.mibook.lib.account.request.TYHttpGetParams;
-import v8.a;
 
-/* loaded from: classes3.dex */
+/* loaded from: classes2.dex */
 public class TFChapterContentParams extends TYHttpGetParams {
 
     @a
@@ -20,16 +20,16 @@ public class TFChapterContentParams extends TYHttpGetParams {
         return this.cid;
     }
 
-    @Override // u8.b
+    @Override // com.martian.libcomm.http.requests.b
     public String getRequestMethod() {
         return "tf/chapter_content";
     }
 
-    public void setBid(String str) {
-        this.bid = str;
+    public void setBid(String bid) {
+        this.bid = bid;
     }
 
-    public void setCid(String str) {
-        this.cid = str;
+    public void setCid(String cid) {
+        this.cid = cid;
     }
 }

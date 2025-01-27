@@ -3,7 +3,7 @@ package com.kwad.sdk.crash.model.message;
 import androidx.annotation.Nullable;
 import org.json.JSONObject;
 
-/* loaded from: classes3.dex */
+/* loaded from: classes2.dex */
 public class JavaExceptionMessage extends ExceptionMessage {
     private static final long serialVersionUID = -2410125079234148135L;
 
@@ -12,7 +12,7 @@ public class JavaExceptionMessage extends ExceptionMessage {
     }
 
     @Override // com.kwad.sdk.crash.model.message.ExceptionMessage
-    public String getTypePrefix() {
+    protected String getTypePrefix() {
         return "";
     }
 

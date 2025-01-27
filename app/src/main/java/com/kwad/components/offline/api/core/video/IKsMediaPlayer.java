@@ -3,13 +3,13 @@ package com.kwad.components.offline.api.core.video;
 import android.view.Surface;
 import androidx.annotation.NonNull;
 import com.kwad.components.offline.api.core.video.IMediaPlayer;
-import com.kwad.components.offline.api.core.video.listener.OfflineVideoPlayStateListener;
 import com.kwad.components.offline.api.core.video.listener.ReleaseCallback;
 import com.kwad.components.offline.api.core.video.listener.VideoMuteStateChangeListener;
+import com.kwad.components.offline.api.core.video.listener.VideoPlayStateListener;
 import com.kwad.components.offline.api.core.video.mdoel.KsPlayerLogParams;
 import com.kwad.components.offline.api.core.video.mdoel.PlayVideoInfo;
 
-/* loaded from: classes3.dex */
+/* loaded from: classes2.dex */
 public interface IKsMediaPlayer {
     void addOnInfoListener(IMediaPlayer.OnInfoListener onInfoListener);
 
@@ -33,7 +33,7 @@ public interface IKsMediaPlayer {
 
     long getPlayDuration();
 
-    String getStateString(int i10);
+    String getStateString(int i2);
 
     int getVideoHeight();
 
@@ -43,7 +43,7 @@ public interface IKsMediaPlayer {
 
     void initMediaPlayer(@NonNull PlayVideoInfo playVideoInfo, @NonNull IKsMediaPlayerView iKsMediaPlayerView);
 
-    void initMediaPlayer(@NonNull PlayVideoInfo playVideoInfo, boolean z10, boolean z11, @NonNull IKsMediaPlayerView iKsMediaPlayerView);
+    void initMediaPlayer(@NonNull PlayVideoInfo playVideoInfo, boolean z, boolean z2, @NonNull IKsMediaPlayerView iKsMediaPlayerView);
 
     boolean isPlaying();
 
@@ -51,9 +51,9 @@ public interface IKsMediaPlayer {
 
     boolean isPreparing();
 
-    void notifyOnInfoListener(IMediaPlayer iMediaPlayer, int i10, int i11);
+    void notifyOnInfoListener(IMediaPlayer iMediaPlayer, int i2, int i3);
 
-    void onPlayStateChanged(int i10);
+    void onPlayStateChanged(int i2);
 
     boolean pause();
 
@@ -61,15 +61,15 @@ public interface IKsMediaPlayer {
 
     void registerVideoMuteStateListener(VideoMuteStateChangeListener videoMuteStateChangeListener);
 
-    void registerVideoPlayStateListener(OfflineVideoPlayStateListener offlineVideoPlayStateListener);
+    void registerVideoPlayStateListener(VideoPlayStateListener videoPlayStateListener);
 
     void release();
 
     void release(ReleaseCallback releaseCallback);
 
-    void release(ReleaseCallback releaseCallback, boolean z10);
+    void release(ReleaseCallback releaseCallback, boolean z);
 
-    void releaseAsync();
+    void releaseSync();
 
     void removeInfoListener(IMediaPlayer.OnInfoListener onInfoListener);
 
@@ -79,31 +79,31 @@ public interface IKsMediaPlayer {
 
     void resume();
 
-    void seekTo(long j10);
+    void seekTo(long j2);
 
-    void setAudioEnabled(boolean z10);
+    void setAudioEnabled(boolean z);
 
     void setDataSource(@NonNull PlayVideoInfo playVideoInfo);
 
-    void setForceGetAudioFocus(boolean z10);
+    void setForceGetAudioFocus(boolean z);
 
-    void setRadius(float f10, float f11, float f12, float f13);
+    void setRadius(float f2, float f3, float f4, float f5);
 
-    void setSpeed(float f10);
+    void setSpeed(float f2);
 
     void setSurface(Surface surface);
 
-    void setVideoAdaptStrategy(int i10);
+    void setVideoAdaptStrategy(int i2);
 
-    void setVolume(float f10, float f11);
+    void setVolume(float f2, float f3);
 
     void start();
 
-    void start(long j10);
+    void start(long j2);
 
     void stopAndPrepareAsync();
 
-    void unRegisterVideoPlayStateListener(OfflineVideoPlayStateListener offlineVideoPlayStateListener);
+    void unRegisterVideoPlayStateListener(VideoPlayStateListener videoPlayStateListener);
 
     void updateKsPlayLogParam(KsPlayerLogParams ksPlayerLogParams);
 }

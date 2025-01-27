@@ -2,7 +2,7 @@ package com.kwad.components.offline.api.core.api;
 
 import android.content.Context;
 
-/* loaded from: classes3.dex */
+/* loaded from: classes2.dex */
 public interface IEnvironment {
     void addOnAudioConflictListener(Context context, OfflineOnAudioConflictListener offlineOnAudioConflictListener);
 
@@ -44,11 +44,9 @@ public interface IEnvironment {
 
     boolean isInMainProcess(Context context);
 
-    boolean isTKCrashCollectEnable();
-
     String localIpAddress();
 
     void removeOnAudioConflictListener(Context context, OfflineOnAudioConflictListener offlineOnAudioConflictListener);
 
-    boolean requestAudioFocus(Context context, boolean z10);
+    boolean requestAudioFocus(Context context, boolean z);
 }

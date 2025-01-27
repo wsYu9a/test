@@ -3,60 +3,94 @@ package androidx.core.view;
 import android.graphics.Point;
 import android.view.MotionEvent;
 import android.view.View;
-import androidx.annotation.NonNull;
-import androidx.core.view.DragStartHelper;
 
 /* loaded from: classes.dex */
 public class DragStartHelper {
-    private boolean mDragging;
-    private int mLastTouchX;
-    private int mLastTouchY;
-    private final OnDragStartListener mListener;
-    private final View.OnLongClickListener mLongClickListener = new View.OnLongClickListener() { // from class: b0.r
-        public /* synthetic */ r() {
+
+    /* renamed from: a */
+    private final View f2014a;
+
+    /* renamed from: b */
+    private final OnDragStartListener f2015b;
+
+    /* renamed from: c */
+    private int f2016c;
+
+    /* renamed from: d */
+    private int f2017d;
+
+    /* renamed from: e */
+    private boolean f2018e;
+
+    /* renamed from: f */
+    private final View.OnLongClickListener f2019f = new View.OnLongClickListener() { // from class: androidx.core.view.DragStartHelper.1
+        AnonymousClass1() {
         }
 
         @Override // android.view.View.OnLongClickListener
-        public final boolean onLongClick(View view) {
+        public boolean onLongClick(View view) {
             return DragStartHelper.this.onLongClick(view);
         }
     };
-    private final View.OnTouchListener mTouchListener = new View.OnTouchListener() { // from class: b0.s
-        public /* synthetic */ s() {
+
+    /* renamed from: g */
+    private final View.OnTouchListener f2020g = new View.OnTouchListener() { // from class: androidx.core.view.DragStartHelper.2
+        AnonymousClass2() {
         }
 
         @Override // android.view.View.OnTouchListener
-        public final boolean onTouch(View view, MotionEvent motionEvent) {
+        public boolean onTouch(View view, MotionEvent motionEvent) {
             return DragStartHelper.this.onTouch(view, motionEvent);
         }
     };
-    private final View mView;
 
-    public interface OnDragStartListener {
-        boolean onDragStart(@NonNull View view, @NonNull DragStartHelper dragStartHelper);
+    /* renamed from: androidx.core.view.DragStartHelper$1 */
+    class AnonymousClass1 implements View.OnLongClickListener {
+        AnonymousClass1() {
+        }
+
+        @Override // android.view.View.OnLongClickListener
+        public boolean onLongClick(View view) {
+            return DragStartHelper.this.onLongClick(view);
+        }
     }
 
-    public DragStartHelper(@NonNull View view, @NonNull OnDragStartListener onDragStartListener) {
-        this.mView = view;
-        this.mListener = onDragStartListener;
+    /* renamed from: androidx.core.view.DragStartHelper$2 */
+    class AnonymousClass2 implements View.OnTouchListener {
+        AnonymousClass2() {
+        }
+
+        @Override // android.view.View.OnTouchListener
+        public boolean onTouch(View view, MotionEvent motionEvent) {
+            return DragStartHelper.this.onTouch(view, motionEvent);
+        }
+    }
+
+    public interface OnDragStartListener {
+        boolean onDragStart(View view, DragStartHelper dragStartHelper);
+    }
+
+    public DragStartHelper(View view, OnDragStartListener onDragStartListener) {
+        this.f2014a = view;
+        this.f2015b = onDragStartListener;
     }
 
     public void attach() {
-        this.mView.setOnLongClickListener(this.mLongClickListener);
-        this.mView.setOnTouchListener(this.mTouchListener);
+        this.f2014a.setOnLongClickListener(this.f2019f);
+        this.f2014a.setOnTouchListener(this.f2020g);
     }
 
     public void detach() {
-        this.mView.setOnLongClickListener(null);
-        this.mView.setOnTouchListener(null);
+        this.f2014a.setOnLongClickListener(null);
+        this.f2014a.setOnTouchListener(null);
     }
 
-    public void getTouchPosition(@NonNull Point point) {
-        point.set(this.mLastTouchX, this.mLastTouchY);
+    public void getTouchPosition(Point point) {
+        point.set(this.f2016c, this.f2017d);
     }
 
-    public boolean onLongClick(@NonNull View view) {
-        return this.mListener.onDragStart(view, this);
+    public boolean onLongClick(View view) {
+        return this.f2015b.onDragStart(view, this);
     }
 
     /* JADX WARN: Code restructure failed: missing block: B:8:0x0018, code lost:
@@ -67,7 +101,7 @@ public class DragStartHelper {
         Code decompiled incorrectly, please refer to instructions dump.
         To view partially-correct code enable 'Show inconsistent code' option in preferences
     */
-    public boolean onTouch(@androidx.annotation.NonNull android.view.View r7, @androidx.annotation.NonNull android.view.MotionEvent r8) {
+    public boolean onTouch(android.view.View r7, android.view.MotionEvent r8) {
         /*
             r6 = this;
             float r0 = r8.getX()
@@ -93,28 +127,28 @@ public class DragStartHelper {
             if (r8 != 0) goto L2b
             goto L4d
         L2b:
-            boolean r8 = r6.mDragging
+            boolean r8 = r6.f2018e
             if (r8 == 0) goto L30
             goto L4d
         L30:
-            int r8 = r6.mLastTouchX
+            int r8 = r6.f2016c
             if (r8 != r0) goto L39
-            int r8 = r6.mLastTouchY
+            int r8 = r6.f2017d
             if (r8 != r1) goto L39
             goto L4d
         L39:
-            r6.mLastTouchX = r0
-            r6.mLastTouchY = r1
-            androidx.core.view.DragStartHelper$OnDragStartListener r8 = r6.mListener
+            r6.f2016c = r0
+            r6.f2017d = r1
+            androidx.core.view.DragStartHelper$OnDragStartListener r8 = r6.f2015b
             boolean r7 = r8.onDragStart(r7, r6)
-            r6.mDragging = r7
+            r6.f2018e = r7
             return r7
         L46:
-            r6.mDragging = r3
+            r6.f2018e = r3
             goto L4d
         L49:
-            r6.mLastTouchX = r0
-            r6.mLastTouchY = r1
+            r6.f2016c = r0
+            r6.f2017d = r1
         L4d:
             return r3
         */

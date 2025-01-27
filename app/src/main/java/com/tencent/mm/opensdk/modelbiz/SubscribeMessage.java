@@ -18,6 +18,10 @@ public final class SubscribeMessage {
         public Req() {
         }
 
+        public Req(Bundle bundle) {
+            fromBundle(bundle);
+        }
+
         @Override // com.tencent.mm.opensdk.modelbase.BaseReq
         public boolean checkArgs() {
             String str;
@@ -57,10 +61,6 @@ public final class SubscribeMessage {
             bundle.putString("_wxapi_subscribemessage_req_templateid", this.templateID);
             bundle.putString("_wxapi_subscribemessage_req_reserved", this.reserved);
         }
-
-        public Req(Bundle bundle) {
-            fromBundle(bundle);
-        }
     }
 
     public static class Resp extends BaseResp {
@@ -71,6 +71,10 @@ public final class SubscribeMessage {
         public String templateID;
 
         public Resp() {
+        }
+
+        public Resp(Bundle bundle) {
+            fromBundle(bundle);
         }
 
         @Override // com.tencent.mm.opensdk.modelbase.BaseResp
@@ -99,10 +103,6 @@ public final class SubscribeMessage {
             bundle.putInt("_wxapi_subscribemessage_resp_scene", this.scene);
             bundle.putString("_wxapi_subscribemessage_resp_action", this.action);
             bundle.putString("_wxapi_subscribemessage_resp_reserved", this.reserved);
-        }
-
-        public Resp(Bundle bundle) {
-            fromBundle(bundle);
         }
     }
 

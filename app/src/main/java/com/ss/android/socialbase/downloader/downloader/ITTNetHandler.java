@@ -19,7 +19,7 @@ public interface ITTNetHandler {
         }
 
         @Override // com.ss.android.socialbase.downloader.downloader.ITTNetHandler
-        public boolean isResponseCode304Error(Throwable th2) {
+        public boolean isResponseCode304Error(Throwable th) {
             return false;
         }
 
@@ -29,7 +29,7 @@ public interface ITTNetHandler {
         }
 
         @Override // com.ss.android.socialbase.downloader.downloader.ITTNetHandler
-        public DownloadTTNetException translateTTNetException(Throwable th2, String str) {
+        public DownloadTTNetException translateTTNetException(Throwable th, String str) {
             return null;
         }
     }
@@ -38,9 +38,9 @@ public interface ITTNetHandler {
 
     IDownloadHttpService getTTNetDownloadHttpService();
 
-    boolean isResponseCode304Error(Throwable th2);
+    boolean isResponseCode304Error(Throwable th);
 
     boolean isTTNetEnable();
 
-    DownloadTTNetException translateTTNetException(Throwable th2, String str);
+    DownloadTTNetException translateTTNetException(Throwable th, String str);
 }

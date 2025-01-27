@@ -40,142 +40,73 @@ public final class PrintHelper {
 
     @SuppressLint({"InlinedApi"})
     public static final int COLOR_MODE_MONOCHROME = 1;
-    static final boolean IS_MIN_MARGINS_HANDLING_CORRECT;
-    private static final String LOG_TAG = "PrintHelper";
-    private static final int MAX_PRINT_SIZE = 3500;
     public static final int ORIENTATION_LANDSCAPE = 1;
     public static final int ORIENTATION_PORTRAIT = 2;
-    static final boolean PRINT_ACTIVITY_RESPECTS_ORIENTATION;
     public static final int SCALE_MODE_FILL = 2;
     public static final int SCALE_MODE_FIT = 1;
-    final Context mContext;
-    BitmapFactory.Options mDecodeOptions = null;
-    final Object mLock = new Object();
-    int mScaleMode = 2;
-    int mColorMode = 2;
-    int mOrientation = 1;
 
-    /* renamed from: androidx.print.PrintHelper$1 */
-    public class AnonymousClass1 extends AsyncTask<Void, Void, Throwable> {
-        final /* synthetic */ PrintAttributes val$attributes;
-        final /* synthetic */ Bitmap val$bitmap;
-        final /* synthetic */ CancellationSignal val$cancellationSignal;
-        final /* synthetic */ ParcelFileDescriptor val$fileDescriptor;
-        final /* synthetic */ int val$fittingMode;
-        final /* synthetic */ PrintAttributes val$pdfAttributes;
-        final /* synthetic */ PrintDocumentAdapter.WriteResultCallback val$writeResultCallback;
+    /* renamed from: a, reason: collision with root package name */
+    private static final String f3080a = "PrintHelper";
 
-        public AnonymousClass1(CancellationSignal cancellationSignal, PrintAttributes printAttributes, Bitmap bitmap, PrintAttributes printAttributes2, int i10, ParcelFileDescriptor parcelFileDescriptor, PrintDocumentAdapter.WriteResultCallback writeResultCallback) {
-            cancellationSignal = cancellationSignal;
-            build = printAttributes;
-            bitmap = bitmap;
-            printAttributes = printAttributes2;
-            i10 = i10;
-            parcelFileDescriptor = parcelFileDescriptor;
-            writeResultCallback = writeResultCallback;
-        }
+    /* renamed from: b, reason: collision with root package name */
+    private static final int f3081b = 3500;
 
-        @Override // android.os.AsyncTask
-        public Throwable doInBackground(Void... voidArr) {
-            RectF rectF;
-            try {
-                if (cancellationSignal.isCanceled()) {
-                    return null;
-                }
-                PrintedPdfDocument printedPdfDocument = new PrintedPdfDocument(PrintHelper.this.mContext, build);
-                Bitmap convertBitmapForColorMode = PrintHelper.convertBitmapForColorMode(bitmap, build.getColorMode());
-                if (cancellationSignal.isCanceled()) {
-                    return null;
-                }
-                try {
-                    PdfDocument.Page startPage = printedPdfDocument.startPage(1);
-                    boolean z10 = PrintHelper.IS_MIN_MARGINS_HANDLING_CORRECT;
-                    if (z10) {
-                        rectF = new RectF(startPage.getInfo().getContentRect());
-                    } else {
-                        PrintedPdfDocument printedPdfDocument2 = new PrintedPdfDocument(PrintHelper.this.mContext, printAttributes);
-                        PdfDocument.Page startPage2 = printedPdfDocument2.startPage(1);
-                        RectF rectF2 = new RectF(startPage2.getInfo().getContentRect());
-                        printedPdfDocument2.finishPage(startPage2);
-                        printedPdfDocument2.close();
-                        rectF = rectF2;
-                    }
-                    Matrix matrix = PrintHelper.getMatrix(convertBitmapForColorMode.getWidth(), convertBitmapForColorMode.getHeight(), rectF, i10);
-                    if (!z10) {
-                        matrix.postTranslate(rectF.left, rectF.top);
-                        startPage.getCanvas().clipRect(rectF);
-                    }
-                    startPage.getCanvas().drawBitmap(convertBitmapForColorMode, matrix, null);
-                    printedPdfDocument.finishPage(startPage);
-                    if (cancellationSignal.isCanceled()) {
-                        printedPdfDocument.close();
-                        ParcelFileDescriptor parcelFileDescriptor = parcelFileDescriptor;
-                        if (parcelFileDescriptor != null) {
-                            try {
-                                parcelFileDescriptor.close();
-                            } catch (IOException unused) {
-                            }
-                        }
-                        if (convertBitmapForColorMode != bitmap) {
-                            convertBitmapForColorMode.recycle();
-                        }
-                        return null;
-                    }
-                    printedPdfDocument.writeTo(new FileOutputStream(parcelFileDescriptor.getFileDescriptor()));
-                    printedPdfDocument.close();
-                    ParcelFileDescriptor parcelFileDescriptor2 = parcelFileDescriptor;
-                    if (parcelFileDescriptor2 != null) {
-                        try {
-                            parcelFileDescriptor2.close();
-                        } catch (IOException unused2) {
-                        }
-                    }
-                    if (convertBitmapForColorMode != bitmap) {
-                        convertBitmapForColorMode.recycle();
-                    }
-                    return null;
-                } finally {
-                }
-            } catch (Throwable th2) {
-                return th2;
-            }
-        }
+    /* renamed from: c, reason: collision with root package name */
+    static final boolean f3082c;
 
-        @Override // android.os.AsyncTask
-        public void onPostExecute(Throwable th2) {
-            if (cancellationSignal.isCanceled()) {
-                writeResultCallback.onWriteCancelled();
-            } else if (th2 == null) {
-                writeResultCallback.onWriteFinished(new PageRange[]{PageRange.ALL_PAGES});
-            } else {
-                Log.e(PrintHelper.LOG_TAG, "Error writing printed content", th2);
-                writeResultCallback.onWriteFailed(null);
-            }
-        }
-    }
+    /* renamed from: d, reason: collision with root package name */
+    static final boolean f3083d;
+
+    /* renamed from: e, reason: collision with root package name */
+    final Context f3084e;
+
+    /* renamed from: f, reason: collision with root package name */
+    BitmapFactory.Options f3085f = null;
+
+    /* renamed from: g, reason: collision with root package name */
+    final Object f3086g = new Object();
+
+    /* renamed from: h, reason: collision with root package name */
+    int f3087h = 2;
+
+    /* renamed from: i, reason: collision with root package name */
+    int f3088i = 2;
+
+    /* renamed from: j, reason: collision with root package name */
+    int f3089j = 1;
 
     public interface OnPrintFinishCallback {
         void onFinish();
     }
 
     @RequiresApi(19)
-    public class PrintBitmapAdapter extends PrintDocumentAdapter {
-        private PrintAttributes mAttributes;
-        private final Bitmap mBitmap;
-        private final OnPrintFinishCallback mCallback;
-        private final int mFittingMode;
-        private final String mJobName;
+    private class PrintBitmapAdapter extends PrintDocumentAdapter {
 
-        public PrintBitmapAdapter(String str, int i10, Bitmap bitmap, OnPrintFinishCallback onPrintFinishCallback) {
-            this.mJobName = str;
-            this.mFittingMode = i10;
-            this.mBitmap = bitmap;
-            this.mCallback = onPrintFinishCallback;
+        /* renamed from: a, reason: collision with root package name */
+        private final String f3098a;
+
+        /* renamed from: b, reason: collision with root package name */
+        private final int f3099b;
+
+        /* renamed from: c, reason: collision with root package name */
+        private final Bitmap f3100c;
+
+        /* renamed from: d, reason: collision with root package name */
+        private final OnPrintFinishCallback f3101d;
+
+        /* renamed from: e, reason: collision with root package name */
+        private PrintAttributes f3102e;
+
+        PrintBitmapAdapter(String str, int i2, Bitmap bitmap, OnPrintFinishCallback onPrintFinishCallback) {
+            this.f3098a = str;
+            this.f3099b = i2;
+            this.f3100c = bitmap;
+            this.f3101d = onPrintFinishCallback;
         }
 
         @Override // android.print.PrintDocumentAdapter
         public void onFinish() {
-            OnPrintFinishCallback onPrintFinishCallback = this.mCallback;
+            OnPrintFinishCallback onPrintFinishCallback = this.f3101d;
             if (onPrintFinishCallback != null) {
                 onPrintFinishCallback.onFinish();
             }
@@ -183,125 +114,55 @@ public final class PrintHelper {
 
         @Override // android.print.PrintDocumentAdapter
         public void onLayout(PrintAttributes printAttributes, PrintAttributes printAttributes2, CancellationSignal cancellationSignal, PrintDocumentAdapter.LayoutResultCallback layoutResultCallback, Bundle bundle) {
-            this.mAttributes = printAttributes2;
-            layoutResultCallback.onLayoutFinished(new PrintDocumentInfo.Builder(this.mJobName).setContentType(1).setPageCount(1).build(), !printAttributes2.equals(printAttributes));
+            this.f3102e = printAttributes2;
+            layoutResultCallback.onLayoutFinished(new PrintDocumentInfo.Builder(this.f3098a).setContentType(1).setPageCount(1).build(), !printAttributes2.equals(printAttributes));
         }
 
         @Override // android.print.PrintDocumentAdapter
         public void onWrite(PageRange[] pageRangeArr, ParcelFileDescriptor parcelFileDescriptor, CancellationSignal cancellationSignal, PrintDocumentAdapter.WriteResultCallback writeResultCallback) {
-            PrintHelper.this.writeBitmap(this.mAttributes, this.mFittingMode, this.mBitmap, parcelFileDescriptor, cancellationSignal, writeResultCallback);
+            PrintHelper.this.g(this.f3102e, this.f3099b, this.f3100c, parcelFileDescriptor, cancellationSignal, writeResultCallback);
         }
     }
 
     @RequiresApi(19)
-    public class PrintUriAdapter extends PrintDocumentAdapter {
-        PrintAttributes mAttributes;
-        Bitmap mBitmap = null;
-        final OnPrintFinishCallback mCallback;
-        final int mFittingMode;
-        final Uri mImageFile;
-        final String mJobName;
-        AsyncTask<Uri, Boolean, Bitmap> mLoadBitmap;
+    private class PrintUriAdapter extends PrintDocumentAdapter {
 
-        /* renamed from: androidx.print.PrintHelper$PrintUriAdapter$1 */
-        public class AnonymousClass1 extends AsyncTask<Uri, Boolean, Bitmap> {
-            final /* synthetic */ CancellationSignal val$cancellationSignal;
-            final /* synthetic */ PrintDocumentAdapter.LayoutResultCallback val$layoutResultCallback;
-            final /* synthetic */ PrintAttributes val$newPrintAttributes;
-            final /* synthetic */ PrintAttributes val$oldPrintAttributes;
+        /* renamed from: a, reason: collision with root package name */
+        final String f3104a;
 
-            /* renamed from: androidx.print.PrintHelper$PrintUriAdapter$1$1 */
-            public class C00081 implements CancellationSignal.OnCancelListener {
-                public C00081() {
-                }
+        /* renamed from: b, reason: collision with root package name */
+        final Uri f3105b;
 
-                @Override // android.os.CancellationSignal.OnCancelListener
-                public void onCancel() {
-                    PrintUriAdapter.this.cancelLoad();
-                    AnonymousClass1.this.cancel(false);
-                }
-            }
+        /* renamed from: c, reason: collision with root package name */
+        final OnPrintFinishCallback f3106c;
 
-            public AnonymousClass1(CancellationSignal cancellationSignal, PrintAttributes printAttributes, PrintAttributes printAttributes2, PrintDocumentAdapter.LayoutResultCallback layoutResultCallback) {
-                cancellationSignal = cancellationSignal;
-                printAttributes2 = printAttributes;
-                printAttributes = printAttributes2;
-                layoutResultCallback = layoutResultCallback;
-            }
+        /* renamed from: d, reason: collision with root package name */
+        final int f3107d;
 
-            @Override // android.os.AsyncTask
-            public void onPreExecute() {
-                cancellationSignal.setOnCancelListener(new CancellationSignal.OnCancelListener() { // from class: androidx.print.PrintHelper.PrintUriAdapter.1.1
-                    public C00081() {
-                    }
+        /* renamed from: e, reason: collision with root package name */
+        PrintAttributes f3108e;
 
-                    @Override // android.os.CancellationSignal.OnCancelListener
-                    public void onCancel() {
-                        PrintUriAdapter.this.cancelLoad();
-                        AnonymousClass1.this.cancel(false);
-                    }
-                });
-            }
+        /* renamed from: f, reason: collision with root package name */
+        AsyncTask<Uri, Boolean, Bitmap> f3109f;
 
-            @Override // android.os.AsyncTask
-            public Bitmap doInBackground(Uri... uriArr) {
-                try {
-                    PrintUriAdapter printUriAdapter = PrintUriAdapter.this;
-                    return PrintHelper.this.loadConstrainedBitmap(printUriAdapter.mImageFile);
-                } catch (FileNotFoundException unused) {
-                    return null;
-                }
-            }
+        /* renamed from: g, reason: collision with root package name */
+        Bitmap f3110g = null;
 
-            @Override // android.os.AsyncTask
-            public void onCancelled(Bitmap bitmap) {
-                layoutResultCallback.onLayoutCancelled();
-                PrintUriAdapter.this.mLoadBitmap = null;
-            }
-
-            @Override // android.os.AsyncTask
-            public void onPostExecute(Bitmap bitmap) {
-                PrintAttributes.MediaSize mediaSize;
-                super.onPostExecute((AnonymousClass1) bitmap);
-                if (bitmap != null && (!PrintHelper.PRINT_ACTIVITY_RESPECTS_ORIENTATION || PrintHelper.this.mOrientation == 0)) {
-                    synchronized (this) {
-                        mediaSize = PrintUriAdapter.this.mAttributes.getMediaSize();
-                    }
-                    if (mediaSize != null && mediaSize.isPortrait() != PrintHelper.isPortrait(bitmap)) {
-                        Matrix matrix = new Matrix();
-                        matrix.postRotate(90.0f);
-                        bitmap = Bitmap.createBitmap(bitmap, 0, 0, bitmap.getWidth(), bitmap.getHeight(), matrix, true);
-                    }
-                }
-                PrintUriAdapter.this.mBitmap = bitmap;
-                if (bitmap != null) {
-                    layoutResultCallback.onLayoutFinished(new PrintDocumentInfo.Builder(PrintUriAdapter.this.mJobName).setContentType(1).setPageCount(1).build(), true ^ printAttributes2.equals(printAttributes));
-                } else {
-                    layoutResultCallback.onLayoutFailed(null);
-                }
-                PrintUriAdapter.this.mLoadBitmap = null;
-            }
+        PrintUriAdapter(String str, Uri uri, OnPrintFinishCallback onPrintFinishCallback, int i2) {
+            this.f3104a = str;
+            this.f3105b = uri;
+            this.f3106c = onPrintFinishCallback;
+            this.f3107d = i2;
         }
 
-        public PrintUriAdapter(String str, Uri uri, OnPrintFinishCallback onPrintFinishCallback, int i10) {
-            this.mJobName = str;
-            this.mImageFile = uri;
-            this.mCallback = onPrintFinishCallback;
-            this.mFittingMode = i10;
-        }
-
-        public void cancelLoad() {
-            synchronized (PrintHelper.this.mLock) {
-                try {
-                    BitmapFactory.Options options = PrintHelper.this.mDecodeOptions;
-                    if (options != null) {
-                        if (Build.VERSION.SDK_INT < 24) {
-                            options.requestCancelDecode();
-                        }
-                        PrintHelper.this.mDecodeOptions = null;
+        void a() {
+            synchronized (PrintHelper.this.f3086g) {
+                BitmapFactory.Options options = PrintHelper.this.f3085f;
+                if (options != null) {
+                    if (Build.VERSION.SDK_INT < 24) {
+                        options.requestCancelDecode();
                     }
-                } catch (Throwable th2) {
-                    throw th2;
+                    PrintHelper.this.f3085f = null;
                 }
             }
         }
@@ -309,108 +170,87 @@ public final class PrintHelper {
         @Override // android.print.PrintDocumentAdapter
         public void onFinish() {
             super.onFinish();
-            cancelLoad();
-            AsyncTask<Uri, Boolean, Bitmap> asyncTask = this.mLoadBitmap;
+            a();
+            AsyncTask<Uri, Boolean, Bitmap> asyncTask = this.f3109f;
             if (asyncTask != null) {
                 asyncTask.cancel(true);
             }
-            OnPrintFinishCallback onPrintFinishCallback = this.mCallback;
+            OnPrintFinishCallback onPrintFinishCallback = this.f3106c;
             if (onPrintFinishCallback != null) {
                 onPrintFinishCallback.onFinish();
             }
-            Bitmap bitmap = this.mBitmap;
+            Bitmap bitmap = this.f3110g;
             if (bitmap != null) {
                 bitmap.recycle();
-                this.mBitmap = null;
+                this.f3110g = null;
             }
         }
 
         @Override // android.print.PrintDocumentAdapter
-        public void onLayout(PrintAttributes printAttributes, PrintAttributes printAttributes2, CancellationSignal cancellationSignal, PrintDocumentAdapter.LayoutResultCallback layoutResultCallback, Bundle bundle) {
+        public void onLayout(final PrintAttributes printAttributes, final PrintAttributes printAttributes2, final CancellationSignal cancellationSignal, final PrintDocumentAdapter.LayoutResultCallback layoutResultCallback, Bundle bundle) {
             synchronized (this) {
-                this.mAttributes = printAttributes2;
+                this.f3108e = printAttributes2;
             }
             if (cancellationSignal.isCanceled()) {
                 layoutResultCallback.onLayoutCancelled();
-            } else if (this.mBitmap != null) {
-                layoutResultCallback.onLayoutFinished(new PrintDocumentInfo.Builder(this.mJobName).setContentType(1).setPageCount(1).build(), !printAttributes2.equals(printAttributes));
+            } else if (this.f3110g != null) {
+                layoutResultCallback.onLayoutFinished(new PrintDocumentInfo.Builder(this.f3104a).setContentType(1).setPageCount(1).build(), !printAttributes2.equals(printAttributes));
             } else {
-                this.mLoadBitmap = new AsyncTask<Uri, Boolean, Bitmap>() { // from class: androidx.print.PrintHelper.PrintUriAdapter.1
-                    final /* synthetic */ CancellationSignal val$cancellationSignal;
-                    final /* synthetic */ PrintDocumentAdapter.LayoutResultCallback val$layoutResultCallback;
-                    final /* synthetic */ PrintAttributes val$newPrintAttributes;
-                    final /* synthetic */ PrintAttributes val$oldPrintAttributes;
-
-                    /* renamed from: androidx.print.PrintHelper$PrintUriAdapter$1$1 */
-                    public class C00081 implements CancellationSignal.OnCancelListener {
-                        public C00081() {
-                        }
-
-                        @Override // android.os.CancellationSignal.OnCancelListener
-                        public void onCancel() {
-                            PrintUriAdapter.this.cancelLoad();
-                            AnonymousClass1.this.cancel(false);
-                        }
-                    }
-
-                    public AnonymousClass1(CancellationSignal cancellationSignal2, PrintAttributes printAttributes22, PrintAttributes printAttributes3, PrintDocumentAdapter.LayoutResultCallback layoutResultCallback2) {
-                        cancellationSignal = cancellationSignal2;
-                        printAttributes2 = printAttributes22;
-                        printAttributes = printAttributes3;
-                        layoutResultCallback = layoutResultCallback2;
-                    }
-
+                this.f3109f = new AsyncTask<Uri, Boolean, Bitmap>() { // from class: androidx.print.PrintHelper.PrintUriAdapter.1
+                    /* JADX INFO: Access modifiers changed from: protected */
                     @Override // android.os.AsyncTask
-                    public void onPreExecute() {
-                        cancellationSignal.setOnCancelListener(new CancellationSignal.OnCancelListener() { // from class: androidx.print.PrintHelper.PrintUriAdapter.1.1
-                            public C00081() {
-                            }
-
-                            @Override // android.os.CancellationSignal.OnCancelListener
-                            public void onCancel() {
-                                PrintUriAdapter.this.cancelLoad();
-                                AnonymousClass1.this.cancel(false);
-                            }
-                        });
-                    }
-
-                    @Override // android.os.AsyncTask
+                    /* renamed from: a, reason: merged with bridge method [inline-methods] */
                     public Bitmap doInBackground(Uri... uriArr) {
                         try {
                             PrintUriAdapter printUriAdapter = PrintUriAdapter.this;
-                            return PrintHelper.this.loadConstrainedBitmap(printUriAdapter.mImageFile);
+                            return PrintHelper.this.f(printUriAdapter.f3105b);
                         } catch (FileNotFoundException unused) {
                             return null;
                         }
                     }
 
+                    /* JADX INFO: Access modifiers changed from: protected */
                     @Override // android.os.AsyncTask
+                    /* renamed from: b, reason: merged with bridge method [inline-methods] */
                     public void onCancelled(Bitmap bitmap) {
                         layoutResultCallback.onLayoutCancelled();
-                        PrintUriAdapter.this.mLoadBitmap = null;
+                        PrintUriAdapter.this.f3109f = null;
                     }
 
+                    /* JADX INFO: Access modifiers changed from: protected */
                     @Override // android.os.AsyncTask
+                    /* renamed from: c, reason: merged with bridge method [inline-methods] */
                     public void onPostExecute(Bitmap bitmap) {
                         PrintAttributes.MediaSize mediaSize;
-                        super.onPostExecute((AnonymousClass1) bitmap);
-                        if (bitmap != null && (!PrintHelper.PRINT_ACTIVITY_RESPECTS_ORIENTATION || PrintHelper.this.mOrientation == 0)) {
+                        super.onPostExecute(bitmap);
+                        if (bitmap != null && (!PrintHelper.f3082c || PrintHelper.this.f3089j == 0)) {
                             synchronized (this) {
-                                mediaSize = PrintUriAdapter.this.mAttributes.getMediaSize();
+                                mediaSize = PrintUriAdapter.this.f3108e.getMediaSize();
                             }
-                            if (mediaSize != null && mediaSize.isPortrait() != PrintHelper.isPortrait(bitmap)) {
+                            if (mediaSize != null && mediaSize.isPortrait() != PrintHelper.d(bitmap)) {
                                 Matrix matrix = new Matrix();
                                 matrix.postRotate(90.0f);
                                 bitmap = Bitmap.createBitmap(bitmap, 0, 0, bitmap.getWidth(), bitmap.getHeight(), matrix, true);
                             }
                         }
-                        PrintUriAdapter.this.mBitmap = bitmap;
+                        PrintUriAdapter.this.f3110g = bitmap;
                         if (bitmap != null) {
-                            layoutResultCallback.onLayoutFinished(new PrintDocumentInfo.Builder(PrintUriAdapter.this.mJobName).setContentType(1).setPageCount(1).build(), true ^ printAttributes2.equals(printAttributes));
+                            layoutResultCallback.onLayoutFinished(new PrintDocumentInfo.Builder(PrintUriAdapter.this.f3104a).setContentType(1).setPageCount(1).build(), true ^ printAttributes2.equals(printAttributes));
                         } else {
                             layoutResultCallback.onLayoutFailed(null);
                         }
-                        PrintUriAdapter.this.mLoadBitmap = null;
+                        PrintUriAdapter.this.f3109f = null;
+                    }
+
+                    @Override // android.os.AsyncTask
+                    protected void onPreExecute() {
+                        cancellationSignal.setOnCancelListener(new CancellationSignal.OnCancelListener() { // from class: androidx.print.PrintHelper.PrintUriAdapter.1.1
+                            @Override // android.os.CancellationSignal.OnCancelListener
+                            public void onCancel() {
+                                PrintUriAdapter.this.a();
+                                cancel(false);
+                            }
+                        });
                     }
                 }.execute(new Uri[0]);
             }
@@ -418,22 +258,22 @@ public final class PrintHelper {
 
         @Override // android.print.PrintDocumentAdapter
         public void onWrite(PageRange[] pageRangeArr, ParcelFileDescriptor parcelFileDescriptor, CancellationSignal cancellationSignal, PrintDocumentAdapter.WriteResultCallback writeResultCallback) {
-            PrintHelper.this.writeBitmap(this.mAttributes, this.mFittingMode, this.mBitmap, parcelFileDescriptor, cancellationSignal, writeResultCallback);
+            PrintHelper.this.g(this.f3108e, this.f3107d, this.f3110g, parcelFileDescriptor, cancellationSignal, writeResultCallback);
         }
     }
 
     static {
-        int i10 = Build.VERSION.SDK_INT;
-        PRINT_ACTIVITY_RESPECTS_ORIENTATION = i10 > 23;
-        IS_MIN_MARGINS_HANDLING_CORRECT = i10 != 23;
+        int i2 = Build.VERSION.SDK_INT;
+        f3082c = i2 < 20 || i2 > 23;
+        f3083d = i2 != 23;
     }
 
     public PrintHelper(@NonNull Context context) {
-        this.mContext = context;
+        this.f3084e = context;
     }
 
-    public static Bitmap convertBitmapForColorMode(Bitmap bitmap, int i10) {
-        if (i10 != 1) {
+    static Bitmap a(Bitmap bitmap, int i2) {
+        if (i2 != 1) {
             return bitmap;
         }
         Bitmap createBitmap = Bitmap.createBitmap(bitmap.getWidth(), bitmap.getHeight(), Bitmap.Config.ARGB_8888);
@@ -448,67 +288,61 @@ public final class PrintHelper {
     }
 
     @RequiresApi(19)
-    private static PrintAttributes.Builder copyAttributes(PrintAttributes printAttributes) {
-        int duplexMode;
-        int duplexMode2;
+    private static PrintAttributes.Builder b(PrintAttributes printAttributes) {
         PrintAttributes.Builder minMargins = new PrintAttributes.Builder().setMediaSize(printAttributes.getMediaSize()).setResolution(printAttributes.getResolution()).setMinMargins(printAttributes.getMinMargins());
         if (printAttributes.getColorMode() != 0) {
             minMargins.setColorMode(printAttributes.getColorMode());
         }
-        if (Build.VERSION.SDK_INT >= 23) {
-            duplexMode = printAttributes.getDuplexMode();
-            if (duplexMode != 0) {
-                duplexMode2 = printAttributes.getDuplexMode();
-                minMargins.setDuplexMode(duplexMode2);
-            }
+        if (Build.VERSION.SDK_INT >= 23 && printAttributes.getDuplexMode() != 0) {
+            minMargins.setDuplexMode(printAttributes.getDuplexMode());
         }
         return minMargins;
     }
 
-    public static Matrix getMatrix(int i10, int i11, RectF rectF, int i12) {
+    static Matrix c(int i2, int i3, RectF rectF, int i4) {
         Matrix matrix = new Matrix();
-        float f10 = i10;
-        float width = rectF.width() / f10;
-        float max = i12 == 2 ? Math.max(width, rectF.height() / i11) : Math.min(width, rectF.height() / i11);
+        float f2 = i2;
+        float width = rectF.width() / f2;
+        float max = i4 == 2 ? Math.max(width, rectF.height() / i3) : Math.min(width, rectF.height() / i3);
         matrix.postScale(max, max);
-        matrix.postTranslate((rectF.width() - (f10 * max)) / 2.0f, (rectF.height() - (i11 * max)) / 2.0f);
+        matrix.postTranslate((rectF.width() - (f2 * max)) / 2.0f, (rectF.height() - (i3 * max)) / 2.0f);
         return matrix;
     }
 
-    public static boolean isPortrait(Bitmap bitmap) {
+    static boolean d(Bitmap bitmap) {
         return bitmap.getWidth() <= bitmap.getHeight();
     }
 
-    private Bitmap loadBitmap(Uri uri, BitmapFactory.Options options) throws FileNotFoundException {
+    private Bitmap e(Uri uri, BitmapFactory.Options options) throws FileNotFoundException {
         Context context;
         InputStream openInputStream;
-        if (uri == null || (context = this.mContext) == null) {
+        if (uri == null || (context = this.f3084e) == null) {
             throw new IllegalArgumentException("bad argument to loadBitmap");
         }
         InputStream inputStream = null;
         try {
             openInputStream = context.getContentResolver().openInputStream(uri);
-        } catch (Throwable th2) {
-            th = th2;
+        } catch (Throwable th) {
+            th = th;
         }
         try {
             Bitmap decodeStream = BitmapFactory.decodeStream(openInputStream, null, options);
             if (openInputStream != null) {
                 try {
                     openInputStream.close();
-                } catch (IOException e10) {
-                    Log.w(LOG_TAG, "close fail ", e10);
+                } catch (IOException e2) {
+                    Log.w(f3080a, "close fail ", e2);
                 }
             }
             return decodeStream;
-        } catch (Throwable th3) {
-            th = th3;
+        } catch (Throwable th2) {
+            th = th2;
             inputStream = openInputStream;
             if (inputStream != null) {
                 try {
                     inputStream.close();
-                } catch (IOException e11) {
-                    Log.w(LOG_TAG, "close fail ", e11);
+                } catch (IOException e3) {
+                    Log.w(f3080a, "close fail ", e3);
                 }
             }
             throw th;
@@ -516,59 +350,43 @@ public final class PrintHelper {
     }
 
     public static boolean systemSupportsPrint() {
-        return true;
+        return Build.VERSION.SDK_INT >= 19;
     }
 
-    public int getColorMode() {
-        return this.mColorMode;
-    }
-
-    public int getOrientation() {
-        int i10 = this.mOrientation;
-        if (i10 == 0) {
-            return 1;
-        }
-        return i10;
-    }
-
-    public int getScaleMode() {
-        return this.mScaleMode;
-    }
-
-    public Bitmap loadConstrainedBitmap(Uri uri) throws FileNotFoundException {
+    Bitmap f(Uri uri) throws FileNotFoundException {
         BitmapFactory.Options options;
-        if (uri == null || this.mContext == null) {
+        if (uri == null || this.f3084e == null) {
             throw new IllegalArgumentException("bad argument to getScaledBitmap");
         }
         BitmapFactory.Options options2 = new BitmapFactory.Options();
         options2.inJustDecodeBounds = true;
-        loadBitmap(uri, options2);
-        int i10 = options2.outWidth;
-        int i11 = options2.outHeight;
-        if (i10 > 0 && i11 > 0) {
-            int max = Math.max(i10, i11);
-            int i12 = 1;
-            while (max > MAX_PRINT_SIZE) {
+        e(uri, options2);
+        int i2 = options2.outWidth;
+        int i3 = options2.outHeight;
+        if (i2 > 0 && i3 > 0) {
+            int max = Math.max(i2, i3);
+            int i4 = 1;
+            while (max > f3081b) {
                 max >>>= 1;
-                i12 <<= 1;
+                i4 <<= 1;
             }
-            if (i12 > 0 && Math.min(i10, i11) / i12 > 0) {
-                synchronized (this.mLock) {
+            if (i4 > 0 && Math.min(i2, i3) / i4 > 0) {
+                synchronized (this.f3086g) {
                     options = new BitmapFactory.Options();
-                    this.mDecodeOptions = options;
+                    this.f3085f = options;
                     options.inMutable = true;
-                    options.inSampleSize = i12;
+                    options.inSampleSize = i4;
                 }
                 try {
-                    Bitmap loadBitmap = loadBitmap(uri, options);
-                    synchronized (this.mLock) {
-                        this.mDecodeOptions = null;
+                    Bitmap e2 = e(uri, options);
+                    synchronized (this.f3086g) {
+                        this.f3085f = null;
                     }
-                    return loadBitmap;
-                } catch (Throwable th2) {
-                    synchronized (this.mLock) {
-                        this.mDecodeOptions = null;
-                        throw th2;
+                    return e2;
+                } catch (Throwable th) {
+                    synchronized (this.f3086g) {
+                        this.f3085f = null;
+                        throw th;
                     }
                 }
             }
@@ -576,74 +394,43 @@ public final class PrintHelper {
         return null;
     }
 
-    public void printBitmap(@NonNull String str, @NonNull Bitmap bitmap) {
-        printBitmap(str, bitmap, (OnPrintFinishCallback) null);
-    }
-
-    public void setColorMode(int i10) {
-        this.mColorMode = i10;
-    }
-
-    public void setOrientation(int i10) {
-        this.mOrientation = i10;
-    }
-
-    public void setScaleMode(int i10) {
-        this.mScaleMode = i10;
-    }
-
     @RequiresApi(19)
-    public void writeBitmap(PrintAttributes printAttributes, int i10, Bitmap bitmap, ParcelFileDescriptor parcelFileDescriptor, CancellationSignal cancellationSignal, PrintDocumentAdapter.WriteResultCallback writeResultCallback) {
+    void g(final PrintAttributes printAttributes, final int i2, final Bitmap bitmap, final ParcelFileDescriptor parcelFileDescriptor, final CancellationSignal cancellationSignal, final PrintDocumentAdapter.WriteResultCallback writeResultCallback) {
+        final PrintAttributes build = f3083d ? printAttributes : b(printAttributes).setMinMargins(new PrintAttributes.Margins(0, 0, 0, 0)).build();
         new AsyncTask<Void, Void, Throwable>() { // from class: androidx.print.PrintHelper.1
-            final /* synthetic */ PrintAttributes val$attributes;
-            final /* synthetic */ Bitmap val$bitmap;
-            final /* synthetic */ CancellationSignal val$cancellationSignal;
-            final /* synthetic */ ParcelFileDescriptor val$fileDescriptor;
-            final /* synthetic */ int val$fittingMode;
-            final /* synthetic */ PrintAttributes val$pdfAttributes;
-            final /* synthetic */ PrintDocumentAdapter.WriteResultCallback val$writeResultCallback;
-
-            public AnonymousClass1(CancellationSignal cancellationSignal2, PrintAttributes printAttributes2, Bitmap bitmap2, PrintAttributes printAttributes3, int i102, ParcelFileDescriptor parcelFileDescriptor2, PrintDocumentAdapter.WriteResultCallback writeResultCallback2) {
-                cancellationSignal = cancellationSignal2;
-                build = printAttributes2;
-                bitmap = bitmap2;
-                printAttributes = printAttributes3;
-                i10 = i102;
-                parcelFileDescriptor = parcelFileDescriptor2;
-                writeResultCallback = writeResultCallback2;
-            }
-
+            /* JADX INFO: Access modifiers changed from: protected */
             @Override // android.os.AsyncTask
+            /* renamed from: a, reason: merged with bridge method [inline-methods] */
             public Throwable doInBackground(Void... voidArr) {
                 RectF rectF;
                 try {
                     if (cancellationSignal.isCanceled()) {
                         return null;
                     }
-                    PrintedPdfDocument printedPdfDocument = new PrintedPdfDocument(PrintHelper.this.mContext, build);
-                    Bitmap convertBitmapForColorMode = PrintHelper.convertBitmapForColorMode(bitmap, build.getColorMode());
+                    PrintedPdfDocument printedPdfDocument = new PrintedPdfDocument(PrintHelper.this.f3084e, build);
+                    Bitmap a2 = PrintHelper.a(bitmap, build.getColorMode());
                     if (cancellationSignal.isCanceled()) {
                         return null;
                     }
                     try {
                         PdfDocument.Page startPage = printedPdfDocument.startPage(1);
-                        boolean z10 = PrintHelper.IS_MIN_MARGINS_HANDLING_CORRECT;
-                        if (z10) {
+                        boolean z = PrintHelper.f3083d;
+                        if (z) {
                             rectF = new RectF(startPage.getInfo().getContentRect());
                         } else {
-                            PrintedPdfDocument printedPdfDocument2 = new PrintedPdfDocument(PrintHelper.this.mContext, printAttributes);
+                            PrintedPdfDocument printedPdfDocument2 = new PrintedPdfDocument(PrintHelper.this.f3084e, printAttributes);
                             PdfDocument.Page startPage2 = printedPdfDocument2.startPage(1);
                             RectF rectF2 = new RectF(startPage2.getInfo().getContentRect());
                             printedPdfDocument2.finishPage(startPage2);
                             printedPdfDocument2.close();
                             rectF = rectF2;
                         }
-                        Matrix matrix = PrintHelper.getMatrix(convertBitmapForColorMode.getWidth(), convertBitmapForColorMode.getHeight(), rectF, i10);
-                        if (!z10) {
-                            matrix.postTranslate(rectF.left, rectF.top);
+                        Matrix c2 = PrintHelper.c(a2.getWidth(), a2.getHeight(), rectF, i2);
+                        if (!z) {
+                            c2.postTranslate(rectF.left, rectF.top);
                             startPage.getCanvas().clipRect(rectF);
                         }
-                        startPage.getCanvas().drawBitmap(convertBitmapForColorMode, matrix, null);
+                        startPage.getCanvas().drawBitmap(a2, c2, null);
                         printedPdfDocument.finishPage(startPage);
                         if (cancellationSignal.isCanceled()) {
                             printedPdfDocument.close();
@@ -654,50 +441,83 @@ public final class PrintHelper {
                                 } catch (IOException unused) {
                                 }
                             }
-                            if (convertBitmapForColorMode != bitmap) {
-                                convertBitmapForColorMode.recycle();
+                            if (a2 != bitmap) {
+                                a2.recycle();
                             }
                             return null;
                         }
                         printedPdfDocument.writeTo(new FileOutputStream(parcelFileDescriptor.getFileDescriptor()));
                         printedPdfDocument.close();
-                        ParcelFileDescriptor parcelFileDescriptor22 = parcelFileDescriptor;
-                        if (parcelFileDescriptor22 != null) {
+                        ParcelFileDescriptor parcelFileDescriptor3 = parcelFileDescriptor;
+                        if (parcelFileDescriptor3 != null) {
                             try {
-                                parcelFileDescriptor22.close();
+                                parcelFileDescriptor3.close();
                             } catch (IOException unused2) {
                             }
                         }
-                        if (convertBitmapForColorMode != bitmap) {
-                            convertBitmapForColorMode.recycle();
+                        if (a2 != bitmap) {
+                            a2.recycle();
                         }
                         return null;
                     } finally {
                     }
-                } catch (Throwable th2) {
-                    return th2;
+                } catch (Throwable th) {
+                    return th;
                 }
             }
 
+            /* JADX INFO: Access modifiers changed from: protected */
             @Override // android.os.AsyncTask
-            public void onPostExecute(Throwable th2) {
+            /* renamed from: b, reason: merged with bridge method [inline-methods] */
+            public void onPostExecute(Throwable th) {
                 if (cancellationSignal.isCanceled()) {
                     writeResultCallback.onWriteCancelled();
-                } else if (th2 == null) {
+                } else if (th == null) {
                     writeResultCallback.onWriteFinished(new PageRange[]{PageRange.ALL_PAGES});
                 } else {
-                    Log.e(PrintHelper.LOG_TAG, "Error writing printed content", th2);
+                    Log.e(PrintHelper.f3080a, "Error writing printed content", th);
                     writeResultCallback.onWriteFailed(null);
                 }
             }
         }.execute(new Void[0]);
     }
 
+    public int getColorMode() {
+        return this.f3088i;
+    }
+
+    public int getOrientation() {
+        if (Build.VERSION.SDK_INT < 19 || this.f3089j != 0) {
+            return this.f3089j;
+        }
+        return 1;
+    }
+
+    public int getScaleMode() {
+        return this.f3087h;
+    }
+
+    public void printBitmap(@NonNull String str, @NonNull Bitmap bitmap) {
+        printBitmap(str, bitmap, (OnPrintFinishCallback) null);
+    }
+
+    public void setColorMode(int i2) {
+        this.f3088i = i2;
+    }
+
+    public void setOrientation(int i2) {
+        this.f3089j = i2;
+    }
+
+    public void setScaleMode(int i2) {
+        this.f3087h = i2;
+    }
+
     public void printBitmap(@NonNull String str, @NonNull Bitmap bitmap, @Nullable OnPrintFinishCallback onPrintFinishCallback) {
-        if (bitmap == null) {
+        if (Build.VERSION.SDK_INT < 19 || bitmap == null) {
             return;
         }
-        ((PrintManager) this.mContext.getSystemService("print")).print(str, new PrintBitmapAdapter(str, this.mScaleMode, bitmap, onPrintFinishCallback), new PrintAttributes.Builder().setMediaSize(isPortrait(bitmap) ? PrintAttributes.MediaSize.UNKNOWN_PORTRAIT : PrintAttributes.MediaSize.UNKNOWN_LANDSCAPE).setColorMode(this.mColorMode).build());
+        ((PrintManager) this.f3084e.getSystemService("print")).print(str, new PrintBitmapAdapter(str, this.f3087h, bitmap, onPrintFinishCallback), new PrintAttributes.Builder().setMediaSize(d(bitmap) ? PrintAttributes.MediaSize.UNKNOWN_PORTRAIT : PrintAttributes.MediaSize.UNKNOWN_LANDSCAPE).setColorMode(this.f3088i).build());
     }
 
     public void printBitmap(@NonNull String str, @NonNull Uri uri) throws FileNotFoundException {
@@ -705,14 +525,17 @@ public final class PrintHelper {
     }
 
     public void printBitmap(@NonNull String str, @NonNull Uri uri, @Nullable OnPrintFinishCallback onPrintFinishCallback) throws FileNotFoundException {
-        PrintUriAdapter printUriAdapter = new PrintUriAdapter(str, uri, onPrintFinishCallback, this.mScaleMode);
-        PrintManager printManager = (PrintManager) this.mContext.getSystemService("print");
+        if (Build.VERSION.SDK_INT < 19) {
+            return;
+        }
+        PrintUriAdapter printUriAdapter = new PrintUriAdapter(str, uri, onPrintFinishCallback, this.f3087h);
+        PrintManager printManager = (PrintManager) this.f3084e.getSystemService("print");
         PrintAttributes.Builder builder = new PrintAttributes.Builder();
-        builder.setColorMode(this.mColorMode);
-        int i10 = this.mOrientation;
-        if (i10 == 1 || i10 == 0) {
+        builder.setColorMode(this.f3088i);
+        int i2 = this.f3089j;
+        if (i2 == 1 || i2 == 0) {
             builder.setMediaSize(PrintAttributes.MediaSize.UNKNOWN_LANDSCAPE);
-        } else if (i10 == 2) {
+        } else if (i2 == 2) {
             builder.setMediaSize(PrintAttributes.MediaSize.UNKNOWN_PORTRAIT);
         }
         printManager.print(str, printUriAdapter, builder.build());

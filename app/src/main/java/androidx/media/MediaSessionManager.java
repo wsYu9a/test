@@ -3,7 +3,6 @@ package androidx.media;
 import android.content.Context;
 import android.media.session.MediaSessionManager;
 import android.os.Build;
-import android.text.TextUtils;
 import android.util.Log;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -14,19 +13,29 @@ import androidx.media.MediaSessionManagerImplBase;
 
 /* loaded from: classes.dex */
 public final class MediaSessionManager {
-    private static volatile MediaSessionManager sSessionManager;
-    MediaSessionManagerImpl mImpl;
-    static final String TAG = "MediaSessionManager";
-    static final boolean DEBUG = Log.isLoggable(TAG, 3);
-    private static final Object sLock = new Object();
 
-    public interface MediaSessionManagerImpl {
+    /* renamed from: a */
+    static final String f2852a = "MediaSessionManager";
+
+    /* renamed from: b */
+    static final boolean f2853b = Log.isLoggable(f2852a, 3);
+
+    /* renamed from: c */
+    private static final Object f2854c = new Object();
+
+    /* renamed from: d */
+    private static volatile MediaSessionManager f2855d;
+
+    /* renamed from: e */
+    MediaSessionManagerImpl f2856e;
+
+    interface MediaSessionManagerImpl {
         Context getContext();
 
         boolean isTrustedForMediaControl(RemoteUserInfoImpl remoteUserInfoImpl);
     }
 
-    public interface RemoteUserInfoImpl {
+    interface RemoteUserInfoImpl {
         String getPackageName();
 
         int getPid();
@@ -35,39 +44,38 @@ public final class MediaSessionManager {
     }
 
     private MediaSessionManager(Context context) {
-        if (Build.VERSION.SDK_INT >= 28) {
-            this.mImpl = new MediaSessionManagerImplApi28(context);
+        int i2 = Build.VERSION.SDK_INT;
+        if (i2 >= 28) {
+            this.f2856e = new MediaSessionManagerImplApi28(context);
+        } else if (i2 >= 21) {
+            this.f2856e = new MediaSessionManagerImplApi21(context);
         } else {
-            this.mImpl = new MediaSessionManagerImplApi21(context);
+            this.f2856e = new MediaSessionManagerImplBase(context);
         }
     }
 
     @NonNull
     public static MediaSessionManager getSessionManager(@NonNull Context context) {
-        MediaSessionManager mediaSessionManager;
-        if (context == null) {
-            throw new IllegalArgumentException("context cannot be null");
-        }
-        synchronized (sLock) {
-            try {
-                if (sSessionManager == null) {
-                    sSessionManager = new MediaSessionManager(context.getApplicationContext());
+        MediaSessionManager mediaSessionManager = f2855d;
+        if (mediaSessionManager == null) {
+            synchronized (f2854c) {
+                mediaSessionManager = f2855d;
+                if (mediaSessionManager == null) {
+                    f2855d = new MediaSessionManager(context.getApplicationContext());
+                    mediaSessionManager = f2855d;
                 }
-                mediaSessionManager = sSessionManager;
-            } catch (Throwable th2) {
-                throw th2;
             }
         }
         return mediaSessionManager;
     }
 
-    public Context getContext() {
-        return this.mImpl.getContext();
+    Context getContext() {
+        return this.f2856e.getContext();
     }
 
     public boolean isTrustedForMediaControl(@NonNull RemoteUserInfo remoteUserInfo) {
         if (remoteUserInfo != null) {
-            return this.mImpl.isTrustedForMediaControl(remoteUserInfo.mImpl);
+            return this.f2856e.isTrustedForMediaControl(remoteUserInfo.f2857a);
         }
         throw new IllegalArgumentException("userInfo should not be null");
     }
@@ -75,24 +83,14 @@ public final class MediaSessionManager {
     public static final class RemoteUserInfo {
         public static final String LEGACY_CONTROLLER = "android.media.session.MediaController";
 
-        @RestrictTo({RestrictTo.Scope.LIBRARY_GROUP_PREFIX})
-        public static final int UNKNOWN_PID = -1;
+        /* renamed from: a */
+        RemoteUserInfoImpl f2857a;
 
-        @RestrictTo({RestrictTo.Scope.LIBRARY_GROUP_PREFIX})
-        public static final int UNKNOWN_UID = -1;
-        RemoteUserInfoImpl mImpl;
-
-        public RemoteUserInfo(@NonNull String str, int i10, int i11) {
-            if (str == null) {
-                throw new NullPointerException("package shouldn't be null");
-            }
-            if (TextUtils.isEmpty(str)) {
-                throw new IllegalArgumentException("packageName should be nonempty");
-            }
+        public RemoteUserInfo(@NonNull String str, int i2, int i3) {
             if (Build.VERSION.SDK_INT >= 28) {
-                this.mImpl = new MediaSessionManagerImplApi28.RemoteUserInfoImplApi28(str, i10, i11);
+                this.f2857a = new MediaSessionManagerImplApi28.RemoteUserInfoImplApi28(str, i2, i3);
             } else {
-                this.mImpl = new MediaSessionManagerImplBase.RemoteUserInfoImplBase(str, i10, i11);
+                this.f2857a = new MediaSessionManagerImplBase.RemoteUserInfoImplBase(str, i2, i3);
             }
         }
 
@@ -101,40 +99,32 @@ public final class MediaSessionManager {
                 return true;
             }
             if (obj instanceof RemoteUserInfo) {
-                return this.mImpl.equals(((RemoteUserInfo) obj).mImpl);
+                return this.f2857a.equals(((RemoteUserInfo) obj).f2857a);
             }
             return false;
         }
 
         @NonNull
         public String getPackageName() {
-            return this.mImpl.getPackageName();
+            return this.f2857a.getPackageName();
         }
 
         public int getPid() {
-            return this.mImpl.getPid();
+            return this.f2857a.getPid();
         }
 
         public int getUid() {
-            return this.mImpl.getUid();
+            return this.f2857a.getUid();
         }
 
         public int hashCode() {
-            return this.mImpl.hashCode();
+            return this.f2857a.hashCode();
         }
 
         @RequiresApi(28)
-        @RestrictTo({RestrictTo.Scope.LIBRARY})
+        @RestrictTo({RestrictTo.Scope.LIBRARY_GROUP})
         public RemoteUserInfo(MediaSessionManager.RemoteUserInfo remoteUserInfo) {
-            String packageName = MediaSessionManagerImplApi28.RemoteUserInfoImplApi28.getPackageName(remoteUserInfo);
-            if (packageName != null) {
-                if (!TextUtils.isEmpty(packageName)) {
-                    this.mImpl = new MediaSessionManagerImplApi28.RemoteUserInfoImplApi28(remoteUserInfo);
-                    return;
-                }
-                throw new IllegalArgumentException("packageName should be nonempty");
-            }
-            throw new NullPointerException("package shouldn't be null");
+            this.f2857a = new MediaSessionManagerImplApi28.RemoteUserInfoImplApi28(remoteUserInfo);
         }
     }
 }

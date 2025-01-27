@@ -1,6 +1,6 @@
 package com.kwad.components.offline.api.core.adlive.model;
 
-/* loaded from: classes3.dex */
+/* loaded from: classes2.dex */
 public class LiveShopItemInfo {
     public int currency;
     public String extraMap;

@@ -19,8 +19,8 @@ public abstract class AbsNotificationListener extends AbsDownloadListener implem
         }
     }
 
-    private void updateNotification(int i10, DownloadInfo downloadInfo, BaseException baseException, boolean z10) {
-        if (downloadInfo == null || !downloadInfo.canShowNotification() || i10 == 4) {
+    private void updateNotification(int i2, DownloadInfo downloadInfo, BaseException baseException, boolean z) {
+        if (downloadInfo == null || !downloadInfo.canShowNotification() || i2 == 4) {
             return;
         }
         AbsNotificationItem notificationItem = DownloadNotificationManager.getInstance().getNotificationItem(downloadInfo.getId());
@@ -28,12 +28,12 @@ public abstract class AbsNotificationListener extends AbsDownloadListener implem
             notificationItem = createNotificationItem();
         }
         notificationItem.setTotalBytes(downloadInfo.getTotalBytes());
-        if (i10 == -3) {
+        if (i2 == -3) {
             notificationItem.setCurBytes(downloadInfo.getTotalBytes());
         } else {
             notificationItem.setCurBytes(downloadInfo.getCurBytes());
         }
-        notificationItem.refreshStatus(i10, baseException, z10);
+        notificationItem.refreshStatus(i2, baseException, z);
     }
 
     private void updateNotificationProgress(DownloadInfo downloadInfo) {
@@ -46,7 +46,7 @@ public abstract class AbsNotificationListener extends AbsDownloadListener implem
         }
     }
 
-    public abstract AbsNotificationItem createNotificationItem();
+    protected abstract AbsNotificationItem createNotificationItem();
 
     @Override // com.ss.android.socialbase.downloader.depend.AbsDownloadListener, com.ss.android.socialbase.downloader.depend.IDownloadListener
     public void onFailed(DownloadInfo downloadInfo, BaseException baseException) {

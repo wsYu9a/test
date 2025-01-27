@@ -5,12 +5,12 @@ import android.net.ConnectivityManager;
 import android.net.Network;
 import android.net.NetworkInfo;
 import android.net.NetworkRequest;
+import android.os.Build;
 import android.os.Handler;
 import android.os.Looper;
 import android.os.Message;
 import android.text.TextUtils;
 import android.util.SparseArray;
-import com.sigmob.sdk.base.common.y;
 import com.ss.android.socialbase.downloader.common.AppStatusManager;
 import com.ss.android.socialbase.downloader.constants.DownloadConstants;
 import com.ss.android.socialbase.downloader.downloader.DownloadComponentManager;
@@ -55,11 +55,11 @@ public class RetryScheduler implements Handler.Callback, AppStatusManager.AppSta
     private final Context mContext = DownloadComponentManager.getAppContext();
 
     /* renamed from: com.ss.android.socialbase.downloader.impls.RetryScheduler$1 */
-    public class AnonymousClass1 implements Runnable {
+    class AnonymousClass1 implements Runnable {
 
         /* renamed from: com.ss.android.socialbase.downloader.impls.RetryScheduler$1$1 */
-        public class C06501 extends ConnectivityManager.NetworkCallback {
-            public C06501() {
+        class C05121 extends ConnectivityManager.NetworkCallback {
+            C05121() {
             }
 
             @Override // android.net.ConnectivityManager.NetworkCallback
@@ -69,40 +69,41 @@ public class RetryScheduler implements Handler.Callback, AppStatusManager.AppSta
             }
         }
 
-        public AnonymousClass1() {
+        AnonymousClass1() {
         }
 
         @Override // java.lang.Runnable
         public void run() {
             try {
-                if (RetryScheduler.this.mContext != null) {
-                    RetryScheduler retryScheduler = RetryScheduler.this;
-                    retryScheduler.mConnectivityManager = (ConnectivityManager) retryScheduler.mContext.getApplicationContext().getSystemService("connectivity");
-                    RetryScheduler.this.mConnectivityManager.registerNetworkCallback(new NetworkRequest.Builder().build(), new ConnectivityManager.NetworkCallback() { // from class: com.ss.android.socialbase.downloader.impls.RetryScheduler.1.1
-                        public C06501() {
-                        }
-
-                        @Override // android.net.ConnectivityManager.NetworkCallback
-                        public void onAvailable(Network network) {
-                            Logger.d(RetryScheduler.TAG, "network onAvailable: ");
-                            RetryScheduler.this.scheduleAllTaskRetry(1, true);
-                        }
-                    });
+                if (RetryScheduler.this.mContext == null || Build.VERSION.SDK_INT < 21) {
+                    return;
                 }
-            } catch (Exception e10) {
-                e10.printStackTrace();
+                RetryScheduler retryScheduler = RetryScheduler.this;
+                retryScheduler.mConnectivityManager = (ConnectivityManager) retryScheduler.mContext.getApplicationContext().getSystemService("connectivity");
+                RetryScheduler.this.mConnectivityManager.registerNetworkCallback(new NetworkRequest.Builder().build(), new ConnectivityManager.NetworkCallback() { // from class: com.ss.android.socialbase.downloader.impls.RetryScheduler.1.1
+                    C05121() {
+                    }
+
+                    @Override // android.net.ConnectivityManager.NetworkCallback
+                    public void onAvailable(Network network) {
+                        Logger.d(RetryScheduler.TAG, "network onAvailable: ");
+                        RetryScheduler.this.scheduleAllTaskRetry(1, true);
+                    }
+                });
+            } catch (Exception e2) {
+                e2.printStackTrace();
             }
         }
     }
 
     /* renamed from: com.ss.android.socialbase.downloader.impls.RetryScheduler$2 */
-    public class AnonymousClass2 implements Runnable {
+    class AnonymousClass2 implements Runnable {
         final /* synthetic */ boolean val$force;
         final /* synthetic */ int val$level;
 
-        public AnonymousClass2(int i10, boolean z10) {
-            i10 = i10;
-            z10 = z10;
+        AnonymousClass2(int i2, boolean z) {
+            i2 = i2;
+            z = z;
         }
 
         @Override // java.lang.Runnable
@@ -114,24 +115,20 @@ public class RetryScheduler implements Handler.Callback, AppStatusManager.AppSta
                     long currentTimeMillis = System.currentTimeMillis();
                     ArrayList arrayList = new ArrayList();
                     synchronized (RetryScheduler.this.mRetryInfoList) {
-                        for (int i10 = 0; i10 < RetryScheduler.this.mRetryInfoList.size(); i10++) {
-                            try {
-                                RetryInfo retryInfo = (RetryInfo) RetryScheduler.this.mRetryInfoList.valueAt(i10);
-                                if (retryInfo != null && retryInfo.canRetry(currentTimeMillis, i10, netWorkType, z10)) {
-                                    if (z10) {
-                                        retryInfo.resetRetryInterval();
-                                    }
-                                    arrayList.add(retryInfo);
+                        for (int i2 = 0; i2 < RetryScheduler.this.mRetryInfoList.size(); i2++) {
+                            RetryInfo retryInfo = (RetryInfo) RetryScheduler.this.mRetryInfoList.valueAt(i2);
+                            if (retryInfo != null && retryInfo.canRetry(currentTimeMillis, i2, netWorkType, z)) {
+                                if (z) {
+                                    retryInfo.resetRetryInterval();
                                 }
-                            } catch (Throwable th2) {
-                                throw th2;
+                                arrayList.add(retryInfo);
                             }
                         }
                     }
                     if (arrayList.size() > 0) {
                         Iterator it = arrayList.iterator();
                         while (it.hasNext()) {
-                            RetryScheduler.this.doSchedulerRetryInSubThread(((RetryInfo) it.next()).f21970id, netWorkType, false);
+                            RetryScheduler.this.doSchedulerRetryInSubThread(((RetryInfo) it.next()).id, netWorkType, false);
                         }
                     }
                 }
@@ -141,29 +138,27 @@ public class RetryScheduler implements Handler.Callback, AppStatusManager.AppSta
     }
 
     /* renamed from: com.ss.android.socialbase.downloader.impls.RetryScheduler$3 */
-    public class AnonymousClass3 implements Runnable {
+    class AnonymousClass3 implements Runnable {
         final /* synthetic */ int val$downloadId;
 
-        public AnonymousClass3(int i10) {
-            i10 = i10;
+        AnonymousClass3(int i2) {
+            i2 = i2;
         }
 
         @Override // java.lang.Runnable
         public void run() {
             try {
                 RetryScheduler retryScheduler = RetryScheduler.this;
-                retryScheduler.doSchedulerRetryInSubThread(i10, retryScheduler.getNetWorkType(), true);
-            } catch (Exception e10) {
-                e10.printStackTrace();
+                retryScheduler.doSchedulerRetryInSubThread(i2, retryScheduler.getNetWorkType(), true);
+            } catch (Exception e2) {
+                e2.printStackTrace();
             }
         }
     }
 
-    public static class RetryInfo {
+    private static class RetryInfo {
         final int[] allowErrorCode;
-
-        /* renamed from: id */
-        final int f21970id;
+        final int id;
         final int intervalMs;
         final int intervalMsAcceleration;
         final int level;
@@ -175,58 +170,58 @@ public class RetryScheduler implements Handler.Callback, AppStatusManager.AppSta
         final int maxCount;
         final boolean useJobScheduler;
 
-        public RetryInfo(int i10, int i11, int i12, int i13, int i14, boolean z10, int[] iArr) {
-            i13 = i13 < 3000 ? 3000 : i13;
-            i14 = i14 < 5000 ? 5000 : i14;
-            this.f21970id = i10;
-            this.level = i11;
-            this.maxCount = i12;
-            this.intervalMs = i13;
-            this.intervalMsAcceleration = i14;
-            this.useJobScheduler = z10;
+        RetryInfo(int i2, int i3, int i4, int i5, int i6, boolean z, int[] iArr) {
+            i5 = i5 < 3000 ? 3000 : i5;
+            i6 = i6 < 5000 ? 5000 : i6;
+            this.id = i2;
+            this.level = i3;
+            this.maxCount = i4;
+            this.intervalMs = i5;
+            this.intervalMsAcceleration = i6;
+            this.useJobScheduler = z;
             this.allowErrorCode = iArr;
-            this.mCurrentIntervalMs = i13;
+            this.mCurrentIntervalMs = i5;
         }
 
-        public boolean canRetry(long j10, int i10, int i11, boolean z10) {
+        boolean canRetry(long j2, int i2, int i3, boolean z) {
             if (!this.mIsWaitingRetry) {
                 Logger.i(RetryScheduler.TAG, "canRetry: mIsWaitingRetry is false, return false!!!");
                 return false;
             }
-            if (this.level < i10 || this.mRetryCount >= this.maxCount) {
+            if (this.level < i2 || this.mRetryCount >= this.maxCount) {
                 return false;
             }
-            if (!this.mNeedWifi || i11 == 2) {
-                return z10 || j10 - this.mLastRetryTime >= ((long) this.intervalMs);
+            if (!this.mNeedWifi || i3 == 2) {
+                return z || j2 - this.mLastRetryTime >= ((long) this.intervalMs);
             }
             return false;
         }
 
-        public int getCurrentRetryIntervalMs() {
+        int getCurrentRetryIntervalMs() {
             return this.mCurrentIntervalMs;
         }
 
-        public synchronized void increaseRetryCount() {
+        synchronized void increaseRetryCount() {
             this.mRetryCount++;
         }
 
-        public synchronized void increaseRetryInterval() {
+        synchronized void increaseRetryInterval() {
             this.mCurrentIntervalMs += this.intervalMsAcceleration;
         }
 
-        public void resetRetryInterval() {
+        void resetRetryInterval() {
             this.mCurrentIntervalMs = this.intervalMs;
         }
 
-        public synchronized void updateRetryTimeStamp(long j10) {
-            this.mLastRetryTime = j10;
+        synchronized void updateRetryTimeStamp(long j2) {
+            this.mLastRetryTime = j2;
         }
     }
 
     public interface RetryScheduleHandler {
-        void cancelRetry(int i10);
+        void cancelRetry(int i2);
 
-        void scheduleRetry(DownloadInfo downloadInfo, long j10, boolean z10, int i10);
+        void scheduleRetry(DownloadInfo downloadInfo, long j2, boolean z, int i2);
     }
 
     private RetryScheduler() {
@@ -235,11 +230,11 @@ public class RetryScheduler implements Handler.Callback, AppStatusManager.AppSta
         AppStatusManager.getInstance().registerAppSwitchListener(this);
     }
 
-    private boolean canRetryForAllowErrorCode(RetryInfo retryInfo, int i10) {
+    private boolean canRetryForAllowErrorCode(RetryInfo retryInfo, int i2) {
         int[] iArr = retryInfo.allowErrorCode;
         if (iArr != null && iArr.length != 0) {
-            for (int i11 : iArr) {
-                if (i11 == i10) {
+            for (int i3 : iArr) {
+                if (i3 == i2) {
                     return true;
                 }
             }
@@ -248,22 +243,22 @@ public class RetryScheduler implements Handler.Callback, AppStatusManager.AppSta
     }
 
     private boolean canRetryWhenInsufficientSpace(DownloadInfo downloadInfo, BaseException baseException) {
-        long j10;
+        long j2;
         try {
-            j10 = DownloadUtils.getAvailableSpaceBytes(downloadInfo.getTempPath());
-        } catch (BaseException e10) {
-            e10.printStackTrace();
-            j10 = 0;
+            j2 = DownloadUtils.getAvailableSpaceBytes(downloadInfo.getTempPath());
+        } catch (BaseException e2) {
+            e2.printStackTrace();
+            j2 = 0;
         }
-        if (j10 < (baseException instanceof DownloadOutOfSpaceException ? ((DownloadOutOfSpaceException) baseException).getRequiredSpaceBytes() : downloadInfo.getTotalBytes() - downloadInfo.getCurBytes())) {
+        if (j2 < (baseException instanceof DownloadOutOfSpaceException ? ((DownloadOutOfSpaceException) baseException).getRequiredSpaceBytes() : downloadInfo.getTotalBytes() - downloadInfo.getCurBytes())) {
             DownloadSetting obtain = DownloadSetting.obtain(downloadInfo.getId());
             if (obtain.optInt(DownloadSettingKeys.SPACE_FILL_PART_DOWNLOAD, 0) == 1) {
-                if (j10 > 0) {
+                if (j2 > 0) {
                     int optInt = obtain.optInt(DownloadSettingKeys.SPACE_FILL_MIN_KEEP_MB, 100);
                     if (optInt > 0) {
-                        long j11 = j10 - (optInt * 1048576);
-                        Logger.i(TAG, "retry schedule: available = " + DownloadUtils.byteToMb(j10) + "MB, minKeep = " + optInt + "MB, canDownload = " + DownloadUtils.byteToMb(j11) + "MB");
-                        if (j11 <= 0) {
+                        long j3 = j2 - (optInt * 1048576);
+                        Logger.i(TAG, "retry schedule: available = " + DownloadUtils.byteToMb(j2) + "MB, minKeep = " + optInt + "MB, canDownload = " + DownloadUtils.byteToMb(j3) + "MB");
+                        if (j3 <= 0) {
                             Logger.w(TAG, "doSchedulerRetryInSubThread: canDownload <= 0 , canRetry = false !!!!");
                             return false;
                         }
@@ -276,45 +271,45 @@ public class RetryScheduler implements Handler.Callback, AppStatusManager.AppSta
         return true;
     }
 
-    private RetryInfo createRetryInfo(int i10) {
+    private RetryInfo createRetryInfo(int i2) {
         int[] iArr;
-        int i11;
-        int i12;
-        boolean z10;
-        DownloadSetting obtain = DownloadSetting.obtain(i10);
-        boolean z11 = false;
+        int i3;
+        int i4;
+        boolean z;
+        DownloadSetting obtain = DownloadSetting.obtain(i2);
+        boolean z2 = false;
         int optInt = obtain.optInt(DownloadSettingKeys.RETRY_SCHEDULE, 0);
         JSONObject optJSONObject = obtain.optJSONObject(DownloadSettingKeys.RETRY_SCHEDULE_CONFIG);
-        int i13 = 60;
+        int i5 = 60;
         if (optJSONObject != null) {
             int optInt2 = optJSONObject.optInt(DownloadSettingKeys.RetryScheduleConfig.MAX_COUNT, 60);
             int optInt3 = optJSONObject.optInt(DownloadSettingKeys.RetryScheduleConfig.INTERVAL_SEC, 60);
             int optInt4 = optJSONObject.optInt(DownloadSettingKeys.RetryScheduleConfig.INTERVAL_SEC_ACCELERATION, 60);
-            if (sRetryScheduleHandler != null && optJSONObject.optInt(DownloadSettingKeys.RetryScheduleConfig.USE_JOB_SCHEDULER, 0) == 1) {
-                z11 = true;
+            if (Build.VERSION.SDK_INT >= 21 && sRetryScheduleHandler != null && optJSONObject.optInt(DownloadSettingKeys.RetryScheduleConfig.USE_JOB_SCHEDULER, 0) == 1) {
+                z2 = true;
             }
             iArr = parserAllowErrorCode(optJSONObject.optString(DownloadSettingKeys.RetryScheduleConfig.ALLOW_ERROR_CODE));
-            i11 = optInt4;
-            z10 = z11;
-            i12 = optInt2;
-            i13 = optInt3;
+            i3 = optInt4;
+            z = z2;
+            i4 = optInt2;
+            i5 = optInt3;
         } else {
             iArr = null;
-            i11 = 60;
-            i12 = 60;
-            z10 = false;
+            i3 = 60;
+            i4 = 60;
+            z = false;
         }
-        return new RetryInfo(i10, optInt, i12, i13 * 1000, i11 * 1000, z10, iArr);
+        return new RetryInfo(i2, optInt, i4, i5 * 1000, i3 * 1000, z, iArr);
     }
 
-    private void doScheduleAllTaskRetry(int i10, boolean z10) {
+    private void doScheduleAllTaskRetry(int i2, boolean z) {
         DownloadComponentManager.getCPUThreadExecutor().execute(new Runnable() { // from class: com.ss.android.socialbase.downloader.impls.RetryScheduler.2
             final /* synthetic */ boolean val$force;
             final /* synthetic */ int val$level;
 
-            public AnonymousClass2(int i102, boolean z102) {
-                i10 = i102;
-                z10 = z102;
+            AnonymousClass2(int i22, boolean z2) {
+                i2 = i22;
+                z = z2;
             }
 
             @Override // java.lang.Runnable
@@ -326,24 +321,20 @@ public class RetryScheduler implements Handler.Callback, AppStatusManager.AppSta
                         long currentTimeMillis = System.currentTimeMillis();
                         ArrayList arrayList = new ArrayList();
                         synchronized (RetryScheduler.this.mRetryInfoList) {
-                            for (int i102 = 0; i102 < RetryScheduler.this.mRetryInfoList.size(); i102++) {
-                                try {
-                                    RetryInfo retryInfo = (RetryInfo) RetryScheduler.this.mRetryInfoList.valueAt(i102);
-                                    if (retryInfo != null && retryInfo.canRetry(currentTimeMillis, i10, netWorkType, z10)) {
-                                        if (z10) {
-                                            retryInfo.resetRetryInterval();
-                                        }
-                                        arrayList.add(retryInfo);
+                            for (int i22 = 0; i22 < RetryScheduler.this.mRetryInfoList.size(); i22++) {
+                                RetryInfo retryInfo = (RetryInfo) RetryScheduler.this.mRetryInfoList.valueAt(i22);
+                                if (retryInfo != null && retryInfo.canRetry(currentTimeMillis, i2, netWorkType, z)) {
+                                    if (z) {
+                                        retryInfo.resetRetryInterval();
                                     }
-                                } catch (Throwable th2) {
-                                    throw th2;
+                                    arrayList.add(retryInfo);
                                 }
                             }
                         }
                         if (arrayList.size() > 0) {
                             Iterator it = arrayList.iterator();
                             while (it.hasNext()) {
-                                RetryScheduler.this.doSchedulerRetryInSubThread(((RetryInfo) it.next()).f21970id, netWorkType, false);
+                                RetryScheduler.this.doSchedulerRetryInSubThread(((RetryInfo) it.next()).id, netWorkType, false);
                             }
                         }
                     }
@@ -353,87 +344,83 @@ public class RetryScheduler implements Handler.Callback, AppStatusManager.AppSta
         });
     }
 
-    public void doSchedulerRetryInSubThread(int i10, int i11, boolean z10) {
+    public void doSchedulerRetryInSubThread(int i2, int i3, boolean z) {
         IReserveWifiStatusListener reserveWifiStatusListener;
-        boolean z11;
+        boolean z2;
         Context context = this.mContext;
         if (context == null) {
             return;
         }
         synchronized (this.mRetryInfoList) {
-            try {
-                RetryInfo retryInfo = this.mRetryInfoList.get(i10);
-                if (retryInfo == null) {
-                    return;
+            RetryInfo retryInfo = this.mRetryInfoList.get(i2);
+            if (retryInfo == null) {
+                return;
+            }
+            boolean z3 = true;
+            if (retryInfo.mIsWaitingRetry) {
+                retryInfo.mIsWaitingRetry = false;
+                int i4 = this.mWaitingRetryTasksCount - 1;
+                this.mWaitingRetryTasksCount = i4;
+                if (i4 < 0) {
+                    this.mWaitingRetryTasksCount = 0;
                 }
-                boolean z12 = true;
-                if (retryInfo.mIsWaitingRetry) {
-                    retryInfo.mIsWaitingRetry = false;
-                    int i12 = this.mWaitingRetryTasksCount - 1;
-                    this.mWaitingRetryTasksCount = i12;
-                    if (i12 < 0) {
-                        this.mWaitingRetryTasksCount = 0;
-                    }
+            }
+            Logger.i(TAG, "doSchedulerRetryInSubThread: downloadId = " + i2 + ", retryCount = " + retryInfo.mRetryCount + ", mWaitingRetryTasksCount = " + this.mWaitingRetryTasksCount);
+            DownloadInfo downloadInfo = Downloader.getInstance(context).getDownloadInfo(i2);
+            if (downloadInfo == null) {
+                removeRetryInfo(i2);
+                return;
+            }
+            Logger.e(TAG, "doSchedulerRetryInSubThread，id:" + i2);
+            int realStatus = downloadInfo.getRealStatus();
+            if (realStatus == -3 || realStatus == -4) {
+                removeRetryInfo(i2);
+                return;
+            }
+            if (realStatus == -5 || (realStatus == -2 && downloadInfo.isPauseReserveOnWifi())) {
+                if (realStatus == -2 && (reserveWifiStatusListener = Downloader.getInstance(DownloadComponentManager.getAppContext()).getReserveWifiStatusListener()) != null) {
+                    reserveWifiStatusListener.onStatusChanged(downloadInfo, 4, 3);
                 }
-                Logger.i(TAG, "doSchedulerRetryInSubThread: downloadId = " + i10 + ", retryCount = " + retryInfo.mRetryCount + ", mWaitingRetryTasksCount = " + this.mWaitingRetryTasksCount);
-                DownloadInfo downloadInfo = Downloader.getInstance(context).getDownloadInfo(i10);
-                if (downloadInfo == null) {
-                    removeRetryInfo(i10);
-                    return;
+                IDownloadLaunchHandler downloadLaunchHandler = DownloadComponentManager.getDownloadLaunchHandler();
+                if (downloadLaunchHandler != null) {
+                    downloadLaunchHandler.onLaunchResume(Collections.singletonList(downloadInfo), 3);
                 }
-                Logger.e(TAG, "doSchedulerRetryInSubThread，id:" + i10);
-                int realStatus = downloadInfo.getRealStatus();
-                if (realStatus == -3 || realStatus == -4) {
-                    removeRetryInfo(i10);
-                    return;
-                }
-                if (realStatus == -5 || (realStatus == -2 && downloadInfo.isPauseReserveOnWifi())) {
-                    if (realStatus == -2 && (reserveWifiStatusListener = Downloader.getInstance(DownloadComponentManager.getAppContext()).getReserveWifiStatusListener()) != null) {
-                        reserveWifiStatusListener.onStatusChanged(downloadInfo, 4, 3);
-                    }
-                    IDownloadLaunchHandler downloadLaunchHandler = DownloadComponentManager.getDownloadLaunchHandler();
-                    if (downloadLaunchHandler != null) {
-                        downloadLaunchHandler.onLaunchResume(Collections.singletonList(downloadInfo), 3);
-                    }
-                    removeRetryInfo(i10);
-                    return;
-                }
-                if (realStatus != -1) {
-                    return;
-                }
-                if (i11 != 0) {
-                    z11 = true;
-                } else if (!retryInfo.useJobScheduler) {
-                    return;
-                } else {
-                    z11 = false;
-                }
-                BaseException failedException = downloadInfo.getFailedException();
-                if (z11 && DownloadUtils.isInsufficientSpaceError(failedException)) {
-                    z11 = canRetryWhenInsufficientSpace(downloadInfo, failedException);
-                }
-                retryInfo.increaseRetryCount();
-                if (!z11) {
-                    if (z10) {
-                        retryInfo.increaseRetryInterval();
-                    }
-                    if (!downloadInfo.isOnlyWifi() && !downloadInfo.isPauseReserveOnWifi()) {
-                        z12 = false;
-                    }
-                    tryStartScheduleRetry(downloadInfo, z12, i11);
-                    return;
-                }
-                Logger.i(TAG, "doSchedulerRetry: restart task, ****** id = " + retryInfo.f21970id);
-                retryInfo.updateRetryTimeStamp(System.currentTimeMillis());
-                if (z10) {
+                removeRetryInfo(i2);
+                return;
+            }
+            if (realStatus != -1) {
+                return;
+            }
+            if (i3 != 0) {
+                z2 = true;
+            } else if (!retryInfo.useJobScheduler) {
+                return;
+            } else {
+                z2 = false;
+            }
+            BaseException failedException = downloadInfo.getFailedException();
+            if (z2 && DownloadUtils.isInsufficientSpaceError(failedException)) {
+                z2 = canRetryWhenInsufficientSpace(downloadInfo, failedException);
+            }
+            retryInfo.increaseRetryCount();
+            if (!z2) {
+                if (z) {
                     retryInfo.increaseRetryInterval();
                 }
-                downloadInfo.setRetryScheduleCount(retryInfo.mRetryCount);
-                if (downloadInfo.getStatus() == -1) {
-                    Downloader.getInstance(context).restart(downloadInfo.getId());
+                if (!downloadInfo.isOnlyWifi() && !downloadInfo.isPauseReserveOnWifi()) {
+                    z3 = false;
                 }
-            } catch (Throwable th2) {
-                throw th2;
+                tryStartScheduleRetry(downloadInfo, z3, i3);
+                return;
+            }
+            Logger.i(TAG, "doSchedulerRetry: restart task, ****** id = " + retryInfo.id);
+            retryInfo.updateRetryTimeStamp(System.currentTimeMillis());
+            if (z) {
+                retryInfo.increaseRetryInterval();
+            }
+            downloadInfo.setRetryScheduleCount(retryInfo.mRetryCount);
+            if (downloadInfo.getStatus() == -1) {
+                Downloader.getInstance(context).restart(downloadInfo.getId());
             }
         }
     }
@@ -441,11 +428,8 @@ public class RetryScheduler implements Handler.Callback, AppStatusManager.AppSta
     public static RetryScheduler getInstance() {
         if (sInstance == null) {
             synchronized (RetryScheduler.class) {
-                try {
-                    if (sInstance == null) {
-                        sInstance = new RetryScheduler();
-                    }
-                } finally {
+                if (sInstance == null) {
+                    sInstance = new RetryScheduler();
                 }
             }
         }
@@ -466,18 +450,15 @@ public class RetryScheduler implements Handler.Callback, AppStatusManager.AppSta
         return 0;
     }
 
-    private RetryInfo obtainRetryInfo(int i10) {
-        RetryInfo retryInfo = this.mRetryInfoList.get(i10);
+    private RetryInfo obtainRetryInfo(int i2) {
+        RetryInfo retryInfo = this.mRetryInfoList.get(i2);
         if (retryInfo == null) {
             synchronized (this.mRetryInfoList) {
-                try {
-                    retryInfo = this.mRetryInfoList.get(i10);
-                    if (retryInfo == null) {
-                        retryInfo = createRetryInfo(i10);
-                    }
-                    this.mRetryInfoList.put(i10, retryInfo);
-                } finally {
+                retryInfo = this.mRetryInfoList.get(i2);
+                if (retryInfo == null) {
+                    retryInfo = createRetryInfo(i2);
                 }
+                this.mRetryInfoList.put(i2, retryInfo);
             }
         }
         return retryInfo;
@@ -493,8 +474,8 @@ public class RetryScheduler implements Handler.Callback, AppStatusManager.AppSta
                 return null;
             }
             int[] iArr = new int[split.length];
-            for (int i10 = 0; i10 < split.length; i10++) {
-                iArr[i10] = Integer.parseInt(split[i10]);
+            for (int i2 = 0; i2 < split.length; i2++) {
+                iArr[i2] = Integer.parseInt(split[i2]);
             }
             return iArr;
         } catch (Throwable unused) {
@@ -509,8 +490,8 @@ public class RetryScheduler implements Handler.Callback, AppStatusManager.AppSta
         DownloadComponentManager.getCPUThreadExecutor().execute(new Runnable() { // from class: com.ss.android.socialbase.downloader.impls.RetryScheduler.1
 
             /* renamed from: com.ss.android.socialbase.downloader.impls.RetryScheduler$1$1 */
-            public class C06501 extends ConnectivityManager.NetworkCallback {
-                public C06501() {
+            class C05121 extends ConnectivityManager.NetworkCallback {
+                C05121() {
                 }
 
                 @Override // android.net.ConnectivityManager.NetworkCallback
@@ -520,64 +501,61 @@ public class RetryScheduler implements Handler.Callback, AppStatusManager.AppSta
                 }
             }
 
-            public AnonymousClass1() {
+            AnonymousClass1() {
             }
 
             @Override // java.lang.Runnable
             public void run() {
                 try {
-                    if (RetryScheduler.this.mContext != null) {
-                        RetryScheduler retryScheduler = RetryScheduler.this;
-                        retryScheduler.mConnectivityManager = (ConnectivityManager) retryScheduler.mContext.getApplicationContext().getSystemService("connectivity");
-                        RetryScheduler.this.mConnectivityManager.registerNetworkCallback(new NetworkRequest.Builder().build(), new ConnectivityManager.NetworkCallback() { // from class: com.ss.android.socialbase.downloader.impls.RetryScheduler.1.1
-                            public C06501() {
-                            }
-
-                            @Override // android.net.ConnectivityManager.NetworkCallback
-                            public void onAvailable(Network network) {
-                                Logger.d(RetryScheduler.TAG, "network onAvailable: ");
-                                RetryScheduler.this.scheduleAllTaskRetry(1, true);
-                            }
-                        });
+                    if (RetryScheduler.this.mContext == null || Build.VERSION.SDK_INT < 21) {
+                        return;
                     }
-                } catch (Exception e10) {
-                    e10.printStackTrace();
+                    RetryScheduler retryScheduler = RetryScheduler.this;
+                    retryScheduler.mConnectivityManager = (ConnectivityManager) retryScheduler.mContext.getApplicationContext().getSystemService("connectivity");
+                    RetryScheduler.this.mConnectivityManager.registerNetworkCallback(new NetworkRequest.Builder().build(), new ConnectivityManager.NetworkCallback() { // from class: com.ss.android.socialbase.downloader.impls.RetryScheduler.1.1
+                        C05121() {
+                        }
+
+                        @Override // android.net.ConnectivityManager.NetworkCallback
+                        public void onAvailable(Network network) {
+                            Logger.d(RetryScheduler.TAG, "network onAvailable: ");
+                            RetryScheduler.this.scheduleAllTaskRetry(1, true);
+                        }
+                    });
+                } catch (Exception e2) {
+                    e2.printStackTrace();
                 }
             }
         });
     }
 
-    private void removeRetryInfo(int i10) {
+    private void removeRetryInfo(int i2) {
         synchronized (this.mRetryInfoList) {
-            this.mRetryInfoList.remove(i10);
+            this.mRetryInfoList.remove(i2);
         }
     }
 
-    public void scheduleAllTaskRetry(int i10, boolean z10) {
+    public void scheduleAllTaskRetry(int i2, boolean z) {
         if (this.mWaitingRetryTasksCount <= 0) {
             return;
         }
         long currentTimeMillis = System.currentTimeMillis();
         synchronized (this) {
-            if (!z10) {
-                try {
-                    if (currentTimeMillis - this.mLastHandleAllTaskTime < 10000) {
-                        return;
-                    }
-                } catch (Throwable th2) {
-                    throw th2;
+            if (!z) {
+                if (currentTimeMillis - this.mLastHandleAllTaskTime < 10000) {
+                    return;
                 }
             }
             this.mLastHandleAllTaskTime = currentTimeMillis;
-            Logger.i(TAG, "scheduleAllTaskRetry, level = [" + i10 + "], force = [" + z10 + "]");
-            if (z10) {
+            Logger.i(TAG, "scheduleAllTaskRetry, level = [" + i2 + "], force = [" + z + "]");
+            if (z) {
                 this.mHandler.removeMessages(0);
             }
             Message obtain = Message.obtain();
             obtain.what = 0;
-            obtain.arg1 = i10;
-            obtain.arg2 = z10 ? 1 : 0;
-            this.mHandler.sendMessageDelayed(obtain, y.f.f18076n);
+            obtain.arg1 = i2;
+            obtain.arg2 = z ? 1 : 0;
+            this.mHandler.sendMessageDelayed(obtain, 2000L);
         }
     }
 
@@ -585,21 +563,21 @@ public class RetryScheduler implements Handler.Callback, AppStatusManager.AppSta
         sRetryScheduleHandler = retryScheduleHandler;
     }
 
-    public void doSchedulerRetry(int i10) {
+    public void doSchedulerRetry(int i2) {
         DownloadComponentManager.getCPUThreadExecutor().execute(new Runnable() { // from class: com.ss.android.socialbase.downloader.impls.RetryScheduler.3
             final /* synthetic */ int val$downloadId;
 
-            public AnonymousClass3(int i102) {
-                i10 = i102;
+            AnonymousClass3(int i22) {
+                i2 = i22;
             }
 
             @Override // java.lang.Runnable
             public void run() {
                 try {
                     RetryScheduler retryScheduler = RetryScheduler.this;
-                    retryScheduler.doSchedulerRetryInSubThread(i10, retryScheduler.getNetWorkType(), true);
-                } catch (Exception e10) {
-                    e10.printStackTrace();
+                    retryScheduler.doSchedulerRetryInSubThread(i2, retryScheduler.getNetWorkType(), true);
+                } catch (Exception e2) {
+                    e2.printStackTrace();
                 }
             }
         });
@@ -634,31 +612,27 @@ public class RetryScheduler implements Handler.Callback, AppStatusManager.AppSta
         scheduleAllTaskRetry(2, true);
     }
 
-    public void tryCancelScheduleRetry(int i10) {
+    public void tryCancelScheduleRetry(int i2) {
         synchronized (this.mRetryInfoList) {
-            try {
-                RetryInfo retryInfo = this.mRetryInfoList.get(i10);
-                if (retryInfo == null) {
-                    return;
+            RetryInfo retryInfo = this.mRetryInfoList.get(i2);
+            if (retryInfo == null) {
+                return;
+            }
+            if (retryInfo.mIsWaitingRetry) {
+                retryInfo.mIsWaitingRetry = false;
+                int i3 = this.mWaitingRetryTasksCount - 1;
+                this.mWaitingRetryTasksCount = i3;
+                if (i3 < 0) {
+                    this.mWaitingRetryTasksCount = 0;
                 }
-                if (retryInfo.mIsWaitingRetry) {
-                    retryInfo.mIsWaitingRetry = false;
-                    int i11 = this.mWaitingRetryTasksCount - 1;
-                    this.mWaitingRetryTasksCount = i11;
-                    if (i11 < 0) {
-                        this.mWaitingRetryTasksCount = 0;
-                    }
-                }
-                if (!retryInfo.useJobScheduler) {
-                    this.mHandler.removeMessages(i10);
-                    return;
-                }
-                RetryScheduleHandler retryScheduleHandler = sRetryScheduleHandler;
-                if (retryScheduleHandler != null) {
-                    retryScheduleHandler.cancelRetry(i10);
-                }
-            } catch (Throwable th2) {
-                throw th2;
+            }
+            if (!retryInfo.useJobScheduler) {
+                this.mHandler.removeMessages(i2);
+                return;
+            }
+            RetryScheduleHandler retryScheduleHandler = sRetryScheduleHandler;
+            if (retryScheduleHandler != null) {
+                retryScheduleHandler.cancelRetry(i2);
             }
         }
     }
@@ -670,14 +644,14 @@ public class RetryScheduler implements Handler.Callback, AppStatusManager.AppSta
         tryStartScheduleRetry(downloadInfo, downloadInfo.isOnlyWifi() || downloadInfo.isPauseReserveOnWifi(), getNetWorkType());
     }
 
-    private void tryStartScheduleRetry(DownloadInfo downloadInfo, boolean z10, int i10) {
+    private void tryStartScheduleRetry(DownloadInfo downloadInfo, boolean z, int i2) {
         BaseException failedException = downloadInfo.getFailedException();
         if (failedException == null) {
             return;
         }
         RetryInfo obtainRetryInfo = obtainRetryInfo(downloadInfo.getId());
         if (obtainRetryInfo.mRetryCount > obtainRetryInfo.maxCount) {
-            Logger.w(TAG, "tryStartScheduleRetry, id = " + obtainRetryInfo.f21970id + ", mRetryCount = " + obtainRetryInfo.mRetryCount + ", maxCount = " + obtainRetryInfo.maxCount);
+            Logger.w(TAG, "tryStartScheduleRetry, id = " + obtainRetryInfo.id + ", mRetryCount = " + obtainRetryInfo.mRetryCount + ", maxCount = " + obtainRetryInfo.maxCount);
             return;
         }
         int errorCode = failedException.getErrorCode();
@@ -685,35 +659,31 @@ public class RetryScheduler implements Handler.Callback, AppStatusManager.AppSta
             if (!canRetryForAllowErrorCode(obtainRetryInfo, errorCode)) {
                 return;
             }
-            Logger.i(TAG, "allow error code, id = " + obtainRetryInfo.f21970id + ", error code = " + errorCode);
+            Logger.i(TAG, "allow error code, id = " + obtainRetryInfo.id + ", error code = " + errorCode);
         }
-        obtainRetryInfo.mNeedWifi = z10;
+        obtainRetryInfo.mNeedWifi = z;
         synchronized (this.mRetryInfoList) {
-            try {
-                if (!obtainRetryInfo.mIsWaitingRetry) {
-                    obtainRetryInfo.mIsWaitingRetry = true;
-                    this.mWaitingRetryTasksCount++;
-                }
-            } catch (Throwable th2) {
-                throw th2;
+            if (!obtainRetryInfo.mIsWaitingRetry) {
+                obtainRetryInfo.mIsWaitingRetry = true;
+                this.mWaitingRetryTasksCount++;
             }
         }
         int currentRetryIntervalMs = obtainRetryInfo.getCurrentRetryIntervalMs();
-        Logger.i(TAG, "tryStartScheduleRetry: id = " + obtainRetryInfo.f21970id + ", delayTimeMills = " + currentRetryIntervalMs + ", mWaitingRetryTasks = " + this.mWaitingRetryTasksCount);
+        Logger.i(TAG, "tryStartScheduleRetry: id = " + obtainRetryInfo.id + ", delayTimeMills = " + currentRetryIntervalMs + ", mWaitingRetryTasks = " + this.mWaitingRetryTasksCount);
         if (!obtainRetryInfo.useJobScheduler) {
-            if (z10) {
+            if (z) {
                 return;
             }
             this.mHandler.removeMessages(downloadInfo.getId());
             this.mHandler.sendEmptyMessageDelayed(downloadInfo.getId(), currentRetryIntervalMs);
             return;
         }
-        if (i10 == 0) {
+        if (i2 == 0) {
             obtainRetryInfo.resetRetryInterval();
         }
         RetryScheduleHandler retryScheduleHandler = sRetryScheduleHandler;
         if (retryScheduleHandler != null) {
-            retryScheduleHandler.scheduleRetry(downloadInfo, currentRetryIntervalMs, z10, i10);
+            retryScheduleHandler.scheduleRetry(downloadInfo, currentRetryIntervalMs, z, i2);
         }
         if (this.mIsDownloaderProcess) {
             obtainRetryInfo.updateRetryTimeStamp(System.currentTimeMillis());

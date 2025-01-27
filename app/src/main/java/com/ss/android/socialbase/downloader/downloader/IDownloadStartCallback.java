@@ -2,5 +2,5 @@ package com.ss.android.socialbase.downloader.downloader;
 
 /* loaded from: classes4.dex */
 public interface IDownloadStartCallback {
-    void onStart(int i10);
+    void onStart(int i2);
 }

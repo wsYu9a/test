@@ -11,7 +11,7 @@ import com.bumptech.glide.load.engine.Resource;
 import com.bumptech.glide.load.engine.bitmap_recycle.BitmapPool;
 import com.bumptech.glide.load.resource.drawable.ResourceDrawableDecoder;
 
-/* loaded from: classes2.dex */
+/* loaded from: classes.dex */
 public class ResourceBitmapDecoder implements ResourceDecoder<Uri, Bitmap> {
     private final BitmapPool bitmapPool;
     private final ResourceDrawableDecoder drawableDecoder;
@@ -23,12 +23,12 @@ public class ResourceBitmapDecoder implements ResourceDecoder<Uri, Bitmap> {
 
     @Override // com.bumptech.glide.load.ResourceDecoder
     @Nullable
-    public Resource<Bitmap> decode(@NonNull Uri uri, int i10, int i11, @NonNull Options options) {
-        Resource<Drawable> decode = this.drawableDecoder.decode(uri, i10, i11, options);
+    public Resource<Bitmap> decode(@NonNull Uri uri, int i2, int i3, @NonNull Options options) {
+        Resource<Drawable> decode = this.drawableDecoder.decode(uri, i2, i3, options);
         if (decode == null) {
             return null;
         }
-        return DrawableToBitmapConverter.convert(this.bitmapPool, decode.get(), i10, i11);
+        return DrawableToBitmapConverter.convert(this.bitmapPool, decode.get(), i2, i3);
     }
 
     @Override // com.bumptech.glide.load.ResourceDecoder

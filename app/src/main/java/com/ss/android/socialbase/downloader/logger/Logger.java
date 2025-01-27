@@ -3,7 +3,6 @@ package com.ss.android.socialbase.downloader.logger;
 import android.text.TextUtils;
 import android.util.Log;
 import com.ss.android.socialbase.downloader.impls.DownloadProxy;
-import p1.b;
 
 /* loaded from: classes4.dex */
 public class Logger {
@@ -20,7 +19,13 @@ public class Logger {
         public void logE(String str, String str2) {
         }
 
+        public void logE(String str, String str2, Throwable th) {
+        }
+
         public void logI(String str, String str2) {
+        }
+
+        public void logI(String str, String str2, Throwable th) {
         }
 
         public void logK(String str, String str2) {
@@ -32,13 +37,7 @@ public class Logger {
         public void logW(String str, String str2) {
         }
 
-        public void logE(String str, String str2, Throwable th2) {
-        }
-
-        public void logI(String str, String str2, Throwable th2) {
-        }
-
-        public void logW(String str, String str2, Throwable th2) {
+        public void logW(String str, String str2, Throwable th) {
         }
     }
 
@@ -88,41 +87,41 @@ public class Logger {
         sLogWritter = iLogWritter;
     }
 
-    public static void setLogLevel(int i10) {
-        mLevel = i10;
+    public static void setLogLevel(int i2) {
+        mLevel = i2;
     }
 
-    public static void setLogLevelInDownloaderProcess(int i10) {
+    public static void setLogLevelInDownloaderProcess(int i2) {
         if (DownloadProxy.get(true) != null) {
-            mLevel = i10;
+            mLevel = i2;
         }
     }
 
-    public static void st(String str, int i10) {
+    public static void st(String str, int i2) {
         try {
             throw new Exception();
-        } catch (Exception e10) {
-            StackTraceElement[] stackTrace = e10.getStackTrace();
-            StringBuilder sb2 = new StringBuilder();
-            for (int i11 = 1; i11 < Math.min(i10, stackTrace.length); i11++) {
-                if (i11 > 1) {
-                    sb2.append("\n");
+        } catch (Exception e2) {
+            StackTraceElement[] stackTrace = e2.getStackTrace();
+            StringBuilder sb = new StringBuilder();
+            for (int i3 = 1; i3 < Math.min(i2, stackTrace.length); i3++) {
+                if (i3 > 1) {
+                    sb.append("\n");
                 }
-                sb2.append(getSimpleClassName(stackTrace[i11].getClassName()));
-                sb2.append(b.f29697h);
-                sb2.append(stackTrace[i11].getMethodName());
+                sb.append(getSimpleClassName(stackTrace[i3].getClassName()));
+                sb.append(".");
+                sb.append(stackTrace[i3].getMethodName());
             }
-            v(downloaderTag(str), sb2.toString());
+            v(downloaderTag(str), sb.toString());
         }
     }
 
-    public static void throwException(Throwable th2) {
-        if (th2 == null) {
+    public static void throwException(Throwable th) {
+        if (th == null) {
             return;
         }
-        th2.printStackTrace();
+        th.printStackTrace();
         if (debug()) {
-            throw new RuntimeException("Error! Now in debug, we alert to you to correct it !", th2);
+            throw new RuntimeException("Error! Now in debug, we alert to you to correct it !", th);
         }
     }
 
@@ -209,68 +208,68 @@ public class Logger {
         }
     }
 
-    public static void d(String str, String str2, Throwable th2) {
-        if (str2 == null && th2 == null) {
+    public static void d(String str, String str2, Throwable th) {
+        if (str2 == null && th == null) {
             return;
         }
         if (mLevel <= 3) {
-            Log.d(downloaderTag(str), str2, th2);
+            Log.d(downloaderTag(str), str2, th);
         }
         ILogWritter iLogWritter = sLogWritter;
         if (iLogWritter != null) {
-            iLogWritter.logD(downloaderTag(str), str2 + th2);
+            iLogWritter.logD(downloaderTag(str), str2 + th);
         }
     }
 
-    public static void e(String str, String str2, Throwable th2) {
-        if (str2 == null && th2 == null) {
+    public static void e(String str, String str2, Throwable th) {
+        if (str2 == null && th == null) {
             return;
         }
         if (mLevel <= 6) {
-            Log.e(downloaderTag(str), str2, th2);
+            Log.e(downloaderTag(str), str2, th);
         }
         ILogWritter iLogWritter = sLogWritter;
         if (iLogWritter != null) {
-            iLogWritter.logE(downloaderTag(str), str2, th2);
+            iLogWritter.logE(downloaderTag(str), str2, th);
         }
     }
 
-    public static void i(String str, String str2, Throwable th2) {
-        if (str2 == null && th2 == null) {
+    public static void i(String str, String str2, Throwable th) {
+        if (str2 == null && th == null) {
             return;
         }
         if (mLevel <= 4) {
-            Log.i(downloaderTag(str), str2, th2);
+            Log.i(downloaderTag(str), str2, th);
         }
         ILogWritter iLogWritter = sLogWritter;
         if (iLogWritter != null) {
-            iLogWritter.logI(downloaderTag(str), str2, th2);
+            iLogWritter.logI(downloaderTag(str), str2, th);
         }
     }
 
-    public static void v(String str, String str2, Throwable th2) {
-        if (str2 == null && th2 == null) {
+    public static void v(String str, String str2, Throwable th) {
+        if (str2 == null && th == null) {
             return;
         }
         if (mLevel <= 2) {
-            Log.v(str, str2, th2);
+            Log.v(str, str2, th);
         }
         ILogWritter iLogWritter = sLogWritter;
         if (iLogWritter != null) {
-            iLogWritter.logV(downloaderTag(str), str2 + th2);
+            iLogWritter.logV(downloaderTag(str), str2 + th);
         }
     }
 
-    public static void w(String str, String str2, Throwable th2) {
-        if (str2 == null && th2 == null) {
+    public static void w(String str, String str2, Throwable th) {
+        if (str2 == null && th == null) {
             return;
         }
         if (mLevel <= 5) {
-            Log.w(downloaderTag(str), str2, th2);
+            Log.w(downloaderTag(str), str2, th);
         }
         ILogWritter iLogWritter = sLogWritter;
         if (iLogWritter != null) {
-            iLogWritter.logW(downloaderTag(str), str2, th2);
+            iLogWritter.logW(downloaderTag(str), str2, th);
         }
     }
 }

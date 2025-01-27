@@ -5,20 +5,20 @@ import com.tencent.bugly.proguard.W;
 import com.tencent.bugly.proguard.X;
 
 /* loaded from: classes4.dex */
-public class c extends FileObserver {
+class c extends FileObserver {
 
     /* renamed from: a */
-    final /* synthetic */ h f22415a;
+    final /* synthetic */ h f24812a;
 
     /* JADX WARN: 'super' call moved to the top of the method (can break code semantics) */
-    public c(h hVar, String str, int i10) {
-        super(str, i10);
-        this.f22415a = hVar;
+    c(h hVar, String str, int i2) {
+        super(str, i2);
+        this.f24812a = hVar;
     }
 
     @Override // android.os.FileObserver
-    public void onEvent(int i10, String str) {
-        W w10;
+    public void onEvent(int i2, String str) {
+        W w;
         if (str == null) {
             return;
         }
@@ -27,8 +27,8 @@ public class c extends FileObserver {
         if (!str2.contains("trace")) {
             X.e("not anr file %s", str2);
         } else {
-            w10 = this.f22415a.f22425f;
-            w10.a(new b(this, str2));
+            w = this.f24812a.f24822f;
+            w.a(new b(this, str2));
         }
     }
 }

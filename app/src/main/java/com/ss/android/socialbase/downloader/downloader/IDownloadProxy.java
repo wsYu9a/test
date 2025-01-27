@@ -16,51 +16,51 @@ import java.util.List;
 public interface IDownloadProxy {
     void addDownloadChunk(DownloadChunk downloadChunk);
 
-    void addDownloadListener(int i10, int i11, IDownloadListener iDownloadListener, ListenerType listenerType, boolean z10);
+    void addDownloadListener(int i2, int i3, IDownloadListener iDownloadListener, ListenerType listenerType, boolean z);
 
-    void addDownloadListener(int i10, int i11, IDownloadListener iDownloadListener, ListenerType listenerType, boolean z10, boolean z11);
+    void addDownloadListener(int i2, int i3, IDownloadListener iDownloadListener, ListenerType listenerType, boolean z, boolean z2);
 
     void addProcessCallback(ProcessCallback processCallback);
 
-    boolean canResume(int i10);
+    boolean canResume(int i2);
 
-    void cancel(int i10, boolean z10);
+    void cancel(int i2, boolean z);
 
     void clearData();
 
-    void clearDownloadData(int i10, boolean z10);
+    void clearDownloadData(int i2, boolean z);
 
-    void dispatchProcessCallback(int i10, int i11);
+    void dispatchProcessCallback(int i2, int i3);
 
-    void forceDownloadIngoreRecommendSize(int i10);
+    void forceDownloadIngoreRecommendSize(int i2);
 
     List<DownloadInfo> getAllDownloadInfo();
 
-    long getCurBytes(int i10);
+    long getCurBytes(int i2);
 
-    List<DownloadChunk> getDownloadChunk(int i10);
+    List<DownloadChunk> getDownloadChunk(int i2);
 
-    IDownloadFileUriProvider getDownloadFileUriProvider(int i10);
+    IDownloadFileUriProvider getDownloadFileUriProvider(int i2);
 
     int getDownloadId(String str, String str2);
 
-    DownloadInfo getDownloadInfo(int i10);
+    DownloadInfo getDownloadInfo(int i2);
 
     DownloadInfo getDownloadInfo(String str, String str2);
 
     List<DownloadInfo> getDownloadInfoList(String str);
 
-    IDownloadNotificationEventListener getDownloadNotificationEventListener(int i10);
+    IDownloadNotificationEventListener getDownloadNotificationEventListener(int i2);
 
-    int getDownloadWithIndependentProcessStatus(int i10);
+    int getDownloadWithIndependentProcessStatus(int i2);
 
     List<DownloadInfo> getDownloadingDownloadInfosWithMimeType(String str);
 
     List<DownloadInfo> getFailedDownloadInfosWithMimeType(String str);
 
-    INotificationClickCallback getNotificationClickCallback(int i10);
+    INotificationClickCallback getNotificationClickCallback(int i2);
 
-    int getStatus(int i10);
+    int getStatus(int i2);
 
     List<DownloadInfo> getSuccessedDownloadInfosWithMimeType(String str);
 
@@ -70,7 +70,7 @@ public interface IDownloadProxy {
 
     boolean isDownloadSuccessAndFileNotExist(DownloadInfo downloadInfo);
 
-    boolean isDownloading(int i10);
+    boolean isDownloading(int i2);
 
     boolean isHttpServiceInit();
 
@@ -78,59 +78,59 @@ public interface IDownloadProxy {
 
     boolean isServiceForeground();
 
-    void pause(int i10);
+    void pause(int i2);
 
     void pauseAll();
 
-    void removeAllDownloadChunk(int i10);
+    void removeAllDownloadChunk(int i2);
 
-    boolean removeDownloadInfo(int i10);
+    boolean removeDownloadInfo(int i2);
 
-    void removeDownloadListener(int i10, int i11, IDownloadListener iDownloadListener, ListenerType listenerType, boolean z10);
+    void removeDownloadListener(int i2, int i3, IDownloadListener iDownloadListener, ListenerType listenerType, boolean z);
 
-    boolean removeDownloadTaskData(int i10);
+    boolean removeDownloadTaskData(int i2);
 
-    void resetDownloadData(int i10, boolean z10);
+    void resetDownloadData(int i2, boolean z);
 
-    void restart(int i10);
+    void restart(int i2);
 
     void restartAllFailedDownloadTasks(List<String> list);
 
     void restartAllPauseReserveOnWifiDownloadTasks(List<String> list);
 
-    void resume(int i10);
+    void resume(int i2);
 
-    boolean retryDelayStart(int i10);
+    boolean retryDelayStart(int i2);
 
-    void setDownloadNotificationEventListener(int i10, IDownloadNotificationEventListener iDownloadNotificationEventListener);
+    void setDownloadNotificationEventListener(int i2, IDownloadNotificationEventListener iDownloadNotificationEventListener);
 
-    void setDownloadWithIndependentProcessStatus(int i10, boolean z10);
+    void setDownloadWithIndependentProcessStatus(int i2, boolean z);
 
-    void setLogLevel(int i10);
+    void setLogLevel(int i2);
 
-    void setThrottleNetSpeed(int i10, long j10);
+    void setThrottleNetSpeed(int i2, long j2);
 
-    void startForeground(int i10, Notification notification);
+    void startForeground(int i2, Notification notification);
 
     void startService();
 
-    void stopForeground(boolean z10, boolean z11);
+    void stopForeground(boolean z, boolean z2);
 
-    void syncDownloadChunks(int i10, List<DownloadChunk> list);
+    void syncDownloadChunks(int i2, List<DownloadChunk> list);
 
     void syncDownloadInfo(DownloadInfo downloadInfo);
 
-    void syncDownloadInfoFromOtherCache(int i10, List<DownloadChunk> list);
+    void syncDownloadInfoFromOtherCache(int i2, List<DownloadChunk> list);
 
     void tryDownload(DownloadTask downloadTask);
 
     void tryDownloadWithEngine(DownloadTask downloadTask);
 
-    void updateDownloadChunk(int i10, int i11, long j10);
+    void updateDownloadChunk(int i2, int i3, long j2);
 
     boolean updateDownloadInfo(DownloadInfo downloadInfo);
 
-    void updateSubDownloadChunk(int i10, int i11, int i12, long j10);
+    void updateSubDownloadChunk(int i2, int i3, int i4, long j2);
 
-    void updateSubDownloadChunkIndex(int i10, int i11, int i12, int i13);
+    void updateSubDownloadChunkIndex(int i2, int i3, int i4, int i5);
 }

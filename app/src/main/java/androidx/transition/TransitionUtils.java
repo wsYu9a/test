@@ -13,46 +13,63 @@ import android.widget.ImageView;
 
 /* loaded from: classes.dex */
 class TransitionUtils {
-    private static final boolean HAS_IS_ATTACHED_TO_WINDOW;
-    private static final boolean HAS_OVERLAY;
-    private static final boolean HAS_PICTURE_BITMAP;
-    private static final int MAX_IMAGE_SIZE = 1048576;
 
-    public static class MatrixEvaluator implements TypeEvaluator<Matrix> {
-        final float[] mTempStartValues = new float[9];
-        final float[] mTempEndValues = new float[9];
-        final Matrix mTempMatrix = new Matrix();
+    /* renamed from: a */
+    private static final int f3848a = 1048576;
+
+    /* renamed from: b */
+    private static final boolean f3849b;
+
+    /* renamed from: c */
+    private static final boolean f3850c;
+
+    /* renamed from: d */
+    private static final boolean f3851d;
+
+    static class MatrixEvaluator implements TypeEvaluator<Matrix> {
+
+        /* renamed from: a */
+        final float[] f3852a = new float[9];
+
+        /* renamed from: b */
+        final float[] f3853b = new float[9];
+
+        /* renamed from: c */
+        final Matrix f3854c = new Matrix();
+
+        MatrixEvaluator() {
+        }
 
         @Override // android.animation.TypeEvaluator
-        public Matrix evaluate(float f10, Matrix matrix, Matrix matrix2) {
-            matrix.getValues(this.mTempStartValues);
-            matrix2.getValues(this.mTempEndValues);
-            for (int i10 = 0; i10 < 9; i10++) {
-                float[] fArr = this.mTempEndValues;
-                float f11 = fArr[i10];
-                float f12 = this.mTempStartValues[i10];
-                fArr[i10] = f12 + ((f11 - f12) * f10);
+        public Matrix evaluate(float f2, Matrix matrix, Matrix matrix2) {
+            matrix.getValues(this.f3852a);
+            matrix2.getValues(this.f3853b);
+            for (int i2 = 0; i2 < 9; i2++) {
+                float[] fArr = this.f3853b;
+                float f3 = fArr[i2];
+                float[] fArr2 = this.f3852a;
+                fArr[i2] = fArr2[i2] + ((f3 - fArr2[i2]) * f2);
             }
-            this.mTempMatrix.setValues(this.mTempEndValues);
-            return this.mTempMatrix;
+            this.f3854c.setValues(this.f3853b);
+            return this.f3854c;
         }
     }
 
     static {
-        int i10 = Build.VERSION.SDK_INT;
-        HAS_IS_ATTACHED_TO_WINDOW = true;
-        HAS_OVERLAY = true;
-        HAS_PICTURE_BITMAP = i10 >= 28;
+        int i2 = Build.VERSION.SDK_INT;
+        f3849b = i2 >= 19;
+        f3850c = i2 >= 18;
+        f3851d = i2 >= 28;
     }
 
     private TransitionUtils() {
     }
 
-    public static View copyViewImage(ViewGroup viewGroup, View view, View view2) {
+    static View a(ViewGroup viewGroup, View view, View view2) {
         Matrix matrix = new Matrix();
         matrix.setTranslate(-view2.getScrollX(), -view2.getScrollY());
-        ViewUtils.transformMatrixToGlobal(view, matrix);
-        ViewUtils.transformMatrixToLocal(viewGroup, matrix);
+        ViewUtils.j(view, matrix);
+        ViewUtils.k(viewGroup, matrix);
         RectF rectF = new RectF(0.0f, 0.0f, view.getWidth(), view.getHeight());
         matrix.mapRect(rectF);
         int round = Math.round(rectF.left);
@@ -61,9 +78,9 @@ class TransitionUtils {
         int round4 = Math.round(rectF.bottom);
         ImageView imageView = new ImageView(view.getContext());
         imageView.setScaleType(ImageView.ScaleType.CENTER_CROP);
-        Bitmap createViewBitmap = createViewBitmap(view, matrix, rectF, viewGroup);
-        if (createViewBitmap != null) {
-            imageView.setImageBitmap(createViewBitmap);
+        Bitmap b2 = b(view, matrix, rectF, viewGroup);
+        if (b2 != null) {
+            imageView.setImageBitmap(b2);
         }
         imageView.measure(View.MeasureSpec.makeMeasureSpec(round3 - round, 1073741824), View.MeasureSpec.makeMeasureSpec(round4 - round2, 1073741824));
         imageView.layout(round, round2, round3, round4);
@@ -76,51 +93,51 @@ class TransitionUtils {
         Code decompiled incorrectly, please refer to instructions dump.
         To view partially-correct code enable 'Show inconsistent code' option in preferences
     */
-    private static android.graphics.Bitmap createViewBitmap(android.view.View r8, android.graphics.Matrix r9, android.graphics.RectF r10, android.view.ViewGroup r11) {
+    private static android.graphics.Bitmap b(android.view.View r9, android.graphics.Matrix r10, android.graphics.RectF r11, android.view.ViewGroup r12) {
         /*
-            boolean r0 = androidx.transition.TransitionUtils.HAS_IS_ATTACHED_TO_WINDOW
+            boolean r0 = androidx.transition.TransitionUtils.f3849b
             r1 = 0
             if (r0 == 0) goto L13
-            boolean r0 = r8.isAttachedToWindow()
+            boolean r0 = r9.isAttachedToWindow()
             r0 = r0 ^ 1
-            if (r11 != 0) goto Le
+            if (r12 != 0) goto Le
             goto L14
         Le:
-            boolean r2 = r11.isAttachedToWindow()
+            boolean r2 = r12.isAttachedToWindow()
             goto L15
         L13:
             r0 = 0
         L14:
             r2 = 0
         L15:
-            boolean r3 = androidx.transition.TransitionUtils.HAS_OVERLAY
+            boolean r3 = androidx.transition.TransitionUtils.f3850c
             r4 = 0
             if (r3 == 0) goto L31
             if (r0 == 0) goto L31
             if (r2 != 0) goto L1f
             return r4
         L1f:
-            android.view.ViewParent r1 = r8.getParent()
+            android.view.ViewParent r1 = r9.getParent()
             android.view.ViewGroup r1 = (android.view.ViewGroup) r1
-            int r2 = r1.indexOfChild(r8)
-            android.view.ViewGroupOverlay r5 = r11.getOverlay()
-            r5.add(r8)
+            int r2 = r1.indexOfChild(r9)
+            android.view.ViewGroupOverlay r5 = r12.getOverlay()
+            r5.add(r9)
             goto L33
         L31:
             r1 = r4
             r2 = 0
         L33:
-            float r5 = r10.width()
+            float r5 = r11.width()
             int r5 = java.lang.Math.round(r5)
-            float r6 = r10.height()
+            float r6 = r11.height()
             int r6 = java.lang.Math.round(r6)
             if (r5 <= 0) goto L99
             if (r6 <= 0) goto L99
-            int r4 = r5 * r6
-            float r4 = (float) r4
-            r7 = 1233125376(0x49800000, float:1048576.0)
-            float r7 = r7 / r4
             r4 = 1065353216(0x3f800000, float:1.0)
+            r7 = 1233125376(0x49800000, float:1048576.0)
+            int r8 = r5 * r6
+            float r8 = (float) r8
+            float r7 = r7 / r8
             float r4 = java.lang.Math.min(r4, r7)
             float r5 = (float) r5
             float r5 = r5 * r4
@@ -128,42 +145,42 @@ class TransitionUtils {
             float r6 = (float) r6
             float r6 = r6 * r4
             int r6 = java.lang.Math.round(r6)
-            float r7 = r10.left
+            float r7 = r11.left
             float r7 = -r7
-            float r10 = r10.top
-            float r10 = -r10
-            r9.postTranslate(r7, r10)
-            r9.postScale(r4, r4)
-            boolean r10 = androidx.transition.TransitionUtils.HAS_PICTURE_BITMAP
-            if (r10 == 0) goto L88
-            android.graphics.Picture r10 = new android.graphics.Picture
-            r10.<init>()
-            android.graphics.Canvas r4 = r10.beginRecording(r5, r6)
-            r4.concat(r9)
-            r8.draw(r4)
-            r10.endRecording()
-            android.graphics.Bitmap r4 = t0.d.a(r10)
+            float r11 = r11.top
+            float r11 = -r11
+            r10.postTranslate(r7, r11)
+            r10.postScale(r4, r4)
+            boolean r11 = androidx.transition.TransitionUtils.f3851d
+            if (r11 == 0) goto L88
+            android.graphics.Picture r11 = new android.graphics.Picture
+            r11.<init>()
+            android.graphics.Canvas r4 = r11.beginRecording(r5, r6)
+            r4.concat(r10)
+            r9.draw(r4)
+            r11.endRecording()
+            android.graphics.Bitmap r4 = android.graphics.Bitmap.createBitmap(r11)
             goto L99
         L88:
-            android.graphics.Bitmap$Config r10 = android.graphics.Bitmap.Config.ARGB_8888
-            android.graphics.Bitmap r4 = android.graphics.Bitmap.createBitmap(r5, r6, r10)
-            android.graphics.Canvas r10 = new android.graphics.Canvas
-            r10.<init>(r4)
-            r10.concat(r9)
-            r8.draw(r10)
+            android.graphics.Bitmap$Config r11 = android.graphics.Bitmap.Config.ARGB_8888
+            android.graphics.Bitmap r4 = android.graphics.Bitmap.createBitmap(r5, r6, r11)
+            android.graphics.Canvas r11 = new android.graphics.Canvas
+            r11.<init>(r4)
+            r11.concat(r10)
+            r9.draw(r11)
         L99:
             if (r3 == 0) goto La7
             if (r0 == 0) goto La7
-            android.view.ViewGroupOverlay r9 = r11.getOverlay()
-            r9.remove(r8)
-            r1.addView(r8, r2)
+            android.view.ViewGroupOverlay r10 = r12.getOverlay()
+            r10.remove(r9)
+            r1.addView(r9, r2)
         La7:
             return r4
         */
-        throw new UnsupportedOperationException("Method not decompiled: androidx.transition.TransitionUtils.createViewBitmap(android.view.View, android.graphics.Matrix, android.graphics.RectF, android.view.ViewGroup):android.graphics.Bitmap");
+        throw new UnsupportedOperationException("Method not decompiled: androidx.transition.TransitionUtils.b(android.view.View, android.graphics.Matrix, android.graphics.RectF, android.view.ViewGroup):android.graphics.Bitmap");
     }
 
-    public static Animator mergeAnimators(Animator animator, Animator animator2) {
+    static Animator c(Animator animator, Animator animator2) {
         if (animator == null) {
             return animator2;
         }

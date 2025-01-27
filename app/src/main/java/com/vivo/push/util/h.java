@@ -10,78 +10,25 @@ import com.vivo.push.model.InsideNotificationItem;
 public final class h implements BaseNotifyDataAdapter {
 
     /* renamed from: e */
-    private static int f25118e;
+    private static int f31082e;
 
     /* renamed from: f */
-    private static int f25119f;
+    private static int f31083f;
 
     /* renamed from: a */
-    private Resources f25120a;
+    private Resources f31084a;
 
     /* renamed from: b */
-    private String f25121b;
+    private String f31085b;
 
     /* renamed from: c */
-    private String f25122c;
+    private String f31086c;
 
     /* renamed from: d */
-    private String f25123d;
+    private String f31087d;
 
-    private static boolean a(int i10) {
-        return (i10 == -1 || i10 == 0) ? false : true;
-    }
-
-    @Override // com.vivo.push.util.BaseNotifyDataAdapter
-    public final int getDefaultNotifyIcon() {
-        if (a(f25118e)) {
-            return f25118e;
-        }
-        String str = this.f25123d;
-        int a10 = !a(str) ? -1 : a(str, "_notifyicon");
-        f25118e = a10;
-        if (a(a10)) {
-            return f25118e;
-        }
-        for (String str2 = this.f25122c; !TextUtils.isEmpty(str2); str2 = str2.substring(0, str2.length() - 1)) {
-            int identifier = this.f25120a.getIdentifier("vivo_push_rom" + str2 + "_notifyicon", "drawable", this.f25121b);
-            if (identifier > 0) {
-                return identifier;
-            }
-        }
-        return this.f25120a.getIdentifier("vivo_push_notifyicon", "drawable", this.f25121b);
-    }
-
-    @Override // com.vivo.push.util.BaseNotifyDataAdapter
-    public final int getDefaultSmallIconId() {
-        if (a(f25119f)) {
-            return f25119f;
-        }
-        String str = this.f25123d;
-        int a10 = !a(str) ? -1 : a(str, "_icon");
-        f25119f = a10;
-        if (a(a10)) {
-            return f25119f;
-        }
-        for (String str2 = this.f25122c; !TextUtils.isEmpty(str2); str2 = str2.substring(0, str2.length() - 1)) {
-            int identifier = this.f25120a.getIdentifier("vivo_push_rom" + str2 + "_icon", "drawable", this.f25121b);
-            if (identifier > 0) {
-                return identifier;
-            }
-        }
-        return this.f25120a.getIdentifier("vivo_push_icon", "drawable", this.f25121b);
-    }
-
-    @Override // com.vivo.push.util.BaseNotifyDataAdapter
-    public final int getNotifyMode(InsideNotificationItem insideNotificationItem) {
-        return 2;
-    }
-
-    @Override // com.vivo.push.util.BaseNotifyDataAdapter
-    public final void init(Context context) {
-        this.f25121b = context.getPackageName();
-        this.f25120a = context.getResources();
-        this.f25122c = j.a();
-        this.f25123d = Build.VERSION.RELEASE;
+    private static boolean a(int i2) {
+        return (i2 == -1 || i2 == 0) ? false : true;
     }
 
     private static boolean a(String str) {
@@ -95,6 +42,59 @@ public final class h implements BaseNotifyDataAdapter {
         return false;
     }
 
+    @Override // com.vivo.push.util.BaseNotifyDataAdapter
+    public final int getDefaultNotifyIcon() {
+        if (a(f31082e)) {
+            return f31082e;
+        }
+        String str = this.f31087d;
+        int a2 = !a(str) ? -1 : a(str, "_notifyicon");
+        f31082e = a2;
+        if (a(a2)) {
+            return f31082e;
+        }
+        for (String str2 = this.f31086c; !TextUtils.isEmpty(str2); str2 = str2.substring(0, str2.length() - 1)) {
+            int identifier = this.f31084a.getIdentifier("vivo_push_rom" + str2 + "_notifyicon", "drawable", this.f31085b);
+            if (identifier > 0) {
+                return identifier;
+            }
+        }
+        return this.f31084a.getIdentifier("vivo_push_notifyicon", "drawable", this.f31085b);
+    }
+
+    @Override // com.vivo.push.util.BaseNotifyDataAdapter
+    public final int getDefaultSmallIconId() {
+        if (a(f31083f)) {
+            return f31083f;
+        }
+        String str = this.f31087d;
+        int a2 = !a(str) ? -1 : a(str, "_icon");
+        f31083f = a2;
+        if (a(a2)) {
+            return f31083f;
+        }
+        for (String str2 = this.f31086c; !TextUtils.isEmpty(str2); str2 = str2.substring(0, str2.length() - 1)) {
+            int identifier = this.f31084a.getIdentifier("vivo_push_rom" + str2 + "_icon", "drawable", this.f31085b);
+            if (identifier > 0) {
+                return identifier;
+            }
+        }
+        return this.f31084a.getIdentifier("vivo_push_icon", "drawable", this.f31085b);
+    }
+
+    @Override // com.vivo.push.util.BaseNotifyDataAdapter
+    public final int getNotifyMode(InsideNotificationItem insideNotificationItem) {
+        return Build.VERSION.SDK_INT >= 21 ? 2 : 1;
+    }
+
+    @Override // com.vivo.push.util.BaseNotifyDataAdapter
+    public final void init(Context context) {
+        this.f31085b = context.getPackageName();
+        this.f31084a = context.getResources();
+        this.f31086c = j.a();
+        this.f31087d = Build.VERSION.RELEASE;
+    }
+
     private int a(String str, String str2) {
         if (!TextUtils.isEmpty(str) && !TextUtils.isEmpty(str2)) {
             String[] split = str.split("\\.");
@@ -105,14 +105,14 @@ public final class h implements BaseNotifyDataAdapter {
                 for (int parseInt = Integer.parseInt(str); parseInt > 0; parseInt--) {
                     String str3 = "vivo_push_ard" + parseInt + str2;
                     p.c("DefaultNotifyDataAdapter", "get notify icon : ".concat(String.valueOf(str3)));
-                    int identifier = this.f25120a.getIdentifier(str3, "drawable", this.f25121b);
+                    int identifier = this.f31084a.getIdentifier(str3, "drawable", this.f31085b);
                     if (identifier > 0) {
                         p.c("DefaultNotifyDataAdapter", "find notify icon : ".concat(String.valueOf(str3)));
                         return identifier;
                     }
                 }
-            } catch (Exception e10) {
-                p.a("DefaultNotifyDataAdapter", e10);
+            } catch (Exception e2) {
+                p.a("DefaultNotifyDataAdapter", e2);
             }
         }
         return -1;

@@ -15,7 +15,6 @@ import androidx.appcompat.R;
 import androidx.core.graphics.drawable.DrawableCompat;
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
-import l5.c;
 
 /* loaded from: classes.dex */
 public class DrawerArrowDrawable extends Drawable {
@@ -23,19 +22,39 @@ public class DrawerArrowDrawable extends Drawable {
     public static final int ARROW_DIRECTION_LEFT = 0;
     public static final int ARROW_DIRECTION_RIGHT = 1;
     public static final int ARROW_DIRECTION_START = 2;
-    private static final float ARROW_HEAD_ANGLE = (float) Math.toRadians(45.0d);
-    private float mArrowHeadLength;
-    private float mArrowShaftLength;
-    private float mBarGap;
-    private float mBarLength;
-    private int mDirection;
-    private float mMaxCutForBarSize;
-    private final Paint mPaint;
-    private final Path mPath;
-    private float mProgress;
-    private final int mSize;
-    private boolean mSpin;
-    private boolean mVerticalMirror;
+
+    /* renamed from: a */
+    private static final float f390a = (float) Math.toRadians(45.0d);
+
+    /* renamed from: b */
+    private final Paint f391b;
+
+    /* renamed from: c */
+    private float f392c;
+
+    /* renamed from: d */
+    private float f393d;
+
+    /* renamed from: e */
+    private float f394e;
+
+    /* renamed from: f */
+    private float f395f;
+
+    /* renamed from: g */
+    private boolean f396g;
+
+    /* renamed from: h */
+    private final Path f397h;
+
+    /* renamed from: i */
+    private final int f398i;
+
+    /* renamed from: j */
+    private boolean f399j;
+    private float k;
+    private float l;
+    private int m;
 
     @Retention(RetentionPolicy.SOURCE)
     @RestrictTo({RestrictTo.Scope.LIBRARY_GROUP_PREFIX})
@@ -44,10 +63,10 @@ public class DrawerArrowDrawable extends Drawable {
 
     public DrawerArrowDrawable(Context context) {
         Paint paint = new Paint();
-        this.mPaint = paint;
-        this.mPath = new Path();
-        this.mVerticalMirror = false;
-        this.mDirection = 2;
+        this.f391b = paint;
+        this.f397h = new Path();
+        this.f399j = false;
+        this.m = 2;
         paint.setStyle(Paint.Style.STROKE);
         paint.setStrokeJoin(Paint.Join.MITER);
         paint.setStrokeCap(Paint.Cap.BUTT);
@@ -57,96 +76,100 @@ public class DrawerArrowDrawable extends Drawable {
         setBarThickness(obtainStyledAttributes.getDimension(R.styleable.DrawerArrowToggle_thickness, 0.0f));
         setSpinEnabled(obtainStyledAttributes.getBoolean(R.styleable.DrawerArrowToggle_spinBars, true));
         setGapSize(Math.round(obtainStyledAttributes.getDimension(R.styleable.DrawerArrowToggle_gapBetweenBars, 0.0f)));
-        this.mSize = obtainStyledAttributes.getDimensionPixelSize(R.styleable.DrawerArrowToggle_drawableSize, 0);
-        this.mBarLength = Math.round(obtainStyledAttributes.getDimension(R.styleable.DrawerArrowToggle_barLength, 0.0f));
-        this.mArrowHeadLength = Math.round(obtainStyledAttributes.getDimension(R.styleable.DrawerArrowToggle_arrowHeadLength, 0.0f));
-        this.mArrowShaftLength = obtainStyledAttributes.getDimension(R.styleable.DrawerArrowToggle_arrowShaftLength, 0.0f);
+        this.f398i = obtainStyledAttributes.getDimensionPixelSize(R.styleable.DrawerArrowToggle_drawableSize, 0);
+        this.f393d = Math.round(obtainStyledAttributes.getDimension(R.styleable.DrawerArrowToggle_barLength, 0.0f));
+        this.f392c = Math.round(obtainStyledAttributes.getDimension(R.styleable.DrawerArrowToggle_arrowHeadLength, 0.0f));
+        this.f394e = obtainStyledAttributes.getDimension(R.styleable.DrawerArrowToggle_arrowShaftLength, 0.0f);
         obtainStyledAttributes.recycle();
     }
 
-    private static float lerp(float f10, float f11, float f12) {
-        return f10 + ((f11 - f10) * f12);
+    private static float a(float f2, float f3, float f4) {
+        return f2 + ((f3 - f2) * f4);
     }
 
     @Override // android.graphics.drawable.Drawable
     public void draw(Canvas canvas) {
         Rect bounds = getBounds();
-        int i10 = this.mDirection;
-        boolean z10 = false;
-        if (i10 != 0 && (i10 == 1 || (i10 == 3 ? DrawableCompat.getLayoutDirection(this) == 0 : DrawableCompat.getLayoutDirection(this) == 1))) {
-            z10 = true;
+        int i2 = this.m;
+        boolean z = false;
+        if (i2 != 0 && (i2 == 1 || (i2 == 3 ? DrawableCompat.getLayoutDirection(this) == 0 : DrawableCompat.getLayoutDirection(this) == 1))) {
+            z = true;
         }
-        float f10 = this.mArrowHeadLength;
-        float lerp = lerp(this.mBarLength, (float) Math.sqrt(f10 * f10 * 2.0f), this.mProgress);
-        float lerp2 = lerp(this.mBarLength, this.mArrowShaftLength, this.mProgress);
-        float round = Math.round(lerp(0.0f, this.mMaxCutForBarSize, this.mProgress));
-        float lerp3 = lerp(0.0f, ARROW_HEAD_ANGLE, this.mProgress);
-        float lerp4 = lerp(z10 ? 0.0f : -180.0f, z10 ? 180.0f : 0.0f, this.mProgress);
-        double d10 = lerp;
-        double d11 = lerp3;
-        boolean z11 = z10;
-        float round2 = Math.round(Math.cos(d11) * d10);
-        float round3 = Math.round(d10 * Math.sin(d11));
-        this.mPath.rewind();
-        float lerp5 = lerp(this.mBarGap + this.mPaint.getStrokeWidth(), -this.mMaxCutForBarSize, this.mProgress);
-        float f11 = (-lerp2) / 2.0f;
-        this.mPath.moveTo(f11 + round, 0.0f);
-        this.mPath.rLineTo(lerp2 - (round * 2.0f), 0.0f);
-        this.mPath.moveTo(f11, lerp5);
-        this.mPath.rLineTo(round2, round3);
-        this.mPath.moveTo(f11, -lerp5);
-        this.mPath.rLineTo(round2, -round3);
-        this.mPath.close();
+        float f2 = this.f392c;
+        float a2 = a(this.f393d, (float) Math.sqrt(f2 * f2 * 2.0f), this.k);
+        float a3 = a(this.f393d, this.f394e, this.k);
+        float round = Math.round(a(0.0f, this.l, this.k));
+        float a4 = a(0.0f, f390a, this.k);
+        float a5 = a(z ? 0.0f : -180.0f, z ? 180.0f : 0.0f, this.k);
+        double d2 = a2;
+        double d3 = a4;
+        double cos = Math.cos(d3);
+        Double.isNaN(d2);
+        boolean z2 = z;
+        float round2 = Math.round(cos * d2);
+        double sin = Math.sin(d3);
+        Double.isNaN(d2);
+        float round3 = Math.round(d2 * sin);
+        this.f397h.rewind();
+        float a6 = a(this.f395f + this.f391b.getStrokeWidth(), -this.l, this.k);
+        float f3 = (-a3) / 2.0f;
+        this.f397h.moveTo(f3 + round, 0.0f);
+        this.f397h.rLineTo(a3 - (round * 2.0f), 0.0f);
+        this.f397h.moveTo(f3, a6);
+        this.f397h.rLineTo(round2, round3);
+        this.f397h.moveTo(f3, -a6);
+        this.f397h.rLineTo(round2, -round3);
+        this.f397h.close();
         canvas.save();
-        float strokeWidth = this.mPaint.getStrokeWidth();
+        float strokeWidth = this.f391b.getStrokeWidth();
         float height = bounds.height() - (3.0f * strokeWidth);
-        canvas.translate(bounds.centerX(), ((((int) (height - (2.0f * r5))) / 4) * 2) + (strokeWidth * 1.5f) + this.mBarGap);
-        if (this.mSpin) {
-            canvas.rotate(lerp4 * (this.mVerticalMirror ^ z11 ? -1 : 1));
-        } else if (z11) {
+        canvas.translate(bounds.centerX(), ((((int) (height - (2.0f * r5))) / 4) * 2) + (strokeWidth * 1.5f) + this.f395f);
+        if (this.f396g) {
+            canvas.rotate(a5 * (this.f399j ^ z2 ? -1 : 1));
+        } else if (z2) {
             canvas.rotate(180.0f);
         }
-        canvas.drawPath(this.mPath, this.mPaint);
+        canvas.drawPath(this.f397h, this.f391b);
         canvas.restore();
     }
 
     public float getArrowHeadLength() {
-        return this.mArrowHeadLength;
+        return this.f392c;
     }
 
     public float getArrowShaftLength() {
-        return this.mArrowShaftLength;
+        return this.f394e;
     }
 
     public float getBarLength() {
-        return this.mBarLength;
+        return this.f393d;
     }
 
     public float getBarThickness() {
-        return this.mPaint.getStrokeWidth();
+        return this.f391b.getStrokeWidth();
     }
 
     @ColorInt
     public int getColor() {
-        return this.mPaint.getColor();
+        return this.f391b.getColor();
     }
 
     public int getDirection() {
-        return this.mDirection;
+        return this.m;
     }
 
     public float getGapSize() {
-        return this.mBarGap;
+        return this.f395f;
     }
 
     @Override // android.graphics.drawable.Drawable
     public int getIntrinsicHeight() {
-        return this.mSize;
+        return this.f398i;
     }
 
     @Override // android.graphics.drawable.Drawable
     public int getIntrinsicWidth() {
-        return this.mSize;
+        return this.f398i;
     }
 
     @Override // android.graphics.drawable.Drawable
@@ -155,99 +178,102 @@ public class DrawerArrowDrawable extends Drawable {
     }
 
     public final Paint getPaint() {
-        return this.mPaint;
+        return this.f391b;
     }
 
-    @FloatRange(from = c.f27899e, to = 1.0d)
+    @FloatRange(from = 0.0d, to = 1.0d)
     public float getProgress() {
-        return this.mProgress;
+        return this.k;
     }
 
     public boolean isSpinEnabled() {
-        return this.mSpin;
+        return this.f396g;
     }
 
     @Override // android.graphics.drawable.Drawable
-    public void setAlpha(int i10) {
-        if (i10 != this.mPaint.getAlpha()) {
-            this.mPaint.setAlpha(i10);
+    public void setAlpha(int i2) {
+        if (i2 != this.f391b.getAlpha()) {
+            this.f391b.setAlpha(i2);
             invalidateSelf();
         }
     }
 
-    public void setArrowHeadLength(float f10) {
-        if (this.mArrowHeadLength != f10) {
-            this.mArrowHeadLength = f10;
+    public void setArrowHeadLength(float f2) {
+        if (this.f392c != f2) {
+            this.f392c = f2;
             invalidateSelf();
         }
     }
 
-    public void setArrowShaftLength(float f10) {
-        if (this.mArrowShaftLength != f10) {
-            this.mArrowShaftLength = f10;
+    public void setArrowShaftLength(float f2) {
+        if (this.f394e != f2) {
+            this.f394e = f2;
             invalidateSelf();
         }
     }
 
-    public void setBarLength(float f10) {
-        if (this.mBarLength != f10) {
-            this.mBarLength = f10;
+    public void setBarLength(float f2) {
+        if (this.f393d != f2) {
+            this.f393d = f2;
             invalidateSelf();
         }
     }
 
-    public void setBarThickness(float f10) {
-        if (this.mPaint.getStrokeWidth() != f10) {
-            this.mPaint.setStrokeWidth(f10);
-            this.mMaxCutForBarSize = (float) ((f10 / 2.0f) * Math.cos(ARROW_HEAD_ANGLE));
+    public void setBarThickness(float f2) {
+        if (this.f391b.getStrokeWidth() != f2) {
+            this.f391b.setStrokeWidth(f2);
+            double d2 = f2 / 2.0f;
+            double cos = Math.cos(f390a);
+            Double.isNaN(d2);
+            this.l = (float) (d2 * cos);
             invalidateSelf();
         }
     }
 
-    public void setColor(@ColorInt int i10) {
-        if (i10 != this.mPaint.getColor()) {
-            this.mPaint.setColor(i10);
+    public void setColor(@ColorInt int i2) {
+        if (i2 != this.f391b.getColor()) {
+            this.f391b.setColor(i2);
             invalidateSelf();
         }
     }
 
     @Override // android.graphics.drawable.Drawable
     public void setColorFilter(ColorFilter colorFilter) {
-        this.mPaint.setColorFilter(colorFilter);
+        this.f391b.setColorFilter(colorFilter);
         invalidateSelf();
     }
 
-    public void setDirection(int i10) {
-        if (i10 != this.mDirection) {
-            this.mDirection = i10;
+    public void setDirection(int i2) {
+        if (i2 != this.m) {
+            this.m = i2;
             invalidateSelf();
         }
     }
 
-    public void setGapSize(float f10) {
-        if (f10 != this.mBarGap) {
-            this.mBarGap = f10;
+    public void setGapSize(float f2) {
+        if (f2 != this.f395f) {
+            this.f395f = f2;
             invalidateSelf();
         }
     }
 
-    public void setProgress(@FloatRange(from = 0.0d, to = 1.0d) float f10) {
-        if (this.mProgress != f10) {
-            this.mProgress = f10;
+    public void setProgress(@FloatRange(from = 0.0d, to = 1.0d) float f2) {
+        if (this.k != f2) {
+            this.k = f2;
             invalidateSelf();
         }
     }
 
-    public void setSpinEnabled(boolean z10) {
-        if (this.mSpin != z10) {
-            this.mSpin = z10;
+    public void setSpinEnabled(boolean z) {
+        if (this.f396g != z) {
+            this.f396g = z;
             invalidateSelf();
         }
     }
 
-    public void setVerticalMirror(boolean z10) {
-        if (this.mVerticalMirror != z10) {
-            this.mVerticalMirror = z10;
+    public void setVerticalMirror(boolean z) {
+        if (this.f399j != z) {
+            this.f399j = z;
             invalidateSelf();
         }
     }

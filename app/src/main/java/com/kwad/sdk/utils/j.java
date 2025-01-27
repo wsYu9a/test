@@ -1,16 +1,34 @@
 package com.kwad.sdk.utils;
 
-/* loaded from: classes3.dex */
-public final class j {
-    public static void ao(String str, String str2) {
-        com.kwad.sdk.core.d.c.d("callbackLog", str + str2);
+import android.content.Context;
+import androidx.annotation.Nullable;
+
+/* loaded from: classes2.dex */
+public abstract class j<T> {
+    protected boolean Ig;
+    protected boolean azm = false;
+
+    public j(boolean z) {
+        this.Ig = z;
     }
 
-    public static void b(String str, String str2, String str3, String str4) {
-        ao(str, str2 + hf.e.f26694a + str3 + hf.e.f26694a + str4);
+    public final void aP(boolean z) {
+        this.Ig = z;
     }
 
-    public static void r(String str, int i10) {
-        com.kwad.sdk.core.d.c.d("audioVideoLog", str + "_type_" + i10 + "_time_" + System.currentTimeMillis());
+    @Nullable
+    public final T bF(Context context) {
+        if (!this.Ig || this.azm) {
+            return null;
+        }
+        try {
+            return bG(context);
+        } catch (Throwable th) {
+            com.kwad.sdk.core.d.b.printStackTraceOnly(th);
+            return null;
+        }
     }
+
+    @Nullable
+    protected abstract T bG(Context context);
 }

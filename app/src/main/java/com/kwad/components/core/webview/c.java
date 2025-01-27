@@ -1,48 +1,34 @@
 package com.kwad.components.core.webview;
 
-import com.kwad.components.core.webview.jshandler.ad;
-import com.kwad.components.core.webview.jshandler.ak;
-import com.kwad.components.core.webview.jshandler.ar;
-import com.kwad.components.core.webview.jshandler.ay;
+import com.kwad.components.core.webview.jshandler.ai;
+import com.kwad.components.core.webview.jshandler.an;
 import com.kwad.sdk.commercial.model.WebCloseStatus;
 
-/* loaded from: classes3.dex */
+/* loaded from: classes2.dex */
 public abstract class c {
     public void a(a aVar, com.kwad.sdk.core.webview.b bVar) {
     }
 
-    public void b(ad.a aVar) {
+    public void a(ai.a aVar) {
     }
 
-    public void h(int i10, String str) {
-    }
-
-    public void onAdShow() {
+    public void oA() {
     }
 
     public void onPageFinished() {
     }
 
-    public boolean qx() {
+    public void onRegisterLifecycleLisener(an anVar) {
+    }
+
+    public boolean oy() {
         return false;
     }
 
-    public boolean qy() {
+    public boolean oz() {
         return false;
     }
 
-    public void a(ak.a aVar) {
-    }
-
-    public void a(ar.a aVar) {
-    }
-
-    public void a(ay ayVar) {
-    }
-
-    public void a(WebCloseStatus webCloseStatus) {
-    }
-
-    public void a(com.kwad.sdk.core.webview.d.b.a aVar) {
+    public void pageClose(WebCloseStatus webCloseStatus) {
     }
 }

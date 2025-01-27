@@ -1,25 +1,12 @@
 package com.kwad.sdk.components;
 
-import android.content.Context;
+/* loaded from: classes2.dex */
+public interface f extends a {
+    void at(String str);
 
-/* loaded from: classes3.dex */
-public final class f implements DevelopMangerComponents {
-    @Override // com.kwad.sdk.components.DevelopMangerComponents
-    public final String Cw() {
-        return "";
-    }
+    String nv();
 
-    @Override // com.kwad.sdk.components.b
-    public final Class getComponentsType() {
-        return null;
-    }
+    com.kwad.sdk.core.kwai.f nw();
 
-    @Override // com.kwad.sdk.components.b
-    public final void init(Context context) {
-    }
-
-    @Override // com.kwad.sdk.components.b
-    public final int priority() {
-        return -201;
-    }
+    void r(long j2);
 }

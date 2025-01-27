@@ -8,7 +8,7 @@ import java.lang.ref.WeakReference;
 import java.util.Map;
 import org.json.JSONObject;
 
-/* loaded from: classes2.dex */
+/* loaded from: classes.dex */
 public interface ITTDownloadVisitor {
     public static final int TYPE_TT_DOWNLOAD_VISITOR = 1;
 
@@ -16,9 +16,9 @@ public interface ITTDownloadVisitor {
 
     void clearAllData(String str);
 
-    void execute(int i10, String str, Map<String, Object> map, ITTHttpCallback iTTHttpCallback);
+    void execute(int i2, String str, Map<String, Object> map, ITTHttpCallback iTTHttpCallback);
 
-    void executeLogUpload(TTDownloadEventModel tTDownloadEventModel, boolean z10);
+    void executeLogUpload(TTDownloadEventModel tTDownloadEventModel, boolean z);
 
     boolean getAppIsBackground();
 
@@ -28,7 +28,7 @@ public interface ITTDownloadVisitor {
 
     boolean hasPermission(Context context, String str);
 
-    String initPath(boolean z10);
+    String initPath(boolean z);
 
     boolean isOpenSdkEvent(String str);
 
@@ -36,7 +36,7 @@ public interface ITTDownloadVisitor {
 
     void requestPermission(Activity activity, String[] strArr, ITTPermissionCallback iTTPermissionCallback);
 
-    void showDialogByDelegate(WeakReference<Context> weakReference, boolean z10, DialogBuilder dialogBuilder);
+    void showDialogByDelegate(WeakReference<Context> weakReference, boolean z, DialogBuilder dialogBuilder);
 
-    AlertDialog showDialogBySelf(Activity activity, boolean z10, DialogBuilder dialogBuilder);
+    AlertDialog showDialogBySelf(Activity activity, boolean z, DialogBuilder dialogBuilder);
 }

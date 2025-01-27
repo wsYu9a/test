@@ -8,20 +8,22 @@ import java.lang.ref.WeakReference;
 
 /* loaded from: classes.dex */
 class TintResources extends ResourcesWrapper {
-    private final WeakReference<Context> mContextRef;
+
+    /* renamed from: b */
+    private final WeakReference<Context> f978b;
 
     public TintResources(@NonNull Context context, @NonNull Resources resources) {
         super(resources);
-        this.mContextRef = new WeakReference<>(context);
+        this.f978b = new WeakReference<>(context);
     }
 
     @Override // androidx.appcompat.widget.ResourcesWrapper, android.content.res.Resources
-    public Drawable getDrawable(int i10) throws Resources.NotFoundException {
-        Drawable drawableCanonical = getDrawableCanonical(i10);
-        Context context = this.mContextRef.get();
-        if (drawableCanonical != null && context != null) {
-            ResourceManagerInternal.get().tintDrawableUsingColorFilter(context, i10, drawableCanonical);
+    public Drawable getDrawable(int i2) throws Resources.NotFoundException {
+        Drawable drawable = super.getDrawable(i2);
+        Context context = this.f978b.get();
+        if (drawable != null && context != null) {
+            ResourceManagerInternal.get().u(context, i2, drawable);
         }
-        return drawableCanonical;
+        return drawable;
     }
 }

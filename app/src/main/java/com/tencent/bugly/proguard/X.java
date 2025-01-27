@@ -7,44 +7,44 @@ import java.util.Locale;
 public class X {
 
     /* renamed from: a */
-    public static String f22678a = "CrashReportInfo";
+    public static String f25018a = "CrashReportInfo";
 
     /* renamed from: b */
-    public static String f22679b = "CrashReport";
+    public static String f25019b = "CrashReport";
 
     /* renamed from: c */
-    public static boolean f22680c = false;
+    public static boolean f25020c = false;
 
-    private static boolean a(int i10, String str, Object... objArr) {
-        if (!f22680c) {
+    private static boolean a(int i2, String str, Object... objArr) {
+        if (!f25020c) {
             return false;
         }
-        String f10 = f(str, objArr);
-        if (i10 == 0) {
-            Log.i(f22679b, f10);
+        String f2 = f(str, objArr);
+        if (i2 == 0) {
+            Log.i(f25019b, f2);
             return true;
         }
-        if (i10 == 1) {
-            Log.d(f22679b, f10);
+        if (i2 == 1) {
+            Log.d(f25019b, f2);
             return true;
         }
-        if (i10 == 2) {
-            Log.w(f22679b, f10);
+        if (i2 == 2) {
+            Log.w(f25019b, f2);
             return true;
         }
-        if (i10 == 3) {
-            Log.e(f22679b, f10);
+        if (i2 == 3) {
+            Log.e(f25019b, f2);
             return true;
         }
-        if (i10 != 5) {
+        if (i2 != 5) {
             return false;
         }
-        Log.i(f22678a, f10);
+        Log.i(f25018a, f2);
         return true;
     }
 
-    public static boolean b(Throwable th2) {
-        return a(2, th2);
+    public static boolean b(Throwable th) {
+        return a(2, th);
     }
 
     public static boolean c(String str, Object... objArr) {
@@ -75,9 +75,9 @@ public class X {
         return a(3, String.format(Locale.US, "[%s] %s", cls.getSimpleName(), str), objArr);
     }
 
-    private static boolean a(int i10, Throwable th2) {
-        if (f22680c) {
-            return a(i10, ca.b(th2), new Object[0]);
+    private static boolean a(int i2, Throwable th) {
+        if (f25020c) {
+            return a(i2, ca.b(th), new Object[0]);
         }
         return false;
     }
@@ -90,7 +90,7 @@ public class X {
         return a(1, String.format(Locale.US, "[%s] %s", cls.getSimpleName(), str), objArr);
     }
 
-    public static boolean a(Throwable th2) {
-        return a(3, th2);
+    public static boolean a(Throwable th) {
+        return a(3, th);
     }
 }

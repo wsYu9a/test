@@ -5,34 +5,34 @@ import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.text.TextUtils;
-import com.umeng.analytics.pro.j;
+import com.umeng.analytics.pro.h;
 import java.io.File;
 
 /* loaded from: classes4.dex */
 class b extends SQLiteOpenHelper {
-    public b(Context context, String str, SQLiteDatabase.CursorFactory cursorFactory, int i10) {
-        super(context, str, cursorFactory, i10);
+    b(Context context, String str, SQLiteDatabase.CursorFactory cursorFactory, int i2) {
+        super(context, str, cursorFactory, i2);
     }
 
-    public static b a(Context context, String str) {
-        String b10 = b(context, str);
-        a.f24206h.equals(str);
-        return new b(context, b10, null, 1);
+    static b a(Context context, String str) {
+        String b2 = b(context, str);
+        a.f26059h.equals(str);
+        return new b(context, b2, null, 1);
     }
 
     public static String b(Context context, String str) {
         if (TextUtils.isEmpty(str)) {
-            str = a.f24206h;
+            str = a.f26059h;
         }
-        String str2 = j.b(context) + a.f24199a;
-        if (a.f24206h.equals(str)) {
-            str2 = j.b(context);
+        String str2 = h.b(context) + "subprocess/";
+        if (a.f26059h.equals(str)) {
+            str2 = h.b(context);
         }
         File file = new File(str2);
         if (!file.exists()) {
             file.mkdirs();
         }
-        return String.format(str2 + a.f24203e, str);
+        return String.format(str2 + a.f26056e, str);
     }
 
     @Override // android.database.sqlite.SQLiteOpenHelper
@@ -41,7 +41,7 @@ class b extends SQLiteOpenHelper {
     }
 
     @Override // android.database.sqlite.SQLiteOpenHelper
-    public void onUpgrade(SQLiteDatabase sQLiteDatabase, int i10, int i11) {
+    public void onUpgrade(SQLiteDatabase sQLiteDatabase, int i2, int i3) {
     }
 
     private void a(SQLiteDatabase sQLiteDatabase) {
@@ -52,6 +52,6 @@ class b extends SQLiteOpenHelper {
     }
 
     public static String a(Context context) {
-        return j.b(context) + a.f24199a;
+        return h.b(context) + "subprocess/";
     }
 }

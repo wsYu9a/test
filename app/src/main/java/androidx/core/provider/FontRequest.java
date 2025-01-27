@@ -7,92 +7,98 @@ import androidx.annotation.Nullable;
 import androidx.annotation.RestrictTo;
 import androidx.core.util.Preconditions;
 import java.util.List;
-import p3.f;
 
 /* loaded from: classes.dex */
 public final class FontRequest {
-    private final List<List<byte[]>> mCertificates;
-    private final int mCertificatesArray;
-    private final String mIdentifier;
-    private final String mProviderAuthority;
-    private final String mProviderPackage;
-    private final String mQuery;
+
+    /* renamed from: a */
+    private final String f1836a;
+
+    /* renamed from: b */
+    private final String f1837b;
+
+    /* renamed from: c */
+    private final String f1838c;
+
+    /* renamed from: d */
+    private final List<List<byte[]>> f1839d;
+
+    /* renamed from: e */
+    private final int f1840e;
+
+    /* renamed from: f */
+    private final String f1841f;
 
     public FontRequest(@NonNull String str, @NonNull String str2, @NonNull String str3, @NonNull List<List<byte[]>> list) {
-        this.mProviderAuthority = (String) Preconditions.checkNotNull(str);
-        this.mProviderPackage = (String) Preconditions.checkNotNull(str2);
-        this.mQuery = (String) Preconditions.checkNotNull(str3);
-        this.mCertificates = (List) Preconditions.checkNotNull(list);
-        this.mCertificatesArray = 0;
-        this.mIdentifier = createIdentifier(str, str2, str3);
-    }
-
-    private String createIdentifier(@NonNull String str, @NonNull String str2, @NonNull String str3) {
-        return str + "-" + str2 + "-" + str3;
+        String str4 = (String) Preconditions.checkNotNull(str);
+        this.f1836a = str4;
+        String str5 = (String) Preconditions.checkNotNull(str2);
+        this.f1837b = str5;
+        String str6 = (String) Preconditions.checkNotNull(str3);
+        this.f1838c = str6;
+        this.f1839d = (List) Preconditions.checkNotNull(list);
+        this.f1840e = 0;
+        this.f1841f = str4 + "-" + str5 + "-" + str6;
     }
 
     @Nullable
     public List<List<byte[]>> getCertificates() {
-        return this.mCertificates;
+        return this.f1839d;
     }
 
     @ArrayRes
     public int getCertificatesArrayResId() {
-        return this.mCertificatesArray;
-    }
-
-    @NonNull
-    @RestrictTo({RestrictTo.Scope.LIBRARY})
-    public String getId() {
-        return this.mIdentifier;
+        return this.f1840e;
     }
 
     @RestrictTo({RestrictTo.Scope.LIBRARY_GROUP_PREFIX})
-    @Deprecated
     public String getIdentifier() {
-        return this.mIdentifier;
+        return this.f1841f;
     }
 
     @NonNull
     public String getProviderAuthority() {
-        return this.mProviderAuthority;
+        return this.f1836a;
     }
 
     @NonNull
     public String getProviderPackage() {
-        return this.mProviderPackage;
+        return this.f1837b;
     }
 
     @NonNull
     public String getQuery() {
-        return this.mQuery;
+        return this.f1838c;
     }
 
     public String toString() {
-        StringBuilder sb2 = new StringBuilder();
-        sb2.append("FontRequest {mProviderAuthority: " + this.mProviderAuthority + ", mProviderPackage: " + this.mProviderPackage + ", mQuery: " + this.mQuery + ", mCertificates:");
-        for (int i10 = 0; i10 < this.mCertificates.size(); i10++) {
-            sb2.append(" [");
-            List<byte[]> list = this.mCertificates.get(i10);
-            for (int i11 = 0; i11 < list.size(); i11++) {
-                sb2.append(" \"");
-                sb2.append(Base64.encodeToString(list.get(i11), 0));
-                sb2.append("\"");
+        StringBuilder sb = new StringBuilder();
+        sb.append("FontRequest {mProviderAuthority: " + this.f1836a + ", mProviderPackage: " + this.f1837b + ", mQuery: " + this.f1838c + ", mCertificates:");
+        for (int i2 = 0; i2 < this.f1839d.size(); i2++) {
+            sb.append(" [");
+            List<byte[]> list = this.f1839d.get(i2);
+            for (int i3 = 0; i3 < list.size(); i3++) {
+                sb.append(" \"");
+                sb.append(Base64.encodeToString(list.get(i3), 0));
+                sb.append("\"");
             }
-            sb2.append(" ]");
+            sb.append(" ]");
         }
-        sb2.append(f.f29748d);
-        sb2.append("mCertificatesArray: " + this.mCertificatesArray);
-        return sb2.toString();
+        sb.append("}");
+        sb.append("mCertificatesArray: " + this.f1840e);
+        return sb.toString();
     }
 
-    public FontRequest(@NonNull String str, @NonNull String str2, @NonNull String str3, @ArrayRes int i10) {
-        this.mProviderAuthority = (String) Preconditions.checkNotNull(str);
-        this.mProviderPackage = (String) Preconditions.checkNotNull(str2);
-        this.mQuery = (String) Preconditions.checkNotNull(str3);
-        this.mCertificates = null;
-        Preconditions.checkArgument(i10 != 0);
-        this.mCertificatesArray = i10;
-        this.mIdentifier = createIdentifier(str, str2, str3);
+    public FontRequest(@NonNull String str, @NonNull String str2, @NonNull String str3, @ArrayRes int i2) {
+        String str4 = (String) Preconditions.checkNotNull(str);
+        this.f1836a = str4;
+        String str5 = (String) Preconditions.checkNotNull(str2);
+        this.f1837b = str5;
+        String str6 = (String) Preconditions.checkNotNull(str3);
+        this.f1838c = str6;
+        this.f1839d = null;
+        Preconditions.checkArgument(i2 != 0);
+        this.f1840e = i2;
+        this.f1841f = str4 + "-" + str5 + "-" + str6;
     }
 }

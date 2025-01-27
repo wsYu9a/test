@@ -2,16 +2,16 @@ package com.bytedance.pangle.res.a;
 
 import java.io.IOException;
 
-/* loaded from: classes2.dex */
+/* loaded from: classes.dex */
 public final class g extends f {
     public g(i iVar) {
         super(iVar);
     }
 
-    public final int[] a(int i10) {
-        int[] iArr = new int[i10];
-        for (int i11 = 0; i11 < i10; i11++) {
-            iArr[i11] = readInt();
+    public final int[] a(int i2) {
+        int[] iArr = new int[i2];
+        for (int i3 = 0; i3 < i2; i3++) {
+            iArr[i3] = readInt();
         }
         return iArr;
     }
@@ -24,16 +24,16 @@ public final class g extends f {
     }
 
     @Override // com.bytedance.pangle.res.a.f, java.io.DataInput
-    public final int skipBytes(int i10) {
-        int i11 = 0;
-        while (i11 < i10) {
-            int skipBytes = super.skipBytes(i10 - i11);
+    public final int skipBytes(int i2) {
+        int i3 = 0;
+        while (i3 < i2) {
+            int skipBytes = super.skipBytes(i2 - i3);
             if (skipBytes <= 0) {
                 break;
             }
-            i11 += skipBytes;
+            i3 += skipBytes;
         }
-        return i11;
+        return i3;
     }
 
     public final void a() {
@@ -43,14 +43,14 @@ public final class g extends f {
         }
     }
 
-    public final void b(int i10) {
+    public final void b(int i2) {
         int readInt;
         while (true) {
             readInt = readInt();
-            if (readInt != i10 && readInt >= 1835009) {
+            if (readInt != i2 && readInt >= 1835009) {
                 break;
             } else {
-                i10 = -1;
+                i2 = -1;
             }
         }
         if (readInt != 1835009) {

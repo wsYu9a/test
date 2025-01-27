@@ -8,7 +8,7 @@ class OutputStub implements IOutput {
     private final IOutput output;
     private final IOutput target;
 
-    public OutputStub(IOutput iOutput, IOutput iOutput2) {
+    OutputStub(IOutput iOutput, IOutput iOutput2) {
         this.output = iOutput;
         this.target = iOutput2;
     }

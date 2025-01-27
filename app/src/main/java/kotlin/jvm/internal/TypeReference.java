@@ -2,12 +2,15 @@ package kotlin.jvm.internal;
 
 import com.bytedance.sdk.openadsdk.downloadnew.core.TTDownloadField;
 import com.kwad.sdk.api.model.AdnName;
+import f.b.a.d;
+import f.b.a.e;
 import java.lang.annotation.Annotation;
 import java.util.List;
 import kotlin.Metadata;
 import kotlin.NoWhenBranchMatchedException;
 import kotlin.SinceKotlin;
-import kotlin.collections.CollectionsKt;
+import kotlin.collections.CollectionsKt__CollectionsKt;
+import kotlin.collections.CollectionsKt___CollectionsKt;
 import kotlin.jvm.JvmClassMappingKt;
 import kotlin.jvm.functions.Function1;
 import kotlin.reflect.KClass;
@@ -15,122 +18,71 @@ import kotlin.reflect.KClassifier;
 import kotlin.reflect.KType;
 import kotlin.reflect.KTypeProjection;
 import kotlin.reflect.KVariance;
-import m5.h;
-import xi.k;
-import xi.l;
 
 @SinceKotlin(version = "1.4")
-@Metadata(d1 = {"\u0000F\n\u0002\u0018\u0002\n\u0002\u0018\u0002\n\u0000\n\u0002\u0018\u0002\n\u0000\n\u0002\u0010 \n\u0002\u0018\u0002\n\u0000\n\u0002\u0010\u000b\n\u0002\b\u0003\n\u0002\u0010\b\n\u0002\b\u0002\n\u0002\u0010\u001b\n\u0002\b\u000e\n\u0002\u0010\u000e\n\u0002\u0018\u0002\n\u0002\b\u0006\n\u0002\u0010\u0000\n\u0002\b\u0004\b\u0007\u0018\u0000 )2\u00020\u0001:\u0001)B%\b\u0016\u0012\u0006\u0010\u0002\u001a\u00020\u0003\u0012\f\u0010\u0004\u001a\b\u0012\u0004\u0012\u00020\u00060\u0005\u0012\u0006\u0010\u0007\u001a\u00020\b¢\u0006\u0002\u0010\tB/\b\u0007\u0012\u0006\u0010\u0002\u001a\u00020\u0003\u0012\f\u0010\u0004\u001a\b\u0012\u0004\u0012\u00020\u00060\u0005\u0012\b\u0010\n\u001a\u0004\u0018\u00010\u0001\u0012\u0006\u0010\u000b\u001a\u00020\f¢\u0006\u0002\u0010\rJ\u0010\u0010\"\u001a\u00020\u001e2\u0006\u0010#\u001a\u00020\bH\u0002J\u0013\u0010$\u001a\u00020\b2\b\u0010%\u001a\u0004\u0018\u00010&H\u0096\u0002J\b\u0010'\u001a\u00020\fH\u0016J\b\u0010(\u001a\u00020\u001eH\u0016J\f\u0010\"\u001a\u00020\u001e*\u00020\u0006H\u0002R\u001a\u0010\u000e\u001a\b\u0012\u0004\u0012\u00020\u000f0\u00058VX\u0096\u0004¢\u0006\u0006\u001a\u0004\b\u0010\u0010\u0011R\u001a\u0010\u0004\u001a\b\u0012\u0004\u0012\u00020\u00060\u0005X\u0096\u0004¢\u0006\b\n\u0000\u001a\u0004\b\u0012\u0010\u0011R\u0014\u0010\u0002\u001a\u00020\u0003X\u0096\u0004¢\u0006\b\n\u0000\u001a\u0004\b\u0013\u0010\u0014R\u001c\u0010\u000b\u001a\u00020\f8\u0000X\u0081\u0004¢\u0006\u000e\n\u0000\u0012\u0004\b\u0015\u0010\u0016\u001a\u0004\b\u0017\u0010\u0018R\u0014\u0010\u0007\u001a\u00020\b8VX\u0096\u0004¢\u0006\u0006\u001a\u0004\b\u0007\u0010\u0019R\u001e\u0010\n\u001a\u0004\u0018\u00010\u00018\u0000X\u0081\u0004¢\u0006\u000e\n\u0000\u0012\u0004\b\u001a\u0010\u0016\u001a\u0004\b\u001b\u0010\u001cR\u001c\u0010\u001d\u001a\u00020\u001e*\u0006\u0012\u0002\b\u00030\u001f8BX\u0082\u0004¢\u0006\u0006\u001a\u0004\b \u0010!¨\u0006*"}, d2 = {"Lkotlin/jvm/internal/TypeReference;", "Lkotlin/reflect/KType;", "classifier", "Lkotlin/reflect/KClassifier;", "arguments", "", "Lkotlin/reflect/KTypeProjection;", "isMarkedNullable", "", "(Lkotlin/reflect/KClassifier;Ljava/util/List;Z)V", "platformTypeUpperBound", "flags", "", "(Lkotlin/reflect/KClassifier;Ljava/util/List;Lkotlin/reflect/KType;I)V", "annotations", "", "getAnnotations", "()Ljava/util/List;", "getArguments", "getClassifier", "()Lkotlin/reflect/KClassifier;", "getFlags$kotlin_stdlib$annotations", "()V", "getFlags$kotlin_stdlib", "()I", "()Z", "getPlatformTypeUpperBound$kotlin_stdlib$annotations", "getPlatformTypeUpperBound$kotlin_stdlib", "()Lkotlin/reflect/KType;", "arrayClassName", "", "Ljava/lang/Class;", "getArrayClassName", "(Ljava/lang/Class;)Ljava/lang/String;", "asString", "convertPrimitiveToWrapper", "equals", AdnName.OTHER, "", TTDownloadField.TT_HASHCODE, "toString", "Companion", "kotlin-stdlib"}, k = 1, mv = {1, 9, 0}, xi = 48)
-/* loaded from: classes4.dex */
+@Metadata(bv = {1, 0, 3}, d1 = {"\u0000H\n\u0002\u0018\u0002\n\u0002\u0018\u0002\n\u0002\u0010\u000e\n\u0002\b\u0002\n\u0002\u0018\u0002\n\u0000\n\u0002\u0010\u0000\n\u0000\n\u0002\u0010\u000b\n\u0002\b\u0002\n\u0002\u0010\b\n\u0002\b\u0003\n\u0002\u0010 \n\u0002\u0010\u001b\n\u0002\b\u0003\n\u0002\u0018\u0002\n\u0002\b\u0004\n\u0002\u0018\u0002\n\u0002\b\f\b\u0007\u0018\u00002\u00020\u0001B%\u0012\u0006\u0010\u0016\u001a\u00020\u0015\u0012\f\u0010\u001e\u001a\b\u0012\u0004\u0012\u00020\u00050\u0010\u0012\u0006\u0010!\u001a\u00020\t¢\u0006\u0004\b$\u0010%J\u000f\u0010\u0003\u001a\u00020\u0002H\u0002¢\u0006\u0004\b\u0003\u0010\u0004J\u0013\u0010\u0003\u001a\u00020\u0002*\u00020\u0005H\u0002¢\u0006\u0004\b\u0003\u0010\u0006J\u001a\u0010\n\u001a\u00020\t2\b\u0010\b\u001a\u0004\u0018\u00010\u0007H\u0096\u0002¢\u0006\u0004\b\n\u0010\u000bJ\u000f\u0010\r\u001a\u00020\fH\u0016¢\u0006\u0004\b\r\u0010\u000eJ\u000f\u0010\u000f\u001a\u00020\u0002H\u0016¢\u0006\u0004\b\u000f\u0010\u0004R\u001c\u0010\u0014\u001a\b\u0012\u0004\u0012\u00020\u00110\u00108V@\u0016X\u0096\u0004¢\u0006\u0006\u001a\u0004\b\u0012\u0010\u0013R\u001c\u0010\u0016\u001a\u00020\u00158\u0016@\u0016X\u0096\u0004¢\u0006\f\n\u0004\b\u0016\u0010\u0017\u001a\u0004\b\u0018\u0010\u0019R\u001e\u0010\u001d\u001a\u00020\u0002*\u0006\u0012\u0002\b\u00030\u001a8B@\u0002X\u0082\u0004¢\u0006\u0006\u001a\u0004\b\u001b\u0010\u001cR\"\u0010\u001e\u001a\b\u0012\u0004\u0012\u00020\u00050\u00108\u0016@\u0016X\u0096\u0004¢\u0006\f\n\u0004\b\u001e\u0010\u001f\u001a\u0004\b \u0010\u0013R\u001c\u0010!\u001a\u00020\t8\u0016@\u0016X\u0096\u0004¢\u0006\f\n\u0004\b!\u0010\"\u001a\u0004\b!\u0010#¨\u0006&"}, d2 = {"Lkotlin/jvm/internal/TypeReference;", "Lkotlin/reflect/KType;", "", "asString", "()Ljava/lang/String;", "Lkotlin/reflect/KTypeProjection;", "(Lkotlin/reflect/KTypeProjection;)Ljava/lang/String;", "", AdnName.OTHER, "", "equals", "(Ljava/lang/Object;)Z", "", TTDownloadField.TT_HASHCODE, "()I", "toString", "", "", "getAnnotations", "()Ljava/util/List;", "annotations", "Lkotlin/reflect/KClassifier;", "classifier", "Lkotlin/reflect/KClassifier;", "getClassifier", "()Lkotlin/reflect/KClassifier;", "Ljava/lang/Class;", "getArrayClassName", "(Ljava/lang/Class;)Ljava/lang/String;", "arrayClassName", "arguments", "Ljava/util/List;", "getArguments", "isMarkedNullable", "Z", "()Z", "<init>", "(Lkotlin/reflect/KClassifier;Ljava/util/List;Z)V", "kotlin-stdlib"}, k = 1, mv = {1, 4, 0})
+/* loaded from: classes5.dex */
 public final class TypeReference implements KType {
-    public static final int IS_MARKED_NULLABLE = 1;
-    public static final int IS_MUTABLE_COLLECTION_TYPE = 2;
-    public static final int IS_NOTHING_TYPE = 4;
 
-    @k
+    @d
     private final List<KTypeProjection> arguments;
 
-    @k
+    @d
     private final KClassifier classifier;
-    private final int flags;
+    private final boolean isMarkedNullable;
 
-    @l
-    private final KType platformTypeUpperBound;
-
-    @Metadata(k = 3, mv = {1, 9, 0}, xi = 48)
-    public /* synthetic */ class WhenMappings {
+    @Metadata(bv = {1, 0, 3}, d1 = {}, d2 = {}, k = 3, mv = {1, 4, 0})
+    public final /* synthetic */ class WhenMappings {
         public static final /* synthetic */ int[] $EnumSwitchMapping$0;
 
         static {
             int[] iArr = new int[KVariance.values().length];
-            try {
-                iArr[KVariance.INVARIANT.ordinal()] = 1;
-            } catch (NoSuchFieldError unused) {
-            }
-            try {
-                iArr[KVariance.IN.ordinal()] = 2;
-            } catch (NoSuchFieldError unused2) {
-            }
-            try {
-                iArr[KVariance.OUT.ordinal()] = 3;
-            } catch (NoSuchFieldError unused3) {
-            }
             $EnumSwitchMapping$0 = iArr;
+            iArr[KVariance.INVARIANT.ordinal()] = 1;
+            iArr[KVariance.IN.ordinal()] = 2;
+            iArr[KVariance.OUT.ordinal()] = 3;
         }
     }
 
-    @SinceKotlin(version = "1.6")
-    public TypeReference(@k KClassifier classifier, @k List<KTypeProjection> arguments, @l KType kType, int i10) {
-        Intrinsics.checkNotNullParameter(classifier, "classifier");
-        Intrinsics.checkNotNullParameter(arguments, "arguments");
+    public TypeReference(@d KClassifier classifier, @d List<KTypeProjection> arguments, boolean z) {
+        Intrinsics.checkParameterIsNotNull(classifier, "classifier");
+        Intrinsics.checkParameterIsNotNull(arguments, "arguments");
         this.classifier = classifier;
         this.arguments = arguments;
-        this.platformTypeUpperBound = kType;
-        this.flags = i10;
+        this.isMarkedNullable = z;
     }
 
-    private final String asString(boolean convertPrimitiveToWrapper) {
-        String name;
+    private final String asString() {
         KClassifier classifier = getClassifier();
-        KClass kClass = classifier instanceof KClass ? (KClass) classifier : null;
-        Class<?> javaClass = kClass != null ? JvmClassMappingKt.getJavaClass(kClass) : null;
-        if (javaClass == null) {
-            name = getClassifier().toString();
-        } else if ((this.flags & 4) != 0) {
-            name = "kotlin.Nothing";
-        } else if (javaClass.isArray()) {
-            name = getArrayClassName(javaClass);
-        } else if (convertPrimitiveToWrapper && javaClass.isPrimitive()) {
-            KClassifier classifier2 = getClassifier();
-            Intrinsics.checkNotNull(classifier2, "null cannot be cast to non-null type kotlin.reflect.KClass<*>");
-            name = JvmClassMappingKt.getJavaObjectType((KClass) classifier2).getName();
-        } else {
-            name = javaClass.getName();
+        if (!(classifier instanceof KClass)) {
+            classifier = null;
         }
-        String str = name + (getArguments().isEmpty() ? "" : CollectionsKt.joinToString$default(getArguments(), ", ", "<", ">", 0, null, new Function1<KTypeProjection, CharSequence>() { // from class: kotlin.jvm.internal.TypeReference$asString$args$1
-            public TypeReference$asString$args$1() {
+        KClass kClass = (KClass) classifier;
+        Class<?> javaClass = kClass != null ? JvmClassMappingKt.getJavaClass(kClass) : null;
+        return (javaClass == null ? getClassifier().toString() : javaClass.isArray() ? getArrayClassName(javaClass) : javaClass.getName()) + (getArguments().isEmpty() ? "" : CollectionsKt___CollectionsKt.joinToString$default(getArguments(), ", ", "<", ">", 0, null, new Function1<KTypeProjection, String>() { // from class: kotlin.jvm.internal.TypeReference$asString$args$1
+            {
                 super(1);
             }
 
             @Override // kotlin.jvm.functions.Function1
-            @k
-            public final CharSequence invoke(@k KTypeProjection it) {
+            @d
+            public final String invoke(@d KTypeProjection it) {
                 String asString;
-                Intrinsics.checkNotNullParameter(it, "it");
+                Intrinsics.checkParameterIsNotNull(it, "it");
                 asString = TypeReference.this.asString(it);
                 return asString;
             }
-        }, 24, null)) + (isMarkedNullable() ? "?" : "");
-        KType kType = this.platformTypeUpperBound;
-        if (!(kType instanceof TypeReference)) {
-            return str;
-        }
-        String asString = ((TypeReference) kType).asString(true);
-        if (Intrinsics.areEqual(asString, str)) {
-            return str;
-        }
-        if (Intrinsics.areEqual(asString, str + '?')) {
-            return str + '!';
-        }
-        return '(' + str + ".." + asString + ')';
+        }, 24, null)) + (getIsMarkedNullable() ? "?" : "");
     }
 
-    private final String getArrayClassName(Class<?> cls) {
+    private final String getArrayClassName(@d Class<?> cls) {
         return Intrinsics.areEqual(cls, boolean[].class) ? "kotlin.BooleanArray" : Intrinsics.areEqual(cls, char[].class) ? "kotlin.CharArray" : Intrinsics.areEqual(cls, byte[].class) ? "kotlin.ByteArray" : Intrinsics.areEqual(cls, short[].class) ? "kotlin.ShortArray" : Intrinsics.areEqual(cls, int[].class) ? "kotlin.IntArray" : Intrinsics.areEqual(cls, float[].class) ? "kotlin.FloatArray" : Intrinsics.areEqual(cls, long[].class) ? "kotlin.LongArray" : Intrinsics.areEqual(cls, double[].class) ? "kotlin.DoubleArray" : "kotlin.Array";
     }
 
-    @SinceKotlin(version = "1.6")
-    public static /* synthetic */ void getFlags$kotlin_stdlib$annotations() {
-    }
-
-    @SinceKotlin(version = "1.6")
-    public static /* synthetic */ void getPlatformTypeUpperBound$kotlin_stdlib$annotations() {
-    }
-
-    public boolean equals(@l Object r32) {
-        if (r32 instanceof TypeReference) {
-            TypeReference typeReference = (TypeReference) r32;
-            if (Intrinsics.areEqual(getClassifier(), typeReference.getClassifier()) && Intrinsics.areEqual(getArguments(), typeReference.getArguments()) && Intrinsics.areEqual(this.platformTypeUpperBound, typeReference.platformTypeUpperBound) && this.flags == typeReference.flags) {
+    public boolean equals(@e Object r3) {
+        if (r3 instanceof TypeReference) {
+            TypeReference typeReference = (TypeReference) r3;
+            if (Intrinsics.areEqual(getClassifier(), typeReference.getClassifier()) && Intrinsics.areEqual(getArguments(), typeReference.getArguments()) && getIsMarkedNullable() == typeReference.getIsMarkedNullable()) {
                 return true;
             }
         }
@@ -138,75 +90,64 @@ public final class TypeReference implements KType {
     }
 
     @Override // kotlin.reflect.KAnnotatedElement
-    @k
+    @d
     public List<Annotation> getAnnotations() {
-        return CollectionsKt.emptyList();
+        return CollectionsKt__CollectionsKt.emptyList();
     }
 
     @Override // kotlin.reflect.KType
-    @k
+    @d
     public List<KTypeProjection> getArguments() {
         return this.arguments;
     }
 
     @Override // kotlin.reflect.KType
-    @k
+    @d
     public KClassifier getClassifier() {
         return this.classifier;
     }
 
-    /* renamed from: getFlags$kotlin_stdlib, reason: from getter */
-    public final int getFlags() {
-        return this.flags;
-    }
-
-    @l
-    /* renamed from: getPlatformTypeUpperBound$kotlin_stdlib, reason: from getter */
-    public final KType getPlatformTypeUpperBound() {
-        return this.platformTypeUpperBound;
-    }
-
     public int hashCode() {
-        return (((getClassifier().hashCode() * 31) + getArguments().hashCode()) * 31) + this.flags;
+        return (((getClassifier().hashCode() * 31) + getArguments().hashCode()) * 31) + Boolean.valueOf(getIsMarkedNullable()).hashCode();
     }
 
     @Override // kotlin.reflect.KType
-    public boolean isMarkedNullable() {
-        return (this.flags & 1) != 0;
+    /* renamed from: isMarkedNullable, reason: from getter */
+    public boolean getIsMarkedNullable() {
+        return this.isMarkedNullable;
     }
 
-    @k
+    @d
     public String toString() {
-        return asString(false) + " (Kotlin reflection is not available)";
+        return asString() + " (Kotlin reflection is not available)";
     }
 
-    /* JADX WARN: 'this' call moved to the top of the method (can break code semantics) */
-    public TypeReference(@k KClassifier classifier, @k List<KTypeProjection> arguments, boolean z10) {
-        this(classifier, arguments, null, z10 ? 1 : 0);
-        Intrinsics.checkNotNullParameter(classifier, "classifier");
-        Intrinsics.checkNotNullParameter(arguments, "arguments");
-    }
-
-    public final String asString(KTypeProjection kTypeProjection) {
+    public final String asString(@d KTypeProjection kTypeProjection) {
         String valueOf;
         if (kTypeProjection.getVariance() == null) {
-            return h.f28447r;
+            return "*";
         }
         KType type = kTypeProjection.getType();
-        TypeReference typeReference = type instanceof TypeReference ? (TypeReference) type : null;
-        if (typeReference == null || (valueOf = typeReference.asString(true)) == null) {
+        if (!(type instanceof TypeReference)) {
+            type = null;
+        }
+        TypeReference typeReference = (TypeReference) type;
+        if (typeReference == null || (valueOf = typeReference.asString()) == null) {
             valueOf = String.valueOf(kTypeProjection.getType());
         }
-        int i10 = WhenMappings.$EnumSwitchMapping$0[kTypeProjection.getVariance().ordinal()];
-        if (i10 == 1) {
-            return valueOf;
+        KVariance variance = kTypeProjection.getVariance();
+        if (variance != null) {
+            int i2 = WhenMappings.$EnumSwitchMapping$0[variance.ordinal()];
+            if (i2 == 1) {
+                return valueOf;
+            }
+            if (i2 == 2) {
+                return "in " + valueOf;
+            }
+            if (i2 == 3) {
+                return "out " + valueOf;
+            }
         }
-        if (i10 == 2) {
-            return "in " + valueOf;
-        }
-        if (i10 != 3) {
-            throw new NoWhenBranchMatchedException();
-        }
-        return "out " + valueOf;
+        throw new NoWhenBranchMatchedException();
     }
 }

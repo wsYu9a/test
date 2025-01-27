@@ -11,7 +11,7 @@ import java.nio.ByteBuffer;
 import java.nio.ByteOrder;
 import java.nio.charset.Charset;
 
-/* loaded from: classes2.dex */
+/* loaded from: classes.dex */
 public final class DefaultImageHeaderParser implements ImageHeaderParser {
     static final int EXIF_MAGIC_NUMBER = 65496;
     static final int EXIF_SEGMENT_TYPE = 225;
@@ -37,10 +37,10 @@ public final class DefaultImageHeaderParser implements ImageHeaderParser {
     static final byte[] JPEG_EXIF_SEGMENT_PREAMBLE_BYTES = JPEG_EXIF_SEGMENT_PREAMBLE.getBytes(Charset.forName("UTF-8"));
     private static final int[] BYTES_PER_FORMAT = {0, 1, 1, 2, 4, 8, 1, 1, 2, 4, 8, 4, 8};
 
-    public static final class ByteBufferReader implements Reader {
+    private static final class ByteBufferReader implements Reader {
         private final ByteBuffer byteBuffer;
 
-        public ByteBufferReader(ByteBuffer byteBuffer) {
+        ByteBufferReader(ByteBuffer byteBuffer) {
             this.byteBuffer = byteBuffer;
             byteBuffer.order(ByteOrder.BIG_ENDIAN);
         }
@@ -59,8 +59,8 @@ public final class DefaultImageHeaderParser implements ImageHeaderParser {
         }
 
         @Override // com.bumptech.glide.load.resource.bitmap.DefaultImageHeaderParser.Reader
-        public int read(byte[] bArr, int i10) {
-            int min = Math.min(i10, this.byteBuffer.remaining());
+        public int read(byte[] bArr, int i2) {
+            int min = Math.min(i2, this.byteBuffer.remaining());
             if (min == 0) {
                 return -1;
             }
@@ -69,54 +69,54 @@ public final class DefaultImageHeaderParser implements ImageHeaderParser {
         }
 
         @Override // com.bumptech.glide.load.resource.bitmap.DefaultImageHeaderParser.Reader
-        public long skip(long j10) {
-            int min = (int) Math.min(this.byteBuffer.remaining(), j10);
+        public long skip(long j2) {
+            int min = (int) Math.min(this.byteBuffer.remaining(), j2);
             ByteBuffer byteBuffer = this.byteBuffer;
             byteBuffer.position(byteBuffer.position() + min);
             return min;
         }
     }
 
-    public static final class RandomAccessReader {
+    private static final class RandomAccessReader {
         private final ByteBuffer data;
 
-        public RandomAccessReader(byte[] bArr, int i10) {
-            this.data = (ByteBuffer) ByteBuffer.wrap(bArr).order(ByteOrder.BIG_ENDIAN).limit(i10);
+        RandomAccessReader(byte[] bArr, int i2) {
+            this.data = (ByteBuffer) ByteBuffer.wrap(bArr).order(ByteOrder.BIG_ENDIAN).limit(i2);
         }
 
-        private boolean isAvailable(int i10, int i11) {
-            return this.data.remaining() - i10 >= i11;
+        private boolean isAvailable(int i2, int i3) {
+            return this.data.remaining() - i2 >= i3;
         }
 
-        public short getInt16(int i10) {
-            if (isAvailable(i10, 2)) {
-                return this.data.getShort(i10);
+        short getInt16(int i2) {
+            if (isAvailable(i2, 2)) {
+                return this.data.getShort(i2);
             }
             return (short) -1;
         }
 
-        public int getInt32(int i10) {
-            if (isAvailable(i10, 4)) {
-                return this.data.getInt(i10);
+        int getInt32(int i2) {
+            if (isAvailable(i2, 4)) {
+                return this.data.getInt(i2);
             }
             return -1;
         }
 
-        public int length() {
+        int length() {
             return this.data.remaining();
         }
 
-        public void order(ByteOrder byteOrder) {
+        void order(ByteOrder byteOrder) {
             this.data.order(byteOrder);
         }
     }
 
-    public interface Reader {
+    private interface Reader {
 
         public static final class EndOfFileException extends IOException {
             private static final long serialVersionUID = 1;
 
-            public EndOfFileException() {
+            EndOfFileException() {
                 super("Unexpectedly reached end of a file");
             }
         }
@@ -125,15 +125,15 @@ public final class DefaultImageHeaderParser implements ImageHeaderParser {
 
         short getUInt8() throws IOException;
 
-        int read(byte[] bArr, int i10) throws IOException;
+        int read(byte[] bArr, int i2) throws IOException;
 
-        long skip(long j10) throws IOException;
+        long skip(long j2) throws IOException;
     }
 
-    public static final class StreamReader implements Reader {
+    private static final class StreamReader implements Reader {
         private final InputStream is;
 
-        public StreamReader(InputStream inputStream) {
+        StreamReader(InputStream inputStream) {
             this.is = inputStream;
         }
 
@@ -152,68 +152,68 @@ public final class DefaultImageHeaderParser implements ImageHeaderParser {
         }
 
         @Override // com.bumptech.glide.load.resource.bitmap.DefaultImageHeaderParser.Reader
-        public int read(byte[] bArr, int i10) throws IOException {
-            int i11 = 0;
-            int i12 = 0;
-            while (i11 < i10 && (i12 = this.is.read(bArr, i11, i10 - i11)) != -1) {
-                i11 += i12;
+        public int read(byte[] bArr, int i2) throws IOException {
+            int i3 = 0;
+            int i4 = 0;
+            while (i3 < i2 && (i4 = this.is.read(bArr, i3, i2 - i3)) != -1) {
+                i3 += i4;
             }
-            if (i11 == 0 && i12 == -1) {
+            if (i3 == 0 && i4 == -1) {
                 throw new Reader.EndOfFileException();
             }
-            return i11;
+            return i3;
         }
 
         @Override // com.bumptech.glide.load.resource.bitmap.DefaultImageHeaderParser.Reader
-        public long skip(long j10) throws IOException {
-            if (j10 < 0) {
+        public long skip(long j2) throws IOException {
+            if (j2 < 0) {
                 return 0L;
             }
-            long j11 = j10;
-            while (j11 > 0) {
-                long skip = this.is.skip(j11);
+            long j3 = j2;
+            while (j3 > 0) {
+                long skip = this.is.skip(j3);
                 if (skip <= 0) {
                     if (this.is.read() == -1) {
                         break;
                     }
                     skip = 1;
                 }
-                j11 -= skip;
+                j3 -= skip;
             }
-            return j10 - j11;
+            return j2 - j3;
         }
     }
 
-    private static int calcTagOffset(int i10, int i11) {
-        return i10 + 2 + (i11 * 12);
+    private static int calcTagOffset(int i2, int i3) {
+        return i2 + 2 + (i3 * 12);
     }
 
-    private static boolean handles(int i10) {
-        return (i10 & EXIF_MAGIC_NUMBER) == EXIF_MAGIC_NUMBER || i10 == MOTOROLA_TIFF_MAGIC_NUMBER || i10 == INTEL_TIFF_MAGIC_NUMBER;
+    private static boolean handles(int i2) {
+        return (i2 & EXIF_MAGIC_NUMBER) == EXIF_MAGIC_NUMBER || i2 == MOTOROLA_TIFF_MAGIC_NUMBER || i2 == INTEL_TIFF_MAGIC_NUMBER;
     }
 
-    private boolean hasJpegExifPreamble(byte[] bArr, int i10) {
-        boolean z10 = bArr != null && i10 > JPEG_EXIF_SEGMENT_PREAMBLE_BYTES.length;
-        if (z10) {
-            int i11 = 0;
+    private boolean hasJpegExifPreamble(byte[] bArr, int i2) {
+        boolean z = bArr != null && i2 > JPEG_EXIF_SEGMENT_PREAMBLE_BYTES.length;
+        if (z) {
+            int i3 = 0;
             while (true) {
                 byte[] bArr2 = JPEG_EXIF_SEGMENT_PREAMBLE_BYTES;
-                if (i11 >= bArr2.length) {
+                if (i3 >= bArr2.length) {
                     break;
                 }
-                if (bArr[i11] != bArr2[i11]) {
+                if (bArr[i3] != bArr2[i3]) {
                     return false;
                 }
-                i11++;
+                i3++;
             }
         }
-        return z10;
+        return z;
     }
 
     private int moveToExifSegmentAndGetLength(Reader reader) throws IOException {
         short uInt8;
         int uInt16;
-        long j10;
+        long j2;
         long skip;
         do {
             short uInt82 = reader.getUInt8();
@@ -237,20 +237,20 @@ public final class DefaultImageHeaderParser implements ImageHeaderParser {
             if (uInt8 == EXIF_SEGMENT_TYPE) {
                 return uInt16;
             }
-            j10 = uInt16;
-            skip = reader.skip(j10);
-        } while (skip == j10);
+            j2 = uInt16;
+            skip = reader.skip(j2);
+        } while (skip == j2);
         if (Log.isLoggable(TAG, 3)) {
             Log.d(TAG, "Unable to skip enough data, type: " + ((int) uInt8) + ", wanted to skip: " + uInt16 + ", but actually skipped: " + skip);
         }
         return -1;
     }
 
-    private int parseExifSegment(Reader reader, byte[] bArr, int i10) throws IOException {
-        int read = reader.read(bArr, i10);
-        if (read == i10) {
-            if (hasJpegExifPreamble(bArr, i10)) {
-                return parseExifSegment(new RandomAccessReader(bArr, i10));
+    private int parseExifSegment(Reader reader, byte[] bArr, int i2) throws IOException {
+        int read = reader.read(bArr, i2);
+        if (read == i2) {
+            if (hasJpegExifPreamble(bArr, i2)) {
+                return parseExifSegment(new RandomAccessReader(bArr, i2));
             }
             if (Log.isLoggable(TAG, 3)) {
                 Log.d(TAG, "Missing jpeg exif preamble");
@@ -258,7 +258,7 @@ public final class DefaultImageHeaderParser implements ImageHeaderParser {
             return -1;
         }
         if (Log.isLoggable(TAG, 3)) {
-            Log.d(TAG, "Unable to read exif segment data, length: " + i10 + ", actually read: " + read);
+            Log.d(TAG, "Unable to read exif segment data, length: " + i2 + ", actually read: " + read);
         }
         return -1;
     }
@@ -311,12 +311,12 @@ public final class DefaultImageHeaderParser implements ImageHeaderParser {
             if ((uInt162 & (-256)) != VP8_HEADER) {
                 return ImageHeaderParser.ImageType.UNKNOWN;
             }
-            int i10 = uInt162 & 255;
-            if (i10 == 88) {
+            int i2 = uInt162 & 255;
+            if (i2 == 88) {
                 reader.skip(4L);
                 return (reader.getUInt8() & 16) != 0 ? ImageHeaderParser.ImageType.WEBP_A : ImageHeaderParser.ImageType.WEBP;
             }
-            if (i10 == 76) {
+            if (i2 == 76) {
                 reader.skip(4L);
                 return (reader.getUInt8() & 8) != 0 ? ImageHeaderParser.ImageType.WEBP_A : ImageHeaderParser.ImageType.WEBP;
             }
@@ -329,6 +329,64 @@ public final class DefaultImageHeaderParser implements ImageHeaderParser {
     @Override // com.bumptech.glide.load.ImageHeaderParser
     public int getOrientation(@NonNull ByteBuffer byteBuffer, @NonNull ArrayPool arrayPool) throws IOException {
         return getOrientation(new ByteBufferReader((ByteBuffer) Preconditions.checkNotNull(byteBuffer)), (ArrayPool) Preconditions.checkNotNull(arrayPool));
+    }
+
+    private static int parseExifSegment(RandomAccessReader randomAccessReader) {
+        ByteOrder byteOrder;
+        short int16 = randomAccessReader.getInt16(6);
+        if (int16 == INTEL_TIFF_MAGIC_NUMBER) {
+            byteOrder = ByteOrder.LITTLE_ENDIAN;
+        } else if (int16 != MOTOROLA_TIFF_MAGIC_NUMBER) {
+            if (Log.isLoggable(TAG, 3)) {
+                Log.d(TAG, "Unknown endianness = " + ((int) int16));
+            }
+            byteOrder = ByteOrder.BIG_ENDIAN;
+        } else {
+            byteOrder = ByteOrder.BIG_ENDIAN;
+        }
+        randomAccessReader.order(byteOrder);
+        int int32 = randomAccessReader.getInt32(10) + 6;
+        short int162 = randomAccessReader.getInt16(int32);
+        for (int i2 = 0; i2 < int162; i2++) {
+            int calcTagOffset = calcTagOffset(int32, i2);
+            short int163 = randomAccessReader.getInt16(calcTagOffset);
+            if (int163 == ORIENTATION_TAG_TYPE) {
+                short int164 = randomAccessReader.getInt16(calcTagOffset + 2);
+                if (int164 >= 1 && int164 <= 12) {
+                    int int322 = randomAccessReader.getInt32(calcTagOffset + 4);
+                    if (int322 < 0) {
+                        if (Log.isLoggable(TAG, 3)) {
+                            Log.d(TAG, "Negative tiff component count");
+                        }
+                    } else {
+                        if (Log.isLoggable(TAG, 3)) {
+                            Log.d(TAG, "Got tagIndex=" + i2 + " tagType=" + ((int) int163) + " formatCode=" + ((int) int164) + " componentCount=" + int322);
+                        }
+                        int i3 = int322 + BYTES_PER_FORMAT[int164];
+                        if (i3 > 4) {
+                            if (Log.isLoggable(TAG, 3)) {
+                                Log.d(TAG, "Got byte count > 4, not orientation, continuing, formatCode=" + ((int) int164));
+                            }
+                        } else {
+                            int i4 = calcTagOffset + 8;
+                            if (i4 >= 0 && i4 <= randomAccessReader.length()) {
+                                if (i3 >= 0 && i3 + i4 <= randomAccessReader.length()) {
+                                    return randomAccessReader.getInt16(i4);
+                                }
+                                if (Log.isLoggable(TAG, 3)) {
+                                    Log.d(TAG, "Illegal number of bytes for TI tag data tagType=" + ((int) int163));
+                                }
+                            } else if (Log.isLoggable(TAG, 3)) {
+                                Log.d(TAG, "Illegal tagValueOffset=" + i4 + " tagType=" + ((int) int163));
+                            }
+                        }
+                    }
+                } else if (Log.isLoggable(TAG, 3)) {
+                    Log.d(TAG, "Got invalid format code = " + ((int) int164));
+                }
+            }
+        }
+        return -1;
     }
 
     private int getOrientation(Reader reader, ArrayPool arrayPool) throws IOException {
@@ -356,63 +414,5 @@ public final class DefaultImageHeaderParser implements ImageHeaderParser {
         } catch (Reader.EndOfFileException unused) {
             return -1;
         }
-    }
-
-    private static int parseExifSegment(RandomAccessReader randomAccessReader) {
-        ByteOrder byteOrder;
-        short int16 = randomAccessReader.getInt16(6);
-        if (int16 == INTEL_TIFF_MAGIC_NUMBER) {
-            byteOrder = ByteOrder.LITTLE_ENDIAN;
-        } else if (int16 != MOTOROLA_TIFF_MAGIC_NUMBER) {
-            if (Log.isLoggable(TAG, 3)) {
-                Log.d(TAG, "Unknown endianness = " + ((int) int16));
-            }
-            byteOrder = ByteOrder.BIG_ENDIAN;
-        } else {
-            byteOrder = ByteOrder.BIG_ENDIAN;
-        }
-        randomAccessReader.order(byteOrder);
-        int int32 = randomAccessReader.getInt32(10) + 6;
-        short int162 = randomAccessReader.getInt16(int32);
-        for (int i10 = 0; i10 < int162; i10++) {
-            int calcTagOffset = calcTagOffset(int32, i10);
-            short int163 = randomAccessReader.getInt16(calcTagOffset);
-            if (int163 == ORIENTATION_TAG_TYPE) {
-                short int164 = randomAccessReader.getInt16(calcTagOffset + 2);
-                if (int164 >= 1 && int164 <= 12) {
-                    int int322 = randomAccessReader.getInt32(calcTagOffset + 4);
-                    if (int322 < 0) {
-                        if (Log.isLoggable(TAG, 3)) {
-                            Log.d(TAG, "Negative tiff component count");
-                        }
-                    } else {
-                        if (Log.isLoggable(TAG, 3)) {
-                            Log.d(TAG, "Got tagIndex=" + i10 + " tagType=" + ((int) int163) + " formatCode=" + ((int) int164) + " componentCount=" + int322);
-                        }
-                        int i11 = int322 + BYTES_PER_FORMAT[int164];
-                        if (i11 > 4) {
-                            if (Log.isLoggable(TAG, 3)) {
-                                Log.d(TAG, "Got byte count > 4, not orientation, continuing, formatCode=" + ((int) int164));
-                            }
-                        } else {
-                            int i12 = calcTagOffset + 8;
-                            if (i12 >= 0 && i12 <= randomAccessReader.length()) {
-                                if (i11 >= 0 && i11 + i12 <= randomAccessReader.length()) {
-                                    return randomAccessReader.getInt16(i12);
-                                }
-                                if (Log.isLoggable(TAG, 3)) {
-                                    Log.d(TAG, "Illegal number of bytes for TI tag data tagType=" + ((int) int163));
-                                }
-                            } else if (Log.isLoggable(TAG, 3)) {
-                                Log.d(TAG, "Illegal tagValueOffset=" + i12 + " tagType=" + ((int) int163));
-                            }
-                        }
-                    }
-                } else if (Log.isLoggable(TAG, 3)) {
-                    Log.d(TAG, "Got invalid format code = " + ((int) int164));
-                }
-            }
-        }
-        return -1;
     }
 }

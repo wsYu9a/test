@@ -9,12 +9,10 @@ import com.bumptech.glide.load.model.ModelLoader;
 import java.io.File;
 import java.util.List;
 
-/* loaded from: classes2.dex */
+/* loaded from: classes.dex */
 class ResourceCacheGenerator implements DataFetcherGenerator, DataFetcher.DataCallback<Object> {
     private File cacheFile;
-
-    /* renamed from: cb */
-    private final DataFetcherGenerator.FetcherReadyCallback f7406cb;
+    private final DataFetcherGenerator.FetcherReadyCallback cb;
     private ResourceCacheKey currentKey;
     private final DecodeHelper<?> helper;
     private volatile ModelLoader.LoadData<?> loadData;
@@ -24,9 +22,9 @@ class ResourceCacheGenerator implements DataFetcherGenerator, DataFetcher.DataCa
     private int sourceIdIndex;
     private Key sourceKey;
 
-    public ResourceCacheGenerator(DecodeHelper<?> decodeHelper, DataFetcherGenerator.FetcherReadyCallback fetcherReadyCallback) {
+    ResourceCacheGenerator(DecodeHelper<?> decodeHelper, DataFetcherGenerator.FetcherReadyCallback fetcherReadyCallback) {
         this.helper = decodeHelper;
-        this.f7406cb = fetcherReadyCallback;
+        this.cb = fetcherReadyCallback;
     }
 
     private boolean hasNextModelLoader() {
@@ -43,18 +41,18 @@ class ResourceCacheGenerator implements DataFetcherGenerator, DataFetcher.DataCa
 
     @Override // com.bumptech.glide.load.data.DataFetcher.DataCallback
     public void onDataReady(Object obj) {
-        this.f7406cb.onDataFetcherReady(this.sourceKey, obj, this.loadData.fetcher, DataSource.RESOURCE_DISK_CACHE, this.currentKey);
+        this.cb.onDataFetcherReady(this.sourceKey, obj, this.loadData.fetcher, DataSource.RESOURCE_DISK_CACHE, this.currentKey);
     }
 
     @Override // com.bumptech.glide.load.data.DataFetcher.DataCallback
     public void onLoadFailed(@NonNull Exception exc) {
-        this.f7406cb.onDataFetcherFailed(this.currentKey, exc, this.loadData.fetcher, DataSource.RESOURCE_DISK_CACHE);
+        this.cb.onDataFetcherFailed(this.currentKey, exc, this.loadData.fetcher, DataSource.RESOURCE_DISK_CACHE);
     }
 
     @Override // com.bumptech.glide.load.engine.DataFetcherGenerator
     public boolean startNext() {
         List<Key> cacheKeys = this.helper.getCacheKeys();
-        boolean z10 = false;
+        boolean z = false;
         if (cacheKeys.isEmpty()) {
             return false;
         }
@@ -68,24 +66,24 @@ class ResourceCacheGenerator implements DataFetcherGenerator, DataFetcher.DataCa
         while (true) {
             if (this.modelLoaders != null && hasNextModelLoader()) {
                 this.loadData = null;
-                while (!z10 && hasNextModelLoader()) {
+                while (!z && hasNextModelLoader()) {
                     List<ModelLoader<File, ?>> list = this.modelLoaders;
-                    int i10 = this.modelLoaderIndex;
-                    this.modelLoaderIndex = i10 + 1;
-                    this.loadData = list.get(i10).buildLoadData(this.cacheFile, this.helper.getWidth(), this.helper.getHeight(), this.helper.getOptions());
+                    int i2 = this.modelLoaderIndex;
+                    this.modelLoaderIndex = i2 + 1;
+                    this.loadData = list.get(i2).buildLoadData(this.cacheFile, this.helper.getWidth(), this.helper.getHeight(), this.helper.getOptions());
                     if (this.loadData != null && this.helper.hasLoadPath(this.loadData.fetcher.getDataClass())) {
                         this.loadData.fetcher.loadData(this.helper.getPriority(), this);
-                        z10 = true;
+                        z = true;
                     }
                 }
-                return z10;
+                return z;
             }
-            int i11 = this.resourceClassIndex + 1;
-            this.resourceClassIndex = i11;
-            if (i11 >= registeredResourceClasses.size()) {
-                int i12 = this.sourceIdIndex + 1;
-                this.sourceIdIndex = i12;
-                if (i12 >= cacheKeys.size()) {
+            int i3 = this.resourceClassIndex + 1;
+            this.resourceClassIndex = i3;
+            if (i3 >= registeredResourceClasses.size()) {
+                int i4 = this.sourceIdIndex + 1;
+                this.sourceIdIndex = i4;
+                if (i4 >= cacheKeys.size()) {
                     return false;
                 }
                 this.resourceClassIndex = 0;

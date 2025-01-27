@@ -2,13 +2,13 @@ package com.kwad.sdk.core.imageloader.core.assist;
 
 import android.widget.ImageView;
 
-/* loaded from: classes3.dex */
+/* loaded from: classes2.dex */
 public enum ViewScaleType {
     FIT_INSIDE,
     CROP;
 
     /* renamed from: com.kwad.sdk.core.imageloader.core.assist.ViewScaleType$1, reason: invalid class name */
-    public static /* synthetic */ class AnonymousClass1 {
+    static /* synthetic */ class AnonymousClass1 {
         static final /* synthetic */ int[] $SwitchMap$android$widget$ImageView$ScaleType;
 
         static {
@@ -50,7 +50,7 @@ public enum ViewScaleType {
     }
 
     public static ViewScaleType fromImageView(ImageView imageView) {
-        int i10 = AnonymousClass1.$SwitchMap$android$widget$ImageView$ScaleType[imageView.getScaleType().ordinal()];
-        return (i10 == 1 || i10 == 2 || i10 == 3 || i10 == 4 || i10 == 5) ? FIT_INSIDE : CROP;
+        int i2 = AnonymousClass1.$SwitchMap$android$widget$ImageView$ScaleType[imageView.getScaleType().ordinal()];
+        return (i2 == 1 || i2 == 2 || i2 == 3 || i2 == 4 || i2 == 5) ? FIT_INSIDE : CROP;
     }
 }

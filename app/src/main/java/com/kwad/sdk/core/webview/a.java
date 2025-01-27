@@ -1,6 +1,6 @@
 package com.kwad.sdk.core.webview;
 
-/* loaded from: classes3.dex */
+/* loaded from: classes2.dex */
 public interface a {
-    void oZ();
+    void nq();
 }

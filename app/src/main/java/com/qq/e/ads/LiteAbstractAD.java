@@ -7,17 +7,17 @@ import com.qq.e.comm.pi.LADI;
 import java.util.HashMap;
 import java.util.Map;
 
-/* loaded from: classes3.dex */
+/* loaded from: classes4.dex */
 public abstract class LiteAbstractAD<T extends LADI> extends AbstractAD<T> implements LADI, DownloadConfirmListener {
 
-    /* renamed from: h */
-    private DownloadConfirmListener f16382h;
+    /* renamed from: f */
+    private DownloadConfirmListener f23873f;
 
     @Override // com.qq.e.comm.compliance.ApkDownloadComplianceInterface
     public String getApkInfoUrl() {
-        T t10 = this.f16367a;
-        if (t10 != 0) {
-            return ((LADI) t10).getApkInfoUrl();
+        T t = this.f23859a;
+        if (t != 0) {
+            return ((LADI) t).getApkInfoUrl();
         }
         a("getApkInfoUrl");
         return null;
@@ -25,9 +25,9 @@ public abstract class LiteAbstractAD<T extends LADI> extends AbstractAD<T> imple
 
     @Override // com.qq.e.comm.pi.LADI
     public int getECPM() {
-        T t10 = this.f16367a;
-        if (t10 != 0) {
-            return ((LADI) t10).getECPM();
+        T t = this.f23859a;
+        if (t != 0) {
+            return ((LADI) t).getECPM();
         }
         a("getECPM");
         return -1;
@@ -35,9 +35,9 @@ public abstract class LiteAbstractAD<T extends LADI> extends AbstractAD<T> imple
 
     @Override // com.qq.e.comm.pi.LADI
     public String getECPMLevel() {
-        T t10 = this.f16367a;
-        if (t10 != 0) {
-            return ((LADI) t10).getECPMLevel();
+        T t = this.f23859a;
+        if (t != 0) {
+            return ((LADI) t).getECPMLevel();
         }
         a("getECPMLevel");
         return null;
@@ -45,9 +45,9 @@ public abstract class LiteAbstractAD<T extends LADI> extends AbstractAD<T> imple
 
     @Override // com.qq.e.comm.pi.LADI
     public Map<String, Object> getExtraInfo() {
-        T t10 = this.f16367a;
-        if (t10 != 0) {
-            return ((LADI) t10).getExtraInfo();
+        T t = this.f23859a;
+        if (t != 0) {
+            return ((LADI) t).getExtraInfo();
         }
         a("getExtraInfo");
         return new HashMap();
@@ -55,47 +55,67 @@ public abstract class LiteAbstractAD<T extends LADI> extends AbstractAD<T> imple
 
     @Override // com.qq.e.comm.pi.LADI
     public boolean isValid() {
-        T t10 = this.f16367a;
-        if (t10 != 0) {
-            return ((LADI) t10).isValid();
+        T t = this.f23859a;
+        if (t != 0) {
+            return ((LADI) t).isValid();
         }
         a("isValid");
         return false;
     }
 
     @Override // com.qq.e.comm.compliance.DownloadConfirmListener
-    public void onDownloadConfirm(Activity activity, int i10, String str, DownloadConfirmCallBack downloadConfirmCallBack) {
-        DownloadConfirmListener downloadConfirmListener = this.f16382h;
+    public void onDownloadConfirm(Activity activity, int i2, String str, DownloadConfirmCallBack downloadConfirmCallBack) {
+        DownloadConfirmListener downloadConfirmListener = this.f23873f;
         if (downloadConfirmListener != null) {
-            downloadConfirmListener.onDownloadConfirm(activity, i10, str, downloadConfirmCallBack);
+            downloadConfirmListener.onDownloadConfirm(activity, i2, str, downloadConfirmCallBack);
         }
     }
 
     @Override // com.qq.e.comm.pi.IBidding
-    public void sendLossNotification(int i10, int i11, String str) {
-        T t10 = this.f16367a;
-        if (t10 != 0) {
-            ((LADI) t10).sendLossNotification(i10, i11, str);
+    public void sendLossNotification(int i2, int i3, String str) {
+        T t = this.f23859a;
+        if (t != 0) {
+            ((LADI) t).sendLossNotification(i2, i3, str);
         } else {
             a("sendLossNotification");
         }
     }
 
     @Override // com.qq.e.comm.pi.IBidding
-    public void sendWinNotification(int i10) {
-        T t10 = this.f16367a;
-        if (t10 != 0) {
-            ((LADI) t10).sendWinNotification(i10);
+    public void sendLossNotification(Map<String, Object> map) {
+        T t = this.f23859a;
+        if (t != 0) {
+            ((LADI) t).sendLossNotification(map);
+        } else {
+            a("sendLossNotification");
+        }
+    }
+
+    @Override // com.qq.e.comm.pi.IBidding
+    public void sendWinNotification(int i2) {
+        T t = this.f23859a;
+        if (t != 0) {
+            ((LADI) t).sendWinNotification(i2);
         } else {
             a("sendWinNotification");
         }
     }
 
     @Override // com.qq.e.comm.pi.IBidding
-    public void setBidECPM(int i10) {
-        T t10 = this.f16367a;
-        if (t10 != 0) {
-            ((LADI) t10).setBidECPM(i10);
+    public void sendWinNotification(Map<String, Object> map) {
+        T t = this.f23859a;
+        if (t != 0) {
+            ((LADI) t).sendWinNotification(map);
+        } else {
+            a("sendWinNotification");
+        }
+    }
+
+    @Override // com.qq.e.comm.pi.IBidding
+    public void setBidECPM(int i2) {
+        T t = this.f23859a;
+        if (t != 0) {
+            ((LADI) t).setBidECPM(i2);
         } else {
             a("setBidECPM");
         }
@@ -103,30 +123,10 @@ public abstract class LiteAbstractAD<T extends LADI> extends AbstractAD<T> imple
 
     @Override // com.qq.e.comm.compliance.ApkDownloadComplianceInterface
     public void setDownloadConfirmListener(DownloadConfirmListener downloadConfirmListener) {
-        this.f16382h = downloadConfirmListener;
-        T t10 = this.f16367a;
-        if (t10 != 0) {
-            ((LADI) t10).setDownloadConfirmListener(this);
-        }
-    }
-
-    @Override // com.qq.e.comm.pi.IBidding
-    public void sendLossNotification(Map<String, Object> map) {
-        T t10 = this.f16367a;
-        if (t10 != 0) {
-            ((LADI) t10).sendLossNotification(map);
-        } else {
-            a("sendLossNotification");
-        }
-    }
-
-    @Override // com.qq.e.comm.pi.IBidding
-    public void sendWinNotification(Map<String, Object> map) {
-        T t10 = this.f16367a;
-        if (t10 != 0) {
-            ((LADI) t10).sendWinNotification(map);
-        } else {
-            a("sendWinNotification");
+        this.f23873f = downloadConfirmListener;
+        T t = this.f23859a;
+        if (t != 0) {
+            ((LADI) t).setDownloadConfirmListener(this);
         }
     }
 }

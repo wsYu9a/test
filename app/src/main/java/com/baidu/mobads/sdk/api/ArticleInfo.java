@@ -1,6 +1,6 @@
 package com.baidu.mobads.sdk.api;
 
-/* loaded from: classes2.dex */
+/* loaded from: classes.dex */
 public class ArticleInfo {
     public static final String USER_SEX = "sex";
     public static final String PAGE_TITLE = "page_title";

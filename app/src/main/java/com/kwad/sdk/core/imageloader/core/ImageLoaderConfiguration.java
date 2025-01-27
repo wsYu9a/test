@@ -19,7 +19,7 @@ import com.kwad.sdk.core.imageloader.utils.MemoryCacheUtils;
 import java.io.InputStream;
 import java.util.concurrent.Executor;
 
-/* loaded from: classes3.dex */
+/* loaded from: classes2.dex */
 public final class ImageLoaderConfiguration {
     final boolean customExecutor;
     final boolean customExecutorForCachedImages;
@@ -44,7 +44,7 @@ public final class ImageLoaderConfiguration {
     final int threadPriority;
 
     /* renamed from: com.kwad.sdk.core.imageloader.core.ImageLoaderConfiguration$1 */
-    public static /* synthetic */ class AnonymousClass1 {
+    static /* synthetic */ class AnonymousClass1 {
         static final /* synthetic */ int[] $SwitchMap$com$kwad$sdk$core$imageloader$core$download$ImageDownloader$Scheme;
 
         static {
@@ -172,13 +172,13 @@ public final class ImageLoaderConfiguration {
         }
 
         @Deprecated
-        public Builder discCacheExtraOptions(int i10, int i11, BitmapProcessor bitmapProcessor) {
-            return diskCacheExtraOptions(i10, i11, bitmapProcessor);
+        public Builder discCacheExtraOptions(int i2, int i3, BitmapProcessor bitmapProcessor) {
+            return diskCacheExtraOptions(i2, i3, bitmapProcessor);
         }
 
         @Deprecated
-        public Builder discCacheFileCount(int i10) {
-            return diskCacheFileCount(i10);
+        public Builder discCacheFileCount(int i2) {
+            return diskCacheFileCount(i2);
         }
 
         @Deprecated
@@ -187,55 +187,55 @@ public final class ImageLoaderConfiguration {
         }
 
         @Deprecated
-        public Builder discCacheSize(int i10) {
-            return diskCacheSize(i10);
+        public Builder discCacheSize(int i2) {
+            return diskCacheSize(i2);
         }
 
         public Builder diskCache(DiskCache diskCache) {
             if (this.diskCacheSize > 0 || this.diskCacheFileCount > 0) {
-                L.w("diskCache(), diskCacheSize() and diskCacheFileCount calls overlap each other", new Object[0]);
+                L.w(WARNING_OVERLAP_DISK_CACHE_PARAMS, new Object[0]);
             }
             if (this.diskCacheFileNameGenerator != null) {
-                L.w("diskCache() and diskCacheFileNameGenerator() calls overlap each other", new Object[0]);
+                L.w(WARNING_OVERLAP_DISK_CACHE_NAME_GENERATOR, new Object[0]);
             }
             this.diskCache = diskCache;
             return this;
         }
 
-        public Builder diskCacheExtraOptions(int i10, int i11, BitmapProcessor bitmapProcessor) {
-            this.maxImageWidthForDiskCache = i10;
-            this.maxImageHeightForDiskCache = i11;
+        public Builder diskCacheExtraOptions(int i2, int i3, BitmapProcessor bitmapProcessor) {
+            this.maxImageWidthForDiskCache = i2;
+            this.maxImageHeightForDiskCache = i3;
             this.processorForDiskCache = bitmapProcessor;
             return this;
         }
 
-        public Builder diskCacheFileCount(int i10) {
-            if (i10 <= 0) {
+        public Builder diskCacheFileCount(int i2) {
+            if (i2 <= 0) {
                 throw new IllegalArgumentException("maxFileCount must be a positive number");
             }
             if (this.diskCache != null) {
-                L.w("diskCache(), diskCacheSize() and diskCacheFileCount calls overlap each other", new Object[0]);
+                L.w(WARNING_OVERLAP_DISK_CACHE_PARAMS, new Object[0]);
             }
-            this.diskCacheFileCount = i10;
+            this.diskCacheFileCount = i2;
             return this;
         }
 
         public Builder diskCacheFileNameGenerator(FileNameGenerator fileNameGenerator) {
             if (this.diskCache != null) {
-                L.w("diskCache() and diskCacheFileNameGenerator() calls overlap each other", new Object[0]);
+                L.w(WARNING_OVERLAP_DISK_CACHE_NAME_GENERATOR, new Object[0]);
             }
             this.diskCacheFileNameGenerator = fileNameGenerator;
             return this;
         }
 
-        public Builder diskCacheSize(int i10) {
-            if (i10 <= 0) {
+        public Builder diskCacheSize(int i2) {
+            if (i2 <= 0) {
                 throw new IllegalArgumentException("maxCacheSize must be a positive number");
             }
             if (this.diskCache != null) {
-                L.w("diskCache(), diskCacheSize() and diskCacheFileCount calls overlap each other", new Object[0]);
+                L.w(WARNING_OVERLAP_DISK_CACHE_PARAMS, new Object[0]);
             }
-            this.diskCacheSize = i10;
+            this.diskCacheSize = i2;
             return this;
         }
 
@@ -251,37 +251,37 @@ public final class ImageLoaderConfiguration {
 
         public Builder memoryCache(MemoryCache memoryCache) {
             if (this.memoryCacheSize != 0) {
-                L.w("memoryCache() and memoryCacheSize() calls overlap each other", new Object[0]);
+                L.w(WARNING_OVERLAP_MEMORY_CACHE, new Object[0]);
             }
             this.memoryCache = memoryCache;
             return this;
         }
 
-        public Builder memoryCacheExtraOptions(int i10, int i11) {
-            this.maxImageWidthForMemoryCache = i10;
-            this.maxImageHeightForMemoryCache = i11;
+        public Builder memoryCacheExtraOptions(int i2, int i3) {
+            this.maxImageWidthForMemoryCache = i2;
+            this.maxImageHeightForMemoryCache = i3;
             return this;
         }
 
-        public Builder memoryCacheSize(int i10) {
-            if (i10 <= 0) {
+        public Builder memoryCacheSize(int i2) {
+            if (i2 <= 0) {
                 throw new IllegalArgumentException("memoryCacheSize must be a positive number");
             }
             if (this.memoryCache != null) {
-                L.w("memoryCache() and memoryCacheSize() calls overlap each other", new Object[0]);
+                L.w(WARNING_OVERLAP_MEMORY_CACHE, new Object[0]);
             }
-            this.memoryCacheSize = i10;
+            this.memoryCacheSize = i2;
             return this;
         }
 
-        public Builder memoryCacheSizePercentage(int i10) {
-            if (i10 <= 0 || i10 >= 100) {
+        public Builder memoryCacheSizePercentage(int i2) {
+            if (i2 <= 0 || i2 >= 100) {
                 throw new IllegalArgumentException("availableMemoryPercent must be in range (0 < % < 100)");
             }
             if (this.memoryCache != null) {
-                L.w("memoryCache() and memoryCacheSize() calls overlap each other", new Object[0]);
+                L.w(WARNING_OVERLAP_MEMORY_CACHE, new Object[0]);
             }
-            this.memoryCacheSize = (int) (Runtime.getRuntime().maxMemory() * (i10 / 100.0f));
+            this.memoryCacheSize = (int) (Runtime.getRuntime().maxMemory() * (i2 / 100.0f));
             return this;
         }
 
@@ -292,7 +292,7 @@ public final class ImageLoaderConfiguration {
 
         public Builder taskExecutor(Executor executor) {
             if (this.threadPoolSize != 3 || this.threadPriority != 3 || this.tasksProcessingType != DEFAULT_TASK_PROCESSING_TYPE) {
-                L.w("threadPoolSize(), threadPriority() and tasksProcessingOrder() calls can overlap taskExecutor() and taskExecutorForCachedImages() calls.", new Object[0]);
+                L.w(WARNING_OVERLAP_EXECUTOR, new Object[0]);
             }
             this.taskExecutor = executor;
             return this;
@@ -300,7 +300,7 @@ public final class ImageLoaderConfiguration {
 
         public Builder taskExecutorForCachedImages(Executor executor) {
             if (this.threadPoolSize != 3 || this.threadPriority != 3 || this.tasksProcessingType != DEFAULT_TASK_PROCESSING_TYPE) {
-                L.w("threadPoolSize(), threadPriority() and tasksProcessingOrder() calls can overlap taskExecutor() and taskExecutorForCachedImages() calls.", new Object[0]);
+                L.w(WARNING_OVERLAP_EXECUTOR, new Object[0]);
             }
             this.taskExecutorForCachedImages = executor;
             return this;
@@ -308,31 +308,31 @@ public final class ImageLoaderConfiguration {
 
         public Builder tasksProcessingOrder(QueueProcessingType queueProcessingType) {
             if (this.taskExecutor != null || this.taskExecutorForCachedImages != null) {
-                L.w("threadPoolSize(), threadPriority() and tasksProcessingOrder() calls can overlap taskExecutor() and taskExecutorForCachedImages() calls.", new Object[0]);
+                L.w(WARNING_OVERLAP_EXECUTOR, new Object[0]);
             }
             this.tasksProcessingType = queueProcessingType;
             return this;
         }
 
-        public Builder threadPoolSize(int i10) {
+        public Builder threadPoolSize(int i2) {
             if (this.taskExecutor != null || this.taskExecutorForCachedImages != null) {
-                L.w("threadPoolSize(), threadPriority() and tasksProcessingOrder() calls can overlap taskExecutor() and taskExecutorForCachedImages() calls.", new Object[0]);
+                L.w(WARNING_OVERLAP_EXECUTOR, new Object[0]);
             }
-            this.threadPoolSize = i10;
+            this.threadPoolSize = i2;
             return this;
         }
 
-        public Builder threadPriority(int i10) {
+        public Builder threadPriority(int i2) {
             if (this.taskExecutor != null || this.taskExecutorForCachedImages != null) {
-                L.w("threadPoolSize(), threadPriority() and tasksProcessingOrder() calls can overlap taskExecutor() and taskExecutorForCachedImages() calls.", new Object[0]);
+                L.w(WARNING_OVERLAP_EXECUTOR, new Object[0]);
             }
-            if (i10 <= 0) {
-                this.threadPriority = 1;
-            } else if (i10 > 10) {
+            if (i2 <= 0) {
+                i2 = 1;
+            } else if (i2 > 10) {
                 this.threadPriority = 10;
-            } else {
-                this.threadPriority = i10;
+                return this;
             }
+            this.threadPriority = i2;
             return this;
         }
 
@@ -342,7 +342,7 @@ public final class ImageLoaderConfiguration {
         }
     }
 
-    public static class NetworkDeniedImageDownloader implements ImageDownloader {
+    static class NetworkDeniedImageDownloader implements ImageDownloader {
         private final ImageDownloader wrappedDownloader;
 
         public NetworkDeniedImageDownloader(ImageDownloader imageDownloader) {
@@ -351,15 +351,15 @@ public final class ImageLoaderConfiguration {
 
         @Override // com.kwad.sdk.core.imageloader.core.download.ImageDownloader
         public InputStream getStream(String str, Object obj) {
-            int i10 = AnonymousClass1.$SwitchMap$com$kwad$sdk$core$imageloader$core$download$ImageDownloader$Scheme[ImageDownloader.Scheme.ofUri(str).ordinal()];
-            if (i10 == 1 || i10 == 2) {
+            int i2 = AnonymousClass1.$SwitchMap$com$kwad$sdk$core$imageloader$core$download$ImageDownloader$Scheme[ImageDownloader.Scheme.ofUri(str).ordinal()];
+            if (i2 == 1 || i2 == 2) {
                 throw new IllegalStateException();
             }
             return this.wrappedDownloader.getStream(str, obj);
         }
     }
 
-    public static class SlowNetworkImageDownloader implements ImageDownloader {
+    static class SlowNetworkImageDownloader implements ImageDownloader {
         private final ImageDownloader wrappedDownloader;
 
         public SlowNetworkImageDownloader(ImageDownloader imageDownloader) {
@@ -369,30 +369,9 @@ public final class ImageLoaderConfiguration {
         @Override // com.kwad.sdk.core.imageloader.core.download.ImageDownloader
         public InputStream getStream(String str, Object obj) {
             InputStream stream = this.wrappedDownloader.getStream(str, obj);
-            int i10 = AnonymousClass1.$SwitchMap$com$kwad$sdk$core$imageloader$core$download$ImageDownloader$Scheme[ImageDownloader.Scheme.ofUri(str).ordinal()];
-            return (i10 == 1 || i10 == 2) ? new FlushedInputStream(stream) : stream;
+            int i2 = AnonymousClass1.$SwitchMap$com$kwad$sdk$core$imageloader$core$download$ImageDownloader$Scheme[ImageDownloader.Scheme.ofUri(str).ordinal()];
+            return (i2 == 1 || i2 == 2) ? new FlushedInputStream(stream) : stream;
         }
-    }
-
-    public /* synthetic */ ImageLoaderConfiguration(Builder builder, AnonymousClass1 anonymousClass1) {
-        this(builder);
-    }
-
-    public static ImageLoaderConfiguration createDefault(Context context) {
-        return new Builder(context).build();
-    }
-
-    public final ImageSize getMaxImageSize() {
-        DisplayMetrics displayMetrics = this.resources.getDisplayMetrics();
-        int i10 = this.maxImageWidthForMemoryCache;
-        if (i10 <= 0) {
-            i10 = displayMetrics.widthPixels;
-        }
-        int i11 = this.maxImageHeightForMemoryCache;
-        if (i11 <= 0) {
-            i11 = displayMetrics.heightPixels;
-        }
-        return new ImageSize(i10, i11);
     }
 
     private ImageLoaderConfiguration(Builder builder) {
@@ -419,5 +398,26 @@ public final class ImageLoaderConfiguration {
         this.networkDeniedDownloader = new NetworkDeniedImageDownloader(imageDownloader);
         this.slowNetworkDownloader = new SlowNetworkImageDownloader(imageDownloader);
         L.writeDebugLogs(builder.writeLogs);
+    }
+
+    /* synthetic */ ImageLoaderConfiguration(Builder builder, AnonymousClass1 anonymousClass1) {
+        this(builder);
+    }
+
+    public static ImageLoaderConfiguration createDefault(Context context) {
+        return new Builder(context).build();
+    }
+
+    final ImageSize getMaxImageSize() {
+        DisplayMetrics displayMetrics = this.resources.getDisplayMetrics();
+        int i2 = this.maxImageWidthForMemoryCache;
+        if (i2 <= 0) {
+            i2 = displayMetrics.widthPixels;
+        }
+        int i3 = this.maxImageHeightForMemoryCache;
+        if (i3 <= 0) {
+            i3 = displayMetrics.heightPixels;
+        }
+        return new ImageSize(i2, i3);
     }
 }

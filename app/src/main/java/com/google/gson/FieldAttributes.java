@@ -1,19 +1,23 @@
 package com.google.gson;
 
-import com.google.gson.internal.C$Gson$Preconditions;
+import com.google.gson.internal.a;
 import java.lang.annotation.Annotation;
 import java.lang.reflect.Field;
 import java.lang.reflect.Type;
 import java.util.Arrays;
 import java.util.Collection;
 
-/* loaded from: classes2.dex */
+/* loaded from: classes.dex */
 public final class FieldAttributes {
     private final Field field;
 
     public FieldAttributes(Field field) {
-        C$Gson$Preconditions.checkNotNull(field);
+        a.b(field);
         this.field = field;
+    }
+
+    Object get(Object obj) throws IllegalAccessException {
+        return this.field.get(obj);
     }
 
     public <T extends Annotation> T getAnnotation(Class<T> cls) {
@@ -40,11 +44,11 @@ public final class FieldAttributes {
         return this.field.getName();
     }
 
-    public boolean hasModifier(int i10) {
-        return (i10 & this.field.getModifiers()) != 0;
+    public boolean hasModifier(int i2) {
+        return (i2 & this.field.getModifiers()) != 0;
     }
 
-    public String toString() {
-        return this.field.toString();
+    boolean isSynthetic() {
+        return this.field.isSynthetic();
     }
 }

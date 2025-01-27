@@ -5,80 +5,63 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.annotation.RequiresApi;
 import java.util.Locale;
-import y.b;
 
 @RequiresApi(24)
 /* loaded from: classes.dex */
 final class LocaleListPlatformWrapper implements LocaleListInterface {
-    private final LocaleList mLocaleList;
 
-    public LocaleListPlatformWrapper(Object obj) {
-        this.mLocaleList = b.a(obj);
+    /* renamed from: a */
+    private final LocaleList f1826a;
+
+    LocaleListPlatformWrapper(LocaleList localeList) {
+        this.f1826a = localeList;
     }
 
     public boolean equals(Object obj) {
-        boolean equals;
-        equals = this.mLocaleList.equals(((LocaleListInterface) obj).getLocaleList());
-        return equals;
+        return this.f1826a.equals(((LocaleListInterface) obj).getLocaleList());
     }
 
     @Override // androidx.core.os.LocaleListInterface
-    public Locale get(int i10) {
-        Locale locale;
-        locale = this.mLocaleList.get(i10);
-        return locale;
+    public Locale get(int i2) {
+        return this.f1826a.get(i2);
     }
 
     @Override // androidx.core.os.LocaleListInterface
     @Nullable
     public Locale getFirstMatch(@NonNull String[] strArr) {
-        Locale firstMatch;
-        firstMatch = this.mLocaleList.getFirstMatch(strArr);
-        return firstMatch;
+        return this.f1826a.getFirstMatch(strArr);
     }
 
     @Override // androidx.core.os.LocaleListInterface
     public Object getLocaleList() {
-        return this.mLocaleList;
+        return this.f1826a;
     }
 
     public int hashCode() {
-        int hashCode;
-        hashCode = this.mLocaleList.hashCode();
-        return hashCode;
+        return this.f1826a.hashCode();
     }
 
     @Override // androidx.core.os.LocaleListInterface
     public int indexOf(Locale locale) {
-        int indexOf;
-        indexOf = this.mLocaleList.indexOf(locale);
-        return indexOf;
+        return this.f1826a.indexOf(locale);
     }
 
     @Override // androidx.core.os.LocaleListInterface
     public boolean isEmpty() {
-        boolean isEmpty;
-        isEmpty = this.mLocaleList.isEmpty();
-        return isEmpty;
+        return this.f1826a.isEmpty();
     }
 
     @Override // androidx.core.os.LocaleListInterface
     public int size() {
-        int size;
-        size = this.mLocaleList.size();
-        return size;
+        return this.f1826a.size();
     }
 
     @Override // androidx.core.os.LocaleListInterface
     public String toLanguageTags() {
-        String languageTags;
-        languageTags = this.mLocaleList.toLanguageTags();
-        return languageTags;
+        return this.f1826a.toLanguageTags();
     }
 
     public String toString() {
-        String localeList;
-        localeList = this.mLocaleList.toString();
-        return localeList;
+        return this.f1826a.toString();
     }
 }

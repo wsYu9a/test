@@ -3,22 +3,22 @@ package com.ss.android.socialbase.downloader.downloader;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
+import android.os.Handler;
+import android.os.Looper;
 import android.text.TextUtils;
-import com.sigmob.sdk.base.common.y;
 import com.ss.android.socialbase.downloader.logger.Logger;
 import com.ss.android.socialbase.downloader.notification.DownloadNotificationService;
-import java.util.concurrent.TimeUnit;
 
 /* loaded from: classes4.dex */
 public class DownloadReceiver extends BroadcastReceiver {
-    private static final String TAG = "DownloadReceiver";
+    private static final String TAG = DownloadReceiver.class.getSimpleName();
 
     /* renamed from: com.ss.android.socialbase.downloader.downloader.DownloadReceiver$1 */
-    public class AnonymousClass1 implements Runnable {
+    class AnonymousClass1 implements Runnable {
         final /* synthetic */ String val$action;
         final /* synthetic */ Context val$context;
 
-        public AnonymousClass1(Context context, String str) {
+        AnonymousClass1(Context context, String str) {
             context = context;
             str = str;
         }
@@ -29,41 +29,19 @@ public class DownloadReceiver extends BroadcastReceiver {
                 Intent intent = new Intent(context, (Class<?>) DownloadNotificationService.class);
                 intent.setAction(str);
                 context.startService(intent);
-            } catch (Throwable th2) {
-                th2.printStackTrace();
-            }
-        }
-    }
-
-    /* renamed from: com.ss.android.socialbase.downloader.downloader.DownloadReceiver$2 */
-    public class AnonymousClass2 implements Runnable {
-        final /* synthetic */ String val$action;
-        final /* synthetic */ Context val$context;
-
-        public AnonymousClass2(Context context, String str) {
-            context = context;
-            str = str;
-        }
-
-        @Override // java.lang.Runnable
-        public void run() {
-            try {
-                Intent intent = new Intent(context, (Class<?>) DownloadNotificationService.class);
-                intent.setAction(str);
-                context.startService(intent);
-            } catch (Throwable th2) {
-                th2.printStackTrace();
+            } catch (Throwable th) {
+                th.printStackTrace();
             }
         }
     }
 
     private void autoRefreshUnsuccessDownloadTask(Context context, String str) {
         if (DownloadComponentManager.needAutoRefreshUnSuccessTask()) {
-            DownloadComponentManager.submitScheduleTask(new Runnable() { // from class: com.ss.android.socialbase.downloader.downloader.DownloadReceiver.1
+            new Handler(Looper.getMainLooper()).postDelayed(new Runnable() { // from class: com.ss.android.socialbase.downloader.downloader.DownloadReceiver.1
                 final /* synthetic */ String val$action;
                 final /* synthetic */ Context val$context;
 
-                public AnonymousClass1(Context context2, String str2) {
+                AnonymousClass1(Context context2, String str2) {
                     context = context2;
                     str = str2;
                 }
@@ -74,35 +52,22 @@ public class DownloadReceiver extends BroadcastReceiver {
                         Intent intent = new Intent(context, (Class<?>) DownloadNotificationService.class);
                         intent.setAction(str);
                         context.startService(intent);
-                    } catch (Throwable th2) {
-                        th2.printStackTrace();
+                    } catch (Throwable th) {
+                        th.printStackTrace();
                     }
                 }
-            }, y.f.f18076n, TimeUnit.MILLISECONDS);
+            }, 2000L);
         }
     }
 
     private void forceStopAllDownloadTask(Context context, String str) {
-        DownloadComponentManager.submitCPUTask(new Runnable() { // from class: com.ss.android.socialbase.downloader.downloader.DownloadReceiver.2
-            final /* synthetic */ String val$action;
-            final /* synthetic */ Context val$context;
-
-            public AnonymousClass2(Context context2, String str2) {
-                context = context2;
-                str = str2;
-            }
-
-            @Override // java.lang.Runnable
-            public void run() {
-                try {
-                    Intent intent = new Intent(context, (Class<?>) DownloadNotificationService.class);
-                    intent.setAction(str);
-                    context.startService(intent);
-                } catch (Throwable th2) {
-                    th2.printStackTrace();
-                }
-            }
-        });
+        try {
+            Intent intent = new Intent(context, (Class<?>) DownloadNotificationService.class);
+            intent.setAction(str);
+            context.startService(intent);
+        } catch (Throwable th) {
+            th.printStackTrace();
+        }
     }
 
     @Override // android.content.BroadcastReceiver

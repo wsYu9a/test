@@ -9,8 +9,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 @KsJson
-/* loaded from: classes3.dex */
-public class AdMatrixInfo extends com.kwad.sdk.core.response.a.a implements Serializable {
+/* loaded from: classes2.dex */
+public class AdMatrixInfo extends com.kwad.sdk.core.response.kwai.a implements Serializable {
     private static final long serialVersionUID = -1399297421861223421L;
     public Styles styles = new Styles();
     public AdDataV2 adDataV2 = new AdDataV2();
@@ -30,11 +30,7 @@ public class AdMatrixInfo extends com.kwad.sdk.core.response.a.a implements Seri
     }
 
     @KsJson
-    public static class AdBannerTKInfo extends BaseMatrixTemplate {
-    }
-
-    @KsJson
-    public static class AdDataV2 extends com.kwad.sdk.core.response.a.a implements Serializable {
+    public static class AdDataV2 extends com.kwad.sdk.core.response.kwai.a implements Serializable {
         private static final long serialVersionUID = -8017805390945915342L;
         public List<TemplateData> templateDataList = new ArrayList();
         public BottomBannerInfo bottomBannerInfo = new BottomBannerInfo();
@@ -44,7 +40,6 @@ public class AdMatrixInfo extends com.kwad.sdk.core.response.a.a implements Seri
         public EndCardInfo endCardInfo = new EndCardInfo();
         public InterstitialCardInfo interstitialCardInfo = new InterstitialCardInfo();
         public FeedInfo feedInfo = new FeedInfo();
-        public FeedTKInfo feedTKCardInfo = new FeedTKInfo();
         public FeedInfo adUnionFeedLiveMediaInfo = new FeedInfo();
         public FeedInfo adUnionFeedLiveTemplateInfo = new FeedInfo();
         public BaseMatrixTemplate complianceCardInfo = new BaseMatrixTemplate();
@@ -59,26 +54,23 @@ public class AdMatrixInfo extends com.kwad.sdk.core.response.a.a implements Seri
         public SplashEndCardTKInfo splashEndCardTKInfo = new SplashEndCardTKInfo();
         public TopFloorTKInfo topFloorTKInfo = new TopFloorTKInfo();
         public ActivityMiddlePageInfo activityMiddlePageInfo = new ActivityMiddlePageInfo();
-        public AdBannerTKInfo bannerTKInfo = new AdBannerTKInfo();
         public BaseMatrixTemplate confirmTKInfo = new BaseMatrixTemplate();
         public BaseMatrixTemplate playendTKInfo = new BaseMatrixTemplate();
         public BaseMatrixTemplate activityTKInfo = new BaseMatrixTemplate();
         public BaseMatrixTemplate neoTKInfo = new BaseMatrixTemplate();
+        public BaseMatrixTemplate rewardWatchOnceInfo = new BaseMatrixTemplate();
         public RewardVideoInteractInfo rewardVideoInteractInfo = new RewardVideoInteractInfo();
         public RewardVideoTaskInfo rewardVideoTaskInfo = new RewardVideoTaskInfo();
-        public RewardWebTaskCloseInfo rewardWebTaskCloseInfo = new RewardWebTaskCloseInfo();
+        public RewardWebTaskCloseInfo mRewardWebTaskCloseInfo = new RewardWebTaskCloseInfo();
         public MerchantLiveReservationInfo merchantLiveReservationInfo = new MerchantLiveReservationInfo();
         public PushTKInfo pushTKInfo = new PushTKInfo();
         public BaseMatrixTemplate splashActionBarInfo = new BaseMatrixTemplate();
         public BaseMatrixTemplate videoLiveTKInfo = new BaseMatrixTemplate();
         public PreLandingPageTKInfo preLandingPageTKInfo = new PreLandingPageTKInfo();
-        public InstalledActivateInfo installedActivateInfo = new InstalledActivateInfo();
-        public BaseMatrixTemplate videoImageTKInfo = new BaseMatrixTemplate();
-        public DynamicAdStyleInfo dynamicAdStyleInfo = new DynamicAdStyleInfo();
     }
 
     @KsJson
-    public static class AdInteractionInfo extends com.kwad.sdk.core.response.a.a implements Serializable {
+    public static class AdInteractionInfo extends com.kwad.sdk.core.response.kwai.a implements Serializable {
         private static final long serialVersionUID = -8105791433429537031L;
         public int interactiveStyle;
         public int interactivityDefaultStyle;
@@ -100,7 +92,7 @@ public class AdMatrixInfo extends com.kwad.sdk.core.response.a.a implements Seri
     }
 
     @KsJson
-    public static class BaseMatrixTemplate extends com.kwad.sdk.core.response.a.a implements Serializable {
+    public static class BaseMatrixTemplate extends com.kwad.sdk.core.response.kwai.a implements Serializable {
         private static final long serialVersionUID = 3594661163877934414L;
         public int renderType;
         public String templateId;
@@ -114,7 +106,7 @@ public class AdMatrixInfo extends com.kwad.sdk.core.response.a.a implements Seri
     }
 
     @KsJson
-    public static class CycleAggregateInfo extends com.kwad.sdk.core.response.a.a implements Serializable {
+    public static class CycleAggregateInfo extends com.kwad.sdk.core.response.kwai.a implements Serializable {
         private static final long serialVersionUID = 3365726199254620321L;
         public String convertIconUrl;
         public String cutIconUrl;
@@ -122,17 +114,11 @@ public class AdMatrixInfo extends com.kwad.sdk.core.response.a.a implements Seri
     }
 
     @KsJson
-    public static class DownloadTexts extends com.kwad.sdk.core.response.a.a implements Serializable {
-        private static final long serialVersionUID = -4102977044762642151L;
+    public static class DownloadTexts extends com.kwad.sdk.core.response.kwai.a implements Serializable {
+        private static final long serialVersionUID = -2293710579116352440L;
         public String adActionDescription;
         public String installAppLabel;
         public String openAppLabel;
-    }
-
-    @KsJson
-    public static class DynamicAdStyleInfo extends BaseMatrixTemplate {
-        private static final long serialVersionUID = 7232188889951146059L;
-        public SlideInfo slideInfo = new SlideInfo();
     }
 
     @KsJson
@@ -149,33 +135,20 @@ public class AdMatrixInfo extends com.kwad.sdk.core.response.a.a implements Seri
     }
 
     @KsJson
-    public static class FeedTKInfo extends BaseMatrixTemplate {
-        private static final long serialVersionUID = -7328588644194532249L;
-    }
-
-    @KsJson
     public static class FullScreenInfo extends BaseMatrixTemplate {
         private static final long serialVersionUID = 6260475900625987915L;
         public AdInteractionInfo interactionInfo = new AdInteractionInfo();
     }
 
     @KsJson
-    public static class InstalledActivateInfo extends BaseMatrixTemplate {
-        private static final long serialVersionUID = -959583814667849237L;
-        public boolean cardSwitch;
-        public long showTime;
-    }
-
-    @KsJson
     public static class InterstitialCardInfo extends BaseMatrixTemplate {
         private static final long serialVersionUID = -5881505827627373593L;
-        public boolean closeAfterClick;
         public AdInteractionInfo interactionInfo = new AdInteractionInfo();
         public CycleAggregateInfo cycleAggregateInfo = new CycleAggregateInfo();
     }
 
     @KsJson
-    public static class MatrixTag extends com.kwad.sdk.core.response.a.a implements Serializable {
+    public static class MatrixTag extends com.kwad.sdk.core.response.kwai.a implements Serializable {
         public boolean isHide;
         public int styleId;
         public String type;
@@ -184,7 +157,6 @@ public class AdMatrixInfo extends com.kwad.sdk.core.response.a.a implements Seri
     @KsJson
     public static class MatrixTemplate extends BaseMatrixTemplate {
         private static final long serialVersionUID = 1943039524913069727L;
-        public int publishType;
         public String templateMd5;
         public String templateUrl;
         public String templateVersion;
@@ -205,7 +177,7 @@ public class AdMatrixInfo extends com.kwad.sdk.core.response.a.a implements Seri
         public String userHeadUrl;
 
         @KsJson
-        public static class LiveReservationPlayEndInfo extends com.kwad.sdk.core.response.a.a implements Serializable {
+        public static class LiveReservationPlayEndInfo extends com.kwad.sdk.core.response.kwai.a implements Serializable {
             private static final long serialVersionUID = 1682477964084325954L;
             public String detailBtnTitle = "查看详情";
             public String reservationBtnTitle = "立即预约";
@@ -213,11 +185,11 @@ public class AdMatrixInfo extends com.kwad.sdk.core.response.a.a implements Seri
 
         @Nullable
         public String getFormattedLiveSubscribeCount() {
-            int i10 = this.bookUserCount;
-            if (i10 < 50) {
+            int i2 = this.bookUserCount;
+            if (i2 < 50) {
                 return null;
             }
-            if (i10 < 10000) {
+            if (i2 < 10000) {
                 return this.bookUserCount + "人";
             }
             return new DecimalFormat("#.#").format(this.bookUserCount / 10000.0f) + "万人";
@@ -244,13 +216,13 @@ public class AdMatrixInfo extends com.kwad.sdk.core.response.a.a implements Seri
         public int preLandingPageShowType = 1;
 
         public boolean isPlayEndShow() {
-            int i10 = this.preLandingPageShowType;
-            return i10 == 2 || i10 == 1;
+            int i2 = this.preLandingPageShowType;
+            return i2 == 2 || i2 == 1;
         }
 
         public boolean isSkipShow() {
-            int i10 = this.preLandingPageShowType;
-            return i10 == 3 || i10 == 1;
+            int i2 = this.preLandingPageShowType;
+            return i2 == 3 || i2 == 1;
         }
     }
 
@@ -260,7 +232,7 @@ public class AdMatrixInfo extends com.kwad.sdk.core.response.a.a implements Seri
     }
 
     @KsJson
-    public static class RewardVideoInteractInfo extends com.kwad.sdk.core.response.a.a implements Serializable {
+    public static class RewardVideoInteractInfo extends com.kwad.sdk.core.response.kwai.a implements Serializable {
         private static final long serialVersionUID = 8875349394489272055L;
         public int dayMaxLimit;
         public int duration;
@@ -275,7 +247,7 @@ public class AdMatrixInfo extends com.kwad.sdk.core.response.a.a implements Seri
     }
 
     @KsJson
-    public static class RewardVideoTaskInfo extends com.kwad.sdk.core.response.a.a implements Serializable {
+    public static class RewardVideoTaskInfo extends com.kwad.sdk.core.response.kwai.a implements Serializable {
         private static final long serialVersionUID = 2487245975856269581L;
         public int duration;
         public int showTime;
@@ -285,38 +257,31 @@ public class AdMatrixInfo extends com.kwad.sdk.core.response.a.a implements Seri
     }
 
     @KsJson
-    public static class RewardWebTaskCloseInfo extends com.kwad.sdk.core.response.a.a implements Serializable {
+    public static class RewardWebTaskCloseInfo extends com.kwad.sdk.core.response.kwai.a implements Serializable {
         private static final long serialVersionUID = -2697443981301300766L;
         public String templateId;
-        public int webConfirmCardType;
     }
 
     @KsJson
-    public static class RotateDegreeInfo extends com.kwad.sdk.core.response.a.a implements Serializable {
-        private static final long serialVersionUID = 64198654819103772L;
+    public static class RotateDegreeInfo extends com.kwad.sdk.core.response.kwai.a implements Serializable {
+        private static final long serialVersionUID = -479509878557048331L;
         public int direction;
         public int rotateDegree;
     }
 
     @KsJson
-    public static class RotateInfo extends com.kwad.sdk.core.response.a.a implements Serializable {
+    public static class RotateInfo extends com.kwad.sdk.core.response.kwai.a implements Serializable {
         private static final long serialVersionUID = -237926423883960071L;
         public String subTitle;
         public String title;
         public DownloadTexts downloadTexts = new DownloadTexts();
-
-        /* renamed from: x */
-        public RotateDegreeInfo f11970x = new RotateDegreeInfo();
-
-        /* renamed from: y */
-        public RotateDegreeInfo f11971y = new RotateDegreeInfo();
-
-        /* renamed from: z */
-        public RotateDegreeInfo f11972z = new RotateDegreeInfo();
+        public RotateDegreeInfo x = new RotateDegreeInfo();
+        public RotateDegreeInfo y = new RotateDegreeInfo();
+        public RotateDegreeInfo z = new RotateDegreeInfo();
     }
 
     @KsJson
-    public static class ShakeInfo extends com.kwad.sdk.core.response.a.a implements Serializable {
+    public static class ShakeInfo extends com.kwad.sdk.core.response.kwai.a implements Serializable {
         private static final long serialVersionUID = 4528782399998808588L;
         public int acceleration;
         public boolean clickDisabled;
@@ -326,14 +291,8 @@ public class AdMatrixInfo extends com.kwad.sdk.core.response.a.a implements Seri
     }
 
     @KsJson
-    public static class SlideInfo extends com.kwad.sdk.core.response.a.a implements Serializable {
-        private static final long serialVersionUID = 4115207086563665676L;
-        public List<Integer> angle;
-    }
-
-    @KsJson
-    public static class SplashActionBarInfo extends com.kwad.sdk.core.response.a.a implements Serializable {
-        private static final long serialVersionUID = -8978521089375262615L;
+    public static class SplashActionBarInfo extends com.kwad.sdk.core.response.kwai.a implements Serializable {
+        private static final long serialVersionUID = -2897900789505229105L;
         public DownloadTexts downloadTexts = new DownloadTexts();
         public String title;
     }
@@ -348,7 +307,7 @@ public class AdMatrixInfo extends com.kwad.sdk.core.response.a.a implements Seri
     }
 
     @KsJson
-    public static class SplashInfo extends com.kwad.sdk.core.response.a.a implements Serializable {
+    public static class SplashInfo extends com.kwad.sdk.core.response.kwai.a implements Serializable {
         private static final long serialVersionUID = 240426032769377332L;
         public AdInteractionInfo interactionInfo = new AdInteractionInfo();
     }
@@ -356,12 +315,11 @@ public class AdMatrixInfo extends com.kwad.sdk.core.response.a.a implements Seri
     @KsJson
     public static class SplashPlayCardTKInfo extends BaseMatrixTemplate {
         private static final long serialVersionUID = 2182484890680464601L;
-        public int tkTimeout;
     }
 
     @KsJson
-    public static class SplashSlideInfo extends com.kwad.sdk.core.response.a.a implements Serializable {
-        private static final long serialVersionUID = -6853322623324615011L;
+    public static class SplashSlideInfo extends com.kwad.sdk.core.response.kwai.a implements Serializable {
+        private static final long serialVersionUID = -5771966197460897593L;
         public int convertDistance;
         public DownloadTexts downloadTexts = new DownloadTexts();
         public int style;
@@ -370,13 +328,13 @@ public class AdMatrixInfo extends com.kwad.sdk.core.response.a.a implements Seri
     }
 
     @KsJson
-    public static class StyleInfo extends com.kwad.sdk.core.response.a.a implements Serializable {
+    public static class StyleInfo extends com.kwad.sdk.core.response.kwai.a implements Serializable {
         private static final long serialVersionUID = 7597936730431611526L;
         public String title;
     }
 
     @KsJson
-    public static class Styles extends com.kwad.sdk.core.response.a.a implements Serializable {
+    public static class Styles extends com.kwad.sdk.core.response.kwai.a implements Serializable {
         private static final long serialVersionUID = 1713930699658485883L;
         public List<MatrixTemplate> templateList = new ArrayList();
     }

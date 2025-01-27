@@ -8,5 +8,5 @@ public interface ChapterList {
 
     int getCount();
 
-    Chapter getItem(int i10);
+    Chapter getItem(int position);
 }

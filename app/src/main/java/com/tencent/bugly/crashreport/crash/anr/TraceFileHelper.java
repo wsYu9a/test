@@ -12,29 +12,29 @@ public class TraceFileHelper {
     public static class a {
 
         /* renamed from: a */
-        public long f22402a;
+        public long f24799a;
 
         /* renamed from: b */
-        public String f22403b;
+        public String f24800b;
 
         /* renamed from: c */
-        public long f22404c;
+        public long f24801c;
 
         /* renamed from: d */
-        public Map<String, String[]> f22405d;
+        public Map<String, String[]> f24802d;
     }
 
     public interface b {
-        boolean a(long j10);
+        boolean a(long j2);
 
-        boolean a(long j10, long j11, String str);
+        boolean a(long j2, long j3, String str);
 
-        boolean a(String str, int i10, String str2, String str3, boolean z10);
+        boolean a(String str, int i2, String str2, String str3, boolean z);
 
-        boolean a(String str, long j10, long j11);
+        boolean a(String str, long j2, long j3);
     }
 
-    public static Object[] a(BufferedReader bufferedReader, Pattern... patternArr) throws IOException {
+    protected static Object[] a(BufferedReader bufferedReader, Pattern... patternArr) throws IOException {
         if (bufferedReader != null && patternArr != null) {
             while (true) {
                 String readLine = bufferedReader.readLine();
@@ -51,9 +51,9 @@ public class TraceFileHelper {
         return null;
     }
 
-    public static String b(BufferedReader bufferedReader) throws IOException {
+    protected static String b(BufferedReader bufferedReader) throws IOException {
         StringBuffer stringBuffer = new StringBuffer();
-        for (int i10 = 0; i10 < 3; i10++) {
+        for (int i2 = 0; i2 < 3; i2++) {
             String readLine = bufferedReader.readLine();
             if (readLine == null) {
                 return null;
@@ -63,25 +63,25 @@ public class TraceFileHelper {
         return stringBuffer.toString();
     }
 
-    public static a readFirstDumpInfo(String str, boolean z10) {
+    public static a readFirstDumpInfo(String str, boolean z) {
         if (str == null) {
             X.b("path:%s", str);
             return null;
         }
         a aVar = new a();
-        readTraceFile(str, new j(aVar, z10));
-        if (aVar.f22402a > 0 && aVar.f22404c > 0 && aVar.f22403b != null) {
+        readTraceFile(str, new j(aVar, z));
+        if (aVar.f24799a > 0 && aVar.f24801c > 0 && aVar.f24800b != null) {
             return aVar;
         }
-        X.b("first dump error %s", aVar.f22402a + " " + aVar.f22404c + " " + aVar.f22403b);
+        X.b("first dump error %s", aVar.f24799a + " " + aVar.f24801c + " " + aVar.f24800b);
         return null;
     }
 
-    public static a readTargetDumpInfo(String str, String str2, boolean z10) {
+    public static a readTargetDumpInfo(String str, String str2, boolean z) {
         if (str != null && str2 != null) {
             a aVar = new a();
-            readTraceFile(str2, new i(aVar, str, z10));
-            if (aVar.f22402a > 0 && aVar.f22404c > 0 && aVar.f22403b != null) {
+            readTraceFile(str2, new i(aVar, str, z));
+            if (aVar.f24799a > 0 && aVar.f24801c > 0 && aVar.f24800b != null) {
                 return aVar;
             }
         }
@@ -94,7 +94,7 @@ public class TraceFileHelper {
      */
     /* JADX WARN: Code restructure failed: missing block: B:53:0x0150, code lost:
     
-        if (com.tencent.bugly.proguard.X.b(r0) == false) goto L379;
+        if (com.tencent.bugly.proguard.X.b(r0) == false) goto L219;
      */
     /* JADX WARN: Code restructure failed: missing block: B:54:0x0152, code lost:
     
@@ -114,13 +114,13 @@ public class TraceFileHelper {
     */
     public static void readTraceFile(java.lang.String r18, com.tencent.bugly.crashreport.crash.anr.TraceFileHelper.b r19) {
         /*
-            Method dump skipped, instructions count: 497
+            Method dump skipped, instructions count: 493
             To view this dump change 'Code comments level' option to 'DEBUG'
         */
         throw new UnsupportedOperationException("Method not decompiled: com.tencent.bugly.crashreport.crash.anr.TraceFileHelper.readTraceFile(java.lang.String, com.tencent.bugly.crashreport.crash.anr.TraceFileHelper$b):void");
     }
 
-    public static String a(BufferedReader bufferedReader) throws IOException {
+    protected static String a(BufferedReader bufferedReader) throws IOException {
         StringBuffer stringBuffer = new StringBuffer();
         while (true) {
             String readLine = bufferedReader.readLine();

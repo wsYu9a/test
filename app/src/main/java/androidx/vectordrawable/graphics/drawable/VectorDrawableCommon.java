@@ -10,11 +10,16 @@ import androidx.core.graphics.drawable.TintAwareDrawable;
 
 /* loaded from: classes.dex */
 abstract class VectorDrawableCommon extends Drawable implements TintAwareDrawable {
-    Drawable mDelegateDrawable;
+
+    /* renamed from: a */
+    Drawable f3966a;
+
+    VectorDrawableCommon() {
+    }
 
     @Override // android.graphics.drawable.Drawable
     public void applyTheme(Resources.Theme theme) {
-        Drawable drawable = this.mDelegateDrawable;
+        Drawable drawable = this.f3966a;
         if (drawable != null) {
             DrawableCompat.applyTheme(drawable, theme);
         }
@@ -22,7 +27,7 @@ abstract class VectorDrawableCommon extends Drawable implements TintAwareDrawabl
 
     @Override // android.graphics.drawable.Drawable
     public void clearColorFilter() {
-        Drawable drawable = this.mDelegateDrawable;
+        Drawable drawable = this.f3966a;
         if (drawable != null) {
             drawable.clearColorFilter();
         } else {
@@ -32,51 +37,51 @@ abstract class VectorDrawableCommon extends Drawable implements TintAwareDrawabl
 
     @Override // android.graphics.drawable.Drawable
     public Drawable getCurrent() {
-        Drawable drawable = this.mDelegateDrawable;
+        Drawable drawable = this.f3966a;
         return drawable != null ? drawable.getCurrent() : super.getCurrent();
     }
 
     @Override // android.graphics.drawable.Drawable
     public int getMinimumHeight() {
-        Drawable drawable = this.mDelegateDrawable;
+        Drawable drawable = this.f3966a;
         return drawable != null ? drawable.getMinimumHeight() : super.getMinimumHeight();
     }
 
     @Override // android.graphics.drawable.Drawable
     public int getMinimumWidth() {
-        Drawable drawable = this.mDelegateDrawable;
+        Drawable drawable = this.f3966a;
         return drawable != null ? drawable.getMinimumWidth() : super.getMinimumWidth();
     }
 
     @Override // android.graphics.drawable.Drawable
     public boolean getPadding(Rect rect) {
-        Drawable drawable = this.mDelegateDrawable;
+        Drawable drawable = this.f3966a;
         return drawable != null ? drawable.getPadding(rect) : super.getPadding(rect);
     }
 
     @Override // android.graphics.drawable.Drawable
     public int[] getState() {
-        Drawable drawable = this.mDelegateDrawable;
+        Drawable drawable = this.f3966a;
         return drawable != null ? drawable.getState() : super.getState();
     }
 
     @Override // android.graphics.drawable.Drawable
     public Region getTransparentRegion() {
-        Drawable drawable = this.mDelegateDrawable;
+        Drawable drawable = this.f3966a;
         return drawable != null ? drawable.getTransparentRegion() : super.getTransparentRegion();
     }
 
     @Override // android.graphics.drawable.Drawable
     public void jumpToCurrentState() {
-        Drawable drawable = this.mDelegateDrawable;
+        Drawable drawable = this.f3966a;
         if (drawable != null) {
             DrawableCompat.jumpToCurrentState(drawable);
         }
     }
 
     @Override // android.graphics.drawable.Drawable
-    public void onBoundsChange(Rect rect) {
-        Drawable drawable = this.mDelegateDrawable;
+    protected void onBoundsChange(Rect rect) {
+        Drawable drawable = this.f3966a;
         if (drawable != null) {
             drawable.setBounds(rect);
         } else {
@@ -85,58 +90,58 @@ abstract class VectorDrawableCommon extends Drawable implements TintAwareDrawabl
     }
 
     @Override // android.graphics.drawable.Drawable
-    public boolean onLevelChange(int i10) {
-        Drawable drawable = this.mDelegateDrawable;
-        return drawable != null ? drawable.setLevel(i10) : super.onLevelChange(i10);
+    protected boolean onLevelChange(int i2) {
+        Drawable drawable = this.f3966a;
+        return drawable != null ? drawable.setLevel(i2) : super.onLevelChange(i2);
     }
 
     @Override // android.graphics.drawable.Drawable
-    public void setChangingConfigurations(int i10) {
-        Drawable drawable = this.mDelegateDrawable;
+    public void setChangingConfigurations(int i2) {
+        Drawable drawable = this.f3966a;
         if (drawable != null) {
-            drawable.setChangingConfigurations(i10);
+            drawable.setChangingConfigurations(i2);
         } else {
-            super.setChangingConfigurations(i10);
+            super.setChangingConfigurations(i2);
         }
     }
 
     @Override // android.graphics.drawable.Drawable
-    public void setColorFilter(int i10, PorterDuff.Mode mode) {
-        Drawable drawable = this.mDelegateDrawable;
+    public void setColorFilter(int i2, PorterDuff.Mode mode) {
+        Drawable drawable = this.f3966a;
         if (drawable != null) {
-            drawable.setColorFilter(i10, mode);
+            drawable.setColorFilter(i2, mode);
         } else {
-            super.setColorFilter(i10, mode);
+            super.setColorFilter(i2, mode);
         }
     }
 
     @Override // android.graphics.drawable.Drawable
-    public void setFilterBitmap(boolean z10) {
-        Drawable drawable = this.mDelegateDrawable;
+    public void setFilterBitmap(boolean z) {
+        Drawable drawable = this.f3966a;
         if (drawable != null) {
-            drawable.setFilterBitmap(z10);
+            drawable.setFilterBitmap(z);
         }
     }
 
     @Override // android.graphics.drawable.Drawable
-    public void setHotspot(float f10, float f11) {
-        Drawable drawable = this.mDelegateDrawable;
+    public void setHotspot(float f2, float f3) {
+        Drawable drawable = this.f3966a;
         if (drawable != null) {
-            DrawableCompat.setHotspot(drawable, f10, f11);
+            DrawableCompat.setHotspot(drawable, f2, f3);
         }
     }
 
     @Override // android.graphics.drawable.Drawable
-    public void setHotspotBounds(int i10, int i11, int i12, int i13) {
-        Drawable drawable = this.mDelegateDrawable;
+    public void setHotspotBounds(int i2, int i3, int i4, int i5) {
+        Drawable drawable = this.f3966a;
         if (drawable != null) {
-            DrawableCompat.setHotspotBounds(drawable, i10, i11, i12, i13);
+            DrawableCompat.setHotspotBounds(drawable, i2, i3, i4, i5);
         }
     }
 
     @Override // android.graphics.drawable.Drawable
     public boolean setState(int[] iArr) {
-        Drawable drawable = this.mDelegateDrawable;
+        Drawable drawable = this.f3966a;
         return drawable != null ? drawable.setState(iArr) : super.setState(iArr);
     }
 }

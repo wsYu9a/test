@@ -11,63 +11,71 @@ import java.util.Comparator;
 class FocusStrategy {
 
     public interface BoundsAdapter<T> {
-        void obtainBounds(T t10, Rect rect);
+        void obtainBounds(T t, Rect rect);
     }
 
     public interface CollectionAdapter<T, V> {
-        V get(T t10, int i10);
+        V get(T t, int i2);
 
-        int size(T t10);
+        int size(T t);
     }
 
-    public static class SequentialComparator<T> implements Comparator<T> {
-        private final BoundsAdapter<T> mAdapter;
-        private final boolean mIsLayoutRtl;
-        private final Rect mTemp1 = new Rect();
-        private final Rect mTemp2 = new Rect();
+    private static class SequentialComparator<T> implements Comparator<T> {
 
-        public SequentialComparator(boolean z10, BoundsAdapter<T> boundsAdapter) {
-            this.mIsLayoutRtl = z10;
-            this.mAdapter = boundsAdapter;
+        /* renamed from: a, reason: collision with root package name */
+        private final Rect f2246a = new Rect();
+
+        /* renamed from: b, reason: collision with root package name */
+        private final Rect f2247b = new Rect();
+
+        /* renamed from: c, reason: collision with root package name */
+        private final boolean f2248c;
+
+        /* renamed from: d, reason: collision with root package name */
+        private final BoundsAdapter<T> f2249d;
+
+        SequentialComparator(boolean z, BoundsAdapter<T> boundsAdapter) {
+            this.f2248c = z;
+            this.f2249d = boundsAdapter;
         }
 
         @Override // java.util.Comparator
-        public int compare(T t10, T t11) {
-            Rect rect = this.mTemp1;
-            Rect rect2 = this.mTemp2;
-            this.mAdapter.obtainBounds(t10, rect);
-            this.mAdapter.obtainBounds(t11, rect2);
-            int i10 = rect.top;
-            int i11 = rect2.top;
-            if (i10 < i11) {
+        public int compare(T t, T t2) {
+            Rect rect = this.f2246a;
+            Rect rect2 = this.f2247b;
+            this.f2249d.obtainBounds(t, rect);
+            this.f2249d.obtainBounds(t2, rect2);
+            int i2 = rect.top;
+            int i3 = rect2.top;
+            if (i2 < i3) {
                 return -1;
             }
-            if (i10 > i11) {
+            if (i2 > i3) {
                 return 1;
             }
-            int i12 = rect.left;
-            int i13 = rect2.left;
-            if (i12 < i13) {
-                return this.mIsLayoutRtl ? 1 : -1;
+            int i4 = rect.left;
+            int i5 = rect2.left;
+            if (i4 < i5) {
+                return this.f2248c ? 1 : -1;
             }
-            if (i12 > i13) {
-                return this.mIsLayoutRtl ? -1 : 1;
+            if (i4 > i5) {
+                return this.f2248c ? -1 : 1;
             }
-            int i14 = rect.bottom;
-            int i15 = rect2.bottom;
-            if (i14 < i15) {
+            int i6 = rect.bottom;
+            int i7 = rect2.bottom;
+            if (i6 < i7) {
                 return -1;
             }
-            if (i14 > i15) {
+            if (i6 > i7) {
                 return 1;
             }
-            int i16 = rect.right;
-            int i17 = rect2.right;
-            if (i16 < i17) {
-                return this.mIsLayoutRtl ? 1 : -1;
+            int i8 = rect.right;
+            int i9 = rect2.right;
+            if (i8 < i9) {
+                return this.f2248c ? 1 : -1;
             }
-            if (i16 > i17) {
-                return this.mIsLayoutRtl ? -1 : 1;
+            if (i8 > i9) {
+                return this.f2248c ? -1 : 1;
             }
             return 0;
         }
@@ -76,19 +84,19 @@ class FocusStrategy {
     private FocusStrategy() {
     }
 
-    private static boolean beamBeats(int i10, @NonNull Rect rect, @NonNull Rect rect2, @NonNull Rect rect3) {
-        boolean beamsOverlap = beamsOverlap(i10, rect, rect2);
-        if (beamsOverlap(i10, rect, rect3) || !beamsOverlap) {
+    private static boolean a(int i2, @NonNull Rect rect, @NonNull Rect rect2, @NonNull Rect rect3) {
+        boolean b2 = b(i2, rect, rect2);
+        if (b(i2, rect, rect3) || !b2) {
             return false;
         }
-        return !isToDirectionOf(i10, rect, rect3) || i10 == 17 || i10 == 66 || majorAxisDistance(i10, rect, rect2) < majorAxisDistanceToFarEdge(i10, rect, rect3);
+        return !h(i2, rect, rect3) || i2 == 17 || i2 == 66 || i(i2, rect, rect2) < k(i2, rect, rect3);
     }
 
-    private static boolean beamsOverlap(int i10, @NonNull Rect rect, @NonNull Rect rect2) {
-        if (i10 != 17) {
-            if (i10 != 33) {
-                if (i10 != 66) {
-                    if (i10 != 130) {
+    private static boolean b(int i2, @NonNull Rect rect, @NonNull Rect rect2) {
+        if (i2 != 17) {
+            if (i2 != 33) {
+                if (i2 != 66) {
+                    if (i2 != 130) {
                         throw new IllegalArgumentException("direction must be one of {FOCUS_UP, FOCUS_DOWN, FOCUS_LEFT, FOCUS_RIGHT}.");
                     }
                 }
@@ -98,187 +106,187 @@ class FocusStrategy {
         return rect2.bottom >= rect.top && rect2.top <= rect.bottom;
     }
 
-    public static <L, T> T findNextFocusInAbsoluteDirection(@NonNull L l10, @NonNull CollectionAdapter<L, T> collectionAdapter, @NonNull BoundsAdapter<T> boundsAdapter, @Nullable T t10, @NonNull Rect rect, int i10) {
-        Rect rect2 = new Rect(rect);
-        if (i10 == 17) {
-            rect2.offset(rect.width() + 1, 0);
-        } else if (i10 == 33) {
-            rect2.offset(0, rect.height() + 1);
-        } else if (i10 == 66) {
-            rect2.offset(-(rect.width() + 1), 0);
-        } else {
-            if (i10 != 130) {
-                throw new IllegalArgumentException("direction must be one of {FOCUS_UP, FOCUS_DOWN, FOCUS_LEFT, FOCUS_RIGHT}.");
-            }
-            rect2.offset(0, -(rect.height() + 1));
-        }
-        int size = collectionAdapter.size(l10);
-        Rect rect3 = new Rect();
-        T t11 = null;
-        for (int i11 = 0; i11 < size; i11++) {
-            T t12 = collectionAdapter.get(l10, i11);
-            if (t12 != t10) {
-                boundsAdapter.obtainBounds(t12, rect3);
-                if (isBetterCandidate(i10, rect, rect3, rect2)) {
-                    rect2.set(rect3);
-                    t11 = t12;
-                }
-            }
-        }
-        return t11;
-    }
-
-    public static <L, T> T findNextFocusInRelativeDirection(@NonNull L l10, @NonNull CollectionAdapter<L, T> collectionAdapter, @NonNull BoundsAdapter<T> boundsAdapter, @Nullable T t10, int i10, boolean z10, boolean z11) {
-        int size = collectionAdapter.size(l10);
-        ArrayList arrayList = new ArrayList(size);
-        for (int i11 = 0; i11 < size; i11++) {
-            arrayList.add(collectionAdapter.get(l10, i11));
-        }
-        Collections.sort(arrayList, new SequentialComparator(z10, boundsAdapter));
-        if (i10 == 1) {
-            return (T) getPreviousFocusable(t10, arrayList, z11);
-        }
-        if (i10 == 2) {
-            return (T) getNextFocusable(t10, arrayList, z11);
-        }
-        throw new IllegalArgumentException("direction must be one of {FOCUS_FORWARD, FOCUS_BACKWARD}.");
-    }
-
-    private static <T> T getNextFocusable(T t10, ArrayList<T> arrayList, boolean z10) {
+    private static <T> T c(T t, ArrayList<T> arrayList, boolean z) {
         int size = arrayList.size();
-        int lastIndexOf = (t10 == null ? -1 : arrayList.lastIndexOf(t10)) + 1;
+        int lastIndexOf = (t == null ? -1 : arrayList.lastIndexOf(t)) + 1;
         if (lastIndexOf < size) {
             return arrayList.get(lastIndexOf);
         }
-        if (!z10 || size <= 0) {
+        if (!z || size <= 0) {
             return null;
         }
         return arrayList.get(0);
     }
 
-    private static <T> T getPreviousFocusable(T t10, ArrayList<T> arrayList, boolean z10) {
+    private static <T> T d(T t, ArrayList<T> arrayList, boolean z) {
         int size = arrayList.size();
-        int indexOf = (t10 == null ? size : arrayList.indexOf(t10)) - 1;
+        int indexOf = (t == null ? size : arrayList.indexOf(t)) - 1;
         if (indexOf >= 0) {
             return arrayList.get(indexOf);
         }
-        if (!z10 || size <= 0) {
+        if (!z || size <= 0) {
             return null;
         }
         return arrayList.get(size - 1);
     }
 
-    private static int getWeightedDistanceFor(int i10, int i11) {
-        return (i10 * 13 * i10) + (i11 * i11);
+    private static int e(int i2, int i3) {
+        return (i2 * 13 * i2) + (i3 * i3);
     }
 
-    private static boolean isBetterCandidate(int i10, @NonNull Rect rect, @NonNull Rect rect2, @NonNull Rect rect3) {
-        if (!isCandidate(rect, rect2, i10)) {
+    private static boolean f(int i2, @NonNull Rect rect, @NonNull Rect rect2, @NonNull Rect rect3) {
+        if (!g(rect, rect2, i2)) {
             return false;
         }
-        if (isCandidate(rect, rect3, i10) && !beamBeats(i10, rect, rect2, rect3)) {
-            return !beamBeats(i10, rect, rect3, rect2) && getWeightedDistanceFor(majorAxisDistance(i10, rect, rect2), minorAxisDistance(i10, rect, rect2)) < getWeightedDistanceFor(majorAxisDistance(i10, rect, rect3), minorAxisDistance(i10, rect, rect3));
+        if (g(rect, rect3, i2) && !a(i2, rect, rect2, rect3)) {
+            return !a(i2, rect, rect3, rect2) && e(i(i2, rect, rect2), m(i2, rect, rect2)) < e(i(i2, rect, rect3), m(i2, rect, rect3));
         }
         return true;
     }
 
-    private static boolean isCandidate(@NonNull Rect rect, @NonNull Rect rect2, int i10) {
-        if (i10 == 17) {
-            int i11 = rect.right;
-            int i12 = rect2.right;
-            return (i11 > i12 || rect.left >= i12) && rect.left > rect2.left;
+    public static <L, T> T findNextFocusInAbsoluteDirection(@NonNull L l, @NonNull CollectionAdapter<L, T> collectionAdapter, @NonNull BoundsAdapter<T> boundsAdapter, @Nullable T t, @NonNull Rect rect, int i2) {
+        Rect rect2 = new Rect(rect);
+        if (i2 == 17) {
+            rect2.offset(rect.width() + 1, 0);
+        } else if (i2 == 33) {
+            rect2.offset(0, rect.height() + 1);
+        } else if (i2 == 66) {
+            rect2.offset(-(rect.width() + 1), 0);
+        } else {
+            if (i2 != 130) {
+                throw new IllegalArgumentException("direction must be one of {FOCUS_UP, FOCUS_DOWN, FOCUS_LEFT, FOCUS_RIGHT}.");
+            }
+            rect2.offset(0, -(rect.height() + 1));
         }
-        if (i10 == 33) {
-            int i13 = rect.bottom;
-            int i14 = rect2.bottom;
-            return (i13 > i14 || rect.top >= i14) && rect.top > rect2.top;
+        T t2 = null;
+        int size = collectionAdapter.size(l);
+        Rect rect3 = new Rect();
+        for (int i3 = 0; i3 < size; i3++) {
+            T t3 = collectionAdapter.get(l, i3);
+            if (t3 != t) {
+                boundsAdapter.obtainBounds(t3, rect3);
+                if (f(i2, rect, rect3, rect2)) {
+                    rect2.set(rect3);
+                    t2 = t3;
+                }
+            }
         }
-        if (i10 == 66) {
-            int i15 = rect.left;
-            int i16 = rect2.left;
-            return (i15 < i16 || rect.right <= i16) && rect.right < rect2.right;
-        }
-        if (i10 != 130) {
-            throw new IllegalArgumentException("direction must be one of {FOCUS_UP, FOCUS_DOWN, FOCUS_LEFT, FOCUS_RIGHT}.");
-        }
-        int i17 = rect.top;
-        int i18 = rect2.top;
-        return (i17 < i18 || rect.bottom <= i18) && rect.bottom < rect2.bottom;
+        return t2;
     }
 
-    private static boolean isToDirectionOf(int i10, @NonNull Rect rect, @NonNull Rect rect2) {
-        if (i10 == 17) {
+    public static <L, T> T findNextFocusInRelativeDirection(@NonNull L l, @NonNull CollectionAdapter<L, T> collectionAdapter, @NonNull BoundsAdapter<T> boundsAdapter, @Nullable T t, int i2, boolean z, boolean z2) {
+        int size = collectionAdapter.size(l);
+        ArrayList arrayList = new ArrayList(size);
+        for (int i3 = 0; i3 < size; i3++) {
+            arrayList.add(collectionAdapter.get(l, i3));
+        }
+        Collections.sort(arrayList, new SequentialComparator(z, boundsAdapter));
+        if (i2 == 1) {
+            return (T) d(t, arrayList, z2);
+        }
+        if (i2 == 2) {
+            return (T) c(t, arrayList, z2);
+        }
+        throw new IllegalArgumentException("direction must be one of {FOCUS_FORWARD, FOCUS_BACKWARD}.");
+    }
+
+    private static boolean g(@NonNull Rect rect, @NonNull Rect rect2, int i2) {
+        if (i2 == 17) {
+            int i3 = rect.right;
+            int i4 = rect2.right;
+            return (i3 > i4 || rect.left >= i4) && rect.left > rect2.left;
+        }
+        if (i2 == 33) {
+            int i5 = rect.bottom;
+            int i6 = rect2.bottom;
+            return (i5 > i6 || rect.top >= i6) && rect.top > rect2.top;
+        }
+        if (i2 == 66) {
+            int i7 = rect.left;
+            int i8 = rect2.left;
+            return (i7 < i8 || rect.right <= i8) && rect.right < rect2.right;
+        }
+        if (i2 != 130) {
+            throw new IllegalArgumentException("direction must be one of {FOCUS_UP, FOCUS_DOWN, FOCUS_LEFT, FOCUS_RIGHT}.");
+        }
+        int i9 = rect.top;
+        int i10 = rect2.top;
+        return (i9 < i10 || rect.bottom <= i10) && rect.bottom < rect2.bottom;
+    }
+
+    private static boolean h(int i2, @NonNull Rect rect, @NonNull Rect rect2) {
+        if (i2 == 17) {
             return rect.left >= rect2.right;
         }
-        if (i10 == 33) {
+        if (i2 == 33) {
             return rect.top >= rect2.bottom;
         }
-        if (i10 == 66) {
+        if (i2 == 66) {
             return rect.right <= rect2.left;
         }
-        if (i10 == 130) {
+        if (i2 == 130) {
             return rect.bottom <= rect2.top;
         }
         throw new IllegalArgumentException("direction must be one of {FOCUS_UP, FOCUS_DOWN, FOCUS_LEFT, FOCUS_RIGHT}.");
     }
 
-    private static int majorAxisDistance(int i10, @NonNull Rect rect, @NonNull Rect rect2) {
-        return Math.max(0, majorAxisDistanceRaw(i10, rect, rect2));
+    private static int i(int i2, @NonNull Rect rect, @NonNull Rect rect2) {
+        return Math.max(0, j(i2, rect, rect2));
     }
 
-    private static int majorAxisDistanceRaw(int i10, @NonNull Rect rect, @NonNull Rect rect2) {
-        int i11;
-        int i12;
-        if (i10 == 17) {
-            i11 = rect.left;
-            i12 = rect2.right;
-        } else if (i10 == 33) {
-            i11 = rect.top;
-            i12 = rect2.bottom;
-        } else if (i10 == 66) {
-            i11 = rect2.left;
-            i12 = rect.right;
+    private static int j(int i2, @NonNull Rect rect, @NonNull Rect rect2) {
+        int i3;
+        int i4;
+        if (i2 == 17) {
+            i3 = rect.left;
+            i4 = rect2.right;
+        } else if (i2 == 33) {
+            i3 = rect.top;
+            i4 = rect2.bottom;
+        } else if (i2 == 66) {
+            i3 = rect2.left;
+            i4 = rect.right;
         } else {
-            if (i10 != 130) {
+            if (i2 != 130) {
                 throw new IllegalArgumentException("direction must be one of {FOCUS_UP, FOCUS_DOWN, FOCUS_LEFT, FOCUS_RIGHT}.");
             }
-            i11 = rect2.top;
-            i12 = rect.bottom;
+            i3 = rect2.top;
+            i4 = rect.bottom;
         }
-        return i11 - i12;
+        return i3 - i4;
     }
 
-    private static int majorAxisDistanceToFarEdge(int i10, @NonNull Rect rect, @NonNull Rect rect2) {
-        return Math.max(1, majorAxisDistanceToFarEdgeRaw(i10, rect, rect2));
+    private static int k(int i2, @NonNull Rect rect, @NonNull Rect rect2) {
+        return Math.max(1, l(i2, rect, rect2));
     }
 
-    private static int majorAxisDistanceToFarEdgeRaw(int i10, @NonNull Rect rect, @NonNull Rect rect2) {
-        int i11;
-        int i12;
-        if (i10 == 17) {
-            i11 = rect.left;
-            i12 = rect2.left;
-        } else if (i10 == 33) {
-            i11 = rect.top;
-            i12 = rect2.top;
-        } else if (i10 == 66) {
-            i11 = rect2.right;
-            i12 = rect.right;
+    private static int l(int i2, @NonNull Rect rect, @NonNull Rect rect2) {
+        int i3;
+        int i4;
+        if (i2 == 17) {
+            i3 = rect.left;
+            i4 = rect2.left;
+        } else if (i2 == 33) {
+            i3 = rect.top;
+            i4 = rect2.top;
+        } else if (i2 == 66) {
+            i3 = rect2.right;
+            i4 = rect.right;
         } else {
-            if (i10 != 130) {
+            if (i2 != 130) {
                 throw new IllegalArgumentException("direction must be one of {FOCUS_UP, FOCUS_DOWN, FOCUS_LEFT, FOCUS_RIGHT}.");
             }
-            i11 = rect2.bottom;
-            i12 = rect.bottom;
+            i3 = rect2.bottom;
+            i4 = rect.bottom;
         }
-        return i11 - i12;
+        return i3 - i4;
     }
 
-    private static int minorAxisDistance(int i10, @NonNull Rect rect, @NonNull Rect rect2) {
-        if (i10 != 17) {
-            if (i10 != 33) {
-                if (i10 != 66) {
-                    if (i10 != 130) {
+    private static int m(int i2, @NonNull Rect rect, @NonNull Rect rect2) {
+        if (i2 != 17) {
+            if (i2 != 33) {
+                if (i2 != 66) {
+                    if (i2 != 130) {
                         throw new IllegalArgumentException("direction must be one of {FOCUS_UP, FOCUS_DOWN, FOCUS_LEFT, FOCUS_RIGHT}.");
                     }
                 }

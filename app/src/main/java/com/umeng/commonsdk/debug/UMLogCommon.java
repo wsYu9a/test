@@ -26,7 +26,6 @@ public class UMLogCommon {
     public static final String SC_10025 = "传入业务类型枚举值不能为null，deleteModuleTag调用无效，请检查传入参数。";
     public static final String SC_10026 = "检测到SDK初始化过程遗漏UMConfigure.preInit函数，请参考【友盟+】合规指南: https://developer.umeng.com/docs/119267/detail/182050";
     public static final String SC_10028 = "检测到未调用隐私授权API，详情见：https://developer.umeng.com/docs/119267/detail/182050";
-    public static final String SC_10029 = "如需使用卸载分析、反作弊功能，请务必集成高级运营分析功能依赖库（可选），并重新配置混淆，详请：https://developer.umeng.com/docs/119267/detail/118637#3091c7c11fx3q";
     public static final String SC_10001 = "不能在非主进程进行初始化|目前只能在主进程进行初始化，如何正确初始化请详见地址：" + UMLogUtils.makeUrl("67292");
     public static final String SC_10002 = "不能在非Application的onCreate方法中进行初始化|目前只能在Application的onCreate方法中进行初始化，如何正确初始化请详见地址：" + UMLogUtils.makeUrl("67292");
     public static final String SC_10007 = "AppKey不能为空|您必须正确设置AppKey，如何正确初始化请详见地址：" + UMLogUtils.makeUrl("67292");

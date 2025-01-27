@@ -4,7 +4,7 @@ import com.bytedance.sdk.openadsdk.R;
 import java.util.HashMap;
 import java.util.Map;
 
-/* loaded from: classes2.dex */
+/* loaded from: classes.dex */
 public class LiveApiUtils {
     public static Map<String, Integer> getCJPayAnimationResourceMap() {
         HashMap hashMap = new HashMap();

@@ -1,13 +1,17 @@
 package kotlin.jvm.internal;
 
-import kotlin.SinceKotlin;
-import kotlin.reflect.KClass;
 import kotlin.reflect.KDeclarationContainer;
 
-/* loaded from: classes4.dex */
+/* loaded from: classes5.dex */
 public class PropertyReference0Impl extends PropertyReference0 {
+    private final String name;
+    private final KDeclarationContainer owner;
+    private final String signature;
+
     public PropertyReference0Impl(KDeclarationContainer kDeclarationContainer, String str, String str2) {
-        super(CallableReference.NO_RECEIVER, ((ClassBasedDeclarationContainer) kDeclarationContainer).getJClass(), str, str2, !(kDeclarationContainer instanceof KClass) ? 1 : 0);
+        this.owner = kDeclarationContainer;
+        this.name = str;
+        this.signature = str2;
     }
 
     @Override // kotlin.reflect.KProperty0
@@ -15,13 +19,18 @@ public class PropertyReference0Impl extends PropertyReference0 {
         return getGetter().call(new Object[0]);
     }
 
-    @SinceKotlin(version = "1.4")
-    public PropertyReference0Impl(Class cls, String str, String str2, int i10) {
-        super(CallableReference.NO_RECEIVER, cls, str, str2, i10);
+    @Override // kotlin.jvm.internal.CallableReference, kotlin.reflect.KCallable
+    public String getName() {
+        return this.name;
     }
 
-    @SinceKotlin(version = "1.4")
-    public PropertyReference0Impl(Object obj, Class cls, String str, String str2, int i10) {
-        super(obj, cls, str, str2, i10);
+    @Override // kotlin.jvm.internal.CallableReference
+    public KDeclarationContainer getOwner() {
+        return this.owner;
+    }
+
+    @Override // kotlin.jvm.internal.CallableReference
+    public String getSignature() {
+        return this.signature;
     }
 }

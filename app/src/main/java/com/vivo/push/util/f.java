@@ -9,8 +9,8 @@ public final class f {
     public static String a(byte[] bArr) {
         int length = bArr.length;
         char[] cArr = new char[length];
-        for (int i10 = 0; i10 < length; i10++) {
-            cArr[i10] = (char) (bArr[i10] ^ 16);
+        for (int i2 = 0; i2 < length; i2++) {
+            cArr[i2] = (char) (bArr[i2] ^ 16);
         }
         return new String(cArr);
     }

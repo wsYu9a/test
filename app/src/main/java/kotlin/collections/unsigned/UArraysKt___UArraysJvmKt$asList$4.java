@@ -1,79 +1,81 @@
 package kotlin.collections.unsigned;
 
+import com.cdo.oaps.ad.OapsKey;
 import com.ss.android.socialbase.downloader.constants.MonitorConstants;
+import f.b.a.d;
 import java.util.RandomAccess;
 import kotlin.Metadata;
 import kotlin.UShort;
 import kotlin.UShortArray;
 import kotlin.collections.AbstractList;
-import kotlin.collections.ArraysKt;
+import kotlin.collections.ArraysKt___ArraysKt;
 
-@Metadata(d1 = {"\u0000'\n\u0000\n\u0002\u0018\u0002\n\u0002\u0018\u0002\n\u0002\u0018\u0002\n\u0002\u0018\u0002\n\u0000\n\u0002\u0010\b\n\u0002\b\u0003\n\u0002\u0010\u000b\n\u0002\b\u000e*\u0001\u0000\b\n\u0018\u00002\b\u0012\u0004\u0012\u00020\u00020\u00012\u00060\u0003j\u0002`\u0004J\u0018\u0010\t\u001a\u00020\n2\u0006\u0010\u000b\u001a\u00020\u0002H\u0096\u0002¢\u0006\u0004\b\f\u0010\rJ\u001b\u0010\u000e\u001a\u00020\u00022\u0006\u0010\u000f\u001a\u00020\u0006H\u0096\u0002ø\u0001\u0000¢\u0006\u0004\b\u0010\u0010\u0011J\u0017\u0010\u0012\u001a\u00020\u00062\u0006\u0010\u000b\u001a\u00020\u0002H\u0016¢\u0006\u0004\b\u0013\u0010\u0014J\b\u0010\u0015\u001a\u00020\nH\u0016J\u0017\u0010\u0016\u001a\u00020\u00062\u0006\u0010\u000b\u001a\u00020\u0002H\u0016¢\u0006\u0004\b\u0017\u0010\u0014R\u0014\u0010\u0005\u001a\u00020\u00068VX\u0096\u0004¢\u0006\u0006\u001a\u0004\b\u0007\u0010\b\u0082\u0002\u0004\n\u0002\b!¨\u0006\u0018"}, d2 = {"kotlin/collections/unsigned/UArraysKt___UArraysJvmKt$asList$4", "Lkotlin/collections/AbstractList;", "Lkotlin/UShort;", "Ljava/util/RandomAccess;", "Lkotlin/collections/RandomAccess;", "size", "", "getSize", "()I", "contains", "", "element", "contains-xj2QHRw", "(S)Z", MonitorConstants.CONNECT_TYPE_GET, "index", "get-Mh2AYeg", "(I)S", "indexOf", "indexOf-xj2QHRw", "(S)I", "isEmpty", "lastIndexOf", "lastIndexOf-xj2QHRw", "kotlin-stdlib"}, k = 1, mv = {1, 9, 0}, xi = 48)
-/* loaded from: classes4.dex */
+@Metadata(bv = {1, 0, 3}, d1 = {"\u0000%\n\u0000\n\u0002\u0018\u0002\n\u0002\u0018\u0002\n\u0002\u0018\u0002\n\u0002\u0018\u0002\n\u0002\u0010\u000b\n\u0002\b\u0006\n\u0002\u0010\b\n\u0002\b\f*\u0001\u0000\b\n\u0018\u00002\b\u0012\u0004\u0012\u00020\u00020\u00012\u00060\u0003j\u0002`\u0004J\u000f\u0010\u0006\u001a\u00020\u0005H\u0016¢\u0006\u0004\b\u0006\u0010\u0007J\u001b\u0010\u000b\u001a\u00020\u00052\u0006\u0010\b\u001a\u00020\u0002H\u0096\u0002ø\u0001\u0000¢\u0006\u0004\b\t\u0010\nJ\u001b\u0010\u000e\u001a\u00020\u00022\u0006\u0010\r\u001a\u00020\fH\u0096\u0002ø\u0001\u0000¢\u0006\u0004\b\u000e\u0010\u000fJ\u001a\u0010\u0012\u001a\u00020\f2\u0006\u0010\b\u001a\u00020\u0002H\u0016ø\u0001\u0000¢\u0006\u0004\b\u0010\u0010\u0011J\u001a\u0010\u0014\u001a\u00020\f2\u0006\u0010\b\u001a\u00020\u0002H\u0016ø\u0001\u0000¢\u0006\u0004\b\u0013\u0010\u0011R\u0016\u0010\u0017\u001a\u00020\f8V@\u0016X\u0096\u0004¢\u0006\u0006\u001a\u0004\b\u0015\u0010\u0016ø\u0001\u0000\u0082\u0002\u0004\n\u0002\b\u0019¨\u0006\u0018"}, d2 = {"kotlin/collections/unsigned/UArraysKt___UArraysJvmKt$asList$4", "Lkotlin/collections/AbstractList;", "Lkotlin/UShort;", "Ljava/util/RandomAccess;", "Lkotlin/collections/RandomAccess;", "", "isEmpty", "()Z", "element", "contains-xj2QHRw", "(S)Z", "contains", "", "index", MonitorConstants.CONNECT_TYPE_GET, "(I)Lkotlin/UShort;", "indexOf-xj2QHRw", "(S)I", "indexOf", "lastIndexOf-xj2QHRw", "lastIndexOf", "getSize", "()I", OapsKey.KEY_SIZE, "kotlin-stdlib"}, k = 1, mv = {1, 4, 0})
+/* loaded from: classes5.dex */
 public final class UArraysKt___UArraysJvmKt$asList$4 extends AbstractList<UShort> implements RandomAccess {
     final /* synthetic */ short[] $this_asList;
 
-    public UArraysKt___UArraysJvmKt$asList$4(short[] sArr) {
+    UArraysKt___UArraysJvmKt$asList$4(short[] sArr) {
         this.$this_asList = sArr;
     }
 
     @Override // kotlin.collections.AbstractCollection, java.util.Collection
     public final /* bridge */ boolean contains(Object obj) {
         if (obj instanceof UShort) {
-            return m578containsxj2QHRw(((UShort) obj).getData());
+            return m467containsxj2QHRw(((UShort) obj).getData());
         }
         return false;
     }
 
     /* renamed from: contains-xj2QHRw */
-    public boolean m578containsxj2QHRw(short element) {
-        return UShortArray.m393containsxj2QHRw(this.$this_asList, element);
-    }
-
-    @Override // kotlin.collections.AbstractList, java.util.List
-    public /* bridge */ /* synthetic */ Object get(int i10) {
-        return UShort.m333boximpl(m579getMh2AYeg(i10));
-    }
-
-    /* renamed from: get-Mh2AYeg */
-    public short m579getMh2AYeg(int index) {
-        return UShortArray.m397getMh2AYeg(this.$this_asList, index);
+    public boolean m467containsxj2QHRw(short element) {
+        return UShortArray.m379containsxj2QHRw(this.$this_asList, element);
     }
 
     @Override // kotlin.collections.AbstractList, kotlin.collections.AbstractCollection
     /* renamed from: getSize */
     public int get_size() {
-        return UShortArray.m398getSizeimpl(this.$this_asList);
+        return UShortArray.m384getSizeimpl(this.$this_asList);
     }
 
     @Override // kotlin.collections.AbstractList, java.util.List
     public final /* bridge */ int indexOf(Object obj) {
         if (obj instanceof UShort) {
-            return m580indexOfxj2QHRw(((UShort) obj).getData());
+            return m468indexOfxj2QHRw(((UShort) obj).getData());
         }
         return -1;
     }
 
     /* renamed from: indexOf-xj2QHRw */
-    public int m580indexOfxj2QHRw(short element) {
-        return ArraysKt.indexOf(this.$this_asList, element);
+    public int m468indexOfxj2QHRw(short element) {
+        int indexOf;
+        indexOf = ArraysKt___ArraysKt.indexOf(this.$this_asList, element);
+        return indexOf;
     }
 
     @Override // kotlin.collections.AbstractCollection, java.util.Collection
     public boolean isEmpty() {
-        return UShortArray.m400isEmptyimpl(this.$this_asList);
+        return UShortArray.m386isEmptyimpl(this.$this_asList);
     }
 
     @Override // kotlin.collections.AbstractList, java.util.List
     public final /* bridge */ int lastIndexOf(Object obj) {
         if (obj instanceof UShort) {
-            return m581lastIndexOfxj2QHRw(((UShort) obj).getData());
+            return m469lastIndexOfxj2QHRw(((UShort) obj).getData());
         }
         return -1;
     }
 
     /* renamed from: lastIndexOf-xj2QHRw */
-    public int m581lastIndexOfxj2QHRw(short element) {
-        return ArraysKt.lastIndexOf(this.$this_asList, element);
+    public int m469lastIndexOfxj2QHRw(short element) {
+        int lastIndexOf;
+        lastIndexOf = ArraysKt___ArraysKt.lastIndexOf(this.$this_asList, element);
+        return lastIndexOf;
+    }
+
+    @Override // kotlin.collections.AbstractList, java.util.List
+    @d
+    public UShort get(int i2) {
+        return UShort.m328boximpl(UShortArray.m383getimpl(this.$this_asList, i2));
     }
 }

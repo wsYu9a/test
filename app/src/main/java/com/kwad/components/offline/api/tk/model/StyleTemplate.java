@@ -1,17 +1,14 @@
 package com.kwad.components.offline.api.tk.model;
 
 import com.kwad.components.offline.api.core.model.BaseOfflineCompoJsonParse;
-import com.kwad.sdk.utils.x;
+import com.kwad.sdk.utils.t;
 import java.io.Serializable;
 import org.json.JSONObject;
-import p1.b;
 
-/* loaded from: classes3.dex */
+/* loaded from: classes2.dex */
 public class StyleTemplate extends BaseOfflineCompoJsonParse<StyleTemplate> implements Serializable {
     private static final long serialVersionUID = -6279192768068169498L;
     public String jsStr;
-    public String loadErrorMsg;
-    public Throwable loadException;
     public String templateId;
     public String templateMd5;
     public String templateUrl;
@@ -20,7 +17,7 @@ public class StyleTemplate extends BaseOfflineCompoJsonParse<StyleTemplate> impl
     public int tkSouce;
 
     public String getTKConfigFileName() {
-        return this.templateId + b.f29697h + this.templateVersionCode + ".json";
+        return this.templateId + "." + this.templateVersionCode + ".json";
     }
 
     public String getTKJsFileName() {
@@ -37,24 +34,27 @@ public class StyleTemplate extends BaseOfflineCompoJsonParse<StyleTemplate> impl
             return;
         }
         styleTemplate.templateId = jSONObject.optString("templateId");
-        Object opt = jSONObject.opt("templateId");
-        Object obj = JSONObject.NULL;
-        if (opt == obj) {
+        if (jSONObject.opt("templateId") == JSONObject.NULL) {
             styleTemplate.templateId = "";
         }
         styleTemplate.templateUrl = jSONObject.optString("templateUrl");
-        if (jSONObject.opt("templateUrl") == obj) {
+        if (jSONObject.opt("templateUrl") == JSONObject.NULL) {
             styleTemplate.templateUrl = "";
         }
         styleTemplate.templateVersion = jSONObject.optString("templateVersion");
-        if (jSONObject.opt("templateVersion") == obj) {
+        if (jSONObject.opt("templateVersion") == JSONObject.NULL) {
             styleTemplate.templateVersion = "";
         }
         styleTemplate.templateVersionCode = jSONObject.optInt("templateVersionCode");
         styleTemplate.templateMd5 = jSONObject.optString("templateMd5");
-        if (jSONObject.opt("templateMd5") == obj) {
+        if (jSONObject.opt("templateMd5") == JSONObject.NULL) {
             styleTemplate.templateMd5 = "";
         }
+    }
+
+    @Override // com.kwad.components.offline.api.core.model.BaseOfflineCompoJsonParse
+    public JSONObject toJson(StyleTemplate styleTemplate) {
+        return toJson(styleTemplate, (JSONObject) null);
     }
 
     @Override // com.kwad.components.offline.api.core.model.BaseOfflineCompoJsonParse
@@ -64,29 +64,24 @@ public class StyleTemplate extends BaseOfflineCompoJsonParse<StyleTemplate> impl
         }
         String str = styleTemplate.templateId;
         if (str != null && !str.equals("")) {
-            x.putValue(jSONObject, "templateId", styleTemplate.templateId);
+            t.putValue(jSONObject, "templateId", styleTemplate.templateId);
         }
         String str2 = styleTemplate.templateUrl;
         if (str2 != null && !str2.equals("")) {
-            x.putValue(jSONObject, "templateUrl", styleTemplate.templateUrl);
+            t.putValue(jSONObject, "templateUrl", styleTemplate.templateUrl);
         }
         String str3 = styleTemplate.templateVersion;
         if (str3 != null && !str3.equals("")) {
-            x.putValue(jSONObject, "templateVersion", styleTemplate.templateVersion);
+            t.putValue(jSONObject, "templateVersion", styleTemplate.templateVersion);
         }
-        int i10 = styleTemplate.templateVersionCode;
-        if (i10 != 0) {
-            x.putValue(jSONObject, "templateVersionCode", i10);
+        int i2 = styleTemplate.templateVersionCode;
+        if (i2 != 0) {
+            t.putValue(jSONObject, "templateVersionCode", i2);
         }
         String str4 = styleTemplate.templateMd5;
         if (str4 != null && !str4.equals("")) {
-            x.putValue(jSONObject, "templateMd5", styleTemplate.templateMd5);
+            t.putValue(jSONObject, "templateMd5", styleTemplate.templateMd5);
         }
         return jSONObject;
-    }
-
-    @Override // com.kwad.components.offline.api.core.model.BaseOfflineCompoJsonParse
-    public JSONObject toJson(StyleTemplate styleTemplate) {
-        return toJson(styleTemplate, (JSONObject) null);
     }
 }

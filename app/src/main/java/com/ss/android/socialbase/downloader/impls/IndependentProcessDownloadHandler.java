@@ -33,21 +33,21 @@ public class IndependentProcessDownloadHandler implements IDownloadProxy, IDownl
     private IDownloadServiceHandler<IndependentProcessDownloadService> downloadServiceHandler;
 
     /* renamed from: com.ss.android.socialbase.downloader.impls.IndependentProcessDownloadHandler$1 */
-    public class AnonymousClass1 implements ProcessCallback {
-        public AnonymousClass1() {
+    class AnonymousClass1 implements ProcessCallback {
+        AnonymousClass1() {
         }
 
         @Override // com.ss.android.socialbase.downloader.depend.ProcessCallback
-        public void callback(int i10, int i11) {
-            if (i11 != 1) {
-                if (i11 == 2) {
-                    Downloader.getInstance(DownloadComponentManager.getAppContext()).cancel(i10);
+        public void callback(int i2, int i3) {
+            if (i3 != 1) {
+                if (i3 == 2) {
+                    Downloader.getInstance(DownloadComponentManager.getAppContext()).cancel(i2);
                 }
             } else {
-                Downloader.getInstance(DownloadComponentManager.getAppContext()).pause(i10);
-                List<DownloadChunk> downloadChunk = DownloadProxy.get(false).getDownloadChunk(i10);
+                Downloader.getInstance(DownloadComponentManager.getAppContext()).pause(i2);
+                List<DownloadChunk> downloadChunk = DownloadProxy.get(false).getDownloadChunk(i2);
                 if (downloadChunk != null) {
-                    DownloadProxy.get(true).syncDownloadChunks(i10, DownloadUtils.parseHostChunkList(downloadChunk));
+                    DownloadProxy.get(true).syncDownloadChunks(i2, DownloadUtils.parseHostChunkList(downloadChunk));
                 }
             }
         }
@@ -67,20 +67,20 @@ public class IndependentProcessDownloadHandler implements IDownloadProxy, IDownl
         }
         try {
             this.aidlService.addDownloadChunk(downloadChunk);
-        } catch (RemoteException e10) {
-            e10.printStackTrace();
+        } catch (RemoteException e2) {
+            e2.printStackTrace();
         }
     }
 
     @Override // com.ss.android.socialbase.downloader.downloader.IDownloadProxy
-    public void addDownloadListener(int i10, int i11, IDownloadListener iDownloadListener, ListenerType listenerType, boolean z10) {
+    public void addDownloadListener(int i2, int i3, IDownloadListener iDownloadListener, ListenerType listenerType, boolean z) {
         if (this.aidlService == null) {
             return;
         }
         try {
-            this.aidlService.addDownloadListener(i10, i11, IPCUtils.convertListenerToAidl(iDownloadListener, listenerType != ListenerType.SUB), listenerType.ordinal(), z10);
-        } catch (RemoteException e10) {
-            e10.printStackTrace();
+            this.aidlService.addDownloadListener(i2, i3, IPCUtils.convertListenerToAidl(iDownloadListener, listenerType != ListenerType.SUB), listenerType.ordinal(), z);
+        } catch (RemoteException e2) {
+            e2.printStackTrace();
         }
     }
 
@@ -89,34 +89,34 @@ public class IndependentProcessDownloadHandler implements IDownloadProxy, IDownl
         if (this.aidlService != null) {
             try {
                 this.aidlService.addProcessCallback(IPCUtils.convertProcessCallbackToAidl(processCallback));
-            } catch (RemoteException e10) {
-                e10.printStackTrace();
+            } catch (RemoteException e2) {
+                e2.printStackTrace();
             }
         }
     }
 
     @Override // com.ss.android.socialbase.downloader.downloader.IDownloadProxy
-    public boolean canResume(int i10) {
+    public boolean canResume(int i2) {
         if (this.aidlService == null) {
             return false;
         }
         try {
-            return this.aidlService.canResume(i10);
-        } catch (RemoteException e10) {
-            e10.printStackTrace();
+            return this.aidlService.canResume(i2);
+        } catch (RemoteException e2) {
+            e2.printStackTrace();
             return false;
         }
     }
 
     @Override // com.ss.android.socialbase.downloader.downloader.IDownloadProxy
-    public void cancel(int i10, boolean z10) {
+    public void cancel(int i2, boolean z) {
         if (this.aidlService == null) {
             return;
         }
         try {
-            this.aidlService.cancel(i10, z10);
-        } catch (RemoteException e10) {
-            e10.printStackTrace();
+            this.aidlService.cancel(i2, z);
+        } catch (RemoteException e2) {
+            e2.printStackTrace();
         }
     }
 
@@ -128,45 +128,45 @@ public class IndependentProcessDownloadHandler implements IDownloadProxy, IDownl
         }
         try {
             this.aidlService.clearData();
-        } catch (RemoteException e10) {
-            e10.printStackTrace();
+        } catch (RemoteException e2) {
+            e2.printStackTrace();
         }
     }
 
     @Override // com.ss.android.socialbase.downloader.downloader.IDownloadProxy
-    public void clearDownloadData(int i10, boolean z10) {
+    public void clearDownloadData(int i2, boolean z) {
         if (this.aidlService == null) {
-            this.downloadProxy.clearDownloadData(i10, z10);
+            this.downloadProxy.clearDownloadData(i2, z);
             return;
         }
         try {
-            this.aidlService.clearDownloadData(i10, z10);
-        } catch (RemoteException e10) {
-            e10.printStackTrace();
+            this.aidlService.clearDownloadData(i2, z);
+        } catch (RemoteException e2) {
+            e2.printStackTrace();
         }
     }
 
     @Override // com.ss.android.socialbase.downloader.downloader.IDownloadProxy
-    public void dispatchProcessCallback(int i10, int i11) {
+    public void dispatchProcessCallback(int i2, int i3) {
         if (this.aidlService != null) {
             try {
-                this.aidlService.dispatchProcessCallback(i10, i11);
-            } catch (RemoteException e10) {
-                e10.printStackTrace();
+                this.aidlService.dispatchProcessCallback(i2, i3);
+            } catch (RemoteException e2) {
+                e2.printStackTrace();
             }
         }
     }
 
     @Override // com.ss.android.socialbase.downloader.downloader.IDownloadProxy
-    public void forceDownloadIngoreRecommendSize(int i10) {
+    public void forceDownloadIngoreRecommendSize(int i2) {
         if (this.aidlService == null) {
-            this.downloadProxy.forceDownloadIngoreRecommendSize(i10);
+            this.downloadProxy.forceDownloadIngoreRecommendSize(i2);
             return;
         }
         try {
-            this.aidlService.forceDownloadIngoreRecommendSize(i10);
-        } catch (RemoteException e10) {
-            e10.printStackTrace();
+            this.aidlService.forceDownloadIngoreRecommendSize(i2);
+        } catch (RemoteException e2) {
+            e2.printStackTrace();
         }
     }
 
@@ -177,47 +177,47 @@ public class IndependentProcessDownloadHandler implements IDownloadProxy, IDownl
         }
         try {
             return this.aidlService.getAllDownloadInfo();
-        } catch (RemoteException e10) {
-            e10.printStackTrace();
+        } catch (RemoteException e2) {
+            e2.printStackTrace();
             return null;
         }
     }
 
     @Override // com.ss.android.socialbase.downloader.downloader.IDownloadProxy
-    public long getCurBytes(int i10) {
+    public long getCurBytes(int i2) {
         if (this.aidlService == null) {
             return 0L;
         }
         try {
-            return this.aidlService.getCurBytes(i10);
-        } catch (RemoteException e10) {
-            e10.printStackTrace();
+            return this.aidlService.getCurBytes(i2);
+        } catch (RemoteException e2) {
+            e2.printStackTrace();
             return 0L;
         }
     }
 
     @Override // com.ss.android.socialbase.downloader.downloader.IDownloadProxy
-    public List<DownloadChunk> getDownloadChunk(int i10) {
+    public List<DownloadChunk> getDownloadChunk(int i2) {
         if (this.aidlService == null) {
-            return this.downloadProxy.getDownloadChunk(i10);
+            return this.downloadProxy.getDownloadChunk(i2);
         }
         try {
-            return this.aidlService.getDownloadChunk(i10);
-        } catch (RemoteException e10) {
-            e10.printStackTrace();
+            return this.aidlService.getDownloadChunk(i2);
+        } catch (RemoteException e2) {
+            e2.printStackTrace();
             return null;
         }
     }
 
     @Override // com.ss.android.socialbase.downloader.downloader.IDownloadProxy
-    public IDownloadFileUriProvider getDownloadFileUriProvider(int i10) {
+    public IDownloadFileUriProvider getDownloadFileUriProvider(int i2) {
         if (this.aidlService == null) {
             return null;
         }
         try {
-            return IPCUtils.convertFileProviderFromAidl(this.aidlService.getDownloadFileUriProvider(i10));
-        } catch (RemoteException e10) {
-            e10.printStackTrace();
+            return IPCUtils.convertFileProviderFromAidl(this.aidlService.getDownloadFileUriProvider(i2));
+        } catch (RemoteException e2) {
+            e2.printStackTrace();
             return null;
         }
     }
@@ -228,14 +228,14 @@ public class IndependentProcessDownloadHandler implements IDownloadProxy, IDownl
     }
 
     @Override // com.ss.android.socialbase.downloader.downloader.IDownloadProxy
-    public DownloadInfo getDownloadInfo(int i10) {
+    public DownloadInfo getDownloadInfo(int i2) {
         if (this.aidlService == null) {
-            return this.downloadProxy.getDownloadInfo(i10);
+            return this.downloadProxy.getDownloadInfo(i2);
         }
         try {
-            return this.aidlService.getDownloadInfo(i10);
-        } catch (RemoteException e10) {
-            e10.printStackTrace();
+            return this.aidlService.getDownloadInfo(i2);
+        } catch (RemoteException e2) {
+            e2.printStackTrace();
             return null;
         }
     }
@@ -247,34 +247,34 @@ public class IndependentProcessDownloadHandler implements IDownloadProxy, IDownl
         }
         try {
             return this.aidlService.getDownloadInfoList(str);
-        } catch (RemoteException e10) {
-            e10.printStackTrace();
+        } catch (RemoteException e2) {
+            e2.printStackTrace();
             return null;
         }
     }
 
     @Override // com.ss.android.socialbase.downloader.downloader.IDownloadProxy
-    public IDownloadNotificationEventListener getDownloadNotificationEventListener(int i10) {
+    public IDownloadNotificationEventListener getDownloadNotificationEventListener(int i2) {
         if (this.aidlService == null) {
             return null;
         }
         try {
-            return IPCUtils.convertDownloadNotificationEventListenerFromAidl(this.aidlService.getDownloadNotificationEventListener(i10));
-        } catch (RemoteException e10) {
-            e10.printStackTrace();
+            return IPCUtils.convertDownloadNotificationEventListenerFromAidl(this.aidlService.getDownloadNotificationEventListener(i2));
+        } catch (RemoteException e2) {
+            e2.printStackTrace();
             return null;
         }
     }
 
     @Override // com.ss.android.socialbase.downloader.downloader.IDownloadProxy
-    public int getDownloadWithIndependentProcessStatus(int i10) {
+    public int getDownloadWithIndependentProcessStatus(int i2) {
         if (this.aidlService == null) {
-            return DownloadProcessDispatcher.getInstance().getDownloadWithIndependentProcessStatusInner(i10);
+            return DownloadProcessDispatcher.getInstance().getDownloadWithIndependentProcessStatusInner(i2);
         }
         try {
-            return this.aidlService.getDownloadWithIndependentProcessStatus(i10);
-        } catch (RemoteException e10) {
-            e10.printStackTrace();
+            return this.aidlService.getDownloadWithIndependentProcessStatus(i2);
+        } catch (RemoteException e2) {
+            e2.printStackTrace();
             return -1;
         }
     }
@@ -286,8 +286,8 @@ public class IndependentProcessDownloadHandler implements IDownloadProxy, IDownl
         }
         try {
             return this.aidlService.getDownloadingDownloadInfosWithMimeType(str);
-        } catch (RemoteException e10) {
-            e10.printStackTrace();
+        } catch (RemoteException e2) {
+            e2.printStackTrace();
             return null;
         }
     }
@@ -299,34 +299,34 @@ public class IndependentProcessDownloadHandler implements IDownloadProxy, IDownl
         }
         try {
             return this.aidlService.getFailedDownloadInfosWithMimeType(str);
-        } catch (RemoteException e10) {
-            e10.printStackTrace();
+        } catch (RemoteException e2) {
+            e2.printStackTrace();
             return null;
         }
     }
 
     @Override // com.ss.android.socialbase.downloader.downloader.IDownloadProxy
-    public INotificationClickCallback getNotificationClickCallback(int i10) {
+    public INotificationClickCallback getNotificationClickCallback(int i2) {
         if (this.aidlService == null) {
             return null;
         }
         try {
-            return IPCUtils.convertNotificationClickCallbackFromAidl(this.aidlService.getNotificationClickCallback(i10));
-        } catch (RemoteException e10) {
-            e10.printStackTrace();
+            return IPCUtils.convertNotificationClickCallbackFromAidl(this.aidlService.getNotificationClickCallback(i2));
+        } catch (RemoteException e2) {
+            e2.printStackTrace();
             return null;
         }
     }
 
     @Override // com.ss.android.socialbase.downloader.downloader.IDownloadProxy
-    public int getStatus(int i10) {
+    public int getStatus(int i2) {
         if (this.aidlService == null) {
             return 0;
         }
         try {
-            return this.aidlService.getStatus(i10);
-        } catch (RemoteException e10) {
-            e10.printStackTrace();
+            return this.aidlService.getStatus(i2);
+        } catch (RemoteException e2) {
+            e2.printStackTrace();
             return 0;
         }
     }
@@ -338,8 +338,8 @@ public class IndependentProcessDownloadHandler implements IDownloadProxy, IDownl
         }
         try {
             return this.aidlService.getSuccessedDownloadInfosWithMimeType(str);
-        } catch (RemoteException e10) {
-            e10.printStackTrace();
+        } catch (RemoteException e2) {
+            e2.printStackTrace();
             return null;
         }
     }
@@ -351,8 +351,8 @@ public class IndependentProcessDownloadHandler implements IDownloadProxy, IDownl
         }
         try {
             return this.aidlService.getUnCompletedDownloadInfosWithMimeType(str);
-        } catch (RemoteException e10) {
-            e10.printStackTrace();
+        } catch (RemoteException e2) {
+            e2.printStackTrace();
             return null;
         }
     }
@@ -364,8 +364,8 @@ public class IndependentProcessDownloadHandler implements IDownloadProxy, IDownl
         }
         try {
             return this.aidlService.isDownloadCacheSyncSuccess();
-        } catch (RemoteException e10) {
-            e10.printStackTrace();
+        } catch (RemoteException e2) {
+            e2.printStackTrace();
             return false;
         }
     }
@@ -378,21 +378,21 @@ public class IndependentProcessDownloadHandler implements IDownloadProxy, IDownl
         try {
             this.aidlService.isDownloadSuccessAndFileNotExist(downloadInfo);
             return false;
-        } catch (RemoteException e10) {
-            e10.printStackTrace();
+        } catch (RemoteException e2) {
+            e2.printStackTrace();
             return false;
         }
     }
 
     @Override // com.ss.android.socialbase.downloader.downloader.IDownloadProxy
-    public boolean isDownloading(int i10) {
+    public boolean isDownloading(int i2) {
         if (this.aidlService == null) {
             return false;
         }
         try {
-            return this.aidlService.isDownloading(i10);
-        } catch (RemoteException e10) {
-            e10.printStackTrace();
+            return this.aidlService.isDownloading(i2);
+        } catch (RemoteException e2) {
+            e2.printStackTrace();
             return false;
         }
     }
@@ -416,8 +416,8 @@ public class IndependentProcessDownloadHandler implements IDownloadProxy, IDownl
         Logger.i(TAG, "aidlService.isServiceForeground");
         try {
             return this.aidlService.isServiceForeground();
-        } catch (RemoteException e10) {
-            e10.printStackTrace();
+        } catch (RemoteException e2) {
+            e2.printStackTrace();
             return false;
         }
     }
@@ -427,20 +427,20 @@ public class IndependentProcessDownloadHandler implements IDownloadProxy, IDownl
         this.aidlService = IDownloadAidlService.Stub.asInterface(iBinder);
         if (DownloadUtils.isMainProcess()) {
             addProcessCallback(new ProcessCallback() { // from class: com.ss.android.socialbase.downloader.impls.IndependentProcessDownloadHandler.1
-                public AnonymousClass1() {
+                AnonymousClass1() {
                 }
 
                 @Override // com.ss.android.socialbase.downloader.depend.ProcessCallback
-                public void callback(int i10, int i11) {
-                    if (i11 != 1) {
-                        if (i11 == 2) {
-                            Downloader.getInstance(DownloadComponentManager.getAppContext()).cancel(i10);
+                public void callback(int i2, int i3) {
+                    if (i3 != 1) {
+                        if (i3 == 2) {
+                            Downloader.getInstance(DownloadComponentManager.getAppContext()).cancel(i2);
                         }
                     } else {
-                        Downloader.getInstance(DownloadComponentManager.getAppContext()).pause(i10);
-                        List<DownloadChunk> downloadChunk = DownloadProxy.get(false).getDownloadChunk(i10);
+                        Downloader.getInstance(DownloadComponentManager.getAppContext()).pause(i2);
+                        List<DownloadChunk> downloadChunk = DownloadProxy.get(false).getDownloadChunk(i2);
                         if (downloadChunk != null) {
-                            DownloadProxy.get(true).syncDownloadChunks(i10, DownloadUtils.parseHostChunkList(downloadChunk));
+                            DownloadProxy.get(true).syncDownloadChunks(i2, DownloadUtils.parseHostChunkList(downloadChunk));
                         }
                     }
                 }
@@ -454,14 +454,14 @@ public class IndependentProcessDownloadHandler implements IDownloadProxy, IDownl
     }
 
     @Override // com.ss.android.socialbase.downloader.downloader.IDownloadProxy
-    public void pause(int i10) {
+    public void pause(int i2) {
         if (this.aidlService == null) {
             return;
         }
         try {
-            this.aidlService.pause(i10);
-        } catch (RemoteException e10) {
-            e10.printStackTrace();
+            this.aidlService.pause(i2);
+        } catch (RemoteException e2) {
+            e2.printStackTrace();
         }
     }
 
@@ -472,84 +472,84 @@ public class IndependentProcessDownloadHandler implements IDownloadProxy, IDownl
         }
         try {
             this.aidlService.pauseAll();
-        } catch (RemoteException e10) {
-            e10.printStackTrace();
+        } catch (RemoteException e2) {
+            e2.printStackTrace();
         }
     }
 
     @Override // com.ss.android.socialbase.downloader.downloader.IDownloadProxy
-    public void removeAllDownloadChunk(int i10) {
+    public void removeAllDownloadChunk(int i2) {
         if (this.aidlService == null) {
-            this.downloadProxy.removeAllDownloadChunk(i10);
+            this.downloadProxy.removeAllDownloadChunk(i2);
             return;
         }
         try {
-            this.aidlService.removeAllDownloadChunk(i10);
-        } catch (RemoteException e10) {
-            e10.printStackTrace();
+            this.aidlService.removeAllDownloadChunk(i2);
+        } catch (RemoteException e2) {
+            e2.printStackTrace();
         }
     }
 
     @Override // com.ss.android.socialbase.downloader.downloader.IDownloadProxy
-    public boolean removeDownloadInfo(int i10) {
+    public boolean removeDownloadInfo(int i2) {
         if (this.aidlService == null) {
-            return this.downloadProxy.removeDownloadInfo(i10);
+            return this.downloadProxy.removeDownloadInfo(i2);
         }
         try {
-            return this.aidlService.removeDownloadInfo(i10);
-        } catch (RemoteException e10) {
-            e10.printStackTrace();
+            return this.aidlService.removeDownloadInfo(i2);
+        } catch (RemoteException e2) {
+            e2.printStackTrace();
             return false;
         }
     }
 
     @Override // com.ss.android.socialbase.downloader.downloader.IDownloadProxy
-    public void removeDownloadListener(int i10, int i11, IDownloadListener iDownloadListener, ListenerType listenerType, boolean z10) {
+    public void removeDownloadListener(int i2, int i3, IDownloadListener iDownloadListener, ListenerType listenerType, boolean z) {
         if (this.aidlService == null) {
             return;
         }
         try {
-            this.aidlService.removeDownloadListener(i10, i11, IPCUtils.convertListenerToAidl(iDownloadListener, listenerType != ListenerType.SUB), listenerType.ordinal(), z10);
-        } catch (RemoteException e10) {
-            e10.printStackTrace();
+            this.aidlService.removeDownloadListener(i2, i3, IPCUtils.convertListenerToAidl(iDownloadListener, listenerType != ListenerType.SUB), listenerType.ordinal(), z);
+        } catch (RemoteException e2) {
+            e2.printStackTrace();
         }
     }
 
     @Override // com.ss.android.socialbase.downloader.downloader.IDownloadProxy
-    public boolean removeDownloadTaskData(int i10) {
+    public boolean removeDownloadTaskData(int i2) {
         if (this.aidlService == null) {
-            return this.downloadProxy.removeDownloadTaskData(i10);
+            return this.downloadProxy.removeDownloadTaskData(i2);
         }
         try {
-            return this.aidlService.removeDownloadTaskData(i10);
-        } catch (RemoteException e10) {
-            e10.printStackTrace();
+            return this.aidlService.removeDownloadTaskData(i2);
+        } catch (RemoteException e2) {
+            e2.printStackTrace();
             return false;
         }
     }
 
     @Override // com.ss.android.socialbase.downloader.downloader.IDownloadProxy
-    public void resetDownloadData(int i10, boolean z10) {
+    public void resetDownloadData(int i2, boolean z) {
         if (this.aidlService == null) {
-            this.downloadProxy.resetDownloadData(i10, z10);
+            this.downloadProxy.resetDownloadData(i2, z);
             return;
         }
         try {
-            this.aidlService.resetDownloadData(i10, z10);
-        } catch (RemoteException e10) {
-            e10.printStackTrace();
+            this.aidlService.resetDownloadData(i2, z);
+        } catch (RemoteException e2) {
+            e2.printStackTrace();
         }
     }
 
     @Override // com.ss.android.socialbase.downloader.downloader.IDownloadProxy
-    public void restart(int i10) {
+    public void restart(int i2) {
         if (this.aidlService == null) {
             return;
         }
         try {
-            this.aidlService.restart(i10);
-        } catch (RemoteException e10) {
-            e10.printStackTrace();
+            this.aidlService.restart(i2);
+        } catch (RemoteException e2) {
+            e2.printStackTrace();
         }
     }
 
@@ -561,8 +561,8 @@ public class IndependentProcessDownloadHandler implements IDownloadProxy, IDownl
         }
         try {
             this.aidlService.restartAllFailedDownloadTasks(list);
-        } catch (RemoteException e10) {
-            e10.printStackTrace();
+        } catch (RemoteException e2) {
+            e2.printStackTrace();
         }
     }
 
@@ -574,90 +574,90 @@ public class IndependentProcessDownloadHandler implements IDownloadProxy, IDownl
         }
         try {
             this.aidlService.restartAllPauseReserveOnWifiDownloadTasks(list);
-        } catch (RemoteException e10) {
-            e10.printStackTrace();
+        } catch (RemoteException e2) {
+            e2.printStackTrace();
         }
     }
 
     @Override // com.ss.android.socialbase.downloader.downloader.IDownloadProxy
-    public void resume(int i10) {
+    public void resume(int i2) {
         if (this.aidlService == null) {
             return;
         }
         try {
-            this.aidlService.resume(i10);
-        } catch (RemoteException e10) {
-            e10.printStackTrace();
+            this.aidlService.resume(i2);
+        } catch (RemoteException e2) {
+            e2.printStackTrace();
         }
     }
 
     @Override // com.ss.android.socialbase.downloader.downloader.IDownloadProxy
-    public boolean retryDelayStart(int i10) {
+    public boolean retryDelayStart(int i2) {
         if (this.aidlService == null) {
             return false;
         }
         try {
-            return this.aidlService.retryDelayStart(i10);
-        } catch (RemoteException e10) {
-            e10.printStackTrace();
+            return this.aidlService.retryDelayStart(i2);
+        } catch (RemoteException e2) {
+            e2.printStackTrace();
             return false;
         }
     }
 
     @Override // com.ss.android.socialbase.downloader.downloader.IDownloadProxy
-    public void setDownloadNotificationEventListener(int i10, IDownloadNotificationEventListener iDownloadNotificationEventListener) {
+    public void setDownloadNotificationEventListener(int i2, IDownloadNotificationEventListener iDownloadNotificationEventListener) {
         if (this.aidlService != null) {
             try {
-                this.aidlService.setDownloadNotificationEventListener(i10, IPCUtils.convertDownloadNotificationEventListenerToAidl(iDownloadNotificationEventListener));
-            } catch (RemoteException e10) {
-                e10.printStackTrace();
+                this.aidlService.setDownloadNotificationEventListener(i2, IPCUtils.convertDownloadNotificationEventListenerToAidl(iDownloadNotificationEventListener));
+            } catch (RemoteException e2) {
+                e2.printStackTrace();
             }
         }
     }
 
     @Override // com.ss.android.socialbase.downloader.downloader.IDownloadProxy
-    public void setDownloadWithIndependentProcessStatus(int i10, boolean z10) {
+    public void setDownloadWithIndependentProcessStatus(int i2, boolean z) {
         if (this.aidlService == null) {
             return;
         }
         try {
-            this.aidlService.setDownloadWithIndependentProcessStatus(i10, z10);
-        } catch (RemoteException e10) {
-            e10.printStackTrace();
+            this.aidlService.setDownloadWithIndependentProcessStatus(i2, z);
+        } catch (RemoteException e2) {
+            e2.printStackTrace();
         }
     }
 
     @Override // com.ss.android.socialbase.downloader.downloader.IDownloadProxy
-    public void setLogLevel(int i10) {
+    public void setLogLevel(int i2) {
         IDownloadServiceHandler<IndependentProcessDownloadService> iDownloadServiceHandler = this.downloadServiceHandler;
         if (iDownloadServiceHandler != null) {
-            iDownloadServiceHandler.setLogLevel(i10);
+            iDownloadServiceHandler.setLogLevel(i2);
         }
     }
 
     @Override // com.ss.android.socialbase.downloader.downloader.IDownloadProxy
-    public void setThrottleNetSpeed(int i10, long j10) {
+    public void setThrottleNetSpeed(int i2, long j2) {
         if (this.aidlService == null) {
             return;
         }
         try {
-            this.aidlService.setThrottleNetSpeed(i10, j10);
-        } catch (RemoteException e10) {
-            e10.printStackTrace();
+            this.aidlService.setThrottleNetSpeed(i2, j2);
+        } catch (RemoteException e2) {
+            e2.printStackTrace();
         }
     }
 
     @Override // com.ss.android.socialbase.downloader.downloader.IDownloadProxy
-    public void startForeground(int i10, Notification notification) {
+    public void startForeground(int i2, Notification notification) {
         if (this.aidlService == null) {
             Logger.w(TAG, "startForeground, aidlService is null");
             return;
         }
-        Logger.i(TAG, "aidlService.startForeground, id = " + i10);
+        Logger.i(TAG, "aidlService.startForeground, id = " + i2);
         try {
-            this.aidlService.startForeground(i10, notification);
-        } catch (RemoteException e10) {
-            e10.printStackTrace();
+            this.aidlService.startForeground(i2, notification);
+        } catch (RemoteException e2) {
+            e2.printStackTrace();
         }
     }
 
@@ -670,28 +670,28 @@ public class IndependentProcessDownloadHandler implements IDownloadProxy, IDownl
     }
 
     @Override // com.ss.android.socialbase.downloader.downloader.IDownloadProxy
-    public void stopForeground(boolean z10, boolean z11) {
+    public void stopForeground(boolean z, boolean z2) {
         if (this.aidlService == null) {
             Logger.w(TAG, "stopForeground, aidlService is null");
             return;
         }
         Logger.i(TAG, "aidlService.stopForeground");
         try {
-            this.aidlService.stopForeground(z11);
-        } catch (RemoteException e10) {
-            e10.printStackTrace();
+            this.aidlService.stopForeground(z2);
+        } catch (RemoteException e2) {
+            e2.printStackTrace();
         }
     }
 
     @Override // com.ss.android.socialbase.downloader.downloader.IDownloadProxy
-    public void syncDownloadChunks(int i10, List<DownloadChunk> list) {
+    public void syncDownloadChunks(int i2, List<DownloadChunk> list) {
         if (this.aidlService == null) {
             return;
         }
         try {
-            this.aidlService.syncDownloadChunks(i10, list);
-        } catch (RemoteException e10) {
-            e10.printStackTrace();
+            this.aidlService.syncDownloadChunks(i2, list);
+        } catch (RemoteException e2) {
+            e2.printStackTrace();
         }
     }
 
@@ -700,15 +700,15 @@ public class IndependentProcessDownloadHandler implements IDownloadProxy, IDownl
     }
 
     @Override // com.ss.android.socialbase.downloader.downloader.IDownloadProxy
-    public void syncDownloadInfoFromOtherCache(int i10, List<DownloadChunk> list) {
+    public void syncDownloadInfoFromOtherCache(int i2, List<DownloadChunk> list) {
         if (this.aidlService == null) {
-            this.downloadProxy.syncDownloadInfoFromOtherCache(i10, list);
+            this.downloadProxy.syncDownloadInfoFromOtherCache(i2, list);
             return;
         }
         try {
-            this.aidlService.syncDownloadInfoFromOtherCache(i10, list);
-        } catch (RemoteException e10) {
-            e10.printStackTrace();
+            this.aidlService.syncDownloadInfoFromOtherCache(i2, list);
+        } catch (RemoteException e2) {
+            e2.printStackTrace();
         }
     }
 
@@ -731,15 +731,15 @@ public class IndependentProcessDownloadHandler implements IDownloadProxy, IDownl
     }
 
     @Override // com.ss.android.socialbase.downloader.downloader.IDownloadProxy
-    public void updateDownloadChunk(int i10, int i11, long j10) {
+    public void updateDownloadChunk(int i2, int i3, long j2) {
         if (this.aidlService == null) {
-            this.downloadProxy.updateDownloadChunk(i10, i11, j10);
+            this.downloadProxy.updateDownloadChunk(i2, i3, j2);
             return;
         }
         try {
-            this.aidlService.updateDownloadChunk(i10, i11, j10);
-        } catch (RemoteException e10) {
-            e10.printStackTrace();
+            this.aidlService.updateDownloadChunk(i2, i3, j2);
+        } catch (RemoteException e2) {
+            e2.printStackTrace();
         }
     }
 
@@ -750,47 +750,47 @@ public class IndependentProcessDownloadHandler implements IDownloadProxy, IDownl
         }
         try {
             return this.aidlService.updateDownloadInfo(downloadInfo);
-        } catch (RemoteException e10) {
-            e10.printStackTrace();
+        } catch (RemoteException e2) {
+            e2.printStackTrace();
             return false;
         }
     }
 
     @Override // com.ss.android.socialbase.downloader.downloader.IDownloadProxy
-    public void updateSubDownloadChunk(int i10, int i11, int i12, long j10) {
+    public void updateSubDownloadChunk(int i2, int i3, int i4, long j2) {
         if (this.aidlService == null) {
-            this.downloadProxy.updateSubDownloadChunk(i10, i11, i12, j10);
+            this.downloadProxy.updateSubDownloadChunk(i2, i3, i4, j2);
             return;
         }
         try {
-            this.aidlService.updateSubDownloadChunk(i10, i11, i12, j10);
-        } catch (RemoteException e10) {
-            e10.printStackTrace();
+            this.aidlService.updateSubDownloadChunk(i2, i3, i4, j2);
+        } catch (RemoteException e2) {
+            e2.printStackTrace();
         }
     }
 
     @Override // com.ss.android.socialbase.downloader.downloader.IDownloadProxy
-    public void updateSubDownloadChunkIndex(int i10, int i11, int i12, int i13) {
+    public void updateSubDownloadChunkIndex(int i2, int i3, int i4, int i5) {
         if (this.aidlService == null) {
-            this.downloadProxy.updateSubDownloadChunkIndex(i10, i11, i12, i13);
+            this.downloadProxy.updateSubDownloadChunkIndex(i2, i3, i4, i5);
             return;
         }
         try {
-            this.aidlService.updateSubDownloadChunkIndex(i10, i11, i12, i13);
-        } catch (RemoteException e10) {
-            e10.printStackTrace();
+            this.aidlService.updateSubDownloadChunkIndex(i2, i3, i4, i5);
+        } catch (RemoteException e2) {
+            e2.printStackTrace();
         }
     }
 
     @Override // com.ss.android.socialbase.downloader.downloader.IDownloadProxy
-    public void addDownloadListener(int i10, int i11, IDownloadListener iDownloadListener, ListenerType listenerType, boolean z10, boolean z11) {
+    public void addDownloadListener(int i2, int i3, IDownloadListener iDownloadListener, ListenerType listenerType, boolean z, boolean z2) {
         if (this.aidlService == null) {
             return;
         }
         try {
-            this.aidlService.addDownloadListener1(i10, i11, IPCUtils.convertListenerToAidl(iDownloadListener, listenerType != ListenerType.SUB), listenerType.ordinal(), z10, z11);
-        } catch (RemoteException e10) {
-            e10.printStackTrace();
+            this.aidlService.addDownloadListener1(i2, i3, IPCUtils.convertListenerToAidl(iDownloadListener, listenerType != ListenerType.SUB), listenerType.ordinal(), z, z2);
+        } catch (RemoteException e2) {
+            e2.printStackTrace();
         }
     }
 

@@ -4,7 +4,7 @@ import androidx.annotation.Keep;
 import androidx.lifecycle.LifecycleObserver;
 
 @Keep
-/* loaded from: classes3.dex */
+/* loaded from: classes2.dex */
 public class KsLifecycleObserver {
     LifecycleObserver mBase;
 

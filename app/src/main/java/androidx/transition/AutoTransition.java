@@ -6,16 +6,16 @@ import android.util.AttributeSet;
 /* loaded from: classes.dex */
 public class AutoTransition extends TransitionSet {
     public AutoTransition() {
-        init();
+        K();
     }
 
-    private void init() {
+    private void K() {
         setOrdering(1);
         addTransition(new Fade(2)).addTransition(new ChangeBounds()).addTransition(new Fade(1));
     }
 
     public AutoTransition(Context context, AttributeSet attributeSet) {
         super(context, attributeSet);
-        init();
+        K();
     }
 }

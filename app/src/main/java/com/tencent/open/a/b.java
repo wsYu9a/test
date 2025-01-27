@@ -9,60 +9,60 @@ import java.util.Calendar;
 public class b {
 
     /* renamed from: a */
-    private static SimpleDateFormat f23136a = d.C0660d.a("yy.MM.dd.HH");
+    private static SimpleDateFormat f25407a = d.C0531d.a("yy.MM.dd.HH");
 
     /* renamed from: g */
-    private File f23142g;
+    private File f25413g;
 
     /* renamed from: b */
-    private String f23137b = "Tracer.File";
+    private String f25408b = "Tracer.File";
 
     /* renamed from: c */
-    private int f23138c = Integer.MAX_VALUE;
+    private int f25409c = Integer.MAX_VALUE;
 
     /* renamed from: d */
-    private int f23139d = Integer.MAX_VALUE;
+    private int f25410d = Integer.MAX_VALUE;
 
     /* renamed from: e */
-    private int f23140e = 4096;
+    private int f25411e = 4096;
 
     /* renamed from: f */
-    private long f23141f = 10000;
+    private long f25412f = 10000;
 
     /* renamed from: h */
-    private int f23143h = 10;
+    private int f25414h = 10;
 
     /* renamed from: i */
-    private String f23144i = ".log";
+    private String f25415i = ".log";
 
     /* renamed from: j */
-    private long f23145j = Long.MAX_VALUE;
+    private long f25416j = Long.MAX_VALUE;
 
-    public b(File file, int i10, int i11, int i12, String str, long j10, int i13, String str2, long j11) {
+    public b(File file, int i2, int i3, int i4, String str, long j2, int i5, String str2, long j3) {
         a(file);
-        b(i10);
-        a(i11);
-        c(i12);
+        b(i2);
+        a(i3);
+        c(i4);
         a(str);
-        a(j10);
-        d(i13);
+        a(j2);
+        d(i5);
         b(str2);
-        b(j11);
+        b(j3);
     }
 
-    private File c(long j10) {
-        File b10 = b();
+    private File c(long j2) {
+        File b2 = b();
         try {
-            return new File(b10, c(d(j10)));
-        } catch (Throwable th2) {
-            th2.printStackTrace();
-            return b10;
+            return new File(b2, c(d(j2)));
+        } catch (Throwable th) {
+            th.printStackTrace();
+            return b2;
         }
     }
 
-    private String d(long j10) {
+    private String d(long j2) {
         Calendar calendar = Calendar.getInstance();
-        calendar.setTimeInMillis(j10);
+        calendar.setTimeInMillis(j2);
         return new SimpleDateFormat("yy.MM.dd.HH").format(calendar.getTime());
     }
 
@@ -71,37 +71,37 @@ public class b {
     }
 
     public File b() {
-        File e10 = e();
-        e10.mkdirs();
-        return e10;
+        File e2 = e();
+        e2.mkdirs();
+        return e2;
     }
 
     public File e() {
-        return this.f23142g;
+        return this.f25413g;
     }
 
     public int f() {
-        return this.f23143h;
+        return this.f25414h;
     }
 
     public void a(String str) {
-        this.f23137b = str;
+        this.f25408b = str;
     }
 
-    public void a(int i10) {
-        this.f23138c = i10;
+    public void a(int i2) {
+        this.f25409c = i2;
     }
 
-    public void b(int i10) {
-        this.f23139d = i10;
+    public void b(int i2) {
+        this.f25410d = i2;
     }
 
-    public void a(long j10) {
-        this.f23141f = j10;
+    public void a(long j2) {
+        this.f25412f = j2;
     }
 
     public void b(String str) {
-        this.f23144i = str;
+        this.f25415i = str;
     }
 
     private String c(String str) {
@@ -109,26 +109,26 @@ public class b {
     }
 
     public void a(File file) {
-        this.f23142g = file;
+        this.f25413g = file;
     }
 
-    public void b(long j10) {
-        this.f23145j = j10;
+    public void b(long j2) {
+        this.f25416j = j2;
     }
 
     public int d() {
-        return this.f23140e;
+        return this.f25411e;
     }
 
     public String c() {
-        return this.f23137b;
+        return this.f25408b;
     }
 
-    public void d(int i10) {
-        this.f23143h = i10;
+    public void d(int i2) {
+        this.f25414h = i2;
     }
 
-    public void c(int i10) {
-        this.f23140e = i10;
+    public void c(int i2) {
+        this.f25411e = i2;
     }
 }

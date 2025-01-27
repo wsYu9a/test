@@ -2,7 +2,6 @@ package com.tencent.bugly.crashreport.crash;
 
 import android.content.Context;
 import com.tencent.bugly.crashreport.common.strategy.StrategyBean;
-import com.tencent.bugly.proguard.C0870o;
 import com.tencent.bugly.proguard.W;
 import com.tencent.bugly.proguard.X;
 import com.tencent.bugly.proguard.ba;
@@ -14,64 +13,65 @@ import java.util.Map;
 public class k {
 
     /* renamed from: a */
-    private static k f22535a;
+    private static k f24905a;
 
     /* renamed from: b */
-    private com.tencent.bugly.crashreport.common.strategy.c f22536b;
+    private com.tencent.bugly.crashreport.common.strategy.c f24906b;
 
     /* renamed from: c */
-    private com.tencent.bugly.crashreport.common.info.a f22537c;
+    private com.tencent.bugly.crashreport.common.info.a f24907c;
 
     /* renamed from: d */
-    private e f22538d;
+    private e f24908d;
 
     /* renamed from: e */
-    private Context f22539e;
+    private Context f24909e;
 
     private k(Context context) {
-        h g10 = h.g();
-        if (g10 == null) {
+        h g2 = h.g();
+        if (g2 == null) {
             return;
         }
-        this.f22536b = com.tencent.bugly.crashreport.common.strategy.c.b();
-        this.f22537c = com.tencent.bugly.crashreport.common.info.a.a(context);
-        this.f22538d = g10.f22479r;
-        this.f22539e = context;
+        this.f24906b = com.tencent.bugly.crashreport.common.strategy.c.b();
+        this.f24907c = com.tencent.bugly.crashreport.common.info.a.a(context);
+        this.f24908d = g2.r;
+        this.f24909e = context;
         W.c().a(new i(this));
     }
 
     public void b() {
         X.a("[ExtraCrashManager] Trying to notify Bugly agents.", new Object[0]);
         try {
-            this.f22537c.getClass();
-            ca.a((Class<?>) C0870o.class, "sdkPackageName", "com.tencent.bugly", (Object) null);
+            Class<?> cls = Class.forName("com.tencent.bugly.proguard.o");
+            this.f24907c.getClass();
+            ca.a(cls, "sdkPackageName", "com.tencent.bugly", (Object) null);
             X.a("[ExtraCrashManager] Bugly game agent has been notified.", new Object[0]);
         } catch (Throwable unused) {
             X.c("[ExtraCrashManager] no game agent", new Object[0]);
         }
     }
 
-    private CrashDetailBean c(Thread thread, int i10, String str, String str2, String str3, Map<String, String> map) {
+    private CrashDetailBean c(Thread thread, int i2, String str, String str2, String str3, Map<String, String> map) {
         CrashDetailBean crashDetailBean = new CrashDetailBean();
         crashDetailBean.C = com.tencent.bugly.crashreport.common.info.b.h();
         crashDetailBean.D = com.tencent.bugly.crashreport.common.info.b.j();
         crashDetailBean.E = com.tencent.bugly.crashreport.common.info.b.g();
-        crashDetailBean.F = this.f22537c.v();
-        crashDetailBean.G = this.f22537c.w();
-        crashDetailBean.H = this.f22537c.x();
-        crashDetailBean.f22396w = ca.a(this.f22539e, h.f22466e, h.f22469h);
-        crashDetailBean.f22375b = i10;
-        crashDetailBean.f22378e = this.f22537c.l();
-        com.tencent.bugly.crashreport.common.info.a aVar = this.f22537c;
-        crashDetailBean.f22379f = aVar.E;
-        crashDetailBean.f22380g = aVar.i();
-        crashDetailBean.f22386m = this.f22537c.y();
-        StringBuilder sb2 = new StringBuilder();
+        crashDetailBean.F = this.f24907c.v();
+        crashDetailBean.G = this.f24907c.w();
+        crashDetailBean.H = this.f24907c.x();
+        crashDetailBean.w = ca.a(this.f24909e, h.f24859e, h.f24862h);
+        crashDetailBean.f24788b = i2;
+        crashDetailBean.f24791e = this.f24907c.l();
+        com.tencent.bugly.crashreport.common.info.a aVar = this.f24907c;
+        crashDetailBean.f24792f = aVar.E;
+        crashDetailBean.f24793g = aVar.i();
+        crashDetailBean.m = this.f24907c.y();
+        StringBuilder sb = new StringBuilder();
         String str4 = "";
-        sb2.append("");
-        sb2.append(str);
-        crashDetailBean.f22387n = sb2.toString();
-        crashDetailBean.f22388o = "" + str2;
+        sb.append("");
+        sb.append(str);
+        crashDetailBean.n = sb.toString();
+        crashDetailBean.o = "" + str2;
         if (str3 != null) {
             String[] split = str3.split("\n");
             if (split.length > 0) {
@@ -80,26 +80,26 @@ public class k {
         } else {
             str3 = "";
         }
-        crashDetailBean.f22389p = str4;
-        crashDetailBean.f22390q = str3;
-        crashDetailBean.f22391r = System.currentTimeMillis();
-        crashDetailBean.f22394u = ca.c(crashDetailBean.f22390q.getBytes());
-        crashDetailBean.f22399z = ca.a(h.f22467f, false);
-        crashDetailBean.A = this.f22537c.f22296h;
+        crashDetailBean.p = str4;
+        crashDetailBean.q = str3;
+        crashDetailBean.r = System.currentTimeMillis();
+        crashDetailBean.u = ca.c(crashDetailBean.q.getBytes());
+        crashDetailBean.z = ca.a(h.f24860f, false);
+        crashDetailBean.A = this.f24907c.f24755h;
         crashDetailBean.B = thread.getName() + "(" + thread.getId() + ")";
-        crashDetailBean.I = this.f22537c.r();
-        crashDetailBean.f22381h = this.f22537c.p();
-        com.tencent.bugly.crashreport.common.info.a aVar2 = this.f22537c;
-        crashDetailBean.N = aVar2.f22288d;
+        crashDetailBean.I = this.f24907c.r();
+        crashDetailBean.f24794h = this.f24907c.p();
+        com.tencent.bugly.crashreport.common.info.a aVar2 = this.f24907c;
+        crashDetailBean.N = aVar2.f24751d;
         crashDetailBean.O = aVar2.C();
         if (!h.g().f()) {
-            this.f22538d.d(crashDetailBean);
+            this.f24908d.d(crashDetailBean);
         }
-        crashDetailBean.R = this.f22537c.A();
-        crashDetailBean.S = this.f22537c.t();
-        crashDetailBean.T = this.f22537c.h();
-        crashDetailBean.U = this.f22537c.g();
-        crashDetailBean.f22398y = ba.b();
+        crashDetailBean.R = this.f24907c.A();
+        crashDetailBean.S = this.f24907c.t();
+        crashDetailBean.T = this.f24907c.h();
+        crashDetailBean.U = this.f24907c.g();
+        crashDetailBean.y = ba.b();
         if (crashDetailBean.P == null) {
             crashDetailBean.P = new LinkedHashMap();
         }
@@ -110,26 +110,26 @@ public class k {
     }
 
     public static k a(Context context) {
-        if (f22535a == null) {
-            f22535a = new k(context);
+        if (f24905a == null) {
+            f24905a = new k(context);
         }
-        return f22535a;
+        return f24905a;
     }
 
-    public static void a(Thread thread, int i10, String str, String str2, String str3, Map<String, String> map) {
-        W.c().a(new j(thread, i10, str, str2, str3, map));
+    public static void a(Thread thread, int i2, String str, String str2, String str3, Map<String, String> map) {
+        W.c().a(new j(thread, i2, str, str2, str3, map));
     }
 
-    public void b(Thread thread, int i10, String str, String str2, String str3, Map<String, String> map) {
+    public void b(Thread thread, int i2, String str, String str2, String str3, Map<String, String> map) {
         String str4;
         Thread currentThread = thread == null ? Thread.currentThread() : thread;
-        if (i10 == 4) {
+        if (i2 == 4) {
             str4 = "Unity";
-        } else if (i10 == 5 || i10 == 6) {
+        } else if (i2 == 5 || i2 == 6) {
             str4 = "Cocos";
         } else {
-            if (i10 != 8) {
-                X.e("[ExtraCrashManager] Unknown extra crash type: %d", Integer.valueOf(i10));
+            if (i2 != 8) {
+                X.e("[ExtraCrashManager] Unknown extra crash type: %d", Integer.valueOf(i2));
                 return;
             }
             str4 = "H5";
@@ -137,47 +137,47 @@ public class k {
         String str5 = str4;
         X.b("[ExtraCrashManager] %s Crash Happen", str5);
         try {
-            if (!this.f22536b.d()) {
+            if (!this.f24906b.d()) {
                 X.e("[ExtraCrashManager] There is no remote strategy, but still store it.", new Object[0]);
             }
-            StrategyBean c10 = this.f22536b.c();
-            if (!c10.f22342f && this.f22536b.d()) {
+            StrategyBean c2 = this.f24906b.c();
+            if (!c2.f24768f && this.f24906b.d()) {
                 X.b("[ExtraCrashManager] Crash report was closed by remote , will not upload to Bugly , print local for helpful!", new Object[0]);
-                e.a(str5, ca.a(), this.f22537c.f22296h, currentThread.getName(), str + "\n" + str2 + "\n" + str3, null);
+                e.a(str5, ca.a(), this.f24907c.f24755h, currentThread.getName(), str + "\n" + str2 + "\n" + str3, null);
                 X.b("[ExtraCrashManager] Successfully handled.", new Object[0]);
                 return;
             }
-            if (i10 != 5 && i10 != 6) {
-                if (i10 == 8 && !c10.f22348l) {
+            if (i2 != 5 && i2 != 6) {
+                if (i2 == 8 && !c2.l) {
                     X.b("[ExtraCrashManager] %s report is disabled.", str5);
                     X.b("[ExtraCrashManager] Successfully handled.", new Object[0]);
                     return;
                 }
-            } else if (!c10.f22347k) {
+            } else if (!c2.k) {
                 X.b("[ExtraCrashManager] %s report is disabled.", str5);
                 X.b("[ExtraCrashManager] Successfully handled.", new Object[0]);
                 return;
             }
-            CrashDetailBean c11 = c(currentThread, i10 == 8 ? 5 : i10, str, str2, str3, map);
-            if (c11 == null) {
+            CrashDetailBean c3 = c(currentThread, i2 == 8 ? 5 : i2, str, str2, str3, map);
+            if (c3 == null) {
                 X.b("[ExtraCrashManager] Failed to package crash data.", new Object[0]);
                 X.b("[ExtraCrashManager] Successfully handled.", new Object[0]);
                 return;
             }
-            e.a(str5, ca.a(), this.f22537c.f22296h, currentThread.getName(), str + "\n" + str2 + "\n" + str3, c11);
-            if (!this.f22538d.c(c11)) {
-                this.f22538d.a(c11, 3000L, false);
+            e.a(str5, ca.a(), this.f24907c.f24755h, currentThread.getName(), str + "\n" + str2 + "\n" + str3, c3);
+            if (!this.f24908d.c(c3)) {
+                this.f24908d.a(c3, 3000L, false);
             }
             X.b("[ExtraCrashManager] Successfully handled.", new Object[0]);
-        } catch (Throwable th2) {
+        } catch (Throwable th) {
             try {
-                if (!X.b(th2)) {
-                    th2.printStackTrace();
+                if (!X.b(th)) {
+                    th.printStackTrace();
                 }
                 X.b("[ExtraCrashManager] Successfully handled.", new Object[0]);
-            } catch (Throwable th3) {
+            } catch (Throwable th2) {
                 X.b("[ExtraCrashManager] Successfully handled.", new Object[0]);
-                throw th3;
+                throw th2;
             }
         }
     }

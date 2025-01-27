@@ -1,6 +1,6 @@
 package com.martian.libugrowth.adx.request;
 
-import v8.a;
+import com.martian.libcomm.http.requests.d.a;
 
 /* loaded from: classes3.dex */
 public class GetAdsParams extends AdxHttpGetParams {
@@ -8,7 +8,7 @@ public class GetAdsParams extends AdxHttpGetParams {
     @a
     private Boolean useCache;
 
-    @Override // u8.b
+    @Override // com.martian.libcomm.http.requests.b
     public String getRequestMethod() {
         return "lm/get_ads";
     }
@@ -17,7 +17,7 @@ public class GetAdsParams extends AdxHttpGetParams {
         return this.useCache;
     }
 
-    public void setUseCache(Boolean bool) {
-        this.useCache = bool;
+    public void setUseCache(Boolean useCache) {
+        this.useCache = useCache;
     }
 }

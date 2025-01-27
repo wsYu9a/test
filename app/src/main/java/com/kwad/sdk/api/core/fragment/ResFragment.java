@@ -20,14 +20,18 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import com.kwad.sdk.api.core.ComponentDestroyer;
-import com.kwad.sdk.api.loader.Loader;
 import com.kwad.sdk.api.loader.Wrapper;
 
-/* loaded from: classes3.dex */
+/* loaded from: classes2.dex */
 public class ResFragment extends DelegateFragment {
     public ResFragment() {
         super(new KsFragment(null));
         getBase().setBase(this);
+    }
+
+    @SuppressLint({"ValidFragment"})
+    ResFragment(KsFragment ksFragment) {
+        super(ksFragment);
     }
 
     @Override // com.kwad.sdk.api.core.fragment.DelegateFragment, com.kwad.sdk.api.core.fragment.IDelegateFragment
@@ -63,13 +67,18 @@ public class ResFragment extends DelegateFragment {
     }
 
     @Override // com.kwad.sdk.api.core.fragment.DelegateFragment, androidx.fragment.app.Fragment
-    public /* bridge */ /* synthetic */ void onActivityResult(int i10, int i11, Intent intent) {
-        super.onActivityResult(i10, i11, intent);
+    public /* bridge */ /* synthetic */ void onActivityResult(int i2, int i3, Intent intent) {
+        super.onActivityResult(i2, i3, intent);
     }
 
     @Override // com.kwad.sdk.api.core.fragment.DelegateFragment, androidx.fragment.app.Fragment
     public /* bridge */ /* synthetic */ void onAttach(Activity activity) {
         super.onAttach(activity);
+    }
+
+    @Override // com.kwad.sdk.api.core.fragment.DelegateFragment, androidx.fragment.app.Fragment
+    public void onAttach(Context context) {
+        super.onAttach(Wrapper.wrapContextIfNeed(context));
     }
 
     @Override // com.kwad.sdk.api.core.fragment.DelegateFragment, androidx.fragment.app.Fragment
@@ -93,13 +102,13 @@ public class ResFragment extends DelegateFragment {
     }
 
     @Override // com.kwad.sdk.api.core.fragment.DelegateFragment, androidx.fragment.app.Fragment
-    public /* bridge */ /* synthetic */ Animation onCreateAnimation(int i10, boolean z10, int i11) {
-        return super.onCreateAnimation(i10, z10, i11);
+    public /* bridge */ /* synthetic */ Animation onCreateAnimation(int i2, boolean z, int i3) {
+        return super.onCreateAnimation(i2, z, i3);
     }
 
     @Override // com.kwad.sdk.api.core.fragment.DelegateFragment, androidx.fragment.app.Fragment
-    public /* bridge */ /* synthetic */ Animator onCreateAnimator(int i10, boolean z10, int i11) {
-        return super.onCreateAnimator(i10, z10, i11);
+    public /* bridge */ /* synthetic */ Animator onCreateAnimator(int i2, boolean z, int i3) {
+        return super.onCreateAnimator(i2, z, i3);
     }
 
     @Override // com.kwad.sdk.api.core.fragment.DelegateFragment, androidx.fragment.app.Fragment, android.view.View.OnCreateContextMenuListener
@@ -146,13 +155,18 @@ public class ResFragment extends DelegateFragment {
     }
 
     @Override // com.kwad.sdk.api.core.fragment.DelegateFragment, androidx.fragment.app.Fragment
-    public /* bridge */ /* synthetic */ void onHiddenChanged(boolean z10) {
-        super.onHiddenChanged(z10);
+    public /* bridge */ /* synthetic */ void onHiddenChanged(boolean z) {
+        super.onHiddenChanged(z);
     }
 
     @Override // com.kwad.sdk.api.core.fragment.DelegateFragment, androidx.fragment.app.Fragment
     public /* bridge */ /* synthetic */ void onInflate(Activity activity, AttributeSet attributeSet, Bundle bundle) {
         super.onInflate(activity, attributeSet, bundle);
+    }
+
+    @Override // com.kwad.sdk.api.core.fragment.DelegateFragment, androidx.fragment.app.Fragment
+    public /* bridge */ /* synthetic */ void onInflate(Context context, AttributeSet attributeSet, Bundle bundle) {
+        super.onInflate(context, attributeSet, bundle);
     }
 
     @Override // com.kwad.sdk.api.core.fragment.DelegateFragment, androidx.fragment.app.Fragment, android.content.ComponentCallbacks
@@ -161,8 +175,8 @@ public class ResFragment extends DelegateFragment {
     }
 
     @Override // com.kwad.sdk.api.core.fragment.DelegateFragment, androidx.fragment.app.Fragment
-    public /* bridge */ /* synthetic */ void onMultiWindowModeChanged(boolean z10) {
-        super.onMultiWindowModeChanged(z10);
+    public /* bridge */ /* synthetic */ void onMultiWindowModeChanged(boolean z) {
+        super.onMultiWindowModeChanged(z);
     }
 
     @Override // com.kwad.sdk.api.core.fragment.DelegateFragment, androidx.fragment.app.Fragment
@@ -181,8 +195,8 @@ public class ResFragment extends DelegateFragment {
     }
 
     @Override // com.kwad.sdk.api.core.fragment.DelegateFragment, androidx.fragment.app.Fragment
-    public /* bridge */ /* synthetic */ void onPictureInPictureModeChanged(boolean z10) {
-        super.onPictureInPictureModeChanged(z10);
+    public /* bridge */ /* synthetic */ void onPictureInPictureModeChanged(boolean z) {
+        super.onPictureInPictureModeChanged(z);
     }
 
     @Override // com.kwad.sdk.api.core.fragment.DelegateFragment, androidx.fragment.app.Fragment
@@ -191,8 +205,8 @@ public class ResFragment extends DelegateFragment {
     }
 
     @Override // com.kwad.sdk.api.core.fragment.DelegateFragment, androidx.fragment.app.Fragment
-    public /* bridge */ /* synthetic */ void onRequestPermissionsResult(int i10, @NonNull String[] strArr, @NonNull int[] iArr) {
-        super.onRequestPermissionsResult(i10, strArr, iArr);
+    public /* bridge */ /* synthetic */ void onRequestPermissionsResult(int i2, @NonNull String[] strArr, @NonNull int[] iArr) {
+        super.onRequestPermissionsResult(i2, strArr, iArr);
     }
 
     @Override // com.kwad.sdk.api.core.fragment.DelegateFragment, androidx.fragment.app.Fragment
@@ -223,21 +237,5 @@ public class ResFragment extends DelegateFragment {
     @Override // com.kwad.sdk.api.core.fragment.DelegateFragment, androidx.fragment.app.Fragment
     public /* bridge */ /* synthetic */ void onViewStateRestored(@Nullable Bundle bundle) {
         super.onViewStateRestored(bundle);
-    }
-
-    @Override // com.kwad.sdk.api.core.fragment.DelegateFragment, androidx.fragment.app.Fragment
-    public void onAttach(Context context) {
-        Loader.checkInitSDK(context);
-        super.onAttach(Wrapper.wrapContextIfNeed(context));
-    }
-
-    @Override // com.kwad.sdk.api.core.fragment.DelegateFragment, androidx.fragment.app.Fragment
-    public /* bridge */ /* synthetic */ void onInflate(Context context, AttributeSet attributeSet, Bundle bundle) {
-        super.onInflate(context, attributeSet, bundle);
-    }
-
-    @SuppressLint({"ValidFragment"})
-    public ResFragment(KsFragment ksFragment) {
-        super(ksFragment);
     }
 }

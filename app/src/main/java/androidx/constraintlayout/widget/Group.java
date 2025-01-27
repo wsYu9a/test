@@ -1,7 +1,9 @@
 package androidx.constraintlayout.widget;
 
 import android.content.Context;
+import android.os.Build;
 import android.util.AttributeSet;
+import android.view.View;
 import androidx.constraintlayout.widget.ConstraintLayout;
 
 /* loaded from: classes.dex */
@@ -11,46 +13,38 @@ public class Group extends ConstraintHelper {
     }
 
     @Override // androidx.constraintlayout.widget.ConstraintHelper
-    public void applyLayoutFeaturesInConstraintSet(ConstraintLayout container) {
-        applyLayoutFeatures(container);
+    protected void b(AttributeSet attributeSet) {
+        super.b(attributeSet);
+        this.f1305e = false;
     }
 
     @Override // androidx.constraintlayout.widget.ConstraintHelper
-    public void init(AttributeSet attrs) {
-        super.init(attrs);
-        this.mUseViewMeasure = false;
-    }
-
-    @Override // androidx.constraintlayout.widget.ConstraintHelper, android.view.View
-    public void onAttachedToWindow() {
-        super.onAttachedToWindow();
-        applyLayoutFeatures();
-    }
-
-    @Override // android.view.View
-    public void setElevation(float elevation) {
-        super.setElevation(elevation);
-        applyLayoutFeatures();
-    }
-
-    @Override // android.view.View
-    public void setVisibility(int visibility) {
-        super.setVisibility(visibility);
-        applyLayoutFeatures();
-    }
-
-    @Override // androidx.constraintlayout.widget.ConstraintHelper
-    public void updatePostLayout(ConstraintLayout container) {
+    public void updatePostLayout(ConstraintLayout constraintLayout) {
         ConstraintLayout.LayoutParams layoutParams = (ConstraintLayout.LayoutParams) getLayoutParams();
-        layoutParams.widget.setWidth(0);
-        layoutParams.widget.setHeight(0);
+        layoutParams.s.setWidth(0);
+        layoutParams.s.setHeight(0);
     }
 
-    public Group(Context context, AttributeSet attrs) {
-        super(context, attrs);
+    @Override // androidx.constraintlayout.widget.ConstraintHelper
+    public void updatePreLayout(ConstraintLayout constraintLayout) {
+        int visibility = getVisibility();
+        float elevation = Build.VERSION.SDK_INT >= 21 ? getElevation() : 0.0f;
+        for (int i2 = 0; i2 < this.f1302b; i2++) {
+            View viewById = constraintLayout.getViewById(this.f1301a[i2]);
+            if (viewById != null) {
+                viewById.setVisibility(visibility);
+                if (elevation > 0.0f && Build.VERSION.SDK_INT >= 21) {
+                    viewById.setElevation(elevation);
+                }
+            }
+        }
     }
 
-    public Group(Context context, AttributeSet attrs, int defStyleAttr) {
-        super(context, attrs, defStyleAttr);
+    public Group(Context context, AttributeSet attributeSet) {
+        super(context, attributeSet);
+    }
+
+    public Group(Context context, AttributeSet attributeSet, int i2) {
+        super(context, attributeSet, i2);
     }
 }

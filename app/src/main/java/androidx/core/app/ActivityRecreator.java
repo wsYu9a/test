@@ -18,26 +18,50 @@ import java.util.List;
 @RestrictTo({RestrictTo.Scope.LIBRARY})
 /* loaded from: classes.dex */
 final class ActivityRecreator {
-    private static final String LOG_TAG = "ActivityRecreator";
-    protected static final Class<?> activityThreadClass;
-    private static final Handler mainHandler = new Handler(Looper.getMainLooper());
-    protected static final Field mainThreadField;
-    protected static final Method performStopActivity2ParamsMethod;
-    protected static final Method performStopActivity3ParamsMethod;
-    protected static final Method requestRelaunchActivityMethod;
-    protected static final Field tokenField;
 
-    public static final class LifecycleCheckCallbacks implements Application.ActivityLifecycleCallbacks {
-        Object currentlyRecreatingToken;
-        private Activity mActivity;
-        private final int mRecreatingHashCode;
-        private boolean mStarted = false;
-        private boolean mDestroyed = false;
-        private boolean mStopQueued = false;
+    /* renamed from: a, reason: collision with root package name */
+    private static final String f1382a = "ActivityRecreator";
 
-        public LifecycleCheckCallbacks(@NonNull Activity activity) {
-            this.mActivity = activity;
-            this.mRecreatingHashCode = activity.hashCode();
+    /* renamed from: b, reason: collision with root package name */
+    protected static final Class<?> f1383b;
+
+    /* renamed from: c, reason: collision with root package name */
+    protected static final Field f1384c;
+
+    /* renamed from: d, reason: collision with root package name */
+    protected static final Field f1385d;
+
+    /* renamed from: e, reason: collision with root package name */
+    protected static final Method f1386e;
+
+    /* renamed from: f, reason: collision with root package name */
+    protected static final Method f1387f;
+
+    /* renamed from: g, reason: collision with root package name */
+    protected static final Method f1388g;
+
+    /* renamed from: h, reason: collision with root package name */
+    private static final Handler f1389h = new Handler(Looper.getMainLooper());
+
+    private static final class LifecycleCheckCallbacks implements Application.ActivityLifecycleCallbacks {
+
+        /* renamed from: a, reason: collision with root package name */
+        Object f1396a;
+
+        /* renamed from: b, reason: collision with root package name */
+        private Activity f1397b;
+
+        /* renamed from: c, reason: collision with root package name */
+        private boolean f1398c = false;
+
+        /* renamed from: d, reason: collision with root package name */
+        private boolean f1399d = false;
+
+        /* renamed from: e, reason: collision with root package name */
+        private boolean f1400e = false;
+
+        LifecycleCheckCallbacks(@NonNull Activity activity) {
+            this.f1397b = activity;
         }
 
         @Override // android.app.Application.ActivityLifecycleCallbacks
@@ -46,19 +70,19 @@ final class ActivityRecreator {
 
         @Override // android.app.Application.ActivityLifecycleCallbacks
         public void onActivityDestroyed(Activity activity) {
-            if (this.mActivity == activity) {
-                this.mActivity = null;
-                this.mDestroyed = true;
+            if (this.f1397b == activity) {
+                this.f1397b = null;
+                this.f1399d = true;
             }
         }
 
         @Override // android.app.Application.ActivityLifecycleCallbacks
         public void onActivityPaused(Activity activity) {
-            if (!this.mDestroyed || this.mStopQueued || this.mStarted || !ActivityRecreator.queueOnStopIfNecessary(this.currentlyRecreatingToken, this.mRecreatingHashCode, activity)) {
+            if (!this.f1399d || this.f1400e || this.f1398c || !ActivityRecreator.h(this.f1396a, activity)) {
                 return;
             }
-            this.mStopQueued = true;
-            this.currentlyRecreatingToken = null;
+            this.f1400e = true;
+            this.f1396a = null;
         }
 
         @Override // android.app.Application.ActivityLifecycleCallbacks
@@ -71,8 +95,8 @@ final class ActivityRecreator {
 
         @Override // android.app.Application.ActivityLifecycleCallbacks
         public void onActivityStarted(Activity activity) {
-            if (this.mActivity == activity) {
-                this.mStarted = true;
+            if (this.f1397b == activity) {
+                this.f1398c = true;
             }
         }
 
@@ -82,19 +106,19 @@ final class ActivityRecreator {
     }
 
     static {
-        Class<?> activityThreadClass2 = getActivityThreadClass();
-        activityThreadClass = activityThreadClass2;
-        mainThreadField = getMainThreadField();
-        tokenField = getTokenField();
-        performStopActivity3ParamsMethod = getPerformStopActivity3Params(activityThreadClass2);
-        performStopActivity2ParamsMethod = getPerformStopActivity2Params(activityThreadClass2);
-        requestRelaunchActivityMethod = getRequestRelaunchActivityMethod(activityThreadClass2);
+        Class<?> a2 = a();
+        f1383b = a2;
+        f1384c = b();
+        f1385d = f();
+        f1386e = d(a2);
+        f1387f = c(a2);
+        f1388g = e(a2);
     }
 
     private ActivityRecreator() {
     }
 
-    private static Class<?> getActivityThreadClass() {
+    private static Class<?> a() {
         try {
             return Class.forName("android.app.ActivityThread");
         } catch (Throwable unused) {
@@ -102,7 +126,7 @@ final class ActivityRecreator {
         }
     }
 
-    private static Field getMainThreadField() {
+    private static Field b() {
         try {
             Field declaredField = Activity.class.getDeclaredField("mMainThread");
             declaredField.setAccessible(true);
@@ -112,7 +136,7 @@ final class ActivityRecreator {
         }
     }
 
-    private static Method getPerformStopActivity2Params(Class<?> cls) {
+    private static Method c(Class<?> cls) {
         if (cls == null) {
             return null;
         }
@@ -125,7 +149,7 @@ final class ActivityRecreator {
         }
     }
 
-    private static Method getPerformStopActivity3Params(Class<?> cls) {
+    private static Method d(Class<?> cls) {
         if (cls == null) {
             return null;
         }
@@ -138,8 +162,8 @@ final class ActivityRecreator {
         }
     }
 
-    private static Method getRequestRelaunchActivityMethod(Class<?> cls) {
-        if (needsRelaunchCall() && cls != null) {
+    private static Method e(Class<?> cls) {
+        if (g() && cls != null) {
             try {
                 Class<?> cls2 = Boolean.TYPE;
                 Method declaredMethod = cls.getDeclaredMethod("requestRelaunchActivity", IBinder.class, List.class, List.class, Integer.TYPE, cls2, Configuration.class, Configuration.class, cls2, cls2);
@@ -151,7 +175,7 @@ final class ActivityRecreator {
         return null;
     }
 
-    private static Field getTokenField() {
+    private static Field f() {
         try {
             Field declaredField = Activity.class.getDeclaredField("mToken");
             declaredField.setAccessible(true);
@@ -161,74 +185,74 @@ final class ActivityRecreator {
         }
     }
 
-    private static boolean needsRelaunchCall() {
-        int i10 = Build.VERSION.SDK_INT;
-        return i10 == 26 || i10 == 27;
+    private static boolean g() {
+        int i2 = Build.VERSION.SDK_INT;
+        return i2 == 26 || i2 == 27;
     }
 
-    public static boolean queueOnStopIfNecessary(Object obj, int i10, Activity activity) {
+    protected static boolean h(Object obj, Activity activity) {
         try {
-            final Object obj2 = tokenField.get(activity);
-            if (obj2 == obj && activity.hashCode() == i10) {
-                final Object obj3 = mainThreadField.get(activity);
-                mainHandler.postAtFrontOfQueue(new Runnable() { // from class: androidx.core.app.ActivityRecreator.3
-                    @Override // java.lang.Runnable
-                    public void run() {
-                        try {
-                            Method method = ActivityRecreator.performStopActivity3ParamsMethod;
-                            if (method != null) {
-                                method.invoke(obj3, obj2, Boolean.FALSE, "AppCompat recreation");
-                            } else {
-                                ActivityRecreator.performStopActivity2ParamsMethod.invoke(obj3, obj2, Boolean.FALSE);
-                            }
-                        } catch (RuntimeException e10) {
-                            if (e10.getClass() == RuntimeException.class && e10.getMessage() != null && e10.getMessage().startsWith("Unable to stop")) {
-                                throw e10;
-                            }
-                        } catch (Throwable th2) {
-                            Log.e(ActivityRecreator.LOG_TAG, "Exception while invoking performStopActivity", th2);
-                        }
-                    }
-                });
-                return true;
+            final Object obj2 = f1385d.get(activity);
+            if (obj2 != obj) {
+                return false;
             }
-            return false;
-        } catch (Throwable th2) {
-            Log.e(LOG_TAG, "Exception while fetching field values", th2);
+            final Object obj3 = f1384c.get(activity);
+            f1389h.postAtFrontOfQueue(new Runnable() { // from class: androidx.core.app.ActivityRecreator.3
+                @Override // java.lang.Runnable
+                public void run() {
+                    try {
+                        Method method = ActivityRecreator.f1386e;
+                        if (method != null) {
+                            method.invoke(obj3, obj2, Boolean.FALSE, "AppCompat recreation");
+                        } else {
+                            ActivityRecreator.f1387f.invoke(obj3, obj2, Boolean.FALSE);
+                        }
+                    } catch (RuntimeException e2) {
+                        if (e2.getClass() == RuntimeException.class && e2.getMessage() != null && e2.getMessage().startsWith("Unable to stop")) {
+                            throw e2;
+                        }
+                    } catch (Throwable th) {
+                        Log.e(ActivityRecreator.f1382a, "Exception while invoking performStopActivity", th);
+                    }
+                }
+            });
+            return true;
+        } catch (Throwable th) {
+            Log.e(f1382a, "Exception while fetching field values", th);
             return false;
         }
     }
 
-    public static boolean recreate(@NonNull Activity activity) {
+    static boolean i(@NonNull Activity activity) {
         Object obj;
         if (Build.VERSION.SDK_INT >= 28) {
             activity.recreate();
             return true;
         }
-        if (needsRelaunchCall() && requestRelaunchActivityMethod == null) {
+        if (g() && f1388g == null) {
             return false;
         }
-        if (performStopActivity2ParamsMethod == null && performStopActivity3ParamsMethod == null) {
+        if (f1387f == null && f1386e == null) {
             return false;
         }
         try {
-            final Object obj2 = tokenField.get(activity);
-            if (obj2 == null || (obj = mainThreadField.get(activity)) == null) {
+            final Object obj2 = f1385d.get(activity);
+            if (obj2 == null || (obj = f1384c.get(activity)) == null) {
                 return false;
             }
             final Application application = activity.getApplication();
             final LifecycleCheckCallbacks lifecycleCheckCallbacks = new LifecycleCheckCallbacks(activity);
             application.registerActivityLifecycleCallbacks(lifecycleCheckCallbacks);
-            Handler handler = mainHandler;
+            Handler handler = f1389h;
             handler.post(new Runnable() { // from class: androidx.core.app.ActivityRecreator.1
                 @Override // java.lang.Runnable
                 public void run() {
-                    LifecycleCheckCallbacks.this.currentlyRecreatingToken = obj2;
+                    LifecycleCheckCallbacks.this.f1396a = obj2;
                 }
             });
             try {
-                if (needsRelaunchCall()) {
-                    Method method = requestRelaunchActivityMethod;
+                if (g()) {
+                    Method method = f1388g;
                     Boolean bool = Boolean.FALSE;
                     method.invoke(obj, obj2, null, null, 0, bool, null, null, bool, bool);
                 } else {
@@ -241,14 +265,14 @@ final class ActivityRecreator {
                     }
                 });
                 return true;
-            } catch (Throwable th2) {
-                mainHandler.post(new Runnable() { // from class: androidx.core.app.ActivityRecreator.2
+            } catch (Throwable th) {
+                f1389h.post(new Runnable() { // from class: androidx.core.app.ActivityRecreator.2
                     @Override // java.lang.Runnable
                     public void run() {
                         application.unregisterActivityLifecycleCallbacks(lifecycleCheckCallbacks);
                     }
                 });
-                throw th2;
+                throw th;
             }
         } catch (Throwable unused) {
             return false;

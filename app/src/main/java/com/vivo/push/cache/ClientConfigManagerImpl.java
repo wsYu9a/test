@@ -24,14 +24,10 @@ public class ClientConfigManagerImpl implements d {
     public static synchronized ClientConfigManagerImpl getInstance(Context context) {
         ClientConfigManagerImpl clientConfigManagerImpl;
         synchronized (ClientConfigManagerImpl.class) {
-            try {
-                if (sClientConfigManagerImpl == null) {
-                    sClientConfigManagerImpl = new ClientConfigManagerImpl(context);
-                }
-                clientConfigManagerImpl = sClientConfigManagerImpl;
-            } catch (Throwable th2) {
-                throw th2;
+            if (sClientConfigManagerImpl == null) {
+                sClientConfigManagerImpl = new ClientConfigManagerImpl(context);
             }
+            clientConfigManagerImpl = sClientConfigManagerImpl;
         }
         return clientConfigManagerImpl;
     }
@@ -130,31 +126,31 @@ public class ClientConfigManagerImpl implements d {
 
     public boolean isEnablePush() {
         prepareAppConfig();
-        com.vivo.push.model.a c10 = this.mAppConfigSettings.c(this.mContext.getPackageName());
-        if (c10 != null) {
-            return "1".equals(c10.b());
+        com.vivo.push.model.a c2 = this.mAppConfigSettings.c(this.mContext.getPackageName());
+        if (c2 != null) {
+            return "1".equals(c2.b());
         }
         return true;
     }
 
     @Override // com.vivo.push.cache.d
-    public boolean isInBlackList(long j10) {
-        String c10 = preparePushConfigSettings().c("BL");
-        if (!TextUtils.isEmpty(c10)) {
-            for (String str : c10.split(",")) {
+    public boolean isInBlackList(long j2) {
+        String c2 = preparePushConfigSettings().c("BL");
+        if (!TextUtils.isEmpty(c2)) {
+            for (String str : c2.split(",")) {
                 try {
-                    if (!TextUtils.isEmpty(str) && Long.parseLong(str) == j10) {
+                    if (!TextUtils.isEmpty(str) && Long.parseLong(str) == j2) {
                         return true;
                     }
-                } catch (NumberFormatException e10) {
-                    e10.printStackTrace();
+                } catch (NumberFormatException e2) {
+                    e2.printStackTrace();
                 }
             }
         }
         return false;
     }
 
-    public boolean isDebug(int i10) {
-        return a.a(i10);
+    public boolean isDebug(int i2) {
+        return a.a(i2);
     }
 }

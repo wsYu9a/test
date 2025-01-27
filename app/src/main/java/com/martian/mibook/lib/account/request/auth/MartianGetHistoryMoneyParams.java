@@ -1,6 +1,6 @@
 package com.martian.mibook.lib.account.request.auth;
 
-import v8.a;
+import com.martian.libcomm.http.requests.d.a;
 
 /* loaded from: classes3.dex */
 public class MartianGetHistoryMoneyParams extends TYAuthParams {
@@ -32,11 +32,11 @@ public class MartianGetHistoryMoneyParams extends TYAuthParams {
         return num.intValue();
     }
 
-    public void setPage(Integer num) {
-        this.page = num;
+    public void setPage(Integer page) {
+        this.page = page;
     }
 
-    public void setPaseSize(Integer num) {
-        this.pageSize = num;
+    public void setPaseSize(Integer pageSize) {
+        this.pageSize = pageSize;
     }
 }

@@ -26,12 +26,8 @@ import android.util.Log;
 import androidx.annotation.GuardedBy;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.annotation.RequiresPermission;
 import java.lang.reflect.InvocationTargetException;
-import java.lang.reflect.Method;
 import java.util.ArrayDeque;
-import java.util.ArrayList;
-import java.util.Collection;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -39,13 +35,10 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
-import q.l3;
-import q.p0;
 
 /* loaded from: classes.dex */
 public final class NotificationManagerCompat {
     public static final String ACTION_BIND_SIDE_CHANNEL = "android.support.BIND_NOTIFICATION_SIDE_CHANNEL";
-    private static final String CHECK_OP_NO_THROW = "checkOpNoThrow";
     public static final String EXTRA_USE_SIDE_CHANNEL = "android.support.useSideChannel";
     public static final int IMPORTANCE_DEFAULT = 3;
     public static final int IMPORTANCE_HIGH = 4;
@@ -54,237 +47,293 @@ public final class NotificationManagerCompat {
     public static final int IMPORTANCE_MIN = 1;
     public static final int IMPORTANCE_NONE = 0;
     public static final int IMPORTANCE_UNSPECIFIED = -1000;
-    static final int MAX_SIDE_CHANNEL_SDK_VERSION = 19;
-    private static final String OP_POST_NOTIFICATION = "OP_POST_NOTIFICATION";
-    private static final String SETTING_ENABLED_NOTIFICATION_LISTENERS = "enabled_notification_listeners";
-    private static final int SIDE_CHANNEL_RETRY_BASE_INTERVAL_MS = 1000;
-    private static final int SIDE_CHANNEL_RETRY_MAX_COUNT = 6;
-    private static final String TAG = "NotifManCompat";
 
+    /* renamed from: a */
+    private static final String f1579a = "NotifManCompat";
+
+    /* renamed from: b */
+    private static final String f1580b = "checkOpNoThrow";
+
+    /* renamed from: c */
+    private static final String f1581c = "OP_POST_NOTIFICATION";
+
+    /* renamed from: d */
+    static final int f1582d = 19;
+
+    /* renamed from: e */
+    private static final int f1583e = 1000;
+
+    /* renamed from: f */
+    private static final int f1584f = 6;
+
+    /* renamed from: g */
+    private static final String f1585g = "enabled_notification_listeners";
+
+    /* renamed from: i */
     @GuardedBy("sEnabledNotificationListenersLock")
-    private static String sEnabledNotificationListeners;
+    private static String f1587i;
 
     @GuardedBy("sLock")
-    private static SideChannelManager sSideChannelManager;
-    private final Context mContext;
-    private final NotificationManager mNotificationManager;
-    private static final Object sEnabledNotificationListenersLock = new Object();
+    private static SideChannelManager l;
+    private final Context m;
+    private final NotificationManager n;
 
+    /* renamed from: h */
+    private static final Object f1586h = new Object();
+
+    /* renamed from: j */
     @GuardedBy("sEnabledNotificationListenersLock")
-    private static Set<String> sEnabledNotificationListenerPackages = new HashSet();
-    private static final Object sLock = new Object();
+    private static Set<String> f1588j = new HashSet();
+    private static final Object k = new Object();
 
-    public static class NotifyTask implements Task {
+    private static class NotifyTask implements Task {
 
-        /* renamed from: id */
-        final int f310id;
-        final Notification notif;
-        final String packageName;
-        final String tag;
+        /* renamed from: a */
+        final String f1593a;
 
-        public NotifyTask(String str, int i10, String str2, Notification notification) {
-            this.packageName = str;
-            this.f310id = i10;
-            this.tag = str2;
-            this.notif = notification;
+        /* renamed from: b */
+        final int f1594b;
+
+        /* renamed from: c */
+        final String f1595c;
+
+        /* renamed from: d */
+        final Notification f1596d;
+
+        NotifyTask(String str, int i2, String str2, Notification notification) {
+            this.f1593a = str;
+            this.f1594b = i2;
+            this.f1595c = str2;
+            this.f1596d = notification;
         }
 
         @Override // androidx.core.app.NotificationManagerCompat.Task
         public void send(INotificationSideChannel iNotificationSideChannel) throws RemoteException {
-            iNotificationSideChannel.notify(this.packageName, this.f310id, this.tag, this.notif);
+            iNotificationSideChannel.notify(this.f1593a, this.f1594b, this.f1595c, this.f1596d);
         }
 
         @NonNull
         public String toString() {
-            return "NotifyTask[packageName:" + this.packageName + ", id:" + this.f310id + ", tag:" + this.tag + "]";
+            return "NotifyTask[packageName:" + this.f1593a + ", id:" + this.f1594b + ", tag:" + this.f1595c + "]";
         }
     }
 
-    public static class ServiceConnectedEvent {
-        final ComponentName componentName;
-        final IBinder iBinder;
+    private static class ServiceConnectedEvent {
 
-        public ServiceConnectedEvent(ComponentName componentName, IBinder iBinder) {
-            this.componentName = componentName;
-            this.iBinder = iBinder;
+        /* renamed from: a */
+        final ComponentName f1597a;
+
+        /* renamed from: b */
+        final IBinder f1598b;
+
+        ServiceConnectedEvent(ComponentName componentName, IBinder iBinder) {
+            this.f1597a = componentName;
+            this.f1598b = iBinder;
         }
     }
 
-    public static class SideChannelManager implements Handler.Callback, ServiceConnection {
-        private static final int MSG_QUEUE_TASK = 0;
-        private static final int MSG_RETRY_LISTENER_QUEUE = 3;
-        private static final int MSG_SERVICE_CONNECTED = 1;
-        private static final int MSG_SERVICE_DISCONNECTED = 2;
-        private final Context mContext;
-        private final Handler mHandler;
-        private final HandlerThread mHandlerThread;
-        private final Map<ComponentName, ListenerRecord> mRecordMap = new HashMap();
-        private Set<String> mCachedEnabledPackages = new HashSet();
+    private static class SideChannelManager implements Handler.Callback, ServiceConnection {
 
-        public static class ListenerRecord {
-            final ComponentName componentName;
-            INotificationSideChannel service;
-            boolean bound = false;
-            ArrayDeque<Task> taskQueue = new ArrayDeque<>();
-            int retryCount = 0;
+        /* renamed from: a */
+        private static final int f1599a = 0;
 
-            public ListenerRecord(ComponentName componentName) {
-                this.componentName = componentName;
+        /* renamed from: b */
+        private static final int f1600b = 1;
+
+        /* renamed from: c */
+        private static final int f1601c = 2;
+
+        /* renamed from: d */
+        private static final int f1602d = 3;
+
+        /* renamed from: e */
+        private final Context f1603e;
+
+        /* renamed from: f */
+        private final HandlerThread f1604f;
+
+        /* renamed from: g */
+        private final Handler f1605g;
+
+        /* renamed from: h */
+        private final Map<ComponentName, ListenerRecord> f1606h = new HashMap();
+
+        /* renamed from: i */
+        private Set<String> f1607i = new HashSet();
+
+        private static class ListenerRecord {
+
+            /* renamed from: a */
+            final ComponentName f1608a;
+
+            /* renamed from: c */
+            INotificationSideChannel f1610c;
+
+            /* renamed from: b */
+            boolean f1609b = false;
+
+            /* renamed from: d */
+            ArrayDeque<Task> f1611d = new ArrayDeque<>();
+
+            /* renamed from: e */
+            int f1612e = 0;
+
+            ListenerRecord(ComponentName componentName) {
+                this.f1608a = componentName;
             }
         }
 
-        public SideChannelManager(Context context) {
-            this.mContext = context;
+        SideChannelManager(Context context) {
+            this.f1603e = context;
             HandlerThread handlerThread = new HandlerThread("NotificationManagerCompat");
-            this.mHandlerThread = handlerThread;
+            this.f1604f = handlerThread;
             handlerThread.start();
-            this.mHandler = new Handler(handlerThread.getLooper(), this);
+            this.f1605g = new Handler(handlerThread.getLooper(), this);
         }
 
-        private boolean ensureServiceBound(ListenerRecord listenerRecord) {
-            if (listenerRecord.bound) {
+        private boolean a(ListenerRecord listenerRecord) {
+            if (listenerRecord.f1609b) {
                 return true;
             }
-            boolean bindService = this.mContext.bindService(new Intent(NotificationManagerCompat.ACTION_BIND_SIDE_CHANNEL).setComponent(listenerRecord.componentName), this, 33);
-            listenerRecord.bound = bindService;
+            boolean bindService = this.f1603e.bindService(new Intent(NotificationManagerCompat.ACTION_BIND_SIDE_CHANNEL).setComponent(listenerRecord.f1608a), this, 33);
+            listenerRecord.f1609b = bindService;
             if (bindService) {
-                listenerRecord.retryCount = 0;
+                listenerRecord.f1612e = 0;
             } else {
-                Log.w(NotificationManagerCompat.TAG, "Unable to bind to listener " + listenerRecord.componentName);
-                this.mContext.unbindService(this);
+                Log.w(NotificationManagerCompat.f1579a, "Unable to bind to listener " + listenerRecord.f1608a);
+                this.f1603e.unbindService(this);
             }
-            return listenerRecord.bound;
+            return listenerRecord.f1609b;
         }
 
-        private void ensureServiceUnbound(ListenerRecord listenerRecord) {
-            if (listenerRecord.bound) {
-                this.mContext.unbindService(this);
-                listenerRecord.bound = false;
+        private void b(ListenerRecord listenerRecord) {
+            if (listenerRecord.f1609b) {
+                this.f1603e.unbindService(this);
+                listenerRecord.f1609b = false;
             }
-            listenerRecord.service = null;
+            listenerRecord.f1610c = null;
         }
 
-        private void handleQueueTask(Task task) {
-            updateListenerMap();
-            for (ListenerRecord listenerRecord : this.mRecordMap.values()) {
-                listenerRecord.taskQueue.add(task);
-                processListenerQueue(listenerRecord);
+        private void c(Task task) {
+            i();
+            for (ListenerRecord listenerRecord : this.f1606h.values()) {
+                listenerRecord.f1611d.add(task);
+                g(listenerRecord);
             }
         }
 
-        private void handleRetryListenerQueue(ComponentName componentName) {
-            ListenerRecord listenerRecord = this.mRecordMap.get(componentName);
+        private void d(ComponentName componentName) {
+            ListenerRecord listenerRecord = this.f1606h.get(componentName);
             if (listenerRecord != null) {
-                processListenerQueue(listenerRecord);
+                g(listenerRecord);
             }
         }
 
-        private void handleServiceConnected(ComponentName componentName, IBinder iBinder) {
-            ListenerRecord listenerRecord = this.mRecordMap.get(componentName);
+        private void e(ComponentName componentName, IBinder iBinder) {
+            ListenerRecord listenerRecord = this.f1606h.get(componentName);
             if (listenerRecord != null) {
-                listenerRecord.service = INotificationSideChannel.Stub.asInterface(iBinder);
-                listenerRecord.retryCount = 0;
-                processListenerQueue(listenerRecord);
+                listenerRecord.f1610c = INotificationSideChannel.Stub.asInterface(iBinder);
+                listenerRecord.f1612e = 0;
+                g(listenerRecord);
             }
         }
 
-        private void handleServiceDisconnected(ComponentName componentName) {
-            ListenerRecord listenerRecord = this.mRecordMap.get(componentName);
+        private void f(ComponentName componentName) {
+            ListenerRecord listenerRecord = this.f1606h.get(componentName);
             if (listenerRecord != null) {
-                ensureServiceUnbound(listenerRecord);
+                b(listenerRecord);
             }
         }
 
-        private void processListenerQueue(ListenerRecord listenerRecord) {
-            if (Log.isLoggable(NotificationManagerCompat.TAG, 3)) {
-                Log.d(NotificationManagerCompat.TAG, "Processing component " + listenerRecord.componentName + ", " + listenerRecord.taskQueue.size() + " queued tasks");
+        private void g(ListenerRecord listenerRecord) {
+            if (Log.isLoggable(NotificationManagerCompat.f1579a, 3)) {
+                Log.d(NotificationManagerCompat.f1579a, "Processing component " + listenerRecord.f1608a + ", " + listenerRecord.f1611d.size() + " queued tasks");
             }
-            if (listenerRecord.taskQueue.isEmpty()) {
+            if (listenerRecord.f1611d.isEmpty()) {
                 return;
             }
-            if (!ensureServiceBound(listenerRecord) || listenerRecord.service == null) {
-                scheduleListenerRetry(listenerRecord);
+            if (!a(listenerRecord) || listenerRecord.f1610c == null) {
+                h(listenerRecord);
                 return;
             }
             while (true) {
-                Task peek = listenerRecord.taskQueue.peek();
+                Task peek = listenerRecord.f1611d.peek();
                 if (peek == null) {
                     break;
                 }
                 try {
-                    if (Log.isLoggable(NotificationManagerCompat.TAG, 3)) {
-                        Log.d(NotificationManagerCompat.TAG, "Sending task " + peek);
+                    if (Log.isLoggable(NotificationManagerCompat.f1579a, 3)) {
+                        Log.d(NotificationManagerCompat.f1579a, "Sending task " + peek);
                     }
-                    peek.send(listenerRecord.service);
-                    listenerRecord.taskQueue.remove();
+                    peek.send(listenerRecord.f1610c);
+                    listenerRecord.f1611d.remove();
                 } catch (DeadObjectException unused) {
-                    if (Log.isLoggable(NotificationManagerCompat.TAG, 3)) {
-                        Log.d(NotificationManagerCompat.TAG, "Remote service has died: " + listenerRecord.componentName);
+                    if (Log.isLoggable(NotificationManagerCompat.f1579a, 3)) {
+                        Log.d(NotificationManagerCompat.f1579a, "Remote service has died: " + listenerRecord.f1608a);
                     }
-                } catch (RemoteException e10) {
-                    Log.w(NotificationManagerCompat.TAG, "RemoteException communicating with " + listenerRecord.componentName, e10);
+                } catch (RemoteException e2) {
+                    Log.w(NotificationManagerCompat.f1579a, "RemoteException communicating with " + listenerRecord.f1608a, e2);
                 }
             }
-            if (listenerRecord.taskQueue.isEmpty()) {
+            if (listenerRecord.f1611d.isEmpty()) {
                 return;
             }
-            scheduleListenerRetry(listenerRecord);
+            h(listenerRecord);
         }
 
-        private void scheduleListenerRetry(ListenerRecord listenerRecord) {
-            if (this.mHandler.hasMessages(3, listenerRecord.componentName)) {
+        private void h(ListenerRecord listenerRecord) {
+            if (this.f1605g.hasMessages(3, listenerRecord.f1608a)) {
                 return;
             }
-            int i10 = listenerRecord.retryCount;
-            int i11 = i10 + 1;
-            listenerRecord.retryCount = i11;
-            if (i11 <= 6) {
-                int i12 = (1 << i10) * 1000;
-                if (Log.isLoggable(NotificationManagerCompat.TAG, 3)) {
-                    Log.d(NotificationManagerCompat.TAG, "Scheduling retry for " + i12 + " ms");
+            int i2 = listenerRecord.f1612e + 1;
+            listenerRecord.f1612e = i2;
+            if (i2 <= 6) {
+                int i3 = (1 << (i2 - 1)) * 1000;
+                if (Log.isLoggable(NotificationManagerCompat.f1579a, 3)) {
+                    Log.d(NotificationManagerCompat.f1579a, "Scheduling retry for " + i3 + " ms");
                 }
-                this.mHandler.sendMessageDelayed(this.mHandler.obtainMessage(3, listenerRecord.componentName), i12);
+                this.f1605g.sendMessageDelayed(this.f1605g.obtainMessage(3, listenerRecord.f1608a), i3);
                 return;
             }
-            Log.w(NotificationManagerCompat.TAG, "Giving up on delivering " + listenerRecord.taskQueue.size() + " tasks to " + listenerRecord.componentName + " after " + listenerRecord.retryCount + " retries");
-            listenerRecord.taskQueue.clear();
+            Log.w(NotificationManagerCompat.f1579a, "Giving up on delivering " + listenerRecord.f1611d.size() + " tasks to " + listenerRecord.f1608a + " after " + listenerRecord.f1612e + " retries");
+            listenerRecord.f1611d.clear();
         }
 
-        private void updateListenerMap() {
-            Set<String> enabledListenerPackages = NotificationManagerCompat.getEnabledListenerPackages(this.mContext);
-            if (enabledListenerPackages.equals(this.mCachedEnabledPackages)) {
+        private void i() {
+            Set<String> enabledListenerPackages = NotificationManagerCompat.getEnabledListenerPackages(this.f1603e);
+            if (enabledListenerPackages.equals(this.f1607i)) {
                 return;
             }
-            this.mCachedEnabledPackages = enabledListenerPackages;
-            List<ResolveInfo> queryIntentServices = this.mContext.getPackageManager().queryIntentServices(new Intent().setAction(NotificationManagerCompat.ACTION_BIND_SIDE_CHANNEL), 0);
+            this.f1607i = enabledListenerPackages;
+            List<ResolveInfo> queryIntentServices = this.f1603e.getPackageManager().queryIntentServices(new Intent().setAction(NotificationManagerCompat.ACTION_BIND_SIDE_CHANNEL), 0);
             HashSet<ComponentName> hashSet = new HashSet();
             for (ResolveInfo resolveInfo : queryIntentServices) {
                 if (enabledListenerPackages.contains(resolveInfo.serviceInfo.packageName)) {
                     ServiceInfo serviceInfo = resolveInfo.serviceInfo;
                     ComponentName componentName = new ComponentName(serviceInfo.packageName, serviceInfo.name);
                     if (resolveInfo.serviceInfo.permission != null) {
-                        Log.w(NotificationManagerCompat.TAG, "Permission present on component " + componentName + ", not adding listener record.");
+                        Log.w(NotificationManagerCompat.f1579a, "Permission present on component " + componentName + ", not adding listener record.");
                     } else {
                         hashSet.add(componentName);
                     }
                 }
             }
             for (ComponentName componentName2 : hashSet) {
-                if (!this.mRecordMap.containsKey(componentName2)) {
-                    if (Log.isLoggable(NotificationManagerCompat.TAG, 3)) {
-                        Log.d(NotificationManagerCompat.TAG, "Adding listener record for " + componentName2);
+                if (!this.f1606h.containsKey(componentName2)) {
+                    if (Log.isLoggable(NotificationManagerCompat.f1579a, 3)) {
+                        Log.d(NotificationManagerCompat.f1579a, "Adding listener record for " + componentName2);
                     }
-                    this.mRecordMap.put(componentName2, new ListenerRecord(componentName2));
+                    this.f1606h.put(componentName2, new ListenerRecord(componentName2));
                 }
             }
-            Iterator<Map.Entry<ComponentName, ListenerRecord>> it = this.mRecordMap.entrySet().iterator();
+            Iterator<Map.Entry<ComponentName, ListenerRecord>> it = this.f1606h.entrySet().iterator();
             while (it.hasNext()) {
                 Map.Entry<ComponentName, ListenerRecord> next = it.next();
                 if (!hashSet.contains(next.getKey())) {
-                    if (Log.isLoggable(NotificationManagerCompat.TAG, 3)) {
-                        Log.d(NotificationManagerCompat.TAG, "Removing listener record for " + next.getKey());
+                    if (Log.isLoggable(NotificationManagerCompat.f1579a, 3)) {
+                        Log.d(NotificationManagerCompat.f1579a, "Removing listener record for " + next.getKey());
                     }
-                    ensureServiceUnbound(next.getValue());
+                    b(next.getValue());
                     it.remove();
                 }
             }
@@ -292,55 +341,69 @@ public final class NotificationManagerCompat {
 
         @Override // android.os.Handler.Callback
         public boolean handleMessage(Message message) {
-            int i10 = message.what;
-            if (i10 == 0) {
-                handleQueueTask((Task) message.obj);
+            int i2 = message.what;
+            if (i2 == 0) {
+                c((Task) message.obj);
                 return true;
             }
-            if (i10 == 1) {
+            if (i2 == 1) {
                 ServiceConnectedEvent serviceConnectedEvent = (ServiceConnectedEvent) message.obj;
-                handleServiceConnected(serviceConnectedEvent.componentName, serviceConnectedEvent.iBinder);
+                e(serviceConnectedEvent.f1597a, serviceConnectedEvent.f1598b);
                 return true;
             }
-            if (i10 == 2) {
-                handleServiceDisconnected((ComponentName) message.obj);
+            if (i2 == 2) {
+                f((ComponentName) message.obj);
                 return true;
             }
-            if (i10 != 3) {
+            if (i2 != 3) {
                 return false;
             }
-            handleRetryListenerQueue((ComponentName) message.obj);
+            d((ComponentName) message.obj);
             return true;
         }
 
         @Override // android.content.ServiceConnection
         public void onServiceConnected(ComponentName componentName, IBinder iBinder) {
-            if (Log.isLoggable(NotificationManagerCompat.TAG, 3)) {
-                Log.d(NotificationManagerCompat.TAG, "Connected to service " + componentName);
+            if (Log.isLoggable(NotificationManagerCompat.f1579a, 3)) {
+                Log.d(NotificationManagerCompat.f1579a, "Connected to service " + componentName);
             }
-            this.mHandler.obtainMessage(1, new ServiceConnectedEvent(componentName, iBinder)).sendToTarget();
+            this.f1605g.obtainMessage(1, new ServiceConnectedEvent(componentName, iBinder)).sendToTarget();
         }
 
         @Override // android.content.ServiceConnection
         public void onServiceDisconnected(ComponentName componentName) {
-            if (Log.isLoggable(NotificationManagerCompat.TAG, 3)) {
-                Log.d(NotificationManagerCompat.TAG, "Disconnected from service " + componentName);
+            if (Log.isLoggable(NotificationManagerCompat.f1579a, 3)) {
+                Log.d(NotificationManagerCompat.f1579a, "Disconnected from service " + componentName);
             }
-            this.mHandler.obtainMessage(2, componentName).sendToTarget();
+            this.f1605g.obtainMessage(2, componentName).sendToTarget();
         }
 
         public void queueTask(Task task) {
-            this.mHandler.obtainMessage(0, task).sendToTarget();
+            this.f1605g.obtainMessage(0, task).sendToTarget();
         }
     }
 
-    public interface Task {
+    private interface Task {
         void send(INotificationSideChannel iNotificationSideChannel) throws RemoteException;
     }
 
     private NotificationManagerCompat(Context context) {
-        this.mContext = context;
-        this.mNotificationManager = (NotificationManager) context.getSystemService("notification");
+        this.m = context;
+        this.n = (NotificationManager) context.getSystemService("notification");
+    }
+
+    private void a(Task task) {
+        synchronized (k) {
+            if (l == null) {
+                l = new SideChannelManager(this.m.getApplicationContext());
+            }
+            l.queueTask(task);
+        }
+    }
+
+    private static boolean b(Notification notification) {
+        Bundle extras = NotificationCompat.getExtras(notification);
+        return extras != null && extras.getBoolean(EXTRA_USE_SIDE_CHANNEL);
     }
 
     @NonNull
@@ -351,370 +414,196 @@ public final class NotificationManagerCompat {
     @NonNull
     public static Set<String> getEnabledListenerPackages(@NonNull Context context) {
         Set<String> set;
-        String string = Settings.Secure.getString(context.getContentResolver(), SETTING_ENABLED_NOTIFICATION_LISTENERS);
-        synchronized (sEnabledNotificationListenersLock) {
+        String string = Settings.Secure.getString(context.getContentResolver(), f1585g);
+        synchronized (f1586h) {
             if (string != null) {
-                try {
-                    if (!string.equals(sEnabledNotificationListeners)) {
-                        String[] split = string.split(":", -1);
-                        HashSet hashSet = new HashSet(split.length);
-                        for (String str : split) {
-                            ComponentName unflattenFromString = ComponentName.unflattenFromString(str);
-                            if (unflattenFromString != null) {
-                                hashSet.add(unflattenFromString.getPackageName());
-                            }
+                if (!string.equals(f1587i)) {
+                    String[] split = string.split(":", -1);
+                    HashSet hashSet = new HashSet(split.length);
+                    for (String str : split) {
+                        ComponentName unflattenFromString = ComponentName.unflattenFromString(str);
+                        if (unflattenFromString != null) {
+                            hashSet.add(unflattenFromString.getPackageName());
                         }
-                        sEnabledNotificationListenerPackages = hashSet;
-                        sEnabledNotificationListeners = string;
                     }
-                } catch (Throwable th2) {
-                    throw th2;
+                    f1588j = hashSet;
+                    f1587i = string;
                 }
             }
-            set = sEnabledNotificationListenerPackages;
+            set = f1588j;
         }
         return set;
     }
 
-    private void pushSideChannelQueue(Task task) {
-        synchronized (sLock) {
-            try {
-                if (sSideChannelManager == null) {
-                    sSideChannelManager = new SideChannelManager(this.mContext.getApplicationContext());
-                }
-                sSideChannelManager.queueTask(task);
-            } catch (Throwable th2) {
-                throw th2;
-            }
-        }
-    }
-
-    private static boolean useSideChannelForNotification(Notification notification) {
-        Bundle extras = NotificationCompat.getExtras(notification);
-        return extras != null && extras.getBoolean(EXTRA_USE_SIDE_CHANNEL);
-    }
-
     public boolean areNotificationsEnabled() {
-        boolean areNotificationsEnabled;
-        if (Build.VERSION.SDK_INT >= 24) {
-            areNotificationsEnabled = this.mNotificationManager.areNotificationsEnabled();
-            return areNotificationsEnabled;
+        int i2 = Build.VERSION.SDK_INT;
+        if (i2 >= 24) {
+            return this.n.areNotificationsEnabled();
         }
-        AppOpsManager appOpsManager = (AppOpsManager) this.mContext.getSystemService("appops");
-        ApplicationInfo applicationInfo = this.mContext.getApplicationInfo();
-        String packageName = this.mContext.getApplicationContext().getPackageName();
-        int i10 = applicationInfo.uid;
+        if (i2 < 19) {
+            return true;
+        }
+        AppOpsManager appOpsManager = (AppOpsManager) this.m.getSystemService("appops");
+        ApplicationInfo applicationInfo = this.m.getApplicationInfo();
+        String packageName = this.m.getApplicationContext().getPackageName();
+        int i3 = applicationInfo.uid;
         try {
             Class<?> cls = Class.forName(AppOpsManager.class.getName());
             Class<?> cls2 = Integer.TYPE;
-            Method method = cls.getMethod("checkOpNoThrow", cls2, cls2, String.class);
-            Integer num = (Integer) cls.getDeclaredField("OP_POST_NOTIFICATION").get(Integer.class);
-            num.intValue();
-            return ((Integer) method.invoke(appOpsManager, num, Integer.valueOf(i10), packageName)).intValue() == 0;
+            return ((Integer) cls.getMethod(f1580b, cls2, cls2, String.class).invoke(appOpsManager, Integer.valueOf(((Integer) cls.getDeclaredField("OP_POST_NOTIFICATION").get(Integer.class)).intValue()), Integer.valueOf(i3), packageName)).intValue() == 0;
         } catch (ClassNotFoundException | IllegalAccessException | NoSuchFieldException | NoSuchMethodException | RuntimeException | InvocationTargetException unused) {
             return true;
         }
     }
 
-    public void cancel(int i10) {
-        cancel(null, i10);
+    public void cancel(int i2) {
+        cancel(null, i2);
     }
 
     public void cancelAll() {
-        this.mNotificationManager.cancelAll();
+        this.n.cancelAll();
+        if (Build.VERSION.SDK_INT <= 19) {
+            a(new CancelTask(this.m.getPackageName()));
+        }
     }
 
     public void createNotificationChannel(@NonNull NotificationChannel notificationChannel) {
         if (Build.VERSION.SDK_INT >= 26) {
-            this.mNotificationManager.createNotificationChannel(notificationChannel);
+            this.n.createNotificationChannel(notificationChannel);
         }
     }
 
     public void createNotificationChannelGroup(@NonNull NotificationChannelGroup notificationChannelGroup) {
         if (Build.VERSION.SDK_INT >= 26) {
-            this.mNotificationManager.createNotificationChannelGroup(notificationChannelGroup);
+            this.n.createNotificationChannelGroup(notificationChannelGroup);
         }
     }
 
     public void createNotificationChannelGroups(@NonNull List<NotificationChannelGroup> list) {
         if (Build.VERSION.SDK_INT >= 26) {
-            this.mNotificationManager.createNotificationChannelGroups(list);
+            this.n.createNotificationChannelGroups(list);
         }
-    }
-
-    public void createNotificationChannelGroupsCompat(@NonNull List<NotificationChannelGroupCompat> list) {
-        if (Build.VERSION.SDK_INT < 26 || list.isEmpty()) {
-            return;
-        }
-        ArrayList arrayList = new ArrayList(list.size());
-        Iterator<NotificationChannelGroupCompat> it = list.iterator();
-        while (it.hasNext()) {
-            arrayList.add(it.next().getNotificationChannelGroup());
-        }
-        this.mNotificationManager.createNotificationChannelGroups(arrayList);
     }
 
     public void createNotificationChannels(@NonNull List<NotificationChannel> list) {
         if (Build.VERSION.SDK_INT >= 26) {
-            this.mNotificationManager.createNotificationChannels(list);
+            this.n.createNotificationChannels(list);
         }
-    }
-
-    public void createNotificationChannelsCompat(@NonNull List<NotificationChannelCompat> list) {
-        if (Build.VERSION.SDK_INT < 26 || list.isEmpty()) {
-            return;
-        }
-        ArrayList arrayList = new ArrayList(list.size());
-        Iterator<NotificationChannelCompat> it = list.iterator();
-        while (it.hasNext()) {
-            arrayList.add(it.next().getNotificationChannel());
-        }
-        this.mNotificationManager.createNotificationChannels(arrayList);
     }
 
     public void deleteNotificationChannel(@NonNull String str) {
         if (Build.VERSION.SDK_INT >= 26) {
-            this.mNotificationManager.deleteNotificationChannel(str);
+            this.n.deleteNotificationChannel(str);
         }
     }
 
     public void deleteNotificationChannelGroup(@NonNull String str) {
         if (Build.VERSION.SDK_INT >= 26) {
-            this.mNotificationManager.deleteNotificationChannelGroup(str);
-        }
-    }
-
-    public void deleteUnlistedNotificationChannels(@NonNull Collection<String> collection) {
-        List notificationChannels;
-        String id2;
-        String id3;
-        String parentChannelId;
-        if (Build.VERSION.SDK_INT >= 26) {
-            notificationChannels = this.mNotificationManager.getNotificationChannels();
-            Iterator it = notificationChannels.iterator();
-            while (it.hasNext()) {
-                NotificationChannel a10 = p0.a(it.next());
-                id2 = a10.getId();
-                if (!collection.contains(id2)) {
-                    if (Build.VERSION.SDK_INT >= 30) {
-                        parentChannelId = a10.getParentChannelId();
-                        if (collection.contains(parentChannelId)) {
-                        }
-                    }
-                    NotificationManager notificationManager = this.mNotificationManager;
-                    id3 = a10.getId();
-                    notificationManager.deleteNotificationChannel(id3);
-                }
-            }
+            this.n.deleteNotificationChannelGroup(str);
         }
     }
 
     public int getImportance() {
-        int importance;
-        if (Build.VERSION.SDK_INT < 24) {
-            return -1000;
+        if (Build.VERSION.SDK_INT >= 24) {
+            return this.n.getImportance();
         }
-        importance = this.mNotificationManager.getImportance();
-        return importance;
+        return -1000;
     }
 
     @Nullable
     public NotificationChannel getNotificationChannel(@NonNull String str) {
-        NotificationChannel notificationChannel;
-        if (Build.VERSION.SDK_INT < 26) {
-            return null;
+        if (Build.VERSION.SDK_INT >= 26) {
+            return this.n.getNotificationChannel(str);
         }
-        notificationChannel = this.mNotificationManager.getNotificationChannel(str);
-        return notificationChannel;
-    }
-
-    @Nullable
-    public NotificationChannelCompat getNotificationChannelCompat(@NonNull String str) {
-        NotificationChannel notificationChannel;
-        if (Build.VERSION.SDK_INT < 26 || (notificationChannel = getNotificationChannel(str)) == null) {
-            return null;
-        }
-        return new NotificationChannelCompat(notificationChannel);
+        return null;
     }
 
     @Nullable
     public NotificationChannelGroup getNotificationChannelGroup(@NonNull String str) {
-        String id2;
-        NotificationChannelGroup notificationChannelGroup;
-        int i10 = Build.VERSION.SDK_INT;
-        if (i10 >= 28) {
-            notificationChannelGroup = this.mNotificationManager.getNotificationChannelGroup(str);
-            return notificationChannelGroup;
+        int i2 = Build.VERSION.SDK_INT;
+        if (i2 >= 28) {
+            return this.n.getNotificationChannelGroup(str);
         }
-        if (i10 >= 26) {
-            Iterator<NotificationChannelGroup> it = getNotificationChannelGroups().iterator();
-            while (it.hasNext()) {
-                NotificationChannelGroup a10 = l3.a(it.next());
-                id2 = a10.getId();
-                if (id2.equals(str)) {
-                    return a10;
+        if (i2 >= 26) {
+            for (NotificationChannelGroup notificationChannelGroup : getNotificationChannelGroups()) {
+                if (notificationChannelGroup.getId().equals(str)) {
+                    return notificationChannelGroup;
                 }
             }
         }
         return null;
     }
 
-    @Nullable
-    public NotificationChannelGroupCompat getNotificationChannelGroupCompat(@NonNull String str) {
-        NotificationChannelGroup notificationChannelGroup;
-        int i10 = Build.VERSION.SDK_INT;
-        if (i10 >= 28) {
-            NotificationChannelGroup notificationChannelGroup2 = getNotificationChannelGroup(str);
-            if (notificationChannelGroup2 != null) {
-                return new NotificationChannelGroupCompat(notificationChannelGroup2);
-            }
-            return null;
-        }
-        if (i10 < 26 || (notificationChannelGroup = getNotificationChannelGroup(str)) == null) {
-            return null;
-        }
-        return new NotificationChannelGroupCompat(notificationChannelGroup, getNotificationChannels());
-    }
-
     @NonNull
     public List<NotificationChannelGroup> getNotificationChannelGroups() {
-        List<NotificationChannelGroup> notificationChannelGroups;
-        if (Build.VERSION.SDK_INT < 26) {
-            return Collections.emptyList();
-        }
-        notificationChannelGroups = this.mNotificationManager.getNotificationChannelGroups();
-        return notificationChannelGroups;
-    }
-
-    @NonNull
-    public List<NotificationChannelGroupCompat> getNotificationChannelGroupsCompat() {
-        int i10 = Build.VERSION.SDK_INT;
-        if (i10 >= 26) {
-            List<NotificationChannelGroup> notificationChannelGroups = getNotificationChannelGroups();
-            if (!notificationChannelGroups.isEmpty()) {
-                List<NotificationChannel> emptyList = i10 >= 28 ? Collections.emptyList() : getNotificationChannels();
-                ArrayList arrayList = new ArrayList(notificationChannelGroups.size());
-                Iterator<NotificationChannelGroup> it = notificationChannelGroups.iterator();
-                while (it.hasNext()) {
-                    NotificationChannelGroup a10 = l3.a(it.next());
-                    if (Build.VERSION.SDK_INT >= 28) {
-                        arrayList.add(new NotificationChannelGroupCompat(a10));
-                    } else {
-                        arrayList.add(new NotificationChannelGroupCompat(a10, emptyList));
-                    }
-                }
-                return arrayList;
-            }
-        }
-        return Collections.emptyList();
+        return Build.VERSION.SDK_INT >= 26 ? this.n.getNotificationChannelGroups() : Collections.emptyList();
     }
 
     @NonNull
     public List<NotificationChannel> getNotificationChannels() {
-        List<NotificationChannel> notificationChannels;
-        if (Build.VERSION.SDK_INT < 26) {
-            return Collections.emptyList();
+        return Build.VERSION.SDK_INT >= 26 ? this.n.getNotificationChannels() : Collections.emptyList();
+    }
+
+    public void notify(int i2, @NonNull Notification notification) {
+        notify(null, i2, notification);
+    }
+
+    public void cancel(@Nullable String str, int i2) {
+        this.n.cancel(str, i2);
+        if (Build.VERSION.SDK_INT <= 19) {
+            a(new CancelTask(this.m.getPackageName(), i2, str));
         }
-        notificationChannels = this.mNotificationManager.getNotificationChannels();
-        return notificationChannels;
     }
 
-    @NonNull
-    public List<NotificationChannelCompat> getNotificationChannelsCompat() {
-        if (Build.VERSION.SDK_INT >= 26) {
-            List<NotificationChannel> notificationChannels = getNotificationChannels();
-            if (!notificationChannels.isEmpty()) {
-                ArrayList arrayList = new ArrayList(notificationChannels.size());
-                Iterator<NotificationChannel> it = notificationChannels.iterator();
-                while (it.hasNext()) {
-                    arrayList.add(new NotificationChannelCompat(p0.a(it.next())));
-                }
-                return arrayList;
-            }
-        }
-        return Collections.emptyList();
-    }
-
-    @RequiresPermission("android.permission.POST_NOTIFICATIONS")
-    public void notify(int i10, @NonNull Notification notification) {
-        notify(null, i10, notification);
-    }
-
-    public void cancel(@Nullable String str, int i10) {
-        this.mNotificationManager.cancel(str, i10);
-    }
-
-    @RequiresPermission("android.permission.POST_NOTIFICATIONS")
-    public void notify(@Nullable String str, int i10, @NonNull Notification notification) {
-        if (!useSideChannelForNotification(notification)) {
-            this.mNotificationManager.notify(str, i10, notification);
+    public void notify(@Nullable String str, int i2, @NonNull Notification notification) {
+        if (!b(notification)) {
+            this.n.notify(str, i2, notification);
         } else {
-            pushSideChannelQueue(new NotifyTask(this.mContext.getPackageName(), i10, str, notification));
-            this.mNotificationManager.cancel(str, i10);
+            a(new NotifyTask(this.m.getPackageName(), i2, str, notification));
+            this.n.cancel(str, i2);
         }
     }
 
-    public void createNotificationChannel(@NonNull NotificationChannelCompat notificationChannelCompat) {
-        createNotificationChannel(notificationChannelCompat.getNotificationChannel());
-    }
+    private static class CancelTask implements Task {
 
-    public void createNotificationChannelGroup(@NonNull NotificationChannelGroupCompat notificationChannelGroupCompat) {
-        createNotificationChannelGroup(notificationChannelGroupCompat.getNotificationChannelGroup());
-    }
+        /* renamed from: a */
+        final String f1589a;
 
-    @Nullable
-    public NotificationChannel getNotificationChannel(@NonNull String str, @NonNull String str2) {
-        NotificationChannel notificationChannel;
-        if (Build.VERSION.SDK_INT >= 30) {
-            notificationChannel = this.mNotificationManager.getNotificationChannel(str, str2);
-            return notificationChannel;
-        }
-        return getNotificationChannel(str);
-    }
+        /* renamed from: b */
+        final int f1590b;
 
-    @Nullable
-    public NotificationChannelCompat getNotificationChannelCompat(@NonNull String str, @NonNull String str2) {
-        NotificationChannel notificationChannel;
-        if (Build.VERSION.SDK_INT < 26 || (notificationChannel = getNotificationChannel(str, str2)) == null) {
-            return null;
-        }
-        return new NotificationChannelCompat(notificationChannel);
-    }
+        /* renamed from: c */
+        final String f1591c;
 
-    public static class CancelTask implements Task {
-        final boolean all;
+        /* renamed from: d */
+        final boolean f1592d;
 
-        /* renamed from: id */
-        final int f309id;
-        final String packageName;
-        final String tag;
-
-        public CancelTask(String str) {
-            this.packageName = str;
-            this.f309id = 0;
-            this.tag = null;
-            this.all = true;
+        CancelTask(String str) {
+            this.f1589a = str;
+            this.f1590b = 0;
+            this.f1591c = null;
+            this.f1592d = true;
         }
 
         @Override // androidx.core.app.NotificationManagerCompat.Task
         public void send(INotificationSideChannel iNotificationSideChannel) throws RemoteException {
-            if (this.all) {
-                iNotificationSideChannel.cancelAll(this.packageName);
+            if (this.f1592d) {
+                iNotificationSideChannel.cancelAll(this.f1589a);
             } else {
-                iNotificationSideChannel.cancel(this.packageName, this.f309id, this.tag);
+                iNotificationSideChannel.cancel(this.f1589a, this.f1590b, this.f1591c);
             }
         }
 
         @NonNull
         public String toString() {
-            return "CancelTask[packageName:" + this.packageName + ", id:" + this.f309id + ", tag:" + this.tag + ", all:" + this.all + "]";
+            return "CancelTask[packageName:" + this.f1589a + ", id:" + this.f1590b + ", tag:" + this.f1591c + ", all:" + this.f1592d + "]";
         }
 
-        public CancelTask(String str, int i10, String str2) {
-            this.packageName = str;
-            this.f309id = i10;
-            this.tag = str2;
-            this.all = false;
+        CancelTask(String str, int i2, String str2) {
+            this.f1589a = str;
+            this.f1590b = i2;
+            this.f1591c = str2;
+            this.f1592d = false;
         }
     }
 }

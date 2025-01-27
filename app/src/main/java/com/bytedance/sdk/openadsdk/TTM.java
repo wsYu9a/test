@@ -7,7 +7,7 @@ import java.lang.annotation.Target;
 
 @Target({ElementType.METHOD})
 @Retention(RetentionPolicy.RUNTIME)
-/* loaded from: classes2.dex */
+/* loaded from: classes.dex */
 public @interface TTM {
     int value();
 }

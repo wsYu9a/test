@@ -3,7 +3,6 @@ package com.ss.android.socialbase.downloader.segment;
 import android.text.TextUtils;
 import android.util.Log;
 import androidx.annotation.NonNull;
-import com.sigmob.sdk.base.common.y;
 import com.ss.android.socialbase.downloader.constants.DownloadErrorCode;
 import com.ss.android.socialbase.downloader.downloader.DownloadComponentManager;
 import com.ss.android.socialbase.downloader.exception.BaseException;
@@ -62,7 +61,7 @@ public class SegmentDispatcher implements DownloadDnsManager.Callback, ISegmentC
     private final DownloadWatchDog.IWatcher connectWatcher = new DownloadWatchDog.IWatcher() { // from class: com.ss.android.socialbase.downloader.segment.SegmentDispatcher.1
         private int watchTimes;
 
-        public AnonymousClass1() {
+        AnonymousClass1() {
         }
 
         @Override // com.ss.android.socialbase.downloader.thread.DownloadWatchDog.IWatcher
@@ -71,30 +70,27 @@ public class SegmentDispatcher implements DownloadDnsManager.Callback, ISegmentC
                 return -1L;
             }
             synchronized (SegmentDispatcher.this) {
-                try {
-                    if (SegmentDispatcher.this.mainUrlHttpResponse == null && SegmentDispatcher.this.firstBackupUrlHttpResponse == null) {
-                        long j10 = SegmentDispatcher.this.connectTimeout;
-                        if (j10 <= 0) {
-                            return -1L;
-                        }
-                        this.watchTimes++;
-                        SegmentReader findEarliestConnectTimeoutReader = SegmentDispatcher.this.findEarliestConnectTimeoutReader(false, System.currentTimeMillis(), j10);
-                        if (findEarliestConnectTimeoutReader == null) {
-                            return j10;
-                        }
-                        Log.i(SegmentDispatcher.TAG, "connectWatcher: switchUrl and reconnect");
-                        SegmentDispatcher.this.trySwitchNextUrlForReader(findEarliestConnectTimeoutReader);
-                        findEarliestConnectTimeoutReader.reconnect();
-                        return ((this.watchTimes / SegmentDispatcher.this.urlRecords.size()) + 1) * j10;
+                if (SegmentDispatcher.this.mainUrlHttpResponse == null && SegmentDispatcher.this.firstBackupUrlHttpResponse == null) {
+                    long j2 = SegmentDispatcher.this.connectTimeout;
+                    if (j2 <= 0) {
+                        return -1L;
                     }
-                    return -1L;
-                } finally {
+                    this.watchTimes++;
+                    SegmentReader findEarliestConnectTimeoutReader = SegmentDispatcher.this.findEarliestConnectTimeoutReader(false, System.currentTimeMillis(), j2);
+                    if (findEarliestConnectTimeoutReader == null) {
+                        return j2;
+                    }
+                    Log.i(SegmentDispatcher.TAG, "connectWatcher: switchUrl and reconnect");
+                    SegmentDispatcher.this.trySwitchNextUrlForReader(findEarliestConnectTimeoutReader);
+                    findEarliestConnectTimeoutReader.reconnect();
+                    return ((this.watchTimes / SegmentDispatcher.this.urlRecords.size()) + 1) * j2;
                 }
+                return -1L;
             }
         }
     };
     private final DownloadWatchDog.IWatcher readWatcher = new DownloadWatchDog.IWatcher() { // from class: com.ss.android.socialbase.downloader.segment.SegmentDispatcher.2
-        public AnonymousClass2() {
+        AnonymousClass2() {
         }
 
         @Override // com.ss.android.socialbase.downloader.thread.DownloadWatchDog.IWatcher
@@ -104,10 +100,10 @@ public class SegmentDispatcher implements DownloadDnsManager.Callback, ISegmentC
     };
 
     /* renamed from: com.ss.android.socialbase.downloader.segment.SegmentDispatcher$1 */
-    public class AnonymousClass1 implements DownloadWatchDog.IWatcher {
+    class AnonymousClass1 implements DownloadWatchDog.IWatcher {
         private int watchTimes;
 
-        public AnonymousClass1() {
+        AnonymousClass1() {
         }
 
         @Override // com.ss.android.socialbase.downloader.thread.DownloadWatchDog.IWatcher
@@ -116,32 +112,29 @@ public class SegmentDispatcher implements DownloadDnsManager.Callback, ISegmentC
                 return -1L;
             }
             synchronized (SegmentDispatcher.this) {
-                try {
-                    if (SegmentDispatcher.this.mainUrlHttpResponse == null && SegmentDispatcher.this.firstBackupUrlHttpResponse == null) {
-                        long j10 = SegmentDispatcher.this.connectTimeout;
-                        if (j10 <= 0) {
-                            return -1L;
-                        }
-                        this.watchTimes++;
-                        SegmentReader findEarliestConnectTimeoutReader = SegmentDispatcher.this.findEarliestConnectTimeoutReader(false, System.currentTimeMillis(), j10);
-                        if (findEarliestConnectTimeoutReader == null) {
-                            return j10;
-                        }
-                        Log.i(SegmentDispatcher.TAG, "connectWatcher: switchUrl and reconnect");
-                        SegmentDispatcher.this.trySwitchNextUrlForReader(findEarliestConnectTimeoutReader);
-                        findEarliestConnectTimeoutReader.reconnect();
-                        return ((this.watchTimes / SegmentDispatcher.this.urlRecords.size()) + 1) * j10;
+                if (SegmentDispatcher.this.mainUrlHttpResponse == null && SegmentDispatcher.this.firstBackupUrlHttpResponse == null) {
+                    long j2 = SegmentDispatcher.this.connectTimeout;
+                    if (j2 <= 0) {
+                        return -1L;
                     }
-                    return -1L;
-                } finally {
+                    this.watchTimes++;
+                    SegmentReader findEarliestConnectTimeoutReader = SegmentDispatcher.this.findEarliestConnectTimeoutReader(false, System.currentTimeMillis(), j2);
+                    if (findEarliestConnectTimeoutReader == null) {
+                        return j2;
+                    }
+                    Log.i(SegmentDispatcher.TAG, "connectWatcher: switchUrl and reconnect");
+                    SegmentDispatcher.this.trySwitchNextUrlForReader(findEarliestConnectTimeoutReader);
+                    findEarliestConnectTimeoutReader.reconnect();
+                    return ((this.watchTimes / SegmentDispatcher.this.urlRecords.size()) + 1) * j2;
                 }
+                return -1L;
             }
         }
     }
 
     /* renamed from: com.ss.android.socialbase.downloader.segment.SegmentDispatcher$2 */
-    public class AnonymousClass2 implements DownloadWatchDog.IWatcher {
-        public AnonymousClass2() {
+    class AnonymousClass2 implements DownloadWatchDog.IWatcher {
+        AnonymousClass2() {
         }
 
         @Override // com.ss.android.socialbase.downloader.thread.DownloadWatchDog.IWatcher
@@ -180,38 +173,116 @@ public class SegmentDispatcher implements DownloadDnsManager.Callback, ISegmentC
 
     /* JADX WARN: Code restructure failed: missing block: B:27:0x00a1, code lost:
     
-        if ((r10.getCurrentOffsetRead() - r25.getCurrentOffsetRead()) < (r13 / 2)) goto L135;
+        if ((r10.getCurrentOffsetRead() - r24.getCurrentOffsetRead()) < (r14 / 2)) goto L141;
      */
+    /* JADX WARN: Code restructure failed: missing block: B:56:0x01f2, code lost:
+    
+        r3 = r3 + 1;
+        r6 = r22.dispatchedSegments.size();
+     */
+    /* JADX WARN: Code restructure failed: missing block: B:57:0x01fa, code lost:
+    
+        if (r3 >= r6) goto L216;
+     */
+    /* JADX WARN: Code restructure failed: missing block: B:58:0x01fc, code lost:
+    
+        r7 = r22.dispatchedSegments.get(r3);
+     */
+    /* JADX WARN: Code restructure failed: missing block: B:59:0x020c, code lost:
+    
+        if (r7.getDownloadBytes() > 0) goto L217;
+     */
+    /* JADX WARN: Code restructure failed: missing block: B:61:0x0210, code lost:
+    
+        if (r7.owner == null) goto L184;
+     */
+    /* JADX WARN: Code restructure failed: missing block: B:62:0x0213, code lost:
+    
+        r3 = r3 + 1;
+     */
+    /* JADX WARN: Code restructure failed: missing block: B:64:0x0216, code lost:
+    
+        r11 = r24.getEndOffset();
+        r15 = r7.getStartOffset();
+     */
+    /* JADX WARN: Code restructure failed: missing block: B:65:0x0220, code lost:
+    
+        if (r11 <= 0) goto L189;
+     */
+    /* JADX WARN: Code restructure failed: missing block: B:67:0x0224, code lost:
+    
+        if (r11 < r15) goto L190;
+     */
+    /* JADX WARN: Code restructure failed: missing block: B:68:0x0247, code lost:
+    
+        android.util.Log.d(com.ss.android.socialbase.downloader.segment.SegmentDispatcher.TAG, "applySegmentLocked: break 2");
+     */
+    /* JADX WARN: Code restructure failed: missing block: B:69:0x024c, code lost:
+    
+        r6 = r24.getEndOffset();
+     */
+    /* JADX WARN: Code restructure failed: missing block: B:70:0x0254, code lost:
+    
+        if (r6 <= 0) goto L200;
+     */
+    /* JADX WARN: Code restructure failed: missing block: B:72:0x0258, code lost:
+    
+        if (r20 > r6) goto L198;
+     */
+    /* JADX WARN: Code restructure failed: missing block: B:74:0x0260, code lost:
+    
+        if (r24.getCurrentOffsetRead() > r6) goto L198;
+     */
+    /* JADX WARN: Code restructure failed: missing block: B:76:0x0278, code lost:
+    
+        throw new com.ss.android.socialbase.downloader.segment.SegmentApplyException(6, "applySegment: " + r24);
+     */
+    /* JADX WARN: Code restructure failed: missing block: B:77:0x0279, code lost:
+    
+        r24.owner = r23;
+        com.ss.android.socialbase.downloader.logger.Logger.i(com.ss.android.socialbase.downloader.segment.SegmentDispatcher.TAG, "applySegment: OK " + r24);
+     */
+    /* JADX WARN: Code restructure failed: missing block: B:78:0x028f, code lost:
+    
+        return;
+     */
+    /* JADX WARN: Code restructure failed: missing block: B:79:0x0226, code lost:
+    
+        r9 = r15 - 1;
+        r24.setEndOffset(r9);
+        com.ss.android.socialbase.downloader.logger.Logger.i(com.ss.android.socialbase.downloader.segment.SegmentDispatcher.TAG, "applySegment: segment set end:" + r9 + ", later = " + r7);
+     */
+    /* JADX WARN: Removed duplicated region for block: B:32:0x0107  */
     /*
         Code decompiled incorrectly, please refer to instructions dump.
         To view partially-correct code enable 'Show inconsistent code' option in preferences
     */
-    private void applySegmentLocked(com.ss.android.socialbase.downloader.segment.SegmentReader r24, com.ss.android.socialbase.downloader.segment.Segment r25) throws com.ss.android.socialbase.downloader.segment.SegmentApplyException {
+    private void applySegmentLocked(com.ss.android.socialbase.downloader.segment.SegmentReader r23, com.ss.android.socialbase.downloader.segment.Segment r24) throws com.ss.android.socialbase.downloader.segment.SegmentApplyException {
         /*
-            Method dump skipped, instructions count: 727
+            Method dump skipped, instructions count: 738
             To view this dump change 'Code comments level' option to 'DEBUG'
         */
         throw new UnsupportedOperationException("Method not decompiled: com.ss.android.socialbase.downloader.segment.SegmentDispatcher.applySegmentLocked(com.ss.android.socialbase.downloader.segment.SegmentReader, com.ss.android.socialbase.downloader.segment.Segment):void");
     }
 
-    private void arrangeSegmentLocked(List<Segment> list, Segment segment, boolean z10) {
+    private void arrangeSegmentLocked(List<Segment> list, Segment segment, boolean z) {
         long startOffset = segment.getStartOffset();
         int size = list.size();
-        int i10 = 0;
-        while (i10 < size && startOffset >= list.get(i10).getStartOffset()) {
-            i10++;
+        int i2 = 0;
+        while (i2 < size && startOffset >= list.get(i2).getStartOffset()) {
+            i2++;
         }
-        list.add(i10, segment);
-        if (z10) {
+        list.add(i2, segment);
+        if (z) {
             segment.setIndex(size);
         }
     }
 
     private List<UrlRecord> assembleIpAddress(String str, List<InetAddress> list) {
-        boolean z10;
+        boolean z;
         if (list != null && !list.isEmpty()) {
             LinkedHashMap linkedHashMap = new LinkedHashMap();
-            int i10 = 0;
+            int i2 = 0;
             for (InetAddress inetAddress : list) {
                 if (inetAddress != null) {
                     String hostAddress = inetAddress.getHostAddress();
@@ -226,27 +297,27 @@ public class SegmentDispatcher implements DownloadDnsManager.Callback, ISegmentC
                             linkedHashMap.put(urlRecord.ipFamily, linkedList);
                         }
                         linkedList.add(urlRecord);
-                        i10++;
+                        i2++;
                     }
                 }
             }
-            if (i10 > 0) {
+            if (i2 > 0) {
                 ArrayList arrayList = new ArrayList();
                 do {
                     Iterator it = linkedHashMap.entrySet().iterator();
-                    z10 = false;
+                    z = false;
                     while (it.hasNext()) {
                         LinkedList linkedList2 = (LinkedList) ((Map.Entry) it.next()).getValue();
                         if (linkedList2 != null && !linkedList2.isEmpty()) {
                             arrayList.add((UrlRecord) linkedList2.pollFirst());
-                            i10--;
-                            z10 = true;
+                            i2--;
+                            z = true;
                         }
                     }
-                    if (i10 <= 0) {
+                    if (i2 <= 0) {
                         break;
                     }
-                } while (z10);
+                } while (z);
                 return arrayList;
             }
         }
@@ -322,10 +393,10 @@ public class SegmentDispatcher implements DownloadDnsManager.Callback, ISegmentC
         int size;
         if (this.totalLength > 0 && (size = this.dispatchedSegments.size()) > 1) {
             ArrayList<Segment> arrayList = null;
-            int i10 = 0;
-            for (int i11 = 1; i11 < size; i11++) {
-                Segment segment = this.dispatchedSegments.get(i10);
-                Segment segment2 = this.dispatchedSegments.get(i11);
+            int i2 = 0;
+            for (int i3 = 1; i3 < size; i3++) {
+                Segment segment = this.dispatchedSegments.get(i2);
+                Segment segment2 = this.dispatchedSegments.get(i3);
                 if (segment.getCurrentOffsetRead() > segment2.getStartOffset() && segment2.getDownloadBytes() <= 0 && segment2.owner == null) {
                     if (arrayList == null) {
                         arrayList = new ArrayList(1);
@@ -335,7 +406,7 @@ public class SegmentDispatcher implements DownloadDnsManager.Callback, ISegmentC
                         Log.w(TAG, "clearCovered, covered = " + segment2 + ", prev = " + segment);
                     }
                 } else if (segment2.getCurrentOffsetRead() > segment.getCurrentOffsetRead()) {
-                    i10++;
+                    i2++;
                 }
             }
             if (arrayList != null) {
@@ -355,30 +426,27 @@ public class SegmentDispatcher implements DownloadDnsManager.Callback, ISegmentC
     }
 
     private void dispatchReadThread() {
-        int i10;
+        int i2;
         if (this.totalLength <= 0 || this.needWaitDnsResolve) {
-            i10 = 1;
+            i2 = 1;
         } else {
-            i10 = this.strategy.getThreadCount();
+            i2 = this.strategy.getThreadCount();
             int segmentMinInitSize = (int) (this.totalLength / this.strategy.getSegmentMinInitSize());
-            if (i10 > segmentMinInitSize) {
-                i10 = segmentMinInitSize;
+            if (i2 > segmentMinInitSize) {
+                i2 = segmentMinInitSize;
             }
         }
-        Logger.i(TAG, "dispatchReadThread: totalLength = " + this.totalLength + ", threadCount = " + i10);
-        int i11 = i10 > 0 ? i10 : 1;
+        Logger.i(TAG, "dispatchReadThread: totalLength = " + this.totalLength + ", threadCount = " + i2);
+        int i3 = i2 > 0 ? i2 : 1;
         synchronized (this) {
             do {
-                try {
-                    if (this.readers.size() >= i11) {
-                        break;
-                    }
-                    if (!this.paused && !this.canceled) {
-                        dispatchReadThreadOnce(obtainUrl());
-                    }
-                    return;
-                } finally {
+                if (this.readers.size() >= i3) {
+                    break;
                 }
+                if (!this.paused && !this.canceled) {
+                    dispatchReadThreadOnce(obtainUrl());
+                }
+                return;
             } while (!this.strategy.segmentOneByOne());
         }
     }
@@ -389,11 +457,11 @@ public class SegmentDispatcher implements DownloadDnsManager.Callback, ISegmentC
         segmentReader.setFuture(DownloadComponentManager.getChunkDownloadThreadExecutorService().submit(segmentReader));
     }
 
-    public SegmentReader findEarliestConnectTimeoutReader(boolean z10, long j10, long j11) {
+    public SegmentReader findEarliestConnectTimeoutReader(boolean z, long j2, long j3) {
         SegmentReader segmentReader = null;
         for (SegmentReader segmentReader2 : this.readers) {
-            if (segmentReader2.threadIndex != 0 || z10) {
-                if (segmentReader2.connectStartTime > 0 && segmentReader2.connectEndTime <= 0 && j10 - segmentReader2.connectStartTime > j11 && (segmentReader == null || segmentReader2.connectStartTime < segmentReader.connectStartTime)) {
+            if (segmentReader2.threadIndex != 0 || z) {
+                if (segmentReader2.connectStartTime > 0 && segmentReader2.connectEndTime <= 0 && j2 - segmentReader2.connectStartTime > j3 && (segmentReader == null || segmentReader2.connectStartTime < segmentReader.connectStartTime)) {
                     segmentReader = segmentReader2;
                 }
             }
@@ -431,48 +499,54 @@ public class SegmentDispatcher implements DownloadDnsManager.Callback, ISegmentC
         return urlRecord2;
     }
 
-    private SegmentReader findPoorReadThread(long j10, long j11, long j12, int i10) {
-        long j13 = Long.MAX_VALUE;
-        int i11 = 0;
+    private SegmentReader findPoorReadThread(long j2, long j3, long j4, int i2) {
+        long j5;
+        long j6 = Long.MAX_VALUE;
+        int i3 = 0;
         SegmentReader segmentReader = null;
         for (SegmentReader segmentReader2 : this.readers) {
             if (segmentReader2.readStartTime > 0) {
-                int i12 = i11 + 1;
-                if (segmentReader2.readStartTime < j10) {
-                    long recentDownloadSpeed = segmentReader2.getRecentDownloadSpeed(j10, j11);
+                i3++;
+                long j7 = j6;
+                if (segmentReader2.readStartTime < j2) {
+                    long recentDownloadSpeed = segmentReader2.getRecentDownloadSpeed(j2, j3);
                     if (this.debug) {
                         Log.i(TAG, "findPoorReadThread: speed = " + recentDownloadSpeed + ", threadIndex = " + segmentReader2.threadIndex);
+                        j5 = 0;
+                    } else {
+                        j5 = 0;
                     }
-                    if (recentDownloadSpeed >= 0 && recentDownloadSpeed < j13) {
-                        j13 = recentDownloadSpeed;
+                    if (recentDownloadSpeed >= j5 && recentDownloadSpeed < j7) {
+                        j6 = recentDownloadSpeed;
                         segmentReader = segmentReader2;
                     }
                 }
-                i11 = i12;
+                j6 = j7;
             }
         }
-        if (segmentReader == null || i11 < i10 || j13 >= j12) {
+        long j8 = j6;
+        if (segmentReader == null || i3 < i2 || j8 >= j4) {
             return null;
         }
-        Logger.i(TAG, "findPoorReadThread: ----------- minSpeed = " + j13 + ", threadIndex = " + segmentReader.threadIndex);
+        Logger.i(TAG, "findPoorReadThread: ----------- minSpeed = " + j8 + ", threadIndex = " + segmentReader.threadIndex);
         return segmentReader;
     }
 
-    private boolean findPoorReadThreadAndReconnect(long j10, long j11) {
-        long j12 = j10 - j11;
-        long recentDownloadSpeed = this.stenographer.getRecentDownloadSpeed(j12, j10);
+    private boolean findPoorReadThreadAndReconnect(long j2, long j3) {
+        long j4 = j2 - j3;
+        long recentDownloadSpeed = this.stenographer.getRecentDownloadSpeed(j4, j2);
         int size = this.readers.size();
         if (size > 0) {
             recentDownloadSpeed /= size;
         }
-        SegmentReader findPoorReadThread = findPoorReadThread(j12, j10, (long) Math.max(10.0f, recentDownloadSpeed * this.poorSpeedRatio), size / 2);
+        SegmentReader findPoorReadThread = findPoorReadThread(j4, j2, (long) Math.max(10.0f, recentDownloadSpeed * this.poorSpeedRatio), size / 2);
         if (findPoorReadThread != null) {
             trySwitchNextUrlForReader(findPoorReadThread);
             Logger.w(TAG, "handlePoorReadThread: reconnect for poor speed, threadIndex = " + findPoorReadThread.threadIndex);
             findPoorReadThread.reconnect();
             return true;
         }
-        SegmentReader findEarliestConnectTimeoutReader = findEarliestConnectTimeoutReader(true, j10, j11);
+        SegmentReader findEarliestConnectTimeoutReader = findEarliestConnectTimeoutReader(true, j2, j3);
         if (findEarliestConnectTimeoutReader == null) {
             return false;
         }
@@ -516,7 +590,7 @@ public class SegmentDispatcher implements DownloadDnsManager.Callback, ISegmentC
         if (size <= 1) {
             size = this.strategy.getThreadCount();
         }
-        float f10 = 1.0f;
+        float f2 = 1.0f;
         if (readBytes <= 0) {
             float mainRatio = this.strategy.getMainRatio();
             if (mainRatio <= 0.0f || mainRatio >= 1.0f) {
@@ -526,7 +600,7 @@ public class SegmentDispatcher implements DownloadDnsManager.Callback, ISegmentC
                 return mainRatio;
             }
             if (size > 1) {
-                f10 = 1.0f - mainRatio;
+                f2 = 1.0f - mainRatio;
                 size--;
             }
         } else {
@@ -535,7 +609,7 @@ public class SegmentDispatcher implements DownloadDnsManager.Callback, ISegmentC
                 return readBytes / totalReadBytes;
             }
         }
-        return f10 / size;
+        return f2 / size;
     }
 
     private long getRemainReadBytes(Segment segment) {
@@ -543,24 +617,24 @@ public class SegmentDispatcher implements DownloadDnsManager.Callback, ISegmentC
         if (remainReadBytes != -1) {
             return remainReadBytes;
         }
-        long j10 = this.totalLength;
-        return j10 > 0 ? j10 - segment.getCurrentOffsetRead() : remainReadBytes;
+        long j2 = this.totalLength;
+        return j2 > 0 ? j2 - segment.getCurrentOffsetRead() : remainReadBytes;
     }
 
     private long getTotalReadBytes() {
         Iterator<SegmentReader> it = this.readers.iterator();
-        long j10 = 0;
+        long j2 = 0;
         while (it.hasNext()) {
-            j10 += it.next().getReadBytes();
+            j2 += it.next().getReadBytes();
         }
-        return j10;
+        return j2;
     }
 
-    private long getUnconfirmedRemainBytes(int i10, int i11) {
-        Segment segment = this.dispatchedSegments.get(i10);
+    private long getUnconfirmedRemainBytes(int i2, int i3) {
+        Segment segment = this.dispatchedSegments.get(i2);
         long remainReadBytes = getRemainReadBytes(segment);
-        int i12 = i10 + 1;
-        Segment segment2 = i12 < i11 ? this.dispatchedSegments.get(i12) : null;
+        int i4 = i2 + 1;
+        Segment segment2 = i4 < i3 ? this.dispatchedSegments.get(i4) : null;
         if (segment2 == null) {
             return remainReadBytes;
         }
@@ -568,14 +642,14 @@ public class SegmentDispatcher implements DownloadDnsManager.Callback, ISegmentC
         return remainReadBytes == -1 ? startOffset : Math.min(remainReadBytes, startOffset);
     }
 
-    private int indexOfSegmentLocked(long j10) {
+    private int indexOfSegmentLocked(long j2) {
         int size = this.dispatchedSegments.size();
-        for (int i10 = 0; i10 < size; i10++) {
-            Segment segment = this.dispatchedSegments.get(i10);
-            if (segment.getStartOffset() == j10) {
-                return i10;
+        for (int i2 = 0; i2 < size; i2++) {
+            Segment segment = this.dispatchedSegments.get(i2);
+            if (segment.getStartOffset() == j2) {
+                return i2;
             }
-            if (segment.getStartOffset() > j10) {
+            if (segment.getStartOffset() > j2) {
                 return -1;
             }
         }
@@ -584,9 +658,9 @@ public class SegmentDispatcher implements DownloadDnsManager.Callback, ISegmentC
 
     private int indexOfUrl(String str) {
         int size = this.urlRecords.size();
-        for (int i10 = 0; i10 < size; i10++) {
-            if (TextUtils.equals(this.urlRecords.get(i10).url, str)) {
-                return i10;
+        for (int i2 = 0; i2 < size; i2++) {
+            if (TextUtils.equals(this.urlRecords.get(i2).url, str)) {
+                return i2;
             }
         }
         return -1;
@@ -601,13 +675,13 @@ public class SegmentDispatcher implements DownloadDnsManager.Callback, ISegmentC
             return;
         }
         DownloadDnsManager downloadDnsManager = DownloadDnsManager.getInstance();
-        downloadDnsManager.resolveDnsAsync(this.downloadInfo.getUrl(), this, y.f.f18076n);
+        downloadDnsManager.resolveDnsAsync(this.downloadInfo.getUrl(), this, 2000L);
         if (ipStrategy <= 2 || (backUpUrls = this.downloadInfo.getBackUpUrls()) == null) {
             return;
         }
         for (String str : backUpUrls) {
             if (!TextUtils.isEmpty(str)) {
-                downloadDnsManager.resolveDnsAsync(str, this, y.f.f18076n);
+                downloadDnsManager.resolveDnsAsync(str, this, 2000L);
             }
         }
     }
@@ -620,22 +694,18 @@ public class SegmentDispatcher implements DownloadDnsManager.Callback, ISegmentC
             Logger.i(TAG, "initSegments: getExpectFileLength = " + this.totalLength);
         }
         synchronized (this) {
-            try {
-                this.toDispatchSegments.clear();
-                if (list != null && !list.isEmpty()) {
-                    Iterator<Segment> it = list.iterator();
-                    while (it.hasNext()) {
-                        arrangeSegmentLocked(this.toDispatchSegments, new Segment(it.next()), false);
-                    }
-                    fixSegmentsLocked(this.toDispatchSegments);
-                    checkDownloadedBytesLocked(this.toDispatchSegments);
-                    Logger.i(TAG, "initSegments: totalLength = " + this.totalLength);
+            this.toDispatchSegments.clear();
+            if (list != null && !list.isEmpty()) {
+                Iterator<Segment> it = list.iterator();
+                while (it.hasNext()) {
+                    arrangeSegmentLocked(this.toDispatchSegments, new Segment(it.next()), false);
                 }
-                arrangeSegmentLocked(this.toDispatchSegments, new Segment(0L, -1L), false);
+                fixSegmentsLocked(this.toDispatchSegments);
+                checkDownloadedBytesLocked(this.toDispatchSegments);
                 Logger.i(TAG, "initSegments: totalLength = " + this.totalLength);
-            } catch (Throwable th2) {
-                throw th2;
             }
+            arrangeSegmentLocked(this.toDispatchSegments, new Segment(0L, -1L), false);
+            Logger.i(TAG, "initSegments: totalLength = " + this.totalLength);
         }
     }
 
@@ -657,9 +727,9 @@ public class SegmentDispatcher implements DownloadDnsManager.Callback, ISegmentC
         this.connectTimeout = segmentStrategy.getConnectTimeout();
         this.readTimeout = segmentStrategy.getReadTimeout();
         this.poorSpeedRatio = segmentStrategy.getPoorSpeedRatio();
-        int i10 = this.reconnectCount;
-        if (i10 > 0) {
-            this.watchDog.addWatcher(this.connectWatcher, i10);
+        int i2 = this.reconnectCount;
+        if (i2 > 0) {
+            this.watchDog.addWatcher(this.connectWatcher, i2);
         }
     }
 
@@ -671,24 +741,20 @@ public class SegmentDispatcher implements DownloadDnsManager.Callback, ISegmentC
     }
 
     private boolean isAllContentDownloaded() {
-        long j10 = this.totalLength;
-        if (j10 <= 0) {
+        long j2 = this.totalLength;
+        if (j2 <= 0) {
             this.isAllContentDownloaded = false;
             return false;
         }
         synchronized (this) {
-            try {
-                long firstOffset = SegmentUtils.getFirstOffset(this.dispatchedSegments);
-                Logger.i(TAG, "isAllContentDownloaded: firstOffset = " + firstOffset);
-                if (firstOffset >= j10) {
-                    this.isAllContentDownloaded = true;
-                    return true;
-                }
-                this.isAllContentDownloaded = false;
-                return false;
-            } catch (Throwable th2) {
-                throw th2;
+            long firstOffset = SegmentUtils.getFirstOffset(this.dispatchedSegments);
+            Logger.i(TAG, "isAllContentDownloaded: firstOffset = " + firstOffset);
+            if (firstOffset >= j2) {
+                this.isAllContentDownloaded = true;
+                return true;
             }
+            this.isAllContentDownloaded = false;
+            return false;
         }
     }
 
@@ -702,26 +768,31 @@ public class SegmentDispatcher implements DownloadDnsManager.Callback, ISegmentC
         return true;
     }
 
-    private boolean isDownloadSpeedPoor(SegmentReader segmentReader, long j10, long j11, long j12, double d10) {
+    private boolean isDownloadSpeedPoor(SegmentReader segmentReader, long j2, long j3, long j4, double d2) {
         if (segmentReader.readStartTime <= 0) {
             return false;
         }
-        long recentDownloadSpeed = this.stenographer.getRecentDownloadSpeed(j10, j11);
+        long recentDownloadSpeed = this.stenographer.getRecentDownloadSpeed(j2, j3);
         int size = this.readers.size();
-        long j13 = size > 0 ? recentDownloadSpeed / size : recentDownloadSpeed;
-        long recentDownloadSpeed2 = segmentReader.getRecentDownloadSpeed(j10, j11);
-        if (recentDownloadSpeed2 >= j12 && recentDownloadSpeed2 >= j13 * d10) {
-            return false;
+        long j5 = size > 0 ? recentDownloadSpeed / size : recentDownloadSpeed;
+        long recentDownloadSpeed2 = segmentReader.getRecentDownloadSpeed(j2, j3);
+        if (recentDownloadSpeed2 >= j4) {
+            double d3 = recentDownloadSpeed2;
+            double d4 = j5;
+            Double.isNaN(d4);
+            if (d3 >= d4 * d2) {
+                return false;
+            }
         }
-        Log.i(TAG, "isDownloadSpeedPoor: totalSpeed = " + recentDownloadSpeed + ", threadAvgSpeed = " + j13 + ", poorSpeed = " + j12 + ", speed = " + recentDownloadSpeed2 + ",threadIndex = " + segmentReader.threadIndex);
+        Log.i(TAG, "isDownloadSpeedPoor: totalSpeed = " + recentDownloadSpeed + ", threadAvgSpeed = " + j5 + ", poorSpeed = " + j4 + ", speed = " + recentDownloadSpeed2 + ",threadIndex = " + segmentReader.threadIndex);
         return true;
     }
 
-    private void markProgress(long j10) {
-        this.stenographer.markProgress(this.downloadInfo.getCurBytes(), j10);
+    private void markProgress(long j2) {
+        this.stenographer.markProgress(this.downloadInfo.getCurBytes(), j2);
         Iterator<SegmentReader> it = this.readers.iterator();
         while (it.hasNext()) {
-            it.next().markProgress(j10);
+            it.next().markProgress(j2);
         }
     }
 
@@ -730,9 +801,9 @@ public class SegmentDispatcher implements DownloadDnsManager.Callback, ISegmentC
         Code decompiled incorrectly, please refer to instructions dump.
         To view partially-correct code enable 'Show inconsistent code' option in preferences
     */
-    private com.ss.android.socialbase.downloader.segment.Segment obtainChildSegmentFromMaxRemain(com.ss.android.socialbase.downloader.segment.SegmentReader r29, com.ss.android.socialbase.downloader.segment.UrlRecord r30) {
+    private com.ss.android.socialbase.downloader.segment.Segment obtainChildSegmentFromMaxRemain(com.ss.android.socialbase.downloader.segment.SegmentReader r28, com.ss.android.socialbase.downloader.segment.UrlRecord r29) {
         /*
-            Method dump skipped, instructions count: 493
+            Method dump skipped, instructions count: 495
             To view this dump change 'Code comments level' option to 'DEBUG'
         */
         throw new UnsupportedOperationException("Method not decompiled: com.ss.android.socialbase.downloader.segment.SegmentDispatcher.obtainChildSegmentFromMaxRemain(com.ss.android.socialbase.downloader.segment.SegmentReader, com.ss.android.socialbase.downloader.segment.UrlRecord):com.ss.android.socialbase.downloader.segment.Segment");
@@ -741,11 +812,11 @@ public class SegmentDispatcher implements DownloadDnsManager.Callback, ISegmentC
     private Segment obtainLeastCompetitorSegment() {
         int competitor;
         Segment segment = null;
-        int i10 = Integer.MAX_VALUE;
+        int i2 = Integer.MAX_VALUE;
         for (Segment segment2 : this.dispatchedSegments) {
-            if (getRemainReadBytes(segment2) > 0 && (competitor = segment2.getCompetitor()) < i10) {
+            if (getRemainReadBytes(segment2) > 0 && (competitor = segment2.getCompetitor()) < i2) {
                 segment = segment2;
-                i10 = competitor;
+                i2 = competitor;
             }
         }
         return segment;
@@ -775,7 +846,7 @@ public class SegmentDispatcher implements DownloadDnsManager.Callback, ISegmentC
     }
 
     private Segment obtainSegmentWhenNoNewSegment() {
-        int i10 = 0;
+        int i2 = 0;
         while (true) {
             Segment obtainLeastCompetitorSegment = obtainLeastCompetitorSegment();
             if (obtainLeastCompetitorSegment == null) {
@@ -790,14 +861,14 @@ public class SegmentDispatcher implements DownloadDnsManager.Callback, ISegmentC
             }
             long currentTimeMillis = System.currentTimeMillis();
             markProgress(currentTimeMillis);
-            if (currentTimeMillis - segmentReader.readStartTime > y.f.f18076n && isDownloadSpeedPoor(segmentReader, currentTimeMillis - y.f.f18076n, currentTimeMillis, 500L, 1.0d)) {
+            if (currentTimeMillis - segmentReader.readStartTime > 2000 && isDownloadSpeedPoor(segmentReader, currentTimeMillis - 2000, currentTimeMillis, 500L, 1.0d)) {
                 if (this.debug) {
                     Log.i(TAG, "obtainSegmentWhenNoNewSegment: isDownloadSpeedPoor segment = " + obtainLeastCompetitorSegment + ", owner.threadIndex = " + segmentReader.threadIndex);
                 }
                 return obtainLeastCompetitorSegment;
             }
-            int i11 = i10 + 1;
-            if (i10 > 2) {
+            int i3 = i2 + 1;
+            if (i2 > 2) {
                 if (this.debug) {
                     Log.i(TAG, "obtainSegmentWhenNoNewSegment: waitCount > 2, return segment = " + obtainLeastCompetitorSegment);
                 }
@@ -807,7 +878,7 @@ public class SegmentDispatcher implements DownloadDnsManager.Callback, ISegmentC
                 synchronized (this) {
                     wait(500L);
                 }
-                i10 = i11;
+                i2 = i3;
             } catch (InterruptedException unused) {
                 return null;
             }
@@ -817,15 +888,11 @@ public class SegmentDispatcher implements DownloadDnsManager.Callback, ISegmentC
     private UrlRecord obtainUrl() {
         UrlRecord urlRecord;
         synchronized (this) {
-            try {
-                int size = this.urlIndex % this.urlRecords.size();
-                if (this.strategy.urlBalance()) {
-                    this.urlIndex++;
-                }
-                urlRecord = this.urlRecords.get(size);
-            } catch (Throwable th2) {
-                throw th2;
+            int size = this.urlIndex % this.urlRecords.size();
+            if (this.strategy.urlBalance()) {
+                this.urlIndex++;
             }
+            urlRecord = this.urlRecords.get(size);
         }
         return urlRecord;
     }
@@ -843,13 +910,9 @@ public class SegmentDispatcher implements DownloadDnsManager.Callback, ISegmentC
         this.failedException = baseException;
         this.bufferQueue.close();
         synchronized (this) {
-            try {
-                Iterator<SegmentReader> it = this.readers.iterator();
-                while (it.hasNext()) {
-                    it.next().close();
-                }
-            } catch (Throwable th2) {
-                throw th2;
+            Iterator<SegmentReader> it = this.readers.iterator();
+            while (it.hasNext()) {
+                it.next().close();
             }
         }
     }
@@ -860,21 +923,17 @@ public class SegmentDispatcher implements DownloadDnsManager.Callback, ISegmentC
         }
         long currentTimeMillis = System.currentTimeMillis();
         synchronized (this) {
-            try {
-                markProgress(currentTimeMillis);
-                long readTimeout = this.strategy.getReadTimeout();
-                if (readTimeout > 0) {
-                    long j10 = this.lastReconnectTime;
-                    if (j10 > 0 && currentTimeMillis - j10 > readTimeout && findPoorReadThreadAndReconnect(currentTimeMillis, readTimeout)) {
-                        this.lastReconnectTime = currentTimeMillis;
-                        this.reconnectCount++;
-                    }
+            markProgress(currentTimeMillis);
+            long readTimeout = this.strategy.getReadTimeout();
+            if (readTimeout > 0) {
+                long j2 = this.lastReconnectTime;
+                if (j2 > 0 && currentTimeMillis - j2 > readTimeout && findPoorReadThreadAndReconnect(currentTimeMillis, readTimeout)) {
+                    this.lastReconnectTime = currentTimeMillis;
+                    this.reconnectCount++;
                 }
-            } catch (Throwable th2) {
-                throw th2;
             }
         }
-        return y.f.f18076n;
+        return 2000L;
     }
 
     private void switchToNextUrl() {
@@ -885,15 +944,11 @@ public class SegmentDispatcher implements DownloadDnsManager.Callback, ISegmentC
 
     public boolean trySwitchNextUrlForReader(SegmentReader segmentReader) {
         synchronized (this) {
-            try {
-                UrlRecord findNextUrlLocked = findNextUrlLocked(segmentReader);
-                if (findNextUrlLocked == null) {
-                    return false;
-                }
-                return segmentReader.switchUrlRecord(findNextUrlLocked);
-            } catch (Throwable th2) {
-                throw th2;
+            UrlRecord findNextUrlLocked = findNextUrlLocked(segmentReader);
+            if (findNextUrlLocked == null) {
+                return false;
             }
+            return segmentReader.switchUrlRecord(findNextUrlLocked);
         }
     }
 
@@ -926,12 +981,8 @@ public class SegmentDispatcher implements DownloadDnsManager.Callback, ISegmentC
     private void waitFirstConnection() throws BaseException, InterruptedException {
         BaseException baseException;
         synchronized (this.firstConnectionLock) {
-            try {
-                if (this.mainUrlHttpResponse == null && this.firstBackupUrlHttpResponse == null) {
-                    this.firstConnectionLock.wait();
-                }
-            } catch (Throwable th2) {
-                throw th2;
+            if (this.mainUrlHttpResponse == null && this.firstBackupUrlHttpResponse == null) {
+                this.firstConnectionLock.wait();
             }
         }
         if (this.mainUrlHttpResponse == null && this.firstBackupUrlHttpResponse == null && (baseException = this.failedException) != null) {
@@ -943,10 +994,10 @@ public class SegmentDispatcher implements DownloadDnsManager.Callback, ISegmentC
         try {
             this.writer.loopAndWrite(this.bufferQueue);
         } catch (StreamClosedException unused) {
-        } catch (BaseException e10) {
-            Logger.e(TAG, "dispatchSegments: loopAndWrite e = " + e10);
-            onError(e10);
-            throw e10;
+        } catch (BaseException e2) {
+            Logger.e(TAG, "dispatchSegments: loopAndWrite e = " + e2);
+            onError(e2);
+            throw e2;
         }
         if (this.paused || this.canceled) {
             return;
@@ -954,18 +1005,15 @@ public class SegmentDispatcher implements DownloadDnsManager.Callback, ISegmentC
         try {
             synchronized (this) {
                 while (!this.toDispatchSegments.isEmpty()) {
-                    try {
-                        Segment poll = this.toDispatchSegments.poll();
-                        if (poll != null) {
-                            arrangeSegmentLocked(this.dispatchedSegments, poll, true);
-                        }
-                    } finally {
+                    Segment poll = this.toDispatchSegments.poll();
+                    if (poll != null) {
+                        arrangeSegmentLocked(this.dispatchedSegments, poll, true);
                     }
                 }
                 checkDownloadedBytesLocked(this.dispatchedSegments);
             }
-        } catch (Throwable th2) {
-            th2.printStackTrace();
+        } catch (Throwable th) {
+            th.printStackTrace();
         }
         if (!this.allReaderFailed || this.failedException == null) {
             if (this.downloadInfo.getCurBytes() != this.downloadInfo.getTotalBytes()) {
@@ -989,13 +1037,9 @@ public class SegmentDispatcher implements DownloadDnsManager.Callback, ISegmentC
         Logger.i(TAG, "cancel");
         this.canceled = true;
         synchronized (this) {
-            try {
-                Iterator<SegmentReader> it = this.readers.iterator();
-                while (it.hasNext()) {
-                    it.next().close();
-                }
-            } catch (Throwable th2) {
-                throw th2;
+            Iterator<SegmentReader> it = this.readers.iterator();
+            while (it.hasNext()) {
+                it.next().close();
             }
         }
         this.writer.cancel();
@@ -1038,11 +1082,11 @@ public class SegmentDispatcher implements DownloadDnsManager.Callback, ISegmentC
                 }
                 this.watchDog.release();
                 return true;
-            } catch (Throwable th2) {
+            } catch (Throwable th) {
                 long currentTimeMillis3 = System.currentTimeMillis() - currentTimeMillis;
                 this.downloadInfo.increaseAllConnectTime(currentTimeMillis3);
                 this.downloadInfo.setFirstSpeedTime(currentTimeMillis3);
-                throw th2;
+                throw th;
             }
         } finally {
             if (!this.paused && !this.canceled) {
@@ -1059,40 +1103,31 @@ public class SegmentDispatcher implements DownloadDnsManager.Callback, ISegmentC
             return null;
         }
         synchronized (this) {
-            try {
-                Segment obtainSegmentLocked = obtainSegmentLocked(segmentReader, urlRecord);
-                if (obtainSegmentLocked != null) {
-                    obtainSegmentLocked.increaseCompetitor();
-                    if (obtainSegmentLocked.getCompetitor() > 1) {
-                        return new Segment(obtainSegmentLocked);
-                    }
+            Segment obtainSegmentLocked = obtainSegmentLocked(segmentReader, urlRecord);
+            if (obtainSegmentLocked != null) {
+                obtainSegmentLocked.increaseCompetitor();
+                if (obtainSegmentLocked.getCompetitor() > 1) {
+                    return new Segment(obtainSegmentLocked);
                 }
-                return obtainSegmentLocked;
-            } catch (Throwable th2) {
-                throw th2;
             }
+            return obtainSegmentLocked;
         }
     }
 
     @Override // com.ss.android.socialbase.downloader.network.DownloadDnsManager.Callback
     public void onDnsResolved(String str, List<InetAddress> list) {
-        List<UrlRecord> list2;
         if (this.paused || this.canceled) {
             return;
         }
+        List<UrlRecord> list2 = null;
         try {
             list2 = assembleIpAddress(str, list);
-        } catch (Throwable th2) {
-            th2.printStackTrace();
-            list2 = null;
+        } catch (Throwable th) {
+            th.printStackTrace();
         }
         synchronized (this) {
             if (list2 != null) {
-                try {
-                    addIpListLocked(str, list2);
-                } catch (Throwable th3) {
-                    throw th3;
-                }
+                addIpListLocked(str, list2);
             }
             this.needWaitDnsResolve = false;
             this.strategy.updateUrlCount(this.urlRecords.size());
@@ -1105,22 +1140,18 @@ public class SegmentDispatcher implements DownloadDnsManager.Callback, ISegmentC
     public void onReaderExit(SegmentReader segmentReader) {
         Logger.i(TAG, "onReaderExit: threadIndex = " + segmentReader.threadIndex);
         synchronized (this) {
-            try {
-                segmentReader.setExited(true);
-                this.readers.remove(segmentReader);
-                clearCoveredSegmentLocked();
-                if (this.readers.isEmpty()) {
-                    onComplete();
-                } else if (isAllContentDownloaded()) {
-                    Log.i(TAG, "onReaderExit: allContentDownloaded");
-                    Iterator<SegmentReader> it = this.readers.iterator();
-                    while (it.hasNext()) {
-                        it.next().close();
-                    }
-                    onComplete();
+            segmentReader.setExited(true);
+            this.readers.remove(segmentReader);
+            clearCoveredSegmentLocked();
+            if (this.readers.isEmpty()) {
+                onComplete();
+            } else if (isAllContentDownloaded()) {
+                Log.i(TAG, "onReaderExit: allContentDownloaded");
+                Iterator<SegmentReader> it = this.readers.iterator();
+                while (it.hasNext()) {
+                    it.next().close();
                 }
-            } catch (Throwable th2) {
-                throw th2;
+                onComplete();
             }
         }
     }
@@ -1135,24 +1166,20 @@ public class SegmentDispatcher implements DownloadDnsManager.Callback, ISegmentC
     @Override // com.ss.android.socialbase.downloader.segment.ISegmentCallback
     public void onSegmentConnected(SegmentReader segmentReader, Segment segment, UrlRecord urlRecord, HttpResponse httpResponse) throws BaseException, RetryThrowable {
         synchronized (this) {
-            try {
-                if (this.canceled || this.paused) {
-                    throw new StreamClosedException("connected");
+            if (this.canceled || this.paused) {
+                throw new StreamClosedException("connected");
+            }
+            checkSegmentHttpResponseLocked(segmentReader, segment, urlRecord, httpResponse);
+            segmentReader.setFailed(false);
+            if (this.totalLength <= 0) {
+                long totalBytes = this.downloadInfo.getTotalBytes();
+                this.totalLength = totalBytes;
+                if (totalBytes <= 0) {
+                    this.totalLength = httpResponse.getTotalLength();
                 }
-                checkSegmentHttpResponseLocked(segmentReader, segment, urlRecord, httpResponse);
-                segmentReader.setFailed(false);
-                if (this.totalLength <= 0) {
-                    long totalBytes = this.downloadInfo.getTotalBytes();
-                    this.totalLength = totalBytes;
-                    if (totalBytes <= 0) {
-                        this.totalLength = httpResponse.getTotalLength();
-                    }
-                    dispatchReadThread();
-                } else if (this.strategy.segmentOneByOne()) {
-                    dispatchReadThread();
-                }
-            } catch (Throwable th2) {
-                throw th2;
+                dispatchReadThread();
+            } else if (this.strategy.segmentOneByOne()) {
+                dispatchReadThread();
             }
         }
     }
@@ -1160,33 +1187,29 @@ public class SegmentDispatcher implements DownloadDnsManager.Callback, ISegmentC
     @Override // com.ss.android.socialbase.downloader.segment.ISegmentCallback
     public void onSegmentFailed(SegmentReader segmentReader, UrlRecord urlRecord, Segment segment, BaseException baseException) {
         synchronized (this) {
-            try {
-                Logger.e(TAG, "onSegmentFailed: segment = " + segment + ", e = " + baseException);
-                segmentReader.setFailed(true);
-                if (segmentReader.threadIndex == 0) {
+            Logger.e(TAG, "onSegmentFailed: segment = " + segment + ", e = " + baseException);
+            segmentReader.setFailed(true);
+            if (segmentReader.threadIndex == 0) {
+                this.failedException = baseException;
+            }
+            if (isAllReaderFailedLocked()) {
+                if (this.failedException == null) {
                     this.failedException = baseException;
                 }
-                if (isAllReaderFailedLocked()) {
-                    if (this.failedException == null) {
-                        this.failedException = baseException;
-                    }
-                    this.allReaderFailed = true;
-                    onError(this.failedException);
-                }
-            } catch (Throwable th2) {
-                throw th2;
+                this.allReaderFailed = true;
+                onError(this.failedException);
             }
         }
     }
 
     @Override // com.ss.android.socialbase.downloader.segment.ISegmentCallback
-    public void onSegmentRetry(SegmentReader segmentReader, UrlRecord urlRecord, Segment segment, BaseException baseException, int i10, int i11) {
+    public void onSegmentRetry(SegmentReader segmentReader, UrlRecord urlRecord, Segment segment, BaseException baseException, int i2, int i3) {
         boolean isResponseCodeError = DownloadUtils.isResponseCodeError(baseException);
         int errorCode = baseException.getErrorCode();
         if (errorCode == 1047 || errorCode == 1074 || errorCode == 1055) {
             isResponseCodeError = true;
         }
-        if (isResponseCodeError || i10 >= i11) {
+        if (isResponseCodeError || i2 >= i3) {
             trySwitchNextUrlForReader(segmentReader);
         }
     }
@@ -1195,13 +1218,9 @@ public class SegmentDispatcher implements DownloadDnsManager.Callback, ISegmentC
         Logger.i(TAG, "pause1");
         this.paused = true;
         synchronized (this) {
-            try {
-                Iterator<SegmentReader> it = this.readers.iterator();
-                while (it.hasNext()) {
-                    it.next().close();
-                }
-            } catch (Throwable th2) {
-                throw th2;
+            Iterator<SegmentReader> it = this.readers.iterator();
+            while (it.hasNext()) {
+                it.next().close();
             }
         }
         this.writer.pause();
@@ -1211,15 +1230,11 @@ public class SegmentDispatcher implements DownloadDnsManager.Callback, ISegmentC
     @Override // com.ss.android.socialbase.downloader.segment.ISegmentCallback
     public void unApplySegment(SegmentReader segmentReader, Segment segment) {
         synchronized (this) {
-            try {
-                if (segment.owner == segmentReader) {
-                    Logger.i(TAG, "unApplySegment " + segment);
-                    segment.setCurrentOffsetRead(segmentReader.getCurSegmentReadOffset());
-                    segment.owner = null;
-                    segmentReader.updateReadBytes();
-                }
-            } catch (Throwable th2) {
-                throw th2;
+            if (segment.owner == segmentReader) {
+                Logger.i(TAG, "unApplySegment " + segment);
+                segment.setCurrentOffsetRead(segmentReader.getCurSegmentReadOffset());
+                segment.owner = null;
+                segmentReader.updateReadBytes();
             }
         }
     }

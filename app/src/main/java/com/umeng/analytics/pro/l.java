@@ -1,151 +1,560 @@
 package com.umeng.analytics.pro;
 
-import com.umeng.commonsdk.debug.UMLogUtils;
+import android.app.Activity;
+import android.app.Application;
+import android.content.Context;
+import android.os.Build;
+import android.os.Bundle;
+import android.os.Process;
+import android.text.TextUtils;
+import com.umeng.analytics.MobclickAgent;
+import com.umeng.analytics.pro.e;
+import com.umeng.analytics.pro.i;
+import com.umeng.analytics.vshelper.PageNameMonitor;
+import com.umeng.commonsdk.UMConfigure;
+import com.umeng.commonsdk.config.FieldManager;
+import com.umeng.commonsdk.debug.UMLog;
+import com.umeng.commonsdk.debug.UMRTLog;
+import com.umeng.commonsdk.statistics.common.DeviceConfig;
+import com.umeng.commonsdk.utils.UMUtils;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.UUID;
+import org.json.JSONArray;
+import org.json.JSONObject;
 
 /* loaded from: classes4.dex */
 public class l {
-    public static final String A = "MobclickAgent.setSecret方法参数secretkey不能为null，也不能为空字符串。|secretkey参数必须是非空 字符串。";
-    public static final String B = "统计SDK常见问题索引贴 详见链接 http://developer.umeng.com/docs/66650/cate/66650";
-    public static final String H = "检测到进入页面生命周期时尚未完成SDK初始化，请检查是否未在Application.onCreate函数中执行SDK初始化函数。";
-    public static final String N = "MobclickAgent.onDeepLinkReceived方法Context参数不能为null。|参数Context需要指定ApplicationContext值。";
-    public static final String O = "MobclickAgent.onDeepLinkReceived方法link参数不能为null，也不能为空字符串。|参数link必须为非空字符串。";
-    public static final String P = "MobclickAgent.onDeepLinkReceived方法link参数长度超过限制。|参数link长度不能超过1024字符。";
-    public static final String ar = "请在Application.onCreate函数中使用UMConfigure.preInit函数初始化友盟sdk";
-
-    /* renamed from: z */
-    public static final String f24050z = "MobclickAgent.setSecret方法参数context不能为null|参数Context需要指定ApplicationContext值。";
 
     /* renamed from: a */
-    public static final String f24014a = "事件属性集合参数为空|onEvent接口必须传入非空的属性集合。详见问题链接 " + UMLogUtils.makeUrl("66946");
+    public static String f25941a;
 
     /* renamed from: b */
-    public static final String f24026b = "事件ID和保留字冲突|onEvent接口传入的事件ID不能和保留字冲突。详见问题链接 " + UMLogUtils.makeUrl("66946");
+    boolean f25946b;
 
     /* renamed from: c */
-    public static final String f24027c = "事件ID为null或者为空字符串|onEvent接口传入的事件ID不能为null，也不能为空字符串。详见问题链接 " + UMLogUtils.makeUrl("66946");
-
-    /* renamed from: d */
-    public static final String f24028d = "事件属性集合map没有加入K-V值|事件属性集合参数map必须添加K-V值。详见问题链接 " + UMLogUtils.makeUrl("66946");
-
-    /* renamed from: e */
-    public static final String f24029e = "事件属性集合map中key值和保留字冲突|事件属性集合map中key值不能和保留字冲突。详见问题链接 " + UMLogUtils.makeUrl("66946");
+    boolean f25947c;
 
     /* renamed from: f */
-    public static final String f24030f = "事件ID为null或者长度超过限制|事件ID不能为null、空串，且长度不能超过128个字符。详见问题链接 " + UMLogUtils.makeUrl("66946");
+    com.umeng.analytics.vshelper.a f25948f;
 
     /* renamed from: g */
-    public static final String f24031g = "事件属性集合参数为空或者事件属性集合map没有加入K-V值|事件属性集合参数map必须添加K-V值。详见问题链接 " + UMLogUtils.makeUrl("66946");
+    Application.ActivityLifecycleCallbacks f25949g;
 
     /* renamed from: h */
-    public static final String f24032h = "事件属性集合map中key非法|事件属性集合参数map中key不能为非法的。详见问题链接 " + UMLogUtils.makeUrl("66946");
+    private final Map<String, Long> f25950h;
+    private boolean l;
+    private int m;
+    private int n;
 
     /* renamed from: i */
-    public static final String f24033i = "事件属性集合map中value为null|事件属性集合参数map中value不能为null。详见问题链接 " + UMLogUtils.makeUrl("66946");
+    private static JSONArray f25944i = new JSONArray();
 
     /* renamed from: j */
-    public static final String f24034j = "事件属性集合map中value长度超过限制|事件属性集合参数map中value如果为字符串时，其长度不能超过256个字符。详见问题链接 " + UMLogUtils.makeUrl("66946");
+    private static Object f25945j = new Object();
+    private static Application k = null;
 
-    /* renamed from: k */
-    public static final String f24035k = "事件标签为null或者为空字符串|onEvent接口传入的事件标签不能为null，也不能为空字符串。详见问题链接 " + UMLogUtils.makeUrl("66946");
+    /* renamed from: d */
+    static String f25942d = null;
 
-    /* renamed from: l */
-    public static final String f24036l = "事件ID为null或者长度超过限制，或事件标签长度超过限制|事件ID不能为null、空串，且长度不能超过128个字符。事件标签长度不能超过256个字符。详见问题链接 " + UMLogUtils.makeUrl("66946");
+    /* renamed from: e */
+    static int f25943e = -1;
+    private static boolean o = true;
+    private static Object p = new Object();
+    private static ar q = new com.umeng.analytics.vshelper.b();
 
-    /* renamed from: m */
-    public static final String f24037m = "事件ID和保留字冲突|onEvent接口传入的事件ID不能和保留字冲突。详见问题链接 " + UMLogUtils.makeUrl("66946");
+    /* renamed from: com.umeng.analytics.pro.l$1 */
+    class AnonymousClass1 implements Application.ActivityLifecycleCallbacks {
+        AnonymousClass1() {
+        }
 
-    /* renamed from: n */
-    public static final String f24038n = "MobclickAgent.onResume接口参数不能为null|MobclickAgent.onResume接口参数应该传入当前Activity的上下文。详见问题链接 " + UMLogUtils.makeUrl("66948");
+        @Override // android.app.Application.ActivityLifecycleCallbacks
+        public void onActivityCreated(Activity activity, Bundle bundle) {
+            l.q.a(activity, bundle);
+        }
 
-    /* renamed from: o */
-    public static final String f24039o = "MobclickAgent.onResume接口参数不是Activity的上下文|MobclickAgent.onResume接口参数应该传入当前Activity的上下文。详见问题链接 " + UMLogUtils.makeUrl("66948");
+        @Override // android.app.Application.ActivityLifecycleCallbacks
+        public void onActivityDestroyed(Activity activity) {
+        }
 
-    /* renamed from: p */
-    public static final String f24040p = "MobclickAgent.onPause接口参数不能为null|MobclickAgent.onPause接口参数应该传入当前Activity的上下文。详见问题链接 " + UMLogUtils.makeUrl("66948");
+        @Override // android.app.Application.ActivityLifecycleCallbacks
+        public void onActivityPaused(Activity activity) {
+            if (FieldManager.allow(com.umeng.commonsdk.utils.d.F)) {
+                UMRTLog.i(UMRTLog.RTLOG_TAG, "--->>> onActivityPaused: FirstResumeTrigger enabled.");
+                synchronized (l.p) {
+                    if (l.o) {
+                        return;
+                    }
+                }
+            } else {
+                UMRTLog.i(UMRTLog.RTLOG_TAG, "--->>> onActivityPaused: FirstResumeTrigger disabled.");
+            }
+            if (UMConfigure.AUTO_ACTIVITY_PAGE_COLLECTION != MobclickAgent.PageMode.AUTO) {
+                if (UMConfigure.AUTO_ACTIVITY_PAGE_COLLECTION == MobclickAgent.PageMode.MANUAL) {
+                    com.umeng.analytics.b.a().i();
+                }
+            } else {
+                l.this.c(activity);
+                com.umeng.analytics.b.a().i();
+                l.this.f25946b = false;
+                l.q.d(activity);
+            }
+        }
 
-    /* renamed from: q */
-    public static final String f24041q = "MobclickAgent.onPause接口参数不是Activity的上下文|MobclickAgent.onPause接口参数应该传入当前Activity的上下文。详见问题链接 " + UMLogUtils.makeUrl("66948");
+        @Override // android.app.Application.ActivityLifecycleCallbacks
+        public void onActivityResumed(Activity activity) {
+            if (FieldManager.allow(com.umeng.commonsdk.utils.d.F)) {
+                UMRTLog.i(UMRTLog.RTLOG_TAG, "--->>> onActivityResumed: FirstResumeTrigger enabled.");
+                synchronized (l.p) {
+                    if (l.o) {
+                        boolean unused = l.o = false;
+                    }
+                }
+                l.this.a(activity);
+            } else {
+                UMRTLog.i(UMRTLog.RTLOG_TAG, "--->>> onActivityResumed: FirstResumeTrigger disabled.");
+                l.this.a(activity);
+            }
+            l.q.c(activity);
+        }
 
-    /* renamed from: r */
-    public static final String f24042r = "@ 遗漏了Mobclick.onResume函数调用|每个Activity的onResume中都必须调用MobclickAgent.onResume。详见问题链接 " + UMLogUtils.makeUrl("66948");
+        @Override // android.app.Application.ActivityLifecycleCallbacks
+        public void onActivitySaveInstanceState(Activity activity, Bundle bundle) {
+        }
 
-    /* renamed from: s */
-    public static final String f24043s = "@ 遗漏了Mobclick.onPaused函数调用|每个Activity的onPaused中都必须调用MobclickAgent.onPaused。详见问题链接 " + UMLogUtils.makeUrl("66948");
+        @Override // android.app.Application.ActivityLifecycleCallbacks
+        public void onActivityStarted(Activity activity) {
+            if (activity != null) {
+                if (l.this.m <= 0) {
+                    if (l.f25942d == null) {
+                        l.f25942d = UUID.randomUUID().toString();
+                    }
+                    if (l.f25943e == -1) {
+                        l.f25943e = activity.isTaskRoot() ? 1 : 0;
+                    }
+                    if (l.f25943e == 0 && UMUtils.isMainProgress(activity)) {
+                        HashMap hashMap = new HashMap();
+                        hashMap.put("activityName", activity.toString());
+                        hashMap.put("pid", Integer.valueOf(Process.myPid()));
+                        hashMap.put("isMainProcess", Integer.valueOf(UMUtils.isMainProgress(activity) ? 1 : 0));
+                        com.umeng.analytics.b a2 = com.umeng.analytics.b.a();
+                        if (a2 != null) {
+                            a2.a((Context) activity, "$$_onUMengEnterForegroundInitError", (Map<String, Object>) hashMap);
+                        }
+                        l.f25943e = -2;
+                        if (UMConfigure.isDebugLog()) {
+                            UMLog.mutlInfo(2, j.ar);
+                        }
+                    } else if (l.f25943e == 1 || !UMUtils.isMainProgress(activity)) {
+                        HashMap hashMap2 = new HashMap();
+                        hashMap2.put("pairUUID", l.f25942d);
+                        hashMap2.put("pid", Integer.valueOf(Process.myPid()));
+                        hashMap2.put("isMainProcess", Integer.valueOf(UMUtils.isMainProgress(activity) ? 1 : 0));
+                        hashMap2.put("activityName", activity.toString());
+                        if (com.umeng.analytics.b.a() != null) {
+                            com.umeng.analytics.b.a().a((Context) activity, "$$_onUMengEnterForeground", (Map<String, Object>) hashMap2);
+                        }
+                    }
+                }
+                if (l.this.n < 0) {
+                    l.e(l.this);
+                } else {
+                    l.f(l.this);
+                }
+            }
+        }
 
-    /* renamed from: t */
-    public static final String f24044t = "MobclickAgent.onProfileSignIn接口参数 账号ID 不能为null|账号ID不能为空。详见问题链接 " + UMLogUtils.makeUrl("66951");
+        @Override // android.app.Application.ActivityLifecycleCallbacks
+        public void onActivityStopped(Activity activity) {
+            MobclickAgent.PageMode pageMode = UMConfigure.AUTO_ACTIVITY_PAGE_COLLECTION;
+            MobclickAgent.PageMode pageMode2 = MobclickAgent.PageMode.AUTO;
+            if (activity != null) {
+                if (activity.isChangingConfigurations()) {
+                    l.a(l.this);
+                    return;
+                }
+                l.b(l.this);
+                if (l.this.m <= 0) {
+                    if (l.f25943e == 0 && UMUtils.isMainProgress(activity)) {
+                        return;
+                    }
+                    int i2 = l.f25943e;
+                    if (i2 == 1 || (i2 == 0 && !UMUtils.isMainProgress(activity))) {
+                        HashMap hashMap = new HashMap();
+                        hashMap.put("pairUUID", l.f25942d);
+                        hashMap.put("reason", "Normal");
+                        hashMap.put("pid", Integer.valueOf(Process.myPid()));
+                        hashMap.put("isMainProcess", Integer.valueOf(UMUtils.isMainProgress(activity) ? 1 : 0));
+                        hashMap.put("activityName", activity.toString());
+                        com.umeng.analytics.b a2 = com.umeng.analytics.b.a();
+                        if (a2 != null) {
+                            a2.a((Context) activity, "$$_onUMengEnterBackground", (Map<String, Object>) hashMap);
+                        }
+                        if (l.f25942d != null) {
+                            l.f25942d = null;
+                        }
+                    }
+                }
+            }
+        }
+    }
 
-    /* renamed from: u */
-    public static final String f24045u = "MobclickAgent.onProfileSignIn接口参数 账号ID 长度超过限制|账号ID 长度不能超过64个字符。详见问题链接 " + UMLogUtils.makeUrl("66951");
+    private static class a {
 
-    /* renamed from: v */
-    public static final String f24046v = "MobclickAgent.onProfileSignIn接口参数 账号来源 长度超过限制|账号来源 长度不能超过32个字符。详见问题链接 " + UMLogUtils.makeUrl("66951");
+        /* renamed from: a */
+        private static final l f25952a = new l();
 
-    /* renamed from: w */
-    public static final String f24047w = "MobclickAgent.reportError方法参数context不能为null|参数Context需要指定ApplicationContext值。详见问题链接 " + UMLogUtils.makeUrl("66971");
+        private a() {
+        }
+    }
 
-    /* renamed from: x */
-    public static final String f24048x = "MobclickAgent.reportError方法参数error不能为null，也不能为空字符串。|error参数必须是非空字符串。详见问题链接 " + UMLogUtils.makeUrl("66971");
+    /* synthetic */ l(AnonymousClass1 anonymousClass1) {
+        this();
+    }
 
-    /* renamed from: y */
-    public static final String f24049y = "MobclickAgent.reportError方法 Context和Throwable参数都不能为空。|参数Context需要指定ApplicationContext值，Throwable参数传入捕获到的异常对象。详见问题链接 " + UMLogUtils.makeUrl("66971");
-    public static final String C = "MobclickAgent.onPageStart方法参数不能为null，也不能为空字符串。|参数viewName必须为非空字符串。详见链接 " + UMLogUtils.makeUrl("66975");
-    public static final String D = "MobclickAgent.onPageEnd方法参数不能为null，也不能为空字符串。|参数viewName必须为非空 字符串。详见链接 " + UMLogUtils.makeUrl("66975");
-    public static final String E = "对于页面@，onPageStart和onPageEnd调用对的参数不一致。|对于同一个页面，请先调用onPageStart，再调用onPageEnd。详见链接 " + UMLogUtils.makeUrl("66975");
-    public static final String F = "对于页面@，请确保先依序成对调用onPageStart，onPageEnd接口，再调用onPageStart接口对其它页面进行统计。|对于任意一个页面，必须依序成对调用onPageStart以及onPageEnd，不能有遗漏。详见链接 " + UMLogUtils.makeUrl("66975");
-    public static final String G = "对于页面@，请检查是否遗漏onPageStart接口调用。|对于任意一个页面，必须依序成对调用onPageStart以及onPageEnd，不能有遗漏。详见链接 " + UMLogUtils.makeUrl("66975");
-    public static final String I = "当前发送策略为：启动时发送。详见链接 " + UMLogUtils.makeUrl("66976");
-    public static final String J = "当前发送策略为: 间隔发送。间隔时间为：@秒。详见链接 " + UMLogUtils.makeUrl("66976");
-    public static final String K = "当前发送策略为: 集成测试。但是SDK未切换到调试模式，所以后台设置未生效。|如想切换到集成测试发送策略，请调用UMConfigure.setLogEnabled(true)将SDK切换到调试模式。详见链接 " + UMLogUtils.makeUrl("66976");
-    public static final String L = "当前发送策略为：集成测试。详见链接 " + UMLogUtils.makeUrl("66976");
-    public static final String M = "当前发送策略为: 准实时发送。间隔时间为：@秒。详见链接 " + UMLogUtils.makeUrl("66976");
-    public static final String Q = "发送数据时发生java.net.UnknownHostException异常|友盟后端对设备端证书验证失败。请确保设备端没有运行抓包代理类程序。详见链接 " + UMLogUtils.makeUrl("66978");
-    public static final String R = "发送数据时发生javax.net.sslHandshakeException异常|导致友盟后端域名解析失败。请检查系统DNS服务器配置是否正确。详见链接 " + UMLogUtils.makeUrl("66978");
-    public static final String S = "track接口调用非法。|当前处于非DPLUS场景中，不能使用DPLUS相关接口，详见问题连接：" + UMLogUtils.makeUrl("67310");
-    public static final String T = "registerSuperProperty接口调用非法。|当前处于非DPLUS场景中，不能使用DPLUS相关接口，详见问题连接：" + UMLogUtils.makeUrl("67310");
-    public static final String U = "unregisterSuperProperty接口调用非法。|当前处于非DPLUS场景中，不能使用DPLUS相关接口，详见问题连接：" + UMLogUtils.makeUrl("67310");
-    public static final String V = "getSuperProperty接口调用非法。|当前处于非DPLUS场景中，不能使用DPLUS相关接口，详见问题连接: " + UMLogUtils.makeUrl("67310");
-    public static final String W = "getSuperProperties接口调用非法。|当前处于非DPLUS场景中，不能使用DPLUS相关接口，详见问题连接：" + UMLogUtils.makeUrl("67310");
-    public static final String X = "clearSuperProperties接口调用非法。|当前处于非DPLUS场景中，不能使用DPLUS相关接口，详见问题连接：" + UMLogUtils.makeUrl("67310");
-    public static final String Y = "setFirstLaunchEvent接口调用非法。|当前处于非DPLUS场景中，不能使用DPLUS相关接口，详见问题连接：" + UMLogUtils.makeUrl("67310");
-    public static final String Z = "registerPreProperties接口调用非法。|当前处于非DPLUS场景中，不能使用DPLUS相关接口，详见问题连接：" + UMLogUtils.makeUrl("67310");
+    static /* synthetic */ int a(l lVar) {
+        int i2 = lVar.n;
+        lVar.n = i2 - 1;
+        return i2;
+    }
 
-    /* renamed from: aa */
-    public static final String f24015aa = "unregisterPreProperty接口调用非法。|当前处于非DPLUS场景中，不能使用DPLUS相关接口，详见问题连接：" + UMLogUtils.makeUrl("67310");
+    static /* synthetic */ int b(l lVar) {
+        int i2 = lVar.m;
+        lVar.m = i2 - 1;
+        return i2;
+    }
 
-    /* renamed from: ab */
-    public static final String f24016ab = "clearPreProperties接口调用非法。|当前处于非DPLUS场景中，不能使用DPLUS相关接口，详见问题连接：" + UMLogUtils.makeUrl("67310");
+    static /* synthetic */ int e(l lVar) {
+        int i2 = lVar.n;
+        lVar.n = i2 + 1;
+        return i2;
+    }
 
-    /* renamed from: ac */
-    public static final String f24017ac = "getPreProperties接口调用非法。|当前处于非DPLUS场景中，不能使用DPLUS相关接口，详见问题连接：" + UMLogUtils.makeUrl("67310");
+    static /* synthetic */ int f(l lVar) {
+        int i2 = lVar.m;
+        lVar.m = i2 + 1;
+        return i2;
+    }
 
-    /* renamed from: ad */
-    public static final String f24018ad = "eventName为空，请检查|eventName参数不能为空，详见问题连接：" + UMLogUtils.makeUrl("67311");
+    private void g() {
+        if (this.l) {
+            return;
+        }
+        this.l = true;
+        if (k == null || Build.VERSION.SDK_INT < 14) {
+            return;
+        }
+        k.registerActivityLifecycleCallbacks(this.f25949g);
+    }
 
-    /* renamed from: ae */
-    public static final String f24019ae = "请注意：map为空|track接口的参数说明，详见问题连接：" + UMLogUtils.makeUrl("67311");
+    private l() {
+        this.f25950h = new HashMap();
+        this.l = false;
+        this.f25946b = false;
+        this.f25947c = false;
+        this.m = 0;
+        this.n = 0;
+        this.f25948f = PageNameMonitor.getInstance();
+        this.f25949g = new Application.ActivityLifecycleCallbacks() { // from class: com.umeng.analytics.pro.l.1
+            AnonymousClass1() {
+            }
 
-    /* renamed from: af */
-    public static final String f24020af = "context参数为空｜context参数不能为空，详见问题连接：" + UMLogUtils.makeUrl("67312");
+            @Override // android.app.Application.ActivityLifecycleCallbacks
+            public void onActivityCreated(Activity activity, Bundle bundle) {
+                l.q.a(activity, bundle);
+            }
 
-    /* renamed from: ag */
-    public static final String f24021ag = "propertyName参数或propertyValue参数为空｜propertyName、propertyValue参数不能为空，详见问题连接：" + UMLogUtils.makeUrl("67312");
+            @Override // android.app.Application.ActivityLifecycleCallbacks
+            public void onActivityDestroyed(Activity activity) {
+            }
 
-    /* renamed from: ah */
-    public static final String f24022ah = "context参数为空|context参数不能为空，详见问题连接：" + UMLogUtils.makeUrl("67313");
+            @Override // android.app.Application.ActivityLifecycleCallbacks
+            public void onActivityPaused(Activity activity) {
+                if (FieldManager.allow(com.umeng.commonsdk.utils.d.F)) {
+                    UMRTLog.i(UMRTLog.RTLOG_TAG, "--->>> onActivityPaused: FirstResumeTrigger enabled.");
+                    synchronized (l.p) {
+                        if (l.o) {
+                            return;
+                        }
+                    }
+                } else {
+                    UMRTLog.i(UMRTLog.RTLOG_TAG, "--->>> onActivityPaused: FirstResumeTrigger disabled.");
+                }
+                if (UMConfigure.AUTO_ACTIVITY_PAGE_COLLECTION != MobclickAgent.PageMode.AUTO) {
+                    if (UMConfigure.AUTO_ACTIVITY_PAGE_COLLECTION == MobclickAgent.PageMode.MANUAL) {
+                        com.umeng.analytics.b.a().i();
+                    }
+                } else {
+                    l.this.c(activity);
+                    com.umeng.analytics.b.a().i();
+                    l.this.f25946b = false;
+                    l.q.d(activity);
+                }
+            }
 
-    /* renamed from: ai */
-    public static final String f24023ai = "context参数为空|context参数不能为空，详见问题连接：" + UMLogUtils.makeUrl("67316");
+            @Override // android.app.Application.ActivityLifecycleCallbacks
+            public void onActivityResumed(Activity activity) {
+                if (FieldManager.allow(com.umeng.commonsdk.utils.d.F)) {
+                    UMRTLog.i(UMRTLog.RTLOG_TAG, "--->>> onActivityResumed: FirstResumeTrigger enabled.");
+                    synchronized (l.p) {
+                        if (l.o) {
+                            boolean unused = l.o = false;
+                        }
+                    }
+                    l.this.a(activity);
+                } else {
+                    UMRTLog.i(UMRTLog.RTLOG_TAG, "--->>> onActivityResumed: FirstResumeTrigger disabled.");
+                    l.this.a(activity);
+                }
+                l.q.c(activity);
+            }
 
-    /* renamed from: aj */
-    public static final String f24024aj = "context参数为空|context参数不能为空，详见问题连接：" + UMLogUtils.makeUrl("67318");
+            @Override // android.app.Application.ActivityLifecycleCallbacks
+            public void onActivitySaveInstanceState(Activity activity, Bundle bundle) {
+            }
 
-    /* renamed from: ak */
-    public static final String f24025ak = "trackID参数为空|trackID参数不能为空，详见问题连接：" + UMLogUtils.makeUrl("67318");
-    public static final String al = "context参数为空|context参数不能为空，详见问题连接：" + UMLogUtils.makeUrl("67319");
-    public static final String am = "propertics参数为空|propertics参数不能为空，详见问题连接：" + UMLogUtils.makeUrl("67319");
-    public static final String an = "context参数为空|context参数不能为空，详见问题连接：" + UMLogUtils.makeUrl("67320");
-    public static final String ao = "未匹配到您传入的property参数|property参数不能匹配，" + UMLogUtils.makeUrl("67320");
-    public static final String ap = "context参数为空|context参数不能为空，详见问题连接：" + UMLogUtils.makeUrl("67321");
-    public static final String aq = "context参数为空|context参数不能为空，详见问题连接：" + UMLogUtils.makeUrl("67322");
+            @Override // android.app.Application.ActivityLifecycleCallbacks
+            public void onActivityStarted(Activity activity) {
+                if (activity != null) {
+                    if (l.this.m <= 0) {
+                        if (l.f25942d == null) {
+                            l.f25942d = UUID.randomUUID().toString();
+                        }
+                        if (l.f25943e == -1) {
+                            l.f25943e = activity.isTaskRoot() ? 1 : 0;
+                        }
+                        if (l.f25943e == 0 && UMUtils.isMainProgress(activity)) {
+                            HashMap hashMap = new HashMap();
+                            hashMap.put("activityName", activity.toString());
+                            hashMap.put("pid", Integer.valueOf(Process.myPid()));
+                            hashMap.put("isMainProcess", Integer.valueOf(UMUtils.isMainProgress(activity) ? 1 : 0));
+                            com.umeng.analytics.b a2 = com.umeng.analytics.b.a();
+                            if (a2 != null) {
+                                a2.a((Context) activity, "$$_onUMengEnterForegroundInitError", (Map<String, Object>) hashMap);
+                            }
+                            l.f25943e = -2;
+                            if (UMConfigure.isDebugLog()) {
+                                UMLog.mutlInfo(2, j.ar);
+                            }
+                        } else if (l.f25943e == 1 || !UMUtils.isMainProgress(activity)) {
+                            HashMap hashMap2 = new HashMap();
+                            hashMap2.put("pairUUID", l.f25942d);
+                            hashMap2.put("pid", Integer.valueOf(Process.myPid()));
+                            hashMap2.put("isMainProcess", Integer.valueOf(UMUtils.isMainProgress(activity) ? 1 : 0));
+                            hashMap2.put("activityName", activity.toString());
+                            if (com.umeng.analytics.b.a() != null) {
+                                com.umeng.analytics.b.a().a((Context) activity, "$$_onUMengEnterForeground", (Map<String, Object>) hashMap2);
+                            }
+                        }
+                    }
+                    if (l.this.n < 0) {
+                        l.e(l.this);
+                    } else {
+                        l.f(l.this);
+                    }
+                }
+            }
+
+            @Override // android.app.Application.ActivityLifecycleCallbacks
+            public void onActivityStopped(Activity activity) {
+                MobclickAgent.PageMode pageMode = UMConfigure.AUTO_ACTIVITY_PAGE_COLLECTION;
+                MobclickAgent.PageMode pageMode2 = MobclickAgent.PageMode.AUTO;
+                if (activity != null) {
+                    if (activity.isChangingConfigurations()) {
+                        l.a(l.this);
+                        return;
+                    }
+                    l.b(l.this);
+                    if (l.this.m <= 0) {
+                        if (l.f25943e == 0 && UMUtils.isMainProgress(activity)) {
+                            return;
+                        }
+                        int i2 = l.f25943e;
+                        if (i2 == 1 || (i2 == 0 && !UMUtils.isMainProgress(activity))) {
+                            HashMap hashMap = new HashMap();
+                            hashMap.put("pairUUID", l.f25942d);
+                            hashMap.put("reason", "Normal");
+                            hashMap.put("pid", Integer.valueOf(Process.myPid()));
+                            hashMap.put("isMainProcess", Integer.valueOf(UMUtils.isMainProgress(activity) ? 1 : 0));
+                            hashMap.put("activityName", activity.toString());
+                            com.umeng.analytics.b a2 = com.umeng.analytics.b.a();
+                            if (a2 != null) {
+                                a2.a((Context) activity, "$$_onUMengEnterBackground", (Map<String, Object>) hashMap);
+                            }
+                            if (l.f25942d != null) {
+                                l.f25942d = null;
+                            }
+                        }
+                    }
+                }
+            }
+        };
+        synchronized (this) {
+            if (k != null) {
+                g();
+            }
+        }
+    }
+
+    public void c() {
+        c((Activity) null);
+        b();
+    }
+
+    public void b(Context context) {
+        synchronized (p) {
+            if (o) {
+                o = false;
+                Activity globleActivity = DeviceConfig.getGlobleActivity(context);
+                if (globleActivity == null) {
+                    UMRTLog.e(UMRTLog.RTLOG_TAG, "--->>> init触发onResume: 无前台Activity，直接退出。");
+                    return;
+                }
+                UMRTLog.e(UMRTLog.RTLOG_TAG, "--->>> init触发onResume: 补救成功，前台Activity名：" + globleActivity.getLocalClassName());
+                a(globleActivity);
+                return;
+            }
+            UMRTLog.e(UMRTLog.RTLOG_TAG, "--->>> init触发onResume: firstResumeCall = false，直接返回。");
+        }
+    }
+
+    public static void c(Context context) {
+        String jSONArray;
+        if (context != null) {
+            try {
+                JSONObject jSONObject = new JSONObject();
+                synchronized (f25945j) {
+                    jSONArray = f25944i.toString();
+                    f25944i = new JSONArray();
+                }
+                if (jSONArray.length() > 0) {
+                    jSONObject.put(e.d.a.f25886c, new JSONArray(jSONArray));
+                    i.a(context).a(u.a().c(), jSONObject, i.a.AUTOPAGE);
+                }
+            } catch (Throwable unused) {
+            }
+        }
+    }
+
+    public boolean a() {
+        return this.l;
+    }
+
+    public static synchronized l a(Context context) {
+        l lVar;
+        synchronized (l.class) {
+            if (k == null && context != null) {
+                if (context instanceof Activity) {
+                    k = ((Activity) context).getApplication();
+                } else if (context instanceof Application) {
+                    k = (Application) context;
+                }
+            }
+            lVar = a.f25952a;
+        }
+        return lVar;
+    }
+
+    public static void a(Context context, String str) {
+        if (f25943e == 1 && UMUtils.isMainProgress(context)) {
+            HashMap hashMap = new HashMap();
+            hashMap.put("pairUUID", f25942d);
+            hashMap.put("reason", str);
+            if (f25942d != null) {
+                f25942d = null;
+            }
+            if (context != null) {
+                hashMap.put("pid", Integer.valueOf(Process.myPid()));
+                hashMap.put("isMainProcess", Integer.valueOf(UMUtils.isMainProgress(context) ? 1 : 0));
+                hashMap.put("Context", context.toString());
+                com.umeng.analytics.b.a().a(context, "$$_onUMengEnterBackground", (Map<String, Object>) hashMap);
+            }
+        }
+    }
+
+    public void b() {
+        this.l = false;
+        if (k != null) {
+            if (Build.VERSION.SDK_INT >= 14) {
+                k.unregisterActivityLifecycleCallbacks(this.f25949g);
+            }
+            k = null;
+        }
+    }
+
+    public void c(Activity activity) {
+        long j2;
+        long j3;
+        try {
+            synchronized (this.f25950h) {
+                if (f25941a == null && activity != null) {
+                    f25941a = activity.getPackageName() + "." + activity.getLocalClassName();
+                }
+                j2 = 0;
+                if (TextUtils.isEmpty(f25941a) || !this.f25950h.containsKey(f25941a)) {
+                    j3 = 0;
+                } else {
+                    long longValue = this.f25950h.get(f25941a).longValue();
+                    long currentTimeMillis = System.currentTimeMillis() - longValue;
+                    this.f25950h.remove(f25941a);
+                    j2 = currentTimeMillis;
+                    j3 = longValue;
+                }
+            }
+            synchronized (f25945j) {
+                try {
+                    JSONObject jSONObject = new JSONObject();
+                    jSONObject.put(d.v, f25941a);
+                    jSONObject.put("duration", j2);
+                    jSONObject.put(d.x, j3);
+                    jSONObject.put("type", 0);
+                    f25944i.put(jSONObject);
+                } catch (Throwable unused) {
+                }
+            }
+        } catch (Throwable unused2) {
+        }
+    }
+
+    private void b(Activity activity) {
+        f25941a = activity.getPackageName() + "." + activity.getLocalClassName();
+        synchronized (this.f25950h) {
+            this.f25950h.put(f25941a, Long.valueOf(System.currentTimeMillis()));
+        }
+    }
+
+    public void a(Activity activity) {
+        if (UMConfigure.AUTO_ACTIVITY_PAGE_COLLECTION != MobclickAgent.PageMode.AUTO) {
+            if (UMConfigure.AUTO_ACTIVITY_PAGE_COLLECTION == MobclickAgent.PageMode.MANUAL) {
+                synchronized (p) {
+                    com.umeng.analytics.b.a().h();
+                }
+                return;
+            }
+            return;
+        }
+        if (activity != null) {
+            String str = activity.getPackageName() + "." + activity.getLocalClassName();
+            this.f25948f.activityResume(str);
+            if (this.f25946b) {
+                this.f25946b = false;
+                if (!TextUtils.isEmpty(f25941a)) {
+                    if (f25941a.equals(str)) {
+                        return;
+                    }
+                    b(activity);
+                    synchronized (p) {
+                        com.umeng.analytics.b.a().h();
+                    }
+                    return;
+                }
+                f25941a = str;
+                return;
+            }
+            b(activity);
+            synchronized (p) {
+                com.umeng.analytics.b.a().h();
+            }
+        }
+    }
 }

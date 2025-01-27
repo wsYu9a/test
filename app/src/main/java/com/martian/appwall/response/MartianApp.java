@@ -1,6 +1,6 @@
 package com.martian.appwall.response;
 
-/* loaded from: classes3.dex */
+/* loaded from: classes2.dex */
 public class MartianApp {
     private String downloadUrl;
     private String iconUrl;
@@ -37,27 +37,27 @@ public class MartianApp {
         return num.intValue();
     }
 
-    public void setDownloadUrl(String str) {
-        this.downloadUrl = str;
+    public void setDownloadUrl(String downloadUrl) {
+        this.downloadUrl = downloadUrl;
     }
 
-    public void setIconUrl(String str) {
-        this.iconUrl = str;
+    public void setIconUrl(String iconUrl) {
+        this.iconUrl = iconUrl;
     }
 
-    public void setName(String str) {
-        this.name = str;
+    public void setName(String name) {
+        this.name = name;
     }
 
-    public void setPackageName(String str) {
-        this.packageName = str;
+    public void setPackageName(String packageName) {
+        this.packageName = packageName;
     }
 
-    public void setPosterUrl(String str) {
-        this.posterUrl = str;
+    public void setPosterUrl(String posterUrl) {
+        this.posterUrl = posterUrl;
     }
 
-    public void setSizeInMB(Integer num) {
-        this.sizeInMB = num;
+    public void setSizeInMB(Integer sizeInMB) {
+        this.sizeInMB = sizeInMB;
     }
 }

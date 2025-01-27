@@ -2,11 +2,11 @@ package com.kwad.components.offline.api.core.adlive.model;
 
 import com.kwad.components.offline.api.core.model.BaseOfflineCompoJsonParse;
 import com.kwad.components.offline.api.core.utils.JsonHelper;
-import com.kwad.sdk.utils.x;
+import com.kwad.sdk.utils.t;
 import java.io.Serializable;
 import org.json.JSONObject;
 
-/* loaded from: classes3.dex */
+/* loaded from: classes2.dex */
 public class KSAdLiveShopInfo extends BaseOfflineCompoJsonParse<KSAdLiveShopInfo> implements Serializable {
     private static final long serialVersionUID = -7139399767269744574L;
     public int changeType;
@@ -26,24 +26,24 @@ public class KSAdLiveShopInfo extends BaseOfflineCompoJsonParse<KSAdLiveShopInfo
     }
 
     @Override // com.kwad.components.offline.api.core.model.BaseOfflineCompoJsonParse
+    public JSONObject toJson(KSAdLiveShopInfo kSAdLiveShopInfo) {
+        return toJson(kSAdLiveShopInfo, (JSONObject) null);
+    }
+
+    @Override // com.kwad.components.offline.api.core.model.BaseOfflineCompoJsonParse
     public JSONObject toJson(KSAdLiveShopInfo kSAdLiveShopInfo, JSONObject jSONObject) {
         if (jSONObject == null) {
             jSONObject = new JSONObject();
         }
         JsonHelper.putValue(jSONObject, "itemInfo", kSAdLiveShopInfo.itemInfo);
-        int i10 = kSAdLiveShopInfo.shopCardType;
-        if (i10 != 0) {
-            x.putValue(jSONObject, "shopCardType", i10);
+        int i2 = kSAdLiveShopInfo.shopCardType;
+        if (i2 != 0) {
+            t.putValue(jSONObject, "shopCardType", i2);
         }
-        int i11 = kSAdLiveShopInfo.changeType;
-        if (i11 != 0) {
-            x.putValue(jSONObject, "changeType", i11);
+        int i3 = kSAdLiveShopInfo.changeType;
+        if (i3 != 0) {
+            t.putValue(jSONObject, "changeType", i3);
         }
         return jSONObject;
-    }
-
-    @Override // com.kwad.components.offline.api.core.model.BaseOfflineCompoJsonParse
-    public JSONObject toJson(KSAdLiveShopInfo kSAdLiveShopInfo) {
-        return toJson(kSAdLiveShopInfo, (JSONObject) null);
     }
 }

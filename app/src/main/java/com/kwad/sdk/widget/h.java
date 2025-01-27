@@ -13,10 +13,9 @@ import android.util.AttributeSet;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import com.kwad.sdk.R;
-import com.kwad.sdk.service.ServiceProvider;
 import java.util.Arrays;
 
-/* loaded from: classes3.dex */
+/* loaded from: classes2.dex */
 public final class h {
     private boolean mClipBackground;
 
@@ -34,23 +33,23 @@ public final class h {
         private boolean rightBottom = true;
         private boolean bottomLeft = true;
 
-        public final a ci(boolean z10) {
-            this.leftTop = z10;
+        public final a bK(boolean z) {
+            this.leftTop = z;
             return this;
         }
 
-        public final a cj(boolean z10) {
-            this.topRight = z10;
+        public final a bL(boolean z) {
+            this.topRight = z;
             return this;
         }
 
-        public final a ck(boolean z10) {
-            this.rightBottom = z10;
+        public final a bM(boolean z) {
+            this.rightBottom = z;
             return this;
         }
 
-        public final a cl(boolean z10) {
-            this.bottomLeft = z10;
+        public final a bN(boolean z) {
+            this.bottomLeft = z;
             return this;
         }
 
@@ -70,17 +69,22 @@ public final class h {
             return this.topRight;
         }
 
-        public final void setAllCorner(boolean z10) {
-            this.leftTop = z10;
-            this.topRight = z10;
-            this.rightBottom = z10;
-            this.bottomLeft = z10;
+        public final void setAllCorner(boolean z) {
+            this.leftTop = z;
+            this.topRight = z;
+            this.rightBottom = z;
+            this.bottomLeft = z;
         }
     }
 
     public h() {
         this.radiusArray = new float[8];
         this.mCornerConf = new a();
+    }
+
+    public h(a aVar) {
+        this.radiusArray = new float[8];
+        this.mCornerConf = aVar;
     }
 
     private Path getPath() {
@@ -147,19 +151,14 @@ public final class h {
 
     public final void initAttrs(Context context, @Nullable AttributeSet attributeSet) {
         if (attributeSet != null) {
-            try {
-                int i10 = R.attr.ksad_radius;
-                int i11 = R.attr.ksad_clipBackground;
-                int[] iArr = {i10, i11};
-                Arrays.sort(iArr);
-                TypedArray obtainStyledAttributes = context.obtainStyledAttributes(attributeSet, iArr);
-                this.mRadius = obtainStyledAttributes.getDimensionPixelOffset(Arrays.binarySearch(iArr, i10), 0);
-                this.mClipBackground = obtainStyledAttributes.getBoolean(Arrays.binarySearch(iArr, i11), true);
-                obtainStyledAttributes.recycle();
-            } catch (Throwable th2) {
-                ServiceProvider.reportSdkCaughtException(th2);
-                return;
-            }
+            int i2 = R.attr.ksad_radius;
+            int i3 = R.attr.ksad_clipBackground;
+            int[] iArr = {i2, i3};
+            Arrays.sort(iArr);
+            TypedArray obtainStyledAttributes = context.obtainStyledAttributes(attributeSet, iArr);
+            this.mRadius = obtainStyledAttributes.getDimensionPixelOffset(Arrays.binarySearch(iArr, i2), 0);
+            this.mClipBackground = obtainStyledAttributes.getBoolean(Arrays.binarySearch(iArr, i3), true);
+            obtainStyledAttributes.recycle();
         }
         this.mPath = new Path();
         this.mPaint = new Paint(1);
@@ -167,20 +166,15 @@ public final class h {
         this.mPaint.setXfermode(new PorterDuffXfermode(PorterDuff.Mode.DST_IN));
     }
 
-    public final void onSizeChanged(int i10, int i11) {
-        this.mRectF.set(0.0f, 0.0f, i10, i11);
+    public final void onSizeChanged(int i2, int i3) {
+        this.mRectF.set(0.0f, 0.0f, i2, i3);
     }
 
-    public final void setRadius(float f10) {
-        this.mRadius = f10;
+    public final void setRadius(float f2) {
+        this.mRadius = f2;
     }
 
     public final void setRadius(float[] fArr) {
         this.radiusArray = fArr;
-    }
-
-    public h(a aVar) {
-        this.radiusArray = new float[8];
-        this.mCornerConf = aVar;
     }
 }

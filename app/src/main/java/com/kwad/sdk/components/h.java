@@ -1,12 +1,20 @@
 package com.kwad.sdk.components;
 
-/* loaded from: classes3.dex */
-public interface h extends b {
-    void am(String str);
+import android.content.Intent;
 
-    String pl();
+/* loaded from: classes2.dex */
+public interface h {
+    void a(i iVar);
 
-    com.kwad.sdk.core.a.g pm();
+    void callTKBridge(String str);
 
-    void x(long j10);
+    void callbackPageStatus(boolean z, String str);
+
+    String getClassName();
+
+    Intent getIntent();
+
+    String getTemplateString();
+
+    String getUrl();
 }

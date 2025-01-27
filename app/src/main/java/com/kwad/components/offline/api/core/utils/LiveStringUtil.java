@@ -3,7 +3,7 @@ package com.kwad.components.offline.api.core.utils;
 import android.text.TextUtils;
 import androidx.annotation.NonNull;
 
-/* loaded from: classes3.dex */
+/* loaded from: classes2.dex */
 public class LiveStringUtil {
     @NonNull
     public static String emptyIfNull(String str) {

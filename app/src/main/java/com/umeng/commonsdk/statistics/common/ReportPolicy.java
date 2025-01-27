@@ -1,7 +1,6 @@
 package com.umeng.commonsdk.statistics.common;
 
 import android.content.Context;
-import androidx.media3.common.C;
 import com.umeng.commonsdk.framework.UMEnvelopeBuild;
 import com.umeng.commonsdk.framework.UMModuleRegister;
 import com.umeng.commonsdk.statistics.internal.StatTracer;
@@ -20,7 +19,7 @@ public class ReportPolicy {
     public static final int WIFIONLY = 5;
 
     public static class DebugPolicy extends ReportStrategy {
-        private final long ReportInterval = C.DEFAULT_SEEK_FORWARD_INCREMENT_MS;
+        private final long ReportInterval = 15000;
         private StatTracer mTracer;
 
         public DebugPolicy(StatTracer statTracer) {
@@ -28,8 +27,8 @@ public class ReportPolicy {
         }
 
         @Override // com.umeng.commonsdk.statistics.common.ReportPolicy.ReportStrategy
-        public boolean shouldSendMessage(boolean z10) {
-            return System.currentTimeMillis() - UMEnvelopeBuild.getLastSuccessfulBuildTime(UMModuleRegister.getAppContext()) >= C.DEFAULT_SEEK_FORWARD_INCREMENT_MS;
+        public boolean shouldSendMessage(boolean z) {
+            return System.currentTimeMillis() - UMEnvelopeBuild.getLastSuccessfulBuildTime(UMModuleRegister.getAppContext()) >= 15000;
         }
     }
 
@@ -48,7 +47,7 @@ public class ReportPolicy {
         }
 
         @Override // com.umeng.commonsdk.statistics.common.ReportPolicy.ReportStrategy
-        public boolean shouldSendMessage(boolean z10) {
+        public boolean shouldSendMessage(boolean z) {
             return System.currentTimeMillis() - UMEnvelopeBuild.getLastSuccessfulBuildTime(UMModuleRegister.getAppContext()) >= this.defcon.getReqInterval();
         }
 
@@ -61,9 +60,9 @@ public class ReportPolicy {
         private long latency;
         private long start;
 
-        public LatentPolicy(int i10) {
+        public LatentPolicy(int i2) {
             this.start = 0L;
-            this.latency = i10;
+            this.latency = i2;
             this.start = System.currentTimeMillis();
         }
 
@@ -73,15 +72,15 @@ public class ReportPolicy {
         }
 
         @Override // com.umeng.commonsdk.statistics.common.ReportPolicy.ReportStrategy
-        public boolean shouldSendMessage(boolean z10) {
+        public boolean shouldSendMessage(boolean z) {
             return System.currentTimeMillis() - this.start >= this.latency;
         }
     }
 
     public static class ReportAtLaunch extends ReportStrategy {
         @Override // com.umeng.commonsdk.statistics.common.ReportPolicy.ReportStrategy
-        public boolean shouldSendMessage(boolean z10) {
-            return z10;
+        public boolean shouldSendMessage(boolean z) {
+            return z;
         }
     }
 
@@ -91,31 +90,31 @@ public class ReportPolicy {
         private long mReportInterval;
         private StatTracer mTracer;
 
-        public ReportByInterval(StatTracer statTracer, long j10) {
+        public ReportByInterval(StatTracer statTracer, long j2) {
             this.mTracer = statTracer;
-            setReportInterval(j10);
+            setReportInterval(j2);
         }
 
-        public static boolean isValidValue(int i10) {
-            return ((long) i10) >= MIN_REPORT_INTERVAL;
+        public static boolean isValidValue(int i2) {
+            return ((long) i2) >= MIN_REPORT_INTERVAL;
         }
 
         public long getReportInterval() {
             return this.mReportInterval;
         }
 
-        public void setReportInterval(long j10) {
-            long j11 = MIN_REPORT_INTERVAL;
-            if (j10 < j11 || j10 > MAX_REPORT_INTERVAL) {
-                this.mReportInterval = j11;
+        public void setReportInterval(long j2) {
+            long j3 = MIN_REPORT_INTERVAL;
+            if (j2 < j3 || j2 > MAX_REPORT_INTERVAL) {
+                this.mReportInterval = j3;
             } else {
-                this.mReportInterval = j10;
+                this.mReportInterval = j2;
             }
         }
 
         @Override // com.umeng.commonsdk.statistics.common.ReportPolicy.ReportStrategy
-        public boolean shouldSendMessage(boolean z10) {
-            return z10 || System.currentTimeMillis() - UMEnvelopeBuild.getLastSuccessfulBuildTime(UMModuleRegister.getAppContext()) >= this.mReportInterval;
+        public boolean shouldSendMessage(boolean z) {
+            return z || System.currentTimeMillis() - UMEnvelopeBuild.getLastSuccessfulBuildTime(UMModuleRegister.getAppContext()) >= this.mReportInterval;
         }
     }
 
@@ -128,7 +127,7 @@ public class ReportPolicy {
         }
 
         @Override // com.umeng.commonsdk.statistics.common.ReportPolicy.ReportStrategy
-        public boolean shouldSendMessage(boolean z10) {
+        public boolean shouldSendMessage(boolean z) {
             return System.currentTimeMillis() - UMEnvelopeBuild.getLastSuccessfulBuildTime(UMModuleRegister.getAppContext()) >= this.HOURS_DAY;
         }
     }
@@ -143,23 +142,23 @@ public class ReportPolicy {
             return this.mReportInterval;
         }
 
-        public void setReportInterval(long j10) {
-            if (j10 < MIN_REPORT_INTERVAL || j10 > MAX_REPORT_INTERVAL) {
+        public void setReportInterval(long j2) {
+            if (j2 < MIN_REPORT_INTERVAL || j2 > MAX_REPORT_INTERVAL) {
                 this.mReportInterval = DEFAULT_REPORT_INTERVAL;
             } else {
-                this.mReportInterval = j10;
+                this.mReportInterval = j2;
             }
         }
 
         @Override // com.umeng.commonsdk.statistics.common.ReportPolicy.ReportStrategy
-        public boolean shouldSendMessage(boolean z10) {
+        public boolean shouldSendMessage(boolean z) {
             return true;
         }
     }
 
     public static class ReportRealtime extends ReportStrategy {
         @Override // com.umeng.commonsdk.statistics.common.ReportPolicy.ReportStrategy
-        public boolean shouldSendMessage(boolean z10) {
+        public boolean shouldSendMessage(boolean z) {
             return true;
         }
     }
@@ -169,7 +168,7 @@ public class ReportPolicy {
             return true;
         }
 
-        public boolean shouldSendMessage(boolean z10) {
+        public boolean shouldSendMessage(boolean z) {
             return true;
         }
     }
@@ -178,11 +177,12 @@ public class ReportPolicy {
         private Context mContext;
 
         public ReportWifiOnly(Context context) {
+            this.mContext = null;
             this.mContext = context;
         }
 
         @Override // com.umeng.commonsdk.statistics.common.ReportPolicy.ReportStrategy
-        public boolean shouldSendMessage(boolean z10) {
+        public boolean shouldSendMessage(boolean z) {
             return DeviceConfig.isWiFiAvailable(this.mContext);
         }
     }
@@ -196,14 +196,14 @@ public class ReportPolicy {
         }
 
         @Override // com.umeng.commonsdk.statistics.common.ReportPolicy.ReportStrategy
-        public boolean shouldSendMessage(boolean z10) {
+        public boolean shouldSendMessage(boolean z) {
             return System.currentTimeMillis() - UMEnvelopeBuild.getLastSuccessfulBuildTime(UMModuleRegister.getAppContext()) >= 10800000;
         }
     }
 
-    public static boolean isValid(int i10) {
-        if (i10 != 8 && i10 != 11) {
-            switch (i10) {
+    public static boolean isValid(int i2) {
+        if (i2 != 8 && i2 != 11) {
+            switch (i2) {
                 case 0:
                 case 1:
                 case 2:

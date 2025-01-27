@@ -6,48 +6,50 @@ import android.view.GestureDetector;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.ScrollView;
-import n9.l;
 
-/* loaded from: classes3.dex */
+/* loaded from: classes2.dex */
 public class TolerantScrollView extends ScrollView {
 
+    /* renamed from: a */
+    private final GestureDetector f10382a;
+
     /* renamed from: b */
-    public final GestureDetector f12698b;
+    View.OnTouchListener f10383b;
 
     /* renamed from: c */
-    public View.OnTouchListener f12699c;
+    private l f10384c;
 
-    /* renamed from: d */
-    public l f12700d;
+    static class a extends GestureDetector.SimpleOnGestureListener {
+        a() {
+        }
 
-    public static class a extends GestureDetector.SimpleOnGestureListener {
         @Override // android.view.GestureDetector.SimpleOnGestureListener, android.view.GestureDetector.OnGestureListener
-        public boolean onScroll(MotionEvent motionEvent, MotionEvent motionEvent2, float f10, float f11) {
-            return Math.abs(f11) > Math.abs(f10);
+        public boolean onScroll(MotionEvent e1, MotionEvent e2, float distanceX, float distanceY) {
+            return Math.abs(distanceY) > Math.abs(distanceX);
         }
     }
 
-    public TolerantScrollView(Context context, AttributeSet attributeSet) {
-        super(context, attributeSet);
-        this.f12698b = new GestureDetector(context, new a());
+    public TolerantScrollView(Context context, AttributeSet attrs) {
+        super(context, attrs);
+        this.f10382a = new GestureDetector(context, new a());
         setFadingEdgeLength(0);
     }
 
     @Override // android.widget.ScrollView, android.view.ViewGroup
-    public boolean onInterceptTouchEvent(MotionEvent motionEvent) {
-        return super.onInterceptTouchEvent(motionEvent) && this.f12698b.onTouchEvent(motionEvent);
+    public boolean onInterceptTouchEvent(MotionEvent ev) {
+        return super.onInterceptTouchEvent(ev) && this.f10382a.onTouchEvent(ev);
     }
 
     @Override // android.view.View
-    public void onScrollChanged(int i10, int i11, int i12, int i13) {
-        super.onScrollChanged(i10, i11, i12, i13);
-        l lVar = this.f12700d;
+    protected void onScrollChanged(int l, int t, int oldl, int oldt) {
+        super.onScrollChanged(l, t, oldl, oldt);
+        l lVar = this.f10384c;
         if (lVar != null) {
-            lVar.onScrollChanged(i10, i11, i12, i13);
+            lVar.onScrollChanged(l, t, oldl, oldt);
         }
     }
 
-    public void setOnScrollChangedListener(l lVar) {
-        this.f12700d = lVar;
+    public void setOnScrollChangedListener(l onScrollChangedListener) {
+        this.f10384c = onScrollChangedListener;
     }
 }

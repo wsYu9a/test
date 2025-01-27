@@ -11,23 +11,23 @@ public class TYCommission {
     }
 
     public Long getCreatedOn() {
-        Long l10 = this.createdOn;
-        return Long.valueOf(l10 == null ? 0L : l10.longValue());
+        Long l = this.createdOn;
+        return Long.valueOf(l == null ? 0L : l.longValue());
     }
 
     public String getType() {
         return this.type;
     }
 
-    public void setCommission(Integer num) {
-        this.commission = num;
+    public void setCommission(Integer commission) {
+        this.commission = commission;
     }
 
-    public void setCreatedOn(Long l10) {
-        this.createdOn = l10;
+    public void setCreatedOn(Long createdOn) {
+        this.createdOn = createdOn;
     }
 
-    public void setType(String str) {
-        this.type = str;
+    public void setType(String type) {
+        this.type = type;
     }
 }

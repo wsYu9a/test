@@ -19,20 +19,12 @@ public class BookEventRequest extends MiBookRequest {
         return "authopt/stat/book_events";
     }
 
-    public void setEvents(List<BookEvent> list) {
-        this.events = list;
+    public void setEvents(List<BookEvent> events) {
+        this.events = events;
     }
 
     @Override // com.martian.libmars.comm.request.MTRequest
-    public RequestBody toPostContent(String str) {
-        String str2;
-        MediaType parse = MediaType.parse("application/json; charset=utf-8");
-        try {
-            str2 = GsonUtils.c().toJson(this.events);
-        } catch (Exception e10) {
-            e10.printStackTrace();
-            str2 = "";
-        }
-        return RequestBody.create(parse, str2);
+    public RequestBody toPostContent(String charset) {
+        return RequestBody.create(MediaType.parse("application/json; charset=utf-8"), GsonUtils.c().toJson(this.events));
     }
 }

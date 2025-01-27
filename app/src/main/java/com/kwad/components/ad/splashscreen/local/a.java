@@ -1,50 +1,42 @@
 package com.kwad.components.ad.splashscreen.local;
 
-import android.content.Context;
-import android.text.TextUtils;
 import com.ksad.json.annotation.KsJson;
-import com.kwad.sdk.core.d.c;
-import com.kwad.sdk.utils.ad;
 import java.text.SimpleDateFormat;
 import java.util.Date;
-import org.json.JSONObject;
+import java.util.HashMap;
+import java.util.Map;
 
 @KsJson
 /* loaded from: classes2.dex */
-public class a extends com.kwad.sdk.core.response.a.a {
-    private static SimpleDateFormat hX = new SimpleDateFormat("yyyy-MM-dd");
-    public long hY = 0;
-    public int hZ = 0;
+public class a extends com.kwad.sdk.core.response.kwai.a {
+    private static SimpleDateFormat gp = new SimpleDateFormat("yyyy-MM-dd");
+    public Map<Long, Integer> BT;
+    public String BU;
+    public long gq;
 
-    public static void T(Context context) {
-        String Nw = ad.Nw();
-        a aVar = new a();
-        if (TextUtils.isEmpty(Nw)) {
-            aVar.hZ = 1;
-            aVar.hY = System.currentTimeMillis();
-            ad.ad(context, aVar.toJson().toString());
-            return;
-        }
-        try {
-            aVar.parseJson(new JSONObject(Nw));
-            if (c(aVar.hY, System.currentTimeMillis())) {
-                aVar.hZ++;
-            } else {
-                aVar.hZ = 1;
-            }
-            aVar.hY = System.currentTimeMillis();
-            ad.ad(context, aVar.toJson().toString());
-        } catch (Exception e10) {
-            c.printStackTraceOnly(e10);
-        }
+    public a() {
+        this.gq = -1L;
+        this.BT = new HashMap();
     }
 
-    private static boolean c(long j10, long j11) {
-        if (j10 > 0 && j11 > 0) {
+    public a(long j2, long j3, int i2) {
+        this.gq = -1L;
+        HashMap hashMap = new HashMap();
+        this.BT = hashMap;
+        this.gq = j2;
+        hashMap.put(Long.valueOf(j3), 1);
+    }
+
+    public final boolean a(long j2, int i2) {
+        return this.BT.get(Long.valueOf(j2)) != null && this.BT.get(Long.valueOf(j2)).intValue() >= i2;
+    }
+
+    public final boolean e(long j2) {
+        if (this.gq > 0 && j2 > 0) {
             try {
-                return hX.format(new Date(j10)).equals(hX.format(new Date(j11)));
-            } catch (Exception e10) {
-                c.printStackTraceOnly(e10);
+                return gp.format(new Date(this.gq)).equals(gp.format(new Date(j2)));
+            } catch (Exception e2) {
+                com.kwad.sdk.core.d.b.printStackTraceOnly(e2);
             }
         }
         return false;

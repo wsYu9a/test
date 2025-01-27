@@ -3,7 +3,7 @@ package com.martian.mibook.lib.model.data;
 import java.util.ArrayList;
 import java.util.List;
 
-/* loaded from: classes3.dex */
+/* loaded from: classes.dex */
 public class MiReadingRecordList {
     private List<MiReadingRecord> miReadingRecords;
 
@@ -14,7 +14,7 @@ public class MiReadingRecordList {
         return this.miReadingRecords;
     }
 
-    public void setMiReadingRecords(List<MiReadingRecord> list) {
-        this.miReadingRecords = list;
+    public void setMiReadingRecords(List<MiReadingRecord> oplist) {
+        this.miReadingRecords = oplist;
     }
 }

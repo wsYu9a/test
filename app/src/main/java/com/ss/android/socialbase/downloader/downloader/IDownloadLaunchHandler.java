@@ -7,5 +7,5 @@ import java.util.List;
 public interface IDownloadLaunchHandler {
     List<String> getResumeMimeTypes();
 
-    void onLaunchResume(List<DownloadInfo> list, int i10);
+    void onLaunchResume(List<DownloadInfo> list, int i2);
 }

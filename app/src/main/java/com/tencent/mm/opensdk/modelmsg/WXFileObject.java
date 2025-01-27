@@ -19,6 +19,16 @@ public class WXFileObject implements WXMediaMessage.IMediaObject {
         this.filePath = null;
     }
 
+    public WXFileObject(String str) {
+        this.contentLengthLimit = CONTENT_LENGTH_LIMIT;
+        this.filePath = str;
+    }
+
+    public WXFileObject(byte[] bArr) {
+        this.contentLengthLimit = CONTENT_LENGTH_LIMIT;
+        this.fileData = bArr;
+    }
+
     private int getFileSize(String str) {
         return b.a(str);
     }
@@ -52,8 +62,8 @@ public class WXFileObject implements WXMediaMessage.IMediaObject {
         bundle.putString("_wxfileobject_filePath", this.filePath);
     }
 
-    public void setContentLengthLimit(int i10) {
-        this.contentLengthLimit = i10;
+    public void setContentLengthLimit(int i2) {
+        this.contentLengthLimit = i2;
     }
 
     public void setFileData(byte[] bArr) {
@@ -73,15 +83,5 @@ public class WXFileObject implements WXMediaMessage.IMediaObject {
     public void unserialize(Bundle bundle) {
         this.fileData = bundle.getByteArray("_wxfileobject_fileData");
         this.filePath = bundle.getString("_wxfileobject_filePath");
-    }
-
-    public WXFileObject(String str) {
-        this.contentLengthLimit = CONTENT_LENGTH_LIMIT;
-        this.filePath = str;
-    }
-
-    public WXFileObject(byte[] bArr) {
-        this.contentLengthLimit = CONTENT_LENGTH_LIMIT;
-        this.fileData = bArr;
     }
 }

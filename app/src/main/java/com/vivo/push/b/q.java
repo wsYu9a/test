@@ -7,32 +7,32 @@ import com.vivo.push.model.InsideNotificationItem;
 public final class q extends v {
 
     /* renamed from: a */
-    protected InsideNotificationItem f24946a;
+    protected InsideNotificationItem f30919a;
 
     /* renamed from: b */
-    private String f24947b;
+    private String f30920b;
 
     public q() {
         super(4);
     }
 
     @Override // com.vivo.push.b.v, com.vivo.push.b.s, com.vivo.push.o
-    public final void c(com.vivo.push.a aVar) {
+    protected final void c(com.vivo.push.a aVar) {
         super.c(aVar);
-        String b10 = com.vivo.push.util.q.b(this.f24946a);
-        this.f24947b = b10;
-        aVar.a("notification_v1", b10);
+        String b2 = com.vivo.push.util.q.b(this.f30919a);
+        this.f30920b = b2;
+        aVar.a("notification_v1", b2);
     }
 
     public final InsideNotificationItem d() {
-        return this.f24946a;
+        return this.f30919a;
     }
 
     public final String e() {
-        if (!TextUtils.isEmpty(this.f24947b)) {
-            return this.f24947b;
+        if (!TextUtils.isEmpty(this.f30920b)) {
+            return this.f30920b;
         }
-        InsideNotificationItem insideNotificationItem = this.f24946a;
+        InsideNotificationItem insideNotificationItem = this.f30919a;
         if (insideNotificationItem == null) {
             return null;
         }
@@ -45,17 +45,17 @@ public final class q extends v {
     }
 
     @Override // com.vivo.push.b.v, com.vivo.push.b.s, com.vivo.push.o
-    public final void d(com.vivo.push.a aVar) {
+    protected final void d(com.vivo.push.a aVar) {
         super.d(aVar);
-        String a10 = aVar.a("notification_v1");
-        this.f24947b = a10;
-        if (TextUtils.isEmpty(a10)) {
+        String a2 = aVar.a("notification_v1");
+        this.f30920b = a2;
+        if (TextUtils.isEmpty(a2)) {
             return;
         }
-        InsideNotificationItem a11 = com.vivo.push.util.q.a(this.f24947b);
-        this.f24946a = a11;
-        if (a11 != null) {
-            a11.setMsgId(f());
+        InsideNotificationItem a3 = com.vivo.push.util.q.a(this.f30920b);
+        this.f30919a = a3;
+        if (a3 != null) {
+            a3.setMsgId(f());
         }
     }
 }

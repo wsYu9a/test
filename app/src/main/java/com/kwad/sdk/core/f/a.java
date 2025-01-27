@@ -1,8 +1,8 @@
 package com.kwad.sdk.core.f;
 
-/* loaded from: classes3.dex */
+/* loaded from: classes2.dex */
 public interface a {
-    void bx();
+    void ae(String str);
 
-    void o(String str);
+    void la();
 }

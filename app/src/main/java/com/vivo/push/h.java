@@ -4,23 +4,23 @@ package com.vivo.push;
 final class h implements Runnable {
 
     /* renamed from: a */
-    final /* synthetic */ com.vivo.push.b.b f25055a;
+    final /* synthetic */ com.vivo.push.b.b f31019a;
 
     /* renamed from: b */
-    final /* synthetic */ String f25056b;
+    final /* synthetic */ String f31020b;
 
     /* renamed from: c */
-    final /* synthetic */ e f25057c;
+    final /* synthetic */ e f31021c;
 
-    public h(e eVar, com.vivo.push.b.b bVar, String str) {
-        this.f25057c = eVar;
-        this.f25055a = bVar;
-        this.f25056b = str;
+    h(e eVar, com.vivo.push.b.b bVar, String str) {
+        this.f31021c = eVar;
+        this.f31019a = bVar;
+        this.f31020b = str;
     }
 
     @Override // java.lang.Runnable
     public final void run() {
-        this.f25057c.a(this.f25055a);
-        this.f25057c.e(this.f25056b);
+        this.f31021c.a(this.f31019a);
+        this.f31021c.e(this.f31020b);
     }
 }

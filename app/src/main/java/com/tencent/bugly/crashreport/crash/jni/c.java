@@ -2,7 +2,7 @@ package com.tencent.bugly.crashreport.crash.jni;
 
 import android.content.Context;
 import android.text.TextUtils;
-import com.alimm.tanx.core.constant.AdClickConstants;
+import androidx.core.os.EnvironmentCompat;
 import com.tencent.bugly.crashreport.crash.CrashDetailBean;
 import com.tencent.bugly.proguard.X;
 import com.tencent.bugly.proguard.ca;
@@ -22,9 +22,9 @@ import java.util.regex.Pattern;
 public class c {
 
     /* renamed from: a */
-    private static List<File> f22534a = new ArrayList();
+    private static List<File> f24904a = new ArrayList();
 
-    public static String a(String str) {
+    protected static String a(String str) {
         if (str == null) {
             return "";
         }
@@ -32,122 +32,122 @@ public class c {
         if (split == null || split.length == 0) {
             return str;
         }
-        StringBuilder sb2 = new StringBuilder();
+        StringBuilder sb = new StringBuilder();
         for (String str2 : split) {
             if (!str2.contains("java.lang.Thread.getStackTrace(")) {
-                sb2.append(str2);
-                sb2.append("\n");
+                sb.append(str2);
+                sb.append("\n");
             }
         }
-        return sb2.toString();
+        return sb.toString();
     }
 
     private static String b(String str, String str2) {
-        BufferedReader a10 = ca.a(str, "map_record.txt");
-        if (a10 == null) {
+        BufferedReader a2 = ca.a(str, "map_record.txt");
+        if (a2 == null) {
             return null;
         }
         try {
-            StringBuilder sb2 = new StringBuilder();
-            String readLine = a10.readLine();
+            StringBuilder sb = new StringBuilder();
+            String readLine = a2.readLine();
             if (readLine != null && readLine.startsWith(str2)) {
                 while (true) {
-                    String readLine2 = a10.readLine();
+                    String readLine2 = a2.readLine();
                     if (readLine2 == null) {
                         break;
                     }
-                    sb2.append("  ");
-                    sb2.append(readLine2);
-                    sb2.append("\n");
+                    sb.append("  ");
+                    sb.append(readLine2);
+                    sb.append("\n");
                 }
-                return sb2.toString();
+                return sb.toString();
             }
             try {
-                a10.close();
-            } catch (Exception e10) {
-                X.b(e10);
+                a2.close();
+            } catch (Exception e2) {
+                X.b(e2);
             }
             return null;
-        } catch (Throwable th2) {
+        } catch (Throwable th) {
             try {
-                X.b(th2);
+                X.b(th);
                 try {
-                    a10.close();
-                } catch (Exception e11) {
-                    X.b(e11);
+                    a2.close();
+                } catch (Exception e3) {
+                    X.b(e3);
                 }
                 return null;
             } finally {
                 try {
-                    a10.close();
-                } catch (Exception e12) {
-                    X.b(e12);
+                    a2.close();
+                } catch (Exception e4) {
+                    X.b(e4);
                 }
             }
         }
     }
 
     private static String c(String str, String str2) {
-        BufferedReader a10 = ca.a(str, "reg_record.txt");
-        if (a10 == null) {
+        BufferedReader a2 = ca.a(str, "reg_record.txt");
+        if (a2 == null) {
             return null;
         }
         try {
-            StringBuilder sb2 = new StringBuilder();
-            String readLine = a10.readLine();
+            StringBuilder sb = new StringBuilder();
+            String readLine = a2.readLine();
             if (readLine == null || !readLine.startsWith(str2)) {
                 try {
-                    a10.close();
-                } catch (Exception e10) {
-                    X.b(e10);
+                    a2.close();
+                } catch (Exception e2) {
+                    X.b(e2);
                 }
                 return null;
             }
-            int i10 = 18;
-            int i11 = 0;
-            int i12 = 0;
+            int i2 = 18;
+            int i3 = 0;
+            int i4 = 0;
             while (true) {
-                String readLine2 = a10.readLine();
+                String readLine2 = a2.readLine();
                 if (readLine2 == null) {
                     break;
                 }
-                if (i11 % 4 == 0) {
-                    if (i11 > 0) {
-                        sb2.append("\n");
+                if (i3 % 4 == 0) {
+                    if (i3 > 0) {
+                        sb.append("\n");
                     }
-                    sb2.append("  ");
+                    sb.append("  ");
                 } else {
                     if (readLine2.length() > 16) {
-                        i10 = 28;
+                        i2 = 28;
                     }
-                    sb2.append("                ".substring(0, i10 - i12));
+                    sb.append("                ".substring(0, i2 - i4));
                 }
-                i12 = readLine2.length();
-                sb2.append(readLine2);
-                i11++;
+                i4 = readLine2.length();
+                sb.append(readLine2);
+                i3++;
             }
-            sb2.append("\n");
-            return sb2.toString();
-        } catch (Throwable th2) {
+            sb.append("\n");
+            return sb.toString();
+        } catch (Throwable th) {
             try {
-                X.b(th2);
+                X.b(th);
                 try {
-                    a10.close();
-                } catch (Exception e11) {
-                    X.b(e11);
+                    a2.close();
+                } catch (Exception e3) {
+                    X.b(e3);
                 }
                 return null;
             } finally {
                 try {
-                    a10.close();
-                } catch (Exception e12) {
-                    X.b(e12);
+                    a2.close();
+                } catch (Exception e4) {
+                    X.b(e4);
                 }
             }
         }
     }
 
-    public static Map<String, Integer> d(String str) {
+    protected static Map<String, Integer> d(String str) {
         if (str == null) {
             return null;
         }
@@ -162,14 +162,14 @@ public class c {
                 hashMap.put(split[0], Integer.valueOf(Integer.parseInt(split[1])));
             }
             return hashMap;
-        } catch (Exception e10) {
+        } catch (Exception e2) {
             X.b("error format intStateStr %s", str);
-            e10.printStackTrace();
+            e2.printStackTrace();
             return null;
         }
     }
 
-    public static CrashDetailBean a(Context context, Map<String, String> map, NativeExceptionHandler nativeExceptionHandler) {
+    protected static CrashDetailBean a(Context context, Map<String, String> map, NativeExceptionHandler nativeExceptionHandler) {
         String str;
         String str2;
         HashMap hashMap;
@@ -182,137 +182,134 @@ public class c {
         }
         String str3 = map.get("intStateStr");
         if (str3 != null && str3.trim().length() > 0) {
-            Map<String, Integer> d10 = d(str3);
-            if (d10 == null) {
+            Map<String, Integer> d2 = d(str3);
+            if (d2 == null) {
                 X.b("parse intSateMap fail", Integer.valueOf(map.size()));
                 return null;
             }
             try {
-                d10.get("sino").intValue();
-                d10.get("sud").intValue();
+                d2.get("sino").intValue();
+                d2.get("sud").intValue();
                 String str4 = map.get("soVersion");
                 if (TextUtils.isEmpty(str4)) {
                     X.b("error format at version", new Object[0]);
                     return null;
                 }
                 String str5 = map.get("errorAddr");
-                String str6 = str5 == null ? "unknown" : str5;
-                String str7 = map.get("codeMsg");
-                if (str7 == null) {
-                    str7 = "unknown";
+                String str6 = EnvironmentCompat.MEDIA_UNKNOWN;
+                String str7 = str5 == null ? EnvironmentCompat.MEDIA_UNKNOWN : str5;
+                String str8 = map.get("codeMsg");
+                if (str8 == null) {
+                    str8 = EnvironmentCompat.MEDIA_UNKNOWN;
                 }
-                String str8 = map.get("tombPath");
-                String str9 = str8 == null ? "unknown" : str8;
-                String str10 = map.get("signalName");
-                if (str10 == null) {
-                    str10 = "unknown";
+                String str9 = map.get("tombPath");
+                String str10 = str9 == null ? EnvironmentCompat.MEDIA_UNKNOWN : str9;
+                String str11 = map.get("signalName");
+                if (str11 == null) {
+                    str11 = EnvironmentCompat.MEDIA_UNKNOWN;
                 }
                 map.get("errnoMsg");
-                String str11 = map.get("stack");
-                if (str11 == null) {
-                    str11 = "unknown";
+                String str12 = map.get("stack");
+                if (str12 == null) {
+                    str12 = EnvironmentCompat.MEDIA_UNKNOWN;
                 }
-                String str12 = map.get("jstack");
-                if (str12 != null) {
-                    StringBuilder sb2 = new StringBuilder();
-                    sb2.append(str11);
-                    sb2.append("java:\n");
-                    sb2.append(str12);
-                    str11 = sb2.toString();
+                String str13 = map.get("jstack");
+                if (str13 != null) {
+                    StringBuilder sb = new StringBuilder();
+                    sb.append(str12);
+                    sb.append("java:\n");
+                    sb.append(str13);
+                    str12 = sb.toString();
                 }
-                Integer num = d10.get("sico");
+                Integer num = d2.get("sico");
                 if (num == null || num.intValue() <= 0) {
-                    str = str7;
-                    str2 = str10;
+                    str = str8;
+                    str2 = str11;
                 } else {
-                    str2 = str10 + "(" + str7 + ")";
+                    str2 = str11 + "(" + str8 + ")";
                     str = "KERNEL";
                 }
-                String str13 = map.get("nativeLog");
-                byte[] a10 = (str13 == null || str13.isEmpty()) ? null : ca.a((File) null, str13, "BuglyNativeLog.txt");
-                String str14 = map.get("sendingProcess");
-                if (str14 == null) {
-                    str14 = "unknown";
+                String str14 = map.get("nativeLog");
+                byte[] a2 = (str14 == null || str14.isEmpty()) ? null : ca.a((File) null, str14, "BuglyNativeLog.txt");
+                String str15 = map.get("sendingProcess");
+                if (str15 == null) {
+                    str15 = EnvironmentCompat.MEDIA_UNKNOWN;
                 }
-                Integer num2 = d10.get("spd");
+                Integer num2 = d2.get("spd");
                 if (num2 != null) {
-                    str14 = str14 + "(" + num2 + ")";
+                    str15 = str15 + "(" + num2 + ")";
                 }
-                String str15 = str14;
-                String str16 = map.get("threadName");
-                if (str16 == null) {
-                    str16 = "unknown";
+                String str16 = str15;
+                String str17 = map.get("threadName");
+                if (str17 == null) {
+                    str17 = EnvironmentCompat.MEDIA_UNKNOWN;
                 }
-                Integer num3 = d10.get("et");
+                Integer num3 = d2.get("et");
                 if (num3 != null) {
-                    str16 = str16 + "(" + num3 + ")";
+                    str17 = str17 + "(" + num3 + ")";
                 }
-                String str17 = str16;
-                String str18 = map.get("processName");
-                String str19 = str18 != null ? str18 : "unknown";
-                Integer num4 = d10.get("ep");
+                String str18 = str17;
+                String str19 = map.get("processName");
+                if (str19 != null) {
+                    str6 = str19;
+                }
+                Integer num4 = d2.get("ep");
                 if (num4 != null) {
-                    str19 = str19 + "(" + num4 + ")";
+                    str6 = str6 + "(" + num4 + ")";
                 }
-                String str20 = str19;
+                String str20 = str6;
                 String str21 = map.get("key-value");
                 if (str21 != null) {
                     HashMap hashMap2 = new HashMap();
-                    String[] split = str21.split("\n");
-                    int length = split.length;
-                    int i10 = 0;
-                    while (i10 < length) {
-                        String[] split2 = split[i10].split("=");
-                        String[] strArr = split;
-                        if (split2.length == 2) {
-                            hashMap2.put(split2[0], split2[1]);
+                    for (String str22 : str21.split("\n")) {
+                        String[] split = str22.split("=");
+                        if (split.length == 2) {
+                            hashMap2.put(split[0], split[1]);
                         }
-                        i10++;
-                        split = strArr;
                     }
                     hashMap = hashMap2;
                 } else {
                     hashMap = null;
                 }
-                CrashDetailBean packageCrashDatas = nativeExceptionHandler.packageCrashDatas(str20, str17, (d10.get("ets").intValue() * 1000) + (d10.get("etms").intValue() / 1000), str2, str6, a(str11), str, str15, str9, map.get("sysLogPath"), map.get("jniLogPath"), str4, a10, hashMap, false, false);
+                CrashDetailBean packageCrashDatas = nativeExceptionHandler.packageCrashDatas(str20, str18, (d2.get("etms").intValue() / 1000) + (d2.get("ets").intValue() * 1000), str2, str7, a(str12), str, str16, str10, map.get("sysLogPath"), map.get("jniLogPath"), str4, a2, hashMap, false, false);
                 if (packageCrashDatas != null) {
-                    String str22 = map.get("userId");
-                    if (str22 != null) {
-                        X.a("[Native record info] userId: %s", str22);
-                        packageCrashDatas.f22386m = str22;
-                    }
-                    String str23 = map.get("sysLog");
+                    String str23 = map.get("userId");
                     if (str23 != null) {
-                        packageCrashDatas.f22396w = str23;
+                        X.a("[Native record info] userId: %s", str23);
+                        packageCrashDatas.m = str23;
                     }
-                    String str24 = map.get("appVersion");
+                    String str24 = map.get("sysLog");
                     if (str24 != null) {
-                        X.a("[Native record info] appVersion: %s", str24);
-                        packageCrashDatas.f22379f = str24;
+                        packageCrashDatas.w = str24;
                     }
-                    String str25 = map.get("isAppForeground");
+                    String str25 = map.get("appVersion");
                     if (str25 != null) {
-                        X.a("[Native record info] isAppForeground: %s", str25);
-                        packageCrashDatas.O = str25.equalsIgnoreCase("true");
+                        X.a("[Native record info] appVersion: %s", str25);
+                        packageCrashDatas.f24792f = str25;
                     }
-                    String str26 = map.get(AdClickConstants.ACTIVITY_LAUNCH_TIME);
+                    String str26 = map.get("isAppForeground");
                     if (str26 != null) {
-                        X.a("[Native record info] launchTime: %s", str26);
+                        X.a("[Native record info] isAppForeground: %s", str26);
+                        packageCrashDatas.O = str26.equalsIgnoreCase("true");
+                    }
+                    String str27 = map.get("launchTime");
+                    if (str27 != null) {
+                        X.a("[Native record info] launchTime: %s", str27);
                         try {
-                            packageCrashDatas.N = Long.parseLong(str26);
-                        } catch (NumberFormatException e10) {
-                            if (!X.b(e10)) {
-                                e10.printStackTrace();
+                            packageCrashDatas.N = Long.parseLong(str27);
+                        } catch (NumberFormatException e2) {
+                            if (!X.b(e2)) {
+                                e2.printStackTrace();
                             }
                         }
                     }
-                    packageCrashDatas.f22399z = null;
-                    packageCrashDatas.f22384k = true;
+                    packageCrashDatas.z = null;
+                    packageCrashDatas.k = true;
                 }
                 return packageCrashDatas;
-            } catch (Throwable th2) {
+            } catch (Throwable th) {
                 X.b("error format", new Object[0]);
-                th2.printStackTrace();
+                th.printStackTrace();
                 return null;
             }
         }
@@ -335,8 +332,8 @@ public class c {
                     }
                 }
             }
-        } catch (Throwable th2) {
-            X.b(th2);
+        } catch (Throwable th) {
+            X.b(th);
         }
     }
 
@@ -359,7 +356,7 @@ public class c {
         Code decompiled incorrectly, please refer to instructions dump.
         To view partially-correct code enable 'Show inconsistent code' option in preferences
     */
-    public static java.lang.String a(java.io.BufferedInputStream r4) throws java.io.IOException {
+    protected static java.lang.String a(java.io.BufferedInputStream r4) throws java.io.IOException {
         /*
             r0 = 0
             if (r4 != 0) goto L4
@@ -369,22 +366,22 @@ public class c {
             r2 = 1024(0x400, float:1.435E-42)
             r1.<init>(r2)     // Catch: java.lang.Throwable -> L29
         Lb:
-            int r2 = r4.read()     // Catch: java.lang.Throwable -> L23
+            int r2 = r4.read()     // Catch: java.lang.Throwable -> L27
             r3 = -1
             if (r2 == r3) goto L30
-            if (r2 != 0) goto L25
-            java.lang.String r4 = new java.lang.String     // Catch: java.lang.Throwable -> L23
-            byte[] r2 = r1.toByteArray()     // Catch: java.lang.Throwable -> L23
+            if (r2 != 0) goto L23
+            java.lang.String r4 = new java.lang.String     // Catch: java.lang.Throwable -> L27
+            byte[] r2 = r1.toByteArray()     // Catch: java.lang.Throwable -> L27
             java.lang.String r3 = "UTf-8"
-            r4.<init>(r2, r3)     // Catch: java.lang.Throwable -> L23
+            r4.<init>(r2, r3)     // Catch: java.lang.Throwable -> L27
             r1.close()
             return r4
         L23:
+            r1.write(r2)     // Catch: java.lang.Throwable -> L27
+            goto Lb
+        L27:
             r4 = move-exception
             goto L2b
-        L25:
-            r1.write(r2)     // Catch: java.lang.Throwable -> L23
-            goto Lb
         L29:
             r4 = move-exception
             r1 = r0
@@ -400,7 +397,11 @@ public class c {
             if (r1 == 0) goto L3a
             r1.close()
         L3a:
+            goto L3c
+        L3b:
             throw r4
+        L3c:
+            goto L3b
         */
         throw new UnsupportedOperationException("Method not decompiled: com.tencent.bugly.crashreport.crash.jni.c.a(java.io.BufferedInputStream):java.lang.String");
     }
@@ -409,7 +410,7 @@ public class c {
     public static CrashDetailBean a(Context context, String str, NativeExceptionHandler nativeExceptionHandler) {
         BufferedInputStream bufferedInputStream;
         String str2;
-        String a10;
+        String a2;
         BufferedInputStream bufferedInputStream2 = null;
         if (context != null && str != null && nativeExceptionHandler != null) {
             File file = new File(str, "rqd_record.eup");
@@ -419,76 +420,76 @@ public class c {
                     if (canRead != 0) {
                         try {
                             bufferedInputStream = new BufferedInputStream(new FileInputStream(file));
-                        } catch (IOException e10) {
-                            e = e10;
+                        } catch (IOException e2) {
+                            e = e2;
                             bufferedInputStream = null;
-                        } catch (Throwable th2) {
-                            th = th2;
+                        } catch (Throwable th) {
+                            th = th;
                             if (bufferedInputStream2 != null) {
                                 try {
                                     bufferedInputStream2.close();
-                                } catch (IOException e11) {
-                                    e11.printStackTrace();
+                                } catch (IOException e3) {
+                                    e3.printStackTrace();
                                 }
                             }
                             throw th;
                         }
                         try {
-                            String a11 = a(bufferedInputStream);
-                            if (a11 != null && a11.equals("NATIVE_RQD_REPORT")) {
+                            String a3 = a(bufferedInputStream);
+                            if (a3 != null && a3.equals("NATIVE_RQD_REPORT")) {
                                 HashMap hashMap = new HashMap();
                                 loop0: while (true) {
                                     str2 = null;
                                     while (true) {
-                                        a10 = a(bufferedInputStream);
-                                        if (a10 == null) {
+                                        a2 = a(bufferedInputStream);
+                                        if (a2 == null) {
                                             break loop0;
                                         }
                                         if (str2 == null) {
-                                            str2 = a10;
+                                            str2 = a2;
                                         }
                                     }
-                                    hashMap.put(str2, a10);
+                                    hashMap.put(str2, a2);
                                 }
                                 if (str2 != null) {
                                     X.b("record not pair! drop! %s", str2);
                                     try {
                                         bufferedInputStream.close();
-                                    } catch (IOException e12) {
-                                        e12.printStackTrace();
+                                    } catch (IOException e4) {
+                                        e4.printStackTrace();
                                     }
                                     return null;
                                 }
-                                CrashDetailBean a12 = a(context, hashMap, nativeExceptionHandler);
+                                CrashDetailBean a4 = a(context, hashMap, nativeExceptionHandler);
                                 try {
                                     bufferedInputStream.close();
-                                } catch (IOException e13) {
-                                    e13.printStackTrace();
+                                } catch (IOException e5) {
+                                    e5.printStackTrace();
                                 }
-                                return a12;
+                                return a4;
                             }
-                            X.b("record read fail! %s", a11);
+                            X.b("record read fail! %s", a3);
                             try {
                                 bufferedInputStream.close();
-                            } catch (IOException e14) {
-                                e14.printStackTrace();
+                            } catch (IOException e6) {
+                                e6.printStackTrace();
                             }
                             return null;
-                        } catch (IOException e15) {
-                            e = e15;
+                        } catch (IOException e7) {
+                            e = e7;
                             e.printStackTrace();
                             if (bufferedInputStream != null) {
                                 try {
                                     bufferedInputStream.close();
-                                } catch (IOException e16) {
-                                    e16.printStackTrace();
+                                } catch (IOException e8) {
+                                    e8.printStackTrace();
                                 }
                             }
                             return null;
                         }
                     }
-                } catch (Throwable th3) {
-                    th = th3;
+                } catch (Throwable th2) {
+                    th = th2;
                     bufferedInputStream2 = canRead;
                 }
             }
@@ -502,38 +503,38 @@ public class c {
         if (str == null || str2 == null) {
             return null;
         }
-        StringBuilder sb2 = new StringBuilder();
-        String c10 = c(str, str2);
-        if (c10 != null && !c10.isEmpty()) {
-            sb2.append("Register infos:\n");
-            sb2.append(c10);
+        StringBuilder sb = new StringBuilder();
+        String c2 = c(str, str2);
+        if (c2 != null && !c2.isEmpty()) {
+            sb.append("Register infos:\n");
+            sb.append(c2);
         }
-        String b10 = b(str, str2);
-        if (b10 != null && !b10.isEmpty()) {
-            if (sb2.length() > 0) {
-                sb2.append("\n");
+        String b2 = b(str, str2);
+        if (b2 != null && !b2.isEmpty()) {
+            if (sb.length() > 0) {
+                sb.append("\n");
             }
-            sb2.append("System SO infos:\n");
-            sb2.append(b10);
+            sb.append("System SO infos:\n");
+            sb.append(b2);
         }
-        return sb2.toString();
+        return sb.toString();
     }
 
-    public static void a(boolean z10, String str) {
+    public static void a(boolean z, String str) {
         if (str != null) {
-            f22534a.add(new File(str, "rqd_record.eup"));
-            f22534a.add(new File(str, "reg_record.txt"));
-            f22534a.add(new File(str, "map_record.txt"));
-            f22534a.add(new File(str, "backup_record.txt"));
-            if (z10) {
+            f24904a.add(new File(str, "rqd_record.eup"));
+            f24904a.add(new File(str, "reg_record.txt"));
+            f24904a.add(new File(str, "map_record.txt"));
+            f24904a.add(new File(str, "backup_record.txt"));
+            if (z) {
                 b(str);
             }
         }
-        List<File> list = f22534a;
+        List<File> list = f24904a;
         if (list == null || list.size() <= 0) {
             return;
         }
-        for (File file : f22534a) {
+        for (File file : f24904a) {
             if (file.exists() && file.canWrite()) {
                 file.delete();
                 X.a("Delete record file %s", file.getAbsoluteFile());
@@ -546,18 +547,18 @@ public class c {
     /* JADX WARN: Type inference failed for: r6v10 */
     /* JADX WARN: Type inference failed for: r6v11 */
     /* JADX WARN: Type inference failed for: r6v6, types: [java.lang.String] */
-    public static String a(String str, int i10, String str2, boolean z10) {
+    public static String a(String str, int i2, String str2, boolean z) {
         BufferedReader bufferedReader = null;
-        if (str != null && i10 > 0) {
+        if (str != null && i2 > 0) {
             File file = new File(str);
             if (file.exists() && file.canRead()) {
                 X.c("Read system log from native record file(length: %s bytes): %s", Long.valueOf(file.length()), file.getAbsolutePath());
-                f22534a.add(file);
+                f24904a.add(file);
                 X.a("Add this record file to list for cleaning lastly.", new Object[0]);
                 if (str2 == null) {
-                    return ca.a(new File(str), i10, z10);
+                    return ca.a(new File(str), i2, z);
                 }
-                String sb2 = new StringBuilder();
+                String sb = new StringBuilder();
                 try {
                     try {
                         BufferedReader bufferedReader2 = new BufferedReader(new InputStreamReader(new FileInputStream(file), "utf-8"));
@@ -567,59 +568,59 @@ public class c {
                                 if (readLine == null) {
                                     break;
                                 }
-                                StringBuilder sb3 = new StringBuilder();
-                                sb3.append(str2);
-                                sb3.append("[ ]*:");
-                                if (Pattern.compile(sb3.toString()).matcher(readLine).find()) {
-                                    sb2.append(readLine);
-                                    sb2.append("\n");
+                                StringBuilder sb2 = new StringBuilder();
+                                sb2.append(str2);
+                                sb2.append("[ ]*:");
+                                if (Pattern.compile(sb2.toString()).matcher(readLine).find()) {
+                                    sb.append(readLine);
+                                    sb.append("\n");
                                 }
-                                if (i10 > 0 && sb2.length() > i10) {
-                                    if (z10) {
-                                        sb2.delete(i10, sb2.length());
+                                if (i2 > 0 && sb.length() > i2) {
+                                    if (z) {
+                                        sb.delete(i2, sb.length());
                                         break;
                                     }
-                                    sb2.delete(0, sb2.length() - i10);
+                                    sb.delete(0, sb.length() - i2);
                                 }
-                            } catch (Throwable th2) {
-                                th = th2;
+                            } catch (Throwable th) {
+                                th = th;
                                 bufferedReader = bufferedReader2;
                                 try {
                                     X.b(th);
-                                    StringBuilder sb4 = new StringBuilder();
-                                    sb4.append("\n[error:");
-                                    sb4.append(th.toString());
-                                    sb4.append("]");
-                                    sb2.append(sb4.toString());
-                                    String sb5 = sb2.toString();
+                                    StringBuilder sb3 = new StringBuilder();
+                                    sb3.append("\n[error:");
+                                    sb3.append(th.toString());
+                                    sb3.append("]");
+                                    sb.append(sb3.toString());
+                                    String sb4 = sb.toString();
                                     if (bufferedReader == null) {
-                                        return sb5;
+                                        return sb4;
                                     }
                                     bufferedReader.close();
-                                    sb2 = sb5;
-                                    return sb2;
-                                } catch (Throwable th3) {
+                                    sb = sb4;
+                                    return sb;
+                                } catch (Throwable th2) {
                                     if (bufferedReader != null) {
                                         try {
                                             bufferedReader.close();
-                                        } catch (Exception e10) {
-                                            X.b(e10);
+                                        } catch (Exception e2) {
+                                            X.b(e2);
                                         }
                                     }
-                                    throw th3;
+                                    throw th2;
                                 }
                             }
                         }
-                        String sb6 = sb2.toString();
+                        String sb5 = sb.toString();
                         bufferedReader2.close();
-                        sb2 = sb6;
-                    } catch (Throwable th4) {
-                        th = th4;
+                        sb = sb5;
+                    } catch (Throwable th3) {
+                        th = th3;
                     }
-                    return sb2;
-                } catch (Exception e11) {
-                    X.b(e11);
-                    return sb2;
+                    return sb;
+                } catch (Exception e3) {
+                    X.b(e3);
+                    return sb;
                 }
             }
         }

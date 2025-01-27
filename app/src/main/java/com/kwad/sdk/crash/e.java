@@ -6,83 +6,83 @@ import androidx.annotation.NonNull;
 import com.kwad.sdk.crash.c;
 import com.kwad.sdk.crash.model.message.ExceptionMessage;
 
-/* loaded from: classes3.dex */
+/* loaded from: classes2.dex */
 public final class e {
-    private com.kwad.sdk.crash.b.b aKf;
-    private c aKg;
-    private long aKh;
+    private com.kwad.sdk.crash.a.b arg;
+    private c arh;
+    private long ari;
 
-    public static class a {
-        private static final e aKi = new e((byte) 0);
+    static class a {
+        private static final e arj = new e((byte) 0);
     }
 
-    public /* synthetic */ e(byte b10) {
+    private e() {
+        this.arg = new com.kwad.sdk.crash.a.b();
+        this.arh = new c.a().zx();
+    }
+
+    /* synthetic */ e(byte b2) {
         this();
     }
 
-    public static e Jk() {
-        return a.aKi;
-    }
-
-    public final String[] Jl() {
-        return this.aKf.Jx();
-    }
-
-    public final String[] Jm() {
-        return this.aKf.Jm();
-    }
-
-    public final String Jn() {
-        return this.aKg.aJD.aKK;
-    }
-
-    public final int Jo() {
-        return this.aKg.aJD.aKO;
-    }
-
-    public final c Jp() {
-        return this.aKg;
-    }
-
-    public final h Jq() {
-        return this.aKg.aJF;
-    }
-
-    public final long Jr() {
-        return SystemClock.elapsedRealtime() - this.aKh;
+    public static e zy() {
+        return a.arj;
     }
 
     public final void a(@NonNull c cVar) {
-        this.aKg = cVar;
-        this.aKh = SystemClock.elapsedRealtime();
-        this.aKf.a(cVar.aJG, cVar.aJH);
+        this.arh = cVar;
+        this.ari = SystemClock.elapsedRealtime();
+        this.arg.a(cVar.aqM, cVar.aqN);
     }
 
-    public final void b(int i10, ExceptionMessage exceptionMessage) {
-        f Jg = this.aKg.Jg();
-        if (Jg != null) {
-            Jg.a(i10, exceptionMessage);
+    public final void b(int i2, ExceptionMessage exceptionMessage) {
+        f zv = this.arh.zv();
+        if (zv != null) {
+            zv.a(i2, exceptionMessage);
         }
     }
 
     public final String getAppId() {
-        return this.aKg.aJE.aKA;
+        return this.arh.aqK.arx;
     }
 
     public final Context getContext() {
-        return this.aKg.context;
+        return this.arh.context;
     }
 
     public final String getSdkVersion() {
-        return this.aKg.aJD.mSdkVersion;
+        return this.arh.aqJ.mSdkVersion;
     }
 
     public final boolean isDebug() {
-        return this.aKg.Jh();
+        return this.arh.zw();
     }
 
-    private e() {
-        this.aKf = new com.kwad.sdk.crash.b.b();
-        this.aKg = new c.a().Jj();
+    public final String[] zA() {
+        return this.arg.zA();
+    }
+
+    public final String zB() {
+        return this.arh.aqJ.arA;
+    }
+
+    public final int zC() {
+        return this.arh.aqJ.arE;
+    }
+
+    public final c zD() {
+        return this.arh;
+    }
+
+    public final h zE() {
+        return this.arh.aqL;
+    }
+
+    public final long zF() {
+        return SystemClock.elapsedRealtime() - this.ari;
+    }
+
+    public final String[] zz() {
+        return this.arg.zM();
     }
 }

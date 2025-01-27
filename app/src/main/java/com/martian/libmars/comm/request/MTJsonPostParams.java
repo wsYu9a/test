@@ -1,9 +1,9 @@
 package com.martian.libmars.comm.request;
 
+import com.martian.libcomm.http.requests.c;
 import okhttp3.RequestBody;
-import u8.c;
 
-/* loaded from: classes3.dex */
+/* loaded from: classes2.dex */
 public class MTJsonPostParams extends MTHttpPostParams {
     private MTRequest request;
 
@@ -11,7 +11,7 @@ public class MTJsonPostParams extends MTHttpPostParams {
         super(null);
     }
 
-    @Override // u8.b
+    @Override // com.martian.libcomm.http.requests.b
     public c getProvider() {
         return this.request.getProvider();
     }
@@ -20,17 +20,17 @@ public class MTJsonPostParams extends MTHttpPostParams {
         return this.request;
     }
 
-    @Override // u8.b
+    @Override // com.martian.libcomm.http.requests.b
     public String getRequestMethod() {
         return this.request.getRequestMethod();
     }
 
-    public void setRequest(MTRequest mTRequest) {
-        this.request = mTRequest;
+    public void setRequest(MTRequest request) {
+        this.request = request;
     }
 
-    @Override // u8.b
-    public RequestBody toPostContent(String str) {
-        return this.request.toPostContent(str);
+    @Override // com.martian.libcomm.http.requests.b
+    public RequestBody toPostContent(String charset) {
+        return this.request.toPostContent(charset);
     }
 }

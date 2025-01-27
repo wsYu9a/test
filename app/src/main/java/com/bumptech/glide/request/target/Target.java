@@ -7,7 +7,7 @@ import com.bumptech.glide.manager.LifecycleListener;
 import com.bumptech.glide.request.Request;
 import com.bumptech.glide.request.transition.Transition;
 
-/* loaded from: classes2.dex */
+/* loaded from: classes.dex */
 public interface Target<R> extends LifecycleListener {
     public static final int SIZE_ORIGINAL = Integer.MIN_VALUE;
 
@@ -22,7 +22,7 @@ public interface Target<R> extends LifecycleListener {
 
     void onLoadStarted(@Nullable Drawable drawable);
 
-    void onResourceReady(@NonNull R r10, @Nullable Transition<? super R> transition);
+    void onResourceReady(@NonNull R r, @Nullable Transition<? super R> transition);
 
     void removeCallback(@NonNull SizeReadyCallback sizeReadyCallback);
 

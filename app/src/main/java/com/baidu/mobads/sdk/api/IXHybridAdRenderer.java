@@ -5,7 +5,7 @@ import android.net.http.SslError;
 import android.webkit.SslErrorHandler;
 import android.webkit.WebView;
 
-/* loaded from: classes2.dex */
+/* loaded from: classes.dex */
 public interface IXHybridAdRenderer extends IAdInterListener {
     String getJavaScriptBridge();
 
@@ -13,7 +13,7 @@ public interface IXHybridAdRenderer extends IAdInterListener {
 
     void onPageStarted(WebView webView, String str, Bitmap bitmap);
 
-    void onReceivedError(WebView webView, int i10, String str, String str2);
+    void onReceivedError(WebView webView, int i2, String str, String str2);
 
     void onReceivedSslError(WebView webView, SslErrorHandler sslErrorHandler, SslError sslError);
 

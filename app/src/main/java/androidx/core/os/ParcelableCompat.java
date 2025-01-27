@@ -7,26 +7,28 @@ import android.os.Parcelable;
 /* loaded from: classes.dex */
 public final class ParcelableCompat {
 
-    public static class ParcelableCompatCreatorHoneycombMR2<T> implements Parcelable.ClassLoaderCreator<T> {
-        private final ParcelableCompatCreatorCallbacks<T> mCallbacks;
+    static class ParcelableCompatCreatorHoneycombMR2<T> implements Parcelable.ClassLoaderCreator<T> {
 
-        public ParcelableCompatCreatorHoneycombMR2(ParcelableCompatCreatorCallbacks<T> parcelableCompatCreatorCallbacks) {
-            this.mCallbacks = parcelableCompatCreatorCallbacks;
+        /* renamed from: a */
+        private final ParcelableCompatCreatorCallbacks<T> f1829a;
+
+        ParcelableCompatCreatorHoneycombMR2(ParcelableCompatCreatorCallbacks<T> parcelableCompatCreatorCallbacks) {
+            this.f1829a = parcelableCompatCreatorCallbacks;
         }
 
         @Override // android.os.Parcelable.Creator
         public T createFromParcel(Parcel parcel) {
-            return this.mCallbacks.createFromParcel(parcel, null);
+            return this.f1829a.createFromParcel(parcel, null);
         }
 
         @Override // android.os.Parcelable.Creator
-        public T[] newArray(int i10) {
-            return this.mCallbacks.newArray(i10);
+        public T[] newArray(int i2) {
+            return this.f1829a.newArray(i2);
         }
 
         @Override // android.os.Parcelable.ClassLoaderCreator
         public T createFromParcel(Parcel parcel, ClassLoader classLoader) {
-            return this.mCallbacks.createFromParcel(parcel, classLoader);
+            return this.f1829a.createFromParcel(parcel, classLoader);
         }
     }
 

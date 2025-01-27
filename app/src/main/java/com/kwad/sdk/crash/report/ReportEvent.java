@@ -1,12 +1,14 @@
 package com.kwad.sdk.crash.report;
 
 import androidx.annotation.Nullable;
-import com.kwad.sdk.utils.x;
-import com.martian.libmars.activity.PermissionActivity;
+import com.kwad.sdk.utils.t;
+import com.oplus.quickgame.sdk.hall.Constant;
+import com.vivo.ic.dm.Downloads;
 import java.io.Serializable;
+import org.apache.http.protocol.HTTP;
 import org.json.JSONObject;
 
-/* loaded from: classes3.dex */
+/* loaded from: classes2.dex */
 public class ReportEvent implements com.kwad.sdk.core.b, Serializable {
     private static final long serialVersionUID = 8652448382850235426L;
     public long clientIncrementId;
@@ -25,15 +27,15 @@ public class ReportEvent implements com.kwad.sdk.core.b, Serializable {
             if (jSONObject == null) {
                 return;
             }
-            this.key = jSONObject.optString(PermissionActivity.f12046p);
-            this.value = jSONObject.optString("value");
+            this.key = jSONObject.optString("key");
+            this.value = jSONObject.optString(Downloads.RequestHeaders.COLUMN_VALUE);
         }
 
         @Override // com.kwad.sdk.core.b
         public JSONObject toJson() {
             JSONObject jSONObject = new JSONObject();
-            x.putValue(jSONObject, PermissionActivity.f12046p, this.key);
-            x.putValue(jSONObject, "value", this.value);
+            t.putValue(jSONObject, "key", this.key);
+            t.putValue(jSONObject, Downloads.RequestHeaders.COLUMN_VALUE, this.value);
             return jSONObject;
         }
     }
@@ -51,7 +53,7 @@ public class ReportEvent implements com.kwad.sdk.core.b, Serializable {
                 return;
             }
             this.type = jSONObject.optInt("type");
-            this.message = jSONObject.optString(b7.d.f1362o);
+            this.message = jSONObject.optString(com.heytap.mcssdk.n.d.l);
             this.urlPackage.parseJson(jSONObject.optJSONObject("urlPackage"));
             this.flag = jSONObject.optString("flag");
         }
@@ -59,10 +61,10 @@ public class ReportEvent implements com.kwad.sdk.core.b, Serializable {
         @Override // com.kwad.sdk.core.b
         public JSONObject toJson() {
             JSONObject jSONObject = new JSONObject();
-            x.putValue(jSONObject, "type", this.type);
-            x.putValue(jSONObject, b7.d.f1362o, this.message);
-            x.a(jSONObject, "urlPackage", this.urlPackage);
-            x.putValue(jSONObject, "flag", this.flag);
+            t.putValue(jSONObject, "type", this.type);
+            t.putValue(jSONObject, com.heytap.mcssdk.n.d.l, this.message);
+            t.a(jSONObject, "urlPackage", this.urlPackage);
+            t.putValue(jSONObject, "flag", this.flag);
             return jSONObject;
         }
     }
@@ -84,8 +86,8 @@ public class ReportEvent implements com.kwad.sdk.core.b, Serializable {
         @Override // com.kwad.sdk.core.b
         public JSONObject toJson() {
             JSONObject jSONObject = new JSONObject();
-            x.a(jSONObject, "exceptionEvent", this.exceptionEvent);
-            x.a(jSONObject, "customStatEvent", this.customStatEvent);
+            t.a(jSONObject, "exceptionEvent", this.exceptionEvent);
+            t.a(jSONObject, "customStatEvent", this.customStatEvent);
             return jSONObject;
         }
     }
@@ -104,17 +106,17 @@ public class ReportEvent implements com.kwad.sdk.core.b, Serializable {
             }
             this.page = jSONObject.optString("page");
             this.params = jSONObject.optString("params");
-            this.identity = jSONObject.optString("identity");
-            this.pageType = jSONObject.optInt("pageType");
+            this.identity = jSONObject.optString(HTTP.IDENTITY_CODING);
+            this.pageType = jSONObject.optInt(Constant.Param.KEY_RPK_PAGE_TYPE);
         }
 
         @Override // com.kwad.sdk.core.b
         public JSONObject toJson() {
             JSONObject jSONObject = new JSONObject();
-            x.putValue(jSONObject, "page", this.page);
-            x.putValue(jSONObject, "params", this.params);
-            x.putValue(jSONObject, "identity", this.identity);
-            x.putValue(jSONObject, "pageType", this.pageType);
+            t.putValue(jSONObject, "page", this.page);
+            t.putValue(jSONObject, "params", this.params);
+            t.putValue(jSONObject, HTTP.IDENTITY_CODING, this.identity);
+            t.putValue(jSONObject, Constant.Param.KEY_RPK_PAGE_TYPE, this.pageType);
             return jSONObject;
         }
     }
@@ -134,11 +136,11 @@ public class ReportEvent implements com.kwad.sdk.core.b, Serializable {
     @Override // com.kwad.sdk.core.b
     public JSONObject toJson() {
         JSONObject jSONObject = new JSONObject();
-        x.putValue(jSONObject, "clientTimeStamp", this.clientTimeStamp);
-        x.putValue(jSONObject, "clientIncrementId", this.clientIncrementId);
-        x.putValue(jSONObject, "sessionId", this.sessionId);
-        x.a(jSONObject, "statPackage", this.statPackage);
-        x.putValue(jSONObject, "timeZone", this.timeZone);
+        t.putValue(jSONObject, "clientTimeStamp", this.clientTimeStamp);
+        t.putValue(jSONObject, "clientIncrementId", this.clientIncrementId);
+        t.putValue(jSONObject, "sessionId", this.sessionId);
+        t.a(jSONObject, "statPackage", this.statPackage);
+        t.putValue(jSONObject, "timeZone", this.timeZone);
         return jSONObject;
     }
 }

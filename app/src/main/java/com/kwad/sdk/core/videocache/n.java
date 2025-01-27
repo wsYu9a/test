@@ -1,18 +1,12 @@
 package com.kwad.sdk.core.videocache;
 
-/* loaded from: classes3.dex */
+import android.content.Context;
+import com.kwad.sdk.utils.av;
+import java.io.File;
+
+/* loaded from: classes2.dex */
 public final class n {
-    public final long aGQ;
-    public final String aGR;
-    public final String url;
-
-    public n(String str, long j10, String str2) {
-        this.url = str;
-        this.aGQ = j10;
-        this.aGR = str2;
-    }
-
-    public final String toString() {
-        return "SourceInfo{url='" + this.url + "', length=" + this.aGQ + ", mime='" + this.aGR + "'}";
+    static File aZ(Context context) {
+        return new File(av.cA(context), "video-cache");
     }
 }

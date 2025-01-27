@@ -1,6 +1,5 @@
 package com.umeng.commonsdk.utils;
 
-import android.annotation.SuppressLint;
 import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
@@ -14,6 +13,7 @@ import android.content.res.Configuration;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.net.Uri;
+import android.net.wifi.WifiManager;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
@@ -22,13 +22,13 @@ import android.text.TextUtils;
 import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.WindowManager;
-import com.google.common.primitives.SignedBytes;
+import com.baidu.mobads.sdk.internal.bu;
+import com.cdo.oaps.ad.OapsKey;
 import com.kuaishou.weapon.p0.g;
 import com.kuaishou.weapon.p0.t;
-import com.sigmob.sdk.archives.tar.e;
+import com.kwad.sdk.ranger.e;
 import com.ss.android.socialbase.downloader.constants.MonitorConstants;
-import com.umeng.analytics.pro.bd;
-import com.umeng.analytics.pro.bt;
+import com.umeng.analytics.pro.am;
 import com.umeng.commonsdk.UMConfigure;
 import com.umeng.commonsdk.config.FieldManager;
 import com.umeng.commonsdk.debug.UMLog;
@@ -39,7 +39,8 @@ import com.umeng.commonsdk.statistics.AnalyticsConstants;
 import com.umeng.commonsdk.statistics.SdkVersion;
 import com.umeng.commonsdk.statistics.common.DeviceConfig;
 import com.umeng.commonsdk.statistics.common.MLog;
-import com.umeng.commonsdk.statistics.idtracking.i;
+import com.umeng.commonsdk.statistics.idtracking.h;
+import com.vivo.advv.virtualview.common.ExprCommon;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileInputStream;
@@ -61,12 +62,7 @@ import java.util.UUID;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import javax.microedition.khronos.opengles.GL10;
-import kotlin.io.encoding.Base64;
-import m5.h;
-import okio.Utf8;
-import org.json.JSONObject;
 
-@SuppressLint({"NewApi"})
 /* loaded from: classes4.dex */
 public class UMUtils {
     public static final int DEFAULT_TIMEZONE = 8;
@@ -75,14 +71,14 @@ public class UMUtils {
     private static final String KEY_LAST_APP_KEY = "last_appkey";
     private static final String KEY_MIUI_VERSION_NAME = "ro.miui.ui.version.name";
     private static final String KEY_SESSION_ID = "session_id";
+    private static final String KEY_SHARED_PREFERENCES_NAME = "umeng_common_config";
     public static final String MOBILE_NETWORK = "2G/3G";
     private static final String SD_PERMISSION = "android.permission.WRITE_EXTERNAL_STORAGE";
+    private static final String SP_FILE_NAME = "um_session_id";
     private static final String TAG = "UMUtils";
     public static final String UNKNOW = "";
     public static final String WIFI = "Wi-Fi";
-    private static final String KEY_SHARED_PREFERENCES_NAME = bd.b().b(bd.f23529i);
     private static final Pattern pattern = Pattern.compile("UTDID\">([^<]+)");
-    private static final String SP_FILE_NAME = bd.b().b(bd.f23531k);
     private static Object spLock = new Object();
     public static String VALUE_ANALYTICS_VERSION = "";
     public static String VALUE_GAME_VERSION = "";
@@ -96,7 +92,6 @@ public class UMUtils {
     public static String VALUE_ASMS_VERSION = "";
     public static String VALUE_LINK_VERSION = "";
     public static String VALUE_ABTEST_VERSION = "";
-    public static String VALUE_ANTI_VERSION = "";
     private static volatile String sAppVersionName = "";
     private static volatile String sAppVersionCode = "";
 
@@ -108,37 +103,36 @@ public class UMUtils {
             try {
                 try {
                     byte[] bytes = str.getBytes();
-                    MessageDigest messageDigest = MessageDigest.getInstance("MD5");
+                    MessageDigest messageDigest = MessageDigest.getInstance(bu.f5659a);
                     messageDigest.reset();
                     messageDigest.update(bytes);
                     byte[] digest = messageDigest.digest();
                     StringBuffer stringBuffer = new StringBuffer();
-                    for (byte b10 : digest) {
-                        stringBuffer.append(String.format("%02X", Byte.valueOf(b10)));
+                    for (byte b2 : digest) {
+                        stringBuffer.append(String.format("%02X", Byte.valueOf(b2)));
                     }
                     return stringBuffer.toString();
                 } catch (Exception unused) {
                     return str.replaceAll("[^[a-z][A-Z][0-9][.][_]]", "");
                 }
-            } catch (Exception e10) {
+            } catch (Exception e2) {
                 if (AnalyticsConstants.UM_DEBUG) {
-                    Log.e(TAG, "MD5 e is " + e10);
+                    Log.e(TAG, "MD5 e is " + e2);
                 }
                 return null;
             }
-        } catch (Throwable th2) {
+        } catch (Throwable th) {
             if (AnalyticsConstants.UM_DEBUG) {
-                Log.e(TAG, "MD5 e is " + th2);
+                Log.e(TAG, "MD5 e is " + th);
             }
             return null;
         }
     }
 
-    @SuppressLint({"DefaultLocale"})
     private static String byte2HexFormatted(byte[] bArr) {
-        StringBuilder sb2 = new StringBuilder(bArr.length * 2);
-        for (int i10 = 0; i10 < bArr.length; i10++) {
-            String hexString = Integer.toHexString(bArr[i10]);
+        StringBuilder sb = new StringBuilder(bArr.length * 2);
+        for (int i2 = 0; i2 < bArr.length; i2++) {
+            String hexString = Integer.toHexString(bArr[i2]);
             int length = hexString.length();
             if (length == 1) {
                 hexString = "0" + hexString;
@@ -146,18 +140,18 @@ public class UMUtils {
             if (length > 2) {
                 hexString = hexString.substring(length - 2, length);
             }
-            sb2.append(hexString.toUpperCase());
-            if (i10 < bArr.length - 1) {
-                sb2.append(m5.d.f28378d);
+            sb.append(hexString.toUpperCase());
+            if (i2 < bArr.length - 1) {
+                sb.append(':');
             }
         }
-        return sb2.toString();
+        return sb.toString();
     }
 
     private static String bytes2Hex(byte[] bArr) {
         String str = "";
-        for (byte b10 : bArr) {
-            String hexString = Integer.toHexString(b10 & 255);
+        for (byte b2 : bArr) {
+            String hexString = Integer.toHexString(b2 & 255);
             if (hexString.length() == 1) {
                 str = str + "0";
             }
@@ -225,16 +219,17 @@ public class UMUtils {
         }
         if (Build.VERSION.SDK_INT >= 23) {
             try {
-                if (((Integer) Class.forName("android.content.Context").getMethod("checkSelfPermission", String.class).invoke(context, str)).intValue() == 0) {
-                    return true;
+                if (((Integer) Class.forName("android.content.Context").getMethod("checkSelfPermission", String.class).invoke(context, str)).intValue() != 0) {
+                    return false;
                 }
-            } catch (Exception e10) {
-                UMCrashManager.reportCrash(context, e10);
+            } catch (Exception e2) {
+                UMCrashManager.reportCrash(context, e2);
+                return false;
             }
-        } else if (context.getPackageManager().checkPermission(str, context.getPackageName()) == 0) {
-            return true;
+        } else if (context.getPackageManager().checkPermission(str, context.getPackageName()) != 0) {
+            return false;
         }
-        return false;
+        return true;
     }
 
     public static boolean checkResource(Context context, String str, String str2) {
@@ -256,15 +251,15 @@ public class UMUtils {
                 } catch (Exception unused) {
                     return null;
                 }
-            } catch (Throwable th2) {
+            } catch (Throwable th) {
                 if (AnalyticsConstants.UM_DEBUG) {
-                    Log.e(TAG, "encrypt by SHA1 e is " + th2);
+                    Log.e(TAG, "encrypt by SHA1 e is " + th);
                 }
                 return null;
             }
-        } catch (Exception e10) {
+        } catch (Exception e2) {
             if (AnalyticsConstants.UM_DEBUG) {
-                Log.e(TAG, "encrypt by SHA1 e is " + e10);
+                Log.e(TAG, "encrypt by SHA1 e is " + e2);
             }
             return null;
         }
@@ -276,16 +271,24 @@ public class UMUtils {
 
     public static byte[] genIv() {
         byte[] miniArray = getMiniArray();
-        return new byte[]{10, 1, (byte) (10 + 1), 5, 4, (byte) (10 + 5), 7, 9, b5.a.A, 3, miniArray[0], miniArray[1], miniArray[2], miniArray[3], miniArray[4], (byte) (100 - 9)};
-    }
-
-    public static byte[] genSin() {
-        byte[] miniArray = getMiniArray();
-        return new byte[]{e.L, 69, (byte) (miniArray[4] + e.K), e.G, (byte) (55 + 57), 97, (byte) (69 + 43), e.N, 57, 97, (byte) (97 + 2), 90, e.O, (byte) (97 + miniArray[1]), (byte) (miniArray[0] + 72), (byte) (90 + miniArray[2])};
-    }
-
-    public static byte[] genUmc() {
-        return new byte[]{b5.a.I, -117, 8, 0, 0, 0, 0, 0, 0, 0, 1, -27, 0, b5.a.D, -1, e.M, 102, 34, 19, 78, 70, b5.a.A, 58, 85, b5.a.D, 6, nf.c.f28888t, 16, 68, 36, 2, 73, 32, e.I, 79, 16, 90, 37, 43, 79, 12, b5.a.F, 57, 16, e.P, 123, 95, 100, 70, 91, e.H, e.H, 33, 34, 39, 104, 59, Base64.padSymbol, b5.a.f1197x, 57, b5.a.C, 2, Utf8.REPLACEMENT_BYTE, 113, b5.a.G, b5.a.f1194u, 100, 102, e.O, 100, 5, 35, 98, 123, 0, 39, 57, b5.a.B, nf.c.f28885q, b5.a.C, 112, 35, 93, b5.a.f1199z, 73, b5.a.f1197x, 46, e.N, 73, 71, 117, 70, 69, 110, 73, 73, 117, 114, 2, 75, 65, 72, 112, b5.a.f1194u, b5.a.f1199z, e.O, 98, 71, 85, 98, e.N, 35, 105, SignedBytes.f10194a, Utf8.REPLACEMENT_BYTE, 117, 99, 115, 70, 115, 36, 43, 73, e.K, e.E, 5, 108, 35, 80, 112, 34, e.Q, 123, 115, 74, e.J, 58, e.J, 3, 98, nf.c.f28888t, 13, Utf8.REPLACEMENT_BYTE, -42, -86, -91, -61, -101, -115, -110, -6, -48, -117, -118, -66, -127, -124, -77, -98, -119, -107, -78, -62, -117, -127, -120, -80, -20, -103, -105, -96, -125, -97, -91, -69, -30, -112, -108, -29, -79, -26, -6, -42, -29, -22, -13, -45, -77, -81, -109, -97, -30, -121, -124, -19, -80, -10, -22, -58, -5, -6, -29, -61, -91, -76, -109, -81, -104, -19, -27, -33, -43, -57, -43, -5, -124, -58, -35, -30, -102, -21, -28, -50, -120, -31, -1, -107, -23, -43, -56, -27, -122, -35, -53, -62, -59, -42, -5, -33, -74, -57, -54, -13, -23, -88, -43, 111, e.J, -27, 0, 0, 0};
+        byte[] bArr = new byte[16];
+        bArr[0] = 10;
+        bArr[1] = 1;
+        bArr[2] = (byte) (bArr[0] + 1);
+        bArr[3] = 5;
+        bArr[4] = 4;
+        bArr[5] = (byte) (bArr[0] + bArr[3]);
+        bArr[6] = 7;
+        bArr[7] = 9;
+        bArr[8] = ExprCommon.OPCODE_AND;
+        bArr[9] = 3;
+        bArr[10] = miniArray[0];
+        bArr[11] = miniArray[1];
+        bArr[12] = miniArray[2];
+        bArr[13] = miniArray[3];
+        bArr[14] = miniArray[4];
+        bArr[15] = (byte) (100 - bArr[7]);
+        return bArr;
     }
 
     public static String[] getActiveUser(Context context) {
@@ -296,11 +299,11 @@ public class UMUtils {
         Method declaredMethod;
         try {
             Class<?> cls = getClass("com.umeng.umcrash.UMCrash");
-            if (cls == null || (declaredMethod = cls.getDeclaredMethod("getUMAPMFlag", null)) == null) {
+            if (cls == null || (declaredMethod = cls.getDeclaredMethod("getUMAPMFlag", new Class[0])) == null) {
                 return "";
             }
             declaredMethod.setAccessible(true);
-            return (String) declaredMethod.invoke(cls, null);
+            return (String) declaredMethod.invoke(cls, new Object[0]);
         } catch (Throwable unused) {
             return "";
         }
@@ -339,17 +342,17 @@ public class UMUtils {
     public static String getAppVersinoCode(Context context, String str) {
         if (context != null && str != null) {
             try {
-                PackageInfo a10 = b.a().a(context, str, 64);
-                if (a10 != null) {
-                    return String.valueOf(a10.versionCode);
+                PackageInfo a2 = b.a().a(context, str, 64);
+                if (a2 != null) {
+                    return String.valueOf(a2.versionCode);
                 }
-            } catch (Exception e10) {
+            } catch (Exception e2) {
                 if (AnalyticsConstants.UM_DEBUG) {
-                    Log.e(TAG, "get app version code e is " + e10);
+                    Log.e(TAG, "get app version code e is " + e2);
                 }
-            } catch (Throwable th2) {
+            } catch (Throwable th) {
                 if (AnalyticsConstants.UM_DEBUG) {
-                    Log.e(TAG, "get app version code e is " + th2);
+                    Log.e(TAG, "get app version code e is " + th);
                 }
             }
         }
@@ -364,24 +367,24 @@ public class UMUtils {
             return "";
         }
         try {
-            PackageInfo a10 = b.a().a(context, context.getPackageName(), 64);
-            if (a10 == null) {
+            PackageInfo a2 = b.a().a(context, context.getPackageName(), 64);
+            if (a2 == null) {
                 return "";
             }
-            String valueOf = String.valueOf(a10.versionCode);
+            String valueOf = String.valueOf(a2.versionCode);
             sAppVersionCode = valueOf;
             return valueOf;
-        } catch (Exception e10) {
+        } catch (Exception e2) {
             if (!AnalyticsConstants.UM_DEBUG) {
                 return "";
             }
-            Log.e(TAG, "get app version code e is " + e10);
+            Log.e(TAG, "get app version code e is " + e2);
             return "";
-        } catch (Throwable th2) {
+        } catch (Throwable th) {
             if (!AnalyticsConstants.UM_DEBUG) {
                 return "";
             }
-            Log.e(TAG, "get app version code e is " + th2);
+            Log.e(TAG, "get app version code e is " + th);
             return "";
         }
     }
@@ -394,18 +397,18 @@ public class UMUtils {
             return "";
         }
         try {
-            PackageInfo a10 = b.a().a(context, context.getPackageName(), 64);
-            if (a10 == null) {
+            PackageInfo a2 = b.a().a(context, context.getPackageName(), 64);
+            if (a2 == null) {
                 return "";
             }
-            String str = a10.versionName;
+            String str = a2.versionName;
             sAppVersionName = str;
             return str;
-        } catch (Throwable th2) {
+        } catch (Throwable th) {
             if (!AnalyticsConstants.UM_DEBUG) {
                 return "";
             }
-            Log.e(TAG, "get app version name e is " + th2);
+            Log.e(TAG, "get app version name e is " + th);
             return "";
         }
     }
@@ -416,17 +419,17 @@ public class UMUtils {
         }
         try {
             return !TextUtils.isEmpty(UMConfigure.sAppkey) ? UMConfigure.sAppkey : getMultiProcessSP(context, "appkey");
-        } catch (Exception e10) {
+        } catch (Exception e2) {
             if (AnalyticsConstants.UM_DEBUG) {
-                Log.e(TAG, "get app key e is " + e10);
+                Log.e(TAG, "get app key e is " + e2);
             }
-            UMCrashManager.reportCrash(context, e10);
+            UMCrashManager.reportCrash(context, e2);
             return null;
-        } catch (Throwable th2) {
+        } catch (Throwable th) {
             if (AnalyticsConstants.UM_DEBUG) {
-                Log.e(TAG, "get app key e is " + th2);
+                Log.e(TAG, "get app key e is " + th);
             }
-            UMCrashManager.reportCrash(context, th2);
+            UMCrashManager.reportCrash(context, th);
             return null;
         }
     }
@@ -466,8 +469,8 @@ public class UMUtils {
                         fileInputStream.close();
                     }
                     return properties;
-                } catch (Throwable th2) {
-                    th = th2;
+                } catch (Throwable th) {
+                    th = th;
                     fileInputStream = fileInputStream2;
                     if (fileInputStream != null) {
                         try {
@@ -478,8 +481,8 @@ public class UMUtils {
                     throw th;
                 }
             } catch (IOException unused3) {
-            } catch (Throwable th3) {
-                th = th3;
+            } catch (Throwable th2) {
+                th = th2;
             }
         } catch (IOException unused4) {
         }
@@ -496,25 +499,25 @@ public class UMUtils {
                     str = bufferedReader.readLine();
                     bufferedReader.close();
                     fileReader.close();
-                } catch (IOException e10) {
+                } catch (IOException e2) {
                     if (AnalyticsConstants.UM_DEBUG) {
-                        Log.e(TAG, "Could not read from file /proc/cpuinfo, e is " + e10);
+                        Log.e(TAG, "Could not read from file /proc/cpuinfo, e is " + e2);
                     }
                 }
-            } catch (Exception e11) {
+            } catch (Exception e3) {
                 if (AnalyticsConstants.UM_DEBUG) {
-                    Log.e(TAG, "get cpu e is " + e11);
+                    Log.e(TAG, "get cpu e is " + e3);
                 }
                 return "";
-            } catch (Throwable th2) {
+            } catch (Throwable th) {
                 if (AnalyticsConstants.UM_DEBUG) {
-                    Log.e(TAG, "get cpu e is " + th2);
+                    Log.e(TAG, "get cpu e is " + th);
                 }
                 return "";
             }
-        } catch (FileNotFoundException e12) {
+        } catch (FileNotFoundException e4) {
             if (AnalyticsConstants.UM_DEBUG) {
-                Log.e(TAG, "Could not read from file /proc/cpuinfo, e is " + e12);
+                Log.e(TAG, "Could not read from file /proc/cpuinfo, e is " + e4);
             }
         }
         return str != null ? str.substring(str.indexOf(58) + 1).trim() : "";
@@ -526,17 +529,17 @@ public class UMUtils {
         }
         try {
             return !TextUtils.isEmpty(UMConfigure.sChannel) ? UMConfigure.sChannel : getMultiProcessSP(context, "channel");
-        } catch (Exception e10) {
+        } catch (Exception e2) {
             if (AnalyticsConstants.UM_DEBUG) {
-                Log.e(TAG, "get channel e is " + e10);
+                Log.e(TAG, "get channel e is " + e2);
             }
-            UMCrashManager.reportCrash(context, e10);
+            UMCrashManager.reportCrash(context, e2);
             return null;
-        } catch (Throwable th2) {
+        } catch (Throwable th) {
             if (AnalyticsConstants.UM_DEBUG) {
-                Log.e(TAG, "get channel e is " + th2);
+                Log.e(TAG, "get channel e is " + th);
             }
-            UMCrashManager.reportCrash(context, th2);
+            UMCrashManager.reportCrash(context, th);
             return null;
         }
     }
@@ -580,9 +583,9 @@ public class UMUtils {
         }
         Context applicationContext = context.getApplicationContext();
         try {
-            Class<?> cls = Class.forName("com.umeng.message.PushAgent");
+            Class<?> cls = Class.forName("com.umeng.message.MessageSharedPrefs");
             Method method2 = cls.getMethod("getInstance", Context.class);
-            if (method2 == null || (invoke = method2.invoke(cls, applicationContext)) == null || (method = cls.getMethod("getRegistrationId", null)) == null || (invoke2 = method.invoke(invoke, null)) == null || !(invoke2 instanceof String)) {
+            if (method2 == null || (invoke = method2.invoke(cls, applicationContext)) == null || (method = cls.getMethod("getDeviceToken", new Class[0])) == null || (invoke2 = method.invoke(invoke, new Object[0])) == null || !(invoke2 instanceof String)) {
                 return null;
             }
             return (String) invoke2;
@@ -597,17 +600,17 @@ public class UMUtils {
         }
         try {
             return (context.getResources().getConfiguration().screenLayout & 15) >= 3 ? "Tablet" : "Phone";
-        } catch (Exception e10) {
+        } catch (Exception e2) {
             if (AnalyticsConstants.UM_DEBUG) {
-                Log.e(TAG, "get device type e is " + e10);
+                Log.e(TAG, "get device type e is " + e2);
             }
-            UMCrashManager.reportCrash(context, e10);
+            UMCrashManager.reportCrash(context, e2);
             return null;
-        } catch (Throwable th2) {
+        } catch (Throwable th) {
             if (AnalyticsConstants.UM_DEBUG) {
-                Log.e(TAG, "get device type e is " + th2);
+                Log.e(TAG, "get device type e is " + th);
             }
-            UMCrashManager.reportCrash(context, th2);
+            UMCrashManager.reportCrash(context, th);
             return null;
         }
     }
@@ -623,19 +626,19 @@ public class UMUtils {
                 return "";
             }
             windowManager.getDefaultDisplay().getMetrics(displayMetrics);
-            int i10 = displayMetrics.widthPixels;
-            return String.valueOf(displayMetrics.heightPixels) + h.f28447r + String.valueOf(i10);
-        } catch (Exception e10) {
+            int i2 = displayMetrics.widthPixels;
+            return String.valueOf(displayMetrics.heightPixels) + "*" + String.valueOf(i2);
+        } catch (Exception e2) {
             if (AnalyticsConstants.UM_DEBUG) {
-                Log.e(TAG, "get display resolution e is " + e10);
+                Log.e(TAG, "get display resolution e is " + e2);
             }
-            UMCrashManager.reportCrash(context, e10);
+            UMCrashManager.reportCrash(context, e2);
             return "";
-        } catch (Throwable th2) {
+        } catch (Throwable th) {
             if (AnalyticsConstants.UM_DEBUG) {
-                Log.e(TAG, "get display resolution e is " + th2);
+                Log.e(TAG, "get display resolution e is " + th);
             }
-            UMCrashManager.reportCrash(context, th2);
+            UMCrashManager.reportCrash(context, th);
             return "";
         }
     }
@@ -648,7 +651,7 @@ public class UMUtils {
                     if (!file.isFile()) {
                         return "";
                     }
-                    MessageDigest messageDigest = MessageDigest.getInstance("MD5");
+                    MessageDigest messageDigest = MessageDigest.getInstance(bu.f5659a);
                     FileInputStream fileInputStream = new FileInputStream(file);
                     while (true) {
                         int read = fileInputStream.read(bArr, 0, 1024);
@@ -661,15 +664,15 @@ public class UMUtils {
                 } catch (Exception unused) {
                     return null;
                 }
-            } catch (Exception e10) {
+            } catch (Exception e2) {
                 if (AnalyticsConstants.UM_DEBUG) {
-                    Log.e(TAG, "get file MD5 e is " + e10);
+                    Log.e(TAG, "get file MD5 e is " + e2);
                 }
                 return null;
             }
-        } catch (Throwable th2) {
+        } catch (Throwable th) {
             if (AnalyticsConstants.UM_DEBUG) {
-                Log.e(TAG, "get file MD5 e is " + th2);
+                Log.e(TAG, "get file MD5 e is " + th);
             }
             return null;
         }
@@ -690,14 +693,14 @@ public class UMUtils {
     public static String[] getGPU(GL10 gl10) {
         try {
             return new String[]{gl10.glGetString(7936), gl10.glGetString(7937)};
-        } catch (Exception e10) {
+        } catch (Exception e2) {
             if (AnalyticsConstants.UM_DEBUG) {
-                Log.e(TAG, "Could not read gpu infor, e is " + e10);
+                Log.e(TAG, "Could not read gpu infor, e is " + e2);
             }
             return new String[0];
-        } catch (Throwable th2) {
+        } catch (Throwable th) {
             if (AnalyticsConstants.UM_DEBUG) {
-                Log.e(TAG, "Could not read gpu infor, e is " + th2);
+                Log.e(TAG, "Could not read gpu infor, e is " + th);
             }
             return new String[0];
         }
@@ -709,17 +712,17 @@ public class UMUtils {
         }
         try {
             return getMultiProcessSP(context, KEY_LAST_APP_KEY);
-        } catch (Exception e10) {
+        } catch (Exception e2) {
             if (AnalyticsConstants.UM_DEBUG) {
-                Log.e(TAG, "get last app key e is " + e10);
+                Log.e(TAG, "get last app key e is " + e2);
             }
-            UMCrashManager.reportCrash(context, e10);
+            UMCrashManager.reportCrash(context, e2);
             return null;
-        } catch (Throwable th2) {
+        } catch (Throwable th) {
             if (AnalyticsConstants.UM_DEBUG) {
-                Log.e(TAG, "get last app key e is " + th2);
+                Log.e(TAG, "get last app key e is " + th);
             }
-            UMCrashManager.reportCrash(context, th2);
+            UMCrashManager.reportCrash(context, th);
             return null;
         }
     }
@@ -735,24 +738,24 @@ public class UMUtils {
                 configuration.setToDefaults();
                 Settings.System.getConfiguration(context.getContentResolver(), configuration);
                 locale = configuration.locale;
-            } catch (Throwable th2) {
+            } catch (Throwable th) {
                 if (AnalyticsConstants.UM_DEBUG) {
-                    Log.e(TAG, "get locale e is " + th2);
+                    Log.e(TAG, "get locale e is " + th);
                 }
-                UMCrashManager.reportCrash(context, th2);
+                UMCrashManager.reportCrash(context, th);
                 return null;
             }
-        } catch (Exception e10) {
+        } catch (Exception e2) {
             try {
                 if (AnalyticsConstants.UM_DEBUG) {
-                    Log.e(TAG, "fail to read user config locale, e is " + e10);
+                    Log.e(TAG, "fail to read user config locale, e is " + e2);
                 }
                 locale = null;
-            } catch (Exception e11) {
+            } catch (Exception e3) {
                 if (AnalyticsConstants.UM_DEBUG) {
-                    Log.e(TAG, "get locale e is " + e11);
+                    Log.e(TAG, "get locale e is " + e3);
                 }
-                UMCrashManager.reportCrash(context, e11);
+                UMCrashManager.reportCrash(context, e3);
                 return null;
             }
         }
@@ -760,66 +763,39 @@ public class UMUtils {
     }
 
     public static String getMac(Context context) {
-        return null;
+        if (context == null) {
+            return null;
+        }
+        try {
+            WifiManager wifiManager = (WifiManager) context.getSystemService(com.alipay.mobilesecuritysdk.constant.a.I);
+            if (wifiManager == null) {
+                return null;
+            }
+            if (checkPermission(context, g.f9319d)) {
+                return wifiManager.getConnectionInfo().getMacAddress();
+            }
+            if (!AnalyticsConstants.UM_DEBUG) {
+                return "";
+            }
+            Log.e(TAG, "Could not get mac address.[no permission android.permission.ACCESS_WIFI_STATE");
+            return "";
+        } catch (Exception e2) {
+            if (AnalyticsConstants.UM_DEBUG) {
+                Log.e(TAG, "get mac e is " + e2);
+            }
+            UMCrashManager.reportCrash(context, e2);
+            return null;
+        } catch (Throwable th) {
+            if (AnalyticsConstants.UM_DEBUG) {
+                Log.e(TAG, "get mac e is " + th);
+            }
+            UMCrashManager.reportCrash(context, th);
+            return null;
+        }
     }
 
     private static byte[] getMiniArray() {
         return new byte[]{1, 6, 8, 12, 13};
-    }
-
-    public static JSONObject getModuleVer() {
-        JSONObject jSONObject = null;
-        try {
-            JSONObject jSONObject2 = new JSONObject();
-            try {
-                jSONObject2.put(bt.f23604bi, com.umeng.commonsdk.internal.a.f24469e);
-                if (!TextUtils.isEmpty(VALUE_ANALYTICS_VERSION)) {
-                    jSONObject2.put(bt.f23605bj, VALUE_ANALYTICS_VERSION);
-                }
-                if (!TextUtils.isEmpty(VALUE_GAME_VERSION)) {
-                    jSONObject2.put(bt.f23606bk, VALUE_GAME_VERSION);
-                }
-                if (!TextUtils.isEmpty(VALUE_PUSH_VERSION)) {
-                    jSONObject2.put(bt.bl, VALUE_PUSH_VERSION);
-                }
-                if (!TextUtils.isEmpty(VALUE_SHARE_VERSION)) {
-                    jSONObject2.put(bt.bm, VALUE_SHARE_VERSION);
-                }
-                if (!TextUtils.isEmpty(VALUE_APM_VERSION)) {
-                    jSONObject2.put(bt.bn, VALUE_APM_VERSION);
-                }
-                if (!TextUtils.isEmpty(VALUE_VERIFY_VERSION)) {
-                    jSONObject2.put(bt.bo, VALUE_VERIFY_VERSION);
-                }
-                if (!TextUtils.isEmpty(VALUE_SMS_VERSION)) {
-                    jSONObject2.put(bt.bp, VALUE_SMS_VERSION);
-                }
-                if (!TextUtils.isEmpty(VALUE_REC_VERSION_NAME)) {
-                    jSONObject2.put(bt.bq, VALUE_REC_VERSION_NAME);
-                }
-                if (!TextUtils.isEmpty(VALUE_VISUAL_VERSION)) {
-                    jSONObject2.put(bt.br, VALUE_VISUAL_VERSION);
-                }
-                if (!TextUtils.isEmpty(VALUE_ASMS_VERSION)) {
-                    jSONObject2.put(bt.bs, VALUE_ASMS_VERSION);
-                }
-                if (!TextUtils.isEmpty(VALUE_LINK_VERSION)) {
-                    jSONObject2.put(bt.bt, VALUE_LINK_VERSION);
-                }
-                if (!TextUtils.isEmpty(VALUE_ABTEST_VERSION)) {
-                    jSONObject2.put(bt.bu, VALUE_ABTEST_VERSION);
-                }
-                if (TextUtils.isEmpty(VALUE_ANTI_VERSION)) {
-                    return jSONObject2;
-                }
-                jSONObject2.put(bt.bv, VALUE_ANTI_VERSION);
-                return jSONObject2;
-            } catch (Throwable unused) {
-                jSONObject = jSONObject2;
-                return jSONObject;
-            }
-        } catch (Throwable unused2) {
-        }
     }
 
     public static String getMultiProcessSP(Context context, String str) {
@@ -827,20 +803,17 @@ public class UMUtils {
         try {
             synchronized (spLock) {
                 if (context != null) {
-                    try {
-                        if (!TextUtils.isEmpty(str)) {
-                            if (isMainProgress(context)) {
-                                sharedPreferences = context.getApplicationContext().getSharedPreferences(KEY_SHARED_PREFERENCES_NAME, 0);
-                            } else {
-                                String subProcessName = UMFrUtils.getSubProcessName(context);
-                                sharedPreferences = context.getApplicationContext().getSharedPreferences(subProcessName + hf.e.f26694a + KEY_SHARED_PREFERENCES_NAME, 0);
-                            }
-                            if (sharedPreferences == null) {
-                                return null;
-                            }
-                            return sharedPreferences.getString(str, null);
+                    if (!TextUtils.isEmpty(str)) {
+                        if (isMainProgress(context)) {
+                            sharedPreferences = context.getApplicationContext().getSharedPreferences("umeng_common_config", 0);
+                        } else {
+                            String subProcessName = UMFrUtils.getSubProcessName(context);
+                            sharedPreferences = context.getApplicationContext().getSharedPreferences(subProcessName + "_umeng_common_config", 0);
                         }
-                    } finally {
+                        if (sharedPreferences == null) {
+                            return null;
+                        }
+                        return sharedPreferences.getString(str, null);
                     }
                 }
                 return null;
@@ -856,18 +829,18 @@ public class UMUtils {
             return strArr;
         }
         try {
-        } catch (Exception e10) {
+        } catch (Exception e2) {
             if (AnalyticsConstants.UM_DEBUG) {
-                Log.e(TAG, "get network access mode e is " + e10);
+                Log.e(TAG, "get network access mode e is " + e2);
             }
-            UMCrashManager.reportCrash(context, e10);
-        } catch (Throwable th2) {
+            UMCrashManager.reportCrash(context, e2);
+        } catch (Throwable th) {
             if (AnalyticsConstants.UM_DEBUG) {
-                Log.e(TAG, "get network access mode e is " + th2);
+                Log.e(TAG, "get network access mode e is " + th);
             }
-            UMCrashManager.reportCrash(context, th2);
+            UMCrashManager.reportCrash(context, th);
         }
-        if (!checkPermission(context, g.f11101b)) {
+        if (!checkPermission(context, g.f9317b)) {
             strArr[0] = "";
             return strArr;
         }
@@ -899,9 +872,9 @@ public class UMUtils {
             return null;
         }
         try {
-            SharedPreferences sharedPreferences = context.getSharedPreferences(i.f24680a, 0);
+            SharedPreferences sharedPreferences = context.getSharedPreferences(h.f26355a, 0);
             if (sharedPreferences != null) {
-                return sharedPreferences.getString(i.f24682c, "");
+                return sharedPreferences.getString(h.f26357c, "");
             }
             return null;
         } catch (Throwable unused) {
@@ -929,7 +902,7 @@ public class UMUtils {
                 try {
                     String property = buildProp.getProperty(KEY_MIUI_VERSION_NAME);
                     if (!TextUtils.isEmpty(property)) {
-                        str = "MIUI";
+                        str = com.martian.mipush.d.f14901b;
                     } else if (isFlyMe()) {
                         str = "Flyme";
                     } else {
@@ -939,22 +912,22 @@ public class UMUtils {
                         str = "YunOS";
                     }
                     return str;
-                } catch (Exception e10) {
-                    UMCrashManager.reportCrash(context, e10);
+                } catch (Exception e2) {
+                    UMCrashManager.reportCrash(context, e2);
                     return null;
                 }
-            } catch (Exception e11) {
+            } catch (Exception e3) {
                 if (AnalyticsConstants.UM_DEBUG) {
-                    Log.e(TAG, "get sub os name e is " + e11);
+                    Log.e(TAG, "get sub os name e is " + e3);
                 }
-                UMCrashManager.reportCrash(context, e11);
+                UMCrashManager.reportCrash(context, e3);
                 return null;
             }
-        } catch (Throwable th2) {
+        } catch (Throwable th) {
             if (AnalyticsConstants.UM_DEBUG) {
-                Log.e(TAG, "get sub os name e is " + th2);
+                Log.e(TAG, "get sub os name e is " + th);
             }
-            UMCrashManager.reportCrash(context, th2);
+            UMCrashManager.reportCrash(context, th);
             return null;
         }
     }
@@ -975,22 +948,22 @@ public class UMUtils {
                         }
                     }
                     return property;
-                } catch (Exception e10) {
-                    UMCrashManager.reportCrash(context, e10);
+                } catch (Exception e2) {
+                    UMCrashManager.reportCrash(context, e2);
                     return null;
                 }
-            } catch (Exception e11) {
+            } catch (Exception e3) {
                 if (AnalyticsConstants.UM_DEBUG) {
-                    Log.e(TAG, "get sub os version e is " + e11);
+                    Log.e(TAG, "get sub os version e is " + e3);
                 }
-                UMCrashManager.reportCrash(context, e11);
+                UMCrashManager.reportCrash(context, e3);
                 return null;
             }
-        } catch (Throwable th2) {
+        } catch (Throwable th) {
             if (AnalyticsConstants.UM_DEBUG) {
-                Log.e(TAG, "get sub os version e is " + th2);
+                Log.e(TAG, "get sub os version e is " + th);
             }
-            UMCrashManager.reportCrash(context, th2);
+            UMCrashManager.reportCrash(context, th);
             return null;
         }
     }
@@ -1016,9 +989,9 @@ public class UMUtils {
             return null;
         }
         try {
-            return UMEnvelopeBuild.imprintProperty(context.getApplicationContext(), bt.f23611g, null);
-        } catch (Exception e10) {
-            UMCrashManager.reportCrash(context, e10);
+            return UMEnvelopeBuild.imprintProperty(context.getApplicationContext(), am.f25657g, null);
+        } catch (Exception e2) {
+            UMCrashManager.reportCrash(context, e2);
             return null;
         }
     }
@@ -1034,8 +1007,8 @@ public class UMUtils {
         }
         try {
             return UMEnvelopeBuild.imprintProperty(context.getApplicationContext(), "ztoken", null);
-        } catch (Exception e10) {
-            UMCrashManager.reportCrash(context, e10);
+        } catch (Exception e2) {
+            UMCrashManager.reportCrash(context, e2);
             return null;
         }
     }
@@ -1089,15 +1062,15 @@ public class UMUtils {
         }
         try {
             return (context.getApplicationInfo().flags & 2) != 0;
-        } catch (Exception e10) {
-            UMCrashManager.reportCrash(context, e10);
+        } catch (Exception e2) {
+            UMCrashManager.reportCrash(context, e2);
             return false;
         }
     }
 
     private static boolean isFlyMe() {
         try {
-            Build.class.getMethod("hasSmartBar", null);
+            Build.class.getMethod("hasSmartBar", new Class[0]);
             return true;
         } catch (Exception unused) {
             return false;
@@ -1165,19 +1138,19 @@ public class UMUtils {
         StringBuffer stringBuffer = new StringBuffer();
         stringBuffer.append("a");
         if (UMConfigure.isDebugLog()) {
-            UMLog.mutlInfo(2, "统计SDK版本号: 9.7.9");
+            UMLog.mutlInfo(2, "统计SDK版本号: 9.5.2");
         }
-        VALUE_ANALYTICS_VERSION = "9.7.9";
-        String b10 = com.umeng.commonsdk.internal.c.b();
-        if (!TextUtils.isEmpty(b10)) {
-            VALUE_ASMS_VERSION = b10;
+        VALUE_ANALYTICS_VERSION = "9.5.2";
+        String b2 = com.umeng.commonsdk.internal.c.b();
+        if (!TextUtils.isEmpty(b2)) {
+            VALUE_ASMS_VERSION = b2;
             if (UMConfigure.isDebugLog()) {
-                UMLog.mutlInfo(2, "ZID SDK版本号: " + b10);
+                UMLog.mutlInfo(2, "ZID SDK版本号: " + b2);
             }
         }
         Class<?> cls = getClass("com.umeng.analytics.game.GameSdkVersion");
         if (cls != null) {
-            stringBuffer.append("g");
+            stringBuffer.append(OapsKey.KEY_GRADE);
             try {
                 String str = (String) cls.getDeclaredField("SDK_VERSION").get(cls);
                 if (!TextUtils.isEmpty(str)) {
@@ -1219,36 +1192,24 @@ public class UMUtils {
                 }
             }
         }
-        Class<?> cls4 = getClass("com.umeng.socialize.UMShareAPI");
-        if (cls4 != null) {
+        if (getClass("com.umeng.socialize.UMShareAPI") != null) {
             stringBuffer.append("s");
-            Class<?> cls5 = getClass("com.umeng.a");
-            if (cls5 != null) {
+            Class<?> cls4 = getClass("com.umeng.a");
+            if (cls4 != null) {
                 try {
-                    String str4 = (String) cls5.getDeclaredField("g").get(cls5);
-                    if (!TextUtils.isEmpty(str4)) {
-                        VALUE_SHARE_VERSION = str4;
-                        if (UMConfigure.isDebugLog()) {
-                            UMLog.mutlInfo(2, "分享SDK版本号: " + str4);
-                        }
+                    String str4 = (String) cls4.getDeclaredField(OapsKey.KEY_GRADE).get(cls4);
+                    if (!TextUtils.isEmpty(str4) && UMConfigure.isDebugLog()) {
+                        UMLog.mutlInfo(2, "分享SDK版本号: " + str4);
                     }
                 } catch (Throwable unused4) {
                 }
             }
-            if (TextUtils.isEmpty(VALUE_SHARE_VERSION)) {
-                try {
-                    Method declaredMethod = cls4.getDeclaredMethod("getSdkVersion", null);
-                    declaredMethod.setAccessible(true);
-                    VALUE_SHARE_VERSION = (String) declaredMethod.invoke(cls4, null);
-                } catch (Throwable unused5) {
-                }
-            }
         }
         if (getClass("com.umeng.error.UMError") != null) {
-            stringBuffer.append(com.kwad.sdk.m.e.TAG);
+            stringBuffer.append(e.TAG);
         }
         if (getClass("com.umeng.umzid.ZIDManager") != null) {
-            stringBuffer.append(bt.aJ);
+            stringBuffer.append(am.aD);
         }
         stringBuffer.append("i");
         if (SdkVersion.SDK_TYPE != 1 && getClass("com.umeng.commonsdk.internal.UMOplus") != null) {
@@ -1256,126 +1217,95 @@ public class UMUtils {
         }
         if (getClass("com.umeng.airec.RecAgent") != null) {
             stringBuffer.append("u");
-            Class<?> cls6 = getClass("com.umeng.airec.BuildConfig");
-            if (cls6 != null) {
+            Class<?> cls5 = getClass("com.umeng.airec.BuildConfig");
+            if (cls5 != null) {
                 try {
-                    String str5 = (String) cls6.getDeclaredField("VERSION_NAME").get(cls6);
+                    String str5 = (String) cls5.getDeclaredField("VERSION_NAME").get(cls5);
                     if (!TextUtils.isEmpty(str5)) {
                         VALUE_REC_VERSION_NAME = str5;
                         if (UMConfigure.isDebugLog()) {
                             UMLog.mutlInfo(2, "智能推荐SDK版本号: " + str5);
                         }
                     }
-                } catch (Throwable unused6) {
+                } catch (Throwable unused5) {
                 }
             }
         }
-        Class<?> cls7 = getClass("com.umeng.umverify.UMVerifyHelper");
-        if (cls7 != null) {
+        if (getClass("com.umeng.umverify.UMVerifyHelper") != null) {
             stringBuffer.append("n");
+        }
+        Class<?> cls6 = getClass("com.umeng.sms.UMSMS");
+        if (cls6 != null) {
+            stringBuffer.append("m");
             try {
-                Method declaredMethod2 = cls7.getDeclaredMethod("getUVerifyVersion", null);
-                if (declaredMethod2 != null) {
-                    String str6 = (String) declaredMethod2.invoke(cls7, null);
+                Method declaredMethod = cls6.getDeclaredMethod("getVersion", new Class[0]);
+                if (declaredMethod != null) {
+                    String str6 = (String) declaredMethod.invoke(cls6, new Object[0]);
                     if (!TextUtils.isEmpty(str6)) {
-                        VALUE_VERIFY_VERSION = str6;
+                        VALUE_SMS_VERSION = str6;
                         if (UMConfigure.isDebugLog()) {
-                            UMLog.mutlInfo(2, "号码认证SDK版本号: " + str6);
+                            UMLog.mutlInfo(2, "短信验证码SDK版本号: " + str6);
                         }
                     }
                 }
-            } catch (Throwable unused7) {
+            } catch (Throwable unused6) {
             }
         }
-        Class<?> cls8 = getClass("com.umeng.sms.UMSMS");
+        try {
+            Class<?> cls7 = getClass("com.umeng.umcrash.UMCrash");
+            if (cls7 != null) {
+                stringBuffer.append("c");
+                Field declaredField = cls7.getDeclaredField("crashSdkVersion");
+                declaredField.setAccessible(true);
+                String str7 = (String) declaredField.get(cls7);
+                if (!TextUtils.isEmpty(str7)) {
+                    VALUE_APM_VERSION = str7;
+                    if (UMConfigure.isDebugLog()) {
+                        UMLog.mutlInfo(2, "APM SDK版本号: " + str7);
+                    }
+                }
+            }
+        } catch (Throwable unused7) {
+        }
+        Class<?> cls8 = getClass("com.umeng.umlink.MobclickLink");
         if (cls8 != null) {
-            stringBuffer.append("m");
+            stringBuffer.append(t.f9404d);
             try {
-                Method declaredMethod3 = cls8.getDeclaredMethod("getVersion", null);
-                if (declaredMethod3 != null) {
-                    String str7 = (String) declaredMethod3.invoke(cls8, null);
-                    if (!TextUtils.isEmpty(str7)) {
-                        VALUE_SMS_VERSION = str7;
+                Method declaredMethod2 = cls8.getDeclaredMethod("getVersion", new Class[0]);
+                if (declaredMethod2 != null) {
+                    String str8 = (String) declaredMethod2.invoke(cls8, new Object[0]);
+                    if (!TextUtils.isEmpty(str8)) {
+                        VALUE_LINK_VERSION = str8;
                         if (UMConfigure.isDebugLog()) {
-                            UMLog.mutlInfo(2, "短信验证码SDK版本号: " + str7);
+                            UMLog.mutlInfo(2, "ULink SDK版本号: " + str8);
                         }
                     }
                 }
             } catch (Throwable unused8) {
             }
         }
-        try {
-            Class<?> cls9 = getClass("com.umeng.umcrash.UMCrash");
-            if (cls9 != null) {
-                stringBuffer.append("c");
-                Field declaredField = cls9.getDeclaredField("crashSdkVersion");
-                declaredField.setAccessible(true);
-                String str8 = (String) declaredField.get(cls9);
-                if (!TextUtils.isEmpty(str8)) {
-                    VALUE_APM_VERSION = str8;
-                    if (UMConfigure.isDebugLog()) {
-                        UMLog.mutlInfo(2, "APM SDK版本号: " + str8);
-                    }
-                }
-            }
-        } catch (Throwable unused9) {
-        }
-        Class<?> cls10 = getClass("com.umeng.umlink.MobclickLink");
-        if (cls10 != null) {
-            stringBuffer.append(t.f11204d);
+        Class<?> cls9 = getClass("com.umeng.cconfig.UMRemoteConfig");
+        if (cls9 != null) {
             try {
-                Method declaredMethod4 = cls10.getDeclaredMethod("getVersion", null);
-                if (declaredMethod4 != null) {
-                    String str9 = (String) declaredMethod4.invoke(cls10, null);
+                Method declaredMethod3 = cls9.getDeclaredMethod("getVersion", new Class[0]);
+                if (declaredMethod3 != null) {
+                    stringBuffer.append("t");
+                    String str9 = (String) declaredMethod3.invoke(cls9, new Object[0]);
                     if (!TextUtils.isEmpty(str9)) {
-                        VALUE_LINK_VERSION = str9;
+                        VALUE_ABTEST_VERSION = str9;
                         if (UMConfigure.isDebugLog()) {
-                            UMLog.mutlInfo(2, "ULink SDK版本号: " + str9);
+                            UMLog.mutlInfo(2, "UABTEST SDK版本号: " + str9);
                         }
                     }
                 }
-            } catch (Throwable unused10) {
-            }
-        }
-        Class<?> cls11 = getClass("com.umeng.cconfig.UMRemoteConfig");
-        if (cls11 != null) {
-            try {
-                Method declaredMethod5 = cls11.getDeclaredMethod("getVersion", null);
-                if (declaredMethod5 != null) {
-                    stringBuffer.append(bt.aO);
-                    String str10 = (String) declaredMethod5.invoke(cls11, null);
-                    if (!TextUtils.isEmpty(str10)) {
-                        VALUE_ABTEST_VERSION = str10;
-                        if (UMConfigure.isDebugLog()) {
-                            UMLog.mutlInfo(2, "UABTEST SDK版本号: " + str10);
-                        }
-                    }
-                }
-            } catch (Throwable unused11) {
-            }
-        }
-        Class<?> cls12 = getClass("com.uyumao.sdk.UYMManager");
-        if (cls12 != null) {
-            try {
-                Method declaredMethod6 = cls12.getDeclaredMethod("getSdkVersion", null);
-                if (declaredMethod6 != null) {
-                    stringBuffer.append(t.f11211k);
-                    String str11 = (String) declaredMethod6.invoke(cls12, null);
-                    if (!TextUtils.isEmpty(str11)) {
-                        VALUE_ANTI_VERSION = str11;
-                        if (UMConfigure.isDebugLog()) {
-                            UMLog.mutlInfo(2, "ANTI SDK版本号: " + str11);
-                        }
-                    }
-                }
-            } catch (Throwable unused12) {
+            } catch (Throwable unused9) {
             }
         }
         if (TextUtils.isEmpty(stringBuffer)) {
             return;
         }
-        com.umeng.commonsdk.statistics.b.f24591a = stringBuffer.toString();
-        Log.i(AnalyticsConstants.LOG_TAG, "module init:" + com.umeng.commonsdk.statistics.b.f24591a);
+        com.umeng.commonsdk.statistics.b.f26279a = stringBuffer.toString();
+        Log.i(AnalyticsConstants.LOG_TAG, "module init:" + com.umeng.commonsdk.statistics.b.f26279a);
     }
 
     public static void setAppkey(Context context, String str) {
@@ -1384,16 +1314,16 @@ public class UMUtils {
         }
         try {
             setMultiProcessSP(context, "appkey", str);
-        } catch (Exception e10) {
+        } catch (Exception e2) {
             if (AnalyticsConstants.UM_DEBUG) {
-                Log.e(TAG, "set app key e is " + e10);
+                Log.e(TAG, "set app key e is " + e2);
             }
-            UMCrashManager.reportCrash(context, e10);
-        } catch (Throwable th2) {
+            UMCrashManager.reportCrash(context, e2);
+        } catch (Throwable th) {
             if (AnalyticsConstants.UM_DEBUG) {
-                Log.e(TAG, "set app key e is " + th2);
+                Log.e(TAG, "set app key e is " + th);
             }
-            UMCrashManager.reportCrash(context, th2);
+            UMCrashManager.reportCrash(context, th);
         }
     }
 
@@ -1403,16 +1333,16 @@ public class UMUtils {
         }
         try {
             setMultiProcessSP(context, "channel", str);
-        } catch (Exception e10) {
+        } catch (Exception e2) {
             if (AnalyticsConstants.UM_DEBUG) {
-                Log.e(TAG, "set channel e is " + e10);
+                Log.e(TAG, "set channel e is " + e2);
             }
-            UMCrashManager.reportCrash(context, e10);
-        } catch (Throwable th2) {
+            UMCrashManager.reportCrash(context, e2);
+        } catch (Throwable th) {
             if (AnalyticsConstants.UM_DEBUG) {
-                Log.e(TAG, "set channel e is " + th2);
+                Log.e(TAG, "set channel e is " + th);
             }
-            UMCrashManager.reportCrash(context, th2);
+            UMCrashManager.reportCrash(context, th);
         }
     }
 
@@ -1422,16 +1352,16 @@ public class UMUtils {
         }
         try {
             setMultiProcessSP(context, KEY_LAST_APP_KEY, str);
-        } catch (Exception e10) {
+        } catch (Exception e2) {
             if (AnalyticsConstants.UM_DEBUG) {
-                Log.e(TAG, "set last app key e is " + e10);
+                Log.e(TAG, "set last app key e is " + e2);
             }
-            UMCrashManager.reportCrash(context, e10);
-        } catch (Throwable th2) {
+            UMCrashManager.reportCrash(context, e2);
+        } catch (Throwable th) {
             if (AnalyticsConstants.UM_DEBUG) {
-                Log.e(TAG, "set last app key e is " + th2);
+                Log.e(TAG, "set last app key e is " + th);
             }
-            UMCrashManager.reportCrash(context, th2);
+            UMCrashManager.reportCrash(context, th);
         }
     }
 
@@ -1440,19 +1370,16 @@ public class UMUtils {
         try {
             synchronized (spLock) {
                 if (context != null) {
-                    try {
-                        if (!TextUtils.isEmpty(str) && str2 != null) {
-                            if (isMainProgress(context)) {
-                                sharedPreferences = context.getApplicationContext().getSharedPreferences(KEY_SHARED_PREFERENCES_NAME, 0);
-                            } else {
-                                String subProcessName = UMFrUtils.getSubProcessName(context);
-                                sharedPreferences = context.getApplicationContext().getSharedPreferences(subProcessName + hf.e.f26694a + KEY_SHARED_PREFERENCES_NAME, 0);
-                            }
-                            if (sharedPreferences != null) {
-                                sharedPreferences.edit().putString(str, str2).commit();
-                            }
+                    if (!TextUtils.isEmpty(str) && str2 != null) {
+                        if (isMainProgress(context)) {
+                            sharedPreferences = context.getApplicationContext().getSharedPreferences("umeng_common_config", 0);
+                        } else {
+                            String subProcessName = UMFrUtils.getSubProcessName(context);
+                            sharedPreferences = context.getApplicationContext().getSharedPreferences(subProcessName + "_umeng_common_config", 0);
                         }
-                    } finally {
+                        if (sharedPreferences != null) {
+                            sharedPreferences.edit().putString(str, str2).commit();
+                        }
                     }
                 }
             }
@@ -1476,15 +1403,15 @@ public class UMUtils {
     public static String getAppVersionName(Context context, String str) {
         if (context != null && str != null) {
             try {
-                PackageInfo a10 = b.a().a(context, str, 64);
-                if (a10 != null) {
-                    return a10.versionName;
+                PackageInfo a2 = b.a().a(context, str, 64);
+                if (a2 != null) {
+                    return a2.versionName;
                 }
-            } catch (Throwable th2) {
+            } catch (Throwable th) {
                 if (AnalyticsConstants.UM_DEBUG) {
-                    Log.e(TAG, "get app version name e is " + th2);
+                    Log.e(TAG, "get app version name e is " + th);
                 }
-                UMCrashManager.reportCrash(context, th2);
+                UMCrashManager.reportCrash(context, th);
             }
         }
         return "";

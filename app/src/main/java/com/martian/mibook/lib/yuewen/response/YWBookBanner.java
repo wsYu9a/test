@@ -2,7 +2,7 @@ package com.martian.mibook.lib.yuewen.response;
 
 import com.martian.mibook.lib.model.data.TYBookItem;
 
-/* loaded from: classes3.dex */
+/* loaded from: classes4.dex */
 public class YWBookBanner extends TYBookItem {
     private String bannerUrl;
     private String link;
@@ -15,11 +15,11 @@ public class YWBookBanner extends TYBookItem {
         return this.link;
     }
 
-    public void setBannerUrl(String str) {
-        this.bannerUrl = str;
+    public void setBannerUrl(String bannerUrl) {
+        this.bannerUrl = bannerUrl;
     }
 
-    public void setLink(String str) {
-        this.link = str;
+    public void setLink(String link) {
+        this.link = link;
     }
 }

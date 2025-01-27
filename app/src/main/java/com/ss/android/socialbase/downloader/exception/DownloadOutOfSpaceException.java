@@ -5,10 +5,10 @@ public class DownloadOutOfSpaceException extends BaseException {
     private final long avaliableSpaceBytes;
     private final long requiredSpaceBytes;
 
-    public DownloadOutOfSpaceException(long j10, long j11) {
-        super(1006, String.format("space is not enough required space is : %s but available space is :%s", String.valueOf(j11), String.valueOf(j10)));
-        this.avaliableSpaceBytes = j10;
-        this.requiredSpaceBytes = j11;
+    public DownloadOutOfSpaceException(long j2, long j3) {
+        super(1006, String.format("space is not enough required space is : %s but available space is :%s", String.valueOf(j3), String.valueOf(j2)));
+        this.avaliableSpaceBytes = j2;
+        this.requiredSpaceBytes = j3;
     }
 
     public long getAvaliableSpaceBytes() {

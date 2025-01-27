@@ -15,11 +15,11 @@ public class MissionSection {
         return this.title;
     }
 
-    public void setMissionItems(List<MissionItem> list) {
-        this.missionItems = list;
+    public void setMissionItems(List<MissionItem> missionItems) {
+        this.missionItems = missionItems;
     }
 
-    public void setTitle(String str) {
-        this.title = str;
+    public void setTitle(String title) {
+        this.title = title;
     }
 }

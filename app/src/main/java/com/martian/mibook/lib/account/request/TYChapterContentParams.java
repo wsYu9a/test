@@ -1,6 +1,6 @@
 package com.martian.mibook.lib.account.request;
 
-import v8.a;
+import com.martian.libcomm.http.requests.d.a;
 
 /* loaded from: classes3.dex */
 public class TYChapterContentParams extends TYHttpGetParams {
@@ -18,7 +18,7 @@ public class TYChapterContentParams extends TYHttpGetParams {
         return this.chapterId;
     }
 
-    @Override // u8.b
+    @Override // com.martian.libcomm.http.requests.b
     public String getRequestMethod() {
         return "authopt/ty/chapter_content";
     }
@@ -31,15 +31,15 @@ public class TYChapterContentParams extends TYHttpGetParams {
         return this.sourceName;
     }
 
-    public void setChapterId(String str) {
-        this.chapterId = str;
+    public void setChapterId(String chapterId) {
+        this.chapterId = chapterId;
     }
 
-    public void setSourceId(String str) {
-        this.sourceId = str;
+    public void setSourceId(String sourceId) {
+        this.sourceId = sourceId;
     }
 
-    public void setSourceName(String str) {
-        this.sourceName = str;
+    public void setSourceName(String sourceName) {
+        this.sourceName = sourceName;
     }
 }

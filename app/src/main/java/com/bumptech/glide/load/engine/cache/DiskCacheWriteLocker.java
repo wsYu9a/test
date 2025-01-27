@@ -8,21 +8,27 @@ import java.util.Queue;
 import java.util.concurrent.locks.Lock;
 import java.util.concurrent.locks.ReentrantLock;
 
-/* loaded from: classes2.dex */
+/* loaded from: classes.dex */
 final class DiskCacheWriteLocker {
     private final Map<String, WriteLock> locks = new HashMap();
     private final WriteLockPool writeLockPool = new WriteLockPool();
 
-    public static class WriteLock {
+    private static class WriteLock {
         int interestedThreads;
         final Lock lock = new ReentrantLock();
+
+        WriteLock() {
+        }
     }
 
-    public static class WriteLockPool {
+    private static class WriteLockPool {
         private static final int MAX_POOL_SIZE = 10;
         private final Queue<WriteLock> pool = new ArrayDeque();
 
-        public WriteLock obtain() {
+        WriteLockPool() {
+        }
+
+        WriteLock obtain() {
             WriteLock poll;
             synchronized (this.pool) {
                 poll = this.pool.poll();
@@ -30,56 +36,47 @@ final class DiskCacheWriteLocker {
             return poll == null ? new WriteLock() : poll;
         }
 
-        public void offer(WriteLock writeLock) {
+        void offer(WriteLock writeLock) {
             synchronized (this.pool) {
-                try {
-                    if (this.pool.size() < 10) {
-                        this.pool.offer(writeLock);
-                    }
-                } catch (Throwable th2) {
-                    throw th2;
+                if (this.pool.size() < 10) {
+                    this.pool.offer(writeLock);
                 }
             }
         }
     }
 
-    public void acquire(String str) {
+    DiskCacheWriteLocker() {
+    }
+
+    void acquire(String str) {
         WriteLock writeLock;
         synchronized (this) {
-            try {
-                writeLock = this.locks.get(str);
-                if (writeLock == null) {
-                    writeLock = this.writeLockPool.obtain();
-                    this.locks.put(str, writeLock);
-                }
-                writeLock.interestedThreads++;
-            } catch (Throwable th2) {
-                throw th2;
+            writeLock = this.locks.get(str);
+            if (writeLock == null) {
+                writeLock = this.writeLockPool.obtain();
+                this.locks.put(str, writeLock);
             }
+            writeLock.interestedThreads++;
         }
         writeLock.lock.lock();
     }
 
-    public void release(String str) {
+    void release(String str) {
         WriteLock writeLock;
         synchronized (this) {
-            try {
-                writeLock = (WriteLock) Preconditions.checkNotNull(this.locks.get(str));
-                int i10 = writeLock.interestedThreads;
-                if (i10 < 1) {
-                    throw new IllegalStateException("Cannot release a lock that is not held, safeKey: " + str + ", interestedThreads: " + writeLock.interestedThreads);
+            writeLock = (WriteLock) Preconditions.checkNotNull(this.locks.get(str));
+            int i2 = writeLock.interestedThreads;
+            if (i2 < 1) {
+                throw new IllegalStateException("Cannot release a lock that is not held, safeKey: " + str + ", interestedThreads: " + writeLock.interestedThreads);
+            }
+            int i3 = i2 - 1;
+            writeLock.interestedThreads = i3;
+            if (i3 == 0) {
+                WriteLock remove = this.locks.remove(str);
+                if (!remove.equals(writeLock)) {
+                    throw new IllegalStateException("Removed the wrong lock, expected to remove: " + writeLock + ", but actually removed: " + remove + ", safeKey: " + str);
                 }
-                int i11 = i10 - 1;
-                writeLock.interestedThreads = i11;
-                if (i11 == 0) {
-                    WriteLock remove = this.locks.remove(str);
-                    if (!remove.equals(writeLock)) {
-                        throw new IllegalStateException("Removed the wrong lock, expected to remove: " + writeLock + ", but actually removed: " + remove + ", safeKey: " + str);
-                    }
-                    this.writeLockPool.offer(remove);
-                }
-            } catch (Throwable th2) {
-                throw th2;
+                this.writeLockPool.offer(remove);
             }
         }
         writeLock.lock.unlock();

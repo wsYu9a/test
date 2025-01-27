@@ -1,5 +1,6 @@
 package com.kwad.sdk.e;
 
-/* loaded from: classes3.dex */
-public interface c extends a {
+/* loaded from: classes2.dex */
+public interface c<T> {
+    T get();
 }

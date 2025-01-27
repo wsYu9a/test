@@ -7,7 +7,7 @@ import java.io.FilterInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 
-/* loaded from: classes2.dex */
+/* loaded from: classes.dex */
 public class RecyclableBufferedInputStream extends FilterInputStream {
     private volatile byte[] buf;
     private final ArrayPool byteArrayPool;
@@ -16,10 +16,10 @@ public class RecyclableBufferedInputStream extends FilterInputStream {
     private int markpos;
     private int pos;
 
-    public static class InvalidMarkException extends IOException {
+    static class InvalidMarkException extends IOException {
         private static final long serialVersionUID = -4338378848813561757L;
 
-        public InvalidMarkException(String str) {
+        InvalidMarkException(String str) {
             super(str);
         }
     }
@@ -29,34 +29,34 @@ public class RecyclableBufferedInputStream extends FilterInputStream {
     }
 
     private int fillbuf(InputStream inputStream, byte[] bArr) throws IOException {
-        int i10 = this.markpos;
-        if (i10 != -1) {
-            int i11 = this.pos - i10;
-            int i12 = this.marklimit;
-            if (i11 < i12) {
-                if (i10 == 0 && i12 > bArr.length && this.count == bArr.length) {
+        int i2 = this.markpos;
+        if (i2 != -1) {
+            int i3 = this.pos - i2;
+            int i4 = this.marklimit;
+            if (i3 < i4) {
+                if (i2 == 0 && i4 > bArr.length && this.count == bArr.length) {
                     int length = bArr.length * 2;
-                    if (length <= i12) {
-                        i12 = length;
+                    if (length <= i4) {
+                        i4 = length;
                     }
-                    byte[] bArr2 = (byte[]) this.byteArrayPool.get(i12, byte[].class);
+                    byte[] bArr2 = (byte[]) this.byteArrayPool.get(i4, byte[].class);
                     System.arraycopy(bArr, 0, bArr2, 0, bArr.length);
                     this.buf = bArr2;
                     this.byteArrayPool.put(bArr);
                     bArr = bArr2;
-                } else if (i10 > 0) {
-                    System.arraycopy(bArr, i10, bArr, 0, bArr.length - i10);
+                } else if (i2 > 0) {
+                    System.arraycopy(bArr, i2, bArr, 0, bArr.length - i2);
                 }
-                int i13 = this.pos - this.markpos;
-                this.pos = i13;
+                int i5 = this.pos - this.markpos;
+                this.pos = i5;
                 this.markpos = 0;
                 this.count = 0;
-                int read = inputStream.read(bArr, i13, bArr.length - i13);
-                int i14 = this.pos;
+                int read = inputStream.read(bArr, i5, bArr.length - i5);
+                int i6 = this.pos;
                 if (read > 0) {
-                    i14 += read;
+                    i6 += read;
                 }
-                this.count = i14;
+                this.count = i6;
                 return read;
             }
         }
@@ -101,8 +101,8 @@ public class RecyclableBufferedInputStream extends FilterInputStream {
     }
 
     @Override // java.io.FilterInputStream, java.io.InputStream
-    public synchronized void mark(int i10) {
-        this.marklimit = Math.max(this.marklimit, i10);
+    public synchronized void mark(int i2) {
+        this.marklimit = Math.max(this.marklimit, i2);
         this.markpos = this.pos;
     }
 
@@ -124,13 +124,13 @@ public class RecyclableBufferedInputStream extends FilterInputStream {
         if (bArr != this.buf && (bArr = this.buf) == null) {
             throw streamClosed();
         }
-        int i10 = this.count;
-        int i11 = this.pos;
-        if (i10 - i11 <= 0) {
+        int i2 = this.count;
+        int i3 = this.pos;
+        if (i2 - i3 <= 0) {
             return -1;
         }
-        this.pos = i11 + 1;
-        return bArr[i11] & 255;
+        this.pos = i3 + 1;
+        return bArr[i3] & 255;
     }
 
     public synchronized void release() {
@@ -145,16 +145,16 @@ public class RecyclableBufferedInputStream extends FilterInputStream {
         if (this.buf == null) {
             throw new IOException("Stream is closed");
         }
-        int i10 = this.markpos;
-        if (-1 == i10) {
+        int i2 = this.markpos;
+        if (-1 == i2) {
             throw new InvalidMarkException("Mark has been invalidated, pos: " + this.pos + " markLimit: " + this.marklimit);
         }
-        this.pos = i10;
+        this.pos = i2;
     }
 
     @Override // java.io.FilterInputStream, java.io.InputStream
-    public synchronized long skip(long j10) throws IOException {
-        if (j10 < 1) {
+    public synchronized long skip(long j2) throws IOException {
+        if (j2 < 1) {
             return 0L;
         }
         byte[] bArr = this.buf;
@@ -165,93 +165,93 @@ public class RecyclableBufferedInputStream extends FilterInputStream {
         if (inputStream == null) {
             throw streamClosed();
         }
-        int i10 = this.count;
-        int i11 = this.pos;
-        if (i10 - i11 >= j10) {
-            this.pos = (int) (i11 + j10);
-            return j10;
+        int i2 = this.count;
+        int i3 = this.pos;
+        if (i2 - i3 >= j2) {
+            this.pos = (int) (i3 + j2);
+            return j2;
         }
-        long j11 = i10 - i11;
-        this.pos = i10;
-        if (this.markpos == -1 || j10 > this.marklimit) {
-            return j11 + inputStream.skip(j10 - j11);
+        long j3 = i2 - i3;
+        this.pos = i2;
+        if (this.markpos == -1 || j2 > this.marklimit) {
+            return j3 + inputStream.skip(j2 - j3);
         }
         if (fillbuf(inputStream, bArr) == -1) {
-            return j11;
+            return j3;
         }
-        int i12 = this.count;
-        int i13 = this.pos;
-        if (i12 - i13 >= j10 - j11) {
-            this.pos = (int) ((i13 + j10) - j11);
-            return j10;
+        int i4 = this.count;
+        int i5 = this.pos;
+        if (i4 - i5 >= j2 - j3) {
+            this.pos = (int) ((i5 + j2) - j3);
+            return j2;
         }
-        long j12 = (j11 + i12) - i13;
-        this.pos = i12;
-        return j12;
+        long j4 = (j3 + i4) - i5;
+        this.pos = i4;
+        return j4;
     }
 
     @VisibleForTesting
-    public RecyclableBufferedInputStream(@NonNull InputStream inputStream, @NonNull ArrayPool arrayPool, int i10) {
+    RecyclableBufferedInputStream(@NonNull InputStream inputStream, @NonNull ArrayPool arrayPool, int i2) {
         super(inputStream);
         this.markpos = -1;
         this.byteArrayPool = arrayPool;
-        this.buf = (byte[]) arrayPool.get(i10, byte[].class);
+        this.buf = (byte[]) arrayPool.get(i2, byte[].class);
     }
 
     @Override // java.io.FilterInputStream, java.io.InputStream
-    public synchronized int read(@NonNull byte[] bArr, int i10, int i11) throws IOException {
-        int i12;
-        int i13;
+    public synchronized int read(@NonNull byte[] bArr, int i2, int i3) throws IOException {
+        int i4;
+        int i5;
         byte[] bArr2 = this.buf;
         if (bArr2 == null) {
             throw streamClosed();
         }
-        if (i11 == 0) {
+        if (i3 == 0) {
             return 0;
         }
         InputStream inputStream = ((FilterInputStream) this).in;
         if (inputStream != null) {
-            int i14 = this.pos;
-            int i15 = this.count;
-            if (i14 < i15) {
-                int i16 = i15 - i14 >= i11 ? i11 : i15 - i14;
-                System.arraycopy(bArr2, i14, bArr, i10, i16);
-                this.pos += i16;
-                if (i16 == i11 || inputStream.available() == 0) {
-                    return i16;
+            int i6 = this.pos;
+            int i7 = this.count;
+            if (i6 < i7) {
+                int i8 = i7 - i6 >= i3 ? i3 : i7 - i6;
+                System.arraycopy(bArr2, i6, bArr, i2, i8);
+                this.pos += i8;
+                if (i8 == i3 || inputStream.available() == 0) {
+                    return i8;
                 }
-                i10 += i16;
-                i12 = i11 - i16;
+                i2 += i8;
+                i4 = i3 - i8;
             } else {
-                i12 = i11;
+                i4 = i3;
             }
             while (true) {
-                if (this.markpos == -1 && i12 >= bArr2.length) {
-                    i13 = inputStream.read(bArr, i10, i12);
-                    if (i13 == -1) {
-                        return i12 != i11 ? i11 - i12 : -1;
+                if (this.markpos == -1 && i4 >= bArr2.length) {
+                    i5 = inputStream.read(bArr, i2, i4);
+                    if (i5 == -1) {
+                        return i4 != i3 ? i3 - i4 : -1;
                     }
                 } else {
                     if (fillbuf(inputStream, bArr2) == -1) {
-                        return i12 != i11 ? i11 - i12 : -1;
+                        return i4 != i3 ? i3 - i4 : -1;
                     }
                     if (bArr2 != this.buf && (bArr2 = this.buf) == null) {
                         throw streamClosed();
                     }
-                    int i17 = this.count;
-                    int i18 = this.pos;
-                    i13 = i17 - i18 >= i12 ? i12 : i17 - i18;
-                    System.arraycopy(bArr2, i18, bArr, i10, i13);
-                    this.pos += i13;
+                    int i9 = this.count;
+                    int i10 = this.pos;
+                    i5 = i9 - i10 >= i4 ? i4 : i9 - i10;
+                    System.arraycopy(bArr2, i10, bArr, i2, i5);
+                    this.pos += i5;
                 }
-                i12 -= i13;
-                if (i12 == 0) {
-                    return i11;
+                i4 -= i5;
+                if (i4 == 0) {
+                    return i3;
                 }
                 if (inputStream.available() == 0) {
-                    return i11 - i12;
+                    return i3 - i4;
                 }
-                i10 += i13;
+                i2 += i5;
             }
         } else {
             throw streamClosed();

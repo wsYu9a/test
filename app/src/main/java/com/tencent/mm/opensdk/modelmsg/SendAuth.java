@@ -36,6 +36,10 @@ public final class SendAuth {
         public Req() {
         }
 
+        public Req(Bundle bundle) {
+            fromBundle(bundle);
+        }
+
         @Override // com.tencent.mm.opensdk.modelbase.BaseReq
         public boolean checkArgs() {
             String str;
@@ -80,10 +84,6 @@ public final class SendAuth {
                 options.toBundle(bundle);
             }
         }
-
-        public Req(Bundle bundle) {
-            fromBundle(bundle);
-        }
     }
 
     public static class Resp extends BaseResp {
@@ -98,6 +98,10 @@ public final class SendAuth {
         public String url;
 
         public Resp() {
+        }
+
+        public Resp(Bundle bundle) {
+            fromBundle(bundle);
         }
 
         @Override // com.tencent.mm.opensdk.modelbase.BaseResp
@@ -135,10 +139,6 @@ public final class SendAuth {
             bundle.putString("_wxapi_sendauth_resp_lang", this.lang);
             bundle.putString("_wxapi_sendauth_resp_country", this.country);
             bundle.putBoolean("_wxapi_sendauth_resp_auth_result", this.authResult);
-        }
-
-        public Resp(Bundle bundle) {
-            fromBundle(bundle);
         }
     }
 

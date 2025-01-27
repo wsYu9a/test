@@ -2,7 +2,7 @@ package com.umeng.commonsdk.vchannel;
 
 import android.content.Context;
 import android.text.TextUtils;
-import com.umeng.analytics.pro.bt;
+import com.umeng.analytics.pro.am;
 import com.umeng.commonsdk.debug.UMRTLog;
 import com.umeng.commonsdk.framework.UMEnvelopeBuild;
 import com.umeng.commonsdk.framework.UMFrUtils;
@@ -26,7 +26,7 @@ public class Sender {
         try {
             JSONObject jSONObject = new JSONObject();
             try {
-                jSONObject.put(bt.aV, "1.0.0");
+                jSONObject.put(am.aP, "1.0.0");
                 Map<String, String> map = customHeader;
                 if (map != null && map.size() > 0) {
                     for (String str : customHeader.keySet()) {
@@ -37,9 +37,9 @@ public class Sender {
             }
             JSONObject jSONObject2 = new JSONObject();
             jSONObject2.put("analytics", bVar.d());
-            UMEnvelopeBuild.buildEnvelopeWithExtHeader(context, jSONObject, jSONObject2, a.f24872c, "v", "1.0.0");
-        } catch (Throwable th2) {
-            UMCrashManager.reportCrash(context, th2);
+            UMEnvelopeBuild.buildEnvelopeWithExtHeader(context, jSONObject, jSONObject2, a.f26506c, "v", "1.0.0");
+        } catch (Throwable th) {
+            UMCrashManager.reportCrash(context, th);
         }
     }
 
@@ -69,7 +69,7 @@ public class Sender {
         bVar.a(System.currentTimeMillis());
         bVar.a(map);
         try {
-            UMWorkDispatch.sendEvent(context, com.umeng.commonsdk.internal.a.f24479o, com.umeng.commonsdk.internal.b.a(context).a(), bVar);
+            UMWorkDispatch.sendEvent(context, com.umeng.commonsdk.internal.a.o, com.umeng.commonsdk.internal.b.a(context).a(), bVar);
         } catch (Throwable unused) {
         }
         lastTriggerTime = System.currentTimeMillis();

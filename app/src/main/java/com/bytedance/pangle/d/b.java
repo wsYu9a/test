@@ -24,26 +24,26 @@ import java.util.zip.ZipFile;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-/* loaded from: classes2.dex */
+/* loaded from: classes.dex */
 public final class b {
 
     /* renamed from: a */
-    private static String f7526a;
+    private static String f6031a;
 
     /* renamed from: b */
-    private static Map<String, Integer> f7527b;
+    private static Map<String, Integer> f6032b;
 
     static {
         HashMap hashMap = new HashMap();
-        f7527b = hashMap;
+        f6032b = hashMap;
         hashMap.put("arm64-v8a", 64);
-        f7527b.put("armeabi-v7a", 32);
-        f7527b.put("armeabi", 32);
-        f7527b.put("x86_64", 64);
-        f7527b.put("x86", 32);
-        f7527b.put("mips64", 64);
-        f7527b.put("mips", 32);
-        f7526a = c();
+        f6032b.put("armeabi-v7a", 32);
+        f6032b.put("armeabi", 32);
+        f6032b.put("x86_64", 64);
+        f6032b.put("x86", 32);
+        f6032b.put("mips64", 64);
+        f6032b.put("mips", 32);
+        f6031a = c();
     }
 
     private static Map<String, List<ZipEntry>> a(ZipFile zipFile) {
@@ -55,7 +55,7 @@ public final class b {
             ZipEntry nextElement = entries.nextElement();
             if (!nextElement.isDirectory() && !nextElement.getName().contains("../") && nextElement.getName().startsWith("lib/") && compile.matcher(nextElement.getName()).matches() && (split = nextElement.getName().split(File.separator)) != null && split.length >= 2) {
                 String str = split[split.length - 2];
-                if (f7527b.containsKey(str)) {
+                if (f6032b.containsKey(str)) {
                     if (hashMap.get(str) == null) {
                         hashMap.put(str, new LinkedList());
                     }
@@ -68,13 +68,13 @@ public final class b {
     }
 
     public static int b() {
-        return f7527b.get(a()).intValue();
+        return f6032b.get(a()).intValue();
     }
 
     private static String c() {
-        JSONObject d10 = d();
-        String a10 = a(d10);
-        return a10 == null ? b(d10) : a10;
+        JSONObject d2 = d();
+        String a2 = a(d2);
+        return a2 == null ? b(d2) : a2;
     }
 
     private static JSONObject d() {
@@ -88,8 +88,8 @@ public final class b {
             jSONObject.put("defaultABI", "0");
             jSONObject.put("autoError", "0");
             jSONObject.put("manualError", "0");
-        } catch (JSONException e10) {
-            e10.printStackTrace();
+        } catch (JSONException e2) {
+            e2.printStackTrace();
         }
         return jSONObject;
     }
@@ -105,13 +105,9 @@ public final class b {
             } catch (IOException unused) {
                 ZeusLogger.w(ZeusLogger.TAG_SO, "NativeLibHelper inferHostAbiManual, close sourceApkZipFile error!");
             }
-            if (i.a()) {
-                strArr = Build.SUPPORTED_ABIS;
-            } else {
-                strArr = new String[]{Build.CPU_ABI, Build.CPU_ABI2};
-            }
-        } catch (Throwable th2) {
-            ZeusLogger.errReport(ZeusLogger.TAG_SO, "NativeLibHelper inferHostAbiManual failed!", th2);
+            strArr = i.a() ? Build.SUPPORTED_ABIS : new String[]{Build.CPU_ABI, Build.CPU_ABI2};
+        } catch (Throwable th) {
+            ZeusLogger.errReport(ZeusLogger.TAG_SO, "NativeLibHelper inferHostAbiManual failed!", th);
             a(jSONObject, "manualError", "1");
         }
         if (hashSet.isEmpty()) {
@@ -156,8 +152,8 @@ public final class b {
             return;
         }
         File file2 = new File(file, name.substring(name.lastIndexOf(File.separator) + 1));
-        int i10 = 0;
-        boolean z10 = false;
+        int i2 = 0;
+        boolean z = false;
         do {
             if (file2.exists()) {
                 file2.delete();
@@ -165,14 +161,14 @@ public final class b {
             try {
                 ZeusLogger.i(ZeusLogger.TAG_INSTALL, "NativeLibHelper copySoZipEntry, soZipEntry=" + zipEntry + ", targetSoFile=" + file2);
                 g.a(zipFile.getInputStream(zipEntry), new FileOutputStream(file2));
-                z10 = true;
-            } catch (IOException e10) {
-                if (i10 >= 3) {
-                    throw e10;
+                z = true;
+            } catch (IOException e2) {
+                if (i2 >= 3) {
+                    throw e2;
                 }
-                i10++;
+                i2++;
             }
-        } while (!z10);
+        } while (!z);
     }
 
     public static boolean b(File file) {
@@ -201,8 +197,8 @@ public final class b {
                         ZeusLogger.w(ZeusLogger.TAG_SO, "NativeLibHelper hasNativeLib, close sourceApkZipFile error!");
                     }
                     return false;
-                } catch (IOException e10) {
-                    e = e10;
+                } catch (IOException e2) {
+                    e = e2;
                     zipFile = zipFile2;
                     ZeusLogger.errReport(ZeusLogger.TAG_SO, "NativeLibHelper hasNativeLib, get sourceApk ZipFile failed!", e);
                     if (zipFile != null) {
@@ -213,8 +209,8 @@ public final class b {
                         }
                     }
                     return false;
-                } catch (Throwable th2) {
-                    th = th2;
+                } catch (Throwable th) {
+                    th = th;
                     zipFile = zipFile2;
                     if (zipFile != null) {
                         try {
@@ -225,26 +221,25 @@ public final class b {
                     }
                     throw th;
                 }
-            } catch (IOException e11) {
-                e = e11;
+            } catch (IOException e3) {
+                e = e3;
             }
-        } catch (Throwable th3) {
-            th = th3;
+        } catch (Throwable th2) {
+            th = th2;
         }
     }
 
     public static String a() {
-        String str = f7526a;
+        String str = f6031a;
         if (str != null) {
             return str;
         }
-        String c10 = c();
-        f7526a = c10;
-        return c10;
+        String c2 = c();
+        f6031a = c2;
+        return c2;
     }
 
     private static String a(JSONObject jSONObject) {
-        boolean is64Bit;
         if (!i.a()) {
             return null;
         }
@@ -255,21 +250,20 @@ public final class b {
             if (str == null) {
                 return null;
             }
-            int i10 = 0;
+            int i2 = 0;
             if (Build.VERSION.SDK_INT >= 23) {
                 try {
-                    is64Bit = Process.is64Bit();
-                    i10 = is64Bit ? 64 : 32;
-                    ZeusLogger.w(ZeusLogger.TAG_SO, "NativeLibHelper inferHostAbiAuto, processMode=".concat(String.valueOf(i10)));
+                    i2 = Process.is64Bit() ? 64 : 32;
+                    ZeusLogger.w(ZeusLogger.TAG_SO, "NativeLibHelper inferHostAbiAuto, processMode=".concat(String.valueOf(i2)));
                 } catch (Exception unused) {
-                    ZeusLogger.w(ZeusLogger.TAG_SO, "NativeLibHelper inferHostAbiAuto, processMode exception default=".concat(String.valueOf(i10)));
+                    ZeusLogger.w(ZeusLogger.TAG_SO, "NativeLibHelper inferHostAbiAuto, processMode exception default=".concat(String.valueOf(i2)));
                 }
             } else {
                 ZeusLogger.w(ZeusLogger.TAG_SO, "NativeLibHelper inferHostAbiAuto, processMode default=0");
             }
-            a(jSONObject, "processMode", String.valueOf(i10));
-            if (i10 != 0) {
-                if (f7527b.get(str).intValue() != i10) {
+            a(jSONObject, "processMode", String.valueOf(i2));
+            if (i2 != 0) {
+                if (f6032b.get(str).intValue() != i2) {
                     return null;
                 }
                 ZeusLogger.w(ZeusLogger.TAG_SO, "NativeLibHelper inferHostAbiAuto2, sHostAbi=".concat(str));
@@ -277,15 +271,15 @@ public final class b {
             }
             ZeusLogger.w(ZeusLogger.TAG_SO, "NativeLibHelper inferHostAbiAuto1, sHostAbi=".concat(str));
             return str;
-        } catch (Exception e10) {
-            ZeusLogger.errReport(ZeusLogger.TAG_SO, "NativeLibHelper inferHostAbiAuto failed!", e10);
+        } catch (Exception e2) {
+            ZeusLogger.errReport(ZeusLogger.TAG_SO, "NativeLibHelper inferHostAbiAuto failed!", e2);
             a(jSONObject, "autoError", "1");
             return null;
         }
     }
 
     public static com.bytedance.pangle.util.e<Boolean, Map<String, List<ZipEntry>>> a(File file) {
-        boolean z10;
+        boolean a2;
         HashMap hashMap = new HashMap();
         ZipFile zipFile = null;
         try {
@@ -294,26 +288,25 @@ public final class b {
                 try {
                     hashMap.putAll(a(zipFile2));
                     if (hashMap.isEmpty()) {
+                        a2 = true;
                         ZeusLogger.i(ZeusLogger.TAG_SO, "NativeLibHelper isPluginApkMatchHostAbi [true] soEntries empty, ".concat(String.valueOf(file)));
-                        z10 = true;
                     } else {
-                        boolean a10 = a(hashMap, f7526a);
-                        if (a10) {
-                            ZeusLogger.i(ZeusLogger.TAG_SO, "NativeLibHelper isPluginApkMatchHostAbi [" + a10 + "], " + file);
+                        a2 = a(hashMap, f6031a);
+                        if (a2) {
+                            ZeusLogger.i(ZeusLogger.TAG_SO, "NativeLibHelper isPluginApkMatchHostAbi [" + a2 + "], " + file);
                         } else {
-                            ZeusLogger.w(ZeusLogger.TAG_SO, "NativeLibHelper isPluginApkMatchHostAbi [" + a10 + "], " + file);
+                            ZeusLogger.w(ZeusLogger.TAG_SO, "NativeLibHelper isPluginApkMatchHostAbi [" + a2 + "], " + file);
                         }
-                        z10 = a10;
                     }
-                    com.bytedance.pangle.util.e<Boolean, Map<String, List<ZipEntry>>> eVar = new com.bytedance.pangle.util.e<>(Boolean.valueOf(z10), hashMap);
+                    com.bytedance.pangle.util.e<Boolean, Map<String, List<ZipEntry>>> eVar = new com.bytedance.pangle.util.e<>(Boolean.valueOf(a2), hashMap);
                     try {
                         zipFile2.close();
                     } catch (IOException unused) {
                         ZeusLogger.w(ZeusLogger.TAG_SO, "NativeLibHelper isPluginApkMatchHostAbi, close sourceApkZipFile error!");
                     }
                     return eVar;
-                } catch (IOException e10) {
-                    e = e10;
+                } catch (IOException e2) {
+                    e = e2;
                     zipFile = zipFile2;
                     ZeusLogger.errReport(ZeusLogger.TAG_SO, "NativeLibHelper isPluginApkMatchHostAbi, get sourceApk ZipFile failed!", e);
                     com.bytedance.pangle.util.e<Boolean, Map<String, List<ZipEntry>>> eVar2 = new com.bytedance.pangle.util.e<>(Boolean.FALSE, hashMap);
@@ -325,8 +318,8 @@ public final class b {
                         }
                     }
                     return eVar2;
-                } catch (Throwable th2) {
-                    th = th2;
+                } catch (Throwable th) {
+                    th = th;
                     zipFile = zipFile2;
                     if (zipFile != null) {
                         try {
@@ -337,11 +330,11 @@ public final class b {
                     }
                     throw th;
                 }
-            } catch (IOException e11) {
-                e = e11;
+            } catch (IOException e3) {
+                e = e3;
             }
-        } catch (Throwable th3) {
-            th = th3;
+        } catch (Throwable th2) {
+            th = th2;
         }
     }
 
@@ -355,33 +348,33 @@ public final class b {
     private static void a(JSONObject jSONObject, String str, String str2) {
         try {
             jSONObject.put(str, str2);
-        } catch (JSONException e10) {
-            e10.printStackTrace();
+        } catch (JSONException e2) {
+            e2.printStackTrace();
         }
     }
 
     /* JADX WARN: Can't fix incorrect switch cases order, some code will duplicate */
-    /* JADX WARN: Code restructure failed: missing block: B:68:0x014f, code lost:
+    /* JADX WARN: Code restructure failed: missing block: B:68:0x0147, code lost:
     
-        if (r1.isEmpty() == false) goto L262;
+        if (r1.isEmpty() == false) goto L164;
      */
-    /* JADX WARN: Code restructure failed: missing block: B:71:0x0156, code lost:
+    /* JADX WARN: Code restructure failed: missing block: B:71:0x014e, code lost:
     
-        if (r17.exists() != false) goto L265;
+        if (r17.exists() != false) goto L167;
      */
-    /* JADX WARN: Code restructure failed: missing block: B:72:0x0158, code lost:
+    /* JADX WARN: Code restructure failed: missing block: B:72:0x0150, code lost:
     
         r17.mkdirs();
      */
-    /* JADX WARN: Code restructure failed: missing block: B:73:0x015b, code lost:
+    /* JADX WARN: Code restructure failed: missing block: B:73:0x0153, code lost:
     
         r1 = r1.iterator();
      */
-    /* JADX WARN: Code restructure failed: missing block: B:75:0x0163, code lost:
+    /* JADX WARN: Code restructure failed: missing block: B:75:0x015b, code lost:
     
-        if (r1.hasNext() == false) goto L284;
+        if (r1.hasNext() == false) goto L191;
      */
-    /* JADX WARN: Code restructure failed: missing block: B:76:0x0165, code lost:
+    /* JADX WARN: Code restructure failed: missing block: B:76:0x015d, code lost:
     
         a(r2, (java.util.zip.ZipEntry) r1.next(), r17);
      */
@@ -391,7 +384,7 @@ public final class b {
     */
     public static void a(java.io.File r16, java.io.File r17, java.lang.String r18, java.util.Map<java.lang.String, java.util.List<java.util.zip.ZipEntry>> r19) {
         /*
-            Method dump skipped, instructions count: 442
+            Method dump skipped, instructions count: 440
             To view this dump change 'Code comments level' option to 'DEBUG'
         */
         throw new UnsupportedOperationException("Method not decompiled: com.bytedance.pangle.d.b.a(java.io.File, java.io.File, java.lang.String, java.util.Map):void");

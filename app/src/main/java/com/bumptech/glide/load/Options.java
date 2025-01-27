@@ -7,7 +7,7 @@ import androidx.collection.SimpleArrayMap;
 import com.bumptech.glide.util.CachedHashCodeArrayMap;
 import java.security.MessageDigest;
 
-/* loaded from: classes2.dex */
+/* loaded from: classes.dex */
 public final class Options implements Key {
     private final ArrayMap<Option<?>, Object> values = new CachedHashCodeArrayMap();
 
@@ -34,8 +34,8 @@ public final class Options implements Key {
     }
 
     @NonNull
-    public <T> Options set(@NonNull Option<T> option, @NonNull T t10) {
-        this.values.put(option, t10);
+    public <T> Options set(@NonNull Option<T> option, @NonNull T t) {
+        this.values.put(option, t);
         return this;
     }
 
@@ -45,8 +45,8 @@ public final class Options implements Key {
 
     @Override // com.bumptech.glide.load.Key
     public void updateDiskCacheKey(@NonNull MessageDigest messageDigest) {
-        for (int i10 = 0; i10 < this.values.size(); i10++) {
-            updateDiskCacheKey(this.values.keyAt(i10), this.values.valueAt(i10), messageDigest);
+        for (int i2 = 0; i2 < this.values.size(); i2++) {
+            updateDiskCacheKey(this.values.keyAt(i2), this.values.valueAt(i2), messageDigest);
         }
     }
 

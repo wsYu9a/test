@@ -1,8 +1,8 @@
 package com.kwad.components.offline.api.core.adlive.listener;
 
-/* loaded from: classes3.dex */
+/* loaded from: classes2.dex */
 public interface AdLivePlayStateListener {
-    void onLiveAudioEnableChange(boolean z10);
+    void onLiveAudioEnableChange(boolean z);
 
     void onLivePlayCompleted();
 
@@ -10,7 +10,7 @@ public interface AdLivePlayStateListener {
 
     void onLivePlayPause();
 
-    void onLivePlayProgress(long j10);
+    void onLivePlayProgress(long j2);
 
     void onLivePlayResume();
 

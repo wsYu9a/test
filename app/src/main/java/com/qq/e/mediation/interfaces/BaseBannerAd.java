@@ -5,8 +5,7 @@ import android.view.View;
 import com.qq.e.ads.rewardvideo.ServerSideVerificationOptions;
 import com.qq.e.comm.adevent.ADListener;
 
-@Deprecated
-/* loaded from: classes3.dex */
+/* loaded from: classes4.dex */
 public abstract class BaseBannerAd implements IBaseAd {
     public BaseBannerAd(Activity activity, String str, String str2, String str3) {
     }
@@ -20,19 +19,19 @@ public abstract class BaseBannerAd implements IBaseAd {
     public abstract void loadAD();
 
     @Override // com.qq.e.mediation.interfaces.IBaseAd
-    public void sendLossNotification(int i10, int i11, String str) {
+    public void sendLossNotification(int i2, int i3, String str) {
     }
 
     @Override // com.qq.e.mediation.interfaces.IBaseAd
-    public void sendWinNotification(int i10) {
+    public void sendWinNotification(int i2) {
     }
 
     public abstract void setAdListener(ADListener aDListener);
 
-    public abstract void setAdSize(int i10, int i11);
+    public abstract void setAdSize(int i2, int i3);
 
     @Override // com.qq.e.mediation.interfaces.IBaseAd
-    public void setBidECPM(int i10) {
+    public void setBidECPM(int i2) {
     }
 
     @Override // com.qq.e.mediation.interfaces.IBaseAd

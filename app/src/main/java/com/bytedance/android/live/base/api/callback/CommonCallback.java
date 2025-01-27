@@ -1,8 +1,8 @@
 package com.bytedance.android.live.base.api.callback;
 
-/* loaded from: classes2.dex */
+/* loaded from: classes.dex */
 public interface CommonCallback<T, D> {
-    void onFail(D d10);
+    void onFail(D d2);
 
-    void onSuccess(T t10);
+    void onSuccess(T t);
 }

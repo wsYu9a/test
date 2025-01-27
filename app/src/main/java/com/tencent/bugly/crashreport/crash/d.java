@@ -5,25 +5,25 @@ import com.tencent.bugly.proguard.qa;
 import java.util.List;
 
 /* loaded from: classes4.dex */
-public class d implements P {
+class d implements P {
 
     /* renamed from: a */
-    final /* synthetic */ List f22445a;
+    final /* synthetic */ List f24838a;
 
     /* renamed from: b */
-    final /* synthetic */ e f22446b;
+    final /* synthetic */ e f24839b;
 
-    public d(e eVar, List list) {
-        this.f22446b = eVar;
-        this.f22445a = list;
+    d(e eVar, List list) {
+        this.f24839b = eVar;
+        this.f24838a = list;
     }
 
     @Override // com.tencent.bugly.proguard.P
-    public void a(int i10) {
+    public void a(int i2) {
     }
 
     @Override // com.tencent.bugly.proguard.P
-    public void a(int i10, qa qaVar, long j10, long j11, boolean z10, String str) {
-        this.f22446b.a(z10, this.f22445a);
+    public void a(int i2, qa qaVar, long j2, long j3, boolean z, String str) {
+        this.f24839b.a(z, this.f24838a);
     }
 }

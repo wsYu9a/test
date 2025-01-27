@@ -17,13 +17,13 @@ import java.util.Map;
 public class AppInfo {
 
     /* renamed from: a */
-    public static final String[] f22276a = "@buglyAllChannel@".split(",");
+    public static final String[] f24742a = "@buglyAllChannel@".split(",");
 
     /* renamed from: b */
-    public static final String[] f22277b = "@buglyAllChannelPriority@".split(",");
+    public static final String[] f24743b = "@buglyAllChannelPriority@".split(",");
 
     /* renamed from: c */
-    private static ActivityManager f22278c;
+    private static ActivityManager f24744c;
 
     public static boolean a(Context context, String str) {
         if (context != null && str != null && str.trim().length() > 0) {
@@ -36,9 +36,9 @@ public class AppInfo {
                         }
                     }
                 }
-            } catch (Throwable th2) {
-                if (!X.b(th2)) {
-                    th2.printStackTrace();
+            } catch (Throwable th) {
+                if (!X.b(th)) {
+                    th.printStackTrace();
                 }
             }
         }
@@ -88,9 +88,9 @@ public class AppInfo {
                 hashMap.put("BUGLY_AREA", obj8.toString());
             }
             return hashMap;
-        } catch (Throwable th2) {
-            if (!X.b(th2)) {
-                th2.printStackTrace();
+        } catch (Throwable th) {
+            if (!X.b(th)) {
+                th.printStackTrace();
             }
             return null;
         }
@@ -99,11 +99,11 @@ public class AppInfo {
     public static PackageInfo c(Context context) {
         try {
             return context.getPackageManager().getPackageInfo(d(context), 0);
-        } catch (Throwable th2) {
-            if (X.b(th2)) {
+        } catch (Throwable th) {
+            if (X.b(th)) {
                 return null;
             }
-            th2.printStackTrace();
+            th.printStackTrace();
             return null;
         }
     }
@@ -114,11 +114,11 @@ public class AppInfo {
         }
         try {
             return context.getPackageName();
-        } catch (Throwable th2) {
-            if (X.b(th2)) {
+        } catch (Throwable th) {
+            if (X.b(th)) {
                 return "fail";
             }
-            th2.printStackTrace();
+            th.printStackTrace();
             return "fail";
         }
     }
@@ -127,73 +127,74 @@ public class AppInfo {
         if (context == null) {
             return false;
         }
-        if (f22278c == null) {
-            f22278c = (ActivityManager) context.getSystemService(TTDownloadField.TT_ACTIVITY);
+        if (f24744c == null) {
+            f24744c = (ActivityManager) context.getSystemService(TTDownloadField.TT_ACTIVITY);
         }
         try {
             ActivityManager.MemoryInfo memoryInfo = new ActivityManager.MemoryInfo();
-            f22278c.getMemoryInfo(memoryInfo);
+            f24744c.getMemoryInfo(memoryInfo);
             if (!memoryInfo.lowMemory) {
                 return false;
             }
             X.a("Memory is low.", new Object[0]);
             return true;
-        } catch (Throwable th2) {
-            if (!X.b(th2)) {
-                th2.printStackTrace();
+        } catch (Throwable th) {
+            if (!X.b(th)) {
+                th.printStackTrace();
             }
             return false;
         }
     }
 
-    public static String a(Context context, int i10) {
-        Throwable th2;
+    public static String a(Context context, int i2) {
+        Throwable th;
         FileReader fileReader;
         try {
-            StringBuilder sb2 = new StringBuilder();
-            sb2.append("/proc/");
-            sb2.append(i10);
-            sb2.append("/cmdline");
-            fileReader = new FileReader(sb2.toString());
-            try {
-                char[] cArr = new char[512];
-                fileReader.read(cArr);
-                int i11 = 0;
-                while (i11 < 512 && cArr[i11] != 0) {
-                    i11++;
-                }
-                String substring = new String(cArr).substring(0, i11);
-                try {
-                    fileReader.close();
-                } catch (Throwable unused) {
-                }
-                return substring;
-            } catch (Throwable th3) {
-                th2 = th3;
-                try {
-                    if (!X.b(th2)) {
-                        th2.printStackTrace();
-                    }
-                    String valueOf = String.valueOf(i10);
-                    if (fileReader != null) {
-                        try {
-                            fileReader.close();
-                        } catch (Throwable unused2) {
-                        }
-                    }
-                    return valueOf;
-                } finally {
-                    if (fileReader != null) {
-                        try {
-                            fileReader.close();
-                        } catch (Throwable unused3) {
-                        }
-                    }
-                }
-            }
-        } catch (Throwable th4) {
-            th2 = th4;
+            StringBuilder sb = new StringBuilder();
+            sb.append("/proc/");
+            sb.append(i2);
+            sb.append("/cmdline");
+            fileReader = new FileReader(sb.toString());
+        } catch (Throwable th2) {
+            th = th2;
             fileReader = null;
+        }
+        try {
+            char[] cArr = new char[512];
+            fileReader.read(cArr);
+            int i3 = 0;
+            while (i3 < 512 && cArr[i3] != 0) {
+                i3++;
+            }
+            String substring = new String(cArr).substring(0, i3);
+            try {
+                fileReader.close();
+            } catch (Throwable unused) {
+            }
+            return substring;
+        } catch (Throwable th3) {
+            th = th3;
+            try {
+                if (!X.b(th)) {
+                    th.printStackTrace();
+                }
+                String valueOf = String.valueOf(i2);
+                if (fileReader != null) {
+                    try {
+                        fileReader.close();
+                    } catch (Throwable unused2) {
+                    }
+                }
+                return valueOf;
+            } catch (Throwable th4) {
+                if (fileReader != null) {
+                    try {
+                        fileReader.close();
+                    } catch (Throwable unused3) {
+                    }
+                }
+                throw th4;
+            }
         }
     }
 
@@ -208,9 +209,9 @@ public class AppInfo {
             if (packageManager != null && applicationInfo != null && (applicationLabel = packageManager.getApplicationLabel(applicationInfo)) != null) {
                 return applicationLabel.toString();
             }
-        } catch (Throwable th2) {
-            if (!X.b(th2)) {
-                th2.printStackTrace();
+        } catch (Throwable th) {
+            if (!X.b(th)) {
+                th.printStackTrace();
             }
         }
         return null;
@@ -226,13 +227,13 @@ public class AppInfo {
                 return null;
             }
             String[] split = str.split(",");
-            for (int i10 = 0; i10 < split.length; i10++) {
-                split[i10] = split[i10].trim();
+            for (int i2 = 0; i2 < split.length; i2++) {
+                split[i2] = split[i2].trim();
             }
             return Arrays.asList(split);
-        } catch (Throwable th2) {
-            if (!X.b(th2)) {
-                th2.printStackTrace();
+        } catch (Throwable th) {
+            if (!X.b(th)) {
+                th.printStackTrace();
             }
             return null;
         }

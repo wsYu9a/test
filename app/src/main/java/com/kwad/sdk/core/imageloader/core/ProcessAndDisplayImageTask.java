@@ -6,7 +6,7 @@ import com.kwad.sdk.core.imageloader.core.decode.DecodedResult;
 import com.kwad.sdk.core.imageloader.core.process.BitmapProcessor;
 import com.kwad.sdk.core.imageloader.utils.L;
 
-/* loaded from: classes3.dex */
+/* loaded from: classes2.dex */
 final class ProcessAndDisplayImageTask implements Runnable {
     private static final String LOG_POSTPROCESS_IMAGE = "PostProcess image before displaying [%s]";
     private final DecodedResult decodedResult;
@@ -23,7 +23,7 @@ final class ProcessAndDisplayImageTask implements Runnable {
 
     @Override // java.lang.Runnable
     public final void run() {
-        L.d("PostProcess image before displaying [%s]", this.imageLoadingInfo.memoryCacheKey);
+        L.d(LOG_POSTPROCESS_IMAGE, this.imageLoadingInfo.memoryCacheKey);
         BitmapProcessor postProcessor = this.imageLoadingInfo.options.getPostProcessor();
         DecodedResult decodedResult = this.decodedResult;
         decodedResult.mBitmap = postProcessor.process(decodedResult.mBitmap);

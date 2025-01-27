@@ -1,41 +1,41 @@
 package org.repackage.com.meizu.flyme.openidsdk;
 
-/* loaded from: classes4.dex */
+/* loaded from: classes5.dex */
 class OpenId {
 
     /* renamed from: a */
-    long f29367a;
+    long f35557a;
 
     /* renamed from: b */
-    String f29368b;
+    String f35558b;
 
     /* renamed from: c */
-    String f29369c;
+    String f35559c;
 
     /* renamed from: d */
-    int f29370d;
+    int f35560d;
 
-    public OpenId(String str) {
-        this.f29369c = str;
+    OpenId(String str) {
+        this.f35559c = str;
     }
 
-    public void a(int i10) {
-        this.f29370d = i10;
+    void a(int i2) {
+        this.f35560d = i2;
     }
 
-    public void b() {
-        this.f29367a = 0L;
+    void a(long j2) {
+        this.f35557a = j2;
     }
 
-    public void a(long j10) {
-        this.f29367a = j10;
+    void a(String str) {
+        this.f35558b = str;
     }
 
-    public void a(String str) {
-        this.f29368b = str;
+    boolean a() {
+        return this.f35557a > System.currentTimeMillis();
     }
 
-    public boolean a() {
-        return this.f29367a > System.currentTimeMillis();
+    void b() {
+        this.f35557a = 0L;
     }
 }

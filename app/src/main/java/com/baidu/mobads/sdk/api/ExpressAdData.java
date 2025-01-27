@@ -3,24 +3,23 @@ package com.baidu.mobads.sdk.api;
 import com.baidu.mobads.sdk.internal.a;
 import java.util.List;
 
-/* loaded from: classes2.dex */
+/* loaded from: classes.dex */
 public class ExpressAdData {
     private String adPlaceId;
     private String desc;
     private String iconUrl;
     private String imageUrl;
     private List<String> multiPicUrls;
-
-    /* renamed from: pk */
-    private String f6634pk;
+    private String pk;
     private String title;
     private String videoUrl;
 
     public ExpressAdData(a aVar, String str) {
+        this.adPlaceId = "";
         this.title = "";
         this.desc = "";
         this.iconUrl = "";
-        this.f6634pk = "";
+        this.pk = "";
         this.imageUrl = "";
         this.videoUrl = "";
         this.multiPicUrls = null;
@@ -28,10 +27,10 @@ public class ExpressAdData {
         this.title = aVar.a();
         this.desc = aVar.b();
         this.iconUrl = aVar.c();
-        this.f6634pk = aVar.m();
+        this.pk = aVar.m();
         this.imageUrl = aVar.d();
         this.videoUrl = aVar.n();
-        this.multiPicUrls = aVar.H();
+        this.multiPicUrls = aVar.F();
     }
 
     public String getAdPlaceId() {
@@ -39,7 +38,7 @@ public class ExpressAdData {
     }
 
     public String getAppPackage() {
-        return this.f6634pk;
+        return this.pk;
     }
 
     public String getDesc() {

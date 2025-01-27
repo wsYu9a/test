@@ -2,7 +2,7 @@ package com.baidu.mobads.sdk.api;
 
 import android.view.View;
 
-/* loaded from: classes2.dex */
+/* loaded from: classes.dex */
 public interface PrerollVideoResponse {
     public static final String GIF = "gif";
     public static final String NORMAL = "normal";
@@ -26,7 +26,7 @@ public interface PrerollVideoResponse {
 
     void handleClick(View view);
 
-    void handleClick(View view, int i10);
+    void handleClick(View view, int i2);
 
     void recordImpression(View view);
 }

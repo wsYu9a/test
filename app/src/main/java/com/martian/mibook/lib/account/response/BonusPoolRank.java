@@ -18,15 +18,15 @@ public class BonusPoolRank {
         return this.nickname;
     }
 
-    public void setHeader(String str) {
-        this.header = str;
+    public void setHeader(String header) {
+        this.header = header;
     }
 
-    public void setMoney(Integer num) {
-        this.money = num;
+    public void setMoney(Integer money) {
+        this.money = money;
     }
 
-    public void setNickname(String str) {
-        this.nickname = str;
+    public void setNickname(String nickname) {
+        this.nickname = nickname;
     }
 }

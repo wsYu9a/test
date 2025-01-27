@@ -1,8 +1,8 @@
 package com.kwad.sdk.pngencrypt.chunk;
 
-/* loaded from: classes3.dex */
+/* loaded from: classes2.dex */
 public abstract class p extends PngChunk {
-    public p(String str, com.kwad.sdk.pngencrypt.k kVar) {
+    protected p(String str, com.kwad.sdk.pngencrypt.k kVar) {
         super(str, kVar);
     }
 
@@ -13,20 +13,20 @@ public abstract class p extends PngChunk {
         if (obj == null || getClass() != obj.getClass()) {
             return false;
         }
-        p pVar = (p) obj;
-        String str = this.akr;
+        String str = this.awG;
+        String str2 = ((p) obj).awG;
         if (str == null) {
-            if (pVar.akr != null) {
+            if (str2 != null) {
                 return false;
             }
-        } else if (!str.equals(pVar.akr)) {
+        } else if (!str.equals(str2)) {
             return false;
         }
         return true;
     }
 
     public int hashCode() {
-        String str = this.akr;
+        String str = this.awG;
         return (str == null ? 0 : str.hashCode()) + 31;
     }
 }

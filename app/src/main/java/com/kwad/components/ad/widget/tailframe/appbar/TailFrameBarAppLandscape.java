@@ -11,16 +11,16 @@ public class TailFrameBarAppLandscape extends a {
         this(context, null);
     }
 
-    @Override // com.kwad.components.ad.widget.tailframe.appbar.a
-    public int getLayoutId() {
-        return R.layout.ksad_video_tf_bar_app_landscape;
-    }
-
     public TailFrameBarAppLandscape(Context context, @Nullable AttributeSet attributeSet) {
         this(context, attributeSet, 0);
     }
 
-    public TailFrameBarAppLandscape(Context context, @Nullable AttributeSet attributeSet, int i10) {
-        super(context, attributeSet, i10);
+    public TailFrameBarAppLandscape(Context context, @Nullable AttributeSet attributeSet, int i2) {
+        super(context, attributeSet, i2);
+    }
+
+    @Override // com.kwad.components.ad.widget.tailframe.appbar.a
+    public int getLayoutId() {
+        return R.layout.ksad_video_tf_bar_app_landscape;
     }
 }

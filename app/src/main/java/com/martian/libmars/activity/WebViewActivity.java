@@ -17,7 +17,9 @@ import android.net.Uri;
 import android.net.http.SslError;
 import android.os.Bundle;
 import android.os.Environment;
+import android.os.Handler;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.ViewStub;
@@ -29,26 +31,29 @@ import android.webkit.ValueCallback;
 import android.webkit.WebChromeClient;
 import android.webkit.WebView;
 import android.widget.FrameLayout;
-import androidx.annotation.NonNull;
+import android.widget.ImageView;
+import android.widget.TextView;
+import android.widget.Toast;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
-import androidx.core.content.ContextCompat;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
-import ba.g;
-import ba.l;
-import ba.m;
-import com.gyf.immersionbar.BarHide;
+import com.cdo.oaps.ad.wrapper.BaseWrapper;
+import com.gyf.barlibrary.BarHide;
+import com.gyf.barlibrary.ImmersionBar;
 import com.martian.libmars.R;
-import com.martian.libmars.activity.BaseActivity;
 import com.martian.libmars.activity.WebViewActivity;
-import com.martian.libmars.common.ConfigSingleton;
-import com.martian.libmars.databinding.LayoutWebviewActionbarBinding;
+import com.martian.libmars.activity.h1;
 import com.martian.libmars.ui.theme.VerticalSwipeRefreshLayout;
+import com.martian.libmars.utils.k0;
+import com.martian.libmars.utils.l0;
 import com.martian.libmars.widget.MTWebView;
 import com.martian.libsupport.data.HeightChangeParams;
+import com.martian.libsupport.permission.TipInfo;
 import com.martian.libxianplay.util.XianWanSystemUtil;
 import com.martian.libxianplay.view.DownLoadService;
 import com.martian.libxianplay.wowan.WowanDetailActivity;
+import com.ss.android.downloadad.api.constant.AdBaseConstants;
+import com.ss.android.socialbase.downloader.utils.DownloadExpSwitchCode;
 import java.io.BufferedInputStream;
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -59,434 +64,414 @@ import java.net.HttpURLConnection;
 import java.net.URI;
 import java.net.URL;
 import java.net.URLConnection;
-import java.util.Objects;
-import l9.i0;
-import l9.k0;
-import l9.t0;
 
-/* loaded from: classes3.dex */
-public class WebViewActivity extends RetryLoadingActivity implements MTWebView.c {
-    public static final String V = "LIBMARS_INTENT_WEBVIEW_URL";
-    public static final String W = "INTENT_WEBVIEW_FINISH_AFTER_LOAD";
-    public static final String X = "INTENT_WEBVIEW_SHARE_URL";
-    public static final String Y = "LIBMARS_INTENT_DOWNLOAD_HINT";
-    public static final String Z = "INTENT_SHAREABLE";
+/* loaded from: classes2.dex */
+public class WebViewActivity extends k1 implements MTWebView.c {
+    public static final String Q = "LIBMARS_INTENT_WEBVIEW_URL";
+    public static final String R = "INTENT_WEBVIEW_SHARE_URL";
+    public static final String S = "LIBMARS_INTENT_DOWNLOAD_HINT";
+    public static final String T = "INTENT_SHAREABLE";
+    public static final String U = "INTENT_FULLSCREEN";
+    public static final String V = "INTENT_SHARE_IMAGE_URL";
+    public static final String W = "INTENT_WEBVIEW_URL_REFERER";
+    public MTWebView X;
+    private VerticalSwipeRefreshLayout Y;
+    public String Z;
+    protected boolean a0;
+    private boolean b0 = false;
+    private String c0;
+    protected ViewStub d0;
+    protected ImageView e0;
+    protected TextView f0;
+    protected TextView g0;
+    protected ImageView h0;
+    public FrameLayout i0;
+    private String j0;
 
-    /* renamed from: a0 */
-    public static final String f12064a0 = "INTENT_FULLSCREEN";
-
-    /* renamed from: b0 */
-    public static final String f12065b0 = "INTENT_SHARE_IMAGE_URL";
-
-    /* renamed from: c0 */
-    public static final String f12066c0 = "INTENT_WEBVIEW_URL_REFERER";
-    public MTWebView L;
-    public VerticalSwipeRefreshLayout M;
-    public String N;
-    public boolean O;
-    public boolean P = false;
-    public String Q;
-    public LayoutWebviewActionbarBinding R;
-    public FrameLayout S;
-    public boolean T;
-    public String U;
-
-    public class a implements BaseActivity.a {
+    class a implements h1.a {
 
         /* renamed from: a */
-        public final /* synthetic */ ValueCallback f12067a;
+        final /* synthetic */ ValueCallback f9736a;
 
-        public a(ValueCallback valueCallback) {
-            this.f12067a = valueCallback;
+        a(final ValueCallback val$callback) {
+            this.f9736a = val$callback;
         }
 
-        @Override // com.martian.libmars.activity.BaseActivity.a
-        public void a(Uri uri, String str) {
-            this.f12067a.onReceiveValue(uri);
+        @Override // com.martian.libmars.activity.h1.a
+        public void a(Uri imgUri, String filepath) {
+            this.f9736a.onReceiveValue(imgUri);
         }
 
-        @Override // com.martian.libmars.activity.BaseActivity.a
+        @Override // com.martian.libmars.activity.h1.a
         public void onCancelled() {
-            this.f12067a.onReceiveValue(null);
+            this.f9736a.onReceiveValue(null);
         }
     }
 
-    public class b implements i0.o {
-
-        /* renamed from: a */
-        public final /* synthetic */ ValueCallback f12069a;
-
-        public b(ValueCallback valueCallback) {
-            this.f12069a = valueCallback;
+    class b implements k0.o {
+        b() {
         }
 
-        @Override // l9.i0.o
+        @Override // com.martian.libmars.utils.k0.o
         public void a() {
         }
 
-        @Override // l9.i0.o
+        @Override // com.martian.libmars.utils.k0.o
         public void b() {
-            WebViewActivity.this.x1(ba.b.d(), this.f12069a);
+            WebViewActivity.this.R0(com.martian.libmars.d.h.F().w());
         }
 
-        @Override // l9.i0.o
+        @Override // com.martian.libmars.utils.k0.o
         public void c() {
-            WebViewActivity.this.y1(this.f12069a);
+            WebViewActivity.this.S0();
         }
     }
 
-    public class c implements BaseActivity.a {
+    class c implements h1.a {
 
         /* renamed from: a */
-        public final /* synthetic */ ValueCallback f12071a;
+        final /* synthetic */ ValueCallback f9739a;
 
-        public c(ValueCallback valueCallback) {
-            this.f12071a = valueCallback;
+        c(final ValueCallback val$uploadMsg) {
+            this.f9739a = val$uploadMsg;
         }
 
-        @Override // com.martian.libmars.activity.BaseActivity.a
-        public void a(Uri uri, String str) {
-            this.f12071a.onReceiveValue(new Uri[]{uri});
+        @Override // com.martian.libmars.activity.h1.a
+        public void a(Uri imgUri, String filepath) {
+            this.f9739a.onReceiveValue(new Uri[]{imgUri});
         }
 
-        @Override // com.martian.libmars.activity.BaseActivity.a
+        @Override // com.martian.libmars.activity.h1.a
         public void onCancelled() {
-            this.f12071a.onReceiveValue(null);
+            this.f9739a.onReceiveValue(null);
         }
     }
 
     public static class d implements ViewTreeObserver.OnGlobalLayoutListener {
 
+        /* renamed from: a */
+        private final MTWebView f9741a;
+
         /* renamed from: b */
-        public final MTWebView f12073b;
+        int f9742b;
 
-        /* renamed from: c */
-        public int f12074c;
-
-        public d(MTWebView mTWebView) {
-            this.f12073b = mTWebView;
-            mTWebView.getViewTreeObserver().addOnGlobalLayoutListener(this);
+        public d(MTWebView webView) {
+            this.f9741a = webView;
+            webView.getViewTreeObserver().addOnGlobalLayoutListener(this);
         }
 
         @Override // android.view.ViewTreeObserver.OnGlobalLayoutListener
         public void onGlobalLayout() {
             Rect rect = new Rect();
-            this.f12073b.getWindowVisibleDisplayFrame(rect);
-            int i10 = rect.bottom - rect.top;
-            if (this.f12074c == i10) {
+            this.f9741a.getWindowVisibleDisplayFrame(rect);
+            int i2 = rect.bottom - rect.top;
+            if (this.f9742b == i2) {
                 return;
             }
             Rect rect2 = new Rect();
-            this.f12073b.getHitRect(rect2);
-            int i11 = rect2.bottom - rect2.top;
-            int i12 = this.f12074c;
-            float f10 = (i12 <= 0 || i12 <= i10) ? 0.0f : ((i12 - i10) * 100.0f) / i11;
-            this.f12074c = i10;
-            MTWebView mTWebView = this.f12073b;
-            mTWebView.loadUrl(mTWebView.d(new HeightChangeParams().setRatio(f10)));
+            this.f9741a.getHitRect(rect2);
+            int i3 = rect2.bottom - rect2.top;
+            float f2 = 0.0f;
+            int i4 = this.f9742b;
+            if (i4 > 0 && i4 > i2) {
+                f2 = ((i4 - i2) * 100.0f) / i3;
+            }
+            this.f9742b = i2;
+            MTWebView mTWebView = this.f9741a;
+            mTWebView.loadUrl(mTWebView.c(new HeightChangeParams().setRatio(f2)));
         }
     }
 
     public class e {
+
+        class a implements com.martian.libsupport.permission.f {
+
+            /* renamed from: a */
+            final /* synthetic */ String f9744a;
+
+            a(final String val$url) {
+                this.f9744a = val$url;
+            }
+
+            @Override // com.martian.libsupport.permission.f
+            public void permissionDenied() {
+                WebViewActivity.this.k1("缺少存储权限");
+            }
+
+            @Override // com.martian.libsupport.permission.f
+            public void permissionGranted() {
+                WebViewActivity webViewActivity = WebViewActivity.this;
+                webViewActivity.S2(this.f9744a, webViewActivity.j0);
+            }
+        }
+
         public e() {
         }
 
-        @JavascriptInterface
-        @SuppressLint({"JavascriptInterface"})
-        public void Browser(String str) {
-            WebViewActivity.this.runOnUiThread(new Runnable() { // from class: d9.c0
-
-                /* renamed from: c */
-                public final /* synthetic */ String f25301c;
-
-                public /* synthetic */ c0(String str2) {
-                    str = str2;
-                }
-
-                @Override // java.lang.Runnable
-                public final void run() {
-                    WebViewActivity.e.this.H(str);
-                }
-            });
-        }
-
-        @JavascriptInterface
-        @SuppressLint({"JavascriptInterface"})
-        public void CheckInstall(String str) {
-            if (XianWanSystemUtil.isApkInstalled(WebViewActivity.this, str)) {
-                WebViewActivity.this.L.post(new Runnable() { // from class: d9.b1
-                    public /* synthetic */ b1() {
-                    }
-
-                    @Override // java.lang.Runnable
-                    public final void run() {
-                        WebViewActivity.e.this.I();
-                    }
-                });
-            } else {
-                WebViewActivity.this.L.post(new Runnable() { // from class: d9.c1
-                    public /* synthetic */ c1() {
-                    }
-
-                    @Override // java.lang.Runnable
-                    public final void run() {
-                        WebViewActivity.e.this.J();
-                    }
-                });
-            }
-        }
-
-        public final /* synthetic */ void H(String str) {
-            Intent intent = new Intent();
-            intent.setAction("android.intent.action.VIEW");
-            intent.setData(Uri.parse(str));
-            WebViewActivity.this.startActivity(intent);
-        }
-
-        public final /* synthetic */ void I() {
-            WebViewActivity.this.L.loadUrl("javascript:CheckInstall_Return(1)");
-        }
-
-        @JavascriptInterface
-        @SuppressLint({"JavascriptInterface"})
-        public void InstallAPP(String str) {
-            WebViewActivity.this.runOnUiThread(new Runnable() { // from class: d9.x0
-
-                /* renamed from: c */
-                public final /* synthetic */ String f25395c;
-
-                public /* synthetic */ x0(String str2) {
-                    str = str2;
-                }
-
-                @Override // java.lang.Runnable
-                public final void run() {
-                    WebViewActivity.e.this.K(str);
-                }
-            });
-        }
-
-        public final /* synthetic */ void J() {
-            WebViewActivity.this.L.loadUrl("javascript:CheckInstall_Return(0)");
-        }
-
-        public final /* synthetic */ void K(String str) {
-            int lastIndexOf = str.lastIndexOf("/") + 1;
-            WebViewActivity.this.U = str.substring(lastIndexOf);
-            if (!WebViewActivity.this.U.contains(".apk")) {
-                if (WebViewActivity.this.U.length() > 10) {
-                    WebViewActivity webViewActivity = WebViewActivity.this;
-                    webViewActivity.U = webViewActivity.U.substring(WebViewActivity.this.U.length() - 10);
-                }
-                StringBuilder sb2 = new StringBuilder();
-                WebViewActivity webViewActivity2 = WebViewActivity.this;
-                sb2.append(webViewActivity2.U);
-                sb2.append(".apk");
-                webViewActivity2.U = sb2.toString();
-            }
-            WebViewActivity webViewActivity3 = WebViewActivity.this;
-            webViewActivity3.y3(str, webViewActivity3.U);
-        }
-
-        public final /* synthetic */ void L(String str) {
-            WebViewActivity.this.z4(str);
-        }
-
-        public final /* synthetic */ void M(String str, String str2, String str3, String str4) {
-            WebViewActivity.this.E3(str, str2, str3, str4);
-        }
-
-        public final /* synthetic */ void N(boolean z10) {
-            WebViewActivity.this.G3(z10);
-        }
-
-        public final /* synthetic */ void O(String str, String str2, int i10, String str3, String str4) {
-            WebViewActivity.this.H3(str, str2, i10, str3, str4);
-        }
-
-        @JavascriptInterface
-        @SuppressLint({"JavascriptInterface"})
-        public void OpenAPP(String str) {
-            WebViewActivity.this.runOnUiThread(new Runnable() { // from class: d9.o0
-
-                /* renamed from: c */
-                public final /* synthetic */ String f25374c;
-
-                public /* synthetic */ o0(String str2) {
-                    str = str2;
-                }
-
-                @Override // java.lang.Runnable
-                public final void run() {
-                    WebViewActivity.e.this.L(str);
-                }
-            });
-        }
-
-        public final /* synthetic */ void P() {
-            WebViewActivity.this.P3(false);
-        }
-
-        public final /* synthetic */ void Q(boolean z10) {
-            WebViewActivity.this.P3(z10);
-        }
-
-        public final /* synthetic */ void R() {
-            WebViewActivity.this.setResult(-1);
-        }
-
-        public final /* synthetic */ void S() {
-            WebViewActivity.this.onBackClick(null);
-        }
-
-        public final /* synthetic */ void T(String str, String str2) {
-            WebViewActivity.this.R3(str, str2);
-        }
-
-        public final /* synthetic */ void U(String str) {
-            if (l.q(str)) {
+        /* renamed from: A */
+        public /* synthetic */ void B(final String url) {
+            if (com.martian.libsupport.k.p(url)) {
                 return;
             }
-            WowanDetailActivity.startWebViewActivity(WebViewActivity.this, str);
+            WowanDetailActivity.startWebViewActivity(WebViewActivity.this, url);
         }
 
-        public final /* synthetic */ void V(String str, String str2, int i10, String str3, String str4) {
-            WebViewActivity.this.S3(str, str2, i10, str3, str4);
+        /* renamed from: C */
+        public /* synthetic */ void D(final String position, final String adsId, final int reward, final String rewardName, final String rewardExtra) {
+            WebViewActivity.this.p3(position, adsId, reward, rewardName, rewardExtra);
         }
 
-        public final /* synthetic */ void W() {
-            WebViewActivity.this.T3("");
+        /* renamed from: E */
+        public /* synthetic */ void F() {
+            WebViewActivity.this.q3("");
         }
 
-        public final /* synthetic */ void X(String str) {
-            WebViewActivity.this.T3(str);
+        /* renamed from: G */
+        public /* synthetic */ void H(final String adsId) {
+            WebViewActivity.this.q3(adsId);
         }
 
-        public final /* synthetic */ void Y(String str) {
-            WebViewActivity.this.U3(str);
+        /* renamed from: I */
+        public /* synthetic */ void J(final String adsId) {
+            WebViewActivity.this.r3(adsId);
         }
 
-        public final /* synthetic */ void Z() {
-            WebViewActivity.this.U3("");
+        /* renamed from: K */
+        public /* synthetic */ void L() {
+            WebViewActivity.this.r3("");
         }
 
-        public final /* synthetic */ void a0(String str, String str2) {
-            WebViewActivity.this.V3(str, str2);
+        /* renamed from: M */
+        public /* synthetic */ void N(final String title, final String extraBonus) {
+            WebViewActivity.this.s3(title, extraBonus);
         }
 
-        @JavascriptInterface
-        public void addToBookStore(String str, String str2, String str3, String str4) {
-            WebViewActivity.this.runOnUiThread(new Runnable() { // from class: d9.g0
-
-                /* renamed from: c */
-                public final /* synthetic */ String f25325c;
-
-                /* renamed from: d */
-                public final /* synthetic */ String f25326d;
-
-                /* renamed from: e */
-                public final /* synthetic */ String f25327e;
-
-                /* renamed from: f */
-                public final /* synthetic */ String f25328f;
-
-                public /* synthetic */ g0(String str5, String str22, String str32, String str42) {
-                    str = str5;
-                    str2 = str22;
-                    str3 = str32;
-                    str4 = str42;
-                }
-
-                @Override // java.lang.Runnable
-                public final void run() {
-                    WebViewActivity.e.this.M(str, str2, str3, str4);
-                }
-            });
-        }
-
-        @JavascriptInterface
-        public boolean appInstalled(String str) {
-            return (l.q(str) || WebViewActivity.this.getPackageManager().getLaunchIntentForPackage(str) == null) ? false : true;
-        }
-
-        public final /* synthetic */ void b0() {
+        /* renamed from: O */
+        public /* synthetic */ void P() {
             WebViewActivity.this.setResult(-1);
         }
 
-        @JavascriptInterface
-        public void bonusMode(boolean z10) {
-            WebViewActivity.this.runOnUiThread(new Runnable() { // from class: d9.j0
-
-                /* renamed from: c */
-                public final /* synthetic */ boolean f25343c;
-
-                public /* synthetic */ j0(boolean z102) {
-                    z10 = z102;
-                }
-
-                @Override // java.lang.Runnable
-                public final void run() {
-                    WebViewActivity.e.this.N(z10);
-                }
-            });
+        /* renamed from: Q */
+        public /* synthetic */ void R(final int coins, final String errMsg, final long extraId, final int extraCoins) {
+            WebViewActivity.this.u3(coins, errMsg, extraId, extraCoins);
         }
 
-        public final /* synthetic */ void c0(int i10, String str, long j10, int i11) {
-            WebViewActivity.this.X3(i10, str, j10, i11);
-        }
-
-        @JavascriptInterface
-        public void cacheVideoAd(String str, String str2, int i10, String str3, String str4) {
-            WebViewActivity.this.runOnUiThread(new Runnable() { // from class: d9.e0
-
-                /* renamed from: c */
-                public final /* synthetic */ String f25309c;
-
-                /* renamed from: d */
-                public final /* synthetic */ String f25310d;
-
-                /* renamed from: e */
-                public final /* synthetic */ int f25311e;
-
-                /* renamed from: f */
-                public final /* synthetic */ String f25312f;
-
-                /* renamed from: g */
-                public final /* synthetic */ String f25313g;
-
-                public /* synthetic */ e0(String str5, String str22, int i102, String str32, String str42) {
-                    str = str5;
-                    str2 = str22;
-                    i10 = i102;
-                    str3 = str32;
-                    str4 = str42;
-                }
-
-                @Override // java.lang.Runnable
-                public final void run() {
-                    WebViewActivity.e.this.O(str, str2, i10, str3, str4);
-                }
-            });
-        }
-
-        public final /* synthetic */ void d0() {
+        /* renamed from: S */
+        public /* synthetic */ void T() {
             InputMethodManager inputMethodManager = (InputMethodManager) WebViewActivity.this.getSystemService("input_method");
             if (inputMethodManager != null) {
                 inputMethodManager.toggleSoftInput(1, 2);
             }
         }
 
-        public final /* synthetic */ void e0(String str, String str2) {
-            WebViewActivity.this.Y3(str, str2);
+        /* renamed from: U */
+        public /* synthetic */ void V(final String sourceName, final String sourceId) {
+            WebViewActivity.this.v3(sourceName, sourceId);
+        }
+
+        /* renamed from: W */
+        public /* synthetic */ void X(final String url, final boolean fullscreen) {
+            WebViewActivity.this.w3(url, fullscreen);
+        }
+
+        /* renamed from: Y */
+        public /* synthetic */ void Z(final int money, final int method) {
+            WebViewActivity.this.x3(money, method, null, "");
+        }
+
+        /* renamed from: a */
+        public /* synthetic */ void b(final String url) {
+            Intent intent = new Intent();
+            intent.setAction("android.intent.action.VIEW");
+            intent.setData(Uri.parse(url));
+            WebViewActivity.this.startActivity(intent);
+        }
+
+        /* renamed from: a0 */
+        public /* synthetic */ void b0(final int money, final int method, final String productId) {
+            WebViewActivity.this.x3(money, method, productId, "");
+        }
+
+        /* renamed from: c */
+        public /* synthetic */ void d() {
+            WebViewActivity.this.X.loadUrl("javascript:CheckInstall_Return(1)");
+        }
+
+        /* renamed from: c0 */
+        public /* synthetic */ void d0(final String rechargeParams) {
+            WebViewActivity.this.y3(rechargeParams);
+        }
+
+        /* renamed from: e */
+        public /* synthetic */ void f() {
+            WebViewActivity.this.X.loadUrl("javascript:CheckInstall_Return(0)");
+        }
+
+        /* renamed from: e0 */
+        public /* synthetic */ void f0(final String info) {
+            WebViewActivity.this.z3(info);
+        }
+
+        /* renamed from: g */
+        public /* synthetic */ void h(final String url) {
+            WebViewActivity.this.j0 = url.substring(url.lastIndexOf("/") + 1);
+            if (!WebViewActivity.this.j0.contains(".apk")) {
+                if (WebViewActivity.this.j0.length() > 10) {
+                    WebViewActivity webViewActivity = WebViewActivity.this;
+                    webViewActivity.j0 = webViewActivity.j0.substring(WebViewActivity.this.j0.length() - 10);
+                }
+                WebViewActivity.this.j0 = WebViewActivity.this.j0 + ".apk";
+            }
+            com.martian.libsupport.permission.g.h(WebViewActivity.this, new a(url), new String[]{com.kuaishou.weapon.p0.g.f9325j}, true, new TipInfo("权限申请", "需要存储权限才能正常使用下载功能\n \n 请点击 \"前往开启\"-\"权限管理\"-打开所需权限。", "取消", "前往开启"), true);
+        }
+
+        /* renamed from: g0 */
+        public /* synthetic */ void h0(final int style) {
+            WebViewActivity.this.f4(style);
+        }
+
+        /* renamed from: i */
+        public /* synthetic */ void j(final String packageName) {
+            WebViewActivity.this.b4(packageName);
+        }
+
+        /* renamed from: i0 */
+        public /* synthetic */ void j0(final String wxAppid) {
+            WebViewActivity.this.A3(wxAppid);
+        }
+
+        /* renamed from: k */
+        public /* synthetic */ void l(final String sourceName, final String sourceId, final String recommendId, final String recommend) {
+            WebViewActivity.this.b3(sourceName, sourceId, recommendId, recommend);
+        }
+
+        /* renamed from: m */
+        public /* synthetic */ void n(final boolean open) {
+            WebViewActivity.this.d3(open);
+        }
+
+        /* renamed from: o */
+        public /* synthetic */ void p(final String position, final String adsId, final int reward, final String rewardName, final String rewardExtra) {
+            WebViewActivity.this.e3(position, adsId, reward, rewardName, rewardExtra);
+        }
+
+        /* renamed from: q */
+        public /* synthetic */ void r() {
+            WebViewActivity.this.m3(false);
+        }
+
+        /* renamed from: s */
+        public /* synthetic */ void t(final boolean loginDirectly) {
+            WebViewActivity.this.m3(loginDirectly);
+        }
+
+        /* renamed from: u */
+        public /* synthetic */ void v() {
+            WebViewActivity.this.setResult(-1);
+        }
+
+        /* renamed from: w */
+        public /* synthetic */ void x() {
+            WebViewActivity.this.onBackClick(null);
+        }
+
+        /* renamed from: y */
+        public /* synthetic */ void z(final String key, final String value) {
+            WebViewActivity.this.o3(key, value);
+        }
+
+        @JavascriptInterface
+        @SuppressLint({"JavascriptInterface"})
+        public void Browser(final String url) {
+            WebViewActivity.this.runOnUiThread(new Runnable() { // from class: com.martian.libmars.activity.f0
+                @Override // java.lang.Runnable
+                public final void run() {
+                    WebViewActivity.e.this.b(url);
+                }
+            });
+        }
+
+        @JavascriptInterface
+        @SuppressLint({"JavascriptInterface"})
+        public void CheckInstall(String packageName) {
+            if (XianWanSystemUtil.isApkInstalled(WebViewActivity.this, packageName)) {
+                WebViewActivity.this.X.post(new Runnable() { // from class: com.martian.libmars.activity.k0
+                    @Override // java.lang.Runnable
+                    public final void run() {
+                        WebViewActivity.e.this.d();
+                    }
+                });
+            } else {
+                WebViewActivity.this.X.post(new Runnable() { // from class: com.martian.libmars.activity.q0
+                    @Override // java.lang.Runnable
+                    public final void run() {
+                        WebViewActivity.e.this.f();
+                    }
+                });
+            }
+        }
+
+        @JavascriptInterface
+        @SuppressLint({"JavascriptInterface"})
+        public void InstallAPP(final String url) {
+            WebViewActivity.this.runOnUiThread(new Runnable() { // from class: com.martian.libmars.activity.g0
+                @Override // java.lang.Runnable
+                public final void run() {
+                    WebViewActivity.e.this.h(url);
+                }
+            });
+        }
+
+        @JavascriptInterface
+        @SuppressLint({"JavascriptInterface"})
+        public void OpenAPP(final String packageName) {
+            WebViewActivity.this.runOnUiThread(new Runnable() { // from class: com.martian.libmars.activity.p0
+                @Override // java.lang.Runnable
+                public final void run() {
+                    WebViewActivity.e.this.j(packageName);
+                }
+            });
+        }
+
+        @JavascriptInterface
+        public void addToBookStore(final String sourceName, final String sourceId, final String recommendId, final String recommend) {
+            WebViewActivity.this.runOnUiThread(new Runnable() { // from class: com.martian.libmars.activity.x
+                @Override // java.lang.Runnable
+                public final void run() {
+                    WebViewActivity.e.this.l(sourceName, sourceId, recommendId, recommend);
+                }
+            });
+        }
+
+        @JavascriptInterface
+        public boolean appInstalled(String packageName) {
+            return (com.martian.libsupport.k.p(packageName) || WebViewActivity.this.getPackageManager().getLaunchIntentForPackage(packageName) == null) ? false : true;
+        }
+
+        @JavascriptInterface
+        public void bonusMode(final boolean open) {
+            WebViewActivity.this.runOnUiThread(new Runnable() { // from class: com.martian.libmars.activity.e0
+                @Override // java.lang.Runnable
+                public final void run() {
+                    WebViewActivity.e.this.n(open);
+                }
+            });
+        }
+
+        @JavascriptInterface
+        public void cacheVideoAd(final String position, final String adsId, final int reward, final String rewardName, final String rewardExtra) {
+            WebViewActivity.this.runOnUiThread(new Runnable() { // from class: com.martian.libmars.activity.b0
+                @Override // java.lang.Runnable
+                public final void run() {
+                    WebViewActivity.e.this.p(position, adsId, reward, rewardName, rewardExtra);
+                }
+            });
         }
 
         @JavascriptInterface
         public void exitWeb() {
-            WebViewActivity webViewActivity = WebViewActivity.this;
-            webViewActivity.runOnUiThread(new Runnable() { // from class: d9.a0
-                public /* synthetic */ a0() {
-                }
-
+            final WebViewActivity webViewActivity = WebViewActivity.this;
+            webViewActivity.runOnUiThread(new Runnable() { // from class: com.martian.libmars.activity.z0
                 @Override // java.lang.Runnable
                 public final void run() {
                     WebViewActivity.this.finish();
@@ -494,129 +479,192 @@ public class WebViewActivity extends RetryLoadingActivity implements MTWebView.c
             });
         }
 
-        public final /* synthetic */ void f0(String str, boolean z10) {
-            WebViewActivity.this.Z3(str, z10);
-        }
-
-        public final /* synthetic */ void g0(int i10, int i11) {
-            WebViewActivity.this.a4(i10, i11, null, "");
-        }
-
         @JavascriptInterface
         public void goNotificationSetting() {
-            WebViewActivity webViewActivity = WebViewActivity.this;
-            webViewActivity.runOnUiThread(new Runnable() { // from class: d9.k0
-                public /* synthetic */ k0() {
-                }
-
+            final WebViewActivity webViewActivity = WebViewActivity.this;
+            webViewActivity.runOnUiThread(new Runnable() { // from class: com.martian.libmars.activity.c1
                 @Override // java.lang.Runnable
                 public final void run() {
-                    WebViewActivity.this.I3();
+                    WebViewActivity.this.f3();
                 }
             });
         }
 
-        public final /* synthetic */ void h0(int i10, int i11, String str) {
-            WebViewActivity.this.a4(i10, i11, str, "");
-        }
-
-        public final /* synthetic */ void i0(String str) {
-            WebViewActivity.this.b4(str);
-        }
-
         @JavascriptInterface
         public void inviteQqfriend() {
-            WebViewActivity webViewActivity = WebViewActivity.this;
-            webViewActivity.runOnUiThread(new Runnable() { // from class: d9.y0
-                public /* synthetic */ y0() {
-                }
-
+            final WebViewActivity webViewActivity = WebViewActivity.this;
+            webViewActivity.runOnUiThread(new Runnable() { // from class: com.martian.libmars.activity.a
                 @Override // java.lang.Runnable
                 public final void run() {
-                    WebViewActivity.this.J3();
+                    WebViewActivity.this.g3();
                 }
             });
         }
 
         @JavascriptInterface
         public void inviteQrcode() {
-            WebViewActivity webViewActivity = WebViewActivity.this;
-            webViewActivity.runOnUiThread(new Runnable() { // from class: d9.a1
-                public /* synthetic */ a1() {
-                }
-
+            final WebViewActivity webViewActivity = WebViewActivity.this;
+            webViewActivity.runOnUiThread(new Runnable() { // from class: com.martian.libmars.activity.g
                 @Override // java.lang.Runnable
                 public final void run() {
-                    WebViewActivity.this.K3();
+                    WebViewActivity.this.h3();
                 }
             });
         }
 
         @JavascriptInterface
         public void inviteQzone() {
-            WebViewActivity webViewActivity = WebViewActivity.this;
-            webViewActivity.runOnUiThread(new Runnable() { // from class: d9.u0
-                public /* synthetic */ u0() {
-                }
-
+            final WebViewActivity webViewActivity = WebViewActivity.this;
+            webViewActivity.runOnUiThread(new Runnable() { // from class: com.martian.libmars.activity.b1
                 @Override // java.lang.Runnable
                 public final void run() {
-                    WebViewActivity.this.L3();
+                    WebViewActivity.this.i3();
                 }
             });
         }
 
         @JavascriptInterface
         public void inviteWxcircle() {
-            WebViewActivity webViewActivity = WebViewActivity.this;
-            webViewActivity.runOnUiThread(new Runnable() { // from class: d9.s0
-                public /* synthetic */ s0() {
-                }
-
+            final WebViewActivity webViewActivity = WebViewActivity.this;
+            webViewActivity.runOnUiThread(new Runnable() { // from class: com.martian.libmars.activity.d
                 @Override // java.lang.Runnable
                 public final void run() {
-                    WebViewActivity.this.M3();
+                    WebViewActivity.this.j3();
                 }
             });
         }
 
         @JavascriptInterface
         public void inviteWxfriend() {
-            WebViewActivity webViewActivity = WebViewActivity.this;
-            webViewActivity.runOnUiThread(new Runnable() { // from class: d9.x
-                public /* synthetic */ x() {
-                }
-
+            final WebViewActivity webViewActivity = WebViewActivity.this;
+            webViewActivity.runOnUiThread(new Runnable() { // from class: com.martian.libmars.activity.b
                 @Override // java.lang.Runnable
                 public final void run() {
-                    WebViewActivity.this.N3();
+                    WebViewActivity.this.k3();
                 }
             });
         }
 
         @JavascriptInterface
-        public boolean isInBookStore(String str, String str2) {
-            return WebViewActivity.this.O3(str, str2);
-        }
-
-        public final /* synthetic */ void j0(String str) {
-            WebViewActivity.this.c4(str);
-        }
-
-        public final /* synthetic */ void k0(String str, String str2, String str3) {
-            WebViewActivity.this.d4(str, str2, str3);
-        }
-
-        public final /* synthetic */ void l0(int i10) {
-            WebViewActivity.this.C4(i10);
+        public boolean isInBookStore(String sourceName, String sourceId) {
+            return WebViewActivity.this.l3(sourceName, sourceId);
         }
 
         @JavascriptInterface
         public void loginClick() {
-            WebViewActivity.this.runOnUiThread(new Runnable() { // from class: d9.j1
-                public /* synthetic */ j1() {
+            WebViewActivity.this.runOnUiThread(new Runnable() { // from class: com.martian.libmars.activity.h0
+                @Override // java.lang.Runnable
+                public final void run() {
+                    WebViewActivity.e.this.r();
                 }
+            });
+        }
 
+        @JavascriptInterface
+        public void loginClickV2(final boolean loginDirectly) {
+            WebViewActivity.this.runOnUiThread(new Runnable() { // from class: com.martian.libmars.activity.a0
+                @Override // java.lang.Runnable
+                public final void run() {
+                    WebViewActivity.e.this.t(loginDirectly);
+                }
+            });
+        }
+
+        @JavascriptInterface
+        public void logout() {
+            WebViewActivity.this.runOnUiThread(new Runnable() { // from class: com.martian.libmars.activity.c0
+                @Override // java.lang.Runnable
+                public final void run() {
+                    WebViewActivity.e.this.v();
+                }
+            });
+        }
+
+        @JavascriptInterface
+        public void marketRate() {
+            final WebViewActivity webViewActivity = WebViewActivity.this;
+            webViewActivity.runOnUiThread(new Runnable() { // from class: com.martian.libmars.activity.e1
+                @Override // java.lang.Runnable
+                public final void run() {
+                    WebViewActivity.this.n3();
+                }
+            });
+        }
+
+        @JavascriptInterface
+        public void onBackClick() {
+            WebViewActivity.this.runOnUiThread(new Runnable() { // from class: com.martian.libmars.activity.s
+                @Override // java.lang.Runnable
+                public final void run() {
+                    WebViewActivity.e.this.x();
+                }
+            });
+        }
+
+        @JavascriptInterface
+        public void onEvent(final String key, final String value) {
+            WebViewActivity.this.runOnUiThread(new Runnable() { // from class: com.martian.libmars.activity.n0
+                @Override // java.lang.Runnable
+                public final void run() {
+                    WebViewActivity.e.this.z(key, value);
+                }
+            });
+        }
+
+        @JavascriptInterface
+        @SuppressLint({"JavascriptInterface"})
+        public void openAdDetail(final String url) {
+            WebViewActivity.this.runOnUiThread(new Runnable() { // from class: com.martian.libmars.activity.i0
+                @Override // java.lang.Runnable
+                public final void run() {
+                    WebViewActivity.e.this.B(url);
+                }
+            });
+        }
+
+        @JavascriptInterface
+        public void playCallbackRewardVideoAd(final String position, final String adsId, final int reward, final String rewardName, final String rewardExtra) {
+            WebViewActivity.this.runOnUiThread(new Runnable() { // from class: com.martian.libmars.activity.m0
+                @Override // java.lang.Runnable
+                public final void run() {
+                    WebViewActivity.e.this.D(position, adsId, reward, rewardName, rewardExtra);
+                }
+            });
+        }
+
+        @JavascriptInterface
+        public void playInteractionAd() {
+            WebViewActivity.this.runOnUiThread(new Runnable() { // from class: com.martian.libmars.activity.j0
+                @Override // java.lang.Runnable
+                public final void run() {
+                    WebViewActivity.e.this.F();
+                }
+            });
+        }
+
+        @JavascriptInterface
+        public void playRewardVideoAd() {
+            WebViewActivity.this.runOnUiThread(new Runnable() { // from class: com.martian.libmars.activity.w
+                @Override // java.lang.Runnable
+                public final void run() {
+                    WebViewActivity.e.this.L();
+                }
+            });
+        }
+
+        @JavascriptInterface
+        public void rewardDetail(final String title, final String extraBonus) {
+            WebViewActivity.this.runOnUiThread(new Runnable() { // from class: com.martian.libmars.activity.o0
+                @Override // java.lang.Runnable
+                public final void run() {
+                    WebViewActivity.e.this.N(title, extraBonus);
+                }
+            });
+        }
+
+        @JavascriptInterface
+        public void setResultOk() {
+            WebViewActivity.this.runOnUiThread(new Runnable() { // from class: com.martian.libmars.activity.q
                 @Override // java.lang.Runnable
                 public final void run() {
                     WebViewActivity.e.this.P();
@@ -625,433 +673,103 @@ public class WebViewActivity extends RetryLoadingActivity implements MTWebView.c
         }
 
         @JavascriptInterface
-        public void loginClickV2(boolean z10) {
-            WebViewActivity.this.runOnUiThread(new Runnable() { // from class: d9.i0
-
-                /* renamed from: c */
-                public final /* synthetic */ boolean f25339c;
-
-                public /* synthetic */ i0(boolean z102) {
-                    z10 = z102;
-                }
-
-                @Override // java.lang.Runnable
-                public final void run() {
-                    WebViewActivity.e.this.Q(z10);
-                }
-            });
-        }
-
-        @JavascriptInterface
-        public void logout() {
-            WebViewActivity.this.runOnUiThread(new Runnable() { // from class: d9.h1
-                public /* synthetic */ h1() {
-                }
-
-                @Override // java.lang.Runnable
-                public final void run() {
-                    WebViewActivity.e.this.R();
-                }
-            });
-        }
-
-        public final /* synthetic */ void m0() {
-            WebViewActivity.this.f4();
-        }
-
-        @JavascriptInterface
-        public void marketRate() {
-            WebViewActivity webViewActivity = WebViewActivity.this;
-            webViewActivity.runOnUiThread(new Runnable() { // from class: d9.w0
-                public /* synthetic */ w0() {
-                }
-
-                @Override // java.lang.Runnable
-                public final void run() {
-                    WebViewActivity.this.Q3();
-                }
-            });
-        }
-
-        public final /* synthetic */ void n0(String str) {
-            WebViewActivity.this.g4(str);
-        }
-
-        @JavascriptInterface
-        public void onBackClick() {
-            WebViewActivity.this.runOnUiThread(new Runnable() { // from class: d9.l0
-                public /* synthetic */ l0() {
-                }
-
-                @Override // java.lang.Runnable
-                public final void run() {
-                    WebViewActivity.e.this.S();
-                }
-            });
-        }
-
-        @JavascriptInterface
-        public void onEvent(String str, String str2) {
-            WebViewActivity.this.runOnUiThread(new Runnable() { // from class: d9.z0
-
-                /* renamed from: c */
-                public final /* synthetic */ String f25404c;
-
-                /* renamed from: d */
-                public final /* synthetic */ String f25405d;
-
-                public /* synthetic */ z0(String str3, String str22) {
-                    str = str3;
-                    str2 = str22;
-                }
-
-                @Override // java.lang.Runnable
-                public final void run() {
-                    WebViewActivity.e.this.T(str, str2);
-                }
-            });
-        }
-
-        @JavascriptInterface
-        @SuppressLint({"JavascriptInterface"})
-        public void openAdDetail(String str) {
-            WebViewActivity.this.runOnUiThread(new Runnable() { // from class: d9.g1
-
-                /* renamed from: c */
-                public final /* synthetic */ String f25330c;
-
-                public /* synthetic */ g1(String str2) {
-                    str = str2;
-                }
-
-                @Override // java.lang.Runnable
-                public final void run() {
-                    WebViewActivity.e.this.U(str);
-                }
-            });
-        }
-
-        @JavascriptInterface
-        public void playCallbackRewardVideoAd(String str, String str2, int i10, String str3, String str4) {
-            WebViewActivity.this.runOnUiThread(new Runnable() { // from class: d9.m0
-
-                /* renamed from: c */
-                public final /* synthetic */ String f25360c;
-
-                /* renamed from: d */
-                public final /* synthetic */ String f25361d;
-
-                /* renamed from: e */
-                public final /* synthetic */ int f25362e;
-
-                /* renamed from: f */
-                public final /* synthetic */ String f25363f;
-
-                /* renamed from: g */
-                public final /* synthetic */ String f25364g;
-
-                public /* synthetic */ m0(String str5, String str22, int i102, String str32, String str42) {
-                    str = str5;
-                    str2 = str22;
-                    i10 = i102;
-                    str3 = str32;
-                    str4 = str42;
-                }
-
-                @Override // java.lang.Runnable
-                public final void run() {
-                    WebViewActivity.e.this.V(str, str2, i10, str3, str4);
-                }
-            });
-        }
-
-        @JavascriptInterface
-        public void playInteractionAd() {
-            WebViewActivity.this.runOnUiThread(new Runnable() { // from class: d9.d1
-                public /* synthetic */ d1() {
-                }
-
-                @Override // java.lang.Runnable
-                public final void run() {
-                    WebViewActivity.e.this.W();
-                }
-            });
-        }
-
-        @JavascriptInterface
-        public void playRewardVideoAd() {
-            WebViewActivity.this.runOnUiThread(new Runnable() { // from class: d9.n1
-                public /* synthetic */ n1() {
-                }
-
-                @Override // java.lang.Runnable
-                public final void run() {
-                    WebViewActivity.e.this.Z();
-                }
-            });
-        }
-
-        @JavascriptInterface
-        public void rewardDetail(String str, String str2) {
-            WebViewActivity.this.runOnUiThread(new Runnable() { // from class: d9.h0
-
-                /* renamed from: c */
-                public final /* synthetic */ String f25334c;
-
-                /* renamed from: d */
-                public final /* synthetic */ String f25335d;
-
-                public /* synthetic */ h0(String str3, String str22) {
-                    str = str3;
-                    str2 = str22;
-                }
-
-                @Override // java.lang.Runnable
-                public final void run() {
-                    WebViewActivity.e.this.a0(str, str2);
-                }
-            });
-        }
-
-        @JavascriptInterface
-        public void setResultOk() {
-            WebViewActivity.this.runOnUiThread(new Runnable() { // from class: d9.r0
-                public /* synthetic */ r0() {
-                }
-
-                @Override // java.lang.Runnable
-                public final void run() {
-                    WebViewActivity.e.this.b0();
-                }
-            });
-        }
-
-        @JavascriptInterface
         public void shareClick() {
-            WebViewActivity webViewActivity = WebViewActivity.this;
-            webViewActivity.runOnUiThread(new Runnable() { // from class: d9.i1
-                public /* synthetic */ i1() {
-                }
-
+            final WebViewActivity webViewActivity = WebViewActivity.this;
+            webViewActivity.runOnUiThread(new Runnable() { // from class: com.martian.libmars.activity.a1
                 @Override // java.lang.Runnable
                 public final void run() {
-                    WebViewActivity.this.W3();
+                    WebViewActivity.this.t3();
                 }
             });
         }
 
         @JavascriptInterface
-        public void showBonusDialog(int i10, String str, long j10, int i11) {
-            WebViewActivity.this.runOnUiThread(new Runnable() { // from class: d9.k1
-
-                /* renamed from: c */
-                public final /* synthetic */ int f25348c;
-
-                /* renamed from: d */
-                public final /* synthetic */ String f25349d;
-
-                /* renamed from: e */
-                public final /* synthetic */ long f25350e;
-
-                /* renamed from: f */
-                public final /* synthetic */ int f25351f;
-
-                public /* synthetic */ k1(int i102, String str2, long j102, int i112) {
-                    i10 = i102;
-                    str = str2;
-                    j10 = j102;
-                    i11 = i112;
-                }
-
+        public void showBonusDialog(final int coins, final String errMsg, final long extraId, final int extraCoins) {
+            WebViewActivity.this.runOnUiThread(new Runnable() { // from class: com.martian.libmars.activity.l0
                 @Override // java.lang.Runnable
                 public final void run() {
-                    WebViewActivity.e.this.c0(i10, str, j10, i11);
+                    WebViewActivity.e.this.R(coins, errMsg, extraId, extraCoins);
                 }
             });
         }
 
         @JavascriptInterface
         public void showSoftKeyboard() {
-            WebViewActivity.this.runOnUiThread(new Runnable() { // from class: d9.p0
-                public /* synthetic */ p0() {
-                }
-
+            WebViewActivity.this.runOnUiThread(new Runnable() { // from class: com.martian.libmars.activity.y
                 @Override // java.lang.Runnable
                 public final void run() {
-                    WebViewActivity.e.this.d0();
+                    WebViewActivity.e.this.T();
                 }
             });
         }
 
         @JavascriptInterface
-        public void startBookDetailActivity(String str, String str2) {
-            WebViewActivity.this.runOnUiThread(new Runnable() { // from class: d9.d0
-
-                /* renamed from: c */
-                public final /* synthetic */ String f25304c;
-
-                /* renamed from: d */
-                public final /* synthetic */ String f25305d;
-
-                public /* synthetic */ d0(String str3, String str22) {
-                    str = str3;
-                    str2 = str22;
-                }
-
+        public void startBookDetailActivity(final String sourceName, final String sourceId) {
+            WebViewActivity.this.runOnUiThread(new Runnable() { // from class: com.martian.libmars.activity.t
                 @Override // java.lang.Runnable
                 public final void run() {
-                    WebViewActivity.e.this.e0(str, str2);
+                    WebViewActivity.e.this.V(sourceName, sourceId);
                 }
             });
         }
 
         @JavascriptInterface
-        public void startNewActivity(String str, boolean z10) {
-            WebViewActivity.this.runOnUiThread(new Runnable() { // from class: d9.b0
-
-                /* renamed from: c */
-                public final /* synthetic */ String f25296c;
-
-                /* renamed from: d */
-                public final /* synthetic */ boolean f25297d;
-
-                public /* synthetic */ b0(String str2, boolean z102) {
-                    str = str2;
-                    z10 = z102;
-                }
-
+        public void startNewActivity(final String url, final boolean fullscreen) {
+            WebViewActivity.this.runOnUiThread(new Runnable() { // from class: com.martian.libmars.activity.v
                 @Override // java.lang.Runnable
                 public final void run() {
-                    WebViewActivity.e.this.f0(str, z10);
+                    WebViewActivity.e.this.X(url, fullscreen);
                 }
             });
         }
 
         @JavascriptInterface
         @SuppressLint({"JavascriptInterface"})
-        public void startRecharge(int i10, int i11) {
-            WebViewActivity.this.runOnUiThread(new Runnable() { // from class: d9.l1
-
-                /* renamed from: c */
-                public final /* synthetic */ int f25355c;
-
-                /* renamed from: d */
-                public final /* synthetic */ int f25356d;
-
-                public /* synthetic */ l1(int i102, int i112) {
-                    i10 = i102;
-                    i11 = i112;
-                }
-
+        public void startRecharge(final int money, final int method) {
+            WebViewActivity.this.runOnUiThread(new Runnable() { // from class: com.martian.libmars.activity.z
                 @Override // java.lang.Runnable
                 public final void run() {
-                    WebViewActivity.e.this.g0(i10, i11);
+                    WebViewActivity.e.this.Z(money, method);
                 }
             });
         }
 
         @JavascriptInterface
-        public void startRechargeV2(int i10, int i11, String str) {
-            WebViewActivity.this.runOnUiThread(new Runnable() { // from class: d9.z
-
-                /* renamed from: c */
-                public final /* synthetic */ int f25400c;
-
-                /* renamed from: d */
-                public final /* synthetic */ int f25401d;
-
-                /* renamed from: e */
-                public final /* synthetic */ String f25402e;
-
-                public /* synthetic */ z(int i102, int i112, String str2) {
-                    i10 = i102;
-                    i11 = i112;
-                    str = str2;
-                }
-
+        public void startRechargeV2(final int money, final int method, final String productId) {
+            WebViewActivity.this.runOnUiThread(new Runnable() { // from class: com.martian.libmars.activity.d0
                 @Override // java.lang.Runnable
                 public final void run() {
-                    WebViewActivity.e.this.h0(i10, i11, str);
+                    WebViewActivity.e.this.b0(money, method, productId);
                 }
             });
         }
 
         @JavascriptInterface
-        public void startRechargeV3(String str) {
-            WebViewActivity.this.runOnUiThread(new Runnable() { // from class: d9.y
-
-                /* renamed from: c */
-                public final /* synthetic */ String f25397c;
-
-                public /* synthetic */ y(String str2) {
-                    str = str2;
-                }
-
+        public void startRechargeV3(final String rechargeParams) {
+            WebViewActivity.this.runOnUiThread(new Runnable() { // from class: com.martian.libmars.activity.u
                 @Override // java.lang.Runnable
                 public final void run() {
-                    WebViewActivity.e.this.i0(str);
+                    WebViewActivity.e.this.d0(rechargeParams);
                 }
             });
         }
 
         @JavascriptInterface
-        public void startShare(String str) {
-            WebViewActivity.this.runOnUiThread(new Runnable() { // from class: d9.f1
-
-                /* renamed from: c */
-                public final /* synthetic */ String f25322c;
-
-                public /* synthetic */ f1(String str2) {
-                    str = str2;
-                }
-
+        public void startShare(final String info) {
+            WebViewActivity.this.runOnUiThread(new Runnable() { // from class: com.martian.libmars.activity.u0
                 @Override // java.lang.Runnable
                 public final void run() {
-                    WebViewActivity.e.this.j0(str);
+                    WebViewActivity.e.this.f0(info);
                 }
             });
         }
 
         @JavascriptInterface
-        public void startVipActivity(String str, String str2, String str3) {
-            WebViewActivity.this.runOnUiThread(new Runnable() { // from class: d9.e1
-
-                /* renamed from: c */
-                public final /* synthetic */ String f25315c;
-
-                /* renamed from: d */
-                public final /* synthetic */ String f25316d;
-
-                /* renamed from: e */
-                public final /* synthetic */ String f25317e;
-
-                public /* synthetic */ e1(String str4, String str22, String str32) {
-                    str = str4;
-                    str2 = str22;
-                    str3 = str32;
-                }
-
+        public void statusBarStyle(final int style) {
+            WebViewActivity.this.runOnUiThread(new Runnable() { // from class: com.martian.libmars.activity.s0
                 @Override // java.lang.Runnable
                 public final void run() {
-                    WebViewActivity.e.this.k0(str, str2, str3);
-                }
-            });
-        }
-
-        @JavascriptInterface
-        public void statusBarStyle(int i10) {
-            WebViewActivity.this.runOnUiThread(new Runnable() { // from class: d9.q0
-
-                /* renamed from: c */
-                public final /* synthetic */ int f25379c;
-
-                public /* synthetic */ q0(int i102) {
-                    i10 = i102;
-                }
-
-                @Override // java.lang.Runnable
-                public final void run() {
-                    WebViewActivity.e.this.l0(i10);
+                    WebViewActivity.e.this.h0(style);
                 }
             });
         }
@@ -1059,384 +777,41 @@ public class WebViewActivity extends RetryLoadingActivity implements MTWebView.c
         @JavascriptInterface
         @SuppressLint({"JavascriptInterface"})
         public String toString() {
-            return "android";
+            return BaseWrapper.BASE_PKG_SYSTEM;
         }
 
         @JavascriptInterface
-        public void ttsSetting() {
-            WebViewActivity webViewActivity = WebViewActivity.this;
-            webViewActivity.runOnUiThread(new Runnable() { // from class: d9.t0
-                public /* synthetic */ t0() {
-                }
-
+        public void wxBindV2(final String wxAppid) {
+            WebViewActivity.this.runOnUiThread(new Runnable() { // from class: com.martian.libmars.activity.r
                 @Override // java.lang.Runnable
                 public final void run() {
-                    WebViewActivity.this.e4();
+                    WebViewActivity.e.this.j0(wxAppid);
                 }
             });
         }
 
         @JavascriptInterface
-        public void updateAccountInfo() {
-            WebViewActivity.this.runOnUiThread(new Runnable() { // from class: d9.v0
-                public /* synthetic */ v0() {
-                }
-
+        public void playInteractionAd(final String adsId) {
+            WebViewActivity.this.runOnUiThread(new Runnable() { // from class: com.martian.libmars.activity.r0
                 @Override // java.lang.Runnable
                 public final void run() {
-                    WebViewActivity.e.this.m0();
+                    WebViewActivity.e.this.H(adsId);
                 }
             });
         }
 
         @JavascriptInterface
-        public void wxBindV2(String str) {
-            WebViewActivity.this.runOnUiThread(new Runnable() { // from class: d9.m1
-
-                /* renamed from: c */
-                public final /* synthetic */ String f25366c;
-
-                public /* synthetic */ m1(String str2) {
-                    str = str2;
-                }
-
+        public void playRewardVideoAd(final String adsId) {
+            WebViewActivity.this.runOnUiThread(new Runnable() { // from class: com.martian.libmars.activity.t0
                 @Override // java.lang.Runnable
                 public final void run() {
-                    WebViewActivity.e.this.n0(str);
-                }
-            });
-        }
-
-        @JavascriptInterface
-        public void playInteractionAd(String str) {
-            WebViewActivity.this.runOnUiThread(new Runnable() { // from class: d9.n0
-
-                /* renamed from: c */
-                public final /* synthetic */ String f25369c;
-
-                public /* synthetic */ n0(String str2) {
-                    str = str2;
-                }
-
-                @Override // java.lang.Runnable
-                public final void run() {
-                    WebViewActivity.e.this.X(str);
-                }
-            });
-        }
-
-        @JavascriptInterface
-        public void playRewardVideoAd(String str) {
-            WebViewActivity.this.runOnUiThread(new Runnable() { // from class: d9.f0
-
-                /* renamed from: c */
-                public final /* synthetic */ String f25320c;
-
-                public /* synthetic */ f0(String str2) {
-                    str = str2;
-                }
-
-                @Override // java.lang.Runnable
-                public final void run() {
-                    WebViewActivity.e.this.Y(str);
+                    WebViewActivity.e.this.J(adsId);
                 }
             });
         }
     }
 
-    public static String A3(String str) {
-        String str2;
-        if (str.isEmpty()) {
-            return "";
-        }
-        if (!str.startsWith("http://") && !str.startsWith("https://")) {
-            str = "http://" + str;
-        }
-        try {
-            str2 = new URI(str).getHost();
-        } catch (Exception e10) {
-            e10.printStackTrace();
-            str2 = "";
-        }
-        return (str2.endsWith(".html") || str2.endsWith(".htm")) ? "" : str2;
-    }
-
-    public static void A4(Activity activity, String str, boolean z10) {
-        Bundle bundle = new Bundle();
-        bundle.putString("LIBMARS_INTENT_WEBVIEW_URL", str);
-        bundle.putBoolean("LIBMARS_INTENT_DOWNLOAD_HINT", z10);
-        Intent intent = new Intent(activity, (Class<?>) WebViewActivity.class);
-        intent.putExtras(bundle);
-        activity.startActivity(intent);
-    }
-
-    public static /* synthetic */ void j4(DialogInterface dialogInterface, int i10) {
-    }
-
-    public /* synthetic */ boolean l4(View view) {
-        if (ConfigSingleton.D().y0() || !ConfigSingleton.D().V0()) {
-            return true;
-        }
-        WebView.HitTestResult hitTestResult = this.L.getHitTestResult();
-        if (hitTestResult.getType() != 5) {
-            return false;
-        }
-        u4(hitTestResult.getExtra());
-        return false;
-    }
-
-    @SuppressLint({"SetJavaScriptEnabled", "AddJavascriptInterface"})
-    public void B3() {
-        e eVar = new e();
-        this.L.addJavascriptInterface(eVar, eVar.toString());
-    }
-
-    public void B4() {
-        LayoutWebviewActionbarBinding layoutWebviewActionbarBinding = this.R;
-        if (layoutWebviewActionbarBinding != null) {
-            layoutWebviewActionbarBinding.getRoot().setVisibility((D3() || !this.L.canGoBack()) ? 8 : 0);
-        }
-    }
-
-    public void C3(File file) {
-        if (file == null || !file.exists()) {
-            return;
-        }
-        Intent intent = new Intent("android.intent.action.VIEW");
-        Uri z10 = g.z(this, file);
-        if (z10 == null) {
-            return;
-        }
-        intent.setFlags(268435456);
-        int i10 = getApplicationInfo().targetSdkVersion;
-        if (m.o() && i10 >= 24) {
-            intent.addFlags(1);
-        }
-        intent.setDataAndType(z10, "application/vnd.android.package-archive");
-        startActivity(intent);
-    }
-
-    public final void C4(int i10) {
-        if (i10 == 2 || (i10 < 0 && this.N.contains("statusBarStyle=2"))) {
-            com.gyf.immersionbar.d.q3(this).W0(BarHide.FLAG_HIDE_STATUS_BAR).a1();
-            return;
-        }
-        com.gyf.immersionbar.d q32 = com.gyf.immersionbar.d.q3(this);
-        boolean z10 = true;
-        if (i10 != 1 && (i10 >= 0 || !this.N.contains("statusBarStyle=1"))) {
-            z10 = false;
-        }
-        q32.T2(z10).a1();
-    }
-
-    @Override // com.martian.libmars.widget.MTWebView.c
-    public void D(String str) {
-        z3(str);
-    }
-
-    public boolean D3() {
-        return this.P || this.N.contains("hideNaviBar=1");
-    }
-
-    /* renamed from: D4 */
-    public void p4(String str) {
-        new Thread(new Runnable() { // from class: d9.m
-
-            /* renamed from: c */
-            public final /* synthetic */ String f25358c;
-
-            public /* synthetic */ m(String str2) {
-                str = str2;
-            }
-
-            @Override // java.lang.Runnable
-            public final void run() {
-                WebViewActivity.this.q4(str);
-            }
-        }).start();
-    }
-
-    @Override // com.martian.libmars.widget.MTWebView.c
-    public void E(WebView webView, String str, boolean z10) {
-    }
-
-    public void E3(String str, String str2, String str3, String str4) {
-    }
-
-    @Override // com.martian.libmars.widget.MTWebView.c
-    public boolean F(WebView webView, String str, String str2) {
-        return false;
-    }
-
-    public void F3() {
-        runOnUiThread(new Runnable() { // from class: d9.t
-            public /* synthetic */ t() {
-            }
-
-            @Override // java.lang.Runnable
-            public final void run() {
-                WebViewActivity.this.k4();
-            }
-        });
-    }
-
-    public void G3(boolean z10) {
-    }
-
-    public void H3(String str, String str2, int i10, String str3, String str4) {
-    }
-
-    public void I3() {
-    }
-
-    @Override // com.martian.libmars.widget.MTWebView.c
-    public void J(String str, String str2, String str3) {
-        k0.d(this, str, str2, str3, new k0.a() { // from class: d9.n
-            public /* synthetic */ n() {
-            }
-
-            @Override // l9.k0.a
-            public final void a(String str4, String str5) {
-                WebViewActivity.this.o4(str4, str5);
-            }
-        }, this.O);
-    }
-
-    @Override // com.martian.libmars.activity.RetryLoadingActivity
-    public void J2() {
-    }
-
-    public void J3() {
-    }
-
-    @Override // com.martian.libmars.widget.MTWebView.c
-    public void K0(ValueCallback<Uri> valueCallback, String str, String str2) {
-        G1(new a(valueCallback));
-        i0.H0(this, "选择图片", "从相册选择", "拍照选择", false, new b(valueCallback));
-    }
-
-    public void K3() {
-    }
-
-    @Override // com.martian.libmars.widget.MTWebView.c
-    public void L(int i10, String str, String str2) {
-        this.M.setRefreshing(false);
-    }
-
-    public void L3() {
-    }
-
-    public void M3() {
-    }
-
-    @Override // com.martian.libmars.widget.MTWebView.c
-    public void N0(String str) {
-        this.M.setRefreshing(false);
-        if (this.T) {
-            finish();
-        }
-    }
-
-    public void N3() {
-    }
-
-    public boolean O3(String str, String str2) {
-        return false;
-    }
-
-    public void P3(boolean z10) {
-    }
-
-    public void Q3() {
-    }
-
-    public void R3(String str, String str2) {
-    }
-
-    @Override // com.martian.libmars.widget.MTWebView.c
-    public void S0(WebView webView, ValueCallback<Uri[]> valueCallback, WebChromeClient.FileChooserParams fileChooserParams) {
-        G1(new c(valueCallback));
-        y1(valueCallback);
-    }
-
-    public void S3(String str, String str2, int i10, String str3, String str4) {
-    }
-
-    public void T3(String str) {
-    }
-
-    public void U3(String str) {
-    }
-
-    @Override // com.martian.libmars.widget.MTWebView.c
-    public void V(WebView webView, int i10) {
-        if (i10 == 100) {
-            B4();
-        }
-    }
-
-    public void V3(String str, String str2) {
-    }
-
-    public void W3() {
-    }
-
-    public void X3(int i10, String str, long j10, int i11) {
-    }
-
-    public void Y3(String str, String str2) {
-    }
-
-    public void Z3(String str, boolean z10) {
-    }
-
-    public void a4(int i10, int i11, String str, String str2) {
-    }
-
-    @Override // com.martian.libmars.widget.MTWebView.c
-    public void b(WebView webView, String str) {
-        t2(ConfigSingleton.D().s(str));
-        if (this.R == null || B2() == null) {
-            return;
-        }
-        if (D3()) {
-            B2().setAlpha(0.0f);
-        } else if (this.L.canGoBack()) {
-            this.R.f12255c.setText(ConfigSingleton.D().s(str));
-            B2().setAlpha(0.0f);
-        } else {
-            B2().setText(ConfigSingleton.D().s(str));
-            B2().setAlpha(1.0f);
-        }
-    }
-
-    public void b4(String str) {
-    }
-
-    @Override // com.martian.libmars.widget.MTWebView.c
-    public void c0(String str, Bitmap bitmap) {
-        if (this.M.isRefreshing()) {
-            return;
-        }
-        this.M.setRefreshing(true);
-    }
-
-    public void c4(String str) {
-    }
-
-    public void d4(String str, String str2, String str3) {
-    }
-
-    public void e4() {
-    }
-
-    public void f4() {
-    }
-
-    public void g4(String str) {
-    }
-
-    public final void h4() {
+    private void B3() {
         try {
             Intent intent = new Intent("android.settings.APPLICATION_DETAILS_SETTINGS");
             intent.setData(Uri.parse("package:com.android.providers.downloads"));
@@ -1446,426 +821,243 @@ public class WebViewActivity extends RetryLoadingActivity implements MTWebView.c
         }
     }
 
-    public final /* synthetic */ void i4(String str, DialogInterface dialogInterface, int i10) {
-        P1("开始下载");
-        DownLoadService.startActionFoo(this, str);
+    /* renamed from: C3 */
+    public /* synthetic */ void D3(final String url, DialogInterface dialog, int which) {
+        k1("开始下载");
+        DownLoadService.startActionFoo(this, url);
     }
 
-    public final /* synthetic */ void k4() {
-        this.L.loadUrl("javascript:autoLotteryDraw()");
+    static /* synthetic */ void E3(DialogInterface dialog, int which) {
     }
 
-    public final /* synthetic */ void m4() {
-        MTWebView mTWebView = this.L;
-        String url = mTWebView.getUrl();
-        Objects.requireNonNull(url);
-        mTWebView.loadUrl(url);
+    /* renamed from: F3 */
+    public /* synthetic */ void G3() {
+        this.X.loadUrl("javascript:autoLotteryDraw()");
     }
 
-    public final /* synthetic */ void n4() {
-        d3(false);
-        C4(-1);
+    /* renamed from: J3 */
+    public /* synthetic */ void K3() {
+        k1("保存失败");
     }
 
-    public final /* synthetic */ void o4(String str, String str2) {
-        P1("已开始下载" + str);
-    }
-
-    @Override // com.martian.libmars.activity.RetryLoadingActivity
-    public void onBackClick(View view) {
-        MTWebView mTWebView = this.L;
-        if (mTWebView == null || !mTWebView.canGoBack()) {
-            finish();
-        } else {
-            this.L.goBack();
+    /* renamed from: L3 */
+    public /* synthetic */ boolean M3(View v) {
+        if (com.martian.libmars.d.h.F().F0() || !com.martian.libmars.d.h.F().h1()) {
+            return true;
         }
-    }
-
-    public void onCloseClick(View view) {
-        finish();
-    }
-
-    @Override // com.martian.libmars.activity.RetryLoadingActivity, com.martian.libmars.activity.MartianActivity, com.martian.libmars.activity.BaseActivity, me.imid.swipebacklayout.lib.app.SwipeBackActivity, androidx.fragment.app.FragmentActivity, androidx.activity.ComponentActivity, androidx.core.app.ComponentActivity, android.app.Activity
-    public void onCreate(Bundle bundle) {
-        super.onCreate(bundle);
-        setContentView(R.layout.libmars_webview_activity);
-        Y2(false);
-        c3(true);
-        MTWebView mTWebView = (MTWebView) findViewById(R.id.libmars_webview);
-        this.L = mTWebView;
-        mTWebView.setOnPageStateChangedListener(this);
-        this.L.setOnLongClickListener(new View.OnLongClickListener() { // from class: d9.q
-            public /* synthetic */ q() {
-            }
-
-            @Override // android.view.View.OnLongClickListener
-            public final boolean onLongClick(View view) {
-                boolean l42;
-                l42 = WebViewActivity.this.l4(view);
-                return l42;
-            }
-        });
-        new d(this.L);
-        B3();
-        VerticalSwipeRefreshLayout verticalSwipeRefreshLayout = (VerticalSwipeRefreshLayout) findViewById(R.id.swipe_container);
-        this.M = verticalSwipeRefreshLayout;
-        verticalSwipeRefreshLayout.setColorSchemeResources(R.color.colorPrimary);
-        this.M.setRefreshing(true);
-        this.M.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() { // from class: d9.r
-            public /* synthetic */ r() {
-            }
-
-            @Override // androidx.swiperefreshlayout.widget.SwipeRefreshLayout.OnRefreshListener
-            public final void onRefresh() {
-                WebViewActivity.this.m4();
-            }
-        });
-        this.S = (FrameLayout) findViewById(R.id.banner_ads);
-        if (bundle != null) {
-            this.N = bundle.getString("LIBMARS_INTENT_WEBVIEW_URL");
-            this.O = bundle.getBoolean("LIBMARS_INTENT_DOWNLOAD_HINT", true);
-            this.Q = bundle.getString("INTENT_WEBVIEW_URL_REFERER");
-            this.P = bundle.getBoolean("INTENT_FULLSCREEN", false);
-            this.T = bundle.getBoolean(W, false);
-        } else {
-            this.N = q1("LIBMARS_INTENT_WEBVIEW_URL");
-            this.O = d1("LIBMARS_INTENT_DOWNLOAD_HINT", true);
-            this.Q = q1("INTENT_WEBVIEW_URL_REFERER");
-            this.P = d1("INTENT_FULLSCREEN", false);
-            this.T = d1(W, false);
-        }
-        ViewStub A2 = A2();
-        A2.setLayoutResource(R.layout.layout_webview_actionbar);
-        this.R = LayoutWebviewActionbarBinding.a(A2.inflate());
-        if (TextUtils.isEmpty(this.N)) {
-            P1("无效的URL");
-            finish();
-            return;
-        }
-        if (l.q(this.Q)) {
-            this.L.loadUrl(this.N);
-        }
-        if (D3()) {
-            V2();
-            this.L.post(new Runnable() { // from class: d9.s
-                public /* synthetic */ s() {
-                }
-
-                @Override // java.lang.Runnable
-                public final void run() {
-                    WebViewActivity.this.n4();
-                }
-            });
-        }
-    }
-
-    @Override // com.martian.libmars.activity.MartianActivity, com.martian.libmars.activity.BaseActivity, androidx.appcompat.app.AppCompatActivity, androidx.fragment.app.FragmentActivity, android.app.Activity
-    public void onDestroy() {
-        super.onDestroy();
-        MTWebView mTWebView = this.L;
-        if (mTWebView != null) {
-            mTWebView.destroy();
-        }
-    }
-
-    @Override // com.martian.libmars.activity.BaseActivity, androidx.appcompat.app.AppCompatActivity, android.app.Activity, android.view.KeyEvent.Callback
-    public boolean onKeyDown(int i10, KeyEvent keyEvent) {
-        if (i10 != 4 || !this.L.canGoBack()) {
-            return super.onKeyDown(i10, keyEvent);
-        }
-        this.L.goBack();
-        return true;
-    }
-
-    @Override // com.martian.libmars.widget.MTWebView.c
-    public void onReceivedSslError(WebView webView, SslErrorHandler sslErrorHandler, SslError sslError) {
-    }
-
-    @Override // androidx.activity.ComponentActivity, androidx.core.app.ComponentActivity, android.app.Activity
-    public void onSaveInstanceState(@NonNull Bundle bundle) {
-        super.onSaveInstanceState(bundle);
-        this.L.saveState(bundle);
-        bundle.putString("LIBMARS_INTENT_WEBVIEW_URL", this.N);
-        bundle.putBoolean("LIBMARS_INTENT_DOWNLOAD_HINT", this.O);
-        bundle.putString("INTENT_WEBVIEW_URL_REFERER", this.Q);
-        bundle.putBoolean("INTENT_FULLSCREEN", this.P);
-        bundle.putBoolean(W, this.T);
-    }
-
-    @Override // com.martian.libmars.widget.MTWebView.c
-    public void onScrollChanged(int i10, int i11, int i12, int i13) {
-        this.M.setEnabled(this.L.getScrollY() == 0);
-    }
-
-    public final /* synthetic */ void q4(String str) {
-        try {
-            URLConnection openConnection = new URL(str).openConnection();
-            int contentLength = ((HttpURLConnection) openConnection).getContentLength();
-            openConnection.connect();
-            InputStream inputStream = openConnection.getInputStream();
-            BufferedInputStream bufferedInputStream = new BufferedInputStream(inputStream, contentLength);
-            Bitmap decodeStream = BitmapFactory.decodeStream(bufferedInputStream);
-            bufferedInputStream.close();
-            inputStream.close();
-            if (decodeStream != null) {
-                runOnUiThread(new Runnable() { // from class: d9.o
-
-                    /* renamed from: c */
-                    public final /* synthetic */ Bitmap f25372c;
-
-                    public /* synthetic */ o(Bitmap decodeStream2) {
-                        decodeStream = decodeStream2;
-                    }
-
-                    @Override // java.lang.Runnable
-                    public final void run() {
-                        WebViewActivity.this.r4(decodeStream);
-                    }
-                });
-            }
-        } catch (Exception e10) {
-            runOnUiThread(new Runnable() { // from class: d9.p
-                public /* synthetic */ p() {
-                }
-
-                @Override // java.lang.Runnable
-                public final void run() {
-                    WebViewActivity.this.s4();
-                }
-            });
-            e10.printStackTrace();
-        }
-    }
-
-    public final /* synthetic */ void s4() {
-        P1("保存失败");
-    }
-
-    @Override // com.martian.libmars.widget.MTWebView.c
-    public boolean shouldOverrideUrlLoading(WebView webView, String str) {
-        if (l.q(str) || !str.contains("playmy") || !str.contains("Wall_Adinfo")) {
+        WebView.HitTestResult hitTestResult = this.X.getHitTestResult();
+        if (hitTestResult == null || hitTestResult.getType() != 5) {
             return false;
         }
-        WowanDetailActivity.startWebViewActivity(this, str);
-        return true;
+        Y3(hitTestResult.getExtra());
+        return false;
     }
 
-    @Override // com.martian.libmars.activity.BaseActivity
-    public void startActivityForResult(Class<? extends Activity> cls, Bundle bundle, int i10) {
-        if (ConfigSingleton.D().V0()) {
-            super.startActivityForResult(cls, bundle, i10);
-        }
+    /* renamed from: N3 */
+    public /* synthetic */ void O3() {
+        MTWebView mTWebView = this.X;
+        mTWebView.loadUrl(mTWebView.getUrl());
     }
 
-    @Override // androidx.activity.ComponentActivity, android.app.Activity
-    public void startIntentSenderForResult(IntentSender intentSender, int i10, @Nullable Intent intent, int i11, int i12, int i13) throws IntentSender.SendIntentException {
-        if (ConfigSingleton.D().V0()) {
-            super.startIntentSenderForResult(intentSender, i10, intent, i11, i12, i13);
-        }
+    /* renamed from: P3 */
+    public /* synthetic */ void Q3() {
+        I2(false);
+        f4(-1);
     }
 
-    public final boolean t4(Intent intent) {
-        if (intent == null || intent.getData() == null) {
-            return true;
-        }
-        String scheme = intent.getData().getScheme();
-        if (l.q(scheme)) {
-            return true;
-        }
-        return (scheme.equalsIgnoreCase("ttbook") || scheme.equalsIgnoreCase("tfbook") || scheme.equalsIgnoreCase("qmbook") || scheme.equalsIgnoreCase("qdbook")) ? false : true;
-    }
-
-    public final void u4(String str) {
-        if (l.q(str)) {
-            return;
-        }
-        i0.z0(this, "确认信息", "保存这张图片？", new i0.l() { // from class: d9.w
-
-            /* renamed from: b */
-            public final /* synthetic */ String f25391b;
-
-            public /* synthetic */ w(String str2) {
-                str = str2;
-            }
-
-            @Override // l9.i0.l
-            public final void a() {
-                WebViewActivity.this.p4(str);
-            }
-        });
-    }
-
-    /* renamed from: v4 */
-    public void r4(Bitmap bitmap) {
-        File file = new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES), "Boohee");
-        if (file.exists() || file.mkdir()) {
-            File file2 = new File(file, System.currentTimeMillis() + ".jpg");
-            try {
-                FileOutputStream fileOutputStream = new FileOutputStream(file2);
-                bitmap.compress(Bitmap.CompressFormat.JPEG, 100, fileOutputStream);
-                fileOutputStream.flush();
-                fileOutputStream.close();
-                P1("图片已保存到相册");
-            } catch (FileNotFoundException e10) {
-                P1("保存失败");
-                e10.printStackTrace();
-            } catch (IOException e11) {
-                P1("保存失败");
-                e11.printStackTrace();
-            }
-            sendBroadcast(new Intent("android.intent.action.MEDIA_SCANNER_SCAN_FILE", Uri.parse("file://" + file2.getAbsolutePath())));
-        }
-    }
-
-    public void w4(int i10) {
-        LayoutWebviewActionbarBinding layoutWebviewActionbarBinding = this.R;
-        if (layoutWebviewActionbarBinding != null) {
-            layoutWebviewActionbarBinding.f12254b.setColorFilter(ContextCompat.getColor(this, i10));
-        }
-    }
-
-    public final boolean x3() {
+    private boolean R2() {
         try {
             int applicationEnabledSetting = getPackageManager().getApplicationEnabledSetting("com.android.providers.downloads");
             return (applicationEnabledSetting == 2 || applicationEnabledSetting == 3 || applicationEnabledSetting == 4) ? false : true;
-        } catch (Exception e10) {
-            e10.printStackTrace();
+        } catch (Exception e2) {
+            e2.printStackTrace();
             return false;
         }
     }
 
-    public void x4(int i10) {
-        LayoutWebviewActionbarBinding layoutWebviewActionbarBinding = this.R;
-        if (layoutWebviewActionbarBinding != null) {
-            layoutWebviewActionbarBinding.f12255c.setBackgroundColor(ContextCompat.getColor(this, i10));
-        }
+    /* renamed from: R3 */
+    public /* synthetic */ void S3(String name, String url1) {
+        k1("已开始下载" + name);
     }
 
-    public final void y3(String str, String str2) {
-        boolean z10;
-        int columnIndex;
+    public void S2(final String url, String apkName) {
+        boolean z;
         Cursor query = ((DownloadManager) getSystemService("download")).query(new DownloadManager.Query());
         while (true) {
-            z10 = false;
-            try {
-                try {
-                    if (!query.moveToNext()) {
-                        break;
-                    }
-                    int columnIndex2 = query.getColumnIndex("uri");
-                    if (columnIndex2 < 0) {
-                        query.close();
-                        return;
-                    }
-                    if (str.equals(query.getString(columnIndex2))) {
-                        try {
-                            columnIndex = query.getColumnIndex("status");
-                        } catch (Exception unused) {
-                        }
-                        if (columnIndex < 0) {
-                            query.close();
-                            return;
-                        }
-                        int i10 = query.getInt(columnIndex);
-                        if (i10 == 1 || i10 == 2 || i10 == 4) {
-                            int columnIndex3 = query.getColumnIndex("bytes_so_far");
-                            int columnIndex4 = query.getColumnIndex("total_size");
-                            if (columnIndex3 >= 0 && columnIndex4 >= 0) {
-                                t0.b(this, "正在下载，已完成" + ((int) ((query.getInt(columnIndex3) * 100) / query.getInt(columnIndex4))) + "%");
-                            }
-                            return;
-                        }
-                        if (i10 == 8) {
-                            if (TextUtils.isEmpty(str2)) {
-                                query.close();
-                                return;
-                            } else {
-                                File file = new File(ba.b.i(), str2);
+            z = false;
+            if (!query.moveToNext()) {
+                break;
+            }
+            if (url.equals(query.getString(query.getColumnIndex("uri")))) {
+                int i2 = query.getInt(query.getColumnIndex("status"));
+                if (i2 != 1) {
+                    if (i2 != 2) {
+                        if (i2 != 4) {
+                            if (i2 == 8) {
+                                com.martian.libmars.utils.q0.f("DownLoadService", ">>>下载完成");
+                                StringBuilder sb = new StringBuilder();
+                                sb.append(Environment.getExternalStorageDirectory().getAbsolutePath());
+                                String str = File.separator;
+                                sb.append(str);
+                                sb.append("51xianwan");
+                                sb.append(str);
+                                sb.append(apkName);
+                                File file = new File(sb.toString());
                                 if (file.exists()) {
-                                    C3(file);
+                                    Z2(file, apkName);
                                 }
+                            } else if (i2 == 16) {
+                                Log.i("DownLoadService", ">>>下载失败");
                             }
+                            z = true;
+                        } else {
+                            com.martian.libmars.utils.q0.f("DownLoadService", ">>>下载暂停");
                         }
-                        z10 = true;
                     }
-                } finally {
-                    query.close();
+                    Toast.makeText(this, "正在下载，已完成" + ((int) ((query.getInt(query.getColumnIndex("bytes_so_far")) * 100) / query.getInt(query.getColumnIndex("total_size")))) + "%", 0).show();
+                    com.martian.libmars.utils.q0.f("DownLoadService", ">>>正在下载");
+                    z = true;
                 }
-            } catch (Exception unused2) {
+                com.martian.libmars.utils.q0.f("DownLoadService", ">>>下载延迟");
+                Toast.makeText(this, "正在下载，已完成" + ((int) ((query.getInt(query.getColumnIndex("bytes_so_far")) * 100) / query.getInt(query.getColumnIndex("total_size")))) + "%", 0).show();
+                com.martian.libmars.utils.q0.f("DownLoadService", ">>>正在下载");
+                z = true;
             }
         }
         query.close();
-        if (z10) {
+        if (z) {
             return;
         }
-        if (!x3()) {
-            h4();
+        if (!R2()) {
+            B3();
             return;
         }
         XianWanSystemUtil.NetState netWorkType = XianWanSystemUtil.getNetWorkType(getApplicationContext());
         if (netWorkType == XianWanSystemUtil.NetState.NET_NO) {
-            P1("现在还没有网哦！");
+            k1("现在还没有网哦！");
             return;
         }
-        if (netWorkType != XianWanSystemUtil.NetState.NET_MOBILE) {
-            P1("开始下载");
-            DownLoadService.startActionFoo(this, str);
+        if (netWorkType == XianWanSystemUtil.NetState.NET_MOBILE) {
+            AlertDialog.Builder builder = new AlertDialog.Builder(this);
+            builder.setTitle("温馨提醒");
+            builder.setMessage("您现在使用的是非WiFi流量,是否继续?");
+            builder.setPositiveButton("继续下载", new DialogInterface.OnClickListener() { // from class: com.martian.libmars.activity.o
+                @Override // android.content.DialogInterface.OnClickListener
+                public final void onClick(DialogInterface dialogInterface, int i3) {
+                    WebViewActivity.this.D3(url, dialogInterface, i3);
+                }
+            });
+            builder.setNegativeButton("取消", new DialogInterface.OnClickListener() { // from class: com.martian.libmars.activity.v0
+                @Override // android.content.DialogInterface.OnClickListener
+                public final void onClick(DialogInterface dialogInterface, int i3) {
+                    WebViewActivity.E3(dialogInterface, i3);
+                }
+            });
+            builder.show();
             return;
         }
-        AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        builder.setTitle("温馨提醒");
-        builder.setMessage("您现在使用的是非WiFi流量,是否继续?");
-        builder.setPositiveButton("继续下载", new DialogInterface.OnClickListener() { // from class: d9.u
-
-            /* renamed from: c */
-            public final /* synthetic */ String f25387c;
-
-            public /* synthetic */ u(String str3) {
-                str = str3;
-            }
-
-            @Override // android.content.DialogInterface.OnClickListener
-            public final void onClick(DialogInterface dialogInterface, int i11) {
-                WebViewActivity.this.i4(str, dialogInterface, i11);
-            }
-        });
-        builder.setNegativeButton("取消", new DialogInterface.OnClickListener() { // from class: d9.v
-            @Override // android.content.DialogInterface.OnClickListener
-            public final void onClick(DialogInterface dialogInterface, int i11) {
-                WebViewActivity.j4(dialogInterface, i11);
-            }
-        });
-        builder.show();
+        StringBuilder sb2 = new StringBuilder();
+        sb2.append(Environment.getExternalStorageDirectory().getAbsolutePath());
+        String str2 = File.separator;
+        sb2.append(str2);
+        sb2.append("51xianwan");
+        sb2.append(str2);
+        sb2.append(apkName);
+        new File(sb2.toString());
+        k1("开始下载");
+        DownLoadService.startActionFoo(this, url);
     }
 
-    public void y4(int i10) {
-        LayoutWebviewActionbarBinding layoutWebviewActionbarBinding = this.R;
-        if (layoutWebviewActionbarBinding != null) {
-            layoutWebviewActionbarBinding.f12255c.setTextColor(ContextCompat.getColor(this, i10));
+    private void T2(String filePath, String apkName) {
+        Z2(new File(filePath), apkName);
+    }
+
+    public static String V2(String url) {
+        String str;
+        if (url.isEmpty()) {
+            return "";
+        }
+        if (!url.startsWith("http://") && !url.startsWith("https://")) {
+            url = "http://" + url;
+        }
+        try {
+            str = new URI(url).getHost();
+        } catch (Exception unused) {
+            str = "";
+        }
+        return (str.endsWith(".html") || str.endsWith(".htm")) ? "" : str;
+    }
+
+    /* renamed from: V3 */
+    public /* synthetic */ void W3(final String url) {
+        try {
+            URLConnection openConnection = new URL(url).openConnection();
+            int contentLength = ((HttpURLConnection) openConnection).getContentLength();
+            openConnection.connect();
+            InputStream inputStream = openConnection.getInputStream();
+            BufferedInputStream bufferedInputStream = new BufferedInputStream(inputStream, contentLength);
+            final Bitmap decodeStream = BitmapFactory.decodeStream(bufferedInputStream);
+            bufferedInputStream.close();
+            inputStream.close();
+            if (decodeStream != null) {
+                runOnUiThread(new Runnable() { // from class: com.martian.libmars.activity.j
+                    @Override // java.lang.Runnable
+                    public final void run() {
+                        WebViewActivity.this.I3(decodeStream);
+                    }
+                });
+            }
+        } catch (Exception e2) {
+            runOnUiThread(new Runnable() { // from class: com.martian.libmars.activity.n
+                @Override // java.lang.Runnable
+                public final void run() {
+                    WebViewActivity.this.K3();
+                }
+            });
+            e2.printStackTrace();
         }
     }
 
-    public void z3(String str) {
+    private boolean X3(Intent intent) {
+        if (intent == null || intent.getData() == null) {
+            return true;
+        }
+        String scheme = intent.getData().getScheme();
+        if (com.martian.libsupport.k.p(scheme)) {
+            return true;
+        }
+        return (scheme.equalsIgnoreCase("ttbook") || scheme.equalsIgnoreCase("tfbook") || scheme.equalsIgnoreCase("qmbook")) ? false : true;
     }
 
-    public final void z4(String str) {
-        PackageInfo packageInfo;
-        if (TextUtils.isEmpty(str)) {
+    private void Y3(final String url) {
+        if (com.martian.libsupport.k.p(url)) {
+            return;
+        }
+        com.martian.libmars.utils.k0.P(this, "确认信息", "保存这张图片？", new k0.l() { // from class: com.martian.libmars.activity.l
+            @Override // com.martian.libmars.utils.k0.l
+            public final void a() {
+                WebViewActivity.this.U3(url);
+            }
+        });
+    }
+
+    public void b4(String packageName) {
+        if (TextUtils.isEmpty(packageName)) {
             return;
         }
         PackageManager packageManager = getPackageManager();
+        PackageInfo packageInfo = null;
         try {
-            packageInfo = getPackageManager().getPackageInfo(str, 0);
-        } catch (PackageManager.NameNotFoundException e10) {
-            e10.printStackTrace();
-            packageInfo = null;
+            packageInfo = getPackageManager().getPackageInfo(packageName, 0);
+        } catch (PackageManager.NameNotFoundException e2) {
+            e2.printStackTrace();
         }
         if (packageInfo == null) {
             return;
         }
-        Intent launchIntentForPackage = packageManager.getLaunchIntentForPackage(str);
+        Intent launchIntentForPackage = packageManager.getLaunchIntentForPackage(packageName);
         if (launchIntentForPackage == null) {
-            t0.b(this, "手机还未安装该应用");
+            Toast.makeText(this, "手机还未安装该应用", 0).show();
             return;
         }
         launchIntentForPackage.addCategory("android.intent.category.LAUNCHER");
@@ -1873,31 +1065,454 @@ public class WebViewActivity extends RetryLoadingActivity implements MTWebView.c
         startActivity(launchIntentForPackage);
     }
 
-    @Override // com.martian.libmars.activity.BaseActivity
-    public void startActivityForResult(Class<? extends Activity> cls, int i10) {
-        if (ConfigSingleton.D().V0()) {
-            super.startActivityForResult(cls, i10);
+    public static void c4(Activity activity, String url, boolean downloadHint) {
+        com.martian.libmars.utils.q0.e(url);
+        Bundle bundle = new Bundle();
+        bundle.putString(Q, url);
+        bundle.putBoolean(S, downloadHint);
+        Intent intent = new Intent(activity, (Class<?>) WebViewActivity.class);
+        intent.putExtras(bundle);
+        activity.startActivity(intent);
+    }
+
+    public static void d4(j1 activity, String url, boolean downloadHint, int requestCode) {
+        Bundle bundle = new Bundle();
+        bundle.putString(Q, url);
+        bundle.putBoolean(S, downloadHint);
+        activity.startActivityForResult(WebViewActivity.class, bundle, requestCode);
+    }
+
+    public void f4(final int style) {
+        if (style == 2 || (style < 0 && this.Z.contains("statusBarStyle=2"))) {
+            ImmersionBar.with(this).hideBar(BarHide.FLAG_HIDE_STATUS_BAR).init();
+            return;
+        }
+        ImmersionBar with = ImmersionBar.with(this);
+        boolean z = true;
+        if (style != 1 && (style >= 0 || !this.Z.contains("statusBarStyle=1"))) {
+            z = false;
+        }
+        with.statusBarDarkFont(z).init();
+    }
+
+    protected void A3(String wxAppid) {
+    }
+
+    public void U2(String url) {
+    }
+
+    public MTWebView W2() {
+        return this.X;
+    }
+
+    public String X2() {
+        return this.Z;
+    }
+
+    @SuppressLint({"SetJavaScriptEnabled", "AddJavascriptInterface"})
+    protected void Y2() {
+        e eVar = new e();
+        if (com.martian.libsupport.l.n()) {
+            this.X.addJavascriptInterface(eVar, eVar.toString());
         }
     }
 
-    @Override // androidx.activity.ComponentActivity, android.app.Activity
-    public void startIntentSenderForResult(IntentSender intentSender, int i10, @Nullable Intent intent, int i11, int i12, int i13, @Nullable Bundle bundle) throws IntentSender.SendIntentException {
-        if (ConfigSingleton.D().V0()) {
-            super.startIntentSenderForResult(intentSender, i10, intent, i11, i12, i13, bundle);
+    protected void Z2(File file, String apkName) {
+        if (file == null || !file.exists()) {
+            return;
+        }
+        Intent intent = new Intent("android.intent.action.VIEW");
+        Uri z = com.martian.libsupport.e.z(this, file);
+        if (z == null) {
+            return;
+        }
+        intent.setFlags(DownloadExpSwitchCode.BUGFIX_GETPACKAGEINFO_BY_UNZIP);
+        int i2 = getApplicationInfo().targetSdkVersion;
+        if (com.martian.libsupport.l.u() && i2 >= 24) {
+            intent.addFlags(1);
+        }
+        intent.setDataAndType(z, AdBaseConstants.MIME_APK);
+        startActivity(intent);
+    }
+
+    /* renamed from: Z3, reason: merged with bridge method [inline-methods] */
+    public void I3(Bitmap bmp) {
+        File file = new File(Environment.getExternalStorageDirectory(), "Boohee");
+        if (!file.exists()) {
+            file.mkdir();
+        }
+        File file2 = new File(file, System.currentTimeMillis() + ".jpg");
+        try {
+            FileOutputStream fileOutputStream = new FileOutputStream(file2);
+            bmp.compress(Bitmap.CompressFormat.JPEG, 100, fileOutputStream);
+            fileOutputStream.flush();
+            fileOutputStream.close();
+            k1("图片已保存到相册");
+        } catch (FileNotFoundException e2) {
+            k1("保存失败");
+            e2.printStackTrace();
+        } catch (IOException e3) {
+            k1("保存失败");
+            e3.printStackTrace();
+        }
+        sendBroadcast(new Intent("android.intent.action.MEDIA_SCANNER_SCAN_FILE", Uri.parse("file://" + file2.getAbsolutePath())));
+    }
+
+    protected boolean a3() {
+        return this.b0 || this.Z.contains("hideNaviBar=1");
+    }
+
+    public void a4(boolean enable) {
+        this.Y.setEnabled(enable);
+    }
+
+    protected void b3(String sourceName, String sourceId, String recommendId, String recommend) {
+    }
+
+    @Override // com.martian.libmars.widget.MTWebView.c
+    public void c(WebView view, String title) {
+        Z1(title);
+        if (this.f0 == null || this.g0 == null) {
+            return;
+        }
+        if (a3()) {
+            this.g0.setAlpha(0.0f);
+        } else if (this.X.canGoBack()) {
+            this.f0.setText(title);
+            this.g0.setAlpha(0.0f);
+        } else {
+            this.g0.setText(title);
+            this.g0.setAlpha(1.0f);
         }
     }
 
-    @Override // androidx.activity.ComponentActivity, android.app.Activity
-    public void startActivityForResult(Intent intent, int i10) {
-        if (ConfigSingleton.D().V0() || !t4(intent)) {
-            super.startActivityForResult(intent, i10);
+    public void c3() {
+        runOnUiThread(new Runnable() { // from class: com.martian.libmars.activity.k
+            @Override // java.lang.Runnable
+            public final void run() {
+                WebViewActivity.this.G3();
+            }
+        });
+    }
+
+    protected void d3(final boolean open) {
+    }
+
+    protected void e3(String position, String adsId, int reward, String rewardName, String rewardExtra) {
+    }
+
+    protected void e4() {
+        ViewStub viewStub = this.d0;
+        if (viewStub != null) {
+            viewStub.setVisibility((a3() || !this.X.canGoBack()) ? 8 : 0);
         }
     }
 
-    @Override // androidx.activity.ComponentActivity, android.app.Activity
-    public void startActivityForResult(Intent intent, int i10, @Nullable Bundle bundle) {
-        if (ConfigSingleton.D().V0() || !t4(intent)) {
-            super.startActivityForResult(intent, i10, bundle);
+    protected void f3() {
+    }
+
+    @Override // com.martian.libmars.widget.MTWebView.c
+    public void g(String url) {
+        U2(url);
+    }
+
+    protected void g3() {
+    }
+
+    /* renamed from: g4, reason: merged with bridge method [inline-methods] */
+    public void U3(final String url) {
+        new Thread(new Runnable() { // from class: com.martian.libmars.activity.w0
+            @Override // java.lang.Runnable
+            public final void run() {
+                WebViewActivity.this.W3(url);
+            }
+        }).start();
+    }
+
+    @Override // com.martian.libmars.widget.MTWebView.c
+    public void h(WebView view, String deeplink, boolean canHandle) {
+    }
+
+    protected void h3() {
+    }
+
+    @Override // com.martian.libmars.widget.MTWebView.c
+    public boolean i(WebView view, String url, String message) {
+        return false;
+    }
+
+    protected void i3() {
+    }
+
+    protected void j3() {
+    }
+
+    @Override // com.martian.libmars.widget.MTWebView.c
+    public void k(String url, String contentDisposition, String mimetype) {
+        com.martian.libmars.utils.l0.f(this, url, contentDisposition, mimetype, new l0.a() { // from class: com.martian.libmars.activity.y0
+            @Override // com.martian.libmars.utils.l0.a
+            public final void a(String str, String str2) {
+                WebViewActivity.this.S3(str, str2);
+            }
+        }, this.a0);
+    }
+
+    protected void k3() {
+    }
+
+    @Override // com.martian.libmars.widget.MTWebView.c
+    public void l(int errorCode, String description, String failingUrl) {
+        this.Y.setRefreshing(false);
+    }
+
+    protected boolean l3(String sourceName, String sourceId) {
+        return false;
+    }
+
+    protected void m3(boolean loginDirectly) {
+    }
+
+    @Override // com.martian.libmars.activity.k1
+    public void n2() {
+    }
+
+    protected void n3() {
+    }
+
+    protected void o3(String key, String value) {
+    }
+
+    @Override // com.martian.libmars.activity.k1
+    public void onBackClick(View view) {
+        MTWebView mTWebView = this.X;
+        if (mTWebView == null || !mTWebView.canGoBack()) {
+            finish();
+        } else {
+            this.X.goBack();
+        }
+    }
+
+    public void onCloseClick(View view) {
+        finish();
+    }
+
+    @Override // com.martian.libmars.activity.k1, com.martian.libmars.activity.j1, com.martian.libmars.activity.h1, me.imid.swipebacklayout.lib.d.a, androidx.appcompat.app.AppCompatActivity, androidx.fragment.app.FragmentActivity, androidx.activity.ComponentActivity, androidx.core.app.ComponentActivity, android.app.Activity
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.libmars_webview_activity);
+        C2(false);
+        H2(true);
+        MTWebView mTWebView = (MTWebView) findViewById(R.id.libmars_webview);
+        this.X = mTWebView;
+        mTWebView.setOnPageStateChangedListener(this);
+        this.X.setOnLongClickListener(new View.OnLongClickListener() { // from class: com.martian.libmars.activity.m
+            @Override // android.view.View.OnLongClickListener
+            public final boolean onLongClick(View view) {
+                return WebViewActivity.this.M3(view);
+            }
+        });
+        new d(this.X);
+        Y2();
+        VerticalSwipeRefreshLayout verticalSwipeRefreshLayout = (VerticalSwipeRefreshLayout) findViewById(R.id.swipe_container);
+        this.Y = verticalSwipeRefreshLayout;
+        verticalSwipeRefreshLayout.setColorSchemeResources(R.color.colorPrimary);
+        this.Y.setRefreshing(true);
+        this.Y.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() { // from class: com.martian.libmars.activity.x0
+            @Override // androidx.swiperefreshlayout.widget.SwipeRefreshLayout.OnRefreshListener
+            public final void onRefresh() {
+                WebViewActivity.this.O3();
+            }
+        });
+        this.i0 = (FrameLayout) findViewById(R.id.banner_ads);
+        if (savedInstanceState != null) {
+            this.Z = savedInstanceState.getString(Q);
+            this.a0 = savedInstanceState.getBoolean(S, true);
+            this.c0 = savedInstanceState.getString(W);
+            this.b0 = savedInstanceState.getBoolean(U, false);
+        } else {
+            this.Z = G0(Q);
+            this.a0 = r0(S, true);
+            this.c0 = G0(W);
+            this.b0 = r0(U, false);
+        }
+        ViewStub viewStub = (ViewStub) findViewById(R.id.actionbar_container);
+        this.d0 = viewStub;
+        viewStub.setLayoutResource(R.layout.layout_webview_actionbar);
+        this.d0.setVisibility(0);
+        this.d0.setVisibility(8);
+        this.e0 = (ImageView) findViewById(R.id.actionbar_webview_close);
+        this.f0 = (TextView) findViewById(R.id.actionbar_webview_title);
+        this.g0 = (TextView) findViewById(R.id.actionbar_title);
+        this.h0 = (ImageView) findViewById(R.id.actionbar_back);
+        if (TextUtils.isEmpty(this.Z)) {
+            k1("无效的URL");
+            finish();
+            return;
+        }
+        if (com.martian.libsupport.k.p(this.c0)) {
+            this.X.loadUrl(this.Z);
+        }
+        if (a3()) {
+            z2();
+            new Handler().post(new Runnable() { // from class: com.martian.libmars.activity.p
+                @Override // java.lang.Runnable
+                public final void run() {
+                    WebViewActivity.this.Q3();
+                }
+            });
+        }
+    }
+
+    @Override // com.martian.libmars.activity.j1, com.martian.libmars.activity.h1, androidx.appcompat.app.AppCompatActivity, androidx.fragment.app.FragmentActivity, android.app.Activity
+    protected void onDestroy() {
+        super.onDestroy();
+        MTWebView mTWebView = this.X;
+        if (mTWebView != null) {
+            mTWebView.destroy();
+        }
+    }
+
+    @Override // com.martian.libmars.activity.h1, androidx.appcompat.app.AppCompatActivity, android.app.Activity, android.view.KeyEvent.Callback
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+        if (keyCode != 4 || !this.X.canGoBack()) {
+            return super.onKeyDown(keyCode, event);
+        }
+        this.X.goBack();
+        return true;
+    }
+
+    @Override // com.martian.libmars.widget.MTWebView.c
+    public void onPageFinished(String url) {
+        this.Y.setRefreshing(false);
+    }
+
+    @Override // com.martian.libmars.widget.MTWebView.c
+    public void onReceivedSslError(WebView view, final SslErrorHandler handler, SslError error) {
+    }
+
+    @Override // androidx.appcompat.app.AppCompatActivity, androidx.fragment.app.FragmentActivity, androidx.activity.ComponentActivity, androidx.core.app.ComponentActivity, android.app.Activity
+    protected void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+        this.X.saveState(outState);
+        outState.putString(Q, this.Z);
+        outState.putBoolean(S, this.a0);
+        outState.putString(W, this.c0);
+        outState.putBoolean(U, this.b0);
+    }
+
+    @Override // com.martian.libmars.widget.MTWebView.c
+    public void onScrollChanged(int l, int t, int oldl, int oldt) {
+        this.Y.setEnabled(this.X.getScrollY() == 0);
+    }
+
+    @Override // com.martian.libmars.widget.MTWebView.c
+    public void p(WebView view, int newProgress) {
+        if (newProgress == 100) {
+            e4();
+        }
+    }
+
+    protected void p3(String position, String adsId, int reward, String rewardName, String rewardExtra) {
+    }
+
+    @Override // com.martian.libmars.widget.MTWebView.c
+    public void q(String url, Bitmap favicon) {
+        if (this.Y.isRefreshing()) {
+            return;
+        }
+        this.Y.setRefreshing(true);
+    }
+
+    protected void q3(final String adsId) {
+    }
+
+    protected void r3(String adsId) {
+    }
+
+    protected void s3(String title, String extraBonus) {
+    }
+
+    @Override // com.martian.libmars.widget.MTWebView.c
+    public boolean shouldOverrideUrlLoading(WebView view, String url) {
+        if (com.martian.libsupport.k.p(url) || !url.contains("playmy") || !url.contains("Wall_Adinfo")) {
+            return false;
+        }
+        WowanDetailActivity.startWebViewActivity(this, url);
+        return true;
+    }
+
+    @Override // com.martian.libmars.activity.h1
+    public void startActivityForResult(Class<? extends Activity> clazz, Bundle bundle, int requestCode) {
+        if (com.martian.libmars.d.h.F().h1()) {
+            super.startActivityForResult(clazz, bundle, requestCode);
+        }
+    }
+
+    @Override // androidx.fragment.app.FragmentActivity, android.app.Activity
+    public void startIntentSenderForResult(IntentSender intent, int requestCode, @Nullable Intent fillInIntent, int flagsMask, int flagsValues, int extraFlags) throws IntentSender.SendIntentException {
+        if (com.martian.libmars.d.h.F().h1()) {
+            super.startIntentSenderForResult(intent, requestCode, fillInIntent, flagsMask, flagsValues, extraFlags);
+        }
+    }
+
+    @Override // com.martian.libmars.widget.MTWebView.c
+    public void t(final ValueCallback<Uri> callback, String acceptType, String capture) {
+        b1(new a(callback));
+        com.martian.libmars.utils.k0.X(this, "选择图片", "从相册选择", "拍照选择", false, new b());
+    }
+
+    protected void t3() {
+    }
+
+    @Override // com.martian.libmars.widget.MTWebView.c
+    public void u(WebView webView, final ValueCallback<Uri[]> uploadMsg, WebChromeClient.FileChooserParams fileChooserParams) {
+        b1(new c(uploadMsg));
+        S0();
+    }
+
+    protected void u3(int coins, String errMsg, long extraId, int extraCoins) {
+    }
+
+    protected void v3(String sourceName, String sourceId) {
+    }
+
+    protected void w3(String url, boolean fullscreen) {
+    }
+
+    protected void x3(int money, int method, String productId, String extra) {
+    }
+
+    protected void y3(String rechargeParams) {
+    }
+
+    protected void z3(String info) {
+    }
+
+    @Override // com.martian.libmars.activity.h1
+    public void startActivityForResult(Class<? extends Activity> clazz, int requestCode) {
+        if (com.martian.libmars.d.h.F().h1()) {
+            super.startActivityForResult(clazz, requestCode);
+        }
+    }
+
+    @Override // androidx.fragment.app.FragmentActivity, android.app.Activity
+    public void startIntentSenderForResult(IntentSender intent, int requestCode, @Nullable Intent fillInIntent, int flagsMask, int flagsValues, int extraFlags, @Nullable Bundle options) throws IntentSender.SendIntentException {
+        if (com.martian.libmars.d.h.F().h1()) {
+            super.startIntentSenderForResult(intent, requestCode, fillInIntent, flagsMask, flagsValues, extraFlags, options);
+        }
+    }
+
+    @Override // androidx.fragment.app.FragmentActivity, android.app.Activity
+    public void startActivityForResult(Intent intent, int requestCode) {
+        if (com.martian.libmars.d.h.F().h1() || !X3(intent)) {
+            super.startActivityForResult(intent, requestCode);
+        }
+    }
+
+    @Override // androidx.fragment.app.FragmentActivity, android.app.Activity
+    public void startActivityForResult(Intent intent, int requestCode, @Nullable Bundle options) {
+        if (com.martian.libmars.d.h.F().h1() || !X3(intent)) {
+            super.startActivityForResult(intent, requestCode, options);
         }
     }
 }

@@ -6,7 +6,7 @@ import com.bumptech.glide.load.Key;
 import java.nio.ByteBuffer;
 import java.security.MessageDigest;
 
-/* loaded from: classes2.dex */
+/* loaded from: classes.dex */
 public class MediaStoreSignature implements Key {
     private final long dateModified;
 
@@ -14,10 +14,10 @@ public class MediaStoreSignature implements Key {
     private final String mimeType;
     private final int orientation;
 
-    public MediaStoreSignature(@Nullable String str, long j10, int i10) {
+    public MediaStoreSignature(@Nullable String str, long j2, int i2) {
         this.mimeType = str == null ? "" : str;
-        this.dateModified = j10;
-        this.orientation = i10;
+        this.dateModified = j2;
+        this.orientation = i2;
     }
 
     @Override // com.bumptech.glide.load.Key
@@ -35,8 +35,8 @@ public class MediaStoreSignature implements Key {
     @Override // com.bumptech.glide.load.Key
     public int hashCode() {
         int hashCode = this.mimeType.hashCode() * 31;
-        long j10 = this.dateModified;
-        return ((hashCode + ((int) (j10 ^ (j10 >>> 32)))) * 31) + this.orientation;
+        long j2 = this.dateModified;
+        return ((hashCode + ((int) (j2 ^ (j2 >>> 32)))) * 31) + this.orientation;
     }
 
     @Override // com.bumptech.glide.load.Key

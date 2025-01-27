@@ -4,71 +4,62 @@ import android.view.View;
 import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 import androidx.viewpager.widget.PagerAdapter;
-import com.kwad.components.ad.interstitial.f.c;
+import com.kwad.components.ad.interstitial.c.c;
 import com.kwad.sdk.api.KsAdVideoPlayConfig;
 import com.kwad.sdk.api.KsInterstitialAd;
-import com.kwad.sdk.core.response.b.e;
-import com.kwad.sdk.core.response.model.AdResultData;
+import com.kwad.sdk.core.response.model.AdTemplate;
 import java.util.ArrayList;
 import java.util.List;
 
-/* loaded from: classes2.dex */
+/* loaded from: classes.dex */
 public final class a extends PagerAdapter {
-    private final KsAdVideoPlayConfig bS;
-    private final boolean jA;
-    private b jB;
-    private InterfaceC0377a jC;
-    private final KsInterstitialAd.AdInteractionListener jr;
-    private final List<AdResultData> jy = new ArrayList();
-    private final com.kwad.components.ad.interstitial.d jz;
+    private final KsAdVideoPlayConfig dZ;
+    private final KsInterstitialAd.AdInteractionListener hN;
+    private final com.kwad.components.ad.interstitial.d hU;
+    private final boolean hV;
+    private b hW;
+    private InterfaceC0133a hX;
+    private final List<AdTemplate> mAdTemplateList = new ArrayList();
 
     /* renamed from: com.kwad.components.ad.interstitial.aggregate.a$1 */
-    public class AnonymousClass1 implements c.a {
-        final /* synthetic */ int jD;
-
-        public AnonymousClass1(int i10) {
-            i10 = i10;
+    final class AnonymousClass1 implements c.a {
+        AnonymousClass1() {
         }
 
-        @Override // com.kwad.components.ad.interstitial.f.c.a
-        public final void b(long j10, long j11) {
-            AdResultData adResultData = (AdResultData) a.this.jy.get(i10);
-            if (adResultData == null) {
-                return;
-            }
-            com.kwad.components.ad.interstitial.report.a.ei().b(com.kwad.sdk.core.response.b.c.o(adResultData), j10, j11);
-            if (a.this.jC != null) {
-                a.this.jC.cL();
+        @Override // com.kwad.components.ad.interstitial.c.c.a
+        public final void cr() {
+            if (a.this.hX != null) {
+                a.this.hX.cs();
             }
         }
     }
 
     /* renamed from: com.kwad.components.ad.interstitial.aggregate.a$a */
-    public interface InterfaceC0377a {
-        void cL();
+    public interface InterfaceC0133a {
+        void cs();
     }
 
     public interface b {
-        void a(com.kwad.components.ad.interstitial.h.c cVar, int i10);
+        void a(com.kwad.components.ad.interstitial.e.c cVar, int i2);
     }
 
-    public a(AdResultData adResultData, com.kwad.components.ad.interstitial.d dVar, KsAdVideoPlayConfig ksAdVideoPlayConfig, KsInterstitialAd.AdInteractionListener adInteractionListener) {
-        this.jz = dVar;
-        this.bS = ksAdVideoPlayConfig;
-        this.jr = adInteractionListener;
-        this.jA = com.kwad.sdk.core.response.b.a.cz(e.eb(com.kwad.sdk.core.response.b.c.o(adResultData))) == 1;
+    public a(AdTemplate adTemplate, com.kwad.components.ad.interstitial.d dVar, KsAdVideoPlayConfig ksAdVideoPlayConfig, KsInterstitialAd.AdInteractionListener adInteractionListener) {
+        this.hU = dVar;
+        this.dZ = ksAdVideoPlayConfig;
+        this.hN = adInteractionListener;
+        this.hV = com.kwad.sdk.core.response.a.a.bZ(com.kwad.sdk.core.response.a.d.cb(adTemplate)) == 1;
     }
 
-    public final void d(List<AdResultData> list) {
-        if (list == null || list.size() <= 0) {
-            return;
-        }
-        this.jy.clear();
-        this.jy.addAll(list);
+    public final void a(InterfaceC0133a interfaceC0133a) {
+        this.hX = interfaceC0133a;
+    }
+
+    public final void a(b bVar) {
+        this.hW = bVar;
     }
 
     @Override // androidx.viewpager.widget.PagerAdapter
-    public final void destroyItem(@NonNull ViewGroup viewGroup, int i10, Object obj) {
+    public final void destroyItem(@NonNull ViewGroup viewGroup, int i2, Object obj) {
         if (obj instanceof View) {
             viewGroup.removeView((View) obj);
         }
@@ -76,47 +67,39 @@ public final class a extends PagerAdapter {
 
     @Override // androidx.viewpager.widget.PagerAdapter
     public final int getCount() {
-        return this.jy.size();
+        return this.mAdTemplateList.size();
     }
 
     @Override // androidx.viewpager.widget.PagerAdapter
     @NonNull
-    public final Object instantiateItem(@NonNull ViewGroup viewGroup, int i10) {
-        com.kwad.components.ad.interstitial.h.c cVar = new com.kwad.components.ad.interstitial.h.c(viewGroup.getContext());
+    public final Object instantiateItem(@NonNull ViewGroup viewGroup, int i2) {
+        com.kwad.components.ad.interstitial.e.c cVar = new com.kwad.components.ad.interstitial.e.c(viewGroup.getContext());
         viewGroup.addView(cVar);
-        cVar.setAggregateAdView(i10 > 0);
-        if (i10 == 0) {
+        cVar.setAggregateAdView(i2 > 0);
+        if (i2 == 0) {
             cVar.setAdConvertListener(new c.a() { // from class: com.kwad.components.ad.interstitial.aggregate.a.1
-                final /* synthetic */ int jD;
-
-                public AnonymousClass1(int i102) {
-                    i10 = i102;
+                AnonymousClass1() {
                 }
 
-                @Override // com.kwad.components.ad.interstitial.f.c.a
-                public final void b(long j10, long j11) {
-                    AdResultData adResultData = (AdResultData) a.this.jy.get(i10);
-                    if (adResultData == null) {
-                        return;
-                    }
-                    com.kwad.components.ad.interstitial.report.a.ei().b(com.kwad.sdk.core.response.b.c.o(adResultData), j10, j11);
-                    if (a.this.jC != null) {
-                        a.this.jC.cL();
+                @Override // com.kwad.components.ad.interstitial.c.c.a
+                public final void cr() {
+                    if (a.this.hX != null) {
+                        a.this.hX.cs();
                     }
                 }
             });
         }
-        if (i102 > 0) {
-            if (i102 == 1) {
-                cVar.setAggregateShowTriggerType(this.jA ? 8 : 7);
-            } else {
-                cVar.setAggregateShowTriggerType(7);
+        if (i2 > 0) {
+            int i3 = 7;
+            if (i2 == 1 && this.hV) {
+                i3 = 8;
             }
+            cVar.setAggregateShowTriggerType(i3);
         }
-        cVar.a(this.jy.get(i102), this.jz, this.bS, this.jr);
-        b bVar = this.jB;
+        cVar.a(this.mAdTemplateList.get(i2), this.hU, this.dZ, this.hN);
+        b bVar = this.hW;
         if (bVar != null) {
-            bVar.a(cVar, i102);
+            bVar.a(cVar, i2);
         }
         return cVar;
     }
@@ -126,11 +109,11 @@ public final class a extends PagerAdapter {
         return view == obj;
     }
 
-    public final void a(b bVar) {
-        this.jB = bVar;
-    }
-
-    public final void a(InterfaceC0377a interfaceC0377a) {
-        this.jC = interfaceC0377a;
+    public final void setAdTemplateList(List<AdTemplate> list) {
+        if (list == null || list.size() <= 0) {
+            return;
+        }
+        this.mAdTemplateList.clear();
+        this.mAdTemplateList.addAll(list);
     }
 }

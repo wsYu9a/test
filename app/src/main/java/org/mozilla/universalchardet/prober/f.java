@@ -3,88 +3,82 @@ package org.mozilla.universalchardet.prober;
 import java.util.Arrays;
 import org.mozilla.universalchardet.prober.CharsetProber;
 
-/* loaded from: classes4.dex */
+/* loaded from: classes5.dex */
 public class f extends CharsetProber {
 
-    /* renamed from: n */
-    public static final cj.m f29284n = new cj.f();
-
-    /* renamed from: k */
-    public CharsetProber.ProbingState f29286k;
+    /* renamed from: i */
+    private static final org.mozilla.universalchardet.prober.q.m f35434i = new org.mozilla.universalchardet.prober.q.f();
+    private CharsetProber.ProbingState k;
 
     /* renamed from: j */
-    public cj.b f29285j = new cj.b(f29284n);
-
-    /* renamed from: l */
-    public aj.f f29287l = new aj.f();
-
-    /* renamed from: m */
-    public byte[] f29288m = new byte[2];
+    private org.mozilla.universalchardet.prober.q.b f35435j = new org.mozilla.universalchardet.prober.q.b(f35434i);
+    private org.mozilla.universalchardet.prober.o.f l = new org.mozilla.universalchardet.prober.o.f();
+    private byte[] m = new byte[2];
 
     public f() {
-        j();
+        i();
     }
 
     @Override // org.mozilla.universalchardet.prober.CharsetProber
     public String c() {
-        return yi.b.f33511h;
+        return org.mozilla.universalchardet.b.f35413h;
     }
 
     @Override // org.mozilla.universalchardet.prober.CharsetProber
     public float d() {
-        return this.f29287l.a();
+        return this.l.a();
     }
 
     @Override // org.mozilla.universalchardet.prober.CharsetProber
     public CharsetProber.ProbingState e() {
-        return this.f29286k;
+        return this.k;
     }
 
     @Override // org.mozilla.universalchardet.prober.CharsetProber
-    public CharsetProber.ProbingState f(byte[] bArr, int i10, int i11) {
-        int i12 = i11 + i10;
-        int i13 = i10;
+    public CharsetProber.ProbingState f(byte[] bArr, int i2, int i3) {
+        int i4 = i3 + i2;
+        int i5 = i2;
         while (true) {
-            if (i13 >= i12) {
+            if (i5 >= i4) {
                 break;
             }
-            int c10 = this.f29285j.c(bArr[i13]);
-            if (c10 == 1) {
-                this.f29286k = CharsetProber.ProbingState.NOT_ME;
+            int c2 = this.f35435j.c(bArr[i5]);
+            if (c2 == 1) {
+                this.k = CharsetProber.ProbingState.NOT_ME;
                 break;
             }
-            if (c10 == 2) {
-                this.f29286k = CharsetProber.ProbingState.FOUND_IT;
+            if (c2 == 2) {
+                this.k = CharsetProber.ProbingState.FOUND_IT;
                 break;
             }
-            if (c10 == 0) {
-                int b10 = this.f29285j.b();
-                if (i13 == i10) {
-                    byte[] bArr2 = this.f29288m;
-                    bArr2[1] = bArr[i10];
-                    this.f29287l.e(bArr2, 0, b10);
+            if (c2 == 0) {
+                int b2 = this.f35435j.b();
+                if (i5 == i2) {
+                    byte[] bArr2 = this.m;
+                    bArr2[1] = bArr[i2];
+                    this.l.e(bArr2, 0, b2);
                 } else {
-                    this.f29287l.e(bArr, i13 - 1, b10);
+                    this.l.e(bArr, i5 - 1, b2);
                 }
             }
-            i13++;
+            i5++;
         }
-        this.f29288m[0] = bArr[i12 - 1];
-        if (this.f29286k == CharsetProber.ProbingState.DETECTING && this.f29287l.c() && d() > 0.95f) {
-            this.f29286k = CharsetProber.ProbingState.FOUND_IT;
+        this.m[0] = bArr[i4 - 1];
+        if (this.k == CharsetProber.ProbingState.DETECTING && this.l.c() && d() > 0.95f) {
+            this.k = CharsetProber.ProbingState.FOUND_IT;
         }
-        return this.f29286k;
+        return this.k;
     }
 
     @Override // org.mozilla.universalchardet.prober.CharsetProber
-    public final void j() {
-        this.f29285j.d();
-        this.f29286k = CharsetProber.ProbingState.DETECTING;
-        this.f29287l.f();
-        Arrays.fill(this.f29288m, (byte) 0);
+    public void i() {
+        this.f35435j.d();
+        this.k = CharsetProber.ProbingState.DETECTING;
+        this.l.f();
+        Arrays.fill(this.m, (byte) 0);
     }
 
     @Override // org.mozilla.universalchardet.prober.CharsetProber
-    public void l() {
+    public void j() {
     }
 }

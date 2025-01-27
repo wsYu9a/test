@@ -4,66 +4,66 @@ import android.content.Context;
 import android.util.Log;
 import java.lang.reflect.Method;
 
-/* loaded from: classes4.dex */
+/* loaded from: classes5.dex */
 public class IdentifierManager {
 
     /* renamed from: a */
-    private static final String f29392a = "IdentifierManager";
+    private static final String f35582a = "IdentifierManager";
 
     /* renamed from: b */
-    private static Object f29393b;
+    private static Object f35583b;
 
     /* renamed from: c */
-    private static Class<?> f29394c;
+    private static Class<?> f35584c;
 
     /* renamed from: d */
-    private static Method f29395d;
+    private static Method f35585d;
 
     /* renamed from: e */
-    private static Method f29396e;
+    private static Method f35586e;
 
     /* renamed from: f */
-    private static Method f29397f;
+    private static Method f35587f;
 
     /* renamed from: g */
-    private static Method f29398g;
+    private static Method f35588g;
 
     static {
         try {
             Class<?> cls = Class.forName("com.android.id.impl.IdProviderImpl");
-            f29394c = cls;
-            f29393b = cls.newInstance();
-            f29395d = f29394c.getMethod("getUDID", Context.class);
-            f29396e = f29394c.getMethod("getOAID", Context.class);
-            f29397f = f29394c.getMethod("getVAID", Context.class);
-            f29398g = f29394c.getMethod("getAAID", Context.class);
-        } catch (Exception e10) {
-            Log.e("IdentifierManager", "reflect exception!", e10);
+            f35584c = cls;
+            f35583b = cls.newInstance();
+            f35585d = f35584c.getMethod("getUDID", Context.class);
+            f35586e = f35584c.getMethod("getOAID", Context.class);
+            f35587f = f35584c.getMethod("getVAID", Context.class);
+            f35588g = f35584c.getMethod("getAAID", Context.class);
+        } catch (Exception e2) {
+            Log.e(f35582a, "reflect exception!", e2);
         }
     }
 
     public static boolean a() {
-        return (f29394c == null || f29393b == null) ? false : true;
+        return (f35584c == null || f35583b == null) ? false : true;
     }
 
     public static String b(Context context) {
-        return a(context, f29396e);
+        return a(context, f35586e);
     }
 
     public static String c(Context context) {
-        return a(context, f29397f);
+        return a(context, f35587f);
     }
 
     public static String d(Context context) {
-        return a(context, f29398g);
+        return a(context, f35588g);
     }
 
     public static String a(Context context) {
-        return a(context, f29395d);
+        return a(context, f35585d);
     }
 
     private static String a(Context context, Method method) {
-        Object obj = f29393b;
+        Object obj = f35583b;
         if (obj == null || method == null) {
             return null;
         }
@@ -73,8 +73,8 @@ public class IdentifierManager {
                 return (String) invoke;
             }
             return null;
-        } catch (Exception e10) {
-            Log.e("IdentifierManager", "invoke exception!", e10);
+        } catch (Exception e2) {
+            Log.e(f35582a, "invoke exception!", e2);
             return null;
         }
     }

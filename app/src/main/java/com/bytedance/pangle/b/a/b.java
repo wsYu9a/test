@@ -4,7 +4,7 @@ import java.lang.reflect.Constructor;
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
 
-/* loaded from: classes2.dex */
+/* loaded from: classes.dex */
 public class b {
     public static Field a(Class<?> cls, String str) {
         Field declaredField = cls.getDeclaredField(str);

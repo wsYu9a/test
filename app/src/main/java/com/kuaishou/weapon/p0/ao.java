@@ -4,11 +4,24 @@ import android.text.TextUtils;
 import java.lang.reflect.Field;
 import java.lang.reflect.Modifier;
 
-/* loaded from: classes2.dex */
+/* loaded from: classes.dex */
 public class ao {
+    private boolean a(String str) {
+        ClassLoader systemClassLoader = ClassLoader.getSystemClassLoader();
+        if (systemClassLoader != null) {
+            try {
+                systemClassLoader.loadClass(str).newInstance();
+            } catch (ClassNotFoundException unused) {
+                return false;
+            } catch (IllegalAccessException | InstantiationException unused2) {
+            }
+        }
+        return true;
+    }
+
     public boolean a() {
         try {
-            Field declaredField = ClassLoader.getSystemClassLoader().loadClass(an.f10772b).getDeclaredField("disableHooks");
+            Field declaredField = ClassLoader.getSystemClassLoader().loadClass(an.f9076b).getDeclaredField("disableHooks");
             declaredField.setAccessible(true);
             declaredField.set(null, Boolean.TRUE);
             return true;
@@ -20,9 +33,9 @@ public class ao {
     public boolean b() {
         try {
             throw new Exception("");
-        } catch (Exception e10) {
-            for (StackTraceElement stackTraceElement : e10.getStackTrace()) {
-                if (stackTraceElement.getClassName().contains(an.f10772b)) {
+        } catch (Exception e2) {
+            for (StackTraceElement stackTraceElement : e2.getStackTrace()) {
+                if (stackTraceElement.getClassName().contains(an.f9076b)) {
                     return true;
                 }
             }
@@ -31,14 +44,14 @@ public class ao {
     }
 
     public boolean c() {
-        return a(an.f10773c);
+        return a(an.f9077c);
     }
 
     public boolean d() {
         ClassLoader systemClassLoader = ClassLoader.getSystemClassLoader();
         if (systemClassLoader != null) {
             try {
-                systemClassLoader.loadClass(an.f10771a).newInstance();
+                systemClassLoader.loadClass(an.f9075a).newInstance();
             } catch (ClassNotFoundException unused) {
                 return false;
             } catch (IllegalAccessException | InstantiationException unused2) {
@@ -47,7 +60,7 @@ public class ao {
         }
         if (systemClassLoader != null) {
             try {
-                systemClassLoader.loadClass(an.f10772b).newInstance();
+                systemClassLoader.loadClass(an.f9076b).newInstance();
             } catch (ClassNotFoundException unused3) {
                 return false;
             } catch (IllegalAccessException | InstantiationException unused4) {
@@ -78,22 +91,9 @@ public class ao {
 
     public boolean g() {
         try {
-            return Modifier.isNative(Throwable.class.getDeclaredMethod("getStackTrace", null).getModifiers());
+            return Modifier.isNative(Throwable.class.getDeclaredMethod("getStackTrace", new Class[0]).getModifiers());
         } catch (NoSuchMethodException unused) {
             return false;
         }
-    }
-
-    private boolean a(String str) {
-        ClassLoader systemClassLoader = ClassLoader.getSystemClassLoader();
-        if (systemClassLoader != null) {
-            try {
-                systemClassLoader.loadClass(str).newInstance();
-            } catch (ClassNotFoundException unused) {
-                return false;
-            } catch (IllegalAccessException | InstantiationException unused2) {
-            }
-        }
-        return true;
     }
 }

@@ -1,43 +1,51 @@
 package com.kwad.sdk.core.webview;
 
-import com.kwad.sdk.core.webview.a.c;
+import com.kwad.sdk.core.report.y;
+import com.kwad.sdk.core.webview.kwai.c;
 
-/* loaded from: classes3.dex */
+/* loaded from: classes2.dex */
 public final class d {
-    private long aIo;
-    private boolean aIp;
+    private long apB;
+    private boolean apC;
 
     public static void d(c.a aVar) {
         if (aVar != null) {
-            com.kwad.sdk.core.adlog.c.b(aVar.getAdTemplate(), aVar.oz());
+            com.kwad.sdk.core.report.a.e(aVar.getAdTemplate(), aVar.getClientParams());
         }
     }
 
     public final void a(c.a aVar) {
         if (aVar != null) {
-            com.kwad.sdk.core.adlog.c.a(aVar.getAdTemplate(), aVar.oz());
+            com.kwad.sdk.core.report.a.b(aVar.getAdTemplate(), aVar.getClientParams());
         }
         if (aVar != null) {
-            this.aIo = System.currentTimeMillis();
+            this.apB = System.currentTimeMillis();
         }
     }
 
     public final void b(c.a aVar) {
         if (aVar != null) {
-            com.kwad.sdk.core.adlog.c.k(aVar.getAdTemplate(), System.currentTimeMillis() - this.aIo);
+            y.b clientParams = aVar.getClientParams();
+            if (clientParams == null) {
+                clientParams = new y.b();
+            }
+            clientParams.Jm = System.currentTimeMillis() - this.apB;
+            com.kwad.sdk.core.report.a.d(aVar.getAdTemplate(), clientParams);
         }
     }
 
     public final void c(c.a aVar) {
-        if (aVar == null || this.aIp) {
+        if (aVar == null || this.apC) {
             return;
         }
-        this.aIp = true;
-        long j10 = 0;
-        if (this.aIo > 0) {
-            j10 = System.currentTimeMillis() - this.aIo;
-            this.aIo = -1L;
+        this.apC = true;
+        if (this.apB > 0) {
+            if (aVar.getClientParams() == null) {
+                aVar.b(new y.b());
+            }
+            aVar.getClientParams().akA = System.currentTimeMillis() - this.apB;
+            this.apB = -1L;
         }
-        com.kwad.sdk.core.adlog.c.a(aVar.getAdTemplate(), aVar.oz(), j10);
+        com.kwad.sdk.core.report.a.c(aVar.getAdTemplate(), aVar.getClientParams());
     }
 }

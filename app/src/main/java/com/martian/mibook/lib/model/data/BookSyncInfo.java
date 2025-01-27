@@ -2,25 +2,23 @@ package com.martian.mibook.lib.model.data;
 
 /* loaded from: classes3.dex */
 public class BookSyncInfo {
-
-    /* renamed from: ca, reason: collision with root package name */
-    private String f13982ca;
-    private Integer cl;
-    private Integer cp;
-    private Integer cx;
-    private Integer op;
-    private Long opt;
-    private String ss;
-    private Integer top;
+    public String ca;
+    public Integer cl;
+    public Integer cp;
+    public Integer cx;
+    public Integer op;
+    public Long opt;
+    public String ss;
+    public Integer top;
     public static final Integer OP_UPDATE = 1;
     public static final Integer OP_DELETE = 2;
 
-    public String getCategory() {
-        return this.f13982ca;
-    }
-
     public Integer getCidx() {
         return this.cx;
+    }
+
+    public String getClassify() {
+        return this.ca;
     }
 
     public Integer getContentLength() {
@@ -31,12 +29,12 @@ public class BookSyncInfo {
         return this.cp;
     }
 
-    public Integer getOp() {
-        return this.op;
+    public Long getDate() {
+        return this.opt;
     }
 
-    public Long getOpt() {
-        return this.opt;
+    public Integer getOp() {
+        return this.op;
     }
 
     public String getSourceString() {
@@ -47,35 +45,35 @@ public class BookSyncInfo {
         return this.top;
     }
 
-    public void setCategory(String str) {
-        this.f13982ca = str;
+    public void setCidx(Integer cidx) {
+        this.cx = cidx;
     }
 
-    public void setCidx(Integer num) {
-        this.cx = num;
+    public void setClassify(String ca) {
+        this.ca = ca;
     }
 
-    public void setContentLength(Integer num) {
-        this.cl = num;
+    public void setContentLength(Integer cl) {
+        this.cl = cl;
     }
 
-    public void setContentPosition(Integer num) {
-        this.cp = num;
+    public void setContentPosition(Integer cp) {
+        this.cp = cp;
     }
 
-    public void setOp(int i10) {
-        this.op = Integer.valueOf(i10);
+    public void setDate(Long opt) {
+        this.opt = opt;
     }
 
-    public void setOpt(Long l10) {
-        this.opt = l10;
+    public void setOp(int op) {
+        this.op = Integer.valueOf(op);
     }
 
-    public void setSourceString(String str) {
-        this.ss = str;
+    public void setSourceString(String ss) {
+        this.ss = ss;
     }
 
-    public void setTop(Integer num) {
-        this.top = num;
+    public void setTop(Integer top) {
+        this.top = top;
     }
 }

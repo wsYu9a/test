@@ -41,10 +41,10 @@ public class ProcessDownloadHandler implements IDownloadProxy {
     }
 
     @Override // com.ss.android.socialbase.downloader.downloader.IDownloadProxy
-    public void addDownloadListener(int i10, int i11, IDownloadListener iDownloadListener, ListenerType listenerType, boolean z10) {
+    public void addDownloadListener(int i2, int i3, IDownloadListener iDownloadListener, ListenerType listenerType, boolean z) {
         AbsDownloadEngine absDownloadEngine = this.downloadEngine;
         if (absDownloadEngine != null) {
-            absDownloadEngine.addDownloadListener(i10, i11, iDownloadListener, listenerType, z10);
+            absDownloadEngine.addDownloadListener(i2, i3, iDownloadListener, listenerType, z);
         }
     }
 
@@ -54,19 +54,19 @@ public class ProcessDownloadHandler implements IDownloadProxy {
     }
 
     @Override // com.ss.android.socialbase.downloader.downloader.IDownloadProxy
-    public boolean canResume(int i10) {
+    public boolean canResume(int i2) {
         AbsDownloadEngine absDownloadEngine = this.downloadEngine;
         if (absDownloadEngine != null) {
-            return absDownloadEngine.isInDownloadTaskPool(i10);
+            return absDownloadEngine.isInDownloadTaskPool(i2);
         }
         return false;
     }
 
     @Override // com.ss.android.socialbase.downloader.downloader.IDownloadProxy
-    public void cancel(int i10, boolean z10) {
+    public void cancel(int i2, boolean z) {
         AbsDownloadEngine absDownloadEngine = this.downloadEngine;
         if (absDownloadEngine != null) {
-            absDownloadEngine.cancel(i10, z10);
+            absDownloadEngine.cancel(i2, z);
         }
     }
 
@@ -76,29 +76,29 @@ public class ProcessDownloadHandler implements IDownloadProxy {
     }
 
     @Override // com.ss.android.socialbase.downloader.downloader.IDownloadProxy
-    public void clearDownloadData(int i10, boolean z10) {
+    public void clearDownloadData(int i2, boolean z) {
         AbsDownloadEngine absDownloadEngine = this.downloadEngine;
         if (absDownloadEngine != null) {
-            absDownloadEngine.clearDownloadData(i10, z10);
+            absDownloadEngine.clearDownloadData(i2, z);
         }
     }
 
     @Override // com.ss.android.socialbase.downloader.downloader.IDownloadProxy
-    public void dispatchProcessCallback(int i10, int i11) {
+    public void dispatchProcessCallback(int i2, int i3) {
         if (DownloadComponentManager.getProcessCallbacks() != null) {
             for (ProcessCallback processCallback : DownloadComponentManager.getProcessCallbacks()) {
                 if (processCallback != null) {
-                    processCallback.callback(i11, i10);
+                    processCallback.callback(i3, i2);
                 }
             }
         }
     }
 
     @Override // com.ss.android.socialbase.downloader.downloader.IDownloadProxy
-    public void forceDownloadIngoreRecommendSize(int i10) {
+    public void forceDownloadIngoreRecommendSize(int i2) {
         AbsDownloadEngine absDownloadEngine = this.downloadEngine;
         if (absDownloadEngine != null) {
-            absDownloadEngine.forceDownloadIgnoreRecommendSize(i10);
+            absDownloadEngine.forceDownloadIgnoreRecommendSize(i2);
         }
     }
 
@@ -112,17 +112,17 @@ public class ProcessDownloadHandler implements IDownloadProxy {
     }
 
     @Override // com.ss.android.socialbase.downloader.downloader.IDownloadProxy
-    public long getCurBytes(int i10) {
+    public long getCurBytes(int i2) {
         DownloadInfo downloadInfo;
         IDownloadCache iDownloadCache = this.downloadCache;
-        if (iDownloadCache == null || (downloadInfo = iDownloadCache.getDownloadInfo(i10)) == null) {
+        if (iDownloadCache == null || (downloadInfo = iDownloadCache.getDownloadInfo(i2)) == null) {
             return 0L;
         }
         int chunkCount = downloadInfo.getChunkCount();
         if (chunkCount <= 1) {
             return downloadInfo.getCurBytes();
         }
-        List<DownloadChunk> downloadChunk = this.downloadCache.getDownloadChunk(i10);
+        List<DownloadChunk> downloadChunk = this.downloadCache.getDownloadChunk(i2);
         if (downloadChunk == null || downloadChunk.size() != chunkCount) {
             return 0L;
         }
@@ -130,15 +130,15 @@ public class ProcessDownloadHandler implements IDownloadProxy {
     }
 
     @Override // com.ss.android.socialbase.downloader.downloader.IDownloadProxy
-    public List<DownloadChunk> getDownloadChunk(int i10) {
-        return this.downloadCache.getDownloadChunk(i10);
+    public List<DownloadChunk> getDownloadChunk(int i2) {
+        return this.downloadCache.getDownloadChunk(i2);
     }
 
     @Override // com.ss.android.socialbase.downloader.downloader.IDownloadProxy
-    public IDownloadFileUriProvider getDownloadFileUriProvider(int i10) {
+    public IDownloadFileUriProvider getDownloadFileUriProvider(int i2) {
         AbsDownloadEngine absDownloadEngine = this.downloadEngine;
         if (absDownloadEngine != null) {
-            return absDownloadEngine.getDownloadFileUriProvider(i10);
+            return absDownloadEngine.getDownloadFileUriProvider(i2);
         }
         return null;
     }
@@ -149,10 +149,10 @@ public class ProcessDownloadHandler implements IDownloadProxy {
     }
 
     @Override // com.ss.android.socialbase.downloader.downloader.IDownloadProxy
-    public DownloadInfo getDownloadInfo(int i10) {
+    public DownloadInfo getDownloadInfo(int i2) {
         AbsDownloadEngine absDownloadEngine = this.downloadEngine;
         if (absDownloadEngine != null) {
-            return absDownloadEngine.getDownloadInfo(i10);
+            return absDownloadEngine.getDownloadInfo(i2);
         }
         return null;
     }
@@ -167,17 +167,17 @@ public class ProcessDownloadHandler implements IDownloadProxy {
     }
 
     @Override // com.ss.android.socialbase.downloader.downloader.IDownloadProxy
-    public IDownloadNotificationEventListener getDownloadNotificationEventListener(int i10) {
+    public IDownloadNotificationEventListener getDownloadNotificationEventListener(int i2) {
         AbsDownloadEngine absDownloadEngine = this.downloadEngine;
         if (absDownloadEngine != null) {
-            return absDownloadEngine.getDownloadNotificationEventListener(i10);
+            return absDownloadEngine.getDownloadNotificationEventListener(i2);
         }
         return null;
     }
 
     @Override // com.ss.android.socialbase.downloader.downloader.IDownloadProxy
-    public int getDownloadWithIndependentProcessStatus(int i10) {
-        return DownloadProcessDispatcher.getInstance().getDownloadWithIndependentProcessStatus(i10);
+    public int getDownloadWithIndependentProcessStatus(int i2) {
+        return DownloadProcessDispatcher.getInstance().getDownloadWithIndependentProcessStatus(i2);
     }
 
     @Override // com.ss.android.socialbase.downloader.downloader.IDownloadProxy
@@ -199,17 +199,17 @@ public class ProcessDownloadHandler implements IDownloadProxy {
     }
 
     @Override // com.ss.android.socialbase.downloader.downloader.IDownloadProxy
-    public INotificationClickCallback getNotificationClickCallback(int i10) {
+    public INotificationClickCallback getNotificationClickCallback(int i2) {
         AbsDownloadEngine absDownloadEngine = this.downloadEngine;
-        INotificationClickCallback notificationClickCallback = absDownloadEngine != null ? absDownloadEngine.getNotificationClickCallback(i10) : null;
+        INotificationClickCallback notificationClickCallback = absDownloadEngine != null ? absDownloadEngine.getNotificationClickCallback(i2) : null;
         return notificationClickCallback == null ? DownloadComponentManager.getNotificationClickCallback() : notificationClickCallback;
     }
 
     @Override // com.ss.android.socialbase.downloader.downloader.IDownloadProxy
-    public int getStatus(int i10) {
+    public int getStatus(int i2) {
         DownloadInfo downloadInfo;
         AbsDownloadEngine absDownloadEngine = this.downloadEngine;
-        if (absDownloadEngine == null || (downloadInfo = absDownloadEngine.getDownloadInfo(i10)) == null) {
+        if (absDownloadEngine == null || (downloadInfo = absDownloadEngine.getDownloadInfo(i2)) == null) {
             return 0;
         }
         return downloadInfo.getStatus();
@@ -245,7 +245,7 @@ public class ProcessDownloadHandler implements IDownloadProxy {
         }
         boolean isDownloadSuccessAndFileNotExist = DownloadUtils.isDownloadSuccessAndFileNotExist(downloadInfo.getStatus(), downloadInfo.getSavePath(), downloadInfo.getName());
         if (isDownloadSuccessAndFileNotExist) {
-            if (DownloadExpSwitchCode.isSwitchEnable(DownloadExpSwitchCode.BACK_CLEAR_DATA)) {
+            if (DownloadExpSwitchCode.isSwitchEnable(33554432)) {
                 clearDownloadData(downloadInfo.getId(), true);
             } else {
                 resetDownloadData(downloadInfo.getId(), true);
@@ -255,10 +255,10 @@ public class ProcessDownloadHandler implements IDownloadProxy {
     }
 
     @Override // com.ss.android.socialbase.downloader.downloader.IDownloadProxy
-    public boolean isDownloading(int i10) {
+    public boolean isDownloading(int i2) {
         AbsDownloadEngine absDownloadEngine = this.downloadEngine;
         if (absDownloadEngine != null) {
-            return absDownloadEngine.isDownloading(i10);
+            return absDownloadEngine.isDownloading(i2);
         }
         return false;
     }
@@ -284,10 +284,10 @@ public class ProcessDownloadHandler implements IDownloadProxy {
     }
 
     @Override // com.ss.android.socialbase.downloader.downloader.IDownloadProxy
-    public void pause(int i10) {
+    public void pause(int i2) {
         AbsDownloadEngine absDownloadEngine = this.downloadEngine;
         if (absDownloadEngine != null) {
-            absDownloadEngine.pause(i10);
+            absDownloadEngine.pause(i2);
         }
     }
 
@@ -300,41 +300,41 @@ public class ProcessDownloadHandler implements IDownloadProxy {
     }
 
     @Override // com.ss.android.socialbase.downloader.downloader.IDownloadProxy
-    public void removeAllDownloadChunk(int i10) {
-        this.downloadCache.removeAllDownloadChunk(i10);
+    public void removeAllDownloadChunk(int i2) {
+        this.downloadCache.removeAllDownloadChunk(i2);
     }
 
     @Override // com.ss.android.socialbase.downloader.downloader.IDownloadProxy
-    public boolean removeDownloadInfo(int i10) {
-        return this.downloadCache.removeDownloadInfo(i10);
+    public boolean removeDownloadInfo(int i2) {
+        return this.downloadCache.removeDownloadInfo(i2);
     }
 
     @Override // com.ss.android.socialbase.downloader.downloader.IDownloadProxy
-    public void removeDownloadListener(int i10, int i11, IDownloadListener iDownloadListener, ListenerType listenerType, boolean z10) {
+    public void removeDownloadListener(int i2, int i3, IDownloadListener iDownloadListener, ListenerType listenerType, boolean z) {
         AbsDownloadEngine absDownloadEngine = this.downloadEngine;
         if (absDownloadEngine != null) {
-            absDownloadEngine.removeDownloadListener(i10, i11, iDownloadListener, listenerType, z10);
+            absDownloadEngine.removeDownloadListener(i2, i3, iDownloadListener, listenerType, z);
         }
     }
 
     @Override // com.ss.android.socialbase.downloader.downloader.IDownloadProxy
-    public boolean removeDownloadTaskData(int i10) {
-        return this.downloadCache.removeDownloadTaskData(i10);
+    public boolean removeDownloadTaskData(int i2) {
+        return this.downloadCache.removeDownloadTaskData(i2);
     }
 
     @Override // com.ss.android.socialbase.downloader.downloader.IDownloadProxy
-    public void resetDownloadData(int i10, boolean z10) {
+    public void resetDownloadData(int i2, boolean z) {
         AbsDownloadEngine absDownloadEngine = this.downloadEngine;
         if (absDownloadEngine != null) {
-            absDownloadEngine.resetDownloadData(i10, z10);
+            absDownloadEngine.resetDownloadData(i2, z);
         }
     }
 
     @Override // com.ss.android.socialbase.downloader.downloader.IDownloadProxy
-    public void restart(int i10) {
+    public void restart(int i2) {
         AbsDownloadEngine absDownloadEngine = this.downloadEngine;
         if (absDownloadEngine != null) {
-            absDownloadEngine.restart(i10);
+            absDownloadEngine.restart(i2);
         }
     }
 
@@ -355,53 +355,53 @@ public class ProcessDownloadHandler implements IDownloadProxy {
     }
 
     @Override // com.ss.android.socialbase.downloader.downloader.IDownloadProxy
-    public void resume(int i10) {
+    public void resume(int i2) {
         AbsDownloadEngine absDownloadEngine = this.downloadEngine;
         if (absDownloadEngine != null) {
-            absDownloadEngine.resume(i10);
+            absDownloadEngine.resume(i2);
         }
     }
 
     @Override // com.ss.android.socialbase.downloader.downloader.IDownloadProxy
-    public boolean retryDelayStart(int i10) {
+    public boolean retryDelayStart(int i2) {
         AbsDownloadEngine absDownloadEngine = this.downloadEngine;
         if (absDownloadEngine != null) {
-            return absDownloadEngine.retryDelayStart(i10);
+            return absDownloadEngine.retryDelayStart(i2);
         }
         return false;
     }
 
     @Override // com.ss.android.socialbase.downloader.downloader.IDownloadProxy
-    public void setDownloadNotificationEventListener(int i10, IDownloadNotificationEventListener iDownloadNotificationEventListener) {
+    public void setDownloadNotificationEventListener(int i2, IDownloadNotificationEventListener iDownloadNotificationEventListener) {
         AbsDownloadEngine absDownloadEngine = this.downloadEngine;
         if (absDownloadEngine != null) {
-            absDownloadEngine.setDownloadNotificationEventListener(i10, iDownloadNotificationEventListener);
+            absDownloadEngine.setDownloadNotificationEventListener(i2, iDownloadNotificationEventListener);
         }
     }
 
     @Override // com.ss.android.socialbase.downloader.downloader.IDownloadProxy
-    public void setDownloadWithIndependentProcessStatus(int i10, boolean z10) {
-        DownloadProcessDispatcher.getInstance().setDownloadWithIndependentProcessStatus(i10, z10);
+    public void setDownloadWithIndependentProcessStatus(int i2, boolean z) {
+        DownloadProcessDispatcher.getInstance().setDownloadWithIndependentProcessStatus(i2, z);
     }
 
     @Override // com.ss.android.socialbase.downloader.downloader.IDownloadProxy
-    public void setLogLevel(int i10) {
-        Logger.setLogLevel(i10);
+    public void setLogLevel(int i2) {
+        Logger.setLogLevel(i2);
     }
 
     @Override // com.ss.android.socialbase.downloader.downloader.IDownloadProxy
-    public void setThrottleNetSpeed(int i10, long j10) {
+    public void setThrottleNetSpeed(int i2, long j2) {
         AbsDownloadEngine absDownloadEngine = this.downloadEngine;
         if (absDownloadEngine != null) {
-            absDownloadEngine.setThrottleNetSpeed(i10, j10);
+            absDownloadEngine.setThrottleNetSpeed(i2, j2);
         }
     }
 
     @Override // com.ss.android.socialbase.downloader.downloader.IDownloadProxy
-    public void startForeground(int i10, Notification notification) {
+    public void startForeground(int i2, Notification notification) {
         IDownloadServiceHandler iDownloadServiceHandler = this.downloadServiceHandler;
         if (iDownloadServiceHandler != null) {
-            iDownloadServiceHandler.startForeground(i10, notification);
+            iDownloadServiceHandler.startForeground(i2, notification);
         }
     }
 
@@ -410,16 +410,16 @@ public class ProcessDownloadHandler implements IDownloadProxy {
     }
 
     @Override // com.ss.android.socialbase.downloader.downloader.IDownloadProxy
-    public void stopForeground(boolean z10, boolean z11) {
+    public void stopForeground(boolean z, boolean z2) {
         IDownloadServiceHandler iDownloadServiceHandler = this.downloadServiceHandler;
         if (iDownloadServiceHandler != null) {
-            iDownloadServiceHandler.stopForeground(z11);
+            iDownloadServiceHandler.stopForeground(z2);
         }
     }
 
     @Override // com.ss.android.socialbase.downloader.downloader.IDownloadProxy
-    public void syncDownloadChunks(int i10, List<DownloadChunk> list) {
-        this.downloadCache.syncDownloadChunks(i10, list);
+    public void syncDownloadChunks(int i2, List<DownloadChunk> list) {
+        this.downloadCache.syncDownloadChunks(i2, list);
     }
 
     @Override // com.ss.android.socialbase.downloader.downloader.IDownloadProxy
@@ -428,8 +428,8 @@ public class ProcessDownloadHandler implements IDownloadProxy {
     }
 
     @Override // com.ss.android.socialbase.downloader.downloader.IDownloadProxy
-    public void syncDownloadInfoFromOtherCache(int i10, List<DownloadChunk> list) {
-        this.downloadCache.syncDownloadInfoFromOtherCache(i10, list);
+    public void syncDownloadInfoFromOtherCache(int i2, List<DownloadChunk> list) {
+        this.downloadCache.syncDownloadInfoFromOtherCache(i2, list);
     }
 
     @Override // com.ss.android.socialbase.downloader.downloader.IDownloadProxy
@@ -451,8 +451,8 @@ public class ProcessDownloadHandler implements IDownloadProxy {
     }
 
     @Override // com.ss.android.socialbase.downloader.downloader.IDownloadProxy
-    public void updateDownloadChunk(int i10, int i11, long j10) {
-        this.downloadCache.updateDownloadChunk(i10, i11, j10);
+    public void updateDownloadChunk(int i2, int i3, long j2) {
+        this.downloadCache.updateDownloadChunk(i2, i3, j2);
     }
 
     @Override // com.ss.android.socialbase.downloader.downloader.IDownloadProxy
@@ -461,19 +461,19 @@ public class ProcessDownloadHandler implements IDownloadProxy {
     }
 
     @Override // com.ss.android.socialbase.downloader.downloader.IDownloadProxy
-    public void updateSubDownloadChunk(int i10, int i11, int i12, long j10) {
-        this.downloadCache.updateSubDownloadChunk(i10, i11, i12, j10);
+    public void updateSubDownloadChunk(int i2, int i3, int i4, long j2) {
+        this.downloadCache.updateSubDownloadChunk(i2, i3, i4, j2);
     }
 
     @Override // com.ss.android.socialbase.downloader.downloader.IDownloadProxy
-    public void updateSubDownloadChunkIndex(int i10, int i11, int i12, int i13) {
-        this.downloadCache.updateSubDownloadChunkIndex(i10, i11, i12, i13);
+    public void updateSubDownloadChunkIndex(int i2, int i3, int i4, int i5) {
+        this.downloadCache.updateSubDownloadChunkIndex(i2, i3, i4, i5);
     }
 
-    public ProcessDownloadHandler(boolean z10) {
+    public ProcessDownloadHandler(boolean z) {
         this.downloadEngine = DownloadComponentManager.getDownloadEngine();
         this.downloadCache = DownloadComponentManager.getDownloadCache();
-        if (z10) {
+        if (z) {
             this.downloadServiceHandler = DownloadComponentManager.getIndependentDownloadServiceHandler();
         } else {
             this.downloadServiceHandler = DownloadComponentManager.getDownloadServiceHandler();
@@ -482,10 +482,10 @@ public class ProcessDownloadHandler implements IDownloadProxy {
     }
 
     @Override // com.ss.android.socialbase.downloader.downloader.IDownloadProxy
-    public void addDownloadListener(int i10, int i11, IDownloadListener iDownloadListener, ListenerType listenerType, boolean z10, boolean z11) {
+    public void addDownloadListener(int i2, int i3, IDownloadListener iDownloadListener, ListenerType listenerType, boolean z, boolean z2) {
         AbsDownloadEngine absDownloadEngine = this.downloadEngine;
         if (absDownloadEngine != null) {
-            absDownloadEngine.addDownloadListener(i10, i11, iDownloadListener, listenerType, z10, z11);
+            absDownloadEngine.addDownloadListener(i2, i3, iDownloadListener, listenerType, z, z2);
         }
     }
 

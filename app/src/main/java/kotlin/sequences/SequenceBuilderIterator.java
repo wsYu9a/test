@@ -1,8 +1,9 @@
 package kotlin.sequences;
 
 import androidx.exifinterface.media.ExifInterface;
-import com.umeng.analytics.pro.f;
-import id.c;
+import com.vivo.ic.dm.Downloads;
+import f.b.a.d;
+import f.b.a.e;
 import java.util.Iterator;
 import java.util.NoSuchElementException;
 import kotlin.Metadata;
@@ -12,34 +13,27 @@ import kotlin.Unit;
 import kotlin.coroutines.Continuation;
 import kotlin.coroutines.CoroutineContext;
 import kotlin.coroutines.EmptyCoroutineContext;
-import kotlin.coroutines.intrinsics.IntrinsicsKt;
+import kotlin.coroutines.intrinsics.IntrinsicsKt__IntrinsicsKt;
 import kotlin.coroutines.jvm.internal.DebugProbesKt;
 import kotlin.jvm.internal.Intrinsics;
 import kotlin.jvm.internal.markers.KMappedMarker;
-import p3.i;
-import xi.k;
-import xi.l;
 
-@Metadata(d1 = {"\u0000B\n\u0002\u0018\u0002\n\u0000\n\u0002\u0018\u0002\n\u0002\u0010(\n\u0002\u0018\u0002\n\u0002\u0010\u0002\n\u0002\b\u0002\n\u0002\u0018\u0002\n\u0002\b\u000b\n\u0002\u0010\b\n\u0002\u0018\u0002\n\u0000\n\u0002\u0010\u0003\n\u0000\n\u0002\u0010\u000b\n\u0002\b\u0005\n\u0002\u0018\u0002\n\u0002\b\b\b\u0002\u0018\u0000*\u0004\b\u0000\u0010\u00012\b\u0012\u0004\u0012\u0002H\u00010\u00022\b\u0012\u0004\u0012\u0002H\u00010\u00032\b\u0012\u0004\u0012\u00020\u00050\u0004B\u0005¢\u0006\u0002\u0010\u0006J\b\u0010\u0016\u001a\u00020\u0017H\u0002J\t\u0010\u0018\u001a\u00020\u0019H\u0096\u0002J\u000e\u0010\u001a\u001a\u00028\u0000H\u0096\u0002¢\u0006\u0002\u0010\u001bJ\r\u0010\u001c\u001a\u00028\u0000H\u0002¢\u0006\u0002\u0010\u001bJ\u001b\u0010\u001d\u001a\u00020\u00052\f\u0010\u001e\u001a\b\u0012\u0004\u0012\u00020\u00050\u001fH\u0016¢\u0006\u0002\u0010 J\u0016\u0010!\u001a\u00020\u00052\u0006\u0010\"\u001a\u00028\u0000H\u0096@¢\u0006\u0002\u0010#J\u001c\u0010$\u001a\u00020\u00052\f\u0010%\u001a\b\u0012\u0004\u0012\u00028\u00000\u0003H\u0096@¢\u0006\u0002\u0010&R\u0014\u0010\u0007\u001a\u00020\b8VX\u0096\u0004¢\u0006\u0006\u001a\u0004\b\t\u0010\nR\u0016\u0010\u000b\u001a\n\u0012\u0004\u0012\u00028\u0000\u0018\u00010\u0003X\u0082\u000e¢\u0006\u0002\n\u0000R\"\u0010\f\u001a\n\u0012\u0004\u0012\u00020\u0005\u0018\u00010\u0004X\u0086\u000e¢\u0006\u000e\n\u0000\u001a\u0004\b\r\u0010\u000e\"\u0004\b\u000f\u0010\u0010R\u0012\u0010\u0011\u001a\u0004\u0018\u00018\u0000X\u0082\u000e¢\u0006\u0004\n\u0002\u0010\u0012R\u0012\u0010\u0013\u001a\u00060\u0014j\u0002`\u0015X\u0082\u000e¢\u0006\u0002\n\u0000¨\u0006'"}, d2 = {"Lkotlin/sequences/SequenceBuilderIterator;", ExifInterface.GPS_DIRECTION_TRUE, "Lkotlin/sequences/SequenceScope;", "", "Lkotlin/coroutines/Continuation;", "", "()V", f.X, "Lkotlin/coroutines/CoroutineContext;", "getContext", "()Lkotlin/coroutines/CoroutineContext;", "nextIterator", "nextStep", "getNextStep", "()Lkotlin/coroutines/Continuation;", "setNextStep", "(Lkotlin/coroutines/Continuation;)V", "nextValue", "Ljava/lang/Object;", "state", "", "Lkotlin/sequences/State;", "exceptionalState", "", "hasNext", "", c.f26970g, "()Ljava/lang/Object;", "nextNotReady", "resumeWith", i.f29758c, "Lkotlin/Result;", "(Ljava/lang/Object;)V", "yield", "value", "(Ljava/lang/Object;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;", "yieldAll", "iterator", "(Ljava/util/Iterator;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;", "kotlin-stdlib"}, k = 1, mv = {1, 9, 0}, xi = 48)
-/* loaded from: classes4.dex */
+@Metadata(bv = {1, 0, 3}, d1 = {"\u0000F\n\u0002\u0018\u0002\n\u0000\n\u0002\u0018\u0002\n\u0002\u0010(\n\u0002\u0018\u0002\n\u0002\u0010\u0002\n\u0002\b\u0002\n\u0002\u0010\u0003\n\u0002\b\u0002\n\u0002\u0010\u000b\n\u0002\b\t\n\u0002\u0018\u0002\n\u0002\b\u0005\n\u0002\u0010\b\n\u0002\u0018\u0002\n\u0002\b\n\n\u0002\u0018\u0002\n\u0002\b\u0006\b\u0002\u0018\u0000*\u0004\b\u0000\u0010\u00012\b\u0012\u0004\u0012\u00028\u00000\u00022\b\u0012\u0004\u0012\u00028\u00000\u00032\b\u0012\u0004\u0012\u00020\u00050\u0004B\u0007¢\u0006\u0004\b+\u0010,J\u000f\u0010\u0006\u001a\u00028\u0000H\u0002¢\u0006\u0004\b\u0006\u0010\u0007J\u000f\u0010\t\u001a\u00020\bH\u0002¢\u0006\u0004\b\t\u0010\nJ\u0010\u0010\f\u001a\u00020\u000bH\u0096\u0002¢\u0006\u0004\b\f\u0010\rJ\u0010\u0010\u000e\u001a\u00028\u0000H\u0096\u0002¢\u0006\u0004\b\u000e\u0010\u0007J\u001b\u0010\u0010\u001a\u00020\u00052\u0006\u0010\u000f\u001a\u00028\u0000H\u0096@ø\u0001\u0000¢\u0006\u0004\b\u0010\u0010\u0011J!\u0010\u0013\u001a\u00020\u00052\f\u0010\u0012\u001a\b\u0012\u0004\u0012\u00028\u00000\u0003H\u0096@ø\u0001\u0000¢\u0006\u0004\b\u0013\u0010\u0014J \u0010\u0017\u001a\u00020\u00052\f\u0010\u0016\u001a\b\u0012\u0004\u0012\u00020\u00050\u0015H\u0016ø\u0001\u0000¢\u0006\u0004\b\u0017\u0010\u0018R\u0018\u0010\u0019\u001a\u0004\u0018\u00018\u00008\u0002@\u0002X\u0082\u000e¢\u0006\u0006\n\u0004\b\u0019\u0010\u001aR\u001a\u0010\u001d\u001a\u00060\u001bj\u0002`\u001c8\u0002@\u0002X\u0082\u000e¢\u0006\u0006\n\u0004\b\u001d\u0010\u001eR\u001e\u0010\u001f\u001a\n\u0012\u0004\u0012\u00028\u0000\u0018\u00010\u00038\u0002@\u0002X\u0082\u000e¢\u0006\u0006\n\u0004\b\u001f\u0010 R*\u0010!\u001a\n\u0012\u0004\u0012\u00020\u0005\u0018\u00010\u00048\u0006@\u0006X\u0086\u000e¢\u0006\u0012\n\u0004\b!\u0010\"\u001a\u0004\b#\u0010$\"\u0004\b%\u0010&R\u0016\u0010*\u001a\u00020'8V@\u0016X\u0096\u0004¢\u0006\u0006\u001a\u0004\b(\u0010)\u0082\u0002\u0004\n\u0002\b\u0019¨\u0006-"}, d2 = {"Lkotlin/sequences/SequenceBuilderIterator;", ExifInterface.GPS_DIRECTION_TRUE, "Lkotlin/sequences/SequenceScope;", "", "Lkotlin/coroutines/Continuation;", "", "nextNotReady", "()Ljava/lang/Object;", "", "exceptionalState", "()Ljava/lang/Throwable;", "", "hasNext", "()Z", "next", Downloads.RequestHeaders.COLUMN_VALUE, "yield", "(Ljava/lang/Object;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;", "iterator", "yieldAll", "(Ljava/util/Iterator;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;", "Lkotlin/Result;", "result", "resumeWith", "(Ljava/lang/Object;)V", "nextValue", "Ljava/lang/Object;", "", "Lkotlin/sequences/State;", "state", "I", "nextIterator", "Ljava/util/Iterator;", "nextStep", "Lkotlin/coroutines/Continuation;", "getNextStep", "()Lkotlin/coroutines/Continuation;", "setNextStep", "(Lkotlin/coroutines/Continuation;)V", "Lkotlin/coroutines/CoroutineContext;", "getContext", "()Lkotlin/coroutines/CoroutineContext;", "context", "<init>", "()V", "kotlin-stdlib"}, k = 1, mv = {1, 4, 0})
+/* loaded from: classes5.dex */
 final class SequenceBuilderIterator<T> extends SequenceScope<T> implements Iterator<T>, Continuation<Unit>, KMappedMarker {
-
-    @l
     private Iterator<? extends T> nextIterator;
 
-    @l
+    @e
     private Continuation<? super Unit> nextStep;
-
-    @l
     private T nextValue;
     private int state;
 
     private final Throwable exceptionalState() {
-        int i10 = this.state;
-        if (i10 == 4) {
+        int i2 = this.state;
+        if (i2 == 4) {
             return new NoSuchElementException();
         }
-        if (i10 == 5) {
+        if (i2 == 5) {
             return new IllegalStateException("Iterator has failed.");
         }
         return new IllegalStateException("Unexpected state of the iterator: " + this.state);
@@ -53,13 +47,12 @@ final class SequenceBuilderIterator<T> extends SequenceScope<T> implements Itera
     }
 
     @Override // kotlin.coroutines.Continuation
-    @k
-    /* renamed from: getContext */
-    public CoroutineContext get$context() {
+    @d
+    public CoroutineContext getContext() {
         return EmptyCoroutineContext.INSTANCE;
     }
 
-    @l
+    @e
     public final Continuation<Unit> getNextStep() {
         return this.nextStep;
     }
@@ -67,19 +60,21 @@ final class SequenceBuilderIterator<T> extends SequenceScope<T> implements Itera
     @Override // java.util.Iterator
     public boolean hasNext() {
         while (true) {
-            int i10 = this.state;
-            if (i10 != 0) {
-                if (i10 != 1) {
-                    if (i10 == 2 || i10 == 3) {
+            int i2 = this.state;
+            if (i2 != 0) {
+                if (i2 != 1) {
+                    if (i2 == 2 || i2 == 3) {
                         return true;
                     }
-                    if (i10 == 4) {
+                    if (i2 == 4) {
                         return false;
                     }
                     throw exceptionalState();
                 }
                 Iterator<? extends T> it = this.nextIterator;
-                Intrinsics.checkNotNull(it);
+                if (it == null) {
+                    Intrinsics.throwNpe();
+                }
                 if (it.hasNext()) {
                     this.state = 2;
                     return true;
@@ -88,32 +83,37 @@ final class SequenceBuilderIterator<T> extends SequenceScope<T> implements Itera
             }
             this.state = 5;
             Continuation<? super Unit> continuation = this.nextStep;
-            Intrinsics.checkNotNull(continuation);
+            if (continuation == null) {
+                Intrinsics.throwNpe();
+            }
             this.nextStep = null;
+            Unit unit = Unit.INSTANCE;
             Result.Companion companion = Result.INSTANCE;
-            continuation.resumeWith(Result.m58constructorimpl(Unit.INSTANCE));
+            continuation.resumeWith(Result.m83constructorimpl(unit));
         }
     }
 
     @Override // java.util.Iterator
     public T next() {
-        int i10 = this.state;
-        if (i10 == 0 || i10 == 1) {
+        int i2 = this.state;
+        if (i2 == 0 || i2 == 1) {
             return nextNotReady();
         }
-        if (i10 == 2) {
+        if (i2 == 2) {
             this.state = 1;
             Iterator<? extends T> it = this.nextIterator;
-            Intrinsics.checkNotNull(it);
+            if (it == null) {
+                Intrinsics.throwNpe();
+            }
             return it.next();
         }
-        if (i10 != 3) {
+        if (i2 != 3) {
             throw exceptionalState();
         }
         this.state = 0;
-        T t10 = this.nextValue;
+        T t = this.nextValue;
         this.nextValue = null;
-        return t10;
+        return t;
     }
 
     @Override // java.util.Iterator
@@ -122,41 +122,51 @@ final class SequenceBuilderIterator<T> extends SequenceScope<T> implements Itera
     }
 
     @Override // kotlin.coroutines.Continuation
-    public void resumeWith(@k Object r12) {
-        ResultKt.throwOnFailure(r12);
+    public void resumeWith(@d Object result) {
+        ResultKt.throwOnFailure(result);
         this.state = 4;
     }
 
-    public final void setNextStep(@l Continuation<? super Unit> continuation) {
+    public final void setNextStep(@e Continuation<? super Unit> continuation) {
         this.nextStep = continuation;
     }
 
     @Override // kotlin.sequences.SequenceScope
-    @l
-    public Object yield(T t10, @k Continuation<? super Unit> continuation) {
-        this.nextValue = t10;
+    @e
+    public Object yield(T t, @d Continuation<? super Unit> continuation) {
+        Object coroutine_suspended;
+        Object coroutine_suspended2;
+        Object coroutine_suspended3;
+        this.nextValue = t;
         this.state = 3;
         this.nextStep = continuation;
-        Object coroutine_suspended = IntrinsicsKt.getCOROUTINE_SUSPENDED();
-        if (coroutine_suspended == IntrinsicsKt.getCOROUTINE_SUSPENDED()) {
+        coroutine_suspended = IntrinsicsKt__IntrinsicsKt.getCOROUTINE_SUSPENDED();
+        coroutine_suspended2 = IntrinsicsKt__IntrinsicsKt.getCOROUTINE_SUSPENDED();
+        if (coroutine_suspended == coroutine_suspended2) {
             DebugProbesKt.probeCoroutineSuspended(continuation);
         }
-        return coroutine_suspended == IntrinsicsKt.getCOROUTINE_SUSPENDED() ? coroutine_suspended : Unit.INSTANCE;
+        coroutine_suspended3 = IntrinsicsKt__IntrinsicsKt.getCOROUTINE_SUSPENDED();
+        return coroutine_suspended == coroutine_suspended3 ? coroutine_suspended : Unit.INSTANCE;
     }
 
     @Override // kotlin.sequences.SequenceScope
-    @l
-    public Object yieldAll(@k Iterator<? extends T> it, @k Continuation<? super Unit> continuation) {
+    @e
+    public Object yieldAll(@d Iterator<? extends T> it, @d Continuation<? super Unit> continuation) {
+        Object coroutine_suspended;
+        Object coroutine_suspended2;
+        Object coroutine_suspended3;
         if (!it.hasNext()) {
             return Unit.INSTANCE;
         }
         this.nextIterator = it;
         this.state = 2;
         this.nextStep = continuation;
-        Object coroutine_suspended = IntrinsicsKt.getCOROUTINE_SUSPENDED();
-        if (coroutine_suspended == IntrinsicsKt.getCOROUTINE_SUSPENDED()) {
+        coroutine_suspended = IntrinsicsKt__IntrinsicsKt.getCOROUTINE_SUSPENDED();
+        coroutine_suspended2 = IntrinsicsKt__IntrinsicsKt.getCOROUTINE_SUSPENDED();
+        if (coroutine_suspended == coroutine_suspended2) {
             DebugProbesKt.probeCoroutineSuspended(continuation);
         }
-        return coroutine_suspended == IntrinsicsKt.getCOROUTINE_SUSPENDED() ? coroutine_suspended : Unit.INSTANCE;
+        coroutine_suspended3 = IntrinsicsKt__IntrinsicsKt.getCOROUTINE_SUSPENDED();
+        return coroutine_suspended == coroutine_suspended3 ? coroutine_suspended : Unit.INSTANCE;
     }
 }

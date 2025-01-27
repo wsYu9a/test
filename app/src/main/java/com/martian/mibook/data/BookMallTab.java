@@ -13,13 +13,13 @@ public class BookMallTab {
         return this.tid;
     }
 
-    public BookMallTab setName(String str) {
-        this.name = str;
+    public BookMallTab setName(String name) {
+        this.name = name;
         return this;
     }
 
-    public BookMallTab setTid(int i10) {
-        this.tid = i10;
+    public BookMallTab setTid(int tid) {
+        this.tid = tid;
         return this;
     }
 }

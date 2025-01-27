@@ -2,7 +2,6 @@ package com.ss.android.socialbase.downloader.network;
 
 import java.util.ArrayList;
 import java.util.concurrent.atomic.AtomicReference;
-import l5.c;
 
 /* loaded from: classes4.dex */
 public class NetTrafficManager {
@@ -25,7 +24,7 @@ public class NetTrafficManager {
     private int sampleCount;
 
     /* renamed from: com.ss.android.socialbase.downloader.network.NetTrafficManager$1 */
-    public static /* synthetic */ class AnonymousClass1 {
+    static /* synthetic */ class AnonymousClass1 {
         static final /* synthetic */ int[] $SwitchMap$com$ss$android$socialbase$downloader$network$NetworkQuality;
 
         static {
@@ -50,7 +49,7 @@ public class NetTrafficManager {
         }
     }
 
-    public static class ConnectionClassManagerHolder {
+    private static class ConnectionClassManagerHolder {
         public static final NetTrafficManager instance = new NetTrafficManager(null);
 
         private ConnectionClassManagerHolder() {
@@ -61,7 +60,7 @@ public class NetTrafficManager {
         void onBandwidthStateChange(NetworkQuality networkQuality);
     }
 
-    public /* synthetic */ NetTrafficManager(AnonymousClass1 anonymousClass1) {
+    /* synthetic */ NetTrafficManager(AnonymousClass1 anonymousClass1) {
         this();
     }
 
@@ -69,66 +68,68 @@ public class NetTrafficManager {
         return ConnectionClassManagerHolder.instance;
     }
 
-    private NetworkQuality mapBandwidthQuality(double d10) {
-        return d10 < c.f27899e ? NetworkQuality.UNKNOWN : d10 < 150.0d ? NetworkQuality.POOR : d10 < 550.0d ? NetworkQuality.MODERATE : d10 < 2000.0d ? NetworkQuality.GOOD : NetworkQuality.EXCELLENT;
+    private NetworkQuality mapBandwidthQuality(double d2) {
+        return d2 < 0.0d ? NetworkQuality.UNKNOWN : d2 < 150.0d ? NetworkQuality.POOR : d2 < 550.0d ? NetworkQuality.MODERATE : d2 < 2000.0d ? NetworkQuality.GOOD : NetworkQuality.EXCELLENT;
     }
 
     private void notifyListeners() {
         try {
             int size = this.listenerList.size();
-            for (int i10 = 0; i10 < size; i10++) {
-                this.listenerList.get(i10).onBandwidthStateChange(this.currentNetworkQuality.get());
+            for (int i2 = 0; i2 < size; i2++) {
+                this.listenerList.get(i2).onBandwidthStateChange(this.currentNetworkQuality.get());
             }
-        } catch (Throwable th2) {
-            th2.printStackTrace();
+        } catch (Throwable th) {
+            th.printStackTrace();
         }
     }
 
     private boolean significantlyOutsideCurrentBand() {
-        double d10;
         if (this.mDownloadBandwidth == null) {
             return false;
         }
         try {
-            int i10 = AnonymousClass1.$SwitchMap$com$ss$android$socialbase$downloader$network$NetworkQuality[this.currentNetworkQuality.get().ordinal()];
-            double d11 = 150.0d;
-            if (i10 == 1) {
-                d10 = c.f27899e;
-            } else if (i10 == 2) {
-                d11 = 550.0d;
-                d10 = 150.0d;
-            } else if (i10 == 3) {
-                d10 = 550.0d;
-                d11 = 2000.0d;
-            } else {
-                if (i10 != 4) {
+            int i2 = AnonymousClass1.$SwitchMap$com$ss$android$socialbase$downloader$network$NetworkQuality[this.currentNetworkQuality.get().ordinal()];
+            double d2 = 2000.0d;
+            double d3 = 550.0d;
+            if (i2 == 1) {
+                d3 = 0.0d;
+                d2 = 150.0d;
+            } else if (i2 == 2) {
+                d2 = 550.0d;
+                d3 = 150.0d;
+            } else if (i2 != 3) {
+                if (i2 != 4) {
                     return true;
                 }
-                d11 = 3.4028234663852886E38d;
-                d10 = 2000.0d;
+                d2 = 3.4028234663852886E38d;
+                d3 = 2000.0d;
             }
             double average = this.mDownloadBandwidth.getAverage();
-            if (average > d11) {
-                if (average > d11 * HYSTERESIS_TOP_MULTIPLIER) {
+            if (average > d2) {
+                if (average > d2 * HYSTERESIS_TOP_MULTIPLIER) {
                     return true;
                 }
-            } else if (average < d10 * HYSTERESIS_BOTTOM_MULTIPLIER) {
+            } else if (average < d3 * HYSTERESIS_BOTTOM_MULTIPLIER) {
                 return true;
             }
-        } catch (Throwable th2) {
-            th2.printStackTrace();
+        } catch (Throwable th) {
+            th.printStackTrace();
         }
         return false;
     }
 
-    public synchronized void addBandwidth(long j10, long j11) {
+    public synchronized void addBandwidth(long j2, long j3) {
         NetworkQuality currentNetworkQuality;
-        double d10 = ((j10 * 1.0d) / j11) * 8.0d;
-        if (j11 == 0 || d10 < 3.0d) {
+        double d2 = j2;
+        Double.isNaN(d2);
+        double d3 = j3;
+        Double.isNaN(d3);
+        double d4 = ((d2 * 1.0d) / d3) * 8.0d;
+        if (j3 == 0 || d4 < 3.0d) {
             return;
         }
         try {
-            this.mDownloadBandwidth.addMeasurement(d10);
+            this.mDownloadBandwidth.addMeasurement(d4);
             currentNetworkQuality = getCurrentNetworkQuality();
         } catch (Throwable unused) {
         }
@@ -159,8 +160,8 @@ public class NetTrafficManager {
         }
         try {
             return mapBandwidthQuality(exponentialGeometricAverage.getAverage());
-        } catch (Throwable th2) {
-            th2.printStackTrace();
+        } catch (Throwable th) {
+            th.printStackTrace();
             return NetworkQuality.UNKNOWN;
         }
     }
@@ -191,8 +192,8 @@ public class NetTrafficManager {
                 exponentialGeometricAverage.reset();
             }
             this.currentNetworkQuality.set(NetworkQuality.UNKNOWN);
-        } catch (Throwable th2) {
-            th2.printStackTrace();
+        } catch (Throwable th) {
+            th.printStackTrace();
         }
     }
 

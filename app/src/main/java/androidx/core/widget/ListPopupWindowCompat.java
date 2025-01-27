@@ -1,26 +1,13 @@
 package androidx.core.widget;
 
+import android.os.Build;
 import android.view.View;
 import android.widget.ListPopupWindow;
-import androidx.annotation.DoNotInline;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.annotation.RequiresApi;
 
 /* loaded from: classes.dex */
 public final class ListPopupWindowCompat {
-
-    @RequiresApi(19)
-    public static class Api19Impl {
-        private Api19Impl() {
-        }
-
-        @DoNotInline
-        public static View.OnTouchListener createDragToOpenListener(ListPopupWindow listPopupWindow, View view) {
-            return listPopupWindow.createDragToOpenListener(view);
-        }
-    }
-
     private ListPopupWindowCompat() {
     }
 
@@ -31,6 +18,9 @@ public final class ListPopupWindowCompat {
 
     @Nullable
     public static View.OnTouchListener createDragToOpenListener(@NonNull ListPopupWindow listPopupWindow, @NonNull View view) {
-        return Api19Impl.createDragToOpenListener(listPopupWindow, view);
+        if (Build.VERSION.SDK_INT >= 19) {
+            return listPopupWindow.createDragToOpenListener(view);
+        }
+        return null;
     }
 }

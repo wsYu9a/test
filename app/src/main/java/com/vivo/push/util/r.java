@@ -9,8 +9,8 @@ public final class r {
     public static NetworkInfo a(Context context) {
         try {
             return ((ConnectivityManager) context.getSystemService("connectivity")).getActiveNetworkInfo();
-        } catch (Exception e10) {
-            p.a("NetUtils", e10);
+        } catch (Exception e2) {
+            p.a("NetUtils", e2);
             return null;
         }
     }

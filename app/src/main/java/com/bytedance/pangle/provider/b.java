@@ -4,7 +4,7 @@ import android.net.Uri;
 import android.text.TextUtils;
 import org.json.JSONObject;
 
-/* loaded from: classes2.dex */
+/* loaded from: classes.dex */
 public final class b {
     public static String a(String str, String str2, Uri uri) {
         if (str2 == null || TextUtils.isEmpty(str2)) {

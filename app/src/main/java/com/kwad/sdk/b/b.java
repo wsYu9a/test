@@ -1,14 +1,14 @@
 package com.kwad.sdk.b;
 
 import com.kuaishou.weapon.p0.IWeaponInitParams;
-import com.kwad.sdk.utils.az;
-import com.kwad.sdk.utils.bo;
+import com.kwad.sdk.utils.at;
+import com.kwad.sdk.utils.bd;
 
-/* loaded from: classes3.dex */
+/* loaded from: classes2.dex */
 public final class b implements IWeaponInitParams {
     @Override // com.kuaishou.weapon.p0.IWeaponInitParams
     public final boolean getAPPLISTSwitch() {
-        return !az.Om();
+        return !at.Eg();
     }
 
     @Override // com.kuaishou.weapon.p0.IWeaponInitParams
@@ -23,7 +23,7 @@ public final class b implements IWeaponInitParams {
 
     @Override // com.kuaishou.weapon.p0.IWeaponInitParams
     public final String getDeviceId() {
-        return bo.getDeviceId();
+        return bd.getDeviceId();
     }
 
     @Override // com.kuaishou.weapon.p0.IWeaponInitParams
@@ -44,10 +44,5 @@ public final class b implements IWeaponInitParams {
     @Override // com.kuaishou.weapon.p0.IWeaponInitParams
     public final String getUserId() {
         return "";
-    }
-
-    @Override // com.kuaishou.weapon.p0.IWeaponInitParams
-    public final boolean isLoadSo() {
-        return com.kwad.framework.a.a.agN.booleanValue();
     }
 }

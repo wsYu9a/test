@@ -10,42 +10,37 @@ import android.text.TextUtils;
 import android.util.Base64;
 import androidx.annotation.Keep;
 import androidx.annotation.RequiresApi;
-import com.bytedance.pangle.Zeus;
 import com.bytedance.pangle.log.ZeusLogger;
 import java.io.File;
 
 @Keep
-/* loaded from: classes2.dex */
+/* loaded from: classes.dex */
 public class a {
     private static Uri a(String str, Uri uri) {
         return a(str, uri, (String) null);
     }
 
     public static int b(ContentResolver contentResolver, Uri uri, ContentValues contentValues, Bundle bundle, String str) {
-        int update;
-        int update2;
         if (contentResolver == null) {
             return 0;
         }
         try {
             try {
-                update2 = contentResolver.update(a(uri, str), contentValues, bundle);
-                return update2;
+                return contentResolver.update(a(uri, str), contentValues, bundle);
             } catch (IllegalArgumentException unused) {
                 ZeusLogger.w(ZeusLogger.TAG_PROVIDER, "not found plugin provider, but found host ContentResolver execute update !!!");
-                update = contentResolver.update(uri, contentValues, bundle);
-                return update;
-            } catch (Exception e10) {
-                e = e10;
+                return contentResolver.update(uri, contentValues, bundle);
+            } catch (Exception e2) {
+                e = e2;
                 ZeusLogger.w(ZeusLogger.TAG_PROVIDER, "ContentProviderManager#update throw exception:", e);
                 return 0;
-            } catch (IncompatibleClassChangeError e11) {
-                e = e11;
+            } catch (IncompatibleClassChangeError e3) {
+                e = e3;
                 ZeusLogger.w(ZeusLogger.TAG_PROVIDER, "ContentProviderManager#update throw exception:", e);
                 return 0;
             }
-        } catch (Throwable th2) {
-            ZeusLogger.w(ZeusLogger.TAG_PROVIDER, "ContentProviderManager#update throw exception:", th2);
+        } catch (Throwable th) {
+            ZeusLogger.w(ZeusLogger.TAG_PROVIDER, "ContentProviderManager#update throw exception:", th);
             return 0;
         }
     }
@@ -56,9 +51,9 @@ public class a {
             str2 = uri.getAuthority();
         }
         String pluginProcessNameByAuthority = contentProviderManager.getPluginProcessNameByAuthority(str2);
-        String a10 = b.a(pluginProcessNameByAuthority, str, uri);
-        String encodeToString = TextUtils.isEmpty(a10) ? "" : Base64.encodeToString(a10.getBytes(), 10);
-        return Uri.parse("content://" + ContentProviderManager.getInstance().getSystemProviderInfoMap().get(pluginProcessNameByAuthority).f7732b + File.separator + "proxy?provider_params=" + encodeToString);
+        String a2 = b.a(pluginProcessNameByAuthority, str, uri);
+        String encodeToString = TextUtils.isEmpty(a2) ? "" : Base64.encodeToString(a2.getBytes(), 10);
+        return Uri.parse("content://" + ContentProviderManager.getInstance().getSystemProviderInfoMap().get(pluginProcessNameByAuthority).f6225b + File.separator + "proxy?provider_params=" + encodeToString);
     }
 
     @RequiresApi(api = 16)
@@ -72,47 +67,43 @@ public class a {
             } catch (IllegalArgumentException unused) {
                 ZeusLogger.w(ZeusLogger.TAG_PROVIDER, "not found plugin provider, but found host ContentResolver execute query(6 params) !!!");
                 return contentResolver.query(uri, strArr, str, strArr2, str2, cancellationSignal);
-            } catch (Exception e10) {
-                e = e10;
+            } catch (Exception e2) {
+                e = e2;
                 ZeusLogger.w(ZeusLogger.TAG_PROVIDER, "ContentProviderManager#query(6 params) throw exception:", e);
                 return null;
-            } catch (IncompatibleClassChangeError e11) {
-                e = e11;
+            } catch (IncompatibleClassChangeError e3) {
+                e = e3;
                 ZeusLogger.w(ZeusLogger.TAG_PROVIDER, "ContentProviderManager#query(6 params) throw exception:", e);
                 return null;
             }
-        } catch (Throwable th2) {
-            ZeusLogger.w(ZeusLogger.TAG_PROVIDER, "not found host provider-ContentProviderManager#query(6 params) throw exception:", th2);
+        } catch (Throwable th) {
+            ZeusLogger.w(ZeusLogger.TAG_PROVIDER, "not found host provider-ContentProviderManager#query(6 params) throw exception:", th);
             return null;
         }
     }
 
     @RequiresApi(api = 26)
     public static Cursor a(ContentResolver contentResolver, Uri uri, String[] strArr, Bundle bundle, CancellationSignal cancellationSignal, String str) {
-        Cursor query;
-        Cursor query2;
         if (contentResolver == null) {
             return null;
         }
         try {
             try {
-                query2 = contentResolver.query(a(uri, str), strArr, bundle, cancellationSignal);
-                return query2;
+                return contentResolver.query(a(uri, str), strArr, bundle, cancellationSignal);
             } catch (IllegalArgumentException unused) {
                 ZeusLogger.w(ZeusLogger.TAG_PROVIDER, "not found plugin provider, but found host ContentResolver execute query(5 params) !!!");
-                query = contentResolver.query(uri, strArr, bundle, cancellationSignal);
-                return query;
-            } catch (Exception e10) {
-                e = e10;
+                return contentResolver.query(uri, strArr, bundle, cancellationSignal);
+            } catch (Exception e2) {
+                e = e2;
                 ZeusLogger.w(ZeusLogger.TAG_PROVIDER, "ContentProviderManager#query(4 params) throw exception:", e);
                 return null;
-            } catch (IncompatibleClassChangeError e11) {
-                e = e11;
+            } catch (IncompatibleClassChangeError e3) {
+                e = e3;
                 ZeusLogger.w(ZeusLogger.TAG_PROVIDER, "ContentProviderManager#query(4 params) throw exception:", e);
                 return null;
             }
-        } catch (Throwable th2) {
-            ZeusLogger.w(ZeusLogger.TAG_PROVIDER, "not found host provider-ContentProviderManager#query(4 params) throw exception:", th2);
+        } catch (Throwable th) {
+            ZeusLogger.w(ZeusLogger.TAG_PROVIDER, "not found host provider-ContentProviderManager#query(4 params) throw exception:", th);
             return null;
         }
     }
@@ -127,12 +118,12 @@ public class a {
             } catch (IllegalArgumentException unused) {
                 ZeusLogger.w(ZeusLogger.TAG_PROVIDER, "not found plugin provider, but found host ContentResolver execute query(5 params) !!!");
                 return contentResolver.query(uri, strArr, str, strArr2, str2);
-            } catch (Exception e10) {
-                ZeusLogger.w(ZeusLogger.TAG_PROVIDER, "ContentProviderManager#query(5 params) throw exception:", e10);
+            } catch (Exception e2) {
+                ZeusLogger.w(ZeusLogger.TAG_PROVIDER, "ContentProviderManager#query(5 params) throw exception:", e2);
                 return null;
             }
-        } catch (Throwable th2) {
-            ZeusLogger.w(ZeusLogger.TAG_PROVIDER, "not found host provider-ContentProviderManager#query(5 params) throw exception:", th2);
+        } catch (Throwable th) {
+            ZeusLogger.w(ZeusLogger.TAG_PROVIDER, "not found host provider-ContentProviderManager#query(5 params) throw exception:", th);
             return null;
         }
     }
@@ -147,12 +138,12 @@ public class a {
             } catch (IllegalArgumentException unused) {
                 ZeusLogger.w(ZeusLogger.TAG_PROVIDER, "not found plugin provider, but found host ContentResolver execute getType !!!");
                 return contentResolver.getType(uri);
-            } catch (Exception e10) {
-                ZeusLogger.w(ZeusLogger.TAG_PROVIDER, "ContentProviderManager#getType throw exception:", e10);
+            } catch (Exception e2) {
+                ZeusLogger.w(ZeusLogger.TAG_PROVIDER, "ContentProviderManager#getType throw exception:", e2);
                 return null;
             }
-        } catch (Throwable th2) {
-            ZeusLogger.w(ZeusLogger.TAG_PROVIDER, "not found host provider-ContentProviderManager#getType throw exception:", th2);
+        } catch (Throwable th) {
+            ZeusLogger.w(ZeusLogger.TAG_PROVIDER, "not found host provider-ContentProviderManager#getType throw exception:", th);
             return null;
         }
     }
@@ -167,41 +158,37 @@ public class a {
             } catch (IllegalArgumentException unused) {
                 ZeusLogger.w(ZeusLogger.TAG_PROVIDER, "not found plugin provider, but found host ContentResolver execute insert !!!");
                 return contentResolver.insert(uri, contentValues);
-            } catch (Exception e10) {
-                ZeusLogger.w(ZeusLogger.TAG_PROVIDER, "ContentProviderManager#insert throw exception:", e10);
+            } catch (Exception e2) {
+                ZeusLogger.w(ZeusLogger.TAG_PROVIDER, "ContentProviderManager#insert throw exception:", e2);
                 return null;
             }
-        } catch (Throwable th2) {
-            ZeusLogger.w(ZeusLogger.TAG_PROVIDER, "not found host provider-ContentProviderManager#insert throw exception:", th2);
+        } catch (Throwable th) {
+            ZeusLogger.w(ZeusLogger.TAG_PROVIDER, "not found host provider-ContentProviderManager#insert throw exception:", th);
             return null;
         }
     }
 
     public static Uri a(ContentResolver contentResolver, Uri uri, ContentValues contentValues, Bundle bundle, String str) {
-        Uri insert;
-        Uri insert2;
         if (contentResolver == null) {
             return null;
         }
         try {
             try {
-                insert2 = contentResolver.insert(a(uri, str), contentValues, bundle);
-                return insert2;
+                return contentResolver.insert(a(uri, str), contentValues, bundle);
             } catch (IllegalArgumentException unused) {
                 ZeusLogger.w(ZeusLogger.TAG_PROVIDER, "not found plugin provider, but found host ContentResolver execute insert !!!");
-                insert = contentResolver.insert(uri, contentValues, bundle);
-                return insert;
-            } catch (Exception e10) {
-                e = e10;
+                return contentResolver.insert(uri, contentValues, bundle);
+            } catch (Exception e2) {
+                e = e2;
                 ZeusLogger.w(ZeusLogger.TAG_PROVIDER, "ContentProviderManager#insert throw exception:", e);
                 return null;
-            } catch (IncompatibleClassChangeError e11) {
-                e = e11;
+            } catch (IncompatibleClassChangeError e3) {
+                e = e3;
                 ZeusLogger.w(ZeusLogger.TAG_PROVIDER, "ContentProviderManager#insert throw exception:", e);
                 return null;
             }
-        } catch (Throwable th2) {
-            ZeusLogger.w(ZeusLogger.TAG_PROVIDER, "not found host provider-ContentProviderManager#insert throw exception:", th2);
+        } catch (Throwable th) {
+            ZeusLogger.w(ZeusLogger.TAG_PROVIDER, "not found host provider-ContentProviderManager#insert throw exception:", th);
             return null;
         }
     }
@@ -216,41 +203,37 @@ public class a {
             } catch (IllegalArgumentException unused) {
                 ZeusLogger.w(ZeusLogger.TAG_PROVIDER, "not found plugin provider, but found host ContentResolver execute delete !!!");
                 return contentResolver.delete(uri, str, strArr);
-            } catch (Exception e10) {
-                ZeusLogger.w(ZeusLogger.TAG_PROVIDER, "ContentProviderManager#delete throw exception:", e10);
+            } catch (Exception e2) {
+                ZeusLogger.w(ZeusLogger.TAG_PROVIDER, "ContentProviderManager#delete throw exception:", e2);
                 return -1;
             }
-        } catch (Throwable th2) {
-            ZeusLogger.w(ZeusLogger.TAG_PROVIDER, "ContentProviderManager#delete throw exception:", th2);
+        } catch (Throwable th) {
+            ZeusLogger.w(ZeusLogger.TAG_PROVIDER, "ContentProviderManager#delete throw exception:", th);
             return -1;
         }
     }
 
     public static int a(ContentResolver contentResolver, Uri uri, Bundle bundle, String str) {
-        int delete;
-        int delete2;
         if (contentResolver == null) {
             return -1;
         }
         try {
             try {
-                delete2 = contentResolver.delete(a(uri, str), bundle);
-                return delete2;
+                return contentResolver.delete(a(uri, str), bundle);
             } catch (IllegalArgumentException unused) {
                 ZeusLogger.w(ZeusLogger.TAG_PROVIDER, "not found plugin provider, but found host ContentResolver execute delete !!!");
-                delete = contentResolver.delete(uri, bundle);
-                return delete;
-            } catch (Exception e10) {
-                e = e10;
+                return contentResolver.delete(uri, bundle);
+            } catch (Exception e2) {
+                e = e2;
                 ZeusLogger.w(ZeusLogger.TAG_PROVIDER, "ContentProviderManager#delete throw exception:", e);
                 return -1;
-            } catch (IncompatibleClassChangeError e11) {
-                e = e11;
+            } catch (IncompatibleClassChangeError e3) {
+                e = e3;
                 ZeusLogger.w(ZeusLogger.TAG_PROVIDER, "ContentProviderManager#delete throw exception:", e);
                 return -1;
             }
-        } catch (Throwable th2) {
-            ZeusLogger.w(ZeusLogger.TAG_PROVIDER, "ContentProviderManager#delete throw exception:", th2);
+        } catch (Throwable th) {
+            ZeusLogger.w(ZeusLogger.TAG_PROVIDER, "ContentProviderManager#delete throw exception:", th);
             return -1;
         }
     }
@@ -265,12 +248,12 @@ public class a {
             } catch (IllegalArgumentException unused) {
                 ZeusLogger.w(ZeusLogger.TAG_PROVIDER, "not found plugin provider, but found host ContentResolver execute update !!!");
                 return contentResolver.update(uri, contentValues, str, strArr);
-            } catch (Exception e10) {
-                ZeusLogger.w(ZeusLogger.TAG_PROVIDER, "ContentProviderManager#update throw exception:", e10);
+            } catch (Exception e2) {
+                ZeusLogger.w(ZeusLogger.TAG_PROVIDER, "ContentProviderManager#update throw exception:", e2);
                 return 0;
             }
-        } catch (Throwable th2) {
-            ZeusLogger.w(ZeusLogger.TAG_PROVIDER, "ContentProviderManager#update throw exception:", th2);
+        } catch (Throwable th) {
+            ZeusLogger.w(ZeusLogger.TAG_PROVIDER, "ContentProviderManager#update throw exception:", th);
             return 0;
         }
     }
@@ -279,39 +262,37 @@ public class a {
         if (contentResolver != null && uri != null) {
             try {
                 try {
-                    Uri a10 = a(uri, str3);
+                    Uri a2 = a(uri, str3);
                     if (bundle == null) {
                         bundle = new Bundle();
                     }
                     bundle.putString("provider_params", uri.getAuthority());
-                    bundle.putString(ContentProviderManager.PROVIDER_PROXY_URI, a10.toString());
-                    return contentResolver.call(a10, str, str2, bundle);
+                    bundle.putString(ContentProviderManager.PROVIDER_PROXY_URI, a2.toString());
+                    return contentResolver.call(a2, str, str2, bundle);
                 } catch (IllegalArgumentException unused) {
                     ZeusLogger.w(ZeusLogger.TAG_PROVIDER, "not found plugin provider, but found host ContentResolver execute call !!!");
                     return contentResolver.call(uri, str, str2, bundle);
-                } catch (Exception e10) {
-                    e = e10;
+                } catch (Exception e2) {
+                    e = e2;
                     ZeusLogger.w(ZeusLogger.TAG_PROVIDER, "ContentProviderManager#call throw exception:", e);
                     return null;
-                } catch (IncompatibleClassChangeError e11) {
-                    e = e11;
+                } catch (IncompatibleClassChangeError e3) {
+                    e = e3;
                     ZeusLogger.w(ZeusLogger.TAG_PROVIDER, "ContentProviderManager#call throw exception:", e);
                     return null;
                 }
-            } catch (Throwable th2) {
-                ZeusLogger.w(ZeusLogger.TAG_PROVIDER, "ContentProviderManager#call throw exception:", th2);
+            } catch (Throwable th) {
+                ZeusLogger.w(ZeusLogger.TAG_PROVIDER, "ContentProviderManager#call throw exception:", th);
             }
         }
         return null;
     }
 
     public static Bundle a(ContentResolver contentResolver, String str, String str2, String str3, Bundle bundle, String str4) {
-        Bundle call;
-        Bundle call2;
         if (contentResolver == null) {
             return null;
         }
-        String str5 = ContentProviderManager.getInstance().getSystemProviderInfoMap().get(ContentProviderManager.getInstance().getPluginProcessNameByAuthority(str)).f7732b;
+        String str5 = ContentProviderManager.getInstance().getSystemProviderInfoMap().get(ContentProviderManager.getInstance().getPluginProcessNameByAuthority(str)).f6225b;
         if (bundle == null) {
             bundle = new Bundle();
         }
@@ -319,35 +300,26 @@ public class a {
         bundle.putString(ContentProviderManager.PROVIDER_PROXY_URI, a(str4, (Uri) null, str).toString());
         try {
             try {
-                call2 = contentResolver.call(str5, str2, str3, bundle);
-                return call2;
+                return contentResolver.call(str5, str2, str3, bundle);
             } catch (IllegalArgumentException unused) {
                 ZeusLogger.w(ZeusLogger.TAG_PROVIDER, "not found plugin provider, but found host ContentResolver execute call !!!");
-                call = contentResolver.call(str, str2, str3, bundle);
-                return call;
-            } catch (Exception e10) {
-                e = e10;
+                return contentResolver.call(str, str2, str3, bundle);
+            } catch (Exception e2) {
+                e = e2;
                 ZeusLogger.w(ZeusLogger.TAG_PROVIDER, "ContentProviderManager#call throw exception:", e);
                 return null;
-            } catch (IncompatibleClassChangeError e11) {
-                e = e11;
+            } catch (IncompatibleClassChangeError e3) {
+                e = e3;
                 ZeusLogger.w(ZeusLogger.TAG_PROVIDER, "ContentProviderManager#call throw exception:", e);
                 return null;
             }
-        } catch (Throwable th2) {
-            ZeusLogger.w(ZeusLogger.TAG_PROVIDER, "ContentProviderManager#call throw exception:", th2);
+        } catch (Throwable th) {
+            ZeusLogger.w(ZeusLogger.TAG_PROVIDER, "ContentProviderManager#call throw exception:", th);
             return null;
         }
     }
 
     public static Uri a(Uri uri, String str) {
-        if (ContentProviderManager.getInstance().isPluginProvider(uri)) {
-            return a(str, uri);
-        }
-        if (!uri.getAuthority().startsWith(Zeus.getAppApplication().getPackageName())) {
-            return uri;
-        }
-        Uri parse = Uri.parse(uri.toString().replaceFirst(Zeus.getAppApplication().getPackageName(), str));
-        return ContentProviderManager.getInstance().isPluginProvider(parse) ? a(str, parse) : uri;
+        return ContentProviderManager.getInstance().isPluginProvider(uri) ? a(str, uri) : uri;
     }
 }

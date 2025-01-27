@@ -1,87 +1,78 @@
 package androidx.core.app;
 
-import android.annotation.SuppressLint;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.IBinder;
 import android.util.Log;
-import androidx.annotation.DoNotInline;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.annotation.RequiresApi;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 
 /* loaded from: classes.dex */
 public final class BundleCompat {
 
-    @RequiresApi(18)
-    public static class Api18Impl {
-        private Api18Impl() {
-        }
+    static class BundleCompatBaseImpl {
 
-        @DoNotInline
-        public static IBinder getBinder(Bundle bundle, String str) {
-            return bundle.getBinder(str);
-        }
+        /* renamed from: a, reason: collision with root package name */
+        private static final String f1403a = "BundleCompatBaseImpl";
 
-        @DoNotInline
-        public static void putBinder(Bundle bundle, String str, IBinder iBinder) {
-            bundle.putBinder(str, iBinder);
-        }
-    }
+        /* renamed from: b, reason: collision with root package name */
+        private static Method f1404b;
 
-    @SuppressLint({"BanUncheckedReflection"})
-    public static class BeforeApi18Impl {
-        private static final String TAG = "BundleCompatBaseImpl";
-        private static Method sGetIBinderMethod;
-        private static boolean sGetIBinderMethodFetched;
-        private static Method sPutIBinderMethod;
-        private static boolean sPutIBinderMethodFetched;
+        /* renamed from: c, reason: collision with root package name */
+        private static boolean f1405c;
 
-        private BeforeApi18Impl() {
+        /* renamed from: d, reason: collision with root package name */
+        private static Method f1406d;
+
+        /* renamed from: e, reason: collision with root package name */
+        private static boolean f1407e;
+
+        private BundleCompatBaseImpl() {
         }
 
         public static IBinder getBinder(Bundle bundle, String str) {
-            if (!sGetIBinderMethodFetched) {
+            if (!f1405c) {
                 try {
                     Method method = Bundle.class.getMethod("getIBinder", String.class);
-                    sGetIBinderMethod = method;
+                    f1404b = method;
                     method.setAccessible(true);
-                } catch (NoSuchMethodException e10) {
-                    Log.i(TAG, "Failed to retrieve getIBinder method", e10);
+                } catch (NoSuchMethodException e2) {
+                    Log.i(f1403a, "Failed to retrieve getIBinder method", e2);
                 }
-                sGetIBinderMethodFetched = true;
+                f1405c = true;
             }
-            Method method2 = sGetIBinderMethod;
+            Method method2 = f1404b;
             if (method2 != null) {
                 try {
                     return (IBinder) method2.invoke(bundle, str);
-                } catch (IllegalAccessException | IllegalArgumentException | InvocationTargetException e11) {
-                    Log.i(TAG, "Failed to invoke getIBinder via reflection", e11);
-                    sGetIBinderMethod = null;
+                } catch (IllegalAccessException | IllegalArgumentException | InvocationTargetException e3) {
+                    Log.i(f1403a, "Failed to invoke getIBinder via reflection", e3);
+                    f1404b = null;
                 }
             }
             return null;
         }
 
         public static void putBinder(Bundle bundle, String str, IBinder iBinder) {
-            if (!sPutIBinderMethodFetched) {
+            if (!f1407e) {
                 try {
                     Method method = Bundle.class.getMethod("putIBinder", String.class, IBinder.class);
-                    sPutIBinderMethod = method;
+                    f1406d = method;
                     method.setAccessible(true);
-                } catch (NoSuchMethodException e10) {
-                    Log.i(TAG, "Failed to retrieve putIBinder method", e10);
+                } catch (NoSuchMethodException e2) {
+                    Log.i(f1403a, "Failed to retrieve putIBinder method", e2);
                 }
-                sPutIBinderMethodFetched = true;
+                f1407e = true;
             }
-            Method method2 = sPutIBinderMethod;
+            Method method2 = f1406d;
             if (method2 != null) {
                 try {
                     method2.invoke(bundle, str, iBinder);
-                } catch (IllegalAccessException | IllegalArgumentException | InvocationTargetException e11) {
-                    Log.i(TAG, "Failed to invoke putIBinder via reflection", e11);
-                    sPutIBinderMethod = null;
+                } catch (IllegalAccessException | IllegalArgumentException | InvocationTargetException e3) {
+                    Log.i(f1403a, "Failed to invoke putIBinder via reflection", e3);
+                    f1406d = null;
                 }
             }
         }
@@ -92,10 +83,14 @@ public final class BundleCompat {
 
     @Nullable
     public static IBinder getBinder(@NonNull Bundle bundle, @Nullable String str) {
-        return Api18Impl.getBinder(bundle, str);
+        return Build.VERSION.SDK_INT >= 18 ? bundle.getBinder(str) : BundleCompatBaseImpl.getBinder(bundle, str);
     }
 
     public static void putBinder(@NonNull Bundle bundle, @Nullable String str, @Nullable IBinder iBinder) {
-        Api18Impl.putBinder(bundle, str, iBinder);
+        if (Build.VERSION.SDK_INT >= 18) {
+            bundle.putBinder(str, iBinder);
+        } else {
+            BundleCompatBaseImpl.putBinder(bundle, str, iBinder);
+        }
     }
 }

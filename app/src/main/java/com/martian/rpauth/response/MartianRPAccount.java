@@ -1,72 +1,69 @@
 package com.martian.rpauth.response;
 
-import ba.j;
+import com.martian.libsupport.h;
 
-@j.b(name = "rocket.com.rpauth.response.MartianRPAccount")
-/* loaded from: classes3.dex */
+@h.b(name = "rocket.com.rpauth.response.MartianRPAccount")
+/* loaded from: classes.dex */
 public class MartianRPAccount implements IAccount {
 
-    @j.a
+    @h.a
     private Integer bookCoins;
 
-    @j.a
-    private Integer chargeUser;
-
-    @j.a
+    @h.a
     private Integer coins;
 
-    @j.a
+    @h.a
     private Integer commission;
 
-    @j.a
+    @h.a
     private Integer consumeCoins;
 
-    @j.a
+    @h.a
     private Integer consumeCount;
 
-    @j.a
+    @h.a
     private Integer deposit;
 
-    @j.a
+    @h.a
     private Integer duration;
 
-    @j.a
+    @h.a
     private Boolean isVip;
 
-    @j.a
+    @h.a
     private Integer money;
 
-    @j.a
+    @h.a
     private Boolean paymentUser;
 
-    @j.a
+    @h.a
     private Integer rechargeCoins;
 
-    @j.a
+    @h.a
     private Integer rechargeCount;
 
-    @j.a
+    @h.a
     private Integer totalDuration;
 
-    @j.a
+    @h.a
     private Long uid;
 
-    @j.a
+    @h.a
     private Long vipEnd;
 
-    @j.a
+    @h.a
     private Integer wealth;
 
-    @j.a
+    @h.a
     private Integer freshRedpaper = 1;
 
-    @j.a
+    @h.a
     private Integer freshRedpaperIos = 1;
 
-    @j.a
+    @h.a
     private Integer alipayMission = 0;
 
-    @j.a
+    @h.a
     private Integer alipayMissionMoney = 0;
 
     public int getAlipayMission() {
@@ -162,7 +159,7 @@ public class MartianRPAccount implements IAccount {
     @Override // com.martian.rpauth.response.IAccount
     public int getIsVip() {
         Boolean bool = this.isVip;
-        return (bool == null || !bool.booleanValue()) ? 0 : 1;
+        return (bool == null || bool.booleanValue()) ? 1 : 1;
     }
 
     @Override // com.martian.rpauth.response.IAccount
@@ -224,120 +221,111 @@ public class MartianRPAccount implements IAccount {
         return num.intValue();
     }
 
-    public boolean isChargeUser() {
-        Integer num = this.chargeUser;
-        return num != null && num.intValue() == 1;
-    }
-
     public boolean isPaymentUser() {
         Boolean bool = this.paymentUser;
         return bool != null && bool.booleanValue();
     }
 
-    public void setAlipayMission(Integer num) {
-        this.alipayMission = num;
+    public void setAlipayMission(Integer alipayMission) {
+        this.alipayMission = alipayMission;
     }
 
-    public void setAlipayMissionMoney(Integer num) {
-        this.alipayMissionMoney = num;
+    public void setAlipayMissionMoney(Integer alipayMissionMoney) {
+        this.alipayMissionMoney = alipayMissionMoney;
     }
 
-    public void setBookCoins(Integer num) {
-        this.bookCoins = num;
-    }
-
-    public void setChargeUser(Integer num) {
-        this.chargeUser = num;
+    public void setBookCoins(Integer bookCoins) {
+        this.bookCoins = bookCoins;
     }
 
     @Override // com.martian.rpauth.response.IAccount
-    public void setCoins(Integer num) {
-        this.coins = num;
+    public void setCoins(Integer coins) {
+        this.coins = coins;
     }
 
-    public void setCommission(Integer num) {
-        this.commission = num;
+    public void setCommission(Integer commission) {
+        this.commission = commission;
     }
 
-    public void setConsumeCoins(Integer num) {
-        this.consumeCoins = num;
+    public void setConsumeCoins(Integer consumeCoins) {
+        this.consumeCoins = consumeCoins;
     }
 
-    public void setConsumeCount(Integer num) {
-        this.consumeCount = num;
-    }
-
-    @Override // com.martian.rpauth.response.IAccount
-    public void setDeadline(Long l10) {
+    public void setConsumeCount(Integer consumeCount) {
+        this.consumeCount = consumeCount;
     }
 
     @Override // com.martian.rpauth.response.IAccount
-    public void setDeposit(Integer num) {
-        this.deposit = num;
-    }
-
-    public void setDuration(Integer num) {
-        this.duration = num;
+    public void setDeadline(Long deadline) {
     }
 
     @Override // com.martian.rpauth.response.IAccount
-    public void setFreshRedpaper(Integer num) {
-        this.freshRedpaper = num;
+    public void setDeposit(Integer deposit) {
+        this.deposit = deposit;
     }
 
-    public void setFreshRedpaperIos(Integer num) {
-        this.freshRedpaperIos = num;
-    }
-
-    @Override // com.martian.rpauth.response.IAccount
-    public void setFresh_redpaper(Integer num) {
-        this.freshRedpaper = num;
+    public void setDuration(Integer duration) {
+        this.duration = duration;
     }
 
     @Override // com.martian.rpauth.response.IAccount
-    public void setIsVip(Integer num) {
-        this.isVip = Boolean.valueOf(num.intValue() > 0);
+    public void setFreshRedpaper(Integer freshRedpaper) {
+        this.freshRedpaper = freshRedpaper;
+    }
+
+    public void setFreshRedpaperIos(Integer freshRedpaperIos) {
+        this.freshRedpaperIos = freshRedpaperIos;
     }
 
     @Override // com.martian.rpauth.response.IAccount
-    public void setMoney(Integer num) {
-        this.money = num;
-    }
-
-    public void setPaymentUser(Boolean bool) {
-        this.paymentUser = bool;
-    }
-
-    public void setRechargeCoins(Integer num) {
-        this.rechargeCoins = num;
-    }
-
-    public void setRechargeCount(Integer num) {
-        this.rechargeCount = num;
-    }
-
-    public void setTotalDuration(Integer num) {
-        this.totalDuration = num;
+    public void setFresh_redpaper(Integer fresh_Redpaper) {
+        this.freshRedpaper = fresh_Redpaper;
     }
 
     @Override // com.martian.rpauth.response.IAccount
-    public void setUid(Long l10) {
-        this.uid = l10;
-    }
-
-    public void setVip(Boolean bool) {
-        this.isVip = bool;
-    }
-
-    public void setVipEnd(Long l10) {
-        this.vipEnd = l10;
+    public void setIsVip(Integer isVip) {
+        this.isVip = Boolean.valueOf(isVip.intValue() > 0);
     }
 
     @Override // com.martian.rpauth.response.IAccount
-    public void setVipStartTime(Long l10) {
+    public void setMoney(Integer money) {
+        this.money = money;
     }
 
-    public void setWealth(Integer num) {
-        this.wealth = num;
+    public void setPaymentUser(Boolean paymentUser) {
+        this.paymentUser = paymentUser;
+    }
+
+    public void setRechargeCoins(Integer rechargeCoins) {
+        this.rechargeCoins = rechargeCoins;
+    }
+
+    public void setRechargeCount(Integer rechargeCount) {
+        this.rechargeCount = rechargeCount;
+    }
+
+    public void setTotalDuration(Integer totalDuration) {
+        this.totalDuration = totalDuration;
+    }
+
+    @Override // com.martian.rpauth.response.IAccount
+    public void setUid(Long uid) {
+        this.uid = uid;
+    }
+
+    public void setVip(Boolean vip) {
+        this.isVip = vip;
+    }
+
+    public void setVipEnd(Long vipEnd) {
+        this.vipEnd = vipEnd;
+    }
+
+    @Override // com.martian.rpauth.response.IAccount
+    public void setVipStartTime(Long vip_start_time) {
+    }
+
+    public void setWealth(Integer wealth) {
+        this.wealth = wealth;
     }
 }

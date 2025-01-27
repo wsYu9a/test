@@ -8,7 +8,7 @@ import java.util.Arrays;
 import java.util.Collection;
 import java.util.Iterator;
 
-/* loaded from: classes2.dex */
+/* loaded from: classes.dex */
 public class MultiTransformation<T> implements Transformation<T> {
     private final Collection<? extends Transformation<T>> transformations;
 
@@ -35,11 +35,11 @@ public class MultiTransformation<T> implements Transformation<T> {
 
     @Override // com.bumptech.glide.load.Transformation
     @NonNull
-    public Resource<T> transform(@NonNull Context context, @NonNull Resource<T> resource, int i10, int i11) {
+    public Resource<T> transform(@NonNull Context context, @NonNull Resource<T> resource, int i2, int i3) {
         Iterator<? extends Transformation<T>> it = this.transformations.iterator();
         Resource<T> resource2 = resource;
         while (it.hasNext()) {
-            Resource<T> transform = it.next().transform(context, resource2, i10, i11);
+            Resource<T> transform = it.next().transform(context, resource2, i2, i3);
             if (resource2 != null && !resource2.equals(resource) && !resource2.equals(transform)) {
                 resource2.recycle();
             }

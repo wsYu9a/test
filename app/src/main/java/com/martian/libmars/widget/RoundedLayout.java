@@ -9,306 +9,291 @@ import android.graphics.Path;
 import android.graphics.RectF;
 import android.graphics.drawable.Drawable;
 import android.graphics.drawable.GradientDrawable;
+import android.os.Build;
 import android.util.AttributeSet;
 import android.widget.FrameLayout;
 import androidx.annotation.Px;
+import androidx.core.view.ViewCompat;
 import com.martian.libmars.R;
 
-/* loaded from: classes3.dex */
+/* loaded from: classes2.dex */
 public class RoundedLayout extends FrameLayout {
 
+    /* renamed from: a */
+    private final Path f10365a;
+
     /* renamed from: b */
-    public final Path f12675b;
+    private final Paint f10366b;
 
     /* renamed from: c */
-    public final Paint f12676c;
+    private final RectF f10367c;
 
     /* renamed from: d */
-    public final RectF f12677d;
+    private final float[] f10368d;
 
     /* renamed from: e */
-    public final float[] f12678e;
+    private boolean f10369e;
 
     /* renamed from: f */
-    public boolean f12679f;
+    private int f10370f;
 
     /* renamed from: g */
-    public int f12680g;
+    private boolean f10371g;
 
     /* renamed from: h */
-    public boolean f12681h;
+    private boolean f10372h;
 
     /* renamed from: i */
-    public boolean f12682i;
+    private boolean f10373i;
 
     /* renamed from: j */
-    public boolean f12683j;
-
-    /* renamed from: k */
-    public boolean f12684k;
-
-    /* renamed from: l */
-    public boolean f12685l;
-
-    /* renamed from: m */
-    public int f12686m;
-
-    /* renamed from: n */
-    public int f12687n;
-
-    /* renamed from: o */
-    public int f12688o;
-
-    /* renamed from: p */
-    public float f12689p;
-
-    /* renamed from: q */
-    public final GradientDrawable f12690q;
+    private boolean f10374j;
+    private boolean k;
+    private int l;
+    private int m;
+    private float n;
+    private final GradientDrawable o;
 
     public RoundedLayout(Context context) {
         super(context);
-        this.f12675b = new Path();
-        this.f12676c = new Paint();
-        this.f12677d = new RectF();
-        this.f12678e = new float[8];
-        this.f12679f = false;
-        this.f12690q = new GradientDrawable();
+        this.f10365a = new Path();
+        this.f10366b = new Paint();
+        this.f10367c = new RectF();
+        this.f10368d = new float[8];
+        this.f10369e = false;
+        this.o = new GradientDrawable();
         c(context, null, 0, 0);
     }
 
-    public final void a() {
-        if (this.f12679f) {
-            float f10 = this.f12680g;
-            if (this.f12681h) {
-                f10 = Math.max(this.f12677d.width(), this.f12677d.height()) / 2.0f;
+    private void a() {
+        if (this.f10369e) {
+            float f2 = this.f10370f;
+            if (this.f10371g) {
+                f2 = Math.max(this.f10367c.width(), this.f10367c.height()) / 2.0f;
             }
-            this.f12675b.reset();
-            this.f12675b.addRoundRect(this.f12677d, b(f10), Path.Direction.CW);
-            this.f12675b.close();
-            this.f12690q.setCornerRadii(b(f10));
+            this.f10365a.reset();
+            this.f10365a.addRoundRect(this.f10367c, b(f2), Path.Direction.CW);
+            this.f10365a.close();
+            this.o.setCornerRadii(b(f2));
         }
     }
 
-    public final float[] b(float f10) {
-        float[] fArr = this.f12678e;
-        boolean z10 = this.f12682i;
-        fArr[0] = z10 ? f10 : 0.0f;
-        fArr[1] = z10 ? f10 : 0.0f;
-        boolean z11 = this.f12683j;
-        fArr[2] = z11 ? f10 : 0.0f;
-        fArr[3] = z11 ? f10 : 0.0f;
-        boolean z12 = this.f12685l;
-        fArr[4] = z12 ? f10 : 0.0f;
-        fArr[5] = z12 ? f10 : 0.0f;
-        boolean z13 = this.f12684k;
-        fArr[6] = z13 ? f10 : 0.0f;
-        if (!z13) {
-            f10 = 0.0f;
+    private float[] b(float cornerRadius) {
+        float[] fArr = this.f10368d;
+        boolean z = this.f10372h;
+        fArr[0] = z ? cornerRadius : 0.0f;
+        fArr[1] = z ? cornerRadius : 0.0f;
+        boolean z2 = this.f10373i;
+        fArr[2] = z2 ? cornerRadius : 0.0f;
+        fArr[3] = z2 ? cornerRadius : 0.0f;
+        boolean z3 = this.k;
+        fArr[4] = z3 ? cornerRadius : 0.0f;
+        fArr[5] = z3 ? cornerRadius : 0.0f;
+        boolean z4 = this.f10374j;
+        fArr[6] = z4 ? cornerRadius : 0.0f;
+        if (!z4) {
+            cornerRadius = 0.0f;
         }
-        fArr[7] = f10;
+        fArr[7] = cornerRadius;
         return fArr;
     }
 
-    public final void c(Context context, AttributeSet attributeSet, int i10, int i11) {
+    private void c(Context context, AttributeSet attrs, int defStyleAttr, int defStyleRes) {
         if (isInEditMode()) {
             return;
         }
-        TypedArray obtainStyledAttributes = context.obtainStyledAttributes(attributeSet, R.styleable.RoundedLayout, i10, i11);
-        this.f12680g = obtainStyledAttributes.getDimensionPixelSize(R.styleable.RoundedLayout_rlRoundedCornerRadius, 0);
-        this.f12681h = obtainStyledAttributes.getBoolean(R.styleable.RoundedLayout_rlRoundAsCircle, false);
-        this.f12682i = obtainStyledAttributes.getBoolean(R.styleable.RoundedLayout_rlRoundTopLeft, true);
-        this.f12683j = obtainStyledAttributes.getBoolean(R.styleable.RoundedLayout_rlRoundTopRight, true);
-        this.f12684k = obtainStyledAttributes.getBoolean(R.styleable.RoundedLayout_rlRoundBottomLeft, false);
-        this.f12685l = obtainStyledAttributes.getBoolean(R.styleable.RoundedLayout_rlRoundBottomRight, false);
-        this.f12686m = obtainStyledAttributes.getDimensionPixelSize(R.styleable.RoundedLayout_rlRoundingBorderWidth, 0);
-        this.f12687n = obtainStyledAttributes.getColor(R.styleable.RoundedLayout_rlRoundingBorderColor, 0);
-        this.f12688o = obtainStyledAttributes.getColor(R.styleable.RoundedLayout_rlRoundingBackgroundColor, 0);
+        TypedArray obtainStyledAttributes = context.obtainStyledAttributes(attrs, R.styleable.RoundedLayout, defStyleAttr, defStyleRes);
+        this.f10370f = obtainStyledAttributes.getDimensionPixelSize(R.styleable.RoundedLayout_rlRoundedCornerRadius, 0);
+        this.f10371g = obtainStyledAttributes.getBoolean(R.styleable.RoundedLayout_rlRoundAsCircle, false);
+        this.f10372h = obtainStyledAttributes.getBoolean(R.styleable.RoundedLayout_rlRoundTopLeft, true);
+        this.f10373i = obtainStyledAttributes.getBoolean(R.styleable.RoundedLayout_rlRoundTopRight, true);
+        this.f10374j = obtainStyledAttributes.getBoolean(R.styleable.RoundedLayout_rlRoundBottomLeft, false);
+        this.k = obtainStyledAttributes.getBoolean(R.styleable.RoundedLayout_rlRoundBottomRight, false);
+        this.l = obtainStyledAttributes.getDimensionPixelSize(R.styleable.RoundedLayout_rlRoundingBorderWidth, 0);
+        this.m = obtainStyledAttributes.getColor(R.styleable.RoundedLayout_rlRoundingBorderColor, 0);
         if (obtainStyledAttributes.hasValue(R.styleable.RoundedLayout_rlRoundingElevation)) {
-            this.f12689p = obtainStyledAttributes.getDimensionPixelSize(R.styleable.RoundedLayout_rlRoundingElevation, 0);
+            this.n = obtainStyledAttributes.getDimensionPixelSize(r3, 0);
         }
         obtainStyledAttributes.recycle();
-        setRoundingElevation(this.f12689p);
-        this.f12676c.setAntiAlias(true);
-        this.f12676c.setColor(this.f12687n);
-        this.f12676c.setStyle(Paint.Style.STROKE);
-        this.f12676c.setStrokeWidth(this.f12686m * 2);
-        this.f12690q.setColor(this.f12688o);
-        this.f12690q.setCornerRadii(b(this.f12680g));
-        super.setBackgroundDrawable(this.f12690q);
+        setRoundingElevation(this.n);
+        this.f10366b.setAntiAlias(true);
+        this.f10366b.setColor(this.m);
+        this.f10366b.setStyle(Paint.Style.STROKE);
+        this.f10366b.setStrokeWidth(this.l * 2);
+        this.o.setColor(this.m);
+        this.o.setCornerRadii(b(this.f10370f));
+        super.setBackgroundDrawable(this.o);
     }
 
     public boolean d() {
-        return this.f12681h;
+        return this.f10371g;
     }
 
     @Override // android.view.View
     public void draw(Canvas canvas) {
         try {
-            canvas.clipPath(this.f12675b);
+            canvas.clipPath(this.f10365a);
         } catch (UnsupportedOperationException unused) {
         }
         super.draw(canvas);
-        if (this.f12686m <= 0 || this.f12687n == 0) {
+        if (this.l <= 0 || this.m == 0) {
             return;
         }
-        canvas.drawPath(this.f12675b, this.f12676c);
+        canvas.drawPath(this.f10365a, this.f10366b);
     }
 
     public boolean e() {
-        return this.f12684k;
+        return this.f10374j;
     }
 
     public boolean f() {
-        return this.f12685l;
+        return this.k;
     }
 
     public boolean g() {
-        return this.f12682i;
+        return this.f10372h;
     }
 
     public int getRoundedCornerRadius() {
-        return this.f12680g;
+        return this.f10370f;
     }
 
     public int getRoundingBorderColor() {
-        return this.f12687n;
+        return this.m;
     }
 
     public int getRoundingBorderWidth() {
-        return this.f12686m;
+        return this.l;
     }
 
     public float getRoundingElevation() {
-        return this.f12689p;
+        return this.n;
     }
 
     public boolean h() {
-        return this.f12683j;
+        return this.f10373i;
     }
 
-    public void i(int i10, boolean z10, boolean z11, boolean z12, boolean z13) {
-        if (this.f12680g == i10 && this.f12682i == z10 && this.f12683j == z11 && this.f12684k == z13 && this.f12685l == z12) {
+    public void i(int cornerRadius, boolean topLeft, boolean topRight, boolean bottomRight, boolean bottomLeft) {
+        if (this.f10370f == cornerRadius && this.f10372h == topLeft && this.f10373i == topRight && this.f10374j == bottomLeft && this.k == bottomRight) {
             return;
         }
-        this.f12680g = i10;
-        this.f12682i = z10;
-        this.f12683j = z11;
-        this.f12684k = z13;
-        this.f12685l = z12;
+        this.f10370f = cornerRadius;
+        this.f10372h = topLeft;
+        this.f10373i = topRight;
+        this.f10374j = bottomLeft;
+        this.k = bottomRight;
         a();
         postInvalidate();
     }
 
     @Override // android.view.ViewGroup, android.view.View
-    public void onAttachedToWindow() {
+    protected void onAttachedToWindow() {
         super.onAttachedToWindow();
-        this.f12679f = false;
+        this.f10369e = false;
     }
 
     @Override // android.widget.FrameLayout, android.view.ViewGroup, android.view.View
-    public void onLayout(boolean z10, int i10, int i11, int i12, int i13) {
-        super.onLayout(z10, i10, i11, i12, i13);
-        this.f12677d.set(0.0f, 0.0f, i12 - i10, i13 - i11);
-        if (this.f12679f) {
+    protected void onLayout(boolean changed, int left, int top, int right, int bottom) {
+        super.onLayout(changed, left, top, right, bottom);
+        this.f10367c.set(0.0f, 0.0f, right - left, bottom - top);
+        if (this.f10369e) {
             return;
         }
-        this.f12679f = true;
+        this.f10369e = true;
         a();
     }
 
     @Override // android.view.View
-    public void onSizeChanged(int i10, int i11, int i12, int i13) {
-        super.onSizeChanged(i10, i11, i12, i13);
-        this.f12677d.set(0.0f, 0.0f, i10, i11);
+    protected void onSizeChanged(int w, int h2, int oldw, int oldh) {
+        super.onSizeChanged(w, h2, oldw, oldh);
         a();
     }
 
     @Override // android.view.View
-    public void setBackground(Drawable drawable) {
+    public void setBackground(Drawable background) {
     }
 
     @Override // android.view.View
-    public void setBackgroundDrawable(Drawable drawable) {
+    public void setBackgroundDrawable(Drawable background) {
     }
 
     @Override // android.view.View
-    public void setElevation(@Px float f10) {
-        super.setElevation(f10);
-        this.f12689p = f10;
+    @TargetApi(21)
+    public void setElevation(@Px float elevation) {
+        super.setElevation(elevation);
+        this.n = elevation;
     }
 
-    public void setRoundAsCircle(boolean z10) {
-        if (z10 != this.f12681h) {
-            this.f12681h = z10;
+    public void setRoundAsCircle(boolean asCircle) {
+        if (asCircle != this.f10371g) {
+            this.f10371g = asCircle;
             a();
             postInvalidate();
         }
     }
 
-    public void setRoundedCornerRadius(int i10) {
-        i(i10, true, true, true, true);
+    public void setRoundedCornerRadius(int cornerRadius) {
+        i(cornerRadius, true, true, true, true);
     }
 
-    public void setRoundingBackgroundColor(int i10) {
-        int i11 = this.f12688o;
-        if (i10 != i11) {
-            this.f12690q.setColor(i11);
+    public void setRoundingBorderColor(int color) {
+        if (color != this.m) {
+            this.m = color;
+            this.f10366b.setColor(color);
+            this.o.setColor(this.m | (-16777216));
             postInvalidate();
         }
     }
 
-    public void setRoundingBorderColor(int i10) {
-        if (i10 != this.f12687n) {
-            this.f12687n = i10;
-            this.f12676c.setColor(i10);
+    public void setRoundingBorderWidth(int width) {
+        if (width != this.l) {
+            this.l = width;
+            this.f10366b.setStrokeWidth(width * 2);
             postInvalidate();
         }
     }
 
-    public void setRoundingBorderWidth(int i10) {
-        if (i10 != this.f12686m) {
-            this.f12686m = i10;
-            this.f12676c.setStrokeWidth(i10 * 2);
-            postInvalidate();
+    public void setRoundingElevation(float elevation) {
+        this.n = elevation;
+        if (Build.VERSION.SDK_INT >= 21) {
+            setElevation(elevation);
+        } else {
+            ViewCompat.setElevation(this, elevation);
         }
     }
 
-    public void setRoundingElevation(float f10) {
-        this.f12689p = f10;
-        setElevation(f10);
+    public RoundedLayout(Context context, AttributeSet attrs) {
+        super(context, attrs);
+        this.f10365a = new Path();
+        this.f10366b = new Paint();
+        this.f10367c = new RectF();
+        this.f10368d = new float[8];
+        this.f10369e = false;
+        this.o = new GradientDrawable();
+        c(context, attrs, 0, 0);
     }
 
-    public RoundedLayout(Context context, AttributeSet attributeSet) {
-        super(context, attributeSet);
-        this.f12675b = new Path();
-        this.f12676c = new Paint();
-        this.f12677d = new RectF();
-        this.f12678e = new float[8];
-        this.f12679f = false;
-        this.f12690q = new GradientDrawable();
-        c(context, attributeSet, 0, 0);
-    }
-
-    public RoundedLayout(Context context, AttributeSet attributeSet, int i10) {
-        super(context, attributeSet, i10);
-        this.f12675b = new Path();
-        this.f12676c = new Paint();
-        this.f12677d = new RectF();
-        this.f12678e = new float[8];
-        this.f12679f = false;
-        this.f12690q = new GradientDrawable();
-        c(context, attributeSet, i10, 0);
+    public RoundedLayout(Context context, AttributeSet attrs, int defStyleAttr) {
+        super(context, attrs, defStyleAttr);
+        this.f10365a = new Path();
+        this.f10366b = new Paint();
+        this.f10367c = new RectF();
+        this.f10368d = new float[8];
+        this.f10369e = false;
+        this.o = new GradientDrawable();
+        c(context, attrs, defStyleAttr, 0);
     }
 
     @TargetApi(21)
-    public RoundedLayout(Context context, AttributeSet attributeSet, int i10, int i11) {
-        super(context, attributeSet, i10, i11);
-        this.f12675b = new Path();
-        this.f12676c = new Paint();
-        this.f12677d = new RectF();
-        this.f12678e = new float[8];
-        this.f12679f = false;
-        this.f12690q = new GradientDrawable();
-        c(context, attributeSet, i10, i11);
+    public RoundedLayout(Context context, AttributeSet attrs, int defStyleAttr, int defStyleRes) {
+        super(context, attrs, defStyleAttr, defStyleRes);
+        this.f10365a = new Path();
+        this.f10366b = new Paint();
+        this.f10367c = new RectF();
+        this.f10368d = new float[8];
+        this.f10369e = false;
+        this.o = new GradientDrawable();
+        c(context, attrs, defStyleAttr, defStyleRes);
     }
 }

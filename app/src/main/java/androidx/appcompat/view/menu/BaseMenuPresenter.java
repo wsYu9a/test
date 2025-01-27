@@ -12,30 +12,50 @@ import java.util.ArrayList;
 @RestrictTo({RestrictTo.Scope.LIBRARY_GROUP_PREFIX})
 /* loaded from: classes.dex */
 public abstract class BaseMenuPresenter implements MenuPresenter {
-    private MenuPresenter.Callback mCallback;
-    protected Context mContext;
-    private int mId;
-    protected LayoutInflater mInflater;
-    private int mItemLayoutRes;
-    protected MenuBuilder mMenu;
-    private int mMenuLayoutRes;
-    protected MenuView mMenuView;
-    protected Context mSystemContext;
-    protected LayoutInflater mSystemInflater;
 
-    public BaseMenuPresenter(Context context, int i10, int i11) {
-        this.mSystemContext = context;
-        this.mSystemInflater = LayoutInflater.from(context);
-        this.mMenuLayoutRes = i10;
-        this.mItemLayoutRes = i11;
+    /* renamed from: a */
+    protected Context f467a;
+
+    /* renamed from: b */
+    protected Context f468b;
+
+    /* renamed from: c */
+    protected MenuBuilder f469c;
+
+    /* renamed from: d */
+    protected LayoutInflater f470d;
+
+    /* renamed from: e */
+    protected LayoutInflater f471e;
+
+    /* renamed from: f */
+    private MenuPresenter.Callback f472f;
+
+    /* renamed from: g */
+    private int f473g;
+
+    /* renamed from: h */
+    private int f474h;
+
+    /* renamed from: i */
+    protected MenuView f475i;
+
+    /* renamed from: j */
+    private int f476j;
+
+    public BaseMenuPresenter(Context context, int i2, int i3) {
+        this.f467a = context;
+        this.f470d = LayoutInflater.from(context);
+        this.f473g = i2;
+        this.f474h = i3;
     }
 
-    public void addItemView(View view, int i10) {
+    protected void a(View view, int i2) {
         ViewGroup viewGroup = (ViewGroup) view.getParent();
         if (viewGroup != null) {
             viewGroup.removeView(view);
         }
-        ((ViewGroup) this.mMenuView).addView(view, i10);
+        ((ViewGroup) this.f475i).addView(view, i2);
     }
 
     public abstract void bindItemView(MenuItemImpl menuItemImpl, MenuView.ItemView itemView);
@@ -46,7 +66,7 @@ public abstract class BaseMenuPresenter implements MenuPresenter {
     }
 
     public MenuView.ItemView createItemView(ViewGroup viewGroup) {
-        return (MenuView.ItemView) this.mSystemInflater.inflate(this.mItemLayoutRes, viewGroup, false);
+        return (MenuView.ItemView) this.f470d.inflate(this.f474h, viewGroup, false);
     }
 
     @Override // androidx.appcompat.view.menu.MenuPresenter
@@ -54,8 +74,8 @@ public abstract class BaseMenuPresenter implements MenuPresenter {
         return false;
     }
 
-    public boolean filterLeftoverView(ViewGroup viewGroup, int i10) {
-        viewGroup.removeViewAt(i10);
+    protected boolean filterLeftoverView(ViewGroup viewGroup, int i2) {
+        viewGroup.removeViewAt(i2);
         return true;
     }
 
@@ -65,12 +85,12 @@ public abstract class BaseMenuPresenter implements MenuPresenter {
     }
 
     public MenuPresenter.Callback getCallback() {
-        return this.mCallback;
+        return this.f472f;
     }
 
     @Override // androidx.appcompat.view.menu.MenuPresenter
     public int getId() {
-        return this.mId;
+        return this.f476j;
     }
 
     /* JADX WARN: Multi-variable type inference failed */
@@ -82,76 +102,70 @@ public abstract class BaseMenuPresenter implements MenuPresenter {
 
     @Override // androidx.appcompat.view.menu.MenuPresenter
     public MenuView getMenuView(ViewGroup viewGroup) {
-        if (this.mMenuView == null) {
-            MenuView menuView = (MenuView) this.mSystemInflater.inflate(this.mMenuLayoutRes, viewGroup, false);
-            this.mMenuView = menuView;
-            menuView.initialize(this.mMenu);
+        if (this.f475i == null) {
+            MenuView menuView = (MenuView) this.f470d.inflate(this.f473g, viewGroup, false);
+            this.f475i = menuView;
+            menuView.initialize(this.f469c);
             updateMenuView(true);
         }
-        return this.mMenuView;
+        return this.f475i;
     }
 
     @Override // androidx.appcompat.view.menu.MenuPresenter
     public void initForMenu(Context context, MenuBuilder menuBuilder) {
-        this.mContext = context;
-        this.mInflater = LayoutInflater.from(context);
-        this.mMenu = menuBuilder;
+        this.f468b = context;
+        this.f471e = LayoutInflater.from(context);
+        this.f469c = menuBuilder;
     }
 
     @Override // androidx.appcompat.view.menu.MenuPresenter
-    public void onCloseMenu(MenuBuilder menuBuilder, boolean z10) {
-        MenuPresenter.Callback callback = this.mCallback;
+    public void onCloseMenu(MenuBuilder menuBuilder, boolean z) {
+        MenuPresenter.Callback callback = this.f472f;
         if (callback != null) {
-            callback.onCloseMenu(menuBuilder, z10);
+            callback.onCloseMenu(menuBuilder, z);
         }
     }
 
-    /* JADX WARN: Multi-variable type inference failed */
-    /* JADX WARN: Type inference failed for: r2v4, types: [androidx.appcompat.view.menu.MenuBuilder] */
     @Override // androidx.appcompat.view.menu.MenuPresenter
     public boolean onSubMenuSelected(SubMenuBuilder subMenuBuilder) {
-        MenuPresenter.Callback callback = this.mCallback;
-        SubMenuBuilder subMenuBuilder2 = subMenuBuilder;
-        if (callback == null) {
-            return false;
+        MenuPresenter.Callback callback = this.f472f;
+        if (callback != null) {
+            return callback.onOpenSubMenu(subMenuBuilder);
         }
-        if (subMenuBuilder == null) {
-            subMenuBuilder2 = this.mMenu;
-        }
-        return callback.onOpenSubMenu(subMenuBuilder2);
+        return false;
     }
 
     @Override // androidx.appcompat.view.menu.MenuPresenter
     public void setCallback(MenuPresenter.Callback callback) {
-        this.mCallback = callback;
+        this.f472f = callback;
     }
 
-    public void setId(int i10) {
-        this.mId = i10;
+    public void setId(int i2) {
+        this.f476j = i2;
     }
 
-    public boolean shouldIncludeItem(int i10, MenuItemImpl menuItemImpl) {
+    public boolean shouldIncludeItem(int i2, MenuItemImpl menuItemImpl) {
         return true;
     }
 
     /* JADX WARN: Multi-variable type inference failed */
     @Override // androidx.appcompat.view.menu.MenuPresenter
-    public void updateMenuView(boolean z10) {
-        ViewGroup viewGroup = (ViewGroup) this.mMenuView;
+    public void updateMenuView(boolean z) {
+        ViewGroup viewGroup = (ViewGroup) this.f475i;
         if (viewGroup == null) {
             return;
         }
-        MenuBuilder menuBuilder = this.mMenu;
-        int i10 = 0;
+        MenuBuilder menuBuilder = this.f469c;
+        int i2 = 0;
         if (menuBuilder != null) {
             menuBuilder.flagActionItems();
-            ArrayList<MenuItemImpl> visibleItems = this.mMenu.getVisibleItems();
+            ArrayList<MenuItemImpl> visibleItems = this.f469c.getVisibleItems();
             int size = visibleItems.size();
-            int i11 = 0;
-            for (int i12 = 0; i12 < size; i12++) {
-                MenuItemImpl menuItemImpl = visibleItems.get(i12);
-                if (shouldIncludeItem(i11, menuItemImpl)) {
-                    View childAt = viewGroup.getChildAt(i11);
+            int i3 = 0;
+            for (int i4 = 0; i4 < size; i4++) {
+                MenuItemImpl menuItemImpl = visibleItems.get(i4);
+                if (shouldIncludeItem(i3, menuItemImpl)) {
+                    View childAt = viewGroup.getChildAt(i3);
                     MenuItemImpl itemData = childAt instanceof MenuView.ItemView ? ((MenuView.ItemView) childAt).getItemData() : null;
                     View itemView = getItemView(menuItemImpl, childAt, viewGroup);
                     if (menuItemImpl != itemData) {
@@ -159,16 +173,16 @@ public abstract class BaseMenuPresenter implements MenuPresenter {
                         itemView.jumpDrawablesToCurrentState();
                     }
                     if (itemView != childAt) {
-                        addItemView(itemView, i11);
+                        a(itemView, i3);
                     }
-                    i11++;
+                    i3++;
                 }
             }
-            i10 = i11;
+            i2 = i3;
         }
-        while (i10 < viewGroup.getChildCount()) {
-            if (!filterLeftoverView(viewGroup, i10)) {
-                i10++;
+        while (i2 < viewGroup.getChildCount()) {
+            if (!filterLeftoverView(viewGroup, i2)) {
+                i2++;
             }
         }
     }

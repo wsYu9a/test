@@ -1,55 +1,53 @@
 package com.martian.mibook.activity.book;
 
-import android.app.Activity;
-import android.content.Intent;
 import android.os.Bundle;
 import androidx.annotation.NonNull;
-import ba.l;
-import com.martian.libmars.common.ConfigSingleton;
-import com.martian.libsupport.R;
-import com.martian.mibook.lib.model.activity.MiBackableActivity;
-import com.martian.mibook.mvvm.yuewen.fragment.YWBookMallFragment;
-import ya.e0;
+import com.martian.libmars.activity.j1;
+import com.martian.mibook.application.MiConfigSingleton;
+import com.martian.mibook.f.f4.e0;
+import com.martian.ttbookhd.R;
 
 /* loaded from: classes3.dex */
-public class FinishedOrNewBooksActivity extends MiBackableActivity {
-    public int A;
-    public String B;
+public class FinishedOrNewBooksActivity extends com.martian.mibook.lib.model.b.a {
+    private int F;
+    private int G;
+    private String H;
 
-    public static void startActivity(Activity activity, int i10, int i11, String str) {
+    public static void startActivity(j1 activity, int tid, int ctype, String channel) {
         Bundle bundle = new Bundle();
-        bundle.putInt(e0.f33185x0, i10);
-        bundle.putInt("intent_ctype", i11);
-        bundle.putString(e0.f33187y0, str);
-        Intent intent = new Intent(activity, (Class<?>) FinishedOrNewBooksActivity.class);
-        intent.putExtras(bundle);
-        activity.startActivity(intent);
+        bundle.putInt(e0.f13106j, tid);
+        bundle.putInt(MiConfigSingleton.Q0, ctype);
+        bundle.putString(e0.k, channel);
+        activity.startActivity(FinishedOrNewBooksActivity.class, bundle);
     }
 
-    @Override // com.martian.mibook.lib.model.activity.MiBackableActivity, com.martian.libmars.activity.MartianActivity, com.martian.libmars.activity.BaseActivity, me.imid.swipebacklayout.lib.app.SwipeBackActivity, androidx.fragment.app.FragmentActivity, androidx.activity.ComponentActivity, androidx.core.app.ComponentActivity, android.app.Activity
-    public void onCreate(Bundle bundle) {
-        super.onCreate(bundle);
+    @Override // com.martian.mibook.lib.model.b.a, com.martian.libmars.activity.j1, com.martian.libmars.activity.h1, me.imid.swipebacklayout.lib.d.a, androidx.appcompat.app.AppCompatActivity, androidx.fragment.app.FragmentActivity, androidx.activity.ComponentActivity, androidx.core.app.ComponentActivity, android.app.Activity
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_load_fragment);
-        g2();
-        if (bundle != null) {
-            this.A = bundle.getInt(e0.f33185x0);
-            this.B = bundle.getString(e0.f33187y0);
+        B1();
+        if (savedInstanceState != null) {
+            this.F = savedInstanceState.getInt(e0.f13106j);
+            this.G = savedInstanceState.getInt(MiConfigSingleton.Q0);
+            this.H = savedInstanceState.getString(e0.k);
         } else {
-            this.A = g1(e0.f33185x0, -1);
-            this.B = q1(e0.f33187y0);
+            this.F = v0(e0.f13106j, -1);
+            this.G = v0(MiConfigSingleton.Q0, -1);
+            this.H = G0(e0.k);
         }
-        if (!l.q(this.B)) {
-            t2(ConfigSingleton.D().s(this.B));
+        if (!com.martian.libsupport.k.p(this.H)) {
+            Z1(this.H);
         }
-        if (((YWBookMallFragment) getSupportFragmentManager().findFragmentByTag("finished_or_new_books_fragment")) == null) {
-            getSupportFragmentManager().beginTransaction().add(com.martian.mibook.R.id.fragmentContainer, YWBookMallFragment.INSTANCE.a(this.A, false), "finished_or_new_books_fragment").commit();
+        if (((e0) getSupportFragmentManager().findFragmentByTag("finished_or_new_books_fragment")) == null) {
+            getSupportFragmentManager().beginTransaction().add(R.id.fragmentContainer, e0.f0(this.F, this.G, false), "finished_or_new_books_fragment").commit();
         }
     }
 
-    @Override // androidx.activity.ComponentActivity, androidx.core.app.ComponentActivity, android.app.Activity
-    public void onSaveInstanceState(@NonNull Bundle bundle) {
-        super.onSaveInstanceState(bundle);
-        bundle.putInt(e0.f33185x0, this.A);
-        bundle.putString(e0.f33187y0, this.B);
+    @Override // androidx.appcompat.app.AppCompatActivity, androidx.fragment.app.FragmentActivity, androidx.activity.ComponentActivity, androidx.core.app.ComponentActivity, android.app.Activity
+    protected void onSaveInstanceState(@NonNull Bundle outState) {
+        super.onSaveInstanceState(outState);
+        outState.putInt(e0.f13106j, this.F);
+        outState.putInt(MiConfigSingleton.Q0, this.G);
+        outState.putString(e0.k, this.H);
     }
 }

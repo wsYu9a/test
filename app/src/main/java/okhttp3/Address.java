@@ -1,268 +1,159 @@
 package okhttp3;
 
-import com.bytedance.sdk.openadsdk.downloadnew.core.TTDownloadField;
-import com.kwad.sdk.api.model.AdnName;
+import b.b.a.b.b;
 import java.net.Proxy;
 import java.net.ProxySelector;
 import java.util.List;
-import java.util.Objects;
+import javax.annotation.Nullable;
 import javax.net.SocketFactory;
 import javax.net.ssl.HostnameVerifier;
 import javax.net.ssl.SSLSocketFactory;
-import kotlin.Deprecated;
-import kotlin.DeprecationLevel;
-import kotlin.Metadata;
-import kotlin.ReplaceWith;
-import kotlin.jvm.JvmName;
-import kotlin.jvm.internal.Intrinsics;
-import m5.d;
 import okhttp3.HttpUrl;
 import okhttp3.internal.Util;
-import xi.k;
-import xi.l;
+import org.apache.http.HttpHost;
 
-@Metadata(d1 = {"\u0000h\n\u0002\u0018\u0002\n\u0002\u0010\u0000\n\u0000\n\u0002\u0010\u000e\n\u0000\n\u0002\u0010\b\n\u0000\n\u0002\u0018\u0002\n\u0000\n\u0002\u0018\u0002\n\u0000\n\u0002\u0018\u0002\n\u0000\n\u0002\u0018\u0002\n\u0000\n\u0002\u0018\u0002\n\u0000\n\u0002\u0018\u0002\n\u0000\n\u0002\u0018\u0002\n\u0000\n\u0002\u0010 \n\u0002\u0018\u0002\n\u0000\n\u0002\u0018\u0002\n\u0000\n\u0002\u0018\u0002\n\u0002\b\u000b\n\u0002\u0018\u0002\n\u0002\b\u0005\n\u0002\u0010\u000b\n\u0002\b\u000f\u0018\u00002\u00020\u0001By\u0012\u0006\u0010\u0002\u001a\u00020\u0003\u0012\u0006\u0010\u0004\u001a\u00020\u0005\u0012\u0006\u0010\u0006\u001a\u00020\u0007\u0012\u0006\u0010\b\u001a\u00020\t\u0012\b\u0010\n\u001a\u0004\u0018\u00010\u000b\u0012\b\u0010\f\u001a\u0004\u0018\u00010\r\u0012\b\u0010\u000e\u001a\u0004\u0018\u00010\u000f\u0012\u0006\u0010\u0010\u001a\u00020\u0011\u0012\b\u0010\u0012\u001a\u0004\u0018\u00010\u0013\u0012\f\u0010\u0014\u001a\b\u0012\u0004\u0012\u00020\u00160\u0015\u0012\f\u0010\u0017\u001a\b\u0012\u0004\u0012\u00020\u00180\u0015\u0012\u0006\u0010\u0019\u001a\u00020\u001a¢\u0006\u0002\u0010\u001bJ\u000f\u0010\u000e\u001a\u0004\u0018\u00010\u000fH\u0007¢\u0006\u0002\b(J\u0013\u0010\u0017\u001a\b\u0012\u0004\u0012\u00020\u00180\u0015H\u0007¢\u0006\u0002\b)J\r\u0010\u0006\u001a\u00020\u0007H\u0007¢\u0006\u0002\b*J\u0013\u0010+\u001a\u00020,2\b\u0010-\u001a\u0004\u0018\u00010\u0001H\u0096\u0002J\u0015\u0010.\u001a\u00020,2\u0006\u0010/\u001a\u00020\u0000H\u0000¢\u0006\u0002\b0J\b\u00101\u001a\u00020\u0005H\u0016J\u000f\u0010\f\u001a\u0004\u0018\u00010\rH\u0007¢\u0006\u0002\b2J\u0013\u0010\u0014\u001a\b\u0012\u0004\u0012\u00020\u00160\u0015H\u0007¢\u0006\u0002\b3J\u000f\u0010\u0012\u001a\u0004\u0018\u00010\u0013H\u0007¢\u0006\u0002\b4J\r\u0010\u0010\u001a\u00020\u0011H\u0007¢\u0006\u0002\b5J\r\u0010\u0019\u001a\u00020\u001aH\u0007¢\u0006\u0002\b6J\r\u0010\b\u001a\u00020\tH\u0007¢\u0006\u0002\b7J\u000f\u0010\n\u001a\u0004\u0018\u00010\u000bH\u0007¢\u0006\u0002\b8J\b\u00109\u001a\u00020\u0003H\u0016J\r\u0010%\u001a\u00020&H\u0007¢\u0006\u0002\b:R\u0015\u0010\u000e\u001a\u0004\u0018\u00010\u000f8\u0007¢\u0006\b\n\u0000\u001a\u0004\b\u000e\u0010\u001cR\u0019\u0010\u0017\u001a\b\u0012\u0004\u0012\u00020\u00180\u00158G¢\u0006\b\n\u0000\u001a\u0004\b\u0017\u0010\u001dR\u0013\u0010\u0006\u001a\u00020\u00078\u0007¢\u0006\b\n\u0000\u001a\u0004\b\u0006\u0010\u001eR\u0015\u0010\f\u001a\u0004\u0018\u00010\r8\u0007¢\u0006\b\n\u0000\u001a\u0004\b\f\u0010\u001fR\u0019\u0010\u0014\u001a\b\u0012\u0004\u0012\u00020\u00160\u00158G¢\u0006\b\n\u0000\u001a\u0004\b\u0014\u0010\u001dR\u0015\u0010\u0012\u001a\u0004\u0018\u00010\u00138\u0007¢\u0006\b\n\u0000\u001a\u0004\b\u0012\u0010 R\u0013\u0010\u0010\u001a\u00020\u00118\u0007¢\u0006\b\n\u0000\u001a\u0004\b\u0010\u0010!R\u0013\u0010\u0019\u001a\u00020\u001a8\u0007¢\u0006\b\n\u0000\u001a\u0004\b\u0019\u0010\"R\u0013\u0010\b\u001a\u00020\t8\u0007¢\u0006\b\n\u0000\u001a\u0004\b\b\u0010#R\u0015\u0010\n\u001a\u0004\u0018\u00010\u000b8\u0007¢\u0006\b\n\u0000\u001a\u0004\b\n\u0010$R\u0013\u0010%\u001a\u00020&8G¢\u0006\b\n\u0000\u001a\u0004\b%\u0010'¨\u0006;"}, d2 = {"Lokhttp3/Address;", "", "uriHost", "", "uriPort", "", "dns", "Lokhttp3/Dns;", "socketFactory", "Ljavax/net/SocketFactory;", "sslSocketFactory", "Ljavax/net/ssl/SSLSocketFactory;", "hostnameVerifier", "Ljavax/net/ssl/HostnameVerifier;", "certificatePinner", "Lokhttp3/CertificatePinner;", "proxyAuthenticator", "Lokhttp3/Authenticator;", "proxy", "Ljava/net/Proxy;", "protocols", "", "Lokhttp3/Protocol;", "connectionSpecs", "Lokhttp3/ConnectionSpec;", "proxySelector", "Ljava/net/ProxySelector;", "(Ljava/lang/String;ILokhttp3/Dns;Ljavax/net/SocketFactory;Ljavax/net/ssl/SSLSocketFactory;Ljavax/net/ssl/HostnameVerifier;Lokhttp3/CertificatePinner;Lokhttp3/Authenticator;Ljava/net/Proxy;Ljava/util/List;Ljava/util/List;Ljava/net/ProxySelector;)V", "()Lokhttp3/CertificatePinner;", "()Ljava/util/List;", "()Lokhttp3/Dns;", "()Ljavax/net/ssl/HostnameVerifier;", "()Ljava/net/Proxy;", "()Lokhttp3/Authenticator;", "()Ljava/net/ProxySelector;", "()Ljavax/net/SocketFactory;", "()Ljavax/net/ssl/SSLSocketFactory;", "url", "Lokhttp3/HttpUrl;", "()Lokhttp3/HttpUrl;", "-deprecated_certificatePinner", "-deprecated_connectionSpecs", "-deprecated_dns", "equals", "", AdnName.OTHER, "equalsNonHost", "that", "equalsNonHost$okhttp", TTDownloadField.TT_HASHCODE, "-deprecated_hostnameVerifier", "-deprecated_protocols", "-deprecated_proxy", "-deprecated_proxyAuthenticator", "-deprecated_proxySelector", "-deprecated_socketFactory", "-deprecated_sslSocketFactory", "toString", "-deprecated_url", "okhttp"}, k = 1, mv = {1, 6, 0}, xi = 48)
-/* loaded from: classes4.dex */
+/* loaded from: classes.dex */
 public final class Address {
 
-    @l
-    private final CertificatePinner certificatePinner;
+    @Nullable
+    final CertificatePinner certificatePinner;
+    final List<ConnectionSpec> connectionSpecs;
+    final Dns dns;
 
-    @k
-    private final List<ConnectionSpec> connectionSpecs;
+    @Nullable
+    final HostnameVerifier hostnameVerifier;
+    final List<Protocol> protocols;
 
-    @k
-    private final Dns dns;
+    @Nullable
+    final Proxy proxy;
+    final Authenticator proxyAuthenticator;
+    final ProxySelector proxySelector;
+    final SocketFactory socketFactory;
 
-    @l
-    private final HostnameVerifier hostnameVerifier;
+    @Nullable
+    final SSLSocketFactory sslSocketFactory;
+    final HttpUrl url;
 
-    @k
-    private final List<Protocol> protocols;
-
-    @l
-    private final Proxy proxy;
-
-    @k
-    private final Authenticator proxyAuthenticator;
-
-    @k
-    private final ProxySelector proxySelector;
-
-    @k
-    private final SocketFactory socketFactory;
-
-    @l
-    private final SSLSocketFactory sslSocketFactory;
-
-    @k
-    private final HttpUrl url;
-
-    public Address(@k String uriHost, int i10, @k Dns dns, @k SocketFactory socketFactory, @l SSLSocketFactory sSLSocketFactory, @l HostnameVerifier hostnameVerifier, @l CertificatePinner certificatePinner, @k Authenticator proxyAuthenticator, @l Proxy proxy, @k List<? extends Protocol> protocols, @k List<ConnectionSpec> connectionSpecs, @k ProxySelector proxySelector) {
-        Intrinsics.checkNotNullParameter(uriHost, "uriHost");
-        Intrinsics.checkNotNullParameter(dns, "dns");
-        Intrinsics.checkNotNullParameter(socketFactory, "socketFactory");
-        Intrinsics.checkNotNullParameter(proxyAuthenticator, "proxyAuthenticator");
-        Intrinsics.checkNotNullParameter(protocols, "protocols");
-        Intrinsics.checkNotNullParameter(connectionSpecs, "connectionSpecs");
-        Intrinsics.checkNotNullParameter(proxySelector, "proxySelector");
+    public Address(String str, int i2, Dns dns, SocketFactory socketFactory, @Nullable SSLSocketFactory sSLSocketFactory, @Nullable HostnameVerifier hostnameVerifier, @Nullable CertificatePinner certificatePinner, Authenticator authenticator, @Nullable Proxy proxy, List<Protocol> list, List<ConnectionSpec> list2, ProxySelector proxySelector) {
+        this.url = new HttpUrl.Builder().scheme(sSLSocketFactory != null ? b.f4198a : HttpHost.DEFAULT_SCHEME_NAME).host(str).port(i2).build();
+        if (dns == null) {
+            throw new NullPointerException("dns == null");
+        }
         this.dns = dns;
+        if (socketFactory == null) {
+            throw new NullPointerException("socketFactory == null");
+        }
         this.socketFactory = socketFactory;
+        if (authenticator == null) {
+            throw new NullPointerException("proxyAuthenticator == null");
+        }
+        this.proxyAuthenticator = authenticator;
+        if (list == null) {
+            throw new NullPointerException("protocols == null");
+        }
+        this.protocols = Util.immutableList(list);
+        if (list2 == null) {
+            throw new NullPointerException("connectionSpecs == null");
+        }
+        this.connectionSpecs = Util.immutableList(list2);
+        if (proxySelector == null) {
+            throw new NullPointerException("proxySelector == null");
+        }
+        this.proxySelector = proxySelector;
+        this.proxy = proxy;
         this.sslSocketFactory = sSLSocketFactory;
         this.hostnameVerifier = hostnameVerifier;
         this.certificatePinner = certificatePinner;
-        this.proxyAuthenticator = proxyAuthenticator;
-        this.proxy = proxy;
-        this.proxySelector = proxySelector;
-        this.url = new HttpUrl.Builder().scheme(sSLSocketFactory != null ? "https" : "http").host(uriHost).port(i10).build();
-        this.protocols = Util.toImmutableList(protocols);
-        this.connectionSpecs = Util.toImmutableList(connectionSpecs);
     }
 
-    @Deprecated(level = DeprecationLevel.ERROR, message = "moved to val", replaceWith = @ReplaceWith(expression = "certificatePinner", imports = {}))
-    @l
-    @JvmName(name = "-deprecated_certificatePinner")
-    /* renamed from: -deprecated_certificatePinner, reason: from getter */
-    public final CertificatePinner getCertificatePinner() {
+    @Nullable
+    public CertificatePinner certificatePinner() {
         return this.certificatePinner;
     }
 
-    @Deprecated(level = DeprecationLevel.ERROR, message = "moved to val", replaceWith = @ReplaceWith(expression = "connectionSpecs", imports = {}))
-    @k
-    @JvmName(name = "-deprecated_connectionSpecs")
-    /* renamed from: -deprecated_connectionSpecs */
-    public final List<ConnectionSpec> m1626deprecated_connectionSpecs() {
+    public List<ConnectionSpec> connectionSpecs() {
         return this.connectionSpecs;
     }
 
-    @Deprecated(level = DeprecationLevel.ERROR, message = "moved to val", replaceWith = @ReplaceWith(expression = "dns", imports = {}))
-    @k
-    @JvmName(name = "-deprecated_dns")
-    /* renamed from: -deprecated_dns, reason: from getter */
-    public final Dns getDns() {
+    public Dns dns() {
         return this.dns;
     }
 
-    @Deprecated(level = DeprecationLevel.ERROR, message = "moved to val", replaceWith = @ReplaceWith(expression = "hostnameVerifier", imports = {}))
-    @l
-    @JvmName(name = "-deprecated_hostnameVerifier")
-    /* renamed from: -deprecated_hostnameVerifier, reason: from getter */
-    public final HostnameVerifier getHostnameVerifier() {
-        return this.hostnameVerifier;
-    }
-
-    @Deprecated(level = DeprecationLevel.ERROR, message = "moved to val", replaceWith = @ReplaceWith(expression = "protocols", imports = {}))
-    @k
-    @JvmName(name = "-deprecated_protocols")
-    /* renamed from: -deprecated_protocols */
-    public final List<Protocol> m1629deprecated_protocols() {
-        return this.protocols;
-    }
-
-    @Deprecated(level = DeprecationLevel.ERROR, message = "moved to val", replaceWith = @ReplaceWith(expression = "proxy", imports = {}))
-    @l
-    @JvmName(name = "-deprecated_proxy")
-    /* renamed from: -deprecated_proxy, reason: from getter */
-    public final Proxy getProxy() {
-        return this.proxy;
-    }
-
-    @Deprecated(level = DeprecationLevel.ERROR, message = "moved to val", replaceWith = @ReplaceWith(expression = "proxyAuthenticator", imports = {}))
-    @k
-    @JvmName(name = "-deprecated_proxyAuthenticator")
-    /* renamed from: -deprecated_proxyAuthenticator, reason: from getter */
-    public final Authenticator getProxyAuthenticator() {
-        return this.proxyAuthenticator;
-    }
-
-    @Deprecated(level = DeprecationLevel.ERROR, message = "moved to val", replaceWith = @ReplaceWith(expression = "proxySelector", imports = {}))
-    @k
-    @JvmName(name = "-deprecated_proxySelector")
-    /* renamed from: -deprecated_proxySelector, reason: from getter */
-    public final ProxySelector getProxySelector() {
-        return this.proxySelector;
-    }
-
-    @Deprecated(level = DeprecationLevel.ERROR, message = "moved to val", replaceWith = @ReplaceWith(expression = "socketFactory", imports = {}))
-    @k
-    @JvmName(name = "-deprecated_socketFactory")
-    /* renamed from: -deprecated_socketFactory, reason: from getter */
-    public final SocketFactory getSocketFactory() {
-        return this.socketFactory;
-    }
-
-    @Deprecated(level = DeprecationLevel.ERROR, message = "moved to val", replaceWith = @ReplaceWith(expression = "sslSocketFactory", imports = {}))
-    @l
-    @JvmName(name = "-deprecated_sslSocketFactory")
-    /* renamed from: -deprecated_sslSocketFactory, reason: from getter */
-    public final SSLSocketFactory getSslSocketFactory() {
-        return this.sslSocketFactory;
-    }
-
-    @Deprecated(level = DeprecationLevel.ERROR, message = "moved to val", replaceWith = @ReplaceWith(expression = "url", imports = {}))
-    @k
-    @JvmName(name = "-deprecated_url")
-    /* renamed from: -deprecated_url, reason: from getter */
-    public final HttpUrl getUrl() {
-        return this.url;
-    }
-
-    @l
-    @JvmName(name = "certificatePinner")
-    public final CertificatePinner certificatePinner() {
-        return this.certificatePinner;
-    }
-
-    @k
-    @JvmName(name = "connectionSpecs")
-    public final List<ConnectionSpec> connectionSpecs() {
-        return this.connectionSpecs;
-    }
-
-    @k
-    @JvmName(name = "dns")
-    public final Dns dns() {
-        return this.dns;
-    }
-
-    public boolean equals(@l Object r32) {
-        if (r32 instanceof Address) {
-            Address address = (Address) r32;
-            if (Intrinsics.areEqual(this.url, address.url) && equalsNonHost$okhttp(address)) {
+    public boolean equals(@Nullable Object obj) {
+        if (obj instanceof Address) {
+            Address address = (Address) obj;
+            if (this.url.equals(address.url) && equalsNonHost(address)) {
                 return true;
             }
         }
         return false;
     }
 
-    public final boolean equalsNonHost$okhttp(@k Address that) {
-        Intrinsics.checkNotNullParameter(that, "that");
-        return Intrinsics.areEqual(this.dns, that.dns) && Intrinsics.areEqual(this.proxyAuthenticator, that.proxyAuthenticator) && Intrinsics.areEqual(this.protocols, that.protocols) && Intrinsics.areEqual(this.connectionSpecs, that.connectionSpecs) && Intrinsics.areEqual(this.proxySelector, that.proxySelector) && Intrinsics.areEqual(this.proxy, that.proxy) && Intrinsics.areEqual(this.sslSocketFactory, that.sslSocketFactory) && Intrinsics.areEqual(this.hostnameVerifier, that.hostnameVerifier) && Intrinsics.areEqual(this.certificatePinner, that.certificatePinner) && this.url.port() == that.url.port();
+    boolean equalsNonHost(Address address) {
+        return this.dns.equals(address.dns) && this.proxyAuthenticator.equals(address.proxyAuthenticator) && this.protocols.equals(address.protocols) && this.connectionSpecs.equals(address.connectionSpecs) && this.proxySelector.equals(address.proxySelector) && Util.equal(this.proxy, address.proxy) && Util.equal(this.sslSocketFactory, address.sslSocketFactory) && Util.equal(this.hostnameVerifier, address.hostnameVerifier) && Util.equal(this.certificatePinner, address.certificatePinner) && url().port() == address.url().port();
     }
 
     public int hashCode() {
-        return ((((((((((((((((((527 + this.url.hashCode()) * 31) + this.dns.hashCode()) * 31) + this.proxyAuthenticator.hashCode()) * 31) + this.protocols.hashCode()) * 31) + this.connectionSpecs.hashCode()) * 31) + this.proxySelector.hashCode()) * 31) + Objects.hashCode(this.proxy)) * 31) + Objects.hashCode(this.sslSocketFactory)) * 31) + Objects.hashCode(this.hostnameVerifier)) * 31) + Objects.hashCode(this.certificatePinner);
+        int hashCode = (((((((((((527 + this.url.hashCode()) * 31) + this.dns.hashCode()) * 31) + this.proxyAuthenticator.hashCode()) * 31) + this.protocols.hashCode()) * 31) + this.connectionSpecs.hashCode()) * 31) + this.proxySelector.hashCode()) * 31;
+        Proxy proxy = this.proxy;
+        int hashCode2 = (hashCode + (proxy != null ? proxy.hashCode() : 0)) * 31;
+        SSLSocketFactory sSLSocketFactory = this.sslSocketFactory;
+        int hashCode3 = (hashCode2 + (sSLSocketFactory != null ? sSLSocketFactory.hashCode() : 0)) * 31;
+        HostnameVerifier hostnameVerifier = this.hostnameVerifier;
+        int hashCode4 = (hashCode3 + (hostnameVerifier != null ? hostnameVerifier.hashCode() : 0)) * 31;
+        CertificatePinner certificatePinner = this.certificatePinner;
+        return hashCode4 + (certificatePinner != null ? certificatePinner.hashCode() : 0);
     }
 
-    @l
-    @JvmName(name = "hostnameVerifier")
-    public final HostnameVerifier hostnameVerifier() {
+    @Nullable
+    public HostnameVerifier hostnameVerifier() {
         return this.hostnameVerifier;
     }
 
-    @k
-    @JvmName(name = "protocols")
-    public final List<Protocol> protocols() {
+    public List<Protocol> protocols() {
         return this.protocols;
     }
 
-    @l
-    @JvmName(name = "proxy")
-    public final Proxy proxy() {
+    @Nullable
+    public Proxy proxy() {
         return this.proxy;
     }
 
-    @k
-    @JvmName(name = "proxyAuthenticator")
-    public final Authenticator proxyAuthenticator() {
+    public Authenticator proxyAuthenticator() {
         return this.proxyAuthenticator;
     }
 
-    @k
-    @JvmName(name = "proxySelector")
-    public final ProxySelector proxySelector() {
+    public ProxySelector proxySelector() {
         return this.proxySelector;
     }
 
-    @k
-    @JvmName(name = "socketFactory")
-    public final SocketFactory socketFactory() {
+    public SocketFactory socketFactory() {
         return this.socketFactory;
     }
 
-    @l
-    @JvmName(name = "sslSocketFactory")
-    public final SSLSocketFactory sslSocketFactory() {
+    @Nullable
+    public SSLSocketFactory sslSocketFactory() {
         return this.sslSocketFactory;
     }
 
-    @k
     public String toString() {
-        StringBuilder sb2 = new StringBuilder();
-        sb2.append("Address{");
-        sb2.append(this.url.host());
-        sb2.append(d.f28378d);
-        sb2.append(this.url.port());
-        sb2.append(", ");
-        Proxy proxy = this.proxy;
-        sb2.append(proxy != null ? Intrinsics.stringPlus("proxy=", proxy) : Intrinsics.stringPlus("proxySelector=", this.proxySelector));
-        sb2.append('}');
-        return sb2.toString();
+        StringBuilder sb = new StringBuilder();
+        sb.append("Address{");
+        sb.append(this.url.host());
+        sb.append(":");
+        sb.append(this.url.port());
+        if (this.proxy != null) {
+            sb.append(", proxy=");
+            sb.append(this.proxy);
+        } else {
+            sb.append(", proxySelector=");
+            sb.append(this.proxySelector);
+        }
+        sb.append("}");
+        return sb.toString();
     }
 
-    @k
-    @JvmName(name = "url")
-    public final HttpUrl url() {
+    public HttpUrl url() {
         return this.url;
     }
 }

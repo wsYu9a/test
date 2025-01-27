@@ -1,133 +1,118 @@
 package com.baidu.mobads.sdk.internal;
 
-import android.view.ViewGroup;
-import com.kwad.sdk.core.scene.URLPackage;
-import com.shu.priory.config.AdKeys;
+import android.content.Context;
+import android.text.TextUtils;
+import com.baidu.mobads.sdk.api.CPUAggregationManager;
+import com.baidu.mobads.sdk.api.IAdInterListener;
+import com.baidu.mobads.sdk.api.IOAdEvent;
+import com.baidu.mobads.sdk.api.NativeCPUAggregationData;
+import java.util.ArrayList;
 import java.util.HashMap;
-import org.json.JSONException;
+import java.util.Iterator;
+import java.util.List;
 import org.json.JSONObject;
 
-/* loaded from: classes2.dex */
-class aj implements w {
+/* loaded from: classes.dex */
+public class aj extends bf {
 
     /* renamed from: a */
-    final /* synthetic */ ae f6720a;
+    private CPUAggregationManager.CPUAggregationListener f5506a;
+    private String q;
+    private int r;
+    private int s;
+    private int t;
+    private int[] u;
+    private HashMap<String, Object> v;
 
-    public aj(ae aeVar) {
-        this.f6720a = aeVar;
+    public aj(Context context, String str) {
+        super(context);
+        this.u = new int[]{1098};
+        this.q = str;
     }
 
-    @Override // com.baidu.mobads.sdk.internal.w
-    public void a(JSONObject jSONObject) {
-    }
-
-    @Override // com.baidu.mobads.sdk.internal.w
-    public void b(JSONObject jSONObject) {
-    }
-
-    @Override // com.baidu.mobads.sdk.internal.w
-    public void a(boolean z10) {
-    }
-
-    @Override // com.baidu.mobads.sdk.internal.w
-    public void b(ViewGroup viewGroup, JSONObject jSONObject) {
-        int[] iArr;
-        HashMap<String, Object> hashMap = new HashMap<>();
-        hashMap.put("novel_activity", this.f6720a.f());
-        hashMap.put("banner_container", viewGroup);
-        hashMap.put("isnight", Boolean.valueOf(this.f6720a.g()));
-        hashMap.put("entry", 2);
-        iArr = this.f6720a.f6709w;
-        hashMap.put(URLPackage.KEY_CHANNEL_ID, Integer.valueOf(iArr[0]));
-        hashMap.put("novel_info", jSONObject);
-        this.f6720a.a(cx.f7131w, hashMap);
-    }
-
-    @Override // com.baidu.mobads.sdk.internal.w
-    public void a(ViewGroup viewGroup) {
-        int[] iArr;
-        HashMap<String, Object> hashMap = new HashMap<>();
-        hashMap.put("novel_activity", this.f6720a.f());
-        hashMap.put("interstitial_container", viewGroup);
-        hashMap.put("entry", 2);
-        iArr = this.f6720a.f6709w;
-        hashMap.put(URLPackage.KEY_CHANNEL_ID, Integer.valueOf(iArr[0]));
-        this.f6720a.a(cx.f7129u, hashMap);
-    }
-
-    @Override // com.baidu.mobads.sdk.internal.w
-    public void a(ViewGroup viewGroup, JSONObject jSONObject) {
-        int[] iArr;
-        HashMap<String, Object> hashMap = new HashMap<>();
-        hashMap.put("novel_activity", this.f6720a.f());
-        hashMap.put("interstitial_container", viewGroup);
-        hashMap.put("isnight", Boolean.valueOf(this.f6720a.g()));
-        hashMap.put("entry", 2);
-        iArr = this.f6720a.f6709w;
-        hashMap.put(URLPackage.KEY_CHANNEL_ID, Integer.valueOf(iArr[0]));
-        hashMap.put("novel_info", jSONObject);
-        this.f6720a.a(cx.f7130v, hashMap);
-    }
-
-    @Override // com.baidu.mobads.sdk.internal.w
-    public void b(ViewGroup viewGroup) {
-        int[] iArr;
-        HashMap<String, Object> hashMap = new HashMap<>();
-        hashMap.put("novel_activity", viewGroup.getContext());
-        hashMap.put("banner_container", viewGroup);
-        hashMap.put("entry", 2);
-        iArr = this.f6720a.f6709w;
-        hashMap.put(URLPackage.KEY_CHANNEL_ID, Integer.valueOf(iArr[0]));
-        this.f6720a.a(cx.f7133y, hashMap);
-    }
-
-    @Override // com.baidu.mobads.sdk.internal.w
-    public void a(ViewGroup viewGroup, ViewGroup viewGroup2, int i10) {
-        int[] iArr;
-        HashMap<String, Object> hashMap = new HashMap<>();
-        hashMap.put("novel_activity", this.f6720a.f());
-        hashMap.put("banner_container", viewGroup2);
-        hashMap.put("interstitial_container", viewGroup);
-        hashMap.put("isnight", Boolean.valueOf(this.f6720a.g()));
-        hashMap.put("entry", 2);
-        iArr = this.f6720a.f6709w;
-        hashMap.put(URLPackage.KEY_CHANNEL_ID, Integer.valueOf(iArr[0]));
-        hashMap.put("backgroundColor", Integer.valueOf(i10));
-        this.f6720a.a(cx.f7134z, hashMap);
-    }
-
-    @Override // com.baidu.mobads.sdk.internal.w
-    public JSONObject a() {
-        JSONObject jSONObject = new JSONObject();
-        String i10 = this.f6720a.i("get_cuid");
-        String i11 = this.f6720a.i("get_imei");
-        String i12 = this.f6720a.i("get_oaid");
-        try {
-            jSONObject.put("cuid", i10);
-            jSONObject.put("imei", i11);
-            jSONObject.put(AdKeys.OAID, i12);
-        } catch (JSONException e10) {
-            e10.printStackTrace();
+    @Override // com.baidu.mobads.sdk.internal.bf
+    public void a() {
+        if (this.k == null) {
+            this.l = false;
+            return;
         }
-        return jSONObject;
+        this.l = true;
+        JSONObject jSONObject = new JSONObject();
+        JSONObject jSONObject2 = new JSONObject();
+        try {
+            JSONObject jSONObject3 = new JSONObject();
+            jSONObject3.put(IAdInterListener.AdReqParam.PROD, "cpu_hot");
+            this.k.createProdHandler(jSONObject3);
+            n();
+            jSONObject.put(IAdInterListener.AdReqParam.PROD, "cpu_hot");
+            jSONObject.put("appsid", this.q);
+            jSONObject.put("pageIndex", this.s);
+            jSONObject.put("pageSize", this.r);
+            jSONObject.put("channels", this.u);
+            if (!TextUtils.isEmpty(this.q)) {
+                jSONObject.put("appid", this.q);
+            }
+            jSONObject2.put("timeout", this.t);
+            jSONObject2 = j.a(this.v);
+            jSONObject2.put("listScene", 503);
+        } catch (Throwable th) {
+            th.printStackTrace();
+        }
+        this.k.loadAd(jSONObject, jSONObject2);
     }
 
-    @Override // com.baidu.mobads.sdk.internal.w
-    public void a(long j10) {
-        this.f6720a.f6882k.a("单次阅读器打开时长 = " + j10);
+    @Override // com.baidu.mobads.sdk.internal.bf
+    protected void b(String str, int i2) {
+        super.b(str, i2);
+        CPUAggregationManager.CPUAggregationListener cPUAggregationListener = this.f5506a;
+        if (cPUAggregationListener != null) {
+            cPUAggregationListener.onHotContentError(str, i2);
+        }
     }
 
-    @Override // com.baidu.mobads.sdk.internal.w
-    public void a(ViewGroup viewGroup, int i10) {
-        int[] iArr;
-        HashMap<String, Object> hashMap = new HashMap<>();
-        hashMap.put("novel_activity", this.f6720a.f());
-        hashMap.put("interstitial_container", viewGroup);
-        hashMap.put("isnight", Boolean.valueOf(this.f6720a.g()));
-        hashMap.put("entry", 2);
-        iArr = this.f6720a.f6709w;
-        hashMap.put(URLPackage.KEY_CHANNEL_ID, Integer.valueOf(iArr[0]));
-        hashMap.put(AdKeys.COUNT_DOWN, Integer.valueOf(i10));
-        this.f6720a.a(cx.A, hashMap);
+    @Override // com.baidu.mobads.sdk.internal.bf
+    protected void d() {
+        CPUAggregationManager.CPUAggregationListener cPUAggregationListener = this.f5506a;
+        if (cPUAggregationListener != null) {
+            cPUAggregationListener.onExitLp();
+        }
+    }
+
+    public void a(CPUAggregationManager.CPUAggregationListener cPUAggregationListener) {
+        this.f5506a = cPUAggregationListener;
+    }
+
+    public void a(int i2, int i3, HashMap<String, Object> hashMap) {
+        this.s = i2;
+        this.r = i3;
+        this.v = hashMap;
+    }
+
+    public void a(int i2) {
+        this.t = i2;
+    }
+
+    @Override // com.baidu.mobads.sdk.internal.bf
+    protected void a(IOAdEvent iOAdEvent) {
+        if (this.f5506a != null) {
+            try {
+                ArrayList arrayList = new ArrayList();
+                Iterator it = ((List) iOAdEvent.getData().get("cpuHotList")).iterator();
+                while (it.hasNext()) {
+                    arrayList.add(new NativeCPUAggregationData(this.f5588h, it.next(), this.v));
+                }
+                this.f5506a.onHotContentLoaded(arrayList);
+            } catch (Exception unused) {
+            }
+        }
+    }
+
+    @Override // com.baidu.mobads.sdk.internal.bf
+    protected void a(int i2, String str) {
+        super.a(i2, str);
+        CPUAggregationManager.CPUAggregationListener cPUAggregationListener = this.f5506a;
+        if (cPUAggregationListener != null) {
+            cPUAggregationListener.onHotContentError(str, i2);
+        }
     }
 }

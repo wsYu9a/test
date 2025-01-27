@@ -13,8 +13,8 @@ public class HeightChangeParams extends WebParams {
         return "onHeightChange";
     }
 
-    public HeightChangeParams setRatio(float f10) {
-        this.ratio = f10;
+    public HeightChangeParams setRatio(float ratio) {
+        this.ratio = ratio;
         return this;
     }
 }

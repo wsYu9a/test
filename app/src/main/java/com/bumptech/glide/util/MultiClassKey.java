@@ -3,7 +3,7 @@ package com.bumptech.glide.util;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
-/* loaded from: classes2.dex */
+/* loaded from: classes.dex */
 public class MultiClassKey {
     private Class<?> first;
     private Class<?> second;

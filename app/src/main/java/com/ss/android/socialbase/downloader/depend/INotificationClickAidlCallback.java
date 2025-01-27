@@ -38,11 +38,11 @@ public interface INotificationClickAidlCallback extends IInterface {
         static final int TRANSACTION_onClickWhenSuccess = 2;
         static final int TRANSACTION_onClickWhenUnSuccess = 1;
 
-        public static class Proxy implements INotificationClickAidlCallback {
+        private static class Proxy implements INotificationClickAidlCallback {
             public static INotificationClickAidlCallback sDefaultImpl;
             private IBinder mRemote;
 
-            public Proxy(IBinder iBinder) {
+            Proxy(IBinder iBinder) {
                 this.mRemote = iBinder;
             }
 
@@ -68,20 +68,13 @@ public interface INotificationClickAidlCallback extends IInterface {
                         obtain.writeInt(0);
                     }
                     if (!this.mRemote.transact(3, obtain, obtain2, 0) && Stub.getDefaultImpl() != null) {
-                        boolean onClickWhenInstalled = Stub.getDefaultImpl().onClickWhenInstalled(downloadInfo);
-                        obtain2.recycle();
-                        obtain.recycle();
-                        return onClickWhenInstalled;
+                        return Stub.getDefaultImpl().onClickWhenInstalled(downloadInfo);
                     }
                     obtain2.readException();
-                    boolean z10 = obtain2.readInt() != 0;
+                    return obtain2.readInt() != 0;
+                } finally {
                     obtain2.recycle();
                     obtain.recycle();
-                    return z10;
-                } catch (Throwable th2) {
-                    obtain2.recycle();
-                    obtain.recycle();
-                    throw th2;
                 }
             }
 
@@ -98,20 +91,13 @@ public interface INotificationClickAidlCallback extends IInterface {
                         obtain.writeInt(0);
                     }
                     if (!this.mRemote.transact(2, obtain, obtain2, 0) && Stub.getDefaultImpl() != null) {
-                        boolean onClickWhenSuccess = Stub.getDefaultImpl().onClickWhenSuccess(downloadInfo);
-                        obtain2.recycle();
-                        obtain.recycle();
-                        return onClickWhenSuccess;
+                        return Stub.getDefaultImpl().onClickWhenSuccess(downloadInfo);
                     }
                     obtain2.readException();
-                    boolean z10 = obtain2.readInt() != 0;
+                    return obtain2.readInt() != 0;
+                } finally {
                     obtain2.recycle();
                     obtain.recycle();
-                    return z10;
-                } catch (Throwable th2) {
-                    obtain2.recycle();
-                    obtain.recycle();
-                    throw th2;
                 }
             }
 
@@ -128,20 +114,13 @@ public interface INotificationClickAidlCallback extends IInterface {
                         obtain.writeInt(0);
                     }
                     if (!this.mRemote.transact(1, obtain, obtain2, 0) && Stub.getDefaultImpl() != null) {
-                        boolean onClickWhenUnSuccess = Stub.getDefaultImpl().onClickWhenUnSuccess(downloadInfo);
-                        obtain2.recycle();
-                        obtain.recycle();
-                        return onClickWhenUnSuccess;
+                        return Stub.getDefaultImpl().onClickWhenUnSuccess(downloadInfo);
                     }
                     obtain2.readException();
-                    boolean z10 = obtain2.readInt() != 0;
+                    return obtain2.readInt() != 0;
+                } finally {
                     obtain2.recycle();
                     obtain.recycle();
-                    return z10;
-                } catch (Throwable th2) {
-                    obtain2.recycle();
-                    obtain.recycle();
-                    throw th2;
                 }
             }
         }
@@ -176,24 +155,24 @@ public interface INotificationClickAidlCallback extends IInterface {
         }
 
         @Override // android.os.Binder
-        public boolean onTransact(int i10, Parcel parcel, Parcel parcel2, int i11) throws RemoteException {
-            if (i10 == 1) {
+        public boolean onTransact(int i2, Parcel parcel, Parcel parcel2, int i3) throws RemoteException {
+            if (i2 == 1) {
                 parcel.enforceInterface(DESCRIPTOR);
                 boolean onClickWhenUnSuccess = onClickWhenUnSuccess(parcel.readInt() != 0 ? DownloadInfo.CREATOR.createFromParcel(parcel) : null);
                 parcel2.writeNoException();
                 parcel2.writeInt(onClickWhenUnSuccess ? 1 : 0);
                 return true;
             }
-            if (i10 == 2) {
+            if (i2 == 2) {
                 parcel.enforceInterface(DESCRIPTOR);
                 boolean onClickWhenSuccess = onClickWhenSuccess(parcel.readInt() != 0 ? DownloadInfo.CREATOR.createFromParcel(parcel) : null);
                 parcel2.writeNoException();
                 parcel2.writeInt(onClickWhenSuccess ? 1 : 0);
                 return true;
             }
-            if (i10 != 3) {
-                if (i10 != 1598968902) {
-                    return super.onTransact(i10, parcel, parcel2, i11);
+            if (i2 != 3) {
+                if (i2 != 1598968902) {
+                    return super.onTransact(i2, parcel, parcel2, i3);
                 }
                 parcel2.writeString(DESCRIPTOR);
                 return true;

@@ -1,136 +1,122 @@
 package com.martian.mibook.activity.account;
 
-import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
-import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.view.ViewGroup;
-import ba.l;
-import com.martian.libmars.common.ConfigSingleton;
-import com.martian.mibook.R;
-import com.martian.mibook.activity.account.TXSRemoveBlackListActivity;
+import com.martian.libmars.activity.j1;
 import com.martian.mibook.application.MiConfigSingleton;
-import com.martian.mibook.databinding.ActivityTxsRemoveBlacklistBinding;
-import com.martian.mibook.databinding.DialogEdittextBinding;
-import com.martian.mibook.lib.account.MiUserManager;
+import com.martian.mibook.e.a0;
+import com.martian.mibook.e.l2;
+import com.martian.mibook.lib.account.d.q.h0;
 import com.martian.mibook.lib.account.request.auth.ResetParams;
-import com.martian.mibook.lib.model.activity.MiBackableActivity;
-import kb.z;
-import lb.d;
-import x8.c;
+import com.martian.ttbookhd.R;
 
 /* loaded from: classes3.dex */
-public class TXSRemoveBlackListActivity extends MiBackableActivity {
-    public ActivityTxsRemoveBlacklistBinding A;
+public class TXSRemoveBlackListActivity extends com.martian.mibook.lib.model.b.a {
+    private a0 F;
 
-    public class a extends z {
-        public a(Activity activity) {
-            super(activity);
+    class a extends h0 {
+        a(j1 x0) {
+            super(x0);
         }
 
-        @Override // jb.k
-        public void s(c cVar) {
-            TXSRemoveBlackListActivity.this.A.removeBlackLoading.setVisibility(8);
-            TXSRemoveBlackListActivity.this.P1(cVar.d());
+        @Override // com.martian.mibook.lib.account.d.n
+        protected void r(b.d.c.b.c errorResult) {
+            TXSRemoveBlackListActivity.this.F.f11663c.setVisibility(8);
+            TXSRemoveBlackListActivity.this.k1(errorResult.d());
             TXSRemoveBlackListActivity.this.finish();
         }
 
-        @Override // y8.f
-        public void showLoading(boolean z10) {
+        @Override // b.d.c.c.g
+        protected void showLoading(boolean show) {
         }
 
-        @Override // y8.a
-        /* renamed from: v */
-        public void onDataReceived(Boolean bool) {
-            TXSRemoveBlackListActivity.this.A.removeBlackLoading.setVisibility(8);
-            if (bool == null || !bool.booleanValue()) {
+        @Override // b.d.c.c.b
+        /* renamed from: u */
+        public void onDataReceived(Boolean aBoolean) {
+            TXSRemoveBlackListActivity.this.F.f11663c.setVisibility(8);
+            if (aBoolean == null || !aBoolean.booleanValue()) {
                 return;
             }
             TXSRemoveBlackListActivity.this.setResult(-1);
-            TXSRemoveBlackListActivity.this.P1("解封成功！");
+            TXSRemoveBlackListActivity.this.k1("解封成功！");
             TXSRemoveBlackListActivity.this.finish();
         }
     }
 
-    public static /* synthetic */ void O2(DialogInterface dialogInterface, int i10) {
+    static /* synthetic */ void s2(DialogInterface dialog, int which) {
     }
 
-    public static void T2(Activity activity) {
-        activity.startActivityForResult(new Intent(activity, (Class<?>) TXSRemoveBlackListActivity.class), MiUserManager.f13852h);
-    }
-
-    public final /* synthetic */ void P2(DialogEdittextBinding dialogEdittextBinding, DialogInterface dialogInterface, int i10) {
-        String obj = dialogEdittextBinding.etDialogContent.getText().toString();
-        if (l.q(obj)) {
-            P1("理由不能为空");
+    /* renamed from: t2 */
+    public /* synthetic */ void u2(final l2 dBinding, DialogInterface dialog, int which) {
+        String obj = dBinding.f12288b.getText().toString();
+        if (com.martian.libsupport.k.p(obj)) {
+            k1("理由不能为空");
         } else if (obj.length() < 8) {
-            P1("理由长度不足，请多写点吧");
+            k1("理由长度不足，请多写点吧");
         } else {
-            S2(obj);
+            x2(obj);
+        }
+    }
+
+    public static void y2(j1 activity) {
+        activity.startActivityForResult(TXSRemoveBlackListActivity.class, 20004);
+    }
+
+    @Override // com.martian.libmars.activity.j1
+    protected void U1(boolean nightMode) {
+        super.U1(nightMode);
+        this.F.f11664d.setTextColor(com.martian.libmars.d.h.F().p0());
+    }
+
+    @Override // com.martian.mibook.lib.model.b.a, com.martian.libmars.activity.j1, com.martian.libmars.activity.h1, me.imid.swipebacklayout.lib.d.a, androidx.appcompat.app.AppCompatActivity, androidx.fragment.app.FragmentActivity, androidx.activity.ComponentActivity, androidx.core.app.ComponentActivity, android.app.Activity
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_txs_remove_blacklist);
+        this.F = a0.a(g2());
+    }
+
+    public void onRemoveBlackListClick(View view) {
+        if (this.F.f11664d.isChecked()) {
+            w2();
+        } else {
+            k1("请先认真阅读规则并确认");
         }
     }
 
     /* JADX WARN: Multi-variable type inference failed */
-    public void Q2(String str) {
-        if (!MiConfigSingleton.b2().F2()) {
-            d.a(this);
+    public void v2(String reason) {
+        if (!MiConfigSingleton.V3().x5()) {
+            com.martian.mibook.lib.account.e.d.a(this);
             return;
         }
-        this.A.removeBlackLoading.setVisibility(0);
+        this.F.f11663c.setVisibility(0);
         a aVar = new a(this);
-        if (!l.q(str)) {
-            ((ResetParams) aVar.k()).setReason(str);
+        if (!com.martian.libsupport.k.p(reason)) {
+            ((ResetParams) aVar.k()).setReason(reason);
         }
         aVar.j();
     }
 
-    public void R2() {
+    public void w2() {
         View inflate = getLayoutInflater().inflate(R.layout.dialog_edittext, (ViewGroup) null);
-        new AlertDialog.Builder(this).setTitle("请如实填写解封理由（8字以上）").setView(inflate).setNegativeButton(com.martian.libmars.R.string.cancel, new DialogInterface.OnClickListener() { // from class: ra.l
+        final l2 a2 = l2.a(inflate);
+        new AlertDialog.Builder(this).setTitle("请如实填写解封理由（8字以上）").setView(inflate).setNegativeButton(R.string.cancel, new DialogInterface.OnClickListener() { // from class: com.martian.mibook.activity.account.m
             @Override // android.content.DialogInterface.OnClickListener
-            public final void onClick(DialogInterface dialogInterface, int i10) {
-                TXSRemoveBlackListActivity.O2(dialogInterface, i10);
+            public final void onClick(DialogInterface dialogInterface, int i2) {
+                TXSRemoveBlackListActivity.s2(dialogInterface, i2);
             }
-        }).setPositiveButton(R.string.confirm, new DialogInterface.OnClickListener() { // from class: ra.m
-
-            /* renamed from: c */
-            public final /* synthetic */ DialogEdittextBinding f30383c;
-
-            public /* synthetic */ m(DialogEdittextBinding dialogEdittextBinding) {
-                bind = dialogEdittextBinding;
-            }
-
+        }).setPositiveButton(R.string.confirm, new DialogInterface.OnClickListener() { // from class: com.martian.mibook.activity.account.n
             @Override // android.content.DialogInterface.OnClickListener
-            public final void onClick(DialogInterface dialogInterface, int i10) {
-                TXSRemoveBlackListActivity.this.P2(bind, dialogInterface, i10);
+            public final void onClick(DialogInterface dialogInterface, int i2) {
+                TXSRemoveBlackListActivity.this.u2(a2, dialogInterface, i2);
             }
         }).show();
     }
 
-    public void S2(String str) {
-        Q2(str);
-    }
-
-    @Override // com.martian.mibook.lib.model.activity.MiBackableActivity, com.martian.libmars.activity.MartianActivity, com.martian.libmars.activity.BaseActivity, me.imid.swipebacklayout.lib.app.SwipeBackActivity, androidx.fragment.app.FragmentActivity, androidx.activity.ComponentActivity, androidx.core.app.ComponentActivity, android.app.Activity
-    public void onCreate(Bundle bundle) {
-        super.onCreate(bundle);
-        setContentView(R.layout.activity_txs_remove_blacklist);
-        this.A = ActivityTxsRemoveBlacklistBinding.bind(D2());
-    }
-
-    public void onRemoveBlackListClick(View view) {
-        if (this.A.ruleConfirm.isChecked()) {
-            R2();
-        } else {
-            P1("请先认真阅读规则并确认");
-        }
-    }
-
-    @Override // com.martian.libmars.activity.MartianActivity
-    public void p2(boolean z10) {
-        super.p2(z10);
-        this.A.ruleConfirm.setTextColor(ConfigSingleton.D().h0());
+    public void x2(final String reason) {
+        v2(reason);
     }
 }

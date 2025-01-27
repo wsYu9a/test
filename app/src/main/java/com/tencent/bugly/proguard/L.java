@@ -4,23 +4,23 @@ package com.tencent.bugly.proguard;
 public class L {
 
     /* renamed from: a */
-    public long f22628a;
+    public long f24979a;
 
     /* renamed from: b */
-    public int f22629b;
+    public int f24980b;
 
     /* renamed from: c */
-    public String f22630c;
+    public String f24981c;
 
     /* renamed from: d */
-    public String f22631d;
+    public String f24982d;
 
     /* renamed from: e */
-    public long f22632e;
+    public long f24983e;
 
     /* renamed from: f */
-    public String f22633f;
+    public String f24984f;
 
     /* renamed from: g */
-    public byte[] f22634g;
+    public byte[] f24985g;
 }

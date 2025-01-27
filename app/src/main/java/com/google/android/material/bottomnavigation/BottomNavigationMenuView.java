@@ -31,67 +31,85 @@ import androidx.transition.AutoTransition;
 import androidx.transition.TransitionManager;
 import androidx.transition.TransitionSet;
 import com.google.android.material.badge.BadgeDrawable;
-import com.google.android.material.internal.TextScale;
+import com.google.android.material.internal.m;
 import java.util.HashSet;
 
 @RestrictTo({RestrictTo.Scope.LIBRARY_GROUP})
-/* loaded from: classes2.dex */
+/* loaded from: classes.dex */
 public class BottomNavigationMenuView extends ViewGroup implements MenuView {
-    private static final long ACTIVE_ANIMATION_DURATION_MS = 115;
-    private static final int[] CHECKED_STATE_SET = {R.attr.state_checked};
-    private static final int[] DISABLED_STATE_SET = {-16842910};
-    private static final int ITEM_POOL_SIZE = 5;
-    private final int activeItemMaxWidth;
-    private final int activeItemMinWidth;
+
+    /* renamed from: a */
+    private static final long f6799a = 115;
+
+    /* renamed from: b */
+    private static final int f6800b = 5;
+
+    /* renamed from: c */
+    private static final int[] f6801c = {R.attr.state_checked};
+
+    /* renamed from: d */
+    private static final int[] f6802d = {-16842910};
 
     @NonNull
-    private SparseArray<BadgeDrawable> badgeDrawables;
+    private SparseArray<BadgeDrawable> A;
+    private com.google.android.material.bottomnavigation.a B;
+    private MenuBuilder C;
+
+    /* renamed from: e */
+    @NonNull
+    private final TransitionSet f6803e;
+
+    /* renamed from: f */
+    private final int f6804f;
+
+    /* renamed from: g */
+    private final int f6805g;
+
+    /* renamed from: h */
+    private final int f6806h;
+
+    /* renamed from: i */
+    private final int f6807i;
+
+    /* renamed from: j */
+    private final int f6808j;
+
+    @NonNull
+    private final View.OnClickListener k;
+    private final Pools.Pool<BottomNavigationItemView> l;
+    private boolean m;
+    private int n;
 
     @Nullable
-    private BottomNavigationItemView[] buttons;
-    private final int inactiveItemMaxWidth;
-    private final int inactiveItemMinWidth;
-    private Drawable itemBackground;
-    private int itemBackgroundRes;
-    private final int itemHeight;
-    private boolean itemHorizontalTranslationEnabled;
+    private BottomNavigationItemView[] o;
+    private int p;
+    private int q;
+    private ColorStateList r;
 
     @Dimension
-    private int itemIconSize;
-    private ColorStateList itemIconTint;
-    private final Pools.Pool<BottomNavigationItemView> itemPool;
-
-    @StyleRes
-    private int itemTextAppearanceActive;
-
-    @StyleRes
-    private int itemTextAppearanceInactive;
+    private int s;
+    private ColorStateList t;
 
     @Nullable
-    private final ColorStateList itemTextColorDefault;
-    private ColorStateList itemTextColorFromUser;
-    private int labelVisibilityMode;
-    private MenuBuilder menu;
+    private final ColorStateList u;
 
-    @NonNull
-    private final View.OnClickListener onClickListener;
-    private BottomNavigationPresenter presenter;
-    private int selectedItemId;
-    private int selectedItemPosition;
+    @StyleRes
+    private int v;
 
-    @NonNull
-    private final TransitionSet set;
-    private int[] tempChildWidths;
+    @StyleRes
+    private int w;
+    private Drawable x;
+    private int y;
+    private int[] z;
 
-    /* renamed from: com.google.android.material.bottomnavigation.BottomNavigationMenuView$1 */
-    public class AnonymousClass1 implements View.OnClickListener {
-        public AnonymousClass1() {
+    class a implements View.OnClickListener {
+        a() {
         }
 
         @Override // android.view.View.OnClickListener
         public void onClick(View view) {
             MenuItemImpl itemData = ((BottomNavigationItemView) view).getItemData();
-            if (BottomNavigationMenuView.this.menu.performItemAction(itemData, BottomNavigationMenuView.this.presenter, 0)) {
+            if (BottomNavigationMenuView.this.C.performItemAction(itemData, BottomNavigationMenuView.this.B, 0)) {
                 return;
             }
             itemData.setChecked(true);
@@ -103,133 +121,133 @@ public class BottomNavigationMenuView extends ViewGroup implements MenuView {
     }
 
     private BottomNavigationItemView getNewItem() {
-        BottomNavigationItemView acquire = this.itemPool.acquire();
+        BottomNavigationItemView acquire = this.l.acquire();
         return acquire == null ? new BottomNavigationItemView(getContext()) : acquire;
     }
 
-    private boolean isShifting(int i10, int i11) {
-        if (i10 == -1) {
-            if (i11 <= 3) {
-                return false;
+    private boolean i(int i2, int i3) {
+        if (i2 == -1) {
+            if (i3 > 3) {
+                return true;
             }
-        } else if (i10 != 0) {
-            return false;
+        } else if (i2 == 0) {
+            return true;
         }
-        return true;
+        return false;
     }
 
-    private boolean isValidId(int i10) {
-        return i10 != -1;
+    private boolean j(int i2) {
+        return i2 != -1;
     }
 
-    private void removeUnusedBadges() {
+    private void l() {
         HashSet hashSet = new HashSet();
-        for (int i10 = 0; i10 < this.menu.size(); i10++) {
-            hashSet.add(Integer.valueOf(this.menu.getItem(i10).getItemId()));
+        for (int i2 = 0; i2 < this.C.size(); i2++) {
+            hashSet.add(Integer.valueOf(this.C.getItem(i2).getItemId()));
         }
-        for (int i11 = 0; i11 < this.badgeDrawables.size(); i11++) {
-            int keyAt = this.badgeDrawables.keyAt(i11);
+        for (int i3 = 0; i3 < this.A.size(); i3++) {
+            int keyAt = this.A.keyAt(i3);
             if (!hashSet.contains(Integer.valueOf(keyAt))) {
-                this.badgeDrawables.delete(keyAt);
+                this.A.delete(keyAt);
             }
         }
+    }
+
+    private void o(int i2) {
+        if (j(i2)) {
+            return;
+        }
+        throw new IllegalArgumentException(i2 + " is not a valid view id");
     }
 
     private void setBadgeIfNeeded(@NonNull BottomNavigationItemView bottomNavigationItemView) {
         BadgeDrawable badgeDrawable;
-        int id2 = bottomNavigationItemView.getId();
-        if (isValidId(id2) && (badgeDrawable = this.badgeDrawables.get(id2)) != null) {
+        int id = bottomNavigationItemView.getId();
+        if (j(id) && (badgeDrawable = this.A.get(id)) != null) {
             bottomNavigationItemView.setBadge(badgeDrawable);
         }
     }
 
-    private void validateMenuItemId(int i10) {
-        if (isValidId(i10)) {
-            return;
-        }
-        throw new IllegalArgumentException(i10 + " is not a valid view id");
-    }
-
-    public void buildMenuView() {
+    public void c() {
         removeAllViews();
-        BottomNavigationItemView[] bottomNavigationItemViewArr = this.buttons;
+        BottomNavigationItemView[] bottomNavigationItemViewArr = this.o;
         if (bottomNavigationItemViewArr != null) {
             for (BottomNavigationItemView bottomNavigationItemView : bottomNavigationItemViewArr) {
                 if (bottomNavigationItemView != null) {
-                    this.itemPool.release(bottomNavigationItemView);
-                    bottomNavigationItemView.removeBadge();
+                    this.l.release(bottomNavigationItemView);
+                    bottomNavigationItemView.f();
                 }
             }
         }
-        if (this.menu.size() == 0) {
-            this.selectedItemId = 0;
-            this.selectedItemPosition = 0;
-            this.buttons = null;
+        if (this.C.size() == 0) {
+            this.p = 0;
+            this.q = 0;
+            this.o = null;
             return;
         }
-        removeUnusedBadges();
-        this.buttons = new BottomNavigationItemView[this.menu.size()];
-        boolean isShifting = isShifting(this.labelVisibilityMode, this.menu.getVisibleItems().size());
-        for (int i10 = 0; i10 < this.menu.size(); i10++) {
-            this.presenter.setUpdateSuspended(true);
-            this.menu.getItem(i10).setCheckable(true);
-            this.presenter.setUpdateSuspended(false);
+        l();
+        this.o = new BottomNavigationItemView[this.C.size()];
+        boolean i2 = i(this.n, this.C.getVisibleItems().size());
+        for (int i3 = 0; i3 < this.C.size(); i3++) {
+            this.B.c(true);
+            this.C.getItem(i3).setCheckable(true);
+            this.B.c(false);
             BottomNavigationItemView newItem = getNewItem();
-            this.buttons[i10] = newItem;
-            newItem.setIconTintList(this.itemIconTint);
-            newItem.setIconSize(this.itemIconSize);
-            newItem.setTextColor(this.itemTextColorDefault);
-            newItem.setTextAppearanceInactive(this.itemTextAppearanceInactive);
-            newItem.setTextAppearanceActive(this.itemTextAppearanceActive);
-            newItem.setTextColor(this.itemTextColorFromUser);
-            Drawable drawable = this.itemBackground;
+            this.o[i3] = newItem;
+            newItem.setIconTintList(this.r);
+            newItem.setIconSize(this.s);
+            newItem.setTextColor(this.u);
+            newItem.setTextAppearanceInactive(this.v);
+            newItem.setTextAppearanceActive(this.w);
+            newItem.setTextColor(this.t);
+            Drawable drawable = this.x;
             if (drawable != null) {
                 newItem.setItemBackground(drawable);
             } else {
-                newItem.setItemBackground(this.itemBackgroundRes);
+                newItem.setItemBackground(this.y);
             }
-            newItem.setShifting(isShifting);
-            newItem.setLabelVisibilityMode(this.labelVisibilityMode);
-            newItem.initialize((MenuItemImpl) this.menu.getItem(i10), 0);
-            newItem.setItemPosition(i10);
-            newItem.setOnClickListener(this.onClickListener);
-            if (this.selectedItemId != 0 && this.menu.getItem(i10).getItemId() == this.selectedItemId) {
-                this.selectedItemPosition = i10;
+            newItem.setShifting(i2);
+            newItem.setLabelVisibilityMode(this.n);
+            newItem.initialize((MenuItemImpl) this.C.getItem(i3), 0);
+            newItem.setItemPosition(i3);
+            newItem.setOnClickListener(this.k);
+            if (this.p != 0 && this.C.getItem(i3).getItemId() == this.p) {
+                this.q = i3;
             }
             setBadgeIfNeeded(newItem);
             addView(newItem);
         }
-        int min = Math.min(this.menu.size() - 1, this.selectedItemPosition);
-        this.selectedItemPosition = min;
-        this.menu.getItem(min).setChecked(true);
+        int min = Math.min(this.C.size() - 1, this.q);
+        this.q = min;
+        this.C.getItem(min).setChecked(true);
     }
 
     @Nullable
-    public ColorStateList createDefaultColorStateList(int i10) {
+    public ColorStateList d(int i2) {
         TypedValue typedValue = new TypedValue();
-        if (!getContext().getTheme().resolveAttribute(i10, typedValue, true)) {
+        if (!getContext().getTheme().resolveAttribute(i2, typedValue, true)) {
             return null;
         }
         ColorStateList colorStateList = AppCompatResources.getColorStateList(getContext(), typedValue.resourceId);
         if (!getContext().getTheme().resolveAttribute(androidx.appcompat.R.attr.colorPrimary, typedValue, true)) {
             return null;
         }
-        int i11 = typedValue.data;
+        int i3 = typedValue.data;
         int defaultColor = colorStateList.getDefaultColor();
-        int[] iArr = DISABLED_STATE_SET;
-        return new ColorStateList(new int[][]{iArr, CHECKED_STATE_SET, ViewGroup.EMPTY_STATE_SET}, new int[]{colorStateList.getColorForState(iArr, defaultColor), i11, defaultColor});
+        int[] iArr = f6802d;
+        return new ColorStateList(new int[][]{iArr, f6801c, ViewGroup.EMPTY_STATE_SET}, new int[]{colorStateList.getColorForState(iArr, defaultColor), i3, defaultColor});
     }
 
     @Nullable
     @VisibleForTesting
-    public BottomNavigationItemView findItemView(int i10) {
-        validateMenuItemId(i10);
-        BottomNavigationItemView[] bottomNavigationItemViewArr = this.buttons;
+    BottomNavigationItemView e(int i2) {
+        o(i2);
+        BottomNavigationItemView[] bottomNavigationItemViewArr = this.o;
         if (bottomNavigationItemViewArr == null) {
             return null;
         }
         for (BottomNavigationItemView bottomNavigationItemView : bottomNavigationItemViewArr) {
-            if (bottomNavigationItemView.getId() == i10) {
+            if (bottomNavigationItemView.getId() == i2) {
                 return bottomNavigationItemView;
             }
         }
@@ -237,69 +255,69 @@ public class BottomNavigationMenuView extends ViewGroup implements MenuView {
     }
 
     @Nullable
-    public BadgeDrawable getBadge(int i10) {
-        return this.badgeDrawables.get(i10);
+    BadgeDrawable f(int i2) {
+        return this.A.get(i2);
     }
 
-    public SparseArray<BadgeDrawable> getBadgeDrawables() {
-        return this.badgeDrawables;
-    }
-
-    @Nullable
-    public ColorStateList getIconTintList() {
-        return this.itemIconTint;
-    }
-
-    @Nullable
-    public Drawable getItemBackground() {
-        BottomNavigationItemView[] bottomNavigationItemViewArr = this.buttons;
-        return (bottomNavigationItemViewArr == null || bottomNavigationItemViewArr.length <= 0) ? this.itemBackground : bottomNavigationItemViewArr[0].getBackground();
-    }
-
-    @Deprecated
-    public int getItemBackgroundRes() {
-        return this.itemBackgroundRes;
-    }
-
-    @Dimension
-    public int getItemIconSize() {
-        return this.itemIconSize;
-    }
-
-    @StyleRes
-    public int getItemTextAppearanceActive() {
-        return this.itemTextAppearanceActive;
-    }
-
-    @StyleRes
-    public int getItemTextAppearanceInactive() {
-        return this.itemTextAppearanceInactive;
-    }
-
-    public ColorStateList getItemTextColor() {
-        return this.itemTextColorFromUser;
-    }
-
-    public int getLabelVisibilityMode() {
-        return this.labelVisibilityMode;
-    }
-
-    public BadgeDrawable getOrCreateBadge(int i10) {
-        validateMenuItemId(i10);
-        BadgeDrawable badgeDrawable = this.badgeDrawables.get(i10);
+    BadgeDrawable g(int i2) {
+        o(i2);
+        BadgeDrawable badgeDrawable = this.A.get(i2);
         if (badgeDrawable == null) {
-            badgeDrawable = BadgeDrawable.create(getContext());
-            this.badgeDrawables.put(i10, badgeDrawable);
+            badgeDrawable = BadgeDrawable.d(getContext());
+            this.A.put(i2, badgeDrawable);
         }
-        BottomNavigationItemView findItemView = findItemView(i10);
-        if (findItemView != null) {
-            findItemView.setBadge(badgeDrawable);
+        BottomNavigationItemView e2 = e(i2);
+        if (e2 != null) {
+            e2.setBadge(badgeDrawable);
         }
         return badgeDrawable;
     }
 
+    SparseArray<BadgeDrawable> getBadgeDrawables() {
+        return this.A;
+    }
+
+    @Nullable
+    public ColorStateList getIconTintList() {
+        return this.r;
+    }
+
+    @Nullable
+    public Drawable getItemBackground() {
+        BottomNavigationItemView[] bottomNavigationItemViewArr = this.o;
+        return (bottomNavigationItemViewArr == null || bottomNavigationItemViewArr.length <= 0) ? this.x : bottomNavigationItemViewArr[0].getBackground();
+    }
+
+    @Deprecated
+    public int getItemBackgroundRes() {
+        return this.y;
+    }
+
+    @Dimension
+    public int getItemIconSize() {
+        return this.s;
+    }
+
+    @StyleRes
+    public int getItemTextAppearanceActive() {
+        return this.w;
+    }
+
+    @StyleRes
+    public int getItemTextAppearanceInactive() {
+        return this.v;
+    }
+
+    public ColorStateList getItemTextColor() {
+        return this.t;
+    }
+
+    public int getLabelVisibilityMode() {
+        return this.n;
+    }
+
     public int getSelectedItemId() {
-        return this.selectedItemId;
+        return this.p;
     }
 
     @Override // androidx.appcompat.view.menu.MenuView
@@ -307,117 +325,160 @@ public class BottomNavigationMenuView extends ViewGroup implements MenuView {
         return 0;
     }
 
-    @Override // androidx.appcompat.view.menu.MenuView
-    public void initialize(MenuBuilder menuBuilder) {
-        this.menu = menuBuilder;
+    public boolean h() {
+        return this.m;
     }
 
-    public boolean isItemHorizontalTranslationEnabled() {
-        return this.itemHorizontalTranslationEnabled;
+    @Override // androidx.appcompat.view.menu.MenuView
+    public void initialize(MenuBuilder menuBuilder) {
+        this.C = menuBuilder;
+    }
+
+    void k(int i2) {
+        o(i2);
+        BadgeDrawable badgeDrawable = this.A.get(i2);
+        BottomNavigationItemView e2 = e(i2);
+        if (e2 != null) {
+            e2.f();
+        }
+        if (badgeDrawable != null) {
+            this.A.remove(i2);
+        }
+    }
+
+    void m(int i2) {
+        int size = this.C.size();
+        for (int i3 = 0; i3 < size; i3++) {
+            MenuItem item = this.C.getItem(i3);
+            if (i2 == item.getItemId()) {
+                this.p = i2;
+                this.q = i3;
+                item.setChecked(true);
+                return;
+            }
+        }
+    }
+
+    public void n() {
+        MenuBuilder menuBuilder = this.C;
+        if (menuBuilder == null || this.o == null) {
+            return;
+        }
+        int size = menuBuilder.size();
+        if (size != this.o.length) {
+            c();
+            return;
+        }
+        int i2 = this.p;
+        for (int i3 = 0; i3 < size; i3++) {
+            MenuItem item = this.C.getItem(i3);
+            if (item.isChecked()) {
+                this.p = item.getItemId();
+                this.q = i3;
+            }
+        }
+        if (i2 != this.p) {
+            TransitionManager.beginDelayedTransition(this, this.f6803e);
+        }
+        boolean i4 = i(this.n, this.C.getVisibleItems().size());
+        for (int i5 = 0; i5 < size; i5++) {
+            this.B.c(true);
+            this.o[i5].setLabelVisibilityMode(this.n);
+            this.o[i5].setShifting(i4);
+            this.o[i5].initialize((MenuItemImpl) this.C.getItem(i5), 0);
+            this.B.c(false);
+        }
     }
 
     @Override // android.view.View
     public void onInitializeAccessibilityNodeInfo(@NonNull AccessibilityNodeInfo accessibilityNodeInfo) {
         super.onInitializeAccessibilityNodeInfo(accessibilityNodeInfo);
-        AccessibilityNodeInfoCompat.wrap(accessibilityNodeInfo).setCollectionInfo(AccessibilityNodeInfoCompat.CollectionInfoCompat.obtain(1, this.menu.getVisibleItems().size(), false, 1));
+        AccessibilityNodeInfoCompat.wrap(accessibilityNodeInfo).setCollectionInfo(AccessibilityNodeInfoCompat.CollectionInfoCompat.obtain(1, this.C.getVisibleItems().size(), false, 1));
     }
 
     @Override // android.view.ViewGroup, android.view.View
-    public void onLayout(boolean z10, int i10, int i11, int i12, int i13) {
+    protected void onLayout(boolean z, int i2, int i3, int i4, int i5) {
         int childCount = getChildCount();
-        int i14 = i12 - i10;
-        int i15 = i13 - i11;
-        int i16 = 0;
-        for (int i17 = 0; i17 < childCount; i17++) {
-            View childAt = getChildAt(i17);
+        int i6 = i4 - i2;
+        int i7 = i5 - i3;
+        int i8 = 0;
+        for (int i9 = 0; i9 < childCount; i9++) {
+            View childAt = getChildAt(i9);
             if (childAt.getVisibility() != 8) {
                 if (ViewCompat.getLayoutDirection(this) == 1) {
-                    int i18 = i14 - i16;
-                    childAt.layout(i18 - childAt.getMeasuredWidth(), 0, i18, i15);
+                    int i10 = i6 - i8;
+                    childAt.layout(i10 - childAt.getMeasuredWidth(), 0, i10, i7);
                 } else {
-                    childAt.layout(i16, 0, childAt.getMeasuredWidth() + i16, i15);
+                    childAt.layout(i8, 0, childAt.getMeasuredWidth() + i8, i7);
                 }
-                i16 += childAt.getMeasuredWidth();
+                i8 += childAt.getMeasuredWidth();
             }
         }
     }
 
     @Override // android.view.View
-    public void onMeasure(int i10, int i11) {
-        int size = View.MeasureSpec.getSize(i10);
-        int size2 = this.menu.getVisibleItems().size();
+    protected void onMeasure(int i2, int i3) {
+        int size = View.MeasureSpec.getSize(i2);
+        int size2 = this.C.getVisibleItems().size();
         int childCount = getChildCount();
-        int makeMeasureSpec = View.MeasureSpec.makeMeasureSpec(this.itemHeight, 1073741824);
-        if (isShifting(this.labelVisibilityMode, size2) && this.itemHorizontalTranslationEnabled) {
-            View childAt = getChildAt(this.selectedItemPosition);
-            int i12 = this.activeItemMinWidth;
+        int makeMeasureSpec = View.MeasureSpec.makeMeasureSpec(this.f6808j, 1073741824);
+        if (i(this.n, size2) && this.m) {
+            View childAt = getChildAt(this.q);
+            int i4 = this.f6807i;
             if (childAt.getVisibility() != 8) {
-                childAt.measure(View.MeasureSpec.makeMeasureSpec(this.activeItemMaxWidth, Integer.MIN_VALUE), makeMeasureSpec);
-                i12 = Math.max(i12, childAt.getMeasuredWidth());
+                childAt.measure(View.MeasureSpec.makeMeasureSpec(this.f6806h, Integer.MIN_VALUE), makeMeasureSpec);
+                i4 = Math.max(i4, childAt.getMeasuredWidth());
             }
-            int i13 = size2 - (childAt.getVisibility() != 8 ? 1 : 0);
-            int min = Math.min(size - (this.inactiveItemMinWidth * i13), Math.min(i12, this.activeItemMaxWidth));
-            int i14 = size - min;
-            int min2 = Math.min(i14 / (i13 != 0 ? i13 : 1), this.inactiveItemMaxWidth);
-            int i15 = i14 - (i13 * min2);
-            int i16 = 0;
-            while (i16 < childCount) {
-                if (getChildAt(i16).getVisibility() != 8) {
-                    int[] iArr = this.tempChildWidths;
-                    int i17 = i16 == this.selectedItemPosition ? min : min2;
-                    iArr[i16] = i17;
-                    if (i15 > 0) {
-                        iArr[i16] = i17 + 1;
-                        i15--;
+            int i5 = size2 - (childAt.getVisibility() != 8 ? 1 : 0);
+            int min = Math.min(size - (this.f6805g * i5), Math.min(i4, this.f6806h));
+            int i6 = size - min;
+            int min2 = Math.min(i6 / (i5 == 0 ? 1 : i5), this.f6804f);
+            int i7 = i6 - (i5 * min2);
+            int i8 = 0;
+            while (i8 < childCount) {
+                if (getChildAt(i8).getVisibility() != 8) {
+                    int[] iArr = this.z;
+                    iArr[i8] = i8 == this.q ? min : min2;
+                    if (i7 > 0) {
+                        iArr[i8] = iArr[i8] + 1;
+                        i7--;
                     }
                 } else {
-                    this.tempChildWidths[i16] = 0;
+                    this.z[i8] = 0;
                 }
-                i16++;
+                i8++;
             }
         } else {
-            int min3 = Math.min(size / (size2 != 0 ? size2 : 1), this.activeItemMaxWidth);
-            int i18 = size - (size2 * min3);
-            for (int i19 = 0; i19 < childCount; i19++) {
-                if (getChildAt(i19).getVisibility() != 8) {
-                    int[] iArr2 = this.tempChildWidths;
-                    iArr2[i19] = min3;
-                    if (i18 > 0) {
-                        iArr2[i19] = min3 + 1;
-                        i18--;
+            int min3 = Math.min(size / (size2 == 0 ? 1 : size2), this.f6806h);
+            int i9 = size - (size2 * min3);
+            for (int i10 = 0; i10 < childCount; i10++) {
+                if (getChildAt(i10).getVisibility() != 8) {
+                    int[] iArr2 = this.z;
+                    iArr2[i10] = min3;
+                    if (i9 > 0) {
+                        iArr2[i10] = iArr2[i10] + 1;
+                        i9--;
                     }
                 } else {
-                    this.tempChildWidths[i19] = 0;
+                    this.z[i10] = 0;
                 }
             }
         }
-        int i20 = 0;
-        for (int i21 = 0; i21 < childCount; i21++) {
-            View childAt2 = getChildAt(i21);
+        int i11 = 0;
+        for (int i12 = 0; i12 < childCount; i12++) {
+            View childAt2 = getChildAt(i12);
             if (childAt2.getVisibility() != 8) {
-                childAt2.measure(View.MeasureSpec.makeMeasureSpec(this.tempChildWidths[i21], 1073741824), makeMeasureSpec);
+                childAt2.measure(View.MeasureSpec.makeMeasureSpec(this.z[i12], 1073741824), makeMeasureSpec);
                 childAt2.getLayoutParams().width = childAt2.getMeasuredWidth();
-                i20 += childAt2.getMeasuredWidth();
+                i11 += childAt2.getMeasuredWidth();
             }
         }
-        setMeasuredDimension(View.resolveSizeAndState(i20, View.MeasureSpec.makeMeasureSpec(i20, 1073741824), 0), View.resolveSizeAndState(this.itemHeight, makeMeasureSpec, 0));
+        setMeasuredDimension(View.resolveSizeAndState(i11, View.MeasureSpec.makeMeasureSpec(i11, 1073741824), 0), View.resolveSizeAndState(this.f6808j, makeMeasureSpec, 0));
     }
 
-    public void removeBadge(int i10) {
-        validateMenuItemId(i10);
-        BadgeDrawable badgeDrawable = this.badgeDrawables.get(i10);
-        BottomNavigationItemView findItemView = findItemView(i10);
-        if (findItemView != null) {
-            findItemView.removeBadge();
-        }
-        if (badgeDrawable != null) {
-            this.badgeDrawables.remove(i10);
-        }
-    }
-
-    public void setBadgeDrawables(SparseArray<BadgeDrawable> sparseArray) {
-        this.badgeDrawables = sparseArray;
-        BottomNavigationItemView[] bottomNavigationItemViewArr = this.buttons;
+    void setBadgeDrawables(SparseArray<BadgeDrawable> sparseArray) {
+        this.A = sparseArray;
+        BottomNavigationItemView[] bottomNavigationItemViewArr = this.o;
         if (bottomNavigationItemViewArr != null) {
             for (BottomNavigationItemView bottomNavigationItemView : bottomNavigationItemViewArr) {
                 bottomNavigationItemView.setBadge(sparseArray.get(bottomNavigationItemView.getId()));
@@ -426,8 +487,8 @@ public class BottomNavigationMenuView extends ViewGroup implements MenuView {
     }
 
     public void setIconTintList(ColorStateList colorStateList) {
-        this.itemIconTint = colorStateList;
-        BottomNavigationItemView[] bottomNavigationItemViewArr = this.buttons;
+        this.r = colorStateList;
+        BottomNavigationItemView[] bottomNavigationItemViewArr = this.o;
         if (bottomNavigationItemViewArr != null) {
             for (BottomNavigationItemView bottomNavigationItemView : bottomNavigationItemViewArr) {
                 bottomNavigationItemView.setIconTintList(colorStateList);
@@ -436,8 +497,8 @@ public class BottomNavigationMenuView extends ViewGroup implements MenuView {
     }
 
     public void setItemBackground(@Nullable Drawable drawable) {
-        this.itemBackground = drawable;
-        BottomNavigationItemView[] bottomNavigationItemViewArr = this.buttons;
+        this.x = drawable;
+        BottomNavigationItemView[] bottomNavigationItemViewArr = this.o;
         if (bottomNavigationItemViewArr != null) {
             for (BottomNavigationItemView bottomNavigationItemView : bottomNavigationItemViewArr) {
                 bottomNavigationItemView.setItemBackground(drawable);
@@ -445,37 +506,37 @@ public class BottomNavigationMenuView extends ViewGroup implements MenuView {
         }
     }
 
-    public void setItemBackgroundRes(int i10) {
-        this.itemBackgroundRes = i10;
-        BottomNavigationItemView[] bottomNavigationItemViewArr = this.buttons;
+    public void setItemBackgroundRes(int i2) {
+        this.y = i2;
+        BottomNavigationItemView[] bottomNavigationItemViewArr = this.o;
         if (bottomNavigationItemViewArr != null) {
             for (BottomNavigationItemView bottomNavigationItemView : bottomNavigationItemViewArr) {
-                bottomNavigationItemView.setItemBackground(i10);
+                bottomNavigationItemView.setItemBackground(i2);
             }
         }
     }
 
-    public void setItemHorizontalTranslationEnabled(boolean z10) {
-        this.itemHorizontalTranslationEnabled = z10;
+    public void setItemHorizontalTranslationEnabled(boolean z) {
+        this.m = z;
     }
 
-    public void setItemIconSize(@Dimension int i10) {
-        this.itemIconSize = i10;
-        BottomNavigationItemView[] bottomNavigationItemViewArr = this.buttons;
+    public void setItemIconSize(@Dimension int i2) {
+        this.s = i2;
+        BottomNavigationItemView[] bottomNavigationItemViewArr = this.o;
         if (bottomNavigationItemViewArr != null) {
             for (BottomNavigationItemView bottomNavigationItemView : bottomNavigationItemViewArr) {
-                bottomNavigationItemView.setIconSize(i10);
+                bottomNavigationItemView.setIconSize(i2);
             }
         }
     }
 
-    public void setItemTextAppearanceActive(@StyleRes int i10) {
-        this.itemTextAppearanceActive = i10;
-        BottomNavigationItemView[] bottomNavigationItemViewArr = this.buttons;
+    public void setItemTextAppearanceActive(@StyleRes int i2) {
+        this.w = i2;
+        BottomNavigationItemView[] bottomNavigationItemViewArr = this.o;
         if (bottomNavigationItemViewArr != null) {
             for (BottomNavigationItemView bottomNavigationItemView : bottomNavigationItemViewArr) {
-                bottomNavigationItemView.setTextAppearanceActive(i10);
-                ColorStateList colorStateList = this.itemTextColorFromUser;
+                bottomNavigationItemView.setTextAppearanceActive(i2);
+                ColorStateList colorStateList = this.t;
                 if (colorStateList != null) {
                     bottomNavigationItemView.setTextColor(colorStateList);
                 }
@@ -483,13 +544,13 @@ public class BottomNavigationMenuView extends ViewGroup implements MenuView {
         }
     }
 
-    public void setItemTextAppearanceInactive(@StyleRes int i10) {
-        this.itemTextAppearanceInactive = i10;
-        BottomNavigationItemView[] bottomNavigationItemViewArr = this.buttons;
+    public void setItemTextAppearanceInactive(@StyleRes int i2) {
+        this.v = i2;
+        BottomNavigationItemView[] bottomNavigationItemViewArr = this.o;
         if (bottomNavigationItemViewArr != null) {
             for (BottomNavigationItemView bottomNavigationItemView : bottomNavigationItemViewArr) {
-                bottomNavigationItemView.setTextAppearanceInactive(i10);
-                ColorStateList colorStateList = this.itemTextColorFromUser;
+                bottomNavigationItemView.setTextAppearanceInactive(i2);
+                ColorStateList colorStateList = this.t;
                 if (colorStateList != null) {
                     bottomNavigationItemView.setTextColor(colorStateList);
                 }
@@ -498,8 +559,8 @@ public class BottomNavigationMenuView extends ViewGroup implements MenuView {
     }
 
     public void setItemTextColor(ColorStateList colorStateList) {
-        this.itemTextColorFromUser = colorStateList;
-        BottomNavigationItemView[] bottomNavigationItemViewArr = this.buttons;
+        this.t = colorStateList;
+        BottomNavigationItemView[] bottomNavigationItemViewArr = this.o;
         if (bottomNavigationItemViewArr != null) {
             for (BottomNavigationItemView bottomNavigationItemView : bottomNavigationItemViewArr) {
                 bottomNavigationItemView.setTextColor(colorStateList);
@@ -507,91 +568,35 @@ public class BottomNavigationMenuView extends ViewGroup implements MenuView {
         }
     }
 
-    public void setLabelVisibilityMode(int i10) {
-        this.labelVisibilityMode = i10;
+    public void setLabelVisibilityMode(int i2) {
+        this.n = i2;
     }
 
-    public void setPresenter(BottomNavigationPresenter bottomNavigationPresenter) {
-        this.presenter = bottomNavigationPresenter;
-    }
-
-    public void tryRestoreSelectedItemId(int i10) {
-        int size = this.menu.size();
-        for (int i11 = 0; i11 < size; i11++) {
-            MenuItem item = this.menu.getItem(i11);
-            if (i10 == item.getItemId()) {
-                this.selectedItemId = i10;
-                this.selectedItemPosition = i11;
-                item.setChecked(true);
-                return;
-            }
-        }
-    }
-
-    public void updateMenuView() {
-        MenuBuilder menuBuilder = this.menu;
-        if (menuBuilder == null || this.buttons == null) {
-            return;
-        }
-        int size = menuBuilder.size();
-        if (size != this.buttons.length) {
-            buildMenuView();
-            return;
-        }
-        int i10 = this.selectedItemId;
-        for (int i11 = 0; i11 < size; i11++) {
-            MenuItem item = this.menu.getItem(i11);
-            if (item.isChecked()) {
-                this.selectedItemId = item.getItemId();
-                this.selectedItemPosition = i11;
-            }
-        }
-        if (i10 != this.selectedItemId) {
-            TransitionManager.beginDelayedTransition(this, this.set);
-        }
-        boolean isShifting = isShifting(this.labelVisibilityMode, this.menu.getVisibleItems().size());
-        for (int i12 = 0; i12 < size; i12++) {
-            this.presenter.setUpdateSuspended(true);
-            this.buttons[i12].setLabelVisibilityMode(this.labelVisibilityMode);
-            this.buttons[i12].setShifting(isShifting);
-            this.buttons[i12].initialize((MenuItemImpl) this.menu.getItem(i12), 0);
-            this.presenter.setUpdateSuspended(false);
-        }
+    public void setPresenter(com.google.android.material.bottomnavigation.a aVar) {
+        this.B = aVar;
     }
 
     public BottomNavigationMenuView(Context context, AttributeSet attributeSet) {
         super(context, attributeSet);
-        this.itemPool = new Pools.SynchronizedPool(5);
-        this.selectedItemId = 0;
-        this.selectedItemPosition = 0;
-        this.badgeDrawables = new SparseArray<>(5);
+        this.l = new Pools.SynchronizedPool(5);
+        this.p = 0;
+        this.q = 0;
+        this.A = new SparseArray<>(5);
         Resources resources = getResources();
-        this.inactiveItemMaxWidth = resources.getDimensionPixelSize(com.google.android.material.R.dimen.design_bottom_navigation_item_max_width);
-        this.inactiveItemMinWidth = resources.getDimensionPixelSize(com.google.android.material.R.dimen.design_bottom_navigation_item_min_width);
-        this.activeItemMaxWidth = resources.getDimensionPixelSize(com.google.android.material.R.dimen.design_bottom_navigation_active_item_max_width);
-        this.activeItemMinWidth = resources.getDimensionPixelSize(com.google.android.material.R.dimen.design_bottom_navigation_active_item_min_width);
-        this.itemHeight = resources.getDimensionPixelSize(com.google.android.material.R.dimen.design_bottom_navigation_height);
-        this.itemTextColorDefault = createDefaultColorStateList(R.attr.textColorSecondary);
+        this.f6804f = resources.getDimensionPixelSize(com.google.android.material.R.dimen.design_bottom_navigation_item_max_width);
+        this.f6805g = resources.getDimensionPixelSize(com.google.android.material.R.dimen.design_bottom_navigation_item_min_width);
+        this.f6806h = resources.getDimensionPixelSize(com.google.android.material.R.dimen.design_bottom_navigation_active_item_max_width);
+        this.f6807i = resources.getDimensionPixelSize(com.google.android.material.R.dimen.design_bottom_navigation_active_item_min_width);
+        this.f6808j = resources.getDimensionPixelSize(com.google.android.material.R.dimen.design_bottom_navigation_height);
+        this.u = d(R.attr.textColorSecondary);
         AutoTransition autoTransition = new AutoTransition();
-        this.set = autoTransition;
+        this.f6803e = autoTransition;
         autoTransition.setOrdering(0);
-        autoTransition.setDuration(ACTIVE_ANIMATION_DURATION_MS);
+        autoTransition.setDuration(f6799a);
         autoTransition.setInterpolator((TimeInterpolator) new FastOutSlowInInterpolator());
-        autoTransition.addTransition(new TextScale());
-        this.onClickListener = new View.OnClickListener() { // from class: com.google.android.material.bottomnavigation.BottomNavigationMenuView.1
-            public AnonymousClass1() {
-            }
-
-            @Override // android.view.View.OnClickListener
-            public void onClick(View view) {
-                MenuItemImpl itemData = ((BottomNavigationItemView) view).getItemData();
-                if (BottomNavigationMenuView.this.menu.performItemAction(itemData, BottomNavigationMenuView.this.presenter, 0)) {
-                    return;
-                }
-                itemData.setChecked(true);
-            }
-        };
-        this.tempChildWidths = new int[5];
+        autoTransition.addTransition(new m());
+        this.k = new a();
+        this.z = new int[5];
         ViewCompat.setImportantForAccessibility(this, 1);
     }
 }

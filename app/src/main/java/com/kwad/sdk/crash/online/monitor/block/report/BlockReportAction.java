@@ -1,13 +1,13 @@
 package com.kwad.sdk.crash.online.monitor.block.report;
 
-import com.kwad.sdk.core.report.e;
-import com.kwad.sdk.utils.x;
+import com.kwad.sdk.core.report.f;
+import com.kwad.sdk.utils.t;
 import java.io.Serializable;
 import java.util.UUID;
 import org.json.JSONObject;
 
-/* loaded from: classes3.dex */
-public class BlockReportAction extends e implements Serializable {
+/* loaded from: classes2.dex */
+public class BlockReportAction extends f implements Serializable {
     private static final long serialVersionUID = 8432448382850235426L;
     public String msg;
 
@@ -16,7 +16,11 @@ public class BlockReportAction extends e implements Serializable {
         this.msg = str;
     }
 
-    @Override // com.kwad.sdk.core.response.a.a, com.kwad.sdk.core.b
+    public BlockReportAction(JSONObject jSONObject) {
+        parseJson(jSONObject);
+    }
+
+    @Override // com.kwad.sdk.core.response.kwai.a, com.kwad.sdk.core.b
     public void parseJson(JSONObject jSONObject) {
         if (jSONObject == null) {
             return;
@@ -25,15 +29,11 @@ public class BlockReportAction extends e implements Serializable {
         this.msg = jSONObject.optString("msg");
     }
 
-    @Override // com.kwad.sdk.core.response.a.a, com.kwad.sdk.core.b
+    @Override // com.kwad.sdk.core.response.kwai.a, com.kwad.sdk.core.b
     public JSONObject toJson() {
         JSONObject jSONObject = new JSONObject();
-        x.putValue(jSONObject, "actionId", this.actionId);
-        x.putValue(jSONObject, "msg", this.msg);
+        t.putValue(jSONObject, "actionId", this.actionId);
+        t.putValue(jSONObject, "msg", this.msg);
         return jSONObject;
-    }
-
-    public BlockReportAction(JSONObject jSONObject) {
-        parseJson(jSONObject);
     }
 }

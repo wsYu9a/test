@@ -2,24 +2,49 @@ package com.kwad.sdk.collector;
 
 import android.content.Context;
 import android.util.Log;
-import com.kwad.library.solder.lib.ext.PluginError;
-import com.kwad.library.solder.lib.ext.b;
 import com.kwad.sdk.utils.AbiUtil;
+import com.kwai.sodler.lib.ext.PluginError;
+import com.kwai.sodler.lib.ext.b;
 import java.util.HashMap;
 import java.util.concurrent.atomic.AtomicBoolean;
 
-/* loaded from: classes3.dex */
+/* loaded from: classes2.dex */
 public final class d {
     private static final AtomicBoolean ISLOADED = new AtomicBoolean(false);
 
-    public interface a {
-        void cx(String str);
+    /* renamed from: com.kwad.sdk.collector.d$1 */
+    static class AnonymousClass1 extends b.c {
+        AnonymousClass1() {
+        }
 
-        void onLoaded();
+        @Override // com.kwai.sodler.lib.ext.b.C0248b, com.kwai.sodler.lib.ext.b
+        public void a(com.kwai.sodler.lib.b.c cVar) {
+            super.a((AnonymousClass1) cVar);
+            a aVar = a.this;
+            if (aVar != null) {
+                aVar.bo("load canceled");
+            }
+        }
+
+        @Override // com.kwai.sodler.lib.ext.b.C0248b, com.kwai.sodler.lib.ext.b
+        public void a(com.kwai.sodler.lib.b.c cVar, PluginError pluginError) {
+            super.a((AnonymousClass1) cVar, pluginError);
+            if (a.this != null) {
+                a.this.bo(pluginError == null ? "load error" : pluginError.toString());
+            }
+        }
+
+        @Override // com.kwai.sodler.lib.ext.b.C0248b, com.kwai.sodler.lib.ext.b
+        public void a(com.kwai.sodler.lib.b.c cVar, com.kwai.sodler.lib.h hVar) {
+            super.a((AnonymousClass1) cVar, (com.kwai.sodler.lib.b.c) hVar);
+            d.a(a.this);
+        }
     }
 
-    public static boolean BU() {
-        return ISLOADED.get();
+    public interface a {
+        void bo(String str);
+
+        void onLoaded();
     }
 
     public static void a(Context context, a aVar) {
@@ -41,72 +66,41 @@ public final class d {
             str2 = "kwappstatus-v7a";
             str3 = "b9c0eff152a62bd5062844255107f3e0";
         }
-        com.kwad.library.solder.lib.c.b bVar = new com.kwad.library.solder.lib.c.b();
-        bVar.ano = com.kwad.sdk.core.network.idc.a.Fz().eg(str);
-        bVar.Lc = true;
-        bVar.ann = str2;
-        bVar.version = "3.1";
-        bVar.anr = false;
-        bVar.anq = str3;
-        bVar.ant = hashMap;
-        com.kwad.library.solder.a.a.a(context, bVar, new b.c() { // from class: com.kwad.sdk.collector.d.1
-            public AnonymousClass1() {
+        com.kwai.sodler.lib.c.b bVar = new com.kwai.sodler.lib.c.b();
+        bVar.aKU = com.kwad.sdk.core.network.idc.a.wm().ch(str);
+        bVar.Ig = true;
+        bVar.aKT = str2;
+        bVar.version = "3";
+        bVar.aKX = false;
+        bVar.aKW = str3;
+        bVar.aKZ = hashMap;
+        com.kwai.sodler.kwai.a.a(context, bVar, new b.c() { // from class: com.kwad.sdk.collector.d.1
+            AnonymousClass1() {
             }
 
-            @Override // com.kwad.library.solder.lib.ext.b.C0475b, com.kwad.library.solder.lib.ext.b
-            /* renamed from: a */
-            public void f(com.kwad.library.solder.lib.b.c cVar) {
-                super.f(cVar);
+            @Override // com.kwai.sodler.lib.ext.b.C0248b, com.kwai.sodler.lib.ext.b
+            public void a(com.kwai.sodler.lib.b.c cVar) {
+                super.a((AnonymousClass1) cVar);
                 a aVar2 = a.this;
                 if (aVar2 != null) {
-                    aVar2.cx("load canceled");
+                    aVar2.bo("load canceled");
                 }
             }
 
-            @Override // com.kwad.library.solder.lib.ext.b.C0475b, com.kwad.library.solder.lib.ext.b
-            public void a(com.kwad.library.solder.lib.b.c cVar, com.kwad.library.solder.lib.h hVar) {
-                super.a((AnonymousClass1) cVar, (com.kwad.library.solder.lib.b.c) hVar);
-                d.a(a.this);
-            }
-
-            @Override // com.kwad.library.solder.lib.ext.b.C0475b, com.kwad.library.solder.lib.ext.b
-            public void a(com.kwad.library.solder.lib.b.c cVar, PluginError pluginError) {
+            @Override // com.kwai.sodler.lib.ext.b.C0248b, com.kwai.sodler.lib.ext.b
+            public void a(com.kwai.sodler.lib.b.c cVar, PluginError pluginError) {
                 super.a((AnonymousClass1) cVar, pluginError);
                 if (a.this != null) {
-                    a.this.cx(pluginError == null ? "load error" : pluginError.toString());
+                    a.this.bo(pluginError == null ? "load error" : pluginError.toString());
                 }
             }
+
+            @Override // com.kwai.sodler.lib.ext.b.C0248b, com.kwai.sodler.lib.ext.b
+            public void a(com.kwai.sodler.lib.b.c cVar, com.kwai.sodler.lib.h hVar) {
+                super.a((AnonymousClass1) cVar, (com.kwai.sodler.lib.b.c) hVar);
+                d.a(a.this);
+            }
         });
-    }
-
-    /* renamed from: com.kwad.sdk.collector.d$1 */
-    public class AnonymousClass1 extends b.c {
-        public AnonymousClass1() {
-        }
-
-        @Override // com.kwad.library.solder.lib.ext.b.C0475b, com.kwad.library.solder.lib.ext.b
-        /* renamed from: a */
-        public void f(com.kwad.library.solder.lib.b.c cVar) {
-            super.f(cVar);
-            a aVar2 = a.this;
-            if (aVar2 != null) {
-                aVar2.cx("load canceled");
-            }
-        }
-
-        @Override // com.kwad.library.solder.lib.ext.b.C0475b, com.kwad.library.solder.lib.ext.b
-        public void a(com.kwad.library.solder.lib.b.c cVar, com.kwad.library.solder.lib.h hVar) {
-            super.a((AnonymousClass1) cVar, (com.kwad.library.solder.lib.b.c) hVar);
-            d.a(a.this);
-        }
-
-        @Override // com.kwad.library.solder.lib.ext.b.C0475b, com.kwad.library.solder.lib.ext.b
-        public void a(com.kwad.library.solder.lib.b.c cVar, PluginError pluginError) {
-            super.a((AnonymousClass1) cVar, pluginError);
-            if (a.this != null) {
-                a.this.cx(pluginError == null ? "load error" : pluginError.toString());
-            }
-        }
     }
 
     public static void a(a aVar) {
@@ -116,15 +110,19 @@ public final class d {
             if (aVar != null) {
                 aVar.onLoaded();
             }
-        } catch (Throwable th2) {
+        } catch (Throwable th) {
             if (aVar != null) {
-                aVar.cx(Log.getStackTraceString(th2));
+                aVar.bo(Log.getStackTraceString(th));
             }
-            com.kwad.sdk.core.d.c.printStackTraceOnly(th2);
-            if (th2 instanceof UnsatisfiedLinkError) {
+            com.kwad.sdk.core.d.b.printStackTraceOnly(th);
+            if (th instanceof UnsatisfiedLinkError) {
                 return;
             }
-            com.kwad.sdk.service.c.gatherException(th2);
+            com.kwad.sdk.service.b.gatherException(th);
         }
+    }
+
+    public static boolean tF() {
+        return ISLOADED.get();
     }
 }

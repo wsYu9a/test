@@ -2,46 +2,37 @@ package okhttp3.internal.cache2;
 
 import java.io.IOException;
 import java.nio.channels.FileChannel;
-import kotlin.Metadata;
-import kotlin.jvm.internal.Intrinsics;
 import okio.Buffer;
-import xi.k;
 
-@Metadata(d1 = {"\u0000&\n\u0002\u0018\u0002\n\u0002\u0010\u0000\n\u0000\n\u0002\u0018\u0002\n\u0002\b\u0002\n\u0002\u0010\u0002\n\u0000\n\u0002\u0010\t\n\u0000\n\u0002\u0018\u0002\n\u0002\b\u0004\b\u0000\u0018\u00002\u00020\u0001B\r\u0012\u0006\u0010\u0002\u001a\u00020\u0003¢\u0006\u0002\u0010\u0004J\u001e\u0010\u0005\u001a\u00020\u00062\u0006\u0010\u0007\u001a\u00020\b2\u0006\u0010\t\u001a\u00020\n2\u0006\u0010\u000b\u001a\u00020\bJ\u001e\u0010\f\u001a\u00020\u00062\u0006\u0010\u0007\u001a\u00020\b2\u0006\u0010\r\u001a\u00020\n2\u0006\u0010\u000b\u001a\u00020\bR\u000e\u0010\u0002\u001a\u00020\u0003X\u0082\u0004¢\u0006\u0002\n\u0000¨\u0006\u000e"}, d2 = {"Lokhttp3/internal/cache2/FileOperator;", "", "fileChannel", "Ljava/nio/channels/FileChannel;", "(Ljava/nio/channels/FileChannel;)V", "read", "", "pos", "", "sink", "Lokio/Buffer;", "byteCount", "write", "source", "okhttp"}, k = 1, mv = {1, 6, 0}, xi = 48)
-/* loaded from: classes4.dex */
-public final class FileOperator {
-
-    @k
+/* loaded from: classes5.dex */
+final class FileOperator {
     private final FileChannel fileChannel;
 
-    public FileOperator(@k FileChannel fileChannel) {
-        Intrinsics.checkNotNullParameter(fileChannel, "fileChannel");
+    FileOperator(FileChannel fileChannel) {
         this.fileChannel = fileChannel;
     }
 
-    public final void read(long pos, @k Buffer sink, long byteCount) {
-        Intrinsics.checkNotNullParameter(sink, "sink");
-        if (byteCount < 0) {
+    public void read(long j2, Buffer buffer, long j3) throws IOException {
+        if (j3 < 0) {
             throw new IndexOutOfBoundsException();
         }
-        while (byteCount > 0) {
-            long transferTo = this.fileChannel.transferTo(pos, byteCount, sink);
-            pos += transferTo;
-            byteCount -= transferTo;
+        while (j3 > 0) {
+            long transferTo = this.fileChannel.transferTo(j2, j3, buffer);
+            j2 += transferTo;
+            j3 -= transferTo;
         }
     }
 
-    public final void write(long pos, @k Buffer source, long byteCount) throws IOException {
-        Intrinsics.checkNotNullParameter(source, "source");
-        if (byteCount < 0 || byteCount > source.size()) {
+    public void write(long j2, Buffer buffer, long j3) throws IOException {
+        if (j3 < 0 || j3 > buffer.size()) {
             throw new IndexOutOfBoundsException();
         }
-        long j10 = pos;
-        long j11 = byteCount;
-        while (j11 > 0) {
-            long transferFrom = this.fileChannel.transferFrom(source, j10, j11);
-            j10 += transferFrom;
-            j11 -= transferFrom;
+        long j4 = j2;
+        long j5 = j3;
+        while (j5 > 0) {
+            long transferFrom = this.fileChannel.transferFrom(buffer, j4, j5);
+            j4 += transferFrom;
+            j5 -= transferFrom;
         }
     }
 }

@@ -1,231 +1,147 @@
 package com.baidu.mobads.sdk.internal;
 
-import android.content.Context;
-import android.content.SharedPreferences;
-import android.util.Log;
-import com.baidu.mobads.sdk.api.IXAdContainerFactory;
-import java.lang.Thread;
-import java.util.ArrayList;
-import java.util.Iterator;
-import java.util.List;
+import java.net.HttpURLConnection;
+import java.net.URI;
+import java.net.URISyntaxException;
+import java.net.URL;
+import java.util.HashMap;
+import java.util.Locale;
+import java.util.Map;
+import javax.net.ssl.HttpsURLConnection;
 
-/* loaded from: classes2.dex */
-public class cn implements Thread.UncaughtExceptionHandler {
+/* loaded from: classes.dex */
+public class cn {
 
     /* renamed from: a */
-    public static String f7064a = "";
+    private static volatile cn f5742a;
 
     /* renamed from: b */
-    private static final String f7065b = "remote";
+    private boolean f5743b;
 
     /* renamed from: c */
-    private static final String f7066c = "proxy";
+    private boolean f5744c;
 
-    /* renamed from: d */
-    private static final String f7067d = "third-mtj";
-
-    /* renamed from: e */
-    private static final String f7068e = "third-cpu";
-
-    /* renamed from: f */
-    private static final String f7069f = "third-cpu-cyber";
-
-    /* renamed from: g */
-    private static final String f7070g = "third-novel";
-
-    /* renamed from: h */
-    private static final String f7071h = "third-aigc";
-
-    /* renamed from: i */
-    private static final String f7072i = "third-aigc-virtual";
-
-    /* renamed from: j */
-    private static final String f7073j = "third-aigc-speech";
-
-    /* renamed from: k */
-    private static Thread.UncaughtExceptionHandler f7074k = null;
-
-    /* renamed from: l */
-    private static volatile cn f7075l = null;
-
-    /* renamed from: o */
-    private static final String f7076o = "key_crash_source";
-
-    /* renamed from: p */
-    private static final String f7077p = "key_crash_trace";
-
-    /* renamed from: q */
-    private static final String f7078q = "key_crash_ad";
-
-    /* renamed from: m */
-    private Context f7079m;
-
-    /* renamed from: n */
-    private a f7080n;
-
-    public interface a {
-        void a(String str);
+    private cn() {
     }
 
-    private cn(Context context) {
-        this.f7079m = context.getApplicationContext();
-        f7074k = Thread.getDefaultUncaughtExceptionHandler();
-    }
-
-    private List<String> d() {
-        IXAdContainerFactory c10;
-        ArrayList arrayList = new ArrayList();
-        try {
-            aa a10 = aa.a();
-            if (a10 != null && (c10 = a10.c()) != null) {
-                Object remoteParam = c10.getRemoteParam("appCommonConfig", "getCrashPackage");
-                if (remoteParam instanceof List) {
-                    arrayList.addAll((List) remoteParam);
-                }
-            }
-        } catch (Throwable unused) {
-        }
-        return arrayList;
-    }
-
-    private SharedPreferences e() {
-        return this.f7079m.getSharedPreferences("baidu_mobads_crash", 0);
-    }
-
-    private SharedPreferences.Editor f() {
-        return e().edit();
-    }
-
-    public void g() {
-        SharedPreferences.Editor f10 = f();
-        f10.clear();
-        f10.apply();
-    }
-
-    public void c() {
-        this.f7080n = null;
-    }
-
-    @Override // java.lang.Thread.UncaughtExceptionHandler
-    public void uncaughtException(Thread thread, Throwable th2) {
-        try {
-            String a10 = a(th2);
-            if (a10 != null) {
-                a(a10, Log.getStackTraceString(th2));
-                a aVar = this.f7080n;
-                if (aVar != null) {
-                    aVar.a(a10);
-                }
-            }
-            Thread.UncaughtExceptionHandler uncaughtExceptionHandler = f7074k;
-            if (uncaughtExceptionHandler != null) {
-                uncaughtExceptionHandler.uncaughtException(thread, th2);
-            }
-        } catch (Exception e10) {
-            bt.a().c(e10);
-        }
-    }
-
-    public void b() {
-        if (Thread.getDefaultUncaughtExceptionHandler() instanceof cn) {
-            return;
-        }
-        Thread.setDefaultUncaughtExceptionHandler(this);
-    }
-
-    public static cn a(Context context) {
-        if (f7075l == null) {
+    public static cn a() {
+        if (f5742a == null) {
             synchronized (cn.class) {
-                try {
-                    if (f7075l == null) {
-                        f7075l = new cn(context);
-                    }
-                } finally {
+                if (f5742a == null) {
+                    f5742a = new cn();
                 }
             }
         }
-        return f7075l;
+        return f5742a;
     }
 
-    public void a() {
-        bd.a().a((j) new co(this));
+    public boolean b() {
+        return this.f5744c;
     }
 
-    public void a(a aVar) {
-        this.f7080n = aVar;
+    public String c(String str) {
+        return (this.f5743b && a(str).booleanValue()) ? str.replaceFirst("(?i)http", b.b.a.b.b.f4198a) : str;
     }
 
-    private String a(Throwable th2) {
-        Throwable cause = th2.getCause();
-        if (cause != null) {
-            th2 = cause;
+    public Boolean d(String str) {
+        return Boolean.valueOf(a(str, "sms:").booleanValue() || a(str, "smsto:").booleanValue() || a(str, "mms:").booleanValue());
+    }
+
+    public String e(String str) {
+        try {
+            String path = new URI(str).getPath();
+            return path.substring(path.lastIndexOf(47) + 1, path.length());
+        } catch (URISyntaxException unused) {
+            return "";
         }
-        StackTraceElement[] stackTrace = th2.getStackTrace();
-        if (stackTrace == null || stackTrace.length <= 0) {
+    }
+
+    public String f(String str) {
+        if (str == null) {
             return null;
         }
-        List<String> d10 = d();
-        for (StackTraceElement stackTraceElement : stackTrace) {
-            String className = stackTraceElement.getClassName();
-            if (className.startsWith("junit.framework")) {
-                return null;
-            }
-            if (!className.startsWith(z.as) && !className.startsWith(z.at) && !className.startsWith(z.au)) {
-                if (!className.startsWith(z.av) && !className.startsWith(z.aw) && !className.startsWith(z.ax)) {
-                    if (className.startsWith(z.ay)) {
-                        return f7067d;
-                    }
-                    if (className.startsWith(z.az)) {
-                        return f7068e;
-                    }
-                    if (className.startsWith(z.aA) || className.startsWith(z.aB)) {
-                        return f7069f;
-                    }
-                    if (className.startsWith(z.aJ)) {
-                        return f7073j;
-                    }
-                    if (!className.startsWith(z.aF) && !className.startsWith(z.aG) && !className.startsWith(z.aH) && !className.startsWith(z.aI)) {
-                        if (className.startsWith(z.aE)) {
-                            return f7071h;
-                        }
-                        if (!className.startsWith(z.aC) && !className.startsWith(z.aD)) {
-                            if (a(className, d10)) {
-                            }
-                        } else if (cm.f7061g.booleanValue()) {
-                            return f7070g;
-                        }
-                    } else {
-                        return f7072i;
-                    }
-                } else {
-                    return f7066c;
+        return (a(str).booleanValue() || b(str).booleanValue()) ? str.split("\\?")[0] : str;
+    }
+
+    public String g(String str) {
+        if (str == null) {
+            return null;
+        }
+        String[] split = (a(str).booleanValue() || b(str).booleanValue()) ? str.split("\\?") : null;
+        if (split == null || split.length < 2) {
+            return null;
+        }
+        return split[1];
+    }
+
+    public void h(String str) {
+        new am(str).b();
+    }
+
+    public void b(boolean z) {
+        this.f5743b = z;
+    }
+
+    public Boolean b(String str) {
+        return a(str, "https:");
+    }
+
+    public void a(boolean z) {
+        this.f5744c = z;
+    }
+
+    public Boolean a(String str) {
+        return a(str, "http:");
+    }
+
+    private Boolean a(String str, String str2) {
+        boolean z = false;
+        if (str != null && str.trim().toLowerCase(Locale.getDefault()).indexOf(str2) == 0) {
+            z = true;
+        }
+        return Boolean.valueOf(z);
+    }
+
+    public HttpURLConnection a(URL url) {
+        if (url.getProtocol().toLowerCase().equals(b.b.a.b.b.f4198a)) {
+            return (HttpsURLConnection) url.openConnection();
+        }
+        return (HttpURLConnection) url.openConnection();
+    }
+
+    public String a(String str, HashMap<String, String> hashMap) {
+        StringBuilder sb = new StringBuilder(str);
+        if (hashMap != null && !hashMap.isEmpty()) {
+            sb.append("?");
+            for (Map.Entry<String, String> entry : hashMap.entrySet()) {
+                try {
+                    sb.append(entry.getKey());
+                    sb.append("=");
+                    sb.append(entry.getValue());
+                    sb.append("&");
+                } catch (Exception e2) {
+                    bq.a().c(e2);
                 }
             }
-            return f7065b;
+            return sb.toString().substring(0, r3.length() - 1);
         }
-        return null;
+        return sb.toString();
     }
 
-    private boolean a(String str, List<String> list) {
-        Iterator<String> it = list.iterator();
-        while (it.hasNext()) {
-            if (str.startsWith(it.next())) {
-                return true;
+    public void a(HttpURLConnection httpURLConnection) {
+        if (httpURLConnection != null) {
+            try {
+                httpURLConnection.getInputStream().close();
+            } catch (Throwable unused) {
+            }
+            try {
+                httpURLConnection.getOutputStream().close();
+            } catch (Throwable unused2) {
+            }
+            try {
+                httpURLConnection.disconnect();
+            } catch (Throwable unused3) {
             }
         }
-        return false;
-    }
-
-    public void a(String str, String str2) {
-        SharedPreferences.Editor f10 = f();
-        String str3 = "crashtime:" + System.currentTimeMillis() + " ";
-        f10.putString(f7076o, str);
-        f10.putString(f7077p, str3 + str2);
-        f10.putString(f7078q, f7064a);
-        f10.commit();
-    }
-
-    public String a(String str) {
-        return e().getString(str, "");
     }
 }

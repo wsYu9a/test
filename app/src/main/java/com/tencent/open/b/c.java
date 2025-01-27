@@ -17,28 +17,28 @@ import kotlin.text.Typography;
 public class c {
 
     /* renamed from: a */
-    static String f23179a;
+    static String f25446a;
 
     /* renamed from: b */
-    static String f23180b;
+    static String f25447b;
 
     /* renamed from: c */
-    static String f23181c;
+    static String f25448c;
 
     /* renamed from: d */
-    private static String f23182d;
+    private static String f25449d;
 
     /* renamed from: e */
-    private static String f23183e;
+    private static String f25450e;
 
     public static String a() {
         WifiManager wifiManager;
         WifiInfo connectionInfo;
         try {
-            Context a10 = com.tencent.open.utils.d.a();
-            return (a10 == null || (wifiManager = (WifiManager) a10.getSystemService("wifi")) == null || (connectionInfo = wifiManager.getConnectionInfo()) == null) ? "" : connectionInfo.getMacAddress();
-        } catch (SecurityException e10) {
-            com.tencent.open.a.f.b("openSDK_LOG.MobileInfoUtil", "getLocalMacAddress>>>", e10);
+            Context a2 = com.tencent.open.utils.d.a();
+            return (a2 == null || (wifiManager = (WifiManager) a2.getSystemService(com.alipay.mobilesecuritysdk.constant.a.I)) == null || (connectionInfo = wifiManager.getConnectionInfo()) == null) ? "" : connectionInfo.getMacAddress();
+        } catch (SecurityException e2) {
+            com.tencent.open.a.f.b("openSDK_LOG.MobileInfoUtil", "getLocalMacAddress>>>", e2);
             return "";
         }
     }
@@ -48,16 +48,16 @@ public class c {
     }
 
     public static String c(Context context) {
-        String str = f23180b;
+        String str = f25447b;
         if (str != null && str.length() > 0) {
-            return f23180b;
+            return f25447b;
         }
         if (context == null) {
             return "";
         }
         try {
             String simSerialNumber = ((TelephonyManager) context.getSystemService("phone")).getSimSerialNumber();
-            f23180b = simSerialNumber;
+            f25447b = simSerialNumber;
             return simSerialNumber;
         } catch (Exception unused) {
             return "";
@@ -65,16 +65,16 @@ public class c {
     }
 
     public static String d(Context context) {
-        String str = f23181c;
+        String str = f25448c;
         if (str != null && str.length() > 0) {
-            return f23181c;
+            return f25448c;
         }
         if (context == null) {
             return "";
         }
         try {
             String string = Settings.Secure.getString(context.getContentResolver(), "android_id");
-            f23181c = string;
+            f25448c = string;
             return string;
         } catch (Exception unused) {
             return "";
@@ -83,62 +83,62 @@ public class c {
 
     public static String e(Context context) {
         try {
-            if (f23183e == null) {
+            if (f25450e == null) {
                 WindowManager windowManager = (WindowManager) context.getSystemService("window");
                 DisplayMetrics displayMetrics = new DisplayMetrics();
                 windowManager.getDefaultDisplay().getMetrics(displayMetrics);
-                StringBuilder sb2 = new StringBuilder();
-                sb2.append("imei=");
-                sb2.append(b(context));
-                sb2.append(Typography.amp);
-                sb2.append("model=");
-                sb2.append(Build.MODEL);
-                sb2.append(Typography.amp);
-                sb2.append("os=");
-                sb2.append(Build.VERSION.RELEASE);
-                sb2.append(Typography.amp);
-                sb2.append("apilevel=");
-                sb2.append(Build.VERSION.SDK_INT);
-                sb2.append(Typography.amp);
-                String b10 = a.b(context);
-                if (b10 == null) {
-                    b10 = "";
+                StringBuilder sb = new StringBuilder();
+                sb.append("imei=");
+                sb.append(b(context));
+                sb.append(Typography.amp);
+                sb.append("model=");
+                sb.append(Build.MODEL);
+                sb.append(Typography.amp);
+                sb.append("os=");
+                sb.append(Build.VERSION.RELEASE);
+                sb.append(Typography.amp);
+                sb.append("apilevel=");
+                sb.append(Build.VERSION.SDK_INT);
+                sb.append(Typography.amp);
+                String b2 = a.b(context);
+                if (b2 == null) {
+                    b2 = "";
                 }
-                sb2.append("network=");
-                sb2.append(b10);
-                sb2.append(Typography.amp);
-                sb2.append("sdcard=");
-                sb2.append(Environment.getExternalStorageState().equals("mounted") ? 1 : 0);
-                sb2.append(Typography.amp);
-                sb2.append("display=");
-                sb2.append(displayMetrics.widthPixels);
-                sb2.append('*');
-                sb2.append(displayMetrics.heightPixels);
-                sb2.append(Typography.amp);
-                sb2.append("manu=");
-                sb2.append(Build.MANUFACTURER);
-                sb2.append("&");
-                sb2.append("wifi=");
-                sb2.append(a.e(context));
-                f23183e = sb2.toString();
+                sb.append("network=");
+                sb.append(b2);
+                sb.append(Typography.amp);
+                sb.append("sdcard=");
+                sb.append(Environment.getExternalStorageState().equals("mounted") ? 1 : 0);
+                sb.append(Typography.amp);
+                sb.append("display=");
+                sb.append(displayMetrics.widthPixels);
+                sb.append('*');
+                sb.append(displayMetrics.heightPixels);
+                sb.append(Typography.amp);
+                sb.append("manu=");
+                sb.append(Build.MANUFACTURER);
+                sb.append("&");
+                sb.append("wifi=");
+                sb.append(a.e(context));
+                f25450e = sb.toString();
             }
-            return f23183e;
+            return f25450e;
         } catch (Exception unused) {
             return null;
         }
     }
 
     public static String b(Context context) {
-        String str = f23179a;
+        String str = f25446a;
         if (str != null && str.length() > 0) {
-            return f23179a;
+            return f25446a;
         }
         if (context == null) {
             return "";
         }
         try {
             String deviceId = ((TelephonyManager) context.getSystemService("phone")).getDeviceId();
-            f23179a = deviceId;
+            f25446a = deviceId;
             return deviceId;
         } catch (Exception unused) {
             return "";
@@ -146,17 +146,17 @@ public class c {
     }
 
     public static String a(Context context) {
-        if (!TextUtils.isEmpty(f23182d)) {
-            return f23182d;
+        if (!TextUtils.isEmpty(f25449d)) {
+            return f25449d;
         }
         if (context == null) {
             return "";
         }
-        f23182d = "";
+        f25449d = "";
         WindowManager windowManager = (WindowManager) context.getSystemService("window");
         if (windowManager != null) {
-            f23182d = windowManager.getDefaultDisplay().getWidth() + "x" + windowManager.getDefaultDisplay().getHeight();
+            f25449d = windowManager.getDefaultDisplay().getWidth() + "x" + windowManager.getDefaultDisplay().getHeight();
         }
-        return f23182d;
+        return f25449d;
     }
 }

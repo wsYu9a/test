@@ -2,30 +2,30 @@ package com.bytedance.pangle.g;
 
 import java.nio.ByteBuffer;
 
-/* loaded from: classes2.dex */
+/* loaded from: classes.dex */
 final class h implements k {
 
     /* renamed from: a */
-    private final ByteBuffer f7643a;
+    private final ByteBuffer f6141a;
 
-    public h(ByteBuffer byteBuffer) {
-        this.f7643a = byteBuffer.slice();
+    h(ByteBuffer byteBuffer) {
+        this.f6141a = byteBuffer.slice();
     }
 
     @Override // com.bytedance.pangle.g.k
     public final long a() {
-        return this.f7643a.capacity();
+        return this.f6141a.capacity();
     }
 
     @Override // com.bytedance.pangle.g.k
-    public final void a(j jVar, long j10, int i10) {
+    public final void a(j jVar, long j2, int i2) {
         ByteBuffer slice;
-        synchronized (this.f7643a) {
-            this.f7643a.position(0);
-            int i11 = (int) j10;
-            this.f7643a.limit(i10 + i11);
-            this.f7643a.position(i11);
-            slice = this.f7643a.slice();
+        synchronized (this.f6141a) {
+            this.f6141a.position(0);
+            int i3 = (int) j2;
+            this.f6141a.limit(i2 + i3);
+            this.f6141a.position(i3);
+            slice = this.f6141a.slice();
         }
         jVar.a(slice);
     }

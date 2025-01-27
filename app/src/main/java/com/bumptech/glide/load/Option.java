@@ -5,9 +5,12 @@ import androidx.annotation.Nullable;
 import com.bumptech.glide.util.Preconditions;
 import java.security.MessageDigest;
 
-/* loaded from: classes2.dex */
+/* loaded from: classes.dex */
 public final class Option<T> {
     private static final CacheKeyUpdater<Object> EMPTY_UPDATER = new CacheKeyUpdater<Object>() { // from class: com.bumptech.glide.load.Option.1
+        AnonymousClass1() {
+        }
+
         @Override // com.bumptech.glide.load.Option.CacheKeyUpdater
         public void update(@NonNull byte[] bArr, @NonNull Object obj, @NonNull MessageDigest messageDigest) {
         }
@@ -18,19 +21,22 @@ public final class Option<T> {
     private volatile byte[] keyBytes;
 
     /* renamed from: com.bumptech.glide.load.Option$1 */
-    public class AnonymousClass1 implements CacheKeyUpdater<Object> {
+    class AnonymousClass1 implements CacheKeyUpdater<Object> {
+        AnonymousClass1() {
+        }
+
         @Override // com.bumptech.glide.load.Option.CacheKeyUpdater
         public void update(@NonNull byte[] bArr, @NonNull Object obj, @NonNull MessageDigest messageDigest) {
         }
     }
 
     public interface CacheKeyUpdater<T> {
-        void update(@NonNull byte[] bArr, @NonNull T t10, @NonNull MessageDigest messageDigest);
+        void update(@NonNull byte[] bArr, @NonNull T t, @NonNull MessageDigest messageDigest);
     }
 
-    private Option(@NonNull String str, @Nullable T t10, @NonNull CacheKeyUpdater<T> cacheKeyUpdater) {
+    private Option(@NonNull String str, @Nullable T t, @NonNull CacheKeyUpdater<T> cacheKeyUpdater) {
         this.key = Preconditions.checkNotEmpty(str);
-        this.defaultValue = t10;
+        this.defaultValue = t;
         this.cacheKeyUpdater = (CacheKeyUpdater) Preconditions.checkNotNull(cacheKeyUpdater);
     }
 
@@ -77,17 +83,17 @@ public final class Option<T> {
         return "Option{key='" + this.key + "'}";
     }
 
-    public void update(@NonNull T t10, @NonNull MessageDigest messageDigest) {
-        this.cacheKeyUpdater.update(getKeyBytes(), t10, messageDigest);
+    public void update(@NonNull T t, @NonNull MessageDigest messageDigest) {
+        this.cacheKeyUpdater.update(getKeyBytes(), t, messageDigest);
     }
 
     @NonNull
-    public static <T> Option<T> disk(@NonNull String str, @Nullable T t10, @NonNull CacheKeyUpdater<T> cacheKeyUpdater) {
-        return new Option<>(str, t10, cacheKeyUpdater);
+    public static <T> Option<T> disk(@NonNull String str, @Nullable T t, @NonNull CacheKeyUpdater<T> cacheKeyUpdater) {
+        return new Option<>(str, t, cacheKeyUpdater);
     }
 
     @NonNull
-    public static <T> Option<T> memory(@NonNull String str, @NonNull T t10) {
-        return new Option<>(str, t10, emptyUpdater());
+    public static <T> Option<T> memory(@NonNull String str, @NonNull T t) {
+        return new Option<>(str, t, emptyUpdater());
     }
 }

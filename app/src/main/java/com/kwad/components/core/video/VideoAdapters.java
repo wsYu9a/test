@@ -4,36 +4,36 @@ import android.view.View;
 import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 
-/* loaded from: classes3.dex */
+/* loaded from: classes2.dex */
 public final class VideoAdapters {
 
     /* renamed from: com.kwad.components.core.video.VideoAdapters$1 */
-    public static /* synthetic */ class AnonymousClass1 {
-        static final /* synthetic */ int[] Xw;
+    static /* synthetic */ class AnonymousClass1 {
+        static final /* synthetic */ int[] Ry;
 
         static {
             int[] iArr = new int[AdaptType.values().length];
-            Xw = iArr;
+            Ry = iArr;
             try {
                 iArr[AdaptType.PORTRAIT_VERTICAL.ordinal()] = 1;
             } catch (NoSuchFieldError unused) {
             }
             try {
-                Xw[AdaptType.LANDSCAPE_HORIZONTAL.ordinal()] = 2;
+                Ry[AdaptType.LANDSCAPE_HORIZONTAL.ordinal()] = 2;
             } catch (NoSuchFieldError unused2) {
             }
             try {
-                Xw[AdaptType.PORTRAIT_HORIZONTAL.ordinal()] = 3;
+                Ry[AdaptType.PORTRAIT_HORIZONTAL.ordinal()] = 3;
             } catch (NoSuchFieldError unused3) {
             }
             try {
-                Xw[AdaptType.LANDSCAPE_VERTICAL.ordinal()] = 4;
+                Ry[AdaptType.LANDSCAPE_VERTICAL.ordinal()] = 4;
             } catch (NoSuchFieldError unused4) {
             }
         }
     }
 
-    public enum AdaptType {
+    enum AdaptType {
         PORTRAIT_VERTICAL,
         PORTRAIT_HORIZONTAL,
         LANDSCAPE_VERTICAL,
@@ -41,178 +41,142 @@ public final class VideoAdapters {
     }
 
     public static abstract class a implements com.kwad.components.core.video.c {
-
-        /* renamed from: com.kwad.components.core.video.VideoAdapters$a$1 */
-        public class AnonymousClass1 implements Runnable {
-            final /* synthetic */ ViewGroup.LayoutParams Xm;
-            final /* synthetic */ View Xx;
-
-            public AnonymousClass1(View view, ViewGroup.LayoutParams layoutParams) {
-                view = view;
-                layoutParams = layoutParams;
-            }
-
-            @Override // java.lang.Runnable
-            public final void run() {
-                view.setLayoutParams(layoutParams);
-            }
-        }
-
-        private static boolean A(View view) {
-            return view.isInLayout() || view.isLayoutRequested();
-        }
-
-        private static boolean b(View view, View view2, int i10, int i11) {
-            if (view == null || i10 == 0 || i11 == 0 || view2 == null) {
+        private static boolean b(View view, View view2, int i2, int i3) {
+            if (view == null || i2 == 0 || i3 == 0 || view2 == null) {
                 return false;
             }
             return (view2.getWidth() == 0 || view2.getHeight() == 0) ? false : true;
         }
 
         @Override // com.kwad.components.core.video.c
-        public final void a(View view, View view2, int i10, int i11) {
-            if (!b(view, view2, i10, i11)) {
-                com.kwad.sdk.core.d.c.d("AbstractVideoViewAdapter", "adaptVideo checkArguments invalid");
+        public final void a(View view, View view2, int i2, int i3) {
+            if (!b(view, view2, i2, i3)) {
+                com.kwad.sdk.core.d.b.d("AbstractVideoViewAdapter", "adaptVideo checkArguments invalid");
                 return;
             }
             d dVar = new d(view2.getWidth(), view2.getHeight());
-            d dVar2 = new d(i10, i11);
-            boolean z10 = dVar2.getRatio() >= 1.0f;
-            boolean z11 = dVar.getRatio() >= 1.0f;
-            AdaptType adaptType = (z11 && z10) ? AdaptType.PORTRAIT_VERTICAL : z11 ? AdaptType.PORTRAIT_HORIZONTAL : z10 ? AdaptType.LANDSCAPE_VERTICAL : AdaptType.LANDSCAPE_HORIZONTAL;
+            d dVar2 = new d(i2, i3);
+            boolean z = dVar2.getRatio() >= 1.0f;
+            boolean z2 = dVar.getRatio() >= 1.0f;
+            AdaptType adaptType = (z2 && z) ? AdaptType.PORTRAIT_VERTICAL : z2 ? AdaptType.PORTRAIT_HORIZONTAL : z ? AdaptType.LANDSCAPE_VERTICAL : AdaptType.LANDSCAPE_HORIZONTAL;
             ViewGroup.LayoutParams layoutParams = view.getLayoutParams();
             a(adaptType, layoutParams, dVar, dVar2);
-            if (A(view)) {
-                view.post(new Runnable() { // from class: com.kwad.components.core.video.VideoAdapters.a.1
-                    final /* synthetic */ ViewGroup.LayoutParams Xm;
-                    final /* synthetic */ View Xx;
-
-                    public AnonymousClass1(View view3, ViewGroup.LayoutParams layoutParams2) {
-                        view = view3;
-                        layoutParams = layoutParams2;
-                    }
-
-                    @Override // java.lang.Runnable
-                    public final void run() {
-                        view.setLayoutParams(layoutParams);
-                    }
-                });
-            } else {
-                view3.setLayoutParams(layoutParams2);
-            }
+            view.setLayoutParams(layoutParams);
         }
 
-        public abstract void a(@NonNull AdaptType adaptType, @NonNull ViewGroup.LayoutParams layoutParams, @NonNull d dVar, @NonNull d dVar2);
+        protected abstract void a(@NonNull AdaptType adaptType, @NonNull ViewGroup.LayoutParams layoutParams, @NonNull d dVar, @NonNull d dVar2);
     }
 
     public static class b extends a {
-        private float Xz = 0.8f;
-        private float XA = 0.9375f;
-        private float XB = 1.1046f;
+        private float Rz = 0.8f;
+        private float RA = 0.9375f;
+        private float RB = 1.1046f;
 
         @Override // com.kwad.components.core.video.VideoAdapters.a
-        public final void a(@NonNull AdaptType adaptType, @NonNull ViewGroup.LayoutParams layoutParams, @NonNull d dVar, @NonNull d dVar2) {
-            float sR;
-            float f10;
-            float sS = dVar.sS();
-            float sS2 = dVar2.sS();
-            float sR2 = dVar.sR();
-            float sQ = dVar.sQ();
-            com.kwad.sdk.core.d.c.d("FullHeightAdapter", "onAdaptVideo containerSize: " + sQ + ", " + sR2);
-            int i10 = AnonymousClass1.Xw[adaptType.ordinal()];
-            if (i10 == 1 || i10 == 2) {
-                if (sS > sS2) {
-                    float sQ2 = dVar.sQ();
-                    float f11 = sQ2 / sS2;
-                    float f12 = sR2 / f11;
-                    float f13 = this.Xz;
-                    if (f12 >= f13) {
-                        f10 = sQ2;
-                        sR = f11;
+        protected final void a(@NonNull AdaptType adaptType, @NonNull ViewGroup.LayoutParams layoutParams, @NonNull d dVar, @NonNull d dVar2) {
+            float qA;
+            float f2;
+            float qB = dVar.qB();
+            float qB2 = dVar2.qB();
+            float qA2 = dVar.qA();
+            float qz = dVar.qz();
+            com.kwad.sdk.core.d.b.d("FullHeightAdapter", "onAdaptVideo containerSize: " + qz + ", " + qA2);
+            int i2 = AnonymousClass1.Ry[adaptType.ordinal()];
+            if (i2 == 1 || i2 == 2) {
+                if (qB > qB2) {
+                    float qz2 = dVar.qz();
+                    float f3 = qz2 / qB2;
+                    float f4 = qA2 / f3;
+                    float f5 = this.Rz;
+                    if (f4 >= f5) {
+                        f2 = qz2;
+                        qA = f3;
                     } else {
-                        sR = sR2 / f13;
-                        f10 = sR * sS2;
+                        qA = qA2 / f5;
+                        f2 = qA * qB2;
                     }
                 } else {
-                    sR = dVar.sR();
-                    f10 = sS2 * sR;
-                    float f14 = sQ / f10;
-                    float f15 = this.XA;
-                    if (f14 < f15) {
-                        f10 = sQ / f15;
-                        sR = f10 / sS2;
+                    qA = dVar.qA();
+                    f2 = qB2 * qA;
+                    float f6 = qz / f2;
+                    float f7 = this.RA;
+                    if (f6 < f7) {
+                        f2 = qz / f7;
+                        qA = f2 / qB2;
                     }
                 }
-            } else if (i10 == 3 || i10 == 4) {
-                f10 = sR2 * this.XB;
-                sR = f10 / sS2;
+            } else if (i2 == 3 || i2 == 4) {
+                f2 = qA2 * this.RB;
+                qA = f2 / qB2;
             } else {
-                sR = -2.1474836E9f;
-                f10 = -2.1474836E9f;
+                qA = -2.1474836E9f;
+                f2 = -2.1474836E9f;
             }
-            com.kwad.sdk.core.d.c.d("FullHeightAdapter", "onAdaptVideo result: " + f10 + ", " + sR);
-            if (f10 == -2.1474836E9f || sR == -2.1474836E9f) {
+            com.kwad.sdk.core.d.b.d("FullHeightAdapter", "onAdaptVideo result: " + f2 + ", " + qA);
+            if (f2 == -2.1474836E9f || qA == -2.1474836E9f) {
                 return;
             }
+            int i3 = (int) qA;
             if (dVar2.getHeight() >= dVar2.getWidth()) {
-                layoutParams.width = (int) sR;
-                layoutParams.height = (int) f10;
+                layoutParams.width = i3;
+                layoutParams.height = (int) f2;
             } else {
-                layoutParams.height = (int) sR;
-                layoutParams.width = (int) f10;
+                layoutParams.height = i3;
+                layoutParams.width = (int) f2;
             }
         }
     }
 
     public static class c extends a {
         @Override // com.kwad.components.core.video.VideoAdapters.a
-        public final void a(@NonNull AdaptType adaptType, @NonNull ViewGroup.LayoutParams layoutParams, @NonNull d dVar, @NonNull d dVar2) {
-            float sQ;
-            float sR;
-            float sS = dVar.sS();
-            float sS2 = dVar2.sS();
-            int i10 = AnonymousClass1.Xw[adaptType.ordinal()];
-            if (i10 == 1 || i10 == 2) {
-                if (sS >= sS2) {
-                    sR = dVar.sR();
-                    sQ = sR * sS2;
+        protected final void a(@NonNull AdaptType adaptType, @NonNull ViewGroup.LayoutParams layoutParams, @NonNull d dVar, @NonNull d dVar2) {
+            float qz;
+            float qA;
+            float qB = dVar.qB();
+            float qB2 = dVar2.qB();
+            int i2 = AnonymousClass1.Ry[adaptType.ordinal()];
+            if (i2 == 1 || i2 == 2) {
+                if (qB >= qB2) {
+                    qA = dVar.qA();
+                    qz = qA * qB2;
                 } else {
-                    sQ = dVar.sQ();
-                    sR = sQ / sS2;
+                    qz = dVar.qz();
+                    qA = qz / qB2;
                 }
-            } else if (i10 == 3 || i10 == 4) {
-                sQ = dVar.sR();
-                sR = sQ / sS2;
+            } else if (i2 == 3 || i2 == 4) {
+                qz = dVar.qA();
+                qA = qz / qB2;
             } else {
-                sQ = 0.0f;
-                sR = -2.1474836E9f;
+                qz = 0.0f;
+                qA = -2.1474836E9f;
             }
-            if (sR == -2.1474836E9f || sQ == -2.1474836E9f) {
+            if (qA == -2.1474836E9f || qz == -2.1474836E9f) {
                 return;
             }
+            int i3 = (int) qA;
             if (dVar2.getHeight() > dVar2.getWidth()) {
-                layoutParams.width = (int) sR;
-                layoutParams.height = (int) sQ;
+                layoutParams.width = i3;
+                layoutParams.height = (int) qz;
             } else {
-                layoutParams.height = (int) sR;
-                layoutParams.width = (int) sQ;
+                layoutParams.height = i3;
+                layoutParams.width = (int) qz;
             }
         }
     }
 
-    public static class d {
-        float XC;
+    static class d {
+        float RC;
         float height;
         float width;
 
-        public d(float f10, float f11) {
-            this.XC = -1.0f;
-            this.width = f10;
-            this.height = f11;
-            if (f10 <= 0.0f || f11 <= 0.0f) {
+        public d(float f2, float f3) {
+            this.RC = -1.0f;
+            this.width = f2;
+            this.height = f3;
+            if (f2 <= 0.0f || f3 <= 0.0f) {
                 return;
             }
-            this.XC = f11 / f10;
+            this.RC = f3 / f2;
         }
 
         private boolean isValid() {
@@ -224,38 +188,38 @@ public final class VideoAdapters {
         }
 
         public final float getRatio() {
-            return this.XC;
+            return this.RC;
         }
 
         public final float getWidth() {
             return this.width;
         }
 
-        public final float sQ() {
-            if (isValid()) {
-                return Math.max(this.width, this.height);
-            }
-            return -1.0f;
-        }
-
-        public final float sR() {
+        public final float qA() {
             if (isValid()) {
                 return Math.min(this.width, this.height);
             }
             return -1.0f;
         }
 
-        public final float sS() {
+        public final float qB() {
             if (!isValid()) {
                 return -1.0f;
             }
-            float f10 = this.height;
-            float f11 = this.width;
-            return f10 > f11 ? f10 / f11 : f11 / f10;
+            float f2 = this.height;
+            float f3 = this.width;
+            return f2 > f3 ? f2 / f3 : f3 / f2;
+        }
+
+        public final float qz() {
+            if (isValid()) {
+                return Math.max(this.width, this.height);
+            }
+            return -1.0f;
         }
 
         public final String toString() {
-            return "ViewSize{width=" + this.width + ", height=" + this.height + ", ratio=" + this.XC + '}';
+            return "ViewSize{width=" + this.width + ", height=" + this.height + ", ratio=" + this.RC + '}';
         }
     }
 }

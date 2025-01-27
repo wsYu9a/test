@@ -3,64 +3,63 @@ package com.bytedance.sdk.openadsdk;
 import android.annotation.SuppressLint;
 import android.app.Application;
 import android.content.Context;
-import com.bytedance.sdk.openadsdk.api.c;
 import java.lang.reflect.Method;
 
-/* loaded from: classes2.dex */
+/* loaded from: classes.dex */
 public class TTAppContextHolder {
 
-    /* renamed from: a */
+    /* renamed from: j */
     @SuppressLint({"StaticFieldLeak"})
-    private static volatile Context f7959a;
+    private static volatile Context f6365j;
 
-    public static class a {
+    private static class j {
 
-        /* renamed from: a */
+        /* renamed from: j */
         @SuppressLint({"StaticFieldLeak"})
-        private static volatile Application f7960a;
+        private static volatile Application f6366j;
 
         static {
             try {
-                Object b10 = b();
-                f7960a = (Application) b10.getClass().getMethod("getApplication", null).invoke(b10, null);
-                c.d("MyApplication", "application get success");
-            } catch (Throwable th2) {
-                c.c("MyApplication", "application get failed", th2);
+                Object zx = zx();
+                f6366j = (Application) zx.getClass().getMethod("getApplication", new Class[0]).invoke(zx, new Object[0]);
+                com.bytedance.sdk.openadsdk.api.j.g("MyApplication", "application get success");
+            } catch (Throwable th) {
+                com.bytedance.sdk.openadsdk.api.j.zx("MyApplication", "application get failed", th);
             }
         }
 
-        public static Application a() {
-            return f7960a;
+        public static Application j() {
+            return f6366j;
         }
 
-        private static Object b() {
+        private static Object zx() {
             try {
-                Method method = Class.forName("android.app.ActivityThread").getMethod("currentActivityThread", null);
+                Method method = Class.forName("android.app.ActivityThread").getMethod("currentActivityThread", new Class[0]);
                 method.setAccessible(true);
-                return method.invoke(null, null);
-            } catch (Throwable th2) {
-                c.c("MyApplication", "ActivityThread get error, maybe api level <= 4.2.2", th2);
+                return method.invoke(null, new Object[0]);
+            } catch (Throwable th) {
+                com.bytedance.sdk.openadsdk.api.j.zx("MyApplication", "ActivityThread get error, maybe api level <= 4.2.2", th);
                 return null;
             }
         }
     }
 
     public static Context getContext() {
-        if (f7959a == null) {
+        if (f6365j == null) {
             setContext(null);
         }
-        return f7959a;
+        return f6365j;
     }
 
     public static synchronized void setContext(Context context) {
         synchronized (TTAppContextHolder.class) {
-            if (f7959a == null) {
+            if (f6365j == null) {
                 if (context != null) {
-                    f7959a = context.getApplicationContext();
-                } else if (a.a() != null) {
+                    f6365j = context.getApplicationContext();
+                } else if (j.j() != null) {
                     try {
-                        f7959a = a.a();
-                        if (f7959a != null) {
+                        f6365j = j.j();
+                        if (f6365j != null) {
                         }
                     } catch (Throwable unused) {
                     }

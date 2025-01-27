@@ -15,8 +15,31 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-/* loaded from: classes3.dex */
+/* loaded from: classes2.dex */
 public final class c {
+    private static AppRunningInfoNative a(String str, @Nullable AppStatusRules.Strategy strategy) {
+        try {
+            return new AppRunningInfoNative(strategy == null ? -1L : strategy.getHistoryGranularity(), "", str);
+        } catch (Throwable th) {
+            com.kwad.sdk.core.d.b.printStackTraceOnly(th);
+            return null;
+        }
+    }
+
+    public static String a(b bVar) {
+        if (bVar instanceof AppRunningInfoNative) {
+            return AppStatusNative.appRunningInfoGetName((AppRunningInfoNative) bVar);
+        }
+        return null;
+    }
+
+    public static String a(d dVar) {
+        if (dVar instanceof RulesTargetNative) {
+            return AppStatusNative.rulesTargetGetPackageName((RulesTargetNative) dVar);
+        }
+        return null;
+    }
+
     public static void a(@NonNull AppStatusRules.Strategy strategy, @NonNull List<a> list) {
         ArrayList<d> target = strategy.getTarget();
         if (target == null || target.size() == 0) {
@@ -24,15 +47,26 @@ public final class c {
         }
         for (d dVar : target) {
             if (b(dVar) != null && b(dVar).size() != 0) {
-                String a10 = a(dVar);
+                String a2 = a(dVar);
                 HashSet hashSet = new HashSet(b(dVar));
                 long startTimeWithMS = strategy.getStartTimeWithMS();
-                AppRunningInfoNative a11 = a(a10, strategy);
-                if (a11 != null) {
-                    list.add(new AnalyseTaskNative(a11, hashSet, startTimeWithMS));
+                AppRunningInfoNative a3 = a(a2, strategy);
+                if (a3 != null) {
+                    list.add(new AnalyseTaskNative(a3, hashSet, startTimeWithMS));
                 }
             }
         }
+    }
+
+    public static void a(b bVar, long j2) {
+        AppStatusNative.appRunningInfoSetLastRunningTime((AppRunningInfoNative) bVar, j2);
+    }
+
+    public static String b(b bVar) {
+        if (bVar instanceof AppRunningInfoNative) {
+            return AppStatusNative.appRunningInfoGetPackageName((AppRunningInfoNative) bVar);
+        }
+        return null;
     }
 
     private static List<String> b(d dVar) {
@@ -57,14 +91,13 @@ public final class c {
     }
 
     private static ArrayList<d> e(@NonNull JSONArray jSONArray) {
-        JSONObject jSONObject;
         ArrayList<d> arrayList = new ArrayList<>();
         int length = jSONArray.length();
-        for (int i10 = 0; i10 < length; i10++) {
+        for (int i2 = 0; i2 < length; i2++) {
+            JSONObject jSONObject = null;
             try {
-                jSONObject = jSONArray.getJSONObject(i10);
+                jSONObject = jSONArray.getJSONObject(i2);
             } catch (JSONException unused) {
-                jSONObject = null;
             }
             if (jSONObject != null) {
                 RulesTargetNative rulesTargetNative = new RulesTargetNative();
@@ -73,39 +106,5 @@ public final class c {
             }
         }
         return arrayList;
-    }
-
-    public static String b(b bVar) {
-        if (bVar instanceof AppRunningInfoNative) {
-            return AppStatusNative.appRunningInfoGetPackageName((AppRunningInfoNative) bVar);
-        }
-        return null;
-    }
-
-    private static AppRunningInfoNative a(String str, @Nullable AppStatusRules.Strategy strategy) {
-        try {
-            return new AppRunningInfoNative(strategy == null ? -1L : strategy.getHistoryGranularity(), "", str);
-        } catch (Throwable th2) {
-            com.kwad.sdk.core.d.c.printStackTraceOnly(th2);
-            return null;
-        }
-    }
-
-    public static String a(d dVar) {
-        if (dVar instanceof RulesTargetNative) {
-            return AppStatusNative.rulesTargetGetPackageName((RulesTargetNative) dVar);
-        }
-        return null;
-    }
-
-    public static String a(b bVar) {
-        if (bVar instanceof AppRunningInfoNative) {
-            return AppStatusNative.appRunningInfoGetName((AppRunningInfoNative) bVar);
-        }
-        return null;
-    }
-
-    public static void a(b bVar, long j10) {
-        AppStatusNative.appRunningInfoSetLastRunningTime((AppRunningInfoNative) bVar, j10);
     }
 }

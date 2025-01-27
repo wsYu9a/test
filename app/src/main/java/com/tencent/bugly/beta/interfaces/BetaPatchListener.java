@@ -8,7 +8,7 @@ public interface BetaPatchListener {
 
     void onDownloadFailure(String str);
 
-    void onDownloadReceived(long j10, long j11);
+    void onDownloadReceived(long j2, long j3);
 
     void onDownloadSuccess(String str);
 

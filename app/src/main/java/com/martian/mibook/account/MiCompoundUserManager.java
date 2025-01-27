@@ -1,843 +1,587 @@
 package com.martian.mibook.account;
 
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Context;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.ViewTreeObserver;
-import android.widget.Button;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import androidx.fragment.app.DialogFragment;
-import androidx.fragment.app.FragmentActivity;
-import ba.j;
-import com.kwad.sdk.core.response.model.SdkConfigData;
+import com.maritan.libweixin.c;
 import com.martian.ads.ad.AdConfig;
-import com.martian.ads.ad.GroMoreAd;
 import com.martian.apptask.data.AppTask;
 import com.martian.apptask.data.AppTaskList;
-import com.martian.libmars.R;
-import com.martian.libmars.common.ConfigSingleton;
+import com.martian.dialog.g;
+import com.martian.libmars.activity.j1;
+import com.martian.libmars.utils.h0;
+import com.martian.libmars.utils.n0;
 import com.martian.libmars.widget.MTWebView;
 import com.martian.libsupport.data.WxBindResultParams;
+import com.martian.libsupport.k;
 import com.martian.mibook.activity.account.TXSRemoveBlackListActivity;
 import com.martian.mibook.activity.account.TXSRequestRemoveBlackListActivity;
 import com.martian.mibook.application.MiConfigSingleton;
 import com.martian.mibook.lib.account.MiUserManager;
 import com.martian.mibook.lib.account.activity.PhoneLoginActivity;
-import com.martian.mibook.lib.account.databinding.BindWeixinDialogBinding;
+import com.martian.mibook.lib.account.e.c;
 import com.martian.mibook.lib.account.request.MiGuestUserLoginParams;
 import com.martian.mibook.lib.account.request.auth.BindWeixinParams;
 import com.martian.mibook.lib.account.response.MiTaskAccount;
 import com.martian.mibook.lib.account.response.MiUser;
-import com.martian.rpauth.MartianRPUserManager;
 import com.martian.rpauth.response.IAccount;
-import java.lang.ref.WeakReference;
+import com.martian.ttbookhd.R;
 import java.util.List;
-import l9.m0;
-import l9.t0;
-import lb.c;
-import ya.e0;
-import z7.b;
 
-/* loaded from: classes3.dex */
+/* loaded from: classes.dex */
 public class MiCompoundUserManager {
 
-    /* renamed from: f */
-    public static final String f13076f = "PREF_ACCOUNT_CREATE_ON";
-
-    /* renamed from: g */
-    public static final String f13077g = "PREF_USER_ACTIVATE_TIME";
-
     /* renamed from: a */
-    public final MiUserManager f13078a;
-
-    /* renamed from: c */
-    public Boolean f13080c;
-
-    /* renamed from: d */
-    public Long f13081d;
+    private static final String f10761a = "PREF_SECRETE_CATEGORY_PWD";
 
     /* renamed from: b */
-    public boolean f13079b = false;
+    public final MiUserManager f10762b;
 
-    /* renamed from: e */
-    public boolean f13082e = false;
+    /* renamed from: c */
+    private final Context f10763c;
 
-    public class a extends d8.b {
+    /* renamed from: d */
+    private boolean f10764d = false;
+
+    /* loaded from: classes3.dex */
+    class a extends b.d.a.k.b {
 
         /* renamed from: a */
-        public final /* synthetic */ FragmentActivity f13083a;
+        final /* synthetic */ j1 f10765a;
 
         /* renamed from: b */
-        public final /* synthetic */ String f13084b;
+        final /* synthetic */ String f10766b;
 
         /* renamed from: c */
-        public final /* synthetic */ int f13085c;
+        final /* synthetic */ int f10767c;
 
         /* renamed from: d */
-        public final /* synthetic */ int f13086d;
+        final /* synthetic */ int f10768d;
 
-        public a(FragmentActivity fragmentActivity, String str, int i10, int i11) {
-            this.f13083a = fragmentActivity;
-            this.f13084b = str;
-            this.f13085c = i10;
-            this.f13086d = i11;
+        a(final j1 val$totalCoins, final String val$money, final int val$title, final int val$activity) {
+            this.f10765a = val$totalCoins;
+            this.f10766b = val$money;
+            this.f10767c = val$title;
+            this.f10768d = val$activity;
         }
 
-        @Override // d8.b, d8.a
-        public void a() {
-            super.a();
-            MiCompoundUserManager.this.Q(this.f13083a, this.f13084b, this.f13085c, this.f13086d, null);
-        }
-
-        @Override // d8.b, d8.a
-        public void c(AdConfig adConfig, x8.c cVar) {
-            MiCompoundUserManager.this.Q(this.f13083a, this.f13084b, this.f13085c, this.f13086d, null);
-        }
-
-        @Override // d8.b, d8.a
-        public void i(AdConfig adConfig, AppTaskList appTaskList) {
+        @Override // b.d.a.k.b, b.d.a.k.a
+        public void d(AdConfig config, AppTaskList appTaskList) {
             if (appTaskList == null || appTaskList.getApps() == null || appTaskList.getApps().isEmpty()) {
-                MiCompoundUserManager.this.Q(this.f13083a, this.f13084b, this.f13085c, this.f13086d, null);
+                MiCompoundUserManager.this.E(this.f10765a, this.f10766b, this.f10767c, this.f10768d, null);
             } else {
-                MiCompoundUserManager.this.Q(this.f13083a, this.f13084b, this.f13085c, this.f13086d, appTaskList.getApps().get(0));
+                MiCompoundUserManager.this.E(this.f10765a, this.f10766b, this.f10767c, this.f10768d, appTaskList.getApps().get(0));
             }
+        }
+
+        @Override // b.d.a.k.b, b.d.a.k.a
+        public void h() {
+            MiCompoundUserManager.this.E(this.f10765a, this.f10766b, this.f10767c, this.f10768d, null);
         }
     }
 
-    public class b implements ViewTreeObserver.OnPreDrawListener {
+    /* loaded from: classes3.dex */
+    class b implements ViewTreeObserver.OnPreDrawListener {
+
+        /* renamed from: a */
+        final /* synthetic */ RelativeLayout f10770a;
 
         /* renamed from: b */
-        public final /* synthetic */ RelativeLayout f13088b;
+        final /* synthetic */ TextView f10771b;
 
-        /* renamed from: c */
-        public final /* synthetic */ GroMoreAd.AdViewHolder f13089c;
-
-        public b(RelativeLayout relativeLayout, GroMoreAd.AdViewHolder adViewHolder) {
-            this.f13088b = relativeLayout;
-            this.f13089c = adViewHolder;
+        b(final RelativeLayout val$bonus_ads_desc, final TextView val$fr_bonus_view) {
+            this.f10770a = val$bonus_ads_desc;
+            this.f10771b = val$fr_bonus_view;
         }
 
         @Override // android.view.ViewTreeObserver.OnPreDrawListener
         public boolean onPreDraw() {
-            LinearLayout.LayoutParams layoutParams = (LinearLayout.LayoutParams) this.f13088b.getLayoutParams();
-            if (this.f13089c.mDescription.getLineCount() <= 1) {
-                layoutParams.height = ConfigSingleton.i(416.0f);
+            LinearLayout.LayoutParams layoutParams = (LinearLayout.LayoutParams) this.f10770a.getLayoutParams();
+            if (this.f10771b.getLineCount() <= 1) {
+                layoutParams.height = com.martian.libmars.d.h.b(416.0f);
             } else {
-                layoutParams.height = ConfigSingleton.i(436.0f);
+                layoutParams.height = com.martian.libmars.d.h.b(436.0f);
             }
-            this.f13089c.mDescription.getViewTreeObserver().removeOnPreDrawListener(this);
+            this.f10771b.getViewTreeObserver().removeOnPreDrawListener(this);
             return false;
         }
     }
 
-    public class c extends d8.b {
-        public c() {
-        }
-    }
-
-    public class d implements b.a {
+    /* loaded from: classes3.dex */
+    class c implements c.InterfaceC0253c {
 
         /* renamed from: a */
-        public final /* synthetic */ Activity f13092a;
+        final /* synthetic */ j1 f10773a;
 
         /* renamed from: b */
-        public final /* synthetic */ MTWebView f13093b;
+        final /* synthetic */ MTWebView f10774b;
 
         /* renamed from: c */
-        public final /* synthetic */ String f13094c;
+        final /* synthetic */ String f10775c;
 
-        public class a extends kb.e {
-            public a(Activity activity) {
-                super(activity);
+        class a extends com.martian.mibook.lib.account.d.q.e {
+            a(j1 x0) {
+                super(x0);
             }
 
-            @Override // jb.k
-            public void s(x8.c cVar) {
-                t0.b(d.this.f13092a, "绑定失败：" + cVar.toString());
-                d dVar = d.this;
-                MiCompoundUserManager.this.L(dVar.f13093b, 1);
+            @Override // com.martian.mibook.lib.account.d.n
+            protected void r(b.d.c.b.c errorResult) {
+                c.this.f10773a.k1("绑定失败：" + errorResult.toString());
+                c cVar = c.this;
+                MiCompoundUserManager.this.B(cVar.f10774b, 1);
             }
 
-            @Override // y8.f
-            public void showLoading(boolean z10) {
+            @Override // b.d.c.c.g
+            protected void showLoading(boolean show) {
             }
 
-            @Override // y8.a
-            /* renamed from: v */
-            public void onDataReceived(Boolean bool) {
-                if (bool == null || !bool.booleanValue()) {
-                    t0.b(d.this.f13092a, "绑定失败");
-                    d dVar = d.this;
-                    MiCompoundUserManager.this.L(dVar.f13093b, 1);
+            @Override // b.d.c.c.b
+            /* renamed from: u */
+            public void onDataReceived(Boolean success) {
+                if (success == null || !success.booleanValue()) {
+                    c.this.f10773a.k1("绑定失败");
+                    c cVar = c.this;
+                    MiCompoundUserManager.this.B(cVar.f10774b, 1);
                 } else {
-                    t0.b(d.this.f13092a, "绑定成功");
-                    d dVar2 = d.this;
-                    MiCompoundUserManager.this.L(dVar2.f13093b, 0);
+                    c.this.f10773a.k1("绑定成功");
+                    c cVar2 = c.this;
+                    MiCompoundUserManager.this.B(cVar2.f10774b, 0);
                 }
             }
         }
 
-        public d(Activity activity, MTWebView mTWebView, String str) {
-            this.f13092a = activity;
-            this.f13093b = mTWebView;
-            this.f13094c = str;
+        c(final j1 val$wxAppid, final MTWebView val$webView, final String val$activity) {
+            this.f10773a = val$wxAppid;
+            this.f10774b = val$webView;
+            this.f10775c = val$activity;
         }
 
         /* JADX WARN: Multi-variable type inference failed */
-        @Override // z7.b.a
-        public void a(String str) {
-            a aVar = new a(this.f13092a);
-            ((BindWeixinParams) aVar.k()).setWx_code(str);
-            ((BindWeixinParams) aVar.k()).setWx_appid(this.f13094c);
+        @Override // com.maritan.libweixin.c.InterfaceC0253c
+        public void a(String authorizationCode) {
+            a aVar = new a(this.f10773a);
+            ((BindWeixinParams) aVar.k()).setWx_code(authorizationCode);
+            ((BindWeixinParams) aVar.k()).setWx_appid(this.f10775c);
             aVar.j();
         }
 
-        @Override // z7.b.a
-        public void b(String str) {
-            t0.b(this.f13092a, "绑定失败：" + str);
+        @Override // com.maritan.libweixin.c.InterfaceC0253c
+        public void b(String errStr) {
+            this.f10773a.k1("绑定失败：" + errStr);
         }
 
-        @Override // z7.b.a
+        @Override // com.maritan.libweixin.c.InterfaceC0253c
         public void onLoginCancelled() {
-            t0.b(this.f13092a, "绑定取消");
+            this.f10773a.k1("绑定取消");
         }
     }
 
-    public class f extends kb.a {
+    /* loaded from: classes3.dex */
+    class d extends com.martian.mibook.lib.account.d.g<MiGuestUserLoginParams, MiUser> {
 
-        /* renamed from: i */
-        public final /* synthetic */ WeakReference f13101i;
+        /* renamed from: g */
+        final /* synthetic */ Activity f10778g;
 
-        public class a implements ConfigSingleton.a {
-            public a() {
+        /* renamed from: h */
+        final /* synthetic */ e f10779h;
+
+        class a implements c.d {
+            a() {
             }
 
-            @Override // com.martian.libmars.common.ConfigSingleton.a
-            public void a() {
-                f.this.f27313h.i();
+            @Override // com.martian.mibook.lib.account.e.c.d
+            public void a(b.d.c.b.c errorResult) {
+                e eVar = d.this.f10779h;
+                if (eVar != null) {
+                    eVar.a();
+                }
             }
 
-            @Override // com.martian.libmars.common.ConfigSingleton.a
-            public void b() {
-                f.this.f27313h.i();
-                lb.d.b((Activity) f.this.f13101i.get(), 200, true);
-            }
-        }
-
-        public f(WeakReference weakReference) {
-            this.f13101i = weakReference;
-        }
-
-        @Override // y8.a
-        public void onResultError(x8.c cVar) {
-            if (this.f13101i.get() != null && cVar.c() == 205) {
-                ConfigSingleton.D().n1((Activity) this.f13101i.get(), new a());
+            @Override // com.martian.mibook.lib.account.e.c.d
+            public void b(MiTaskAccount miTaskAccount) {
+                e eVar = d.this.f10779h;
+                if (eVar != null) {
+                    eVar.a();
+                }
             }
         }
 
-        @Override // y8.f
-        public void showLoading(boolean z10) {
+        /* JADX WARN: 'super' call moved to the top of the method (can break code semantics) */
+        d(Class x0, Class x1, Context x2, final Activity val$listener, final e val$activity) {
+            super(x0, x1, x2);
+            this.f10778g = val$listener;
+            this.f10779h = val$activity;
         }
 
-        @Override // y8.a
-        /* renamed from: t */
-        public void onDataReceived(Boolean bool) {
-            MiCompoundUserManager.this.P(true);
+        @Override // b.d.c.c.b
+        public void onResultError(b.d.c.b.c errorResult) {
+            com.martian.mibook.lib.model.g.b.H(this.f10778g, "生成游客账号-失败");
+        }
+
+        @Override // b.d.c.c.i, b.d.c.c.c
+        public void onUDDataReceived(List<MiUser> miUserList) {
+            if (miUserList == null || miUserList.isEmpty()) {
+                com.martian.mibook.lib.model.g.b.H(this.f10778g, "生成游客账号-失败-空");
+                return;
+            }
+            MiConfigSingleton.V3().R6();
+            com.martian.mibook.lib.model.g.b.H(this.f10778g, "生成游客账号-成功");
+            MiCompoundUserManager.this.C(miUserList.get(0));
+            com.martian.mibook.lib.account.e.c.l(this.f10778g, new a());
+            com.martian.mibook.lib.account.e.c.k(this.f10778g, null);
+        }
+
+        @Override // b.d.c.c.g
+        protected void showLoading(boolean show) {
         }
     }
 
-    public interface g {
-        void a(MiUser miUser);
+    public interface e {
+        void a();
     }
 
     public MiCompoundUserManager(Context context) {
-        MiUserManager.t(context);
-        this.f13078a = MiUserManager.q();
+        MiUserManager.y(context);
+        MiUserManager s = MiUserManager.s();
+        this.f10762b = s;
+        if (MiConfigSingleton.V3().W3() != null) {
+            s.C = MiConfigSingleton.V3().W3().getEnableInviteLink().booleanValue();
+        }
+        this.f10763c = context;
     }
 
-    public static /* synthetic */ void A(DialogFragment dialogFragment, View view) {
-        if (dialogFragment != null) {
-            dialogFragment.dismiss();
+    public void B(MTWebView webView, int code) {
+        if (webView != null) {
+            webView.loadUrl(webView.c(new WxBindResultParams().setErrcode(code)));
         }
     }
 
-    public static /* synthetic */ void G(DialogFragment dialogFragment) {
-        boolean A0 = MiConfigSingleton.b2().A0();
-        com.gyf.immersionbar.d.y3(dialogFragment).T2(!A0).G1(!A0).v1(ConfigSingleton.D().L(), 0.0f).a1();
-    }
-
-    public static /* synthetic */ void H(DialogFragment dialogFragment, View view) {
-        if (dialogFragment != null) {
-            dialogFragment.dismiss();
+    @SuppressLint({"SetTextI18n"})
+    private void H(final j1 activity, String title, int money, int totalCoins) {
+        if (n0.C(activity)) {
+            final View findViewById = activity.findViewById(R.id.bonus_dialog_vip_view);
+            if (findViewById == null) {
+                findViewById = LayoutInflater.from(activity).inflate(R.layout.dialog_vip_bonus, (ViewGroup) null);
+                ((ImageView) findViewById.findViewById(R.id.fr_close)).setOnClickListener(new View.OnClickListener() { // from class: com.martian.mibook.account.e
+                    @Override // android.view.View.OnClickListener
+                    public final void onClick(View view) {
+                        findViewById.setVisibility(8);
+                    }
+                });
+                ((TextView) findViewById.findViewById(R.id.fr_bonus_operate)).setOnClickListener(new View.OnClickListener() { // from class: com.martian.mibook.account.b
+                    @Override // android.view.View.OnClickListener
+                    public final void onClick(View view) {
+                        findViewById.setVisibility(8);
+                    }
+                });
+                activity.getWindow().addContentView(findViewById, new ViewGroup.LayoutParams(-1, -1));
+            }
+            TextView textView = (TextView) activity.findViewById(R.id.fr_bonus_title);
+            TextView textView2 = (TextView) activity.findViewById(R.id.fr_bonus_hint);
+            TextView textView3 = (TextView) activity.findViewById(R.id.fr_bonus_unit);
+            textView.setText(title);
+            if (money > 0) {
+                textView3.setText("元");
+                textView2.setText(com.martian.rpauth.d.i.m(Integer.valueOf(money)));
+            } else {
+                textView3.setText("金币");
+                textView2.setText("" + totalCoins);
+            }
+            findViewById.setVisibility(0);
         }
     }
 
-    public static /* synthetic */ void I(DialogFragment dialogFragment, View view) {
-        if (dialogFragment != null) {
-            dialogFragment.dismiss();
+    private void I(j1 activity, String wxAppid, MTWebView webView) {
+        com.maritan.libweixin.c.g().b(wxAppid, new c(activity, webView, wxAppid));
+    }
+
+    private void b(final j1 activity, RelativeLayout fr_bonus_view, LinearLayout bonus_ads_container, final AppTask appTask, final com.martian.mibook.b.b adsFetcher) {
+        View inflate = activity.getLayoutInflater().inflate(R.layout.bonus_dialog_ads_item, (ViewGroup) null);
+        ImageView imageView = (ImageView) inflate.findViewById(R.id.bonus_ads_image);
+        ImageView imageView2 = (ImageView) inflate.findViewById(R.id.tv_ads_logo);
+        TextView textView = (TextView) inflate.findViewById(R.id.bonus_ads_desc);
+        TextView textView2 = (TextView) inflate.findViewById(R.id.bonus_ads_title);
+        TextView textView3 = (TextView) inflate.findViewById(R.id.fr_option_button);
+        h0.d(textView3);
+        textView2.setText(appTask.getTitle());
+        textView.setText(appTask.getDesc());
+        textView.getViewTreeObserver().addOnPreDrawListener(new b(fr_bonus_view, textView));
+        imageView2.setImageResource(appTask.adsIconRes());
+        FrameLayout frameLayout = (FrameLayout) inflate.findViewById(R.id.iv_ads_video);
+        if (frameLayout == null) {
+            n0.z(activity, appTask.getPosterUrl(), imageView, 4, R.drawable.image_loading_default_horizontal);
+        } else if (!appTask.isVideoAd || appTask.videoView == null) {
+            frameLayout.setVisibility(8);
+            n0.z(activity, appTask.getPosterUrl(), imageView, 4, R.drawable.image_loading_default_horizontal);
+        } else {
+            frameLayout.setVisibility(0);
+            appTask.videoView.init();
+            if (appTask.videoView.getView().getParent() == null) {
+                frameLayout.removeAllViews();
+                frameLayout.addView(appTask.videoView.getView());
+            }
+        }
+        inflate.setOnClickListener(new View.OnClickListener() { // from class: com.martian.mibook.account.g
+            @Override // android.view.View.OnClickListener
+            public final void onClick(View view) {
+                MiCompoundUserManager.m(com.martian.mibook.b.b.this, appTask, view);
+            }
+        });
+        bonus_ads_container.addView(inflate);
+        if (adsFetcher != null) {
+            adsFetcher.g(activity, appTask, bonus_ads_container, inflate, null, textView3, false);
         }
     }
 
-    public static /* synthetic */ void y(DialogFragment dialogFragment) {
-        boolean A0 = MiConfigSingleton.b2().A0();
-        com.gyf.immersionbar.d.y3(dialogFragment).T2(!A0).G1(!A0).v1(ConfigSingleton.D().L(), 0.0f).a1();
-    }
-
-    public static /* synthetic */ void z(DialogFragment dialogFragment, View view) {
-        if (dialogFragment != null) {
-            dialogFragment.dismiss();
+    static /* synthetic */ void m(final com.martian.mibook.b.b adsFetcher, final AppTask appTask, View v) {
+        if (adsFetcher != null) {
+            adsFetcher.d(appTask);
         }
     }
 
-    public final /* synthetic */ void C(FragmentActivity fragmentActivity, String str, MTWebView mTWebView, DialogFragment dialogFragment, BindWeixinDialogBinding bindWeixinDialogBinding, View view) {
-        if (!this.f13079b && MiConfigSingleton.b2().C2()) {
-            t0.b(fragmentActivity, "请先同意用户隐私协议");
-            l9.a.f(bindWeixinDialogBinding.f13935e);
+    /* renamed from: p */
+    public /* synthetic */ void q(final j1 activity, final String wxAppid, final MTWebView webView, final DialogFragment fragment, final com.martian.mibook.lib.account.b.d dialogBinding, View v) {
+        if (!this.f10764d && MiConfigSingleton.V3().j5()) {
+            activity.k1("请先同意用户隐私协议");
+            h0.e(dialogBinding.f13838e);
             return;
         }
-        t0.b(fragmentActivity, "跳转微信中...");
-        U(fragmentActivity, str, mTWebView);
-        if (dialogFragment != null) {
-            this.f13079b = false;
-            dialogFragment.dismiss();
+        activity.k1("跳转微信中...");
+        I(activity, wxAppid, webView);
+        if (fragment != null) {
+            this.f10764d = false;
+            fragment.dismiss();
         }
     }
 
-    public final /* synthetic */ void D(BindWeixinDialogBinding bindWeixinDialogBinding, View view) {
-        boolean z10 = !this.f13079b;
-        this.f13079b = z10;
-        bindWeixinDialogBinding.f13936f.setImageResource(z10 ? R.drawable.icon_checked : R.drawable.icon_checkin_unselected);
+    /* renamed from: r */
+    public /* synthetic */ void s(final com.martian.mibook.lib.account.b.d dialogBinding, View v) {
+        boolean z = !this.f10764d;
+        this.f10764d = z;
+        dialogBinding.f13839f.setImageResource(z ? R.drawable.icon_checked : R.drawable.icon_checkin_unselected);
     }
 
-    public final /* synthetic */ void E(DialogFragment dialogFragment, View view) {
-        if (dialogFragment != null) {
-            this.f13079b = false;
-            dialogFragment.dismiss();
+    /* renamed from: t */
+    public /* synthetic */ void u(final DialogFragment fragment, View v) {
+        if (fragment != null) {
+            this.f10764d = false;
+            fragment.dismiss();
         }
     }
 
-    public void J(FragmentActivity fragmentActivity, String str, int i10, int i11) {
-        MiConfigSingleton.b2().H1().T(fragmentActivity, e0.S, new a(fragmentActivity, str, i10, i11));
+    private void z(final j1 activity, String title, final int money, final int totalCoins) {
+        MiConfigSingleton.V3().N4.x(activity, false, new a(activity, title, money, totalCoins));
     }
 
-    public void K() {
-        if (this.f13078a.e() instanceof MiUser) {
-            MiUser miUser = (MiUser) this.f13078a.e();
+    public void A() {
+        if (this.f10762b.e() instanceof MiUser) {
+            MiUser miUser = (MiUser) this.f10762b.e();
             Boolean bool = Boolean.FALSE;
             miUser.setWeixinBound(bool);
             miUser.setGuest(bool);
         }
-        this.f13078a.i();
+        this.f10762b.i();
     }
 
-    public final void L(MTWebView mTWebView, int i10) {
-        if (mTWebView != null) {
-            mTWebView.loadUrl(mTWebView.d(new WxBindResultParams().setErrcode(i10)));
+    public void C(com.martian.rpauth.b user) {
+        this.f10762b.m(user);
+    }
+
+    public void D(String secreteCategoryPwd) {
+        com.martian.libsupport.h.o(this.f10763c, f10761a, secreteCategoryPwd);
+    }
+
+    @SuppressLint({"SetTextI18n"})
+    public void E(final j1 activity, String title, int money, int totalCoins, AppTask appTask) {
+        if (n0.C(activity)) {
+            final View findViewById = activity.findViewById(R.id.bonus_dialog_view);
+            if (findViewById == null) {
+                findViewById = LayoutInflater.from(activity).inflate(R.layout.dialog_reading_bonus, (ViewGroup) null);
+                ((ImageView) findViewById.findViewById(R.id.fr_close)).setOnClickListener(new View.OnClickListener() { // from class: com.martian.mibook.account.a
+                    @Override // android.view.View.OnClickListener
+                    public final void onClick(View view) {
+                        findViewById.setVisibility(8);
+                    }
+                });
+                ((TextView) findViewById.findViewById(R.id.fr_bonus_operate)).setOnClickListener(new View.OnClickListener() { // from class: com.martian.mibook.account.h
+                    @Override // android.view.View.OnClickListener
+                    public final void onClick(View view) {
+                        findViewById.setVisibility(8);
+                    }
+                });
+                activity.getWindow().addContentView(findViewById, new ViewGroup.LayoutParams(-1, -1));
+            }
+            RelativeLayout relativeLayout = (RelativeLayout) activity.findViewById(R.id.fr_bonus_view);
+            TextView textView = (TextView) activity.findViewById(R.id.fr_bonus_title);
+            TextView textView2 = (TextView) activity.findViewById(R.id.fr_bonus_hint);
+            TextView textView3 = (TextView) activity.findViewById(R.id.fr_bonus_unit);
+            TextView textView4 = (TextView) activity.findViewById(R.id.fr_bonus_operate);
+            textView.setText(title);
+            if (money > 0) {
+                textView3.setText("元");
+                textView2.setText(com.martian.rpauth.d.i.m(Integer.valueOf(money)));
+            } else {
+                textView3.setText("金币");
+                textView2.setText("" + totalCoins);
+            }
+            LinearLayout linearLayout = (LinearLayout) activity.findViewById(R.id.bonus_ads_container);
+            linearLayout.removeAllViews();
+            if (appTask == null) {
+                appTask = MiConfigSingleton.V3().x3(com.martian.mibook.b.b.C);
+            }
+            AppTask appTask2 = appTask;
+            com.martian.mibook.b.b bVar = new com.martian.mibook.b.b(activity, com.martian.mibook.b.b.C, b.d.a.j.b.o);
+            if (appTask2.customView == null) {
+                textView4.setVisibility(8);
+                b(activity, relativeLayout, linearLayout, appTask2, bVar);
+            } else {
+                linearLayout.setPadding(com.martian.libmars.d.h.b(8.0f), 0, com.martian.libmars.d.h.b(8.0f), 0);
+                bVar.f(activity, appTask2, linearLayout, linearLayout);
+            }
+            findViewById.setVisibility(0);
         }
-    }
-
-    public void M(me.b bVar) {
-        this.f13078a.l(bVar);
-    }
-
-    public void N(Context context) {
-        j.n(context, f13076f, MartianRPUserManager.a());
-    }
-
-    public final void O(Activity activity) {
-        Long valueOf = Long.valueOf(System.currentTimeMillis());
-        this.f13081d = valueOf;
-        j.n(activity, f13077g, valueOf.longValue());
-    }
-
-    public void P(boolean z10) {
-        this.f13082e = z10;
-    }
-
-    /*  JADX ERROR: JadxRuntimeException in pass: ProcessVariables
-        jadx.core.utils.exceptions.JadxRuntimeException: Method arg registers not loaded: oa.k.<init>(androidx.fragment.app.DialogFragment):void, class status: GENERATED_AND_UNLOADED
-        	at jadx.core.dex.nodes.MethodNode.getArgRegs(MethodNode.java:290)
-        	at jadx.core.dex.visitors.regions.variables.ProcessVariables$1.isArgUnused(ProcessVariables.java:146)
-        	at jadx.core.dex.visitors.regions.variables.ProcessVariables$1.lambda$isVarUnused$0(ProcessVariables.java:131)
-        	at jadx.core.utils.ListUtils.allMatch(ListUtils.java:193)
-        	at jadx.core.dex.visitors.regions.variables.ProcessVariables$1.isVarUnused(ProcessVariables.java:131)
-        	at jadx.core.dex.visitors.regions.variables.ProcessVariables$1.processBlock(ProcessVariables.java:82)
-        	at jadx.core.dex.visitors.regions.DepthRegionTraversal.traverseInternal(DepthRegionTraversal.java:64)
-        	at jadx.core.dex.visitors.regions.DepthRegionTraversal.lambda$traverseInternal$0(DepthRegionTraversal.java:68)
-        	at java.base/java.util.ArrayList.forEach(Unknown Source)
-        	at jadx.core.dex.visitors.regions.DepthRegionTraversal.traverseInternal(DepthRegionTraversal.java:68)
-        	at jadx.core.dex.visitors.regions.DepthRegionTraversal.lambda$traverseInternal$0(DepthRegionTraversal.java:68)
-        	at java.base/java.util.ArrayList.forEach(Unknown Source)
-        	at java.base/java.util.Collections$UnmodifiableCollection.forEach(Unknown Source)
-        	at jadx.core.dex.visitors.regions.DepthRegionTraversal.traverseInternal(DepthRegionTraversal.java:68)
-        	at jadx.core.dex.visitors.regions.DepthRegionTraversal.lambda$traverseInternal$0(DepthRegionTraversal.java:68)
-        	at java.base/java.util.ArrayList.forEach(Unknown Source)
-        	at jadx.core.dex.visitors.regions.DepthRegionTraversal.traverseInternal(DepthRegionTraversal.java:68)
-        	at jadx.core.dex.visitors.regions.DepthRegionTraversal.lambda$traverseInternal$0(DepthRegionTraversal.java:68)
-        	at java.base/java.util.ArrayList.forEach(Unknown Source)
-        	at jadx.core.dex.visitors.regions.DepthRegionTraversal.traverseInternal(DepthRegionTraversal.java:68)
-        	at jadx.core.dex.visitors.regions.DepthRegionTraversal.traverse(DepthRegionTraversal.java:19)
-        	at jadx.core.dex.visitors.regions.variables.ProcessVariables.removeUnusedResults(ProcessVariables.java:73)
-        	at jadx.core.dex.visitors.regions.variables.ProcessVariables.visit(ProcessVariables.java:48)
-        */
-    @android.annotation.SuppressLint({"SetTextI18n"})
-    public void Q(androidx.fragment.app.FragmentActivity r8, java.lang.String r9, int r10, int r11, com.martian.apptask.data.AppTask r12) {
-        /*
-            r7 = this;
-            boolean r0 = l9.m0.C(r8)
-            if (r0 != 0) goto L7
-            return
-        L7:
-            android.view.LayoutInflater r0 = android.view.LayoutInflater.from(r8)
-            int r1 = com.martian.mibook.R.layout.dialog_reading_bonus
-            r2 = 0
-            android.view.View r0 = r0.inflate(r1, r2)
-            int r1 = com.martian.mibook.R.id.fr_bonus_view
-            android.view.View r1 = r0.findViewById(r1)
-            android.widget.RelativeLayout r1 = (android.widget.RelativeLayout) r1
-            int r2 = com.martian.mibook.R.id.bonus_ads_container
-            android.view.View r2 = r0.findViewById(r2)
-            android.widget.LinearLayout r2 = (android.widget.LinearLayout) r2
-            int r3 = com.martian.mibook.R.id.fr_bonus_title
-            android.view.View r3 = r0.findViewById(r3)
-            android.widget.TextView r3 = (android.widget.TextView) r3
-            int r4 = com.martian.mibook.R.id.fr_bonus_hint
-            android.view.View r4 = r0.findViewById(r4)
-            android.widget.TextView r4 = (android.widget.TextView) r4
-            int r5 = com.martian.mibook.R.id.fr_bonus_unit
-            android.view.View r5 = r0.findViewById(r5)
-            android.widget.TextView r5 = (android.widget.TextView) r5
-            int r6 = com.martian.mibook.R.id.fr_bonus_operate
-            android.view.View r6 = r0.findViewById(r6)
-            android.widget.TextView r6 = (android.widget.TextView) r6
-            r3.setText(r9)
-            if (r10 <= 0) goto L58
-            java.lang.String r9 = "元"
-            r5.setText(r9)
-            java.lang.Integer r9 = java.lang.Integer.valueOf(r10)
-            java.lang.String r9 = oe.f.n(r9)
-            r4.setText(r9)
-            goto L71
-        L58:
-            java.lang.String r9 = "金币"
-            r5.setText(r9)
-            java.lang.StringBuilder r9 = new java.lang.StringBuilder
-            r9.<init>()
-            java.lang.String r10 = ""
-            r9.append(r10)
-            r9.append(r11)
-            java.lang.String r9 = r9.toString()
-            r4.setText(r9)
-        L71:
-            if (r12 != 0) goto L81
-            com.martian.mibook.application.MiConfigSingleton r9 = com.martian.mibook.application.MiConfigSingleton.b2()
-            com.martian.mibook.application.a r9 = r9.H1()
-            java.lang.String r10 = "normal_flow"
-            com.martian.apptask.data.AppTask r12 = r9.S(r10)
-        L81:
-            r9 = 8
-            r6.setVisibility(r9)
-            r7.n(r8, r1, r2, r12)
-            com.martian.libmars.widget.dialog.b r9 = com.martian.libmars.widget.dialog.MartianDialogFragment.j()
-            com.martian.libmars.widget.dialog.b r9 = r9.Q(r0)
-            r10 = 0
-            com.martian.libmars.widget.dialog.b r9 = r9.I(r10)
-            com.martian.libmars.widget.dialog.b r9 = r9.J(r10)
-            int r10 = com.martian.libmars.R.style.MartianDialogFragmentFullScreenStyle
-            com.martian.libmars.widget.dialog.b r9 = r9.P(r10)
-            oa.j r10 = new oa.j
-            r10.<init>()
-            com.martian.libmars.widget.dialog.b r9 = r9.M(r10)
-            com.martian.libmars.widget.dialog.MartianDialogFragment r8 = r9.E(r8)
-            int r9 = com.martian.mibook.R.id.fr_close
-            android.view.View r9 = r0.findViewById(r9)
-            oa.k r10 = new oa.k
-            r10.<init>()
-            r9.setOnClickListener(r10)
-            int r9 = com.martian.mibook.R.id.fr_bonus_operate
-            android.view.View r9 = r0.findViewById(r9)
-            oa.b r10 = new oa.b
-            r10.<init>()
-            r9.setOnClickListener(r10)
-            return
-        */
-        throw new UnsupportedOperationException("Method not decompiled: com.martian.mibook.account.MiCompoundUserManager.Q(androidx.fragment.app.FragmentActivity, java.lang.String, int, int, com.martian.apptask.data.AppTask):void");
-    }
-
-    /*  JADX ERROR: JadxRuntimeException in pass: ProcessVariables
-        jadx.core.utils.exceptions.JadxRuntimeException: Method arg registers not loaded: oa.e.<init>(com.martian.mibook.account.MiCompoundUserManager, androidx.fragment.app.FragmentActivity, java.lang.String, com.martian.libmars.widget.MTWebView, androidx.fragment.app.DialogFragment, com.martian.mibook.lib.account.databinding.BindWeixinDialogBinding):void, class status: GENERATED_AND_UNLOADED
-        	at jadx.core.dex.nodes.MethodNode.getArgRegs(MethodNode.java:290)
-        	at jadx.core.dex.visitors.regions.variables.ProcessVariables$1.isArgUnused(ProcessVariables.java:146)
-        	at jadx.core.dex.visitors.regions.variables.ProcessVariables$1.lambda$isVarUnused$0(ProcessVariables.java:131)
-        	at jadx.core.utils.ListUtils.allMatch(ListUtils.java:193)
-        	at jadx.core.dex.visitors.regions.variables.ProcessVariables$1.isVarUnused(ProcessVariables.java:131)
-        	at jadx.core.dex.visitors.regions.variables.ProcessVariables$1.processBlock(ProcessVariables.java:82)
-        	at jadx.core.dex.visitors.regions.DepthRegionTraversal.traverseInternal(DepthRegionTraversal.java:64)
-        	at jadx.core.dex.visitors.regions.DepthRegionTraversal.lambda$traverseInternal$0(DepthRegionTraversal.java:68)
-        	at java.base/java.util.ArrayList.forEach(Unknown Source)
-        	at jadx.core.dex.visitors.regions.DepthRegionTraversal.traverseInternal(DepthRegionTraversal.java:68)
-        	at jadx.core.dex.visitors.regions.DepthRegionTraversal.traverse(DepthRegionTraversal.java:19)
-        	at jadx.core.dex.visitors.regions.variables.ProcessVariables.removeUnusedResults(ProcessVariables.java:73)
-        	at jadx.core.dex.visitors.regions.variables.ProcessVariables.visit(ProcessVariables.java:48)
-        */
-    public void R(androidx.fragment.app.FragmentActivity r12, java.lang.String r13, com.martian.libmars.widget.MTWebView r14) {
-        /*
-            r11 = this;
-            android.view.LayoutInflater r0 = r12.getLayoutInflater()
-            r1 = 0
-            r2 = 0
-            com.martian.mibook.lib.account.databinding.BindWeixinDialogBinding r0 = com.martian.mibook.lib.account.databinding.BindWeixinDialogBinding.d(r0, r1, r2)
-            com.martian.libmars.widget.dialog.MartianDialogFragment$a r1 = com.martian.libmars.widget.dialog.MartianDialogFragment.INSTANCE
-            com.martian.libmars.widget.dialog.b r1 = r1.a()
-            android.widget.RelativeLayout r3 = r0.getRoot()
-            com.martian.libmars.widget.dialog.b r1 = r1.Q(r3)
-            com.martian.libmars.widget.dialog.b r1 = r1.J(r2)
-            com.martian.libmars.widget.dialog.MartianDialogFragment r1 = r1.E(r12)
-            android.widget.LinearLayout r2 = r0.f13932b
-            oa.e r10 = new oa.e
-            r3 = r10
-            r4 = r11
-            r5 = r12
-            r6 = r13
-            r7 = r14
-            r8 = r1
-            r9 = r0
-            r3.<init>()
-            r2.setOnClickListener(r10)
-            com.martian.mibook.application.MiConfigSingleton r13 = com.martian.mibook.application.MiConfigSingleton.b2()
-            boolean r13 = r13.C2()
-            if (r13 != 0) goto L42
-            android.widget.ImageView r13 = r0.f13936f
-            int r14 = com.martian.libmars.R.drawable.icon_checked
-            r13.setImageResource(r14)
-        L42:
-            android.widget.LinearLayout r13 = r0.f13935e
-            oa.f r14 = new oa.f
-            r14.<init>()
-            r13.setOnClickListener(r14)
-            android.widget.ImageView r13 = r0.f13934d
-            oa.g r14 = new oa.g
-            r14.<init>()
-            r13.setOnClickListener(r14)
-            android.widget.TextView r13 = r0.f13938h
-            oa.h r14 = new oa.h
-            r14.<init>()
-            r13.setOnClickListener(r14)
-            android.widget.TextView r13 = r0.f13937g
-            oa.i r14 = new oa.i
-            r14.<init>()
-            r13.setOnClickListener(r14)
-            return
-        */
-        throw new UnsupportedOperationException("Method not decompiled: com.martian.mibook.account.MiCompoundUserManager.R(androidx.fragment.app.FragmentActivity, java.lang.String, com.martian.libmars.widget.MTWebView):void");
-    }
-
-    public void S(FragmentActivity fragmentActivity, String str, int i10, int i11) {
-        if (MiConfigSingleton.b2().K2() || MiConfigSingleton.b2().C2()) {
-            T(fragmentActivity, str, i10, i11);
-        } else {
-            J(fragmentActivity, str, i10, i11);
-        }
-    }
-
-    /*  JADX ERROR: JadxRuntimeException in pass: ProcessVariables
-        jadx.core.utils.exceptions.JadxRuntimeException: Method arg registers not loaded: oa.c.<init>(androidx.fragment.app.DialogFragment):void, class status: GENERATED_AND_UNLOADED
-        	at jadx.core.dex.nodes.MethodNode.getArgRegs(MethodNode.java:290)
-        	at jadx.core.dex.visitors.regions.variables.ProcessVariables$1.isArgUnused(ProcessVariables.java:146)
-        	at jadx.core.dex.visitors.regions.variables.ProcessVariables$1.lambda$isVarUnused$0(ProcessVariables.java:131)
-        	at jadx.core.utils.ListUtils.allMatch(ListUtils.java:193)
-        	at jadx.core.dex.visitors.regions.variables.ProcessVariables$1.isVarUnused(ProcessVariables.java:131)
-        	at jadx.core.dex.visitors.regions.variables.ProcessVariables$1.processBlock(ProcessVariables.java:82)
-        	at jadx.core.dex.visitors.regions.DepthRegionTraversal.traverseInternal(DepthRegionTraversal.java:64)
-        	at jadx.core.dex.visitors.regions.DepthRegionTraversal.lambda$traverseInternal$0(DepthRegionTraversal.java:68)
-        	at java.base/java.util.ArrayList.forEach(Unknown Source)
-        	at jadx.core.dex.visitors.regions.DepthRegionTraversal.traverseInternal(DepthRegionTraversal.java:68)
-        	at jadx.core.dex.visitors.regions.DepthRegionTraversal.lambda$traverseInternal$0(DepthRegionTraversal.java:68)
-        	at java.base/java.util.ArrayList.forEach(Unknown Source)
-        	at java.base/java.util.Collections$UnmodifiableCollection.forEach(Unknown Source)
-        	at jadx.core.dex.visitors.regions.DepthRegionTraversal.traverseInternal(DepthRegionTraversal.java:68)
-        	at jadx.core.dex.visitors.regions.DepthRegionTraversal.lambda$traverseInternal$0(DepthRegionTraversal.java:68)
-        	at java.base/java.util.ArrayList.forEach(Unknown Source)
-        	at jadx.core.dex.visitors.regions.DepthRegionTraversal.traverseInternal(DepthRegionTraversal.java:68)
-        	at jadx.core.dex.visitors.regions.DepthRegionTraversal.lambda$traverseInternal$0(DepthRegionTraversal.java:68)
-        	at java.base/java.util.ArrayList.forEach(Unknown Source)
-        	at jadx.core.dex.visitors.regions.DepthRegionTraversal.traverseInternal(DepthRegionTraversal.java:68)
-        	at jadx.core.dex.visitors.regions.DepthRegionTraversal.traverse(DepthRegionTraversal.java:19)
-        	at jadx.core.dex.visitors.regions.variables.ProcessVariables.removeUnusedResults(ProcessVariables.java:73)
-        	at jadx.core.dex.visitors.regions.variables.ProcessVariables.visit(ProcessVariables.java:48)
-        */
-    @android.annotation.SuppressLint({"SetTextI18n"})
-    public void T(androidx.fragment.app.FragmentActivity r7, java.lang.String r8, int r9, int r10) {
-        /*
-            r6 = this;
-            boolean r0 = l9.m0.C(r7)
-            if (r0 != 0) goto L7
-            return
-        L7:
-            android.view.LayoutInflater r0 = android.view.LayoutInflater.from(r7)
-            int r1 = com.martian.mibook.R.layout.dialog_vip_bonus
-            r2 = 0
-            android.view.View r0 = r0.inflate(r1, r2)
-            int r1 = com.martian.mibook.R.id.tv_show_ad
-            android.view.View r1 = r0.findViewById(r1)
-            android.widget.TextView r1 = (android.widget.TextView) r1
-            int r2 = com.martian.mibook.R.id.tv_vip_dialog_title
-            android.view.View r2 = r0.findViewById(r2)
-            android.widget.TextView r2 = (android.widget.TextView) r2
-            int r3 = com.martian.mibook.R.id.tv_vip_dialog_bonus
-            android.view.View r3 = r0.findViewById(r3)
-            android.widget.TextView r3 = (android.widget.TextView) r3
-            int r4 = com.martian.mibook.R.id.tv_vip_dialog_unit
-            android.view.View r4 = r0.findViewById(r4)
-            android.widget.TextView r4 = (android.widget.TextView) r4
-            int r5 = com.martian.mibook.R.string.known
-            java.lang.String r5 = r7.getString(r5)
-            r1.setText(r5)
-            r2.setText(r8)
-            if (r9 <= 0) goto L51
-            java.lang.String r8 = "元"
-            r4.setText(r8)
-            java.lang.Integer r8 = java.lang.Integer.valueOf(r9)
-            java.lang.String r8 = oe.f.n(r8)
-            r3.setText(r8)
-            goto L5d
-        L51:
-            java.lang.String r8 = "金币"
-            r4.setText(r8)
-            java.lang.String r8 = java.lang.String.valueOf(r10)
-            r3.setText(r8)
-        L5d:
-            com.martian.libmars.widget.dialog.b r8 = com.martian.libmars.widget.dialog.MartianDialogFragment.j()
-            com.martian.libmars.widget.dialog.b r8 = r8.Q(r0)
-            r9 = 0
-            com.martian.libmars.widget.dialog.b r8 = r8.I(r9)
-            com.martian.libmars.widget.dialog.b r8 = r8.J(r9)
-            int r9 = com.martian.libmars.R.style.MartianDialogFragmentFullScreenStyle
-            com.martian.libmars.widget.dialog.b r8 = r8.P(r9)
-            oa.a r9 = new oa.a
-            r9.<init>()
-            com.martian.libmars.widget.dialog.b r8 = r8.M(r9)
-            com.martian.libmars.widget.dialog.MartianDialogFragment r7 = r8.E(r7)
-            int r8 = com.martian.mibook.R.id.iv_close
-            android.view.View r8 = r0.findViewById(r8)
-            oa.c r9 = new oa.c
-            r9.<init>()
-            r8.setOnClickListener(r9)
-            oa.d r8 = new oa.d
-            r8.<init>()
-            r1.setOnClickListener(r8)
-            return
-        */
-        throw new UnsupportedOperationException("Method not decompiled: com.martian.mibook.account.MiCompoundUserManager.T(androidx.fragment.app.FragmentActivity, java.lang.String, int, int):void");
-    }
-
-    public final void U(Activity activity, String str, MTWebView mTWebView) {
-        z7.b.d().a(activity, str, new d(activity, mTWebView, str));
-    }
-
-    public void m(Activity activity) {
-        f fVar = new f(new WeakReference(activity));
-        fVar.o();
-        fVar.j();
-    }
-
-    public final void n(Activity activity, RelativeLayout relativeLayout, LinearLayout linearLayout, AppTask appTask) {
-        View inflate = activity.getLayoutInflater().inflate(com.martian.mibook.R.layout.bonus_dialog_ads_item, (ViewGroup) null);
-        GroMoreAd.AdViewHolder adViewHolder = new GroMoreAd.AdViewHolder();
-        adViewHolder.mTitle = (TextView) inflate.findViewById(com.martian.mibook.R.id.bonus_ads_title);
-        adViewHolder.mDescription = (TextView) inflate.findViewById(com.martian.mibook.R.id.bonus_ads_desc);
-        adViewHolder.mPoster = (ImageView) inflate.findViewById(com.martian.mibook.R.id.bonus_ads_image);
-        adViewHolder.videoView = (FrameLayout) inflate.findViewById(com.martian.mibook.R.id.iv_ads_video);
-        adViewHolder.mCreativeButton = (Button) inflate.findViewById(com.martian.mibook.R.id.fr_option_button);
-        adViewHolder.mAdLogo = (ImageView) inflate.findViewById(com.martian.mibook.R.id.tv_ads_logo);
-        adViewHolder.mAdLogoDesc = (TextView) inflate.findViewById(com.martian.mibook.R.id.tv_ads_logo_desc);
-        l9.a.d(adViewHolder.mCreativeButton);
-        adViewHolder.mTitle.setText(appTask.getTitle());
-        adViewHolder.mDescription.setText(appTask.getDesc());
-        adViewHolder.mDescription.getViewTreeObserver().addOnPreDrawListener(new b(relativeLayout, adViewHolder));
-        adViewHolder.mAdLogo.setImageResource(appTask.adsIconRes());
-        MiConfigSingleton.b2().H1().Q0(activity, adViewHolder.mPoster, null, appTask);
-        linearLayout.addView(inflate);
-        MiConfigSingleton.b2().H1().A(activity, appTask, linearLayout, inflate.findViewById(com.martian.mibook.R.id.bonus_ads_view), adViewHolder, new c());
-    }
-
-    public void o(Activity activity, g gVar) {
-        p(activity, gVar, "", "");
     }
 
     /* JADX WARN: Multi-variable type inference failed */
-    public void p(Activity activity, g gVar, String str, String str2) {
-        WeakReference weakReference = new WeakReference(activity);
-        e eVar = new e(MiGuestUserLoginParams.class, MiUser.class, (Context) weakReference.get(), gVar, weakReference);
-        ((MiGuestUserLoginParams) eVar.k()).setOaid(ConfigSingleton.D().M());
-        ((MiGuestUserLoginParams) eVar.k()).setAndroid_id(ConfigSingleton.D().j());
-        ((MiGuestUserLoginParams) eVar.k()).setImei(ConfigSingleton.D().A());
-        ((MiGuestUserLoginParams) eVar.k()).setSourceName(str);
-        ((MiGuestUserLoginParams) eVar.k()).setSourceId(str2);
-        eVar.j();
+    public void F(final j1 activity, final String wxAppid, final MTWebView webView) {
+        final com.martian.mibook.lib.account.b.d d2 = com.martian.mibook.lib.account.b.d.d(activity.getLayoutInflater(), null, false);
+        final com.martian.dialog.e k = ((g.a) ((g.a) com.martian.dialog.g.i(activity).R(d2.getRoot()).f(false)).j(true)).k();
+        d2.f13835b.setOnClickListener(new View.OnClickListener() { // from class: com.martian.mibook.account.j
+            @Override // android.view.View.OnClickListener
+            public final void onClick(View view) {
+                MiCompoundUserManager.this.q(activity, wxAppid, webView, k, d2, view);
+            }
+        });
+        if (!MiConfigSingleton.V3().j5()) {
+            d2.f13839f.setImageResource(R.drawable.icon_checked);
+        }
+        d2.f13838e.setOnClickListener(new View.OnClickListener() { // from class: com.martian.mibook.account.f
+            @Override // android.view.View.OnClickListener
+            public final void onClick(View view) {
+                MiCompoundUserManager.this.s(d2, view);
+            }
+        });
+        d2.f13837d.setOnClickListener(new View.OnClickListener() { // from class: com.martian.mibook.account.i
+            @Override // android.view.View.OnClickListener
+            public final void onClick(View view) {
+                MiCompoundUserManager.this.u(k, view);
+            }
+        });
+        d2.f13841h.setOnClickListener(new View.OnClickListener() { // from class: com.martian.mibook.account.d
+            @Override // android.view.View.OnClickListener
+            public final void onClick(View view) {
+                com.martian.mibook.lib.account.e.c.i(j1.this);
+            }
+        });
+        d2.f13840g.setOnClickListener(new View.OnClickListener() { // from class: com.martian.mibook.account.c
+            @Override // android.view.View.OnClickListener
+            public final void onClick(View view) {
+                com.martian.mibook.lib.account.e.c.f(j1.this);
+            }
+        });
     }
 
-    public IAccount q() {
-        return this.f13078a.c();
-    }
-
-    public IAccount r() {
-        return this.f13078a.d();
-    }
-
-    public me.b s() {
-        return this.f13078a.e();
-    }
-
-    public void t(FragmentActivity fragmentActivity, int i10, String str, String str2) {
-        if (m0.C(fragmentActivity)) {
-            if (i10 == 20008) {
-                R(fragmentActivity, MiConfigSingleton.b2().c2().getWithdrawWxAppid(), null);
-                ac.a.G(fragmentActivity, str2 + "-失败-绑定微信");
-                return;
-            }
-            if (i10 == 20009) {
-                t0.b(fragmentActivity, str);
-                PhoneLoginActivity.y3(fragmentActivity, 1, "", 20003);
-                ac.a.G(fragmentActivity, str2 + "-失败-绑定手机");
-                return;
-            }
-            if (i10 == 20010) {
-                ac.a.G(fragmentActivity, str2 + "-失败-清零解封");
-                TXSRemoveBlackListActivity.T2(fragmentActivity);
-                return;
-            }
-            if (i10 == 20011) {
-                ac.a.G(fragmentActivity, str2 + "-失败-申请解封");
-                TXSRequestRemoveBlackListActivity.P2(fragmentActivity);
-                return;
-            }
-            if (i10 == 20012) {
-                t0.b(fragmentActivity, str);
-                PhoneLoginActivity.y3(fragmentActivity, 2, MiConfigSingleton.b2().r3(), 20003);
-                ac.a.G(fragmentActivity, str2 + "-失败-验证手机");
-                return;
-            }
-            if (i10 == 20015) {
-                t0.b(fragmentActivity, str);
-                MiConfigSingleton.b2().G1().i(fragmentActivity);
-                ac.a.G(fragmentActivity, str2 + "-失败-微信登录");
-                return;
-            }
-            t0.b(fragmentActivity, str);
-            ac.a.G(fragmentActivity, str2 + "-失败-" + str);
+    public void G(final j1 activity, String title, final int money, final int totalCoins) {
+        if (MiConfigSingleton.V3().u5()) {
+            return;
+        }
+        if (MiConfigSingleton.V3().h6()) {
+            H(activity, title, money, totalCoins);
+        } else {
+            z(activity, title, money, totalCoins);
         }
     }
 
-    public boolean u(Activity activity, boolean z10) {
-        if (this.f13081d == null) {
-            this.f13081d = Long.valueOf(j.h(activity, f13077g, z10 ? -1L : System.currentTimeMillis()));
-        }
-        if (this.f13081d.longValue() < 0) {
-            O(activity);
-            return true;
-        }
-        int freshUserHourInterval = MiConfigSingleton.b2().c2().getFreshUserHourInterval();
-        if (freshUserHourInterval <= 0) {
-            O(activity);
-            return false;
-        }
-        boolean z11 = System.currentTimeMillis() - this.f13081d.longValue() > ((long) (freshUserHourInterval * SdkConfigData.DEFAULT_REQUEST_INTERVAL)) * 1000;
-        O(activity);
-        return z11;
+    /* JADX WARN: Multi-variable type inference failed */
+    public void c(Activity activity, e listener) {
+        com.martian.mibook.lib.model.g.b.H(activity, "生成游客账号");
+        d dVar = new d(MiGuestUserLoginParams.class, MiUser.class, activity, activity, listener);
+        ((MiGuestUserLoginParams) dVar.k()).setOaid(com.martian.libmars.d.h.F().V());
+        ((MiGuestUserLoginParams) dVar.k()).setImei(com.martian.libmars.d.h.F().z());
+        dVar.j();
     }
 
-    public boolean v() {
-        return this.f13078a.f();
+    public long d() {
+        return this.f10762b.t();
     }
 
-    public boolean w(Context context) {
-        Boolean bool = this.f13080c;
-        if (bool != null) {
-            return bool.booleanValue();
-        }
-        Boolean valueOf = Boolean.valueOf(MartianRPUserManager.a() - j.h(context, f13076f, -1L) <= 86400000);
-        this.f13080c = valueOf;
-        return valueOf.booleanValue();
+    public IAccount e() {
+        return this.f10762b.c();
     }
 
-    public boolean x() {
-        return this.f13082e;
+    public String f() {
+        String j2 = com.martian.libsupport.h.j(this.f10763c, f10761a);
+        return k.p(j2) ? "" : j2;
     }
 
-    public class e extends jb.e<MiGuestUserLoginParams, MiUser> {
+    public IAccount g() {
+        return this.f10762b.d();
+    }
 
-        /* renamed from: h */
-        public final /* synthetic */ g f13097h;
+    public com.martian.rpauth.b h() {
+        return this.f10762b.e();
+    }
 
-        /* renamed from: i */
-        public final /* synthetic */ WeakReference f13098i;
-
-        /* JADX WARN: 'super' call moved to the top of the method (can break code semantics) */
-        public e(Class cls, Class cls2, Context context, g gVar, WeakReference weakReference) {
-            super(cls, cls2, context);
-            this.f13097h = gVar;
-            this.f13098i = weakReference;
+    public void i(j1 activity, b.d.c.b.c errorResult, String path) {
+        if (errorResult == null || !n0.C(activity)) {
+            return;
         }
-
-        @Override // y8.a
-        public void onResultError(x8.c cVar) {
-            g gVar = this.f13097h;
-            if (gVar != null) {
-                gVar.a(null);
-            }
+        if (errorResult.c() == 20008) {
+            F(activity, MiConfigSingleton.V3().W3().getWithdrawWxAppid(), null);
+            com.martian.mibook.lib.model.g.b.N(activity, path + "-失败-绑定微信");
+            return;
         }
-
-        @Override // y8.h, y8.b
-        public void onUDDataReceived(List<MiUser> list) {
-            if (list == null || list.isEmpty() || list.get(0) == null) {
-                g gVar = this.f13097h;
-                if (gVar != null) {
-                    gVar.a(null);
-                    return;
-                }
-                return;
-            }
-            MiUser miUser = list.get(0);
-            MiCompoundUserManager.this.M(miUser);
-            Activity activity = (Activity) this.f13098i.get();
-            if (activity == null) {
-                g gVar2 = this.f13097h;
-                if (gVar2 != null) {
-                    gVar2.a(miUser);
-                    return;
-                }
-                return;
-            }
-            MiCompoundUserManager.this.N(activity);
-            g gVar3 = this.f13097h;
-            if (gVar3 != null) {
-                gVar3.a(miUser);
-            }
-            lb.c.x(activity, new a());
-            MiConfigSingleton.b2().G1().C(activity, true, null);
+        if (errorResult.c() == 20009) {
+            activity.k1(errorResult.d());
+            PhoneLoginActivity.j3(activity, 1, "", 20003);
+            com.martian.mibook.lib.model.g.b.N(activity, path + "-失败-绑定手机");
+            return;
         }
-
-        @Override // y8.f
-        public void showLoading(boolean z10) {
+        if (errorResult.c() == 20010) {
+            com.martian.mibook.lib.model.g.b.N(activity, path + "-失败-清零解封");
+            TXSRemoveBlackListActivity.y2(activity);
+            return;
         }
-
-        public class a implements c.g {
-            public a() {
-            }
-
-            @Override // lb.c.g
-            public void b(MiTaskAccount miTaskAccount) {
-            }
-
-            @Override // lb.c.g
-            public void a(x8.c cVar) {
-            }
+        if (errorResult.c() == 20011) {
+            com.martian.mibook.lib.model.g.b.N(activity, path + "-失败-申请解封");
+            TXSRequestRemoveBlackListActivity.v2(activity);
+            return;
         }
+        if (errorResult.c() == 20012) {
+            activity.k1(errorResult.d());
+            PhoneLoginActivity.j3(activity, 2, MiConfigSingleton.V3().Y8(), 20003);
+            com.martian.mibook.lib.model.g.b.N(activity, path + "-失败-验证手机");
+            return;
+        }
+        if (errorResult.c() == 20015) {
+            activity.k1(errorResult.d());
+            MiConfigSingleton.V3().n2(activity);
+            com.martian.mibook.lib.model.g.b.N(activity, path + "-失败-微信登录");
+            return;
+        }
+        activity.k1(errorResult.d());
+        com.martian.mibook.lib.model.g.b.N(activity, path + "-失败-" + errorResult.d());
+    }
+
+    public boolean j() {
+        return !k.p(f());
+    }
+
+    public boolean k() {
+        return this.f10762b.f();
+    }
+
+    public boolean l(String pwd) {
+        return k.n(pwd, f());
     }
 }

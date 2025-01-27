@@ -8,8 +8,8 @@ import java.util.List;
 public class EventList {
     private List<Event> events;
 
-    public static EventList fromJson(String str) {
-        return (EventList) GsonUtils.b().fromJson(str, EventList.class);
+    public static EventList fromJson(String jsonString) {
+        return (EventList) GsonUtils.b().fromJson(jsonString, EventList.class);
     }
 
     public List<Event> getEvents() {
@@ -19,8 +19,8 @@ public class EventList {
         return this.events;
     }
 
-    public void setEvents(List<Event> list) {
-        this.events = list;
+    public void setEvents(List<Event> events) {
+        this.events = events;
     }
 
     public String toJsonString() {

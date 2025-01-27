@@ -6,41 +6,33 @@ import java.util.List;
 import java.util.Map;
 import me.jessyan.autosize.utils.Preconditions;
 
-/* loaded from: classes4.dex */
+/* loaded from: classes5.dex */
 public class ExternalAdaptManager {
     private boolean isRun;
     private List<String> mCancelAdaptList;
     private Map<String, ExternalAdaptInfo> mExternalAdaptInfos;
 
     public synchronized ExternalAdaptManager addCancelAdaptOfActivity(Class<?> cls) {
-        try {
-            Preconditions.checkNotNull(cls, "targetClass == null");
-            if (!this.isRun) {
-                this.isRun = true;
-            }
-            if (this.mCancelAdaptList == null) {
-                this.mCancelAdaptList = new ArrayList();
-            }
-            this.mCancelAdaptList.add(cls.getCanonicalName());
-        } catch (Throwable th2) {
-            throw th2;
+        Preconditions.checkNotNull(cls, "targetClass == null");
+        if (!this.isRun) {
+            this.isRun = true;
         }
+        if (this.mCancelAdaptList == null) {
+            this.mCancelAdaptList = new ArrayList();
+        }
+        this.mCancelAdaptList.add(cls.getCanonicalName());
         return this;
     }
 
     public synchronized ExternalAdaptManager addExternalAdaptInfoOfActivity(Class<?> cls, ExternalAdaptInfo externalAdaptInfo) {
-        try {
-            Preconditions.checkNotNull(cls, "targetClass == null");
-            if (!this.isRun) {
-                this.isRun = true;
-            }
-            if (this.mExternalAdaptInfos == null) {
-                this.mExternalAdaptInfos = new HashMap(16);
-            }
-            this.mExternalAdaptInfos.put(cls.getCanonicalName(), externalAdaptInfo);
-        } catch (Throwable th2) {
-            throw th2;
+        Preconditions.checkNotNull(cls, "targetClass == null");
+        if (!this.isRun) {
+            this.isRun = true;
         }
+        if (this.mExternalAdaptInfos == null) {
+            this.mExternalAdaptInfos = new HashMap(16);
+        }
+        this.mExternalAdaptInfos.put(cls.getCanonicalName(), externalAdaptInfo);
         return this;
     }
 
@@ -66,8 +58,8 @@ public class ExternalAdaptManager {
         return this.isRun;
     }
 
-    public ExternalAdaptManager setRun(boolean z10) {
-        this.isRun = z10;
+    public ExternalAdaptManager setRun(boolean z) {
+        this.isRun = z;
         return this;
     }
 }

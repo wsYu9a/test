@@ -1,18 +1,18 @@
 package com.kwad.sdk.core.response.model;
 
-/* loaded from: classes3.dex */
+/* loaded from: classes2.dex */
 public final class b {
-    private boolean Xp = true;
-    private boolean aEn;
+    private boolean Rp = true;
+    private boolean alU;
     private int mHeight;
     private String mUrl;
     private int mWidth;
 
-    public b(String str, int i10, int i11, boolean z10, boolean z11) {
+    public b(String str, int i2, int i3, boolean z, boolean z2) {
         this.mUrl = str;
-        this.mWidth = i10;
-        this.mHeight = i11;
-        this.aEn = z11;
+        this.mWidth = i2;
+        this.mHeight = i3;
+        this.alU = z2;
     }
 
     public final int getHeight() {

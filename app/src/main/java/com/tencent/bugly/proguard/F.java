@@ -7,33 +7,33 @@ import java.util.List;
 import java.util.Map;
 
 /* loaded from: classes4.dex */
-public class F implements Runnable {
+class F implements Runnable {
 
     /* renamed from: a */
-    final /* synthetic */ int f22592a;
+    final /* synthetic */ int f24951a;
 
     /* renamed from: b */
-    final /* synthetic */ int f22593b;
+    final /* synthetic */ int f24952b;
 
     /* renamed from: c */
-    final /* synthetic */ H f22594c;
+    final /* synthetic */ H f24953c;
 
-    public F(H h10, int i10, int i11) {
-        this.f22594c = h10;
-        this.f22592a = i10;
-        this.f22593b = i11;
+    F(H h2, int i2, int i3) {
+        this.f24953c = h2;
+        this.f24951a = i2;
+        this.f24952b = i3;
     }
 
     @Override // java.lang.Runnable
     public void run() {
         String str;
-        List<E> c10;
+        List<E> c2;
         Map map;
         Map map2;
         String str2;
         Map map3;
         String str3;
-        E e10;
+        E e2;
         String str4;
         String str5;
         String str6;
@@ -41,61 +41,61 @@ public class F implements Runnable {
         String str7;
         Map map5;
         try {
-            str = this.f22594c.f22600d;
+            str = this.f24953c.f24959d;
             if (TextUtils.isEmpty(str)) {
                 return;
             }
-            c10 = this.f22594c.c(this.f22592a);
-            if (c10 == null) {
-                c10 = new ArrayList();
+            c2 = this.f24953c.c(this.f24951a);
+            if (c2 == null) {
+                c2 = new ArrayList();
             }
-            map = this.f22594c.f22601e;
-            if (map.get(Integer.valueOf(this.f22592a)) == null) {
+            map = this.f24953c.f24960e;
+            if (map.get(Integer.valueOf(this.f24951a)) == null) {
                 HashMap hashMap = new HashMap();
-                map5 = this.f22594c.f22601e;
-                map5.put(Integer.valueOf(this.f22592a), hashMap);
+                map5 = this.f24953c.f24960e;
+                map5.put(Integer.valueOf(this.f24951a), hashMap);
             }
-            map2 = this.f22594c.f22601e;
-            Map map6 = (Map) map2.get(Integer.valueOf(this.f22592a));
-            str2 = this.f22594c.f22600d;
+            map2 = this.f24953c.f24960e;
+            Map map6 = (Map) map2.get(Integer.valueOf(this.f24951a));
+            str2 = this.f24953c.f24959d;
             if (map6.get(str2) == null) {
-                e10 = new E();
-                e10.f22585a = this.f22592a;
-                e10.f22591g = H.f22598b;
-                str6 = this.f22594c.f22600d;
-                e10.f22586b = str6;
-                e10.f22590f = com.tencent.bugly.crashreport.common.info.a.m().E;
-                e10.f22589e = com.tencent.bugly.crashreport.common.info.a.m().f22304l;
-                e10.f22587c = System.currentTimeMillis();
-                e10.f22588d = this.f22593b;
-                map4 = this.f22594c.f22601e;
-                Map map7 = (Map) map4.get(Integer.valueOf(this.f22592a));
-                str7 = this.f22594c.f22600d;
-                map7.put(str7, e10);
+                e2 = new E();
+                e2.f24944a = this.f24951a;
+                e2.f24950g = H.f24957b;
+                str6 = this.f24953c.f24959d;
+                e2.f24945b = str6;
+                e2.f24949f = com.tencent.bugly.crashreport.common.info.a.m().E;
+                e2.f24948e = com.tencent.bugly.crashreport.common.info.a.m().l;
+                e2.f24946c = System.currentTimeMillis();
+                e2.f24947d = this.f24952b;
+                map4 = this.f24953c.f24960e;
+                Map map7 = (Map) map4.get(Integer.valueOf(this.f24951a));
+                str7 = this.f24953c.f24959d;
+                map7.put(str7, e2);
             } else {
-                map3 = this.f22594c.f22601e;
-                Map map8 = (Map) map3.get(Integer.valueOf(this.f22592a));
-                str3 = this.f22594c.f22600d;
-                e10 = (E) map8.get(str3);
-                e10.f22588d = this.f22593b;
+                map3 = this.f24953c.f24960e;
+                Map map8 = (Map) map3.get(Integer.valueOf(this.f24951a));
+                str3 = this.f24953c.f24959d;
+                e2 = (E) map8.get(str3);
+                e2.f24947d = this.f24952b;
             }
             ArrayList arrayList = new ArrayList();
-            boolean z10 = false;
-            for (E e11 : c10) {
-                if (e11.f22591g == e10.f22591g && (str5 = e11.f22586b) != null && str5.equalsIgnoreCase(e10.f22586b)) {
-                    e11.f22588d = e10.f22588d;
-                    z10 = true;
+            boolean z = false;
+            for (E e3 : c2) {
+                if (e3.f24950g == e2.f24950g && (str5 = e3.f24945b) != null && str5.equalsIgnoreCase(e2.f24945b)) {
+                    z = true;
+                    e3.f24947d = e2.f24947d;
                 }
-                String str8 = e11.f22589e;
-                if ((str8 != null && !str8.equalsIgnoreCase(e10.f22589e)) || (((str4 = e11.f22590f) != null && !str4.equalsIgnoreCase(e10.f22590f)) || e11.f22588d <= 0)) {
-                    arrayList.add(e11);
+                String str8 = e3.f24948e;
+                if ((str8 != null && !str8.equalsIgnoreCase(e2.f24948e)) || (((str4 = e3.f24949f) != null && !str4.equalsIgnoreCase(e2.f24949f)) || e3.f24947d <= 0)) {
+                    arrayList.add(e3);
                 }
             }
-            c10.removeAll(arrayList);
-            if (!z10) {
-                c10.add(e10);
+            c2.removeAll(arrayList);
+            if (!z) {
+                c2.add(e2);
             }
-            this.f22594c.a(this.f22592a, (int) c10);
+            this.f24953c.a(this.f24951a, (int) c2);
         } catch (Exception unused) {
             X.b("saveCrashRecord failed", new Object[0]);
         }

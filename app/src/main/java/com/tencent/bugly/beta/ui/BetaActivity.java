@@ -13,7 +13,7 @@ public class BetaActivity extends FragmentActivity {
     public Runnable onDestroyRunnable = null;
 
     @Override // androidx.fragment.app.FragmentActivity, androidx.activity.ComponentActivity, androidx.core.app.ComponentActivity, android.app.Activity
-    public void onCreate(Bundle bundle) {
+    protected void onCreate(Bundle bundle) {
         super.onCreate(bundle);
         try {
             requestWindowFeature(1);
@@ -24,8 +24,8 @@ public class BetaActivity extends FragmentActivity {
             if (findViewById != null) {
                 findViewById.setOnClickListener(new b(1, this, findViewById));
             }
-        } catch (Exception e10) {
-            e10.printStackTrace();
+        } catch (Exception e2) {
+            e2.printStackTrace();
         }
         int intExtra = getIntent().getIntExtra("frag", -1);
         Map<Integer, BaseFrag> map = UiManager.TEMP_FRAG;
@@ -39,7 +39,7 @@ public class BetaActivity extends FragmentActivity {
     }
 
     @Override // androidx.fragment.app.FragmentActivity, android.app.Activity
-    public void onDestroy() {
+    protected void onDestroy() {
         super.onDestroy();
         Runnable runnable = this.onDestroyRunnable;
         if (runnable != null) {
@@ -79,7 +79,7 @@ public class BetaActivity extends FragmentActivity {
     }
 
     @Override // androidx.fragment.app.FragmentActivity, android.app.Activity
-    public void onPause() {
+    protected void onPause() {
         overridePendingTransition(0, 0);
         super.onPause();
     }

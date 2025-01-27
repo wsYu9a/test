@@ -5,7 +5,7 @@ import android.content.Context;
 import android.view.LayoutInflater;
 import androidx.annotation.Nullable;
 
-/* loaded from: classes3.dex */
+/* loaded from: classes2.dex */
 public abstract class IOfflineCompoWrapper {
     protected String mOfflinePackageName;
 

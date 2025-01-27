@@ -1,45 +1,39 @@
 package rx.internal.operators;
 
-import ek.e;
 import java.util.Arrays;
 import java.util.concurrent.atomic.AtomicBoolean;
-import qj.a;
-import qj.g;
-import qj.h;
+import rx.a;
 import rx.exceptions.CompositeException;
-import wj.b;
-import wj.n;
-import wj.o;
 
 /* loaded from: classes5.dex */
 public final class OnSubscribeUsing<T, Resource> implements a.m0<T> {
 
+    /* renamed from: a */
+    private final rx.k.n<Resource> f35787a;
+
     /* renamed from: b */
-    public final n<Resource> f30458b;
+    private final rx.k.o<? super Resource, ? extends rx.a<? extends T>> f35788b;
 
     /* renamed from: c */
-    public final o<? super Resource, ? extends qj.a<? extends T>> f30459c;
+    private final rx.k.b<? super Resource> f35789c;
 
     /* renamed from: d */
-    public final b<? super Resource> f30460d;
+    private final boolean f35790d;
 
-    /* renamed from: e */
-    public final boolean f30461e;
-
-    public static final class DisposeAction<Resource> extends AtomicBoolean implements wj.a, h {
+    private static final class DisposeAction<Resource> extends AtomicBoolean implements rx.k.a, rx.h {
         private static final long serialVersionUID = 4262875056400218316L;
-        private b<? super Resource> dispose;
+        private rx.k.b<? super Resource> dispose;
         private Resource resource;
 
-        public /* synthetic */ DisposeAction(b bVar, Object obj, a aVar) {
+        /* synthetic */ DisposeAction(rx.k.b bVar, Object obj, a aVar) {
             this(bVar, obj);
         }
 
-        /* JADX WARN: Type inference failed for: r0v2, types: [Resource, wj.b<? super Resource>] */
-        @Override // wj.a
+        /* JADX WARN: Type inference failed for: r0v2, types: [Resource, rx.k.b<? super Resource>] */
+        @Override // rx.k.a
         public void call() {
             if (compareAndSet(false, true)) {
-                ?? r02 = (Resource) null;
+                ?? r0 = (Resource) null;
                 try {
                     this.dispose.call(this.resource);
                 } finally {
@@ -49,64 +43,64 @@ public final class OnSubscribeUsing<T, Resource> implements a.m0<T> {
             }
         }
 
-        @Override // qj.h
+        @Override // rx.h
         public boolean isUnsubscribed() {
             return get();
         }
 
-        @Override // qj.h
+        @Override // rx.h
         public void unsubscribe() {
             call();
         }
 
-        private DisposeAction(b<? super Resource> bVar, Resource resource) {
+        private DisposeAction(rx.k.b<? super Resource> bVar, Resource resource) {
             this.dispose = bVar;
             this.resource = resource;
             lazySet(false);
         }
     }
 
-    public OnSubscribeUsing(n<Resource> nVar, o<? super Resource, ? extends qj.a<? extends T>> oVar, b<? super Resource> bVar, boolean z10) {
-        this.f30458b = nVar;
-        this.f30459c = oVar;
-        this.f30460d = bVar;
-        this.f30461e = z10;
+    public OnSubscribeUsing(rx.k.n<Resource> nVar, rx.k.o<? super Resource, ? extends rx.a<? extends T>> oVar, rx.k.b<? super Resource> bVar, boolean z) {
+        this.f35787a = nVar;
+        this.f35788b = oVar;
+        this.f35789c = bVar;
+        this.f35790d = z;
     }
 
-    public final Throwable a(wj.a aVar) {
-        if (!this.f30461e) {
+    private Throwable a(rx.k.a aVar) {
+        if (!this.f35790d) {
             return null;
         }
         try {
             aVar.call();
             return null;
-        } catch (Throwable th2) {
-            return th2;
+        } catch (Throwable th) {
+            return th;
         }
     }
 
-    @Override // wj.b
-    public void call(g<? super T> gVar) {
+    @Override // rx.k.b
+    public void call(rx.g<? super T> gVar) {
         try {
-            Resource call = this.f30458b.call();
-            DisposeAction disposeAction = new DisposeAction(this.f30460d, call);
+            Resource call = this.f35787a.call();
+            DisposeAction disposeAction = new DisposeAction(this.f35789c, call);
             gVar.b(disposeAction);
-            qj.a<? extends T> call2 = this.f30459c.call(call);
-            if (this.f30461e) {
+            rx.a<? extends T> call2 = this.f35788b.call(call);
+            if (this.f35790d) {
                 call2 = call2.A0(disposeAction);
             }
             try {
-                call2.T4(e.f(gVar));
-            } catch (Throwable th2) {
-                Throwable a10 = a(disposeAction);
-                if (a10 != null) {
-                    gVar.onError(new CompositeException(Arrays.asList(th2, a10)));
+                call2.T4(rx.l.e.f(gVar));
+            } catch (Throwable th) {
+                Throwable a2 = a(disposeAction);
+                if (a2 != null) {
+                    gVar.onError(new CompositeException(Arrays.asList(th, a2)));
                 } else {
-                    gVar.onError(th2);
+                    gVar.onError(th);
                 }
             }
-        } catch (Throwable th3) {
-            gVar.onError(th3);
+        } catch (Throwable th2) {
+            gVar.onError(th2);
         }
     }
 }

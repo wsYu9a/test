@@ -21,29 +21,29 @@ public class RetryDelayTimeParamCalculator implements IRetryDelayTimeCalculator 
                 return null;
             }
             long[] jArr = new long[split.length];
-            for (int i10 = 0; i10 < split.length; i10++) {
-                jArr[i10] = Long.parseLong(split[i10]);
+            for (int i2 = 0; i2 < split.length; i2++) {
+                jArr[i2] = Long.parseLong(split[i2]);
             }
             return jArr;
-        } catch (Throwable th2) {
-            th2.printStackTrace();
+        } catch (Throwable th) {
+            th.printStackTrace();
             return null;
         }
     }
 
     @Override // com.ss.android.socialbase.downloader.downloader.IRetryDelayTimeCalculator
-    public long calculateRetryDelayTime(int i10, int i11) {
+    public long calculateRetryDelayTime(int i2, int i3) {
         long[] jArr = this.mTimeArray;
         if (jArr == null || jArr.length <= 0) {
             return 0L;
         }
-        int i12 = i10 - 1;
-        if (i12 < 0) {
-            i12 = 0;
+        int i4 = i2 - 1;
+        if (i4 < 0) {
+            i4 = 0;
         }
-        if (i12 > jArr.length - 1) {
-            i12 = jArr.length - 1;
+        if (i4 > jArr.length - 1) {
+            i4 = jArr.length - 1;
         }
-        return jArr[i12];
+        return jArr[i4];
     }
 }

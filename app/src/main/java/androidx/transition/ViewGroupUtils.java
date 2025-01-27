@@ -10,60 +10,67 @@ import java.lang.reflect.Method;
 
 /* loaded from: classes.dex */
 class ViewGroupUtils {
-    private static Method sGetChildDrawingOrderMethod = null;
-    private static boolean sGetChildDrawingOrderMethodFetched = false;
-    private static boolean sTryHiddenSuppressLayout = true;
+
+    /* renamed from: a */
+    private static boolean f3870a = true;
+
+    /* renamed from: b */
+    private static Method f3871b;
+
+    /* renamed from: c */
+    private static boolean f3872c;
 
     private ViewGroupUtils() {
     }
 
-    public static int getChildDrawingOrder(@NonNull ViewGroup viewGroup, int i10) {
-        int childDrawingOrder;
+    static int a(@NonNull ViewGroup viewGroup, int i2) {
         if (Build.VERSION.SDK_INT >= 29) {
-            childDrawingOrder = viewGroup.getChildDrawingOrder(i10);
-            return childDrawingOrder;
+            return viewGroup.getChildDrawingOrder(i2);
         }
-        if (!sGetChildDrawingOrderMethodFetched) {
+        if (!f3872c) {
             try {
                 Class cls = Integer.TYPE;
                 Method declaredMethod = ViewGroup.class.getDeclaredMethod("getChildDrawingOrder", cls, cls);
-                sGetChildDrawingOrderMethod = declaredMethod;
+                f3871b = declaredMethod;
                 declaredMethod.setAccessible(true);
             } catch (NoSuchMethodException unused) {
             }
-            sGetChildDrawingOrderMethodFetched = true;
+            f3872c = true;
         }
-        Method method = sGetChildDrawingOrderMethod;
+        Method method = f3871b;
         if (method != null) {
             try {
-                return ((Integer) method.invoke(viewGroup, Integer.valueOf(viewGroup.getChildCount()), Integer.valueOf(i10))).intValue();
+                return ((Integer) method.invoke(viewGroup, Integer.valueOf(viewGroup.getChildCount()), Integer.valueOf(i2))).intValue();
             } catch (IllegalAccessException | InvocationTargetException unused2) {
             }
         }
-        return i10;
+        return i2;
     }
 
-    public static ViewGroupOverlayImpl getOverlay(@NonNull ViewGroup viewGroup) {
-        return new ViewGroupOverlayApi18(viewGroup);
+    static ViewGroupOverlayImpl b(@NonNull ViewGroup viewGroup) {
+        return Build.VERSION.SDK_INT >= 18 ? new ViewGroupOverlayApi18(viewGroup) : ViewGroupOverlayApi14.c(viewGroup);
     }
 
     @RequiresApi(18)
     @SuppressLint({"NewApi"})
-    private static void hiddenSuppressLayout(@NonNull ViewGroup viewGroup, boolean z10) {
-        if (sTryHiddenSuppressLayout) {
+    private static void c(@NonNull ViewGroup viewGroup, boolean z) {
+        if (f3870a) {
             try {
-                viewGroup.suppressLayout(z10);
+                viewGroup.suppressLayout(z);
             } catch (NoSuchMethodError unused) {
-                sTryHiddenSuppressLayout = false;
+                f3870a = false;
             }
         }
     }
 
-    public static void suppressLayout(@NonNull ViewGroup viewGroup, boolean z10) {
-        if (Build.VERSION.SDK_INT >= 29) {
-            viewGroup.suppressLayout(z10);
+    static void d(@NonNull ViewGroup viewGroup, boolean z) {
+        int i2 = Build.VERSION.SDK_INT;
+        if (i2 >= 29) {
+            viewGroup.suppressLayout(z);
+        } else if (i2 >= 18) {
+            c(viewGroup, z);
         } else {
-            hiddenSuppressLayout(viewGroup, z10);
+            ViewGroupUtilsApi14.b(viewGroup, z);
         }
     }
 }

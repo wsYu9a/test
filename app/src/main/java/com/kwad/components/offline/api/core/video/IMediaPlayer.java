@@ -11,11 +11,11 @@ import com.kwad.components.offline.api.core.video.mdoel.PlayVideoInfo;
 import java.io.FileDescriptor;
 import java.util.Map;
 
-/* loaded from: classes3.dex */
+/* loaded from: classes2.dex */
 public interface IMediaPlayer {
 
     public interface OnBufferingUpdateListener {
-        void onBufferingUpdate(IMediaPlayer iMediaPlayer, int i10);
+        void onBufferingUpdate(IMediaPlayer iMediaPlayer, int i2);
     }
 
     public interface OnCompletionListener {
@@ -23,11 +23,11 @@ public interface IMediaPlayer {
     }
 
     public interface OnErrorListener {
-        boolean onError(IMediaPlayer iMediaPlayer, int i10, int i11);
+        boolean onError(IMediaPlayer iMediaPlayer, int i2, int i3);
     }
 
     public interface OnInfoListener {
-        boolean onInfo(IMediaPlayer iMediaPlayer, int i10, int i11);
+        boolean onInfo(IMediaPlayer iMediaPlayer, int i2, int i3);
     }
 
     public interface OnPreparedListener {
@@ -43,7 +43,7 @@ public interface IMediaPlayer {
     }
 
     public interface OnVideoSizeChangedListener {
-        void onVideoSizeChanged(IMediaPlayer iMediaPlayer, int i10, int i11);
+        void onVideoSizeChanged(IMediaPlayer iMediaPlayer, int i2, int i3);
     }
 
     int getAudioSessionId();
@@ -74,9 +74,9 @@ public interface IMediaPlayer {
 
     void reset();
 
-    void seekTo(long j10);
+    void seekTo(long j2);
 
-    void setAudioStreamType(int i10);
+    void setAudioStreamType(int i2);
 
     void setDataSource(Context context, Uri uri);
 
@@ -91,7 +91,7 @@ public interface IMediaPlayer {
 
     void setDisplay(SurfaceHolder surfaceHolder);
 
-    void setLooping(boolean z10);
+    void setLooping(boolean z);
 
     void setOnBufferingUpdateListener(OnBufferingUpdateListener onBufferingUpdateListener);
 
@@ -109,13 +109,13 @@ public interface IMediaPlayer {
 
     void setOnVideoSizeChangedListener(OnVideoSizeChangedListener onVideoSizeChangedListener);
 
-    void setScreenOnWhilePlaying(boolean z10);
+    void setScreenOnWhilePlaying(boolean z);
 
-    void setSpeed(float f10);
+    void setSpeed(float f2);
 
     void setSurface(Surface surface);
 
-    void setVolume(float f10, float f11);
+    void setVolume(float f2, float f3);
 
     void start();
 

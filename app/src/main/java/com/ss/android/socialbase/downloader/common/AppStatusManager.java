@@ -27,8 +27,8 @@ public class AppStatusManager {
     private int mTopActivityHashCode;
 
     /* renamed from: com.ss.android.socialbase.downloader.common.AppStatusManager$1 */
-    public class AnonymousClass1 implements Application.ActivityLifecycleCallbacks {
-        public AnonymousClass1() {
+    class AnonymousClass1 implements Application.ActivityLifecycleCallbacks {
+        AnonymousClass1() {
         }
 
         @Override // android.app.Application.ActivityLifecycleCallbacks
@@ -50,10 +50,10 @@ public class AppStatusManager {
 
         @Override // android.app.Application.ActivityLifecycleCallbacks
         public void onActivityResumed(Activity activity) {
-            int i10 = AppStatusManager.this.mTopActivityHashCode;
+            int i2 = AppStatusManager.this.mTopActivityHashCode;
             AppStatusManager.this.isActivityOnPause = false;
-            AppStatusManager.this.mTopActivityHashCode = activity != null ? activity.hashCode() : i10;
-            if (i10 == 0) {
+            AppStatusManager.this.mTopActivityHashCode = activity != null ? activity.hashCode() : i2;
+            if (i2 == 0) {
                 AppStatusManager.this.dispatchAppForeground();
             }
         }
@@ -65,10 +65,10 @@ public class AppStatusManager {
         @Override // android.app.Application.ActivityLifecycleCallbacks
         public void onActivityStarted(Activity activity) {
             AppStatusManager.this.mTopActivity = new WeakReference(activity);
-            int i10 = AppStatusManager.this.mTopActivityHashCode;
-            AppStatusManager.this.mTopActivityHashCode = activity != null ? activity.hashCode() : i10;
+            int i2 = AppStatusManager.this.mTopActivityHashCode;
+            AppStatusManager.this.mTopActivityHashCode = activity != null ? activity.hashCode() : i2;
             AppStatusManager.this.isActivityOnPause = false;
-            if (i10 == 0) {
+            if (i2 == 0) {
                 AppStatusManager.this.dispatchAppForeground();
             }
         }
@@ -91,7 +91,7 @@ public class AppStatusManager {
         void onAppForeground();
     }
 
-    public static class Holder {
+    private static class Holder {
         private static final AppStatusManager INSTANCE = new AppStatusManager();
 
         private Holder() {
@@ -102,7 +102,7 @@ public class AppStatusManager {
         boolean isAppInBackground();
     }
 
-    public /* synthetic */ AppStatusManager(AnonymousClass1 anonymousClass1) {
+    /* synthetic */ AppStatusManager(AnonymousClass1 anonymousClass1) {
         this();
     }
 
@@ -113,8 +113,8 @@ public class AppStatusManager {
                 return false;
             }
             return TextUtils.equals(application.getPackageName(), DownloadUtils.getCurProcessName(application));
-        } catch (Throwable th2) {
-            th2.printStackTrace();
+        } catch (Throwable th) {
+            th.printStackTrace();
             return false;
         }
     }
@@ -122,11 +122,7 @@ public class AppStatusManager {
     private Object[] collectAppSwitchListeners() {
         Object[] array;
         synchronized (this.mAppStatusChangeListeners) {
-            try {
-                array = this.mAppStatusChangeListeners.size() > 0 ? this.mAppStatusChangeListeners.toArray() : null;
-            } catch (Throwable th2) {
-                throw th2;
-            }
+            array = this.mAppStatusChangeListeners.size() > 0 ? this.mAppStatusChangeListeners.toArray() : null;
         }
         return array;
     }
@@ -166,13 +162,10 @@ public class AppStatusManager {
     public void init(Context context) {
         if (this.mApplication == null && (context instanceof Application)) {
             synchronized (this) {
-                try {
-                    if (this.mApplication == null) {
-                        Application application = (Application) context;
-                        this.mApplication = application;
-                        application.registerActivityLifecycleCallbacks(this.mCallbacks);
-                    }
-                } finally {
+                if (this.mApplication == null) {
+                    Application application = (Application) context;
+                    this.mApplication = application;
+                    application.registerActivityLifecycleCallbacks(this.mCallbacks);
                 }
             }
         }
@@ -184,14 +177,14 @@ public class AppStatusManager {
 
     /* JADX WARN: Type inference failed for: r0v2, types: [boolean, int] */
     public boolean isAppForeground() {
-        int i10 = this.mAppStatus;
-        int i11 = i10;
-        if (i10 == -1) {
+        int i2 = this.mAppStatus;
+        int i3 = i2;
+        if (i2 == -1) {
             ?? checkAppForeground = checkAppForeground();
             this.mAppStatus = checkAppForeground;
-            i11 = checkAppForeground;
+            i3 = checkAppForeground;
         }
-        return i11 == 1;
+        return i3 == 1;
     }
 
     public void registerAppSwitchListener(AppStatusChangeListener appStatusChangeListener) {
@@ -199,12 +192,8 @@ public class AppStatusManager {
             return;
         }
         synchronized (this.mAppStatusChangeListeners) {
-            try {
-                if (!this.mAppStatusChangeListeners.contains(appStatusChangeListener)) {
-                    this.mAppStatusChangeListeners.add(appStatusChangeListener);
-                }
-            } catch (Throwable th2) {
-                throw th2;
+            if (!this.mAppStatusChangeListeners.contains(appStatusChangeListener)) {
+                this.mAppStatusChangeListeners.add(appStatusChangeListener);
             }
         }
     }
@@ -224,7 +213,7 @@ public class AppStatusManager {
         this.mAppStatus = -1;
         this.isActivityOnPause = false;
         this.mCallbacks = new Application.ActivityLifecycleCallbacks() { // from class: com.ss.android.socialbase.downloader.common.AppStatusManager.1
-            public AnonymousClass1() {
+            AnonymousClass1() {
             }
 
             @Override // android.app.Application.ActivityLifecycleCallbacks
@@ -246,10 +235,10 @@ public class AppStatusManager {
 
             @Override // android.app.Application.ActivityLifecycleCallbacks
             public void onActivityResumed(Activity activity) {
-                int i10 = AppStatusManager.this.mTopActivityHashCode;
+                int i2 = AppStatusManager.this.mTopActivityHashCode;
                 AppStatusManager.this.isActivityOnPause = false;
-                AppStatusManager.this.mTopActivityHashCode = activity != null ? activity.hashCode() : i10;
-                if (i10 == 0) {
+                AppStatusManager.this.mTopActivityHashCode = activity != null ? activity.hashCode() : i2;
+                if (i2 == 0) {
                     AppStatusManager.this.dispatchAppForeground();
                 }
             }
@@ -261,10 +250,10 @@ public class AppStatusManager {
             @Override // android.app.Application.ActivityLifecycleCallbacks
             public void onActivityStarted(Activity activity) {
                 AppStatusManager.this.mTopActivity = new WeakReference(activity);
-                int i10 = AppStatusManager.this.mTopActivityHashCode;
-                AppStatusManager.this.mTopActivityHashCode = activity != null ? activity.hashCode() : i10;
+                int i2 = AppStatusManager.this.mTopActivityHashCode;
+                AppStatusManager.this.mTopActivityHashCode = activity != null ? activity.hashCode() : i2;
                 AppStatusManager.this.isActivityOnPause = false;
-                if (i10 == 0) {
+                if (i2 == 0) {
                     AppStatusManager.this.dispatchAppForeground();
                 }
             }

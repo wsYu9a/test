@@ -4,149 +4,115 @@ import android.content.Context;
 import android.util.AttributeSet;
 import androidx.appcompat.widget.AppCompatTextView;
 
-/* loaded from: classes3.dex */
+/* loaded from: classes2.dex */
 public class CountdownNumberTextView extends AppCompatTextView {
 
-    /* renamed from: b */
-    public b f12001b;
-
-    /* renamed from: c */
-    public String f12002c;
-
-    /* renamed from: d */
-    public String f12003d;
-
     /* renamed from: e */
-    public boolean f12004e;
+    private b f9657e;
 
     /* renamed from: f */
-    public int f12005f;
+    private String f9658f;
 
     /* renamed from: g */
-    public final Runnable f12006g;
+    private String f9659g;
 
-    public class a implements Runnable {
-        public a() {
+    /* renamed from: h */
+    private int f9660h;
+
+    /* renamed from: i */
+    private final Runnable f9661i;
+
+    class a implements Runnable {
+        a() {
         }
 
         @Override // java.lang.Runnable
         public void run() {
-            if (CountdownNumberTextView.this.f12005f <= 0) {
-                CountdownNumberTextView countdownNumberTextView = CountdownNumberTextView.this;
-                StringBuffer stringBuffer = new StringBuffer(countdownNumberTextView.f12002c);
-                stringBuffer.append(" 0");
-                stringBuffer.append(CountdownNumberTextView.this.f12003d);
-                countdownNumberTextView.setText(stringBuffer);
-                if (CountdownNumberTextView.this.f12001b != null) {
-                    CountdownNumberTextView.this.f12001b.a(CountdownNumberTextView.this);
+            if (CountdownNumberTextView.this.f9660h <= 0) {
+                CountdownNumberTextView.this.setText(CountdownNumberTextView.this.f9658f + " 0" + CountdownNumberTextView.this.f9659g);
+                if (CountdownNumberTextView.this.f9657e != null) {
+                    CountdownNumberTextView.this.f9657e.a(CountdownNumberTextView.this);
                     return;
                 }
                 return;
             }
-            CountdownNumberTextView countdownNumberTextView2 = CountdownNumberTextView.this;
-            StringBuffer stringBuffer2 = new StringBuffer(countdownNumberTextView2.f12002c);
-            stringBuffer2.append(" ");
-            stringBuffer2.append(CountdownNumberTextView.this.f12005f);
-            stringBuffer2.append(CountdownNumberTextView.this.f12003d);
-            countdownNumberTextView2.setText(stringBuffer2);
-            CountdownNumberTextView countdownNumberTextView3 = CountdownNumberTextView.this;
-            countdownNumberTextView3.f12005f--;
-            CountdownNumberTextView countdownNumberTextView4 = CountdownNumberTextView.this;
-            countdownNumberTextView4.postDelayed(countdownNumberTextView4.f12006g, 1000L);
+            CountdownNumberTextView.this.setText(CountdownNumberTextView.this.f9658f + " " + CountdownNumberTextView.this.f9660h + CountdownNumberTextView.this.f9659g);
+            CountdownNumberTextView.h(CountdownNumberTextView.this);
+            CountdownNumberTextView countdownNumberTextView = CountdownNumberTextView.this;
+            countdownNumberTextView.postDelayed(countdownNumberTextView.f9661i, 1000L);
         }
     }
 
     public interface b {
-        void a(CountdownNumberTextView countdownNumberTextView);
+        void a(CountdownNumberTextView textView);
     }
 
     public CountdownNumberTextView(Context context) {
         super(context);
-        this.f12002c = "";
-        this.f12003d = "";
-        this.f12004e = true;
-        this.f12005f = 0;
-        this.f12006g = new a();
+        this.f9658f = "";
+        this.f9659g = "";
+        this.f9660h = 0;
+        this.f9661i = new a();
     }
 
-    public void k() {
-        this.f12005f = 0;
-        n();
+    static /* synthetic */ int h(CountdownNumberTextView countdownNumberTextView) {
+        int i2 = countdownNumberTextView.f9660h;
+        countdownNumberTextView.f9660h = i2 - 1;
+        return i2;
     }
 
-    public void l() {
-        removeCallbacks(this.f12006g);
-        if (this.f12005f > 0) {
-            post(this.f12006g);
+    public void m() {
+        removeCallbacks(this.f9661i);
+        if (this.f9660h > 0) {
+            post(this.f9661i);
         }
     }
 
-    public void m(int i10) {
-        this.f12005f = i10;
-        StringBuffer stringBuffer = new StringBuffer(this.f12002c);
-        stringBuffer.append(" ");
-        stringBuffer.append(i10);
-        stringBuffer.append(this.f12003d);
-        setText(stringBuffer);
-        removeCallbacks(this.f12006g);
-        post(this.f12006g);
+    public void n(int delay) {
+        this.f9660h = delay;
+        removeCallbacks(this.f9661i);
+        post(this.f9661i);
     }
 
-    public void n() {
-        removeCallbacks(this.f12006g);
-    }
-
-    @Override // android.widget.TextView, android.view.View
-    public void onAttachedToWindow() {
-        super.onAttachedToWindow();
-        if (this.f12005f > 0) {
-            l();
-        }
+    public void o() {
+        removeCallbacks(this.f9661i);
     }
 
     @Override // android.view.View
-    public void onDetachedFromWindow() {
+    protected void onDetachedFromWindow() {
         super.onDetachedFromWindow();
-        if (this.f12004e) {
-            n();
-        }
+        removeCallbacks(this.f9661i);
     }
 
-    public void setDelay(int i10) {
-        this.f12005f = i10;
+    public void setDelay(int delay) {
+        this.f9660h = delay;
     }
 
-    public void setOnCountDownFinishListener(b bVar) {
-        this.f12001b = bVar;
+    public void setOnCountDownFinishListener(b l) {
+        this.f9657e = l;
     }
 
-    public void setPreText(String str) {
-        this.f12002c = str;
+    public void setPreText(String text) {
+        this.f9658f = text;
     }
 
-    public void setRemoveWhenDetach(boolean z10) {
-        this.f12004e = z10;
+    public void setSufText(String text) {
+        this.f9659g = text;
     }
 
-    public void setSufText(String str) {
-        this.f12003d = str;
+    public CountdownNumberTextView(Context context, AttributeSet attrs) {
+        super(context, attrs);
+        this.f9658f = "";
+        this.f9659g = "";
+        this.f9660h = 0;
+        this.f9661i = new a();
     }
 
-    public CountdownNumberTextView(Context context, AttributeSet attributeSet) {
-        super(context, attributeSet);
-        this.f12002c = "";
-        this.f12003d = "";
-        this.f12004e = true;
-        this.f12005f = 0;
-        this.f12006g = new a();
-    }
-
-    public CountdownNumberTextView(Context context, AttributeSet attributeSet, int i10) {
-        super(context, attributeSet, i10);
-        this.f12002c = "";
-        this.f12003d = "";
-        this.f12004e = true;
-        this.f12005f = 0;
-        this.f12006g = new a();
+    public CountdownNumberTextView(Context context, AttributeSet attrs, int defStyle) {
+        super(context, attrs, defStyle);
+        this.f9658f = "";
+        this.f9659g = "";
+        this.f9660h = 0;
+        this.f9661i = new a();
     }
 }

@@ -5,55 +5,56 @@ import android.database.Cursor;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.net.Uri;
+import com.kwad.components.offline.api.tk.model.report.TKDownloadReason;
 
 /* loaded from: classes4.dex */
 public class a {
 
     /* renamed from: a */
-    protected static final Uri f23177a = Uri.parse("content://telephony/carriers/preferapn");
+    protected static final Uri f25444a = Uri.parse("content://telephony/carriers/preferapn");
 
     public static String a(Context context) {
-        int d10 = d(context);
-        if (d10 == 2) {
-            return "wifi";
+        int d2 = d(context);
+        if (d2 == 2) {
+            return com.alipay.mobilesecuritysdk.constant.a.I;
         }
-        if (d10 == 1) {
+        if (d2 == 1) {
             return "cmwap";
         }
-        if (d10 == 4) {
+        if (d2 == 4) {
             return "cmnet";
         }
-        if (d10 == 16) {
+        if (d2 == 16) {
             return "uniwap";
         }
-        if (d10 == 8) {
+        if (d2 == 8) {
             return "uninet";
         }
-        if (d10 == 64) {
+        if (d2 == 64) {
             return "wap";
         }
-        if (d10 == 32) {
-            return "net";
+        if (d2 == 32) {
+            return TKDownloadReason.KSAD_TK_NET;
         }
-        if (d10 == 512) {
+        if (d2 == 512) {
             return "ctwap";
         }
-        if (d10 == 256) {
+        if (d2 == 256) {
             return "ctnet";
         }
-        if (d10 == 2048) {
+        if (d2 == 2048) {
             return "3gnet";
         }
-        if (d10 == 1024) {
+        if (d2 == 1024) {
             return "3gwap";
         }
-        String b10 = b(context);
-        return (b10 == null || b10.length() == 0) ? "none" : b10;
+        String b2 = b(context);
+        return (b2 == null || b2.length() == 0) ? com.baidu.mobads.sdk.internal.a.f5472a : b2;
     }
 
     public static String b(Context context) {
         try {
-            Cursor query = context.getContentResolver().query(f23177a, null, null, null, null);
+            Cursor query = context.getContentResolver().query(f25444a, null, null, null, null);
             if (query == null) {
                 return null;
             }
@@ -65,18 +66,18 @@ public class a {
             String string = query.getString(query.getColumnIndex("apn"));
             query.close();
             return string;
-        } catch (SecurityException e10) {
-            com.tencent.open.a.f.e("openSDK_LOG.APNUtil", "getApn has exception: " + e10.getMessage());
+        } catch (SecurityException e2) {
+            com.tencent.open.a.f.e("openSDK_LOG.APNUtil", "getApn has exception: " + e2.getMessage());
             return "";
-        } catch (Exception e11) {
-            com.tencent.open.a.f.e("openSDK_LOG.APNUtil", "getApn has exception: " + e11.getMessage());
+        } catch (Exception e3) {
+            com.tencent.open.a.f.e("openSDK_LOG.APNUtil", "getApn has exception: " + e3.getMessage());
             return "";
         }
     }
 
     public static String c(Context context) {
         try {
-            Cursor query = context.getContentResolver().query(f23177a, null, null, null, null);
+            Cursor query = context.getContentResolver().query(f25444a, null, null, null, null);
             if (query == null) {
                 return null;
             }
@@ -88,8 +89,8 @@ public class a {
             String string = query.getString(query.getColumnIndex("proxy"));
             query.close();
             return string;
-        } catch (SecurityException e10) {
-            com.tencent.open.a.f.e("openSDK_LOG.APNUtil", "getApnProxy has exception: " + e10.getMessage());
+        } catch (SecurityException e2) {
+            com.tencent.open.a.f.e("openSDK_LOG.APNUtil", "getApnProxy has exception: " + e2.getMessage());
             return "";
         }
     }
@@ -99,8 +100,8 @@ public class a {
         NetworkInfo activeNetworkInfo;
         try {
             connectivityManager = (ConnectivityManager) context.getSystemService("connectivity");
-        } catch (Exception e10) {
-            com.tencent.open.a.f.e("openSDK_LOG.APNUtil", "getMProxyType has exception: " + e10.getMessage());
+        } catch (Exception e2) {
+            com.tencent.open.a.f.e("openSDK_LOG.APNUtil", "getMProxyType has exception: " + e2.getMessage());
         }
         if (connectivityManager == null || (activeNetworkInfo = connectivityManager.getActiveNetworkInfo()) == null) {
             return 128;
@@ -122,7 +123,7 @@ public class a {
             if (lowerCase.startsWith("wap")) {
                 return 64;
             }
-            if (lowerCase.startsWith("net")) {
+            if (lowerCase.startsWith(TKDownloadReason.KSAD_TK_NET)) {
                 return 32;
             }
             if (lowerCase.startsWith("ctwap")) {
@@ -138,9 +139,9 @@ public class a {
                 return 2048;
             }
             if (lowerCase.startsWith("#777")) {
-                String c10 = c(context);
-                if (c10 != null) {
-                    if (c10.length() > 0) {
+                String c2 = c(context);
+                if (c2 != null) {
+                    if (c2.length() > 0) {
                         return 512;
                     }
                 }

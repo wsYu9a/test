@@ -7,43 +7,43 @@ import java.util.HashMap;
 public class b {
 
     /* renamed from: a */
-    public static b f22992a = null;
+    public static b f25268a = null;
 
     /* renamed from: d */
-    static final /* synthetic */ boolean f22993d = true;
+    static final /* synthetic */ boolean f25269d = true;
 
     /* renamed from: e */
-    private static int f22994e;
+    private static int f25270e;
 
     /* renamed from: b */
-    public HashMap<String, a> f22995b = new HashMap<>();
+    public HashMap<String, a> f25271b = new HashMap<>();
 
     /* renamed from: c */
-    public final String f22996c = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
+    public final String f25272c = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
 
     public static class a {
 
         /* renamed from: a */
-        public IUiListener f22997a;
+        public IUiListener f25273a;
 
         /* renamed from: b */
-        public com.tencent.connect.auth.a f22998b;
+        public com.tencent.connect.auth.a f25274b;
 
         /* renamed from: c */
-        public String f22999c;
+        public String f25275c;
     }
 
     public static b a() {
-        if (f22992a == null) {
-            f22992a = new b();
+        if (f25268a == null) {
+            f25268a = new b();
         }
-        return f22992a;
+        return f25268a;
     }
 
     public static int b() {
-        int i10 = f22994e + 1;
-        f22994e = i10;
-        return i10;
+        int i2 = f25270e + 1;
+        f25270e = i2;
+        return i2;
     }
 
     public String c() {
@@ -51,19 +51,22 @@ public class b {
         char[] charArray = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789".toCharArray();
         int length = charArray.length;
         StringBuffer stringBuffer = new StringBuffer();
-        for (int i10 = 0; i10 < ceil; i10++) {
-            stringBuffer.append(charArray[(int) (Math.random() * length)]);
+        for (int i2 = 0; i2 < ceil; i2++) {
+            double random = Math.random();
+            double d2 = length;
+            Double.isNaN(d2);
+            stringBuffer.append(charArray[(int) (random * d2)]);
         }
         return stringBuffer.toString();
     }
 
     public String a(a aVar) {
-        int b10 = b();
+        int b2 = b();
         try {
-            this.f22995b.put("" + b10, aVar);
-        } catch (Throwable th2) {
-            th2.printStackTrace();
+            this.f25271b.put("" + b2, aVar);
+        } catch (Throwable th) {
+            th.printStackTrace();
         }
-        return "" + b10;
+        return "" + b2;
     }
 }

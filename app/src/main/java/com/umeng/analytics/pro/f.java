@@ -1,173 +1,184 @@
 package com.umeng.analytics.pro;
 
-import com.czhj.sdk.common.Constants;
+import android.content.Context;
+import android.database.SQLException;
+import android.database.sqlite.SQLiteDatabase;
+import android.database.sqlite.SQLiteDatabaseCorruptException;
+import android.database.sqlite.SQLiteOpenHelper;
+import android.text.TextUtils;
+import com.umeng.analytics.pro.e;
 
 /* loaded from: classes4.dex */
-public class f {
-    public static final String A = "ts";
-    public static final String B = "locations";
-    public static final String C = "lat";
-    public static final String D = "lng";
-    public static final String E = "ts";
-    public static final String F = "traffic";
-    public static final String G = "upload_traffic";
-    public static final String H = "download_traffic";
-    public static final String I = "activate_msg";
-    public static final String J = "ts";
-    public static final String K = "group_info";
-    public static final String L = "active_user";
-    public static final String M = "provider";
-    public static final String N = "puid";
-    public static final String O = "_$!mobile";
-    public static final String P = "_$!email";
-    public static final String Q = "_#$$$";
-    public static final String R = "up";
-    public static final String S = "pk";
-    public static final String T = "pv";
-    public static final String U = "error";
-    public static final String V = "ts";
-    public static final String W = "error_source";
-    public static final String X = "context";
-    public static final String Y = "ekv";
-    public static final String Z = "gkv";
-
-    /* renamed from: a */
-    public static final String f23882a = "appkey";
-    public static final String aB = "_$pp";
-    public static final String aC = "session";
-    public static final String aD = "pageview";
-    public static final String aE = "versioncode";
-    public static final String aF = "versionname";
-    public static final String aG = "userlevel";
-    public static final String aH = "eof";
-    public static final String aI = "exception";
-
-    /* renamed from: aa */
-    public static final String f23883aa = "id";
-
-    /* renamed from: ab */
-    public static final String f23884ab = "ts";
-
-    /* renamed from: ad */
-    public static final String f23886ad = "userlevel";
-
-    /* renamed from: af */
-    public static final String f23888af = "dplus";
-
-    /* renamed from: ag */
-    public static final String f23889ag = "analytics";
-
-    /* renamed from: ah */
-    public static final String f23890ah = "push";
-
-    /* renamed from: ai */
-    public static final String f23891ai = "share";
-
-    /* renamed from: aj */
-    public static final String f23892aj = "content";
-
-    /* renamed from: ak */
-    public static final String f23893ak = "header";
-    public static final String al = "ds";
-    public static final String am = "pn";
-    public static final String an = "pro_ver";
-    public static final String ao = "1.0.0";
-    public static final String ap = "atm";
-    public static final String aq = "st";
-    public static final String at = "ekv_bl_ver";
-    public static final String au = "ekv_wl_ver";
-    public static final String av = "$ekv_bl_ver";
-    public static final String aw = "$ekv_wl_ver";
-    public static final String ax = "events";
+class f extends SQLiteOpenHelper {
 
     /* renamed from: b */
-    public static final String f23894b = "channel";
+    private static Context f25904b;
 
-    /* renamed from: c */
-    public static final String f23895c = "secret";
+    /* renamed from: a */
+    private String f25905a;
 
-    /* renamed from: d */
-    public static final String f23896d = "app_version";
+    private static class a {
 
-    /* renamed from: e */
-    public static final String f23897e = "version_code";
+        /* renamed from: a */
+        private static final f f25906a = new f(f.f25904b, h.b(f.f25904b), e.f25842b, null, 2);
 
-    /* renamed from: f */
-    public static final String f23898f = "wrapper_type";
+        private a() {
+        }
+    }
 
-    /* renamed from: g */
-    public static final String f23899g = "wrapper_version";
+    /* synthetic */ f(Context context, String str, String str2, SQLiteDatabase.CursorFactory cursorFactory, int i2, AnonymousClass1 anonymousClass1) {
+        this(context, str, str2, cursorFactory, i2);
+    }
 
-    /* renamed from: h */
-    public static final String f23900h = "sdk_version";
+    public static f a(Context context) {
+        if (f25904b == null) {
+            f25904b = context.getApplicationContext();
+        }
+        return a.f25906a;
+    }
 
-    /* renamed from: i */
-    public static final String f23901i = "vertical_type";
+    private void c(SQLiteDatabase sQLiteDatabase) {
+        try {
+            this.f25905a = "create table if not exists __sd(id INTEGER primary key autoincrement, __ii TEXT unique, __a TEXT, __b TEXT, __c TEXT, __d TEXT, __e TEXT, __f TEXT, __g TEXT, __sp TEXT, __pp TEXT, __av TEXT, __vc TEXT)";
+            sQLiteDatabase.execSQL("create table if not exists __sd(id INTEGER primary key autoincrement, __ii TEXT unique, __a TEXT, __b TEXT, __c TEXT, __d TEXT, __e TEXT, __f TEXT, __g TEXT, __sp TEXT, __pp TEXT, __av TEXT, __vc TEXT)");
+        } catch (SQLException unused) {
+        }
+    }
 
-    /* renamed from: j */
-    public static final String f23902j = "device_id";
+    private void d(SQLiteDatabase sQLiteDatabase) {
+        try {
+            this.f25905a = "create table if not exists __is(id INTEGER primary key autoincrement, __ii TEXT unique, __e TEXT, __sp TEXT, __pp TEXT, __av TEXT, __vc TEXT)";
+            sQLiteDatabase.execSQL("create table if not exists __is(id INTEGER primary key autoincrement, __ii TEXT unique, __e TEXT, __sp TEXT, __pp TEXT, __av TEXT, __vc TEXT)");
+        } catch (SQLException unused) {
+        }
+    }
 
-    /* renamed from: k */
-    public static final String f23903k = "device_model";
+    private void e(SQLiteDatabase sQLiteDatabase) {
+        if (!h.a(sQLiteDatabase, e.d.f25883a, "__av")) {
+            h.a(sQLiteDatabase, e.d.f25883a, "__sp", "TEXT");
+            h.a(sQLiteDatabase, e.d.f25883a, "__pp", "TEXT");
+            h.a(sQLiteDatabase, e.d.f25883a, "__av", "TEXT");
+            h.a(sQLiteDatabase, e.d.f25883a, "__vc", "TEXT");
+        }
+        if (!h.a(sQLiteDatabase, e.b.f25857a, "__av")) {
+            h.a(sQLiteDatabase, e.b.f25857a, "__av", "TEXT");
+            h.a(sQLiteDatabase, e.b.f25857a, "__vc", "TEXT");
+        }
+        if (h.a(sQLiteDatabase, e.a.f25846a, "__av")) {
+            return;
+        }
+        h.a(sQLiteDatabase, e.a.f25846a, "__av", "TEXT");
+        h.a(sQLiteDatabase, e.a.f25846a, "__vc", "TEXT");
+    }
 
-    /* renamed from: l */
-    public static final String f23904l = "$pr_ve";
+    private void f(SQLiteDatabase sQLiteDatabase) {
+        a(sQLiteDatabase, e.d.f25883a);
+        a(sQLiteDatabase, e.b.f25857a);
+        a(sQLiteDatabase, e.a.f25846a);
+        a();
+    }
 
-    /* renamed from: m */
-    public static final String f23905m = "$ud_da";
+    @Override // android.database.sqlite.SQLiteOpenHelper
+    public void onCreate(SQLiteDatabase sQLiteDatabase) {
+        try {
+            try {
+                sQLiteDatabase.beginTransaction();
+                c(sQLiteDatabase);
+                d(sQLiteDatabase);
+                b(sQLiteDatabase);
+                a(sQLiteDatabase);
+                sQLiteDatabase.setTransactionSuccessful();
+            } catch (SQLiteDatabaseCorruptException unused) {
+                h.a(f25904b);
+                if (sQLiteDatabase == null) {
+                    return;
+                }
+            } catch (Throwable unused2) {
+                if (sQLiteDatabase == null) {
+                    return;
+                }
+            }
+            try {
+                sQLiteDatabase.endTransaction();
+            } catch (Throwable unused3) {
+            }
+        } catch (Throwable th) {
+            if (sQLiteDatabase != null) {
+                try {
+                    sQLiteDatabase.endTransaction();
+                } catch (Throwable unused4) {
+                }
+            }
+            throw th;
+        }
+    }
 
-    /* renamed from: n */
-    public static final String f23906n = "sessions";
+    @Override // android.database.sqlite.SQLiteOpenHelper
+    public void onUpgrade(SQLiteDatabase sQLiteDatabase, int i2, int i3) {
+        if (i3 <= i2 || i2 != 1) {
+            return;
+        }
+        try {
+            try {
+                e(sQLiteDatabase);
+            } catch (Exception unused) {
+                e(sQLiteDatabase);
+            }
+        } catch (Exception unused2) {
+            f(sQLiteDatabase);
+        }
+    }
 
-    /* renamed from: o */
-    public static final String f23907o = "id";
+    private f(Context context, String str, String str2, SQLiteDatabase.CursorFactory cursorFactory, int i2) {
+        this(new c(context, str), str2, cursorFactory, i2);
+    }
 
-    /* renamed from: p */
-    public static final String f23908p = "start_time";
+    private void b(SQLiteDatabase sQLiteDatabase) {
+        try {
+            this.f25905a = "create table if not exists __et(id INTEGER primary key autoincrement, __i TEXT, __e TEXT, __s TEXT, __t INTEGER, __av TEXT, __vc TEXT)";
+            sQLiteDatabase.execSQL("create table if not exists __et(id INTEGER primary key autoincrement, __i TEXT, __e TEXT, __s TEXT, __t INTEGER, __av TEXT, __vc TEXT)");
+        } catch (SQLException unused) {
+        }
+    }
 
-    /* renamed from: q */
-    public static final String f23909q = "end_time";
+    private f(Context context, String str, SQLiteDatabase.CursorFactory cursorFactory, int i2) {
+        super(context, TextUtils.isEmpty(str) ? e.f25842b : str, cursorFactory, i2);
+        this.f25905a = null;
+        a();
+    }
 
-    /* renamed from: r */
-    public static final String f23910r = "duration";
+    public void a() {
+        try {
+            SQLiteDatabase writableDatabase = getWritableDatabase();
+            if (!h.a(e.d.f25883a, writableDatabase)) {
+                c(writableDatabase);
+            }
+            if (!h.a(e.c.f25870a, writableDatabase)) {
+                d(writableDatabase);
+            }
+            if (!h.a(e.b.f25857a, writableDatabase)) {
+                b(writableDatabase);
+            }
+            if (h.a(e.a.f25846a, writableDatabase)) {
+                return;
+            }
+            a(writableDatabase);
+        } catch (Exception unused) {
+        }
+    }
 
-    /* renamed from: s */
-    public static final String f23911s = "duration_old";
+    private void a(SQLiteDatabase sQLiteDatabase) {
+        try {
+            this.f25905a = "create table if not exists __er(id INTEGER primary key autoincrement, __i TEXT, __a TEXT, __t INTEGER, __av TEXT, __vc TEXT)";
+            sQLiteDatabase.execSQL("create table if not exists __er(id INTEGER primary key autoincrement, __i TEXT, __a TEXT, __t INTEGER, __av TEXT, __vc TEXT)");
+        } catch (SQLException unused) {
+        }
+    }
 
-    /* renamed from: t */
-    public static final String f23912t = "pages";
-
-    /* renamed from: u */
-    public static final String f23913u = "autopages";
-
-    /* renamed from: v */
-    public static final String f23914v = "page_name";
-
-    /* renamed from: w */
-    public static final String f23915w = "duration";
-
-    /* renamed from: x */
-    public static final String f23916x = "page_start";
-
-    /* renamed from: y */
-    public static final String f23917y = "type";
-
-    /* renamed from: z */
-    public static final String f23918z = "$page_num";
-    public static final String ar = bd.b().b(bd.f23540t);
-    public static final String as = bd.b().b(bd.f23541u);
-    public static final String aJ = "_$!deep_link";
-    public static final String aK = "_$!link";
-    public static final String[] aL = {aJ, aK};
-
-    /* renamed from: ac */
-    public static final String f23885ac = "du";
-
-    /* renamed from: ae */
-    public static final String f23887ae = "$st_fl";
-    public static final String aA = "_$sp";
-    public static final String[] aM = {"id", "ts", f23885ac, f23887ae, "ds", "pn", aA};
-    public static final String ay = "_$!ts";
-    public static final String az = "_$!id";
-    public static final String[] aN = {ay, az, "_$!du", "_$!c", f23887ae, "_$!sp", "event_name", Constants.TOKEN, "time", "ip", bt.O, "region", "city", "browser", bt.f23628x, bt.F, "device_version", bt.f23592ai, "screen_width", "screen_height", "referrer", "referrer_domain", "initial_referrer", "initial_referrer_domain", "initial_view_time", "search_engine", "keyword", "ali_lib", "utm_source", "utm_medium", "utm_term", "utm_content", "utm_campaign", "date", "hour", "minute", "app_version", "sp"};
+    private void a(SQLiteDatabase sQLiteDatabase, String str) {
+        try {
+            sQLiteDatabase.execSQL("DROP TABLE IF EXISTS " + str);
+        } catch (SQLException unused) {
+        }
+    }
 }

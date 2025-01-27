@@ -1,6 +1,6 @@
 package com.martian.mibook.lib.yuewen.response;
 
-/* loaded from: classes3.dex */
+/* loaded from: classes4.dex */
 public class YWSubCategory {
     private Integer subCategoryId;
     private String subCategoryName;
@@ -17,11 +17,11 @@ public class YWSubCategory {
         return this.subCategoryName;
     }
 
-    public void setSubCategoryId(Integer num) {
-        this.subCategoryId = num;
+    public void setSubCategoryId(Integer subCategoryId) {
+        this.subCategoryId = subCategoryId;
     }
 
-    public void setSubCategoryName(String str) {
-        this.subCategoryName = str;
+    public void setSubCategoryName(String subCategoryName) {
+        this.subCategoryName = subCategoryName;
     }
 }

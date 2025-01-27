@@ -9,7 +9,7 @@ import com.bytedance.pangle.apm.ApmUtils;
 import java.util.Arrays;
 
 @Keep
-/* loaded from: classes2.dex */
+/* loaded from: classes.dex */
 public class ZeusLogger {
     public static final String TAG = "Zeus_pangle";
     public static final String TAG_ACTIVITY = "Zeus/activity_pangle";
@@ -27,7 +27,7 @@ public class ZeusLogger {
     public static final String TAG_SERVICE = "Zeus/service_pangle";
     public static final String TAG_SO = "Zeus/so_pangle";
     private static boolean sDebug = true;
-    private static boolean sEnableTrace = false;
+    private static boolean sEnableTrace;
 
     public static void d(String str) {
         d(null, str);
@@ -41,27 +41,26 @@ public class ZeusLogger {
     }
 
     private static String getTraceInfo() {
-        StackTraceElement stackTraceElement;
         try {
             StackTraceElement[] stackTrace = new Throwable().getStackTrace();
-            int i10 = 1;
+            StackTraceElement stackTraceElement = null;
+            int i2 = 1;
             while (true) {
-                if (i10 >= stackTrace.length) {
-                    stackTraceElement = null;
+                if (i2 >= stackTrace.length) {
                     break;
                 }
-                if (!TextUtils.equals(stackTrace[i10].getClassName(), ZeusLogger.class.getName())) {
-                    stackTraceElement = stackTrace[i10];
+                if (!TextUtils.equals(stackTrace[i2].getClassName(), ZeusLogger.class.getName())) {
+                    stackTraceElement = stackTrace[i2];
                     break;
                 }
-                i10++;
+                i2++;
             }
             if (stackTraceElement == null) {
                 return "\t\t[No Trace Info]";
             }
             return "\t\t[" + stackTraceElement.toString() + "]";
-        } catch (Exception e10) {
-            e10.printStackTrace();
+        } catch (Exception e2) {
+            e2.printStackTrace();
             return "\t\t[No Trace Info]";
         }
     }
@@ -85,12 +84,12 @@ public class ZeusLogger {
         return str + getTraceInfo();
     }
 
-    public static void setDebug(boolean z10) {
-        sDebug = z10;
+    public static void setDebug(boolean z) {
+        sDebug = z;
     }
 
-    public static void setEnableTrace(boolean z10) {
-        sEnableTrace = z10;
+    public static void setEnableTrace(boolean z) {
+        sEnableTrace = z;
     }
 
     public static void v(String str) {
@@ -107,7 +106,6 @@ public class ZeusLogger {
 
     public static void i(String str, String str2) {
         String prefixTraceInfo = prefixTraceInfo(str2);
-        GlobalParam.getInstance().getReporter().saveRecord(str, prefixTraceInfo);
         if (sDebug) {
             Log.i(str, prefixTraceInfo);
         } else if (GlobalParam.getInstance().getLogger() != null) {
@@ -117,7 +115,6 @@ public class ZeusLogger {
 
     public static void v(String str, String str2) {
         String prefixTraceInfo = prefixTraceInfo(str2);
-        GlobalParam.getInstance().getReporter().saveRecord(str, prefixTraceInfo);
         if (sDebug) {
             Log.v(str, prefixTraceInfo);
         } else if (GlobalParam.getInstance().getLogger() != null) {
@@ -127,7 +124,6 @@ public class ZeusLogger {
 
     public static void w(String str, String str2) {
         String prefixTraceInfo = prefixTraceInfo(str2);
-        GlobalParam.getInstance().getReporter().saveRecord(str, prefixTraceInfo);
         if (sDebug) {
             Log.w(str, prefixTraceInfo);
         } else if (GlobalParam.getInstance().getLogger() != null) {
@@ -135,27 +131,25 @@ public class ZeusLogger {
         }
     }
 
-    public static void errReport(String str, String str2, @NonNull Throwable th2) {
-        errReport(str, str2, th2, true);
+    public static void errReport(String str, String str2, @NonNull Throwable th) {
+        errReport(str, str2, th, true);
     }
 
-    private static void errReport(String str, String str2, @NonNull Throwable th2, boolean z10) {
-        GlobalParam.getInstance().getReporter().saveRecord(str, str2 + " ; " + th2);
+    private static void errReport(String str, String str2, @NonNull Throwable th, boolean z) {
         if (sDebug) {
-            Log.e(str, str2, z10 ? th2 : null);
+            Log.e(str, str2, z ? th : null);
         } else if (GlobalParam.getInstance().getLogger() != null) {
-            GlobalParam.getInstance().getLogger().e(str, str2, z10 ? th2 : null);
+            GlobalParam.getInstance().getLogger().e(str, str2, z ? th : null);
         }
-        ApmUtils.getApmInstance().reportError(str2, th2);
+        ApmUtils.getApmInstance().reportError(str2, th);
     }
 
-    public static void w(String str, String str2, Throwable th2) {
+    public static void w(String str, String str2, Throwable th) {
         String prefixTraceInfo = prefixTraceInfo(str2);
-        GlobalParam.getInstance().getReporter().saveRecord(str, prefixTraceInfo + " ; " + th2);
         if (sDebug) {
-            Log.w(str, prefixTraceInfo, th2);
+            Log.w(str, prefixTraceInfo, th);
         } else if (GlobalParam.getInstance().getLogger() != null) {
-            GlobalParam.getInstance().getLogger().w(str, prefixTraceInfo, th2);
+            GlobalParam.getInstance().getLogger().w(str, prefixTraceInfo, th);
         }
     }
 }

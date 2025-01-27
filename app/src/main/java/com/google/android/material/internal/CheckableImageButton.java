@@ -8,6 +8,7 @@ import android.util.AttributeSet;
 import android.view.View;
 import android.view.accessibility.AccessibilityEvent;
 import android.widget.Checkable;
+import android.widget.ImageButton;
 import androidx.annotation.NonNull;
 import androidx.annotation.RestrictTo;
 import androidx.appcompat.widget.AppCompatImageButton;
@@ -17,16 +18,23 @@ import androidx.core.view.accessibility.AccessibilityNodeInfoCompat;
 import androidx.customview.view.AbsSavedState;
 
 @RestrictTo({RestrictTo.Scope.LIBRARY_GROUP})
-/* loaded from: classes2.dex */
+/* loaded from: classes.dex */
 public class CheckableImageButton extends AppCompatImageButton implements Checkable {
-    private static final int[] DRAWABLE_STATE_CHECKED = {R.attr.state_checked};
-    private boolean checkable;
-    private boolean checked;
-    private boolean pressable;
 
-    /* renamed from: com.google.android.material.internal.CheckableImageButton$1 */
-    public class AnonymousClass1 extends AccessibilityDelegateCompat {
-        public AnonymousClass1() {
+    /* renamed from: c */
+    private static final int[] f7287c = {R.attr.state_checked};
+
+    /* renamed from: d */
+    private boolean f7288d;
+
+    /* renamed from: e */
+    private boolean f7289e;
+
+    /* renamed from: f */
+    private boolean f7290f;
+
+    class a extends AccessibilityDelegateCompat {
+        a() {
         }
 
         @Override // androidx.core.view.AccessibilityDelegateCompat
@@ -38,71 +46,60 @@ public class CheckableImageButton extends AppCompatImageButton implements Checka
         @Override // androidx.core.view.AccessibilityDelegateCompat
         public void onInitializeAccessibilityNodeInfo(View view, @NonNull AccessibilityNodeInfoCompat accessibilityNodeInfoCompat) {
             super.onInitializeAccessibilityNodeInfo(view, accessibilityNodeInfoCompat);
-            accessibilityNodeInfoCompat.setCheckable(CheckableImageButton.this.isCheckable());
+            accessibilityNodeInfoCompat.setCheckable(CheckableImageButton.this.a());
             accessibilityNodeInfoCompat.setChecked(CheckableImageButton.this.isChecked());
         }
     }
 
-    public static class SavedState extends AbsSavedState {
-        public static final Parcelable.Creator<SavedState> CREATOR = new Parcelable.ClassLoaderCreator<SavedState>() { // from class: com.google.android.material.internal.CheckableImageButton.SavedState.1
+    static class b extends AbsSavedState {
+        public static final Parcelable.Creator<b> CREATOR = new a();
+
+        /* renamed from: b */
+        boolean f7292b;
+
+        static class a implements Parcelable.ClassLoaderCreator<b> {
+            a() {
+            }
+
             @Override // android.os.Parcelable.Creator
             @NonNull
-            public SavedState[] newArray(int i10) {
-                return new SavedState[i10];
+            /* renamed from: a */
+            public b createFromParcel(@NonNull Parcel parcel) {
+                return new b(parcel, null);
             }
 
             @Override // android.os.Parcelable.ClassLoaderCreator
             @NonNull
-            public SavedState createFromParcel(@NonNull Parcel parcel, ClassLoader classLoader) {
-                return new SavedState(parcel, classLoader);
+            /* renamed from: b */
+            public b createFromParcel(@NonNull Parcel parcel, ClassLoader classLoader) {
+                return new b(parcel, classLoader);
             }
 
             @Override // android.os.Parcelable.Creator
             @NonNull
-            public SavedState createFromParcel(@NonNull Parcel parcel) {
-                return new SavedState(parcel, null);
-            }
-        };
-        boolean checked;
-
-        /* renamed from: com.google.android.material.internal.CheckableImageButton$SavedState$1 */
-        public static class AnonymousClass1 implements Parcelable.ClassLoaderCreator<SavedState> {
-            @Override // android.os.Parcelable.Creator
-            @NonNull
-            public SavedState[] newArray(int i10) {
-                return new SavedState[i10];
-            }
-
-            @Override // android.os.Parcelable.ClassLoaderCreator
-            @NonNull
-            public SavedState createFromParcel(@NonNull Parcel parcel, ClassLoader classLoader) {
-                return new SavedState(parcel, classLoader);
-            }
-
-            @Override // android.os.Parcelable.Creator
-            @NonNull
-            public SavedState createFromParcel(@NonNull Parcel parcel) {
-                return new SavedState(parcel, null);
+            /* renamed from: c */
+            public b[] newArray(int i2) {
+                return new b[i2];
             }
         }
 
-        public SavedState(Parcelable parcelable) {
+        public b(Parcelable parcelable) {
             super(parcelable);
         }
 
-        private void readFromParcel(@NonNull Parcel parcel) {
-            this.checked = parcel.readInt() == 1;
+        private void a(@NonNull Parcel parcel) {
+            this.f7292b = parcel.readInt() == 1;
         }
 
         @Override // androidx.customview.view.AbsSavedState, android.os.Parcelable
-        public void writeToParcel(@NonNull Parcel parcel, int i10) {
-            super.writeToParcel(parcel, i10);
-            parcel.writeInt(this.checked ? 1 : 0);
+        public void writeToParcel(@NonNull Parcel parcel, int i2) {
+            super.writeToParcel(parcel, i2);
+            parcel.writeInt(this.f7292b ? 1 : 0);
         }
 
-        public SavedState(@NonNull Parcel parcel, ClassLoader classLoader) {
+        public b(@NonNull Parcel parcel, ClassLoader classLoader) {
             super(parcel, classLoader);
-            readFromParcel(parcel);
+            a(parcel);
         }
     }
 
@@ -110,104 +107,88 @@ public class CheckableImageButton extends AppCompatImageButton implements Checka
         this(context, null);
     }
 
-    public boolean isCheckable() {
-        return this.checkable;
+    public boolean a() {
+        return this.f7289e;
+    }
+
+    public boolean b() {
+        return this.f7290f;
     }
 
     @Override // android.widget.Checkable
     public boolean isChecked() {
-        return this.checked;
-    }
-
-    public boolean isPressable() {
-        return this.pressable;
+        return this.f7288d;
     }
 
     @Override // android.widget.ImageView, android.view.View
-    public int[] onCreateDrawableState(int i10) {
-        if (!this.checked) {
-            return super.onCreateDrawableState(i10);
+    public int[] onCreateDrawableState(int i2) {
+        if (!this.f7288d) {
+            return super.onCreateDrawableState(i2);
         }
-        int[] iArr = DRAWABLE_STATE_CHECKED;
-        return View.mergeDrawableStates(super.onCreateDrawableState(i10 + iArr.length), iArr);
+        int[] iArr = f7287c;
+        return ImageButton.mergeDrawableStates(super.onCreateDrawableState(i2 + iArr.length), iArr);
     }
 
     @Override // android.view.View
-    public void onRestoreInstanceState(Parcelable parcelable) {
-        if (!(parcelable instanceof SavedState)) {
+    protected void onRestoreInstanceState(Parcelable parcelable) {
+        if (!(parcelable instanceof b)) {
             super.onRestoreInstanceState(parcelable);
             return;
         }
-        SavedState savedState = (SavedState) parcelable;
-        super.onRestoreInstanceState(savedState.getSuperState());
-        setChecked(savedState.checked);
+        b bVar = (b) parcelable;
+        super.onRestoreInstanceState(bVar.getSuperState());
+        setChecked(bVar.f7292b);
     }
 
     @Override // android.view.View
     @NonNull
-    public Parcelable onSaveInstanceState() {
-        SavedState savedState = new SavedState(super.onSaveInstanceState());
-        savedState.checked = this.checked;
-        return savedState;
+    protected Parcelable onSaveInstanceState() {
+        b bVar = new b(super.onSaveInstanceState());
+        bVar.f7292b = this.f7288d;
+        return bVar;
     }
 
-    public void setCheckable(boolean z10) {
-        if (this.checkable != z10) {
-            this.checkable = z10;
+    public void setCheckable(boolean z) {
+        if (this.f7289e != z) {
+            this.f7289e = z;
             sendAccessibilityEvent(0);
         }
     }
 
     @Override // android.widget.Checkable
-    public void setChecked(boolean z10) {
-        if (!this.checkable || this.checked == z10) {
+    public void setChecked(boolean z) {
+        if (!this.f7289e || this.f7288d == z) {
             return;
         }
-        this.checked = z10;
+        this.f7288d = z;
         refreshDrawableState();
         sendAccessibilityEvent(2048);
     }
 
-    public void setPressable(boolean z10) {
-        this.pressable = z10;
+    public void setPressable(boolean z) {
+        this.f7290f = z;
     }
 
     @Override // android.view.View
-    public void setPressed(boolean z10) {
-        if (this.pressable) {
-            super.setPressed(z10);
+    public void setPressed(boolean z) {
+        if (this.f7290f) {
+            super.setPressed(z);
         }
     }
 
     @Override // android.widget.Checkable
     public void toggle() {
-        setChecked(!this.checked);
+        setChecked(!this.f7288d);
     }
 
     public CheckableImageButton(Context context, AttributeSet attributeSet) {
         this(context, attributeSet, androidx.appcompat.R.attr.imageButtonStyle);
     }
 
-    public CheckableImageButton(Context context, AttributeSet attributeSet, int i10) {
-        super(context, attributeSet, i10);
-        this.checkable = true;
-        this.pressable = true;
-        ViewCompat.setAccessibilityDelegate(this, new AccessibilityDelegateCompat() { // from class: com.google.android.material.internal.CheckableImageButton.1
-            public AnonymousClass1() {
-            }
-
-            @Override // androidx.core.view.AccessibilityDelegateCompat
-            public void onInitializeAccessibilityEvent(View view, @NonNull AccessibilityEvent accessibilityEvent) {
-                super.onInitializeAccessibilityEvent(view, accessibilityEvent);
-                accessibilityEvent.setChecked(CheckableImageButton.this.isChecked());
-            }
-
-            @Override // androidx.core.view.AccessibilityDelegateCompat
-            public void onInitializeAccessibilityNodeInfo(View view, @NonNull AccessibilityNodeInfoCompat accessibilityNodeInfoCompat) {
-                super.onInitializeAccessibilityNodeInfo(view, accessibilityNodeInfoCompat);
-                accessibilityNodeInfoCompat.setCheckable(CheckableImageButton.this.isCheckable());
-                accessibilityNodeInfoCompat.setChecked(CheckableImageButton.this.isChecked());
-            }
-        });
+    public CheckableImageButton(Context context, AttributeSet attributeSet, int i2) {
+        super(context, attributeSet, i2);
+        this.f7289e = true;
+        this.f7290f = true;
+        ViewCompat.setAccessibilityDelegate(this, new a());
     }
 }

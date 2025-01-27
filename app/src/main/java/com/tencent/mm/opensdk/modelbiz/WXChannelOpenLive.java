@@ -60,6 +60,10 @@ public class WXChannelOpenLive {
         public Resp() {
         }
 
+        public Resp(Bundle bundle) {
+            fromBundle(bundle);
+        }
+
         @Override // com.tencent.mm.opensdk.modelbase.BaseResp
         public boolean checkArgs() {
             return true;
@@ -80,10 +84,6 @@ public class WXChannelOpenLive {
         public void toBundle(Bundle bundle) {
             super.toBundle(bundle);
             bundle.putString("_wxapi_finder_extMsg", this.extMsg);
-        }
-
-        public Resp(Bundle bundle) {
-            fromBundle(bundle);
         }
     }
 }

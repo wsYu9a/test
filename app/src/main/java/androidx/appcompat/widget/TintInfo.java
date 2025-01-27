@@ -12,7 +12,7 @@ public class TintInfo {
     public ColorStateList mTintList;
     public PorterDuff.Mode mTintMode;
 
-    public void clear() {
+    void a() {
         this.mTintList = null;
         this.mHasTintList = false;
         this.mTintMode = null;

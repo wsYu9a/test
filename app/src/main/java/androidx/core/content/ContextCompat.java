@@ -1,7 +1,6 @@
 package androidx.core.content;
 
 import android.accounts.AccountManager;
-import android.annotation.SuppressLint;
 import android.app.ActivityManager;
 import android.app.AlarmManager;
 import android.app.AppOpsManager;
@@ -16,12 +15,9 @@ import android.app.job.JobScheduler;
 import android.app.usage.UsageStatsManager;
 import android.appwidget.AppWidgetManager;
 import android.bluetooth.BluetoothManager;
-import android.content.BroadcastReceiver;
 import android.content.ClipboardManager;
-import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
-import android.content.IntentFilter;
 import android.content.RestrictionsManager;
 import android.content.pm.LauncherApps;
 import android.content.res.ColorStateList;
@@ -55,8 +51,8 @@ import android.os.Vibrator;
 import android.os.storage.StorageManager;
 import android.print.PrintManager;
 import android.telecom.TelecomManager;
+import android.telephony.SubscriptionManager;
 import android.telephony.TelephonyManager;
-import android.text.TextUtils;
 import android.util.Log;
 import android.util.TypedValue;
 import android.view.LayoutInflater;
@@ -67,220 +63,73 @@ import android.view.inputmethod.InputMethodManager;
 import android.view.textservice.TextServicesManager;
 import androidx.annotation.ColorInt;
 import androidx.annotation.ColorRes;
-import androidx.annotation.DoNotInline;
 import androidx.annotation.DrawableRes;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.annotation.OptIn;
-import androidx.annotation.RequiresApi;
-import androidx.annotation.RestrictTo;
 import androidx.core.app.NotificationCompat;
-import androidx.core.app.NotificationManagerCompat;
-import androidx.core.content.res.ResourcesCompat;
-import androidx.core.os.BuildCompat;
-import androidx.core.os.ExecutorCompat;
-import androidx.core.util.ObjectsCompat;
+import com.alipay.mobilesecuritysdk.constant.a;
 import com.bytedance.sdk.openadsdk.downloadnew.core.TTDownloadField;
-import com.ss.android.download.api.constant.BaseConstants;
-import com.umeng.analytics.pro.bd;
-import com.umeng.analytics.pro.bt;
+import com.umeng.analytics.pro.am;
 import java.io.File;
-import java.lang.annotation.Retention;
-import java.lang.annotation.RetentionPolicy;
 import java.util.HashMap;
 import java.util.concurrent.Executor;
+import java.util.concurrent.RejectedExecutionException;
 
-@SuppressLint({"PrivateConstructorForUtilityClass"})
 /* loaded from: classes.dex */
 public class ContextCompat {
-    private static final String DYNAMIC_RECEIVER_NOT_EXPORTED_PERMISSION_SUFFIX = ".DYNAMIC_RECEIVER_NOT_EXPORTED_PERMISSION";
-    public static final int RECEIVER_EXPORTED = 2;
-    public static final int RECEIVER_NOT_EXPORTED = 4;
-    public static final int RECEIVER_VISIBLE_TO_INSTANT_APPS = 1;
-    private static final String TAG = "ContextCompat";
-    private static final Object sLock = new Object();
-    private static final Object sSync = new Object();
-    private static TypedValue sTempValue;
 
-    @RequiresApi(16)
-    public static class Api16Impl {
-        private Api16Impl() {
-        }
+    /* renamed from: a, reason: collision with root package name */
+    private static final String f1668a = "ContextCompat";
 
-        @DoNotInline
-        public static void startActivities(Context context, Intent[] intentArr, Bundle bundle) {
-            context.startActivities(intentArr, bundle);
-        }
+    /* renamed from: b, reason: collision with root package name */
+    private static final Object f1669b = new Object();
 
-        @DoNotInline
-        public static void startActivity(Context context, Intent intent, Bundle bundle) {
-            context.startActivity(intent, bundle);
-        }
-    }
+    /* renamed from: c, reason: collision with root package name */
+    private static TypedValue f1670c;
 
-    @RequiresApi(19)
-    public static class Api19Impl {
-        private Api19Impl() {
-        }
+    private static final class LegacyServiceMapHolder {
 
-        @DoNotInline
-        public static File[] getExternalCacheDirs(Context context) {
-            return context.getExternalCacheDirs();
-        }
-
-        @DoNotInline
-        public static File[] getExternalFilesDirs(Context context, String str) {
-            return context.getExternalFilesDirs(str);
-        }
-
-        @DoNotInline
-        public static File[] getObbDirs(Context context) {
-            return context.getObbDirs();
-        }
-    }
-
-    @RequiresApi(21)
-    public static class Api21Impl {
-        private Api21Impl() {
-        }
-
-        @DoNotInline
-        public static File getCodeCacheDir(Context context) {
-            return context.getCodeCacheDir();
-        }
-
-        @DoNotInline
-        public static Drawable getDrawable(Context context, int i10) {
-            return context.getDrawable(i10);
-        }
-
-        @DoNotInline
-        public static File getNoBackupFilesDir(Context context) {
-            return context.getNoBackupFilesDir();
-        }
-    }
-
-    @RequiresApi(23)
-    public static class Api23Impl {
-        private Api23Impl() {
-        }
-
-        @DoNotInline
-        public static int getColor(Context context, int i10) {
-            return context.getColor(i10);
-        }
-
-        @DoNotInline
-        public static <T> T getSystemService(Context context, Class<T> cls) {
-            return (T) context.getSystemService(cls);
-        }
-
-        @DoNotInline
-        public static String getSystemServiceName(Context context, Class<?> cls) {
-            return context.getSystemServiceName(cls);
-        }
-    }
-
-    @RequiresApi(24)
-    public static class Api24Impl {
-        private Api24Impl() {
-        }
-
-        @DoNotInline
-        public static Context createDeviceProtectedStorageContext(Context context) {
-            return context.createDeviceProtectedStorageContext();
-        }
-
-        @DoNotInline
-        public static File getDataDir(Context context) {
-            return context.getDataDir();
-        }
-
-        @DoNotInline
-        public static boolean isDeviceProtectedStorage(Context context) {
-            return context.isDeviceProtectedStorage();
-        }
-    }
-
-    @RequiresApi(26)
-    public static class Api26Impl {
-        private Api26Impl() {
-        }
-
-        @DoNotInline
-        public static Intent registerReceiver(Context context, @Nullable BroadcastReceiver broadcastReceiver, IntentFilter intentFilter, String str, Handler handler, int i10) {
-            return ((i10 & 4) == 0 || str != null) ? context.registerReceiver(broadcastReceiver, intentFilter, str, handler, i10 & 1) : context.registerReceiver(broadcastReceiver, intentFilter, ContextCompat.obtainAndCheckReceiverPermission(context), handler);
-        }
-
-        @DoNotInline
-        public static ComponentName startForegroundService(Context context, Intent intent) {
-            return context.startForegroundService(intent);
-        }
-    }
-
-    @RequiresApi(28)
-    public static class Api28Impl {
-        private Api28Impl() {
-        }
-
-        @DoNotInline
-        public static Executor getMainExecutor(Context context) {
-            return context.getMainExecutor();
-        }
-    }
-
-    @RequiresApi(30)
-    public static class Api30Impl {
-        private Api30Impl() {
-        }
-
-        @DoNotInline
-        public static String getAttributionTag(Context context) {
-            return context.getAttributionTag();
-        }
-    }
-
-    @RequiresApi(33)
-    public static class Api33Impl {
-        private Api33Impl() {
-        }
-
-        @DoNotInline
-        public static Intent registerReceiver(Context context, @Nullable BroadcastReceiver broadcastReceiver, IntentFilter intentFilter, String str, Handler handler, int i10) {
-            return context.registerReceiver(broadcastReceiver, intentFilter, str, handler, i10);
-        }
-    }
-
-    public static final class LegacyServiceMapHolder {
-        static final HashMap<Class<?>, String> SERVICES;
+        /* renamed from: a, reason: collision with root package name */
+        static final HashMap<Class<?>, String> f1671a;
 
         static {
             HashMap<Class<?>, String> hashMap = new HashMap<>();
-            SERVICES = hashMap;
-            if (Build.VERSION.SDK_INT >= 22) {
-                hashMap.put(r.a.a(), "telephony_subscription_service");
+            f1671a = hashMap;
+            int i2 = Build.VERSION.SDK_INT;
+            if (i2 >= 22) {
+                hashMap.put(SubscriptionManager.class, "telephony_subscription_service");
                 hashMap.put(UsageStatsManager.class, "usagestats");
             }
-            hashMap.put(AppWidgetManager.class, "appwidget");
-            hashMap.put(BatteryManager.class, "batterymanager");
-            hashMap.put(CameraManager.class, "camera");
-            hashMap.put(JobScheduler.class, "jobscheduler");
-            hashMap.put(LauncherApps.class, "launcherapps");
-            hashMap.put(MediaProjectionManager.class, "media_projection");
-            hashMap.put(MediaSessionManager.class, "media_session");
-            hashMap.put(RestrictionsManager.class, "restrictions");
-            hashMap.put(TelecomManager.class, "telecom");
-            hashMap.put(TvInputManager.class, "tv_input");
-            hashMap.put(AppOpsManager.class, "appops");
-            hashMap.put(CaptioningManager.class, "captioning");
-            hashMap.put(ConsumerIrManager.class, "consumer_ir");
-            hashMap.put(PrintManager.class, "print");
-            hashMap.put(BluetoothManager.class, "bluetooth");
-            hashMap.put(DisplayManager.class, "display");
-            hashMap.put(UserManager.class, bd.f23533m);
-            hashMap.put(InputManager.class, "input");
-            hashMap.put(MediaRouter.class, "media_router");
-            hashMap.put(NsdManager.class, "servicediscovery");
+            if (i2 >= 21) {
+                hashMap.put(AppWidgetManager.class, "appwidget");
+                hashMap.put(BatteryManager.class, "batterymanager");
+                hashMap.put(CameraManager.class, "camera");
+                hashMap.put(JobScheduler.class, "jobscheduler");
+                hashMap.put(LauncherApps.class, "launcherapps");
+                hashMap.put(MediaProjectionManager.class, "media_projection");
+                hashMap.put(MediaSessionManager.class, "media_session");
+                hashMap.put(RestrictionsManager.class, "restrictions");
+                hashMap.put(TelecomManager.class, "telecom");
+                hashMap.put(TvInputManager.class, "tv_input");
+            }
+            if (i2 >= 19) {
+                hashMap.put(AppOpsManager.class, "appops");
+                hashMap.put(CaptioningManager.class, "captioning");
+                hashMap.put(ConsumerIrManager.class, "consumer_ir");
+                hashMap.put(PrintManager.class, "print");
+            }
+            if (i2 >= 18) {
+                hashMap.put(BluetoothManager.class, "bluetooth");
+            }
+            if (i2 >= 17) {
+                hashMap.put(DisplayManager.class, "display");
+                hashMap.put(UserManager.class, "user");
+            }
+            if (i2 >= 16) {
+                hashMap.put(InputManager.class, "input");
+                hashMap.put(MediaRouter.class, "media_router");
+                hashMap.put(NsdManager.class, "servicediscovery");
+            }
             hashMap.put(AccessibilityManager.class, "accessibility");
             hashMap.put(AccountManager.class, "account");
             hashMap.put(ActivityManager.class, TTDownloadField.TT_ACTIVITY);
@@ -298,8 +147,8 @@ public class ContextCompat {
             hashMap.put(NfcManager.class, "nfc");
             hashMap.put(NotificationManager.class, "notification");
             hashMap.put(PowerManager.class, "power");
-            hashMap.put(SearchManager.class, BaseConstants.MARKET_URI_AUTHORITY_SEARCH);
-            hashMap.put(SensorManager.class, bt.f23586ac);
+            hashMap.put(SearchManager.class, "search");
+            hashMap.put(SensorManager.class, am.ac);
             hashMap.put(StorageManager.class, "storage");
             hashMap.put(TelephonyManager.class, "phone");
             hashMap.put(TextServicesManager.class, "textservices");
@@ -308,7 +157,7 @@ public class ContextCompat {
             hashMap.put(Vibrator.class, "vibrator");
             hashMap.put(WallpaperManager.class, "wallpaper");
             hashMap.put(WifiP2pManager.class, "wifip2p");
-            hashMap.put(WifiManager.class, "wifi");
+            hashMap.put(WifiManager.class, a.I);
             hashMap.put(WindowManager.class, "window");
         }
 
@@ -316,68 +165,73 @@ public class ContextCompat {
         }
     }
 
-    @Retention(RetentionPolicy.SOURCE)
-    @RestrictTo({RestrictTo.Scope.LIBRARY})
-    public @interface RegisterReceiverFlags {
+    private static class MainHandlerExecutor implements Executor {
+
+        /* renamed from: a, reason: collision with root package name */
+        private final Handler f1672a;
+
+        MainHandlerExecutor(@NonNull Handler handler) {
+            this.f1672a = handler;
+        }
+
+        @Override // java.util.concurrent.Executor
+        public void execute(Runnable runnable) {
+            if (this.f1672a.post(runnable)) {
+                return;
+            }
+            throw new RejectedExecutionException(this.f1672a + " is shutting down");
+        }
     }
 
-    @OptIn(markerClass = {BuildCompat.PrereleaseSdkCheck.class})
+    protected ContextCompat() {
+    }
+
+    private static synchronized File a(File file) {
+        synchronized (ContextCompat.class) {
+            if (file.exists() || file.mkdirs()) {
+                return file;
+            }
+            if (file.exists()) {
+                return file;
+            }
+            Log.w(f1668a, "Unable to create files subdir " + file.getPath());
+            return null;
+        }
+    }
+
     public static int checkSelfPermission(@NonNull Context context, @NonNull String str) {
-        ObjectsCompat.requireNonNull(str, "permission must be non-null");
-        return (BuildCompat.isAtLeastT() || !TextUtils.equals("android.permission.POST_NOTIFICATIONS", str)) ? context.checkPermission(str, Process.myPid(), Process.myUid()) : NotificationManagerCompat.from(context).areNotificationsEnabled() ? 0 : -1;
+        if (str != null) {
+            return context.checkPermission(str, Process.myPid(), Process.myUid());
+        }
+        throw new IllegalArgumentException("permission is null");
     }
 
     @Nullable
     public static Context createDeviceProtectedStorageContext(@NonNull Context context) {
         if (Build.VERSION.SDK_INT >= 24) {
-            return Api24Impl.createDeviceProtectedStorageContext(context);
+            return context.createDeviceProtectedStorageContext();
         }
         return null;
     }
 
-    private static File createFilesDir(File file) {
-        synchronized (sSync) {
-            try {
-                if (!file.exists()) {
-                    if (file.mkdirs()) {
-                        return file;
-                    }
-                    Log.w(TAG, "Unable to create files subdir " + file.getPath());
-                }
-                return file;
-            } catch (Throwable th2) {
-                throw th2;
-            }
-        }
-    }
-
-    @Nullable
-    public static String getAttributionTag(@NonNull Context context) {
-        if (Build.VERSION.SDK_INT >= 30) {
-            return Api30Impl.getAttributionTag(context);
-        }
-        return null;
-    }
-
-    @NonNull
     public static File getCodeCacheDir(@NonNull Context context) {
-        return Api21Impl.getCodeCacheDir(context);
+        return Build.VERSION.SDK_INT >= 21 ? context.getCodeCacheDir() : a(new File(context.getApplicationInfo().dataDir, "code_cache"));
     }
 
     @ColorInt
-    public static int getColor(@NonNull Context context, @ColorRes int i10) {
-        return Build.VERSION.SDK_INT >= 23 ? Api23Impl.getColor(context, i10) : context.getResources().getColor(i10);
+    public static int getColor(@NonNull Context context, @ColorRes int i2) {
+        return Build.VERSION.SDK_INT >= 23 ? context.getColor(i2) : context.getResources().getColor(i2);
     }
 
     @Nullable
-    public static ColorStateList getColorStateList(@NonNull Context context, @ColorRes int i10) {
-        return ResourcesCompat.getColorStateList(context.getResources(), i10, context.getTheme());
+    public static ColorStateList getColorStateList(@NonNull Context context, @ColorRes int i2) {
+        return Build.VERSION.SDK_INT >= 23 ? context.getColorStateList(i2) : context.getResources().getColorStateList(i2);
     }
 
     @Nullable
     public static File getDataDir(@NonNull Context context) {
         if (Build.VERSION.SDK_INT >= 24) {
-            return Api24Impl.getDataDir(context);
+            return context.getDataDir();
         }
         String str = context.getApplicationInfo().dataDir;
         if (str != null) {
@@ -387,39 +241,53 @@ public class ContextCompat {
     }
 
     @Nullable
-    public static Drawable getDrawable(@NonNull Context context, @DrawableRes int i10) {
-        return Api21Impl.getDrawable(context, i10);
+    public static Drawable getDrawable(@NonNull Context context, @DrawableRes int i2) {
+        int i3;
+        int i4 = Build.VERSION.SDK_INT;
+        if (i4 >= 21) {
+            return context.getDrawable(i2);
+        }
+        if (i4 >= 16) {
+            return context.getResources().getDrawable(i2);
+        }
+        synchronized (f1669b) {
+            if (f1670c == null) {
+                f1670c = new TypedValue();
+            }
+            context.getResources().getValue(i2, f1670c, true);
+            i3 = f1670c.resourceId;
+        }
+        return context.getResources().getDrawable(i3);
     }
 
     @NonNull
     public static File[] getExternalCacheDirs(@NonNull Context context) {
-        return Api19Impl.getExternalCacheDirs(context);
+        return Build.VERSION.SDK_INT >= 19 ? context.getExternalCacheDirs() : new File[]{context.getExternalCacheDir()};
     }
 
     @NonNull
     public static File[] getExternalFilesDirs(@NonNull Context context, @Nullable String str) {
-        return Api19Impl.getExternalFilesDirs(context, str);
+        return Build.VERSION.SDK_INT >= 19 ? context.getExternalFilesDirs(str) : new File[]{context.getExternalFilesDir(str)};
     }
 
-    @NonNull
-    public static Executor getMainExecutor(@NonNull Context context) {
-        return Build.VERSION.SDK_INT >= 28 ? Api28Impl.getMainExecutor(context) : ExecutorCompat.create(new Handler(context.getMainLooper()));
+    public static Executor getMainExecutor(Context context) {
+        return Build.VERSION.SDK_INT >= 28 ? context.getMainExecutor() : new MainHandlerExecutor(new Handler(context.getMainLooper()));
     }
 
     @Nullable
     public static File getNoBackupFilesDir(@NonNull Context context) {
-        return Api21Impl.getNoBackupFilesDir(context);
+        return Build.VERSION.SDK_INT >= 21 ? context.getNoBackupFilesDir() : a(new File(context.getApplicationInfo().dataDir, "no_backup"));
     }
 
     @NonNull
     public static File[] getObbDirs(@NonNull Context context) {
-        return Api19Impl.getObbDirs(context);
+        return Build.VERSION.SDK_INT >= 19 ? context.getObbDirs() : new File[]{context.getObbDir()};
     }
 
     @Nullable
     public static <T> T getSystemService(@NonNull Context context, @NonNull Class<T> cls) {
         if (Build.VERSION.SDK_INT >= 23) {
-            return (T) Api23Impl.getSystemService(context, cls);
+            return (T) context.getSystemService(cls);
         }
         String systemServiceName = getSystemServiceName(context, cls);
         if (systemServiceName != null) {
@@ -430,27 +298,14 @@ public class ContextCompat {
 
     @Nullable
     public static String getSystemServiceName(@NonNull Context context, @NonNull Class<?> cls) {
-        return Build.VERSION.SDK_INT >= 23 ? Api23Impl.getSystemServiceName(context, cls) : LegacyServiceMapHolder.SERVICES.get(cls);
+        return Build.VERSION.SDK_INT >= 23 ? context.getSystemServiceName(cls) : LegacyServiceMapHolder.f1671a.get(cls);
     }
 
     public static boolean isDeviceProtectedStorage(@NonNull Context context) {
         if (Build.VERSION.SDK_INT >= 24) {
-            return Api24Impl.isDeviceProtectedStorage(context);
+            return context.isDeviceProtectedStorage();
         }
         return false;
-    }
-
-    public static String obtainAndCheckReceiverPermission(Context context) {
-        String str = context.getPackageName() + DYNAMIC_RECEIVER_NOT_EXPORTED_PERMISSION_SUFFIX;
-        if (PermissionChecker.checkSelfPermission(context, str) == 0) {
-            return str;
-        }
-        throw new RuntimeException("Permission " + str + " is required by your application to receive broadcasts, please add it to your manifest");
-    }
-
-    @Nullable
-    public static Intent registerReceiver(@NonNull Context context, @Nullable BroadcastReceiver broadcastReceiver, @NonNull IntentFilter intentFilter, int i10) {
-        return registerReceiver(context, broadcastReceiver, intentFilter, null, null, i10);
     }
 
     public static boolean startActivities(@NonNull Context context, @NonNull Intent[] intentArr) {
@@ -458,40 +313,27 @@ public class ContextCompat {
     }
 
     public static void startActivity(@NonNull Context context, @NonNull Intent intent, @Nullable Bundle bundle) {
-        Api16Impl.startActivity(context, intent, bundle);
+        if (Build.VERSION.SDK_INT >= 16) {
+            context.startActivity(intent, bundle);
+        } else {
+            context.startActivity(intent);
+        }
     }
 
     public static void startForegroundService(@NonNull Context context, @NonNull Intent intent) {
         if (Build.VERSION.SDK_INT >= 26) {
-            Api26Impl.startForegroundService(context, intent);
+            context.startForegroundService(intent);
         } else {
             context.startService(intent);
         }
     }
 
-    @Nullable
-    @OptIn(markerClass = {BuildCompat.PrereleaseSdkCheck.class})
-    public static Intent registerReceiver(@NonNull Context context, @Nullable BroadcastReceiver broadcastReceiver, @NonNull IntentFilter intentFilter, @Nullable String str, @Nullable Handler handler, int i10) {
-        int i11 = i10 & 1;
-        if (i11 != 0 && (i10 & 4) != 0) {
-            throw new IllegalArgumentException("Cannot specify both RECEIVER_VISIBLE_TO_INSTANT_APPS and RECEIVER_NOT_EXPORTED");
-        }
-        if (i11 != 0) {
-            i10 |= 2;
-        }
-        int i12 = i10;
-        int i13 = i12 & 2;
-        if (i13 == 0 && (i12 & 4) == 0) {
-            throw new IllegalArgumentException("One of either RECEIVER_EXPORTED or RECEIVER_NOT_EXPORTED is required");
-        }
-        if (i13 == 0 || (i12 & 4) == 0) {
-            return BuildCompat.isAtLeastT() ? Api33Impl.registerReceiver(context, broadcastReceiver, intentFilter, str, handler, i12) : Build.VERSION.SDK_INT >= 26 ? Api26Impl.registerReceiver(context, broadcastReceiver, intentFilter, str, handler, i12) : ((i12 & 4) == 0 || str != null) ? context.registerReceiver(broadcastReceiver, intentFilter, str, handler) : context.registerReceiver(broadcastReceiver, intentFilter, obtainAndCheckReceiverPermission(context), handler);
-        }
-        throw new IllegalArgumentException("Cannot specify both RECEIVER_EXPORTED and RECEIVER_NOT_EXPORTED");
-    }
-
     public static boolean startActivities(@NonNull Context context, @NonNull Intent[] intentArr, @Nullable Bundle bundle) {
-        Api16Impl.startActivities(context, intentArr, bundle);
+        if (Build.VERSION.SDK_INT >= 16) {
+            context.startActivities(intentArr, bundle);
+            return true;
+        }
+        context.startActivities(intentArr);
         return true;
     }
 }

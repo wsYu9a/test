@@ -8,7 +8,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 @Keep
-/* loaded from: classes2.dex */
+/* loaded from: classes.dex */
 public class MethodUtils {
     public static final Class<?>[] EMPTY_CLASS_ARRAY;
     private static Map<String, Method> sMethodCache = new HashMap();
@@ -52,13 +52,13 @@ public class MethodUtils {
                         if (method2 != null && TextUtils.equals(method2.getName(), str)) {
                             Class<?>[] parameterTypes = method2.getParameterTypes();
                             if (clsArr != null && parameterTypes != null && clsArr.length == parameterTypes.length) {
-                                boolean z10 = true;
-                                for (int i10 = 0; i10 < clsArr.length; i10++) {
-                                    if (!isAssignableFrom(clsArr[i10], parameterTypes[i10])) {
-                                        z10 = false;
+                                boolean z = true;
+                                for (int i2 = 0; i2 < clsArr.length; i2++) {
+                                    if (!isAssignableFrom(clsArr[i2], parameterTypes[i2])) {
+                                        z = false;
                                     }
                                 }
-                                if (z10) {
+                                if (z) {
                                     method = method2;
                                 }
                             }
@@ -80,21 +80,21 @@ public class MethodUtils {
     }
 
     private static String getKey(Class<?> cls, String str, Class<?>... clsArr) {
-        StringBuilder sb2 = new StringBuilder();
-        sb2.append(cls.toString());
-        sb2.append("#");
-        sb2.append(str);
-        sb2.append("#");
-        sb2.append(cls.getClassLoader() != null ? Integer.valueOf(cls.getClassLoader().hashCode()) : "");
+        StringBuilder sb = new StringBuilder();
+        sb.append(cls.toString());
+        sb.append("#");
+        sb.append(str);
+        sb.append("#");
+        sb.append(cls.getClassLoader() != null ? Integer.valueOf(cls.getClassLoader().hashCode()) : "");
         if (clsArr == null || clsArr.length <= 0) {
-            sb2.append(Void.class.toString());
+            sb.append(Void.class.toString());
         } else {
             for (Class<?> cls2 : clsArr) {
-                sb2.append(cls2.toString());
-                sb2.append("#");
+                sb.append(cls2.toString());
+                sb.append("#");
             }
         }
-        return sb2.toString();
+        return sb.toString();
     }
 
     public static <T> Constructor<T> getMatchingAccessibleConstructor(Class<T> cls, Class<?>... clsArr) {
@@ -146,9 +146,8 @@ public class MethodUtils {
             return EMPTY_CLASS_ARRAY;
         }
         Class<?>[] clsArr = new Class[objArr.length];
-        for (int i10 = 0; i10 < objArr.length; i10++) {
-            Object obj = objArr[i10];
-            clsArr[i10] = obj == null ? null : obj.getClass();
+        for (int i2 = 0; i2 < objArr.length; i2++) {
+            clsArr[i2] = objArr[i2] == null ? null : objArr[i2].getClass();
         }
         return clsArr;
     }

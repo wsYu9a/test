@@ -26,11 +26,11 @@ public interface IDownloadForbiddenAidlHandler extends IInterface {
         private static final String DESCRIPTOR = "com.ss.android.socialbase.downloader.depend.IDownloadForbiddenAidlHandler";
         static final int TRANSACTION_onForbidden = 1;
 
-        public static class Proxy implements IDownloadForbiddenAidlHandler {
+        private static class Proxy implements IDownloadForbiddenAidlHandler {
             public static IDownloadForbiddenAidlHandler sDefaultImpl;
             private IBinder mRemote;
 
-            public Proxy(IBinder iBinder) {
+            Proxy(IBinder iBinder) {
                 this.mRemote = iBinder;
             }
 
@@ -51,20 +51,13 @@ public interface IDownloadForbiddenAidlHandler extends IInterface {
                     obtain.writeInterfaceToken(Stub.DESCRIPTOR);
                     obtain.writeStrongBinder(iDownloadForbiddenAidlCallback != null ? iDownloadForbiddenAidlCallback.asBinder() : null);
                     if (!this.mRemote.transact(1, obtain, obtain2, 0) && Stub.getDefaultImpl() != null) {
-                        boolean onForbidden = Stub.getDefaultImpl().onForbidden(iDownloadForbiddenAidlCallback);
-                        obtain2.recycle();
-                        obtain.recycle();
-                        return onForbidden;
+                        return Stub.getDefaultImpl().onForbidden(iDownloadForbiddenAidlCallback);
                     }
                     obtain2.readException();
-                    boolean z10 = obtain2.readInt() != 0;
+                    return obtain2.readInt() != 0;
+                } finally {
                     obtain2.recycle();
                     obtain.recycle();
-                    return z10;
-                } catch (Throwable th2) {
-                    obtain2.recycle();
-                    obtain.recycle();
-                    throw th2;
                 }
             }
         }
@@ -99,10 +92,10 @@ public interface IDownloadForbiddenAidlHandler extends IInterface {
         }
 
         @Override // android.os.Binder
-        public boolean onTransact(int i10, Parcel parcel, Parcel parcel2, int i11) throws RemoteException {
-            if (i10 != 1) {
-                if (i10 != 1598968902) {
-                    return super.onTransact(i10, parcel, parcel2, i11);
+        public boolean onTransact(int i2, Parcel parcel, Parcel parcel2, int i3) throws RemoteException {
+            if (i2 != 1) {
+                if (i2 != 1598968902) {
+                    return super.onTransact(i2, parcel, parcel2, i3);
                 }
                 parcel2.writeString(DESCRIPTOR);
                 return true;

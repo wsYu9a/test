@@ -1,48 +1,51 @@
 package com.kwad.components.ad.reward.k;
 
-import android.content.DialogInterface;
-import androidx.annotation.NonNull;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
 import androidx.annotation.Nullable;
-import com.kwad.components.core.e.d.a;
-import com.kwad.components.core.webview.jshandler.y;
-import com.kwad.sdk.core.response.model.AdTemplate;
-import java.lang.ref.WeakReference;
+import com.kwad.components.core.widget.KsStyledTextButton;
+import com.kwad.sdk.R;
 
-/* loaded from: classes2.dex */
-public final class q extends y {
+/* loaded from: classes.dex */
+public final class q extends d implements View.OnClickListener {
+    private ViewGroup yE;
+    private KsStyledTextButton zH;
+    private View zI;
 
-    /* renamed from: xc */
-    private long f11723xc;
-    private WeakReference<com.kwad.components.ad.reward.g> yR;
+    @Nullable
+    private com.kwad.components.ad.reward.g.b zJ;
 
-    public q(@NonNull com.kwad.sdk.core.webview.b bVar, @Nullable com.kwad.components.core.e.d.c cVar, @Nullable com.kwad.components.ad.reward.g gVar, long j10, @Nullable com.kwad.sdk.core.webview.d.a.a aVar, @Nullable DialogInterface.OnDismissListener onDismissListener) {
-        super(bVar, cVar, aVar, onDismissListener);
-        this.f11723xc = j10;
-        if (gVar != null) {
-            this.yR = new WeakReference<>(gVar);
-        }
+    public q(LayoutInflater layoutInflater, @Nullable ViewGroup viewGroup) {
+        this.yE = (ViewGroup) layoutInflater.inflate(R.layout.ksad_play_again_dialog, viewGroup, false);
+        initView();
     }
 
-    @Override // com.kwad.components.core.webview.jshandler.y
-    public final a.C0427a a(a.C0427a c0427a, com.kwad.sdk.core.webview.d.b.a aVar, AdTemplate adTemplate) {
-        long j10;
-        WeakReference<com.kwad.components.ad.reward.g> weakReference = this.yR;
-        if (weakReference == null || weakReference.get() == null) {
-            j10 = this.f11723xc;
-            if (j10 <= 0) {
-                j10 = 0;
-            }
-        } else {
-            j10 = this.yR.get().f11689qf.getPlayDuration();
-        }
-        return super.a(c0427a, aVar, adTemplate).w(j10);
+    private void initView() {
+        this.zH = (KsStyledTextButton) this.yE.findViewById(R.id.ksad_play_again_btn_action);
+        this.zI = this.yE.findViewById(R.id.ksad_play_again_btn_exit);
+        this.zH.setOnClickListener(this);
+        this.zI.setOnClickListener(this);
     }
 
-    @Override // com.kwad.components.core.webview.jshandler.y
-    public final void jC() {
-        super.jC();
-        if (this.YR != null) {
-            com.kwad.components.ad.reward.c.a.hg().c(this.YR.getAdTemplate(), com.kwad.components.ad.reward.c.b.STATUS_NONE);
+    public final void b(@Nullable com.kwad.components.ad.reward.g.b bVar) {
+        this.zJ = bVar;
+    }
+
+    @Override // com.kwad.components.ad.reward.k.d
+    public final ViewGroup gK() {
+        return this.yE;
+    }
+
+    @Override // android.view.View.OnClickListener
+    public final void onClick(View view) {
+        if (this.zJ == null) {
+            return;
+        }
+        if (view.equals(this.zH)) {
+            this.zJ.onPlayAgainClick(false);
+        } else if (view.equals(this.zI)) {
+            this.zJ.gu();
         }
     }
 }

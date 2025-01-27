@@ -1,6 +1,6 @@
 package com.martian.mibook.lib.original.http.response;
 
-/* loaded from: classes3.dex */
+/* loaded from: classes2.dex */
 public class MiConsumeOrder {
     private String bookId;
     private Integer chapterId;
@@ -25,19 +25,19 @@ public class MiConsumeOrder {
         return Integer.valueOf(num == null ? 0 : num.intValue());
     }
 
-    public void setBookId(String str) {
-        this.bookId = str;
+    public void setBookId(String bookId) {
+        this.bookId = bookId;
     }
 
-    public void setChapterId(Integer num) {
-        this.chapterId = num;
+    public void setChapterId(Integer chapterId) {
+        this.chapterId = chapterId;
     }
 
-    public void setCoins(Integer num) {
-        this.coins = num;
+    public void setCoins(Integer coins) {
+        this.coins = coins;
     }
 
-    public void setPrice(Integer num) {
-        this.price = num;
+    public void setPrice(Integer price) {
+        this.price = price;
     }
 }

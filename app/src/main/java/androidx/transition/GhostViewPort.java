@@ -14,17 +14,28 @@ import androidx.core.view.ViewCompat;
 /* loaded from: classes.dex */
 class GhostViewPort extends ViewGroup implements GhostView {
 
+    /* renamed from: a */
+    ViewGroup f3775a;
+
+    /* renamed from: b */
+    View f3776b;
+
+    /* renamed from: c */
+    final View f3777c;
+
+    /* renamed from: d */
+    int f3778d;
+
+    /* renamed from: e */
     @Nullable
-    private Matrix mMatrix;
-    private final ViewTreeObserver.OnPreDrawListener mOnPreDrawListener;
-    int mReferences;
-    ViewGroup mStartParent;
-    View mStartView;
-    final View mView;
+    private Matrix f3779e;
+
+    /* renamed from: f */
+    private final ViewTreeObserver.OnPreDrawListener f3780f;
 
     /* renamed from: androidx.transition.GhostViewPort$1 */
-    public class AnonymousClass1 implements ViewTreeObserver.OnPreDrawListener {
-        public AnonymousClass1() {
+    class AnonymousClass1 implements ViewTreeObserver.OnPreDrawListener {
+        AnonymousClass1() {
         }
 
         @Override // android.view.ViewTreeObserver.OnPreDrawListener
@@ -32,23 +43,23 @@ class GhostViewPort extends ViewGroup implements GhostView {
             View view;
             ViewCompat.postInvalidateOnAnimation(GhostViewPort.this);
             GhostViewPort ghostViewPort = GhostViewPort.this;
-            ViewGroup viewGroup = ghostViewPort.mStartParent;
-            if (viewGroup == null || (view = ghostViewPort.mStartView) == null) {
+            ViewGroup viewGroup = ghostViewPort.f3775a;
+            if (viewGroup == null || (view = ghostViewPort.f3776b) == null) {
                 return true;
             }
             viewGroup.endViewTransition(view);
-            ViewCompat.postInvalidateOnAnimation(GhostViewPort.this.mStartParent);
+            ViewCompat.postInvalidateOnAnimation(GhostViewPort.this.f3775a);
             GhostViewPort ghostViewPort2 = GhostViewPort.this;
-            ghostViewPort2.mStartParent = null;
-            ghostViewPort2.mStartView = null;
+            ghostViewPort2.f3775a = null;
+            ghostViewPort2.f3776b = null;
             return true;
         }
     }
 
-    public GhostViewPort(View view) {
+    GhostViewPort(View view) {
         super(view.getContext());
-        this.mOnPreDrawListener = new ViewTreeObserver.OnPreDrawListener() { // from class: androidx.transition.GhostViewPort.1
-            public AnonymousClass1() {
+        this.f3780f = new ViewTreeObserver.OnPreDrawListener() { // from class: androidx.transition.GhostViewPort.1
+            AnonymousClass1() {
             }
 
             @Override // android.view.ViewTreeObserver.OnPreDrawListener
@@ -56,144 +67,142 @@ class GhostViewPort extends ViewGroup implements GhostView {
                 View view2;
                 ViewCompat.postInvalidateOnAnimation(GhostViewPort.this);
                 GhostViewPort ghostViewPort = GhostViewPort.this;
-                ViewGroup viewGroup = ghostViewPort.mStartParent;
-                if (viewGroup == null || (view2 = ghostViewPort.mStartView) == null) {
+                ViewGroup viewGroup = ghostViewPort.f3775a;
+                if (viewGroup == null || (view2 = ghostViewPort.f3776b) == null) {
                     return true;
                 }
                 viewGroup.endViewTransition(view2);
-                ViewCompat.postInvalidateOnAnimation(GhostViewPort.this.mStartParent);
+                ViewCompat.postInvalidateOnAnimation(GhostViewPort.this.f3775a);
                 GhostViewPort ghostViewPort2 = GhostViewPort.this;
-                ghostViewPort2.mStartParent = null;
-                ghostViewPort2.mStartView = null;
+                ghostViewPort2.f3775a = null;
+                ghostViewPort2.f3776b = null;
                 return true;
             }
         };
-        this.mView = view;
+        this.f3777c = view;
         setWillNotDraw(false);
         setLayerType(2, null);
     }
 
-    public static GhostViewPort addGhost(View view, ViewGroup viewGroup, Matrix matrix) {
-        int i10;
+    static GhostViewPort a(View view, ViewGroup viewGroup, Matrix matrix) {
         GhostViewHolder ghostViewHolder;
         if (!(view.getParent() instanceof ViewGroup)) {
             throw new IllegalArgumentException("Ghosted views must be parented by a ViewGroup");
         }
-        GhostViewHolder holder = GhostViewHolder.getHolder(viewGroup);
-        GhostViewPort ghostView = getGhostView(view);
-        if (ghostView == null || (ghostViewHolder = (GhostViewHolder) ghostView.getParent()) == holder) {
-            i10 = 0;
-        } else {
-            i10 = ghostView.mReferences;
-            ghostViewHolder.removeView(ghostView);
-            ghostView = null;
+        GhostViewHolder b2 = GhostViewHolder.b(viewGroup);
+        GhostViewPort d2 = d(view);
+        int i2 = 0;
+        if (d2 != null && (ghostViewHolder = (GhostViewHolder) d2.getParent()) != b2) {
+            i2 = d2.f3778d;
+            ghostViewHolder.removeView(d2);
+            d2 = null;
         }
-        if (ghostView == null) {
+        if (d2 == null) {
             if (matrix == null) {
                 matrix = new Matrix();
-                calculateMatrix(view, viewGroup, matrix);
+                b(view, viewGroup, matrix);
             }
-            ghostView = new GhostViewPort(view);
-            ghostView.setMatrix(matrix);
-            if (holder == null) {
-                holder = new GhostViewHolder(viewGroup);
+            d2 = new GhostViewPort(view);
+            d2.g(matrix);
+            if (b2 == null) {
+                b2 = new GhostViewHolder(viewGroup);
             } else {
-                holder.popToOverlayTop();
+                b2.g();
             }
-            copySize(viewGroup, holder);
-            copySize(viewGroup, ghostView);
-            holder.addGhostView(ghostView);
-            ghostView.mReferences = i10;
+            c(viewGroup, b2);
+            c(viewGroup, d2);
+            b2.a(d2);
+            d2.f3778d = i2;
         } else if (matrix != null) {
-            ghostView.setMatrix(matrix);
+            d2.g(matrix);
         }
-        ghostView.mReferences++;
-        return ghostView;
+        d2.f3778d++;
+        return d2;
     }
 
-    public static void calculateMatrix(View view, ViewGroup viewGroup, Matrix matrix) {
+    static void b(View view, ViewGroup viewGroup, Matrix matrix) {
         ViewGroup viewGroup2 = (ViewGroup) view.getParent();
         matrix.reset();
-        ViewUtils.transformMatrixToGlobal(viewGroup2, matrix);
+        ViewUtils.j(viewGroup2, matrix);
         matrix.preTranslate(-viewGroup2.getScrollX(), -viewGroup2.getScrollY());
-        ViewUtils.transformMatrixToLocal(viewGroup, matrix);
+        ViewUtils.k(viewGroup, matrix);
     }
 
-    public static void copySize(View view, View view2) {
-        ViewUtils.setLeftTopRightBottom(view2, view2.getLeft(), view2.getTop(), view2.getLeft() + view.getWidth(), view2.getTop() + view.getHeight());
+    static void c(View view, View view2) {
+        ViewUtils.g(view2, view2.getLeft(), view2.getTop(), view2.getLeft() + view.getWidth(), view2.getTop() + view.getHeight());
     }
 
-    public static GhostViewPort getGhostView(View view) {
+    static GhostViewPort d(View view) {
         return (GhostViewPort) view.getTag(R.id.ghost_view);
     }
 
-    public static void removeGhost(View view) {
-        GhostViewPort ghostView = getGhostView(view);
-        if (ghostView != null) {
-            int i10 = ghostView.mReferences - 1;
-            ghostView.mReferences = i10;
-            if (i10 <= 0) {
-                ((GhostViewHolder) ghostView.getParent()).removeView(ghostView);
+    static void e(View view) {
+        GhostViewPort d2 = d(view);
+        if (d2 != null) {
+            int i2 = d2.f3778d - 1;
+            d2.f3778d = i2;
+            if (i2 <= 0) {
+                ((GhostViewHolder) d2.getParent()).removeView(d2);
             }
         }
     }
 
-    public static void setGhostView(@NonNull View view, @Nullable GhostViewPort ghostViewPort) {
+    static void f(@NonNull View view, @Nullable GhostViewPort ghostViewPort) {
         view.setTag(R.id.ghost_view, ghostViewPort);
     }
 
+    void g(@NonNull Matrix matrix) {
+        this.f3779e = matrix;
+    }
+
     @Override // android.view.ViewGroup, android.view.View
-    public void onAttachedToWindow() {
+    protected void onAttachedToWindow() {
         super.onAttachedToWindow();
-        setGhostView(this.mView, this);
-        this.mView.getViewTreeObserver().addOnPreDrawListener(this.mOnPreDrawListener);
-        ViewUtils.setTransitionVisibility(this.mView, 4);
-        if (this.mView.getParent() != null) {
-            ((View) this.mView.getParent()).invalidate();
+        f(this.f3777c, this);
+        this.f3777c.getViewTreeObserver().addOnPreDrawListener(this.f3780f);
+        ViewUtils.i(this.f3777c, 4);
+        if (this.f3777c.getParent() != null) {
+            ((View) this.f3777c.getParent()).invalidate();
         }
     }
 
     @Override // android.view.ViewGroup, android.view.View
-    public void onDetachedFromWindow() {
-        this.mView.getViewTreeObserver().removeOnPreDrawListener(this.mOnPreDrawListener);
-        ViewUtils.setTransitionVisibility(this.mView, 0);
-        setGhostView(this.mView, null);
-        if (this.mView.getParent() != null) {
-            ((View) this.mView.getParent()).invalidate();
+    protected void onDetachedFromWindow() {
+        this.f3777c.getViewTreeObserver().removeOnPreDrawListener(this.f3780f);
+        ViewUtils.i(this.f3777c, 0);
+        f(this.f3777c, null);
+        if (this.f3777c.getParent() != null) {
+            ((View) this.f3777c.getParent()).invalidate();
         }
         super.onDetachedFromWindow();
     }
 
     @Override // android.view.View
-    public void onDraw(Canvas canvas) {
-        CanvasUtils.enableZ(canvas, true);
-        canvas.setMatrix(this.mMatrix);
-        ViewUtils.setTransitionVisibility(this.mView, 0);
-        this.mView.invalidate();
-        ViewUtils.setTransitionVisibility(this.mView, 4);
-        drawChild(canvas, this.mView, getDrawingTime());
-        CanvasUtils.enableZ(canvas, false);
+    protected void onDraw(Canvas canvas) {
+        CanvasUtils.a(canvas, true);
+        canvas.setMatrix(this.f3779e);
+        ViewUtils.i(this.f3777c, 0);
+        this.f3777c.invalidate();
+        ViewUtils.i(this.f3777c, 4);
+        drawChild(canvas, this.f3777c, getDrawingTime());
+        CanvasUtils.a(canvas, false);
     }
 
     @Override // android.view.ViewGroup, android.view.View
-    public void onLayout(boolean z10, int i10, int i11, int i12, int i13) {
+    protected void onLayout(boolean z, int i2, int i3, int i4, int i5) {
     }
 
     @Override // androidx.transition.GhostView
     public void reserveEndViewTransition(ViewGroup viewGroup, View view) {
-        this.mStartParent = viewGroup;
-        this.mStartView = view;
-    }
-
-    public void setMatrix(@NonNull Matrix matrix) {
-        this.mMatrix = matrix;
+        this.f3775a = viewGroup;
+        this.f3776b = view;
     }
 
     @Override // android.view.View, androidx.transition.GhostView
-    public void setVisibility(int i10) {
-        super.setVisibility(i10);
-        if (getGhostView(this.mView) == this) {
-            ViewUtils.setTransitionVisibility(this.mView, i10 == 0 ? 4 : 0);
+    public void setVisibility(int i2) {
+        super.setVisibility(i2);
+        if (d(this.f3777c) == this) {
+            ViewUtils.i(this.f3777c, i2 == 0 ? 4 : 0);
         }
     }
 }

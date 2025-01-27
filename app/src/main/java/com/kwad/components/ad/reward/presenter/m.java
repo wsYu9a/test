@@ -1,223 +1,130 @@
 package com.kwad.components.ad.reward.presenter;
 
-import androidx.annotation.NonNull;
-import com.kwad.sdk.core.response.model.AdInfo;
+import com.kwad.components.offline.api.core.adlive.listener.AdLivePlayStateListener;
+import com.kwad.components.offline.api.core.adlive.listener.AdLivePlayStateListenerAdapter;
+import com.kwad.sdk.utils.bi;
 
-/* loaded from: classes2.dex */
-public final class m extends b {
-    private long iy;
-
-    /* renamed from: qe */
-    @NonNull
-    private com.kwad.components.ad.reward.e.b f11793qe;
-    private com.kwad.components.core.video.l tX;
-    private com.kwad.components.core.video.l tY = new com.kwad.components.core.video.l() { // from class: com.kwad.components.ad.reward.presenter.m.1
-        public AnonymousClass1() {
+/* loaded from: classes.dex */
+public final class m extends a {
+    private AdLivePlayStateListener mAdLivePlayStateListener = new AdLivePlayStateListenerAdapter() { // from class: com.kwad.components.ad.reward.presenter.m.2
+        AnonymousClass2() {
         }
 
-        @Override // com.kwad.components.core.video.l, com.kwad.components.core.video.h
-        public final void onMediaPlayCompleted() {
-            super.onMediaPlayCompleted();
-            m mVar = m.this;
-            com.kwad.components.ad.reward.g gVar = mVar.rO;
-            if (gVar.qu && gVar.qz) {
-                mVar.f11793qe.onVideoSkipToEnd(m.this.iy);
-            } else {
-                gVar.qU = true;
-                mVar.f11793qe.onVideoPlayEnd();
-            }
-            AdInfo eb2 = com.kwad.sdk.core.response.b.e.eb(m.this.rO.mAdTemplate);
-            if (com.kwad.sdk.core.response.b.a.aO(eb2) && com.kwad.sdk.core.response.b.a.aN(eb2) == 1) {
-                return;
-            }
-            f.u(m.this.rO);
-            com.kwad.components.ad.reward.g gVar2 = m.this.rO;
-            if (gVar2.qU) {
-                com.kwad.components.ad.reward.l.j(gVar2);
-            }
-        }
-
-        @Override // com.kwad.components.core.video.l, com.kwad.components.core.video.h
-        public final void onMediaPlayProgress(long j10, long j11) {
-            super.onMediaPlayProgress(j10, j11);
-            m mVar = m.this;
-            com.kwad.components.ad.reward.g gVar = mVar.rO;
-            gVar.qT = j11;
-            if (gVar.qz) {
-                return;
-            }
-            mVar.iy = j11;
-        }
-
-        @Override // com.kwad.components.core.video.l, com.kwad.components.core.video.h
-        public final void onMediaPlayStart() {
-            super.onMediaPlayStart();
-            m.this.f11793qe.onVideoPlayStart();
-            m.this.rO.qU = false;
+        @Override // com.kwad.components.offline.api.core.adlive.listener.AdLivePlayStateListenerAdapter, com.kwad.components.offline.api.core.adlive.listener.AdLivePlayStateListener
+        public final void onLivePlayCompleted() {
+            super.onLivePlayCompleted();
+            m.this.hx();
         }
     };
-
-    /* renamed from: ia */
-    private final com.kwad.components.core.video.l f11792ia = new com.kwad.components.core.video.l() { // from class: com.kwad.components.ad.reward.presenter.m.2
-        public AnonymousClass2() {
+    private com.kwad.components.core.video.i mVideoPlayStateListener = new com.kwad.components.core.video.j() { // from class: com.kwad.components.ad.reward.presenter.m.3
+        AnonymousClass3() {
         }
 
-        @Override // com.kwad.components.core.video.l, com.kwad.components.core.video.h
-        public final void onMediaPlayCompleted() {
-            m mVar = m.this;
-            if (mVar.rO.qz) {
-                mVar.f11793qe.onVideoSkipToEnd(m.this.iy);
-            } else {
-                mVar.f11793qe.onVideoPlayEnd();
-            }
-            AdInfo eb2 = com.kwad.sdk.core.response.b.e.eb(m.this.rO.mAdTemplate);
-            if (com.kwad.sdk.core.response.b.a.aO(eb2) && com.kwad.sdk.core.response.b.a.aN(eb2) == 1) {
+        @Override // com.kwad.components.core.video.j, com.kwad.components.core.video.i
+        public final void onVideoPlayCompleted() {
+            super.onVideoPlayCompleted();
+            m.this.hx();
+        }
+    };
+    private final com.kwad.components.ad.reward.d.k gs = new com.kwad.components.ad.reward.d.k() { // from class: com.kwad.components.ad.reward.presenter.m.4
+        AnonymousClass4() {
+        }
+
+        @Override // com.kwad.components.ad.reward.d.k
+        public final void a(com.kwad.components.core.webview.a.a.r rVar) {
+            if (rVar == null || rVar.type != 1) {
                 return;
             }
-            f.u(m.this.rO);
-            com.kwad.components.ad.reward.g gVar = m.this.rO;
-            if (gVar.qU) {
-                com.kwad.components.ad.reward.l.j(gVar);
-            }
-        }
-
-        @Override // com.kwad.components.core.video.l, com.kwad.components.core.video.h
-        public final void onMediaPlayError(int i10, int i11) {
-            m.this.f11793qe.onVideoPlayError(i10, i11);
-            m.this.hK();
-        }
-
-        @Override // com.kwad.components.core.video.l, com.kwad.components.core.video.h
-        public final void onMediaPlayProgress(long j10, long j11) {
-            m mVar = m.this;
-            com.kwad.components.ad.reward.g gVar = mVar.rO;
-            gVar.qT = j11;
-            gVar.qU = j10 - j11 < 800;
-            if (gVar.qz) {
-                return;
-            }
-            mVar.iy = j11;
-        }
-
-        @Override // com.kwad.components.core.video.l, com.kwad.components.core.video.h
-        public final void onMediaPlayStart() {
-            m.this.f11793qe.onVideoPlayStart();
+            m.this.qt.oN.release();
+            m.this.qt.fH();
         }
     };
 
     /* renamed from: com.kwad.components.ad.reward.presenter.m$1 */
-    public class AnonymousClass1 extends com.kwad.components.core.video.l {
-        public AnonymousClass1() {
+    final class AnonymousClass1 implements Runnable {
+        AnonymousClass1() {
         }
 
-        @Override // com.kwad.components.core.video.l, com.kwad.components.core.video.h
-        public final void onMediaPlayCompleted() {
-            super.onMediaPlayCompleted();
-            m mVar = m.this;
-            com.kwad.components.ad.reward.g gVar = mVar.rO;
-            if (gVar.qu && gVar.qz) {
-                mVar.f11793qe.onVideoSkipToEnd(m.this.iy);
-            } else {
-                gVar.qU = true;
-                mVar.f11793qe.onVideoPlayEnd();
-            }
-            AdInfo eb2 = com.kwad.sdk.core.response.b.e.eb(m.this.rO.mAdTemplate);
-            if (com.kwad.sdk.core.response.b.a.aO(eb2) && com.kwad.sdk.core.response.b.a.aN(eb2) == 1) {
-                return;
-            }
-            f.u(m.this.rO);
-            com.kwad.components.ad.reward.g gVar2 = m.this.rO;
-            if (gVar2.qU) {
-                com.kwad.components.ad.reward.l.j(gVar2);
-            }
-        }
-
-        @Override // com.kwad.components.core.video.l, com.kwad.components.core.video.h
-        public final void onMediaPlayProgress(long j10, long j11) {
-            super.onMediaPlayProgress(j10, j11);
-            m mVar = m.this;
-            com.kwad.components.ad.reward.g gVar = mVar.rO;
-            gVar.qT = j11;
-            if (gVar.qz) {
-                return;
-            }
-            mVar.iy = j11;
-        }
-
-        @Override // com.kwad.components.core.video.l, com.kwad.components.core.video.h
-        public final void onMediaPlayStart() {
-            super.onMediaPlayStart();
-            m.this.f11793qe.onVideoPlayStart();
-            m.this.rO.qU = false;
+        @Override // java.lang.Runnable
+        public final void run() {
+            m.this.qt.fH();
         }
     }
 
     /* renamed from: com.kwad.components.ad.reward.presenter.m$2 */
-    public class AnonymousClass2 extends com.kwad.components.core.video.l {
-        public AnonymousClass2() {
+    final class AnonymousClass2 extends AdLivePlayStateListenerAdapter {
+        AnonymousClass2() {
         }
 
-        @Override // com.kwad.components.core.video.l, com.kwad.components.core.video.h
-        public final void onMediaPlayCompleted() {
-            m mVar = m.this;
-            if (mVar.rO.qz) {
-                mVar.f11793qe.onVideoSkipToEnd(m.this.iy);
-            } else {
-                mVar.f11793qe.onVideoPlayEnd();
-            }
-            AdInfo eb2 = com.kwad.sdk.core.response.b.e.eb(m.this.rO.mAdTemplate);
-            if (com.kwad.sdk.core.response.b.a.aO(eb2) && com.kwad.sdk.core.response.b.a.aN(eb2) == 1) {
-                return;
-            }
-            f.u(m.this.rO);
-            com.kwad.components.ad.reward.g gVar = m.this.rO;
-            if (gVar.qU) {
-                com.kwad.components.ad.reward.l.j(gVar);
-            }
-        }
-
-        @Override // com.kwad.components.core.video.l, com.kwad.components.core.video.h
-        public final void onMediaPlayError(int i10, int i11) {
-            m.this.f11793qe.onVideoPlayError(i10, i11);
-            m.this.hK();
-        }
-
-        @Override // com.kwad.components.core.video.l, com.kwad.components.core.video.h
-        public final void onMediaPlayProgress(long j10, long j11) {
-            m mVar = m.this;
-            com.kwad.components.ad.reward.g gVar = mVar.rO;
-            gVar.qT = j11;
-            gVar.qU = j10 - j11 < 800;
-            if (gVar.qz) {
-                return;
-            }
-            mVar.iy = j11;
-        }
-
-        @Override // com.kwad.components.core.video.l, com.kwad.components.core.video.h
-        public final void onMediaPlayStart() {
-            m.this.f11793qe.onVideoPlayStart();
+        @Override // com.kwad.components.offline.api.core.adlive.listener.AdLivePlayStateListenerAdapter, com.kwad.components.offline.api.core.adlive.listener.AdLivePlayStateListener
+        public final void onLivePlayCompleted() {
+            super.onLivePlayCompleted();
+            m.this.hx();
         }
     }
 
-    @Override // com.kwad.components.ad.reward.presenter.b, com.kwad.sdk.mvp.Presenter
-    public final void as() {
-        super.as();
-        com.kwad.components.ad.reward.g gVar = this.rO;
-        gVar.qT = 0L;
-        gVar.qU = false;
-        this.f11793qe = gVar.f11688qe;
-        if (gVar.f11689qf.kh()) {
-            this.tX = this.tY;
-        } else {
-            this.tX = this.f11792ia;
+    /* renamed from: com.kwad.components.ad.reward.presenter.m$3 */
+    final class AnonymousClass3 extends com.kwad.components.core.video.j {
+        AnonymousClass3() {
         }
-        this.rO.f11689qf.a(this.tX);
+
+        @Override // com.kwad.components.core.video.j, com.kwad.components.core.video.i
+        public final void onVideoPlayCompleted() {
+            super.onVideoPlayCompleted();
+            m.this.hx();
+        }
+    }
+
+    /* renamed from: com.kwad.components.ad.reward.presenter.m$4 */
+    final class AnonymousClass4 implements com.kwad.components.ad.reward.d.k {
+        AnonymousClass4() {
+        }
+
+        @Override // com.kwad.components.ad.reward.d.k
+        public final void a(com.kwad.components.core.webview.a.a.r rVar) {
+            if (rVar == null || rVar.type != 1) {
+                return;
+            }
+            m.this.qt.oN.release();
+            m.this.qt.fH();
+        }
+    }
+
+    public void hx() {
+        com.kwad.components.ad.reward.j jVar = this.qt;
+        if (com.kwad.components.core.r.h.e(jVar.mAdTemplate, jVar.pk)) {
+            com.kwad.components.ad.reward.j jVar2 = this.qt;
+            com.kwad.components.core.r.h.g(jVar2.mContext, jVar2.mAdTemplate);
+        }
+        if (!h.y(this.qt)) {
+            com.kwad.components.ad.reward.j jVar3 = this.qt;
+            if (!com.kwad.components.core.r.h.e(jVar3.mAdTemplate, jVar3.pk)) {
+                this.qt.fH();
+                return;
+            }
+        }
+        bi.runOnUiThreadDelay(new Runnable() { // from class: com.kwad.components.ad.reward.presenter.m.1
+            AnonymousClass1() {
+            }
+
+            @Override // java.lang.Runnable
+            public final void run() {
+                m.this.qt.fH();
+            }
+        }, 200L);
+    }
+
+    @Override // com.kwad.components.ad.reward.presenter.a, com.kwad.sdk.mvp.Presenter
+    public final void ar() {
+        super.ar();
+        this.qt.oN.a(this.mVideoPlayStateListener, this.mAdLivePlayStateListener);
+        com.kwad.components.ad.reward.d.fm().a(this.gs);
     }
 
     @Override // com.kwad.sdk.mvp.Presenter
     public final void onUnbind() {
         super.onUnbind();
-        this.rO.f11689qf.b(this.tX);
+        this.qt.oN.b(this.mVideoPlayStateListener, this.mAdLivePlayStateListener);
+        com.kwad.components.ad.reward.d.fm().b(this.gs);
     }
 }

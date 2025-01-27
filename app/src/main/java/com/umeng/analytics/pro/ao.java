@@ -1,239 +1,310 @@
 package com.umeng.analytics.pro;
 
+import android.content.ContentValues;
 import android.content.Context;
-import android.os.Build;
-import android.text.TextUtils;
+import android.database.Cursor;
+import android.database.SQLException;
+import android.database.sqlite.SQLiteDatabase;
+import android.database.sqlite.SQLiteDatabaseCorruptException;
+import android.database.sqlite.SQLiteOpenHelper;
 import com.umeng.commonsdk.debug.UMRTLog;
-import com.umeng.commonsdk.statistics.common.DeviceConfig;
-import com.umeng.commonsdk.utils.UMUtils;
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
 
 /* loaded from: classes4.dex */
-public class ao {
+public class ao extends SQLiteOpenHelper {
+
+    /* renamed from: b */
+    private static final Object f25681b = new Object();
+
+    /* renamed from: c */
+    private static ao f25682c = null;
+
+    /* renamed from: d */
+    private static final String f25683d = "CREATE TABLE IF NOT EXISTS stf(_id INTEGER PRIMARY KEY AUTOINCREMENT, _tp TEXT, _hd TEXT, _bd TEXT, _ts TEXT, _uuid TEXT, _re1 TEXT, _re2 TEXT)";
+
+    /* renamed from: e */
+    private static final String f25684e = "DROP TABLE IF EXISTS stf";
+
+    /* renamed from: f */
+    private static final String f25685f = "DELETE FROM stf WHERE _id IN( SELECT _id FROM stf ORDER BY _id LIMIT 1)";
 
     /* renamed from: a */
-    private static JSONObject f23437a;
+    private final Context f25686a;
 
-    public static JSONObject a(Context context, JSONArray jSONArray, String str) {
-        JSONObject jSONObject = f23437a;
-        if (jSONObject != null && jSONObject.length() > 0) {
-            return f23437a;
-        }
-        try {
-            JSONObject jSONObject2 = new JSONObject();
-            jSONObject2.put(bt.f23628x, "Android");
-            jSONObject2.put(com.kuaishou.weapon.p0.t.f11222v, Build.MODEL);
-            jSONObject2.put(n3.a.f28757w, DeviceConfig.getAppVersionName(context));
-            jSONObject2.put(bt.f23611g, UMUtils.getUMId(context));
-            jSONObject2.put("ov", Build.VERSION.RELEASE);
-            jSONObject2.put("chn", UMUtils.getChannel(context));
-            jSONObject2.put(bt.al, UMUtils.getZid(context));
-            jSONObject2.put(n3.a.f28754t, "9.7.9");
-            jSONObject2.put("ak", UMUtils.getAppkey(context));
-            String idfa = DeviceConfig.getIdfa(context);
-            if (!TextUtils.isEmpty(idfa)) {
-                jSONObject2.put("tk_idfa", idfa);
-            }
-            jSONObject2.put("db", Build.BRAND);
-            jSONObject2.put("tk_aid", DeviceConfig.getAndroidId(context));
-            String oaid = DeviceConfig.getOaid(context);
-            if (!TextUtils.isEmpty(oaid)) {
-                jSONObject2.put("tk_oaid", oaid);
-            }
-            String imeiNew = DeviceConfig.getImeiNew(context);
-            if (!TextUtils.isEmpty(imeiNew)) {
-                jSONObject2.put("tk_imei", imeiNew);
-            }
-            jSONObject2.put("boa", Build.BOARD);
-            jSONObject2.put("mant", Build.TIME);
-            String[] localeInfo = DeviceConfig.getLocaleInfo(context);
-            jSONObject2.put("ct", localeInfo[0]);
-            jSONObject2.put("lang", localeInfo[1]);
-            jSONObject2.put("tz", DeviceConfig.getTimeZone(context));
-            jSONObject2.put("pkg", DeviceConfig.getPackageName(context));
-            jSONObject2.put("disn", DeviceConfig.getAppName(context));
-            String[] networkAccessMode = DeviceConfig.getNetworkAccessMode(context);
-            if ("Wi-Fi".equals(networkAccessMode[0])) {
-                jSONObject2.put("ac", "wifi");
-            } else if ("2G/3G".equals(networkAccessMode[0])) {
-                jSONObject2.put("ac", "2G/3G");
-            } else {
-                jSONObject2.put("ac", "unknown");
-            }
-            if (!"".equals(networkAccessMode[1])) {
-                jSONObject2.put("ast", networkAccessMode[1]);
-            }
-            jSONObject2.put("nt", DeviceConfig.getNetworkType(context));
-            String deviceToken = UMUtils.getDeviceToken(context);
-            if (!TextUtils.isEmpty(deviceToken)) {
-                jSONObject2.put(bt.f23583a, deviceToken);
-            }
-            int[] resolutionArray = DeviceConfig.getResolutionArray(context);
-            if (resolutionArray != null) {
-                jSONObject2.put("rl", resolutionArray[1] + m5.h.f28447r + resolutionArray[0]);
-            }
-            jSONObject2.put("car", DeviceConfig.getNetworkOperatorName(context));
-            jSONObject2.put(bt.f23595b, "9.7.9");
-            if (DeviceConfig.isHarmony(context)) {
-                jSONObject2.put("oos", "harmony");
-            } else {
-                jSONObject2.put("oos", "Android");
-            }
-            jSONObject2.put(com.umeng.ccg.a.f24241r, str);
-            jSONObject2.put("sdk", jSONArray);
-            f23437a = jSONObject2;
-        } catch (Throwable unused) {
-        }
-        return f23437a;
+    private ao(Context context, String str, SQLiteDatabase.CursorFactory cursorFactory, int i2) {
+        super(context, str, cursorFactory, i2);
+        this.f25686a = context;
     }
 
-    public static JSONObject a(Context context, JSONObject jSONObject) {
-        JSONArray jSONArray;
-        JSONObject jSONObject2;
-        JSONObject jSONObject3 = null;
-        try {
-            jSONArray = new JSONArray();
-            jSONArray.put(jSONObject);
-            jSONObject2 = new JSONObject();
-        } catch (Throwable unused) {
+    public static final int a() {
+        return 1;
+    }
+
+    public static ao a(Context context) {
+        ao aoVar;
+        synchronized (f25681b) {
+            if (f25682c == null) {
+                f25682c = new ao(context, aq.f25694b, null, 1);
+            }
+            aoVar = f25682c;
         }
+        return aoVar;
+    }
+
+    private void b(SQLiteDatabase sQLiteDatabase) {
         try {
-            jSONObject2.put("ekv", jSONArray);
-            return jSONObject2;
-        } catch (Throwable unused2) {
-            jSONObject3 = jSONObject2;
-            return jSONObject3;
+            sQLiteDatabase.execSQL(f25683d);
+        } catch (SQLiteDatabaseCorruptException unused) {
+            a(sQLiteDatabase);
+        } catch (Throwable th) {
+            UMRTLog.e(UMRTLog.RTLOG_TAG, "--->>> [有状态]创建二级缓存数据库失败: " + th.getMessage());
         }
     }
 
-    public static JSONObject a(JSONObject jSONObject, JSONObject jSONObject2) {
-        JSONObject jSONObject3 = new JSONObject();
+    private void d() {
         try {
-            jSONObject3.put("header", jSONObject);
-            jSONObject3.put("analytics", jSONObject2);
-        } catch (Throwable unused) {
-        }
-        return jSONObject3;
-    }
-
-    public static JSONObject a(Context context, String str) {
-        JSONObject jSONObject = null;
-        try {
-            an anVar = new an();
-            String uMId = UMUtils.getUMId(context);
-            if (TextUtils.isEmpty(uMId)) {
-                return null;
+            SQLiteDatabase writableDatabase = getWritableDatabase();
+            if (writableDatabase == null || !writableDatabase.isOpen()) {
+                return;
             }
-            anVar.a(uMId);
-            String appkey = UMUtils.getAppkey(context);
-            if (TextUtils.isEmpty(appkey)) {
-                return null;
-            }
-            anVar.b(appkey);
-            anVar.c(UMUtils.getAppVersionName(context));
-            anVar.d("9.7.9");
-            anVar.e(UMUtils.getChannel(context));
-            anVar.f(Build.VERSION.SDK_INT + "");
-            anVar.g(Build.BRAND);
-            anVar.h(Build.MODEL);
-            String[] localeInfo = DeviceConfig.getLocaleInfo(context);
-            anVar.i(localeInfo[1]);
-            anVar.j(localeInfo[0]);
-            int[] resolutionArray = DeviceConfig.getResolutionArray(context);
-            anVar.b(Integer.valueOf(resolutionArray[1]));
-            anVar.a(Integer.valueOf(resolutionArray[0]));
-            anVar.k(as.a(context, "install_datetime", ""));
             try {
-                JSONObject jSONObject2 = new JSONObject();
-                try {
-                    jSONObject2.put(an.f23411a, anVar.a());
-                    jSONObject2.put(an.f23413c, anVar.c());
-                    jSONObject2.put(an.f23412b, anVar.b());
-                    jSONObject2.put(an.f23414d, anVar.d());
-                    jSONObject2.put(an.f23415e, anVar.e());
-                    jSONObject2.put(an.f23416f, anVar.f());
-                    jSONObject2.put(an.f23417g, anVar.g());
-                    jSONObject2.put(an.f23418h, anVar.h());
-                    jSONObject2.put(an.f23421k, anVar.k());
-                    jSONObject2.put(an.f23420j, anVar.j());
-                    jSONObject2.put(an.f23422l, anVar.l());
-                    jSONObject2.put(an.f23419i, anVar.i());
-                    jSONObject2.put(an.f23423m, anVar.m());
-                    jSONObject2.put(bt.al, UMUtils.getZid(context));
-                    jSONObject2.put("platform", "android");
-                    jSONObject2.put("optional", new JSONObject(as.a()));
-                    String[] split = str.split("@");
-                    if (split.length == 4) {
-                        try {
-                            long parseLong = Long.parseLong(split[0]);
-                            String str2 = split[1];
-                            jSONObject2.put("s1", parseLong);
-                            jSONObject2.put("s2", str2);
-                        } catch (Throwable unused) {
-                        }
-                    }
-                    try {
-                        String str3 = Build.BRAND;
-                        String a10 = at.a(str3);
-                        String b10 = at.b(str3);
-                        if (!TextUtils.isEmpty(a10) && !TextUtils.isEmpty(b10)) {
-                            jSONObject2.put(an.f23424n, a10);
-                            jSONObject2.put(an.f23425o, b10);
-                        } else {
-                            jSONObject2.put(an.f23424n, "Android");
-                            jSONObject2.put(an.f23425o, Build.VERSION.RELEASE);
-                        }
-                    } catch (Throwable unused2) {
-                    }
-                    return jSONObject2;
-                } catch (JSONException e10) {
-                    e = e10;
-                    jSONObject = jSONObject2;
-                    UMRTLog.e(UMRTLog.RTLOG_TAG, "[getCloudConfigParam] error " + e.getMessage());
-                    return jSONObject;
-                } catch (Throwable th2) {
-                    th = th2;
-                    jSONObject = jSONObject2;
-                    UMRTLog.e(UMRTLog.RTLOG_TAG, "[getCloudConfigParam] error " + th.getMessage());
-                    return jSONObject;
-                }
-            } catch (JSONException e11) {
-                e = e11;
+                writableDatabase.execSQL(f25685f);
+            } catch (Throwable unused) {
             }
-        } catch (Throwable th3) {
-            th = th3;
+            writableDatabase.close();
+        } catch (Throwable unused2) {
         }
     }
 
-    public static JSONObject a(Context context, int i10, JSONArray jSONArray, String str) {
-        JSONObject jSONObject;
-        JSONObject jSONObject2 = null;
+    public boolean c() {
+        return !b(aq.f25695c);
+    }
+
+    @Override // android.database.sqlite.SQLiteOpenHelper
+    public void onCreate(SQLiteDatabase sQLiteDatabase) {
+        b(sQLiteDatabase);
+    }
+
+    @Override // android.database.sqlite.SQLiteOpenHelper
+    public void onUpgrade(SQLiteDatabase sQLiteDatabase, int i2, int i3) {
+    }
+
+    public void b() {
         try {
-            jSONObject = new JSONObject();
+            SQLiteDatabase writableDatabase = getWritableDatabase();
+            if (writableDatabase == null || !writableDatabase.isOpen()) {
+                return;
+            }
+            writableDatabase.close();
         } catch (Throwable unused) {
         }
+    }
+
+    private void a(SQLiteDatabase sQLiteDatabase) {
         try {
-            String zid = UMUtils.getZid(context);
-            if (TextUtils.isEmpty(zid)) {
-                return jSONObject;
+            sQLiteDatabase.execSQL(f25684e);
+            sQLiteDatabase.execSQL(f25683d);
+        } catch (SQLException unused) {
+        }
+    }
+
+    public boolean b(String str) {
+        SQLiteDatabase sQLiteDatabase;
+        Cursor cursor = null;
+        try {
+            sQLiteDatabase = getWritableDatabase();
+            if (sQLiteDatabase != null) {
+                try {
+                    if (sQLiteDatabase.isOpen()) {
+                        cursor = sQLiteDatabase.query(str, null, null, null, null, null, null, null);
+                    }
+                } catch (Throwable unused) {
+                    if (cursor != null) {
+                        cursor.close();
+                    }
+                    if (sQLiteDatabase == null) {
+                        return false;
+                    }
+                    sQLiteDatabase.close();
+                    return false;
+                }
             }
-            jSONObject.put("atoken", zid);
-            String deviceToken = UMUtils.getDeviceToken(context);
-            if (!TextUtils.isEmpty(deviceToken)) {
-                jSONObject.put("device_token", deviceToken);
+            if (cursor != null) {
+                if (cursor.getCount() > 0) {
+                    cursor.close();
+                    if (sQLiteDatabase != null) {
+                        sQLiteDatabase.close();
+                    }
+                    return true;
+                }
             }
-            jSONObject.put(com.baidu.mobads.sdk.internal.bm.f6904i, Build.MODEL);
-            jSONObject.put(bt.f23628x, "android");
-            jSONObject.put(bt.f23629y, Build.VERSION.RELEASE);
-            jSONObject.put(com.umeng.ccg.a.f24241r, str);
-            jSONObject.put("sdk", jSONArray);
-            jSONObject.put(com.kwad.sdk.m.e.TAG, i10);
-            return jSONObject;
+            if (cursor != null) {
+                cursor.close();
+            }
+            if (sQLiteDatabase == null) {
+                return false;
+            }
         } catch (Throwable unused2) {
-            jSONObject2 = jSONObject;
-            return jSONObject2;
+            sQLiteDatabase = null;
+        }
+        sQLiteDatabase.close();
+        return false;
+    }
+
+    public void a(String str, ContentValues contentValues) {
+        try {
+            SQLiteDatabase writableDatabase = getWritableDatabase();
+            if (writableDatabase == null || !writableDatabase.isOpen()) {
+                return;
+            }
+            try {
+                writableDatabase.beginTransaction();
+                writableDatabase.insert(str, null, contentValues);
+                writableDatabase.setTransactionSuccessful();
+                UMRTLog.e(UMRTLog.RTLOG_TAG, "--->>> [有状态]插入二级缓存数据记录 成功。");
+            } catch (Throwable unused) {
+            }
+            writableDatabase.endTransaction();
+            writableDatabase.close();
+        } catch (Throwable unused2) {
+        }
+    }
+
+    public void a(String str, String str2, String[] strArr) {
+        try {
+            SQLiteDatabase writableDatabase = getWritableDatabase();
+            if (writableDatabase == null || !writableDatabase.isOpen()) {
+                return;
+            }
+            try {
+                writableDatabase.beginTransaction();
+                writableDatabase.delete(str, str2, strArr);
+                writableDatabase.setTransactionSuccessful();
+            } catch (Throwable unused) {
+            }
+            writableDatabase.endTransaction();
+            writableDatabase.close();
+        } catch (Throwable unused2) {
+        }
+    }
+
+    /* JADX WARN: Removed duplicated region for block: B:10:? A[RETURN, SYNTHETIC] */
+    /* JADX WARN: Removed duplicated region for block: B:24:0x0093  */
+    /* JADX WARN: Removed duplicated region for block: B:7:0x0087  */
+    /*
+        Code decompiled incorrectly, please refer to instructions dump.
+        To view partially-correct code enable 'Show inconsistent code' option in preferences
+    */
+    public com.umeng.analytics.pro.ap a(java.lang.String r19) {
+        /*
+            r18 = this;
+            r10 = r18
+            r0 = 6
+            java.lang.String[] r3 = new java.lang.String[r0]     // Catch: java.lang.Throwable -> L8b
+            java.lang.String r0 = "_uuid"
+            r12 = 0
+            r3[r12] = r0     // Catch: java.lang.Throwable -> L8b
+            java.lang.String r0 = "_tp"
+            r13 = 1
+            r3[r13] = r0     // Catch: java.lang.Throwable -> L8b
+            java.lang.String r0 = "_hd"
+            r14 = 2
+            r3[r14] = r0     // Catch: java.lang.Throwable -> L8b
+            java.lang.String r0 = "_bd"
+            r15 = 3
+            r3[r15] = r0     // Catch: java.lang.Throwable -> L8b
+            java.lang.String r0 = "_re1"
+            r9 = 4
+            r3[r9] = r0     // Catch: java.lang.Throwable -> L8b
+            java.lang.String r0 = "_re2"
+            r8 = 5
+            r3[r8] = r0     // Catch: java.lang.Throwable -> L8b
+            r4 = 0
+            r5 = 0
+            r6 = 0
+            r7 = 0
+            r0 = 0
+            java.lang.String r16 = "1"
+            r1 = r18
+            r2 = r19
+            r11 = 5
+            r8 = r0
+            r0 = 4
+            r9 = r16
+            android.database.Cursor r1 = r1.a(r2, r3, r4, r5, r6, r7, r8, r9)     // Catch: java.lang.Throwable -> L8b
+            if (r1 == 0) goto L84
+            boolean r2 = r1.moveToFirst()     // Catch: java.lang.Throwable -> L82
+            if (r2 == 0) goto L84
+            com.umeng.analytics.pro.ap r2 = new com.umeng.analytics.pro.ap     // Catch: java.lang.Throwable -> L82
+            r2.<init>()     // Catch: java.lang.Throwable -> L82
+            java.lang.String r3 = r1.getString(r12)     // Catch: java.lang.Throwable -> L7e
+            r2.f25687a = r3     // Catch: java.lang.Throwable -> L7e
+            java.lang.String r3 = r1.getString(r13)     // Catch: java.lang.Throwable -> L7e
+            r2.f25688b = r3     // Catch: java.lang.Throwable -> L7e
+            java.lang.String r3 = r1.getString(r14)     // Catch: java.lang.Throwable -> L7e
+            java.lang.String r4 = r1.getString(r15)     // Catch: java.lang.Throwable -> L7e
+            android.content.Context r5 = r10.f25686a     // Catch: java.lang.Throwable -> L7e
+            com.umeng.analytics.pro.i r5 = com.umeng.analytics.pro.i.a(r5)     // Catch: java.lang.Throwable -> L7e
+            java.lang.String r3 = r5.d(r3)     // Catch: java.lang.Throwable -> L7e
+            r2.f25689c = r3     // Catch: java.lang.Throwable -> L7e
+            android.content.Context r3 = r10.f25686a     // Catch: java.lang.Throwable -> L7e
+            com.umeng.analytics.pro.i r3 = com.umeng.analytics.pro.i.a(r3)     // Catch: java.lang.Throwable -> L7e
+            java.lang.String r3 = r3.d(r4)     // Catch: java.lang.Throwable -> L7e
+            r2.f25690d = r3     // Catch: java.lang.Throwable -> L7e
+            java.lang.String r0 = r1.getString(r0)     // Catch: java.lang.Throwable -> L7e
+            r2.f25691e = r0     // Catch: java.lang.Throwable -> L7e
+            java.lang.String r0 = r1.getString(r11)     // Catch: java.lang.Throwable -> L7e
+            r2.f25692f = r0     // Catch: java.lang.Throwable -> L7e
+            r11 = r2
+            goto L85
+        L7e:
+            r11 = r1
+            r17 = r2
+            goto L8e
+        L82:
+            r11 = r1
+            goto L8c
+        L84:
+            r11 = 0
+        L85:
+            if (r1 == 0) goto L98
+            r1.close()
+            goto L98
+        L8b:
+            r11 = 0
+        L8c:
+            r17 = 0
+        L8e:
+            r18.d()     // Catch: java.lang.Throwable -> L99
+            if (r11 == 0) goto L96
+            r11.close()
+        L96:
+            r11 = r17
+        L98:
+            return r11
+        L99:
+            r0 = move-exception
+            r1 = r0
+            if (r11 == 0) goto La0
+            r11.close()
+        La0:
+            throw r1
+        */
+        throw new UnsupportedOperationException("Method not decompiled: com.umeng.analytics.pro.ao.a(java.lang.String):com.umeng.analytics.pro.ap");
+    }
+
+    public void a(String str, String str2) {
+        a(str, "_uuid=?", new String[]{str2});
+    }
+
+    public Cursor a(String str, String[] strArr, String str2, String[] strArr2, String str3, String str4, String str5, String str6) {
+        try {
+            SQLiteDatabase writableDatabase = getWritableDatabase();
+            if (writableDatabase == null || !writableDatabase.isOpen()) {
+                return null;
+            }
+            return writableDatabase.query(str, strArr, str2, strArr2, str3, str4, str5, str6);
+        } catch (Throwable unused) {
+            return null;
         }
     }
 }

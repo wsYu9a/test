@@ -1,91 +1,55 @@
 package com.kuaishou.weapon.p0;
 
 import android.content.Context;
-import android.text.TextUtils;
+import org.json.JSONArray;
 import org.json.JSONObject;
 
-/* loaded from: classes2.dex */
+/* loaded from: classes.dex */
 public class cg {
 
-    /* renamed from: com.kuaishou.weapon.p0.cg$1 */
-    public static class AnonymousClass1 implements j {
+    /* renamed from: a */
+    private Context f9183a;
 
-        /* renamed from: a */
-        final /* synthetic */ Context f10899a;
+    /* renamed from: b */
+    private int f9184b;
 
-        public AnonymousClass1(Context context) {
-            context = context;
-        }
+    public cg(Context context, int i2) {
+        this.f9183a = context;
+        this.f9184b = i2;
+    }
 
-        @Override // com.kuaishou.weapon.p0.j
-        public final void a(String str) {
-            cg.a(context, str);
-        }
-
-        @Override // com.kuaishou.weapon.p0.j
-        public final void b(String str) {
+    public String a(String str) {
+        JSONObject a2;
+        try {
+            JSONObject a3 = new cl(str, cj.f9197j).a(this.f9183a);
+            if (a3 == null || (a2 = a()) == null) {
+                return null;
+            }
+            a3.put("module_section", a2);
+            return a3.toString();
+        } catch (Throwable unused) {
+            return null;
         }
     }
 
-    public static void a(Context context, String str, String str2, boolean z10) {
-        JSONObject jSONObject;
+    public JSONObject a() {
+        JSONArray a2;
         try {
-            String str3 = cu.f10966a + cu.f10971f;
-            String a10 = cv.a(context);
-            if (!TextUtils.isEmpty(a10)) {
-                if (!cu.a() || str2 == null) {
-                    str3 = str3 + "?" + a10;
-                } else {
-                    str3 = str3 + "?logId=" + str2 + "&" + a10;
+            System.currentTimeMillis();
+            JSONObject jSONObject = new JSONObject();
+            if (h.a(this.f9183a, "re_po_rt").b(de.w, 1) == 1 && (a2 = new x().a(this.f9183a)) != null && a2.length() > 0) {
+                jSONObject.put("10000", a2);
+                try {
+                    jSONObject.put("11203", bg.b(com.kwad.sdk.d.b.Ax().Av()));
+                    jSONObject.put("11301", bg.c(com.kwad.sdk.d.b.Ax().Aw()));
+                    jSONObject.put("11302", bg.c(com.kwad.sdk.d.b.Ax().getSdkVersion()));
+                    jSONObject.put("11303", bg.c(com.kwad.sdk.d.b.Ax().getAppId()));
+                } catch (Throwable unused) {
                 }
+                return jSONObject;
             }
-            String str4 = str3;
-            if (TextUtils.isEmpty(str)) {
-                return;
-            }
-            if (z10) {
-                jSONObject = new JSONObject();
-                String c10 = new bn(context).c(str);
-                if (!TextUtils.isEmpty(c10)) {
-                    jSONObject.put(h3.e.f26408m, c10);
-                }
-            } else {
-                jSONObject = new JSONObject(str);
-            }
-            n.a().a(new k(context, WeaponHI.cookieData, WeaponHI.encryENV, str4, jSONObject, new j() { // from class: com.kuaishou.weapon.p0.cg.1
-
-                /* renamed from: a */
-                final /* synthetic */ Context f10899a;
-
-                public AnonymousClass1(Context context2) {
-                    context = context2;
-                }
-
-                @Override // com.kuaishou.weapon.p0.j
-                public final void a(String str5) {
-                    cg.a(context, str5);
-                }
-
-                @Override // com.kuaishou.weapon.p0.j
-                public final void b(String str5) {
-                }
-            }));
-        } catch (Exception unused) {
+        } catch (Throwable unused2) {
         }
-    }
-
-    public static void a(Context context, String str) {
-        try {
-            JSONObject jSONObject = new JSONObject(str);
-            if (jSONObject.optInt(p3.i.f29758c, 0) == 1) {
-                JSONObject jSONObject2 = new JSONObject(new bn(context).a(jSONObject.getString("dataRsp")));
-                String string = jSONObject2.getString("conjure");
-                if (jSONObject2.getInt("status") == 1) {
-                    bx.a(context, string);
-                    bx.b(context, string);
-                }
-            }
-        } catch (Exception unused) {
-        }
+        return null;
     }
 }

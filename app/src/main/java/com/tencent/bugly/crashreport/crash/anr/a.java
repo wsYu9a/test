@@ -6,23 +6,23 @@ import java.util.Map;
 public class a {
 
     /* renamed from: a */
-    public String f22406a = null;
+    public String f24803a = null;
 
     /* renamed from: b */
-    public Map<String, String> f22407b = null;
+    public Map<String, String> f24804b = null;
 
     /* renamed from: c */
-    public long f22408c = -1;
+    public long f24805c = -1;
 
     /* renamed from: d */
-    public String f22409d = null;
+    public String f24806d = null;
 
     /* renamed from: e */
-    public String f22410e = null;
+    public String f24807e = null;
 
     /* renamed from: f */
-    public String f22411f = null;
+    public String f24808f = null;
 
     /* renamed from: g */
-    public String f22412g = null;
+    public String f24809g = null;
 }

@@ -11,6 +11,7 @@ import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.net.Uri;
 import android.net.http.SslError;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
@@ -30,6 +31,7 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 import com.qq.e.comm.constants.ErrorCode;
+import com.ss.android.socialbase.downloader.utils.DownloadExpSwitchCode;
 import com.tencent.connect.auth.b;
 import com.tencent.connect.common.Constants;
 import com.tencent.open.a.f;
@@ -51,65 +53,47 @@ import org.json.JSONObject;
 public class a extends Dialog {
 
     /* renamed from: a */
-    private String f22959a;
+    private String f25244a;
 
     /* renamed from: b */
-    private b f22960b;
+    private b f25245b;
 
     /* renamed from: c */
-    private IUiListener f22961c;
+    private IUiListener f25246c;
 
     /* renamed from: d */
-    private Handler f22962d;
+    private Handler f25247d;
 
     /* renamed from: e */
-    private FrameLayout f22963e;
+    private FrameLayout f25248e;
 
     /* renamed from: f */
-    private LinearLayout f22964f;
+    private LinearLayout f25249f;
 
     /* renamed from: g */
-    private FrameLayout f22965g;
+    private FrameLayout f25250g;
 
     /* renamed from: h */
-    private ProgressBar f22966h;
+    private ProgressBar f25251h;
 
     /* renamed from: i */
-    private String f22967i;
+    private String f25252i;
 
     /* renamed from: j */
-    private com.tencent.open.c.c f22968j;
-
-    /* renamed from: k */
-    private Context f22969k;
-
-    /* renamed from: l */
-    private com.tencent.open.web.security.b f22970l;
-
-    /* renamed from: m */
-    private boolean f22971m;
-
-    /* renamed from: n */
-    private int f22972n;
-
-    /* renamed from: o */
-    private String f22973o;
-
-    /* renamed from: p */
-    private String f22974p;
-
-    /* renamed from: q */
-    private long f22975q;
-
-    /* renamed from: r */
-    private long f22976r;
-
-    /* renamed from: s */
-    private HashMap<String, Runnable> f22977s;
+    private com.tencent.open.c.c f25253j;
+    private Context k;
+    private com.tencent.open.web.security.b l;
+    private boolean m;
+    private int n;
+    private String o;
+    private String p;
+    private long q;
+    private long r;
+    private HashMap<String, Runnable> s;
 
     /* renamed from: com.tencent.connect.auth.a$1 */
-    public class AnonymousClass1 implements View.OnLongClickListener {
-        public AnonymousClass1() {
+    class AnonymousClass1 implements View.OnLongClickListener {
+        AnonymousClass1() {
         }
 
         @Override // android.view.View.OnLongClickListener
@@ -119,8 +103,8 @@ public class a extends Dialog {
     }
 
     /* renamed from: com.tencent.connect.auth.a$2 */
-    public class AnonymousClass2 implements View.OnTouchListener {
-        public AnonymousClass2() {
+    class AnonymousClass2 implements View.OnTouchListener {
+        AnonymousClass2() {
         }
 
         @Override // android.view.View.OnTouchListener
@@ -135,8 +119,8 @@ public class a extends Dialog {
     }
 
     /* renamed from: com.tencent.connect.auth.a$3 */
-    public class AnonymousClass3 implements DialogInterface.OnDismissListener {
-        public AnonymousClass3() {
+    class AnonymousClass3 implements DialogInterface.OnDismissListener {
+        AnonymousClass3() {
         }
 
         @Override // android.content.DialogInterface.OnDismissListener
@@ -149,78 +133,78 @@ public class a extends Dialog {
     }
 
     /* renamed from: com.tencent.connect.auth.a$a */
-    public class C0655a extends WebViewClient {
+    private class C0526a extends WebViewClient {
 
         /* renamed from: com.tencent.connect.auth.a$a$1 */
-        public class AnonymousClass1 implements Runnable {
-            public AnonymousClass1() {
+        class AnonymousClass1 implements Runnable {
+            AnonymousClass1() {
             }
 
             @Override // java.lang.Runnable
             public void run() {
-                a.this.f22968j.loadUrl(a.this.f22973o);
+                a.this.f25253j.loadUrl(a.this.o);
             }
         }
 
-        private C0655a() {
+        private C0526a() {
         }
 
         @Override // android.webkit.WebViewClient
         public void onPageFinished(WebView webView, String str) {
             super.onPageFinished(webView, str);
             f.a("openSDK_LOG.AuthDialog", "-->onPageFinished, url: " + str);
-            a.this.f22965g.setVisibility(8);
-            if (a.this.f22968j != null) {
-                a.this.f22968j.setVisibility(0);
+            a.this.f25250g.setVisibility(8);
+            if (a.this.f25253j != null) {
+                a.this.f25253j.setVisibility(0);
             }
             if (TextUtils.isEmpty(str)) {
                 return;
             }
-            a.this.f22962d.removeCallbacks((Runnable) a.this.f22977s.remove(str));
+            a.this.f25247d.removeCallbacks((Runnable) a.this.s.remove(str));
         }
 
         @Override // android.webkit.WebViewClient
         public void onPageStarted(WebView webView, String str, Bitmap bitmap) {
             f.a("openSDK_LOG.AuthDialog", "-->onPageStarted, url: " + str);
             super.onPageStarted(webView, str, bitmap);
-            a.this.f22965g.setVisibility(0);
-            a.this.f22975q = SystemClock.elapsedRealtime();
-            if (!TextUtils.isEmpty(a.this.f22973o)) {
-                a.this.f22962d.removeCallbacks((Runnable) a.this.f22977s.remove(a.this.f22973o));
+            a.this.f25250g.setVisibility(0);
+            a.this.q = SystemClock.elapsedRealtime();
+            if (!TextUtils.isEmpty(a.this.o)) {
+                a.this.f25247d.removeCallbacks((Runnable) a.this.s.remove(a.this.o));
             }
-            a.this.f22973o = str;
+            a.this.o = str;
             a aVar = a.this;
-            d dVar = aVar.new d(aVar.f22973o);
-            a.this.f22977s.put(str, dVar);
-            a.this.f22962d.postDelayed(dVar, 120000L);
+            d dVar = aVar.new d(aVar.o);
+            a.this.s.put(str, dVar);
+            a.this.f25247d.postDelayed(dVar, 120000L);
         }
 
         @Override // android.webkit.WebViewClient
-        public void onReceivedError(WebView webView, int i10, String str, String str2) {
-            super.onReceivedError(webView, i10, str, str2);
-            f.c("openSDK_LOG.AuthDialog", "-->onReceivedError, errorCode: " + i10 + " | description: " + str);
-            if (!i.c(a.this.f22969k)) {
-                a.this.f22960b.onError(new UiError(ErrorCode.PrivateError.LOAD_FAIL, "当前网络不可用，请稍后重试！", str2));
+        public void onReceivedError(WebView webView, int i2, String str, String str2) {
+            super.onReceivedError(webView, i2, str, str2);
+            f.c("openSDK_LOG.AuthDialog", "-->onReceivedError, errorCode: " + i2 + " | description: " + str);
+            if (!i.c(a.this.k)) {
+                a.this.f25245b.onError(new UiError(ErrorCode.PrivateError.LOAD_FAIL, "当前网络不可用，请稍后重试！", str2));
                 a.this.dismiss();
                 return;
             }
-            if (a.this.f22973o.startsWith("http://qzs.qq.com/open/mobile/login/qzsjump.html?")) {
-                a.this.f22960b.onError(new UiError(i10, str, str2));
+            if (a.this.o.startsWith("http://qzs.qq.com/open/mobile/login/qzsjump.html?")) {
+                a.this.f25245b.onError(new UiError(i2, str, str2));
                 a.this.dismiss();
                 return;
             }
-            long elapsedRealtime = SystemClock.elapsedRealtime() - a.this.f22975q;
-            if (a.this.f22972n >= 1 || elapsedRealtime >= a.this.f22976r) {
-                a.this.f22968j.loadUrl(a.this.a());
+            long elapsedRealtime = SystemClock.elapsedRealtime() - a.this.q;
+            if (a.this.n >= 1 || elapsedRealtime >= a.this.r) {
+                a.this.f25253j.loadUrl(a.this.a());
             } else {
                 a.m(a.this);
-                a.this.f22962d.postDelayed(new Runnable() { // from class: com.tencent.connect.auth.a.a.1
-                    public AnonymousClass1() {
+                a.this.f25247d.postDelayed(new Runnable() { // from class: com.tencent.connect.auth.a.a.1
+                    AnonymousClass1() {
                     }
 
                     @Override // java.lang.Runnable
                     public void run() {
-                        a.this.f22968j.loadUrl(a.this.f22973o);
+                        a.this.f25253j.loadUrl(a.this.o);
                     }
                 }, 500L);
             }
@@ -230,7 +214,7 @@ public class a extends Dialog {
         @TargetApi(8)
         public void onReceivedSslError(WebView webView, SslErrorHandler sslErrorHandler, SslError sslError) {
             sslErrorHandler.cancel();
-            a.this.f22960b.onError(new UiError(sslError.getPrimaryError(), "请求不合法，请检查手机安全设置，如系统时间、代理等。", "ssl error"));
+            a.this.f25245b.onError(new UiError(sslError.getPrimaryError(), "请求不合法，请检查手机安全设置，如系统时间、代理等。", "ssl error"));
             a.this.dismiss();
         }
 
@@ -239,33 +223,33 @@ public class a extends Dialog {
             List<String> pathSegments;
             f.a("openSDK_LOG.AuthDialog", "-->Redirect URL: " + str);
             if (str.startsWith("auth://browser")) {
-                JSONObject c10 = i.c(str);
+                JSONObject c2 = i.c(str);
                 a aVar = a.this;
-                aVar.f22971m = aVar.e();
-                if (!a.this.f22971m) {
-                    if (c10.optString("fail_cb", null) != null) {
-                        a.this.a(c10.optString("fail_cb"), "");
-                    } else if (c10.optInt("fall_to_wv") == 1) {
+                aVar.m = aVar.e();
+                if (!a.this.m) {
+                    if (c2.optString("fail_cb", null) != null) {
+                        a.this.a(c2.optString("fail_cb"), "");
+                    } else if (c2.optInt("fall_to_wv") == 1) {
                         a aVar2 = a.this;
-                        a.a(aVar2, (Object) (aVar2.f22959a.indexOf("?") > -1 ? "&" : "?"));
+                        a.a(aVar2, (Object) (aVar2.f25244a.indexOf("?") > -1 ? "&" : "?"));
                         a.a(a.this, (Object) "browser_error=1");
-                        a.this.f22968j.loadUrl(a.this.f22959a);
+                        a.this.f25253j.loadUrl(a.this.f25244a);
                     } else {
-                        String optString = c10.optString("redir", null);
+                        String optString = c2.optString("redir", null);
                         if (optString != null) {
-                            a.this.f22968j.loadUrl(optString);
+                            a.this.f25253j.loadUrl(optString);
                         }
                     }
                 }
                 return true;
             }
             if (str.startsWith("auth://tauth.qq.com/")) {
-                a.this.f22960b.onComplete(i.c(str));
+                a.this.f25245b.onComplete(i.c(str));
                 a.this.dismiss();
                 return true;
             }
             if (str.startsWith(Constants.CANCEL_URI)) {
-                a.this.f22960b.onCancel();
+                a.this.f25245b.onCancel();
                 a.this.dismiss();
                 return true;
             }
@@ -276,10 +260,10 @@ public class a extends Dialog {
             if (str.startsWith(Constants.DOWNLOAD_URI)) {
                 try {
                     Intent intent = new Intent("android.intent.action.VIEW", Uri.parse(Uri.decode(str.substring(11))));
-                    intent.addFlags(268435456);
-                    a.this.f22969k.startActivity(intent);
-                } catch (Exception e10) {
-                    f.b("openSDK_LOG.AuthDialog", "-->start download activity exception, e: ", e10);
+                    intent.addFlags(DownloadExpSwitchCode.BUGFIX_GETPACKAGEINFO_BY_UNZIP);
+                    a.this.k.startActivity(intent);
+                } catch (Exception e2) {
+                    f.b("openSDK_LOG.AuthDialog", "-->start download activity exception, e: ", e2);
                 }
                 return true;
             }
@@ -288,13 +272,13 @@ public class a extends Dialog {
                     try {
                         List<String> pathSegments2 = Uri.parse(str).getPathSegments();
                         if (!pathSegments2.isEmpty()) {
-                            a.this.f22974p = pathSegments2.get(0);
+                            a.this.p = pathSegments2.get(0);
                         }
                     } catch (Exception unused) {
                     }
                     return true;
                 }
-                if (a.this.f22970l.a(a.this.f22968j, str)) {
+                if (a.this.l.a(a.this.f25253j, str)) {
                     return true;
                 }
                 f.c("openSDK_LOG.AuthDialog", "-->Redirect URL: return false");
@@ -309,57 +293,57 @@ public class a extends Dialog {
             }
             int intValue = Integer.valueOf(pathSegments.get(0)).intValue();
             if (intValue == 0) {
-                a.this.f22965g.setVisibility(8);
-                a.this.f22968j.setVisibility(0);
+                a.this.f25250g.setVisibility(8);
+                a.this.f25253j.setVisibility(0);
             } else if (intValue == 1) {
-                a.this.f22965g.setVisibility(0);
+                a.this.f25250g.setVisibility(0);
             }
             return true;
         }
 
-        public /* synthetic */ C0655a(a aVar, AnonymousClass1 anonymousClass1) {
+        /* synthetic */ C0526a(a aVar, AnonymousClass1 anonymousClass1) {
             this();
         }
     }
 
-    public class b implements IUiListener {
+    private class b implements IUiListener {
 
         /* renamed from: a */
-        String f22983a;
+        String f25259a;
 
         /* renamed from: b */
-        String f22984b;
+        String f25260b;
 
         /* renamed from: d */
-        private String f22986d;
+        private String f25262d;
 
         /* renamed from: e */
-        private IUiListener f22987e;
+        private IUiListener f25263e;
 
         public b(String str, String str2, String str3, IUiListener iUiListener) {
-            this.f22986d = str;
-            this.f22983a = str2;
-            this.f22984b = str3;
-            this.f22987e = iUiListener;
+            this.f25262d = str;
+            this.f25259a = str2;
+            this.f25260b = str3;
+            this.f25263e = iUiListener;
         }
 
         @Override // com.tencent.tauth.IUiListener
         public void onCancel() {
-            IUiListener iUiListener = this.f22987e;
+            IUiListener iUiListener = this.f25263e;
             if (iUiListener != null) {
                 iUiListener.onCancel();
-                this.f22987e = null;
+                this.f25263e = null;
             }
         }
 
         @Override // com.tencent.tauth.IUiListener
         public void onComplete(Object obj) {
             JSONObject jSONObject = (JSONObject) obj;
-            g.a().a(this.f22986d + "_H5", SystemClock.elapsedRealtime(), 0L, 0L, jSONObject.optInt("ret", -6), this.f22983a, false);
-            IUiListener iUiListener = this.f22987e;
+            g.a().a(this.f25262d + "_H5", SystemClock.elapsedRealtime(), 0L, 0L, jSONObject.optInt("ret", -6), this.f25259a, false);
+            IUiListener iUiListener = this.f25263e;
             if (iUiListener != null) {
                 iUiListener.onComplete(jSONObject);
-                this.f22987e = null;
+                this.f25263e = null;
             }
         }
 
@@ -367,69 +351,70 @@ public class a extends Dialog {
         public void onError(UiError uiError) {
             String str;
             if (uiError.errorMessage != null) {
-                str = uiError.errorMessage + this.f22983a;
+                str = uiError.errorMessage + this.f25259a;
             } else {
-                str = this.f22983a;
+                str = this.f25259a;
             }
-            g.a().a(this.f22986d + "_H5", SystemClock.elapsedRealtime(), 0L, 0L, uiError.errorCode, str, false);
+            g.a().a(this.f25262d + "_H5", SystemClock.elapsedRealtime(), 0L, 0L, uiError.errorCode, str, false);
             a.this.a(str);
-            IUiListener iUiListener = this.f22987e;
+            IUiListener iUiListener = this.f25263e;
             if (iUiListener != null) {
                 iUiListener.onError(uiError);
-                this.f22987e = null;
+                this.f25263e = null;
             }
         }
 
         public void a(String str) {
             try {
                 onComplete(i.d(str));
-            } catch (JSONException e10) {
-                e10.printStackTrace();
+            } catch (JSONException e2) {
+                e2.printStackTrace();
                 onError(new UiError(-4, Constants.MSG_JSON_ERROR, str));
             }
         }
     }
 
-    public class c extends Handler {
+    private class c extends Handler {
 
         /* renamed from: b */
-        private b f22989b;
+        private b f25265b;
 
         public c(b bVar, Looper looper) {
             super(looper);
-            this.f22989b = bVar;
+            this.f25265b = bVar;
         }
 
         @Override // android.os.Handler
         public void handleMessage(Message message) {
-            int i10 = message.what;
-            if (i10 == 1) {
-                this.f22989b.a((String) message.obj);
-            } else if (i10 == 2) {
-                this.f22989b.onCancel();
+            int i2 = message.what;
+            if (i2 == 1) {
+                this.f25265b.a((String) message.obj);
+            } else if (i2 == 2) {
+                this.f25265b.onCancel();
             } else {
-                if (i10 != 3) {
+                if (i2 != 3) {
                     return;
                 }
-                a.b(a.this.f22969k, (String) message.obj);
+                a.b(a.this.k, (String) message.obj);
             }
         }
     }
 
-    public class d implements Runnable {
+    class d implements Runnable {
 
         /* renamed from: a */
-        String f22990a;
+        String f25266a;
 
         public d(String str) {
-            this.f22990a = str;
+            this.f25266a = "";
+            this.f25266a = str;
         }
 
         @Override // java.lang.Runnable
         public void run() {
-            f.a("openSDK_LOG.AuthDialog", "-->timeoutUrl: " + this.f22990a + " | mRetryUrl: " + a.this.f22973o);
-            if (this.f22990a.equals(a.this.f22973o)) {
-                a.this.f22960b.onError(new UiError(ErrorCode.PrivateError.PARAM_ERROR, "请求页面超时，请稍后重试！", a.this.f22973o));
+            f.a("openSDK_LOG.AuthDialog", "-->timeoutUrl: " + this.f25266a + " | mRetryUrl: " + a.this.o);
+            if (this.f25266a.equals(a.this.o)) {
+                a.this.f25245b.onError(new UiError(ErrorCode.PrivateError.PARAM_ERROR, "请求页面超时，请稍后重试！", a.this.o));
                 a.this.dismiss();
             }
         }
@@ -437,92 +422,92 @@ public class a extends Dialog {
 
     static {
         try {
-            Context a10 = com.tencent.open.utils.d.a();
-            if (a10 != null) {
-                if (new File(a10.getFilesDir().toString() + "/" + AuthAgent.SECURE_LIB_NAME).exists()) {
-                    System.load(a10.getFilesDir().toString() + "/" + AuthAgent.SECURE_LIB_NAME);
-                    StringBuilder sb2 = new StringBuilder();
-                    sb2.append("-->load lib success:");
-                    sb2.append(AuthAgent.SECURE_LIB_NAME);
-                    f.c("openSDK_LOG.AuthDialog", sb2.toString());
+            Context a2 = com.tencent.open.utils.d.a();
+            if (a2 != null) {
+                if (new File(a2.getFilesDir().toString() + "/" + AuthAgent.SECURE_LIB_NAME).exists()) {
+                    System.load(a2.getFilesDir().toString() + "/" + AuthAgent.SECURE_LIB_NAME);
+                    StringBuilder sb = new StringBuilder();
+                    sb.append("-->load lib success:");
+                    sb.append(AuthAgent.SECURE_LIB_NAME);
+                    f.c("openSDK_LOG.AuthDialog", sb.toString());
                 } else {
                     f.c("openSDK_LOG.AuthDialog", "-->fail, because so is not exists:" + AuthAgent.SECURE_LIB_NAME);
                 }
             } else {
                 f.c("openSDK_LOG.AuthDialog", "-->load lib fail, because context is null:" + AuthAgent.SECURE_LIB_NAME);
             }
-        } catch (Exception e10) {
-            f.b("openSDK_LOG.AuthDialog", "-->load lib error:" + AuthAgent.SECURE_LIB_NAME, e10);
+        } catch (Exception e2) {
+            f.b("openSDK_LOG.AuthDialog", "-->load lib error:" + AuthAgent.SECURE_LIB_NAME, e2);
         }
     }
 
     public a(Context context, String str, String str2, IUiListener iUiListener, QQToken qQToken) {
         super(context, R.style.Theme.Translucent.NoTitleBar);
-        this.f22971m = false;
-        this.f22975q = 0L;
-        this.f22976r = 30000L;
-        this.f22969k = context;
-        this.f22959a = str2;
-        this.f22960b = new b(str, str2, qQToken.getAppId(), iUiListener);
-        this.f22962d = new c(this.f22960b, context.getMainLooper());
-        this.f22961c = iUiListener;
-        this.f22967i = str;
-        this.f22970l = new com.tencent.open.web.security.b();
+        this.m = false;
+        this.q = 0L;
+        this.r = 30000L;
+        this.k = context;
+        this.f25244a = str2;
+        this.f25245b = new b(str, str2, qQToken.getAppId(), iUiListener);
+        this.f25247d = new c(this.f25245b, context.getMainLooper());
+        this.f25246c = iUiListener;
+        this.f25252i = str;
+        this.l = new com.tencent.open.web.security.b();
         getWindow().setSoftInputMode(32);
     }
 
-    public static /* synthetic */ int m(a aVar) {
-        int i10 = aVar.f22972n;
-        aVar.f22972n = i10 + 1;
-        return i10;
+    static /* synthetic */ int m(a aVar) {
+        int i2 = aVar.n;
+        aVar.n = i2 + 1;
+        return i2;
     }
 
     @Override // android.app.Dialog, android.content.DialogInterface
     public void dismiss() {
-        this.f22977s.clear();
-        this.f22962d.removeCallbacksAndMessages(null);
+        this.s.clear();
+        this.f25247d.removeCallbacksAndMessages(null);
         if (isShowing()) {
             super.dismiss();
         }
-        com.tencent.open.c.c cVar = this.f22968j;
+        com.tencent.open.c.c cVar = this.f25253j;
         if (cVar != null) {
             cVar.destroy();
-            this.f22968j = null;
+            this.f25253j = null;
         }
     }
 
     @Override // android.app.Dialog
     public void onBackPressed() {
-        if (!this.f22971m) {
-            this.f22960b.onCancel();
+        if (!this.m) {
+            this.f25245b.onCancel();
         }
         super.onBackPressed();
     }
 
     @Override // android.app.Dialog
-    public void onCreate(Bundle bundle) {
+    protected void onCreate(Bundle bundle) {
         requestWindowFeature(1);
         super.onCreate(bundle);
         b();
         d();
-        this.f22977s = new HashMap<>();
+        this.s = new HashMap<>();
     }
 
     @Override // android.app.Dialog
-    public void onStop() {
+    protected void onStop() {
         super.onStop();
     }
 
     @SuppressLint({"SetJavaScriptEnabled"})
     private void d() {
-        this.f22968j.setVerticalScrollBarEnabled(false);
-        this.f22968j.setHorizontalScrollBarEnabled(false);
-        this.f22968j.setWebViewClient(new C0655a());
-        this.f22968j.setWebChromeClient(new WebChromeClient());
-        this.f22968j.clearFormData();
-        this.f22968j.clearSslPreferences();
-        this.f22968j.setOnLongClickListener(new View.OnLongClickListener() { // from class: com.tencent.connect.auth.a.1
-            public AnonymousClass1() {
+        this.f25253j.setVerticalScrollBarEnabled(false);
+        this.f25253j.setHorizontalScrollBarEnabled(false);
+        this.f25253j.setWebViewClient(new C0526a());
+        this.f25253j.setWebChromeClient(new WebChromeClient());
+        this.f25253j.clearFormData();
+        this.f25253j.clearSslPreferences();
+        this.f25253j.setOnLongClickListener(new View.OnLongClickListener() { // from class: com.tencent.connect.auth.a.1
+            AnonymousClass1() {
             }
 
             @Override // android.view.View.OnLongClickListener
@@ -530,8 +515,8 @@ public class a extends Dialog {
                 return true;
             }
         });
-        this.f22968j.setOnTouchListener(new View.OnTouchListener() { // from class: com.tencent.connect.auth.a.2
-            public AnonymousClass2() {
+        this.f25253j.setOnTouchListener(new View.OnTouchListener() { // from class: com.tencent.connect.auth.a.2
+            AnonymousClass2() {
             }
 
             @Override // android.view.View.OnTouchListener
@@ -544,7 +529,7 @@ public class a extends Dialog {
                 return false;
             }
         });
-        WebSettings settings = this.f22968j.getSettings();
+        WebSettings settings = this.f25253j.getSettings();
         settings.setSavePassword(false);
         settings.setSaveFormData(false);
         settings.setCacheMode(-1);
@@ -554,18 +539,18 @@ public class a extends Dialog {
         settings.setRenderPriority(WebSettings.RenderPriority.HIGH);
         settings.setJavaScriptEnabled(true);
         settings.setDatabaseEnabled(true);
-        settings.setDatabasePath(this.f22969k.getDir("databases", 0).getPath());
+        settings.setDatabasePath(this.k.getDir("databases", 0).getPath());
         settings.setDomStorageEnabled(true);
-        f.a("openSDK_LOG.AuthDialog", "-->mUrl : " + this.f22959a);
-        String str = this.f22959a;
-        this.f22973o = str;
-        this.f22968j.loadUrl(str);
-        this.f22968j.setVisibility(4);
-        this.f22968j.getSettings().setSavePassword(false);
-        this.f22970l.a(new SecureJsInterface(), "SecureJsInterface");
+        f.a("openSDK_LOG.AuthDialog", "-->mUrl : " + this.f25244a);
+        String str = this.f25244a;
+        this.o = str;
+        this.f25253j.loadUrl(str);
+        this.f25253j.setVisibility(4);
+        this.f25253j.getSettings().setSavePassword(false);
+        this.l.a(new SecureJsInterface(), "SecureJsInterface");
         SecureJsInterface.isPWDEdit = false;
         super.setOnDismissListener(new DialogInterface.OnDismissListener() { // from class: com.tencent.connect.auth.a.3
-            public AnonymousClass3() {
+            AnonymousClass3() {
             }
 
             @Override // android.content.DialogInterface.OnDismissListener
@@ -579,56 +564,58 @@ public class a extends Dialog {
     }
 
     public boolean e() {
-        com.tencent.connect.auth.b a10 = com.tencent.connect.auth.b.a();
-        String c10 = a10.c();
+        com.tencent.connect.auth.b a2 = com.tencent.connect.auth.b.a();
+        String c2 = a2.c();
         b.a aVar = new b.a();
-        aVar.f22997a = this.f22961c;
-        aVar.f22998b = this;
-        aVar.f22999c = c10;
-        String a11 = a10.a(aVar);
-        String str = this.f22959a;
+        aVar.f25273a = this.f25246c;
+        aVar.f25274b = this;
+        aVar.f25275c = c2;
+        String a3 = a2.a(aVar);
+        String str = this.f25244a;
         String substring = str.substring(0, str.indexOf("?"));
-        Bundle b10 = i.b(this.f22959a);
-        b10.putString("token_key", c10);
-        b10.putString("serial", a11);
-        b10.putString("browser", "1");
-        String str2 = substring + "?" + HttpUtils.encodeUrl(b10);
-        this.f22959a = str2;
-        return i.a(this.f22969k, str2);
+        Bundle b2 = i.b(this.f25244a);
+        b2.putString("token_key", c2);
+        b2.putString("serial", a3);
+        b2.putString("browser", "1");
+        String str2 = substring + "?" + HttpUtils.encodeUrl(b2);
+        this.f25244a = str2;
+        return i.a(this.k, str2);
     }
 
-    public static /* synthetic */ String a(a aVar, Object obj) {
-        String str = aVar.f22959a + obj;
-        aVar.f22959a = str;
+    static /* synthetic */ String a(a aVar, Object obj) {
+        String str = aVar.f25244a + obj;
+        aVar.f25244a = str;
         return str;
     }
 
     private void b() {
         c();
         FrameLayout.LayoutParams layoutParams = new FrameLayout.LayoutParams(-1, -1);
-        com.tencent.open.c.c cVar = new com.tencent.open.c.c(this.f22969k);
-        this.f22968j = cVar;
-        cVar.setLayerType(1, null);
-        this.f22968j.setLayoutParams(layoutParams);
-        FrameLayout frameLayout = new FrameLayout(this.f22969k);
-        this.f22963e = frameLayout;
+        com.tencent.open.c.c cVar = new com.tencent.open.c.c(this.k);
+        this.f25253j = cVar;
+        if (Build.VERSION.SDK_INT >= 11) {
+            cVar.setLayerType(1, null);
+        }
+        this.f25253j.setLayoutParams(layoutParams);
+        FrameLayout frameLayout = new FrameLayout(this.k);
+        this.f25248e = frameLayout;
         layoutParams.gravity = 17;
         frameLayout.setLayoutParams(layoutParams);
-        this.f22963e.addView(this.f22968j);
-        this.f22963e.addView(this.f22965g);
-        setContentView(this.f22963e);
+        this.f25248e.addView(this.f25253j);
+        this.f25248e.addView(this.f25250g);
+        setContentView(this.f25248e);
     }
 
     private void c() {
         TextView textView;
-        this.f22966h = new ProgressBar(this.f22969k);
-        this.f22966h.setLayoutParams(new LinearLayout.LayoutParams(-2, -2));
-        this.f22964f = new LinearLayout(this.f22969k);
-        if (this.f22967i.equals("action_login")) {
+        this.f25251h = new ProgressBar(this.k);
+        this.f25251h.setLayoutParams(new LinearLayout.LayoutParams(-2, -2));
+        this.f25249f = new LinearLayout(this.k);
+        if (this.f25252i.equals("action_login")) {
             LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(-2, -2);
             layoutParams.gravity = 16;
             layoutParams.leftMargin = 5;
-            textView = new TextView(this.f22969k);
+            textView = new TextView(this.k);
             if (Locale.getDefault().getLanguage().equals("zh")) {
                 textView.setText("登录中...");
             } else {
@@ -642,36 +629,36 @@ public class a extends Dialog {
         }
         FrameLayout.LayoutParams layoutParams2 = new FrameLayout.LayoutParams(-2, -2);
         layoutParams2.gravity = 17;
-        this.f22964f.setLayoutParams(layoutParams2);
-        this.f22964f.addView(this.f22966h);
+        this.f25249f.setLayoutParams(layoutParams2);
+        this.f25249f.addView(this.f25251h);
         if (textView != null) {
-            this.f22964f.addView(textView);
+            this.f25249f.addView(textView);
         }
-        this.f22965g = new FrameLayout(this.f22969k);
+        this.f25250g = new FrameLayout(this.k);
         FrameLayout.LayoutParams layoutParams3 = new FrameLayout.LayoutParams(-1, -2);
         layoutParams3.leftMargin = 80;
         layoutParams3.rightMargin = 80;
         layoutParams3.topMargin = 40;
         layoutParams3.bottomMargin = 40;
         layoutParams3.gravity = 17;
-        this.f22965g.setLayoutParams(layoutParams3);
-        this.f22965g.setBackgroundResource(R.drawable.alert_dark_frame);
-        this.f22965g.addView(this.f22964f);
+        this.f25250g.setLayoutParams(layoutParams3);
+        this.f25250g.setBackgroundResource(R.drawable.alert_dark_frame);
+        this.f25250g.addView(this.f25249f);
     }
 
     public String a(String str) {
-        StringBuilder sb2 = new StringBuilder(str);
-        if (!TextUtils.isEmpty(this.f22974p) && this.f22974p.length() >= 4) {
-            String str2 = this.f22974p;
+        StringBuilder sb = new StringBuilder(str);
+        if (!TextUtils.isEmpty(this.p) && this.p.length() >= 4) {
+            String str2 = this.p;
             String substring = str2.substring(str2.length() - 4);
-            sb2.append("_u_");
-            sb2.append(substring);
+            sb.append("_u_");
+            sb.append(substring);
         }
-        return sb2.toString();
+        return sb.toString();
     }
 
     public String a() {
-        String str = this.f22959a;
+        String str = this.f25244a;
         String str2 = "http://qzs.qq.com/open/mobile/login/qzsjump.html?" + str.substring(str.indexOf("?") + 1);
         f.c("openSDK_LOG.AuthDialog", "-->generateDownloadUrl, url: http://qzs.qq.com/open/mobile/login/qzsjump.html?");
         return str2;
@@ -679,15 +666,15 @@ public class a extends Dialog {
 
     public static void b(Context context, String str) {
         try {
-            JSONObject d10 = i.d(str);
-            int i10 = d10.getInt("type");
-            Toast.makeText(context.getApplicationContext(), d10.getString("msg"), i10).show();
-        } catch (JSONException e10) {
-            e10.printStackTrace();
+            JSONObject d2 = i.d(str);
+            int i2 = d2.getInt("type");
+            Toast.makeText(context.getApplicationContext(), d2.getString("msg"), i2).show();
+        } catch (JSONException e2) {
+            e2.printStackTrace();
         }
     }
 
     public void a(String str, String str2) {
-        this.f22968j.loadUrl("javascript:" + str + "(" + str2 + ");void(" + System.currentTimeMillis() + ");");
+        this.f25253j.loadUrl("javascript:" + str + "(" + str2 + ");void(" + System.currentTimeMillis() + ");");
     }
 }

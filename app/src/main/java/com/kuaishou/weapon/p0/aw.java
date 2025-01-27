@@ -3,111 +3,134 @@ package com.kuaishou.weapon.p0;
 import android.content.Context;
 import android.text.TextUtils;
 import com.kuaishou.weapon.p0.jni.Engine;
-import java.util.Iterator;
+import java.util.HashSet;
+import java.util.Set;
+import org.json.JSONArray;
 import org.json.JSONObject;
 
-/* loaded from: classes2.dex */
+/* loaded from: classes.dex */
 public class aw {
 
     /* renamed from: a */
-    private JSONObject f10784a;
+    private JSONObject f9088a;
 
     public aw(Context context) {
         if (Engine.loadSuccess) {
             try {
-                String pqr = Engine.getInstance(context).pqr(Integer.valueOf(ck.f10915k).intValue(), 0, 1, "");
+                String pqr = Engine.getInstance(context).pqr(Integer.valueOf(cj.f9194g).intValue(), 1, 0, "");
                 if (TextUtils.isEmpty(pqr)) {
                     return;
                 }
-                this.f10784a = new JSONObject(pqr);
+                this.f9088a = new JSONObject(pqr);
             } catch (Throwable unused) {
             }
         }
     }
 
-    public JSONObject a() {
-        return this.f10784a;
+    public String a(String str) {
+        JSONObject jSONObject = this.f9088a;
+        if (jSONObject != null) {
+            try {
+                return jSONObject.optString(str, null);
+            } catch (Exception unused) {
+            }
+        }
+        return null;
     }
 
-    public JSONObject b(Context context) {
-        try {
-            if (!Engine.loadSuccess) {
-                return null;
-            }
-            String pqr = Engine.getInstance(context).pqr(Integer.valueOf(ck.f10914j).intValue(), 1, 2, "");
-            if (TextUtils.isEmpty(pqr) || pqr.length() <= 2) {
-                return null;
-            }
-            return new JSONObject(pqr);
-        } catch (Exception unused) {
+    public Set a(int i2) {
+        HashSet hashSet = new HashSet();
+        if (i2 == 1) {
+            hashSet.add("HeapTaskDa");
+            hashSet.add("queued-wor");
+            hashSet.add("JDWP");
+            hashSet.add("dTi");
+            hashSet.add("MessageHan");
+            hashSet.add("MediaPrefe");
+            hashSet.add("CleanupRef");
+            hashSet.add("GeoLocatio");
+            hashSet.add("securityai");
+            hashSet.add("Connectivi");
+            hashSet.add("PatchManag");
+            hashSet.add("CronetInte");
+            hashSet.add("AegonLogge");
+            hashSet.add("Countly");
+            hashSet.add("DownloadSt");
+            hashSet.add("GoogleApiH");
+            hashSet.add("PlatformSe");
+            hashSet.add("MemoryInfr");
+            hashSet.add("CronetLibr");
+            hashSet.add("Dex2OatIni");
+            hashSet.add("EncodeApiH");
+            hashSet.add("CookieMons");
+        }
+        return hashSet;
+    }
+
+    public Set a(Context context, String str, int i2) {
+        JSONObject jSONObject = this.f9088a;
+        if (jSONObject == null) {
             return null;
         }
-    }
-
-    public JSONObject c(Context context) {
         try {
-            if (!Engine.loadSuccess) {
+            String string = jSONObject.getString(str);
+            Set a2 = a(i2);
+            if (TextUtils.isEmpty(string) || string.length() <= 3) {
                 return null;
             }
-            String pqr = Engine.getInstance(context).pqr(Integer.valueOf(ck.f10914j).intValue(), 2, 1, "");
-            if (TextUtils.isEmpty(pqr)) {
-                return null;
-            }
-            return new JSONObject(pqr);
-        } catch (Exception unused) {
-            return null;
-        }
-    }
-
-    public JSONObject d(Context context) {
-        JSONObject jSONObject = null;
-        try {
-            if (Engine.loadSuccess) {
-                String pqr = Engine.getInstance(context).pqr(Integer.valueOf(ck.f10914j).intValue(), 1, 3, "");
-                if (!TextUtils.isEmpty(pqr)) {
-                    jSONObject = new JSONObject(pqr);
-                }
-            }
-            if (bh.a(context, "com.freeze.kusr")) {
-                if (jSONObject == null) {
-                    jSONObject = new JSONObject();
-                }
-                jSONObject.put("com.freeze.kusr", 1);
-            }
-        } catch (Exception unused) {
-        }
-        return jSONObject;
-    }
-
-    public void a(JSONObject jSONObject) {
-        try {
-            JSONObject jSONObject2 = this.f10784a;
-            if (jSONObject2 != null) {
-                Iterator<String> keys = jSONObject2.keys();
-                while (keys.hasNext()) {
-                    String next = keys.next();
-                    String string = this.f10784a.getString(next);
-                    if (!TextUtils.isEmpty(string)) {
-                        jSONObject.put(next, string);
+            JSONArray jSONArray = new JSONArray(string);
+            HashSet hashSet = new HashSet();
+            for (int i3 = 0; i3 < jSONArray.length(); i3++) {
+                String string2 = jSONArray.getString(i3);
+                if (!string2.contains("azeroth") && !string2.contains("OkHttp") && !string2.contains("retrofit")) {
+                    int i4 = 0;
+                    while (string2.contains(" ")) {
+                        string2 = string2.replace(" ", "");
+                        i4++;
+                        if (i4 > 200) {
+                            break;
+                        }
+                    }
+                    String replace = string2.replace("\n", "").replace("\t", "").replace("\u200b", "");
+                    boolean startsWith = replace.startsWith(":");
+                    String str2 = replace;
+                    if (startsWith) {
+                        str2 = replace.substring(1);
+                    }
+                    String substring = str2.length() > 10 ? str2.substring(0, 10) : str2;
+                    if (str2.contains("ridge")) {
+                        hashSet.add(str2);
+                    }
+                    String packageName = context.getPackageName();
+                    if (!str2.contains(packageName) && !packageName.contains(str2) && !a2.contains(substring) && !b(i2).contains(substring)) {
+                        hashSet.add(str2);
                     }
                 }
             }
-        } catch (Exception unused) {
+            if (hashSet.size() > 0) {
+                return hashSet;
+            }
+            return null;
+        } catch (Throwable unused) {
+            return null;
         }
     }
 
-    public JSONObject a(Context context) {
-        try {
-            if (!Engine.loadSuccess) {
-                return null;
-            }
-            String pqr = Engine.getInstance(context).pqr(Integer.valueOf(ck.f10914j).intValue(), 1, 0, "");
-            if (TextUtils.isEmpty(pqr)) {
-                return null;
-            }
-            return new JSONObject(pqr);
-        } catch (Exception unused) {
-            return null;
+    public Set b(int i2) {
+        HashSet hashSet = new HashSet();
+        if (i2 == 1) {
+            hashSet.add("AudioTrack");
+            hashSet.add("processrea");
+            hashSet.add("RemitDatab");
+            hashSet.add("BrowserBlo");
+            hashSet.add("game_push");
+            hashSet.add("Godzilla:I");
+            hashSet.add("IndexedDB");
+            hashSet.add("ScopeRetry");
+            hashSet.add("RobustPatc");
+            hashSet.add("FrescoIoBo");
+            hashSet.add("key_config");
         }
+        return hashSet;
     }
 }

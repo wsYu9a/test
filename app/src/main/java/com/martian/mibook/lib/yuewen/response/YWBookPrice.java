@@ -1,16 +1,16 @@
 package com.martian.mibook.lib.yuewen.response;
 
-/* loaded from: classes3.dex */
+/* loaded from: classes4.dex */
 public class YWBookPrice {
     private Long cbid;
     private Integer price;
 
     public long getCbid() {
-        Long l10 = this.cbid;
-        if (l10 == null) {
+        Long l = this.cbid;
+        if (l == null) {
             return -1L;
         }
-        return l10.longValue();
+        return l.longValue();
     }
 
     public int getPrice() {
@@ -21,11 +21,11 @@ public class YWBookPrice {
         return num.intValue();
     }
 
-    public void setCbid(long j10) {
-        this.cbid = Long.valueOf(j10);
+    public void setCbid(long cbid) {
+        this.cbid = Long.valueOf(cbid);
     }
 
-    public void setPrice(int i10) {
-        this.price = Integer.valueOf(i10);
+    public void setPrice(int price) {
+        this.price = Integer.valueOf(price);
     }
 }

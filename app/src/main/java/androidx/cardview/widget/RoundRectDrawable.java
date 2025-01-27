@@ -16,72 +16,116 @@ import androidx.annotation.RequiresApi;
 @RequiresApi(21)
 /* loaded from: classes.dex */
 class RoundRectDrawable extends Drawable {
-    private ColorStateList mBackground;
-    private final RectF mBoundsF;
-    private final Rect mBoundsI;
-    private float mPadding;
-    private float mRadius;
-    private ColorStateList mTint;
-    private PorterDuffColorFilter mTintFilter;
-    private boolean mInsetForPadding = false;
-    private boolean mInsetForRadius = true;
-    private PorterDuff.Mode mTintMode = PorterDuff.Mode.SRC_IN;
-    private final Paint mPaint = new Paint(5);
 
-    public RoundRectDrawable(ColorStateList colorStateList, float f10) {
-        this.mRadius = f10;
-        setBackground(colorStateList);
-        this.mBoundsF = new RectF();
-        this.mBoundsI = new Rect();
+    /* renamed from: a */
+    private float f1102a;
+
+    /* renamed from: c */
+    private final RectF f1104c;
+
+    /* renamed from: d */
+    private final Rect f1105d;
+
+    /* renamed from: e */
+    private float f1106e;
+
+    /* renamed from: h */
+    private ColorStateList f1109h;
+
+    /* renamed from: i */
+    private PorterDuffColorFilter f1110i;
+
+    /* renamed from: j */
+    private ColorStateList f1111j;
+
+    /* renamed from: f */
+    private boolean f1107f = false;
+
+    /* renamed from: g */
+    private boolean f1108g = true;
+    private PorterDuff.Mode k = PorterDuff.Mode.SRC_IN;
+
+    /* renamed from: b */
+    private final Paint f1103b = new Paint(5);
+
+    RoundRectDrawable(ColorStateList colorStateList, float f2) {
+        this.f1102a = f2;
+        c(colorStateList);
+        this.f1104c = new RectF();
+        this.f1105d = new Rect();
     }
 
-    private PorterDuffColorFilter createTintFilter(ColorStateList colorStateList, PorterDuff.Mode mode) {
+    private PorterDuffColorFilter a(ColorStateList colorStateList, PorterDuff.Mode mode) {
         if (colorStateList == null || mode == null) {
             return null;
         }
         return new PorterDuffColorFilter(colorStateList.getColorForState(getState(), 0), mode);
     }
 
-    private void setBackground(ColorStateList colorStateList) {
+    private void c(ColorStateList colorStateList) {
         if (colorStateList == null) {
             colorStateList = ColorStateList.valueOf(0);
         }
-        this.mBackground = colorStateList;
-        this.mPaint.setColor(colorStateList.getColorForState(getState(), this.mBackground.getDefaultColor()));
+        this.f1109h = colorStateList;
+        this.f1103b.setColor(colorStateList.getColorForState(getState(), this.f1109h.getDefaultColor()));
     }
 
-    private void updateBounds(Rect rect) {
+    private void f(Rect rect) {
         if (rect == null) {
             rect = getBounds();
         }
-        this.mBoundsF.set(rect.left, rect.top, rect.right, rect.bottom);
-        this.mBoundsI.set(rect);
-        if (this.mInsetForPadding) {
-            this.mBoundsI.inset((int) Math.ceil(RoundRectDrawableWithShadow.calculateHorizontalPadding(this.mPadding, this.mRadius, this.mInsetForRadius)), (int) Math.ceil(RoundRectDrawableWithShadow.calculateVerticalPadding(this.mPadding, this.mRadius, this.mInsetForRadius)));
-            this.mBoundsF.set(this.mBoundsI);
+        this.f1104c.set(rect.left, rect.top, rect.right, rect.bottom);
+        this.f1105d.set(rect);
+        if (this.f1107f) {
+            this.f1105d.inset((int) Math.ceil(RoundRectDrawableWithShadow.c(this.f1106e, this.f1102a, this.f1108g)), (int) Math.ceil(RoundRectDrawableWithShadow.d(this.f1106e, this.f1102a, this.f1108g)));
+            this.f1104c.set(this.f1105d);
         }
+    }
+
+    float b() {
+        return this.f1106e;
+    }
+
+    void d(float f2, boolean z, boolean z2) {
+        if (f2 == this.f1106e && this.f1107f == z && this.f1108g == z2) {
+            return;
+        }
+        this.f1106e = f2;
+        this.f1107f = z;
+        this.f1108g = z2;
+        f(null);
+        invalidateSelf();
     }
 
     @Override // android.graphics.drawable.Drawable
     public void draw(Canvas canvas) {
-        boolean z10;
-        Paint paint = this.mPaint;
-        if (this.mTintFilter == null || paint.getColorFilter() != null) {
-            z10 = false;
+        boolean z;
+        Paint paint = this.f1103b;
+        if (this.f1110i == null || paint.getColorFilter() != null) {
+            z = false;
         } else {
-            paint.setColorFilter(this.mTintFilter);
-            z10 = true;
+            paint.setColorFilter(this.f1110i);
+            z = true;
         }
-        RectF rectF = this.mBoundsF;
-        float f10 = this.mRadius;
-        canvas.drawRoundRect(rectF, f10, f10, paint);
-        if (z10) {
+        RectF rectF = this.f1104c;
+        float f2 = this.f1102a;
+        canvas.drawRoundRect(rectF, f2, f2, paint);
+        if (z) {
             paint.setColorFilter(null);
         }
     }
 
+    void e(float f2) {
+        if (f2 == this.f1102a) {
+            return;
+        }
+        this.f1102a = f2;
+        f(null);
+        invalidateSelf();
+    }
+
     public ColorStateList getColor() {
-        return this.mBackground;
+        return this.f1109h;
     }
 
     @Override // android.graphics.drawable.Drawable
@@ -91,93 +135,69 @@ class RoundRectDrawable extends Drawable {
 
     @Override // android.graphics.drawable.Drawable
     public void getOutline(Outline outline) {
-        outline.setRoundRect(this.mBoundsI, this.mRadius);
-    }
-
-    public float getPadding() {
-        return this.mPadding;
+        outline.setRoundRect(this.f1105d, this.f1102a);
     }
 
     public float getRadius() {
-        return this.mRadius;
+        return this.f1102a;
     }
 
     @Override // android.graphics.drawable.Drawable
     public boolean isStateful() {
         ColorStateList colorStateList;
-        ColorStateList colorStateList2 = this.mTint;
-        return (colorStateList2 != null && colorStateList2.isStateful()) || ((colorStateList = this.mBackground) != null && colorStateList.isStateful()) || super.isStateful();
+        ColorStateList colorStateList2 = this.f1111j;
+        return (colorStateList2 != null && colorStateList2.isStateful()) || ((colorStateList = this.f1109h) != null && colorStateList.isStateful()) || super.isStateful();
     }
 
     @Override // android.graphics.drawable.Drawable
-    public void onBoundsChange(Rect rect) {
+    protected void onBoundsChange(Rect rect) {
         super.onBoundsChange(rect);
-        updateBounds(rect);
+        f(rect);
     }
 
     @Override // android.graphics.drawable.Drawable
-    public boolean onStateChange(int[] iArr) {
+    protected boolean onStateChange(int[] iArr) {
         PorterDuff.Mode mode;
-        ColorStateList colorStateList = this.mBackground;
+        ColorStateList colorStateList = this.f1109h;
         int colorForState = colorStateList.getColorForState(iArr, colorStateList.getDefaultColor());
-        boolean z10 = colorForState != this.mPaint.getColor();
-        if (z10) {
-            this.mPaint.setColor(colorForState);
+        boolean z = colorForState != this.f1103b.getColor();
+        if (z) {
+            this.f1103b.setColor(colorForState);
         }
-        ColorStateList colorStateList2 = this.mTint;
-        if (colorStateList2 == null || (mode = this.mTintMode) == null) {
-            return z10;
+        ColorStateList colorStateList2 = this.f1111j;
+        if (colorStateList2 == null || (mode = this.k) == null) {
+            return z;
         }
-        this.mTintFilter = createTintFilter(colorStateList2, mode);
+        this.f1110i = a(colorStateList2, mode);
         return true;
     }
 
     @Override // android.graphics.drawable.Drawable
-    public void setAlpha(int i10) {
-        this.mPaint.setAlpha(i10);
+    public void setAlpha(int i2) {
+        this.f1103b.setAlpha(i2);
     }
 
     public void setColor(@Nullable ColorStateList colorStateList) {
-        setBackground(colorStateList);
+        c(colorStateList);
         invalidateSelf();
     }
 
     @Override // android.graphics.drawable.Drawable
     public void setColorFilter(ColorFilter colorFilter) {
-        this.mPaint.setColorFilter(colorFilter);
-    }
-
-    public void setPadding(float f10, boolean z10, boolean z11) {
-        if (f10 == this.mPadding && this.mInsetForPadding == z10 && this.mInsetForRadius == z11) {
-            return;
-        }
-        this.mPadding = f10;
-        this.mInsetForPadding = z10;
-        this.mInsetForRadius = z11;
-        updateBounds(null);
-        invalidateSelf();
-    }
-
-    public void setRadius(float f10) {
-        if (f10 == this.mRadius) {
-            return;
-        }
-        this.mRadius = f10;
-        updateBounds(null);
-        invalidateSelf();
+        this.f1103b.setColorFilter(colorFilter);
     }
 
     @Override // android.graphics.drawable.Drawable
     public void setTintList(ColorStateList colorStateList) {
-        this.mTint = colorStateList;
-        this.mTintFilter = createTintFilter(colorStateList, this.mTintMode);
+        this.f1111j = colorStateList;
+        this.f1110i = a(colorStateList, this.k);
         invalidateSelf();
     }
 
     @Override // android.graphics.drawable.Drawable
     public void setTintMode(PorterDuff.Mode mode) {
-        this.mTintMode = mode;
-        this.mTintFilter = createTintFilter(this.mTint, mode);
+        this.k = mode;
+        this.f1110i = a(this.f1111j, mode);
         invalidateSelf();
     }
 }

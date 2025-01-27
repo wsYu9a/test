@@ -5,219 +5,211 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
-import com.kuaishou.weapon.p0.g;
 import com.martian.libfeedback.request.FeedbackMailParams;
-import com.martian.mibook.R;
-import com.martian.mibook.activity.PrivacyPermissionSettingActivity;
+import com.martian.libmars.utils.k0;
 import com.martian.mibook.application.MiConfigSingleton;
-import com.martian.mibook.databinding.ActivityPrivacySettingBinding;
-import com.martian.mibook.lib.model.activity.MiBackableActivity;
-import je.i;
-import l9.i0;
+import com.martian.mibook.j.s2;
+import com.martian.ttbookhd.R;
 
 /* loaded from: classes3.dex */
-public class PrivacyPermissionSettingActivity extends MiBackableActivity {
-    public ActivityPrivacySettingBinding A;
+public class PrivacyPermissionSettingActivity extends com.martian.mibook.lib.model.b.a {
+    private com.martian.mibook.e.o F;
 
-    public class a implements ea.b {
-        public a() {
+    class a implements com.martian.libsupport.permission.f {
+        a() {
         }
 
-        @Override // ea.b
+        @Override // com.martian.libsupport.permission.f
         public void permissionDenied() {
-            PrivacyPermissionSettingActivity.this.X2();
+            PrivacyPermissionSettingActivity.this.D2();
         }
 
-        @Override // ea.b
+        @Override // com.martian.libsupport.permission.f
         public void permissionGranted() {
-            PrivacyPermissionSettingActivity.this.X2();
+            PrivacyPermissionSettingActivity.this.D2();
         }
     }
 
-    public class b implements ea.b {
-        public b() {
+    class b implements com.martian.libsupport.permission.f {
+        b() {
         }
 
-        @Override // ea.b
+        @Override // com.martian.libsupport.permission.f
         public void permissionDenied() {
-            PrivacyPermissionSettingActivity.this.X2();
+            PrivacyPermissionSettingActivity.this.D2();
         }
 
-        @Override // ea.b
+        @Override // com.martian.libsupport.permission.f
         public void permissionGranted() {
-            PrivacyPermissionSettingActivity.this.X2();
+            PrivacyPermissionSettingActivity.this.D2();
         }
     }
 
-    public class c extends b9.c {
-        public c() {
+    class c extends com.martian.libfeedback.b.c {
+        c() {
         }
 
-        @Override // y8.a
-        public void onResultError(x8.c cVar) {
-            PrivacyPermissionSettingActivity.this.P1("提交失败：" + cVar.d());
+        @Override // b.d.c.c.b
+        public void onResultError(b.d.c.b.c errorResult) {
+            PrivacyPermissionSettingActivity.this.k1("提交失败：" + errorResult.d());
         }
 
-        @Override // y8.a
-        /* renamed from: r */
-        public void onDataReceived(Integer num) {
-            PrivacyPermissionSettingActivity.this.P1("提交成功");
+        @Override // b.d.c.c.b
+        /* renamed from: q */
+        public void onDataReceived(Integer integer) {
+            PrivacyPermissionSettingActivity.this.k1("提交成功");
         }
 
-        @Override // y8.f
-        public void showLoading(boolean z10) {
+        @Override // b.d.c.c.g
+        protected void showLoading(boolean show) {
         }
     }
 
-    public final /* synthetic */ void R2() {
-        MiConfigSingleton.b2().n3(false);
-        P1("操作成功，下次启动时生效");
-    }
-
-    public final /* synthetic */ void S2() {
-        this.A.sendBookInfo.setChecked(true);
-    }
-
-    public final /* synthetic */ void T2() {
-        i.i(this);
-    }
-
-    public final /* synthetic */ void U2() {
+    /* renamed from: B2 */
+    public /* synthetic */ void C2() {
         Intent intent = new Intent();
         String packageName = getApplicationContext().getPackageName();
-        intent.setAction("android.settings.APPLICATION_DETAILS_SETTINGS");
-        intent.addCategory("android.intent.category.DEFAULT");
-        intent.setData(Uri.parse("package:" + packageName));
+        if (com.martian.libsupport.l.p()) {
+            intent.setAction("android.settings.APPLICATION_DETAILS_SETTINGS");
+            intent.addCategory("android.intent.category.DEFAULT");
+            intent.setData(Uri.parse("package:" + packageName));
+        } else {
+            intent = new Intent("android.settings.SETTINGS");
+        }
+        startActivityForResult(intent, 1001);
+    }
+
+    /* renamed from: r2 */
+    public /* synthetic */ void s2() {
+        MiConfigSingleton.V3().i8(false);
+        k1("操作成功，下次启动时生效");
+    }
+
+    /* renamed from: t2 */
+    public /* synthetic */ void u2() {
+        this.F.f12450f.setChecked(true);
+    }
+
+    /* renamed from: v2 */
+    public /* synthetic */ void w2() {
+        s2.d(this);
+    }
+
+    /* renamed from: x2 */
+    public /* synthetic */ void y2() {
+        Intent intent = new Intent();
+        String packageName = getApplicationContext().getPackageName();
+        if (com.martian.libsupport.l.p()) {
+            intent.setAction("android.settings.APPLICATION_DETAILS_SETTINGS");
+            intent.addCategory("android.intent.category.DEFAULT");
+            intent.setData(Uri.parse("package:" + packageName));
+        } else {
+            intent = new Intent("android.settings.SETTINGS");
+        }
         startActivityForResult(intent, 1001);
     }
 
     /* JADX WARN: Multi-variable type inference failed */
-    public final /* synthetic */ void V2(String str) {
-        if (TextUtils.isEmpty(str)) {
-            P1("邮箱不能为空,请重试");
+    /* renamed from: z2 */
+    public /* synthetic */ void A2(String text) {
+        if (TextUtils.isEmpty(text)) {
+            k1("邮箱不能为空,请重试");
             return;
         }
         c cVar = new c();
-        ((FeedbackMailParams) cVar.k()).setMail(str);
+        ((FeedbackMailParams) cVar.k()).setMail(text);
         cVar.j();
     }
 
-    public final /* synthetic */ void W2() {
-        Intent intent = new Intent();
-        String packageName = getApplicationContext().getPackageName();
-        intent.setAction("android.settings.APPLICATION_DETAILS_SETTINGS");
-        intent.addCategory("android.intent.category.DEFAULT");
-        intent.setData(Uri.parse("package:" + packageName));
-        startActivityForResult(intent, 1001);
+    public void D2() {
+        this.F.f12446b.setText(com.martian.libsupport.permission.g.d(this, com.kuaishou.weapon.p0.g.f9318c) ? "已开启" : "去设置");
+        this.F.f12451g.setText(com.martian.libsupport.permission.g.d(this, com.kuaishou.weapon.p0.g.f9325j) ? "已开启" : "去设置");
     }
 
-    public void X2() {
-        this.A.phoneStateStatus.setText(ea.c.d(this, g.f11102c) ? "已开启" : "去设置");
-        this.A.storageStatus.setText(ea.c.f(this) ? "已开启" : "去设置");
-    }
-
-    @Override // com.martian.libmars.activity.BaseActivity, androidx.fragment.app.FragmentActivity, androidx.activity.ComponentActivity, android.app.Activity
-    public void onActivityResult(int i10, int i11, Intent intent) {
-        super.onActivityResult(i10, i11, intent);
-        if (i10 == 1001 && i11 == -1) {
-            X2();
+    @Override // com.martian.libmars.activity.h1, androidx.fragment.app.FragmentActivity, android.app.Activity
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == 1001 && resultCode == -1) {
+            D2();
         }
     }
 
     public void onAdInfoClick(View view) {
-        MiConfigSingleton.b2().m3(this.A.sendAdInfo.isChecked());
-        P1("操作成功，下次启动时生效");
+        MiConfigSingleton.V3().h8(this.F.f12449e.isChecked());
+        k1("操作成功，下次启动时生效");
     }
 
     public void onBookInfoClick(View view) {
-        if (!this.A.sendBookInfo.isChecked()) {
-            i0.x0(this, getString(R.string.confirm_message), getString(R.string.cancel_recommend_desc), getString(com.martian.libmars.R.string.cancel), getString(R.string.confirm), false, new i0.l() { // from class: qa.m
-                public /* synthetic */ m() {
-                }
-
-                @Override // l9.i0.l
+        if (!this.F.f12450f.isChecked()) {
+            com.martian.libmars.utils.k0.Q(this, getString(R.string.confirm_message), getString(R.string.cancel_recommend_desc), getString(R.string.cancel), getString(R.string.confirm), false, new k0.l() { // from class: com.martian.mibook.activity.g0
+                @Override // com.martian.libmars.utils.k0.l
                 public final void a() {
-                    PrivacyPermissionSettingActivity.this.R2();
+                    PrivacyPermissionSettingActivity.this.s2();
                 }
-            }, new i0.k() { // from class: qa.n
-                public /* synthetic */ n() {
-                }
-
-                @Override // l9.i0.k
+            }, new k0.j() { // from class: com.martian.mibook.activity.j0
+                @Override // com.martian.libmars.utils.k0.j
                 public final void a() {
-                    PrivacyPermissionSettingActivity.this.S2();
+                    PrivacyPermissionSettingActivity.this.u2();
                 }
             });
         } else {
-            MiConfigSingleton.b2().n3(true);
-            P1("操作成功");
+            MiConfigSingleton.V3().i8(true);
+            k1("操作成功");
         }
     }
 
     public void onCancelPrivacyClick(View view) {
-        i0.z0(this, getString(R.string.confirm_message), getString(R.string.cancel_privacy_desc), new i0.l() { // from class: qa.k
-            public /* synthetic */ k() {
-            }
-
-            @Override // l9.i0.l
+        com.martian.libmars.utils.k0.P(this, getString(R.string.confirm_message), getString(R.string.cancel_privacy_desc), new k0.l() { // from class: com.martian.mibook.activity.k0
+            @Override // com.martian.libmars.utils.k0.l
             public final void a() {
-                PrivacyPermissionSettingActivity.this.T2();
+                PrivacyPermissionSettingActivity.this.w2();
             }
         });
     }
 
-    @Override // com.martian.mibook.lib.model.activity.MiBackableActivity, com.martian.libmars.activity.MartianActivity, com.martian.libmars.activity.BaseActivity, me.imid.swipebacklayout.lib.app.SwipeBackActivity, androidx.fragment.app.FragmentActivity, androidx.activity.ComponentActivity, androidx.core.app.ComponentActivity, android.app.Activity
-    public void onCreate(Bundle bundle) {
-        super.onCreate(bundle);
+    @Override // com.martian.mibook.lib.model.b.a, com.martian.libmars.activity.j1, com.martian.libmars.activity.h1, me.imid.swipebacklayout.lib.d.a, androidx.appcompat.app.AppCompatActivity, androidx.fragment.app.FragmentActivity, androidx.activity.ComponentActivity, androidx.core.app.ComponentActivity, android.app.Activity
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_privacy_setting);
-        ActivityPrivacySettingBinding bind = ActivityPrivacySettingBinding.bind(D2());
-        this.A = bind;
-        bind.sendBookInfo.setChecked(MiConfigSingleton.b2().W2());
-        this.A.sendAdInfo.setChecked(MiConfigSingleton.b2().V2());
-        X2();
+        com.martian.mibook.e.o a2 = com.martian.mibook.e.o.a(g2());
+        this.F = a2;
+        a2.f12450f.setChecked(MiConfigSingleton.V3().Q6());
+        this.F.f12449e.setChecked(MiConfigSingleton.V3().P6());
+        D2();
     }
 
     public void onPhoneStatePermissionClick(View view) {
-        if (ea.c.d(this, g.f11102c)) {
-            i0.z0(this, "确定要关闭吗？", "关闭后，信息推送的相关度可能会下降，并影响确定安全事件的准确度", new i0.l() { // from class: qa.l
-                public /* synthetic */ l() {
-                }
-
-                @Override // l9.i0.l
+        if (com.martian.libsupport.permission.g.d(this, com.kuaishou.weapon.p0.g.f9318c)) {
+            com.martian.libmars.utils.k0.P(this, "确定要关闭吗？", "关闭后，信息推送的相关度可能会下降，并影响确定安全事件的准确度", new k0.l() { // from class: com.martian.mibook.activity.h0
+                @Override // com.martian.libmars.utils.k0.l
                 public final void a() {
-                    PrivacyPermissionSettingActivity.this.U2();
+                    PrivacyPermissionSettingActivity.this.y2();
                 }
             });
         } else {
-            ea.c.k(this, new a(), new String[]{g.f11102c}, false, null, true);
+            com.martian.libsupport.permission.g.h(this, new a(), new String[]{com.kuaishou.weapon.p0.g.f9318c}, false, null, true);
         }
     }
 
     public void onReceivePrivacyClick(View view) {
-        i0.D0(this, "获取个人信息", "请填写邮箱用于信息查收", false, false, new i0.j() { // from class: qa.i
-            public /* synthetic */ i() {
-            }
-
-            @Override // l9.i0.j
+        com.martian.libmars.utils.k0.V(this, "获取个人信息", "请填写邮箱用于信息查收", false, false, new k0.i() { // from class: com.martian.mibook.activity.i0
+            @Override // com.martian.libmars.utils.k0.i
             public final void a(String str) {
-                PrivacyPermissionSettingActivity.this.V2(str);
+                PrivacyPermissionSettingActivity.this.A2(str);
             }
         });
     }
 
     public void onStoragePermissionClick(View view) {
-        if (ea.c.f(this)) {
-            i0.z0(this, "确定要关闭吗？", "关闭后，小说内容将占用内存空间，且无法使用缓存功能", new i0.l() { // from class: qa.j
-                public /* synthetic */ j() {
-                }
-
-                @Override // l9.i0.l
+        if (com.martian.libsupport.permission.g.d(this, com.kuaishou.weapon.p0.g.f9325j)) {
+            com.martian.libmars.utils.k0.P(this, "确定要关闭吗？", "关闭后，小说内容将占用内存空间，且无法使用缓存功能", new k0.l() { // from class: com.martian.mibook.activity.l0
+                @Override // com.martian.libmars.utils.k0.l
                 public final void a() {
-                    PrivacyPermissionSettingActivity.this.W2();
+                    PrivacyPermissionSettingActivity.this.C2();
                 }
             });
         } else {
-            ea.c.m(this, "图片存储", new b());
+            com.martian.libsupport.permission.g.h(this, new b(), new String[]{com.kuaishou.weapon.p0.g.f9325j}, false, null, true);
         }
     }
 }

@@ -8,7 +8,7 @@ import java.nio.ByteBuffer;
 import java.nio.ByteOrder;
 import java.util.Arrays;
 
-/* loaded from: classes2.dex */
+/* loaded from: classes.dex */
 public class GifHeaderParser {
     static final int DEFAULT_FRAME_DELAY = 10;
     private static final int DESCRIPTOR_MASK_INTERLACE_FLAG = 64;
@@ -52,13 +52,13 @@ public class GifHeaderParser {
         this.header.currentFrame.ix = readShort();
         this.header.currentFrame.iy = readShort();
         this.header.currentFrame.iw = readShort();
-        this.header.currentFrame.f7399ih = readShort();
+        this.header.currentFrame.ih = readShort();
         int read = read();
-        boolean z10 = (read & 128) != 0;
+        boolean z = (read & 128) != 0;
         int pow = (int) Math.pow(2.0d, (read & 7) + 1);
         GifFrame gifFrame = this.header.currentFrame;
         gifFrame.interlace = (read & 64) != 0;
-        if (z10) {
+        if (z) {
             gifFrame.lct = readColorTable(pow);
         } else {
             gifFrame.lct = null;
@@ -79,20 +79,20 @@ public class GifHeaderParser {
         if (read <= 0) {
             return;
         }
-        int i10 = 0;
-        int i11 = 0;
+        int i2 = 0;
+        int i3 = 0;
         while (true) {
             try {
-                i11 = this.blockSize;
-                if (i10 >= i11) {
+                i3 = this.blockSize;
+                if (i2 >= i3) {
                     return;
                 }
-                i11 -= i10;
-                this.rawData.get(this.block, i10, i11);
-                i10 += i11;
-            } catch (Exception e10) {
-                if (Log.isLoggable("GifHeaderParser", 3)) {
-                    Log.d("GifHeaderParser", "Error Reading Block n: " + i10 + " count: " + i11 + " blockSize: " + this.blockSize, e10);
+                i3 -= i2;
+                this.rawData.get(this.block, i2, i3);
+                i2 += i3;
+            } catch (Exception e2) {
+                if (Log.isLoggable(TAG, 3)) {
+                    Log.d(TAG, "Error Reading Block n: " + i2 + " count: " + i3 + " blockSize: " + this.blockSize, e2);
                 }
                 this.header.status = 1;
                 return;
@@ -101,26 +101,26 @@ public class GifHeaderParser {
     }
 
     @Nullable
-    private int[] readColorTable(int i10) {
-        byte[] bArr = new byte[i10 * 3];
+    private int[] readColorTable(int i2) {
+        byte[] bArr = new byte[i2 * 3];
         int[] iArr = null;
         try {
             this.rawData.get(bArr);
             iArr = new int[256];
-            int i11 = 0;
-            int i12 = 0;
-            while (i11 < i10) {
-                int i13 = bArr[i12] & 255;
-                int i14 = i12 + 2;
-                int i15 = bArr[i12 + 1] & 255;
-                i12 += 3;
-                int i16 = i11 + 1;
-                iArr[i11] = (i15 << 8) | (i13 << 16) | (-16777216) | (bArr[i14] & 255);
-                i11 = i16;
+            int i3 = 0;
+            int i4 = 0;
+            while (i3 < i2) {
+                int i5 = i4 + 1;
+                int i6 = i5 + 1;
+                int i7 = i6 + 1;
+                int i8 = i3 + 1;
+                iArr[i3] = ((bArr[i4] & 255) << 16) | (-16777216) | ((bArr[i5] & 255) << 8) | (bArr[i6] & 255);
+                i4 = i7;
+                i3 = i8;
             }
-        } catch (BufferUnderflowException e10) {
-            if (Log.isLoggable("GifHeaderParser", 3)) {
-                Log.d("GifHeaderParser", "Format Error Reading Color Table", e10);
+        } catch (BufferUnderflowException e2) {
+            if (Log.isLoggable(TAG, 3)) {
+                Log.d(TAG, "Format Error Reading Color Table", e2);
             }
             this.header.status = 1;
         }
@@ -135,9 +135,9 @@ public class GifHeaderParser {
         read();
         int read = read();
         GifFrame gifFrame = this.header.currentFrame;
-        int i10 = (read & 28) >> 2;
-        gifFrame.dispose = i10;
-        if (i10 == 0) {
+        int i2 = (read & 28) >> 2;
+        gifFrame.dispose = i2;
+        if (i2 == 0) {
             gifFrame.dispose = 1;
         }
         gifFrame.transparency = (read & 1) != 0;
@@ -152,11 +152,11 @@ public class GifHeaderParser {
     }
 
     private void readHeader() {
-        StringBuilder sb2 = new StringBuilder();
-        for (int i10 = 0; i10 < 6; i10++) {
-            sb2.append((char) read());
+        StringBuilder sb = new StringBuilder();
+        for (int i2 = 0; i2 < 6; i2++) {
+            sb.append((char) read());
         }
-        if (!sb2.toString().startsWith("GIF")) {
+        if (!sb.toString().startsWith("GIF")) {
             this.header.status = 1;
             return;
         }
@@ -259,9 +259,9 @@ public class GifHeaderParser {
         return this;
     }
 
-    private void readContents(int i10) {
-        boolean z10 = false;
-        while (!z10 && !err() && this.header.frameCount <= i10) {
+    private void readContents(int i2) {
+        boolean z = false;
+        while (!z && !err() && this.header.frameCount <= i2) {
             int read = read();
             if (read == 33) {
                 int read2 = read();
@@ -276,11 +276,11 @@ public class GifHeaderParser {
                     skip();
                 } else {
                     readBlock();
-                    StringBuilder sb2 = new StringBuilder();
-                    for (int i11 = 0; i11 < 11; i11++) {
-                        sb2.append((char) this.block[i11]);
+                    StringBuilder sb = new StringBuilder();
+                    for (int i3 = 0; i3 < 11; i3++) {
+                        sb.append((char) this.block[i3]);
                     }
-                    if (sb2.toString().equals("NETSCAPE2.0")) {
+                    if (sb.toString().equals("NETSCAPE2.0")) {
                         readNetscapeExt();
                     } else {
                         skip();
@@ -295,7 +295,7 @@ public class GifHeaderParser {
             } else if (read != 59) {
                 this.header.status = 1;
             } else {
-                z10 = true;
+                z = true;
             }
         }
     }

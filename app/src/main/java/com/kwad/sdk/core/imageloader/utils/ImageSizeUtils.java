@@ -5,13 +5,13 @@ import com.kwad.sdk.core.imageloader.core.assist.ImageSize;
 import com.kwad.sdk.core.imageloader.core.assist.ViewScaleType;
 import com.kwad.sdk.core.imageloader.core.imageaware.ImageAware;
 
-/* loaded from: classes3.dex */
+/* loaded from: classes2.dex */
 public final class ImageSizeUtils {
     private static final int DEFAULT_MAX_BITMAP_DIMENSION = 2048;
     private static ImageSize maxBitmapSize;
 
     /* renamed from: com.kwad.sdk.core.imageloader.utils.ImageSizeUtils$1 */
-    public static /* synthetic */ class AnonymousClass1 {
+    static /* synthetic */ class AnonymousClass1 {
         static final /* synthetic */ int[] $SwitchMap$com$kwad$sdk$core$imageloader$core$assist$ViewScaleType;
 
         static {
@@ -38,32 +38,32 @@ public final class ImageSizeUtils {
     private ImageSizeUtils() {
     }
 
-    public static int computeImageSampleSize(ImageSize imageSize, ImageSize imageSize2, ViewScaleType viewScaleType, boolean z10) {
+    public static int computeImageSampleSize(ImageSize imageSize, ImageSize imageSize2, ViewScaleType viewScaleType, boolean z) {
         int max;
         int width = imageSize.getWidth();
         int height = imageSize.getHeight();
         int width2 = imageSize2.getWidth();
         int height2 = imageSize2.getHeight();
-        int i10 = AnonymousClass1.$SwitchMap$com$kwad$sdk$core$imageloader$core$assist$ViewScaleType[viewScaleType.ordinal()];
-        if (i10 != 1) {
-            if (i10 != 2) {
+        int i2 = AnonymousClass1.$SwitchMap$com$kwad$sdk$core$imageloader$core$assist$ViewScaleType[viewScaleType.ordinal()];
+        if (i2 != 1) {
+            if (i2 != 2) {
                 max = 1;
-            } else if (z10) {
-                int i11 = width / 2;
-                int i12 = height / 2;
+            } else if (z) {
+                int i3 = width / 2;
+                int i4 = height / 2;
                 max = 1;
-                while (i11 / max > width2 && i12 / max > height2) {
+                while (i3 / max > width2 && i4 / max > height2) {
                     max *= 2;
                 }
             } else {
                 max = Math.min(width / width2, height / height2);
             }
-        } else if (z10) {
-            int i13 = width / 2;
-            int i14 = height / 2;
+        } else if (z) {
+            int i5 = width / 2;
+            int i6 = height / 2;
             max = 1;
             while (true) {
-                if (i13 / max <= width2 && i14 / max <= height2) {
+                if (i5 / max <= width2 && i6 / max <= height2) {
                     break;
                 }
                 max *= 2;
@@ -71,27 +71,27 @@ public final class ImageSizeUtils {
         } else {
             max = Math.max(width / width2, height / height2);
         }
-        return considerMaxTextureSize(width, height, max > 0 ? max : 1, z10);
+        return considerMaxTextureSize(width, height, max > 0 ? max : 1, z);
     }
 
-    public static float computeImageScale(ImageSize imageSize, ImageSize imageSize2, ViewScaleType viewScaleType, boolean z10) {
+    public static float computeImageScale(ImageSize imageSize, ImageSize imageSize2, ViewScaleType viewScaleType, boolean z) {
         int width = imageSize.getWidth();
         int height = imageSize.getHeight();
         int width2 = imageSize2.getWidth();
         int height2 = imageSize2.getHeight();
-        float f10 = width;
-        float f11 = f10 / width2;
-        float f12 = height;
-        float f13 = f12 / height2;
-        if ((viewScaleType != ViewScaleType.FIT_INSIDE || f11 < f13) && (viewScaleType != ViewScaleType.CROP || f11 >= f13)) {
-            width2 = (int) (f10 / f13);
+        float f2 = width;
+        float f3 = f2 / width2;
+        float f4 = height;
+        float f5 = f4 / height2;
+        if ((viewScaleType != ViewScaleType.FIT_INSIDE || f3 < f5) && (viewScaleType != ViewScaleType.CROP || f3 >= f5)) {
+            width2 = (int) (f2 / f5);
         } else {
-            height2 = (int) (f12 / f11);
+            height2 = (int) (f4 / f3);
         }
-        if ((z10 || width2 >= width || height2 >= height) && (!z10 || width2 == width || height2 == height)) {
+        if ((z || width2 >= width || height2 >= height) && (!z || width2 == width || height2 == height)) {
             return 1.0f;
         }
-        return width2 / f10;
+        return width2 / f2;
     }
 
     public static int computeMinImageSampleSize(ImageSize imageSize) {
@@ -100,14 +100,14 @@ public final class ImageSizeUtils {
         return Math.max((int) Math.ceil(width / maxBitmapSize.getWidth()), (int) Math.ceil(height / maxBitmapSize.getHeight()));
     }
 
-    private static int considerMaxTextureSize(int i10, int i11, int i12, boolean z10) {
+    private static int considerMaxTextureSize(int i2, int i3, int i4, boolean z) {
         int width = maxBitmapSize.getWidth();
         int height = maxBitmapSize.getHeight();
         while (true) {
-            if (i10 / i12 <= width && i11 / i12 <= height) {
-                return i12;
+            if (i2 / i4 <= width && i3 / i4 <= height) {
+                return i4;
             }
-            i12 = z10 ? i12 * 2 : i12 + 1;
+            i4 = z ? i4 * 2 : i4 + 1;
         }
     }
 

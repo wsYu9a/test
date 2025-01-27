@@ -1,14 +1,11 @@
 package androidx.core.os;
 
-import androidx.annotation.DoNotInline;
+import android.os.Build;
 import androidx.annotation.IntRange;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.annotation.RequiresApi;
 import androidx.annotation.VisibleForTesting;
-import com.sigmob.sdk.archives.d;
 import com.ss.android.socialbase.downloader.segment.Segment;
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.HashSet;
@@ -16,60 +13,61 @@ import java.util.Locale;
 
 /* loaded from: classes.dex */
 final class LocaleListCompatWrapper implements LocaleListInterface {
-    private final Locale[] mList;
 
+    /* renamed from: a */
+    private static final Locale[] f1820a = new Locale[0];
+
+    /* renamed from: b */
+    private static final Locale f1821b = new Locale(Segment.JsonKey.END, "XA");
+
+    /* renamed from: c */
+    private static final Locale f1822c = new Locale("ar", "XB");
+
+    /* renamed from: d */
+    private static final Locale f1823d = LocaleListCompat.a("en-Latn");
+
+    /* renamed from: e */
+    private final Locale[] f1824e;
+
+    /* renamed from: f */
     @NonNull
-    private final String mStringRepresentation;
-    private static final Locale[] sEmptyList = new Locale[0];
-    private static final Locale LOCALE_EN_XA = new Locale(Segment.JsonKey.END, "XA");
-    private static final Locale LOCALE_AR_XB = new Locale(d.f17511a, "XB");
-    private static final Locale EN_LATN = LocaleListCompat.forLanguageTagCompat("en-Latn");
+    private final String f1825f;
 
-    @RequiresApi(21)
-    public static class Api21Impl {
-        private Api21Impl() {
-        }
-
-        @DoNotInline
-        public static String getScript(Locale locale) {
-            return locale.getScript();
-        }
-    }
-
-    public LocaleListCompatWrapper(@NonNull Locale... localeArr) {
+    LocaleListCompatWrapper(@NonNull Locale... localeArr) {
         if (localeArr.length == 0) {
-            this.mList = sEmptyList;
-            this.mStringRepresentation = "";
+            this.f1824e = f1820a;
+            this.f1825f = "";
             return;
         }
-        ArrayList arrayList = new ArrayList();
+        Locale[] localeArr2 = new Locale[localeArr.length];
         HashSet hashSet = new HashSet();
-        StringBuilder sb2 = new StringBuilder();
-        for (int i10 = 0; i10 < localeArr.length; i10++) {
-            Locale locale = localeArr[i10];
+        StringBuilder sb = new StringBuilder();
+        for (int i2 = 0; i2 < localeArr.length; i2++) {
+            Locale locale = localeArr[i2];
             if (locale == null) {
-                throw new NullPointerException("list[" + i10 + "] is null");
+                throw new NullPointerException("list[" + i2 + "] is null");
             }
-            if (!hashSet.contains(locale)) {
-                Locale locale2 = (Locale) locale.clone();
-                arrayList.add(locale2);
-                toLanguageTag(sb2, locale2);
-                if (i10 < localeArr.length - 1) {
-                    sb2.append(',');
-                }
-                hashSet.add(locale2);
+            if (hashSet.contains(locale)) {
+                throw new IllegalArgumentException("list[" + i2 + "] is a repetition");
             }
+            Locale locale2 = (Locale) locale.clone();
+            localeArr2[i2] = locale2;
+            g(sb, locale2);
+            if (i2 < localeArr.length - 1) {
+                sb.append(',');
+            }
+            hashSet.add(locale2);
         }
-        this.mList = (Locale[]) arrayList.toArray(new Locale[0]);
-        this.mStringRepresentation = sb2.toString();
+        this.f1824e = localeArr2;
+        this.f1825f = sb.toString();
     }
 
-    private Locale computeFirstMatch(Collection<String> collection, boolean z10) {
-        int computeFirstMatchIndex = computeFirstMatchIndex(collection, z10);
-        if (computeFirstMatchIndex == -1) {
+    private Locale a(Collection<String> collection, boolean z) {
+        int b2 = b(collection, z);
+        if (b2 == -1) {
             return null;
         }
-        return this.mList[computeFirstMatchIndex];
+        return this.f1824e[b2];
     }
 
     /* JADX WARN: Code restructure failed: missing block: B:13:0x001b, code lost:
@@ -80,15 +78,15 @@ final class LocaleListCompatWrapper implements LocaleListInterface {
         Code decompiled incorrectly, please refer to instructions dump.
         To view partially-correct code enable 'Show inconsistent code' option in preferences
     */
-    private int computeFirstMatchIndex(java.util.Collection<java.lang.String> r5, boolean r6) {
+    private int b(java.util.Collection<java.lang.String> r5, boolean r6) {
         /*
             r4 = this;
-            java.util.Locale[] r0 = r4.mList
+            java.util.Locale[] r0 = r4.f1824e
             int r1 = r0.length
-            r2 = 1
-            r3 = 0
-            if (r1 != r2) goto L8
-            return r3
+            r2 = 0
+            r3 = 1
+            if (r1 != r3) goto L8
+            return r2
         L8:
             int r0 = r0.length
             if (r0 != 0) goto Ld
@@ -97,10 +95,10 @@ final class LocaleListCompatWrapper implements LocaleListInterface {
         Ld:
             r0 = 2147483647(0x7fffffff, float:NaN)
             if (r6 == 0) goto L1e
-            java.util.Locale r6 = androidx.core.os.LocaleListCompatWrapper.EN_LATN
-            int r6 = r4.findFirstMatchIndex(r6)
+            java.util.Locale r6 = androidx.core.os.LocaleListCompatWrapper.f1823d
+            int r6 = r4.c(r6)
             if (r6 != 0) goto L1b
-            return r3
+            return r2
         L1b:
             if (r6 >= r0) goto L1e
             goto L21
@@ -113,71 +111,76 @@ final class LocaleListCompatWrapper implements LocaleListInterface {
             if (r1 == 0) goto L40
             java.lang.Object r1 = r5.next()
             java.lang.String r1 = (java.lang.String) r1
-            java.util.Locale r1 = androidx.core.os.LocaleListCompat.forLanguageTagCompat(r1)
-            int r1 = r4.findFirstMatchIndex(r1)
+            java.util.Locale r1 = androidx.core.os.LocaleListCompat.a(r1)
+            int r1 = r4.c(r1)
             if (r1 != 0) goto L3c
-            return r3
+            return r2
         L3c:
             if (r1 >= r6) goto L25
             r6 = r1
             goto L25
         L40:
             if (r6 != r0) goto L43
-            return r3
+            return r2
         L43:
             return r6
         */
-        throw new UnsupportedOperationException("Method not decompiled: androidx.core.os.LocaleListCompatWrapper.computeFirstMatchIndex(java.util.Collection, boolean):int");
+        throw new UnsupportedOperationException("Method not decompiled: androidx.core.os.LocaleListCompatWrapper.b(java.util.Collection, boolean):int");
     }
 
-    private int findFirstMatchIndex(Locale locale) {
-        int i10 = 0;
+    private int c(Locale locale) {
+        int i2 = 0;
         while (true) {
-            Locale[] localeArr = this.mList;
-            if (i10 >= localeArr.length) {
+            Locale[] localeArr = this.f1824e;
+            if (i2 >= localeArr.length) {
                 return Integer.MAX_VALUE;
             }
-            if (matchScore(locale, localeArr[i10]) > 0) {
-                return i10;
+            if (f(locale, localeArr[i2]) > 0) {
+                return i2;
             }
-            i10++;
+            i2++;
         }
     }
 
-    private static String getLikelyScript(Locale locale) {
-        String script = Api21Impl.getScript(locale);
-        return !script.isEmpty() ? script : "";
+    private static String d(Locale locale) {
+        if (Build.VERSION.SDK_INT >= 21) {
+            String script = locale.getScript();
+            if (!script.isEmpty()) {
+                return script;
+            }
+        }
+        return "";
     }
 
-    private static boolean isPseudoLocale(Locale locale) {
-        return LOCALE_EN_XA.equals(locale) || LOCALE_AR_XB.equals(locale);
+    private static boolean e(Locale locale) {
+        return f1821b.equals(locale) || f1822c.equals(locale);
     }
 
     @IntRange(from = 0, to = 1)
-    private static int matchScore(Locale locale, Locale locale2) {
+    private static int f(Locale locale, Locale locale2) {
         if (locale.equals(locale2)) {
             return 1;
         }
-        if (!locale.getLanguage().equals(locale2.getLanguage()) || isPseudoLocale(locale) || isPseudoLocale(locale2)) {
+        if (!locale.getLanguage().equals(locale2.getLanguage()) || e(locale) || e(locale2)) {
             return 0;
         }
-        String likelyScript = getLikelyScript(locale);
-        if (!likelyScript.isEmpty()) {
-            return likelyScript.equals(getLikelyScript(locale2)) ? 1 : 0;
+        String d2 = d(locale);
+        if (!d2.isEmpty()) {
+            return d2.equals(d(locale2)) ? 1 : 0;
         }
         String country = locale.getCountry();
         return (country.isEmpty() || country.equals(locale2.getCountry())) ? 1 : 0;
     }
 
     @VisibleForTesting
-    public static void toLanguageTag(StringBuilder sb2, Locale locale) {
-        sb2.append(locale.getLanguage());
+    static void g(StringBuilder sb, Locale locale) {
+        sb.append(locale.getLanguage());
         String country = locale.getCountry();
         if (country == null || country.isEmpty()) {
             return;
         }
-        sb2.append('-');
-        sb2.append(locale.getCountry());
+        sb.append('-');
+        sb.append(locale.getCountry());
     }
 
     public boolean equals(Object obj) {
@@ -187,29 +190,29 @@ final class LocaleListCompatWrapper implements LocaleListInterface {
         if (!(obj instanceof LocaleListCompatWrapper)) {
             return false;
         }
-        Locale[] localeArr = ((LocaleListCompatWrapper) obj).mList;
-        if (this.mList.length != localeArr.length) {
+        Locale[] localeArr = ((LocaleListCompatWrapper) obj).f1824e;
+        if (this.f1824e.length != localeArr.length) {
             return false;
         }
-        int i10 = 0;
+        int i2 = 0;
         while (true) {
-            Locale[] localeArr2 = this.mList;
-            if (i10 >= localeArr2.length) {
+            Locale[] localeArr2 = this.f1824e;
+            if (i2 >= localeArr2.length) {
                 return true;
             }
-            if (!localeArr2[i10].equals(localeArr[i10])) {
+            if (!localeArr2[i2].equals(localeArr[i2])) {
                 return false;
             }
-            i10++;
+            i2++;
         }
     }
 
     @Override // androidx.core.os.LocaleListInterface
-    public Locale get(int i10) {
-        if (i10 >= 0) {
-            Locale[] localeArr = this.mList;
-            if (i10 < localeArr.length) {
-                return localeArr[i10];
+    public Locale get(int i2) {
+        if (i2 >= 0) {
+            Locale[] localeArr = this.f1824e;
+            if (i2 < localeArr.length) {
+                return localeArr[i2];
             }
         }
         return null;
@@ -217,7 +220,7 @@ final class LocaleListCompatWrapper implements LocaleListInterface {
 
     @Override // androidx.core.os.LocaleListInterface
     public Locale getFirstMatch(@NonNull String[] strArr) {
-        return computeFirstMatch(Arrays.asList(strArr), false);
+        return a(Arrays.asList(strArr), false);
     }
 
     @Override // androidx.core.os.LocaleListInterface
@@ -227,59 +230,63 @@ final class LocaleListCompatWrapper implements LocaleListInterface {
     }
 
     public int hashCode() {
-        int i10 = 1;
-        for (Locale locale : this.mList) {
-            i10 = (i10 * 31) + locale.hashCode();
+        int i2 = 1;
+        int i3 = 0;
+        while (true) {
+            Locale[] localeArr = this.f1824e;
+            if (i3 >= localeArr.length) {
+                return i2;
+            }
+            i2 = (i2 * 31) + localeArr[i3].hashCode();
+            i3++;
         }
-        return i10;
     }
 
     @Override // androidx.core.os.LocaleListInterface
     public int indexOf(Locale locale) {
-        int i10 = 0;
+        int i2 = 0;
         while (true) {
-            Locale[] localeArr = this.mList;
-            if (i10 >= localeArr.length) {
+            Locale[] localeArr = this.f1824e;
+            if (i2 >= localeArr.length) {
                 return -1;
             }
-            if (localeArr[i10].equals(locale)) {
-                return i10;
+            if (localeArr[i2].equals(locale)) {
+                return i2;
             }
-            i10++;
+            i2++;
         }
     }
 
     @Override // androidx.core.os.LocaleListInterface
     public boolean isEmpty() {
-        return this.mList.length == 0;
+        return this.f1824e.length == 0;
     }
 
     @Override // androidx.core.os.LocaleListInterface
     public int size() {
-        return this.mList.length;
+        return this.f1824e.length;
     }
 
     @Override // androidx.core.os.LocaleListInterface
     public String toLanguageTags() {
-        return this.mStringRepresentation;
+        return this.f1825f;
     }
 
-    @NonNull
     public String toString() {
-        StringBuilder sb2 = new StringBuilder();
-        sb2.append("[");
-        int i10 = 0;
+        StringBuilder sb = new StringBuilder();
+        sb.append("[");
+        int i2 = 0;
         while (true) {
-            Locale[] localeArr = this.mList;
-            if (i10 >= localeArr.length) {
-                sb2.append("]");
-                return sb2.toString();
+            Locale[] localeArr = this.f1824e;
+            if (i2 >= localeArr.length) {
+                sb.append("]");
+                return sb.toString();
             }
-            sb2.append(localeArr[i10]);
-            if (i10 < this.mList.length - 1) {
-                sb2.append(',');
+            sb.append(localeArr[i2]);
+            if (i2 < this.f1824e.length - 1) {
+                sb.append(',');
             }
-            i10++;
+            i2++;
         }
     }
 }

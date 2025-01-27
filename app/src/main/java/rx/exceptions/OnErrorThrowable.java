@@ -1,12 +1,10 @@
 package rx.exceptions;
 
-import fk.d;
 import java.util.HashSet;
 import java.util.Set;
-import o5.c;
-import vj.a;
+import rx.m.d;
 
-/* loaded from: classes4.dex */
+/* loaded from: classes5.dex */
 public final class OnErrorThrowable extends RuntimeException {
     private static final long serialVersionUID = -569558213262703934L;
     private final boolean hasValue;
@@ -16,12 +14,15 @@ public final class OnErrorThrowable extends RuntimeException {
         private static final long serialVersionUID = -3454462756050397899L;
         private final Object value;
 
-        public static final class a {
+        private static final class a {
 
             /* renamed from: a */
-            public static final Set<Class<?>> f30453a = a();
+            static final Set<Class<?>> f35760a = a();
 
-            public static Set<Class<?>> a() {
+            private a() {
+            }
+
+            private static Set<Class<?>> a() {
                 HashSet hashSet = new HashSet();
                 hashSet.add(Boolean.class);
                 hashSet.add(Character.class);
@@ -40,11 +41,11 @@ public final class OnErrorThrowable extends RuntimeException {
             this.value = obj;
         }
 
-        public static String renderValue(Object obj) {
+        static String renderValue(Object obj) {
             if (obj == null) {
                 return "null";
             }
-            if (a.f30453a.contains(obj.getClass())) {
+            if (a.f35760a.contains(obj.getClass())) {
                 return obj.toString();
             }
             if (obj instanceof String) {
@@ -53,11 +54,11 @@ public final class OnErrorThrowable extends RuntimeException {
             if (obj instanceof Enum) {
                 return ((Enum) obj).name();
             }
-            String b10 = d.b().a().b(obj);
-            if (b10 != null) {
-                return b10;
+            String b2 = d.b().a().b(obj);
+            if (b2 != null) {
+                return b2;
             }
-            return obj.getClass().getName() + c.f29046d;
+            return obj.getClass().getName() + ".class";
         }
 
         public Object getValue() {
@@ -65,24 +66,24 @@ public final class OnErrorThrowable extends RuntimeException {
         }
     }
 
-    private OnErrorThrowable(Throwable th2) {
-        super(th2);
+    private OnErrorThrowable(Throwable th) {
+        super(th);
         this.hasValue = false;
         this.value = null;
     }
 
-    public static Throwable addValueAsLastCause(Throwable th2, Object obj) {
-        Throwable b10 = a.b(th2);
-        if (b10 != null && (b10 instanceof OnNextValue) && ((OnNextValue) b10).getValue() == obj) {
-            return th2;
+    public static Throwable addValueAsLastCause(Throwable th, Object obj) {
+        Throwable b2 = a.b(th);
+        if (b2 != null && (b2 instanceof OnNextValue) && ((OnNextValue) b2).getValue() == obj) {
+            return th;
         }
-        a.a(th2, new OnNextValue(obj));
-        return th2;
+        a.a(th, new OnNextValue(obj));
+        return th;
     }
 
-    public static OnErrorThrowable from(Throwable th2) {
-        Throwable b10 = a.b(th2);
-        return b10 instanceof OnNextValue ? new OnErrorThrowable(th2, ((OnNextValue) b10).getValue()) : new OnErrorThrowable(th2);
+    public static OnErrorThrowable from(Throwable th) {
+        Throwable b2 = a.b(th);
+        return b2 instanceof OnNextValue ? new OnErrorThrowable(th, ((OnNextValue) b2).getValue()) : new OnErrorThrowable(th);
     }
 
     public Object getValue() {
@@ -93,8 +94,8 @@ public final class OnErrorThrowable extends RuntimeException {
         return this.hasValue;
     }
 
-    private OnErrorThrowable(Throwable th2, Object obj) {
-        super(th2);
+    private OnErrorThrowable(Throwable th, Object obj) {
+        super(th);
         this.hasValue = true;
         this.value = obj;
     }

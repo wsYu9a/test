@@ -6,48 +6,62 @@ import java.io.PrintWriter;
 import java.io.StringWriter;
 import java.net.UnknownHostException;
 
-/* loaded from: classes2.dex */
+/* loaded from: classes.dex */
 public class e {
 
     /* renamed from: a, reason: collision with root package name */
-    public static final int f11091a = 0;
+    public static final int f9307a = 0;
 
     /* renamed from: b, reason: collision with root package name */
-    public static final int f11092b = 1;
+    public static final int f9308b = 1;
 
     /* renamed from: c, reason: collision with root package name */
-    public static final int f11093c = 2;
+    public static final int f9309c = 2;
 
     /* renamed from: d, reason: collision with root package name */
-    public static final int f11094d = 3;
+    public static final int f9310d = 3;
 
     /* renamed from: e, reason: collision with root package name */
-    public static final int f11095e = -1;
+    public static final int f9311e = -1;
 
     /* renamed from: f, reason: collision with root package name */
-    public static int f11096f = -1;
+    public static int f9312f = -1;
 
     /* renamed from: g, reason: collision with root package name */
-    static ThreadLocal<StringBuilder> f11097g = new ThreadLocal<>();
+    static ThreadLocal<StringBuilder> f9313g = new ThreadLocal<>();
 
     /* renamed from: h, reason: collision with root package name */
-    private static int f11098h;
+    private static int f9314h;
 
-    private static void a(int i10, String str) {
-        String sb2;
+    public static String a(Throwable th) {
+        if (th == null) {
+            return "";
+        }
+        for (Throwable th2 = th; th2 != null; th2 = th2.getCause()) {
+            if (th2 instanceof UnknownHostException) {
+                return "";
+            }
+        }
+        StringWriter stringWriter = new StringWriter();
+        th.printStackTrace(new PrintWriter(stringWriter));
+        return stringWriter.toString();
+    }
+
+    private static void a(int i2, String str) {
+        String sb;
         if (TextUtils.isEmpty(str)) {
             return;
         }
         StackTraceElement[] stackTrace = new Throwable().getStackTrace();
         if (stackTrace.length < 3) {
-            if (i10 == 0) {
+            if (i2 == 0) {
                 Log.i("WeaponSDK", str);
                 return;
-            } else if (i10 == 1) {
+            } else if (i2 == 1) {
                 Log.d("WeaponSDK", str);
                 return;
             } else {
-                if (i10 != 2) {
+                if (i2 != 2) {
                     return;
                 }
                 Log.e("WeaponSDK", str);
@@ -60,94 +74,80 @@ public class e {
         if (fileName.length() > 5) {
             fileName = fileName.substring(0, fileName.length() - 5);
         }
-        StringBuilder sb3 = f11097g.get();
-        if (sb3 == null) {
-            sb3 = new StringBuilder();
-            f11097g.set(sb3);
+        StringBuilder sb2 = f9313g.get();
+        if (sb2 == null) {
+            sb2 = new StringBuilder();
+            f9313g.set(sb2);
         }
-        synchronized (sb3) {
-            sb3.setLength(0);
-            sb3.append("[");
-            sb3.append(f11098h);
-            sb3.append("][");
-            sb3.append(fileName);
-            sb3.append(m5.d.f28378d);
-            sb3.append(lineNumber);
-            sb3.append('.');
-            sb3.append(methodName);
-            sb3.append("] ");
-            sb3.append(str);
-            sb2 = sb3.toString();
-            f11098h++;
+        synchronized (sb2) {
+            sb2.setLength(0);
+            sb2.append("[");
+            sb2.append(f9314h);
+            sb2.append("][");
+            sb2.append(fileName);
+            sb2.append(':');
+            sb2.append(lineNumber);
+            sb2.append('.');
+            sb2.append(methodName);
+            sb2.append("] ");
+            sb2.append(str);
+            sb = sb2.toString();
+            f9314h++;
         }
-        if (i10 == 0) {
-            Log.i("WeaponSDK", sb2);
-        } else if (i10 == 1) {
-            Log.d("WeaponSDK", sb2);
+        if (i2 == 0) {
+            Log.i("WeaponSDK", sb);
+        } else if (i2 == 1) {
+            Log.d("WeaponSDK", sb);
         } else {
-            if (i10 != 2) {
+            if (i2 != 2) {
                 return;
             }
-            Log.e("WeaponSDK", sb2);
-        }
-    }
-
-    public static void b(String str) {
-        int i10 = f11096f;
-        if (i10 == -1 || i10 == 0 || i10 == 1) {
-            a(1, str);
-        }
-    }
-
-    public static void c(String str) {
-        int i10 = f11096f;
-        if (i10 == -1 || i10 == 0 || i10 == 1 || i10 == 2) {
-            a(2, str);
-        }
-    }
-
-    public static void d(String str) {
-    }
-
-    public static void b(String str, Throwable th2) {
-        int i10 = f11096f;
-        if (i10 == -1 || i10 == 0 || i10 == 1) {
-            a(1, str + "\n" + a(th2));
-        }
-    }
-
-    public static void c(String str, Throwable th2) {
-        int i10 = f11096f;
-        if (i10 == -1 || i10 == 0 || i10 == 1 || i10 == 2) {
-            a(2, str + "\n" + a(th2));
+            Log.e("WeaponSDK", sb);
         }
     }
 
     public static void a(String str) {
-        int i10 = f11096f;
-        if (i10 == -1 || i10 == 0) {
+        int i2 = f9312f;
+        if (i2 == -1 || i2 == 0) {
             a(0, str);
         }
     }
 
-    public static void a(String str, Throwable th2) {
-        int i10 = f11096f;
-        if (i10 == -1 || i10 == 0) {
-            a(0, str + "\n" + a(th2));
+    public static void a(String str, Throwable th) {
+        int i2 = f9312f;
+        if (i2 == -1 || i2 == 0) {
+            a(0, str + "\n" + a(th));
         }
     }
 
-    public static String a(Throwable th2) {
-        if (th2 == null) {
-            return "";
+    public static void b(String str) {
+        int i2 = f9312f;
+        if (i2 == -1 || i2 == 0 || i2 == 1) {
+            a(1, str);
         }
-        for (Throwable th3 = th2; th3 != null; th3 = th3.getCause()) {
-            if (th3 instanceof UnknownHostException) {
-                return "";
-            }
+    }
+
+    public static void b(String str, Throwable th) {
+        int i2 = f9312f;
+        if (i2 == -1 || i2 == 0 || i2 == 1) {
+            a(1, str + "\n" + a(th));
         }
-        StringWriter stringWriter = new StringWriter();
-        th2.printStackTrace(new PrintWriter(stringWriter));
-        return stringWriter.toString();
+    }
+
+    public static void c(String str) {
+        int i2 = f9312f;
+        if (i2 == -1 || i2 == 0 || i2 == 1 || i2 == 2) {
+            a(2, str);
+        }
+    }
+
+    public static void c(String str, Throwable th) {
+        int i2 = f9312f;
+        if (i2 == -1 || i2 == 0 || i2 == 1 || i2 == 2) {
+            a(2, str + "\n" + a(th));
+        }
+    }
+
+    public static void d(String str) {
     }
 }

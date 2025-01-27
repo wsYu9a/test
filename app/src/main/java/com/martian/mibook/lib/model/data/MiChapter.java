@@ -13,7 +13,6 @@ public class MiChapter extends Chapter {
         return this.bookId;
     }
 
-    @Override // com.martian.mibook.lib.model.data.abs.Chapter
     public String getChapterId() {
         return this.chapterId;
     }
@@ -28,24 +27,24 @@ public class MiChapter extends Chapter {
         return this.title;
     }
 
-    public void setBookId(String str) {
-        this.bookId = str;
+    public void setBookId(String bookId) {
+        this.bookId = bookId;
     }
 
-    public void setChapterId(String str) {
-        this.chapterId = str;
+    public void setChapterId(String chapterId) {
+        this.chapterId = chapterId;
     }
 
-    public void setLink(String str) {
-        this.link = str;
+    public void setLink(String link) {
+        this.link = link;
     }
 
     @Override // com.martian.mibook.lib.model.data.abs.Chapter
-    public void setSrcLink(String str) {
-        this.link = str;
+    public void setSrcLink(String link) {
+        this.link = link;
     }
 
-    public void setTitle(String str) {
-        this.title = str;
+    public void setTitle(String title) {
+        this.title = title;
     }
 }

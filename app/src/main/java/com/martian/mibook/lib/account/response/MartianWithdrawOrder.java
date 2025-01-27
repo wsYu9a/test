@@ -1,6 +1,6 @@
 package com.martian.mibook.lib.account.response;
 
-import ba.l;
+import com.martian.libsupport.k;
 
 /* loaded from: classes3.dex */
 public class MartianWithdrawOrder {
@@ -27,11 +27,11 @@ public class MartianWithdrawOrder {
     }
 
     public long getCreatedOn() {
-        Long l10 = this.createdOn;
-        if (l10 == null) {
+        Long l = this.createdOn;
+        if (l == null) {
             return 0L;
         }
-        return l10.longValue();
+        return l.longValue();
     }
 
     public String getHeader() {
@@ -39,11 +39,11 @@ public class MartianWithdrawOrder {
     }
 
     public long getModifiedOn() {
-        Long l10 = this.modifiedOn;
-        if (l10 == null) {
+        Long l = this.modifiedOn;
+        if (l == null) {
             return 0L;
         }
-        return l10.longValue();
+        return l.longValue();
     }
 
     public int getMoney() {
@@ -55,7 +55,7 @@ public class MartianWithdrawOrder {
     }
 
     public String getNickname() {
-        return l.q(this.nickname) ? this.realname : this.nickname;
+        return k.p(this.nickname) ? this.realname : this.nickname;
     }
 
     public int getPaymentMoney() {
@@ -114,67 +114,67 @@ public class MartianWithdrawOrder {
         return num.intValue();
     }
 
-    public void setAccount(String str) {
-        this.account = str;
+    public void setAccount(String account) {
+        this.account = account;
     }
 
-    public void setCreatedOn(Long l10) {
-        this.createdOn = l10;
+    public void setCreatedOn(Long createdOn) {
+        this.createdOn = createdOn;
     }
 
-    public void setHeader(String str) {
-        this.header = str;
+    public void setHeader(String header) {
+        this.header = header;
     }
 
-    public void setModifiedOn(Long l10) {
-        this.modifiedOn = l10;
+    public void setModifiedOn(Long modifiedOn) {
+        this.modifiedOn = modifiedOn;
     }
 
-    public void setMoney(Integer num) {
-        this.money = num;
+    public void setMoney(Integer money) {
+        this.money = money;
     }
 
-    public void setNickname(String str) {
-        this.nickname = str;
+    public void setNickname(String nickname) {
+        this.nickname = nickname;
     }
 
-    public void setPaymentMoney(Integer num) {
-        this.paymentMoney = num;
+    public void setPaymentMoney(Integer paymentMoney) {
+        this.paymentMoney = paymentMoney;
     }
 
-    public void setPaymentType(Integer num) {
-        this.paymentType = num;
+    public void setPaymentType(Integer paymentType) {
+        this.paymentType = paymentType;
     }
 
-    public void setPhone(String str) {
-        this.phone = str;
+    public void setPhone(String phone) {
+        this.phone = phone;
     }
 
-    public void setRealname(String str) {
-        this.realname = str;
+    public void setRealname(String realname) {
+        this.realname = realname;
     }
 
-    public void setUid(Long l10) {
-        this.uid = l10;
+    public void setUid(Long uid) {
+        this.uid = uid;
     }
 
-    public void setWoid(Integer num) {
-        this.woid = num;
+    public void setWoid(Integer woid) {
+        this.woid = woid;
     }
 
-    public void setWomsg(String str) {
-        this.womsg = str;
+    public void setWomsg(String womsg) {
+        this.womsg = womsg;
     }
 
-    public void setWoname(String str) {
-        this.woname = str;
+    public void setWoname(String woname) {
+        this.woname = woname;
     }
 
-    public void setWostatus(Integer num) {
-        this.wostatus = num;
+    public void setWostatus(Integer wostatus) {
+        this.wostatus = wostatus;
     }
 
-    public void setWotype(Integer num) {
-        this.wotype = num;
+    public void setWotype(Integer wotype) {
+        this.wotype = wotype;
     }
 }

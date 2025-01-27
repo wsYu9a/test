@@ -28,7 +28,7 @@ public class DownloadExpSwitchCode {
     public static final int IS_CHUNKED_CHANGE = 8;
     public static final int SINGLE_CHUNK_RETRY = 16;
 
-    public static boolean isSwitchEnable(int i10) {
-        return (DownloadComponentManager.getDownloadExpSwitchCode() & i10) == i10;
+    public static boolean isSwitchEnable(int i2) {
+        return (DownloadComponentManager.getDownloadExpSwitchCode() & i2) == i2;
     }
 }

@@ -1,58 +1,47 @@
 package com.martian.mibook.lib.model.data;
 
-import wb.f;
+import com.martian.mibook.lib.model.c.g;
 
 /* loaded from: classes3.dex */
-public class Source implements f {
+public class Source implements g {
     private String sourceId;
     private String sourceName;
 
     public Source() {
     }
 
-    public boolean equals(Object obj) {
-        if (!(obj instanceof f)) {
+    public boolean equals(Object o) {
+        if (!(o instanceof g)) {
             return false;
         }
-        f fVar = (f) obj;
-        return fVar.getSourceName().equals(getSourceName()) && fVar.getSourceId().equals(getSourceId());
+        g gVar = (g) o;
+        return gVar.getSourceName().equals(getSourceName()) && gVar.getSourceId().equals(getSourceId());
     }
 
-    @Override // wb.f
+    @Override // com.martian.mibook.lib.model.c.g
     public String getSourceId() {
         return this.sourceId;
     }
 
-    @Override // wb.f
+    @Override // com.martian.mibook.lib.model.c.g
     public String getSourceName() {
         return this.sourceName;
     }
 
     public int hashCode() {
-        String sourceName = getSourceName();
-        String sourceId = getSourceId();
-        StringBuilder sb2 = new StringBuilder();
-        if (sourceName == null) {
-            sourceName = "";
-        }
-        sb2.append(sourceName);
-        if (sourceId == null) {
-            sourceId = "";
-        }
-        sb2.append(sourceId);
-        return sb2.toString().hashCode();
+        return (getSourceName() + getSourceId()).hashCode();
     }
 
-    public void setSourceId(String str) {
-        this.sourceId = str;
+    public void setSourceId(String sourceId) {
+        this.sourceId = sourceId;
     }
 
-    public void setSourceName(String str) {
-        this.sourceName = str;
+    public void setSourceName(String sourceName) {
+        this.sourceName = sourceName;
     }
 
-    public Source(String str, String str2) {
-        this.sourceName = str;
-        this.sourceId = str2;
+    public Source(String sourceName, String sourceId) {
+        this.sourceName = sourceName;
+        this.sourceId = sourceId;
     }
 }

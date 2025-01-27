@@ -20,8 +20,8 @@ public class FakeDownloadHttpConnection implements IDownloadHttpConnection, IFak
     private final List<HttpHeader> mRequestHeaders;
     private final String mUrl;
 
-    public FakeDownloadHttpConnection(int i10, String str, List<HttpHeader> list, long j10) {
-        this.mMaxLength = i10;
+    public FakeDownloadHttpConnection(int i2, String str, List<HttpHeader> list, long j2) {
+        this.mMaxLength = i2;
         this.mUrl = str;
         this.mRequestHeaders = list;
     }
@@ -57,20 +57,16 @@ public class FakeDownloadHttpConnection implements IDownloadHttpConnection, IFak
         }
         synchronized (this.mJoinLock) {
             try {
-                try {
-                    this.isRequesting = true;
-                    IDownloadHttpConnection doExecute = doExecute();
-                    this.mConnection = doExecute;
-                    if (doExecute != null) {
-                        this.mCreateTime = System.currentTimeMillis();
-                        this.mInputStream = this.mConnection.getInputStream();
-                    }
-                } finally {
-                    this.isRequesting = false;
-                    this.mJoinLock.notifyAll();
+                this.isRequesting = true;
+                IDownloadHttpConnection doExecute = doExecute();
+                this.mConnection = doExecute;
+                if (doExecute != null) {
+                    this.mCreateTime = System.currentTimeMillis();
+                    this.mInputStream = this.mConnection.getInputStream();
                 }
-            } catch (Throwable th2) {
-                throw th2;
+            } finally {
+                this.isRequesting = false;
+                this.mJoinLock.notifyAll();
             }
         }
     }
@@ -111,8 +107,22 @@ public class FakeDownloadHttpConnection implements IDownloadHttpConnection, IFak
         return this.isRequesting;
     }
 
-    public boolean isSuccessful(int i10) {
-        return i10 >= 200 && i10 < 300;
+    @Override // com.ss.android.socialbase.downloader.network.connectionpool.IFakeDownloadHttpConnection
+    public boolean isSuccessful() {
+        try {
+            IDownloadHttpConnection iDownloadHttpConnection = this.mConnection;
+            if (iDownloadHttpConnection != null) {
+                return isSuccessful(iDownloadHttpConnection.getResponseCode());
+            }
+            return false;
+        } catch (IOException e2) {
+            e2.printStackTrace();
+            return false;
+        }
+    }
+
+    public boolean isSuccessful(int i2) {
+        return i2 >= 200 && i2 < 300;
     }
 
     @Override // com.ss.android.socialbase.downloader.network.connectionpool.IFakeDownloadHttpConnection
@@ -123,27 +133,9 @@ public class FakeDownloadHttpConnection implements IDownloadHttpConnection, IFak
     @Override // com.ss.android.socialbase.downloader.network.connectionpool.IFakeDownloadHttpConnection
     public void joinExecute() throws InterruptedException {
         synchronized (this.mJoinLock) {
-            try {
-                if (this.isRequesting && this.mConnection == null) {
-                    this.mJoinLock.wait();
-                }
-            } catch (Throwable th2) {
-                throw th2;
+            if (this.isRequesting && this.mConnection == null) {
+                this.mJoinLock.wait();
             }
-        }
-    }
-
-    @Override // com.ss.android.socialbase.downloader.network.connectionpool.IFakeDownloadHttpConnection
-    public boolean isSuccessful() {
-        try {
-            IDownloadHttpConnection iDownloadHttpConnection = this.mConnection;
-            if (iDownloadHttpConnection != null) {
-                return isSuccessful(iDownloadHttpConnection.getResponseCode());
-            }
-            return false;
-        } catch (IOException e10) {
-            e10.printStackTrace();
-            return false;
         }
     }
 }

@@ -6,9 +6,7 @@ import java.util.Map;
 public class LmEnv {
     private Map<String, String> header;
     private String platform;
-
-    /* renamed from: ua, reason: collision with root package name */
-    private String f13010ua;
+    private String ua;
 
     public Map<String, String> getHeader() {
         return this.header;
@@ -19,18 +17,18 @@ public class LmEnv {
     }
 
     public String getUa() {
-        return this.f13010ua;
+        return this.ua;
     }
 
-    public void setHeader(Map<String, String> map) {
-        this.header = map;
+    public void setHeader(Map<String, String> header) {
+        this.header = header;
     }
 
-    public void setPlatform(String str) {
-        this.platform = str;
+    public void setPlatform(String platform) {
+        this.platform = platform;
     }
 
-    public void setUa(String str) {
-        this.f13010ua = str;
+    public void setUa(String ua) {
+        this.ua = ua;
     }
 }

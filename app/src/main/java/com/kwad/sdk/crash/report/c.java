@@ -8,86 +8,33 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.concurrent.CountDownLatch;
 
-/* loaded from: classes3.dex */
+/* loaded from: classes2.dex */
 public abstract class c implements e {
-    private ArrayList<a> aLD = new ArrayList<>();
+    private ArrayList<a> asu = new ArrayList<>();
 
-    public static class a {
-        private ExceptionMessage aLE;
-        private int aLF;
+    static class a {
+        private ExceptionMessage asv;
+        private int asw;
 
-        public a(ExceptionMessage exceptionMessage, int i10) {
-            this.aLE = exceptionMessage;
-            this.aLF = i10;
+        a(ExceptionMessage exceptionMessage, int i2) {
+            this.asv = exceptionMessage;
+            this.asw = i2;
         }
     }
 
-    private void JN() {
-        if (this.aLD.isEmpty()) {
+    private void Ac() {
+        if (this.asu.isEmpty()) {
             return;
         }
         try {
-            Iterator<a> it = this.aLD.iterator();
+            Iterator<a> it = this.asu.iterator();
             while (it.hasNext()) {
                 a next = it.next();
-                b(next.aLE, next.aLF, null);
+                b(next.asv, next.asw, null);
                 it.remove();
             }
-        } catch (Throwable th2) {
-            com.kwad.sdk.core.d.c.printStackTraceOnly(th2);
-        }
-    }
-
-    private void b(ExceptionMessage exceptionMessage, int i10, @Nullable CountDownLatch countDownLatch) {
-        if (exceptionMessage == null || !c(exceptionMessage)) {
-            return;
-        }
-        if (i10 == 3) {
-            com.kwad.sdk.crash.report.a.b(exceptionMessage);
-        }
-        ArrayList arrayList = new ArrayList(1);
-        arrayList.add(com.kwad.sdk.crash.report.request.c.d(exceptionMessage));
-        com.kwad.sdk.crash.report.request.b.a(arrayList, countDownLatch);
-    }
-
-    private boolean c(ExceptionMessage exceptionMessage) {
-        try {
-            com.kwad.sdk.crash.e Jk = com.kwad.sdk.crash.e.Jk();
-            if (Jk.Jp() != null && Jk.Jo() != 2) {
-                List<com.kwad.sdk.crash.a> list = Jk.Jp().aJT;
-                double d10 = Jk.Jp().aJu;
-                String appId = Jk.getAppId();
-                String sdkVersion = Jk.getSdkVersion();
-                for (com.kwad.sdk.crash.a aVar : list) {
-                    if (aVar != null) {
-                        if (!com.kwad.sdk.crash.utils.c.b(aVar.aJr) && !aVar.aJr.contains(appId)) {
-                        }
-                        if (com.kwad.sdk.crash.utils.c.b(aVar.aJs) || aVar.aJs.contains(sdkVersion)) {
-                            if (com.kwad.sdk.crash.utils.c.b(aVar.aJt) || a(exceptionMessage.mCrashDetail, aVar.aJt)) {
-                                d10 = aVar.aJu;
-                            }
-                        }
-                    }
-                }
-                return Math.random() < d10;
-            }
-            return true;
-        } catch (Exception e10) {
-            com.kwad.sdk.core.d.c.w("BaseExceptionUploader", Log.getStackTraceString(e10));
-            return true;
-        }
-    }
-
-    public final void a(ExceptionMessage exceptionMessage, int i10, @Nullable CountDownLatch countDownLatch) {
-        try {
-            JN();
-            b(exceptionMessage, i10, countDownLatch);
-        } catch (Throwable th2) {
-            com.kwad.sdk.core.d.c.printStackTraceOnly(th2);
-            this.aLD.add(new a(exceptionMessage, i10));
-            if (countDownLatch != null) {
-                countDownLatch.countDown();
-            }
+        } catch (Throwable th) {
+            com.kwad.sdk.core.d.b.printStackTraceOnly(th);
         }
     }
 
@@ -99,5 +46,56 @@ public abstract class c implements e {
             }
         }
         return false;
+    }
+
+    private void b(ExceptionMessage exceptionMessage, int i2, @Nullable CountDownLatch countDownLatch) {
+        if (exceptionMessage == null || !c(exceptionMessage)) {
+            return;
+        }
+        if (i2 == 3) {
+            com.kwad.sdk.crash.report.a.b(exceptionMessage);
+        }
+        ArrayList arrayList = new ArrayList(1);
+        arrayList.add(com.kwad.sdk.crash.report.request.c.d(exceptionMessage));
+        com.kwad.sdk.crash.report.request.b.a(arrayList, countDownLatch);
+    }
+
+    private boolean c(ExceptionMessage exceptionMessage) {
+        try {
+            com.kwad.sdk.crash.e zy = com.kwad.sdk.crash.e.zy();
+            if (zy.zD() != null && zy.zC() != 2) {
+                List<com.kwad.sdk.crash.a> list = zy.zD().aqU;
+                double d2 = zy.zD().aqB;
+                String appId = zy.getAppId();
+                String sdkVersion = zy.getSdkVersion();
+                for (com.kwad.sdk.crash.a aVar : list) {
+                    if (aVar != null && (com.kwad.sdk.crash.utils.c.b(aVar.aqy) || aVar.aqy.contains(appId))) {
+                        if (com.kwad.sdk.crash.utils.c.b(aVar.aqz) || aVar.aqz.contains(sdkVersion)) {
+                            if (com.kwad.sdk.crash.utils.c.b(aVar.aqA) || a(exceptionMessage.mCrashDetail, aVar.aqA)) {
+                                d2 = aVar.aqB;
+                            }
+                        }
+                    }
+                }
+                return Math.random() < d2;
+            }
+            return true;
+        } catch (Exception e2) {
+            com.kwad.sdk.core.d.b.w("BaseExceptionUploader", Log.getStackTraceString(e2));
+            return true;
+        }
+    }
+
+    public final void a(ExceptionMessage exceptionMessage, int i2, @Nullable CountDownLatch countDownLatch) {
+        try {
+            Ac();
+            b(exceptionMessage, i2, countDownLatch);
+        } catch (Throwable th) {
+            com.kwad.sdk.core.d.b.printStackTraceOnly(th);
+            this.asu.add(new a(exceptionMessage, i2));
+            if (countDownLatch != null) {
+                countDownLatch.countDown();
+            }
+        }
     }
 }

@@ -3,9 +3,9 @@ package com.baidu.mobads.sdk.api;
 import android.content.Context;
 import android.util.AttributeSet;
 import android.widget.RelativeLayout;
-import com.baidu.mobads.sdk.internal.ay;
+import com.baidu.mobads.sdk.internal.av;
 
-/* loaded from: classes2.dex */
+/* loaded from: classes.dex */
 public class CpuVideoView extends RelativeLayout {
     public static final String TAG = "CpuVideoView";
     private CpuVideoStatusListener mCpuVideoStatusListener;
@@ -13,17 +13,17 @@ public class CpuVideoView extends RelativeLayout {
 
     /* renamed from: com.baidu.mobads.sdk.api.CpuVideoView$1 */
     class AnonymousClass1 implements IFeedPortraitListener {
-        public AnonymousClass1() {
+        AnonymousClass1() {
         }
 
         @Override // com.baidu.mobads.sdk.api.IFeedPortraitListener
         public void pauseBtnClick() {
-            ay.h(CpuVideoView.TAG).d("pauseBtnClick: ");
+            av.h(CpuVideoView.TAG).d("pauseBtnClick: ");
         }
 
         @Override // com.baidu.mobads.sdk.api.IFeedPortraitListener
         public void playCompletion() {
-            ay.h(CpuVideoView.TAG).d("playCompletion: ");
+            av.h(CpuVideoView.TAG).d("playCompletion: ");
             if (CpuVideoView.this.mCpuVideoStatusListener != null) {
                 CpuVideoView.this.mCpuVideoStatusListener.playCompletion();
             }
@@ -31,7 +31,7 @@ public class CpuVideoView extends RelativeLayout {
 
         @Override // com.baidu.mobads.sdk.api.IFeedPortraitListener
         public void playError() {
-            ay.h(CpuVideoView.TAG).d("playError: ");
+            av.h(CpuVideoView.TAG).d("playError: ");
             if (CpuVideoView.this.mCpuVideoStatusListener != null) {
                 CpuVideoView.this.mCpuVideoStatusListener.playError();
             }
@@ -39,7 +39,7 @@ public class CpuVideoView extends RelativeLayout {
 
         @Override // com.baidu.mobads.sdk.api.IFeedPortraitListener
         public void playPause() {
-            ay.h(CpuVideoView.TAG).d("playPause: ");
+            av.h(CpuVideoView.TAG).d("playPause: ");
             if (CpuVideoView.this.mCpuVideoStatusListener != null) {
                 CpuVideoView.this.mCpuVideoStatusListener.playPause();
             }
@@ -47,7 +47,7 @@ public class CpuVideoView extends RelativeLayout {
 
         @Override // com.baidu.mobads.sdk.api.IFeedPortraitListener
         public void playRenderingStart() {
-            ay.h(CpuVideoView.TAG).d("playRenderingStart: ");
+            av.h(CpuVideoView.TAG).d("playRenderingStart: ");
             if (CpuVideoView.this.mCpuVideoStatusListener != null) {
                 CpuVideoView.this.mCpuVideoStatusListener.playRenderingStart();
             }
@@ -55,7 +55,7 @@ public class CpuVideoView extends RelativeLayout {
 
         @Override // com.baidu.mobads.sdk.api.IFeedPortraitListener
         public void playResume() {
-            ay.h(CpuVideoView.TAG).d("playResume: ");
+            av.h(CpuVideoView.TAG).d("playResume: ");
             if (CpuVideoView.this.mCpuVideoStatusListener != null) {
                 CpuVideoView.this.mCpuVideoStatusListener.playResume();
             }
@@ -86,17 +86,17 @@ public class CpuVideoView extends RelativeLayout {
         this.mVideoView.setProgressHeightInDp(1);
         this.mVideoView.setProgressBackgroundColor(-16777216);
         this.mVideoView.setFeedPortraitListener(new IFeedPortraitListener() { // from class: com.baidu.mobads.sdk.api.CpuVideoView.1
-            public AnonymousClass1() {
+            AnonymousClass1() {
             }
 
             @Override // com.baidu.mobads.sdk.api.IFeedPortraitListener
             public void pauseBtnClick() {
-                ay.h(CpuVideoView.TAG).d("pauseBtnClick: ");
+                av.h(CpuVideoView.TAG).d("pauseBtnClick: ");
             }
 
             @Override // com.baidu.mobads.sdk.api.IFeedPortraitListener
             public void playCompletion() {
-                ay.h(CpuVideoView.TAG).d("playCompletion: ");
+                av.h(CpuVideoView.TAG).d("playCompletion: ");
                 if (CpuVideoView.this.mCpuVideoStatusListener != null) {
                     CpuVideoView.this.mCpuVideoStatusListener.playCompletion();
                 }
@@ -104,7 +104,7 @@ public class CpuVideoView extends RelativeLayout {
 
             @Override // com.baidu.mobads.sdk.api.IFeedPortraitListener
             public void playError() {
-                ay.h(CpuVideoView.TAG).d("playError: ");
+                av.h(CpuVideoView.TAG).d("playError: ");
                 if (CpuVideoView.this.mCpuVideoStatusListener != null) {
                     CpuVideoView.this.mCpuVideoStatusListener.playError();
                 }
@@ -112,7 +112,7 @@ public class CpuVideoView extends RelativeLayout {
 
             @Override // com.baidu.mobads.sdk.api.IFeedPortraitListener
             public void playPause() {
-                ay.h(CpuVideoView.TAG).d("playPause: ");
+                av.h(CpuVideoView.TAG).d("playPause: ");
                 if (CpuVideoView.this.mCpuVideoStatusListener != null) {
                     CpuVideoView.this.mCpuVideoStatusListener.playPause();
                 }
@@ -120,7 +120,7 @@ public class CpuVideoView extends RelativeLayout {
 
             @Override // com.baidu.mobads.sdk.api.IFeedPortraitListener
             public void playRenderingStart() {
-                ay.h(CpuVideoView.TAG).d("playRenderingStart: ");
+                av.h(CpuVideoView.TAG).d("playRenderingStart: ");
                 if (CpuVideoView.this.mCpuVideoStatusListener != null) {
                     CpuVideoView.this.mCpuVideoStatusListener.playRenderingStart();
                 }
@@ -128,7 +128,7 @@ public class CpuVideoView extends RelativeLayout {
 
             @Override // com.baidu.mobads.sdk.api.IFeedPortraitListener
             public void playResume() {
-                ay.h(CpuVideoView.TAG).d("playResume: ");
+                av.h(CpuVideoView.TAG).d("playResume: ");
                 if (CpuVideoView.this.mCpuVideoStatusListener != null) {
                     CpuVideoView.this.mCpuVideoStatusListener.playResume();
                 }
@@ -138,12 +138,12 @@ public class CpuVideoView extends RelativeLayout {
     }
 
     @Override // android.view.ViewGroup, android.view.View
-    public void onAttachedToWindow() {
+    protected void onAttachedToWindow() {
         super.onAttachedToWindow();
     }
 
     @Override // android.view.ViewGroup, android.view.View
-    public void onDetachedFromWindow() {
+    protected void onDetachedFromWindow() {
         super.onDetachedFromWindow();
     }
 
@@ -162,8 +162,8 @@ public class CpuVideoView extends RelativeLayout {
         this(context, attributeSet, 0);
     }
 
-    public CpuVideoView(Context context, AttributeSet attributeSet, int i10) {
-        super(context, attributeSet, i10);
+    public CpuVideoView(Context context, AttributeSet attributeSet, int i2) {
+        super(context, attributeSet, i2);
         initVideoView();
     }
 }

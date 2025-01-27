@@ -6,7 +6,7 @@ import java.lang.annotation.RetentionPolicy;
 
 @Keep
 @Retention(RetentionPolicy.SOURCE)
-/* loaded from: classes3.dex */
+/* loaded from: classes.dex */
 public @interface AdSourceLogoType {
     public static final int GREY = 1;
     public static final int NORMAL = 0;

@@ -1,31 +1,21 @@
 package com.kwad.components.ad.reward;
 
 import com.kwad.sdk.core.response.model.AdTemplate;
-import java.util.List;
-import java.util.Map;
-import java.util.concurrent.ConcurrentHashMap;
+import com.kwad.sdk.utils.t;
+import org.json.JSONArray;
 
-/* loaded from: classes2.dex */
-public final class i {
-    private Map<String, List<AdTemplate>> rC;
-
-    public static class a {
-        private static final i rD = new i((byte) 0);
+/* loaded from: classes.dex */
+public final class i extends com.kwad.sdk.core.network.d {
+    public i(AdTemplate adTemplate) {
+        putBody("callbackUrlInfo", com.kwad.sdk.core.response.a.a.bD(com.kwad.sdk.core.response.a.d.cb(adTemplate)));
+        com.kwad.components.core.n.kwai.b bVar = new com.kwad.components.core.n.kwai.b(adTemplate.mAdScene);
+        JSONArray jSONArray = new JSONArray();
+        t.putValue(jSONArray, bVar.toJson());
+        putBody("impInfo", jSONArray);
     }
 
-    public /* synthetic */ i(byte b10) {
-        this();
-    }
-
-    public static i gD() {
-        return a.rD;
-    }
-
-    public final void D(String str) {
-        this.rC.remove(str);
-    }
-
-    private i() {
-        this.rC = new ConcurrentHashMap();
+    @Override // com.kwad.sdk.core.network.b, com.kwad.sdk.core.network.g
+    public final String getUrl() {
+        return com.kwad.sdk.c.si();
     }
 }

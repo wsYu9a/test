@@ -14,7 +14,7 @@ import java.io.InputStream;
 import java.nio.ByteBuffer;
 import java.util.List;
 
-/* loaded from: classes2.dex */
+/* loaded from: classes.dex */
 public class StreamGifDecoder implements ResourceDecoder<InputStream, GifDrawable> {
     private static final String TAG = "StreamGifDecoder";
     private final ArrayPool byteArrayPool;
@@ -39,22 +39,22 @@ public class StreamGifDecoder implements ResourceDecoder<InputStream, GifDrawabl
                 }
                 byteArrayOutputStream.write(bArr, 0, read);
             }
-        } catch (IOException e10) {
+        } catch (IOException e2) {
             if (!Log.isLoggable(TAG, 5)) {
                 return null;
             }
-            Log.w(TAG, "Error reading data from stream", e10);
+            Log.w(TAG, "Error reading data from stream", e2);
             return null;
         }
     }
 
     @Override // com.bumptech.glide.load.ResourceDecoder
-    public Resource<GifDrawable> decode(@NonNull InputStream inputStream, int i10, int i11, @NonNull Options options) throws IOException {
+    public Resource<GifDrawable> decode(@NonNull InputStream inputStream, int i2, int i3, @NonNull Options options) throws IOException {
         byte[] inputStreamToBytes = inputStreamToBytes(inputStream);
         if (inputStreamToBytes == null) {
             return null;
         }
-        return this.byteBufferDecoder.decode(ByteBuffer.wrap(inputStreamToBytes), i10, i11, options);
+        return this.byteBufferDecoder.decode(ByteBuffer.wrap(inputStreamToBytes), i2, i3, options);
     }
 
     @Override // com.bumptech.glide.load.ResourceDecoder

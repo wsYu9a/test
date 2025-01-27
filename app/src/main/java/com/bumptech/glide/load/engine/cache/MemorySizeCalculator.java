@@ -11,7 +11,7 @@ import androidx.annotation.VisibleForTesting;
 import com.bumptech.glide.util.Preconditions;
 import com.bytedance.sdk.openadsdk.downloadnew.core.TTDownloadField;
 
-/* loaded from: classes2.dex */
+/* loaded from: classes.dex */
 public final class MemorySizeCalculator {
 
     @VisibleForTesting
@@ -60,51 +60,51 @@ public final class MemorySizeCalculator {
         }
 
         @VisibleForTesting
-        public Builder setActivityManager(ActivityManager activityManager) {
+        Builder setActivityManager(ActivityManager activityManager) {
             this.activityManager = activityManager;
             return this;
         }
 
-        public Builder setArrayPoolSize(int i10) {
-            this.arrayPoolSizeBytes = i10;
+        public Builder setArrayPoolSize(int i2) {
+            this.arrayPoolSizeBytes = i2;
             return this;
         }
 
-        public Builder setBitmapPoolScreens(float f10) {
-            Preconditions.checkArgument(f10 >= 0.0f, "Bitmap pool screens must be greater than or equal to 0");
-            this.bitmapPoolScreens = f10;
+        public Builder setBitmapPoolScreens(float f2) {
+            Preconditions.checkArgument(f2 >= 0.0f, "Bitmap pool screens must be greater than or equal to 0");
+            this.bitmapPoolScreens = f2;
             return this;
         }
 
-        public Builder setLowMemoryMaxSizeMultiplier(float f10) {
-            Preconditions.checkArgument(f10 >= 0.0f && f10 <= 1.0f, "Low memory max size multiplier must be between 0 and 1");
-            this.lowMemoryMaxSizeMultiplier = f10;
+        public Builder setLowMemoryMaxSizeMultiplier(float f2) {
+            Preconditions.checkArgument(f2 >= 0.0f && f2 <= 1.0f, "Low memory max size multiplier must be between 0 and 1");
+            this.lowMemoryMaxSizeMultiplier = f2;
             return this;
         }
 
-        public Builder setMaxSizeMultiplier(float f10) {
-            Preconditions.checkArgument(f10 >= 0.0f && f10 <= 1.0f, "Size multiplier must be between 0 and 1");
-            this.maxSizeMultiplier = f10;
+        public Builder setMaxSizeMultiplier(float f2) {
+            Preconditions.checkArgument(f2 >= 0.0f && f2 <= 1.0f, "Size multiplier must be between 0 and 1");
+            this.maxSizeMultiplier = f2;
             return this;
         }
 
-        public Builder setMemoryCacheScreens(float f10) {
-            Preconditions.checkArgument(f10 >= 0.0f, "Memory cache screens must be greater than or equal to 0");
-            this.memoryCacheScreens = f10;
+        public Builder setMemoryCacheScreens(float f2) {
+            Preconditions.checkArgument(f2 >= 0.0f, "Memory cache screens must be greater than or equal to 0");
+            this.memoryCacheScreens = f2;
             return this;
         }
 
         @VisibleForTesting
-        public Builder setScreenDimensions(ScreenDimensions screenDimensions) {
+        Builder setScreenDimensions(ScreenDimensions screenDimensions) {
             this.screenDimensions = screenDimensions;
             return this;
         }
     }
 
-    public static final class DisplayMetricsScreenDimensions implements ScreenDimensions {
+    private static final class DisplayMetricsScreenDimensions implements ScreenDimensions {
         private final DisplayMetrics displayMetrics;
 
-        public DisplayMetricsScreenDimensions(DisplayMetrics displayMetrics) {
+        DisplayMetricsScreenDimensions(DisplayMetrics displayMetrics) {
             this.displayMetrics = displayMetrics;
         }
 
@@ -119,68 +119,71 @@ public final class MemorySizeCalculator {
         }
     }
 
-    public interface ScreenDimensions {
+    interface ScreenDimensions {
         int getHeightPixels();
 
         int getWidthPixels();
     }
 
-    public MemorySizeCalculator(Builder builder) {
+    MemorySizeCalculator(Builder builder) {
         this.context = builder.context;
-        int i10 = isLowMemoryDevice(builder.activityManager) ? builder.arrayPoolSizeBytes / 2 : builder.arrayPoolSizeBytes;
-        this.arrayPoolSize = i10;
+        int i2 = isLowMemoryDevice(builder.activityManager) ? builder.arrayPoolSizeBytes / 2 : builder.arrayPoolSizeBytes;
+        this.arrayPoolSize = i2;
         int maxSize = getMaxSize(builder.activityManager, builder.maxSizeMultiplier, builder.lowMemoryMaxSizeMultiplier);
         float widthPixels = builder.screenDimensions.getWidthPixels() * builder.screenDimensions.getHeightPixels() * 4;
         int round = Math.round(builder.bitmapPoolScreens * widthPixels);
         int round2 = Math.round(widthPixels * builder.memoryCacheScreens);
-        int i11 = maxSize - i10;
-        int i12 = round2 + round;
-        if (i12 <= i11) {
+        int i3 = maxSize - i2;
+        int i4 = round2 + round;
+        if (i4 <= i3) {
             this.memoryCacheSize = round2;
             this.bitmapPoolSize = round;
         } else {
-            float f10 = i11;
-            float f11 = builder.bitmapPoolScreens;
-            float f12 = builder.memoryCacheScreens;
-            float f13 = f10 / (f11 + f12);
-            this.memoryCacheSize = Math.round(f12 * f13);
-            this.bitmapPoolSize = Math.round(f13 * builder.bitmapPoolScreens);
+            float f2 = i3;
+            float f3 = builder.bitmapPoolScreens;
+            float f4 = builder.memoryCacheScreens;
+            float f5 = f2 / (f3 + f4);
+            this.memoryCacheSize = Math.round(f4 * f5);
+            this.bitmapPoolSize = Math.round(f5 * builder.bitmapPoolScreens);
         }
         if (Log.isLoggable(TAG, 3)) {
-            StringBuilder sb2 = new StringBuilder();
-            sb2.append("Calculation complete, Calculated memory cache size: ");
-            sb2.append(toMb(this.memoryCacheSize));
-            sb2.append(", pool size: ");
-            sb2.append(toMb(this.bitmapPoolSize));
-            sb2.append(", byte array size: ");
-            sb2.append(toMb(i10));
-            sb2.append(", memory class limited? ");
-            sb2.append(i12 > maxSize);
-            sb2.append(", max size: ");
-            sb2.append(toMb(maxSize));
-            sb2.append(", memoryClass: ");
-            sb2.append(builder.activityManager.getMemoryClass());
-            sb2.append(", isLowMemoryDevice: ");
-            sb2.append(isLowMemoryDevice(builder.activityManager));
-            Log.d(TAG, sb2.toString());
+            StringBuilder sb = new StringBuilder();
+            sb.append("Calculation complete, Calculated memory cache size: ");
+            sb.append(toMb(this.memoryCacheSize));
+            sb.append(", pool size: ");
+            sb.append(toMb(this.bitmapPoolSize));
+            sb.append(", byte array size: ");
+            sb.append(toMb(i2));
+            sb.append(", memory class limited? ");
+            sb.append(i4 > maxSize);
+            sb.append(", max size: ");
+            sb.append(toMb(maxSize));
+            sb.append(", memoryClass: ");
+            sb.append(builder.activityManager.getMemoryClass());
+            sb.append(", isLowMemoryDevice: ");
+            sb.append(isLowMemoryDevice(builder.activityManager));
+            Log.d(TAG, sb.toString());
         }
     }
 
-    private static int getMaxSize(ActivityManager activityManager, float f10, float f11) {
-        float memoryClass = activityManager.getMemoryClass() * 1048576;
+    private static int getMaxSize(ActivityManager activityManager, float f2, float f3) {
+        float memoryClass = activityManager.getMemoryClass() * 1024 * 1024;
         if (isLowMemoryDevice(activityManager)) {
-            f10 = f11;
+            f2 = f3;
         }
-        return Math.round(memoryClass * f10);
+        return Math.round(memoryClass * f2);
     }
 
     @TargetApi(19)
-    public static boolean isLowMemoryDevice(ActivityManager activityManager) {
-        return activityManager.isLowRamDevice();
+    static boolean isLowMemoryDevice(ActivityManager activityManager) {
+        if (Build.VERSION.SDK_INT >= 19) {
+            return activityManager.isLowRamDevice();
+        }
+        return true;
     }
 
-    private String toMb(int i10) {
-        return Formatter.formatFileSize(this.context, i10);
+    private String toMb(int i2) {
+        return Formatter.formatFileSize(this.context, i2);
     }
 
     public int getArrayPoolSizeInBytes() {

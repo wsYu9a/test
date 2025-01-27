@@ -1,9 +1,9 @@
 package com.martian.mibook.lib.yuewen.request;
 
+import com.martian.libcomm.http.requests.d.a;
 import com.martian.mibook.lib.account.request.auth.TYAuthParams;
-import v8.a;
 
-/* loaded from: classes3.dex */
+/* loaded from: classes4.dex */
 public class YWBuyBookParams extends TYAuthParams {
 
     @a
@@ -32,15 +32,15 @@ public class YWBuyBookParams extends TYAuthParams {
         return this.price;
     }
 
-    public void setBookName(String str) {
-        this.bookName = str;
+    public void setBookName(String bookName) {
+        this.bookName = bookName;
     }
 
-    public void setCbid(String str) {
-        this.cbid = str;
+    public void setCbid(String cbid) {
+        this.cbid = cbid;
     }
 
-    public void setPrice(Integer num) {
-        this.price = num;
+    public void setPrice(Integer price) {
+        this.price = price;
     }
 }

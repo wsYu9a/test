@@ -1,247 +1,64 @@
 package com.umeng.analytics.pro;
 
-import android.annotation.SuppressLint;
+import android.content.Context;
+import android.database.sqlite.SQLiteDatabase;
+import android.database.sqlite.SQLiteOpenHelper;
+import java.util.concurrent.atomic.AtomicInteger;
 
-@SuppressLint({"SdCardPath"})
 /* loaded from: classes4.dex */
-public class g {
-
-    /* renamed from: a */
-    public static final String f23919a = "subprocess/";
+class g {
 
     /* renamed from: b */
-    public static final String f23920b = bd.b().b(bd.f23524d);
-
-    /* renamed from: c */
-    public static final int f23921c = 2;
+    private static SQLiteOpenHelper f25907b;
 
     /* renamed from: d */
-    public static final String f23922d = "id";
+    private static Context f25908d;
 
-    /* renamed from: e */
-    public static final String f23923e = "INTEGER";
+    /* renamed from: a */
+    private AtomicInteger f25909a;
 
-    public static class a {
+    /* renamed from: c */
+    private SQLiteDatabase f25910c;
+
+    private static class a {
 
         /* renamed from: a */
-        public static final String f23924a = "__er";
+        private static final g f25911a = new g();
 
-        /* renamed from: com.umeng.analytics.pro.g$a$a */
-        public static class C0667a {
-
-            /* renamed from: a */
-            public static final String f23925a = "__i";
-
-            /* renamed from: b */
-            public static final String f23926b = "__a";
-
-            /* renamed from: c */
-            public static final String f23927c = "__t";
-
-            /* renamed from: d */
-            public static final String f23928d = "__av";
-
-            /* renamed from: e */
-            public static final String f23929e = "__vc";
-        }
-
-        public static class b {
-
-            /* renamed from: a */
-            public static final String f23930a = "TEXT";
-
-            /* renamed from: b */
-            public static final String f23931b = "TEXT";
-
-            /* renamed from: c */
-            public static final String f23932c = "INTEGER";
-
-            /* renamed from: d */
-            public static final String f23933d = "TEXT";
-
-            /* renamed from: e */
-            public static final String f23934e = "TEXT";
+        private a() {
         }
     }
 
-    public static class b {
+    /* synthetic */ g(AnonymousClass1 anonymousClass1) {
+        this();
+    }
 
-        /* renamed from: a */
-        public static final String f23935a = "__et";
-
-        public static class a {
-
-            /* renamed from: a */
-            public static final String f23936a = "__i";
-
-            /* renamed from: b */
-            public static final String f23937b = "__e";
-
-            /* renamed from: c */
-            public static final String f23938c = "__s";
-
-            /* renamed from: d */
-            public static final String f23939d = "__t";
-
-            /* renamed from: e */
-            public static final String f23940e = "__av";
-
-            /* renamed from: f */
-            public static final String f23941f = "__vc";
+    public static g a(Context context) {
+        if (f25908d == null && context != null) {
+            Context applicationContext = context.getApplicationContext();
+            f25908d = applicationContext;
+            f25907b = f.a(applicationContext);
         }
+        return a.f25911a;
+    }
 
-        /* renamed from: com.umeng.analytics.pro.g$b$b */
-        public static class C0668b {
-
-            /* renamed from: a */
-            public static final String f23942a = "TEXT";
-
-            /* renamed from: b */
-            public static final String f23943b = "TEXT";
-
-            /* renamed from: c */
-            public static final String f23944c = "TEXT";
-
-            /* renamed from: d */
-            public static final String f23945d = "INTEGER";
-
-            /* renamed from: e */
-            public static final String f23946e = "TEXT";
-
-            /* renamed from: f */
-            public static final String f23947f = "TEXT";
+    public synchronized void b() {
+        try {
+            if (this.f25909a.decrementAndGet() == 0) {
+                this.f25910c.close();
+            }
+        } catch (Throwable unused) {
         }
     }
 
-    public static class c {
-
-        /* renamed from: a */
-        public static final String f23948a = "__is";
-
-        public static class a {
-
-            /* renamed from: a */
-            public static final String f23949a = "__ii";
-
-            /* renamed from: b */
-            public static final String f23950b = "__e";
-
-            /* renamed from: c */
-            public static final String f23951c = "__sp";
-
-            /* renamed from: d */
-            public static final String f23952d = "__pp";
-
-            /* renamed from: e */
-            public static final String f23953e = "__av";
-
-            /* renamed from: f */
-            public static final String f23954f = "__vc";
-        }
-
-        public static class b {
-
-            /* renamed from: a */
-            public static final String f23955a = "TEXT";
-
-            /* renamed from: b */
-            public static final String f23956b = "TEXT";
-
-            /* renamed from: c */
-            public static final String f23957c = "TEXT";
-
-            /* renamed from: d */
-            public static final String f23958d = "TEXT";
-
-            /* renamed from: e */
-            public static final String f23959e = "TEXT";
-
-            /* renamed from: f */
-            public static final String f23960f = "TEXT";
-        }
+    private g() {
+        this.f25909a = new AtomicInteger();
     }
 
-    public static class d {
-
-        /* renamed from: a */
-        public static final String f23961a = "__sd";
-
-        public static class a {
-
-            /* renamed from: a */
-            public static final String f23962a = "__ii";
-
-            /* renamed from: b */
-            public static final String f23963b = "__a";
-
-            /* renamed from: c */
-            public static final String f23964c = "__b";
-
-            /* renamed from: d */
-            public static final String f23965d = "__c";
-
-            /* renamed from: e */
-            public static final String f23966e = "__d";
-
-            /* renamed from: f */
-            public static final String f23967f = "__e";
-
-            /* renamed from: g */
-            public static final String f23968g = "__f";
-
-            /* renamed from: h */
-            public static final String f23969h = "__g";
-
-            /* renamed from: i */
-            public static final String f23970i = "__sp";
-
-            /* renamed from: j */
-            public static final String f23971j = "__pp";
-
-            /* renamed from: k */
-            public static final String f23972k = "__av";
-
-            /* renamed from: l */
-            public static final String f23973l = "__vc";
+    public synchronized SQLiteDatabase a() {
+        if (this.f25909a.incrementAndGet() == 1) {
+            this.f25910c = f25907b.getWritableDatabase();
         }
-
-        public static class b {
-
-            /* renamed from: a */
-            public static final String f23974a = "TEXT";
-
-            /* renamed from: b */
-            public static final String f23975b = "TEXT";
-
-            /* renamed from: c */
-            public static final String f23976c = "TEXT";
-
-            /* renamed from: d */
-            public static final String f23977d = "TEXT";
-
-            /* renamed from: e */
-            public static final String f23978e = "TEXT";
-
-            /* renamed from: f */
-            public static final String f23979f = "TEXT";
-
-            /* renamed from: g */
-            public static final String f23980g = "TEXT";
-
-            /* renamed from: h */
-            public static final String f23981h = "TEXT";
-
-            /* renamed from: i */
-            public static final String f23982i = "TEXT";
-
-            /* renamed from: j */
-            public static final String f23983j = "TEXT";
-
-            /* renamed from: k */
-            public static final String f23984k = "TEXT";
-
-            /* renamed from: l */
-            public static final String f23985l = "TEXT";
-        }
+        return this.f25910c;
     }
 }

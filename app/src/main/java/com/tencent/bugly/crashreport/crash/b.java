@@ -4,22 +4,22 @@ package com.tencent.bugly.crashreport.crash;
 public class b implements Comparable<b> {
 
     /* renamed from: a */
-    public long f22439a = -1;
+    public long f24832a = -1;
 
     /* renamed from: b */
-    public long f22440b = -1;
+    public long f24833b = -1;
 
     /* renamed from: c */
-    public String f22441c = null;
+    public String f24834c = null;
 
     /* renamed from: d */
-    public boolean f22442d = false;
+    public boolean f24835d = false;
 
     /* renamed from: e */
-    public boolean f22443e = false;
+    public boolean f24836e = false;
 
     /* renamed from: f */
-    public int f22444f = 0;
+    public int f24837f = 0;
 
     @Override // java.lang.Comparable
     /* renamed from: a */
@@ -27,10 +27,10 @@ public class b implements Comparable<b> {
         if (bVar == null) {
             return 1;
         }
-        long j10 = this.f22440b - bVar.f22440b;
-        if (j10 > 0) {
+        long j2 = this.f24833b - bVar.f24833b;
+        if (j2 > 0) {
             return 1;
         }
-        return j10 < 0 ? -1 : 0;
+        return j2 < 0 ? -1 : 0;
     }
 }

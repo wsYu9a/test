@@ -11,89 +11,82 @@ import java.util.concurrent.atomic.AtomicInteger;
 class c {
 
     /* renamed from: a */
-    private static c f24215a;
+    private static c f26068a;
 
     /* renamed from: b */
-    private ConcurrentHashMap<String, a> f24216b = new ConcurrentHashMap<>();
+    private ConcurrentHashMap<String, a> f26069b = new ConcurrentHashMap<>();
 
     /* renamed from: c */
-    private Context f24217c;
+    private Context f26070c;
 
     private c() {
     }
 
-    public static c a(Context context) {
-        if (f24215a == null) {
+    static c a(Context context) {
+        if (f26068a == null) {
             synchronized (c.class) {
-                try {
-                    if (f24215a == null) {
-                        f24215a = new c();
-                    }
-                } finally {
+                if (f26068a == null) {
+                    f26068a = new c();
                 }
             }
         }
-        c cVar = f24215a;
-        cVar.f24217c = context;
+        c cVar = f26068a;
+        cVar.f26070c = context;
         return cVar;
     }
 
     private a c(String str) {
-        if (this.f24216b.get(str) != null) {
-            return this.f24216b.get(str);
+        if (this.f26069b.get(str) != null) {
+            return this.f26069b.get(str);
         }
-        a a10 = a.a(this.f24217c, str);
-        this.f24216b.put(str, a10);
-        return a10;
+        a a2 = a.a(this.f26070c, str);
+        this.f26069b.put(str, a2);
+        return a2;
     }
 
-    public synchronized void b(String str) {
+    synchronized void b(String str) {
         c(str).b();
     }
 
-    public static class a {
+    static class a {
 
         /* renamed from: a */
-        private AtomicInteger f24218a = new AtomicInteger();
+        private AtomicInteger f26071a = new AtomicInteger();
 
         /* renamed from: b */
-        private SQLiteOpenHelper f24219b;
+        private SQLiteOpenHelper f26072b;
 
         /* renamed from: c */
-        private SQLiteDatabase f24220c;
+        private SQLiteDatabase f26073c;
 
         private a() {
         }
 
-        public static a a(Context context, String str) {
+        static a a(Context context, String str) {
             Context appContext = UMGlobalContext.getAppContext(context);
             a aVar = new a();
-            aVar.f24219b = b.a(appContext, str);
+            aVar.f26072b = b.a(appContext, str);
             return aVar;
         }
 
-        public synchronized void b() {
+        synchronized void b() {
             try {
-                if (this.f24218a.decrementAndGet() == 0) {
-                    this.f24220c.close();
+                if (this.f26071a.decrementAndGet() == 0) {
+                    this.f26073c.close();
                 }
             } catch (Throwable unused) {
             }
         }
 
-        public synchronized SQLiteDatabase a() {
-            try {
-                if (this.f24218a.incrementAndGet() == 1) {
-                    this.f24220c = this.f24219b.getWritableDatabase();
-                }
-            } catch (Throwable th2) {
-                throw th2;
+        synchronized SQLiteDatabase a() {
+            if (this.f26071a.incrementAndGet() == 1) {
+                this.f26073c = this.f26072b.getWritableDatabase();
             }
-            return this.f24220c;
+            return this.f26073c;
         }
     }
 
-    public synchronized SQLiteDatabase a(String str) {
+    synchronized SQLiteDatabase a(String str) {
         return c(str).a();
     }
 }

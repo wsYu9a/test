@@ -6,5 +6,5 @@ import java.util.List;
 
 /* loaded from: classes4.dex */
 public interface IDownloadHttpService {
-    IDownloadHttpConnection downloadWithConnection(int i10, String str, List<HttpHeader> list) throws IOException;
+    IDownloadHttpConnection downloadWithConnection(int i2, String str, List<HttpHeader> list) throws IOException;
 }

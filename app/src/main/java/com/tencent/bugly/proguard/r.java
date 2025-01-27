@@ -15,232 +15,245 @@ import java.util.Map;
 public class r {
 
     /* renamed from: a */
-    public static r f22838a = new r();
+    public static r f25134a = new r();
 
     /* renamed from: b */
-    public BetaGrayStrategy f22839b;
+    public BetaGrayStrategy f25135b;
 
     /* renamed from: c */
-    public DownloadTask f22840c;
+    public DownloadTask f25136c;
 
     /* renamed from: g */
-    private com.tencent.bugly.beta.global.d f22844g;
+    private com.tencent.bugly.beta.global.d f25140g;
 
     /* renamed from: h */
-    private boolean f22845h;
+    private boolean f25141h;
 
     /* renamed from: d */
-    public final Handler f22841d = new Handler(Looper.getMainLooper());
+    public final Handler f25137d = new Handler(Looper.getMainLooper());
 
     /* renamed from: e */
-    private DownloadListener f22842e = new com.tencent.bugly.beta.download.a(4, this, 0);
+    private DownloadListener f25138e = new com.tencent.bugly.beta.download.a(4, this, 0);
 
     /* renamed from: f */
-    private com.tencent.bugly.beta.upgrade.a f22843f = null;
+    private com.tencent.bugly.beta.upgrade.a f25139f = null;
 
     /* renamed from: i */
-    private final Object f22846i = new Object();
+    private final Object f25142i = new Object();
 
-    public void a(boolean z10, boolean z11, int i10) {
-        BetaGrayStrategy betaGrayStrategy;
-        B b10;
-        long j10;
-        synchronized (this.f22846i) {
-            if (i10 != 3 || z10) {
-                betaGrayStrategy = null;
-            } else {
-                try {
-                    betaGrayStrategy = (BetaGrayStrategy) com.tencent.bugly.beta.global.a.a("hotfix.strategy.bch", BetaGrayStrategy.CREATOR);
-                } catch (Throwable th2) {
-                    throw th2;
-                }
-            }
-            com.tencent.bugly.beta.upgrade.a aVar = this.f22843f;
-            if (aVar != null && !aVar.f22145d && this.f22845h == z10) {
+    public void a(boolean z, boolean z2, int i2) {
+        B b2;
+        long j2;
+        synchronized (this.f25142i) {
+            BetaGrayStrategy betaGrayStrategy = (i2 != 3 || z) ? null : (BetaGrayStrategy) com.tencent.bugly.beta.global.a.a("hotfix.strategy.bch", BetaGrayStrategy.CREATOR);
+            com.tencent.bugly.beta.upgrade.a aVar = this.f25139f;
+            if (aVar != null && !aVar.f24644d && this.f25141h == z) {
                 synchronized (aVar) {
-                    this.f22843f.f22144c[0] = Boolean.valueOf(z10);
-                    this.f22843f.f22144c[1] = Boolean.valueOf(z11);
+                    this.f25139f.f24643c[0] = Boolean.valueOf(z);
+                    this.f25139f.f24643c[1] = Boolean.valueOf(z2);
                 }
-                this.f22844g.f22098b[0] = Boolean.FALSE;
+                this.f25140g.f24619b[0] = Boolean.FALSE;
             }
-            this.f22845h = z10;
+            this.f25141h = z;
             if (aVar != null) {
-                aVar.f22145d = true;
+                aVar.f24644d = true;
             }
-            com.tencent.bugly.beta.upgrade.a aVar2 = new com.tencent.bugly.beta.upgrade.a(1, 804, Boolean.valueOf(z10), Boolean.valueOf(z11), betaGrayStrategy);
-            this.f22843f = aVar2;
-            this.f22844g = new com.tencent.bugly.beta.global.d(12, Boolean.FALSE, aVar2);
+            com.tencent.bugly.beta.upgrade.a aVar2 = new com.tencent.bugly.beta.upgrade.a(1, 804, Boolean.valueOf(z), Boolean.valueOf(z2), betaGrayStrategy);
+            this.f25139f = aVar2;
+            this.f25140g = new com.tencent.bugly.beta.global.d(12, Boolean.FALSE, aVar2);
             String str = "";
             if (betaGrayStrategy != null) {
                 try {
-                    b10 = betaGrayStrategy.f22135a;
-                } catch (Throwable th3) {
-                    if (!X.a(th3)) {
-                        th3.printStackTrace();
+                    b2 = betaGrayStrategy.f24634a;
+                } catch (Throwable th) {
+                    if (!X.a(th)) {
+                        th.printStackTrace();
                     }
                 }
-                if (b10 != null) {
-                    str = b10.f22570r;
-                    j10 = b10.f22572t;
-                    long j11 = j10;
+                if (b2 != null) {
+                    str = b2.r;
+                    j2 = b2.t;
                     String str2 = str;
                     HashMap hashMap = new HashMap();
-                    hashMap.put("G16", com.tencent.bugly.beta.global.e.f22100b.N);
-                    com.tencent.bugly.beta.upgrade.b.f22146a.a(804, i10, M.a((AbstractC0868m) new C(z10 ? 1 : 0, str2, j11, hashMap)), this.f22843f, z10, com.tencent.bugly.beta.global.e.f22100b.H.f22140a.f22857h);
+                    hashMap.put("G16", com.tencent.bugly.beta.global.e.f24621b.N);
+                    com.tencent.bugly.beta.upgrade.b.f24645a.a(804, i2, M.a((AbstractC0909m) new C(z ? 1 : 0, str2, j2, hashMap)), this.f25139f, z, com.tencent.bugly.beta.global.e.f24621b.H.f24639a.f25153h);
                 }
             }
-            j10 = 0;
-            long j112 = j10;
+            j2 = 0;
             String str22 = str;
             HashMap hashMap2 = new HashMap();
-            hashMap2.put("G16", com.tencent.bugly.beta.global.e.f22100b.N);
-            com.tencent.bugly.beta.upgrade.b.f22146a.a(804, i10, M.a((AbstractC0868m) new C(z10 ? 1 : 0, str22, j112, hashMap2)), this.f22843f, z10, com.tencent.bugly.beta.global.e.f22100b.H.f22140a.f22857h);
+            hashMap2.put("G16", com.tencent.bugly.beta.global.e.f24621b.N);
+            com.tencent.bugly.beta.upgrade.b.f24645a.a(804, i2, M.a((AbstractC0909m) new C(z ? 1 : 0, str22, j2, hashMap2)), this.f25139f, z, com.tencent.bugly.beta.global.e.f24621b.H.f24639a.f25153h);
         }
     }
 
-    public synchronized void a(int i10, B b10, boolean z10) {
-        C0878x a10;
+    public synchronized void a(int i2, B b2, boolean z) {
+        C0919x a2;
         File file;
-        this.f22840c = null;
-        BetaGrayStrategy a11 = a(b10);
-        this.f22839b = a11;
-        if (i10 == 0 && a11 != null) {
-            B b11 = a11.f22135a;
-            if (b11 == null || b11.f22563k == null || (file = com.tencent.bugly.beta.global.e.f22100b.I) == null || !file.exists() || !com.tencent.bugly.beta.global.a.a(file, this.f22839b.f22135a.f22563k.f22889b, "SHA")) {
-                if (b10 != null) {
-                    if (com.tencent.bugly.beta.global.e.f22100b.Y != null && (a10 = this.f22839b.f22135a.a()) != null) {
-                        this.f22841d.post(new RunnableC0872q(this, a10));
+        this.f25136c = null;
+        BetaGrayStrategy a3 = a(b2);
+        this.f25135b = a3;
+        if (i2 == 0 && a3 != null) {
+            B b3 = a3.f24634a;
+            if (b3 == null || b3.k == null || (file = com.tencent.bugly.beta.global.e.f24621b.I) == null || !file.exists() || !com.tencent.bugly.beta.global.a.a(file, this.f25135b.f24634a.k.f25177b, "SHA")) {
+                if (b2 != null) {
+                    if (com.tencent.bugly.beta.global.e.f24621b.Y != null && (a2 = this.f25135b.f24634a.a()) != null) {
+                        this.f25137d.post(new RunnableC0913q(this, a2));
                     }
-                    com.tencent.bugly.beta.global.e eVar = com.tencent.bugly.beta.global.e.f22100b;
-                    if ((eVar.f22101aa || z10) && eVar.f22102ba) {
+                    com.tencent.bugly.beta.global.e eVar = com.tencent.bugly.beta.global.e.f24621b;
+                    if ((eVar.aa || z) && eVar.ba) {
                         a();
                     }
                 }
                 return;
             }
             X.c("patch has downloaded!", new Object[0]);
-            com.tencent.bugly.beta.global.e eVar2 = com.tencent.bugly.beta.global.e.f22100b;
+            com.tencent.bugly.beta.global.e eVar2 = com.tencent.bugly.beta.global.e.f24621b;
             if (!eVar2.P && eVar2.Q <= 3) {
                 X.c("patch has downloaded but not patched execute patch!", new Object[0]);
-                com.tencent.bugly.beta.global.e eVar3 = com.tencent.bugly.beta.global.e.f22100b;
-                int i11 = eVar3.Q + 1;
-                eVar3.Q = i11;
-                com.tencent.bugly.beta.global.a.b("PATCH_MAX_TIMES", String.valueOf(i11));
-                com.tencent.bugly.beta.global.a.a(file, com.tencent.bugly.beta.global.e.f22100b.J);
-                TinkerManager.getInstance().onDownloadSuccess(com.tencent.bugly.beta.global.e.f22100b.J.getAbsolutePath(), com.tencent.bugly.beta.global.e.f22100b.X);
+                com.tencent.bugly.beta.global.e eVar3 = com.tencent.bugly.beta.global.e.f24621b;
+                int i3 = eVar3.Q + 1;
+                eVar3.Q = i3;
+                com.tencent.bugly.beta.global.a.b("PATCH_MAX_TIMES", String.valueOf(i3));
+                com.tencent.bugly.beta.global.a.a(file, com.tencent.bugly.beta.global.e.f24621b.J);
+                TinkerManager.getInstance().onDownloadSuccess(com.tencent.bugly.beta.global.e.f24621b.J.getAbsolutePath(), com.tencent.bugly.beta.global.e.f24621b.X);
             }
         }
     }
 
     /* JADX WARN: Multi-variable type inference failed */
-    /* JADX WARN: Type inference failed for: r1v11 */
-    /* JADX WARN: Type inference failed for: r1v14 */
-    public BetaGrayStrategy a(B b10) {
-        B b11;
-        int i10;
+    /* JADX WARN: Type inference failed for: r1v32 */
+    /* JADX WARN: Type inference failed for: r1v36 */
+    public BetaGrayStrategy a(B b2) {
+        B b3;
+        int i2;
+        r rVar;
         Map<String, String> map;
-        int i11;
-        B b12 = b10;
+        int i3;
+        B b4 = b2;
         BetaGrayStrategy betaGrayStrategy = (BetaGrayStrategy) com.tencent.bugly.beta.global.a.a("hotfix.strategy.bch", BetaGrayStrategy.CREATOR);
-        if (betaGrayStrategy == null || betaGrayStrategy.f22135a == null) {
+        if (betaGrayStrategy == null || betaGrayStrategy.f24634a == null) {
             com.tencent.bugly.beta.global.a.a("hotfix.strategy.bch");
             betaGrayStrategy = null;
         }
-        if (b12 != null) {
-            if (b12.f22571s != 1 && betaGrayStrategy != null && !TextUtils.isEmpty(betaGrayStrategy.f22135a.f22570r) && TextUtils.equals(b12.f22570r, betaGrayStrategy.f22135a.f22570r)) {
-                C0871p c0871p = C0871p.f22799a;
+        if (b4 != null) {
+            if (b4.s != 1 && betaGrayStrategy != null && !TextUtils.isEmpty(betaGrayStrategy.f24634a.r) && TextUtils.equals(b4.r, betaGrayStrategy.f24634a.r)) {
+                C0912p c0912p = C0912p.f25111a;
                 long currentTimeMillis = System.currentTimeMillis();
-                B b13 = betaGrayStrategy.f22135a;
-                c0871p.a(new C0880z("recall", currentTimeMillis, (byte) 0, 0L, null, b13.f22570r, b13.f22573u, null));
+                B b5 = betaGrayStrategy.f24634a;
+                c0912p.a(new C0921z("recall", currentTimeMillis, (byte) 0, 0L, null, b5.r, b5.u, null));
                 com.tencent.bugly.beta.global.a.a("hotfix.strategy.bch");
-                com.tencent.bugly.beta.global.e eVar = com.tencent.bugly.beta.global.e.f22100b;
-                DownloadTask a10 = eVar.f22123s.a(betaGrayStrategy.f22135a.f22563k.f22890c, eVar.K.getAbsolutePath(), null, betaGrayStrategy.f22135a.f22563k.f22889b);
-                a10.setDownloadType(3);
-                a10.delete(true);
-                File file = com.tencent.bugly.beta.global.e.f22100b.J;
+                com.tencent.bugly.beta.global.e eVar = com.tencent.bugly.beta.global.e.f24621b;
+                DownloadTask a2 = eVar.s.a(betaGrayStrategy.f24634a.k.f25178c, eVar.K.getAbsolutePath(), null, betaGrayStrategy.f24634a.k.f25177b);
+                a2.setDownloadType(3);
+                a2.delete(true);
+                File file = com.tencent.bugly.beta.global.e.f24621b.J;
                 if (file != null && file.exists() && file.delete()) {
                     X.c("delete tmpPatchFile", new Object[0]);
                 }
-                File file2 = com.tencent.bugly.beta.global.e.f22100b.I;
+                File file2 = com.tencent.bugly.beta.global.e.f24621b.I;
                 if (file2 != null && file2.exists() && file2.delete()) {
-                    i11 = 0;
+                    i3 = 0;
                     X.c("delete patchFile", new Object[0]);
                 } else {
-                    i11 = 0;
+                    i3 = 0;
                 }
                 com.tencent.bugly.beta.global.a.b("IS_PATCH_ROLL_BACK", true);
-                X.c("patch rollback", new Object[i11]);
-                if (!ca.b(com.tencent.bugly.beta.global.e.f22100b.f22126v)) {
+                X.c("patch rollback", new Object[i3]);
+                if (!ca.b(com.tencent.bugly.beta.global.e.f24621b.v)) {
                     TinkerManager.getInstance().onPatchRollback(true);
                 } else {
-                    TinkerManager.getInstance().onPatchRollback(i11);
+                    TinkerManager.getInstance().onPatchRollback(i3);
                 }
                 betaGrayStrategy = null;
             }
-            if (b12.f22571s != 1) {
-                b12 = null;
+            if (b4.s != 1) {
+                b4 = null;
             }
         }
-        if (b12 == null) {
-            if (betaGrayStrategy == null || (b11 = betaGrayStrategy.f22135a) == null || b11.f22573u != 3) {
+        if (b4 == null) {
+            if (betaGrayStrategy == null || (b3 = betaGrayStrategy.f24634a) == null || b3.u != 3) {
                 return null;
             }
             return betaGrayStrategy;
         }
         BetaGrayStrategy betaGrayStrategy2 = new BetaGrayStrategy();
-        betaGrayStrategy2.f22135a = b12;
-        betaGrayStrategy2.f22139e = System.currentTimeMillis();
-        if (betaGrayStrategy != null && (!TextUtils.equals(betaGrayStrategy.f22135a.f22563k.f22890c, b12.f22563k.f22890c) || ((map = b12.f22569q) != null && TextUtils.equals(map.get("H1"), "false")))) {
-            com.tencent.bugly.beta.global.e.f22100b.O = b12.f22569q.get("H2");
-            com.tencent.bugly.beta.global.e eVar2 = com.tencent.bugly.beta.global.e.f22100b;
-            DownloadTask a11 = eVar2.f22123s.a(betaGrayStrategy.f22135a.f22563k.f22890c, eVar2.K.getAbsolutePath(), null, null);
-            a11.setDownloadType(3);
-            a11.delete(true);
-            if (betaGrayStrategy.f22135a.f22573u == 3) {
-                File file3 = com.tencent.bugly.beta.global.e.f22100b.J;
-                if (file3 != null && file3.exists() && file3.delete()) {
-                    X.c("delete tmpPatchFile", new Object[0]);
+        betaGrayStrategy2.f24634a = b4;
+        betaGrayStrategy2.f24638e = System.currentTimeMillis();
+        if (betaGrayStrategy != null) {
+            if (!TextUtils.equals(betaGrayStrategy.f24634a.k.f25178c, b4.k.f25178c) || ((map = b4.q) != null && TextUtils.equals(map.get("H1"), "false"))) {
+                com.tencent.bugly.beta.global.e.f24621b.O = b4.q.get("H2");
+                com.tencent.bugly.beta.global.e eVar2 = com.tencent.bugly.beta.global.e.f24621b;
+                DownloadTask a3 = eVar2.s.a(betaGrayStrategy.f24634a.k.f25178c, eVar2.K.getAbsolutePath(), null, null);
+                a3.setDownloadType(3);
+                a3.delete(true);
+                if (betaGrayStrategy.f24634a.u == 3) {
+                    File file3 = com.tencent.bugly.beta.global.e.f24621b.J;
+                    if (file3 != null && file3.exists() && file3.delete()) {
+                        X.c("delete tmpPatchFile", new Object[0]);
+                    }
+                    File file4 = com.tencent.bugly.beta.global.e.f24621b.I;
+                    if (file4 != null && file4.exists() && file4.delete()) {
+                        com.tencent.bugly.beta.global.e.f24621b.N = "";
+                        i2 = 0;
+                        X.c("delete patchFile", new Object[0]);
+                    } else {
+                        i2 = 0;
+                    }
+                    com.tencent.bugly.beta.global.e.f24621b.Q = i2;
+                    com.tencent.bugly.beta.global.a.b("PATCH_MAX_TIMES", "0");
+                    rVar = this;
+                    rVar.a(betaGrayStrategy2);
+                    Object[] objArr = new Object[2];
+                    objArr[i2] = b4;
+                    objArr[1] = Integer.valueOf(b4.u);
+                    X.c("onUpgradeReceived: %s [type: %d]", objArr);
+                    return betaGrayStrategy2;
                 }
-                File file4 = com.tencent.bugly.beta.global.e.f22100b.I;
-                if (file4 != null && file4.exists() && file4.delete()) {
-                    com.tencent.bugly.beta.global.e.f22100b.N = "";
-                    i10 = 0;
-                    X.c("delete patchFile", new Object[0]);
-                } else {
-                    i10 = 0;
-                }
-                com.tencent.bugly.beta.global.e.f22100b.Q = i10;
-                com.tencent.bugly.beta.global.a.b("PATCH_MAX_TIMES", "0");
+            } else {
+                rVar = this;
+                i2 = 0;
+                rVar.a(betaGrayStrategy2);
+                Object[] objArr2 = new Object[2];
+                objArr2[i2] = b4;
+                objArr2[1] = Integer.valueOf(b4.u);
+                X.c("onUpgradeReceived: %s [type: %d]", objArr2);
+                return betaGrayStrategy2;
             }
         }
-        a(betaGrayStrategy2);
-        X.c("onUpgradeReceived: %s [type: %d]", b12, Integer.valueOf(b12.f22573u));
+        i2 = 0;
+        rVar = this;
+        rVar.a(betaGrayStrategy2);
+        Object[] objArr22 = new Object[2];
+        objArr22[i2] = b4;
+        objArr22[1] = Integer.valueOf(b4.u);
+        X.c("onUpgradeReceived: %s [type: %d]", objArr22);
         return betaGrayStrategy2;
     }
 
     private void a() {
-        BetaGrayStrategy betaGrayStrategy = this.f22839b;
+        BetaGrayStrategy betaGrayStrategy = this.f25135b;
         if (betaGrayStrategy == null) {
             return;
         }
-        if (this.f22840c == null) {
-            com.tencent.bugly.beta.global.e eVar = com.tencent.bugly.beta.global.e.f22100b;
-            DownloadTask a10 = eVar.f22123s.a(betaGrayStrategy.f22135a.f22563k.f22890c, eVar.K.getAbsolutePath(), null, this.f22839b.f22135a.f22563k.f22889b);
-            this.f22840c = a10;
-            a10.setDownloadType(3);
+        if (this.f25136c == null) {
+            com.tencent.bugly.beta.global.e eVar = com.tencent.bugly.beta.global.e.f24621b;
+            DownloadTask a2 = eVar.s.a(betaGrayStrategy.f24634a.k.f25178c, eVar.K.getAbsolutePath(), null, this.f25135b.f24634a.k.f25177b);
+            this.f25136c = a2;
+            a2.setDownloadType(3);
         }
-        DownloadTask downloadTask = this.f22840c;
+        DownloadTask downloadTask = this.f25136c;
         if (downloadTask == null) {
             return;
         }
-        downloadTask.addListener(this.f22842e);
-        this.f22840c.setNeededNotify(false);
-        this.f22840c.download();
+        downloadTask.addListener(this.f25138e);
+        this.f25136c.setNeededNotify(false);
+        this.f25136c.download();
     }
 
     private void a(BetaGrayStrategy betaGrayStrategy) {
-        B b10 = betaGrayStrategy.f22135a;
-        if (b10 == null || b10.f22573u != 3) {
+        B b2 = betaGrayStrategy.f24634a;
+        if (b2 == null || b2.u != 3) {
             return;
         }
         com.tencent.bugly.beta.global.a.a("hotfix.strategy.bch", betaGrayStrategy);

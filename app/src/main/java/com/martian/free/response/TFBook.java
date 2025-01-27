@@ -1,68 +1,67 @@
 package com.martian.free.response;
 
-import ba.f;
-import ba.k;
-import ba.l;
+import com.martian.libmars.utils.p0;
+import com.martian.libsupport.d;
+import com.martian.libsupport.j;
+import com.martian.libsupport.k;
 import com.martian.mibook.lib.model.data.abs.Book;
 import java.util.Date;
 import java.util.List;
-import l9.o0;
-import vb.e;
 
-@k.h(name = "tfbook")
-/* loaded from: classes3.dex */
+@j.g(name = "tfbook")
+/* loaded from: classes2.dex */
 public class TFBook extends Book {
 
-    @k.b
+    @j.b
     private Integer allWords;
 
-    @k.b
+    @j.b
     private String authorName;
 
-    @k.g
-    @k.b
+    @j.b
+    @j.f
     private String bid;
     private Integer brtype;
     private Integer categoryId;
 
-    @k.b
+    @j.b
     private String categoryName;
 
-    @k.b
+    @j.b
     private Integer chapterSize;
 
-    @k.b
+    @j.b
     private String coverUrl;
 
-    @k.b
+    @j.b
     private String cpName;
     private Long createdOn;
 
-    @k.b
+    @j.b
     private String freeType;
     private String intro;
 
-    @k.b
+    @j.b
     private String keyword;
 
-    @k.b
+    @j.b
     private String latestChapter;
 
-    @k.b
+    @j.b
     private Long latestChapterUpdateTime;
     private Boolean newBook;
     private Boolean promote;
     private Integer rank;
 
-    @k.b
+    @j.b
     private Integer status;
     private Integer subCategoryId;
 
-    @k.b
+    @j.b
     private String subCategoryName;
     private List<String> tagList;
 
-    @k.b
+    @j.b
     private String title;
 
     @Override // com.martian.mibook.lib.model.data.abs.Book
@@ -104,7 +103,7 @@ public class TFBook extends Book {
 
     @Override // com.martian.mibook.lib.model.data.abs.Book
     public String getCategory() {
-        return !l.q(this.categoryName) ? this.categoryName : this.subCategoryName;
+        return !k.p(this.categoryName) ? this.categoryName : this.subCategoryName;
     }
 
     public Integer getCategoryId() {
@@ -115,7 +114,6 @@ public class TFBook extends Book {
         return this.categoryName;
     }
 
-    @Override // com.martian.mibook.lib.model.data.abs.Book
     public Integer getChapterSize() {
         Integer num = this.chapterSize;
         return Integer.valueOf(num == null ? 0 : num.intValue());
@@ -158,14 +156,13 @@ public class TFBook extends Book {
 
     @Override // com.martian.mibook.lib.model.data.abs.Book
     public Date getLastUpdated() {
-        Long l10 = this.latestChapterUpdateTime;
-        if (l10 == null) {
+        Long l = this.latestChapterUpdateTime;
+        if (l == null) {
             return null;
         }
         try {
-            return f.f(l10.longValue());
-        } catch (Exception e10) {
-            e10.printStackTrace();
+            return d.f(l.longValue());
+        } catch (Exception unused) {
             return null;
         }
     }
@@ -203,17 +200,17 @@ public class TFBook extends Book {
 
     @Override // com.martian.mibook.lib.model.data.abs.Book
     public String getShortIntro() {
-        return l.q(this.intro) ? "" : this.intro;
+        return k.p(this.intro) ? "" : this.intro;
     }
 
-    @Override // com.martian.mibook.lib.model.data.abs.Book, wb.f
+    @Override // com.martian.mibook.lib.model.data.abs.Book, com.martian.mibook.lib.model.c.g
     public String getSourceId() {
         return String.valueOf(this.bid);
     }
 
-    @Override // com.martian.mibook.lib.model.data.abs.Book, wb.f
+    @Override // com.martian.mibook.lib.model.data.abs.Book, com.martian.mibook.lib.model.c.g
     public String getSourceName() {
-        return e.f31300g;
+        return com.martian.mibook.lib.model.manager.d.l;
     }
 
     @Override // com.martian.mibook.lib.model.data.abs.Book
@@ -245,9 +242,9 @@ public class TFBook extends Book {
 
     @Override // com.martian.mibook.lib.model.data.abs.Book
     public String getUpdateDateString() {
-        Long l10;
+        Long l;
         String updateDateString = super.getUpdateDateString();
-        return (!l.q(updateDateString) || (l10 = this.latestChapterUpdateTime) == null) ? updateDateString : o0.t(l10.longValue());
+        return (!k.p(updateDateString) || (l = this.latestChapterUpdateTime) == null) ? updateDateString : p0.r(l.longValue());
     }
 
     @Override // com.martian.mibook.lib.model.data.abs.Book
@@ -260,132 +257,125 @@ public class TFBook extends Book {
         return getPromote();
     }
 
-    @Override // com.martian.mibook.lib.model.data.abs.Book
-    public void setAllWords(Integer num) {
-        this.allWords = num;
+    public void setAllWords(Integer allWords) {
+        this.allWords = allWords;
     }
 
     @Override // com.martian.mibook.lib.model.data.abs.Book
-    public void setAuthorName(String str) {
-        this.authorName = str;
+    public void setAuthorName(String authorName) {
+        this.authorName = authorName;
     }
 
-    public void setBid(String str) {
-        this.bid = str;
-    }
-
-    @Override // com.martian.mibook.lib.model.data.abs.Book
-    public void setBookName(String str) {
-        this.title = str;
+    public void setBid(String bid) {
+        this.bid = bid;
     }
 
     @Override // com.martian.mibook.lib.model.data.abs.Book
-    public void setBookStatus(String str) {
-        this.status = Integer.valueOf(Book.STATUS_UNFINISHED.equals(str) ? 30 : 50);
+    public void setBookName(String bookName) {
+        this.title = bookName;
     }
 
-    public void setBrtype(Integer num) {
-        this.brtype = num;
+    public void setBrtype(Integer brtype) {
+        this.brtype = brtype;
     }
 
-    public void setCategoryId(Integer num) {
-        this.categoryId = num;
+    public void setCategoryId(Integer categoryId) {
+        this.categoryId = categoryId;
     }
 
-    @Override // com.martian.mibook.lib.model.data.abs.Book
-    public void setCategoryName(String str) {
-        this.categoryName = str;
+    public void setCategoryName(String categoryName) {
+        this.categoryName = categoryName;
     }
 
-    public void setChapterSize(Integer num) {
-        this.chapterSize = num;
-    }
-
-    @Override // com.martian.mibook.lib.model.data.abs.Book
-    public void setCover(String str) {
-        this.coverUrl = str;
-    }
-
-    public void setCoverUrl(String str) {
-        this.coverUrl = str;
-    }
-
-    public void setCpName(String str) {
-        this.cpName = str;
-    }
-
-    public void setCreatedOn(Long l10) {
-        this.createdOn = l10;
-    }
-
-    public void setFreeType(String str) {
-        this.freeType = str;
-    }
-
-    public void setIntro(String str) {
-        this.intro = str;
-    }
-
-    public void setKeyword(String str) {
-        this.keyword = str;
+    public void setChapterSize(Integer chapterSize) {
+        this.chapterSize = chapterSize;
     }
 
     @Override // com.martian.mibook.lib.model.data.abs.Book
-    public void setLastChapter(String str) {
-        this.latestChapter = str;
+    public void setCover(String cover) {
+        this.coverUrl = cover;
     }
 
-    public void setLatestChapter(String str) {
-        this.latestChapter = str;
+    public void setCoverUrl(String coverUrl) {
+        this.coverUrl = coverUrl;
+    }
+
+    public void setCpName(String cpName) {
+        this.cpName = cpName;
+    }
+
+    public void setCreatedOn(Long createdOn) {
+        this.createdOn = createdOn;
+    }
+
+    public void setFreeType(String freeType) {
+        this.freeType = freeType;
+    }
+
+    public void setIntro(String intro) {
+        this.intro = intro;
+    }
+
+    public void setKeyword(String keyword) {
+        this.keyword = keyword;
     }
 
     @Override // com.martian.mibook.lib.model.data.abs.Book
-    public void setLatestChapterUpdateTime(Long l10) {
-        this.latestChapterUpdateTime = l10;
+    public void setLastChapter(String lastChapter) {
+        this.latestChapter = lastChapter;
     }
 
-    public void setNewBook(Boolean bool) {
-        this.newBook = bool;
-    }
-
-    public void setPromote(Boolean bool) {
-        this.promote = bool;
-    }
-
-    public void setRank(Integer num) {
-        this.rank = num;
+    public void setLatestChapter(String latestChapter) {
+        this.latestChapter = latestChapter;
     }
 
     @Override // com.martian.mibook.lib.model.data.abs.Book
-    public void setShortIntro(String str) {
-        this.intro = str;
+    public void setLatestChapterUpdateTime(Long latestChapterUpdateTime) {
+        this.latestChapterUpdateTime = latestChapterUpdateTime;
+    }
+
+    public void setNewBook(Boolean newBook) {
+        this.newBook = newBook;
+    }
+
+    public void setPromote(Boolean promote) {
+        this.promote = promote;
+    }
+
+    public void setRank(Integer rank) {
+        this.rank = rank;
     }
 
     @Override // com.martian.mibook.lib.model.data.abs.Book
-    public void setSourceId(String str) {
+    public void setShortIntro(String intro) {
+        this.intro = intro;
+    }
+
+    @Override // com.martian.mibook.lib.model.data.abs.Book
+    public void setSourceId(String sourceId) {
         try {
-            this.bid = str;
+            this.bid = sourceId;
         } catch (Exception unused) {
         }
     }
 
-    public void setStatus(Integer num) {
-        this.status = num;
+    public void setStatus(Integer status) {
+        this.status = status;
     }
 
-    public void setSubCategoryId(Integer num) {
-        this.subCategoryId = num;
+    public void setSubCategoryId(Integer subCategoryId) {
+        this.subCategoryId = subCategoryId;
     }
 
-    public void setSubCategoryName(String str) {
-        this.subCategoryName = str;
+    public void setSubCategoryName(String subCategoryName) {
+        this.subCategoryName = subCategoryName;
     }
 
-    public void setTagList(List<String> list) {
-        this.tagList = list;
+    public void setTagList(List<String> tagList) {
+        this.tagList = tagList;
     }
 
-    public void setTitle(String str) {
-        this.title = str;
+    public void setTitle(String title) {
+        this.title = title;
     }
 }

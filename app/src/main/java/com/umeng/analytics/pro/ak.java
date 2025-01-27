@@ -1,68 +1,26 @@
 package com.umeng.analytics.pro;
 
-import android.text.TextUtils;
-import java.util.ArrayList;
+import android.content.Context;
+import com.umeng.commonsdk.debug.UMLog;
+import org.repackage.com.miui.deviceid.IdentifierManager;
 
 /* loaded from: classes4.dex */
-public class ak {
-
-    /* renamed from: a */
-    private String f23403a;
-
-    /* renamed from: b */
-    private ArrayList<al> f23404b = new ArrayList<>();
-
-    public ak(String str) {
-        this.f23403a = "";
-        this.f23403a = str;
-        if (TextUtils.isEmpty(str)) {
-            return;
-        }
-        a();
+class ak implements z {
+    ak() {
     }
 
-    private void a() {
+    @Override // com.umeng.analytics.pro.z
+    public String a(Context context) {
+        String str = null;
         try {
-            if (!this.f23403a.contains(",")) {
-                String str = this.f23403a;
-                if (TextUtils.isEmpty(str)) {
-                    return;
-                }
-                String trim = str.trim();
-                if (this.f23404b != null) {
-                    this.f23404b.add(new al(trim));
-                    return;
-                }
-                return;
+            if (IdentifierManager.a()) {
+                str = IdentifierManager.b(context);
+            } else {
+                UMLog.mutlInfo(2, "当前设备不支持获取OAID");
             }
-            for (String str2 : this.f23403a.split(",")) {
-                if (!TextUtils.isEmpty(str2)) {
-                    String trim2 = str2.trim();
-                    if (this.f23404b != null) {
-                        this.f23404b.add(new al(trim2));
-                    }
-                }
-            }
-        } catch (Throwable unused) {
+        } catch (Exception unused) {
+            UMLog.mutlInfo(2, "未检测到您集成OAID SDK包");
         }
-    }
-
-    public boolean a(int i10) {
-        try {
-            ArrayList<al> arrayList = this.f23404b;
-            if (arrayList == null) {
-                return false;
-            }
-            int size = arrayList.size();
-            for (int i11 = 0; i11 < size; i11++) {
-                al alVar = this.f23404b.get(i11);
-                if (alVar != null && alVar.a(i10)) {
-                    return true;
-                }
-            }
-            return false;
-        } catch (Throwable unused) {
-            return false;
-        }
+        return str;
     }
 }

@@ -9,9 +9,8 @@ import com.bumptech.glide.util.Preconditions;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-import p3.f;
 
-/* loaded from: classes2.dex */
+/* loaded from: classes.dex */
 public class LoadPath<Data, ResourceType, Transcode> {
     private final Class<Data> dataClass;
     private final List<? extends DecodePath<Data, ResourceType, Transcode>> decodePaths;
@@ -22,17 +21,17 @@ public class LoadPath<Data, ResourceType, Transcode> {
         this.dataClass = cls;
         this.listPool = pool;
         this.decodePaths = (List) Preconditions.checkNotEmpty(list);
-        this.failureMessage = "Failed LoadPath{" + cls.getSimpleName() + "->" + cls2.getSimpleName() + "->" + cls3.getSimpleName() + f.f29748d;
+        this.failureMessage = "Failed LoadPath{" + cls.getSimpleName() + "->" + cls2.getSimpleName() + "->" + cls3.getSimpleName() + "}";
     }
 
-    private Resource<Transcode> loadWithExceptionList(DataRewinder<Data> dataRewinder, @NonNull Options options, int i10, int i11, DecodePath.DecodeCallback<ResourceType> decodeCallback, List<Throwable> list) throws GlideException {
+    private Resource<Transcode> loadWithExceptionList(DataRewinder<Data> dataRewinder, @NonNull Options options, int i2, int i3, DecodePath.DecodeCallback<ResourceType> decodeCallback, List<Throwable> list) throws GlideException {
         int size = this.decodePaths.size();
         Resource<Transcode> resource = null;
-        for (int i12 = 0; i12 < size; i12++) {
+        for (int i4 = 0; i4 < size; i4++) {
             try {
-                resource = this.decodePaths.get(i12).decode(dataRewinder, i10, i11, options, decodeCallback);
-            } catch (GlideException e10) {
-                list.add(e10);
+                resource = this.decodePaths.get(i4).decode(dataRewinder, i2, i3, options, decodeCallback);
+            } catch (GlideException e2) {
+                list.add(e2);
             }
             if (resource != null) {
                 break;
@@ -48,10 +47,10 @@ public class LoadPath<Data, ResourceType, Transcode> {
         return this.dataClass;
     }
 
-    public Resource<Transcode> load(DataRewinder<Data> dataRewinder, @NonNull Options options, int i10, int i11, DecodePath.DecodeCallback<ResourceType> decodeCallback) throws GlideException {
+    public Resource<Transcode> load(DataRewinder<Data> dataRewinder, @NonNull Options options, int i2, int i3, DecodePath.DecodeCallback<ResourceType> decodeCallback) throws GlideException {
         List<Throwable> list = (List) Preconditions.checkNotNull(this.listPool.acquire());
         try {
-            return loadWithExceptionList(dataRewinder, options, i10, i11, decodeCallback, list);
+            return loadWithExceptionList(dataRewinder, options, i2, i3, decodeCallback, list);
         } finally {
             this.listPool.release(list);
         }

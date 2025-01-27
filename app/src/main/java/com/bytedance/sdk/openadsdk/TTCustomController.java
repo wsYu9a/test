@@ -1,8 +1,6 @@
 package com.bytedance.sdk.openadsdk;
 
-import java.util.Map;
-
-/* loaded from: classes2.dex */
+/* loaded from: classes.dex */
 public abstract class TTCustomController {
     public boolean alist() {
         return true;
@@ -50,9 +48,5 @@ public abstract class TTCustomController {
 
     public boolean isCanUseWriteExternal() {
         return true;
-    }
-
-    public Map<String, Object> userPrivacyConfig() {
-        return null;
     }
 }

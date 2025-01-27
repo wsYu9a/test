@@ -2,7 +2,7 @@ package com.bumptech.glide.manager;
 
 import androidx.annotation.NonNull;
 
-/* loaded from: classes2.dex */
+/* loaded from: classes.dex */
 public interface Lifecycle {
     void addListener(@NonNull LifecycleListener lifecycleListener);
 

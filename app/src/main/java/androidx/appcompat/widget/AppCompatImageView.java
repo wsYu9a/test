@@ -9,7 +9,6 @@ import android.net.Uri;
 import android.util.AttributeSet;
 import android.widget.ImageView;
 import androidx.annotation.DrawableRes;
-import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.annotation.RestrictTo;
 import androidx.core.view.TintableBackgroundView;
@@ -18,23 +17,22 @@ import androidx.core.widget.TintableImageSourceView;
 /* loaded from: classes.dex */
 public class AppCompatImageView extends ImageView implements TintableBackgroundView, TintableImageSourceView {
     private final AppCompatBackgroundHelper mBackgroundTintHelper;
-    private boolean mHasLevel;
     private final AppCompatImageHelper mImageHelper;
 
-    public AppCompatImageView(@NonNull Context context) {
+    public AppCompatImageView(Context context) {
         this(context, null);
     }
 
     @Override // android.widget.ImageView, android.view.View
-    public void drawableStateChanged() {
+    protected void drawableStateChanged() {
         super.drawableStateChanged();
         AppCompatBackgroundHelper appCompatBackgroundHelper = this.mBackgroundTintHelper;
         if (appCompatBackgroundHelper != null) {
-            appCompatBackgroundHelper.applySupportBackgroundTint();
+            appCompatBackgroundHelper.b();
         }
         AppCompatImageHelper appCompatImageHelper = this.mImageHelper;
         if (appCompatImageHelper != null) {
-            appCompatImageHelper.applySupportImageTint();
+            appCompatImageHelper.b();
         }
     }
 
@@ -44,7 +42,7 @@ public class AppCompatImageView extends ImageView implements TintableBackgroundV
     public ColorStateList getSupportBackgroundTintList() {
         AppCompatBackgroundHelper appCompatBackgroundHelper = this.mBackgroundTintHelper;
         if (appCompatBackgroundHelper != null) {
-            return appCompatBackgroundHelper.getSupportBackgroundTintList();
+            return appCompatBackgroundHelper.c();
         }
         return null;
     }
@@ -55,7 +53,7 @@ public class AppCompatImageView extends ImageView implements TintableBackgroundV
     public PorterDuff.Mode getSupportBackgroundTintMode() {
         AppCompatBackgroundHelper appCompatBackgroundHelper = this.mBackgroundTintHelper;
         if (appCompatBackgroundHelper != null) {
-            return appCompatBackgroundHelper.getSupportBackgroundTintMode();
+            return appCompatBackgroundHelper.d();
         }
         return null;
     }
@@ -66,7 +64,7 @@ public class AppCompatImageView extends ImageView implements TintableBackgroundV
     public ColorStateList getSupportImageTintList() {
         AppCompatImageHelper appCompatImageHelper = this.mImageHelper;
         if (appCompatImageHelper != null) {
-            return appCompatImageHelper.getSupportImageTintList();
+            return appCompatImageHelper.c();
         }
         return null;
     }
@@ -77,31 +75,31 @@ public class AppCompatImageView extends ImageView implements TintableBackgroundV
     public PorterDuff.Mode getSupportImageTintMode() {
         AppCompatImageHelper appCompatImageHelper = this.mImageHelper;
         if (appCompatImageHelper != null) {
-            return appCompatImageHelper.getSupportImageTintMode();
+            return appCompatImageHelper.d();
         }
         return null;
     }
 
     @Override // android.widget.ImageView, android.view.View
     public boolean hasOverlappingRendering() {
-        return this.mImageHelper.hasOverlappingRendering() && super.hasOverlappingRendering();
+        return this.mImageHelper.e() && super.hasOverlappingRendering();
     }
 
     @Override // android.view.View
-    public void setBackgroundDrawable(@Nullable Drawable drawable) {
+    public void setBackgroundDrawable(Drawable drawable) {
         super.setBackgroundDrawable(drawable);
         AppCompatBackgroundHelper appCompatBackgroundHelper = this.mBackgroundTintHelper;
         if (appCompatBackgroundHelper != null) {
-            appCompatBackgroundHelper.onSetBackgroundDrawable(drawable);
+            appCompatBackgroundHelper.f(drawable);
         }
     }
 
     @Override // android.view.View
-    public void setBackgroundResource(@DrawableRes int i10) {
-        super.setBackgroundResource(i10);
+    public void setBackgroundResource(@DrawableRes int i2) {
+        super.setBackgroundResource(i2);
         AppCompatBackgroundHelper appCompatBackgroundHelper = this.mBackgroundTintHelper;
         if (appCompatBackgroundHelper != null) {
-            appCompatBackgroundHelper.onSetBackgroundResource(i10);
+            appCompatBackgroundHelper.g(i2);
         }
     }
 
@@ -110,38 +108,24 @@ public class AppCompatImageView extends ImageView implements TintableBackgroundV
         super.setImageBitmap(bitmap);
         AppCompatImageHelper appCompatImageHelper = this.mImageHelper;
         if (appCompatImageHelper != null) {
-            appCompatImageHelper.applySupportImageTint();
+            appCompatImageHelper.b();
         }
     }
 
     @Override // android.widget.ImageView
     public void setImageDrawable(@Nullable Drawable drawable) {
-        AppCompatImageHelper appCompatImageHelper = this.mImageHelper;
-        if (appCompatImageHelper != null && drawable != null && !this.mHasLevel) {
-            appCompatImageHelper.obtainLevelFromDrawable(drawable);
-        }
         super.setImageDrawable(drawable);
-        AppCompatImageHelper appCompatImageHelper2 = this.mImageHelper;
-        if (appCompatImageHelper2 != null) {
-            appCompatImageHelper2.applySupportImageTint();
-            if (this.mHasLevel) {
-                return;
-            }
-            this.mImageHelper.applyImageLevel();
-        }
-    }
-
-    @Override // android.widget.ImageView
-    public void setImageLevel(int i10) {
-        super.setImageLevel(i10);
-        this.mHasLevel = true;
-    }
-
-    @Override // android.widget.ImageView
-    public void setImageResource(@DrawableRes int i10) {
         AppCompatImageHelper appCompatImageHelper = this.mImageHelper;
         if (appCompatImageHelper != null) {
-            appCompatImageHelper.setImageResource(i10);
+            appCompatImageHelper.b();
+        }
+    }
+
+    @Override // android.widget.ImageView
+    public void setImageResource(@DrawableRes int i2) {
+        AppCompatImageHelper appCompatImageHelper = this.mImageHelper;
+        if (appCompatImageHelper != null) {
+            appCompatImageHelper.setImageResource(i2);
         }
     }
 
@@ -150,7 +134,7 @@ public class AppCompatImageView extends ImageView implements TintableBackgroundV
         super.setImageURI(uri);
         AppCompatImageHelper appCompatImageHelper = this.mImageHelper;
         if (appCompatImageHelper != null) {
-            appCompatImageHelper.applySupportImageTint();
+            appCompatImageHelper.b();
         }
     }
 
@@ -159,7 +143,7 @@ public class AppCompatImageView extends ImageView implements TintableBackgroundV
     public void setSupportBackgroundTintList(@Nullable ColorStateList colorStateList) {
         AppCompatBackgroundHelper appCompatBackgroundHelper = this.mBackgroundTintHelper;
         if (appCompatBackgroundHelper != null) {
-            appCompatBackgroundHelper.setSupportBackgroundTintList(colorStateList);
+            appCompatBackgroundHelper.i(colorStateList);
         }
     }
 
@@ -168,7 +152,7 @@ public class AppCompatImageView extends ImageView implements TintableBackgroundV
     public void setSupportBackgroundTintMode(@Nullable PorterDuff.Mode mode) {
         AppCompatBackgroundHelper appCompatBackgroundHelper = this.mBackgroundTintHelper;
         if (appCompatBackgroundHelper != null) {
-            appCompatBackgroundHelper.setSupportBackgroundTintMode(mode);
+            appCompatBackgroundHelper.j(mode);
         }
     }
 
@@ -177,7 +161,7 @@ public class AppCompatImageView extends ImageView implements TintableBackgroundV
     public void setSupportImageTintList(@Nullable ColorStateList colorStateList) {
         AppCompatImageHelper appCompatImageHelper = this.mImageHelper;
         if (appCompatImageHelper != null) {
-            appCompatImageHelper.setSupportImageTintList(colorStateList);
+            appCompatImageHelper.g(colorStateList);
         }
     }
 
@@ -186,23 +170,21 @@ public class AppCompatImageView extends ImageView implements TintableBackgroundV
     public void setSupportImageTintMode(@Nullable PorterDuff.Mode mode) {
         AppCompatImageHelper appCompatImageHelper = this.mImageHelper;
         if (appCompatImageHelper != null) {
-            appCompatImageHelper.setSupportImageTintMode(mode);
+            appCompatImageHelper.h(mode);
         }
     }
 
-    public AppCompatImageView(@NonNull Context context, @Nullable AttributeSet attributeSet) {
+    public AppCompatImageView(Context context, AttributeSet attributeSet) {
         this(context, attributeSet, 0);
     }
 
-    public AppCompatImageView(@NonNull Context context, @Nullable AttributeSet attributeSet, int i10) {
-        super(TintContextWrapper.wrap(context), attributeSet, i10);
-        this.mHasLevel = false;
-        ThemeUtils.checkAppCompatTheme(this, getContext());
+    public AppCompatImageView(Context context, AttributeSet attributeSet, int i2) {
+        super(TintContextWrapper.wrap(context), attributeSet, i2);
         AppCompatBackgroundHelper appCompatBackgroundHelper = new AppCompatBackgroundHelper(this);
         this.mBackgroundTintHelper = appCompatBackgroundHelper;
-        appCompatBackgroundHelper.loadFromAttributes(attributeSet, i10);
+        appCompatBackgroundHelper.e(attributeSet, i2);
         AppCompatImageHelper appCompatImageHelper = new AppCompatImageHelper(this);
         this.mImageHelper = appCompatImageHelper;
-        appCompatImageHelper.loadFromAttributes(attributeSet, i10);
+        appCompatImageHelper.loadFromAttributes(attributeSet, i2);
     }
 }

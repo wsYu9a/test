@@ -22,31 +22,31 @@ public class DownloadStatus {
     public static final int SUCCESSED = -3;
     public static final int WAITING_ASYNC_HANDLER = 8;
 
-    public static boolean isDownloadOver(int i10) {
-        return (i10 >= 0 || i10 == -2 || i10 == -5) ? false : true;
+    public static boolean isDownloadOver(int i2) {
+        return (i2 >= 0 || i2 == -2 || i2 == -5) ? false : true;
     }
 
-    public static boolean isDownloading(int i10) {
-        return (i10 <= 0 || i10 == 7 || i10 == 8 || i10 == 10) ? false : true;
+    public static boolean isDownloading(int i2) {
+        return (i2 <= 0 || i2 == 7 || i2 == 8 || i2 == 10) ? false : true;
     }
 
-    public static boolean isFailedStatus(int i10) {
-        return i10 == -1 || i10 == -7;
+    public static boolean isFailedStatus(int i2) {
+        return i2 == -1 || i2 == -7;
     }
 
-    public static boolean isMonitorStatus(int i10) {
-        return i10 == 2 || i10 == -3 || i10 == -1 || i10 == -4 || i10 == -2 || i10 == 6 || i10 == 0;
+    public static boolean isMonitorStatus(int i2) {
+        return i2 == 2 || i2 == -3 || i2 == -1 || i2 == -4 || i2 == -2 || i2 == 6 || i2 == 0;
     }
 
-    public static boolean isRealTimeUploadStatus(int i10) {
-        return i10 == -3 || i10 == -1 || i10 == -4 || i10 == -2 || i10 == 5 || i10 == 7 || i10 == 8;
+    public static boolean isRealTimeUploadStatus(int i2) {
+        return i2 == -3 || i2 == -1 || i2 == -4 || i2 == -2 || i2 == 5 || i2 == 7 || i2 == 8;
     }
 
-    public static boolean isTimeUploadStatus(int i10) {
-        return i10 == -3 || i10 == -1 || i10 == -4;
+    public static boolean isTimeUploadStatus(int i2) {
+        return i2 == -3 || i2 == -1 || i2 == -4;
     }
 
-    public static boolean isUnCompletedStatus(int i10) {
-        return i10 == -1 || i10 == -2 || i10 == -7 || i10 == -4 || i10 == -5;
+    public static boolean isUnCompletedStatus(int i2) {
+        return i2 == -1 || i2 == -2 || i2 == -7 || i2 == -4 || i2 == -5;
     }
 }

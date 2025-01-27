@@ -7,15 +7,16 @@ import androidx.annotation.NonNull;
 /* loaded from: classes.dex */
 public class AndroidViewModel extends ViewModel {
 
+    /* renamed from: c */
     @SuppressLint({"StaticFieldLeak"})
-    private Application mApplication;
+    private Application f2560c;
 
     public AndroidViewModel(@NonNull Application application) {
-        this.mApplication = application;
+        this.f2560c = application;
     }
 
     @NonNull
     public <T extends Application> T getApplication() {
-        return (T) this.mApplication;
+        return (T) this.f2560c;
     }
 }
